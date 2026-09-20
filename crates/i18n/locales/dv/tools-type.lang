@@ -22,9 +22,9 @@ tool.type.history.discard = ޓެކްސްޓް ދޫކޮށްލުން
 tool.type.history.discard_empty = ހުސް ޓެކްސްޓް ދޫކޮށްލުން
 
 # Paragraph layout
-tool.type.option.direction = Paragraph direction
-tool.type.option.writing_mode = Writing mode
-tool.type.choice.ltr = Left to right
-tool.type.choice.rtl = Right to left
-tool.type.choice.vertical_rl = Vertical, columns to the left
-tool.type.choice.vertical_lr = Vertical, columns to the right
+tool.type.option.direction = ޕެރެގްރާފްގެ ދިމާ
+tool.type.option.writing_mode = ލިޔުމުގެ ގޮތް
+tool.type.choice.ltr = ވާތުން ކަނާތަށް
+tool.type.choice.rtl = ކަނާތުން ވާތަށް
+tool.type.choice.vertical_rl = ތިރި މަތި، ކޮލަމްތައް ވާތަށް
+tool.type.choice.vertical_lr = ތިރި މަތި، ކޮލަމްތައް ކަނާތަށް

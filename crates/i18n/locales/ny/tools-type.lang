@@ -22,9 +22,9 @@ tool.type.history.discard = Taya Mawu
 tool.type.history.discard_empty = Taya Mawu Opanda Kanthu
 
 # Paragraph layout
-tool.type.option.direction = Paragraph direction
-tool.type.option.writing_mode = Writing mode
-tool.type.choice.ltr = Left to right
-tool.type.choice.rtl = Right to left
-tool.type.choice.vertical_rl = Vertical, columns to the left
-tool.type.choice.vertical_lr = Vertical, columns to the right
+tool.type.option.direction = Kolowera kwa ndime
+tool.type.option.writing_mode = Njira yolembera
+tool.type.choice.ltr = Kuchokera kumanzere kupita kumanja
+tool.type.choice.rtl = Kuchokera kumanja kupita kumanzere
+tool.type.choice.vertical_rl = Moyima, mizati kupita kumanzere
+tool.type.choice.vertical_lr = Moyima, mizati kupita kumanja

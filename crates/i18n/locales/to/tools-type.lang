@@ -24,9 +24,9 @@ tool.type.history.discard = Liʻaki Tohi
 tool.type.history.discard_empty = Liʻaki Tohi ʻAtaʻatā
 
 # Paragraph layout
-tool.type.option.direction = Paragraph direction
-tool.type.option.writing_mode = Writing mode
-tool.type.choice.ltr = Left to right
-tool.type.choice.rtl = Right to left
-tool.type.choice.vertical_rl = Vertical, columns to the left
-tool.type.choice.vertical_lr = Vertical, columns to the right
+tool.type.option.direction = Hala ʻo e palakalafi
+tool.type.option.writing_mode = Founga tohi
+tool.type.choice.ltr = Mei he toʻohemá ki he toʻomataʻú
+tool.type.choice.rtl = Mei he toʻomataʻú ki he toʻohemá
+tool.type.choice.vertical_rl = Tohi tuʻu, ngaahi kōlomu ki he toʻohemá
+tool.type.choice.vertical_lr = Tohi tuʻu, ngaahi kōlomu ki he toʻomataʻú

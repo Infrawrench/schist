@@ -22,9 +22,9 @@ tool.type.history.discard = Verwerp teks
 tool.type.history.discard_empty = Verwerp leë teks
 
 # Paragraph layout
-tool.type.option.direction = Paragraph direction
-tool.type.option.writing_mode = Writing mode
-tool.type.choice.ltr = Left to right
-tool.type.choice.rtl = Right to left
-tool.type.choice.vertical_rl = Vertical, columns to the left
-tool.type.choice.vertical_lr = Vertical, columns to the right
+tool.type.option.direction = Paragrafrigting
+tool.type.option.writing_mode = Skryfmodus
+tool.type.choice.ltr = Links na regs
+tool.type.choice.rtl = Regs na links
+tool.type.choice.vertical_rl = Vertikaal, kolomme na links
+tool.type.choice.vertical_lr = Vertikaal, kolomme na regs

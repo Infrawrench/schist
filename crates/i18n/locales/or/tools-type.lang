@@ -24,9 +24,9 @@ tool.type.history.discard = ପାଠ୍ୟ ତ୍ୟାଗ କରନ୍ତୁ
 tool.type.history.discard_empty = ଖାଲି ପାଠ୍ୟ ତ୍ୟାଗ କରନ୍ତୁ
 
 # Paragraph layout
-tool.type.option.direction = Paragraph direction
-tool.type.option.writing_mode = Writing mode
-tool.type.choice.ltr = Left to right
-tool.type.choice.rtl = Right to left
-tool.type.choice.vertical_rl = Vertical, columns to the left
-tool.type.choice.vertical_lr = Vertical, columns to the right
+tool.type.option.direction = ଅନୁଚ୍ଛେଦ ଦିଗ
+tool.type.option.writing_mode = ଲେଖନ ଧାରା
+tool.type.choice.ltr = ବାମରୁ ଡାହାଣକୁ
+tool.type.choice.rtl = ଡାହାଣରୁ ବାମକୁ
+tool.type.choice.vertical_rl = ଲମ୍ବ, ସ୍ତମ୍ଭଗୁଡ଼ିକ ବାମକୁ
+tool.type.choice.vertical_lr = ଲମ୍ବ, ସ୍ତମ୍ଭଗୁଡ଼ିକ ଡାହାଣକୁ

@@ -23,9 +23,9 @@ tool.type.history.discard = စာသားကို စွန့်ပစ်ရ
 tool.type.history.discard_empty = ဗလာစာသားကို စွန့်ပစ်ရန်
 
 # Paragraph layout
-tool.type.option.direction = Paragraph direction
-tool.type.option.writing_mode = Writing mode
-tool.type.choice.ltr = Left to right
-tool.type.choice.rtl = Right to left
-tool.type.choice.vertical_rl = Vertical, columns to the left
-tool.type.choice.vertical_lr = Vertical, columns to the right
+tool.type.option.direction = စာပိုဒ်ဦးတည်ချက်
+tool.type.option.writing_mode = ရေးသားမှုစနစ်
+tool.type.choice.ltr = ဘယ်မှညာသို့
+tool.type.choice.rtl = ညာမှဘယ်သို့
+tool.type.choice.vertical_rl = ဒေါင်လိုက်၊ ကော်လံများ ဘယ်ဘက်သို့
+tool.type.choice.vertical_lr = ဒေါင်လိုက်၊ ကော်လံများ ညာဘက်သို့

@@ -24,9 +24,9 @@ tool.type.history.discard = Forĵeti tekston
 tool.type.history.discard_empty = Forĵeti malplenan tekston
 
 # Paragraph layout
-tool.type.option.direction = Paragraph direction
-tool.type.option.writing_mode = Writing mode
-tool.type.choice.ltr = Left to right
-tool.type.choice.rtl = Right to left
-tool.type.choice.vertical_rl = Vertical, columns to the left
-tool.type.choice.vertical_lr = Vertical, columns to the right
+tool.type.option.direction = Direkto de alineo
+tool.type.option.writing_mode = Skribmaniero
+tool.type.choice.ltr = De maldekstre dekstren
+tool.type.choice.rtl = De dekstre maldekstren
+tool.type.choice.vertical_rl = Vertikala, kolumnoj maldekstren
+tool.type.choice.vertical_lr = Vertikala, kolumnoj dekstren

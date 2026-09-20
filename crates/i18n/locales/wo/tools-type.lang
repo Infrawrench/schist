@@ -19,9 +19,9 @@ tool.type.history.discard = Sànni mbind
 tool.type.history.discard_empty = Sànni mbind mi neenal
 
 # Paragraph layout
-tool.type.option.direction = Paragraph direction
-tool.type.option.writing_mode = Writing mode
-tool.type.choice.ltr = Left to right
-tool.type.choice.rtl = Right to left
-tool.type.choice.vertical_rl = Vertical, columns to the left
-tool.type.choice.vertical_lr = Vertical, columns to the right
+tool.type.option.direction = Jubluwaayu xise bi
+tool.type.option.writing_mode = Anamu mbind
+tool.type.choice.ltr = Càmmoñ jëm ndijoor
+tool.type.choice.rtl = Ndijoor jëm càmmoñ
+tool.type.choice.vertical_rl = Taxaw, kolòn yi jëm càmmoñ
+tool.type.choice.vertical_lr = Taxaw, kolòn yi jëm ndijoor

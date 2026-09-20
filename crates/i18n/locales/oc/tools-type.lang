@@ -27,9 +27,9 @@ tool.type.history.discard = Abandonar lo tèxte
 tool.type.history.discard_empty = Abandonar lo tèxte void
 
 # Paragraph layout
-tool.type.option.direction = Paragraph direction
-tool.type.option.writing_mode = Writing mode
-tool.type.choice.ltr = Left to right
-tool.type.choice.rtl = Right to left
-tool.type.choice.vertical_rl = Vertical, columns to the left
-tool.type.choice.vertical_lr = Vertical, columns to the right
+tool.type.option.direction = Direccion del paragraf
+tool.type.option.writing_mode = Mòde d'escritura
+tool.type.choice.ltr = D'esquèrra a dreita
+tool.type.choice.rtl = De dreita a esquèrra
+tool.type.choice.vertical_rl = Vertical, colomnas cap a l'esquèrra
+tool.type.choice.vertical_lr = Vertical, colomnas cap a la dreita

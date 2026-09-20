@@ -22,9 +22,9 @@ tool.type.history.discard = Hilggo teakstta
 tool.type.history.discard_empty = Hilggo guoros teavstta
 
 # Paragraph layout
-tool.type.option.direction = Paragraph direction
-tool.type.option.writing_mode = Writing mode
-tool.type.choice.ltr = Left to right
-tool.type.choice.rtl = Right to left
-tool.type.choice.vertical_rl = Vertical, columns to the left
-tool.type.choice.vertical_lr = Vertical, columns to the right
+tool.type.option.direction = Teakstaoasi čállinjeret
+tool.type.option.writing_mode = Čállinvuohki
+tool.type.choice.ltr = Gurutbealde olgešguvlui
+tool.type.choice.rtl = Olgešbealde gurutguvlui
+tool.type.choice.vertical_rl = Ceaggut, čuolddat gurutguvlui
+tool.type.choice.vertical_lr = Ceaggut, čuolddat olgešguvlui

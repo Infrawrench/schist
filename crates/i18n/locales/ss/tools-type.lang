@@ -22,9 +22,9 @@ tool.type.history.discard = Lahla Umbhalo
 tool.type.history.discard_empty = Lahla Umbhalo Longenalutfo
 
 # Paragraph layout
-tool.type.option.direction = Paragraph direction
-tool.type.option.writing_mode = Writing mode
-tool.type.choice.ltr = Left to right
-tool.type.choice.rtl = Right to left
-tool.type.choice.vertical_rl = Vertical, columns to the left
-tool.type.choice.vertical_lr = Vertical, columns to the right
+tool.type.option.direction = Indlela yendzima
+tool.type.option.writing_mode = Indlela yekubhala
+tool.type.choice.ltr = Kusuka ngesancele kuye ngesekudla
+tool.type.choice.rtl = Kusuka ngesekudla kuye ngesancele
+tool.type.choice.vertical_rl = Kucondzile, emakholomu aya ngesancele
+tool.type.choice.vertical_lr = Kucondzile, emakholomu aya ngesekudla

@@ -27,9 +27,9 @@ tool.type.history.discard = متن غورځول
 tool.type.history.discard_empty = تش متن غورځول
 
 # Paragraph layout
-tool.type.option.direction = Paragraph direction
-tool.type.option.writing_mode = Writing mode
-tool.type.choice.ltr = Left to right
-tool.type.choice.rtl = Right to left
-tool.type.choice.vertical_rl = Vertical, columns to the left
-tool.type.choice.vertical_lr = Vertical, columns to the right
+tool.type.option.direction = د پراګراف لوری
+tool.type.option.writing_mode = د لیکلو حالت
+tool.type.choice.ltr = له کیڼ څخه ښي ته
+tool.type.choice.rtl = له ښي څخه کیڼ ته
+tool.type.choice.vertical_rl = عمودي، ستنې کیڼ لور ته
+tool.type.choice.vertical_lr = عمودي، ستنې ښي لور ته

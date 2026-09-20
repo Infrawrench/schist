@@ -22,9 +22,9 @@ tool.type.history.discard = Baztertu testua
 tool.type.history.discard_empty = Baztertu testu hutsa
 
 # Paragraph layout
-tool.type.option.direction = Paragraph direction
-tool.type.option.writing_mode = Writing mode
-tool.type.choice.ltr = Left to right
-tool.type.choice.rtl = Right to left
-tool.type.choice.vertical_rl = Vertical, columns to the left
-tool.type.choice.vertical_lr = Vertical, columns to the right
+tool.type.option.direction = Paragrafoaren norabidea
+tool.type.option.writing_mode = Idazketa-modua
+tool.type.choice.ltr = Ezkerretik eskuinera
+tool.type.choice.rtl = Eskuinetik ezkerrera
+tool.type.choice.vertical_rl = Bertikala, zutabeak ezkerrerantz
+tool.type.choice.vertical_lr = Bertikala, zutabeak eskuinerantz

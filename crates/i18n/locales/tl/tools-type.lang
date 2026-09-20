@@ -22,9 +22,9 @@ tool.type.history.discard = Itapon ang Teksto
 tool.type.history.discard_empty = Itapon ang Walang-lamang Teksto
 
 # Paragraph layout
-tool.type.option.direction = Paragraph direction
-tool.type.option.writing_mode = Writing mode
-tool.type.choice.ltr = Left to right
-tool.type.choice.rtl = Right to left
-tool.type.choice.vertical_rl = Vertical, columns to the left
-tool.type.choice.vertical_lr = Vertical, columns to the right
+tool.type.option.direction = Direksiyon ng talata
+tool.type.option.writing_mode = Paraan ng pagsulat
+tool.type.choice.ltr = Mula kaliwa pakanan
+tool.type.choice.rtl = Mula kanan pakaliwa
+tool.type.choice.vertical_rl = Patayo, mga hanay pakaliwa
+tool.type.choice.vertical_lr = Patayo, mga hanay pakanan

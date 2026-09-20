@@ -19,9 +19,9 @@ tool.type.history.discard = Bỏ văn bản
 tool.type.history.discard_empty = Bỏ văn bản trống
 
 # Paragraph layout
-tool.type.option.direction = Paragraph direction
-tool.type.option.writing_mode = Writing mode
-tool.type.choice.ltr = Left to right
-tool.type.choice.rtl = Right to left
-tool.type.choice.vertical_rl = Vertical, columns to the left
-tool.type.choice.vertical_lr = Vertical, columns to the right
+tool.type.option.direction = Hướng đoạn văn
+tool.type.option.writing_mode = Chế độ viết
+tool.type.choice.ltr = Từ trái sang phải
+tool.type.choice.rtl = Từ phải sang trái
+tool.type.choice.vertical_rl = Dọc, các cột sang trái
+tool.type.choice.vertical_lr = Dọc, các cột sang phải

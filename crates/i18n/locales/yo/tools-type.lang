@@ -19,9 +19,9 @@ tool.type.history.discard = Ju ọ̀rọ̀ sílẹ̀
 tool.type.history.discard_empty = Ju ọ̀rọ̀ òfo sílẹ̀
 
 # Paragraph layout
-tool.type.option.direction = Paragraph direction
-tool.type.option.writing_mode = Writing mode
-tool.type.choice.ltr = Left to right
-tool.type.choice.rtl = Right to left
-tool.type.choice.vertical_rl = Vertical, columns to the left
-tool.type.choice.vertical_lr = Vertical, columns to the right
+tool.type.option.direction = Ìtọ́sọ́nà ìpínrọ̀
+tool.type.option.writing_mode = Ọ̀nà ìkọ̀wé
+tool.type.choice.ltr = Láti òsì sí ọ̀tún
+tool.type.choice.rtl = Láti ọ̀tún sí òsì
+tool.type.choice.vertical_rl = Ináró, àwọn ọwọ̀n sí òsì
+tool.type.choice.vertical_lr = Ináró, àwọn ọwọ̀n sí ọ̀tún

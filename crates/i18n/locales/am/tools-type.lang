@@ -26,9 +26,9 @@ tool.type.history.discard = ጽሑፍ ጣል
 tool.type.history.discard_empty = ባዶ ጽሑፍ ጣል
 
 # Paragraph layout
-tool.type.option.direction = Paragraph direction
-tool.type.option.writing_mode = Writing mode
-tool.type.choice.ltr = Left to right
-tool.type.choice.rtl = Right to left
-tool.type.choice.vertical_rl = Vertical, columns to the left
-tool.type.choice.vertical_lr = Vertical, columns to the right
+tool.type.option.direction = የአንቀጽ አቅጣጫ
+tool.type.option.writing_mode = የአጻጻፍ ሁነታ
+tool.type.choice.ltr = ከግራ ወደ ቀኝ
+tool.type.choice.rtl = ከቀኝ ወደ ግራ
+tool.type.choice.vertical_rl = ቁልቁል፣ ዓምዶች ወደ ግራ
+tool.type.choice.vertical_lr = ቁልቁል፣ ዓምዶች ወደ ቀኝ

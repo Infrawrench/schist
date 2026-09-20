@@ -26,9 +26,9 @@ tool.type.history.discard = Tekst fersmite
 tool.type.history.discard_empty = Lege tekst fersmite
 
 # Paragraph layout
-tool.type.option.direction = Paragraph direction
-tool.type.option.writing_mode = Writing mode
-tool.type.choice.ltr = Left to right
-tool.type.choice.rtl = Right to left
-tool.type.choice.vertical_rl = Vertical, columns to the left
-tool.type.choice.vertical_lr = Vertical, columns to the right
+tool.type.option.direction = Alinearjochting
+tool.type.option.writing_mode = Skriuwwize
+tool.type.choice.ltr = Fan lofts nei rjochts
+tool.type.choice.rtl = Fan rjochts nei lofts
+tool.type.choice.vertical_rl = Fertikaal, kolommen nei lofts
+tool.type.choice.vertical_lr = Fertikaal, kolommen nei rjochts

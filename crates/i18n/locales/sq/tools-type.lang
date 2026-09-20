@@ -27,9 +27,9 @@ tool.type.history.discard = Hidh tekstin
 tool.type.history.discard_empty = Hidh tekstin bosh
 
 # Paragraph layout
-tool.type.option.direction = Paragraph direction
-tool.type.option.writing_mode = Writing mode
-tool.type.choice.ltr = Left to right
-tool.type.choice.rtl = Right to left
-tool.type.choice.vertical_rl = Vertical, columns to the left
-tool.type.choice.vertical_lr = Vertical, columns to the right
+tool.type.option.direction = Drejtimi i paragrafit
+tool.type.option.writing_mode = Mënyra e shkrimit
+tool.type.choice.ltr = Nga e majta në të djathtë
+tool.type.choice.rtl = Nga e djathta në të majtë
+tool.type.choice.vertical_rl = Vertikalisht, kolonat majtas
+tool.type.choice.vertical_lr = Vertikalisht, kolonat djathtas

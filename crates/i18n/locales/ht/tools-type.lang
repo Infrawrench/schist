@@ -22,9 +22,9 @@ tool.type.history.discard = Abandone tèks
 tool.type.history.discard_empty = Abandone tèks vid
 
 # Paragraph layout
-tool.type.option.direction = Paragraph direction
-tool.type.option.writing_mode = Writing mode
-tool.type.choice.ltr = Left to right
-tool.type.choice.rtl = Right to left
-tool.type.choice.vertical_rl = Vertical, columns to the left
-tool.type.choice.vertical_lr = Vertical, columns to the right
+tool.type.option.direction = Direksyon paragraf
+tool.type.option.writing_mode = Mòd ekriti
+tool.type.choice.ltr = Agoch a dwat
+tool.type.choice.rtl = Adwat agoch
+tool.type.choice.vertical_rl = Vètikal, kolòn yo ale agoch
+tool.type.choice.vertical_lr = Vètikal, kolòn yo ale adwat

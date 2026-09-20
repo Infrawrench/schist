@@ -22,9 +22,9 @@ tool.type.history.discard = Odbaci tekst
 tool.type.history.discard_empty = Odbaci prazan tekst
 
 # Paragraph layout
-tool.type.option.direction = Paragraph direction
-tool.type.option.writing_mode = Writing mode
-tool.type.choice.ltr = Left to right
-tool.type.choice.rtl = Right to left
-tool.type.choice.vertical_rl = Vertical, columns to the left
-tool.type.choice.vertical_lr = Vertical, columns to the right
+tool.type.option.direction = Smjer odlomka
+tool.type.option.writing_mode = Način pisanja
+tool.type.choice.ltr = Slijeva nadesno
+tool.type.choice.rtl = Zdesna nalijevo
+tool.type.choice.vertical_rl = Okomito, stupci ulijevo
+tool.type.choice.vertical_lr = Okomito, stupci udesno

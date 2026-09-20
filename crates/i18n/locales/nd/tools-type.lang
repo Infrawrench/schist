@@ -22,9 +22,9 @@ tool.type.history.discard = Lahla Umbhalo
 tool.type.history.discard_empty = Lahla Umbhalo Ongelalutho
 
 # Paragraph layout
-tool.type.option.direction = Paragraph direction
-tool.type.option.writing_mode = Writing mode
-tool.type.choice.ltr = Left to right
-tool.type.choice.rtl = Right to left
-tool.type.choice.vertical_rl = Vertical, columns to the left
-tool.type.choice.vertical_lr = Vertical, columns to the right
+tool.type.option.direction = Indlela yesigaba
+tool.type.option.writing_mode = Indlela yokubhala
+tool.type.choice.ltr = Kusukela kwesokhohlo ukuya kwesokudla
+tool.type.choice.rtl = Kusukela kwesokudla ukuya kwesokhohlo
+tool.type.choice.vertical_rl = Kumile, amakholomu aya kwesokhohlo
+tool.type.choice.vertical_lr = Kumile, amakholomu aya kwesokudla

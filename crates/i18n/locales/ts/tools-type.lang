@@ -24,9 +24,9 @@ tool.type.history.discard = Tshika tsalwa
 tool.type.history.discard_empty = Tshika tsalwa leri nga riki na chinhu
 
 # Paragraph layout
-tool.type.option.direction = Paragraph direction
-tool.type.option.writing_mode = Writing mode
-tool.type.choice.ltr = Left to right
-tool.type.choice.rtl = Right to left
-tool.type.choice.vertical_rl = Vertical, columns to the left
-tool.type.choice.vertical_lr = Vertical, columns to the right
+tool.type.option.direction = Tlhelo ra ndzimana
+tool.type.option.writing_mode = Maendlelo ya ku tsala
+tool.type.choice.ltr = Ku suka eximatsini ku ya exineneni
+tool.type.choice.rtl = Ku suka exineneni ku ya eximatsini
+tool.type.choice.vertical_rl = Hi ku yima, tikholomu ti ya eximatsini
+tool.type.choice.vertical_lr = Hi ku yima, tikholomu ti ya exineneni

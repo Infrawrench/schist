@@ -23,9 +23,9 @@ tool.type.history.discard = متن مسترد کریں
 tool.type.history.discard_empty = خالی متن مسترد کریں
 
 # Paragraph layout
-tool.type.option.direction = Paragraph direction
-tool.type.option.writing_mode = Writing mode
-tool.type.choice.ltr = Left to right
-tool.type.choice.rtl = Right to left
-tool.type.choice.vertical_rl = Vertical, columns to the left
-tool.type.choice.vertical_lr = Vertical, columns to the right
+tool.type.option.direction = پیراگراف کی سمت
+tool.type.option.writing_mode = طرزِ تحریر
+tool.type.choice.ltr = بائیں سے دائیں
+tool.type.choice.rtl = دائیں سے بائیں
+tool.type.choice.vertical_rl = عمودی، کالم بائیں طرف
+tool.type.choice.vertical_lr = عمودی، کالم دائیں طرف

@@ -19,9 +19,9 @@ tool.type.history.discard = Makere Kuputuhi
 tool.type.history.discard_empty = Makere Kuputuhi Putua
 
 # Paragraph layout
-tool.type.option.direction = Paragraph direction
-tool.type.option.writing_mode = Writing mode
-tool.type.choice.ltr = Left to right
-tool.type.choice.rtl = Right to left
-tool.type.choice.vertical_rl = Vertical, columns to the left
-tool.type.choice.vertical_lr = Vertical, columns to the right
+tool.type.option.direction = Aronga Kōwae
+tool.type.option.writing_mode = Aratau Tuhituhi
+tool.type.choice.ltr = Mauī ki Matau
+tool.type.choice.rtl = Matau ki Mauī
+tool.type.choice.vertical_rl = Poutū, ka ahu ngā tīwae ki te mauī
+tool.type.choice.vertical_lr = Poutū, ka ahu ngā tīwae ki te matau

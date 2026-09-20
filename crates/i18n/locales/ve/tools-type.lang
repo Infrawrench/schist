@@ -19,9 +19,9 @@ tool.type.history.discard = Laṱa Maṅwalo
 tool.type.history.discard_empty = Laṱa Maṅwalo a si na Tshithu
 
 # Paragraph layout
-tool.type.option.direction = Paragraph direction
-tool.type.option.writing_mode = Writing mode
-tool.type.choice.ltr = Left to right
-tool.type.choice.rtl = Right to left
-tool.type.choice.vertical_rl = Vertical, columns to the left
-tool.type.choice.vertical_lr = Vertical, columns to the right
+tool.type.option.direction = Sia ḽa phara
+tool.type.option.writing_mode = Ngona ya u ṅwala
+tool.type.choice.ltr = U bva kha tsha monde u ya kha tsha u ḽa
+tool.type.choice.rtl = U bva kha tsha u ḽa u ya kha tsha monde
+tool.type.choice.vertical_rl = Zwo ima, kholomo dzi ya kha tsha monde
+tool.type.choice.vertical_lr = Zwo ima, kholomo dzi ya kha tsha u ḽa

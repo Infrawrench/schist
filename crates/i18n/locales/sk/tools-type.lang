@@ -22,9 +22,9 @@ tool.type.history.discard = Zahodiť text
 tool.type.history.discard_empty = Zahodiť prázdny text
 
 # Paragraph layout
-tool.type.option.direction = Paragraph direction
-tool.type.option.writing_mode = Writing mode
-tool.type.choice.ltr = Left to right
-tool.type.choice.rtl = Right to left
-tool.type.choice.vertical_rl = Vertical, columns to the left
-tool.type.choice.vertical_lr = Vertical, columns to the right
+tool.type.option.direction = Smer odseku
+tool.type.option.writing_mode = Režim písania
+tool.type.choice.ltr = Zľava doprava
+tool.type.choice.rtl = Sprava doľava
+tool.type.choice.vertical_rl = Zvislo, stĺpce doľava
+tool.type.choice.vertical_lr = Zvislo, stĺpce doprava

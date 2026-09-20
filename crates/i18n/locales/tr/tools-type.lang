@@ -19,9 +19,9 @@ tool.type.history.discard = Metni At
 tool.type.history.discard_empty = Boş Metni At
 
 # Paragraph layout
-tool.type.option.direction = Paragraph direction
-tool.type.option.writing_mode = Writing mode
-tool.type.choice.ltr = Left to right
-tool.type.choice.rtl = Right to left
-tool.type.choice.vertical_rl = Vertical, columns to the left
-tool.type.choice.vertical_lr = Vertical, columns to the right
+tool.type.option.direction = Paragraf yönü
+tool.type.option.writing_mode = Yazma modu
+tool.type.choice.ltr = Soldan sağa
+tool.type.choice.rtl = Sağdan sola
+tool.type.choice.vertical_rl = Dikey, sütunlar sola doğru
+tool.type.choice.vertical_lr = Dikey, sütunlar sağa doğru

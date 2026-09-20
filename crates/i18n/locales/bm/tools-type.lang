@@ -23,9 +23,9 @@ tool.type.history.discard = Sɛbɛn bila
 tool.type.history.discard_empty = Sɛbɛn lankolon bila
 
 # Paragraph layout
-tool.type.option.direction = Paragraph direction
-tool.type.option.writing_mode = Writing mode
-tool.type.choice.ltr = Left to right
-tool.type.choice.rtl = Right to left
-tool.type.choice.vertical_rl = Vertical, columns to the left
-tool.type.choice.vertical_lr = Vertical, columns to the right
+tool.type.option.direction = Paragrafu ɲɛsin
+tool.type.option.writing_mode = Sɛbɛn cogoya
+tool.type.choice.ltr = Numansen ka taa kinibolofɛ
+tool.type.choice.rtl = Kinibolo ka taa numansen fɛ
+tool.type.choice.vertical_rl = Jɔlen, kolɔnniw ka taa numansen fɛ
+tool.type.choice.vertical_lr = Jɔlen, kolɔnniw ka taa kinibolofɛ

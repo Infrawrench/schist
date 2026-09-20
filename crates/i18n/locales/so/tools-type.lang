@@ -19,9 +19,9 @@ tool.type.history.discard = Tuur Qoraalka
 tool.type.history.discard_empty = Tuur Qoraalka Bannaan
 
 # Paragraph layout
-tool.type.option.direction = Paragraph direction
-tool.type.option.writing_mode = Writing mode
-tool.type.choice.ltr = Left to right
-tool.type.choice.rtl = Right to left
-tool.type.choice.vertical_rl = Vertical, columns to the left
-tool.type.choice.vertical_lr = Vertical, columns to the right
+tool.type.option.direction = Jihada cutubka
+tool.type.option.writing_mode = Habka qorista
+tool.type.choice.ltr = Bidix ilaa midig
+tool.type.choice.rtl = Midig ilaa bidix
+tool.type.choice.vertical_rl = Taagan, tiirarku dhanka bidix
+tool.type.choice.vertical_lr = Taagan, tiirarku dhanka midig

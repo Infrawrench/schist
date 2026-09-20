@@ -19,9 +19,9 @@ tool.type.history.discard = Tilg an teacsa air falbh
 tool.type.history.discard_empty = Tilg teacsa bàn air falbh
 
 # Paragraph layout
-tool.type.option.direction = Paragraph direction
-tool.type.option.writing_mode = Writing mode
-tool.type.choice.ltr = Left to right
-tool.type.choice.rtl = Right to left
-tool.type.choice.vertical_rl = Vertical, columns to the left
-tool.type.choice.vertical_lr = Vertical, columns to the right
+tool.type.option.direction = Comhair a’ pharagraf
+tool.type.option.writing_mode = Modh sgrìobhaidh
+tool.type.choice.ltr = Clì gu deas
+tool.type.choice.rtl = Deas gu clì
+tool.type.choice.vertical_rl = Inghearach, colbhan dhan taobh chlì
+tool.type.choice.vertical_lr = Inghearach, colbhan dhan taobh dheas

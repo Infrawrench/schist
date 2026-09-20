@@ -19,9 +19,9 @@ tool.type.history.discard = Gbe nuŋɔŋlɔ
 tool.type.history.discard_empty = Gbe nuŋɔŋlɔ ƒuƒlu
 
 # Paragraph layout
-tool.type.option.direction = Paragraph direction
-tool.type.option.writing_mode = Writing mode
-tool.type.choice.ltr = Left to right
-tool.type.choice.rtl = Right to left
-tool.type.choice.vertical_rl = Vertical, columns to the left
-tool.type.choice.vertical_lr = Vertical, columns to the right
+tool.type.option.direction = Nyagbewo ƒe mɔ
+tool.type.option.writing_mode = Nuŋɔŋlɔ ƒe nɔnɔme
+tool.type.choice.ltr = Tso miame yi ɖusime
+tool.type.choice.rtl = Tso ɖusime yi miame
+tool.type.choice.vertical_rl = Dzime, fliwo yi miame
+tool.type.choice.vertical_lr = Dzime, fliwo yi ɖusime

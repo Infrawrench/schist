@@ -26,9 +26,9 @@ tool.type.history.discard = ಪಠ್ಯ ತ್ಯಜಿಸಿ
 tool.type.history.discard_empty = ಖಾಲಿ ಪಠ್ಯ ತ್ಯಜಿಸಿ
 
 # Paragraph layout
-tool.type.option.direction = Paragraph direction
-tool.type.option.writing_mode = Writing mode
-tool.type.choice.ltr = Left to right
-tool.type.choice.rtl = Right to left
-tool.type.choice.vertical_rl = Vertical, columns to the left
-tool.type.choice.vertical_lr = Vertical, columns to the right
+tool.type.option.direction = ಪ್ಯಾರಾಗ್ರಾಫ್ ದಿಕ್ಕು
+tool.type.option.writing_mode = ಬರವಣಿಗೆ ಮೋಡ್
+tool.type.choice.ltr = ಎಡದಿಂದ ಬಲಕ್ಕೆ
+tool.type.choice.rtl = ಬಲದಿಂದ ಎಡಕ್ಕೆ
+tool.type.choice.vertical_rl = ಲಂಬವಾಗಿ, ಕಾಲಮ್‌ಗಳು ಎಡಕ್ಕೆ
+tool.type.choice.vertical_lr = ಲಂಬವಾಗಿ, ಕಾಲಮ್‌ಗಳು ಬಲಕ್ಕೆ

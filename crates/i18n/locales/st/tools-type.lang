@@ -24,9 +24,9 @@ tool.type.history.discard = Lahla Mongolo
 tool.type.history.discard_empty = Lahla Mongolo o se Nang Letho
 
 # Paragraph layout
-tool.type.option.direction = Paragraph direction
-tool.type.option.writing_mode = Writing mode
-tool.type.choice.ltr = Left to right
-tool.type.choice.rtl = Right to left
-tool.type.choice.vertical_rl = Vertical, columns to the left
-tool.type.choice.vertical_lr = Vertical, columns to the right
+tool.type.option.direction = Tsela ea serapa
+tool.type.option.writing_mode = Mokhoa oa ho ngola
+tool.type.choice.ltr = Ho tloha letšehali ho ea ho le letona
+tool.type.choice.rtl = Ho tloha ho le letona ho ea letšehali
+tool.type.choice.vertical_rl = E tsepameng, likholomo li leba letšehali
+tool.type.choice.vertical_lr = E tsepameng, likholomo li leba ho le letona

@@ -19,9 +19,9 @@ tool.type.history.discard = Caith Téacs Uait
 tool.type.history.discard_empty = Caith Téacs Folamh Uait
 
 # Paragraph layout
-tool.type.option.direction = Paragraph direction
-tool.type.option.writing_mode = Writing mode
-tool.type.choice.ltr = Left to right
-tool.type.choice.rtl = Right to left
-tool.type.choice.vertical_rl = Vertical, columns to the left
-tool.type.choice.vertical_lr = Vertical, columns to the right
+tool.type.option.direction = Treo na míre
+tool.type.option.writing_mode = Mód scríbhneoireachta
+tool.type.choice.ltr = Ó chlé go deas
+tool.type.choice.rtl = Ó dheis go clé
+tool.type.choice.vertical_rl = Ingearach, colúin i dtreo na láimhe clé
+tool.type.choice.vertical_lr = Ingearach, colúin i dtreo na láimhe deise

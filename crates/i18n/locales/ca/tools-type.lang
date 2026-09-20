@@ -19,9 +19,9 @@ tool.type.history.discard = Descarta el text
 tool.type.history.discard_empty = Descarta el text buit
 
 # Paragraph layout
-tool.type.option.direction = Paragraph direction
-tool.type.option.writing_mode = Writing mode
-tool.type.choice.ltr = Left to right
-tool.type.choice.rtl = Right to left
-tool.type.choice.vertical_rl = Vertical, columns to the left
-tool.type.choice.vertical_lr = Vertical, columns to the right
+tool.type.option.direction = Direcció del paràgraf
+tool.type.option.writing_mode = Mode d'escriptura
+tool.type.choice.ltr = D'esquerra a dreta
+tool.type.choice.rtl = De dreta a esquerra
+tool.type.choice.vertical_rl = Vertical, columnes cap a l'esquerra
+tool.type.choice.vertical_lr = Vertical, columnes cap a la dreta

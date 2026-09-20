@@ -19,9 +19,9 @@ tool.type.history.discard = Tupa Maandishi
 tool.type.history.discard_empty = Tupa Maandishi Matupu
 
 # Paragraph layout
-tool.type.option.direction = Paragraph direction
-tool.type.option.writing_mode = Writing mode
-tool.type.choice.ltr = Left to right
-tool.type.choice.rtl = Right to left
-tool.type.choice.vertical_rl = Vertical, columns to the left
-tool.type.choice.vertical_lr = Vertical, columns to the right
+tool.type.option.direction = Mwelekeo wa aya
+tool.type.option.writing_mode = Hali ya uandishi
+tool.type.choice.ltr = Kushoto kwenda kulia
+tool.type.choice.rtl = Kulia kwenda kushoto
+tool.type.choice.vertical_rl = Wima, safu kuelekea kushoto
+tool.type.choice.vertical_lr = Wima, safu kuelekea kulia

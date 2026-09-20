@@ -27,9 +27,9 @@ tool.type.history.discard = Kasta tekst burtur
 tool.type.history.discard_empty = Kasta tóman tekst burtur
 
 # Paragraph layout
-tool.type.option.direction = Paragraph direction
-tool.type.option.writing_mode = Writing mode
-tool.type.choice.ltr = Left to right
-tool.type.choice.rtl = Right to left
-tool.type.choice.vertical_rl = Vertical, columns to the left
-tool.type.choice.vertical_lr = Vertical, columns to the right
+tool.type.option.direction = Tekstabrotskós
+tool.type.option.writing_mode = Skriviháttur
+tool.type.choice.ltr = Frá vinstru til høgru
+tool.type.choice.rtl = Frá høgru til vinstru
+tool.type.choice.vertical_rl = Loddrætt, teigar til vinstru
+tool.type.choice.vertical_lr = Loddrætt, teigar til høgru

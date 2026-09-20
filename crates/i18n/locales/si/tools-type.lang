@@ -26,9 +26,9 @@ tool.type.history.discard = පෙළ ඉවතලන්න
 tool.type.history.discard_empty = හිස් පෙළ ඉවතලන්න
 
 # Paragraph layout
-tool.type.option.direction = Paragraph direction
-tool.type.option.writing_mode = Writing mode
-tool.type.choice.ltr = Left to right
-tool.type.choice.rtl = Right to left
-tool.type.choice.vertical_rl = Vertical, columns to the left
-tool.type.choice.vertical_lr = Vertical, columns to the right
+tool.type.option.direction = ඡේද දිශාව
+tool.type.option.writing_mode = ලිවීමේ ආකාරය
+tool.type.choice.ltr = වමේ සිට දකුණට
+tool.type.choice.rtl = දකුණේ සිට වමට
+tool.type.choice.vertical_rl = සිරස්, තීරු වමට
+tool.type.choice.vertical_lr = සිරස්, තීරු දකුණට

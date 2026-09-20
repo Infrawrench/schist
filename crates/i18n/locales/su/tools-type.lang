@@ -22,9 +22,9 @@ tool.type.history.discard = Piceun Téks
 tool.type.history.discard_empty = Piceun Téks Kosong
 
 # Paragraph layout
-tool.type.option.direction = Paragraph direction
-tool.type.option.writing_mode = Writing mode
-tool.type.choice.ltr = Left to right
-tool.type.choice.rtl = Right to left
-tool.type.choice.vertical_rl = Vertical, columns to the left
-tool.type.choice.vertical_lr = Vertical, columns to the right
+tool.type.option.direction = Arah paragraf
+tool.type.option.writing_mode = Modeu nulis
+tool.type.choice.ltr = Ti kénca ka katuhu
+tool.type.choice.rtl = Ti katuhu ka kénca
+tool.type.choice.vertical_rl = Nangtung, kolom ka kénca
+tool.type.choice.vertical_lr = Nangtung, kolom ka katuhu

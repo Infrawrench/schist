@@ -19,9 +19,9 @@ tool.type.history.discard = បោះបង់អត្ថបទ
 tool.type.history.discard_empty = បោះបង់អត្ថបទទទេ
 
 # Paragraph layout
-tool.type.option.direction = Paragraph direction
-tool.type.option.writing_mode = Writing mode
-tool.type.choice.ltr = Left to right
-tool.type.choice.rtl = Right to left
-tool.type.choice.vertical_rl = Vertical, columns to the left
-tool.type.choice.vertical_lr = Vertical, columns to the right
+tool.type.option.direction = ទិសដៅកថាខណ្ឌ
+tool.type.option.writing_mode = របៀបសរសេរ
+tool.type.choice.ltr = ពីឆ្វេងទៅស្តាំ
+tool.type.choice.rtl = ពីស្តាំទៅឆ្វេង
+tool.type.choice.vertical_rl = បញ្ឈរ ជួរឈរទៅឆ្វេង
+tool.type.choice.vertical_lr = បញ្ឈរ ជួរឈរទៅស្តាំ

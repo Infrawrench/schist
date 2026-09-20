@@ -22,9 +22,9 @@ tool.type.history.discard = ટેક્સ્ટ ફગાવ્યું
 tool.type.history.discard_empty = ખાલી ટેક્સ્ટ ફગાવ્યું
 
 # Paragraph layout
-tool.type.option.direction = Paragraph direction
-tool.type.option.writing_mode = Writing mode
-tool.type.choice.ltr = Left to right
-tool.type.choice.rtl = Right to left
-tool.type.choice.vertical_rl = Vertical, columns to the left
-tool.type.choice.vertical_lr = Vertical, columns to the right
+tool.type.option.direction = ફકરાની દિશા
+tool.type.option.writing_mode = લેખન મોડ
+tool.type.choice.ltr = ડાબેથી જમણે
+tool.type.choice.rtl = જમણેથી ડાબે
+tool.type.choice.vertical_rl = ઊભું, કૉલમ ડાબી તરફ
+tool.type.choice.vertical_lr = ઊભું, કૉલમ જમણી તરફ

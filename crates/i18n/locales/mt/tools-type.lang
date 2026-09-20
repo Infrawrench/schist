@@ -29,9 +29,9 @@ tool.type.history.discard = Warrab it-Test
 tool.type.history.discard_empty = Warrab it-Test Vojt
 
 # Paragraph layout
-tool.type.option.direction = Paragraph direction
-tool.type.option.writing_mode = Writing mode
-tool.type.choice.ltr = Left to right
-tool.type.choice.rtl = Right to left
-tool.type.choice.vertical_rl = Vertical, columns to the left
-tool.type.choice.vertical_lr = Vertical, columns to the right
+tool.type.option.direction = Direzzjoni tal-paragrafu
+tool.type.option.writing_mode = Mod tal-kitba
+tool.type.choice.ltr = Mix-xellug għal-lemin
+tool.type.choice.rtl = Mil-lemin għax-xellug
+tool.type.choice.vertical_rl = Vertikali, kolonni lejn ix-xellug
+tool.type.choice.vertical_lr = Vertikali, kolonni lejn il-lemin

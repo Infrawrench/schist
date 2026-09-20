@@ -20,9 +20,9 @@ tool.type.history.discard = ཚིག་ཡིག་བཀོག་བཞག
 tool.type.history.discard_empty = ཚིག་ཡིག་སྟོངམ་བཀོག་བཞག
 
 # Paragraph layout
-tool.type.option.direction = Paragraph direction
-tool.type.option.writing_mode = Writing mode
-tool.type.choice.ltr = Left to right
-tool.type.choice.rtl = Right to left
-tool.type.choice.vertical_rl = Vertical, columns to the left
-tool.type.choice.vertical_lr = Vertical, columns to the right
+tool.type.option.direction = དོན་མཚམས་ཀྱི་ཁ་ཕྱོགས།
+tool.type.option.writing_mode = འབྲི་ཐངས།
+tool.type.choice.ltr = གཡོན་ལས་གཡས་ཁ་ཐུག
+tool.type.choice.rtl = གཡས་ལས་གཡོན་ཁ་ཐུག
+tool.type.choice.vertical_rl = ཀེར་ཕྲང་། ཀ་ཐིག་ཚུ་གཡོན་ཁ་ཐུག
+tool.type.choice.vertical_lr = ཀེར་ཕྲང་། ཀ་ཐིག་ཚུ་གཡས་ཁ་ཐུག

@@ -19,9 +19,9 @@ tool.type.history.discard = টেক্সট বাতিল
 tool.type.history.discard_empty = ফাঁকা টেক্সট বাতিল
 
 # Paragraph layout
-tool.type.option.direction = Paragraph direction
-tool.type.option.writing_mode = Writing mode
-tool.type.choice.ltr = Left to right
-tool.type.choice.rtl = Right to left
-tool.type.choice.vertical_rl = Vertical, columns to the left
-tool.type.choice.vertical_lr = Vertical, columns to the right
+tool.type.option.direction = অনুচ্ছেদের দিক
+tool.type.option.writing_mode = লেখার ধরন
+tool.type.choice.ltr = বাম থেকে ডানে
+tool.type.choice.rtl = ডান থেকে বামে
+tool.type.choice.vertical_rl = উল্লম্ব, কলামগুলো বাম দিকে
+tool.type.choice.vertical_lr = উল্লম্ব, কলামগুলো ডান দিকে

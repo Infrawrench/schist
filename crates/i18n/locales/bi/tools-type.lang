@@ -22,9 +22,9 @@ tool.type.history.discard = Sakemaot Text
 tool.type.history.discard_empty = Sakemaot Emti Text
 
 # Paragraph layout
-tool.type.option.direction = Paragraph direction
-tool.type.option.writing_mode = Writing mode
-tool.type.choice.ltr = Left to right
-tool.type.choice.rtl = Right to left
-tool.type.choice.vertical_rl = Vertical, columns to the left
-tool.type.choice.vertical_lr = Vertical, columns to the right
+tool.type.option.direction = Daereksen blong paragraf
+tool.type.option.writing_mode = Fasin blong raetem
+tool.type.choice.ltr = Lef i go long raet
+tool.type.choice.rtl = Raet i go long lef
+tool.type.choice.vertical_rl = Antap i go daon, ol kolom i go long lef
+tool.type.choice.vertical_lr = Antap i go daon, ol kolom i go long raet

@@ -26,9 +26,9 @@ tool.type.history.discard = Descartar texto
 tool.type.history.discard_empty = Descartar texto vuedo
 
 # Paragraph layout
-tool.type.option.direction = Paragraph direction
-tool.type.option.writing_mode = Writing mode
-tool.type.choice.ltr = Left to right
-tool.type.choice.rtl = Right to left
-tool.type.choice.vertical_rl = Vertical, columns to the left
-tool.type.choice.vertical_lr = Vertical, columns to the right
+tool.type.option.direction = Dirección d'o paragrafo
+tool.type.option.writing_mode = Modo d'escritura
+tool.type.choice.ltr = De cucha a dreita
+tool.type.choice.rtl = De dreita a cucha
+tool.type.choice.vertical_rl = Vertical, columnas enta la cucha
+tool.type.choice.vertical_lr = Vertical, columnas enta la dreita

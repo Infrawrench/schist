@@ -19,9 +19,9 @@ tool.type.history.discard = Teksti hülgamine
 tool.type.history.discard_empty = Tühja teksti hülgamine
 
 # Paragraph layout
-tool.type.option.direction = Paragraph direction
-tool.type.option.writing_mode = Writing mode
-tool.type.choice.ltr = Left to right
-tool.type.choice.rtl = Right to left
-tool.type.choice.vertical_rl = Vertical, columns to the left
-tool.type.choice.vertical_lr = Vertical, columns to the right
+tool.type.option.direction = Lõigu suund
+tool.type.option.writing_mode = Kirjutusrežiim
+tool.type.choice.ltr = Vasakult paremale
+tool.type.choice.rtl = Paremalt vasakule
+tool.type.choice.vertical_rl = Vertikaalne, veerud vasakule
+tool.type.choice.vertical_lr = Vertikaalne, veerud paremale

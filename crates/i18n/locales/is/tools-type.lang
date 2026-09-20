@@ -22,9 +22,9 @@ tool.type.history.discard = Fleygja texta
 tool.type.history.discard_empty = Fleygja auðum texta
 
 # Paragraph layout
-tool.type.option.direction = Paragraph direction
-tool.type.option.writing_mode = Writing mode
-tool.type.choice.ltr = Left to right
-tool.type.choice.rtl = Right to left
-tool.type.choice.vertical_rl = Vertical, columns to the left
-tool.type.choice.vertical_lr = Vertical, columns to the right
+tool.type.option.direction = Málsgreinastefna
+tool.type.option.writing_mode = Ritunarháttur
+tool.type.choice.ltr = Frá vinstri til hægri
+tool.type.choice.rtl = Frá hægri til vinstri
+tool.type.choice.vertical_rl = Lóðrétt, dálkar til vinstri
+tool.type.choice.vertical_lr = Lóðrétt, dálkar til hægri

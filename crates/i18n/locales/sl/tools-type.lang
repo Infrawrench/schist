@@ -24,9 +24,9 @@ tool.type.history.discard = Zavrzi besedilo
 tool.type.history.discard_empty = Zavrzi prazno besedilo
 
 # Paragraph layout
-tool.type.option.direction = Paragraph direction
-tool.type.option.writing_mode = Writing mode
-tool.type.choice.ltr = Left to right
-tool.type.choice.rtl = Right to left
-tool.type.choice.vertical_rl = Vertical, columns to the left
-tool.type.choice.vertical_lr = Vertical, columns to the right
+tool.type.option.direction = Smer odstavka
+tool.type.option.writing_mode = Način pisanja
+tool.type.choice.ltr = Od leve proti desni
+tool.type.choice.rtl = Od desne proti levi
+tool.type.choice.vertical_rl = Navpično, stolpci proti levi
+tool.type.choice.vertical_lr = Navpično, stolpci proti desni

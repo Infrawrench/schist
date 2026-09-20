@@ -22,9 +22,9 @@ tool.type.history.discard = पाठत्यागः
 tool.type.history.discard_empty = रिक्तपाठत्यागः
 
 # Paragraph layout
-tool.type.option.direction = Paragraph direction
-tool.type.option.writing_mode = Writing mode
-tool.type.choice.ltr = Left to right
-tool.type.choice.rtl = Right to left
-tool.type.choice.vertical_rl = Vertical, columns to the left
-tool.type.choice.vertical_lr = Vertical, columns to the right
+tool.type.option.direction = अनुच्छेददिशा
+tool.type.option.writing_mode = लेखनविधिः
+tool.type.choice.ltr = वामतः दक्षिणम्
+tool.type.choice.rtl = दक्षिणतो वामम्
+tool.type.choice.vertical_rl = ऊर्ध्वाधरम्, स्तम्भाः वामतः
+tool.type.choice.vertical_lr = ऊर्ध्वाधरम्, स्तम्भाः दक्षिणतः

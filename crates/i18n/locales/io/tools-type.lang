@@ -20,9 +20,9 @@ tool.type.history.discard = Forjetar texto
 tool.type.history.discard_empty = Forjetar vakua texto
 
 # Paragraph layout
-tool.type.option.direction = Paragraph direction
-tool.type.option.writing_mode = Writing mode
-tool.type.choice.ltr = Left to right
-tool.type.choice.rtl = Right to left
-tool.type.choice.vertical_rl = Vertical, columns to the left
-tool.type.choice.vertical_lr = Vertical, columns to the right
+tool.type.option.direction = Direkto di paragrafo
+tool.type.option.writing_mode = Skribmodo
+tool.type.choice.ltr = De sinistra ad dextra
+tool.type.choice.rtl = De dextra ad sinistra
+tool.type.choice.vertical_rl = Vertikala, kolumni ad-sinistre
+tool.type.choice.vertical_lr = Vertikala, kolumni ad-dextre

@@ -23,9 +23,9 @@ tool.type.history.discard = Text verwerfen
 tool.type.history.discard_empty = Eidelen Text verwerfen
 
 # Paragraph layout
-tool.type.option.direction = Paragraph direction
-tool.type.option.writing_mode = Writing mode
-tool.type.choice.ltr = Left to right
-tool.type.choice.rtl = Right to left
-tool.type.choice.vertical_rl = Vertical, columns to the left
-tool.type.choice.vertical_lr = Vertical, columns to the right
+tool.type.option.direction = Abschnittsrichtung
+tool.type.option.writing_mode = Schreifmodus
+tool.type.choice.ltr = Vu lénks no riets
+tool.type.choice.rtl = Vu riets no lénks
+tool.type.choice.vertical_rl = Vertikal, Kolonnen no lénks
+tool.type.choice.vertical_lr = Vertikal, Kolonnen no riets

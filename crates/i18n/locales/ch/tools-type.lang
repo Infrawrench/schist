@@ -26,9 +26,9 @@ tool.type.history.discard = Dingo i testu
 tool.type.history.discard_empty = Dingo i tåya' kontenidon testu
 
 # Paragraph layout
-tool.type.option.direction = Paragraph direction
-tool.type.option.writing_mode = Writing mode
-tool.type.choice.ltr = Left to right
-tool.type.choice.rtl = Right to left
-tool.type.choice.vertical_rl = Vertical, columns to the left
-tool.type.choice.vertical_lr = Vertical, columns to the right
+tool.type.option.direction = Direksion parågrafu
+tool.type.option.writing_mode = Modon tinige'
+tool.type.choice.ltr = Ginen i akague' para i agapa'
+tool.type.choice.rtl = Ginen i agapa' para i akague'
+tool.type.choice.vertical_rl = Bettikåt, i kolumna siha para i akague'
+tool.type.choice.vertical_lr = Bettikåt, i kolumna siha para i agapa'

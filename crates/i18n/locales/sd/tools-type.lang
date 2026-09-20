@@ -22,9 +22,9 @@ tool.type.history.discard = متن رد ڪريو
 tool.type.history.discard_empty = خالي متن رد ڪريو
 
 # Paragraph layout
-tool.type.option.direction = Paragraph direction
-tool.type.option.writing_mode = Writing mode
-tool.type.choice.ltr = Left to right
-tool.type.choice.rtl = Right to left
-tool.type.choice.vertical_rl = Vertical, columns to the left
-tool.type.choice.vertical_lr = Vertical, columns to the right
+tool.type.option.direction = پيراگراف جو رخ
+tool.type.option.writing_mode = لکڻ جو انداز
+tool.type.choice.ltr = کاٻي کان ساڄي
+tool.type.choice.rtl = ساڄي کان کاٻي
+tool.type.choice.vertical_rl = عمودي، ڪالم کاٻي پاسي
+tool.type.choice.vertical_lr = عمودي، ڪالم ساڄي پاسي

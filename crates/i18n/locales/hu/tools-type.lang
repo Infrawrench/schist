@@ -19,9 +19,9 @@ tool.type.history.discard = Szöveg elvetése
 tool.type.history.discard_empty = Üres szöveg elvetése
 
 # Paragraph layout
-tool.type.option.direction = Paragraph direction
-tool.type.option.writing_mode = Writing mode
-tool.type.choice.ltr = Left to right
-tool.type.choice.rtl = Right to left
-tool.type.choice.vertical_rl = Vertical, columns to the left
-tool.type.choice.vertical_lr = Vertical, columns to the right
+tool.type.option.direction = Bekezdés iránya
+tool.type.option.writing_mode = Írásmód
+tool.type.choice.ltr = Balról jobbra
+tool.type.choice.rtl = Jobbról balra
+tool.type.choice.vertical_rl = Függőleges, oszlopok balra
+tool.type.choice.vertical_lr = Függőleges, oszlopok jobbra

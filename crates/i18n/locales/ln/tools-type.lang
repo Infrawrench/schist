@@ -22,9 +22,9 @@ tool.type.history.discard = Kobwaka makomi
 tool.type.history.discard_empty = Kobwaka makomi ya mpamba
 
 # Paragraph layout
-tool.type.option.direction = Paragraph direction
-tool.type.option.writing_mode = Writing mode
-tool.type.choice.ltr = Left to right
-tool.type.choice.rtl = Right to left
-tool.type.choice.vertical_rl = Vertical, columns to the left
-tool.type.choice.vertical_lr = Vertical, columns to the right
+tool.type.option.direction = Ngámbo ya paragrafe
+tool.type.option.writing_mode = Lolenge ya kokoma
+tool.type.choice.ltr = Uta na lobɔkɔ ya mwasi kino na lobɔkɔ ya mobali
+tool.type.choice.rtl = Uta na lobɔkɔ ya mobali kino na lobɔkɔ ya mwasi
+tool.type.choice.vertical_rl = Na likoló mpe nse, makonzí na lobɔkɔ ya mwasi
+tool.type.choice.vertical_lr = Na likoló mpe nse, makonzí na lobɔkɔ ya mobali

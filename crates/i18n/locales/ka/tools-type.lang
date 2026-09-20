@@ -27,9 +27,9 @@ tool.type.history.discard = ტექსტის გაუქმება
 tool.type.history.discard_empty = ცარიელი ტექსტის გაუქმება
 
 # Paragraph layout
-tool.type.option.direction = Paragraph direction
-tool.type.option.writing_mode = Writing mode
-tool.type.choice.ltr = Left to right
-tool.type.choice.rtl = Right to left
-tool.type.choice.vertical_rl = Vertical, columns to the left
-tool.type.choice.vertical_lr = Vertical, columns to the right
+tool.type.option.direction = აბზაცის მიმართულება
+tool.type.option.writing_mode = წერის რეჟიმი
+tool.type.choice.ltr = მარცხნიდან მარჯვნივ
+tool.type.choice.rtl = მარჯვნიდან მარცხნივ
+tool.type.choice.vertical_rl = ვერტიკალური, სვეტები მარცხნივ
+tool.type.choice.vertical_lr = ვერტიკალური, სვეტები მარჯვნივ

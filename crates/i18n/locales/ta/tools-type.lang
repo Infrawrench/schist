@@ -22,9 +22,9 @@ tool.type.history.discard = உரையைத் துற
 tool.type.history.discard_empty = காலி உரையைத் துற
 
 # Paragraph layout
-tool.type.option.direction = Paragraph direction
-tool.type.option.writing_mode = Writing mode
-tool.type.choice.ltr = Left to right
-tool.type.choice.rtl = Right to left
-tool.type.choice.vertical_rl = Vertical, columns to the left
-tool.type.choice.vertical_lr = Vertical, columns to the right
+tool.type.option.direction = பத்தியின் திசை
+tool.type.option.writing_mode = எழுதும் முறை
+tool.type.choice.ltr = இடமிருந்து வலம்
+tool.type.choice.rtl = வலமிருந்து இடம்
+tool.type.choice.vertical_rl = செங்குத்து, நெடுவரிசைகள் இடப்புறமாக
+tool.type.choice.vertical_lr = செங்குத்து, நெடுவரிசைகள் வலப்புறமாக

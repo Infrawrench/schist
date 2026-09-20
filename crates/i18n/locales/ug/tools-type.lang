@@ -19,9 +19,9 @@ tool.type.history.discard = تېكىستتىن ۋاز كېچىش
 tool.type.history.discard_empty = بوش تېكىستتىن ۋاز كېچىش
 
 # Paragraph layout
-tool.type.option.direction = Paragraph direction
-tool.type.option.writing_mode = Writing mode
-tool.type.choice.ltr = Left to right
-tool.type.choice.rtl = Right to left
-tool.type.choice.vertical_rl = Vertical, columns to the left
-tool.type.choice.vertical_lr = Vertical, columns to the right
+tool.type.option.direction = ئابزاس يۆنىلىشى
+tool.type.option.writing_mode = يېزىش ھالىتى
+tool.type.choice.ltr = سولدىن ئوڭغا
+tool.type.choice.rtl = ئوڭدىن سولغا
+tool.type.choice.vertical_rl = تىك، ئىستونلار سولغا
+tool.type.choice.vertical_lr = تىك، ئىستونلار ئوڭغا

@@ -27,9 +27,9 @@ tool.type.history.discard = Адкіданне тэксту
 tool.type.history.discard_empty = Адкіданне пустога тэксту
 
 # Paragraph layout
-tool.type.option.direction = Paragraph direction
-tool.type.option.writing_mode = Writing mode
-tool.type.choice.ltr = Left to right
-tool.type.choice.rtl = Right to left
-tool.type.choice.vertical_rl = Vertical, columns to the left
-tool.type.choice.vertical_lr = Vertical, columns to the right
+tool.type.option.direction = Напрамак абзаца
+tool.type.option.writing_mode = Рэжым пісьма
+tool.type.choice.ltr = Злева направа
+tool.type.choice.rtl = Справа налева
+tool.type.choice.vertical_rl = Вертыкальна, слупкі ўлева
+tool.type.choice.vertical_lr = Вертыкальна, слупкі ўправа

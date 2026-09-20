@@ -22,9 +22,9 @@ tool.type.history.discard = Рад кардани матн
 tool.type.history.discard_empty = Рад кардани матни холӣ
 
 # Paragraph layout
-tool.type.option.direction = Paragraph direction
-tool.type.option.writing_mode = Writing mode
-tool.type.choice.ltr = Left to right
-tool.type.choice.rtl = Right to left
-tool.type.choice.vertical_rl = Vertical, columns to the left
-tool.type.choice.vertical_lr = Vertical, columns to the right
+tool.type.option.direction = Самти сархат
+tool.type.option.writing_mode = Тарзи навишт
+tool.type.choice.ltr = Аз чап ба рост
+tool.type.choice.rtl = Аз рост ба чап
+tool.type.choice.vertical_rl = Амудӣ, сутунҳо ба чап
+tool.type.choice.vertical_lr = Амудӣ, сутунҳо ба рост

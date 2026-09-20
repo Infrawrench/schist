@@ -19,9 +19,9 @@ tool.type.history.discard = मजकूर टाकून द्या
 tool.type.history.discard_empty = रिकामा मजकूर टाकून द्या
 
 # Paragraph layout
-tool.type.option.direction = Paragraph direction
-tool.type.option.writing_mode = Writing mode
-tool.type.choice.ltr = Left to right
-tool.type.choice.rtl = Right to left
-tool.type.choice.vertical_rl = Vertical, columns to the left
-tool.type.choice.vertical_lr = Vertical, columns to the right
+tool.type.option.direction = परिच्छेदाची दिशा
+tool.type.option.writing_mode = लेखन पद्धत
+tool.type.choice.ltr = डावीकडून उजवीकडे
+tool.type.choice.rtl = उजवीकडून डावीकडे
+tool.type.choice.vertical_rl = उभे, स्तंभ डावीकडे
+tool.type.choice.vertical_lr = उभे, स्तंभ उजवीकडे

@@ -25,9 +25,9 @@ tool.type.history.discard = Akkharachaḍḍanaṃ
 tool.type.history.discard_empty = Suññakkharachaḍḍanaṃ
 
 # Paragraph layout
-tool.type.option.direction = Paragraph direction
-tool.type.option.writing_mode = Writing mode
-tool.type.choice.ltr = Left to right
-tool.type.choice.rtl = Right to left
-tool.type.choice.vertical_rl = Vertical, columns to the left
-tool.type.choice.vertical_lr = Vertical, columns to the right
+tool.type.option.direction = Anucchedadisā
+tool.type.option.writing_mode = Lekhanākāro
+tool.type.choice.ltr = Vāmato dakkhiṇaṃ
+tool.type.choice.rtl = Dakkhiṇato vāmaṃ
+tool.type.choice.vertical_rl = Uddhādhobhāvena, thambhā vāmaṃ
+tool.type.choice.vertical_lr = Uddhādhobhāvena, thambhā dakkhiṇaṃ

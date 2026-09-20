@@ -22,9 +22,9 @@ tool.type.history.discard = Текстти таштоо
 tool.type.history.discard_empty = Бош текстти таштоо
 
 # Paragraph layout
-tool.type.option.direction = Paragraph direction
-tool.type.option.writing_mode = Writing mode
-tool.type.choice.ltr = Left to right
-tool.type.choice.rtl = Right to left
-tool.type.choice.vertical_rl = Vertical, columns to the left
-tool.type.choice.vertical_lr = Vertical, columns to the right
+tool.type.option.direction = Абзацтын багыты
+tool.type.option.writing_mode = Жазуу режими
+tool.type.choice.ltr = Солдон оңго
+tool.type.choice.rtl = Оңдон солго
+tool.type.choice.vertical_rl = Тик, мамычалар солго
+tool.type.choice.vertical_lr = Тик, мамычалар оңго

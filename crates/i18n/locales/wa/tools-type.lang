@@ -23,9 +23,9 @@ tool.type.history.discard = Abandner l' scrijhaedje
 tool.type.history.discard_empty = Abandner l' scrijhaedje vude
 
 # Paragraph layout
-tool.type.option.direction = Paragraph direction
-tool.type.option.writing_mode = Writing mode
-tool.type.choice.ltr = Left to right
-tool.type.choice.rtl = Right to left
-tool.type.choice.vertical_rl = Vertical, columns to the left
-tool.type.choice.vertical_lr = Vertical, columns to the right
+tool.type.option.direction = Direccion do hagnon
+tool.type.option.writing_mode = Môde di scrijhaedje
+tool.type.choice.ltr = Di hintche a droete
+tool.type.choice.rtl = Di droete a hintche
+tool.type.choice.vertical_rl = D' astampé, colones viè l' hintche
+tool.type.choice.vertical_lr = D' astampé, colones viè l' droete

@@ -23,9 +23,9 @@ tool.type.history.discard = Suula ebiwandiiko
 tool.type.history.discard_empty = Suula ebiwandiiko ebitaliimu kintu
 
 # Paragraph layout
-tool.type.option.direction = Paragraph direction
-tool.type.option.writing_mode = Writing mode
-tool.type.choice.ltr = Left to right
-tool.type.choice.rtl = Right to left
-tool.type.choice.vertical_rl = Vertical, columns to the left
-tool.type.choice.vertical_lr = Vertical, columns to the right
+tool.type.option.direction = Obulagirizi bw'akatundu
+tool.type.option.writing_mode = Engeri y'okuwandiika
+tool.type.choice.ltr = Okuva ku kkono okudda ku ddyo
+tool.type.choice.rtl = Okuva ku ddyo okudda ku kkono
+tool.type.choice.vertical_rl = Mu busimba, empagi zidda ku kkono
+tool.type.choice.vertical_lr = Mu busimba, empagi zidda ku ddyo

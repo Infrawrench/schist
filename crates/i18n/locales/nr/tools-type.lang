@@ -27,9 +27,9 @@ tool.type.history.discard = Lahla Umtlolo
 tool.type.history.discard_empty = Lahla Umtlolo Onganalitho
 
 # Paragraph layout
-tool.type.option.direction = Paragraph direction
-tool.type.option.writing_mode = Writing mode
-tool.type.choice.ltr = Left to right
-tool.type.choice.rtl = Right to left
-tool.type.choice.vertical_rl = Vertical, columns to the left
-tool.type.choice.vertical_lr = Vertical, columns to the right
+tool.type.option.direction = Ikombandlela yesigaba
+tool.type.option.writing_mode = Indlela yokutlola
+tool.type.choice.ltr = Ukusuka ngesinceleni ukuya ngesidleni
+tool.type.choice.rtl = Ukusuka ngesidleni ukuya ngesinceleni
+tool.type.choice.vertical_rl = Ngokujame rwe, amakholomu aya ngesinceleni
+tool.type.choice.vertical_lr = Ngokujame rwe, amakholomu aya ngesidleni

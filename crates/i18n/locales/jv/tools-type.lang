@@ -27,9 +27,9 @@ tool.type.history.discard = Buwang Tèks
 tool.type.history.discard_empty = Buwang Tèks Kosong
 
 # Paragraph layout
-tool.type.option.direction = Paragraph direction
-tool.type.option.writing_mode = Writing mode
-tool.type.choice.ltr = Left to right
-tool.type.choice.rtl = Right to left
-tool.type.choice.vertical_rl = Vertical, columns to the left
-tool.type.choice.vertical_lr = Vertical, columns to the right
+tool.type.option.direction = Arah paragraf
+tool.type.option.writing_mode = Mode panulisan
+tool.type.choice.ltr = Saka kiwa menyang tengen
+tool.type.choice.rtl = Saka tengen menyang kiwa
+tool.type.choice.vertical_rl = Vertikal, kolom menyang kiwa
+tool.type.choice.vertical_lr = Vertikal, kolom menyang tengen

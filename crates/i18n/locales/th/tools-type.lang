@@ -25,9 +25,9 @@ tool.type.history.discard = ละทิ้งข้อความ
 tool.type.history.discard_empty = ละทิ้งข้อความว่าง
 
 # Paragraph layout
-tool.type.option.direction = Paragraph direction
-tool.type.option.writing_mode = Writing mode
-tool.type.choice.ltr = Left to right
-tool.type.choice.rtl = Right to left
-tool.type.choice.vertical_rl = Vertical, columns to the left
-tool.type.choice.vertical_lr = Vertical, columns to the right
+tool.type.option.direction = ทิศทางย่อหน้า
+tool.type.option.writing_mode = รูปแบบการเขียน
+tool.type.choice.ltr = จากซ้ายไปขวา
+tool.type.choice.rtl = จากขวาไปซ้าย
+tool.type.choice.vertical_rl = แนวตั้ง คอลัมน์ไปทางซ้าย
+tool.type.choice.vertical_lr = แนวตั้ง คอลัมน์ไปทางขวา

@@ -27,9 +27,9 @@ tool.type.history.discard = Gwaredu Testun
 tool.type.history.discard_empty = Gwaredu Testun Gwag
 
 # Paragraph layout
-tool.type.option.direction = Paragraph direction
-tool.type.option.writing_mode = Writing mode
-tool.type.choice.ltr = Left to right
-tool.type.choice.rtl = Right to left
-tool.type.choice.vertical_rl = Vertical, columns to the left
-tool.type.choice.vertical_lr = Vertical, columns to the right
+tool.type.option.direction = Cyfeiriad paragraff
+tool.type.option.writing_mode = Modd ysgrifennu
+tool.type.choice.ltr = Chwith i'r dde
+tool.type.choice.rtl = De i'r chwith
+tool.type.choice.vertical_rl = Fertigol, colofnau tua'r chwith
+tool.type.choice.vertical_lr = Fertigol, colofnau tua'r dde

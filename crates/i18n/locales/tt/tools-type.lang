@@ -22,9 +22,9 @@ tool.type.history.discard = Текстны кире кагу
 tool.type.history.discard_empty = Буш текстны кире кагу
 
 # Paragraph layout
-tool.type.option.direction = Paragraph direction
-tool.type.option.writing_mode = Writing mode
-tool.type.choice.ltr = Left to right
-tool.type.choice.rtl = Right to left
-tool.type.choice.vertical_rl = Vertical, columns to the left
-tool.type.choice.vertical_lr = Vertical, columns to the right
+tool.type.option.direction = Абзац юнәлеше
+tool.type.option.writing_mode = Язу режимы
+tool.type.choice.ltr = Сулдан уңга
+tool.type.choice.rtl = Уңнан сулга
+tool.type.choice.vertical_rl = Вертикаль, баганалар сулга
+tool.type.choice.vertical_lr = Вертикаль, баганалар уңга

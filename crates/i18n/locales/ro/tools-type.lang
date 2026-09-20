@@ -19,9 +19,9 @@ tool.type.history.discard = Renunțare la text
 tool.type.history.discard_empty = Renunțare la textul gol
 
 # Paragraph layout
-tool.type.option.direction = Paragraph direction
-tool.type.option.writing_mode = Writing mode
-tool.type.choice.ltr = Left to right
-tool.type.choice.rtl = Right to left
-tool.type.choice.vertical_rl = Vertical, columns to the left
-tool.type.choice.vertical_lr = Vertical, columns to the right
+tool.type.option.direction = Direcția paragrafului
+tool.type.option.writing_mode = Mod de scriere
+tool.type.choice.ltr = De la stânga la dreapta
+tool.type.choice.rtl = De la dreapta la stânga
+tool.type.choice.vertical_rl = Vertical, coloane spre stânga
+tool.type.choice.vertical_lr = Vertical, coloane spre dreapta

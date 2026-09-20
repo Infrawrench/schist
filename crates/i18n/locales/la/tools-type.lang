@@ -22,9 +22,9 @@ tool.type.history.discard = Textus Reiectus
 tool.type.history.discard_empty = Textus Vacuus Reiectus
 
 # Paragraph layout
-tool.type.option.direction = Paragraph direction
-tool.type.option.writing_mode = Writing mode
-tool.type.choice.ltr = Left to right
-tool.type.choice.rtl = Right to left
-tool.type.choice.vertical_rl = Vertical, columns to the left
-tool.type.choice.vertical_lr = Vertical, columns to the right
+tool.type.option.direction = Directio Paragraphi
+tool.type.option.writing_mode = Modus Scribendi
+tool.type.choice.ltr = A Sinistra ad Dextram
+tool.type.choice.rtl = A Dextra ad Sinistram
+tool.type.choice.vertical_rl = Verticalis, Columnae ad Sinistram
+tool.type.choice.vertical_lr = Verticalis, Columnae ad Dextram

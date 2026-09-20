@@ -23,9 +23,9 @@ tool.type.history.discard = Atmesti tekstą
 tool.type.history.discard_empty = Atmesti tuščią tekstą
 
 # Paragraph layout
-tool.type.option.direction = Paragraph direction
-tool.type.option.writing_mode = Writing mode
-tool.type.choice.ltr = Left to right
-tool.type.choice.rtl = Right to left
-tool.type.choice.vertical_rl = Vertical, columns to the left
-tool.type.choice.vertical_lr = Vertical, columns to the right
+tool.type.option.direction = Pastraipos kryptis
+tool.type.option.writing_mode = Rašymo būdas
+tool.type.choice.ltr = Iš kairės į dešinę
+tool.type.choice.rtl = Iš dešinės į kairę
+tool.type.choice.vertical_rl = Vertikaliai, stulpeliai į kairę
+tool.type.choice.vertical_lr = Vertikaliai, stulpeliai į dešinę
