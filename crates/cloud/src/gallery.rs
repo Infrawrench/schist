@@ -1,7 +1,7 @@
 //! Typed catalogue extensions shared by desktop and browser clients.
 use crate::{
     protocol::{map, parse, value},
-    Asset, Handle, Value,
+    Asset, Handle,
 };
 use anyhow::Result;
 use serde::{Deserialize, Serialize};
@@ -102,16 +102,19 @@ impl Handle {
         Ok(reply.libraries)
     }
     pub async fn save_workflow(&self, workflow: &Workflow) -> Result<Workflow> {
-        let Value::Map(mut fields) = value(workflow) else {
-            unreachable!()
-        };
-        fields.push((
-            "mutation_id".into(),
-            crate::Uuid::new_v4().to_string().into(),
-        ));
+        // Textured tips can contain millions of byte samples. Carry the bounded
+        // JSON library as a string, outside the socket's generic array limit.
         parse(
-            self.request_async("workflows.update", Value::Map(fields))
-                .await?,
+            self.request_async(
+                "workflows.update",
+                map([
+                    ("kind", workflow.kind.clone().into()),
+                    ("revision", workflow.revision.into()),
+                    ("data_json", serde_json::to_string(&workflow.data)?.into()),
+                    ("mutation_id", crate::Uuid::new_v4().to_string().into()),
+                ]),
+            )
+            .await?,
         )
     }
 }

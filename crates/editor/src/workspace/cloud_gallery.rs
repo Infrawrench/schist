@@ -12,6 +12,7 @@ use schist_cloud::{
 use schist_gallery::{culling::CompareCamera, similar};
 use schist_i18n::{t, tf};
 use schist_ui::Button;
+use std::time::Duration;
 
 #[derive(Clone, Copy, PartialEq)]
 pub(super) enum View {
@@ -26,6 +27,7 @@ pub(super) struct State {
     serial: u64,
     cancel: Arc<std::sync::atomic::AtomicBool>,
     busy: bool,
+    progress: Option<(usize, usize)>,
     photos: Vec<Asset>,
     groups: Vec<Vec<usize>>,
     group: usize,
@@ -48,6 +50,7 @@ impl State {
         self.view = None;
         self.images = [None, None];
         self.busy = false;
+        self.progress = None;
         self.error = None;
     }
     pub(super) fn reconcile(&mut self, assets: &[Asset]) {
@@ -78,6 +81,11 @@ impl State {
     }
 }
 pub(super) enum Event {
+    Progress {
+        serial: u64,
+        done: usize,
+        total: usize,
+    },
     Reply {
         serial: u64,
         method: &'static str,
@@ -176,7 +184,8 @@ impl Workspace {
     }
     pub(super) fn cloud_gallery_event(&mut self, event: Event, cx: &mut Context<Self>) {
         let serial = match &event {
-            Event::Reply { serial, .. }
+            Event::Progress { serial, .. }
+            | Event::Reply { serial, .. }
             | Event::Review { serial, .. }
             | Event::Preview { serial, .. } => *serial,
         };
@@ -185,6 +194,9 @@ impl Workspace {
         }
         let result = (|| -> Result<()> {
             match event {
+                Event::Progress { done, total, .. } => {
+                    self.cloud.gallery.progress = Some((done, total))
+                }
                 Event::Reply { method, result, .. } => {
                     self.cloud.gallery.busy = false;
                     let result = result.map_err(anyhow::Error::msg)?;
@@ -246,6 +258,7 @@ impl Workspace {
                 }
                 Event::Review { result, .. } => {
                     self.cloud.gallery.busy = false;
+                    self.cloud.gallery.progress = None;
                     let (photos, groups) = result.map_err(anyhow::Error::msg)?;
                     self.cloud.gallery.photos = photos;
                     self.cloud.gallery.groups = groups;
@@ -423,9 +436,16 @@ impl Workspace {
                 }
                 let mut photos = Vec::new();
                 let mut displayed = Vec::new();
-                for batch in assets.chunks(1) {
+                for (index, batch) in assets.chunks(1).enumerate() {
                     ensure!(!cancel.load(std::sync::atomic::Ordering::Relaxed), t("common.cancel"));
-                    let signatures = if burst { Vec::new() } else { handle.review_photos(batch).await? };
+                    let signatures = if burst { Vec::new() } else {
+                        let signatures = handle.review_photos(batch).await?;
+                        // Leave room under the shared socket's request budget for
+                        // subscriptions, workflow sync and heartbeat frames.
+                        remote::runtime::sleep(Duration::from_millis(350)).await;
+                        signatures
+                    };
+                    let _ = sender.send(super::cloud::Job::Gallery { epoch, event: Event::Progress {serial, done: index + 1, total: assets.len()} });
                     for asset in batch {
                         let signature = if burst { None } else {
                             let Some(found) = signatures.iter().find(|p| p.asset.id == asset.id) else { continue; };
@@ -984,6 +1004,9 @@ pub(super) fn view(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::Any
     );
     if kind == View::Review {
         let state = &ws.cloud.gallery;
+        if let Some((done, total)) = state.progress {
+            bar = bar.child(format!("{done}/{total}"));
+        }
         bar = bar.child(format!(
             "{}/{}",
             (state.group + 1).min(state.groups.len()),
