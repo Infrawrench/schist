@@ -324,185 +324,185 @@ impl Workspace {
     }
 }
 
+fn control_group() -> gpui::Div {
+    div()
+        .flex()
+        .items_center()
+        .gap_1()
+        .p_0p5()
+        .rounded_sm()
+        .bg(gpui::rgb(super::gallery_chrome::pal().tray_bg))
+}
+
 pub(super) fn render(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::AnyElement {
+    let p = super::gallery_chrome::pal();
     let state = &ws.library.similar;
     let running = state.running;
-    let mut controls = div()
-        .flex()
-        .flex_row()
-        .flex_wrap()
-        .items_center()
-        .gap_2()
-        .child(
-            Button::new("similar-close", t("common.back")).on_click(cx.listener(|ws, _, _, cx| {
-                ws.close_similar_review();
-                cx.notify();
-            })),
-        )
-        .child(t("library.similar.title"));
+    let mut modes = control_group();
     for (mode, key) in [
         (Mode::Visual, "library.similar.visual"),
         (Mode::Burst, "library.similar.burst"),
     ] {
-        controls = controls.child(
+        modes = modes.child(
             Button::new(key, t(key))
-                .disabled(running || state.mode == mode)
+                .ghost()
+                .px_2()
+                .active(state.mode == mode)
+                .disabled(running)
                 .on_click(cx.listener(move |ws, _, _, cx| {
-                    ws.library.similar.mode = mode;
-                    ws.scan_similar(cx);
+                    if ws.library.similar.mode != mode {
+                        ws.library.similar.mode = mode;
+                        ws.scan_similar(cx);
+                    }
                 })),
         );
     }
+    let mut controls = div()
+        .flex()
+        .flex_wrap()
+        .items_center()
+        .gap_2()
+        .px_3()
+        .py_2()
+        .bg(gpui::rgb(p.chrome_bg))
+        .border_b_1()
+        .border_color(gpui::rgb(p.chrome_edge))
+        .child(
+            Button::new("similar-close", t("common.back"))
+                .ghost()
+                .px_2()
+                .on_click(cx.listener(|ws, _, _, cx| {
+                    ws.close_similar_review();
+                    cx.notify();
+                })),
+        )
+        .child(
+            div()
+                .font_weight(gpui::FontWeight::SEMIBOLD)
+                .mr_2()
+                .child(t("library.similar.title")),
+        )
+        .child(modes);
     if state.mode == Mode::Visual {
-        controls = controls.child(t("common.threshold"));
+        let mut thresholds = control_group().child(
+            div()
+                .px_2()
+                .text_color(gpui::rgb(p.text_dim))
+                .child(t("common.threshold")),
+        );
         for threshold in [2, 6, 10] {
-            controls = controls.child(
+            thresholds = thresholds.child(
                 Button::new(
                     ("similar-threshold", threshold as usize),
                     format!("{threshold}/64"),
                 )
-                .disabled(running || state.threshold == threshold)
+                .ghost()
+                .px_2()
+                .active(state.threshold == threshold)
+                .disabled(running)
                 .on_click(cx.listener(move |ws, _, _, cx| {
-                    ws.library.similar.threshold = threshold;
-                    ws.scan_similar(cx);
+                    if ws.library.similar.threshold != threshold {
+                        ws.library.similar.threshold = threshold;
+                        ws.scan_similar(cx);
+                    }
                 })),
             );
         }
+        controls = controls.child(thresholds);
     }
-    controls = controls.child(
+    controls = controls.child(div().flex_grow()).child(
         Button::new("similar-scan", t("common.refresh"))
+            .ghost()
+            .px_2()
             .disabled(running)
             .on_click(cx.listener(|ws, _, _, cx| ws.scan_similar(cx))),
     );
-    if running {
-        controls = controls
-            .child(t("common.in_progress"))
+    let mut status = div()
+        .flex()
+        .flex_wrap()
+        .items_center()
+        .gap_2()
+        .text_size(px(11.0))
+        .text_color(gpui::rgb(p.text_dim))
+        .child(t("library.similar.help"))
+        .child(div().flex_grow());
+    if running || state.cancelled {
+        status = status
+            .child(t(if running {
+                "common.in_progress"
+            } else {
+                "common.cancelled"
+            }))
             .child(format!(
                 "{}/{}",
                 state.progress.load(Ordering::Relaxed),
                 state.total
-            ))
-            .child(
-                Button::new("similar-cancel", t("common.cancel")).on_click(cx.listener(
-                    |ws, _, _, cx| {
-                        ws.library.similar.cancel.store(true, Ordering::Relaxed);
-                        cx.notify();
-                    },
-                )),
-            );
+            ));
     }
-    let mut content = div()
-        .id("similar-review")
+    if running {
+        status = status.child(
+            Button::new("similar-cancel", t("common.cancel"))
+                .ghost()
+                .px_2()
+                .on_click(cx.listener(|ws, _, _, cx| {
+                    ws.library.similar.cancel.store(true, Ordering::Relaxed);
+                    cx.notify();
+                })),
+        );
+    } else {
+        status = status.child(format!("{} {}", t("common.group"), state.groups.len()));
+        if state.failed > 0 {
+            status = status.child(format!("{} {}", t("common.failed"), state.failed));
+        }
+        if state.mode == Mode::Burst {
+            let undated = state.photos.iter().filter(|p| p.captured.is_none()).count();
+            if undated > 0 {
+                status = status.child(format!("{} {undated}", t("library.month.undated")));
+            }
+        }
+    }
+    let mut body = div()
+        .id("similar-review-body")
         .flex()
         .flex_col()
-        .flex_grow()
+        .flex_1()
         .min_w(px(0.0))
         .min_h(px(0.0))
         .overflow_y_scroll()
         .gap_2()
         .p_3()
-        .child(controls)
-        .child(div().text_size(px(12.0)).child(t("library.similar.help")))
-        .children(state.error.clone().map(|error| div().child(error)));
-    if state.cancelled {
-        content = content.child(
+        .child(status)
+        .children(state.error.clone().map(|error| {
             div()
-                .flex()
-                .gap_2()
-                .child(t("common.cancelled"))
-                .child(format!(
-                    "{}/{}",
-                    state.progress.load(Ordering::Relaxed),
-                    state.total
-                )),
-        );
-    }
-    if !running {
-        content = content.child(
-            div()
-                .flex()
-                .gap_2()
-                .child(t("common.group"))
-                .child(state.groups.len().to_string())
-                .child(t("common.failed"))
-                .child(state.failed.to_string()),
-        );
-    }
-    if !running && !state.cancelled {
-        content = content.child(t("common.ready"));
-        if state.mode == Mode::Burst {
-            content = content.child(
+                .p_2()
+                .rounded_sm()
+                .bg(gpui::rgb(p.chrome_bg))
+                .child(error)
+        }));
+    let mut content = div()
+        .id("similar-review")
+        .flex()
+        .flex_col()
+        .flex_1()
+        .min_w(px(0.0))
+        .min_h(px(0.0))
+        .text_color(gpui::rgb(p.text))
+        .child(controls);
+    let Some(group) = state.groups.get(state.group) else {
+        if !running && !state.cancelled {
+            body = body.child(
                 div()
-                    .flex()
-                    .gap_2()
-                    .child(t("library.month.undated"))
-                    .child(
-                        state
-                            .photos
-                            .iter()
-                            .filter(|p| p.captured.is_none())
-                            .count()
-                            .to_string(),
-                    ),
+                    .p_3()
+                    .text_color(gpui::rgb(p.text_dim))
+                    .child(t("common.ready")),
             );
         }
-    }
-    let Some(group) = state.groups.get(state.group) else {
-        return content.into_any_element();
+        return content.child(body).into_any_element();
     };
     let group_len = group.photos.len();
     let group_count = state.groups.len();
     let group_index = state.group;
     let candidate = state.candidate;
-    content = content.child(
-        div()
-            .flex()
-            .flex_wrap()
-            .items_center()
-            .gap_2()
-            .child(t("common.group"))
-            .child(format!("{}/{}", group_index + 1, group_count))
-            .child(
-                Button::new("similar-prev-group", t("common.back"))
-                    .disabled(group_index == 0)
-                    .on_click(cx.listener(|ws, _, _, cx| {
-                        ws.library.similar.group -= 1;
-                        ws.library.similar.candidate = 1;
-                        ws.load_similar_pair(cx);
-                        cx.notify();
-                    })),
-            )
-            .child(
-                Button::new("similar-next-group", t("common.next"))
-                    .disabled(group_index + 1 == group_count)
-                    .on_click(cx.listener(|ws, _, _, cx| {
-                        ws.library.similar.group += 1;
-                        ws.library.similar.candidate = 1;
-                        ws.load_similar_pair(cx);
-                        cx.notify();
-                    })),
-            )
-            .child(t("common.photo"))
-            .child(format!("{}/{}", candidate + 1, group_len))
-            .child(
-                Button::new("similar-prev-photo", t("common.back"))
-                    .disabled(candidate == 1)
-                    .on_click(cx.listener(|ws, _, _, cx| {
-                        ws.library.similar.candidate -= 1;
-                        ws.load_similar_pair(cx);
-                        cx.notify();
-                    })),
-            )
-            .child(
-                Button::new("similar-next-photo", t("common.next"))
-                    .disabled(candidate + 1 == group_len)
-                    .on_click(cx.listener(|ws, _, _, cx| {
-                        ws.library.similar.candidate += 1;
-                        ws.load_similar_pair(cx);
-                        cx.notify();
-                    })),
-            ),
-    );
     let left = &state.photos[group.photos[0]];
     let right = &state.photos[group.photos[candidate]];
     let evidence = match state.mode {
@@ -523,15 +523,90 @@ pub(super) fn render(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::A
             t("common.unit.seconds_suffix")
         ),
     };
-    content = content.child(
+    body = body.child(
         div()
             .flex()
+            .flex_wrap()
+            .items_center()
             .gap_2()
-            .child(t("common.distance"))
-            .child(evidence),
+            .child(
+                control_group()
+                    .child(div().px_2().child(format!(
+                        "{} {}/{}",
+                        t("common.group"),
+                        group_index + 1,
+                        group_count
+                    )))
+                    .child(
+                        Button::new("similar-prev-group", "‹")
+                            .ghost()
+                            .px_2()
+                            .tooltip(t("common.back"), None)
+                            .disabled(group_index == 0)
+                            .on_click(cx.listener(|ws, _, _, cx| {
+                                ws.library.similar.group -= 1;
+                                ws.library.similar.candidate = 1;
+                                ws.load_similar_pair(cx);
+                                cx.notify();
+                            })),
+                    )
+                    .child(
+                        Button::new("similar-next-group", "›")
+                            .ghost()
+                            .px_2()
+                            .tooltip(t("common.next"), None)
+                            .disabled(group_index + 1 == group_count)
+                            .on_click(cx.listener(|ws, _, _, cx| {
+                                ws.library.similar.group += 1;
+                                ws.library.similar.candidate = 1;
+                                ws.load_similar_pair(cx);
+                                cx.notify();
+                            })),
+                    ),
+            )
+            .child(
+                control_group()
+                    .child(div().px_2().child(format!(
+                        "{} {}/{}",
+                        t("common.photo"),
+                        candidate + 1,
+                        group_len
+                    )))
+                    .child(
+                        Button::new("similar-prev-photo", "‹")
+                            .ghost()
+                            .px_2()
+                            .tooltip(t("common.back"), Some("←".into()))
+                            .disabled(candidate == 1)
+                            .on_click(cx.listener(|ws, _, _, cx| {
+                                ws.library.similar.candidate -= 1;
+                                ws.load_similar_pair(cx);
+                                cx.notify();
+                            })),
+                    )
+                    .child(
+                        Button::new("similar-next-photo", "›")
+                            .ghost()
+                            .px_2()
+                            .tooltip(t("common.next"), Some("→".into()))
+                            .disabled(candidate + 1 == group_len)
+                            .on_click(cx.listener(|ws, _, _, cx| {
+                                ws.library.similar.candidate += 1;
+                                ws.load_similar_pair(cx);
+                                cx.notify();
+                            })),
+                    ),
+            )
+            .child(div().flex_grow())
+            .child(
+                div()
+                    .text_size(px(11.0))
+                    .text_color(gpui::rgb(p.text_dim))
+                    .child(format!("{} {evidence}", t("common.distance"))),
+            ),
     );
     let revision = state.revision;
-    let mut pair = div().flex().flex_row().flex_wrap().gap_3();
+    let mut pair = div().flex().flex_row().flex_wrap().gap_2();
     for (pane, index) in [group.photos[0], group.photos[candidate]]
         .into_iter()
         .enumerate()
@@ -543,66 +618,124 @@ pub(super) fn render(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::A
         let can_reject = group.photos.iter().any(|other| {
             *other != index && state.decisions.get(&state.photos[*other]) != Some(Choice::Reject)
         });
+        let filename = photo
+            .path
+            .file_name()
+            .unwrap_or_default()
+            .to_string_lossy()
+            .into_owned();
         let mut card = div()
             .flex()
             .flex_col()
             .flex_1()
             .min_w(px(220.0))
-            .gap_2()
-            .child(photo.path.display().to_string())
-            .child(match choice {
-                Some(Choice::Keep) => t("library.similar.keep"),
-                Some(Choice::Reject) => t("library.similar.reject"),
-                None => t("common.none"),
-            });
+            .rounded_sm()
+            .overflow_hidden()
+            .border_1()
+            .border_color(gpui::rgb(p.chrome_edge))
+            .bg(gpui::rgb(p.chrome_bg))
+            .child(
+                div()
+                    .flex()
+                    .items_center()
+                    .gap_2()
+                    .px_2()
+                    .py_1()
+                    .child(
+                        div()
+                            .id(("similar-filename", pane))
+                            .flex_1()
+                            .min_w(px(0.0))
+                            .truncate()
+                            .tooltip(crate::ui::tip(photo.path.display().to_string(), None))
+                            .child(filename),
+                    )
+                    .children(choice.map(|choice| {
+                        div()
+                            .flex_none()
+                            .text_size(px(11.0))
+                            .text_color(gpui::rgb(p.text_dim))
+                            .child(t(match choice {
+                                Choice::Keep => "library.similar.keep",
+                                Choice::Reject => "library.similar.reject",
+                            }))
+                    })),
+            );
+        let mut preview = div()
+            .flex()
+            .items_center()
+            .justify_center()
+            .h(px(360.0))
+            .overflow_hidden()
+            .bg(gpui::rgb(p.grid_bg));
         if let Some(image) = &state.images[pane] {
-            card = card.child(
+            preview = preview.child(
                 img(image.clone())
-                    .w_full()
-                    .h(px(360.0))
+                    .size_full()
                     .object_fit(gpui::ObjectFit::Contain),
             );
         } else {
-            card = card.child(if state.loading {
-                t("common.loading")
-            } else {
-                t("library.cell.no_preview")
-            });
+            preview = preview.child(div().text_color(gpui::rgb(p.text_dim)).child(t(
+                if state.loading {
+                    "common.loading"
+                } else {
+                    "library.cell.no_preview"
+                },
+            )));
         }
         let path = photo.path.clone();
-        card = card.child(
+        card = card.child(preview).child(
             div()
                 .flex()
                 .flex_wrap()
-                .gap_2()
+                .items_center()
+                .gap_1()
+                .p_1()
                 .child(
                     Button::new(("similar-keep", pane), t("library.similar.keep"))
-                        .disabled(keep || !state.decisions_loaded)
+                        .ghost()
+                        .px_2()
+                        .active(keep)
+                        .disabled(!state.decisions_loaded)
                         .on_click(cx.listener(move |ws, _, _, cx| {
-                            ws.similar_choice(index, revision, Some(Choice::Keep), cx)
+                            if !keep {
+                                ws.similar_choice(index, revision, Some(Choice::Keep), cx);
+                            }
                         })),
                 )
                 .child(
                     Button::new(("similar-reject", pane), t("library.similar.reject"))
-                        .disabled(reject || !can_reject || !state.decisions_loaded)
+                        .ghost()
+                        .px_2()
+                        .active(reject)
+                        .disabled((!reject && !can_reject) || !state.decisions_loaded)
                         .on_click(cx.listener(move |ws, _, _, cx| {
-                            ws.similar_choice(index, revision, Some(Choice::Reject), cx)
+                            if !reject {
+                                ws.similar_choice(index, revision, Some(Choice::Reject), cx);
+                            }
                         })),
                 )
                 .child(
                     Button::new(("similar-clear", pane), t("common.reset"))
+                        .ghost()
+                        .px_2()
                         .disabled(choice.is_none() || !state.decisions_loaded)
                         .on_click(cx.listener(move |ws, _, _, cx| {
                             ws.similar_choice(index, revision, None, cx)
                         })),
                 )
+                .child(div().flex_grow())
                 .child(
-                    Button::new(("similar-open", pane), t("common.edit")).on_click(
-                        cx.listener(move |ws, _, _, cx| ws.open_from_gallery(path.clone(), cx)),
-                    ),
+                    Button::new(("similar-open", pane), t("common.edit"))
+                        .ghost()
+                        .px_2()
+                        .on_click(
+                            cx.listener(move |ws, _, _, cx| ws.open_from_gallery(path.clone(), cx)),
+                        ),
                 ),
         );
         pair = pair.child(card);
     }
-    content.child(pair).into_any_element()
+    content = content.child(body.child(pair));
+    content.into_any_element()
 }
