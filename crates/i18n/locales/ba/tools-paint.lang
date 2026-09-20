@@ -71,3 +71,6 @@ tool.bucket.description = Күрһәткән урындағы оҡшаш төҫ�
 tool.bucket.option.contiguous = Тоташ
 tool.bucket.option.all_layers = Барлыҡ ҡатламдар
 tool.bucket.history.fill = Буяу биҙрәһе
+
+tool.brush.symmetry = Симметрия
+tool.brush.seamless_preview = Йөйһөҙ биҙәкте алдан ҡарау

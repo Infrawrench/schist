@@ -70,3 +70,6 @@ tool.bucket.description = Kanda wuzuze agace gahujwe k'ibara risa kari munsi y'a
 tool.bucket.option.contiguous = Bihurirana
 tool.bucket.option.all_layers = Inzego zose
 tool.bucket.history.fill = Indobo y'irangi
+
+tool.brush.symmetry = Uburinganire
+tool.brush.seamless_preview = Igaragazambere ry'ishusho idafite ingingo

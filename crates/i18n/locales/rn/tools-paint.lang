@@ -81,3 +81,6 @@ tool.bucket.description = Kanda wuzuze akarere gafatanye gafise ibara risa n'iri
 tool.bucket.option.contiguous = Bifatanye
 tool.bucket.option.all_layers = Inzego zose
 tool.bucket.history.fill = Indobo y'irangi
+
+tool.brush.symmetry = Uburinganire
+tool.brush.seamless_preview = Kwerekana imbere ishusho idafise imfatanyo

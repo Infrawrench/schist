@@ -60,3 +60,6 @@ tool.bucket.description = पॉइंटर के नीचे समान �
 tool.bucket.option.contiguous = संलग्न
 tool.bucket.option.all_layers = सभी लेयर
 tool.bucket.history.fill = पेंट बकेट
+
+tool.brush.symmetry = सममिति
+tool.brush.seamless_preview = निर्बाध टाइल पूर्वावलोकन

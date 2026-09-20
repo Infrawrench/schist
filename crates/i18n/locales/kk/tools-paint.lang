@@ -70,3 +70,6 @@ tool.bucket.description = Құралдың төзімділік шегінде �
 tool.bucket.option.contiguous = Тұтасқан
 tool.bucket.option.all_layers = Барлық қабаттар
 tool.bucket.history.fill = Бояу шелегі
+
+tool.brush.symmetry = Симметрия
+tool.brush.seamless_preview = Жіксіз өрнекті алдын ала қарау

@@ -60,3 +60,6 @@ tool.bucket.description = ຄລິກເພື່ອເທສີດ້ານໜ
 tool.bucket.option.contiguous = ຕິດກັນ
 tool.bucket.option.all_layers = ທຸກເລເຢີ
 tool.bucket.history.fill = ຕື່ມດ້ວຍຖັງສີ
+
+tool.brush.symmetry = ສົມມາດ
+tool.brush.seamless_preview = ຕົວຢ່າງລວດລາຍແບບບໍ່ມີຮອຍຕໍ່

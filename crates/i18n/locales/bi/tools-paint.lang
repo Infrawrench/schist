@@ -60,3 +60,6 @@ tool.bucket.description = Klik blong fulumap eria we i joen mo kala i sem mak lo
 tool.bucket.option.contiguous = Ol Eria we Oli Joen
 tool.bucket.option.all_layers = Evri Layer
 tool.bucket.history.fill = Baket blong Pent
+
+tool.brush.symmetry = Simetri
+tool.brush.seamless_preview = Luk fastaem long paten we i no gat joen

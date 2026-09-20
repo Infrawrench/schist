@@ -60,3 +60,6 @@ tool.bucket.description = Кликнете за поврзаната облас�
 tool.bucket.option.contiguous = Поврзано
 tool.bucket.option.all_layers = Сите слоеви
 tool.bucket.history.fill = Кофа со боја
+
+tool.brush.symmetry = Симетрија
+tool.brush.seamless_preview = Преглед на бесшевна шара

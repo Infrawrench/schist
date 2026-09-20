@@ -70,3 +70,6 @@ tool.bucket.description = Tshikilela ku tata ndhawu leyi hlanganeke ya muhlovo l
 tool.bucket.option.contiguous = Swi hlanganile
 tool.bucket.option.all_layers = Maleyara hinkwawo
 tool.bucket.history.fill = Bakiti ya pende
+
+tool.brush.symmetry = Ndzinganiso
+tool.brush.seamless_preview = Ku languta ka matayili lama nga riki na mirhungo

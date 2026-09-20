@@ -78,3 +78,6 @@ tool.bucket.description = Noklikšķiniet, lai rīka pielaides robežās aizpild
 tool.bucket.option.contiguous = Blakusesošs
 tool.bucket.option.all_layers = Visi slāņi
 tool.bucket.history.fill = Krāsas spainis
+
+tool.brush.symmetry = Simetrija
+tool.brush.seamless_preview = Bezšuvju raksta priekšskatījums

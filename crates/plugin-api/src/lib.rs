@@ -12,6 +12,9 @@ use schist_core::{Document, IntRect};
 
 pub use registry::{PluginManifest, PluginRegistry};
 
+pub mod symmetry;
+pub use symmetry::{PaintSymmetry, SymmetryMode, SymmetryTransform};
+
 pub mod brush;
 pub use brush::{BrushBitmap, BrushDynamics, BrushPreset, BrushTip};
 
@@ -65,6 +68,12 @@ pub struct EditorState {
     pub brush_bitmap: Option<std::sync::Arc<BrushBitmap>>,
     /// Current event pen tilt in document-axis degrees; None without tilt data.
     pub pen_tilt: Option<[f32; 2]>,
+
+pub paint_symmetry: PaintSymmetry,
+    /// Place/drag the symmetry centre instead of painting.
+    pub symmetry_positioning: bool,
+    /// Repeat the canvas in the viewport and wrap brush, pencil and eraser dabs.
+    pub seamless_painting: bool,
     /// Tool opacity (digit keys), 0.0..=1.0.
     pub tool_opacity: f32,
     pub active_tool: &'static str,
@@ -104,6 +113,10 @@ impl Default for EditorState {
             brush_dynamics: BrushDynamics::default(),
             brush_bitmap: None,
             pen_tilt: None,
+
+paint_symmetry: PaintSymmetry::default(),
+            symmetry_positioning: false,
+            seamless_painting: false,
             tool_opacity: 1.0,
             active_tool: "move",
             clipboard: None,

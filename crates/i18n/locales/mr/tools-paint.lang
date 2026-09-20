@@ -60,3 +60,6 @@ tool.bucket.description = साधनाच्या सहनशीलते�
 tool.bucket.option.contiguous = सलग
 tool.bucket.option.all_layers = सर्व स्तर
 tool.bucket.history.fill = रंग बादली
+
+tool.brush.symmetry = सममिती
+tool.brush.seamless_preview = अखंड टाइल पूर्वावलोकन

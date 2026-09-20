@@ -60,3 +60,6 @@ tool.bucket.description = ਟੂਲ ਦੀ ਸਹਿਣਸ਼ੀਲਤਾ ਅੰ
 tool.bucket.option.contiguous = ਲਗਾਤਾਰ
 tool.bucket.option.all_layers = ਸਾਰੀਆਂ ਲੇਅਰਾਂ
 tool.bucket.history.fill = ਰੰਗ ਬਾਲਟੀ
+
+tool.brush.symmetry = ਸਮਮਿਤੀ
+tool.brush.seamless_preview = ਸਹਿਜ ਟਾਇਲ ਝਲਕ

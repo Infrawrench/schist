@@ -70,3 +70,6 @@ tool.bucket.description = Kliknite, da v okviru tolerance orodja povezano območ
 tool.bucket.option.contiguous = Stično
 tool.bucket.option.all_layers = Vse plasti
 tool.bucket.history.fill = Vedro za barvo
+
+tool.brush.symmetry = Simetrija
+tool.brush.seamless_preview = Predogled brezšivnega vzorca

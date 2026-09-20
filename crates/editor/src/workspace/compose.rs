@@ -93,6 +93,7 @@ impl Workspace {
             color_epoch: self.color_epoch,
             rotation: self.rotation.to_bits(),
             surround: crate::ui::palette().canvas_bg,
+            seamless: self.editor.seamless_painting,
         };
         // Even a cache hit or an empty view supersedes an in-flight frame.
         #[cfg(target_arch = "wasm32")]
@@ -108,7 +109,18 @@ impl Workspace {
         // Which document pixels can land on screen?
         let zoom = self.zoom;
         let origin = (f32::from(self.offset.x) * sf, f32::from(self.offset.y) * sf);
-        let visible = self.visible_doc_rect(width, height, sf, canvas_rect);
+        let regions = if key.seamless {
+            let span = self.visible_doc_rect(
+                width,
+                height,
+                sf,
+                IntRect::new(i32::MIN, i32::MIN, i32::MAX, i32::MAX),
+            );
+            schist_compositor::viewport::periodic_regions(span, canvas_rect)
+        } else {
+            vec![self.visible_doc_rect(width, height, sf, canvas_rect)]
+        };
+        let visible = regions.iter().fold(IntRect::EMPTY, |a, b| a.union(b));
         if visible.is_empty() {
             // Nothing but background: a 1x1 image keeps the paint path simple.
             let s = (key.surround & 0xFF) as u8;
@@ -122,21 +134,29 @@ impl Workspace {
 
         // Composite the visible tiles, then index them by grid position so
         // sampling is an array lookup rather than a hash per pixel.
-        let coords: Vec<TileCoord> = TileCoord::covering(&visible).collect();
-        #[cfg(target_arch = "wasm32")]
-        if self.queue_browser_viewport(key, visible, &coords, sf, _cx) {
-            return self.viewport_image.as_ref().map(|(_, image)| image.clone());
-        }
-        if let Some(doc) = self.doc.as_ref() {
-            self.cache.prewarm(doc, &coords);
-        }
         let (tx0, ty0) = (
             visible.left.div_euclid(TILE_SIZE),
             visible.top.div_euclid(TILE_SIZE),
         );
         let cols = ((visible.right - 1).div_euclid(TILE_SIZE) - tx0 + 1).max(1) as usize;
         let rows = ((visible.bottom - 1).div_euclid(TILE_SIZE) - ty0 + 1).max(1) as usize;
-        let mut grid: Vec<Option<Arc<Vec<u8>>>> = vec![None; cols * rows];
+        // A repeated view can touch opposite corners of a huge document.
+        // Bound the sparse slot table before allocating it.
+        let slots = cols.checked_mul(rows)?;
+        if slots > 4 * 1024 * 1024 {
+            return None;
+        }
+        let mut coords: Vec<TileCoord> = regions.iter().flat_map(TileCoord::covering).collect();
+        coords.sort_unstable_by_key(|c| (c.ty, c.tx));
+        coords.dedup();
+        #[cfg(target_arch = "wasm32")]
+        if !key.seamless && self.queue_browser_viewport(key, visible, &coords, sf, _cx) {
+            return self.viewport_image.as_ref().map(|(_, image)| image.clone());
+        }
+        let mut grid: Vec<Option<Arc<Vec<u8>>>> = vec![None; slots];
+        if let Some(doc) = self.doc.as_ref() {
+            self.cache.prewarm(doc, &coords);
+        }
         for coord in coords {
             let ix = (coord.ty - ty0) as usize * cols + (coord.tx - tx0) as usize;
             if let Some(slot) = grid.get_mut(ix) {
@@ -165,9 +185,13 @@ impl Workspace {
             grid_rows: rows,
             surround: key.surround,
         };
-        let bgra = schist_compositor::backend()
-            .viewport(&params, &grid)
-            .unwrap_or_else(|| schist_compositor::viewport::render_viewport_cpu(&params, &grid));
+        let bgra = if key.seamless {
+            schist_compositor::viewport::render_viewport_periodic_cpu(&params, &grid)
+        } else {
+            schist_compositor::backend()
+                .viewport(&params, &grid)
+                .unwrap_or_else(|| schist_compositor::viewport::render_viewport_cpu(&params, &grid))
+        };
 
         let buffer = image::RgbaImage::from_raw(width as u32, height as u32, bgra)?;
         let img = Arc::new(RenderImage::new(smallvec![image::Frame::new(buffer)]));
@@ -205,7 +229,8 @@ impl Workspace {
         let height = (f32::from(bounds.size.height) * sf).round().max(1.0) as u32;
         // Reuse is only sound when everything but zoom and pan matches
         // what the image was built for.
-        if key.revision != doc.revision
+        if key.seamless != self.editor.seamless_painting
+            || key.revision != doc.revision
             || key.size != (width, height)
             || key.color_epoch != self.color_epoch
             || key.rotation != self.rotation.to_bits()

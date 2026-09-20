@@ -83,3 +83,6 @@ tool.bucket.description = Klicka för att fylla det sammanhängande området med
 tool.bucket.option.contiguous = Angränsande
 tool.bucket.option.all_layers = Alla lager
 tool.bucket.history.fill = Färgpyts
+
+tool.brush.symmetry = Symmetri
+tool.brush.seamless_preview = Sömlös mönsterförhandsvisning

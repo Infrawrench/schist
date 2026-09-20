@@ -70,3 +70,6 @@ tool.bucket.description = Kliknite kako biste povezano područje slične boje is
 tool.bucket.option.contiguous = Susjedno
 tool.bucket.option.all_layers = Svi slojevi
 tool.bucket.history.fill = Kanta s bojom
+
+tool.brush.symmetry = Simetrija
+tool.brush.seamless_preview = Pregled uzorka bez šavova

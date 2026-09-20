@@ -60,3 +60,6 @@ tool.bucket.description = Bës ngir feesal gox bi jokkoo te am melo mu jege melo
 tool.bucket.option.contiguous = Jokkoo
 tool.bucket.option.all_layers = Couche yépp
 tool.bucket.history.fill = Seelu pintur
+
+tool.brush.symmetry = Yemale
+tool.brush.seamless_preview = Xoolug njëkk bu motif bu amul dog

@@ -60,3 +60,6 @@ tool.bucket.description = Bitikîne da ku herêma girêdayî ya rengê di bin n�
 tool.bucket.option.contiguous = Li Pey Hev
 tool.bucket.option.all_layers = Hemû Layer
 tool.bucket.history.fill = Satila Boyaxê
+
+tool.brush.symmetry = Sîmetrî
+tool.brush.seamless_preview = Pêşdîtina nexşeya bê dirûn

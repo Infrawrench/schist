@@ -61,3 +61,6 @@ tool.bucket.description = Klikoni për ta përmbytur zonën e bashkëlidhur me n
 tool.bucket.option.contiguous = E bashkëlidhur
 tool.bucket.option.all_layers = Të gjitha shtresat
 tool.bucket.history.fill = Kovë boje
+
+tool.brush.symmetry = Simetri
+tool.brush.seamless_preview = Parapamje e modelit pa ndërprerje

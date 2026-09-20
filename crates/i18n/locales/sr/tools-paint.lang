@@ -71,3 +71,6 @@ tool.bucket.description = Кликните да бојом предњег пла
 tool.bucket.option.contiguous = Суседно
 tool.bucket.option.all_layers = Сви слојеви
 tool.bucket.history.fill = Канта са бојом
+
+tool.brush.symmetry = Симетрија
+tool.brush.seamless_preview = Преглед узорка без шавова

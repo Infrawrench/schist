@@ -86,3 +86,6 @@ tool.bucket.description = Klik untuk memenuhi kawasan bersambung yang mempunyai 
 tool.bucket.option.contiguous = Bersambung
 tool.bucket.option.all_layers = Semua Lapisan
 tool.bucket.history.fill = Baldi Cat
+
+tool.brush.symmetry = Simetri
+tool.brush.seamless_preview = Pratonton jubin lancar

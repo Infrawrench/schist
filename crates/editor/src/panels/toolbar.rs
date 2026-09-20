@@ -69,6 +69,7 @@ pub fn tool_options_bar(
     if is_paint {
         bar = bar
             .child(super::brushes::brush_controls(ws, cx))
+            .child(super::symmetry::controls(ws, cx))
             .child(option_slider(
                 &mut bar_sliders,
                 "opt-size",

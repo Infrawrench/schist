@@ -13,6 +13,7 @@ pub(super) struct ViewportKey {
     /// The surround outside the document is baked into the image, so a
     /// theme change must invalidate it.
     pub surround: u32,
+    pub seamless: bool,
 }
 
 #[cfg(any(target_arch = "wasm32", test))]
@@ -44,6 +45,7 @@ mod tests {
             color_epoch: 0,
             rotation: 0.0f32.to_bits(),
             surround: 0x343434,
+            seamless: false,
         }
     }
 
@@ -81,6 +83,10 @@ mod tests {
         let completed = frame(1);
         let requested = frame(2);
         for changed in [
+            ViewportKey {
+                seamless: true,
+                ..requested
+            },
             ViewportKey {
                 zoom: 2.0f32.to_bits(),
                 ..requested

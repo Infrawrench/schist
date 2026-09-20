@@ -60,3 +60,6 @@ tool.bucket.description = Naannoo walqabataa halluun isaa wal fakkaatu kan agars
 tool.bucket.option.contiguous = Wal Qabataa
 tool.bucket.option.all_layers = Laayaroota Hunda
 tool.bucket.history.fill = Baaldii Halluu
+
+tool.brush.symmetry = Walsimannaa
+tool.brush.seamless_preview = Durargii fakkii walitti fufiinsaa

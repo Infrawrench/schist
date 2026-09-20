@@ -60,3 +60,6 @@ tool.bucket.description = సాధనం సహన పరిమితిలో,
 tool.bucket.option.contiguous = ఆనుకుని ఉన్నవి
 tool.bucket.option.all_layers = అన్ని లేయర్లు
 tool.bucket.history.fill = రంగు బకెట్
+
+tool.brush.symmetry = సౌష్టవం
+tool.brush.seamless_preview = అంతరాయం లేని టైల్ ముందస్తు వీక్షణ

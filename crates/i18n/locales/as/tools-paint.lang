@@ -86,3 +86,6 @@ tool.bucket.description = সঁজুলিটোৰ সহনসীমাৰ �
 tool.bucket.option.contiguous = সংলগ্ন
 tool.bucket.option.all_layers = সকলো স্তৰ
 tool.bucket.history.fill = ৰঙৰ বাল্টি
+
+tool.brush.symmetry = প্ৰতিসাম্য
+tool.brush.seamless_preview = নিৰৱচ্ছিন্ন টাইল পূৰ্বদৰ্শন

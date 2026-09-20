@@ -645,3 +645,17 @@ check-richer-brushes-web:
 .PHONY: lint-richer-brushes
 lint-richer-brushes:
 	$(CARGO) clippy -p schist-plugin-api -p schist-app-settings -p schist-tools-paint -p schist-editor -p schist-app-platform --all-targets -- -D warnings
+
+.PHONY: check-symmetry test-symmetry fmt-symmetry
+check-symmetry:
+	$(CARGO) check -p schist-editor -p schist-tools-paint -p schist-compositor -p schist-plugin-api --all-targets
+test-symmetry:
+	$(CARGO) test -p schist-tools-paint -p schist-plugin-api -p schist-compositor
+	$(CARGO) test -p schist-editor --lib viewport_frame
+fmt-symmetry:
+	rustfmt --edition 2021 crates/plugin-api/src/symmetry.rs crates/editor/src/panels/symmetry.rs plugins/tools-paint/src/lib.rs crates/compositor/src/viewport.rs crates/editor/src/workspace/compose.rs crates/editor/src/workspace/viewport_frame.rs crates/editor/src/workspace/render.rs plugins/tools-paint/tests/symmetry_workflows.rs crates/compositor/tests/viewport_periodic.rs
+
+.PHONY: check-symmetry-i18n
+check-symmetry-i18n:
+	python3 tools/check-i18n.py
+	python3 tools/sync-i18n.py --check

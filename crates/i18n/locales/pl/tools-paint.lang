@@ -81,3 +81,6 @@ tool.bucket.description = Kliknij, aby zalać połączony obszar o podobnym kolo
 tool.bucket.option.contiguous = Ciągłe
 tool.bucket.option.all_layers = Wszystkie warstwy
 tool.bucket.history.fill = Wiadro z farbą
+
+tool.brush.symmetry = Symetria
+tool.brush.seamless_preview = Podgląd bezszwowego wzoru

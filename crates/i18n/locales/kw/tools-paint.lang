@@ -60,3 +60,6 @@ tool.bucket.description = Klyckya rag leunhe an ran keskelmys a liw hevel yn-dan
 tool.bucket.option.contiguous = Keskelmys
 tool.bucket.option.all_layers = Oll an Gwiskow
 tool.bucket.history.fill = Kibel Paynt
+
+tool.brush.symmetry = Kemparuster
+tool.brush.seamless_preview = Ragwolok a batron heb junyans

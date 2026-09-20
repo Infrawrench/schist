@@ -86,3 +86,6 @@ tool.bucket.description = クリックすると、ポインターの下にある
 tool.bucket.option.contiguous = 隣接
 tool.bucket.option.all_layers = 全レイヤーを対象
 tool.bucket.history.fill = 塗りつぶしツール
+
+tool.brush.symmetry = 対称
+tool.brush.seamless_preview = シームレスなタイルプレビュー

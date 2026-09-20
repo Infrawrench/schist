@@ -71,3 +71,6 @@ tool.bucket.description = Klickt, fir de verbonne Beräich mat änlecher Faarf �
 tool.bucket.option.contiguous = Zesummenhängend
 tool.bucket.option.all_layers = All Ebenen
 tool.bucket.history.fill = Faarfeemer
+
+tool.brush.symmetry = Symmetrie
+tool.brush.seamless_preview = Virschau vum nahtlose Muster

@@ -72,3 +72,6 @@ tool.bucket.description = Cliccate per innundà di culore di primu pianu a zona 
 tool.bucket.option.contiguous = Cunfinante
 tool.bucket.option.all_layers = Tutti i strati
 tool.bucket.history.fill = Sechju di pittura
+
+tool.brush.symmetry = Simmetria
+tool.brush.seamless_preview = Anteprima di mutivu senza ghjunture

@@ -60,3 +60,6 @@ tool.bucket.description = Jipede ñan kūt jikin ko rej koba ippān doon im ejej
 tool.bucket.option.contiguous = Rej koba ippān doon
 tool.bucket.option.all_layers = Aolep Layer ko
 tool.bucket.history.fill = Paint Bucket
+
+tool.brush.symmetry = Simetri
+tool.brush.seamless_preview = Lale mokta naan kein ilo juon wōt

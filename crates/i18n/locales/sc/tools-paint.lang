@@ -81,3 +81,6 @@ tool.bucket.description = Incarca pro pr√®nnere cun su colore de primu pianu s'√
 tool.bucket.option.contiguous = Sighidu
 tool.bucket.option.all_layers = Totu is istratos
 tool.bucket.history.fill = Bidone de pintura
+
+tool.brush.symmetry = Simmetria
+tool.brush.seamless_preview = Anteprima de motivu chene giunturas

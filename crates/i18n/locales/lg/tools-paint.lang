@@ -81,3 +81,6 @@ tool.bucket.description = Nyiga okujjuza ekitundu ekikwatagana ekya langi efaana
 tool.bucket.option.contiguous = Ebikwatagana
 tool.bucket.option.all_layers = Layers zonna
 tool.bucket.history.fill = Bbakeeti ya langi
+
+tool.brush.symmetry = Okwenkanankana
+tool.brush.seamless_preview = Okulaba okusooka okw'omusono ogutaliiko nnyingo

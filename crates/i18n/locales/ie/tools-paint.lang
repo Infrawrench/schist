@@ -61,3 +61,6 @@ tool.bucket.description = Clicca por plenar li conex area de simil color sub li 
 tool.bucket.option.contiguous = Contigui
 tool.bucket.option.all_layers = Omni strates
 tool.bucket.history.fill = Situl de pictura
+
+tool.brush.symmetry = Simetrie
+tool.brush.seamless_preview = Prevision del motive sin junturas

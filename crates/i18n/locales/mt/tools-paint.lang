@@ -61,3 +61,6 @@ tool.bucket.description = Ikklikkja biex timla ż-żona magħquda ta' kulur simi
 tool.bucket.option.contiguous = Kontigwa
 tool.bucket.option.all_layers = Is-Saffi Kollha
 tool.bucket.history.fill = Barmil taż-Żebgħa
+
+tool.brush.symmetry = Simetrija
+tool.brush.seamless_preview = Previżjoni ta’ madum mingħajr ħjatat

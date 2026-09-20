@@ -70,3 +70,6 @@ tool.bucket.description = Chafata kuze ugcwalise indzawo lehlanganako yembala lo
 tool.bucket.option.contiguous = Lokuhlanganako
 tool.bucket.option.all_layers = Tonkhe Tinhlaka
 tool.bucket.history.fill = Libhakede Lapende
+
+tool.brush.symmetry = Kulingana
+tool.brush.seamless_preview = Kubuka iphethini lengenamthungo kusengaphambili

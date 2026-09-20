@@ -61,3 +61,6 @@ tool.bucket.description = Alətin dözümlülük həddi daxilində göstəricini
 tool.bucket.option.contiguous = Bitişik
 tool.bucket.option.all_layers = Bütün qatlar
 tool.bucket.history.fill = Boya vedrəsi
+
+tool.brush.symmetry = Simmetriya
+tool.brush.seamless_preview = Tikişsiz naxışa önbaxış

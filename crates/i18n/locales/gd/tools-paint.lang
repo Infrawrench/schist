@@ -60,3 +60,6 @@ tool.bucket.description = Briog gus an raon leantainneach fon tomhaire aig a bhe
 tool.bucket.option.contiguous = Leantainneach
 tool.bucket.option.all_layers = Na breathan uile
 tool.bucket.history.fill = Bucaid peanta
+
+tool.brush.symmetry = Co-chothromachd
+tool.brush.seamless_preview = Ro-shealladh air pàtran gun alt

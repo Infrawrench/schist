@@ -60,3 +60,6 @@ tool.bucket.description = Kattintással árassza el a mutató alatti, összefüg
 tool.bucket.option.contiguous = Összefüggő
 tool.bucket.option.all_layers = Minden réteg
 tool.bucket.history.fill = Festékesvödör
+
+tool.brush.symmetry = Szimmetria
+tool.brush.seamless_preview = Varratmentes minta előnézete

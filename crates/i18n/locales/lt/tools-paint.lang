@@ -70,3 +70,6 @@ tool.bucket.description = Spustelėkite, kad pagal įrankio nuokrypį priekinio 
 tool.bucket.option.contiguous = Gretima sritis
 tool.bucket.option.all_layers = Visi sluoksniai
 tool.bucket.history.fill = Dažų kibirėlis
+
+tool.brush.symmetry = Simetrija
+tool.brush.seamless_preview = Besiūlio rašto peržiūra

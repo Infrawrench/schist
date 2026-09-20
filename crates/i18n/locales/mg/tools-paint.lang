@@ -60,3 +60,6 @@ tool.bucket.description = Tsindrio hamenoana ny faritra mifampitohy sy mitovy lo
 tool.bucket.option.contiguous = Mifampitohy
 tool.bucket.option.all_layers = Sosona rehetra
 tool.bucket.history.fill = Siny fandokoana
+
+tool.brush.symmetry = Simetria
+tool.brush.seamless_preview = Topi-maso amin'ny lamina tsy misy tonon-taolana

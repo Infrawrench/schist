@@ -60,3 +60,6 @@ tool.bucket.description = Хүлцлийн хүрээнд заагчийн до�
 tool.bucket.option.contiguous = Залгаа
 tool.bucket.option.all_layers = Бүх давхарга
 tool.bucket.history.fill = Будгийн хувин
+
+tool.brush.symmetry = Тэгш хэм
+tool.brush.seamless_preview = Зааггүй хээг урьдчилан харах
