@@ -70,7 +70,6 @@ pub(super) fn color_panel(ws: &mut Workspace, cx: &mut Context<Workspace>) -> im
             }),
         )
         .child(native_channels(ws, cx))
-        .child(spot_channels(ws, cx))
         .child(swatches)
         .when(ws.palettes.selected().is_none(), |panel| {
             panel.child(div().flex().flex_row().flex_wrap().gap_1().children(
@@ -142,6 +141,7 @@ pub(super) fn color_panel(ws: &mut Workspace, cx: &mut Context<Workspace>) -> im
         )
         // Photoshop's spectrum bar: drag along it to take a hue directly.
         .child(crate::color_picker::hue_ramp(ws, cx))
+        .child(spot_channels(ws, cx))
 }
 
 fn palette_controls(ws: &Workspace, cx: &mut Context<Workspace>) -> impl IntoElement {
@@ -400,9 +400,9 @@ fn spot_channels(ws: &Workspace, cx: &mut Context<Workspace>) -> impl IntoElemen
         .flex()
         .flex_col()
         .gap_2()
-        .pb_2()
-        .mb_1()
-        .border_b_1()
+        .pt_2()
+        .mt_2()
+        .border_t_1()
         .border_color(gpui::rgb(palette().divider));
     let Some(doc) = &ws.doc else { return div() };
     let spots: Vec<_> = doc
