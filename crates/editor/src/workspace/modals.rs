@@ -3,6 +3,11 @@
 use super::*;
 use crate::ui;
 
+fn modal_enter_confirms(field: Option<&str>, key: &str, mods: gpui::Modifiers) -> bool {
+    key == "enter"
+        && !(field == Some("metadata-caption") && mods.shift && !mods.platform && !mods.control)
+}
+
 impl Workspace {
     // ----- modals and numeric fields -----
 
@@ -348,6 +353,37 @@ impl Workspace {
             return false;
         };
         action(self, window, cx);
+        true
+    }
+
+    /// Route dialog keys consistently in the editor, gallery and cloud views.
+    /// The multiline caption owns Shift+Enter; ordinary Enter saves the dialog.
+    pub(super) fn modal_key(
+        &mut self,
+        ev: &gpui::KeyDownEvent,
+        window: &mut gpui::Window,
+        cx: &mut Context<Self>,
+    ) -> bool {
+        if self.modal.is_none() {
+            return false;
+        }
+        if modal_enter_confirms(
+            self.focused_field,
+            &ev.keystroke.key,
+            ev.keystroke.modifiers,
+        ) {
+            self.commit_focused_field();
+            self.confirm_modal(window, cx);
+        } else {
+            self.field_key(
+                &ev.keystroke.key,
+                ev.keystroke.key_char.as_deref(),
+                ev.keystroke.modifiers,
+                cx,
+            );
+        }
+        cx.notify();
+        cx.stop_propagation();
         true
     }
 
@@ -984,5 +1020,68 @@ impl Workspace {
             tool.on_cancel(&mut ctx);
         }
         self.after_change(cx);
+    }
+}
+
+#[cfg(test)]
+mod metadata_keyboard_tests {
+    use super::modal_enter_confirms;
+
+    #[test]
+    fn metadata_caption_shift_enter_does_not_save_the_dialog() {
+        let shift = gpui::Modifiers {
+            shift: true,
+            ..Default::default()
+        };
+        assert!(!modal_enter_confirms(
+            Some("metadata-caption"),
+            "enter",
+            shift
+        ));
+        // The ordinary Save shortcut must still work, including after the
+        // caption has inserted a newline and retained keyboard focus.
+        assert!(modal_enter_confirms(
+            Some("metadata-caption"),
+            "enter",
+            Default::default()
+        ));
+        assert!(!modal_enter_confirms(
+            Some("metadata-caption"),
+            "a",
+            Default::default()
+        ));
+        assert!(!modal_enter_confirms(
+            Some("metadata-caption"),
+            "tab",
+            shift
+        ));
+    }
+
+    #[test]
+    fn metadata_caption_exception_does_not_change_other_save_shortcuts() {
+        let shift = gpui::Modifiers {
+            shift: true,
+            ..Default::default()
+        };
+        for field in [None, Some("metadata-keywords"), Some("new-doc-name")] {
+            assert!(modal_enter_confirms(field, "enter", shift));
+            assert!(modal_enter_confirms(field, "enter", Default::default()));
+        }
+        for mods in [
+            gpui::Modifiers {
+                control: true,
+                ..shift
+            },
+            gpui::Modifiers {
+                platform: true,
+                ..shift
+            },
+        ] {
+            assert!(modal_enter_confirms(
+                Some("metadata-caption"),
+                "enter",
+                mods
+            ));
+        }
     }
 }

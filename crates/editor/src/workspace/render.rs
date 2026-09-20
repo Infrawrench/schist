@@ -430,25 +430,7 @@ impl Workspace {
                     cx.stop_propagation();
                     return;
                 }
-                if ws.modal.is_some() {
-                    match ev.keystroke.key.as_str() {
-                        // Enter is the dialog's primary button, which is
-                        // the only way to reach OK without the mouse.
-                        "enter" => {
-                            ws.commit_focused_field();
-                            ws.confirm_modal(window, cx);
-                        }
-                        key => {
-                            ws.field_key(
-                                key,
-                                ev.keystroke.key_char.as_deref(),
-                                ev.keystroke.modifiers,
-                                cx,
-                            );
-                        }
-                    }
-                    cx.notify();
-                    cx.stop_propagation();
+                if ws.modal_key(ev, window, cx) {
                     return;
                 }
                 if ws.type_field_key(ev, cx)

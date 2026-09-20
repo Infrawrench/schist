@@ -150,25 +150,8 @@ impl Workspace {
             .on_key_down(cx.listener(|ws, ev: &gpui::KeyDownEvent, window, cx| {
                 // A dialog over the gallery owns the keyboard, exactly
                 // as the editor body arranges for its own dialogs:
-                // Enter fires the primary button, everything else goes
-                // to the focused field.
-                if ws.modal.is_some() {
-                    match ev.keystroke.key.as_str() {
-                        "enter" => {
-                            ws.commit_focused_field();
-                            ws.confirm_modal(window, cx);
-                        }
-                        key => {
-                            ws.field_key(
-                                key,
-                                ev.keystroke.key_char.as_deref(),
-                                ev.keystroke.modifiers,
-                                cx,
-                            );
-                        }
-                    }
-                    cx.notify();
-                    cx.stop_propagation();
+                // multiline field shortcuts stay with their field.
+                if ws.modal_key(ev, window, cx) {
                     return;
                 }
                 if ws.gallery_key(ev, cx) {
