@@ -210,6 +210,12 @@ fn center_placement_is_a_draggable_cancelable_view_operation() {
     tool.on_pointer_up(&mut ctx, input(24.0, 40.0, 1.0));
     assert!(!ctx.state.symmetry_positioning);
     assert_eq!(ctx.state.paint_symmetry.center_pixels(64, 64), [24.0, 40.0]);
+    assert!(tool
+        .overlays(ctx.doc, ctx.state)
+        .iter()
+        .any(|overlay| matches!(overlay,
+        schist_plugin_api::Overlay::GuideLine { x1, y1, x2, y2 }
+        if (*x1, *y1, *x2, *y2) == (24.0, 0.0, 24.0, 64.0))));
     assert!(!doc.history.can_undo());
     paint(&mut doc, &mut state, "brush", &[input(20.0, 20.0, 1.0)]);
     assert!(alpha(&doc, 28, 20) > 0, "reflection follows the moved axis");
