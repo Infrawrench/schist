@@ -11,7 +11,9 @@ from pathlib import Path
 from psd_tools import PSDImage
 from psd_tools.constants import Resource
 
-for path in sorted(Path(sys.argv[1]).glob("spot-*.*")):
+paths = sorted(Path(sys.argv[1]).glob("spot-*.*"))
+assert len(paths) == 6, f"Expected six probe files, found {len(paths)}"
+for path in paths:
     psd = PSDImage.open(path)
     assert psd.size == (3, 1)
     names = psd.image_resources.get_data(Resource.ALPHA_NAMES_UNICODE)
