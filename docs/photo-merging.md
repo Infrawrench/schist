@@ -2,8 +2,10 @@
 
 On native builds, open the source photos in separate document tabs, then choose
 **Image → Merge Photos…**. Select between two and sixteen documents. The dialog
-uses snapshots of their visible composites, including unsaved edits; a successful
-operation opens a new, unsaved, 32-bit RGB document. All input tabs and their undo
+uses snapshots of the process-color composites of visible layers, including
+unsaved edits. Editing overlays, print-separation views and overprint previews
+are excluded. A successful operation opens a new, unsaved, 32-bit RGB document.
+All input tabs and their undo
 histories remain intact. Closing the dialog or pressing Cancel abandons the job.
 Compositing, registration and output construction run on the background executor.
 

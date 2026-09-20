@@ -24,7 +24,7 @@ fn scene(width: u32, height: u32, ox: i32, oy: i32) -> Image {
 fn registers_positive_and_negative_translation_with_different_dimensions_and_exposure() {
     let a = scene(180, 145, 0, 0);
     let mut b = scene(162, 138, 17, -9);
-    for p in b.rgba.chunks_exact_mut(4) {
+    for p in b.rgba.as_chunks_mut::<4>().0 {
         for v in &mut p[..3] {
             *v = *v * 0.63 + 0.07;
         }
@@ -70,8 +70,10 @@ fn panorama_registers_sequential_overlap_and_reconstructs_scene() {
     let expected = scene(329, 115, 0, -2);
     for (got, want) in result
         .rgba
-        .chunks_exact(4)
-        .zip(expected.rgba.chunks_exact(4))
+        .as_chunks::<4>()
+        .0
+        .iter()
+        .zip(expected.rgba.as_chunks::<4>().0.iter())
     {
         if got[3] > 0.0 {
             for c in 0..3 {
@@ -216,10 +218,10 @@ fn rejects_blank_unrelated_and_invalid_inputs_and_honors_cancellation() {
 fn transparent_inputs_do_not_contribute_to_panorama_or_hdr() {
     let mut a = scene(20, 10, 0, 0);
     let mut b = a.clone();
-    for p in a.rgba.chunks_exact_mut(4) {
+    for p in a.rgba.as_chunks_mut::<4>().0 {
         p[3] = 0.0;
     }
-    for p in b.rgba.chunks_exact_mut(4) {
+    for p in b.rgba.as_chunks_mut::<4>().0 {
         p[3] = 0.5;
     }
     let result = merge(
@@ -252,7 +254,7 @@ fn transparent_inputs_do_not_contribute_to_panorama_or_hdr() {
 fn panorama_feathers_disagreement_in_linear_light() {
     let a = scene(100, 70, 0, 0);
     let mut b = scene(100, 70, 30, 0);
-    for p in b.rgba.chunks_exact_mut(4) {
+    for p in b.rgba.as_chunks_mut::<4>().0 {
         for v in &mut p[..3] {
             *v *= 0.8;
         }
@@ -302,7 +304,7 @@ fn flat_focus_ties_keep_the_more_opaque_sample() {
     .unwrap()
     .merged
     .unwrap();
-    assert!(result.rgba.chunks_exact(4).all(|p| p[3] == 1.0));
+    assert!(result.rgba.as_chunks::<4>().0.iter().all(|p| p[3] == 1.0));
 }
 
 #[test]
@@ -321,7 +323,12 @@ fn checks_budget_shape_and_options_before_work() {
     assert_eq!(bad_buffer.validate(), Err(Error::Invalid));
     let a = scene(8, 8, 0, 0);
     assert_eq!(
-        merge(&[a.clone()], &Options::default(), &Control::default()).unwrap_err(),
+        merge(
+            std::slice::from_ref(&a),
+            &Options::default(),
+            &Control::default()
+        )
+        .unwrap_err(),
         Error::Invalid
     );
     assert_eq!(
@@ -368,13 +375,13 @@ fn registers_clipped_srgb_exposure_brackets() {
     let mut a = scene(180, 140, 0, 0);
     let mut b = scene(180, 140, 13, -7);
     for (image, ev) in [(&mut a, -2.0f32), (&mut b, 2.0f32)] {
-        for p in image.rgba.chunks_exact_mut(4) {
+        for p in image.rgba.as_chunks_mut::<4>().0 {
             for value in &mut p[..3] {
                 *value = linear_to_srgb((srgb_to_linear(*value) * ev.exp2()).min(1.0));
             }
         }
     }
-    assert!(b.rgba.chunks_exact(4).any(|p| p[0] >= 0.999));
+    assert!(b.rgba.as_chunks::<4>().0.iter().any(|p| p[0] >= 0.999));
     assert_eq!(
         register(&a, &b, false, &Control::default()).unwrap().0,
         Offset { x: 13, y: -7 }
