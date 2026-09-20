@@ -9,7 +9,8 @@ field stays unchanged, and a checked empty field clears its value.
 - **Keywords** are separated by semicolons. Saving replaces the keyword list;
   duplicate entries and empty entries are removed.
 - **Caption** and **Copyright** change the default language value. Existing
-  translations in the same XMP language alternative remain intact.
+  translations in the same XMP language alternative remain intact. Captions
+  accept pasted paragraphs; **Shift+Enter** inserts a line break.
 - **Date** accepts a complete ISO date/time, such as
   `2026-09-20T14:30:00`, `2026-09-20T14:30:00Z`, or
   `2026-09-20T14:30:00+02:00`. Calendar dates and timezone offsets are validated.

@@ -683,3 +683,11 @@ check-metadata-catalogs:
 .PHONY: check-metadata-xmp-exiftool
 check-metadata-xmp-exiftool:
 	$(CARGO) test -p schist-gallery xmp_interoperates_with_exiftool -- --ignored
+
+.PHONY: check-metadata-xmp-core check-metadata-xmp-native lint-metadata-xmp
+check-metadata-xmp-core:
+	$(CARGO) test -p schist-gallery xmp
+check-metadata-xmp-native:
+	$(CARGO) check -p schist-editor --all-targets
+lint-metadata-xmp:
+	$(CARGO) clippy -p schist-gallery -p schist-editor --all-targets -- -D warnings

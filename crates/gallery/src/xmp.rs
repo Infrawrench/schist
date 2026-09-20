@@ -124,13 +124,17 @@ fn exact_sidecar(photo: &Path) -> Result<PathBuf> {
     Ok(photo.with_file_name(name))
 }
 
+fn containing_dir(path: &Path) -> &Path {
+    path.parent()
+        .filter(|p| !p.as_os_str().is_empty())
+        .unwrap_or_else(|| Path::new("."))
+}
+
 fn shared_stem(photo: &Path) -> Result<bool> {
-    let dir = photo
-        .parent()
-        .ok_or_else(|| anyhow!("missing photo directory"))?;
+    let dir = containing_dir(photo);
     for item in fs::read_dir(dir)? {
         let path = item?.path();
-        if path == photo || path.file_stem() != photo.file_stem() {
+        if path.file_name() == photo.file_name() || path.file_stem() != photo.file_stem() {
             continue;
         }
         let ext = path
@@ -620,9 +624,7 @@ pub fn write(photo: &Path, patch: &Patch) -> Result<PathBuf> {
     if original.as_deref() == Some(&result) {
         return Ok(path);
     }
-    let parent = path
-        .parent()
-        .ok_or_else(|| anyhow!("missing sidecar directory"))?;
+    let parent = containing_dir(&path);
     let mut tmp = tempfile::NamedTempFile::new_in(parent)?;
     tmp.write_all(result.as_bytes())?;
     if original.is_some() {

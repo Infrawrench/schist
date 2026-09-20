@@ -1,6 +1,6 @@
 //! Selection-aware metadata editing; batches apply only checked fields.
 use super::*;
-use gpui::StatefulInteractiveElement as _;
+use gpui::{prelude::FluentBuilder as _, StatefulInteractiveElement as _};
 use schist_gallery::xmp;
 use schist_i18n::{t, tf, tn};
 
@@ -352,13 +352,16 @@ pub(crate) fn dialog(
                     },
                     cx,
                 )))
-                .child(super::library_view::bucket_field(
-                    IDS[index],
-                    values[index].clone(),
-                    EXAMPLES[index].into(),
-                    ws,
-                    cx,
-                )),
+                .child(
+                    super::library_view::bucket_field(
+                        IDS[index],
+                        values[index].clone(),
+                        EXAMPLES[index].into(),
+                        ws,
+                        cx,
+                    )
+                    .when(index == 1, |field| field.multiline().h(px(64.0))),
+                ),
         );
     }
     body = body.child(

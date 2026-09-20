@@ -422,11 +422,17 @@ impl Workspace {
                 let Some(pasted) = cx.read_from_clipboard().and_then(|item| item.text()) else {
                     return true;
                 };
-                // One line: a pasted paragraph flattens rather than
-                // breaking the field.
+                // Plain fields stay on one line. Photo captions retain
+                // pasted paragraph breaks in their multiline input.
                 let pasted: String = pasted
                     .chars()
-                    .map(|c| if c.is_control() { ' ' } else { c })
+                    .map(|c| {
+                        if c.is_control() && !(id == "metadata-caption" && c == '\n') {
+                            ' '
+                        } else {
+                            c
+                        }
+                    })
                     .collect();
                 self.with_field_edit(|edit| edit.insert(&pasted));
             }
@@ -491,6 +497,9 @@ impl Workspace {
                 self.field_cursor = 0;
                 self.field_anchor = 0;
                 return true;
+            }
+            "enter" if id == "metadata-caption" && shift => {
+                self.with_field_edit(|edit| edit.insert("\n"));
             }
             "enter" | "tab" => {
                 self.commit_field(id);

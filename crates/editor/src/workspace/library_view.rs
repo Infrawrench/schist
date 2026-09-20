@@ -2527,7 +2527,7 @@ pub(super) fn bucket_field(
     placeholder: String,
     ws: &Workspace,
     cx: &mut Context<Workspace>,
-) -> impl IntoElement {
+) -> TextInput {
     let focused = ws.focused_field == Some(id);
     let typed = if focused && !ws.field_buffer.is_empty() {
         ws.field_buffer.clone()
