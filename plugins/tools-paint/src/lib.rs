@@ -462,16 +462,36 @@ impl Stroke {
         } else {
             (cx, cy)
         };
-        for transform in self.symmetry.clone() {
+        for index in 0..self.symmetry.len() {
+            let transform = self.symmetry[index];
             let (x, y) = transform.point(cx, cy);
             if self.seamless && doc.width > 0 && doc.height > 0 {
                 let (w, h) = (doc.width as f32, doc.height as f32);
                 let (x, y) = (x.rem_euclid(w), y.rem_euclid(h));
-                // The nearest periodic copy in each direction is enough
-                // even when a circular dab is larger than the canvas.
-                for oy in [-h, 0.0, h] {
-                    for ox in [-w, 0.0, w] {
-                        self.dab_copy(doc, (x + ox, y + oy), radius, rotation, opacity_pressure, transform);
+                // Round coverage decreases with distance, so the nearest
+                // periodic copies dominate. Textured tips can have opaque
+                // detail farther away: include their entire support.
+                let extent = self.dab_extent(radius);
+                let xs = if self.dynamics.tip == BrushTip::Round {
+                    -1..=1
+                } else {
+                    ((-extent - x) / w).ceil() as i32..=((w + extent - x) / w).floor() as i32
+                };
+                let ys = if self.dynamics.tip == BrushTip::Round {
+                    -1..=1
+                } else {
+                    ((-extent - y) / h).ceil() as i32..=((h + extent - y) / h).floor() as i32
+                };
+                for iy in ys {
+                    for ix in xs.clone() {
+                        self.dab_copy(
+                            doc,
+                            (x + ix as f32 * w, y + iy as f32 * h),
+                            radius,
+                            rotation,
+                            opacity_pressure,
+                            transform,
+                        );
                     }
                 }
             } else {

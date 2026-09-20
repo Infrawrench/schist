@@ -298,3 +298,40 @@ fn positioning_in_a_repeat_places_the_source_center_without_painting() {
     assert!(!ctx.doc.history.can_undo());
     assert!(pixels(ctx.doc).iter().all(|&a| a == 0));
 }
+
+#[test]
+fn large_textured_dabs_match_an_independent_unwrapped_periodic_oracle() {
+    // Paint the complete unwrapped footprint once, then fold all of its
+    // pixels into the source canvas with maximum coverage. Faraway tip
+    // detail must contribute even beyond the nearest nine repetitions.
+    for tip in [BrushTip::Grain, BrushTip::Bristles] {
+        let make_doc = || {
+            let mut doc = Document::new("small pattern", 7, 5, Depth::Eight);
+            let id = doc.push_layer(Layer::new_raster("paint"));
+            doc.active_layer = Some(id);
+            doc
+        };
+        let mut source = make_doc();
+        let mut repeated = make_doc();
+        let mut state = state(SymmetryMode::None);
+        state.brush_size = 120.0;
+        state.brush_hardness = 0.7;
+        state.tool_opacity = 0.6;
+        state.brush_dynamics.tip = tip;
+        let point = input(2.3, 1.7, 0.8);
+        paint(&mut source, &mut state, "brush", &[point]);
+        state.seamless_painting = true;
+        paint(&mut repeated, &mut state, "brush", &[point]);
+        for y in 0..5 {
+            for x in 0..7 {
+                let mut expected = 0;
+                for oy in -12..=12 {
+                    for ox in -12..=12 {
+                        expected = expected.max(alpha(&source, x + ox * 7, y + oy * 5));
+                    }
+                }
+                assert_eq!(alpha(&repeated, x, y), expected, "{tip:?} at {x},{y}");
+            }
+        }
+    }
+}
