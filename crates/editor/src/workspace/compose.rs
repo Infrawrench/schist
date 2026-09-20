@@ -325,7 +325,15 @@ impl Workspace {
             if rect.is_empty() {
                 continue;
             }
-            let rgba = schist_compositor::composite_region_rgba8(doc, rect);
+            let mut rgba = schist_compositor::composite_region_rgba8(doc, rect);
+            if self.color_managed() {
+                let mut managed: Vec<f32> = rgba.iter().map(|&v| v as f32 / 255.0).collect();
+                self.to_display(&mut managed);
+                for (out, value) in rgba.iter_mut().zip(managed) {
+                    *out = schist_color::f32_to_u8(value);
+                }
+            }
+            schist_core::ink::preview_rgba8(&doc.ink_channels, doc.ink_preview, rect, &mut rgba);
             let rw = rect.width() as usize;
             // Point-sample the full-res composite into the preview buffer.
             let px0 = rect.left.div_euclid(step).max(0);

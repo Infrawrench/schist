@@ -12,7 +12,10 @@ plates. Selecting a plate shows its grayscale separation: black is full ink,
 white is no ink. Brush, Pencil, Eraser, the channel **Fill** button and the
 ordinary Fill/Clear commands respect the selection. **Value** sets the ink
 coverage painted or filled; Eraser/Clear remove ink. Strokes are one undo step.
-Other paint/retouch tools are not implemented for spots. Choose the process
+Copy/Cut of a selected spot use its grayscale separation; Paste into a spot
+converts clipboard brightness to inverse ink coverage and respects alpha and the
+selection. The existing clipboard uses 8-bit samples. Copy Merged still copies
+process colors. Other paint/retouch tools are not implemented for spots. Choose the process
 entry or click a layer to resume editing process layers.
 
 Edit the name field and press Enter or **Rename**. **Foreground Color** assigns

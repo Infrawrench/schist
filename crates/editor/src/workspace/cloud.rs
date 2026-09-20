@@ -1760,7 +1760,14 @@ impl Workspace {
             next.active_ink = doc
                 .active_ink
                 .filter(|id| next.ink_channels.iter().any(|c| c.info.id == *id));
-            next.ink_preview = doc.ink_preview;
+            next.ink_preview = match doc.ink_preview {
+                schist_core::InkPreview::Separation(id)
+                    if !next.ink_channels.iter().any(|c| c.info.id == id) =>
+                {
+                    schist_core::InkPreview::Process
+                }
+                preview => preview,
+            };
             next.history_source = std::mem::take(&mut doc.history_source);
             next.selected = doc
                 .selected

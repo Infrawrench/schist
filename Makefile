@@ -733,3 +733,9 @@ verify-spot-psd:
 	python3 tools/check-spot-psd.py $(SPOT_PROBE_DIR)
 test-spot-editor:
 	$(CARGO) test -p schist-editor spot_geometry_tests --lib
+
+.PHONY: fmt-check-spot-ink check-spot-web
+fmt-check-spot-ink:
+	$(CARGO) fmt --all -- --check
+check-spot-web:
+	$(CARGO) check -p schist-editor --target wasm32-unknown-unknown

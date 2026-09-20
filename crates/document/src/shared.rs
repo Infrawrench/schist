@@ -219,6 +219,13 @@ impl SharedDocument {
         Ok(changed.then(|| self.doc.transact().encode_state_as_update_v1(&sv)))
     }
     fn capture(&mut self, source: &Document) -> Result<Fields> {
+        ensure!(
+            source.mode.channels()
+                + usize::from(!source.tree.layers.is_empty())
+                + source.ink_channels.len()
+                <= 56,
+            "Too many document channels"
+        );
         let mut out = Fields::new();
         out.insert(
             "document/size".into(),
@@ -535,6 +542,11 @@ impl SharedDocument {
             Ok(out)
         }
         doc.tree.layers = build("root", &mut places, &mut layers, &mut HashSet::new(), 0)?;
+        ensure!(
+            doc.mode.channels() + usize::from(!doc.tree.layers.is_empty()) + doc.ink_channels.len()
+                <= 56,
+            "Too many document channels"
+        );
         // Concurrent moves can leave an orphan/cycle. Keep those layers visible at root.
         let mut orphan: Vec<_> = layers.into_iter().collect();
         orphan.sort_by(|a, b| a.0.cmp(&b.0));
