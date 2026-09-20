@@ -4464,7 +4464,12 @@ mod tests {
         assert_eq!(lib.photo_count(), 0);
         for group in [GroupBy::Folder, GroupBy::Date, GroupBy::Place] {
             lib.group_by = group;
-            assert!(lib.grouped().is_empty());
+            // Folder grouping retains section headers; the view drops empty
+            // sections. Every grouping must exclude the filtered photos.
+            assert!(lib
+                .grouped()
+                .iter()
+                .all(|(_, _, entries)| entries.is_empty()));
         }
         lib.culling_filter.minimum_rating = 4;
         lib.culling_filter.flag = Some(CullFlag::Pick);
