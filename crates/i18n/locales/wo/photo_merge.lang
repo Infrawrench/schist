@@ -1,0 +1,14 @@
+# Photographic merging. Machine-assisted translation with terminology review.
+photo_merge.title = boole ay nataal...
+photo_merge.align = Liggéeyukaay otomatik
+photo_merge.focus = boole nataal yu am distance focus yu wuute
+photo_merge.hdr = HDR ci niveau exposition yu bari
+photo_merge.panorama = boole nataal yi ci benn panorama
+photo_merge.translation = Nataal bu tëdd ak bu taxaw kese (X/Y); amul wëréelu wala jubbanti perspektif.
+photo_merge.crop = Dagg ci barab buñ bokk
+photo_merge.exposure_note = Defar exposition relatif bu foto bu nekk: +1 EV mooy leeraay bi gëna bari ñaari yoon. Def mapping ton nataal ngir mëna am HDR 32-bit.
+photo_merge.tone_map = Nataal tonu kartograafi
+photo_merge.order = Jëfandikool xeetu onglet dokimaa yu ubbeeku yi. Nataalu panorama bu nekk dafa wara méngoo ak nataal bi ko jiitu ci 25% soo koy seet.
+photo_merge.invalid = Tannal 2–16 nataal yu baax nga xool jekkal exposition bi.
+photo_merge.limit = Limite: 64 milioŋ ciy pixel ci nataal bu nekk wala ci génne, 128 milioŋ ci limu mat; 30000 pixel ci wet bu nekk.
+photo_merge.no_match = Amul benn overlap buñu mëna wóolu. Jëfandikool nataal yuy jaxasoo te doo wëlbatiku wala soppi perspective bi.

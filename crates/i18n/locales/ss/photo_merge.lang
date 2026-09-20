@@ -1,0 +1,14 @@
+# Photographic merging. Machine-assisted translation with terminology review.
+photo_merge.title = Hlanganisa Titfombe...
+photo_merge.align = Kucondzisa lokutentakalelako
+photo_merge.focus = Hlanganisa titfombe letinemabanga lehlukene ekugcila
+photo_merge.hdr = HDR kusuka emazingeni lamanyenti ekuchayeka
+photo_merge.panorama = Hlanganisa titfombe tibe yi-panorama
+photo_merge.translation = Kuhamba kwesitfombe lesivundlile nalesimile kuphela (X / Y); kute kujikeleta noma kulungiswa kwembono.
+photo_merge.crop = Sika endzaweni leyabelwana ngayo
+photo_merge.exposure_note = Setha kuchayeka kwesitfombe ngasinye: +1 EV kusho kukhanya lokuphindvwe kabili. Khubaza imephu yethoni yesitfombe kute ugcine i-32-bit HDR.
+photo_merge.tone_map = Kubeka ithoni yesitfombe
+photo_merge.order = Sebentisa kulandzelana kwemathebhu edokhumenti levulekile. Sitfombe ngasinye se-panorama kumele sihlanganise sitfombe sangaphambilini lokungenani nga-25%.
+photo_merge.invalid = Khetsa titfombe letivumelekile letingu-2–16 bese uhlola tilungiselelo tekuchayeka.
+photo_merge.limit = Umkhawulo: emaphikseli latigidzi letingu-64 ngesitfombe ngasinye nobe umphumela, tigidzi letingu-128 letiphelele; 30000 emaphikseli ngalunye luhlangotsi.
+photo_merge.no_match = Kute kuhlangana lokutsembekile lokutfolakele. Sebentisa titfombe letihlangene ngaphandle kwekujikeleta noma kushintja umbono.

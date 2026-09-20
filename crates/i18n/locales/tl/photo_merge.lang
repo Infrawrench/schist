@@ -1,0 +1,14 @@
+# Photographic merging. Machine-assisted translation with terminology review.
+photo_merge.title = Pagsamahin ang Mga Larawan...
+photo_merge.align = Awtomatikong pagkakahanay
+photo_merge.focus = Pagsamahin ang mga larawan na may iba't ibang distansya ng focus
+photo_merge.hdr = HDR mula sa maraming antas ng pagkakalantad
+photo_merge.panorama = Pagsamahin ang mga larawan sa isang panorama
+photo_merge.translation = Tanging pahalang at patayong paggalaw ng imahe (X/Y); walang pag-ikot o pagwawasto ng pananaw.
+photo_merge.crop = I-crop sa shared area
+photo_merge.exposure_note = Itakda ang relatibong pagkakalantad ng bawat larawan: Ang +1 EV ay nangangahulugang doble ng liwanag. I-disable ang image tone mapping para mapanatili ang 32-bit HDR.
+photo_merge.tone_map = Pagmamapa ng tono ng larawan
+photo_merge.order = Gamitin ang pagkakasunud-sunod ng mga bukas na tab ng dokumento. Ang bawat panorama na larawan ay dapat mag-overlap sa nakaraang larawan ng hindi bababa sa 25%.
+photo_merge.invalid = Pumili ng 2–16 wastong larawan at tingnan ang mga setting ng pagkakalantad.
+photo_merge.limit = Limitasyon: 64 milyong pixel bawat larawan o output, 128 milyon sa kabuuan; 30000 pixels bawat gilid.
+photo_merge.no_match = Walang nakitang maaasahang overlap. Gumamit ng mga magkakapatong na larawan nang walang pagbabago sa pag-ikot o pananaw.

@@ -1,0 +1,14 @@
+# Photographic merging. Machine-assisted translation with terminology review.
+photo_merge.title = ስእልታት ምውህሃድ...
+photo_merge.align = ኣውቶማቲክ ኣሰላልፋ
+photo_merge.focus = ዝተፈላለየ ናይ ትኹረት ርሕቀት ዘለዎም ስእልታት ምውህሃድ
+photo_merge.hdr = HDR ካብ ብዙሕ ደረጃታት ምቅላዕ
+photo_merge.panorama = ስእልታት ናብ ፓኖራማ ምውህሃድ
+photo_merge.translation = ልኡልን ቀጥታውን ምንቅስቓስ ምስሊ (X/Y) ጥራሕ፤ ምዝዋር ወይ ናይ ኣረኣእያ ምእራም የለን።
+photo_merge.crop = ዝራእቲ ናብ ናይ ሓባር ቦታ
+photo_merge.exposure_note = ናይ ነፍሲ ወከፍ ስእሊ ኣንጻራዊ ምቅላዕ ኣቐምጥ: +1 EV ማለት ዕጽፊ ብርሃን ማለት እዩ። 32-bit HDR ንምዕቃብ ምስሊ ቃና ካርታ ኣሰናኽል።
+photo_merge.tone_map = ምስሊ ቃና ካርታ ምግባር
+photo_merge.order = ቅደም ተኸተል ናይቶም ክፉታት ሰነድ ትቦታት ተጠቐም። ነፍሲ ወከፍ ፓኖራማ ስእሊ ነቲ ዝሓለፈ ስእሊ ብውሑዱ ብ25% ክድራረብ ኣለዎ።
+photo_merge.invalid = 2–16 ቅኑዓት ምስልታት ምረጽ እሞ ናይ ምቅላዕ ቅጥዕታት መርምር።
+photo_merge.limit = ደረት: 64 ሚልዮን ፒክሰል ኣብ ሓደ ምስሊ ወይ ውጽኢት፣ 128 ሚልዮን ጠቕላላ፤ 30000 ፒክሰል ኣብ ሓደ ሸነኽ።
+photo_merge.no_match = ዘተኣማምን ምድብላቕ ኣይተረኽበን። ብዘይ ምዝዋር ወይ ናይ ኣረኣእያ ለውጢ ዝተደራረቡ ስእልታት ተጠቐም።

@@ -1,0 +1,14 @@
+# Photographic merging. Machine-assisted translation with terminology review.
+photo_merge.title = ፎቶዎችን አዋህድ…
+photo_merge.align = ራስ-ሰር አሰላለፍ
+photo_merge.focus = ፎቶዎችን ከተለያዩ የትኩረት ርቀት ጋር ያዋህዱ
+photo_merge.hdr = HDR ከበርካታ የተጋላጭነት ደረጃዎች
+photo_merge.panorama = ፎቶዎችን ወደ ፓኖራማ ያዋህዱ
+photo_merge.translation = አግድም እና ቀጥ ያለ የምስል እንቅስቃሴ (X/Y) ብቻ; ምንም ሽክርክሪት ወይም የአመለካከት እርማት የለም.
+photo_merge.crop = ወደ የተጋራ ቦታ ይከርክሙ
+photo_merge.exposure_note = የእያንዳንዱን ፎቶ አንጻራዊ ተጋላጭነት ያዘጋጁ፡ +1 ኢቪ ማለት ሁለት እጥፍ ብርሃን ማለት ነው። ባለ 32-ቢት ኤችዲአር ለመጠበቅ የምስል ቃና ካርታን አሰናክል።
+photo_merge.tone_map = የምስል ቃና ካርታ
+photo_merge.order = የክፍት ሰነድ ትሮችን ቅደም ተከተል ተጠቀም. እያንዳንዱ ፓኖራማ ፎቶ የቀደመውን ፎቶ ቢያንስ በ25% መደራረብ አለበት።
+photo_merge.invalid = 2-16 ትክክለኛ ምስሎችን ይምረጡ እና የተጋላጭነት ቅንብሮችን ያረጋግጡ።
+photo_merge.limit = ገደብ፡ 64 ሚሊዮን ፒክሰሎች በአንድ ምስል ወይም ውፅዓት፣ 128 ሚሊዮን ድምር; 30000 ፒክሰሎች በአንድ ወገን።
+photo_merge.no_match = ምንም አስተማማኝ መደራረብ አልተገኘም። ያለ ሽክርክር እና የአመለካከት ለውጦች ተደራራቢ ፎቶዎችን ተጠቀም።

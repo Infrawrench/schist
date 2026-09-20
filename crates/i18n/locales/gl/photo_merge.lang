@@ -1,0 +1,14 @@
+# Photographic merging. Machine-assisted translation with terminology review.
+photo_merge.title = Combina fotos...
+photo_merge.align = Aliñación automática
+photo_merge.focus = Combina fotos con diferentes distancias de enfoque
+photo_merge.hdr = HDR desde varios niveis de exposición
+photo_merge.panorama = Combina fotos nunha panorámica
+photo_merge.translation = Só movemento da imaxe horizontal e vertical (X/Y); sen rotación nin corrección de perspectiva.
+photo_merge.crop = Recortar a área compartida
+photo_merge.exposure_note = Establece a exposición relativa de cada foto: +1 EV significa o dobre de luz. Desactiva a asignación de tons de imaxe para preservar o HDR de 32 bits.
+photo_merge.tone_map = Mapeo de tons da imaxe
+photo_merge.order = Use a orde das pestanas abertas do documento. Cada foto panorámica debe superpoñer a foto anterior polo menos nun 25 %.
+photo_merge.invalid = Seleccione de 2 a 16 imaxes válidas e comprobe os axustes de exposición.
+photo_merge.limit = Límite: 64 millóns de píxeles por imaxe ou saída, 128 millóns en total; 30000 píxeles por lado.
+photo_merge.no_match = Non se atopou ningunha superposición fiable. Usa fotos superpostas sen rotación nin cambios de perspectiva.

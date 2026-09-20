@@ -6,6 +6,7 @@ license.workspace = true
 build = "../../tools/app-cfg.rs"
 
 [dependencies]
+schist-photo-merge.workspace = true
 schist-i18n.workspace = true
 flate2 = "1"
 schist-cloud = { path = "../cloud" }

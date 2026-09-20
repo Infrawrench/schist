@@ -1,0 +1,14 @@
+# Photographic merging. Machine-assisted translation with terminology review.
+photo_merge.title = Gwirizanitsani Zithunzi...
+photo_merge.align = Kuyanjanitsa kokha
+photo_merge.focus = Phatikizani zithunzi ndi mtunda wosiyanasiyana
+photo_merge.hdr = HDR kuchokera pamiyezo yambiri yowonekera
+photo_merge.panorama = Phatikizani zithunzi kukhala panorama
+photo_merge.translation = Kusuntha kwazithunzi zopingasa komanso zoyima (X/Y); palibe kasinthasintha kapena kuwongolera kawonedwe.
+photo_merge.crop = Dulani kudera logawana
+photo_merge.exposure_note = Khazikitsani chibale cha chithunzi chilichonse: +1 EV imatanthauza kuwala kowirikiza kawiri. Letsani kupanga mamapu azithunzi kuti musunge 32-bit HDR.
+photo_merge.tone_map = Kujambula kamvekedwe kazithunzi
+photo_merge.order = Gwiritsani ntchito dongosolo la zolemba zotseguka. Chithunzi chilichonse cha panorama chikuyenera kupitilira chithunzi cham'mbuyocho ndi 25%.
+photo_merge.invalid = Sankhani 2-16 zithunzi zovomerezeka ndikuyang'ana makonda akuwonekera.
+photo_merge.limit = Malire: ma pixel 64 miliyoni pachithunzi chilichonse kapena kutulutsa, 128 miliyoni; 30000 pixels mbali iliyonse.
+photo_merge.no_match = Palibe kuphatikizika kodalirika komwe kwapezeka. Gwiritsani ntchito zithunzi zodutsana popanda kuzungulira kapena kusintha mawonekedwe.

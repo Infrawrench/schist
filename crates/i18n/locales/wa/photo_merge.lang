@@ -1,0 +1,14 @@
+# Photographic merging. Direct translation; native review welcome.
+photo_merge.title = Rashonner les fotos…
+photo_merge.align = Aligneuse otomatike
+photo_merge.focus = Rashonner les fotos avou des diferinnes distances di focus
+photo_merge.hdr = HDR di diferinnes esposicions
+photo_merge.panorama = Rashonner les fotos dins on panorama
+photo_merge.translation = Rén ki des displaeçmints orizontås et verticås (X/Y); li rotåcion et l'perspective ni sont nén coridjeyes.
+photo_merge.crop = Côper a l'comone airêye
+photo_merge.exposure_note = Defini l'esposicion relative di tchaeke foto: +1 EV = deus côps pus di loumire. Dismete li mapaedje des tons po wårder li HDR di 32 bits.
+photo_merge.tone_map = Mapaedje des tons
+photo_merge.order = Les fotos do panorama shuvèt l'ôre des linwetes; les fotos ki s'shuvèt divèt avu å moens 25% d'airêye comone.
+photo_merge.invalid = Tchoezi 2–16 valåbes imådjes et verifyî les apontiaedjes d'esposicion.
+photo_merge.limit = Limite: 64 miyons d'picsels pa imådje ou rizeultat, 128 miyons å totå; 30000 picsels pa costé.
+photo_merge.no_match = Nole fiyåve airêye comone di trovêye. Eployî des fotos avou ene airêye comone sins rotåcion ni candjmint d'perspective.

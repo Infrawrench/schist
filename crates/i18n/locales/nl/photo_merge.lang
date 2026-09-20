@@ -1,0 +1,14 @@
+# Selected-document photographic merging.
+photo_merge.title = Foto’s samenvoegen…
+photo_merge.align = Automatisch uitlijnen
+photo_merge.focus = Focusstapeling
+photo_merge.hdr = HDR uit belichtingstrap
+photo_merge.panorama = Panorama samenstellen
+photo_merge.translation = Alleen horizontale en verticale verschuivingen (X/Y); rotatie en perspectief worden niet gecorrigeerd.
+photo_merge.crop = Bijsnijden tot gemeenschappelijk gebied
+photo_merge.exposure_note = Stel de relatieve belichting van elke opname in: +1 EV = tweemaal zoveel licht. Schakel tonemapping uit om 32-bits HDR te behouden.
+photo_merge.tone_map = Tonemapping
+photo_merge.order = Panoramafoto’s volgen de tabvolgorde; opeenvolgende foto’s moeten elkaar minstens 25% overlappen.
+photo_merge.invalid = Selecteer 2–16 geldige afbeeldingen en controleer de belichtingsinstellingen.
+photo_merge.limit = Limiet: 64 miljoen pixels per afbeelding of uitvoer, 128 miljoen in totaal; 30.000 pixels per zijde.
+photo_merge.no_match = Geen betrouwbare overlap gevonden. Gebruik overlappende foto’s zonder verschillen in rotatie of perspectief.

@@ -1,0 +1,14 @@
+# Photographic merging. Direct translation; native review welcome.
+photo_merge.title = Chāyārūpāni saṃyojetha…
+photo_merge.align = Sayaṃ samīkaraṇaṃ
+photo_merge.focus = Nānā dūrasamādhāna chāyārūpānaṃ saṃyojanaṃ
+photo_merge.hdr = Nānā ālokamattāhi HDR
+photo_merge.panorama = Vitthatarūpassa saṃyojanaṃ
+photo_merge.translation = Tiriyaṃ uddhañca adho ca sañcālanamattaṃ (X/Y); parivattanaṃ dassanakoṇañca na sodheti.
+photo_merge.crop = Sādhāraṇaṭṭhānaṃ chindatha
+photo_merge.exposure_note = Ekekassa rūpassa ālokamattaṃ ṭhapetha: +1 EV = dviguṇo āloko. 32-bit HDR rakkhituṃ vaṇṇamattāparivattanaṃ nivattetha.
+photo_merge.tone_map = Vaṇṇamattāparivattanaṃ
+photo_merge.order = Vitthatarūpassa rūpāni tab-anukkamena honti; anantararūpesu 25% vā adhikaṃ sādhāraṇaṭṭhānaṃ icchitabbaṃ.
+photo_merge.invalid = 2–16 yuttarūpāni uccinatha, ālokamattāṭṭhitiyo oloketha.
+photo_merge.limit = Paricchedo: ekasmiṃ rūpe vā phale 64 million pixels, sabbesu 128 million; ekekapasse 30000 pixels.
+photo_merge.no_match = Vissāsanīyaṃ sādhāraṇaṭṭhānaṃ na laddhaṃ. Aparivattitāni dassanakoṇabhedarahitāni sādhāraṇaṭṭhānayuttarūpāni payojetha.

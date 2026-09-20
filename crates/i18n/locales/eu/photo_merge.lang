@@ -1,0 +1,14 @@
+# Photographic merging. Machine-assisted translation with terminology review.
+photo_merge.title = Batu argazkiak…
+photo_merge.align = Lerrokatze automatikoa
+photo_merge.focus = Konbinatu foku distantzia ezberdineko argazkiak
+photo_merge.hdr = HDR esposizio maila anitzetatik
+photo_merge.panorama = Batu argazkiak panorama batean
+photo_merge.translation = Irudiaren mugimendu horizontala eta bertikala soilik (X/Y); biraketa edo perspektiba zuzenketarik ez.
+photo_merge.crop = Moztu eremu partekatura
+photo_merge.exposure_note = Ezarri argazki bakoitzaren esposizio erlatiboa: +1 EV argi bikoitza esan nahi du. Desgaitu irudi-tonuen mapaketa 32 biteko HDR gordetzeko.
+photo_merge.tone_map = Irudi-tonuen mapak
+photo_merge.order = Erabili dokumentu irekien fitxen ordena. Argazki panoramiko bakoitzak aurreko argazkiarekin gainjarri behar du gutxienez %25ean.
+photo_merge.invalid = Hautatu baliozko 2-16 irudi eta egiaztatu esposizio-ezarpenak.
+photo_merge.limit = Muga: 64 milioi pixel irudi edo irteera bakoitzeko, 128 milioi guztira; 30000 pixel albo bakoitzeko.
+photo_merge.no_match = Ez da aurkitu gainjartze fidagarririk. Erabili gainjarritako argazkiak biraketa edo perspektiba aldaketarik gabe.

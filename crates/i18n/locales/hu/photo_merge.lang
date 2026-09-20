@@ -1,0 +1,14 @@
+# Photographic merging. Machine-assisted translation with terminology review.
+photo_merge.title = Fényképek egyesítése…
+photo_merge.align = Automatikus igazítás
+photo_merge.focus = Fókuszsorozat egyesítése
+photo_merge.hdr = HDR több expozíciós szintből
+photo_merge.panorama = Panoráma összeillesztése
+photo_merge.translation = Csak vízszintes és függőleges képmozgás (X/Y); nincs forgatás vagy perspektíva korrekció.
+photo_merge.crop = Vágás megosztott területre
+photo_merge.exposure_note = Állítsa be az egyes fényképek relatív megvilágítását: +1 Fé kétszer annyi fényt jelent. A 32 bites HDR megőrzéséhez kapcsolja ki a képtónus-leképezést.
+photo_merge.tone_map = Képtónus-leképezés
+photo_merge.order = Használja a megnyitott dokumentumfülek sorrendjét. Minden panorámafotónak legalább 25%-kal át kell fednie az előző fotót.
+photo_merge.invalid = Válasszon ki 2–16 érvényes képet, és ellenőrizze az expozíciós beállításokat.
+photo_merge.limit = Korlátozás: 64 millió pixel képenként vagy kimenetenként, összesen 128 millió; 30000 pixel oldalanként.
+photo_merge.no_match = Nem található megbízható átfedés. Használjon átfedő fényképeket elforgatás vagy perspektívaváltás nélkül.

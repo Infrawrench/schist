@@ -1,0 +1,14 @@
+# Photographic merging. Machine-assisted translation with terminology review.
+photo_merge.title = Kha vha ṱanganise zwinepe...
+photo_merge.align = U linganisa nga vhuḓiitisi
+photo_merge.focus = Kha vha ṱanganise zwinepe zwi re na vhukule ho fhambanaho ha u sedza
+photo_merge.hdr = HDR u bva kha zwikalo zwinzhi zwa u bvisela khagala
+photo_merge.panorama = Kha vha ṱanganye zwinepe zwa vha panorama
+photo_merge.translation = U tshimbila ha tshifanyiso tsho ṱanḓavhuwaho na tsho khwaṱhaho fhedzi (X/Y); a hu na u rembuluwa kana u khakhululwa ha mavhonele.
+photo_merge.crop = U ṱavha kha fhethu ho kovhekanywaho
+photo_merge.exposure_note = Setha u bviswa ha tshifanyiso tshiṅwe na tshiṅwe: +1 EV zwi amba tshedza tshihulwane kavhili. Kha vha dzime u vhea thoni ya tshifanyiso u itela u vhulunga 32-bit HDR.
+photo_merge.tone_map = U vhea thoni ya tshifanyiso
+photo_merge.order = Shumisani ndaela ya thebu dza maṅwalo o vuleaho. Tshinepe tshinwe na tshinwe tsha panorama tshi fanela u fhira tshinepe tsho fhiraho nga 25%.
+photo_merge.invalid = Khethani zwifanyiso zwi shumaho zwa 2–16 nahone ni sedze zwishumiswa zwa u bvisela khagala.
+photo_merge.limit = Muelo: 64 miḽioni ya pixels nga tshifanyiso kana tshibveledzwa, 128 miḽioni yoṱhe; 30000 ya pixel nga sia.
+photo_merge.no_match = A hu na overlap i fulufhedzeaho yo wanalaho. Shumisani zwinepe zwine zwa vha uri zwo ṱangana hu si na u rembuluwa kana tshanduko dza mavhonele.

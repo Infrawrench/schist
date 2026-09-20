@@ -1,0 +1,14 @@
+# Photographic merging. Machine-assisted translation with terminology review.
+photo_merge.title = Guhuza Amafoto…
+photo_merge.align = Guhuza byikora
+photo_merge.focus = Huza amafoto hamwe nintera yibanze
+photo_merge.hdr = HDR kuva murwego rwinshi
+photo_merge.panorama = Huza amafoto muri panorama
+photo_merge.translation = Gusa ishusho itambitse kandi ihagaritse ishusho (X / Y); nta kuzunguruka cyangwa gukosora icyerekezo.
+photo_merge.crop = Ihinga ahantu hasangiwe
+photo_merge.exposure_note = Shiraho buri foto ifitanye isano: +1 EV bisobanura urumuri rwikubye kabiri. Hagarika ikarita yerekana amashusho kugirango ubungabunge 32-bit HDR.
+photo_merge.tone_map = Gushushanya amajwi
+photo_merge.order = Koresha gahunda yinyandiko zifunguye. Buri foto ya panorama igomba guhuza ifoto yabanjirije byibuze 25%.
+photo_merge.invalid = Hitamo amashusho yemewe 2-16 hanyuma urebe igenamiterere ryerekana.
+photo_merge.limit = Imipaka: miliyoni 64 pigiseli kuri buri shusho cyangwa ibisohoka, miliyoni 128 zose; 30000 pigiseli kuruhande.
+photo_merge.no_match = Nta guhuzagurika kwizewe kuboneka. Koresha amafoto arengana nta kuzunguruka cyangwa guhinduka.

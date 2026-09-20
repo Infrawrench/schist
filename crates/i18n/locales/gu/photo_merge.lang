@@ -1,0 +1,14 @@
+# Photographic merging. Machine-assisted translation with terminology review.
+photo_merge.title = ફોટા મર્જ કરો...
+photo_merge.align = આપોઆપ ગોઠવણી
+photo_merge.focus = વિવિધ ફોકસ અંતર સાથે ફોટા મર્જ કરો
+photo_merge.hdr = બહુવિધ એક્સપોઝર સ્તરોથી HDR
+photo_merge.panorama = ફોટાને પેનોરમામાં મર્જ કરો
+photo_merge.translation = માત્ર આડી અને ઊભી છબી ચળવળ (X/Y); કોઈ પરિભ્રમણ અથવા પરિપ્રેક્ષ્ય કરેક્શન નથી.
+photo_merge.crop = વહેંચાયેલ વિસ્તારમાં કાપો
+photo_merge.exposure_note = દરેક ફોટોનું સંબંધિત એક્સપોઝર સેટ કરો: +1 EV એટલે બમણું પ્રકાશ. 32-બીટ HDR સાચવવા માટે ઇમેજ ટોન મેપિંગને અક્ષમ કરો.
+photo_merge.tone_map = છબી ટોન મેપિંગ
+photo_merge.order = ઓપન ડોક્યુમેન્ટ ટેબના ક્રમનો ઉપયોગ કરો. દરેક પેનોરમા ફોટો અગાઉના ફોટાને ઓછામાં ઓછો 25% ઓવરલેપ કરે છે.
+photo_merge.invalid = 2-16 માન્ય છબીઓ પસંદ કરો અને એક્સપોઝર સેટિંગ્સ તપાસો.
+photo_merge.limit = મર્યાદા: છબી અથવા આઉટપુટ દીઠ 64 મિલિયન પિક્સેલ્સ, કુલ 128 મિલિયન; 30000 પિક્સેલ્સ પ્રતિ બાજુ.
+photo_merge.no_match = કોઈ વિશ્વસનીય ઓવરલેપ મળ્યું નથી. પરિભ્રમણ અથવા પરિપ્રેક્ષ્ય ફેરફારો વિના ઓવરલેપિંગ ફોટાઓનો ઉપયોગ કરો.

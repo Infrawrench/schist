@@ -1,0 +1,14 @@
+# Selected-document photographic merging.
+photo_merge.title = Sammanfoga foton…
+photo_merge.align = Automatisk justering
+photo_merge.focus = Fokusstackning
+photo_merge.hdr = HDR från exponeringsserie
+photo_merge.panorama = Panoramasammanfogning
+photo_merge.translation = Endast horisontella och vertikala förskjutningar (X/Y); rotation och perspektiv korrigeras inte.
+photo_merge.crop = Beskär till gemensamt område
+photo_merge.exposure_note = Ange varje bilds relativa exponering: +1 EV = dubbelt så mycket ljus. Stäng av tonmappning för att behålla 32-bitars HDR.
+photo_merge.tone_map = Tonmappning
+photo_merge.order = Panoramabilder följer flikordningen; bilder i följd måste överlappa med minst 25%.
+photo_merge.invalid = Välj 2–16 giltiga bilder och kontrollera exponeringsinställningarna.
+photo_merge.limit = Gräns: 64 miljoner pixlar per bild eller resultat, totalt 128 miljoner; 30 000 pixlar per sida.
+photo_merge.no_match = Ingen tillförlitlig överlappning hittades. Använd överlappande foton utan ändrad rotation eller ändrat perspektiv.

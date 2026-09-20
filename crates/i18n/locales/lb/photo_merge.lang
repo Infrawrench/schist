@@ -1,0 +1,14 @@
+# Photographic merging. Machine-assisted translation with terminology review.
+photo_merge.title = Fotoen fusionéieren…
+photo_merge.align = Automatesch Ausrichtung
+photo_merge.focus = Fusioun Fotoen mat verschiddene Fokusdistanz
+photo_merge.hdr = HDR vu multiple Beliichtungsniveauen
+photo_merge.panorama = Fotoen an e Panorama fusionéieren
+photo_merge.translation = Nëmmen horizontal a vertikal Bildbewegung (X / Y); keng Rotatioun oder Perspektivkorrektur.
+photo_merge.crop = Crop zu gemeinsame Beräich
+photo_merge.exposure_note = Setzt d'relativ Belaaschtung vun all Foto: +1 EV bedeit duebel sou vill Liicht. Desaktivéiere Bildtonemapping fir 32-Bit HDR ze erhaalen.
+photo_merge.tone_map = Bild Tonalitéit Mapping
+photo_merge.order = Benotzt d'Uerdnung vun den oppenen Dokument Tabs. All Panoramafoto muss déi virdrun Foto ëm mindestens 25% iwwerlappen.
+photo_merge.invalid = Wielt 2–16 gëlteg Biller a kontrolléiert d'Beliichtungsastellungen.
+photo_merge.limit = Limit: 64 Millioune Pixel pro Bild oder Ausgang, 128 Milliounen am Ganzen; 30000 Pixel pro Säit.
+photo_merge.no_match = Keng zouverlässeg Iwwerlappung fonnt. Benotzt iwwerlappend Fotoen ouni Rotatioun oder Perspektiv Ännerungen.

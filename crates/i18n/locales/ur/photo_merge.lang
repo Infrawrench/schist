@@ -1,0 +1,14 @@
+# Photographic merging. Machine-assisted translation with terminology review.
+photo_merge.title = تصاویر ضم کریں…
+photo_merge.align = خودکار سیدھ
+photo_merge.focus = فوکس کے مختلف فاصلوں کے ساتھ فوٹو ضم کریں۔
+photo_merge.hdr = ایک سے زیادہ نمائش کی سطحوں سے HDR
+photo_merge.panorama = تصاویر کو پینوراما میں ضم کریں۔
+photo_merge.translation = صرف افقی اور عمودی تصویر کی حرکت (X/Y)؛ کوئی گردش یا نقطہ نظر کی اصلاح نہیں.
+photo_merge.crop = مشترکہ علاقے میں کاٹیں۔
+photo_merge.exposure_note = ہر تصویر کی متعلقہ نمائش سیٹ کریں: +1 EV کا مطلب ہے دگنی روشنی۔ 32 بٹ HDR کو محفوظ رکھنے کے لیے امیج ٹون میپنگ کو غیر فعال کریں۔
+photo_merge.tone_map = تصویری ٹون میپنگ
+photo_merge.order = اوپن دستاویز ٹیبز کی ترتیب استعمال کریں۔ ہر پینوراما تصویر کو پچھلی تصویر کو کم از کم 25% اوورلیپ کرنا چاہیے۔
+photo_merge.invalid = 2-16 درست تصاویر منتخب کریں اور نمائش کی ترتیبات چیک کریں۔
+photo_merge.limit = حد: 64 ملین پکسلز فی تصویر یا آؤٹ پٹ، کل 128 ملین؛ 30000 پکسلز فی سائیڈ۔
+photo_merge.no_match = کوئی قابل اعتماد اوورلیپ نہیں ملا۔ گردش یا نقطہ نظر کی تبدیلیوں کے بغیر اوور لیپنگ تصاویر کا استعمال کریں۔

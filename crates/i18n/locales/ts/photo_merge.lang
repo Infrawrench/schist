@@ -1,0 +1,14 @@
+# Photographic merging. Machine-assisted translation with terminology review.
+photo_merge.title = Hlanganisa Swifaniso...
+photo_merge.align = Ku ringanisiwa hi ku tisungulela
+photo_merge.focus = Hlanganisa swifaniso leswi nga na mpfhuka wo hambana wa ku kongomisa
+photo_merge.hdr = HDR ku suka eka swiyimo swo tala swa ku paluxiwa
+photo_merge.panorama = Hlanganisa swifaniso swi va panorama
+photo_merge.translation = Ku famba-famba ka xifaniso lexi nga etlhelo ni lexi yimisiweke ntsena (X/Y); ku hava ku rhendzeleka kumbe ku lulamisiwa ka mavonelo.
+photo_merge.crop = Swibyariwa kuya eka ndzhawu leyi avelaniwa
+photo_merge.exposure_note = Seta xifaniso xin’wana ni xin’wana lexi ringanaka: +1 EV swi vula ku vonakala loku phindhiweke kambirhi. Tirhisa ku endla mepe wa thoni ya swifaniso ku hlayisa 32-bit HDR.
+photo_merge.tone_map = Ku endliwa ka mepe wa thoni ya swifaniso
+photo_merge.order = Tirhisa ku landzelelana ka tithebhu ta matsalwa lama pfulekeke. Xifaniso xin’wana na xin’wana xa panorama xi fanele ku hlanganisa xifaniso xa khale hi kwalomu ka 25%.
+photo_merge.invalid = Hlawula swifaniso swa 2–16 leswi tirhaka kutani u kambela swiletelo swa ku paluxiwa.
+photo_merge.limit = Ndzilakano: 64 wa timiliyoni ta tipikseli hi xifaniso kumbe vuhumelerisi, 128 wa timiliyoni hinkwato; 30000 wa tipikseli hi tlhelo.
+photo_merge.no_match = Ku hava ku hlangana loku tshembekaka loku kumiweke. Tirhisa swifaniso leswi hlanganisaka handle ko rhendzeleka kumbe ku cinca mavonelo.

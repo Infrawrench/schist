@@ -1,0 +1,14 @@
+# Photographic merging. Direct translation; native review welcome.
+photo_merge.title = Kunigar fotografuri…
+photo_merge.align = Automata alineo
+photo_merge.focus = Kunigar fotografuri kun diferanta fokus-distanci
+photo_merge.hdr = HDR de plura expozi
+photo_merge.panorama = Kunigar fotografuri en panoramo
+photo_merge.translation = Nur horizontala e vertikala movi (X/Y); rotaco e perspektivo ne korektesas.
+photo_merge.crop = Tranchar a la komuna areo
+photo_merge.exposure_note = Definissez la relativa expozo di singla fotografuro: +1 EV = duopla lumo. Desaktivigez ton-mapado por konservar 32-bita HDR.
+photo_merge.tone_map = Ton-mapado
+photo_merge.order = La panorama fotografuri sequas la ordino di la langeti; sinsekvanta fotografuri bezonas adminime 25% de superpozo.
+photo_merge.invalid = Selektez 2–16 valida imaji e kontrolez la expozo-parametri.
+photo_merge.limit = Limito: 64 milioni de pixeli po imajo o rezultajo, 128 milioni totale; 30000 pixeli po latero.
+photo_merge.no_match = Nula fidinda superpozo trovesis. Uzez superpozita fotografuri sen rotaco o perspektivo-shanji.

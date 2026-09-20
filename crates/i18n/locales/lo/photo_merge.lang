@@ -1,0 +1,14 @@
+# Photographic merging. Machine-assisted translation with terminology review.
+photo_merge.title = ຮວມຮູບພາບ...
+photo_merge.align = ການຈັດຮຽງອັດຕະໂນມັດ
+photo_merge.focus = ຮວມຮູບພາບທີ່ມີໄລຍະໂຟກັສທີ່ແຕກຕ່າງກັນ
+photo_merge.hdr = HDR ຈາກຫຼາຍລະດັບການຮັບແສງ
+photo_merge.panorama = ລວມຮູບພາບເຂົ້າໄປໃນພາໂນຣາມາ
+photo_merge.translation = ພຽງແຕ່ການເຄື່ອນໄຫວຮູບພາບແນວນອນ ແລະແນວຕັ້ງ (X/Y); ບໍ່ມີການຫມຸນຫຼືການແກ້ໄຂທັດສະນະ.
+photo_merge.crop = ປູກພືດໃສ່ພື້ນທີ່ແບ່ງປັນ
+photo_merge.exposure_note = ກຳນົດຄ່າແສງທີ່ກ່ຽວຂ້ອງຂອງແຕ່ລະຮູບ: +1 EV ໝາຍເຖິງແສງສອງເທົ່າ. ປິດການນຳໃຊ້ການສ້າງແຜນທີ່ສຽງເພື່ອເກັບຮັກສາ HDR 32-bit.
+photo_merge.tone_map = ການສ້າງແຜນທີ່ສຽງ
+photo_merge.order = ໃຊ້ຄໍາສັ່ງຂອງແຖບເອກະສານເປີດ. ແຕ່ລະຮູບພາໂນຣາມາຕ້ອງທັບຊ້ອນຮູບກ່ອນໜ້າຢ່າງໜ້ອຍ 25%.
+photo_merge.invalid = ເລືອກ 2–16 ຮູບທີ່ຖືກຕ້ອງ ແລະກວດເບິ່ງການຕັ້ງຄ່າການຮັບແສງ.
+photo_merge.limit = ຈໍາກັດ: 64 ລ້ານ pixels ຕໍ່ຮູບພາບຫຼືຜົນຜະລິດ, 128 ລ້ານທັງຫມົດ; 30000 pixels ຕໍ່ຂ້າງ.
+photo_merge.no_match = ບໍ່ພົບການທັບຊ້ອນທີ່ເຊື່ອຖືໄດ້. ໃຊ້ຮູບທີ່ທັບຊ້ອນກັນໂດຍບໍ່ມີການຫມຸນຫຼືການປ່ຽນແປງທັດສະນະ.

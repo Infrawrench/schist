@@ -1,0 +1,14 @@
+# Photographic merging. Machine-assisted translation with terminology review.
+photo_merge.title = Îmbinați fotografii...
+photo_merge.align = Aliniere automată
+photo_merge.focus = Suprapunere cu focalizare variabilă
+photo_merge.hdr = HDR de la mai multe niveluri de expunere
+photo_merge.panorama = Îmbinare panoramică
+photo_merge.translation = Doar mișcarea orizontală și verticală a imaginii (X/Y); fără rotație sau corecție de perspectivă.
+photo_merge.crop = Decupați în zona comună
+photo_merge.exposure_note = Setați expunerea relativă a fiecărei fotografii: +1 EV înseamnă de două ori mai multă lumină. Dezactivați maparea tonurilor imaginii pentru a păstra HDR pe 32 de biți.
+photo_merge.tone_map = Maparea tonurilor imaginii
+photo_merge.order = Utilizați ordinea filelor deschise ale documentului. Fiecare fotografie panoramică trebuie să se suprapună cu fotografia anterioară cu cel puțin 25%.
+photo_merge.invalid = Selectați 2–16 imagini valide și verificați setările de expunere.
+photo_merge.limit = Limită: 64 de milioane de pixeli pe imagine sau ieșire, 128 milioane în total; 30000 pixeli pe parte.
+photo_merge.no_match = Nu a fost găsită nicio suprapunere de încredere. Folosiți fotografii suprapuse fără rotație sau schimbări de perspectivă.

@@ -1,0 +1,14 @@
+# Photographic merging. Machine-assisted translation with terminology review.
+photo_merge.title = Ühenda fotod…
+photo_merge.align = Automaatne joondamine
+photo_merge.focus = Ühendage erinevate fookuskaugustega fotod
+photo_merge.hdr = HDR mitme särituse tasemega
+photo_merge.panorama = Ühendage fotod panoraamiks
+photo_merge.translation = Ainult horisontaalne ja vertikaalne kujutise liikumine (X/Y); ei mingit pööramist ega perspektiivi korrigeerimist.
+photo_merge.crop = Kärbi jagatud alale
+photo_merge.exposure_note = Määrake iga foto suhteline säritus: +1 EV tähendab kaks korda rohkem valgust. 32-bitise HDR-i säilitamiseks keelake pildi toonide vastendamine.
+photo_merge.tone_map = Pildi toonide kaardistamine
+photo_merge.order = Kasutage avatud dokumendi vahekaartide järjekorda. Iga panoraamfoto peab kattuma eelmise fotoga vähemalt 25%.
+photo_merge.invalid = Valige 2–16 kehtivat pilti ja kontrollige särituse sätteid.
+photo_merge.limit = Piirang: 64 miljonit pikslit pildi või väljundi kohta, kokku 128 miljonit; 30000 pikslit ühel küljel.
+photo_merge.no_match = Usaldusväärset kattumist ei leitud. Kasutage kattuvaid fotosid ilma pööramise või perspektiivi muutmiseta.

@@ -1,0 +1,14 @@
+# Photographic merging. Machine-assisted translation with terminology review.
+photo_merge.title = Sujungti nuotraukas…
+photo_merge.align = Automatinis derinimas
+photo_merge.focus = Sujunkite nuotraukas su skirtingais fokusavimo atstumais
+photo_merge.hdr = HDR iš kelių ekspozicijos lygių
+photo_merge.panorama = Sujunkite nuotraukas į panoramą
+photo_merge.translation = Tik horizontalus ir vertikalus vaizdo judėjimas (X/Y); jokio sukimo ar perspektyvos korekcijos.
+photo_merge.crop = Apkarpyti į bendrą sritį
+photo_merge.exposure_note = Nustatykite kiekvienos nuotraukos santykinę ekspoziciją: +1 EV reiškia dvigubai daugiau šviesos. Išjunkite vaizdo tonų susiejimą, kad išsaugotumėte 32 bitų HDR.
+photo_merge.tone_map = Vaizdo tonų atvaizdavimas
+photo_merge.order = Naudokite atidarytų dokumento skirtukų tvarką. Kiekviena panoraminė nuotrauka turi persidengti su ankstesne nuotrauka bent 25%.
+photo_merge.invalid = Pasirinkite 2–16 tinkamų vaizdų ir patikrinkite ekspozicijos nustatymus.
+photo_merge.limit = Riba: 64 mln. pikselių viename paveikslėlyje arba išvestyje, iš viso 128 mln. 30000 pikselių vienoje pusėje.
+photo_merge.no_match = Patikimos persidengimo nerasta. Naudokite persidengiančias nuotraukas be pasukimo ar perspektyvos keitimo.

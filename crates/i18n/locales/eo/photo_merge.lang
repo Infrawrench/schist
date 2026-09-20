@@ -1,0 +1,14 @@
+# Photographic merging. Machine-assisted translation with terminology review.
+photo_merge.title = Kunfandi Fotojn…
+photo_merge.align = Aŭtomata vicigo
+photo_merge.focus = Fokuskunigo
+photo_merge.hdr = HDR el pluraj ekspozicioj
+photo_merge.panorama = Kunfandi fotojn en panoramon
+photo_merge.translation = Nur horizontala kaj vertikala bilda movado (X/Y); neniu rotacio aŭ perspektiva korekto.
+photo_merge.crop = Tondi al komuna areo
+photo_merge.exposure_note = Agordu la relativan ekspozicion de ĉiu foto: +1 EV signifas duoble pli da lumo. Malebligu bildtonan mapadon por konservi 32-bitan HDR.
+photo_merge.tone_map = Bildtona mapado
+photo_merge.order = Panoramaj fotoj sekvas la ordon de la dokumentaj langetoj; sinsekvaj fotoj bezonas almenaŭ 25% da komuna areo.
+photo_merge.invalid = Elektu 2–16 validajn bildojn kaj kontrolu la eksponajn agordojn.
+photo_merge.limit = Limo: 64 milionoj da pikseloj per bildo aŭ eligo, 128 milionoj entute; 30000 pikseloj po flanko.
+photo_merge.no_match = Neniu fidinda interkovro trovita. Uzu interkovrajn fotojn sen rotacio aŭ perspektivaj ŝanĝoj.

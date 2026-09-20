@@ -1,0 +1,14 @@
+# Selected-document photographic merging.
+photo_merge.title = Fotoğrafları birleştir…
+photo_merge.align = Otomatik hizalama
+photo_merge.focus = Odak istifleme
+photo_merge.hdr = Pozlama basamaklamalı HDR
+photo_merge.panorama = Panorama birleştirme
+photo_merge.translation = Yalnızca yatay ve dikey kaydırmalar (X/Y); döndürme ve perspektif düzeltilmez.
+photo_merge.crop = Ortak alana kırp
+photo_merge.exposure_note = Her çekimin göreli pozlamasını ayarlayın: +1 EV = iki kat ışık. 32 bit HDR’yi korumak için ton eşlemeyi kapatın.
+photo_merge.tone_map = Ton eşleme
+photo_merge.order = Panorama fotoğrafları sekme sırasını izler; ardışık fotoğraflar en az %25 örtüşmelidir.
+photo_merge.invalid = 2–16 geçerli görüntü seçin ve pozlama ayarlarını kontrol edin.
+photo_merge.limit = Sınır: görüntü veya çıktı başına 64 milyon piksel, toplam 128 milyon; kenar başına 30.000 piksel.
+photo_merge.no_match = Güvenilir bir örtüşme bulunamadı. Döndürme veya perspektif değişikliği olmayan örtüşen fotoğraflar kullanın.

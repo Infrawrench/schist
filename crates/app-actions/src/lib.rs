@@ -106,6 +106,8 @@ actions!(
 /// `panels` because [`RunAppItem`] carries one.
 #[derive(Clone, Copy, PartialEq, Debug)]
 pub enum AppItem {
+    #[cfg(not(target_arch = "wasm32"))]
+    PhotoMerge,
     RecordedActions,
     Search,
     CloudSignIn,

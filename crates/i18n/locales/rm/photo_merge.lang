@@ -1,0 +1,14 @@
+# Photographic merging. Direct translation; native review welcome.
+photo_merge.title = Unir fotografias…
+photo_merge.align = Alingiament automatic
+photo_merge.focus = Cumbinar fotografias cun differentas distanzas da focus
+photo_merge.hdr = HDR da differentas exposiziuns
+photo_merge.panorama = Unir fotografias en in panorama
+photo_merge.translation = Mo spustaments orizontals e verticals (X/Y); rotaziun e perspectiva na vegnan betg curregidas.
+photo_merge.crop = Tagliar sin l'area communabla
+photo_merge.exposure_note = Definir l'exposiziun relativa da mintga fotografia: +1 EV = dubel uschè blera glisch. Deactivar la mappaziun dals tuns per mantegnair HDR da 32 bits.
+photo_merge.tone_map = Mappaziun dals tuns
+photo_merge.order = Las fotografias panoramicas suondan l'urden dals tabs; fotografias successivas ston sa cuvrir per almain 25%.
+photo_merge.invalid = Tscherner 2–16 maletgs valids e controllar las configuraziuns d'exposiziun.
+photo_merge.limit = Limit: 64 milliuns pixels per maletg u resultat, 128 milliuns en tut; 30000 pixels per vart.
+photo_merge.no_match = Naginas cuvridas communablas fidadas chattadas. Duvrar fotografias che sa cuvran senza rotaziun u midadas da perspectiva.

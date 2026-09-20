@@ -1,0 +1,14 @@
+# Photographic merging. Machine-assisted translation with terminology review.
+photo_merge.title = Fotokuna Huñuy...
+photo_merge.align = Kikinmanta alineación
+photo_merge.focus = Huk rikchaq enfoque karuyuq fotokunata hukllana
+photo_merge.hdr = HDR achka exposición patakunamanta
+photo_merge.panorama = Fotokunata huk panorama nisqaman hukllaway
+photo_merge.translation = Horizontal y vertical nisqa siq’i kuyuylla (X/Y); mana muyuchiypas nitaq perspectiva allichaypas.
+photo_merge.crop = Chakra rakisqa pampaman tarpuy
+photo_merge.exposure_note = Sapa fotopa relativa exposiciónninta churay: +1 EV iskay kuti aswan k'anchay niyta munan. 32-bit HDR waqaychaypaq siq'i tono mapa ruwayta mana llamk'achiy.
+photo_merge.tone_map = Imahina tono mapeo
+photo_merge.order = Kichasqa qillqa tablakunapa ordenninta servichikuy. Sapa panorama fotoqa ñawpaq fotowanmi 25% nisqallapas tupanan.
+photo_merge.invalid = 2–16 allin siq'ikunata akllay chaymanta qhaway churaykunata qhaway.
+photo_merge.limit = Límite: 64 hunu pixel sapa siq'ipi icha lluqsiypi, 128 hunu llapanpi; 30000 pixel sapa ladupi.
+photo_merge.no_match = Mana confiable superposición tarikunchu. Fotokuna tupanakuqta mana muyuchispa nitaq perspectiva cambiaspalla servichikuy.

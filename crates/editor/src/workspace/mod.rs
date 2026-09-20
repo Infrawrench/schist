@@ -44,6 +44,8 @@ mod ai;
 mod camera_import;
 #[cfg(not(target_arch = "wasm32"))]
 pub(crate) mod camera_sync;
+#[cfg(not(target_arch = "wasm32"))]
+pub(crate) mod photo_merge;
 pub(crate) mod recorded_actions;
 mod smart_objects;
 #[cfg(target_os = "android")]
@@ -454,6 +456,8 @@ pub struct Workspace {
     /// traced from.
     selection_outline: Option<(u64, SelectionOutline)>,
     mask_refine: Option<mask_refine::State>,
+    #[cfg(not(target_arch = "wasm32"))]
+    pub(crate) photo_merge_job: Option<photo_merge::Job>,
     /// Navigator thumbnail, tagged with the revision it was rendered at.
     nav_thumb: Option<(u64, Arc<RenderImage>)>,
     /// The canvas takes focus on the first frame so keyboard shortcuts work
@@ -866,6 +870,12 @@ pub enum UpdateProgress {
 // plumbing matches exhaustively on every target.
 #[cfg_attr(target_arch = "wasm32", allow(dead_code))]
 pub enum Modal {
+    #[cfg(not(target_arch = "wasm32"))]
+    PhotoMerge {
+        documents: Vec<schist_core::DocumentId>,
+        included: Vec<bool>,
+        options: schist_photo_merge::Options,
+    },
     RecordedActions {
         selected: Option<usize>,
         step: Option<usize>,
@@ -1386,6 +1396,8 @@ impl Workspace {
             note_edit: None,
             selection_outline: None,
             mask_refine: None,
+            #[cfg(not(target_arch = "wasm32"))]
+            photo_merge_job: None,
             nav_thumb: None,
             focused_once: false,
             pending_fit: false,

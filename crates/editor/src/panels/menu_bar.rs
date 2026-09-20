@@ -37,6 +37,8 @@ pub(crate) fn run_app_item(
         return;
     }
     match item {
+        #[cfg(not(target_arch = "wasm32"))]
+        AppItem::PhotoMerge => ws.open_photo_merge(cx),
         AppItem::RecordedActions => ws.open_actions(cx),
         AppItem::Search => ws.show_spotlight(window, cx),
         AppItem::CloudGenerate => {

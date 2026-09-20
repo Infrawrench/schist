@@ -1,0 +1,14 @@
+# Photographic merging. Machine-assisted translation with terminology review.
+photo_merge.title = Għaqqad ir-Ritratti...
+photo_merge.align = Allinjament awtomatiku
+photo_merge.focus = Għaqqad ritratti b'distanzi ta 'fokus differenti
+photo_merge.hdr = HDR minn livelli ta' espożizzjoni multipli
+photo_merge.panorama = Għaqqad ir-ritratti f'panorama
+photo_merge.translation = Moviment tal-immaġni orizzontali u vertikali biss (X/Y); ebda rotazzjoni jew korrezzjoni tal-perspettiva.
+photo_merge.crop = Uċuħ tar-raba' għal żona kondiviża
+photo_merge.exposure_note = Issettja l-espożizzjoni relattiva ta' kull ritratt: +1 EV tfisser id-doppju tad-dawl. Iddiżattiva l-immappjar tat-ton tal-immaġni biex tippreserva l-HDR ta' 32 bit.
+photo_merge.tone_map = Immappjar tat-ton tal-immaġni
+photo_merge.order = Uża l-ordni tat-tabs tad-dokumenti miftuħa. Kull ritratt panorama għandu jikkoinċidi mar-ritratt preċedenti b'mill-inqas 25%.
+photo_merge.invalid = Agħżel 2–16 immaġini validi u ċċekkja s-settings tal-espożizzjoni.
+photo_merge.limit = Limitu: 64 miljun pixel għal kull immaġini jew output, 128 miljun totali; 30000 pixel kull naħa.
+photo_merge.no_match = Ma nstab l-ebda koinċidenza affidabbli. Uża ritratti li jikkoinċidu mingħajr rotazzjoni jew bidliet fil-perspettiva.

@@ -7,6 +7,10 @@ impl Workspace {
     // ----- modals and numeric fields -----
 
     pub fn open_modal(&mut self, modal: Modal, cx: &mut Context<Self>) {
+        #[cfg(not(target_arch = "wasm32"))]
+        {
+            self.photo_merge_job = None;
+        }
         if !crate::feature_enabled("schist-cloud")
             && matches!(
                 modal,
@@ -133,6 +137,10 @@ impl Workspace {
     }
 
     pub fn close_modal(&mut self, cx: &mut Context<Self>) {
+        #[cfg(not(target_arch = "wasm32"))]
+        {
+            self.photo_merge_job = None;
+        }
         if matches!(
             self.modal,
             Some(Modal::RecordedActionBatch {
@@ -699,6 +707,8 @@ impl Workspace {
         self.update_modal(|m| match m {
             #[cfg(not(target_arch = "wasm32"))]
             Modal::VersionHistory => {},
+            #[cfg(not(target_arch = "wasm32"))]
+            Modal::PhotoMerge { .. } => {},
             Modal::Cloud {..} | Modal::CloudGenerate => {},
             Modal::ImageSize {
                 width,

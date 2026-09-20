@@ -1,0 +1,14 @@
+# Photographic merging. Machine-assisted translation with terminology review.
+photo_merge.title = Voeg foto's saam …
+photo_merge.align = Outomatiese belyning
+photo_merge.focus = Voeg foto's met verskillende fokusafstande saam
+photo_merge.hdr = HDR vanaf veelvuldige blootstellingsvlakke
+photo_merge.panorama = Voeg foto's saam in 'n panorama
+photo_merge.translation = Slegs horisontale en vertikale beeldbeweging (X/Y); geen rotasie of perspektiefkorreksie nie.
+photo_merge.crop = Sny na gedeelde area
+photo_merge.exposure_note = Stel elke foto se relatiewe blootstelling: +1 EV beteken twee keer soveel lig. Deaktiveer beeldtoonkartering om 32-bis HDR te behou.
+photo_merge.tone_map = Beeldtoonkartering
+photo_merge.order = Gebruik die volgorde van die oop dokument-oortjies. Elke panoramafoto moet die vorige foto met ten minste 25% oorvleuel.
+photo_merge.invalid = Kies 2–16 geldige beelde en kontroleer die beligtinginstellings.
+photo_merge.limit = Limiet: 64 miljoen pixels per prent of uitset, 128 miljoen totaal; 30000 pixels per kant.
+photo_merge.no_match = Geen betroubare oorvleueling gevind nie. Gebruik oorvleuelende foto's sonder rotasie of perspektiefveranderinge.

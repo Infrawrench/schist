@@ -1,0 +1,14 @@
+# Photographic merging. Machine-assisted translation with terminology review.
+photo_merge.title = Gatta Ebifaananyi...
+photo_merge.align = Okukwatagana mu ngeri ey’otoma
+photo_merge.focus = Gatta ebifaananyi n’amabanga ag’enjawulo agassa essira
+photo_merge.hdr = HDR okuva ku mitendera egy’okubikkulwa egy’enjawulo
+photo_merge.panorama = Gatta ebifaananyi mu panorama
+photo_merge.translation = Entambula y’ebifaananyi ey’okwesimbye n’ey’okwesimbye yokka (X/Y); tewali kukyusakyusa oba kulongoosa ndowooza.
+photo_merge.crop = Ebirime okutuuka mu kitundu ekigabibwa
+photo_merge.exposure_note = Teeka buli kifaananyi ekiraga nti buli kifaananyi: +1 EV kitegeeza ekitangaala ekikubisaamu emirundi ebiri. Lemesa okukola maapu y'eddoboozi ly'ebifaananyi okukuuma 32-bit HDR.
+photo_merge.tone_map = Okukola maapu y’eddoboozi ly’ebifaananyi
+photo_merge.order = Kozesa ensengeka ya tabu z'ebiwandiiko ebiggule. Buli kifaananyi kya panorama kirina okukwatagana n’ekifaananyi ekyasooka waakiri ebitundu 25%.
+photo_merge.invalid = Londa ebifaananyi 2–16 ebituufu era okebere ensengeka z’okulaga.
+photo_merge.limit = Ekkomo: Pixels obukadde 64 buli kifaananyi oba ekifulumizibwa, obukadde 128 zonna awamu; 30000 pixels buli ludda.
+photo_merge.no_match = Tewali kukwatagana kwesigika kwazuuliddwa. Kozesa ebifaananyi ebikwatagana nga tolina kukyusakyusa oba kukyusa ndowooza.

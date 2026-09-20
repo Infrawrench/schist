@@ -1,0 +1,14 @@
+# Photographic merging. Machine-assisted translation with terminology review.
+photo_merge.title = Haɗa Hotuna…
+photo_merge.align = Daidaitawa ta atomatik
+photo_merge.focus = Haɗa hotuna tare da nesa mai da hankali daban-daban
+photo_merge.hdr = HDR daga matakan bayyanawa da yawa
+photo_merge.panorama = Haɗa hotuna a cikin panorama
+photo_merge.translation = Motsin hoto a kwance da tsaye (X/Y); babu juyi ko gyara hangen nesa.
+photo_merge.crop = Shuka zuwa yankin da aka raba
+photo_merge.exposure_note = Saita bayyanar dangin kowane hoto: +1 EV yana nufin sau biyu mafi yawa haske. Kashe taswirar sautin hoto don adana 32-bit HDR.
+photo_merge.tone_map = Taswirar sautin hoto
+photo_merge.order = Yi amfani da tsari na shafukan buɗaɗɗen daftarin aiki. Kowane hoton panorama dole ne ya mamaye hoton da ya gabata da aƙalla 25%.
+photo_merge.invalid = Zaɓi ingantattun hotuna 2-16 kuma duba saitunan fallasa.
+photo_merge.limit = Iyaka: pixels miliyan 64 a kowane hoto ko fitarwa, jimlar miliyan 128; 30000 pixels a kowane gefe.
+photo_merge.no_match = Ba a sami wani abin dogaro ba. Yi amfani da hotuna masu haɗuwa ba tare da jujjuya ko canje-canjen hangen nesa ba.

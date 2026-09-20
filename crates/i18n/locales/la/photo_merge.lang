@@ -1,0 +1,14 @@
+# Photographic merging. Direct translation; native review welcome.
+photo_merge.title = Imagines coniungere…
+photo_merge.align = Ordinatio automatica
+photo_merge.focus = Imagines diversis focis coniungere
+photo_merge.hdr = HDR ex variis expositionibus
+photo_merge.panorama = Imagines in panorama coniungere
+photo_merge.translation = Soli motus horizontales et verticales (X/Y); rotatio et perspectiva non corriguntur.
+photo_merge.crop = Ad aream communem resecare
+photo_merge.exposure_note = Expositionem relativam cuiusque imaginis constitue: +1 EV = lux dupla. Conversionem tonorum inactiva ut HDR 32 bit servetur.
+photo_merge.tone_map = Conversio tonorum
+photo_merge.order = Imagines panoramatis ordinem tabularum sequuntur; imagines continuae saltem 25% areae communis habere debent.
+photo_merge.invalid = Elige 2–16 imagines validas et optiones expositionis examina.
+photo_merge.limit = Limes: 64 miliones elementorum per imaginem vel effectum, 128 miliones in summa; 30000 elementa per latus.
+photo_merge.no_match = Area communis certa non inventa. Imagines area communi sine rotatione aut mutationibus perspectivae utere.

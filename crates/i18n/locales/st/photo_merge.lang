@@ -1,0 +1,14 @@
+# Photographic merging. Machine-assisted translation with terminology review.
+photo_merge.title = Kopanya Linepe...
+photo_merge.align = Ho tsamaisana ka tsela e iketsang
+photo_merge.focus = Kopanya linepe le libaka tse fapaneng tsa ho tsepamisa maikutlo
+photo_merge.hdr = HDR ho tsoa maemong a mangata a ho pepeseha
+photo_merge.panorama = Kopanya linepe ho ba panorama
+photo_merge.translation = Ke motsamao oa setšoantšo o otlolohileng le o otlolohileng feela (X/Y); ha ho potoloha kapa tokiso ya chebo.
+photo_merge.crop = Jala sebakeng se arolelanoang
+photo_merge.exposure_note = Beha ponahalo ea senepe ka seng: +1 EV e bolela khanya e imenne habeli. Tlosa 'mapa oa litšoantšo ho boloka 32-bit HDR.
+photo_merge.tone_map = 'Mapa oa molumo oa setšoantšo
+photo_merge.order = Sebelisa tatellano ea li-tab tsa litokomane tse bulehileng. Senepe se seng le se seng sa ponorama se tlameha ho feta senepe se fetileng bonyane ka 25%.
+photo_merge.invalid = Khetha litšoantšo tse 2–16 tse sebetsang 'me u hlahlobe litlhophiso tsa ho pepeseha.
+photo_merge.limit = Moeli: lipikselse tse limilione tse 64 ka setšoantšo kapa tlhahiso, kakaretso ea limilione tse 128; 30000 pixels lehlakoreng le leng.
+photo_merge.no_match = Ha ho na kamano e tšepahalang e fumanoeng. Sebelisa linepe tse nyallanang ntle le ho chencha kapa ho feto-fetoha ha maikutlo.

@@ -1,0 +1,14 @@
+# Photographic merging. Machine-assisted translation with terminology review.
+photo_merge.title = Gabung Foto…
+photo_merge.align = Alignment otomatis
+photo_merge.focus = Gabung foto kanthi jarak fokus sing beda
+photo_merge.hdr = HDR saka macem-macem tingkat cahya
+photo_merge.panorama = Gabung foto dadi panorama
+photo_merge.translation = Mung gerakan gambar horisontal lan vertikal (X / Y); ora ana rotasi utawa koreksi perspektif.
+photo_merge.crop = Potong menyang wilayah sing dienggo bareng
+photo_merge.exposure_note = Setel cahya relatif saben foto: +1 EV tegese cahya kaping pindho. Pateni pemetaan nada gambar kanggo njaga HDR 32-bit.
+photo_merge.tone_map = Pemetaan nada gambar
+photo_merge.order = Gunakake urutan tab dokumen sing mbukak. Saben foto panorama kudu tumpang tindih karo foto sadurunge paling sethithik 25%.
+photo_merge.invalid = Pilih 2–16 gambar sing bener lan priksa setelan cahya.
+photo_merge.limit = Watesan: 64 yuta piksel saben gambar utawa output, total 128 yuta; 30000 piksel saben sisih.
+photo_merge.no_match = Ora ana tumpang tindih sing dipercaya. Gunakake foto sing tumpang tindih tanpa owah-owahan rotasi utawa perspektif.

@@ -1,0 +1,14 @@
+# Photographic merging. Machine-assisted translation with terminology review.
+photo_merge.title = Dapọ awọn fọto…
+photo_merge.align = Aifọwọyi titete
+photo_merge.focus = Dapọ awọn fọto pẹlu oriṣiriṣi awọn ijinna idojukọ
+photo_merge.hdr = HDR lati awọn ipele ifihan pupọ
+photo_merge.panorama = Dapọ awọn fọto sinu panorama kan
+photo_merge.translation = Nikan petele ati inaro aworan ronu (X/Y); ko si iyipo tabi atunse irisi.
+photo_merge.crop = Gbingbin si agbegbe ti a pin
+photo_merge.exposure_note = Ṣeto ifihan ojulumo fọto kọọkan: +1 EV tumo si ilọpo meji bi ina pupọ. Muu aworan aworan ohun orin ṣiṣẹ lati tọju HDR 32-bit.
+photo_merge.tone_map = Aworan ohun orin aworan
+photo_merge.order = Lo aṣẹ ti awọn taabu iwe ṣiṣi silẹ. Fọto panorama kọọkan gbọdọ ni lqkan fọto ti tẹlẹ nipasẹ o kere ju 25%.
+photo_merge.invalid = Yan awọn aworan to wulo 2-16 ati ṣayẹwo awọn eto ifihan.
+photo_merge.limit = Ifilelẹ: 64 milionu awọn piksẹli fun aworan tabi abajade, 128 milionu lapapọ; 30000 awọn piksẹli fun ẹgbẹ kan.
+photo_merge.no_match = Ko si agbekọja igbẹkẹle ti a rii. Lo awọn fọto agbekọja laisi yiyi tabi awọn iyipada irisi.

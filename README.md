@@ -460,6 +460,7 @@ already logged into. See [docs/ai-panel.md](docs/ai-panel.md).
 
 * [docs/architecture.md](docs/architecture.md) — how the pieces fit
 * [docs/gallery.md](docs/gallery.md) — the Picasa-style photo gallery
+* [docs/photo-merging.md](docs/photo-merging.md) — alignment, focus stacking, bracketed HDR and translation-based panoramas
 * [docs/actions.md](docs/actions.md) — record, edit and replay actions on documents and gallery photos
 * [docs/export-recipes.md](docs/export-recipes.md) — saved exports for documents and gallery selections
 * [docs/mask-refinement.md](docs/mask-refinement.md) — refine selection edges and layer masks

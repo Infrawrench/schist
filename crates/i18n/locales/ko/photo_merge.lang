@@ -1,0 +1,14 @@
+# Selected-document photographic merging.
+photo_merge.title = 사진 병합…
+photo_merge.align = 자동 정렬
+photo_merge.focus = 초점 합성
+photo_merge.hdr = 노출 브래킷 HDR
+photo_merge.panorama = 파노라마 합성
+photo_merge.translation = 가로 및 세로 이동(X/Y)만 지원합니다. 회전과 원근은 보정하지 않습니다.
+photo_merge.crop = 공통 영역으로 자르기
+photo_merge.exposure_note = 각 사진의 상대 노출을 설정하세요. +1 EV는 빛의 양이 두 배입니다. 32비트 HDR을 유지하려면 톤 매핑을 끄세요.
+photo_merge.tone_map = 톤 매핑
+photo_merge.order = 파노라마 사진은 탭 순서를 따릅니다. 연속된 사진은 최소 25% 이상 겹쳐야 합니다.
+photo_merge.invalid = 유효한 이미지 2–16개를 선택하고 노출 설정을 확인하세요.
+photo_merge.limit = 제한: 이미지 또는 출력당 6400만 픽셀, 총 1억 2800만 픽셀, 한 변당 30,000픽셀.
+photo_merge.no_match = 신뢰할 수 있는 겹침을 찾지 못했습니다. 회전이나 원근 변화가 없는 겹치는 사진을 사용하세요.

@@ -1,0 +1,14 @@
+# Photographic merging. Machine-assisted translation with terminology review.
+photo_merge.title = ادغام عکس ها…
+photo_merge.align = تراز خودکار
+photo_merge.focus = عکس ها را با فواصل فوکوس مختلف ادغام کنید
+photo_merge.hdr = HDR از سطوح نوردهی چندگانه
+photo_merge.panorama = عکس ها را در یک پانوراما ادغام کنید
+photo_merge.translation = فقط حرکت تصویر افقی و عمودی (X/Y). بدون چرخش یا اصلاح پرسپکتیو.
+photo_merge.crop = برش به منطقه مشترک
+photo_merge.exposure_note = نوردهی نسبی هر عکس را تنظیم کنید: +1 EV یعنی دو برابر نور. برای حفظ HDR 32 بیتی، نگاشت تن تصویر را غیرفعال کنید.
+photo_merge.tone_map = نگاشت تن تصویر
+photo_merge.order = از ترتیب برگه های باز سند استفاده کنید. هر عکس پانوراما باید حداقل 25٪ با عکس قبلی همپوشانی داشته باشد.
+photo_merge.invalid = 2 تا 16 تصویر معتبر را انتخاب کنید و تنظیمات نوردهی را بررسی کنید.
+photo_merge.limit = محدودیت: 64 میلیون پیکسل در هر تصویر یا خروجی، 128 میلیون در مجموع. 30000 پیکسل در هر طرف
+photo_merge.no_match = هیچ همپوشانی قابل اعتمادی یافت نشد. بدون چرخش یا تغییر پرسپکتیو از عکس های همپوشانی استفاده کنید.

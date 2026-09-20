@@ -1,0 +1,14 @@
+# Photographic merging. Machine-assisted translation with terminology review.
+photo_merge.title = Spoji fotografije…
+photo_merge.align = Automatsko poravnanje
+photo_merge.focus = Spojite fotografije s različitim udaljenostima fokusa
+photo_merge.hdr = HDR sa više nivoa ekspozicije
+photo_merge.panorama = Spojite fotografije u panoramu
+photo_merge.translation = Samo horizontalno i vertikalno kretanje slike (X/Y); nema rotacije ili korekcije perspektive.
+photo_merge.crop = Izrežite na zajedničko područje
+photo_merge.exposure_note = Postavite relativnu ekspoziciju svake fotografije: +1 EV znači dvostruko više svjetla. Onemogućite mapiranje tonova slike da sačuvate 32-bitni HDR.
+photo_merge.tone_map = Mapiranje tonova slike
+photo_merge.order = Koristite redoslijed otvorenih kartica dokumenta. Svaka panoramska fotografija mora se preklapati sa prethodnom za najmanje 25%.
+photo_merge.invalid = Odaberite 2–16 važećih slika i provjerite postavke ekspozicije.
+photo_merge.limit = Ograničenje: 64 miliona piksela po slici ili izlazu, ukupno 128 miliona; 30000 piksela po strani.
+photo_merge.no_match = Nije pronađeno pouzdano preklapanje. Koristite fotografije koje se preklapaju bez rotacije ili promjene perspektive.
