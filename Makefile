@@ -706,7 +706,7 @@ lint-metadata-xmp:
 	$(CARGO) clippy -p schist-gallery -p schist-editor --all-targets -- -D warnings
 
 # Local photo decisions, persistence and the synchronized comparison viewer.
-.PHONY: check-photo-culling check-photo-culling-app format-photo-culling
+.PHONY: check-photo-culling check-photo-culling-app format-photo-culling lint-photo-culling
 check-photo-culling:
 	$(CARGO) test -p schist-gallery culling
 	$(CARGO) test -p schist-editor --lib culling
@@ -716,3 +716,6 @@ check-photo-culling-app:
 	$(CARGO) check -p schist-app --all-targets
 format-photo-culling:
 	$(CARGO) fmt -p schist-gallery -p schist-editor -p schist-app-actions
+
+lint-photo-culling:
+	$(CARGO) clippy -p schist-gallery -p schist-editor -p schist-app-actions --all-targets -- -D warnings

@@ -283,7 +283,7 @@ pub struct Library {
     pub selected: Vec<PathBuf>,
     pub culling: BTreeMap<PathBuf, schist_gallery::culling::PhotoCulling>,
     pub culling_filter: schist_gallery::culling::CullFilter,
-    pub comparison: Option<super::library_culling::Comparison>,
+    pub(super) comparison: Option<super::library_culling::Comparison>,
     pub culling_error: Option<String>,
     /// Where a Shift-click range extends from.
     select_anchor: Option<PathBuf>,
