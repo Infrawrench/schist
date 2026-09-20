@@ -49,6 +49,7 @@ web-sys = { version = "0.3", features = [
     "BlobPropertyBag",
     "Url",
     "Event",
+    "PointerEvent",
     "Response",
     "ReadableStream",
     "ReadableStreamDefaultReader",

@@ -70,3 +70,5 @@ panel.ai.no_models = No gat model i matjem
 panel.ai.search_models = Lukaotem ol model…
 panel.keymap.install_plugin = Instolem Plug-in
 panel.keymap.save_as_prompt = Sevem olsem—extension i jusum format:
+
+panels.brushes.pen_tilt = Pen i lein

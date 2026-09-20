@@ -54,7 +54,7 @@ fn noise(mut seed: u32) -> f32 {
 
 fn tip_coverage(tip: BrushTip, u: f32, v: f32) -> f32 {
     match tip {
-        BrushTip::Round => 1.0,
+        BrushTip::Round | BrushTip::Bitmap => 1.0,
         BrushTip::Grain => {
             let x = ((u + 1.0) * 24.0).floor() as u32;
             let y = ((v + 1.0) * 24.0).floor() as u32;
@@ -161,6 +161,10 @@ struct Stroke {
     coverage: FxHashMap<TileCoord, Box<[f32]>>,
     last: (f32, f32),
     last_pressure: f32,
+    last_rotation: f32,
+    raw_rotation: f32,
+    filtered_rotation: f32,
+    bitmap: Option<std::sync::Arc<schist_plugin_api::BrushBitmap>>,
     contact_pressure: f32,
     raw_last: (f32, f32, f32),
     filtered: (f32, f32, f32),
@@ -210,6 +214,12 @@ impl Stroke {
         } else {
             BrushDynamics::default()
         };
+        let rotation = dynamics.rotation.to_radians()
+            + if dynamics.tilt_rotation {
+                schist_plugin_api::brush::tilt_azimuth(ctx.state.pen_tilt).unwrap_or(0.0)
+            } else {
+                0.0
+            };
         let mut stroke = Stroke {
             edit: StrokeEdit::new(t(match mode {
                 PaintMode::Brush => "tool.brush.history.stroke",
@@ -231,6 +241,10 @@ impl Stroke {
             coverage: FxHashMap::default(),
             last: (input.x, input.y),
             last_pressure: input.pressure.clamp(0.0, 1.0),
+            last_rotation: rotation,
+            raw_rotation: rotation,
+            filtered_rotation: rotation,
+            bitmap: recipe.bitmap,
             contact_pressure: input.pressure.clamp(0.0, 1.0),
             raw_last: (input.x, input.y, input.pressure.clamp(0.0, 1.0)),
             filtered: (input.x, input.y, input.pressure.clamp(0.0, 1.0)),
@@ -270,7 +284,7 @@ impl Stroke {
             heal_rect: IntRect::EMPTY,
             heal_offset,
         };
-        stroke.dab(ctx.doc, input.x, input.y, input.pressure);
+        stroke.dab(ctx.doc, input.x, input.y, input.pressure, rotation);
         Some(stroke)
     }
 
@@ -278,9 +292,27 @@ impl Stroke {
         (self.size * self.dynamics.spacing).max(1.0)
     }
 
-    /// Resample the input at fixed spatial intervals before smoothing. The
-    /// same polyline produces the same dabs regardless of event batching.
-    fn move_to(&mut self, doc: &mut Document, x: f32, y: f32, pressure: f32) {
+    /// Unwrap pen orientation along the shortest angular path.
+    fn input_rotation(&self, tilt: Option<[f32; 2]>) -> f32 {
+        let base = self.dynamics.rotation.to_radians();
+        let target = if self.dynamics.tilt_rotation {
+            match tilt {
+                Some(_) => schist_plugin_api::brush::tilt_azimuth(tilt)
+                    .map(|a| base + a)
+                    .unwrap_or(self.raw_rotation),
+                None => base,
+            }
+        } else {
+            base
+        };
+        self.raw_rotation
+            + (target - self.raw_rotation + std::f32::consts::PI).rem_euclid(std::f32::consts::TAU)
+            - std::f32::consts::PI
+    }
+
+    /// Resample at fixed spatial intervals before smoothing position, force
+    /// and rotation, so a polyline is independent of event batching.
+    fn move_to(&mut self, doc: &mut Document, x: f32, y: f32, pressure: f32, rotation: f32) {
         if !x.is_finite() || !y.is_finite() || !pressure.is_finite() {
             return;
         }
@@ -289,7 +321,7 @@ impl Stroke {
             self.contact_pressure = pressure;
         }
         if self.dynamics.stabilization == 0.0 {
-            self.extend(doc, x, y, pressure);
+            self.extend(doc, x, y, pressure, rotation);
         } else {
             let (lx, ly, lp) = self.raw_last;
             let dist = (x - lx).hypot(y - ly);
@@ -303,7 +335,8 @@ impl Stroke {
             // the growing footprint must still paint immediately.
             if dist <= f32::EPSILON {
                 self.filtered.2 = pressure;
-                self.extend(doc, self.filtered.0, self.filtered.1, pressure);
+                self.filtered_rotation = rotation;
+                self.extend(doc, self.filtered.0, self.filtered.1, pressure, rotation);
             }
             let alpha = 1.0 - (-1.0 / self.dynamics.stabilization).exp();
             let mut d = self.raw_debt;
@@ -312,15 +345,25 @@ impl Stroke {
                 self.filtered.0 += (lx + (x - lx) * f - self.filtered.0) * alpha;
                 self.filtered.1 += (ly + (y - ly) * f - self.filtered.1) * alpha;
                 self.filtered.2 += (lp + (pressure - lp) * f - self.filtered.2) * alpha;
-                self.extend(doc, self.filtered.0, self.filtered.1, self.filtered.2);
+                self.filtered_rotation += (self.raw_rotation + (rotation - self.raw_rotation) * f
+                    - self.filtered_rotation)
+                    * alpha;
+                self.extend(
+                    doc,
+                    self.filtered.0,
+                    self.filtered.1,
+                    self.filtered.2,
+                    self.filtered_rotation,
+                );
                 d += 1.0;
             }
             self.raw_debt = d - dist;
         }
         self.raw_last = (x, y, pressure);
+        self.raw_rotation = rotation;
     }
 
-    fn flush(&mut self, doc: &mut Document, input: PointerInput) {
+    fn flush(&mut self, doc: &mut Document, input: PointerInput, tilt: Option<[f32; 2]>) {
         if !input.x.is_finite() || !input.y.is_finite() {
             return;
         }
@@ -331,15 +374,16 @@ impl Stroke {
         } else {
             self.contact_pressure
         };
-        self.move_to(doc, input.x, input.y, pressure);
-        self.extend(doc, input.x, input.y, pressure);
+        let rotation = self.input_rotation(tilt);
+        self.move_to(doc, input.x, input.y, pressure, rotation);
+        self.extend(doc, input.x, input.y, pressure, rotation);
         // Even a short stroke or a sub-spacing tail reaches its endpoint.
         if self.spacing_debt < self.spacing() - 0.001 {
-            self.dab(doc, input.x, input.y, pressure);
+            self.dab(doc, input.x, input.y, pressure, rotation);
         }
     }
 
-    fn extend(&mut self, doc: &mut Document, x: f32, y: f32, pressure: f32) {
+    fn extend(&mut self, doc: &mut Document, x: f32, y: f32, pressure: f32, rotation: f32) {
         let (lx, ly) = self.last;
         let dx = x - lx;
         let dy = y - ly;
@@ -348,10 +392,11 @@ impl Stroke {
             return;
         }
         if dist <= f32::EPSILON {
-            if pressure > self.last_pressure {
-                self.dab(doc, x, y, pressure);
+            if pressure > self.last_pressure || (rotation - self.last_rotation).abs() > 0.001 {
+                self.dab(doc, x, y, pressure, rotation);
             }
             self.last_pressure = pressure;
+            self.last_rotation = rotation;
             return;
         }
         let spacing = self.spacing();
@@ -363,17 +408,24 @@ impl Stroke {
                 lx + dx * f,
                 ly + dy * f,
                 self.last_pressure + (pressure - self.last_pressure) * f,
+                self.last_rotation + (rotation - self.last_rotation) * f,
             );
             t += spacing;
         }
         self.spacing_debt = t - dist;
         self.last = (x, y);
         self.last_pressure = pressure;
+        self.last_rotation = rotation;
     }
 
     /// Stamp one dab: raise coverage, then re-composite affected pixels
     /// from their pre-stroke values.
-    fn dab(&mut self, doc: &mut Document, cx: f32, cy: f32, pressure: f32) {
+    fn dab(&mut self, doc: &mut Document, cx: f32, cy: f32, pressure: f32, rotation: f32) {
+        let opacity_pressure = if self.dynamics.pressure_opacity {
+            pressure.clamp(0.0, 1.0)
+        } else {
+            1.0
+        };
         let pressure = self.dynamics.pressure_size(pressure);
         if pressure <= 0.0 {
             return;
@@ -384,11 +436,23 @@ impl Stroke {
         let distance = noise(seed.wrapping_mul(2)).sqrt() * self.dynamics.scatter * self.size;
         let angle = noise(seed.wrapping_mul(2).wrapping_add(1)) * std::f32::consts::TAU;
         let (cx, cy) = (cx + angle.cos() * distance, cy + angle.sin() * distance);
+        let bitmap = self
+            .bitmap
+            .clone()
+            .filter(|_| self.dynamics.tip == BrushTip::Bitmap);
+        // A rotated rectangle can extend outside the procedural round footprint.
+        let extent = if let Some(bitmap) = &bitmap {
+            let max = bitmap.width.max(bitmap.height) as f32;
+            radius * ((bitmap.width + 1) as f32 / max).hypot((bitmap.height + 1) as f32 / max)
+        } else {
+            radius
+        };
+        let (sin, cos) = rotation.sin_cos();
         let bounds = IntRect::new(
-            (cx - radius).floor() as i32,
-            (cy - radius).floor() as i32,
-            (cx + radius).ceil() as i32 + 1,
-            (cy + radius).ceil() as i32 + 1,
+            (cx - extent).floor() as i32,
+            (cy - extent).floor() as i32,
+            (cx + extent).ceil() as i32 + 1,
+            (cy + extent).ceil() as i32 + 1,
         );
         // Healing and smudging need to look at a whole dab's worth of
         // pixels before any of them can be written, so they compute their
@@ -416,24 +480,38 @@ impl Stroke {
             let mut touched = false;
             for y in clip.top..clip.bottom {
                 for x in clip.left..clip.right {
-                    let d = ((x as f32 + 0.5 - cx).powi(2) + (y as f32 + 0.5 - cy).powi(2)).sqrt();
-                    if d >= radius {
-                        continue;
-                    }
-                    let mut a = if d <= inner {
-                        1.0
+                    let dx = (x as f32 + 0.5 - cx) / radius;
+                    let dy = (y as f32 + 0.5 - cy) / radius;
+                    let (u, v) = (dx * cos + dy * sin, -dx * sin + dy * cos);
+                    let mut a = if let Some(bitmap) = &bitmap {
+                        // Imported masks define their own edge; a circular hardness
+                        // envelope would destroy rectangular tips and cut corners.
+                        let coverage = bitmap.coverage(u, v);
+                        if self.mode == PaintMode::Pencil {
+                            if coverage >= 0.5 {
+                                1.0
+                            } else {
+                                0.0
+                            }
+                        } else {
+                            coverage
+                        }
                     } else {
-                        1.0 - (d - inner) / (radius - inner)
+                        let d = dx.hypot(dy) * radius;
+                        if d >= radius {
+                            continue;
+                        }
+                        let mut envelope = if d <= inner {
+                            1.0
+                        } else {
+                            1.0 - (d - inner) / (radius - inner)
+                        };
+                        if self.mode == PaintMode::Pencil {
+                            envelope = if envelope >= 0.5 { 1.0 } else { 0.0 };
+                        }
+                        envelope * tip_coverage(self.dynamics.tip, u, v)
                     };
-                    if self.mode == PaintMode::Pencil {
-                        // Pencil: binary coverage.
-                        a = if a >= 0.5 { 1.0 } else { 0.0 };
-                    }
-                    a *= tip_coverage(
-                        self.dynamics.tip,
-                        (x as f32 + 0.5 - cx) / radius,
-                        (y as f32 + 0.5 - cy) / radius,
-                    );
+                    a *= opacity_pressure;
                     a *= selection.coverage(x, y) as f32 / 255.0;
                     if a <= 0.0 {
                         continue;
@@ -1066,13 +1144,14 @@ impl ToolPlugin for PaintTool {
     fn on_pointer_move(&mut self, ctx: &mut ToolCtx, input: PointerInput) {
         self.cursor = Some((input.x, input.y));
         if let Some(stroke) = &mut self.stroke {
-            stroke.move_to(ctx.doc, input.x, input.y, input.pressure);
+            let rotation = stroke.input_rotation(ctx.state.pen_tilt);
+            stroke.move_to(ctx.doc, input.x, input.y, input.pressure, rotation);
         }
     }
 
     fn on_pointer_up(&mut self, ctx: &mut ToolCtx, input: PointerInput) {
         if let Some(mut stroke) = self.stroke.take() {
-            stroke.flush(ctx.doc, input);
+            stroke.flush(ctx.doc, input, ctx.state.pen_tilt);
             stroke.finish(ctx.doc);
         }
     }

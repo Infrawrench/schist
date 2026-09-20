@@ -70,3 +70,5 @@ panel.ai.no_models = Тохирох загвар алга
 panel.ai.search_models = Загвар хайх…
 panel.keymap.install_plugin = Нэмэлт суулгах
 panel.keymap.save_as_prompt = Өөрөөр хадгалах — өргөтгөл форматыг сонгоно:
+
+panels.brushes.pen_tilt = Үзэгний хазайлт

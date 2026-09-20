@@ -71,3 +71,5 @@ panel.ai.no_models = Eingir myndlar samsvara
 panel.ai.search_models = Leita eftir myndlum…
 panel.keymap.install_plugin = Legg ískoytisforrit inn
 panel.keymap.save_as_prompt = Goym sum — fílueftirskoytið velur sniðið:
+
+panels.brushes.pen_tilt = Hall á penni

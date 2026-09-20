@@ -70,3 +70,5 @@ panel.ai.no_models = Sobivaid mudeleid pole
 panel.ai.search_models = Otsi mudeleid…
 panel.keymap.install_plugin = Paigalda pistikprogramm
 panel.keymap.save_as_prompt = Salvesta nimega — laiend määrab vormingu:
+
+panels.brushes.pen_tilt = Pliiatsi kalle

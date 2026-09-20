@@ -13,7 +13,7 @@ use schist_core::{Document, IntRect};
 pub use registry::{PluginManifest, PluginRegistry};
 
 pub mod brush;
-pub use brush::{BrushDynamics, BrushPreset, BrushTip};
+pub use brush::{BrushBitmap, BrushDynamics, BrushPreset, BrushTip};
 
 pub mod filter_canvas;
 pub mod filter_stack;
@@ -62,6 +62,9 @@ pub struct EditorState {
     /// 0.0 = maximally soft edge, 1.0 = hard edge.
     pub brush_hardness: f32,
     pub brush_dynamics: BrushDynamics,
+    pub brush_bitmap: Option<std::sync::Arc<BrushBitmap>>,
+    /// Current event pen tilt in document-axis degrees; None without tilt data.
+    pub pen_tilt: Option<[f32; 2]>,
     /// Tool opacity (digit keys), 0.0..=1.0.
     pub tool_opacity: f32,
     pub active_tool: &'static str,
@@ -99,6 +102,8 @@ impl Default for EditorState {
             brush_size: 24.0,
             brush_hardness: 0.5,
             brush_dynamics: BrushDynamics::default(),
+            brush_bitmap: None,
+            pen_tilt: None,
             tool_opacity: 1.0,
             active_tool: "move",
             clipboard: None,

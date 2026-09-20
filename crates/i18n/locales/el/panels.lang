@@ -70,3 +70,5 @@ panel.ai.no_models = Δεν βρέθηκαν μοντέλα
 panel.ai.search_models = Αναζήτηση μοντέλων…
 panel.keymap.install_plugin = Εγκατάσταση πρόσθετου
 panel.keymap.save_as_prompt = Αποθήκευση ως — η επέκταση καθορίζει τη μορφή:
+
+panels.brushes.pen_tilt = Κλίση γραφίδας

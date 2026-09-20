@@ -71,3 +71,5 @@ panel.ai.no_models = Nula modelo korespondas
 panel.ai.search_models = Serchar modeli…
 panel.keymap.install_plugin = Instalar plugino
 panel.keymap.save_as_prompt = Konservar kom — la extensuro selektas la formato:
+
+panels.brushes.pen_tilt = Inklino dil plumo

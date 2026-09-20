@@ -70,3 +70,5 @@ panel.ai.no_models = Ga go na dimodele tse di tsamaelanang
 panel.ai.search_models = Batla dimodele…
 panel.keymap.install_plugin = Tsenya Plug-in
 panel.keymap.save_as_prompt = Boloka jaaka — extension e tlhopha popego:
+
+panels.brushes.pen_tilt = Go sekama ga pene

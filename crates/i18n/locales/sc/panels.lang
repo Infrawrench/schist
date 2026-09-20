@@ -93,3 +93,5 @@ panel.ai.search_models = Chirca modelos…
 # Diàlogos de archìviu
 panel.keymap.install_plugin = Installa unu cumplementu
 panel.keymap.save_as_prompt = Sarva comente — s'estensione seletzionat su formadu:
+
+panels.brushes.pen_tilt = Inclinatzione de sa pinna

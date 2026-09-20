@@ -80,3 +80,5 @@ panel.ai.search_models = Hľadať modely…
 
 panel.keymap.install_plugin = Nainštalovať zásuvný modul
 panel.keymap.save_as_prompt = Uložiť ako — prípona určuje formát:
+
+panels.brushes.pen_tilt = Náklon pera

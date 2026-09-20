@@ -70,3 +70,5 @@ panel.ai.no_models = ບໍ່ມີໂມເດວທີ່ກົງກັນ
 panel.ai.search_models = ຄົ້ນຫາໂມເດວ…
 panel.keymap.install_plugin = ຕິດຕັ້ງປລັກອິນ
 panel.keymap.save_as_prompt = ບັນທຶກເປັນ — ນາມສະກຸນໄຟລ໌ຈະກຳນົດຮູບແບບ:
+
+panels.brushes.pen_tilt = ຄວາມອຽງຂອງປາກກາ

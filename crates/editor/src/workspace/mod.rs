@@ -76,6 +76,7 @@ mod viewport_frame;
 #[cfg(target_os = "ios")]
 pub use video_mobile::install_ios_window_scene_fix;
 // The path prompts, and the picker drawn where the platform has none.
+mod brushes;
 pub mod file_picker;
 mod filter_canvas;
 pub(crate) mod filter_stack;
@@ -222,6 +223,7 @@ pub struct Workspace {
     pub editor: EditorState,
     pub brush_library: schist_app_settings::brushes::BrushLibrary,
     pub brush_preset_name: String,
+    pub brush_scroll: gpui::ScrollHandle,
     pub doc: Option<Document>,
     pub(crate) action_library: recorded_actions::ActionLibrary,
     pub(crate) action_recorder: recorded_actions::Recorder,
@@ -1286,12 +1288,15 @@ impl Workspace {
         #[cfg(not(sandboxed))] photoshop_plugins: schist_plugin_host_8bf::manager::PluginManager,
         cx: &mut Context<Self>,
     ) -> Self {
+        #[cfg(target_arch = "wasm32")]
+        crate::web::install_pen_tilt();
         let mut ws = Workspace {
             cloud: cloud::CloudState::default(),
             registry,
             editor: EditorState::default(),
             brush_library: schist_app_settings::brushes::BrushLibrary::load(),
             brush_preset_name: String::new(),
+            brush_scroll: gpui::ScrollHandle::new(),
             doc: None,
             action_library: recorded_actions::ActionLibrary::default(),
             action_recorder: recorded_actions::Recorder::default(),

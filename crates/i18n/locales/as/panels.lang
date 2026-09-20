@@ -102,3 +102,5 @@ panel.ai.search_models = মডেল সন্ধান কৰক…
 # File dialogs (keymap.rs)
 panel.keymap.install_plugin = প্লাগ-ইন ইনষ্টল কৰক
 panel.keymap.save_as_prompt = এই ৰূপে সংৰক্ষণ কৰক — সম্প্ৰসাৰণে ফৰ্মেট নিৰ্ধাৰণ কৰে:
+
+panels.brushes.pen_tilt = কলমৰ হেলন

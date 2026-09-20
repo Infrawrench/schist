@@ -99,3 +99,5 @@ panel.ai.search_models = Modelle suchen…
 # Dateidialoge (keymap.rs)
 panel.keymap.install_plugin = Plugin installieren
 panel.keymap.save_as_prompt = Speichern unter — die Dateiendung bestimmt das Format:
+
+panels.brushes.pen_tilt = Stiftneigung

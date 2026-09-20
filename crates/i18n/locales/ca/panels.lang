@@ -70,3 +70,5 @@ panel.ai.no_models = No coincideix cap model
 panel.ai.search_models = Cerca models…
 panel.keymap.install_plugin = Instal·la un connector
 panel.keymap.save_as_prompt = Anomena i desa — l'extensió determina el format:
+
+panels.brushes.pen_tilt = Inclinació del llapis

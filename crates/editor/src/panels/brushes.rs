@@ -40,6 +40,8 @@ fn brush_popover(ws: &Workspace, cx: &mut Context<Workspace>) -> impl IntoElemen
         .top(px(ui::metrics().icon_button + 6.0))
         .left_0()
         .w(px(320.0))
+        .max_h(px((ws.visible_height - 140.0).clamp(180.0, 650.0)))
+        .track_scroll(&ws.brush_scroll)
         .p_3()
         .gap_2()
         .on_dismiss(cx.listener(|ws, _e, _w, cx| {
@@ -53,12 +55,14 @@ fn brush_popover(ws: &Workspace, cx: &mut Context<Workspace>) -> impl IntoElemen
                     (BrushTip::Round, "common.none"),
                     (BrushTip::Grain, "filter.param.grain"),
                     (BrushTip::Bristles, "filter.oil_paint.param.bristle"),
+                    (BrushTip::Bitmap, "common.bitmap"),
                 ]
                 .into_iter()
                 .enumerate()
                 .map(|(i, (tip, key))| {
                     Button::new(("brush-tip", i), t(key))
                         .active(dynamics.tip == tip)
+                        .disabled(tip == BrushTip::Bitmap && ws.editor.brush_bitmap.is_none())
                         .on_click(cx.listener(move |ws, _e, _w, cx| {
                             ws.editor.brush_dynamics.tip = tip;
                             cx.notify();
@@ -85,16 +89,71 @@ fn brush_popover(ws: &Workspace, cx: &mut Context<Workspace>) -> impl IntoElemen
             format!("{:.0}px", dynamics.stabilization),
             SliderTarget::BrushStabilization,
         ),
-        (
-            "brush-pressure",
-            t("common.pressure"),
-            format!("γ{:.2}", dynamics.pressure_gamma),
-            SliderTarget::BrushPressure,
-        ),
     ] {
         popup = popup.child(slider_stretch(id, label, display, target, ws, cx));
     }
     popup
+        .child(div().text_size(px(12.0)).child(t("common.pressure")))
+        .child(slider_stretch(
+            "brush-pressure",
+            t("common.size"),
+            format!("γ{:.2}", dynamics.pressure_gamma),
+            SliderTarget::BrushPressure,
+            ws,
+            cx,
+        ))
+        .child(
+            Button::new("brush-pressure-opacity", t("common.opacity"))
+                .active(dynamics.pressure_opacity)
+                .on_click(cx.listener(|ws, _e, _w, cx| {
+                    ws.editor.brush_dynamics.pressure_opacity =
+                        !ws.editor.brush_dynamics.pressure_opacity;
+                    cx.notify();
+                })),
+        )
+        .child(div().text_size(px(12.0)).child(t("common.rotation")))
+        .child(slider_stretch(
+            "brush-rotation",
+            t("common.angle"),
+            format!("{:.0}°", dynamics.rotation),
+            SliderTarget::BrushRotation,
+            ws,
+            cx,
+        ))
+        .child(
+            div()
+                .flex()
+                .items_center()
+                .gap_2()
+                .child(
+                    Button::new("brush-tilt", t("panels.brushes.pen_tilt"))
+                        .active(dynamics.tilt_rotation && cfg!(target_arch = "wasm32"))
+                        .disabled(!cfg!(target_arch = "wasm32"))
+                        .on_click(cx.listener(|ws, _e, _w, cx| {
+                            ws.editor.brush_dynamics.tilt_rotation =
+                                !ws.editor.brush_dynamics.tilt_rotation;
+                            cx.notify();
+                        })),
+                )
+                .children(
+                    (!cfg!(target_arch = "wasm32"))
+                        .then(|| div().text_size(px(11.0)).child(t("common.not_available"))),
+                ),
+        )
+        .child(
+            div()
+                .flex()
+                .gap_2()
+                .child(
+                    Button::new("brush-import", t("common.import"))
+                        .on_click(cx.listener(|ws, _e, _w, cx| ws.import_brushes(cx))),
+                )
+                .child(
+                    Button::new("brush-export", t("common.export"))
+                        .disabled(ws.brush_library.presets.is_empty())
+                        .on_click(cx.listener(|ws, _e, _w, cx| ws.export_brushes(cx))),
+                ),
+        )
         .child(div().text_size(px(12.0)).child(t("dialog.new_doc.preset")))
         .child(
             div()

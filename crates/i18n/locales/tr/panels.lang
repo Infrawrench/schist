@@ -70,3 +70,5 @@ panel.ai.no_models = Eşleşen model yok
 panel.ai.search_models = Model ara…
 panel.keymap.install_plugin = Eklenti Yükle
 panel.keymap.save_as_prompt = Farklı kaydet — biçimi dosya uzantısı belirler:
+
+panels.brushes.pen_tilt = Kalem eğimi

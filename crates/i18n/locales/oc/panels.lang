@@ -93,3 +93,5 @@ panel.ai.search_models = Cercar de modèls…
 # Bóstias de fichièrs
 panel.keymap.install_plugin = Installar un modul extèrne
 panel.keymap.save_as_prompt = Enregistrar jos — l'extension determina lo format :
+
+panels.brushes.pen_tilt = Inclinason del gredon

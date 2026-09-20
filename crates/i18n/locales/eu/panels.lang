@@ -93,3 +93,5 @@ panel.ai.search_models = Bilatu modeloak…
 # Fitxategi-elkarrizketa-koadroak
 panel.keymap.install_plugin = Instalatu plug-ina
 panel.keymap.save_as_prompt = Gorde honela — luzapenak formatua aukeratzen du:
+
+panels.brushes.pen_tilt = Arkatzaren inklinazioa

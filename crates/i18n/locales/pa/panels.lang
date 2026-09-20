@@ -70,3 +70,5 @@ panel.ai.no_models = ਕੋਈ ਮਾਡਲ ਮੇਲ ਨਹੀਂ ਖਾਂਦ�
 panel.ai.search_models = ਮਾਡਲ ਖੋਜੋ…
 panel.keymap.install_plugin = ਪਲੱਗਇਨ ਇੰਸਟਾਲ ਕਰੋ
 panel.keymap.save_as_prompt = ਇਸ ਵਜੋਂ ਸੰਭਾਲੋ — ਐਕਸਟੈਂਸ਼ਨ ਫ਼ਾਰਮੈਟ ਚੁਣਦੀ ਹੈ:
+
+panels.brushes.pen_tilt = ਪੈੱਨ ਦਾ ਝੁਕਾਅ

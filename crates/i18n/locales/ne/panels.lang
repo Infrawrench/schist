@@ -70,3 +70,5 @@ panel.ai.no_models = कुनै मोडेल मेल खाएन
 panel.ai.search_models = मोडेलहरू खोज्नुहोस्…
 panel.keymap.install_plugin = प्लगइन स्थापना गर्नुहोस्
 panel.keymap.save_as_prompt = यस रूपमा बचत गर्नुहोस् — एक्सटेन्सनले ढाँचा छान्छ:
+
+panels.brushes.pen_tilt = कलमको झुकाव

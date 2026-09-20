@@ -102,3 +102,5 @@ panel.ai.search_models = Search models…
 # File dialogs (keymap.rs)
 panel.keymap.install_plugin = Install Plugin
 panel.keymap.save_as_prompt = Save as — the extension picks the format:
+
+panels.brushes.pen_tilt = Pen tilt

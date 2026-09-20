@@ -71,3 +71,5 @@ panel.ai.no_models = Uyğun model yoxdur
 panel.ai.search_models = Modelləri axtar…
 panel.keymap.install_plugin = Plagini quraşdır
 panel.keymap.save_as_prompt = Fərqli saxla — formatı fayl uzantısı müəyyən edir:
+
+panels.brushes.pen_tilt = Qələmin meyli

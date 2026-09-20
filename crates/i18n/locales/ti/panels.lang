@@ -70,3 +70,5 @@ panel.ai.no_models = ዝሰማማዕ ሞዴል የለን
 panel.ai.search_models = ሞዴላት ምድላይ…
 panel.keymap.install_plugin = ፕላግ-ኢን ምትካል
 panel.keymap.save_as_prompt = ከምዚ ምቕማጥ — መወዳእታ ስም ፋይል ቅርጹ ይመርጽ፦
+
+panels.brushes.pen_tilt = ምዝንባል ብርዒ

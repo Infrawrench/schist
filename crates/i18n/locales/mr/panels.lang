@@ -70,3 +70,5 @@ panel.ai.no_models = कोणतेही मॉडेल जुळत ना�
 panel.ai.search_models = मॉडेल शोधा…
 panel.keymap.install_plugin = प्लगइन स्थापित करा
 panel.keymap.save_as_prompt = म्हणून जतन करा — विस्तार स्वरूप ठरवतो:
+
+panels.brushes.pen_tilt = पेनचा कल

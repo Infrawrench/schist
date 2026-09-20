@@ -70,3 +70,5 @@ panel.ai.no_models = אין מודלים תואמים
 panel.ai.search_models = חיפוש מודלים…
 panel.keymap.install_plugin = התקנת תוסף
 panel.keymap.save_as_prompt = שמירה בשם — הסיומת קובעת את התבנית:
+
+panels.brushes.pen_tilt = הטיית העט

@@ -71,3 +71,5 @@ panel.ai.no_models = Ebda mudell ma jaqbel
 panel.ai.search_models = Fittex mudelli…
 panel.keymap.install_plugin = Installa Plugin
 panel.keymap.save_as_prompt = Issejvja bħala — l-estensjoni tagħżel il-format:
+
+panels.brushes.pen_tilt = Inklinazzjoni tal-pinna

@@ -77,3 +77,5 @@ panel.ai.search_models = Soek modelle…
 
 panel.keymap.install_plugin = Installeer inprop
 panel.keymap.save_as_prompt = Stoor as — die uitbreiding bepaal die formaat:
+
+panels.brushes.pen_tilt = Penhelling

@@ -70,3 +70,5 @@ panel.ai.no_models = பொருந்தும் மாதிரிகள் 
 panel.ai.search_models = மாதிரிகளைத் தேடு…
 panel.keymap.install_plugin = செருகுநிரலை நிறுவு
 panel.keymap.save_as_prompt = இவ்வாறு சேமி — நீட்சி வடிவத்தைத் தீர்மானிக்கும்:
+
+panels.brushes.pen_tilt = பேனா சாய்வு

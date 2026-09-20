@@ -93,3 +93,5 @@ panel.ai.search_models = Szukaj modeli…
 # Okna dialogowe plików
 panel.keymap.install_plugin = Zainstaluj wtyczkę
 panel.keymap.save_as_prompt = Zapisz jako — rozszerzenie określa format:
+
+panels.brushes.pen_tilt = Nachylenie pióra

@@ -9,6 +9,7 @@ schist-i18n.workspace = true
 log.workspace = true
 serde.workspace = true
 serde_json.workspace = true
+image.workspace = true
 schist-core.workspace = true
 schist-plugin-api.workspace = true
 

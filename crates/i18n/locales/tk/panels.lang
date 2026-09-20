@@ -70,3 +70,5 @@ panel.ai.no_models = Gabat gelýän model ýok
 panel.ai.search_models = Modelleri gözlemek…
 panel.keymap.install_plugin = Plagin gurmak
 panel.keymap.save_as_prompt = Başgaça saklamak — giňeltme formaty saýlaýar:
+
+panels.brushes.pen_tilt = Galamyň ýapgytlygy

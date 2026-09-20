@@ -71,3 +71,5 @@ panel.ai.no_models = Ingen modeller matcher
 panel.ai.search_models = Søg efter modeller…
 panel.keymap.install_plugin = Installer ekstramodul
 panel.keymap.save_as_prompt = Gem som — filtypenavnet bestemmer formatet:
+
+panels.brushes.pen_tilt = Pennehældning

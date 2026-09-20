@@ -98,3 +98,5 @@ panel.ai.search_models = 搜索模型…
 # 文件对话框（keymap.rs）
 panel.keymap.install_plugin = 安装插件
 panel.keymap.save_as_prompt = 存储为 — 扩展名决定格式：
+
+panels.brushes.pen_tilt = 笔倾斜

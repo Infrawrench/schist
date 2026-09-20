@@ -91,3 +91,5 @@ panel.ai.search_models = Cerca modelli…
 # Finestre di dialogo dei file
 panel.keymap.install_plugin = Installa plugin
 panel.keymap.save_as_prompt = Salva con nome — l'estensione determina il formato:
+
+panels.brushes.pen_tilt = Inclinazione della penna

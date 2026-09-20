@@ -70,3 +70,5 @@ panel.ai.no_models = Aucun modèle correspondant
 panel.ai.search_models = Rechercher des modèles…
 panel.keymap.install_plugin = Installer un module externe
 panel.keymap.save_as_prompt = Enregistrer sous — l’extension détermine le format :
+
+panels.brushes.pen_tilt = Inclinaison du stylet

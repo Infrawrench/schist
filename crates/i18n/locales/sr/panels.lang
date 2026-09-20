@@ -81,3 +81,5 @@ panel.ai.search_models = Претражи моделе…
 
 panel.keymap.install_plugin = Инсталирај додатак
 panel.keymap.save_as_prompt = Сачувај као — ознака типа датотеке одређује формат:
+
+panels.brushes.pen_tilt = Нагиб оловке

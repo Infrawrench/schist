@@ -95,3 +95,5 @@ panel.ai.search_models = Mirar modelos…
 # Dialogos de fichero
 panel.keymap.install_plugin = Instalar complemento
 panel.keymap.save_as_prompt = Alzar como — a extensión determina o formato:
+
+panels.brushes.pen_tilt = Inclinación d'o lapiz

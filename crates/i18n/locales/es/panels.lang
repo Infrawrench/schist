@@ -71,3 +71,5 @@ panel.ai.no_models = No hay modelos coincidentes
 panel.ai.search_models = Buscar modelos…
 panel.keymap.install_plugin = Instalar plugin
 panel.keymap.save_as_prompt = Guardar como — la extensión determina el formato:
+
+panels.brushes.pen_tilt = Inclinación del lápiz

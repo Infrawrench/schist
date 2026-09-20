@@ -70,3 +70,5 @@ panel.ai.no_models = Moodeelli walsimu hin jiru
 panel.ai.search_models = Moodeelota barbaadi…
 panel.keymap.install_plugin = Plug-in Fe'i
 panel.keymap.save_as_prompt = Akka olkaa'i — ekisteenshiniin akkaataa filata:
+
+panels.brushes.pen_tilt = Jallina qalamaa

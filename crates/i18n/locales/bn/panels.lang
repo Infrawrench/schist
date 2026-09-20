@@ -70,3 +70,5 @@ panel.ai.no_models = কোনো মডেল মেলেনি
 panel.ai.search_models = মডেল অনুসন্ধান…
 panel.keymap.install_plugin = প্লাগইন ইনস্টল
 panel.keymap.save_as_prompt = অন্য নামে সংরক্ষণ — এক্সটেনশন ফরম্যাট নির্ধারণ করে:
+
+panels.brushes.pen_tilt = কলমের কাত

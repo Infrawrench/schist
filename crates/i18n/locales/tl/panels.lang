@@ -70,3 +70,5 @@ panel.ai.no_models = Walang tumutugmang modelo
 panel.ai.search_models = Maghanap ng mga modelo…
 panel.keymap.install_plugin = Mag-install ng Plug-in
 panel.keymap.save_as_prompt = I-save bilang — extension ang pumipili ng format:
+
+panels.brushes.pen_tilt = Pagkiling ng panulat

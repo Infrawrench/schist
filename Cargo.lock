@@ -6407,6 +6407,7 @@ dependencies = [
 name = "schist-app-settings"
 version = "0.14.0"
 dependencies = [
+ "image",
  "log",
  "schist-app-platform",
  "schist-core",
