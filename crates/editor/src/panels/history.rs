@@ -42,9 +42,9 @@ pub(super) fn history_panel(ws: &mut Workspace, cx: &mut Context<Workspace>) -> 
         .gap_1()
         .border_t_1()
         .border_color(gpui::rgb(palette().panel_edge))
-        // On touch the panel's height is the user's: a grip above the
-        // title drags it, taller or shorter, and the choice persists.
-        .children(touch.then(|| resize_grip(ws, cx)))
+        // The panel's height is the user's: a grip above the title drags
+        // it, taller or shorter, and the choice persists.
+        .child(resize_grip(ws, cx))
         .child(
             div()
                 .flex()

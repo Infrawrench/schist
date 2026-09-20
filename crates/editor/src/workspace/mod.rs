@@ -514,6 +514,12 @@ pub struct Workspace {
     /// A drag of the history panel's grip in progress: where the
     /// pointer started and how tall the panel was then.
     pub history_resize: Option<(f32, f32)>,
+    /// A drag of another docked panel's bottom grip: panel key, pointer
+    /// start and panel height at the start of the drag.
+    pub side_panel_resize: Option<(&'static str, f32, f32)>,
+    /// Last laid-out bounds of docked panels, used to begin resizing at
+    /// their actual height even before the user has saved an override.
+    pub side_panel_bounds: FxHashMap<&'static str, Bounds<Pixels>>,
 }
 
 /// A finger's travel across the gallery since it touched down, in
@@ -1443,6 +1449,8 @@ impl Workspace {
             gallery_compact: false,
             gallery_more: None,
             history_resize: None,
+            side_panel_resize: None,
+            side_panel_bounds: FxHashMap::default(),
         };
         #[cfg(not(sandboxed))]
         {

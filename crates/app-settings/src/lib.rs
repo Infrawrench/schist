@@ -116,6 +116,14 @@ pub struct ViewOptions {
     /// phone-width window the toggle switches between it and the canvas.
     #[serde(default = "default_true")]
     pub side_panels: bool,
+    /// The docked editor panels, from top to bottom. Strings keep old
+    /// preferences forwards-compatible when panels are added or removed.
+    #[serde(default = "default_side_panel_order")]
+    pub side_panel_order: Vec<String>,
+    /// User-chosen heights for docked panels. Missing entries retain their
+    /// natural/flexible size, so an upgrade does not freeze the whole dock.
+    #[serde(default)]
+    pub side_panel_heights: std::collections::BTreeMap<String, f32>,
     /// Name stamped on notes as they are placed. A preference rather than
     /// document state: it is who is reviewing, not what is being
     /// reviewed, and typing it once per session would be once too many.
@@ -153,8 +161,8 @@ pub struct ViewOptions {
     pub ai_model_claude: String,
     #[serde(default)]
     pub ai_model_codex: String,
-    /// The history panel's height. Fixed on the desktop; on touch the
-    /// grip above its title drags it, and this remembers where.
+    /// The history panel's height. The grip above its title drags it,
+    /// and this remembers where.
     #[serde(default = "default_history_h")]
     pub history_h: f32,
     /// The camera-roll backup to Schist Cloud: whether it runs, from
@@ -172,6 +180,13 @@ fn default_history_h() -> f32 {
     } else {
         150.0
     }
+}
+
+fn default_side_panel_order() -> Vec<String> {
+    ["navigator", "color", "layers", "notes", "history"]
+        .into_iter()
+        .map(str::to_owned)
+        .collect()
 }
 
 /// Whoever is logged in, which is Photoshop's default author too. Empty
@@ -213,6 +228,8 @@ impl Default for ViewOptions {
             check_updates: true,
             notes: true,
             side_panels: true,
+            side_panel_order: default_side_panel_order(),
+            side_panel_heights: Default::default(),
             note_author: default_note_author(),
             note_color: default_note_color(),
             gallery_hide_nsfw: false,
