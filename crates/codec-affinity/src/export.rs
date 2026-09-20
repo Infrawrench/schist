@@ -16,8 +16,8 @@
 //! RGBA8 tiles), groups (nested, pass-through or isolated), layer
 //! masks, clipping layers (as Affinity clipped children), opacity /
 //! fill opacity / blend modes / visibility, and adjustment layers that
-//! carry a preserved native parameter block. Text and vector layers
-//! export their rasterized pixels. Anything dropped lands in
+//! carry a preserved native parameter block. Supported text and vectors
+//! export native editable objects; unsupported settings use pixels. Anything dropped lands in
 //! [`ExportReport::skipped`].
 
 use crate::archive::Archive;
@@ -27,6 +27,34 @@ use crate::error::{malformed, AffinityError};
 use crate::graph::{self, tag, ChainEnd, Graph, Node, Value};
 use schist_core::{BlendMode, Document, IntRect, Layer, LayerKind, LayerMask};
 use schist_core::{TileCoord, TILE_SIZE};
+
+mod editable;
+
+pub(crate) fn editable_snapshot(layer: &Layer) -> Vec<u8> {
+    let pixels = layer.as_raster().map(|r| {
+        let mut tiles: Vec<_> = r.tiles.iter().collect();
+        tiles.sort_unstable_by_key(|(coord, _)| **coord);
+        let mut hash = crc32fast::Hasher::new();
+        for (coord, tile) in tiles {
+            hash.update(&coord.tx.to_le_bytes());
+            hash.update(&coord.ty.to_le_bytes());
+            if let schist_core::TileBuf::U8(bytes) = tile.as_ref() {
+                hash.update(bytes);
+            } else {
+                for i in 0..schist_core::TILE_PIXELS {
+                    hash.update(&tile.get(i).to_u8());
+                }
+            }
+        }
+        hash.finalize()
+    });
+    serde_json::to_vec(&serde_json::json!({
+        "pixels": pixels,
+        "text": layer.extras.iter().find(|b| b.key == *b"PsTx").map(|b| &b.data),
+        "shape": layer.shape,
+    }))
+    .unwrap_or_default()
+}
 
 /// A complete, minimal Affinity 3.1 document; the boilerplate donor.
 const TEMPLATE: &[u8] = include_bytes!(concat!(
@@ -316,7 +344,9 @@ impl Exporter {
         match &layer.kind {
             LayerKind::Group(group) => Some(self.group_node(layer, &group.children, origin)),
             LayerKind::Adjustment(_) => self.adjustment_node(layer, clips, origin),
-            _ => self.raster_node(layer, clips, origin),
+            _ => self
+                .editable_node(layer, clips, origin)
+                .or_else(|| self.raster_node(layer, clips, origin)),
         }
     }
 
@@ -660,7 +690,11 @@ impl Exporter {
                 layer.name.clone(),
                 "live vector shape written as pixels (stays visually intact)".into(),
             ));
-        } else if layer.extras.iter().any(|b| &b.key == b"PsTx") {
+        } else if layer
+            .extras
+            .iter()
+            .any(|b| &b.key == b"PsTx" || &b.key == b"AfNt")
+        {
             self.report.skipped.push((
                 layer.name.clone(),
                 "text written as pixels (stays visually intact)".into(),

@@ -30,3 +30,15 @@ for (const [name, extra] of [
   }] };
   fs.writeFileSync(path.join(output, name), Buffer.from(psd.writePsd(doc)));
 }
+// Native RGB character runs and standard right-to-left vertical columns.
+for (const [name, extra] of [
+  ['ag-psd-type-colors.psd', { styleRuns: [
+    { length: 4, style },
+    { length: content.length - 4, style: { ...style, fillColor: { r: 220, g: 40, b: 20, a: 128 } } },
+  ] }],
+  ['ag-psd-type-vertical.psd', { orientation: 'vertical', text: 'Vertical', styleRuns: undefined }],
+]) {
+  fs.writeFileSync(path.join(output, name), Buffer.from(psd.writePsd({ width: 128, height: 192, children: [{ name,
+    imageData: { width: 1, height: 1, data: new Uint8ClampedArray([51,102,153,255]) }, text: { ...text, ...extra },
+  }] })));
+}

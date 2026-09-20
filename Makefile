@@ -334,6 +334,28 @@ check-psd-interchange:
 	$(CARGO) test -p schist-psd-descriptor -p schist-codec-psd
 lint-psd-interchange:
 	$(CARGO) clippy -p schist-psd-descriptor -p schist-codec-psd -p schist-text-engine --all-targets -- -D warnings
+
+.PHONY: check-editable-interchange lint-editable-interchange inspect-affinity-interchange fmt-editable-interchange
+check-editable-interchange:
+	$(CARGO) test -p schist-codec-affinity -p schist-codec-psd -p schist-text-engine -p schist-tools-type
+lint-editable-interchange:
+	$(CARGO) clippy -p schist-codec-affinity -p schist-codec-psd -p schist-text-engine -p schist-tools-type --all-targets -- -D warnings
+fmt-editable-interchange:
+	$(CARGO) fmt -p schist-codec-affinity -p schist-codec-psd -p schist-text-engine -p schist-tools-type
+inspect-affinity-interchange:
+	$(CARGO) run -p schist-codec-affinity --example afschema -- $(AFFINITY_FIXTURE) $(AFFINITY_CLASS)
+
+.PHONY: inspect-affinity-text-runs
+inspect-affinity-text-runs:
+	$(CARGO) run -p schist-codec-affinity --example aftextruns -- $(AFFINITY_FIXTURE)
+
+.PHONY: check-editable-interchange-web
+check-editable-interchange-web:
+	$(CARGO) check -p schist-codec-affinity -p schist-codec-psd -p schist-text-engine -p schist-tools-type --target wasm32-unknown-unknown
+
+.PHONY: check-editable-interchange-independent
+check-editable-interchange-independent:
+	node scripts/check-psd-text-interchange.cjs "$(AG_PSD_MODULE)" "$(SCHIST_INTERCHANGE_ARTIFACT_DIR)"
 check-gpu-fx:
 	$(CARGO) test -p schist-fx -p schist-filters-core -p schist-compositor-gpu
 

@@ -9,16 +9,17 @@ or smart filters.
 
 ## Text
 
-New horizontal, straight left-to-right Schist text exports its text, font identifiers,
-font/size/bold/italic runs, RGB fill, alignment, tracking, leading and point or
+New horizontal left-to-right text and vertical text with columns advancing
+right to left export their text and font identifiers,
+font/size/bold/italic/RGBA fill runs, alignment, tracking, leading and point or
 wrapped-box placement. EngineData run lengths use UTF-16 code units, while
 Schist's editing ranges use UTF-8 byte offsets. Astral characters therefore do
 not shift the following runs. Installed fonts are named by their PostScript
 identifier. The common kerning, ligature, discretionary-ligature and small-cap
 features are mapped; fonts themselves are not embedded.
 
-Supported horizontal left-to-right type from another PSD becomes editable with the Type
-tool. Uniform positive scale is incorporated in its size and spacing, and
+Supported horizontal left-to-right and standard vertical type from another PSD
+becomes editable with the Type tool. Uniform positive scale is incorporated in its size and spacing, and
 translation places its baseline. The original native descriptor is retained
 exactly while the imported text remains unchanged. Editing supported text
 regenerates the native descriptor from the live settings, so other readers see
@@ -29,14 +30,24 @@ re-rendered on import. A missing local font can change layout on a subsequent
 edit; the native font name remains in the unchanged original descriptor.
 
 The present Schist type model cannot faithfully edit arbitrary affine/warped
-native text, mixed character colors, different paragraph formatting per
-paragraph, decorations, overset/clipped paragraph boxes or arbitrary OpenType features. Such imported type
+native text, different paragraph formatting per paragraph, decorations,
+overset/clipped paragraph boxes or arbitrary OpenType features. Such imported type
 keeps its native descriptor and rendered pixels without being promoted to a
 misleading editable local layer. Unmodified rotation/shear/warp data therefore
 remains editable in a native-capable editor after Schist save. New text on paths,
-vertical text, directional scripts/controls requiring bidi metadata, and unmapped OpenType overrides retain
+vertical columns advancing left to right, directional scripts/controls requiring
+bidi metadata, and unmapped OpenType overrides retain
 `PsTx` and pixels only. PSD and Schist may use different line-breaking/font
 metrics when an editor re-renders a layer.
+
+Mixed RGB/alpha character fills survive text insertion, deletion, font changes,
+and PSD/PSB regeneration, and render with those fills in the Type tool. Selecting
+another foreground fill changes the whole layer's fill and clears character fill
+overrides. Native color types other than RGB remain preserved without promotion.
+Standard vertical type maps `Ornt=Vrtc`, `WritingDirection=2`, `Procession=1`,
+point baselines and paragraph boxes (the wrap length is their vertical extent).
+Warped/affine vertical text and custom vertical alternates remain outside the
+editable subset. Neither Photoshop nor Affinity interactive rendering was tested.
 
 ## Filters
 
@@ -59,7 +70,8 @@ Schist's writer. `scripts/psd-text-fixtures.cjs` records their exact generator.
 Native import tests verify these fixtures, including native transform
 preservation and edit/save behavior. A separate ag-psd reader verifies files
 emitted by Schist (both PSD and PSB), checking text, UTF-16 run lengths, fonts,
-fill, paragraph alignment and transforms. This is independent structural
+mixed fills, paragraph alignment, vertical orientation/box dimensions and
+transforms. This is independent structural
 interoperability evidence; Photoshop/Photopea interactive rendering has not
 been exercised here.
 
@@ -72,8 +84,9 @@ Both paths still verify that the regular and bold runs remain distinct.
 npm install --prefix /tmp/schist-psd-independent --ignore-scripts ag-psd@31.0.2
 SCHIST_INTERCHANGE_ARTIFACT_DIR=/tmp/schist-interchange \
 SCHIST_NATIVE_PSD_EXPORT_DIR=/tmp/schist-native-exports make check-psd-interchange
-node scripts/check-psd-text-interchange.cjs \
-  /tmp/schist-psd-independent/node_modules/ag-psd /tmp/schist-interchange
+AG_PSD_MODULE=/tmp/schist-psd-independent/node_modules/ag-psd \
+SCHIST_INTERCHANGE_ARTIFACT_DIR=/tmp/schist-interchange \
+  make check-editable-interchange-independent
 NODE_PATH=/tmp/schist-psd-independent/node_modules node \
   crates/codec-psd/tests/fixtures/validate-native-smart-filters.cjs /tmp/schist-native-exports
 ```

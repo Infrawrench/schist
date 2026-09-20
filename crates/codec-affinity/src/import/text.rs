@@ -181,6 +181,91 @@ impl Walker<'_> {
             direction: Default::default(),
             writing_mode: Default::default(),
         };
+        // Native run offsets count BMP characters, including the terminal NUL.
+        // Our independent corpus does not distinguish UTF-16 from scalar
+        // positions for astral text; preserve that native data without promotion.
+        let parsed_runs = (|| {
+            if spec.text.chars().any(|ch| ch.len_utf16() != 1) {
+                return None;
+            }
+            let mut runs = Vec::new();
+            let mut block_start = 0usize;
+            for block in &blocks {
+                let block_text = graph
+                    .child(block, b"Glyp")
+                    .and_then(|g| str_of(g, b"Utf8"))?
+                    .trim_end_matches('\0')
+                    .replace(['\u{2028}', '\u{2029}', '\u{000B}'], "\n")
+                    .replace("\r\n", "\n")
+                    .replace('\r', "\n");
+                let mut positions = vec![None; block_text.encode_utf16().count() + 2];
+                let mut units = 0;
+                for (byte, ch) in block_text.char_indices() {
+                    positions[units] = Some(byte);
+                    units += ch.len_utf16();
+                }
+                positions[units] = Some(block_text.len());
+                positions[units + 1] = Some(block_text.len());
+                let mut start = 0usize;
+                if let Some(attrs) = graph.child(block, b"GAtt") {
+                    for run in graph.children(attrs, b"Runs") {
+                        let end_units = usize::try_from(i32_of(run, b"Indx")?).ok()?;
+                        let end = positions.get(end_units).copied().flatten()?;
+                        if end < start {
+                            return None;
+                        }
+                        let item = graph.child(run, b"Item")?;
+                        let font = graph
+                            .child(item, b"DFnt")
+                            .or_else(|| graph.child(item, b"RFnt"));
+                        let fam = font
+                            .and_then(|f| str_of(f, b"Famy"))
+                            .unwrap_or(&spec.family);
+                        let post = font.and_then(|f| str_of(f, b"Post")).unwrap_or_default();
+                        let weight = font.and_then(|f| i32_of(f, b"Wegt")).unwrap_or(400);
+                        let size = match item.field(b"Doub") {
+                            Some(Value::Array(v)) => match v.first() {
+                                Some(Value::F64(v)) => *v as f32 * doc_scale as f32,
+                                _ => spec.size,
+                            },
+                            _ => spec.size,
+                        };
+                        if !size.is_finite() || !(0.5..=10_000.0).contains(&size) {
+                            return None;
+                        }
+                        if start < end {
+                            runs.push(schist_text_engine::StyleRun {
+                                start: block_start + start,
+                                end: block_start + end,
+                                family: Some(if schist_text_engine::has_family(fam) {
+                                    fam.to_string()
+                                } else {
+                                    spec.family.clone()
+                                }),
+                                bold: Some(
+                                    weight >= 600
+                                        || post.contains("Bold")
+                                        || post.contains("Black")
+                                        || post.contains("Heavy"),
+                                ),
+                                italic: Some(
+                                    font.and_then(|f| bool_of(f, b"Ital")).unwrap_or(false)
+                                        || post.contains("Italic")
+                                        || post.contains("Oblique"),
+                                ),
+                                size: Some(size),
+                                color: run_color(graph, item).filter(|c| *c != color),
+                            });
+                        }
+                        start = end;
+                    }
+                }
+                block_start += block_text.len() + 1;
+            }
+            Some(runs)
+        })();
+        let supported_run_indexing = parsed_runs.is_some();
+        spec.runs = parsed_runs.unwrap_or_default();
         let mut raster = match schist_text_engine::rasterize(&spec) {
             Some(r) => r,
             None => {
@@ -209,6 +294,11 @@ impl Walker<'_> {
             let ratio = frame_width as f32 / raster.layout_width;
             if (ratio - 1.0).abs() > 0.002 {
                 spec.size *= ratio;
+                for run in &mut spec.runs {
+                    if let Some(size) = &mut run.size {
+                        *size *= ratio;
+                    }
+                }
                 raster = schist_text_engine::rasterize(&spec)?;
                 if raster.is_empty() {
                     return None;
@@ -290,7 +380,14 @@ impl Walker<'_> {
         let mut layer = Layer::new_raster(display_name);
         let bounds = raster.bounds.translated(origin.0, origin.1);
         let mut rgba = vec![0u8; raster.coverage.len() * 4];
-        for (px, &cov) in rgba.as_chunks_mut::<4>().0.iter_mut().zip(&raster.coverage) {
+        for (i, (px, &cov)) in rgba
+            .as_chunks_mut::<4>()
+            .0
+            .iter_mut()
+            .zip(&raster.coverage)
+            .enumerate()
+        {
+            let color = raster.colors.get(i).copied().flatten().unwrap_or(color);
             px[0] = color[0];
             px[1] = color[1];
             px[2] = color[2];
@@ -351,10 +448,12 @@ impl Walker<'_> {
             origin,
             color,
         }) {
-            layer.extras.push(schist_core::RawBlock {
-                key: *b"PsTx",
-                data,
-            });
+            if !rotated && supported_run_indexing {
+                layer.extras.push(schist_core::RawBlock {
+                    key: *b"PsTx",
+                    data,
+                });
+            }
         }
         self.report.text_layers += 1;
         Some(layer)

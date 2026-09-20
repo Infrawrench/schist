@@ -6,6 +6,11 @@ cancel/commit buttons. Click a numeric value to type it; Up/Down adjusts it
 and Shift takes larger steps. Enter finishes the field and Escape releases
 it without cancelling the text edit.
 
+Selecting an existing text layer loads its base fill into the foreground
+swatch and preserves its character colors. To recolor it, select the text
+first, then choose a new foreground color during the edit. Committing applies
+that color to the whole layer; Undo restores its previous fills.
+
 The **Character** tab opens in the right sidebar when you select Type. It
 contains leading, tracking, and **Kerning** (AV), **Ligatures** (fi),
 **Discretionary ligatures** (st), and **Small caps** (Tt). Hover the buttons
