@@ -219,7 +219,8 @@ impl Workspace {
                 state.running = false;
                 state.cancelled = outcome.2;
                 state.failed = state
-                    .total
+                    .progress
+                    .load(Ordering::Relaxed)
                     .saturating_sub(outcome.0.iter().filter(|p| p.signature.is_some()).count());
                 if !outcome.2 {
                     state.photos = outcome.0;
@@ -288,9 +289,17 @@ impl Workspace {
         })
         .detach();
     }
-    fn similar_choice(&mut self, index: usize, choice: Option<Choice>, cx: &mut Context<Self>) {
+    fn similar_choice(
+        &mut self,
+        index: usize,
+        revision: u64,
+        choice: Option<Choice>,
+        cx: &mut Context<Self>,
+    ) {
         let state = &mut self.library.similar;
-        if state.running || !state.decisions_loaded {
+        // A click queued before a refresh or group change belongs to that
+        // rendered pair, not whichever source now occupies the same index.
+        if state.revision != revision || state.running || !state.decisions_loaded {
             return;
         }
         let Some(group) = state.groups.get(state.group) else {
@@ -396,7 +405,17 @@ pub(super) fn render(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::A
         .child(div().text_size(px(12.0)).child(t("library.similar.help")))
         .children(state.error.clone().map(|error| div().child(error)));
     if state.cancelled {
-        content = content.child(t("common.cancelled"));
+        content = content.child(
+            div()
+                .flex()
+                .gap_2()
+                .child(t("common.cancelled"))
+                .child(format!(
+                    "{}/{}",
+                    state.progress.load(Ordering::Relaxed),
+                    state.total
+                )),
+        );
     }
     if !running {
         content = content.child(
@@ -511,6 +530,7 @@ pub(super) fn render(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::A
             .child(t("common.distance"))
             .child(evidence),
     );
+    let revision = state.revision;
     let mut pair = div().flex().flex_row().flex_wrap().gap_3();
     for (pane, index) in [group.photos[0], group.photos[candidate]]
         .into_iter()
@@ -559,22 +579,22 @@ pub(super) fn render(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::A
                     Button::new(("similar-keep", pane), t("library.similar.keep"))
                         .disabled(keep || !state.decisions_loaded)
                         .on_click(cx.listener(move |ws, _, _, cx| {
-                            ws.similar_choice(index, Some(Choice::Keep), cx)
+                            ws.similar_choice(index, revision, Some(Choice::Keep), cx)
                         })),
                 )
                 .child(
                     Button::new(("similar-reject", pane), t("library.similar.reject"))
                         .disabled(reject || !can_reject || !state.decisions_loaded)
                         .on_click(cx.listener(move |ws, _, _, cx| {
-                            ws.similar_choice(index, Some(Choice::Reject), cx)
+                            ws.similar_choice(index, revision, Some(Choice::Reject), cx)
                         })),
                 )
                 .child(
                     Button::new(("similar-clear", pane), t("common.reset"))
                         .disabled(choice.is_none() || !state.decisions_loaded)
-                        .on_click(
-                            cx.listener(move |ws, _, _, cx| ws.similar_choice(index, None, cx)),
-                        ),
+                        .on_click(cx.listener(move |ws, _, _, cx| {
+                            ws.similar_choice(index, revision, None, cx)
+                        })),
                 )
                 .child(
                     Button::new(("similar-open", pane), t("common.edit")).on_click(
