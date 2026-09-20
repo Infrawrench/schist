@@ -57,6 +57,15 @@ Sharpen mappings, embedded source packaging, affine export, and import limits. A
 when every effect and its source geometry can be represented. Unsupported
 stacks still retain their full `ScFs`/`ScFo` state and visible cache.
 
+## Spot ink separations
+
+Named spot plates and preserved alpha channels use extra merged-image planes,
+Unicode alpha names, identifiers and native DisplayInfo mode 2. PSD and PSB keep
+8/16/32-bit coverage independently of RGB/CMYK/Lab process channels. See
+[spot-ink.md](spot-ink.md) for editing controls, display-only overprint simulation,
+original metadata preservation, shared recovery, independent parser checks and
+limits. This does not provide press-certified proofing.
+
 ## Independent validation and provenance
 
 Implementation references are the public, MIT-licensed

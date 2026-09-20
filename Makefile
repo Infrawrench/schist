@@ -720,8 +720,16 @@ lint-photo-culling:
 
 .PHONY: fmt-spot-ink test-spot-ink check-spot-ink
 fmt-spot-ink:
-	$(CARGO) fmt -p schist-core -p schist-codec-psd -p schist-document -p schist-tools-paint -p schist-tools-transform -p schist-commands-core -p schist-editor
+	$(CARGO) fmt -p schist-core -p schist-codec-psd -p schist-codecs-common -p schist-document -p schist-tools-paint -p schist-tools-transform -p schist-commands-core -p schist-editor
 test-spot-ink:
-	$(CARGO) test -p schist-core -p schist-codec-psd -p schist-document -p schist-tools-paint -p schist-tools-transform -p schist-commands-core
+	$(CARGO) test -p schist-core -p schist-codec-psd -p schist-codecs-common -p schist-document -p schist-tools-paint -p schist-tools-transform -p schist-commands-core
 check-spot-ink:
 	$(CARGO) check -p schist-editor --all-targets
+
+SPOT_PROBE_DIR ?= /tmp/schist-spot-probe
+.PHONY: verify-spot-psd test-spot-editor
+verify-spot-psd:
+	$(CARGO) run -p schist-codec-psd --example spot_probe -- $(SPOT_PROBE_DIR)
+	python3 tools/check-spot-psd.py $(SPOT_PROBE_DIR)
+test-spot-editor:
+	$(CARGO) test -p schist-editor spot_geometry_tests --lib

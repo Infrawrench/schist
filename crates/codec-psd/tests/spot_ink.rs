@@ -170,3 +170,37 @@ fn plate_only_document_and_delete_last_plate_round_trip() {
         .iter()
         .any(|r| [1045, 1053, 1077].contains(&r.id)));
 }
+
+#[test]
+fn zipped_spot_planes_and_unknown_metadata_keep_samples_and_original_bytes() {
+    for depth in [Depth::Eight, Depth::Sixteen, Depth::ThirtyTwo] {
+        for prediction in [false, true] {
+            let mut bytes = fixture(depth, true, true);
+            let data_len = 6 * 3 * depth.bytes_per_channel();
+            let raw = bytes.split_off(bytes.len() - data_len);
+            bytes.truncate(bytes.len() - 2);
+            bytes.extend_from_slice(&(if prediction { 3u16 } else { 2u16 }).to_be_bytes());
+            bytes.extend(schist_codec_psd::zip::encode_channel(
+                &raw,
+                6,
+                3 * depth.bytes_per_channel(),
+                depth,
+                prediction,
+            ));
+            let doc = read_psd(&bytes).unwrap();
+            assert_eq!(doc.ink_channels.len(), 2);
+            assert!((doc.ink_channels[1].pixels.value(1, 0) - 0.75).abs() < 0.002);
+        }
+    }
+    let mut doc = read_psd(&fixture(Depth::Eight, false, true)).unwrap();
+    // Retain unknown display-space bytes while explicitly editing just the name.
+    let original = vec![0, 42, 1, 2, 3, 4, 5, 6, 7, 8, 0, 35, 2];
+    doc.ink_channels[1].info.original_display = Some(original.clone());
+    let mut edit = doc.begin_edit("rename");
+    edit.change_ink_channels(|c| c[1].info.name = "Renamed ink".into());
+    edit.commit();
+    let again = read_psd(&write_psd_with(&doc, false).unwrap()).unwrap();
+    assert_eq!(again.ink_channels[1].info.original_display, Some(original));
+    assert_eq!(again.ink_channels[1].info.name, "Renamed ink");
+    assert!(again.preserved_layer_info.iter().any(|b| b.key == *b"ScIr"));
+}

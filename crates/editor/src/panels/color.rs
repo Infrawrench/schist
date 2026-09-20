@@ -591,6 +591,10 @@ fn spot_channels(ws: &Workspace, cx: &mut Context<Workspace>) -> impl IntoElemen
                         )),
                     ),
             )
+            .child(Swatch::new(
+                "spot-ink-color",
+                swatch_hex(Rgba::new(info.color[0], info.color[1], info.color[2], 1.0)),
+            ))
             .child(
                 Button::new("spot-display-color", t("common.foreground_color")).on_click(
                     cx.listener(move |ws, _, _, cx| {
@@ -609,10 +613,15 @@ fn spot_channels(ws: &Workspace, cx: &mut Context<Workspace>) -> impl IntoElemen
                     }),
                 ),
             )
+            .child(panel_title(t("common.preview")))
             .child(slider(
                 "spot-solidity",
                 t("common.opacity"),
-                format!("{:.0}%", info.solidity * 100.0),
+                if info.solidity == 0.0 {
+                    t("common.transparent").into()
+                } else {
+                    format!("{:.0}%", info.solidity * 100.0)
+                },
                 SliderTarget::SpotSolidity(id),
                 ws,
                 cx,

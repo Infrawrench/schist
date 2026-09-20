@@ -97,6 +97,17 @@ pub fn read(doc: &mut Document, planes: &[Vec<f32>]) {
                     .to_rgba();
                     [p.r, p.g, p.b]
                 }
+                7 => {
+                    let p = schist_color::convert::lab_d50_to_rgb(
+                        [
+                            word(2) as f32 / 100.0,
+                            word(4) as i16 as f32 / 100.0,
+                            word(6) as i16 as f32 / 100.0,
+                        ],
+                        1.0,
+                    );
+                    [p.r, p.g, p.b]
+                }
                 8 => [word(2) as f32 / 10000.0; 3],
                 _ => color,
             };

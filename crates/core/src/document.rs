@@ -548,6 +548,11 @@ impl Document {
                 {
                     self.active_ink = None;
                 }
+                if let crate::InkPreview::Separation(id) = self.ink_preview {
+                    if !self.ink_channels.iter().any(|c| c.info.id == id) {
+                        self.ink_preview = crate::InkPreview::Process;
+                    }
+                }
                 self.damage_all();
             }
             EditOp::NotesSet { before, after } => {

@@ -37,6 +37,9 @@ impl InkTiles {
         interpolate: bool,
     ) -> Self {
         let mut out = Self::default();
+        if self.0.is_empty() {
+            return out;
+        }
         for y in rect.top..rect.bottom {
             for x in rect.left..rect.right {
                 let (sx, sy) = source(x, y);

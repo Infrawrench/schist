@@ -96,7 +96,7 @@ impl Workspace {
             collapse,
         });
         self.layer_drop = None;
-        cx.notify();
+        self.after_change(cx);
     }
 
     /// The layers a drag moves: the multi-selection when the pressed row

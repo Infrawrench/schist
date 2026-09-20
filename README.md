@@ -320,10 +320,16 @@ from Schist without changing its source file.
 This includes user-supplied Pantone ACB color books; no Pantone libraries
 are bundled. RGB, HSB, CMYK, D50 Lab, and grayscale swatches are supported
 where the format provides them. Names, source components, and ASE spot
-flags are retained, but painting uses RGB approximations, with unprofiled
-CMYK conversion. This does not create spot-ink channels or guarantee a
-print match. Legacy ACO entries containing opaque ink-library references
+flags are retained; ordinary layer painting uses RGB approximations, with
+unprofiled CMYK conversion. Choosing a swatch alone does not create a
+spot channel or guarantee a print match. Legacy ACO entries containing opaque ink-library references
 are rejected; use an ACB book or swatches with explicit color values.
+
+The Color panel’s **Spot ink** controls create real editable ink separations
+with selection-aware Brush/Pencil/Eraser and Fill, grayscale separation views,
+and an overprint display simulation. PSD/PSB and shared recovery preserve the
+plates independently of process color and transparency. See
+[spot-ink.md](docs/spot-ink.md) for controls, solidity, interchange and proofing limits.
 
 ## Keyboard
 

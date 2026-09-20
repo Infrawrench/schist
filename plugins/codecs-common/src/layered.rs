@@ -73,6 +73,20 @@ pub fn finish(mut doc: Document) -> Document {
     doc
 }
 
+/// Layered formats without extra separations must not silently discard them.
+pub fn check_ink_channels(doc: &Document) -> Result<()> {
+    if !doc.ink_channels.is_empty() {
+        return Err(unsupported(t(
+            if doc.ink_channels.iter().any(|c| c.info.spot) {
+                "panels.ink.spot"
+            } else {
+                "common.channels"
+            },
+        )));
+    }
+    Ok(())
+}
+
 pub fn check_layer(layer: &Layer, groups: bool, masks: bool) -> Result<()> {
     ensure!(
         matches!(layer.kind, LayerKind::Raster(_)) || (groups && layer.is_group()),
