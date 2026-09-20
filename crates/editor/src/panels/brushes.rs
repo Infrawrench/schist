@@ -222,6 +222,7 @@ fn brush_popover(ws: &Workspace, cx: &mut Context<Workspace>) -> impl IntoElemen
                         )) && library.save()
                         {
                             ws.brush_library = library;
+                            ws.cloud_workflows_changed();
                         } else {
                             ws.status = t("common.failed").into();
                         }
@@ -237,6 +238,7 @@ fn brush_popover(ws: &Workspace, cx: &mut Context<Workspace>) -> impl IntoElemen
                             library.delete(&ws.brush_preset_name);
                             if library.save() {
                                 ws.brush_library = library;
+                                ws.cloud_workflows_changed();
                                 ws.brush_preset_name.clear();
                             } else {
                                 ws.status = t("common.failed").into();

@@ -82,6 +82,8 @@ fn filter_count(f: &Filters) -> usize {
         f.captured_after.is_some(),
         f.captured_before.is_some(),
         f.min_rating.is_some(),
+        f.flag.is_some(),
+        f.label.is_some(),
         f.bounds.is_some(),
     ]
     .into_iter()
@@ -286,6 +288,7 @@ impl Workspace {
     /// The strip's Refresh: the folder and bucket lists and the current
     /// page, again.
     pub(crate) fn cloud_refresh(&mut self, cx: &mut Context<Self>) {
+        self.cloud.gallery.close();
         self.cloud_refresh_catalogue();
         self.cloud_watch_assets(true);
         cx.notify();
@@ -1094,6 +1097,26 @@ fn load_failure(ws: &Workspace, cx: &mut Context<Workspace>) -> impl IntoElement
 /// The grid: month or folder headers with a rule, then wrapped
 /// thumbnails, loading another batch as the end approaches the viewport.
 pub(crate) fn grid(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::AnyElement {
+    let controls = ws
+        .cloud
+        .gallery
+        .controls
+        .then(|| super::cloud_gallery::controls(ws, cx));
+    let body = if ws.cloud.gallery.view.is_some() {
+        super::cloud_gallery::view(ws, cx)
+    } else {
+        cloud_grid(ws, cx)
+    };
+    div()
+        .flex()
+        .flex_col()
+        .flex_grow()
+        .min_h(px(0.0))
+        .children(controls)
+        .child(body)
+        .into_any_element()
+}
+fn cloud_grid(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::AnyElement {
     ws.cloud.grid_wanted.clear();
     let cell = ws.gallery_thumb_px();
     let selected = ws.cloud.selected.clone();
@@ -1249,6 +1272,7 @@ fn cloud_cell(
         .absolute()
         .size_full(),
     )
+    .children(super::cloud_gallery::badge(&asset))
     .on_drag(drag, move |drag, _offset, _window, cx| {
         let label = drag.label.clone();
         let count = drag.items.len();
@@ -1342,6 +1366,7 @@ pub(crate) fn context_menu(
                     cx,
                 );
             }
+            super::cloud_gallery::menu(ws, &mut rows, cx);
             rows.push(menu_sep());
             for bucket in ws.cloud.buckets.clone() {
                 let add = acting.clone();
@@ -1701,6 +1726,7 @@ pub(crate) fn dialog(
         return super::cloud_people::viewer(ws, fields, cx);
     }
     let title = match kind {
+        "metadata" => t("metadata.title"),
         "people-rename" => t("cloud.dialog.people_rename_title"),
         "face-name" | "face-add" => t("cloud.dialog.face_name_title"),
         "sign-in" => t("cloud.dialog.sign_in_title"),
@@ -2043,6 +2069,7 @@ mod grouping_tests {
 
     fn asset(id: &str, folder: Option<&str>, captured: Option<u64>, modified: u64) -> Asset {
         Asset {
+            metadata: Default::default(),
             faces: Vec::new(),
             moderation: None,
             id: id.into(),

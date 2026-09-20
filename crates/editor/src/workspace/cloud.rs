@@ -74,6 +74,18 @@ enum RecoveryTask {
     Remove(PathBuf),
 }
 pub(super) enum Job {
+    BatchFinished {
+        epoch: u64,
+        message: String,
+    },
+    Workflows {
+        epoch: u64,
+        event: super::cloud_workflows::Event,
+    },
+    Gallery {
+        epoch: u64,
+        event: super::cloud_gallery::Event,
+    },
     Thumbnail {
         epoch: u64,
         id: String,
@@ -198,6 +210,9 @@ fn local_upload_files(paths: &[PathBuf]) -> Result<Vec<(PathBuf, Option<String>)
 }
 
 pub(crate) struct CloudState {
+    pub(super) batch_cancel: Option<Arc<AtomicBool>>,
+    pub(super) gallery: super::cloud_gallery::State,
+    pub(super) workflows: super::cloud_workflows::State,
     pub generation: super::cloud_generation::GenerationState,
     pub account: Option<Account>,
     pub client: Option<Client>,
@@ -331,6 +346,9 @@ impl Default for CloudState {
         };
         Self {
             generation: Default::default(),
+            gallery: Default::default(),
+            batch_cancel: None,
+            workflows: Default::default(),
             #[cfg(not(target_arch = "wasm32"))]
             sync: Default::default(),
             account: None,
@@ -459,10 +477,16 @@ impl CloudState {
             let position = *positions.entry(&asset.id).or_insert(self.assets.len());
             if position == self.assets.len() {
                 self.assets.push(asset.clone());
-            } else if asset.revision > self.assets[position].revision {
+            } else if (asset.revision, asset.metadata.metadata_revision)
+                > (
+                    self.assets[position].revision,
+                    self.assets[position].metadata.metadata_revision,
+                )
+            {
                 self.assets[position] = asset.clone();
             }
         }
+        self.gallery.reconcile(&self.assets);
         self.refresh_people_target();
         self.changes += 1;
         Ok(true)
@@ -787,6 +811,9 @@ impl Workspace {
         self.cloud.cancel.store(true, Ordering::Relaxed);
         self.cloud.generation.cancel.store(true, Ordering::Relaxed);
         self.cloud.generation = Default::default();
+        self.cloud.gallery.close();
+        self.cloud.workflows = Default::default();
+        self.cloud.batch_cancel = None;
         let account = self.cloud.account.take();
         self.cloud.client = None;
         self.cloud.connected = false;
@@ -840,6 +867,7 @@ impl Workspace {
         }
     }
     pub(crate) fn cloud_browse(&mut self, scope: Scope, cx: &mut Context<Self>) {
+        self.cloud.gallery.close();
         if !crate::feature_enabled("schist-cloud") {
             return;
         }
@@ -1030,6 +1058,18 @@ impl Workspace {
         while let Ok(job) = self.cloud.jobs.try_recv() {
             changed = true;
             match job {
+                Job::BatchFinished { epoch, message } if epoch == self.cloud.epoch => {
+                    self.cloud.batch_cancel = None;
+                    self.cloud.progress = None;
+                    self.cloud.message = message.clone();
+                    self.status = message.into();
+                }
+                Job::Workflows { epoch, event } if epoch == self.cloud.epoch => {
+                    self.cloud.workflows.ready = Some(event);
+                }
+                Job::Gallery { epoch, event } if epoch == self.cloud.epoch => {
+                    self.cloud_gallery_event(event, cx)
+                }
                 #[cfg(not(target_arch = "wasm32"))]
                 Job::Sync {
                     epoch,
@@ -1224,6 +1264,7 @@ impl Workspace {
         }
         self.cloud_load_thumbnails();
         self.cloud_persist_credentials(cx);
+        self.cloud_workflows_tick(cx);
         if changed {
             cx.notify();
         }
@@ -1295,6 +1336,9 @@ impl Workspace {
                 self.cloud.disconnect();
                 self.cloud.epoch += 1;
                 self.cloud.cancel.store(true, Ordering::Relaxed);
+                self.cloud.gallery.close();
+                self.cloud.workflows = Default::default();
+                self.cloud.batch_cancel = None;
                 self.cloud.account = None;
                 self.cloud.client = None;
                 self.cloud.writes.push_back(None);
@@ -2603,6 +2647,9 @@ impl Workspace {
         if super::cloud_people::submit(self, kind, get)? {
             return Ok(());
         }
+        if super::cloud_gallery::submit(self, kind, &fields, cx)? {
+            return Ok(());
+        }
         match kind {
             #[cfg(not(target_arch = "wasm32"))]
             "camera-sync" => self.camera_sync_submit(&fields, cx)?,
@@ -2974,6 +3021,8 @@ fn parse_filters(fields: &[(&'static str, String, String)]) -> Result<Filters> {
         edited,
         content,
         min_rating,
+        flag: None,
+        label: None,
         bounds,
         captured_after,
         captured_before,
@@ -3139,6 +3188,7 @@ mod cloud_lifecycle_tests {
         let asset = binding("photo").asset;
         state.assets = (0..1000)
             .map(|n| Asset {
+                metadata: Default::default(),
                 id: n.to_string(),
                 ..asset.clone()
             })
@@ -3379,6 +3429,7 @@ mod cloud_lifecycle_tests {
         shared.local_changes(&source).unwrap();
         RemoteDocument {
             asset: Asset {
+                metadata: Default::default(),
                 faces: Vec::new(),
                 moderation: None,
                 id: asset.into(),

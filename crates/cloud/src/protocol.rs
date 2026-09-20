@@ -18,6 +18,10 @@ pub fn validate_upload_size(size: u64) -> Result<()> {
 
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct Capabilities {
+    #[serde(default)]
+    pub account_id: Option<String>,
+    #[serde(default)]
+    pub gallery_features: Vec<String>,
     pub document_models: Vec<String>,
     pub formats: Vec<Format>,
     pub max_frame_bytes: u64,
@@ -34,6 +38,9 @@ pub struct Format {
     pub runtime_requirement: Option<String>,
 }
 impl Capabilities {
+    pub fn supports_gallery(&self, feature: &str) -> bool {
+        self.gallery_features.iter().any(|f| f == feature)
+    }
     pub fn from_reply(reply: std::result::Result<Value, String>) -> Result<Option<Self>> {
         match reply {
             Ok(value) => Ok(Some(parse(value)?)),
@@ -111,6 +118,8 @@ pub struct Rule {
 }
 #[derive(Clone, Debug, Serialize, Deserialize, PartialEq)]
 pub struct Asset {
+    #[serde(flatten)]
+    pub metadata: crate::gallery::Metadata,
     #[serde(default)]
     pub faces: Vec<Face>,
     #[serde(default)]
@@ -170,6 +179,10 @@ pub struct Filters {
     pub captured_before: Option<u64>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub min_rating: Option<u8>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub flag: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub label: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub bounds: Option<Bounds>,
 }
@@ -422,6 +435,8 @@ mod tests {
     }
     pub(super) fn capabilities() -> Capabilities {
         Capabilities {
+            account_id: None,
+            gallery_features: vec![],
             document_models: vec![IMAGE_MODEL.into()],
             formats: vec![Format {
                 id: "codec.png".into(),

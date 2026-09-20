@@ -611,8 +611,16 @@ pub(super) fn actions_dialog(
                 |ws, _, cx| ws.replay_recorded_action(cx),
                 cx,
             ));
+            if ws.cloud.show {
+                body = body.child(ui::button(
+                    tf!("actions.play_gallery", n = ws.cloud.selected.len()),
+                    false,
+                    |ws, _, cx| ws.cloud_replay_action_gallery(cx),
+                    cx,
+                ));
+            }
             #[cfg(not(target_arch = "wasm32"))]
-            {
+            if !ws.cloud.show {
                 body = body
                     .child(div().text_size(px(11.0)).child(t("actions.batch_help")))
                     .child(ui::button(

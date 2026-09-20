@@ -177,6 +177,7 @@ fn book_path() -> Result<PathBuf> {
 
 #[derive(Clone, Debug, PartialEq)]
 pub struct Editor {
+    pub cloud_assets: Vec<schist_cloud::Asset>,
     /// Identity shared by clones of one modal session.
     pub session: std::sync::Arc<()>,
     pub book: Book,
@@ -196,6 +197,7 @@ impl Editor {
         Self {
             session: std::sync::Arc::new(()),
             book,
+            cloud_assets: Vec::new(),
             selected,
             draft,
             output: 0,
