@@ -47,18 +47,18 @@ service or new dependency is required.
 | Name | Default | Effect |
 | --- | --- | --- |
 | `gpu-compositing` | `true` | Allows the GPU compositor and GPU filter/warp kernels. When false, they use the CPU backend. |
-| `schist-cloud` | `true` | Enables Schist Cloud menus, sign-in, gallery, generation, uploads, collaborative editing, and camera backup settings and jobs. |
+| `schist-cloud` | `true` (native only) | Enables Schist Cloud menus, sign-in, gallery, generation, uploads, collaborative editing, and camera backup settings and jobs. Unavailable on WASM. |
 
 The GPU preference and existing `SCHIST_GPU=0|1` override still apply when
 this flag is true. Disabling the flag takes precedence over both. The
 browser continues to use the CPU backend regardless of the flag, since
 its GPU compositor is not supported there.
 
-Schist Cloud is enabled by default. Disable it with
-`SCHIST_FEATURE_FLAGS='{"schist-cloud":false}'` on native builds, or set
-`{"schist-cloud":false}` in the browser's `schist.feature_flags` localStorage
-key and reload. When disabled, Cloud UI and settings are hidden, stored
-accounts are not loaded, sign-in callbacks are ignored, and no Cloud
+Schist Cloud is enabled by default on native builds. Disable it with
+`SCHIST_FEATURE_FLAGS='{"schist-cloud":false}'`. WASM builds do not register
+this feature, so browser overrides cannot enable it. When disabled, Cloud UI
+and settings are hidden, stored accounts are not loaded, sign-in callbacks
+are ignored, and no Cloud
 connection or camera backup starts. Existing account credentials and backup
 preferences are kept for when the flag is enabled again.
 

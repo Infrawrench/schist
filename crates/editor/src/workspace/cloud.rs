@@ -431,6 +431,53 @@ impl Drop for CloudState {
     }
 }
 impl CloudState {
+    fn reset_asset_query(&mut self, keep: bool) {
+        self.query.offset = 0;
+        self.query.limit = PAGE_SIZE;
+        self.loaded = false;
+        self.load_error = None;
+        self.grid.handle.set_offset(point(px(0.0), px(0.0)));
+        self.grid_wanted.clear();
+        if !keep {
+            self.assets.clear();
+            self.total = 0;
+        }
+        for page in self.asset_pages.drain(..) {
+            if let Some(c) = &self.client {
+                c.handle.unwatch(&page.watch);
+            }
+        }
+    }
+
+    fn recover_missing_scope(&mut self, subscription_id: &str, code: &str) -> bool {
+        // A catalogue can be filtered or paginated. Only the active asset
+        // subscription can establish that its folder or bucket is gone.
+        if code != "not_found"
+            || matches!(self.query.scope, Scope::Library)
+            || !self
+                .asset_pages
+                .iter()
+                .any(|page| page.watch == subscription_id)
+        {
+            return false;
+        }
+        self.query.scope = Scope::Library;
+        self.gallery.close();
+        self.selected.clear();
+        self.select_anchor = None;
+        self.select_all_pending = false;
+        self.context = None;
+        self.people = None;
+        self.people_target = None;
+        self.face_previews.clear();
+        self.map_assets.clear();
+        self.map_photos.clear();
+        self.map_wanted.clear();
+        self.map_key = None;
+        self.reset_asset_query(false);
+        true
+    }
+
     fn next_asset_offset(&self) -> Option<u64> {
         if !self.loaded
             || self.load_error.is_some()
@@ -890,21 +937,7 @@ impl Workspace {
     pub(crate) fn cloud_watch_assets(&mut self, keep: bool) {
         self.cloud.query.filters.hide_nsfw = Some(self.view.gallery_hide_nsfw);
         self.cloud.query.sort = self.cloud_sort();
-        self.cloud.query.offset = 0;
-        self.cloud.query.limit = PAGE_SIZE;
-        self.cloud.loaded = false;
-        self.cloud.load_error = None;
-        self.cloud.grid.handle.set_offset(point(px(0.0), px(0.0)));
-        self.cloud.grid_wanted.clear();
-        if !keep {
-            self.cloud.assets.clear();
-            self.cloud.total = 0;
-        }
-        for page in self.cloud.asset_pages.drain(..) {
-            if let Some(c) = &self.cloud.client {
-                c.handle.unwatch(&page.watch);
-            }
-        }
+        self.cloud.reset_asset_query(keep);
         self.cloud_watch_asset_page(0);
     }
 
@@ -1187,7 +1220,9 @@ impl Workspace {
                 #[cfg(not(target_arch = "wasm32"))]
                 Job::MapAssets { epoch, key, result } if epoch == self.cloud.epoch => {
                     self.cloud.map_loading = false;
-                    if key.0.filters.hide_nsfw != Some(self.view.gallery_hide_nsfw) {
+                    if key.0.scope != self.cloud.query.scope
+                        || key.0.filters.hide_nsfw != Some(self.view.gallery_hide_nsfw)
+                    {
                         continue;
                     }
                     // A failed fetch still records its key, so the map
@@ -1474,9 +1509,12 @@ impl Workspace {
             }
             Event::WatchError {
                 subscription_id,
+                code,
                 error,
             } => {
-                if self.cloud.fail_asset_page(&subscription_id, &error)
+                if self.cloud.recover_missing_scope(&subscription_id, &code) {
+                    self.cloud_watch_asset_page(0);
+                } else if self.cloud.fail_asset_page(&subscription_id, &error)
                     || subscription_id == self.cloud.folders_watch
                     || subscription_id == self.cloud.buckets_watch
                 {
@@ -3134,6 +3172,99 @@ mod cloud_lifecycle_tests {
         let watch = page.watch.clone();
         state.asset_pages.push(page);
         watch
+    }
+
+    #[test]
+    fn deleted_cloud_scope_clears_gallery_and_rejects_late_pages() {
+        for scope in [
+            Scope::Folder {
+                id: "deleted-folder".into(),
+                recursive: true,
+            },
+            Scope::Bucket {
+                id: "deleted-bucket".into(),
+            },
+        ] {
+            let mut state = CloudState::default();
+            state.query.scope = scope;
+            state.query.text = "holiday".into();
+            state.query.filters.hide_nsfw = Some(true);
+            let first = add_page(&mut state, 0);
+            state
+                .apply_asset_snapshot(&first, asset_snapshot(2, 0, &["deleted-photo"]))
+                .unwrap();
+            let next = add_page(&mut state, 1);
+            state.selected.push("deleted-photo".into());
+            state.select_anchor = Some("deleted-photo".into());
+            state.select_all_pending = true;
+            state.people_target = Some(state.assets[0].clone());
+            state.map_assets = state.assets.clone();
+            state.map_photos = state.selected.clone();
+            state.map_wanted.insert("deleted-photo".into());
+            state.map_key = Some((state.query.clone(), state.changes));
+            state.grid_wanted.insert("deleted-photo".into());
+            state.gallery.view = Some(super::super::cloud_gallery::View::Compare);
+
+            assert!(state.recover_missing_scope(&first, "not_found"));
+            assert_eq!(state.query.scope, Scope::Library);
+            assert_eq!(state.query.text, "holiday");
+            assert_eq!(state.query.filters.hide_nsfw, Some(true));
+            assert!(state.assets.is_empty());
+            assert_eq!(state.total, 0);
+            assert!(!state.loaded);
+            assert!(state.load_error.is_none());
+            assert!(state.selected.is_empty());
+            assert!(state.select_anchor.is_none());
+            assert!(!state.select_all_pending);
+            assert!(state.people_target.is_none());
+            assert!(state.map_assets.is_empty());
+            assert!(state.map_photos.is_empty());
+            assert!(state.map_wanted.is_empty());
+            assert!(state.map_key.is_none());
+            assert!(state.grid_wanted.is_empty());
+            assert!(state.gallery.view.is_none());
+            assert!(!state
+                .apply_asset_snapshot(&next, asset_snapshot(2, 1, &["deleted-photo"]))
+                .unwrap());
+            assert!(!state.fail_asset_page(&next, "Folder not found."));
+
+            let library = add_page(&mut state, 0);
+            state
+                .apply_asset_snapshot(&library, asset_snapshot(1, 0, &["remaining-photo"]))
+                .unwrap();
+            assert!(state.loaded);
+            assert_eq!(state.assets[0].id, "remaining-photo");
+        }
+    }
+
+    #[test]
+    fn only_missing_current_cloud_scopes_return_to_library() {
+        let mut state = CloudState::default();
+        let scope = Scope::Folder {
+            id: "current-folder".into(),
+            recursive: true,
+        };
+        state.query.scope = scope.clone();
+        let current = add_page(&mut state, 0);
+        state
+            .apply_asset_snapshot(&current, asset_snapshot(1, 0, &["photo"]))
+            .unwrap();
+        let catalogue = state.folders_watch.clone();
+        for (watch, code) in [
+            (current.as_str(), "internal_error"),
+            (current.as_str(), "unauthorized"),
+            ("previous-folder", "not_found"),
+            (catalogue.as_str(), "not_found"),
+        ] {
+            // Catalogue refreshes and late failures from a previously viewed
+            // folder must not navigate away from the current gallery.
+            assert!(!state.recover_missing_scope(watch, code));
+            assert_eq!(state.query.scope, scope);
+            assert_eq!(state.assets[0].id, "photo");
+        }
+        state.query.scope = Scope::Library;
+        assert!(!state.recover_missing_scope(&current, "not_found"));
+        assert_eq!(state.assets[0].id, "photo");
     }
 
     #[test]

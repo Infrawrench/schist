@@ -1,10 +1,10 @@
 # Schist Cloud
 
-Schist Cloud is enabled by default. To disable it, including its UI and camera
-backup settings, launch native builds with
-`SCHIST_FEATURE_FLAGS='{"schist-cloud":false}'`. In the browser, set
-`localStorage.setItem("schist.feature_flags", '{"schist-cloud":false}')` and
-reload. See [feature-flags.md](feature-flags.md) for override behaviour.
+Schist Cloud is available only in native builds and is enabled by default.
+To disable it, including its UI and camera backup settings, launch with
+`SCHIST_FEATURE_FLAGS='{"schist-cloud":false}'`. WASM builds hide all Cloud
+controls and do not start Cloud connections; localStorage overrides cannot
+enable them. See [feature-flags.md](feature-flags.md) for override behaviour.
 
 In the desktop app, choose **File → Schist Cloud → Sign into Schist Cloud…**,
 or use the welcome screen button. The domain prompt starts with `schist.app`.
@@ -15,29 +15,11 @@ browser. Installed Linux, macOS and Windows packages register the
 
 The provider must serve `https://<domain>/.schist/auth-urls.json` and implement
 the [Rust protocol types](../crates/cloud/src/protocol.rs) and
-[transport contract](../crates/cloud/src/transport.rs) described below. The client supports desktop and the hosted WASM editor.
+[transport contract](../crates/cloud/src/transport.rs) described below. Cloud integration is available in native builds.
 The [provider specification](https://gist.github.com/IAmJSD/f2d639079c5437424e693686490621c0)
 describes capability discovery and native download behavior in sections 8.6–8.9.
 
-## Browser
-
-At **https://try.schist.app**, choose **File → Schist Cloud → Sign into Schist Cloud…**.
-A popup signs into **schist.app** without replacing the editor page. WASM supports
-only this provider and hosted editor origin; desktop retains the domain prompt.
-The popup uses a state-bound, verifier-bound authorization code and validates the
-message origin and popup identity. Credentials stay in tab memory, so reloading
-requires signing in again.
-
-The browser shares the same live folders, buckets, search, filters, exports,
-and collaborative image model with desktop. One binary MessagePack workspace
-socket carries queries and edits. Browser fetch handles original uploads and
-downloads; the provider proxies S3 downloads so storage-bucket CORS is unnecessary.
-The legacy generation stream still uses its own per-job socket.
-
-**Upload files…** selects multiple files; **Upload folder…** preserves relative
-paths and can import directly into a cloud folder or bucket. Each selection is
-limited to 512 MiB in browser memory; the provider's upload limits still apply.
-The local filesystem gallery and native drag integration remain desktop features.
+## Uploads
 
 Files over 100 MiB use multipart uploads (up to 5 GiB per file). Desktop hashes
 the source with a bounded buffer, then reads/uploads 8 MiB chunks directly from
@@ -45,17 +27,15 @@ disk. Each failed chunk is retried up to three times; selecting the same file
 again resumes its saved parts for 24 hours, including after restarting the app.
 The resume identity includes the content and destination, preventing changed
 files from mixing with an earlier upload. Byte progress appears in the status
-bar. The hosted WASM app retains its 512 MiB selection memory limit.
+bar.
 
 Imports check the size before loading file contents. Files over 5 GiB,
 empty, or unreadable files are skipped without discarding the rest of the batch;
 the final status reports uploaded/skipped counts and the first skipped file's
-reason. A source that grows during reading is checked again. This applies to both
-desktop and WASM imports. Connection/provider failures still stop the operation,
+reason. A source that grows during reading is checked again.
+Connection/provider failures still stop the operation,
 and already committed files remain in Cloud.
-Remote folders and assets can be dragged into remote buckets in either build.
-Downloads use the browser's download flow. Edits survive socket reconnects in the
-open tab, but filesystem recovery across page reloads is not available in WASM.
+Remote folders and assets can be dragged into remote buckets.
 
 ## Camera roll backup
 
@@ -120,7 +100,7 @@ folder and any remaining files are removed after both downloading and uploading
 finish. Import completion waits for every queued upload. The existing upload
 pipeline checks storage and duplicates and shows progress; originals remain on
 the camera. On iOS and Android the system photo/media picker feeds the same
-cloud upload path. The browser continues to use its file picker. **Upload
+cloud upload path. **Upload
 files…** and **Upload folder…** remain available on cloud folder context menus.
 
 The sidebar's VIEW, GROUP BY and PEOPLE sections stay whichever room is up.
@@ -150,8 +130,7 @@ Download, bucket membership and Delete from Schist Cloud. Folder and bucket
 lists update through live subscriptions and page at 500; a Find link appears
 when a library outgrows one page. A cloud bucket uses the same New Bucket
 dialog as a local one — a name, a search, and an area drawn on the map — and
-the provider keeps it filled by that rule. The browser build shows the same
-room with only the cloud in it, and asks for the name and search only.
+the provider keeps it filled by that rule.
 
 Thumbnails come from the `thumbnail_url` on each asset in a workspace snapshot:
 a signed download ticket the provider serves without credentials (format

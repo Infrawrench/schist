@@ -48,6 +48,7 @@ pub enum Event {
     },
     WatchError {
         subscription_id: String,
+        code: String,
         error: String,
     },
     Reply {
@@ -618,6 +619,7 @@ impl Session<'_> {
                 self.watches.remove(&subscription_id);
                 let _ = self.events.send(Event::WatchError {
                     subscription_id,
+                    code: error.code,
                     error: error.message,
                 });
             }
@@ -858,6 +860,75 @@ mod tests {
         drop(client);
         server.join().unwrap();
     }
+    #[test]
+    fn watch_errors_preserve_the_provider_code() {
+        let listener = TcpListener::bind("127.0.0.1:0").unwrap();
+        let url = format!("ws://{}", listener.local_addr().unwrap());
+        let server = std::thread::spawn(move || {
+            let (stream, _) = listener.accept().unwrap();
+            stream
+                .set_read_timeout(Some(Duration::from_secs(5)))
+                .unwrap();
+            let mut ws = accept(stream).unwrap();
+            assert_eq!(string(&read(&mut ws), "type").unwrap(), "hello");
+            send(
+                &mut ws,
+                map([("type", "ready".into()), ("protocol", 1.into())]),
+            );
+            let watch = read(&mut ws);
+            assert_eq!(string(&watch, "type").unwrap(), "subscribe");
+            send(
+                &mut ws,
+                map([
+                    ("type", "watch_error".into()),
+                    (
+                        "subscription_id",
+                        string(&watch, "subscription_id").unwrap().into(),
+                    ),
+                    (
+                        "error",
+                        map([
+                            ("code", "not_found".into()),
+                            ("message", "Folder not found.".into()),
+                        ]),
+                    ),
+                ]),
+            );
+            assert!(matches!(ws.read(), Ok(Message::Close(_))));
+        });
+        let client = Client::start(account(url));
+        client.handle.watch(
+            "deleted-folder",
+            WatchQuery::Assets {
+                query: Box::new(AssetQuery {
+                    scope: Scope::Folder {
+                        id: "folder".into(),
+                        recursive: true,
+                    },
+                    ..Default::default()
+                }),
+            },
+        );
+        assert!(matches!(
+            client.events.recv_timeout(Duration::from_secs(5)).unwrap(),
+            Event::Connected
+        ));
+        match client.events.recv_timeout(Duration::from_secs(5)).unwrap() {
+            Event::WatchError {
+                subscription_id,
+                code,
+                error,
+            } => {
+                assert_eq!(subscription_id, "deleted-folder");
+                assert_eq!(code, "not_found");
+                assert_eq!(error, "Folder not found.");
+            }
+            _ => panic!("Expected watch failure"),
+        }
+        drop(client);
+        server.join().unwrap();
+    }
+
     #[test]
     fn advertised_frame_limit_rejects_oversize_request_without_disconnect() {
         let listener = TcpListener::bind("127.0.0.1:0").unwrap();
