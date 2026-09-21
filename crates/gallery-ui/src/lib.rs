@@ -1,17 +1,23 @@
 //! The gallery's chrome, shared by the local library and Schist Cloud:
 //! the palette, the top strip and bottom tray, the sidebar rows, the
 //! grid frame with its scrollbar, the thumbnail cell, the drag ghost
-//! and the right-click menu frame. The local gallery and the cloud
+//! the right-click menu frame, photo-decision controls and comparison panes.
+//! The local gallery and the cloud
 //! gallery are the same room — one shows watched folders, the other a
 //! remote library — so everything here is what both of them draw
 //! with, and the browser build, which has no local gallery, draws the
 //! cloud one from the very same parts.
+//! Backend adapters provide state and callbacks; gallery presentation belongs
+//! here so changes to the local components also reach cloud and browser views.
 //!
 //! It keeps its own palette rather than `ui::palette()` — a photo grid
 //! wants quieter, flatter chrome than a panel set — but it follows the
 //! theme choice: the light theme gets Picasa's warm white lightbox, the
 //! dark theme a Lightroom-grey version of the same room, so opening the
 //! gallery from a dark editor is not a flashbang.
+
+pub mod comparison;
+pub mod culling;
 
 use gpui::{
     canvas, div, px, Bounds, Context, InteractiveElement as _, IntoElement, MouseButton,

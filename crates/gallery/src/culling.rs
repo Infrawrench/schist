@@ -108,6 +108,16 @@ impl Default for CompareCamera {
     }
 }
 impl CompareCamera {
+    /// Show one preview pixel per screen pixel, using the active pane's fit.
+    pub fn actual_size(&mut self, image: [f32; 2], pane: [f32; 2]) {
+        let fit = (pane[0] / image[0].max(1.0))
+            .min(pane[1] / image[1].max(1.0))
+            .min(1.0);
+        if fit.is_finite() && fit > 0.0 {
+            self.zoom = (1.0 / fit).clamp(1.0, 32.0);
+        }
+    }
+
     pub fn zoom_by(&mut self, factor: f32) {
         if factor.is_finite() && factor > 0.0 {
             self.zoom = (self.zoom * factor).clamp(1.0, 32.0);
@@ -203,6 +213,18 @@ mod tests {
         assert_eq!(records[Path::new("new/a.jpg")].rating, 5);
         assert_eq!(records[&paths[1]].rating, 5);
     }
+    #[test]
+    fn comparison_actual_size_uses_active_image_fit_and_ignores_empty_panes() {
+        let mut camera = CompareCamera::default();
+        camera.actual_size([2000.0, 1000.0], [500.0, 300.0]);
+        let rect = camera.image_rect([2000.0, 1000.0], [500.0, 300.0]);
+        assert_eq!([rect[2], rect[3]], [2000.0, 1000.0]);
+        camera.actual_size([2000.0, 1000.0], [0.0, 0.0]);
+        assert_eq!(camera.zoom, 4.0);
+        camera.actual_size([100.0, 50.0], [500.0, 300.0]);
+        assert_eq!(camera.zoom, 1.0);
+    }
+
     #[test]
     fn comparison_keeps_same_normalized_detail_and_bounds_zoom() {
         let mut camera = CompareCamera::default();

@@ -87,6 +87,7 @@ mod filter_canvas;
 pub(crate) mod filter_stack;
 mod filters;
 pub(crate) mod gallery_chrome;
+mod gallery_metadata;
 mod image_ops;
 mod input;
 mod layers_panel;
