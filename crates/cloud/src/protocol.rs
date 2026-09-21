@@ -105,6 +105,8 @@ pub struct Bucket {
     pub name: String,
     pub revision: u64,
     pub rule: Option<Rule>,
+    #[serde(default)]
+    pub exclude_nsfw: bool,
     /// Total matching assets, supplied with the bucket list before it is opened.
     /// Older providers may omit the count; unknown is distinct from empty.
     #[serde(default)]
@@ -436,6 +438,11 @@ mod tests {
             let bytes = rmp_serde::to_vec_named(&bucket).unwrap();
             let decoded: Bucket = rmp_serde::from_slice(&bytes).unwrap();
             assert_eq!(decoded.asset_count, count);
+            assert!(!decoded.exclude_nsfw);
+            bucket["exclude_nsfw"] = true.into();
+            let decoded: Bucket =
+                rmp_serde::from_slice(&rmp_serde::to_vec_named(&bucket).unwrap()).unwrap();
+            assert!(decoded.exclude_nsfw);
         }
     }
     #[cfg_attr(not(target_arch = "wasm32"), test)]

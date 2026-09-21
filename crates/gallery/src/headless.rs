@@ -125,7 +125,8 @@ impl Gallery {
             "folders": self.file.folders.iter().map(|f| f.display().to_string()).collect::<Vec<_>>(),
             "photos": all.len(),
             "buckets": self.file.buckets.iter().enumerate().map(|(i, b)| json!({
-                "index": i, "name": b.name(), "photos": b.photos().len(),
+                "index": i, "name": b.name(), "photos": b.photos().iter().filter(|p| !b.exclude_nsfw() || self.verdict(p) != "flagged").count(),
+                "exclude_nsfw": b.exclude_nsfw(),
                 "query": b.query(), "area": b.area().map(|(_, name)| name.clone()),
             })).collect::<Vec<_>>(),
             "index": {
@@ -200,6 +201,7 @@ impl Gallery {
             return b
                 .photos()
                 .iter()
+                .filter(|p| !b.exclude_nsfw() || self.verdict(p) != "flagged")
                 .filter_map(|p| self.entry(p).cloned())
                 .collect();
         }
@@ -227,11 +229,14 @@ impl Gallery {
                     .buckets
                     .iter()
                     .find(|b| b.name().eq_ignore_ascii_case(name))
-                    .ok_or_else(|| anyhow::anyhow!("no bucket named {name:?}"))?
-                    .photos()
-                    .iter()
-                    .cloned()
-                    .collect(),
+                    .ok_or_else(|| anyhow::anyhow!("no bucket named {name:?}"))
+                    .map(|b| {
+                        b.photos()
+                            .iter()
+                            .filter(|p| !b.exclude_nsfw() || self.verdict(p) != "flagged")
+                            .cloned()
+                            .collect()
+                    })?,
             ),
             None => None,
         };
@@ -291,6 +296,7 @@ impl Gallery {
             photos,
             query: query.map(str::to_string),
             area: None,
+            exclude_nsfw: false,
         });
         self.file.save()?;
         Ok(self.file.buckets.len() - 1)
@@ -310,6 +316,7 @@ impl Gallery {
                 photos: std::mem::take(p),
                 query: None,
                 area: None,
+                exclude_nsfw: false,
             };
         }
         if let BucketFile::Rich { photos, .. } = bucket {
@@ -319,7 +326,14 @@ impl Gallery {
                 }
             }
         }
-        let count = bucket.photos().len();
+        let count = bucket
+            .photos()
+            .iter()
+            .filter(|p| {
+                !bucket.exclude_nsfw()
+                    || self.index.get(*p).and_then(|row| row.flagged) != Some(true)
+            })
+            .count();
         self.file.save()?;
         Ok(count)
     }

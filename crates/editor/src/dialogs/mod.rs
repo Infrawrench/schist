@@ -324,6 +324,7 @@ pub fn render(ws: &mut Workspace, cx: &mut Context<Workspace>) -> Option<gpui::A
             photos,
             editing,
             cloud,
+            ..
         } => {
             crate::workspace::bucket_name_dialog(ws, name, query, photos.len(), editing, cloud, cx)
                 .into_any_element()

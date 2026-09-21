@@ -86,6 +86,8 @@ struct ThumbJob {
 #[derive(Clone)]
 pub struct Bucket {
     pub name: String,
+    /// Exclude flagged photos from manual and smart membership. Persisted.
+    pub exclude_nsfw: bool,
     /// Photos put in by hand (drag, right-click). Persisted.
     pub photos: Vec<PathBuf>,
     /// The smart rule: a search query and/or a map area. Either being
@@ -105,12 +107,15 @@ impl Bucket {
 
     /// Everything in the bucket: the hand-picked photos in the order
     /// they were dropped, then what the rule matched.
-    pub fn contents(&self) -> Vec<PathBuf> {
+    pub fn contents(&self, is_flagged: impl Fn(&Path) -> bool) -> Vec<PathBuf> {
         let mut all = self.photos.clone();
         for path in &self.matches {
             if !all.contains(path) {
                 all.push(path.clone());
             }
+        }
+        if self.exclude_nsfw {
+            all.retain(|path| !is_flagged(path));
         }
         all
     }
@@ -531,11 +536,13 @@ impl Library {
                         photos,
                         query,
                         area,
+                        exclude_nsfw,
                     } => Bucket {
                         name,
                         photos,
                         query,
                         area,
+                        exclude_nsfw,
                         matches: Vec::new(),
                     },
                     BucketFile::Plain(name, photos) => Bucket {
@@ -543,6 +550,7 @@ impl Library {
                         photos,
                         query: None,
                         area: None,
+                        exclude_nsfw: false,
                         matches: Vec::new(),
                     },
                 })
@@ -652,6 +660,7 @@ impl Library {
                     photos: b.photos.clone(),
                     query: b.query.clone(),
                     area: b.area.clone(),
+                    exclude_nsfw: b.exclude_nsfw,
                 })
                 .collect(),
             people: self.people.clone(),
@@ -825,7 +834,8 @@ impl Library {
             })).collect::<Vec<_>>(),
             "selected": self.selected.iter().map(|p| p.display().to_string()).collect::<Vec<_>>(),
             "buckets": self.buckets.iter().enumerate().map(|(i, b)| json!({
-                "index": i, "name": b.name, "photos": b.contents().len(),
+                "index": i, "name": b.name, "photos": b.contents(|p| self.is_flagged(p)).len(),
+                "exclude_nsfw": b.exclude_nsfw,
                 "rule": b.is_smart().then(|| b.rule_label()),
                 "viewing": self.bucket_filter == Some(i),
             })).collect::<Vec<_>>(),
@@ -945,7 +955,7 @@ impl Library {
                 .flat_map(|s| s.entries.iter())
                 .collect();
             return bucket
-                .contents()
+                .contents(|p| self.is_flagged(p))
                 .iter()
                 .filter_map(|p| all.iter().find(|e| &e.path == p).map(|e| (*e).clone()))
                 .collect();
@@ -1197,7 +1207,7 @@ impl Library {
         // rule matched, best first.
         if let Some(bucket) = self.bucket_filter.and_then(|i| self.buckets.get(i)) {
             let entries: Vec<Entry> = bucket
-                .contents()
+                .contents(|p| self.is_flagged(p))
                 .iter()
                 .filter_map(|path| {
                     self.sections
@@ -1302,6 +1312,7 @@ impl Library {
             photos: Vec::new(),
             query: None,
             area: None,
+            exclude_nsfw: false,
             matches: Vec::new(),
         });
         self.save();
@@ -1316,10 +1327,17 @@ impl Library {
         name: String,
         query: Option<String>,
         area: Option<(GeoBounds, String)>,
+        exclude_nsfw: bool,
     ) {
         let Some(bucket) = self.buckets.get_mut(index) else {
             return;
         };
+        if bucket.exclude_nsfw != exclude_nsfw {
+            bucket.exclude_nsfw = exclude_nsfw;
+            self.index_gen += 1;
+            self.selected.clear();
+            self.select_anchor = None;
+        }
         if !name.trim().is_empty() {
             bucket.name = name.trim().to_string();
         }
@@ -1383,7 +1401,7 @@ impl Library {
     pub fn search_scope(&self) -> Option<FxHashSet<PathBuf>> {
         self.bucket_filter
             .and_then(|i| self.buckets.get(i))
-            .map(|b| b.contents().into_iter().collect())
+            .map(|b| b.contents(|p| self.is_flagged(p)).into_iter().collect())
     }
 
     /// The index as the ranking task sees it, rebuilt only when the
@@ -1886,7 +1904,12 @@ impl Library {
     /// bucket's membership is a set lookup, not a scan per photo.
     fn scope(&self) -> Scope {
         if let Some(bucket) = self.bucket_filter.and_then(|i| self.buckets.get(i)) {
-            return Scope::Bucket(bucket.contents().into_iter().collect());
+            return Scope::Bucket(
+                bucket
+                    .contents(|p| self.is_flagged(p))
+                    .into_iter()
+                    .collect(),
+            );
         }
         match &self.folder_filter {
             Some(root) => Scope::Folder(root.clone()),
@@ -3010,6 +3033,7 @@ impl Workspace {
                 photos,
                 editing: None,
                 cloud: false,
+                exclude_nsfw: false,
             },
             cx,
         );
@@ -3026,6 +3050,7 @@ impl Workspace {
         let name = bucket.name.clone();
         let query = bucket.query.clone().unwrap_or_default();
         let area = bucket.area.clone();
+        let exclude_nsfw = bucket.exclude_nsfw;
         self.open_modal(
             Modal::BucketName {
                 name,
@@ -3033,6 +3058,7 @@ impl Workspace {
                 photos: Vec::new(),
                 editing: Some(index),
                 cloud: false,
+                exclude_nsfw,
             },
             cx,
         );
@@ -4705,6 +4731,7 @@ mod tests {
             photos: vec![PathBuf::from("/p/b.jpg")],
             query: None,
             area: None,
+            exclude_nsfw: false,
             matches: Vec::new(),
         });
         lib.bucket_filter = Some(0);
@@ -4792,6 +4819,7 @@ mod tests {
             photos: vec![PathBuf::from("/p/a.jpg")],
             query: Some("beach".into()),
             area: None,
+            exclude_nsfw: false,
             matches: vec![PathBuf::from("/p/b.jpg"), PathBuf::from("/p/a.jpg")],
         });
         // No bucket on show: the whole index.
@@ -4923,11 +4951,78 @@ mod tests {
         )
         .expect("rich shape");
         assert!(
-            matches!(&rich[0], BucketFile::Rich { name, photos, query, area }
+            matches!(&rich[0], BucketFile::Rich { name, photos, query, area, .. }
             if name == "NYC dogs"
                 && photos.is_empty()
                 && query.as_deref() == Some("dog")
                 && area.as_ref().is_some_and(|(b, place)| place == "New York City" && b.contains(40.7, -74.0)))
+        );
+    }
+
+    #[test]
+    fn bucket_content_filter_applies_to_manual_and_smart_members_and_scopes() {
+        let mut lib = library_with(&[
+            "/p/manual.jpg",
+            "/p/match.jpg",
+            "/p/safe.jpg",
+            "/p/unscored.jpg",
+            "/p/outside.jpg",
+        ]);
+        let index = lib.add_bucket("Family".into());
+        lib.add_to_bucket(
+            index,
+            &[
+                "/p/manual.jpg".into(),
+                "/p/safe.jpg".into(),
+                "/p/unscored.jpg".into(),
+            ],
+        );
+        lib.configure_bucket(index, "Family".into(), Some("trip".into()), None, true);
+        lib.buckets[index].matches = vec!["/p/match.jpg".into(), "/p/safe.jpg".into()];
+        lib.flagged.insert("/p/manual.jpg".into(), true);
+        lib.flagged.insert("/p/match.jpg".into(), true);
+        lib.flagged.insert("/p/safe.jpg".into(), false);
+        lib.bucket_filter = Some(index);
+        let visible = || {
+            vec![
+                PathBuf::from("/p/safe.jpg"),
+                PathBuf::from("/p/unscored.jpg"),
+            ]
+        };
+        assert_eq!(
+            lib.buckets[index].contents(|p| lib.is_flagged(p)),
+            visible()
+        );
+        assert_eq!(
+            lib.list_entries(None, Some("Family"))
+                .iter()
+                .map(|e| e.path.clone())
+                .collect::<Vec<_>>(),
+            visible()
+        );
+        assert_eq!(lib.search_scope().unwrap(), visible().into_iter().collect());
+        assert_eq!(
+            lib.grouped()
+                .iter()
+                .flat_map(|(_, _, entries)| entries)
+                .count(),
+            2
+        );
+        assert_eq!(lib.state_json()["buckets"][index]["photos"], 2);
+        // The next classifier result takes effect without changing the bucket rule.
+        lib.flagged.insert("/p/unscored.jpg".into(), true);
+        assert_eq!(lib.search_scope().unwrap().len(), 1);
+        // Turning the option off restores references, including smart matches.
+        lib.configure_bucket(index, "Family".into(), Some("trip".into()), None, false);
+        assert_eq!(lib.buckets[index].contents(|p| lib.is_flagged(p)).len(), 4);
+        assert_eq!(lib.buckets[index].photos.len(), 3);
+        assert_eq!(lib.photo_count(), 5);
+        // An ordinary bucket remains manually filled when only exclusion is enabled.
+        lib.configure_bucket(index, "Family".into(), None, None, true);
+        assert!(!lib.buckets[index].is_smart());
+        assert_eq!(
+            lib.buckets[index].contents(|p| lib.is_flagged(p)),
+            vec![PathBuf::from("/p/safe.jpg")]
         );
     }
 
@@ -4938,11 +5033,12 @@ mod tests {
             photos: vec![PathBuf::from("/hand.jpg"), PathBuf::from("/both.jpg")],
             query: Some("dog".into()),
             area: None,
+            exclude_nsfw: false,
             matches: vec![PathBuf::from("/both.jpg"), PathBuf::from("/matched.jpg")],
         };
         // Drop order first, matches after, nothing twice.
         assert_eq!(
-            bucket.contents(),
+            bucket.contents(|_| false),
             vec![
                 PathBuf::from("/hand.jpg"),
                 PathBuf::from("/both.jpg"),

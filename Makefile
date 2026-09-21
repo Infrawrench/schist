@@ -804,3 +804,9 @@ test-cloud-review:
 test-cloud-content-filter:
 	$(CARGO) test -p schist-cloud content_filter
 	$(CARGO) test -p schist-gallery scores::tests
+
+.PHONY: test-bucket-content-filter format-bucket-content-filter
+test-bucket-content-filter:
+	$(CARGO) test -p schist-gallery -p schist-editor -p schist-cloud --lib bucket
+format-bucket-content-filter:
+	$(CARGO) fmt -p schist-gallery -p schist-editor -p schist-cloud

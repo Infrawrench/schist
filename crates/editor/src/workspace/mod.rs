@@ -1163,6 +1163,7 @@ pub enum Modal {
     /// empty name falls back to "Bucket N" (create) or stays (edit).
     BucketName {
         name: String,
+        exclude_nsfw: bool,
         query: String,
         photos: Vec<PathBuf>,
         editing: Option<usize>,

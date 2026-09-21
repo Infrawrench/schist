@@ -309,6 +309,7 @@ impl Workspace {
                         name.clone(),
                         Some(query.to_string()),
                         None,
+                        false,
                     );
                 }
                 let paths = paths_arg(args, "paths");
@@ -332,7 +333,7 @@ impl Workspace {
                 cx.notify();
                 Ok(text(json!({
                     "bucket": self.library.buckets[index].name,
-                    "photos": self.library.buckets[index].contents().len(),
+                    "photos": self.library.buckets[index].contents(|p| self.library.is_flagged(p)).len(),
                 })))
             }
             "gallery_people" => match str_arg(args, "person") {

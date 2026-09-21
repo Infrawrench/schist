@@ -715,6 +715,7 @@ pub(crate) fn new_cloud_bucket(ws: &mut Workspace, cx: &mut Context<Workspace>) 
                 photos: Vec::new(),
                 editing: None,
                 cloud: true,
+                exclude_nsfw: false,
             },
             cx,
         );
@@ -727,6 +728,11 @@ pub(crate) fn new_cloud_bucket(ws: &mut Workspace, cx: &mut Context<Workspace>) 
         vec![
             field("cloud-name", t("cloud.dialog.bucket_name"), ""),
             field("cloud-query", t("common.search"), ""),
+            field(
+                "cloud-check-exclude-nsfw",
+                t("dialog.prefs.hide_flagged"),
+                "",
+            ),
         ],
         cx,
     );
@@ -772,6 +778,7 @@ pub(crate) fn edit_cloud_bucket(ws: &mut Workspace, bucket: Bucket, cx: &mut Con
                 photos: Vec::new(),
                 editing: None,
                 cloud: true,
+                exclude_nsfw: bucket.exclude_nsfw,
             },
             cx,
         );
@@ -787,6 +794,11 @@ pub(crate) fn edit_cloud_bucket(ws: &mut Workspace, bucket: Bucket, cx: &mut Con
                 bucket.name.clone(),
             ),
             field("cloud-query", t("common.search"), text),
+            field(
+                "cloud-check-exclude-nsfw",
+                t("dialog.prefs.hide_flagged"),
+                if bucket.exclude_nsfw { "1" } else { "" },
+            ),
         ],
         cx,
     );
@@ -2139,6 +2151,7 @@ mod grouping_tests {
     #[test]
     fn a_bucket_or_a_search_is_one_strip() {
         let buckets = vec![Bucket {
+            exclude_nsfw: false,
             id: "b".into(),
             name: "Summer".into(),
             revision: 1,

@@ -757,7 +757,7 @@ fn sidebar(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElement 
                 .enumerate()
                 .map(|(i, b)| {
                     let count = b
-                        .contents()
+                        .contents(|p| ws.library.is_flagged(p))
                         .iter()
                         .filter(|p| {
                             ws.library.entry_of(p).is_some()
@@ -1010,8 +1010,7 @@ pub(super) fn gallery_sections(
                 .library
                 .bucket_filter
                 .and_then(|i| ws.library.buckets.get(i));
-            let scope: Option<FxHashSet<&PathBuf>> =
-                bucket.map(|b| b.photos.iter().chain(b.matches.iter()).collect());
+            let scope = ws.library.search_scope();
             let entries: Vec<super::library::Entry> = results
                 .iter()
                 .filter(|(path, _)| scope.as_ref().is_none_or(|s| s.contains(path)))
@@ -2645,6 +2644,13 @@ pub(crate) fn bucket_name_dialog(
         .and_then(|(id, _)| ws.cloud.buckets.iter().find(|b| &b.id == id))
         .cloned();
     let is_edit = editing.is_some() || cloud_target.is_some();
+    let exclude_nsfw = matches!(
+        ws.modal,
+        Some(Modal::BucketName {
+            exclude_nsfw: true,
+            ..
+        })
+    );
     let name_fallback = if cloud {
         match &cloud_target {
             Some(bucket) => bucket.name.clone(),
@@ -2703,6 +2709,19 @@ pub(crate) fn bucket_name_dialog(
                 .text_color(gpui::rgb(crate::ui::palette().text_dim))
                 .child(t("library.bucket.area_help")),
         )
+        .child(crate::ui::checkbox(
+            t("dialog.prefs.hide_flagged"),
+            exclude_nsfw,
+            |ws, cx| {
+                ws.update_modal(|modal| {
+                    if let Modal::BucketName { exclude_nsfw, .. } = modal {
+                        *exclude_nsfw = !*exclude_nsfw;
+                    }
+                });
+                cx.notify();
+            },
+            cx,
+        ))
         .child(boundary_editor(ws, cx))
         .child(
             div()
@@ -2743,6 +2762,7 @@ pub(crate) fn bucket_name_dialog(
                     photos,
                     editing,
                     cloud,
+                    exclude_nsfw,
                 }) = ws.modal.clone()
                 else {
                     return;
@@ -2768,7 +2788,7 @@ pub(crate) fn bucket_name_dialog(
                         west: b.west,
                         east: b.east,
                     });
-                    ws.cloud_save_bucket(name, query, bounds);
+                    ws.cloud_save_bucket(name, query, bounds, exclude_nsfw);
                     ws.close_modal(cx);
                     return;
                 }
@@ -2776,7 +2796,8 @@ pub(crate) fn bucket_name_dialog(
                     Some(index) => index,
                     None => ws.library.add_bucket(name.clone()),
                 };
-                ws.library.configure_bucket(index, name, query, area);
+                ws.library
+                    .configure_bucket(index, name, query, area, exclude_nsfw);
                 if !photos.is_empty() {
                     ws.library.add_to_bucket(index, &photos);
                 }
@@ -3158,7 +3179,13 @@ fn gallery_context_menu(
                 .library
                 .buckets
                 .get(index)
-                .map(|b| (b.contents(), b.name.clone(), b.is_smart()))
+                .map(|b| {
+                    (
+                        b.contents(|p| ws.library.is_flagged(p)),
+                        b.name.clone(),
+                        b.is_smart(),
+                    )
+                })
                 .unwrap_or_default();
             row(
                 t("library.menu.edit_bucket").into(),

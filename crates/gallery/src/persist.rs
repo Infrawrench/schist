@@ -14,6 +14,8 @@ pub enum BucketFile {
     Rich {
         name: String,
         #[serde(default)]
+        exclude_nsfw: bool,
+        #[serde(default)]
         photos: Vec<PathBuf>,
         #[serde(default)]
         query: Option<String>,
@@ -28,6 +30,15 @@ impl BucketFile {
         match self {
             BucketFile::Rich { name, .. } | BucketFile::Plain(name, _) => name,
         }
+    }
+    pub fn exclude_nsfw(&self) -> bool {
+        matches!(
+            self,
+            BucketFile::Rich {
+                exclude_nsfw: true,
+                ..
+            }
+        )
     }
     pub fn photos(&self) -> &[PathBuf] {
         match self {
@@ -209,6 +220,25 @@ mod tests {
         );
         assert!(moved.contains("/elsewhere/Photos"));
         assert!(!moved.contains("AAAAAAAA"));
+    }
+
+    #[test]
+    fn bucket_content_filter_survives_saving_and_defaults_off_for_old_buckets() {
+        for source in [
+            r#"["Old", ["/a.jpg"]]"#,
+            r#"{"name":"Old","photos":["/a.jpg"]}"#,
+        ] {
+            let bucket: BucketFile = serde_json::from_str(source).unwrap();
+            assert!(!bucket.exclude_nsfw());
+        }
+        let bucket: BucketFile =
+            serde_json::from_str(r#"{"name":"Family","photos":["/a.jpg"],"exclude_nsfw":true}"#)
+                .unwrap();
+        let saved = serde_json::to_string(&bucket).unwrap();
+        let restored: BucketFile = serde_json::from_str(&saved).unwrap();
+        assert!(restored.exclude_nsfw());
+        assert_eq!(restored.photos(), &[PathBuf::from("/a.jpg")]);
+        assert!(restored.query().is_none());
     }
 
     #[test]

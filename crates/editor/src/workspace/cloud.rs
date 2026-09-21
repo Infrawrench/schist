@@ -2006,6 +2006,7 @@ impl Workspace {
         name: String,
         text: Option<String>,
         bounds: Option<remote::Bounds>,
+        exclude_nsfw: bool,
     ) {
         let name = match name.trim() {
             "" => tf!("cloud.gallery.bucket_n", n = self.cloud.buckets.len() + 1),
@@ -2028,7 +2029,11 @@ impl Workspace {
                 filters,
             })
         };
-        let mut params = vec![("name", name.into()), ("rule", rule)];
+        let mut params = vec![
+            ("name", name.into()),
+            ("rule", rule),
+            ("exclude_nsfw", exclude_nsfw.into()),
+        ];
         let method = match target {
             Some((id, revision)) => {
                 params.extend([("id", id.into()), ("revision", revision.into())]);
@@ -2758,7 +2763,16 @@ impl Workspace {
                 );
             }
             "new-bucket" | "edit-bucket" => {
-                let filters = parse_filters(&fields)?;
+                // Preserve bounds and other saved filters that the browser's
+                // compact bucket form does not edit.
+                let filters = self
+                    .cloud
+                    .form_target
+                    .as_ref()
+                    .and_then(|(id, _)| self.cloud.buckets.iter().find(|b| &b.id == id))
+                    .and_then(|b| b.rule.as_ref())
+                    .map(|r| r.filters.clone())
+                    .unwrap_or_default();
                 let text = get("cloud-query");
                 let rule = if text.is_empty() && filters == Filters::default() {
                     Value::Nil
@@ -2777,7 +2791,14 @@ impl Workspace {
                         filters,
                     })
                 };
-                let mut params = vec![("name", get("cloud-name").into()), ("rule", rule)];
+                let mut params = vec![
+                    ("name", get("cloud-name").into()),
+                    ("rule", rule),
+                    (
+                        "exclude_nsfw",
+                        (get("cloud-check-exclude-nsfw") == "1").into(),
+                    ),
+                ];
                 let method = if kind == "edit-bucket" {
                     let (id, revision) = self
                         .cloud
