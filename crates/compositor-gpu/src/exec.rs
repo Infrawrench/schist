@@ -3,10 +3,10 @@
 //! result back.
 //!
 //! This is a second wgpu instance beside GPUI's renderer (GPUI does not
-//! expose its device), so every batch pays one upload and one readback.
-//! Batching is what amortizes that: the executor splits arbitrarily large
-//! coord lists into chunks that respect buffer-binding limits and runs
-//! each chunk as a single dispatch.
+//! expose its device). Unchanged tile uploads are retained across frames;
+//! batching amortizes dispatch and readback. The executor splits arbitrarily
+//! large coord lists into chunks that respect buffer-binding limits and
+//! runs each chunk as a single dispatch.
 
 use crate::plan::{Plan, PlanSource};
 use schist_color::{ColorMode, NativePixel};
@@ -20,6 +20,8 @@ mod compute;
 mod compute_cache;
 pub use compute_cache::ComputeCacheStats;
 mod effect_shader;
+mod tile_uploads;
+pub use tile_uploads::TileUploadStats;
 
 /// Per-chunk upload/output budget. Native output uses five f32 samples
 /// per pixel; RGB uses four. Both also respect the device binding limit.
@@ -55,6 +57,7 @@ pub struct GpuContext {
         >,
     >,
     compute_inputs: parking_lot::Mutex<compute_cache::InputCache>,
+    tile_uploads: parking_lot::Mutex<tile_uploads::TileUploads>,
     /// Seam carving: six stages over one shared bind group layout, so the
     /// whole run is a single set of buffers and no layout can drift
     /// between entry points.
@@ -308,6 +311,7 @@ impl GpuContext {
             effect_shaders: parking_lot::Mutex::new(rustc_hash::FxHashMap::default()),
             compute_shaders: parking_lot::Mutex::new(rustc_hash::FxHashMap::default()),
             compute_inputs: parking_lot::Mutex::new(compute_cache::InputCache::default()),
+            tile_uploads: parking_lot::Mutex::new(tile_uploads::TileUploads::default()),
             paged_carve: std::sync::OnceLock::new(),
             carve: CarvePipelines {
                 energy: carve_stage("energy_pass"),
@@ -347,13 +351,13 @@ impl GpuContext {
         let _work = self.work.lock().await;
         let mut scopes = ErrorScopes::default();
         scopes.push(self.device.push_error_scope(wgpu::ErrorFilter::Validation));
-        let mut tile_bytes: Vec<u8> = Vec::with_capacity(present * TILE_PIXELS * 4);
+        let mut tiles = Vec::with_capacity(present);
         let mut index = Vec::with_capacity(grid.len());
         for slot in grid {
             match slot {
                 Some(tile) => {
-                    index.push((tile_bytes.len() / (TILE_PIXELS * 4)) as i32);
-                    tile_bytes.extend_from_slice(tile);
+                    index.push(tiles.len() as i32);
+                    tiles.push(tile);
                 }
                 None => index.push(-1),
             }
@@ -393,17 +397,27 @@ impl GpuContext {
                 contents: cast_u32s(&uniform),
                 usage: wgpu::BufferUsages::UNIFORM,
             });
-        let tiles_buf = self
-            .device
-            .create_buffer_init(&wgpu::util::BufferInitDescriptor {
-                label: Some("viewport-tiles"),
-                contents: if tile_bytes.is_empty() {
-                    &[0; 4]
-                } else {
-                    &tile_bytes
-                },
-                usage: wgpu::BufferUsages::STORAGE,
-            });
+        let tiles_buf = self.tile_uploads.lock().upload(
+            &self.device,
+            tile_uploads::Key::Display(
+                tiles
+                    .iter()
+                    .map(|tile| std::sync::Arc::downgrade(tile))
+                    .collect(),
+            ),
+            present * TILE_PIXELS * 4,
+            || {
+                tiles
+                    .iter()
+                    .flat_map(|tile| {
+                        tile.as_chunks::<4>()
+                            .0
+                            .iter()
+                            .map(|p| u32::from_ne_bytes(*p))
+                    })
+                    .collect()
+            },
+        );
         let index_buf = self
             .device
             .create_buffer_init(&wgpu::util::BufferInitDescriptor {
@@ -466,6 +480,7 @@ impl GpuContext {
         staging.unmap();
         if let Some(err) = scopes.pop().await {
             log::warn!("gpu viewport failed, falling back to the CPU: {err}");
+            self.clear_tile_uploads();
             return None;
         }
         Some(out)
@@ -1268,12 +1283,16 @@ impl GpuContext {
         let mut native_out = Vec::new();
         let mut f32_out: Vec<Vec<f32>> = Vec::new();
         let mut u8_out: Vec<Vec<u8>> = Vec::new();
+        // Bound each source row using its actual widest format. Charging
+        // every 8-bit tile as f32 needlessly splits ordinary drag frames
+        // into several dispatch/readback round trips.
+        let fmts = source_formats(plan, coords);
         let mut start = 0;
         while start < coords.len() {
             let mut end = start;
             let mut bytes = [0usize; 5];
             while end < coords.len() && end - start < MAX_CHUNK_TILES {
-                let cost = self.tile_cost(plan, coords[end]);
+                let cost = self.tile_cost(plan, coords[end], &fmts);
                 let next = std::array::from_fn::<_, 5, _>(|i| bytes[i] + cost[i]);
                 if next.iter().any(|&n| n > limit) || next.iter().sum::<usize>() > BUDGET_BYTES {
                     if end == start {
@@ -1300,8 +1319,10 @@ impl GpuContext {
         })
     }
 
-    /// Upper-bound upload bytes one tile contributes (worst-case f32).
-    fn tile_cost(&self, plan: &Plan<'_>, coord: TileCoord) -> [usize; 5] {
+    /// Upper-bound bytes one tile contributes. Shared source tiles may
+    /// reduce the actual upload, and a chunk's formats can be narrower
+    /// than the batch-wide maxima used here, but never wider.
+    fn tile_cost(&self, plan: &Plan<'_>, coord: TileCoord, fmts: &[u32]) -> [usize; 5] {
         let pixel_bytes = if plan.is_native() { 20 } else { 16 };
         let mut bytes = [
             0,
@@ -1310,12 +1331,13 @@ impl GpuContext {
             plan.sources.len().max(1) * 6 * 4,
             8,
         ];
-        for src in &plan.sources {
+        for (row, src) in plan.sources.iter().enumerate() {
             match src {
                 PlanSource::Pixels(map, offset) => {
                     for c in shifted_sources(coord, *offset).0.into_iter().flatten() {
                         if map.get(c).is_some() {
-                            bytes[0] += TILE_PIXELS * pixel_bytes;
+                            bytes[0] +=
+                                TILE_PIXELS * if plan.is_native() { 20 } else { 4 << fmts[row] };
                         }
                     }
                 }
@@ -1341,6 +1363,7 @@ impl GpuContext {
         let result = self.run_chunk_inner(plan, coords, rgba8).await;
         if let Some(err) = scopes.pop().await {
             log::warn!("gpu composite failed, falling back to the CPU: {err}");
+            self.clear_tile_uploads();
             return None;
         }
         result
@@ -1363,40 +1386,22 @@ impl GpuContext {
         let n_tiles = coords.len();
         let n_rows = plan.sources.len();
         let mut slots = vec![-1i32; n_rows.max(1) * n_tiles * 6];
-        let mut fmts = vec![0u32; n_rows];
-        let mut src_words: Vec<u32> = Vec::new();
-        let mut mask_words: Vec<u32> = Vec::new();
+        let fmts = source_formats(plan, coords);
+        let mut sources = Vec::new();
+        let mut masks = Vec::new();
+        let mut source_words = 0;
+        let mut mask_words = 0;
 
-        // Each pixel row uploads at one format: the widest depth present
-        // in this chunk (narrower tiles convert losslessly on the way in).
-        for (r, src) in plan.sources.iter().enumerate() {
-            if let PlanSource::Pixels(map, offset) = src {
-                let mut fmt = 0u32;
-                for c in coords
-                    .iter()
-                    .flat_map(|c| shifted_sources(*c, *offset).0.into_iter().flatten())
-                {
-                    if let Some(buf) = map.get(c) {
-                        fmt = fmt.max(match buf.as_ref() {
-                            TileBuf::U8(_) => 0,
-                            TileBuf::U16(_) => 1,
-                            TileBuf::F32(_) | TileBuf::Native(_) => 2,
-                        });
-                    }
-                }
-                fmts[r] = fmt;
-            }
-        }
         for (r, src) in plan.sources.iter().enumerate() {
             match src {
                 PlanSource::Pixels(map, offset) => {
                     let mut uploaded = rustc_hash::FxHashMap::default();
                     for (t, c) in coords.iter().enumerate() {
-                        let (sources, rem) = shifted_sources(*c, *offset);
+                        let (shifted, rem) = shifted_sources(*c, *offset);
                         let slot = (r * n_tiles + t) * 6;
                         slots[slot + 4] = rem.0;
                         slots[slot + 5] = rem.1;
-                        for (q, coord) in sources.into_iter().enumerate() {
+                        for (q, coord) in shifted.into_iter().enumerate() {
                             if let Some((coord, buf)) =
                                 coord.and_then(|c| map.get(c).map(|buf| (c, buf)))
                             {
@@ -1404,17 +1409,10 @@ impl GpuContext {
                                     slots[slot + q] = offset;
                                     continue;
                                 }
-                                slots[slot + q] = src_words.len() as i32;
+                                slots[slot + q] = source_words as i32;
                                 uploaded.insert(coord, slots[slot + q]);
-                                if native {
-                                    for i in 0..TILE_PIXELS {
-                                        let p = buf.native_pixel(i).converted(plan.mode);
-                                        src_words.extend(p.color.map(f32::to_bits));
-                                        src_words.push(p.alpha.to_bits());
-                                    }
-                                } else {
-                                    pack_pixels(&mut src_words, buf, fmts[r]);
-                                }
+                                sources.push((buf, fmts[r]));
+                                source_words += TILE_PIXELS * if native { 5 } else { 1 << fmts[r] };
                             }
                         }
                     }
@@ -1422,8 +1420,9 @@ impl GpuContext {
                 PlanSource::Mask(map) => {
                     for (t, c) in coords.iter().enumerate() {
                         if let Some(buf) = map.get(*c) {
-                            slots[(r * n_tiles + t) * 6] = mask_words.len() as i32;
-                            pack_mask(&mut mask_words, buf.as_ref());
+                            slots[(r * n_tiles + t) * 6] = mask_words as i32;
+                            masks.push(buf);
+                            mask_words += TILE_PIXELS / 4;
                         }
                     }
                 }
@@ -1499,8 +1498,49 @@ impl GpuContext {
             });
         let ops_buf = storage("ops", &op_words);
         let origin_buf = storage("tile-origins", cast_i32s(&origins));
-        let src_buf = storage("sources", &src_words);
-        let mask_buf = storage("masks", &mask_words);
+        let src_buf = self.tile_uploads.lock().upload(
+            &self.device,
+            tile_uploads::Key::Pixels(
+                native.then_some(plan.mode),
+                sources
+                    .iter()
+                    .map(|(tile, fmt)| (std::sync::Arc::downgrade(tile), *fmt))
+                    .collect(),
+            ),
+            source_words * 4,
+            || {
+                let mut words = Vec::with_capacity(source_words);
+                for (tile, fmt) in &sources {
+                    if native {
+                        for i in 0..TILE_PIXELS {
+                            let p = tile.native_pixel(i).converted(plan.mode);
+                            words.extend(p.color.map(f32::to_bits));
+                            words.push(p.alpha.to_bits());
+                        }
+                    } else {
+                        pack_pixels(&mut words, tile, *fmt);
+                    }
+                }
+                words
+            },
+        );
+        let mask_buf = self.tile_uploads.lock().upload(
+            &self.device,
+            tile_uploads::Key::Masks(
+                masks
+                    .iter()
+                    .map(|tile| std::sync::Arc::downgrade(tile))
+                    .collect(),
+            ),
+            mask_words * 4,
+            || {
+                let mut words = Vec::with_capacity(mask_words);
+                for tile in masks {
+                    pack_mask(&mut words, tile);
+                }
+                words
+            },
+        );
         let slots_buf = storage("slots", cast_i32s(&slots));
         let luts_buf = storage(
             "luts",
@@ -1672,6 +1712,30 @@ fn cast_u32s(words: &[u32]) -> &[u8] {
 
 fn cast_i32s(words: &[i32]) -> &[u32] {
     unsafe { std::slice::from_raw_parts(words.as_ptr() as *const u32, words.len()) }
+}
+
+/// Each pixel row uploads at its widest depth, including every tile
+/// touched by a translation; narrower tiles convert losslessly.
+fn source_formats(plan: &Plan<'_>, coords: &[TileCoord]) -> Vec<u32> {
+    plan.sources
+        .iter()
+        .map(|src| {
+            let PlanSource::Pixels(map, offset) = src else {
+                return 0;
+            };
+            coords
+                .iter()
+                .flat_map(|c| shifted_sources(*c, *offset).0.into_iter().flatten())
+                .filter_map(|c| map.get(c))
+                .map(|buf| match buf.as_ref() {
+                    TileBuf::U8(_) => 0,
+                    TileBuf::U16(_) => 1,
+                    TileBuf::F32(_) | TileBuf::Native(_) => 2,
+                })
+                .max()
+                .unwrap_or(0)
+        })
+        .collect()
 }
 
 /// Append one tile's pixels at the row format (lossless widening only).

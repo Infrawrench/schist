@@ -336,15 +336,17 @@ impl LayerTransform {
         })
     }
 
-    /// Reuse a gesture's decoded source and compressed blocks for every preview.
-    /// Only the small placement recipe changes while dragging.
+    /// Prepare transformed placement and metadata for a committed edit.
     pub fn then(&self, matrix: &crate::Affine, filter: crate::Filter) -> Result<Self> {
-        validate_matrix(matrix)?;
+        let bounds = if self.extras.iter().any(|b| b.key == STACK_KEY) {
+            self.source.content_bounds()
+        } else {
+            IntRect::EMPTY
+        };
+        let matrix = self.preview_matrix(matrix, bounds)?;
         let mut next = self.clone();
-        next.matrix = matrix.then(&self.matrix);
+        next.matrix = matrix;
         next.filter = filter;
-        validate_matrix(&next.matrix)?;
-        validate_bounds(&next.matrix, self.source.tile_bounds())?;
         if let Some(smart) = next.smart.as_mut() {
             smart.transform = next.matrix;
             smart.filter = filter;
@@ -358,10 +360,25 @@ impl LayerTransform {
             stack.validate()?;
             block.data = serde_json::to_vec(&stack)?;
         }
-        if next.extras.iter().any(|b| b.key == STACK_KEY) {
-            validate_render_extent(next.matrix.transform_bounds(next.source.content_bounds()))?;
-        }
         Ok(next)
+    }
+
+    /// Compose a live preview without cloning compressed pixel blocks or
+    /// rewriting filter-stack metadata. `then` prepares those only at commit.
+    /// `source_bounds` is the pixel-tight extent captured with the source.
+    pub fn preview_matrix(
+        &self,
+        matrix: &crate::Affine,
+        source_bounds: IntRect,
+    ) -> Result<crate::Affine> {
+        validate_matrix(matrix)?;
+        let composed = matrix.then(&self.matrix);
+        validate_matrix(&composed)?;
+        validate_bounds(&composed, self.source.tile_bounds())?;
+        if self.extras.iter().any(|b| b.key == STACK_KEY) {
+            validate_render_extent(composed.transform_bounds(source_bounds))?;
+        }
+        Ok(composed)
     }
 
     pub fn render(&self, depth: Depth, clip: IntRect) -> TileMap {

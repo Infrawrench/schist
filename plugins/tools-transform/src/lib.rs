@@ -92,11 +92,13 @@ pub enum TransformMode {
 }
 
 struct Session {
+    document: schist_core::DocumentId,
     mode: TransformMode,
     layer: LayerId,
     /// Untransformed pixels (cheap: tiles are reference-counted).
     original: TileMap,
     source: Option<schist_core::filter_stack::LayerTransform>,
+    preview: Option<schist_core::resample::TransformPreview>,
     /// Untransformed selection, for `TransformMode::Selection`.
     original_selection: schist_core::Selection,
     /// Bounds of `original`, the box the handles frame.
@@ -184,7 +186,7 @@ impl Session {
 
     /// Re-render the layer (or the selection) from the snapshot with the
     /// current matrix.
-    fn render(&self, doc: &mut Document, filter: Filter) {
+    fn render(&self, doc: &mut Document) {
         if self.mode == TransformMode::Selection {
             let before = doc.selection.bounds();
             let canvas = doc.canvas_rect();
@@ -192,18 +194,16 @@ impl Session {
             doc.add_damage(before.union(&doc.selection.bounds()));
             return;
         }
-        let clip = doc.canvas_rect().inflated(
-            (self.base.width().max(self.base.height()) as f32
-                * self.scale.0.abs().max(self.scale.1.abs())) as i32,
-        );
+        let clip = self.preview_clip(doc);
         let depth = doc.depth;
         let Some(source) = &self.source else {
             return;
         };
-        let Ok(transform) = source.then(&self.matrix(), filter) else {
+        let Some(preview) = &self.preview else { return };
+        let Ok(matrix) = source.preview_matrix(&self.matrix(), preview.bounds()) else {
             return;
         };
-        let tiles = transform.render(depth, clip);
+        let tiles = preview.render(&matrix, depth, clip);
         let before = doc
             .tree
             .find(self.layer)
@@ -224,23 +224,33 @@ impl Session {
         doc.add_damage(before.union(&after));
     }
 
+    fn preview_clip(&self, doc: &Document) -> IntRect {
+        // Off-canvas pixels cannot appear in an ordinary preview. Preserve
+        // the full extent for effects, whose geometry can depend on bounds
+        // and whose shadows may reach back onto the canvas from outside it.
+        if doc.tree.iter().all(|layer| layer.style.is_empty()) {
+            doc.canvas_rect()
+        } else {
+            doc.canvas_rect().inflated(
+                (self.base.width().max(self.base.height()) as f32
+                    * self.scale.0.abs().max(self.scale.1.abs())) as i32,
+            )
+        }
+    }
+
     fn gpu_preview(&self, doc: &Document) -> Option<schist_plugin_api::GpuEdit> {
         if self.mode != TransformMode::Layer {
             return None;
         }
-        let clip = doc.canvas_rect().inflated(
-            (self.base.width().max(self.base.height()) as f32
-                * self.scale.0.abs().max(self.scale.1.abs())) as i32,
-        );
+        let clip = self.preview_clip(doc);
         let layer = self.layer;
-        let transform = self
-            .source
-            .as_ref()?
-            .then(&self.matrix(), Filter::Nearest)
+        let source = self.source.as_ref()?;
+        let matrix = source
+            .preview_matrix(&self.matrix(), self.preview.as_ref()?.bounds())
             .ok()?;
         affine_edit(
-            &transform.source,
-            transform.matrix,
+            &source.source,
+            matrix,
             doc.depth,
             Filter::Nearest,
             clip,
@@ -341,6 +351,8 @@ pub fn filter_name(filter: Filter) -> &'static str {
 
 pub struct TransformTool {
     async_compute: bool,
+    defer_preview: bool,
+    preview_pending: bool,
     pending_gpu: Option<schist_plugin_api::GpuEdit>,
     mode: TransformMode,
     session: Option<Session>,
@@ -360,6 +372,8 @@ impl TransformTool {
     pub fn new(mode: TransformMode) -> TransformTool {
         TransformTool {
             async_compute: false,
+            defer_preview: false,
+            preview_pending: false,
             pending_gpu: None,
             mode,
             session: None,
@@ -370,6 +384,7 @@ impl TransformTool {
 
 impl TransformTool {
     fn begin(&mut self, ctx: &mut ToolCtx) {
+        self.preview_pending = false;
         let Some(id) = ctx.doc.active_layer else {
             return;
         };
@@ -402,11 +417,16 @@ impl TransformTool {
         } else {
             None
         };
+        let preview = source
+            .as_ref()
+            .map(|source| schist_core::resample::TransformPreview::new(&source.source));
         self.session = Some(Session {
+            document: ctx.doc.id,
             mode: self.mode,
             layer: id,
             original: raster.tiles.clone(),
             source,
+            preview,
             original_selection: ctx.doc.selection.clone(),
             base,
             scale: (1.0, 1.0),
@@ -580,6 +600,7 @@ impl ToolPlugin for TransformTool {
             return;
         };
         let Some(drag) = &session.drag else { return };
+        let previous = session.matrix();
         let (px, py) = session.pivot();
         let handle = drag.handle;
         let (dx, dy) = (input.x - drag.start.0, input.y - drag.start.1);
@@ -628,16 +649,45 @@ impl ToolPlugin for TransformTool {
                 session.scale = (sx, sy);
             }
         }
+        if session.matrix() == previous {
+            return;
+        }
         session.dirty = true;
+        self.preview_pending = true;
+        if self.defer_preview {
+            return;
+        }
         // Nearest-neighbour keeps the drag interactive; the committed
         // render uses the user's filter.
         if self.async_compute {
             if let Some(request) = session.gpu_preview(ctx.doc) {
+                self.preview_pending = false;
                 self.pending_gpu = Some(request);
                 return;
             }
         }
-        session.render(ctx.doc, Filter::Nearest);
+        session.render(ctx.doc);
+        self.preview_pending = false;
+    }
+
+    fn on_pointer_move_deferred(&mut self, ctx: &mut ToolCtx, input: PointerInput) {
+        self.defer_preview = true;
+        self.on_pointer_move(ctx, input);
+        self.defer_preview = false;
+    }
+
+    fn flush_preview(&mut self, ctx: &mut ToolCtx) -> bool {
+        if !std::mem::take(&mut self.preview_pending) {
+            return false;
+        }
+        let Some(session) = &self.session else {
+            return false;
+        };
+        if session.document != ctx.doc.id {
+            return false;
+        }
+        session.render(ctx.doc);
+        true
     }
 
     fn on_pointer_up(&mut self, _ctx: &mut ToolCtx, _input: PointerInput) {
@@ -647,6 +697,7 @@ impl ToolPlugin for TransformTool {
     }
 
     fn on_commit(&mut self, ctx: &mut ToolCtx) {
+        self.preview_pending = false;
         let Some(session) = self.session.take() else {
             return;
         };
@@ -710,6 +761,7 @@ impl ToolPlugin for TransformTool {
     }
 
     fn on_cancel(&mut self, ctx: &mut ToolCtx) {
+        self.preview_pending = false;
         self.pending_gpu = None;
         if let Some(session) = self.session.take() {
             session.restore(ctx.doc);
@@ -1417,7 +1469,7 @@ mod tests {
                     let session = tool.session.as_mut().unwrap();
                     session.scale = (scale, scale);
                     session.dirty = true;
-                    session.render(ctx.doc, Filter::Nearest);
+                    session.render(ctx.doc);
                     let (preview_layer, committed) = tool.committed_layer_pixels().unwrap();
                     assert_eq!(preview_layer, ctx.doc.tree.layers[0].id);
                     for (coord, tile) in before_preview.iter() {
@@ -1476,7 +1528,7 @@ mod tests {
                     let session = tool.session.as_mut().unwrap();
                     session.scale = (0.5, 0.5);
                     session.dirty = true;
-                    session.render(ctx.doc, Filter::Nearest);
+                    session.render(ctx.doc);
                 }
                 // The workspace flushes even clean activation snapshots before
                 // mutating a recipe, and forces the commit to finish now.
@@ -1803,6 +1855,146 @@ mod tests {
         assert!(!replay_transform(&mut empty, params));
         target.tree.layers[0].locked = true;
         assert!(!replay_transform(&mut target, params));
+    }
+
+    #[test]
+    fn deferred_moves_render_only_the_latest_frame_and_cancel_safely() {
+        let mut doc = doc_with_square();
+        let original = doc.tree.layers[0].as_raster().unwrap().tiles.clone();
+        let mut state = EditorState::default();
+        let mut tool = TransformTool::default();
+        let mut ctx = ToolCtx {
+            doc: &mut doc,
+            state: &mut state,
+        };
+        tool.on_activate(&mut ctx);
+        tool.on_pointer_down(&mut ctx, input(60.0, 60.0));
+        let revision = ctx.doc.revision;
+        for position in [70.0, 80.0, 100.0] {
+            tool.on_pointer_move_deferred(&mut ctx, input(position, position));
+        }
+        assert_eq!(
+            ctx.doc.revision, revision,
+            "input does not rasterize previews"
+        );
+        assert_eq!(px(ctx.doc, 75, 75)[3], 0);
+        tool.on_pointer_up(&mut ctx, input(100.0, 100.0));
+        assert!(
+            tool.flush_preview(&mut ctx),
+            "release retains the latest pending frame"
+        );
+        assert_eq!(px(ctx.doc, 75, 75)[3], 255);
+        assert!(
+            !tool.flush_preview(&mut ctx),
+            "unchanged frames do not rerender"
+        );
+        tool.on_cancel(&mut ctx);
+        assert!(!tool.flush_preview(&mut ctx));
+        for (coord, tile) in original.iter() {
+            assert_eq!(
+                ctx.doc.tree.layers[0]
+                    .as_raster()
+                    .unwrap()
+                    .tiles
+                    .get(*coord),
+                Some(tile)
+            );
+        }
+        assert!(!ctx.doc.history.can_undo());
+    }
+
+    #[test]
+    fn deferred_preview_does_not_land_in_another_document() {
+        let mut doc = doc_with_square();
+        let mut other = doc_with_square();
+        other.tree.layers[0].id = doc.tree.layers[0].id;
+        let mut state = EditorState::default();
+        let mut tool = TransformTool::default();
+        let mut ctx = ToolCtx {
+            doc: &mut doc,
+            state: &mut state,
+        };
+        tool.on_activate(&mut ctx);
+        tool.on_pointer_down(&mut ctx, input(60.0, 60.0));
+        tool.on_pointer_move_deferred(&mut ctx, input(100.0, 100.0));
+        let revision = other.revision;
+        assert!(!tool.flush_preview(&mut ToolCtx {
+            doc: &mut other,
+            state: &mut state
+        }));
+        assert_eq!(other.revision, revision);
+        assert_eq!(px(&other, 75, 75)[3], 0);
+    }
+
+    #[test]
+    fn deferred_commit_uses_full_quality_even_before_the_preview_is_painted() {
+        for paint in [false, true] {
+            let mut doc = Document::new("checker", 128, 128, Depth::Eight);
+            let mut layer = Layer::new_raster("checker");
+            let rgba: Vec<u8> = (0..64 * 64)
+                .flat_map(|i| {
+                    let v = if (i % 64 + i / 64) % 2 == 0 { 255 } else { 0 };
+                    [v, v, v, 255]
+                })
+                .collect();
+            blit_rgba8(
+                &mut layer.as_raster_mut().unwrap().tiles,
+                Depth::Eight,
+                IntRect::from_size(64, 64),
+                &rgba,
+            );
+            doc.push_layer(layer);
+            let mut state = EditorState {
+                resample: Filter::Bilinear,
+                ..Default::default()
+            };
+            let mut tool = TransformTool::default();
+            let mut ctx = ToolCtx {
+                doc: &mut doc,
+                state: &mut state,
+            };
+            tool.on_activate(&mut ctx);
+            tool.on_pointer_down(&mut ctx, input(64.0, 64.0));
+            tool.on_pointer_move_deferred(&mut ctx, input(16.0, 16.0));
+            if paint {
+                assert!(tool.flush_preview(&mut ctx));
+                assert!(matches!(px(ctx.doc, 32, 32)[0], 0 | 255));
+            }
+            tool.on_commit(&mut ctx);
+            assert!(!tool.flush_preview(&mut ctx));
+            assert!((100..=155).contains(&px(ctx.doc, 32, 32)[0]));
+            ctx.doc.undo();
+            assert_eq!(px(ctx.doc, 0, 0), [255; 4]);
+            assert_eq!(px(ctx.doc, 1, 0), [0, 0, 0, 255]);
+            assert!(!ctx.doc.history.can_undo(), "one committed edit");
+        }
+    }
+
+    #[test]
+    fn preview_clips_off_canvas_but_commit_and_effects_retain_pixels() {
+        for effects in [false, true] {
+            let mut doc = doc_with_square();
+            doc.tree.layers[0].style.color_overlay.enabled = effects;
+            let mut state = EditorState::default();
+            let mut tool = TransformTool::default();
+            let mut ctx = ToolCtx {
+                doc: &mut doc,
+                state: &mut state,
+            };
+            tool.on_activate(&mut ctx);
+            tool.on_pointer_down(&mut ctx, input(60.0, 60.0));
+            tool.on_pointer_move_deferred(&mut ctx, input(420.0, 420.0));
+            assert!(tool.flush_preview(&mut ctx));
+            assert_eq!(px(ctx.doc, 210, 40)[3] > 0, effects);
+            tool.on_commit(&mut ctx);
+            assert!(
+                px(ctx.doc, 210, 40)[3] > 0,
+                "commit preserves off-canvas pixels"
+            );
+            ctx.doc.undo();
+            assert_eq!(px(ctx.doc, 210, 40)[3], 0);
+            assert_eq!(px(ctx.doc, 30, 30), [0, 128, 255, 255]);
+        }
     }
 
     #[test]
