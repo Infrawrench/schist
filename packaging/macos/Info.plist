@@ -5,8 +5,8 @@
     <key>CFBundleName</key><string>Schist</string>
     <key>CFBundleDisplayName</key><string>Schist</string>
     <key>CFBundleIdentifier</key><string>com.infrawrench.schist</string>
-    <key>CFBundleVersion</key><string>0.14.0</string>
-    <key>CFBundleShortVersionString</key><string>0.14.0</string>
+    <key>CFBundleVersion</key><string>0.15.0</string>
+    <key>CFBundleShortVersionString</key><string>0.15.0</string>
     <key>CFBundleExecutable</key><string>schist</string>
     <!-- The languages the chrome speaks (crates/i18n). Declared so the
          system can offer a per-app language and so Finder lists them;
