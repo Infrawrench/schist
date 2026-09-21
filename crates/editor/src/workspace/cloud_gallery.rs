@@ -2,7 +2,7 @@
 use super::gallery_chrome as chrome;
 use super::*;
 use anyhow::{ensure, Result};
-use schist_cloud::gallery::{Target, Version};
+use schist_cloud::gallery::{ReviewMode, ReviewScanPhoto, Target, Version};
 use schist_cloud::{
     self as remote,
     protocol::{map, parse, value},
@@ -31,6 +31,7 @@ pub(super) enum View {
 #[derive(Default)]
 pub(super) struct State {
     pub view: Option<View>,
+    review_mode: ReviewMode,
     serial: u64,
     cancel: Arc<std::sync::atomic::AtomicBool>,
     busy: bool,
@@ -107,6 +108,49 @@ pub(super) enum Event {
         slot: usize,
         result: std::result::Result<(u32, u32, Vec<u8>), String>,
     },
+}
+// Use the local gallery's grouping rules for both provider API versions.
+fn review_groups(
+    reviewed: Vec<ReviewScanPhoto>,
+    mode: ReviewMode,
+    cancel: &std::sync::atomic::AtomicBool,
+) -> Result<(Vec<Asset>, Vec<Vec<usize>>)> {
+    let mut photos = Vec::new();
+    let mut displayed = Vec::new();
+    for found in reviewed {
+        let signature = if mode == ReviewMode::Burst {
+            None
+        } else {
+            let Some(signature) = found.signature else {
+                continue;
+            };
+            let hash = u64::from_str_radix(&signature.hash, 16)?;
+            Some(serde_json::from_value::<similar::Signature>(
+                serde_json::json!({
+                    "hash": hash, "rgb": signature.rgb, "aspect": signature.aspect
+                }),
+            )?)
+        };
+        let asset = found.asset;
+        photos.push(similar::Photo {
+            path: PathBuf::from(asset.folder_id.as_deref().unwrap_or("root")).join(&asset.id),
+            stamp: similar::Stamp {
+                bytes: asset.size,
+                seconds: asset.revision,
+                nanos: 0,
+            },
+            signature,
+            captured: asset.captured_at.and_then(|t| i64::try_from(t).ok()),
+        });
+        displayed.push(asset);
+    }
+    let mode = if mode == ReviewMode::Burst {
+        similar::Mode::Burst
+    } else {
+        similar::Mode::Visual
+    };
+    let groups = similar::groups(&photos, mode, 6, cancel);
+    Ok((displayed, groups.into_iter().map(|g| g.photos).collect()))
 }
 fn feature(ws: &Workspace, name: &str) -> bool {
     ws.cloud.connected
@@ -410,16 +454,35 @@ impl Workspace {
             });
         }
     }
+    pub(super) fn cloud_review_available(&self) -> bool {
+        feature(self, "review")
+    }
     pub(super) fn cloud_review(&mut self, burst: bool, cx: &mut Context<Self>) {
+        if !self.cloud_review_available() {
+            return;
+        }
         let Some(client) = &self.cloud.client else {
             return;
         };
         let handle = client.handle.clone();
+        let paged = feature(self, "review_scan");
+        let mode = if burst {
+            ReviewMode::Burst
+        } else {
+            ReviewMode::Visual
+        };
+        #[cfg(not(target_arch = "wasm32"))]
+        {
+            self.close_similar_review();
+            self.library.map_view = false;
+        }
         self.cloud.gallery.close();
         self.cloud.gallery.view = Some(View::Review);
+        self.cloud.gallery.review_mode = mode;
         self.cloud.gallery.photos.clear();
         self.cloud.gallery.groups.clear();
         self.cloud.gallery.busy = true;
+        self.cloud.gallery.progress = Some((0, 0));
         let (sender, epoch, serial, mut query) = (
             self.cloud.sender.clone(),
             self.cloud.epoch,
@@ -431,45 +494,98 @@ impl Workspace {
         let cancel = self.cloud.gallery.cancel.clone();
         remote::runtime::spawn(async move {
             let result = async {
-                let mut assets = Vec::new();
-                loop {
-                    ensure!(!cancel.load(std::sync::atomic::Ordering::Relaxed), t("common.cancel"));
-                    let page: remote::Snapshot = parse(handle.request_async("assets.query", value(&query)).await?)?;
-                    let rows: Vec<Asset> = parse(Value::Array(page.items))?;
-                    let count = rows.len();
-                    assets.extend(rows.into_iter().filter(|a| !a.mime_type.starts_with("video/")));
-                    query.offset += count as u64;
-                    if count == 0 || query.offset >= page.total || query.offset >= 10_000 { break; }
-                }
-                let mut photos = Vec::new();
-                let mut displayed = Vec::new();
-                for (index, batch) in assets.chunks(1).enumerate() {
-                    ensure!(!cancel.load(std::sync::atomic::Ordering::Relaxed), t("common.cancel"));
-                    let signatures = if burst { Vec::new() } else {
-                        let signatures = handle.review_photos(batch).await?;
-                        // Leave room under the shared socket's request budget for
-                        // subscriptions, workflow sync and heartbeat frames.
+                let mut reviewed = Vec::new();
+                let progress = |done, total| {
+                    let _ = sender.send(super::cloud::Job::Gallery {
+                        epoch,
+                        event: Event::Progress {
+                            serial,
+                            done,
+                            total,
+                        },
+                    });
+                };
+                if paged {
+                    let mut after = None;
+                    loop {
+                        ensure!(
+                            !cancel.load(std::sync::atomic::Ordering::Relaxed),
+                            t("common.cancel")
+                        );
+                        let page = handle.review_scan(&query, mode, after.as_deref()).await?;
+                        ensure!(
+                            page.next.as_ref().is_none_or(|next| {
+                                after.as_ref().is_none_or(|previous| next > previous)
+                                    && page.photos.last().is_some_and(|p| &p.asset.id == next)
+                            }),
+                            t("library.similar.stale")
+                        );
+                        reviewed.extend(page.photos);
+                        reviewed.truncate(10_000);
+                        progress(reviewed.len(), page.total.min(10_000) as usize);
+                        after = page.next;
+                        if after.is_none() || reviewed.len() >= 10_000 {
+                            break;
+                        }
+                        // Reserve the shared socket's rate budget for watches and heartbeats.
                         remote::runtime::sleep(Duration::from_millis(350)).await;
-                        signatures
-                    };
-                    let _ = sender.send(super::cloud::Job::Gallery { epoch, event: Event::Progress {serial, done: index + 1, total: assets.len()} });
-                    for asset in batch {
-                        let signature = if burst { None } else {
-                            let Some(found) = signatures.iter().find(|p| p.asset.id == asset.id) else { continue; };
-                            let hash = u64::from_str_radix(&found.signature.hash, 16)?;
-                            Some(serde_json::from_value::<similar::Signature>(serde_json::json!({ "hash": hash, "rgb": found.signature.rgb, "aspect": found.signature.aspect }))?)
-                        };
-                        photos.push(similar::Photo {
-                            path: PathBuf::from(asset.folder_id.as_deref().unwrap_or("root")).join(&asset.id),
-                            stamp: similar::Stamp { bytes: asset.size, seconds: asset.revision, nanos: 0 },
-                            signature, captured: asset.captured_at.and_then(|t| i64::try_from(t).ok()),
-                        });
-                        displayed.push(asset.clone());
+                    }
+                } else {
+                    // Keep compatibility with providers exposing the original review API.
+                    let mut assets = Vec::new();
+                    loop {
+                        ensure!(
+                            !cancel.load(std::sync::atomic::Ordering::Relaxed),
+                            t("common.cancel")
+                        );
+                        let page: remote::Snapshot =
+                            parse(handle.request_async("assets.query", value(&query)).await?)?;
+                        let rows: Vec<Asset> = parse(Value::Array(page.items))?;
+                        let count = rows.len();
+                        assets.extend(
+                            rows.into_iter()
+                                .filter(|a| !a.mime_type.starts_with("video/")),
+                        );
+                        query.offset += count as u64;
+                        if count == 0 || query.offset >= page.total || query.offset >= 10_000 {
+                            break;
+                        }
+                    }
+                    assets.truncate(10_000);
+                    for (index, asset) in assets.iter().enumerate() {
+                        ensure!(
+                            !cancel.load(std::sync::atomic::Ordering::Relaxed),
+                            t("common.cancel")
+                        );
+                        if burst {
+                            reviewed.push(ReviewScanPhoto {
+                                asset: asset.clone(),
+                                signature: None,
+                            });
+                        } else {
+                            reviewed.extend(
+                                handle
+                                    .review_photos(std::slice::from_ref(asset))
+                                    .await?
+                                    .into_iter()
+                                    .map(|p| ReviewScanPhoto {
+                                        asset: p.asset,
+                                        signature: Some(p.signature),
+                                    }),
+                            );
+                            remote::runtime::sleep(Duration::from_millis(350)).await;
+                        }
+                        progress(index + 1, assets.len());
                     }
                 }
-                let groups = similar::groups(&photos, if burst { similar::Mode::Burst } else { similar::Mode::Visual }, 6, &cancel);
-                Ok::<_, anyhow::Error>((displayed, groups.into_iter().map(|g| g.photos).collect()))
-            }.await.map_err(|e| e.to_string());
+                ensure!(
+                    !cancel.load(std::sync::atomic::Ordering::Relaxed),
+                    t("common.cancel")
+                );
+                review_groups(reviewed, mode, &cancel)
+            }
+            .await
+            .map_err(|e| e.to_string());
             let _ = sender.send(super::cloud::Job::Gallery {
                 epoch,
                 event: Event::Review { serial, result },
@@ -1065,6 +1181,35 @@ pub(super) fn view(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::Any
     let mut bar = div().flex().flex_wrap().gap_2().items_center().p_2();
     if kind == View::Review {
         let state = &ws.cloud.gallery;
+        for (mode, key) in [
+            (ReviewMode::Visual, "library.similar.visual"),
+            (ReviewMode::Burst, "library.similar.burst"),
+        ] {
+            bar = bar.child(
+                Button::new(key, t(key))
+                    .active(state.review_mode == mode)
+                    .on_click(cx.listener(move |ws, _, _, cx| {
+                        ws.cloud_review(mode == ReviewMode::Burst, cx)
+                    })),
+            );
+        }
+        bar = bar.child(
+            Button::new("cloud-review-refresh", t("common.refresh"))
+                .disabled(state.busy)
+                .on_click(cx.listener(|ws, _, _, cx| {
+                    ws.cloud_review(ws.cloud.gallery.review_mode == ReviewMode::Burst, cx)
+                })),
+        );
+        if state.busy {
+            bar = bar.child(
+                Button::new("cloud-review-cancel", t("common.cancel")).on_click(cx.listener(
+                    |ws, _, _, cx| {
+                        ws.cloud.gallery.close();
+                        cx.notify();
+                    },
+                )),
+            );
+        }
         if let Some((done, total)) = state.progress {
             bar = bar.child(format!("{done}/{total}"));
         }
@@ -1301,6 +1446,50 @@ pub(super) fn view(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::Any
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn review_api_pages_keep_current_assets_and_use_local_grouping_rules() {
+        let photo = |id: &str, folder: &str, time: u64, hash: &str| {
+            serde_json::from_value::<ReviewScanPhoto>(serde_json::json!({
+                "asset": {
+                    "id": id, "name": id, "folder_id": folder, "revision": 3,
+                    "metadata_revision": 7, "mime_type": "image/jpeg", "size": 123,
+                    "edited": false, "tags": [], "rating": 4, "captured_at": time,
+                    "modified_at": 0, "thumbnail_url": null,
+                    "review": {"revision": 3, "choice": "keep"}
+                },
+                "signature": {"hash": hash, "rgb": vec![100; 192], "aspect": 1.0}
+            }))
+            .unwrap()
+        };
+        let photos = vec![
+            photo("a", "folder", 100, "ffffffffffffffff"),
+            photo("b", "folder", 102, "ffffffffffffffff"),
+            photo("c", "other", 102, "0000000000000000"),
+        ];
+        let cancel = std::sync::atomic::AtomicBool::new(false);
+        let (assets, groups) = review_groups(photos.clone(), ReviewMode::Visual, &cancel).unwrap();
+        assert_eq!(groups, vec![vec![0, 1]]);
+        assert_eq!(assets[0].metadata.metadata_revision, 7);
+        assert_eq!(assets[0].metadata.review.as_ref().unwrap().choice, "keep");
+        let bursts = photos
+            .into_iter()
+            .map(|mut p| {
+                p.signature = None;
+                p
+            })
+            .collect();
+        let (_, groups) = review_groups(bursts, ReviewMode::Burst, &cancel).unwrap();
+        assert_eq!(groups, vec![vec![0, 1]]);
+        cancel.store(true, std::sync::atomic::Ordering::Relaxed);
+        let (_, groups) = review_groups(
+            vec![photo("a", "f", 0, "0"), photo("b", "f", 1, "0")],
+            ReviewMode::Visual,
+            &cancel,
+        )
+        .unwrap();
+        assert!(groups.is_empty());
+    }
 
     #[test]
     fn metadata_edits_select_only_changed_fields_and_keep_time_modes_exclusive() {

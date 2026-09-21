@@ -793,3 +793,9 @@ lint-gallery-ui:
 .PHONY: lint-cloud-gallery
 lint-cloud-gallery:
 	$(CARGO) clippy -p schist-cloud -p schist-editor --all-targets -- -D warnings
+
+.PHONY: test-cloud-review
+test-cloud-review:
+	$(CARGO) test -p schist-cloud gallery::tests
+	$(CARGO) test -p schist-gallery similar
+	$(CARGO) test -p schist-editor --lib review_api_pages

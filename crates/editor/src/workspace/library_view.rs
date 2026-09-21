@@ -596,8 +596,12 @@ impl Workspace {
 
 fn sidebar(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElement {
     let cloud = ws.cloud.show;
-    let similar =
-        !cloud && !ws.library.map_view && ws.library.viewer.is_none() && ws.library.similar.open;
+    let similar = !ws.library.map_view
+        && if cloud {
+            ws.cloud.gallery.view == Some(super::cloud_gallery::View::Review)
+        } else {
+            ws.library.viewer.is_none() && ws.library.similar.open
+        };
     let filter = ws.library.folder_filter.clone();
     let folders: Vec<(PathBuf, usize)> = ws
         .library
@@ -672,6 +676,7 @@ fn sidebar(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElement 
                             }))
                             .on_click(cx.listener(move |ws, _, _, cx| {
                                 ws.close_similar_review();
+                                ws.cloud.gallery.close();
                                 ws.library.map_view = map;
                                 cx.notify();
                             }))
@@ -681,7 +686,7 @@ fn sidebar(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElement 
                 .into_iter()
                 .flatten(),
         )
-        .children((!cloud).then(|| {
+        .children((!cloud || ws.cloud_review_available()).then(|| {
             ListItem::new("similar-review-open")
                 .h(px(26.0))
                 .px_2()
@@ -693,7 +698,13 @@ fn sidebar(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElement 
                     pal().chrome_bg
                 }))
                 .child(t("library.similar.title"))
-                .on_click(cx.listener(|ws, _, _, cx| ws.open_similar_review(cx)))
+                .on_click(cx.listener(|ws, _, _, cx| {
+                    if ws.cloud.show {
+                        ws.cloud_review(false, cx);
+                    } else {
+                        ws.open_similar_review(cx);
+                    }
+                }))
         }))
         .child(group_chips(ws.gallery_group_by(), &GroupBy::ALL, cx))
         .child({

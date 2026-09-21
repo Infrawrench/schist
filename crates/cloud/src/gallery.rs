@@ -1,7 +1,7 @@
 //! Typed catalogue extensions shared by desktop and browser clients.
 use crate::{
     protocol::{map, parse, value},
-    Asset, Handle,
+    Asset, AssetQuery, Handle,
 };
 use anyhow::Result;
 use serde::{Deserialize, Serialize};
@@ -57,6 +57,24 @@ pub struct ReviewPhoto {
     pub asset: Asset,
     pub signature: Signature,
 }
+#[derive(Clone, Copy, Debug, Default, PartialEq, Eq, Serialize)]
+#[serde(rename_all = "snake_case")]
+pub enum ReviewMode {
+    #[default]
+    Visual,
+    Burst,
+}
+#[derive(Clone, Debug, Deserialize)]
+pub struct ReviewScanPhoto {
+    pub asset: Asset,
+    pub signature: Option<Signature>,
+}
+#[derive(Clone, Debug, Deserialize)]
+pub struct ReviewScan {
+    pub photos: Vec<ReviewScanPhoto>,
+    pub total: u64,
+    pub next: Option<String>,
+}
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct Workflow {
     pub kind: String,
@@ -65,6 +83,24 @@ pub struct Workflow {
 }
 
 impl Handle {
+    pub async fn review_scan(
+        &self,
+        query: &AssetQuery,
+        mode: ReviewMode,
+        after: Option<&str>,
+    ) -> Result<ReviewScan> {
+        parse(
+            self.request_async(
+                "assets.review.scan",
+                map([
+                    ("query", value(query)),
+                    ("mode", value(mode)),
+                    ("after", value(after)),
+                ]),
+            )
+            .await?,
+        )
+    }
     pub async fn versions(&self, id: &str) -> Result<Vec<Version>> {
         #[derive(Deserialize)]
         struct Reply {
