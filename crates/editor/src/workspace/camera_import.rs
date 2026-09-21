@@ -1,5 +1,5 @@
-//! Camera import destinations. Cloud imports stage originals until the upload
-//! finishes; they never register the staging directory with the local gallery.
+//! Camera import destinations. Cloud imports release each staged original once
+//! the cloud acknowledges it; staging never joins the local gallery.
 use super::*;
 use anyhow::{ensure, Result};
 use futures::channel::mpsc;
@@ -77,7 +77,7 @@ impl CloudImportTarget {
                             files,
                             report,
                             Some(cancel),
-                            None,
+                            Some(Arc::new(remove_uploaded_imports)),
                             Some(range),
                         )
                         .await?;
@@ -132,6 +132,16 @@ impl CloudImportTarget {
             None => t("cloud.upload.prompt").into(),
         }
     }
+}
+
+/// Only cloud-import staging paths reach this callback. The uploader invokes it
+/// after a committed upload or a confirmed duplicate, including partial batches,
+/// so retries keep their sources while accepted originals stop taking up space.
+fn remove_uploaded_imports(paths: &[PathBuf]) -> Result<()> {
+    for path in paths {
+        std::fs::remove_file(path)?;
+    }
+    Ok(())
 }
 
 #[derive(Clone)]
@@ -261,6 +271,69 @@ impl Workspace {
 mod cloud_lifecycle_tests {
     use super::*;
     use futures::{executor::block_on, FutureExt, StreamExt};
+
+    #[test]
+    fn acknowledged_staging_files_are_removed_before_import_finishes() {
+        let camera = tempfile::tempdir().unwrap();
+        let staging = Arc::new(tempfile::tempdir().unwrap());
+        let root = staging.path().to_path_buf();
+        let names = [
+            "uploaded.jpg",
+            "duplicate.jpg",
+            "pending.jpg",
+            "skipped.jpg",
+        ];
+        let paths: Vec<_> = names.iter().map(|name| root.join(name)).collect();
+        for (name, path) in names.iter().zip(&paths) {
+            std::fs::write(camera.path().join(name), name.as_bytes()).unwrap();
+            std::fs::copy(camera.path().join(name), path).unwrap();
+        }
+        let (sender, receiver) = mpsc::unbounded();
+        let dest = ImportDestination::Cloud {
+            staging,
+            sender,
+            totals: ImportTotals::default(),
+        };
+        for path in &paths {
+            dest.ready(path.clone()).unwrap();
+        }
+        let (release, wait) = futures::channel::oneshot::channel();
+        let mut wait = Some(wait);
+        let mut upload = Box::pin(upload_incoming(receiver, |files, _offset| {
+            let wait = wait.take().unwrap();
+            async move {
+                // Model a committed upload and a confirmed duplicate followed
+                // by a stalled request; neither the batch nor import is done.
+                remove_uploaded_imports(&files[..2])?;
+                wait.await.unwrap();
+                anyhow::bail!("remaining upload failed")
+            }
+        }));
+        assert!(upload.as_mut().now_or_never().is_none());
+        assert!(!paths[0].exists());
+        assert!(!paths[1].exists());
+        assert!(paths[2].exists());
+        assert!(paths[3].exists());
+        assert!(root.exists());
+
+        release.send(()).unwrap();
+        assert_eq!(
+            block_on(upload).err().unwrap().to_string(),
+            "remaining upload failed"
+        );
+        // Failure leaves unacknowledged sources for the existing end-of-import
+        // cleanup, and never touches any original on the camera.
+        assert!(paths[2].exists());
+        assert!(paths[3].exists());
+        drop(dest);
+        assert!(!root.exists());
+        for name in names {
+            assert_eq!(
+                std::fs::read(camera.path().join(name)).unwrap(),
+                name.as_bytes()
+            );
+        }
+    }
 
     #[test]
     fn downloaded_photos_are_filtered_off_thread_before_entering_the_upload_queue() {

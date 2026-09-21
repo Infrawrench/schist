@@ -113,8 +113,11 @@ local gallery. With Schist Cloud selected, originals are downloaded into a
 temporary folder. Each completed, accepted photo enters the upload queue while
 remaining photos continue downloading. Uploads go into the cloud folder or
 bucket selected when Import was opened (or the cloud root). The temporary
-folder stays out of the local gallery and is removed after both downloading
-and uploading finish. Import completion waits for every queued upload. The existing upload
+folder is named `schist-import-*` under the system temporary directory (`$TMPDIR`
+on macOS) and stays out of the local gallery. Each staged file is deleted as soon
+as its upload is committed or the cloud confirms it already has a copy. The
+folder and any remaining files are removed after both downloading and uploading
+finish. Import completion waits for every queued upload. The existing upload
 pipeline checks storage and duplicates and shows progress; originals remain on
 the camera. On iOS and Android the system photo/media picker feeds the same
 cloud upload path. The browser continues to use its file picker. **Upload
