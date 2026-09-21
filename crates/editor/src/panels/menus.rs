@@ -114,6 +114,7 @@ fn editor_menus(ws: &Workspace) -> Vec<(&'static str, Vec<MenuEntry>)> {
                 Cmd("edit.copy_merged"),
                 Cmd("edit.paste"),
                 Cmd("edit.paste_in_place"),
+                Cmd("edit.clear"),
                 Sep,
                 Cmd("edit.fill_foreground"),
                 Cmd("edit.fill_background"),

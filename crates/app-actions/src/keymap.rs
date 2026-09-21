@@ -44,9 +44,19 @@ pub fn build_bindings(registry: &PluginRegistry) -> Vec<KeyBinding> {
                 RunCommand {
                     id: command.id.to_string(),
                 },
-                CONTEXT,
+                override_context(kb),
             ));
         }
+    }
+    // Apple keyboards label Backspace as Delete; both clear canvas pixels.
+    if registry.command("edit.clear").is_some() {
+        bindings.push(KeyBinding::new(
+            "backspace",
+            RunCommand {
+                id: "edit.clear".into(),
+            },
+            TYPING_SAFE,
+        ));
     }
     // Tool activation keys, plus Shift+key to cycle a group's tools.
     for tool in registry.tools() {
@@ -194,7 +204,7 @@ pub fn build_bindings(registry: &PluginRegistry) -> Vec<KeyBinding> {
     bindings
 }
 
-/// Which context a user override belongs in.
+/// Which context a command binding or user override belongs in.
 ///
 /// An unmodified key has to yield to whatever is capturing typing, as the
 /// built-in tool shortcuts do. Overrides were bound in `CONTEXT`
@@ -260,9 +270,12 @@ fn dirs_config() -> Option<PathBuf> {
 
 #[cfg(test)]
 mod tests {
-    use super::{override_context, try_binding, ALWAYS, CONTEXT, SEARCH, TYPING_SAFE};
-    use crate::ActivateTool;
-    use gpui::{KeyBindingContextPredicate, KeyContext};
+    use super::{
+        build_bindings, override_context, try_binding, ALWAYS, CONTEXT, SEARCH, TYPING_SAFE,
+    };
+    use crate::{ActivateTool, RunCommand};
+    use gpui::{KeyBindingContextPredicate, KeyContext, Keystroke};
+    use schist_plugin_api::{Command, CommandPlugin, PluginRegistry};
 
     /// Does a binding registered with `predicate` fire in `state`?
     fn fires(predicate: Option<&str>, state: &str) -> bool {
@@ -275,6 +288,64 @@ mod tests {
     const ORDINARY: &str = "Workspace editable";
     const TYPING: &str = "Workspace text_entry";
     const MODAL: &str = "Workspace modal";
+
+    #[test]
+    fn clear_bindings_work_on_canvas_and_yield_to_typing_and_gallery() {
+        struct ClearCommand;
+        impl CommandPlugin for ClearCommand {
+            fn commands(&self) -> Vec<Command> {
+                vec![Command {
+                    id: "edit.clear",
+                    title: "Clear",
+                    description: "Clear pixels",
+                    keybind: Some("delete"),
+                    run: Box::new(|_| {}),
+                }]
+            }
+        }
+        let mut registry = PluginRegistry::new();
+        registry.register_commands(&ClearCommand);
+        let bindings = build_bindings(&registry);
+        for key in ["delete", "backspace"] {
+            let keystroke = Keystroke::parse(key).unwrap();
+            let binding = bindings
+                .iter()
+                .find(|binding| {
+                    binding.match_keystrokes(std::slice::from_ref(&keystroke)) == Some(false)
+                        && binding
+                            .action()
+                            .as_any()
+                            .downcast_ref::<RunCommand>()
+                            .is_some_and(|action| action.id == "edit.clear")
+                })
+                .expect("clear shortcut registered");
+            let predicate = binding.predicate().unwrap();
+            for (state, expected) in [
+                (ORDINARY, true),
+                (TYPING, false),
+                (MODAL, false),
+                ("Workspace gallery", false),
+                ("Workspace spotlight text_entry", false),
+            ] {
+                let context = [KeyContext::parse(state).unwrap()];
+                assert_eq!(
+                    predicate.eval_inner(&context, &context),
+                    expected,
+                    "{key} in {state}"
+                );
+            }
+            for modified in [
+                format!("alt-{key}"),
+                format!("ctrl-{key}"),
+                format!("shift-{key}"),
+            ] {
+                assert_eq!(
+                    binding.match_keystrokes(&[Keystroke::parse(&modified).unwrap()]),
+                    None
+                );
+            }
+        }
+    }
 
     #[test]
     fn document_commands_do_not_fire_while_typing_or_in_a_modal() {

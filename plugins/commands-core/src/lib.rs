@@ -1,4 +1,4 @@
-//! Core commands: edit (undo/redo/cut/copy/paste/fill), select
+//! Core commands: edit (undo/redo/cut/copy/paste/clear/fill), select
 //! (all/deselect/inverse), and layer operations — with their default
 //! Photoshop keybindings.
 
@@ -265,7 +265,7 @@ fn copy_pixels(doc: &Document, merged: bool) -> Option<ClipboardImage> {
     Some(ClipboardImage { rect: bounds, rgba })
 }
 
-/// Clear the selected region of the active layer (used by Cut).
+/// Clear the selected region of the active layer (also used by Cut).
 fn clear_selection(ctx: &mut CommandCtx) {
     if let Some(id) = ctx.doc.active_ink {
         let mut edit = ctx.doc.begin_edit(t("command.history.clear"));
@@ -274,6 +274,17 @@ fn clear_selection(ctx: &mut CommandCtx) {
         return;
     }
     let Some(id) = ctx.doc.active_layer else {
+        return;
+    };
+    let Some(layer) = ctx.doc.tree.find(id) else {
+        return;
+    };
+    if layer.locked {
+        ctx.refuse(t("common.layer_locked"));
+        return;
+    }
+    let Some(raster) = layer.as_raster() else {
+        ctx.refuse(t("common.requires_raster_layer"));
         return;
     };
     let canvas = ctx.doc.canvas_rect();
@@ -285,9 +296,15 @@ fn clear_selection(ctx: &mut CommandCtx) {
     if bounds.is_empty() {
         return;
     }
+    // Missing tiles are already transparent; clearing must not allocate them.
+    let coords: Vec<_> = raster
+        .tiles
+        .coords()
+        .filter(|coord| !coord.rect().intersect(&bounds).is_empty())
+        .collect();
     let selection = ctx.doc.selection.clone();
     let mut edit = ctx.doc.begin_edit(t("command.history.clear"));
-    for coord in TileCoord::covering(&bounds) {
+    for coord in coords {
         let trect = coord.rect();
         let clip = trect.intersect(&bounds);
         let Some(tile) = edit.writable_tile(id, coord) else {
@@ -300,9 +317,9 @@ fn clear_selection(ctx: &mut CommandCtx) {
                     continue;
                 }
                 let ix = ((y - trect.top) * TILE_SIZE + (x - trect.left)) as usize;
-                let mut px = tile.get(ix);
-                px.a *= 1.0 - c;
-                tile.set(ix, px);
+                let mut px = tile.native_pixel(ix);
+                px.alpha *= 1.0 - c;
+                tile.set_native_pixel(ix, px);
             }
         }
     }
@@ -613,6 +630,13 @@ impl CommandPlugin for CoreCommandsPlugin {
                 t("command.edit.paste_in_place.description"),
                 Some("cmd-shift-v"),
                 |ctx| paste(ctx, true),
+            ),
+            cmd(
+                "edit.clear",
+                t("common.clear"),
+                t("common.clear"),
+                Some("delete"),
+                clear_selection,
             ),
             cmd(
                 "edit.fill_foreground",
@@ -1390,6 +1414,186 @@ mod tests {
             [10, 20, 30, 255],
             "outside intact"
         );
+    }
+
+    #[test]
+    fn clear_erases_only_selected_pixels_and_undoes_without_changing_clipboard() {
+        let reg = registry();
+        assert_eq!(reg.command("edit.clear").unwrap().keybind, Some("delete"));
+        let mut doc = doc_with_pixels();
+        let bottom = doc.active_layer.unwrap();
+        let active = doc.push_layer(doc_with_pixels().tree.layers.remove(0));
+        let pixel = |doc: &Document, id, x, y| {
+            doc.tree
+                .find(id)
+                .unwrap()
+                .as_raster()
+                .unwrap()
+                .tiles
+                .pixel(x, y)
+                .to_u8()
+        };
+        let mut state = EditorState::default();
+        run(&reg, "edit.copy", &mut doc, &mut state);
+        let clipboard = state.clipboard.clone().unwrap();
+        doc.selection.apply_shape(
+            IntRect::from_xywh(10, 10, 20, 20),
+            SelectOp::Replace,
+            |x, _| if x == 10 { 128 } else { 255 },
+        );
+        let selection_generation = doc.selection.generation();
+        doc.dirty = false;
+        doc.take_damage();
+
+        run(&reg, "edit.clear", &mut doc, &mut state);
+
+        assert_eq!(pixel(&doc, active, 15, 15), [10, 20, 30, 0]);
+        assert_eq!(pixel(&doc, active, 10, 15), [10, 20, 30, 127]);
+        for (x, y) in [(9, 15), (30, 15), (15, 9), (15, 30)] {
+            assert_eq!(pixel(&doc, active, x, y), [10, 20, 30, 255]);
+        }
+        assert_eq!(pixel(&doc, bottom, 15, 15), [10, 20, 30, 255]);
+        assert_eq!(doc.tree.layers.len(), 2);
+        assert_eq!(doc.active_layer, Some(active));
+        assert_eq!(doc.selection.generation(), selection_generation);
+        assert!(Arc::ptr_eq(state.clipboard.as_ref().unwrap(), &clipboard));
+        assert!(doc.dirty);
+        assert!(!doc.take_damage().is_empty());
+        assert_eq!(doc.history.undo_name(), Some(t("command.history.clear")));
+
+        run(&reg, "edit.undo", &mut doc, &mut state);
+        assert_eq!(pixel(&doc, active, 15, 15), [10, 20, 30, 255]);
+        assert_eq!(pixel(&doc, active, 10, 15), [10, 20, 30, 255]);
+        assert_eq!(doc.selection.generation(), selection_generation);
+        run(&reg, "edit.redo", &mut doc, &mut state);
+        assert_eq!(pixel(&doc, active, 15, 15), [10, 20, 30, 0]);
+        assert_eq!(pixel(&doc, active, 10, 15), [10, 20, 30, 127]);
+        assert!(Arc::ptr_eq(state.clipboard.as_ref().unwrap(), &clipboard));
+    }
+
+    #[test]
+    fn clear_preserves_native_color_channels_at_every_depth() {
+        use schist_color::{ColorMode, NativePixel};
+        let reg = registry();
+        for mode in [ColorMode::Rgb, ColorMode::Cmyk, ColorMode::Lab] {
+            for depth in [Depth::Eight, Depth::Sixteen, Depth::ThirtyTwo] {
+                let mut doc = Document::new("clear", 2, 1, depth);
+                doc.mode = mode;
+                let id = doc.push_layer(Layer::new_raster("pixels"));
+                let mut edit = doc.begin_edit("seed");
+                let tile = edit.writable_tile(id, TileCoord::containing(0, 0)).unwrap();
+                let source = NativePixel {
+                    mode,
+                    color: [
+                        0.25,
+                        0.5,
+                        0.75,
+                        if mode == ColorMode::Cmyk { 0.5 } else { 0.0 },
+                    ],
+                    alpha: 0.8,
+                };
+                tile.set_native_pixel(0, source);
+                tile.set_native_pixel(1, source);
+                let before = tile.native_pixel(0);
+                edit.commit();
+                doc.selection
+                    .select_rect(IntRect::from_size(1, 1), SelectOp::Replace);
+
+                run(&reg, "edit.clear", &mut doc, &mut EditorState::default());
+
+                let tiles = &doc.tree.find(id).unwrap().as_raster().unwrap().tiles;
+                assert_eq!(tiles.native_pixel(0, 0).alpha, 0.0);
+                assert_eq!(tiles.native_pixel(0, 0).color, before.color);
+                assert_eq!(tiles.native_pixel(1, 0), before);
+                doc.undo();
+                assert_eq!(
+                    doc.tree
+                        .find(id)
+                        .unwrap()
+                        .as_raster()
+                        .unwrap()
+                        .tiles
+                        .native_pixel(0, 0),
+                    before
+                );
+            }
+        }
+    }
+
+    #[test]
+    fn clear_without_selection_clears_pixels_but_keeps_the_layer() {
+        let reg = registry();
+        let mut doc = doc_with_pixels();
+        let id = doc.active_layer;
+        run(&reg, "edit.clear", &mut doc, &mut EditorState::default());
+        assert_eq!(doc.tree.layers.len(), 1);
+        assert_eq!(doc.active_layer, id);
+        let tiles = &doc.tree.layers[0].as_raster().unwrap().tiles;
+        for (x, y) in [(0, 0), (50, 50), (99, 99)] {
+            assert_eq!(tiles.pixel(x, y).a, 0.0);
+        }
+    }
+
+    #[test]
+    fn clear_in_an_empty_region_does_not_allocate_tiles_or_add_history() {
+        let reg = registry();
+        let mut doc = doc_with_pixels();
+        doc.width = (3 * TILE_SIZE) as u32;
+        doc.selection.select_rect(
+            IntRect::from_xywh(2 * TILE_SIZE, 0, 2, 2),
+            SelectOp::Replace,
+        );
+        let revision = doc.revision;
+        let tiles_before = doc.tree.layers[0].as_raster().unwrap().tiles.len();
+
+        run(&reg, "edit.clear", &mut doc, &mut EditorState::default());
+
+        assert_eq!(doc.revision, revision);
+        assert_eq!(
+            doc.tree.layers[0].as_raster().unwrap().tiles.len(),
+            tiles_before
+        );
+        assert_eq!(
+            doc.tree.layers[0]
+                .as_raster()
+                .unwrap()
+                .tiles
+                .pixel(0, 0)
+                .to_u8(),
+            [10, 20, 30, 255]
+        );
+    }
+
+    #[test]
+    fn clear_refuses_locked_and_non_raster_layers() {
+        let reg = registry();
+        let mut state = EditorState::default();
+        let mut doc = doc_with_pixels();
+        doc.tree.layers[0].locked = true;
+        let revision = doc.revision;
+        assert_eq!(
+            run_for_refusal(&reg, "edit.clear", &mut doc, &mut state).as_deref(),
+            Some(t("common.layer_locked"))
+        );
+        assert_eq!(doc.revision, revision);
+        assert_eq!(
+            doc.tree.layers[0]
+                .as_raster()
+                .unwrap()
+                .tiles
+                .pixel(15, 15)
+                .to_u8(),
+            [10, 20, 30, 255]
+        );
+
+        doc.push_layer(Layer::new_group("group"));
+        let revision = doc.revision;
+        assert_eq!(
+            run_for_refusal(&reg, "edit.clear", &mut doc, &mut state).as_deref(),
+            Some(t("common.requires_raster_layer"))
+        );
+        assert_eq!(doc.revision, revision);
+        assert_eq!(doc.tree.layers.len(), 2);
     }
 
     #[test]
