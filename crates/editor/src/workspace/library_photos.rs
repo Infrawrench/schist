@@ -220,6 +220,7 @@ unsafe extern "C-unwind" fn did_finish_picking(
                 return;
             };
             job.total = Some(count);
+            job.dest.expect(count);
             if count == 0 {
                 job.finished = true;
                 return;
@@ -298,6 +299,9 @@ fn record(copied: Option<()>) {
         job.copied += 1;
     } else {
         job.failed += 1;
+    }
+    if let Some(total) = job.total {
+        job.dest.expect(total.saturating_sub(job.failed));
     }
     if job.total.is_some_and(|total| job.done >= total) {
         job.finished = true;

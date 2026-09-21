@@ -395,10 +395,17 @@ pub fn tray(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElement
                     .w(px(300.0))
                     .child(
                         div()
-                            .truncate()
-                            .text_size(px(11.0))
-                            .text_color(gpui::rgb(pal().text_dim))
-                            .child(label),
+                            .flex()
+                            .items_center()
+                            .gap_2()
+                            .child(loading_spinner("cloud-transfer-active"))
+                            .child(
+                                div()
+                                    .truncate()
+                                    .text_size(px(11.0))
+                                    .text_color(gpui::rgb(pal().text_dim))
+                                    .child(label),
+                            ),
                     )
                     .child(ProgressBar::new(ratio).colors(track_colors()))
                     .into_any_element()

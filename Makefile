@@ -810,3 +810,10 @@ test-bucket-content-filter:
 	$(CARGO) test -p schist-gallery -p schist-editor -p schist-cloud --lib bucket
 format-bucket-content-filter:
 	$(CARGO) fmt -p schist-gallery -p schist-editor -p schist-cloud
+
+.PHONY: test-camera-import-progress format-camera-import-progress
+test-camera-import-progress:
+	$(CARGO) test -p schist-cloud-transfer
+	$(CARGO) test -p schist-editor --lib cloud_lifecycle_tests
+format-camera-import-progress:
+	$(CARGO) fmt -p schist-cloud-transfer -p schist-editor

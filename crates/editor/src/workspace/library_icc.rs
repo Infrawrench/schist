@@ -201,6 +201,10 @@ pub(super) fn poll_import() -> Option<ImportStatus> {
                 Outcome::Failed => job.failed += 1,
             }
         }
+        if let Some(total) = job.total {
+            job.dest
+                .expect(total.saturating_sub(job.filtered + job.failed));
+        }
         job.finished.is_none() && job.total.is_some_and(|total| job.done >= total)
     };
     if complete {
@@ -509,6 +513,7 @@ extern "C" fn device_ready(_this: *mut AnyObject, _sel: Sel, device: *mut AnyObj
     }
     if let Some(job) = lock().job.as_mut() {
         job.total = Some(queued);
+        job.dest.expect(queued);
     }
     if queued == 0 {
         conclude(Ok(()));

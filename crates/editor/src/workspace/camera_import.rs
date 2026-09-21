@@ -6,8 +6,8 @@ use futures::channel::mpsc;
 use schist_cloud::Scope;
 use schist_cloud_transfer::{
     cancellable,
-    incoming::{upload_incoming, ImportEvent},
-    upload_files, Report, UploadSummary,
+    incoming::{upload_incoming, ImportEvent, ImportTotals},
+    upload_files_in_range, Report, UploadSummary,
 };
 use schist_i18n::{t, tf, tn};
 use std::path::Path;
@@ -35,9 +35,11 @@ impl CloudImportTarget {
                 .tempdir()?,
         );
         let (sender, receiver) = mpsc::unbounded();
+        let totals = ImportTotals::default();
         let destination = ImportDestination::Cloud {
             staging: staging.clone(),
             sender,
+            totals: totals.clone(),
         };
         let handle = cloud.client.as_ref().unwrap().handle.clone();
         let epoch = self.epoch;
@@ -60,7 +62,8 @@ impl CloudImportTarget {
             });
             let result = cancellable(
                 Some(&cancel),
-                upload_incoming(receiver, |paths| {
+                upload_incoming(receiver, |paths, offset| {
+                    let range = totals.range(offset);
                     let handle = handle.clone();
                     let folder = folder.clone();
                     let bucket = bucket.clone();
@@ -68,9 +71,16 @@ impl CloudImportTarget {
                     let cancel = cancel.clone();
                     async move {
                         let files = paths.into_iter().map(|p| (p, None)).collect();
-                        let uploader =
-                            upload_files(&handle, folder, files, report, Some(cancel), None)
-                                .await?;
+                        let uploader = upload_files_in_range(
+                            &handle,
+                            folder,
+                            files,
+                            report,
+                            Some(cancel),
+                            None,
+                            Some(range),
+                        )
+                        .await?;
                         if let Some(bucket) = bucket {
                             uploader.add_to_bucket(&bucket).await?;
                         }
@@ -130,6 +140,7 @@ pub(super) enum ImportDestination {
     Cloud {
         staging: Arc<tempfile::TempDir>,
         sender: mpsc::UnboundedSender<ImportEvent>,
+        totals: ImportTotals,
     },
 }
 
@@ -147,7 +158,8 @@ impl ImportDestination {
 
     /// Call only after the original has been completely copied and accepted.
     pub fn ready(&self, path: PathBuf) -> Result<()> {
-        if let Self::Cloud { sender, .. } = self {
+        if let Self::Cloud { sender, totals, .. } = self {
+            totals.ready();
             sender
                 .unbounded_send(ImportEvent::Ready(path))
                 .map_err(|_| anyhow::anyhow!(t("cloud.upload.cancelled")))?;
@@ -155,8 +167,16 @@ impl ImportDestination {
         Ok(())
     }
 
+    #[cfg(any(target_os = "macos", target_os = "ios", test))]
+    pub fn expect(&self, total: usize) {
+        if let Self::Cloud { totals, .. } = self {
+            totals.expect(total);
+        }
+    }
+
     pub fn finish(&self, failed: usize) {
-        if let Self::Cloud { sender, .. } = self {
+        if let Self::Cloud { sender, totals, .. } = self {
+            totals.finish();
             let _ = sender.unbounded_send(ImportEvent::Finished { failed });
         }
     }
@@ -250,7 +270,20 @@ mod cloud_lifecycle_tests {
         std::fs::write(&accepted, b"complete original").unwrap();
         std::fs::write(&rejected, b"outside boundary").unwrap();
         let (sender, mut receiver) = mpsc::unbounded();
-        let dest = ImportDestination::Cloud { staging, sender };
+        let totals = ImportTotals::default();
+        let dest = ImportDestination::Cloud {
+            staging,
+            sender,
+            totals: totals.clone(),
+        };
+        dest.expect(3);
+        assert_eq!(
+            totals
+                .range(0)
+                .total
+                .load(std::sync::atomic::Ordering::Relaxed),
+            3
+        );
         let (entered_tx, entered_rx) = std::sync::mpsc::channel();
         let (release_tx, release_rx) = std::sync::mpsc::channel();
         let ui_thread = std::thread::current().id();
@@ -300,6 +333,13 @@ mod cloud_lifecycle_tests {
         assert!(!rejected.exists());
         assert!(receiver.next().now_or_never().is_none());
         dest.finish(1);
+        assert_eq!(
+            totals
+                .range(0)
+                .total
+                .load(std::sync::atomic::Ordering::Relaxed),
+            1
+        );
         assert!(matches!(
             block_on(receiver.next()),
             Some(ImportEvent::Finished { failed: 1 })
@@ -318,6 +358,7 @@ mod cloud_lifecycle_tests {
         let producer = ImportDestination::Cloud {
             staging: staging.clone(),
             sender,
+            totals: ImportTotals::default(),
         };
         // This is the separate guard captured by the async upload task.
         let upload = staging.clone();

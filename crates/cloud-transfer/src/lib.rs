@@ -14,7 +14,7 @@ use std::{
     collections::HashMap,
     path::PathBuf,
     sync::{
-        atomic::{AtomicBool, Ordering},
+        atomic::{AtomicBool, AtomicU64, Ordering},
         Arc,
     },
 };
@@ -23,6 +23,27 @@ use std::{
 /// The drag-and-drop path turns it into the tray's bar; the camera-roll
 /// backup keeps its own tally, and a headless run just logs it.
 pub type Report = Arc<dyn Fn(u64, u64, String) + Send + Sync>;
+/// One batch's place in a longer import. The producer updates the total as
+/// the camera catalog arrives and rejected downloads are ruled out.
+#[derive(Clone)]
+pub struct ProgressRange {
+    pub offset: u64,
+    pub total: Arc<AtomicU64>,
+}
+impl ProgressRange {
+    fn position(range: Option<&Self>, done: u64, total: u64) -> (u64, u64) {
+        match range {
+            Some(range) => (
+                range.offset + done,
+                range
+                    .total
+                    .load(Ordering::Relaxed)
+                    .max(range.offset + total),
+            ),
+            None => (done, total),
+        }
+    }
+}
 /// Acknowledged sources, including duplicates; checkpointed before the next request.
 pub type Handled = Arc<dyn Fn(&[PathBuf]) -> Result<()> + Send + Sync>;
 pub async fn cancellable<T>(
@@ -59,7 +80,23 @@ pub async fn upload_files(
     cancel: Option<Arc<AtomicBool>>,
     handled: Option<Handled>,
 ) -> Result<Uploader> {
-    let progress = |done: u64, total: u64, label: String| report(done, total, label);
+    upload_files_in_range(handle, folder, files, report, cancel, handled, None).await
+}
+
+/// Upload a batch while reporting its position in the complete import.
+pub async fn upload_files_in_range(
+    handle: &remote::Handle,
+    folder: Option<String>,
+    files: Vec<(PathBuf, Option<String>)>,
+    report: Report,
+    cancel: Option<Arc<AtomicBool>>,
+    handled: Option<Handled>,
+    range: Option<ProgressRange>,
+) -> Result<Uploader> {
+    let progress = |done: u64, total: u64, label: String| {
+        let (done, total) = ProgressRange::position(range.as_ref(), done, total);
+        report(done, total, label);
+    };
     progress(
         0,
         files.len() as u64,
@@ -133,7 +170,8 @@ pub async fn upload_files(
         }
     }
     let total = files.len() as u64;
-    progress(0, total, tf!("cloud.upload.progress", n = 0, m = total));
+    let (done, all) = ProgressRange::position(range.as_ref(), 0, total);
+    progress(0, total, tf!("cloud.upload.progress", n = done, m = all));
     // A pipeline: files are read and packed into compressed
     // batches ahead of the network, a few at a time, while
     // one batch at a time goes up. The provider's batch
@@ -146,6 +184,7 @@ pub async fn upload_files(
         folder,
         support: support.clone(),
         report,
+        range,
         cancel,
         handled,
         total,
@@ -455,6 +494,7 @@ pub struct Uploader {
     folder: Option<String>,
     support: Arc<std::sync::atomic::AtomicU8>,
     report: Report,
+    range: Option<ProgressRange>,
     /// Read between items; set, the run stops with an error.
     cancel: Option<Arc<AtomicBool>>,
     handled: Option<Handled>,
@@ -525,7 +565,11 @@ impl Uploader {
         Ok(())
     }
     pub fn report(&self, label: String) {
-        (self.report)(self.done, self.total, label);
+        let (done, total) = self.position();
+        (self.report)(done, total, label);
+    }
+    fn position(&self) -> (u64, u64) {
+        ProgressRange::position(self.range.as_ref(), self.done, self.total)
     }
     fn cancelled(&self) -> bool {
         self.cancel
@@ -547,11 +591,12 @@ impl Uploader {
                 Ok(value) => return Ok(value),
                 Err(error) if remote::transport::transient(&error) && attempt < OFFLINE_RETRIES => {
                     attempt += 1;
+                    let (done, total) = self.position();
                     self.report(tf!(
                         "cloud.upload.interrupted",
                         what = what,
-                        n = self.done,
-                        m = self.total
+                        n = done,
+                        m = total
                     ));
                     // The first retry is immediate: the session renews
                     // itself every quarter hour by reconnecting, and that
@@ -572,11 +617,12 @@ impl Uploader {
                     {
                         return Err(error.context(t("cloud.upload.connection_closed")));
                     }
+                    let (done, total) = self.position();
                     self.report(tf!(
                         "cloud.upload.resuming",
                         what = what,
-                        n = self.done,
-                        m = self.total
+                        n = done,
+                        m = total
                     ));
                 }
                 Err(error) => return Err(error),
@@ -585,7 +631,7 @@ impl Uploader {
     }
     fn step(&mut self, by: usize) {
         self.done += by as u64;
-        let (done, total) = (self.done, self.total);
+        let (done, total) = self.position();
         self.report(if self.skipped.is_empty() {
             tf!("cloud.upload.progress", n = done, m = total)
         } else {
@@ -748,18 +794,21 @@ impl Uploader {
                     .into_owned();
                 self.report(tf!("cloud.upload.checking_resumable", name = name));
                 let (report, done, total) = (self.report.clone(), self.done, self.total);
+                let range = self.range.clone();
                 // The chunked upload resumes from the parts already
                 // stored, so a retry after an outage picks up where it
                 // stopped.
                 let asset = self
                     .retrying(t("cloud.upload.step.uploading_large_file"), || {
-                        let (report, name) = (report.clone(), name.clone());
+                        let (report, name, range) = (report.clone(), name.clone(), range.clone());
                         self.handle.upload_path_async(
                             &path,
                             mime(&path),
                             self.folder.as_deref(),
                             relative.as_deref(),
                             move |bytes| {
+                                let (done, total) =
+                                    ProgressRange::position(range.as_ref(), done, total);
                                 report(
                                     done,
                                     total,
