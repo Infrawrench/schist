@@ -164,6 +164,8 @@ pub enum Scope {
 #[derive(Clone, Debug, Default, Serialize, Deserialize, PartialEq)]
 pub struct Filters {
     #[serde(skip_serializing_if = "Option::is_none")]
+    pub hide_nsfw: Option<bool>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub person_id: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub mime_types: Option<Vec<String>>,
@@ -216,6 +218,8 @@ impl Default for AssetQuery {
 }
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct CatalogueQuery {
+    #[serde(default)]
+    pub hide_nsfw: bool,
     pub text: String,
     pub offset: u64,
     pub limit: u64,
@@ -223,6 +227,7 @@ pub struct CatalogueQuery {
 impl Default for CatalogueQuery {
     fn default() -> Self {
         Self {
+            hide_nsfw: false,
             text: String::new(),
             offset: 0,
             limit: 500,
@@ -245,7 +250,7 @@ pub struct Snapshot {
     pub kind: String,
     pub revision: u64,
     pub total: u64,
-    /// Whole-library asset total, independent of this query's filters and page.
+    /// Whole-library asset total, respecting hide_nsfw but independent of other filters and page.
     #[serde(default)]
     pub library_asset_count: Option<u64>,
     pub offset: u64,
@@ -433,6 +438,35 @@ mod tests {
             assert_eq!(decoded.asset_count, count);
         }
     }
+    #[cfg_attr(not(target_arch = "wasm32"), test)]
+    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test::wasm_bindgen_test)]
+    fn content_filter_roundtrips_with_other_filters_and_legacy_catalogues() {
+        let mut query = AssetQuery::default();
+        query.filters.content = Some("flagged".into());
+        for hide in [true, false] {
+            query.filters.hide_nsfw = Some(hide);
+            let bytes = rmp_serde::to_vec_named(&query).unwrap();
+            let wire: serde_json::Value = rmp_serde::from_slice(&bytes).unwrap();
+            assert_eq!(wire["filters"]["hide_nsfw"], hide);
+            assert_eq!(wire["filters"]["content"], "flagged");
+            assert_eq!(rmp_serde::from_slice::<AssetQuery>(&bytes).unwrap(), query);
+            let catalogue = CatalogueQuery {
+                hide_nsfw: hide,
+                ..Default::default()
+            };
+            let wire: serde_json::Value =
+                rmp_serde::from_slice(&rmp_serde::to_vec_named(&catalogue).unwrap()).unwrap();
+            assert_eq!(wire["hide_nsfw"], hide);
+        }
+        let old: CatalogueQuery =
+            serde_json::from_str(r#"{"text":"","offset":0,"limit":100}"#).unwrap();
+        assert!(!old.hide_nsfw);
+        assert!(serde_json::from_str::<Filters>("{}")
+            .unwrap()
+            .hide_nsfw
+            .is_none());
+    }
+
     pub(super) fn capabilities() -> Capabilities {
         Capabilities {
             account_id: None,

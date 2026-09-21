@@ -888,6 +888,7 @@ impl Workspace {
     /// Start the query again from its first page. `keep` leaves the old
     /// results on screen until the replacement arrives.
     pub(crate) fn cloud_watch_assets(&mut self, keep: bool) {
+        self.cloud.query.filters.hide_nsfw = Some(self.view.gallery_hide_nsfw);
         self.cloud.query.sort = self.cloud_sort();
         self.cloud.query.offset = 0;
         self.cloud.query.limit = PAGE_SIZE;
@@ -955,6 +956,37 @@ impl Workspace {
         self.cloud.load_error = None;
         cx.notify();
     }
+    pub(crate) fn cloud_content_filter_available(&self) -> bool {
+        self.cloud.connected
+            && self
+                .cloud
+                .capabilities
+                .as_ref()
+                .is_some_and(|c| c.supports_gallery("content_filter"))
+    }
+
+    pub(crate) fn cloud_content_filter_changed(&mut self, cx: &mut Context<Self>) {
+        self.cloud.gallery.close();
+        self.cloud.selected.clear();
+        self.cloud.select_anchor = None;
+        self.cloud.people = None;
+        self.cloud.people_target = None;
+        self.cloud.face_previews.clear();
+        self.cloud.library_total = None;
+        self.cloud.folders.clear();
+        self.cloud.buckets.clear();
+        #[cfg(not(target_arch = "wasm32"))]
+        {
+            self.cloud.map_assets.clear();
+            self.cloud.map_photos.clear();
+            self.cloud.map_wanted.clear();
+            self.cloud.map_key = None;
+        }
+        self.cloud_watch_assets(false);
+        self.cloud_refresh_catalogue();
+        cx.notify();
+    }
+
     pub(crate) fn cloud_refresh_catalogue(&mut self) {
         if let Some(c) = &self.cloud.client {
             c.handle.unwatch(&self.cloud.folders_watch);
@@ -965,6 +997,7 @@ impl Workspace {
                 &self.cloud.folders_watch,
                 WatchQuery::Folders {
                     query: CatalogueQuery {
+                        hide_nsfw: self.view.gallery_hide_nsfw,
                         text: self.cloud.catalogue.clone(),
                         offset: self.cloud.folders_offset,
                         limit: 500,
@@ -975,6 +1008,7 @@ impl Workspace {
                 &self.cloud.buckets_watch,
                 WatchQuery::Buckets {
                     query: CatalogueQuery {
+                        hide_nsfw: self.view.gallery_hide_nsfw,
                         text: self.cloud.catalogue.clone(),
                         offset: self.cloud.buckets_offset,
                         limit: 500,
@@ -1153,6 +1187,9 @@ impl Workspace {
                 #[cfg(not(target_arch = "wasm32"))]
                 Job::MapAssets { epoch, key, result } if epoch == self.cloud.epoch => {
                     self.cloud.map_loading = false;
+                    if key.0.filters.hide_nsfw != Some(self.view.gallery_hide_nsfw) {
+                        continue;
+                    }
                     // A failed fetch still records its key, so the map
                     // does not ask again every frame; the next change
                     // or scope retries.
@@ -2112,6 +2149,7 @@ impl Workspace {
             },
             cx,
         );
+        let hide_nsfw = self.view.gallery_hide_nsfw;
         let sender = self.cloud.sender.clone();
         let epoch = self.cloud.epoch;
         let folders = self.cloud.folders.clone();
@@ -2126,7 +2164,7 @@ impl Workspace {
             let Some(dest) = dirs.pop() else { return };
             remote::runtime::spawn(async move {
                 let result: Result<usize> = (async {
-                    let assets = scope_assets(&handle, &scope).await?;
+                    let assets = scope_assets(&handle, &scope, hide_nsfw).await?;
                     let total = assets.len();
                     let mut names: HashSet<PathBuf> = HashSet::new();
                     for (done, asset) in assets.into_iter().enumerate() {
@@ -2204,6 +2242,7 @@ impl Workspace {
             .map(PathBuf::from)
             .unwrap_or_else(|| PathBuf::from("."));
         let prompt = self.prompt_for_new_path(&directory, Some(&suggested), cx);
+        let hide_nsfw = self.view.gallery_hide_nsfw;
         let sender = self.cloud.sender.clone();
         let epoch = self.cloud.epoch;
         cx.spawn(async move |_this, _cx| {
@@ -2218,7 +2257,7 @@ impl Workspace {
                     let scope = Scope::Bucket {
                         id: bucket.id.clone(),
                     };
-                    let assets = scope_assets(&handle, &scope).await?;
+                    let assets = scope_assets(&handle, &scope, hide_nsfw).await?;
                     let total = assets.len();
                     let mut writer = super::library_ops::ZipWriter::create(&out)?;
                     let mut names = HashSet::new();
@@ -2286,6 +2325,7 @@ impl Workspace {
             cx.notify();
             return;
         };
+        let hide_nsfw = self.view.gallery_hide_nsfw;
         let sender = self.cloud.sender.clone();
         let epoch = self.cloud.epoch;
         let dir = batch_dir().join(remote::Uuid::new_v4().to_string());
@@ -2294,7 +2334,7 @@ impl Workspace {
                 let scope = Scope::Bucket {
                     id: bucket.id.clone(),
                 };
-                let assets = scope_assets(&handle, &scope).await?;
+                let assets = scope_assets(&handle, &scope, hide_nsfw).await?;
                 anyhow::ensure!(!assets.is_empty(), t("cloud.error.bucket_empty"));
                 std::fs::create_dir_all(&dir)?;
                 let total = assets.len();
@@ -2878,11 +2918,18 @@ fn folder_path_below(folders: &[Folder], root: Option<&str>, folder: Option<&str
 const MAP_ASSET_CAP: usize = 5000;
 /// Every asset in a scope, page by page through `assets.query`.
 #[cfg(not(target_arch = "wasm32"))]
-async fn scope_assets(handle: &remote::Handle, scope: &Scope) -> Result<Vec<Asset>> {
+async fn scope_assets(
+    handle: &remote::Handle,
+    scope: &Scope,
+    hide_nsfw: bool,
+) -> Result<Vec<Asset>> {
     let query = AssetQuery {
         scope: scope.clone(),
         text: String::new(),
-        filters: Filters::default(),
+        filters: Filters {
+            hide_nsfw: Some(hide_nsfw),
+            ..Default::default()
+        },
         sort: "name".into(),
         offset: 0,
         limit: 500,
@@ -3015,6 +3062,7 @@ fn parse_filters(fields: &[(&'static str, String, String)]) -> Result<Filters> {
         anyhow::ensure!(a <= b, t("cloud.error.date_order"));
     }
     Ok(Filters {
+        hide_nsfw: None,
         person_id: None,
         mime_types: list("cloud-types"),
         tags: list("cloud-tags"),

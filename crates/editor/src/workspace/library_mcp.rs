@@ -375,7 +375,10 @@ impl Workspace {
             }
             "gallery_content_filter" => {
                 if let Some(enabled) = args.get("enabled").and_then(|v| v.as_bool()) {
-                    if enabled && !schist_neural::installed("nsfw") {
+                    if enabled
+                        && !schist_neural::installed("nsfw")
+                        && !self.cloud_content_filter_available()
+                    {
                         anyhow::bail!(
                             "the Content (NSFW Filter) model is not installed; it is fetched \
                              under Gallery \u{25b8} Manage Models\u{2026} (17 MB, MIT)"
@@ -383,6 +386,7 @@ impl Workspace {
                     }
                     self.view.gallery_hide_nsfw = enabled;
                     self.save_view_options();
+                    self.cloud_content_filter_changed(cx);
                     cx.notify();
                 }
                 let enabled = self.view.gallery_hide_nsfw;

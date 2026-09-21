@@ -24,6 +24,7 @@ impl Workspace {
         };
         let (view, intent) = *snapshot;
         let gpu_changed = view.gpu_compositing != self.view.gpu_compositing;
+        let content_filter_changed = view.gallery_hide_nsfw != self.view.gallery_hide_nsfw;
         #[cfg(not(target_arch = "wasm32"))]
         let sync_changed = self.view.camera_sync.enabled != view.camera_sync.enabled;
         #[cfg(not(target_arch = "wasm32"))]
@@ -32,6 +33,9 @@ impl Workspace {
             self.view.camera_sync.last_error.clone(),
         );
         self.view = view;
+        if content_filter_changed {
+            self.cloud_content_filter_changed(cx);
+        }
         // A backup may finish while Preferences is open. Cancel restores
         // the switch, while keeping the outcome of that completed work.
         #[cfg(not(target_arch = "wasm32"))]

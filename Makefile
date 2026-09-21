@@ -799,3 +799,8 @@ test-cloud-review:
 	$(CARGO) test -p schist-cloud gallery::tests
 	$(CARGO) test -p schist-gallery similar
 	$(CARGO) test -p schist-editor --lib review_api_pages
+
+.PHONY: test-cloud-content-filter
+test-cloud-content-filter:
+	$(CARGO) test -p schist-cloud content_filter
+	$(CARGO) test -p schist-gallery scores::tests

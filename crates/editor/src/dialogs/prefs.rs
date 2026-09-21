@@ -21,6 +21,7 @@ pub(super) fn preferences(
     cx: &mut Context<Workspace>,
 ) -> impl IntoElement {
     let view = ws.view.clone();
+    let cloud_content_filter = ws.cloud_content_filter_available();
     let intent = ws.color.intent;
     let keymap_path = crate::keymap::user_keymap_path()
         .map(|p| p.display().to_string())
@@ -123,9 +124,8 @@ pub(super) fn preferences(
             ),
         ))
         .children(
-            // The gallery is compiled out of the web build, so a switch
-            // for it would be furniture there.
-            (!cfg!(target_arch = "wasm32")).then(|| gallery_filter_row(&view, cx)),
+            (!cfg!(target_arch = "wasm32") || cloud_content_filter)
+                .then(|| gallery_filter_row(&view, cloud_content_filter, cx)),
         )
         .child(ui::field_row(
             t("dialog.prefs.rendering"),
@@ -330,15 +330,14 @@ fn telemetry_row(_cx: &mut Context<Workspace>) -> Option<gpui::Div> {
     None
 }
 
-/// The gallery's content-filter row. The switch only works once the
-/// model that does the judging is installed; until then it is disabled,
-/// with the warning above it saying what to download and a link that
-/// goes straight there.
+/// Enable the content switch when the local model or the connected cloud
+/// provider can classify photos. Otherwise offer the local model download.
 fn gallery_filter_row(
     view: &crate::workspace::ViewOptions,
+    cloud_content_filter: bool,
     cx: &mut Context<Workspace>,
 ) -> impl IntoElement {
-    let installed = schist_neural::installed("nsfw");
+    let installed = schist_neural::installed("nsfw") || cloud_content_filter;
     let mut control = div().flex().flex_col().gap_1().max_w(px(260.0));
     if !installed {
         control = control.child(
@@ -365,9 +364,10 @@ fn gallery_filter_row(
         ui::checkbox(
             t("dialog.prefs.hide_flagged"),
             view.gallery_hide_nsfw,
-            |ws, _cx| {
+            |ws, cx| {
                 ws.view.gallery_hide_nsfw = !ws.view.gallery_hide_nsfw;
                 ws.save_view_options();
+                ws.cloud_content_filter_changed(cx);
             },
             cx,
         )
