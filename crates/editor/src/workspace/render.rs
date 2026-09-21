@@ -24,6 +24,18 @@ impl Workspace {
             self.pending_fit = false;
             self.fit_to_view();
         }
+        #[cfg(not(target_arch = "wasm32"))]
+        if let (Some(doc), Some(tool)) = (
+            self.doc.as_mut(),
+            self.registry.tool_mut(self.editor.active_tool),
+        ) {
+            if tool.flush_preview(&mut ToolCtx {
+                doc,
+                state: &mut self.editor,
+            }) {
+                self.refresh_after_change();
+            }
+        }
         let mut job = PaintJob::default();
         // Taken before the no-document return so replaced images still get
         // their atlas slots released while no document is open.

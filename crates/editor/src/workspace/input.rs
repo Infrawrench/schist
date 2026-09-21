@@ -151,8 +151,12 @@ impl Workspace {
                 state: &mut self.editor,
             };
             #[cfg(target_arch = "wasm32")]
-            tool.set_async_compute(true);
-            tool.on_pointer_move(&mut ctx, input);
+            {
+                tool.set_async_compute(true);
+                tool.on_pointer_move(&mut ctx, input);
+            }
+            #[cfg(not(target_arch = "wasm32"))]
+            tool.on_pointer_move_deferred(&mut ctx, input);
             #[cfg(target_arch = "wasm32")]
             if let Some(request) = tool.take_gpu_edit() {
                 self.queue_browser_edit(request, cx);

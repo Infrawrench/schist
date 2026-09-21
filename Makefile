@@ -299,6 +299,28 @@ check-recordable-actions:
 check-adjustment-refresh:
 	$(CARGO) test -p schist-core --lib
 	$(CARGO) test -p schist-compositor --lib
+
+.PHONY: check-layer-drag bench-layer-drag
+check-layer-drag:
+	$(CARGO) test -p schist-compositor -p schist-tools-basic
+	$(CARGO) check -p schist-editor --all-targets
+bench-layer-drag:
+	$(CARGO) run $(PROFILE_FLAG) -p schist-compositor --example bench_drag
+
+.PHONY: bench-canvas check-canvas
+bench-canvas:
+	$(CARGO) run $(PROFILE_FLAG) -p schist-compositor-gpu --example canvasbench
+.PHONY: bench-layer-transform check-layer-transform
+bench-layer-transform:
+	$(CARGO) run $(PROFILE_FLAG) -p schist-compositor-gpu --example transformbench
+check-layer-transform:
+	$(CARGO) test -p schist-core -p schist-tools-transform
+	$(CARGO) check -p schist-editor --all-targets
+check-canvas:
+	$(CARGO) test -p schist-compositor -p schist-compositor-gpu --lib
+	$(CARGO) test -p schist-compositor-gpu --test parity --test native_parity --test tile_uploads
+	$(CARGO) check -p schist-editor --all-targets
+
 format-recordable-actions:
 	$(CARGO) fmt -p schist-editor -p schist-app-actions
 check-recordable-actions-catalogs:

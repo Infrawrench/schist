@@ -13,6 +13,7 @@
 //! clipping layers are confined to their base layer's alpha, and adjustment
 //! layers re-colour the backdrop beneath them (mask- and clip-aware).
 
+mod shifted;
 pub mod viewport;
 
 use rayon::prelude::*;
@@ -693,56 +694,14 @@ fn render_single_layer(
     // own pixels: the fx renderer has already folded in fill opacity and
     // drawn the shadows and glows around it.
     if let Some(styled) = layer.styled.as_ref() {
-        match layer.render_offset {
-            (0, 0) => {
-                if let Some(tile) = styled.tiles.get(coord) {
-                    tile.decode_f32(buf);
-                }
-            }
-            (dx, dy) => {
-                let trect = coord.rect();
-                for p in 0..TILE_PIXELS {
-                    let x = trect.left + (p as i32 % TILE_SIZE) - dx;
-                    let y = trect.top + (p as i32 / TILE_SIZE) - dy;
-                    let px = styled.tiles.pixel(x, y);
-                    if px.a <= 0.0 {
-                        continue;
-                    }
-                    buf[p * 4] = px.r;
-                    buf[p * 4 + 1] = px.g;
-                    buf[p * 4 + 2] = px.b;
-                    buf[p * 4 + 3] = px.a;
-                }
-            }
-        }
+        shifted::decode(&styled.tiles, coord, layer.render_offset, buf);
         apply_mask_and_alpha(layer, coord, buf, alpha_scale);
         return;
     }
     match &layer.kind {
-        LayerKind::Raster(raster) => match layer.render_offset {
-            (0, 0) => {
-                if let Some(tile) = raster.tiles.get(coord) {
-                    tile.decode_f32(buf);
-                }
-            }
-            // A layer being dragged is sampled through its offset instead
-            // of having a megabyte of tiles rewritten per mouse event.
-            (dx, dy) => {
-                let trect = coord.rect();
-                for p in 0..TILE_PIXELS {
-                    let x = trect.left + (p as i32 % TILE_SIZE) - dx;
-                    let y = trect.top + (p as i32 / TILE_SIZE) - dy;
-                    let px = raster.tiles.pixel(x, y);
-                    if px.a <= 0.0 {
-                        continue;
-                    }
-                    buf[p * 4] = px.r;
-                    buf[p * 4 + 1] = px.g;
-                    buf[p * 4 + 2] = px.b;
-                    buf[p * 4 + 3] = px.a;
-                }
-            }
-        },
+        LayerKind::Raster(raster) => {
+            shifted::decode(&raster.tiles, coord, layer.render_offset, buf);
+        }
         LayerKind::Group(g) => {
             composite_layers(doc, &g.children, coord, buf, scratch);
         }

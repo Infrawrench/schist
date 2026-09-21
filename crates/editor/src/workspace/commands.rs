@@ -27,6 +27,13 @@ impl Workspace {
     }
 
     pub fn after_change(&mut self, cx: &mut Context<Self>) {
+        self.refresh_after_change();
+        cx.notify();
+    }
+
+    /// Drain damage before painting a deferred tool preview, without
+    /// scheduling a redundant second frame from inside the paint phase.
+    pub(super) fn refresh_after_change(&mut self) {
         self.refresh_layer_styles();
         self.cloud_capture_edit();
         if let Some(doc) = &mut self.doc {
@@ -48,7 +55,6 @@ impl Workspace {
                 }
             }
         }
-        cx.notify();
     }
 
     pub fn run_command(&mut self, id: &str, cx: &mut Context<Self>) {

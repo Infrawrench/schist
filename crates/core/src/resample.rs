@@ -10,6 +10,9 @@ use crate::tile::{TileBuf, TileCoord, TileMap, TILE_SIZE};
 use rayon::prelude::*;
 use schist_color::{Depth, Rgba};
 
+mod preview;
+pub use preview::TransformPreview;
+
 /// Reconstruction filter used when sampling between pixels.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, serde::Serialize, serde::Deserialize)]
 pub enum Filter {

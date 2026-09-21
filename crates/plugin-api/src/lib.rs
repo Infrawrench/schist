@@ -317,6 +317,16 @@ pub trait ToolPlugin: Send {
 
     fn on_pointer_down(&mut self, ctx: &mut ToolCtx, input: PointerInput);
     fn on_pointer_move(&mut self, ctx: &mut ToolCtx, input: PointerInput);
+    /// Frame-driven hosts may let a modal tool update its handles now and
+    /// render only the latest preview in `flush_preview` before painting.
+    /// Painting tools retain every input event through the default path.
+    fn on_pointer_move_deferred(&mut self, ctx: &mut ToolCtx, input: PointerInput) {
+        self.on_pointer_move(ctx, input);
+    }
+    /// Returns true when flushing changed document pixels or selection.
+    fn flush_preview(&mut self, _ctx: &mut ToolCtx) -> bool {
+        false
+    }
     fn on_pointer_up(&mut self, ctx: &mut ToolCtx, input: PointerInput);
     /// True while the tool wants raw typing (the type tool with an open
     /// text layer). The shell switches the keymap context so single-letter
