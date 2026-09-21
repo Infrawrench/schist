@@ -41,7 +41,12 @@ pub(super) fn decode(tiles: &TileMap, coord: TileCoord, offset: (i32, i32), out:
             for row in 0..h {
                 let src = (sy + row) * size + sx;
                 let dst = ((oy + row) * size + ox) * 4;
-                for (col, rgba) in out[dst..dst + w * 4].chunks_exact_mut(4).enumerate() {
+                for (col, rgba) in out[dst..dst + w * 4]
+                    .as_chunks_mut::<4>()
+                    .0
+                    .iter_mut()
+                    .enumerate()
+                {
                     let p = tile.get(src + col);
                     if p.a <= 0.0 {
                         continue;
@@ -63,7 +68,7 @@ mod tests {
     fn assert_matches_pixel_sampling(tiles: &TileMap, coord: TileCoord, offset: (i32, i32)) {
         let mut actual = vec![0.0; TILE_PIXELS * 4];
         decode(tiles, coord, offset, &mut actual);
-        for (i, rgba) in actual.chunks_exact(4).enumerate() {
+        for (i, rgba) in actual.as_chunks::<4>().0.iter().enumerate() {
             let x = coord.tx as i64 * TILE_SIZE as i64 + (i % TILE_SIZE as usize) as i64
                 - offset.0 as i64;
             let y = coord.ty as i64 * TILE_SIZE as i64 + (i / TILE_SIZE as usize) as i64
@@ -78,7 +83,7 @@ mod tests {
                 [p.r, p.g, p.b, p.a]
             };
             assert_eq!(
-                rgba, expected,
+                *rgba, expected,
                 "coord={coord:?}, offset={offset:?}, pixel={i}"
             );
         }
