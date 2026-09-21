@@ -498,6 +498,7 @@ fn paste(ctx: &mut CommandCtx, in_place: bool) {
     edit.insert_layer(path, layer);
     edit.commit();
     ctx.doc.active_layer = Some(id);
+    ctx.doc.selected = vec![id];
 }
 
 fn fill_selection(ctx: &mut CommandCtx, background: bool) {
