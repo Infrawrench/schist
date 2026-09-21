@@ -1,6 +1,5 @@
 //! Selection-aware metadata editing; batches apply only checked fields.
 use super::*;
-use gpui::{prelude::FluentBuilder as _, StatefulInteractiveElement as _};
 use schist_gallery::xmp;
 use schist_i18n::{t, tf, tn};
 
@@ -12,23 +11,6 @@ const IDS: [&str; 6] = [
     "metadata-offset",
     "metadata-gps",
 ];
-const LABELS: [&str; 6] = [
-    "metadata.keywords",
-    "metadata.caption",
-    "metadata.copyright",
-    "metadata.taken",
-    "metadata.offset",
-    "metadata.gps",
-];
-const EXAMPLES: [&str; 6] = [
-    ";",
-    "",
-    "©",
-    "2026-09-20T14:30:00+02:00",
-    "3600",
-    "51.5074, -0.1278",
-];
-
 pub(super) fn commit_field(modal: &mut Modal, id: &str, buffer: String) -> bool {
     let Some(index) = IDS.iter().position(|key| *key == id) else {
         return false;
@@ -42,13 +24,7 @@ pub(super) fn commit_field(modal: &mut Modal, id: &str, buffer: String) -> bool 
     {
         if !*busy && values[index] != buffer {
             values[index] = buffer;
-            enabled[index] = true;
-            if index == 3 {
-                enabled[4] = false;
-            }
-            if index == 4 {
-                enabled[3] = false;
-            }
+            super::gallery_metadata::enable_field(enabled, index, true);
         }
     }
     true
@@ -169,7 +145,11 @@ impl Workspace {
             Err(field) => {
                 self.update_modal(|m| {
                     if let Modal::MetadataEdit { error, .. } = m {
-                        *error = format!("{}: {}", t(LABELS[field]), t("metadata.invalid"));
+                        *error = format!(
+                            "{}: {}",
+                            t(super::gallery_metadata::LABELS[field]),
+                            t("metadata.invalid")
+                        );
                     }
                 });
                 cx.notify();
@@ -318,80 +298,32 @@ pub(crate) fn dialog(
     busy: bool,
     cx: &mut Context<Workspace>,
 ) -> impl IntoElement {
-    let mut body = div()
-        .flex()
-        .flex_col()
-        .gap_2()
-        .child(tn("common.n_photos", photos.len() as u64))
-        .child(div().text_size(px(11.0)).child(t("metadata.hint")));
-    for index in 0..6 {
-        body = body.child(
-            div()
-                .flex()
-                .items_center()
-                .gap_2()
-                .child(div().w(px(160.0)).child(crate::ui::checkbox(
-                    t(LABELS[index]),
-                    enabled[index],
-                    move |ws, cx| {
-                        ws.commit_focused_field();
-                        ws.update_modal(|m| {
-                            if let Modal::MetadataEdit { enabled, busy, .. } = m {
-                                if !*busy {
-                                    enabled[index] = !enabled[index];
-                                    if enabled[index] && index == 3 {
-                                        enabled[4] = false;
-                                    }
-                                    if enabled[index] && index == 4 {
-                                        enabled[3] = false;
-                                    }
-                                }
-                            }
-                        });
-                        cx.notify();
-                    },
-                    cx,
-                )))
-                .child(
-                    super::library_view::bucket_field(
-                        IDS[index],
-                        values[index].clone(),
-                        EXAMPLES[index].into(),
-                        ws,
-                        cx,
-                    )
-                    .when(index == 1, |field| field.multiline().h(px(64.0))),
-                ),
-        );
-    }
-    body = body.child(
-        div()
-            .max_h(px(100.0))
-            .id("metadata-result")
-            .overflow_y_scroll()
-            .text_size(px(11.0))
-            .child(SharedString::from(error)),
-    );
-    let actions = div()
-        .flex()
-        .justify_end()
-        .gap_2()
-        .child(crate::ui::button(
-            t("common.close"),
-            false,
-            |ws, _w, cx| ws.close_modal(cx),
-            cx,
-        ))
-        .children((!busy && !photos.is_empty()).then(|| {
-            crate::ui::button(
-                t("common.save"),
-                true,
-                |ws, _w, cx| ws.save_gallery_metadata(cx),
-                cx,
-            )
-        }))
-        .children(busy.then(|| div().child(t("common.saving"))));
-    crate::ui::modal_frame(t("metadata.title"), 620.0, body, actions)
+    super::gallery_metadata::dialog(
+        ws,
+        IDS,
+        super::gallery_metadata::MetadataForm {
+            count: photos.len(),
+            values,
+            enabled,
+            error,
+            busy,
+        },
+        super::gallery_metadata::MetadataActions {
+            toggle: |ws, index, cx| {
+                ws.update_modal(|m| {
+                    if let Modal::MetadataEdit { enabled, busy, .. } = m {
+                        if !*busy {
+                            let checked = !enabled[index];
+                            super::gallery_metadata::enable_field(enabled, index, checked);
+                        }
+                    }
+                });
+                cx.notify();
+            },
+            save: Workspace::save_gallery_metadata,
+        },
+        cx,
+    )
 }
 
 #[cfg(test)]

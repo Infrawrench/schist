@@ -779,6 +779,17 @@ test-cloud-gallery:
 format-cloud-gallery:
 	$(CARGO) fmt -p schist-cloud -p schist-editor
 
+.PHONY: check-gallery-ui test-gallery-ui format-gallery-ui lint-gallery-ui
+check-gallery-ui:
+	$(CARGO) check -p schist-gallery-ui -p schist-editor --all-targets
+test-gallery-ui:
+	$(CARGO) test -p schist-gallery -p schist-gallery-ui -p schist-editor --lib culling
+	$(CARGO) test -p schist-editor --lib metadata
+format-gallery-ui:
+	$(CARGO) fmt -p schist-gallery -p schist-gallery-ui -p schist-editor
+lint-gallery-ui:
+	$(CARGO) clippy -p schist-gallery -p schist-gallery-ui -p schist-editor --all-targets -- -D warnings
+
 .PHONY: lint-cloud-gallery
 lint-cloud-gallery:
 	$(CARGO) clippy -p schist-cloud -p schist-editor --all-targets -- -D warnings

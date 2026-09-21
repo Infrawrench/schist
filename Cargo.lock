@@ -6803,6 +6803,7 @@ name = "schist-gallery-ui"
 version = "0.14.0"
 dependencies = [
  "gpui",
+ "schist-gallery",
  "schist-i18n",
  "schist-ui",
 ]

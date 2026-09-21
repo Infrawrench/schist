@@ -5,7 +5,10 @@ use crate::ui;
 
 fn modal_enter_confirms(field: Option<&str>, key: &str, mods: gpui::Modifiers) -> bool {
     key == "enter"
-        && !(field == Some("metadata-caption") && mods.shift && !mods.platform && !mods.control)
+        && !(field.is_some_and(super::gallery_metadata::is_caption)
+            && mods.shift
+            && !mods.platform
+            && !mods.control)
 }
 
 impl Workspace {
@@ -479,7 +482,8 @@ impl Workspace {
                 let pasted: String = pasted
                     .chars()
                     .map(|c| {
-                        if c.is_control() && !(id == "metadata-caption" && c == '\n') {
+                        if c.is_control() && !(super::gallery_metadata::is_caption(id) && c == '\n')
+                        {
                             ' '
                         } else {
                             c
@@ -550,7 +554,7 @@ impl Workspace {
                 self.field_anchor = 0;
                 return true;
             }
-            "enter" if id == "metadata-caption" && shift => {
+            "enter" if super::gallery_metadata::is_caption(id) && shift => {
                 self.with_field_edit(|edit| edit.insert("\n"));
             }
             "enter" | "tab" => {
@@ -698,7 +702,12 @@ impl Workspace {
         }
         if id.starts_with("cloud-") {
             self.update_modal(|modal| {
-                if let Modal::Cloud { fields, .. } = modal {
+                if let Modal::Cloud { kind, fields } = modal {
+                    if *kind == "metadata"
+                        && super::cloud_gallery::commit_metadata_field(fields, id, &buffer)
+                    {
+                        return;
+                    }
                     if let Some((_, _, value)) = fields.iter_mut().find(|(key, _, _)| *key == id) {
                         *value = buffer;
                     }
@@ -1073,28 +1082,18 @@ mod metadata_keyboard_tests {
             shift: true,
             ..Default::default()
         };
-        assert!(!modal_enter_confirms(
-            Some("metadata-caption"),
-            "enter",
-            shift
-        ));
-        // The ordinary Save shortcut must still work, including after the
-        // caption has inserted a newline and retained keyboard focus.
-        assert!(modal_enter_confirms(
-            Some("metadata-caption"),
-            "enter",
-            Default::default()
-        ));
-        assert!(!modal_enter_confirms(
-            Some("metadata-caption"),
-            "a",
-            Default::default()
-        ));
-        assert!(!modal_enter_confirms(
-            Some("metadata-caption"),
-            "tab",
-            shift
-        ));
+        for field in ["metadata-caption", "cloud-meta-caption"] {
+            assert!(!modal_enter_confirms(Some(field), "enter", shift));
+            // The ordinary Save shortcut must still work, including after the
+            // caption has inserted a newline and retained keyboard focus.
+            assert!(modal_enter_confirms(
+                Some(field),
+                "enter",
+                Default::default()
+            ));
+            assert!(!modal_enter_confirms(Some(field), "a", Default::default()));
+            assert!(!modal_enter_confirms(Some(field), "tab", shift));
+        }
     }
 
     #[test]

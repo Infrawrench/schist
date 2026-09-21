@@ -1,15 +1,23 @@
 //! Cloud-backed photo decisions, metadata, review and version history.
-use super::gallery_chrome::{self as chrome, pal};
+use super::gallery_chrome as chrome;
 use super::*;
 use anyhow::{ensure, Result};
-use gpui::{img, prelude::FluentBuilder};
 use schist_cloud::gallery::{Target, Version};
 use schist_cloud::{
     self as remote,
     protocol::{map, parse, value},
     Asset, Value,
 };
-use schist_gallery::{culling::CompareCamera, similar};
+use schist_gallery::{
+    culling::{ColourLabel, CompareCamera, CullEdit, CullFilter, CullFlag, PhotoCulling},
+    similar,
+};
+use schist_gallery_ui::comparison::{
+    self as compare_ui, CompareAction, ComparisonActions, ComparisonPane, ComparisonToolbar,
+};
+use schist_gallery_ui::culling::{
+    self as controls_ui, CullingActions, CullingControls, CullingPopover,
+};
 use schist_i18n::{t, tf};
 use schist_ui::Button;
 use std::time::Duration;
@@ -23,7 +31,6 @@ pub(super) enum View {
 #[derive(Default)]
 pub(super) struct State {
     pub view: Option<View>,
-    pub controls: bool,
     serial: u64,
     cancel: Arc<std::sync::atomic::AtomicBool>,
     busy: bool,
@@ -542,20 +549,10 @@ impl Workspace {
         if !feature(self, "culling") {
             return false;
         }
-        let (field, v) = match key {
-            "0" | "1" | "2" | "3" | "4" | "5" => ("rating", Value::from(key.as_bytes()[0] - b'0')),
-            "p" => ("flag", "pick".into()),
-            "x" => ("flag", "reject".into()),
-            "u" => ("flag", "none".into()),
-            "6" => ("label", "red".into()),
-            "7" => ("label", "yellow".into()),
-            "8" => ("label", "green".into()),
-            "9" => ("label", "blue".into()),
-            "m" => ("label", "magenta".into()),
-            "l" => ("label", "none".into()),
-            _ => return false,
+        let Some(edit) = controls_ui::shortcut(key) else {
+            return false;
         };
-        self.cloud_cull(field, v, cx);
+        self.cloud_cull_edit(edit, cx);
         true
     }
 }
@@ -575,14 +572,6 @@ const CHECK_IDS: [&str; 6] = [
     "cloud-check-taken",
     "cloud-check-offset",
     "cloud-check-gps",
-];
-const LABEL_KEYS: [&str; 6] = [
-    "metadata.keywords",
-    "metadata.caption",
-    "metadata.copyright",
-    "metadata.taken",
-    "metadata.offset",
-    "metadata.gps",
 ];
 impl Workspace {
     pub(super) fn cloud_metadata_editor(&mut self, cx: &mut Context<Self>) {
@@ -612,8 +601,16 @@ impl Workspace {
         };
         let mut fields = vec![("cloud-meta-targets", String::new(), encoded)];
         for i in 0..6 {
-            fields.push((CHECK_IDS[i], t(LABEL_KEYS[i]).into(), String::new()));
-            fields.push((FIELD_IDS[i], t(LABEL_KEYS[i]).into(), values[i].clone()));
+            fields.push((
+                CHECK_IDS[i],
+                t(super::gallery_metadata::LABELS[i]).into(),
+                String::new(),
+            ));
+            fields.push((
+                FIELD_IDS[i],
+                t(super::gallery_metadata::LABELS[i]).into(),
+                values[i].clone(),
+            ));
         }
         self.open_modal(
             Modal::Cloud {
@@ -624,6 +621,115 @@ impl Workspace {
         );
     }
 }
+fn metadata_enabled(fields: &[(&str, String, String)]) -> [bool; 6] {
+    std::array::from_fn(|i| {
+        fields
+            .iter()
+            .any(|(key, _, value)| *key == CHECK_IDS[i] && value == "1")
+    })
+}
+
+fn set_metadata_enabled(fields: &mut [(&str, String, String)], enabled: [bool; 6]) {
+    for (key, _, value) in fields {
+        if let Some(index) = CHECK_IDS.iter().position(|id| id == key) {
+            *value = if enabled[index] { "1" } else { "" }.into();
+        }
+    }
+}
+
+pub(super) fn commit_metadata_field(
+    fields: &mut [(&str, String, String)],
+    id: &str,
+    buffer: &str,
+) -> bool {
+    let Some(index) = FIELD_IDS.iter().position(|key| *key == id) else {
+        return false;
+    };
+    let Some((_, _, value)) = fields.iter_mut().find(|(key, _, _)| *key == id) else {
+        return false;
+    };
+    if value != buffer {
+        *value = buffer.into();
+        let mut enabled = metadata_enabled(fields);
+        super::gallery_metadata::enable_field(&mut enabled, index, true);
+        set_metadata_enabled(fields, enabled);
+    }
+    true
+}
+
+pub(super) fn metadata_dialog(
+    ws: &mut Workspace,
+    fields: Vec<(&'static str, String, String)>,
+    cx: &mut Context<Workspace>,
+) -> gpui::AnyElement {
+    let get = |id| {
+        fields
+            .iter()
+            .find(|(key, _, _)| *key == id)
+            .map(|(_, _, value)| value.clone())
+            .unwrap_or_default()
+    };
+    let count = serde_json::from_str::<Vec<Target>>(&get("cloud-meta-targets"))
+        .map_or(0, |targets| targets.len());
+    let busy = ws.cloud.gallery.busy;
+    super::gallery_metadata::dialog(
+        ws,
+        FIELD_IDS,
+        super::gallery_metadata::MetadataForm {
+            count,
+            values: std::array::from_fn(|i| get(FIELD_IDS[i])),
+            enabled: metadata_enabled(&fields),
+            error: get("cloud-meta-error"),
+            busy,
+        },
+        super::gallery_metadata::MetadataActions {
+            toggle: |ws, index, cx| {
+                if !ws.cloud.gallery.busy {
+                    ws.update_modal(|m| {
+                        if let Modal::Cloud {
+                            kind: "metadata",
+                            fields,
+                        } = m
+                        {
+                            let mut enabled = metadata_enabled(fields);
+                            let checked = !enabled[index];
+                            super::gallery_metadata::enable_field(&mut enabled, index, checked);
+                            set_metadata_enabled(fields, enabled);
+                        }
+                    });
+                }
+                cx.notify();
+            },
+            save: |ws, cx| {
+                ws.commit_focused_field();
+                let Some(Modal::Cloud {
+                    kind: "metadata",
+                    fields,
+                }) = ws.modal.clone()
+                else {
+                    return;
+                };
+                match ws.cloud_submit("metadata", fields, cx) {
+                    Ok(()) => ws.close_modal(cx),
+                    Err(error) => {
+                        let error = error.to_string();
+                        ws.status = error.clone().into();
+                        ws.cloud.message = error.clone();
+                        ws.update_modal(|m| {
+                            if let Modal::Cloud { fields, .. } = m {
+                                fields.retain(|(key, _, _)| *key != "cloud-meta-error");
+                                fields.push(("cloud-meta-error", String::new(), error.clone()));
+                            }
+                        });
+                        cx.notify();
+                    }
+                }
+            },
+        },
+        cx,
+    )
+}
+
 pub(super) fn submit(
     ws: &mut Workspace,
     kind: &str,
@@ -710,191 +816,153 @@ pub(super) fn submit(
     Ok(true)
 }
 
-pub(super) fn badge(asset: &Asset) -> Option<gpui::AnyElement> {
-    let flag = match asset.metadata.flag.as_str() {
-        "pick" => t("culling.pick"),
-        "reject" => t("culling.reject"),
-        _ => "",
-    };
-    if asset.rating == 0
-        && flag.is_empty()
-        && (asset.metadata.label.is_empty() || asset.metadata.label == "none")
-    {
-        return None;
+fn flag(value: &str) -> CullFlag {
+    match value {
+        "pick" => CullFlag::Pick,
+        "reject" => CullFlag::Reject,
+        _ => CullFlag::None,
     }
-    Some(
-        div()
-            .absolute()
-            .bottom_1()
-            .left_1()
-            .px_2()
-            .py_0p5()
-            .rounded_sm()
-            .bg(gpui::rgba(0x000000CC))
-            .text_size(px(10.0))
-            .text_color(gpui::rgb(0xffffff))
-            .border_l_2()
-            .border_color(gpui::rgb(label_colour(&asset.metadata.label)))
-            .child(format!(
-                "{} {flag}",
-                "★".repeat(asset.rating.min(5) as usize)
-            ))
-            .into_any_element(),
-    )
 }
-fn label_colour(label: &str) -> u32 {
+
+fn label(value: &str) -> ColourLabel {
+    match value {
+        "red" => ColourLabel::Red,
+        "yellow" => ColourLabel::Yellow,
+        "green" => ColourLabel::Green,
+        "blue" => ColourLabel::Blue,
+        "magenta" => ColourLabel::Magenta,
+        _ => ColourLabel::None,
+    }
+}
+
+fn culling_value(asset: &Asset) -> PhotoCulling {
+    PhotoCulling {
+        rating: asset.rating.min(5),
+        flag: flag(&asset.metadata.flag),
+        label: label(&asset.metadata.label),
+    }
+}
+
+fn culling_filter(filters: &remote::Filters) -> CullFilter {
+    CullFilter {
+        minimum_rating: filters.min_rating.unwrap_or(0),
+        flag: filters.flag.as_deref().map(flag),
+        label: filters.label.as_deref().map(label),
+    }
+}
+
+fn set_culling_filter(filters: &mut remote::Filters, filter: CullFilter) {
+    filters.min_rating = (filter.minimum_rating > 0).then_some(filter.minimum_rating);
+    filters.flag = filter.flag.map(|flag| flag_key(flag).into());
+    filters.label = filter.label.map(|label| label_key(label).into());
+}
+
+fn flag_key(flag: CullFlag) -> &'static str {
+    match flag {
+        CullFlag::None => "none",
+        CullFlag::Pick => "pick",
+        CullFlag::Reject => "reject",
+    }
+}
+
+fn label_key(label: ColourLabel) -> &'static str {
     match label {
-        "red" => 0xD84B4B,
-        "yellow" => 0xD0AD25,
-        "green" => 0x39AB60,
-        "blue" => 0x428FD9,
-        "magenta" => 0xCB50BD,
-        _ => pal().text_dim,
+        ColourLabel::None => "none",
+        ColourLabel::Red => "red",
+        ColourLabel::Yellow => "yellow",
+        ColourLabel::Green => "green",
+        ColourLabel::Blue => "blue",
+        ColourLabel::Magenta => "magenta",
     }
 }
-const FLAGS: [(&str, &str); 3] = [
-    ("pick", "culling.pick"),
-    ("reject", "culling.reject"),
-    ("none", "common.none"),
-];
-const LABELS: [(&str, &str); 6] = [
-    ("red", "common.red"),
-    ("yellow", "common.yellow"),
-    ("green", "common.green"),
-    ("blue", "common.blue"),
-    ("magenta", "common.magenta"),
-    ("none", "common.none"),
-];
+
+fn culling_patch(edit: CullEdit) -> (&'static str, Value) {
+    match edit {
+        CullEdit::Rating(rating) => ("rating", rating.into()),
+        CullEdit::Flag(flag) => ("flag", flag_key(flag).into()),
+        CullEdit::Label(label) => ("label", label_key(label).into()),
+    }
+}
+
+impl Workspace {
+    fn cloud_cull_edit(&mut self, edit: CullEdit, cx: &mut Context<Self>) {
+        let (field, value) = culling_patch(edit);
+        self.cloud_cull(field, value, cx);
+    }
+}
+
+pub(super) fn badge(asset: &Asset) -> Option<gpui::AnyElement> {
+    controls_ui::badge(culling_value(asset))
+}
+
+const CULLING_POPUP: Popup = Popup::Field("cloud-gallery-culling");
+
 pub(super) fn toolbar(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::AnyElement {
+    let mut bar = div().flex().items_center().gap_2();
+    if ws.cloud.batch_cancel.is_some() {
+        bar = bar.child(
+            Button::new("cloud-batch-cancel", t("common.cancel")).on_click(cx.listener(
+                |ws, _, _, cx| {
+                    if let Some(cancel) = &ws.cloud.batch_cancel {
+                        cancel.store(true, std::sync::atomic::Ordering::Relaxed);
+                    }
+                    cx.notify();
+                },
+            )),
+        );
+    }
     if !feature(ws, "culling") {
-        return div().into_any_element();
+        return bar.into_any_element();
     }
-    div()
-        .when(ws.cloud.batch_cancel.is_some(), |bar| {
-            bar.child(
-                Button::new("cloud-batch-cancel", t("common.cancel")).on_click(cx.listener(
-                    |ws, _, _, cx| {
-                        if let Some(cancel) = &ws.cloud.batch_cancel {
-                            cancel.store(true, std::sync::atomic::Ordering::Relaxed);
-                        }
-                        cx.notify();
-                    },
-                )),
-            )
-        })
-        .child(
-            Button::new("cloud-cull-toggle", t("menu.filter"))
-                .active(ws.cloud.gallery.controls)
-                .on_click(cx.listener(|ws, _, _, cx| {
-                    ws.cloud.gallery.controls = !ws.cloud.gallery.controls;
+    let open = ws.open_popup == Some(CULLING_POPUP);
+    let filter = culling_filter(&ws.cloud.query.filters);
+    let content = open.then(|| {
+        let photos = ws.cloud_gallery_photos();
+        controls_ui::controls(
+            CullingControls {
+                values: photos.iter().map(culling_value).collect(),
+                busy: ws.cloud.gallery.busy,
+                comparing: ws.cloud.gallery.view.is_some(),
+                can_compare: photos.len() == 2
+                    && !photos.iter().any(|a| a.mime_type.starts_with("video/")),
+                filter,
+                max_height: (ws.visible_height - 100.0).max(120.0),
+            },
+            CullingActions {
+                edit: Workspace::cloud_cull_edit,
+                filter: |ws, action, cx| {
+                    let filter = action.apply(culling_filter(&ws.cloud.query.filters));
+                    set_culling_filter(&mut ws.cloud.query.filters, filter);
+                    ws.cloud_watch_assets(true);
                     cx.notify();
-                })),
+                },
+                compare: |ws, cx| {
+                    ws.close_popup(cx);
+                    ws.cloud_compare(cx);
+                },
+            },
+            cx,
         )
-        .into_any_element()
+    });
+    bar.child(controls_ui::toolbar(
+        CullingPopover {
+            open,
+            filtered: filter != CullFilter::default(),
+            compact: ws.gallery_compact,
+        },
+        content,
+        |ws, cx| {
+            ws.commit_focused_field();
+            ws.cloud.search.active = false;
+            ws.gallery_more = None;
+            ws.toggle_popup(CULLING_POPUP, cx);
+        },
+        |ws, cx| ws.close_popup(cx),
+        cx,
+    ))
+    .into_any_element()
 }
-pub(super) fn controls(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::AnyElement {
-    let disabled = ws.cloud_gallery_photos().is_empty() || ws.cloud.gallery.busy;
-    let mut edit = div()
-        .flex()
-        .flex_wrap()
-        .gap_1()
-        .items_center()
-        .child(t("common.selection"));
-    for r in 0..=5u8 {
-        edit = edit.child(
-            Button::new(("cloud-rating", r as usize), format!("{r}★"))
-                .disabled(disabled)
-                .on_click(cx.listener(move |ws, _, _, cx| ws.cloud_cull("rating", r.into(), cx))),
-        );
-    }
-    for (i, (v, k)) in FLAGS.into_iter().enumerate() {
-        edit = edit.child(
-            Button::new(("cloud-flag", i), t(k))
-                .disabled(disabled)
-                .on_click(cx.listener(move |ws, _, _, cx| ws.cloud_cull("flag", v.into(), cx))),
-        );
-    }
-    for (i, (v, k)) in LABELS.into_iter().enumerate() {
-        edit = edit.child(
-            Button::new(("cloud-label", i), t(k))
-                .text_color(gpui::rgb(label_colour(v)))
-                .disabled(disabled)
-                .on_click(cx.listener(move |ws, _, _, cx| ws.cloud_cull("label", v.into(), cx))),
-        );
-    }
-    let mut filters = div()
-        .flex()
-        .flex_wrap()
-        .gap_1()
-        .items_center()
-        .child(t("menu.filter"));
-    filters = filters.child(Button::new("cloud-cull-reset", t("common.all")).on_click(
-        cx.listener(|ws, _, _, cx| {
-            ws.cloud.query.filters.min_rating = None;
-            ws.cloud.query.filters.flag = None;
-            ws.cloud.query.filters.label = None;
-            ws.cloud_watch_assets(true);
-            cx.notify();
-        }),
-    ));
-    for r in 1..=5u8 {
-        filters = filters.child(
-            Button::new(("cloud-min-rating", r as usize), format!("{r}★+"))
-                .active(ws.cloud.query.filters.min_rating == Some(r))
-                .on_click(cx.listener(move |ws, _, _, cx| {
-                    ws.cloud.query.filters.min_rating =
-                        if ws.cloud.query.filters.min_rating == Some(r) {
-                            None
-                        } else {
-                            Some(r)
-                        };
-                    ws.cloud_watch_assets(true);
-                    cx.notify();
-                })),
-        );
-    }
-    for (i, (v, k)) in FLAGS.into_iter().enumerate() {
-        filters = filters.child(
-            Button::new(("cloud-filter-flag", i), t(k))
-                .active(ws.cloud.query.filters.flag.as_deref() == Some(v))
-                .on_click(cx.listener(move |ws, _, _, cx| {
-                    ws.cloud.query.filters.flag =
-                        if ws.cloud.query.filters.flag.as_deref() == Some(v) {
-                            None
-                        } else {
-                            Some(v.into())
-                        };
-                    ws.cloud_watch_assets(true);
-                    cx.notify();
-                })),
-        );
-    }
-    for (i, (v, k)) in LABELS.into_iter().enumerate() {
-        filters = filters.child(
-            Button::new(("cloud-filter-label", i), t(k))
-                .active(ws.cloud.query.filters.label.as_deref() == Some(v))
-                .on_click(cx.listener(move |ws, _, _, cx| {
-                    ws.cloud.query.filters.label =
-                        if ws.cloud.query.filters.label.as_deref() == Some(v) {
-                            None
-                        } else {
-                            Some(v.into())
-                        };
-                    ws.cloud_watch_assets(true);
-                    cx.notify();
-                })),
-        );
-    }
-    div()
-        .flex()
-        .flex_col()
-        .gap_1()
-        .p_2()
-        .text_size(px(11.0))
-        .child(edit)
-        .child(filters)
-        .into_any_element()
-}
+
 pub(super) fn menu(
     ws: &mut Workspace,
     rows: &mut Vec<gpui::AnyElement>,
@@ -964,43 +1032,37 @@ pub(super) fn menu(
 
 pub(super) fn view(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::AnyElement {
     let kind = ws.cloud.gallery.view.unwrap();
-    let mut bar = div()
-        .flex()
-        .flex_wrap()
-        .gap_2()
-        .items_center()
-        .p_2()
-        .child(
-            Button::new("cloud-review-close", t("common.back")).on_click(cx.listener(
-                |ws, _, _, cx| {
-                    ws.cloud.gallery.close();
-                    cx.notify();
-                },
-            )),
-        )
-        .child(t(match kind {
-            View::Compare => "culling.compare",
-            View::Review => "library.similar.title",
-            View::Versions => "versions.title",
-        }));
-    for (i, (factor, label)) in [(0.8, "−"), (1.25, "+")].into_iter().enumerate() {
-        bar = bar.child(
-            Button::new(("cloud-compare-zoom", i), label).on_click(cx.listener(
-                move |ws, _, _, cx| {
-                    ws.cloud.gallery.camera.zoom_by(factor);
-                    cx.notify();
-                },
-            )),
-        );
-    }
-    bar = bar.child(
-        Button::new("cloud-compare-fit", t("menu.view.fit_on_screen")).on_click(cx.listener(
-            |ws, _, _, cx| {
-                ws.cloud.gallery.camera = CompareCamera::default();
-                cx.notify();
-            },
-        )),
+    let state = &ws.cloud.gallery;
+    let header = compare_ui::toolbar(
+        ComparisonToolbar {
+            title: t(match kind {
+                View::Compare => "culling.compare",
+                View::Review => "library.similar.title",
+                View::Versions => "versions.title",
+            }),
+            zoom: state.camera.zoom,
+            actual_size_enabled: state.images[state.active].is_some(),
+        },
+        |ws, action, cx| {
+            let s = &mut ws.cloud.gallery;
+            match action {
+                CompareAction::Close => s.close(),
+                CompareAction::Fit => s.camera = CompareCamera::default(),
+                CompareAction::ActualSize => {
+                    if let Some((_, dimensions)) = &s.images[s.active] {
+                        let size = s.bounds[s.active].size;
+                        s.camera
+                            .actual_size(*dimensions, [size.width.into(), size.height.into()]);
+                    }
+                }
+                CompareAction::ZoomOut => s.camera.zoom_by(0.8),
+                CompareAction::ZoomIn => s.camera.zoom_by(1.25),
+            }
+            cx.notify();
+        },
+        cx,
     );
+    let mut bar = div().flex().flex_wrap().gap_2().items_center().p_2();
     if kind == View::Review {
         let state = &ws.cloud.gallery;
         if let Some((done, total)) = state.progress {
@@ -1129,7 +1191,7 @@ pub(super) fn view(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::Any
         }
     }
     let pair = ws.cloud.gallery.pair();
-    let mut panes = div().flex().flex_row().flex_grow().min_h(px(0.0));
+    let mut panes = compare_ui::pane_row();
     for slot in 0..2 {
         let state = &ws.cloud.gallery;
         let title = if kind == View::Versions && slot == 1 {
@@ -1141,112 +1203,86 @@ pub(super) fn view(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::Any
         } else {
             pair.get(slot).map(|a| a.name.clone()).unwrap_or_default()
         };
-        let mut pane = div()
-            .id(("cloud-compare-pane", slot))
-            .relative()
-            .flex_1()
-            .h_full()
-            .overflow_hidden()
-            .bg(gpui::rgb(0x181818))
-            .border_2()
-            .border_color(gpui::rgb(if state.active == slot {
-                0x428FD9
-            } else {
-                0x181818
-            }));
-        let entity = cx.entity();
-        pane = pane.child(
-            canvas(
-                move |bounds, _, cx| {
-                    entity.update(cx, |ws, _| ws.cloud.gallery.bounds[slot] = bounds);
-                },
-                |_, _, _, _| {},
-            )
-            .absolute()
-            .size_full(),
-        );
-        if let Some((image, dimensions)) = &state.images[slot] {
-            let bounds = state.bounds[slot];
-            let [x, y, w, h] = state.camera.image_rect(
-                *dimensions,
-                [f32::from(bounds.size.width), f32::from(bounds.size.height)],
-            );
-            pane = pane.child(
-                img(image.clone())
-                    .absolute()
-                    .left(px(x))
-                    .top(px(y))
-                    .w(px(w))
-                    .h(px(h)),
-            );
-        } else if state.busy || !title.is_empty() {
-            pane = pane.child(div().p_4().child(t("versions.loading")));
-        }
-        pane = pane.child(
-            div()
-                .absolute()
-                .bottom_0()
-                .left_0()
-                .p_2()
-                .bg(gpui::rgba(0x000000cc))
-                .child(title),
-        );
-        if let Some(a) = pair.get(slot) {
-            pane = pane.children(badge(a));
-            if kind == View::Review {
-                if let Some(choice) = a
+        let overlay = (kind == View::Review)
+            .then(|| {
+                let choice = pair
+                    .get(slot)?
                     .metadata
                     .review
                     .as_ref()
-                    .filter(|r| r.revision == a.revision)
-                {
-                    pane = pane.child(div().absolute().top_0().right_0().p_2().child(t(
-                        if choice.choice == "keep" {
+                    .filter(|r| r.revision == pair[slot].revision)?;
+                Some(
+                    div()
+                        .absolute()
+                        .top_0()
+                        .right_0()
+                        .p_2()
+                        .child(t(if choice.choice == "keep" {
                             "library.similar.keep"
                         } else {
                             "library.similar.reject"
-                        },
-                    )));
-                }
-            }
-        }
-        pane = pane
-            .on_mouse_down(
-                MouseButton::Left,
-                cx.listener(move |ws, e: &MouseDownEvent, _, cx| {
-                    ws.cloud.gallery.active = slot;
-                    ws.cloud.gallery.drag = Some(e.position);
-                    cx.notify();
+                        }))
+                        .into_any_element(),
+                )
+            })
+            .flatten();
+        panes = panes.child(compare_ui::pane(
+            slot,
+            ComparisonPane {
+                tooltip: title.clone(),
+                title,
+                active: state.active == slot,
+                image: state.images[slot].clone(),
+                preview: true,
+                camera: state.camera,
+                bounds: state.bounds[slot],
+                message: state.error.clone().or_else(|| {
+                    (pair.get(slot).is_none() && kind != View::Versions)
+                        .then(|| t("common.none").into())
                 }),
-            )
-            .on_mouse_up(
-                MouseButton::Left,
-                cx.listener(|ws, _, _, _| ws.cloud.gallery.drag = None),
-            )
-            .on_mouse_move(cx.listener(move |ws, e: &MouseMoveEvent, _, cx| {
-                let s = &mut ws.cloud.gallery;
-                if e.pressed_button != Some(MouseButton::Left) {
-                    s.drag = None;
-                    return;
-                }
-                if let Some(start) = s.drag.replace(e.position) {
-                    if let Some((_, dims)) = &s.images[slot] {
-                        let b = s.bounds[slot];
-                        let r = s
-                            .camera
-                            .image_rect(*dims, [f32::from(b.size.width), f32::from(b.size.height)]);
-                        s.camera.pan(
-                            [
-                                f32::from(e.position.x - start.x),
-                                f32::from(e.position.y - start.y),
-                            ],
-                            [r[2], r[3]],
-                        );
+                culling: pair.get(slot).map(culling_value),
+                overlay,
+            },
+            ComparisonActions::<Workspace> {
+                select: |ws, slot, position, cx| {
+                    ws.cloud.gallery.active = slot;
+                    ws.cloud.gallery.drag = position;
+                    cx.notify();
+                },
+                drag: |ws, position, pressed, cx| {
+                    let s = &mut ws.cloud.gallery;
+                    if !pressed {
+                        s.drag = None;
+                        return;
+                    }
+                    if let Some(start) = s.drag.replace(position) {
+                        if let Some((_, dimensions)) = &s.images[s.active] {
+                            let size = s.bounds[s.active].size;
+                            let rect = s
+                                .camera
+                                .image_rect(*dimensions, [size.width.into(), size.height.into()]);
+                            s.camera.pan(
+                                [(position.x - start.x).into(), (position.y - start.y).into()],
+                                [rect[2], rect[3]],
+                            );
+                            cx.notify();
+                        }
+                    }
+                },
+                release: |ws, _| ws.cloud.gallery.drag = None,
+                zoom: |ws, factor, cx| {
+                    ws.cloud.gallery.camera.zoom_by(factor);
+                    cx.notify();
+                },
+                bounds: |ws, slot, bounds, cx| {
+                    if ws.cloud.gallery.bounds[slot] != bounds {
+                        ws.cloud.gallery.bounds[slot] = bounds;
                         cx.notify();
                     }
-                }
-            }));
-        panes = panes.child(pane);
+                },
+            },
+            cx,
+        ));
     }
     let error = ws.cloud.gallery.error.clone();
     div()
@@ -1254,9 +1290,138 @@ pub(super) fn view(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::Any
         .flex_col()
         .flex_grow()
         .min_h(px(0.0))
-        .child(bar)
+        .child(header)
+        .children((kind != View::Compare).then_some(bar))
         .children(error.map(|e| div().p_2().child(e)))
         .children((kind == View::Review).then(|| div().p_2().child(t("library.similar.help"))))
         .child(panes)
         .into_any_element()
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn metadata_edits_select_only_changed_fields_and_keep_time_modes_exclusive() {
+        let mut fields = Vec::new();
+        for index in 0..6 {
+            fields.push((CHECK_IDS[index], String::new(), String::new()));
+            fields.push((FIELD_IDS[index], String::new(), String::new()));
+        }
+        // Merely focusing and committing the same value must not clear metadata.
+        assert!(commit_metadata_field(&mut fields, FIELD_IDS[1], ""));
+        assert_eq!(metadata_enabled(&fields), [false; 6]);
+        commit_metadata_field(&mut fields, FIELD_IDS[1], "Caption\nSecond line");
+        assert_eq!(
+            metadata_enabled(&fields),
+            [false, true, false, false, false, false]
+        );
+        commit_metadata_field(&mut fields, FIELD_IDS[3], "2026-09-20T12:00:00Z");
+        commit_metadata_field(&mut fields, FIELD_IDS[4], "3600");
+        assert_eq!(
+            metadata_enabled(&fields),
+            [false, true, false, false, true, false]
+        );
+        commit_metadata_field(&mut fields, FIELD_IDS[3], "2026-09-21T12:00:00Z");
+        assert_eq!(
+            metadata_enabled(&fields),
+            [false, true, false, true, false, false]
+        );
+        // Clearing a changed field is an intentional edit, too.
+        commit_metadata_field(&mut fields, FIELD_IDS[1], "");
+        assert!(metadata_enabled(&fields)[1]);
+        assert!(!commit_metadata_field(&mut fields, "cloud-folder", "other"));
+    }
+
+    #[test]
+    fn culling_filter_reset_preserves_other_cloud_search_constraints() {
+        let mut filters = remote::Filters {
+            person_id: Some("person".into()),
+            tags: Some(vec!["holiday".into()]),
+            captured_after: Some(100),
+            edited: Some(true),
+            ..Default::default()
+        };
+        let original = filters.clone();
+        let selection = CullFilter {
+            minimum_rating: 4,
+            flag: Some(CullFlag::Pick),
+            label: Some(ColourLabel::Blue),
+        };
+        set_culling_filter(&mut filters, selection);
+        assert_eq!(culling_filter(&filters), selection);
+        assert_eq!(filters.min_rating, Some(4));
+        assert_eq!(filters.flag.as_deref(), Some("pick"));
+        assert_eq!(filters.label.as_deref(), Some("blue"));
+        set_culling_filter(&mut filters, CullFilter::default());
+        assert_eq!(filters, original);
+    }
+
+    #[test]
+    fn culling_filter_distinguishes_no_label_or_flag_from_all_photos() {
+        let selection = CullFilter {
+            flag: Some(CullFlag::None),
+            label: Some(ColourLabel::None),
+            ..Default::default()
+        };
+        let mut filters = remote::Filters::default();
+        set_culling_filter(&mut filters, selection);
+        assert_eq!(filters.flag.as_deref(), Some("none"));
+        assert_eq!(filters.label.as_deref(), Some("none"));
+        assert_eq!(culling_filter(&filters), selection);
+        assert!(culling_filter(&filters).matches(PhotoCulling::default()));
+        assert!(!culling_filter(&filters).matches(PhotoCulling {
+            label: ColourLabel::Red,
+            ..Default::default()
+        }));
+    }
+
+    #[test]
+    fn culling_shared_shortcuts_produce_compatible_cloud_patches() {
+        for (key, field, expected) in [
+            ("0", "rating", Value::from(0u8)),
+            ("5", "rating", Value::from(5u8)),
+            ("p", "flag", "pick".into()),
+            ("x", "flag", "reject".into()),
+            ("u", "flag", "none".into()),
+            ("6", "label", "red".into()),
+            ("7", "label", "yellow".into()),
+            ("8", "label", "green".into()),
+            ("9", "label", "blue".into()),
+            ("m", "label", "magenta".into()),
+            ("l", "label", "none".into()),
+        ] {
+            assert_eq!(
+                culling_patch(controls_ui::shortcut(key).unwrap()),
+                (field, expected)
+            );
+        }
+        assert!(controls_ui::shortcut("a").is_none());
+    }
+
+    #[test]
+    fn culling_cloud_metadata_drives_the_shared_badge_and_selection() {
+        let mut asset: Asset = serde_json::from_value(serde_json::json!({
+            "id": "photo", "name": "photo.jpg", "mime_type": "image/jpeg",
+            "revision": 1, "size": 1, "edited": false, "tags": [],
+            "rating": 0, "modified_at": 1
+        }))
+        .unwrap();
+        assert_eq!(culling_value(&asset), PhotoCulling::default());
+        assert!(badge(&asset).is_none());
+        asset.metadata.label = "blue".into();
+        assert_eq!(culling_value(&asset).label, ColourLabel::Blue);
+        assert!(badge(&asset).is_some());
+        asset.rating = 4;
+        asset.metadata.flag = "pick".into();
+        assert_eq!(
+            culling_value(&asset),
+            PhotoCulling {
+                rating: 4,
+                flag: CullFlag::Pick,
+                label: ColourLabel::Blue,
+            }
+        );
+    }
 }

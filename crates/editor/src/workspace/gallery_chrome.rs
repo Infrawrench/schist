@@ -189,6 +189,7 @@ fn touch_strip(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::AnyElem
             (!cloud && ws.library.video.is_none())
                 .then(|| super::library_culling::toolbar_button(ws, cx)),
         );
+    let strip = strip.children(cloud.then(|| super::cloud_gallery::toolbar(ws, cx)));
     let strip = if cloud {
         strip
             .children(super::cloud_view::filter_chip(ws, cx))

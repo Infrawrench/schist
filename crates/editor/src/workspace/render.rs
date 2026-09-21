@@ -714,6 +714,7 @@ impl Render for Workspace {
             }
             #[cfg(target_arch = "wasm32")]
             {
+                self.gallery_compact = crate::ui::compact(window);
                 super::cloud_view::browser_gallery(self, cx)
             }
         } else {

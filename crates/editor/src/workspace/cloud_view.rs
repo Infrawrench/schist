@@ -1097,25 +1097,13 @@ fn load_failure(ws: &Workspace, cx: &mut Context<Workspace>) -> impl IntoElement
 /// The grid: month or folder headers with a rule, then wrapped
 /// thumbnails, loading another batch as the end approaches the viewport.
 pub(crate) fn grid(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::AnyElement {
-    let controls = ws
-        .cloud
-        .gallery
-        .controls
-        .then(|| super::cloud_gallery::controls(ws, cx));
-    let body = if ws.cloud.gallery.view.is_some() {
+    if ws.cloud.gallery.view.is_some() {
         super::cloud_gallery::view(ws, cx)
     } else {
         cloud_grid(ws, cx)
-    };
-    div()
-        .flex()
-        .flex_col()
-        .flex_grow()
-        .min_h(px(0.0))
-        .children(controls)
-        .child(body)
-        .into_any_element()
+    }
 }
+
 fn cloud_grid(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::AnyElement {
     ws.cloud.grid_wanted.clear();
     let cell = ws.gallery_thumb_px();
@@ -1712,6 +1700,9 @@ pub(crate) fn dialog(
     if kind == "camera-sync" {
         return super::camera_sync::form(ws, &fields, cx);
     }
+    if kind == "metadata" {
+        return super::cloud_gallery::metadata_dialog(ws, fields, cx);
+    }
     if kind == "storage-warning" {
         let message = fields
             .first()
@@ -1726,7 +1717,6 @@ pub(crate) fn dialog(
         return super::cloud_people::viewer(ws, fields, cx);
     }
     let title = match kind {
-        "metadata" => t("metadata.title"),
         "people-rename" => t("cloud.dialog.people_rename_title"),
         "face-name" | "face-add" => t("cloud.dialog.face_name_title"),
         "sign-in" => t("cloud.dialog.sign_in_title"),

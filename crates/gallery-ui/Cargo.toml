@@ -5,6 +5,7 @@ edition.workspace = true
 license.workspace = true
 
 [dependencies]
+schist-gallery.workspace = true
 schist-i18n.workspace = true
 gpui.workspace = true
 schist-ui.workspace = true
