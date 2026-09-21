@@ -2,17 +2,19 @@
 
 # Schist
 
-A layered image editor written in Rust on [GPUI], with first-class PSD
-support and a plugin-first architecture — every tool, filter, format and
-menu command is a plugin, including the built-in ones.
+A layered image editor and photo manager written in Rust on [GPUI].
+Paint, retouch, develop camera RAW files, work with layered documents, and
+organize a photo library in the same app. Tools, filters, formats and menu
+commands share a plugin registry with the headless editor and automation APIs.
+
+Schist runs on Linux, macOS and Windows, with iOS, Android and browser builds.
+See the platform guides below for their requirements and differences.
+
+[Download desktop releases](https://github.com/Infrawrench/schist/releases)
+· [Try it in your browser](https://try.schist.app)
+· [Documentation](#documentation)
 
 [GPUI]: https://gpui.rs
-
-**Status: v1 feature-complete,
-plus two Photoshop-parity passes — 55 tools, 57 filters, 16 adjustments,
-all nine layer effects, and live vector shapes.** 540 tests,
-clippy-clean, verified end-to-end under a real window. [What is still
-missing](#not-there-yet) is a short list now.
 
 ## Backers
 
@@ -28,315 +30,166 @@ Thanks to the people and brands supporting Schist.
 
 ## Build and run
 
+Install stable Rust through `rustup`, GNU Make, and your platform's native
+build toolchain. The repository's [rust-toolchain.toml](rust-toolchain.toml)
+selects the Rust channel and components.
+
+On Debian/Ubuntu, install the Linux build dependencies:
+
 ```sh
-# Linux needs GPUI's system dependencies:
 sudo apt-get install build-essential pkg-config libfontconfig-dev \
   libwayland-dev libxkbcommon-x11-dev libxcb1-dev libxcb-render0-dev \
-  libxcb-shape0-dev libxcb-xfixes0-dev libvulkan-dev clang
-
-cargo run --release -p schist-app -- [file.psd|file.png|…]
+  libxcb-shape0-dev libxcb-xfixes0-dev libvulkan-dev clang mold
 ```
 
-Those are the packages to *build* against. Running also needs a Vulkan
-**driver** installed — GPUI renders through it, and the loader above is
-only the part that finds one. On Debian and Fedora that is
-`mesa-vulkan-drivers`; on Arch it is `vulkan-driver` (any of
-`vulkan-radeon`, `vulkan-intel`, `nvidia-utils`, …), or `vulkan-swrast`
-on a virtual machine with no GPU driver of its own. With no driver
-installed Schist stops at startup and says which package is missing.
+Linux also needs a working Vulkan driver at runtime. For Mesa drivers on
+Debian/Ubuntu, install `mesa-vulkan-drivers`; other GPUs may need their
+vendor's driver. The Vulkan loader alone is not a driver.
 
-Schist also runs on iPad and iPhone: `tools/ios-build.sh --debug` builds
-it for the Simulator and launches it; see [docs/ios.md](docs/ios.md) for
-the touch model, the packaging, and which desktop subsystems stay out.
+From a checkout, build and launch the desktop editor:
 
-And on Android: `tools/android-build.sh --debug` builds an APK and runs it
-on a connected device or an emulator it boots; see
-[docs/android.md](docs/android.md) for what an Android build has, what it
-lacks (the system file picker, for one), and the SDK it needs.
+```sh
+make app
+./target/release/schist
+# Or open a document:
+./target/release/schist path/to/image.psd
+```
 
-The chrome speaks English, Swedish, German, Simplified Chinese and
-Japanese, following the system language; `SCHIST_LANG=de` tries another for one
-run. See [docs/i18n.md](docs/i18n.md) for how strings are added.
+On Windows, run `target/release/schist.exe`. For development, use
+`make app PROFILE=debug` and the executable under `target/debug/`.
 
-Schist also runs in the browser: `make web` assembles a static
-deployment (WebGPU, chunked wasm, a loading page) into `dist/web/` —
-see [docs/web.md](docs/web.md) for what's included and what isn't.
+`make app` builds the editor without the Photoshop filter helper bundle.
+`make build` includes those helpers; on Linux their cross-compilation also
+needs `gcc-mingw-w64`. See the [helper build guide](docs/8bf-host.md#building-the-helpers)
+for platform requirements, and `make help` for the main build targets.
 
-`make library` builds the headless editor and face detection/recognition as a
-native shared library with a C API and as WebAssembly for browsers and Node.
-Each instance owns its state; see [docs/library.md](docs/library.md) for the API.
+| Target | Output / guide |
+| --- | --- |
+| `make release` | Platform packages in `dist/`; [release and signing details](docs/versioning.md) |
+| `make web` | Static browser app in `dist/web/`; [build and serve locally](docs/web.md) |
+| `make ios PROFILE=debug` | Simulator bundle in `dist/ios/`; [iOS and iPadOS](docs/ios.md) |
+| `make ios-device` | Device bundle, requiring signing; [device setup](docs/ios.md#building-and-running) |
+| `make android PROFILE=debug` | APK in `dist/android/`; [Android SDK and installation](docs/android.md) |
+| `make library` | Native C API and browser/Node WebAssembly bindings in `dist/library/`; [library guide](docs/library.md) |
 
-Runtime feature flags use `feature_enabled("flag-name") -> bool`, with
-central defaults and local overrides. See [docs/feature-flags.md](docs/feature-flags.md)
-for adding flags and configuring them on native and browser builds.
+The browser needs WebGPU and a secure context (`localhost` or HTTPS).
+Mobile builds need their platform SDKs. These builds share the editor, with
+platform-specific file access, plugin and background-service support described
+in their guides.
 
-`cargo test --workspace` runs everything. `make helpers` cross-compiles
-the Photoshop plug-in helpers, which are separate binaries for the
-architectures a `.8bf` plug-in might be built for — see
-[docs/8bf-host.md](docs/8bf-host.md#building-the-helpers). Packaging scripts for macOS,
-Windows and Linux live in [packaging/](packaging); tagging `vX.Y.Z` builds
-them all in CI, signing and notarizing the macOS bundle when the
-[signing secrets](docs/versioning.md#signing-secrets) are set. All three
-register `.psd`, `.psb`, `.pdn`, `.xcf`, `.afphoto`, `.afdesign`, `.afpub` and `.af` as
-openable, never as the default handler: an installed Schist joins the
-"Open with" menu rather than taking files off Photoshop or Affinity.
-
-On macOS the bundle also carries two Quick Look app extensions, so
-Finder draws real thumbnails for those files and the space bar opens a
-real preview of them — layers, masks, blend modes and effects composited
-by Schist itself, or the writing app's own embedded preview when that is
-already big enough for the size asked for. Nothing needs enabling: the
-extensions register when the app is first opened, and
-`schist-quicklook --render file.afphoto out.png` shows what Quick Look
-would show. See [docs/quicklook.md](docs/quicklook.md).
-
-The logo is generated, not drawn: [`tools/logo.py`](tools/logo.py) holds the
-geometry and `python3 tools/logo.py` re-emits the SVGs and every `.icns`,
-`.ico` and `.png` the packaging needs. Edit the constants at the top of that
-file, never its output.
+The interface follows the system's preferred language. The
+[locale registry](crates/i18n/locales.tsv) lists the shipped translations;
+`SCHIST_LANG=de` overrides the language for a native run. See
+[internationalisation](docs/i18n.md) for translation and font support.
 
 ## What it does
 
-**Spotlight search.** Press ⌘⇧P on Mac or Ctrl+Shift+P elsewhere, or use
-File ▸ Search, to find tools, commands, filters, open documents, layers and
-photos. Type to filter, use ↑/↓ and Enter to choose a result, Tab to switch
-categories, and Escape to dismiss. Local photo results include filenames and
-the gallery’s people, place and content matches when indexed; cloud photos
-on the current page appear by name and tag, with a search action for the full
-cloud library. Content search uses the gallery’s installed Search models.
+**Layered editing.** Layers and groups, masks and clipping masks, blend modes,
+adjustment layers, layer effects, artboards, slices and layer comps. Work with
+[embedded and linked smart objects](docs/smart-objects.md) and
+[editable filter stacks](docs/filter-stacks.md) that retain their source pixels
+through supported moves and transforms. History, undo/redo and native crash
+recovery keep edits recoverable.
 
-**Schist Cloud.** Enable the `schist-cloud` [feature flag](docs/feature-flags.md),
-then sign in from the welcome screen or File menu, with
-`schist.app` as the default provider. Live remote folders, searchable buckets,
-filters, uploads and collaborative editing share a MessagePack WebSocket.
-See [docs/cloud.md](docs/cloud.md) for setup and the provider contract.
+**Painting and retouching.** Brush, pencil, erasers, gradients, clone and healing
+tools, patching, content-aware fill and move, dodge/burn, blur, sharpen and smudge.
+[Brush presets](docs/brushes.md) support imported bitmap tips and brush packs,
+spacing, scattering, stroke stabilization, and pressure-controlled size and
+opacity. [Symmetry and seamless painting](docs/symmetry-painting.md) add mirrored
+or radial strokes and wraparound texture painting. Stylus tilt is supported in
+the browser where the device supplies it; native tilt is not yet available.
 
-**Documents.** PSD and PSB read *and* write — layers, nested groups, masks,
-all 27 blend modes, adjustment layers, layer effects, vector shapes,
-8/16/32-bit, RGB, greyscale, CMYK, Lab and Indexed, RLE and zip-compressed
-channels. Every block Schist doesn't understand is preserved
-byte-for-byte, so a round trip never loses work. **Smart objects** keep
-their source pixels, so transforming one repeatedly costs no more quality
-than transforming it once. [Editable and linked sources](docs/smart-objects.md)
-can be placed, opened as layered documents, replaced, relinked and refreshed
-across their instances. Also PNG, JPEG, WebP and TIFF, plus HEIC/HEIF import (iPhone photos)
-and camera raw import: NEF, ARW, CR2, DNG, RAF, ORF, RW2, PEF, SRW and the
-rest. A capture opens in Camera Raw with sensor-domain white balance and
-exposure, live fast-demosaic previews and a best-quality render on Apply;
-the original capture and all 15 development settings stay attached to the
-layer and survive PSD/PSB save and reopen, so adjustments never compound on
-the previously developed pixels. The rendered document remains 16-bit sRGB. Raws
-decode through Schist's own clean-room `schist-codec-raw` crate (pure
-Rust, written from the public specifications and verified sample for
-sample against LibRaw across some 250 camera files), covering every
-vendor's codecs including Canon's CR3 and sRAW, Fuji's compressed RAF and
-SuperCCD, Sigma's Foveon and GoPro's VC-5; nothing links at build time
-and there is no fallback library to install, on the desktop or in the
-browser. The one thing it refuses is Nikon's licensed High Efficiency
-NEF, which no decoder reads without the vendor's SDK. HEIC decodes through libheif
-1.23.4 or later: a downloaded copy takes priority over the system library.
-Older versions and libraries whose version cannot be verified are refused
-before initialization or image parsing, including for previews and thumbnails.
-When no supported decoder is available, Schist offers to download a
-hash-pinned, decode-only build (with its LGPL license texts)
-from [libheif-prebuilt](https://github.com/IAmJSD/libheif-prebuilt) —
-nothing links at build time and the build stays pure Rust. Paint.NET `.pdn`
-and GIMP `.xcf` files open and save with supported raster layers, names,
-opacity, visibility, and blend modes; XCF also supports groups, masks,
-offsets, and high precision pixels. See [format support and limits](docs/layered-formats.md).
-Affinity files
-(`.af`/`.afphoto`/`.afdesign`/`.afpub` — Affinity 1, 2 and the unified Canva-era format) open through a
-natively reverse-engineered reader
-([docs/affinity-format.md](docs/affinity-format.md)): pixel layers,
-placed images, groups, masks, live shapes, free paths, editable text
-(set in the document's real fonts, GPOS kerning and all), layer
-effects — on groups too — and sixteen adjustment types come in as
-real layers, each verified against renders and exports from Affinity
-itself; whatever Affinity would re-render live and we can't rebuild
-yet is covered by the file's embedded flattened preview, imported as
-a hidden reference layer or, when nothing else survives, as the
-document itself. Export writes layered `.af` documents back (unified
-version-12 container): rasters as native tiles, groups, masks,
-clipping, blend modes, drop shadows / glows / outlines / colour
-overlays, and adjustment layers round-tripped from their preserved
-native parameters — the writer's object graphs re-serialize every
-fixture and corpus document byte-for-byte, so the on-disk shapes are
-exactly what Affinity itself writes. Text and vector layers export as
-pixels for now.
+**Selections and masks.** Marquees, lassos, wand, quick and object selection,
+colour range, grow/similar, feathering and saved selections.
+[Mask refinement](docs/mask-refinement.md) provides edge cleanup and previews
+before applying the result to a selection or layer mask.
 
-**Selecting.** Rectangular and elliptical marquee; free, polygonal and
-magnetic lassos; magic wand with tolerance and contiguity; quick selection
-that grows to match what you paint over; object selection that runs a
-segmentation network — U^2-Net, from Filter ▸ Neural Filters ▸ Manage
-Models — over the box you drew and cuts round what it finds, settling the
-boundary against the picture's own colours, and falls back to reading the
-box's border as background when there is no model or nothing in the box.
-Then Modify (expand, contract, border, smooth, feather), Grow, Similar,
-Colour Range, and save/load. Marching ants trace the selection's real
-boundary — holes and all.
+**Vectors and text.** Editable paths and live shapes, path selection, fills and
+strokes. [Text layers](docs/text.md) support OpenType controls, text on paths,
+mixed-direction paragraphs and vertical writing. Editable interchange depends
+on the destination format; see [file formats](#file-formats).
 
-**Painting and retouching.** Brush, pencil, eraser, background eraser,
-magic eraser, clone stamp, history brush, gradient, paint bucket,
-dodge/burn/sponge, blur, sharpen, smudge; spot healing and healing brushes,
-patch, content-aware move and red eye. Healing takes texture from the
-source and colour from around the edge, so patching a blemish gives you
-skin rather than a blurred blemish. Content-Aware Fill is a network and
-a patch search working together — the network, trained here and shipped
-in the binary, says what should be behind the hole, and the search finds
-that in the photograph and copies it in, so what lands there is real
-texture arranged the right way rather than either one's idea of an
-average.
+**Filters and transforms.** Blur, sharpen, noise, distortion, artistic and neural
+filters, Camera Raw, Lens Correction and Filter Gallery. Filters preview on the
+canvas, with [draggable controls](docs/filter-canvas.md) for supported blur and
+lighting effects. Free Transform, Liquify, Puppet Warp, Content-Aware Scale and
+Vanishing Point cover geometric edits.
 
-Brush, pencil and eraser share [saved brush presets](docs/brushes.md),
-procedural grain and bristle tips, adjustable dab spacing and scattering,
-pressure-response curves, and stroke stabilization. The **Preset** button
-in the options bar opens these controls; named recipes survive restarts.
+**Colour.** ICC profiles, assign/convert operations, display transforms and soft
+proofing. [Native CMYK and Lab editing](docs/native-colour-editing.md) preserves
+process channels through supported edits and saves. Import `.aco`, `.ase` and
+`.acb` palettes in the Color panel, including user-supplied colour books; no
+Pantone libraries are bundled. [Spot ink channels](docs/spot-ink.md) provide
+editable separations and an overprint display simulation, with PSD/PSB
+interchange and documented proofing limits.
 
-**Vector.** Pen, freeform pen and curvature pen draw paths that are
-*stored*, so Path Selection and Direct Selection can edit them and Layer ▸
-Path can fill, stroke or convert them to a selection. Rectangle, ellipse,
-line (with its own weight, 45° constrain and arrowheads), polygon and six
-custom shapes — as **live shape layers** by default, which keep their
-path, regenerate their pixels from it, and survive a PSD round trip as
-vectors. Editable text layers, including **text on paths** with a baseline
-offset and alignment, plus **OpenType controls** for kerning, ligatures,
-discretionary ligatures and small caps. Automatic or explicit paragraph direction
-supports mixed Arabic, Hebrew and Latin text. Vertical writing supports upright
-CJK glyphs, rotated Latin runs and columns advancing left or right. Text settings survive PSD/PSB
-save and reopen. See [docs/text.md](docs/text.md).
+**Photo library.** The [gallery](docs/gallery.md) watches local folders, imports
+from cameras, organizes photos by folder/date/place, and provides buckets, maps,
+search and People indexing. Rate, flag and label photos, compare them with
+synchronized zoom and pan, and review similar images or capture bursts. Gallery
+edits use sidecars and version history so the originals remain available.
+[Metadata editing](docs/photo-metadata.md) supports individual or batch changes
+to keywords, captions, copyright, capture times and GPS through portable XMP
+sidecars.
 
-**Non-destructive.** Sixteen adjustments — levels, curves, hue/saturation,
-brightness/contrast, black & white, colour balance, vibrance, exposure,
-photo filter, gradient map, selective colour, channel mixer, invert,
-posterize, threshold, solid colour — as layers, or applied straight to the
-pixels from Image ▸ Adjustments. Layer masks, clipping masks, group
-isolation, per-layer blend mode and opacity.
+**Photo workflows.** [Merge photos](docs/photo-merging.md) into aligned layers,
+focus stacks, bracketed HDR images or translation-based panoramas on native
+builds. [Recorded actions](docs/actions.md) replay editing steps, and
+[export recipes](docs/export-recipes.md) save reusable sets of outputs for
+documents and gallery selections.
 
-**Layer effects.** All nine: bevel & emboss, stroke, inner shadow, inner
-glow, satin, colour overlay, gradient overlay, outer glow and drop shadow,
-with Photoshop's Fill-vs-Opacity semantics so "Fill 0% plus a drop shadow"
-does what you expect.
+**Video frames.** The native [video viewer](docs/gallery.md#video) provides silent
+playback, frame stepping, nearby sharper-frame search, and capture into an image
+document. Codec availability depends on the platform; Linux uses system
+GStreamer plugins. Audio and video editing can be handed to an external editor.
 
-**Filters.** A hundred and thirty-four, which is Photoshop's Filter menu
-with nothing left out: 3D, Artistic, Blur, Blur Gallery, Brush Strokes,
-Distort, Noise, Pixelate, Render, Sharpen, Sketch, Stylize, Texture,
-Video, Other, Camera Raw and Neural Filters, plus Lens Correction and
-Adaptive Wide Angle. All preview live on the canvas inside the selection,
-with Cancel restoring exactly. The count includes the forty-six effects
-Photoshop keeps *inside* the Filter Gallery — Watercolor, Sumi-e, Chrome,
-Stained Glass, Craquelure and the rest — which are ordinary filters here
-too, so each can be run from the menu on its own or stacked in the
-**Filter Gallery**, which previews the result of the lot.
+**Schist Cloud.** Sign in from the welcome screen or File menu to browse remote
+folders and buckets, upload photos, search, and edit collaboratively. Compatible
+providers also support metadata, photo review, version history, and syncing
+saved brushes, actions and export recipes. Mobile camera-roll backup is opt-in.
+Cloud is enabled by default; [feature flags](docs/feature-flags.md) can disable
+it. See the [Cloud guide](docs/cloud.md) for sign-in, transfers and platform
+support, and the [gallery sync implementation notes](docs/cloud-parity-2026-09-20.md)
+for provider-dependent workflows.
 
-Their dialogs match as well, which is most of what makes a filter feel
-like the one you know: Mezzotint's ten screens, Lens Blur's iris shapes,
-Smart Sharpen's choice of which blur it is undoing, Wave's several
-generators, Diffuse's anisotropic mode, Extrude's pyramids, Wind's blast
-and stagger.
+**Workspace and search.** Spotlight (`Cmd/Ctrl+Shift+P`) finds tools, commands,
+filters, documents, layers and photos. The editor includes draggable and
+resizable side panels, rulers, guides, snapping, a navigator, themes and
+remappable keyboard shortcuts.
 
-And they read the same things Photoshop's read. The Sketch group draws in
-the **foreground and background colours**, as do Clouds, Fibers, Tiles,
-Neon Glow, Colored Pencil's paper and Diffuse Glow's glow — set the
-swatches to sepia and Stamp comes out as a sepia print. **Displace**
-warps through a map you pick from a file, red for horizontal and green
-for vertical, stretched or tiled. **Flame** burns along the active path
-when the document has one. **Lens Blur** can take its depth from the
-layer's transparency or from what is underneath it, so part of the
-picture stays sharp. Harmonization, Colour Transfer and Landscape Mixer
-match against the layer below. Everything a filter needs beyond its own
-pixels is gathered by the host and handed over, which is what
-`FilterPlugin::wants_map`, `wants_path` and `wants_backdrop` are for.
+**GPU acceleration.** Supported compositing, viewport rendering, filters and
+other pixel operations use GPU compute, with CPU fallbacks for unsupported
+operations or unavailable compute adapters. Browser canvas and supported
+filters use asynchronous WebGPU. Preferences and `SCHIST_GPU=0` / `SCHIST_GPU=1`
+control native GPU use; see [browser GPU support](docs/web.md) for web-specific
+boundaries.
 
-Blur and lighting filters have [draggable canvas controls](docs/filter-canvas.md):
-move centers, adjust iris/spin boundaries and feathers, place Field Blur and
-Tilt-Shift bands, and position lights or aim directional light. The numeric
-controls stay in sync, preview updates live, and Cancel restores the original.
-Flame follows the path you already drew.
+## File formats
 
-**Warping.** Liquify with all seven brushes, Puppet Warp (Moving Least
-Squares, so pins hold and nothing shears), Content-Aware Scale (seam
-carving, with the selection as the protect mask), and Vanishing Point,
-which clones along a perspective plane so the copy foreshortens with the
-surface.
+| Format | Support |
+| --- | --- |
+| PSD / PSB | Layered 8/16/32-bit read/write with groups, masks, blend modes, adjustments, effects, native colour channels and spot separations. Supported text and smart filters remain editable in other readers; see [PSD interchange](docs/psd-interchange.md) and [native smart filters](docs/native-smart-filters.md). |
+| Affinity `.af`, `.afphoto`, `.afdesign`, `.afpub` | Import layered documents; export layered `.af` files, including supported native text and curves. Unsupported content may use preserved native data or raster previews. See [Affinity support and limits](docs/affinity-format.md). |
+| Paint.NET `.pdn` / GIMP `.xcf` | Read/write supported layered content; see [format limits](docs/layered-formats.md). |
+| PNG, JPEG, WebP, TIFF | Import and export raster images. |
+| HEIC / HEIF | Native import through a supported runtime libheif decoder; Schist can offer a download when needed. |
+| Camera RAW | Import through Schist's pure-Rust decoder and develop in Camera Raw. The original capture and development settings can survive PSD/PSB save and reopen. See [camera and codec coverage](crates/codec-raw/README.md). |
 
-**Document furniture.** Artboards and slices, each exportable to its own
-file; frames that clip their contents; notes; the Count tool; and layer
-comps that capture every layer's visibility and appearance under a name.
+Format support is not a guarantee of identical rendering or complete feature
+interchange. Schist preserves unrecognized PSD data where supported, and uses
+its own blocks for editing state that other applications may not understand or
+retain. The format guides describe editable subsets, raster fallbacks and known
+limits.
 
-**Colour.** ICC profiles honoured on open, assign vs. convert as separate
-operations, a document→display transform, soft proofing, and ordered
-dithering when exporting to 8-bit.
-
-**GPU.** Compositing runs on the GPU when an adapter exists: the layer
-tree — blend modes, masks, clipping, group isolation and supported
-adjustments — compiles to a compute-shader program (wgpu), and
-zooming, rotating and panning resample on the GPU too, which is what keeps
-large documents responsive. The big filter sweeps go the same way: the box
-passes behind every Gaussian, the lens blur's disc, and the displacement
-resample Liquify and Puppet Warp re-run on every pointer move — the
-operations that cross the whole selection per keystroke of a dialog, where
-a lens blur at radius 60 is eleven thousand taps a pixel. **Content-Aware
-Scale** runs there too, and runs *entirely* there: find the lowest-energy
-seam, cut it, start again is hundreds of full-image passes for one
-command, so the whole loop stays on the device and only the finished image
-comes back. **Large warps and seam carves can exceed a storage-buffer
-binding**: warp sources live in texture arrays and their output is banded;
-large carves keep their image planes in texture arrays and cumulative costs
-in two rows. Device texture limits and available memory still apply, and
-small carves stay on the CPU when dispatch overhead would cost more than
-the GPU saves. The CPU is the semantic reference throughout: parity tests
-hold the GPU to it, anything it cannot express or cannot
-fit falls back for that call, and machines with no usable adapter just run
-the CPU path. Toggle it in
-Preferences, or override with `SCHIST_GPU=0` / `SCHIST_GPU=1`.
-Additional kernels cover adjustments, affine transforms, selections, layer-effect
-preparation, RAW development, matrix/TRC color conversion, supported neural
-graphs, retouch diffusion and vector coverage. Compound filters retain their
-intermediate images on-device. The browser uses asynchronous WebGPU for the
-canvas and supported whole-filter operations;
-see [browser GPU support](docs/web.md).
-
-**Image.** Mode (RGB, greyscale, CMYK, Lab, Indexed), Auto Tone /
-Contrast / Colour, image and canvas size, the five rotations and flips,
-crop and trim.
-
-**Editor.** Rotate View, rulers with drag-out guides, grid and snapping,
-screen modes,
-light/dark themes, navigator, history with click-to-jump, unlimited undo,
-crash recovery, and a fully remappable keymap. Right-click the layers,
-history, colour or navigator panels — or the canvas — for Photoshop-style
-context menus (layer properties, duplicate, clipping mask, reorder, merge…).
-
-## Color palettes
-
-Custom Photoshop palettes can be loaded with **Import** in the **Color**
-panel, or by opening or dropping an `.aco`, `.ase`, or `.acb` file. The
-palette selector keeps the built-in colors and your imported palettes;
-imports and the selected palette persist across launches. Search filters
-named swatches and ASE groups. Click a swatch to set the foreground color,
-or Alt-click to set the background. **Remove** removes an imported palette
-from Schist without changing its source file.
-
-This includes user-supplied Pantone ACB color books; no Pantone libraries
-are bundled. RGB, HSB, CMYK, D50 Lab, and grayscale swatches are supported
-where the format provides them. Names, source components, and ASE spot
-flags are retained; ordinary layer painting uses RGB approximations, with
-unprofiled CMYK conversion. Choosing a swatch alone does not create a
-spot channel or guarantee a print match. Legacy ACO entries containing opaque ink-library references
-are rejected; use an ACB book or swatches with explicit color values.
-
-The Color panel’s **Spot ink** controls create real editable ink separations
-with selection-aware Brush/Pencil/Eraser and Fill, grayscale separation views,
-and an overprint display simulation. PSD/PSB and shared recovery preserve the
-plates independently of process color and transparency. See
-[spot-ink.md](docs/spot-ink.md) for controls, solidity, interchange and proofing limits.
+Packaged macOS builds include [Quick Look extensions](docs/quicklook.md) for
+thumbnails and previews of supported layered documents.
 
 ## Keyboard
 
 Photoshop's defaults (⌘ on macOS, Ctrl elsewhere):
 
-| | |
-|---|---|
+| Area | Shortcuts |
+| --- | --- |
 | Tools | `V` move · `M` marquee · `L` lasso · `W` wand · `C` crop · `B` brush · `E` eraser · `S` clone · `J` spot healing · `Y` history brush · `G` gradient · `O` dodge · `P` pen · `A` path selection · `T` type · `U` shapes · `I` eyedropper · `H`/space hand · `Z` zoom |
 | Tool groups | Shift+the tool's key cycles nested tools (Shift+`M` marquee ⇄ ellipse); hold or right-click a toolbar slot for its flyout |
 | Edit | ⌘Z / ⌘⇧Z undo・redo · ⌘X/C/V · ⌘⇧C copy merged · ⌘T free transform |
@@ -349,134 +202,109 @@ Photoshop's defaults (⌘ on macOS, Ctrl elsewhere):
 
 ## Mouse and touchpad
 
-Two-finger scroll pans; **Ctrl/⌘/Alt + scroll zooms** toward the pointer.
-Prefer it the other way round? **Preferences ▸ Zoom with scroll wheel**
-swaps them, so plain scrolling zooms and the modifier pans.
+Two-finger scroll pans; **Ctrl/Cmd/Alt + scroll zooms** toward the pointer.
+**Preferences → Zoom with scroll wheel** swaps these behaviours. Pinch support
+and stylus input depend on the platform; Windows precision touchpads normally
+zoom through Ctrl+scroll. The mobile guides describe touch and pen controls.
 
-**Pinch-to-zoom** works on macOS, Linux — Wayland, and X11 on
-xorg-server 21.1+ (XI 2.4) — and Windows touchscreens, zooming about the
-centre of the gesture, and **stylus pressure** drives brush size on all
-four backends. Upstream GPUI surfaces neither, so both come from a fork —
-[IAmJSD/gpui](https://github.com/IAmJSD/gpui), which adds `PinchEvent`,
-`on_pinch` and a `pressure` field on the mouse events on top of
-gpui 0.2.2 — pinned by revision in the workspace `Cargo.toml`.
-
-The one pinch gap left is Windows precision touchpads, and it is a gap by
-choice. Windows delivers their pinches as Ctrl+scroll rather than as a
-gesture — which is already a zoom here anyway — and the only way to see
-the real gesture is Direct Manipulation, which cannot be claimed for
-pinches alone: the same claim covers two-finger pans and takes over
-scrolling with them. The fork implements it, behind
-`GPUI_ENABLE_DIRECT_MANIPULATION=1`, but it is untested on hardware and
-off by default rather than put in the path of ordinary scrolling. On a
-pre-21.1 X11 server there is no pinch at all. Ctrl+scroll, the
-zoom-with-scroll preference, ⌘+/⌘-, and the navigator's zoom slider work
-everywhere.
-
-Remap anything in `~/.config/schist/keymap.json`:
+Remap shortcuts in `~/.config/schist/keymap.json` (or under
+`$XDG_CONFIG_HOME/schist/`):
 
 ```json
 { "ctrl-shift-x": "command:edit.fill_foreground", "f1": "tool:brush" }
 ```
 
-## Native colour editing
+## Plugins and automation
 
-CMYK and Lab PSD/PSB files retain their native channels at 8/16/32-bit
-depth. The Color panel's **Channels** control selects individual inks or
-Lab components for brush and fill edits, preserving other channels and
-alpha. Native samples survive undo, layer merges, recovery and save/reopen.
-RGB filters and effects still use explicit conversion boundaries. Native
-CMYK/Lab compositing runs on the GPU when available, preserving independent
-channels through canvas rendering and layer merges; final ICC display
-conversion uses the CPU color-management engine. See
-[native colour editing and processing boundaries](docs/native-colour-editing.md).
+The desktop app loads sandboxed WebAssembly filters and codecs. Plugins have
+no filesystem, network or clock access, and run with a fuel budget. Put `.wasm`
+files in `~/.config/schist/plugins/`, or manage them with **File → Plugins…**.
+The [plugin guide](docs/plugin-guide.md) covers the SDK and ABI, with
+[example plugins](examples/plugins) to build on. Photoshop filter hosting uses
+separate native helper processes; see the [host guide](docs/8bf-host.md) for
+compatibility and setup.
+
+The [MCP server](docs/mcp.md), `schist-mcp`, exposes headless editing sessions,
+tools, filters, commands, gallery access and rendered previews to MCP clients.
+It ships alongside desktop releases. For embedding, the
+[headless library](docs/library.md) provides a C API and WebAssembly bindings
+with independently owned editor instances.
+
+The desktop [AI panel](docs/ai-panel.md), under **View → AI Panel**, uses an
+installed and authenticated `claude` or `codex` CLI to work with the open
+document or gallery. Document edits appear as undoable history entries.
 
 ## Diagnostics
 
-Schist sends one thing without being asked: a daily ping, so we know
-roughly how many people run it and on what. It carries a random ID (for
-counting the same machine once — it is tied to nothing else), the Schist
-version, OS and architecture, the CPU model and core count, the GPU
-adapter and driver the compositor opened, and the amount of RAM. No
-hostname, no username, no paths, nothing about what you are working on.
+Native builds send a daily usage ping to `telemetry.schist.app` by default.
+It contains a random installation ID, app version, OS and architecture, CPU
+model and core count, GPU adapter/driver, and RAM capacity. It does not include
+usernames, hostnames, file paths or document contents.
 
-The server (`telemetry.schist.app`) keeps one row per ID: what the last
-ping said, the country Cloudflare places the request in — the address
-itself is not stored — and when that ID was first and last heard from.
+The server keeps the latest ping per ID, its first and last contact times,
+and the country Cloudflare derives from the request. The IP address itself
+is not stored.
 
-Turn it off with the tick in **Preferences ▸ Diagnostics**, or — without
-launching the app — by creating an empty file named `no_telemetry` in
-the config folder (`~/.config/schist/`, or `$XDG_CONFIG_HOME/schist/`).
-`SCHIST_NO_TELEMETRY=1` in the environment turns it off for one run.
+Disable it in **Preferences → Diagnostics**, set `SCHIST_NO_TELEMETRY=1`, or
+create an empty `no_telemetry` file in `~/.config/schist/` (or
+`$XDG_CONFIG_HOME/schist/`).
 
-Everything else it can send over the network is off until you turn it
-on: **Check for Updates**, the on-demand font and model downloads, and
-crash reporting.
+Update checks and crash reporting are opt-in. The Diagnostics preferences
+separately control local crash reports and uploads to the project's Sentry.
+Uploads require a build configured with a reporting endpoint; ordinary source
+builds have none. Crash uploads omit hostnames and breadcrumbs and redact the
+home directory from paths. `SCHIST_CRASH_REPORTS=1` and `SCHIST_CRASH_UPLOAD=1`
+enable the respective options for a single run. Cloud, map tiles, font/model
+downloads and agent integrations make network requests when those features are
+used.
 
-Crash reporting is two separate ticks in **Preferences ▸ Diagnostics**.
-The first writes a report next to the crash-recovery snapshot in
-`~/.local/state/schist/crashes/` and sends nothing anywhere. The second
-also uploads it to the project's Sentry, and only appears on the official
-releases — a build from source is given no DSN, so the code that would
-report has nowhere to report to and never starts. Uploads carry no
-personal data, no hostname and no breadcrumbs, and the panic message has
-your home directory rewritten to `~` before it leaves, because a panic
-tends to quote the path it choked on and that path is your work.
+## Development
 
-Set `SCHIST_CRASH_REPORTS=1` or `SCHIST_CRASH_UPLOAD=1` to turn either on
-for a single run without changing preferences.
+Use the Makefile for builds and the checks relevant to the area you change:
 
-## Plugins
-
-Third-party plugins are sandboxed WebAssembly — no filesystem, network or
-clock, and a fuel budget so a runaway plugin can't hang the editor. A filter
-is one function:
-
-```rust
-schist_filter! {
-    id: "com.example.sepia",
-    name: "Sepia",
-    category: "Plugins",
-    params: [param("amount", "Amount", 0.0, 100.0, 100.0, "%")],
-    apply: |pixels: &mut [f32], _w: usize, _h: usize, params: &Params| { /* … */ }
-}
+```sh
+make check-app       # type-check application crates and their tests
+make test-app        # test application crates
+make lint-app        # lint application crates
+make check-app-web   # type-check the browser application
+make check-i18n      # validate translations and the browser loader's strings
 ```
 
-Drop the `.wasm` in `~/.config/schist/plugins/` — or use **File ▸
-Plugins…**, which also shows why anything failed to load. Full instructions
-and a format example: [docs/plugin-guide.md](docs/plugin-guide.md).
+These application checks are a subset of the workspace checks. The
+[CI workflow](.github/workflows/ci.yml) defines workspace formatting, lint,
+tests and platform checks; individual feature guides document more focused
+Make targets and any hardware or fixture requirements.
 
-## MCP
+Read [AGENTS.md](AGENTS.md) for repository guidance. Rust interface strings go
+through `crates/i18n`; browser loading messages use the web i18n support.
+[Architecture](docs/architecture.md) describes the crate boundaries, and
+[versioning](docs/versioning.md) covers compatibility and releases.
 
-`schist-mcp` is a [Model Context
-Protocol](https://modelcontextprotocol.io) server that drives Schist
-headless — sessions instead of windows. Every canvas tool, menu command,
-filter and adjustment in the registry the app uses is published as its
-own MCP tool, with its own parameters described, plus inline PNG
-rendering. It ships with every release; `cargo build --release -p
-schist-mcp` builds it from source. See [docs/mcp.md](docs/mcp.md).
-
-The same tool surface also powers the in-app **AI panel** (View ▸ AI
-Panel): a sidebar that drives your installed `claude` or `codex` CLI
-against the document you have open, edits streaming onto the canvas as
-undoable history entries. No API keys — it uses the agent CLI you are
-already logged into. See [docs/ai-panel.md](docs/ai-panel.md).
+The logo and platform icons are generated from [tools/logo.py](tools/logo.py).
+Edit that source and run `make logos` (requires Pillow) to regenerate them.
 
 ## Documentation
 
-* [docs/architecture.md](docs/architecture.md) — how the pieces fit
-* [docs/gallery.md](docs/gallery.md) — the Picasa-style photo gallery
-* [docs/photo-merging.md](docs/photo-merging.md) — alignment, focus stacking, bracketed HDR and translation-based panoramas
-* [docs/photo-metadata.md](docs/photo-metadata.md) — single/batch metadata editing and portable XMP sidecars
-* [docs/actions.md](docs/actions.md) — record, edit and replay actions on documents and gallery photos
-* [docs/export-recipes.md](docs/export-recipes.md) — saved exports for documents and gallery selections
-* [docs/mask-refinement.md](docs/mask-refinement.md) — refine selection edges and layer masks
-* [docs/plugin-guide.md](docs/plugin-guide.md) — writing plugins
-* [docs/text.md](docs/text.md) — OpenType controls, bidi/vertical writing and text on paths
-* [docs/filter-stacks.md](docs/filter-stacks.md) — editable filters and preserved source pixels
-* [docs/psd-interchange.md](docs/psd-interchange.md) — editable native PSD text and smart filters
-* [docs/native-smart-filters.md](docs/native-smart-filters.md) — Gaussian/Box/Motion Blur, Median, High Pass, Unsharp Mask and adjustable Sharpen interchange
-* [docs/mcp.md](docs/mcp.md) — the MCP server
-* [docs/ai-panel.md](docs/ai-panel.md) — the in-app AI sidebar
-* [docs/quicklook.md](docs/quicklook.md) — the macOS Quick Look extensions
-* [docs/versioning.md](docs/versioning.md) — compatibility and releases
+- **Platforms:** [Browser](docs/web.md), [iOS/iPadOS](docs/ios.md),
+  [Android](docs/android.md), [macOS Quick Look](docs/quicklook.md).
+- **Library and workflows:** [Gallery](docs/gallery.md),
+  [photo metadata](docs/photo-metadata.md), [photo merging](docs/photo-merging.md),
+  [actions](docs/actions.md), [export recipes](docs/export-recipes.md),
+  [Cloud](docs/cloud.md).
+- **Editing:** [Brushes](docs/brushes.md), [symmetry](docs/symmetry-painting.md),
+  [mask refinement](docs/mask-refinement.md), [text](docs/text.md),
+  [smart objects](docs/smart-objects.md), [filter stacks](docs/filter-stacks.md),
+  [filter canvas controls](docs/filter-canvas.md),
+  [native colour](docs/native-colour-editing.md), [spot ink](docs/spot-ink.md).
+- **Interchange:** [PSD/PSB](docs/psd-interchange.md),
+  [native smart filters](docs/native-smart-filters.md),
+  [Affinity](docs/affinity-format.md), [PDN/XCF](docs/layered-formats.md),
+  [RAW](crates/codec-raw/README.md).
+- **Extending Schist:** [Architecture](docs/architecture.md),
+  [plugins](docs/plugin-guide.md), [headless library](docs/library.md),
+  [MCP](docs/mcp.md), [AI panel](docs/ai-panel.md),
+  [shared document engine](docs/document-library.md),
+  [internationalisation](docs/i18n.md), [feature flags](docs/feature-flags.md),
+  [versioning](docs/versioning.md).
+
+Schist is available under the [MIT license](LICENSE).
