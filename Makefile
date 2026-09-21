@@ -299,6 +299,14 @@ check-recordable-actions:
 check-adjustment-refresh:
 	$(CARGO) test -p schist-core --lib
 	$(CARGO) test -p schist-compositor --lib
+
+.PHONY: check-layer-drag bench-layer-drag
+check-layer-drag:
+	$(CARGO) test -p schist-compositor -p schist-tools-basic
+	$(CARGO) check -p schist-editor --all-targets
+bench-layer-drag:
+	$(CARGO) run $(PROFILE_FLAG) -p schist-compositor --example bench_drag
+
 format-recordable-actions:
 	$(CARGO) fmt -p schist-editor -p schist-app-actions
 check-recordable-actions-catalogs:

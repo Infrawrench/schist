@@ -232,6 +232,11 @@ impl Workspace {
         const TW: usize = 36;
         const TH: usize = 28;
         let doc = self.doc.as_ref()?;
+        // Keep panel images stable while the canvas tool owns the pointer.
+        // Leave their revision untouched so release/cancel refreshes them.
+        if self.pointer_down {
+            return self.thumbs.get(&id).map(|(_, image)| image.clone());
+        }
         if let Some((rev, img)) = self.thumbs.get(&id) {
             if *rev == doc.revision {
                 return Some(img.clone());
@@ -311,6 +316,12 @@ impl Workspace {
     pub fn document_thumbnail(&mut self) -> Option<Arc<RenderImage>> {
         const MAX: u32 = 220;
         let doc = self.doc.as_ref()?;
+        // Sampling this tiny image can composite tiles across the entire
+        // document. During a drag that includes off-screen damage on every
+        // frame, competing with the canvas for both CPU and GPU time.
+        if self.pointer_down {
+            return self.nav_thumb.as_ref().map(|(_, image)| image.clone());
+        }
         let revision = doc.revision;
         if let Some((rev, img)) = &self.nav_thumb {
             if *rev == revision {
