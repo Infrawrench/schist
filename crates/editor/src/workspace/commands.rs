@@ -85,6 +85,7 @@ impl Workspace {
         let profile_before = self.doc.as_ref().and_then(|doc| doc.icc_profile.clone());
         let Some(doc) = self.doc.as_mut() else { return };
         let revision_before = doc.revision;
+        let active_layer_before = doc.active_layer;
         let mut succeeded = false;
         if let Some(command) = self.registry.command(id) {
             let mut ctx = CommandCtx {
@@ -108,6 +109,16 @@ impl Workspace {
             log::warn!("unknown command {id}");
         }
         if succeeded {
+            if id.starts_with("edit.paste") {
+                let active_layer = self.doc.as_ref().and_then(|doc| doc.active_layer);
+                if active_layer != active_layer_before {
+                    self.layer_anchor = active_layer;
+                    // A pending row press must not restore the old selection
+                    // when its mouse release arrives after the paste.
+                    self.layer_drag = None;
+                    self.layer_drop = None;
+                }
+            }
             self.record_command_action(id);
         }
         // Undo and redo are plugin commands, so a profile restored by
