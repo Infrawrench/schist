@@ -2,6 +2,16 @@
 use super::*;
 use schist_plugin_api::{BrushPreset, BrushTip};
 
+// Availability here describes host routing, not attached tablet capabilities.
+// The per-sample status below remains unavailable until real data arrives.
+const PEN_TILT_HOST: bool = cfg!(any(
+    target_arch = "wasm32",
+    target_os = "macos",
+    target_os = "windows",
+    target_os = "linux",
+    target_os = "freebsd"
+));
+
 const NAME: &str = "brush-preset-name";
 const POPUP: Popup = Popup::Field("brush-settings");
 
@@ -127,8 +137,8 @@ fn brush_popover(ws: &Workspace, cx: &mut Context<Workspace>) -> impl IntoElemen
                 .gap_2()
                 .child(
                     Button::new("brush-tilt", t("panels.brushes.pen_tilt"))
-                        .active(dynamics.tilt_rotation && cfg!(target_arch = "wasm32"))
-                        .disabled(!cfg!(target_arch = "wasm32"))
+                        .active(dynamics.tilt_rotation && PEN_TILT_HOST)
+                        .disabled(!PEN_TILT_HOST)
                         .on_click(cx.listener(|ws, _e, _w, cx| {
                             ws.editor.brush_dynamics.tilt_rotation =
                                 !ws.editor.brush_dynamics.tilt_rotation;
@@ -136,7 +146,7 @@ fn brush_popover(ws: &Workspace, cx: &mut Context<Workspace>) -> impl IntoElemen
                         })),
                 )
                 .children(
-                    (!cfg!(target_arch = "wasm32"))
+                    (!PEN_TILT_HOST || ws.editor.pen_tilt.is_none())
                         .then(|| div().text_size(px(11.0)).child(t("common.not_available"))),
                 ),
         )

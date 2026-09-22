@@ -25,15 +25,31 @@ in the options bar.
   reached in that stroke, up to the options-bar opacity ceiling. The size curve
   does not change the opacity response.
 * **Rotation → Angle** rotates bitmap and procedural tips clockwise, from −180°
-  to 180°. **Pen tilt** adds the stylus tilt direction to this angle on the web.
-  Browser Pointer Events provide real `tiltX`/`tiltY`; mouse input uses only the
-  manual angle. View rotation is removed so the tip follows the physical pen
-  direction even on a rotated canvas. A vertical pen retains its previous
-  orientation during a stroke.
-  A device without tilt data also uses the manual angle. On native builds,
-  **Pen tilt** is disabled and marked **Not available** because the pinned GPUI
-  event API exposes pressure but does not expose orientation. Native support
-  requires adding that platform data to GPUI; this release does not emulate it.
+  to 180°. **Pen tilt** adds the stylus tilt direction to this angle in the
+  browser and on supported desktop tablet backends. View rotation is removed
+  so the tip follows the physical pen direction even on a rotated canvas.
+  A vertical pen retains its previous orientation during a stroke. Mouse input
+  and missing/invalid orientation use the manual angle; a previous tablet's
+  sample is never reused for a mouse stroke.
+  The control shows **Not available** when the latest canvas sample has no
+  orientation. It can still be enabled in advance on a supported desktop host;
+  that setting is saved in brush presets. iOS/Android keep the control disabled.
+
+Native input comes from GPUI's AppKit tablet-point events, Windows pen pointer
+messages, Wayland tablet-v2 frames, and X11 named absolute tilt valuators with
+known degree units (as supplied by xf86-input-wacom). Windows and Linux deliver
+orientation-only updates even if the pointer does not move. Legacy Wintab-only
+Windows drivers, X11 axes with unknown units, and native mobile orientation are
+not supported. Browser input continues to use real Pointer Events `tiltX` and
+`tiltY`. A circular brush may not visibly change: choose an asymmetric bitmap
+or a narrow procedural tip to see rotation.
+
+These backends have conversion and routing regression coverage, but physical
+macOS/Windows/Linux tablets were unavailable for verification. Before relying
+on a tablet, check the tip direction with the canvas upright and rotated, then
+switch to a mouse and confirm the manual angle is restored. Platform sources,
+axis conventions and GPUI validation are documented in the dependency's
+[pen orientation notes](https://github.com/IAmJSD/gpui/blob/3654a9bb3e5aa6d85c67877ffe0567be1a704c1d/docs/pen-tilt.md).
 
 Type a name and choose **Save** to store the brush parameters, dynamics and
 embedded bitmap mask, including pressure opacity, angle and pen tilt.

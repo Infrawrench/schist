@@ -135,6 +135,7 @@ fn on_press<E: gpui::InteractiveElement>(el: E, handler: PressHandler) -> E {
                 click_count: ev.click_count,
                 first_mouse: false,
                 pressure: ev.pressure,
+                tilt: ev.tilt,
             };
             handler(&press, window, cx)
         })
