@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Espacios de trabajo
+workspaces.manage = Gestionar espacios de trabajo…
+workspaces.painting = Pintura
+workspaces.photo = Revelado fotográfico
+workspaces.retouching = Retoque
+workspaces.current = Distribución actual
+workspaces.help = Guardar como crea una copia con nombre de la distribución actual. Seleccione una distribución guardada para aplicarla, actualizarla, cambiarle el nombre o eliminarla. Los cambios se aplican inmediatamente.
+workspaces.show_panels = Mostrar paneles laterales
+workspaces.automatic = Automático
+workspaces.reset_help = Restablecer solo recupera la distribución predeterminada de los paneles. Se conservan los espacios de trabajo guardados, los documentos y las demás preferencias.
+workspaces.save_error = No se pudieron guardar las preferencias del espacio de trabajo. No se aplicó el cambio.
+workspaces.invalid_name = Introduzca un nombre de 1 a 80 caracteres sin caracteres de control.
+workspaces.duplicate = Ya existe un espacio de trabajo con este nombre.
+workspaces.limit = Puede guardar hasta 64 espacios de trabajo.
+workspaces.keyboard = Teclado: Alt+↑/↓ selecciona una distribución. Ctrl/Cmd+N edita el nombre; +S guarda una copia; +Intro aplica; +U actualiza; +R cambia el nombre; +D elimina; +0 restablece.

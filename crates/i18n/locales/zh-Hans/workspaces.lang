@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = 工作区
+workspaces.manage = 管理工作区…
+workspaces.painting = 绘画
+workspaces.photo = 照片显影
+workspaces.retouching = 修图
+workspaces.current = 当前布局
+workspaces.help = “另存为”创建当前布局的命名副本。选择已保存的布局以应用、更新、重命名或删除。布局更改立即生效。
+workspaces.show_panels = 显示侧边面板
+workspaces.automatic = 自动
+workspaces.reset_help = 重置仅恢复默认面板布局。已保存的工作区、文档和其他偏好设置将保留。
+workspaces.save_error = 无法保存工作区偏好设置。更改未应用。
+workspaces.invalid_name = 请输入包含 1–80 个字符且不含控制字符的名称。
+workspaces.duplicate = 已存在同名工作区。
+workspaces.limit = 最多可保存 64 个工作区。
+workspaces.keyboard = 键盘：Alt+↑/↓ 选择布局。Ctrl/Cmd+N 编辑名称；+S 保存副本；+Enter 应用；+U 更新；+R 重命名；+D 删除；+0 重置。

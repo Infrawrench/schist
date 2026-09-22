@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Arbetsytor
+workspaces.manage = Hantera arbetsytor…
+workspaces.painting = Målning
+workspaces.photo = Fotoframkallning
+workspaces.retouching = Retuschering
+workspaces.current = Aktuell layout
+workspaces.help = Spara som skapar en namngiven kopia av den aktuella layouten. Välj en sparad layout för att använda, uppdatera, byta namn på eller ta bort den. Layoutändringar gäller omedelbart.
+workspaces.show_panels = Visa sidopaneler
+workspaces.automatic = Automatisk
+workspaces.reset_help = Återställ återställer bara panelernas standardlayout. Sparade arbetsytor, dokument och andra inställningar behålls.
+workspaces.save_error = Det gick inte att spara arbetsytans inställningar. Ändringen tillämpades inte.
+workspaces.invalid_name = Ange ett namn med 1–80 tecken utan kontrolltecken.
+workspaces.duplicate = Det finns redan en arbetsyta med detta namn.
+workspaces.limit = Du kan spara upp till 64 arbetsytor.
+workspaces.keyboard = Tangentbord: Alt+↑/↓ väljer en layout. Ctrl/Cmd+N redigerar namnet; +S sparar en kopia; +Enter tillämpar; +U uppdaterar; +R byter namn; +D tar bort; +0 återställer.

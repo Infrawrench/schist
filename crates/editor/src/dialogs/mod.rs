@@ -43,6 +43,7 @@ mod save_image;
 mod size;
 #[cfg(not(sandboxed))]
 mod update;
+mod workspaces;
 
 use adjust::*;
 #[cfg(not(target_arch = "wasm32"))]
@@ -114,6 +115,12 @@ pub fn render(ws: &mut Workspace, cx: &mut Context<Workspace>) -> Option<gpui::A
     // action while it builds, so Enter can fire it.
     ui::reset_default_action();
     let body = match modal {
+        Modal::Workspaces {
+            primary,
+            selected,
+            name,
+            error,
+        } => workspaces::dialog(ws, &state, primary, selected, name, error, cx).into_any_element(),
         #[cfg(not(target_arch = "wasm32"))]
         Modal::PhotoMerge {
             documents,

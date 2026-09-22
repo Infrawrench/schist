@@ -1,6 +1,7 @@
 //! Persisted application preferences and process-wide feature flags.
 pub mod brushes;
 mod feature_flags;
+pub mod workspaces;
 pub use feature_flags::feature_enabled;
 #[cfg(not(target_arch = "wasm32"))]
 use std::path::PathBuf;
@@ -34,6 +35,7 @@ pub fn load_view_options() -> ViewOptions {
     prefs_path()
         .and_then(|p| std::fs::read_to_string(p).ok())
         .and_then(|text| serde_json::from_str(&text).ok())
+        .map(workspaces::sanitize_view)
         .unwrap_or_default()
 }
 
@@ -41,6 +43,7 @@ pub fn load_view_options() -> ViewOptions {
 pub fn load_view_options() -> ViewOptions {
     schist_app_platform::web::local_get(schist_app_platform::web::PREFS_KEY)
         .and_then(|text| serde_json::from_str(&text).ok())
+        .map(workspaces::sanitize_view)
         .unwrap_or_default()
 }
 
@@ -111,8 +114,8 @@ pub struct ViewOptions {
     /// Draw note markers (View ▸ Notes, Photoshop's Show ▸ Notes).
     #[serde(default = "default_true")]
     pub notes: bool,
-    /// The navigator/colour/layers/history column. Always shown on the
-    /// desktop; the touch chrome has a button to fold it away, and on a
+    /// The navigator/colour/layers/history column. Shown on the
+    /// desktop by default; the touch chrome has a button to fold it away, and on a
     /// phone-width window the toggle switches between it and the canvas.
     #[serde(default = "default_true")]
     pub side_panels: bool,
@@ -120,6 +123,12 @@ pub struct ViewOptions {
     /// preferences forwards-compatible when panels are added or removed.
     #[serde(default = "default_side_panel_order")]
     pub side_panel_order: Vec<String>,
+    #[serde(default)]
+    pub hidden_panels: Vec<String>,
+    #[serde(default)]
+    pub panel_width: Option<f32>,
+    #[serde(default, deserialize_with = "workspaces::deserialize_presets")]
+    pub workspaces: workspaces::WorkspacePresets,
     /// User-chosen heights for docked panels. Missing entries retain their
     /// natural/flexible size, so an upgrade does not freeze the whole dock.
     #[serde(default)]
@@ -229,6 +238,9 @@ impl Default for ViewOptions {
             notes: true,
             side_panels: true,
             side_panel_order: default_side_panel_order(),
+            hidden_panels: Vec::new(),
+            panel_width: None,
+            workspaces: Default::default(),
             side_panel_heights: Default::default(),
             note_author: default_note_author(),
             note_color: default_note_color(),
@@ -247,20 +259,23 @@ impl Default for ViewOptions {
 
 /// Persist view options so they survive a restart.
 pub fn save_view_options(view: &ViewOptions) {
+    if let Err(error) = try_save_view_options(view) {
+        log::warn!("Saving preferences failed: {error}");
+    }
+}
+
+/// Checked, atomic persistence used before committing workspace edits in memory.
+pub fn try_save_view_options(view: &ViewOptions) -> Result<(), String> {
+    let error = || schist_i18n::t("workspaces.save_error").to_owned();
+    let json = serde_json::to_string_pretty(view).map_err(|_| error())?;
     #[cfg(target_arch = "wasm32")]
     {
-        if let Ok(json) = serde_json::to_string(view) {
-            schist_app_platform::web::local_set(schist_app_platform::web::PREFS_KEY, &json);
-        }
+        schist_app_platform::web::local_set_checked(schist_app_platform::web::PREFS_KEY, &json)
+            .map_err(|_| error())
     }
     #[cfg(not(target_arch = "wasm32"))]
     {
-        let Some(path) = prefs_path() else { return };
-        if let Some(dir) = path.parent() {
-            let _ = std::fs::create_dir_all(dir);
-        }
-        if let Ok(json) = serde_json::to_string_pretty(view) {
-            let _ = std::fs::write(path, json);
-        }
+        let path = prefs_path().ok_or_else(error)?;
+        workspaces::atomic_write(&path, json.as_bytes()).map_err(|_| error())
     }
 }

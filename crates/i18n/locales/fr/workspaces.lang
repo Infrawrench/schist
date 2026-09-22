@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Espaces de travail
+workspaces.manage = Gérer les espaces de travail…
+workspaces.painting = Peinture
+workspaces.photo = Développement photo
+workspaces.retouching = Retouche
+workspaces.current = Disposition actuelle
+workspaces.help = Enregistrer sous crée une copie nommée de la disposition actuelle. Sélectionnez une disposition enregistrée pour l’appliquer, la mettre à jour, la renommer ou la supprimer. Les modifications prennent effet immédiatement.
+workspaces.show_panels = Afficher les panneaux latéraux
+workspaces.automatic = Automatique
+workspaces.reset_help = Réinitialiser restaure uniquement la disposition par défaut des panneaux. Les espaces de travail enregistrés, les documents et les autres préférences sont conservés.
+workspaces.save_error = Impossible d’enregistrer les préférences de l’espace de travail. La modification n’a pas été appliquée.
+workspaces.invalid_name = Saisissez un nom de 1 à 80 caractères sans caractères de contrôle.
+workspaces.duplicate = Un espace de travail porte déjà ce nom.
+workspaces.limit = Vous pouvez enregistrer jusqu’à 64 espaces de travail.
+workspaces.keyboard = Clavier : Alt+↑/↓ sélectionne une disposition. Ctrl/Cmd+N modifie le nom ; +S enregistre une copie ; +Entrée applique ; +U met à jour ; +R renomme ; +D supprime ; +0 réinitialise.

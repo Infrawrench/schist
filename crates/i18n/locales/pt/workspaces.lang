@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Espaços de trabalho
+workspaces.manage = Gerir espaços de trabalho…
+workspaces.painting = Pintura
+workspaces.photo = Revelação fotográfica
+workspaces.retouching = Retoque
+workspaces.current = Disposição atual
+workspaces.help = Guardar como cria uma cópia com nome da disposição atual. Selecione uma disposição guardada para a aplicar, atualizar, renomear ou eliminar. As alterações são aplicadas imediatamente.
+workspaces.show_panels = Mostrar painéis laterais
+workspaces.automatic = Automático
+workspaces.reset_help = Repor restaura apenas a disposição predefinida dos painéis. Os espaços de trabalho guardados, os documentos e as outras preferências são mantidos.
+workspaces.save_error = Não foi possível guardar as preferências do espaço de trabalho. A alteração não foi aplicada.
+workspaces.invalid_name = Introduza um nome de 1 a 80 caracteres sem caracteres de controlo.
+workspaces.duplicate = Já existe um espaço de trabalho com este nome.
+workspaces.limit = Pode guardar até 64 espaços de trabalho.
+workspaces.keyboard = Teclado: Alt+↑/↓ seleciona uma disposição. Ctrl/Cmd+N edita o nome; +S guarda uma cópia; +Enter aplica; +U atualiza; +R renomeia; +D elimina; +0 repõe.
