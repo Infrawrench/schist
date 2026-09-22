@@ -49,7 +49,7 @@ macOS/Windows/Linux tablets were unavailable for verification. Before relying
 on a tablet, check the tip direction with the canvas upright and rotated, then
 switch to a mouse and confirm the manual angle is restored. Platform sources,
 axis conventions and GPUI validation are documented in the dependency's
-[pen orientation notes](https://github.com/IAmJSD/gpui/blob/3654a9bb3e5aa6d85c67877ffe0567be1a704c1d/docs/pen-tilt.md).
+[pen orientation notes](https://github.com/IAmJSD/gpui/blob/0f78678d38c244cc20540f190877d4573be58c9b/docs/pen-tilt.md).
 
 Type a name and choose **Save** to store the brush parameters, dynamics and
 embedded bitmap mask, including pressure opacity, angle and pen tilt.
