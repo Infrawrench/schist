@@ -1,7 +1,8 @@
 //! Bounded, cancellable translation registration and photographic merging.
 //! Inputs and display outputs are straight-alpha sRGB; HDR is reconstructed
 //! in linear light, optionally mapped with a luminance-based Reinhard curve.
-//! No rotation, perspective, lens-distortion or moving-subject correction.
+//! Optional projective alignment, cylindrical projection and HDR motion rejection.
+pub mod geometry;
 
 use std::sync::atomic::{AtomicBool, AtomicUsize, Ordering};
 
@@ -73,6 +74,11 @@ pub struct Options {
     /// scene radiance for a 32-bit document instead of discarding highlights.
     pub tone_map: bool,
     pub feather: u32,
+    pub projective: bool,
+    pub cylindrical: bool,
+    /// Focal length divided by image width, in pixels.
+    pub focal_ratio: f32,
+    pub deghost: bool,
 }
 
 impl Default for Options {
@@ -86,6 +92,10 @@ impl Default for Options {
             tone_ev: 0.0,
             tone_map: true,
             feather: 64,
+            projective: false,
+            cylindrical: false,
+            focal_ratio: 1.0,
+            deghost: false,
         }
     }
 }
@@ -131,8 +141,13 @@ pub struct Output {
     pub height: u32,
     /// Source top-left positions in the output canvas.
     pub offsets: Vec<Offset>,
-    /// Alignment returns positions only so callers can retain separate layers.
+    /// Translation alignment returns positions only; projective alignment also
+    /// supplies resampled sources so callers can retain separate layers.
     pub merged: Option<Image>,
+    /// Resampled sources for projective alignment or cylindrical panoramas.
+    pub sources: Option<Vec<Image>>,
+    /// One source index per output pixel; 255 means transparent.
+    pub focus_selection: Option<Vec<u8>>,
 }
 
 fn alloc<T: Clone>(len: usize, value: T) -> Result<Vec<T>, Error> {
@@ -303,7 +318,12 @@ pub fn register(
         step /= 2;
     }
     let best = beam[0];
-    if best.1 < 0.65 {
+    if best.1 < 0.65
+        || beam.iter().skip(1).any(|(offset, score)| {
+            *score > best.1 - 0.00001
+                && (offset.x - best.0.x).abs().max((offset.y - best.0.y).abs()) > 4
+        })
+    {
         Err(Error::NoMatch)
     } else {
         Ok(best)
@@ -341,12 +361,25 @@ fn bounds(images: &[Image], offsets: &[Offset], crop: bool) -> Result<(i32, i32,
 /// focus maps and registration pyramids; output dimensions are checked again
 /// after registration, before allocating the panorama canvas.
 pub fn merge(images: &[Image], options: &Options, control: &Control) -> Result<Output, Error> {
+    merge_inner(images, options, control, false)
+}
+
+fn merge_inner(
+    images: &[Image],
+    options: &Options,
+    control: &Control,
+    prepared: bool,
+) -> Result<Output, Error> {
     control.check()?;
     if !(2..=MAX_IMAGES).contains(&images.len())
         || !(1..=16).contains(&options.focus_radius)
         || !options.tone_ev.is_finite()
         || options.tone_ev.abs() > 12.0
         || options.feather > 4096
+        || !options.focal_ratio.is_finite()
+        || !(0.3..=5.0).contains(&options.focal_ratio)
+        || (options.projective && options.mode == Mode::Panorama)
+        || (options.cylindrical && options.mode != Mode::Panorama)
     {
         return Err(Error::Invalid);
     }
@@ -356,6 +389,13 @@ pub fn merge(images: &[Image], options: &Options, control: &Control) -> Result<O
         total = total
             .checked_add(pixels(image.width, image.height)?)
             .ok_or(Error::TooLarge)?;
+    }
+    if options.cylindrical
+        && images
+            .iter()
+            .any(|image| image.width != images[0].width || image.height != images[0].height)
+    {
+        return Err(Error::Invalid);
     }
     if total > MAX_TOTAL_PIXELS {
         return Err(Error::TooLarge);
@@ -369,10 +409,18 @@ pub fn merge(images: &[Image], options: &Options, control: &Control) -> Result<O
     {
         return Err(Error::Invalid);
     }
+    if !prepared && (options.projective || options.cylindrical) {
+        let sources = geometry::prepare(images, options, control)?;
+        let mut output = merge_inner(&sources, options, control, true)?;
+        output.sources = Some(sources);
+        return Ok(output);
+    }
     let mut offsets = vec![Offset::default()];
     for i in 1..images.len() {
         control.check()?;
-        let offset = if options.align || matches!(options.mode, Mode::Align | Mode::Panorama) {
+        let offset = if !(prepared && options.projective)
+            && (options.align || matches!(options.mode, Mode::Align | Mode::Panorama))
+        {
             let reference = if options.mode == Mode::Panorama {
                 i - 1
             } else {
@@ -410,9 +458,16 @@ pub fn merge(images: &[Image], options: &Options, control: &Control) -> Result<O
             height,
             offsets,
             merged: None,
+            sources: None,
+            focus_selection: None,
         });
     }
     let mut rgba = alloc(pixels(width, height)? * 4, 0.0f32)?;
+    let mut selection = if options.mode == Mode::Focus {
+        Some(alloc(pixels(width, height)?, 255u8)?)
+    } else {
+        None
+    };
     let mut focus = Vec::new();
     if options.mode == Mode::Focus {
         for (index, image) in images.iter().enumerate() {
@@ -430,7 +485,42 @@ pub fn merge(images: &[Image], options: &Options, control: &Control) -> Result<O
             let mut best_focus = -1.0;
             let mut fallback = [0.0f32; 3];
             let mut fallback_weight = [0.0f32; 3];
+            let reference = images[0]
+                .at(x - offsets[0].x, y - offsets[0].y)
+                .filter(|p| p[3] > 0.0);
+            let moving = options.mode == Mode::Hdr
+                && options.deghost
+                && reference.is_some_and(|r| {
+                    images
+                        .iter()
+                        .zip(&offsets)
+                        .enumerate()
+                        .skip(1)
+                        .any(|(i, (im, o))| {
+                            im.at(x - o.x, y - o.y).is_some_and(|p| {
+                                p[3] > 0.0
+                                    && (0..3).any(|c| {
+                                        if !(0.03..0.97).contains(&r[c])
+                                            || !(0.03..0.97).contains(&p[c])
+                                        {
+                                            return false;
+                                        }
+                                        // Use the reference capture's scale so
+                                        // a common EV offset cannot disable
+                                        // motion detection via its noise floor.
+                                        let a = srgb_to_linear(r[c]);
+                                        let b = srgb_to_linear(p[c])
+                                            / (options.exposure_ev[i] - options.exposure_ev[0])
+                                                .exp2();
+                                        (a - b).abs() > 0.02 + 0.25 * a.max(b)
+                                    })
+                            })
+                        })
+                });
             for (i, (image, offset)) in images.iter().zip(&offsets).enumerate() {
+                if moving && i != 0 {
+                    continue;
+                }
                 let sx = x - offset.x;
                 let sy = y - offset.y;
                 let Some(p) = image.at(sx, sy) else {
@@ -447,6 +537,8 @@ pub fn merge(images: &[Image], options: &Options, control: &Control) -> Result<O
                         if score > best_focus || (score == best_focus && p[3] > dst[3]) {
                             dst.copy_from_slice(p);
                             best_focus = score;
+                            selection.as_mut().unwrap()[y as usize * width as usize + x as usize] =
+                                i as u8;
                         }
                     }
                     Mode::Panorama => {
@@ -513,6 +605,8 @@ pub fn merge(images: &[Image], options: &Options, control: &Control) -> Result<O
         width,
         height,
         offsets,
+        sources: None,
+        focus_selection: selection,
         merged: Some(Image {
             width,
             height,

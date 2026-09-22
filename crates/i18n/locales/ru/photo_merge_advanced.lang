@@ -1,0 +1,8 @@
+# Translation draft; not reviewed by a native speaker.
+photo_merge_advanced.projective = Выравнивание перспективы (включая поворот)
+photo_merge_advanced.cylindrical = Цилиндрическая панорама
+photo_merge_advanced.deghost = Устранить двоение движущихся объектов (первое фото — опорное)
+photo_merge_advanced.focal = Фокусное расстояние (px) / ширина изображения (px)
+photo_merge_advanced.masks = Результат использует редактируемые маски слоёв. Выберите маску в панели слоёв и уточните её кистью.
+photo_merge_advanced.no_match = Надёжное выравнивание не найдено. Используйте снимки с выраженной текстурой, большим перекрытием и небольшими изменениями точки съёмки.
+photo_merge_advanced.invalid = Недопустимые исходные изображения или настройки объединения.

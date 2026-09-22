@@ -1,0 +1,8 @@
+# Translation draft; not reviewed by a native speaker.
+photo_merge_advanced.projective = 원근 정렬 (회전 포함)
+photo_merge_advanced.cylindrical = 원통형 파노라마
+photo_merge_advanced.deghost = 움직이는 피사체의 고스트 제거 (첫 번째 사진 기준)
+photo_merge_advanced.focal = 초점 거리 (px) / 이미지 너비 (px)
+photo_merge_advanced.masks = 결과에 편집 가능한 레이어 마스크가 사용됩니다. 레이어 패널에서 마스크를 선택하고 칠하여 다듬으세요.
+photo_merge_advanced.no_match = 신뢰할 수 있는 정렬을 찾지 못했습니다. 질감이 뚜렷하고 충분히 겹치며 시점 변화가 작은 사진을 사용하세요.
+photo_merge_advanced.invalid = 원본 이미지 또는 병합 설정이 잘못되었습니다.
