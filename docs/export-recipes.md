@@ -51,3 +51,55 @@ Catalog validation checks keys, placeholders, locale aliases, and font coverage.
 
 Run `make check-export-recipes` for rendering, actual codec, depth, source preservation,
 filename safety, gallery-sidecar, and partial-failure regression tests.
+
+## Output finishing
+
+Each output also saves its own finishing settings. Leave **Text watermark** empty to
+omit a watermark. Enter text to shape it using Schist's font engine and available fonts;
+choose black or white, opacity, and a corner or center position. Size is an em size as a
+percentage of the final image's shorter edge. Long text wraps and scales down to fit.
+Margins are 2.5% of the shorter edge. Font fallback can differ between machines; the
+browser uses its loaded fonts. A watermark is flattened into exported pixels, never
+added to the original document. Image-logo watermarks are not part of this workflow.
+
+**Sharpening** applies a one-pixel-radius unsharp mask after resizing, from 0% (off) to
+200%. It leaves alpha unchanged and weights the blur by alpha so transparent colors do
+not create halos. The watermark is applied after sharpening.
+
+**Convert to Profile** defaults to **Original**, preserving the existing RGB profile.
+sRGB and Display P3 rewrite pixel values and embed the target ICC profile. **Browse…**
+under this control imports a custom RGB ICC profile on native platforms (maximum 4 MiB).
+The profile's bytes are saved in the recipe, so deleting its source file does not break
+later runs. CMYK, Lab, grayscale, and invalid targets are rejected. Existing CMYK/Lab
+source composites enter the finishing pipeline as sRGB. Conversion uses relative
+colorimetric intent. Untagged RGB uses the application working profile captured when the
+job starts; native CMYK/Lab composites use sRGB. The working profile is runtime context,
+not a saved recipe setting. Browser recipes can use saved custom profiles, but the browser UI
+currently offers only the built-in choices and already embedded profiles.
+
+**Photo metadata** has two explicit allowlist choices: **None** (the backward-compatible
+default) omits descriptive metadata; **Copyright** includes only copyright. Both omit
+GPS, capture time, camera information, keywords, captions, thumbnails, and other EXIF/XMP
+fields. ICC color profiles remain embedded independently of this descriptive metadata
+setting. Enter a copyright value to override the source, or leave it blank to retain the
+original capture's EXIF copyright or XMP sidecar rights. XMP rights take precedence,
+including an explicit empty rights field. Embedded XMP rights in PNG, JPEG, WebP, and TIFF
+also take precedence over EXIF copyright. Other source formats rely on readable EXIF or
+an XMP sidecar. A malformed or ambiguous XMP sidecar fails
+that copyright-preserving output instead of silently omitting rights. Outputs that strip
+metadata or supply their own copyright can still succeed. Browser documents and new
+untitled documents need an explicit copyright value because they have no readable
+original path. Full EXIF/XMP preservation is intentionally unavailable.
+
+Copyright is embedded as UTF-8 XMP `dc:rights` into the actual PNG, JPEG, WebP, or TIFF
+file, without copying an opaque source packet. TIFF RGB source reads explicitly preserve
+embedded ICC profiles so subsequent target-profile conversion uses the correct source color space. XML escaping preserves Unicode names and
+prevents text from injecting extra properties. The encoder container adjustments follow the
+[PNG iTXt specification](https://www.w3.org/TR/png-3/#11iTXt) and
+[WebP container specification](https://developers.google.com/speed/webp/docs/riff_container).
+
+
+Finishing settings are optional fields in the version-1 recipe library. Existing
+recipes retain their previous behavior. New UI labels reuse existing catalogs except
+`export_finishing.watermark`; its catalog files explicitly identify English fallbacks
+pending translation review. Structural validation does not certify translation quality.

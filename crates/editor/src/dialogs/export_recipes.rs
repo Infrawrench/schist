@@ -1,6 +1,8 @@
 //! Saved recipes, with one output's controls visible at a time.
 use super::*;
-use crate::export_recipes::{Editor, Output, Recipe, Scope, FLAT_CODECS, MAX_OUTPUTS};
+use crate::export_recipes::{
+    Editor, Output, Placement, Recipe, Scope, TargetProfile, FLAT_CODECS, MAX_OUTPUTS,
+};
 use schist_i18n::tf;
 
 fn field(
@@ -315,6 +317,202 @@ pub(super) fn export_recipes_dialog(
         ));
     } else if output.codec == "codec.webp" {
         body = body.child(t("export_recipes.lossless_webp"));
+    }
+    body = body.child(ui::field_row(
+        t("export_finishing.watermark"),
+        field(state, "recipe-watermark", output.finishing.text.clone(), cx),
+    ));
+    for (id, label, value, min, max) in [
+        (
+            "recipe-watermark-size",
+            t("common.size"),
+            output.finishing.text_size,
+            0.5,
+            25.0,
+        ),
+        (
+            "recipe-watermark-opacity",
+            t("common.opacity"),
+            output.finishing.opacity * 100.0,
+            0.0,
+            100.0,
+        ),
+        (
+            "recipe-sharpen",
+            t("filter.camera_raw.param.sharpening"),
+            output.finishing.sharpen * 100.0,
+            0.0,
+            200.0,
+        ),
+    ] {
+        body = body.child(param_slider(
+            SliderSpec {
+                id,
+                label,
+                value,
+                min,
+                max,
+                suffix: "%",
+                ..Default::default()
+            },
+            move |ws, value, _cx| {
+                edit(ws, |editor| {
+                    let finishing = &mut editor.draft.outputs[editor.output].finishing;
+                    match id {
+                        "recipe-watermark-size" => finishing.text_size = value,
+                        "recipe-watermark-opacity" => finishing.opacity = value / 100.0,
+                        _ => finishing.sharpen = value / 100.0,
+                    }
+                })
+            },
+            cx,
+        ));
+    }
+    body = body.child(ui::field_row(
+        t("common.position"),
+        ui::dropdown(
+            &ws.dropdown,
+            ui::Dropdown {
+                popup: Popup::Field("recipe-watermark-position"),
+                is_open: state.open_popup == Some(Popup::Field("recipe-watermark-position")),
+                current: output.finishing.placement,
+                label: output.finishing.placement.label().into(),
+                width: 250.0,
+                options: [
+                    Placement::TopLeft,
+                    Placement::TopRight,
+                    Placement::Center,
+                    Placement::BottomLeft,
+                    Placement::BottomRight,
+                ]
+                .into_iter()
+                .map(|p| (p.label().into(), p))
+                .collect(),
+            },
+            |ws, value, _cx| {
+                edit(ws, |editor| {
+                    editor.draft.outputs[editor.output].finishing.placement = value
+                })
+            },
+            cx,
+        ),
+    ));
+    body = body.child(ui::field_row(
+        t("common.color"),
+        ui::dropdown(
+            &ws.dropdown,
+            ui::Dropdown {
+                popup: Popup::Field("recipe-watermark-color"),
+                is_open: state.open_popup == Some(Popup::Field("recipe-watermark-color")),
+                current: output.finishing.white,
+                label: t(if output.finishing.white {
+                    "common.white"
+                } else {
+                    "common.black"
+                })
+                .into(),
+                width: 250.0,
+                options: vec![
+                    (t("common.white").into(), true),
+                    (t("common.black").into(), false),
+                ],
+            },
+            |ws, value, _cx| {
+                edit(ws, |editor| {
+                    editor.draft.outputs[editor.output].finishing.white = value
+                })
+            },
+            cx,
+        ),
+    ));
+    let mut profiles: Vec<_> = [
+        TargetProfile::Original,
+        TargetProfile::Srgb,
+        TargetProfile::DisplayP3,
+    ]
+    .into_iter()
+    .map(|p| (p.label().into(), p))
+    .collect();
+    if !output.finishing.custom_icc.is_empty() {
+        profiles.push((
+            output.finishing.custom_name.clone().into(),
+            TargetProfile::Custom,
+        ));
+    }
+    let profile_label: SharedString = if output.finishing.profile == TargetProfile::Custom {
+        output.finishing.custom_name.clone().into()
+    } else {
+        output.finishing.profile.label().into()
+    };
+    body = body.child(ui::field_row(
+        t("dialog.profile.convert_title"),
+        ui::dropdown(
+            &ws.dropdown,
+            ui::Dropdown {
+                popup: Popup::Field("recipe-profile"),
+                is_open: state.open_popup == Some(Popup::Field("recipe-profile")),
+                current: output.finishing.profile,
+                label: profile_label,
+                width: 250.0,
+                options: profiles,
+            },
+            |ws, value, _cx| {
+                edit(ws, |editor| {
+                    editor.draft.outputs[editor.output].finishing.profile = value
+                })
+            },
+            cx,
+        ),
+    ));
+    #[cfg(not(target_arch = "wasm32"))]
+    {
+        body = body.child(ui::button(
+            t("common.browse"),
+            false,
+            |ws, window, cx| ws.choose_recipe_profile(window, cx),
+            cx,
+        ));
+    }
+    body = body.child(ui::field_row(
+        t("metadata.title"),
+        ui::dropdown(
+            &ws.dropdown,
+            ui::Dropdown {
+                popup: Popup::Field("recipe-metadata"),
+                is_open: state.open_popup == Some(Popup::Field("recipe-metadata")),
+                current: output.finishing.retain_copyright,
+                label: t(if output.finishing.retain_copyright {
+                    "metadata.copyright"
+                } else {
+                    "common.none"
+                })
+                .into(),
+                width: 250.0,
+                options: vec![
+                    (t("common.none").into(), false),
+                    (t("metadata.copyright").into(), true),
+                ],
+            },
+            |ws, value, _cx| {
+                edit(ws, |editor| {
+                    editor.draft.outputs[editor.output]
+                        .finishing
+                        .retain_copyright = value
+                })
+            },
+            cx,
+        ),
+    ));
+    if output.finishing.retain_copyright {
+        body = body.child(ui::field_row(
+            t("metadata.copyright"),
+            field(
+                state,
+                "recipe-copyright",
+                output.finishing.copyright.clone(),
+                cx,
+            ),
+        ));
     }
     if let Some(error) = editor.error {
         body = body.child(

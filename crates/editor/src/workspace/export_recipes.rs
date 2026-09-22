@@ -123,13 +123,93 @@ impl Workspace {
             .detach();
         }
     }
+    #[cfg(not(target_arch = "wasm32"))]
+    pub fn choose_recipe_profile(&mut self, window: &mut Window, cx: &mut Context<Self>) {
+        self.commit_focused_field();
+        let Some(Modal::ExportRecipes { editor }) = self.modal.clone() else {
+            return;
+        };
+        let session = editor.session.clone();
+        let index = editor.output;
+        let selected = editor.selected;
+        let name = editor.draft.name.clone();
+        let old = editor.draft.outputs[index].clone();
+        let rx = self.prompt_for_paths(
+            gpui::PathPromptOptions {
+                files: true,
+                directories: false,
+                multiple: false,
+                prompt: Some(t("common.color_profile").into()),
+            },
+            cx,
+        );
+        #[cfg(target_os = "android")]
+        if matches!(self.modal, Some(Modal::FilePicker)) {
+            self.modal_stack.push(Modal::ExportRecipes { editor });
+        }
+        cx.spawn_in(window, async move |this, cx| {
+            let Ok(Ok(Some(paths))) = rx.await else {
+                return;
+            };
+            let Some(path) = paths.into_iter().next() else {
+                return;
+            };
+            let loaded = cx
+                .background_executor()
+                .spawn(async move {
+                    use std::io::Read as _;
+                    let mut bytes = Vec::new();
+                    std::fs::File::open(&path)?
+                        .take(4 * 1024 * 1024 + 1)
+                        .read_to_end(&mut bytes)?;
+                    anyhow::ensure!(bytes.len() <= 4 * 1024 * 1024, "{}", t("metadata.invalid"));
+                    let profile = schist_colormgmt::Profile::from_bytes(&bytes)?;
+                    profile.validate_mode(schist_color::ColorMode::Rgb)?;
+                    Ok::<_, anyhow::Error>((
+                        bytes,
+                        path.file_name()
+                            .unwrap_or_default()
+                            .to_string_lossy()
+                            .into_owned(),
+                    ))
+                })
+                .await;
+            this.update_in(cx, |ws, _window, cx| {
+                let Some(Modal::ExportRecipes { editor }) = ws.modal.as_mut() else {
+                    return;
+                };
+                if !Arc::ptr_eq(&session, &editor.session)
+                    || editor.selected != selected
+                    || editor.draft.name != name
+                    || editor.output != index
+                    || editor.draft.outputs.get(index) != Some(&old)
+                {
+                    return;
+                }
+                match loaded {
+                    Ok((bytes, name)) => {
+                        let finishing = &mut editor.draft.outputs[index].finishing;
+                        finishing.custom_icc = bytes;
+                        finishing.custom_name = name;
+                        finishing.profile = recipes::TargetProfile::Custom;
+                        editor.error = None;
+                    }
+                    Err(error) => editor.error = Some(tf!("export_recipes.failed", error = error)),
+                }
+                cx.notify();
+            })
+            .ok();
+        })
+        .detach();
+    }
     pub fn run_export_recipe(&mut self, cx: &mut Context<Self>) {
         if !self.save_export_recipe(cx) {
             return;
         }
-        let Some(Modal::ExportRecipes { editor }) = self.modal.clone() else {
+        let Some(Modal::ExportRecipes { mut editor }) = self.modal.clone() else {
             return;
         };
+        editor.draft.working_icc = self.color.working.icc_bytes().map(<[u8]>::to_vec);
         if !editor.cloud_assets.is_empty() {
             self.cloud_run_recipe(editor.cloud_assets, editor.draft, cx);
             return;
@@ -163,7 +243,15 @@ impl Workspace {
             }
         }
         let document = if editor.photos.is_empty() {
-            self.doc.as_ref().map(recipes::snapshot)
+            self.doc.as_ref().map(|doc| {
+                #[allow(unused_mut)] // Only native gallery documents have a separate capture path.
+                let mut snapshot = recipes::snapshot(doc);
+                #[cfg(not(target_arch = "wasm32"))]
+                if let Some(original) = self.library.edit_backings.get(&doc.id) {
+                    snapshot.path = Some(original.clone());
+                }
+                snapshot
+            })
         } else {
             None
         };
@@ -313,6 +401,7 @@ fn export_source(
                 .unwrap_or_else(|| path.clone());
             super::decode_file(codecs, &source)
                 .map(|mut doc| {
+                    doc.path = Some(path.clone());
                     // The original's name remains the recipe's naming base even when decoding an edit.
                     doc.title = path
                         .file_name()
@@ -353,9 +442,19 @@ fn export_document(
         .file_stem()
         .unwrap_or_default()
         .to_string_lossy();
+    let source_copyright = source_copyright(doc, recipe);
     for (region, rect) in regions {
         for (index, output) in recipe.outputs.iter().enumerate() {
             let result = (|| -> anyhow::Result<()> {
+                let copyright =
+                    if output.finishing.retain_copyright && output.finishing.copyright.is_empty() {
+                        source_copyright
+                            .as_ref()
+                            .map_err(|error| anyhow::anyhow!(error.to_string()))?
+                            .as_str()
+                    } else {
+                        ""
+                    };
                 let codec = codecs
                     .iter()
                     .find(|codec| codec.id() == output.codec && codec.can_export())
@@ -369,7 +468,16 @@ fn export_document(
                     codec.extensions().first().copied().ok_or_else(|| {
                         anyhow::anyhow!("{}", t("export_recipes.invalid_extension"))
                     })?;
-                let flat = recipes::render(doc, rect, output);
+                let mut flat = recipes::render(doc, rect, output);
+                if flat.icc_profile.is_none()
+                    && !matches!(
+                        doc.mode,
+                        schist_color::ColorMode::Cmyk | schist_color::ColorMode::Lab
+                    )
+                {
+                    flat.icc_profile = recipe.working_icc.clone();
+                }
+                output.finishing.apply(&mut flat)?;
                 let stem = output.filename(&name, &region, flat.width, flat.height, index + 1)?;
                 let bytes = codec.export_with(
                     &flat,
@@ -385,6 +493,7 @@ fn export_document(
                         ..Default::default()
                     },
                 )?;
+                let bytes = output.finishing.metadata(&output.codec, bytes, copyright)?;
                 write(&stem, extension, &bytes)
             })();
             match result {
@@ -394,6 +503,28 @@ fn export_document(
         }
     }
     report
+}
+
+fn source_copyright(doc: &Document, recipe: &Recipe) -> anyhow::Result<String> {
+    if !recipe
+        .outputs
+        .iter()
+        .any(|o| o.finishing.retain_copyright && o.finishing.copyright.is_empty())
+    {
+        return Ok(String::new());
+    }
+    #[cfg(not(target_arch = "wasm32"))]
+    if let Some(path) = doc.path.as_deref() {
+        let capture = schist_gallery::capture_original(path);
+        let path = capture.as_path();
+        // XMP rights explicitly override EXIF, including an explicitly empty value.
+        if let Some(copyright) = schist_gallery::xmp::copyright(path)? {
+            return Ok(copyright);
+        }
+        return Ok(schist_gallery::copyright_of(path).unwrap_or_default());
+    }
+    let _ = doc;
+    Ok(String::new())
 }
 
 #[cfg(all(test, not(target_arch = "wasm32")))]
@@ -434,6 +565,164 @@ mod tests {
         assert_eq!(
             image::guess_format(&bytes).unwrap(),
             image::ImageFormat::Png
+        );
+    }
+    #[test]
+    fn untagged_rgb_uses_captured_working_profile_for_conversion() {
+        let doc = document("working", 4, 2);
+        let mut recipe = Recipe {
+            working_icc: schist_colormgmt::Profile::display_p3()
+                .icc_bytes()
+                .map(<[u8]>::to_vec),
+            outputs: vec![recipes::Output {
+                finishing: recipes::Finishing {
+                    profile: recipes::TargetProfile::Srgb,
+                    ..Default::default()
+                },
+                ..Default::default()
+            }],
+            ..Default::default()
+        };
+        let codecs: Vec<Arc<dyn CodecPlugin>> = vec![Arc::new(schist_codecs_common::PngCodec)];
+        let mut p3 = None;
+        let report = export_document(&doc, &recipe, &codecs, |_, _, bytes| {
+            p3 = Some(image::load_from_memory(bytes).unwrap().to_rgba8());
+            Ok(())
+        });
+        assert_eq!(report.failed, 0);
+        recipe.working_icc = schist_colormgmt::Profile::srgb()
+            .icc_bytes()
+            .map(<[u8]>::to_vec);
+        let mut srgb = None;
+        let report = export_document(&doc, &recipe, &codecs, |_, _, bytes| {
+            srgb = Some(image::load_from_memory(bytes).unwrap().to_rgba8());
+            Ok(())
+        });
+        assert_eq!(report.failed, 0);
+        assert_ne!(p3.unwrap().as_raw(), srgb.unwrap().as_raw());
+        assert!(doc.icc_profile.is_none());
+        let persisted = serde_json::to_string(&recipe).unwrap();
+        assert!(!persisted.contains("working_icc"));
+    }
+    #[test]
+    fn gallery_recipe_retains_xmp_copyright_while_omitting_location() {
+        let dir = tempfile::tempdir().unwrap();
+        let source = dir.path().join("source.png");
+        let original = schist_codecs_common::PngCodec
+            .export(&document("source", 32, 16))
+            .unwrap();
+        std::fs::write(&source, &original).unwrap();
+        schist_gallery::xmp::write(
+            &source,
+            &schist_gallery::xmp::Patch {
+                copyright: Some("© Rights holder".into()),
+                gps: Some(Some((51.5, -0.1))),
+                ..Default::default()
+            },
+        )
+        .unwrap();
+        let mut recipe = Recipe {
+            destination: dir.path().into(),
+            outputs: vec![recipes::Output {
+                template: "published".into(),
+                finishing: recipes::Finishing {
+                    retain_copyright: true,
+                    ..Default::default()
+                },
+                ..Default::default()
+            }],
+            ..Default::default()
+        };
+        let codecs: Vec<Arc<dyn CodecPlugin>> = vec![Arc::new(schist_codecs_common::PngCodec)];
+        let report = export_source(Source::Photo(source.clone()), &recipe, &codecs);
+        assert_eq!(
+            (report.written, report.failed),
+            (1, 0),
+            "{:?}",
+            report.error
+        );
+        // A virtual-copy identity resolves metadata to its shared original capture.
+        let mut variant = document("variant", 32, 16);
+        variant.path = Some(
+            dir.path()
+                .join(".schist/variants/source.png")
+                .join(format!("{}.psd", "a".repeat(48))),
+        );
+        assert_eq!(
+            source_copyright(&variant, &recipe).unwrap(),
+            "© Rights holder"
+        );
+        let published = dir.path().join("published.png");
+        assert_eq!(
+            schist_gallery::copyright_of(&published).as_deref(),
+            Some("© Rights holder")
+        );
+        assert!(schist_gallery::exif_of(&published)
+            .as_ref()
+            .and_then(schist_gallery::gps_from)
+            .is_none());
+        recipe.outputs[0].finishing.retain_copyright = false;
+        let report = export_source(Source::Photo(source.clone()), &recipe, &codecs);
+        assert_eq!((report.written, report.failed), (1, 0));
+        assert!(schist_gallery::exif_of(&dir.path().join("published-2.png")).is_none());
+        assert_eq!(std::fs::read(&source).unwrap(), original);
+        assert_eq!(
+            schist_gallery::xmp::read(&source).unwrap().gps,
+            Some(Some((51.5, -0.1)))
+        );
+        schist_gallery::xmp::write(
+            &source,
+            &schist_gallery::xmp::Patch {
+                copyright: Some(String::new()),
+                ..Default::default()
+            },
+        )
+        .unwrap();
+        assert_eq!(
+            schist_gallery::xmp::copyright(&source).unwrap(),
+            Some(String::new())
+        );
+    }
+    #[test]
+    fn unreadable_source_rights_fail_only_outputs_that_need_them() {
+        let dir = tempfile::tempdir().unwrap();
+        let source = dir.path().join("photo.png");
+        std::fs::write(
+            &source,
+            schist_codecs_common::PngCodec
+                .export(&document("photo", 4, 4))
+                .unwrap(),
+        )
+        .unwrap();
+        std::fs::write(source.with_extension("xmp"), "not XML").unwrap();
+        let preserve = recipes::Output {
+            finishing: recipes::Finishing {
+                retain_copyright: true,
+                ..Default::default()
+            },
+            ..Default::default()
+        };
+        let recipe = Recipe {
+            destination: dir.path().into(),
+            outputs: vec![
+                preserve.clone(),
+                recipes::Output::default(),
+                recipes::Output {
+                    finishing: recipes::Finishing {
+                        copyright: "Override".into(),
+                        ..preserve.finishing
+                    },
+                    ..Default::default()
+                },
+            ],
+            ..Default::default()
+        };
+        let codecs: Vec<Arc<dyn CodecPlugin>> = vec![Arc::new(schist_codecs_common::PngCodec)];
+        let report = export_source(Source::Photo(source), &recipe, &codecs);
+        assert_eq!((report.written, report.failed), (2, 1));
+        assert_eq!(
+            schist_gallery::copyright_of(&dir.path().join("photo-canvas-3.png")).as_deref(),
+            Some("Override")
         );
     }
     #[test]

@@ -951,3 +951,15 @@ fmt-workspace-presets:
 .PHONY: lint-workspace-presets
 lint-workspace-presets:
 	$(CARGO) clippy -p schist-app-settings -p schist-editor -p schist-app-actions -p schist-app-platform --all-targets -- -D warnings
+
+.PHONY: format-export-finishing
+format-export-finishing:
+	$(CARGO) fmt -p schist-editor -p schist-gallery -p schist-codecs-common
+
+.PHONY: lint-export-finishing
+lint-export-finishing:
+	$(CARGO) clippy -p schist-editor -p schist-gallery -p schist-codecs-common --all-targets -- -D warnings
+
+.PHONY: check-export-finishing-codecs
+check-export-finishing-codecs:
+	$(CARGO) test -p schist-codecs-common tiff

@@ -20,6 +20,7 @@ serde.workspace = true
 serde_json.workspace = true
 sha2 = "0.10"
 image.workspace = true
+crc32fast.workspace = true
 futures.workspace = true
 smallvec.workspace = true
 rustc-hash.workspace = true
@@ -60,7 +61,6 @@ ureq = { version = "3", default-features = false, features = [
     "json",
 ] }
 schist-preview.workspace = true
-crc32fast.workspace = true
 schist-video.workspace = true
 schist-camera-sync.workspace = true
 schist-map-view.workspace = true

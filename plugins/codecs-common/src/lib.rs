@@ -98,6 +98,26 @@ fn import_with(format: ImageFormat, bytes: &[u8], title: &str) -> anyhow::Result
         .ok()
         .flatten()
         .filter(|b| !b.is_empty());
+    // The generic reader can omit TIFF metadata; the concrete decoder retains
+    // the profile tag. Preserve RGB source color meaning before any target conversion.
+    // Do not attach a native CMYK profile to pixels the image decoder already made RGB.
+    if icc.is_none()
+        && format == ImageFormat::Tiff
+        && matches!(
+            decoder.original_color_type(),
+            image::ExtendedColorType::Rgb8
+                | image::ExtendedColorType::Rgba8
+                | image::ExtendedColorType::Rgb16
+                | image::ExtendedColorType::Rgba16
+                | image::ExtendedColorType::Rgb32F
+                | image::ExtendedColorType::Rgba32F
+        )
+    {
+        icc = image::codecs::tiff::TiffDecoder::new(std::io::Cursor::new(bytes))
+            .ok()
+            .and_then(|mut decoder| decoder.icc_profile().ok().flatten())
+            .filter(|bytes| !bytes.is_empty());
+    }
     let img = image::DynamicImage::from_decoder(decoder)
         .with_context(|| tf!("codec.msg.decoding", name = title))?;
     let (w, h) = (img.width(), img.height());
@@ -528,6 +548,35 @@ mod tests {
                     .any(|w| w == display_p3.as_slice()),
                 "{name} lost the profile"
             );
+        }
+    }
+
+    #[test]
+    fn tiff_icc_profile_survives_import_for_target_profile_conversion() {
+        let profile = moxcms::ColorProfile::new_display_p3().encode().unwrap();
+        for bit_depth in [8, 16] {
+            let mut doc = Document::new("tagged", 4, 2, Depth::Sixteen);
+            let mut layer = schist_core::Layer::new_raster("pixels");
+            schist_core::blit_rgba_f32(
+                &mut layer.as_raster_mut().unwrap().tiles,
+                doc.depth,
+                doc.canvas_rect(),
+                &[0.4, 0.3, 0.2, 1.0].repeat(8),
+            );
+            doc.push_layer(layer);
+            doc.icc_profile = Some(profile.clone());
+            let bytes = TiffCodec
+                .export_with(
+                    &doc,
+                    &ExportOptions {
+                        bit_depth,
+                        ..Default::default()
+                    },
+                )
+                .unwrap();
+            let imported = TiffCodec.import(&bytes).unwrap();
+            assert_eq!(imported.icc_profile.as_deref(), Some(profile.as_slice()));
+            assert_eq!((imported.width, imported.height), (4, 2));
         }
     }
 

@@ -7,6 +7,9 @@ use serde::{Deserialize, Serialize};
 use std::path::Path;
 use std::path::PathBuf;
 
+mod finishing;
+pub use finishing::{Finishing, Placement, TargetProfile};
+
 pub const MAX_OUTPUTS: usize = 16;
 pub const FLAT_CODECS: &[&str] = &["codec.png", "codec.jpeg", "codec.webp", "codec.tiff"];
 
@@ -34,6 +37,8 @@ pub struct Output {
     pub max_edge: u32,
     pub quality: u8,
     pub template: String,
+    #[serde(default)]
+    pub finishing: Finishing,
 }
 impl Default for Output {
     fn default() -> Self {
@@ -42,6 +47,7 @@ impl Default for Output {
             max_edge: 0,
             quality: 90,
             template: "{name}-{region}-{index}".into(),
+            finishing: Finishing::default(),
         }
     }
 }
@@ -52,6 +58,9 @@ pub struct Recipe {
     pub destination: PathBuf,
     pub scope: Scope,
     pub outputs: Vec<Output>,
+    /// Captured at dispatch; untagged RGB uses the current application working profile.
+    #[serde(skip)]
+    pub working_icc: Option<Vec<u8>>,
 }
 impl Default for Recipe {
     fn default() -> Self {
@@ -59,6 +68,7 @@ impl Default for Recipe {
             name: t("export_recipes.starter").into(),
             destination: PathBuf::new(),
             scope: Scope::Document,
+            working_icc: None,
             outputs: vec![
                 Output::default(),
                 Output {
@@ -98,6 +108,7 @@ impl Recipe {
                 "{}",
                 t("export_recipes.invalid_size")
             );
+            output.finishing.validate()?;
             output.filename("image", "canvas", 1, 1, 1)?;
         }
         Ok(())
