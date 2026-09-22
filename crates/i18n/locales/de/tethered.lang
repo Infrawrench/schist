@@ -1,0 +1,13 @@
+# New diagnostic strings retain explicit English fallback pending translation review.
+# Short labels are machine translated where available, not human verified.
+tethered.title = Fernaufnahme
+tethered.capture = Foto aufnehmen
+tethered.invalid_name = Choose a name of 1–120 bytes without slashes, colons, percent signs or a leading dot.
+tethered.install = gphoto2 is unavailable. Install it and restart Schist; see Help for setup.
+tethered.timeout = Camera request timed out. Check the camera and reconnect before retrying.
+tethered.failed = Camera request failed: {detail}
+tethered.unsupported = This camera does not advertise remote image capture support.
+tethered.no_download = The camera did not deliver a complete image. Camera originals are retained.
+tethered.session_help = Save As chooses a destination and filename prefix; captures add a sequence number and the camera’s file extension. Select a camera, then Capture photo. Help covers setup and retention.
+tethered.preview_failed = The capture was saved and imported, but its preview could not be decoded. Open it in the editor to inspect the file.
+tethered.partial = Some capture files were saved and imported; the remaining files could not be saved: {error}

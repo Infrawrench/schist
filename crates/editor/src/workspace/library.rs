@@ -262,6 +262,7 @@ struct SearchSnapshot {
 
 pub struct Library {
     pub(super) similar: super::library_similar::SimilarReview,
+    pub(super) tethered: super::library_tethered::Tethered,
     /// Owns the most recent asynchronous sidecar refresh.
     pub(super) metadata_generation: u64,
     /// Distinguishes modal requests from earlier saves still finishing.
@@ -511,6 +512,7 @@ impl Library {
         let folders = file.folders;
         Library {
             similar: Default::default(),
+            tethered: Default::default(),
             open: false,
             folders,
             recents: file.recents,

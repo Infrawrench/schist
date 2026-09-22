@@ -487,6 +487,14 @@ impl Workspace {
                 || self.cloud_nav_key(ev, cx);
         }
         #[cfg(not(target_arch = "wasm32"))]
+        if self.library.tethered.open {
+            if ev.keystroke.key == "escape" {
+                self.close_tethered(cx);
+                return true;
+            }
+            return false;
+        }
+        #[cfg(not(target_arch = "wasm32"))]
         if self.video_key(ev, cx) {
             return true;
         }

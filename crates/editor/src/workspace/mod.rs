@@ -125,6 +125,8 @@ mod library_photos;
 #[cfg(not(target_arch = "wasm32"))]
 mod library_similar;
 #[cfg(not(target_arch = "wasm32"))]
+mod library_tethered;
+#[cfg(not(target_arch = "wasm32"))]
 mod library_view;
 mod modals;
 mod notes;

@@ -6800,6 +6800,7 @@ dependencies = [
  "schist-plugin-host-8bf",
  "schist-plugin-host-wasm",
  "schist-preview",
+ "schist-tethered",
  "schist-text-engine",
  "schist-tools-doc",
  "schist-tools-retouch",
@@ -7066,6 +7067,17 @@ dependencies = [
  "objc2-core-foundation",
  "objc2-foundation",
  "schist-preview",
+]
+
+[[package]]
+name = "schist-tethered"
+version = "0.15.0"
+dependencies = [
+ "libc",
+ "schist-i18n",
+ "serde",
+ "serde_json",
+ "tempfile",
 ]
 
 [[package]]

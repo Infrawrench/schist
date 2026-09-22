@@ -149,7 +149,7 @@ app:
 
 # Check and test the launcher plus every crate extracted from the app.
 APP_CRATES := app editor app-actions app-ai app-fonts app-platform app-services \
-              app-settings camera-sync cloud-transfer gallery-ui map-view video
+              app-settings camera-sync tethered cloud-transfer gallery-ui map-view video
 APP_PACKAGES := $(foreach crate,$(APP_CRATES),-p schist-$(crate))
 .PHONY: check-app test-app lint-app check-app-web
 check-app:
@@ -866,3 +866,14 @@ test-native-stylus-toolkit:
 .PHONY: lint-native-stylus-tilt
 lint-native-stylus-tilt:
 	$(CARGO) clippy -p schist-editor -p schist-ui -p schist-app-platform -p schist-tools-paint --all-targets -- -D warnings
+
+.PHONY: test-tethered check-tethered fmt-tethered
+test-tethered:
+	$(CARGO) test -p schist-tethered
+check-tethered:
+	$(CARGO) check -p schist-tethered -p schist-editor --all-targets
+fmt-tethered:
+	$(CARGO) fmt -p schist-tethered
+.PHONY: lint-tethered
+lint-tethered:
+	$(CARGO) clippy -p schist-tethered -p schist-editor --all-targets -- -D warnings

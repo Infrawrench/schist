@@ -741,3 +741,13 @@ relative to each pane's fitted image, from 1× to 32×; the panes share normaliz
 position, so differently sized photos stay comparable. Decode failures are
 shown in the affected pane. The two decodes run off the UI thread, sequentially
 to bound temporary memory, and closing comparison releases its image handles.
+
+## Tethered capture
+
+On Linux and macOS, **Tethered capture** in the local gallery triggers a
+compatible USB camera's shutter, downloads the new originals into a configured
+session folder with collision-safe automatic names, adds them to the gallery,
+and immediately shows the captured image for review. The workflow uses a
+separately installed gphoto2 backend and keeps files on the camera. See
+[tethered capture](tethered.md) for setup, storage requirements, cancellation,
+camera retention and platform limits.

@@ -37,7 +37,9 @@ impl Workspace {
         let video = self.library.video.is_some() && !cloud;
         #[cfg(target_arch = "wasm32")]
         let video = false;
-        let body = if video {
+        let body = if self.library.tethered.open && !cloud {
+            super::library_tethered::render(self, cx)
+        } else if video {
             #[cfg(not(target_arch = "wasm32"))]
             {
                 self.render_video(window, cx)
@@ -163,6 +165,10 @@ impl Workspace {
                 }
             }))
             .child(chrome::top_strip(self, cx))
+            .children((!cloud && cfg!(any(target_os = "linux", target_os = "macos"))).then(|| {
+                Button::new("open-tethered", t("tethered.title"))
+                    .on_click(cx.listener(|ws, _, _, cx| ws.open_tethered(cx)))
+            }))
             .children(
                 (!cloud && !video)
                     .then(|| self.library.culling_error.clone())
@@ -182,7 +188,7 @@ impl Workspace {
                 }),
             )
             .child(body)
-            .children((!video).then(|| chrome::tray(self, cx)))
+            .children((!video && !self.library.tethered.open).then(|| chrome::tray(self, cx)))
             .children(context_menu)
             .children(chrome::gallery_more_menu(self, cx))
             .child(drag_out_listener(cx));
