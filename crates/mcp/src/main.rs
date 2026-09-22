@@ -73,8 +73,10 @@ mod gallery {
                 &[]),
             def("gallery_bucket_create",
                 "Create a bucket in the library file, optionally with a query the app keeps \
-                 matching once it runs. The app reads the file at launch.",
-                json!({"name": {"type": "string"}, "query": {"type": "string"}, "paths": paths}),
+                 matching and an exclusion query whose matches it hides once it runs. The app \
+                 reads the file at launch.",
+                json!({"name": {"type": "string"}, "query": {"type": "string"},
+                       "exclude_query": {"type": "string"}, "paths": paths}),
                 &["name"]),
             def("gallery_people",
                 "The People album: every named person with their photo and face counts, and how \
@@ -236,7 +238,12 @@ mod gallery {
                     .get("query")
                     .and_then(|v| v.as_str())
                     .filter(|q| !q.trim().is_empty());
-                let index = gallery.create_bucket(name, query, paths_arg(args, "paths"))?;
+                let exclude_query = args
+                    .get("exclude_query")
+                    .and_then(|v| v.as_str())
+                    .filter(|q| !q.trim().is_empty());
+                let index =
+                    gallery.create_bucket(name, query, exclude_query, paths_arg(args, "paths"))?;
                 text(json!({"bucket": name, "index": index}))
             }
             "gallery_bucket_add" => {
