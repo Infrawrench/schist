@@ -15,6 +15,7 @@ impl Workspace {
     // ----- modals and numeric fields -----
 
     pub fn open_modal(&mut self, modal: Modal, cx: &mut Context<Self>) {
+        self.cancel_printing();
         #[cfg(not(target_arch = "wasm32"))]
         {
             self.photo_merge_job = None;
@@ -160,6 +161,7 @@ impl Workspace {
     }
 
     pub fn close_modal(&mut self, cx: &mut Context<Self>) {
+        self.cancel_printing();
         #[cfg(not(target_arch = "wasm32"))]
         {
             self.photo_merge_job = None;
@@ -903,6 +905,7 @@ impl Workspace {
             | Modal::PluginManager
             | Modal::Preferences
             | Modal::Export { .. }
+            | Modal::Printing { .. }
             | Modal::ExportRecipes { .. }
             | Modal::MissingFonts { .. }
             | Modal::UpdateAvailable { .. }
