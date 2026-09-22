@@ -165,10 +165,12 @@ impl Workspace {
                 }
             }))
             .child(chrome::top_strip(self, cx))
-            .children((!cloud && cfg!(any(target_os = "linux", target_os = "macos"))).then(|| {
-                Button::new("open-tethered", t("tethered.title"))
-                    .on_click(cx.listener(|ws, _, _, cx| ws.open_tethered(cx)))
-            }))
+            .children(
+                (!cloud && cfg!(any(target_os = "linux", target_os = "macos"))).then(|| {
+                    Button::new("open-tethered", t("tethered.title"))
+                        .on_click(cx.listener(|ws, _, _, cx| ws.open_tethered(cx)))
+                }),
+            )
             .children(
                 (!cloud && !video)
                     .then(|| self.library.culling_error.clone())

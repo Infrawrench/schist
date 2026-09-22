@@ -873,7 +873,7 @@ test-tethered:
 check-tethered:
 	$(CARGO) check -p schist-tethered -p schist-editor --all-targets
 fmt-tethered:
-	$(CARGO) fmt -p schist-tethered
+	$(CARGO) fmt -p schist-tethered -p schist-editor
 .PHONY: lint-tethered
 lint-tethered:
 	$(CARGO) clippy -p schist-tethered -p schist-editor --all-targets -- -D warnings
