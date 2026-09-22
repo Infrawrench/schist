@@ -468,7 +468,8 @@ impl<'a> SessionCtx<'a> {
         if matches!(
             self.doc.mode,
             schist_core::color::ColorMode::Cmyk | schist_core::color::ColorMode::Lab
-        ) {
+        ) || id == "filter.lens_correction"
+        {
             let original = self
                 .doc
                 .tree
@@ -867,5 +868,43 @@ mod tests {
         let px = |x: usize, y: usize| &pixels[(y * 64 + x) * 4..(y * 64 + x) * 4 + 4];
         assert!(px(10, 24)[0] < 15, "inside the selection stays white");
         assert!(px(50, 24)[0] > 240, "outside the selection went dark");
+    }
+}
+
+#[cfg(test)]
+mod lens_profile_tests {
+    use super::*;
+    #[test]
+    fn lens_profiles_mcp_preserves_untagged_rgb_when_pa_context_is_unknown() {
+        let mut doc = Document::new("lens context test", 8, 8, Depth::Eight);
+        let mut layer = Layer::new_raster("Background");
+        schist_core::blit_rgba8(
+            &mut layer.as_raster_mut().unwrap().tiles,
+            Depth::Eight,
+            IntRect::from_size(8, 8),
+            &[255; 8 * 8 * 4],
+        );
+        doc.push_layer(layer);
+        let mut registry = PluginRegistry::new();
+        registry.register_filter(Box::new(schist_filters_core::lens::LensCorrection));
+        let mut state = EditorState::default();
+        let mut session = SessionCtx::new(&mut doc, &mut state, &mut registry);
+        assert!(session.doc.icc_profile.is_none());
+        let (_, before) = session.render(None).unwrap();
+        // Synthetic non-neutral PA arithmetic would darken this white image if
+        // the headless RGB route bypassed the filter's native ICC precondition.
+        session
+            .apply_filter(
+                "filter.lens_correction",
+                &[
+                    ("lp_enabled".into(), 1.),
+                    ("lp_vignette".into(), 1.),
+                    ("lp_vig_available".into(), 1.),
+                    ("lp_vk1".into(), 1.),
+                ],
+            )
+            .unwrap();
+        let (_, after) = session.render(None).unwrap();
+        assert_eq!(before, after);
     }
 }

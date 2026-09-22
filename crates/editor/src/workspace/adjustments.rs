@@ -7,11 +7,17 @@ impl Workspace {
     /// Open a filter's parameter dialog, pre-filled with its defaults.
     pub fn open_filter_dialog(&mut self, id: &'static str, cx: &mut Context<Self>) {
         self.commit_recording_transform(cx);
+        if id == "filter.lens_correction" {
+            self.refresh_exif();
+        }
         let Some(filter) = self.registry.filters().find(|f| f.id() == id) else {
             return;
         };
         let mut values = schist_plugin_api::FilterValues::defaults(&filter.params());
         self.seed_raw_filter_values(id, &mut values);
+        if id == "filter.lens_correction" {
+            self.seed_lens_profile(&mut values);
+        }
         // Filters with no parameters just run.
         if values.0.is_empty() {
             self.apply_filter(id, &values, cx);

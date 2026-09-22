@@ -273,6 +273,10 @@ pub struct ExifSummary {
     pub iso: Option<u32>,
     /// "26 mm", with the 35 mm equivalent when the file gives one.
     pub focal_length: Option<String>,
+    /// Unrounded optical values for calibrated lens correction.
+    pub focal_length_mm: Option<f32>,
+    pub aperture_f_number: Option<f32>,
+    pub focus_distance_m: Option<f32>,
     /// Sortable "YYYY-MM-DD HH:MM:SS".
     pub taken: Option<String>,
     pub gps: Option<(f64, f64)>,
@@ -372,6 +376,15 @@ fn summarize(data: exif::Exif) -> Option<ExifSummary> {
         aperture,
         iso: uint(exif::Tag::PhotographicSensitivity),
         focal_length,
+        focal_length_mm: rational(exif::Tag::FocalLength)
+            .filter(|v| v.is_finite() && *v > 0. && *v <= 10000.)
+            .map(|v| v as f32),
+        aperture_f_number: rational(exif::Tag::FNumber)
+            .filter(|v| v.is_finite() && *v > 0. && *v <= 128.)
+            .map(|v| v as f32),
+        focus_distance_m: rational(exif::Tag::SubjectDistance)
+            .filter(|v| v.is_finite() && *v > 0. && *v <= 1_000_000.)
+            .map(|v| v as f32),
         taken: datetime_from(&data),
         gps,
         altitude_m,

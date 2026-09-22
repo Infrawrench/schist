@@ -29,6 +29,7 @@ mod gpu_programs;
 mod gpu_sketch;
 mod gpu_surface;
 pub mod lens;
+pub mod lens_profiles;
 pub mod neural;
 pub mod other;
 pub mod pixelate;

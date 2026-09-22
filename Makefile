@@ -817,3 +817,19 @@ test-camera-import-progress:
 	$(CARGO) test -p schist-editor --lib cloud_lifecycle_tests
 format-camera-import-progress:
 	$(CARGO) fmt -p schist-cloud-transfer -p schist-editor
+
+# Lensfun model parsing, calibration math, and portable filter recipes.
+.PHONY: check-lens-profiles test-lens-profiles
+check-lens-profiles:
+	$(CARGO) check -p schist-filters-core -p schist-editor --all-targets
+test-lens-profiles:
+	$(CARGO) test -p schist-filters-core lens_profiles
+.PHONY: lint-lens-profiles
+lint-lens-profiles:
+	$(CARGO) clippy -p schist-filters-core -p schist-editor -p schist-gallery --all-targets -- -D warnings
+.PHONY: check-lens-profiles-mcp
+check-lens-profiles-mcp:
+	$(CARGO) check -p schist-mcp --all-targets
+.PHONY: test-lens-profiles-mcp
+test-lens-profiles-mcp:
+	$(CARGO) test -p schist-mcp --no-default-features --lib lens_profiles_mcp

@@ -678,11 +678,10 @@ impl Workspace {
         label: &str,
         record: bool,
     ) -> bool {
-        let Some(doc) = self
-            .doc
-            .as_ref()
-            .filter(|d| matches!(d.mode, ColorMode::Cmyk | ColorMode::Lab))
-        else {
+        let Some(doc) = self.doc.as_ref().filter(|d| {
+            matches!(d.mode, ColorMode::Cmyk | ColorMode::Lab)
+                || filter.id() == "filter.lens_correction"
+        }) else {
             return false;
         };
         let Some(raster) = doc.tree.find(layer).and_then(|l| l.as_raster()) else {

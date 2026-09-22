@@ -181,6 +181,9 @@ impl Workspace {
         cx: &mut Context<Self>,
     ) {
         self.commit_pending_transform(cx);
+        if id == "filter.lens_correction" {
+            self.refresh_exif();
+        }
         let result = (|| -> anyhow::Result<_> {
             let doc = self
                 .doc
@@ -214,7 +217,11 @@ impl Workspace {
                         .ok_or_else(|| anyhow::anyhow!("Missing effect"))?,
                 )?
             } else {
-                FilterValues::defaults(&filter.params())
+                let mut values = FilterValues::defaults(&filter.params());
+                if id == "filter.lens_correction" {
+                    self.seed_lens_profile(&mut values);
+                }
+                values
             };
             let index = index.unwrap_or(stack.effects.len());
             if index == stack.effects.len() {

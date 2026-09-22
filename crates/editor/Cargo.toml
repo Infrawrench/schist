@@ -6,6 +6,7 @@ license.workspace = true
 build = "../../tools/app-cfg.rs"
 
 [dependencies]
+schist-filters-core.workspace = true
 schist-photo-merge.workspace = true
 schist-i18n.workspace = true
 flate2 = "1"
@@ -108,5 +109,4 @@ web-sys = { version = "0.3", features = [
 ] }
 
 [dev-dependencies]
-schist-filters-core.workspace = true
 tempfile = "3"
