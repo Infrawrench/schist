@@ -65,7 +65,7 @@ pub fn list(original: &Path) -> io::Result<Vec<Version>> {
     });
     versions.extend(saved);
     versions.push(Version {
-        path: original.to_path_buf(),
+        path: crate::variants::capture(original),
         kind: VersionKind::Original,
     });
     Ok(versions)

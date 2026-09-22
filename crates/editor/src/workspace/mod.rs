@@ -125,6 +125,8 @@ mod library_photos;
 #[cfg(not(target_arch = "wasm32"))]
 mod library_similar;
 #[cfg(not(target_arch = "wasm32"))]
+pub(crate) mod library_variants;
+#[cfg(not(target_arch = "wasm32"))]
 mod library_view;
 mod modals;
 mod notes;
@@ -1128,6 +1130,11 @@ pub enum Modal {
     SearchModels,
     /// Rename one of the gallery's people (`index` into the people
     /// list); a name somebody else has merges the two.
+    VariantName {
+        path: PathBuf,
+        name: String,
+        rename: bool,
+    },
     PersonName {
         index: usize,
         name: String,

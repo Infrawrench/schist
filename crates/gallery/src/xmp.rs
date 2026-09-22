@@ -177,6 +177,8 @@ fn read_packet(path: &Path) -> Result<Option<String>> {
 }
 
 pub fn read(photo: &Path) -> Result<Metadata> {
+    let capture = crate::variants::capture(photo);
+    let photo = capture.as_path();
     // The common case requires two stats, never a directory scan per photo.
     if !exists(&exact_sidecar(photo)?)? && !exists(&photo.with_extension("xmp"))? {
         return Ok(Metadata::default());

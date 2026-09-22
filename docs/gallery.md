@@ -741,3 +741,46 @@ relative to each pane's fitted image, from 1× to 32×; the panes share normaliz
 position, so differently sized photos stay comparable. Decode failures are
 shown in the affected pane. The two decodes run off the UI thread, sequentially
 to bound temporary memory, and closing comparison releases its image handles.
+
+## Named virtual copies
+
+Right-click one local still photo and choose **Create virtual copy…**. Give it a
+name such as “B&W”, “Warm”, or “Square crop”. A copy starts from the current
+**saved** edit; save any open changes first. Without a saved edit it starts from
+the capture. Copies appear beside their original in the folder grid, with their
+names on the thumbnails. Double-click to edit; Save and batch **Gallery edits**
+write only that copy, keeping its own previous saves in Version history. The
+capture and the primary edit remain unchanged. RAW development data already
+stored in a layered edit remains in the copied PSD.
+
+Right-click a copy to **Rename virtual copy…** or **Delete virtual copy**. Names
+can contain Unicode and punctuation and never change identity. Close its editor
+tab before deleting. Delete hides the copy but retains its PSD, name record and
+history on disk for recovery; it does not delete the capture or sibling edits.
+Revert to original applies only to primary edits. A copy's Version history offers
+the capture and its own saved edits; Restore still opens an unsaved document.
+
+Export, ZIP and batch processing use each selected copy's pixels and layers.
+Exports use the capture name and a filename-safe copy name; ZIP copies use PNG.
+Batch copies beside originals land beside the capture, outside hidden storage.
+Capture metadata (including XMP) belongs to the original and is shared across
+copies. Ratings, selections and bucket membership use each copy's own identity.
+
+Moving an original within Schist carries all its copies, deleted-copy records
+and histories, with collision checks and rollback. Close open editors for that
+capture first. A copy alone cannot be moved to another folder: move its original
+or export a rendered image. Moving files outside Schist requires moving the
+associated `.schist` storage too. Cloud virtual copies are not supported.
+
+Storage is `.schist/variants/<capture filename>/<stable id>.psd` plus a JSON name
+record. Layered edit data is duplicated, not the original capture file. Existing
+`.schist/<capture filename>.psd` sidecars and histories retain their existing
+format and location; no migration rewrites them. Copy creation and record updates
+publish only complete writes. Deleted copies can be recovered by changing their
+JSON `deleted` flag to `false` while Schist is closed. Back up the entire hidden
+`.schist` directory alongside originals.
+
+`make test-virtual-copies` checks legacy compatibility, independent identities,
+thumbnail keys, history isolation, rename/delete safety, processing/export routing,
+and collision-safe moves. New virtual-copy labels currently use explicit English
+fallbacks in non-English catalogs pending translation review.

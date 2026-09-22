@@ -19,7 +19,34 @@ impl Workspace {
         dest: PathBuf,
         cx: &mut Context<Self>,
     ) {
+        let selected: std::collections::HashSet<_> = paths.iter().cloned().collect();
+        let paths: Vec<_> = paths
+            .into_iter()
+            .filter(|path| {
+                schist_gallery::variants::original(path)
+                    .is_none_or(|original| !selected.contains(&original))
+            })
+            .collect();
         if paths.is_empty() {
+            return;
+        }
+        if paths
+            .iter()
+            .any(|path| schist_gallery::variants::original(path).is_some())
+        {
+            self.status = t("variants.move_original").into();
+            cx.notify();
+            return;
+        }
+        if paths.iter().any(|path| {
+            self.library
+                .edit_backings
+                .values()
+                .chain(self.library.pending_backing.iter().map(|(_, p)| p))
+                .any(|open| schist_gallery::variants::capture(open) == *path)
+        }) {
+            self.status = t("variants.close").into();
+            cx.notify();
             return;
         }
         self.status = schist_i18n::tn!(
@@ -36,6 +63,7 @@ impl Workspace {
                     let mut moved = 0usize;
                     let mut relocated = Vec::new();
                     for path in &paths {
+                        let variants = schist_gallery::variants::stored(path);
                         match move_photo(path, &dest) {
                             Ok(()) => {
                                 moved += 1;
@@ -47,6 +75,15 @@ impl Workspace {
                         // Relocate decisions only when the original actually
                         // moved; failed or rolled-back transfers keep them here.
                         if let Some(pair) = relocated_original(path, &dest) {
+                            let target_variants = schist_gallery::variants::directory(&pair.1);
+                            for variant in variants {
+                                if let Some(dir) = &target_variants {
+                                    relocated.push((
+                                        variant.clone(),
+                                        dir.join(variant.file_name().unwrap()),
+                                    ));
+                                }
+                            }
                             relocated.push(pair);
                         }
                     }
@@ -57,6 +94,13 @@ impl Workspace {
                 let (moved, asked, dest, relocated) = result;
                 for (from, to) in relocated {
                     schist_gallery::culling::moved(&mut ws.library.culling, &from, &to);
+                    for bucket in &mut ws.library.buckets {
+                        for path in bucket.photos.iter_mut().chain(bucket.matches.iter_mut()) {
+                            if *path == from {
+                                *path = to.clone();
+                            }
+                        }
+                    }
                 }
                 ws.library.culling_changed();
                 if let Err(error) = ws.library.save_checked() {
@@ -257,10 +301,7 @@ impl Workspace {
             return;
         };
         let ext = codec.extensions().first().copied().unwrap_or("png");
-        let stem = path
-            .file_stem()
-            .map(|s| s.to_string_lossy().into_owned())
-            .unwrap_or_else(|| "photo".into());
+        let stem = schist_gallery::variants::export_stem(&path);
         let suggested = if scale < 0.999 {
             format!("{stem}@{}%.{ext}", (scale * 100.0).round() as u32)
         } else {
@@ -354,6 +395,9 @@ impl Workspace {
         let mut reverted = 0usize;
         let mut preserve_error = None;
         for path in &paths {
+            if schist_gallery::variants::original(path).is_some() {
+                continue;
+            }
             let Some(psd) = backing_psd(path).filter(|p| p.exists()) else {
                 continue;
             };
@@ -618,6 +662,13 @@ fn process_photo(
     recipe: &BatchRecipe,
     sink: &BatchSink,
 ) -> anyhow::Result<PathBuf> {
+    let _variant_lock = schist_gallery::variants::original(path)
+        .map(|capture| schist_gallery::xmp::lock_sidecar(&capture))
+        .transpose()?;
+    if schist_gallery::variants::original(path).is_some() && !schist_gallery::variants::active(path)
+    {
+        return Err(std::io::Error::from(std::io::ErrorKind::NotFound).into());
+    }
     // The edit is the picture the gallery shows, so a recipe applies on
     // top of it; the original stands in when there is none.
     let sidecar =
@@ -662,10 +713,7 @@ fn process_photo(
         });
         doc.push_layer(layer);
     }
-    let stem = path
-        .file_stem()
-        .map(|s| s.to_string_lossy().into_owned())
-        .unwrap_or_else(|| "photo".into());
+    let stem = schist_gallery::variants::export_stem(path);
     match sink {
         BatchSink::Edit => {
             let psd = codecs
@@ -698,7 +746,8 @@ fn process_photo(
             let out = match dir {
                 Some(dir) => unclaimed(dir, &stem, ext),
                 None => {
-                    let beside = path.parent().unwrap_or(Path::new("."));
+                    let capture = schist_gallery::variants::capture(path);
+                    let beside = capture.parent().unwrap_or(Path::new("."));
                     unclaimed(beside, &format!("{stem}-edit"), ext)
                 }
             };
@@ -737,6 +786,9 @@ fn relocated_original(path: &Path, dest: &Path) -> Option<(PathBuf, PathBuf)> {
 /// packets travel with the original. If a later move fails, roll back the
 /// completed transfers, keeping the original at its old path until the end.
 fn move_photo(path: &Path, dest: &Path) -> anyhow::Result<()> {
+    if schist_gallery::variants::original(path).is_some() {
+        return Err(std::io::Error::from(std::io::ErrorKind::InvalidInput).into());
+    }
     let name = path
         .file_name()
         .ok_or_else(|| anyhow::anyhow!("no file name"))?;
@@ -781,6 +833,26 @@ fn move_photo(path: &Path, dest: &Path) -> anyhow::Result<()> {
                         new_psd.parent().unwrap().join("versions").join(name),
                     ));
                 }
+            }
+        }
+    }
+    if let Some(variants) = schist_gallery::variants::directory(path).filter(|p| p.exists()) {
+        let target_variants = schist_gallery::variants::directory(&target).unwrap();
+        for entry in std::fs::read_dir(&variants)? {
+            let entry = entry?;
+            if entry.file_type()?.is_file() {
+                transfers.push((entry.path(), target_variants.join(entry.file_name())));
+            } else if entry.file_type()?.is_dir() && entry.file_name() == "versions" {
+                for version in std::fs::read_dir(entry.path())? {
+                    let version = version?;
+                    anyhow::ensure!(version.file_type()?.is_file(), "{}", t("common.failed"));
+                    transfers.push((
+                        version.path(),
+                        target_variants.join("versions").join(version.file_name()),
+                    ));
+                }
+            } else {
+                anyhow::bail!("{}", t("common.failed"));
             }
         }
     }
@@ -910,10 +982,7 @@ fn zip_entry(
     path: &Path,
 ) -> anyhow::Result<(String, Vec<u8>)> {
     let plan = zip_plan(path);
-    let stem = path
-        .file_stem()
-        .map(|s| s.to_string_lossy().into_owned())
-        .unwrap_or_else(|| "photo".into());
+    let stem = schist_gallery::variants::export_stem(path);
     // Named for the photo, never for its sidecar: "holiday.jpg", not
     // "holiday.jpg.psd".
     let name = format!("{stem}.{}", plan.ext);
@@ -1081,6 +1150,34 @@ impl ZipWriter {
     }
 }
 
+/// Prevent an export from replacing the shared capture or any sibling edit/history.
+fn protected_gallery_output(source: &Path, out: &Path) -> bool {
+    let capture = schist_gallery::capture_original(source);
+    let absolute = |path: &Path| {
+        path.canonicalize().unwrap_or_else(|_| {
+            let parent = path.parent().unwrap_or(Path::new("."));
+            parent
+                .canonicalize()
+                .unwrap_or_else(|_| parent.to_owned())
+                .join(path.file_name().unwrap_or_default())
+        })
+    };
+    let capture_path = absolute(&capture);
+    let output = absolute(out);
+    let hidden = absolute(&capture.parent().unwrap_or(Path::new(".")).join(".schist"));
+    if output == capture_path || output.starts_with(hidden) {
+        return true;
+    }
+    #[cfg(unix)]
+    if let (Ok(original), Ok(destination)) = (std::fs::metadata(&capture), std::fs::metadata(out)) {
+        use std::os::unix::fs::MetadataExt;
+        if original.dev() == destination.dev() && original.ino() == destination.ino() {
+            return true;
+        }
+    }
+    false
+}
+
 /// Decode a photo (its edit when it has one), flatten it, shrink it by
 /// `scale`, and write it through `codec`. Returns the written size.
 fn render_photo_as(
@@ -1091,6 +1188,11 @@ fn render_photo_as(
     scale: f32,
     out: &Path,
 ) -> anyhow::Result<(u32, u32)> {
+    anyhow::ensure!(
+        !protected_gallery_output(path, out),
+        "{}",
+        t("variants.protected_export")
+    );
     let source = zip_plan(path).source;
     let doc = super::decode_file(codecs, &source)?;
     let img = flatten(&doc)?;
@@ -1150,6 +1252,116 @@ mod tests {
     /// The archive our writer emits, read back with a bare parser: the
     /// signatures, counts and stored bytes all land where the spec puts
     /// them, which is what any unzip checks first.
+    #[test]
+    fn virtual_copy_exports_cannot_replace_capture_or_edit_storage() {
+        let dir = tempfile::tempdir().unwrap();
+        let original = dir.path().join("capture.jpg");
+        std::fs::write(&original, b"capture").unwrap();
+        let variant = schist_gallery::variants::create(&original, "Warm", b"layers").unwrap();
+        assert!(protected_gallery_output(&variant, &original));
+        assert!(protected_gallery_output(&variant, &variant));
+        assert!(protected_gallery_output(
+            &variant,
+            &backing_psd(&original).unwrap()
+        ));
+        assert!(!protected_gallery_output(
+            &variant,
+            &dir.path().join("export.png")
+        ));
+        #[cfg(unix)]
+        {
+            let alias = dir.path().join("alias.jpg");
+            std::os::unix::fs::symlink(&original, &alias).unwrap();
+            assert!(protected_gallery_output(&variant, &alias));
+            let link = dir.path().join("hardlink.jpg");
+            std::fs::hard_link(&original, &link).unwrap();
+            assert!(protected_gallery_output(&variant, &link));
+        }
+    }
+
+    #[test]
+    fn virtual_copy_processing_export_and_original_safety() {
+        let dir = tempfile::tempdir().unwrap();
+        let photo = half_magenta(dir.path(), "capture.psd");
+        let original_bytes = std::fs::read(&photo).unwrap();
+        let variant = schist_gallery::variants::create(&photo, "Square", &original_bytes).unwrap();
+        let sibling = schist_gallery::variants::create(&photo, "Warm", &original_bytes).unwrap();
+        let codecs: Vec<Arc<dyn schist_plugin_api::CodecPlugin>> =
+            vec![Arc::new(schist_codecs_common::PsdCodec)];
+        let recipe = BatchRecipe {
+            rotate: Some(CanvasTransform::Cw90),
+            ..Default::default()
+        };
+        assert_eq!(
+            process_photo(&codecs, &variant, &recipe, &BatchSink::Edit).unwrap(),
+            variant
+        );
+        assert_ne!(std::fs::read(&variant).unwrap(), original_bytes);
+        assert_eq!(std::fs::read(&photo).unwrap(), original_bytes);
+        assert_eq!(std::fs::read(&sibling).unwrap(), original_bytes);
+        assert!(!backing_psd(&photo).unwrap().exists());
+        let versions = schist_gallery::versions::list(&variant).unwrap();
+        assert_eq!(versions.len(), 3);
+        assert_eq!(std::fs::read(&versions[1].path).unwrap(), original_bytes);
+        let (name, png) = zip_entry(&codecs, &variant).unwrap();
+        assert_eq!(name, "capture-Square.png");
+        let exported = image::load_from_memory(&png).unwrap();
+        let original = schist_codec_psd::read_psd(&original_bytes).unwrap();
+        assert_eq!(
+            (exported.width(), exported.height()),
+            (original.height, original.width)
+        );
+        schist_gallery::variants::delete(&variant).unwrap();
+        assert!(process_photo(&codecs, &variant, &recipe, &BatchSink::Edit).is_err());
+    }
+
+    #[test]
+    fn virtual_copy_move_carries_names_history_and_deleted_copies_without_clobbering() {
+        let root = tempfile::tempdir().unwrap();
+        let from = root.path().join("from");
+        let to = root.path().join("to");
+        std::fs::create_dir_all(&from).unwrap();
+        std::fs::create_dir_all(&to).unwrap();
+        let original = from.join("a.jpg");
+        std::fs::write(&original, b"capture").unwrap();
+        let variant = schist_gallery::variants::create(&original, "Warm", b"layers").unwrap();
+        let deleted = schist_gallery::variants::create(&original, "Old", b"old layers").unwrap();
+        schist_gallery::variants::delete(&deleted).unwrap();
+        let history = schist_gallery::versions::keep(&variant).unwrap().unwrap();
+        assert!(move_photo(&variant, &to).is_err());
+        let target = to.join("a.jpg");
+        let target_dir = schist_gallery::variants::directory(&target).unwrap();
+        std::fs::create_dir_all(&target_dir).unwrap();
+        let conflicting = target_dir.join(variant.file_name().unwrap());
+        std::fs::write(&conflicting, b"existing").unwrap();
+        assert!(move_photo(&original, &to).is_err());
+        assert_eq!(std::fs::read(&original).unwrap(), b"capture");
+        assert_eq!(std::fs::read(&variant).unwrap(), b"layers");
+        std::fs::remove_file(&conflicting).unwrap();
+        move_photo(&original, &to).unwrap();
+        assert!(!original.exists());
+        assert_eq!(std::fs::read(&target).unwrap(), b"capture");
+        let moved = target_dir.join(variant.file_name().unwrap());
+        assert_eq!(
+            schist_gallery::variants::name(&moved).as_deref(),
+            Some("Warm")
+        );
+        assert_eq!(schist_gallery::variants::list(&target), vec![moved.clone()]);
+        assert_eq!(
+            std::fs::read(
+                target_dir
+                    .join("versions")
+                    .join(history.file_name().unwrap())
+            )
+            .unwrap(),
+            b"layers"
+        );
+        assert_eq!(
+            std::fs::read(target_dir.join(deleted.file_name().unwrap())).unwrap(),
+            b"old layers"
+        );
+    }
+
     #[test]
     fn video_archives_preserve_original_bytes_and_ignore_image_sidecars() {
         let dir = tempfile::tempdir().unwrap();

@@ -86,6 +86,9 @@ impl Workspace {
     pub(super) fn open_metadata_editor(&mut self, photos: Vec<PathBuf>, cx: &mut Context<Self>) {
         let photos: Vec<_> = photos
             .into_iter()
+            .map(|p| schist_gallery::variants::capture(&p))
+            .collect::<std::collections::BTreeSet<_>>()
+            .into_iter()
             .filter(|p| !schist_gallery::is_video(p))
             .collect();
         if photos.is_empty() {

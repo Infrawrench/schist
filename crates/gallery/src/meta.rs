@@ -24,6 +24,8 @@ pub fn valid_gps_position(lat: f64, lon: f64) -> bool {
 
 /// One EXIF pass per photo, cached beside its thumbnail.
 pub fn photo_meta(cache: &Option<PathBuf>, original: &Path) -> PhotoMeta {
+    let capture = crate::variants::capture(original);
+    let original = capture.as_path();
     #[allow(unused_mut)]
     let mut meta = original_photo_meta(cache, original);
     #[cfg(not(target_arch = "wasm32"))]

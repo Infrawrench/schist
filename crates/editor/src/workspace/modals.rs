@@ -742,6 +742,14 @@ impl Workspace {
             }
             return;
         }
+        if id == "variant-name" {
+            self.update_modal(|m| {
+                if let Modal::VariantName { name, .. } = m {
+                    *name = buffer;
+                }
+            });
+            return;
+        }
         if id == "person-name" {
             self.update_modal(|m| {
                 if let Modal::PersonName { name, .. } = m {
@@ -881,6 +889,7 @@ impl Workspace {
             | Modal::FilePicker
             | Modal::MapFilter
             | Modal::SearchModels
+            | Modal::VariantName { .. }
             | Modal::PersonName { .. }
             | Modal::SaveImageAs { .. }
             | Modal::BatchProcess { .. }
