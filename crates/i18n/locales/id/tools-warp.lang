@@ -1,4 +1,4 @@
-tool.liquify.name = Liquify
+tool.liquify.name = Cairkan
 tool.liquify.description = Dorong, putar, kerutkan, atau gembungkan piksel di bawah kuas besar—opsi mode menentukan tindakannya. Distorsi terakumulasi dalam mesh dan diterapkan ke lapisan saat dikonfirmasi.
 tool.liquify.option.tool = Alat
 tool.liquify.choice.forward_warp = Distorsi Maju
@@ -8,7 +8,7 @@ tool.liquify.choice.twirl_ccw = Putar Berlawanan Arah Jarum Jam
 tool.liquify.choice.pucker = Kerutkan
 tool.liquify.choice.bloat = Gembungkan
 tool.liquify.choice.push_left = Dorong ke Kiri
-tool.liquify.history.liquify = Liquify
+tool.liquify.history.liquify = Cairkan
 tool.puppet_warp.name = Distorsi Boneka
 tool.puppet_warp.description = Klik untuk menyematkan lapisan pada beberapa titik, lalu seret salah satunya: mesh melengkung di sekitar pin, secara kaku atau longgar sesuai opsi Kekakuan. Konfirmasi akan menerapkannya.
 tool.puppet_warp.option.stiffness = Kekakuan

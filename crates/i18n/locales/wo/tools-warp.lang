@@ -16,5 +16,5 @@ tool.puppet_warp.history.puppet_warp = Yàqatal ni poope
 tool.vanishing_point.name = Tombu réer
 tool.vanishing_point.description = Diral ab suuf su tàpp ci mbir mu am perspective, ba noppi nga soppi anam wi mu nekk Clone te nga pentar: pixels yi ñu duppi dinañu topp suuf si, di ndaw ci sorewaay bi.
 tool.vanishing_point.choice.edit_plane = Soppi suuf si
-tool.vanishing_point.choice.clone = Clone
+tool.vanishing_point.choice.clone = Duppi
 tool.vanishing_point.history.vanishing_point = Tombu réer

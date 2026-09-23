@@ -1,7 +1,7 @@
 # Versjonshistorikk.
 versions.title = Versjonshistorikk
 versions.open = Versjonshistorikk…
-versions.original = Original
+versions.original = Originalversjon
 versions.current = Gjeldande lagra redigering
 versions.saved_at = Lagra {date} UTC
 versions.saved_sequence = Lagra {date} UTC ({n})

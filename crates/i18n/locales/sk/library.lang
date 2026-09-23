@@ -27,11 +27,11 @@ library.month.april = Apríl
 library.month.may = Máj
 library.month.june = Jún
 library.month.july = Júl
-library.month.august = August
-library.month.september = September
+library.month.august = august
+library.month.september = september
 library.month.october = Október
-library.month.november = November
-library.month.december = December
+library.month.november = november
+library.month.december = december
 library.month.title = {month} {year}
 library.month.undated = Bez dátumu
 

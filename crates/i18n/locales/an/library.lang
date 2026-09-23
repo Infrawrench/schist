@@ -190,7 +190,7 @@ library.import.no_window = No i hai garra finestra dende an presentar o selector
 
 # Nombre d'os volúmens de camera
 library.volume.iphone = iPhone u iPad
-library.volume.camera = Camera
+library.volume.camera = Cámara
 library.volume.phone = Telefono
 
 # Carpeta ubierta en pestanyas

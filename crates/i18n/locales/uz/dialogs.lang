@@ -193,7 +193,7 @@ dialog.style.inner_bevel = Ichki qiya qirra
 dialog.style.emboss = Bo‘rttirish
 dialog.style.pillow_emboss = Yostiqsimon bo‘rttirish
 dialog.style.linear = Chiziqli
-dialog.style.radial = Radial
+dialog.style.radial = Doiraviy
 dialog.style.reverse = Teskarilash
 dialog.style.from_to = Boshi / Oxiri
 dialog.style.from_fg = Boshi = old plan

@@ -116,7 +116,7 @@ dialog.plugins.photoshop_heading = Ngaahi plug-in Photoshop
 dialog.plugins.loaded_from = Kuo fakaheka mei he {folders}
 dialog.plugins.ps_detail = {architecture} · {detail}
 
-dialog.prefs.title = Preferences
+dialog.prefs.title = Ngaahi filí
 dialog.prefs.theme = Kaveinga
 dialog.prefs.theme_system = Sisitemi
 dialog.prefs.theme_dark = Fakapoʻuli
@@ -131,7 +131,7 @@ dialog.prefs.intent_saturation = Kakato ʻo e Lanu
 dialog.prefs.intent_absolute = Absolute Colorimetric
 dialog.prefs.scrolling = Scroll
 dialog.prefs.zoom_with_scroll = Fakalahi mo e veʻeteka scroll
-dialog.prefs.rendering = Rendering
+dialog.prefs.rendering = Fakaʻaliʻali
 dialog.prefs.gpu_compositing = Fakatahaʻi ʻaki ʻa e GPU
 dialog.prefs.diagnostics = Vakaiʻi Palopalema
 dialog.prefs.crash_reports = Hiki ha lipooti crash ʻi he mīsini ko ʻení ʻi ha panic

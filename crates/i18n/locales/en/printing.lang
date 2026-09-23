@@ -29,7 +29,7 @@ printing.letter = US Letter
 printing.a4 = A4
 printing.margin_value = {value} mm
 
-# Print layout controls; English fallback pending translation review.
+# Print layout controls.
 printing.layout_title = Print layout
 printing.preset = Layout preset
 printing.preset_single = One photo
