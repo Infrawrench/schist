@@ -1,0 +1,47 @@
+# Print workflow.
+printing.title = દસ્તાવેજ છાપો…
+printing.contact_sheet = પસંદગીમાંથી સંપર્ક પત્રક…
+printing.paper = કાગળનું કદ
+printing.margin = હાંસિયા
+printing.columns = કૉલમ
+printing.rows = પંક્તિઓ
+printing.dpi = આઉટપુટ DPI
+printing.landscape = આડું
+printing.actual_size = દસ્તાવેજના DPI મુજબ વાસ્તવિક કદ (માપ બદલ્યા વિના)
+printing.captions = ફાઇલ નામ, રેટિંગ અને કૅપ્શન સામેલ કરો
+printing.pages = પાનાં: {count}
+printing.color_note = પિક્સેલને sRGB માં રૂપાંતરિત કરવામાં આવે છે. તમારું PDF દર્શક અને પ્રિન્ટર, પ્રિન્ટરની પ્રોફાઇલ સંભાળે છે.
+printing.sizing_note = ફિટ મોડ દરેક ખાણું કાપ્યા વિના ભરે છે. વાસ્તવિક કદ દસ્તાવેજના DPI નો ઉપયોગ કરે છે; ન સમાય તો ગ્રીડ નાની કરો. પૃષ્ઠમાં ફિટ કર્યા વિના PDF ને 100% કદે છાપો.
+printing.running = PDF તૈયાર થાય છે…
+printing.save_pdf = PDF સાચવો…
+printing.open_print = છાપવા માટે PDF સાચવો અને ખોલો…
+printing.invalid = છાપકામની ગોઠવણો અથવા છબીના પરિમાણો અમાન્ય છે.
+printing.limit = છાપકામનું કામ મર્યાદા વટાવે છે: 200 છબીઓ, દરેક છબી માટે 4 કરોડ પિક્સેલ અથવા દરેક બાજુએ 32768 પિક્સેલ, અથવા 256 MiB સંકુચિત PDF ડેટા.
+printing.profile_error = આ છબીની રંગ પ્રોફાઇલ અમાન્ય, અસંગત અથવા અસમર્થિત છે. મૂળ CMYK/Lab માટે માન્ય એમ્બેડ કરેલી પ્રોફાઇલ જરૂરી છે; RGB માટે RGB પ્રોફાઇલ જરૂરી છે.
+printing.does_not_fit = દસ્તાવેજના DPI મુજબ આ છબી આ ખાણામાં સમાતી નથી. ફિટ મોડ, નાની ગ્રીડ અથવા મોટો કાગળ વાપરો.
+printing.caption_limit = આ ગ્રીડ માટે કૅપ્શન બહુ લાંબું છે. પંક્તિઓ અથવા કૉલમ ઓછી કરો, કૅપ્શન ટૂંકું કરો અથવા કૅપ્શન બંધ કરો.
+printing.font_error = કૅપ્શન માટે કોઈ ફોન્ટ ઉપલબ્ધ નથી. ટેક્સ્ટ ફોન્ટ સ્થાપિત કરો અથવા કૅપ્શન બંધ કરો.
+printing.no_document = છાપતા પહેલાં દસ્તાવેજ ખોલો અથવા ગૅલેરીમાંથી ફોટા પસંદ કરો.
+printing.source_error = પસંદ કરેલો ફોટો, સંપાદિત સાઇડકાર ફાઇલ અથવા કૅપ્શન વાંચી શકાયું નથી. કોઈ PDF સાચવાઈ નથી.
+printing.save_error = PDF સાચવી શકાયું નથી. લખી શકાય એવા ફોલ્ડરમાં નવું ફાઇલ નામ પસંદ કરો; હાજર ફાઇલો ક્યારેય બદલાતી નથી.
+printing.downloaded = PDF ડાઉનલોડ થઈ ગયું. તેને PDF દર્શકમાં ખોલીને 100% કદે છાપો.
+printing.saved = PDF સાચવાઈ ગયું: {path}
+printing.letter = US Letter
+printing.a4 = A4
+printing.margin_value = {value} mm
+
+# Print layout controls.
+printing.layout_title = છાપકામનું લેઆઉટ
+printing.preset = લેઆઉટ પ્રીસેટ
+printing.preset_single = એક ફોટો
+printing.preset_pair = બે ફોટા
+printing.preset_four = ચાર ફોટા
+printing.preset_nine = નવ ફોટા
+printing.preset_contact = સંપર્ક પત્રક
+printing.add_images = છબીઓ ઉમેરો…
+printing.add_page = પાનું ઉમેરો
+printing.layout_help = છબીને ખસેડવા તેને ખેંચો, અથવા તેનું કદ બદલવા તેનો વાદળી ખૂણો ખેંચો. પ્રીસેટમાં ફેરફાર કરી શકાય છે. આ પૃષ્ઠ પર બીજી નકલ ઉમેરવા યાદીમાં છબી પર ક્લિક કરો.
+printing.page_position = પાનું {page} / {pages}
+printing.loading_preview = પૂર્વાવલોકનો લોડ થાય છે…
+printing.selection = પસંદ કરેલી છબી
+printing.bring_front = આગળ લાવો

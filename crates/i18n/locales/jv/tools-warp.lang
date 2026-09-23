@@ -1,7 +1,7 @@
 # Piranti warp: Liquify, Puppet Warp, lan Vanishing Point.
 
 # Liquify
-tool.liquify.name = Liquify
+tool.liquify.name = Cairna
 tool.liquify.description = Dorong, ulir, ciutaké, utawa gembungaké piksel ing sangisoring kuas gedhé — pilihan modus nemtokaké tumindaké. Owah-owahan warp bakal nglumpuk ing jejaring lan ditrapaké menyang lapisan nalika dikomit.
 tool.liquify.option.tool = Piranti
 tool.liquify.choice.forward_warp = Warp Maju
@@ -11,7 +11,7 @@ tool.liquify.choice.twirl_ccw = Ulir Kosok Baliné Jarum Jam
 tool.liquify.choice.pucker = Ciutaké
 tool.liquify.choice.bloat = Gembungaké
 tool.liquify.choice.push_left = Dorong Ngiwa
-tool.liquify.history.liquify = Liquify
+tool.liquify.history.liquify = Cairna
 
 # Puppet Warp
 tool.puppet_warp.name = Puppet Warp

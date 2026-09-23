@@ -833,3 +833,11 @@ check-lens-profiles-mcp:
 .PHONY: test-lens-profiles-mcp
 test-lens-profiles-mcp:
 	$(CARGO) test -p schist-mcp --no-default-features --lib lens_profiles_mcp
+
+.PHONY: test-printing fmt-printing lint-printing
+test-printing:
+	$(CARGO) test -p schist-editor -p schist-gallery printing
+lint-printing:
+	$(CARGO) clippy -p schist-editor -p schist-gallery -p schist-app-actions --all-targets -- -D warnings
+fmt-printing:
+	$(CARGO) fmt -p schist-editor -p schist-app-actions -p schist-gallery

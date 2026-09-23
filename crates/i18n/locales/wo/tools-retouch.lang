@@ -1,6 +1,6 @@
 tool.patch.name = Patch bu jag
 tool.patch.description = Diral ab rëdd wër pakk bi, ba noppi nga diri tànneef bi jëm ci pixels yu set: texture bi fa nekk dinañu ko dëppale ak pakk bi ngir jag ko. Anamu Patch day tànn ban wetu ñaari barab yi ngay diri.
-tool.patch.option.patch = Patch
+tool.patch.option.patch = Jàppale
 tool.patch.choice.source = Cosaan
 tool.patch.choice.destination = Jëmukaay
 tool.patch.history.patch = Patch bu jag

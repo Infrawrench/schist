@@ -128,7 +128,7 @@ dialog.plugins.ps_detail = {architecture} · {detail}
 
 dialog.prefs.title = Innstillingar
 dialog.prefs.theme = Drakt
-dialog.prefs.theme_system = System
+dialog.prefs.theme_system = Systemtema
 dialog.prefs.theme_dark = Mørk
 dialog.prefs.theme_light = Lys
 dialog.prefs.grid_spacing = Avstand i rutenett

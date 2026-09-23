@@ -231,7 +231,7 @@ dialog.curves.rgb = RGB
 dialog.curves.reset_channel = Vhuedzedza Tshanele
 dialog.curves.hint = Kokodza u ita tshivhumbeo · kwama u engedza · kwama no fara alt u bvisa
 
-dialog.prefs.camera_sync = Camera roll
+dialog.prefs.camera_sync = Tshifanyiso tsha khamera
 dialog.prefs.camera_sync_enabled = Ita khophi ya u tsireledza kha Schist Cloud
 dialog.prefs.camera_sync_sign_in = Dzhena kha Schist Cloud uri ni ite khophi ya u tsireledza ya camera roll yaṋu.
 dialog.prefs.camera_sync_rule = {source} → {folder}

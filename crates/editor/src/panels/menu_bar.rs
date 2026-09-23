@@ -103,6 +103,9 @@ pub(crate) fn run_app_item(
         AppItem::Plugins => ws.open_modal(Modal::PluginManager, cx),
         #[cfg(target_arch = "wasm32")]
         AppItem::Plugins => {}
+        AppItem::Print => ws.open_printing(Vec::new(), cx),
+        #[cfg(not(target_arch = "wasm32"))]
+        AppItem::ContactSheet => ws.open_contact_sheet(cx),
         AppItem::Export => {
             let codec = ws
                 .registry

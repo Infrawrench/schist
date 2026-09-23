@@ -1,0 +1,47 @@
+# Print workflow.
+printing.title = چاپ سند…
+printing.contact_sheet = برگه تماس از موارد انتخاب‌شده…
+printing.paper = اندازه کاغذ
+printing.margin = حاشیه‌ها
+printing.columns = ستون‌ها
+printing.rows = ردیف‌ها
+printing.dpi = وضوح خروجی (DPI)
+printing.landscape = افقی
+printing.actual_size = اندازهٔ واقعی بر اساس DPI سند (بدون تغییر مقیاس)
+printing.captions = شامل نام فایل‌ها، امتیازها و زیرنویس‌ها
+printing.pages = صفحه‌ها: {count}
+printing.color_note = پیکسل‌ها به sRGB تبدیل می‌شوند. نمایشگر PDF و چاپگر، نمایهٔ چاپگر را مدیریت می‌کنند.
+printing.sizing_note = حالت برازش هر خانه را بدون برش پر می‌کند. اندازهٔ واقعی از DPI سند استفاده می‌کند؛ اگر جا نمی‌شود شبکه را کوچک‌تر کنید. PDF را با اندازهٔ ۱۰۰٪ و بدون برازش به صفحه چاپ کنید.
+printing.running = در حال آماده‌سازی PDF…
+printing.save_pdf = ذخیره PDF…
+printing.open_print = ذخیره و باز کردن PDF برای چاپ…
+printing.invalid = تنظیمات چاپ یا ابعاد تصویر نامعتبر است.
+printing.limit = کار چاپ از حد مجاز فراتر می‌رود: ۲۰۰ تصویر، ۴۰ میلیون پیکسل یا ۳۲۷۶۸ پیکسل در هر ضلع هر تصویر، یا ۲۵۶ MiB دادهٔ فشردهٔ PDF.
+printing.profile_error = نمایهٔ رنگی این تصویر نامعتبر، ناسازگار یا پشتیبانی‌نشده است. CMYK/Lab بومی به نمایهٔ تعبیه‌شدهٔ معتبر و RGB به نمایهٔ RGB نیاز دارد.
+printing.does_not_fit = تصویر با DPI سند در این خانه جا نمی‌شود. از حالت برازش، شبکهٔ کوچک‌تر یا کاغذ بزرگ‌تر استفاده کنید.
+printing.caption_limit = یک زیرنویس برای این شبکه بیش از حد طولانی است. تعداد ردیف‌ها یا ستون‌ها را کم کنید، زیرنویس را کوتاه کنید یا زیرنویس‌ها را غیرفعال کنید.
+printing.font_error = قلمی برای زیرنویس در دسترس نیست. یک قلم متنی نصب کنید یا زیرنویس‌ها را غیرفعال کنید.
+printing.no_document = پیش از چاپ، سندی باز کنید یا عکس‌هایی را از گالری انتخاب کنید.
+printing.source_error = خواندن عکس انتخاب‌شده، فایل جانبی ویرایش‌شده یا زیرنویس ممکن نشد. هیچ PDFی ذخیره نشد.
+printing.save_error = ذخیرهٔ PDF ممکن نشد. نام فایل تازه‌ای در پوشه‌ای قابل نوشتن انتخاب کنید؛ فایل‌های موجود هرگز جایگزین نمی‌شوند.
+printing.downloaded = PDF بارگیری شد. آن را در نمایشگر PDF باز کنید و با اندازهٔ ۱۰۰٪ چاپ کنید.
+printing.saved = PDF ذخیره شد: {path}
+printing.letter = US Letter
+printing.a4 = A4
+printing.margin_value = {value} mm
+
+# Print layout controls.
+printing.layout_title = طرح‌بندی چاپ
+printing.preset = پیش‌تنظیم طرح‌بندی
+printing.preset_single = یک عکس
+printing.preset_pair = دو عکس
+printing.preset_four = چهار عکس
+printing.preset_nine = نه عکس
+printing.preset_contact = برگه تماس
+printing.add_images = افزودن تصاویر…
+printing.add_page = افزودن صفحه
+printing.layout_help = برای جابه‌جایی تصویر آن را بکشید، یا برای تغییر اندازه گوشهٔ آبی آن را بکشید. پیش‌تنظیم‌ها همچنان قابل ویرایش‌اند. برای افزودن یک نسخهٔ دیگر به این صفحه، روی تصویری در فهرست کلیک کنید.
+printing.page_position = صفحهٔ {page} از {pages}
+printing.loading_preview = در حال بارگذاری پیش‌نمایش‌ها…
+printing.selection = تصویر انتخاب‌شده
+printing.bring_front = آوردن به جلو

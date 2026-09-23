@@ -131,6 +131,9 @@ pub enum AppItem {
     Crop,
     Plugins,
     Export,
+    Print,
+    #[cfg(not(target_arch = "wasm32"))]
+    ContactSheet,
     AssignProfile,
     ConvertProfile,
     ProofColors,

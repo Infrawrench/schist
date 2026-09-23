@@ -73,6 +73,7 @@ mod edit_ops;
 mod export;
 mod export_recipes;
 pub mod palettes;
+mod printing;
 #[cfg(not(target_arch = "wasm32"))]
 mod video;
 #[cfg(any(target_os = "ios", target_os = "android"))]
@@ -1083,6 +1084,9 @@ pub enum Modal {
         options: schist_plugin_api::ExportOptions,
     },
     /// Saved multi-output export recipes.
+    Printing {
+        editor: crate::printing::Editor,
+    },
     ExportRecipes {
         editor: crate::export_recipes::Editor,
     },

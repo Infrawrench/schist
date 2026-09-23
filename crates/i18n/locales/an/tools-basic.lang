@@ -22,5 +22,5 @@ tool.eyedropper.choice.current_layer = Capa actual
 # Man y Zoom
 tool.hand.name = Man
 tool.hand.description = Desplaza a vista. O visor perteneix a la finestra, asinas que, sin interficie grafica, ista ferramienta no fa garra cambio en o documento.
-tool.zoom.name = Zoom
+tool.zoom.name = Ampliar
 tool.zoom.description = Cambeya o zoom d'a vista. O visor perteneix a la finestra, asinas que, sin interficie grafica, ista ferramienta no fa garra cambio en o documento.

@@ -103,6 +103,54 @@ pub fn thumb_cache_path(source: &Path, mtime: u64) -> Option<PathBuf> {
     Some(dir.join(format!("{:016x}.png", hasher.finish())))
 }
 
+/// Resolve a gallery virtual-copy identity to the shared original capture.
+/// Ordinary file paths pass through unchanged. This is purely lexical.
+pub fn capture_original(path: &Path) -> PathBuf {
+    fn variant_original(path: &Path) -> Option<PathBuf> {
+        if path.extension()? != "psd" {
+            return None;
+        }
+        let id = path.file_stem()?.to_str()?;
+        if id.len() != 48 || !id.bytes().all(|b| b.is_ascii_hexdigit()) {
+            return None;
+        }
+        let photo = path.parent()?;
+        let variants = photo.parent()?;
+        let hidden = variants.parent()?;
+        if variants.file_name()? != "variants" || hidden.file_name()? != ".schist" {
+            return None;
+        }
+        Some(hidden.parent()?.join(photo.file_name()?))
+    }
+    variant_original(path).unwrap_or_else(|| path.to_owned())
+}
+
+/// Human-readable gallery name; virtual-copy names do not change file identity.
+pub fn photo_display_name(path: &Path) -> String {
+    let variant_name = || -> Option<String> {
+        if capture_original(path) == path {
+            return None;
+        }
+        let record = path.with_extension("json");
+        let metadata = std::fs::symlink_metadata(&record).ok()?;
+        if !metadata.is_file() || metadata.len() > 16384 {
+            return None;
+        }
+        let value: serde_json::Value = serde_json::from_slice(&std::fs::read(record).ok()?).ok()?;
+        let name = value.get("name")?.as_str()?.trim();
+        if name.is_empty() || name.chars().count() > 120 || name.chars().any(char::is_control) {
+            return None;
+        }
+        Some(name.to_owned())
+    };
+    variant_name().unwrap_or_else(|| {
+        path.file_name()
+            .unwrap_or_default()
+            .to_string_lossy()
+            .into_owned()
+    })
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -129,5 +177,28 @@ mod tests {
         assert_ne!(a, b);
         assert_ne!(a, c);
         assert_eq!(a, thumb_cache_path(Path::new("/p/a.jpg"), 1));
+    }
+    #[test]
+    fn printing_virtual_caption_name_and_capture_are_independent_of_edit_identity() {
+        let dir = tempfile::tempdir().unwrap();
+        let capture = dir.path().join("photo.jpg");
+        let variant_dir = dir.path().join(".schist/variants/photo.jpg");
+        std::fs::create_dir_all(&variant_dir).unwrap();
+        let variant = variant_dir.join(format!("{}.psd", "0".repeat(48)));
+        std::fs::write(
+            variant.with_extension("json"),
+            br#"{"name":"Warm print","deleted":false}"#,
+        )
+        .unwrap();
+        assert_eq!(capture_original(&variant), capture);
+        assert_eq!(photo_display_name(&variant), "Warm print");
+        assert_eq!(photo_display_name(&capture), "photo.jpg");
+        std::fs::write(variant.with_extension("json"), br#"{"name":"bad\nname"}"#).unwrap();
+        assert_eq!(
+            photo_display_name(&variant),
+            variant.file_name().unwrap().to_string_lossy()
+        );
+        let unrelated = variant_dir.join("ordinary.psd");
+        assert_eq!(capture_original(&unrelated), unrelated);
     }
 }

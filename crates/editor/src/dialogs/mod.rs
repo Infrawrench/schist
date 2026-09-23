@@ -35,6 +35,7 @@ mod photo_merge;
 #[cfg(not(sandboxed))]
 mod plugins;
 mod prefs;
+mod printing;
 mod profile;
 mod recorded_actions;
 #[cfg(not(target_arch = "wasm32"))]
@@ -256,6 +257,9 @@ pub fn render(ws: &mut Workspace, cx: &mut Context<Workspace>) -> Option<gpui::A
         }
         Modal::Export { codec, options } => {
             export_dialog(ws, &state, codec, options, cx).into_any_element()
+        }
+        Modal::Printing { editor } => {
+            printing::printing_dialog(ws, &state, editor, cx).into_any_element()
         }
         Modal::ExportRecipes { editor } => {
             export_recipes_dialog(ws, &state, editor, cx).into_any_element()

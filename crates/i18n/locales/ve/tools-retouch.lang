@@ -1,9 +1,9 @@
-tool.patch.name = Patch
+tool.patch.name = Tshipatsho
 tool.patch.description = Kokodza mutalo u monaho tshinyalo, nga murahu u kokodze zwo nangiwaho kha dzipixel dzo kunaho: thekisitsha ya henefho i dzheniswa kha tshinyalo. Moudu wa u nama u nanga uri ndi thungo ifhio ya zwenezwo zwivhili ine na i kokodza.
-tool.patch.option.patch = Patch
+tool.patch.option.patch = Tshipatsho
 tool.patch.choice.source = Tshiko
 tool.patch.choice.destination = Hune zwa ya hone
-tool.patch.history.patch = Patch
+tool.patch.history.patch = Tshipatsho
 tool.content_aware_move.name = Sudzulusa u tshi ṱhogomela zwi re ngomu
 tool.content_aware_move.description = Kokodza tshithu tsho nangiwaho u tshi isa huṅwe, buli ḽine tsha ḽi sia ḽa ḓadzwa nga zwi re tsini. Kha moudu wa u Engedza, tshithu tshi a tatamudzwa nṱhani ha u sudzuluswa.
 tool.content_aware_move.choice.move = Sudzulusa

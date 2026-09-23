@@ -85,6 +85,9 @@ fn editor_menus(ws: &Workspace) -> Vec<(&'static str, Vec<MenuEntry>)> {
                 App(t("menu.file.save"), Save, Some("cmd-s")),
                 App(t("menu.file.save_as"), SaveAs, Some("cmd-shift-s")),
                 App(t("menu.file.export"), Export, Some("cmd-shift-alt-s")),
+                App(t("printing.title"), Print, None),
+                #[cfg(not(target_arch = "wasm32"))]
+                App(t("printing.contact_sheet"), ContactSheet, None),
                 Sep,
                 Sub(
                     "Export",
@@ -419,6 +422,7 @@ fn gallery_menus(ws: &Workspace) -> Vec<(&'static str, Vec<MenuEntry>)> {
     }
     file.extend([
         Sep,
+        App(t("printing.layout_title"), ContactSheet, None),
         App(t("menu.file.add_folder_to_gallery"), GalleryAddFolder, None),
         App(
             if cfg!(target_os = "ios") {

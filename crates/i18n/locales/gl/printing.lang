@@ -1,0 +1,47 @@
+# Print workflow.
+printing.title = Imprimir documento…
+printing.contact_sheet = Folla de contactos da selección…
+printing.paper = Tamaño do papel
+printing.margin = Marxes
+printing.columns = Columnas
+printing.rows = Filas
+printing.dpi = PPP de saída
+printing.landscape = Horizontal
+printing.actual_size = Tamaño real segundo os PPP do documento (sen escalado)
+printing.captions = Incluír nomes de ficheiro, valoracións e lendas
+printing.pages = Páxinas: {count}
+printing.color_note = Os píxeles convértense a sRGB. O visor de PDF e a impresora xestionan o perfil da impresora.
+printing.sizing_note = O modo Axustar enche cada cela sen recortar. O tamaño real usa os PPP do documento; reduza a grella se non cabe. Imprima o PDF ao 100 % sen axustalo á páxina.
+printing.running = Preparando PDF…
+printing.save_pdf = Gardar PDF…
+printing.open_print = Gardar e abrir o PDF para imprimir…
+printing.invalid = Configuración de impresión ou dimensións da imaxe non válidas.
+printing.limit = O traballo supera o límite: 200 imaxes, 40 millóns de píxeles ou 32 768 píxeles por lado e por imaxe, ou 256 MiB de datos PDF comprimidos.
+printing.profile_error = Esta imaxe ten un perfil de cor non válido, incompatible ou non admitido. CMYK/Lab nativo require un perfil incrustado válido; RGB require un perfil RGB.
+printing.does_not_fit = A imaxe, cos PPP do documento, non cabe nesta cela. Use o modo Axustar, unha grella máis pequena ou papel máis grande.
+printing.caption_limit = Unha lenda é demasiado longa para esta grella. Use menos filas ou columnas, acurte a lenda ou desactive as lendas.
+printing.font_error = Non hai ningún tipo de letra dispoñible para a lenda. Instale un tipo de letra ou desactive as lendas.
+printing.no_document = Abra un documento ou seleccione fotografías da galería antes de imprimir.
+printing.source_error = Non se puido ler unha fotografía seleccionada, o seu ficheiro auxiliar editado ou a súa lenda. Non se gardou ningún PDF.
+printing.save_error = Non se puido gardar o PDF. Escolla un nome novo nun cartafol con permiso de escritura; nunca se substitúen os ficheiros existentes.
+printing.downloaded = PDF descargado. Ábrao nun visor de PDF e imprímao ao 100 %.
+printing.saved = PDF gardado: {path}
+printing.letter = US Letter
+printing.a4 = A4
+printing.margin_value = {value} mm
+
+# Print layout controls.
+printing.layout_title = Deseño de impresión
+printing.preset = Modelo de deseño
+printing.preset_single = Unha foto
+printing.preset_pair = Dúas fotos
+printing.preset_four = Catro fotos
+printing.preset_nine = Nove fotos
+printing.preset_contact = Folla de contactos
+printing.add_images = Engadir imaxes…
+printing.add_page = Engadir páxina
+printing.layout_help = Arrastre unha imaxe para movela ou arrastre a súa esquina azul para cambiar o tamaño. Os modelos seguen sendo editables. Prema nunha imaxe da lista para engadir outra copia a esta páxina.
+printing.page_position = Páxina {page} de {pages}
+printing.loading_preview = Cargando vistas previas…
+printing.selection = Imaxe seleccionada
+printing.bring_front = Traer á fronte

@@ -54,7 +54,7 @@ menu.image.rotate_90_ccw = 90° mot klokken
 menu.image.flip_canvas_horizontal = Vend lerret vannrett
 menu.image.flip_canvas_vertical = Vend lerret loddrett
 menu.image.crop_to_selection = Beskjær til markering
-menu.image.trim = Trim
+menu.image.trim = Beskjær tomme kanter
 menu.image.assign_profile = Tilordne profil…
 menu.image.convert_to_profile = Konverter til profil…
 

@@ -1,0 +1,47 @@
+# Print workflow.
+printing.title = Tulosta asiakirja…
+printing.contact_sheet = Valinnan pinnakkaisarkki…
+printing.paper = Paperikoko
+printing.margin = Reunukset
+printing.columns = Sarakkeet
+printing.rows = Rivit
+printing.dpi = Tulostuksen DPI
+printing.landscape = Vaaka
+printing.actual_size = Todellinen koko asiakirjan DPI-arvon mukaan (ei skaalausta)
+printing.captions = Sisällytä tiedostonimet, arviot ja kuvatekstit
+printing.pages = Sivuja: {count}
+printing.color_note = Pikselit muunnetaan sRGB-väriavaruuteen. PDF-lukija ja tulostin hallitsevat tulostimen väriprofiilia.
+printing.sizing_note = Sovitus täyttää jokaisen ruudun rajaamatta kuvaa. Todellinen koko käyttää asiakirjan DPI-arvoa; pienennä ruudukkoa, jos kuva ei mahdu. Tulosta PDF 100 %:n koossa sovittamatta sivulle.
+printing.running = Valmistellaan PDF-tiedostoa…
+printing.save_pdf = Tallenna PDF…
+printing.open_print = Tallenna ja avaa PDF tulostamista varten…
+printing.invalid = Virheelliset tulostusasetukset tai kuvan mitat.
+printing.limit = Tulostustyö ylittää rajan: 200 kuvaa, 40 miljoonaa pikseliä tai 32 768 pikseliä sivua kohti kuvaa kohden tai 256 MiB pakattua PDF-dataa.
+printing.profile_error = Kuvan väriprofiili on virheellinen, ristiriitainen tai sitä ei tueta. Alkuperäinen CMYK/Lab vaatii kelvollisen upotetun profiilin; RGB vaatii RGB-profiilin.
+printing.does_not_fit = Kuva ei mahdu tähän ruutuun asiakirjan DPI-arvolla. Käytä sovitusta, pienempää ruudukkoa tai suurempaa paperia.
+printing.caption_limit = Kuvateksti on liian pitkä tähän ruudukkoon. Vähennä rivejä tai sarakkeita, lyhennä kuvatekstiä tai poista kuvatekstit käytöstä.
+printing.font_error = Kuvatekstille ei ole käytettävissä fonttia. Asenna tekstifontti tai poista kuvatekstit käytöstä.
+printing.no_document = Avaa asiakirja tai valitse kuvia galleriasta ennen tulostamista.
+printing.source_error = Valittua kuvaa, muokattua sivutiedostoa tai kuvatekstiä ei voitu lukea. PDF-tiedostoa ei tallennettu.
+printing.save_error = PDF-tiedostoa ei voitu tallentaa. Valitse uusi tiedostonimi kansiosta, johon voi kirjoittaa; olemassa olevia tiedostoja ei koskaan korvata.
+printing.downloaded = PDF ladattu. Avaa se PDF-lukijassa ja tulosta 100 %:n koossa.
+printing.saved = PDF tallennettu: {path}
+printing.letter = US Letter
+printing.a4 = A4
+printing.margin_value = {value} mm
+
+# Print layout controls.
+printing.layout_title = Tulostusasettelu
+printing.preset = Asettelun esiasetus
+printing.preset_single = Yksi kuva
+printing.preset_pair = Kaksi kuvaa
+printing.preset_four = Neljä kuvaa
+printing.preset_nine = Yhdeksän kuvaa
+printing.preset_contact = Pinnakkaisarkki
+printing.add_images = Lisää kuvia…
+printing.add_page = Lisää sivu
+printing.layout_help = Siirrä kuvaa vetämällä sitä tai muuta sen kokoa vetämällä sinistä kulmaa. Esiasetuksia voi edelleen muokata. Lisää toinen kopio tälle sivulle napsauttamalla kuvaa luettelossa.
+printing.page_position = Sivu {page} / {pages}
+printing.loading_preview = Ladataan esikatseluita…
+printing.selection = Valittu kuva
+printing.bring_front = Tuo eteen

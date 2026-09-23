@@ -1,0 +1,47 @@
+# Print workflow.
+printing.title = Inprimatu dokumentua…
+printing.contact_sheet = Kontaktuen orria hautapenetik…
+printing.paper = Paperaren tamaina
+printing.margin = Marjinak
+printing.columns = Zutabeak
+printing.rows = Errenkadak
+printing.dpi = Irteerako DPIa
+printing.landscape = Horizontala
+printing.actual_size = Benetako tamaina dokumentuaren DPIaren arabera (eskalatu gabe)
+printing.captions = Sartu fitxategi-izenak, balorazioak eta oin-oharrak
+printing.pages = Orriak: {count}
+printing.color_note = Pixelak sRGBra bihurtzen dira. PDF ikustaileak eta inprimagailuak kudeatzen dute inprimagailuaren profila.
+printing.sizing_note = Doitu moduak gelaxka bakoitza betetzen du moztu gabe. Benetako tamainak dokumentuaren DPIa erabiltzen du; txikitu sareta egokitzen ez bada. Inprimatu PDFa % 100ean, orrialdera doitu gabe.
+printing.running = PDFa prestatzen…
+printing.save_pdf = Gorde PDFa…
+printing.open_print = Gorde eta ireki PDFa inprimatzeko…
+printing.invalid = Inprimatze-ezarpenak edo irudiaren neurriak baliogabeak dira.
+printing.limit = Inprimatze-lanak muga gainditzen du: 200 irudi, 40 milioi pixel edo 32 768 pixel ertz bakoitzeko irudi bakoitzean, edo konprimitutako PDF datuen 256 MiB.
+printing.profile_error = Irudi honek kolore-profil baliogabea, bat ez datorrena edo onartzen ez dena du. Jatorrizko CMYK/Lab koloreek txertatutako profil baliozkoa behar dute; RGBk RGB profila behar du.
+printing.does_not_fit = Dokumentuaren DPIarekin irudia ez da gelaxka honetan sartzen. Erabili Doitu modua, sareta txikiagoa edo paper handiagoa.
+printing.caption_limit = Oin-oharra luzeegia da sareta honetarako. Erabili errenkada edo zutabe gutxiago, laburtu oin-oharra edo desgaitu oin-oharrak.
+printing.font_error = Ez dago oin-oharrerako letra-tiporik. Instalatu testu-letra bat edo desgaitu oin-oharrak.
+printing.no_document = Ireki dokumentu bat edo hautatu argazkiak galerian inprimatu aurretik.
+printing.source_error = Ezin izan da hautatutako argazkia, editatutako alboko fitxategia edo oin-oharra irakurri. Ez da PDFrik gorde.
+printing.save_error = Ezin izan da PDFa gorde. Hautatu fitxategi-izen berria idazteko baimena duen karpeta batean; lehendik dauden fitxategiak ez dira inoiz ordezten.
+printing.downloaded = PDFa deskargatu da. Ireki PDF ikustaile batean eta inprimatu % 100ean.
+printing.saved = PDFa gorde da: {path}
+printing.letter = US Letter
+printing.a4 = A4
+printing.margin_value = {value} mm
+
+# Print layout controls.
+printing.layout_title = Inprimatze-diseinua
+printing.preset = Diseinu-aurrezarpena
+printing.preset_single = Argazki bat
+printing.preset_pair = Bi argazki
+printing.preset_four = Lau argazki
+printing.preset_nine = Bederatzi argazki
+printing.preset_contact = Kontaktuen orria
+printing.add_images = Gehitu irudiak…
+printing.add_page = Gehitu orria
+printing.layout_help = Arrastatu irudi bat mugitzeko, edo arrastatu haren izkin urdina tamaina aldatzeko. Aurrezarpenak editagarriak dira. Egin klik zerrendako irudi batean orrialde honi beste kopia bat gehitzeko.
+printing.page_position = {page}. orria / {pages}
+printing.loading_preview = Aurrebistak kargatzen…
+printing.selection = Hautatutako irudia
+printing.bring_front = Ekarri aurrera

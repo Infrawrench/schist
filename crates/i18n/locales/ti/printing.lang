@@ -1,0 +1,47 @@
+# Print workflow.
+printing.title = ሰነድ ሕተም…
+printing.contact_sheet = ካብ ዝተመርጹ ስእልታት ናይ ንኣሽቱ ስእልታት ወረቐት…
+printing.paper = ዓቐን ወረቐት
+printing.margin = ዶባት
+printing.columns = ዓምድታት
+printing.rows = ረድፍታት
+printing.dpi = DPI ውጽኢት
+printing.landscape = ጎናዊ
+printing.actual_size = ብ DPI ሰነድ ናይ ሓቂ ዓቐን (ብዘይ ምዕባይ ወይ ምንካይ)
+printing.captions = ስም ፋይላት፣ ደረጃታትን መግለጺታትን ኣካትት
+printing.pages = ገጻት: {count}
+printing.color_note = ፒክሰላት ናብ sRGB ይቕየሩ። መርኣዪ PDFኻን ሓታሚኻን ንፕሮፋይል ሕብሪ ሓታሚ የመሓድሩ።
+printing.sizing_note = ናይ ምስማማዕ ኣገባብ ነቲ ስእሊ ብዘይ ምቑራጽ ኣብ ውሽጢ ነፍሲ ወከፍ ክፍሊ የእትዎ። ናይ ሓቂ ዓቐን ናይቲ ሰነድ DPI ይጥቀም፤ እንተ ዘይሰማማዕ ብዝሒ ረድፊ ወይ ዓምዲ ኣጉድል። ናይ ገጽ ምስማማዕ ኣጥፊእካ PDF ብ 100% ሕተም።
+printing.running = PDF ይዳሎ ኣሎ…
+printing.save_pdf = PDF ዓቅብ…
+printing.open_print = ንምሕታም PDF ዓቅብን ክፈትን…
+printing.invalid = ቅጥዕታት ሕትመት ወይ መጠን ስእሊ ቅኑዕ ኣይኮኑን።
+printing.limit = ናይ ሕትመት ዕማም ካብ ደረት ሓሊፉ፦ 200 ስእልታት፣ ንነፍሲ ወከፍ ስእሊ 40 ሚልዮን ፒክሰላት ወይ ኣብ ነፍሲ ወከፍ ጎኒ 32768 ፒክሰላት፣ ወይ 256 MiB ዝተጨመቐ ናይ PDF ዳታ።
+printing.profile_error = እዚ ስእሊ ዘይቅኑዕ፣ ዘይሰማማዕ ወይ ዘይድገፍ ፕሮፋይል ሕብሪ ኣለዎ። መበቆላዊ CMYK/Lab ናይ ሕብሪ ቻነላት ዘለዎ ሰነድ ቅኑዕ ዝተተኽለ ፕሮፋይል የድልዮ፤ RGB ድማ ናይ RGB ፕሮፋይል የድልዮ።
+printing.does_not_fit = እቲ ስእሊ ብናይ ሰነዱ DPI ኣብዚ ክፍሊ ኣይኣቱን። ናይ ምስማማዕ ኣገባብ፣ ዝነኣሰ መርበብ ወይ ዝዓበየ ወረቐት ተጠቐም።
+printing.caption_limit = መግለጺ ንዚ መርበብ ኣዝዩ ነዊሕ እዩ። ረድፍታት ወይ ዓምድታት ኣጉድል፣ ነቲ መግለጺ ኣሕጽር ወይ መግለጺታት ኣጥፍእ።
+printing.font_error = ንመግለጺ ዝኸውን ቅርጺ ፊደል የለን። ናይ ጽሑፍ ቅርጺ ፊደል ተኸል ወይ መግለጺታት ኣጥፍእ።
+printing.no_document = ቅድሚ ምሕታም ሰነድ ክፈት ወይ ካብ ጋለሪ ስእልታት ምረጽ።
+printing.source_error = ዝተመርጸ ስእሊ፣ ኣብ ጎኑ ዘሎ ዝተመሓየሸ ፋይል ወይ መግለጺ ክንበብ ኣይተኻእለን። PDF ኣይተዓቀበን።
+printing.save_error = PDF ክዕቀብ ኣይተኻእለን። ኣብ ክጽሓፍ ዝኽእል ኣቃፊ ሓድሽ ስም ፋይል ምረጽ፤ ድሮ ዘለዉ ፋይላት ፈጺሞም ኣይትካእን።
+printing.downloaded = PDF ወሪዱ። ብ 100% ንምሕታም ኣብ መርኣዪ PDF ክፈቶ።
+printing.saved = PDF ተዓቂቡ: {path}
+printing.letter = US Letter
+printing.a4 = A4
+printing.margin_value = {value} mm
+
+# Print layout controls.
+printing.layout_title = ኣቀማምጣ ሕትመት
+printing.preset = ቅድመ ኣቀማምጣ
+printing.preset_single = ሓደ ስእሊ
+printing.preset_pair = ክልተ ስእልታት
+printing.preset_four = ኣርባዕተ ስእልታት
+printing.preset_nine = ትሽዓተ ስእልታት
+printing.preset_contact = ናይ ንኣሽቱ ስእልታት ወረቐት
+printing.add_images = ስእልታት ወስኽ…
+printing.add_page = ገጽ ወስኽ
+printing.layout_help = ንስእሊ ንምንቅስቓስ ጎትቶ፤ ዓቐኑ ንምቕያር ነቲ ሰማያዊ ኩርናዑ ጎትቶ። ቅድመ ኣቀማምጣታት ክምሓየሹ ይኽእሉ። ናብዚ ገጽ ካልእ ቅዳሕ ንምውሳኽ ኣብ ዝርዝር ዘሎ ስእሊ ጠውቕ።
+printing.page_position = ገጽ {page} ካብ {pages}
+printing.loading_preview = ቅድመ ምርኢታት ይጽዓኑ ኣለዉ…
+printing.selection = ዝተመርጸ ስእሊ
+printing.bring_front = ናብ ቅድሚት ኣምጽእ

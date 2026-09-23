@@ -114,7 +114,7 @@ workspace.file_picker.type_a_name = Escribe un nombre ta lo fichero
 workspace.file_picker.exists = {name} ya existe; toca Alzar atra vegada ta reemplazar-lo
 workspace.file_picker.tap_a_file = Toca un fichero ta ubrir-lo
 workspace.file_picker.pictures = Imachens
-workspace.file_picker.camera = Camera
+workspace.file_picker.camera = Cámara
 workspace.file_picker.downloads = Descargas
 workspace.file_picker.permission_denied = Schist no tiene permiso ta leyer ista carpeta
 

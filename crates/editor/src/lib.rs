@@ -26,6 +26,7 @@ mod gallery;
 pub mod keymap;
 pub mod native_menu;
 mod panels;
+mod printing;
 mod style_dialog;
 mod ui;
 pub mod workspace;

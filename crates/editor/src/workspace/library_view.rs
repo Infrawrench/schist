@@ -2885,6 +2885,15 @@ fn gallery_context_menu(
             if acting.iter().any(|p| !schist_gallery::is_video(p)) {
                 let photos = acting.clone();
                 row(
+                    t("printing.layout_title").into(),
+                    &mut rows,
+                    cx,
+                    std::rc::Rc::new(move |ws, _, cx| ws.open_printing(photos.clone(), cx)),
+                );
+            }
+            if acting.iter().any(|p| !schist_gallery::is_video(p)) {
+                let photos = acting.clone();
+                row(
                     t("metadata.title").into(),
                     &mut rows,
                     cx,

@@ -36,7 +36,7 @@ panel.history.opened = Ubierto
 
 # Pestanya d'información
 panel.info.title = Información
-panel.info.camera = Camera
+panel.info.camera = Cámara
 panel.info.lens = Obchectivo
 panel.info.iso = ISO {iso}
 panel.info.bias = Compensación
@@ -47,7 +47,7 @@ panel.info.metering = medición {metering}
 panel.info.taken = Presa
 panel.info.size = {w} × {h} · {mp} MP
 panel.info.size_oriented = {w} × {h} · {mp} MP · orientación {o}
-panel.info.software = Software
+panel.info.software = Programa
 panel.info.where = Puesto
 
 # Panel de notas
