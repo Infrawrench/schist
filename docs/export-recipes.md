@@ -1,6 +1,6 @@
 # Saved export recipes
 
-Open **File → Export → Export recipes…** to create named export recipes. In the gallery,
+Open **File → Export…**, then choose **Export recipes…** in the export dialog to create named export recipes. In the gallery,
 select photos, open **Process…** from their context menu, then choose **Export recipes…**.
 This exports each selected photo's current saved edit when it has a sidecar, otherwise
 its original. Unsaved canvas edits are included when exporting the open document.
