@@ -76,10 +76,12 @@ impl Workspace {
         self.cancel_browser_edits();
         self.pointer_down = true;
         #[cfg(target_arch = "wasm32")]
-        {
-            self.editor.pen_tilt =
-                schist_plugin_api::brush::tilt_in_document(crate::web::pen_tilt(), self.rotation);
-        }
+        let tilt = crate::web::pen_tilt();
+        #[cfg(not(target_arch = "wasm32"))]
+        let tilt = ev.tilt;
+        // Assign for every sample, including ordinary mouse/no-data events:
+        // a previous pen's orientation must never leak into the next stroke.
+        self.editor.pen_tilt = schist_plugin_api::brush::tilt_in_document(tilt, self.rotation);
         let input = self.tool_input(local, ev.modifiers, ev.pressure);
         let tool_id = self.editor.active_tool;
         #[cfg(target_arch = "wasm32")]
@@ -139,10 +141,12 @@ impl Workspace {
         }
         let local = self.to_local(ev.position);
         #[cfg(target_arch = "wasm32")]
-        {
-            self.editor.pen_tilt =
-                schist_plugin_api::brush::tilt_in_document(crate::web::pen_tilt(), self.rotation);
-        }
+        let tilt = crate::web::pen_tilt();
+        #[cfg(not(target_arch = "wasm32"))]
+        let tilt = ev.tilt;
+        // Assign for every sample, including ordinary mouse/no-data events:
+        // a previous pen's orientation must never leak into the next stroke.
+        self.editor.pen_tilt = schist_plugin_api::brush::tilt_in_document(tilt, self.rotation);
         let input = self.tool_input(local, ev.modifiers, ev.pressure);
         let tool_id = self.editor.active_tool;
         if let (Some(doc), Some(tool)) = (self.doc.as_mut(), self.registry.tool_mut(tool_id)) {
@@ -185,10 +189,12 @@ impl Workspace {
         self.pointer_down = false;
         let local = self.to_local(ev.position);
         #[cfg(target_arch = "wasm32")]
-        {
-            self.editor.pen_tilt =
-                schist_plugin_api::brush::tilt_in_document(crate::web::pen_tilt(), self.rotation);
-        }
+        let tilt = crate::web::pen_tilt();
+        #[cfg(not(target_arch = "wasm32"))]
+        let tilt = ev.tilt;
+        // Assign for every sample, including ordinary mouse/no-data events:
+        // a previous pen's orientation must never leak into the next stroke.
+        self.editor.pen_tilt = schist_plugin_api::brush::tilt_in_document(tilt, self.rotation);
         let input = self.tool_input(local, ev.modifiers, ev.pressure);
         let tool_id = self.editor.active_tool;
         if let (Some(doc), Some(tool)) = (self.doc.as_mut(), self.registry.tool_mut(tool_id)) {

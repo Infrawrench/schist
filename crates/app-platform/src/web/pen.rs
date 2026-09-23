@@ -1,6 +1,6 @@
 //! Capture pen orientation before GPUI handles the same DOM pointer event.
-//! The pinned native GPUI events have pressure but no tilt fields. The web
-//! host can preserve those fields directly, without fabricating mouse tilt.
+//! The browser keeps its capture-phase routing so orientation stays paired
+//! with the exact DOM sample, without fabricating mouse tilt.
 use std::cell::Cell;
 use wasm_bindgen::{closure::Closure, JsCast as _};
 

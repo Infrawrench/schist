@@ -841,3 +841,28 @@ lint-printing:
 	$(CARGO) clippy -p schist-editor -p schist-gallery -p schist-app-actions --all-targets -- -D warnings
 fmt-printing:
 	$(CARGO) fmt -p schist-editor -p schist-app-actions -p schist-gallery
+
+# Native pen routing and existing brush fallback/rotation regressions.
+.PHONY: test-native-stylus-tilt fmt-native-stylus-tilt
+test-native-stylus-tilt:
+	$(CARGO) test -p schist-plugin-api brush::tests
+	$(CARGO) test -p schist-tools-paint tilt
+fmt-native-stylus-tilt:
+	$(CARGO) fmt -p schist-editor -p schist-ui -p schist-app-platform -p schist-plugin-api -p schist-tools-paint
+
+.PHONY: check-native-stylus-toolkit-windows check-native-stylus-toolkit-macos
+check-native-stylus-toolkit-windows:
+	$(CARGO) check -p gpui --target x86_64-pc-windows-gnu
+check-native-stylus-toolkit-macos:
+	$(CARGO) check -p gpui --target aarch64-apple-darwin
+
+.PHONY: test-native-stylus-toolkit
+# Cargo cannot run a non-workspace dependency's dev-dependency tests. Supply
+# an isolated checkout of the pinned fork; this never modifies Cargo's cache.
+test-native-stylus-toolkit:
+	@test -n "$(GPUI_CHECKOUT)" || (echo 'Set GPUI_CHECKOUT to an isolated checkout of the pinned GPUI fork'; exit 1)
+	$(CARGO) test --manifest-path "$(GPUI_CHECKOUT)/Cargo.toml" --lib tilt_tests
+
+.PHONY: lint-native-stylus-tilt
+lint-native-stylus-tilt:
+	$(CARGO) clippy -p schist-editor -p schist-ui -p schist-app-platform -p schist-tools-paint --all-targets -- -D warnings

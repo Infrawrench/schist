@@ -545,3 +545,30 @@ fn imported_masks_clip_selection_and_work_for_pencil_and_eraser() {
         assert_eq!(pixels(&doc), before);
     }
 }
+
+#[test]
+fn native_tilt_in_rotated_view_renders_document_angle_and_clears_for_mouse() {
+    let render = |sample, view_rotation| {
+        let mut doc = document();
+        let mut state = bitmap_state();
+        state.brush_dynamics.tilt_rotation = true;
+        state.brush_dynamics.rotation = 30.0;
+        state.pen_tilt = schist_plugin_api::brush::tilt_in_document(sample, view_rotation);
+        paint(
+            &mut doc,
+            &mut state,
+            &[point(70.0, 60.0, 1.0)],
+            point(70.0, 60.0, 1.0),
+        );
+        pixels(&doc)
+    };
+    // A physical rightward pen on a 90-degree canvas points up in the document.
+    assert_eq!(
+        render(Some([45.0, 0.0]), std::f32::consts::FRAC_PI_2),
+        render(Some([0.0, -45.0]), 0.0)
+    );
+    // No-data and malformed native samples use the same saved manual angle.
+    assert_eq!(render(None, 0.8), render(Some([91.0, 0.0]), 0.8));
+    assert_eq!(render(None, 0.8), render(Some([f32::NAN, 0.0]), 0.8));
+    assert_ne!(render(None, 0.0), render(Some([0.0, 45.0]), 0.0));
+}
