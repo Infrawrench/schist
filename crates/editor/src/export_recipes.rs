@@ -195,6 +195,7 @@ pub struct Editor {
     pub selected: Option<usize>,
     pub draft: Recipe,
     pub output: usize,
+    pub show_finishing: bool,
     pub photos: Vec<PathBuf>,
     pub error: Option<String>,
 }
@@ -205,6 +206,10 @@ impl Editor {
             .and_then(|i| book.recipes.get(i))
             .cloned()
             .unwrap_or_default();
+        let show_finishing = draft
+            .outputs
+            .first()
+            .is_some_and(|output| output.finishing != Finishing::default());
         Self {
             session: std::sync::Arc::new(()),
             book,
@@ -212,6 +217,7 @@ impl Editor {
             selected,
             draft,
             output: 0,
+            show_finishing,
             photos,
             error: None,
         }
