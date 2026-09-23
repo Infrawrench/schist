@@ -45,6 +45,7 @@ impl Workspace {
         let Some(doc) = self.doc.as_mut() else {
             return;
         };
+        doc.active_mask = None;
         if doc.active_ink.take().is_some() {
             doc.ink_preview = schist_core::InkPreview::Process;
             doc.damage_all();

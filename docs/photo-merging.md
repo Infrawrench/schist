@@ -26,7 +26,11 @@ has no native dependencies, but the editor integration requires a worker thread.
   alignment off for already registered photos or texture-poor sequences. Hard
   focus selection can show seams, noise or halos near depth discontinuities;
   the result contains every registered source on its own layer with an editable
-  native layer mask. Select a mask thumbnail in Layers and paint to correct
+  native layer mask. Select its grayscale mask thumbnail in Layers, choose the
+  Brush or Pencil tool, and paint black to hide or white to reveal. The Eraser
+  hides mask pixels. Clicking the image thumbnail returns to pixel editing. Each
+  stroke supports Undo, Redo and Escape cancellation without changing the source
+  layer pixels. Use these controls to correct
   selection boundaries. To substitute a different source, reveal its mask and
   hide the competing source at that position; ordinary layer order and alpha
   blending apply after edits. Masks are one-hot (only one source is revealed per

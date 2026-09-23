@@ -349,6 +349,7 @@ fn native_channels(ws: &Workspace, cx: &mut Context<Workspace>) -> impl IntoElem
             |ws, value, cx| {
                 if let Some(doc) = ws.doc.as_mut() {
                     doc.active_channel = value.checked_sub(1);
+                    doc.active_mask = None;
                     doc.active_ink = None;
                     doc.ink_preview = schist_core::InkPreview::Process;
                     doc.damage_all();
@@ -482,6 +483,7 @@ fn spot_channels(ws: &Workspace, cx: &mut Context<Workspace>) -> impl IntoElemen
                             let mut edit = doc.begin_edit(t("panels.ink.spot"));
                             edit.change_ink_channels(|channels| channels.push(channel));
                             edit.commit();
+                            doc.active_mask = None;
                             doc.active_ink = Some(id);
                             doc.active_channel = None;
                             doc.ink_preview = InkPreview::Separation(id);
@@ -524,6 +526,7 @@ fn spot_channels(ws: &Workspace, cx: &mut Context<Workspace>) -> impl IntoElemen
                 move |ws, value, cx| {
                     ws.commit_focused_field();
                     if let Some(doc) = ws.doc.as_mut() {
+                        doc.active_mask = None;
                         doc.active_ink = value.checked_sub(1).and_then(|i| ids.get(i).copied());
                         doc.active_channel = None;
                         doc.ink_preview = doc
@@ -575,6 +578,7 @@ fn spot_channels(ws: &Workspace, cx: &mut Context<Workspace>) -> impl IntoElemen
                                 channels.retain(|c| c.info.id != id)
                             });
                             edit.commit();
+                            doc.active_mask = None;
                             doc.active_ink = None;
                             doc.ink_preview = InkPreview::Overprint;
                         }
