@@ -7,10 +7,8 @@
 //! magnification between red and blue, the falloff at the corners, and
 //! the projection a very wide lens uses.
 //!
-//! Photoshop reads the lens out of the file's EXIF and looks it up in a
-//! profile database. There is no database here, so the sliders are the
-//! profile: point them at a straight line that came out bent and stop
-//! when it is straight.
+//! Lensfun calibration snapshots supplement the manual controls; see
+//! [`crate::lens_profiles`] for matching, import, and portable recipes.
 
 use crate::util::{luma, premultiply, put, sample, unpremultiply};
 use crate::{choice, param, simple_filter};
@@ -55,7 +53,7 @@ fn remap_channels(
 }
 
 simple_filter!(
-    LensCorrection,
+    ManualLensCorrection,
     "filter.lens_correction",
     t("filter.lens_correction.name"),
     t("filter.category.other"),
@@ -186,6 +184,52 @@ simple_filter!(
     }
 );
 
+/// Profile correction runs first; manual controls remain available afterward.
+pub struct LensCorrection;
+impl FilterPlugin for LensCorrection {
+    fn id(&self) -> &'static str {
+        "filter.lens_correction"
+    }
+    fn name(&self) -> &'static str {
+        ManualLensCorrection.name()
+    }
+    fn category(&self) -> &'static str {
+        ManualLensCorrection.category()
+    }
+    fn params(&self) -> Vec<FilterParam> {
+        let mut params = ManualLensCorrection.params();
+        params.extend(crate::lens_profiles::params());
+        params
+    }
+    fn gpu_operation(&self, values: &FilterValues) -> Option<schist_fx::FilterOperation> {
+        if crate::lens_profiles::enabled(values) {
+            None
+        } else {
+            ManualLensCorrection.gpu_operation(values)
+        }
+    }
+    fn apply_native_with(
+        &self,
+        pixels: &mut schist_plugin_api::NativeFilterBuffer,
+        values: &FilterValues,
+        _context: &schist_plugin_api::FilterContext,
+    ) {
+        let mut safe = values.clone();
+        // RGB buffers retain their document transfer curve. Require the
+        // explicit built-in sRGB profile so replay never depends on settings.
+        if pixels.mode != schist_color::ColorMode::Rgb
+            || !crate::lens_profiles::supported_srgb(pixels.icc_profile.as_deref())
+        {
+            safe.set("lp_vignette", 0.);
+        }
+        pixels.process_rgba(|rgba, w, h| self.apply(rgba, w, h, &safe));
+    }
+    fn apply(&self, pixels: &mut [f32], width: usize, height: usize, values: &FilterValues) {
+        crate::lens_profiles::apply(pixels, width, height, values);
+        ManualLensCorrection.apply(pixels, width, height, values);
+    }
+}
+
 /// The projections Adaptive Wide Angle knows how to undo.
 static PROJECTIONS: &[&str] = &[
     "filter.adaptive_wide_angle.choice.fisheye",
@@ -278,6 +322,13 @@ pub fn mean_luma(px: &[f32]) -> f32 {
 }
 
 pub fn register(registry: &mut schist_plugin_api::PluginRegistry) {
+    // Warm the bounded local XML database before a document needs its dialog.
+    #[cfg(not(target_arch = "wasm32"))]
+    let _ = std::thread::Builder::new()
+        .name("lens-profiles".into())
+        .spawn(|| {
+            crate::lens_profiles::load_installed_profiles();
+        });
     registry.register_filter(Box::new(LensCorrection));
     registry.register_filter(Box::new(AdaptiveWideAngle));
 }

@@ -110,7 +110,10 @@ mixed-direction paragraphs and vertical writing. Editable interchange depends
 on the destination format; see [file formats](#file-formats).
 
 **Filters and transforms.** Blur, sharpen, noise, distortion, artistic and neural
-filters, Camera Raw, Lens Correction and Filter Gallery. Filters preview on the
+filters, Camera Raw, [Lens Correction](docs/lens-profiles.md) and Filter Gallery.
+Lens Correction can match EXIF camera/lens metadata to installed or imported
+Lensfun calibration, with profile overrides and portable saved coefficients.
+Filters preview on the
 canvas, with [draggable controls](docs/filter-canvas.md) for supported blur and
 lighting effects. Free Transform, Liquify, Puppet Warp, Content-Aware Scale and
 Vanishing Point cover geometric edits.

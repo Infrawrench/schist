@@ -92,6 +92,7 @@ mod gallery_metadata;
 mod image_ops;
 mod input;
 mod layers_panel;
+mod lens_profiles;
 pub(crate) mod mask_refine;
 // The gallery: watched photo folders, thumbnails, camera import and the
 // PSD sidecars behind gallery edits. A browser tab has no folders to

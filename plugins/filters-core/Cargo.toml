@@ -10,4 +10,9 @@ log.workspace = true
 schist-plugin-api.workspace = true
 schist-neural.workspace = true
 schist-color.workspace = true
+schist-colormgmt.workspace = true
 schist-fx.workspace = true
+roxmltree = "0.20"
+
+[dev-dependencies]
+schist-core.workspace = true

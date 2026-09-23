@@ -9,7 +9,8 @@ use gpui::{
 };
 
 /// A row with a dim label in a fixed column at the left and the
-/// control it names at the right. 26 px high, the label column 110 px.
+/// control it names at the right. At least 26 px high; wrapped labels
+/// grow their row instead of overlapping the following control.
 #[derive(gpui::IntoElement)]
 pub struct FieldRow {
     label: SharedString,
@@ -64,7 +65,8 @@ impl RenderOnce for FieldRow {
             .flex_row()
             .justify_between()
             .gap_3()
-            .when(!self.top_aligned, |d| d.items_center().h(px(26.0)));
+            .flex_none()
+            .when(!self.top_aligned, |d| d.items_center().min_h(px(26.0)));
         el.style().refine(&self.style);
         el.child(
             div()

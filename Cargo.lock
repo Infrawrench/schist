@@ -6826,7 +6826,10 @@ name = "schist-filters-core"
 version = "0.15.0"
 dependencies = [
  "log",
+ "roxmltree",
  "schist-color",
+ "schist-colormgmt",
+ "schist-core",
  "schist-fx",
  "schist-i18n",
  "schist-neural",
