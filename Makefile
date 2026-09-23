@@ -165,6 +165,7 @@ test-photo-merge:
 .PHONY: test-photo-merge-editor
 test-photo-merge-editor:
 	$(CARGO) test -p schist-editor photo_merge::tests
+	$(CARGO) test -p schist-tools-paint layer_mask_brush
 fmt-photo-merge:
 	$(CARGO) fmt -p schist-photo-merge -p schist-editor -p schist-app-actions
 test-app:

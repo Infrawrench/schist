@@ -201,6 +201,8 @@ impl Workspace {
     /// them (nav thumbnail, selection outline) must go too or a collision
     /// would show the previous document's pixels.
     pub(super) fn reset_per_document_caches(&mut self) {
+        self.retired_images
+            .extend(self.mask_thumbs.drain().map(|(_, (_, image))| image));
         self.rebuild_color_transforms();
         self.cache.invalidate_all();
         self.display_tiles.clear();

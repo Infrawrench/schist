@@ -1,0 +1,8 @@
+# Translation draft; not reviewed by a native speaker.
+photo_merge_advanced.projective = Wyrównanie perspektywy (z obrotem)
+photo_merge_advanced.cylindrical = Panorama cylindryczna
+photo_merge_advanced.deghost = Usuń duchy ruchomych obiektów (pierwsze zdjęcie jako odniesienie)
+photo_merge_advanced.focal = Ogniskowa (px) / szerokość obrazu (px)
+photo_merge_advanced.masks = Wynik korzysta z edytowalnych masek warstw. Wybierz maskę w panelu Warstwy i maluj, aby ją poprawić.
+photo_merge_advanced.no_match = Nie znaleziono wiarygodnego wyrównania. Użyj zdjęć z wyraźną teksturą, dużym nakładaniem i niewielkimi zmianami punktu widzenia.
+photo_merge_advanced.invalid = Nieprawidłowe obrazy źródłowe lub ustawienia scalania.

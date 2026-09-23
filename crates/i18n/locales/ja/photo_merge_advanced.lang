@@ -1,0 +1,8 @@
+# Translation draft; not reviewed by a native speaker.
+photo_merge_advanced.projective = 遠近法で位置合わせ（回転を含む）
+photo_merge_advanced.cylindrical = 円筒パノラマ
+photo_merge_advanced.deghost = 動く被写体のゴーストを除去（最初の写真を基準）
+photo_merge_advanced.focal = 焦点距離 (px) / 画像の幅 (px)
+photo_merge_advanced.masks = 結果には編集可能なレイヤーマスクが使用されます。レイヤーパネルでマスクを選択し、描画して調整してください。
+photo_merge_advanced.no_match = 信頼できる位置合わせが見つかりません。模様が明瞭で、十分な重なりがあり、視点の変化が小さい写真を使用してください。
+photo_merge_advanced.invalid = 元画像または結合設定が無効です。

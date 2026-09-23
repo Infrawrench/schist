@@ -1,0 +1,8 @@
+# Translation draft; not reviewed by a native speaker.
+photo_merge_advanced.projective = 透视对齐（包括旋转）
+photo_merge_advanced.cylindrical = 柱面全景
+photo_merge_advanced.deghost = 消除移动主体的重影（以第一张照片为基准）
+photo_merge_advanced.focal = 焦距 (px) / 图像宽度 (px)
+photo_merge_advanced.masks = 结果使用可编辑的图层蒙版。在图层面板中选择蒙版并绘制以进行细化。
+photo_merge_advanced.no_match = 未找到可靠的对齐结果。请使用纹理清晰、重叠充分且视角变化较小的照片。
+photo_merge_advanced.invalid = 源图像或合并设置无效。

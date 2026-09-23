@@ -53,17 +53,14 @@ pub(super) fn dialog(
                     ws.update_modal(|modal| {
                         if let Modal::PhotoMerge { options, .. } = modal {
                             options.mode = mode;
+                            options.projective = false;
+                            options.cylindrical = false;
                         }
                     })
                 },
                 cx,
             ),
         ))
-        .child(
-            div()
-                .text_size(px(11.0))
-                .child(t("photo_merge.translation")),
-        )
         .child(Heading::new(t("common.documents")));
     let mut list = div()
         .id("photo-merge-inputs")
@@ -123,6 +120,81 @@ pub(super) fn dialog(
         list = list.child(row);
     }
     body = body.child(list);
+    if options.mode != Mode::Panorama {
+        body = body.child(ui::checkbox(
+            t("photo_merge_advanced.projective"),
+            options.projective,
+            |ws, _| {
+                ws.update_modal(|modal| {
+                    if let Modal::PhotoMerge { options, .. } = modal {
+                        options.projective = !options.projective;
+                        if options.projective {
+                            options.align = true;
+                        }
+                    }
+                })
+            },
+            cx,
+        ));
+    }
+
+    if options.mode == Mode::Panorama {
+        body = body.child(ui::checkbox(
+            t("photo_merge_advanced.cylindrical"),
+            options.cylindrical,
+            |ws, _| {
+                ws.update_modal(|modal| {
+                    if let Modal::PhotoMerge { options, .. } = modal {
+                        options.cylindrical = !options.cylindrical;
+                    }
+                })
+            },
+            cx,
+        ));
+    }
+
+    if options.mode == Mode::Hdr {
+        body = body.child(ui::checkbox(
+            t("photo_merge_advanced.deghost"),
+            options.deghost,
+            |ws, _| {
+                ws.update_modal(|modal| {
+                    if let Modal::PhotoMerge { options, .. } = modal {
+                        options.deghost = !options.deghost;
+                    }
+                })
+            },
+            cx,
+        ));
+    }
+    if options.cylindrical {
+        body = body.child(param_slider(
+            SliderSpec {
+                id: "photo-merge-focal",
+                label: t("photo_merge_advanced.focal"),
+                value: options.focal_ratio,
+                min: 0.3,
+                max: 5.0,
+                ..Default::default()
+            },
+            |ws, value, _| {
+                ws.update_modal(|modal| {
+                    if let Modal::PhotoMerge { options, .. } = modal {
+                        options.focal_ratio = value;
+                    }
+                })
+            },
+            cx,
+        ));
+    }
+    if options.mode == Mode::Focus {
+        body = body.child(
+            div()
+                .text_size(px(11.0))
+                .child(t("photo_merge_advanced.masks")),
+        );
+    }
+
     if matches!(options.mode, Mode::Focus | Mode::Hdr) {
         body = body.child(ui::checkbox(
             t("photo_merge.align"),
@@ -131,6 +203,9 @@ pub(super) fn dialog(
                 ws.update_modal(|modal| {
                     if let Modal::PhotoMerge { options, .. } = modal {
                         options.align = !options.align;
+                        if !options.align {
+                            options.projective = false;
+                        }
                     }
                 })
             },

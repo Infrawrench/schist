@@ -56,6 +56,8 @@ pub struct Document {
     pub tree: LayerTree,
     pub selection: Selection,
     pub active_layer: Option<LayerId>,
+    /// Layers-panel paint target. Only active while this layer is selected.
+    pub active_mask: Option<LayerId>,
     /// The layers-panel multi-selection: every highlighted row, including
     /// the active layer. UI state like `active_layer`, so not undoable.
     /// Read it through `selected_layers()`, which prunes stale ids and
@@ -140,6 +142,7 @@ impl Document {
             tree: LayerTree::default(),
             selection: Selection::new(),
             active_layer: None,
+            active_mask: None,
             selected: Vec::new(),
             history: History::new(),
             preserved_resources: Vec::new(),
@@ -1475,6 +1478,7 @@ pub struct StrokeEdit {
     name: String,
     befores: FxHashMap<(LayerId, TileCoord), Option<Arc2<TileBuf>>>,
     mask_befores: FxHashMap<(LayerId, TileCoord), Option<Arc2<[u8; TILE_PIXELS]>>>,
+    whole_mask_befores: FxHashMap<LayerId, LayerMask>,
     stack_befores: FxHashMap<LayerId, Vec<RawBlock>>,
     ink_before: Option<Vec<crate::InkChannel>>,
     damage: IntRect,
@@ -1530,6 +1534,22 @@ impl StrokeEdit {
         Some(mask.tiles.get_mut_or_insert(coord))
     }
 
+    /// Capture a complete COW mask, including bounds, for strokes which can
+    /// expand a bounded imported mask. Undo and cancel restore both together.
+    pub fn writable_mask<'d>(
+        &mut self,
+        doc: &'d mut Document,
+        layer_id: LayerId,
+    ) -> Option<&'d mut LayerMask> {
+        let canvas = doc.canvas_rect();
+        let mask = doc.tree.find_mut(layer_id)?.mask.as_mut()?;
+        self.whole_mask_befores
+            .entry(layer_id)
+            .or_insert_with(|| mask.clone());
+        self.damage = self.damage.union(&canvas);
+        Some(mask)
+    }
+
     /// Capture before-state once for an entire pointer stroke.
     pub fn writable_ink_tile<'d>(
         &mut self,
@@ -1556,7 +1576,10 @@ impl StrokeEdit {
     }
 
     pub fn is_empty(&self) -> bool {
-        self.befores.is_empty() && self.mask_befores.is_empty() && self.ink_before.is_none()
+        self.befores.is_empty()
+            && self.mask_befores.is_empty()
+            && self.whole_mask_befores.is_empty()
+            && self.ink_before.is_none()
     }
 
     /// The tile's content as it was before this stroke touched it
@@ -1585,6 +1608,14 @@ impl StrokeEdit {
             return false;
         }
         let mut ops = Vec::new();
+        for (layer, before) in self.whole_mask_befores {
+            let after = doc.tree.find(layer).and_then(|l| l.mask.clone());
+            ops.push(EditOp::MaskSet {
+                layer,
+                before: Some(Box::new(before)),
+                after: after.map(Box::new),
+            });
+        }
         if let Some(before) = self.ink_before {
             ops.push(EditOp::InkChannelsSet {
                 before,
@@ -1640,6 +1671,12 @@ impl StrokeEdit {
 
     /// Roll back everything this stroke touched.
     pub fn cancel(self, doc: &mut Document) {
+        for (id, before) in self.whole_mask_befores {
+            if let Some(layer) = doc.tree.find_mut(id) {
+                layer.mask = Some(before);
+            }
+            doc.damage_all();
+        }
         if let Some(before) = self.ink_before {
             doc.ink_channels = before;
             doc.damage_all();

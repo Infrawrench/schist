@@ -1,0 +1,8 @@
+# Translation draft; not reviewed by a native speaker.
+photo_merge_advanced.projective = Zarovnání perspektivy (včetně otočení)
+photo_merge_advanced.cylindrical = Válcové panorama
+photo_merge_advanced.deghost = Odstranit duchy pohybujících se objektů (první snímek jako reference)
+photo_merge_advanced.focal = Ohnisková vzdálenost (px) / šířka obrazu (px)
+photo_merge_advanced.masks = Výsledek používá upravitelné masky vrstev. Vyberte masku v panelu Vrstvy a malováním ji dolaďte.
+photo_merge_advanced.no_match = Nebylo nalezeno spolehlivé zarovnání. Použijte snímky s výraznou texturou, velkým překrytím a malými změnami úhlu pohledu.
+photo_merge_advanced.invalid = Neplatné zdrojové snímky nebo nastavení sloučení.

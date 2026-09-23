@@ -29,9 +29,9 @@ pub(crate) fn mode_label(mode: Mode) -> &'static str {
 
 pub(crate) fn error_label(error: Error) -> &'static str {
     t(match error {
-        Error::Invalid => "photo_merge.invalid",
+        Error::Invalid => "photo_merge_advanced.invalid",
         Error::TooLarge => "photo_merge.limit",
-        Error::NoMatch => "photo_merge.no_match",
+        Error::NoMatch => "photo_merge_advanced.no_match",
         Error::Cancelled => "common.cancel",
     })
 }
@@ -255,7 +255,36 @@ fn render_merge(
     let mut result = Document::new(title, output.width, output.height, Depth::ThirtyTwo);
     result.icc_profile = schist_colormgmt::Profile::srgb().icc_bytes().map(Vec::from);
     result.resolution_dpi = documents[0].resolution_dpi;
-    if let Some(image) = output.merged {
+    // Original document snapshots remain in their source tabs. Release the
+    // flattened buffers once registered buffers replace them.
+    let images = output.sources.unwrap_or(images);
+    if let Some(selection) = output.focus_selection {
+        drop(output.merged);
+        for (index, ((image, source), offset)) in images
+            .iter()
+            .zip(&documents)
+            .zip(output.offsets)
+            .enumerate()
+        {
+            append_image(&mut result, &source.title, image, offset, control)?;
+            let mut mask = schist_core::LayerMask::new_revealing();
+            mask.default_value = 0;
+            mask.bounds = result.canvas_rect();
+            for y in 0..result.height as i32 {
+                control.check()?;
+                for x in 0..result.width as i32 {
+                    if selection[y as usize * result.width as usize + x as usize] == index as u8 {
+                        let coord = schist_core::TileCoord::containing(x, y);
+                        let rect = coord.rect();
+                        mask.tiles.get_mut_or_insert(coord)[(y - rect.top) as usize
+                            * schist_core::TILE_SIZE as usize
+                            + (x - rect.left) as usize] = 255;
+                    }
+                }
+            }
+            result.tree.layers.last_mut().unwrap().mask = Some(mask);
+        }
+    } else if let Some(image) = output.merged {
         append_image(
             &mut result,
             title,
@@ -403,6 +432,99 @@ mod tests {
         assert!(outside.iter().all(|v| *v == 0.0));
         let samples = schist_compositor::composite_region_f32_cpu(&result, result.canvas_rect());
         assert_eq!(samples, [0.7, 0.6, 0.5, 1.0].repeat(3));
+    }
+
+    #[test]
+    fn focus_masks_recompose_save_and_support_undoable_corrections() {
+        let make = |title: &str, sharp_left: bool, alpha: f32| {
+            let mut doc = Document::new(title, 40, 20, Depth::ThirtyTwo);
+            let mut rgba = Vec::new();
+            for y in 0..20 {
+                for x in 0..40 {
+                    let sharp = (x < 20) == sharp_left;
+                    let value = if sharp {
+                        if (x + y) % 2 == 0 {
+                            0.2
+                        } else {
+                            0.8
+                        }
+                    } else {
+                        0.5
+                    };
+                    rgba.extend_from_slice(&[value, value, value, alpha]);
+                }
+            }
+            let mut layer = Layer::new_raster(title);
+            blit_rgba_f32(
+                &mut layer.as_raster_mut().unwrap().tiles,
+                doc.depth,
+                doc.canvas_rect(),
+                &rgba,
+            );
+            doc.push_layer(layer);
+            doc
+        };
+        let documents = vec![make("Left", true, 1.0), make("Right", false, 0.65)];
+        let inputs: Vec<_> = documents
+            .iter()
+            .map(|doc| Image {
+                width: doc.width,
+                height: doc.height,
+                rgba: schist_compositor::composite_region_f32_cpu(doc, doc.canvas_rect()),
+            })
+            .collect();
+        let options = Options {
+            mode: Mode::Focus,
+            align: false,
+            focus_radius: 1,
+            ..Default::default()
+        };
+        let expected = schist_photo_merge::merge(&inputs, &options, &Control::default())
+            .unwrap()
+            .merged
+            .unwrap();
+        let mut result = render_merge(documents, &options, "Focus", &Control::default()).unwrap();
+        assert_eq!(result.tree.layers.len(), 2);
+        for layer in &result.tree.layers {
+            assert!(layer.mask.is_some());
+        }
+        let composite = schist_compositor::composite_region_f32_cpu(&result, result.canvas_rect());
+        for (actual, want) in composite.iter().zip(&expected.rgba) {
+            assert!((actual - want).abs() < 1e-5);
+        }
+        for psb in [false, true] {
+            let bytes = schist_codec_psd::write_psd_with(&result, psb).unwrap();
+            let reopened = schist_codec_psd::read_psd(&bytes).unwrap();
+            assert_eq!(reopened.tree.layers.len(), 2);
+            assert!(reopened
+                .tree
+                .layers
+                .iter()
+                .all(|layer| layer.mask.is_some()));
+            let got =
+                schist_compositor::composite_region_f32_cpu(&reopened, reopened.canvas_rect());
+            for (actual, want) in got.iter().zip(&expected.rgba) {
+                assert!((actual - want).abs() < 1e-5);
+            }
+        }
+        // Use the same native mask edit transaction as mask tools. Revealing
+        // a formerly hidden source changes the composite; undo restores it.
+        let id = result.tree.layers[1].id;
+        let mut edit = result.begin_edit("Mask correction");
+        edit.set_mask(id, None);
+        edit.commit();
+        let edited = schist_compositor::composite_region_f32_cpu(&result, result.canvas_rect());
+        assert_ne!(edited, composite);
+        result.undo().unwrap();
+        assert_eq!(
+            schist_compositor::composite_region_f32_cpu(&result, result.canvas_rect()),
+            composite
+        );
+        result.redo().unwrap();
+        assert_eq!(
+            schist_compositor::composite_region_f32_cpu(&result, result.canvas_rect()),
+            edited
+        );
     }
 
     #[test]

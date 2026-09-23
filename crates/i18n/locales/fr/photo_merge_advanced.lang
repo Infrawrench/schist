@@ -1,0 +1,8 @@
+# Translation draft; not reviewed by a native speaker.
+photo_merge_advanced.projective = Alignement en perspective (avec rotation)
+photo_merge_advanced.cylindrical = Panorama cylindrique
+photo_merge_advanced.deghost = Supprimer les images fantômes des sujets mobiles (première photo de référence)
+photo_merge_advanced.focal = Distance focale (px) / largeur de l’image (px)
+photo_merge_advanced.masks = Le résultat utilise des masques de calque modifiables. Sélectionnez un masque dans Calques et peignez pour l’affiner.
+photo_merge_advanced.no_match = Aucun alignement fiable trouvé. Utilisez des photos texturées avec un chevauchement important et de faibles changements de point de vue.
+photo_merge_advanced.invalid = Images sources ou paramètres de fusion non valides.

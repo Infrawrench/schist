@@ -305,6 +305,33 @@ impl Workspace {
         Some(img)
     }
 
+    pub fn mask_thumbnail(&mut self, id: schist_core::LayerId) -> Option<Arc<RenderImage>> {
+        let doc = self.doc.as_ref()?;
+        let mask = doc.tree.find(id)?.mask.as_ref()?;
+        if let Some((revision, image)) = self.mask_thumbs.get(&id) {
+            if self.pointer_down || *revision == doc.revision {
+                return Some(image.clone());
+            }
+        }
+        let scale = (doc.width as f32 / 36.0)
+            .max(doc.height as f32 / 28.0)
+            .max(0.001);
+        let w = (doc.width as f32 / scale).max(1.0) as u32;
+        let h = (doc.height as f32 / scale).max(1.0) as u32;
+        let buffer = image::RgbaImage::from_fn(w, h, |x, y| {
+            let value = mask.value(
+                ((x as f32 + 0.5) * scale) as i32,
+                ((y as f32 + 0.5) * scale) as i32,
+            );
+            image::Rgba([value, value, value, 255])
+        });
+        let image = Arc::new(RenderImage::new(smallvec![image::Frame::new(buffer)]));
+        if let Some((_, old)) = self.mask_thumbs.insert(id, (doc.revision, image.clone())) {
+            self.retired_images.push(old);
+        }
+        Some(image)
+    }
+
     /// Set an absolute zoom level about the viewport centre.
     pub fn set_zoom(&mut self, zoom: f32) {
         let factor = zoom / self.zoom.max(1e-6);
