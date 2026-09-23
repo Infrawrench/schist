@@ -448,6 +448,7 @@ impl Workspace {
             || id == "bucket-name"
             || id == "bucket-query"
             || id == "variant-name"
+            || id == "bucket-exclude-query"
             || id == "face-name"
             || id == "person-name"
             || id == file_picker::NAME_FIELD
