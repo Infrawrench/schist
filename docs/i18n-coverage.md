@@ -6,12 +6,13 @@ legacy `sh` macrolanguage and excludes retired `bh`. The authoritative shipped
 list is [`locales.tsv`](../crates/i18n/locales.tsv).
 
 The translation expansion has 150 registered locales: the five original
-languages plus 145 additions. Translation workers have finished their current
-assignments. The 34 languages below remain unregistered, so the all-ISO target
-is incomplete.
+languages plus 145 additions. The 34 languages below remain unregistered, so
+the all-ISO target is incomplete. The later GPT-6 Sol translation refresh of
+the shipped catalogs is recorded in the [translation status report](i18n-translation-status.md),
+including completion of the printing translations and remaining terminology-review needs.
 
-GPT-5.6 Sol workers composed the translations, with separate Sol reviews and
-GPT-6 review and integration. Catalog validation checks completeness, plural
+GPT-5.6 Sol workers composed the initial translations, with separate Sol reviews
+and GPT-6 review and integration. Catalog validation checks completeness, plural
 categories, placeholders, product names, navigation labels, command literals,
 and font coverage. Those checks cannot establish fluency. The translations
 have not received human native-speaker certification.
@@ -65,9 +66,11 @@ Rejected and incomplete drafts are preserved locally under
 working artifact, not part of the shipped application. The translation workflow
 and requirements for registering a replacement are in [i18n.md](i18n.md).
 
-## Verification and limits
+## Initial expansion verification and limits
 
-Final validation of the 150 registered locales passed:
+At the end of the initial expansion, validation of the 150 registered locales
+had the following results. These are historical results; the translation status
+report records validation of the later refresh.
 
 | Check | Result |
 | --- | --- |

@@ -1,0 +1,47 @@
+# Print workflow.
+printing.title = दस्तावेज़ प्रिंट करें…
+printing.contact_sheet = चयन से संपर्क पत्रक…
+printing.paper = काग़ज़ का आकार
+printing.margin = हाशिए
+printing.columns = स्तंभ
+printing.rows = पंक्तियाँ
+printing.dpi = आउटपुट DPI
+printing.landscape = लैंडस्केप
+printing.actual_size = दस्तावेज़ के DPI के अनुसार वास्तविक आकार (बिना स्केल बदले)
+printing.captions = फ़ाइल नाम, रेटिंग और कैप्शन शामिल करें
+printing.pages = पृष्ठ: {count}
+printing.color_note = पिक्सेल sRGB में बदले जाते हैं। आपका PDF दर्शक और प्रिंटर, प्रिंटर प्रोफ़ाइल संभालते हैं।
+printing.sizing_note = फ़िट मोड हर खाने को बिना काटे भरता है। वास्तविक आकार में दस्तावेज़ का DPI इस्तेमाल होता है; चित्र न समाए तो ग्रिड छोटा करें। PDF को पृष्ठ के अनुसार फ़िट किए बिना 100% पर प्रिंट करें।
+printing.running = PDF तैयार हो रही है…
+printing.save_pdf = PDF सहेजें…
+printing.open_print = प्रिंट के लिए PDF सहेजें और खोलें…
+printing.invalid = प्रिंट सेटिंग या चित्र के आयाम अमान्य हैं।
+printing.limit = प्रिंट कार्य सीमा से बड़ा है: 200 चित्र, हर चित्र के लिए 4 करोड़ पिक्सेल या हर किनारे पर 32768 पिक्सेल, अथवा 256 MiB संपीड़ित PDF डेटा।
+printing.profile_error = इस चित्र की रंग प्रोफ़ाइल अमान्य, बेमेल या असमर्थित है। मूल CMYK/Lab के लिए मान्य एम्बेडेड प्रोफ़ाइल और RGB के लिए RGB प्रोफ़ाइल आवश्यक है।
+printing.does_not_fit = दस्तावेज़ के DPI पर चित्र इस खाने में नहीं समाता। फ़िट मोड, छोटा ग्रिड या बड़ा काग़ज़ इस्तेमाल करें।
+printing.caption_limit = इस ग्रिड के लिए कैप्शन बहुत लंबा है। पंक्तियाँ या स्तंभ कम करें, कैप्शन छोटा करें या कैप्शन बंद करें।
+printing.font_error = कैप्शन के लिए कोई फ़ॉन्ट उपलब्ध नहीं है। टेक्स्ट फ़ॉन्ट इंस्टॉल करें या कैप्शन बंद करें।
+printing.no_document = प्रिंट करने से पहले दस्तावेज़ खोलें या गैलरी से फ़ोटो चुनें।
+printing.source_error = चुनी हुई फ़ोटो, संपादित साइडकार फ़ाइल या कैप्शन पढ़ा नहीं जा सका। कोई PDF सहेजी नहीं गई।
+printing.save_error = PDF सहेजी नहीं जा सकी। लिखने योग्य फ़ोल्डर में नया फ़ाइल नाम चुनें; मौजूदा फ़ाइलें कभी बदली नहीं जातीं।
+printing.downloaded = PDF डाउनलोड हो गई। उसे PDF दर्शक में खोलकर 100% पर प्रिंट करें।
+printing.saved = PDF सहेजी गई: {path}
+printing.letter = US Letter
+printing.a4 = A4
+printing.margin_value = {value} mm
+
+# Print layout controls.
+printing.layout_title = प्रिंट लेआउट
+printing.preset = लेआउट प्रीसेट
+printing.preset_single = एक फ़ोटो
+printing.preset_pair = दो फ़ोटो
+printing.preset_four = चार फ़ोटो
+printing.preset_nine = नौ फ़ोटो
+printing.preset_contact = संपर्क पत्रक
+printing.add_images = छवियाँ जोड़ें…
+printing.add_page = पृष्ठ जोड़ें
+printing.layout_help = चित्र को खिसकाने के लिए खींचें, या आकार बदलने के लिए उसका नीला कोना खींचें। प्रीसेट संपादित किए जा सकते हैं। इस पृष्ठ पर एक और प्रति जोड़ने के लिए सूची में चित्र पर क्लिक करें।
+printing.page_position = पृष्ठ {page} / {pages}
+printing.loading_preview = पूर्वावलोकन लोड हो रहे हैं…
+printing.selection = चयनित छवि
+printing.bring_front = सबसे आगे लाएँ

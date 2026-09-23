@@ -1,0 +1,47 @@
+# Print workflow.
+printing.title = הדפסת מסמך…
+printing.contact_sheet = גיליון תמונות מהבחירה…
+printing.paper = גודל נייר
+printing.margin = שוליים
+printing.columns = עמודות
+printing.rows = שורות
+printing.dpi = רזולוציית פלט (DPI)
+printing.landscape = לרוחב
+printing.actual_size = גודל בפועל לפי DPI המסמך (ללא שינוי קנה מידה)
+printing.captions = לכלול שמות קבצים, דירוגים וכיתובים
+printing.pages = עמודים: {count}
+printing.color_note = הפיקסלים מומרים ל־sRGB. מציג ה־PDF והמדפסת מנהלים את פרופיל המדפסת.
+printing.sizing_note = מצב התאמה ממלא כל תא ללא חיתוך. הגודל בפועל משתמש ב־DPI של המסמך; אם התמונה אינה נכנסת, הקטינו את הרשת. הדפיסו את ה־PDF ב־100% ללא התאמה לעמוד.
+printing.running = מכין PDF…
+printing.save_pdf = שמירת PDF…
+printing.open_print = שמירה ופתיחה של PDF להדפסה…
+printing.invalid = הגדרות ההדפסה או ממדי התמונה אינם תקינים.
+printing.limit = משימת ההדפסה חורגת מהמגבלה: 200 תמונות, 40 מיליון פיקסלים או 32768 פיקסלים לכל צלע בכל תמונה, או 256 MiB של נתוני PDF דחוסים.
+printing.profile_error = פרופיל הצבע של התמונה אינו תקין, אינו תואם או אינו נתמך. CMYK/Lab מקורי מחייב פרופיל מוטמע תקין; RGB מחייב פרופיל RGB.
+printing.does_not_fit = התמונה ב־DPI של המסמך אינה נכנסת לתא הזה. השתמשו במצב התאמה, ברשת קטנה יותר או בנייר גדול יותר.
+printing.caption_limit = כיתוב ארוך מדי לרשת הזאת. הקטינו את מספר השורות או העמודות, קצרו את הכיתוב או השביתו כיתובים.
+printing.font_error = אין גופן זמין לכיתוב. התקינו גופן טקסט או השביתו כיתובים.
+printing.no_document = פתחו מסמך או בחרו תמונות מהגלריה לפני ההדפסה.
+printing.source_error = לא ניתן היה לקרוא תמונה שנבחרה, קובץ צד ערוך או כיתוב. לא נשמר PDF.
+printing.save_error = לא ניתן לשמור את ה־PDF. בחרו שם קובץ חדש בתיקייה שניתן לכתוב בה; קבצים קיימים לעולם אינם מוחלפים.
+printing.downloaded = ה־PDF הורד. פתחו אותו במציג PDF והדפיסו ב־100%.
+printing.saved = ה־PDF נשמר: {path}
+printing.letter = US Letter
+printing.a4 = A4
+printing.margin_value = {value} mm
+
+# Print layout controls.
+printing.layout_title = פריסת הדפסה
+printing.preset = הגדרת פריסה מוכנה
+printing.preset_single = תמונה אחת
+printing.preset_pair = שתי תמונות
+printing.preset_four = ארבע תמונות
+printing.preset_nine = תשע תמונות
+printing.preset_contact = גיליון תמונות
+printing.add_images = הוספת תמונות…
+printing.add_page = הוספת עמוד
+printing.layout_help = גררו תמונה כדי להזיז אותה, או גררו את הפינה הכחולה שלה כדי לשנות את גודלה. אפשר עדיין לערוך את ההגדרות המוכנות. לחצו על תמונה ברשימה כדי להוסיף עוד עותק שלה לעמוד הזה.
+printing.page_position = עמוד {page} מתוך {pages}
+printing.loading_preview = טוען תצוגות מקדימות…
+printing.selection = התמונה שנבחרה
+printing.bring_front = העברה לחזית

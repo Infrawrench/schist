@@ -79,7 +79,7 @@ filter.smart_blur.choice.edge_only = Nur Kanten
 filter.smart_blur.choice.overlay_edge = Kanten überlagern
 
 # Videofilter
-filter.deinterlace.name = De-Interlace
+filter.deinterlace.name = Zeilensprung entfernen
 filter.deinterlace.param.field = Entfernen
 filter.deinterlace.choice.odd_fields = Ungerade Zeilen
 filter.deinterlace.choice.even_fields = Gerade Zeilen

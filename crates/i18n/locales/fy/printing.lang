@@ -1,0 +1,47 @@
+# Print workflow.
+printing.title = Dokumint ôfdrukke…
+printing.contact_sheet = Kontaktblêd fan seleksje…
+printing.paper = Papierformaat
+printing.margin = Marzjes
+printing.columns = Kolommen
+printing.rows = Rigen
+printing.dpi = Utfier-DPI
+printing.landscape = Lizzend
+printing.actual_size = Werklike grutte neffens de DPI fan it dokumint (sûnder skaalferoaring)
+printing.captions = Bestânsnammen, wurdearrings en byskriften opnimme
+printing.pages = Siden: {count}
+printing.color_note = Piksels wurde omset nei sRGB. Jo PDF-lêzer en printer beheare it printerprofyl.
+printing.sizing_note = Passend meitsje follet elke sel sûnder ôf te snijen. De werklike grutte brûkt de DPI fan it dokumint; meitsje it raster lytser as it net past. Printsje de PDF op 100% sûnder oan de side oan te passen.
+printing.running = PDF wurdt taret…
+printing.save_pdf = PDF bewarje…
+printing.open_print = PDF bewarje en iepenje om ôf te drukken…
+printing.invalid = Unjildige ôfdrukynstellingen of ôfbyldingsôfmjittingen.
+printing.limit = De ôfdruktaak giet oer de limyt: 200 ôfbyldings, 40 miljoen piksels of 32.768 piksels per râne per ôfbylding, of 256 MiB komprimearre PDF-gegevens.
+printing.profile_error = Dizze ôfbylding hat in ûnjildich, net oerienkommend of net stipe kleurprofyl. Oarspronklik CMYK/Lab fereasket in jildich ynbêde profyl; RGB fereasket in RGB-profyl.
+printing.does_not_fit = De ôfbylding past mei de DPI fan it dokumint net yn dizze sel. Brûk passend meitsje, in lytser raster of grutter papier.
+printing.caption_limit = In byskrift is te lang foar dit raster. Brûk minder rigen of kolommen, koartsje it byskrift yn of skeakelje byskriften út.
+printing.font_error = Der is gjin lettertype foar it byskrift beskikber. Ynstallearje in tekstlettertype of skeakelje byskriften út.
+printing.no_document = Iepenje in dokumint of selektearje foto’s yn de galery foardat jo ôfdrukke.
+printing.source_error = In selektearre foto, bewurke sydtriem of byskrift koe net lêzen wurde. Der is gjin PDF bewarre.
+printing.save_error = De PDF koe net bewarre wurde. Kies in nije bestânsnamme yn in map dêr’t jo yn skriuwe kinne; besteande bestannen wurde nea ferfongen.
+printing.downloaded = PDF ynladen. Iepenje it yn in PDF-lêzer en printsje op 100%.
+printing.saved = PDF bewarre: {path}
+printing.letter = US Letter
+printing.a4 = A4
+printing.margin_value = {value} mm
+
+# Print layout controls.
+printing.layout_title = Ofdrukyndieling
+printing.preset = Yndielingsfoarynstelling
+printing.preset_single = Ien foto
+printing.preset_pair = Twa foto’s
+printing.preset_four = Fjouwer foto’s
+printing.preset_nine = Njoggen foto’s
+printing.preset_contact = Kontaktblêd
+printing.add_images = Ofbyldings tafoegje…
+printing.add_page = Side tafoegje
+printing.layout_help = Sleep in ôfbylding om dy te ferpleatsen, of sleep de blauwe hoeke om de grutte te feroarjen. Foarynstellingen bliuwe bewurkber. Klik op in ôfbylding yn de list om noch in kopy oan dizze side ta te foegjen.
+printing.page_position = Side {page} fan {pages}
+printing.loading_preview = Foarbylden wurde laden…
+printing.selection = Selektearre ôfbylding
+printing.bring_front = Nei foaren bringe

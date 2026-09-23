@@ -15,7 +15,7 @@ tool.eyedropper.choice.average_31 = Gjennomsnitt av 31 × 31
 tool.eyedropper.choice.all_layers = Alle lag
 tool.eyedropper.choice.current_layer = Gjeldande lag
 
-tool.hand.name = Hand
+tool.hand.name = Handverktøy
 tool.hand.description = Panorerer visinga. Visingsområdet høyrer til vindauget, så utan grafisk grensesnitt gjer verktøyet ingenting med dokumentet.
-tool.zoom.name = Zoom
+tool.zoom.name = Forstørring
 tool.zoom.description = Zoomar visinga. Visingsområdet høyrer til vindauget, så utan grafisk grensesnitt gjer verktøyet ingenting med dokumentet.

@@ -817,3 +817,11 @@ test-camera-import-progress:
 	$(CARGO) test -p schist-editor --lib cloud_lifecycle_tests
 format-camera-import-progress:
 	$(CARGO) fmt -p schist-cloud-transfer -p schist-editor
+
+.PHONY: test-printing fmt-printing lint-printing
+test-printing:
+	$(CARGO) test -p schist-editor -p schist-gallery printing
+lint-printing:
+	$(CARGO) clippy -p schist-editor -p schist-gallery -p schist-app-actions --all-targets -- -D warnings
+fmt-printing:
+	$(CARGO) fmt -p schist-editor -p schist-app-actions -p schist-gallery

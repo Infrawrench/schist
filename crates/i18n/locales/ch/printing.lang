@@ -1,0 +1,47 @@
+# Print workflow.
+printing.title = Imprenta i dokumentu…
+printing.contact_sheet = Påppet ni gai dikiki' na litratu siha ginen i ma'ayek…
+printing.paper = Måñidok i påppet
+printing.margin = Marhen siha
+printing.columns = Kolumna siha
+printing.rows = Fila siha
+printing.dpi = DPI gi output
+printing.landscape = Horizontal na påppet
+printing.actual_size = Originåt na mineddong ginen i DPI i dokumentu (tåya' eskåla)
+printing.captions = Na'hålom i na'an file siha, rating siha yan diskripsion siha
+printing.pages = Påhina siha: {count}
+printing.color_note = Makonbiette i pixel siha para sRGB. I PDF viewer yan i printer-mu ha maneha i profile i printer.
+printing.sizing_note = I Fit mode ha po'lo i imåhen gi halom kada selula, sin ma-kåtba. I originåt na mineddong ha usa i DPI i dokumentu; na' menos i fila pat kolumna siha yanggen ti ha' na'fit. Imprenta i PDF gi 100%, sin i fit-to-page option.
+printing.running = Maprepara i PDF…
+printing.save_pdf = Såtba i PDF…
+printing.open_print = Såtba ya baba i PDF para un imprenta…
+printing.invalid = Ti bålidu i setting imprenta pat i mineddong imåhen.
+printing.limit = Låmes i che'cho' imprenta gi limita: 200 imåhen, 40 miyón pixel kada imåhen / 32768 pixel kada bånda kada imåhen, pat 256 MiB na compressed PDF data.
+printing.profile_error = Este na imåhen gai profile kulot ni ti bålidu, ti parehu, pat ti ma-support. I dokumentu ni gai native CMYK/Lab channels ha nisisita un bålidu na embedded profile; i RGB ha nisisita un RGB profile.
+printing.does_not_fit = Ti siña ha' na'fit este na imåhen gi este na selula gi DPI i dokumentu. Usa i Fit mode, menos fila pat kolumna, pat mås dångkolo na påppet.
+printing.caption_limit = Sen anåkko' i diskripsion para este na grid. Usa menos fila pat kolumna, na' kåtto i diskripsion, pat na' ti aktibu i diskripsion siha.
+printing.font_error = Tåya' font para i diskripsion. Inståla un font testu pat na' ti aktibu i diskripsion siha.
+printing.no_document = Baba un dokumentu pat ayek litratu siha gi gallery antes di un imprenta.
+printing.source_error = Ti siña mabasa un ma'ayek na litratu, i file gi fihon-ña ni ma'edita, pat i diskripsion. Tåya' PDF ni masåtba.
+printing.save_error = Ti siña masåtba i PDF. Ayek nuebu na na'an file gi folder ni siña ma tuge'; nungka matulaika i gaige esta na file siha.
+printing.downloaded = Madownload i PDF. Baba gi PDF viewer para un imprenta gi 100%.
+printing.saved = Masåtba i PDF: {path}
+printing.letter = US Letter
+printing.a4 = A4
+printing.margin_value = {value} mm
+
+# Print layout controls.
+printing.layout_title = Layout imprenta
+printing.preset = Layout ni ma-set esta
+printing.preset_single = Unu na litratu
+printing.preset_pair = Dos na litratu
+printing.preset_four = Kuåtro na litratu
+printing.preset_nine = Nuebi na litratu
+printing.preset_contact = Påppet ni gai dikiki' na litratu siha
+printing.add_images = Na’hålom imåhen siha…
+printing.add_page = Na’hålom påhina
+printing.layout_help = Arråstra i imåhen para un mubi; arråstra i asut na kanton-ña para un tulaika i mineddong-ña. Siña ma'edita i layout siha ni ma-set esta. Klik un imåhen gi lista para un na'hålom otro na kopia gi este na påhina.
+printing.page_position = Påhina {page} gi {pages}
+printing.loading_preview = Makåkarga i preview siha…
+printing.selection = Ma’ayek na imåhen
+printing.bring_front = Chule' para i me'nan

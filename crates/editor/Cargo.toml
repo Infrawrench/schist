@@ -9,6 +9,7 @@ build = "../../tools/app-cfg.rs"
 schist-photo-merge.workspace = true
 schist-i18n.workspace = true
 flate2 = "1"
+url = "2"
 schist-cloud = { path = "../cloud" }
 web-time = "1"
 gpui.workspace = true
@@ -108,5 +109,7 @@ web-sys = { version = "0.3", features = [
 ] }
 
 [dev-dependencies]
+moxcms = "0.8"
+lopdf = { version = "0.38", default-features = false }
 schist-filters-core.workspace = true
 tempfile = "3"

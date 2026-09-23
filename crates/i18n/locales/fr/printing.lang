@@ -1,0 +1,47 @@
+# Print workflow.
+printing.title = Imprimer le document…
+printing.contact_sheet = Planche contact de la sélection…
+printing.paper = Format du papier
+printing.margin = Marges
+printing.columns = Colonnes
+printing.rows = Lignes
+printing.dpi = Résolution de sortie (ppp)
+printing.landscape = Paysage
+printing.actual_size = Taille réelle selon la résolution du document (sans mise à l’échelle)
+printing.captions = Inclure les noms de fichiers, les notes et les légendes
+printing.pages = Pages : {count}
+printing.color_note = Les pixels sont convertis en sRGB. Votre lecteur PDF et votre imprimante gèrent le profil de l’imprimante.
+printing.sizing_note = Le mode Ajuster remplit chaque case sans recadrage. La taille réelle utilise la résolution du document ; réduisez la grille si elle ne tient pas. Imprimez le PDF à 100 % sans ajuster à la page.
+printing.running = Préparation du PDF…
+printing.save_pdf = Enregistrer le PDF…
+printing.open_print = Enregistrer et ouvrir le PDF pour imprimer…
+printing.invalid = Paramètres d’impression ou dimensions de l’image non valides.
+printing.limit = La tâche dépasse la limite : 200 images, 40 millions de pixels ou 32 768 pixels par côté et par image, ou 256 Mio de données PDF compressées.
+printing.profile_error = Le profil colorimétrique de cette image est non valide, incompatible ou non pris en charge. Le CMJN/Lab natif exige un profil incorporé valide ; le RVB exige un profil RVB.
+printing.does_not_fit = À la résolution du document, l’image ne tient pas dans cette case. Utilisez le mode Ajuster, une grille plus petite ou un papier plus grand.
+printing.caption_limit = Une légende est trop longue pour cette grille. Réduisez le nombre de lignes ou de colonnes, raccourcissez la légende ou désactivez les légendes.
+printing.font_error = Aucune police n’est disponible pour la légende. Installez une police de texte ou désactivez les légendes.
+printing.no_document = Ouvrez un document ou sélectionnez des photos dans la galerie avant d’imprimer.
+printing.source_error = Une photo sélectionnée, son fichier annexe modifié ou sa légende n’a pas pu être lu. Aucun PDF n’a été enregistré.
+printing.save_error = Impossible d’enregistrer le PDF. Choisissez un nouveau nom dans un dossier accessible en écriture ; les fichiers existants ne sont jamais remplacés.
+printing.downloaded = PDF téléchargé. Ouvrez-le dans un lecteur PDF et imprimez-le à 100 %.
+printing.saved = PDF enregistré : {path}
+printing.letter = US Letter
+printing.a4 = A4
+printing.margin_value = {value} mm
+
+# Print layout controls.
+printing.layout_title = Mise en page d’impression
+printing.preset = Préréglage de mise en page
+printing.preset_single = Une photo
+printing.preset_pair = Deux photos
+printing.preset_four = Quatre photos
+printing.preset_nine = Neuf photos
+printing.preset_contact = Planche contact
+printing.add_images = Ajouter des images…
+printing.add_page = Ajouter une page
+printing.layout_help = Faites glisser une image pour la déplacer, ou son coin bleu pour la redimensionner. Les préréglages restent modifiables. Cliquez sur une image dans la liste pour en ajouter une autre copie à cette page.
+printing.page_position = Page {page} sur {pages}
+printing.loading_preview = Chargement des aperçus…
+printing.selection = Image sélectionnée
+printing.bring_front = Placer au premier plan

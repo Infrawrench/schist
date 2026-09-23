@@ -22,7 +22,7 @@ panel.titlebar.document = {title} — Schist
 panel.titlebar.document_dirty = {title} • — Schist
 
 # Navigator
-panel.navigator.title = Navigator
+panel.navigator.title = Navigasi
 panel.navigator.actual_pixels = Piksel Sebenar
 
 # Color panel and its right-click menu

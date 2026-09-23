@@ -1,4 +1,4 @@
-tool.liquify.name = Liquify
+tool.liquify.name = Shandukisa tshifanyiso
 tool.liquify.description = Sukumedza, monisa, kwanyeledza kana kukumusa dzipixel fhasi ha bulatsho ḽihulu — khetho ya moudu i nanga zwine zwa itwa. U shanduka hu kuvhangana kha mesh nahone hu shumiswa kha ḽeyara musi hu tshi khwaṱhisedzwa.
 tool.liquify.option.tool = Tshishumiswa
 tool.liquify.choice.forward_warp = Shandukisa u ya Phanḓa
@@ -8,7 +8,7 @@ tool.liquify.choice.twirl_ccw = Monisa u hanedza sia ḽa watshi
 tool.liquify.choice.pucker = Kwanyeledza
 tool.liquify.choice.bloat = Kukumusa
 tool.liquify.choice.push_left = Sukumedza Monde
-tool.liquify.history.liquify = Liquify
+tool.liquify.history.liquify = Shandukisa tshifanyiso
 tool.puppet_warp.name = Shanduko ya Phaphete
 tool.puppet_warp.description = Puṱedza u vhofha ḽeyara kha zwipiḓa zwi si gathi, nga murahu ni kokodze tshithihi: mesh i a peta u mona na dzipini, yo oma kana yo vhofholowa u ya nga khetho ya u Oma. U khwaṱhisedza zwi shumisa tshanduko.
 tool.puppet_warp.option.stiffness = U Oma

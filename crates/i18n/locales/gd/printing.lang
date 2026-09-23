@@ -1,0 +1,47 @@
+# Print workflow.
+printing.title = Clò-bhuail an sgrìobhainn…
+printing.contact_sheet = Duilleag-chonaltraidh on taghadh…
+printing.paper = Meud a’ phàipeir
+printing.margin = Oirean
+printing.columns = Colbhan
+printing.rows = Ràghan
+printing.dpi = DPI an às-chuir
+printing.landscape = Tìr-dhealbh
+printing.actual_size = Fìor mheud a rèir DPI na sgrìobhainn (gun sgèileadh)
+printing.captions = Cuir ainmean fhaidhlichean, rangachaidhean agus fo-thiotalan ris
+printing.pages = Duilleagan: {count}
+printing.color_note = Thèid na piogsail atharrachadh gu sRGB. Stiùiridh an sealladair PDF agad agus an clò-bhualadair pròifil a’ chlò-bhualadair.
+printing.sizing_note = Lìonaidh am modh Freagarrach gach cealla gun bhearradh. Cleachdaidh fìor mheud DPI na sgrìobhainn; lùghdaich a’ ghriod mura freagair e. Clò-bhuail am PDF aig 100% gun fhreagarrachadh don duilleig.
+printing.running = Ag ullachadh PDF…
+printing.save_pdf = Sàbhail PDF…
+printing.open_print = Sàbhail is fosgail PDF airson clò-bhualadh…
+printing.invalid = Roghainnean clò-bhualaidh no tomhasan deilbh mì-dhligheach.
+printing.limit = Tha an obair clò-bhualaidh os cionn na crìche: 200 dealbh, 40 millean piogsail no 32 768 piogsail air gach oir de gach dealbh, no 256 MiB de dhàta PDF dùmhlaichte.
+printing.profile_error = Tha pròifil dhathan mì-dhligheach, nach eil a’ maidseadh no nach eil a’ faighinn taic, aig an dealbh seo. Feumaidh CMYK/Lab dùthchasach pròifil leabaichte dligheach; feumaidh RGB pròifil RGB.
+printing.does_not_fit = Cha fhreagair an dealbh aig DPI na sgrìobhainn anns a’ chealla seo. Cleachd am modh Freagarrach, griod nas lugha no pàipear nas motha.
+printing.caption_limit = Tha fo-thiotal ro fhada airson a’ ghriod seo. Cleachd nas lugha de ràghan no de cholbhan, giorraich am fo-thiotal no cuir fo-thiotalan à comas.
+printing.font_error = Chan eil cruth-clò ri fhaighinn airson an fho-thiotail. Stàlaich cruth-clò teacsa no cuir fo-thiotalan à comas.
+printing.no_document = Fosgail sgrìobhainn no tagh dealbhan sa ghailearaidh mus clò-bhuail thu.
+printing.source_error = Cha b’ urrainnear dealbh taghte, faidhle-taoibh deasaichte no fo-thiotal a leughadh. Cha deach PDF a shàbhaladh.
+printing.save_error = Cha b’ urrainnear am PDF a shàbhaladh. Tagh ainm-faidhle ùr ann am pasgan anns an gabh sgrìobhadh; cha tèid faidhlichean a tha ann a chur nan àite gu bràth.
+printing.downloaded = Chaidh am PDF a luchdadh a-nuas. Fosgail e ann an sealladair PDF agus clò-bhuail aig 100%.
+printing.saved = PDF air a shàbhaladh: {path}
+printing.letter = US Letter
+printing.a4 = A4
+printing.margin_value = {value} mm
+
+# Print layout controls.
+printing.layout_title = Co-dhealbhachd clò-bhualaidh
+printing.preset = Ro-shuidheachadh co-dhealbhachd
+printing.preset_single = Aon dealbh
+printing.preset_pair = Dà dhealbh
+printing.preset_four = Ceithir dealbhan
+printing.preset_nine = Naoi dealbhan
+printing.preset_contact = Duilleag-chonaltraidh
+printing.add_images = Cuir dealbhan ris…
+printing.add_page = Cuir duilleag ris
+printing.layout_help = Slaod dealbh airson a ghluasad, no slaod an oisean gorm aige airson a mheud atharrachadh. Gabhaidh na ro-shuidheachaidhean deasachadh fhathast. Briog air dealbh san liosta gus lethbhreac eile a chur ris an duilleig seo.
+printing.page_position = Duilleag {page} à {pages}
+printing.loading_preview = A’ luchdadh ro-sheallaidhean…
+printing.selection = Dealbh taghte
+printing.bring_front = Thoir chun bheulaibh

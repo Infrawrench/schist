@@ -1,0 +1,47 @@
+# Print workflow.
+printing.title = Ispiši dokument…
+printing.contact_sheet = Kontaktna kopija iz odabira…
+printing.paper = Veličina papira
+printing.margin = Margine
+printing.columns = Stupci
+printing.rows = Redci
+printing.dpi = Izlazni DPI
+printing.landscape = Vodoravno
+printing.actual_size = Stvarna veličina prema DPI-ju dokumenta (bez skaliranja)
+printing.captions = Uključi nazive datoteka, ocjene i opise
+printing.pages = Stranice: {count}
+printing.color_note = Pikseli se pretvaraju u sRGB. PDF preglednik i pisač upravljaju profilom pisača.
+printing.sizing_note = Način prilagodbe ispunjava svaku ćeliju bez obrezivanja. Stvarna veličina koristi DPI dokumenta; smanjite mrežu ako slika ne stane. Ispišite PDF na 100 % bez prilagodbe stranici.
+printing.running = Priprema PDF-a…
+printing.save_pdf = Spremi PDF…
+printing.open_print = Spremi i otvori PDF za ispis…
+printing.invalid = Nevaljane postavke ispisa ili dimenzije slike.
+printing.limit = Zadatak ispisa prelazi ograničenje: 200 slika, 40 milijuna piksela ili 32 768 piksela po rubu pojedine slike, odnosno 256 MiB komprimiranih PDF podataka.
+printing.profile_error = Ova slika ima nevaljan, neodgovarajući ili nepodržan profil boja. Izvorni CMYK/Lab zahtijeva valjan ugrađeni profil; RGB zahtijeva RGB profil.
+printing.does_not_fit = Slika pri DPI-ju dokumenta ne stane u ovu ćeliju. Upotrijebite način prilagodbe, manju mrežu ili veći papir.
+printing.caption_limit = Opis je predug za ovu mrežu. Smanjite broj redaka ili stupaca, skratite opis ili isključite opise.
+printing.font_error = Nije dostupan font za opis. Instalirajte tekstni font ili isključite opise.
+printing.no_document = Otvorite dokument ili odaberite fotografije u galeriji prije ispisa.
+printing.source_error = Nije moguće pročitati odabranu fotografiju, uređenu popratnu datoteku ili opis. PDF nije spremljen.
+printing.save_error = Nije moguće spremiti PDF. Odaberite novi naziv datoteke u mapi u koju se može pisati; postojeće datoteke nikada se ne zamjenjuju.
+printing.downloaded = PDF je preuzet. Otvorite ga u PDF pregledniku i ispišite na 100 %.
+printing.saved = PDF spremljen: {path}
+printing.letter = US Letter
+printing.a4 = A4
+printing.margin_value = {value} mm
+
+# Print layout controls.
+printing.layout_title = Raspored ispisa
+printing.preset = Predložak rasporeda
+printing.preset_single = Jedna fotografija
+printing.preset_pair = Dvije fotografije
+printing.preset_four = Četiri fotografije
+printing.preset_nine = Devet fotografija
+printing.preset_contact = Kontaktna kopija
+printing.add_images = Dodaj slike…
+printing.add_page = Dodaj stranicu
+printing.layout_help = Povucite sliku da biste je pomaknuli ili povucite njezin plavi kut da biste joj promijenili veličinu. Predlošci se mogu uređivati. Kliknite sliku na popisu da biste dodali još jednu kopiju na ovu stranicu.
+printing.page_position = Stranica {page} od {pages}
+printing.loading_preview = Učitavanje pregleda…
+printing.selection = Odabrana slika
+printing.bring_front = Pomakni u prvi plan

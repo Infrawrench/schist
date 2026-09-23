@@ -1,0 +1,47 @@
+# Impaginatzione e imprenta
+printing.title = Imprenta su documentu…
+printing.contact_sheet = Fògiu de miniaduras dae sa seletzione…
+printing.paper = Mannària de su paperi
+printing.margin = Màrgines
+printing.columns = Colonnas
+printing.rows = Rigas
+printing.dpi = DPI de essida
+printing.landscape = Orizontale
+printing.actual_size = Mannària efetiva dae su DPI de su documentu (chena mudare s'iscala)
+printing.captions = Include nòmines de archìviu, valutatziones e didascàlias
+printing.pages = Pàginas: {count}
+printing.color_note = Is pixel sunt cunvertidos a sRGB. Su visualizadore PDF e s'imprentadora tua gestint su profilu de s'imprentadora.
+printing.sizing_note = Sa modalidade de adatamentu collocat s'immàgine in cada cella, mantenende is proportziones e chena dda segare. Sa mannària efetiva impreat su DPI de su documentu; si no bi capet, diminuie su nùmeru de rigas o colonnas de sa retza. Imprenta su PDF a su 100% cun s'adatamentu a sa pàgina disativadu.
+printing.running = Preparende su PDF…
+printing.save_pdf = Sarva PDF…
+printing.open_print = Sarva e aberi su PDF pro imprimere…
+printing.invalid = Impostatziones de imprenta o dimensiones de s'immàgine non vàlidas.
+printing.limit = Su traballu de imprenta passat is lìmites: 200 immàgines, 40 milliones de pixel pro immàgine, 32768 pixel pro cada ladu de ogni immàgine, o 256 MiB de datos PDF comprimidos.
+printing.profile_error = Custa immàgine tenet unu profilu de colore non vàlidu, chi no currispondet o non cumpatìbile. Is canales de colore CMYK/Lab nativos de su documentu rechirint unu profilu vàlidu incorporadu; RGB rechedet unu profilu RGB.
+printing.does_not_fit = S'immàgine a su DPI de su documentu no bi capet in custa cella. Imprea sa modalidade de adatamentu, una retza cun prus pagas rigas o colonnas, o paperi prus mannu.
+printing.caption_limit = Una didascàlia est tropu longa pro custa retza. Imprea prus pagas rigas o colonnas, acurtza sa didascàlia o disativa is didascàlias.
+printing.font_error = Perunu caràtere est a disponimentu pro sa didascàlia. Installa unu caràtere de testu o disativa is didascàlias.
+printing.no_document = Aberi unu documentu o sèbera fotografias dae sa galleria in antis de imprimere.
+printing.source_error = No est istadu possìbile lèghere una fotografia seletzionada, s'archìviu acumpangiante de is modìficas o una didascàlia. Perunu PDF est istadu sarvadu.
+printing.save_error = No est istadu possìbile sarvare su PDF. Sèbera unu nòmine de archìviu nou in una cartella in ue si podet iscrìere; is archìvios chi esistint no sunt mai sustituìdos.
+printing.downloaded = PDF iscarrigadu. Aberi·ddu in unu visualizadore PDF pro ddu imprimere a su 100%.
+printing.saved = PDF sarvadu: {path}
+printing.letter = US Letter
+printing.a4 = A4
+printing.margin_value = {value} mm
+
+# Cumandos de s'impaginatzione de imprenta
+printing.layout_title = Impaginatzione de imprenta
+printing.preset = Impaginatzione predefinida
+printing.preset_single = Una fotografia
+printing.preset_pair = Duas fotografias
+printing.preset_four = Bator fotografias
+printing.preset_nine = Noe fotografias
+printing.preset_contact = Fògiu de miniaduras
+printing.add_images = Annanghe immàgines…
+printing.add_page = Annanghe una pàgina
+printing.layout_help = Tràghe un'immàgine pro dda tramudare, o tràghe s'àngulu biaitu suo pro dda fàghere prus manna o prus pitica. Is impaginatziones predefinidas si podent semper modificare. Incarca un'immàgine in sa lista pro annànghere un'àtera còpia a custa pàgina.
+printing.page_position = Pàgina {page} de {pages}
+printing.loading_preview = Carrighende is antiprimas…
+printing.selection = Immàgine seberada
+printing.bring_front = Pone in primu pianu

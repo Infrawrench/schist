@@ -1,0 +1,47 @@
+# Print workflow.
+printing.title = Priontáil an doiciméad…
+printing.contact_sheet = Bileog teagmhála ón roghnú…
+printing.paper = Méid páipéir
+printing.margin = Imill
+printing.columns = Colúin
+printing.rows = Sraitheanna
+printing.dpi = DPI aschuir
+printing.landscape = Tírdhreach
+printing.actual_size = Méid iarbhír de réir DPI an doiciméid (gan scálú)
+printing.captions = Cuir ainmneacha comhad, rátálacha agus fotheidil san áireamh
+printing.pages = Leathanaigh: {count}
+printing.color_note = Tiontaítear picteilíní go sRGB. Bainistíonn d’amharcóir PDF agus do phrintéir próifíl an phrintéara.
+printing.sizing_note = Líonann an modh Oiriúnaigh gach cill gan bearradh. Úsáideann an méid iarbhír DPI an doiciméid; laghdaigh an eangach mura n-oireann sé. Priontáil an PDF ag 100% gan é a oiriúnú don leathanach.
+printing.running = PDF á ullmhú…
+printing.save_pdf = Sábháil PDF…
+printing.open_print = Sábháil agus oscail PDF lena phriontáil…
+printing.invalid = Socruithe priontála nó toisí íomhá neamhbhailí.
+printing.limit = Sáraíonn an jab priontála an teorainn: 200 íomhá, 40 milliún picteilín nó 32 768 picteilín ar gach taobh de gach íomhá, nó 256 MiB de shonraí PDF comhbhrúite.
+printing.profile_error = Tá próifíl dathanna neamhbhailí, mhí-oiriúnach nó neamhthacaithe ag an íomhá seo. Teastaíonn próifíl leabaithe bhailí ó CMYK/Lab dúchasach; teastaíonn próifíl RGB ó RGB.
+printing.does_not_fit = Ní oireann an íomhá ag DPI a doiciméid sa chill seo. Úsáid an modh Oiriúnaigh, eangach níos lú nó páipéar níos mó.
+printing.caption_limit = Tá fotheideal rófhada don eangach seo. Úsáid níos lú sraitheanna nó colún, giorraigh an fotheideal nó múch fotheidil.
+printing.font_error = Níl cló ar fáil don fhotheideal. Suiteáil cló téacs nó múch fotheidil.
+printing.no_document = Oscail doiciméad nó roghnaigh grianghraif sa ghailearaí roimh phriontáil.
+printing.source_error = Níorbh fhéidir grianghraf roghnaithe, taobhchomhad curtha in eagar nó fotheideal a léamh. Níor sábháladh PDF ar bith.
+printing.save_error = Níorbh fhéidir an PDF a shábháil. Roghnaigh ainm comhaid nua i bhfillteán inscríofa; ní chuirtear comhaid atá ann cheana ina n-áit riamh.
+printing.downloaded = Íoslódáladh an PDF. Oscail in amharcóir PDF é agus priontáil ag 100%.
+printing.saved = PDF sábháilte: {path}
+printing.letter = US Letter
+printing.a4 = A4
+printing.margin_value = {value} mm
+
+# Print layout controls.
+printing.layout_title = Leagan amach priontála
+printing.preset = Réamhshocrú leagain amach
+printing.preset_single = Grianghraf amháin
+printing.preset_pair = Dhá ghrianghraf
+printing.preset_four = Ceithre ghrianghraf
+printing.preset_nine = Naoi ngrianghraf
+printing.preset_contact = Bileog teagmhála
+printing.add_images = Cuir íomhánna leis…
+printing.add_page = Cuir leathanach leis
+printing.layout_help = Tarraing íomhá chun í a bhogadh, nó tarraing a cúinne gorm chun a méid a athrú. Is féidir na réamhshocruithe a chur in eagar i gcónaí. Cliceáil íomhá sa liosta chun cóip eile a chur leis an leathanach seo.
+printing.page_position = Leathanach {page} as {pages}
+printing.loading_preview = Réamhamhairc á lódáil…
+printing.selection = Íomhá roghnaithe
+printing.bring_front = Tabhair chun tosaigh

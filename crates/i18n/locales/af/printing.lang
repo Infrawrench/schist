@@ -1,0 +1,47 @@
+# Drukwerk
+printing.title = Druk dokument…
+printing.contact_sheet = Kontakblad van seleksie…
+printing.paper = Papiergrootte
+printing.margin = Kantlyn
+printing.columns = Kolomme
+printing.rows = Rye
+printing.dpi = Uitvoer-DPI
+printing.landscape = Landskap
+printing.actual_size = Werklike grootte volgens die dokument se DPI (geen skaalverandering)
+printing.captions = Sluit lêername, graderings en onderskrifte in
+printing.pages = Bladsye: {count}
+printing.color_note = Pieksels word omgeskakel na sRGB. Jou PDF-kyker en drukker bestuur die drukkerprofiel.
+printing.sizing_note = Pasmodus vul elke sel sonder om die beeld by te sny. Werklike grootte gebruik die dokument se DPI; verminder die aantal selle in die rooster as dit nie pas nie. Druk die PDF teen 100% sonder om dit by die bladsy te laat pas.
+printing.running = Berei PDF voor…
+printing.save_pdf = Stoor PDF…
+printing.open_print = Stoor en maak PDF oop om te druk…
+printing.invalid = Ongeldige drukinstellings of beeldafmetings.
+printing.limit = Drukwerk oorskry die limiet: 200 beelde, 40 miljoen pieksels / 32768 pieksels per rand per beeld of 256 MiB saamgeperste PDF-data.
+printing.profile_error = Hierdie beeld het 'n ongeldige, verkeerde of nie-ondersteunde kleurprofiel. Beelde met oorspronklike CMYK/Lab-kleurkanale vereis 'n geldige ingebedde profiel; RGB vereis 'n RGB-profiel.
+printing.does_not_fit = Die beeld pas teen die dokument se DPI nie in hierdie sel nie. Gebruik pasmodus, 'n rooster met minder selle of groter papier.
+printing.caption_limit = 'n Onderskrif is te lank vir hierdie rooster. Gebruik minder rye of kolomme, verkort die onderskrif of skakel onderskrifte af.
+printing.font_error = Geen lettertipe is beskikbaar vir die onderskrif nie. Installeer 'n tekslettertipe of skakel onderskrifte af.
+printing.no_document = Maak 'n dokument oop of kies galeryfoto's voordat jy druk.
+printing.source_error = 'n Gekose foto, gewysigde metgesellêer of onderskrif kon nie gelees word nie. Geen PDF is gestoor nie.
+printing.save_error = Kon nie die PDF stoor nie. Kies 'n nuwe lêernaam in 'n skryfbare gids; bestaande lêers word nooit vervang nie.
+printing.downloaded = PDF afgelaai. Maak dit in 'n PDF-kyker oop om dit teen 100% te druk.
+printing.saved = PDF gestoor: {path}
+printing.letter = US Letter
+printing.a4 = A4
+printing.margin_value = {value} mm
+
+# Drukuitleg
+printing.layout_title = Drukuitleg
+printing.preset = Uitlegvoorinstelling
+printing.preset_single = Een foto
+printing.preset_pair = Twee foto's
+printing.preset_four = Vier foto's
+printing.preset_nine = Nege foto's
+printing.preset_contact = Kontakblad
+printing.add_images = Voeg beelde by…
+printing.add_page = Voeg bladsy by
+printing.layout_help = Sleep 'n beeld om dit te skuif, of sleep sy blou hoek om die grootte daarvan te verander. Voorinstellings bly redigeerbaar. Klik op 'n beeld in die lys om nog 'n kopie by hierdie bladsy te voeg.
+printing.page_position = Bladsy {page} van {pages}
+printing.loading_preview = Laai tans voorskoue…
+printing.selection = Gekose beeld
+printing.bring_front = Bring na vore

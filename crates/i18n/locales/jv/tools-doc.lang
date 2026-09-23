@@ -1,9 +1,9 @@
 # Piranti dokumèn: artboard, irisan, bingkai, cathetan, lan cacah.
 
 # Artboard
-tool.artboard.name = Artboard
+tool.artboard.name = Papan gambar
 tool.artboard.description = Seret kanggo nggawé artboard: pérangan kanvas mawa jeneng sing bisa diekspor dhéwé. Nyeret ing njero artboard sing wis ana bakal mindhah artboard kuwi.
-tool.artboard.default_name = Artboard {n}
+tool.artboard.default_name = Papan gambar {n}
 
 # Irisan
 tool.slice.name = Irisan

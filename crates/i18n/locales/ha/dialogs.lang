@@ -122,7 +122,7 @@ dialog.plugins.detail = {kind} · {id}
 dialog.plugins.load_from = Ana loda plug-ins daga {dir}
 dialog.plugins.none = Ba a girka plug-ins ba tukuna.
 dialog.plugins.install_ellipsis = Girka…
-dialog.plugins.photoshop_heading = Photoshop plug-ins
+dialog.plugins.photoshop_heading = Fuloginan Photoshop
 dialog.plugins.loaded_from = An loda daga {folders}
 dialog.plugins.ps_detail = {architecture} · {detail}
 

@@ -1,5 +1,5 @@
 ai.status.panel_shown = Wɔakyerɛ AI panel no
-ai.status.panel_hidden = Wɔde AI panel no asie — Hwɛ ▸ AI Panel ({shortcut}) de no bɛsan aba
+ai.status.panel_hidden = Wɔde AI panel no asie — Hwɛ ▸ AI pon ({shortcut}) de no bɛsan aba
 ai.status.tool = AI: {name}
 ai.info.connected = {backend} anya nkitahodi
 ai.info.now_in_gallery = Seesei wowɔ gallery no mu.

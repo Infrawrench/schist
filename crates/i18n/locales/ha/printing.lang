@@ -1,0 +1,47 @@
+# Print workflow.
+printing.title = Buga takarda…
+printing.contact_sheet = Takardar hotunan zaɓi…
+printing.paper = Girman takarda
+printing.margin = Gefuna
+printing.columns = Ginshikai
+printing.rows = Layuka
+printing.dpi = DPI na fitarwa
+printing.landscape = A kwance
+printing.actual_size = Ainihin girma bisa DPI na takarda (ba tare da canja sikeli ba)
+printing.captions = Haɗa sunayen fayiloli, ƙimantawa da bayanan hoto
+printing.pages = Shafuka: {count}
+printing.color_note = Ana sauya piksel zuwa sRGB. Mai kallon PDF da firinta suna sarrafa bayanin launi na firinta.
+printing.sizing_note = Yanayin daidaitawa yana cika kowane akwati ba tare da yanke hoto ba. Ainihin girma yana amfani da DPI na takarda; rage girman jadawalin idan bai shiga ba. Buga PDF a 100% ba tare da daidaita shi da shafi ba.
+printing.running = Ana shirya PDF…
+printing.save_pdf = Ajiye PDF…
+printing.open_print = Ajiye kuma buɗe PDF don bugawa…
+printing.invalid = Saitunan bugawa ko girman hoto ba su da inganci.
+printing.limit = Aikin bugawa ya wuce iyaka: hotuna 200, piksel miliyan 40 ko piksel 32 768 a kowane gefe na kowane hoto, ko 256 MiB na bayanan PDF da aka matsa.
+printing.profile_error = Wannan hoton yana da bayanin launi mara inganci, wanda bai dace ba ko wanda ba a tallafa masa ba. CMYK/Lab na asali yana buƙatar ingantaccen bayanin launi a cikin fayil; RGB yana buƙatar bayanin RGB.
+printing.does_not_fit = Hoton a DPI na takardarsa bai shiga wannan akwati ba. Yi amfani da yanayin daidaitawa, ƙaramin jadawali ko takarda mafi girma.
+printing.caption_limit = Bayanin hoto ya yi tsawo ga wannan jadawalin. Rage layuka ko ginshikai, gajarta bayanin ko kashe bayanan hotuna.
+printing.font_error = Babu nau’in rubutu don bayanin hoton. Shigar da nau’in rubutu ko kashe bayanan hotuna.
+printing.no_document = Buɗe takarda ko zaɓi hotuna a taskar hotuna kafin bugawa.
+printing.source_error = Ba a iya karanta hoton da aka zaɓa, fayil na gefe da aka gyara ko bayanin hoto ba. Ba a ajiye PDF ba.
+printing.save_error = Ba a iya ajiye PDF ba. Zaɓi sabon sunan fayil a babban fayil da ake iya rubutu a ciki; ba a taɓa maye gurbin fayilolin da ke akwai ba.
+printing.downloaded = An sauke PDF. Buɗe shi a mai kallon PDF ka buga a 100%.
+printing.saved = An ajiye PDF: {path}
+printing.letter = US Letter
+printing.a4 = A4
+printing.margin_value = {value} mm
+
+# Print layout controls.
+printing.layout_title = Tsarin bugawa
+printing.preset = Saitin tsari
+printing.preset_single = Hoto ɗaya
+printing.preset_pair = Hotuna biyu
+printing.preset_four = Hotuna huɗu
+printing.preset_nine = Hotuna tara
+printing.preset_contact = Takardar hotuna
+printing.add_images = Ƙara hotuna…
+printing.add_page = Ƙara shafi
+printing.layout_help = Ja hoto don matsar da shi, ko ja kusurwarsa mai shuɗi don sauya girmansa. Ana iya gyara saitunan da aka shirya. Danna hoto a jerin don ƙara wani kwafinsa a wannan shafin.
+printing.page_position = Shafi {page} na {pages}
+printing.loading_preview = Ana loda samfoti…
+printing.selection = Hoton da aka zaɓa
+printing.bring_front = Kawo gaba

@@ -22,5 +22,5 @@ tool.eyedropper.choice.current_layer = Gjeldende lag
 # Hånd og Zoom
 tool.hand.name = Hånd
 tool.hand.description = Panorerer visningen. Visningsområdet tilhører vinduet, så uten grafisk grensesnitt gjør dette verktøyet ingenting med dokumentet.
-tool.zoom.name = Zoom
+tool.zoom.name = Forstørrelse
 tool.zoom.description = Forstørrer eller forminsker visningen. Visningsområdet tilhører vinduet, så uten grafisk grensesnitt gjør dette verktøyet ingenting med dokumentet.
