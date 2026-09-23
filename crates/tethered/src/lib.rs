@@ -285,7 +285,11 @@ fn capture_with_publisher(
         {
             return Err(t("tethered.no_download").into());
         }
-        File::open(path)
+        // Windows FlushFileBuffers requires a writable handle. Opening an
+        // existing staging file with write access does not truncate it.
+        fs::OpenOptions::new()
+            .write(true)
+            .open(path)
             .and_then(|f| f.sync_all())
             .map_err(io_error)?;
     }
