@@ -2885,7 +2885,7 @@ fn gallery_context_menu(
             if acting.iter().any(|p| !schist_gallery::is_video(p)) {
                 let photos = acting.clone();
                 row(
-                    t("printing.contact_sheet").into(),
+                    t("printing.layout_title").into(),
                     &mut rows,
                     cx,
                     std::rc::Rc::new(move |ws, _, cx| ws.open_printing(photos.clone(), cx)),

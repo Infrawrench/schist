@@ -422,6 +422,7 @@ fn gallery_menus(ws: &Workspace) -> Vec<(&'static str, Vec<MenuEntry>)> {
     }
     file.extend([
         Sep,
+        App(t("printing.layout_title"), ContactSheet, None),
         App(t("menu.file.add_folder_to_gallery"), GalleryAddFolder, None),
         App(
             if cfg!(target_os = "ios") {

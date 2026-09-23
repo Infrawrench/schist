@@ -1,26 +1,42 @@
 # Printing and contact sheets
 
 Choose **File → Print document…** for the current document, including unsaved
-edits. Select photographs in the gallery and choose **Contact sheet from
-selection…** from File or the photograph context menu to print a sheet. Videos
-are excluded. The selection is frozen when the dialog opens, in selection order. Contact
-sheets use the native local gallery; browser builds print the active document.
+edits. In the gallery, select photographs and choose **File → Print layout** or
+**Print layout** from the photograph context menu. Videos are excluded. The
+selection is captured when the layout opens; gallery images use their saved edits.
 
-Choose A4 or US Letter, portrait or landscape, margins from 5–30 mm, a grid up
-to five columns and six rows, and 72/150/300/600 output DPI. Fit mode preserves
-aspect ratio, centers each image and never crops. Each grid cell has a 2 mm inset and reserves room
-for its caption. Actual size uses the source document's resolution
-DPI: 300 pixels at 300 DPI occupy 25.4 mm. An image that cannot fit at actual
-size produces an error rather than silently scaling or clipping it. Output DPI
-controls image downsampling and caption quality, not physical image size; small
-sources are not artificially upsampled.
+The page preview is editable. Start with **One photo**, **Two photos**, **Four
+photos**, **Nine photos**, or **Contact sheet**, then drag any image to move it.
+Select an image and drag its blue bottom-right corner to resize its frame. The
+X, Y, Width and Height controls show millimetres. Resizing preserves the image's
+aspect ratio inside its frame. A preset is a starting arrangement: editing it
+switches to **Custom** without discarding your changes. Choosing another preset
+rearranges the images currently on the pages.
 
-The caption option prints filenames, five-star ratings and XMP captions.
+**Add images…** imports additional pictures without opening or modifying them
+in the editor. The image list retains the sources; click a thumbnail to place
+another copy on the current page. **Duplicate**, **Remove**, **Bring to front**,
+**Undo**, and **Redo** operate on the layout. **Add page**, **Back**, and **Next**
+manage multiple pages. An image can appear more than once, with a different size
+or position each time. Browser builds can add individual images with their file
+picker; native builds allow multiple files.
+
+Choose A4 or US Letter, portrait or landscape, margins from 5–30 mm, and
+72/150/300/600 output DPI. Presets use the selected margins; custom frames may
+extend into the margin guides but stay within the paper. Changing paper size
+scales the layout proportionally and resets layout undo. Frames have a 2 mm
+inset and reserve room for captions. Actual size uses the source document's
+resolution DPI: 300 pixels at 300 DPI occupy 25.4 mm. An image that cannot fit at
+actual size produces an error. Output DPI controls downsampling and caption
+quality, not physical image size; small sources are not artificially upsampled.
+
+The caption option prints filenames, numeric ratings such as **4/5**, and XMP
+captions. Numeric ratings avoid dependence on star glyphs in installed fonts.
 Captions use Schist's Unicode text shaping and available font fallback at 8 pt;
 install suitable script fonts if needed. Excessively long captions fail the job
-with advice to reduce the grid or disable captions. No text is silently cut off.
-Captions are raster images in the PDF, not searchable/selectable text. Native
-font availability and browser-loaded fonts can differ.
+with advice to enlarge the image frame or disable captions. Captions are raster
+images in the PDF, not searchable/selectable text. Native font availability and
+browser-loaded fonts can differ.
 
 **Save PDF…** saves a real, self-contained PDF 1.4 file. Desktop builds also
 provide **Save and open PDF to print…**, which hands the saved PDF to the OS's
@@ -53,7 +69,8 @@ unsaved document edits are included by Print document; gallery sheets read the
 saved gallery edits. Originals and sidecars are never modified. PDF save is
 atomic and never replaces an existing file; choose a fresh name to repeat a job.
 Cancel during preparation stops between compositing strips and images and
-prevents output. Cancel the save picker to discard a completed PDF.
+prevents output. Saving a PDF or cancelling the save picker keeps the layout open
+for further editing. Close the layout with Cancel when finished.
 
 Jobs are limited to 200 photographs, 40 million source pixels per photograph,
 32768 pixels per source edge, and 256 MiB of compressed object data. Processing decodes one source at a time,

@@ -29,3 +29,19 @@ printing.saved = PDF enregistré : {path}
 printing.letter = US Letter
 printing.a4 = A4
 printing.margin_value = {value} mm
+
+# Print layout controls; English fallback pending translation review.
+printing.layout_title = Print layout
+printing.preset = Layout preset
+printing.preset_single = One photo
+printing.preset_pair = Two photos
+printing.preset_four = Four photos
+printing.preset_nine = Nine photos
+printing.preset_contact = Contact sheet
+printing.add_images = Add images…
+printing.add_page = Add page
+printing.layout_help = Drag an image to move it, or drag its blue corner to resize. Presets remain editable. Click an image in the list to add another copy to this page.
+printing.page_position = Page {page} of {pages}
+printing.loading_preview = Loading previews…
+printing.selection = Selected image
+printing.bring_front = Bring to front

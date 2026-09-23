@@ -12,6 +12,9 @@ use std::{
     },
 };
 
+pub mod layout;
+pub use layout::{Frame, Placement, Preset};
+
 pub const MAX_ITEMS: usize = 200;
 const MAX_BYTES: usize = 256 * 1024 * 1024;
 const MAX_PIXELS: u64 = 40_000_000;
@@ -27,6 +30,8 @@ pub struct Options {
     pub dpi: u32,
     pub actual_size: bool,
     pub captions: bool,
+    pub layout: Vec<Placement>,
+    pub page_count: usize,
 }
 impl Default for Options {
     fn default() -> Self {
@@ -39,6 +44,8 @@ impl Default for Options {
             dpi: 300,
             actual_size: false,
             captions: true,
+            layout: Vec::new(),
+            page_count: 0,
         }
     }
 }
@@ -59,7 +66,16 @@ impl Options {
         self.columns * self.rows
     }
     pub fn pages(&self, count: usize) -> usize {
-        count.div_ceil(self.capacity())
+        if self.layout.is_empty() && self.page_count == 0 {
+            count.div_ceil(self.capacity().max(1))
+        } else {
+            self.layout
+                .iter()
+                .map(|p| p.page + 1)
+                .max()
+                .unwrap_or(1)
+                .max(self.page_count)
+        }
     }
     pub fn validate(&self, count: usize) -> Result<()> {
         if !(1..=5).contains(&self.columns)
@@ -68,17 +84,48 @@ impl Options {
             || !self.margin.is_finite()
             || !(5.0..=30.0).contains(&self.margin)
             || !(1..=MAX_ITEMS).contains(&count)
+            || self.layout.len() > MAX_ITEMS
+            || self.page_count > MAX_ITEMS
+            || self
+                .layout
+                .iter()
+                .any(|p| p.source >= count || p.page >= MAX_ITEMS || !p.frame.valid(self.page_mm()))
         {
             bail!("{}", t("printing.invalid"));
         }
         Ok(())
     }
 }
-#[derive(Clone, Debug, PartialEq)]
+#[derive(Clone, Debug)]
 pub struct Item {
     pub path: std::path::PathBuf,
     pub name: String,
     pub rating: u8,
+    pub snapshot: Option<Arc<Document>>,
+    pub preview: Option<Arc<gpui::RenderImage>>,
+    pub caption: String,
+    pub dimensions: Option<(u32, u32, f32)>,
+}
+impl PartialEq for Item {
+    fn eq(&self, other: &Self) -> bool {
+        self.path == other.path
+            && self.name == other.name
+            && self.rating == other.rating
+            && self.caption == other.caption
+            && self.snapshot.as_ref().map(|d| d.id) == other.snapshot.as_ref().map(|d| d.id)
+            && match (&self.preview, &other.preview) {
+                (Some(a), Some(b)) => Arc::ptr_eq(a, b),
+                (None, None) => true,
+                _ => false,
+            }
+    }
+}
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct Drag {
+    pub index: usize,
+    pub start: gpui::Point<gpui::Pixels>,
+    pub frame: Frame,
+    pub resize: bool,
 }
 #[derive(Clone, Debug)]
 pub struct Editor {
@@ -86,32 +133,148 @@ pub struct Editor {
     pub photos: Vec<Item>,
     pub cancel: Arc<AtomicBool>,
     pub running: bool,
+    pub loading: bool,
     pub error: Option<String>,
+    pub notice: Option<String>,
+    pub preset: Preset,
+    pub page: usize,
+    pub selected: Option<usize>,
+    pub drag: Option<Drag>,
+    pub preview_bounds: Option<gpui::Bounds<gpui::Pixels>>,
+    pub undo: Vec<(Vec<Placement>, usize)>,
+    pub redo: Vec<(Vec<Placement>, usize)>,
 }
 impl PartialEq for Editor {
     fn eq(&self, other: &Self) -> bool {
         self.options == other.options
             && self.photos == other.photos
             && self.running == other.running
+            && self.loading == other.loading
             && self.error == other.error
+            && self.notice == other.notice
+            && self.preset == other.preset
+            && self.page == other.page
+            && self.selected == other.selected
+            && self.drag == other.drag
             && Arc::ptr_eq(&self.cancel, &other.cancel)
     }
 }
 impl Editor {
     pub fn new(photos: Vec<Item>) -> Self {
+        let single = photos.len() == 1 && photos[0].snapshot.is_some();
         let mut options = Options::default();
-        if photos.is_empty() {
+        if single {
             options.columns = 1;
             options.rows = 1;
             options.captions = false;
         }
+        options.layout = layout::grid(&options, 0..photos.len());
+        options.page_count = options.pages(photos.len());
         Self {
             options,
             photos,
             cancel: Arc::new(AtomicBool::new(false)),
             running: false,
+            loading: true,
             error: None,
+            notice: None,
+            preset: if single {
+                Preset::Single
+            } else {
+                Preset::Contact
+            },
+            page: 0,
+            selected: None,
+            drag: None,
+            preview_bounds: None,
+            undo: Vec::new(),
+            redo: Vec::new(),
         }
+    }
+    pub fn remember(&mut self) {
+        if self.undo.last().map(|s| (&s.0, s.1))
+            != Some((&self.options.layout, self.options.page_count))
+        {
+            self.undo
+                .push((self.options.layout.clone(), self.options.page_count));
+            if self.undo.len() > 50 {
+                self.undo.remove(0);
+            }
+        }
+        self.redo.clear();
+    }
+    pub fn history(&mut self, undo: bool) {
+        let (from, to) = if undo {
+            (&mut self.undo, &mut self.redo)
+        } else {
+            (&mut self.redo, &mut self.undo)
+        };
+        if let Some((layout, pages)) = from.pop() {
+            to.push((
+                std::mem::replace(&mut self.options.layout, layout),
+                self.options.page_count,
+            ));
+            self.options.page_count = pages;
+            self.selected = None;
+            self.preset = Preset::Custom;
+            self.page = self
+                .page
+                .min(self.options.pages(self.photos.len()).saturating_sub(1));
+        }
+    }
+    pub fn apply_preset(&mut self, preset: Preset) {
+        self.preset = preset;
+        if let Some((cols, rows)) = preset.grid() {
+            self.remember();
+            self.options.columns = cols;
+            self.options.rows = rows;
+            let sources: Vec<_> = self.options.layout.iter().map(|p| p.source).collect();
+            self.options.layout = layout::grid(&self.options, sources);
+            self.options.page_count = self
+                .options
+                .layout
+                .iter()
+                .map(|p| p.page + 1)
+                .max()
+                .unwrap_or(1);
+            self.page = self.page.min(self.options.page_count - 1);
+            self.selected = None;
+        }
+    }
+    pub fn add(&mut self, source: usize) {
+        if source >= self.photos.len() || self.options.layout.len() >= MAX_ITEMS {
+            return;
+        }
+        self.remember();
+        let (w, h) = self.options.page_mm();
+        self.options.layout.push(Placement {
+            source,
+            page: self.page,
+            frame: Frame {
+                x: w * 0.2,
+                y: h * 0.2,
+                width: w * 0.6,
+                height: h * 0.6,
+            },
+        });
+        self.selected = Some(self.options.layout.len() - 1);
+        self.preset = Preset::Custom;
+    }
+    pub fn change_paper(&mut self, old: (f32, f32)) {
+        let new = self.options.page_mm();
+        for p in &mut self.options.layout {
+            p.frame.x *= new.0 / old.0;
+            p.frame.width *= new.0 / old.0;
+            p.frame.y *= new.1 / old.1;
+            p.frame.height *= new.1 / old.1;
+            p.frame.width = p.frame.width.max(8.0).min(new.0);
+            p.frame.height = p.frame.height.max(8.0).min(new.1);
+            p.frame.x = p.frame.x.min(new.0 - p.frame.width);
+            p.frame.y = p.frame.y.min(new.1 - p.frame.height);
+        }
+        // Old geometry belongs to another paper size.
+        self.undo.clear();
+        self.redo.clear();
     }
 }
 pub fn check(cancel: &AtomicBool) -> Result<()> {
@@ -225,6 +388,29 @@ async fn raster_async(
     }
 }
 
+/// Bounded, color-managed thumbnail for the print composer.
+pub async fn preview(
+    doc: &Document,
+    working: &Profile,
+    cancel: &AtomicBool,
+    executor: Option<&gpui::BackgroundExecutor>,
+) -> Result<image::RgbaImage> {
+    let scale = 320.0 / doc.width.max(doc.height).max(1) as f32;
+    let target = (
+        (doc.width as f32 * scale).ceil().max(1.0) as u32,
+        (doc.height as f32 * scale).ceil().max(1.0) as u32,
+    );
+    let rgb = raster_async(doc, working, target, cancel, executor).await?;
+    Ok(image::RgbaImage::from_fn(
+        rgb.width(),
+        rgb.height(),
+        |x, y| {
+            let p = rgb.get_pixel(x, y);
+            image::Rgba([p[2], p[1], p[0], 255])
+        },
+    ))
+}
+
 struct Pdf {
     objects: Vec<Vec<u8>>,
     bytes: usize,
@@ -316,24 +502,26 @@ pub async fn render_async(
     let profile = pdf.stream("/N 3 /Alternate /DeviceRGB", icc)?;
     let color = format!("[/ICCBased {profile} 0 R]");
     let (pw, ph) = options.page_mm();
-    let (cw, ch) = (
-        (pw - 2.0 * options.margin) / options.columns as f32,
-        (ph - 2.0 * options.margin) / options.rows as f32,
-    );
+    let layout = if options.layout.is_empty() && options.page_count == 0 {
+        layout::grid(options, 0..count)
+    } else {
+        options.layout.clone()
+    };
     let mut pages = Vec::new();
     for page in 0..options.pages(count) {
         check(cancel)?;
         let mut commands = String::new();
         let mut resources = String::new();
-        for slot in 0..options.capacity() {
-            let index = page * options.capacity() + slot;
-            if index >= count {
-                break;
-            }
+        for placed in layout.iter().filter(|p| p.page == page) {
             check(cancel)?;
-            let (doc, caption) = source(index)?;
-            let x = options.margin + (slot % options.columns) as f32 * cw + 2.0;
-            let top = options.margin + (slot / options.columns) as f32 * ch + 2.0;
+            let (doc, caption) = source(placed.source)?;
+            let Frame {
+                x,
+                y: top,
+                width: cw,
+                height: ch,
+            } = placed.frame;
+            let (x, top) = (x + 2.0, top + 2.0);
             let mut caption_h = 0.0;
             let caption_image = if options.captions && !caption.is_empty() {
                 if caption.chars().count() > 4096 {
@@ -455,6 +643,119 @@ fn draw(commands: &mut String, id: usize, x: f32, y: f32, w: f32, h: f32) {
 #[cfg(test)]
 mod tests {
     use super::*;
+    #[test]
+    fn adding_images_preserves_custom_layout_and_preset_changes_can_be_undone() {
+        let source = || Item {
+            path: "fixture.png".into(),
+            name: "fixture".into(),
+            rating: 4,
+            snapshot: None,
+            preview: None,
+            caption: String::new(),
+            dimensions: Some((600, 400, 300.0)),
+        };
+        let mut editor = Editor::new(vec![source()]);
+        editor.options.layout[0].frame = Frame {
+            x: 12.0,
+            y: 18.0,
+            width: 60.0,
+            height: 40.0,
+        };
+        let original = editor.options.layout[0];
+        editor.photos.push(source());
+        editor.add(1);
+        assert_eq!(editor.options.layout[0], original);
+        let custom = editor.options.layout.clone();
+        editor.apply_preset(Preset::Four);
+        let arranged = editor.options.layout.clone();
+        assert_ne!(arranged, custom);
+        editor.history(true);
+        assert_eq!(editor.options.layout, custom);
+        editor.history(false);
+        assert_eq!(editor.options.layout, arranged);
+        let old = editor.options.page_mm();
+        editor.options.landscape = true;
+        editor.change_paper(old);
+        assert!(editor.options.validate(editor.photos.len()).is_ok());
+    }
+
+    #[test]
+    fn custom_pdf_keeps_page_positions_and_repeated_sources() {
+        let mut options = Options {
+            captions: false,
+            page_count: 2,
+            ..Default::default()
+        };
+        options.layout = vec![
+            Placement {
+                source: 1,
+                page: 0,
+                frame: Frame {
+                    x: 20.0,
+                    y: 30.0,
+                    width: 80.0,
+                    height: 40.0,
+                },
+            },
+            Placement {
+                source: 1,
+                page: 1,
+                frame: Frame {
+                    x: 60.0,
+                    y: 90.0,
+                    width: 40.0,
+                    height: 40.0,
+                },
+            },
+        ];
+        let mut loaded = Vec::new();
+        let bytes = render(
+            &options,
+            2,
+            &Profile::srgb(),
+            &AtomicBool::new(false),
+            |index| {
+                loaded.push(index);
+                Ok((
+                    Document::new("square", 2, 2, schist_color::Depth::Eight),
+                    String::new(),
+                ))
+            },
+        )
+        .unwrap();
+        assert_eq!(
+            loaded,
+            vec![1, 1],
+            "layout order and duplicates are retained"
+        );
+        let parsed = lopdf::Document::load_mem(&bytes).unwrap();
+        let pages = parsed.get_pages();
+        assert_eq!(pages.len(), 2);
+        for (page, x, top) in [(1, 42.0, 32.0), (2, 62.0, 92.0)] {
+            let content =
+                lopdf::content::Content::decode(&parsed.get_page_content(pages[&page]).unwrap())
+                    .unwrap();
+            let matrix = content
+                .operations
+                .iter()
+                .find(|op| op.operator == "cm")
+                .unwrap();
+            let values: Vec<_> = matrix
+                .operands
+                .iter()
+                .map(|v| v.as_float().unwrap())
+                .collect();
+            assert!((values[0] - 36.0 * 72.0 / 25.4).abs() < 0.001);
+            assert!((values[4] - x * 72.0 / 25.4).abs() < 0.001);
+            assert!((values[5] - (297.0 - top - 36.0) * 72.0 / 25.4).abs() < 0.001);
+        }
+        options.layout[0].source = 2;
+        assert!(options.validate(2).is_err());
+        options.layout[0].source = 1;
+        options.layout[0].frame.x = f32::NAN;
+        assert!(options.validate(2).is_err());
+    }
+
     #[test]
     fn pagination_and_physical_size() {
         let o = Options::default();
@@ -663,6 +964,18 @@ mod tests {
             .unwrap()
             .decompressed_content()
             .unwrap();
-        assert_eq!(icc, Profile::srgb().icc_bytes().unwrap());
+        let embedded = Profile::from_bytes(&icc).unwrap();
+        assert_eq!(embedded.color_mode(), Some(schist_color::ColorMode::Rgb));
+        let transform =
+            ColorTransform::new(&embedded, &Profile::srgb(), Intent::RelativeColorimetric).unwrap();
+        let mut samples = [0.12, 0.5, 0.9, 1.0, 0.9, 0.2, 0.4, 1.0];
+        let expected = samples;
+        transform.apply(&mut samples);
+        for (actual, expected) in samples.into_iter().zip(expected) {
+            assert!(
+                (actual - expected).abs() < 0.001,
+                "embedded sRGB changes colors"
+            );
+        }
     }
 }
