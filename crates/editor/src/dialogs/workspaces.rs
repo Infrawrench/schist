@@ -212,18 +212,20 @@ pub(super) fn dialog(
             |ws, _, cx| ws.workspace_edit(WorkspaceEdit::Reset, cx),
             cx,
         ));
-    if let Some(error) = error {
-        body = body.child(div().child(error));
-    }
     ui::modal_frame(
         t("workspaces.title"),
         560.0,
         body,
-        div().child(ui::button(
-            t("common.close"),
-            primary.is_none(),
-            |ws, _, cx| ws.close_modal(cx),
-            cx,
-        )),
+        div()
+            .flex()
+            .flex_col()
+            .gap_2()
+            .children(error.map(|error| div().child(error)))
+            .child(ui::button(
+                t("common.close"),
+                primary.is_none(),
+                |ws, _, cx| ws.close_modal(cx),
+                cx,
+            )),
     )
 }
