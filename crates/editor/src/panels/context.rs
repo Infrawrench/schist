@@ -29,7 +29,7 @@ pub(super) fn context_entries(target: ContextTarget) -> Vec<ContextEntry> {
     use ContextEntry::*;
     match target {
         ContextTarget::Layer(id) => vec![
-            App(t("panel.layers.blending_options"), LayerStyle(id)),
+            App(t("menu.layer.layer_style"), LayerStyle(id)),
             App(t("panel.layers.properties"), LayerProperties(id)),
             App(t("panel.layers.show_hide"), ToggleVisibility(id)),
             Sep,
