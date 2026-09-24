@@ -11,7 +11,7 @@ finish-args:
   - --socket=wayland
   - --socket=fallback-x11
   - --share=ipc
-  - --device=dri
+  - --device=all
   # Schist only touches files the user picks through the portal.
   - --filesystem=xdg-pictures
   - --filesystem=xdg-documents
@@ -20,6 +20,15 @@ build-options:
   env:
     CARGO_HOME: /run/build/schist/cargo
 modules:
+  - name: libgphoto2
+    buildsystem: autotools
+    config-opts:
+      - --disable-static
+      - --disable-docs
+    sources:
+      - type: archive
+        url: https://github.com/gphoto/libgphoto2/releases/download/v2.5.34/libgphoto2-2.5.34.tar.bz2
+        sha256: 5df9e774eb4ab6087a193afff84dcafe9f666e3443fe29e73e6779f659ff7f28
   - name: schist
     buildsystem: simple
     build-commands:

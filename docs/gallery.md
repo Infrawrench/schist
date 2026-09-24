@@ -744,12 +744,13 @@ to bound temporary memory, and closing comparison releases its image handles.
 
 ## Tethered capture
 
-On Linux and macOS, **Tethered capture** in the local gallery triggers a
+On Linux, macOS, Windows, iOS and Android, **Tethered capture** in the local gallery triggers a
 compatible USB camera's shutter, downloads the new originals into a configured
 session folder with collision-safe automatic names, adds them to the gallery,
-and immediately shows the captured image for review. The workflow uses a
-separately installed gphoto2 backend and keeps files on the camera. See
-[tethered capture](tethered.md) for setup, storage requirements, cancellation,
+and immediately shows the captured image for review. macOS uses ImageCaptureCore
+and Linux links libgphoto2 in process; neither path launches a camera CLI or
+deletes files from the camera. See
+[tethered capture](tethered.md) for platform support (including browser WebUSB), setup, storage requirements, cancellation,
 camera retention and platform limits.
 
 ## Named virtual copies

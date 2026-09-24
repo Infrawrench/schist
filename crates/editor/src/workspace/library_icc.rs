@@ -1,4 +1,5 @@
-//! iPhones and PTP cameras on macOS, through ImageCaptureCore.
+//! iPhones and PTP cameras on Apple platforms, through ImageCaptureCore.
+#![cfg_attr(target_os = "ios", allow(dead_code))] // iOS uses Photos for bulk import.
 //!
 //! Those devices never mount as filesystems, so the gallery's
 //! DCIM-volume scan cannot see them; ImageCaptureCore is the door Image
@@ -23,16 +24,23 @@ use objc2::runtime::{AnyClass, AnyObject, Bool, ClassBuilder, Sel};
 use objc2::{msg_send, sel};
 use objc2_foundation::NSString;
 use schist_i18n::t;
+use std::collections::HashSet;
 use std::ffi::c_void;
 use std::sync::{Mutex, OnceLock};
+use std::time::{Duration, Instant};
 
 #[link(name = "ImageCaptureCore", kind = "framework")]
 extern "C" {
     /// Options key: the directory a requested download lands in.
     static ICDownloadsDirectoryURL: &'static NSString;
+    static ICSaveAsFilename: &'static NSString;
     /// Options key in the completion callback: the name the file was
     /// actually saved under (ImageCaptureCore renames on collision).
     static ICSavedFilename: &'static NSString;
+    #[cfg(target_os = "macos")]
+    static ICCameraDeviceCanTakePicture: &'static NSString;
+    #[cfg(target_os = "ios")]
+    static ICCameraDeviceCanAcceptPTPCommands: &'static NSString;
 }
 
 /// An ObjC pointer that crosses the mutex. Only ever dereferenced on
@@ -43,6 +51,7 @@ unsafe impl Send for ObjPtr {}
 struct Device {
     id: u64,
     name: String,
+    can_capture: bool,
     obj: ObjPtr,
 }
 
@@ -65,11 +74,37 @@ struct Job {
     finished: Option<Result<(), String>>,
 }
 
+enum TetheredPhase {
+    Opening,
+    #[cfg(target_os = "ios")]
+    Probing,
+    Capturing,
+}
+
+struct TetheredJob {
+    device_id: u64,
+    device: ObjPtr,
+    generation: usize,
+    staging: tempfile::TempDir,
+    baseline: HashSet<usize>,
+    queued: HashSet<usize>,
+    started: Instant,
+    last_added: Option<Instant>,
+    total: usize,
+    done: usize,
+    succeeded: usize,
+    warning: Option<String>,
+    phase: TetheredPhase,
+    finished: Option<Result<(), String>>,
+    closed: bool,
+}
+
 struct Shared {
     devices: Vec<Device>,
     next_id: u64,
     next_import: usize,
     job: Option<Job>,
+    tethered: Option<TetheredJob>,
     started: bool,
 }
 
@@ -78,6 +113,7 @@ static SHARED: Mutex<Shared> = Mutex::new(Shared {
     next_id: 1,
     next_import: 1,
     job: None,
+    tethered: None,
     started: false,
 });
 
@@ -88,6 +124,15 @@ pub(super) struct ImportStatus {
     pub locked: bool,
     /// `Some` once everything settled: Ok((copied, filtered, failed)).
     pub finished: Option<Result<(usize, usize, usize), String>>,
+}
+
+pub(super) struct TetheredStatus {
+    pub finished: Option<Result<(), String>>,
+}
+
+pub(super) struct TetheredDownload {
+    pub staging: tempfile::TempDir,
+    pub warning: Option<String>,
 }
 
 fn lock() -> std::sync::MutexGuard<'static, Shared> {
@@ -143,6 +188,19 @@ pub(super) fn devices() -> Vec<(u64, String)> {
         .collect()
 }
 
+pub(super) fn tethered_devices() -> Vec<schist_tethered::Camera> {
+    lock()
+        .devices
+        .iter()
+        .filter(|device| device.can_capture)
+        .map(|device| schist_tethered::Camera {
+            id: Some(device.id),
+            model: device.name.clone(),
+            port: String::new(),
+        })
+        .collect()
+}
+
 /// Open the device and start pulling its photos into `dest`. The rest
 /// happens in delegate callbacks; poll [`poll_import`] for progress.
 pub(super) fn begin_import(
@@ -153,7 +211,7 @@ pub(super) fn begin_import(
     std::fs::create_dir_all(dest.path()).map_err(|e| e.to_string())?;
     let device = {
         let mut shared = lock();
-        if shared.job.is_some() {
+        if shared.job.is_some() || shared.tethered.is_some() {
             return Err(t("library.import.already_running").into());
         }
         let Some(device) = shared.devices.iter().find(|d| d.id == id) else {
@@ -186,6 +244,140 @@ pub(super) fn begin_import(
     }
     log::info!("gallery: opening camera session");
     Ok(())
+}
+
+pub(super) fn begin_tethered(id: u64, staging: tempfile::TempDir) -> Result<(), String> {
+    let mut shared = lock();
+    if shared.job.is_some() || shared.tethered.is_some() {
+        return Err(t("library.import.already_running").into());
+    }
+    let Some(device) = shared.devices.iter().find(|device| device.id == id) else {
+        return Err(t("library.import.camera_gone").into());
+    };
+    if !device.can_capture {
+        return Err(t("tethered.unsupported").into());
+    }
+    let ptr = device.obj.0;
+    let retained =
+        unsafe { Retained::retain(ptr) }.ok_or_else(|| t("common.not_available").to_string())?;
+    let owned = ObjPtr(Retained::into_raw(retained));
+    let generation = shared.next_import;
+    shared.next_import += 1;
+    shared.tethered = Some(TetheredJob {
+        device_id: id,
+        device: owned,
+        generation,
+        staging,
+        baseline: HashSet::new(),
+        queued: HashSet::new(),
+        started: Instant::now(),
+        last_added: None,
+        total: 0,
+        done: 0,
+        succeeded: 0,
+        warning: None,
+        phase: TetheredPhase::Opening,
+        finished: None,
+        closed: false,
+    });
+    drop(shared);
+    let delegate = delegate();
+    unsafe {
+        let _: () = msg_send![ptr, setDelegate: delegate];
+        let _: () = msg_send![ptr, requestOpenSession];
+    }
+    Ok(())
+}
+
+pub(super) fn poll_tethered() -> Option<TetheredStatus> {
+    let completion = {
+        let shared = lock();
+        let job = shared.tethered.as_ref()?;
+        if let Some(result) = &job.finished {
+            Some(result.clone())
+        } else if job.started.elapsed() >= Duration::from_secs(120) {
+            Some(Err(t("tethered.timeout").into()))
+        } else if job.succeeded > 0
+            && job.done >= job.total
+            && job
+                .last_added
+                .is_some_and(|last| last.elapsed() >= Duration::from_secs(2))
+        {
+            Some(Ok(()))
+        } else if job.total > 0 && job.done >= job.total && job.succeeded == 0 {
+            Some(Err(t("tethered.no_download").into()))
+        } else {
+            None
+        }
+    };
+    if let Some(result) = completion.clone() {
+        conclude_tethered(result);
+    }
+    let shared = lock();
+    let job = shared.tethered.as_ref()?;
+    Some(TetheredStatus {
+        finished: job.closed.then(|| job.finished.clone()).flatten(),
+    })
+}
+
+pub(super) fn cancel_tethered() {
+    conclude_tethered(Err(t("common.cancelled").into()));
+}
+
+pub(super) fn take_tethered() -> Option<TetheredDownload> {
+    let job = {
+        let mut shared = lock();
+        let job = shared.tethered.take()?;
+        if job.finished.is_none() || !job.closed {
+            shared.tethered = Some(job);
+            return None;
+        }
+        job
+    };
+    unsafe {
+        drop(Retained::from_raw(job.device.0));
+    }
+    Some(TetheredDownload {
+        staging: job.staging,
+        warning: job.warning,
+    })
+}
+
+fn conclude_tethered(result: Result<(), String>) {
+    let device = {
+        let mut shared = lock();
+        let Some(job) = shared.tethered.as_mut() else {
+            return;
+        };
+        if job.finished.is_some() {
+            return;
+        }
+        job.finished = Some(result);
+        job.device.0
+    };
+    unsafe {
+        let _: () = msg_send![device, cancelDownload];
+        let _: () = msg_send![device, requestCloseSession];
+    }
+}
+
+extern "C" fn did_close_session(
+    _this: *mut AnyObject,
+    _sel: Sel,
+    device: *mut AnyObject,
+    _error: *mut AnyObject,
+) {
+    let mut shared = lock();
+    if let Some(job) = shared
+        .tethered
+        .as_mut()
+        .filter(|job| job.device.0 == device)
+    {
+        job.closed = true;
+        if job.finished.is_none() {
+            job.finished = Some(Err(t("library.import.camera_disconnected").into()));
+        }
+    }
 }
 
 /// A snapshot of the running import, or `None` when there is none.
@@ -273,7 +465,7 @@ fn delegate() -> *mut AnyObject {
             );
             builder.add_method(
                 sel!(device:didCloseSessionWithError:),
-                two_args_noop as extern "C" fn(_, _, _, _),
+                did_close_session as extern "C" fn(_, _, _, _),
             );
             builder.add_method(
                 sel!(didRemoveDevice:),
@@ -288,7 +480,7 @@ fn delegate() -> *mut AnyObject {
             );
             builder.add_method(
                 sel!(cameraDevice:didAddItems:),
-                two_args_noop as extern "C" fn(_, _, _, _),
+                did_add_items as extern "C" fn(_, _, _, _),
             );
             builder.add_method(
                 sel!(cameraDevice:didRemoveItems:),
@@ -300,7 +492,7 @@ fn delegate() -> *mut AnyObject {
             );
             builder.add_method(
                 sel!(cameraDeviceDidChangeCapability:),
-                one_arg_noop as extern "C" fn(_, _, _),
+                camera_capability_changed as extern "C" fn(_, _, _),
             );
             // Four selector arguments each: (device, payload, item,
             // error). objc2 checks the count when the class is built,
@@ -328,6 +520,11 @@ fn delegate() -> *mut AnyObject {
                 sel!(didDownloadFile:error:options:contextInfo:),
                 did_download as extern "C" fn(_, _, _, _, _, _),
             );
+            #[cfg(target_os = "ios")]
+            builder.add_method(
+                sel!(didSendPTPCommand:inData:response:error:contextInfo:),
+                did_send_ptp as extern "C" fn(_, _, _, _, _, _, _),
+            );
         }
         let class = builder.register();
         let instance: *mut AnyObject = unsafe { msg_send![class, new] };
@@ -335,7 +532,6 @@ fn delegate() -> *mut AnyObject {
     }) as *mut AnyObject
 }
 
-extern "C" fn one_arg_noop(_this: *mut AnyObject, _sel: Sel, _a: *mut AnyObject) {}
 extern "C" fn two_args_noop(
     _this: *mut AnyObject,
     _sel: Sel,
@@ -371,6 +567,7 @@ extern "C" fn did_add_device(
         let raw = Retained::into_raw(retained);
         let name_obj: *mut AnyObject = msg_send![raw, name];
         let name = ns_string(name_obj).unwrap_or_else(|| t("library.volume.camera").into());
+        let can_capture = can_take_picture(raw);
         let mut shared = lock();
         let id = shared.next_id;
         shared.next_id += 1;
@@ -378,6 +575,7 @@ extern "C" fn did_add_device(
         shared.devices.push(Device {
             id,
             name,
+            can_capture,
             obj: ObjPtr(raw),
         });
     }
@@ -391,6 +589,120 @@ extern "C" fn did_remove_device(
     _more: Bool,
 ) {
     forget_device(device);
+}
+
+extern "C" fn camera_capability_changed(_this: *mut AnyObject, _sel: Sel, device: *mut AnyObject) {
+    let can_capture = unsafe { can_take_picture(device) };
+    let mut shared = lock();
+    if let Some(device) = shared
+        .devices
+        .iter_mut()
+        .find(|candidate| candidate.obj.0 == device)
+    {
+        device.can_capture = can_capture;
+    }
+}
+
+unsafe fn can_take_picture(device: *mut AnyObject) -> bool {
+    let capabilities: *mut AnyObject = msg_send![device, capabilities];
+    #[cfg(target_os = "macos")]
+    let capability = ICCameraDeviceCanTakePicture;
+    #[cfg(target_os = "ios")]
+    let capability = ICCameraDeviceCanAcceptPTPCommands;
+    #[cfg(target_os = "ios")]
+    {
+        let responds: bool = msg_send![device, respondsToSelector: sel!(requestSendPTPCommand:outData:sendCommandDelegate:didSendCommand:contextInfo:)];
+        if !responds {
+            return false;
+        }
+    }
+    !capabilities.is_null() && unsafe { msg_send![capabilities, containsObject: capability] }
+}
+
+extern "C" fn did_add_items(
+    _this: *mut AnyObject,
+    _sel: Sel,
+    device: *mut AnyObject,
+    items: *mut AnyObject,
+) {
+    if items.is_null() {
+        return;
+    }
+    let (staging, generation) = {
+        let mut shared = lock();
+        let Some(job) = shared.tethered.as_mut() else {
+            return;
+        };
+        if job.device.0 != device
+            || job.finished.is_some()
+            || !matches!(job.phase, TetheredPhase::Capturing)
+        {
+            return;
+        }
+        (job.staging.path().to_path_buf(), job.generation)
+    };
+    let count: usize = unsafe { msg_send![items, count] };
+    let pending: Vec<*mut AnyObject> = unsafe {
+        (0..count)
+            .map(|index| -> *mut AnyObject { msg_send![items, objectAtIndex: index] })
+            .filter(|item| !item.is_null())
+            .filter(|item| {
+                let class = AnyClass::get(c"ICCameraFile").expect("ICCameraFile exists");
+                let is_file: bool = msg_send![*item, isKindOfClass: class];
+                is_file
+            })
+            .collect()
+    };
+    let pending = {
+        let mut shared = lock();
+        let Some(job) = shared.tethered.as_mut() else {
+            return;
+        };
+        if job.finished.is_some() {
+            return;
+        }
+        let pending: Vec<_> = pending
+            .into_iter()
+            .filter(|item| !job.baseline.contains(&(*item as usize)))
+            .filter(|item| job.queued.insert(*item as usize))
+            .collect();
+        if !pending.is_empty() {
+            job.total += pending.len();
+            job.last_added = Some(Instant::now());
+        }
+        pending
+    };
+    let delegate = delegate();
+    let dest_ns = NSString::from_str(&staging.to_string_lossy());
+    let url_class = AnyClass::get(c"NSURL").expect("NSURL exists");
+    let dict_class = AnyClass::get(c"NSMutableDictionary").expect("NSMutableDictionary exists");
+    unsafe {
+        let url: *mut AnyObject =
+            msg_send![url_class, fileURLWithPath: &*dest_ns, isDirectory: Bool::YES];
+        for file in pending {
+            let name: *mut AnyObject = msg_send![file, name];
+            let name = ns_string(name).unwrap_or_default();
+            let path = match schist_tethered::download_path(&staging, file as usize, &name) {
+                Ok(path) => path,
+                Err(error) => {
+                    conclude_tethered(Err(error));
+                    return;
+                }
+            };
+            let filename = NSString::from_str(&path.file_name().unwrap().to_string_lossy());
+            let options: *mut AnyObject = msg_send![dict_class, dictionary];
+            let _: () = msg_send![options, setObject: url, forKey: ICDownloadsDirectoryURL];
+            let _: () = msg_send![options, setObject: &*filename, forKey: ICSaveAsFilename];
+            let _: () = msg_send![
+                device,
+                requestDownloadFile: file,
+                options: options,
+                downloadDelegate: delegate,
+                didDownloadSelector: sel!(didDownloadFile:error:options:contextInfo:),
+                contextInfo: generation as *mut c_void
+            ];
+        }
+    }
 }
 
 /// ICDeviceDelegate's own removal notice; arrives for open sessions.
@@ -410,6 +722,14 @@ fn forget_device(device: *mut AnyObject) {
             job.finished = Some(Err(t("library.import.camera_disconnected").into()));
         }
     }
+    if let Some(job) = shared.tethered.as_mut() {
+        if job.device_id == gone.id && job.finished.is_none() {
+            job.finished = Some(Err(t("library.import.camera_disconnected").into()));
+        }
+        if job.device_id == gone.id {
+            job.closed = true;
+        }
+    }
     drop(shared);
     // Balances the retain in `did_add_device`.
     drop(unsafe { Retained::from_raw(gone.obj.0) });
@@ -418,7 +738,7 @@ fn forget_device(device: *mut AnyObject) {
 extern "C" fn did_open_session(
     _this: *mut AnyObject,
     _sel: Sel,
-    _device: *mut AnyObject,
+    device: *mut AnyObject,
     error: *mut AnyObject,
 ) {
     if error.is_null() {
@@ -427,7 +747,28 @@ extern "C" fn did_open_session(
     }
     let what = unsafe { error_string(error) };
     log::warn!("gallery: camera session failed to open: {what}");
-    conclude(Err(what));
+    let (importing, tethering) = {
+        let shared = lock();
+        (
+            shared
+                .job
+                .as_ref()
+                .is_some_and(|job| job.device.0 == device && job.finished.is_none()),
+            shared
+                .tethered
+                .as_ref()
+                .is_some_and(|job| job.device.0 == device && job.finished.is_none()),
+        )
+    };
+    if importing {
+        conclude(Err(what));
+    } else if tethering {
+        conclude_tethered(Err(what));
+        // Opening failed, so there is no session whose close can be awaited.
+        if let Some(job) = lock().tethered.as_mut() {
+            job.closed = true;
+        }
+    }
 }
 
 extern "C" fn access_restricted(_this: *mut AnyObject, _sel: Sel, _device: *mut AnyObject) {
@@ -447,6 +788,61 @@ extern "C" fn access_granted(_this: *mut AnyObject, _sel: Sel, _device: *mut Any
 /// The catalog is complete: queue every media file for download, except
 /// the ones the destination already holds at the same size.
 extern "C" fn device_ready(_this: *mut AnyObject, _sel: Sel, device: *mut AnyObject) {
+    let tethering = {
+        let shared = lock();
+        shared.tethered.as_ref().is_some_and(|job| {
+            job.device.0 == device
+                && job.finished.is_none()
+                && matches!(job.phase, TetheredPhase::Opening)
+        })
+    };
+    if tethering {
+        let files: *mut AnyObject = unsafe { msg_send![device, mediaFiles] };
+        let count: usize = if files.is_null() {
+            0
+        } else {
+            unsafe { msg_send![files, count] }
+        };
+        let mut baseline = HashSet::new();
+        for index in 0..count {
+            let file: *mut AnyObject = unsafe { msg_send![files, objectAtIndex: index] };
+            if !file.is_null() {
+                baseline.insert(file as usize);
+            }
+        }
+        if !unsafe { can_take_picture(device) } {
+            conclude_tethered(Err(t("tethered.unsupported").into()));
+            return;
+        }
+        let started = {
+            let mut shared = lock();
+            let Some(job) = shared.tethered.as_mut() else {
+                return;
+            };
+            if job.device.0 != device || job.finished.is_some() {
+                return;
+            }
+            job.baseline = baseline;
+            #[cfg(target_os = "macos")]
+            {
+                job.phase = TetheredPhase::Capturing;
+            }
+            #[cfg(target_os = "ios")]
+            {
+                job.phase = TetheredPhase::Probing;
+            }
+            true
+        };
+        if started {
+            #[cfg(target_os = "macos")]
+            unsafe {
+                let _: () = msg_send![device, requestTakePicture];
+            }
+            #[cfg(target_os = "ios")]
+            send_ptp(device, 0x1001, &[]);
+        }
+        return;
+    }
     let (dest, generation, local) = {
         let shared = lock();
         match shared.job.as_ref() {
@@ -530,6 +926,52 @@ extern "C" fn did_download(
     options: *mut AnyObject,
     context: *mut c_void,
 ) {
+    let tethering = {
+        let shared = lock();
+        shared
+            .tethered
+            .as_ref()
+            .is_some_and(|job| job.generation == context as usize && job.finished.is_none())
+    };
+    if tethering {
+        let failed = if error.is_null() {
+            let shared = lock();
+            let job = shared.tethered.as_ref().unwrap();
+            let name = unsafe {
+                let name: *mut AnyObject = msg_send![file, name];
+                ns_string(name).unwrap_or_default()
+            };
+            let expected: u64 = unsafe { msg_send![file, fileSize] };
+            let valid = schist_tethered::download_path(job.staging.path(), file as usize, &name)
+                .ok()
+                .and_then(|path| std::fs::symlink_metadata(path).ok())
+                .is_some_and(|meta| {
+                    meta.is_file() && meta.len() > 0 && (expected == 0 || meta.len() == expected)
+                });
+            (!valid).then(|| t("tethered.no_download").to_string())
+        } else {
+            Some(unsafe { error_string(error) })
+        };
+        let mut shared = lock();
+        let Some(job) = shared.tethered.as_mut() else {
+            return;
+        };
+        if job.finished.is_some() {
+            return;
+        }
+        job.done += 1;
+        match failed {
+            Some(error) => {
+                log::warn!("gallery: a tethered download failed: {error}");
+                drop(shared);
+                // A failed native transfer may have left nonempty partial data.
+                // Never publish the staging directory after such a callback.
+                conclude_tethered(Err(error));
+            }
+            None => job.succeeded += 1,
+        }
+        return;
+    }
     let (dest, sender) = {
         let shared = lock();
         let Some(job) = shared.job.as_ref() else {
@@ -566,5 +1008,101 @@ extern "C" fn did_download(
         let _ = sender.send(None);
     } else {
         let _ = sender.send(path);
+    }
+}
+
+#[cfg(target_os = "ios")]
+fn send_ptp(device: *mut AnyObject, operation: u16, parameters: &[u32]) {
+    let generation = {
+        let shared = lock();
+        let Some(job) = shared.tethered.as_ref() else {
+            return;
+        };
+        job.generation
+    };
+    let packet = schist_tethered::ptp::command(
+        operation,
+        (generation as u32)
+            .wrapping_mul(2)
+            .wrapping_add(u32::from(operation == 0x100e)),
+        parameters,
+    );
+    unsafe {
+        let class = AnyClass::get(c"NSData").expect("NSData exists");
+        let data: *mut AnyObject =
+            msg_send![class, dataWithBytes: packet.as_ptr().cast::<c_void>(), length: packet.len()];
+        let _: () = msg_send![device,
+            requestSendPTPCommand: data,
+            outData: std::ptr::null::<AnyObject>(),
+            sendCommandDelegate: delegate(),
+            didSendCommand: sel!(didSendPTPCommand:inData:response:error:contextInfo:),
+            contextInfo: generation as *mut c_void];
+    }
+}
+
+#[cfg(target_os = "ios")]
+unsafe fn data_bytes<'a>(data: *mut AnyObject) -> &'a [u8] {
+    if data.is_null() {
+        return &[];
+    }
+    let len: usize = msg_send![data, length];
+    if len == 0 {
+        return &[];
+    }
+    let bytes: *const u8 = msg_send![data, bytes];
+    std::slice::from_raw_parts(bytes, len)
+}
+
+#[cfg(target_os = "ios")]
+extern "C" fn did_send_ptp(
+    _this: *mut AnyObject,
+    _sel: Sel,
+    _command: *mut AnyObject,
+    data: *mut AnyObject,
+    response: *mut AnyObject,
+    error: *mut AnyObject,
+    context: *mut c_void,
+) {
+    let device = {
+        let shared = lock();
+        let Some(job) = shared.tethered.as_ref() else {
+            return;
+        };
+        if job.generation != context as usize || job.finished.is_some() {
+            return;
+        }
+        job.device.0
+    };
+    if !error.is_null() {
+        conclude_tethered(Err(unsafe { error_string(error) }));
+        return;
+    }
+    if !schist_tethered::ptp::response_ok(unsafe { data_bytes(response) }) {
+        conclude_tethered(Err(t("tethered.unsupported").into()));
+        return;
+    }
+    let probing = lock()
+        .tethered
+        .as_ref()
+        .is_some_and(|job| matches!(job.phase, TetheredPhase::Probing));
+    if probing {
+        match schist_tethered::ptp::supports_capture(unsafe { data_bytes(data) }) {
+            Ok(true) => {
+                if let Some(job) = lock().tethered.as_mut() {
+                    job.phase = TetheredPhase::Capturing;
+                }
+                send_ptp(device, 0x100e, &[0, 0]);
+            }
+            _ => conclude_tethered(Err(t("tethered.unsupported").into())),
+        }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    #[test]
+    fn delegate_selector_signatures_register_without_panicking() {
+        // objc2 verifies selector arity when ClassBuilder registers each method.
+        assert!(!super::delegate().is_null());
     }
 }

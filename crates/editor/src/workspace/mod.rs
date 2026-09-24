@@ -106,7 +106,7 @@ mod library_geo;
 // iPhones and PTP cameras never mount as filesystems on macOS;
 // ImageCaptureCore is the door Image Capture and Photos use, and this
 // module knocks on it the same way.
-#[cfg(target_os = "macos")]
+#[cfg(any(target_os = "macos", target_os = "ios"))]
 mod library_icc;
 // The camera roll on iOS is not a filesystem either; the system picker
 // hands over originals, which land in a folder the gallery watches.
@@ -125,6 +125,9 @@ mod library_photos;
 #[cfg(not(target_arch = "wasm32"))]
 mod library_similar;
 #[cfg(not(target_arch = "wasm32"))]
+mod library_tethered;
+#[cfg(target_arch = "wasm32")]
+#[path = "library_tethered_web.rs"]
 mod library_tethered;
 #[cfg(not(target_arch = "wasm32"))]
 pub(crate) mod library_variants;
@@ -261,6 +264,8 @@ pub struct Workspace {
     viewport_image: Option<(ViewportKey, Arc<RenderImage>)>,
     #[cfg(target_arch = "wasm32")]
     browser_gpu: browser_gpu::BrowserGpu,
+    #[cfg(target_arch = "wasm32")]
+    browser_tethered: library_tethered::Tethered,
     /// Images replaced this frame; freed from the sprite atlas after paint.
     retired_images: Vec<Arc<RenderImage>>,
     /// Whether a continuous zoom/pan gesture is streaming events. While
@@ -1360,6 +1365,8 @@ impl Workspace {
             viewport_image: None,
             #[cfg(target_arch = "wasm32")]
             browser_gpu: browser_gpu::BrowserGpu::default(),
+            #[cfg(target_arch = "wasm32")]
+            browser_tethered: library_tethered::Tethered::default(),
             retired_images: Vec::new(),
             view_gesture_active: false,
             view_gesture_seq: 0,

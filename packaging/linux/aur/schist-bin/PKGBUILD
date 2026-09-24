@@ -13,7 +13,7 @@ license=(MIT)
 # The list the payload's own .PKGINFO carries: fontconfig/wayland/
 # vulkan-icd-loader are dlopen'd, so namcap flags them "may not be needed"
 # — they are.
-depends=(fontconfig freetype2 hicolor-icon-theme libxcb libxkbcommon
+depends=(fontconfig freetype2 hicolor-icon-theme libgphoto2 libxcb libxkbcommon
          libxkbcommon-x11 vulkan-icd-loader wayland)
 # A Vulkan ICD is needed to draw, but as a hard dependency makepkg -s would
 # resolve it to nvidia-utils in the build container; Omarchy installs the right

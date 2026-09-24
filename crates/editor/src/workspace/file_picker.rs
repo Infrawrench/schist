@@ -69,6 +69,34 @@ pub struct FilePicker {
 }
 
 impl Workspace {
+    /// A capture session chooses a filename prefix, not a file to export.
+    /// iOS's export picker creates a placeholder, so use the in-app picker on
+    /// mobile where it can return an ordinary writable directory and name.
+    pub(super) fn prompt_for_capture_path(
+        &mut self,
+        directory: &Path,
+        name: &str,
+        cx: &mut Context<Self>,
+    ) -> oneshot::Receiver<anyhow::Result<Option<PathBuf>>> {
+        #[cfg(any(target_os = "ios", target_os = "android"))]
+        {
+            let (tx, rx) = oneshot::channel();
+            self.open_file_picker(
+                PickerKind::Save,
+                t("common.save").into(),
+                start_dir(Some(directory)),
+                name.into(),
+                Reply::NewPath(tx),
+                cx,
+            );
+            rx
+        }
+        #[cfg(not(any(target_os = "ios", target_os = "android")))]
+        {
+            self.prompt_for_new_path(directory, Some(name), cx)
+        }
+    }
+
     /// The platform's open dialog, or Schist's own where there is none.
     pub fn prompt_for_paths(
         &mut self,

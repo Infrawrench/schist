@@ -39,7 +39,7 @@ On Debian/Ubuntu, install the Linux build dependencies:
 ```sh
 sudo apt-get install build-essential pkg-config libfontconfig-dev \
   libwayland-dev libxkbcommon-x11-dev libxcb1-dev libxcb-render0-dev \
-  libxcb-shape0-dev libxcb-xfixes0-dev libvulkan-dev clang mold
+  libxcb-shape0-dev libxcb-xfixes0-dev libvulkan-dev libgphoto2-dev libclang-dev clang mold
 ```
 
 Linux also needs a working Vulkan driver at runtime. For Mesa drivers on

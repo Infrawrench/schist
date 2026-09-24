@@ -79,7 +79,8 @@ Architecture: $deb_arch
 Maintainer: $packager
 Installed-Size: $size
 Depends: libc6, libfontconfig1, libfreetype6, libxcb1, libxkbcommon0,
- libxkbcommon-x11-0, libwayland-client0, libvulkan1, hicolor-icon-theme
+  libxkbcommon-x11-0, libwayland-client0, libvulkan1, libgphoto2-6t64 | libgphoto2-6,
+  hicolor-icon-theme
 Recommends: libheif1 (>= 1.23.4)
 Homepage: $url
 Description: $summary
@@ -156,6 +157,7 @@ License:        MIT
 URL:            $url
 Requires:       fontconfig
 Requires:       freetype
+Requires:       libgphoto2
 Requires:       libxcb
 Requires:       libxkbcommon
 Requires:       libxkbcommon-x11
@@ -223,8 +225,8 @@ EOF
     # The same list the AUR PKGBUILD carries: fontconfig, wayland and the
     # Vulkan loader are dlopen'd rather than linked, and belong here even
     # though nothing in the ELF points at them.
-    for dep in fontconfig freetype2 hicolor-icon-theme libxcb libxkbcommon \
-               libxkbcommon-x11 vulkan-icd-loader wayland; do
+    for dep in fontconfig freetype2 hicolor-icon-theme libgphoto2 libxcb \
+               libxkbcommon libxkbcommon-x11 vulkan-icd-loader wayland; do
         echo "depend = $dep" >> "$work/.PKGINFO"
     done
     echo "optdepend = libheif>=1.23.4: HEIC import" >> "$work/.PKGINFO"

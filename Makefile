@@ -881,12 +881,34 @@ lint-native-stylus-tilt:
 	$(CARGO) clippy -p schist-editor -p schist-ui -p schist-app-platform -p schist-tools-paint --all-targets -- -D warnings
 
 .PHONY: test-tethered check-tethered fmt-tethered
+# Override TETHERED_TARGET for a backend-only cross-check, without cross-linking
+# the editor's GPU/codec dependencies.
+TETHERED_TARGET ?=
+.PHONY: check-tethered-backend test-tethered-editor test-tethered-web
+.PHONY: lint-tethered-backend
+lint-tethered-backend:
+	$(CARGO) clippy -p schist-tethered --all-targets $(if $(TETHERED_TARGET),--target $(TETHERED_TARGET),) -- -D warnings
+.PHONY: test-tethered-android
+test-tethered-android:
+	./tools/test-tethered-android.sh
+test-tethered-web:
+	node --test web/tethered.test.mjs
+check-tethered-backend:
+	$(CARGO) check -p schist-tethered --all-targets $(if $(TETHERED_TARGET),--target $(TETHERED_TARGET),)
+test-tethered-editor:
+	$(CARGO) test -p schist-editor library_icc::tests
 test-tethered:
 	$(CARGO) test -p schist-tethered
+.PHONY: test-tethered-webcam-discovery test-tethered-webcam
+test-tethered-webcam-discovery:
+	$(CARGO) test -p schist-tethered webcam::tests::hardware_discovery -- --ignored --nocapture
+# Opt-in: opens the first webcam and may prompt for macOS camera access.
+test-tethered-webcam:
+	$(CARGO) test -p schist-tethered webcam::tests::hardware_capture_and_cancel -- --ignored --nocapture
 check-tethered:
 	$(CARGO) check -p schist-tethered -p schist-editor --all-targets
 fmt-tethered:
-	$(CARGO) fmt -p schist-tethered -p schist-editor
+	$(CARGO) fmt -p schist-tethered -p schist-editor -p schist-app-platform
 .PHONY: lint-tethered
 lint-tethered:
 	$(CARGO) clippy -p schist-tethered -p schist-editor --all-targets -- -D warnings

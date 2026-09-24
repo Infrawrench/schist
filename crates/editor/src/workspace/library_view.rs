@@ -37,7 +37,10 @@ impl Workspace {
         let video = self.library.video.is_some() && !cloud;
         #[cfg(target_arch = "wasm32")]
         let video = false;
-        let body = if self.library.tethered.open && !cloud {
+
+        let tethered_open = self.library.tethered.open && !cloud;
+
+        let body = if tethered_open {
             super::library_tethered::render(self, cx)
         } else if video {
             #[cfg(not(target_arch = "wasm32"))]
@@ -142,6 +145,7 @@ impl Workspace {
         // in either room; opening one closes the other.
         let context_menu =
             super::cloud_view::context_menu(self, cx).or_else(|| gallery_context_menu(self, cx));
+
         let root = div()
             .flex()
             .flex_col()
@@ -166,12 +170,6 @@ impl Workspace {
             }))
             .child(chrome::top_strip(self, cx))
             .children(
-                (!cloud && cfg!(any(target_os = "linux", target_os = "macos"))).then(|| {
-                    Button::new("open-tethered", t("tethered.title"))
-                        .on_click(cx.listener(|ws, _, _, cx| ws.open_tethered(cx)))
-                }),
-            )
-            .children(
                 (!cloud && !video)
                     .then(|| self.library.culling_error.clone())
                     .flatten()
@@ -190,7 +188,7 @@ impl Workspace {
                 }),
             )
             .child(body)
-            .children((!video && !self.library.tethered.open).then(|| chrome::tray(self, cx)))
+            .children((!video && !tethered_open).then(|| chrome::tray(self, cx)))
             .children(context_menu)
             .children(chrome::gallery_more_menu(self, cx))
             .child(drag_out_listener(cx));

@@ -17,14 +17,14 @@ jobs:
         with:
           components: rustfmt, clippy
           # The plugin host's tests build the example plugins for real.
-          targets: wasm32-unknown-unknown, aarch64-linux-android
+          targets: wasm32-unknown-unknown, aarch64-linux-android, aarch64-apple-ios
       - name: Linux system deps
         if: runner.os == 'Linux'
         run: |
           sudo apt-get update
           # clang and mold are required by the linker settings in .cargo/config.toml.
           sudo apt-get install -y libfontconfig-dev libwayland-dev libxkbcommon-x11-dev \
-            libxcb1-dev libxcb-render0-dev libxcb-shape0-dev libxcb-xfixes0-dev libvulkan-dev \
+            libxcb1-dev libxcb-render0-dev libxcb-shape0-dev libxcb-xfixes0-dev libvulkan-dev libgphoto2-dev libclang-dev \
             clang mold mesa-vulkan-drivers
           # The hosted VM has no physical GPU. Run the compute tests on
           # Mesa's software Vulkan device, including tests that require an adapter.
@@ -41,6 +41,11 @@ jobs:
       - name: Windows native video regressions
         if: runner.os == 'Windows'
         run: 'cargo test -p schist-video'
+      - name: Browser tethered protocol regressions
+        run: node --test web/tethered.test.mjs
+      - name: iOS camera integration check
+        if: runner.os == 'macOS'
+        run: make check-camera-sync-ios
       - run: cargo test --workspace --no-fail-fast
       # The plug-in helpers are the one thing `cargo test` cannot cover:
       # they are built for other architectures than the one under test, so
@@ -60,3 +65,6 @@ jobs:
           export CC_aarch64_linux_android="$toolchain/aarch64-linux-android30-clang"
           export AR_aarch64_linux_android="$toolchain/llvm-ar"
           cargo check -p schist-app --lib --target aarch64-linux-android
+      - name: Android tethered protocol regressions
+        if: runner.os == 'Linux'
+        run: make test-tethered-android

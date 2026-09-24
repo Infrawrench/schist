@@ -14,5 +14,16 @@ fn main() {
     if arch == "wasm32" || os == "ios" || os == "android" {
         println!("cargo::rustc-cfg=sandboxed");
     }
+    if os == "macos" && std::env::var("CARGO_PKG_NAME").as_deref() == Ok("schist-app") {
+        // A terminal-launched executable has no .app bundle. Embed the same
+        // privacy declarations so requesting camera access cannot abort it.
+        let manifest = std::path::PathBuf::from(std::env::var_os("CARGO_MANIFEST_DIR").unwrap());
+        let plist = manifest.join("../../packaging/macos/Info.plist");
+        println!("cargo::rerun-if-changed={}", plist.display());
+        println!(
+            "cargo::rustc-link-arg-bin=schist=-Wl,-sectcreate,__TEXT,__info_plist,{}",
+            plist.display()
+        );
+    }
     println!("cargo::rerun-if-changed=../../tools/app-cfg.rs");
 }

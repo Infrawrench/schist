@@ -41,6 +41,10 @@ mod strip_actions {
         }
     }
 
+    pub fn tethered(ws: &mut Workspace, _w: &mut Window, cx: &mut Context<Workspace>) {
+        ws.open_tethered(cx);
+    }
+
     pub fn settings(ws: &mut Workspace, _w: &mut Window, cx: &mut Context<Workspace>) {
         ws.snapshot_preferences();
         ws.open_modal(Modal::Preferences, cx);
@@ -95,7 +99,11 @@ pub fn top_strip(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::AnyEl
             false,
             strip_actions::refresh,
             cx,
-        ));
+        ))
+        .children(
+            (!cloud || cfg!(target_arch = "wasm32"))
+                .then(|| gallery_button(t("tethered.title"), false, strip_actions::tethered, cx)),
+        );
     #[cfg(not(target_arch = "wasm32"))]
     let strip = strip.children(
         (!cloud && ws.library.video.is_none())
@@ -249,6 +257,9 @@ pub fn gallery_more_menu(
         cx,
     );
     row(&mut rows, t("common.refresh"), strip_actions::refresh, cx);
+    if !ws.cloud.show {
+        row(&mut rows, t("tethered.title"), strip_actions::tethered, cx);
+    }
     rows.push(menu_sep());
     if !ws.cloud.show && super::library_view::search_offer_needed(ws) {
         row(
@@ -481,19 +492,30 @@ impl Workspace {
     /// A key while the gallery has the keyboard and no dialog is up:
     /// the search box first, then the arrows over the grid.
     pub(crate) fn gallery_key(&mut self, ev: &gpui::KeyDownEvent, cx: &mut Context<Self>) -> bool {
+        #[cfg(not(target_arch = "wasm32"))]
+        let tethered_open = self.library.tethered.open;
+        #[cfg(target_arch = "wasm32")]
+        let tethered_open = self.browser_tethered.open;
+        if tethered_open {
+            if self.dropdown_key(ev, cx) {
+                return true;
+            }
+            if ev.keystroke.key == "escape" {
+                if self.open_popup.is_some() {
+                    self.close_popup(cx);
+                } else {
+                    self.close_tethered(cx);
+                }
+                return true;
+            }
+            return false;
+        }
         if self.cloud.show {
             return self.cloud_search_key(ev, cx)
                 || self.cloud_gallery_key(ev, cx)
                 || self.cloud_nav_key(ev, cx);
         }
-        #[cfg(not(target_arch = "wasm32"))]
-        if self.library.tethered.open {
-            if ev.keystroke.key == "escape" {
-                self.close_tethered(cx);
-                return true;
-            }
-            return false;
-        }
+
         #[cfg(not(target_arch = "wasm32"))]
         if self.video_key(ev, cx) {
             return true;

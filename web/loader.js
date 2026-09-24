@@ -1,3 +1,5 @@
+import { installTethered } from "./tethered.mjs";
+installTethered();
 import { LOCALES, STRINGS } from "./i18n-data.js";
 import { negotiate, fontMatches } from "./i18n.js";
 
