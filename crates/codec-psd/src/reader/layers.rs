@@ -389,6 +389,19 @@ fn parse_additional_blocks(
         }
     }
     // 1..=11 remaining bytes are writer padding; ignore.
+    // Modern Light layers still carry a zero-valued legacy `brit` block.
+    // `CgEd` is shared with other adjustments, so inspect the mode and
+    // wait until all blocks have arrived (either order is legal).
+    if let Some(adjustment) = rec.adjustment.as_mut() {
+        if adjustment.kind == AdjustmentKind::BrightnessContrast {
+            if let Some(block) = rec.extras.iter().rev().find(|b| b.key == *b"CgEd") {
+                if schist_adjustments::Light::parse(&block.data).is_some() {
+                    adjustment.kind = AdjustmentKind::Light;
+                    adjustment.raw = block.data.clone();
+                }
+            }
+        }
+    }
     Ok(())
 }
 

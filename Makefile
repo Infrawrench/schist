@@ -364,6 +364,12 @@ check-psd-effects:
 	$(CARGO) test -p schist-compositor-gpu --test compute_programs
 	$(CARGO) check -p schist-editor --all-targets
 
+.PHONY: check-psd-light
+check-psd-light:
+	$(CARGO) test -p schist-adjustments -p schist-codec-psd -p schist-app-actions
+	$(CARGO) test -p schist-compositor-gpu --test adjustment_coverage --test compute_programs
+	$(CARGO) check -p schist-editor --all-targets
+
 .PHONY: check-editable-interchange lint-editable-interchange inspect-affinity-interchange fmt-editable-interchange
 check-editable-interchange:
 	$(CARGO) test -p schist-codec-affinity -p schist-codec-psd -p schist-text-engine -p schist-tools-type

@@ -249,6 +249,9 @@ pub fn adjustment_id(kind: schist_core::AdjustmentKind) -> Option<&'static str> 
         GradientMap => "gradient_map",
         SelectiveColor => "selective_color",
         ChannelMixer => "channel_mixer",
+        // Light is editable on import, but its approximate renderer is
+        // not offered as a new adjustment in the creation menu.
+        Light => return None,
         // A kind read from a PSD we have no editor for; there is nothing
         // to create one from.
         Other(_) => return None,
