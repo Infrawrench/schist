@@ -210,6 +210,7 @@ fn layers_content(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoE
                         let id = row.id;
                         let is_active_row = row.active;
                         let is_selected_row = row.selected;
+                        let is_adjustment = matches!(row.kind, RowKind::Adjustment);
                         let entity = cx.entity();
                         let mut base = div()
                             .relative()
@@ -236,6 +237,16 @@ fn layers_content(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoE
                             MouseButton::Left,
                             cx.listener(move |ws, ev: &MouseDownEvent, _w, cx| {
                                 ws.layer_row_mouse_down(id, ev, cx);
+                                if ev.click_count == 2
+                                    && !ev.modifiers.shift
+                                    && !ev.modifiers.secondary()
+                                    && !ev.modifiers.alt
+                                {
+                                    // Finish selection and clear the pending drag before
+                                    // the dialog takes over pointer events.
+                                    ws.finish_layer_drag(cx);
+                                    ws.show_layer_style(id, cx);
+                                }
                             }),
                         )
                         .on_mouse_move(cx.listener(move |ws, ev: &MouseMoveEvent, _w, cx| {
@@ -327,6 +338,15 @@ fn layers_content(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoE
                                 .id(("layer-thumb", id.0))
                                 // Adjustment layers open their settings
                                 // from the thumbnail, like Photoshop.
+                                .when(is_adjustment, |thumb| {
+                                    thumb.on_mouse_down(
+                                        MouseButton::Left,
+                                        cx.listener(move |ws, ev: &MouseDownEvent, _w, cx| {
+                                            ws.layer_row_mouse_down(id, ev, cx);
+                                            cx.stop_propagation();
+                                        }),
+                                    )
+                                })
                                 .on_click(
                                     cx.listener(move |ws, _e, _w, cx| ws.edit_adjustment(id, cx)),
                                 )
@@ -402,19 +422,28 @@ fn layers_content(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoE
                                     .into_any_element()
                             }
                             _ => div()
+                                .flex()
                                 .flex_grow()
-                                .text_size(px(12.0))
+                                .min_w(px(0.0))
                                 .overflow_hidden()
-                                .on_mouse_down(
-                                    MouseButton::Left,
-                                    cx.listener(move |ws, ev: &MouseDownEvent, _w, cx| {
-                                        if ev.click_count >= 2 {
-                                            ws.begin_layer_rename(id, cx);
-                                            cx.stop_propagation();
-                                        }
-                                    }),
+                                .child(
+                                    // Only the name starts a rename. Empty space in
+                                    // this growing cell belongs to the layer row.
+                                    div()
+                                        .min_w(px(0.0))
+                                        .text_size(px(12.0))
+                                        .overflow_hidden()
+                                        .on_mouse_down(
+                                            MouseButton::Left,
+                                            cx.listener(move |ws, ev: &MouseDownEvent, _w, cx| {
+                                                if ev.click_count >= 2 {
+                                                    ws.begin_layer_rename(id, cx);
+                                                    cx.stop_propagation();
+                                                }
+                                            }),
+                                        )
+                                        .child(row.name),
                                 )
-                                .child(row.name)
                                 .into_any_element(),
                         })
                         .children(row.smart.then(|| {
@@ -429,12 +458,18 @@ fn layers_content(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoE
                         }))
                         .children(row.fx.then(|| {
                             div()
+                                .id(("layer-fx", id.0))
                                 .flex_none()
                                 .px_1()
                                 .rounded_sm()
                                 .text_size(px(10.0))
                                 .text_color(gpui::rgb(palette().text_dim))
                                 .bg(gpui::rgb(palette().control_bg))
+                                .cursor_pointer()
+                                .tooltip(ui::tip(t("menu.layer.layer_style"), None))
+                                .on_click(cx.listener(move |ws, _, _, cx| {
+                                    ws.show_layer_style(id, cx);
+                                }))
                                 .child("fx")
                         }))
                         // Drop indicators while a row drag is in flight: a
