@@ -259,6 +259,8 @@ pub struct Workspace {
     viewport_image: Option<(ViewportKey, Arc<RenderImage>)>,
     #[cfg(target_arch = "wasm32")]
     browser_gpu: browser_gpu::BrowserGpu,
+    #[cfg(target_arch = "wasm32")]
+    file_drop_listener: Option<crate::web::FileDropListener>,
     /// Images replaced this frame; freed from the sprite atlas after paint.
     retired_images: Vec<Arc<RenderImage>>,
     /// Whether a continuous zoom/pan gesture is streaming events. While
@@ -1358,6 +1360,8 @@ impl Workspace {
             viewport_image: None,
             #[cfg(target_arch = "wasm32")]
             browser_gpu: browser_gpu::BrowserGpu::default(),
+            #[cfg(target_arch = "wasm32")]
+            file_drop_listener: None,
             retired_images: Vec::new(),
             view_gesture_active: false,
             view_gesture_seq: 0,
@@ -1467,6 +1471,8 @@ impl Workspace {
             side_panel_resize: None,
             side_panel_bounds: FxHashMap::default(),
         };
+        #[cfg(target_arch = "wasm32")]
+        ws.install_file_drop_listener(cx);
         #[cfg(not(sandboxed))]
         {
             ws.ai.backend = crate::ai::Backend::from_pref(&ws.view.ai_backend);

@@ -6,6 +6,47 @@ use schist_i18n::{t, tf};
 impl Workspace {
     // ----- document lifecycle -----
 
+    #[cfg(target_arch = "wasm32")]
+    pub(super) fn install_file_drop_listener(&mut self, cx: &mut Context<Self>) {
+        use futures::StreamExt as _;
+        let (listener, mut drops) = match crate::web::listen_for_file_drops() {
+            Ok(subscription) => subscription,
+            Err(error) => {
+                log::warn!("Could not install file drop listener: {error:#}");
+                return;
+            }
+        };
+        self.file_drop_listener = Some(listener);
+        cx.spawn(async move |this, cx| {
+            while let Some(files) = drops.next().await {
+                let mut paths = Vec::with_capacity(files.len());
+                let mut errors = Vec::new();
+                for file in files {
+                    match crate::web::import_dropped_file(file).await {
+                        Ok(path) => paths.push(path),
+                        Err(error) => errors.push(error),
+                    }
+                }
+                if this
+                    .update(cx, |ws, cx| {
+                        if !paths.is_empty() {
+                            ws.handle_dropped_paths(paths, cx);
+                        }
+                        if !errors.is_empty() {
+                            ws.status =
+                                tf!("workspace.docs.open_failed", error = errors.join("; ")).into();
+                            cx.notify();
+                        }
+                    })
+                    .is_err()
+                {
+                    break;
+                }
+            }
+        })
+        .detach();
+    }
+
     /// File ▸ New: the preset picker. A preset creates on the spot;
     /// Custom… goes on to the full dialog.
     pub fn open_new_file_picker(&mut self, cx: &mut Context<Self>) {
