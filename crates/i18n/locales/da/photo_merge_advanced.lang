@@ -1,0 +1,8 @@
+# Translation draft; not reviewed by a native speaker.
+photo_merge_advanced.projective = Perspektivjustering (inklusive rotation)
+photo_merge_advanced.cylindrical = Cylindrisk panorama
+photo_merge_advanced.deghost = Fjern spøgelsesbilleder af bevægelige motiver (første foto som reference)
+photo_merge_advanced.focal = Brændvidde (px) / billedbredde (px)
+photo_merge_advanced.masks = Resultatet bruger redigerbare lagmasker. Vælg en maske i Lag og mal for at finjustere den.
+photo_merge_advanced.no_match = Ingen pålidelig justering fundet. Brug detaljerede fotos med stor overlapning og små ændringer i synsvinkel.
+photo_merge_advanced.invalid = Ugyldige kildebilleder eller sammenfletningsindstillinger.

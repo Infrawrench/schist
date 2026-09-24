@@ -1070,13 +1070,19 @@ impl MapPhoto {
             MapPhoto::Cloud(a) => a.id.clone(),
         }
     }
-    fn name(&self) -> String {
+    fn name(&self, ws: &Workspace) -> String {
         match self {
-            MapPhoto::Local(e) => e
-                .path
-                .file_name()
-                .map(|s| s.to_string_lossy().into_owned())
-                .unwrap_or_default(),
+            MapPhoto::Local(e) => ws
+                .library
+                .variant_names
+                .get(&e.path)
+                .cloned()
+                .unwrap_or_else(|| {
+                    e.path
+                        .file_name()
+                        .map(|s| s.to_string_lossy().into_owned())
+                        .unwrap_or_default()
+                }),
             MapPhoto::Cloud(a) => a.name.clone(),
         }
     }
@@ -1353,7 +1359,7 @@ fn world_map(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElemen
         for photo in details {
             let selected = map_photo_selected(ws, &photo);
             let preview = map_photo_preview(ws, &photo, 86.0, 62.0, cx);
-            let name = photo.name();
+            let name = photo.name(ws);
             let pick = vec![photo.clone()];
             strip = strip.child(
                 div()
@@ -1527,7 +1533,7 @@ fn prepare_photo_markers(
         let label = if count > 1 {
             tn("common.n_photos", count as u64)
         } else {
-            entry.name()
+            entry.name(ws)
         };
         let marker = div()
             .id(SharedString::from(format!(
@@ -1722,6 +1728,19 @@ fn cell_element(
     .children(super::library_culling::badge(
         ws.library.culling_of(&entry.path),
     ))
+    .children(ws.library.variant_names.get(&entry.path).map(|name| {
+        div()
+            .absolute()
+            .top_1()
+            .left_1()
+            .right_1()
+            .truncate()
+            .px_1()
+            .bg(gpui::rgba(0x000000BB))
+            .text_color(gpui::rgb(0xFFFFFF))
+            .text_size(px(11.0))
+            .child(name.clone())
+    }))
     .children(schist_gallery::is_video(&entry.path).then(|| {
         div()
             .absolute()
@@ -1827,10 +1846,19 @@ pub(super) fn tray_info(ws: &Workspace) -> TrayInfo {
         .and_then(|c| ws.library.entry_of(&c.paths[c.active]))
         .or_else(|| ws.library.selected_entry())
         .cloned();
-    let name = selected
-        .as_ref()
-        .and_then(|e| e.path.file_name())
-        .map(|n| n.to_string_lossy().into_owned());
+    let name = selected.as_ref().map(|e| {
+        ws.library
+            .variant_names
+            .get(&e.path)
+            .cloned()
+            .unwrap_or_else(|| {
+                e.path
+                    .file_name()
+                    .unwrap_or_default()
+                    .to_string_lossy()
+                    .into_owned()
+            })
+    });
     let mut notes = Vec::new();
     if selected.as_ref().is_some_and(|e| e.edited) {
         notes.push(t("library.tray.edited_note").to_string());
@@ -2909,6 +2937,38 @@ fn gallery_context_menu(
                 );
             }
 
+            if n == 1 && !schist_gallery::is_video(&path) {
+                let copy = path.clone();
+                row(
+                    t("variants.create").into(),
+                    &mut rows,
+                    cx,
+                    std::rc::Rc::new(move |ws, _, cx| ws.variant_prompt(copy.clone(), false, cx)),
+                );
+                if schist_gallery::variants::original(&path).is_some() {
+                    let rename = path.clone();
+                    row(
+                        t("variants.rename").into(),
+                        &mut rows,
+                        cx,
+                        std::rc::Rc::new(move |ws, _, cx| {
+                            ws.variant_prompt(rename.clone(), true, cx)
+                        }),
+                    );
+                    if !ws.library.edit_backings.values().any(|p| p == &path) {
+                        let delete = path.clone();
+                        row(
+                            t("variants.delete").into(),
+                            &mut rows,
+                            cx,
+                            std::rc::Rc::new(move |ws, _, cx| {
+                                ws.variant_delete(delete.clone(), cx)
+                            }),
+                        );
+                    }
+                }
+            }
+
             if !schist_gallery::is_video(&path) {
                 let original = path.clone();
                 row(
@@ -3091,7 +3151,10 @@ fn gallery_context_menu(
             // Only an edited photo has an original to go back to.
             let edited = acting
                 .iter()
-                .filter(|p| super::library::backing_psd(p).is_some_and(|s| s.exists()))
+                .filter(|p| {
+                    schist_gallery::variants::original(p).is_none()
+                        && super::library::backing_psd(p).is_some_and(|s| s.exists())
+                })
                 .count();
             if edited > 0 {
                 let revert = acting;

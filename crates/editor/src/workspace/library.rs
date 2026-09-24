@@ -282,6 +282,7 @@ pub struct Library {
     pub video_retired: Arc<std::sync::Mutex<Vec<Arc<RenderImage>>>>,
     /// Scan result, grouped by directory.
     pub sections: Vec<Section>,
+    pub(super) variant_names: FxHashMap<PathBuf, String>,
     /// Sidebar filter: show only sections under this root. `None` = all.
     pub folder_filter: Option<PathBuf>,
     /// The selected photos, in the order they were picked; the last is
@@ -312,6 +313,7 @@ pub struct Library {
     /// Thumbnail cell edge in pixels, the tray slider's value.
     pub thumb_px: f32,
     pub scanning: bool,
+    rescan_pending: bool,
     /// A camera import in flight, so a second click does not start one.
     pub importing: bool,
     /// The destination captured by the Import button, including while a source
@@ -522,6 +524,7 @@ impl Library {
             #[cfg(not(target_arch = "wasm32"))]
             video_retired: Arc::default(),
             sections: Vec::new(),
+            variant_names: FxHashMap::default(),
             folder_filter: None,
             selected: Vec::new(),
             culling: file.culling,
@@ -564,6 +567,7 @@ impl Library {
             context: None,
             thumb_px: file.thumb_px.unwrap_or(144.0).clamp(80.0, 240.0),
             scanning: false,
+            rescan_pending: false,
             importing: false,
             import_cloud: None,
             #[cfg(target_os = "android")]
@@ -883,6 +887,8 @@ impl Library {
     pub(super) fn entry_json(&self, entry: &Entry) -> serde_json::Value {
         serde_json::json!({
             "path": entry.path.display().to_string(),
+            "original": schist_gallery::capture_original(&entry.path).display().to_string(),
+            "variant_name": self.variant_names.get(&entry.path),
             "taken": self.taken_of(entry),
             "place": self.places.get(&entry.path).cloned().flatten(),
             "edited": entry.edited,
@@ -1165,10 +1171,19 @@ impl Library {
     /// A photo's capture time as sortable text: EXIF when probed, the
     /// file's own clock until then.
     fn taken_of(&self, entry: &Entry) -> String {
+        let capture = schist_gallery::variants::capture(&entry.path);
         self.taken
-            .get(&entry.path)
+            .get(&capture)
+            .or_else(|| self.taken.get(&entry.path))
             .cloned()
-            .unwrap_or_else(|| taken_from_unix(entry.mtime))
+            .unwrap_or_else(|| {
+                taken_from_unix(
+                    self.by_path
+                        .get(&capture)
+                        .map(|e| e.mtime)
+                        .unwrap_or(entry.mtime),
+                )
+            })
     }
 
     /// The visible photos grouped the way `group_by` asks:
@@ -1419,6 +1434,11 @@ impl Library {
                 self.metadata_text
                     .iter()
                     .map(|(p, s)| (p.clone(), s.clone()))
+                    .chain(
+                        self.variant_names
+                            .iter()
+                            .map(|(p, n)| (p.clone(), n.to_lowercase())),
+                    )
                     .collect(),
             ),
             vectors: Arc::new(
@@ -1480,7 +1500,12 @@ impl Library {
         }
         self.metadata_text
             .iter()
-            .filter(|(_, text)| words.iter().all(|w| text.contains(w.as_str())))
+            .chain(self.variant_names.iter())
+            .filter(|(_, text)| {
+                words
+                    .iter()
+                    .all(|w| text.to_lowercase().contains(w.as_str()))
+            })
             .map(|(path, _)| path.clone())
             .collect()
     }
@@ -1540,7 +1565,10 @@ impl Library {
             .flat_map(|s| s.entries.iter())
             .map(|e| (e.path.clone(), e.clone()))
             .collect();
+        self.variant_names
+            .retain(|path, _| self.by_path.contains_key(path));
         self.sections = sections;
+        self.index_gen += 1;
         self.people_rev += 1;
     }
 
@@ -2806,24 +2834,39 @@ impl Workspace {
             self.library.people_models_started = true;
             self.download_people_models(cx);
         }
-        if self.library.folders.is_empty() {
-            self.library.set_sections(Vec::new());
+        if self.library.scanning {
+            self.library.rescan_pending = true;
             return;
         }
-        if self.library.scanning {
+        if self.library.folders.is_empty() {
+            self.library.set_sections(Vec::new());
             return;
         }
         self.library.scanning = true;
         let folders = self.library.folders.clone();
         let exts = self.gallery_extensions();
         cx.spawn(async move |this, cx| {
-            let sections = cx
+            let (sections, names) = cx
                 .background_executor()
-                .spawn(async move { scan_folders(&folders, &exts) })
+                .spawn(async move {
+                    let sections = scan_folders(&folders, &exts);
+                    let names: FxHashMap<PathBuf, String> = sections
+                        .iter()
+                        .flat_map(|s| &s.entries)
+                        .filter_map(|e| {
+                            schist_gallery::variants::name(&e.path).map(|n| (e.path.clone(), n))
+                        })
+                        .collect();
+                    (sections, names)
+                })
                 .await;
             this.update(cx, |ws, cx| {
                 ws.library.scanning = false;
                 ws.library.set_sections(sections);
+                ws.library.variant_names = names;
+                if std::mem::take(&mut ws.library.rescan_pending) {
+                    ws.library_rescan(cx);
+                }
                 ws.maybe_load_index_snapshot(cx);
                 if ws.library.index_restored {
                     ws.refresh_gallery_metadata(cx);
@@ -4242,9 +4285,7 @@ impl Workspace {
         // ⌘S goes to the sidecar from the first save, and the title stays
         // the photo's own name rather than the sidecar's.
         doc.path = backing_psd(&original);
-        if let Some(name) = original.file_name() {
-            doc.title = name.to_string_lossy().into_owned();
-        }
+        doc.title = schist_gallery::variants::display_name(&original);
         self.library.edit_backings.insert(doc.id, original);
     }
 
@@ -4260,6 +4301,11 @@ impl Workspace {
             .is_some_and(|psd| psd == path);
         if !backed {
             return Ok(());
+        }
+        if schist_gallery::variants::original(path).is_some()
+            && !schist_gallery::variants::active(path)
+        {
+            return Err(std::io::ErrorKind::NotFound.into());
         }
         super::library_ops::keep_sidecar_version(path)
     }
@@ -4279,7 +4325,11 @@ impl Workspace {
             return false;
         };
         self.library.thumbs.remove(&original);
-        let mtime = mtime_secs(path);
+        let mtime = if schist_gallery::variants::original(path).is_some() {
+            schist_gallery::variants::revision(path)
+        } else {
+            mtime_secs(path)
+        };
         for section in &mut self.library.sections {
             for entry in &mut section.entries {
                 if entry.path == original {
@@ -4288,6 +4338,11 @@ impl Workspace {
                 }
             }
         }
+        if let Some(entry) = self.library.by_path.get_mut(&original) {
+            entry.edited = true;
+            entry.mtime = mtime;
+        }
+        self.library.index_gen += 1;
         true
     }
 

@@ -82,6 +82,8 @@ pub enum AdjustmentKind {
     Curves,
     HueSaturation,
     BrightnessContrast,
+    /// Modern Photoshop Light settings in a `CgEd` companion to `brit`.
+    Light,
     BlackWhite,
     SolidColor,
     GradientFill,
@@ -126,7 +128,8 @@ impl AdjustmentKind {
     }
 
     /// The 4-char PSD block key for this kind, the inverse of
-    /// [`Self::from_psd_key`].
+    /// [`Self::from_psd_key`], except Light: `CgEd` must be distinguished
+    /// from other adjustment metadata by its descriptor's mode.
     pub fn psd_key(&self) -> [u8; 4] {
         use AdjustmentKind::*;
         match self {
@@ -134,6 +137,7 @@ impl AdjustmentKind {
             Curves => *b"curv",
             HueSaturation => *b"hue2",
             BrightnessContrast => *b"brit",
+            Light => *b"CgEd",
             BlackWhite => *b"blwh",
             SolidColor => *b"SoCo",
             GradientFill => *b"GdFl",
@@ -160,6 +164,7 @@ impl AdjustmentKind {
             Curves => "Curves",
             HueSaturation => "Hue/Saturation",
             BrightnessContrast => "Brightness/Contrast",
+            Light => schist_i18n::t("filter.param.light"),
             BlackWhite => "Black & White",
             SolidColor => "Solid Color",
             GradientFill => "Gradient Fill",

@@ -127,6 +127,8 @@ mod library_similar;
 #[cfg(not(target_arch = "wasm32"))]
 mod library_tethered;
 #[cfg(not(target_arch = "wasm32"))]
+pub(crate) mod library_variants;
+#[cfg(not(target_arch = "wasm32"))]
 mod library_view;
 mod modals;
 mod notes;
@@ -350,6 +352,7 @@ pub struct Workspace {
     /// Layer thumbnails keyed by layer id, tagged with the doc revision
     /// they were rendered at.
     thumbs: FxHashMap<schist_core::LayerId, (u64, Arc<RenderImage>)>,
+    mask_thumbs: FxHashMap<schist_core::LayerId, (u64, Arc<RenderImage>)>,
     /// Toolbar groups: (group id, tool ids in registration order).
     pub tool_groups: Vec<(&'static str, Vec<&'static str>)>,
     /// The tool each group last used — what its toolbar slot shows.
@@ -1129,6 +1132,11 @@ pub enum Modal {
     SearchModels,
     /// Rename one of the gallery's people (`index` into the people
     /// list); a name somebody else has merges the two.
+    VariantName {
+        path: PathBuf,
+        name: String,
+        rename: bool,
+    },
     PersonName {
         index: usize,
         name: String,
@@ -1392,6 +1400,7 @@ impl Workspace {
             raw_preview_seq: 0,
             slider_bounds: FxHashMap::default(),
             thumbs: FxHashMap::default(),
+            mask_thumbs: FxHashMap::default(),
             tool_groups: Vec::new(),
             group_active: FxHashMap::default(),
             tool_flyout: None,

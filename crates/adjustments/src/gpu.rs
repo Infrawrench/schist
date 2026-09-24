@@ -193,6 +193,17 @@ pub fn direct_coeffs(params: &Params) -> Option<(u32, Vec<f32>)> {
             }
             (17, out)
         }
+        Params::Light(light) => (
+            18,
+            vec![
+                2.0f32.powf(light.exposure.clamp(-20.0, 20.0)),
+                light.contrast.clamp(-100.0, 100.0) / 100.0 * (4.0 / 3.0),
+                light.highlights.clamp(-100.0, 100.0) / 100.0,
+                light.shadows.clamp(-100.0, 100.0) / 100.0,
+                1.0 - light.whites.clamp(-100.0, 100.0) / 100.0 * 0.125,
+                -light.blacks.clamp(-100.0, 100.0) / 100.0 * 0.4,
+            ],
+        ),
         Params::Unsupported => return None,
     })
 }

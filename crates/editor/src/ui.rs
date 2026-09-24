@@ -68,6 +68,9 @@ pub fn blend_mode_name(mode: schist_core::BlendMode) -> &'static str {
 /// An adjustment's name in the user's language; `AdjustmentKind::
 /// display_name` is the English the PSD format knows.
 pub fn adjustment_name(kind: schist_core::AdjustmentKind) -> &'static str {
+    if kind == schist_core::AdjustmentKind::Light {
+        return schist_i18n::t("filter.param.light");
+    }
     match crate::actions::adjustment_id(kind) {
         Some(id) => schist_i18n::t(&format!("adjustment.{id}.name")),
         None => schist_i18n::t("adjustment.other.name"),

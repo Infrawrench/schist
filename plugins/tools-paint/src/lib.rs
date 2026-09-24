@@ -178,6 +178,7 @@ struct Stroke {
     ink: Ink,
     native_channel: Option<(usize, f32)>,
     spot: Option<(u32, f32, schist_core::InkTiles)>,
+    mask: Option<(f32, schist_core::LayerMask)>,
     opacity: f32,
     size: f32,
     hardness: f32,
@@ -206,12 +207,45 @@ impl Stroke {
         if !input.x.is_finite() || !input.y.is_finite() || !input.pressure.is_finite() {
             return None;
         }
-        let spot = ctx.doc.active_ink.and_then(|id| {
-            ctx.doc
-                .ink_channels
-                .iter()
-                .find(|c| c.info.id == id && c.info.spot)
-        });
+        let mask_target = ctx
+            .doc
+            .active_mask
+            .filter(|id| Some(*id) == ctx.doc.active_layer);
+        let mask = if let Some(id) = mask_target {
+            if !matches!(
+                mode,
+                PaintMode::Brush | PaintMode::Pencil | PaintMode::Eraser
+            ) {
+                return None;
+            }
+            let layer = ctx.doc.tree.find(id)?;
+            if layer.locked {
+                return None;
+            }
+            let mask = layer.mask.as_ref()?;
+            if !mask.enabled {
+                return None;
+            }
+            let color = ctx.state.foreground;
+            let value = if mode == PaintMode::Eraser {
+                0.0
+            } else {
+                (0.2126 * color.r + 0.7152 * color.g + 0.0722 * color.b).clamp(0.0, 1.0) * 255.0
+            };
+            Some((value, mask.clone()))
+        } else {
+            None
+        };
+        let spot = ctx
+            .doc
+            .active_ink
+            .filter(|_| mask.is_none())
+            .and_then(|id| {
+                ctx.doc
+                    .ink_channels
+                    .iter()
+                    .find(|c| c.info.id == id && c.info.spot)
+            });
         if spot.is_some()
             && !matches!(
                 mode,
@@ -231,7 +265,9 @@ impl Stroke {
                 c.pixels.clone(),
             )
         });
-        let layer = if spot.is_some() {
+        let layer = if let Some(id) = mask_target {
+            id
+        } else if spot.is_some() {
             LayerId(0)
         } else {
             paintable_layer(ctx.doc)?
@@ -300,6 +336,7 @@ impl Stroke {
             spacing_debt: (recipe.size * dynamics.spacing).max(1.0),
             ink,
             spot,
+            mask,
             native_channel: ctx
                 .doc
                 .active_channel
@@ -643,6 +680,43 @@ impl Stroke {
                 }
             }
             if !touched {
+                continue;
+            }
+            if let Some((value, original)) = &self.mask {
+                let cov = self.coverage.get(&coord).unwrap();
+                if let Some(mask) = self.edit.writable_mask(doc, self.layer) {
+                    // Preserve bounded-mask defaults when extending the editable
+                    // area, including the gaps between successive dab bounds.
+                    if mask.bounds.intersect(&clip) != clip {
+                        let expanded = mask.bounds.union(&clip);
+                        for c in TileCoord::covering(&expanded) {
+                            let rect = c.rect();
+                            let clip = rect.intersect(&expanded);
+                            let old_bounds = mask.bounds;
+                            let default = mask.default_value;
+                            let tile = mask.tiles.get_mut_or_insert(c);
+                            for y in clip.top..clip.bottom {
+                                for x in clip.left..clip.right {
+                                    if !old_bounds.contains(x, y) {
+                                        tile[((y - rect.top) * TILE_SIZE + x - rect.left)
+                                            as usize] = default;
+                                    }
+                                }
+                            }
+                        }
+                        mask.bounds = expanded;
+                    }
+                    let tile = mask.tiles.get_mut_or_insert(coord);
+                    for y in clip.top..clip.bottom {
+                        for x in clip.left..clip.right {
+                            let ix = ((y - trect.top) * TILE_SIZE + x - trect.left) as usize;
+                            let old = original.value(x, y) as f32;
+                            tile[ix] =
+                                (old + (*value - old) * cov[ix] * self.opacity).round() as u8;
+                        }
+                    }
+                }
+                self.edit.touch(doc, clip);
                 continue;
             }
             if let Some((id, value, original)) = &self.spot {
@@ -999,7 +1073,11 @@ impl Stroke {
     }
 
     fn finish(self, doc: &mut Document) {
-        if let Some(layer) = doc.tree.find_mut(self.layer) {
+        if let Some(layer) = doc
+            .tree
+            .find_mut(self.layer)
+            .filter(|_| self.mask.is_none())
+        {
             if let LayerKind::Raster(r) = &mut layer.kind {
                 r.tiles.prune_blank();
             }
@@ -2133,6 +2211,98 @@ mod tests {
         let rev = sample(0, true);
         assert_eq!(rev[0], 0);
         assert_eq!(rev[2], 255);
+    }
+
+    #[test]
+    fn layer_mask_brush_preserves_pixels_and_restores_bounds_on_undo_and_cancel() {
+        let mut doc = doc_with_layer();
+        let id = doc.active_layer.unwrap();
+        doc.tree.find_mut(id).unwrap().mask = Some(schist_core::LayerMask::new_revealing());
+        doc.active_mask = Some(id);
+        let before_pixels = doc
+            .tree
+            .find(id)
+            .unwrap()
+            .as_raster()
+            .unwrap()
+            .tiles
+            .fingerprint();
+        let mut state = EditorState {
+            foreground: Rgba::new(0.0, 0.0, 0.0, 1.0),
+            ..Default::default()
+        };
+        let mut tool = PaintTool::new(PaintMode::Brush);
+        {
+            let mut ctx = ToolCtx {
+                doc: &mut doc,
+                state: &mut state,
+            };
+            tool.on_pointer_down(&mut ctx, input(30.0, 30.0));
+            tool.on_pointer_up(&mut ctx, input(30.0, 30.0));
+        }
+        let mask = doc.tree.find(id).unwrap().mask.as_ref().unwrap();
+        assert_eq!(mask.value(30, 30), 0);
+        assert_eq!(
+            mask.value(110, 110),
+            255,
+            "bounded-mask defaults survive expansion"
+        );
+        assert_eq!(
+            doc.tree
+                .find(id)
+                .unwrap()
+                .as_raster()
+                .unwrap()
+                .tiles
+                .fingerprint(),
+            before_pixels
+        );
+        doc.undo().unwrap();
+        assert_eq!(
+            doc.tree.find(id).unwrap().mask.as_ref().unwrap().bounds,
+            IntRect::EMPTY
+        );
+        assert_eq!(
+            doc.tree
+                .find(id)
+                .unwrap()
+                .mask
+                .as_ref()
+                .unwrap()
+                .value(30, 30),
+            255
+        );
+        doc.redo().unwrap();
+        state.foreground = Rgba::new(1.0, 1.0, 1.0, 1.0);
+        {
+            let mut ctx = ToolCtx {
+                doc: &mut doc,
+                state: &mut state,
+            };
+            tool.on_pointer_down(&mut ctx, input(30.0, 30.0));
+            assert_eq!(
+                ctx.doc
+                    .tree
+                    .find(id)
+                    .unwrap()
+                    .mask
+                    .as_ref()
+                    .unwrap()
+                    .value(30, 30),
+                255
+            );
+            tool.on_cancel(&mut ctx);
+        }
+        assert_eq!(
+            doc.tree
+                .find(id)
+                .unwrap()
+                .mask
+                .as_ref()
+                .unwrap()
+                .value(30, 30),
+            0
+        );
     }
 
     #[test]

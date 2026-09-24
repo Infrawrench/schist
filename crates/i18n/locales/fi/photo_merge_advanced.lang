@@ -1,0 +1,8 @@
+# Translation draft; not reviewed by a native speaker.
+photo_merge_advanced.projective = Perspektiivikohdistus (sisältää kierron)
+photo_merge_advanced.cylindrical = Lieriöpanoraama
+photo_merge_advanced.deghost = Poista liikkuvien kohteiden haamukuvat (ensimmäinen kuva vertailukuvana)
+photo_merge_advanced.focal = Polttoväli (px) / kuvan leveys (px)
+photo_merge_advanced.masks = Tulos käyttää muokattavia tasomaskeja. Valitse maski Tasot-paneelissa ja tarkenna sitä maalaamalla.
+photo_merge_advanced.no_match = Luotettavaa kohdistusta ei löytynyt. Käytä yksityiskohtaisia kuvia, joissa on suuri päällekkäisyys ja pieniä kuvakulman muutoksia.
+photo_merge_advanced.invalid = Virheelliset lähdekuvat tai yhdistämisasetukset.

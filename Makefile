@@ -165,6 +165,7 @@ test-photo-merge:
 .PHONY: test-photo-merge-editor
 test-photo-merge-editor:
 	$(CARGO) test -p schist-editor photo_merge::tests
+	$(CARGO) test -p schist-tools-paint layer_mask_brush
 fmt-photo-merge:
 	$(CARGO) fmt -p schist-photo-merge -p schist-editor -p schist-app-actions
 test-app:
@@ -356,6 +357,18 @@ check-psd-interchange:
 	$(CARGO) test -p schist-psd-descriptor -p schist-codec-psd
 lint-psd-interchange:
 	$(CARGO) clippy -p schist-psd-descriptor -p schist-codec-psd -p schist-text-engine --all-targets -- -D warnings
+
+.PHONY: check-psd-effects
+check-psd-effects:
+	$(CARGO) test -p schist-codec-psd -p schist-layer-fx
+	$(CARGO) test -p schist-compositor-gpu --test compute_programs
+	$(CARGO) check -p schist-editor --all-targets
+
+.PHONY: check-psd-light
+check-psd-light:
+	$(CARGO) test -p schist-adjustments -p schist-codec-psd -p schist-app-actions
+	$(CARGO) test -p schist-compositor-gpu --test adjustment_coverage --test compute_programs
+	$(CARGO) check -p schist-editor --all-targets
 
 .PHONY: check-editable-interchange lint-editable-interchange inspect-affinity-interchange fmt-editable-interchange
 check-editable-interchange:
@@ -877,3 +890,15 @@ fmt-tethered:
 .PHONY: lint-tethered
 lint-tethered:
 	$(CARGO) clippy -p schist-tethered -p schist-editor --all-targets -- -D warnings
+.PHONY: test-virtual-copies check-virtual-copies format-virtual-copies lint-virtual-copies
+test-virtual-copies:
+	$(CARGO) test -p schist-gallery --lib variants::tests
+	$(CARGO) test -p schist-gallery --lib scan::tests
+	$(CARGO) test -p schist-gallery --lib versions::tests
+	$(CARGO) test -p schist-editor --lib workspace::library_ops::tests::virtual_copy
+check-virtual-copies:
+	$(CARGO) check -p schist-gallery -p schist-editor --all-targets
+format-virtual-copies:
+	$(CARGO) fmt -p schist-gallery -p schist-editor
+lint-virtual-copies:
+	$(CARGO) clippy -p schist-gallery -p schist-editor --all-targets -- -D warnings

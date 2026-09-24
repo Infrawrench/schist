@@ -7,6 +7,7 @@ use super::*;
 pub enum Params {
     Levels(Levels),
     Curves(Curves),
+    Light(Light),
     HueSaturation {
         /// -180..180 degrees.
         hue: f32,
@@ -135,6 +136,7 @@ impl Params {
         match kind {
             AdjustmentKind::Levels => Params::Levels(Levels::default()),
             AdjustmentKind::Curves => Params::Curves(Curves::default()),
+            AdjustmentKind::Light => Params::Light(Light::default()),
             AdjustmentKind::HueSaturation => Params::HueSaturation {
                 hue: 0.0,
                 saturation: 0.0,
@@ -208,6 +210,7 @@ impl Params {
         match self {
             Params::Levels(_) => AdjustmentKind::Levels,
             Params::Curves(_) => AdjustmentKind::Curves,
+            Params::Light(_) => AdjustmentKind::Light,
             Params::HueSaturation { .. } => AdjustmentKind::HueSaturation,
             Params::BrightnessContrast { .. } => AdjustmentKind::BrightnessContrast,
             Params::BlackWhite { .. } => AdjustmentKind::BlackWhite,
@@ -235,6 +238,12 @@ impl Params {
     /// Apply to one pixel. Alpha passes through unchanged.
     pub fn apply(&self, px: Rgba) -> Rgba {
         match self {
+            Params::Light(light) => Rgba {
+                r: light.apply(px.r),
+                g: light.apply(px.g),
+                b: light.apply(px.b),
+                a: px.a,
+            },
             Params::Levels(l) => {
                 let f = |v: f32, ch: &LevelsChannel| l.rgb.apply(ch.apply(v));
                 Rgba {

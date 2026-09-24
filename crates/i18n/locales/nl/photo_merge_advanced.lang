@@ -1,0 +1,8 @@
+# Translation draft; not reviewed by a native speaker.
+photo_merge_advanced.projective = Perspectivische uitlijning (inclusief rotatie)
+photo_merge_advanced.cylindrical = Cilindrisch panorama
+photo_merge_advanced.deghost = Spookbeelden van bewegende onderwerpen verwijderen (eerste foto als referentie)
+photo_merge_advanced.focal = Brandpuntsafstand (px) / afbeeldingsbreedte (px)
+photo_merge_advanced.masks = Het resultaat gebruikt bewerkbare laagmaskers. Selecteer een masker in Lagen en schilder om het te verfijnen.
+photo_merge_advanced.no_match = Geen betrouwbare uitlijning gevonden. Gebruik foto’s met structuur, veel overlap en kleine veranderingen in standpunt.
+photo_merge_advanced.invalid = Ongeldige bronafbeeldingen of samenvoeginstellingen.

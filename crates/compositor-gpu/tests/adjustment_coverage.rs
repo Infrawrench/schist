@@ -9,6 +9,24 @@ use schist_core::{AdjustmentData, Document, Layer, LayerKind, TileCoord};
 fn every_direct_adjustment_runs_on_gpu_with_variable_records() {
     let ctx = GpuContext::new().expect("GPU coverage tests require an adapter");
     let mut cases = Vec::new();
+    for light in [
+        schist_adjustments::Light::default(),
+        schist_adjustments::Light {
+            exposure: 1.14,
+            contrast: -31.0,
+            ..Default::default()
+        },
+        schist_adjustments::Light {
+            exposure: -0.47,
+            contrast: -97.0,
+            shadows: 95.0,
+            whites: 37.0,
+            blacks: -68.0,
+            highlights: -18.0,
+        },
+    ] {
+        cases.push(Params::Light(light));
+    }
     for preserve in [false, true] {
         cases.push(Params::ColorBalance {
             shadows: [20.0, -31.0, 12.0],

@@ -528,7 +528,7 @@ fn build_extras(layer: &Layer, doc: &Document) -> Vec<([u8; 4], Vec<u8>)> {
     // A preserved block is stale once the parameters have been edited, so
     // the encoded form wins and the old one is dropped below.
     let adjustment = match &layer.kind {
-        LayerKind::Adjustment(data) => encode_adjustment(data),
+        LayerKind::Adjustment(data) => encode_adjustment(data, &layer.extras),
         _ => None,
     };
     // Effects are re-encoded from the layer's own style, so any preserved
@@ -588,6 +588,11 @@ fn build_extras(layer: &Layer, doc: &Document) -> Vec<([u8; 4], Vec<u8>)> {
         out.push((crate::smart_filters::OWNED_KEY, vec![1]));
     }
     if let Some(entry) = adjustment {
+        // Photoshop identifies Light layers by `brit` plus the mode in
+        // `CgEd`. Imported layers already have the compatibility block.
+        if entry.0 == *b"CgEd" && !out.iter().any(|(key, _)| key == b"brit") {
+            out.push((*b"brit", vec![0; 8]));
+        }
         out.push(entry);
     }
     if let Some(payload) = encoded {
@@ -622,9 +627,30 @@ fn build_extras(layer: &Layer, doc: &Document) -> Vec<([u8; 4], Vec<u8>)> {
 /// Returns `None` when the parameters cannot be encoded, so the caller
 /// keeps the preserved bytes rather than writing a block that would be
 /// read back as something else.
-fn encode_adjustment(data: &schist_core::AdjustmentData) -> Option<([u8; 4], Vec<u8>)> {
+fn encode_adjustment(
+    data: &schist_core::AdjustmentData,
+    extras: &[schist_core::RawBlock],
+) -> Option<([u8; 4], Vec<u8>)> {
     let json = data.params_json.as_deref()?;
     let params: schist_adjustments::Params = serde_json::from_str(json).ok()?;
+    if let (schist_core::AdjustmentKind::Light, schist_adjustments::Params::Light(light)) =
+        (data.kind, &params)
+    {
+        // Committing a dialog clears `raw`, even if the user restored the
+        // original values. Retain the original descriptor (including any
+        // unmodelled fields) when the six controls still agree.
+        for raw in std::iter::once(data.raw.as_slice()).chain(
+            extras
+                .iter()
+                .rev()
+                .filter(|b| b.key == *b"CgEd")
+                .map(|b| b.data.as_slice()),
+        ) {
+            if schist_adjustments::Light::parse(raw).as_ref() == Some(light) {
+                return Some((data.kind.psd_key(), raw.to_vec()));
+            }
+        }
+    }
     let payload = schist_adjustments::encode_psd(data.kind, &params)?;
     Some((data.kind.psd_key(), payload))
 }

@@ -1,0 +1,8 @@
+# Translation draft; not reviewed by a native speaker.
+photo_merge_advanced.projective = Allineamento prospettico (con rotazione)
+photo_merge_advanced.cylindrical = Panorama cilindrico
+photo_merge_advanced.deghost = Rimuovi immagini fantasma dei soggetti in movimento (prima foto come riferimento)
+photo_merge_advanced.focal = Lunghezza focale (px) / larghezza immagine (px)
+photo_merge_advanced.masks = Il risultato usa maschere di livello modificabili. Seleziona una maschera in Livelli e dipingi per perfezionarla.
+photo_merge_advanced.no_match = Nessun allineamento affidabile trovato. Usa foto ricche di dettagli con ampia sovrapposizione e piccoli cambiamenti del punto di vista.
+photo_merge_advanced.invalid = Immagini sorgente o impostazioni di unione non valide.

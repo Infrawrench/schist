@@ -61,6 +61,9 @@ pub fn people_summary_path() -> Option<PathBuf> {
 
 /// The PSD sidecar an edit of `original` saves into.
 pub fn backing_psd(original: &Path) -> Option<PathBuf> {
+    if crate::variants::original(original).is_some() {
+        return Some(original.to_owned());
+    }
     if crate::is_video(original) {
         return None;
     }

@@ -157,6 +157,12 @@ fn layers_content(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoE
     let caret_on = ws.caret_on();
     let thumbs: Vec<Option<Arc<RenderImage>>> =
         rows.iter().map(|r| ws.layer_thumbnail(r.id)).collect();
+    let mask_thumbs: Vec<_> = rows.iter().map(|r| ws.mask_thumbnail(r.id)).collect();
+    let active_mask = ws
+        .doc
+        .as_ref()
+        .and_then(|d| d.active_mask)
+        .filter(|id| Some(*id) == active_layer);
     let source_description = ws.smart_source_description();
     let opacity_display = active_layer
         .map(|id| slider_get(ws, SliderTarget::LayerOpacity(id)))
@@ -190,6 +196,7 @@ fn layers_content(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoE
                 }),
         )
         .children(source_description.map(|description| div().text_xs().child(description)))
+        .children(active_mask.map(|_| div().text_xs().child(t("common.mask"))))
         .child(
             div()
                 .id("layers-scroll")
@@ -198,226 +205,271 @@ fn layers_content(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoE
                 .flex_grow()
                 .min_h(px(ui::metrics().layer_row_h))
                 .overflow_y_scroll()
-                .children(rows.into_iter().zip(thumbs).map(|(row, thumb)| {
-                    let id = row.id;
-                    let is_active_row = row.active;
-                    let is_selected_row = row.selected;
-                    let entity = cx.entity();
-                    let mut base = div()
-                        .relative()
-                        .flex()
-                        .flex_row()
-                        .items_center()
-                        .gap_1()
-                        .px_1()
-                        .h(px(ui::metrics().layer_row_h))
-                        .flex_none()
-                        .rounded_sm()
-                        .when_active(row.active);
-                    if row.selected {
-                        base = base.bg(gpui::rgb(palette().selection_bg));
-                    }
-                    base.hover(move |s| {
-                        if is_active_row || is_selected_row {
-                            s
-                        } else {
-                            s.bg(gpui::rgb(palette().hover))
-                        }
-                    })
-                    .on_mouse_down(
-                        MouseButton::Left,
-                        cx.listener(move |ws, ev: &MouseDownEvent, _w, cx| {
-                            ws.layer_row_mouse_down(id, ev, cx);
-                        }),
-                    )
-                    .on_mouse_move(cx.listener(move |ws, ev: &MouseMoveEvent, _w, cx| {
-                        ws.layer_row_mouse_move(id, ev, cx);
-                    }))
-                    .on_mouse_up(
-                        MouseButton::Left,
-                        cx.listener(move |ws, _ev: &MouseUpEvent, _w, cx| {
-                            ws.finish_layer_drag(cx);
-                        }),
-                    )
-                    .on_mouse_down(
-                        MouseButton::Right,
-                        cx.listener(move |ws, ev: &MouseDownEvent, _w, cx| {
-                            ws.open_context_menu(ContextTarget::Layer(id), ev.position, cx);
-                        }),
-                    )
-                    .child(
-                        // Row bounds, so a drag knows which half of the
-                        // row the pointer is in.
-                        canvas(
-                            move |bounds, _window, cx| {
-                                entity.update(cx, |ws, _| ws.record_layer_row_bounds(id, bounds));
-                            },
-                            |_, _, _, _| {},
-                        )
-                        .absolute()
-                        .size_full(),
-                    )
-                    .child(
-                        // Visibility eye. It swallows its press so the
-                        // row beneath neither selects nor starts a drag.
-                        IconButton::new(
-                            ("layer-eye", id.0),
-                            if row.visible { "eye" } else { "eye-off" },
-                        )
-                        .size(20.0)
-                        .icon_size(13.0)
-                        .color(if row.visible {
-                            palette().text
-                        } else {
-                            palette().text_dim
-                        })
-                        .consume_press()
-                        .on_click(cx.listener(move |ws, _e, _w, cx| {
-                            if let Some(doc) = &mut ws.doc {
-                                let mut edit = doc.begin_edit(t("panel.layers.toggle_visibility"));
-                                edit.change_props(id, |l| l.visible = !l.visible);
-                                edit.commit();
-                            }
-                            ws.after_change(cx);
-                        })),
-                    )
-                    .child(div().w(px(row.depth as f32 * 12.0)).flex_none())
-                    .child(match &row.kind {
-                        RowKind::Group => IconButton::new(
-                            ("layer-fold", id.0),
-                            if row.open {
-                                "chevron-down"
-                            } else {
-                                "chevron-right"
-                            },
-                        )
-                        .size(16.0)
-                        .icon_size(11.0)
-                        .color(palette().text_dim)
-                        .consume_press()
-                        .on_click(cx.listener(move |ws, _e, _w, cx| ws.toggle_group_open(id, cx)))
-                        .into_any_element(),
-                        _ => div().w(px(0.0)).into_any_element(),
-                    })
-                    .child(
-                        // Thumbnail (raster) or type icon.
-                        div()
+                .children(rows.into_iter().zip(thumbs).zip(mask_thumbs).map(
+                    |((row, thumb), mask_thumb)| {
+                        let id = row.id;
+                        let is_active_row = row.active;
+                        let is_selected_row = row.selected;
+                        let entity = cx.entity();
+                        let mut base = div()
+                            .relative()
                             .flex()
+                            .flex_row()
                             .items_center()
-                            .justify_center()
-                            .w(px(38.0))
-                            .h(px(30.0))
+                            .gap_1()
+                            .px_1()
+                            .h(px(ui::metrics().layer_row_h))
                             .flex_none()
-                            .bg(gpui::rgb(palette().field_bg))
                             .rounded_sm()
-                            .id(("layer-thumb", id.0))
-                            // Adjustment layers open their settings
-                            // from the thumbnail, like Photoshop.
-                            .on_click(cx.listener(move |ws, _e, _w, cx| ws.edit_adjustment(id, cx)))
-                            .child(match (&row.kind, thumb) {
-                                (RowKind::Raster, Some(t)) => {
-                                    img(t).max_w(px(36.0)).max_h(px(28.0)).into_any_element()
-                                }
-                                (RowKind::Group, _) => {
-                                    icon("folder", 14.0, palette().text_dim).into_any_element()
-                                }
-                                _ => icon("adjust", 13.0, palette().text_dim).into_any_element(),
-                            }),
-                    )
-                    .child(match &rename {
-                        // Inline rename: an editable field with the
-                        // dialogs' caret convention.
-                        Some((rid, edit)) if *rid == id => {
-                            TextInput::edit("layer-rename", edit)
-                                .caret_on(caret_on)
-                                .flex_grow()
-                                .on_focus(cx.listener(|ws, press: &ui::TextPress, _w, cx| {
-                                    // The row underneath treats a press
-                                    // as "select this layer", which
-                                    // ends the rename; inside the box
-                                    // the press belongs to the caret.
-                                    cx.stop_propagation();
-                                    if let Some((_, edit)) = ws.layer_rename.as_mut() {
-                                        edit.press(press);
-                                        ws.reset_caret_phase();
-                                        cx.notify();
-                                    }
-                                }))
-                                .on_select_to(cx.listener(|ws, offset: &usize, _w, cx| {
-                                    if let Some((_, edit)) = ws.layer_rename.as_mut() {
-                                        edit.extend_to(*offset);
-                                        ws.reset_caret_phase();
-                                        cx.notify();
-                                    }
-                                }))
-                                .into_any_element()
+                            .when_active(row.active);
+                        if row.selected {
+                            base = base.bg(gpui::rgb(palette().selection_bg));
                         }
-                        _ => div()
-                            .flex_grow()
-                            .text_size(px(12.0))
-                            .overflow_hidden()
-                            .on_mouse_down(
-                                MouseButton::Left,
-                                cx.listener(move |ws, ev: &MouseDownEvent, _w, cx| {
-                                    if ev.click_count >= 2 {
-                                        ws.begin_layer_rename(id, cx);
-                                        cx.stop_propagation();
+                        base.hover(move |s| {
+                            if is_active_row || is_selected_row {
+                                s
+                            } else {
+                                s.bg(gpui::rgb(palette().hover))
+                            }
+                        })
+                        .on_mouse_down(
+                            MouseButton::Left,
+                            cx.listener(move |ws, ev: &MouseDownEvent, _w, cx| {
+                                ws.layer_row_mouse_down(id, ev, cx);
+                            }),
+                        )
+                        .on_mouse_move(cx.listener(move |ws, ev: &MouseMoveEvent, _w, cx| {
+                            ws.layer_row_mouse_move(id, ev, cx);
+                        }))
+                        .on_mouse_up(
+                            MouseButton::Left,
+                            cx.listener(move |ws, _ev: &MouseUpEvent, _w, cx| {
+                                ws.finish_layer_drag(cx);
+                            }),
+                        )
+                        .on_mouse_down(
+                            MouseButton::Right,
+                            cx.listener(move |ws, ev: &MouseDownEvent, _w, cx| {
+                                ws.open_context_menu(ContextTarget::Layer(id), ev.position, cx);
+                            }),
+                        )
+                        .child(
+                            // Row bounds, so a drag knows which half of the
+                            // row the pointer is in.
+                            canvas(
+                                move |bounds, _window, cx| {
+                                    entity
+                                        .update(cx, |ws, _| ws.record_layer_row_bounds(id, bounds));
+                                },
+                                |_, _, _, _| {},
+                            )
+                            .absolute()
+                            .size_full(),
+                        )
+                        .child(
+                            // Visibility eye. It swallows its press so the
+                            // row beneath neither selects nor starts a drag.
+                            IconButton::new(
+                                ("layer-eye", id.0),
+                                if row.visible { "eye" } else { "eye-off" },
+                            )
+                            .size(20.0)
+                            .icon_size(13.0)
+                            .color(if row.visible {
+                                palette().text
+                            } else {
+                                palette().text_dim
+                            })
+                            .consume_press()
+                            .on_click(cx.listener(
+                                move |ws, _e, _w, cx| {
+                                    if let Some(doc) = &mut ws.doc {
+                                        let mut edit =
+                                            doc.begin_edit(t("panel.layers.toggle_visibility"));
+                                        edit.change_props(id, |l| l.visible = !l.visible);
+                                        edit.commit();
+                                    }
+                                    ws.after_change(cx);
+                                },
+                            )),
+                        )
+                        .child(div().w(px(row.depth as f32 * 12.0)).flex_none())
+                        .child(match &row.kind {
+                            RowKind::Group => IconButton::new(
+                                ("layer-fold", id.0),
+                                if row.open {
+                                    "chevron-down"
+                                } else {
+                                    "chevron-right"
+                                },
+                            )
+                            .size(16.0)
+                            .icon_size(11.0)
+                            .color(palette().text_dim)
+                            .consume_press()
+                            .on_click(
+                                cx.listener(move |ws, _e, _w, cx| ws.toggle_group_open(id, cx)),
+                            )
+                            .into_any_element(),
+                            _ => div().w(px(0.0)).into_any_element(),
+                        })
+                        .child(
+                            // Thumbnail (raster) or type icon.
+                            div()
+                                .flex()
+                                .items_center()
+                                .justify_center()
+                                .w(px(38.0))
+                                .h(px(30.0))
+                                .flex_none()
+                                .bg(gpui::rgb(palette().field_bg))
+                                .rounded_sm()
+                                .id(("layer-thumb", id.0))
+                                // Adjustment layers open their settings
+                                // from the thumbnail, like Photoshop.
+                                .on_click(
+                                    cx.listener(move |ws, _e, _w, cx| ws.edit_adjustment(id, cx)),
+                                )
+                                .child(match (&row.kind, thumb) {
+                                    (RowKind::Raster, Some(t)) => {
+                                        img(t).max_w(px(36.0)).max_h(px(28.0)).into_any_element()
+                                    }
+                                    (RowKind::Group, _) => {
+                                        icon("folder", 14.0, palette().text_dim).into_any_element()
+                                    }
+                                    _ => {
+                                        icon("adjust", 13.0, palette().text_dim).into_any_element()
                                     }
                                 }),
-                            )
-                            .child(row.name)
-                            .into_any_element(),
-                    })
-                    .children(row.smart.then(|| {
-                        div()
-                            .flex_none()
-                            .px_1()
-                            .rounded_sm()
-                            .text_size(px(10.0))
-                            .text_color(gpui::rgb(palette().text_dim))
-                            .bg(gpui::rgb(palette().control_bg))
-                            .child("SO")
-                    }))
-                    .children(row.fx.then(|| {
-                        div()
-                            .flex_none()
-                            .px_1()
-                            .rounded_sm()
-                            .text_size(px(10.0))
-                            .text_color(gpui::rgb(palette().text_dim))
-                            .bg(gpui::rgb(palette().control_bg))
-                            .child("fx")
-                    }))
-                    // Drop indicators while a row drag is in flight: a
-                    // bar on the receiving edge, or an outline when the
-                    // drop lands inside a group.
-                    .children((layer_drop == Some(LayerDrop::Above(id))).then(|| {
-                        div()
-                            .absolute()
-                            .top(px(0.0))
-                            .left_0()
-                            .right_0()
-                            .h(px(2.0))
-                            .bg(gpui::rgb(palette().accent))
-                    }))
-                    .children((layer_drop == Some(LayerDrop::Below(id))).then(|| {
-                        div()
-                            .absolute()
-                            .bottom(px(0.0))
-                            .left_0()
-                            .right_0()
-                            .h(px(2.0))
-                            .bg(gpui::rgb(palette().accent))
-                    }))
-                    .children((layer_drop == Some(LayerDrop::Into(id))).then(|| {
-                        div()
-                            .absolute()
-                            .inset_0()
-                            .rounded_sm()
-                            .border_2()
-                            .border_color(gpui::rgb(palette().accent))
-                    }))
-                }))
+                        )
+                        .children(mask_thumb.map(|image| {
+                            div()
+                                .id(("layer-mask-thumb", id.0))
+                                .flex_none()
+                                .w(px(38.0))
+                                .h(px(30.0))
+                                .flex()
+                                .items_center()
+                                .justify_center()
+                                .border_2()
+                                .border_color(gpui::rgb(if active_mask == Some(id) {
+                                    palette().text
+                                } else {
+                                    palette().panel_edge
+                                }))
+                                .on_mouse_down(
+                                    MouseButton::Left,
+                                    cx.listener(move |ws, _, _, cx| {
+                                        cx.stop_propagation();
+                                        ws.commit_layer_rename(cx);
+                                        if let Some(doc) = &mut ws.doc {
+                                            doc.active_layer = Some(id);
+                                            doc.selected = vec![id];
+                                            doc.active_mask = Some(id);
+                                            doc.active_ink = None;
+                                        }
+                                        ws.after_change(cx);
+                                    }),
+                                )
+                                .child(img(image).max_w(px(34.0)).max_h(px(26.0)))
+                        }))
+                        .child(match &rename {
+                            // Inline rename: an editable field with the
+                            // dialogs' caret convention.
+                            Some((rid, edit)) if *rid == id => {
+                                TextInput::edit("layer-rename", edit)
+                                    .caret_on(caret_on)
+                                    .flex_grow()
+                                    .on_focus(cx.listener(|ws, press: &ui::TextPress, _w, cx| {
+                                        // The row underneath treats a press
+                                        // as "select this layer", which
+                                        // ends the rename; inside the box
+                                        // the press belongs to the caret.
+                                        cx.stop_propagation();
+                                        if let Some((_, edit)) = ws.layer_rename.as_mut() {
+                                            edit.press(press);
+                                            ws.reset_caret_phase();
+                                            cx.notify();
+                                        }
+                                    }))
+                                    .on_select_to(cx.listener(|ws, offset: &usize, _w, cx| {
+                                        if let Some((_, edit)) = ws.layer_rename.as_mut() {
+                                            edit.extend_to(*offset);
+                                            ws.reset_caret_phase();
+                                            cx.notify();
+                                        }
+                                    }))
+                                    .into_any_element()
+                            }
+                            _ => div()
+                                .flex_grow()
+                                .text_size(px(12.0))
+                                .overflow_hidden()
+                                .on_mouse_down(
+                                    MouseButton::Left,
+                                    cx.listener(move |ws, ev: &MouseDownEvent, _w, cx| {
+                                        if ev.click_count >= 2 {
+                                            ws.begin_layer_rename(id, cx);
+                                            cx.stop_propagation();
+                                        }
+                                    }),
+                                )
+                                .child(row.name)
+                                .into_any_element(),
+                        })
+                        .children(row.smart.then(|| {
+                            div()
+                                .flex_none()
+                                .px_1()
+                                .rounded_sm()
+                                .text_size(px(10.0))
+                                .text_color(gpui::rgb(palette().text_dim))
+                                .bg(gpui::rgb(palette().control_bg))
+                                .child("SO")
+                        }))
+                        .children(row.fx.then(|| {
+                            div()
+                                .flex_none()
+                                .px_1()
+                                .rounded_sm()
+                                .text_size(px(10.0))
+                                .text_color(gpui::rgb(palette().text_dim))
+                                .bg(gpui::rgb(palette().control_bg))
+                                .child("fx")
+                        }))
+                        // Drop indicators while a row drag is in flight: a
+                        // bar on the receiving edge, or an outline when the
+                        // drop lands inside a group.
+                        .children((layer_drop == Some(LayerDrop::Above(id))).then(|| {
+                            div()
+                                .absolute()
+                                .top(px(0.0))
+                                .left_0()
+                                .right_0()
+                                .h(px(2.0))
+                                .bg(gpui::rgb(palette().accent))
+                        }))
+                        .children((layer_drop == Some(LayerDrop::Below(id))).then(|| {
+                            div()
+                                .absolute()
+                                .bottom(px(0.0))
+                                .left_0()
+                                .right_0()
+                                .h(px(2.0))
+                                .bg(gpui::rgb(palette().accent))
+                        }))
+                        .children(
+                            (layer_drop == Some(LayerDrop::Into(id))).then(|| {
+                                div()
+                                    .absolute()
+                                    .inset_0()
+                                    .rounded_sm()
+                                    .border_2()
+                                    .border_color(gpui::rgb(palette().accent))
+                            }),
+                        )
+                    },
+                ))
                 .on_mouse_up(
                     MouseButton::Left,
                     cx.listener(|ws, _ev: &MouseUpEvent, _w, cx| {

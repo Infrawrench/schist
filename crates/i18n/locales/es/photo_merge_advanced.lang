@@ -1,0 +1,8 @@
+# Translation draft; not reviewed by a native speaker.
+photo_merge_advanced.projective = Alineación en perspectiva (incluye rotación)
+photo_merge_advanced.cylindrical = Panorama cilíndrico
+photo_merge_advanced.deghost = Eliminar imágenes fantasma de sujetos móviles (primera foto de referencia)
+photo_merge_advanced.focal = Distancia focal (px) / anchura de imagen (px)
+photo_merge_advanced.masks = El resultado utiliza máscaras de capa editables. Seleccione una máscara en Capas y pinte para perfeccionarla.
+photo_merge_advanced.no_match = No se encontró una alineación fiable. Use fotos con textura, amplio solapamiento y pequeños cambios de punto de vista.
+photo_merge_advanced.invalid = Imágenes de origen o ajustes de combinación no válidos.

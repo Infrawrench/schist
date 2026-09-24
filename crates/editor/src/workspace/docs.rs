@@ -127,6 +127,9 @@ impl Workspace {
             self.active_tab = self.background_tabs.len();
         }
         self.doc = Some(doc);
+        // Imported effects have settings but no styled raster yet. Build
+        // it before the first canvas, navigator or export composite.
+        self.refresh_layer_styles();
         self.reset_per_document_caches();
         self.zoom = 1.0;
         self.offset = point(px(40.0), px(40.0));
@@ -201,6 +204,8 @@ impl Workspace {
     /// them (nav thumbnail, selection outline) must go too or a collision
     /// would show the previous document's pixels.
     pub(super) fn reset_per_document_caches(&mut self) {
+        self.retired_images
+            .extend(self.mask_thumbs.drain().map(|(_, (_, image))| image));
         self.rebuild_color_transforms();
         self.cache.invalidate_all();
         self.display_tiles.clear();
@@ -710,6 +715,10 @@ impl Workspace {
                     doc.path = Some(path.clone());
                     if let Some(name) = path.file_name() {
                         doc.title = name.to_string_lossy().into_owned();
+                    }
+                    #[cfg(not(target_arch = "wasm32"))]
+                    if schist_gallery::variants::original(&path).is_some() {
+                        doc.title = schist_gallery::variants::display_name(&path);
                     }
                 }
                 self.clear_recovery();

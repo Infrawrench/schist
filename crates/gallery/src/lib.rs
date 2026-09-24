@@ -24,6 +24,7 @@ pub mod paths;
 pub mod people;
 pub mod persist;
 pub mod scan;
+pub mod variants;
 pub mod versions;
 pub mod video;
 #[cfg(not(target_arch = "wasm32"))]
