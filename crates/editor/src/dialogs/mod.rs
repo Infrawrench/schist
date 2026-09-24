@@ -268,9 +268,7 @@ pub fn render(ws: &mut Workspace, cx: &mut Context<Workspace>) -> Option<gpui::A
         Modal::Printing { editor } => {
             printing::printing_dialog(ws, &state, editor, cx).into_any_element()
         }
-        Modal::ExportRecipes { editor } => {
-            export_recipes_dialog(ws, &state, editor, cx).into_any_element()
-        }
+        Modal::ExportRecipes { editor } => export_recipes_dialog(ws, &state, editor, cx),
         Modal::Profile { convert, selected } => {
             profile_dialog(&state, convert, selected, cx).into_any_element()
         }

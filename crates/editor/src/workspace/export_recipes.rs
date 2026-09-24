@@ -1,6 +1,6 @@
 //! Workspace entry points and sequential background export jobs.
 use super::*;
-use crate::export_recipes::{self as recipes, Book, Editor, Recipe};
+use crate::export_recipes::{self as recipes, Book, Editor, FinishingCategory, Recipe};
 use schist_i18n::{t, tf};
 
 impl Workspace {
@@ -34,6 +34,37 @@ impl Workspace {
                 cx.notify();
             }
         }
+    }
+    pub fn open_export_finishing(&mut self, category: FinishingCategory, cx: &mut Context<Self>) {
+        self.commit_focused_field();
+        let Some(Modal::ExportRecipes { mut editor }) = self.modal.clone() else {
+            return;
+        };
+        editor.finishing_category = Some(category);
+        editor.error = None;
+        let parent = self.modal.take();
+        self.open_modal(Modal::ExportRecipes { editor }, cx);
+        if let Some(parent) = parent {
+            self.modal_stack.push(parent);
+        }
+    }
+    pub fn save_export_finishing(&mut self, cx: &mut Context<Self>) {
+        self.commit_focused_field();
+        let Some(mut editor) = self.modal.as_ref().and_then(|modal| {
+            let Modal::ExportRecipes { editor } = modal else {
+                return None;
+            };
+            editor.finishing_category.is_some().then(|| editor.clone())
+        }) else {
+            return;
+        };
+        editor.finishing_category = None;
+        let Some(Modal::ExportRecipes { editor: parent }) = self.modal_stack.last_mut() else {
+            return;
+        };
+        editor.error = parent.error.clone();
+        *parent = editor;
+        self.close_modal(cx);
     }
     pub fn save_export_recipe(&mut self, cx: &mut Context<Self>) -> bool {
         self.commit_focused_field();
