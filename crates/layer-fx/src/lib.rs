@@ -19,6 +19,7 @@ use schist_core::{
 };
 
 mod blur;
+mod glow;
 mod gpu;
 pub use blur::gaussian_alpha;
 
@@ -305,11 +306,7 @@ fn inner_shadow_plane(alpha: &[f32], w: usize, h: usize, rect: IntRect, s: &Shad
 
 fn outer_glow_plane(alpha: &[f32], w: usize, h: usize, rect: IntRect, g: &GlowStyle) -> Plane {
     let mut a = alpha.to_vec();
-    match g.technique {
-        Technique::Softer => blur::gaussian_alpha(&mut a, w, h, g.size),
-        Technique::Precise => precise_grow(&mut a, w, h, g.size),
-    }
-    apply_spread(&mut a, g.spread);
+    glow::prepare(&mut a, w, h, rect, g);
     Plane::from_alpha(rect, &a, g.color)
 }
 
@@ -324,11 +321,7 @@ fn inner_glow_plane(alpha: &[f32], w: usize, h: usize, rect: IntRect, g: &GlowSt
         blur::gaussian_alpha(&mut inv, w, h, g.size);
         inv.iter().map(|v| 1.0 - v).collect()
     };
-    match g.technique {
-        Technique::Softer => blur::gaussian_alpha(&mut a, w, h, g.size),
-        Technique::Precise => precise_grow(&mut a, w, h, g.size),
-    }
-    apply_spread(&mut a, g.spread);
+    glow::prepare(&mut a, w, h, rect, g);
     Plane::from_alpha(rect, &a, g.color)
 }
 

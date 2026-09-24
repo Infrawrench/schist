@@ -140,6 +140,29 @@ fn programs_match_real_layer_styles_masks_and_affine_callers() {
         &tile_data(&expected.tiles, rect.inflated(40)),
         1e-4,
     );
+    // Photoshop's spread/range/noise follows a different path from the
+    // original intensity-based glow, including at negative coordinates.
+    for spread in [0.0, 0.21, 1.0] {
+        let mut photoshop = style.clone();
+        for effect in [&mut photoshop.outer_glow, &mut photoshop.inner_glow] {
+            effect.settings.size = 12.0;
+            effect.settings.spread = spread;
+            effect.settings.falloff = schist_core::style::GlowFalloff::Photoshop {
+                range: 0.5,
+                noise: 0.05,
+            };
+        }
+        photoshop.inner_shadow.settings.blend = schist_core::BlendMode::Dissolve;
+        schist_fx::set_backend(Arc::new(schist_fx::CpuFx));
+        let expected = schist_layer_fx::render_content(rect, pixel, &photoshop, 0.7).unwrap();
+        schist_fx::set_backend(gpu.clone());
+        let actual = schist_layer_fx::render_content(rect, pixel, &photoshop, 0.7).unwrap();
+        close_pixels(
+            &tile_data(&actual.tiles, rect.inflated(40)),
+            &tile_data(&expected.tiles, rect.inflated(40)),
+            1e-4,
+        );
+    }
     for (i, bevel) in [
         schist_core::BevelStyle_::InnerBevel,
         schist_core::BevelStyle_::OuterBevel,

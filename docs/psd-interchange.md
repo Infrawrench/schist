@@ -49,6 +49,22 @@ point baselines and paragraph boxes (the wrap length is their vertical extent).
 Warped/affine vertical text and custom vertical alternates remain outside the
 editable subset. Neither Photoshop nor Affinity interactive rendering was tested.
 
+## Layer effects
+
+Imported effects are rasterized when a document is installed, before its first
+canvas/thumbnail render. Native Photoshop glow descriptors keep their spread,
+range and noise settings, including on save. Softer glows use a grown matte and
+an approximate Gaussian falloff; existing Schist and Affinity glows retain their
+intensity-based rendering. The importer also recognizes the long blend names
+`normal`, `dissolve`, `darken`, `multiply` and `screen` alongside their short IDs.
+
+`make check-psd-effects` covers import/save, visible halo coverage and CPU/GPU
+agreement. The effects-only `photoshop-text-effects.lfx2` fixture was extracted
+from a user-supplied PSD and contains no artwork or text. Falloff was compared
+with that PSD's saved Photoshop composite; this is approximate visual matching,
+not pixel-identical Photoshop rendering. In particular, the newer `CgEd`
+`brightnessModeLight` adjustments in that document are not rendered yet.
+
 ## Filters
 
 See [native-smart-filters.md](native-smart-filters.md) for the supported Gaussian

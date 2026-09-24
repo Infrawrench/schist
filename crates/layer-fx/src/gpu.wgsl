@@ -16,6 +16,34 @@ fn store_rgba(index: u32, value: vec4<f32>) {
 
 fn compute(i: u32) {
     let mode = u32(args[0]);
+    if mode == 11u {
+        // Separable maximum before the Photoshop glow's soft falloff.
+        let vertical = args[2] != 0.0;
+        let len = select(shape.width, shape.height, vertical);
+        let step = select(1u, shape.width, vertical);
+        let at = select(i % shape.width, i / shape.width, vertical);
+        let base = i - at * step;
+        let radius = u32(min(args[1], f32(len)));
+        let first = u32(max(i32(at) - i32(radius), 0));
+        let last = min(at + radius, len - 1u);
+        var a = 0.0;
+        for (var j = first; j <= last; j++) {
+            a = max(a, src[base + j * step]);
+        }
+        dst[i] = a;
+        return;
+    }
+    if mode == 12u {
+        let x = i32(args[3]) + i32(i % shape.width);
+        let y = i32(args[4]) + i32(i / shape.width);
+        var hash = u32(x) * 374761393u + u32(y) * 668265263u;
+        hash = (hash ^ (hash >> 13u)) * 1274126177u;
+        hash ^= hash >> 16u;
+        let noise = f32(hash & 0x00ffffffu) / 16777216.0;
+        dst[i] = clamp(src[i] / clamp(args[1], 0.01, 1.0), 0.0, 1.0)
+            * (1.0 - clamp(args[2], 0.0, 1.0) * noise);
+        return;
+    }
     if mode == 0u {
         // Colour an alpha plane, applying spread only after preparation.
         var a = src[i];

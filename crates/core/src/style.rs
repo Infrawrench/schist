@@ -65,6 +65,17 @@ impl Default for ShadowStyle {
     }
 }
 
+/// Matte preparation and falloff for Outer Glow and Inner Glow.
+#[derive(Debug, Clone, Copy, PartialEq, Serialize, Deserialize, Default)]
+pub enum GlowFalloff {
+    /// Blur the matte, then increase its intensity (the original renderer).
+    #[default]
+    Gaussian,
+    /// Spread grows the matte before softening. Range remaps its coverage;
+    /// noise varies that coverage in document coordinates. Fractions are 0..1.
+    Photoshop { range: f32, noise: f32 },
+}
+
 /// Outer Glow and Inner Glow.
 #[derive(Debug, Clone, Copy, PartialEq, Serialize, Deserialize)]
 pub struct GlowStyle {
@@ -78,6 +89,8 @@ pub struct GlowStyle {
     /// Inner glow only: glow inwards from the edge rather than out from
     /// the centre.
     pub from_edge: bool,
+    #[serde(default)]
+    pub falloff: GlowFalloff,
 }
 
 impl Default for GlowStyle {
@@ -90,6 +103,7 @@ impl Default for GlowStyle {
             size: 5.0,
             technique: Technique::Softer,
             from_edge: true,
+            falloff: GlowFalloff::Gaussian,
         }
     }
 }
@@ -340,6 +354,12 @@ impl LayerStyle {
         }
         if let Some(g) = self.outer_glow.on() {
             out = out.max(g.size + g.spread * g.size);
+            if matches!(g.falloff, GlowFalloff::Photoshop { .. }) {
+                // Three box passes approximate the softer Gaussian. At
+                // zero spread their support extends just past `size`;
+                // allow for the rounded box widths as well.
+                out = out.max(g.size * 1.125 + 3.0);
+            }
         }
         if let Some(s) = self.stroke.on() {
             out = out.max(match s.position {

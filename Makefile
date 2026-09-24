@@ -358,6 +358,12 @@ check-psd-interchange:
 lint-psd-interchange:
 	$(CARGO) clippy -p schist-psd-descriptor -p schist-codec-psd -p schist-text-engine --all-targets -- -D warnings
 
+.PHONY: check-psd-effects
+check-psd-effects:
+	$(CARGO) test -p schist-codec-psd -p schist-layer-fx
+	$(CARGO) test -p schist-compositor-gpu --test compute_programs
+	$(CARGO) check -p schist-editor --all-targets
+
 .PHONY: check-editable-interchange lint-editable-interchange inspect-affinity-interchange fmt-editable-interchange
 check-editable-interchange:
 	$(CARGO) test -p schist-codec-affinity -p schist-codec-psd -p schist-text-engine -p schist-tools-type
