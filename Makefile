@@ -422,6 +422,21 @@ lint-web-gpu:
 
 web-debug:
 	tools/web-build.sh --debug
+
+.PHONY: bench-paint-web check-web-interaction test-web-drop
+test-web-drop:
+	CARGO_TARGET_WASM32_UNKNOWN_UNKNOWN_RUNNER=wasm-bindgen-test-runner $(CARGO) test -p schist-app-platform --target wasm32-unknown-unknown --test browser_drop
+
+bench-paint-web:
+	$(CARGO) build --profile web -p schist-tools-paint --example paintbench --target wasm32-unknown-unknown
+	wasm-bindgen --target nodejs --out-dir "$${CARGO_TARGET_DIR:-target}/paintbench" "$${CARGO_TARGET_DIR:-target}/wasm32-unknown-unknown/web/examples/paintbench.wasm"
+	node tools/bench-paint.mjs "$${CARGO_TARGET_DIR:-target}/paintbench/paintbench.js"
+
+check-web-interaction:
+	$(CARGO) test -p schist-tools-paint -p schist-tools-transform
+	$(CARGO) test -p schist-editor --lib workspace::viewport_frame::tests
+	$(MAKE) check-app-web
+
 fmt-gpu-fx:
 	$(CARGO) fmt -p schist-fx -p schist-filters-core -p schist-compositor-gpu
 lint-gpu-fx:

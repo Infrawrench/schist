@@ -39,6 +39,8 @@ impl Workspace {
         if let Some(doc) = &mut self.doc {
             let damage = doc.take_damage();
             for rect in &damage {
+                #[cfg(target_arch = "wasm32")]
+                self.browser_gpu.pending_tiles.invalidate(rect);
                 self.cache.invalidate(rect);
                 for coord in TileCoord::covering(rect) {
                     self.display_tiles.remove(&coord);

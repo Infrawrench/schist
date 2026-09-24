@@ -12,3 +12,6 @@ schist-plugin-api.workspace = true
 schist-pixel-ops.workspace = true
 schist-color.workspace = true
 rustc-hash.workspace = true
+
+[target.'cfg(target_arch = "wasm32")'.dev-dependencies]
+wasm-bindgen = "=0.2.127"

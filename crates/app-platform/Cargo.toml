@@ -50,6 +50,8 @@ web-sys = { version = "0.3", features = [
     "Url",
     "Event",
     "PointerEvent",
+    "DragEvent",
+    "DataTransfer",
     "Response",
     "ReadableStream",
     "ReadableStreamDefaultReader",
@@ -57,6 +59,10 @@ web-sys = { version = "0.3", features = [
 ] }
 schist-text-engine.workspace = true
 futures.workspace = true
+
+[target.'cfg(target_arch = "wasm32")'.dev-dependencies]
+wasm-bindgen-test = "0.3"
+web-sys = { version = "0.3", features = ["DragEventInit", "DataTransferItem", "DataTransferItemList"] }
 
 [target.'cfg(target_os = "linux")'.dependencies]
 ash = "0.38"

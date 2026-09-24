@@ -71,7 +71,11 @@ Files. A browser has no file paths, but every open/save flow in the app
 is built on them, so the web build keeps the flows and invents the paths:
 File ▸ Open raises a real file picker, and the picked bytes are stored in
 an in-memory map under `/web/open/<n>/<name>`; decoding reads from that
-map. Saving runs the codec as ever, then hands the bytes to the browser
+map. Files dropped anywhere onto the editor are read asynchronously into
+the same store. Dropping one flat image onto an open document offers Open
+or Place; layered documents and batches open in their own tabs. Browser
+navigation is suppressed for file drops, while text/link drags are left alone.
+Saving runs the codec as ever, then hands the bytes to the browser
 as a download — the browser's own prompt asks for the file name, whose
 extension picks the format. Export and slice/artboard export work the
 same way. Preferences persist in `localStorage` instead of a config file.
@@ -94,6 +98,22 @@ Device creation, submission completion and readback are asynchronous. The
 canvas keeps its previous image while a new frame runs, coalesces redraws,
 and rejects results from an outdated document or view. Unsupported layer
 plans and failed jobs retain the CPU fallback.
+
+During a stroke, completed tiles are cached unless subsequent damage touched
+them; changing one tile no longer discards the rest of an in-flight frame.
+Transform previews are deferred until paint, preserving all brush samples.
+The brush engine reuses its source tile maps and blends fixed ink only where
+coverage increased, avoiding repeated work on overlapping dabs.
+
+`make check-web-interaction` checks brush behavior, asynchronous frame cache
+invalidation and browser compilation. `make test-web-drop` runs real DOM file
+drop tests through `wasm-bindgen-test-runner` (configure `CHROMEDRIVER` and
+browser capabilities as for the GPU tests below). `make bench-paint-web`
+builds an optimized Wasm brush workload and measures it in Node, reporting
+wall/CPU medians for three brush sizes and pixel checksums for comparison.
+The benchmark script accepts a second bindgen module path to compare a saved
+baseline and assert identical output. It measures the brush engine, not
+end-to-end canvas frame rate.
 
 Whole-filter descriptors cover blur and sharpening programs, noise and median,
 additional distortions, lens correction, pixelate/texture effects and selected
@@ -160,8 +180,6 @@ interface longer than their desktop equivalents on a large capture.
   `web/fonts/` and they are picked up by the build script). Those two
   are tagged `lang: zh` and `lang: ja` in the manifest and fetched only
   by those readers; see [i18n.md](i18n.md).
-- Drag-and-drop of files onto the window doesn't arrive: gpui's
-  file-drop events carry paths, which browser drops don't have.
 - Clipboard is a write-through mirror (see the gpui fork's `docs/web.md`
   for the details and the paste-keystroke exception).
 - Saving always downloads; there is no File System Access API

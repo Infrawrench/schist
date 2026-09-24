@@ -24,17 +24,28 @@ impl Workspace {
             self.pending_fit = false;
             self.fit_to_view();
         }
-        #[cfg(not(target_arch = "wasm32"))]
+        let mut preview_changed = false;
+        #[cfg(target_arch = "wasm32")]
+        let mut gpu_preview = None;
         if let (Some(doc), Some(tool)) = (
             self.doc.as_mut(),
             self.registry.tool_mut(self.editor.active_tool),
         ) {
-            if tool.flush_preview(&mut ToolCtx {
+            preview_changed = tool.flush_preview(&mut ToolCtx {
                 doc,
                 state: &mut self.editor,
-            }) {
-                self.refresh_after_change();
+            });
+            #[cfg(target_arch = "wasm32")]
+            {
+                gpu_preview = tool.take_gpu_edit();
             }
+        }
+        if preview_changed {
+            self.refresh_after_change();
+        }
+        #[cfg(target_arch = "wasm32")]
+        if let Some(request) = gpu_preview {
+            self.queue_browser_edit(request, cx);
         }
         let mut job = PaintJob::default();
         // Taken before the no-document return so replaced images still get

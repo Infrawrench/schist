@@ -686,6 +686,12 @@ impl ToolPlugin for TransformTool {
         if session.document != ctx.doc.id {
             return false;
         }
+        if self.async_compute {
+            if let Some(request) = session.gpu_preview(ctx.doc) {
+                self.pending_gpu = Some(request);
+                return false;
+            }
+        }
         session.render(ctx.doc);
         true
     }
@@ -1855,6 +1861,40 @@ mod tests {
         assert!(!replay_transform(&mut empty, params));
         target.tree.layers[0].locked = true;
         assert!(!replay_transform(&mut target, params));
+    }
+
+    #[test]
+    fn deferred_browser_preview_queues_gpu_work_only_when_painted() {
+        let mut doc = doc_with_square();
+        let mut state = EditorState::default();
+        let mut tool = TransformTool::default();
+        tool.set_async_compute(true);
+        let mut ctx = ToolCtx {
+            doc: &mut doc,
+            state: &mut state,
+        };
+        tool.on_activate(&mut ctx);
+        tool.on_pointer_down(&mut ctx, input(60.0, 60.0));
+        let revision = ctx.doc.revision;
+        for position in [70.0, 80.0, 100.0] {
+            tool.on_pointer_move_deferred(&mut ctx, input(position, position));
+            assert!(tool.take_gpu_edit().is_none());
+        }
+        assert!(
+            !tool.flush_preview(&mut ctx),
+            "GPU work must not rasterize on the main thread"
+        );
+        assert_eq!(ctx.doc.revision, revision);
+        let request = tool
+            .take_gpu_edit()
+            .expect("one GPU preview for the latest handles");
+        let output = (request.fallback)(&request.input);
+        (request.apply)(ctx.doc, output);
+        assert_eq!(px(ctx.doc, 75, 75)[3], 255);
+        assert!(!tool.flush_preview(&mut ctx));
+        assert!(tool.take_gpu_edit().is_none());
+        tool.on_cancel(&mut ctx);
+        assert_eq!(px(ctx.doc, 75, 75)[3], 0);
     }
 
     #[test]

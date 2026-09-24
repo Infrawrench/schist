@@ -11,6 +11,7 @@ pub(super) struct BrowserGpu {
     pub epoch: u64,
     initializing: bool,
     pending: bool,
+    pub pending_tiles: super::viewport_frame::PendingTiles,
     pub requested: Option<(schist_core::DocumentId, ViewportKey)>,
     failed: Option<(schist_core::DocumentId, ViewportKey)>,
     filter_sequence: u64,
@@ -477,7 +478,8 @@ impl Workspace {
 
     /// Keep one submission in flight; newer paints replace the requested stamp.
     /// Completions may show intermediate edits so a continuous drag cannot
-    /// starve painting. Only tiles from the current revision enter the cache.
+    /// starve painting. Tiles untouched since submission enter the cache even
+    /// if a brush has advanced the document revision elsewhere in the meantime.
     pub(super) fn queue_browser_viewport(
         &mut self,
         key: ViewportKey,
@@ -548,6 +550,7 @@ impl Workspace {
         let proof = self.proof_transform.clone();
         let epoch = self.browser_gpu.epoch;
         self.browser_gpu.pending = true;
+        self.browser_gpu.pending_tiles.begin(&missing);
         cx.spawn(async move |this, cx| {
             let result = async {
                 let mut completed = Vec::new();
@@ -659,6 +662,7 @@ impl Workspace {
                     return;
                 }
                 ws.browser_gpu.pending = false;
+                let valid_tiles = ws.browser_gpu.pending_tiles.take();
                 if context.is_lost() {
                     ws.browser_gpu.context = None;
                 }
@@ -669,12 +673,14 @@ impl Workspace {
                     .map(|doc| doc.revision);
                 if let Some(revision) = current_revision {
                     if let Some((tiles, image)) = result {
-                        // Damage may have invalidated these tiles while the
-                        // GPU was working. A displayable intermediate frame
-                        // must never repopulate the cache with those pixels.
-                        if revision == key.revision {
-                            ws.display_tiles.extend(tiles);
-                        }
+                        // A stroke changes the revision continuously. Retain
+                        // completed tiles outside its damage instead of making
+                        // every subsequent frame composite them again.
+                        ws.display_tiles.extend(
+                            tiles
+                                .into_iter()
+                                .filter(|(coord, _)| valid_tiles.contains(coord)),
+                        );
                         let displayed = ws.viewport_image.as_ref().map(|(key, _)| *key);
                         if ws
                             .browser_gpu
