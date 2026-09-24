@@ -29,6 +29,7 @@ enum PreviewState {
 pub(super) struct VersionBrowser {
     session: u64,
     original: PathBuf,
+    name: String,
     entries: Vec<Version>,
     thumbnails: Vec<PreviewState>,
     selected: usize,
@@ -48,6 +49,7 @@ impl VersionBrowser {
         static SESSION: AtomicU64 = AtomicU64::new(1);
         Self {
             session: SESSION.fetch_add(1, Ordering::Relaxed),
+            name: schist_gallery::photo_display_name(&original),
             original,
             entries: Vec::new(),
             thumbnails: Vec::new(),
@@ -126,7 +128,7 @@ impl Workspace {
         let Some(browser) = self.version_browser(session) else {
             return;
         };
-        let path = browser.original.clone();
+        let path = schist_gallery::variants::capture(&browser.original);
         cx.spawn(async move |this, cx| {
             let preview = cx
                 .background_executor()
@@ -305,7 +307,7 @@ fn restored_copy(
     doc.path = None;
     doc.title = tf!(
         "versions.copy_title",
-        name = original.file_name().unwrap_or_default().to_string_lossy()
+        name = schist_gallery::photo_display_name(original)
     );
     doc.dirty = true;
     Ok(doc)
@@ -384,12 +386,7 @@ pub(crate) fn dialog(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::A
         .get(browser.selected)
         .map(label)
         .unwrap_or_default();
-    let name = browser
-        .original
-        .file_name()
-        .unwrap_or_default()
-        .to_string_lossy()
-        .into_owned();
+    let name = browser.name.clone();
     let can_restore = !browser.scanning && !browser.restoring && !browser.entries.is_empty();
     let entity = cx.entity();
     let comparison = div()

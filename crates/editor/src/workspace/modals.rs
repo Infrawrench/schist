@@ -442,6 +442,7 @@ impl Workspace {
             || id == "new-doc-name"
             || id == "bucket-name"
             || id == "bucket-query"
+            || id == "variant-name"
             || id == "face-name"
             || id == "person-name"
             || id == file_picker::NAME_FIELD
@@ -742,6 +743,14 @@ impl Workspace {
             }
             return;
         }
+        if id == "variant-name" {
+            self.update_modal(|m| {
+                if let Modal::VariantName { name, .. } = m {
+                    *name = buffer;
+                }
+            });
+            return;
+        }
         if id == "person-name" {
             self.update_modal(|m| {
                 if let Modal::PersonName { name, .. } = m {
@@ -881,6 +890,7 @@ impl Workspace {
             | Modal::FilePicker
             | Modal::MapFilter
             | Modal::SearchModels
+            | Modal::VariantName { .. }
             | Modal::PersonName { .. }
             | Modal::SaveImageAs { .. }
             | Modal::BatchProcess { .. }

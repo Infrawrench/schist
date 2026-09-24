@@ -87,7 +87,14 @@ impl Gallery {
         self.index
             .get(&entry.path)
             .and_then(|r| r.taken.clone())
-            .unwrap_or_else(|| taken_from_unix(entry.mtime))
+            .unwrap_or_else(|| {
+                let capture = crate::capture_original(&entry.path);
+                taken_from_unix(
+                    self.entry(&capture)
+                        .map(|e| e.mtime)
+                        .unwrap_or_else(|| crate::mtime_secs(&capture)),
+                )
+            })
     }
 
     /// The content filter's verdict, as a word.
@@ -103,6 +110,8 @@ impl Gallery {
         let row = self.index.get(&entry.path);
         json!({
             "path": entry.path.display().to_string(),
+            "original": crate::capture_original(&entry.path).display().to_string(),
+            "variant_name": crate::variants::name(&entry.path),
             "taken": self.taken_of(entry),
             "place": row.and_then(|r| r.place.clone()).flatten(),
             "edited": entry.edited,

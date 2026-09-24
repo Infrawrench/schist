@@ -716,6 +716,10 @@ impl Workspace {
                     if let Some(name) = path.file_name() {
                         doc.title = name.to_string_lossy().into_owned();
                     }
+                    #[cfg(not(target_arch = "wasm32"))]
+                    if schist_gallery::variants::original(&path).is_some() {
+                        doc.title = schist_gallery::variants::display_name(&path);
+                    }
                 }
                 self.clear_recovery();
                 // A sidecar save refreshes its photo's thumbnail instead

@@ -879,3 +879,16 @@ test-native-stylus-toolkit:
 .PHONY: lint-native-stylus-tilt
 lint-native-stylus-tilt:
 	$(CARGO) clippy -p schist-editor -p schist-ui -p schist-app-platform -p schist-tools-paint --all-targets -- -D warnings
+
+.PHONY: test-virtual-copies check-virtual-copies format-virtual-copies lint-virtual-copies
+test-virtual-copies:
+	$(CARGO) test -p schist-gallery --lib variants::tests
+	$(CARGO) test -p schist-gallery --lib scan::tests
+	$(CARGO) test -p schist-gallery --lib versions::tests
+	$(CARGO) test -p schist-editor --lib workspace::library_ops::tests::virtual_copy
+check-virtual-copies:
+	$(CARGO) check -p schist-gallery -p schist-editor --all-targets
+format-virtual-copies:
+	$(CARGO) fmt -p schist-gallery -p schist-editor
+lint-virtual-copies:
+	$(CARGO) clippy -p schist-gallery -p schist-editor --all-targets -- -D warnings

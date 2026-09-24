@@ -20,8 +20,8 @@ pub struct Section {
 #[derive(Clone, Debug)]
 pub struct Entry {
     pub path: PathBuf,
-    /// Modification seconds of whichever file the thumbnail renders from,
-    /// part of the disk-cache key.
+    /// Modification revision of the thumbnail source: seconds for legacy
+    /// photos, nanoseconds for virtual copies; part of the disk-cache key.
     pub mtime: u64,
     /// A PSD sidecar exists: the thumbnail shows the edit, and the cell
     /// wears a badge.
@@ -40,7 +40,13 @@ pub fn scan_folders(roots: &[PathBuf], exts: &[String]) -> Vec<Section> {
     by_dir
         .into_iter()
         .map(|(dir, mut entries)| {
-            entries.sort_by(|a, b| a.path.cmp(&b.path));
+            entries.sort_by_key(|e| {
+                (
+                    crate::variants::capture(&e.path),
+                    crate::variants::original(&e.path).is_some(),
+                    e.path.clone(),
+                )
+            });
             Section { dir, entries }
         })
         .collect()
@@ -88,11 +94,20 @@ fn walk(
         let edited = backing_psd(&path).is_some_and(|p| p.exists());
         let mtime = mtime_secs(&thumb_source(&path, edited));
         *budget -= 1;
+        let variants = crate::variants::list(&path);
         out.entry(dir.to_path_buf()).or_default().push(Entry {
             path,
             mtime,
             edited,
         });
+        for path in variants.into_iter().take(*budget) {
+            *budget -= 1;
+            out.entry(dir.to_path_buf()).or_default().push(Entry {
+                mtime: crate::variants::revision(&path),
+                path,
+                edited: true,
+            });
+        }
     }
 }
 
