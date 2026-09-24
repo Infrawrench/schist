@@ -1,20 +1,17 @@
-# New diagnostic strings retain explicit English fallback pending translation review.
-# Short labels are machine translated where available, not human verified.
+# AI-assisted translation; native-speaker review pending.
 tethered.title = 联机拍摄
 tethered.capture = 拍摄照片
-tethered.invalid_name = Choose a name of 1–120 bytes without slashes, colons, percent signs or a leading dot.
-tethered.install = The system camera library is unavailable. Install the platform camera runtime and restart Schist.
-tethered.timeout = Camera request timed out. Check the camera and reconnect before retrying.
-tethered.failed = Camera request failed: {detail}
-tethered.unsupported = This camera does not advertise remote image capture support.
-tethered.no_download = The camera did not deliver a complete image. Camera originals are retained.
-tethered.session_help = Select a camera, then Capture photo. On your first capture, choose a destination and filename prefix; captures add a sequence number and the camera’s file extension. Save As changes the destination and prefix.
-tethered.preview_failed = The capture was saved and imported, but its preview could not be decoded. Open it in the editor to inspect the file.
-tethered.partial = Some capture files were saved and imported; the remaining files could not be saved: {error}
-
-# English fallback pending translation review.
-tethered.camera_permission = Allow camera access in System Settings → Privacy & Security → Camera, then try Capture photo again. If Schist was launched from a terminal, check that terminal’s camera permission too.
-tethered.camera_usage_missing = This build is missing its camera permission description. Rebuild Schist with make or use the packaged app.
-tethered.select_camera = Select a camera to take a photo.
-tethered.choose_destination = Capture photo will ask where to save your photos.
-tethered.preview_empty = Take a photo to see it here.
+tethered.invalid_name = 请选择长度为 1–120 字节的名称，不得包含斜杠、冒号、百分号，也不能以句点开头。
+tethered.install = 系统相机库不可用。请安装此平台的相机运行环境，然后重新启动 Schist。
+tethered.timeout = 相机请求超时。请检查相机并重新连接，然后重试。
+tethered.failed = 相机请求失败：{detail}
+tethered.unsupported = 此相机未声明支持远程拍摄。
+tethered.no_download = 相机未传送完整图像。相机中的原始照片仍会保留。
+tethered.session_help = 选择相机，然后点击“拍摄照片”。首次拍摄时，请选择保存位置和文件名前缀；拍摄的照片会添加序号和相机文件的扩展名。“存储为”可更改保存位置和前缀。
+tethered.preview_failed = 照片已保存并导入，但无法解码其预览图。请在编辑器中打开文件进行检查。
+tethered.partial = 部分拍摄文件已保存并导入；其余文件无法保存：{error}
+tethered.camera_permission = 请在“系统设置”→“隐私与安全性”→“相机”中允许访问相机，然后重新尝试“拍摄照片”。如果从终端启动了 Schist，也请检查该终端的相机权限。
+tethered.camera_usage_missing = 此版本缺少相机权限说明。请使用 make 重新构建 Schist，或使用已打包的应用。
+tethered.select_camera = 请选择相机以拍摄照片。
+tethered.choose_destination = 点击“拍摄照片”后，系统会询问照片的保存位置。
+tethered.preview_empty = 拍摄照片后即可在此处查看。

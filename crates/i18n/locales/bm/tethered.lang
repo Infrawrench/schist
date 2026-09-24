@@ -1,20 +1,17 @@
-# New diagnostic strings retain explicit English fallback pending translation review.
-# Short labels are machine translated where available, not human verified.
-tethered.title = Tethered capture
-tethered.capture = Capture photo
-tethered.invalid_name = Choose a name of 1–120 bytes without slashes, colons, percent signs or a leading dot.
-tethered.install = The system camera library is unavailable. Install the platform camera runtime and restart Schist.
-tethered.timeout = Camera request timed out. Check the camera and reconnect before retrying.
-tethered.failed = Camera request failed: {detail}
-tethered.unsupported = This camera does not advertise remote image capture support.
-tethered.no_download = The camera did not deliver a complete image. Camera originals are retained.
-tethered.session_help = Select a camera, then Capture photo. On your first capture, choose a destination and filename prefix; captures add a sequence number and the camera’s file extension. Save As changes the destination and prefix.
-tethered.preview_failed = The capture was saved and imported, but its preview could not be decoded. Open it in the editor to inspect the file.
-tethered.partial = Some capture files were saved and imported; the remaining files could not be saved: {error}
-
-# English fallback pending translation review.
-tethered.camera_permission = Allow camera access in System Settings → Privacy & Security → Camera, then try Capture photo again. If Schist was launched from a terminal, check that terminal’s camera permission too.
-tethered.camera_usage_missing = This build is missing its camera permission description. Rebuild Schist with make or use the packaged app.
-tethered.select_camera = Select a camera to take a photo.
-tethered.choose_destination = Capture photo will ask where to save your photos.
-tethered.preview_empty = Take a photo to see it here.
+# AI-assisted translation; native-speaker review pending.
+tethered.title = Foto ta kamera dɔgɔlen na
+tethered.capture = Foto ta
+tethered.invalid_name = Tɔgɔ sugandi min janya ye bayiti 1–120 ye, sira tilenbali, kolon, pɔrsan taamasiyɛnni walima pɔɛn fɔlɔ tɛ min na.
+tethered.install = Sistɛmu ka kamera bibliyotɛki tɛ sɔrɔ. Platformu nin ka kamera baarakɛlan sigi, ka Schist daminɛ kokura.
+tethered.timeout = Kamera ɲininkali waati banna. Kamera lajɛ ka a siri kokura sani i ka a kɔrɔfɔ tuguni.
+tethered.failed = Kamera ɲininkali ma se ka kɛ: {detail}
+tethered.unsupported = Kamera nin t'a jira ko a bɛ se ka foto ta ka bɔ yɔrɔ jan na.
+tethered.no_download = Kamera ma ja dafalen ci. Ja fɔlɔ-fɔlɔlenw bɛ to kamera kɔnɔ.
+tethered.session_help = Kamera sugandi, ka o kɔ Foto ta digi. Foto fɔlɔ ta tuma na, a mara yɔrɔ ni dosiye tɔgɔ daminɛ sugandi; foto kelen-kelen bɛ sɔrɔ kunnafoni nimɔrɔ ni kamera ka dosiye tɔgɔ laban. Mara tɔgɔ wɛrɛ la bɛ mara yɔrɔ ni tɔgɔ daminɛ yɛlɛma.
+tethered.preview_failed = Foto maralen don ani a donnen don, nka a ɲɛjirali ma se ka kalan. Dosiye dayɛlɛ editer kɔnɔ walasa i ka a lajɛ.
+tethered.partial = Foto dosiye dɔw maralen don ani u donnen don; tɔw ma se ka mara: {error}
+tethered.camera_permission = Kamera sariya di Sistɛmu labɛnniw → Gundo ni lakana → Kamera kɔnɔ, ka Foto ta kɔrɔfɔ tuguni. Ni Schist daminɛna terminal kɔnɔ, terminal aplikasiyɔn o ka kamera sariya fana lajɛ.
+tethered.camera_usage_missing = Kamera sariya ɲɛfɔli tɛ sigili nin kɔnɔ. Schist sigi kokura ni make ye walima aplikasiyɔn min pakilen don o kɛ.
+tethered.select_camera = Kamera sugandi walasa i ka foto ta.
+tethered.choose_destination = Foto ta bɛ i ɲininka i ka i ka fotow mara min.
+tethered.preview_empty = Foto ta walasa i ka a ye yan.

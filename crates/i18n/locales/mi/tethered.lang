@@ -1,20 +1,17 @@
-# New diagnostic strings retain explicit English fallback pending translation review.
-# Short labels are machine translated where available, not human verified.
-tethered.title = Tethered capture
-tethered.capture = Capture photo
-tethered.invalid_name = Choose a name of 1–120 bytes without slashes, colons, percent signs or a leading dot.
-tethered.install = The system camera library is unavailable. Install the platform camera runtime and restart Schist.
-tethered.timeout = Camera request timed out. Check the camera and reconnect before retrying.
-tethered.failed = Camera request failed: {detail}
-tethered.unsupported = This camera does not advertise remote image capture support.
-tethered.no_download = The camera did not deliver a complete image. Camera originals are retained.
-tethered.session_help = Select a camera, then Capture photo. On your first capture, choose a destination and filename prefix; captures add a sequence number and the camera’s file extension. Save As changes the destination and prefix.
-tethered.preview_failed = The capture was saved and imported, but its preview could not be decoded. Open it in the editor to inspect the file.
-tethered.partial = Some capture files were saved and imported; the remaining files could not be saved: {error}
-
-# English fallback pending translation review.
-tethered.camera_permission = Allow camera access in System Settings → Privacy & Security → Camera, then try Capture photo again. If Schist was launched from a terminal, check that terminal’s camera permission too.
-tethered.camera_usage_missing = This build is missing its camera permission description. Rebuild Schist with make or use the packaged app.
-tethered.select_camera = Select a camera to take a photo.
-tethered.choose_destination = Capture photo will ask where to save your photos.
-tethered.preview_empty = Take a photo to see it here.
+# AI-assisted translation; native-speaker review pending.
+tethered.title = Whakaahua mā te kāmera hono
+tethered.capture = Hopukina he whakaahua
+tethered.invalid_name = Kōwhiria he ingoa 1–120 paita te roa, kāore he rītaha, he kopirua, he tohu ōrau, he iraira rānei i te tīmatanga.
+tethered.install = Kāore te whare pukapuka kāmera o te pūnaha i te wātea. Tāutahia te pūmanawa whakahaere kāmera mō tēnei pūhara, kātahi ka tīmata anō a Schist.
+tethered.timeout = Kua pau te wā mō te tono ki te kāmera. Tirohia te kāmera, hono anō, kātahi ka whakamātau anō.
+tethered.failed = I rahua te tono ki te kāmera: {detail}
+tethered.unsupported = Kāore tēnei kāmera e whakaatu ana he tautoko tōna mō te hopu whakaahua mamao.
+tethered.no_download = Kāore te kāmera i tuku mai i tētahi whakaahua oti. Ka noho tonu ngā whakaahua taketake ki te kāmera.
+tethered.session_help = Kōwhiria he kāmera, kātahi ko Hopukina he whakaahua. I te hopunga tuatahi, kōwhiria he wāhi tiaki me tētahi tīmatanga mō te ingoa kōnae; ka tāpirihia he tau raupapa me te toronga kōnae a te kāmera ki ia hopunga. Mā te kōwhiringa Tiaki Hei… e huri te wāhi me taua tīmatanga.
+tethered.preview_failed = Kua tiakina, kua kawemai hoki te whakaahua, engari kāore i taea te wetewete tōna arokite. Huakina te kōnae ki te ētita kia tirohia.
+tethered.partial = Kua tiakina, kua kawemai ētahi kōnae whakaahua; kāore i taea te tiaki i ngā toenga: {error}
+tethered.camera_permission = Whakaaetia te urunga ki te kāmera i Tautuhinga Pūnaha → Tūmataitinga me te Haumarutanga → Kāmera, kātahi ka whakamātau anō i Hopukina he whakaahua. Mēnā i whakarewahia a Schist mai i tētahi kāpeka, tirohia hoki te whakaaetanga kāmera o taua kāpeka.
+tethered.camera_usage_missing = Kāore he whakamārama mō te whakaaetanga kāmera i tēnei hanga. Hangaia anō a Schist mā te make, whakamahia rānei te taupānga kua oti te tākai.
+tethered.select_camera = Kōwhiria he kāmera hei tango whakaahua.
+tethered.choose_destination = Ka pātai a Hopukina he whakaahua ki hea tiakina ai ō whakaahua.
+tethered.preview_empty = Hopukina he whakaahua kia kitea ki konei.

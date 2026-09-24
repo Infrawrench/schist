@@ -139,7 +139,6 @@ prompt for camera access: it captures temporary JPEGs, decodes one, checks
 cancellation and reopening, and verifies that existing captures are not replaced.
 Temporary captures are removed when the test finishes.
 
-Existing labels have machine translations for a subset of shipped locales;
-diagnostic/help strings and remaining labels are explicitly English fallbacks
-pending translation review. Catalog validation checks structure, not translation
-quality.
+The tethered-capture catalog has AI-assisted translations in all 149 non-English
+shipped locales. Native-speaker review is still pending. Catalog validation
+checks structure, placeholders and font coverage, not translation quality.

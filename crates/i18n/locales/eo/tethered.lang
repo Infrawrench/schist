@@ -1,20 +1,17 @@
-# New diagnostic strings retain explicit English fallback pending translation review.
-# Short labels are machine translated where available, not human verified.
-tethered.title = Tethered capture
-tethered.capture = Capture photo
-tethered.invalid_name = Choose a name of 1–120 bytes without slashes, colons, percent signs or a leading dot.
-tethered.install = The system camera library is unavailable. Install the platform camera runtime and restart Schist.
-tethered.timeout = Camera request timed out. Check the camera and reconnect before retrying.
-tethered.failed = Camera request failed: {detail}
-tethered.unsupported = This camera does not advertise remote image capture support.
-tethered.no_download = The camera did not deliver a complete image. Camera originals are retained.
-tethered.session_help = Select a camera, then Capture photo. On your first capture, choose a destination and filename prefix; captures add a sequence number and the camera’s file extension. Save As changes the destination and prefix.
-tethered.preview_failed = The capture was saved and imported, but its preview could not be decoded. Open it in the editor to inspect the file.
-tethered.partial = Some capture files were saved and imported; the remaining files could not be saved: {error}
-
-# English fallback pending translation review.
-tethered.camera_permission = Allow camera access in System Settings → Privacy & Security → Camera, then try Capture photo again. If Schist was launched from a terminal, check that terminal’s camera permission too.
-tethered.camera_usage_missing = This build is missing its camera permission description. Rebuild Schist with make or use the packaged app.
-tethered.select_camera = Select a camera to take a photo.
-tethered.choose_destination = Capture photo will ask where to save your photos.
-tethered.preview_empty = Take a photo to see it here.
+# AI-assisted translation; native-speaker review pending.
+tethered.title = Fotado per konektita fotilo
+tethered.capture = Foti
+tethered.invalid_name = Elektu nomon de 1–120 bajtoj sen oblikvaj strekoj, dupunktoj, procentosignoj aŭ komenca punkto.
+tethered.install = La sistema fotila biblioteko ne disponeblas. Instalu la fotilan rultempon de la platformo kaj rekomencu Schist.
+tethered.timeout = La peto al la fotilo superis la tempolimon. Kontrolu la fotilon kaj rekonektu ĝin antaŭ ol reprovi.
+tethered.failed = La peto al la fotilo malsukcesis: {detail}
+tethered.unsupported = Ĉi tiu fotilo ne anoncas subtenon por fora bildokaptado.
+tethered.no_download = La fotilo ne liveris kompletan bildon. La originaloj restas konservitaj en la fotilo.
+tethered.session_help = Elektu fotilon, poste Foti. Ĉe la unua fotado elektu celon kaj prefikson por dosiernomoj; al fotoj aldoniĝas sinsekva numero kaj la dosiersufikso de la fotilo. Konservi kiel… ŝanĝas la celon kaj prefikson.
+tethered.preview_failed = La foto estis konservita kaj importita, sed ĝia antaŭrigardo ne povis esti malkodita. Malfermu la dosieron en la redaktilo por ekzameni ĝin.
+tethered.partial = Kelkaj fotodosieroj estis konservitaj kaj importitaj; la ceteraj dosieroj ne povis esti konservitaj: {error}
+tethered.camera_permission = Permesu aliron al la fotilo en Sistemaj agordoj → Privateco kaj sekureco → Fotilo, poste provu Foti denove. Se Schist estis lanĉita el terminalo, kontrolu ankaŭ la fotilan permeson de tiu terminalo.
+tethered.camera_usage_missing = En ĉi tiu konstruaĵo mankas la priskribo de la fotila permeso. Rekonstruu Schist per make aŭ uzu la pakitan aplikaĵon.
+tethered.select_camera = Elektu fotilon por foti.
+tethered.choose_destination = Foti demandos, kie konservi viajn fotojn.
+tethered.preview_empty = Fotu por vidi la bildon ĉi tie.

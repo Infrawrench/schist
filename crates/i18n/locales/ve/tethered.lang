@@ -1,20 +1,17 @@
-# New diagnostic strings retain explicit English fallback pending translation review.
-# Short labels are machine translated where available, not human verified.
-tethered.title = Tethered capture
-tethered.capture = Capture photo
-tethered.invalid_name = Choose a name of 1–120 bytes without slashes, colons, percent signs or a leading dot.
-tethered.install = The system camera library is unavailable. Install the platform camera runtime and restart Schist.
-tethered.timeout = Camera request timed out. Check the camera and reconnect before retrying.
-tethered.failed = Camera request failed: {detail}
-tethered.unsupported = This camera does not advertise remote image capture support.
-tethered.no_download = The camera did not deliver a complete image. Camera originals are retained.
-tethered.session_help = Select a camera, then Capture photo. On your first capture, choose a destination and filename prefix; captures add a sequence number and the camera’s file extension. Save As changes the destination and prefix.
-tethered.preview_failed = The capture was saved and imported, but its preview could not be decoded. Open it in the editor to inspect the file.
-tethered.partial = Some capture files were saved and imported; the remaining files could not be saved: {error}
-
-# English fallback pending translation review.
-tethered.camera_permission = Allow camera access in System Settings → Privacy & Security → Camera, then try Capture photo again. If Schist was launched from a terminal, check that terminal’s camera permission too.
-tethered.camera_usage_missing = This build is missing its camera permission description. Rebuild Schist with make or use the packaged app.
-tethered.select_camera = Select a camera to take a photo.
-tethered.choose_destination = Capture photo will ask where to save your photos.
-tethered.preview_empty = Take a photo to see it here.
+# AI-assisted translation; native-speaker review pending.
+tethered.title = U foda nga khamera yo ṱumanywaho na khomphyutha
+tethered.capture = Fodani tshifanyiso
+tethered.invalid_name = Khethani dzina ḽa baiti dza 1–120 ḽi si na zwiga zwa u khetha, kholoni, tshiga tsha phesenthe kana tshithoma mathomoni.
+tethered.install = Laiburari ya khamera ya sisiteme a i wanali. Dzhenisani mbekanyamushumo ya khamera ya pulatifomo iyi, ni dovhe ni thome Schist.
+tethered.timeout = Tshifhinga tsha u lindela khumbelo ya khamera tsho fhela. Ṱolani khamera ni i ṱumanye hafhu ni sa athu lingedza hafhu.
+tethered.failed = Khumbelo ya khamera yo kundelwa: {detail}
+tethered.unsupported = Khamera iyi a i sumbedzi uri i tikedza u foda ni kule.
+tethered.no_download = Khamera a yo rumela tshifanyiso tsho fhelelaho. Zwifanyiso zwa u thoma zwi kha ḓi vha kha khamera.
+tethered.session_help = Khethani khamera, ni kone u khetha «Fodani tshifanyiso». Musi ni tshi foda lwa u thoma, khethani fhethu hune na ḓo vhulunga hone na mathomoni a dzina ḽa faela; zwifanyiso zwi engedza nomboro i tevhekanaho na magumo a dzina ḽa faela ya khamera. «Vhulunga sa» zwi shandula fhethu ha u vhulunga na mathomoni a dzina.
+tethered.preview_failed = Tshifanyiso tsho vhulungwa na u dzheniswa, fhedzi tshifanyiso tsha u tshi sedza hu tshee nga phanḓa a tsho ngo kona u vuliwa. Vulani faela kha tshishandukisi uri ni i ṱole.
+tethered.partial = Dziṅwe faela dza zwifanyiso dzo vhulungwa na u dzheniswa; dzo salaho a dzo ngo kona u vhulungwa: {error}
+tethered.camera_permission = Tendelani u shumisa khamera kha Nzudzanyo dza Sisiteme → Tshiphiri na Tsireledzo → Khamera, ni kone u lingedza «Fodani tshifanyiso» hafhu. Arali Schist yo thomiwa nga theminala, ṱolani na thendelo ya khamera ya yeneyo theminala.
+tethered.camera_usage_missing = Muvhili uyu wa Schist a u na ṱhalutshedzo ya thendelo ya khamera. Fhaṱani Schist hafhu nga make kana ni shumise app yo pakelwaho.
+tethered.select_camera = Khethani khamera uri ni fode tshifanyiso.
+tethered.choose_destination = «Fodani tshifanyiso» zwi ḓo ni vhudzisa hune na ḓo vhulunga hone zwifanyiso zwaṋu.
+tethered.preview_empty = Fodani tshifanyiso uri ni tshi vhone hafha.

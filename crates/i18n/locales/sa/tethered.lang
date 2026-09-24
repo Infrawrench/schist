@@ -1,20 +1,17 @@
-# New diagnostic strings retain explicit English fallback pending translation review.
-# Short labels are machine translated where available, not human verified.
-tethered.title = Tethered capture
-tethered.capture = Capture photo
-tethered.invalid_name = Choose a name of 1–120 bytes without slashes, colons, percent signs or a leading dot.
-tethered.install = The system camera library is unavailable. Install the platform camera runtime and restart Schist.
-tethered.timeout = Camera request timed out. Check the camera and reconnect before retrying.
-tethered.failed = Camera request failed: {detail}
-tethered.unsupported = This camera does not advertise remote image capture support.
-tethered.no_download = The camera did not deliver a complete image. Camera originals are retained.
-tethered.session_help = Select a camera, then Capture photo. On your first capture, choose a destination and filename prefix; captures add a sequence number and the camera’s file extension. Save As changes the destination and prefix.
-tethered.preview_failed = The capture was saved and imported, but its preview could not be decoded. Open it in the editor to inspect the file.
-tethered.partial = Some capture files were saved and imported; the remaining files could not be saved: {error}
-
-# English fallback pending translation review.
-tethered.camera_permission = Allow camera access in System Settings → Privacy & Security → Camera, then try Capture photo again. If Schist was launched from a terminal, check that terminal’s camera permission too.
-tethered.camera_usage_missing = This build is missing its camera permission description. Rebuild Schist with make or use the packaged app.
-tethered.select_camera = Select a camera to take a photo.
-tethered.choose_destination = Capture photo will ask where to save your photos.
-tethered.preview_empty = Take a photo to see it here.
+# AI-assisted translation; native-speaker review pending.
+tethered.title = सङ्गणकेन सम्बद्धेन छायाग्राहकेन चित्रग्रहणम्
+tethered.capture = चित्रं गृह्णातु
+tethered.invalid_name = 1–120 बाइट्-परिमितं नाम चिनोतु; तस्मिन् तिर्यग्रेखाः, द्विबिन्दवः, प्रतिशतचिह्नानि वा न स्युः, आदौ बिन्दुः अपि न स्यात्।
+tethered.install = प्रणाल्याः छायाग्राहकपुस्तकालयः नोपलभ्यते। स्वमञ्चस्य छायाग्राहककार्यक्रमं संस्थाप्य Schist पुनः आरभताम्।
+tethered.timeout = छायाग्राहकस्य अनुरोधस्य प्रतीक्षाकालः अतीतः। पुनः प्रयत्नात् पूर्वं छायाग्राहकं परीक्ष्य पुनः संयोजयताम्।
+tethered.failed = छायाग्राहकस्य अनुरोधः विफलः: {detail}
+tethered.unsupported = अयं छायाग्राहकः दूरनियन्त्रितचित्रग्रहणस्य समर्थनं न सूचयति।
+tethered.no_download = छायाग्राहकः सम्पूर्णं चित्रं न प्रेषितवान्। छायाग्राहके मूलचित्राणि सुरक्षितानि सन्ति।
+tethered.session_help = छायाग्राहकं चित्वा «चित्रं गृह्णातु» इति नुदताम्। प्रथमचित्रग्रहणे संग्रहस्थानं सञ्चिकानाम्नः आरम्भभागं च चिनोतु; प्रत्येकस्य चित्रस्य नाम्नि क्रमाङ्कः छायाग्राहकदत्तः सञ्चिकाप्रत्ययश्च योज्येते। «अन्यथा रक्षतु…» इत्यनेन संग्रहस्थानं नामारम्भभागं च परिवर्तेते।
+tethered.preview_failed = चित्रं रक्षितम् आयातितं च, किन्तु तस्य पूर्वावलोकनं विवेक्तुं न शक्यते। सञ्चिकां परीक्षितुं सम्पादके उद्घाटयताम्।
+tethered.partial = कानिचन चित्रसञ्चिकानि रक्षितानि आयातितानि च; शेषाणि रक्षितुं न शक्यन्ते: {error}
+tethered.camera_permission = System Settings → Privacy & Security → Camera इत्यत्र छायाग्राहकप्रवेशम् अनुमन्य पुनः «चित्रं गृह्णातु» इति प्रयतताम्। यदि Schist टर्मिनल्-माध्यमेन आरब्धम्, तस्य टर्मिनलस्य छायाग्राहकानुमतिमपि परीक्षताम्।
+tethered.camera_usage_missing = अस्मिन् निर्माणे छायाग्राहकानुमतेः विवरणं नास्ति। make इत्यनेन Schist पुनर्निर्मातु अथवा वितरितं अनुप्रयोगं प्रयुञ्जीत।
+tethered.select_camera = चित्रं ग्रहीतुं छायाग्राहकं चिनोतु।
+tethered.choose_destination = «चित्रं गृह्णातु» इति नुद्यमाने चित्राणां संग्रहस्थानं पृच्छ्यते।
+tethered.preview_empty = अत्र द्रष्टुं चित्रं गृह्णातु।

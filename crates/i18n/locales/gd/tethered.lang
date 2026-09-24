@@ -1,20 +1,17 @@
-# New diagnostic strings retain explicit English fallback pending translation review.
-# Short labels are machine translated where available, not human verified.
-tethered.title = Tethered capture
-tethered.capture = Capture photo
-tethered.invalid_name = Choose a name of 1–120 bytes without slashes, colons, percent signs or a leading dot.
-tethered.install = The system camera library is unavailable. Install the platform camera runtime and restart Schist.
-tethered.timeout = Camera request timed out. Check the camera and reconnect before retrying.
-tethered.failed = Camera request failed: {detail}
-tethered.unsupported = This camera does not advertise remote image capture support.
-tethered.no_download = The camera did not deliver a complete image. Camera originals are retained.
-tethered.session_help = Select a camera, then Capture photo. On your first capture, choose a destination and filename prefix; captures add a sequence number and the camera’s file extension. Save As changes the destination and prefix.
-tethered.preview_failed = The capture was saved and imported, but its preview could not be decoded. Open it in the editor to inspect the file.
-tethered.partial = Some capture files were saved and imported; the remaining files could not be saved: {error}
-
-# English fallback pending translation review.
-tethered.camera_permission = Allow camera access in System Settings → Privacy & Security → Camera, then try Capture photo again. If Schist was launched from a terminal, check that terminal’s camera permission too.
-tethered.camera_usage_missing = This build is missing its camera permission description. Rebuild Schist with make or use the packaged app.
-tethered.select_camera = Select a camera to take a photo.
-tethered.choose_destination = Capture photo will ask where to save your photos.
-tethered.preview_empty = Take a photo to see it here.
+# AI-assisted translation; native-speaker review pending.
+tethered.title = Togail dhealbhan le camara ceangailte
+tethered.capture = Tog dealbh
+tethered.invalid_name = Tagh ainm a tha 1–120 baidht a dh’fhaid, gun slais, dà-phuing no samhlaidhean sa cheud, agus nach tòisich le puing.
+tethered.install = Chan eil leabharlann camara an t-siostaim ri fhaighinn. Stàlaich àrainneachd ruith a’ chamara airson an àrd-ùrlair seo agus ath-thòisich Schist.
+tethered.timeout = Chaidh an ùine seachad air iarrtas a’ chamara. Thoir sùil air a’ chamara agus ceangail a-rithist e mus feuch thu a-rithist.
+tethered.failed = Dh’fhàillig iarrtas a’ chamara: {detail}
+tethered.unsupported = Chan eil an camara seo ag innse gu bheil e a’ cur taic ri togail dhealbhan air astar.
+tethered.no_download = Cha do lìbhrig an camara dealbh slàn. Cumar na dealbhan tùsail air a’ chamara.
+tethered.session_help = Tagh camara agus an uair sin Tog dealbh. Airson a’ chiad deilbh, tagh ceann-uidhe agus ro-leasachan ainm faidhle; thèid àireamh ann an sreath agus leudachan faidhle a’ chamara a chur ris na dealbhan. Atharraichidh Sàbhail mar… an ceann-uidhe agus an ro-leasachan.
+tethered.preview_failed = Chaidh an dealbh a shàbhaladh agus ion-phortadh, ach cha b’ urrainn dhuinn an ro-shealladh aige a dhì-chòdachadh. Fosgail am faidhle san deasaiche gus a sgrùdadh.
+tethered.partial = Chaidh cuid de na faidhlichean dhealbhan a shàbhaladh agus ion-phortadh; cha b’ urrainn dhuinn an còrr a shàbhaladh: {error}
+tethered.camera_permission = Ceadaich cothrom air a’ chamara ann an Roghainnean an t-Siostaim → Prìobhaideachd agus Tèarainteachd → Camara, agus feuch Tog dealbh a-rithist. Ma chaidh Schist a chur air bhog o thèirmineal, thoir sùil cuideachd air cead camara an tèirmineil sin.
+tethered.camera_usage_missing = Tha tuairisgeul cead a’ chamara a dhìth bhon togail seo. Tog Schist a-rithist le make no cleachd an aplacaid phacaichte.
+tethered.select_camera = Tagh camara gus dealbh a thogail.
+tethered.choose_destination = Faighnichidh Tog dealbh càit an tèid na dealbhan agad a shàbhaladh.
+tethered.preview_empty = Tog dealbh gus fhaicinn an-seo.

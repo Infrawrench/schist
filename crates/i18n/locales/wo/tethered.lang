@@ -1,20 +1,17 @@
-# New diagnostic strings retain explicit English fallback pending translation review.
-# Short labels are machine translated where available, not human verified.
-tethered.title = Tethered capture
-tethered.capture = Capture photo
-tethered.invalid_name = Choose a name of 1–120 bytes without slashes, colons, percent signs or a leading dot.
-tethered.install = The system camera library is unavailable. Install the platform camera runtime and restart Schist.
-tethered.timeout = Camera request timed out. Check the camera and reconnect before retrying.
-tethered.failed = Camera request failed: {detail}
-tethered.unsupported = This camera does not advertise remote image capture support.
-tethered.no_download = The camera did not deliver a complete image. Camera originals are retained.
-tethered.session_help = Select a camera, then Capture photo. On your first capture, choose a destination and filename prefix; captures add a sequence number and the camera’s file extension. Save As changes the destination and prefix.
-tethered.preview_failed = The capture was saved and imported, but its preview could not be decoded. Open it in the editor to inspect the file.
-tethered.partial = Some capture files were saved and imported; the remaining files could not be saved: {error}
-
-# English fallback pending translation review.
-tethered.camera_permission = Allow camera access in System Settings → Privacy & Security → Camera, then try Capture photo again. If Schist was launched from a terminal, check that terminal’s camera permission too.
-tethered.camera_usage_missing = This build is missing its camera permission description. Rebuild Schist with make or use the packaged app.
-tethered.select_camera = Select a camera to take a photo.
-tethered.choose_destination = Capture photo will ask where to save your photos.
-tethered.preview_empty = Take a photo to see it here.
+# AI-assisted translation; native-speaker review pending.
+tethered.title = Nataal ak kamera bu jokkook ordinatër
+tethered.capture = Jël nataal
+tethered.invalid_name = Tànnal tur wu tollu ci 1–120 bayit, te amul rëdd yu wàll, ñaari tomb, màndarga porsàŋ wala tomb ci ndoorte bi.
+tethered.install = Kàggu kamera bu sistem bi jàppandiwul. Sampal prograam bu kamera bi soxla ci sa platafoorm, ba noppi nga tàmbaliwaat Schist.
+tethered.timeout = Diir bi ñuy xaar tontu kamera bi jeex na. Seetal kamera bi te nga jokkook moomaat bala ngay jéemaat.
+tethered.failed = Njàngat bu kamera bi antuwul: {detail}
+tethered.unsupported = Kamera bii waxul ne man naa jël nataal ci sori.
+tethered.no_download = Kamera bi joxewul nataal bu mat. Nataal yu njëkk yi des nañu ci kamera bi.
+tethered.session_help = Tànnal kamera, ba noppi tànn «Jël nataal». Bu ngay jël nataal bu njëkk, tànnal fu ngay denc nataal yi ak ndoorte turu dencukaay bi; nataal yi dinañu yokk lim bu toppante ak jeexitalu turu dencukaayu kamera bi. «Denc ni» day soppi fu ñuy dence ak ndoorte tur bi.
+tethered.preview_failed = Nataal bi denc na te dugal nañu ko, waaye maneesul ubbi nataal bi ñuy wone ngir gis ko lu jiitu. Ubbil dencukaay bi ci jumtukaayu soppi ngir seet ko.
+tethered.partial = Yenn dencukaayi nataal denc nañu leen te dugal leen; yi des maneesu leen denc: {error}
+tethered.camera_permission = Mayal ndigal jëfandikoo kamera ci Parametaru sistem bi → Sutura ak kaaraange → Kamera, ba noppi nga jéemaat «Jël nataal». Su fekkee Schist tàmbalee na ci terminal, seetal itam ndigalu kamera bu terminal boobu.
+tethered.camera_usage_missing = Tabax bii amul leeralu ndigalu kamera. Tabaxaatal Schist ak make wala jëfandikoo aplikasioŋ bi ñu pakk.
+tethered.select_camera = Tànnal kamera ngir jël nataal.
+tethered.choose_destination = «Jël nataal» dina la laaj fu ngay denc sa nataal yi.
+tethered.preview_empty = Jëlal nataal ngir gis ko fii.

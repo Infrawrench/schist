@@ -1,20 +1,17 @@
-# New diagnostic strings retain explicit English fallback pending translation review.
-# Short labels are machine translated where available, not human verified.
-tethered.title = Tethered capture
-tethered.capture = Capture photo
-tethered.invalid_name = Choose a name of 1–120 bytes without slashes, colons, percent signs or a leading dot.
-tethered.install = The system camera library is unavailable. Install the platform camera runtime and restart Schist.
-tethered.timeout = Camera request timed out. Check the camera and reconnect before retrying.
-tethered.failed = Camera request failed: {detail}
-tethered.unsupported = This camera does not advertise remote image capture support.
-tethered.no_download = The camera did not deliver a complete image. Camera originals are retained.
-tethered.session_help = Select a camera, then Capture photo. On your first capture, choose a destination and filename prefix; captures add a sequence number and the camera’s file extension. Save As changes the destination and prefix.
-tethered.preview_failed = The capture was saved and imported, but its preview could not be decoded. Open it in the editor to inspect the file.
-tethered.partial = Some capture files were saved and imported; the remaining files could not be saved: {error}
-
-# English fallback pending translation review.
-tethered.camera_permission = Allow camera access in System Settings → Privacy & Security → Camera, then try Capture photo again. If Schist was launched from a terminal, check that terminal’s camera permission too.
-tethered.camera_usage_missing = This build is missing its camera permission description. Rebuild Schist with make or use the packaged app.
-tethered.select_camera = Select a camera to take a photo.
-tethered.choose_destination = Capture photo will ask where to save your photos.
-tethered.preview_empty = Take a photo to see it here.
+# AI-assisted translation; native-speaker review pending.
+tethered.title = Qbid ta’ ritratti b’kamera mqabbda
+tethered.capture = Ħu ritratt
+tethered.invalid_name = Agħżel isem ta’ 1–120 byte mingħajr slashes, żewġ punti, sinjali tal-perċentwal jew punt fil-bidu.
+tethered.install = Il-librerija tal-kamera tas-sistema mhix disponibbli. Installa l-ambjent ta’ eżekuzzjoni tal-kamera għall-pjattaforma u erġa’ ibda Schist.
+tethered.timeout = It-talba lill-kamera skadiet. Iċċekkja l-kamera u erġa’ qabbadha qabel terġa’ tipprova.
+tethered.failed = It-talba lill-kamera falliet: {detail}
+tethered.unsupported = Din il-kamera ma tindikax li tappoġġja l-qbid ta’ immaġnijiet mill-bogħod.
+tethered.no_download = Il-kamera ma bagħtitx immaġni kompluta. L-oriġinali jibqgħu fuq il-kamera.
+tethered.session_help = Agħżel kamera, imbagħad Ħu ritratt. Meta tieħu l-ewwel ritratt, agħżel fejn se tissejvja u prefiss għall-isem tal-fajl; ma’ kull ritratt jiżdied numru sekwenzjali u l-estensjoni tal-fajl tal-kamera. Issejvja Bħala jibdel il-post u l-prefiss.
+tethered.preview_failed = Ir-ritratt ġie ssejvjat u importat, iżda l-previżjoni tiegħu ma setgħetx tiġi ddeċifrata. Iftaħ il-fajl fl-editur biex teżaminah.
+tethered.partial = Xi fajls tar-ritratti ġew issejvjati u importati; il-bqija ma setgħux jiġu ssejvjati: {error}
+tethered.camera_permission = Ippermetti aċċess għall-kamera f’Settings tas-Sistema → Privatezza u Sigurtà → Kamera, imbagħad erġa’ pprova Ħu ritratt. Jekk Schist tnieda minn terminal, iċċekkja wkoll il-permess għall-kamera ta’ dak it-terminal.
+tethered.camera_usage_missing = Din il-verżjoni m’għandhiex deskrizzjoni tal-permess għall-kamera. Ibni mill-ġdid Schist b’make jew uża l-app ippakkjata.
+tethered.select_camera = Agħżel kamera biex tieħu ritratt.
+tethered.choose_destination = Ħu ritratt jistaqsik fejn trid tissejvja r-ritratti tiegħek.
+tethered.preview_empty = Ħu ritratt biex tarah hawn.

@@ -1,20 +1,17 @@
-# New diagnostic strings retain explicit English fallback pending translation review.
-# Short labels are machine translated where available, not human verified.
-tethered.title = Tethered capture
-tethered.capture = Capture photo
-tethered.invalid_name = Choose a name of 1–120 bytes without slashes, colons, percent signs or a leading dot.
-tethered.install = The system camera library is unavailable. Install the platform camera runtime and restart Schist.
-tethered.timeout = Camera request timed out. Check the camera and reconnect before retrying.
-tethered.failed = Camera request failed: {detail}
-tethered.unsupported = This camera does not advertise remote image capture support.
-tethered.no_download = The camera did not deliver a complete image. Camera originals are retained.
-tethered.session_help = Select a camera, then Capture photo. On your first capture, choose a destination and filename prefix; captures add a sequence number and the camera’s file extension. Save As changes the destination and prefix.
-tethered.preview_failed = The capture was saved and imported, but its preview could not be decoded. Open it in the editor to inspect the file.
-tethered.partial = Some capture files were saved and imported; the remaining files could not be saved: {error}
-
-# English fallback pending translation review.
-tethered.camera_permission = Allow camera access in System Settings → Privacy & Security → Camera, then try Capture photo again. If Schist was launched from a terminal, check that terminal’s camera permission too.
-tethered.camera_usage_missing = This build is missing its camera permission description. Rebuild Schist with make or use the packaged app.
-tethered.select_camera = Select a camera to take a photo.
-tethered.choose_destination = Capture photo will ask where to save your photos.
-tethered.preview_empty = Take a photo to see it here.
+# AI-assisted translation; native-speaker review pending.
+tethered.title = Fotograféiere mat verbonnener Kamera
+tethered.capture = Foto maachen
+tethered.invalid_name = Wielt en Numm vun 1–120 Byte ouni Schréigstrécher, Duebelpunkten, Prozentzeechen oder e Punkt um Ufank.
+tethered.install = D'Systembibliothéik fir d'Kamera ass net verfügbar. Installéiert d'Kameralafzäit fir dës Plattform a start Schist nei.
+tethered.timeout = D'Kameraumfro huet ze laang gedauert. Kontrolléiert d'Kamera a verbënnt se nei, ier Dir et nach eng Kéier probéiert.
+tethered.failed = D'Kameraumfro ass feelgeschloen: {detail}
+tethered.unsupported = Dës Kamera weist keng Ënnerstëtzung fir Fotoen aus der Distanz un.
+tethered.no_download = D'Kamera huet kee komplett Bild geliwwert. D'Originaler op der Kamera bleiwen erhalen.
+tethered.session_help = Wielt eng Kamera a klickt dann op «Foto maachen». Beim éischte Foto wielt Dir de Späicheruert an e Präfix fir de Fichiersnumm; all Foto kritt eng lafend Nummer an d'Fichiersextensioun vun der Kamera. Mat «Späicheren als…» ännert Dir de Späicheruert an de Präfix.
+tethered.preview_failed = D'Foto gouf gespäichert an importéiert, mee d'Virschau konnt net decodéiert ginn. Maacht de Fichier am Editeur op, fir en ze kontrolléieren.
+tethered.partial = E puer Fotofichiere goufe gespäichert an importéiert; déi aner konnten net gespäichert ginn: {error}
+tethered.camera_permission = Erlaabt den Zougang zu der Kamera an de Systemeinstellungen → Dateschutz a Sécherheet → Kamera a probéiert «Foto maachen» nach eng Kéier. Wann Schist aus engem Terminal gestart gouf, kontrolléiert och d'Kamerazougrëffsrecht vun deem Terminal.
+tethered.camera_usage_missing = Bei dëser Versioun feelt d'Beschreiwung fir d'Kameraerlaabnis. Baut Schist mat make nei oder benotzt déi fäerdeg verpaakten App.
+tethered.select_camera = Wielt eng Kamera, fir eng Foto ze maachen.
+tethered.choose_destination = «Foto maachen» freet Iech, wou Är Fotoe gespäichert solle ginn.
+tethered.preview_empty = Maacht eng Foto, fir se hei ze gesinn.

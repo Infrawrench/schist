@@ -1,20 +1,17 @@
-# New diagnostic strings retain explicit English fallback pending translation review.
-# Short labels are machine translated where available, not human verified.
-tethered.title = Tethered capture
-tethered.capture = Capture photo
-tethered.invalid_name = Choose a name of 1–120 bytes without slashes, colons, percent signs or a leading dot.
-tethered.install = The system camera library is unavailable. Install the platform camera runtime and restart Schist.
-tethered.timeout = Camera request timed out. Check the camera and reconnect before retrying.
-tethered.failed = Camera request failed: {detail}
-tethered.unsupported = This camera does not advertise remote image capture support.
-tethered.no_download = The camera did not deliver a complete image. Camera originals are retained.
-tethered.session_help = Select a camera, then Capture photo. On your first capture, choose a destination and filename prefix; captures add a sequence number and the camera’s file extension. Save As changes the destination and prefix.
-tethered.preview_failed = The capture was saved and imported, but its preview could not be decoded. Open it in the editor to inspect the file.
-tethered.partial = Some capture files were saved and imported; the remaining files could not be saved: {error}
-
-# English fallback pending translation review.
-tethered.camera_permission = Allow camera access in System Settings → Privacy & Security → Camera, then try Capture photo again. If Schist was launched from a terminal, check that terminal’s camera permission too.
-tethered.camera_usage_missing = This build is missing its camera permission description. Rebuild Schist with make or use the packaged app.
-tethered.select_camera = Select a camera to take a photo.
-tethered.choose_destination = Capture photo will ask where to save your photos.
-tethered.preview_empty = Take a photo to see it here.
+# AI-assisted translation; native-speaker review pending.
+tethered.title = Tynnu lluniau gyda chamera cysylltiedig
+tethered.capture = Tynnu llun
+tethered.invalid_name = Dewiswch enw o 1–120 beit heb slaesau, colonau, arwyddion canran na dot ar y dechrau.
+tethered.install = Nid yw llyfrgell camera'r system ar gael. Gosodwch amgylchedd rhedeg camera'r platfform ac ailgychwyn Schist.
+tethered.timeout = Daeth yr amser ar gyfer cais i'r camera i ben. Gwiriwch y camera a'i ailgysylltu cyn rhoi cynnig arall arni.
+tethered.failed = Methodd y cais i'r camera: {detail}
+tethered.unsupported = Nid yw'r camera hwn yn nodi ei fod yn cefnogi tynnu lluniau o bell.
+tethered.no_download = Ni anfonodd y camera ddelwedd gyflawn. Cedwir y ffeiliau gwreiddiol ar y camera.
+tethered.session_help = Dewiswch gamera, yna Tynnu llun. Wrth dynnu'r llun cyntaf, dewiswch gyrchfan a rhagddodiad enw ffeil; ychwanegir rhif dilyniant ac estyniad ffeil y camera at bob llun. Mae Cadw Fel… yn newid y gyrchfan a'r rhagddodiad.
+tethered.preview_failed = Cadwyd a mewnforiwyd y llun, ond ni ellid dadgodio ei ragolwg. Agorwch ef yn y golygydd i archwilio'r ffeil.
+tethered.partial = Cadwyd a mewnforiwyd rhai ffeiliau lluniau; ni ellid cadw'r gweddill: {error}
+tethered.camera_permission = Caniatewch fynediad i'r camera yn Gosodiadau System → Preifatrwydd a Diogelwch → Camera, yna rhowch gynnig arall ar Tynnu llun. Os lansiwyd Schist o derfynell, gwiriwch ganiatâd camera'r derfynell honno hefyd.
+tethered.camera_usage_missing = Mae'r disgrifiad o ganiatâd camera ar goll o'r adeiladwaith hwn. Ailadeiladwch Schist gyda make neu defnyddiwch yr ap wedi'i becynnu.
+tethered.select_camera = Dewiswch gamera i dynnu llun.
+tethered.choose_destination = Bydd Tynnu llun yn gofyn ble i gadw'ch lluniau.
+tethered.preview_empty = Tynnwch lun i'w weld yma.

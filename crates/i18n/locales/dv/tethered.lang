@@ -1,20 +1,17 @@
-# New diagnostic strings retain explicit English fallback pending translation review.
-# Short labels are machine translated where available, not human verified.
-tethered.title = Tethered capture
-tethered.capture = Capture photo
-tethered.invalid_name = Choose a name of 1–120 bytes without slashes, colons, percent signs or a leading dot.
-tethered.install = The system camera library is unavailable. Install the platform camera runtime and restart Schist.
-tethered.timeout = Camera request timed out. Check the camera and reconnect before retrying.
-tethered.failed = Camera request failed: {detail}
-tethered.unsupported = This camera does not advertise remote image capture support.
-tethered.no_download = The camera did not deliver a complete image. Camera originals are retained.
-tethered.session_help = Select a camera, then Capture photo. On your first capture, choose a destination and filename prefix; captures add a sequence number and the camera’s file extension. Save As changes the destination and prefix.
-tethered.preview_failed = The capture was saved and imported, but its preview could not be decoded. Open it in the editor to inspect the file.
-tethered.partial = Some capture files were saved and imported; the remaining files could not be saved: {error}
-
-# English fallback pending translation review.
-tethered.camera_permission = Allow camera access in System Settings → Privacy & Security → Camera, then try Capture photo again. If Schist was launched from a terminal, check that terminal’s camera permission too.
-tethered.camera_usage_missing = This build is missing its camera permission description. Rebuild Schist with make or use the packaged app.
-tethered.select_camera = Select a camera to take a photo.
-tethered.choose_destination = Capture photo will ask where to save your photos.
-tethered.preview_empty = Take a photo to see it here.
+# AI-assisted translation; native-speaker review pending.
+tethered.title = ކެމެރާ ގުޅައިގެން ފޮޓޯ ނެގުން
+tethered.capture = ފޮޓޯ ނަގާ
+tethered.invalid_name = ސްލޭޝް، ކޮލޮން، އިންސައްތައިގެ ޢަލާމާތް ނުވަތަ ފެށުމުގައި ޑޮޓް ނެތް 1–120 ބައިޓުގެ ނަމެއް ހޮވާ.
+tethered.install = ސިސްޓަމުގެ ކެމެރާ ލައިބްރަރީ ލިބެން ނެތް. މި ޕްލެޓްފޯމުގެ ކެމެރާ ރަންޓައިމް އިންސްޓޯލްކޮށް Schist އަލުން ފަށާ.
+tethered.timeout = ކެމެރާއަށް ކުރި އެދުމުގެ ވަގުތު ހަމަވެއްޖެ. އަލުން މަސައްކަތް ކުރުމުގެ ކުރިން ކެމެރާ ޗެކްކޮށް އަލުން ގުޅުވާ.
+tethered.failed = ކެމެރާއަށް ކުރި އެދުން ފާސްނުވި: {detail}
+tethered.unsupported = މި ކެމެރާ ދުރުން ފޮޓޯ ނެގުމަށް ތާއީދު ހުރިކަމެއް ނުދައްކާ.
+tethered.no_download = ކެމެރާއިން ފުރިހަމަ ފޮޓޯއެއް ނުފޮނުވި. އަސްލު ފައިލުތައް ކެމެރާގައި ދެމިހުންނާނެ.
+tethered.session_help = ކެމެރާއެއް ހޮވާ، ދެން ފޮޓޯ ނަގާ. ފުރަތަމަ ފޮޓޯ ނަގާއިރު ސޭވްކުރާ ތަނާއި ފައިލުގެ ނަމުގެ ފެށުން ހޮވާ؛ ކޮންމެ ފޮޓޯއަކަށް ތަރުތީބު ނަންބަރެއް އަދި ކެމެރާގެ ފައިލު އެކްސްޓެންޝަން އެއްކުރެވޭނެ. މި ގޮތަށް ސޭވް ކުރުން… އިން ތަނާއި ނަމުގެ ފެށުން ބަދަލުކުރެވޭނެ.
+tethered.preview_failed = ފޮޓޯ ސޭވްކޮށް އިމްޕޯޓްކުރެވުނު، އެކަމަކު ޕްރިވިއު ޑީކޯޑްކުރެވެން ނުކެރުނު. ފައިލު ބެލުމަށް އެޑިޓަރުގައި ހުޅުވާ.
+tethered.partial = ބައެއް ފޮޓޯ ފައިލުތައް ސޭވްކޮށް އިމްޕޯޓްކުރެވުނު؛ ބާކީ ފައިލުތައް ސޭވްކުރެވެން ނުކެރުނު: {error}
+tethered.camera_permission = ސިސްޓަމް ސެޓިންގްސް → ޕްރައިވެސީ އެންޑް ސެކިއުރިޓީ → ކެމެރާ އިން ކެމެރާ ބޭނުންކުރުމަށް ހުއްދަދީ، ފޮޓޯ ނަގާ އަލުން ތަޖުރިބާކުރޭ. Schist ޓާމިނަލުން ފެށިނަމަ، އެ ޓާމިނަލުގެ ކެމެރާ ހުއްދަވެސް ޗެކްކުރޭ.
+tethered.camera_usage_missing = މި ބިލްޑުގައި ކެމެރާ ހުއްދަގެ ތަފްސީލު ނެތް. make ބޭނުންކޮށް Schist އަލުން ބިލްޑުކުރޭ ނުވަތަ ޕެކޭޖްކުރެވިފައިވާ އެޕް ބޭނުންކުރޭ.
+tethered.select_camera = ފޮޓޯ ނެގުމަށް ކެމެރާއެއް ހޮވާ.
+tethered.choose_destination = ފޮޓޯ ނަގާ އިން ފޮޓޯތައް ސޭވްކުރާ ތަން އަހާނެ.
+tethered.preview_empty = މިތާ ބެލުމަށް ފޮޓޯއެއް ނަގާ.

@@ -1,20 +1,17 @@
-# New diagnostic strings retain explicit English fallback pending translation review.
-# Short labels are machine translated where available, not human verified.
-tethered.title = Tethered capture
-tethered.capture = Capture photo
-tethered.invalid_name = Choose a name of 1–120 bytes without slashes, colons, percent signs or a leading dot.
-tethered.install = The system camera library is unavailable. Install the platform camera runtime and restart Schist.
-tethered.timeout = Camera request timed out. Check the camera and reconnect before retrying.
-tethered.failed = Camera request failed: {detail}
-tethered.unsupported = This camera does not advertise remote image capture support.
-tethered.no_download = The camera did not deliver a complete image. Camera originals are retained.
-tethered.session_help = Select a camera, then Capture photo. On your first capture, choose a destination and filename prefix; captures add a sequence number and the camera’s file extension. Save As changes the destination and prefix.
-tethered.preview_failed = The capture was saved and imported, but its preview could not be decoded. Open it in the editor to inspect the file.
-tethered.partial = Some capture files were saved and imported; the remaining files could not be saved: {error}
-
-# English fallback pending translation review.
-tethered.camera_permission = Allow camera access in System Settings → Privacy & Security → Camera, then try Capture photo again. If Schist was launched from a terminal, check that terminal’s camera permission too.
-tethered.camera_usage_missing = This build is missing its camera permission description. Rebuild Schist with make or use the packaged app.
-tethered.select_camera = Select a camera to take a photo.
-tethered.choose_destination = Capture photo will ask where to save your photos.
-tethered.preview_empty = Take a photo to see it here.
+# AI-assisted translation; native-speaker review pending.
+tethered.title = Grianghrafadóireacht le ceamara ceangailte
+tethered.capture = Tóg grianghraf
+tethered.invalid_name = Roghnaigh ainm atá 1–120 beart ar fad, gan slais, idirstadanna ná comharthaí faoin gcéad, agus nach dtosaíonn le ponc.
+tethered.install = Níl leabharlann cheamara an chórais ar fáil. Suiteáil timpeallacht rite cheamara an ardáin agus atosaigh Schist.
+tethered.timeout = Chuaigh an t-iarratas ar an gceamara thar am. Seiceáil an ceamara agus athcheangail é sula ndéanfaidh tú iarracht eile.
+tethered.failed = Theip ar an iarratas ar an gceamara: {detail}
+tethered.unsupported = Ní léiríonn an ceamara seo go dtacaíonn sé le grianghrafadóireacht chianda.
+tethered.no_download = Níor sheol an ceamara íomhá iomlán. Coinnítear na buníomhánna ar an gceamara.
+tethered.session_help = Roghnaigh ceamara, ansin Tóg grianghraf. Nuair a thógann tú an chéad ghrianghraf, roghnaigh ceann scríbe agus réimír ainm comhaid; cuirtear uimhir sheichimh agus iarmhír chomhaid an cheamara leis na grianghraif. Athraíonn Sábháil Mar… an ceann scríbe agus an réimír.
+tethered.preview_failed = Sábháladh agus iompórtáladh an grianghraf, ach níorbh fhéidir a réamhamharc a dhíchódú. Oscail an comhad san eagarthóir lena scrúdú.
+tethered.partial = Sábháladh agus iompórtáladh cuid de na comhaid ghrianghraif; níorbh fhéidir an chuid eile a shábháil: {error}
+tethered.camera_permission = Ceadaigh rochtain ar an gceamara i Socruithe Córais → Príobháideachas agus Slándáil → Ceamara, ansin bain triail as Tóg grianghraf arís. Má seoladh Schist ó theirminéal, seiceáil cead ceamara an teirminéil sin freisin.
+tethered.camera_usage_missing = Tá cur síos ar chead an cheamara ar iarraidh ón leagan seo. Atóg Schist le make nó bain úsáid as an aip phacáistithe.
+tethered.select_camera = Roghnaigh ceamara chun grianghraf a thógáil.
+tethered.choose_destination = Fiafróidh Tóg grianghraf díot cá háit ar mhaith leat do ghrianghraif a shábháil.
+tethered.preview_empty = Tóg grianghraf chun é a fheiceáil anseo.

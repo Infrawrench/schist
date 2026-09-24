@@ -1,20 +1,17 @@
-# New diagnostic strings retain explicit English fallback pending translation review.
-# Short labels are machine translated where available, not human verified.
-tethered.title = Tethered capture
-tethered.capture = Capture photo
-tethered.invalid_name = Choose a name of 1–120 bytes without slashes, colons, percent signs or a leading dot.
-tethered.install = The system camera library is unavailable. Install the platform camera runtime and restart Schist.
-tethered.timeout = Camera request timed out. Check the camera and reconnect before retrying.
-tethered.failed = Camera request failed: {detail}
-tethered.unsupported = This camera does not advertise remote image capture support.
-tethered.no_download = The camera did not deliver a complete image. Camera originals are retained.
-tethered.session_help = Select a camera, then Capture photo. On your first capture, choose a destination and filename prefix; captures add a sequence number and the camera’s file extension. Save As changes the destination and prefix.
-tethered.preview_failed = The capture was saved and imported, but its preview could not be decoded. Open it in the editor to inspect the file.
-tethered.partial = Some capture files were saved and imported; the remaining files could not be saved: {error}
-
-# English fallback pending translation review.
-tethered.camera_permission = Allow camera access in System Settings → Privacy & Security → Camera, then try Capture photo again. If Schist was launched from a terminal, check that terminal’s camera permission too.
-tethered.camera_usage_missing = This build is missing its camera permission description. Rebuild Schist with make or use the packaged app.
-tethered.select_camera = Select a camera to take a photo.
-tethered.choose_destination = Capture photo will ask where to save your photos.
-tethered.preview_empty = Take a photo to see it here.
+# AI-assisted translation; native-speaker review pending.
+tethered.title = Puʻeina o ata i se meapuʻeata e fesoʻotaʻi i le komepiuta
+tethered.capture = Puʻe se ata
+tethered.invalid_name = Filifili se igoa e 1–120 paita lona umi, e leai ni vase faʻataʻoto, kolone, faailoga pasene pe amata i se togi.
+tethered.install = E lē o maua le faletusi a le faiga mo le meapuʻeata. Faapipii le polokalame e faagaoioi ai le meapuʻeata mo lau masini ma toe amata Schist.
+tethered.timeout = Ua uma le taimi e faatali ai le tali mai le meapuʻeata. Siaki le meapuʻeata ma toe faʻafesoʻotaʻi a o leʻi toe taumafai.
+tethered.failed = Ua lē manuia le talosaga i le meapuʻeata: {detail}
+tethered.unsupported = E lē o faailoa mai e lenei meapuʻeata e mafai ona puʻeina ata mai le komepiuta.
+tethered.no_download = E leʻi auina mai e le meapuʻeata se ata atoa. O loo tumau ata muamua i totonu o le meapuʻeata.
+tethered.session_help = Filifili se meapuʻeata, ona oomi lea o le «Puʻe se ata». I le ata muamua, filifili le nofoaga e teu ai ma le amataga o le igoa o faila; e faaopoopo se numera faasolosolo ma le faaiʻuga o le faila mai le meapuʻeata i ata taʻitasi. O le «Sefe o se…» e suia ai le nofoaga ma le amataga o le igoa.
+tethered.preview_failed = Ua sefe ma faaulufale mai le ata, ae e leʻi mafai ona faitauina lona ata muai vaʻai. Tatala le faila i le faatonu e siaki ai.
+tethered.partial = Ua sefe ma faaulufale mai nisi faila o ata; o isi faila e leʻi mafai ona sefe: {error}
+tethered.camera_permission = Fa'ataga le avanoa i le meapuʻeata i le System Settings → Privacy & Security → Camera, ona toe taumafai lea i le «Puʻe se ata». Afai na amata Schist mai se terminal, siaki foʻi le faatagaga a lena terminal e faaaogā ai le meapuʻeata.
+tethered.camera_usage_missing = E leai se faamatalaga o le faatagaga mo le meapuʻeata i lenei lomiga. Toe fausia Schist i le make pe faaaogā le polokalame ua afifiina.
+tethered.select_camera = Filifili se meapuʻeata e puʻe ai se ata.
+tethered.choose_destination = O le «Puʻe se ata» o le a fesili po o fea e sefe ai au ata.
+tethered.preview_empty = Puʻe se ata e matamata ai iinei.

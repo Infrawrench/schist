@@ -1,20 +1,17 @@
-# New diagnostic strings retain explicit English fallback pending translation review.
-# Short labels are machine translated where available, not human verified.
-tethered.title = Tethered capture
-tethered.capture = Capture photo
-tethered.invalid_name = Choose a name of 1–120 bytes without slashes, colons, percent signs or a leading dot.
-tethered.install = The system camera library is unavailable. Install the platform camera runtime and restart Schist.
-tethered.timeout = Camera request timed out. Check the camera and reconnect before retrying.
-tethered.failed = Camera request failed: {detail}
-tethered.unsupported = This camera does not advertise remote image capture support.
-tethered.no_download = The camera did not deliver a complete image. Camera originals are retained.
-tethered.session_help = Select a camera, then Capture photo. On your first capture, choose a destination and filename prefix; captures add a sequence number and the camera’s file extension. Save As changes the destination and prefix.
-tethered.preview_failed = The capture was saved and imported, but its preview could not be decoded. Open it in the editor to inspect the file.
-tethered.partial = Some capture files were saved and imported; the remaining files could not be saved: {error}
-
-# English fallback pending translation review.
-tethered.camera_permission = Allow camera access in System Settings → Privacy & Security → Camera, then try Capture photo again. If Schist was launched from a terminal, check that terminal’s camera permission too.
-tethered.camera_usage_missing = This build is missing its camera permission description. Rebuild Schist with make or use the packaged app.
-tethered.select_camera = Select a camera to take a photo.
-tethered.choose_destination = Capture photo will ask where to save your photos.
-tethered.preview_empty = Take a photo to see it here.
+# AI-assisted translation; native-speaker review pending.
+tethered.title = פֿאָטאָגראַפֿירן מיט אַ פֿאַרבונדענער קאַמעראַ
+tethered.capture = מאַכן אַ פֿאָטאָ
+tethered.invalid_name = קלײַבט אויס אַ נאָמען פֿון 1–120 בײַט אָן שטריכן, צווייפּונקטן, פּראָצענט־צייכנס אָדער אַ פּונקט בײַם אָנהייב.
+tethered.install = די סיסטעם־ביבליאָטעק פֿאַר דער קאַמעראַ איז נישט בנימצא. אינסטאַלירט די קאַמעראַ־לויפֿצײַט פֿאַר דער פּלאַטפֿאָרמע און סטאַרטירט Schist פֿון דאָס נײַ.
+tethered.timeout = די צײַט פֿאַר דער קאַמעראַ־בקשה איז אויסגעלאָפֿן. קאָנטראָלירט די קאַמעראַ און פֿאַרבינדט זי ווידער איידער איר פּרוּווט נאָך אַ מאָל.
+tethered.failed = די קאַמעראַ־בקשה איז דורכגעפֿאַלן: {detail}
+tethered.unsupported = די דאָזיקע קאַמעראַ גיט נישט אָן אַז זי שטיצט פֿאָטאָגראַפֿירן פֿון דער ווײַטנס.
+tethered.no_download = די קאַמעראַ האָט נישט איבערגעגעבן קיין גאַנצן בילד. די אָריגינאַלן בלײַבן אויף דער קאַמעראַ.
+tethered.session_help = קלײַבט אויס אַ קאַמעראַ, דערנאָך דריקט אויף „מאַכן אַ פֿאָטאָ“. בײַם ערשטן פֿאָטאָ קלײַבט אויס אַ שפּײַכעראָרט און אַן אָנהייב פֿאַרן טעקע־נאָמען; יעדעס פֿאָטאָ באַקומט אַ סידור־נומער און די טעקע־ענדונג פֿון דער קאַמעראַ. „היטן ווי“ טוישט דעם שפּײַכעראָרט און דעם נאָמען־אָנהייב.
+tethered.preview_failed = דאָס פֿאָטאָ איז געהיטן און אַרײַנגענומען געוואָרן, אָבער זײַן פֿאָרויסקוק האָט מען נישט געקענט דעקאָדירן. עפֿנט די טעקע אינעם רעדאַקטאָר כּדי זי צו קאָנטראָלירן.
+tethered.partial = עטלעכע פֿאָטאָ־טעקעס זענען געהיטן און אַרײַנגענומען געוואָרן; די איבעריקע האָט מען נישט געקענט היטן: {error}
+tethered.camera_permission = דערלויבט צוטריט צו דער קאַמעראַ אין סיסטעם־אײַנשטעלונגען → פּריוואַטקייט און זיכערקייט → קאַמעראַ, און פּרוּווט „מאַכן אַ פֿאָטאָ“ נאָך אַ מאָל. אויב Schist איז אָנגעשטאַרט פֿון אַ טערמינאַל, קאָנטראָלירט אויך יענעמס קאַמעראַ־דערלויבעניש.
+tethered.camera_usage_missing = אין דעם בילד פֿעלט די באַשרײַבונג פֿון דער קאַמעראַ־דערלויבעניש. בויט Schist ווידער מיט make אָדער ניצט די פֿאַרפּאַקטע אַפּליקאַציע.
+tethered.select_camera = קלײַבט אויס אַ קאַמעראַ כּדי צו מאַכן אַ פֿאָטאָ.
+tethered.choose_destination = „מאַכן אַ פֿאָטאָ“ וועט פֿרעגן וווּ צו היטן אײַערע פֿאָטאָס.
+tethered.preview_empty = מאַכט אַ פֿאָטאָ כּדי עס דאָ צו זען.

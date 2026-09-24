@@ -1,20 +1,17 @@
-# New diagnostic strings retain explicit English fallback pending translation review.
-# Short labels are machine translated where available, not human verified.
-tethered.title = Tethered capture
-tethered.capture = Capture photo
-tethered.invalid_name = Choose a name of 1–120 bytes without slashes, colons, percent signs or a leading dot.
-tethered.install = The system camera library is unavailable. Install the platform camera runtime and restart Schist.
-tethered.timeout = Camera request timed out. Check the camera and reconnect before retrying.
-tethered.failed = Camera request failed: {detail}
-tethered.unsupported = This camera does not advertise remote image capture support.
-tethered.no_download = The camera did not deliver a complete image. Camera originals are retained.
-tethered.session_help = Select a camera, then Capture photo. On your first capture, choose a destination and filename prefix; captures add a sequence number and the camera’s file extension. Save As changes the destination and prefix.
-tethered.preview_failed = The capture was saved and imported, but its preview could not be decoded. Open it in the editor to inspect the file.
-tethered.partial = Some capture files were saved and imported; the remaining files could not be saved: {error}
-
-# English fallback pending translation review.
-tethered.camera_permission = Allow camera access in System Settings → Privacy & Security → Camera, then try Capture photo again. If Schist was launched from a terminal, check that terminal’s camera permission too.
-tethered.camera_usage_missing = This build is missing its camera permission description. Rebuild Schist with make or use the packaged app.
-tethered.select_camera = Select a camera to take a photo.
-tethered.choose_destination = Capture photo will ask where to save your photos.
-tethered.preview_empty = Take a photo to see it here.
+# AI-assisted translation; native-speaker review pending.
+tethered.title = Myndatøka við tilknýttum myndatóli
+tethered.capture = Tak mynd
+tethered.invalid_name = Vel eitt navn á 1–120 bæti uttan skrástrikur, tvípunkt ella prosenttekin, og sum ikki byrjar við punkti.
+tethered.install = Myndatólasavnið í skipanini er ikki tøkt. Legg koyriumhvørvið fyri myndatól á hesum palli inn og endurræs Schist.
+tethered.timeout = Fyrispurningurin til myndatólið fór út um tíðarmarkið. Kanna myndatólið og set tað aftur í samband, áðrenn tú roynir aftur.
+tethered.failed = Fyrispurningurin til myndatólið miseydnaðist: {detail}
+tethered.unsupported = Hetta myndatólið boðar ikki frá stuðli til fjarstýrda myndatøku.
+tethered.no_download = Myndatólið sendi ikki eina fullfíggjaða mynd. Upprunamyndirnar verða verandi á myndatólinum.
+tethered.session_help = Vel eitt myndatól og síðani Tak mynd. Fyrstu ferð tú tekur eina mynd, skalt tú velja goymslustað og byrjan á fílunavni; myndir fáa raðtal og fílueftirskoytið hjá myndatólinum. Goym sum… broytir goymslustað og byrjan á fílunavni.
+tethered.preview_failed = Myndin varð goymd og innflutt, men undansýningin kundi ikki avkóðast. Lat fíluna upp í ritlinum fyri at kanna hana.
+tethered.partial = Nakrar myndafílur vórðu goymdar og innfluttar; hinar kundu ikki goymast: {error}
+tethered.camera_permission = Gev atgongd til myndatólið í Skipanarstillingar → Persónsvernd og trygd → Myndatól, og royn síðani Tak mynd aftur. Um Schist varð ræst úr einum terminali, skalt tú eisini kanna myndatólaloyvið hjá tí terminalinum.
+tethered.camera_usage_missing = Henda útgávan manglar lýsingina av myndatólaloyvinum. Bygg Schist av nýggjum við make, ella brúka pakkaða appina.
+tethered.select_camera = Vel eitt myndatól fyri at taka eina mynd.
+tethered.choose_destination = Tak mynd spyr, hvar myndirnar skulu goymast.
+tethered.preview_empty = Tak eina mynd fyri at síggja hana her.

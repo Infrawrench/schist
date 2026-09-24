@@ -1,20 +1,17 @@
-# New diagnostic strings retain explicit English fallback pending translation review.
-# Short labels are machine translated where available, not human verified.
-tethered.title = Tethered capture
-tethered.capture = Capture photo
-tethered.invalid_name = Choose a name of 1–120 bytes without slashes, colons, percent signs or a leading dot.
-tethered.install = The system camera library is unavailable. Install the platform camera runtime and restart Schist.
-tethered.timeout = Camera request timed out. Check the camera and reconnect before retrying.
-tethered.failed = Camera request failed: {detail}
-tethered.unsupported = This camera does not advertise remote image capture support.
-tethered.no_download = The camera did not deliver a complete image. Camera originals are retained.
-tethered.session_help = Select a camera, then Capture photo. On your first capture, choose a destination and filename prefix; captures add a sequence number and the camera’s file extension. Save As changes the destination and prefix.
-tethered.preview_failed = The capture was saved and imported, but its preview could not be decoded. Open it in the editor to inspect the file.
-tethered.partial = Some capture files were saved and imported; the remaining files could not be saved: {error}
-
-# English fallback pending translation review.
-tethered.camera_permission = Allow camera access in System Settings → Privacy & Security → Camera, then try Capture photo again. If Schist was launched from a terminal, check that terminal’s camera permission too.
-tethered.camera_usage_missing = This build is missing its camera permission description. Rebuild Schist with make or use the packaged app.
-tethered.select_camera = Select a camera to take a photo.
-tethered.choose_destination = Capture photo will ask where to save your photos.
-tethered.preview_empty = Take a photo to see it here.
+# AI-assisted translation; native-speaker review pending.
+tethered.title = Ɗaukar hoto da kyamara mai haɗe
+tethered.capture = Ɗauki hoto
+tethered.invalid_name = Zaɓi suna mai tsawon baiti 1–120 ba tare da alamun /, : ko % ba, kuma kada ya fara da digo.
+tethered.install = Babu ɗakin karatu na kyamara na tsarin. Shigar da yanayin gudanar da kyamara na wannan dandali, sannan a sake kunna Schist.
+tethered.timeout = Lokacin jiran buƙatar kyamara ya ƙare. Duba kyamara, sannan a sake haɗa ta kafin sake gwadawa.
+tethered.failed = Buƙatar kyamara ta gaza: {detail}
+tethered.unsupported = Wannan kyamarar ba ta nuna cewa tana goyon bayan ɗaukar hoto daga nesa ba.
+tethered.no_download = Kyamarar ba ta aika cikakken hoto ba. Ana barin hotunan asali a cikin kyamarar.
+tethered.session_help = Zaɓi kyamara, sannan Ɗauki hoto. A karon farko da za a ɗauki hoto, zaɓi wurin adanawa da farkon sunan fayil; ana ƙara lambar jere da ƙarin sunan fayil na kyamara ga hotunan. Ajiye Kamar… yana sauya wurin adanawa da farkon sunan fayil.
+tethered.preview_failed = An ajiye hoton kuma an shigo da shi, amma ba a iya warware samfotin sa ba. Buɗe fayil ɗin a cikin edita don duba shi.
+tethered.partial = An ajiye wasu fayilolin hoto kuma an shigo da su; ba a iya ajiye sauran fayilolin ba: {error}
+tethered.camera_permission = Ba da izinin amfani da kyamara a Saitunan Tsari → Sirri da Tsaro → Kyamara, sannan a sake gwada Ɗauki hoto. Idan an ƙaddamar da Schist daga tashar umarni, duba izinin kyamarar wannan tashar ma.
+tethered.camera_usage_missing = Wannan ginin ba shi da bayanin izinin kyamara. Sake gina Schist da make ko amfani da manhajar da aka shirya.
+tethered.select_camera = Zaɓi kyamara don ɗaukar hoto.
+tethered.choose_destination = Ɗauki hoto zai tambayi inda za a adana hotunanka.
+tethered.preview_empty = Ɗauki hoto don ganinsa a nan.

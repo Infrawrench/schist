@@ -1,20 +1,17 @@
-# New diagnostic strings retain explicit English fallback pending translation review.
-# Short labels are machine translated where available, not human verified.
-tethered.title = Tethered capture
-tethered.capture = Capture photo
-tethered.invalid_name = Choose a name of 1–120 bytes without slashes, colons, percent signs or a leading dot.
-tethered.install = The system camera library is unavailable. Install the platform camera runtime and restart Schist.
-tethered.timeout = Camera request timed out. Check the camera and reconnect before retrying.
-tethered.failed = Camera request failed: {detail}
-tethered.unsupported = This camera does not advertise remote image capture support.
-tethered.no_download = The camera did not deliver a complete image. Camera originals are retained.
-tethered.session_help = Select a camera, then Capture photo. On your first capture, choose a destination and filename prefix; captures add a sequence number and the camera’s file extension. Save As changes the destination and prefix.
-tethered.preview_failed = The capture was saved and imported, but its preview could not be decoded. Open it in the editor to inspect the file.
-tethered.partial = Some capture files were saved and imported; the remaining files could not be saved: {error}
-
-# English fallback pending translation review.
-tethered.camera_permission = Allow camera access in System Settings → Privacy & Security → Camera, then try Capture photo again. If Schist was launched from a terminal, check that terminal’s camera permission too.
-tethered.camera_usage_missing = This build is missing its camera permission description. Rebuild Schist with make or use the packaged app.
-tethered.select_camera = Select a camera to take a photo.
-tethered.choose_destination = Capture photo will ask where to save your photos.
-tethered.preview_empty = Take a photo to see it here.
+# AI-assisted translation; native-speaker review pending.
+tethered.title = Fakana sary amin’ny fakantsary mifandray
+tethered.capture = Maka sary
+tethered.invalid_name = Misafidiana anarana mirefy 1–120 byte, tsy misy tsipika mitongilana, teboka roa, mariky ny isan-jato, na teboka eo am-piandohana.
+tethered.install = Tsy misy ny tranombokin’ny fakantsary ao amin’ny rafitra. Apetraho ny rindranasa fampandehanana fakantsary ho an’ity sehatra ity, ary avereno alefa ny Schist.
+tethered.timeout = Tapitra ny fotoana niandrasana ny fangatahana tamin’ny fakantsary. Jereo sy ampifandraiso indray ny fakantsary vao manandrana indray.
+tethered.failed = Tsy nahomby ny fangatahana tamin’ny fakantsary: {detail}
+tethered.unsupported = Tsy milaza ity fakantsary ity fa mahazaka fakana sary avy lavitra.
+tethered.no_download = Tsy nandefa sary feno ny fakantsary. Mijanona ao amin’ny fakantsary ny sary tany am-boalohany.
+tethered.session_help = Misafidiana fakantsary, avy eo tsindrio Maka sary. Amin’ny sary voalohany dia fidio ny toerana hitahirizana sy ny tovona amin’ny anaran’ny rakitra; ampiana laharana mifandimby sy fanitarana rakitra avy amin’ny fakantsary ny sary tsirairay. Ny Tehirizo ho dia manova ny toerana sy ny tovona.
+tethered.preview_failed = Voatahiry sy nafarana ilay sary, saingy tsy voavaha ny fijerena mialoha azy. Sokafy ao amin’ny tonian-dahatsoratra ilay rakitra mba hijerena azy.
+tethered.partial = Voatahiry sy nafarana ny rakitra sary sasany; tsy voatahiry kosa ny ambiny: {error}
+tethered.camera_permission = Avelao ny fahazoan’ny fakantsary miasa ao amin’ny Fikirana rafitra → Fiainana manokana sy fiarovana → Fakantsary, avy eo andramo indray ny Maka sary. Raha avy amin’ny terminal no nanombohana ny Schist, jereo koa ny fahazoan-dalan’io terminal io hampiasa ny fakantsary.
+tethered.camera_usage_missing = Tsy ao anatin’ity fananganana ity ny fanazavana momba ny fahazoan-dalana hampiasa fakantsary. Avereno atsangana amin’ny make ny Schist na ampiasao ny fampiharana efa voafono.
+tethered.select_camera = Misafidiana fakantsary mba haka sary.
+tethered.choose_destination = Hanontany ny toerana hitahirizana ny sarinao ny Maka sary.
+tethered.preview_empty = Maka sary mba hahitana azy eto.

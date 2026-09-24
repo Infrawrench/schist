@@ -1,20 +1,17 @@
-# New diagnostic strings retain explicit English fallback pending translation review.
-# Short labels are machine translated where available, not human verified.
-tethered.title = Tethered capture
-tethered.capture = Capture photo
-tethered.invalid_name = Choose a name of 1–120 bytes without slashes, colons, percent signs or a leading dot.
-tethered.install = The system camera library is unavailable. Install the platform camera runtime and restart Schist.
-tethered.timeout = Camera request timed out. Check the camera and reconnect before retrying.
-tethered.failed = Camera request failed: {detail}
-tethered.unsupported = This camera does not advertise remote image capture support.
-tethered.no_download = The camera did not deliver a complete image. Camera originals are retained.
-tethered.session_help = Select a camera, then Capture photo. On your first capture, choose a destination and filename prefix; captures add a sequence number and the camera’s file extension. Save As changes the destination and prefix.
-tethered.preview_failed = The capture was saved and imported, but its preview could not be decoded. Open it in the editor to inspect the file.
-tethered.partial = Some capture files were saved and imported; the remaining files could not be saved: {error}
-
-# English fallback pending translation review.
-tethered.camera_permission = Allow camera access in System Settings → Privacy & Security → Camera, then try Capture photo again. If Schist was launched from a terminal, check that terminal’s camera permission too.
-tethered.camera_usage_missing = This build is missing its camera permission description. Rebuild Schist with make or use the packaged app.
-tethered.select_camera = Select a camera to take a photo.
-tethered.choose_destination = Capture photo will ask where to save your photos.
-tethered.preview_empty = Take a photo to see it here.
+# AI-assisted translation; native-speaker review pending.
+tethered.title = Kyamra a wɔde ahyɛ kɔmputa so mfoniniyɛ
+tethered.capture = Twa mfonini
+tethered.invalid_name = Paw din a ne tenten yɛ baiti 1–120, a nkyekyɛmu nsɛnkyerɛnne, kolon, ɔha mu nkyɛmu agyiraehyɛde anaa pon a edi kan nni mu.
+tethered.install = Sistɛm no kyamra nhomakorabea nni hɔ. Fa kyamra dwumadi nhyehyɛe a ɛfa saa afiri yi ho si so na san hyɛ Schist ase.
+tethered.timeout = Bere a wɔde ama kyamra no abisa no asa. Hwɛ kyamra no na san fa bata ho ansa na woasɔ bio.
+tethered.failed = Kyamra no abisa no ankɔ yiye: {detail}
+tethered.unsupported = Kyamra yi nka sɛ ebetumi atwa mfonini bere a wɔhyɛ no fi akyirikyiri.
+tethered.no_download = Kyamra no amfa mfonini a edi mũ amba. Mfonini ankasa no da so ara wɔ kyamra no so.
+tethered.session_help = Paw kyamra, na afei paw Twa mfonini. Sɛ woredi kan atwa mfonini a, paw baabi a wobɛkora no ne fael din mfiase; mfonini biara nya nɔma a edi ntoatoaso ne kyamra no fael awiei. Kora Sɛ sesa baabi a wɔkora ne din mfiase no.
+tethered.preview_failed = Wɔakora mfonini no na wɔde aba mu, nanso wɔantumi ankɔ ne mfonini a wɔde di kan hwɛ no mu. Bue fael no wɔ editor no mu na hwɛ.
+tethered.partial = Wɔakora mfonini fael ahorow bi na wɔde aba mu; wɔantumi ankora nea aka no: {error}
+tethered.camera_permission = Ma kyamra no kwan wɔ Sistɛm Nhyehyɛe → Kokoam Nsɛm ne Ahobammɔ → Kyamra mu, na afei san sɔ Twa mfonini hwɛ. Sɛ wufii terminal mu hyɛɛ Schist ase a, hwɛ terminal dwumadi no nso kyamra kwan.
+tethered.camera_usage_missing = Saa Schist nhyehyɛe yi nni kyamra kwan nkyerɛkyerɛmu. Fa make san yɛ Schist anaa fa app a wɔahyɛ no boa no di dwuma.
+tethered.select_camera = Paw kyamra na twa mfonini.
+tethered.choose_destination = Twa mfonini bɛbisa baabi a wobɛkora wo mfonini ahorow.
+tethered.preview_empty = Twa mfonini na hwɛ wɔ ha.

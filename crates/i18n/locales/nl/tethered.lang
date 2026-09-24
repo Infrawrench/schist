@@ -1,20 +1,17 @@
-# New diagnostic strings retain explicit English fallback pending translation review.
-# Short labels are machine translated where available, not human verified.
+# AI-assisted translation; native-speaker review pending.
 tethered.title = Opnemen via computer
 tethered.capture = Foto maken
-tethered.invalid_name = Choose a name of 1–120 bytes without slashes, colons, percent signs or a leading dot.
-tethered.install = The system camera library is unavailable. Install the platform camera runtime and restart Schist.
-tethered.timeout = Camera request timed out. Check the camera and reconnect before retrying.
-tethered.failed = Camera request failed: {detail}
-tethered.unsupported = This camera does not advertise remote image capture support.
-tethered.no_download = The camera did not deliver a complete image. Camera originals are retained.
-tethered.session_help = Select a camera, then Capture photo. On your first capture, choose a destination and filename prefix; captures add a sequence number and the camera’s file extension. Save As changes the destination and prefix.
-tethered.preview_failed = The capture was saved and imported, but its preview could not be decoded. Open it in the editor to inspect the file.
-tethered.partial = Some capture files were saved and imported; the remaining files could not be saved: {error}
-
-# English fallback pending translation review.
-tethered.camera_permission = Allow camera access in System Settings → Privacy & Security → Camera, then try Capture photo again. If Schist was launched from a terminal, check that terminal’s camera permission too.
-tethered.camera_usage_missing = This build is missing its camera permission description. Rebuild Schist with make or use the packaged app.
-tethered.select_camera = Select a camera to take a photo.
-tethered.choose_destination = Capture photo will ask where to save your photos.
-tethered.preview_empty = Take a photo to see it here.
+tethered.invalid_name = Kies een naam van 1–120 bytes zonder schuine strepen, dubbele punten, procenttekens of een punt aan het begin.
+tethered.install = De camerabibliotheek van het systeem is niet beschikbaar. Installeer de camerasoftware voor dit platform en start Schist opnieuw.
+tethered.timeout = Het cameraverzoek heeft te lang geduurd. Controleer de camera en maak opnieuw verbinding voordat u het nogmaals probeert.
+tethered.failed = Cameraverzoek mislukt: {detail}
+tethered.unsupported = Deze camera geeft niet aan dat hij het op afstand maken van foto's ondersteunt.
+tethered.no_download = De camera heeft geen volledig beeld geleverd. De originele bestanden blijven op de camera staan.
+tethered.session_help = Selecteer een camera en kies Foto maken. Kies bij de eerste opname een opslaglocatie en een voorvoegsel voor de bestandsnaam; aan elke opname worden een volgnummer en de bestandsextensie van de camera toegevoegd. Met Opslaan als wijzigt u de opslaglocatie en het voorvoegsel.
+tethered.preview_failed = De opname is opgeslagen en geïmporteerd, maar het voorbeeld kon niet worden gedecodeerd. Open het bestand in de editor om het te bekijken.
+tethered.partial = Sommige opnamebestanden zijn opgeslagen en geïmporteerd; de overige bestanden konden niet worden opgeslagen: {error}
+tethered.camera_permission = Sta cameratoegang toe via Systeeminstellingen → Privacy en beveiliging → Camera en probeer Foto maken opnieuw. Als Schist vanuit een terminal is gestart, controleer dan ook de cameratoestemming van die terminal.
+tethered.camera_usage_missing = In deze versie ontbreekt de beschrijving voor cameratoestemming. Bouw Schist opnieuw met make of gebruik de verpakte app.
+tethered.select_camera = Selecteer een camera om een foto te maken.
+tethered.choose_destination = Bij Foto maken wordt gevraagd waar u uw foto's wilt opslaan.
+tethered.preview_empty = Maak een foto om deze hier te zien.

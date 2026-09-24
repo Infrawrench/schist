@@ -1,20 +1,17 @@
-# New diagnostic strings retain explicit English fallback pending translation review.
-# Short labels are machine translated where available, not human verified.
-tethered.title = Tethered capture
-tethered.capture = Capture photo
-tethered.invalid_name = Choose a name of 1–120 bytes without slashes, colons, percent signs or a leading dot.
-tethered.install = The system camera library is unavailable. Install the platform camera runtime and restart Schist.
-tethered.timeout = Camera request timed out. Check the camera and reconnect before retrying.
-tethered.failed = Camera request failed: {detail}
-tethered.unsupported = This camera does not advertise remote image capture support.
-tethered.no_download = The camera did not deliver a complete image. Camera originals are retained.
-tethered.session_help = Select a camera, then Capture photo. On your first capture, choose a destination and filename prefix; captures add a sequence number and the camera’s file extension. Save As changes the destination and prefix.
-tethered.preview_failed = The capture was saved and imported, but its preview could not be decoded. Open it in the editor to inspect the file.
-tethered.partial = Some capture files were saved and imported; the remaining files could not be saved: {error}
-
-# English fallback pending translation review.
-tethered.camera_permission = Allow camera access in System Settings → Privacy & Security → Camera, then try Capture photo again. If Schist was launched from a terminal, check that terminal’s camera permission too.
-tethered.camera_usage_missing = This build is missing its camera permission description. Rebuild Schist with make or use the packaged app.
-tethered.select_camera = Select a camera to take a photo.
-tethered.choose_destination = Capture photo will ask where to save your photos.
-tethered.preview_empty = Take a photo to see it here.
+# AI-assisted translation; native-speaker review pending.
+tethered.title = Fotografo per konektita kamero
+tethered.capture = Fotografez
+tethered.invalid_name = Selektez nomo de 1–120 byte, sen oblikva streki, duopunti, procentosigni o komencanta punto.
+tethered.install = La sistemala kamerobiblioteko ne esas disponebla. Instalez la kamerofunkciala medio di la platformo e riiniciez Schist.
+tethered.timeout = La tempo por la kamerodemando expiradis. Kontrolez la kamero e rikonektez ol ante nova provo.
+tethered.failed = La kamerodemando faliis: {detail}
+tethered.unsupported = Ca kamero ne indikas ke ol suportas distala fotografado.
+tethered.no_download = La kamero ne liveris kompleta imajo. La originali restas sur la kamero.
+tethered.session_help = Selektez kamero, pose Fotografez. Ye la unesma fotografuro, selektez destinoloko e prefixo por la filonomi; la fotografuri recevas sequonumero e la filextenso dil kamero. Konservar kom… chanjas la destinoloko e la prefixo.
+tethered.preview_failed = La fotografuro konservesis e importesis, ma lua avana montro ne povis esar dekodita. Apertez ol en la redaktilo por examinar la filio.
+tethered.partial = Kelka fotografurofili konservesis e importesis; la restant fili ne povis esar konservita: {error}
+tethered.camera_permission = Permisez aceso a la kamero en Sistemala ajusti → Privateso e sekureso → Kamero, pose probez Fotografez itere. Se Schist startesis de terminalo, kontrolez anke la kameropermiso di ta terminalo.
+tethered.camera_usage_missing = Ca konstrukturo ne havas sua kameropermisa deskripto. Rikonstrukturez Schist per make o uzez la pakizita apliko.
+tethered.select_camera = Selektez kamero por fotografar.
+tethered.choose_destination = Fotografez demandos ube konservar vua fotografuri.
+tethered.preview_empty = Fotografez por vidar la fotografuro hike.

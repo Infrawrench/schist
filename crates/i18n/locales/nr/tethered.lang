@@ -1,20 +1,17 @@
-# New diagnostic strings retain explicit English fallback pending translation review.
-# Short labels are machine translated where available, not human verified.
-tethered.title = Tethered capture
-tethered.capture = Capture photo
-tethered.invalid_name = Choose a name of 1–120 bytes without slashes, colons, percent signs or a leading dot.
-tethered.install = The system camera library is unavailable. Install the platform camera runtime and restart Schist.
-tethered.timeout = Camera request timed out. Check the camera and reconnect before retrying.
-tethered.failed = Camera request failed: {detail}
-tethered.unsupported = This camera does not advertise remote image capture support.
-tethered.no_download = The camera did not deliver a complete image. Camera originals are retained.
-tethered.session_help = Select a camera, then Capture photo. On your first capture, choose a destination and filename prefix; captures add a sequence number and the camera’s file extension. Save As changes the destination and prefix.
-tethered.preview_failed = The capture was saved and imported, but its preview could not be decoded. Open it in the editor to inspect the file.
-tethered.partial = Some capture files were saved and imported; the remaining files could not be saved: {error}
-
-# English fallback pending translation review.
-tethered.camera_permission = Allow camera access in System Settings → Privacy & Security → Camera, then try Capture photo again. If Schist was launched from a terminal, check that terminal’s camera permission too.
-tethered.camera_usage_missing = This build is missing its camera permission description. Rebuild Schist with make or use the packaged app.
-tethered.select_camera = Select a camera to take a photo.
-tethered.choose_destination = Capture photo will ask where to save your photos.
-tethered.preview_empty = Take a photo to see it here.
+# AI-assisted translation; native-speaker review pending.
+tethered.title = Ukuthatha iinthombe ngekhamera exhunyiwe
+tethered.capture = Thatha isithombe
+tethered.invalid_name = Khetha ibizo elinamabhayithi ayi-1–120 elinganamatshwayo /, amakholoni, amaphesenti namkha ichashazi ekuthomeni.
+tethered.install = Ilayibhrari yekhamera yesistimu ayitholakali. Faka ihlelo lekhamera leplathifomu bese uvula i-Schist godu.
+tethered.timeout = Isikhathi sesibawo sekhamera siphelile. Hlola ikhamera uyixhumanise godu ngaphambi kokulinga.
+tethered.failed = Isibawo sekhamera sihlulekile: {detail}
+tethered.unsupported = Ikhamera le ayitjengisi bona isekela ukuthatha iinthombe ikude.
+tethered.no_download = Ikhamera ayithumelanga isithombe esipheleleko. Iinthombe zokuthoma zisese khamera.
+tethered.session_help = Khetha ikhamera, bese uThatha isithombe. Nawuthatha isithombe kokuthoma, khetha indawo yokusibulunga nesithomo sebizo lefayili; iinthombe ezifakwayo zineenomboro ezilandelanako nesijobelelo sefayili yekhamera. Bulunga njenge… kutjhugulula indawo nesithomo sebizo.
+tethered.preview_failed = Isithombe sibulungwe sangeniswa, kodwana umbono waso wangaphambili awukghonakalanga ukuvulwa. Sivule kumhleli bona uhlole ifayili.
+tethered.partial = Amanye amafayili weenthombe abulungwe angeniswa; aseleko awakhange abulungwe: {error}
+tethered.camera_permission = Vumela ikhamera ku-Izilungiselelo Zesistimu → Ubumfihlo Nokuphepha → Ikhamera, bese ulinga uThatha isithombe godu. Nangabe i-Schist ivulwe ngetheminali, hlola nemvumo yekhamera yetheminali leyo.
+tethered.camera_usage_missing = Le nguqulo ayinayo ihlathululo yemvumo yekhamera. Yakha i-Schist godu ngo-make namkha sebenzisa ihlelo elifakiweko.
+tethered.select_camera = Khetha ikhamera bona uthathe isithombe.
+tethered.choose_destination = UThatha isithombe uzokubuza bona iinthombe zakho zibulungwe kuphi.
+tethered.preview_empty = Thatha isithombe bona usibone lapha.

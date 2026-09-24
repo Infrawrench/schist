@@ -1,20 +1,17 @@
-# New diagnostic strings retain explicit English fallback pending translation review.
-# Short labels are machine translated where available, not human verified.
-tethered.title = Tethered capture
-tethered.capture = Capture photo
-tethered.invalid_name = Choose a name of 1–120 bytes without slashes, colons, percent signs or a leading dot.
-tethered.install = The system camera library is unavailable. Install the platform camera runtime and restart Schist.
-tethered.timeout = Camera request timed out. Check the camera and reconnect before retrying.
-tethered.failed = Camera request failed: {detail}
-tethered.unsupported = This camera does not advertise remote image capture support.
-tethered.no_download = The camera did not deliver a complete image. Camera originals are retained.
-tethered.session_help = Select a camera, then Capture photo. On your first capture, choose a destination and filename prefix; captures add a sequence number and the camera’s file extension. Save As changes the destination and prefix.
-tethered.preview_failed = The capture was saved and imported, but its preview could not be decoded. Open it in the editor to inspect the file.
-tethered.partial = Some capture files were saved and imported; the remaining files could not be saved: {error}
-
-# English fallback pending translation review.
-tethered.camera_permission = Allow camera access in System Settings → Privacy & Security → Camera, then try Capture photo again. If Schist was launched from a terminal, check that terminal’s camera permission too.
-tethered.camera_usage_missing = This build is missing its camera permission description. Rebuild Schist with make or use the packaged app.
-tethered.select_camera = Select a camera to take a photo.
-tethered.choose_destination = Capture photo will ask where to save your photos.
-tethered.preview_empty = Take a photo to see it here.
+# AI-assisted translation; native-speaker review pending.
+tethered.title = ብዝተተሓሓዘ ካሜራ ስእሊ ምውሳድ
+tethered.capture = ስእሊ ውሰድ
+tethered.invalid_name = ካብ 1–120 ባይት ዝነውሕ፣ ስላሽ፣ ክልተ ነጥቢ፣ ምልክት ሚእታዊት ወይ ኣብ መጀመርታ ነጥቢ ዘይብሉ ስም ምረጽ።
+tethered.install = ናይ ስርዓቱ ቤተ-መጻሕፍቲ ካሜራ ኣይርከብን። ንዚ መድረኽ ዝኸውን ናይ ካሜራ መካየዲ ጫን፣ ድሕሪኡ Schist እንደገና ኣበግስ።
+tethered.timeout = ናይ ካሜራ ሕቶ ግዜኡ ሓሊፉ። ቅድሚ እንደገና ምፍታንካ ካሜራ መርምርን እንደገና ኣራኽቦን።
+tethered.failed = ናይ ካሜራ ሕቶ ኣይተዓወተን: {detail}
+tethered.unsupported = እዚ ካሜራ ካብ ርሑቕ ቦታ ስእሊ ምውሳድ ከም ዝድግፍ ኣየፍልጥን።
+tethered.no_download = ካሜራ ምሉእ ስእሊ ኣየቕረበን። ናይ መጀመርታ ስእልታት ኣብ ካሜራ ይቕጽሉ።
+tethered.session_help = ካሜራ ምረጽ፣ ድሕሪኡ ስእሊ ውሰድ ጠውቕ። ኣብ ቀዳማይ ምውሳድ ስእሊ መቐመጢ ቦታን መጀመርታ ስም ፋይልን ምረጽ፤ ኣብ ስም እቶም ስእልታት ተኸታታሊ ቍጽርን ናይ ካሜራ መወዳእታ ፋይልን ይውሰኽ። ከምዚ ምቕማጥ… መቐመጢ ቦታን መጀመርታ ስምን ይቕይር።
+tethered.preview_failed = ስእሊ ተቐሚጡን ኣተኣታትዩን እዩ፣ ግን ቅድመ-ምርኢቱ ምፍታሕ ኣይተኻእለን። ፋይሉ ንምምርማር ኣብ ኣርታዒ ክፈቶ።
+tethered.partial = ገለ ናይ ስእሊ ፋይላት ተቐሚጦምን ኣተኣታትዮምን እዮም፤ ዝተረፉ ፋይላት ምቕማጥ ኣይተኻእለን: {error}
+tethered.camera_permission = ኣብ System Settings → Privacy & Security → Camera ናይ ካሜራ ፍቓድ ሃብ፣ ድሕሪኡ ስእሊ ውሰድ እንደገና ፈትን። Schist ካብ ተርሚናል እንተ ተኸፊቱ፣ ናይቲ ተርሚናል ናይ ካሜራ ፍቓድ እውን መርምር።
+tethered.camera_usage_missing = ኣብዚ ሕንጻ መግለጺ ናይ ካሜራ ፍቓድ የለን። Schist ብ make እንደገና ህነጾ ወይ ዝተዓሸገ መተግበሪ ተጠቐም።
+tethered.select_camera = ስእሊ ንምውሳድ ካሜራ ምረጽ።
+tethered.choose_destination = ስእሊ ውሰድ ስእልታትካ ኣበይ ከም እትቕምጥ ክሓተካ እዩ።
+tethered.preview_empty = ኣብዚ ንምርኣይ ስእሊ ውሰድ።

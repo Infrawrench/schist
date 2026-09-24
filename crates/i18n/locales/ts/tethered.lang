@@ -1,20 +1,17 @@
-# New diagnostic strings retain explicit English fallback pending translation review.
-# Short labels are machine translated where available, not human verified.
-tethered.title = Tethered capture
-tethered.capture = Capture photo
-tethered.invalid_name = Choose a name of 1–120 bytes without slashes, colons, percent signs or a leading dot.
-tethered.install = The system camera library is unavailable. Install the platform camera runtime and restart Schist.
-tethered.timeout = Camera request timed out. Check the camera and reconnect before retrying.
-tethered.failed = Camera request failed: {detail}
-tethered.unsupported = This camera does not advertise remote image capture support.
-tethered.no_download = The camera did not deliver a complete image. Camera originals are retained.
-tethered.session_help = Select a camera, then Capture photo. On your first capture, choose a destination and filename prefix; captures add a sequence number and the camera’s file extension. Save As changes the destination and prefix.
-tethered.preview_failed = The capture was saved and imported, but its preview could not be decoded. Open it in the editor to inspect the file.
-tethered.partial = Some capture files were saved and imported; the remaining files could not be saved: {error}
-
-# English fallback pending translation review.
-tethered.camera_permission = Allow camera access in System Settings → Privacy & Security → Camera, then try Capture photo again. If Schist was launched from a terminal, check that terminal’s camera permission too.
-tethered.camera_usage_missing = This build is missing its camera permission description. Rebuild Schist with make or use the packaged app.
-tethered.select_camera = Select a camera to take a photo.
-tethered.choose_destination = Capture photo will ask where to save your photos.
-tethered.preview_empty = Take a photo to see it here.
+# AI-assisted translation; native-speaker review pending.
+tethered.title = Ku teka swifaniso hi khamera leyi hlanganisiweke
+tethered.capture = Teka xifaniso
+tethered.invalid_name = Hlawula vito ra 1–120 wa tibayiti leri nga riki na swilashi, tikholoni, swikombiso swa tiphesente kumbe thonsi eku sunguleni.
+tethered.install = Layiburari ya khamera ya sisiteme a yi kumeki. Nghenisa ndhawu yo fambisa khamera ya pulatifomo leyi, kutani u tlhela u sungula Schist.
+tethered.timeout = Nkarhi wa xikombelo xa khamera wu herile. Kamba khamera u tlhela u yi hlanganisa u nga si ringeta nakambe.
+tethered.failed = Xikombelo xa khamera xi tsandzekile: {detail}
+tethered.unsupported = Khamera leyi a yi kombisi leswaku yi seketela ku teka swifaniso u ri ekule.
+tethered.no_download = Khamera a yi rhumelanga xifaniso lexi heleleke. Swifaniso swa masungulo swi sala eka khamera.
+tethered.session_help = Hlawula khamera, kutani u tshikelela Teka xifaniso. Loko u teka xifaniso ro sungula, hlawula ndhawu yo hlayisa ni masungulo ya vito ra fayili; mavito ya swifaniso ma engeteleriwa nomboro leyi landzelelanaka ni xiengetelo xa fayili xa khamera. Hlayisa tani hi… yi cinca ndhawu yo hlayisa ni masungulo ya vito.
+tethered.preview_failed = Xifaniso xi hlayisiwile naswona xi nghenisiwile, kambe xivono xa xona xo sungula a xi kotekanga ku hlamuseriwa. Xi pfule eka xihleri leswaku u kambela fayili.
+tethered.partial = Tifayili tin'wana ta swifaniso ti hlayisiwile ti tlhela ti nghenisiwa; leti saleke a ti kotekanga ku hlayisiwa: {error}
+tethered.camera_permission = Pfumelela ku tirhisa khamera eka System Settings → Privacy & Security → Camera, kutani u tlhela u ringeta Teka xifaniso. Loko Schist yi sunguriwe eka terminale, kambela ni mpfumelelo wa khamera wa terminale yoleyo.
+tethered.camera_usage_missing = Rhiendliro leri a ri na nhlamuselo ya mpfumelelo wa khamera. Aka Schist nakambe hi make kumbe u tirhisa app leyi phakiweke.
+tethered.select_camera = Hlawula khamera leswaku u teka xifaniso.
+tethered.choose_destination = Teka xifaniso yi ta ku vutisa leswaku swifaniso swa wena swi hlayisiwa kwihi.
+tethered.preview_empty = Teka xifaniso leswaku u xi vona laha.

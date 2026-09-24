@@ -1,20 +1,17 @@
-# New diagnostic strings retain explicit English fallback pending translation review.
-# Short labels are machine translated where available, not human verified.
-tethered.title = Tethered capture
-tethered.capture = Capture photo
-tethered.invalid_name = Choose a name of 1–120 bytes without slashes, colons, percent signs or a leading dot.
-tethered.install = The system camera library is unavailable. Install the platform camera runtime and restart Schist.
-tethered.timeout = Camera request timed out. Check the camera and reconnect before retrying.
-tethered.failed = Camera request failed: {detail}
-tethered.unsupported = This camera does not advertise remote image capture support.
-tethered.no_download = The camera did not deliver a complete image. Camera originals are retained.
-tethered.session_help = Select a camera, then Capture photo. On your first capture, choose a destination and filename prefix; captures add a sequence number and the camera’s file extension. Save As changes the destination and prefix.
-tethered.preview_failed = The capture was saved and imported, but its preview could not be decoded. Open it in the editor to inspect the file.
-tethered.partial = Some capture files were saved and imported; the remaining files could not be saved: {error}
-
-# English fallback pending translation review.
-tethered.camera_permission = Allow camera access in System Settings → Privacy & Security → Camera, then try Capture photo again. If Schist was launched from a terminal, check that terminal’s camera permission too.
-tethered.camera_usage_missing = This build is missing its camera permission description. Rebuild Schist with make or use the packaged app.
-tethered.select_camera = Select a camera to take a photo.
-tethered.choose_destination = Capture photo will ask where to save your photos.
-tethered.preview_empty = Take a photo to see it here.
+# AI-assisted translation; native-speaker review pending.
+tethered.title = Kameradan bevosita suratga olish
+tethered.capture = Suratga olish
+tethered.invalid_name = Qiya chiziqlar, ikki nuqta, foiz belgisi yoki boshida nuqta bo‘lmagan, uzunligi 1–120 baytli nom tanlang.
+tethered.install = Tizimning kamera kutubxonasi mavjud emas. Platforma uchun kamera ish muhitini o‘rnating va Schist dasturini qayta ishga tushiring.
+tethered.timeout = Kamera so‘rovini kutish vaqti tugadi. Qayta urinishdan oldin kamerani tekshirib, uni qayta ulang.
+tethered.failed = Kamera so‘rovi bajarilmadi: {detail}
+tethered.unsupported = Bu kamera masofadan suratga olishni qo‘llashini bildirmayapti.
+tethered.no_download = Kamera to‘liq tasvirni uzatmadi. Kameradagi asl suratlar saqlanib qoladi.
+tethered.session_help = Kamerani tanlang, so‘ng “Suratga olish” tugmasini bosing. Birinchi suratda saqlash joyi va fayl nomining old qismini tanlang; surat nomiga tartib raqami va kamera faylining kengaytmasi qo‘shiladi. “Boshqa nom bilan saqlash” saqlash joyi va nomning old qismini o‘zgartiradi.
+tethered.preview_failed = Surat saqlandi va import qilindi, ammo uning oldindan ko‘rish tasvirini ochib bo‘lmadi. Faylni tekshirish uchun muharrirda oching.
+tethered.partial = Ba’zi surat fayllari saqlandi va import qilindi; qolganlarini saqlab bo‘lmadi: {error}
+tethered.camera_permission = Tizim sozlamalari → Maxfiylik va xavfsizlik → Kamera bo‘limida kameraga kirishga ruxsat bering, so‘ng “Suratga olish”ni qayta sinang. Agar Schist terminaldan ishga tushirilgan bo‘lsa, o‘sha terminalning kamera ruxsatini ham tekshiring.
+tethered.camera_usage_missing = Bu dastur yig‘ilmasida kamera ruxsatining tavsifi yo‘q. Schist dasturini make yordamida qayta yig‘ing yoki paketlangan ilovadan foydalaning.
+tethered.select_camera = Suratga olish uchun kamerani tanlang.
+tethered.choose_destination = “Suratga olish” suratlar qayerga saqlanishini so‘raydi.
+tethered.preview_empty = Bu yerda ko‘rish uchun suratga oling.
