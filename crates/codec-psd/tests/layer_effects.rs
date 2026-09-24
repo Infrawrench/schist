@@ -23,7 +23,7 @@ fn photoshop_text_effects_import_render_and_survive_saving() {
     layer.extra_blocks.push((*b"lfx2", EFFECTS.to_vec()));
     psd.layers.push(layer);
     let mut doc = read_psd(&psd.build()).unwrap();
-    let style = doc.tree.layers[0].style.clone();
+    let style = doc.tree.layers[0].style;
     assert!(style.outer_glow.enabled);
     assert!(style.inner_shadow.enabled);
     assert!(style.color_overlay.enabled);
