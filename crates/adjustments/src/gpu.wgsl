@@ -178,6 +178,17 @@ fn apply_direct(kind: u32, base: u32, c: vec3<f32>) -> vec3<f32> {
             }
             return out;
         }
+        case 18u: {
+            let gain = adj_arg(base);
+            let v = clamp(c, vec3(0.0), vec3(1.0));
+            var x = gain * v / (vec3(1.0) + (gain - 1.0) * v);
+            x += adj_arg(base + 1u) * x * (vec3(1.0) - x) * (x - vec3(0.5));
+            x += adj_arg(base + 3u) * x * (vec3(1.0) - x) * (vec3(1.0) - x)
+                + adj_arg(base + 2u) * x * x * (vec3(1.0) - x);
+            let black = adj_arg(base + 5u);
+            let white = adj_arg(base + 4u);
+            return clamp((x - vec3(black)) / (white - black), vec3(0.0), vec3(1.0));
+        }
         case D_HUE_SATURATION: {
             var hue = adj_arg(base);
             var saturation = adj_arg(base + 1u);

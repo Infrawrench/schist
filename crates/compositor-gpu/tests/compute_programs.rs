@@ -294,10 +294,18 @@ fn programs_match_real_layer_styles_masks_and_affine_callers() {
         schist_core::AdjustmentKind::Vibrance,
         schist_core::AdjustmentKind::Exposure,
         schist_core::AdjustmentKind::ColorBalance,
+        schist_core::AdjustmentKind::Light,
     ] {
         let mut params = schist_adjustments::Params::default_for(kind);
         params.set_param("vibrance", 55.0);
         params.set_param("exposure", 1.3);
+        if kind == schist_core::AdjustmentKind::Light {
+            params.set_param("contrast", -97.0);
+            params.set_param("highlights", -18.0);
+            params.set_param("shadows", 95.0);
+            params.set_param("whites", 37.0);
+            params.set_param("blacks", -68.0);
+        }
         let mut a: Vec<f32> = (0..4096).map(|i| i as f32 / 3500.0 - 0.08).collect();
         let mut b = a.clone();
         schist_fx::set_backend(Arc::new(schist_fx::CpuFx));

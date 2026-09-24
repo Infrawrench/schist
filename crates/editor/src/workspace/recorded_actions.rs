@@ -561,7 +561,8 @@ fn validate_adjustment(params: &schist_adjustments::Params) -> anyhow::Result<()
                 && stops.windows(2).all(|p| p[0].0 <= p[1].0)
         }
         Params::ChannelMixer { constant, .. } => constant.iter().all(|v| within(*v, -200.0, 200.0)),
-        Params::BrightnessContrast { .. }
+        Params::Light(_)
+        | Params::BrightnessContrast { .. }
         | Params::BlackWhite { .. }
         | Params::Invert
         | Params::Posterize { .. }

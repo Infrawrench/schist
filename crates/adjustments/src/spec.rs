@@ -27,6 +27,7 @@ impl Params {
             suffix,
         };
         match self {
+            Params::Light(light) => light.param_specs(),
             Params::Levels(l) => vec![
                 spec("in_black", "Input Black", 0.0, 1.0, l.rgb.input_black, ""),
                 spec("gamma", "Gamma", 0.1, 9.99, l.rgb.gamma, ""),
@@ -181,6 +182,7 @@ impl Params {
     /// Update one control by key. Unknown keys are ignored.
     pub fn set_param(&mut self, key: &str, value: f32) {
         match self {
+            Params::Light(light) => light.set_param(key, value),
             Params::Levels(l) => match key {
                 "in_black" => l.rgb.input_black = value.clamp(0.0, 1.0),
                 "in_white" => l.rgb.input_white = value.clamp(0.0, 1.0),

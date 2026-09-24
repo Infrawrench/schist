@@ -62,8 +62,38 @@ intensity-based rendering. The importer also recognizes the long blend names
 agreement. The effects-only `photoshop-text-effects.lfx2` fixture was extracted
 from a user-supplied PSD and contains no artwork or text. Falloff was compared
 with that PSD's saved Photoshop composite; this is approximate visual matching,
-not pixel-identical Photoshop rendering. In particular, the newer `CgEd`
-`brightnessModeLight` adjustments in that document are not rendered yet.
+not pixel-identical Photoshop rendering.
+
+## Light adjustments
+
+Modern Photoshop Light layers are recognized by a `brit` compatibility block
+and a `CgEd` descriptor with `brightnessModeLight`. The legacy block alone can
+contain all zeros even when the Light controls are active. Schist reads Exposure,
+Contrast, Highlights, Shadows, Whites and Blacks from the companion descriptor,
+regardless of block order, and exposes all six controls in the adjustment dialog.
+Unrelated or malformed `CgEd` blocks remain preserved without changing the
+adjustment's interpretation.
+
+Untouched descriptors round-trip verbatim. Edited settings regenerate the native
+Light descriptor, replacing the stale block; newly authored Light parameters
+also emit the `brit` compatibility block. These are native Photoshop controls,
+not private Schist metadata. No Adobe headers or SDK sources were used.
+
+Rendering is a bounded, monotone per-channel tone-curve approximation. Exposure
+has a white-preserving shoulder, contrast bends the midtones, shadows/highlights
+weight the dark/bright ranges, and black/white controls set the endpoints. The
+curve strengths were checked against the supplied PSD's saved composite; they
+are not an independently recovered Photoshop algorithm. In particular, Adobe
+documents [adaptive behavior for Highlights and Shadows](https://helpx.adobe.com/photoshop/desktop/create-manage-layers/color-adjustment-fill-layers/adjust-image-lighting-with-light.html),
+which this per-pixel approximation does not reproduce. Color-profile-dependent
+tone processing and exact Photoshop parity remain outside this implementation.
+
+On the reported 1536×1920 RGB8 PSD, RGB mean absolute error against its saved
+Photoshop composite decreases from 10.79 to 5.66 levels out of 255, with the glow
+fix present in both renders. This single-document comparison is a visual check,
+not a general fidelity guarantee. `make check-psd-light` covers native fixtures,
+editing/saving, legacy fallback, curve invariants and CPU/GPU agreement. The two
+352-byte `.cged` fixtures contain only adjustment settings, no artwork.
 
 ## Filters
 

@@ -28,6 +28,9 @@ pub fn parse_psd(kind: AdjustmentKind, raw: &[u8]) -> Params {
             })
             .unwrap_or(Params::Unsupported),
         AdjustmentKind::BrightnessContrast => parse_brightness(raw),
+        AdjustmentKind::Light => Light::parse(raw)
+            .map(Params::Light)
+            .unwrap_or(Params::Unsupported),
         AdjustmentKind::Levels => parse_levels(raw),
         AdjustmentKind::HueSaturation => parse_hue_sat(raw),
         AdjustmentKind::Curves => parse_curves(raw),
@@ -49,6 +52,7 @@ pub fn parse_psd(kind: AdjustmentKind, raw: &[u8]) -> Params {
 /// the parser above it, which is what the round-trip tests check.
 pub fn encode_psd(kind: AdjustmentKind, params: &Params) -> Option<Vec<u8>> {
     match (kind, params) {
+        (AdjustmentKind::Light, Params::Light(light)) => Some(light.encode()),
         (AdjustmentKind::Invert, Params::Invert) => Some(Vec::new()),
         (AdjustmentKind::Posterize, Params::Posterize { levels }) => {
             Some((*levels as u16).to_be_bytes().to_vec())
