@@ -143,7 +143,7 @@ fn programs_match_real_layer_styles_masks_and_affine_callers() {
     // Photoshop's spread/range/noise follows a different path from the
     // original intensity-based glow, including at negative coordinates.
     for spread in [0.0, 0.21, 1.0] {
-        let mut photoshop = style.clone();
+        let mut photoshop = style;
         for effect in [&mut photoshop.outer_glow, &mut photoshop.inner_glow] {
             effect.settings.size = 12.0;
             effect.settings.spread = spread;
