@@ -16,8 +16,10 @@ fn fixture(raw: &[u8], reverse: bool) -> Document {
         (0, 0, 4, 4),
         [80, 128, 200, 255],
     ));
-    let mut layer = common::L::default();
-    layer.extra_blocks = vec![(*b"brit", vec![0; 8]), (*b"CgEd", raw.to_vec())];
+    let mut layer = common::L {
+        extra_blocks: vec![(*b"brit", vec![0; 8]), (*b"CgEd", raw.to_vec())],
+        ..common::L::default()
+    };
     if reverse {
         layer.extra_blocks.reverse();
     }
