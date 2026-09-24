@@ -15,3 +15,7 @@ tethered.camera_usage_missing = Kay ruwasqapi kamara saqiyta sut'inchaq qillqa m
 tethered.select_camera = Siq'ita hapinaykipaq kamarata akllay.
 tethered.choose_destination = Siq'ita hapiy maypim siq'ikunaykita waqaychanaykita tapusunki.
 tethered.preview_empty = Kaypi rikunaykipaq siq'ita hapiy.
+tethered.save_local = Kaypi waqaychay
+tethered.save_cloud = Puyupi waqaychay
+tethered.cloud_help = Hapisqa siq’ikuna akllasqa Schist Cloud kitiman apachisqa kanku. Kay kitipa siq’i huñunapiqa mana copianku waqaychasqachu.
+tethered.cloud_pending = Mana tukusqa apachiykuna {path} nisqapi waqaychasqa kanku.

@@ -15,3 +15,7 @@ tethered.camera_usage_missing = Ijaarsi kun ibsa hayyama kaameeraa hin qabu. Sch
 tethered.select_camera = Suuraa kaasuuf kaameeraa filadhu.
 tethered.choose_destination = Suuraa kaasi bakka suuraalee kee itti olkaa'attu si gaafata.
 tethered.preview_empty = Asitti arguuf suuraa kaasi.
+tethered.save_local = Naannoottilkaa’i
+tethered.save_cloud = Duumessatti olkaa’i
+tethered.cloud_help = Suuraaleen kaafaman bakka Schist Cloud filatametti ol fe’amu. Garagalchiin galaarii naannoo irratti hin kuufamu.
+tethered.cloud_pending = Ol fe’iinsi hin xumuramne {path} irratti ni kuufama.

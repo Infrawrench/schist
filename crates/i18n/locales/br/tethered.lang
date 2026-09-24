@@ -15,3 +15,7 @@ tethered.camera_usage_missing = Mankout a ra deskrivadur aotre kamera er savadur
 tethered.select_camera = Dibabit ur c'hamera evit tapout ur skeudenn.
 tethered.choose_destination = Tapoutañ ur skeudenn a c'houlenno pelec'h enrollañ ho skeudennoù.
 tethered.preview_empty = Tapoutit ur skeudenn evit he gwelet amañ.
+tethered.save_local = Enrollañ war al lec'h
+tethered.save_cloud = Enrollañ er c'houmoul
+tethered.cloud_help = Kaset e vez an tapoù d'al lec'h dibabet e Schist Cloud. Ne vez miret eilañ ebet er skeudennaoueg lec'hel.
+tethered.cloud_pending = Miret e vez ar c'haskadennoù n'int ket echu e {path}.

@@ -100,10 +100,12 @@ pub fn top_strip(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::AnyEl
             strip_actions::refresh,
             cx,
         ))
-        .children(
-            (!cloud || cfg!(target_arch = "wasm32"))
-                .then(|| gallery_button(t("tethered.title"), false, strip_actions::tethered, cx)),
-        );
+        .child(gallery_button(
+            t("tethered.title"),
+            false,
+            strip_actions::tethered,
+            cx,
+        ));
     #[cfg(not(target_arch = "wasm32"))]
     let strip = strip.children(
         (!cloud && ws.library.video.is_none())
@@ -257,9 +259,7 @@ pub fn gallery_more_menu(
         cx,
     );
     row(&mut rows, t("common.refresh"), strip_actions::refresh, cx);
-    if !ws.cloud.show {
-        row(&mut rows, t("tethered.title"), strip_actions::tethered, cx);
-    }
+    row(&mut rows, t("tethered.title"), strip_actions::tethered, cx);
     rows.push(menu_sep());
     if !ws.cloud.show && super::library_view::search_offer_needed(ws) {
         row(

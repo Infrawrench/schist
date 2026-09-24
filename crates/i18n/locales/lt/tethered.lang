@@ -15,3 +15,7 @@ tethered.camera_usage_missing = Šioje programos versijoje nėra fotoaparato lei
 tethered.select_camera = Pasirinkite fotoaparatą nuotraukai padaryti.
 tethered.choose_destination = „Fotografuoti“ paprašys pasirinkti, kur įrašyti nuotraukas.
 tethered.preview_empty = Nufotografuokite, kad pamatytumėte nuotrauką čia.
+tethered.save_local = Įrašyti vietoje
+tethered.save_cloud = Įrašyti debesijoje
+tethered.cloud_help = Nuotraukos įkeliamos į pasirinktą Schist Cloud vietą. Vietinėje galerijoje jų kopijos nelaikomos.
+tethered.cloud_pending = Neužbaigti įkėlimai saugomi adresu {path}.

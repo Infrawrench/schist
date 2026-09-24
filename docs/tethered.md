@@ -38,7 +38,13 @@ may be unavailable to WebUSB even when the native app can use the camera.
    dropdown displays the selected camera. A detected camera can still fail
    because of permissions, mode, focus, battery, a full card or driver
    limitations.
-4. On the first **Capture photo**, choose an existing destination folder and a
+4. Choose **Save locally** or **Save to cloud**. These are separate destinations.
+   Cloud mode uploads each capture to Schist Cloud without asking for a local
+   folder or adding the files to the local gallery. Sign in if needed, then
+   select **Save to cloud** and choose **Unfiled**, a folder or a bucket from its
+   dropdown. Each shot keeps the destination selected when capture starts,
+   even if you change the destination while an earlier upload is running.
+5. In local mode, on the first **Capture photo**, choose an existing destination folder and a
    filename *prefix*. **Save As…** changes this choice later. Choosing the prefix
    does not create the chosen file. For example choose `/photos/studio/look-a`
    to save `look-a-000001.jpg`, `look-a-000002.jpg`, and so on. Schist displays
@@ -47,13 +53,25 @@ may be unavailable to WebUSB even when the native app can use the camera.
    control character, Windows-reserved punctuation (`<>"|?*`) or leading dot. Settings persist beside `library.json` in
    `tethered-session.json`. The next number free for every delivered extension is selected,
    so existing files are never replaced, including after restarting Schist.
-5. The first capture starts after you choose the destination. Press **Capture
-   photo** again for each subsequent shot. Completed files automatically join the watched
-   gallery. The panel displays the downloaded original immediately (preferring
+6. The first local capture starts after you choose the destination; cloud captures
+   start immediately. Press **Capture photo** again for each subsequent shot.
+   Local files automatically join the watched gallery. The panel displays the
+   downloaded original immediately in either mode (preferring
    JPEG in a RAW+JPEG pair), without changing the gallery's prior selection or
-   review decisions. **Edit** uses the normal gallery editor and Schist sidecar
-   workflow. If a preview cannot be decoded, the panel explains that the original
-   was saved and imported.
+   review decisions. In local mode, **Edit** uses the normal gallery editor and Schist sidecar
+   workflow. Preview decoding failures do not prevent saving or uploading the
+   original.
+
+Cloud uploads run in the background and show their progress in the capture panel.
+On native platforms, originals wait in private directories under `tethered-cloud`
+beside `library.json`. Schist removes these copies only after every file has been
+acknowledged by the cloud, including any requested bucket membership. Failed or
+cancelled uploads keep their originals and offer **Retry**. The panel shows the
+recovery directory when files remain, including after restarting. Retry queues
+exist only for the current app session; after a restart, retained files can be
+imported from that directory. Signing out or switching accounts cancels queued
+uploads and keeps the files for recovery instead of sending them to another account.
+Closing the capture panel stops camera capture but lets already queued uploads finish.
 
 There is no continuous live view or camera-setting editor in this version.
 Capture review uses Schist's normal RAW/JPEG preview pipeline, up to 1600 pixels.
@@ -85,7 +103,7 @@ session, and removes private incomplete downloads. The capture deadline is
 from a blocking call or acknowledge cancellation; Schist keeps the session and
 staging alive until native I/O has stopped. A shutter that already fired cannot
 be undone. A capture whose complete files have crossed the publication boundary
-finishes its gallery import even if cancellation follows. Completion and error
+finishes saving to its selected destination even if cancellation follows. Completion and error
 messages also appear in the workspace status after closing the panel. An error
 or disconnection requires selecting the camera again; Refresh rediscovers
 connected devices.
@@ -98,7 +116,7 @@ the destination volume and are validated as nonempty regular files before
 atomic no-replace publication. If the
 filesystem cannot provide no-replace publication, the operation fails safely.
 An unusual disk failure or external collision during multi-file publication can
-leave a partial capture set: Schist imports its completed files and shows a
+leave a partial capture set: Schist saves or uploads its completed files and shows a
 warning instead of deleting them. Failed or cancelled downloads are removed from
 private staging. Original image data and existing Schist edits are not modified.
 
@@ -109,9 +127,11 @@ the ImageCaptureCore session opens.
 
 In the browser, **Refresh** opens the browser's USB permission picker. **Capture
 photo** retains complete originals in the tab and lists them with **Save As…**
-(download) and **Edit** actions. Download each original before closing/reloading
-the tab: browser captures are not a watched disk gallery and are not uploaded to
-Schist Cloud. Browser downloads use the browser's filename/collision policy.
+(download) and **Edit** actions. **Save locally** leaves downloading to those
+buttons; **Save to cloud** automatically uploads each completed capture to the
+selected cloud destination. Wait for uploads to finish, or download the originals,
+before closing/reloading the tab: browser storage is temporary and is not a
+watched disk gallery. Browser downloads use the browser's filename/collision policy.
 A capture set larger than 512 MiB is rejected before allocation. Native sessions
 continue to use the destination directory, durable publication and gallery preview
 workflow described above.
@@ -124,11 +144,12 @@ API references: [Apple ImageCaptureCore](https://developer.apple.com/documentati
 [WebUSB](https://developer.chrome.com/docs/capabilities/usb).
 
 Validation targets: `make test-tethered`, `make test-tethered-editor`,
-`make test-tethered-web`, `make test-tethered-android`, `make check-tethered`,
+`make test-tethered-web`, `make test-tethered-cloud`, `make test-tethered-android`, `make check-tethered`,
 `make check-tethered-backend TETHERED_TARGET=aarch64-pc-windows-msvc`,
 `make check-camera-sync-ios`, `make check-camera-sync-android`,
 `make check-app-web`, and `make check-i18n`. Tests cover publication, configuration,
-PTP parsing, bounded transfers, cancellation, and Objective-C delegate signatures.
+PTP parsing, bounded transfers, cancellation, cloud-upload recovery and cleanup,
+account isolation, and Objective-C delegate signatures.
 They do not certify physical camera compatibility. Physical PTP-camera captures
 were not exercised during implementation. Test Windows device behavior on Windows;
 cross-compilation only checks API/type correctness.

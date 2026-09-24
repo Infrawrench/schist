@@ -897,6 +897,9 @@ check-tethered-backend:
 	$(CARGO) check -p schist-tethered --all-targets $(if $(TETHERED_TARGET),--target $(TETHERED_TARGET),)
 test-tethered-editor:
 	$(CARGO) test -p schist-editor library_icc::tests
+.PHONY: test-tethered-cloud
+test-tethered-cloud:
+	$(CARGO) test -p schist-editor tethered_cloud::tests
 test-tethered:
 	$(CARGO) test -p schist-tethered
 .PHONY: test-tethered-webcam-discovery test-tethered-webcam

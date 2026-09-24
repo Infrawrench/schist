@@ -15,3 +15,7 @@ tethered.camera_usage_missing = Bu derlemede kamera izni açıklaması eksik. Sc
 tethered.select_camera = Fotoğraf çekmek için bir kamera seçin.
 tethered.choose_destination = Fotoğraf çek, fotoğraflarınızı nereye kaydedeceğinizi soracak.
 tethered.preview_empty = Burada görmek için bir fotoğraf çekin.
+tethered.save_local = Yerel olarak kaydet
+tethered.save_cloud = Buluta kaydet
+tethered.cloud_help = Çekilen fotoğraflar seçilen Schist Cloud hedefine yüklenir. Yerel galeride bir kopya tutulmaz.
+tethered.cloud_pending = Henüz tamamlanmamış yüklemeler {path} konumunda tutulur.

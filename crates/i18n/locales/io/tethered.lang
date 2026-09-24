@@ -15,3 +15,7 @@ tethered.camera_usage_missing = Ca konstrukturo ne havas sua kameropermisa deskr
 tethered.select_camera = Selektez kamero por fotografar.
 tethered.choose_destination = Fotografez demandos ube konservar vua fotografuri.
 tethered.preview_empty = Fotografez por vidar la fotografuro hike.
+tethered.save_local = Konservez lokale
+tethered.save_cloud = Konservez en la nubo
+tethered.cloud_help = La fotografuri esas sendata al selektita destino en Schist Cloud. Nula kopio restas en la lokala galerio.
+tethered.cloud_pending = La sendi qui ankore ne finisis konservesas che {path}.

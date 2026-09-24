@@ -15,3 +15,7 @@ tethered.camera_usage_missing = W tej kompilacji brakuje opisu uprawnienia do ko
 tethered.select_camera = Wybierz aparat, aby zrobić zdjęcie.
 tethered.choose_destination = Zrób zdjęcie wyświetli pytanie o miejsce zapisu zdjęć.
 tethered.preview_empty = Zrób zdjęcie, aby zobaczyć je tutaj.
+tethered.save_local = Zapisz lokalnie
+tethered.save_cloud = Zapisz w chmurze
+tethered.cloud_help = Zdjęcia są przesyłane do wybranego miejsca w Schist Cloud. W lokalnej galerii nie jest przechowywana kopia.
+tethered.cloud_pending = Niedokończone przesyłanie jest przechowywane w {path}.

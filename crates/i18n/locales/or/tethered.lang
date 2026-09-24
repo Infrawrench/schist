@@ -15,3 +15,7 @@ tethered.camera_usage_missing = ଏହି ବିଲ୍ଡ୍‌ରେ କ୍ୟ�
 tethered.select_camera = ଫଟୋ ଉଠାଇବା ପାଇଁ ଏକ କ୍ୟାମେରା ବାଛନ୍ତୁ।
 tethered.choose_destination = ଫଟୋ ଉଠାନ୍ତୁ ଆପଣଙ୍କ ଫଟୋ କେଉଁଠି ସଂରକ୍ଷିତ କରିବେ ବୋଲି ପଚାରିବ।
 tethered.preview_empty = ଏଠାରେ ଦେଖିବା ପାଇଁ ଏକ ଫଟୋ ଉଠାନ୍ତୁ।
+tethered.save_local = ସ୍ଥାନୀୟ ଭାବେ ସଂରକ୍ଷଣ କରନ୍ତୁ
+tethered.save_cloud = କ୍ଲାଉଡ୍‌ରେ ସଂରକ୍ଷଣ କରନ୍ତୁ
+tethered.cloud_help = ଉଠାଯାଇଥିବା ଫଟୋଗୁଡ଼ିକ ଚୟନ କରାଯାଇଥିବା Schist Cloud ଗନ୍ତବ୍ୟସ୍ଥଳକୁ ଅପଲୋଡ୍ ହୁଏ। ସ୍ଥାନୀୟ ଗ୍ୟାଲେରୀରେ କୌଣସି ପ୍ରତିଲିପି ରଖାଯାଏ ନାହିଁ।
+tethered.cloud_pending = ଯେଉଁ ଅପଲୋଡ୍‌ଗୁଡ଼ିକ ସମ୍ପୂର୍ଣ୍ଣ ହୋଇନାହିଁ, ସେଗୁଡ଼ିକ {path}ରେ ରଖାଯାଏ।

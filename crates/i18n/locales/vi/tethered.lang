@@ -15,3 +15,7 @@ tethered.camera_usage_missing = Bản dựng này thiếu mô tả quyền sử 
 tethered.select_camera = Chọn máy ảnh để chụp.
 tethered.choose_destination = “Chụp ảnh” sẽ hỏi bạn muốn lưu ảnh ở đâu.
 tethered.preview_empty = Chụp ảnh để xem ở đây.
+tethered.save_local = Lưu trên thiết bị
+tethered.save_cloud = Lưu lên đám mây
+tethered.cloud_help = Ảnh chụp được tải lên vị trí Schist Cloud đã chọn. Không lưu bản sao trong thư viện ảnh trên thiết bị.
+tethered.cloud_pending = Các lượt tải lên chưa hoàn tất được giữ tại {path}.

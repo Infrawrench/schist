@@ -15,3 +15,7 @@ tethered.camera_usage_missing = E leai se faamatalaga o le faatagaga mo le meapu
 tethered.select_camera = Filifili se meapuʻeata e puʻe ai se ata.
 tethered.choose_destination = O le «Puʻe se ata» o le a fesili po o fea e sefe ai au ata.
 tethered.preview_empty = Puʻe se ata e matamata ai iinei.
+tethered.save_local = Sefe i lenei masini
+tethered.save_cloud = Sefe i le ao
+tethered.cloud_help = E lafo ata i le nofoaga ua filifilia i le Schist Cloud. E leai se kopi e teu i le faletusi o ata o lenei masini.
+tethered.cloud_pending = O lafoina e leʻi maeʻa o loo teu i le {path}.

@@ -15,3 +15,7 @@ tethered.camera_usage_missing = अस्मिन् निर्माणे �
 tethered.select_camera = चित्रं ग्रहीतुं छायाग्राहकं चिनोतु।
 tethered.choose_destination = «चित्रं गृह्णातु» इति नुद्यमाने चित्राणां संग्रहस्थानं पृच्छ्यते।
 tethered.preview_empty = अत्र द्रष्टुं चित्रं गृह्णातु।
+tethered.save_local = अत्रैव रक्षतु
+tethered.save_cloud = मेघभण्डारे रक्षतु
+tethered.cloud_help = चित्राणि Schist Cloud इत्यत्र चितं स्थानं प्रति प्रेष्यन्ते। स्थानीयचित्रसङ्ग्रहे तेषां प्रतिलिपिः न रक्ष्यते।
+tethered.cloud_pending = असमाप्तानि प्रेषणानि {path} इत्यत्र रक्ष्यन्ते।

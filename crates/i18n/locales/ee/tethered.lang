@@ -15,3 +15,7 @@ tethered.camera_usage_missing = Kamera ƒe mɔɖeɖe ƒe numeɖeɖe mele build s
 tethered.select_camera = Tia kamera aɖe be nàɖe foto.
 tethered.choose_destination = Ɖe foto abia afi si nàdzra wò fotoawo le.
 tethered.preview_empty = Ɖe foto aɖe be nàkpɔe le afi sia.
+tethered.save_local = Dzra ɖo le afi sia
+tethered.save_cloud = Dzra ɖo le alilikpo me
+tethered.cloud_help = Wokɔa fotoawo ɖe teƒe si nètia le Schist Cloud me. Womele wo ƒe kɔpi aɖeke dzram ɖo le afi sia ƒe foto ƒe nudzraɖoƒe me o.
+tethered.cloud_pending = Wodzra upload siwo medzo nu o ɖo le {path}.

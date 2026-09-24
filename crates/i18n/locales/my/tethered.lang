@@ -15,3 +15,7 @@ tethered.camera_usage_missing = ဤတည်ဆောက်မှုတွင်
 tethered.select_camera = ဓာတ်ပုံရိုက်ရန် ကင်မရာတစ်လုံးကို ရွေးပါ။
 tethered.choose_destination = ဓာတ်ပုံရိုက်ရန် ကို ရွေးလျှင် ဓာတ်ပုံများကို မည်သည့်နေရာတွင် သိမ်းမည်ကို မေးပါမည်။
 tethered.preview_empty = ဤနေရာတွင် ကြည့်ရန် ဓာတ်ပုံတစ်ပုံ ရိုက်ပါ။
+tethered.save_local = စက်ထဲတွင် သိမ်းရန်
+tethered.save_cloud = ကလောက်တွင် သိမ်းရန်
+tethered.cloud_help = ရိုက်ထားသော ဓာတ်ပုံများကို ရွေးချယ်ထားသော Schist Cloud နေရာသို့ အပ်လုဒ်လုပ်မည်။ စက်တွင်း ဓာတ်ပုံပြခန်းတွင် မိတ္တူကို မသိမ်းထားပါ။
+tethered.cloud_pending = မပြီးဆုံးသေးသော အပ်လုဒ်များကို {path} တွင် သိမ်းထားသည်။

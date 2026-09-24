@@ -15,3 +15,7 @@ tethered.camera_usage_missing = Olu lwakhiwo alunankcazelo yemvume yekhamera. Ya
 tethered.select_camera = Khetha ikhamera ukuze ufote.
 tethered.choose_destination = «Fota ifoto» iya kukubuza ukuba ufuna ukugcina phi iifoto zakho.
 tethered.preview_empty = Fota ifoto ukuze uyibone apha.
+tethered.save_local = Gcina kwisixhobo
+tethered.save_cloud = Gcina kwilifu
+tethered.cloud_help = Iifoto zifakwa kwindawo ye-Schist Cloud ekhethiweyo. Akugcinwa kopi kwigalari yesixhobo.
+tethered.cloud_pending = Iifayile ezingekagqibi ukufakwa zigcinwa ku-{path}.

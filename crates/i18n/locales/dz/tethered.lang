@@ -15,3 +15,7 @@ tethered.camera_usage_missing = བཟོ་བསྐྲུན་འདི་ན
 tethered.select_camera = པར་ལེན་ནི་དོན་ལུ་པར་ཆས་གདམ་ཁ་རྐྱབ།
 tethered.choose_destination = པར་ལེན་ གིས་ཁྱེད་ཀྱི་པར་ཚུ་ག་ཏེ་བསྲུང་ནི་ཨིན་ན་འདྲིཝ་ཨིན།
 tethered.preview_empty = ནཱ་ལུ་བལྟ་ནི་དོན་ལུ་པར་ཅིག་ལེན།
+tethered.save_local = ཉེ་གནས་ནང་སྲུང་།
+tethered.save_cloud = སྤྲིན་ནང་སྲུང་།
+tethered.cloud_help = པར་ཚུ་ Schist Cloud ནང་གདམ་ཁ་རྐྱབ་པའི་བསྲུང་ས་ལུ་ཡར་བཀལཝ་ཨིན། ཉེ་གནས་ཀྱི་པར་མཛོད་ནང་འདྲ་བཤུས་མི་བཞག།
+tethered.cloud_pending = མ་ཚར་བའི་ཡར་བཀལ་ཚུ་ {path} ནང་བཞགཔ་ཨིན།

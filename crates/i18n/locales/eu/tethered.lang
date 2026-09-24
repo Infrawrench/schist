@@ -15,3 +15,7 @@ tethered.camera_usage_missing = Konpilazio honek ez du kameraren baimenaren azal
 tethered.select_camera = Hautatu kamera bat argazkia ateratzeko.
 tethered.choose_destination = Atera argazkia aukerak argazkiak non gorde galdetuko dizu.
 tethered.preview_empty = Atera argazki bat hemen ikusteko.
+tethered.save_local = Gorde lokalean
+tethered.save_cloud = Gorde hodeian
+tethered.cloud_help = Argazkiak hautatutako Schist Cloud helmugara kargatzen dira. Ez da kopiarik gordetzen tokiko galerian.
+tethered.cloud_pending = Amaitu gabeko kargak {path} kokalekuan gordetzen dira.

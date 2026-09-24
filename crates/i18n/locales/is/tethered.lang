@@ -15,3 +15,7 @@ tethered.camera_usage_missing = Í þessari útgáfu vantar lýsingu á myndavé
 tethered.select_camera = Veldu myndavél til að taka mynd.
 tethered.choose_destination = Taka mynd mun biðja þig að velja hvar myndirnar verða vistaðar.
 tethered.preview_empty = Taktu mynd til að sjá hana hér.
+tethered.save_local = Vista á tækinu
+tethered.save_cloud = Vista í skýinu
+tethered.cloud_help = Myndirnar eru sendar á valinn áfangastað í Schist Cloud. Ekkert afrit er varðveitt í staðbundnu myndasafni.
+tethered.cloud_pending = Óloknar sendingar eru geymdar í {path}.

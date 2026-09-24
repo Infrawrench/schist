@@ -15,3 +15,7 @@ tethered.camera_usage_missing = Aquesta compilació no inclou la descripció del
 tethered.select_camera = Seleccioneu una càmera per fer una foto.
 tethered.choose_destination = Fes una foto us demanarà on voleu desar les fotos.
 tethered.preview_empty = Feu una foto per veure-la aquí.
+tethered.save_local = Desa localment
+tethered.save_cloud = Desa al núvol
+tethered.cloud_help = Les captures es pugen a la destinació seleccionada de Schist Cloud. No se'n conserva cap còpia a la galeria local.
+tethered.cloud_pending = Les pujades que no s'han acabat es conserven a {path}.

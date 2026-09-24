@@ -15,3 +15,7 @@ tethered.camera_usage_missing = આ બિલ્ડમાં કૅમેરા 
 tethered.select_camera = ફોટો પાડવા માટે કૅમેરા પસંદ કરો.
 tethered.choose_destination = ફોટો પાડો તમારા ફોટા ક્યાં સાચવવા તે પૂછશે.
 tethered.preview_empty = અહીં જોવા માટે ફોટો પાડો.
+tethered.save_local = સ્થાનિક રીતે સાચવો
+tethered.save_cloud = ક્લાઉડમાં સાચવો
+tethered.cloud_help = ફોટા પસંદ કરેલા Schist Cloud સ્થાન પર અપલોડ થાય છે. સ્થાનિક ગૅલેરીમાં કોઈ નકલ રાખવામાં આવતી નથી.
+tethered.cloud_pending = હજુ પૂર્ણ ન થયેલા અપલોડ {path} પર રાખવામાં આવે છે.

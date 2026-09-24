@@ -74,6 +74,11 @@ enum RecoveryTask {
     Remove(PathBuf),
 }
 pub(super) enum Job {
+    Tethered {
+        epoch: u64,
+        id: u64,
+        event: super::tethered_cloud::Event,
+    },
     BatchFinished {
         epoch: u64,
         message: String,
@@ -1117,6 +1122,7 @@ impl Workspace {
         }
     }
     fn cloud_tick(&mut self, cx: &mut Context<Self>) {
+        self.tethered_cloud_tick();
         self.cloud_capture_edit();
         self.cloud_generation_tick(cx);
         #[cfg(not(target_arch = "wasm32"))]
@@ -1125,6 +1131,9 @@ impl Workspace {
         while let Ok(job) = self.cloud.jobs.try_recv() {
             changed = true;
             match job {
+                Job::Tethered { epoch, id, event } if epoch == self.cloud.epoch => {
+                    self.tethered_cloud_event(id, event, cx);
+                }
                 Job::BatchFinished { epoch, message } if epoch == self.cloud.epoch => {
                     self.cloud.batch_cancel = None;
                     self.cloud.progress = None;

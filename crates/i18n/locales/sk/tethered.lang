@@ -15,3 +15,7 @@ tethered.camera_usage_missing = V tejto zostave chýba opis povolenia na prístu
 tethered.select_camera = Vyberte fotoaparát, ktorým chcete urobiť snímku.
 tethered.choose_destination = Po kliknutí na „Odfotiť“ sa zobrazí otázka, kam uložiť fotografie.
 tethered.preview_empty = Odfoťte snímku, aby sa zobrazila tu.
+tethered.save_local = Uložiť lokálne
+tethered.save_cloud = Uložiť do cloudu
+tethered.cloud_help = Snímky sa nahrajú do vybraného cieľa v Schist Cloud. V miestnej galérii sa neuchová žiadna kópia.
+tethered.cloud_pending = Nedokončené nahrávania sú uložené v umiestnení {path}.

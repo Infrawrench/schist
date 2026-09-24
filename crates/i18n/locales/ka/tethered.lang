@@ -15,3 +15,7 @@ tethered.camera_usage_missing = ამ აგებაში კამერი�
 tethered.select_camera = ფოტოს გადასაღებად აირჩიეთ კამერა.
 tethered.choose_destination = ფოტოს გადაღება მოგთხოვთ მიუთითოთ, სად შეინახოს თქვენი ფოტოები.
 tethered.preview_empty = გადაიღეთ ფოტო, რომ აქ იხილოთ.
+tethered.save_local = ადგილობრივად შენახვა
+tethered.save_cloud = ღრუბელში შენახვა
+tethered.cloud_help = გადაღებული ფოტოები აიტვირთება Schist Cloud-ის არჩეულ ადგილას. ადგილობრივ გალერეაში ასლი არ შეინახება.
+tethered.cloud_pending = დაუსრულებელი ატვირთვები ინახება მისამართზე {path}.

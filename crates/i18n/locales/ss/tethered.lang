@@ -15,3 +15,7 @@ tethered.camera_usage_missing = Kuloluhlobo lolwakhiwe kushoda inchazelo yemvume
 tethered.select_camera = Khetsa ikhamera kuze utsatse sitfombe.
 tethered.choose_destination = «Tsatsa sitfombe» itakubuta kutsi titfombe takho tigcinwe kuphi.
 tethered.preview_empty = Tsatsa sitfombe kuze usibone lapha.
+tethered.save_local = Gcina kulomshini
+tethered.save_cloud = Gcina efwini
+tethered.cloud_help = Titfombe tilayishwa endzaweni loyikhetsile kuSchist Cloud. Akugcinwa ikhophi kugalari yalomshini.
+tethered.cloud_pending = Kulayishwa lokungakapheli kugcinwa ku{path}.

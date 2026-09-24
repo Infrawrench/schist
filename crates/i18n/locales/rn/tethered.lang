@@ -15,3 +15,7 @@ tethered.camera_usage_missing = Iyi verisiyo ibuze insiguro y'uruhusha rwo gukor
 tethered.select_camera = Hitamwo kamera kugira ufate ifoto.
 tethered.choose_destination = Fata ifoto izokubaza aho ushaka kubika amafoto yawe.
 tethered.preview_empty = Fata ifoto kugira uyibone hano.
+tethered.save_local = Kubika kuri iki gikoresho
+tethered.save_cloud = Kubika mu gicu
+tethered.cloud_help = Amafoto yoherezwa aho wahisemwo muri Schist Cloud. Nta kopi ibikwa mu bubiko bw’amafoto bwo kuri iki gikoresho.
+tethered.cloud_pending = Ivyo kohereza bitararangira bibikwa kuri {path}.

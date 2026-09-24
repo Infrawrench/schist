@@ -15,3 +15,7 @@ tethered.camera_usage_missing = Bu ýygnamada kamera rugsadynyň düşündirişi
 tethered.select_camera = Surata düşürmek üçin kamerany saýlaň.
 tethered.choose_destination = Surata düşür suratlaryňyzy nirede saklamalydygyny sorar.
 tethered.preview_empty = Şu ýerde görmek üçin surata düşüriň.
+tethered.save_local = Şu enjamda sakla
+tethered.save_cloud = Bulutda sakla
+tethered.cloud_help = Çekilen suratlar saýlanan Schist Cloud ýerine ýüklenýär. Ýerli galereýada nusgasy saklanmaýar.
+tethered.cloud_pending = Tamamlanmadyk ýüklemeler {path} salgysynda saklanýar.

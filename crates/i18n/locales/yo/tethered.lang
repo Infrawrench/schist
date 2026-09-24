@@ -15,3 +15,7 @@ tethered.camera_usage_missing = Ìtúmọ̀ àṣẹ kámẹ́rà kò sí nínú
 tethered.select_camera = Yan kámẹ́rà láti ya fọ́tò.
 tethered.choose_destination = «Ya fọ́tò» yóò béèrè ibi tí o fẹ́ fi àwọn fọ́tò rẹ pamọ́.
 tethered.preview_empty = Ya fọ́tò láti rí i níbí.
+tethered.save_local = Fipamọ́ sórí ẹ̀rọ
+tethered.save_cloud = Fipamọ́ sínú àwọsánmà
+tethered.cloud_help = A máa gbé àwọn fọ́tò tí a ya lọ sí ibi Schist Cloud tí a yàn. A kì í fi ẹ̀dà pamọ́ sínú àkójọpọ̀ fọ́tò lórí ẹ̀rọ.
+tethered.cloud_pending = A máa fi àwọn ìgbérù tí kò tíì parí pamọ́ sí {path}.

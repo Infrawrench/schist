@@ -15,3 +15,7 @@ tethered.camera_usage_missing = Imasmiṃ nimmāṇe chāyāgāhānuññāya viv
 tethered.select_camera = Chāyaṃ gaṇhituṃ chāyāgāhaṃ gaṇhatha.
 tethered.choose_destination = Chāyaṃ gaṇhatha tumhākaṃ chāyāyo kattha rakkhitabbā ti pucchissati.
 tethered.preview_empty = Idha passituṃ chāyaṃ gaṇhatha.
+tethered.save_local = Idheva rakkhatha
+tethered.save_cloud = Meghabhaṇḍāgāre rakkhatha
+tethered.cloud_help = Gahitachāyāyo gahitaṃ Schist Cloud ṭhānaṃ upanīyanti. Idha chāyāsaṅgahaṭṭhāne paṭilipi na ṭhapīyati.
+tethered.cloud_pending = Aniṭṭhitā upanayanā {path} ti ṭhāne rakkhīyanti.

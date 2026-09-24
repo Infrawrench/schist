@@ -15,3 +15,7 @@ tethered.camera_usage_missing = Henda útgávan manglar lýsingina av myndatóla
 tethered.select_camera = Vel eitt myndatól fyri at taka eina mynd.
 tethered.choose_destination = Tak mynd spyr, hvar myndirnar skulu goymast.
 tethered.preview_empty = Tak eina mynd fyri at síggja hana her.
+tethered.save_local = Goym lokalt
+tethered.save_cloud = Goym í skýnum
+tethered.cloud_help = Myndirnar verða sendar til valda staðið í Schist Cloud. Einki eintak verður goymt í lokalu myndasavninum.
+tethered.cloud_pending = Innsendingar, sum ikki eru lidnar, verða goymdar á {path}.

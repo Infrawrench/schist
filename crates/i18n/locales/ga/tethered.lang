@@ -15,3 +15,7 @@ tethered.camera_usage_missing = Tá cur síos ar chead an cheamara ar iarraidh �
 tethered.select_camera = Roghnaigh ceamara chun grianghraf a thógáil.
 tethered.choose_destination = Fiafróidh Tóg grianghraf díot cá háit ar mhaith leat do ghrianghraif a shábháil.
 tethered.preview_empty = Tóg grianghraf chun é a fheiceáil anseo.
+tethered.save_local = Sábháil go háitiúil
+tethered.save_cloud = Sábháil sa néal
+tethered.cloud_help = Uaslódáiltear na grianghraif chuig an gceann scríbe roghnaithe in Schist Cloud. Ní choinnítear cóip sa ghailearaí áitiúil.
+tethered.cloud_pending = Coinnítear uaslódálacha nach bhfuil críochnaithe ag {path}.

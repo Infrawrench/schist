@@ -15,3 +15,7 @@ tethered.camera_usage_missing = Lokhu kwakhiwa akunayo incazelo yemvume yekhamer
 tethered.select_camera = Khetha ikhamera ukuze uthwebule isithombe.
 tethered.choose_destination = «Thwebula isithombe» kuzokubuza ukuthi uzilondoloza kuphi izithombe zakho.
 tethered.preview_empty = Thwebula isithombe ukuze usibone lapha.
+tethered.save_local = Londoloza kudivayisi
+tethered.save_cloud = Londoloza efwini
+tethered.cloud_help = Izithombe ezithwetshuliwe zilayishwa endaweni ye-Schist Cloud ekhethiwe. Ayikho ikhophi egcinwa kugalari yasendaweni.
+tethered.cloud_pending = Okusalayishwa okungakaqedi kugcinwa ku-{path}.

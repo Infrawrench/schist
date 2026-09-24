@@ -15,3 +15,7 @@ tethered.camera_usage_missing = Phetolelo ena ha e na tlhaloso ya tumello ya kha
 tethered.select_camera = Khetha khamera hore o nke senepe.
 tethered.choose_destination = Nka senepe e tla o botsa hore na o boloka dinepe kae.
 tethered.preview_empty = Nka senepe hore o se bone mona.
+tethered.save_local = Boloka sesebedisweng sena
+tethered.save_cloud = Boloka lerung
+tethered.cloud_help = Dinepe tse nkuweng di romelwa sebakeng se kgethilweng sa Schist Cloud. Ha ho kopi e bolokwang polokelong ya dinepe ya sesebediswa sena.
+tethered.cloud_pending = Difaele tse so qete ho romelwa di bolokilwe ho {path}.

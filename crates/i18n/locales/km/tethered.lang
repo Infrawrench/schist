@@ -15,3 +15,7 @@ tethered.camera_usage_missing = កំណែនេះខ្វះការពិ
 tethered.select_camera = ជ្រើសរើសកាមេរ៉ាដើម្បីថតរូប។
 tethered.choose_destination = «ថតរូប» នឹងសួរថាត្រូវរក្សាទុករូបថតរបស់អ្នកនៅទីណា។
 tethered.preview_empty = ថតរូបដើម្បីមើលវានៅទីនេះ។
+tethered.save_local = រក្សាទុកក្នុងឧបករណ៍
+tethered.save_cloud = រក្សាទុកក្នុងពពក
+tethered.cloud_help = រូបថតដែលថតបាននឹងផ្ទុកឡើងទៅកាន់ទីតាំង Schist Cloud ដែលបានជ្រើសរើស។ គ្មានច្បាប់ចម្លងនៅក្នុងវិចិត្រសាលមូលដ្ឋានត្រូវបានរក្សាទុកទេ។
+tethered.cloud_pending = ឯកសារដែលមិនទាន់ផ្ទុកឡើងរួច ត្រូវបានរក្សាទុកនៅ {path}។

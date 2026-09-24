@@ -15,3 +15,7 @@ tethered.camera_usage_missing = Dán huksemis váilu kámeralobi čilgehus. Huks
 tethered.select_camera = Vállje kámera vai sáhtát govvet.
 tethered.choose_destination = «Govve» jearrá gos háliidat vurket govaid.
 tethered.preview_empty = Govve vai oainnát gova dáppe.
+tethered.save_local = Vurke báikkálaččat
+tethered.save_cloud = Vurke balvii
+tethered.cloud_help = Govat sáddojuvvojit válljejuvvon báikái Schist Cloud -balvabálvalusas. Báikkálaš gallerii ii doalat kopiija.
+tethered.cloud_pending = Sáddemat mat eai leat geargan vurkejuvvojit dáppe: {path}.

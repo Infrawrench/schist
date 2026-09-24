@@ -15,3 +15,7 @@ tethered.camera_usage_missing = Mae'r disgrifiad o ganiatâd camera ar goll o'r 
 tethered.select_camera = Dewiswch gamera i dynnu llun.
 tethered.choose_destination = Bydd Tynnu llun yn gofyn ble i gadw'ch lluniau.
 tethered.preview_empty = Tynnwch lun i'w weld yma.
+tethered.save_local = Cadw'n lleol
+tethered.save_cloud = Cadw yn y cwmwl
+tethered.cloud_help = Caiff lluniau eu huwchlwytho i'r gyrchfan a ddewiswyd yn Schist Cloud. Ni chedwir copi yn yr oriel leol.
+tethered.cloud_pending = Cedwir uwchlwythiadau nad ydynt wedi gorffen yn {path}.

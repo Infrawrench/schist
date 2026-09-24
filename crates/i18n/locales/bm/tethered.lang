@@ -15,3 +15,7 @@ tethered.camera_usage_missing = Kamera sariya ɲɛfɔli tɛ sigili nin kɔnɔ. S
 tethered.select_camera = Kamera sugandi walasa i ka foto ta.
 tethered.choose_destination = Foto ta bɛ i ɲininka i ka i ka fotow mara min.
 tethered.preview_empty = Foto ta walasa i ka a ye yan.
+tethered.save_local = Mara yan
+tethered.save_cloud = Mara ni kulu kan
+tethered.cloud_help = Fotow bɛ lajɛ Schist Cloud yɔrɔ sugandilen ma. Kopi tɛ mara foto galeri nin na.
+tethered.cloud_pending = Lajɛli minnu ma ban u bɛ mara {path} la.

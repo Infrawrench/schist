@@ -15,3 +15,7 @@ tethered.camera_usage_missing = Kāore he whakamārama mō te whakaaetanga kāme
 tethered.select_camera = Kōwhiria he kāmera hei tango whakaahua.
 tethered.choose_destination = Ka pātai a Hopukina he whakaahua ki hea tiakina ai ō whakaahua.
 tethered.preview_empty = Hopukina he whakaahua kia kitea ki konei.
+tethered.save_local = Tiakina ki tēnei pūrere
+tethered.save_cloud = Tiakina ki te kapua
+tethered.cloud_help = Ka tukuna ngā whakaahua ki te wāhi Schist Cloud kua kōwhiria. Kāore he tārua e puritia ki te taiwhanga whakaahua ā-rohe.
+tethered.cloud_pending = Ka puritia ngā tukunga kāore anō kia oti ki {path}.

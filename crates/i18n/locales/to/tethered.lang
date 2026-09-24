@@ -15,3 +15,7 @@ tethered.camera_usage_missing = ʻOku ʻikai ʻi he langa ko ʻení ha fakamatal
 tethered.select_camera = Fili ha meʻafaitaa ke faitaa ai.
 tethered.choose_destination = ʻE fehuʻi ʻe he Faitaa ʻa e feituʻu ke seivi ai hoʻo ngaahi fakatātaá.
 tethered.preview_empty = Faitaa ke ke sio ki ai ʻi heni.
+tethered.save_local = Seivi ʻi he meʻangāue ni
+tethered.save_cloud = Seivi ʻi he ʻao
+tethered.cloud_help = ʻOku ʻave ʻa e ngaahi fakatātā kuo faitaá ki he feituʻu kuo fili ʻi he Schist Cloud. ʻOku ʻikai tauhi ha tatau ʻi he tānakiʻanga fakatātā ʻo e meʻangāue ni.
+tethered.cloud_pending = ʻOku tauhi ʻa e ngaahi ʻave faile ʻoku teʻeki ke ʻosi ʻi he {path}.

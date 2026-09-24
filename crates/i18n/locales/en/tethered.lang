@@ -14,3 +14,7 @@ tethered.camera_usage_missing = This build is missing its camera permission desc
 tethered.select_camera = Select a camera to take a photo.
 tethered.choose_destination = Capture photo will ask where to save your photos.
 tethered.preview_empty = Take a photo to see it here.
+tethered.save_local = Save locally
+tethered.save_cloud = Save to cloud
+tethered.cloud_help = Captures upload to the selected Schist Cloud destination. No local gallery copy is kept.
+tethered.cloud_pending = Uploads that have not finished are kept at {path}.

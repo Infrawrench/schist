@@ -15,3 +15,7 @@ tethered.camera_usage_missing = Yma an displegyans ma heb deskrifans kummyas an 
 tethered.select_camera = Dewis kamera rag tenna skeus.
 tethered.choose_destination = «Tenna skeus» a wra govyn py le may sawya dha skeusen.
 tethered.preview_empty = Tenna skeus rag hy gweles omma.
+tethered.save_local = Sawya yn leel
+tethered.save_cloud = Sawya dhe'n kowlen
+tethered.cloud_help = An skeusen tennys a wra ughkarga dhe'n tyller Schist Cloud dewisys. Ny gedwir kopi y'n galeri leel.
+tethered.cloud_pending = An ughkargyansow na veu gorfennys a gedwir orth {path}.

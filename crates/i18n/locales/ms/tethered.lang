@@ -15,3 +15,7 @@ tethered.camera_usage_missing = Binaan ini tiada penerangan kebenaran kameranya.
 tethered.select_camera = Pilih kamera untuk mengambil foto.
 tethered.choose_destination = Ambil foto akan meminta anda memilih tempat menyimpan foto.
 tethered.preview_empty = Ambil foto untuk melihatnya di sini.
+tethered.save_local = Simpan pada peranti
+tethered.save_cloud = Simpan ke awan
+tethered.cloud_help = Foto yang diambil dimuat naik ke destinasi Schist Cloud yang dipilih. Tiada salinan disimpan dalam galeri setempat.
+tethered.cloud_pending = Muat naik yang belum selesai disimpan di {path}.

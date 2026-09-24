@@ -15,3 +15,7 @@ tethered.camera_usage_missing = A ista compilación li manca a descripción d'o 
 tethered.select_camera = Triga una camara pa fer una foto.
 tethered.choose_destination = Fer una foto te preguntará an alzar as fotos.
 tethered.preview_empty = Fe una foto pa veyer-la aquí.
+tethered.save_local = Alzar localment
+tethered.save_cloud = Alzar en a boira
+tethered.cloud_help = As capturas se puyan a la destinación de Schist Cloud trigada. No se'n alza garra copia en a galería local.
+tethered.cloud_pending = As puyadas que encara no han rematau se conservan en {path}.

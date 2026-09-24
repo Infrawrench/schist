@@ -15,3 +15,7 @@ tethered.camera_usage_missing = Ti compilation manca li description del permissi
 tethered.select_camera = Selecte un camera por far un foto.
 tethered.choose_destination = Far un foto va demandar u gardar vor fotos.
 tethered.preview_empty = Fa un foto por vider it ci.
+tethered.save_local = Gardar localmen
+tethered.save_cloud = Gardar in li nube
+tethered.cloud_help = Li fotos es cargat al selectet destination in Schist Cloud. Null copie resta in li local galerie.
+tethered.cloud_pending = Li cargamentes quel ne ha finit es gardat in {path}.

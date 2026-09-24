@@ -15,3 +15,7 @@ tethered.camera_usage_missing = Šajā būvējumā trūkst kameras atļaujas apr
 tethered.select_camera = Izvēlieties kameru, lai uzņemtu fotoattēlu.
 tethered.choose_destination = «Uzņemt fotoattēlu» vaicās, kur saglabāt jūsu fotoattēlus.
 tethered.preview_empty = Uzņemiet fotoattēlu, lai to redzētu šeit.
+tethered.save_local = Saglabāt lokāli
+tethered.save_cloud = Saglabāt mākonī
+tethered.cloud_help = Uzņemtie fotoattēli tiek augšupielādēti izvēlētajā Schist Cloud vietā. Vietējā galerijā kopija netiek saglabāta.
+tethered.cloud_pending = Nepabeigtās augšupielādes tiek glabātas vietā {path}.

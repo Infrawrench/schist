@@ -15,3 +15,7 @@ tethered.camera_usage_missing = په دې جوړښت کې د کمرې د اجا�
 tethered.select_camera = د انځور اخیستلو لپاره کمره وټاکئ.
 tethered.choose_destination = انځور واخلئ به پوښتنه وکړي چې انځورونه مو چېرته وساتل شي.
 tethered.preview_empty = یو انځور واخلئ چې دلته یې ووینئ.
+tethered.save_local = په دې وسیله کې وساتئ
+tethered.save_cloud = په کلاوډ کې وساتئ
+tethered.cloud_help = اخیستل شوي انځورونه په Schist Cloud کې ټاکل شوي ځای ته پورته کېږي. په ځایي ګالري کې یې هېڅ کاپي نه ساتل کېږي.
+tethered.cloud_pending = نا بشپړ شوي پورته کول په {path} کې ساتل کېږي.

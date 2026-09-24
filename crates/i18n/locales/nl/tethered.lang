@@ -15,3 +15,7 @@ tethered.camera_usage_missing = In deze versie ontbreekt de beschrijving voor ca
 tethered.select_camera = Selecteer een camera om een foto te maken.
 tethered.choose_destination = Bij Foto maken wordt gevraagd waar u uw foto's wilt opslaan.
 tethered.preview_empty = Maak een foto om deze hier te zien.
+tethered.save_local = Lokaal opslaan
+tethered.save_cloud = Opslaan in de cloud
+tethered.cloud_help = Opnamen worden geüpload naar de geselecteerde bestemming in Schist Cloud. Er wordt geen kopie in de lokale galerij bewaard.
+tethered.cloud_pending = Uploads die nog niet zijn voltooid, worden bewaard op {path}.

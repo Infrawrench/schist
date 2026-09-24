@@ -15,3 +15,7 @@ tethered.camera_usage_missing = Versi iki ora nduweni katrangan idin kamera. Ban
 tethered.select_camera = Pilih kamera kanggo njupuk foto.
 tethered.choose_destination = Jupuk foto bakal takon ing ngendi foto arep disimpen.
 tethered.preview_empty = Jupuk foto supaya katon ing kene.
+tethered.save_local = Simpen ing piranti
+tethered.save_cloud = Simpen ing cloud
+tethered.cloud_help = Foto bakal diunggah menyang tujuan Schist Cloud sing dipilih. Ora ana salinan sing disimpen ing galeri lokal.
+tethered.cloud_pending = Unggahan sing durung rampung disimpen ing {path}.

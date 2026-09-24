@@ -15,3 +15,7 @@ tethered.camera_usage_missing = Vèsyon sa a pa gen deskripsyon pèmisyon kamera
 tethered.select_camera = Chwazi yon kamera pou pran yon foto.
 tethered.choose_destination = Pran foto ap mande w ki kote pou anrejistre foto ou yo.
 tethered.preview_empty = Pran yon foto pou wè li isit la.
+tethered.save_local = Anrejistre sou aparèy la
+tethered.save_cloud = Anrejistre nan nwaj la
+tethered.cloud_help = Yo voye foto yo nan destinasyon Schist Cloud ou chwazi a. Pa gen kopi ki rete nan galri lokal la.
+tethered.cloud_pending = Foto ki poko fin voye yo konsève nan {path}.

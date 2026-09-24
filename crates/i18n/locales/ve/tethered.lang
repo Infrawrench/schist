@@ -15,3 +15,7 @@ tethered.camera_usage_missing = Muvhili uyu wa Schist a u na ṱhalutshedzo ya t
 tethered.select_camera = Khethani khamera uri ni fode tshifanyiso.
 tethered.choose_destination = «Fodani tshifanyiso» zwi ḓo ni vhudzisa hune na ḓo vhulunga hone zwifanyiso zwaṋu.
 tethered.preview_empty = Fodani tshifanyiso uri ni tshi vhone hafha.
+tethered.save_local = Vhulunga kha tshishumiswa itshi
+tethered.save_cloud = Vhulunga kha gole
+tethered.cloud_help = Zwifanyiso zwo fodwaho zwi rumelwa fhethu ho khethwaho ha Schist Cloud. A hu vhulungwi khophi kha galari ya fhano.
+tethered.cloud_pending = Zwiṅwe zwine zwa kha ḓi rumelwa zwi vhulungwa kha {path}.

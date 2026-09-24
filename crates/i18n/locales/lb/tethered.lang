@@ -15,3 +15,7 @@ tethered.camera_usage_missing = Bei dëser Versioun feelt d'Beschreiwung fir d'K
 tethered.select_camera = Wielt eng Kamera, fir eng Foto ze maachen.
 tethered.choose_destination = «Foto maachen» freet Iech, wou Är Fotoe gespäichert solle ginn.
 tethered.preview_empty = Maacht eng Foto, fir se hei ze gesinn.
+tethered.save_local = Lokal späicheren
+tethered.save_cloud = An der Cloud späicheren
+tethered.cloud_help = D'Fotoe ginn op déi ausgewielte Plaz a Schist Cloud eropgelueden. Et gëtt keng Kopie an der lokaler Galerie gehalen.
+tethered.cloud_pending = Eropluedungen, déi nach net ofgeschloss sinn, ginn op {path} gespäichert.

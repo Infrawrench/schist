@@ -15,3 +15,7 @@ tethered.camera_usage_missing = Αυτή η έκδοση δεν περιλαμβ
 tethered.select_camera = Επιλέξτε κάμερα για να τραβήξετε φωτογραφία.
 tethered.choose_destination = Η Λήψη φωτογραφίας θα σας ρωτήσει πού να αποθηκεύσει τις φωτογραφίες σας.
 tethered.preview_empty = Τραβήξτε μια φωτογραφία για να τη δείτε εδώ.
+tethered.save_local = Αποθήκευση τοπικά
+tethered.save_cloud = Αποθήκευση στο νέφος
+tethered.cloud_help = Οι λήψεις μεταφορτώνονται στον επιλεγμένο προορισμό του Schist Cloud. Δεν διατηρείται αντίγραφο στην τοπική συλλογή.
+tethered.cloud_pending = Οι μεταφορτώσεις που δεν έχουν ολοκληρωθεί διατηρούνται στη διαδρομή {path}.

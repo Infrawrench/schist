@@ -15,3 +15,7 @@ tethered.camera_usage_missing = A questa versiun manca la descripziun da la perm
 tethered.select_camera = Tschernai ina camera per far ina fotografia.
 tethered.choose_destination = Far ina fotografia dumonda nua memorisar vossas fotografias.
 tethered.preview_empty = Faschai ina fotografia per vesair ella qua.
+tethered.save_local = Memorisar localmain
+tethered.save_cloud = Memorisar en la nivla
+tethered.cloud_help = Las fotografias vegnan chargiadas a la destinaziun tschernida en Schist Cloud. Nagina copia na vegn memorisada en la galaria locala.
+tethered.cloud_pending = Transfers betg anc terminads vegnan memorisads en {path}.

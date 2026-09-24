@@ -15,3 +15,7 @@ tethered.camera_usage_missing = توضیح مجوز دوربین در این ن�
 tethered.select_camera = برای گرفتن عکس، یک دوربین انتخاب کنید.
 tethered.choose_destination = گرفتن عکس از شما می‌پرسد عکس‌ها کجا ذخیره شوند.
 tethered.preview_empty = برای دیدن عکس در اینجا، عکس بگیرید.
+tethered.save_local = ذخیره در دستگاه
+tethered.save_cloud = ذخیره در فضای ابری
+tethered.cloud_help = عکس‌ها در مقصد انتخاب‌شدهٔ Schist Cloud بارگذاری می‌شوند. هیچ نسخه‌ای در گالری محلی نگه داشته نمی‌شود.
+tethered.cloud_pending = بارگذاری‌های ناتمام در {path} نگه‌داری می‌شوند.

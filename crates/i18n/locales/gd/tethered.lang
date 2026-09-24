@@ -15,3 +15,7 @@ tethered.camera_usage_missing = Tha tuairisgeul cead a’ chamara a dhìth bhon 
 tethered.select_camera = Tagh camara gus dealbh a thogail.
 tethered.choose_destination = Faighnichidh Tog dealbh càit an tèid na dealbhan agad a shàbhaladh.
 tethered.preview_empty = Tog dealbh gus fhaicinn an-seo.
+tethered.save_local = Sàbhail gu h-ionadail
+tethered.save_cloud = Sàbhail san neul
+tethered.cloud_help = Thèid na dealbhan a luchdadh suas chun cheann-uidhe a thagh thu ann an Schist Cloud. Cha tèid lethbhreac a chumail sa ghailearaidh ionadail.
+tethered.cloud_pending = Thèid luchdaidhean suas nach eil deiseil a chumail aig {path}.

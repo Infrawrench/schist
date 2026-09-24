@@ -15,3 +15,7 @@ tethered.camera_usage_missing = Di vê avakirinê de ravekirina destûra kameray
 tethered.select_camera = Ji bo kişandina wêne kamerayekê hilbijêre.
 tethered.choose_destination = «Wêne bikişîne» dê bipirse ku wêneyên xwe li ku tomar bikî.
 tethered.preview_empty = Wêneyekê bikişîne da ku li vir bibînî.
+tethered.save_local = Li herêmê tomar bike
+tethered.save_cloud = Li ewrê tomar bike
+tethered.cloud_help = Wêneyên kişandî li cihê Schist Cloud ê hilbijartî tên barkirin. Kopiyek di galeriyê ya herêmî de nayê parastin.
+tethered.cloud_pending = Barkirinên ku hêj neqediyane li {path} tên parastin.

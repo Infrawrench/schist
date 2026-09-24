@@ -15,3 +15,7 @@ tethered.camera_usage_missing = Rhiendliro leri a ri na nhlamuselo ya mpfumelelo
 tethered.select_camera = Hlawula khamera leswaku u teka xifaniso.
 tethered.choose_destination = Teka xifaniso yi ta ku vutisa leswaku swifaniso swa wena swi hlayisiwa kwihi.
 tethered.preview_empty = Teka xifaniso leswaku u xi vona laha.
+tethered.save_local = Hlayisa eka xitirhisiwa lexi
+tethered.save_cloud = Hlayisa eka papa
+tethered.cloud_help = Swifaniso leswi tekiweke swi layichiwa eka ndhawu leyi hlawuriweke ya Schist Cloud. A ku hlayisiwi kopi eka galeri ya xitirhisiwa lexi.
+tethered.cloud_pending = Tifayili leti nga si hetaka ku layichiwa ti hlayisiwa eka {path}.

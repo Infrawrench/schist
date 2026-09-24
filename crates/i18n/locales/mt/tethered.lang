@@ -15,3 +15,7 @@ tethered.camera_usage_missing = Din il-verżjoni m’għandhiex deskrizzjoni tal
 tethered.select_camera = Agħżel kamera biex tieħu ritratt.
 tethered.choose_destination = Ħu ritratt jistaqsik fejn trid tissejvja r-ritratti tiegħek.
 tethered.preview_empty = Ħu ritratt biex tarah hawn.
+tethered.save_local = Issejvja lokalment
+tethered.save_cloud = Issejvja fis-sħaba
+tethered.cloud_help = Ir-ritratti jittellgħu fid-destinazzjoni magħżula ta’ Schist Cloud. Ma tinżamm l-ebda kopja fil-gallerija lokali.
+tethered.cloud_pending = Il-fajls li għadhom ma tlestiex it-tlugħ tagħhom jinżammu f’{path}.

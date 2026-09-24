@@ -15,3 +15,7 @@ tethered.camera_usage_missing = Энэ хувилбарт камерын зөв�
 tethered.select_camera = Зураг авахын тулд камер сонгоно уу.
 tethered.choose_destination = Зураг авах үед зургуудаа хаана хадгалахыг танаас асууна.
 tethered.preview_empty = Энд харахын тулд зураг авна уу.
+tethered.save_local = Төхөөрөмжид хадгалах
+tethered.save_cloud = Үүлэнд хадгалах
+tethered.cloud_help = Авсан зургууд сонгосон Schist Cloud байршил руу байршуулна. Орон нутгийн зургийн санд хуулбар хадгалахгүй.
+tethered.cloud_pending = Дуусаагүй байршуулалтууд {path} дотор хадгалагдана.

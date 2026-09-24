@@ -15,3 +15,7 @@ tethered.camera_usage_missing = Yn dizze ferzje ûntbrekt de beskriuwing fan de 
 tethered.select_camera = Selektearje in kamera om in foto te meitsjen.
 tethered.choose_destination = Meitsje in foto freget wêr’t jo foto’s bewarre wurde moatte.
 tethered.preview_empty = Meitsje in foto om dy hjir te sjen.
+tethered.save_local = Lokaal bewarje
+tethered.save_cloud = Bewarje yn de cloud
+tethered.cloud_help = Foto’s wurde nei de selektearre bestimming yn Schist Cloud opladen. Der wurdt gjin kopy yn de lokale galery bewarre.
+tethered.cloud_pending = Uploads dy’t noch net klear binne, wurde bewarre op {path}.

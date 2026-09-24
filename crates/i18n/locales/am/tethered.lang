@@ -15,3 +15,7 @@ tethered.camera_usage_missing = በዚህ ግንባታ ውስጥ የካሜራ �
 tethered.select_camera = ፎቶ ለማንሳት ካሜራ ይምረጡ።
 tethered.choose_destination = ፎቶ አንሳ ፎቶዎችዎን የት እንደሚያስቀምጡ ይጠይቃል።
 tethered.preview_empty = እዚህ ለማየት ፎቶ ያንሱ።
+tethered.save_local = በአካባቢው አስቀምጥ
+tethered.save_cloud = ወደ ደመና አስቀምጥ
+tethered.cloud_help = የተነሱ ፎቶዎች ወደ ተመረጠው Schist Cloud መዳረሻ ይሰቀላሉ። በአካባቢው የፎቶ ማዕከል ቅጂ አይቀመጥም።
+tethered.cloud_pending = ገና ያልተጠናቀቁ ሰቀላዎች በ{path} ይቀመጣሉ።

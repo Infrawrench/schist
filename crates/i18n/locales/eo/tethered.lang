@@ -15,3 +15,7 @@ tethered.camera_usage_missing = En ĉi tiu konstruaĵo mankas la priskribo de la
 tethered.select_camera = Elektu fotilon por foti.
 tethered.choose_destination = Foti demandos, kie konservi viajn fotojn.
 tethered.preview_empty = Fotu por vidi la bildon ĉi tie.
+tethered.save_local = Konservi loke
+tethered.save_cloud = Konservi en la nubo
+tethered.cloud_help = Fotoj alŝutiĝas al la elektita celo en Schist Cloud. Neniu kopio restas en la loka galerio.
+tethered.cloud_pending = Nefinitaj alŝutoj estas konservataj ĉe {path}.

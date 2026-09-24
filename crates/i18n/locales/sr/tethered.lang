@@ -15,3 +15,7 @@ tethered.camera_usage_missing = У овом издању недостаје оп
 tethered.select_camera = Изаберите фотоапарат за снимање фотографије.
 tethered.choose_destination = Када притиснете „Сними фотографију“, бићете упитани где да сачувате фотографије.
 tethered.preview_empty = Снимите фотографију да бисте је видели овде.
+tethered.save_local = Сачувај локално
+tethered.save_cloud = Сачувај у облаку
+tethered.cloud_help = Фотографије се отпремају на изабрано одредиште у Schist Cloud. Копија се не чува у локалној галерији.
+tethered.cloud_pending = Недовршена отпремања чувају се на путањи {path}.

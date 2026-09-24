@@ -15,3 +15,7 @@ tethered.camera_usage_missing = Huic aedificationi descriptio permissionis camer
 tethered.select_camera = Cameram elige ut photographiam capias.
 tethered.choose_destination = «Photographiam cape» rogabit ubi photographias tuas servare velis.
 tethered.preview_empty = Photographiam cape ut hic eam videas.
+tethered.save_local = Loco serva
+tethered.save_cloud = In nube serva
+tethered.cloud_help = Capturae ad locum electum Schist Cloud imponuntur. Nullum exemplum in pinacotheca locali servatur.
+tethered.cloud_pending = Impositiones nondum completae apud {path} servantur.

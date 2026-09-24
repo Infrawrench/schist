@@ -15,3 +15,7 @@ tethered.camera_usage_missing = Tabax bii amul leeralu ndigalu kamera. Tabaxaata
 tethered.select_camera = Tànnal kamera ngir jël nataal.
 tethered.choose_destination = «Jël nataal» dina la laaj fu ngay denc sa nataal yi.
 tethered.preview_empty = Jëlal nataal ngir gis ko fii.
+tethered.save_local = Denc ci sa ordinatër
+tethered.save_cloud = Denc ci niir bi
+tethered.cloud_help = Nataal yi dañuy yónnee ci bérébu Schist Cloud bi nga tànn. Duñu denc ab duppi ci sa galeri bu ci sa ordinatër.
+tethered.cloud_pending = Yónnee yi jeexagul dañu leen di denc ci {path}.

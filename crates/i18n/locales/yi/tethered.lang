@@ -15,3 +15,7 @@ tethered.camera_usage_missing = אין דעם בילד פֿעלט די באַש�
 tethered.select_camera = קלײַבט אויס אַ קאַמעראַ כּדי צו מאַכן אַ פֿאָטאָ.
 tethered.choose_destination = „מאַכן אַ פֿאָטאָ“ וועט פֿרעגן וווּ צו היטן אײַערע פֿאָטאָס.
 tethered.preview_empty = מאַכט אַ פֿאָטאָ כּדי עס דאָ צו זען.
+tethered.save_local = היטן אויפֿן קאָמפּיוטער
+tethered.save_cloud = היטן אין וואָלקן
+tethered.cloud_help = די פֿאָטאָס ווערן אַרויפֿגעלאָדן צום אויסגעקליבענעם אָרט אין Schist Cloud. קיין קאָפּיע ווערט נישט געהיטן אין דער לאָקאַלער גאַלעריע.
+tethered.cloud_pending = אַרויפֿלאָדונגען וואָס זענען נאָך נישט פֿאַרטיק ווערן געהיטן אין {path}.

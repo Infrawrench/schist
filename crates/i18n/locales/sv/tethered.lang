@@ -15,3 +15,7 @@ tethered.camera_usage_missing = Den här versionen saknar en beskrivning av kame
 tethered.select_camera = Välj en kamera för att ta ett foto.
 tethered.choose_destination = Ta foto kommer att fråga var du vill spara dina bilder.
 tethered.preview_empty = Ta ett foto för att se det här.
+tethered.save_local = Spara lokalt
+tethered.save_cloud = Spara i molnet
+tethered.cloud_help = Bilderna överförs till den valda destinationen i Schist Cloud. Ingen kopia sparas i det lokala galleriet.
+tethered.cloud_pending = Överföringar som inte har slutförts lagras på {path}.

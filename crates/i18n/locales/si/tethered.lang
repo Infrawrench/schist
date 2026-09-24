@@ -15,3 +15,7 @@ tethered.camera_usage_missing = මෙම ගොඩනැගීමේ කැම�
 tethered.select_camera = ඡායාරූපයක් ගැනීමට කැමරාවක් තෝරන්න.
 tethered.choose_destination = «ඡායාරූපයක් ගන්න» ඔබේ ඡායාරූප සුරැකිය යුතු ස්ථානය විමසනු ඇත.
 tethered.preview_empty = මෙහි බැලීමට ඡායාරූපයක් ගන්න.
+tethered.save_local = මෙම උපාංගයේ සුරකින්න
+tethered.save_cloud = වලාකුළෙහි සුරකින්න
+tethered.cloud_help = ඡායාරූප Schist Cloud හි තෝරාගත් ස්ථානයට උඩුගත වේ. දේශීය ගැලරියේ පිටපතක් තබා නොගනී.
+tethered.cloud_pending = අවසන් නොවූ උඩුගත කිරීම් {path} හි තබා ඇත.

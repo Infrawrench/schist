@@ -15,3 +15,7 @@ tethered.camera_usage_missing = এই বিল্ডত কেমেৰা অ
 tethered.select_camera = ফটো তুলিবলৈ এটা কেমেৰা বাছক।
 tethered.choose_destination = ফটো তুলক টিপিলে ফটোবোৰ ক'ত সংৰক্ষণ কৰিব সেয়া সুধিব।
 tethered.preview_empty = ইয়াত চাবলৈ এখন ফটো তুলক।
+tethered.save_local = স্থানীয়ভাৱে সংৰক্ষণ কৰক
+tethered.save_cloud = ক্লাউডত সংৰক্ষণ কৰক
+tethered.cloud_help = তোলা ফটোবোৰ নিৰ্বাচিত Schist Cloud গন্তব্যস্থানলৈ আপল'ড হয়। স্থানীয় গেলেৰীত কোনো প্ৰতিলিপি ৰখা নহয়।
+tethered.cloud_pending = সম্পূৰ্ণ নোহোৱা আপল'ডবোৰ {path}-ত ৰখা হয়।

@@ -15,3 +15,7 @@ tethered.camera_usage_missing = ບິລດ໌ນີ້ຂາດຄໍາອະ
 tethered.select_camera = ເລືອກກ້ອງເພື່ອຖ່າຍຮູບ.
 tethered.choose_destination = «ຖ່າຍຮູບ» ຈະຖາມວ່າຈະບັນທຶກຮູບຂອງທ່ານໄວ້ບ່ອນໃດ.
 tethered.preview_empty = ຖ່າຍຮູບເພື່ອເບິ່ງຢູ່ນີ້.
+tethered.save_local = ບັນທຶກໃນເຄື່ອງ
+tethered.save_cloud = ບັນທຶກໃນຄລາວ
+tethered.cloud_help = ຮູບທີ່ຖ່າຍຈະຖືກອັບໂຫຼດໄປຫາບ່ອນຈັດເກັບ Schist Cloud ທີ່ເລືອກ. ຈະບໍ່ເກັບສໍາເນົາໄວ້ໃນຄັງຮູບພາຍໃນເຄື່ອງ.
+tethered.cloud_pending = ການອັບໂຫຼດທີ່ຍັງບໍ່ສໍາເລັດຈະຖືກເກັບໄວ້ທີ່ {path}.

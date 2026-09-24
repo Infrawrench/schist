@@ -15,3 +15,7 @@ tethered.camera_usage_missing = Ụdị a enweghị nkọwa ikike igwefoto ya. J
 tethered.select_camera = Họrọ igwefoto iji see foto.
 tethered.choose_destination = See foto ga-ajụ ebe ị chọrọ ichekwa foto gị.
 tethered.preview_empty = See foto ka ị hụ ya ebe a.
+tethered.save_local = Chekwaa n’ime ngwaọrụ
+tethered.save_cloud = Chekwaa n’ígwé ojii
+tethered.cloud_help = A na-ebulite foto ndị a n’ebe ahọpụtara na Schist Cloud. A naghị edobe oyiri na galeri dị n’ime ngwaọrụ.
+tethered.cloud_pending = A na-edobe nbulite ndị a na-emechabeghị na {path}.

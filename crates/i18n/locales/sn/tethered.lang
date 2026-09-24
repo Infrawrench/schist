@@ -15,3 +15,7 @@ tethered.camera_usage_missing = Tsananguro yemvumo yekamera haipo mushanduro iyi
 tethered.select_camera = Sarudza kamera kuti utore mufananidzo.
 tethered.choose_destination = «Tora mufananidzo» ichakubvunza pekuchengetera mifananidzo yako.
 tethered.preview_empty = Tora mufananidzo kuti uuone pano.
+tethered.save_local = Chengeta pakombiyuta ino
+tethered.save_cloud = Chengeta mugore
+tethered.cloud_help = Mifananidzo inoendeswa kunzvimbo yawasarudza muSchist Cloud. Hapana kopi inochengetwa mugalari yemuno.
+tethered.cloud_pending = Zviri kuendeswa zvisati zvapera zvinochengetwa pa{path}.

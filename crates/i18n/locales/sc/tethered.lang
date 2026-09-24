@@ -15,3 +15,7 @@ tethered.camera_usage_missing = A custa versione li mancat sa descritzione de su
 tethered.select_camera = Sèbera una càmera pro faghere una fotografia.
 tethered.choose_destination = «Faghe una fotografia» ti preguntat inue sarvare sas fotografias.
 tethered.preview_empty = Faghe una fotografia pro la bìdere inoghe.
+tethered.save_local = Sarva in su dispositivu
+tethered.save_cloud = Sarva in su nùulu
+tethered.cloud_help = Sas fotografias sunt carrigadas a sa destinatzione seletzionada in Schist Cloud. No si mantenet peruna còpia in sa galleria locale.
+tethered.cloud_pending = Sos carrigamentos no acabados sunt sarvados in {path}.

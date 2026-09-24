@@ -15,3 +15,7 @@ tethered.camera_usage_missing = このビルドにはカメラ使用許可の説
 tethered.select_camera = 写真を撮影するカメラを選択してください。
 tethered.choose_destination = 「写真を撮影」を選ぶと、写真の保存先を指定するよう求められます。
 tethered.preview_empty = 写真を撮影すると、ここに表示されます。
+tethered.save_local = ローカルに保存
+tethered.save_cloud = クラウドに保存
+tethered.cloud_help = 撮影した画像は、選択したSchist Cloudの保存先にアップロードされます。ローカルギャラリーにはコピーを保存しません。
+tethered.cloud_pending = 完了していないアップロードは{path}に保管されます。

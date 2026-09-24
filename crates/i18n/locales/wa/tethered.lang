@@ -15,3 +15,7 @@ tethered.camera_usage_missing = Cisse copileye n' a nén d' discrijhaedje del pe
 tethered.select_camera = Tchoezixhoz ene camera po prinde ene foto.
 tethered.choose_destination = «Prinde ene foto» vos dimandrè ewou schaper vos fotos.
 tethered.preview_empty = Prindoz ene foto po l' vey cial.
+tethered.save_local = Schaper so l' éndjinne
+tethered.save_cloud = Schaper dins l' nouwaedje
+tethered.cloud_help = Les fotos sont evoyeyes al plaece Schist Cloud tchoeziye. On n' wåde nén d' copeye dins l' galreye locåle.
+tethered.cloud_pending = Les evoyaedjes nén co fini sont wårdès a {path}.

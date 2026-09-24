@@ -15,3 +15,7 @@ tethered.camera_usage_missing = In deze versie ontbreek de omsjrieving van de ca
 tethered.select_camera = Kees 'ne camera om 'ne foto te make.
 tethered.choose_destination = «Maak 'ne foto» vraogt woe ge eure foto's wilt opslaon.
 tethered.preview_empty = Maak 'ne foto om 'm hie te zeen.
+tethered.save_local = Plaatselik opslaon
+tethered.save_cloud = In de cloud opslaon
+tethered.cloud_help = De foto's waere nao de gekoeze plaats in Schist Cloud opgelade. In de plaatselike galerie blief gein kopie bewaard.
+tethered.cloud_pending = Uploads die nog neet klaor zeen, waere op {path} bewaard.

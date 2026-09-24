@@ -15,3 +15,7 @@ tethered.camera_usage_missing = Esta na build ti gai deskripsion i permison kame
 tethered.select_camera = Ayek un kamera para un chule' retratu.
 tethered.choose_destination = Chule' retratu para u faisine' hao månu para un såtba i retratu-mu siha.
 tethered.preview_empty = Chule' un retratu para un li'e' guini.
+tethered.save_local = Såtba gi lugåt
+tethered.save_cloud = Såtba gi nubi
+tethered.cloud_help = I retratu siha manma'halom gi i ayek na lugåt gi Schist Cloud. Tåya' kopian i galeria gi lugåt ni masåsaga.
+tethered.cloud_pending = I manma'halom ni ti manmakabåles masåsaga gi {path}.

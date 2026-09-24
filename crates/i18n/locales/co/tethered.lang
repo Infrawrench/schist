@@ -15,3 +15,7 @@ tethered.camera_usage_missing = À sta versione li manca a descrizzione di u per
 tethered.select_camera = Sceglite una camera per scattà una foto.
 tethered.choose_destination = Scattà una foto vi dumanderà induve arregistrà e vostre foto.
 tethered.preview_empty = Scattate una foto per vedela quì.
+tethered.save_local = Arregistrà in lucale
+tethered.save_cloud = Arregistrà in u nuvulu
+tethered.cloud_help = I scatti sò caricati in a destinazione scelta di Schist Cloud. Nisuna copia hè cunservata in a galleria lucale.
+tethered.cloud_pending = I carichi micca compii sò cunservati in {path}.

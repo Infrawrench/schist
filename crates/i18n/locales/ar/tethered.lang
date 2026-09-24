@@ -15,3 +15,7 @@ tethered.camera_usage_missing = يفتقد هذا الإصدار إلى وصف �
 tethered.select_camera = اختر كاميرا لالتقاط صورة.
 tethered.choose_destination = سيطلب منك التقاط صورة تحديد مكان حفظ صورك.
 tethered.preview_empty = التقط صورة لتراها هنا.
+tethered.save_local = حفظ محلياً
+tethered.save_cloud = حفظ في السحابة
+tethered.cloud_help = تُرفع الصور الملتقطة إلى وجهة Schist Cloud المحددة. لا تُحتفظ بنسخة في المعرض المحلي.
+tethered.cloud_pending = تُحفظ عمليات الرفع التي لم تكتمل في {path}.

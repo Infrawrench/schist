@@ -15,3 +15,7 @@ tethered.camera_usage_missing = ኣብዚ ሕንጻ መግለጺ ናይ ካሜ�
 tethered.select_camera = ስእሊ ንምውሳድ ካሜራ ምረጽ።
 tethered.choose_destination = ስእሊ ውሰድ ስእልታትካ ኣበይ ከም እትቕምጥ ክሓተካ እዩ።
 tethered.preview_empty = ኣብዚ ንምርኣይ ስእሊ ውሰድ።
+tethered.save_local = ኣብዚ መሳርሒ ኣቐምጥ
+tethered.save_cloud = ኣብ ደመና ኣቐምጥ
+tethered.cloud_help = ዝተወስዱ ስእልታት ናብቲ ዝተመርጸ መቐመጢ Schist Cloud ይሰደዱ። ኣብ ናይዚ መሳርሒ ማህደር ስእልታት ቅዳሕ ኣይቕመጥን።
+tethered.cloud_pending = ዘይተዛዘሙ ምልኣኻት ኣብ {path} ይቕመጡ።

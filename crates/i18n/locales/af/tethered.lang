@@ -15,3 +15,7 @@ tethered.camera_usage_missing = Hierdie weergawe het nie 'n beskrywing vir kamer
 tethered.select_camera = Kies 'n kamera om 'n foto te neem.
 tethered.choose_destination = Neem foto sal vra waar jou foto's gestoor moet word.
 tethered.preview_empty = Neem 'n foto om dit hier te sien.
+tethered.save_local = Stoor plaaslik
+tethered.save_cloud = Stoor in die wolk
+tethered.cloud_help = Opnames word na die gekose Schist Cloud-bestemming opgelaai. Geen plaaslike kopie word in die galery gehou nie.
+tethered.cloud_pending = Oplaaie wat nog nie voltooi is nie, word by {path} gehou.

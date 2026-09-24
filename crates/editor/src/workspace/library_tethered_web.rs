@@ -21,6 +21,9 @@ impl Workspace {
         cx.notify();
     }
     pub(super) fn close_tethered(&mut self, cx: &mut Context<Self>) {
+        if self.open_popup == Some(super::tethered_cloud::DESTINATION_POPUP) {
+            self.close_popup(cx);
+        }
         drop(web::tethered_request("cancel"));
         self.browser_tethered.open = false;
         cx.notify();
@@ -29,8 +32,23 @@ impl Workspace {
         if self.browser_tethered.busy {
             return;
         }
+        if operation == "capture"
+            && self.tethered_save.target.as_ref().is_some_and(|target| {
+                target.epoch != self.cloud.epoch || self.cloud.client.is_none()
+            })
+        {
+            self.browser_tethered.message = t("cloud.error.sign_in_first").into();
+            cx.notify();
+            return;
+        }
+        if self.open_popup == Some(super::tethered_cloud::DESTINATION_POPUP) {
+            self.close_popup(cx);
+        }
         self.browser_tethered.busy = true;
         self.browser_tethered.message = t("common.working").into();
+        let target = (operation == "capture")
+            .then(|| self.tethered_cloud_target())
+            .flatten();
         let request = web::tethered_request(operation);
         cx.spawn(async move |this, cx| {
             let result = request
@@ -41,6 +59,7 @@ impl Workspace {
                 state.busy = false;
                 match result {
                     Ok(reply) => {
+                        let upload_paths = reply.paths.clone();
                         if reply.model.is_some() {
                             state.model = reply.model;
                         }
@@ -59,6 +78,18 @@ impl Workspace {
                         }
                         state.paths.extend(reply.paths);
                         state.message.clear();
+                        if let Some(target) = target {
+                            if !upload_paths.is_empty() {
+                                ws.tethered_cloud_queue(
+                                    super::tethered_cloud::Pending {
+                                        target,
+                                        paths: upload_paths,
+                                        directory: None,
+                                    },
+                                    cx,
+                                );
+                            }
+                        }
                     }
                     Err(error) => {
                         state.message = error;
@@ -108,6 +139,13 @@ pub(super) fn render(ws: &mut Workspace, cx: &mut Context<Workspace>) -> AnyElem
                     Button::new("tethered-close", t("common.close"))
                         .on_click(cx.listener(|ws, _, _, cx| ws.close_tethered(cx))),
                 ),
+        )
+        .child(super::tethered_cloud::render(ws, state.busy, cx))
+        .children(
+            ws.tethered_save
+                .target
+                .is_some()
+                .then(|| t("tethered.cloud_help")),
         )
         .child(state.model.clone().unwrap_or_default())
         .child(state.message.clone());

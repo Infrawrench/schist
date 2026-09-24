@@ -15,3 +15,7 @@ tethered.camera_usage_missing = A aquesta version li manca la descripcion de l'a
 tethered.select_camera = Seleccionatz un aparelh fòto per prendre una fòto.
 tethered.choose_destination = Prendre una fòto vos demandarà ont enregistrar vòstras fòtos.
 tethered.preview_empty = Prenètz una fòto per la veire aicí.
+tethered.save_local = Enregistrar localament
+tethered.save_cloud = Enregistrar dins lo nívol
+tethered.cloud_help = Las capturas son mandadas cap a la destinacion Schist Cloud seleccionada. Cap de còpia es pas conservada dins la galariá locala.
+tethered.cloud_pending = Los mandadisses encara pas acabats son conservats a {path}.

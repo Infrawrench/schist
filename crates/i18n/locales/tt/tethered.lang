@@ -15,3 +15,7 @@ tethered.camera_usage_missing = Бу җыелмада камера рөхсәт�
 tethered.select_camera = Фото төшерү өчен камера сайлагыз.
 tethered.choose_destination = «Фото төшерү» фотоларны кайда сакларга кирәклеген сораячак.
 tethered.preview_empty = Монда күрү өчен фото төшерегез.
+tethered.save_local = Җирле саклау
+tethered.save_cloud = Болытка саклау
+tethered.cloud_help = Төшерелгән фотолар сайланган Schist Cloud урынына йөкләнә. Җирле галереядә күчермә сакланмый.
+tethered.cloud_pending = Тәмамланмаган йөкләүләр {path} урынында саклана.

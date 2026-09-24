@@ -15,3 +15,7 @@ tethered.camera_usage_missing = Dhismadan waxaa ka maqan sharraxaadda oggolaansh
 tethered.select_camera = Dooro kamarad si aad sawir u qaaddo.
 tethered.choose_destination = «Sawir qaad» waxay ku weydiinaysaa meesha lagu kaydinayo sawirradaada.
 tethered.preview_empty = Sawir qaad si aad halkan ugu aragto.
+tethered.save_local = Ku kaydi qalabkan
+tethered.save_cloud = Ku kaydi daruurta
+tethered.cloud_help = Sawirrada waxaa loo diraa meesha aad ka dooratay Schist Cloud. Nuqul laguma hayo kaydka sawirrada ee qalabkan.
+tethered.cloud_pending = Dirista aan dhammaan waxaa lagu hayaa {path}.

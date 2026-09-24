@@ -15,3 +15,7 @@ tethered.camera_usage_missing = Wannan ginin ba shi da bayanin izinin kyamara. S
 tethered.select_camera = Zaɓi kyamara don ɗaukar hoto.
 tethered.choose_destination = Ɗauki hoto zai tambayi inda za a adana hotunanka.
 tethered.preview_empty = Ɗauki hoto don ganinsa a nan.
+tethered.save_local = Ajiye a na’ura
+tethered.save_cloud = Ajiye a cloud
+tethered.cloud_help = Ana loda hotunan zuwa wurin Schist Cloud da aka zaɓa. Ba a ajiye kwafi a ma’ajiyar hotuna ta na’urar ba.
+tethered.cloud_pending = Ana ajiye lodawar da ba ta kammala ba a {path}.

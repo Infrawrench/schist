@@ -15,3 +15,7 @@ tethered.camera_usage_missing = Na version oyo ndimbola ya ndingisa ya kamera ez
 tethered.select_camera = Pona kamera mpo na kokanga foto.
 tethered.choose_destination = «Kanga foto» ekotuna yo esika nini olingi kobomba bafoto na yo.
 tethered.preview_empty = Kanga foto mpo na komona yango awa.
+tethered.save_local = Bomba na esika oyo
+tethered.save_cloud = Bomba na cloud
+tethered.cloud_help = Bafoto oyo ekangami ekotindama na esika ya Schist Cloud oyo eponami. Kopi moko te ekobombama na galerie ya esika oyo.
+tethered.cloud_pending = Biloko oyo naino esili kotindama te ebombami na {path}.

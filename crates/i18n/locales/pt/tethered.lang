@@ -15,3 +15,7 @@ tethered.camera_usage_missing = Esta compilação não contém a descrição da 
 tethered.select_camera = Selecione uma câmera para tirar uma foto.
 tethered.choose_destination = Tirar foto perguntará onde salvar suas fotos.
 tethered.preview_empty = Tire uma foto para vê-la aqui.
+tethered.save_local = Guardar localmente
+tethered.save_cloud = Guardar na nuvem
+tethered.cloud_help = As fotos são enviadas para o destino selecionado no Schist Cloud. Nenhuma cópia é mantida na galeria local.
+tethered.cloud_pending = Os envios ainda não concluídos ficam guardados em {path}.

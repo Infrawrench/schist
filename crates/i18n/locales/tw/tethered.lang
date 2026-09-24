@@ -15,3 +15,7 @@ tethered.camera_usage_missing = Saa Schist yi nni nkyerɛkyerɛmu a ɛfa mfonini
 tethered.select_camera = Paw mfoninitwa afiri na twa mfonini.
 tethered.choose_destination = «Twa mfonini» bebisa baabi a wobɛkora wo mfonini ahorow.
 tethered.preview_empty = Twa mfonini na woahu no wɔ ha.
+tethered.save_local = Kora wɔ wo kɔmputa so
+tethered.save_cloud = Kora wɔ intanɛt so
+tethered.cloud_help = Wɔde mfonini a wɔatwa no bɛkɔ Schist Cloud baabi a woapaw. Wɔnkora bi wɔ wo kɔmputa so mfonini korabea.
+tethered.cloud_pending = Fael a wɔreyɛ de akɔ a ɛnwiee no, wɔkora wɔ {path}.

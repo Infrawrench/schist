@@ -15,3 +15,7 @@ tethered.camera_usage_missing = Mtunduwu ulibe kufotokoza kwa chilolezo cha kame
 tethered.select_camera = Sankhani kamera kuti mujambule chithunzi.
 tethered.choose_destination = Jambulani chithunzi idzakufunsani komwe mungasungire zithunzi zanu.
 tethered.preview_empty = Jambulani chithunzi kuti muchione pano.
+tethered.save_local = Sungani pa chipangizochi
+tethered.save_cloud = Sungani pa mtambo
+tethered.cloud_help = Zithunzi zojambulidwa zimakwezedwa kumalo osankhidwa a Schist Cloud. Palibe chithunzi chomwe chimasungidwa mu galari ya pa chipangizochi.
+tethered.cloud_pending = Zomwe sizinamalize kukwezedwa zimasungidwa ku {path}.

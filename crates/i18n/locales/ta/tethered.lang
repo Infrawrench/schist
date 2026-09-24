@@ -15,3 +15,7 @@ tethered.camera_usage_missing = இந்த உருவாக்கத்த�
 tethered.select_camera = புகைப்படம் எடுக்கக் கேமராவைத் தேர்ந்தெடுக்கவும்.
 tethered.choose_destination = புகைப்படம் எடு உங்கள் படங்களை எங்கு சேமிக்க வேண்டும் என்று கேட்கும்.
 tethered.preview_empty = இங்கே காணப் புகைப்படம் எடுக்கவும்.
+tethered.save_local = சாதனத்தில் சேமி
+tethered.save_cloud = மேகத்தில் சேமி
+tethered.cloud_help = எடுக்கப்படும் படங்கள் தேர்ந்தெடுக்கப்பட்ட Schist Cloud இடத்திற்குப் பதிவேற்றப்படும். உள்ளூர் படத் தொகுப்பில் நகல் சேமிக்கப்படாது.
+tethered.cloud_pending = இன்னும் முடிவடையாத பதிவேற்றங்கள் {path} இல் சேமிக்கப்பட்டுள்ளன.

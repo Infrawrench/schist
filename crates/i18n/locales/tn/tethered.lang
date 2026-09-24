@@ -15,3 +15,7 @@ tethered.camera_usage_missing = Kago eno ga e na tlhaloso ya tetla ya khamera. A
 tethered.select_camera = Tlhopha khamera gore o tseye setshwantsho.
 tethered.choose_destination = Tsaya setshwantsho e tla go botsa gore ditshwantsho tsa gago di bolokwe kae.
 tethered.preview_empty = Tsaya setshwantsho gore o se bone fano.
+tethered.save_local = Boloka mo sedirisweng seno
+tethered.save_cloud = Boloka mo lerung
+tethered.cloud_help = Ditshwantsho tse di tserweng di romelwa kwa lefelong le le tlhophilweng la Schist Cloud. Ga go kopi e e bolokwang mo galering ya sediriswa seno.
+tethered.cloud_pending = Difaele tse di iseng di fetse go romelwa di bolokilwe kwa {path}.

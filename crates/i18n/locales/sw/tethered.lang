@@ -15,3 +15,7 @@ tethered.camera_usage_missing = Toleo hili halina maelezo ya ruhusa ya kamera. J
 tethered.select_camera = Chagua kamera ili kupiga picha.
 tethered.choose_destination = Piga picha itakuuliza mahali pa kuhifadhi picha zako.
 tethered.preview_empty = Piga picha ili uione hapa.
+tethered.save_local = Hifadhi kwenye kifaa hiki
+tethered.save_cloud = Hifadhi kwenye wingu
+tethered.cloud_help = Picha zinazopigwa zinapakiwa kwenye eneo ulilochagua katika Schist Cloud. Hakuna nakala inayohifadhiwa kwenye nyumba ya picha ya kifaa hiki.
+tethered.cloud_pending = Upakiaji ambao haujakamilika umehifadhiwa katika {path}.

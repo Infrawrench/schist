@@ -15,3 +15,7 @@ tethered.camera_usage_missing = Questa versione non include la descrizione dell'
 tethered.select_camera = Seleziona una fotocamera per scattare una foto.
 tethered.choose_destination = Scatta foto ti chiederà dove salvare le foto.
 tethered.preview_empty = Scatta una foto per vederla qui.
+tethered.save_local = Salva in locale
+tethered.save_cloud = Salva nel cloud
+tethered.cloud_help = Gli scatti vengono caricati nella destinazione Schist Cloud selezionata. Non viene conservata alcuna copia nella galleria locale.
+tethered.cloud_pending = I caricamenti non ancora completati vengono conservati in {path}.

@@ -144,6 +144,7 @@ mod services;
 mod shared_files;
 pub(crate) mod spotlight;
 mod styles;
+mod tethered_cloud;
 #[cfg(not(target_arch = "wasm32"))]
 pub(crate) mod versions;
 // The software keyboard's way in, on the platforms that have one.
@@ -266,6 +267,7 @@ pub struct Workspace {
     browser_gpu: browser_gpu::BrowserGpu,
     #[cfg(target_arch = "wasm32")]
     browser_tethered: library_tethered::Tethered,
+    tethered_save: tethered_cloud::State,
     /// Images replaced this frame; freed from the sprite atlas after paint.
     retired_images: Vec<Arc<RenderImage>>,
     /// Whether a continuous zoom/pan gesture is streaming events. While
@@ -1367,6 +1369,7 @@ impl Workspace {
             browser_gpu: browser_gpu::BrowserGpu::default(),
             #[cfg(target_arch = "wasm32")]
             browser_tethered: library_tethered::Tethered::default(),
+            tethered_save: tethered_cloud::State::default(),
             retired_images: Vec::new(),
             view_gesture_active: false,
             view_gesture_seq: 0,

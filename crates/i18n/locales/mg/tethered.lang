@@ -15,3 +15,7 @@ tethered.camera_usage_missing = Tsy ao anatin’ity fananganana ity ny fanazavan
 tethered.select_camera = Misafidiana fakantsary mba haka sary.
 tethered.choose_destination = Hanontany ny toerana hitahirizana ny sarinao ny Maka sary.
 tethered.preview_empty = Maka sary mba hahitana azy eto.
+tethered.save_local = Tehirizo eto an-toerana
+tethered.save_cloud = Tehirizo ao amin’ny rahona
+tethered.cloud_help = Ampakarina any amin’ny toerana voafidy ao amin’ny Schist Cloud ny sary nalaina. Tsy tehirizina ao amin’ny tahiry sary eto an-toerana ny dika mitovy.
+tethered.cloud_pending = Ny fampakarana mbola tsy vita dia tehirizina ao amin’ny {path}.

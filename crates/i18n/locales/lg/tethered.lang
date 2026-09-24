@@ -15,3 +15,7 @@ tethered.camera_usage_missing = Enzimba eno terina nnyonnyola y'olukusa lwa kame
 tethered.select_camera = Londa kamera okukuba ekifaananyi.
 tethered.choose_destination = «Kuba ekifaananyi» kijja kukubuuza wa gy'otereka ebifaananyi byo.
 tethered.preview_empty = Kuba ekifaananyi okukiraba wano.
+tethered.save_local = Tereka ku kyuma kino
+tethered.save_cloud = Tereka ku cloud
+tethered.cloud_help = Ebifaananyi ebikubiddwa biteekebwa mu kifo kya Schist Cloud ekirondeddwa. Tewaba kopi eterekebwa mu galagi y'oku kyuma kino.
+tethered.cloud_pending = Eby'okuteeka ku mutimbagano ebitannaggwa biterekebwa ku {path}.

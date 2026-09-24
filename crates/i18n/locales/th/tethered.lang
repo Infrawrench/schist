@@ -15,3 +15,7 @@ tethered.camera_usage_missing = บิลด์นี้ไม่มีคำอ
 tethered.select_camera = เลือกกล้องเพื่อถ่ายภาพ
 tethered.choose_destination = ถ่ายภาพ จะถามว่าต้องการบันทึกภาพไว้ที่ใด
 tethered.preview_empty = ถ่ายภาพเพื่อดูที่นี่
+tethered.save_local = บันทึกในเครื่อง
+tethered.save_cloud = บันทึกในคลาวด์
+tethered.cloud_help = ภาพที่ถ่ายจะอัปโหลดไปยังปลายทาง Schist Cloud ที่เลือกไว้ โดยไม่มีสำเนาเก็บในแกลเลอรีของเครื่อง
+tethered.cloud_pending = ไฟล์ที่อัปโหลดยังไม่เสร็จจะเก็บไว้ที่ {path}

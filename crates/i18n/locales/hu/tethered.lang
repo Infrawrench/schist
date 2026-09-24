@@ -15,3 +15,7 @@ tethered.camera_usage_missing = Ebből a buildből hiányzik a kameraengedély l
 tethered.select_camera = Válasszon kamerát a fénykép készítéséhez.
 tethered.choose_destination = A Fénykép készítése megkérdezi, hová mentse a fényképeket.
 tethered.preview_empty = Készítsen fényképet, hogy itt megjelenjen.
+tethered.save_local = Mentés helyben
+tethered.save_cloud = Mentés a felhőbe
+tethered.cloud_help = A felvételek a kiválasztott Schist Cloud-célhelyre töltődnek fel. A helyi galériában nem marad másolat.
+tethered.cloud_pending = A még be nem fejezett feltöltéseket a rendszer itt őrzi: {path}.

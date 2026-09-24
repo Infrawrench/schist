@@ -15,3 +15,7 @@ tethered.camera_usage_missing = Tästä versiosta puuttuu kameran käyttöluvan 
 tethered.select_camera = Valitse kamera kuvan ottamista varten.
 tethered.choose_destination = Ota kuva kysyy, minne kuvat tallennetaan.
 tethered.preview_empty = Ota kuva nähdäksesi sen täällä.
+tethered.save_local = Tallenna paikallisesti
+tethered.save_cloud = Tallenna pilveen
+tethered.cloud_help = Kuvat lähetetään valittuun Schist Cloud -kohteeseen. Paikalliseen galleriaan ei tallenneta kopiota.
+tethered.cloud_pending = Keskeneräiset lähetykset säilytetään sijainnissa {path}.

@@ -126,3 +126,10 @@ Ido, Marshallese, Northern Ndebele, Pāḷi, Tibetan, and Tongan. Passing struct
 and font checks does not establish idiomatic phrasing or verify rendered layout.
 The baseline inventory and validation logs are in the ignored
 `target/tethered-i18n/` working directory.
+
+The same ten GPT-6 Sol subagents translated four additional strings for the
+separate local/cloud save modes and retained-upload recovery path. The catalog
+now contains 20 entries in all 150 locales, with `no` and `sh` regenerated from
+their canonical catalogs. The `{path}` placeholder and Schist Cloud product name
+are preserved. The native-speaker review limitations above also apply to these
+new strings.

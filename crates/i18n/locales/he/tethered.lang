@@ -15,3 +15,7 @@ tethered.camera_usage_missing = בתצורה זו חסר תיאור הרשאת �
 tethered.select_camera = יש לבחור מצלמה כדי לצלם תמונה.
 tethered.choose_destination = צלם תמונה ישאל היכן לשמור את התמונות שלך.
 tethered.preview_empty = יש לצלם תמונה כדי לראות אותה כאן.
+tethered.save_local = שמירה מקומית
+tethered.save_cloud = שמירה בענן
+tethered.cloud_help = התמונות מועלות ליעד שנבחר ב־Schist Cloud. לא נשמר עותק בגלריה המקומית.
+tethered.cloud_pending = העלאות שטרם הושלמו נשמרות ב־{path}.

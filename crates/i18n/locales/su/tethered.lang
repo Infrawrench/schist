@@ -15,3 +15,7 @@ tethered.camera_usage_missing = Wangunan aplikasi ieu teu boga katerangan idin k
 tethered.select_camera = Pilih kaméra pikeun motrét.
 tethered.choose_destination = Candak poto bakal ménta anjeun milih tempat nyimpen poto.
 tethered.preview_empty = Candak poto pikeun ningalina di dieu.
+tethered.save_local = Simpen dina alat ieu
+tethered.save_cloud = Simpen ka méga
+tethered.cloud_help = Poto nu dicandak diunggah ka tempat nu dipilih dina Schist Cloud. Teu aya salinan nu disimpen dina galeri lokal.
+tethered.cloud_pending = Unggahan nu can réngsé disimpen di {path}.

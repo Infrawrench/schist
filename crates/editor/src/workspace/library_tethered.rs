@@ -43,6 +43,10 @@ impl Workspace {
     pub(super) fn open_tethered(&mut self, cx: &mut Context<Self>) {
         self.library.tethered.open = true;
         self.cloud.show = false;
+        if let Some(path) = settings_path() {
+            self.tethered_save
+                .recover_from(path.with_file_name("tethered-cloud"));
+        }
         #[cfg(any(target_os = "macos", target_os = "ios"))]
         super::library_icc::start_browsing();
         if !self.library.tethered.loaded || self.library.tethered.cameras.is_empty() {
@@ -51,7 +55,9 @@ impl Workspace {
         cx.notify();
     }
     pub(super) fn close_tethered(&mut self, cx: &mut Context<Self>) {
-        if self.open_popup == Some(CAMERA_POPUP) {
+        if self.open_popup == Some(CAMERA_POPUP)
+            || self.open_popup == Some(super::tethered_cloud::DESTINATION_POPUP)
+        {
             self.close_popup(cx);
         }
         self.library.tethered.cancel.store(true, Ordering::Release);
@@ -68,7 +74,9 @@ impl Workspace {
         if state.busy || self.library.importing {
             return None;
         }
-        if self.open_popup == Some(CAMERA_POPUP) {
+        if self.open_popup == Some(CAMERA_POPUP)
+            || self.open_popup == Some(super::tethered_cloud::DESTINATION_POPUP)
+        {
             self.open_popup = None;
         }
         #[cfg(target_os = "android")]
@@ -251,10 +259,53 @@ impl Workspace {
         if state.busy || self.library.importing || !state.open || state.selected.is_none() {
             return;
         }
-        if state.session.is_none() {
+        if state.session.is_none() && self.tethered_save.target.is_none() {
             self.tethered_session(true, cx);
         } else {
             self.tethered_capture(cx);
+        }
+    }
+    fn tethered_capture_session(
+        &mut self,
+        cx: &mut Context<Self>,
+    ) -> Option<(Session, Option<super::tethered_cloud::Target>)> {
+        let Some(target) = self.tethered_save.target.clone() else {
+            return self
+                .library
+                .tethered
+                .session
+                .clone()
+                .map(|session| (session, None));
+        };
+        let prepared = (|| -> Result<Session, String> {
+            if target.epoch != self.cloud.epoch || self.cloud.client.is_none() {
+                return Err(t("cloud.error.sign_in_first").into());
+            }
+            let root = settings_path()
+                .ok_or_else(|| t("common.not_available").to_string())?
+                .with_file_name("tethered-cloud");
+            std::fs::create_dir_all(&root).map_err(|e| e.to_string())?;
+            let directory = tempfile::Builder::new()
+                .prefix("capture-")
+                .tempdir_in(root)
+                .map_err(|e| e.to_string())?
+                .keep();
+            Ok(Session {
+                destination: directory,
+                prefix: format!(
+                    "{}-{}",
+                    t("library.volume.camera"),
+                    schist_cloud::Uuid::new_v4()
+                ),
+            })
+        })();
+        match prepared {
+            Ok(session) => Some((session, Some(target))),
+            Err(error) => {
+                self.library.tethered.message = error;
+                cx.notify();
+                None
+            }
         }
     }
     fn tethered_session(&mut self, capture_after: bool, cx: &mut Context<Self>) {
@@ -359,6 +410,7 @@ impl Workspace {
         &mut self,
         destination: PathBuf,
         result: CaptureResult,
+        cloud_target: Option<super::tethered_cloud::Target>,
         cx: &mut Context<Self>,
     ) {
         self.library.tethered.busy = false;
@@ -372,29 +424,59 @@ impl Workspace {
                         preview.rgba,
                     )
                 });
-                state.last = Some(path.clone());
+                state.last = cloud_target.is_none().then(|| path.clone());
                 let warning = captured.warning.or(download_warning);
                 state.message = if let Some(error) = warning {
-                    tf!("tethered.partial", error = error)
+                    if cloud_target.is_some() {
+                        tf!("tethered.failed", detail = error)
+                    } else {
+                        tf!("tethered.partial", error = error)
+                    }
                 } else if state.preview.is_none() {
-                    t("tethered.preview_failed").into()
+                    t(if cloud_target.is_some() {
+                        "library.cell.no_preview"
+                    } else {
+                        "tethered.preview_failed"
+                    })
+                    .into()
+                } else if cloud_target.is_some() {
+                    String::new()
                 } else {
                     tf!("common.saved_as", name = path.display())
                 };
-                let already_scanning = self.library.scanning;
-                self.finish_camera_import(
-                    super::camera_import::ImportDestination::Local(destination),
-                    captured.paths.len(),
-                    0,
-                    0,
-                    None,
-                    cx,
-                );
-                if already_scanning {
-                    self.tethered_rescan_after_current(cx);
+                if let Some(target) = cloud_target {
+                    self.tethered_cloud_queue(
+                        super::tethered_cloud::Pending {
+                            target,
+                            paths: captured.paths,
+                            directory: Some(destination),
+                        },
+                        cx,
+                    );
+                } else {
+                    let already_scanning = self.library.scanning;
+                    self.finish_camera_import(
+                        super::camera_import::ImportDestination::Local(destination),
+                        captured.paths.len(),
+                        0,
+                        0,
+                        None,
+                        cx,
+                    );
+                    if already_scanning {
+                        self.tethered_rescan_after_current(cx);
+                    }
                 }
             }
             Err(error) => {
+                if cloud_target.is_some() {
+                    // Remove only an empty capture directory; completed files
+                    // must survive failures even when no upload was started.
+                    let _ = std::fs::remove_dir(&destination);
+                    if let Some(root) = destination.parent() {
+                        self.tethered_save.recover_from(root.to_path_buf());
+                    }
+                }
                 self.library.tethered.message = error;
                 self.library.tethered.selected = None;
             }
@@ -413,10 +495,10 @@ impl Workspace {
         target_os = "macos"
     ))]
     fn tethered_capture_worker(&mut self, cx: &mut Context<Self>) {
-        let (Some(camera), Some(session)) = (
-            self.library.tethered.selected.clone(),
-            self.library.tethered.session.clone(),
-        ) else {
+        let Some(camera) = self.library.tethered.selected.clone() else {
+            return;
+        };
+        let Some((session, cloud_target)) = self.tethered_capture_session(cx) else {
             return;
         };
         let Some(cancel) = self.tethered_begin() else {
@@ -446,7 +528,7 @@ impl Workspace {
                 })
                 .await;
             this.update(cx, |ws, cx| {
-                ws.finish_tethered_capture(destination, result, cx)
+                ws.finish_tethered_capture(destination, result, cloud_target, cx)
             })
             .ok();
         })
@@ -466,15 +548,16 @@ impl Workspace {
             self.tethered_capture_worker(cx);
             return;
         }
-        let (Some(_), Some(session), Some(id)) = (
-            self.library.tethered.selected.clone(),
-            self.library.tethered.session.clone(),
-            self.library
-                .tethered
-                .selected
-                .as_ref()
-                .and_then(|camera| camera.id),
-        ) else {
+        let Some(id) = self
+            .library
+            .tethered
+            .selected
+            .as_ref()
+            .and_then(|camera| camera.id)
+        else {
+            return;
+        };
+        let Some((session, cloud_target)) = self.tethered_capture_session(cx) else {
             return;
         };
         let Some(cancel) = self.tethered_begin() else {
@@ -482,6 +565,8 @@ impl Workspace {
         };
         cx.spawn(async move |this, cx| {
             let staging_session = session.clone();
+            let destination = session.destination.clone();
+            let failed_target = cloud_target.clone();
             let prepared = cx
                 .background_executor()
                 .spawn(async move { schist_tethered::staging(&staging_session) })
@@ -493,14 +578,12 @@ impl Workspace {
                     Err(error) => return Err(error),
                 };
                 super::library_icc::begin_tethered(id, staging)?;
-                ws.tethered_poll(session, cancel, cx);
+                ws.tethered_poll(session, cancel, cloud_target, cx);
                 Ok(())
             });
             if let Ok(Err(error)) = started {
                 this.update(cx, |ws, cx| {
-                    ws.library.tethered.busy = false;
-                    ws.library.tethered.message = error;
-                    cx.notify();
+                    ws.finish_tethered_capture(destination, Err(error), failed_target, cx);
                 })
                 .ok();
             }
@@ -509,7 +592,13 @@ impl Workspace {
         cx.notify();
     }
     #[cfg(any(target_os = "macos", target_os = "ios"))]
-    fn tethered_poll(&mut self, session: Session, cancel: Arc<AtomicBool>, cx: &mut Context<Self>) {
+    fn tethered_poll(
+        &mut self,
+        session: Session,
+        cancel: Arc<AtomicBool>,
+        cloud_target: Option<super::tethered_cloud::Target>,
+        cx: &mut Context<Self>,
+    ) {
         let destination = session.destination.clone();
         cx.spawn(async move |this, cx| loop {
             cx.background_executor()
@@ -520,9 +609,12 @@ impl Workspace {
             }
             let Some(status) = super::library_icc::poll_tethered() else {
                 this.update(cx, |ws, cx| {
-                    ws.library.tethered.busy = false;
-                    ws.library.tethered.message = t("common.not_available").into();
-                    cx.notify();
+                    ws.finish_tethered_capture(
+                        destination.clone(),
+                        Err(t("common.not_available").into()),
+                        cloud_target.clone(),
+                        cx,
+                    );
                 })
                 .ok();
                 break;
@@ -532,20 +624,25 @@ impl Workspace {
             };
             let Some(download) = super::library_icc::take_tethered() else {
                 this.update(cx, |ws, cx| {
-                    ws.library.tethered.busy = false;
-                    ws.library.tethered.message = t("common.not_available").into();
-                    cx.notify();
+                    ws.finish_tethered_capture(
+                        destination.clone(),
+                        Err(t("common.not_available").into()),
+                        cloud_target.clone(),
+                        cx,
+                    );
                 })
                 .ok();
                 break;
             };
             if let Err(error) = result {
+                drop(download);
                 this.update(cx, |ws, cx| {
-                    ws.library.tethered.busy = false;
-                    ws.library.tethered.message = error;
-                    ws.library.tethered.selected = None;
-                    ws.status = ws.library.tethered.message.clone().into();
-                    cx.notify();
+                    ws.finish_tethered_capture(
+                        destination.clone(),
+                        Err(error),
+                        cloud_target.clone(),
+                        cx,
+                    );
                 })
                 .ok();
                 break;
@@ -570,7 +667,7 @@ impl Workspace {
                 })
                 .await;
             this.update(cx, |ws, cx| {
-                ws.finish_tethered_capture(destination.clone(), result, cx)
+                ws.finish_tethered_capture(destination.clone(), result, cloud_target, cx)
             })
             .ok();
             break;
@@ -641,6 +738,7 @@ fn camera_picker(ws: &Workspace, cx: &mut Context<Workspace>) -> AnyElement {
 pub(super) fn render(ws: &mut Workspace, cx: &mut Context<Workspace>) -> AnyElement {
     let state = &ws.library.tethered;
     let busy = state.busy;
+    let cloud = ws.tethered_save.target.is_some();
     let mut body = div()
         .flex()
         .flex_col()
@@ -661,11 +759,11 @@ pub(super) fn render(ws: &mut Workspace, cx: &mut Context<Workspace>) -> AnyElem
                         .disabled(busy)
                         .on_click(cx.listener(|ws, _, _, cx| ws.tethered_discover(cx))),
                 )
-                .child(
+                .children((!cloud).then(|| {
                     Button::new("tethered-session", t("common.save_as"))
                         .disabled(busy || ws.library.importing)
-                        .on_click(cx.listener(|ws, _, _, cx| ws.tethered_session(false, cx))),
-                )
+                        .on_click(cx.listener(|ws, _, _, cx| ws.tethered_session(false, cx)))
+                }))
                 .child(
                     Button::new("tethered-shutter", t("tethered.capture"))
                         .disabled(busy || ws.library.importing || state.selected.is_none())
@@ -688,9 +786,14 @@ pub(super) fn render(ws: &mut Workspace, cx: &mut Context<Workspace>) -> AnyElem
                         .on_click(cx.listener(|ws, _, _, cx| ws.close_tethered(cx))),
                 ),
         )
-        .child(t("tethered.session_help"))
+        .child(super::tethered_cloud::render(ws, busy, cx))
+        .child(t(if cloud {
+            "tethered.cloud_help"
+        } else {
+            "tethered.session_help"
+        }))
         .child(state.message.clone());
-    if let Some(session) = &state.session {
+    if let Some(session) = state.session.as_ref().filter(|_| !cloud) {
         let examples = format!(
             "{}-000001.jpg / {}-000001.raw",
             session.prefix, session.prefix
@@ -727,7 +830,7 @@ pub(super) fn render(ws: &mut Workspace, cx: &mut Context<Workspace>) -> AnyElem
             "tethered.preview_failed"
         } else if state.selected.is_none() {
             "tethered.select_camera"
-        } else if state.session.is_none() {
+        } else if state.session.is_none() && !cloud {
             "tethered.choose_destination"
         } else {
             "tethered.preview_empty"

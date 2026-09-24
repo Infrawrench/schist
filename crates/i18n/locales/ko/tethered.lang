@@ -15,3 +15,7 @@ tethered.camera_usage_missing = 이 빌드에는 카메라 권한 설명이 없�
 tethered.select_camera = 사진을 찍을 카메라를 선택하세요.
 tethered.choose_destination = ‘사진 촬영’을 누르면 사진을 저장할 위치를 묻습니다.
 tethered.preview_empty = 사진을 찍으면 여기에 표시됩니다.
+tethered.save_local = 로컬에 저장
+tethered.save_cloud = 클라우드에 저장
+tethered.cloud_help = 촬영한 사진은 선택한 Schist Cloud 위치에 업로드됩니다. 로컬 갤러리에는 사본을 보관하지 않습니다.
+tethered.cloud_pending = 완료되지 않은 업로드는 {path}에 보관됩니다.

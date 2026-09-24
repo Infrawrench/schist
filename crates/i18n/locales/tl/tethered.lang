@@ -15,3 +15,7 @@ tethered.camera_usage_missing = Walang paglalarawan ng pahintulot sa kamera ang 
 tethered.select_camera = Pumili ng kamera upang kumuha ng larawan.
 tethered.choose_destination = Itatanong ng Kumuha ng larawan kung saan ise-save ang iyong mga larawan.
 tethered.preview_empty = Kumuha ng larawan upang makita ito rito.
+tethered.save_local = I-save sa device
+tethered.save_cloud = I-save sa cloud
+tethered.cloud_help = Ia-upload ang mga kuhang larawan sa napiling destinasyon sa Schist Cloud. Walang kopyang itinatabi sa lokal na galeriya.
+tethered.cloud_pending = Ang mga hindi pa tapos na pag-upload ay iniingatan sa {path}.

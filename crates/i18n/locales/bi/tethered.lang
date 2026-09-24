@@ -15,3 +15,7 @@ tethered.camera_usage_missing = Bild ia i no gat toktok we i eksplenem pemisen b
 tethered.select_camera = Jusum wan kamera blong tekem foto.
 tethered.choose_destination = Tekem foto bambae i askem wea blong sevem ol foto blong yu.
 tethered.preview_empty = Tekem wan foto blong luk hem long ples ia.
+tethered.save_local = Sevem long ples ia
+tethered.save_cloud = Sevem long klaod
+tethered.cloud_help = Ol foto oli go antap long ples blong Schist Cloud we yu jusum. I no gat kopi long lokal galeri.
+tethered.cloud_pending = Ol aplod we oli no finis oli stap long {path}.

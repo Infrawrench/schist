@@ -15,3 +15,7 @@ tethered.camera_usage_missing = اس بلڈ میں کیمرا اجازت کی و
 tethered.select_camera = تصویر کھینچنے کے لیے کیمرا منتخب کریں۔
 tethered.choose_destination = «تصویر کھینچیں» آپ سے تصاویر محفوظ کرنے کی جگہ پوچھے گا۔
 tethered.preview_empty = یہاں دیکھنے کے لیے تصویر کھینچیں.
+tethered.save_local = مقامی طور پر محفوظ کریں
+tethered.save_cloud = کلاؤڈ میں محفوظ کریں
+tethered.cloud_help = کھینچی گئی تصاویر منتخب کردہ Schist Cloud مقام پر اپ لوڈ ہوتی ہیں۔ مقامی گیلری میں ان کی نقل محفوظ نہیں کی جاتی۔
+tethered.cloud_pending = نامکمل اپ لوڈز {path} پر محفوظ رکھے جاتے ہیں۔

@@ -15,3 +15,7 @@ tethered.camera_usage_missing = Bu quruluşda kamera icazəsinin təsviri yoxdur
 tethered.select_camera = Foto çəkmək üçün kamera seçin.
 tethered.choose_destination = Foto çək şəkillərinizin harada saxlanacağını soruşacaq.
 tethered.preview_empty = Şəkli burada görmək üçün foto çəkin.
+tethered.save_local = Yerli saxla
+tethered.save_cloud = Buludda saxla
+tethered.cloud_help = Çəkilən fotolar seçilmiş Schist Cloud məkanına yüklənir. Yerli qalereyada surət saxlanmır.
+tethered.cloud_pending = Tamamlanmamış yükləmələr {path} ünvanında saxlanılır.

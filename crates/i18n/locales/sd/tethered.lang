@@ -15,3 +15,7 @@ tethered.camera_usage_missing = هن تعمير ۾ ڪئميرا جي اجازت 
 tethered.select_camera = تصوير ڪڍڻ لاءِ ڪئميرا چونڊيو.
 tethered.choose_destination = «تصوير ڪڍو» توهان کان پڇندو ته تصويرون ڪٿي محفوظ ڪجن.
 tethered.preview_empty = هتي ڏسڻ لاءِ تصوير ڪڍو.
+tethered.save_local = هن ڊوائيس تي محفوظ ڪريو
+tethered.save_cloud = ڪلائوڊ ۾ محفوظ ڪريو
+tethered.cloud_help = تصويرون Schist Cloud ۾ چونڊيل جاءِ تي اپلوڊ ٿين ٿيون. مقامي گيلري ۾ ڪا به ڪاپي نه رکي ويندي.
+tethered.cloud_pending = اڻپورا اپلوڊ {path} تي رکيا وڃن ٿا.

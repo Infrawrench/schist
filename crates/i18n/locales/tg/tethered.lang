@@ -15,3 +15,7 @@ tethered.camera_usage_missing = Дар ин сохта тавсифи иҷоза
 tethered.select_camera = Барои акс гирифтан камераро интихоб кунед.
 tethered.choose_destination = Акс гиред аз шумо мепурсад, ки аксҳоро дар куҷо нигоҳ доред.
 tethered.preview_empty = Барои дидани акс дар ин ҷо акс гиред.
+tethered.save_local = Дар дастгоҳ захира кунед
+tethered.save_cloud = Дар абр захира кунед
+tethered.cloud_help = Аксҳои гирифташуда ба ҷойи интихобшудаи Schist Cloud боргузорӣ мешаванд. Нусхае дар галереяи маҳаллӣ нигоҳ дошта намешавад.
+tethered.cloud_pending = Боргузориҳои нотамом дар {path} нигоҳ дошта мешаванд.

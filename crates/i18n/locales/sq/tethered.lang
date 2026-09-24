@@ -15,3 +15,7 @@ tethered.camera_usage_missing = Këtij ndërtimi i mungon përshkrimi i lejes p�
 tethered.select_camera = Zgjidhni një aparat fotografik për të bërë një fotografi.
 tethered.choose_destination = «Shkrepe fotografinë» do t'ju pyesë ku t'i ruani fotografitë.
 tethered.preview_empty = Shkrepni një fotografi që ta shihni këtu.
+tethered.save_local = Ruaj në pajisje
+tethered.save_cloud = Ruaj në renë kompjuterike
+tethered.cloud_help = Fotografitë ngarkohen në vendin e zgjedhur në Schist Cloud. Nuk ruhet kopje në galerinë vendore.
+tethered.cloud_pending = Ngarkimet e papërfunduara ruhen në {path}.

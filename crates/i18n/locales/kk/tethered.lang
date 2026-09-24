@@ -15,3 +15,7 @@ tethered.camera_usage_missing = Бұл жинақта камераны пайд�
 tethered.select_camera = Суретке түсіру үшін камераны таңдаңыз.
 tethered.choose_destination = «Суретке түсіру» фотосуреттерді қайда сақтау керегін сұрайды.
 tethered.preview_empty = Мұнда көру үшін суретке түсіріңіз.
+tethered.save_local = Жергілікті сақтау
+tethered.save_cloud = Бұлтқа сақтау
+tethered.cloud_help = Түсірілімдер таңдалған Schist Cloud орнына жүктеледі. Жергілікті галереяда көшірме сақталмайды.
+tethered.cloud_pending = Аяқталмаған жүктеулер {path} орнында сақталады.

@@ -15,3 +15,7 @@ tethered.camera_usage_missing = މި ބިލްޑުގައި ކެމެރާ ހުއް�
 tethered.select_camera = ފޮޓޯ ނެގުމަށް ކެމެރާއެއް ހޮވާ.
 tethered.choose_destination = ފޮޓޯ ނަގާ އިން ފޮޓޯތައް ސޭވްކުރާ ތަން އަހާނެ.
 tethered.preview_empty = މިތާ ބެލުމަށް ފޮޓޯއެއް ނަގާ.
+tethered.save_local = ލޯކަލްކޮށް ސޭވްކުރޭ
+tethered.save_cloud = ކްލައުޑަށް ސޭވްކުރޭ
+tethered.cloud_help = ނަގާ ފޮޓޯތައް ހޮވިފައިވާ Schist Cloud ގެ ތަނަކަށް އަޕްލޯޑްކުރެވޭ. ލޯކަލް ގެލަރީގައި ކޮޕީއެއް ނުބަހައްޓާ.
+tethered.cloud_pending = ނުނިމި ހުރި އަޕްލޯޑްތައް {path} ގައި ބަހައްޓާ.

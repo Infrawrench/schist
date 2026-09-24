@@ -15,3 +15,7 @@ tethered.camera_usage_missing = Ko versión-pe ndaipóri kamera jeporu ñemoneĩ
 tethered.select_camera = Eiporavo cámara eguenohẽ hag̃ua ta’anga.
 tethered.choose_destination = Eguenohẽ ta’anga oporandúta moõpa reñongatúta ne ta’angakuéra.
 tethered.preview_empty = Eguenohẽ ta’anga rehecha hag̃ua ápe.
+tethered.save_local = Eñongatu ko mákinape
+tethered.save_cloud = Eñongatu arai-pe
+tethered.cloud_help = Ta’angakuéra oñemondo Schist Cloud rendápe reiporavo va’ekuépe. Ndoñeñongatúi ambue monguatia ko máquina ta’anga rendápe.
+tethered.cloud_pending = Umi ñemondo ne’ĩrava opa oñeñongatu {path}-pe.

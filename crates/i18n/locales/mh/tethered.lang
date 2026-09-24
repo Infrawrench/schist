@@ -15,3 +15,7 @@ tethered.camera_usage_missing = Build in ejjelok kōmeļeļe kōn kōtlok kamera
 tethered.select_camera = Kālet juon kamera ñan bōk pija.
 tethered.choose_destination = Bōk pija enaj kajjitōk ia eo kwōj kōjparok pija ko am.
 tethered.preview_empty = Bōk juon pija ñan am loe ijin.
+tethered.save_local = Kōjparok ilo jikin in
+tethered.save_cloud = Kōjparok ilo cloud
+tethered.cloud_help = Pija ko rej upload ñan jikin Schist Cloud eo emōj kālet. Ejjelok copy ilo gallery eo ilo jikin in.
+tethered.cloud_pending = Upload ko rejjab mōj rej pād ilo {path}.

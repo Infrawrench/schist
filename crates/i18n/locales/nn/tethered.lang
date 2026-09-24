@@ -15,3 +15,7 @@ tethered.camera_usage_missing = Denne utgåva manglar ei skildring av kameratilg
 tethered.select_camera = Vel eit kamera for å ta eit bilete.
 tethered.choose_destination = Ta bilete spør kvar bileta skal lagrast.
 tethered.preview_empty = Ta eit bilete for å sjå det her.
+tethered.save_local = Lagre lokalt
+tethered.save_cloud = Lagre i skya
+tethered.cloud_help = Opptaka vert lasta opp til det valde målet i Schist Cloud. Ingen kopi vert lagra i det lokale galleriet.
+tethered.cloud_pending = Opplastingar som ikkje er fullførte, vert lagra på {path}.
