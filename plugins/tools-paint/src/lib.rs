@@ -617,7 +617,6 @@ impl Stroke {
         // Hard inner radius; anti-aliased single-pixel rim even at
         // hardness 1 so pencil still gets its crisp-but-not-jagged edge.
         let inner = radius * self.hardness.clamp(0.0, 0.99);
-        let selection = doc.selection.clone();
         for coord in TileCoord::covering(&bounds) {
             let trect = coord.rect();
             let clip = trect.intersect(&bounds);
@@ -630,6 +629,12 @@ impl Stroke {
                 .entry(coord)
                 .or_insert_with(|| vec![0f32; (TILE_SIZE * TILE_SIZE) as usize].into_boxed_slice());
             let mut touched = false;
+            // Most inks are fixed for the stroke. Overlapping dabs only need
+            // to blend pixels whose accumulated coverage actually increased.
+            // Smudge/heal sample a new colour per dab and still revisit the
+            // whole clip when it changes.
+            let fixed_ink = !matches!(self.ink, Ink::Smudge | Ink::Heal);
+            let mut changed = [0u64; (TILE_SIZE * TILE_SIZE / 64) as usize];
             for y in clip.top..clip.bottom {
                 for x in clip.left..clip.right {
                     // Undo the symmetry transform before the brush's own
@@ -668,13 +673,14 @@ impl Stroke {
                         envelope * tip_coverage(self.dynamics.tip, u, v)
                     };
                     a *= opacity_pressure;
-                    a *= selection.coverage(x, y) as f32 / 255.0;
+                    a *= doc.selection.coverage(x, y) as f32 / 255.0;
                     if a <= 0.0 {
                         continue;
                     }
                     let ix = ((y - trect.top) * TILE_SIZE + (x - trect.left)) as usize;
                     if a > cov[ix] {
                         cov[ix] = a;
+                        changed[ix / 64] |= 1 << (ix % 64);
                         touched = true;
                     }
                 }
@@ -737,7 +743,9 @@ impl Stroke {
             let original = self.edit.pre_stroke_tile(doc, self.layer, coord);
             // Ensure before-capture happens (and get write access).
             let cov = self.coverage.get(&coord).unwrap();
-            let (ink, opacity) = (self.ink.clone(), self.opacity);
+            // Source tile maps are immutable for the stroke; borrowing avoids
+            // cloning an entire layer's tile index for every dab/tile.
+            let (ink, opacity) = (&self.ink, self.opacity);
             let carried = self.carried;
             let (heal, heal_rect) = (&self.heal, self.heal_rect);
             let Some(tile) = self.edit.writable_tile(doc, self.layer, coord) else {
@@ -746,6 +754,9 @@ impl Stroke {
             for y in clip.top..clip.bottom {
                 for x in clip.left..clip.right {
                     let ix = ((y - trect.top) * TILE_SIZE + (x - trect.left)) as usize;
+                    if fixed_ink && changed[ix / 64] & (1 << (ix % 64)) == 0 {
+                        continue;
+                    }
                     let c = cov[ix];
                     if c <= 0.0 {
                         continue;
@@ -764,7 +775,7 @@ impl Stroke {
                             |t| t.native_pixel(ix).converted(tile.mode()),
                         );
                         let mut p = orig_native;
-                        let handled = match &ink {
+                        let handled = match ink {
                             Ink::Solid(color) => {
                                 if let Some((channel, value)) = self.native_channel {
                                     p.color[channel] += (value - p.color[channel]) * a;
@@ -811,7 +822,7 @@ impl Stroke {
                             continue;
                         }
                     }
-                    let out = match &ink {
+                    let out = match ink {
                         Ink::Erase => Rgba {
                             a: orig.a * (1.0 - a),
                             ..orig
