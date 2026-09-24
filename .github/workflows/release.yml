@@ -61,7 +61,7 @@ jobs:
           # clang and mold are required by the linker settings in .cargo/config.toml.
           sudo apt-get install -y libfontconfig-dev libwayland-dev \
             libxkbcommon-x11-dev libxcb1-dev libxcb-render0-dev \
-            libxcb-shape0-dev libxcb-xfixes0-dev libvulkan-dev \
+            libxcb-shape0-dev libxcb-xfixes0-dev libvulkan-dev libgphoto2-dev libclang-dev \
             clang mold
           # Links the Photoshop plug-in helpers, which are Windows
           # binaries even when Schist itself is not.

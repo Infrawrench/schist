@@ -1,0 +1,21 @@
+# AI-assisted translation; native-speaker review pending.
+tethered.title = Prise de vue connectée
+tethered.capture = Prendre une photo
+tethered.invalid_name = Choisissez un nom de 1–120 octets, sans barre oblique, deux-points ni signe pourcentage, et ne commençant pas par un point.
+tethered.install = La bibliothèque système de l’appareil photo est indisponible. Installez l’environnement d’exécution de l’appareil photo pour cette plateforme, puis redémarrez Schist.
+tethered.timeout = La requête à l’appareil photo a expiré. Vérifiez l’appareil et reconnectez-le avant de réessayer.
+tethered.failed = La requête à l’appareil photo a échoué : {detail}
+tethered.unsupported = Cet appareil photo ne déclare pas prendre en charge la prise de vue à distance.
+tethered.no_download = L’appareil photo n’a pas transmis une image complète. Les originaux restent sur l’appareil.
+tethered.session_help = Sélectionnez un appareil photo, puis Prendre une photo. Lors de la première prise de vue, choisissez un dossier de destination et un préfixe de nom de fichier ; un numéro de séquence et l’extension du fichier de l’appareil sont ajoutés aux photos. Enregistrer sous… permet de modifier la destination et le préfixe.
+tethered.preview_failed = La photo a été enregistrée et importée, mais son aperçu n’a pas pu être décodé. Ouvrez le fichier dans l’éditeur pour l’examiner.
+tethered.partial = Certains fichiers de prise de vue ont été enregistrés et importés ; les autres n’ont pas pu être enregistrés : {error}
+tethered.camera_permission = Autorisez l’accès à l’appareil photo dans Réglages Système → Confidentialité et sécurité → Caméra, puis réessayez avec Prendre une photo. Si Schist a été lancé depuis un terminal, vérifiez aussi l’autorisation d’accès à l’appareil photo de ce terminal.
+tethered.camera_usage_missing = Il manque à cette version la description de l’autorisation d’accès à l’appareil photo. Recompilez Schist avec make ou utilisez l’application fournie.
+tethered.select_camera = Sélectionnez un appareil photo pour prendre une photo.
+tethered.choose_destination = Prendre une photo vous demandera où enregistrer vos photos.
+tethered.preview_empty = Prenez une photo pour l’afficher ici.
+tethered.save_local = Enregistrer localement
+tethered.save_cloud = Enregistrer dans le cloud
+tethered.cloud_help = Les photos sont envoyées vers la destination Schist Cloud sélectionnée. Aucune copie n’est conservée dans la galerie locale.
+tethered.cloud_pending = Les envois non terminés sont conservés dans {path}.

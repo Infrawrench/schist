@@ -1,0 +1,21 @@
+# AI-assisted translation; native-speaker review pending.
+tethered.title = Captura conectada
+tethered.capture = Tirar foto
+tethered.invalid_name = Escolha um nome de 1–120 bytes sem barras, dois-pontos, sinais de porcentagem nem ponto inicial.
+tethered.install = A biblioteca de câmera do sistema não está disponível. Instale o ambiente de execução da câmera da plataforma e reinicie o Schist.
+tethered.timeout = A solicitação à câmera expirou. Verifique a câmera e reconecte-a antes de tentar novamente.
+tethered.failed = Falha na solicitação à câmera: {detail}
+tethered.unsupported = Esta câmera não informa suporte à captura remota de imagens.
+tethered.no_download = A câmera não enviou uma imagem completa. Os originais permanecem na câmera.
+tethered.session_help = Selecione uma câmera e depois Tirar foto. Na primeira captura, escolha um destino e um prefixo para o nome do arquivo; as capturas recebem um número sequencial e a extensão do arquivo da câmera. Guardar como… altera o destino e o prefixo.
+tethered.preview_failed = A foto foi salva e importada, mas não foi possível decodificar a prévia. Abra-a no editor para verificar o arquivo.
+tethered.partial = Alguns arquivos de captura foram salvos e importados; não foi possível salvar os demais: {error}
+tethered.camera_permission = Permita o acesso à câmera em Ajustes do Sistema → Privacidade e Segurança → Câmera e tente Tirar foto novamente. Se o Schist foi iniciado por um terminal, verifique também a permissão de câmera desse terminal.
+tethered.camera_usage_missing = Esta compilação não contém a descrição da permissão de câmera. Recompile o Schist com make ou use o aplicativo empacotado.
+tethered.select_camera = Selecione uma câmera para tirar uma foto.
+tethered.choose_destination = Tirar foto perguntará onde salvar suas fotos.
+tethered.preview_empty = Tire uma foto para vê-la aqui.
+tethered.save_local = Guardar localmente
+tethered.save_cloud = Guardar na nuvem
+tethered.cloud_help = As fotos são enviadas para o destino selecionado no Schist Cloud. Nenhuma cópia é mantida na galeria local.
+tethered.cloud_pending = Os envios ainda não concluídos ficam guardados em {path}.

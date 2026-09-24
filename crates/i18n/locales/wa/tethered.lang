@@ -1,0 +1,21 @@
+# AI-assisted translation; native-speaker review pending.
+tethered.title = Prinde des fotos avou ene camera raloyîye
+tethered.capture = Prinde ene foto
+tethered.invalid_name = Tchoezixhoz on no di 1–120 octets sins bårès, deus ponts, sinnes di porcint ni pont å cmincemint.
+tethered.install = Li livreye del camera do sistinme n' est nén disponibe. Astalez l' environnement d' eployaedje del camera po cisse platfôrme et redémarez Schist.
+tethered.timeout = Li dmande al camera a passé l' tins d' ratinde. Verifyîz l' camera et raloyîz l' divant d' ricmincî.
+tethered.failed = Li dmande al camera a fwait berwete : {detail}
+tethered.unsupported = Cisse camera n' anonce nén k' ele pout prinde des fotos a distance.
+tethered.no_download = Li camera n' a nén evoyî ene imådje etire. Les orijinås dmorèt so l' camera.
+tethered.session_help = Tchoezixhoz ene camera, adon clitchîz so «Prinde ene foto». Al prumîre foto, tchoezixhoz l' plaece eyet l' comincmint do no do fitchî; les fotos rçuvèt on limero d' ôre et l' extension do fitchî del camera. «Schaper et rlomer» candje l' plaece eyet l' comincmint do no.
+tethered.preview_failed = Li foto a stî schapêye et importêye, mins on n' a nén polou discôder si prévoeyaedje. Drovez l' fitchî dins l' aspougneu po l' verifyî.
+tethered.partial = Sacwantès fotos ont stî schapêyes et importêyes; les ôtes n' ont nén polou esse schapêyes : {error}
+tethered.camera_permission = Din les Apontiaedjes do sistinme → Privâté et såvrité → Camera, dnez l' permission d' eployî l' camera, adon rissayîz «Prinde ene foto». Si Schist a stî enondé d' on terminå, verifyîz eto s' permission d' eployî l' camera.
+tethered.camera_usage_missing = Cisse copileye n' a nén d' discrijhaedje del permission po l' camera. Ricopilez Schist avou make ou eployîz l' aplikåcion emantchêye.
+tethered.select_camera = Tchoezixhoz ene camera po prinde ene foto.
+tethered.choose_destination = «Prinde ene foto» vos dimandrè ewou schaper vos fotos.
+tethered.preview_empty = Prindoz ene foto po l' vey cial.
+tethered.save_local = Schaper so l' éndjinne
+tethered.save_cloud = Schaper dins l' nouwaedje
+tethered.cloud_help = Les fotos sont evoyeyes al plaece Schist Cloud tchoeziye. On n' wåde nén d' copeye dins l' galreye locåle.
+tethered.cloud_pending = Les evoyaedjes nén co fini sont wårdès a {path}.

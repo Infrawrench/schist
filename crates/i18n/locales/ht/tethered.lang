@@ -1,0 +1,21 @@
+# AI-assisted translation; native-speaker review pending.
+tethered.title = Pran foto ak kamera konekte
+tethered.capture = Pran foto
+tethered.invalid_name = Chwazi yon non ki gen 1–120 oktè, san ba oblik, de pwen, siy pousantaj, ni pwen nan kòmansman.
+tethered.install = Bibliyotèk kamera sistèm nan pa disponib. Enstale anviwònman kamera platfòm nan epi relanse Schist.
+tethered.timeout = Tan pou demann kamera a fini. Verifye kamera a epi rekonekte li anvan ou eseye ankò.
+tethered.failed = Demann kamera a echwe: {detail}
+tethered.unsupported = Kamera sa a pa endike li kapab pran imaj adistans.
+tethered.no_download = Kamera a pa t voye yon imaj konplè. Imaj orijinal yo rete sou kamera a.
+tethered.session_help = Chwazi yon kamera, apre sa chwazi Pran foto. Lè w ap pran premye foto a, chwazi kote pou anrejistre l ak kòmansman non fichye a; chak foto ajoute yon nimewo sekans ak ekstansyon fichye kamera a. Anrejistre kòm… chanje kote a ak kòmansman non an.
+tethered.preview_failed = Foto a te anrejistre epi enpòte, men aplikasyon an pa t kapab dekode apèsi li. Louvri l nan editè a pou egzamine fichye a.
+tethered.partial = Kèk fichye foto te anrejistre epi enpòte; rès yo pa t kapab anrejistre: {error}
+tethered.camera_permission = Bay aksè kamera nan Paramèt sistèm → Konfidansyalite ak sekirite → Kamera, epi eseye Pran foto ankò. Si ou te lanse Schist nan yon tèminal, verifye pèmisyon kamera tèminal sa a tou.
+tethered.camera_usage_missing = Vèsyon sa a pa gen deskripsyon pèmisyon kamera li bezwen an. Rekonstwi Schist ak make oswa sèvi ak aplikasyon ki deja prepare a.
+tethered.select_camera = Chwazi yon kamera pou pran yon foto.
+tethered.choose_destination = Pran foto ap mande w ki kote pou anrejistre foto ou yo.
+tethered.preview_empty = Pran yon foto pou wè li isit la.
+tethered.save_local = Anrejistre sou aparèy la
+tethered.save_cloud = Anrejistre nan nwaj la
+tethered.cloud_help = Yo voye foto yo nan destinasyon Schist Cloud ou chwazi a. Pa gen kopi ki rete nan galri lokal la.
+tethered.cloud_pending = Foto ki poko fin voye yo konsève nan {path}.

@@ -1,0 +1,21 @@
+# AI-assisted translation; native-speaker review pending.
+tethered.title = Puʻeina o ata i se meapuʻeata e fesoʻotaʻi i le komepiuta
+tethered.capture = Puʻe se ata
+tethered.invalid_name = Filifili se igoa e 1–120 paita lona umi, e leai ni vase faʻataʻoto, kolone, faailoga pasene pe amata i se togi.
+tethered.install = E lē o maua le faletusi a le faiga mo le meapuʻeata. Faapipii le polokalame e faagaoioi ai le meapuʻeata mo lau masini ma toe amata Schist.
+tethered.timeout = Ua uma le taimi e faatali ai le tali mai le meapuʻeata. Siaki le meapuʻeata ma toe faʻafesoʻotaʻi a o leʻi toe taumafai.
+tethered.failed = Ua lē manuia le talosaga i le meapuʻeata: {detail}
+tethered.unsupported = E lē o faailoa mai e lenei meapuʻeata e mafai ona puʻeina ata mai le komepiuta.
+tethered.no_download = E leʻi auina mai e le meapuʻeata se ata atoa. O loo tumau ata muamua i totonu o le meapuʻeata.
+tethered.session_help = Filifili se meapuʻeata, ona oomi lea o le «Puʻe se ata». I le ata muamua, filifili le nofoaga e teu ai ma le amataga o le igoa o faila; e faaopoopo se numera faasolosolo ma le faaiʻuga o le faila mai le meapuʻeata i ata taʻitasi. O le «Sefe o se…» e suia ai le nofoaga ma le amataga o le igoa.
+tethered.preview_failed = Ua sefe ma faaulufale mai le ata, ae e leʻi mafai ona faitauina lona ata muai vaʻai. Tatala le faila i le faatonu e siaki ai.
+tethered.partial = Ua sefe ma faaulufale mai nisi faila o ata; o isi faila e leʻi mafai ona sefe: {error}
+tethered.camera_permission = Fa'ataga le avanoa i le meapuʻeata i le System Settings → Privacy & Security → Camera, ona toe taumafai lea i le «Puʻe se ata». Afai na amata Schist mai se terminal, siaki foʻi le faatagaga a lena terminal e faaaogā ai le meapuʻeata.
+tethered.camera_usage_missing = E leai se faamatalaga o le faatagaga mo le meapuʻeata i lenei lomiga. Toe fausia Schist i le make pe faaaogā le polokalame ua afifiina.
+tethered.select_camera = Filifili se meapuʻeata e puʻe ai se ata.
+tethered.choose_destination = O le «Puʻe se ata» o le a fesili po o fea e sefe ai au ata.
+tethered.preview_empty = Puʻe se ata e matamata ai iinei.
+tethered.save_local = Sefe i lenei masini
+tethered.save_cloud = Sefe i le ao
+tethered.cloud_help = E lafo ata i le nofoaga ua filifilia i le Schist Cloud. E leai se kopi e teu i le faletusi o ata o lenei masini.
+tethered.cloud_pending = O lafoina e leʻi maeʻa o loo teu i le {path}.

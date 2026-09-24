@@ -1,0 +1,21 @@
+# AI-assisted translation; native-speaker review pending.
+tethered.title = Captura con camera connectite
+tethered.capture = Prender un photo
+tethered.invalid_name = Selige un nomine de 1–120 bytes sin barras oblique, duo punctos, signos de procento o un puncto initial.
+tethered.install = Le bibliotheca de camera del systema non es disponibile. Installa le ambiente de execution del camera pro iste platteforma e reinitia Schist.
+tethered.timeout = Le requesta al camera expirava. Verifica le camera e reconnecte lo ante de reprobar.
+tethered.failed = Le requesta al camera falleva: {detail}
+tethered.unsupported = Iste camera non indica supporto pro le captura remote de imagines.
+tethered.no_download = Le camera non livrava un imagine complete. Le originalos remane sur le camera.
+tethered.session_help = Selige un camera, pois Prender un photo. Al prime captura, selige un destination e un prefixo pro le nomines de file; le capturas adde un numero sequential e le extension del file del camera. Salvar como… cambia le destination e le prefixo.
+tethered.preview_failed = Le captura esseva salvate e importate, ma su vista preliminar non poteva esser decodificate. Aperi lo in le editor pro examinar le file.
+tethered.partial = Alcun files de captura esseva salvate e importate; le files restante non poteva esser salvate: {error}
+tethered.camera_permission = Permitte le accesso al camera in Configuration del systema → Confidentialitate e securitate → Camera, pois reproba Prender un photo. Si Schist esseva lanceate desde un terminal, verifica etiam le permission de camera de ille terminal.
+tethered.camera_usage_missing = Iste version compilate manca le description del permission de camera. Recompila Schist con make o usa le application impacchettate.
+tethered.select_camera = Selige un camera pro prender un photo.
+tethered.choose_destination = Prender un photo te demandara ubi salvar tu photos.
+tethered.preview_empty = Prende un photo pro vider lo hic.
+tethered.save_local = Salvar localmente
+tethered.save_cloud = Salvar in le nube
+tethered.cloud_help = Le capturas es incargate al destination seligite in Schist Cloud. Nulle copia es conservate in le galeria local.
+tethered.cloud_pending = Le incargamentos non completate es conservate a {path}.

@@ -1,0 +1,21 @@
+# AI-assisted translation; native-speaker review pending.
+tethered.title = Captura coa cámara conectada
+tethered.capture = Facer unha foto
+tethered.invalid_name = Escolle un nome de 1–120 bytes sen barras, dous puntos nin signos de porcentaxe e que non comece cun punto.
+tethered.install = A biblioteca de cámaras do sistema non está dispoñible. Instala o contorno de execución da cámara para esta plataforma e reinicia Schist.
+tethered.timeout = A solicitude á cámara esgotou o tempo de espera. Comproba a cámara e volve conectala antes de tentalo de novo.
+tethered.failed = Fallou a solicitude á cámara: {detail}
+tethered.unsupported = Esta cámara non indica que admita a captura remota de imaxes.
+tethered.no_download = A cámara non entregou unha imaxe completa. Os orixinais consérvanse na cámara.
+tethered.session_help = Selecciona unha cámara e despois Facer unha foto. Na primeira captura, escolle un destino e un prefixo para o nome do ficheiro; ás fotos engádeselles un número de secuencia e a extensión do ficheiro da cámara. Gardar como… cambia o destino e o prefixo.
+tethered.preview_failed = A foto gardouse e importouse, pero non se puido descodificar a súa previsualización. Abre o ficheiro no editor para examinalo.
+tethered.partial = Algúns ficheiros de captura gardáronse e importáronse; os restantes non se puideron gardar: {error}
+tethered.camera_permission = Permite o acceso á cámara en Axustes do Sistema → Privacidade e seguridade → Cámara e despois volve probar Facer unha foto. Se iniciaches Schist desde un terminal, comproba tamén o permiso de cámara dese terminal.
+tethered.camera_usage_missing = Esta compilación carece da descrición do permiso da cámara. Volve compilar Schist con make ou usa a aplicación empaquetada.
+tethered.select_camera = Selecciona unha cámara para facer unha foto.
+tethered.choose_destination = Facer unha foto preguntarache onde gardar as túas fotos.
+tethered.preview_empty = Fai unha foto para vela aquí.
+tethered.save_local = Gardar localmente
+tethered.save_cloud = Gardar na nube
+tethered.cloud_help = As fotos súbense ao destino de Schist Cloud seleccionado. Non se conserva ningunha copia na galería local.
+tethered.cloud_pending = As cargas que aínda non remataron consérvanse en {path}.

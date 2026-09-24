@@ -1,0 +1,21 @@
+# AI-assisted translation; native-speaker review pending.
+tethered.title = Tenging myndavélar fyrir myndatöku
+tethered.capture = Taka mynd
+tethered.invalid_name = Veldu heiti sem er 1–120 bæti, án skástrika, tvípunkta, prósentumerkja eða punkts í upphafi.
+tethered.install = Myndavélarsafn kerfisins er ekki tiltækt. Settu upp myndavélaumhverfi stýrikerfisins og endurræstu Schist.
+tethered.timeout = Beiðni til myndavélar rann út á tíma. Athugaðu myndavélina og tengdu hana aftur áður en þú reynir á ný.
+tethered.failed = Beiðni til myndavélar mistókst: {detail}
+tethered.unsupported = Þessi myndavél gefur ekki upp stuðning við fjarstýrða myndatöku.
+tethered.no_download = Myndavélin skilaði ekki heilli mynd. Frummyndirnar haldast á myndavélinni.
+tethered.session_help = Veldu myndavél og síðan Taka mynd. Við fyrstu myndatöku velurðu vistunarstað og forskeyti skráarheita; raðnúmeri og skráarendingu myndavélarinnar er bætt við heiti hverrar myndar. Vista sem… breytir vistunarstað og forskeyti.
+tethered.preview_failed = Myndin var vistuð og flutt inn en ekki tókst að afkóða forskoðun hennar. Opnaðu skrána í ritlinum til að skoða hana.
+tethered.partial = Sumar myndaskrár voru vistaðar og fluttar inn; ekki tókst að vista þær sem eftir voru: {error}
+tethered.camera_permission = Leyfðu aðgang að myndavélinni í Kerfisstillingar → Persónuvernd og öryggi → Myndavél og reyndu síðan Taka mynd aftur. Ef Schist var ræst úr skjáhermi skaltu einnig athuga myndavélaheimild þess skjáhermis.
+tethered.camera_usage_missing = Í þessari útgáfu vantar lýsingu á myndavélaheimild. Byggðu Schist aftur með make eða notaðu pakkaforritið.
+tethered.select_camera = Veldu myndavél til að taka mynd.
+tethered.choose_destination = Taka mynd mun biðja þig að velja hvar myndirnar verða vistaðar.
+tethered.preview_empty = Taktu mynd til að sjá hana hér.
+tethered.save_local = Vista á tækinu
+tethered.save_cloud = Vista í skýinu
+tethered.cloud_help = Myndirnar eru sendar á valinn áfangastað í Schist Cloud. Ekkert afrit er varðveitt í staðbundnu myndasafni.
+tethered.cloud_pending = Óloknar sendingar eru geymdar í {path}.

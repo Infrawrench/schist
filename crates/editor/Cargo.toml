@@ -65,6 +65,9 @@ schist-video.workspace = true
 schist-camera-sync.workspace = true
 schist-map-view.workspace = true
 
+[target.'cfg(any(target_os = "linux", target_os = "macos", target_os = "windows", target_os = "ios", target_os = "android"))'.dependencies]
+schist-tethered.workspace = true
+
 [target.'cfg(not(any(target_arch = "wasm32", target_os = "ios", target_os = "android")))'.dependencies]
 schist-plugin-host-wasm.workspace = true
 schist-plugin-host-8bf = { workspace = true, features = [

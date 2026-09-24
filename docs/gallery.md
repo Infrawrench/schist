@@ -742,6 +742,17 @@ position, so differently sized photos stay comparable. Decode failures are
 shown in the affected pane. The two decodes run off the UI thread, sequentially
 to bound temporary memory, and closing comparison releases its image handles.
 
+## Tethered capture
+
+On Linux, macOS, Windows, iOS and Android, **Tethered capture** in the local gallery triggers a
+compatible USB camera's shutter, downloads the new originals into a configured
+session folder with collision-safe automatic names, adds them to the gallery,
+and immediately shows the captured image for review. macOS uses ImageCaptureCore
+and Linux links libgphoto2 in process; neither path launches a camera CLI or
+deletes files from the camera. See
+[tethered capture](tethered.md) for platform support (including browser WebUSB), setup, storage requirements, cancellation,
+camera retention and platform limits.
+
 ## Named virtual copies
 
 Right-click one local still photo and choose **Create virtual copy…**. Give it a

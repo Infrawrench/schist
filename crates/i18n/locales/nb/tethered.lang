@@ -1,0 +1,21 @@
+# AI-assisted translation; native-speaker review pending.
+tethered.title = Fjernstyrt fotografering
+tethered.capture = Ta bilde
+tethered.invalid_name = Velg et navn på 1–120 byte uten skråstreker, kolon, prosenttegn eller punktum først i navnet.
+tethered.install = Systemets kamerabibliotek er ikke tilgjengelig. Installer kamerakjøremiljøet for plattformen, og start Schist på nytt.
+tethered.timeout = Kameraforespørselen ble tidsavbrutt. Kontroller kameraet og koble det til på nytt før du prøver igjen.
+tethered.failed = Kameraforespørselen mislyktes: {detail}
+tethered.unsupported = Dette kameraet oppgir ikke at det støtter fjernstyrt fotografering.
+tethered.no_download = Kameraet leverte ikke et fullstendig bilde. Originalfilene beholdes på kameraet.
+tethered.session_help = Velg et kamera, og deretter Ta bilde. Ved første opptak velger du lagringssted og prefiks for filnavnet. Opptakene får et sekvensnummer og kameraets filendelse. Lagre som endrer lagringssted og prefiks.
+tethered.preview_failed = Opptaket ble lagret og importert, men forhåndsvisningen kunne ikke dekodes. Åpne filen i redigeringsprogrammet for å undersøke den.
+tethered.partial = Noen opptaksfiler ble lagret og importert. De resterende filene kunne ikke lagres: {error}
+tethered.camera_permission = Tillat kameratilgang i Systeminnstillinger → Personvern og sikkerhet → Kamera, og prøv Ta bilde igjen. Hvis Schist ble startet fra en terminal, må du også kontrollere terminalens kameratillatelse.
+tethered.camera_usage_missing = Denne versjonen mangler en beskrivelse av kameratillatelsen. Bygg Schist på nytt med make, eller bruk den pakkede appen.
+tethered.select_camera = Velg et kamera for å ta et bilde.
+tethered.choose_destination = Ta bilde ber deg velge hvor bildene skal lagres.
+tethered.preview_empty = Ta et bilde for å se det her.
+tethered.save_local = Lagre lokalt
+tethered.save_cloud = Lagre i skyen
+tethered.cloud_help = Opptakene lastes opp til det valgte målet i Schist Cloud. Ingen kopi beholdes i det lokale galleriet.
+tethered.cloud_pending = Opplastinger som ikke er fullført, oppbevares på {path}.

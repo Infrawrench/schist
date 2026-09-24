@@ -1,0 +1,21 @@
+# AI-assisted translation; native-speaker review pending.
+tethered.title = Kaameeraa walqabateen suuraa kaasu
+tethered.capture = Suuraa kaasi
+tethered.invalid_name = Maqaa baayitii 1–120 qabu, mallattoolee /, kolonii, dhibbeentaa yookaan tuqaa jalqabaa hin qabne filadhu.
+tethered.install = Manneen kitaabaa kaameeraa sirnichaa hin argaman. Sagantaa kaameeraa waltajjichaa fe'iitii Schist irra deebi'ii bani.
+tethered.timeout = Yeroon gaaffii kaameeraa dhumeera. Irra deebitee yaaluun dura kaameeraa mirkaneessiitii irra deebi'ii walqabsiisi.
+tethered.failed = Gaaffiin kaameeraa hin milkoofne: {detail}
+tethered.unsupported = Kaameeraan kun suuraa fageenya irraa kaasuu akka danda'u hin beeksisu.
+tethered.no_download = Kaameeraan suuraa guutuu hin dabarsine. Suuraaleen jalqabaa kaameeraa irratti ni hafan.
+tethered.session_help = Kaameeraa filadhu, achiis Suuraa kaasi. Yeroo jalqabaatiif suuraa kaasitu bakka kuusaa fi jalqaba maqaa faayilii filadhu; suuraaleen lakkoofsa tartiibaa fi dheertoo faayilii kaameeraa dabalu. Akka… Olkaa'i bakka fi jalqaba maqaa ni jijjiira.
+tethered.preview_failed = Suuraan olkaa'amee galfameera, garuu fakkii durtii isaa hiikuun hin danda'amne. Faayilii ilaaluuf gulaalaa keessatti bani.
+tethered.partial = Faayiloonni suuraa muraasni olkaa'amanii galfamaniiru; kanneen hafan olkaa'amuu hin dandeenye: {error}
+tethered.camera_permission = Qindaa'ina Sirnaa → Dhuunfaa fi Nageenya → Kaameeraa keessatti kaameeraa fayyadamuuf eeyyami, achiis Suuraa kaasi irra deebi'ii yaali. Yoo Schist terminal irraa baname, hayyama kaameeraa terminal sanaas ilaali.
+tethered.camera_usage_missing = Ijaarsi kun ibsa hayyama kaameeraa hin qabu. Schist make fayyadamuun irra deebi'ii ijaari yookaan appii qophaa'e fayyadami.
+tethered.select_camera = Suuraa kaasuuf kaameeraa filadhu.
+tethered.choose_destination = Suuraa kaasi bakka suuraalee kee itti olkaa'attu si gaafata.
+tethered.preview_empty = Asitti arguuf suuraa kaasi.
+tethered.save_local = Naannoottilkaa’i
+tethered.save_cloud = Duumessatti olkaa’i
+tethered.cloud_help = Suuraaleen kaafaman bakka Schist Cloud filatametti ol fe’amu. Garagalchiin galaarii naannoo irratti hin kuufamu.
+tethered.cloud_pending = Ol fe’iinsi hin xumuramne {path} irratti ni kuufama.

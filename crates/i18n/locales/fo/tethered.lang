@@ -1,0 +1,21 @@
+# AI-assisted translation; native-speaker review pending.
+tethered.title = Myndatøka við tilknýttum myndatóli
+tethered.capture = Tak mynd
+tethered.invalid_name = Vel eitt navn á 1–120 bæti uttan skrástrikur, tvípunkt ella prosenttekin, og sum ikki byrjar við punkti.
+tethered.install = Myndatólasavnið í skipanini er ikki tøkt. Legg koyriumhvørvið fyri myndatól á hesum palli inn og endurræs Schist.
+tethered.timeout = Fyrispurningurin til myndatólið fór út um tíðarmarkið. Kanna myndatólið og set tað aftur í samband, áðrenn tú roynir aftur.
+tethered.failed = Fyrispurningurin til myndatólið miseydnaðist: {detail}
+tethered.unsupported = Hetta myndatólið boðar ikki frá stuðli til fjarstýrda myndatøku.
+tethered.no_download = Myndatólið sendi ikki eina fullfíggjaða mynd. Upprunamyndirnar verða verandi á myndatólinum.
+tethered.session_help = Vel eitt myndatól og síðani Tak mynd. Fyrstu ferð tú tekur eina mynd, skalt tú velja goymslustað og byrjan á fílunavni; myndir fáa raðtal og fílueftirskoytið hjá myndatólinum. Goym sum… broytir goymslustað og byrjan á fílunavni.
+tethered.preview_failed = Myndin varð goymd og innflutt, men undansýningin kundi ikki avkóðast. Lat fíluna upp í ritlinum fyri at kanna hana.
+tethered.partial = Nakrar myndafílur vórðu goymdar og innfluttar; hinar kundu ikki goymast: {error}
+tethered.camera_permission = Gev atgongd til myndatólið í Skipanarstillingar → Persónsvernd og trygd → Myndatól, og royn síðani Tak mynd aftur. Um Schist varð ræst úr einum terminali, skalt tú eisini kanna myndatólaloyvið hjá tí terminalinum.
+tethered.camera_usage_missing = Henda útgávan manglar lýsingina av myndatólaloyvinum. Bygg Schist av nýggjum við make, ella brúka pakkaða appina.
+tethered.select_camera = Vel eitt myndatól fyri at taka eina mynd.
+tethered.choose_destination = Tak mynd spyr, hvar myndirnar skulu goymast.
+tethered.preview_empty = Tak eina mynd fyri at síggja hana her.
+tethered.save_local = Goym lokalt
+tethered.save_cloud = Goym í skýnum
+tethered.cloud_help = Myndirnar verða sendar til valda staðið í Schist Cloud. Einki eintak verður goymt í lokalu myndasavninum.
+tethered.cloud_pending = Innsendingar, sum ikki eru lidnar, verða goymdar á {path}.

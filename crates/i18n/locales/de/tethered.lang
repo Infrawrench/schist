@@ -1,0 +1,21 @@
+# AI-assisted translation; native-speaker review pending.
+tethered.title = Fernaufnahme
+tethered.capture = Foto aufnehmen
+tethered.invalid_name = Wählen Sie einen Namen mit 1–120 Byte ohne Schrägstriche, Doppelpunkte, Prozentzeichen oder führenden Punkt.
+tethered.install = Die Systembibliothek für Kameras ist nicht verfügbar. Installieren Sie die Kameralaufzeitumgebung für diese Plattform und starten Sie Schist neu.
+tethered.timeout = Die Kameraanfrage hat das Zeitlimit überschritten. Prüfen Sie die Kamera und verbinden Sie sie erneut, bevor Sie es noch einmal versuchen.
+tethered.failed = Kameraanfrage fehlgeschlagen: {detail}
+tethered.unsupported = Diese Kamera meldet keine Unterstützung für ferngesteuerte Bildaufnahmen.
+tethered.no_download = Die Kamera hat kein vollständiges Bild übertragen. Die Originale bleiben auf der Kamera erhalten.
+tethered.session_help = Wählen Sie eine Kamera und dann Foto aufnehmen. Legen Sie bei der ersten Aufnahme einen Speicherort und ein Präfix für den Dateinamen fest; den Aufnahmen werden eine laufende Nummer und die Dateiendung der Kamera hinzugefügt. Sichern unter… ändert Speicherort und Präfix.
+tethered.preview_failed = Die Aufnahme wurde gespeichert und importiert, ihre Vorschau konnte jedoch nicht dekodiert werden. Öffnen Sie die Datei im Editor, um sie zu prüfen.
+tethered.partial = Einige Aufnahmedateien wurden gespeichert und importiert; die übrigen Dateien konnten nicht gespeichert werden: {error}
+tethered.camera_permission = Erlauben Sie den Kamerazugriff unter Systemeinstellungen → Datenschutz & Sicherheit → Kamera und versuchen Sie Foto aufnehmen erneut. Wenn Schist über ein Terminal gestartet wurde, prüfen Sie auch dessen Kameraberechtigung.
+tethered.camera_usage_missing = In diesem Build fehlt die Beschreibung für die Kameraberechtigung. Erstellen Sie Schist mit make neu oder verwenden Sie die paketierte App.
+tethered.select_camera = Wählen Sie eine Kamera, um ein Foto aufzunehmen.
+tethered.choose_destination = Foto aufnehmen fragt, wo Ihre Fotos gespeichert werden sollen.
+tethered.preview_empty = Nehmen Sie ein Foto auf, um es hier zu sehen.
+tethered.save_local = Lokal sichern
+tethered.save_cloud = In der Cloud sichern
+tethered.cloud_help = Aufnahmen werden an den ausgewählten Speicherort in Schist Cloud hochgeladen. In der lokalen Galerie bleibt keine Kopie erhalten.
+tethered.cloud_pending = Noch nicht abgeschlossene Uploads werden unter {path} aufbewahrt.

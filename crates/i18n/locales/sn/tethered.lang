@@ -1,0 +1,21 @@
+# AI-assisted translation; native-speaker review pending.
+tethered.title = Kutora mifananidzo nekamera yakabatana nekombiyuta
+tethered.capture = Tora mufananidzo
+tethered.invalid_name = Sarudza zita rine mabhayiti 1–120 risina zviratidzo zve slash, makoroni, zviratidzo zvepesenti kana dot pakutanga.
+tethered.install = Raibhurari yekamera yesisitimu haisi kuwanikwa. Isa chirongwa chekushandisa kamera chepuratifomu yako wotangazve Schist.
+tethered.timeout = Nguva yekumirira chikumbiro chekamera yapera. Ongorora kamera woibatanidza patsva usati waedzazve.
+tethered.failed = Chikumbiro chekamera chatadza: {detail}
+tethered.unsupported = Kamera iyi hairatidzi kuti inotsigira kutora mifananidzo iri kudzorwa nekombiyuta.
+tethered.no_download = Kamera haina kutumira mufananidzo wakazara. Mifananidzo yepakutanga iri mukamera yaramba irimo.
+tethered.session_help = Sarudza kamera, wobva wadzvanya «Tora mufananidzo». Pakutora mufananidzo wekutanga, sarudza pekuchengetera uye kutanga kwezita refaira; mufananidzo wega wega unowedzerwa nhamba inotevedzana uye magumo efaira anobva kukamera. «Chengeta Se…» inoshandura pekuchengetera nekutanga kwezita.
+tethered.preview_failed = Mufananidzo wachengetwa uye wapinzwa, asi tarisiro yawo haina kukwanisa kuverengwa. Vhura faira mupepeti kuti uriongorore.
+tethered.partial = Mamwe mafaira emifananidzo achengetwa uye apinzwa; asara haana kukwanisa kuchengetwa: {error}
+tethered.camera_permission = Bvumira kamera muSystem Settings → Privacy & Security → Camera, wobva waedzazve «Tora mufananidzo». Kana Schist yakatangwa kubva muterminal, tarisa mvumo yekamera yeterminal iyoyo zvakare.
+tethered.camera_usage_missing = Tsananguro yemvumo yekamera haipo mushanduro iyi. Vakazve Schist uchishandisa make kana kushandisa app yakaiswa mupakeji.
+tethered.select_camera = Sarudza kamera kuti utore mufananidzo.
+tethered.choose_destination = «Tora mufananidzo» ichakubvunza pekuchengetera mifananidzo yako.
+tethered.preview_empty = Tora mufananidzo kuti uuone pano.
+tethered.save_local = Chengeta pakombiyuta ino
+tethered.save_cloud = Chengeta mugore
+tethered.cloud_help = Mifananidzo inoendeswa kunzvimbo yawasarudza muSchist Cloud. Hapana kopi inochengetwa mugalari yemuno.
+tethered.cloud_pending = Zviri kuendeswa zvisati zvapera zvinochengetwa pa{path}.

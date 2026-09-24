@@ -1,0 +1,21 @@
+# AI-assisted translation; native-speaker review pending.
+tethered.title = Grianghrafadóireacht le ceamara ceangailte
+tethered.capture = Tóg grianghraf
+tethered.invalid_name = Roghnaigh ainm atá 1–120 beart ar fad, gan slais, idirstadanna ná comharthaí faoin gcéad, agus nach dtosaíonn le ponc.
+tethered.install = Níl leabharlann cheamara an chórais ar fáil. Suiteáil timpeallacht rite cheamara an ardáin agus atosaigh Schist.
+tethered.timeout = Chuaigh an t-iarratas ar an gceamara thar am. Seiceáil an ceamara agus athcheangail é sula ndéanfaidh tú iarracht eile.
+tethered.failed = Theip ar an iarratas ar an gceamara: {detail}
+tethered.unsupported = Ní léiríonn an ceamara seo go dtacaíonn sé le grianghrafadóireacht chianda.
+tethered.no_download = Níor sheol an ceamara íomhá iomlán. Coinnítear na buníomhánna ar an gceamara.
+tethered.session_help = Roghnaigh ceamara, ansin Tóg grianghraf. Nuair a thógann tú an chéad ghrianghraf, roghnaigh ceann scríbe agus réimír ainm comhaid; cuirtear uimhir sheichimh agus iarmhír chomhaid an cheamara leis na grianghraif. Athraíonn Sábháil Mar… an ceann scríbe agus an réimír.
+tethered.preview_failed = Sábháladh agus iompórtáladh an grianghraf, ach níorbh fhéidir a réamhamharc a dhíchódú. Oscail an comhad san eagarthóir lena scrúdú.
+tethered.partial = Sábháladh agus iompórtáladh cuid de na comhaid ghrianghraif; níorbh fhéidir an chuid eile a shábháil: {error}
+tethered.camera_permission = Ceadaigh rochtain ar an gceamara i Socruithe Córais → Príobháideachas agus Slándáil → Ceamara, ansin bain triail as Tóg grianghraf arís. Má seoladh Schist ó theirminéal, seiceáil cead ceamara an teirminéil sin freisin.
+tethered.camera_usage_missing = Tá cur síos ar chead an cheamara ar iarraidh ón leagan seo. Atóg Schist le make nó bain úsáid as an aip phacáistithe.
+tethered.select_camera = Roghnaigh ceamara chun grianghraf a thógáil.
+tethered.choose_destination = Fiafróidh Tóg grianghraf díot cá háit ar mhaith leat do ghrianghraif a shábháil.
+tethered.preview_empty = Tóg grianghraf chun é a fheiceáil anseo.
+tethered.save_local = Sábháil go háitiúil
+tethered.save_cloud = Sábháil sa néal
+tethered.cloud_help = Uaslódáiltear na grianghraif chuig an gceann scríbe roghnaithe in Schist Cloud. Ní choinnítear cóip sa ghailearaí áitiúil.
+tethered.cloud_pending = Coinnítear uaslódálacha nach bhfuil críochnaithe ag {path}.

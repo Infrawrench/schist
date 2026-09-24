@@ -1,0 +1,21 @@
+# AI-assisted translation; native-speaker review pending.
+tethered.title = Foto tata le kamera si si komputer ŋu
+tethered.capture = Ɖe foto
+tethered.invalid_name = Tia ŋkɔ si le 1–120 byte me, eye slash, colon, persenti ƒe dzesi alo dot le gɔme mele eme o.
+tethered.install = Sistem ƒe kamera ƒe agbalẽdzraɖoƒe mele afima o. De kamera ƒe dɔwɔɖiƒe si le platforma sia dzi eye nɔ Schist gɔme ake.
+tethered.timeout = Ɣeyiɣi si woɖo na biabia si woɖo na kamera la wu enu. Kpɔ kamera la ŋu eye tsɔe de komputer ŋu ake hafi nàgatrɔ ava kpɔe.
+tethered.failed = Biabia si woɖo na kamera la meɖo afima o: {detail}
+tethered.unsupported = Kamera sia megblɔ be ate ŋu aɖe foto tso adzɔge o.
+tethered.no_download = Kamera la meɖo foto blibo aɖeke ɖa o. Woɖo foto ƒe ŋɔŋlɔ̃gbalẽwo ɖe kamera la me.
+tethered.session_help = Tia kamera aɖe, emegbe Ɖe foto. Ne èle foto gbãtɔ ɖem la, tia afi si woadzra foto le kple fayli ƒe ŋkɔ ƒe gɔme; wotsɔa xexlẽme ƒe nɔmba kple kamera ƒe fayli ƒe tagbatsotso kpe ɖe fotoawo ŋu. Dzra ɖo abe… trɔa afi si woadzra le kple ŋkɔ ƒe gɔme.
+tethered.preview_failed = Wodzra foto la ɖo eye wotsɔe va eme, gake womete ŋu meɖe eƒe ŋgɔkpɔkpɔ ƒe kod o. Ʋu fayli la le editɔ me be nàkpɔ eŋu.
+tethered.partial = Wodzra foto ƒe fayli aɖewo ɖo eye wotsɔ wo va eme; womete ŋu dzra mamlɛawo ɖo o: {error}
+tethered.camera_permission = Na mɔ kamera la le System Settings → Privacy & Security → Camera me, emegbe gatrɔ Ɖe foto. Ne èdze Schist gɔme tso terminal me la, kpɔ terminal ma ƒe kamera ƒe mɔɖeɖe hã ŋu.
+tethered.camera_usage_missing = Kamera ƒe mɔɖeɖe ƒe numeɖeɖe mele build sia me o. Gatu Schist kple make alo zã app si wokpe ɖo la.
+tethered.select_camera = Tia kamera aɖe be nàɖe foto.
+tethered.choose_destination = Ɖe foto abia afi si nàdzra wò fotoawo le.
+tethered.preview_empty = Ɖe foto aɖe be nàkpɔe le afi sia.
+tethered.save_local = Dzra ɖo le afi sia
+tethered.save_cloud = Dzra ɖo le alilikpo me
+tethered.cloud_help = Wokɔa fotoawo ɖe teƒe si nètia le Schist Cloud me. Womele wo ƒe kɔpi aɖeke dzram ɖo le afi sia ƒe foto ƒe nudzraɖoƒe me o.
+tethered.cloud_pending = Wodzra upload siwo medzo nu o ɖo le {path}.

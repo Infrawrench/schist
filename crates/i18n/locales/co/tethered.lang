@@ -1,0 +1,21 @@
+# AI-assisted translation; native-speaker review pending.
+tethered.title = Scattà cù una camera cunnessa
+tethered.capture = Scattà una foto
+tethered.invalid_name = Sceglite un nome da 1–120 byte senza barre, dui punti, segni di percentuale nè un puntu à l'iniziu.
+tethered.install = A biblioteca di a camera di u sistema ùn hè dispunibile. Stallate l'ambiente d'esecuzione di a camera di a piattaforma è rilanciate Schist.
+tethered.timeout = A dumanda à a camera hà francatu u tempu d'attesa. Verificate a camera è ricunnettela prima di pruvà torna.
+tethered.failed = A dumanda à a camera hè fiascata: {detail}
+tethered.unsupported = Sta camera ùn dichjara micca di sustene a presa di foto à distanza.
+tethered.no_download = A camera ùn hà micca mandatu una maghjina cumpleta. L'uriginali fermanu nantu à a camera.
+tethered.session_help = Sceglite una camera, po Scattà una foto. À u primu scattu, sceglite una destinazione è un prefissu di nome di schedariu; à ogni scattu s'aghjunghjenu un numeru di sequenza è l'estensione di u schedariu di a camera. Arregistrà cù u nome… cambia a destinazione è u prefissu.
+tethered.preview_failed = A foto hè stata arregistrata è impurtata, ma a so vista in antìcipu ùn hè stata pussibule da decudificà. Apritela in l'editore per esaminà u schedariu.
+tethered.partial = Certi schedarii di scatti sò stati arregistrati è impurtati; l'altri ùn anu pussutu esse arregistrati: {error}
+tethered.camera_permission = Permettite l'accessu à a camera in Impustazioni di u sistema → Cunfidenzialità è sicurità → Camera, po pruvate torna Scattà una foto. S'è Schist hè statu lanciatu da un terminale, verificate dinò u permessu di camera di quellu terminale.
+tethered.camera_usage_missing = À sta versione li manca a descrizzione di u permessu di camera. Ricustruite Schist cù make o aduprate l'applicazione imballata.
+tethered.select_camera = Sceglite una camera per scattà una foto.
+tethered.choose_destination = Scattà una foto vi dumanderà induve arregistrà e vostre foto.
+tethered.preview_empty = Scattate una foto per vedela quì.
+tethered.save_local = Arregistrà in lucale
+tethered.save_cloud = Arregistrà in u nuvulu
+tethered.cloud_help = I scatti sò caricati in a destinazione scelta di Schist Cloud. Nisuna copia hè cunservata in a galleria lucale.
+tethered.cloud_pending = I carichi micca compii sò cunservati in {path}.

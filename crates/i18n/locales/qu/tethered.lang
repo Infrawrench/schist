@@ -1,0 +1,21 @@
+# AI-assisted translation; native-speaker review pending.
+tethered.title = Kamaraman tinkisqa siq'i hapiy
+tethered.capture = Siq'ita hapiy
+tethered.invalid_name = 1–120 baytniyuq sutita akllay; ama ch'iqta siq'i, iskay ch'upu, pachakmanta unancha nitaq qallariypi ch'upu kachunchu.
+tethered.install = Sistemapa kamara bibliutikan mana kanchu. Plataformapa kamara purichiqninta churay, chaymanta Schistta musuqmanta kichay.
+tethered.timeout = Kamaraman mañakuypa pachan tukukun. Musuqmanta mallinaykipaq kamarata qhaway, hinaspa musuqmanta tinkichiy.
+tethered.failed = Kamaraman mañakuy mana atikurqanchu: {detail}
+tethered.unsupported = Kay kamara mana willakunchu karumanta siq'i hapiyta atisqanmanta.
+tethered.no_download = Kamara mana hunt'a siq'ita apachimurqanchu. Ñawpaq siq'ikuna kamarállapim qhipanku.
+tethered.session_help = Kamarata akllay, chaymanta Siq'ita hapiy. Ñawpaq kuti hapiqtiyki, waqaychana kitita hinallataq willañiqipa sutinpa qallariyninta akllay; siq'ikunaman qatipaq yupayta hinallataq kamarapa willañiqinpa tukukuyninta yapakun. Huk hina waqaychay… nisqawan kitita hinallataq sutinpa qallariyninta tikray.
+tethered.preview_failed = Siq'i waqaychasqa hinaspa apamusqa, ichaqa ñawpaq rikchayninta mana kichayta atikurqanchu. Willañiqita qhawanaykipaq allichanapi kichay.
+tethered.partial = Wakin siq'i willañiqikuna waqaychasqa hinaspa apamusqa; puchuqkunaqa mana waqaychayta atikurqanchu: {error}
+tethered.camera_permission = Sistemapa Allichaynin → Sapanchasqa kay hinallataq Allin waqaychay → Kamara nisqapi kamaraman yaykuyta saqiy, chaymanta Siq'ita hapiy nisqata musuqmanta malliy. Schist terminalmanta kichasqa kaptinqa, chay terminalpa kamaraman yaykuy saqiytapas qhaway.
+tethered.camera_usage_missing = Kay ruwasqapi kamara saqiyta sut'inchaq qillqa mana kanchu. Schistta make nisqawan musuqmanta ruway utaq wakichisqa aplicaciónta llamk'achiy.
+tethered.select_camera = Siq'ita hapinaykipaq kamarata akllay.
+tethered.choose_destination = Siq'ita hapiy maypim siq'ikunaykita waqaychanaykita tapusunki.
+tethered.preview_empty = Kaypi rikunaykipaq siq'ita hapiy.
+tethered.save_local = Kaypi waqaychay
+tethered.save_cloud = Puyupi waqaychay
+tethered.cloud_help = Hapisqa siq’ikuna akllasqa Schist Cloud kitiman apachisqa kanku. Kay kitipa siq’i huñunapiqa mana copianku waqaychasqachu.
+tethered.cloud_pending = Mana tukusqa apachiykuna {path} nisqapi waqaychasqa kanku.

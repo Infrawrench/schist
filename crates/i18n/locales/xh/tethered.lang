@@ -1,0 +1,21 @@
+# AI-assisted translation; native-speaker review pending.
+tethered.title = Ukufota ngekhamera eqhagamshelweyo
+tethered.capture = Fota ifoto
+tethered.invalid_name = Khetha igama elinobude obuziibhayithi eziyi-1–120, elingenazo iislashi, iikholoni, uphawu lwepesenti okanye ichaphaza ekuqaleni.
+tethered.install = Ithala leencwadi lekhamera lenkqubo alifumaneki. Faka inkqubo efunekayo yekhamera kweli qonga, uze uqalise kwakhona i-Schist.
+tethered.timeout = Ixesha lokulinda impendulo yekhamera liphelile. Jonga ikhamera uze uyidibanise kwakhona phambi kokuzama kwakhona.
+tethered.failed = Isicelo sekhamera asiphumelelanga: {detail}
+tethered.unsupported = Le khamera ayibonisi ukuba ixhasa ukufota ukude.
+tethered.no_download = Ikhamera ayithumelanga umfanekiso opheleleyo. Imifanekiso yokuqala isagcinwe kwikhamera.
+tethered.session_help = Khetha ikhamera, uze ukhethe «Fota ifoto». Xa ufota okokuqala, khetha indawo yokugcina kunye nesiqalo segama lefayile; iifoto zongezwa inombolo elandelelanayo nesandiso sefayile yekhamera. «Gcina Njenge» itshintsha indawo yokugcina kunye nesiqalo segama.
+tethered.preview_failed = Ifoto igciniwe yaza yangeniswa, kodwa umboniso wayo wangaphambili awukwazanga ukufundwa. Vula ifayile kumhleli ukuze uyihlole.
+tethered.partial = Ezinye iifayile zeefoto zigciniwe zaza zangeniswa; eziseleyo azikwazanga ukugcinwa: {error}
+tethered.camera_permission = Vumela ukufikelela kwikhamera kuSeto lweNkqubo → Ubumfihlo noKhuseleko → Ikhamera, uze uzame «Fota ifoto» kwakhona. Ukuba i-Schist iqaliswe kwitheminali, jonga nemvume yekhamera yaloo theminali.
+tethered.camera_usage_missing = Olu lwakhiwo alunankcazelo yemvume yekhamera. Yakha i-Schist kwakhona nge-make okanye usebenzise i-app epakishiweyo.
+tethered.select_camera = Khetha ikhamera ukuze ufote.
+tethered.choose_destination = «Fota ifoto» iya kukubuza ukuba ufuna ukugcina phi iifoto zakho.
+tethered.preview_empty = Fota ifoto ukuze uyibone apha.
+tethered.save_local = Gcina kwisixhobo
+tethered.save_cloud = Gcina kwilifu
+tethered.cloud_help = Iifoto zifakwa kwindawo ye-Schist Cloud ekhethiweyo. Akugcinwa kopi kwigalari yesixhobo.
+tethered.cloud_pending = Iifayile ezingekagqibi ukufakwa zigcinwa ku-{path}.

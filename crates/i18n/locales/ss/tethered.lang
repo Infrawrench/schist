@@ -1,0 +1,21 @@
+# AI-assisted translation; native-speaker review pending.
+tethered.title = Kutsatsa titfombe ngekhamera lehlanganiswe nekhompyutha
+tethered.capture = Tsatsa sitfombe
+tethered.invalid_name = Khetsa ligama lelinemabhayithi langu-1–120, lelingenawo emasleshi, emakholoni, timphawu temaphesenti noma lichashati ekucaleni.
+tethered.install = Umtapo welwati wekhamera wesistimu awutfolakali. Faka luhlelo lwekusebentisa ikhamera lwalesikhulumi bese ucalisa Schist kabusha.
+tethered.timeout = Sikhatsi sekulindza sicelo sekhamera siphelile. Hlola ikhamera uphindze uyixhume ngaphambi kwekuzama futsi.
+tethered.failed = Sicelo sekhamera sehlulekile: {detail}
+tethered.unsupported = Lena ikhamera ayikhombisi kutsi iyakwesekela kutsatsa titfombe ilawulwa ikhashane.
+tethered.no_download = Ikhamera ayikayitfumeli yonkhe sitfombe. Titfombe tekucala tisasele ekhamereni.
+tethered.session_help = Khetsa ikhamera, bese ucindzetela «Tsatsa sitfombe». Nawutsatsa sitfombe sekucala, khetsa indzawo yekugcina kanye nesicalo seligama lelifayela; sitfombe ngasinye sengetwa inombolo lelandzelanako kanye nesandziso selifayela lekhamera. «Gcina Njenge…» kushintja indzawo yekugcina nesicalo seligama.
+tethered.preview_failed = Sitfombe sigciniwe futsi singenisiwe, kodvwa sibonelo saso asikakwati kufundvwa. Vula lifayela kusihleli kuze ulihlole.
+tethered.partial = Lamanye emafayela etitfombe agciniwe futsi angenisiwe; lasele akakwati kugcinwa: {error}
+tethered.camera_permission = Vumela ikhamera ku-System Settings → Privacy & Security → Camera, bese uzama «Tsatsa sitfombe» futsi. Nangabe Schist ivulwe nge-terminal, hlola nemvume yekhamera yaleyo terminal.
+tethered.camera_usage_missing = Kuloluhlobo lolwakhiwe kushoda inchazelo yemvume yekhamera. Yakha Schist kabusha nge-make noma usebentise luhlelo lokusephaketheni.
+tethered.select_camera = Khetsa ikhamera kuze utsatse sitfombe.
+tethered.choose_destination = «Tsatsa sitfombe» itakubuta kutsi titfombe takho tigcinwe kuphi.
+tethered.preview_empty = Tsatsa sitfombe kuze usibone lapha.
+tethered.save_local = Gcina kulomshini
+tethered.save_cloud = Gcina efwini
+tethered.cloud_help = Titfombe tilayishwa endzaweni loyikhetsile kuSchist Cloud. Akugcinwa ikhophi kugalari yalomshini.
+tethered.cloud_pending = Kulayishwa lokungakapheli kugcinwa ku{path}.

@@ -726,7 +726,11 @@ impl Render for Workspace {
             #[cfg(target_arch = "wasm32")]
             {
                 self.gallery_compact = crate::ui::compact(window);
-                super::cloud_view::browser_gallery(self, cx)
+                if self.browser_tethered.open {
+                    super::library_tethered::render(self, cx)
+                } else {
+                    super::cloud_view::browser_gallery(self, cx)
+                }
             }
         } else {
             // The panel column sits beside the canvas, except on a

@@ -1,0 +1,21 @@
+# AI-assisted translation; native-speaker review pending.
+tethered.title = ብዝተተሓሓዘ ካሜራ ስእሊ ምውሳድ
+tethered.capture = ስእሊ ውሰድ
+tethered.invalid_name = ካብ 1–120 ባይት ዝነውሕ፣ ስላሽ፣ ክልተ ነጥቢ፣ ምልክት ሚእታዊት ወይ ኣብ መጀመርታ ነጥቢ ዘይብሉ ስም ምረጽ።
+tethered.install = ናይ ስርዓቱ ቤተ-መጻሕፍቲ ካሜራ ኣይርከብን። ንዚ መድረኽ ዝኸውን ናይ ካሜራ መካየዲ ጫን፣ ድሕሪኡ Schist እንደገና ኣበግስ።
+tethered.timeout = ናይ ካሜራ ሕቶ ግዜኡ ሓሊፉ። ቅድሚ እንደገና ምፍታንካ ካሜራ መርምርን እንደገና ኣራኽቦን።
+tethered.failed = ናይ ካሜራ ሕቶ ኣይተዓወተን: {detail}
+tethered.unsupported = እዚ ካሜራ ካብ ርሑቕ ቦታ ስእሊ ምውሳድ ከም ዝድግፍ ኣየፍልጥን።
+tethered.no_download = ካሜራ ምሉእ ስእሊ ኣየቕረበን። ናይ መጀመርታ ስእልታት ኣብ ካሜራ ይቕጽሉ።
+tethered.session_help = ካሜራ ምረጽ፣ ድሕሪኡ ስእሊ ውሰድ ጠውቕ። ኣብ ቀዳማይ ምውሳድ ስእሊ መቐመጢ ቦታን መጀመርታ ስም ፋይልን ምረጽ፤ ኣብ ስም እቶም ስእልታት ተኸታታሊ ቍጽርን ናይ ካሜራ መወዳእታ ፋይልን ይውሰኽ። ከምዚ ምቕማጥ… መቐመጢ ቦታን መጀመርታ ስምን ይቕይር።
+tethered.preview_failed = ስእሊ ተቐሚጡን ኣተኣታትዩን እዩ፣ ግን ቅድመ-ምርኢቱ ምፍታሕ ኣይተኻእለን። ፋይሉ ንምምርማር ኣብ ኣርታዒ ክፈቶ።
+tethered.partial = ገለ ናይ ስእሊ ፋይላት ተቐሚጦምን ኣተኣታትዮምን እዮም፤ ዝተረፉ ፋይላት ምቕማጥ ኣይተኻእለን: {error}
+tethered.camera_permission = ኣብ System Settings → Privacy & Security → Camera ናይ ካሜራ ፍቓድ ሃብ፣ ድሕሪኡ ስእሊ ውሰድ እንደገና ፈትን። Schist ካብ ተርሚናል እንተ ተኸፊቱ፣ ናይቲ ተርሚናል ናይ ካሜራ ፍቓድ እውን መርምር።
+tethered.camera_usage_missing = ኣብዚ ሕንጻ መግለጺ ናይ ካሜራ ፍቓድ የለን። Schist ብ make እንደገና ህነጾ ወይ ዝተዓሸገ መተግበሪ ተጠቐም።
+tethered.select_camera = ስእሊ ንምውሳድ ካሜራ ምረጽ።
+tethered.choose_destination = ስእሊ ውሰድ ስእልታትካ ኣበይ ከም እትቕምጥ ክሓተካ እዩ።
+tethered.preview_empty = ኣብዚ ንምርኣይ ስእሊ ውሰድ።
+tethered.save_local = ኣብዚ መሳርሒ ኣቐምጥ
+tethered.save_cloud = ኣብ ደመና ኣቐምጥ
+tethered.cloud_help = ዝተወስዱ ስእልታት ናብቲ ዝተመርጸ መቐመጢ Schist Cloud ይሰደዱ። ኣብ ናይዚ መሳርሒ ማህደር ስእልታት ቅዳሕ ኣይቕመጥን።
+tethered.cloud_pending = ዘይተዛዘሙ ምልኣኻት ኣብ {path} ይቕመጡ።

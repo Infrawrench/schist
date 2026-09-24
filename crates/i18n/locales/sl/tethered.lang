@@ -1,0 +1,21 @@
+# AI-assisted translation; native-speaker review pending.
+tethered.title = Fotografiranje s fotoaparatom, povezanim z računalnikom
+tethered.capture = Posnemi fotografijo
+tethered.invalid_name = Izberite ime, dolgo 1–120 bajtov, brez poševnic, dvopičij, znakov za odstotek ali pike na začetku.
+tethered.install = Sistemska knjižnica za fotoaparat ni na voljo. Namestite izvajalno okolje za fotoaparat na svoji platformi in znova zaženite Schist.
+tethered.timeout = Čas za odgovor fotoaparata je potekel. Pred ponovnim poskusom preverite fotoaparat in ga znova povežite.
+tethered.failed = Zahteva fotoaparatu ni uspela: {detail}
+tethered.unsupported = Ta fotoaparat ne sporoča podpore za fotografiranje na daljavo.
+tethered.no_download = Fotoaparat ni poslal celotne slike. Izvirniki v fotoaparatu so ohranjeni.
+tethered.session_help = Izberite fotoaparat in nato »Posnemi fotografijo«. Pri prvem posnetku izberite ciljno mesto in začetni del imena datoteke; vsakemu posnetku se dodata zaporedna številka in končnica datoteke fotoaparata. »Shrani kot …« spremeni ciljno mesto in začetni del imena.
+tethered.preview_failed = Fotografija je bila shranjena in uvožena, vendar njenega predogleda ni bilo mogoče dekodirati. Datoteko odprite v urejevalniku in jo preglejte.
+tethered.partial = Nekatere datoteke posnetkov so bile shranjene in uvožene; preostalih datotek ni bilo mogoče shraniti: {error}
+tethered.camera_permission = Dovolite dostop do fotoaparata v Sistemske nastavitve → Zasebnost in varnost → Kamera, nato znova poskusite »Posnemi fotografijo«. Če ste Schist zagnali iz terminala, preverite tudi dovoljenje za fotoaparat tega terminala.
+tethered.camera_usage_missing = V tej različici manjka opis dovoljenja za dostop do fotoaparata. Schist znova zgradite z ukazom make ali uporabite zapakirano aplikacijo.
+tethered.select_camera = Izberite fotoaparat za fotografiranje.
+tethered.choose_destination = »Posnemi fotografijo« vas bo vprašal, kam želite shraniti fotografije.
+tethered.preview_empty = Posnemite fotografijo, da jo boste videli tukaj.
+tethered.save_local = Shrani lokalno
+tethered.save_cloud = Shrani v oblak
+tethered.cloud_help = Posnetki se naložijo na izbrano mesto v Schist Cloud. Kopija v lokalni galeriji se ne shrani.
+tethered.cloud_pending = Nedokončani prenosi se hranijo na mestu {path}.

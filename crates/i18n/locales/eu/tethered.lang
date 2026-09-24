@@ -1,0 +1,21 @@
+# AI-assisted translation; native-speaker review pending.
+tethered.title = Kamera konektatuta argazkiak ateratzea
+tethered.capture = Atera argazkia
+tethered.invalid_name = Aukeratu 1–120 byteko izena, barra, bi puntu eta ehuneko ikurrik gabe, eta hasieran punturik ez duena.
+tethered.install = Sistemaren kamera-liburutegia ez dago erabilgarri. Instalatu plataformako kameraren exekuzio-ingurunea eta berrabiarazi Schist.
+tethered.timeout = Kamerari egindako eskaeraren denbora agortu da. Egiaztatu kamera eta konektatu berriro saiatu aurretik.
+tethered.failed = Kamerari egindako eskaerak huts egin du: {detail}
+tethered.unsupported = Kamera honek ez du urrunetik argazkiak ateratzeko euskarririk iragartzen.
+tethered.no_download = Kamerak ez du irudi osoa bidali. Jatorrizko irudiak kameran gordetzen dira.
+tethered.session_help = Hautatu kamera bat eta, gero, Atera argazkia. Lehen argazkia ateratzean, aukeratu helmuga eta fitxategi-izenaren aurrizkia; argazkiei sekuentzia-zenbakia eta kameraren fitxategi-luzapena gehitzen zaizkie. Gorde honela… aukerak helmuga eta aurrizkia aldatzen ditu.
+tethered.preview_failed = Argazkia gorde eta inportatu da, baina ezin izan da haren aurrebista deskodetu. Ireki fitxategia editorean aztertzeko.
+tethered.partial = Argazki-fitxategi batzuk gorde eta inportatu dira; gainerakoak ezin izan dira gorde: {error}
+tethered.camera_permission = Eman kamerarako sarbidea Sistemaren ezarpenak → Pribatutasuna eta segurtasuna → Kamera atalean, eta saiatu berriro Atera argazkia aukerarekin. Schist terminal batetik abiarazi baduzu, egiaztatu terminal horren kamera-baimena ere.
+tethered.camera_usage_missing = Konpilazio honek ez du kameraren baimenaren azalpenik. Konpilatu berriro Schist make erabiliz edo erabili paketatutako aplikazioa.
+tethered.select_camera = Hautatu kamera bat argazkia ateratzeko.
+tethered.choose_destination = Atera argazkia aukerak argazkiak non gorde galdetuko dizu.
+tethered.preview_empty = Atera argazki bat hemen ikusteko.
+tethered.save_local = Gorde lokalean
+tethered.save_cloud = Gorde hodeian
+tethered.cloud_help = Argazkiak hautatutako Schist Cloud helmugara kargatzen dira. Ez da kopiarik gordetzen tokiko galerian.
+tethered.cloud_pending = Amaitu gabeko kargak {path} kokalekuan gordetzen dira.

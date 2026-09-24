@@ -1,0 +1,21 @@
+# AI-assisted translation; native-speaker review pending.
+tethered.title = Kokanga bafoto na kamera ekangami
+tethered.capture = Kanga foto
+tethered.invalid_name = Pona nkombo ya byte 1–120 oyo ezangi bilembo ya slash, bilembo mibale, elembo ya pourcentage, mpe ebandi na litono te.
+tethered.install = Bibliotɛkɛ ya kamera ya sistɛme ezali te. Tyá programɛ ya kamera oyo esengeli mpo na plateforme oyo, mpe bandisá Schist lisusu.
+tethered.timeout = Ntango ya bosengi na kamera esili. Talá kamera mpe kangisá yango lisusu liboso ya komeka lisusu.
+tethered.failed = Bosengi na kamera elongi te: {detail}
+tethered.unsupported = Kamera oyo elakisi te ete ekoki kokanga bililingi na mosika.
+tethered.no_download = Kamera etindi elilingi mobimba te. Bililingi ya ebandeli oyo ezali na kamera ekotikala wana.
+tethered.session_help = Pona kamera, nsima finá «Kanga foto». Na foto ya liboso, pona esika ya kobomba mpe ebandeli ya nkombo ya fisyé; foto mokomoko ekobakisama na nimero ya molɔngɔ mpe ekɛstansio ya fisyé ya kamera. «Kobomba lokola…» ebongolaka esika mpe ebandeli ya nkombo.
+tethered.preview_failed = Foto ebombami mpe ekɔtisami, kasi elilingi na yango ya liboso ekoki kofungwama te. Fungolá fisyé na mobongisi mpo na kotala yango.
+tethered.partial = Bafisyé mosusu ya bafoto ebombami mpe ekɔtisami; oyo etikali ekoki kobombama te: {error}
+tethered.camera_permission = Pesá ndingisa ya kosalela kamera na Paramɛtrɛ ya Sistɛme → Bomoto mpe Bobateli → Kamera, nsima meká lisusu «Kanga foto». Soki Schist ebandisamaki na terminal, talá mpe ndingisa ya kamera ya terminal yango.
+tethered.camera_usage_missing = Na version oyo ndimbola ya ndingisa ya kamera ezali te. Tongá Schist lisusu na make to salelá programɛ oyo esili kokangama na pakɛ.
+tethered.select_camera = Pona kamera mpo na kokanga foto.
+tethered.choose_destination = «Kanga foto» ekotuna yo esika nini olingi kobomba bafoto na yo.
+tethered.preview_empty = Kanga foto mpo na komona yango awa.
+tethered.save_local = Bomba na esika oyo
+tethered.save_cloud = Bomba na cloud
+tethered.cloud_help = Bafoto oyo ekangami ekotindama na esika ya Schist Cloud oyo eponami. Kopi moko te ekobombama na galerie ya esika oyo.
+tethered.cloud_pending = Biloko oyo naino esili kotindama te ebombami na {path}.

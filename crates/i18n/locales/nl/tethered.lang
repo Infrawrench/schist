@@ -1,0 +1,21 @@
+# AI-assisted translation; native-speaker review pending.
+tethered.title = Opnemen via computer
+tethered.capture = Foto maken
+tethered.invalid_name = Kies een naam van 1–120 bytes zonder schuine strepen, dubbele punten, procenttekens of een punt aan het begin.
+tethered.install = De camerabibliotheek van het systeem is niet beschikbaar. Installeer de camerasoftware voor dit platform en start Schist opnieuw.
+tethered.timeout = Het cameraverzoek heeft te lang geduurd. Controleer de camera en maak opnieuw verbinding voordat u het nogmaals probeert.
+tethered.failed = Cameraverzoek mislukt: {detail}
+tethered.unsupported = Deze camera geeft niet aan dat hij het op afstand maken van foto's ondersteunt.
+tethered.no_download = De camera heeft geen volledig beeld geleverd. De originele bestanden blijven op de camera staan.
+tethered.session_help = Selecteer een camera en kies Foto maken. Kies bij de eerste opname een opslaglocatie en een voorvoegsel voor de bestandsnaam; aan elke opname worden een volgnummer en de bestandsextensie van de camera toegevoegd. Met Opslaan als wijzigt u de opslaglocatie en het voorvoegsel.
+tethered.preview_failed = De opname is opgeslagen en geïmporteerd, maar het voorbeeld kon niet worden gedecodeerd. Open het bestand in de editor om het te bekijken.
+tethered.partial = Sommige opnamebestanden zijn opgeslagen en geïmporteerd; de overige bestanden konden niet worden opgeslagen: {error}
+tethered.camera_permission = Sta cameratoegang toe via Systeeminstellingen → Privacy en beveiliging → Camera en probeer Foto maken opnieuw. Als Schist vanuit een terminal is gestart, controleer dan ook de cameratoestemming van die terminal.
+tethered.camera_usage_missing = In deze versie ontbreekt de beschrijving voor cameratoestemming. Bouw Schist opnieuw met make of gebruik de verpakte app.
+tethered.select_camera = Selecteer een camera om een foto te maken.
+tethered.choose_destination = Bij Foto maken wordt gevraagd waar u uw foto's wilt opslaan.
+tethered.preview_empty = Maak een foto om deze hier te zien.
+tethered.save_local = Lokaal opslaan
+tethered.save_cloud = Opslaan in de cloud
+tethered.cloud_help = Opnamen worden geüpload naar de geselecteerde bestemming in Schist Cloud. Er wordt geen kopie in de lokale galerij bewaard.
+tethered.cloud_pending = Uploads die nog niet zijn voltooid, worden bewaard op {path}.

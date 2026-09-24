@@ -1,0 +1,21 @@
+# AI-assisted translation; native-speaker review pending.
+tethered.title = Fotografowanie z komputera
+tethered.capture = Zrób zdjęcie
+tethered.invalid_name = Wybierz nazwę o długości 1–120 bajtów, bez ukośników, dwukropków, znaków procentu ani kropki na początku.
+tethered.install = Systemowa biblioteka obsługi aparatu jest niedostępna. Zainstaluj środowisko obsługi aparatu dla tej platformy i uruchom ponownie Schist.
+tethered.timeout = Upłynął czas oczekiwania na odpowiedź aparatu. Sprawdź aparat i podłącz go ponownie przed kolejną próbą.
+tethered.failed = Żądanie do aparatu nie powiodło się: {detail}
+tethered.unsupported = Ten aparat nie zgłasza obsługi zdalnego wykonywania zdjęć.
+tethered.no_download = Aparat nie przesłał kompletnego obrazu. Oryginały pozostają w aparacie.
+tethered.session_help = Wybierz aparat, a następnie Zrób zdjęcie. Przy pierwszym zdjęciu wybierz miejsce zapisu i początek nazwy pliku; do nazw zdjęć dodawany jest kolejny numer i rozszerzenie pliku z aparatu. Zapisz jako… pozwala zmienić miejsce zapisu i początek nazwy.
+tethered.preview_failed = Zdjęcie zostało zapisane i zaimportowane, ale nie udało się odkodować jego podglądu. Otwórz je w edytorze, aby sprawdzić plik.
+tethered.partial = Część plików ze zdjęciami zapisano i zaimportowano; pozostałych nie udało się zapisać: {error}
+tethered.camera_permission = Zezwól na dostęp do aparatu w Ustawieniach systemowych → Prywatność i ochrona → Aparat, a następnie ponownie wybierz Zrób zdjęcie. Jeśli Schist uruchomiono z terminala, sprawdź również uprawnienie tego terminala do korzystania z aparatu.
+tethered.camera_usage_missing = W tej kompilacji brakuje opisu uprawnienia do korzystania z aparatu. Zbuduj Schist ponownie poleceniem make albo użyj aplikacji z pakietu.
+tethered.select_camera = Wybierz aparat, aby zrobić zdjęcie.
+tethered.choose_destination = Zrób zdjęcie wyświetli pytanie o miejsce zapisu zdjęć.
+tethered.preview_empty = Zrób zdjęcie, aby zobaczyć je tutaj.
+tethered.save_local = Zapisz lokalnie
+tethered.save_cloud = Zapisz w chmurze
+tethered.cloud_help = Zdjęcia są przesyłane do wybranego miejsca w Schist Cloud. W lokalnej galerii nie jest przechowywana kopia.
+tethered.cloud_pending = Niedokończone przesyłanie jest przechowywane w {path}.

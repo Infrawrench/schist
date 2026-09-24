@@ -1,0 +1,21 @@
+# AI-assisted translation; native-speaker review pending.
+tethered.title = Govven dihtorii čatnon kámerain
+tethered.capture = Govve
+tethered.invalid_name = Vállje namma mas leat 1–120 bita ja mas eai leat čuorggáhusat, guoktečuoggát, proseantamearkkat iige álggos čuokkis.
+tethered.install = Vuogádaga kámeragirjerádju ii leat olámuttos. Sajáidahte dán vuođu kámeradoaimmaheaddji ja álggat Schist ođđasit.
+tethered.timeout = Kámera jearaldaga vuordináigi nogai. Dárkkis kámera ja čana dan ođđasit ovdal go geahččalat fas.
+tethered.failed = Kámera jearaldat ii lihkostuvvan: {detail}
+tethered.unsupported = Dát kámera ii almmut ahte dat doarju gáiddusgovvema.
+tethered.no_download = Kámera ii sádden olles gova. Álgogovat báhcet kámerii.
+tethered.session_help = Vállje kámera ja de deaddil «Govve». Vuosttaš govvema oktavuođas vállje vurkenbáikki ja fiilanama álgooasi; juohke govvii lasihuvvo ráiddonummir ja kámera fiilaviiddádus. «Vurke namain…» rievdada vurkenbáikki ja nama álgooasi.
+tethered.preview_failed = Govva vurkejuvvui ja sisafievrriduvvui, muhto ovdagovva ii sáhttán dekodejuvvot. Rahpa fiilla doaimmaheamis vai sáhtát dan dárkkistit.
+tethered.partial = Muhtun govvafiillat vurkejuvvojedje ja sisafievrriduvvojedje; báhcán fiillat eai sáhttán vurkejuvvot: {error}
+tethered.camera_permission = Dohkket kámera geavaheami System Settings → Privacy & Security → Camera -ásahusain, ja geahččal «Govve» ođđasit. Jos Schist álggahuvvui terminálas, dárkkis maiddái dan terminála kámeralobi.
+tethered.camera_usage_missing = Dán huksemis váilu kámeralobi čilgehus. Hukse Schist ođđasit make -gohččumiin dahje geavat páhkašuvvon prográmma.
+tethered.select_camera = Vállje kámera vai sáhtát govvet.
+tethered.choose_destination = «Govve» jearrá gos háliidat vurket govaid.
+tethered.preview_empty = Govve vai oainnát gova dáppe.
+tethered.save_local = Vurke báikkálaččat
+tethered.save_cloud = Vurke balvii
+tethered.cloud_help = Govat sáddojuvvojit válljejuvvon báikái Schist Cloud -balvabálvalusas. Báikkálaš gallerii ii doalat kopiija.
+tethered.cloud_pending = Sáddemat mat eai leat geargan vurkejuvvojit dáppe: {path}.

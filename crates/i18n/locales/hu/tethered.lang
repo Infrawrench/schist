@@ -1,0 +1,21 @@
+# AI-assisted translation; native-speaker review pending.
+tethered.title = Távvezérelt fényképezés
+tethered.capture = Fénykép készítése
+tethered.invalid_name = Válasszon 1–120 bájt hosszú nevet, amely nem tartalmaz perjelet, kettőspontot, százalékjelet, és nem ponttal kezdődik.
+tethered.install = A rendszer kamerakönyvtára nem érhető el. Telepítse a platform kamerafuttatókörnyezetét, majd indítsa újra a Schistet.
+tethered.timeout = A kamerakérés időtúllépés miatt megszakadt. Ellenőrizze, majd csatlakoztassa újra a kamerát, mielőtt ismét próbálkozna.
+tethered.failed = A kamerakérés sikertelen: {detail}
+tethered.unsupported = Ez a kamera nem jelzi, hogy támogatná a távoli képkészítést.
+tethered.no_download = A kamera nem küldött teljes képet. Az eredeti képek megmaradnak a kamerán.
+tethered.session_help = Válasszon kamerát, majd kattintson a Fénykép készítése lehetőségre. Az első felvételnél válassza ki a célhelyet és a fájlnevek előtagját; a felvételek nevéhez sorszám és a kamera fájlkiterjesztése kerül. A Mentés másként… módosítja a célhelyet és az előtagot.
+tethered.preview_failed = A felvétel mentése és importálása sikerült, de az előnézetét nem lehetett dekódolni. Nyissa meg a szerkesztőben a fájl ellenőrzéséhez.
+tethered.partial = Néhány felvételfájlt sikerült menteni és importálni; a többit nem sikerült menteni: {error}
+tethered.camera_permission = Engedélyezze a kamera elérését a Rendszerbeállítások → Adatvédelem és biztonság → Kamera alatt, majd próbálja újra a Fénykép készítése műveletet. Ha a Schistet terminálból indította, ellenőrizze a terminál kameraengedélyét is.
+tethered.camera_usage_missing = Ebből a buildből hiányzik a kameraengedély leírása. Építse újra a Schistet a make paranccsal, vagy használja a csomagolt alkalmazást.
+tethered.select_camera = Válasszon kamerát a fénykép készítéséhez.
+tethered.choose_destination = A Fénykép készítése megkérdezi, hová mentse a fényképeket.
+tethered.preview_empty = Készítsen fényképet, hogy itt megjelenjen.
+tethered.save_local = Mentés helyben
+tethered.save_cloud = Mentés a felhőbe
+tethered.cloud_help = A felvételek a kiválasztott Schist Cloud-célhelyre töltődnek fel. A helyi galériában nem marad másolat.
+tethered.cloud_pending = A még be nem fejezett feltöltéseket a rendszer itt őrzi: {path}.

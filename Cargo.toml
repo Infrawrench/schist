@@ -3,6 +3,7 @@ resolver = "2"
 # Example plugins compile to wasm32-unknown-unknown, not the host target.
 exclude = ["examples/plugins/sepia-filter", "examples/plugins/pgm-codec"]
 members = [
+    "crates/tethered",
     "crates/photo-merge",
     "crates/app",
     "crates/gallery-ui",
@@ -67,6 +68,7 @@ license = "MIT"
 repository = "https://github.com/Infrawrench/schist"
 
 [workspace.dependencies]
+schist-tethered = { path = "crates/tethered" }
 schist-photo-merge = { path = "crates/photo-merge" }
 # internal
 schist-gallery-ui = { path = "crates/gallery-ui" }
@@ -151,6 +153,7 @@ image = { version = "0.25", default-features = false, features = ["png", "jpeg",
 libloading = "0.8"
 byteorder = "1.5"
 log = "0.4"
+gphoto2 = "3.4.1"
 # The AI sidebar drives coding-agent harnesses through their SDKs: the
 # community Rust port of the Claude Agent SDK (Claude Code), and the typed
 # app-server protocol client for OpenAI's Codex. Both wrap the CLIs the

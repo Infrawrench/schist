@@ -1,0 +1,21 @@
+# AI-assisted translation; native-speaker review pending.
+tethered.title = Tennyn skeusen dre gamera kevys
+tethered.capture = Tenna skeus
+tethered.invalid_name = Dewis hanow a 1–120 byt heb linennow treus, dywboynt, arwodhow kansran na poynt orth an dalleth.
+tethered.install = Nyns yw an lyverva kamera an system kavadow. Sefya an termyn oberi kamera rag an platform ma ha dasdalleth Schist.
+tethered.timeout = An govyn orth an kamera re dremenys y dermyn. Assaya an kamera ha'y gevessa arta kyns assaya arta.
+tethered.failed = An govyn orth an kamera a fyllis: {detail}
+tethered.unsupported = Ny wra an kamera ma diskudhya skoodh rag tenna skeusen a-bell.
+tethered.no_download = Ny dhasserghas an kamera skeus leun. An oryginalow war an kamera a gemmerir.
+tethered.session_help = Dewis kamera, ha wosa «Tenna skeus». Orth an tennans kensa, dewis tyller sawya ha ragfynn hanow restren; pub tennans a geworr niver an eylenn ha ystynnans restren an kamera. «Sawya Avel…» a gemm an tyller ha'n ragfynn.
+tethered.preview_failed = An skeus a veu sawys ha degemerys, mes ny ellir digodya hy rhagwel. Ygeri hi y'n jynn amendya rag assaya an restren.
+tethered.partial = Nebes restrennow tennys a veu sawys ha degemerys; ny ellir sawya an re erel: {error}
+tethered.camera_permission = Ri kummyas dhe'n kamera yn Settyansow an System → Privetter ha Surente → Kamera, ha prova «Tenna skeus» arta. Mar kwrug Schist dalleth dhyworth terminal, assaya kummyas kamera an terminal henna ynwedh.
+tethered.camera_usage_missing = Yma an displegyans ma heb deskrifans kummyas an kamera. Dassevel Schist gans make po devnydhya an app pakys.
+tethered.select_camera = Dewis kamera rag tenna skeus.
+tethered.choose_destination = «Tenna skeus» a wra govyn py le may sawya dha skeusen.
+tethered.preview_empty = Tenna skeus rag hy gweles omma.
+tethered.save_local = Sawya yn leel
+tethered.save_cloud = Sawya dhe'n kowlen
+tethered.cloud_help = An skeusen tennys a wra ughkarga dhe'n tyller Schist Cloud dewisys. Ny gedwir kopi y'n galeri leel.
+tethered.cloud_pending = An ughkargyansow na veu gorfennys a gedwir orth {path}.

@@ -1,0 +1,21 @@
+# AI-assisted translation; native-speaker review pending.
+tethered.title = በተገናኘ ካሜራ ፎቶ ማንሳት
+tethered.capture = ፎቶ አንሳ
+tethered.invalid_name = ከ1–120 ባይት ርዝመት ያለው፣ ሰረዝ ምልክት (/)፣ ኮሎን፣ የመቶኛ ምልክት የሌለበት እና በነጥብ የማይጀምር ስም ይምረጡ።
+tethered.install = የስርዓቱ የካሜራ ቤተ መጻሕፍት አይገኝም። ለዚህ መድረክ የካሜራ አሂድ አካባቢን ይጫኑ እና Schistን እንደገና ያስጀምሩ።
+tethered.timeout = የካሜራው ጥያቄ ጊዜው አልፎበታል። እንደገና ከመሞከርዎ በፊት ካሜራውን ይፈትሹ እና እንደገና ያገናኙት።
+tethered.failed = የካሜራው ጥያቄ አልተሳካም፦ {detail}
+tethered.unsupported = ይህ ካሜራ ከርቀት ፎቶ ማንሳትን እንደሚደግፍ አያሳውቅም።
+tethered.no_download = ካሜራው የተሟላ ምስል አልላከም። ዋና ፋይሎቹ በካሜራው ላይ ይቀራሉ።
+tethered.session_help = ካሜራ ይምረጡ፣ ከዚያ ፎቶ አንሳን ይጫኑ። ለመጀመሪያ ጊዜ ፎቶ ሲያነሱ የማስቀመጫ ቦታና የፋይል ስም ቅድመ ቅጥያ ይምረጡ፤ በእያንዳንዱ ፎቶ ላይ ተከታታይ ቁጥርና የካሜራው የፋይል ቅጥያ ይጨመራሉ። እንደ… አስቀምጥ የማስቀመጫ ቦታውንና ቅድመ ቅጥያውን ይቀይራል።
+tethered.preview_failed = ፎቶው ተቀምጦ ገብቷል፣ ነገር ግን ቅድመ እይታውን መተንተን አልተቻለም። ፋይሉን ለማየት በአርታኢው ይክፈቱት።
+tethered.partial = አንዳንድ የፎቶ ፋይሎች ተቀምጠው ገብተዋል፤ የቀሩት ፋይሎች መቀመጥ አልቻሉም፦ {error}
+tethered.camera_permission = በስርዓት ቅንብሮች → ግላዊነት እና ደህንነት → ካሜራ ውስጥ የካሜራ መዳረሻን ይፍቀዱ፣ ከዚያ እንደገና ፎቶ አንሳን ይሞክሩ። Schist ከተርሚናል ከተነሳ፣ የዚያን ተርሚናል መተግበሪያ የካሜራ ፈቃድም ይፈትሹ።
+tethered.camera_usage_missing = በዚህ ግንባታ ውስጥ የካሜራ ፈቃድ መግለጫ የለም። Schistን በmake እንደገና ይገንቡ ወይም በጥቅል የቀረበውን መተግበሪያ ይጠቀሙ።
+tethered.select_camera = ፎቶ ለማንሳት ካሜራ ይምረጡ።
+tethered.choose_destination = ፎቶ አንሳ ፎቶዎችዎን የት እንደሚያስቀምጡ ይጠይቃል።
+tethered.preview_empty = እዚህ ለማየት ፎቶ ያንሱ።
+tethered.save_local = በአካባቢው አስቀምጥ
+tethered.save_cloud = ወደ ደመና አስቀምጥ
+tethered.cloud_help = የተነሱ ፎቶዎች ወደ ተመረጠው Schist Cloud መዳረሻ ይሰቀላሉ። በአካባቢው የፎቶ ማዕከል ቅጂ አይቀመጥም።
+tethered.cloud_pending = ገና ያልተጠናቀቁ ሰቀላዎች በ{path} ይቀመጣሉ።

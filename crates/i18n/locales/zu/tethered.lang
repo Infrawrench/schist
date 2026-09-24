@@ -1,0 +1,21 @@
+# AI-assisted translation; native-speaker review pending.
+tethered.title = Ukuthwebula ngekhamera exhunywe kukhompyutha
+tethered.capture = Thwebula isithombe
+tethered.invalid_name = Khetha igama elingamabhayithi angu-1–120, elingenazo izimpawu zokuhlukanisa, amakholoni, izimpawu zamaphesenti noma ichashazi ekuqaleni.
+tethered.install = Umtapo wolwazi wekhamera wesistimu awutholakali. Faka uhlelo lokusebenzisa ikhamera lwale nkundla bese uqala kabusha i-Schist.
+tethered.timeout = Isikhathi sokulinda impendulo yekhamera siphelile. Hlola ikhamera bese uyixhuma kabusha ngaphambi kokuzama futhi.
+tethered.failed = Isicelo sekhamera sehlulekile: {detail}
+tethered.unsupported = Le khamera ayibonisi ukuthi isekela ukuthwebula izithombe ukude.
+tethered.no_download = Ikhamera ayithumelanga isithombe esiphelele. Izithombe zoqobo zisagcinwe ekhamera.
+tethered.session_help = Khetha ikhamera, bese ukhetha «Thwebula isithombe». Lapho uthwebula okokuqala, khetha indawo yokulondoloza nesiqalo segama lefayela; izithombe zithola inombolo elandelanayo nesandiso sefayela lekhamera. «Londoloza Njenge» kushintsha indawo yokulondoloza nesiqalo segama.
+tethered.preview_failed = Isithombe silondoloziwe futhi singenisiwe, kodwa ukubuka kuqala kwaso akukwazanga ukufundwa. Vula ifayela kusihleli ukuze ulihlole.
+tethered.partial = Amanye amafayela ezithombe alondoloziwe futhi angenisiwe; asele awakwazanga ukulondolozwa: {error}
+tethered.camera_permission = Vumela ukufinyelela kukhamera kokuthi Izilungiselelo Zesistimu → Ubumfihlo Nokuvikeleka → Ikhamera, bese uzama «Thwebula isithombe» futhi. Uma i-Schist iqalwe kutheminali, hlola nemvume yekhamera yaleyo theminali.
+tethered.camera_usage_missing = Lokhu kwakhiwa akunayo incazelo yemvume yekhamera. Yakha kabusha i-Schist nge-make noma usebenzise uhlelo lokusebenza olupakishiwe.
+tethered.select_camera = Khetha ikhamera ukuze uthwebule isithombe.
+tethered.choose_destination = «Thwebula isithombe» kuzokubuza ukuthi uzilondoloza kuphi izithombe zakho.
+tethered.preview_empty = Thwebula isithombe ukuze usibone lapha.
+tethered.save_local = Londoloza kudivayisi
+tethered.save_cloud = Londoloza efwini
+tethered.cloud_help = Izithombe ezithwetshuliwe zilayishwa endaweni ye-Schist Cloud ekhethiwe. Ayikho ikhophi egcinwa kugalari yasendaweni.
+tethered.cloud_pending = Okusalayishwa okungakaqedi kugcinwa ku-{path}.

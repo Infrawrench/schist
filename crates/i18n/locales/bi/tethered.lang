@@ -1,0 +1,21 @@
+# AI-assisted translation; native-speaker review pending.
+tethered.title = Tekem foto long kamera we i joen
+tethered.capture = Tekem foto
+tethered.invalid_name = Jusum wan nem we i gat 1–120 baet, we i no gat slaes, kolon, saen blong pesen o wan fulstop long stat blong hem.
+tethered.install = Laebri blong kamera long sistem i no stap. Instolem program blong mekem kamera i wok long platfom ia, mo statem Schist bakegen.
+tethered.timeout = Taem blong askem kamera i finis. Lukluk kamera mo joenem bakegen bifo yu traem bakegen.
+tethered.failed = Askem kamera i no wok: {detail}
+tethered.unsupported = Kamera ia i no talem se hem i save tekem foto taem kompiuta i givim oda long hem.
+tethered.no_download = Kamera i no sanem ful pikja. Ol faswan fael oli stap yet long kamera.
+tethered.session_help = Jusum wan kamera, biaen yu pusum Tekem foto. Taem yu tekem fas foto, jusum ples blong sevem mo fas pat blong nem blong fael; ol foto oli kasem wan namba we i folem oda mo en blong nem blong fael blong kamera. Sevem Olsem i jenisim ples blong sevem mo fas pat blong nem.
+tethered.preview_failed = Oli sevem foto mo tekem i kam insaed, be oli no save ridim pikja blong luk fastaem. Openem fael long edita blong lukluk hem.
+tethered.partial = Oli sevem mo tekem sam fael blong foto i kam insaed; oli no save sevem ol narafala fael: {error}
+tethered.camera_permission = Letem kamera i wok long Sistem Seting → Praevesi mo Sekuriti → Kamera, biaen traem Tekem foto bakegen. Sipos yu statem Schist long wan teminal, jekem tu pemisen blong kamera blong teminal app ia.
+tethered.camera_usage_missing = Bild ia i no gat toktok we i eksplenem pemisen blong kamera. Bildim Schist bakegen wetem make o yusum app we oli pakemap.
+tethered.select_camera = Jusum wan kamera blong tekem foto.
+tethered.choose_destination = Tekem foto bambae i askem wea blong sevem ol foto blong yu.
+tethered.preview_empty = Tekem wan foto blong luk hem long ples ia.
+tethered.save_local = Sevem long ples ia
+tethered.save_cloud = Sevem long klaod
+tethered.cloud_help = Ol foto oli go antap long ples blong Schist Cloud we yu jusum. I no gat kopi long lokal galeri.
+tethered.cloud_pending = Ol aplod we oli no finis oli stap long {path}.

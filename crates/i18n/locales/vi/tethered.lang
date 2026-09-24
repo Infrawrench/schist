@@ -1,0 +1,21 @@
+# AI-assisted translation; native-speaker review pending.
+tethered.title = Chụp ảnh qua máy tính
+tethered.capture = Chụp ảnh
+tethered.invalid_name = Chọn tên dài 1–120 byte, không chứa dấu gạch chéo, dấu hai chấm, dấu phần trăm hoặc bắt đầu bằng dấu chấm.
+tethered.install = Không có thư viện máy ảnh của hệ thống. Hãy cài đặt môi trường chạy máy ảnh cho nền tảng này rồi khởi động lại Schist.
+tethered.timeout = Yêu cầu gửi đến máy ảnh đã hết thời gian chờ. Kiểm tra và kết nối lại máy ảnh trước khi thử lại.
+tethered.failed = Yêu cầu gửi đến máy ảnh thất bại: {detail}
+tethered.unsupported = Máy ảnh này không thông báo khả năng hỗ trợ chụp ảnh từ xa.
+tethered.no_download = Máy ảnh không gửi được ảnh hoàn chỉnh. Ảnh gốc trên máy ảnh vẫn được giữ lại.
+tethered.session_help = Chọn máy ảnh, rồi nhấn “Chụp ảnh”. Khi chụp lần đầu, hãy chọn nơi lưu và tiền tố tên tệp; ảnh chụp sẽ được thêm số thứ tự và phần mở rộng tệp của máy ảnh. “Lưu thành” thay đổi nơi lưu và tiền tố.
+tethered.preview_failed = Ảnh đã được lưu và nhập, nhưng không thể giải mã bản xem trước. Mở tệp trong trình chỉnh sửa để kiểm tra.
+tethered.partial = Một số tệp ảnh chụp đã được lưu và nhập; không thể lưu các tệp còn lại: {error}
+tethered.camera_permission = Cho phép truy cập máy ảnh trong Cài đặt hệ thống → Quyền riêng tư & Bảo mật → Máy ảnh, rồi thử “Chụp ảnh” lần nữa. Nếu Schist được mở từ ứng dụng dòng lệnh, hãy kiểm tra cả quyền dùng máy ảnh của ứng dụng đó.
+tethered.camera_usage_missing = Bản dựng này thiếu mô tả quyền sử dụng máy ảnh. Hãy dựng lại Schist bằng make hoặc dùng ứng dụng đã được đóng gói.
+tethered.select_camera = Chọn máy ảnh để chụp.
+tethered.choose_destination = “Chụp ảnh” sẽ hỏi bạn muốn lưu ảnh ở đâu.
+tethered.preview_empty = Chụp ảnh để xem ở đây.
+tethered.save_local = Lưu trên thiết bị
+tethered.save_cloud = Lưu lên đám mây
+tethered.cloud_help = Ảnh chụp được tải lên vị trí Schist Cloud đã chọn. Không lưu bản sao trong thư viện ảnh trên thiết bị.
+tethered.cloud_pending = Các lượt tải lên chưa hoàn tất được giữ tại {path}.

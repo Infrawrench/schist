@@ -1,0 +1,21 @@
+# AI-assisted translation; native-speaker review pending.
+tethered.title = Birikdirilen kamera bilen surata düşürmek
+tethered.capture = Surata düşür
+tethered.invalid_name = Uzynlygy 1–120 baýt bolan, içinde kese çyzyk, iki nokat, göterim belgisi ýa-da başynda nokat bolmadyk at saýlaň.
+tethered.install = Ulgamyň kamera kitaphanasy elýeterli däl. Şu platformanyň kamera iş gurşawyny guruň we Schist-i täzeden açyň.
+tethered.timeout = Kamera ýüz tutmasynyň wagty gutardy. Gaýtadan synanyşmazdan öň kamerany barlaň we täzeden birikdiriň.
+tethered.failed = Kamera ýüz tutmasy başa barmady: {detail}
+tethered.unsupported = Bu kamera uzakdan surata düşürmegi goldaýandygyny mälim etmeýär.
+tethered.no_download = Kamera doly suraty ibermedi. Asyl suratlar kamerada galýar.
+tethered.session_help = Kamerany saýlaň, soňra Surata düşür düwmesine basyň. Ilkinji surata düşüreniňizde saklanjak ýeri we faýl adynyň öň goşulmasyny saýlaň; suratlaryň adyna yzygiderli san we kameranyň faýl giňeltmesi goşulýar. Başgaça saklamak… saklanjak ýeri we öň goşulmany üýtgedýär.
+tethered.preview_failed = Surat saklandy we import edildi, ýöne onuň deslapky görnüşini dekodirläp bolmady. Faýly barlamak üçin ony redaktorda açyň.
+tethered.partial = Käbir surat faýllary saklandy we import edildi; galan faýllary saklap bolmady: {error}
+tethered.camera_permission = System Settings → Privacy & Security → Camera bölüminde kamera elýeterliligine rugsat beriň, soňra Surata düşür düwmesini gaýtadan synaň. Schist terminaldan açylan bolsa, şol terminalyň kamera rugsadyny hem barlaň.
+tethered.camera_usage_missing = Bu ýygnamada kamera rugsadynyň düşündirişi ýok. Schist-i make bilen täzeden ýygnap görüň ýa-da gaplanan programmany ulanyň.
+tethered.select_camera = Surata düşürmek üçin kamerany saýlaň.
+tethered.choose_destination = Surata düşür suratlaryňyzy nirede saklamalydygyny sorar.
+tethered.preview_empty = Şu ýerde görmek üçin surata düşüriň.
+tethered.save_local = Şu enjamda sakla
+tethered.save_cloud = Bulutda sakla
+tethered.cloud_help = Çekilen suratlar saýlanan Schist Cloud ýerine ýüklenýär. Ýerli galereýada nusgasy saklanmaýar.
+tethered.cloud_pending = Tamamlanmadyk ýüklemeler {path} salgysynda saklanýar.

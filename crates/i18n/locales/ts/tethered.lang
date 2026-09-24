@@ -1,0 +1,21 @@
+# AI-assisted translation; native-speaker review pending.
+tethered.title = Ku teka swifaniso hi khamera leyi hlanganisiweke
+tethered.capture = Teka xifaniso
+tethered.invalid_name = Hlawula vito ra 1–120 wa tibayiti leri nga riki na swilashi, tikholoni, swikombiso swa tiphesente kumbe thonsi eku sunguleni.
+tethered.install = Layiburari ya khamera ya sisiteme a yi kumeki. Nghenisa ndhawu yo fambisa khamera ya pulatifomo leyi, kutani u tlhela u sungula Schist.
+tethered.timeout = Nkarhi wa xikombelo xa khamera wu herile. Kamba khamera u tlhela u yi hlanganisa u nga si ringeta nakambe.
+tethered.failed = Xikombelo xa khamera xi tsandzekile: {detail}
+tethered.unsupported = Khamera leyi a yi kombisi leswaku yi seketela ku teka swifaniso u ri ekule.
+tethered.no_download = Khamera a yi rhumelanga xifaniso lexi heleleke. Swifaniso swa masungulo swi sala eka khamera.
+tethered.session_help = Hlawula khamera, kutani u tshikelela Teka xifaniso. Loko u teka xifaniso ro sungula, hlawula ndhawu yo hlayisa ni masungulo ya vito ra fayili; mavito ya swifaniso ma engeteleriwa nomboro leyi landzelelanaka ni xiengetelo xa fayili xa khamera. Hlayisa tani hi… yi cinca ndhawu yo hlayisa ni masungulo ya vito.
+tethered.preview_failed = Xifaniso xi hlayisiwile naswona xi nghenisiwile, kambe xivono xa xona xo sungula a xi kotekanga ku hlamuseriwa. Xi pfule eka xihleri leswaku u kambela fayili.
+tethered.partial = Tifayili tin'wana ta swifaniso ti hlayisiwile ti tlhela ti nghenisiwa; leti saleke a ti kotekanga ku hlayisiwa: {error}
+tethered.camera_permission = Pfumelela ku tirhisa khamera eka System Settings → Privacy & Security → Camera, kutani u tlhela u ringeta Teka xifaniso. Loko Schist yi sunguriwe eka terminale, kambela ni mpfumelelo wa khamera wa terminale yoleyo.
+tethered.camera_usage_missing = Rhiendliro leri a ri na nhlamuselo ya mpfumelelo wa khamera. Aka Schist nakambe hi make kumbe u tirhisa app leyi phakiweke.
+tethered.select_camera = Hlawula khamera leswaku u teka xifaniso.
+tethered.choose_destination = Teka xifaniso yi ta ku vutisa leswaku swifaniso swa wena swi hlayisiwa kwihi.
+tethered.preview_empty = Teka xifaniso leswaku u xi vona laha.
+tethered.save_local = Hlayisa eka xitirhisiwa lexi
+tethered.save_cloud = Hlayisa eka papa
+tethered.cloud_help = Swifaniso leswi tekiweke swi layichiwa eka ndhawu leyi hlawuriweke ya Schist Cloud. A ku hlayisiwi kopi eka galeri ya xitirhisiwa lexi.
+tethered.cloud_pending = Tifayili leti nga si hetaka ku layichiwa ti hlayisiwa eka {path}.

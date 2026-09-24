@@ -8,6 +8,9 @@
     <key>CFBundleVersion</key><string>0.15.0</string>
     <key>CFBundleShortVersionString</key><string>0.15.0</string>
     <key>CFBundleExecutable</key><string>schist</string>
+    <key>NSCameraUsageDescription</key>
+    <string>Schist uses your camera to take photos when you choose Capture photo.</string>
+    <key>NSCameraUseContinuityCameraDeviceType</key><true/>
     <!-- The languages the chrome speaks (crates/i18n). Declared so the
          system can offer a per-app language and so Finder lists them;
          the strings themselves are compiled in, not in .lproj folders. -->

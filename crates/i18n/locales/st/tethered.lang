@@ -1,0 +1,21 @@
+# AI-assisted translation; native-speaker review pending.
+tethered.title = Ho nka linepe ka khamera e hoketsoeng
+tethered.capture = Nka senepe
+tethered.invalid_name = Khetha lebitso la li-byte tse 1–120 le se nang matshwao a slash, colon, percent kapa letheba qalong.
+tethered.install = Laeborari ya khamera ya tsamaiso ha e fumanehe. Kenya software ya khamera ya sethala sena, ebe o qala Schist hape.
+tethered.timeout = Nako ya kopo ya khamera e fedile. Hlahloba khamera mme o e hokelle hape pele o leka hape.
+tethered.failed = Kopo ya khamera e hlolehile: {detail}
+tethered.unsupported = Khamera ena ha e bontshe hore e tshehetsa ho nka linepe e laolwa hole.
+tethered.no_download = Khamera ha e a romela senepe se felletseng. Linepe tsa mantlha di sala khamereng.
+tethered.session_help = Khetha khamera, ebe o tobetsa Nka senepe. Ha o nka senepe ka lekgetlo la pele, kgetha sebaka sa ho boloka le qalo ya lebitso la faele; dinepe tse nkilweng di eketswa nomoro e latellanang le katoloso ya faele ya khamera. Boloka E le… e fetola sebaka sa ho boloka le qalo ya lebitso.
+tethered.preview_failed = Senepe se bolokilwe mme sa kenngwa, empa ponelopele ya sona ha e a kgona ho balwa. Se bule mohlophising ho hlahloba faele.
+tethered.partial = Difaele tse ding tsa dinepe di bolokilwe mme tsa kenngwa; tse setseng ha di a kgona ho bolokwa: {error}
+tethered.camera_permission = Dumella phihlello ya khamera ho System Settings → Privacy & Security → Camera, ebe o leka Nka senepe hape. Haeba Schist e qadile ho tswa terminaleng, hlahloba le tumello ya khamera ya terminal eo.
+tethered.camera_usage_missing = Phetolelo ena ha e na tlhaloso ya tumello ya khamera. Haha Schist hape ka make kapa o sebedise sesebelisoa se pakilweng.
+tethered.select_camera = Khetha khamera hore o nke senepe.
+tethered.choose_destination = Nka senepe e tla o botsa hore na o boloka dinepe kae.
+tethered.preview_empty = Nka senepe hore o se bone mona.
+tethered.save_local = Boloka sesebedisweng sena
+tethered.save_cloud = Boloka lerung
+tethered.cloud_help = Dinepe tse nkuweng di romelwa sebakeng se kgethilweng sa Schist Cloud. Ha ho kopi e bolokwang polokelong ya dinepe ya sesebediswa sena.
+tethered.cloud_pending = Difaele tse so qete ho romelwa di bolokilwe ho {path}.

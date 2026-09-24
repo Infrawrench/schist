@@ -1,0 +1,21 @@
+# AI-assisted translation; native-speaker review pending.
+tethered.title = Yíya fọ́tò pẹ̀lú kámẹ́rà tí a so mọ́ kọ̀ǹpútà
+tethered.capture = Ya fọ́tò
+tethered.invalid_name = Yan orúkọ tó gùn tó báìtì 1–120, tí kò ní àmi ìgé, àmi kọ́lọnì, àmi ìdá ọgọ́rùn-ún tàbí àmì pẹ́ńpẹ́ń ní ìbẹ̀rẹ̀.
+tethered.install = Ilé ìkàwé kámẹ́rà ti ẹ̀rọ kò sí. Fi ètò tí kámẹ́rà nílò fún irú ẹ̀rọ yìí sílẹ̀, kí o sì tún Schist bẹ̀rẹ̀.
+tethered.timeout = Àkókò ìdúró fún ìbéèrè kámẹ́rà ti parí. Ṣàyẹ̀wò kámẹ́rà kí o sì so ó pọ̀ lẹ́ẹ̀kan sí i kí o tó tún gbìyànjú.
+tethered.failed = Ìbéèrè kámẹ́rà kò ṣàṣeyọrí: {detail}
+tethered.unsupported = Kámẹ́rà yìí kò fi hàn pé ó ṣe atilẹ́yìn fún yíya fọ́tò láti ọ̀nà jíjìn.
+tethered.no_download = Kámẹ́rà kò fi àwòrán tó pé ránṣẹ́. Àwọn àwòrán àkọ́kọ́ ṣì wà lórí kámẹ́rà.
+tethered.session_help = Yan kámẹ́rà, lẹ́yìn náà yan «Ya fọ́tò». Nígbà tí o bá ya fọ́tò àkọ́kọ́, yan ibi ìfipamọ́ àti ìbẹ̀rẹ̀ orúkọ fáìlì; a máa fi nọ́mbà tó tẹ̀lé ara wọn àti ìparí orúkọ fáìlì kámẹ́rà kún àwọn fọ́tò. «Fipamọ́ gẹ́gẹ́ bí» ń yí ibi ìfipamọ́ àti ìbẹ̀rẹ̀ orúkọ padà.
+tethered.preview_failed = A ti fi fọ́tò náà pamọ́, a sì ti gbé e wọlé, ṣùgbọ́n a kò lè ṣí àwòrán àṣàfihàn rẹ̀. Ṣí fáìlì náà nínú olootu láti ṣàyẹ̀wò rẹ̀.
+tethered.partial = A ti fi díẹ̀ lára àwọn fáìlì fọ́tò pamọ́, a sì ti gbé wọn wọlé; a kò lè fi àwọn tó kù pamọ́: {error}
+tethered.camera_permission = Fún kámẹ́rà láyè nínú Àwọn Ètò Ẹ̀rọ → Ìpamọ́ àti Ààbò → Kámẹ́rà, lẹ́yìn náà tún gbìyànjú «Ya fọ́tò». Tí a bá bẹ̀rẹ̀ Schist láti inú ètò ìlà-àṣẹ, ṣàyẹ̀wò àṣẹ kámẹ́rà ètò ìlà-àṣẹ náà pẹ̀lú.
+tethered.camera_usage_missing = Ìtúmọ̀ àṣẹ kámẹ́rà kò sí nínú ẹ̀dà yìí. Tun Schist kọ́ pẹ̀lú make tàbí lo ohun èlò tí a ti pèsè.
+tethered.select_camera = Yan kámẹ́rà láti ya fọ́tò.
+tethered.choose_destination = «Ya fọ́tò» yóò béèrè ibi tí o fẹ́ fi àwọn fọ́tò rẹ pamọ́.
+tethered.preview_empty = Ya fọ́tò láti rí i níbí.
+tethered.save_local = Fipamọ́ sórí ẹ̀rọ
+tethered.save_cloud = Fipamọ́ sínú àwọsánmà
+tethered.cloud_help = A máa gbé àwọn fọ́tò tí a ya lọ sí ibi Schist Cloud tí a yàn. A kì í fi ẹ̀dà pamọ́ sínú àkójọpọ̀ fọ́tò lórí ẹ̀rọ.
+tethered.cloud_pending = A máa fi àwọn ìgbérù tí kò tíì parí pamọ́ sí {path}.

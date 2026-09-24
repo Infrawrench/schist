@@ -104,3 +104,32 @@ The local working directories `target/i18n-translation-pass/` and
 `target/i18n-completion/` contain the baseline inventories, per-chunk reports,
 and final validation logs. They are ignored working artifacts; this report
 preserves the completion status and material review limitations in the repository.
+
+## Tethered capture — 2026-09-24
+
+Ten GPT-6 Sol subagents translated the 16-entry tethered-capture catalog across
+147 independent non-English locales. The `no` and `sh` catalogs were regenerated
+from `nb` and `hr`, covering all 149 non-English shipped locales without changing
+the English source or language registry. This pass changed 2,312 values, including
+all 2,308 that previously matched English. No tethered values now match English.
+
+The review checked placeholders, the 1–120-byte filename limit, the literal
+`make` command, and references to each locale's Capture photo and Save As labels.
+It corrected the French macOS Camera settings label and the Māori, Malayalam,
+and Uyghur Save As references. `make check-i18n` and the targeted tethered audit
+passed for all 150 catalogs; existing font assets cover the new text.
+
+These are AI-assisted translations, not native-speaker-certified translations.
+Specialized camera-runtime and permission wording in lower-resource languages
+still needs fluent review, particularly Cornish, Dzongkha, Ewe, Igbo, Interlingue,
+Ido, Marshallese, Northern Ndebele, Pāḷi, Tibetan, and Tongan. Passing structural
+and font checks does not establish idiomatic phrasing or verify rendered layout.
+The baseline inventory and validation logs are in the ignored
+`target/tethered-i18n/` working directory.
+
+The same ten GPT-6 Sol subagents translated four additional strings for the
+separate local/cloud save modes and retained-upload recovery path. The catalog
+now contains 20 entries in all 150 locales, with `no` and `sh` regenerated from
+their canonical catalogs. The `{path}` placeholder and Schist Cloud product name
+are preserved. The native-speaker review limitations above also apply to these
+new strings.

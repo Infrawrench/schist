@@ -1,0 +1,21 @@
+# AI-assisted translation; native-speaker review pending.
+tethered.title = Captura amb aparelh connectat
+tethered.capture = Prendre una fòto
+tethered.invalid_name = Causissètz un nom de 1–120 octets sens barra oblica, dos punts, signe de percentatge ni punt inicial.
+tethered.install = La bibliotèca de l'aparelh fòto del sistèma es indisponibla. Installatz lo runtime de l'aparelh fòto de la plataforma e tornatz aviar Schist.
+tethered.timeout = La requèsta a l'aparelh fòto a expirat. Verificatz l'aparelh e tornatz-lo connectar abans de tornar ensajar.
+tethered.failed = La requèsta a l'aparelh fòto a fracassat : {detail}
+tethered.unsupported = Aqueste aparelh fòto indica pas que pren en carga la captura d'imatges a distància.
+tethered.no_download = L'aparelh fòto a pas transmés una imatge completa. Los originals demòran sus l'aparelh.
+tethered.session_help = Seleccionatz un aparelh fòto, puèi Prendre una fòto. A la primièra captura, causissètz un emplaçament e un prefixe de nom de fichièr ; las capturas apondon un numèro de seguida e l'extension del fichièr de l'aparelh. Enregistrar jos… càmbia l'emplaçament e lo prefixe.
+tethered.preview_failed = La captura es estada enregistrada e importada, mas son apercebut a pas pogut èsser descodat. Dobrissètz-la dins l'editor per examinar lo fichièr.
+tethered.partial = D'unes fichièrs de captura son estats enregistrats e importats ; los autres an pas pogut èsser enregistrats : {error}
+tethered.camera_permission = Autorizatz l'accès a l'aparelh fòto dins Paramètres sistèma → Confidencialitat e seguretat → Aparelh fòto, puèi tornatz ensajar Prendre una fòto. Se Schist es estat aviat dempuèi un terminal, verificatz tanben l'autorizacion d'accès a l'aparelh fòto d'aquel terminal.
+tethered.camera_usage_missing = A aquesta version li manca la descripcion de l'autorizacion d'accès a l'aparelh fòto. Tornatz compilar Schist amb make o utilizatz l'aplicacion empaquetada.
+tethered.select_camera = Seleccionatz un aparelh fòto per prendre una fòto.
+tethered.choose_destination = Prendre una fòto vos demandarà ont enregistrar vòstras fòtos.
+tethered.preview_empty = Prenètz una fòto per la veire aicí.
+tethered.save_local = Enregistrar localament
+tethered.save_cloud = Enregistrar dins lo nívol
+tethered.cloud_help = Las capturas son mandadas cap a la destinacion Schist Cloud seleccionada. Cap de còpia es pas conservada dins la galariá locala.
+tethered.cloud_pending = Los mandadisses encara pas acabats son conservats a {path}.

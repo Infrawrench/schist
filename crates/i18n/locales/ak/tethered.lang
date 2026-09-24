@@ -1,0 +1,21 @@
+# AI-assisted translation; native-speaker review pending.
+tethered.title = Kyamra a wɔde ahyɛ kɔmputa so mfoniniyɛ
+tethered.capture = Twa mfonini
+tethered.invalid_name = Paw din a ne tenten yɛ baiti 1–120, a nkyekyɛmu nsɛnkyerɛnne, kolon, ɔha mu nkyɛmu agyiraehyɛde anaa pon a edi kan nni mu.
+tethered.install = Sistɛm no kyamra nhomakorabea nni hɔ. Fa kyamra dwumadi nhyehyɛe a ɛfa saa afiri yi ho si so na san hyɛ Schist ase.
+tethered.timeout = Bere a wɔde ama kyamra no abisa no asa. Hwɛ kyamra no na san fa bata ho ansa na woasɔ bio.
+tethered.failed = Kyamra no abisa no ankɔ yiye: {detail}
+tethered.unsupported = Kyamra yi nka sɛ ebetumi atwa mfonini bere a wɔhyɛ no fi akyirikyiri.
+tethered.no_download = Kyamra no amfa mfonini a edi mũ amba. Mfonini ankasa no da so ara wɔ kyamra no so.
+tethered.session_help = Paw kyamra, na afei paw Twa mfonini. Sɛ woredi kan atwa mfonini a, paw baabi a wobɛkora no ne fael din mfiase; mfonini biara nya nɔma a edi ntoatoaso ne kyamra no fael awiei. Kora Sɛ sesa baabi a wɔkora ne din mfiase no.
+tethered.preview_failed = Wɔakora mfonini no na wɔde aba mu, nanso wɔantumi ankɔ ne mfonini a wɔde di kan hwɛ no mu. Bue fael no wɔ editor no mu na hwɛ.
+tethered.partial = Wɔakora mfonini fael ahorow bi na wɔde aba mu; wɔantumi ankora nea aka no: {error}
+tethered.camera_permission = Ma kyamra no kwan wɔ Sistɛm Nhyehyɛe → Kokoam Nsɛm ne Ahobammɔ → Kyamra mu, na afei san sɔ Twa mfonini hwɛ. Sɛ wufii terminal mu hyɛɛ Schist ase a, hwɛ terminal dwumadi no nso kyamra kwan.
+tethered.camera_usage_missing = Saa Schist nhyehyɛe yi nni kyamra kwan nkyerɛkyerɛmu. Fa make san yɛ Schist anaa fa app a wɔahyɛ no boa no di dwuma.
+tethered.select_camera = Paw kyamra na twa mfonini.
+tethered.choose_destination = Twa mfonini bɛbisa baabi a wobɛkora wo mfonini ahorow.
+tethered.preview_empty = Twa mfonini na hwɛ wɔ ha.
+tethered.save_local = Kora wɔ ha
+tethered.save_cloud = Kora wɔ cloud mu
+tethered.cloud_help = Wɔde mfonini a wɔatwa no kɔ Schist Cloud beae a woapaw no. Wɔnkora bi wɔ mpɔtam ha mfonini galeri no mu.
+tethered.cloud_pending = Wɔkora nneɛma a wɔnwiee de kɔ so no wɔ {path}.

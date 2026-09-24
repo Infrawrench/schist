@@ -484,3 +484,66 @@ pub fn cloud_relative_path(path: &Path) -> Option<String> {
         .collect();
     (relative.components().count() > 1).then(|| relative.to_string_lossy().into_owned())
 }
+
+/// A completed browser camera request. Originals live in the same in-memory
+/// store as files opened by the browser picker until explicitly downloaded.
+#[derive(Default)]
+pub struct TetheredReply {
+    pub model: Option<String>,
+    pub paths: Vec<PathBuf>,
+}
+pub fn tethered_request(
+    operation: &str,
+) -> futures::channel::oneshot::Receiver<Result<TetheredReply, String>> {
+    let (tx, rx) = futures::channel::oneshot::channel();
+    let request = (|| {
+        let window = web_sys::window().ok_or_else(|| JsValue::from_str("common.not_available"))?;
+        let hook = js_sys::Reflect::get(&window, &"__schistTethered".into())?
+            .dyn_into::<js_sys::Function>()?;
+        // Call now, before spawning, to preserve the browser's user activation.
+        hook.call1(&JsValue::NULL, &operation.into())?
+            .dyn_into::<js_sys::Promise>()
+    })();
+    wasm_bindgen_futures::spawn_local(async move {
+        let result = async {
+            let value = wasm_bindgen_futures::JsFuture::from(request?).await?;
+            let model = js_sys::Reflect::get(&value, &"model".into())?.as_string();
+            let mut paths = Vec::new();
+            let files = js_sys::Reflect::get(&value, &"files".into())?;
+            if let Some(files) = files.dyn_ref::<js_sys::Array>() {
+                for file in files.iter() {
+                    let name = js_sys::Reflect::get(&file, &"name".into())?
+                        .as_string()
+                        .ok_or_else(|| JsValue::from_str("tethered.no_download"))?;
+                    let bytes = js_sys::Reflect::get(&file, &"bytes".into())?
+                        .dyn_into::<js_sys::Uint8Array>()?;
+                    paths.push(files::store(&name, bytes.to_vec()));
+                }
+            }
+            Ok::<_, JsValue>(TetheredReply { model, paths })
+        }
+        .await
+        .map_err(|error| {
+            let message = error
+                .as_string()
+                .or_else(|| {
+                    js_sys::Reflect::get(&error, &"message".into())
+                        .ok()?
+                        .as_string()
+                })
+                .unwrap_or_default();
+            match message.as_str() {
+                "common.cancelled"
+                | "common.not_available"
+                | "tethered.unsupported"
+                | "tethered.timeout"
+                | "tethered.no_download"
+                | "library.import.already_running"
+                | "library.import.camera_disconnected" => schist_i18n::t(&message).into(),
+                _ => schist_i18n::tf!("tethered.failed", detail = message),
+            }
+        });
+        let _ = tx.send(result);
+    });
+    rx
+}

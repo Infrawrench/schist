@@ -1,0 +1,21 @@
+# AI-assisted translation; native-speaker review pending.
+tethered.title = Go tsaya ditshwantsho ka khamera e e golagantsweng
+tethered.capture = Tsaya setshwantsho
+tethered.invalid_name = Tlhopha leina la di-byte di le 1–120 le le senang methalo ya slash, dikolone, matshwao a phesente kgotsa khutlo kwa tshimologong.
+tethered.install = Laeborari ya khamera ya tsamaiso ga e yo. Tsenya software e e dirisang khamera ya polatefomo eno, o bo o simolola Schist sesha.
+tethered.timeout = Nako ya kopo ya khamera e fedile. Tlhatlhoba khamera mme o e golaganye sesha pele o leka gape.
+tethered.failed = Kopo ya khamera e paletswe: {detail}
+tethered.unsupported = Khamera eno ga e bontshe gore e kgona go tsaya ditshwantsho e laolwa o le kgakala.
+tethered.no_download = Khamera ga e a romela setshwantsho se se feletseng. Ditshwantsho tsa ntlha di sala mo khamereng.
+tethered.session_help = Tlhopha khamera, morago o tobetsa Tsaya setshwantsho. Fa o tsaya setshwantsho la ntlha, tlhopha lefelo la go boloka le tshimologo ya leina la faele; ditshwantsho di okediwa nomoro e e latelanang le katoloso ya faele ya khamera. Boloka Jaaka… e fetola lefelo la go boloka le tshimologo ya leina.
+tethered.preview_failed = Setshwantsho se bolokilwe sa ba sa tsenngwa, mme ponelopele ya sone ga e a kgona go tlhalosiwa. Se bule mo sedirising sa go baakanya go tlhatlhoba faele.
+tethered.partial = Difaele dingwe tsa ditshwantsho di bolokilwe tsa ba tsa tsenngwa; tse di setseng ga di a kgona go bolokwa: {error}
+tethered.camera_permission = Letlelela go dirisa khamera mo System Settings → Privacy & Security → Camera, morago o leke Tsaya setshwantsho gape. Fa Schist e simolotswe go tswa mo terminaleng, tlhatlhoba le tetla ya khamera ya terminale eo.
+tethered.camera_usage_missing = Kago eno ga e na tlhaloso ya tetla ya khamera. Aga Schist sesha ka make kgotsa dirisa tiriso e e phuthetsweng.
+tethered.select_camera = Tlhopha khamera gore o tseye setshwantsho.
+tethered.choose_destination = Tsaya setshwantsho e tla go botsa gore ditshwantsho tsa gago di bolokwe kae.
+tethered.preview_empty = Tsaya setshwantsho gore o se bone fano.
+tethered.save_local = Boloka mo sedirisweng seno
+tethered.save_cloud = Boloka mo lerung
+tethered.cloud_help = Ditshwantsho tse di tserweng di romelwa kwa lefelong le le tlhophilweng la Schist Cloud. Ga go kopi e e bolokwang mo galering ya sediriswa seno.
+tethered.cloud_pending = Difaele tse di iseng di fetse go romelwa di bolokilwe kwa {path}.

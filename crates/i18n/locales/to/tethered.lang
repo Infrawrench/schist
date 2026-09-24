@@ -1,0 +1,21 @@
+# AI-assisted translation; native-speaker review pending.
+tethered.title = Faitaa ʻaki ʻa e meʻafaitaá kuo fakafehokotaki
+tethered.capture = Faitaa
+tethered.invalid_name = Fili ha hingoa ʻoku lōloa ʻi he paití ʻe 1–120, ʻo ʻikai ha fakaʻilonga slash, koloní, pesení pe ko ha poini ʻi he kamataʻangá.
+tethered.install = ʻOku ʻikai maʻu ʻa e laipeli meʻafaitaa ʻa e polokalamá. Fakahū ʻa e polokalama fakalele meʻafaitaa maʻá e faʻahinga meʻangāue ni pea toe kamata ʻa Schist.
+tethered.timeout = Kuo ʻosi ʻa e taimi ki he kole ki he meʻafaitaá. Vakaiʻi ʻa e meʻafaitaá pea toe fakafehokotaki ia kimuʻa pea toe ʻahiʻahi.
+tethered.failed = Naʻe ʻikai lava ʻa e kole ki he meʻafaitaá: {detail}
+tethered.unsupported = ʻOku ʻikai fakahā ʻe he meʻafaitaa ni ʻoku ne poupouʻi ʻa e faitaa mei ha mamaʻo.
+tethered.no_download = Naʻe ʻikai ʻomai ʻe he meʻafaitaá ha fakatātā kakato. ʻOku kei tauhi ʻa e ngaahi ʻuluaki fakatātaá ʻi he meʻafaitaá.
+tethered.session_help = Fili ha meʻafaitaa, pea lomiʻi ʻa e Faitaa. ʻI hoʻo ʻuluaki faitaá, fili ʻa e feituʻu ke seivi ai mo e kamataʻanga ʻo e hingoa failé; ʻe tānaki ki he ngaahi fakatātaá ha fika hokohoko mo e fakaʻosi hingoa faile ʻa e meʻafaitaá. ʻOku liliu ʻe he Seivi ko e… ʻa e feituʻu seiví mo e kamataʻanga ʻo e hingoá.
+tethered.preview_failed = Kuo seivi mo fakahū mai ʻa e fakatātaá, ka naʻe ʻikai lava ke fakaʻuhingaʻi ʻa hono vakaiʻi tokamuʻá. Fakaava ia ʻi he polokalama fakatonutonu ke vakaiʻi ʻa e failé.
+tethered.partial = Kuo seivi mo fakahū mai ha ngaahi faile fakatātā; naʻe ʻikai lava ke seivi ʻa e ngaahi faile naʻe toe: {error}
+tethered.camera_permission = Fakaʻatā ʻa e ngāueʻaki ʻo e meʻafaitaá ʻi he System Settings → Privacy & Security → Camera, pea toe ʻahiʻahi ʻa e Faitaa. Kapau naʻe kamata ʻa Schist mei ha terminale, vakaiʻi foki ʻa e ngofua meʻafaitaa ʻa e terminale ko iá.
+tethered.camera_usage_missing = ʻOku ʻikai ʻi he langa ko ʻení ha fakamatala ki he ngofua meʻafaitaá. Toe langa ʻa Schist ʻaki ʻa e make pe ngāueʻaki ʻa e polokalama kuo fakakofuʻi.
+tethered.select_camera = Fili ha meʻafaitaa ke faitaa ai.
+tethered.choose_destination = ʻE fehuʻi ʻe he Faitaa ʻa e feituʻu ke seivi ai hoʻo ngaahi fakatātaá.
+tethered.preview_empty = Faitaa ke ke sio ki ai ʻi heni.
+tethered.save_local = Seivi ʻi he meʻangāue ni
+tethered.save_cloud = Seivi ʻi he ʻao
+tethered.cloud_help = ʻOku ʻave ʻa e ngaahi fakatātā kuo faitaá ki he feituʻu kuo fili ʻi he Schist Cloud. ʻOku ʻikai tauhi ha tatau ʻi he tānakiʻanga fakatātā ʻo e meʻangāue ni.
+tethered.cloud_pending = ʻOku tauhi ʻa e ngaahi ʻave faile ʻoku teʻeki ke ʻosi ʻi he {path}.

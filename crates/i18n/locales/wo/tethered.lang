@@ -1,0 +1,21 @@
+# AI-assisted translation; native-speaker review pending.
+tethered.title = Nataal ak kamera bu jokkook ordinatër
+tethered.capture = Jël nataal
+tethered.invalid_name = Tànnal tur wu tollu ci 1–120 bayit, te amul rëdd yu wàll, ñaari tomb, màndarga porsàŋ wala tomb ci ndoorte bi.
+tethered.install = Kàggu kamera bu sistem bi jàppandiwul. Sampal prograam bu kamera bi soxla ci sa platafoorm, ba noppi nga tàmbaliwaat Schist.
+tethered.timeout = Diir bi ñuy xaar tontu kamera bi jeex na. Seetal kamera bi te nga jokkook moomaat bala ngay jéemaat.
+tethered.failed = Njàngat bu kamera bi antuwul: {detail}
+tethered.unsupported = Kamera bii waxul ne man naa jël nataal ci sori.
+tethered.no_download = Kamera bi joxewul nataal bu mat. Nataal yu njëkk yi des nañu ci kamera bi.
+tethered.session_help = Tànnal kamera, ba noppi tànn «Jël nataal». Bu ngay jël nataal bu njëkk, tànnal fu ngay denc nataal yi ak ndoorte turu dencukaay bi; nataal yi dinañu yokk lim bu toppante ak jeexitalu turu dencukaayu kamera bi. «Denc ni» day soppi fu ñuy dence ak ndoorte tur bi.
+tethered.preview_failed = Nataal bi denc na te dugal nañu ko, waaye maneesul ubbi nataal bi ñuy wone ngir gis ko lu jiitu. Ubbil dencukaay bi ci jumtukaayu soppi ngir seet ko.
+tethered.partial = Yenn dencukaayi nataal denc nañu leen te dugal leen; yi des maneesu leen denc: {error}
+tethered.camera_permission = Mayal ndigal jëfandikoo kamera ci Parametaru sistem bi → Sutura ak kaaraange → Kamera, ba noppi nga jéemaat «Jël nataal». Su fekkee Schist tàmbalee na ci terminal, seetal itam ndigalu kamera bu terminal boobu.
+tethered.camera_usage_missing = Tabax bii amul leeralu ndigalu kamera. Tabaxaatal Schist ak make wala jëfandikoo aplikasioŋ bi ñu pakk.
+tethered.select_camera = Tànnal kamera ngir jël nataal.
+tethered.choose_destination = «Jël nataal» dina la laaj fu ngay denc sa nataal yi.
+tethered.preview_empty = Jëlal nataal ngir gis ko fii.
+tethered.save_local = Denc ci sa ordinatër
+tethered.save_cloud = Denc ci niir bi
+tethered.cloud_help = Nataal yi dañuy yónnee ci bérébu Schist Cloud bi nga tànn. Duñu denc ab duppi ci sa galeri bu ci sa ordinatër.
+tethered.cloud_pending = Yónnee yi jeexagul dañu leen di denc ci {path}.

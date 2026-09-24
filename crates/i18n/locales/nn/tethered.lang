@@ -1,0 +1,21 @@
+# AI-assisted translation; native-speaker review pending.
+tethered.title = Fjernstyrt fotografering
+tethered.capture = Ta bilete
+tethered.invalid_name = Vel eit namn på 1–120 byte utan skråstrekar, kolon, prosentteikn eller punktum fyrst i namnet.
+tethered.install = Kamerabiblioteket til systemet er ikkje tilgjengeleg. Installer kamerakøyremiljøet for plattforma, og start Schist på nytt.
+tethered.timeout = Tidsfristen for kameraførespurnaden gjekk ut. Kontroller kameraet og kopla det til på nytt før du prøver igjen.
+tethered.failed = Kameraførespurnaden mislukkast: {detail}
+tethered.unsupported = Dette kameraet oppgjev ikkje at det støttar fjernstyrt fotografering.
+tethered.no_download = Kameraet leverte ikkje eit fullstendig bilete. Originalfilene vert verande på kameraet.
+tethered.session_help = Vel eit kamera, og deretter Ta bilete. Ved fyrste opptak vel du lagringsstad og prefiks for filnamnet. Opptaka får eit løpenummer og filendinga frå kameraet. Lagre som endrar lagringsstad og prefiks.
+tethered.preview_failed = Opptaket vart lagra og importert, men førehandsvisinga kunne ikkje dekodast. Opne fila i redigeringsprogrammet for å sjå nærare på henne.
+tethered.partial = Nokre opptaksfiler vart lagra og importerte. Resten av filene kunne ikkje lagrast: {error}
+tethered.camera_permission = Gje tilgang til kameraet i Systeminnstillingar → Personvern og tryggleik → Kamera, og prøv Ta bilete igjen. Vart Schist starta frå ein terminal, må du òg kontrollere kameraløyvet til terminalen.
+tethered.camera_usage_missing = Denne utgåva manglar ei skildring av kameratilgangen. Bygg Schist på nytt med make, eller bruk den pakka appen.
+tethered.select_camera = Vel eit kamera for å ta eit bilete.
+tethered.choose_destination = Ta bilete spør kvar bileta skal lagrast.
+tethered.preview_empty = Ta eit bilete for å sjå det her.
+tethered.save_local = Lagre lokalt
+tethered.save_cloud = Lagre i skya
+tethered.cloud_help = Opptaka vert lasta opp til det valde målet i Schist Cloud. Ingen kopi vert lagra i det lokale galleriet.
+tethered.cloud_pending = Opplastingar som ikkje er fullførte, vert lagra på {path}.

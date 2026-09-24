@@ -1,0 +1,21 @@
+# AI-assisted translation; native-speaker review pending.
+tethered.title = Etäkuvaus
+tethered.capture = Ota kuva
+tethered.invalid_name = Valitse 1–120 tavun pituinen nimi, jossa ei ole kauttaviivoja, kaksoispisteitä eikä prosenttimerkkejä ja joka ei ala pisteellä.
+tethered.install = Järjestelmän kamerakirjasto ei ole käytettävissä. Asenna alustan kameran ajoympäristö ja käynnistä Schist uudelleen.
+tethered.timeout = Kamerapyyntö aikakatkaistiin. Tarkista kamera ja yhdistä se uudelleen ennen kuin yrität uudestaan.
+tethered.failed = Kamerapyyntö epäonnistui: {detail}
+tethered.unsupported = Tämä kamera ei ilmoita tukevansa etäkuvausta.
+tethered.no_download = Kamera ei toimittanut kokonaista kuvaa. Alkuperäiset kuvat säilyvät kamerassa.
+tethered.session_help = Valitse kamera ja sitten Ota kuva. Valitse ensimmäisellä kuvauskerralla tallennuskohde ja tiedostonimen etuliite; kuviin lisätään järjestysnumero ja kameran tiedostotunniste. Tallenna nimellä… vaihtaa tallennuskohteen ja etuliitteen.
+tethered.preview_failed = Kuva tallennettiin ja tuotiin, mutta sen esikatselua ei voitu purkaa. Avaa tiedosto editorissa tarkistusta varten.
+tethered.partial = Osa kuvatiedostoista tallennettiin ja tuotiin, mutta jäljellä olevia tiedostoja ei voitu tallentaa: {error}
+tethered.camera_permission = Salli kameran käyttö kohdassa Järjestelmäasetukset → Tietosuoja ja suojaus → Kamera ja yritä sitten Ota kuva -toimintoa uudelleen. Jos Schist käynnistettiin päätteestä, tarkista myös kyseisen päätteen kameran käyttöoikeus.
+tethered.camera_usage_missing = Tästä versiosta puuttuu kameran käyttöluvan kuvaus. Käännä Schist uudelleen komennolla make tai käytä pakattua sovellusta.
+tethered.select_camera = Valitse kamera kuvan ottamista varten.
+tethered.choose_destination = Ota kuva kysyy, minne kuvat tallennetaan.
+tethered.preview_empty = Ota kuva nähdäksesi sen täällä.
+tethered.save_local = Tallenna paikallisesti
+tethered.save_cloud = Tallenna pilveen
+tethered.cloud_help = Kuvat lähetetään valittuun Schist Cloud -kohteeseen. Paikalliseen galleriaan ei tallenneta kopiota.
+tethered.cloud_pending = Keskeneräiset lähetykset säilytetään sijainnissa {path}.

@@ -1,0 +1,21 @@
+# AI-assisted translation; native-speaker review pending.
+tethered.title = Acquisizione collegata
+tethered.capture = Scatta foto
+tethered.invalid_name = Scegli un nome di 1–120 byte senza barre, due punti, simboli di percentuale o un punto iniziale.
+tethered.install = La libreria di sistema per la fotocamera non è disponibile. Installa l'ambiente di esecuzione della fotocamera per questa piattaforma e riavvia Schist.
+tethered.timeout = La richiesta alla fotocamera è scaduta. Controlla la fotocamera e ricollegala prima di riprovare.
+tethered.failed = Richiesta alla fotocamera non riuscita: {detail}
+tethered.unsupported = Questa fotocamera non dichiara il supporto per l'acquisizione remota delle immagini.
+tethered.no_download = La fotocamera non ha trasferito un'immagine completa. Gli originali rimangono sulla fotocamera.
+tethered.session_help = Seleziona una fotocamera, poi Scatta foto. Al primo scatto, scegli una destinazione e un prefisso per i nomi dei file; agli scatti vengono aggiunti un numero progressivo e l'estensione del file della fotocamera. Salva con nome… modifica la destinazione e il prefisso.
+tethered.preview_failed = Lo scatto è stato salvato e importato, ma non è stato possibile decodificarne l'anteprima. Apri il file nell'editor per esaminarlo.
+tethered.partial = Alcuni file acquisiti sono stati salvati e importati; non è stato possibile salvare i restanti: {error}
+tethered.camera_permission = Consenti l'accesso alla fotocamera in Impostazioni di Sistema → Privacy e sicurezza → Fotocamera, poi riprova Scatta foto. Se Schist è stato avviato da un terminale, controlla anche l'autorizzazione alla fotocamera per quel terminale.
+tethered.camera_usage_missing = Questa versione non include la descrizione dell'autorizzazione per la fotocamera. Ricompila Schist con make oppure usa l'app confezionata.
+tethered.select_camera = Seleziona una fotocamera per scattare una foto.
+tethered.choose_destination = Scatta foto ti chiederà dove salvare le foto.
+tethered.preview_empty = Scatta una foto per vederla qui.
+tethered.save_local = Salva in locale
+tethered.save_cloud = Salva nel cloud
+tethered.cloud_help = Gli scatti vengono caricati nella destinazione Schist Cloud selezionata. Non viene conservata alcuna copia nella galleria locale.
+tethered.cloud_pending = I caricamenti non ancora completati vengono conservati in {path}.

@@ -1,0 +1,21 @@
+# AI-assisted translation; native-speaker review pending.
+tethered.title = Tapoutañ gant ur benveg kevreet
+tethered.capture = Tapoutañ ur skeudenn
+tethered.invalid_name = Dibabit un anv a 1–120 eizhbit hep barrennigoù, daoubikoù, sinoù dregant na pik e penn kentañ.
+tethered.install = N'eo ket hegerz levraoueg kamera ar reizhiad. Stailhit endro erounit kamera ar savenn hag adloc'hit Schist.
+tethered.timeout = Aet eo goulenn ar c'hamera dreist an amzer aotreet. Gwiriit ar c'hamera hag adkevreat anezhi a-raok adklask.
+tethered.failed = C'hwitet en deus goulenn ar c'hamera: {detail}
+tethered.unsupported = Ne ziskouez ket ar c'hamera-mañ e skor tapout skeudennoù a-bell.
+tethered.no_download = N'eo ket bet kaset ur skeudenn glok gant ar c'hamera. Miret eo an orinelloù war ar c'hamera.
+tethered.session_help = Dibabit ur c'hamera, ha goude-se Tapoutañ ur skeudenn. Evit an tapout kentañ, dibabit ul lec'h enrollañ hag ur rakger anv restr; ouzhpennet e vez un niverenn heuliad hag astenn restr ar c'hamera d'an tapoù. Enrollañ evel… a cheñch al lec'h hag ar rakger.
+tethered.preview_failed = Enrollet hag enporzhiet eo bet ar skeudenn tapet, met n'eo ket bet tu da ezvonegañ he rakwel. Digorit anezhi en embanner evit sellout ouzh ar restr.
+tethered.partial = Enrollet hag enporzhiet eo bet darn eus restroù an tapout; n'eo ket bet tu da enrollañ ar re all: {error}
+tethered.camera_permission = Aotrait moned d'ar c'hamera e Arventennoù ar reizhiad → Buhez prevez ha surentez → Kamera, ha klaskit Tapoutañ ur skeudenn en-dro. Ma oa bet loc'het Schist diouzh un dermenell, gwiriit ivez aotre kamera an dermenell-se.
+tethered.camera_usage_missing = Mankout a ra deskrivadur aotre kamera er savadur-mañ. Adsavit Schist gant make pe implijit an arload paket.
+tethered.select_camera = Dibabit ur c'hamera evit tapout ur skeudenn.
+tethered.choose_destination = Tapoutañ ur skeudenn a c'houlenno pelec'h enrollañ ho skeudennoù.
+tethered.preview_empty = Tapoutit ur skeudenn evit he gwelet amañ.
+tethered.save_local = Enrollañ war al lec'h
+tethered.save_cloud = Enrollañ er c'houmoul
+tethered.cloud_help = Kaset e vez an tapoù d'al lec'h dibabet e Schist Cloud. Ne vez miret eilañ ebet er skeudennaoueg lec'hel.
+tethered.cloud_pending = Miret e vez ar c'haskadennoù n'int ket echu e {path}.

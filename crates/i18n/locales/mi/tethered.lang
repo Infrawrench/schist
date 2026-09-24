@@ -1,0 +1,21 @@
+# AI-assisted translation; native-speaker review pending.
+tethered.title = Whakaahua mā te kāmera hono
+tethered.capture = Hopukina he whakaahua
+tethered.invalid_name = Kōwhiria he ingoa 1–120 paita te roa, kāore he rītaha, he kopirua, he tohu ōrau, he iraira rānei i te tīmatanga.
+tethered.install = Kāore te whare pukapuka kāmera o te pūnaha i te wātea. Tāutahia te pūmanawa whakahaere kāmera mō tēnei pūhara, kātahi ka tīmata anō a Schist.
+tethered.timeout = Kua pau te wā mō te tono ki te kāmera. Tirohia te kāmera, hono anō, kātahi ka whakamātau anō.
+tethered.failed = I rahua te tono ki te kāmera: {detail}
+tethered.unsupported = Kāore tēnei kāmera e whakaatu ana he tautoko tōna mō te hopu whakaahua mamao.
+tethered.no_download = Kāore te kāmera i tuku mai i tētahi whakaahua oti. Ka noho tonu ngā whakaahua taketake ki te kāmera.
+tethered.session_help = Kōwhiria he kāmera, kātahi ko Hopukina he whakaahua. I te hopunga tuatahi, kōwhiria he wāhi tiaki me tētahi tīmatanga mō te ingoa kōnae; ka tāpirihia he tau raupapa me te toronga kōnae a te kāmera ki ia hopunga. Mā te kōwhiringa Tiaki Hei… e huri te wāhi me taua tīmatanga.
+tethered.preview_failed = Kua tiakina, kua kawemai hoki te whakaahua, engari kāore i taea te wetewete tōna arokite. Huakina te kōnae ki te ētita kia tirohia.
+tethered.partial = Kua tiakina, kua kawemai ētahi kōnae whakaahua; kāore i taea te tiaki i ngā toenga: {error}
+tethered.camera_permission = Whakaaetia te urunga ki te kāmera i Tautuhinga Pūnaha → Tūmataitinga me te Haumarutanga → Kāmera, kātahi ka whakamātau anō i Hopukina he whakaahua. Mēnā i whakarewahia a Schist mai i tētahi kāpeka, tirohia hoki te whakaaetanga kāmera o taua kāpeka.
+tethered.camera_usage_missing = Kāore he whakamārama mō te whakaaetanga kāmera i tēnei hanga. Hangaia anō a Schist mā te make, whakamahia rānei te taupānga kua oti te tākai.
+tethered.select_camera = Kōwhiria he kāmera hei tango whakaahua.
+tethered.choose_destination = Ka pātai a Hopukina he whakaahua ki hea tiakina ai ō whakaahua.
+tethered.preview_empty = Hopukina he whakaahua kia kitea ki konei.
+tethered.save_local = Tiakina ki tēnei pūrere
+tethered.save_cloud = Tiakina ki te kapua
+tethered.cloud_help = Ka tukuna ngā whakaahua ki te wāhi Schist Cloud kua kōwhiria. Kāore he tārua e puritia ki te taiwhanga whakaahua ā-rohe.
+tethered.cloud_pending = Ka puritia ngā tukunga kāore anō kia oti ki {path}.

@@ -1,0 +1,21 @@
+# AI-assisted translation; native-speaker review pending.
+tethered.title = Pemotretan tertambat
+tethered.capture = Ambil foto
+tethered.invalid_name = Pilih nama sepanjang 1–120 bita tanpa garis miring, titik dua, tanda persen, atau titik di awal.
+tethered.install = Pustaka kamera sistem tidak tersedia. Pasang lingkungan kamera untuk platform ini, lalu mulai ulang Schist.
+tethered.timeout = Waktu permintaan kamera habis. Periksa kamera dan sambungkan kembali sebelum mencoba lagi.
+tethered.failed = Permintaan kamera gagal: {detail}
+tethered.unsupported = Kamera ini tidak menyatakan dukungan untuk pengambilan gambar jarak jauh.
+tethered.no_download = Kamera tidak mengirimkan gambar yang lengkap. Berkas asli tetap tersimpan di kamera.
+tethered.session_help = Pilih kamera, lalu Ambil foto. Saat mengambil foto pertama, pilih lokasi penyimpanan dan awalan nama berkas; hasil pemotretan ditambahi nomor urut dan ekstensi berkas dari kamera. Simpan Sebagai… mengubah lokasi dan awalan tersebut.
+tethered.preview_failed = Hasil pemotretan telah disimpan dan diimpor, tetapi pratinjaunya tidak dapat didekode. Buka berkas di editor untuk memeriksanya.
+tethered.partial = Beberapa berkas hasil pemotretan telah disimpan dan diimpor; berkas lainnya tidak dapat disimpan: {error}
+tethered.camera_permission = Izinkan akses kamera di Pengaturan Sistem → Privasi & Keamanan → Kamera, lalu coba Ambil foto lagi. Jika Schist dijalankan dari terminal, periksa juga izin kamera untuk aplikasi terminal tersebut.
+tethered.camera_usage_missing = Build ini tidak memiliki deskripsi izin kamera. Bangun ulang Schist dengan make atau gunakan aplikasi yang sudah dikemas.
+tethered.select_camera = Pilih kamera untuk mengambil foto.
+tethered.choose_destination = Ambil foto akan menanyakan tempat menyimpan foto Anda.
+tethered.preview_empty = Ambil foto agar dapat melihatnya di sini.
+tethered.save_local = Simpan secara lokal
+tethered.save_cloud = Simpan ke cloud
+tethered.cloud_help = Hasil pemotretan diunggah ke tujuan Schist Cloud yang dipilih. Tidak ada salinan yang disimpan di galeri lokal.
+tethered.cloud_pending = Unggahan yang belum selesai disimpan di {path}.

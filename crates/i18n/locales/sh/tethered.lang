@@ -1,0 +1,21 @@
+# AI-assisted translation; native-speaker review pending.
+tethered.title = Povezano snimanje
+tethered.capture = Snimi fotografiju
+tethered.invalid_name = Odaberite naziv duljine 1–120 bajtova, bez kosih crta, dvotočaka, znakova postotka ili točke na početku.
+tethered.install = Sistemska biblioteka kamere nije dostupna. Instalirajte programsko okruženje za kameru na ovoj platformi i ponovno pokrenite Schist.
+tethered.timeout = Zahtjev kameri je istekao. Provjerite kameru i ponovno je povežite prije novog pokušaja.
+tethered.failed = Zahtjev kameri nije uspio: {detail}
+tethered.unsupported = Ova kamera ne prijavljuje podršku za daljinsko snimanje fotografija.
+tethered.no_download = Kamera nije isporučila cijelu sliku. Izvornici ostaju na kameri.
+tethered.session_help = Odaberite kameru, a zatim Snimi fotografiju. Pri prvom snimanju odaberite odredište i prefiks naziva datoteka; snimkama se dodaju redni broj i nastavak datoteke s kamere. Spremi kao… mijenja odredište i prefiks.
+tethered.preview_failed = Snimka je spremljena i uvezena, ali njezin se pretpregled nije mogao dekodirati. Otvorite je u uređivaču kako biste pregledali datoteku.
+tethered.partial = Neke datoteke snimaka spremljene su i uvezene; preostale se nisu mogle spremiti: {error}
+tethered.camera_permission = Dopustite pristup kameri u Postavke sustava → Privatnost i sigurnost → Kamera, a zatim ponovno pokušajte Snimi fotografiju. Ako je Schist pokrenut iz terminala, provjerite i dopuštenje za kameru tog terminala.
+tethered.camera_usage_missing = Ovoj verziji nedostaje opis dopuštenja za kameru. Ponovno izgradite Schist naredbom make ili upotrijebite zapakiranu aplikaciju.
+tethered.select_camera = Odaberite kameru za snimanje fotografije.
+tethered.choose_destination = Snimi fotografiju zatražit će da odaberete mjesto za spremanje fotografija.
+tethered.preview_empty = Snimite fotografiju kako biste je vidjeli ovdje.
+tethered.save_local = Spremi lokalno
+tethered.save_cloud = Spremi u oblak
+tethered.cloud_help = Snimke se prenose na odabrano odredište u Schist Cloudu. Lokalna kopija u galeriji se ne čuva.
+tethered.cloud_pending = Prijenosi koji nisu dovršeni čuvaju se na lokaciji {path}.

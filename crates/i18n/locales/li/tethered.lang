@@ -1,0 +1,21 @@
+# AI-assisted translation; native-speaker review pending.
+tethered.title = Foto's make mit 'ne aangesjloete camera
+tethered.capture = Maak 'ne foto
+tethered.invalid_name = Kees 'ne naam van 1–120 byte zónger sjoon strepe, dubbele punte, procenttekens of 'ne punt aan 't begin.
+tethered.install = De systeembeebliotheek veur de camera is neet besjikbaar. Installeer de cameralooptied veur dit platform en sjtart Schist opnuuj.
+tethered.timeout = De aanvraog aan de camera haet te lang geduurd. Controleer de camera en sjloet 'm opnuuj aan veurdat ge 't nog 'ns probeert.
+tethered.failed = De aanvraog aan de camera is mislök: {detail}
+tethered.unsupported = Dees camera geuf neet aan dat ze foto's op aafsjtand kin make.
+tethered.no_download = De camera haet gein volledig beeld geleverd. De originele foto's op de camera blieve bewaard.
+tethered.session_help = Kees 'ne camera en klik daonao op «Maak 'ne foto». Bie de eerste foto kees ge 'ne opslaagplaats en 'ne veurvooging veur de bestandsnaam; bie eder foto kôm 'n volgnummer en de bestandsoetbreiding van de camera. Mit «Opslaon es…» verander ge de opslaagplaats en de veurvooging.
+tethered.preview_failed = De foto is opgeslage en ingevoerd, mer de veurvertoening kos neet gelèze waere. Opent 't bestand in de bewerker om 't te bekieke.
+tethered.partial = Sommige fotobestande zeen opgeslage en ingevoerd; de euverige kosse neet opgeslage waere: {error}
+tethered.camera_permission = Sta toegang tot de camera toe in Systeeminsjtellinge → Privacy en beveiliging → Camera en probeer «Maak 'ne foto» opnuuj. Es Schist vanoet 'ne terminal is gesjtart, controleer dan ouch de cameratoestemming van dae terminal.
+tethered.camera_usage_missing = In deze versie ontbreek de omsjrieving van de cameratoestemming. Bouw Schist opnuuj mit make of gebroek de verpakte app.
+tethered.select_camera = Kees 'ne camera om 'ne foto te make.
+tethered.choose_destination = «Maak 'ne foto» vraogt woe ge eure foto's wilt opslaon.
+tethered.preview_empty = Maak 'ne foto om 'm hie te zeen.
+tethered.save_local = Plaatselik opslaon
+tethered.save_cloud = In de cloud opslaon
+tethered.cloud_help = De foto's waere nao de gekoeze plaats in Schist Cloud opgelade. In de plaatselike galerie blief gein kopie bewaard.
+tethered.cloud_pending = Uploads die nog neet klaor zeen, waere op {path} bewaard.

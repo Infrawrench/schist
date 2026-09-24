@@ -1,0 +1,21 @@
+# AI-assisted translation; native-speaker review pending.
+tethered.title = Captura imaginis e camera coniuncta
+tethered.capture = Photographiam cape
+tethered.invalid_name = Elige nomen longitudinis 1–120 bytorum sine virgulis obliquis, duobus punctis, signis centesimis aut puncto initiali.
+tethered.install = Bibliotheca camerae systematis praesto non est. Instrumenta camerae huic suggestui necessaria institue et Schist denuo incipe.
+tethered.timeout = Tempus petitionis ad cameram exiit. Cameram inspice et denuo coniunge antequam iterum coneris.
+tethered.failed = Petitio ad cameram defecit: {detail}
+tethered.unsupported = Haec camera non indicat se capturam imaginum e longinquo sustinere.
+tethered.no_download = Camera imaginem integram non tradidit. Exemplaria originalia in camera servantur.
+tethered.session_help = Cameram elige, deinde «Photographiam cape» preme. In prima captura locum servandi et praefixum nominis fasciculi elige; singulis capturis numerus ordinis et extensio fasciculi camerae adduntur. «Serva Ut…» locum et praefixum mutat.
+tethered.preview_failed = Captura servata et importata est, sed eius imago praevia explicari non potuit. Fasciculum in editore aperi ut inspicias.
+tethered.partial = Nonnulli fasciculi capturarum servati et importati sunt; reliqui servari non potuerunt: {error}
+tethered.camera_permission = In Praeferentiis Systematis → Intimitas et Securitas → Camera accessum ad cameram permitte, deinde «Photographiam cape» iterum tenta. Si Schist e terminali inceptum est, etiam permissionem camerae illius terminalis inspice.
+tethered.camera_usage_missing = Huic aedificationi descriptio permissionis camerae deest. Schist per make denuo aedifica vel applicatione parata utere.
+tethered.select_camera = Cameram elige ut photographiam capias.
+tethered.choose_destination = «Photographiam cape» rogabit ubi photographias tuas servare velis.
+tethered.preview_empty = Photographiam cape ut hic eam videas.
+tethered.save_local = Loco serva
+tethered.save_cloud = In nube serva
+tethered.cloud_help = Capturae ad locum electum Schist Cloud imponuntur. Nullum exemplum in pinacotheca locali servatur.
+tethered.cloud_pending = Impositiones nondum completae apud {path} servantur.

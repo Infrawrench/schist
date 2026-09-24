@@ -262,6 +262,8 @@ struct SearchSnapshot {
 
 pub struct Library {
     pub(super) similar: super::library_similar::SimilarReview,
+
+    pub(super) tethered: super::library_tethered::Tethered,
     /// Owns the most recent asynchronous sidecar refresh.
     pub(super) metadata_generation: u64,
     /// Distinguishes modal requests from earlier saves still finishing.
@@ -513,6 +515,8 @@ impl Library {
         let folders = file.folders;
         Library {
             similar: Default::default(),
+
+            tethered: Default::default(),
             open: false,
             folders,
             recents: file.recents,
@@ -3846,6 +3850,10 @@ impl Workspace {
     /// a button that answers with nothing visible reads as broken.
     pub fn gallery_import_camera(&mut self, cx: &mut Context<Self>) {
         if self.library.importing {
+            return;
+        }
+
+        if self.library.tethered.busy {
             return;
         }
         self.library.import_cloud = self.cloud.show.then(|| CloudImportTarget {

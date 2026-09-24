@@ -1,0 +1,21 @@
+# AI-assisted translation; native-speaker review pending.
+tethered.title = Togail dhealbhan le camara ceangailte
+tethered.capture = Tog dealbh
+tethered.invalid_name = Tagh ainm a tha 1–120 baidht a dh’fhaid, gun slais, dà-phuing no samhlaidhean sa cheud, agus nach tòisich le puing.
+tethered.install = Chan eil leabharlann camara an t-siostaim ri fhaighinn. Stàlaich àrainneachd ruith a’ chamara airson an àrd-ùrlair seo agus ath-thòisich Schist.
+tethered.timeout = Chaidh an ùine seachad air iarrtas a’ chamara. Thoir sùil air a’ chamara agus ceangail a-rithist e mus feuch thu a-rithist.
+tethered.failed = Dh’fhàillig iarrtas a’ chamara: {detail}
+tethered.unsupported = Chan eil an camara seo ag innse gu bheil e a’ cur taic ri togail dhealbhan air astar.
+tethered.no_download = Cha do lìbhrig an camara dealbh slàn. Cumar na dealbhan tùsail air a’ chamara.
+tethered.session_help = Tagh camara agus an uair sin Tog dealbh. Airson a’ chiad deilbh, tagh ceann-uidhe agus ro-leasachan ainm faidhle; thèid àireamh ann an sreath agus leudachan faidhle a’ chamara a chur ris na dealbhan. Atharraichidh Sàbhail mar… an ceann-uidhe agus an ro-leasachan.
+tethered.preview_failed = Chaidh an dealbh a shàbhaladh agus ion-phortadh, ach cha b’ urrainn dhuinn an ro-shealladh aige a dhì-chòdachadh. Fosgail am faidhle san deasaiche gus a sgrùdadh.
+tethered.partial = Chaidh cuid de na faidhlichean dhealbhan a shàbhaladh agus ion-phortadh; cha b’ urrainn dhuinn an còrr a shàbhaladh: {error}
+tethered.camera_permission = Ceadaich cothrom air a’ chamara ann an Roghainnean an t-Siostaim → Prìobhaideachd agus Tèarainteachd → Camara, agus feuch Tog dealbh a-rithist. Ma chaidh Schist a chur air bhog o thèirmineal, thoir sùil cuideachd air cead camara an tèirmineil sin.
+tethered.camera_usage_missing = Tha tuairisgeul cead a’ chamara a dhìth bhon togail seo. Tog Schist a-rithist le make no cleachd an aplacaid phacaichte.
+tethered.select_camera = Tagh camara gus dealbh a thogail.
+tethered.choose_destination = Faighnichidh Tog dealbh càit an tèid na dealbhan agad a shàbhaladh.
+tethered.preview_empty = Tog dealbh gus fhaicinn an-seo.
+tethered.save_local = Sàbhail gu h-ionadail
+tethered.save_cloud = Sàbhail san neul
+tethered.cloud_help = Thèid na dealbhan a luchdadh suas chun cheann-uidhe a thagh thu ann an Schist Cloud. Cha tèid lethbhreac a chumail sa ghailearaidh ionadail.
+tethered.cloud_pending = Thèid luchdaidhean suas nach eil deiseil a chumail aig {path}.

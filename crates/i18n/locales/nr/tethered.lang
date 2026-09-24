@@ -1,0 +1,21 @@
+# AI-assisted translation; native-speaker review pending.
+tethered.title = Ukuthatha iinthombe ngekhamera exhunyiwe
+tethered.capture = Thatha isithombe
+tethered.invalid_name = Khetha ibizo elinamabhayithi ayi-1–120 elinganamatshwayo /, amakholoni, amaphesenti namkha ichashazi ekuthomeni.
+tethered.install = Ilayibhrari yekhamera yesistimu ayitholakali. Faka ihlelo lekhamera leplathifomu bese uvula i-Schist godu.
+tethered.timeout = Isikhathi sesibawo sekhamera siphelile. Hlola ikhamera uyixhumanise godu ngaphambi kokulinga.
+tethered.failed = Isibawo sekhamera sihlulekile: {detail}
+tethered.unsupported = Ikhamera le ayitjengisi bona isekela ukuthatha iinthombe ikude.
+tethered.no_download = Ikhamera ayithumelanga isithombe esipheleleko. Iinthombe zokuthoma zisese khamera.
+tethered.session_help = Khetha ikhamera, bese uThatha isithombe. Nawuthatha isithombe kokuthoma, khetha indawo yokusibulunga nesithomo sebizo lefayili; iinthombe ezifakwayo zineenomboro ezilandelanako nesijobelelo sefayili yekhamera. Bulunga njenge… kutjhugulula indawo nesithomo sebizo.
+tethered.preview_failed = Isithombe sibulungwe sangeniswa, kodwana umbono waso wangaphambili awukghonakalanga ukuvulwa. Sivule kumhleli bona uhlole ifayili.
+tethered.partial = Amanye amafayili weenthombe abulungwe angeniswa; aseleko awakhange abulungwe: {error}
+tethered.camera_permission = Vumela ikhamera ku-Izilungiselelo Zesistimu → Ubumfihlo Nokuphepha → Ikhamera, bese ulinga uThatha isithombe godu. Nangabe i-Schist ivulwe ngetheminali, hlola nemvumo yekhamera yetheminali leyo.
+tethered.camera_usage_missing = Le nguqulo ayinayo ihlathululo yemvumo yekhamera. Yakha i-Schist godu ngo-make namkha sebenzisa ihlelo elifakiweko.
+tethered.select_camera = Khetha ikhamera bona uthathe isithombe.
+tethered.choose_destination = UThatha isithombe uzokubuza bona iinthombe zakho zibulungwe kuphi.
+tethered.preview_empty = Thatha isithombe bona usibone lapha.
+tethered.save_local = Bulunga endaweni
+tethered.save_cloud = Bulunga ku-cloud
+tethered.cloud_help = Iinthombe ezithathwako zilayitjhelwa endaweni ekhethiweko ye-Schist Cloud. Akubulungwa ikhophi egalari yendawo.
+tethered.cloud_pending = Okusalayitjhelwako kugcinwa ku-{path}.

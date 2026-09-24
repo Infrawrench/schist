@@ -1,0 +1,21 @@
+# AI-assisted translation; native-speaker review pending.
+tethered.title = Fotografie con camera conectet
+tethered.capture = Far un foto
+tethered.invalid_name = Selecte un nómine de 1–120 bytes sin obliqui strecs, du punctus, signes de procent o un punctu al comense.
+tethered.install = Li biblioteca de camera del sistema ne es disponibil. Installa li ambiente de camera por ti platforma e relansa Schist.
+tethered.timeout = Li témpor por li demanda al camera ha expirat. Controla li camera e reconecte it ante que tu prova denov.
+tethered.failed = Li demanda al camera ha fallit: {detail}
+tethered.unsupported = Ti camera ne indica suporta por capturar images de lontan.
+tethered.no_download = Li camera ne ha livrat un complet image. Li originalis resta sur li camera.
+tethered.session_help = Selecte un camera, poy Far un foto. Por li prim foto, selecte un destination e un prefixe por li nómine de file; li fotos recive un numeró in serie e li extension del file del camera. Gardar quam… changea li destination e li prefixe.
+tethered.preview_failed = Li foto esset gardat e importat, ma su prevision ne posset esser decodat. Aperte it in li redactor por examinar li file.
+tethered.partial = Alcun files de foto esset gardat e importat; li restant files ne posset esser gardat: {error}
+tethered.camera_permission = Permisse access al camera in Parametres del sistema → Privatie e securitá → Camera, poy prova Far un foto denov. Si Schist esset lansat ex un terminal, controla anc li permission de camera de ti terminal.
+tethered.camera_usage_missing = Ti compilation manca li description del permission de camera. Recompila Schist per make o usa li application in su pachette.
+tethered.select_camera = Selecte un camera por far un foto.
+tethered.choose_destination = Far un foto va demandar u gardar vor fotos.
+tethered.preview_empty = Fa un foto por vider it ci.
+tethered.save_local = Gardar localmen
+tethered.save_cloud = Gardar in li nube
+tethered.cloud_help = Li fotos es cargat al selectet destination in Schist Cloud. Null copie resta in li local galerie.
+tethered.cloud_pending = Li cargamentes quel ne ha finit es gardat in {path}.

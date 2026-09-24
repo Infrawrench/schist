@@ -1,0 +1,21 @@
+# AI-assisted translation; native-speaker review pending.
+tethered.title = Okukuba ebifaananyi nga kamera eyungiddwa
+tethered.capture = Kuba ekifaananyi
+tethered.invalid_name = Londa erinnya eririmu bayiti 1–120 nga temuli bubonero bwa slash, kolon, akabonero ka bitundu ku kikumi, era nga teritandikira ku katonnyeze.
+tethered.install = Etterekero ly'enteekateeka erikola ne kamera teririiwo. Teeka enkola ya kamera ey'omukutu guno, oluvannyuma oddemu okutandika Schist.
+tethered.timeout = Obudde bw'okusaba kamera buweddeyo. Kebera kamera ogigatte nate nga tonnaddamu kugezaako.
+tethered.failed = Okusaba kamera kulemeddwa: {detail}
+tethered.unsupported = Kamera eno teraga nti esobola okukuba ebifaananyi ng'eragirwa okuva ewala.
+tethered.no_download = Kamera teweerezza kifaananyi kijjuvu. Ebifaananyi ebyasooka ebiri ku kamera bisigalawo.
+tethered.session_help = Londa kamera, oluvannyuma onyige «Kuba ekifaananyi». Bw'oba okuba ekifaananyi ekisooka, londa ekifo eky'okuterekamu n'entandikwa y'erinnya lya fayiro; buli kifaananyi kyongerwako ennamba egobereragana n'ekyongerwako ku nkomerero ya fayiro ya kamera. «Tereka Nga…» kikyusa ekifo n'entandikwa y'erinnya.
+tethered.preview_failed = Ekifaananyi kiterekeddwa ne kiyingizibwa, naye ekifaananyi eky'okulaba nga tonnakiggulawo tekisobodde kusomebwa. Ggulawo fayiro mu mulongoosa ogikebere.
+tethered.partial = Fayiro z'ebifaananyi ezimu ziterekeddwa ne ziyingizibwa; ezisigaddewo tezisobodde kuterekebwa: {error}
+tethered.camera_permission = Kkiriza okukozesa kamera mu Nteekateeka z'Enkola → Ebyama n'Obukuumi → Kamera, oluvannyuma oddemu okugezaako «Kuba ekifaananyi». Bw'oba watandikidde Schist mu terminal, kebera n'olukusa lwa kamera olwa terminal eyo.
+tethered.camera_usage_missing = Enzimba eno terina nnyonnyola y'olukusa lwa kamera. Zimba Schist nate ng'okozesa make oba kozesa app eyapakiddwa.
+tethered.select_camera = Londa kamera okukuba ekifaananyi.
+tethered.choose_destination = «Kuba ekifaananyi» kijja kukubuuza wa gy'otereka ebifaananyi byo.
+tethered.preview_empty = Kuba ekifaananyi okukiraba wano.
+tethered.save_local = Tereka ku kyuma kino
+tethered.save_cloud = Tereka ku cloud
+tethered.cloud_help = Ebifaananyi ebikubiddwa biteekebwa mu kifo kya Schist Cloud ekirondeddwa. Tewaba kopi eterekebwa mu galagi y'oku kyuma kino.
+tethered.cloud_pending = Eby'okuteeka ku mutimbagano ebitannaggwa biterekebwa ku {path}.

@@ -1,0 +1,21 @@
+# AI-assisted translation; native-speaker review pending.
+tethered.title = Fotografim me aparat të lidhur me kompjuterin
+tethered.capture = Shkrepe fotografinë
+tethered.invalid_name = Zgjidhni një emër prej 1–120 bajtesh pa vija të pjerrëta, dy pika, shenja përqindjeje ose pikë në fillim.
+tethered.install = Biblioteka e sistemit për aparatin fotografik nuk është e disponueshme. Instaloni mjedisin e aparatit për platformën tuaj dhe rinisni Schist.
+tethered.timeout = Koha e pritjes për kërkesën ndaj aparatit fotografik mbaroi. Kontrolloni aparatin dhe rilidheni përpara se të provoni sërish.
+tethered.failed = Kërkesa ndaj aparatit fotografik dështoi: {detail}
+tethered.unsupported = Ky aparat fotografik nuk njofton mbështetje për shkrepje nga larg.
+tethered.no_download = Aparati fotografik nuk dërgoi një imazh të plotë. Origjinalet në aparat janë ruajtur.
+tethered.session_help = Zgjidhni një aparat fotografik, pastaj klikoni «Shkrepe fotografinë». Në shkrepjen e parë, zgjidhni vendin e ruajtjes dhe pjesën fillestare të emrit të skedarit; çdo fotografie i shtohen një numër rendor dhe prapashtesa e skedarit nga aparati. «Ruaj si…» ndryshon vendin e ruajtjes dhe pjesën fillestare të emrit.
+tethered.preview_failed = Fotografia u ruajt dhe u importua, por pamja e saj paraprake nuk mund të dekodohej. Hapeni skedarin në redaktues për ta kontrolluar.
+tethered.partial = Disa skedarë të fotografive u ruajtën dhe u importuan; skedarët e mbetur nuk mund të ruheshin: {error}
+tethered.camera_permission = Lejoni hyrjen te aparati fotografik te Cilësimet e sistemit → Privatësia dhe siguria → Kamera, pastaj provoni sërish «Shkrepe fotografinë». Nëse Schist u nis nga një terminal, kontrolloni edhe lejen e atij terminali për kamerën.
+tethered.camera_usage_missing = Këtij ndërtimi i mungon përshkrimi i lejes për kamerën. Rindërtoni Schist me make ose përdorni aplikacionin e paketuar.
+tethered.select_camera = Zgjidhni një aparat fotografik për të bërë një fotografi.
+tethered.choose_destination = «Shkrepe fotografinë» do t'ju pyesë ku t'i ruani fotografitë.
+tethered.preview_empty = Shkrepni një fotografi që ta shihni këtu.
+tethered.save_local = Ruaj në pajisje
+tethered.save_cloud = Ruaj në renë kompjuterike
+tethered.cloud_help = Fotografitë ngarkohen në vendin e zgjedhur në Schist Cloud. Nuk ruhet kopje në galerinë vendore.
+tethered.cloud_pending = Ngarkimet e papërfunduara ruhen në {path}.

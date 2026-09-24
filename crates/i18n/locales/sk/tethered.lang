@@ -1,0 +1,21 @@
+# AI-assisted translation; native-speaker review pending.
+tethered.title = Fotografovanie cez počítač
+tethered.capture = Odfotiť
+tethered.invalid_name = Vyberte názov s dĺžkou 1–120 bajtov bez lomiek, dvojbodiek, znakov percenta a úvodnej bodky.
+tethered.install = Systémová knižnica fotoaparátu nie je dostupná. Nainštalujte prostredie fotoaparátu pre svoju platformu a reštartujte Schist.
+tethered.timeout = Čas na odpoveď fotoaparátu vypršal. Pred ďalším pokusom skontrolujte fotoaparát a znova ho pripojte.
+tethered.failed = Požiadavka na fotoaparát zlyhala: {detail}
+tethered.unsupported = Tento fotoaparát neuvádza podporu fotografovania na diaľku.
+tethered.no_download = Fotoaparát neposlal úplnú snímku. Originály vo fotoaparáte zostali zachované.
+tethered.session_help = Vyberte fotoaparát a potom kliknite na „Odfotiť“. Pri prvej snímke vyberte cieľový priečinok a začiatok názvu súboru; k názvu každej snímky sa pridá poradové číslo a prípona súboru z fotoaparátu. „Uložiť ako…“ zmení cieľový priečinok a začiatok názvu.
+tethered.preview_failed = Snímka sa uložila a importovala, ale jej náhľad sa nepodarilo dekódovať. Otvorte súbor v editore a skontrolujte ho.
+tethered.partial = Niektoré súbory snímok sa uložili a importovali; zvyšné súbory sa nepodarilo uložiť: {error}
+tethered.camera_permission = Povoľte prístup k fotoaparátu v Systémové nastavenia → Súkromie a bezpečnosť → Kamera a potom skúste znova „Odfotiť“. Ak bol Schist spustený z terminálu, skontrolujte aj povolenie fotoaparátu pre tento terminál.
+tethered.camera_usage_missing = V tejto zostave chýba opis povolenia na prístup k fotoaparátu. Zostavte Schist znova pomocou make alebo použite pribalenú aplikáciu.
+tethered.select_camera = Vyberte fotoaparát, ktorým chcete urobiť snímku.
+tethered.choose_destination = Po kliknutí na „Odfotiť“ sa zobrazí otázka, kam uložiť fotografie.
+tethered.preview_empty = Odfoťte snímku, aby sa zobrazila tu.
+tethered.save_local = Uložiť lokálne
+tethered.save_cloud = Uložiť do cloudu
+tethered.cloud_help = Snímky sa nahrajú do vybraného cieľa v Schist Cloud. V miestnej galérii sa neuchová žiadna kópia.
+tethered.cloud_pending = Nedokončené nahrávania sú uložené v umiestnení {path}.

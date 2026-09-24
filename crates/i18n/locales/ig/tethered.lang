@@ -1,0 +1,21 @@
+# AI-assisted translation; native-speaker review pending.
+tethered.title = Ise foto site na igwefoto ejikọrọ
+tethered.capture = See foto
+tethered.invalid_name = Họrọ aha nwere 1–120 bayit, na-enweghị akara slash, akara kọlọ́n, akara pasent, ma ọ bụ ntụpọ n'isi aha.
+tethered.install = Ọbá akwụkwọ igwefoto nke sistemụ adịghị. Wụnye ngwa nkwado igwefoto nke ikpo okwu a ma malite Schist ọzọ.
+tethered.timeout = Oge e nyere arịrịọ igwefoto agwụla. Lelee igwefoto ma jikọọ ya ọzọ tupu ị nwaa ọzọ.
+tethered.failed = Arịrịọ igwefoto adaala: {detail}
+tethered.unsupported = Igwefoto a egosighị na ọ na-akwado ise foto site n'ebe dị anya.
+tethered.no_download = Igwefoto ahụ eziteghị onyonyo zuru ezu. Foto mbụ ka dị na igwefoto ahụ.
+tethered.session_help = Họrọ igwefoto, wee họrọ See foto. Mgbe ị na-ese foto mbụ, họrọ ebe a ga-echekwa ya na mmalite aha faịlụ; a na-agbakwunye nọmba n'usoro na ndọtị faịlụ igwefoto n'aha foto. Chekwaa Dịka… na-agbanwe ebe nchekwa na mmalite aha ahụ.
+tethered.preview_failed = Echekwara foto ahụ ma webata ya, mana enweghị ike ịkọwa onyonyo nlele ya. Mepee ya na ndezi iji nyochaa faịlụ ahụ.
+tethered.partial = Echekwara ma webata ụfọdụ faịlụ foto; enweghị ike ichekwa ndị fọdụrụ: {error}
+tethered.camera_permission = Nye ohere iji igwefoto na Ntọala Sistemụ → Nzuzo na Nchekwa → Igwefoto, wee nwaa See foto ọzọ. Ọ bụrụ na e si na terminal malite Schist, leleekwa ikike igwefoto nke terminal ahụ.
+tethered.camera_usage_missing = Ụdị a enweghị nkọwa ikike igwefoto ya. Jiri make wuo Schist ọzọ ma ọ bụ jiri ngwa a chịkọtara.
+tethered.select_camera = Họrọ igwefoto iji see foto.
+tethered.choose_destination = See foto ga-ajụ ebe ị chọrọ ichekwa foto gị.
+tethered.preview_empty = See foto ka ị hụ ya ebe a.
+tethered.save_local = Chekwaa n’ime ngwaọrụ
+tethered.save_cloud = Chekwaa n’ígwé ojii
+tethered.cloud_help = A na-ebulite foto ndị a n’ebe ahọpụtara na Schist Cloud. A naghị edobe oyiri na galeri dị n’ime ngwaọrụ.
+tethered.cloud_pending = A na-edobe nbulite ndị a na-emechabeghị na {path}.

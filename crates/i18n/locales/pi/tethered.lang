@@ -1,0 +1,21 @@
+# AI-assisted translation; native-speaker review pending.
+tethered.title = Yantena sambaddhena chāyāgāhena chāyāgahaṇaṃ
+tethered.capture = Chāyaṃ gaṇhatha
+tethered.invalid_name = 1–120 bāyitānaṃ nāmaṃ gaṇhatha, yattha tiriyacchedo, dvibindu, satabhāgacinhaṃ vā ādimhi bindu vā natthi.
+tethered.install = Sistemassa chāyāgāhaganthālayaṃ na upalabbhati. Tassa mañcassa chāyāgāhapavattakaṃ patiṭṭhāpetvā Schist puna ārabhatha.
+tethered.timeout = Chāyāgāhassa yācanāya kālo atikkanto. Puna payogā pure chāyāgāhaṃ oloketvā punaṃ saṃyojetha.
+tethered.failed = Chāyāgāhassa yācanā na sampannā: {detail}
+tethered.unsupported = Ayaṃ chāyāgāho dūrato chāyāgahaṇassa samatthataṃ na pakāseti.
+tethered.no_download = Chāyāgāho sakalaṃ rūpaṃ na pesesi. Mūlachāyāyo chāyāgāhe yeva tiṭṭhanti.
+tethered.session_help = Chāyāgāhaṃ gaṇhatha, tato Chāyaṃ gaṇhatha. Paṭhamagahaṇe ṭhapanaṭṭhānañca saññālekhananāmassa pubbabhāgañca gaṇhatha; gahitachāyāsu anukkamasaṅkhyā ca chāyāgāhassa saññālekhanassa ante paccayo ca saṃyojiyanti. Aññanāmena rakkhatha… ṭhānañca pubbabhāgañca parivatteti.
+tethered.preview_failed = Chāyā rakkhitā ca ānītā ca, atha kho tassā pubbadassanaṃ vivarituṃ na sakkā. Saññālekhanaṃ oloketuṃ sampādake vivaratha.
+tethered.partial = Ekacce chāyāsaññālekhanā rakkhitā ca ānītā ca; avasesā na rakkhituṃ sakkā: {error}
+tethered.camera_permission = Sistemassa ṭhapanāsu → Rahassañca Rakkhā ca → Chāyāgāho ti chāyāgāhassa anuññaṃ detha, tato Chāyaṃ gaṇhatha puna payujjatha. Sace Schist terminalato āraddhaṃ, tassa terminalassa chāyāgāhānuññampi oloketha.
+tethered.camera_usage_missing = Imasmiṃ nimmāṇe chāyāgāhānuññāya vivaraṇaṃ natthi. make iti āṇāya Schist puna nimminātha atha vā saṃveṭhitaṃ appaṃ payujjatha.
+tethered.select_camera = Chāyaṃ gaṇhituṃ chāyāgāhaṃ gaṇhatha.
+tethered.choose_destination = Chāyaṃ gaṇhatha tumhākaṃ chāyāyo kattha rakkhitabbā ti pucchissati.
+tethered.preview_empty = Idha passituṃ chāyaṃ gaṇhatha.
+tethered.save_local = Idheva rakkhatha
+tethered.save_cloud = Meghabhaṇḍāgāre rakkhatha
+tethered.cloud_help = Gahitachāyāyo gahitaṃ Schist Cloud ṭhānaṃ upanīyanti. Idha chāyāsaṅgahaṭṭhāne paṭilipi na ṭhapīyati.
+tethered.cloud_pending = Aniṭṭhitā upanayanā {path} ti ṭhāne rakkhīyanti.

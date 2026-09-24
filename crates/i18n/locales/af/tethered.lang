@@ -1,0 +1,21 @@
+# AI-assisted translation; native-speaker review pending.
+tethered.title = Vasgekoppelde opname
+tethered.capture = Neem foto
+tethered.invalid_name = Kies 'n naam van 1–120 grepe sonder skuinsstrepe, dubbelpunte, persentasietekens of 'n punt aan die begin.
+tethered.install = Die stelsel se kamerabiblioteek is nie beskikbaar nie. Installeer die platform se kameralooptyd en herbegin Schist.
+tethered.timeout = Die kameraversoek het verval. Gaan die kamera na en koppel dit weer voordat jy weer probeer.
+tethered.failed = Kameraversoek het misluk: {detail}
+tethered.unsupported = Hierdie kamera dui nie aan dat dit afstandsopnames ondersteun nie.
+tethered.no_download = Die kamera het nie 'n volledige beeld afgelewer nie. Die oorspronklike lêers bly op die kamera.
+tethered.session_help = Kies 'n kamera en dan Neem foto. Kies by jou eerste opname 'n stoorplek en 'n voorvoegsel vir die lêernaam; elke opname kry 'n volgnommer en die kamera se lêeruitbreiding. Stoor as verander die stoorplek en voorvoegsel.
+tethered.preview_failed = Die opname is gestoor en ingevoer, maar die voorskou kon nie gedekodeer word nie. Maak dit in die redigeerder oop om die lêer te ondersoek.
+tethered.partial = Sommige opnamelêers is gestoor en ingevoer; die oorblywende lêers kon nie gestoor word nie: {error}
+tethered.camera_permission = Laat kameratoegang toe in Stelselinstellings → Privaatheid en sekuriteit → Kamera, en probeer dan weer Neem foto. As Schist vanuit 'n terminaal begin is, gaan ook daardie terminaal se kameratoestemming na.
+tethered.camera_usage_missing = Hierdie weergawe het nie 'n beskrywing vir kameratoestemming nie. Bou Schist weer met make of gebruik die verpakte toepassing.
+tethered.select_camera = Kies 'n kamera om 'n foto te neem.
+tethered.choose_destination = Neem foto sal vra waar jou foto's gestoor moet word.
+tethered.preview_empty = Neem 'n foto om dit hier te sien.
+tethered.save_local = Stoor plaaslik
+tethered.save_cloud = Stoor in die wolk
+tethered.cloud_help = Opnames word na die gekose Schist Cloud-bestemming opgelaai. Geen plaaslike kopie word in die galery gehou nie.
+tethered.cloud_pending = Oplaaie wat nog nie voltooi is nie, word by {path} gehou.

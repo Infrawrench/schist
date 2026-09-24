@@ -24,6 +24,12 @@ public final class SchistActivity extends NativeActivity {
     private static final ExecutorService copies = Executors.newSingleThreadExecutor();
     private File importDestination;
 
+    public void tetheredBegin() { TetheredCamera.begin(); }
+    public void tetheredCancel() { TetheredCamera.cancel(); }
+    public String tetheredRun(String operation, String port, String destination) {
+        return TetheredCamera.run(this, operation, port, destination);
+    }
+
     @Override public void onCreate(Bundle state) {
         super.onCreate(state);
         if (state == null) receive(getIntent());

@@ -1,0 +1,21 @@
+# AI-assisted translation; native-speaker review pending.
+tethered.title = Fjärrstyrd fotografering
+tethered.capture = Ta foto
+tethered.invalid_name = Välj ett namn på 1–120 byte utan snedstreck, kolon, procenttecken eller inledande punkt.
+tethered.install = Systemets kamerabibliotek är inte tillgängligt. Installera plattformens kamerakomponent och starta om Schist.
+tethered.timeout = Tidsgränsen för kamerabegäran överskreds. Kontrollera kameran och anslut den igen innan du försöker på nytt.
+tethered.failed = Kamerabegäran misslyckades: {detail}
+tethered.unsupported = Kameran anger inte att den stöder fjärrstyrd bildtagning.
+tethered.no_download = Kameran levererade ingen fullständig bild. Originalen finns kvar på kameran.
+tethered.session_help = Välj en kamera och klicka sedan på Ta foto. Vid den första bildtagningen väljer du plats och prefix för filnamnet; bilderna får ett löpnummer och kamerans filändelse. Spara som… ändrar platsen och prefixet.
+tethered.preview_failed = Bilden sparades och importerades, men förhandsvisningen kunde inte avkodas. Öppna filen i redigeraren för att undersöka den.
+tethered.partial = Vissa bildfiler sparades och importerades; de återstående filerna kunde inte sparas: {error}
+tethered.camera_permission = Tillåt kameraåtkomst i Systeminställningar → Integritet och säkerhet → Kamera och försök sedan med Ta foto igen. Om Schist startades från en terminal behöver du också kontrollera terminalens kamerabehörighet.
+tethered.camera_usage_missing = Den här versionen saknar en beskrivning av kamerabehörigheten. Bygg om Schist med make eller använd den paketerade appen.
+tethered.select_camera = Välj en kamera för att ta ett foto.
+tethered.choose_destination = Ta foto kommer att fråga var du vill spara dina bilder.
+tethered.preview_empty = Ta ett foto för att se det här.
+tethered.save_local = Spara lokalt
+tethered.save_cloud = Spara i molnet
+tethered.cloud_help = Bilderna överförs till den valda destinationen i Schist Cloud. Ingen kopia sparas i det lokala galleriet.
+tethered.cloud_pending = Överföringar som inte har slutförts lagras på {path}.

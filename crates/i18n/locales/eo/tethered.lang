@@ -1,0 +1,21 @@
+# AI-assisted translation; native-speaker review pending.
+tethered.title = Fotado per konektita fotilo
+tethered.capture = Foti
+tethered.invalid_name = Elektu nomon de 1–120 bajtoj sen oblikvaj strekoj, dupunktoj, procentosignoj aŭ komenca punkto.
+tethered.install = La sistema fotila biblioteko ne disponeblas. Instalu la fotilan rultempon de la platformo kaj rekomencu Schist.
+tethered.timeout = La peto al la fotilo superis la tempolimon. Kontrolu la fotilon kaj rekonektu ĝin antaŭ ol reprovi.
+tethered.failed = La peto al la fotilo malsukcesis: {detail}
+tethered.unsupported = Ĉi tiu fotilo ne anoncas subtenon por fora bildokaptado.
+tethered.no_download = La fotilo ne liveris kompletan bildon. La originaloj restas konservitaj en la fotilo.
+tethered.session_help = Elektu fotilon, poste Foti. Ĉe la unua fotado elektu celon kaj prefikson por dosiernomoj; al fotoj aldoniĝas sinsekva numero kaj la dosiersufikso de la fotilo. Konservi kiel… ŝanĝas la celon kaj prefikson.
+tethered.preview_failed = La foto estis konservita kaj importita, sed ĝia antaŭrigardo ne povis esti malkodita. Malfermu la dosieron en la redaktilo por ekzameni ĝin.
+tethered.partial = Kelkaj fotodosieroj estis konservitaj kaj importitaj; la ceteraj dosieroj ne povis esti konservitaj: {error}
+tethered.camera_permission = Permesu aliron al la fotilo en Sistemaj agordoj → Privateco kaj sekureco → Fotilo, poste provu Foti denove. Se Schist estis lanĉita el terminalo, kontrolu ankaŭ la fotilan permeson de tiu terminalo.
+tethered.camera_usage_missing = En ĉi tiu konstruaĵo mankas la priskribo de la fotila permeso. Rekonstruu Schist per make aŭ uzu la pakitan aplikaĵon.
+tethered.select_camera = Elektu fotilon por foti.
+tethered.choose_destination = Foti demandos, kie konservi viajn fotojn.
+tethered.preview_empty = Fotu por vidi la bildon ĉi tie.
+tethered.save_local = Konservi loke
+tethered.save_cloud = Konservi en la nubo
+tethered.cloud_help = Fotoj alŝutiĝas al la elektita celo en Schist Cloud. Neniu kopio restas en la loka galerio.
+tethered.cloud_pending = Nefinitaj alŝutoj estas konservataj ĉe {path}.

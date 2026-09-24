@@ -1,0 +1,21 @@
+# AI-assisted translation; native-speaker review pending.
+tethered.title = Qbid ta’ ritratti b’kamera mqabbda
+tethered.capture = Ħu ritratt
+tethered.invalid_name = Agħżel isem ta’ 1–120 byte mingħajr slashes, żewġ punti, sinjali tal-perċentwal jew punt fil-bidu.
+tethered.install = Il-librerija tal-kamera tas-sistema mhix disponibbli. Installa l-ambjent ta’ eżekuzzjoni tal-kamera għall-pjattaforma u erġa’ ibda Schist.
+tethered.timeout = It-talba lill-kamera skadiet. Iċċekkja l-kamera u erġa’ qabbadha qabel terġa’ tipprova.
+tethered.failed = It-talba lill-kamera falliet: {detail}
+tethered.unsupported = Din il-kamera ma tindikax li tappoġġja l-qbid ta’ immaġnijiet mill-bogħod.
+tethered.no_download = Il-kamera ma bagħtitx immaġni kompluta. L-oriġinali jibqgħu fuq il-kamera.
+tethered.session_help = Agħżel kamera, imbagħad Ħu ritratt. Meta tieħu l-ewwel ritratt, agħżel fejn se tissejvja u prefiss għall-isem tal-fajl; ma’ kull ritratt jiżdied numru sekwenzjali u l-estensjoni tal-fajl tal-kamera. Issejvja Bħala jibdel il-post u l-prefiss.
+tethered.preview_failed = Ir-ritratt ġie ssejvjat u importat, iżda l-previżjoni tiegħu ma setgħetx tiġi ddeċifrata. Iftaħ il-fajl fl-editur biex teżaminah.
+tethered.partial = Xi fajls tar-ritratti ġew issejvjati u importati; il-bqija ma setgħux jiġu ssejvjati: {error}
+tethered.camera_permission = Ippermetti aċċess għall-kamera f’Settings tas-Sistema → Privatezza u Sigurtà → Kamera, imbagħad erġa’ pprova Ħu ritratt. Jekk Schist tnieda minn terminal, iċċekkja wkoll il-permess għall-kamera ta’ dak it-terminal.
+tethered.camera_usage_missing = Din il-verżjoni m’għandhiex deskrizzjoni tal-permess għall-kamera. Ibni mill-ġdid Schist b’make jew uża l-app ippakkjata.
+tethered.select_camera = Agħżel kamera biex tieħu ritratt.
+tethered.choose_destination = Ħu ritratt jistaqsik fejn trid tissejvja r-ritratti tiegħek.
+tethered.preview_empty = Ħu ritratt biex tarah hawn.
+tethered.save_local = Issejvja lokalment
+tethered.save_cloud = Issejvja fis-sħaba
+tethered.cloud_help = Ir-ritratti jittellgħu fid-destinazzjoni magħżula ta’ Schist Cloud. Ma tinżamm l-ebda kopja fil-gallerija lokali.
+tethered.cloud_pending = Il-fajls li għadhom ma tlestiex it-tlugħ tagħhom jinżammu f’{path}.

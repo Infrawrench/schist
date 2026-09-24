@@ -1,0 +1,21 @@
+# AI-assisted translation; native-speaker review pending.
+tethered.title = Ta’anga jejapyhy cámara oñembojoajúvape
+tethered.capture = Eguenohẽ ta’anga
+tethered.invalid_name = Eiporavo téra ipukúva 1–120 byte, oguerekóva’ỹva barra, mokõi kyta ni ta’anga por ciento, ha oñepyrũ’ỹva kyta rehe.
+tethered.install = Ndojeguerekói sistema ryepýpe cámara rembiporu’i. Emoĩ plataforma cámara rembiaporã ha emoñepyrũ jey Schist.
+tethered.timeout = Opa pe tiempo cámara pegua mba’ejerure rehegua. Ehecha cámara ha embojoaju jey eñeha’ã mboyve.
+tethered.failed = Cámara pegua mba’ejerure ndoikói: {detail}
+tethered.unsupported = Ko cámara nde’íri ikatuha ojapyhy ta’anga mombyry guive.
+tethered.no_download = Cámara nomboupaíri ta’anga. Umi ta’anga ypykue opyta cámara-pe.
+tethered.session_help = Eiporavo peteĩ cámara ha upéi Eguenohẽ ta’anga. Ta’anga peteĩha rejapyhy jave, eiporavo moõpa reñongatúta ha mba’épa oñemoĩta archivo réra ñepyrũme; ta’angakuérape oñembojoapy papapy ojuajúva ha cámara archivo réra pahague. Ñongatu péicha… omoambue moõpa oñeñongatu ha réra ñepyrũ.
+tethered.preview_failed = Ta’anga oñeñongatu ha oñemoinge, hákatu ndaikatúi ojehecha hag̃ua oñembohekopyahujey ijehechaukaha. Eipe’a archivo editor-pe ehecha hag̃ua.
+tethered.partial = Oĩ ta’anga archivo oñeñongatu ha oñemoinge va’ekue; umi hembýva ndaikatúi oñeñongatu: {error}
+tethered.camera_permission = Emoneĩ cámara jeporu Sistema ñemboheko → Ñemigua ha tekorosã → Cámara-pe, ha upéi eñeha’ã jey Eguenohẽ ta’anga rupive. Schist oñepyrũramo terminal guive, ehecha avei upe terminal cámara jeporu ñemoneĩ.
+tethered.camera_usage_missing = Ko versión-pe ndaipóri kamera jeporu ñemoneĩ ñemyesakã. Ejapo jey Schist make rupive térã eiporu pe aplicación oñembosako’ipyre.
+tethered.select_camera = Eiporavo cámara eguenohẽ hag̃ua ta’anga.
+tethered.choose_destination = Eguenohẽ ta’anga oporandúta moõpa reñongatúta ne ta’angakuéra.
+tethered.preview_empty = Eguenohẽ ta’anga rehecha hag̃ua ápe.
+tethered.save_local = Eñongatu ko mákinape
+tethered.save_cloud = Eñongatu arai-pe
+tethered.cloud_help = Ta’angakuéra oñemondo Schist Cloud rendápe reiporavo va’ekuépe. Ndoñeñongatúi ambue monguatia ko máquina ta’anga rendápe.
+tethered.cloud_pending = Umi ñemondo ne’ĩrava opa oñeñongatu {path}-pe.

@@ -1,0 +1,21 @@
+# AI-assisted translation; native-speaker review pending.
+tethered.title = Gufotora hakoreshejwe kamera ihujwe
+tethered.capture = Fata ifoto
+tethered.invalid_name = Hitamwo izina rifise bayiti 1–120, ritarimwo ibimenyetso vy'ugucapa /, utudomo tubiri, ikimenyetso c'ijana canke akadomo ku ntango.
+tethered.install = Ububiko bw'ubuhinga bwa kamera bwa sisitemu ntibuboneka. Shiramwo porogarama ikoresha kamera y'iki gikoresho, hanyuma wongere utangure Schist.
+tethered.timeout = Igihe co kurindira ico kamera isubiza caraheze. Suzuma kamera wongere uyihuze imbere yo gusubira kugerageza.
+tethered.failed = Ico kamera yasabwe nticashobotse: {detail}
+tethered.unsupported = Iyi kamera ntiyerekana ko ishobora gufotora itegekwa iri kure.
+tethered.no_download = Kamera ntiyarungitse ishusho yuzuye. Amafoto y'umwimerere aguma muri kamera.
+tethered.session_help = Hitamwo kamera, hanyuma Fata ifoto. Ku ifoto ya mbere, hitamwo aho uzobika amafoto n'intango y'izina rya dosiye; amafoto yongerwako inomero ikurikirana n'umusozo w'izina rya dosiye rya kamera. Kubika nka… bihindura aho ubika n'intango y'izina.
+tethered.preview_failed = Ifoto yabitswe yongera izazanwa, ariko ishusho yayo yo kubanza kuraba ntiyashoboye gusomwa. Yugurure mu muhinduzi kugira ngo usuzume dosiye.
+tethered.partial = Hari amadosiye y'amafoto yabitswe yongera azazanwa; ayasigaye ntiyashoboye kubikwa: {error}
+tethered.camera_permission = Emerera kamera muri Imiterere ya sisitemu → Ibanga n'umutekano → Kamera, hanyuma wongere ugerageze Fata ifoto. Nimba Schist yatangurijwe muri terminal, suzuma n'uruhusha rwa kamera rw'iyo terminal.
+tethered.camera_usage_missing = Iyi verisiyo ibuze insiguro y'uruhusha rwo gukoresha kamera. Subira kwubaka Schist ukoresheje make canke ukoreshe porogarama yateguwe.
+tethered.select_camera = Hitamwo kamera kugira ufate ifoto.
+tethered.choose_destination = Fata ifoto izokubaza aho ushaka kubika amafoto yawe.
+tethered.preview_empty = Fata ifoto kugira uyibone hano.
+tethered.save_local = Kubika kuri iki gikoresho
+tethered.save_cloud = Kubika mu gicu
+tethered.cloud_help = Amafoto yoherezwa aho wahisemwo muri Schist Cloud. Nta kopi ibikwa mu bubiko bw’amafoto bwo kuri iki gikoresho.
+tethered.cloud_pending = Ivyo kohereza bitararangira bibikwa kuri {path}.

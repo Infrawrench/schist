@@ -1,0 +1,21 @@
+# AI-assisted translation; native-speaker review pending.
+tethered.title = Foto ta kamera dɔgɔlen na
+tethered.capture = Foto ta
+tethered.invalid_name = Tɔgɔ sugandi min janya ye bayiti 1–120 ye, sira tilenbali, kolon, pɔrsan taamasiyɛnni walima pɔɛn fɔlɔ tɛ min na.
+tethered.install = Sistɛmu ka kamera bibliyotɛki tɛ sɔrɔ. Platformu nin ka kamera baarakɛlan sigi, ka Schist daminɛ kokura.
+tethered.timeout = Kamera ɲininkali waati banna. Kamera lajɛ ka a siri kokura sani i ka a kɔrɔfɔ tuguni.
+tethered.failed = Kamera ɲininkali ma se ka kɛ: {detail}
+tethered.unsupported = Kamera nin t'a jira ko a bɛ se ka foto ta ka bɔ yɔrɔ jan na.
+tethered.no_download = Kamera ma ja dafalen ci. Ja fɔlɔ-fɔlɔlenw bɛ to kamera kɔnɔ.
+tethered.session_help = Kamera sugandi, ka o kɔ Foto ta digi. Foto fɔlɔ ta tuma na, a mara yɔrɔ ni dosiye tɔgɔ daminɛ sugandi; foto kelen-kelen bɛ sɔrɔ kunnafoni nimɔrɔ ni kamera ka dosiye tɔgɔ laban. Mara tɔgɔ wɛrɛ la bɛ mara yɔrɔ ni tɔgɔ daminɛ yɛlɛma.
+tethered.preview_failed = Foto maralen don ani a donnen don, nka a ɲɛjirali ma se ka kalan. Dosiye dayɛlɛ editer kɔnɔ walasa i ka a lajɛ.
+tethered.partial = Foto dosiye dɔw maralen don ani u donnen don; tɔw ma se ka mara: {error}
+tethered.camera_permission = Kamera sariya di Sistɛmu labɛnniw → Gundo ni lakana → Kamera kɔnɔ, ka Foto ta kɔrɔfɔ tuguni. Ni Schist daminɛna terminal kɔnɔ, terminal aplikasiyɔn o ka kamera sariya fana lajɛ.
+tethered.camera_usage_missing = Kamera sariya ɲɛfɔli tɛ sigili nin kɔnɔ. Schist sigi kokura ni make ye walima aplikasiyɔn min pakilen don o kɛ.
+tethered.select_camera = Kamera sugandi walasa i ka foto ta.
+tethered.choose_destination = Foto ta bɛ i ɲininka i ka i ka fotow mara min.
+tethered.preview_empty = Foto ta walasa i ka a ye yan.
+tethered.save_local = Mara yan
+tethered.save_cloud = Mara ni kulu kan
+tethered.cloud_help = Fotow bɛ lajɛ Schist Cloud yɔrɔ sugandilen ma. Kopi tɛ mara foto galeri nin na.
+tethered.cloud_pending = Lajɛli minnu ma ban u bɛ mara {path} la.

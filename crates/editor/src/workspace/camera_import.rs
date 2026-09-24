@@ -200,7 +200,7 @@ impl ImportDestination {
 
 /// ImageCaptureCore calls back on the UI thread. Inspect EXIF, delete rejected
 /// downloads and hand accepted paths to the uploader on a single worker instead.
-#[cfg(any(target_os = "macos", test))]
+#[cfg(any(target_os = "macos", target_os = "ios", test))]
 pub(super) mod downloaded {
     use super::*;
     use std::sync::mpsc;

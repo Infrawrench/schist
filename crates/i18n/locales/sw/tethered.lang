@@ -1,0 +1,21 @@
+# AI-assisted translation; native-speaker review pending.
+tethered.title = Kupiga picha kwa kamera iliyounganishwa
+tethered.capture = Piga picha
+tethered.invalid_name = Chagua jina lenye baiti 1–120 bila mikato, nukta pacha, alama za asilimia au nukta mwanzoni.
+tethered.install = Maktaba ya kamera ya mfumo haipatikani. Sakinisha mazingira ya uendeshaji ya kamera ya mfumo huu, kisha uanzishe Schist upya.
+tethered.timeout = Muda wa ombi kwa kamera umeisha. Kagua kamera na uiunganishe tena kabla ya kujaribu tena.
+tethered.failed = Ombi kwa kamera limeshindwa: {detail}
+tethered.unsupported = Kamera hii haionyeshi kuwa inaweza kupiga picha kwa udhibiti wa mbali.
+tethered.no_download = Kamera haikutuma picha kamili. Picha asili zimehifadhiwa kwenye kamera.
+tethered.session_help = Chagua kamera, kisha ubofye Piga picha. Unapopiga picha ya kwanza, chagua mahali pa kuhifadhi na kiambishi awali cha jina la faili; picha zinazopigwa huongezewa nambari ya mfuatano na kiendelezi cha faili cha kamera. Hifadhi Kama… hubadilisha mahali pa kuhifadhi na kiambishi awali.
+tethered.preview_failed = Picha imehifadhiwa na kuletwa, lakini onyesho lake la awali halikuweza kusimbuliwa. Ifungue kwenye kihariri ili kukagua faili.
+tethered.partial = Baadhi ya faili za picha zimehifadhiwa na kuletwa; faili zilizobaki hazikuweza kuhifadhiwa: {error}
+tethered.camera_permission = Ruhusu ufikiaji wa kamera katika System Settings → Privacy & Security → Camera, kisha ujaribu Piga picha tena. Ikiwa Schist ilizinduliwa kutoka kwenye terminali, kagua pia ruhusa ya kamera ya terminali hiyo.
+tethered.camera_usage_missing = Toleo hili halina maelezo ya ruhusa ya kamera. Jenga Schist upya kwa make au tumia programu iliyofungashwa.
+tethered.select_camera = Chagua kamera ili kupiga picha.
+tethered.choose_destination = Piga picha itakuuliza mahali pa kuhifadhi picha zako.
+tethered.preview_empty = Piga picha ili uione hapa.
+tethered.save_local = Hifadhi kwenye kifaa hiki
+tethered.save_cloud = Hifadhi kwenye wingu
+tethered.cloud_help = Picha zinazopigwa zinapakiwa kwenye eneo ulilochagua katika Schist Cloud. Hakuna nakala inayohifadhiwa kwenye nyumba ya picha ya kifaa hiki.
+tethered.cloud_pending = Upakiaji ambao haujakamilika umehifadhiwa katika {path}.

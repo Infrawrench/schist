@@ -1,0 +1,21 @@
+# AI-assisted translation; native-speaker review pending.
+tethered.title = Tangkapan tertambat
+tethered.capture = Ambil foto
+tethered.invalid_name = Pilih nama sepanjang 1–120 bait tanpa garis miring, titik bertindih, tanda peratus atau titik di awal nama.
+tethered.install = Pustaka kamera sistem tidak tersedia. Pasang persekitaran masa jalan kamera untuk platform ini dan mulakan semula Schist.
+tethered.timeout = Permintaan kamera tamat masa. Periksa kamera dan sambungkannya semula sebelum mencuba lagi.
+tethered.failed = Permintaan kamera gagal: {detail}
+tethered.unsupported = Kamera ini tidak menyatakan sokongan untuk mengambil imej dari jauh.
+tethered.no_download = Kamera tidak menghantar imej yang lengkap. Fail asal kekal pada kamera.
+tethered.session_help = Pilih kamera, kemudian Ambil foto. Pada tangkapan pertama, pilih lokasi simpanan dan awalan nama fail; setiap tangkapan ditambah nombor turutan dan sambungan fail kamera. Simpan Sebagai mengubah lokasi dan awalan tersebut.
+tethered.preview_failed = Tangkapan telah disimpan dan diimport, tetapi pratontonnya tidak dapat dinyahkod. Buka fail itu dalam penyunting untuk memeriksanya.
+tethered.partial = Sebahagian fail tangkapan telah disimpan dan diimport; fail selebihnya tidak dapat disimpan: {error}
+tethered.camera_permission = Benarkan akses kamera dalam Tetapan Sistem → Privasi & Keselamatan → Kamera, kemudian cuba Ambil foto sekali lagi. Jika Schist dilancarkan dari terminal, periksa juga kebenaran kamera untuk aplikasi terminal itu.
+tethered.camera_usage_missing = Binaan ini tiada penerangan kebenaran kameranya. Bina semula Schist dengan make atau gunakan aplikasi yang telah dipakejkan.
+tethered.select_camera = Pilih kamera untuk mengambil foto.
+tethered.choose_destination = Ambil foto akan meminta anda memilih tempat menyimpan foto.
+tethered.preview_empty = Ambil foto untuk melihatnya di sini.
+tethered.save_local = Simpan pada peranti
+tethered.save_cloud = Simpan ke awan
+tethered.cloud_help = Foto yang diambil dimuat naik ke destinasi Schist Cloud yang dipilih. Tiada salinan disimpan dalam galeri setempat.
+tethered.cloud_pending = Muat naik yang belum selesai disimpan di {path}.

@@ -210,6 +210,8 @@
     <key>LSSupportsOpeningDocumentsInPlace</key><true/>
     <!-- Photos access: the gallery's import, and the camera-roll backup
          to Schist Cloud, which reads the library to find new photos. -->
+    <key>NSCameraUsageDescription</key>
+    <string>Schist uses a connected camera to capture photos in your tethered session.</string>
     <key>NSPhotoLibraryUsageDescription</key>
     <string>Schist imports photos from your library into its gallery, and backs up your camera roll to Schist Cloud when you turn that on.</string>
     <key>NSPhotoLibraryAddUsageDescription</key>

@@ -1,0 +1,21 @@
+# AI-assisted translation; native-speaker review pending.
+tethered.title = Fotografiere conectată
+tethered.capture = Fă o fotografie
+tethered.invalid_name = Alege un nume de 1–120 de octeți, fără bare oblice, două puncte, semne procent sau punct la început.
+tethered.install = Biblioteca de sistem pentru aparatul foto nu este disponibilă. Instalează mediul de execuție pentru cameră al platformei și repornește Schist.
+tethered.timeout = Cererea către aparat a expirat. Verifică aparatul și reconectează-l înainte să încerci din nou.
+tethered.failed = Cererea către aparat a eșuat: {detail}
+tethered.unsupported = Acest aparat nu indică faptul că acceptă fotografierea de la distanță.
+tethered.no_download = Aparatul nu a trimis o imagine completă. Originalele rămân pe aparat.
+tethered.session_help = Selectează un aparat foto, apoi Fă o fotografie. La prima captură, alege destinația și un prefix pentru numele fișierului; fotografiile primesc un număr de ordine și extensia fișierului de pe aparat. Salvare ca… schimbă destinația și prefixul.
+tethered.preview_failed = Fotografia a fost salvată și importată, dar previzualizarea ei nu a putut fi decodată. Deschide-o în editor ca să verifici fișierul.
+tethered.partial = Unele fișiere fotografiate au fost salvate și importate; cele rămase nu au putut fi salvate: {error}
+tethered.camera_permission = Permite accesul la cameră în Configurări sistem → Confidențialitate și securitate → Cameră, apoi încearcă din nou Fă o fotografie. Dacă Schist a fost pornit dintr-un terminal, verifică și permisiunea acelui terminal pentru cameră.
+tethered.camera_usage_missing = Acestei versiuni îi lipsește descrierea permisiunii pentru cameră. Recompilează Schist cu make sau folosește aplicația distribuită ca pachet.
+tethered.select_camera = Selectează un aparat foto pentru a face o fotografie.
+tethered.choose_destination = Fă o fotografie îți va cere să alegi unde să salvezi fotografiile.
+tethered.preview_empty = Fă o fotografie ca să o vezi aici.
+tethered.save_local = Salvează local
+tethered.save_cloud = Salvează în cloud
+tethered.cloud_help = Fotografiile sunt încărcate la destinația Schist Cloud selectată. Nu se păstrează nicio copie în galeria locală.
+tethered.cloud_pending = Încărcările neterminate sunt păstrate la {path}.

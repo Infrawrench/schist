@@ -1,0 +1,21 @@
+# AI-assisted translation; native-speaker review pending.
+tethered.title = Fotografēšana ar pievienotu kameru
+tethered.capture = Uzņemt fotoattēlu
+tethered.invalid_name = Izvēlieties 1–120 baitu garu nosaukumu bez slīpsvītrām, koliem, procentu zīmēm un punkta sākumā.
+tethered.install = Sistēmas kameras bibliotēka nav pieejama. Instalējiet šai platformai paredzēto kameras izpildvidi un restartējiet Schist.
+tethered.timeout = Kameras pieprasījuma laiks ir beidzies. Pirms mēģināt vēlreiz, pārbaudiet kameru un pievienojiet to no jauna.
+tethered.failed = Kameras pieprasījums neizdevās: {detail}
+tethered.unsupported = Šī kamera nenorāda, ka atbalsta attālinātu fotografēšanu.
+tethered.no_download = Kamera nepārsūtīja pilnu attēlu. Oriģināli kamerā tiek saglabāti.
+tethered.session_help = Izvēlieties kameru un pēc tam nospiediet «Uzņemt fotoattēlu». Pirmajā uzņemšanas reizē izvēlieties saglabāšanas vietu un faila nosaukuma prefiksu; katram fotoattēlam tiek pievienots kārtas numurs un kameras faila paplašinājums. «Saglabāt kā…» maina vietu un prefiksu.
+tethered.preview_failed = Fotoattēls tika saglabāts un importēts, taču tā priekšskatījumu neizdevās atkodēt. Atveriet failu redaktorā, lai to pārbaudītu.
+tethered.partial = Daži fotoattēlu faili tika saglabāti un importēti; pārējos failus neizdevās saglabāt: {error}
+tethered.camera_permission = Sistēmas iestatījumos → Privātums un drošība → Kamera atļaujiet piekļuvi kamerai un mēģiniet vēlreiz «Uzņemt fotoattēlu». Ja Schist tika palaists no termināļa, pārbaudiet arī šī termināļa kameras atļauju.
+tethered.camera_usage_missing = Šajā būvējumā trūkst kameras atļaujas apraksta. Pārveidojiet Schist ar make vai izmantojiet iepakoto lietotni.
+tethered.select_camera = Izvēlieties kameru, lai uzņemtu fotoattēlu.
+tethered.choose_destination = «Uzņemt fotoattēlu» vaicās, kur saglabāt jūsu fotoattēlus.
+tethered.preview_empty = Uzņemiet fotoattēlu, lai to redzētu šeit.
+tethered.save_local = Saglabāt lokāli
+tethered.save_cloud = Saglabāt mākonī
+tethered.cloud_help = Uzņemtie fotoattēli tiek augšupielādēti izvēlētajā Schist Cloud vietā. Vietējā galerijā kopija netiek saglabāta.
+tethered.cloud_pending = Nepabeigtās augšupielādes tiek glabātas vietā {path}.

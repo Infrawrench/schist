@@ -1,0 +1,21 @@
+# AI-assisted translation; native-speaker review pending.
+tethered.title = Qoşulu kamera ilə çəkiliş
+tethered.capture = Foto çək
+tethered.invalid_name = 1–120 bayt uzunluğunda, içində əyri xətt, iki nöqtə və faiz işarəsi olmayan, nöqtə ilə başlamayan ad seçin.
+tethered.install = Sistemin kamera kitabxanası əlçatan deyil. Platformanın kamera icra mühitini quraşdırın və Schist-i yenidən başladın.
+tethered.timeout = Kamera sorğusunun vaxtı bitdi. Yenidən cəhd etməzdən əvvəl kameranı yoxlayıb təkrar qoşun.
+tethered.failed = Kamera sorğusu uğursuz oldu: {detail}
+tethered.unsupported = Bu kamera məsafədən şəkil çəkmə dəstəyini bildirmir.
+tethered.no_download = Kamera tam şəkil göndərmədi. Orijinal fayllar kamerada saxlanılır.
+tethered.session_help = Kamera seçin, sonra Foto çək düyməsini basın. İlk çəkilişdə saxlama yerini və fayl adı prefiksini seçin; çəkilən fayllara sıra nömrəsi və kameranın fayl uzantısı əlavə olunur. Fərqli saxla saxlama yerini və prefiksi dəyişir.
+tethered.preview_failed = Çəkilən şəkil saxlanıldı və idxal edildi, lakin onun önbaxışını deşifrə etmək mümkün olmadı. Faylı yoxlamaq üçün redaktorda açın.
+tethered.partial = Bəzi çəkiliş faylları saxlanıldı və idxal edildi; qalan faylları saxlamaq mümkün olmadı: {error}
+tethered.camera_permission = Sistem Parametrləri → Məxfilik və Təhlükəsizlik → Kamera bölməsində kameraya girişə icazə verin, sonra yenidən Foto çək düyməsini basın. Schist terminaldan başladılıbsa, həmin terminal tətbiqinin kamera icazəsini də yoxlayın.
+tethered.camera_usage_missing = Bu quruluşda kamera icazəsinin təsviri yoxdur. Schist-i make ilə yenidən qurun və ya paketlənmiş tətbiqdən istifadə edin.
+tethered.select_camera = Foto çəkmək üçün kamera seçin.
+tethered.choose_destination = Foto çək şəkillərinizin harada saxlanacağını soruşacaq.
+tethered.preview_empty = Şəkli burada görmək üçün foto çəkin.
+tethered.save_local = Yerli saxla
+tethered.save_cloud = Buludda saxla
+tethered.cloud_help = Çəkilən fotolar seçilmiş Schist Cloud məkanına yüklənir. Yerli qalereyada surət saxlanmır.
+tethered.cloud_pending = Tamamlanmamış yükləmələr {path} ünvanında saxlanılır.

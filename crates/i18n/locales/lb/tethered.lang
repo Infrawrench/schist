@@ -1,0 +1,21 @@
+# AI-assisted translation; native-speaker review pending.
+tethered.title = Fotograféiere mat verbonnener Kamera
+tethered.capture = Foto maachen
+tethered.invalid_name = Wielt en Numm vun 1–120 Byte ouni Schréigstrécher, Duebelpunkten, Prozentzeechen oder e Punkt um Ufank.
+tethered.install = D'Systembibliothéik fir d'Kamera ass net verfügbar. Installéiert d'Kameralafzäit fir dës Plattform a start Schist nei.
+tethered.timeout = D'Kameraumfro huet ze laang gedauert. Kontrolléiert d'Kamera a verbënnt se nei, ier Dir et nach eng Kéier probéiert.
+tethered.failed = D'Kameraumfro ass feelgeschloen: {detail}
+tethered.unsupported = Dës Kamera weist keng Ënnerstëtzung fir Fotoen aus der Distanz un.
+tethered.no_download = D'Kamera huet kee komplett Bild geliwwert. D'Originaler op der Kamera bleiwen erhalen.
+tethered.session_help = Wielt eng Kamera a klickt dann op «Foto maachen». Beim éischte Foto wielt Dir de Späicheruert an e Präfix fir de Fichiersnumm; all Foto kritt eng lafend Nummer an d'Fichiersextensioun vun der Kamera. Mat «Späicheren als…» ännert Dir de Späicheruert an de Präfix.
+tethered.preview_failed = D'Foto gouf gespäichert an importéiert, mee d'Virschau konnt net decodéiert ginn. Maacht de Fichier am Editeur op, fir en ze kontrolléieren.
+tethered.partial = E puer Fotofichiere goufe gespäichert an importéiert; déi aner konnten net gespäichert ginn: {error}
+tethered.camera_permission = Erlaabt den Zougang zu der Kamera an de Systemeinstellungen → Dateschutz a Sécherheet → Kamera a probéiert «Foto maachen» nach eng Kéier. Wann Schist aus engem Terminal gestart gouf, kontrolléiert och d'Kamerazougrëffsrecht vun deem Terminal.
+tethered.camera_usage_missing = Bei dëser Versioun feelt d'Beschreiwung fir d'Kameraerlaabnis. Baut Schist mat make nei oder benotzt déi fäerdeg verpaakten App.
+tethered.select_camera = Wielt eng Kamera, fir eng Foto ze maachen.
+tethered.choose_destination = «Foto maachen» freet Iech, wou Är Fotoe gespäichert solle ginn.
+tethered.preview_empty = Maacht eng Foto, fir se hei ze gesinn.
+tethered.save_local = Lokal späicheren
+tethered.save_cloud = An der Cloud späicheren
+tethered.cloud_help = D'Fotoe ginn op déi ausgewielte Plaz a Schist Cloud eropgelueden. Et gëtt keng Kopie an der lokaler Galerie gehalen.
+tethered.cloud_pending = Eropluedungen, déi nach net ofgeschloss sinn, ginn op {path} gespäichert.

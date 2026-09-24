@@ -1,0 +1,21 @@
+# AI-assisted translation; native-speaker review pending.
+tethered.title = テザー撮影
+tethered.capture = 写真を撮影
+tethered.invalid_name = 1–120バイトの名前を指定してください。スラッシュ、コロン、パーセント記号を含めたり、先頭をピリオドにしたりすることはできません。
+tethered.install = システムのカメラライブラリを利用できません。このプラットフォームのカメラ実行環境をインストールし、Schistを再起動してください。
+tethered.timeout = カメラへの要求がタイムアウトしました。カメラを確認して再接続してから、もう一度お試しください。
+tethered.failed = カメラへの要求に失敗しました: {detail}
+tethered.unsupported = このカメラはリモート撮影への対応を通知していません。
+tethered.no_download = カメラから完全な画像を受信できませんでした。元の画像はカメラに残っています。
+tethered.session_help = カメラを選択し、「写真を撮影」を選んでください。初回の撮影時に保存先とファイル名の接頭辞を指定します。撮影したファイル名には連番とカメラ側のファイル拡張子が追加されます。「別名で保存…」で保存先と接頭辞を変更できます。
+tethered.preview_failed = 撮影した画像は保存して読み込みましたが、プレビューをデコードできませんでした。ファイルを確認するにはエディターで開いてください。
+tethered.partial = 一部の撮影ファイルは保存して読み込みましたが、残りは保存できませんでした: {error}
+tethered.camera_permission = システム設定 → プライバシーとセキュリティ → カメラでカメラへのアクセスを許可し、もう一度「写真を撮影」をお試しください。Schistをターミナルから起動した場合は、そのターミナルのカメラへのアクセス許可も確認してください。
+tethered.camera_usage_missing = このビルドにはカメラ使用許可の説明がありません。makeでSchistを再ビルドするか、パッケージ版のアプリを使用してください。
+tethered.select_camera = 写真を撮影するカメラを選択してください。
+tethered.choose_destination = 「写真を撮影」を選ぶと、写真の保存先を指定するよう求められます。
+tethered.preview_empty = 写真を撮影すると、ここに表示されます。
+tethered.save_local = ローカルに保存
+tethered.save_cloud = クラウドに保存
+tethered.cloud_help = 撮影した画像は、選択したSchist Cloudの保存先にアップロードされます。ローカルギャラリーにはコピーを保存しません。
+tethered.cloud_pending = 完了していないアップロードは{path}に保管されます。

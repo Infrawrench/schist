@@ -1,0 +1,21 @@
+# AI-assisted translation; native-speaker review pending.
+tethered.title = U foda nga khamera yo ṱumanywaho na khomphyutha
+tethered.capture = Fodani tshifanyiso
+tethered.invalid_name = Khethani dzina ḽa baiti dza 1–120 ḽi si na zwiga zwa u khetha, kholoni, tshiga tsha phesenthe kana tshithoma mathomoni.
+tethered.install = Laiburari ya khamera ya sisiteme a i wanali. Dzhenisani mbekanyamushumo ya khamera ya pulatifomo iyi, ni dovhe ni thome Schist.
+tethered.timeout = Tshifhinga tsha u lindela khumbelo ya khamera tsho fhela. Ṱolani khamera ni i ṱumanye hafhu ni sa athu lingedza hafhu.
+tethered.failed = Khumbelo ya khamera yo kundelwa: {detail}
+tethered.unsupported = Khamera iyi a i sumbedzi uri i tikedza u foda ni kule.
+tethered.no_download = Khamera a yo rumela tshifanyiso tsho fhelelaho. Zwifanyiso zwa u thoma zwi kha ḓi vha kha khamera.
+tethered.session_help = Khethani khamera, ni kone u khetha «Fodani tshifanyiso». Musi ni tshi foda lwa u thoma, khethani fhethu hune na ḓo vhulunga hone na mathomoni a dzina ḽa faela; zwifanyiso zwi engedza nomboro i tevhekanaho na magumo a dzina ḽa faela ya khamera. «Vhulunga sa» zwi shandula fhethu ha u vhulunga na mathomoni a dzina.
+tethered.preview_failed = Tshifanyiso tsho vhulungwa na u dzheniswa, fhedzi tshifanyiso tsha u tshi sedza hu tshee nga phanḓa a tsho ngo kona u vuliwa. Vulani faela kha tshishandukisi uri ni i ṱole.
+tethered.partial = Dziṅwe faela dza zwifanyiso dzo vhulungwa na u dzheniswa; dzo salaho a dzo ngo kona u vhulungwa: {error}
+tethered.camera_permission = Tendelani u shumisa khamera kha Nzudzanyo dza Sisiteme → Tshiphiri na Tsireledzo → Khamera, ni kone u lingedza «Fodani tshifanyiso» hafhu. Arali Schist yo thomiwa nga theminala, ṱolani na thendelo ya khamera ya yeneyo theminala.
+tethered.camera_usage_missing = Muvhili uyu wa Schist a u na ṱhalutshedzo ya thendelo ya khamera. Fhaṱani Schist hafhu nga make kana ni shumise app yo pakelwaho.
+tethered.select_camera = Khethani khamera uri ni fode tshifanyiso.
+tethered.choose_destination = «Fodani tshifanyiso» zwi ḓo ni vhudzisa hune na ḓo vhulunga hone zwifanyiso zwaṋu.
+tethered.preview_empty = Fodani tshifanyiso uri ni tshi vhone hafha.
+tethered.save_local = Vhulunga kha tshishumiswa itshi
+tethered.save_cloud = Vhulunga kha gole
+tethered.cloud_help = Zwifanyiso zwo fodwaho zwi rumelwa fhethu ho khethwaho ha Schist Cloud. A hu vhulungwi khophi kha galari ya fhano.
+tethered.cloud_pending = Zwiṅwe zwine zwa kha ḓi rumelwa zwi vhulungwa kha {path}.

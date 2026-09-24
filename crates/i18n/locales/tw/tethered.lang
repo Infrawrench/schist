@@ -1,0 +1,21 @@
+# AI-assisted translation; native-speaker review pending.
+tethered.title = Mfoninitwa a wɔde kɔmputa di mfoninitwa afiri so
+tethered.capture = Twa mfonini
+tethered.invalid_name = Paw din a ne tenten yɛ baiti 1–120 a nsensanee a ɛda nifa anaa benkum, nsensanee mmienu, ɔha biara sɛnkyerɛnne ne pɔw a ɛwɔ din no mfiase nni mu.
+tethered.install = Sistem no mfoninitwa afiri nhomakorabea no nni hɔ. Hyehyɛ platform no mfoninitwa afiri dwumadie a ɛhia no, na san hyɛ Schist ase.
+tethered.timeout = Bere a wɔde retwɛn mfoninitwa afiri no mmuae no asa. Hwɛ afiri no na san fa bata ho ansa na woasan asɔ ahwɛ.
+tethered.failed = Mfoninitwa afiri no adesrɛ no antumi anyɛ adwuma: {detail}
+tethered.unsupported = Mfoninitwa afiri yi nkyerɛ sɛ ɛboa mfoninitwa a wɔdi so fi akyirikyiri.
+tethered.no_download = Mfoninitwa afiri no amfa mfonini a edi mu amba. Mfonini a edi kan wɔ afiri no so no da so ara wɔ hɔ.
+tethered.session_help = Paw mfoninitwa afiri, afei paw «Twa mfonini». Bere a woretwa mfonini a edi kan no, paw baabi a wobɛkora no ne fael din no mfiase; mfonini foforo biara nya nɔma a ɛtoatoa so ne afiri no fael din akyire. «Kora Sɛ» sesa baabi a wɔkora no ne din no mfiase.
+tethered.preview_failed = Wɔkoraa mfonini no na wɔde baa Schist mu, nanso wɔantumi ankyerɛ ne mfonini ketewa a wɔde di kan hwɛ. Bue fael no wɔ mfonini sesa mu na hwɛ.
+tethered.partial = Wɔkoraa mfonini fael ahorow bi na wɔde baa mu; wɔantumi ankora nea aka no: {error}
+tethered.camera_permission = Ma mfoninitwa afiri ho kwan wɔ System Settings → Privacy & Security → Camera mu, afei san sɔ «Twa mfonini» hwɛ. Sɛ wufi terminal mu hyɛɛ Schist ase a, hwɛ sɛ terminal no nso wɔ mfoninitwa afiri ho kwan.
+tethered.camera_usage_missing = Saa Schist yi nni nkyerɛkyerɛmu a ɛfa mfoninitwa afiri ho kwan ho. Fa make san si Schist anaa fa app a wɔakyekyere no di dwuma.
+tethered.select_camera = Paw mfoninitwa afiri na twa mfonini.
+tethered.choose_destination = «Twa mfonini» bebisa baabi a wobɛkora wo mfonini ahorow.
+tethered.preview_empty = Twa mfonini na woahu no wɔ ha.
+tethered.save_local = Kora wɔ wo kɔmputa so
+tethered.save_cloud = Kora wɔ intanɛt so
+tethered.cloud_help = Wɔde mfonini a wɔatwa no bɛkɔ Schist Cloud baabi a woapaw. Wɔnkora bi wɔ wo kɔmputa so mfonini korabea.
+tethered.cloud_pending = Fael a wɔreyɛ de akɔ a ɛnwiee no, wɔkora wɔ {path}.

@@ -1,0 +1,21 @@
+# AI-assisted translation; native-speaker review pending.
+tethered.title = Bōk pija kōn kamera eo ej jokwe ilo kein jerbal
+tethered.capture = Bōk pija
+tethered.invalid_name = Kālet etan eo e 1–120 byte, ejjelok slash, kolon, kakōlle in percent, ak dot ilo jinoin.
+tethered.install = Laibrari in kamera an system ejjab maroñ jerbal. Kōmmane install eo an kamera runtime ñan platform in im bar kōjino Schist.
+tethered.timeout = Iien kōttar ñan kajjitōk eo ñan kamera emōj. Lale kamera eo im bar kobaiki mokta jān am bar kajjioñ.
+tethered.failed = Kajjitōk eo ñan kamera ejjab lo tōbrak: {detail}
+tethered.unsupported = Kamera in ejjab kwalok ke emaroñ bōk pija jān etto.
+tethered.no_download = Kamera eo ejjab kōtlok juon pija eo e mat. Pija ko jinoin rej pād wōt ilo kamera eo.
+tethered.session_help = Kālet juon kamera, innem Bōk pija. Ilo pija eo jinoin, kālet jikin kōjparok im jino etan file; pija ko rej bōk nōmba in an toor im file extension an kamera eo. Kōjparok āinwōt ej ukot jikin kōjparok im jino etan file.
+tethered.preview_failed = Pija eo emōj kōjparok im import, ak preview eo ejjab maroñ decode. Kōpelok file eo ilo editor ñan am lale.
+tethered.partial = Jet file in pija ko emōj kōjparok im import; file ko jet rejab maroñ kōjparok: {error}
+tethered.camera_permission = Kōtlok kamera ilo System Settings → Privacy & Security → Camera, innem bar kajjioñ Bōk pija. Elane Schist ej jino jān terminal, lale bareinwōt kōtlok kamera an terminal eo.
+tethered.camera_usage_missing = Build in ejjelok kōmeļeļe kōn kōtlok kamera. Bar kalōk Schist kōn make ak kōjerbal app eo emōj package.
+tethered.select_camera = Kālet juon kamera ñan bōk pija.
+tethered.choose_destination = Bōk pija enaj kajjitōk ia eo kwōj kōjparok pija ko am.
+tethered.preview_empty = Bōk juon pija ñan am loe ijin.
+tethered.save_local = Kōjparok ilo jikin in
+tethered.save_cloud = Kōjparok ilo cloud
+tethered.cloud_help = Pija ko rej upload ñan jikin Schist Cloud eo emōj kālet. Ejjelok copy ilo gallery eo ilo jikin in.
+tethered.cloud_pending = Upload ko rejjab mōj rej pād ilo {path}.

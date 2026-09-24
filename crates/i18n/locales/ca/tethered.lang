@@ -1,0 +1,21 @@
+# AI-assisted translation; native-speaker review pending.
+tethered.title = Captura connectada
+tethered.capture = Fes una foto
+tethered.invalid_name = Trieu un nom d'1–120 bytes sense barres, dos punts, signes de percentatge ni un punt inicial.
+tethered.install = La biblioteca de càmera del sistema no està disponible. Instal·leu l'entorn d'execució de càmera de la plataforma i reinicieu Schist.
+tethered.timeout = S'ha esgotat el temps d'espera de la sol·licitud a la càmera. Comproveu la càmera i torneu-la a connectar abans de repetir-ho.
+tethered.failed = La sol·licitud a la càmera ha fallat: {detail}
+tethered.unsupported = Aquesta càmera no indica que admeti la captura remota d'imatges.
+tethered.no_download = La càmera no ha enviat una imatge completa. Els originals es conserven a la càmera.
+tethered.session_help = Seleccioneu una càmera i després Fes una foto. En la primera captura, trieu una destinació i un prefix per al nom dels fitxers; a les captures s'hi afegeixen un número de seqüència i l'extensió del fitxer de la càmera. Anomena i desa… canvia la destinació i el prefix.
+tethered.preview_failed = La captura s'ha desat i importat, però no s'ha pogut descodificar la previsualització. Obriu-la a l'editor per examinar el fitxer.
+tethered.partial = Alguns fitxers de captura s'han desat i importat; no s'han pogut desar els restants: {error}
+tethered.camera_permission = Permeteu l'accés a la càmera a Configuració del Sistema → Privadesa i seguretat → Càmera i torneu a provar Fes una foto. Si heu iniciat Schist des d'un terminal, comproveu també el permís de càmera d'aquest terminal.
+tethered.camera_usage_missing = Aquesta compilació no inclou la descripció del permís de càmera. Torneu a compilar Schist amb make o feu servir l'aplicació empaquetada.
+tethered.select_camera = Seleccioneu una càmera per fer una foto.
+tethered.choose_destination = Fes una foto us demanarà on voleu desar les fotos.
+tethered.preview_empty = Feu una foto per veure-la aquí.
+tethered.save_local = Desa localment
+tethered.save_cloud = Desa al núvol
+tethered.cloud_help = Les captures es pugen a la destinació seleccionada de Schist Cloud. No se'n conserva cap còpia a la galeria local.
+tethered.cloud_pending = Les pujades que no s'han acabat es conserven a {path}.

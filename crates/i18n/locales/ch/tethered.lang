@@ -1,0 +1,21 @@
+# AI-assisted translation; native-speaker review pending.
+tethered.title = Chinachule' ni retratu ginen i kamera ni mafa'chet
+tethered.capture = Chule' retratu
+tethered.invalid_name = Ayek un na'an ni gaige 1–120 bytes, ti gai slash, dos puntos, sinet pot ciento, pat punto gi fine'nina.
+tethered.install = Ti siña ma'usa i librerian kamera gi sistema. Instala i runtime kamera para este na plataforma ya na'fanma'funhåyan i Schist.
+tethered.timeout = Esta pås i tiempon i ineppe' gi kamera. Eksamina i kamera ya na'fanma'chette antis di un nuebu ineppe'.
+tethered.failed = Ti åpmamaila' i ineppe' gi kamera: {detail}
+tethered.unsupported = Ti ha na'fanmatungo' este na kamera na siña ha chule' retratu ginen tåtte.
+tethered.no_download = Ti ha nå'hån i kamera un retratu ni kabåles. Ma na'såsaga i orihinåt gi kamera.
+tethered.session_help = Ayek un kamera, despues Chule' retratu. Gi fine'nina na chinachule', ayek i lugåt para mañåtba yan i tutuhon na'an i fayl; kada retratu ha na'lametgot un numirun inayon yan i extension i fayl gi kamera. Såtba komu… ha tulaika i lugåt yan i tutuhon na'an.
+tethered.preview_failed = Masåtba yan ma'halom i retratu, lao ti siña ma'ågang i lilihi'-ña. Baba i fayl gi editor para un eksamina.
+tethered.partial = Guaha fayl retratu ni masåtba yan ma'halom; ti siña masåtba i otro siha: {error}
+tethered.camera_permission = Na'fanmå'åsi i kamera gi System Settings → Privacy & Security → Camera, despues chagi ta'lo Chule' retratu. Yanggen ma'funhåyan i Schist ginen terminal, eksamina lokkue' i permison kamera gi enao na terminal.
+tethered.camera_usage_missing = Esta na build ti gai deskripsion i permison kamera. Na'fa'ta'lo i Schist yan make pat usa i app ni mapaketa.
+tethered.select_camera = Ayek un kamera para un chule' retratu.
+tethered.choose_destination = Chule' retratu para u faisine' hao månu para un såtba i retratu-mu siha.
+tethered.preview_empty = Chule' un retratu para un li'e' guini.
+tethered.save_local = Såtba gi lugåt
+tethered.save_cloud = Såtba gi nubi
+tethered.cloud_help = I retratu siha manma'halom gi i ayek na lugåt gi Schist Cloud. Tåya' kopian i galeria gi lugåt ni masåsaga.
+tethered.cloud_pending = I manma'halom ni ti manmakabåles masåsaga gi {path}.

@@ -1,0 +1,21 @@
+# AI-assisted translation; native-speaker review pending.
+tethered.title = Wênekêşana bi kameraya girêdayî
+tethered.capture = Wêne bikişîne
+tethered.invalid_name = Navekî bi dirêjahiya 1–120 baytan hilbijêre ku tê de şemitok, du xal, nîşana sedî tune bin û bi xalê dest pê neke.
+tethered.install = Pirtûkxaneya kamerayê ya pergalê ne amade ye. Pergala xebitandina kamerayê ya vê platformê saz bike û Schist ji nû ve bide destpêkirin.
+tethered.timeout = Dema daxwaza kamerayê derbas bû. Berî ku dîsa biceribînî, kamerayê kontrol bike û ji nû ve girê bide.
+tethered.failed = Daxwaza kamerayê bi ser neket: {detail}
+tethered.unsupported = Ev kamera piştgiriya kişandina wêneyan ji dûr ve nade zanîn.
+tethered.no_download = Kamerayê wêneyekî temam neşand. Wêneyên eslî li ser kamerayê tên parastin.
+tethered.session_help = Kamerayekê hilbijêre, paşê «Wêne bikişîne» bitikîne. Di kişandina yekem de cihê tomarkirinê û pêşgira navê pelê hilbijêre; li her wêneyî hejmareke rêzê û paşgira pela kamerayê tên zêdekirin. «Tomar Bike Wek…» cih û pêşgirê diguherîne.
+tethered.preview_failed = Wêne hat tomarkirin û anîn hundir, lê pêşdîtina wê nehate vekirin. Ji bo kontrolkirina pelê wê di edîtorê de veke.
+tethered.partial = Hin pelên wêneyan hatin tomarkirin û anîn hundir; pelên mayî nehatin tomarkirin: {error}
+tethered.camera_permission = Di Mîhengên Pergalê → Nepenî û Ewlehî → Kamera de destûra gihîştina kamerayê bide, paşê «Wêne bikişîne» dîsa biceribîne. Heke Schist ji termînalê hatiye vekirin, destûra kamerayê ya wê termînalê jî kontrol bike.
+tethered.camera_usage_missing = Di vê avakirinê de ravekirina destûra kamerayê tune ye. Schist bi make ji nû ve ava bike an sepana pakêtbûyî bi kar bîne.
+tethered.select_camera = Ji bo kişandina wêne kamerayekê hilbijêre.
+tethered.choose_destination = «Wêne bikişîne» dê bipirse ku wêneyên xwe li ku tomar bikî.
+tethered.preview_empty = Wêneyekê bikişîne da ku li vir bibînî.
+tethered.save_local = Li herêmê tomar bike
+tethered.save_cloud = Li ewrê tomar bike
+tethered.cloud_help = Wêneyên kişandî li cihê Schist Cloud ê hilbijartî tên barkirin. Kopiyek di galeriyê ya herêmî de nayê parastin.
+tethered.cloud_pending = Barkirinên ku hêj neqediyane li {path} tên parastin.

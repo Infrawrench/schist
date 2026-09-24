@@ -1,0 +1,21 @@
+# AI-assisted translation; native-speaker review pending.
+tethered.title = Ühendatud kaameraga pildistamine
+tethered.capture = Tee foto
+tethered.invalid_name = Vali 1–120 baidi pikkune nimi, milles pole kaldkriipse, kooloneid ega protsendimärke ja mis ei alga punktiga.
+tethered.install = Süsteemi kaamerateek pole saadaval. Paigalda oma platvormi kaamera käituskeskkond ja käivita Schist uuesti.
+tethered.timeout = Kaamerapäring aegus. Kontrolli kaamerat ja ühenda see enne uuesti proovimist uuesti.
+tethered.failed = Kaamerapäring nurjus: {detail}
+tethered.unsupported = See kaamera ei teata kaugjuhtimisega pildistamise toest.
+tethered.no_download = Kaamera ei edastanud terviklikku pilti. Originaalid jäävad kaamerasse alles.
+tethered.session_help = Vali kaamera ja seejärel Tee foto. Esimesel pildistamisel vali salvestuskoht ja failinime eesliide; fotodele lisatakse järjekorranumber ja kaamera faili laiend. Salvesta nimega… muudab salvestuskohta ja eesliidet.
+tethered.preview_failed = Foto salvestati ja imporditi, kuid selle eelvaadet ei õnnestunud dekodeerida. Ava fail selle kontrollimiseks redaktoris.
+tethered.partial = Osa fotosid salvestati ja imporditi, kuid ülejäänuid ei saanud salvestada: {error}
+tethered.camera_permission = Luba kaamerale juurdepääs menüüs Süsteemi seaded → Privaatsus ja turvalisus → Kaamera ning proovi uuesti nuppu Tee foto. Kui Schist käivitati terminalist, kontrolli ka selle terminali kaameraluba.
+tethered.camera_usage_missing = Sellest versioonist puudub kaamera kasutusloa kirjeldus. Ehita Schist käsuga make uuesti või kasuta pakendatud rakendust.
+tethered.select_camera = Vali pildistamiseks kaamera.
+tethered.choose_destination = Tee foto küsib, kuhu fotod salvestada.
+tethered.preview_empty = Tee foto, et seda siin näha.
+tethered.save_local = Salvesta kohalikult
+tethered.save_cloud = Salvesta pilve
+tethered.cloud_help = Fotod laaditakse üles valitud Schist Cloudi sihtkohta. Kohalikku galeriikoopiat ei säilitata.
+tethered.cloud_pending = Lõpetamata üleslaadimised hoitakse asukohas {path}.

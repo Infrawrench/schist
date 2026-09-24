@@ -1,0 +1,21 @@
+# AI-assisted translation; native-speaker review pending.
+tethered.title = Fakana sary amin’ny fakantsary mifandray
+tethered.capture = Maka sary
+tethered.invalid_name = Misafidiana anarana mirefy 1–120 byte, tsy misy tsipika mitongilana, teboka roa, mariky ny isan-jato, na teboka eo am-piandohana.
+tethered.install = Tsy misy ny tranombokin’ny fakantsary ao amin’ny rafitra. Apetraho ny rindranasa fampandehanana fakantsary ho an’ity sehatra ity, ary avereno alefa ny Schist.
+tethered.timeout = Tapitra ny fotoana niandrasana ny fangatahana tamin’ny fakantsary. Jereo sy ampifandraiso indray ny fakantsary vao manandrana indray.
+tethered.failed = Tsy nahomby ny fangatahana tamin’ny fakantsary: {detail}
+tethered.unsupported = Tsy milaza ity fakantsary ity fa mahazaka fakana sary avy lavitra.
+tethered.no_download = Tsy nandefa sary feno ny fakantsary. Mijanona ao amin’ny fakantsary ny sary tany am-boalohany.
+tethered.session_help = Misafidiana fakantsary, avy eo tsindrio Maka sary. Amin’ny sary voalohany dia fidio ny toerana hitahirizana sy ny tovona amin’ny anaran’ny rakitra; ampiana laharana mifandimby sy fanitarana rakitra avy amin’ny fakantsary ny sary tsirairay. Ny Tehirizo ho dia manova ny toerana sy ny tovona.
+tethered.preview_failed = Voatahiry sy nafarana ilay sary, saingy tsy voavaha ny fijerena mialoha azy. Sokafy ao amin’ny tonian-dahatsoratra ilay rakitra mba hijerena azy.
+tethered.partial = Voatahiry sy nafarana ny rakitra sary sasany; tsy voatahiry kosa ny ambiny: {error}
+tethered.camera_permission = Avelao ny fahazoan’ny fakantsary miasa ao amin’ny Fikirana rafitra → Fiainana manokana sy fiarovana → Fakantsary, avy eo andramo indray ny Maka sary. Raha avy amin’ny terminal no nanombohana ny Schist, jereo koa ny fahazoan-dalan’io terminal io hampiasa ny fakantsary.
+tethered.camera_usage_missing = Tsy ao anatin’ity fananganana ity ny fanazavana momba ny fahazoan-dalana hampiasa fakantsary. Avereno atsangana amin’ny make ny Schist na ampiasao ny fampiharana efa voafono.
+tethered.select_camera = Misafidiana fakantsary mba haka sary.
+tethered.choose_destination = Hanontany ny toerana hitahirizana ny sarinao ny Maka sary.
+tethered.preview_empty = Maka sary mba hahitana azy eto.
+tethered.save_local = Tehirizo eto an-toerana
+tethered.save_cloud = Tehirizo ao amin’ny rahona
+tethered.cloud_help = Ampakarina any amin’ny toerana voafidy ao amin’ny Schist Cloud ny sary nalaina. Tsy tehirizina ao amin’ny tahiry sary eto an-toerana ny dika mitovy.
+tethered.cloud_pending = Ny fampakarana mbola tsy vita dia tehirizina ao amin’ny {path}.

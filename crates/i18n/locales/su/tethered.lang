@@ -1,0 +1,21 @@
+# AI-assisted translation; native-speaker review pending.
+tethered.title = Motrét nganggo kaméra nu disambungkeun
+tethered.capture = Candak poto
+tethered.invalid_name = Pilih ngaran nu panjangna 1–120 bait, tanpa garis miring, titik dua, tanda persén, atawa titik di hareup.
+tethered.install = Pustaka kaméra sistem teu sadia. Pasang runtime kaméra pikeun platform ieu, tuluy balikan deui Schist.
+tethered.timeout = Paménta ka kaméra béak waktuna. Pariksa kaméra sarta sambungkeun deui saméméh nyobaan deui.
+tethered.failed = Paménta ka kaméra gagal: {detail}
+tethered.unsupported = Kaméra ieu teu nyatakeun yén éta ngarojong motrét tina jarak jauh.
+tethered.no_download = Kaméra teu ngirimkeun gambar nu lengkep. Berkas asli tetep disimpen dina kaméra.
+tethered.session_help = Pilih kaméra, tuluy pencét Candak poto. Nalika motrét munggaran, pilih tempat nyimpen jeung awalan ngaran berkas; unggal poto bakal ditambahan nomer runtuyan jeung éksténsi berkas ti kaméra. Simpen Salaku… ngarobah tempat nyimpen jeung awalan ngaran.
+tethered.preview_failed = Poto geus disimpen jeung diimpor, tapi sawanganana teu bisa didekodekeun. Buka dina éditor pikeun mariksa berkasna.
+tethered.partial = Sababaraha berkas poto geus disimpen jeung diimpor; berkas séjénna teu bisa disimpen: {error}
+tethered.camera_permission = Idinan aksés kaméra dina System Settings → Privacy & Security → Camera, tuluy coba deui Candak poto. Lamun Schist dijalankeun tina terminal, pariksa ogé idin kaméra pikeun terminal éta.
+tethered.camera_usage_missing = Wangunan aplikasi ieu teu boga katerangan idin kaméra. Wangun deui Schist ku make atawa paké aplikasi nu geus dipakétkeun.
+tethered.select_camera = Pilih kaméra pikeun motrét.
+tethered.choose_destination = Candak poto bakal ménta anjeun milih tempat nyimpen poto.
+tethered.preview_empty = Candak poto pikeun ningalina di dieu.
+tethered.save_local = Simpen dina alat ieu
+tethered.save_cloud = Simpen ka méga
+tethered.cloud_help = Poto nu dicandak diunggah ka tempat nu dipilih dina Schist Cloud. Teu aya salinan nu disimpen dina galeri lokal.
+tethered.cloud_pending = Unggahan nu can réngsé disimpen di {path}.

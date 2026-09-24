@@ -1,0 +1,21 @@
+# AI-assisted translation; native-speaker review pending.
+tethered.title = Fotografar cun ina camera colliada
+tethered.capture = Far ina fotografia
+tethered.invalid_name = Tschernai in num da 1–120 bytes senza stritgs oblics, dus puncts, segns da procent u punct a l'entschatta.
+tethered.install = La biblioteca da camera dal sistem n'è betg disponibla. Installai il runtime da camera da la plattafurma e reaviai Schist.
+tethered.timeout = La dumonda a la camera è scadida. Controllai la camera e collii ella danovamain avant da reempruvar.
+tethered.failed = La dumonda a la camera n'è betg reussida: {detail}
+tethered.unsupported = Questa camera na inditgescha betg ch'ella sustegnia la registraziun da fotografias a distanza.
+tethered.no_download = La camera n'ha betg tramess in maletg cumplett. Ils originals restan sin la camera.
+tethered.session_help = Tschernai ina camera, lura Far ina fotografia. Tar l'emprima fotografia tschernai in lieu da memorisar ed in prefix per il num da datoteca; a las fotografias vegnan agiuntads in numer consecutiv e l'extensiun da la datoteca da la camera. Memorisar sco… mida il lieu ed il prefix.
+tethered.preview_failed = La fotografia è vegnida memorisada ed importada, ma sia prevista n'ha betg pudì vegnir decodada. Avri ella en l'editur per examinar la datoteca.
+tethered.partial = Intginas datotecas da fotografias èn vegnidas memorisadas ed importadas; las ulteriuras n'han betg pudì vegnir memorisadas: {error}
+tethered.camera_permission = Permettai l'access a la camera en Configuraziuns dal sistem → Sfera privata e segirezza → Camera, lura empruvai danovamain Far ina fotografia. Sche Schist è vegnì avià d'in terminal, controllai er la permissiun da camera da quel terminal.
+tethered.camera_usage_missing = A questa versiun manca la descripziun da la permissiun da camera. Cumpilai Schist danovamain cun make u utilisai l'applicaziun pachetada.
+tethered.select_camera = Tschernai ina camera per far ina fotografia.
+tethered.choose_destination = Far ina fotografia dumonda nua memorisar vossas fotografias.
+tethered.preview_empty = Faschai ina fotografia per vesair ella qua.
+tethered.save_local = Memorisar localmain
+tethered.save_cloud = Memorisar en la nivla
+tethered.cloud_help = Las fotografias vegnan chargiadas a la destinaziun tschernida en Schist Cloud. Nagina copia na vegn memorisada en la galaria locala.
+tethered.cloud_pending = Transfers betg anc terminads vegnan memorisads en {path}.

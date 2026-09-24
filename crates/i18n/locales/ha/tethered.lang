@@ -1,0 +1,21 @@
+# AI-assisted translation; native-speaker review pending.
+tethered.title = Ɗaukar hoto da kyamara mai haɗe
+tethered.capture = Ɗauki hoto
+tethered.invalid_name = Zaɓi suna mai tsawon baiti 1–120 ba tare da alamun /, : ko % ba, kuma kada ya fara da digo.
+tethered.install = Babu ɗakin karatu na kyamara na tsarin. Shigar da yanayin gudanar da kyamara na wannan dandali, sannan a sake kunna Schist.
+tethered.timeout = Lokacin jiran buƙatar kyamara ya ƙare. Duba kyamara, sannan a sake haɗa ta kafin sake gwadawa.
+tethered.failed = Buƙatar kyamara ta gaza: {detail}
+tethered.unsupported = Wannan kyamarar ba ta nuna cewa tana goyon bayan ɗaukar hoto daga nesa ba.
+tethered.no_download = Kyamarar ba ta aika cikakken hoto ba. Ana barin hotunan asali a cikin kyamarar.
+tethered.session_help = Zaɓi kyamara, sannan Ɗauki hoto. A karon farko da za a ɗauki hoto, zaɓi wurin adanawa da farkon sunan fayil; ana ƙara lambar jere da ƙarin sunan fayil na kyamara ga hotunan. Ajiye Kamar… yana sauya wurin adanawa da farkon sunan fayil.
+tethered.preview_failed = An ajiye hoton kuma an shigo da shi, amma ba a iya warware samfotin sa ba. Buɗe fayil ɗin a cikin edita don duba shi.
+tethered.partial = An ajiye wasu fayilolin hoto kuma an shigo da su; ba a iya ajiye sauran fayilolin ba: {error}
+tethered.camera_permission = Ba da izinin amfani da kyamara a Saitunan Tsari → Sirri da Tsaro → Kyamara, sannan a sake gwada Ɗauki hoto. Idan an ƙaddamar da Schist daga tashar umarni, duba izinin kyamarar wannan tashar ma.
+tethered.camera_usage_missing = Wannan ginin ba shi da bayanin izinin kyamara. Sake gina Schist da make ko amfani da manhajar da aka shirya.
+tethered.select_camera = Zaɓi kyamara don ɗaukar hoto.
+tethered.choose_destination = Ɗauki hoto zai tambayi inda za a adana hotunanka.
+tethered.preview_empty = Ɗauki hoto don ganinsa a nan.
+tethered.save_local = Ajiye a na’ura
+tethered.save_cloud = Ajiye a cloud
+tethered.cloud_help = Ana loda hotunan zuwa wurin Schist Cloud da aka zaɓa. Ba a ajiye kwafi a ma’ajiyar hotuna ta na’urar ba.
+tethered.cloud_pending = Ana ajiye lodawar da ba ta kammala ba a {path}.

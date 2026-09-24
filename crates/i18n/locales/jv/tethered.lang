@@ -1,0 +1,21 @@
+# AI-assisted translation; native-speaker review pending.
+tethered.title = Motret nganggo kamera sing disambungake
+tethered.capture = Jupuk foto
+tethered.invalid_name = Pilih jeneng sing dawane 1–120 bita, tanpa garis miring, tandha titik loro, tandha persen, utawa titik ing wiwitan.
+tethered.install = Pustaka kamera sistem ora kasedhiya. Pasang lingkungan kamera kanggo platform iki banjur wiwiti maneh Schist.
+tethered.timeout = Wektu panjaluk menyang kamera wis entek. Priksa kamera lan sambungake maneh sadurunge nyoba maneh.
+tethered.failed = Panjaluk menyang kamera gagal: {detail}
+tethered.unsupported = Kamera iki ora nuduhake manawa ndhukung njupuk gambar saka adoh.
+tethered.no_download = Kamera ora ngirim gambar sing wutuh. Gambar asline tetep ana ing kamera.
+tethered.session_help = Pilih kamera, banjur Jupuk foto. Nalika njupuk foto kapisan, pilih panggonan nyimpen lan ater-ater jeneng berkas; saben foto oleh nomer urut lan ekstensi berkas saka kamera. Simpen Minangka… ngganti panggonan nyimpen lan ater-ater mau.
+tethered.preview_failed = Foto wis disimpen lan diimpor, nanging pratinjaune ora bisa didekode. Bukak berkas ing panyunting kanggo mriksa.
+tethered.partial = Sawetara berkas foto wis disimpen lan diimpor; berkas liyane ora bisa disimpen: {error}
+tethered.camera_permission = Wenehana idin ngakses kamera ing Setelan Sistem → Privasi lan Keamanan → Kamera, banjur coba Jupuk foto maneh. Yen Schist diwiwiti saka terminal, priksa uga idin kamera kanggo terminal kuwi.
+tethered.camera_usage_missing = Versi iki ora nduweni katrangan idin kamera. Bangun maneh Schist nganggo make utawa gunakake aplikasi sing wis dikemas.
+tethered.select_camera = Pilih kamera kanggo njupuk foto.
+tethered.choose_destination = Jupuk foto bakal takon ing ngendi foto arep disimpen.
+tethered.preview_empty = Jupuk foto supaya katon ing kene.
+tethered.save_local = Simpen ing piranti
+tethered.save_cloud = Simpen ing cloud
+tethered.cloud_help = Foto bakal diunggah menyang tujuan Schist Cloud sing dipilih. Ora ana salinan sing disimpen ing galeri lokal.
+tethered.cloud_pending = Unggahan sing durung rampung disimpen ing {path}.

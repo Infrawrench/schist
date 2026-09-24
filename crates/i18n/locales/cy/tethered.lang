@@ -1,0 +1,21 @@
+# AI-assisted translation; native-speaker review pending.
+tethered.title = Tynnu lluniau gyda chamera cysylltiedig
+tethered.capture = Tynnu llun
+tethered.invalid_name = Dewiswch enw o 1–120 beit heb slaesau, colonau, arwyddion canran na dot ar y dechrau.
+tethered.install = Nid yw llyfrgell camera'r system ar gael. Gosodwch amgylchedd rhedeg camera'r platfform ac ailgychwyn Schist.
+tethered.timeout = Daeth yr amser ar gyfer cais i'r camera i ben. Gwiriwch y camera a'i ailgysylltu cyn rhoi cynnig arall arni.
+tethered.failed = Methodd y cais i'r camera: {detail}
+tethered.unsupported = Nid yw'r camera hwn yn nodi ei fod yn cefnogi tynnu lluniau o bell.
+tethered.no_download = Ni anfonodd y camera ddelwedd gyflawn. Cedwir y ffeiliau gwreiddiol ar y camera.
+tethered.session_help = Dewiswch gamera, yna Tynnu llun. Wrth dynnu'r llun cyntaf, dewiswch gyrchfan a rhagddodiad enw ffeil; ychwanegir rhif dilyniant ac estyniad ffeil y camera at bob llun. Mae Cadw Fel… yn newid y gyrchfan a'r rhagddodiad.
+tethered.preview_failed = Cadwyd a mewnforiwyd y llun, ond ni ellid dadgodio ei ragolwg. Agorwch ef yn y golygydd i archwilio'r ffeil.
+tethered.partial = Cadwyd a mewnforiwyd rhai ffeiliau lluniau; ni ellid cadw'r gweddill: {error}
+tethered.camera_permission = Caniatewch fynediad i'r camera yn Gosodiadau System → Preifatrwydd a Diogelwch → Camera, yna rhowch gynnig arall ar Tynnu llun. Os lansiwyd Schist o derfynell, gwiriwch ganiatâd camera'r derfynell honno hefyd.
+tethered.camera_usage_missing = Mae'r disgrifiad o ganiatâd camera ar goll o'r adeiladwaith hwn. Ailadeiladwch Schist gyda make neu defnyddiwch yr ap wedi'i becynnu.
+tethered.select_camera = Dewiswch gamera i dynnu llun.
+tethered.choose_destination = Bydd Tynnu llun yn gofyn ble i gadw'ch lluniau.
+tethered.preview_empty = Tynnwch lun i'w weld yma.
+tethered.save_local = Cadw'n lleol
+tethered.save_cloud = Cadw yn y cwmwl
+tethered.cloud_help = Caiff lluniau eu huwchlwytho i'r gyrchfan a ddewiswyd yn Schist Cloud. Ni chedwir copi yn yr oriel leol.
+tethered.cloud_pending = Cedwir uwchlwythiadau nad ydynt wedi gorffen yn {path}.
