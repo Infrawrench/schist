@@ -102,6 +102,7 @@ impl Walker<'_> {
                         size: blur_radius,
                         technique: style::Technique::Softer,
                         from_edge: true,
+                        falloff: style::GlowFalloff::Gaussian,
                     };
                     if &tag == b"OutG" {
                         layer.style.outer_glow = on(settings);

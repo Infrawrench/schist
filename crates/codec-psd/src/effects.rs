@@ -10,6 +10,7 @@
 //! in comments rather than guessed at from the name.
 
 use schist_color::Rgba;
+use schist_core::style::GlowFalloff;
 use schist_core::{
     BevelStyle, BevelStyle_, BlendMode, ColorOverlayStyle, Effect, GlowStyle, GradientOverlayStyle,
     GradientShape, LayerStyle, SatinStyle, ShadowStyle, StrokePosition, StrokeStyle, Technique,
@@ -62,15 +63,15 @@ fn blend_to_key(mode: BlendMode) -> &'static str {
 
 fn key_to_blend(key: &str) -> BlendMode {
     let psd = match key {
-        "Nrml" => b"norm",
-        "Dslv" => b"diss",
-        "Drkn" => b"dark",
-        "Mltp" => b"mul ",
+        "Nrml" | "normal" => b"norm",
+        "Dslv" | "dissolve" => b"diss",
+        "Drkn" | "darken" => b"dark",
+        "Mltp" | "multiply" => b"mul ",
         "CBrn" => b"idiv",
         "linearBurn" => b"lbrn",
         "darkerColor" => b"dkCl",
         "Lghn" => b"lite",
-        "Scrn" => b"scrn",
+        "Scrn" | "screen" => b"scrn",
         "CDdg" => b"div ",
         "linearDodge" => b"lddg",
         "lighterColor" => b"lgCl",
@@ -252,6 +253,14 @@ fn read_glow(d: &Descriptor, inner: bool) -> GlowStyle {
             Some(Value::Enum(_, v)) if v == "PrBL" => Technique::Precise,
             _ => Technique::Softer,
         },
+        falloff: if d.get("schistGaussianGlow").and_then(Value::as_bool) == Some(true) {
+            GlowFalloff::Gaussian
+        } else {
+            GlowFalloff::Photoshop {
+                range: pct(d, "Inpr", 0.5),
+                noise: pct(d, "Nose", 0.0),
+            }
+        },
         from_edge: if inner {
             !matches!(d.get("glwS"), Some(Value::Enum(_, v)) if v == "SrcC")
         } else {
@@ -429,9 +438,18 @@ fn glow_builder(g: &GlowStyle, inner: bool) -> Builder {
     b.enumerated("Md  ", "BlnM", blend_to_key(g.blend));
     write_color(&mut b, "Clr ", g.color);
     b.percent("Opct", (g.opacity * 100.0) as f64)
-        .percent("Nose", 0.0)
         .percent("Ckmt", (g.spread * 100.0) as f64)
         .pixels("blur", g.size as f64);
+    match g.falloff {
+        GlowFalloff::Gaussian => {
+            // Preserve the renderer used by older Schist/Affinity styles.
+            b.bool("schistGaussianGlow", true).percent("Nose", 0.0);
+        }
+        GlowFalloff::Photoshop { range, noise } => {
+            b.percent("Inpr", (range * 100.0) as f64)
+                .percent("Nose", (noise * 100.0) as f64);
+        }
+    }
     b.enumerated(
         "GlwT",
         "BETE",
@@ -605,6 +623,7 @@ mod tests {
         let (a, b) = (after.inner_glow.settings, before.inner_glow.settings);
         assert_eq!(a.technique, b.technique, "glow technique");
         assert_eq!(a.from_edge, b.from_edge, "glow source");
+        assert_eq!(a.falloff, b.falloff, "glow falloff");
         close(a.size, b.size, "glow size");
 
         let (a, b) = (after.bevel.settings, before.bevel.settings);

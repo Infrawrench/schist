@@ -1,5 +1,6 @@
 //! A layer style is a single resident graph, including its blend order.
 use super::*;
+use schist_core::style::GlowFalloff;
 use schist_fx::{ComputeProgram, ComputeShader, ComputeSource};
 
 static STYLE: ComputeShader = ComputeShader::new(
@@ -156,14 +157,42 @@ impl Builder {
                 a = self.invert(a);
             }
         }
+        let (spread, blur) = glow::parameters(g);
         a = match g.technique {
-            Technique::Softer => self.blur(a, g.size),
+            Technique::Softer => {
+                if matches!(g.falloff, GlowFalloff::Photoshop { .. }) {
+                    if spread > 0 {
+                        a = self.emit(a, a, vec![11.0, spread as f32, 0.0], 1);
+                        a = self.emit(a, a, vec![11.0, spread as f32, 1.0], 1);
+                    }
+                    self.blur(a, blur)
+                } else {
+                    self.blur(a, g.size)
+                }
+            }
             Technique::Precise => {
                 let d = self.distance(a, g.size + 2.0);
                 self.emit(d, d, vec![6.0, 0.0, g.size, 1.0], 1)
             }
         };
-        self.color(a, g.color, g.spread, false)
+        match g.falloff {
+            GlowFalloff::Gaussian => self.color(a, g.color, g.spread, false),
+            GlowFalloff::Photoshop { range, noise } => {
+                a = self.emit(
+                    a,
+                    a,
+                    vec![
+                        12.0,
+                        range,
+                        noise,
+                        self.rect.left as f32,
+                        self.rect.top as f32,
+                    ],
+                    1,
+                );
+                self.color(a, g.color, 0.0, false)
+            }
+        }
     }
 }
 

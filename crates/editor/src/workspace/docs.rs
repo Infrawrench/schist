@@ -127,6 +127,9 @@ impl Workspace {
             self.active_tab = self.background_tabs.len();
         }
         self.doc = Some(doc);
+        // Imported effects have settings but no styled raster yet. Build
+        // it before the first canvas, navigator or export composite.
+        self.refresh_layer_styles();
         self.reset_per_document_caches();
         self.zoom = 1.0;
         self.offset = point(px(40.0), px(40.0));
