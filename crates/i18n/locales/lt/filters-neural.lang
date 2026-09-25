@@ -129,3 +129,7 @@ filter.neural.sketch_to_portrait.name = Eskizas į portretą
 filter.neural.sketch_to_portrait.param.detail = Išlaikyti linijas
 filter.neural.sketch_to_portrait.msg.with_face = Išmokytas užpildyti šios programos sukurtą „Nuotrauka į eskizą“ rezultatą. Veikia aptiktą veidą.
 filter.neural.sketch_to_portrait.msg.no_face = Išmokytas užpildyti šios programos sukurtą „Nuotrauka į eskizą“ rezultatą. Įdiekite Faces (Skin Smoothing), ir jis apdoros veidą, o ne visą pažymėtą sritį.
+
+# User-trained Anti-Smudge model (feature name).
+filter.neural.anti_smudge.name = Anti-Smudge
+filter.neural.anti_smudge.msg.no_model = {model} neįdiegtas, todėl niekas nekeičiama.

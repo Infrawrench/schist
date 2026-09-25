@@ -159,3 +159,7 @@ filter.neural.sketch_to_portrait.name = Guhindura igicapo portrait
 filter.neural.sketch_to_portrait.param.detail = Kugumana imirongo
 filter.neural.sketch_to_portrait.msg.with_face = Yamenyerejwe kwuzuza Guhindura ifoto igicapo y'iyi porogaramu. Ikorera ku maso ibonye.
 filter.neural.sketch_to_portrait.msg.no_face = Yamenyerejwe kwuzuza Guhindura ifoto igicapo y'iyi porogaramu. Shiramwo Faces (Skin Smoothing) maze ikorere ku maso aho gukorera ku vyatoranijwe vyose.
+
+# User-trained Anti-Smudge model (feature name).
+filter.neural.anti_smudge.name = Anti-Smudge
+filter.neural.anti_smudge.msg.no_model = {model} ntishizwemwo, rero nta co ibi bikora.

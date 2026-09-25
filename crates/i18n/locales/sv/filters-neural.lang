@@ -166,3 +166,7 @@ filter.neural.sketch_to_portrait.name = Skiss till porträtt
 filter.neural.sketch_to_portrait.param.detail = Behåll linjer
 filter.neural.sketch_to_portrait.msg.with_face = Tränad att fylla i programmets egna Foto till skiss. Arbetar på det ansikte den hittar.
 filter.neural.sketch_to_portrait.msg.no_face = Tränad att fylla i programmets egna Foto till skiss. Installera Faces (Skin Smoothing) så arbetar den på ansiktet i stället för hela markeringen.
+
+# User-trained Anti-Smudge model (feature name).
+filter.neural.anti_smudge.name = Anti-Smudge
+filter.neural.anti_smudge.msg.no_model = {model} är inte installerad, så det här gör ingenting.

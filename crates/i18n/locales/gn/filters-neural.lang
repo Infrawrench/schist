@@ -129,3 +129,7 @@ filter.neural.sketch_to_portrait.name = Skitságui retrátope
 filter.neural.sketch_to_portrait.param.detail = Ñongatu línea
 filter.neural.sketch_to_portrait.msg.with_face = Oñembokatupyry omyenyhẽ hag̃ua ko aplicación Fotografía skitsápe tee. Omba'apo tova ojuhúvare.
 filter.neural.sketch_to_portrait.msg.no_face = Oñembokatupyry omyenyhẽ hag̃ua ko aplicación Fotografía skitsápe tee. Emohenda Faces (Skin Smoothing) ha omba'apóta tova rehe poravopyre tuichakue rangue.
+
+# User-trained Anti-Smudge model (feature name).
+filter.neural.anti_smudge.name = Anti-Smudge
+filter.neural.anti_smudge.msg.no_model = {model} noñemohendái, upévare mba'eve ndojapói.

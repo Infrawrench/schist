@@ -130,3 +130,7 @@ filter.neural.sketch_to_portrait.name = Skètsa dadi Potrèt
 filter.neural.sketch_to_portrait.param.detail = Jaga Garis
 filter.neural.sketch_to_portrait.msg.with_face = Dilatih kanggo ngisi asil Foto dadi Skètsa duwèké aplikasi iki. Bisa dienggo ing rai sing ditemokaké.
 filter.neural.sketch_to_portrait.msg.no_face = Dilatih kanggo ngisi asil Foto dadi Skètsa duwèké aplikasi iki. Instal Faces (Skin Smoothing) supaya bisa dienggo ing rai, dudu ing pilihan sakabèhé.
+
+# User-trained Anti-Smudge model (feature name).
+filter.neural.anti_smudge.name = Anti-Smudge
+filter.neural.anti_smudge.msg.no_model = {model} durung diinstal, mula iki ora ngowahi apa-apa.

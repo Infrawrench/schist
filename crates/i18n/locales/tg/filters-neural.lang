@@ -151,3 +151,7 @@ filter.neural.sketch_to_portrait.name = Тарҳ ба портрет
 filter.neural.sketch_to_portrait.param.detail = Нигоҳ доштани хатҳо
 filter.neural.sketch_to_portrait.msg.with_face = Барои пурра кардани «Акс ба тарҳ»-и худи ин барнома омӯзонида шудааст. Рӯйи чеҳрае, ки меёбад, кор мекунад.
 filter.neural.sketch_to_portrait.msg.no_face = Барои пурра кардани «Акс ба тарҳ»-и худи ин барнома омӯзонида шудааст. Faces (Skin Smoothing)-ро насб кунед, то он ба ҷойи тамоми интихоб рӯйи чеҳра кор кунад.
+
+# User-trained Anti-Smudge model (feature name).
+filter.neural.anti_smudge.name = Anti-Smudge
+filter.neural.anti_smudge.msg.no_model = {model} насб нашудааст, бинобар ин ин амал натиҷае намедиҳад.

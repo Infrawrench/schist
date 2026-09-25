@@ -129,3 +129,7 @@ filter.neural.sketch_to_portrait.name = Skitsa til portrettmynd
 filter.neural.sketch_to_portrait.param.detail = Varðveit linjur
 filter.neural.sketch_to_portrait.msg.with_face = Vant at fylla egnu Fotomynd til skitsu hjá hesum forritinum út. Virkar á andlitinum, tað finnur.
 filter.neural.sketch_to_portrait.msg.no_face = Vant at fylla egnu Fotomynd til skitsu hjá hesum forritinum út. Legg Faces (Skin Smoothing) inn, so virkar tað á andlitinum heldur enn øllum valinum.
+
+# User-trained Anti-Smudge model (feature name).
+filter.neural.anti_smudge.name = Anti-Smudge
+filter.neural.anti_smudge.msg.no_model = {model} er ikki lagdur inn, so einki hendir.

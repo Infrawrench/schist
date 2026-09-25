@@ -151,3 +151,7 @@ filter.neural.sketch_to_portrait.name = Skica na portrét
 filter.neural.sketch_to_portrait.param.detail = Zachovať čiary
 filter.neural.sketch_to_portrait.msg.with_face = Model je vytrénovaný na dopĺňanie výstupu filtra Fotografia na skicu tejto aplikácie. Pracuje s tvárou, ktorú nájde.
 filter.neural.sketch_to_portrait.msg.no_face = Model je vytrénovaný na dopĺňanie výstupu filtra Fotografia na skicu tejto aplikácie. Nainštalujte Faces (Skin Smoothing), aby pracoval s tvárou namiesto celého výberu.
+
+# User-trained Anti-Smudge model (feature name).
+filter.neural.anti_smudge.name = Anti-Smudge
+filter.neural.anti_smudge.msg.no_model = Model {model} nie je nainštalovaný, takže sa nič nezmení.

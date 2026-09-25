@@ -103,7 +103,7 @@ fn padding_and_grouped_transposed_convolution_match_tract() {
         id: "gpu-pad-convtranspose",
         name: "GPU regression",
         file: "",
-        url: None,
+        source: schist_neural::ModelSource::BuiltIn,
         sha256: None,
         bytes: 0,
         input: Input::Frame {

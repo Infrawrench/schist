@@ -162,3 +162,7 @@ filter.neural.sketch_to_portrait.name = කටුසටහනෙන් ආලේ
 filter.neural.sketch_to_portrait.param.detail = රේඛා රඳවාගන්න
 filter.neural.sketch_to_portrait.msg.with_face = මෙම යෙදුමේම ඡායාරූපයෙන් කටුසටහනක් විශේෂාංගයෙන් සෑදූ කටුසටහන් පිරවීමට පුහුණු කර ඇත. එය සොයාගන්නා මුහුණ මත ක්‍රියා කරයි.
 filter.neural.sketch_to_portrait.msg.no_face = මෙම යෙදුමේම ඡායාරූපයෙන් කටුසටහනක් විශේෂාංගයෙන් සෑදූ කටුසටහන් පිරවීමට පුහුණු කර ඇත. Faces (Skin Smoothing) ස්ථාපනය කළ විට එය සම්පූර්ණ තේරීම වෙනුවට මුහුණ මත ක්‍රියා කරනු ඇත.
+
+# User-trained Anti-Smudge model (feature name).
+filter.neural.anti_smudge.name = Anti-Smudge
+filter.neural.anti_smudge.msg.no_model = {model} ස්ථාපනය කර නැත, එබැවින් මෙය කිසිවක් නොකරයි.

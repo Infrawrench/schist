@@ -129,3 +129,7 @@ filter.neural.sketch_to_portrait.name = Eskizdən portretə
 filter.neural.sketch_to_portrait.param.detail = Xətləri saxla
 filter.neural.sketch_to_portrait.msg.with_face = Bu tətbiqin öz Fotodan eskizə nəticəsini doldurmaq üçün öyrədilib. Tapdığı üz üzərində işləyir.
 filter.neural.sketch_to_portrait.msg.no_face = Bu tətbiqin öz Fotodan eskizə nəticəsini doldurmaq üçün öyrədilib. Faces (Skin Smoothing) quraşdırın və o, bütün seçim əvəzinə üz üzərində işləyəcək.
+
+# User-trained Anti-Smudge model (feature name).
+filter.neural.anti_smudge.name = Anti-Smudge
+filter.neural.anti_smudge.msg.no_model = {model} quraşdırılmayıb, buna görə əməliyyat təsirsizdir.

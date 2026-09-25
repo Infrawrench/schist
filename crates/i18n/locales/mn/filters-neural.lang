@@ -129,3 +129,7 @@ filter.neural.sketch_to_portrait.name = Нооргоос хөрөг
 filter.neural.sketch_to_portrait.param.detail = Шугам хадгалах
 filter.neural.sketch_to_portrait.msg.with_face = Энэ аппын өөрийн Фото зургаас ноорог үр дүнг нөхөхөөр сургасан. Олсон нүүр дээр ажиллана.
 filter.neural.sketch_to_portrait.msg.no_face = Энэ аппын өөрийн Фото зургаас ноорог үр дүнг нөхөхөөр сургасан. Faces (Skin Smoothing) суулгавал бүх сонголтын оронд нүүр дээр ажиллана.
+
+# User-trained Anti-Smudge model (feature name).
+filter.neural.anti_smudge.name = Anti-Smudge
+filter.neural.anti_smudge.msg.no_model = {model} суулгагдаагүй тул өөрчлөлт хийхгүй.

@@ -9,7 +9,8 @@ use tract_onnx::tract_hir::infer::Factoid;
 mod ops;
 #[path = "gpu_metadata.rs"]
 mod shape_metadata;
-static SHADER: ComputeShader = ComputeShader::new("neural-tensor", include_str!("gpu.wgsl"));
+pub(super) static SHADER: ComputeShader =
+    ComputeShader::new("neural-tensor", include_str!("gpu.wgsl"));
 #[derive(Clone)]
 struct Value {
     source: ComputeSource,
@@ -354,6 +355,20 @@ impl Network {
             let mut work = size(&shape)?.saturating_mul(4);
             let params = match node.op_type.as_str() {
                 "Identity" => {
+                    values.insert(node.output[0].clone(), a);
+                    continue;
+                }
+                "Dropout" => {
+                    let opset = proto
+                        .opset_import
+                        .iter()
+                        .find(|o| o.domain.is_empty() || o.domain == "ai.onnx")?
+                        .version;
+                    // Inference Dropout is an identity. Training and mask
+                    // outputs keep tract's implementation.
+                    if opset < 7 || node.input.get(2).is_some_and(|s| !s.is_empty()) {
+                        return None;
+                    }
                     values.insert(node.output[0].clone(), a);
                     continue;
                 }
@@ -800,7 +815,7 @@ impl Network {
                 "LeakyRelu" => vec![2.0, float(node, "alpha", 0.01)],
                 "Sigmoid" => vec![5.0],
                 "Tanh" => vec![6.0],
-                "Add" | "Mul" | "Div" | "Sub" | "Pow" | "Min" | "Max" => {
+                "Add" | "Mul" | "Div" | "Sub" | "Pow" | "Min" | "Max" | "PRelu" => {
                     if node.input.len() != 2 {
                         return None;
                     }
@@ -825,6 +840,7 @@ impl Network {
                             "Sub" => 20.0,
                             "Pow" => 21.0,
                             "Min" => 22.0,
+                            "PRelu" => 30.0,
                             _ => 23.0,
                         },
                         rank as f32,

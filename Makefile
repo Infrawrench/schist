@@ -412,6 +412,14 @@ check-gpu-shaders:
 check-gpu-opportunities:
 	$(CARGO) test -p schist-compositor-gpu --test adjustment_coverage --test compute_programs --test async_filters --test native_parity --test remaining_opportunities
 
+.PHONY: check-neural-gpu lint-neural-gpu fmt-neural-gpu
+check-neural-gpu:
+	$(CARGO) test -p schist-compositor-gpu --test neural_catalog
+lint-neural-gpu:
+	$(CARGO) clippy -p schist-neural -p schist-compositor-gpu --all-targets -- -D warnings
+fmt-neural-gpu:
+	$(CARGO) fmt -p schist-neural -p schist-compositor-gpu
+
 .PHONY: check-gpu-domains
 check-gpu-domains:
 	$(CARGO) test -p schist-adjustments -p schist-core -p schist-layer-fx -p schist-codec-raw -p schist-colormgmt -p schist-vector -p schist-neural -p schist-tools-retouch -p schist-tools-transform -p schist-tools-select -p schist-commands-core -p schist-codecs-common
@@ -973,3 +981,37 @@ lint-export-finishing:
 .PHONY: check-export-finishing-codecs
 check-export-finishing-codecs:
 	$(CARGO) test -p schist-codecs-common tiff
+
+# Experimental lens-scatter restoration. The selected XZ model is bundled;
+# datasets and training runs remain untracked. See docs/anti-smudge.md.
+PYTHON ?= python3
+.PHONY: check-anti-smudge train-anti-smudge fmt-anti-smudge lint-anti-smudge check-anti-smudge-app
+check-anti-smudge: lint-anti-smudge
+	$(PYTHON) -m unittest discover -s tools/train -p 'test_anti_smudge.py'
+	$(CARGO) test -p schist-neural --test anti_smudge
+	$(CARGO) test -p schist-neural --lib catalogue_tests
+	$(CARGO) test -p schist-neural --lib halo::tests
+	$(CARGO) test -p schist-filters-core --lib anti_smudge::tests
+	$(CARGO) test -p schist-filters-core --test anti_smudge
+train-anti-smudge:
+	$(PYTHON) tools/train/anti_smudge.py $(ARGS)
+.PHONY: transfer-anti-smudge
+transfer-anti-smudge:
+	$(PYTHON) tools/train/flare_transfer.py $(ARGS)
+.PHONY: train-anti-smudge-mfdnet
+train-anti-smudge-mfdnet:
+	$(PYTHON) tools/train/mfdnet_transfer.py $(ARGS)
+fmt-anti-smudge:
+	$(CARGO) fmt -p schist-neural -p schist-filters-core -p schist-editor
+lint-anti-smudge:
+	$(CARGO) clippy -p schist-neural -p schist-filters-core -p schist-editor --all-targets -- -D warnings
+check-anti-smudge-app:
+	$(CARGO) check -p schist-editor --all-targets
+.PHONY: fetch-anti-smudge-data fetch-anti-smudge-pairs
+fetch-anti-smudge-data:
+	$(PYTHON) tools/train/flare_data.py $(ARGS)
+fetch-anti-smudge-pairs:
+	$(PYTHON) tools/train/flare_real_data.py $(ARGS)
+.PHONY: run-anti-smudge
+run-anti-smudge:
+	$(CARGO) run $(PROFILE_FLAG) -p schist-neural --example anti_smudge -- $(ARGS)

@@ -129,3 +129,7 @@ filter.neural.sketch_to_portrait.name = ސްކެޗުން ޕޯޓްރެއިޓަށ�
 filter.neural.sketch_to_portrait.param.detail = ރޮނގުތައް ބަހައްޓާ
 filter.neural.sketch_to_portrait.msg.with_face = މި އެޕްލިކޭޝަނުގެ Photo to Sketch ފުރުމަށް ޓްރޭން ކުރި. ފެންނަ މޫނު މަތީ މަސައްކަތް ކުރާނެއެވެ.
 filter.neural.sketch_to_portrait.msg.no_face = މި އެޕްލިކޭޝަނުގެ Photo to Sketch ފުރުމަށް ޓްރޭން ކުރި. Faces (Skin Smoothing) އިންސްޓޯލްކުރުމުން މުޅި ހޮވުމުގެ ބަދަލުގައި މޫނު މަތީ މަސައްކަތް ކުރާނެއެވެ.
+
+# User-trained Anti-Smudge model (feature name).
+filter.neural.anti_smudge.name = Anti-Smudge
+filter.neural.anti_smudge.msg.no_model = {model} އިންސްޓޯލްކޮށްފައެއް ނެތީމާ މިއިން އެއްވެސް ކަމެއް ނުކުރާނެ.

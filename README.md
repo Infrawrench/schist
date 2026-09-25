@@ -322,7 +322,7 @@ Edit that source and run `make logos` (requires Pillow) to regenerate them.
   [RAW](crates/codec-raw/README.md).
 - **Extending Schist:** [Architecture](docs/architecture.md),
   [plugins](docs/plugin-guide.md), [headless library](docs/library.md),
-  [MCP](docs/mcp.md), [AI panel](docs/ai-panel.md),
+  [MCP](docs/mcp.md), [AI panel](docs/ai-panel.md), [Anti-Smudge](docs/anti-smudge.md),
   [shared document engine](docs/document-library.md),
   [internationalisation](docs/i18n.md), [feature flags](docs/feature-flags.md),
   [versioning](docs/versioning.md).

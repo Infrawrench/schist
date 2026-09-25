@@ -6,13 +6,17 @@
 //! program that needs a 300 MB runtime and a matching CUDA to sharpen a
 //! photo is not a paint program anyone will use.
 //!
+//! The installed effects backend runs compatible graphs on the GPU. On native
+//! hosts, graphs with unsupported operators or large tensors also offload
+//! individual convolutions and matrix contractions, with tract handling the
+//! remaining operations and any device failure. See `docs/neural-gpu.md`.
+//!
 //! Two kinds of model:
 //!
 //! * **Built in.** `detail.onnx`, `dejpeg.onnx`, `colorize.onnx`,
-//!   `portrait.onnx`, `inpaint.onnx` and the waifu2x upscalers ship
-//!   inside the binary, a few megabytes between them -- ours were
-//!   trained small on purpose (see `tools/train/`), and waifu2x's
-//!   upconv_7 came small.
+//!   `portrait.onnx`, `inpaint.onnx`, the waifu2x upscalers and
+//!   `anti-smudge.onnx.xz` ship inside the binary. Anti-Smudge stays
+//!   compressed until first use; see `docs/anti-smudge.md` for its provenance.
 //! * **Downloaded.** The style-transfer, depth, face and segmentation
 //!   networks are megabytes to tens of megabytes each and are somebody
 //!   else's work, so they are fetched on demand into the user's data
@@ -24,13 +28,14 @@
 //! faces are, what is near -- sees the whole thing resampled into one
 //! fixed frame.
 //!
-//! Every filter that uses a model also works without it, and so does
+//! Most filters that use a model also work without it, and so does
 //! every tool. The classical implementation is not a stub -- it is the
-//! fallback, and it is what runs when the model is missing, when it
-//! fails, or when it looks at the picture and has nothing to say.
+//! fallback. Anti-Smudge leaves the image unchanged if its model cannot
+//! run. The other fallbacks run when a model is
+//! missing, fails, or looks at the picture and has nothing to say.
 
 use std::collections::HashMap;
-use std::path::{Path, PathBuf};
+use std::path::PathBuf;
 use std::sync::{Arc, OnceLock, RwLock};
 
 use anyhow::{bail, Context as _, Result};
@@ -41,6 +46,7 @@ mod compat;
 mod depth;
 mod gpu;
 mod gpu_image;
+mod gpu_partition;
 // The gallery's search embeddings. Desktop only with the gallery — the
 // tokenizer tables it carries would be dead weight in the wasm module.
 #[cfg(not(target_arch = "wasm32"))]
@@ -49,6 +55,7 @@ mod face_rect;
 mod faces;
 pub use face_rect::{FaceRect, SAME_FACE_IOU};
 mod framed;
+mod halo;
 mod inpaint;
 mod segment;
 mod tile;
@@ -58,16 +65,18 @@ pub use faces::{embed_face, faces, Face, FACE_EMBED_DIM};
 pub use framed::run_framed;
 pub use inpaint::inpaint;
 pub use segment::segment;
-pub use tile::{run_scaled, run_tiled};
+pub use tile::{run_scaled, run_tiled, try_restore, try_run_tiled};
 
 /// The models shipped inside the binary.
 ///
-/// Not on the web: eleven megabytes of baseline download for filters that
+/// Not on the web: tens of megabytes of baseline download for filters that
 /// may never run is the wrong trade there, so the same files are served
 /// beside the app (`tools/web-build.sh` copies them) and fetched into the
 /// in-memory store on demand, like any other download. The catalogue's
 /// `bytes` fields are therefore literals rather than `.len()` of these;
 /// `built_in_sizes_match_the_catalogue` (below) keeps them honest.
+#[cfg(any(not(target_arch = "wasm32"), schist_library))]
+const ANTI_SMUDGE_ONNX_XZ: &[u8] = include_bytes!("../models/anti-smudge.onnx.xz");
 #[cfg(any(not(target_arch = "wasm32"), schist_library))]
 const DETAIL_ONNX: &[u8] = include_bytes!("../models/detail.onnx");
 #[cfg(any(not(target_arch = "wasm32"), schist_library))]
@@ -183,6 +192,13 @@ impl Input {
     }
 }
 
+/// Where a model comes from.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum ModelSource {
+    BuiltIn,
+    Download(&'static str),
+}
+
 /// A model this build knows about.
 #[derive(Debug, Clone)]
 pub struct ModelSpec {
@@ -190,8 +206,7 @@ pub struct ModelSpec {
     pub name: &'static str,
     /// File name inside the model directory.
     pub file: &'static str,
-    /// Where to fetch it, or `None` when it ships with the binary.
-    pub url: Option<&'static str>,
+    pub source: ModelSource,
     /// SHA-256 of the file, so a truncated or substituted download is
     /// rejected rather than run.
     pub sha256: Option<&'static str>,
@@ -205,17 +220,29 @@ pub struct ModelSpec {
 
 impl ModelSpec {
     pub fn built_in(&self) -> bool {
-        self.url.is_none()
+        self.source == ModelSource::BuiltIn
     }
 }
 
 /// Every model the Neural Filters can use.
 pub const CATALOG: &[ModelSpec] = &[
     ModelSpec {
+        id: "anti-smudge",
+        name: "Anti-Smudge",
+        file: "anti-smudge.onnx.xz",
+        source: ModelSource::BuiltIn,
+        sha256: Some("e8a9fa635ecf5bdbedad4944ad7a776d36b12d658dca7e994f73bc408cd2a875"),
+        bytes: 23_504_872, // Compressed artifact size.
+        input: Input::Tiles { size: 2048, overlap: 96, scale: 1 },
+        range: Range::Unit,
+        license: "MFDNet / FlareReal600",
+        note: "", // Provenance and upstream terms are in docs/anti-smudge.md.
+    },
+    ModelSpec {
         id: "detail",
         name: "Detail (Super Zoom)",
         file: "detail.onnx",
-        url: None,
+        source: ModelSource::BuiltIn,
         sha256: None,
         bytes: 156_906,
         input: Input::Tiles {
@@ -232,7 +259,7 @@ pub const CATALOG: &[ModelSpec] = &[
         id: "dejpeg",
         name: "Deblock (JPEG Artifact Removal)",
         file: "dejpeg.onnx",
-        url: None,
+        source: ModelSource::BuiltIn,
         sha256: None,
         bytes: 261_562,
         input: Input::Tiles {
@@ -250,7 +277,7 @@ pub const CATALOG: &[ModelSpec] = &[
         id: "colorize",
         name: "Colour (Colorize)",
         file: "colorize.onnx",
-        url: None,
+        source: ModelSource::BuiltIn,
         sha256: None,
         bytes: 1_864_870,
         // Chroma is low-frequency and colour has to agree across a whole
@@ -271,7 +298,7 @@ pub const CATALOG: &[ModelSpec] = &[
         id: "portrait",
         name: "Portrait (Sketch to Portrait)",
         file: "portrait.onnx",
-        url: None,
+        source: ModelSource::BuiltIn,
         sha256: None,
         bytes: 1_795_756,
         // A face at a time, whole: filling in a drawing means knowing
@@ -291,7 +318,7 @@ pub const CATALOG: &[ModelSpec] = &[
         id: "inpaint",
         name: "Fill (Content-Aware Fill)",
         file: "inpaint.onnx",
-        url: None,
+        source: ModelSource::BuiltIn,
         sha256: None,
         bytes: 2_894_365,
         // The region whole, because the answer for a pixel in the middle
@@ -312,7 +339,7 @@ pub const CATALOG: &[ModelSpec] = &[
         id: "waifu2x-art",
         name: "waifu2x ×2 (Art)",
         file: "waifu2x-art.onnx",
-        url: None,
+        source: ModelSource::BuiltIn,
         sha256: None,
         bytes: 2_213_982,
         input: Input::Tiles {
@@ -330,7 +357,7 @@ pub const CATALOG: &[ModelSpec] = &[
         id: "waifu2x-photo",
         name: "waifu2x ×2 (Photo)",
         file: "waifu2x-photo.onnx",
-        url: None,
+        source: ModelSource::BuiltIn,
         sha256: None,
         bytes: 2_213_982,
         input: Input::Tiles {
@@ -348,7 +375,7 @@ pub const CATALOG: &[ModelSpec] = &[
         id: "style-mosaic",
         name: "Style: Mosaic",
         file: "style-mosaic.onnx",
-        url: Some("https://github.com/onnx/models/raw/main/validated/vision/style_transfer/fast_neural_style/model/mosaic-9.onnx"),
+        source: ModelSource::Download("https://github.com/onnx/models/raw/main/validated/vision/style_transfer/fast_neural_style/model/mosaic-9.onnx"),
         sha256: Some("fa646dedade881243f8d5a2ceb7de2b93675b21fc24f7482894ac4851a9a0a47"),
         bytes: 6_728_029,
         input: Input::Tiles { size: 384, overlap: 32, scale: 1 },
@@ -360,7 +387,7 @@ pub const CATALOG: &[ModelSpec] = &[
         id: "style-candy",
         name: "Style: Candy",
         file: "style-candy.onnx",
-        url: Some("https://github.com/onnx/models/raw/main/validated/vision/style_transfer/fast_neural_style/model/candy-9.onnx"),
+        source: ModelSource::Download("https://github.com/onnx/models/raw/main/validated/vision/style_transfer/fast_neural_style/model/candy-9.onnx"),
         sha256: Some("9d11a3529d1e547da6ae07201d93484dbab2ec0a3614535752c8f40f0fe2968a"),
         bytes: 6_728_029,
         input: Input::Tiles { size: 384, overlap: 32, scale: 1 },
@@ -372,7 +399,7 @@ pub const CATALOG: &[ModelSpec] = &[
         id: "style-udnie",
         name: "Style: Udnie",
         file: "style-udnie.onnx",
-        url: Some("https://github.com/onnx/models/raw/main/validated/vision/style_transfer/fast_neural_style/model/udnie-9.onnx"),
+        source: ModelSource::Download("https://github.com/onnx/models/raw/main/validated/vision/style_transfer/fast_neural_style/model/udnie-9.onnx"),
         sha256: Some("8656b6ce7dec8f22ee13c2d557d6b67bd6f550dde88d0f2e7c9972aeb765cc0d"),
         bytes: 6_728_029,
         input: Input::Tiles { size: 384, overlap: 32, scale: 1 },
@@ -384,7 +411,7 @@ pub const CATALOG: &[ModelSpec] = &[
         id: "depth",
         name: "Depth (Depth Blur)",
         file: "depth.onnx",
-        url: Some("https://github.com/isl-org/MiDaS/releases/download/v2_1/model-small.onnx"),
+        source: ModelSource::Download("https://github.com/isl-org/MiDaS/releases/download/v2_1/model-small.onnx"),
         sha256: Some("2d8c6cb8f415229daf1eb041024208e2608c9f98e17c81cc7c6ecb449c56fd58"),
         bytes: 66_764_249,
         input: Input::Frame { width: 256, height: 256, fit: Fit::Stretch },
@@ -397,7 +424,7 @@ pub const CATALOG: &[ModelSpec] = &[
         id: "segment",
         name: "Objects (Object Selection)",
         file: "segment.onnx",
-        url: Some("https://github.com/danielgatis/rembg/releases/download/v0.0.0/u2netp.onnx"),
+        source: ModelSource::Download("https://github.com/danielgatis/rembg/releases/download/v0.0.0/u2netp.onnx"),
         sha256: Some("309c8469258dda742793dce0ebea8e6dd393174f89934733ecc8b14c76f4ddd8"),
         bytes: 4_574_861,
         input: Input::Frame { width: 320, height: 320, fit: Fit::Stretch },
@@ -411,7 +438,7 @@ pub const CATALOG: &[ModelSpec] = &[
         id: "face",
         name: "Faces (Detection)",
         file: "face.onnx",
-        url: Some("https://github.com/onnx/models/raw/main/validated/vision/body_analysis/ultraface/models/version-RFB-320.onnx"),
+        source: ModelSource::Download("https://github.com/onnx/models/raw/main/validated/vision/body_analysis/ultraface/models/version-RFB-320.onnx"),
         sha256: Some("34cd7e60aeff28744c657de7a3dc64e872d506741de66987f3426f2b79f88017"),
         bytes: 1_270_727,
         input: Input::Frame { width: 320, height: 240, fit: Fit::Contain },
@@ -431,7 +458,7 @@ pub const CATALOG: &[ModelSpec] = &[
         id: "face-embed",
         name: "Faces (Recognition)",
         file: "face-embed.onnx",
-        url: Some("https://github.com/opencv/opencv_zoo/raw/47534e27c9851bb1128ccc0102f1145e27f23f98/models/face_recognition_sface/face_recognition_sface_2021dec.onnx"),
+        source: ModelSource::Download("https://github.com/opencv/opencv_zoo/raw/47534e27c9851bb1128ccc0102f1145e27f23f98/models/face_recognition_sface/face_recognition_sface_2021dec.onnx"),
         sha256: Some("0ba9fbfa01b5270c96627c4ef784da859931e02f04419c829e83484087c34e79"),
         bytes: 38_696_353,
         input: Input::Frame { width: 112, height: 112, fit: Fit::Stretch },
@@ -447,7 +474,7 @@ pub const CATALOG: &[ModelSpec] = &[
         file: "nsfw.onnx",
         // Revision-pinned so the hash below stays true whatever happens
         // to the repository's main branch.
-        url: Some("https://huggingface.co/Sunxyw/nsfwjs-onnx/resolve/38708a81164d44faab3e6fd4c9f2543db5ddf473/onnx/model_quantized.onnx"),
+        source: ModelSource::Download("https://huggingface.co/Sunxyw/nsfwjs-onnx/resolve/38708a81164d44faab3e6fd4c9f2543db5ddf473/onnx/model_quantized.onnx"),
         sha256: Some("547891d566e735260b312fd865c40228e0ea75a1d1dd913653555c94e2ad49fd"),
         bytes: 17_320_391,
         input: Input::Frame { width: 224, height: 224, fit: Fit::Stretch },
@@ -468,7 +495,7 @@ pub const CATALOG: &[ModelSpec] = &[
         id: "embed-image",
         name: "Search (Image Embeddings)",
         file: "embed-image.onnx",
-        url: Some("https://huggingface.co/Xenova/mobileclip_s0/resolve/757d59c9c6870a76a4b0306f05f5061bca15c39f/onnx/vision_model.onnx"),
+        source: ModelSource::Download("https://huggingface.co/Xenova/mobileclip_s0/resolve/757d59c9c6870a76a4b0306f05f5061bca15c39f/onnx/vision_model.onnx"),
         sha256: Some("17d3c037b1d488c10c50e09f6009ea5a198caef4e0e8f4ea5617b7cb2d067ac0"),
         bytes: 45_543_630,
         input: Input::Frame { width: 256, height: 256, fit: Fit::Stretch },
@@ -482,7 +509,7 @@ pub const CATALOG: &[ModelSpec] = &[
         id: "embed-text",
         name: "Search (Text Embeddings)",
         file: "embed-text.onnx",
-        url: Some("https://huggingface.co/Xenova/mobileclip_s0/resolve/757d59c9c6870a76a4b0306f05f5061bca15c39f/onnx/text_model.onnx"),
+        source: ModelSource::Download("https://huggingface.co/Xenova/mobileclip_s0/resolve/757d59c9c6870a76a4b0306f05f5061bca15c39f/onnx/text_model.onnx"),
         sha256: Some("f6e9bd5742bfc515889e901634d8a2ff2a57fab8564e4ad3760e800b1a51b77c"),
         bytes: 169_807_789,
         input: Input::Tokens { context: 77 },
@@ -514,18 +541,17 @@ pub fn download_url(spec: &ModelSpec) -> Option<String> {
     }
     #[cfg(not(target_arch = "wasm32"))]
     {
-        if spec.built_in() {
-            return None;
+        match spec.source {
+            ModelSource::Download(url) => Some(url.to_owned()),
+            ModelSource::BuiltIn => None,
         }
-        spec.url.map(str::to_owned)
     }
 }
 
 /// The web build's model store: fetched bytes, held in memory for the
 /// life of the tab. A browser offers no directory to write into, and the
-/// models are small enough (11 MB for all seven servable ones) that
-/// re-fetching per session — usually straight from the HTTP cache — is
-/// the simpler bargain.
+/// re-fetching per session — usually straight from the HTTP cache — avoids
+/// persistent storage. Compressed models stay compressed in this store.
 #[cfg(target_arch = "wasm32")]
 fn web_store() -> &'static RwLock<HashMap<&'static str, Vec<u8>>> {
     static STORE: OnceLock<RwLock<HashMap<&'static str, Vec<u8>>>> = OnceLock::new();
@@ -564,6 +590,7 @@ pub fn installed(id: &str) -> bool {
 pub struct Model {
     plan: Arc<TypedSimplePlan>,
     gpu: Option<gpu::Network>,
+    partitioned: Option<gpu_partition::Partitioned>,
     /// Planes the graph's input takes, which is three for everything
     /// that sees only colour.
     channels: usize,
@@ -571,6 +598,10 @@ pub struct Model {
     /// Models converted from TF keep that layout; everything trained
     /// for Schist is channels-first.
     nhwc: bool,
+    /// Optional working resolution for models that predict broad lens scatter.
+    restoration_max_side: Option<usize>,
+    restoration_tile_size: Option<usize>,
+    restoration_halo_cleanup: bool,
     pub spec: &'static ModelSpec,
 }
 
@@ -618,13 +649,33 @@ fn declared_nhwc(proto: &tract_onnx::pb::ModelProto) -> bool {
 impl Model {
     /// Load from ONNX bytes, fixing the input to one frame so tract can
     /// optimize the graph completely rather than for an unknown size.
+    /// XZ-compressed ONNX is expanded in memory for parsing.
     pub fn from_bytes(spec: &'static ModelSpec, bytes: &[u8]) -> Result<Model> {
-        let (w, h) = spec.input.dims();
-        let mut cursor = std::io::Cursor::new(bytes);
+        let bytes = decode_model_bytes(bytes)?;
+        let (mut w, mut h) = spec.input.dims();
+        let mut cursor = std::io::Cursor::new(bytes.as_ref());
         let onnx = tract_onnx::onnx();
         let mut proto = onnx
             .proto_model_for_read(&mut cursor)
             .context("not a readable ONNX model")?;
+        let restoration_tile_size = if spec.id == "anti-smudge" {
+            proto
+                .metadata_props
+                .iter()
+                .find(|p| p.key == "schist.tile")
+                .map(|p| p.value.parse::<usize>())
+                .transpose()
+                .context("invalid restoration tile size")?
+        } else {
+            None
+        };
+        if let Some(size) = restoration_tile_size {
+            anyhow::ensure!(
+                (32..=2048).contains(&size) && size % 32 == 0,
+                "restoration tile must be a multiple of 32 in 32..=2048"
+            );
+            (w, h) = (size, size);
+        }
         if compat::modernise(&mut proto) {
             log::debug!("{}: rewrote a pre-opset-10 graph", spec.id);
         }
@@ -633,19 +684,24 @@ impl Model {
             if let Some(graph) = proto.graph.as_mut() {
                 graph.value_info.clear();
             }
-            let plan = onnx
+            let typed = onnx
                 .model_for_proto_model(&proto)
                 .context("not a model tract can parse")?
                 .with_input_fact(0, i64::fact([1, context]).into())
                 .context("model does not take a 1xN token input")?
-                .into_optimized()
-                .context("model uses an operator tract cannot run")?
-                .into_runnable()?;
+                .into_typed()
+                .context("model uses an operator tract cannot run")?;
+            let plan = typed.clone().into_optimized()?.into_runnable()?;
+            let partitioned = gpu_partition::Partitioned::compile(typed);
             return Ok(Model {
                 plan,
                 gpu: None,
+                partitioned,
                 channels: 0,
                 nhwc: false,
+                restoration_max_side: None,
+                restoration_tile_size: None,
+                restoration_halo_cleanup: false,
                 spec,
             });
         }
@@ -656,6 +712,39 @@ impl Model {
         // the graph rather than assuming. TensorFlow conversions keep
         // channels-last instead; ask about that too.
         let nhwc = declared_nhwc(&proto);
+        let restoration_max_side = if spec.id == "anti-smudge" {
+            proto
+                .metadata_props
+                .iter()
+                .find(|p| p.key == "schist.restore_max_side")
+                .map(|p| p.value.parse::<usize>())
+                .transpose()
+                .context("invalid restoration working resolution")?
+        } else {
+            None
+        };
+        anyhow::ensure!(
+            restoration_max_side.is_none_or(|side| (32..=2048).contains(&side)),
+            "restoration working resolution must be 32..=2048"
+        );
+        let restoration_halo_cleanup = if spec.id == "anti-smudge" {
+            match proto
+                .metadata_props
+                .iter()
+                .find(|p| p.key == "schist.halo_cleanup")
+            {
+                Some(p) => {
+                    anyhow::ensure!(
+                        p.value == "radial-v1",
+                        "unsupported restoration halo cleanup"
+                    );
+                    true
+                }
+                None => false,
+            }
+        } else {
+            false
+        };
         let channels = if nhwc {
             3
         } else {
@@ -689,23 +778,45 @@ impl Model {
             },
             &inferred,
         );
-        let plan = inferred
-            .into_optimized()
-            .context("model uses an operator tract cannot run")?
-            .into_runnable()?;
+        let typed = inferred
+            .into_typed()
+            .context("model uses an operator tract cannot run")?;
+        let plan = typed.clone().into_optimized()?.into_runnable()?;
+        let partitioned = if gpu.is_none() {
+            gpu_partition::Partitioned::compile(typed)
+        } else {
+            None
+        };
         Ok(Model {
             plan,
             gpu,
+            partitioned,
             channels,
             nhwc,
+            restoration_max_side,
+            restoration_tile_size,
+            restoration_halo_cleanup,
             spec,
         })
+    }
+
+    fn input_dims(&self) -> (usize, usize) {
+        self.restoration_tile_size
+            .map(|size| (size, size))
+            .unwrap_or_else(|| self.spec.input.dims())
     }
 
     /// The checked resident graph, also submit-able by an asynchronous GPU host.
     /// Input uses the model's declared tensor layout and encoded value range.
     pub fn gpu_program(&self) -> Option<&schist_fx::ComputeProgram> {
         self.gpu.as_ref().map(|g| &g.program)
+    }
+
+    /// Number of GPU contractions available when the graph cannot run entirely
+    /// on-device. Shape/integer operations stay on tract; oversized convolutions
+    /// execute in exact bands without changing the model's input resolution.
+    pub fn gpu_partition_count(&self) -> usize {
+        self.partitioned.as_ref().map_or(0, |p| p.operations)
     }
 
     fn run_input(&self, inputs: TVec<TValue>) -> Result<TVec<TValue>> {
@@ -727,6 +838,11 @@ impl Model {
                 }
             }
         }
+        if schist_fx::backend().compute_available(usize::MAX) {
+            if let Some(partitioned) = &self.partitioned {
+                return partitioned.plan.run(inputs);
+            }
+        }
         self.plan.run(inputs)
     }
 
@@ -738,7 +854,7 @@ impl Model {
     /// Run the graph on planes the caller has already separated, for a
     /// model whose input is not simply three of colour.
     pub(crate) fn run_planes(&self, planes: &[&[f32]]) -> Result<TVec<TValue>> {
-        let (w, h) = self.spec.input.dims();
+        let (w, h) = self.input_dims();
         if planes.len() != self.channels || planes.iter().any(|p| p.len() != w * h) {
             bail!(
                 "expected {} planes of {} floats, got {:?}",
@@ -757,7 +873,7 @@ impl Model {
     /// Run the graph over one frame of interleaved RGB in 0..=1, sized
     /// exactly as the spec says, and hand back its outputs untouched.
     fn run(&self, rgb: &[f32]) -> Result<TVec<TValue>> {
-        let (w, h) = self.spec.input.dims();
+        let (w, h) = self.input_dims();
         if rgb.len() != w * h * 3 {
             bail!("expected {} floats, got {}", w * h * 3, rgb.len());
         }
@@ -803,7 +919,7 @@ impl Model {
     /// `size * size * 3` floats in 0..=1; the result is the same times the
     /// spec's scale factor.
     pub fn run_tile(&self, rgb: &[f32]) -> Result<Vec<f32>> {
-        let (w, h) = self.spec.input.dims();
+        let (w, h) = self.input_dims();
         let scale = self.spec.input.scale();
         let (w, h) = (w * scale, h * scale);
         let out = self.run(rgb)?;
@@ -825,6 +941,9 @@ impl Model {
                     let sy = y.min(oh.saturating_sub(1));
                     let sx = x.min(ow.saturating_sub(1));
                     let v = range.decode(flat[((c * oh) + sy) * ow + sx], c);
+                    if !v.is_finite() {
+                        bail!("model returned a non-finite pixel");
+                    }
                     rgb_out[(y * w + x) * 3 + c] = v.clamp(0.0, 1.0);
                 }
             }
@@ -973,6 +1092,7 @@ fn load(spec: &'static ModelSpec) -> Result<Model> {
 fn load(spec: &'static ModelSpec) -> Result<Model> {
     if spec.built_in() {
         let bytes = match spec.id {
+            "anti-smudge" => ANTI_SMUDGE_ONNX_XZ,
             "detail" => DETAIL_ONNX,
             "dejpeg" => DEJPEG_ONNX,
             "colorize" => COLORIZE_ONNX,
@@ -987,6 +1107,29 @@ fn load(spec: &'static ModelSpec) -> Result<Model> {
     let path = model_dir().join(spec.file);
     let bytes = std::fs::read(&path).with_context(|| format!("{}", path.display()))?;
     Model::from_bytes(spec, &bytes)
+}
+
+/// Bound the temporary allocation when expanding a compressed model.
+const MAX_EXPANDED_MODEL_BYTES: usize = 128 * 1024 * 1024;
+
+/// Expand XZ only while constructing an inference plan. Raw ONNX remains
+/// borrowed; the temporary expanded buffer is dropped after parsing. The
+/// cached Model owns the plan, so subsequent uses do not decompress again.
+fn decode_model_bytes(bytes: &[u8]) -> Result<std::borrow::Cow<'_, [u8]>> {
+    use std::io::Read;
+    if !bytes.starts_with(b"\xfd7zXZ\0") {
+        return Ok(std::borrow::Cow::Borrowed(bytes));
+    }
+    let mut expanded = Vec::new();
+    lzma_rust2::XzReader::new(bytes, false)
+        .take(MAX_EXPANDED_MODEL_BYTES as u64 + 1)
+        .read_to_end(&mut expanded)
+        .context("invalid XZ model")?;
+    anyhow::ensure!(
+        expanded.len() <= MAX_EXPANDED_MODEL_BYTES,
+        "expanded model exceeds 128 MiB"
+    );
+    Ok(std::borrow::Cow::Owned(expanded))
 }
 
 /// Write a downloaded model into the store, rejecting it if the hash does
@@ -1091,12 +1234,6 @@ pub fn path_of(spec: &ModelSpec) -> PathBuf {
     model_dir().join(spec.file)
 }
 
-/// True when `path` is inside the model directory, so callers can refuse
-/// to delete anything else.
-pub fn is_in_store(path: &Path) -> bool {
-    path.starts_with(model_dir())
-}
-
 #[cfg(all(test, not(target_arch = "wasm32")))]
 mod catalogue_tests {
     use super::*;
@@ -1107,6 +1244,7 @@ mod catalogue_tests {
     #[test]
     fn built_in_sizes_match_the_catalogue() {
         for (id, bytes) in [
+            ("anti-smudge", ANTI_SMUDGE_ONNX_XZ),
             ("detail", DETAIL_ONNX),
             ("dejpeg", DEJPEG_ONNX),
             ("colorize", COLORIZE_ONNX),
@@ -1116,7 +1254,28 @@ mod catalogue_tests {
             ("waifu2x-photo", WAIFU2X_PHOTO_ONNX),
         ] {
             assert_eq!(spec(id).unwrap().bytes, bytes.len(), "{id}");
+            if let Some(hash) = spec(id).unwrap().sha256 {
+                assert_eq!(sha256_hex(bytes), hash, "{id}");
+            }
         }
+    }
+
+    #[test]
+    fn compressed_anti_smudge_matches_the_selected_model() {
+        let bytes = decode_model_bytes(ANTI_SMUDGE_ONNX_XZ).unwrap();
+        assert_eq!(bytes.len(), 27_185_281);
+        assert_eq!(
+            sha256_hex(&bytes),
+            "553903af0e612c959d087b35cbbcbd00a0d4e890f7c1cc87ef6cef1e54cc218e"
+        );
+    }
+
+    #[test]
+    fn truncated_xz_is_rejected() {
+        assert!(decode_model_bytes(&ANTI_SMUDGE_ONNX_XZ[..64]).is_err());
+        assert!(
+            decode_model_bytes(&ANTI_SMUDGE_ONNX_XZ[..ANTI_SMUDGE_ONNX_XZ.len() - 16]).is_err()
+        );
     }
 }
 

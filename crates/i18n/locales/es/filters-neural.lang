@@ -130,3 +130,7 @@ filter.neural.sketch_to_portrait.name = Boceto a retrato
 filter.neural.sketch_to_portrait.param.detail = Conservar líneas
 filter.neural.sketch_to_portrait.msg.with_face = Está entrenado para completar el filtro Fotografía a boceto de esta aplicación. Trabaja sobre el rostro que detecta.
 filter.neural.sketch_to_portrait.msg.no_face = Está entrenado para completar el filtro Fotografía a boceto de esta aplicación. Instala Faces (Skin Smoothing) para que trabaje sobre el rostro en vez de sobre toda la selección.
+
+# User-trained Anti-Smudge model (feature name).
+filter.neural.anti_smudge.name = Anti-Smudge
+filter.neural.anti_smudge.msg.no_model = {model} no está instalado, por lo que el filtro no produce cambios.

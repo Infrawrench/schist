@@ -137,3 +137,7 @@ filter.neural.sketch_to_portrait.name = Motako ho ea ho Potreite
 filter.neural.sketch_to_portrait.param.detail = Boloka Mela
 filter.neural.sketch_to_portrait.msg.with_face = E koetliselitsoe ho tlatsa se hlahisoang ke Foto ho ea ho Motako ea app ena. E sebetsa sefahlehong seo e se fumanang.
 filter.neural.sketch_to_portrait.msg.no_face = E koetliselitsoe ho tlatsa se hlahisoang ke Foto ho ea ho Motako ea app ena. Kenya Faces (Skin Smoothing), 'me e tla sebetsa sefahlehong ho e-na le khethong eohle.
+
+# User-trained Anti-Smudge model (feature name).
+filter.neural.anti_smudge.name = Anti-Smudge
+filter.neural.anti_smudge.msg.no_model = {model} ha ea kengoa, kahoo sena ha se etse letho.

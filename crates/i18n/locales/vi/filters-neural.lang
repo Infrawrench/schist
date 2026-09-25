@@ -129,3 +129,7 @@ filter.neural.sketch_to_portrait.name = Phác thảo thành chân dung
 filter.neural.sketch_to_portrait.param.detail = Giữ đường nét
 filter.neural.sketch_to_portrait.msg.with_face = Được huấn luyện để tô đầy kết quả Ảnh thành phác thảo của chính ứng dụng này. Hoạt động trên khuôn mặt tìm thấy.
 filter.neural.sketch_to_portrait.msg.no_face = Được huấn luyện để tô đầy kết quả Ảnh thành phác thảo của chính ứng dụng này. Hãy cài Faces (Skin Smoothing) để bộ lọc làm việc trên khuôn mặt thay vì toàn bộ vùng chọn.
+
+# User-trained Anti-Smudge model (feature name).
+filter.neural.anti_smudge.name = Anti-Smudge
+filter.neural.anti_smudge.msg.no_model = Chưa cài {model}, nên bộ lọc không làm gì.

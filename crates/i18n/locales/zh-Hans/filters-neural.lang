@@ -165,3 +165,7 @@ filter.neural.sketch_to_portrait.name = 草图到肖像
 filter.neural.sketch_to_portrait.param.detail = 保留线条
 filter.neural.sketch_to_portrait.msg.with_face = 经训练可填补本程序自身"照片到草图"的结果。作用于检测到的面部。
 filter.neural.sketch_to_portrait.msg.no_face = 经训练可填补本程序自身"照片到草图"的结果。安装 Faces (Skin Smoothing) 后将作用于面部，而不是整个选区。
+
+# User-trained Anti-Smudge model (feature name).
+filter.neural.anti_smudge.name = Anti-Smudge
+filter.neural.anti_smudge.msg.no_model = 未安装 {model}，此滤镜不做任何处理。

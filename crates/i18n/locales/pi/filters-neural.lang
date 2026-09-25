@@ -129,3 +129,7 @@ filter.neural.sketch_to_portrait.name = Lekhācittato puggalarūpaṃ
 filter.neural.sketch_to_portrait.param.detail = Lekhāyo rakkhatha
 filter.neural.sketch_to_portrait.msg.with_face = Imassa app-assa Chāyācittato lekhācittaṃ pūretuṃ sikkhāpitaṃ. Laddhamukhe kammaṃ karoti.
 filter.neural.sketch_to_portrait.msg.no_face = Imassa app-assa Chāyācittato lekhācittaṃ pūretuṃ sikkhāpitaṃ. Faces (Skin Smoothing) patiṭṭhāpetha; tato sakalagahaṇassa ṭhāne mukhe kammaṃ karissati.
+
+# User-trained Anti-Smudge model (feature name).
+filter.neural.anti_smudge.name = Anti-Smudge
+filter.neural.anti_smudge.msg.no_model = {model} na patiṭṭhāpitaṃ, tasmā kiñci na karoti.

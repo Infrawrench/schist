@@ -151,3 +151,7 @@ filter.neural.sketch_to_portrait.name = Desen na portrait
 filter.neural.sketch_to_portrait.param.detail = Kobatela milɔngɔ
 filter.neural.sketch_to_portrait.msg.with_face = Eteyamaki mpo na kotondisa Fɔtɔ na desen ya programɛ oyo. Esalaka na elongi oyo ezwi.
 filter.neural.sketch_to_portrait.msg.no_face = Eteyamaki mpo na kotondisa Fɔtɔ na desen ya programɛ oyo. Tyá Faces (Skin Smoothing) mpe ekosala na elongi na esika ya eteni mobimba eponami.
+
+# User-trained Anti-Smudge model (feature name).
+filter.neural.anti_smudge.name = Anti-Smudge
+filter.neural.anti_smudge.msg.no_model = {model} etyami te, yango wana oyo ekosala eloko te.

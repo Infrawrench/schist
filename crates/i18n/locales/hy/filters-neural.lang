@@ -130,3 +130,7 @@ filter.neural.sketch_to_portrait.name = Ուրվանկարից դիմանկար
 filter.neural.sketch_to_portrait.param.detail = Պահպանել գծերը
 filter.neural.sketch_to_portrait.msg.with_face = Մարզված է այս հավելվածի «Լուսանկարից ուրվանկար» արդյունքը լրացնելու համար։ Աշխատում է հայտնաբերված դեմքի վրա։
 filter.neural.sketch_to_portrait.msg.no_face = Մարզված է այս հավելվածի «Լուսանկարից ուրվանկար» արդյունքը լրացնելու համար։ Տեղադրեք Faces (Skin Smoothing)-ը, և այն ամբողջ ընտրության փոխարեն կաշխատի դեմքի վրա։
+
+# User-trained Anti-Smudge model (feature name).
+filter.neural.anti_smudge.name = Anti-Smudge
+filter.neural.anti_smudge.msg.no_model = {model}-ը տեղադրված չէ, ուստի ոչինչ չի փոխվում։

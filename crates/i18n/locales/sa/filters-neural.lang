@@ -129,3 +129,7 @@ filter.neural.sketch_to_portrait.name = रेखाचित्रात् प
 filter.neural.sketch_to_portrait.param.detail = रेखाः रक्षतु
 filter.neural.sketch_to_portrait.msg.with_face = अस्योपयोज्यस्य स्वकीयं छायाचित्रात् रेखाचित्रम् पूरयितुं प्रशिक्षितम्। प्राप्ते मुखे कार्यं करोति।
 filter.neural.sketch_to_portrait.msg.no_face = अस्योपयोज्यस्य स्वकीयं छायाचित्रात् रेखाचित्रम् पूरयितुं प्रशिक्षितम्। Faces (Skin Smoothing) संस्थापयतु; तदा समग्रचयनस्य स्थाने मुखे कार्यं करिष्यति।
+
+# User-trained Anti-Smudge model (feature name).
+filter.neural.anti_smudge.name = Anti-Smudge
+filter.neural.anti_smudge.msg.no_model = {model} संस्थापितं नास्ति, अतः किमपि न करोति।

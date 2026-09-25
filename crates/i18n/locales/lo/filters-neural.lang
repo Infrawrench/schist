@@ -129,3 +129,7 @@ filter.neural.sketch_to_portrait.name = ຮູບແຕ້ມເປັນຮູ�
 filter.neural.sketch_to_portrait.param.detail = ເກັບເສັ້ນໄວ້
 filter.neural.sketch_to_portrait.msg.with_face = ຝຶກໃຫ້ຕື່ມຮູບຈາກ ຮູບຖ່າຍເປັນຮູບແຕ້ມ ຂອງແອັບນີ້ເອງ. ເຮັດວຽກກັບໃບໜ້າທີ່ມັນພົບ.
 filter.neural.sketch_to_portrait.msg.no_face = ຝຶກໃຫ້ຕື່ມຮູບຈາກ ຮູບຖ່າຍເປັນຮູບແຕ້ມ ຂອງແອັບນີ້ເອງ. ຕິດຕັ້ງ Faces (Skin Smoothing) ແລ້ວມັນຈະເຮັດວຽກກັບໃບໜ້າ ແທນທັງສ່ວນທີ່ເລືອກ.
+
+# User-trained Anti-Smudge model (feature name).
+filter.neural.anti_smudge.name = Anti-Smudge
+filter.neural.anti_smudge.msg.no_model = ຍັງບໍ່ຕິດຕັ້ງ {model}, ດັ່ງນັ້ນຈຶ່ງບໍ່ປ່ຽນແປງຫຍັງ.

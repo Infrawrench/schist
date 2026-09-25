@@ -140,3 +140,7 @@ filter.neural.sketch_to_portrait.name = Tā-Laine ki he Tā Fofonga
 filter.neural.sketch_to_portrait.param.detail = Tauhi ʻa e Ngaahi Laine
 filter.neural.sketch_to_portrait.msg.with_face = Naʻe akoʻi ia ke fakafonu ʻa e Tā ki he Tā-Lainé ʻa e polokalama ko ʻení. ʻOku ngāue ia ki he fofonga ʻoku ne maʻú.
 filter.neural.sketch_to_portrait.msg.no_face = Naʻe akoʻi ia ke fakafonu ʻa e Tā ki he Tā-Lainé ʻa e polokalama ko ʻení. Fokotuʻu ʻa e Faces (Skin Smoothing) pea ʻe ngāue ia ki he fofongá kae ʻikai ki he feituʻu kuo fili kotoa.
+
+# User-trained Anti-Smudge model (feature name).
+filter.neural.anti_smudge.name = Anti-Smudge
+filter.neural.anti_smudge.msg.no_model = ʻOku ʻikai fokotuʻu ʻa e {model}, ko ia ʻoku ʻikai fai ʻe he sivi ko ʻení ha meʻa.

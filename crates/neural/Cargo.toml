@@ -9,6 +9,7 @@ schist-fx.workspace = true
 serde.workspace = true
 anyhow.workspace = true
 log.workspace = true
+lzma-rust2 = { version = "0.16.5", default-features = false, features = ["std", "xz"] }
 rayon.workspace = true
 sha2 = "0.10"
 tract-onnx = "0.23"

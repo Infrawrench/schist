@@ -129,3 +129,7 @@ filter.neural.sketch_to_portrait.name = Dessenh en retrat
 filter.neural.sketch_to_portrait.param.detail = Conservar las linhas
 filter.neural.sketch_to_portrait.msg.with_face = Entraïnat per emplenar lo filtre Fòto en dessenh d'aquesta aplicacion. Fonciona sul visatge que tròba.
 filter.neural.sketch_to_portrait.msg.no_face = Entraïnat per emplenar lo filtre Fòto en dessenh d'aquesta aplicacion. Installatz Faces (Skin Smoothing) e foncionarà sul visatge puslèu que sus tota la seleccion.
+
+# User-trained Anti-Smudge model (feature name).
+filter.neural.anti_smudge.name = Anti-Smudge
+filter.neural.anti_smudge.msg.no_model = {model} es pas installat, doncas aquò fa pas res.

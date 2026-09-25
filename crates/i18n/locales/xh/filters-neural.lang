@@ -129,3 +129,7 @@ filter.neural.sketch_to_portrait.name = Umzobo Ube Ngumfanekiso Wobuso
 filter.neural.sketch_to_portrait.param.detail = Gcina Imigca
 filter.neural.sketch_to_portrait.msg.with_face = Yaqeqeshelwa ukuzalisa iFoto Ibe Ngumzobo yale aplikheyishini. Isebenza kubuso ebubufumanayo.
 filter.neural.sketch_to_portrait.msg.no_face = Yaqeqeshelwa ukuzalisa iFoto Ibe Ngumzobo yale aplikheyishini. Faka iFaces (Skin Smoothing) ukuze isebenze ebusweni kunakukhetho lonke.
+
+# User-trained Anti-Smudge model (feature name).
+filter.neural.anti_smudge.name = Anti-Smudge
+filter.neural.anti_smudge.msg.no_model = I-{model} ayifakwanga, ngoko oku akwenzi nto.

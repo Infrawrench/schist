@@ -14,6 +14,156 @@ use rayon::prelude::*;
 
 use crate::{Input, Model};
 
+/// Restore lens scatter at the model's declared working resolution, then lift
+/// only the predicted correction back to the original. Fine image detail is
+/// retained instead of enlarging a low-resolution reconstruction.
+pub fn try_restore(
+    model: &Model,
+    rgb: &mut [f32],
+    width: usize,
+    height: usize,
+    blend: f32,
+) -> anyhow::Result<()> {
+    anyhow::ensure!(
+        width.checked_mul(height).and_then(|n| n.checked_mul(3)) == Some(rgb.len()),
+        "invalid RGB buffer dimensions"
+    );
+    anyhow::ensure!(blend.is_finite(), "non-finite strength");
+    if width == 0 || height == 0 || blend <= 0.0 {
+        return Ok(());
+    }
+    let Some(limit) = model
+        .restoration_max_side
+        .filter(|&side| width.max(height) > side)
+    else {
+        if model.restoration_halo_cleanup {
+            let mut restored = rgb.to_vec();
+            try_run_tiled(model, &mut restored, width, height, 1.0)?;
+            crate::halo::clean_up(&mut restored, width, height);
+            for (pixel, result) in rgb.iter_mut().zip(restored) {
+                *pixel = (*pixel + (result - *pixel) * blend.min(1.0)).clamp(0.0, 1.0);
+            }
+            return Ok(());
+        }
+        return try_run_tiled(model, rgb, width, height, blend);
+    };
+    anyhow::ensure!(rgb.iter().all(|v| v.is_finite()), "non-finite input pixel");
+    let scale = limit as f64 / width.max(height) as f64;
+    let w = ((width as f64 * scale).round() as usize).max(1);
+    let h = ((height as f64 * scale).round() as usize).max(1);
+    let small = area_resize(rgb, width, height, w, h);
+    let mut correction = small.clone();
+    try_run_tiled(model, &mut correction, w, h, 1.0)?;
+    if model.restoration_halo_cleanup {
+        crate::halo::clean_up(&mut correction, w, h);
+    }
+    for (delta, input) in correction.iter_mut().zip(&small) {
+        *delta -= input;
+    }
+    // All fallible work finished before any original pixel is changed.
+    for y in 0..height {
+        let sy = ((y as f64 + 0.5) * h as f64 / height as f64 - 0.5).clamp(0.0, (h - 1) as f64);
+        let y0 = sy.floor() as usize;
+        let y1 = (y0 + 1).min(h - 1);
+        let fy = (sy - y0 as f64) as f32;
+        for x in 0..width {
+            let sx = ((x as f64 + 0.5) * w as f64 / width as f64 - 0.5).clamp(0.0, (w - 1) as f64);
+            let x0 = sx.floor() as usize;
+            let x1 = (x0 + 1).min(w - 1);
+            let fx = (sx - x0 as f64) as f32;
+            for c in 0..3 {
+                let a = correction[(y0 * w + x0) * 3 + c] * (1.0 - fx)
+                    + correction[(y0 * w + x1) * 3 + c] * fx;
+                let b = correction[(y1 * w + x0) * 3 + c] * (1.0 - fx)
+                    + correction[(y1 * w + x1) * 3 + c] * fx;
+                let at = (y * width + x) * 3 + c;
+                rgb[at] = (rgb[at] + (a * (1.0 - fy) + b * fy) * blend.min(1.0)).clamp(0.0, 1.0);
+            }
+        }
+    }
+    Ok(())
+}
+
+/// Area averaging keeps tiny bright sources represented during downsampling.
+fn area_resize(rgb: &[f32], width: usize, height: usize, w: usize, h: usize) -> Vec<f32> {
+    let mut out = vec![0.0; w * h * 3];
+    let (sx, sy) = (width as f64 / w as f64, height as f64 / h as f64);
+    for y in 0..h {
+        let (top, bottom) = (y as f64 * sy, (y + 1) as f64 * sy);
+        for x in 0..w {
+            let (left, right) = (x as f64 * sx, (x + 1) as f64 * sx);
+            let mut sum = [0.0f64; 3];
+            for iy in top.floor() as usize..(bottom.ceil() as usize).min(height) {
+                let wy = bottom.min((iy + 1) as f64) - top.max(iy as f64);
+                for ix in left.floor() as usize..(right.ceil() as usize).min(width) {
+                    let weight = wy * (right.min((ix + 1) as f64) - left.max(ix as f64));
+                    for c in 0..3 {
+                        sum[c] += rgb[(iy * width + ix) * 3 + c] as f64 * weight;
+                    }
+                }
+            }
+            for c in 0..3 {
+                out[(y * w + x) * 3 + c] = (sum[c] / (sx * sy)) as f32;
+            }
+        }
+    }
+    out
+}
+
+/// Run a restoration model atomically. Unlike the best-effort filter driver,
+/// this leaves the entire input untouched if any tile fails. One tile is in
+/// flight at a time, so large camera images do not retain every context tile.
+pub fn try_run_tiled(
+    model: &Model,
+    rgb: &mut [f32],
+    width: usize,
+    height: usize,
+    blend: f32,
+) -> anyhow::Result<()> {
+    let len = width.checked_mul(height).and_then(|n| n.checked_mul(3));
+    anyhow::ensure!(len == Some(rgb.len()), "invalid RGB buffer dimensions");
+    anyhow::ensure!(blend.is_finite(), "non-finite strength");
+    anyhow::ensure!(
+        model.spec.input.scale() == 1,
+        "restoration must preserve size"
+    );
+    if width == 0 || height == 0 || blend <= 0.0 {
+        return Ok(());
+    }
+    anyhow::ensure!(rgb.iter().all(|v| v.is_finite()), "non-finite input pixel");
+    let g = grid(model, width, height).ok_or_else(|| anyhow::anyhow!("not a tiled model"))?;
+    let mut result = rgb.to_vec();
+    let mut patch = vec![0.0; g.t * g.t * 3];
+    for cy in 0..g.rows {
+        for cx in 0..g.cols {
+            let ox = (cx * g.step) as i64 - g.overlap as i64;
+            let oy = (cy * g.step) as i64 - g.overlap as i64;
+            for y in 0..g.t {
+                for x in 0..g.t {
+                    let from = (reflect(oy + y as i64, height) * width
+                        + reflect(ox + x as i64, width))
+                        * 3;
+                    let to = (y * g.t + x) * 3;
+                    patch[to..to + 3].copy_from_slice(&rgb[from..from + 3]);
+                }
+            }
+            let out = model.run_tile(&patch)?;
+            for y in 0..g.step.min(height - cy * g.step) {
+                for x in 0..g.step.min(width - cx * g.step) {
+                    let to = ((cy * g.step + y) * width + cx * g.step + x) * 3;
+                    let from = ((y + g.overlap) * g.t + x + g.overlap) * 3;
+                    for c in 0..3 {
+                        result[to + c] =
+                            rgb[to + c] + (out[from + c] - rgb[to + c]) * blend.min(1.0);
+                    }
+                }
+            }
+        }
+    }
+    rgb.copy_from_slice(&result);
+    Ok(())
+}
+
 /// The tile grid a run over a `width` x `height` image uses.
 struct Grid {
     t: usize,
@@ -32,6 +182,7 @@ fn grid(model: &Model, width: usize, height: usize) -> Option<Grid> {
         log::warn!("{} is not a tiled model", model.spec.id);
         return None;
     };
+    let t = model.restoration_tile_size.unwrap_or(t);
     let overlap = overlap.min(t / 4);
     if width == 0 || height == 0 || t == 0 {
         return None;

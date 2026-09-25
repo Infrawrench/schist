@@ -129,3 +129,7 @@ filter.neural.sketch_to_portrait.name = Skîz Ber Bi Portreyê
 filter.neural.sketch_to_portrait.param.detail = Xêzan Biparêze
 filter.neural.sketch_to_portrait.msg.with_face = Ji bo dagirtina Fotograf Ber Bi Skîzê ya vê sepanê hatiye perwerdekirin. Li ser rûyê ku dibîne dixebite.
 filter.neural.sketch_to_portrait.msg.no_face = Ji bo dagirtina Fotograf Ber Bi Skîzê ya vê sepanê hatiye perwerdekirin. Faces (Skin Smoothing) saz bike û ew dê li şûna hilbijartina tevahî li ser rûyê bixebite.
+
+# User-trained Anti-Smudge model (feature name).
+filter.neural.anti_smudge.name = Anti-Smudge
+filter.neural.anti_smudge.msg.no_model = {model} ne sazkirî ye, ji ber vê yekê ev tiştek nake.

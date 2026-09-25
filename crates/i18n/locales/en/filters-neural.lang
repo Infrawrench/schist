@@ -168,3 +168,7 @@ filter.neural.sketch_to_portrait.name = Sketch to Portrait
 filter.neural.sketch_to_portrait.param.detail = Keep Lines
 filter.neural.sketch_to_portrait.msg.with_face = Trained to fill in this application's own Photo to Sketch. Works on the face it finds.
 filter.neural.sketch_to_portrait.msg.no_face = Trained to fill in this application's own Photo to Sketch. Install Faces (Skin Smoothing) and it will work on the face rather than the whole selection.
+
+# User-trained Anti-Smudge model (feature name).
+filter.neural.anti_smudge.name = Anti-Smudge
+filter.neural.anti_smudge.msg.no_model = {model} is not installed, so this does nothing.

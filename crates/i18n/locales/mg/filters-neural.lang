@@ -129,3 +129,7 @@ filter.neural.sketch_to_portrait.name = Kisarisary ho sarin'olona
 filter.neural.sketch_to_portrait.param.detail = Tazomy ny tsipika
 filter.neural.sketch_to_portrait.msg.with_face = Nofanina hameno ny Sary ho kisarisary an'ity fampiharana ity. Miasa amin'ny tarehy hitany izy.
 filter.neural.sketch_to_portrait.msg.no_face = Nofanina hameno ny Sary ho kisarisary an'ity fampiharana ity. Apetraho ny Faces (Skin Smoothing) dia amin'ny tarehy no hiasany fa tsy amin'ny fifantenana manontolo.
+
+# User-trained Anti-Smudge model (feature name).
+filter.neural.anti_smudge.name = Anti-Smudge
+filter.neural.anti_smudge.msg.no_model = Tsy voapetraka ny {model}, ka tsy misy fiovana.

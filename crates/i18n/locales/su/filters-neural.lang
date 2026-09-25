@@ -129,3 +129,7 @@ filter.neural.sketch_to_portrait.name = Skétsa jadi Potrét
 filter.neural.sketch_to_portrait.param.detail = Pertahankeun Gurat
 filter.neural.sketch_to_portrait.msg.with_face = Dilatih pikeun ngeusian hasil Poto jadi Skétsa milik aplikasi ieu. Jalan dina raray anu kapanggih.
 filter.neural.sketch_to_portrait.msg.no_face = Dilatih pikeun ngeusian hasil Poto jadi Skétsa milik aplikasi ieu. Pasang Faces (Skin Smoothing) supaya jalan dina raray, lain dina sakabéh pilihan.
+
+# User-trained Anti-Smudge model (feature name).
+filter.neural.anti_smudge.name = Anti-Smudge
+filter.neural.anti_smudge.msg.no_model = {model} teu dipasang, jadi ieu teu ngalakukeun nanaon.

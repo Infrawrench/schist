@@ -24,7 +24,8 @@
 //! whatever the document composites to below this layer, which is asked
 //! for with [`FilterPlugin::wants_backdrop`].
 //!
-//! Every model-backed filter also works without its model, falling back
+//! Except for the experimental Anti-Smudge filter (in its own module),
+//! every model-backed filter also works without its model, falling back
 //! to the classical path and saying so in its dialog. Nothing here is a
 //! stub that stops working when a download fails.
 
@@ -2368,6 +2369,7 @@ fn mirror(v: i32, n: usize) -> usize {
 pub fn register(registry: &mut schist_plugin_api::PluginRegistry) {
     registry.register_filter(Box::new(SkinSmoothing::new()));
     registry.register_filter(Box::new(JpegArtifactRemoval));
+    registry.register_filter(Box::new(crate::anti_smudge::AntiSmudge));
     registry.register_filter(Box::new(Colorize::new()));
     registry.register_filter(Box::new(SuperZoom));
     registry.register_filter(Box::new(StyleTransfer));

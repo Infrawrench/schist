@@ -13,6 +13,7 @@
 use schist_i18n::{choices, t};
 use schist_plugin_api::{FilterParam, FilterPlugin, FilterValues, PluginManifest, PluginRegistry};
 
+mod anti_smudge;
 pub mod artistic;
 pub mod blurgallery;
 pub mod brush;

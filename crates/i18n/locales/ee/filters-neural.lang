@@ -136,3 +136,7 @@ filter.neural.sketch_to_portrait.name = Sketch yi Portrait
 filter.neural.sketch_to_portrait.param.detail = Dzra Fliwo Ɖo
 filter.neural.sketch_to_portrait.msg.with_face = Wofia nu nae be wòayɔ dɔwɔnu sia ŋutɔ ƒe Foto yi Sketch la me. Ewɔa dɔ le ŋkume si wòkpɔ la ŋu.
 filter.neural.sketch_to_portrait.msg.no_face = Wofia nu nae be wòayɔ dɔwɔnu sia ŋutɔ ƒe Foto yi Sketch la me. Ɖo Faces (Skin Smoothing) eye wòawɔ dɔ le ŋkume la ŋu le teƒe be wòawɔe le tiatia blibo la ŋu.
+
+# User-trained Anti-Smudge model (feature name).
+filter.neural.anti_smudge.name = Anti-Smudge
+filter.neural.anti_smudge.msg.no_model = Womeɖo {model} o, eyata esia mewɔa naneke o.

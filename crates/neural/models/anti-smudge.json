@@ -1,0 +1,81 @@
+{
+  "status": "experimental MFDNet transfer",
+  "project": "https://github.com/Jiang-maomao/flare-removal",
+  "revision": "a9431498477ba8bf8f608d7f5fde1f841ced0a56",
+  "source_sha256": {
+    "models/__init__.py": "eac08274b2d9a819dfde2d2840bbf08bc80e6d802f656189a4d57da2450ac1af",
+    "models/model.py": "64124d6e2af79f31e65820535a9de755ffc6cba5e34811851755d591b6e28d8e",
+    "models/backbone.py": "2e5f123bcc97e03e8fd1541c01bf69126d4bad1ee29e7bad1ebf922effff64cb",
+    "models/blocks.py": "a124f907033390d835fb67c2f10229b627125121e5036012c0affda08ef7ef83"
+  },
+  "base_checkpoint_sha256": "133cba2947ad0534da378c0db425aec700a386a4dae41577058d8b61fbc93ad6",
+  "initialization_sha256": "3ac1b5db5f0da0e70f731b0e83bd6ea22abedea61b865b909a9f66be7dc40d40",
+  "checkpoint_sha256": "e2c7e2e364f4656b5d19dde3ad7ec61d27fbb6a309df63507f9a92406095870f",
+  "model_sha256": "553903af0e612c959d087b35cbbcbd00a0d4e890f7c1cc87ef6cef1e54cc218e",
+  "tile_size": 2048,
+  "working_max_side": 1536,
+  "halo_cleanup": "radial-v1",
+  "light_source_recovery": {
+    "start": 0.65,
+    "end": 0.71,
+    "function": "smoothstep of max RGB"
+  },
+  "runtime_note": "ONNX neural graph plus Schist radial-v1 postprocessing; 1536px working image in one 2048px context frame",
+  "file": "anti-smudge.onnx.xz",
+  "compressed_bytes": 23504872,
+  "compressed_sha256": "e8a9fa635ecf5bdbedad4944ad7a776d36b12d658dca7e994f73bc408cd2a875",
+  "onnx_bytes": 27185281,
+  "compression": "xz -6 --threads=1 --check=crc64 --stdout",
+  "base_checkpoint_url": "https://github.com/Jiang-maomao/flare-removal/releases/download/checkpoint/mfdnet.pth",
+  "authors": [
+    "Yiguo Jiang",
+    "Xuhang Chen",
+    "Chi-Man Pun",
+    "Shuqiang Wang",
+    "Wei Feng"
+  ],
+  "paper": "https://doi.org/10.1007/s00371-024-03540-x",
+  "upstream_weights_license": "Not specified in the retrieved release materials; not relabelled as the application MIT licence.",
+  "fine_tuning_data": {
+    "project": "https://github.com/Zdafeng/FlareReal",
+    "name": "FlareReal600",
+    "publisher_dataset_license": "CC BY-NC-SA 4.0",
+    "license_url": "https://github.com/Zdafeng/FlareReal/blob/main/LICENSE",
+    "train_pairs": 600,
+    "validation_pairs": 50,
+    "augmentation": "Synthetic compact light cores with added linear-light scatter; targets preserve the cores."
+  },
+  "selected_training_lineage": [
+    {
+      "seed": 17,
+      "learning_rate": 1e-05,
+      "selected_step": 300
+    },
+    {
+      "seed": 29,
+      "learning_rate": 7.5e-06,
+      "selected_step": 250,
+      "run_steps": 400
+    },
+    {
+      "seed": 41,
+      "learning_rate": 1e-05,
+      "selected_step": 400,
+      "run_steps": 400,
+      "focus_probability": 0.75,
+      "small_halo_probability": 0.6,
+      "halo_loss": 0.35
+    }
+  ],
+  "selected_lineage_updates": 950,
+  "validation": {
+    "protocol": "One deterministic 256px crop per official validation scene, seed 20260925. Crop results are not full-scene accuracy.",
+    "crops": 50,
+    "with_radial_cleanup": true,
+    "restoration_mae": 0.0668204,
+    "clean_control_mae": 0.00466916,
+    "restored_psnr_db": 18.85364
+  },
+  "limitations": "Experimental; can alter real radial illumination. The user example was repeatedly inspected for selection, never used as a clean training target or claimed as a blind test.",
+  "documentation": "../../../docs/anti-smudge.md"
+}

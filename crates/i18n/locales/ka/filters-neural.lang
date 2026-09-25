@@ -141,3 +141,7 @@ filter.neural.sketch_to_portrait.name = ესკიზიდან პორტ
 filter.neural.sketch_to_portrait.param.detail = ხაზების შენარჩუნება
 filter.neural.sketch_to_portrait.msg.with_face = გაწვრთნილია ამ აპის საკუთარი „ფოტოდან ესკიზამდე“ შედეგის შესავსებად. მუშაობს აღმოჩენილ სახეზე.
 filter.neural.sketch_to_portrait.msg.no_face = გაწვრთნილია ამ აპის საკუთარი „ფოტოდან ესკიზამდე“ შედეგის შესავსებად. დააყენეთ Faces (Skin Smoothing), რათა მთლიანი მონიშნული არის ნაცვლად სახეზე იმუშაოს.
+
+# User-trained Anti-Smudge model (feature name).
+filter.neural.anti_smudge.name = Anti-Smudge
+filter.neural.anti_smudge.msg.no_model = {model} დაყენებული არ არის, ამიტომ ეს მოქმედება შედეგს არ იძლევა.

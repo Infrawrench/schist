@@ -129,3 +129,7 @@ filter.neural.sketch_to_portrait.name = គំនូរព្រាងទៅរ�
 filter.neural.sketch_to_portrait.param.detail = រក្សាបន្ទាត់
 filter.neural.sketch_to_portrait.msg.with_face = បានបណ្ដុះបណ្ដាលដើម្បីបំពេញលទ្ធផល «រូបថតទៅគំនូរព្រាង» របស់កម្មវិធីនេះ។ វាដំណើរការលើផ្ទៃមុខដែលរកឃើញ។
 filter.neural.sketch_to_portrait.msg.no_face = បានបណ្ដុះបណ្ដាលដើម្បីបំពេញលទ្ធផល «រូបថតទៅគំនូរព្រាង» របស់កម្មវិធីនេះ។ ដំឡើង Faces (Skin Smoothing) ហើយវានឹងដំណើរការលើផ្ទៃមុខ ជំនួសឱ្យតំបន់ជ្រើសទាំងមូល។
+
+# User-trained Anti-Smudge model (feature name).
+filter.neural.anti_smudge.name = Anti-Smudge
+filter.neural.anti_smudge.msg.no_model = មិនបានដំឡើង {model} ដូច្នេះវាមិនធ្វើអ្វីទេ។

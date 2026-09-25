@@ -172,7 +172,7 @@ fn compute(i: u32) {
         dst[i] = select(src[i] * args[1], src[i], src[i] >= 0.0);
         return;
     }
-    if op == 3u || op == 4u || op == 13u || (op >= 20u && op <= 23u) {
+    if op == 3u || op == 4u || op == 13u || (op >= 20u && op <= 23u) || op == 30u {
         let rank = u32(args[1]);
         var a = 0u;
         var b = 0u;
@@ -184,7 +184,9 @@ fn compute(i: u32) {
             a += coordinate * u32(args[3u + u32(k) * 3u]);
             b += coordinate * u32(args[4u + u32(k) * 3u]);
         }
-        if op == 20u {
+        if op == 30u {
+            dst[i] = select(src[a] * aux[b], src[a], src[a] >= 0.0);
+        } else if op == 20u {
             dst[i] = src[a] - aux[b];
         } else if op == 21u {
             let x = src[a];

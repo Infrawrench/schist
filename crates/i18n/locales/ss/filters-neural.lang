@@ -129,3 +129,7 @@ filter.neural.sketch_to_portrait.name = Umdvwebo Ube Sitfombe Sebuso
 filter.neural.sketch_to_portrait.param.detail = Gcina Imigca
 filter.neural.sketch_to_portrait.msg.with_face = Kuceceshelwe kugcwalisa lokwakhiwa yiSitfombe Sibe Ngumdvwebo saloluhlelo. Kusebenta ebusweni lobutfolako.
 filter.neural.sketch_to_portrait.msg.no_face = Kuceceshelwe kugcwalisa lokwakhiwa yiSitfombe Sibe Ngumdvwebo saloluhlelo. Faka Faces (Skin Smoothing) bese kutawusebenta ebusweni esikhundleni salokukhetsiwe konkhe.
+
+# User-trained Anti-Smudge model (feature name).
+filter.neural.anti_smudge.name = Anti-Smudge
+filter.neural.anti_smudge.msg.no_model = {model} ayikafakwa, ngako loku akwenti lutfo.

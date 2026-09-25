@@ -351,7 +351,7 @@ fn a_pre_opset_10_graph_is_rewritten_and_runs() {
 
 #[test]
 fn every_built_in_model_loads() {
-    // The catalogue and the binary have to agree: a spec with no URL is
+    // The catalogue and the binary have to agree: a spec marked BuiltIn is
     // a promise that the bytes are compiled in.
     for spec in neural::CATALOG.iter().filter(|s| s.built_in()) {
         assert!(neural::installed(spec.id), "{} is not installed", spec.id);

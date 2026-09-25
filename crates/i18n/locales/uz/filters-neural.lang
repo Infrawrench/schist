@@ -129,3 +129,7 @@ filter.neural.sketch_to_portrait.name = Eskizni portretga aylantirish
 filter.neural.sketch_to_portrait.param.detail = Chiziqlarni saqlash
 filter.neural.sketch_to_portrait.msg.with_face = Bu ilovaning Suratni eskizga aylantirish natijasini to‘ldirish uchun o‘rgatilgan. Topilgan yuz ustida ishlaydi.
 filter.neural.sketch_to_portrait.msg.no_face = Bu ilovaning Suratni eskizga aylantirish natijasini to‘ldirish uchun o‘rgatilgan. Faces (Skin Smoothing) modelini o‘rnating, shunda butun tanlov o‘rniga yuz ustida ishlaydi.
+
+# User-trained Anti-Smudge model (feature name).
+filter.neural.anti_smudge.name = Anti-Smudge
+filter.neural.anti_smudge.msg.no_model = {model} o‘rnatilmagan, shu sababli hech narsa bajarilmaydi.

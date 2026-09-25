@@ -129,3 +129,7 @@ filter.neural.sketch_to_portrait.name = Visand portreeks
 filter.neural.sketch_to_portrait.param.detail = Säilita jooned
 filter.neural.sketch_to_portrait.msg.with_face = Treenitud täitma selle rakenduse enda filtri Foto visandiks tulemust. Töötab leitud näol.
 filter.neural.sketch_to_portrait.msg.no_face = Treenitud täitma selle rakenduse enda filtri Foto visandiks tulemust. Paigalda Faces (Skin Smoothing), et see töötaks kogu valiku asemel näol.
+
+# User-trained Anti-Smudge model (feature name).
+filter.neural.anti_smudge.name = Anti-Smudge
+filter.neural.anti_smudge.msg.no_model = {model} pole paigaldatud, seega ei tee see midagi.

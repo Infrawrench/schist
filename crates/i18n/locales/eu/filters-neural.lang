@@ -160,3 +160,7 @@ filter.neural.sketch_to_portrait.name = Zirriborrotik erretratura
 filter.neural.sketch_to_portrait.param.detail = Mantendu lerroak
 filter.neural.sketch_to_portrait.msg.with_face = Aplikazio honen Argazkitik zirriborrora emaitzak osatzeko trebatua. Aurkitzen duen aurpegian lan egiten du.
 filter.neural.sketch_to_portrait.msg.no_face = Aplikazio honen Argazkitik zirriborrora emaitzak osatzeko trebatua. Instalatu Faces (Skin Smoothing), hautapen osoan beharrean aurpegian lan egin dezan.
+
+# User-trained Anti-Smudge model (feature name).
+filter.neural.anti_smudge.name = Anti-Smudge
+filter.neural.anti_smudge.msg.no_model = {model} ez dago instalatuta; beraz, honek ez du ezer egiten.

@@ -145,3 +145,7 @@ filter.neural.sketch_to_portrait.name = Bosquejomanta retrato
 filter.neural.sketch_to_portrait.param.detail = Siq'ikunata waqaychay
 filter.neural.sketch_to_portrait.msg.with_face = Kay aplicacionpa kikin Fotomanta bosquejo ruwasqanta hunt'achinapaq yachachisqa. Tarisqan uyapi llamk'an.
 filter.neural.sketch_to_portrait.msg.no_face = Kay aplicacionpa kikin Fotomanta bosquejo ruwasqanta hunt'achinapaq yachachisqa. Faces (Skin Smoothing) churay, llapan akllasqapiqa uyapi llamk'ananpaq.
+
+# User-trained Anti-Smudge model (feature name).
+filter.neural.anti_smudge.name = Anti-Smudge
+filter.neural.anti_smudge.msg.no_model = {model} mana churasqachu; chayrayku kayqa mana imatapas ruwanchu.

@@ -137,3 +137,7 @@ filter.neural.sketch_to_portrait.name = رسم په انځور بدلول
 filter.neural.sketch_to_portrait.param.detail = کرښې ساتل
 filter.neural.sketch_to_portrait.msg.with_face = د همدې اپ د «انځور په رسم بدلول» پایلې ډکولو لپاره روزل شوی. پر موندل شوي مخ کار کوي.
 filter.neural.sketch_to_portrait.msg.no_face = د همدې اپ د «انځور په رسم بدلول» پایلې ډکولو لپاره روزل شوی. Faces (Skin Smoothing) ولګوئ، څو د ټولې ټاکنې پر ځای پر مخ کار وکړي.
+
+# User-trained Anti-Smudge model (feature name).
+filter.neural.anti_smudge.name = Anti-Smudge
+filter.neural.anti_smudge.msg.no_model = {model} نه دی لګول شوی، نو دا څه نه کوي.

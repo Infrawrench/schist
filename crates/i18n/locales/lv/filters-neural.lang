@@ -157,3 +157,7 @@ filter.neural.sketch_to_portrait.name = Skice par portretu
 filter.neural.sketch_to_portrait.param.detail = Saglabāt līnijas
 filter.neural.sketch_to_portrait.msg.with_face = Apmācīts aizpildīt šīs lietotnes filtra Fotoattēls par skici rezultātu. Darbojas ar atrasto seju.
 filter.neural.sketch_to_portrait.msg.no_face = Apmācīts aizpildīt šīs lietotnes filtra Fotoattēls par skici rezultātu. Instalējiet Faces (Skin Smoothing), lai tas darbotos ar seju, nevis visu atlasi.
+
+# User-trained Anti-Smudge model (feature name).
+filter.neural.anti_smudge.name = Anti-Smudge
+filter.neural.anti_smudge.msg.no_model = Modelis {model} nav instalēts, tāpēc nekas netiek mainīts.

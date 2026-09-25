@@ -129,3 +129,7 @@ filter.neural.sketch_to_portrait.name = Croki e portrait
 filter.neural.sketch_to_portrait.param.detail = Wårder les royes
 filter.neural.sketch_to_portrait.msg.with_face = Aprins po rimpli l' prôpe Foto e croki di ciste aplicåcion. I rote sol vizådje k' i trove.
 filter.neural.sketch_to_portrait.msg.no_face = Aprins po rimpli l' prôpe Foto e croki di ciste aplicåcion. Astalez Faces (Skin Smoothing) et i rotrè sol vizådje al plaece di tot l' tchoezixhaedje.
+
+# User-trained Anti-Smudge model (feature name).
+filter.neural.anti_smudge.name = Anti-Smudge
+filter.neural.anti_smudge.msg.no_model = {model} n' est nén astalé, do côp çoula ni fwait rén.

@@ -151,3 +151,7 @@ filter.neural.sketch_to_portrait.name = Brastres da boltred
 filter.neural.sketch_to_portrait.param.detail = Mirout al linennoù
 filter.neural.sketch_to_portrait.msg.with_face = Stummet eo bet evit leuniañ Luc'hskeudenn da vrastres an arload-mañ. Labourat a ra war an dremm a gav.
 filter.neural.sketch_to_portrait.msg.no_face = Stummet eo bet evit leuniañ Luc'hskeudenn da vrastres an arload-mañ. Staliit Faces (Skin Smoothing) hag e labouray war an dremm e-lec'h an diuzadenn a-bezh.
+
+# User-trained Anti-Smudge model (feature name).
+filter.neural.anti_smudge.name = Anti-Smudge
+filter.neural.anti_smudge.msg.no_model = N'eo ket staliet {model}, neuze ne ra netra.

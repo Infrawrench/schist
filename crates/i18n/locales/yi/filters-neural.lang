@@ -129,3 +129,7 @@ filter.neural.sketch_to_portrait.name = סקיצע צו פּאָרטרעט
 filter.neural.sketch_to_portrait.param.detail = אויפֿהיטן ליניעס
 filter.neural.sketch_to_portrait.msg.with_face = טרענירט אויסצופֿילן דעם אייגענעם פֿאָטאָ צו סקיצע פֿון דער אַפּליקאַציע. אַרבעט אויפֿן פּנים וואָס עס געפֿינט.
 filter.neural.sketch_to_portrait.msg.no_face = טרענירט אויסצופֿילן דעם אייגענעם פֿאָטאָ צו סקיצע פֿון דער אַפּליקאַציע. אינסטאַלירט Faces (Skin Smoothing), און עס וועט אַרבעטן אויפֿן פּנים אַנשטאָט אויפֿן גאַנצן אויסוואַל.
+
+# User-trained Anti-Smudge model (feature name).
+filter.neural.anti_smudge.name = Anti-Smudge
+filter.neural.anti_smudge.msg.no_model = {model} איז נישט אינסטאַלירט, דערפֿאַר טוט דאָס גאָרנישט.

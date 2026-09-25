@@ -129,3 +129,7 @@ filter.neural.sketch_to_portrait.name = Ata Tusi i le Ata Foliga
 filter.neural.sketch_to_portrait.param.detail = Taofi Laina
 filter.neural.sketch_to_portrait.msg.with_face = Na aʻoaʻoina e faatumu le Ata Pue i le Ata Tusi a lenei polokalame. E galue i le foliga e maua.
 filter.neural.sketch_to_portrait.msg.no_face = Na aʻoaʻoina e faatumu le Ata Pue i le Ata Tusi a lenei polokalame. Faapipii Faces (Skin Smoothing) ona galue lea i le foliga nai lo le filifiliga atoa.
+
+# User-trained Anti-Smudge model (feature name).
+filter.neural.anti_smudge.name = Anti-Smudge
+filter.neural.anti_smudge.msg.no_model = E leʻi faapipiiina {model}, o lea e leai se suiga.

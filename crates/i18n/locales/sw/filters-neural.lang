@@ -151,3 +151,7 @@ filter.neural.sketch_to_portrait.name = Mchoro kuwa Picha ya Uso
 filter.neural.sketch_to_portrait.param.detail = Hifadhi Mistari
 filter.neural.sketch_to_portrait.msg.with_face = Imefunzwa kujaza Picha kuwa Mchoro ya programu hii. Hufanya kazi kwenye uso inaoupata.
 filter.neural.sketch_to_portrait.msg.no_face = Imefunzwa kujaza Picha kuwa Mchoro ya programu hii. Sakinisha Faces (Skin Smoothing) ili ifanye kazi kwenye uso badala ya uteuzi mzima.
+
+# User-trained Anti-Smudge model (feature name).
+filter.neural.anti_smudge.name = Anti-Smudge
+filter.neural.anti_smudge.msg.no_model = {model} haijasakinishwa, kwa hivyo hii haitafanya chochote.

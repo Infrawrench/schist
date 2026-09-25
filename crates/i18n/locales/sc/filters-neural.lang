@@ -160,3 +160,7 @@ filter.neural.sketch_to_portrait.name = Disinnu a ritratu
 filter.neural.sketch_to_portrait.param.detail = Mantene is lìnias
 filter.neural.sketch_to_portrait.msg.with_face = Istruiu pro prènnere su filtru Fotografia a disinnu de custa aplicatzione. Traballat subra de sa cara chi agatat.
 filter.neural.sketch_to_portrait.msg.no_face = Istruiu pro prènnere su filtru Fotografia a disinnu de custa aplicatzione. Installa Faces (Skin Smoothing) e at a traballare subra de sa cara imbetzes de subra de sa seletzione intrea.
+
+# User-trained Anti-Smudge model (feature name).
+filter.neural.anti_smudge.name = Anti-Smudge
+filter.neural.anti_smudge.msg.no_model = {model} no est installadu, duncas custu no faghet nudda.
