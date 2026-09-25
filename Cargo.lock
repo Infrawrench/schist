@@ -6759,6 +6759,7 @@ name = "schist-compositor-gpu"
 version = "0.15.0"
 dependencies = [
  "futures",
+ "image",
  "log",
  "moxcms",
  "naga 30.0.1",

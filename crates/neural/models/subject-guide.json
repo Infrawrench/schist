@@ -1,0 +1,31 @@
+{
+  "model": "Torchvision DeepLabV3 MobileNetV3 Large semantic guide",
+  "weights_url": "https://download.pytorch.org/models/deeplabv3_mobilenet_v3_large-fc3c493d.pth",
+  "weights_sha256": "fc3c493d68e89cc31ef488c803d5d7dd2f3190fb570598faa49fef69be8e5e70",
+  "torch": "2.14.0",
+  "torchvision": "0.29.0",
+  "input": [
+    1,
+    3,
+    520,
+    520
+  ],
+  "preprocessing": "Antialiased triangle resize to 520x520; float sRGB, ImageNet mean/std.",
+  "categories": [
+    "bird",
+    "cat",
+    "cow",
+    "dog",
+    "horse",
+    "person",
+    "sheep"
+  ],
+  "output": "Sum of selected class softmax probabilities; not an alpha matte.",
+  "training": "Pretrained upstream on COCO with VOC labels; no Schist/private-photo fine-tuning.",
+  "source_license": "Torchvision BSD-3-Clause; see licenses/Torchvision-BSD-3-Clause.txt",
+  "onnx_sha256": "7a7fc4963357feabd82a3b677824349696d740e31ea0e7c6b249ce9ae632270f",
+  "bytes": 44091283,
+  "compressed_sha256": "883dd1d4b4c7bdfc24c38ba516f2a299fa0fe1af355f22af4906a1627daa07fa",
+  "compressed_bytes": 40454876,
+  "compression": "XZ preset 9; expanded ONNX is byte-identical."
+}

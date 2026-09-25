@@ -24,6 +24,7 @@ pollster.workspace = true
 futures.workspace = true
 
 [dev-dependencies]
+image.workspace = true
 schist-neural.workspace = true
 schist-tools-transform.workspace = true
 schist-tools-select.workspace = true

@@ -130,7 +130,8 @@ cp crates/app-platform/assets/icons/*.svg "$OUT/assets/icons/"
 cp web/fonts/*.ttf web/fonts/*.otf web/fonts/LICENSE-* "$OUT/assets/fonts/"
 cp crates/neural/models/*.onnx "$OUT/assets/models/"
 cp crates/neural/models/*.onnx.xz "$OUT/assets/models/"
-cp crates/neural/models/anti-smudge.json "$OUT/assets/models/"
+cp crates/neural/models/*.json "$OUT/assets/models/"
+cp -R crates/neural/models/licenses "$OUT/assets/models/"
 cp assets/logo/schist.svg "$OUT/assets/logo/"
 
 echo '-- manifest'

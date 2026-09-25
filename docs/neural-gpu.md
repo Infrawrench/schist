@@ -1,11 +1,11 @@
 # Neural inference on the GPU
 
-All 18 models in Schist's catalog have a native GPU inference path through the
-installed effects backend. Sixteen compile to resident compute graphs, including
-SFace recognition's PReLU and inference Dropout layers. Anti-Smudge and the
-MobileCLIP text encoder run their expensive contractions on the GPU within a
-tract execution plan. This uses the existing wgpu device, without a separate
-inference runtime or CUDA requirement.
+Catalog models use native GPU inference through the installed effects backend.
+Compatible networks compile to resident compute graphs, including SFace
+recognition's PReLU and inference Dropout layers. Anti-Smudge, the MobileCLIP
+text encoder and unsupported background-matting graphs run their expensive
+contractions on the GPU within a tract execution plan. This uses the existing
+wgpu device, without a separate inference runtime or CUDA requirement.
 
 Anti-Smudge has 279 eligible contractions and the text encoder has 29. These
 counts describe graph coverage, not guaranteed dispatches: the production
@@ -57,3 +57,26 @@ input using the exact compressed shipping weights. Its shipping 2048px contract
 is loaded by the catalog coverage check, and the large convolution fixture
 separately verifies banding. Software Vulkan can establish shader correctness
 but does not measure hardware GPU speedup.
+
+`make check-background-removal-gpu` adds GPU/CPU comparisons for the bundled
+MatteNet, ViTMatte-S and semantic guide, using the production offload threshold.
+It requires real dispatches, including ViTMatte's full 768px input. Optional
+checks exercise both installed background detectors and full-resolution detail
+matting on a local photograph:
+
+```sh
+SCHIST_BACKGROUND_GPU_DETECTORS=1 make check-background-removal-gpu \
+  ARGS='installed_background_detectors --nocapture'
+SCHIST_MATTING_INPUT=/absolute/path/to/srgb-photo.png \
+SCHIST_MATTING_COARSE=/absolute/path/to/coarse.f32 \
+  make check-background-removal-gpu ARGS='full_resolution_private_photo --nocapture'
+```
+
+The coarse buffer is row-major little-endian float32 alpha at the photograph's
+dimensions. Optional fixtures remain local; these tests do not fetch or commit
+photographs. `SCHIST_MATTING_INPUT` also supplies a real photograph to the
+detector comparison when set. GPU parity verifies implementation consistency,
+not segmentation quality or an artifact-free guarantee.
+`SCHIST_BACKGROUND_REFERENCE_DIR` optionally supplies independent runtime
+references as `foreground.f32` and `foreground-matting.f32`, using the same
+full-size alpha format. This also checks the CPU graph against those outputs.

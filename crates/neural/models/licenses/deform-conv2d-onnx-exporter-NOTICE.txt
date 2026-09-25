@@ -1,0 +1,8 @@
+deform-conv2d-onnx-exporter 1.2.0
+Author: Masamitsu MURASE
+Source: https://github.com/masamitsu-murase/deform_conv2d_onnx_exporter
+Package: https://pypi.org/project/deform-conv2d-onnx-exporter/1.2.0/
+Declared license: MIT (upstream setup.py and package metadata).
+
+Used to convert the pretrained BiRefNet Lite Matting model to ONNX.
+The upstream repository/package does not include a separate license text.

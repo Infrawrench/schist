@@ -1,0 +1,7 @@
+-r matting-requirements.txt
+transformers==4.57.6
+timm==1.0.24
+einops==0.8.2
+safetensors==0.7.0
+kornia==0.8.2
+deform-conv2d-onnx-exporter==1.2.0

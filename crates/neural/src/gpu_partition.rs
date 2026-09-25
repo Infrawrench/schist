@@ -21,14 +21,25 @@ pub(super) struct Partitioned {
 impl Partitioned {
     pub fn compile(model: TypedModel) -> Option<Self> {
         // Optional acceleration must not make a CPU-runnable model unloadable.
-        Self::try_compile(model).unwrap_or_else(|error| {
+        Self::try_compile(model, true).unwrap_or_else(|error| {
             log::debug!("GPU partition compiler declined: {error:#}");
             None
         })
     }
 
-    fn try_compile(mut model: TypedModel) -> TractResult<Option<Self>> {
-        model.declutter()?;
+    /// BiRefNet's batched GatherND index tensors require codegen optimization
+    /// without tract's preliminary PushSliceUp rewrite, on CPU and GPU alike.
+    pub fn compile_without_declutter(model: TypedModel) -> Option<Self> {
+        Self::try_compile(model, false).unwrap_or_else(|error| {
+            log::debug!("GPU partition compiler declined: {error:#}");
+            None
+        })
+    }
+
+    fn try_compile(mut model: TypedModel, preliminary: bool) -> TractResult<Option<Self>> {
+        if preliminary {
+            model.declutter()?;
+        }
         let mut operations = 0;
         for id in model.eval_order()? {
             let node = model.node(id);
@@ -95,8 +106,14 @@ impl Partitioned {
         if operations == 0 {
             return Ok(None);
         }
+        let model = if preliminary {
+            model.into_optimized()?
+        } else {
+            model.optimize()?;
+            model
+        };
         Ok(Some(Self {
-            plan: model.into_optimized()?.into_runnable()?,
+            plan: model.into_runnable()?,
             operations,
         }))
     }

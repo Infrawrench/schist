@@ -11,16 +11,20 @@
 //! individual convolutions and matrix contractions, with tract handling the
 //! remaining operations and any device failure. See `docs/neural-gpu.md`.
 //!
-//! Two kinds of model:
+//! Model sources:
 //!
 //! * **Built in.** `detail.onnx`, `dejpeg.onnx`, `colorize.onnx`,
 //!   `portrait.onnx`, `inpaint.onnx`, the waifu2x upscalers and
-//!   `anti-smudge.onnx.xz` ship inside the binary. Anti-Smudge stays
-//!   compressed until first use; see `docs/anti-smudge.md` for its provenance.
+//!   `anti-smudge.onnx.xz` and the background-removal refiners/guide ship inside
+//!   the binary. XZ weights stay compressed until first use; see the respective
+//!   feature documents for provenance.
 //! * **Downloaded.** The style-transfer, depth, face and segmentation
 //!   networks are megabytes to tens of megabytes each and are somebody
 //!   else's work, so they are fetched on demand into the user's data
 //!   directory and checked against a known hash.
+//! * **Generated.** The optional matting detector is exported locally from
+//!   pinned upstream weights. Its checksum is verified when loaded; see
+//!   `docs/background-removal.md`. There is no arbitrary-model import action.
 //!
 //! And two ways of feeding one, which is what [`Input`] distinguishes: a
 //! model that *changes* an image sees it in tiles at full resolution,
@@ -54,22 +58,31 @@ pub mod embed;
 mod face_rect;
 mod faces;
 pub use face_rect::{FaceRect, SAME_FACE_IOU};
+mod detail_matting;
+mod foreground_color;
 mod framed;
+mod gather_nd;
 mod halo;
 mod inpaint;
+mod matting;
+mod resample;
 mod segment;
+mod subject_guidance;
 mod tile;
 pub use colour::{chroma, recolour};
 pub use depth::depth_map;
 pub use faces::{embed_face, faces, Face, FACE_EMBED_DIM};
+pub use foreground_color::{clean_foreground, clean_foreground_cancellable};
 pub use framed::run_framed;
 pub use inpaint::inpaint;
-pub use segment::segment;
+pub use matting::{refine_alpha, refine_alpha_cancellable};
+pub use segment::{foreground, segment};
+pub use subject_guidance::{guide_foreground, guide_foreground_with_reference};
 pub use tile::{run_scaled, run_tiled, try_restore, try_run_tiled};
 
 /// The models shipped inside the binary.
 ///
-/// Not on the web: tens of megabytes of baseline download for filters that
+/// Not on the web: model payloads in the baseline download for filters that
 /// may never run is the wrong trade there, so the same files are served
 /// beside the app (`tools/web-build.sh` copies them) and fetched into the
 /// in-memory store on demand, like any other download. The catalogue's
@@ -87,6 +100,12 @@ const COLORIZE_ONNX: &[u8] = include_bytes!("../models/colorize.onnx");
 const PORTRAIT_ONNX: &[u8] = include_bytes!("../models/portrait.onnx");
 #[cfg(any(not(target_arch = "wasm32"), schist_library))]
 const INPAINT_ONNX: &[u8] = include_bytes!("../models/inpaint.onnx");
+#[cfg(any(not(target_arch = "wasm32"), schist_library))]
+const DETAIL_MATTING_ONNX_XZ: &[u8] = include_bytes!("../models/detail-matting.onnx.xz");
+#[cfg(any(not(target_arch = "wasm32"), schist_library))]
+const MATTING_ONNX_XZ: &[u8] = include_bytes!("../models/matting.onnx.xz");
+#[cfg(any(not(target_arch = "wasm32"), schist_library))]
+const SUBJECT_GUIDE_ONNX_XZ: &[u8] = include_bytes!("../models/subject-guide.onnx.xz");
 #[cfg(any(not(target_arch = "wasm32"), schist_library))]
 const WAIFU2X_ART_ONNX: &[u8] = include_bytes!("../models/waifu2x-art.onnx");
 #[cfg(any(not(target_arch = "wasm32"), schist_library))]
@@ -197,6 +216,8 @@ impl Input {
 pub enum ModelSource {
     BuiltIn,
     Download(&'static str),
+    /// Reproducible local export; no arbitrary-model import UI or network URL.
+    Generated,
 }
 
 /// A model this build knows about.
@@ -237,6 +258,66 @@ pub const CATALOG: &[ModelSpec] = &[
         range: Range::Unit,
         license: "MFDNet / FlareReal600",
         note: "", // Provenance and upstream terms are in docs/anti-smudge.md.
+    },
+    ModelSpec {
+        id: "detail-matting",
+        name: "ViTMatte-S",
+        file: "detail-matting.onnx.xz",
+        source: ModelSource::BuiltIn,
+        sha256: Some("3c31c66e8ca3a9ec550fec06e2b23c7ac57225fe7a97953e4d8ae38c326a6f37"),
+        bytes: 95_638_600,
+        input: Input::Tiles { size: 768, overlap: 128, scale: 1 },
+        range: Range::Unit,
+        license: "ViTMatte MIT; Hugging Face weights Apache-2.0",
+        note: "tools/train/export_detail_matting.py; docs/background-removal.md",
+    },
+    ModelSpec {
+        id: "foreground-matting",
+        name: "BiRefNet Lite Matting",
+        file: "foreground-birefnet-matting.onnx",
+        source: ModelSource::Generated,
+        sha256: Some("273501048979b3012b544232234618819225745a13e316b21b4db439a2f28fe8"),
+        bytes: 223_559_431,
+        input: Input::Frame { width: 1024, height: 1024, fit: Fit::Stretch },
+        range: IMAGENET,
+        license: "BiRefNet, Zheng Peng et al., MIT",
+        note: "tools/train/export_foreground.py; docs/background-removal.md",
+    },
+    ModelSpec {
+        id: "subject-guide",
+        name: "DeepLabV3 Subject Guide",
+        file: "subject-guide.onnx.xz",
+        source: ModelSource::BuiltIn,
+        sha256: Some("883dd1d4b4c7bdfc24c38ba516f2a299fa0fe1af355f22af4906a1627daa07fa"),
+        bytes: 40_454_876,
+        input: Input::Frame { width: 520, height: 520, fit: Fit::Stretch },
+        range: IMAGENET,
+        license: "Torchvision, BSD-3-Clause; pretrained COCO/VOC weights",
+        note: "tools/train/export_subject_guide.py; docs/background-removal.md",
+    },
+    ModelSpec {
+        id: "matting",
+        name: "Schist MatteNet",
+        file: "matting.onnx.xz",
+        source: ModelSource::BuiltIn,
+        sha256: Some("485a9ba783fde2442aa00f52a90a7aa027e086745045f99a16b4ddf4f9b60a2c"),
+        bytes: 81_960,
+        input: Input::Tiles { size: 128, overlap: 16, scale: 1 },
+        range: Range::Unit,
+        license: "Schist; MicroMat-3K (CC BY 4.0)",
+        note: "tools/train/matting.py; docs/background-removal.md",
+    },
+    ModelSpec {
+        id: "foreground",
+        name: "BiRefNet Lite",
+        file: "foreground-birefnet-lite.onnx",
+        source: ModelSource::Download("https://github.com/ZhengPeng7/BiRefNet/releases/download/v1/BiRefNet-general-bb_swin_v1_tiny-epoch_232.onnx"),
+        sha256: Some("5600024376f572a557870a5eb0afb1e5961636bef4e1e22132025467d0f03333"),
+        bytes: 224_005_088,
+        input: Input::Frame { width: 1024, height: 1024, fit: Fit::Stretch },
+        range: Range::Standard { mean: [0.485, 0.456, 0.406], sd: [0.229, 0.224, 0.225] },
+        license: "BiRefNet, Zheng Peng et al., MIT",
+        note: "https://github.com/ZhengPeng7/BiRefNet",
     },
     ModelSpec {
         id: "detail",
@@ -525,6 +606,25 @@ pub fn spec(id: &str) -> Option<&'static ModelSpec> {
     CATALOG.iter().find(|m| m.id == id)
 }
 
+/// Prefer the matting-trained weights after their reproducible local export.
+/// The downloadable general detector remains available on other installations.
+pub fn foreground_model_id() -> &'static str {
+    if installed("foreground-matting") && installed("foreground") {
+        "foreground-matting"
+    } else {
+        "foreground"
+    }
+}
+
+/// Prefer the bundled native-resolution trimap refiner when available.
+pub fn matting_model_id() -> &'static str {
+    if installed("detail-matting") {
+        "detail-matting"
+    } else {
+        "matting"
+    }
+}
+
 /// Where a build that lacks a model can fetch it, or `None` when it
 /// cannot.
 ///
@@ -543,7 +643,7 @@ pub fn download_url(spec: &ModelSpec) -> Option<String> {
     {
         match spec.source {
             ModelSource::Download(url) => Some(url.to_owned()),
-            ModelSource::BuiltIn => None,
+            ModelSource::BuiltIn | ModelSource::Generated => None,
         }
     }
 }
@@ -654,7 +754,8 @@ impl Model {
         let bytes = decode_model_bytes(bytes)?;
         let (mut w, mut h) = spec.input.dims();
         let mut cursor = std::io::Cursor::new(bytes.as_ref());
-        let onnx = tract_onnx::onnx();
+        let mut onnx = tract_onnx::onnx();
+        gather_nd::register(&mut onnx);
         let mut proto = onnx
             .proto_model_for_read(&mut cursor)
             .context("not a readable ONNX model")?;
@@ -781,9 +882,29 @@ impl Model {
         let typed = inferred
             .into_typed()
             .context("model uses an operator tract cannot run")?;
-        let plan = typed.clone().into_optimized()?.into_runnable()?;
+        let has_batched_gather = proto.graph.as_ref().is_some_and(|g| {
+            g.node.iter().any(|n| {
+                n.op_type == "GatherND"
+                    && n.attribute
+                        .iter()
+                        .any(|a| a.name == "batch_dims" && a.i > 0)
+            })
+        });
+        // tract's preliminary PushSliceUp rewrite panics on BiRefNet's
+        // batched index tensors. Codegen optimization handles this graph.
+        let plan = if has_batched_gather {
+            let mut cpu = typed.clone();
+            cpu.optimize()?;
+            cpu.into_runnable()?
+        } else {
+            typed.clone().into_optimized()?.into_runnable()?
+        };
         let partitioned = if gpu.is_none() {
-            gpu_partition::Partitioned::compile(typed)
+            if has_batched_gather {
+                gpu_partition::Partitioned::compile_without_declutter(typed)
+            } else {
+                gpu_partition::Partitioned::compile(typed)
+            }
         } else {
             None
         };
@@ -1017,7 +1138,14 @@ fn frame(spec: &ModelSpec, rgb: &[f32], width: usize, height: usize) -> (Vec<f32
             if ix < -0.5 || iy < -0.5 || ix > width as f32 - 0.5 || iy > height as f32 - 0.5 {
                 continue;
             }
-            let (x0, y0) = (ix.floor().max(0.0) as usize, iy.floor().max(0.0) as usize);
+            // Upsampling puts the first centre slightly outside the image.
+            // Clamp the coordinate before forming weights, otherwise a negative
+            // weight extrapolates colors beyond the source's range.
+            let (ix, iy) = (
+                ix.clamp(0.0, width as f32 - 1.0),
+                iy.clamp(0.0, height as f32 - 1.0),
+            );
+            let (x0, y0) = (ix.floor() as usize, iy.floor() as usize);
             let (x1, y1) = ((x0 + 1).min(width - 1), (y0 + 1).min(height - 1));
             let (tx, ty) = (ix - x0 as f32, iy - y0 as f32);
             for c in 0..3 {
@@ -1098,6 +1226,9 @@ fn load(spec: &'static ModelSpec) -> Result<Model> {
             "colorize" => COLORIZE_ONNX,
             "portrait" => PORTRAIT_ONNX,
             "inpaint" => INPAINT_ONNX,
+            "detail-matting" => DETAIL_MATTING_ONNX_XZ,
+            "matting" => MATTING_ONNX_XZ,
+            "subject-guide" => SUBJECT_GUIDE_ONNX_XZ,
             "waifu2x-art" => WAIFU2X_ART_ONNX,
             "waifu2x-photo" => WAIFU2X_PHOTO_ONNX,
             other => bail!("no built-in model named {other}"),
@@ -1106,6 +1237,11 @@ fn load(spec: &'static ModelSpec) -> Result<Model> {
     }
     let path = model_dir().join(spec.file);
     let bytes = std::fs::read(&path).with_context(|| format!("{}", path.display()))?;
+    if spec.source == ModelSource::Generated
+        && spec.sha256.is_some_and(|want| sha256_hex(&bytes) != want)
+    {
+        bail!("local model checksum mismatch: {}", spec.file);
+    }
     Model::from_bytes(spec, &bytes)
 }
 
@@ -1238,6 +1374,15 @@ pub fn path_of(spec: &ModelSpec) -> PathBuf {
 mod catalogue_tests {
     use super::*;
 
+    #[test]
+    fn foreground_framing_clamps_upsampled_borders() {
+        let spec = spec("foreground").unwrap();
+        let (rgb, _) = frame(spec, &[0.0, 0.0, 0.0, 1.0, 1.0, 1.0], 2, 1);
+        assert_eq!(&rgb[..3], &[0.0; 3]);
+        assert_eq!(&rgb[rgb.len() - 3..], &[1.0; 3]);
+        assert!(rgb.iter().all(|v| (0.0..=1.0).contains(v)));
+    }
+
     // The web build cannot take these sizes from the embedded bytes (it
     // has none), so the catalogue carries literals; this is what keeps
     // them the truth when a model is retrained.
@@ -1250,6 +1395,9 @@ mod catalogue_tests {
             ("colorize", COLORIZE_ONNX),
             ("portrait", PORTRAIT_ONNX),
             ("inpaint", INPAINT_ONNX),
+            ("detail-matting", DETAIL_MATTING_ONNX_XZ),
+            ("matting", MATTING_ONNX_XZ),
+            ("subject-guide", SUBJECT_GUIDE_ONNX_XZ),
             ("waifu2x-art", WAIFU2X_ART_ONNX),
             ("waifu2x-photo", WAIFU2X_PHOTO_ONNX),
         ] {
@@ -1276,6 +1424,31 @@ mod catalogue_tests {
         assert!(
             decode_model_bytes(&ANTI_SMUDGE_ONNX_XZ[..ANTI_SMUDGE_ONNX_XZ.len() - 16]).is_err()
         );
+    }
+
+    #[test]
+    fn bundled_background_models_expand_to_the_validated_weights() {
+        for (bytes, size, hash) in [
+            (
+                DETAIL_MATTING_ONNX_XZ,
+                103_979_583,
+                "b6240e8404b30bd94c1e84498a03949b7d2e7e891bed85ed06ac1f8ae1d1dc58",
+            ),
+            (
+                SUBJECT_GUIDE_ONNX_XZ,
+                44_091_283,
+                "7a7fc4963357feabd82a3b677824349696d740e31ea0e7c6b249ce9ae632270f",
+            ),
+            (
+                MATTING_ONNX_XZ,
+                91_521,
+                "368329288b05675c70cc7a13fbcb0845eb1ca98620017e640fd2fc70e267073a",
+            ),
+        ] {
+            let expanded = decode_model_bytes(bytes).unwrap();
+            assert_eq!(expanded.len(), size);
+            assert_eq!(sha256_hex(&expanded), hash);
+        }
     }
 }
 
