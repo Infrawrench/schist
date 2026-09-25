@@ -143,3 +143,7 @@ filter.neural.sketch_to_portrait.name = Schizzo a portrait
 filter.neural.sketch_to_portrait.param.detail = Conservar lineas
 filter.neural.sketch_to_portrait.msg.with_face = Trainate pro completar le proprie Photo a schizzo de iste application. Labora sur le facie que illo trova.
 filter.neural.sketch_to_portrait.msg.no_face = Trainate pro completar le proprie Photo a schizzo de iste application. Installa Faces (Skin Smoothing) e illo laborara sur le facie in vice del selection integre.
+
+# User-trained Anti-Smudge model (feature name).
+filter.neural.anti_smudge.name = Anti-Smudge
+filter.neural.anti_smudge.msg.no_model = {model} non es installate, dunque isto non face nihil.

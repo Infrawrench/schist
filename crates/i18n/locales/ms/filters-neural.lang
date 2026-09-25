@@ -168,3 +168,7 @@ filter.neural.sketch_to_portrait.name = Lakaran kepada Potret
 filter.neural.sketch_to_portrait.param.detail = Kekalkan Garis
 filter.neural.sketch_to_portrait.msg.with_face = Dilatih untuk mengisi Photo to Sketch aplikasi ini sendiri. Berfungsi pada wajah yang ditemuinya.
 filter.neural.sketch_to_portrait.msg.no_face = Dilatih untuk mengisi Photo to Sketch aplikasi ini sendiri. Pasang Faces (Skin Smoothing), lalu penapis akan berfungsi pada wajah dan bukannya seluruh pilihan.
+
+# User-trained Anti-Smudge model (feature name).
+filter.neural.anti_smudge.name = Anti-Smudge
+filter.neural.anti_smudge.msg.no_model = {model} tidak dipasang, jadi tindakan ini tidak menghasilkan perubahan.

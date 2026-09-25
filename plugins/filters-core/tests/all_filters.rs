@@ -122,6 +122,14 @@ fn every_filter_does_something_at_its_defaults() {
     ];
     let (w, h) = (33usize, 21usize);
     for f in registry().filters() {
+        // Restoration has no classical substitute if its model is unavailable.
+        if f.id() == "filter.neural.anti_smudge" && !schist_neural::installed("anti-smudge") {
+            let mut px = image(w, h);
+            let before = px.clone();
+            f.apply(&mut px, w, h, &FilterValues::defaults(&f.params()));
+            assert_eq!(px, before);
+            continue;
+        }
         let before = image(w, h);
         let mut px = before.clone();
         let values = FilterValues::defaults(&f.params());

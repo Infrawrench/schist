@@ -129,3 +129,7 @@ filter.neural.sketch_to_portrait.name = സ്കെച്ചിൽനിന്�
 filter.neural.sketch_to_portrait.param.detail = രേഖകൾ നിലനിർത്തുക
 filter.neural.sketch_to_portrait.msg.with_face = ഈ ആപ്പിന്റെ സ്വന്തം ഫോട്ടോയിൽനിന്ന് സ്കെച്ച് ഫലം പൂരിപ്പിക്കാൻ പരിശീലിപ്പിച്ചത്. കണ്ടെത്തുന്ന മുഖത്തിലാണ് പ്രവർത്തിക്കുന്നത്.
 filter.neural.sketch_to_portrait.msg.no_face = ഈ ആപ്പിന്റെ സ്വന്തം ഫോട്ടോയിൽനിന്ന് സ്കെച്ച് ഫലം പൂരിപ്പിക്കാൻ പരിശീലിപ്പിച്ചത്. Faces (Skin Smoothing) ഇൻസ്റ്റാൾ ചെയ്താൽ മുഴുവൻ തിരഞ്ഞെടുപ്പിനുപകരം മുഖത്തിൽ പ്രവർത്തിക്കും.
+
+# User-trained Anti-Smudge model (feature name).
+filter.neural.anti_smudge.name = Anti-Smudge
+filter.neural.anti_smudge.msg.no_model = {model} ഇൻസ്റ്റാൾ ചെയ്തിട്ടില്ല, അതിനാൽ മാറ്റമുണ്ടാകില്ല.

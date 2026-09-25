@@ -151,3 +151,7 @@ filter.neural.sketch_to_portrait.name = Umdwebo Ube Yisithombe Somuntu
 filter.neural.sketch_to_portrait.param.detail = Gcina Imigqa
 filter.neural.sketch_to_portrait.msg.with_face = Yaqeqetshwa ukugcwalisa okwalolu hlelo okuthi Ifotho Ibe Ngumdwebo. Isebenza ebusweni ebutholayo.
 filter.neural.sketch_to_portrait.msg.no_face = Yaqeqetshwa ukugcwalisa okwalolu hlelo okuthi Ifotho Ibe Ngumdwebo. Faka i-Faces (Skin Smoothing), ibisisebenza ebusweni esikhundleni sokukhethiweyo konke.
+
+# User-trained Anti-Smudge model (feature name).
+filter.neural.anti_smudge.name = Anti-Smudge
+filter.neural.anti_smudge.msg.no_model = U-{model} akafakwanga, ngakho lokhu akwenzi lutho.

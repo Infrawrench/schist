@@ -136,3 +136,7 @@ filter.neural.sketch_to_portrait.name = Igishushanyo kiba ifoto y'umuntu
 filter.neural.sketch_to_portrait.param.detail = Kugumana imirongo
 filter.neural.sketch_to_portrait.msg.with_face = Yatojwe kuzuza Ifoto iba igishushanyo y'iyi porogaramu. Ikorera ku maso ibonye.
 filter.neural.sketch_to_portrait.msg.no_face = Yatojwe kuzuza Ifoto iba igishushanyo y'iyi porogaramu. Shyiramo Faces (Skin Smoothing), maze ikorere ku maso aho gukorera ku byatoranyijwe byose.
+
+# User-trained Anti-Smudge model (feature name).
+filter.neural.anti_smudge.name = Anti-Smudge
+filter.neural.anti_smudge.msg.no_model = {model} ntishyizwemo, bityo nta cyo ibi bikora.

@@ -152,3 +152,7 @@ filter.neural.sketch_to_portrait.name = Desɛni kɛ porɛtiri ye
 filter.neural.sketch_to_portrait.param.detail = Siraw mara
 filter.neural.sketch_to_portrait.msg.with_face = A kalanɛna ka nin porogaramu yɛrɛ ka Foto kɛ desɛni ye o fa. A bɛ baara kɛ ɲɛda min sɔrɔla o kan.
 filter.neural.sketch_to_portrait.msg.no_face = A kalanɛna ka nin porogaramu yɛrɛ ka Foto kɛ desɛni ye o fa. Faces (Skin Smoothing) sigindi, a bɛ baara kɛ ɲɛda kan sugandili bɛɛ nɔ na.
+
+# User-trained Anti-Smudge model (feature name).
+filter.neural.anti_smudge.name = Anti-Smudge
+filter.neural.anti_smudge.msg.no_model = {model} ma sigindi, o la nin tɛ foyi kɛ.

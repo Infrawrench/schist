@@ -129,3 +129,7 @@ filter.neural.sketch_to_portrait.name = Sketch ñan Portrait
 filter.neural.sketch_to_portrait.param.detail = Kōjparok line ko
 filter.neural.sketch_to_portrait.msg.with_face = Eṃōj katakin ñan kūt Photo to Sketch an application in make. Ej jerbal ioon mej eo ej loe.
 filter.neural.sketch_to_portrait.msg.no_face = Eṃōj katakin ñan kūt Photo to Sketch an application in make. Install Faces (Skin Smoothing) im enaaj jerbal ioon mej eo jab selection eo aolep.
+
+# User-trained Anti-Smudge model (feature name).
+filter.neural.anti_smudge.name = Anti-Smudge
+filter.neural.anti_smudge.msg.no_model = {model} ejjañin install, kōn menin ejjab kōṃṃan jabdewōt.

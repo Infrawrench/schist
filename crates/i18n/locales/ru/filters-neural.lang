@@ -130,3 +130,7 @@ filter.neural.sketch_to_portrait.name = Эскиз в портрет
 filter.neural.sketch_to_portrait.param.detail = Сохранить линии
 filter.neural.sketch_to_portrait.msg.with_face = Обучена восстанавливать результат собственного фильтра приложения «Фото в эскиз». Работает с найденным лицом.
 filter.neural.sketch_to_portrait.msg.no_face = Обучена восстанавливать результат собственного фильтра приложения «Фото в эскиз». Установите Faces (Skin Smoothing), чтобы она обрабатывала лицо, а не всю выделенную область.
+
+# User-trained Anti-Smudge model (feature name).
+filter.neural.anti_smudge.name = Anti-Smudge
+filter.neural.anti_smudge.msg.no_model = Модель {model} не установлена, поэтому фильтр ничего не меняет.

@@ -129,3 +129,7 @@ filter.neural.sketch_to_portrait.name = Sketch tungo sa Portrait
 filter.neural.sketch_to_portrait.param.detail = Panatilihin ang Mga Linya
 filter.neural.sketch_to_portrait.msg.with_face = Sinanay upang punan ang sariling Larawan tungo sa Sketch ng application na ito. Gumagana ito sa mukhang mahahanap nito.
 filter.neural.sketch_to_portrait.msg.no_face = Sinanay upang punan ang sariling Larawan tungo sa Sketch ng application na ito. I-install ang Faces (Skin Smoothing) at gagana ito sa mukha sa halip na sa buong seleksiyon.
+
+# User-trained Anti-Smudge model (feature name).
+filter.neural.anti_smudge.name = Anti-Smudge
+filter.neural.anti_smudge.msg.no_model = Hindi naka-install ang {model}, kaya wala itong gagawin.

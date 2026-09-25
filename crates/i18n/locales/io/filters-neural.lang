@@ -130,3 +130,7 @@ filter.neural.sketch_to_portrait.name = Skiso a portreto
 filter.neural.sketch_to_portrait.param.detail = Konservar linei
 filter.neural.sketch_to_portrait.msg.with_face = Instruktita por plenigar la propra Fotografuro a skiso di ca programo. Ol laboras sur la vizajo trovita.
 filter.neural.sketch_to_portrait.msg.no_face = Instruktita por plenigar la propra Fotografuro a skiso di ca programo. Instalez Faces (Skin Smoothing) e ol laboros sur la vizajo vice la tota selekto.
+
+# User-trained Anti-Smudge model (feature name).
+filter.neural.anti_smudge.name = Anti-Smudge
+filter.neural.anti_smudge.msg.no_model = {model} ne esas instalita, do co facas nulo.

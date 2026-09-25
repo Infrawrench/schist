@@ -129,3 +129,7 @@ filter.neural.sketch_to_portrait.name = Szkic w portret
 filter.neural.sketch_to_portrait.param.detail = Zachowaj linie
 filter.neural.sketch_to_portrait.msg.with_face = Wytrenowano go do wypełniania wyniku filtra Zdjęcie w szkic z tej aplikacji. Działa na znalezionej twarzy.
 filter.neural.sketch_to_portrait.msg.no_face = Wytrenowano go do wypełniania wyniku filtra Zdjęcie w szkic z tej aplikacji. Zainstaluj Faces (Skin Smoothing), aby działał na twarzy zamiast na całym zaznaczeniu.
+
+# User-trained Anti-Smudge model (feature name).
+filter.neural.anti_smudge.name = Anti-Smudge
+filter.neural.anti_smudge.msg.no_model = Model {model} nie jest zainstalowany, więc filtr niczego nie zmienia.

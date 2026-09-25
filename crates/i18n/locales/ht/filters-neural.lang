@@ -136,3 +136,7 @@ filter.neural.sketch_to_portrait.name = Desen an pòtrè
 filter.neural.sketch_to_portrait.param.detail = Konsève liy
 filter.neural.sketch_to_portrait.msg.with_face = Li antrene pou ranpli pwòp Foto an desen aplikasyon sa a. Li travay sou figi li jwenn nan.
 filter.neural.sketch_to_portrait.msg.no_face = Li antrene pou ranpli pwòp Foto an desen aplikasyon sa a. Enstale Faces (Skin Smoothing) epi l ap travay sou figi a olye tout seleksyon an.
+
+# User-trained Anti-Smudge model (feature name).
+filter.neural.anti_smudge.name = Anti-Smudge
+filter.neural.anti_smudge.msg.no_model = {model} pa enstale, kidonk sa pa fè anyen.

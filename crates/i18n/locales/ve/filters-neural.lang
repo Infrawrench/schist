@@ -159,3 +159,7 @@ filter.neural.sketch_to_portrait.name = Tshiketshe tshi vhe Tshifanyiso tsha Mut
 filter.neural.sketch_to_portrait.param.detail = Vhulunga Mitalo
 filter.neural.sketch_to_portrait.msg.with_face = Yo gudiselwa u ḓadza Photo to Sketch ya yeneyi app. I shuma kha tshifhaṱuwo tshine ya tshi wana.
 filter.neural.sketch_to_portrait.msg.no_face = Yo gudiselwa u ḓadza Photo to Sketch ya yeneyi app. Dzhenisani Faces (Skin Smoothing) uri i shume kha tshifhaṱuwo nṱhani ha zwo nangiwaho zwoṱhe.
+
+# User-trained Anti-Smudge model (feature name).
+filter.neural.anti_smudge.name = Anti-Smudge
+filter.neural.anti_smudge.msg.no_model = {model} a yo ngo dzheniswa, ngauralo hezwi a zwi iti tshithu.

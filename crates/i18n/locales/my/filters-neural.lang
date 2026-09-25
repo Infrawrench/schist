@@ -137,3 +137,7 @@ filter.neural.sketch_to_portrait.name = ပုံကြမ်းမှ ပုံ
 filter.neural.sketch_to_portrait.param.detail = မျဉ်းများ ထိန်းထားရန်
 filter.neural.sketch_to_portrait.msg.with_face = ဤအက်ပ်၏ ဓာတ်ပုံမှ ပုံကြမ်းသို့ လုပ်ဆောင်ချက်ကို ပြန်ဖြည့်ရန် လေ့ကျင့်ထားသည်။ ရှာတွေ့သော မျက်နှာပေါ်တွင် လုပ်ဆောင်သည်။
 filter.neural.sketch_to_portrait.msg.no_face = ဤအက်ပ်၏ ဓာတ်ပုံမှ ပုံကြမ်းသို့ လုပ်ဆောင်ချက်ကို ပြန်ဖြည့်ရန် လေ့ကျင့်ထားသည်။ Faces (Skin Smoothing) ကို ထည့်သွင်းလျှင် ရွေးချယ်မှုတစ်ခုလုံးအစား မျက်နှာပေါ်တွင် လုပ်ဆောင်မည်။
+
+# User-trained Anti-Smudge model (feature name).
+filter.neural.anti_smudge.name = Anti-Smudge
+filter.neural.anti_smudge.msg.no_model = {model} ကို မထည့်သွင်းရသေးသဖြင့် ဘာမျှမလုပ်ပါ။

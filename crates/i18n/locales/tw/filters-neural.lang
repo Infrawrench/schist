@@ -129,3 +129,7 @@ filter.neural.sketch_to_portrait.name = Sketch Kɔ Portrait
 filter.neural.sketch_to_portrait.param.detail = Kora Nsensanee
 filter.neural.sketch_to_portrait.msg.with_face = Wɔtetee no sɛ ɛnhyɛ app yi ankasa Foto Kɔ Sketch no mu. Ɛyɛ anim a ehu no so adwuma.
 filter.neural.sketch_to_portrait.msg.no_face = Wɔtetee no sɛ ɛnhyɛ app yi ankasa Foto Kɔ Sketch no mu. Fa Faces (Skin Smoothing) gu so na ɛnyɛ anim no so adwuma sen sɛ ɛbɛyɛ nea woapaw no nyinaa so.
+
+# User-trained Anti-Smudge model (feature name).
+filter.neural.anti_smudge.name = Anti-Smudge
+filter.neural.anti_smudge.msg.no_model = Wɔmfa {model} ntoo hɔ, enti eyi nyɛ hwee.

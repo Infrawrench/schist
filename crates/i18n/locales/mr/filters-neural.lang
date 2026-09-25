@@ -129,3 +129,7 @@ filter.neural.sketch_to_portrait.name = रेखाटन ते व्यक�
 filter.neural.sketch_to_portrait.param.detail = रेषा राखा
 filter.neural.sketch_to_portrait.msg.with_face = या अनुप्रयोगाचे स्वतःचे फोटो ते रेखाटन भरण्यास प्रशिक्षित. सापडलेल्या चेहऱ्यावर कार्य करते.
 filter.neural.sketch_to_portrait.msg.no_face = या अनुप्रयोगाचे स्वतःचे फोटो ते रेखाटन भरण्यास प्रशिक्षित. Faces (Skin Smoothing) स्थापित केल्यास संपूर्ण निवडीऐवजी चेहऱ्यावर कार्य करेल.
+
+# User-trained Anti-Smudge model (feature name).
+filter.neural.anti_smudge.name = Anti-Smudge
+filter.neural.anti_smudge.msg.no_model = {model} स्थापित नाही, त्यामुळे हे काहीही करत नाही.

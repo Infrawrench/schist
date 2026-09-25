@@ -136,3 +136,7 @@ filter.neural.sketch_to_portrait.name = Sárggus portrehttan
 filter.neural.sketch_to_portrait.param.detail = Seailluhe linnjáid
 filter.neural.sketch_to_portrait.msg.with_face = Oahpahuvvon deavdit dán prográmma iežas Govva sárgosin-bohtosa. Bargá dan ámadagain maid gávdná.
 filter.neural.sketch_to_portrait.msg.no_face = Oahpahuvvon deavdit dán prográmma iežas Govva sárgosin-bohtosa. Sajáiduhte Faces (Skin Smoothing), de dat bargá ámadagain iige olles válljemiin.
+
+# User-trained Anti-Smudge model (feature name).
+filter.neural.anti_smudge.name = Anti-Smudge
+filter.neural.anti_smudge.msg.no_model = {model} ii leat sajáiduhtton, nu ahte dát ii daga maidege.

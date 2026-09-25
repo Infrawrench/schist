@@ -138,3 +138,7 @@ filter.neural.sketch_to_portrait.name = Braslun yn Bortread
 filter.neural.sketch_to_portrait.param.detail = Cadw Llinellau
 filter.neural.sketch_to_portrait.msg.with_face = Wedi'i hyfforddi i lenwi Ffotograff yn Fraslun y rhaglen hon ei hun. Mae'n gweithio ar yr wyneb y mae'n ei ganfod.
 filter.neural.sketch_to_portrait.msg.no_face = Wedi'i hyfforddi i lenwi Ffotograff yn Fraslun y rhaglen hon ei hun. Gosodwch Faces (Skin Smoothing) ac fe weithia ar yr wyneb yn hytrach nag ar y detholiad cyfan.
+
+# User-trained Anti-Smudge model (feature name).
+filter.neural.anti_smudge.name = Anti-Smudge
+filter.neural.anti_smudge.msg.no_model = Nid yw {model} wedi'i osod, felly nid yw hyn yn gwneud dim.

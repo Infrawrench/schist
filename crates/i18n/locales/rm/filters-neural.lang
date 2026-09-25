@@ -130,3 +130,7 @@ filter.neural.sketch_to_portrait.name = Skizza en purtret
 filter.neural.sketch_to_portrait.param.detail = Mantegnair lingias
 filter.neural.sketch_to_portrait.msg.with_face = Trenà per emplenir l'atgna funcziun Fotografia en skizza da questa applicaziun. Elavura la fatscha ch'el chatta.
 filter.neural.sketch_to_portrait.msg.no_face = Trenà per emplenir l'atgna funcziun Fotografia en skizza da questa applicaziun. Installescha Faces (Skin Smoothing) ed el elavura la fatscha empè da l'entira selecziun.
+
+# User-trained Anti-Smudge model (feature name).
+filter.neural.anti_smudge.name = Anti-Smudge
+filter.neural.anti_smudge.msg.no_model = {model} n'è betg installà, perquai na capita nagut.

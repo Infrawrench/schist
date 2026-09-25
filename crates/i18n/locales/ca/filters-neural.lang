@@ -129,3 +129,7 @@ filter.neural.sketch_to_portrait.name = Esbós a retrat
 filter.neural.sketch_to_portrait.param.detail = Conserva les línies
 filter.neural.sketch_to_portrait.msg.with_face = Està entrenat per emplenar el resultat del filtre Fotografia a esbós d'aquesta aplicació. Actua sobre la cara que troba.
 filter.neural.sketch_to_portrait.msg.no_face = Està entrenat per emplenar el resultat del filtre Fotografia a esbós d'aquesta aplicació. Instal·leu Faces (Skin Smoothing) perquè actuï sobre la cara en comptes de tota la selecció.
+
+# User-trained Anti-Smudge model (feature name).
+filter.neural.anti_smudge.name = Anti-Smudge
+filter.neural.anti_smudge.msg.no_model = {model} no està instal·lat i, per tant, no fa res.

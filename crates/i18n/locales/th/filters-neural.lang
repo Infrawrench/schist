@@ -129,3 +129,7 @@ filter.neural.sketch_to_portrait.name = ภาพร่างเป็นภา�
 filter.neural.sketch_to_portrait.param.detail = รักษาเส้น
 filter.neural.sketch_to_portrait.msg.with_face = ฝึกมาเพื่อเติมรายละเอียดให้ผลลัพธ์จากภาพถ่ายเป็นภาพร่างของแอปนี้ และทำงานกับใบหน้าที่ตรวจพบ
 filter.neural.sketch_to_portrait.msg.no_face = ฝึกมาเพื่อเติมรายละเอียดให้ผลลัพธ์จากภาพถ่ายเป็นภาพร่างของแอปนี้ ติดตั้ง Faces (Skin Smoothing) เพื่อให้ทำงานกับใบหน้าแทนทั้งส่วนที่เลือก
+
+# User-trained Anti-Smudge model (feature name).
+filter.neural.anti_smudge.name = Anti-Smudge
+filter.neural.anti_smudge.msg.no_model = ยังไม่ได้ติดตั้ง {model} จึงไม่มีการเปลี่ยนแปลง

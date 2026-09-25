@@ -129,3 +129,7 @@ filter.neural.sketch_to_portrait.name = Sceitse go Portráid
 filter.neural.sketch_to_portrait.param.detail = Coinnigh Línte
 filter.neural.sketch_to_portrait.msg.with_face = Traenáladh é chun Grianghraf go Sceitse na haipe seo féin a líonadh isteach. Oibríonn sé ar an aghaidh a aimsíonn sé.
 filter.neural.sketch_to_portrait.msg.no_face = Traenáladh é chun Grianghraf go Sceitse na haipe seo féin a líonadh isteach. Suiteáil Faces (Skin Smoothing) agus oibreoidh sé ar an aghaidh seachas ar an roghnúchán iomlán.
+
+# User-trained Anti-Smudge model (feature name).
+filter.neural.anti_smudge.name = Anti-Smudge
+filter.neural.anti_smudge.msg.no_model = Níl {model} suiteáilte, mar sin ní dhéanann sé seo faic.

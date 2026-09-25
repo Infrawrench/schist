@@ -129,3 +129,7 @@ filter.neural.sketch_to_portrait.name = வரைவிலிருந்து 
 filter.neural.sketch_to_portrait.param.detail = கோடுகளைப் பேணு
 filter.neural.sketch_to_portrait.msg.with_face = இந்தப் பயன்பாட்டின் சொந்த புகைப்படத்திலிருந்து வரைவு வெளியீட்டை நிரப்பப் பயிற்றுவிக்கப்பட்டது. அது கண்டறியும் முகத்தில் செயல்படும்.
 filter.neural.sketch_to_portrait.msg.no_face = இந்தப் பயன்பாட்டின் சொந்த புகைப்படத்திலிருந்து வரைவு வெளியீட்டை நிரப்பப் பயிற்றுவிக்கப்பட்டது. Faces (Skin Smoothing) ஐ நிறுவினால் முழுத் தேர்வுக்குப் பதிலாக முகத்தில் செயல்படும்.
+
+# User-trained Anti-Smudge model (feature name).
+filter.neural.anti_smudge.name = Anti-Smudge
+filter.neural.anti_smudge.msg.no_model = {model} நிறுவப்படவில்லை; எனவே இது எதுவும் செய்யாது.

@@ -8,3 +8,7 @@ __pycache__/
 
 # The assembled web deployment (tools/web-build.sh)
 /dist/
+
+# Local anti-smudge datasets, checkpoints, exports and validation reports.
+/data/anti-smudge/
+/runs/anti-smudge/

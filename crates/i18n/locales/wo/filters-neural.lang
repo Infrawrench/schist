@@ -129,3 +129,7 @@ filter.neural.sketch_to_portrait.name = Esquisse jëm portale
 filter.neural.sketch_to_portrait.param.detail = Denc rëdd yi
 filter.neural.sketch_to_portrait.msg.with_face = Tàggat nañu ko ngir feesal Foto jëm Esquisse bu aplikaasioŋ bii. Day liggéey ci kanam gi mu gis.
 filter.neural.sketch_to_portrait.msg.no_face = Tàggat nañu ko ngir feesal Foto jëm Esquisse bu aplikaasioŋ bii. Sampal Faces (Skin Smoothing), kon dina liggéey ci kanam gi te du ci tànneef bépp.
+
+# User-trained Anti-Smudge model (feature name).
+filter.neural.anti_smudge.name = Anti-Smudge
+filter.neural.anti_smudge.msg.no_model = {model} sampuwul, kon lii du def dara.

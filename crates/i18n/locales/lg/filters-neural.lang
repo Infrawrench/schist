@@ -129,3 +129,7 @@ filter.neural.sketch_to_portrait.name = Ekikubiddwa ne pensulo okudda ku kifaana
 filter.neural.sketch_to_portrait.param.detail = Sigaza emisittale
 filter.neural.sketch_to_portrait.msg.with_face = Yatendekebwa okujjuza Ekifaananyi okudda ku kikubiddwa ne pensulo ekya pulogulaamu eno. Ekola ku maaso g'ezudde.
 filter.neural.sketch_to_portrait.msg.no_face = Yatendekebwa okujjuza Ekifaananyi okudda ku kikubiddwa ne pensulo ekya pulogulaamu eno. Teekamu Faces (Skin Smoothing) ekole ku maaso mu kifo ky'ekirondeddwa kyonna.
+
+# User-trained Anti-Smudge model (feature name).
+filter.neural.anti_smudge.name = Anti-Smudge
+filter.neural.anti_smudge.msg.no_model = {model} teteekeddwamu, kale kino tekirina kye kikola.

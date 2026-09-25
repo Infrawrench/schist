@@ -139,3 +139,7 @@ filter.neural.sketch_to_portrait.name = Skizz zu Portrait
 filter.neural.sketch_to_portrait.param.detail = Linnen erhalen
 filter.neural.sketch_to_portrait.msg.with_face = Trainéiert, fir der App hir eege Foto-zu-Skizz-Ausgab auszefëllen. Schafft um Gesiicht, dat erkannt gëtt.
 filter.neural.sketch_to_portrait.msg.no_face = Trainéiert, fir der App hir eege Foto-zu-Skizz-Ausgab auszefëllen. Installéiert Faces (Skin Smoothing), da schafft et um Gesiicht amplaz op der ganzer Auswiel.
+
+# User-trained Anti-Smudge model (feature name).
+filter.neural.anti_smudge.name = Anti-Smudge
+filter.neural.anti_smudge.msg.no_model = {model} ass net installéiert, dofir geschitt näischt.

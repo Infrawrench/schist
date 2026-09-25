@@ -130,3 +130,7 @@ filter.neural.sketch_to_portrait.name = Tpinġija għal Ritratt
 filter.neural.sketch_to_portrait.param.detail = Żomm il-Linji
 filter.neural.sketch_to_portrait.msg.with_face = Imħarreġ biex jimla r-Ritratt għal Tpinġija tal-applikazzjoni stess. Jaħdem fuq il-wiċċ li jsib.
 filter.neural.sketch_to_portrait.msg.no_face = Imħarreġ biex jimla r-Ritratt għal Tpinġija tal-applikazzjoni stess. Installa Faces (Skin Smoothing) u jaħdem fuq il-wiċċ minflok fuq l-għażla kollha.
+
+# User-trained Anti-Smudge model (feature name).
+filter.neural.anti_smudge.name = Anti-Smudge
+filter.neural.anti_smudge.msg.no_model = {model} mhuwiex installat, għalhekk dan ma jagħmel xejn.

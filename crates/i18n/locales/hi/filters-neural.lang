@@ -129,3 +129,7 @@ filter.neural.sketch_to_portrait.name = स्केच से पोर्ट�
 filter.neural.sketch_to_portrait.param.detail = रेखाएँ बनाए रखें
 filter.neural.sketch_to_portrait.msg.with_face = इसे इसी अनुप्रयोग के फ़ोटो से स्केच को भरने के लिए प्रशिक्षित किया गया है। यह मिले हुए चेहरे पर काम करता है।
 filter.neural.sketch_to_portrait.msg.no_face = इसे इसी अनुप्रयोग के फ़ोटो से स्केच को भरने के लिए प्रशिक्षित किया गया है। Faces (Skin Smoothing) इंस्टॉल करें और यह पूरे चयन के बजाय चेहरे पर काम करेगा।
+
+# User-trained Anti-Smudge model (feature name).
+filter.neural.anti_smudge.name = Anti-Smudge
+filter.neural.anti_smudge.msg.no_model = {model} इंस्टॉल नहीं है, इसलिए इसका कोई प्रभाव नहीं पड़ता।

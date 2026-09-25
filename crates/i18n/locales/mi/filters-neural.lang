@@ -129,3 +129,7 @@ filter.neural.sketch_to_portrait.name = Tuhinga Hukihuki hei Whakaahua Kanohi
 filter.neural.sketch_to_portrait.param.detail = Pupuri Rārangi
 filter.neural.sketch_to_portrait.msg.with_face = I whakangungua hei whakakī i te Whakaahua hei Tuhinga Hukihuki ake o tēnei taupānga. Ka mahi ki te kanohi ka kitea.
 filter.neural.sketch_to_portrait.msg.no_face = I whakangungua hei whakakī i te Whakaahua hei Tuhinga Hukihuki ake o tēnei taupānga. Tāutahia a Faces (Skin Smoothing), ā, ka mahi ki te kanohi, kaua ki te tīpakonga katoa.
+
+# User-trained Anti-Smudge model (feature name).
+filter.neural.anti_smudge.name = Anti-Smudge
+filter.neural.anti_smudge.msg.no_model = Kāore a {model} i tāutahia, nō reira kāore tēnei e mahi.

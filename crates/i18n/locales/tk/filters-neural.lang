@@ -151,3 +151,7 @@ filter.neural.sketch_to_portrait.name = Eskizden portret
 filter.neural.sketch_to_portrait.param.detail = Çyzyklary saklamak
 filter.neural.sketch_to_portrait.msg.with_face = Şu programmanyň öz Suratdan eskiz netijesini doldurmak üçin öwredilen. Tapan ýüzünde işleýär.
 filter.neural.sketch_to_portrait.msg.no_face = Şu programmanyň öz Suratdan eskiz netijesini doldurmak üçin öwredilen. Faces (Skin Smoothing) guruň, şonda ol tutuş saýlawyň ýerine ýüzde işlär.
+
+# User-trained Anti-Smudge model (feature name).
+filter.neural.anti_smudge.name = Anti-Smudge
+filter.neural.anti_smudge.msg.no_model = {model} gurulmady, şonuň üçin bu hiç zat etmeýär.

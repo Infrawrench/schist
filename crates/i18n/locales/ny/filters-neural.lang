@@ -146,3 +146,7 @@ filter.neural.sketch_to_portrait.name = Chojambula Kukhala Portrait
 filter.neural.sketch_to_portrait.param.detail = Sungani Mizere
 filter.neural.sketch_to_portrait.msg.with_face = Yaphunzitsidwa kudzaza zotsatira za Photo to Sketch za pulogalamuyi. Imagwira ntchito pa nkhope yomwe yapeza.
 filter.neural.sketch_to_portrait.msg.no_face = Yaphunzitsidwa kudzaza zotsatira za Photo to Sketch za pulogalamuyi. Ikani Faces (Skin Smoothing) ndipo idzagwira ntchito pa nkhope m'malo mwa malo onse osankhidwa.
+
+# User-trained Anti-Smudge model (feature name).
+filter.neural.anti_smudge.name = Anti-Smudge
+filter.neural.anti_smudge.msg.no_model = {model} sinaikidwe, choncho izi sizichita kanthu.

@@ -774,6 +774,7 @@ pub(super) const FILTER_GROUPS: &[(&str, &[&str])] = &[
             "filter.neural.style_transfer",
             "filter.neural.skin_smoothing",
             "filter.neural.jpeg_artifacts",
+            "filter.neural.anti_smudge",
             "filter.neural.colorize",
             "filter.neural.super_zoom",
             "filter.neural.color_transfer",

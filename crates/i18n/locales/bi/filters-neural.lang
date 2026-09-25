@@ -129,3 +129,7 @@ filter.neural.sketch_to_portrait.name = Droing i Go long Potret
 filter.neural.sketch_to_portrait.param.detail = Kipim Ol Laen
 filter.neural.sketch_to_portrait.msg.with_face = Oli trenem blong fulumap Foto i Go long Droing blong app ya. I wok long fes we hem i faenem.
 filter.neural.sketch_to_portrait.msg.no_face = Oli trenem blong fulumap Foto i Go long Droing blong app ya. Instolem Faces (Skin Smoothing), nao hem i wok long fes be i no ful selection.
+
+# User-trained Anti-Smudge model (feature name).
+filter.neural.anti_smudge.name = Anti-Smudge
+filter.neural.anti_smudge.msg.no_model = {model} i no instol, taswe hem i no mekem wan samting.

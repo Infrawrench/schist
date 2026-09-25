@@ -129,3 +129,7 @@ filter.neural.sketch_to_portrait.name = స్కెచ్ నుండి ప�
 filter.neural.sketch_to_portrait.param.detail = రేఖలను ఉంచు
 filter.neural.sketch_to_portrait.msg.with_face = ఈ అప్లికేషన్ సొంత ఫోటో నుండి స్కెచ్ ఫలితాన్ని పూరించడానికి శిక్షణ పొందింది. అది కనుగొన్న ముఖంపై పనిచేస్తుంది.
 filter.neural.sketch_to_portrait.msg.no_face = ఈ అప్లికేషన్ సొంత ఫోటో నుండి స్కెచ్ ఫలితాన్ని పూరించడానికి శిక్షణ పొందింది. Faces (Skin Smoothing)ను ఇన్‌స్టాల్ చేస్తే మొత్తం ఎంపికకు బదులుగా ముఖంపై పనిచేస్తుంది.
+
+# User-trained Anti-Smudge model (feature name).
+filter.neural.anti_smudge.name = Anti-Smudge
+filter.neural.anti_smudge.msg.no_model = {model} ఇన్‌స్టాల్ కాలేదు, కాబట్టి ఇది ఏమీ చేయదు.

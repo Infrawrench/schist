@@ -151,3 +151,7 @@ filter.neural.sketch_to_portrait.name = Нобайдан портрет жаса
 filter.neural.sketch_to_portrait.param.detail = Сызықтарды сақтау
 filter.neural.sketch_to_portrait.msg.with_face = Осы қолданбаның «Фотосуреттен нобай жасау» нәтижесін толтыруға үйретілген. Табылған бетке қолданылады.
 filter.neural.sketch_to_portrait.msg.no_face = Осы қолданбаның «Фотосуреттен нобай жасау» нәтижесін толтыруға үйретілген. Faces (Skin Smoothing) моделін орнатсаңыз, ол бүкіл таңдауға емес, бетке қолданылады.
+
+# User-trained Anti-Smudge model (feature name).
+filter.neural.anti_smudge.name = Anti-Smudge
+filter.neural.anti_smudge.msg.no_model = {model} орнатылмаған, сондықтан еш өзгеріс жасалмайды.

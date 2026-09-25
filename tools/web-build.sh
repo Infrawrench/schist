@@ -129,6 +129,8 @@ cp web/index.html web/loader.js web/tethered.mjs web/i18n.js web/i18n-data.js "$
 cp crates/app-platform/assets/icons/*.svg "$OUT/assets/icons/"
 cp web/fonts/*.ttf web/fonts/*.otf web/fonts/LICENSE-* "$OUT/assets/fonts/"
 cp crates/neural/models/*.onnx "$OUT/assets/models/"
+cp crates/neural/models/*.onnx.xz "$OUT/assets/models/"
+cp crates/neural/models/anti-smudge.json "$OUT/assets/models/"
 cp assets/logo/schist.svg "$OUT/assets/logo/"
 
 echo '-- manifest'

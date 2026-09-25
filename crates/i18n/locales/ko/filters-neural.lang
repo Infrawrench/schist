@@ -129,3 +129,7 @@ filter.neural.sketch_to_portrait.name = 스케치를 인물 사진으로
 filter.neural.sketch_to_portrait.param.detail = 선 유지
 filter.neural.sketch_to_portrait.msg.with_face = 이 앱의 사진을 스케치로 기능이 만든 결과를 채우도록 훈련되었습니다. 감지한 얼굴에 적용됩니다.
 filter.neural.sketch_to_portrait.msg.no_face = 이 앱의 사진을 스케치로 기능이 만든 결과를 채우도록 훈련되었습니다. Faces (Skin Smoothing)를 설치하면 선택 영역 전체가 아니라 얼굴에 적용됩니다.
+
+# User-trained Anti-Smudge model (feature name).
+filter.neural.anti_smudge.name = Anti-Smudge
+filter.neural.anti_smudge.msg.no_model = {model}이(가) 설치되지 않아 아무 작업도 하지 않습니다.

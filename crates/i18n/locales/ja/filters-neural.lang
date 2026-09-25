@@ -169,3 +169,7 @@ filter.neural.sketch_to_portrait.name = スケッチを顔写真に
 filter.neural.sketch_to_portrait.param.detail = 線を保持
 filter.neural.sketch_to_portrait.msg.with_face = このアプリケーション自身の「顔写真をスケッチに」を描き起こすよう学習しています。見つかった顔に作用します。
 filter.neural.sketch_to_portrait.msg.no_face = このアプリケーション自身の「顔写真をスケッチに」を描き起こすよう学習しています。Faces (Skin Smoothing) をインストールすると、選択範囲全体ではなく顔に作用します。
+
+# User-trained Anti-Smudge model (feature name).
+filter.neural.anti_smudge.name = Anti-Smudge
+filter.neural.anti_smudge.msg.no_model = {model} がインストールされていないため、何も起こりません。

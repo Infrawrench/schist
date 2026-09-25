@@ -138,3 +138,7 @@ filter.neural.sketch_to_portrait.name = Zanen Alƙalami zuwa Hoton Fuska
 filter.neural.sketch_to_portrait.param.detail = Riƙe Layuka
 filter.neural.sketch_to_portrait.msg.with_face = An horar da shi ya cika Hoto zuwa Zanen Alƙalami na wannan manhajar. Yana aiki a kan fuskar da ya samu.
 filter.neural.sketch_to_portrait.msg.no_face = An horar da shi ya cika Hoto zuwa Zanen Alƙalami na wannan manhajar. Girka Faces (Skin Smoothing), sai ya yi aiki a kan fuskar maimakon dukan zaɓin.
+
+# User-trained Anti-Smudge model (feature name).
+filter.neural.anti_smudge.name = Anti-Smudge
+filter.neural.anti_smudge.msg.no_model = Ba a girka {model} ba, don haka wannan ba ya yin komai.

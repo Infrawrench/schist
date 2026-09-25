@@ -153,3 +153,7 @@ filter.neural.sketch_to_portrait.name = ንድፊ ናብ ፖርትሬት
 filter.neural.sketch_to_portrait.param.detail = መስመራት ዓቅብ
 filter.neural.sketch_to_portrait.msg.with_face = ነቲ ናይዚ መተግበሪ ስእሊ ናብ ንድፊ ዝመልእ ኮይኑ ሰልጢኑ። ኣብቲ ዝረኸቦ ገጽ ይሰርሕ።
 filter.neural.sketch_to_portrait.msg.no_face = ነቲ ናይዚ መተግበሪ ስእሊ ናብ ንድፊ ዝመልእ ኮይኑ ሰልጢኑ። ኣብ ምሉእ ምርጫ ኣብ ክንዲ ምስራሕ ኣብ ገጽ ንኽሰርሕ Faces (Skin Smoothing) ተኸል።
+
+# User-trained Anti-Smudge model (feature name).
+filter.neural.anti_smudge.name = Anti-Smudge
+filter.neural.anti_smudge.msg.no_model = {model} ኣይተተኽለን፣ ስለዚ እዚ ዋላ ሓንቲ ኣይገብርን።

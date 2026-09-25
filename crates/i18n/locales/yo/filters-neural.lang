@@ -129,3 +129,7 @@ filter.neural.sketch_to_portrait.name = Àwòrán ọwọ́ sí àwòrán ènìy
 filter.neural.sketch_to_portrait.param.detail = Pa àwọn ìlà mọ́
 filter.neural.sketch_to_portrait.msg.with_face = A kọ́ ọ láti kún àwòrán Fọ́tò sí àwòrán ọwọ́ ti ápù yìí fúnra rẹ̀. Ó máa ṣiṣẹ́ lórí ojú tí ó rí.
 filter.neural.sketch_to_portrait.msg.no_face = A kọ́ ọ láti kún àwòrán Fọ́tò sí àwòrán ọwọ́ ti ápù yìí fúnra rẹ̀. Fi Faces (Skin Smoothing) sí ẹ̀rọ, yóò sì ṣiṣẹ́ lórí ojú dípò gbogbo àṣàyàn.
+
+# User-trained Anti-Smudge model (feature name).
+filter.neural.anti_smudge.name = Anti-Smudge
+filter.neural.anti_smudge.msg.no_model = A kò fi {model} sí ẹ̀rọ, nítorí náà kò ní ṣe ohunkóhun.

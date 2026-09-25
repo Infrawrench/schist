@@ -129,3 +129,7 @@ filter.neural.sketch_to_portrait.name = Da schizzu à ritrattu
 filter.neural.sketch_to_portrait.param.detail = Cunservà e linee
 filter.neural.sketch_to_portrait.msg.with_face = Addestratu per riempie u filtru Da fotò à schizzu propiu di st'applicazione. Travaglia nant'à u visu ch'ellu trova.
 filter.neural.sketch_to_portrait.msg.no_face = Addestratu per riempie u filtru Da fotò à schizzu propiu di st'applicazione. Stallate Faces (Skin Smoothing) è travagliarà nant'à u visu invece di a selezzione sana.
+
+# User-trained Anti-Smudge model (feature name).
+filter.neural.anti_smudge.name = Anti-Smudge
+filter.neural.anti_smudge.msg.no_model = {model} ùn hè micca stallatu, dunque ùn face nunda.

@@ -129,3 +129,7 @@ filter.neural.sketch_to_portrait.name = Croquis en portrait
 filter.neural.sketch_to_portrait.param.detail = Conserver les traits
 filter.neural.sketch_to_portrait.msg.with_face = Entraîné pour compléter la fonction Photo en croquis de cette application. Traite le visage détecté.
 filter.neural.sketch_to_portrait.msg.no_face = Entraîné pour compléter la fonction Photo en croquis de cette application. Installez Faces (Skin Smoothing) pour traiter le visage plutôt que toute la sélection.
+
+# User-trained Anti-Smudge model (feature name).
+filter.neural.anti_smudge.name = Anti-Smudge
+filter.neural.anti_smudge.msg.no_model = {model} n’est pas installé ; aucun changement n’est donc effectué.

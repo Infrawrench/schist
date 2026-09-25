@@ -973,3 +973,35 @@ lint-export-finishing:
 .PHONY: check-export-finishing-codecs
 check-export-finishing-codecs:
 	$(CARGO) test -p schist-codecs-common tiff
+
+# Experimental lens-scatter restoration. The selected XZ model is bundled;
+# datasets and training runs remain untracked. See docs/anti-smudge.md.
+PYTHON ?= python3
+.PHONY: check-anti-smudge train-anti-smudge fmt-anti-smudge check-anti-smudge-app
+check-anti-smudge:
+	$(PYTHON) -m unittest discover -s tools/train -p 'test_anti_smudge.py'
+	$(CARGO) test -p schist-neural --test anti_smudge
+	$(CARGO) test -p schist-neural --lib catalogue_tests
+	$(CARGO) test -p schist-neural --lib halo::tests
+	$(CARGO) test -p schist-filters-core --lib anti_smudge::tests
+	$(CARGO) test -p schist-filters-core --test anti_smudge
+train-anti-smudge:
+	$(PYTHON) tools/train/anti_smudge.py $(ARGS)
+.PHONY: transfer-anti-smudge
+transfer-anti-smudge:
+	$(PYTHON) tools/train/flare_transfer.py $(ARGS)
+.PHONY: train-anti-smudge-mfdnet
+train-anti-smudge-mfdnet:
+	$(PYTHON) tools/train/mfdnet_transfer.py $(ARGS)
+fmt-anti-smudge:
+	$(CARGO) fmt -p schist-neural -p schist-filters-core -p schist-editor
+check-anti-smudge-app:
+	$(CARGO) check -p schist-editor --all-targets
+.PHONY: fetch-anti-smudge-data fetch-anti-smudge-pairs
+fetch-anti-smudge-data:
+	$(PYTHON) tools/train/flare_data.py $(ARGS)
+fetch-anti-smudge-pairs:
+	$(PYTHON) tools/train/flare_real_data.py $(ARGS)
+.PHONY: run-anti-smudge
+run-anti-smudge:
+	$(CARGO) run $(PROFILE_FLAG) -p schist-neural --example anti_smudge -- $(ARGS)

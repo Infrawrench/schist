@@ -163,3 +163,7 @@ filter.neural.sketch_to_portrait.name = Luonnoksesta muotokuvaksi
 filter.neural.sketch_to_portrait.param.detail = Säilytä viivat
 filter.neural.sketch_to_portrait.msg.with_face = Koulutettu täyttämään tämän sovelluksen Valokuvasta luonnokseksi -toiminnon tuloksia. Käsittelee löytämänsä kasvot.
 filter.neural.sketch_to_portrait.msg.no_face = Koulutettu täyttämään tämän sovelluksen Valokuvasta luonnokseksi -toiminnon tuloksia. Asenna Faces (Skin Smoothing), niin toiminto käsittelee kasvot koko valinnan sijasta.
+
+# User-trained Anti-Smudge model (feature name).
+filter.neural.anti_smudge.name = Anti-Smudge
+filter.neural.anti_smudge.msg.no_model = Mallia {model} ei ole asennettu, joten tämä ei tee mitään.
