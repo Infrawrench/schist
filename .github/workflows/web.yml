@@ -11,6 +11,7 @@ on:
       - "plugins/**"
       - "web/**"
       - "tools/web-build.sh"
+      - "Makefile"
       - "Cargo.*"
       - ".cargo/**"
       - "wrangler.jsonc"
@@ -58,7 +59,9 @@ jobs:
           echo "$RUNNER_TEMP/binaryen-version_123/bin" >> "$GITHUB_PATH"
 
       - name: Build dist/web
-        run: ./tools/web-build.sh
+        env:
+          WASM_OPT_REQUIRED: "1"
+        run: make web
 
       # The deployable directory, inspectable from any run — a PR's build
       # can be downloaded and served locally without deploying anything.

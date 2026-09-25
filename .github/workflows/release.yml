@@ -91,9 +91,9 @@ jobs:
             @{ target = 'x86_64-pc-windows-msvc'; name = 'schist-8bf-helper-x86_64.exe' },
             @{ target = 'i686-pc-windows-msvc';   name = 'schist-8bf-helper-x86.exe' })) {
             rustup target add $h.target
-            cargo build --release -p schist-plugin-host-8bf --bin schist-8bf-helper --target $h.target
+            cargo build --profile helper -p schist-plugin-host-8bf --bin schist-8bf-helper --target $h.target
             if ($LASTEXITCODE -ne 0) { throw "helper $($h.target) failed to build" }
-            Copy-Item "target/$($h.target)/release/schist-8bf-helper.exe" "$stage/$($h.name)"
+            Copy-Item "target/$($h.target)/helper/schist-8bf-helper.exe" "$stage/$($h.name)"
           }
           "SCHIST_BUNDLED_HELPERS=$stage" | Out-File -FilePath $env:GITHUB_ENV -Append
 
@@ -222,9 +222,9 @@ jobs:
           # earlier would match. Signing is safe to have happened already --
           # codesign appends a signature and leaves LC_UUID alone.
           #
-          # Nothing is stripped on macOS; the debug info simply lives in the
-          # object files rather than the executable, and dsymutil is what
-          # gathers it into a form that can be uploaded.
+          # bundle.sh strips only its shipping copies, before signing. Keep
+          # these originals and their object files for dsymutil, which gathers
+          # the debug info without changing the UUID of the shipped copies.
           dsymutil target/release/schist target/release/schist-mcp
           sentry-cli debug-files upload --include-sources \
             target/release/schist.dSYM target/release/schist-mcp.dSYM

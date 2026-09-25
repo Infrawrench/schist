@@ -181,9 +181,10 @@ that explain a failed upload.
 
 ### Debug info
 
-Release builds use size optimization (`opt-level = "s"`), thin LTO and one
-code-generation unit per crate. The app's final ThinLTO pass, pixel operations
-and numerical kernels retain optimization level 3 through the package overrides
+All desktop release builds and the browser's inherited `web` profile use size
+optimization (`opt-level = "s"`), thin LTO and one code-generation unit per crate.
+The app's final ThinLTO pass, pixel operations and numerical kernels retain
+optimization level 3 through the package overrides
 in `Cargo.toml` to preserve throughput in those paths. Loop vectorization,
 embedded assets and panic unwinding are retained (RAW import and the library's
 C API recover from panics).
@@ -201,15 +202,28 @@ to Sentry in the form its object format keeps it in:
   targets pin `--build-id=sha1` in `.cargo/config.toml`, since mold writes
   one by default and Ubuntu's GNU ld does not.
 * **macOS** — the debug info stays in the object files, so `dsymutil`
-  gathers it into a `.dSYM` and that is uploaded. It runs after packaging,
-  because `bundle.sh` invokes cargo again and a relink there would change
-  the binary's `LC_UUID`. Code signing is harmless: it appends a signature
-  and leaves `LC_UUID` alone.
+  gathers it into a `.dSYM` and that is uploaded. Release packaging removes
+  local and debug symbols from copies of the app, both Quick Look extensions
+  and the MCP server, before signing. Global symbols and `LC_UUID` are retained.
+  `dsymutil` uses the intact originals after packaging, because `bundle.sh`
+  invokes cargo again and a relink there would change the binary's `LC_UUID`.
+  Debug bundles retain their symbols.
 * **Windows** — MSVC writes a `.pdb` beside the executable. Nothing is
-  stripped and the `.pdb` is uploaded as it is.
+  stripped from the shipping executable and the `.pdb` is uploaded as it is.
+  Rust already enables unused-code elimination and identical COMDAT folding
+  (`/OPT:REF,ICF`) for optimized MSVC builds. CI builds embedded plug-in helpers
+  with the same compact `helper` profile as local builds. The NSIS installer
+  uses solid LZMA compression without altering its executable payloads.
 
-All three upload with `--include-sources`, which bundles the source the
-debug info points at so stack frames come back with code beside them. The
+The browser's `web` profile omits DWARF. Its release packaging also removes the
+WASM `name` and `producers` metadata, then runs `wasm-opt -Oz` before
+chunking the module. Web CI sets `WASM_OPT_REQUIRED=1` so a missing, outdated or
+failed optimizer fails the build; local builds can still omit the optional tool.
+Debug web builds retain names and skip `wasm-opt`. All icons, fonts and models
+remain in the deployment. See [the web build](web.md#building-and-serving).
+
+All three desktop targets upload with `--include-sources`, which bundles the
+source the debug info points at so stack frames come back with code beside them. The
 sources are this repository and public crates, so there is nothing in that
 bundle that is not already published.
 

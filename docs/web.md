@@ -8,7 +8,9 @@ every platform a browser runs on.
 ## Building and serving
 
 ```sh
-make web            # or: tools/web-build.sh   (--debug for a fast build)
+make web
+make web PROFILE=debug       # faster build, retains debugging names
+WASM_OPT_REQUIRED=1 make web # require the size optimizer, as CI does
 python3 -m http.server -d dist/web 8000
 # open http://localhost:8000
 ```
@@ -17,13 +19,22 @@ Requirements: the `wasm32-unknown-unknown` rustup target, a
 `wasm-bindgen-cli` whose version equals the `wasm-bindgen` entry in
 `Cargo.lock` (the script checks and says so), optionally `wasm-opt` from
 [binaryen](https://github.com/WebAssembly/binaryen/releases) **version
-116 or newer** (it takes ~40% off the module; older binaryens — including
+116 or newer** (older binaryens — including
 Ubuntu's packaged 108 — silently corrupt the externref table rustc now
 emits, so the script refuses them rather than shipping a module that dies
 at init), and a browser with WebGPU (Chrome/Edge 113+, Firefox 141+,
 Safari 26+). WebGPU needs a secure context, so serve from `localhost` or
 https. On macOS build hosts, see the archiver note in the gpui fork's
 `docs/web.md` (`psm`'s prebuilt object vs Xcode's `ar`).
+
+The `web` Cargo profile inherits the desktop size settings and speed overrides
+for pixel processing, while omitting DWARF. Release packaging removes only the
+WASM debugging names and producer metadata, then applies `wasm-opt -Oz`.
+Icons, fonts and neural models are still all copied into the deployment.
+`WASM_OPT_REQUIRED=1` makes a
+missing, outdated or failed optimizer an error; without it, local builds warn
+and continue with the wasm-bindgen output. Debug builds keep names and skip
+this optimization step.
 
 ## Deployment (try.schist.app)
 
