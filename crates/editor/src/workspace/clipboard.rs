@@ -13,11 +13,6 @@ pub struct NewFileClipboard {
 }
 
 impl NewFileClipboard {
-    #[cfg(not(target_arch = "wasm32"))]
-    pub(super) fn from_item(item: Option<gpui::ClipboardItem>) -> Self {
-        Self::from_entries(item.into_iter().flat_map(|item| item.into_entries()))
-    }
-
     pub(super) fn from_entries(entries: impl IntoIterator<Item = gpui::ClipboardEntry>) -> Self {
         let mut result = Self::default();
         for entry in entries {
@@ -192,10 +187,7 @@ impl Workspace {
     /// Returns false when the clipboard holds nothing we can use, so the
     /// caller can fall back to whatever was copied inside the app.
     pub fn sync_clipboard_in(&mut self, cx: &mut Context<Self>) -> bool {
-        let Some(item) = cx.read_from_clipboard() else {
-            return false;
-        };
-        for entry in item.entries() {
+        for entry in schist_app_platform::clipboard::read_clipboard_entries(cx) {
             let gpui::ClipboardEntry::Image(image) = entry else {
                 continue;
             };
@@ -228,14 +220,21 @@ mod tests {
     use std::io::Cursor;
 
     fn png() -> Vec<u8> {
+        bitmap(image::ImageFormat::Png)
+    }
+
+    fn bitmap(format: image::ImageFormat) -> Vec<u8> {
         let image = image::RgbaImage::from_raw(2, 1, vec![255, 0, 0, 255, 0, 0, 0, 0]).unwrap();
         let mut bytes = Cursor::new(Vec::new());
-        image.write_to(&mut bytes, image::ImageFormat::Png).unwrap();
+        image.write_to(&mut bytes, format).unwrap();
         bytes.into_inner()
     }
 
     fn codecs() -> Vec<Arc<dyn schist_plugin_api::CodecPlugin>> {
-        vec![Arc::new(schist_codecs_common::PngCodec)]
+        vec![
+            Arc::new(schist_codecs_common::PngCodec),
+            Arc::new(schist_codecs_common::TiffCodec),
+        ]
     }
 
     #[test]
@@ -285,14 +284,16 @@ mod tests {
 
     #[test]
     fn imported_clipboard_document_keeps_size_and_alpha_and_needs_saving() {
-        let doc = decode_clipboard_document(&codecs(), &png()).unwrap();
-        assert_eq!((doc.width, doc.height), (2, 1));
-        assert!(doc.path.is_none());
-        assert!(doc.dirty);
-        assert_eq!(
-            schist_compositor::composite_region_rgba8(&doc, doc.canvas_rect()),
-            [255, 0, 0, 255, 0, 0, 0, 0],
-        );
+        for format in [image::ImageFormat::Png, image::ImageFormat::Tiff] {
+            let doc = decode_clipboard_document(&codecs(), &bitmap(format)).unwrap();
+            assert_eq!((doc.width, doc.height), (2, 1));
+            assert!(doc.path.is_none());
+            assert!(doc.dirty);
+            assert_eq!(
+                schist_compositor::composite_region_rgba8(&doc, doc.canvas_rect()),
+                [255, 0, 0, 255, 0, 0, 0, 0],
+            );
+        }
     }
 
     #[test]

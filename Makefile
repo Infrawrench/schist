@@ -177,6 +177,7 @@ check-app-web:
 
 .PHONY: test-new-doc-clipboard
 test-new-doc-clipboard:
+	$(CARGO) test -p schist-app-platform --lib clipboard::tests
 	$(CARGO) test -p schist-editor --lib workspace::clipboard::tests
 
 .PHONY: test-brush-workflows check-brush-workflows

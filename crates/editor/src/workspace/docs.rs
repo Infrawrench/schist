@@ -51,7 +51,9 @@ impl Workspace {
     /// Custom… goes on to the full dialog.
     pub fn open_new_file_picker(&mut self, cx: &mut Context<Self>) {
         #[cfg(not(target_arch = "wasm32"))]
-        let clipboard = Arc::new(NewFileClipboard::from_item(cx.read_from_clipboard()));
+        let clipboard = Arc::new(NewFileClipboard::from_entries(
+            schist_app_platform::clipboard::read_clipboard_entries(cx),
+        ));
         #[cfg(target_arch = "wasm32")]
         let clipboard = Arc::new(NewFileClipboard::default());
         self.open_modal(
