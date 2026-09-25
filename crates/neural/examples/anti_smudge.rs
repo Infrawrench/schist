@@ -27,7 +27,7 @@ fn main() -> Result<()> {
         .flat_map(|p| p.0[..3].iter().copied())
         .collect();
     schist_neural::try_restore(&model, &mut rgb, w, h, strength)?;
-    for (pixel, result) in image.pixels_mut().zip(rgb.chunks_exact(3)) {
+    for (pixel, result) in image.pixels_mut().zip(rgb.as_chunks::<3>().0) {
         if pixel.0[3] > 0.0 {
             pixel.0[..3].copy_from_slice(result);
         }

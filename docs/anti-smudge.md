@@ -371,7 +371,7 @@ alpha and apply no partial result if inference fails.
 
 ## Validation
 
-Run `make check-anti-smudge` for synthesis, export parity, tile seam, failure
+Run `make check-anti-smudge` for strict Clippy linting, synthesis, export parity, tile seam, failure
 atomicity, archive integrity, embedded loading and filter tests.
 `make check-anti-smudge-app` checks editor integration. Pixel tests use tiny
 arithmetic ONNX fixtures; a separate test loads the actual compressed model

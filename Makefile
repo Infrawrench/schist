@@ -977,8 +977,8 @@ check-export-finishing-codecs:
 # Experimental lens-scatter restoration. The selected XZ model is bundled;
 # datasets and training runs remain untracked. See docs/anti-smudge.md.
 PYTHON ?= python3
-.PHONY: check-anti-smudge train-anti-smudge fmt-anti-smudge check-anti-smudge-app
-check-anti-smudge:
+.PHONY: check-anti-smudge train-anti-smudge fmt-anti-smudge lint-anti-smudge check-anti-smudge-app
+check-anti-smudge: lint-anti-smudge
 	$(PYTHON) -m unittest discover -s tools/train -p 'test_anti_smudge.py'
 	$(CARGO) test -p schist-neural --test anti_smudge
 	$(CARGO) test -p schist-neural --lib catalogue_tests
@@ -995,6 +995,8 @@ train-anti-smudge-mfdnet:
 	$(PYTHON) tools/train/mfdnet_transfer.py $(ARGS)
 fmt-anti-smudge:
 	$(CARGO) fmt -p schist-neural -p schist-filters-core -p schist-editor
+lint-anti-smudge:
+	$(CARGO) clippy -p schist-neural -p schist-filters-core -p schist-editor --all-targets -- -D warnings
 check-anti-smudge-app:
 	$(CARGO) check -p schist-editor --all-targets
 .PHONY: fetch-anti-smudge-data fetch-anti-smudge-pairs

@@ -71,14 +71,21 @@ fn restore_rgba(
     strength: f32,
 ) {
     let mut rgb: Vec<f32> = px
-        .chunks_exact(4)
+        .as_chunks::<4>()
+        .0
+        .iter()
         .flat_map(|p| p[..3].iter().copied())
         .collect();
     if let Err(error) = schist_neural::try_restore(model, &mut rgb, width, height, strength) {
         log::warn!("anti-smudge inference failed: {error:#}");
         return;
     }
-    for (rgba, result) in px.chunks_exact_mut(4).zip(rgb.chunks_exact(3)) {
+    for (rgba, result) in px
+        .as_chunks_mut::<4>()
+        .0
+        .iter_mut()
+        .zip(rgb.as_chunks::<3>().0)
+    {
         // Transparent pixels and alpha are preserved, including hidden RGB.
         if rgba[3] > 0.0 {
             rgba[..3].copy_from_slice(result);

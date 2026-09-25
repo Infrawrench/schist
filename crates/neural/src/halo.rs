@@ -56,16 +56,17 @@ fn solve(mut matrix: [[f64; 7]; 4], n: usize) -> Option<[[f64; 3]; 4]> {
         if !divisor.is_finite() || divisor.abs() < 1e-10 {
             return None;
         }
-        for j in i..7 {
-            matrix[i][j] /= divisor;
+        for value in &mut matrix[i][i..] {
+            *value /= divisor;
         }
-        for row in 0..n {
-            if row == i {
+        let pivot_row = matrix[i];
+        for (row_index, row) in matrix.iter_mut().take(n).enumerate() {
+            if row_index == i {
                 continue;
             }
-            let scale = matrix[row][i];
-            for j in i..7 {
-                matrix[row][j] -= scale * matrix[i][j];
+            let scale = row[i];
+            for (value, pivot_value) in row[i..].iter_mut().zip(&pivot_row[i..]) {
+                *value -= scale * pivot_value;
             }
         }
     }
@@ -209,7 +210,9 @@ pub(crate) fn clean_up(rgb: &mut [f32], width: usize, height: usize) {
         return;
     }
     let bright: Vec<_> = rgb
-        .chunks_exact(3)
+        .as_chunks::<3>()
+        .0
+        .iter()
         .map(|p| p.iter().any(|&v| v > 0.665))
         .collect();
     let mut seen = vec![false; width * height];
