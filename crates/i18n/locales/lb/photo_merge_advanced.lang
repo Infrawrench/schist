@@ -1,8 +1,8 @@
-# English fallback pending translation.
-photo_merge_advanced.projective = Perspective alignment (includes rotation)
-photo_merge_advanced.cylindrical = Cylindrical panorama
-photo_merge_advanced.deghost = Remove moving-subject ghosts (first photo reference)
-photo_merge_advanced.focal = Focal length (px) / image width (px)
-photo_merge_advanced.masks = Focus output uses editable layer masks. Select a mask in Layers and paint to refine.
-photo_merge_advanced.no_match = No reliable alignment found. Use textured photos with substantial overlap and modest viewpoint changes.
-photo_merge_advanced.invalid = Invalid source images or merge settings.
+# Translated photo merge options.
+photo_merge_advanced.projective = Perspektiv Ausrichtung (enthält Rotatioun)
+photo_merge_advanced.cylindrical = Zylindresch Panorama
+photo_merge_advanced.deghost = Duebelbiller vu beweegte Motiver ewechhuelen (éischt Foto als Referenz)
+photo_merge_advanced.focal = Brennwäit (px) / Bildbreet (px)
+photo_merge_advanced.masks = D’Resultat vum Fokusverbannen benotzt verännerbar Ebenemasken. Wielt eng Mask an Ebenen a molt drop fir se ze verfeineren.
+photo_merge_advanced.no_match = Keng zouverlässeg Ausrichtung fonnt. Benotzt texturéiert Fotoen mat wesentlechen Iwwerlappung a bescheide Standpunkt Ännerungen.
+photo_merge_advanced.invalid = Invalid Quell Biller oder Fusioun Astellunge.

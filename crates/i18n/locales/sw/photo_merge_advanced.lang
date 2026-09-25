@@ -1,8 +1,7 @@
-# English fallback pending translation.
-photo_merge_advanced.projective = Perspective alignment (includes rotation)
-photo_merge_advanced.cylindrical = Cylindrical panorama
-photo_merge_advanced.deghost = Remove moving-subject ghosts (first photo reference)
-photo_merge_advanced.focal = Focal length (px) / image width (px)
-photo_merge_advanced.masks = Focus output uses editable layer masks. Select a mask in Layers and paint to refine.
-photo_merge_advanced.no_match = No reliable alignment found. Use textured photos with substantial overlap and modest viewpoint changes.
-photo_merge_advanced.invalid = Invalid source images or merge settings.
+photo_merge_advanced.projective = Upangaji wa mtazamo (unajumuisha mzunguko)
+photo_merge_advanced.cylindrical = Panorama ya silinda
+photo_merge_advanced.deghost = Ondoa picha vivuli za vitu vinavyosogea (picha ya kwanza kama rejea)
+photo_merge_advanced.focal = Urefu wa fokasi (px) / upana wa picha (px)
+photo_merge_advanced.masks = Matokeo ya kuunganisha fokasi hutumia vinyago vya tabaka vinavyoweza kuhaririwa. Chagua kinyago katika Tabaka kisha upake rangi ili kuboresha.
+photo_merge_advanced.no_match = Hakuna upangaji wa kuaminika uliopatikana. Tumia picha zenye maelezo mengi, mwingiliano mkubwa, na mabadiliko madogo ya mtazamo.
+photo_merge_advanced.invalid = Picha chanzo au mipangilio ya kuunganisha si halali.

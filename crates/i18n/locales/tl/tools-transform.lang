@@ -1,6 +1,6 @@
 tool.transform.name = Malayang Transform
 tool.transform.description = Malayang Transform. Kapag in-activate, nagbubukas ito ng transform box sa paligid ng aktibong layer: i-drag ang isang sulok upang baguhin ang laki, sa labas ng sulok upang paikutin, at ang isang gilid upang pahilis na baguhin. Walang isinusulat hangga't hindi ito inilalapat gamit ang Enter, at ibinabalik ng pagkansela gamit ang Escape ang layer sa dati.
-tool.transform.option.interpolation = Interpolation
+tool.transform.option.interpolation = Interpolasyon
 tool.transform.history.transform = Malayang Transform
 tool.transform.history.image_size = Laki ng Larawan
 tool.transform.history.canvas_size = Laki ng Canvas

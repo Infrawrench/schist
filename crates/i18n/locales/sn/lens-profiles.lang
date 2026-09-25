@@ -1,17 +1,16 @@
-# Lens profiles: English fallback pending translation review. No locale added.
-lens_profiles.invalid = Choose a valid Lensfun v1/v2 XML database (up to 8 MiB) with supported camera or lens data.
-lens_profiles.calibration = Lens calibration
-lens_profiles.no_calibration = No calibration covers these settings. Check focal length and camera crop factor; manual correction remains available.
-lens_profiles.import = Import Lensfun XML…
-lens_profiles.imported = Lensfun database imported for this session. Select a profile or match the photo metadata.
-lens_profiles.manual = Manual correction only
-lens_profiles.saved = Saved calibration (database unavailable)
-lens_profiles.profile = Lens profile
-lens_profiles.aperture = Aperture (0 = unknown)
-lens_profiles.distance = Focus distance (0 = unknown)
-lens_profiles.vignette = Calibrated vignetting
-lens_profiles.color_context = Calibrated vignetting requires the built-in sRGB profile. Convert to sRGB to preserve appearance, then reopen Lens Correction. For already-sRGB untagged pixels, assigning sRGB is sufficient. Geometry and chromatic correction remain available.
-lens_profiles.vignette_missing = No vignetting calibration covers the aperture and focus distance. Enter measured values to enable it; 1000 m represents distant focus in many Lensfun profiles.
-lens_profiles.note = Calibrated correction runs before the manual controls. Use the original full frame; crop afterward. Save a filter stack in PSD/PSB to retain editable calibration.
-lens_profiles.automatic = Match photo metadata
-lens_profiles.components = Profile pass: distortion {distortion}; color fringes {tca}; vignetting {vignette}.
+lens_profiles.invalid = Sarudza dhatabhesi reLensfun v1/v2 XML rinoshanda (kusvika 8 MiB) rine ruzivo rwekamera kana lenzi runotsigirwa.
+lens_profiles.calibration = Kuyera lenzi
+lens_profiles.no_calibration = Hapana kuyerwa kunoenderana nezvirongwa izvi. Tarisa kureba kwefokasi nechinhu chekukura kwekuchekwa kwekamera; kugadzirisa nemaoko kuchiri kuwanikwa.
+lens_profiles.import = Pinza Lensfun XML…
+lens_profiles.imported = Dhatabhesi reLensfun rapinzwa pachikamu chino. Sarudza chimiro chelenzi kana chifananidze neruzivo rwemufoto.
+lens_profiles.manual = Kugadzirisa nemaoko chete
+lens_profiles.saved = Kuyerwa kwakachengetwa (dhatabhesi harisi kuwanikwa)
+lens_profiles.profile = Chimiro chelenzi
+lens_profiles.aperture = Kuvhurika kwe lenzi (0 = hazvizivikanwi)
+lens_profiles.distance = Chinhambwe chekutarisa (0 = hazvizivikanwi)
+lens_profiles.vignette = Kusviba kwemakona kwakayerwa
+lens_profiles.color_context = Kusviba kwemakona kwakayerwa kunoda chimiro chemavara che sRGB chakavakirwa mukati. Shandura mufananidzo uende ku sRGB kuti urambe uchitaridzika zvakafanana, wobva wavhurazve Kugadzirisa Lenzi. Kana mapikisi atova mu sRGB asi asina chiratidzo chechimiro chemavara, kupa sRGB chete kwakakwana. Kugadzirisa maumbirwo nemiganhu yemavara kuchiri kuwanikwa.
+lens_profiles.vignette_missing = Hapana kuyerwa kwekusviba kwemakona kunoenderana nekuvhurika kwe lenzi nechinhambwe chekutarisa izvi. Isa zviyero zvakayerwa kuti zvikwanisike; muzvimiro zvakawanda zveLensfun, 1000 m zvinoreva kutarisa kure.
+lens_profiles.note = Kugadzirisa kwakayerwa kunoitwa zvisati zvaitwa zvigadziriso zvemaoko. Shandisa furemu yose yepakutanga; cheka mushure mezvo. Chengeta murwi wemafirita mu PSD/PSB kuti kuyerwa kurambe kuchigadzirisika.
+lens_profiles.automatic = Fananidza neruzivo rwemufoto
+lens_profiles.components = Kugadzirisa nechimiro: kukanganisika {distortion}; mipendero yemavara {tca}; kusviba kwemakona {vignette}.

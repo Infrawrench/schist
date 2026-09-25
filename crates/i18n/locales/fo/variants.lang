@@ -1,8 +1,8 @@
-# Virtual copies. Explicit English fallback pending translation review.
-variants.create = Create virtual copy…
-variants.rename = Rename virtual copy…
-variants.delete = Delete virtual copy
-variants.close = Close this photo and its virtual copies before moving or deleting them.
-variants.saved_hint = The copy starts from the saved edit, or the original when there is no edit. Save pending changes first.
-variants.move_original = Move the original photo to move its virtual copies.
-variants.protected_export = Choose another destination. Gallery exports cannot replace the original or its edit storage.
+# Virtual copies.
+variants.create = Stovna virtuelt eintak...
+variants.rename = Umnevna virtuella eintakið...
+variants.delete = Strika virtuelt eintak
+variants.close = Lat hesa myndina og virtuellu eintøkini aftur, áðrenn tú flytur ella strikar tey.
+variants.saved_hint = Avritið byrjar frá goymdu rættingini, ella upprunaritinum tá eingin rætting er. Goym bíðandi broytingar fyrst.
+variants.move_original = Flyt upprunamyndina fyri at flyta virtuellu eintøkini.
+variants.protected_export = Vel eitt annað ferðamál. Myndasavnsútflutningur kann ikki avloysa upprunaverkið ella rættingargoymsluna.

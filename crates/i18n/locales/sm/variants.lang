@@ -1,8 +1,8 @@
-# Virtual copies. Explicit English fallback pending translation review.
-variants.create = Create virtual copy…
-variants.rename = Rename virtual copy…
-variants.delete = Delete virtual copy
-variants.close = Close this photo and its virtual copies before moving or deleting them.
-variants.saved_hint = The copy starts from the saved edit, or the original when there is no edit. Save pending changes first.
-variants.move_original = Move the original photo to move its virtual copies.
-variants.protected_export = Choose another destination. Gallery exports cannot replace the original or its edit storage.
+# Virtual copies.
+variants.create = Fai se kopi faalemafaufau…
+variants.rename = Toe faaigoa le kopi faalemafaufau…
+variants.delete = Tape le kopi faalemafaufau
+variants.close = Tapuni lenei ata ma ana kopi faalemafaufau a o leʻi aveese pe tapeina.
+variants.saved_hint = E amata le kopi mai le suiga ua sefe, po o le ata muamua pe afai e leai se suiga. Sefe muamua suiga e leʻi sefeina.
+variants.move_original = Ave le ata muamua ina ia ave faatasi ai ana kopi faalemafaufau.
+variants.protected_export = Filifili se isi nofoaga. E lē mafai e ata e auina atu mai le Faletusi ona sui le ata muamua po o le nofoaga e teu ai ona suiga.

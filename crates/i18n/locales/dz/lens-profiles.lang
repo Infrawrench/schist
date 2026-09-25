@@ -1,17 +1,16 @@
-# Lens profiles: English fallback pending translation review. No locale added.
-lens_profiles.invalid = Choose a valid Lensfun v1/v2 XML database (up to 8 MiB) with supported camera or lens data.
-lens_profiles.calibration = Lens calibration
-lens_profiles.no_calibration = No calibration covers these settings. Check focal length and camera crop factor; manual correction remains available.
-lens_profiles.import = Import Lensfun XML…
-lens_profiles.imported = Lensfun database imported for this session. Select a profile or match the photo metadata.
-lens_profiles.manual = Manual correction only
-lens_profiles.saved = Saved calibration (database unavailable)
-lens_profiles.profile = Lens profile
-lens_profiles.aperture = Aperture (0 = unknown)
-lens_profiles.distance = Focus distance (0 = unknown)
-lens_profiles.vignette = Calibrated vignetting
-lens_profiles.color_context = Calibrated vignetting requires the built-in sRGB profile. Convert to sRGB to preserve appearance, then reopen Lens Correction. For already-sRGB untagged pixels, assigning sRGB is sufficient. Geometry and chromatic correction remain available.
-lens_profiles.vignette_missing = No vignetting calibration covers the aperture and focus distance. Enter measured values to enable it; 1000 m represents distant focus in many Lensfun profiles.
-lens_profiles.note = Calibrated correction runs before the manual controls. Use the original full frame; crop afterward. Save a filter stack in PSD/PSB to retain editable calibration.
-lens_profiles.automatic = Match photo metadata
-lens_profiles.components = Profile pass: distortion {distortion}; color fringes {tca}; vignetting {vignette}.
+lens_profiles.invalid = རྒྱབ་སྐྱོར་ཡོད་པའི་པར་ཆས་ཡང་ན་དྭངས་ཤེལ་གྱི་གནད་སྡུད་ཡོད་པའི་ Lensfun v1/v2 XML གནད་སྡུད་གཞི་རྟེན་ནུས་ཅན་ཅིག་ (8 MiB ཚུན་) གདམ་ཁ་རྐྱབས།
+lens_profiles.calibration = མིག་ཤེལ་ཚད་འཇལ།
+lens_profiles.no_calibration = ཚད་འཇལ་གཅིག་གིས་ཡང་སྒྲིག་སྟངས་འདི་ཚུ་ཁྱབ་མི་བཏུབ། ཕོ་ཀཱལ་རིང་ཚད་དང་པར་ཆས་བཏབ་ནིའི་ཆ་རྐྱེན་ཞིབ་དཔྱད་འབད། ལག་ཐོག་ལས་ནོར་བཅོས་འབད་ཚུགསཔ་ཨིན།
+lens_profiles.import = Lensfun XML ནང་འདྲེན་འབད…
+lens_profiles.imported = ལཱ་ཡུན་འདི་གི་དོན་ལུ་ Lensfun གནད་སྡུད་གཞི་རྟེན་ནང་འདྲེན་འབད་ཡོདཔ། གསལ་སྡུད་ཅིག་སེལ་འཐུ་འབད་ནི་ཡང་ན་ པར་གྱི་མེ་ཊ་ཌེ་ཊ་འདི་མཐུན་སྒྲིག་འབད།
+lens_profiles.manual = ལག་ཐོག་ནོར་བཅོས་རྐྱངམ་གཅིག།
+lens_profiles.saved = སྲུང་བཞག་འབད་ཡོད་པའི་ཚད་འཇལ་ (གནད་སྡུད་གཞི་རྟེན་འཐོབ་མི་ཚུགས།)
+lens_profiles.profile = མིག་ཤེལ་གསལ་སྡུད།
+lens_profiles.aperture = དབྱེ་ཁ་ (0 = མ་ཤེས།)
+lens_profiles.distance = ཆེད་དམིགས་ཐག་རིང་ཚད་ (0 = མ་ཤེས།)
+lens_profiles.vignette = ཚད་འཇལ་འབད་ཡོད་པའི་ཝི་གེ་ཊིང་།
+lens_profiles.color_context = ཚད་འཇལ་འབད་ཡོད་པའི་ཝི་གེ་ཊིང་ལུ་ ནང་འཁོད་ sRGB གསལ་སྡུད་དགོཔ་ཨིན། མཐོང་སྣང་ཉམས་སྲུང་འབད་ནི་ལུ་ sRGB ལུ་གཞི་བསྒྱུར་འབད་ཞིནམ་ལས་ དྭངས་ཤེལ་བཅོ་ཁ་ལོག་ཁ་ཕྱེ། ཧེ་མ་ལས་ sRGB ཨིན་མི་ངོ་རྟགས་མ་བཀོད་པའི་པིག་སེལ་ཚུ་ལུ་ sRGB འགན་སྤྲོད་འབད་ནི་ལངམ་ཨིན། དབྱིབས་དང་ཚོས་གཞི་ནོར་བཅོས་འབད་ནི་འཐོབ་ཚུགས།
+lens_profiles.vignette_missing = ཝི་གེ་ཊིང་ཚད་འཇལ་འདི་གིས་ དབྱེ་ཁ་དང་དམིགས་གཏད་ཀྱི་ཐག་རིང་ཚད་འདི་ ཁྱབ་མི་ཚུགས། དེ་ལྕོགས་ཅན་བཟོ་ནི་ལུ་ ཚད་འཇལ་ཡོད་པའི་གནས་གོང་ཚུ་བཙུགས། 1000 m གིས་ Lensfun གསལ་སྡུད་མང་ཤོས་ཅིག་ནང་ ཐག་རིང་གི་གཙོ་བོར་བཏོནམ་ཨིན།
+lens_profiles.note = ཚད་འཇལ་འབད་ཡོད་པའི་ནོར་བཅོས་འདི་ལག་ཐོག་ཚད་འཛིན་ཚུ་གི་ཧེ་མ་ལག་ལེན་འཐབ་ཨིན། གཞི་ཁྲམ་ཆ་ཚང་ངོ་མ་འདི་ལག་ལེན་འཐབ་ཞིནམ་ལས་ ཤུལ་ལས་བཏོག། ཞུན་དག་འབད་བཏུབ་པའི་ཚད་འཇལ་བཞག་ནི་ལུ་ PSD/PSB ནང་ཚགས་མ་བརྩེགས་ཕུང་སྲུང་བཞག་འབད།
+lens_profiles.automatic = མཐུན་སྒྲིག་པར་གྱི་མེ་ཊ་ཌེ་ཊ།
+lens_profiles.components = གསལ་སྡུད་སྦྱོར་བ་: བཟོ་སྒྱུར་ {distortion}; ཚོས་གཞིའི་མཐའ་མཚམས་ {tca}; ཝི་གེ་ཊིང་ {vignette}.

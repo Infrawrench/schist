@@ -1,17 +1,16 @@
-# Lens profiles: English fallback pending translation review. No locale added.
-lens_profiles.invalid = Choose a valid Lensfun v1/v2 XML database (up to 8 MiB) with supported camera or lens data.
-lens_profiles.calibration = Lens calibration
-lens_profiles.no_calibration = No calibration covers these settings. Check focal length and camera crop factor; manual correction remains available.
-lens_profiles.import = Import Lensfun XML…
-lens_profiles.imported = Lensfun database imported for this session. Select a profile or match the photo metadata.
-lens_profiles.manual = Manual correction only
-lens_profiles.saved = Saved calibration (database unavailable)
-lens_profiles.profile = Lens profile
-lens_profiles.aperture = Aperture (0 = unknown)
-lens_profiles.distance = Focus distance (0 = unknown)
-lens_profiles.vignette = Calibrated vignetting
-lens_profiles.color_context = Calibrated vignetting requires the built-in sRGB profile. Convert to sRGB to preserve appearance, then reopen Lens Correction. For already-sRGB untagged pixels, assigning sRGB is sufficient. Geometry and chromatic correction remain available.
-lens_profiles.vignette_missing = No vignetting calibration covers the aperture and focus distance. Enter measured values to enable it; 1000 m represents distant focus in many Lensfun profiles.
-lens_profiles.note = Calibrated correction runs before the manual controls. Use the original full frame; crop afterward. Save a filter stack in PSD/PSB to retain editable calibration.
-lens_profiles.automatic = Match photo metadata
-lens_profiles.components = Profile pass: distortion {distortion}; color fringes {tca}; vignetting {vignette}.
+lens_profiles.invalid = Khetha idathabheyisi ye-XML Lensfun v1/v2 esebenzako (efika ku-8 MiB) enedatha yekhamera nofana yelensi esekelwako.
+lens_profiles.calibration = Ukulinganiswa kwelensi
+lens_profiles.no_calibration = Akukho kulinganiswa okufanele amasethingi la. Hlola ubude befokhasi nesilinganiso sokusikwa sekhamera; ukulungisa ngesandla kusatholakala.
+lens_profiles.import = Ngenisa i-XML ye-Lensfun…
+lens_profiles.imported = Idathabheyisi ye-Lensfun ingenisiwe esikhathini lesi. Khetha iprofayili nofana uyimadanise nemethadatha yesithombe.
+lens_profiles.manual = Ukulungisa ngesandla kwaphela
+lens_profiles.saved = Ukulinganiswa okubulungiweyo (idathabheyisi ayitholakali)
+lens_profiles.profile = Iprofayili yelensi
+lens_profiles.aperture = Ukuvuleka (0 = akwaziwa)
+lens_profiles.distance = Ibanga lefokhasi (0 = akwaziwa)
+lens_profiles.vignette = Ukulungiswa kwe-vignetting ngokulinganiswa
+lens_profiles.color_context = Ukulungiswa kwe-vignetting ngokulinganiswa kudinga iprofayili ye-sRGB engaphakathi. Guqulela ku-sRGB ukuze ubulunge ukubonakala, bese uvula godu Ukulungisa Ilensi. Kumaphikseli asele aku-sRGB kodwana angenalo ibizo leprofayili, kwanele ukuwabela i-sRGB. Ukulungiswa kwejiyomethri nombala kusatholakala.
+lens_profiles.vignette_missing = Akukho kulinganiswa kwe-vignetting okufanele ukuvuleka nebanga lefokhasi. Faka amanani alinganisiweko ukuze kusebenze; kuziprofayili ezinengi ze-Lensfun, 1000 m kutjho ifokhasi ekude.
+lens_profiles.note = Ukulungiswa ngokulinganiswa kwenzeka ngaphambi kokulawula ngesandla. Sebenzisa isithombe sokuthoma siphelele bese usisika ngemva kwalokho. Bulunga ilandelano leensefe ku-PSD/PSB ukuze ukulinganiswa kuhlale kungahlelwa.
+lens_profiles.automatic = Madanisa nemethadatha yesithombe
+lens_profiles.components = Ukusetjenziswa kweprofayili: ukugobeka {distortion}; imiphetho yombala {tca}; i-vignetting {vignette}.

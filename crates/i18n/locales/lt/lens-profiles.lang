@@ -1,17 +1,17 @@
-# Lens profiles: English fallback pending translation review. No locale added.
-lens_profiles.invalid = Choose a valid Lensfun v1/v2 XML database (up to 8 MiB) with supported camera or lens data.
-lens_profiles.calibration = Lens calibration
-lens_profiles.no_calibration = No calibration covers these settings. Check focal length and camera crop factor; manual correction remains available.
-lens_profiles.import = Import Lensfun XML…
-lens_profiles.imported = Lensfun database imported for this session. Select a profile or match the photo metadata.
-lens_profiles.manual = Manual correction only
-lens_profiles.saved = Saved calibration (database unavailable)
-lens_profiles.profile = Lens profile
-lens_profiles.aperture = Aperture (0 = unknown)
-lens_profiles.distance = Focus distance (0 = unknown)
-lens_profiles.vignette = Calibrated vignetting
-lens_profiles.color_context = Calibrated vignetting requires the built-in sRGB profile. Convert to sRGB to preserve appearance, then reopen Lens Correction. For already-sRGB untagged pixels, assigning sRGB is sufficient. Geometry and chromatic correction remain available.
-lens_profiles.vignette_missing = No vignetting calibration covers the aperture and focus distance. Enter measured values to enable it; 1000 m represents distant focus in many Lensfun profiles.
-lens_profiles.note = Calibrated correction runs before the manual controls. Use the original full frame; crop afterward. Save a filter stack in PSD/PSB to retain editable calibration.
-lens_profiles.automatic = Match photo metadata
-lens_profiles.components = Profile pass: distortion {distortion}; color fringes {tca}; vignetting {vignette}.
+# Lens profiles.
+lens_profiles.invalid = Pasirinkite galiojančią Lensfun v1/v2 XML duomenų bazę (iki 8 MiB) su palaikomais fotoaparato arba objektyvo duomenimis.
+lens_profiles.calibration = Objektyvo kalibravimas
+lens_profiles.no_calibration = Joks kalibravimas neapima šių nustatymų. Patikrinkite židinio nuotolį ir fotoaparato apkarpymo koeficientą; rankinis taisymas išlieka.
+lens_profiles.import = Importuoti Lensfun XML…
+lens_profiles.imported = Šiam seansui importuota Lensfun duomenų bazė. Pasirinkite profilį arba suderinkite nuotraukos metaduomenis.
+lens_profiles.manual = Tik rankinis taisymas
+lens_profiles.saved = Išsaugotas kalibravimas (duomenų bazė nepasiekiama)
+lens_profiles.profile = Objektyvo profilis
+lens_profiles.aperture = Diafragma (0 = nežinoma)
+lens_profiles.distance = Fokusavimo atstumas (0 = nežinomas)
+lens_profiles.vignette = Kalibruotas vinjetavimas
+lens_profiles.color_context = Kalibruotam vinjetavimui reikalingas integruotas sRGB profilis. Konvertuokite į sRGB, kad išsaugotumėte išvaizdą, tada vėl atidarykite objektyvo korekciją. Jau sRGB nepažymėtiems pikseliams pakanka priskirti sRGB. Geometrija ir chromatinė korekcija išlieka prieinama.
+lens_profiles.vignette_missing = Joks vinjetavimo kalibravimas neapima diafragmos ir fokusavimo atstumo. Įveskite išmatuotas vertes, kad ją įjungtumėte; 1000 m reiškia tolimą židinį daugelyje Lensfun profilių.
+lens_profiles.note = Kalibruota korekcija atliekama prieš rankinius valdiklius. Naudokite originalų pilną kadrą; vėliau apkarpykite. Išsaugokite filtrų krūvą PSD/PSB, kad išlaikytumėte redaguojamą kalibravimą.
+lens_profiles.automatic = Suderinkite nuotraukos metaduomenis
+lens_profiles.components = Profilio korekcija: iškraipymas {distortion}; spalvos pakraščiai {tca}; vinjetavimas {vignette}.

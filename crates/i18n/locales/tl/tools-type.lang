@@ -2,8 +2,8 @@ tool.type.name = Teksto
 tool.type.description = Mag-click upang magsimula roon ng text layer, o mag-click sa dati nang text layer upang i-edit ito. Habang bukas ito, tumatanggap ang tool ng mga direktang keystroke (ipadala ang mga character bilang key input), at kapag inilapat, nire-render nito ang layer at isinasara ang pag-edit.
 
 tool.type.option.align = Pagkakahanay
-tool.type.option.leading = Leading
-tool.type.option.tracking = Tracking
+tool.type.option.leading = Pagitan ng mga linya
+tool.type.option.tracking = Pagitan ng mga titik
 tool.type.option.kerning = Kerning
 tool.type.option.ligatures = Mga Ligature
 tool.type.option.discretionary_ligatures = Mga opsiyonal na ligature

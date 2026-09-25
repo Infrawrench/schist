@@ -12,7 +12,7 @@ tool.transform.selection.description = Transformar selección: o mesmo cadro, pe
 tool.transform.selection.history.transform = Transformar selección
 
 tool.transform.resample.nearest_neighbor = Veciño máis próximo
-tool.transform.resample.bilinear = Bilinear
+tool.transform.resample.bilinear = Bilineal
 tool.transform.resample.bicubic = Bicúbica
 
 tool.crop.name = Recortar

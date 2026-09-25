@@ -1,8 +1,7 @@
-# English fallback pending translation.
-photo_merge_advanced.projective = Perspective alignment (includes rotation)
-photo_merge_advanced.cylindrical = Cylindrical panorama
-photo_merge_advanced.deghost = Remove moving-subject ghosts (first photo reference)
-photo_merge_advanced.focal = Focal length (px) / image width (px)
-photo_merge_advanced.masks = Focus output uses editable layer masks. Select a mask in Layers and paint to refine.
-photo_merge_advanced.no_match = No reliable alignment found. Use textured photos with substantial overlap and modest viewpoint changes.
-photo_merge_advanced.invalid = Invalid source images or merge settings.
+photo_merge_advanced.projective = Ҳамоҳангсозии дурнамо (бо гардиш)
+photo_merge_advanced.cylindrical = Панорамаи силиндрӣ
+photo_merge_advanced.deghost = Нест кардани сояҳои объектҳои ҳаракаткунанда (акси аввал ҳамчун намуна)
+photo_merge_advanced.focal = Дарозии фокус (px) / паҳнои тасвир (px)
+photo_merge_advanced.masks = Натиҷаи фокус ниқобҳои қабати таҳриршавандаро истифода мебарад. Дар Қабатҳо ниқобро интихоб карда, барои дақиқтар кардан ранг кунед.
+photo_merge_advanced.no_match = Ҳамоҳангсозии боэътимод ёфт нашуд. Аксҳои дорои ҷузъиёти равшан ва ҳампӯшии зиёдро бо тағйири ками нуқтаи назар истифода баред.
+photo_merge_advanced.invalid = Тасвирҳои манбаъ ё танзимоти якҷоякунӣ нодурустанд.

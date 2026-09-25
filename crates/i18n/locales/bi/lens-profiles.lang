@@ -1,17 +1,17 @@
-# Lens profiles: English fallback pending translation review. No locale added.
-lens_profiles.invalid = Choose a valid Lensfun v1/v2 XML database (up to 8 MiB) with supported camera or lens data.
-lens_profiles.calibration = Lens calibration
-lens_profiles.no_calibration = No calibration covers these settings. Check focal length and camera crop factor; manual correction remains available.
-lens_profiles.import = Import Lensfun XML…
-lens_profiles.imported = Lensfun database imported for this session. Select a profile or match the photo metadata.
-lens_profiles.manual = Manual correction only
-lens_profiles.saved = Saved calibration (database unavailable)
-lens_profiles.profile = Lens profile
-lens_profiles.aperture = Aperture (0 = unknown)
-lens_profiles.distance = Focus distance (0 = unknown)
-lens_profiles.vignette = Calibrated vignetting
-lens_profiles.color_context = Calibrated vignetting requires the built-in sRGB profile. Convert to sRGB to preserve appearance, then reopen Lens Correction. For already-sRGB untagged pixels, assigning sRGB is sufficient. Geometry and chromatic correction remain available.
-lens_profiles.vignette_missing = No vignetting calibration covers the aperture and focus distance. Enter measured values to enable it; 1000 m represents distant focus in many Lensfun profiles.
-lens_profiles.note = Calibrated correction runs before the manual controls. Use the original full frame; crop afterward. Save a filter stack in PSD/PSB to retain editable calibration.
-lens_profiles.automatic = Match photo metadata
-lens_profiles.components = Profile pass: distortion {distortion}; color fringes {tca}; vignetting {vignette}.
+# Lens profile controls.
+lens_profiles.invalid = Jusum wan stret Lensfun v1/v2 XML database (kasem 8 MiB) we i gat data blong kamera o lens we i wok.
+lens_profiles.calibration = Kalibresen blong lens
+lens_profiles.no_calibration = I no gat kalibresen blong ol setting ya. Jekem focal length mo crop factor blong kamera; yu save stretem long han yet.
+lens_profiles.import = Importem Lensfun XML…
+lens_profiles.imported = Lensfun database i kam insaed blong sesen ya. Jusum wan profile o faenem wan we i stret long metadata blong foto.
+lens_profiles.manual = Stretem long han nomo
+lens_profiles.saved = Kalibresen we i sev (database i no stap)
+lens_profiles.profile = Profile blong lens
+lens_profiles.aperture = Aperture (0 = i no save)
+lens_profiles.distance = Distens blong fokus (0 = i no save)
+lens_profiles.vignette = Vignetting we oli kalibretim
+lens_profiles.color_context = Vignetting we oli kalibretim i nidim sRGB profile we i stap insaed long program. Jenisim foto i go long sRGB blong luk blong hem i stap semak, afta openem Fiksim Lens bakegen. Sipos ol pixel oli sRGB finis be oli no gat sRGB tag, putum sRGB profile long olgeta nomo; yu no nidim blong jenisim ol pixel. Yu save stretim sep blong foto mo ol kala long saed blong hem yet.
+lens_profiles.vignette_missing = I no gat kalibresen blong vignetting long aperture mo distens blong fokus ya. Putum ol valiu we yu mesarem blong mekem i wok; long plante Lensfun profile, 1000 m i minim fokus longwe.
+lens_profiles.note = Stret we oli kalibretim i wok fastaem bifo ol control blong han. Yusum ful orijinal foto; katem afta. Sevem wan stack blong filter long PSD/PSB blong kalibresen i save stap blong yu editim.
+lens_profiles.automatic = Faenem profile we i stret long metadata blong foto
+lens_profiles.components = Wok blong profile: image i kruked {distortion}; kala long saed {tca}; vignetting {vignette}.

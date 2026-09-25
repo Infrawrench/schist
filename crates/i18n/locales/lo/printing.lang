@@ -25,7 +25,7 @@ printing.source_error = ບໍ່ສາມາດອ່ານຮູບທີ່�
 printing.save_error = ບໍ່ສາມາດບັນທຶກ PDF. ເລືອກຊື່ໄຟລ໌ໃໝ່ໃນໂຟນເດີທີ່ຂຽນໄດ້; ໄຟລ໌ທີ່ມີຢູ່ຈະບໍ່ຖືກຂຽນທັບ.
 printing.downloaded = ດາວໂຫຼດ PDF ແລ້ວ. ເປີດໃນໂປຣແກຣມເບິ່ງ PDF ແລະ ພິມທີ່ 100%.
 printing.saved = ບັນທຶກ PDF ແລ້ວ: {path}
-printing.letter = US Letter
+printing.letter = ຈົດໝາຍຂອງສະຫະລັດ
 printing.a4 = A4
 printing.margin_value = {value} mm
 

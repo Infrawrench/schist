@@ -16,10 +16,10 @@ tool.direct_select.description = Kokani mfundo imodzi yomangira kapena zogwirira
 
 tool.shape.history.layer = Layer ya {name}
 tool.shape.rect.name = Chida cha Rectangle
-tool.shape.rect.label = Rectangle
+tool.shape.rect.label = Kona zinayi
 tool.shape.rect.description = Kokani kuti mupange layer ya rectangle ya mtundu wakutsogolo; imakhalabe vector ndipo imapangidwanso kukhala ma pixel ikasintha kukula.
 tool.shape.ellipse.name = Chida cha Ellipse
-tool.shape.ellipse.label = Ellipse
+tool.shape.ellipse.label = Chozungulira
 tool.shape.ellipse.description = Kokani kuti mupange layer ya ellipse ya mtundu wakutsogolo.
 tool.shape.line.name = Chida cha Mzere
 tool.shape.line.label = Mzere
@@ -28,7 +28,7 @@ tool.shape.line.option.weight = Makulidwe
 tool.shape.line.option.arrow_start = Poyambira
 tool.shape.line.option.arrow_end = Pothera
 tool.shape.polygon.name = Chida cha Polygon
-tool.shape.polygon.label = Polygon
+tool.shape.polygon.label = Ma ngodya ambiri
 tool.shape.polygon.description = Kokani kuti mupange layer ya polygon yofanana mbali za mtundu wakutsogolo, yokhala ndi chiwerengero cha mbali chochokera m'zosankha.
 tool.shape.polygon.option.sides = Mbali
 

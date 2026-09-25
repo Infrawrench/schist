@@ -1,8 +1,7 @@
-# Virtual copies. Explicit English fallback pending translation review.
-variants.create = Create virtual copy…
-variants.rename = Rename virtual copy…
-variants.delete = Delete virtual copy
-variants.close = Close this photo and its virtual copies before moving or deleting them.
-variants.saved_hint = The copy starts from the saved edit, or the original when there is no edit. Save pending changes first.
-variants.move_original = Move the original photo to move its virtual copies.
-variants.protected_export = Choose another destination. Gallery exports cannot replace the original or its edit storage.
+variants.create = Creu copi rhithwir…
+variants.rename = Ailenwi copi rhithwir…
+variants.delete = Dileu copi rhithwir
+variants.close = Caewch y llun hwn a'i gopïau rhithwir cyn eu symud neu eu dileu.
+variants.saved_hint = Mae'r copi'n dechrau o'r golygiad a gadwyd, neu o'r gwreiddiol os nad oes golygiad. Cadwch newidiadau sydd ar ddod yn gyntaf.
+variants.move_original = Symudwch y llun gwreiddiol i symud ei gopïau rhithwir.
+variants.protected_export = Dewiswch gyrchfan arall. Ni all allforion oriel ddisodli'r gwreiddiol na'i storfa olygu.

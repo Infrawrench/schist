@@ -1,8 +1,7 @@
-# Virtual copies. Explicit English fallback pending translation review.
-variants.create = Create virtual copy…
-variants.rename = Rename virtual copy…
-variants.delete = Delete virtual copy
-variants.close = Close this photo and its virtual copies before moving or deleting them.
-variants.saved_hint = The copy starts from the saved edit, or the original when there is no edit. Save pending changes first.
-variants.move_original = Move the original photo to move its virtual copies.
-variants.protected_export = Choose another destination. Gallery exports cannot replace the original or its edit storage.
+variants.create = ቨርቹዋል ቅዳሕ ፍጠር…
+variants.rename = ስም ቨርቹዋል ቅዳሕ ቀይር…
+variants.delete = ቨርቹዋል ቅዳሕ ሰርዝ
+variants.close = ነዚ ስእልን ቨርቹዋል ቅዳሓቱን ቅድሚ ምንቅስቓስ ወይ ምስራዝ ዕጸዎም።
+variants.saved_hint = እቲ ቅዳሕ ካብ ዝተዓቀበ ምምሕያሽ፣ እንተዘይሃልዩ ድማ ካብ ናይ መጀመርታ ስእሊ ይጅምር። ቅድሚኡ ዘይተዓቀበ ለውጢ ዓቅብ።
+variants.move_original = ቨርቹዋል ቅዳሓት ንምንቅስቓስ ናይ መጀመርታ ስእሊ ኣንቀሳቕስ።
+variants.protected_export = ካልእ መድረሻ ምረጽ። ካብ ጋለሪ ዝወጹ ፋይላት ነቲ ናይ መጀመርታ ስእሊ ወይ መዓቀቢ ምምሕያሹ ክትክኡ ኣይክእሉን።

@@ -27,7 +27,7 @@ printing.downloaded = PDF е изтеглен. Отворете го в прог
 printing.saved = PDF е запазен: {path}
 printing.letter = US Letter
 printing.a4 = A4
-printing.margin_value = {value} mm
+printing.margin_value = {value} мм
 
 printing.layout_title = Оформление за печат
 printing.preset = Готово оформление

@@ -1,17 +1,16 @@
-# Lens profiles: English fallback pending translation review. No locale added.
-lens_profiles.invalid = Choose a valid Lensfun v1/v2 XML database (up to 8 MiB) with supported camera or lens data.
-lens_profiles.calibration = Lens calibration
-lens_profiles.no_calibration = No calibration covers these settings. Check focal length and camera crop factor; manual correction remains available.
-lens_profiles.import = Import Lensfun XML…
-lens_profiles.imported = Lensfun database imported for this session. Select a profile or match the photo metadata.
-lens_profiles.manual = Manual correction only
-lens_profiles.saved = Saved calibration (database unavailable)
-lens_profiles.profile = Lens profile
-lens_profiles.aperture = Aperture (0 = unknown)
-lens_profiles.distance = Focus distance (0 = unknown)
-lens_profiles.vignette = Calibrated vignetting
-lens_profiles.color_context = Calibrated vignetting requires the built-in sRGB profile. Convert to sRGB to preserve appearance, then reopen Lens Correction. For already-sRGB untagged pixels, assigning sRGB is sufficient. Geometry and chromatic correction remain available.
-lens_profiles.vignette_missing = No vignetting calibration covers the aperture and focus distance. Enter measured values to enable it; 1000 m represents distant focus in many Lensfun profiles.
-lens_profiles.note = Calibrated correction runs before the manual controls. Use the original full frame; crop afterward. Save a filter stack in PSD/PSB to retain editable calibration.
-lens_profiles.automatic = Match photo metadata
-lens_profiles.components = Profile pass: distortion {distortion}; color fringes {tca}; vignetting {vignette}.
+lens_profiles.invalid = మద్దతు ఉన్న కెమెరా లేదా లెన్స్ డేటా కలిగిన చెల్లుబాటు అయ్యే Lensfun v1/v2 XML డేటాబేస్‌ను ఎంచుకోండి (గరిష్ఠంగా 8 MiB).
+lens_profiles.calibration = లెన్స్ కాలిబ్రేషన్
+lens_profiles.no_calibration = ఈ సెట్టింగ్‌లకు సరిపడే కాలిబ్రేషన్ లేదు. నాభ్యంతరం, కెమెరా క్రాప్ ఫ్యాక్టర్‌ను తనిఖీ చేయండి; మాన్యువల్ సవరణ అందుబాటులోనే ఉంటుంది.
+lens_profiles.import = Lensfun XML దిగుమతి చేయి…
+lens_profiles.imported = ఈ సెషన్ కోసం Lensfun డేటాబేస్ దిగుమతి అయింది. ప్రొఫైల్‌ను ఎంచుకోండి లేదా ఫోటో మెటాడేటాతో సరిపోల్చండి.
+lens_profiles.manual = మాన్యువల్ సవరణ మాత్రమే
+lens_profiles.saved = సేవ్ చేసిన కాలిబ్రేషన్ (డేటాబేస్ అందుబాటులో లేదు)
+lens_profiles.profile = లెన్స్ ప్రొఫైల్
+lens_profiles.aperture = ఎపర్చర్ (0 = తెలియదు)
+lens_profiles.distance = ఫోకస్ దూరం (0 = తెలియదు)
+lens_profiles.vignette = కాలిబ్రేట్ చేసిన విగ్నెటింగ్
+lens_profiles.color_context = కాలిబ్రేట్ చేసిన విగ్నెటింగ్‌కు అంతర్నిర్మిత sRGB ప్రొఫైల్ అవసరం. రూపాన్ని అలాగే ఉంచడానికి sRGBకి మార్చి, లెన్స్ సవరణను మళ్లీ తెరవండి. ఇప్పటికే sRGBలో ఉన్నా ట్యాగ్ లేని పిక్సెల్‌లకు sRGB ప్రొఫైల్‌ను కేటాయిస్తే సరిపోతుంది. జ్యామితి, వర్ణ అంచుల సవరణలు అందుబాటులోనే ఉంటాయి.
+lens_profiles.vignette_missing = ఎపర్చర్, ఫోకస్ దూరానికి సరిపడే విగ్నెటింగ్ కాలిబ్రేషన్ లేదు. దాన్ని ప్రారంభించడానికి కొలిచిన విలువలను నమోదు చేయండి; అనేక Lensfun ప్రొఫైల్‌లలో 1000 m సుదూర ఫోకస్‌ను సూచిస్తుంది.
+lens_profiles.note = కాలిబ్రేట్ చేసిన సవరణ మాన్యువల్ నియంత్రణల కంటే ముందే అమలవుతుంది. పూర్తి అసలు ఫ్రేమ్‌ను ఉపయోగించండి; తర్వాత క్రాప్ చేయండి. సవరించగల కాలిబ్రేషన్‌ను ఉంచడానికి ఫిల్టర్ స్టాక్‌ను PSD/PSBలో సేవ్ చేయండి.
+lens_profiles.automatic = ఫోటో మెటాడేటాతో సరిపోల్చు
+lens_profiles.components = ప్రొఫైల్ దశ: వక్రీకరణ {distortion}; వర్ణ అంచులు {tca}; విగ్నెటింగ్ {vignette}.

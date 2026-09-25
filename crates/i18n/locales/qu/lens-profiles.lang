@@ -1,17 +1,16 @@
-# Lens profiles: English fallback pending translation review. No locale added.
-lens_profiles.invalid = Choose a valid Lensfun v1/v2 XML database (up to 8 MiB) with supported camera or lens data.
-lens_profiles.calibration = Lens calibration
-lens_profiles.no_calibration = No calibration covers these settings. Check focal length and camera crop factor; manual correction remains available.
-lens_profiles.import = Import Lensfun XML…
-lens_profiles.imported = Lensfun database imported for this session. Select a profile or match the photo metadata.
-lens_profiles.manual = Manual correction only
-lens_profiles.saved = Saved calibration (database unavailable)
-lens_profiles.profile = Lens profile
-lens_profiles.aperture = Aperture (0 = unknown)
-lens_profiles.distance = Focus distance (0 = unknown)
-lens_profiles.vignette = Calibrated vignetting
-lens_profiles.color_context = Calibrated vignetting requires the built-in sRGB profile. Convert to sRGB to preserve appearance, then reopen Lens Correction. For already-sRGB untagged pixels, assigning sRGB is sufficient. Geometry and chromatic correction remain available.
-lens_profiles.vignette_missing = No vignetting calibration covers the aperture and focus distance. Enter measured values to enable it; 1000 m represents distant focus in many Lensfun profiles.
-lens_profiles.note = Calibrated correction runs before the manual controls. Use the original full frame; crop afterward. Save a filter stack in PSD/PSB to retain editable calibration.
-lens_profiles.automatic = Match photo metadata
-lens_profiles.components = Profile pass: distortion {distortion}; color fringes {tca}; vignetting {vignette}.
+lens_profiles.invalid = Lensfun v1/v2 XML nisqapa allin base de datosninta (8 MiB kama) akllay; chaypi yanapasqa cámara utaq lente datos kanan.
+lens_profiles.calibration = Lentepa calibracionnin
+lens_profiles.no_calibration = Kay churaykunapaq mana calibración kanchu. Enfoquepa karun kayninta, hinallataq cámarapa crop factorninta qhaway; makiwan allichayqa kachkanraqmi.
+lens_profiles.import = Lensfun XML nisqata yaykuchiy…
+lens_profiles.imported = Lensfunpa base de datosnin kay sesionpaq yaykuchisqa. Huk perfilta akllay utaq fotopa metadatosninwan tupachiy.
+lens_profiles.manual = Makiwan allichaylla
+lens_profiles.saved = Waqaychasqa calibración (base de datos mana kanchu)
+lens_profiles.profile = Lentepa perfilnin
+lens_profiles.aperture = Kichay (0 = mana riqsisqa)
+lens_profiles.distance = Enfoquepa karun kaynin (0 = mana riqsisqa)
+lens_profiles.vignette = Calibrasqa vignetting
+lens_profiles.color_context = Calibrasqa vignetting allichayqa programa ukhupi kaq sRGB perfilta munan. Rikch’ayninta waqaychanapaq sRGB nisqaman tikray, chaymanta Lente allichay nisqata yapamanta kichay. Ñawpaqmantaraq sRGB kaq, ichaqa perfil mana chimpasqa pixelkunapaqqa sRGB perfilta churayllam aypan. Geometría hinallataq llinp’i allichaykunaqa kachkanraqmi.
+lens_profiles.vignette_missing = Kay kichaypaq hinallataq enfoque karun kayninpaq mana vignetting calibración kanchu. Llamk’achinapaq tupusqa yupaykunata churay; achka Lensfun perfilkunapi 1000 m karupi kaq enfoque niyta munan.
+lens_profiles.note = Calibrasqa allichayqa makiwan kamachiykunamanta ñawpaqta ruwakun. Original fotopa hunt’a cuadronninta llamk’achiy; qhipamanta kuchuy. Calibracionta allichanapaq waqaychanapaq filtro huñuta PSD/PSB nisqapi waqaychay.
+lens_profiles.automatic = Fotopa metadatosninwan tupachiy
+lens_profiles.components = Perfilpa ruwasqan: wist’u kay {distortion}; llinp’i patakuna {tca}; vignetting {vignette}.

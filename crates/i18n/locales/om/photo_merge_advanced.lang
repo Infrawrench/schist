@@ -1,8 +1,8 @@
 # English fallback pending translation.
-photo_merge_advanced.projective = Perspective alignment (includes rotation)
-photo_merge_advanced.cylindrical = Cylindrical panorama
-photo_merge_advanced.deghost = Remove moving-subject ghosts (first photo reference)
-photo_merge_advanced.focal = Focal length (px) / image width (px)
-photo_merge_advanced.masks = Focus output uses editable layer masks. Select a mask in Layers and paint to refine.
-photo_merge_advanced.no_match = No reliable alignment found. Use textured photos with substantial overlap and modest viewpoint changes.
-photo_merge_advanced.invalid = Invalid source images or merge settings.
+photo_merge_advanced.projective = Walqixxeessuu ilaalcha perspeektivii (naannessuu dabalatee)
+photo_merge_advanced.cylindrical = Paanaaraamaa siliindarii
+photo_merge_advanced.deghost = Mallattoolee wantoota socho’an balleessi (suuraa jalqabaa akka wabii)
+photo_merge_advanced.focal = Dheerina xiyyeeffannaa (px) / bal’ina suuraa (px)
+photo_merge_advanced.masks = Bu’aan walitti makuu xiyyeeffannaa maaskii laayaraa gulaalamuu danda’u fayyadama. Maaskii tokko Laayaroota keessaa filiitii dibuudhaan sirreessi.
+photo_merge_advanced.no_match = Walqixxeessuun amanamaan hin argamne. Suuraawwan bal’inaan wal irra bu’an, ibsa qaban, fi ilaalcha xiqqoo garaagarummaa qabu fayyadami.
+photo_merge_advanced.invalid = Suuraawwan maddaa ykn qindaa’inoonni walitti makuu sirrii miti.

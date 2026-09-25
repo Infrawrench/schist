@@ -1,8 +1,8 @@
 # English fallback pending translation.
-photo_merge_advanced.projective = Perspective alignment (includes rotation)
-photo_merge_advanced.cylindrical = Cylindrical panorama
-photo_merge_advanced.deghost = Remove moving-subject ghosts (first photo reference)
-photo_merge_advanced.focal = Focal length (px) / image width (px)
-photo_merge_advanced.masks = Focus output uses editable layer masks. Select a mask in Layers and paint to refine.
-photo_merge_advanced.no_match = No reliable alignment found. Use textured photos with substantial overlap and modest viewpoint changes.
-photo_merge_advanced.invalid = Invalid source images or merge settings.
+photo_merge_advanced.projective = Kugwirizanitsa kaonedwe (kuphatikizapo kuzungulira)
+photo_merge_advanced.cylindrical = Panorama ya silinda
+photo_merge_advanced.deghost = Chotsani mizati ya zinthu zoyenda (chithunzi choyamba ndi cholozera)
+photo_merge_advanced.focal = Utali wa focal (px) / m’lifupi mwa chithunzi (px)
+photo_merge_advanced.masks = Zotsatira zophatikiza kuyang’ana bwino zimagwiritsa ntchito mask a layer osinthika. Sankhani mask mu Layers ndipo pentani kuti mukonze zotsatira.
+photo_merge_advanced.no_match = Palibe kugwirizanitsa kodalirika komwe kwapezeka. Gwiritsani ntchito zithunzi zokhala ndi tsatanetsatane, zolowererana kwambiri, ndi kusiyana kochepa kwa malo owonera.
+photo_merge_advanced.invalid = Zithunzi zoyambira kapena zokonda zophatikiza sizoyenera.

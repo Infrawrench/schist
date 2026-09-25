@@ -1,8 +1,8 @@
-# English fallback pending translation.
-photo_merge_advanced.projective = Perspective alignment (includes rotation)
-photo_merge_advanced.cylindrical = Cylindrical panorama
-photo_merge_advanced.deghost = Remove moving-subject ghosts (first photo reference)
-photo_merge_advanced.focal = Focal length (px) / image width (px)
-photo_merge_advanced.masks = Focus output uses editable layer masks. Select a mask in Layers and paint to refine.
-photo_merge_advanced.no_match = No reliable alignment found. Use textured photos with substantial overlap and modest viewpoint changes.
-photo_merge_advanced.invalid = Invalid source images or merge settings.
+# Translated photo merge options.
+photo_merge_advanced.projective = ការតម្រឹមទស្សនវិស័យ (រួមបញ្ចូលការបង្វិល)
+photo_merge_advanced.cylindrical = ទេសភាពរាងស៊ីឡាំង
+photo_merge_advanced.deghost = លុបរូបភាពស្ទួននៃវត្ថុដែលកំពុងផ្លាស់ទី (យោងតាមរូបថតដំបូង)
+photo_merge_advanced.focal = ប្រវែងប្រសព្វ (px) / ទទឹងរូបភាព (px)
+photo_merge_advanced.masks = លទ្ធផលផ្តោតអារម្មណ៍ប្រើរបាំងស្រទាប់ដែលអាចកែសម្រួលបាន។ ជ្រើសរើសរបាំងនៅក្នុងស្រទាប់ និងថ្នាំលាបដើម្បីកែលម្អ។
+photo_merge_advanced.no_match = រកមិនឃើញការតម្រឹមដែលអាចទុកចិត្តបាន។ ប្រើរូបថតដែលមានវាយនភាពជាមួយនឹងការត្រួតគ្នាច្រើន និងការផ្លាស់ប្តូរទស្សនៈតិចតួច។
+photo_merge_advanced.invalid = រូបភាពប្រភពមិនត្រឹមត្រូវ ឬការកំណត់បញ្ចូលគ្នា។

@@ -1,7 +1,7 @@
 # Modalidades de mistura, in s'òrdine de su pannellu de is stratos.
 blend.pass_through = Atraversa
 blend.normal = Normale
-blend.dissolve = Dissolve
+blend.dissolve = Dissolvi
 blend.darken = Iscuriga
 blend.multiply = Moltiplica
 blend.color_burn = Abbrusiadura colore
@@ -22,7 +22,7 @@ blend.hard_mix = Mistura dura
 blend.difference = Diferèntzia
 blend.exclusion = Esclusione
 blend.subtract = Sutràe
-blend.divide = Divide
+blend.divide = Dividi
 blend.hue = Tonalidade
 blend.saturation = Saturatzione
 blend.color = Colore

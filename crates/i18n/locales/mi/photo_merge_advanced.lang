@@ -1,8 +1,8 @@
 # English fallback pending translation.
-photo_merge_advanced.projective = Perspective alignment (includes rotation)
-photo_merge_advanced.cylindrical = Cylindrical panorama
-photo_merge_advanced.deghost = Remove moving-subject ghosts (first photo reference)
-photo_merge_advanced.focal = Focal length (px) / image width (px)
-photo_merge_advanced.masks = Focus output uses editable layer masks. Select a mask in Layers and paint to refine.
-photo_merge_advanced.no_match = No reliable alignment found. Use textured photos with substantial overlap and modest viewpoint changes.
-photo_merge_advanced.invalid = Invalid source images or merge settings.
+photo_merge_advanced.projective = Tirohanga tirohanga (kei roto te hurihanga)
+photo_merge_advanced.cylindrical = Panorama porotakaroa
+photo_merge_advanced.deghost = Tangohia ngā ata tārua o ngā mea nekeneke (ko te whakaahua tuatahi hei tohutoro)
+photo_merge_advanced.focal = Roa arotahi (px) / whanui atahanga (px)
+photo_merge_advanced.masks = Ko te putanga Arotahi ka whakamahi i nga kopare paparanga ka taea te whakarereke. Tīpakohia he kanohi i roto i nga Apa ka peita hei whakamahine.
+photo_merge_advanced.no_match = Kaore i kitea he tirohanga pono. Whakamahia nga whakaahua kakano me te inaki nui me nga huringa tirohanga iti.
+photo_merge_advanced.invalid = Ko nga whakaahua puna muhu, nga tautuhinga hanumi ranei.

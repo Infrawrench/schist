@@ -1,8 +1,8 @@
-# English fallback pending translation.
-photo_merge_advanced.projective = Perspective alignment (includes rotation)
-photo_merge_advanced.cylindrical = Cylindrical panorama
-photo_merge_advanced.deghost = Remove moving-subject ghosts (first photo reference)
-photo_merge_advanced.focal = Focal length (px) / image width (px)
-photo_merge_advanced.masks = Focus output uses editable layer masks. Select a mask in Layers and paint to refine.
-photo_merge_advanced.no_match = No reliable alignment found. Use textured photos with substantial overlap and modest viewpoint changes.
-photo_merge_advanced.invalid = Invalid source images or merge settings.
+# Chāyārūpasaṃyojanassa visesā.
+photo_merge_advanced.projective = Dassanakoṇasamīkaraṇaṃ (parivattanena saddhiṃ)
+photo_merge_advanced.cylindrical = Nāḷākāraṃ vitthatarūpaṃ
+photo_merge_advanced.deghost = Calantavatthūnaṃ dvirūpāni apanetha (paṭhamaṃ chāyācittaṃ pamāṇaṃ)
+photo_merge_advanced.focal = Fokala-dūraṃ (px) / rūpassa vitthāro (px)
+photo_merge_advanced.masks = Fokusa-saṃyojanassa phalaṃ sampādetabbāni santharapaṭicchādakāni payojeti. Santharesu paṭicchādakaṃ uccinatha, tato ālikhitvā sodhetha.
+photo_merge_advanced.no_match = Vissāsanīyaṃ samīkaraṇaṃ na laddhaṃ. Bahulakkhaṇāni, bahusādhāraṇaṭṭhānāni, appadassanakoṇabhedāni chāyācittāni payojetha.
+photo_merge_advanced.invalid = Mūlachāyācittāni vā saṃyojanaṭṭhapanāni vā ayuttāni.

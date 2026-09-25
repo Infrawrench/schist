@@ -1,5 +1,5 @@
 blend.pass_through = Etal iloan
-blend.normal = Normal
+blend.normal = Axis jim̧or
 blend.dissolve = Kōjako
 blend.darken = Kōkilmeejļọk
 blend.multiply = Multiply
@@ -23,6 +23,6 @@ blend.exclusion = Jolọk jen koba
 blend.subtract = Jolọk jen
 blend.divide = Ajeji
 blend.hue = Kōļar
-blend.saturation = Saturation
+blend.saturation = Kajur in kōļar
 blend.color = Kōļar
 blend.luminosity = Joñan meram

@@ -3,7 +3,7 @@ tool.move.description = I-drag ang nilalaman ng aktibong layer papunta sa bagong
 tool.move.option.auto_select = Awtomatikong Piliin
 tool.move.history.move_layer = Ilipat ang Layer
 
-tool.eyedropper.name = Eyedropper
+tool.eyedropper.name = Pangkuha ng Kulay
 tool.eyedropper.description = Kunin ang kulay sa ilalim ng pointer papunta sa swatch sa harapan, o sa swatch sa likuran kapag nakapindot ang Alt. Patuloy na kumukuha ng sample habang nagda-drag.
 tool.eyedropper.option.sample_size = Laki ng Sample
 tool.eyedropper.option.sample = Sample

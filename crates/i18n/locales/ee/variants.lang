@@ -1,8 +1,7 @@
-# Virtual copies. Explicit English fallback pending translation review.
-variants.create = Create virtual copy…
-variants.rename = Rename virtual copy…
-variants.delete = Delete virtual copy
-variants.close = Close this photo and its virtual copies before moving or deleting them.
-variants.saved_hint = The copy starts from the saved edit, or the original when there is no edit. Save pending changes first.
-variants.move_original = Move the original photo to move its virtual copies.
-variants.protected_export = Choose another destination. Gallery exports cannot replace the original or its edit storage.
+variants.create = Wɔ kɔpi virtual…
+variants.rename = Trɔ ŋkɔ na kɔpi virtual…
+variants.delete = Tutu kɔpi virtual ɖa
+variants.close = Do foto sia kple eƒe kɔpi virtualwo nu ƒu hafi nàʋu wo ayi teƒe bubu alo nàtutu wo ɖa.
+variants.saved_hint = Kɔpi la dzea egɔme tso asitɔtrɔ si wodzra ɖo la dzi; ne asitɔtrɔ aɖeke meli o la, edzea egɔme tso foto gbãtɔa dzi. Dzra tɔtrɔ siwo le lalam ɖo gbã.
+variants.move_original = Ʋu foto gbãtɔa yi teƒe bubu be nàtsɔ eƒe kɔpi virtualwo hã ayi.
+variants.protected_export = Tia teƒe bubu si nàyi. Nɔnɔmetatawo ƒe nudzraɖoƒe ƒe agbalẽvi siwo woɖe ɖe go mateŋu axɔ ɖe foto gbãtɔa alo eƒe asitɔtrɔ ƒe nudzraɖoƒe teƒe o.

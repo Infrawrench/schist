@@ -1,17 +1,16 @@
-# Lens profiles: English fallback pending translation review. No locale added.
-lens_profiles.invalid = Choose a valid Lensfun v1/v2 XML database (up to 8 MiB) with supported camera or lens data.
-lens_profiles.calibration = Lens calibration
-lens_profiles.no_calibration = No calibration covers these settings. Check focal length and camera crop factor; manual correction remains available.
-lens_profiles.import = Import Lensfun XML…
-lens_profiles.imported = Lensfun database imported for this session. Select a profile or match the photo metadata.
-lens_profiles.manual = Manual correction only
-lens_profiles.saved = Saved calibration (database unavailable)
-lens_profiles.profile = Lens profile
-lens_profiles.aperture = Aperture (0 = unknown)
-lens_profiles.distance = Focus distance (0 = unknown)
-lens_profiles.vignette = Calibrated vignetting
-lens_profiles.color_context = Calibrated vignetting requires the built-in sRGB profile. Convert to sRGB to preserve appearance, then reopen Lens Correction. For already-sRGB untagged pixels, assigning sRGB is sufficient. Geometry and chromatic correction remain available.
-lens_profiles.vignette_missing = No vignetting calibration covers the aperture and focus distance. Enter measured values to enable it; 1000 m represents distant focus in many Lensfun profiles.
-lens_profiles.note = Calibrated correction runs before the manual controls. Use the original full frame; crop afterward. Save a filter stack in PSD/PSB to retain editable calibration.
-lens_profiles.automatic = Match photo metadata
-lens_profiles.components = Profile pass: distortion {distortion}; color fringes {tca}; vignetting {vignette}.
+lens_profiles.invalid = Hlawula databeyisi ya Lensfun v1/v2 XML leyi tirhaka (ku fika eka 8 MiB) leyi nga ni vuxokoxoko bya khamera kumbe lenzi leyi seketeriwaka.
+lens_profiles.calibration = Ku pima lenzi
+lens_profiles.no_calibration = A ku na ku pima loku fambelanaka ni swiyimiso leswi. Kambela vulehi bya fókasi ni mpimo wo tsema wa khamera; ku lulamisa hi voko ka ha kumeka.
+lens_profiles.import = Nghenisa Lensfun XML…
+lens_profiles.imported = Databeyisi ya Lensfun yi nghenisiwile eka nkarhi lowu wa ku tirhisa. Hlawula phurofayili kumbe u yi fambelanisa ni metadata ya xifaniso.
+lens_profiles.manual = Ku lulamisa hi voko ntsena
+lens_profiles.saved = Ku pima loku hlayisiweke (databeyisi a yi kumeki)
+lens_profiles.profile = Phurofayili ya lenzi
+lens_profiles.aperture = Mbovo ya lenzi (0 = a swi tiveki)
+lens_profiles.distance = Mpfhuka wa fókasi (0 = a wu tiveki)
+lens_profiles.vignette = Ku dzwihala ka makumu loku pimiweke
+lens_profiles.color_context = Ku dzwihala ka makumu loku pimiweke ku lava phurofayili ya sRGB leyi akiweke endzeni. Hundzuluxela eka sRGB ku hlayisa xivumbeko, kutani u tlhela u pfula Ku lulamisa lenzi. Eka tipikisele leti se ti nga sRGB kambe ti nga ri na mfungho, ku ti nyika phurofayili ya sRGB swa ringana. Ku lulamisa xivumbeko ni makumu ya mihlovo ka ha kumeka.
+lens_profiles.vignette_missing = A ku na ku pima ku dzwihala ka makumu loku fambelanaka ni mbovo ya lenzi ni mpfhuka wa fókasi. Nghenisa mimpimo leyi pimiweke ku ku pfumelela; 1000 m yi vula fókasi ya le kule eka tiphurofayili to tala ta Lensfun.
+lens_profiles.note = Ku lulamisa loku pimiweke ku tirha loko ku nga si tirha vulawuri bya voko. Tirhisa furemu yo sungula hi ku helela; tsema xifaniso endzhaku. Hlayisa nhulu ya tifiltara eka PSD/PSB leswaku ku pima ku ha hleriwaka.
+lens_profiles.automatic = Fambelanisa metadata ya xifaniso
+lens_profiles.components = Ntirho wa phurofayili: ku soholotiwa {distortion}; makumu ya mihlovo {tca}; ku dzwihala ka makumu {vignette}.

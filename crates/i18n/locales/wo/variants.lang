@@ -1,8 +1,8 @@
-# Virtual copies. Explicit English fallback pending translation review.
-variants.create = Create virtual copy…
-variants.rename = Rename virtual copy…
-variants.delete = Delete virtual copy
-variants.close = Close this photo and its virtual copies before moving or deleting them.
-variants.saved_hint = The copy starts from the saved edit, or the original when there is no edit. Save pending changes first.
-variants.move_original = Move the original photo to move its virtual copies.
-variants.protected_export = Choose another destination. Gallery exports cannot replace the original or its edit storage.
+# Virtual copies.
+variants.create = Sos koppi virtuel…
+variants.rename = Soppi turu koppi virtuel…
+variants.delete = Far koppi virtuel
+variants.close = Tëj foto bii ak koppi virtuel yi mu am laata nga leen toxal walla far.
+variants.saved_hint = Koppi bi day tàmbali ci coppite bi ñu denc, walla ci foto bu njëkk bi su amul coppite. Dencal coppite yi des njëkk.
+variants.move_original = Toxal foto bu njëkk bi ngir toxal ay koppi virtuelam.
+variants.protected_export = Tànnal beneen barab. Li ñuy génne ci galeri manul wuutu foto bu njëkk bi walla dencukaayu ay coppiteem.

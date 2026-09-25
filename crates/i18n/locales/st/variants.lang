@@ -1,8 +1,7 @@
-# Virtual copies. Explicit English fallback pending translation review.
-variants.create = Create virtual copy…
-variants.rename = Rename virtual copy…
-variants.delete = Delete virtual copy
-variants.close = Close this photo and its virtual copies before moving or deleting them.
-variants.saved_hint = The copy starts from the saved edit, or the original when there is no edit. Save pending changes first.
-variants.move_original = Move the original photo to move its virtual copies.
-variants.protected_export = Choose another destination. Gallery exports cannot replace the original or its edit storage.
+variants.create = Etsa kopi ea setšoantšo e ikemetseng…
+variants.rename = Reha kopi ea setšoantšo e ikemetseng lebitso le leng…
+variants.delete = Hlakola kopi ea setšoantšo e ikemetseng
+variants.close = Koala setšoantšo sena le likopi tsa sona pele u li tsamaisa kapa u li hlakola.
+variants.saved_hint = Kopi e qala ka liphetoho tse bolokiloeng, kapa ka setšoantšo sa pele haeba ho se na liphetoho. Boloka liphetoho tse emetseng pele.
+variants.move_original = Tsamaisa setšoantšo sa pele hore likopi tsa sona le tsona li tsamaisoe.
+variants.protected_export = Khetha sebaka se seng. Lifaele tse romelloang ho tsoa pokellong li ke ke tsa nkela setšoantšo sa pele kapa polokelo ea liphetoho sebaka.

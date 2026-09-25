@@ -25,7 +25,7 @@ printing.source_error = Wêneya hilbijartî, pela alî ya guherandî an sernivî
 printing.save_error = PDF nehat tomarkirin. Di peldankekê de ku tê de nivîsandin destûr e navekî nû yê pelê hilbijêre; pelên heyî qet nayên şûngirtin.
 printing.downloaded = PDF hat daxistin. Wê di nîşanderê PDF de veke û bi 100% çap bike.
 printing.saved = PDF hat tomarkirin: {path}
-printing.letter = US Letter
+printing.letter = Nameya Dewletên Yekbûyî
 printing.a4 = A4
 printing.margin_value = {value} mm
 

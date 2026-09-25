@@ -1,8 +1,8 @@
-# English fallback pending translation.
-photo_merge_advanced.projective = Perspective alignment (includes rotation)
-photo_merge_advanced.cylindrical = Cylindrical panorama
-photo_merge_advanced.deghost = Remove moving-subject ghosts (first photo reference)
-photo_merge_advanced.focal = Focal length (px) / image width (px)
-photo_merge_advanced.masks = Focus output uses editable layer masks. Select a mask in Layers and paint to refine.
-photo_merge_advanced.no_match = No reliable alignment found. Use textured photos with substantial overlap and modest viewpoint changes.
-photo_merge_advanced.invalid = Invalid source images or merge settings.
+# Advanced photo merge.
+photo_merge_advanced.projective = Perspektiv düzülüşü (fırlanma daxildir)
+photo_merge_advanced.cylindrical = Silindrik panorama
+photo_merge_advanced.deghost = Hərəkət edən obyektlərin təkrarlanan təsvirlərini silin (birinci foto istinaddır)
+photo_merge_advanced.focal = Fokus uzunluğu (px) / şəkil eni (px)
+photo_merge_advanced.masks = Fokus çıxışı redaktə edilə bilən təbəqə maskalarından istifadə edir. Qatlarda maska ​​seçin və dəqiqləşdirmək üçün rəngləyin.
+photo_merge_advanced.no_match = Etibarlı düzülüş tapılmadı. Böyük ölçüdə üst-üstə düşən və baxış bucağı az dəyişən, detallı fotolardan istifadə edin.
+photo_merge_advanced.invalid = Mənbə şəkilləri və ya birləşdirmə parametrləri etibarsızdır.

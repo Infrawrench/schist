@@ -1,8 +1,8 @@
-# Virtual copies. Explicit English fallback pending translation review.
-variants.create = Create virtual copy…
-variants.rename = Rename virtual copy…
-variants.delete = Delete virtual copy
-variants.close = Close this photo and its virtual copies before moving or deleting them.
-variants.saved_hint = The copy starts from the saved edit, or the original when there is no edit. Save pending changes first.
-variants.move_original = Move the original photo to move its virtual copies.
-variants.protected_export = Choose another destination. Gallery exports cannot replace the original or its edit storage.
+# Kopis virtual.
+variants.create = Gul kopi virtual…
+variants.rename = Dashenwel kopi virtual…
+variants.delete = Dilea kopi virtual
+variants.close = Degea an foto ma ha'y gopis virtual kyns aga gwaya po dilea.
+variants.saved_hint = An kopi a dhallath dhyworth an golygyans sawys, po an gwredhek mars nyns eus golygyans. Sawya chanjyow heb sawya yn kynsa.
+variants.move_original = Gwaya an foto gwredhek rag gwaya y gopis virtual.
+variants.protected_export = Dewis tyller aral. Eskorransow galari ny yllons lea war an gwredhek po y wisk golygyans.

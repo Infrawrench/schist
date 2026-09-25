@@ -1,17 +1,16 @@
-# Lens profiles: English fallback pending translation review. No locale added.
-lens_profiles.invalid = Choose a valid Lensfun v1/v2 XML database (up to 8 MiB) with supported camera or lens data.
-lens_profiles.calibration = Lens calibration
-lens_profiles.no_calibration = No calibration covers these settings. Check focal length and camera crop factor; manual correction remains available.
-lens_profiles.import = Import Lensfun XML…
-lens_profiles.imported = Lensfun database imported for this session. Select a profile or match the photo metadata.
-lens_profiles.manual = Manual correction only
-lens_profiles.saved = Saved calibration (database unavailable)
-lens_profiles.profile = Lens profile
-lens_profiles.aperture = Aperture (0 = unknown)
-lens_profiles.distance = Focus distance (0 = unknown)
-lens_profiles.vignette = Calibrated vignetting
-lens_profiles.color_context = Calibrated vignetting requires the built-in sRGB profile. Convert to sRGB to preserve appearance, then reopen Lens Correction. For already-sRGB untagged pixels, assigning sRGB is sufficient. Geometry and chromatic correction remain available.
-lens_profiles.vignette_missing = No vignetting calibration covers the aperture and focus distance. Enter measured values to enable it; 1000 m represents distant focus in many Lensfun profiles.
-lens_profiles.note = Calibrated correction runs before the manual controls. Use the original full frame; crop afterward. Save a filter stack in PSD/PSB to retain editable calibration.
-lens_profiles.automatic = Match photo metadata
-lens_profiles.components = Profile pass: distortion {distortion}; color fringes {tca}; vignetting {vignette}.
+lens_profiles.invalid = Chagua hifadhidata halali ya XML ya Lensfun v1/v2 (hadi 8 MiB) yenye data za kamera au lenzi zinazotumika.
+lens_profiles.calibration = Urekebishaji wa lenzi
+lens_profiles.no_calibration = Hakuna urekebishaji unaolingana na mipangilio hii. Angalia urefu wa fokasi na kipengele cha ukataji cha kamera; urekebishaji wa mikono bado unapatikana.
+lens_profiles.import = Leta XML ya Lensfun…
+lens_profiles.imported = Hifadhidata ya Lensfun imeletwa kwa kipindi hiki. Chagua profaili au ilinganishe na metadata ya picha.
+lens_profiles.manual = Urekebishaji wa mikono pekee
+lens_profiles.saved = Urekebishaji uliohifadhiwa (hifadhidata haipatikani)
+lens_profiles.profile = Profaili ya lenzi
+lens_profiles.aperture = Tundu la lenzi (0 = halijulikani)
+lens_profiles.distance = Umbali wa fokasi (0 = haujulikani)
+lens_profiles.vignette = Kufifia kwa kingo kulikorekebishwa
+lens_profiles.color_context = Kufifia kwa kingo kulikorekebishwa kunahitaji profaili ya sRGB iliyojengewa ndani. Badilisha kuwa sRGB ili kuhifadhi mwonekano, kisha ufungue tena Urekebishaji wa Lenzi. Kwa pikseli ambazo tayari ni sRGB lakini hazina lebo, kupachika profaili ya sRGB kunatosha. Urekebishaji wa jiometri na wa kingo za rangi bado unapatikana.
+lens_profiles.vignette_missing = Hakuna urekebishaji wa kufifia kwa kingo unaofunika tundu na umbali wa fokasi huu. Weka vipimo vilivyopimwa ili kuuwezesha; 1000 m huwakilisha fokasi ya mbali katika profaili nyingi za Lensfun.
+lens_profiles.note = Urekebishaji uliopimwa hutekelezwa kabla ya vidhibiti vya mikono. Tumia fremu asili nzima; kata picha baadaye. Hifadhi mkusanyiko wa vichujio katika PSD/PSB ili urekebishaji uendelee kuharirika.
+lens_profiles.automatic = Linganisha metadata ya picha
+lens_profiles.components = Hatua ya profaili: upotoshaji {distortion}; kingo za rangi {tca}; kufifia kwa kingo {vignette}.

@@ -238,7 +238,7 @@ dialog.style.inner_bevel = Abgeflachte Kante innen
 dialog.style.emboss = Relief
 dialog.style.pillow_emboss = Kissenrelief
 dialog.style.linear = Linear
-dialog.style.radial = Radial
+dialog.style.radial = Kreisförmig
 dialog.style.reverse = Umkehren
 dialog.style.from_to = Von / Bis
 dialog.style.from_fg = Von = VG

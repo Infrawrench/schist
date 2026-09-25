@@ -1,8 +1,7 @@
-# English fallback pending translation.
-photo_merge_advanced.projective = Perspective alignment (includes rotation)
-photo_merge_advanced.cylindrical = Cylindrical panorama
-photo_merge_advanced.deghost = Remove moving-subject ghosts (first photo reference)
-photo_merge_advanced.focal = Focal length (px) / image width (px)
-photo_merge_advanced.masks = Focus output uses editable layer masks. Select a mask in Layers and paint to refine.
-photo_merge_advanced.no_match = No reliable alignment found. Use textured photos with substantial overlap and modest viewpoint changes.
-photo_merge_advanced.invalid = Invalid source images or merge settings.
+photo_merge_advanced.projective = Nukpɔsusu ƒe ɖoɖowɔwɔ ɖe ɖoɖo nu (eƒe tɔtrɔ hã le eme) .
+photo_merge_advanced.cylindrical = Nukpɔkpɔ si le abe ʋuƒo ene
+photo_merge_advanced.deghost = Ðe alɔdze siwo dzɔna le nu siwo le ʋuʋum ŋu ɖa (foto gbãtɔa nye kpɔɖeŋu)
+photo_merge_advanced.focal = Ŋkuléleɖenuŋu ƒe didime (px) / nɔnɔmetata ƒe kekeame (px)
+photo_merge_advanced.masks = Focus output zãa layer mask siwo woate ŋu atrɔ asi le. Tia mask le Layers me eye nàtae be nàtrɔ asi le eŋu.
+photo_merge_advanced.no_match = Womekpɔ ɖoɖo aɖeke si dzi woate ŋu aka ɖo o. Zã foto siwo ŋu nuŋlɔɖi le, eye woƒe akpa gã aɖe ƒoa ƒui, ke nukpɔkpɔ ƒe tɔtrɔ sue ko le wo dome.
+photo_merge_advanced.invalid = Dzɔtsoƒe nɔnɔmetata siwo mesɔ o alo ƒoƒo ƒe ɖoɖowo.

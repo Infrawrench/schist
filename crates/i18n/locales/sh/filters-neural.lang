@@ -8,7 +8,7 @@ filter.neural.param.eyes = Oči
 filter.neural.msg.using_model = Upotrebljava se {model} · {license}.
 filter.neural.msg.get_model = Preuzmite ga putem Filtar ▸ Neural Filters ▸ Upravljanje modelima.
 
-filter.camera_raw.name = Camera Raw Filter
+filter.camera_raw.name = Camera Raw filtar
 filter.camera_raw.param.temperature = Temperatura
 filter.camera_raw.param.tint = Ton boje
 filter.camera_raw.param.highlights = Svijetli tonovi

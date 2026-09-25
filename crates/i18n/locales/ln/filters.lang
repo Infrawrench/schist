@@ -152,7 +152,7 @@ filter.param.invert_height = Kozongola bosanda
 filter.param.horizontal_scale = Eshɛlɛ na mopanzi
 filter.param.vertical_scale = Eshɛlɛ na likoló mpe nse
 filter.param.randomness = Kozanga molɔngɔ
-filter.param.seed = Seed
+filter.param.seed = Momboto
 filter.param.undefined_areas = Bitando oyo eyebani te
 filter.param.centre_x = Katikati X
 filter.param.centre_y = Katikati Y
@@ -298,7 +298,7 @@ filter.mezzotint.choice.short_strokes = Milɔngɔ ya brɔsi ya mikuse
 filter.mezzotint.choice.medium_strokes = Milɔngɔ ya brɔsi ya katikati
 filter.mezzotint.choice.long_strokes = Milɔngɔ ya brɔsi ya milai
 
-filter.fibers.param.variance = Variance
+filter.fibers.param.variance = Bokeseni
 filter.fibers.param.seed = Kosala lisusu kozanga molɔngɔ
 filter.lens_flare.param.lens = Lolenge ya lantiye
 filter.lens_flare.choice.zoom_50_300 = Zumu 50-300mm

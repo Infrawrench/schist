@@ -45,7 +45,7 @@ panel.info.metering = {metering} tupuy
 panel.info.taken = Hapisqa
 panel.info.size = {w} × {h} · {mp} MP
 panel.info.size_oriented = {w} × {h} · {mp} MP · mayman qhawasqan {o}
-panel.info.software = Software
+panel.info.software = Programa
 panel.info.where = Maypi
 
 # Willakuykuna panel
@@ -78,7 +78,7 @@ panel.character.on_path_tip = Llamk'achkan ñanpa mirachisqanta llamk'achiy
 panel.character.path_offset = Ñanmanta karun
 
 # IA panel
-panel.ai.title = IA
+panel.ai.title = AI
 panel.ai.empty_editor = Huk allichayta mañakuy, lienzopi ruwakusqantataq qhaway. Agenteqa menúkunap llamk'anankunata, suysunankunata, kamachiykunatapas apaykachan; sapa kuti huk kutichina puriyniyuq.
 panel.ai.empty_gallery = Fotoykikunamanta tapuy, galeríapi ruwakusqantataq qhaway: agenteqa maskayta, huch'uy rikch'aykunata qhawayta, akllayta, huñukunaman rakiyta, fototapas allichaqpi kichayta atin.
 panel.ai.thinking = yuyaykachkan…

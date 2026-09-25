@@ -1,17 +1,16 @@
-# Lens profiles: English fallback pending translation review. No locale added.
-lens_profiles.invalid = Choose a valid Lensfun v1/v2 XML database (up to 8 MiB) with supported camera or lens data.
-lens_profiles.calibration = Lens calibration
-lens_profiles.no_calibration = No calibration covers these settings. Check focal length and camera crop factor; manual correction remains available.
-lens_profiles.import = Import Lensfun XML…
-lens_profiles.imported = Lensfun database imported for this session. Select a profile or match the photo metadata.
-lens_profiles.manual = Manual correction only
-lens_profiles.saved = Saved calibration (database unavailable)
-lens_profiles.profile = Lens profile
-lens_profiles.aperture = Aperture (0 = unknown)
-lens_profiles.distance = Focus distance (0 = unknown)
-lens_profiles.vignette = Calibrated vignetting
-lens_profiles.color_context = Calibrated vignetting requires the built-in sRGB profile. Convert to sRGB to preserve appearance, then reopen Lens Correction. For already-sRGB untagged pixels, assigning sRGB is sufficient. Geometry and chromatic correction remain available.
-lens_profiles.vignette_missing = No vignetting calibration covers the aperture and focus distance. Enter measured values to enable it; 1000 m represents distant focus in many Lensfun profiles.
-lens_profiles.note = Calibrated correction runs before the manual controls. Use the original full frame; crop afterward. Save a filter stack in PSD/PSB to retain editable calibration.
-lens_profiles.automatic = Match photo metadata
-lens_profiles.components = Profile pass: distortion {distortion}; color fringes {tca}; vignetting {vignette}.
+lens_profiles.invalid = Kuusdeetaa XML Lensfun v1/v2 sirrii (hanga 8 MiB) odeeffannoo kaameraa ykn leensii deeggaramu qabu fili.
+lens_profiles.calibration = Sirreeffama leensii madaalame
+lens_profiles.no_calibration = Madaalliin qindaa’inoota kanneen hin hammatu. Dheerina xiyyeeffannaa fi saffisa murtii kaameraa ilaali; sirreeffamni harkaan ni jira.
+lens_profiles.import = XML Lensfun galchi…
+lens_profiles.imported = Kuusdeetaan Lensfun yeroo kanaaf galfameera. Piroofaayilii fili ykn odeeffannoo suuraa waliin walqabsiisi.
+lens_profiles.manual = Sirreeffama harkaan qofa
+lens_profiles.saved = Madaallii olkaa’ame (kuusdeetaan hin jiru)
+lens_profiles.profile = Piroofaayilii leensii
+lens_profiles.aperture = Baniinsa (0 = hin beekamu)
+lens_profiles.distance = Fageenya xiyyeeffannaa (0 = hin beekamu)
+lens_profiles.vignette = Dukkana qarqaraa madaalame
+lens_profiles.color_context = Sirreeffamni dukkana qarqaraa madaalame piroofaayilii sRGB keessaa jiru barbaada. Bifa isaa eeguuf gara sRGBtti jijjiiri, ergasii Sirreeffama Leensii irra deebi’ii bani. Pikseloota duraan sRGB keessa jiran garuu piroofaayilii hin qabneef, sRGB ramaduun ni gaha. Sirreeffamni ji’oomeetirii fi halluu ni jira.
+lens_profiles.vignette_missing = Madaalliin dukkana qarqaraa baniinsa fi fageenya xiyyeeffannaa kana hin hammatu. Hojii irra oolchuuf gatiiwwan safaraman galchi; piroofaayiloota Lensfun hedduu keessatti 1000 m xiyyeeffannaa fagoo agarsiisa.
+lens_profiles.note = Sirreeffamni madaalame too’annoo harkaan dura raawwatama. Suuraa jalqabaa guutuu fayyadami; booda muraa. Madaallii gulaalamuu danda’u eeguuf tuuta filtarootaa PSD/PSB keessatti olkaa’i.
+lens_profiles.automatic = Odeeffannoo suuraa waliin walbira qabi
+lens_profiles.components = Hojii piroofaayilii: jal’ina {distortion}; qarqara halluu {tca}; dukkana qarqaraa {vignette}.

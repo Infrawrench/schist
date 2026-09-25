@@ -9,8 +9,8 @@ tool.slice.default_name = Gawo {n}
 tool.frame.name = Furemu
 tool.frame.description = Kokani kuti mupange furemu: layer ya rectangle kapena ellipse imene imabisa mbali za chilichonse choikidwa mmenemo.
 tool.frame.default_name = Furemu {n}
-tool.frame.choice.rectangle = Rectangle
-tool.frame.choice.ellipse = Ellipse
+tool.frame.choice.rectangle = Kona zinayi
+tool.frame.choice.ellipse = Chozungulira
 tool.frame.history.frame = Furemu
 
 tool.note.name = Cholemba

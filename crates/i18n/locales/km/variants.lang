@@ -1,8 +1,8 @@
-# Virtual copies. Explicit English fallback pending translation review.
-variants.create = Create virtual copy…
-variants.rename = Rename virtual copy…
-variants.delete = Delete virtual copy
-variants.close = Close this photo and its virtual copies before moving or deleting them.
-variants.saved_hint = The copy starts from the saved edit, or the original when there is no edit. Save pending changes first.
-variants.move_original = Move the original photo to move its virtual copies.
-variants.protected_export = Choose another destination. Gallery exports cannot replace the original or its edit storage.
+# Virtual copies.
+variants.create = បង្កើតច្បាប់ចម្លងនិម្មិត…
+variants.rename = ប្តូរឈ្មោះច្បាប់ចម្លងនិម្មិត…
+variants.delete = លុបច្បាប់ចម្លងនិម្មិត
+variants.close = បិទរូបថតនេះ និងច្បាប់ចម្លងនិម្មិតរបស់វា មុនពេលផ្លាស់ទី ឬលុបពួកវា។
+variants.saved_hint = ច្បាប់ចម្លងចាប់ផ្តើមពីការកែសម្រួលដែលបានរក្សាទុក ឬដើមនៅពេលដែលមិនមានការកែសម្រួល។ រក្សាទុកការផ្លាស់ប្តូរដែលមិនទាន់សម្រេចជាមុនសិន។
+variants.move_original = ផ្លាស់ទីរូបថតដើមដើម្បីផ្លាស់ទីច្បាប់ចម្លងនិម្មិតរបស់វា។
+variants.protected_export = ជ្រើសរើសគោលដៅផ្សេងទៀត។ ការនាំចេញវិចិត្រសាលមិនអាចជំនួសកន្លែងផ្ទុកឯកសារដើម ឬកែសម្រួលរបស់វាបានទេ។

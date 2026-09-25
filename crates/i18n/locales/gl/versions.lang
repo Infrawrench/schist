@@ -1,7 +1,7 @@
 # Tradución ao galego.
 versions.title = Historial de versións
 versions.open = Historial de versións…
-versions.original = Original
+versions.original = Orixinal
 versions.current = Edición gardada actual
 versions.saved_at = Gardado ou{date} UTC
 versions.saved_sequence = Gardado ou{date} UTC ({n})

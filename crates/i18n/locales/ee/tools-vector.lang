@@ -16,10 +16,10 @@ tool.direct_select.description = He anchor point ɖeka alo eƒe asilelewo be nà
 
 tool.shape.history.layer = {name} ƒe Layer
 tool.shape.rect.name = Rectangle Dɔwɔnu
-tool.shape.rect.label = Rectangle
+tool.shape.rect.label = Go ene
 tool.shape.rect.description = He rectangle nɔnɔme ƒe layer le ŋgɔgbe ƒe amadede me; enɔa vector eye wògbugbɔa eɖokui raster ne wotrɔ eƒe lolome.
 tool.shape.ellipse.name = Ellipse Dɔwɔnu
-tool.shape.ellipse.label = Ellipse
+tool.shape.ellipse.label = Amama
 tool.shape.ellipse.description = He ellipse nɔnɔme ƒe layer le ŋgɔgbe ƒe amadede me.
 tool.shape.line.name = Fli Dɔwɔnu
 tool.shape.line.label = Fli

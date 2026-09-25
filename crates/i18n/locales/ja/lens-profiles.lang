@@ -1,17 +1,16 @@
-# Lens profiles: English fallback pending translation review. No locale added.
-lens_profiles.invalid = Choose a valid Lensfun v1/v2 XML database (up to 8 MiB) with supported camera or lens data.
-lens_profiles.calibration = Lens calibration
-lens_profiles.no_calibration = No calibration covers these settings. Check focal length and camera crop factor; manual correction remains available.
-lens_profiles.import = Import Lensfun XML…
-lens_profiles.imported = Lensfun database imported for this session. Select a profile or match the photo metadata.
-lens_profiles.manual = Manual correction only
-lens_profiles.saved = Saved calibration (database unavailable)
-lens_profiles.profile = Lens profile
-lens_profiles.aperture = Aperture (0 = unknown)
-lens_profiles.distance = Focus distance (0 = unknown)
-lens_profiles.vignette = Calibrated vignetting
-lens_profiles.color_context = Calibrated vignetting requires the built-in sRGB profile. Convert to sRGB to preserve appearance, then reopen Lens Correction. For already-sRGB untagged pixels, assigning sRGB is sufficient. Geometry and chromatic correction remain available.
-lens_profiles.vignette_missing = No vignetting calibration covers the aperture and focus distance. Enter measured values to enable it; 1000 m represents distant focus in many Lensfun profiles.
-lens_profiles.note = Calibrated correction runs before the manual controls. Use the original full frame; crop afterward. Save a filter stack in PSD/PSB to retain editable calibration.
-lens_profiles.automatic = Match photo metadata
-lens_profiles.components = Profile pass: distortion {distortion}; color fringes {tca}; vignetting {vignette}.
+lens_profiles.invalid = サポートされているカメラまたはレンズデータを含む有効な Lensfun v1/v2 XML データベース (最大 8 MiB) を選択します。
+lens_profiles.calibration = レンズキャリブレーション
+lens_profiles.no_calibration = これらの設定をカバーするキャリブレーションはありません。焦点距離とカメラのクロップ係数を確認します。手動補正は引き続き利用可能です。
+lens_profiles.import = Lensfun XML をインポート…
+lens_profiles.imported = このセッション用にインポートされた Lensfun データベース。プロファイルを選択するか、写真のメタデータを照合します。
+lens_profiles.manual = 手動補正のみ
+lens_profiles.saved = 保存されたキャリブレーション (データベースは使用不可)
+lens_profiles.profile = レンズプロファイル
+lens_profiles.aperture = 絞り (0 = 不明)
+lens_profiles.distance = 撮影距離 (0 = 不明)
+lens_profiles.vignette = 補正された周辺減光
+lens_profiles.color_context = 補正された周辺減光には内蔵の sRGB プロファイルが必要です。見た目を保つために sRGB に変換してから、レンズ補正を開き直してください。すでに sRGB の色を持つプロファイル未設定のピクセルには、sRGB を割り当てるだけで十分です。幾何補正と色収差補正は引き続き利用できます。
+lens_profiles.vignette_missing = 絞りと撮影距離に対応する周辺減光のキャリブレーションがありません。有効にするには測定値を入力してください。多くの Lensfun プロファイルでは、1000 m は遠距離のピントを表します。
+lens_profiles.note = キャリブレーション補正は手動調整より先に適用されます。元の画像全体を使用し、その後で切り抜いてください。編集可能なキャリブレーションを維持するには、フィルタースタックを PSD/PSB で保存してください。
+lens_profiles.automatic = 写真のメタデータを照合する
+lens_profiles.components = プロファイル補正：歪曲 {distortion}、色ずれ {tca}、周辺減光 {vignette}。

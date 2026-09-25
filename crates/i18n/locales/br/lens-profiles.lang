@@ -1,17 +1,16 @@
-# Lens profiles: English fallback pending translation review. No locale added.
-lens_profiles.invalid = Choose a valid Lensfun v1/v2 XML database (up to 8 MiB) with supported camera or lens data.
-lens_profiles.calibration = Lens calibration
-lens_profiles.no_calibration = No calibration covers these settings. Check focal length and camera crop factor; manual correction remains available.
-lens_profiles.import = Import Lensfun XML…
-lens_profiles.imported = Lensfun database imported for this session. Select a profile or match the photo metadata.
-lens_profiles.manual = Manual correction only
-lens_profiles.saved = Saved calibration (database unavailable)
-lens_profiles.profile = Lens profile
-lens_profiles.aperture = Aperture (0 = unknown)
-lens_profiles.distance = Focus distance (0 = unknown)
-lens_profiles.vignette = Calibrated vignetting
-lens_profiles.color_context = Calibrated vignetting requires the built-in sRGB profile. Convert to sRGB to preserve appearance, then reopen Lens Correction. For already-sRGB untagged pixels, assigning sRGB is sufficient. Geometry and chromatic correction remain available.
-lens_profiles.vignette_missing = No vignetting calibration covers the aperture and focus distance. Enter measured values to enable it; 1000 m represents distant focus in many Lensfun profiles.
-lens_profiles.note = Calibrated correction runs before the manual controls. Use the original full frame; crop afterward. Save a filter stack in PSD/PSB to retain editable calibration.
-lens_profiles.automatic = Match photo metadata
-lens_profiles.components = Profile pass: distortion {distortion}; color fringes {tca}; vignetting {vignette}.
+lens_profiles.invalid = Dibabit un diaz roadennoù XML Lensfun v1/v2 reizh (betek 8 MiB) gant roadennoù kamera pe linsel skoret.
+lens_profiles.calibration = Kalibradur al ferenn
+lens_profiles.no_calibration = N'eus kalibradur ebet evit an arventennoù-mañ. Gwiriit ar pellder fokal ha faktor didroc'hañ ar c'hamera; gallout a reer c'hoazh ober ur reizhadenn dre zorn.
+lens_profiles.import = Enporzhiañ Lensfun XML...
+lens_profiles.imported = Enporzhiet eo bet diaz roadennoù Lensfun evit an dalc'h-mañ. Dibabit ur profil pe klotait gant metaroadennoù al luc'hskeudenn.
+lens_profiles.manual = Reizhañ dre zorn hepken
+lens_profiles.saved = Kalibradur enrollet (diaz roadennoù n'eo ket hegerz)
+lens_profiles.profile = Profil al liñsel
+lens_profiles.aperture = Digor (0 = dianav)
+lens_profiles.distance = Pellder (0 = dianav)
+lens_profiles.vignette = Vignetañ kalibret
+lens_profiles.color_context = Evit ar vignetadur kalibret ez eo ret kaout ar profil sRGB enframmet. Troit da sRGB evit mirout an neuz, ha digorit en-dro Reizhañ ar ferenn. Evit ar pikselioù hep tikedenn hag a zo e sRGB dija, trawalc'h eo lakaat ar profil sRGB dezho. Gallout a reer c'hoazh reizhañ ar ventoniezh hag ar fazioù kromatek.
+lens_profiles.vignette_missing = N'eus kalibradur vignetañ ebet evit an digor hag ar pellder enfokañ-mañ. Lakait talvoudoù muzuliet evit e weredekaat; 1000 m a dalvez da enfokañ pell e meur a brofil Lensfun.
+lens_profiles.note = Ar reizhadenn kalibret a vez kaset da benn a-raok ar reoliañ dre zorn. Implijit ar skeudenn orin a-bezh ha didroc'hit anezhi goude. Enrollit ur bern siloù e PSD/PSB evit mirout ar c'halibradur a c'haller kemmañ.
+lens_profiles.automatic = Keñveriañ metaroadennoù al luc'hskeudennoù
+lens_profiles.components = Arver ar profil: distummañ {distortion}; riblennoù liv {tca}; vignetadur {vignette}.

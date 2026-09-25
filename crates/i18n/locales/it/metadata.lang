@@ -2,7 +2,7 @@
 metadata.title = Metadati delle foto
 metadata.keywords = Parole chiave (;)
 metadata.caption = Didascalia
-metadata.copyright = Copyright
+metadata.copyright = Diritto d'autore
 metadata.hint = Seleziona i campi da modificare. I valori vuoti cancellano il contenuto.
 metadata.invalid = Controlla i valori e il file XMP.
 metadata.taken = Data

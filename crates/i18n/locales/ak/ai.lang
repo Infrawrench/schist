@@ -1,6 +1,6 @@
 # Tebea
 ai.status.panel_shown = Wɔakyerɛ AI panel no
-ai.status.panel_hidden = Wɔde AI panel no asie — Hwɛ ▸ AI Panel ({shortcut}) bɛsan de aba
+ai.status.panel_hidden = Wɔde AI panel no asie — Hwɛ ▸ AI Panel no ({shortcut}) bɛsan de aba
 ai.status.tool = AI: {name}
 
 ai.info.connected = {backend} anya nkitahodi

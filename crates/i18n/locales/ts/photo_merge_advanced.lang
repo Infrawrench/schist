@@ -1,8 +1,7 @@
-# English fallback pending translation.
-photo_merge_advanced.projective = Perspective alignment (includes rotation)
-photo_merge_advanced.cylindrical = Cylindrical panorama
-photo_merge_advanced.deghost = Remove moving-subject ghosts (first photo reference)
-photo_merge_advanced.focal = Focal length (px) / image width (px)
-photo_merge_advanced.masks = Focus output uses editable layer masks. Select a mask in Layers and paint to refine.
-photo_merge_advanced.no_match = No reliable alignment found. Use textured photos with substantial overlap and modest viewpoint changes.
-photo_merge_advanced.invalid = Invalid source images or merge settings.
+photo_merge_advanced.projective = Ku ringanisa ka vonelo (ku katsa ni ku rhendzeleka)
+photo_merge_advanced.cylindrical = Panorama ya silindara
+photo_merge_advanced.deghost = Susa swifaniso swa ndzhuti swa swilo leswi fambaka (xifaniso xo sungula i xiletelo)
+photo_merge_advanced.focal = Vulehi bya fókasi (px) / ku anama ka xifaniso (px)
+photo_merge_advanced.masks = Vuyelo bya fókasi byi tirhisa timasiki ta maleya leti nga hleriwaka. Hlawula masiki eka Maleya kutani u penda ku yi antswisa.
+photo_merge_advanced.no_match = A ku kumekanga ku ringanisa loku nga tshemberiwaka. Tirhisa swifaniso leswi nga ni vuxokoxoko, leswi funengetanaka ngopfu, ni ku cinca kutsongo ka ndhawu yo languta.
+photo_merge_advanced.invalid = Swifaniso swa masungulo kumbe swiyimiso swo hlanganisa a swi tirhi.

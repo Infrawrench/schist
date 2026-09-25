@@ -63,12 +63,12 @@ menu.select.contract = Chepetsani…
 menu.select.feather = Fewetsani M'mphepete…
 menu.select.transform_selection = Sinthani Malo Osankhidwa
 
-menu.layer = Layer
+menu.layer = Wosanjikiza
 menu.layer.layer_style = Masitayelo a Layer…
 menu.layer.layer_comps = Maonekedwe a Layer
 menu.layer.new_layer_comp = Maonekedwe Atsopano a Layer
 menu.layer.delete_layer_comp = Chotsani {name}
-menu.layer.path = Path
+menu.layer.path = Njira
 menu.layer.fill_path = Dzazani Path
 menu.layer.stroke_path = Jambulani Mzere pa Path
 menu.layer.make_selection = Pangani Malo Osankhidwa
@@ -118,7 +118,7 @@ menu.view.disable_snapping = Letsani Kugwirizanitsa
 menu.view.enable_proof_colors = Yambitsani Kuyesa Mitundu
 menu.view.disable_proof_colors = Letsani Kuyesa Mitundu
 
-menu.gallery = Gallery
+menu.gallery = Nyumba ya zithunzi
 menu.gallery.edit_selected = Sinthani Zosankhidwa
 menu.gallery.refresh = Tsitsimutsani
 menu.gallery.map_filter = Sefa ya Mapu…

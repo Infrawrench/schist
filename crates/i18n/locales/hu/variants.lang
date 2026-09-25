@@ -1,8 +1,7 @@
-# Virtual copies. Explicit English fallback pending translation review.
-variants.create = Create virtual copy…
-variants.rename = Rename virtual copy…
-variants.delete = Delete virtual copy
-variants.close = Close this photo and its virtual copies before moving or deleting them.
-variants.saved_hint = The copy starts from the saved edit, or the original when there is no edit. Save pending changes first.
-variants.move_original = Move the original photo to move its virtual copies.
-variants.protected_export = Choose another destination. Gallery exports cannot replace the original or its edit storage.
+variants.create = Virtuális másolat létrehozása…
+variants.rename = Virtuális másolat átnevezése…
+variants.delete = Virtuális másolat törlése
+variants.close = Zárja be ezt a fényképet és virtuális másolatait, mielőtt áthelyezi vagy törli őket.
+variants.saved_hint = A másolás a mentett szerkesztéssel kezdődik, vagy ha nincs szerkesztés, az eredetitől. Először mentse a függőben lévő módosításokat.
+variants.move_original = Mozgassa az eredeti fényképet a virtuális másolatok áthelyezéséhez.
+variants.protected_export = Válasszon másik úti célt. A galéria exportálása nem helyettesítheti az eredetit vagy annak szerkesztési tárhelyét.

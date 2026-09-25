@@ -1,17 +1,16 @@
-# Lens profiles: English fallback pending translation review. No locale added.
-lens_profiles.invalid = Choose a valid Lensfun v1/v2 XML database (up to 8 MiB) with supported camera or lens data.
-lens_profiles.calibration = Lens calibration
-lens_profiles.no_calibration = No calibration covers these settings. Check focal length and camera crop factor; manual correction remains available.
-lens_profiles.import = Import Lensfun XML…
-lens_profiles.imported = Lensfun database imported for this session. Select a profile or match the photo metadata.
-lens_profiles.manual = Manual correction only
-lens_profiles.saved = Saved calibration (database unavailable)
-lens_profiles.profile = Lens profile
-lens_profiles.aperture = Aperture (0 = unknown)
-lens_profiles.distance = Focus distance (0 = unknown)
-lens_profiles.vignette = Calibrated vignetting
-lens_profiles.color_context = Calibrated vignetting requires the built-in sRGB profile. Convert to sRGB to preserve appearance, then reopen Lens Correction. For already-sRGB untagged pixels, assigning sRGB is sufficient. Geometry and chromatic correction remain available.
-lens_profiles.vignette_missing = No vignetting calibration covers the aperture and focus distance. Enter measured values to enable it; 1000 m represents distant focus in many Lensfun profiles.
-lens_profiles.note = Calibrated correction runs before the manual controls. Use the original full frame; crop afterward. Save a filter stack in PSD/PSB to retain editable calibration.
-lens_profiles.automatic = Match photo metadata
-lens_profiles.components = Profile pass: distortion {distortion}; color fringes {tca}; vignetting {vignette}.
+lens_profiles.invalid = เลือกฐานข้อมูล Lensfun v1/v2 XML ที่ถูกต้อง (ไม่เกิน 8 MiB) ซึ่งมีข้อมูลกล้องหรือเลนส์ที่รองรับ
+lens_profiles.calibration = การปรับเทียบเลนส์
+lens_profiles.no_calibration = ไม่มีข้อมูลปรับเทียบที่ครอบคลุมการตั้งค่านี้ ตรวจสอบทางยาวโฟกัสและตัวคูณครอปของกล้อง ยังสามารถแก้ไขด้วยตนเองได้
+lens_profiles.import = นำเข้า Lensfun XML…
+lens_profiles.imported = นำเข้าฐานข้อมูล Lensfun สำหรับเซสชันนี้แล้ว เลือกโปรไฟล์หรือจับคู่กับข้อมูลเมตาของรูปภาพ
+lens_profiles.manual = แก้ไขด้วยตนเองเท่านั้น
+lens_profiles.saved = ข้อมูลปรับเทียบที่บันทึกไว้ (ฐานข้อมูลไม่พร้อมใช้งาน)
+lens_profiles.profile = โปรไฟล์เลนส์
+lens_profiles.aperture = รูรับแสง (0 = ไม่ทราบ)
+lens_profiles.distance = ระยะโฟกัส (0 = ไม่ทราบ)
+lens_profiles.vignette = การลดขอบมืดที่ปรับเทียบแล้ว
+lens_profiles.color_context = การลดขอบมืดที่ปรับเทียบแล้วต้องใช้โปรไฟล์ sRGB ในตัว แปลงเป็น sRGB เพื่อคงรูปลักษณ์ไว้ แล้วเปิดการแก้ไขเลนส์อีกครั้ง สำหรับพิกเซลที่เป็น sRGB อยู่แล้วแต่ไม่มีแท็ก เพียงกำหนดโปรไฟล์ sRGB ก็พอ การแก้ไขรูปทรงและขอบสีจะยังใช้งานได้
+lens_profiles.vignette_missing = ไม่มีข้อมูลปรับเทียบขอบมืดที่ครอบคลุมรูรับแสงและระยะโฟกัสนี้ ป้อนค่าที่วัดได้เพื่อเปิดใช้งาน โดย 1000 m หมายถึงการโฟกัสระยะไกลในโปรไฟล์ Lensfun หลายรายการ
+lens_profiles.note = การแก้ไขที่ปรับเทียบแล้วจะทำงานก่อนตัวควบคุมแบบปรับเอง ใช้กรอบต้นฉบับเต็มรูปแล้วจึงครอปภายหลัง บันทึกชุดฟิลเตอร์ใน PSD/PSB เพื่อเก็บข้อมูลปรับเทียบที่แก้ไขได้
+lens_profiles.automatic = จับคู่ข้อมูลเมตาของรูปภาพ
+lens_profiles.components = ขั้นตอนโปรไฟล์: ความบิดเบี้ยว {distortion}; ขอบสี {tca}; ขอบมืด {vignette}

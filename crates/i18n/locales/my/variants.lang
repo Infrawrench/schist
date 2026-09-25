@@ -1,8 +1,7 @@
-# Virtual copies. Explicit English fallback pending translation review.
-variants.create = Create virtual copy…
-variants.rename = Rename virtual copy…
-variants.delete = Delete virtual copy
-variants.close = Close this photo and its virtual copies before moving or deleting them.
-variants.saved_hint = The copy starts from the saved edit, or the original when there is no edit. Save pending changes first.
-variants.move_original = Move the original photo to move its virtual copies.
-variants.protected_export = Choose another destination. Gallery exports cannot replace the original or its edit storage.
+variants.create = အတုအယောင် မိတ္တူ ဖန်တီးပါ...
+variants.rename = အတုအယောင် မိတ္တူကို အမည်ပြောင်းပါ…
+variants.delete = အတုအယောင် မိတ္တူကို ဖျက်ပါ။
+variants.close = ၎င်းတို့ကို မရွှေ့မီ သို့မဟုတ် မဖျက်မီ ဤဓာတ်ပုံနှင့် ၎င်း၏ အတုအယောင် မိတ္တူများကို ပိတ်ပါ။
+variants.saved_hint = ကော်ပီသည် သိမ်းဆည်းထားသော တည်းဖြတ်မှုမှ စတင်သည် သို့မဟုတ် တည်းဖြတ်မှု မရှိသည့်အခါ မူရင်းဖြစ်သည်။ ဆိုင်းငံ့ထားသောပြောင်းလဲမှုများကို ဦးစွာသိမ်းဆည်းပါ။
+variants.move_original = ၎င်း၏အတုအယောင်များကို ရွှေ့ရန် မူရင်းဓာတ်ပုံကို ရွှေ့ပါ။
+variants.protected_export = အခြားဦးတည်ရာကို ရွေးပါ။ Gallery ထုတ်ယူမှုများသည် မူရင်း သို့မဟုတ် ၎င်း၏ တည်းဖြတ်သိုလှောင်မှုကို အစားထိုး၍မရပါ။

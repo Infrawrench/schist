@@ -1,17 +1,16 @@
-# Lens profiles: English fallback pending translation review. No locale added.
-lens_profiles.invalid = Choose a valid Lensfun v1/v2 XML database (up to 8 MiB) with supported camera or lens data.
-lens_profiles.calibration = Lens calibration
-lens_profiles.no_calibration = No calibration covers these settings. Check focal length and camera crop factor; manual correction remains available.
-lens_profiles.import = Import Lensfun XML…
-lens_profiles.imported = Lensfun database imported for this session. Select a profile or match the photo metadata.
-lens_profiles.manual = Manual correction only
-lens_profiles.saved = Saved calibration (database unavailable)
-lens_profiles.profile = Lens profile
-lens_profiles.aperture = Aperture (0 = unknown)
-lens_profiles.distance = Focus distance (0 = unknown)
-lens_profiles.vignette = Calibrated vignetting
-lens_profiles.color_context = Calibrated vignetting requires the built-in sRGB profile. Convert to sRGB to preserve appearance, then reopen Lens Correction. For already-sRGB untagged pixels, assigning sRGB is sufficient. Geometry and chromatic correction remain available.
-lens_profiles.vignette_missing = No vignetting calibration covers the aperture and focus distance. Enter measured values to enable it; 1000 m represents distant focus in many Lensfun profiles.
-lens_profiles.note = Calibrated correction runs before the manual controls. Use the original full frame; crop afterward. Save a filter stack in PSD/PSB to retain editable calibration.
-lens_profiles.automatic = Match photo metadata
-lens_profiles.components = Profile pass: distortion {distortion}; color fringes {tca}; vignetting {vignette}.
+lens_profiles.invalid = Pumili ng wastong Lensfun v1/v2 XML database (hanggang 8 MiB) na may sinusuportahang data ng camera o lens.
+lens_profiles.calibration = Pag-calibrate ng lens
+lens_profiles.no_calibration = Walang calibration na tumutugma sa mga setting na ito. Suriin ang focal length at crop factor ng camera; maaari pa ring magwasto nang manu-mano.
+lens_profiles.import = I-import ang Lensfun XML…
+lens_profiles.imported = Na-import ang Lensfun database para sa sesyong ito. Pumili ng profile o itugma sa metadata ng larawan.
+lens_profiles.manual = Pagwawastong manu-mano lamang
+lens_profiles.saved = Naka-save na calibration (hindi available ang database)
+lens_profiles.profile = Profile ng lens
+lens_profiles.aperture = Aperture (0 = hindi alam)
+lens_profiles.distance = Distansya ng focus (0 = hindi alam)
+lens_profiles.vignette = Na-calibrate na pagdidilim sa gilid
+lens_profiles.color_context = Kailangan ng na-calibrate na pagdidilim sa gilid ang built-in na sRGB profile. I-convert sa sRGB upang mapanatili ang hitsura, pagkatapos ay buksan muli ang Pagwawasto ng Lens. Para sa mga pixel na sRGB na ngunit walang tag, sapat nang italaga ang sRGB profile. Magagamit pa rin ang pagwawasto ng geometry at mga may kulay na gilid.
+lens_profiles.vignette_missing = Walang calibration ng pagdidilim sa gilid na tumutugma sa aperture at distansya ng focus. Ilagay ang mga sinukat na halaga upang paganahin ito; ang 1000 m ay kumakatawan sa malayong focus sa maraming Lensfun profile.
+lens_profiles.note = Nauuna ang na-calibrate na pagwawasto sa mga manu-manong kontrol. Gamitin ang buong orihinal na frame; i-crop pagkatapos. I-save ang filter stack sa PSD/PSB upang mapanatili ang nae-edit na calibration.
+lens_profiles.automatic = Itugma ang metadata ng larawan
+lens_profiles.components = Paglalapat ng profile: distortion {distortion}; may kulay na gilid {tca}; pagdidilim sa gilid {vignette}.

@@ -1,8 +1,7 @@
-# Virtual copies. Explicit English fallback pending translation review.
-variants.create = Create virtual copy…
-variants.rename = Rename virtual copy…
-variants.delete = Delete virtual copy
-variants.close = Close this photo and its virtual copies before moving or deleting them.
-variants.saved_hint = The copy starts from the saved edit, or the original when there is no edit. Save pending changes first.
-variants.move_original = Move the original photo to move its virtual copies.
-variants.protected_export = Choose another destination. Gallery exports cannot replace the original or its edit storage.
+variants.create = Tlhama khopi ya setshwantsho e e ikemetseng…
+variants.rename = Fetola leina la khopi e e ikemetseng…
+variants.delete = Phimola khopi e e ikemetseng
+variants.close = Tswala setshwantsho seno le dikhopi tsa sone pele ga go di sutisa kgotsa go di phimola.
+variants.saved_hint = Khopi e simolola ka phetolo e e bolokilweng, kgotsa ka setshwantsho sa ntlha fa go se na phetolo. Boloka diphetogo tse di iseng di bolokiwe pele.
+variants.move_original = Sutisa setshwantsho sa ntlha gore dikhopi tsa sone le tsona di sutisiwe.
+variants.protected_export = Tlhopha lefelo le lengwe. Ditshwantsho tse di rometsweng go tswa mo galering ga di ka ke tsa emisetsa setshwantsho sa ntlha kgotsa bobolokelo jwa phetolo ya sone.

@@ -1,8 +1,7 @@
-# English fallback pending translation.
-photo_merge_advanced.projective = Perspective alignment (includes rotation)
-photo_merge_advanced.cylindrical = Cylindrical panorama
-photo_merge_advanced.deghost = Remove moving-subject ghosts (first photo reference)
-photo_merge_advanced.focal = Focal length (px) / image width (px)
-photo_merge_advanced.masks = Focus output uses editable layer masks. Select a mask in Layers and paint to refine.
-photo_merge_advanced.no_match = No reliable alignment found. Use textured photos with substantial overlap and modest viewpoint changes.
-photo_merge_advanced.invalid = Invalid source images or merge settings.
+photo_merge_advanced.projective = پېرسپېكتىۋا بويىچە توغرىلاش (ئايلاندۇرۇشنىمۇ ئۆز ئىچىگە ئالىدۇ)
+photo_merge_advanced.cylindrical = سىلىندىر شەكىللىك پانوراما
+photo_merge_advanced.deghost = ھەرىكەتتىكى ئوبيېكتنىڭ قوش كۆرۈنۈشىنى يوقىتىش (بىرىنچى سۈرەتنى ئۆلچەم قىلىپ)
+photo_merge_advanced.focal = فوكۇس ئۇزۇنلۇقى (px) / رەسىم كەڭلىكى (px)
+photo_merge_advanced.masks = فوكۇس بىرلەشتۈرۈش نەتىجىسى تەھرىرلىگىلى بولىدىغان قەۋەت نىقابلىرىنى ئىشلىتىدۇ. قەۋەتلەردىن نىقابنى تاللاپ، ئىنچىكە تۈزىتىش ئۈچۈن سىزىڭ.
+photo_merge_advanced.no_match = ئىشەنچلىك توغرىلاش تېپىلمىدى. تەپسىلاتى روشەن، ئۈستىگە چۈشۈشى كۆپ، كۆرۈش نۇقتىسى ئاز ئۆزگەرگەن سۈرەتلەرنى ئىشلىتىڭ.
+photo_merge_advanced.invalid = مەنبە رەسىملەر ياكى بىرلەشتۈرۈش تەڭشەكلىرى ئىناۋەتسىز.

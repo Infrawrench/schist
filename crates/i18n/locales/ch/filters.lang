@@ -1,6 +1,6 @@
 filter.category.3d = 3D
 filter.category.artistic = Artistiku
-filter.category.blur = Blur
+filter.category.blur = Na' borroso
 filter.category.blur_gallery = Gallery Blur
 filter.category.brush_strokes = Brush Stroke siha
 filter.category.distort = Distort
@@ -22,7 +22,7 @@ filter.radial_blur.name = Radial Blur
 filter.surface_blur.name = Surface Blur
 filter.average.name = Promediu
 filter.lens_blur.name = Lens Blur
-filter.blur.name = Blur
+filter.blur.name = Na' borroso
 filter.blur_more.name = Mås Blur
 filter.sharpen.name = Sharpen
 filter.unsharp_mask.name = Unsharp Mask

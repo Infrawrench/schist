@@ -1,17 +1,16 @@
-# Lens profiles: English fallback pending translation review. No locale added.
-lens_profiles.invalid = Choose a valid Lensfun v1/v2 XML database (up to 8 MiB) with supported camera or lens data.
-lens_profiles.calibration = Lens calibration
-lens_profiles.no_calibration = No calibration covers these settings. Check focal length and camera crop factor; manual correction remains available.
-lens_profiles.import = Import Lensfun XML…
-lens_profiles.imported = Lensfun database imported for this session. Select a profile or match the photo metadata.
-lens_profiles.manual = Manual correction only
-lens_profiles.saved = Saved calibration (database unavailable)
-lens_profiles.profile = Lens profile
-lens_profiles.aperture = Aperture (0 = unknown)
-lens_profiles.distance = Focus distance (0 = unknown)
-lens_profiles.vignette = Calibrated vignetting
-lens_profiles.color_context = Calibrated vignetting requires the built-in sRGB profile. Convert to sRGB to preserve appearance, then reopen Lens Correction. For already-sRGB untagged pixels, assigning sRGB is sufficient. Geometry and chromatic correction remain available.
-lens_profiles.vignette_missing = No vignetting calibration covers the aperture and focus distance. Enter measured values to enable it; 1000 m represents distant focus in many Lensfun profiles.
-lens_profiles.note = Calibrated correction runs before the manual controls. Use the original full frame; crop afterward. Save a filter stack in PSD/PSB to retain editable calibration.
-lens_profiles.automatic = Match photo metadata
-lens_profiles.components = Profile pass: distortion {distortion}; color fringes {tca}; vignetting {vignette}.
+lens_profiles.invalid = ዝድገፍ ናይ ካሜራ ወይ ሌንስ ሓበሬታ ዘለዎ ቅኑዕ Lensfun v1/v2 XML ዳታቤዝ ምረጽ (ክሳብ 8 MiB)።
+lens_profiles.calibration = ምዕቃን ሌንስ
+lens_profiles.no_calibration = ነዞም ቅጥዕታት ዝሰማማዕ ምዕቃን የለን። ርሕቀት ፎካስን ናይ ካሜራ ምቑራጽ መጠንን መርምር፤ ናይ ኢድ መእረምታ ኣሎ።
+lens_profiles.import = Lensfun XML ኣእቱ…
+lens_profiles.imported = ናይ Lensfun ዳታቤዝ ንእዚ ክፍለ ግዜ ኣትዩ ኣሎ። ፕሮፋይል ምረጽ ወይ ምስ ሜታዳታ ስእሊ ኣሰማምዕ።
+lens_profiles.manual = ናይ ኢድ መእረምታ ጥራይ
+lens_profiles.saved = ዝተዓቀበ ምዕቃን (ዳታቤዝ ኣይርከብን)
+lens_profiles.profile = ፕሮፋይል ሌንስ
+lens_profiles.aperture = ክፍተት ሌንስ (0 = ኣይፍለጥን)
+lens_profiles.distance = ርሕቀት ፎካስ (0 = ኣይፍለጥን)
+lens_profiles.vignette = ዝተዓቀነ ምጽላም ዳርቻታት
+lens_profiles.color_context = ዝተዓቀነ ምጽላም ዳርቻታት ኣብ ውሽጢ ዘሎ sRGB ፕሮፋይል የድልዮ። መልክዕ ንምዕቃብ ናብ sRGB ለውጥ፣ ድሕሪኡ መእረምታ ሌንስ ደጊምካ ክፈት። ቅድሚ ሕጂ sRGB ዝኾኑ ግን መለለዪ ዘይብሎም ፒክሰላት፣ sRGB ፕሮፋይል ምምዳብ ይኣክል። መእረምታ ቅርጽን ሕብሪ ዳርቻታትን ይርከብ።
+lens_profiles.vignette_missing = ንክፍተት ሌንስን ርሕቀት ፎካስን ዝሰማማዕ ናይ ምጽላም ዳርቻታት ምዕቃን የለን። ንምጥቃም ዝተዓቀኑ ክብርታት ኣእቱ፤ ኣብ ብዙሓት ናይ Lensfun ፕሮፋይላት 1000 m ናይ ርሑቕ ፎካስ ይውክል።
+lens_profiles.note = ዝተዓቀነ መእረምታ ቅድሚ ናይ ኢድ መቆጻጸሪታት ይሰርሕ። ምሉእ ናይ መጀመርታ ፍሬም ተጠቐም፤ ብድሕሪኡ ስእሊ ቁረጽ። ክምሕየሽ ዝኽእል ምዕቃን ንምዕቃብ ተደራራቢ ፊልተር ኣብ PSD/PSB ዓቅብ።
+lens_profiles.automatic = ምስ ሜታዳታ ስእሊ ኣሰማምዕ
+lens_profiles.components = ስራሕ ፕሮፋይል: ምጥዋይ {distortion}; ሕብሪ ዳርቻታት {tca}; ምጽላም ዳርቻታት {vignette}.

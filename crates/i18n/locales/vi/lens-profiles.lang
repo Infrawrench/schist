@@ -1,17 +1,17 @@
-# Lens profiles: English fallback pending translation review. No locale added.
-lens_profiles.invalid = Choose a valid Lensfun v1/v2 XML database (up to 8 MiB) with supported camera or lens data.
-lens_profiles.calibration = Lens calibration
-lens_profiles.no_calibration = No calibration covers these settings. Check focal length and camera crop factor; manual correction remains available.
-lens_profiles.import = Import Lensfun XML…
-lens_profiles.imported = Lensfun database imported for this session. Select a profile or match the photo metadata.
-lens_profiles.manual = Manual correction only
-lens_profiles.saved = Saved calibration (database unavailable)
-lens_profiles.profile = Lens profile
-lens_profiles.aperture = Aperture (0 = unknown)
-lens_profiles.distance = Focus distance (0 = unknown)
-lens_profiles.vignette = Calibrated vignetting
-lens_profiles.color_context = Calibrated vignetting requires the built-in sRGB profile. Convert to sRGB to preserve appearance, then reopen Lens Correction. For already-sRGB untagged pixels, assigning sRGB is sufficient. Geometry and chromatic correction remain available.
-lens_profiles.vignette_missing = No vignetting calibration covers the aperture and focus distance. Enter measured values to enable it; 1000 m represents distant focus in many Lensfun profiles.
-lens_profiles.note = Calibrated correction runs before the manual controls. Use the original full frame; crop afterward. Save a filter stack in PSD/PSB to retain editable calibration.
-lens_profiles.automatic = Match photo metadata
-lens_profiles.components = Profile pass: distortion {distortion}; color fringes {tca}; vignetting {vignette}.
+# Translation draft; review by a native speaker.
+lens_profiles.invalid = Chọn cơ sở dữ liệu Lensfun v1/v2 XML hợp lệ (tối đa 8 MiB) có dữ liệu máy ảnh hoặc ống kính được hỗ trợ.
+lens_profiles.calibration = Hiệu chuẩn ống kính
+lens_profiles.no_calibration = Không có dữ liệu hiệu chuẩn phù hợp với các thiết lập này. Hãy kiểm tra tiêu cự và hệ số crop của máy ảnh; vẫn có thể hiệu chỉnh thủ công.
+lens_profiles.import = Nhập Lensfun XML…
+lens_profiles.imported = Đã nhập cơ sở dữ liệu Lensfun cho phiên này. Chọn cấu hình ống kính hoặc đối chiếu siêu dữ liệu của ảnh.
+lens_profiles.manual = Chỉ hiệu chỉnh thủ công
+lens_profiles.saved = Hiệu chuẩn đã lưu (không có cơ sở dữ liệu)
+lens_profiles.profile = Cấu hình ống kính
+lens_profiles.aperture = Khẩu độ (0 = không rõ)
+lens_profiles.distance = Khoảng cách lấy nét (0 = không rõ)
+lens_profiles.vignette = Hiệu chỉnh tối góc đã hiệu chuẩn
+lens_profiles.color_context = Hiệu chỉnh tối góc đã hiệu chuẩn cần cấu hình sRGB tích hợp. Chuyển ảnh sang sRGB để giữ nguyên diện mạo, rồi mở lại “Hiệu chỉnh ống kính”. Với điểm ảnh vốn đã ở sRGB nhưng chưa gắn cấu hình, chỉ cần gán sRGB. Vẫn có thể hiệu chỉnh hình học và sắc sai.
+lens_profiles.vignette_missing = Không có dữ liệu hiệu chuẩn tối góc cho khẩu độ và khoảng cách lấy nét này. Nhập các giá trị đo được để bật tính năng; trong nhiều cấu hình Lensfun, 1000 m biểu thị lấy nét ở xa.
+lens_profiles.note = Hiệu chỉnh theo dữ liệu hiệu chuẩn được áp dụng trước các điều khiển thủ công. Dùng toàn bộ khung hình gốc rồi mới cắt ảnh. Lưu chồng bộ lọc vào PSD/PSB để giữ khả năng chỉnh sửa dữ liệu hiệu chuẩn.
+lens_profiles.automatic = Đối chiếu siêu dữ liệu ảnh
+lens_profiles.components = Áp dụng cấu hình: méo hình {distortion}; viền màu {tca}; tối góc {vignette}.

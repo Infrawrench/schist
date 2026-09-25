@@ -1,8 +1,7 @@
-# Virtual copies. Explicit English fallback pending translation review.
-variants.create = Create virtual copy…
-variants.rename = Rename virtual copy…
-variants.delete = Delete virtual copy
-variants.close = Close this photo and its virtual copies before moving or deleting them.
-variants.saved_hint = The copy starts from the saved edit, or the original when there is no edit. Save pending changes first.
-variants.move_original = Move the original photo to move its virtual copies.
-variants.protected_export = Choose another destination. Gallery exports cannot replace the original or its edit storage.
+variants.create = مجازی کاپي جوړه کړئ…
+variants.rename = د مجازی کاپي نوم بدل کړئ…
+variants.delete = مجازی کاپي ړنګه کړئ
+variants.close = دا انځور او مجازی کاپۍ یې له لېږدولو یا ړنګولو مخکې وتړئ.
+variants.saved_hint = کاپي له ساتل شوې سمونې پیلېږي، او که سمونه نه وي نو له اصلي انځور څخه. لومړی ناساتل شوي بدلونونه وساتئ.
+variants.move_original = د مجازی کاپیو د لېږد لپاره اصلي انځور ولېږدوئ.
+variants.protected_export = بل ځای غوره کړئ. له ګالرۍ صادر شوي انځورونه نشي کولای د اصلي انځور یا د هغه د سمونې د فایلونو ځای ونیسي.

@@ -1,8 +1,7 @@
-# Virtual copies. Explicit English fallback pending translation review.
-variants.create = Create virtual copy…
-variants.rename = Rename virtual copy…
-variants.delete = Delete virtual copy
-variants.close = Close this photo and its virtual copies before moving or deleting them.
-variants.saved_hint = The copy starts from the saved edit, or the original when there is no edit. Save pending changes first.
-variants.move_original = Move the original photo to move its virtual copies.
-variants.protected_export = Choose another destination. Gallery exports cannot replace the original or its edit storage.
+variants.create = Wirtual nusga döret…
+variants.rename = Wirtual nusganyň adyny üýtget…
+variants.delete = Wirtual nusgany poz
+variants.close = Bu suraty we onuň wirtual nusgalaryny göçürmezden ýa-da pozmazdan öň ýapyň.
+variants.saved_hint = Nusga saklanan redaktirlemeden, redaktirleme ýok bolsa asyl suratdan başlanýar. Ilki saklanmadyk üýtgeşmeleri saklaň.
+variants.move_original = Wirtual nusgalaryny göçürmek üçin asyl suraty göçüriň.
+variants.protected_export = Başga bir ýeri saýlaň. Galereýadan eksport asyl suraty ýa-da onuň redaktirleme ammaryny çalşyp bilmez.

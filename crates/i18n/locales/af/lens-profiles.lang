@@ -1,17 +1,17 @@
-# Lens profiles: English fallback pending translation review. No locale added.
-lens_profiles.invalid = Choose a valid Lensfun v1/v2 XML database (up to 8 MiB) with supported camera or lens data.
-lens_profiles.calibration = Lens calibration
-lens_profiles.no_calibration = No calibration covers these settings. Check focal length and camera crop factor; manual correction remains available.
-lens_profiles.import = Import Lensfun XML…
-lens_profiles.imported = Lensfun database imported for this session. Select a profile or match the photo metadata.
-lens_profiles.manual = Manual correction only
-lens_profiles.saved = Saved calibration (database unavailable)
-lens_profiles.profile = Lens profile
-lens_profiles.aperture = Aperture (0 = unknown)
-lens_profiles.distance = Focus distance (0 = unknown)
-lens_profiles.vignette = Calibrated vignetting
-lens_profiles.color_context = Calibrated vignetting requires the built-in sRGB profile. Convert to sRGB to preserve appearance, then reopen Lens Correction. For already-sRGB untagged pixels, assigning sRGB is sufficient. Geometry and chromatic correction remain available.
-lens_profiles.vignette_missing = No vignetting calibration covers the aperture and focus distance. Enter measured values to enable it; 1000 m represents distant focus in many Lensfun profiles.
-lens_profiles.note = Calibrated correction runs before the manual controls. Use the original full frame; crop afterward. Save a filter stack in PSD/PSB to retain editable calibration.
-lens_profiles.automatic = Match photo metadata
-lens_profiles.components = Profile pass: distortion {distortion}; color fringes {tca}; vignetting {vignette}.
+# Lens profile controls.
+lens_profiles.invalid = Kies 'n geldige Lensfun v1/v2 XML-databasis (tot 8 MiB) met ondersteunde kamera- of lensdata.
+lens_profiles.calibration = Lenskalibrasie
+lens_profiles.no_calibration = Geen kalibrasie dek hierdie instellings nie. Gaan brandpuntafstand en kamera-oesfaktor na; handmatige regstelling bly beskikbaar.
+lens_profiles.import = Voer Lensfun XML in …
+lens_profiles.imported = Lensfun-databasis is vir hierdie sessie ingevoer. Kies 'n profiel of pas by die foto-metadata.
+lens_profiles.manual = Slegs handmatige regstelling
+lens_profiles.saved = Gestoorde kalibrasie (databasis nie beskikbaar nie)
+lens_profiles.profile = Lensprofiel
+lens_profiles.aperture = Diafragma (0 = onbekend)
+lens_profiles.distance = Fokusafstand (0 = onbekend)
+lens_profiles.vignette = Gekalibreerde vignettering
+lens_profiles.color_context = Gekalibreerde vignettering vereis die ingeboude sRGB-profiel. Skakel na sRGB om om voorkoms te behou, maak dan Lenskorreksie weer oop. Vir reeds-sRGB ongemerkte pieksels, is die toewysing van sRGB voldoende. Meetkunde en chromatiese regstelling bly beskikbaar.
+lens_profiles.vignette_missing = Geen vignettering-kalibrasie dek die diafragma en fokusafstand nie. Voer gemete waardes in om dit te aktiveer; 1000 m verteenwoordig verre fokus in baie Lensfun-profiele.
+lens_profiles.note = Gekalibreerde regstelling word voor die handmatige kontroles toegepas. Gebruik die oorspronklike volle raam; sny dit daarna uit. Stoor die filterstapel in PSD/PSB om die kalibrasie bewerkbaar te hou.
+lens_profiles.automatic = Pas foto-metadata
+lens_profiles.components = Profiel slaag: vervorming {distortion}; kleur rande {tca}; vignettering {vignette}.

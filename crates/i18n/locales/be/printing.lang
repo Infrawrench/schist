@@ -27,7 +27,7 @@ printing.downloaded = PDF спампаваны. Адкрыйце яго ў пр�
 printing.saved = PDF захаваны: {path}
 printing.letter = US Letter
 printing.a4 = A4
-printing.margin_value = {value} mm
+printing.margin_value = {value} мм
 
 printing.layout_title = Макет друку
 printing.preset = Гатовы макет

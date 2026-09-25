@@ -1,8 +1,8 @@
-# Virtual copies. Explicit English fallback pending translation review.
-variants.create = Create virtual copy…
-variants.rename = Rename virtual copy…
-variants.delete = Delete virtual copy
-variants.close = Close this photo and its virtual copies before moving or deleting them.
-variants.saved_hint = The copy starts from the saved edit, or the original when there is no edit. Save pending changes first.
-variants.move_original = Move the original photo to move its virtual copies.
-variants.protected_export = Choose another destination. Gallery exports cannot replace the original or its edit storage.
+# Abhāsikapaṭirūpāni.
+variants.create = Abhāsikapaṭirūpaṃ karotha…
+variants.rename = Abhāsikapaṭirūpassa nāmaṃ puna karotha…
+variants.delete = Abhāsikapaṭirūpaṃ nāsetha
+variants.close = Imaṃ chāyācittañca tassa abhāsikapaṭirūpāni ca sañcālanā vā nāsanā vā pubbe pidahatha.
+variants.saved_hint = Paṭirūpaṃ rakkhitāya sampādanāya ārabhati; sampādanāya abhāve mūlarūpato. Avasiṭṭhāni parivattanāni paṭhamaṃ rakkhatha.
+variants.move_original = Abhāsikapaṭirūpāni sañcāletuṃ mūlachāyācittaṃ sañcāletha.
+variants.protected_export = Aññaṃ ṭhānaṃ uccinatha. Saṅgahanīharitāni mūlarūpassa vā tassa sampādanāya rakkhitaṭṭhānassa vā ṭhānaṃ na gaṇhanti.

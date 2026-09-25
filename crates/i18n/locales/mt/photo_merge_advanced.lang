@@ -1,8 +1,8 @@
 # English fallback pending translation.
-photo_merge_advanced.projective = Perspective alignment (includes rotation)
-photo_merge_advanced.cylindrical = Cylindrical panorama
-photo_merge_advanced.deghost = Remove moving-subject ghosts (first photo reference)
-photo_merge_advanced.focal = Focal length (px) / image width (px)
-photo_merge_advanced.masks = Focus output uses editable layer masks. Select a mask in Layers and paint to refine.
-photo_merge_advanced.no_match = No reliable alignment found. Use textured photos with substantial overlap and modest viewpoint changes.
-photo_merge_advanced.invalid = Invalid source images or merge settings.
+photo_merge_advanced.projective = Allinjament tal-perspettiva (jinkludi rotazzjoni)
+photo_merge_advanced.cylindrical = Panorama ċilindriku
+photo_merge_advanced.deghost = Neħħi t-traċċi doppji ta' suġġetti li jiċċaqilqu (l-ewwel ritratt bħala referenza)
+photo_merge_advanced.focal = Tul fokali (px)/wisa' tal-immaġni (px)
+photo_merge_advanced.masks = L-output tal-fokus juża maskri ta 'saff editjabbli. Agħżel maskra f'Saffi u żebgħa biex tirfina.
+photo_merge_advanced.no_match = Ma nstab l-ebda allinjament affidabbli. Uża ritratti minsuġa b'koinċidenza sostanzjali u bidliet modesti fil-perspettiva.
+photo_merge_advanced.invalid = Immaġini tas-sors jew settings tal-għaqda invalidi.

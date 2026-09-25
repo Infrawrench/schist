@@ -9,7 +9,7 @@ filter.neural.param.eyes = Ɲɛw
 filter.neural.msg.using_model = A bɛ baara kɛ ni {model} ye · {license}.
 filter.neural.msg.get_model = A sɔrɔ Sɛgɛsɛgɛlan ▸ Neural Filters ▸ Misaliw ɲɛnabɔ kɔnɔ.
 
-filter.camera_raw.name = Camera Raw sɛgɛsɛgɛlan
+filter.camera_raw.name = Camera Raw
 filter.camera_raw.param.temperature = Funteni
 filter.camera_raw.param.tint = Kulɛri farama
 filter.camera_raw.param.highlights = Yelen yɔrɔw

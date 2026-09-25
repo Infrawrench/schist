@@ -1,8 +1,8 @@
-# Virtual copies. Explicit English fallback pending translation review.
-variants.create = Create virtual copy…
-variants.rename = Rename virtual copy…
-variants.delete = Delete virtual copy
-variants.close = Close this photo and its virtual copies before moving or deleting them.
-variants.saved_hint = The copy starts from the saved edit, or the original when there is no edit. Save pending changes first.
-variants.move_original = Move the original photo to move its virtual copies.
-variants.protected_export = Choose another destination. Gallery exports cannot replace the original or its edit storage.
+# Virtual copies.
+variants.create = Виртуаль күсермә төҙөү...
+variants.rename = Виртуаль күсермәнең исемен үҙгәртергә...
+variants.delete = Виртуаль күсермәне юйырға
+variants.close = Был фотоны һәм уның виртуаль күсермәләрен күсерер йәки юйыр алдынан ябығыҙ.
+variants.saved_hint = Күсермәһе һаҡланған мөхәррирләүҙән башлана, йәки мөхәррирләү булмағанда төп нөсхәнән. Тәүҙә көтөлгән үҙгәрештәрҙе һаҡлағыҙ.
+variants.move_original = Виртуаль күсермәләрен дә күсереү өсөн төп фотоны күсерегеҙ.
+variants.protected_export = Икенсе юл һайлағыҙ. Галерея экспорты төп нөсхәне йәки уның мөхәррирләү һаҡлағысын алмаштыра алмай.

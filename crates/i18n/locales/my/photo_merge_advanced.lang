@@ -1,8 +1,8 @@
 # English fallback pending translation.
-photo_merge_advanced.projective = Perspective alignment (includes rotation)
-photo_merge_advanced.cylindrical = Cylindrical panorama
-photo_merge_advanced.deghost = Remove moving-subject ghosts (first photo reference)
-photo_merge_advanced.focal = Focal length (px) / image width (px)
-photo_merge_advanced.masks = Focus output uses editable layer masks. Select a mask in Layers and paint to refine.
-photo_merge_advanced.no_match = No reliable alignment found. Use textured photos with substantial overlap and modest viewpoint changes.
-photo_merge_advanced.invalid = Invalid source images or merge settings.
+photo_merge_advanced.projective = ရှုထောင့် ချိန်ညှိမှု (လှည့်ခြင်း ပါ၀င်သည်)
+photo_merge_advanced.cylindrical = cylindrical မြင်ကွင်းကျယ်
+photo_merge_advanced.deghost = ရွေ့လျားနေသော အရာဝတ္ထုများ၏ ပုံရိပ်နှစ်ထပ်များကို ဖယ်ရှားပါ (ပထမဓာတ်ပုံကို ရည်ညွှန်းပါ)
+photo_merge_advanced.focal = ဆုံမှတ်အရှည် (px) / ပုံအကျယ် (px)
+photo_merge_advanced.masks = Focus output သည် တည်းဖြတ်နိုင်သော အလွှာမျက်နှာဖုံးများကို အသုံးပြုသည်။ အလွှာများရှိ မျက်နှာဖုံးကို ရွေးချယ်ပြီး သန့်စင်ရန် ဆေးခြယ်ပါ။
+photo_merge_advanced.no_match = ယုံကြည်စိတ်ချရသော ချိန်ညှိမှု မတွေ့ပါ။ များပြားလှသော ထပ်နေခြင်းနှင့် ကျိုးနွံသော ရှုထောင့်ပြောင်းလဲမှုများဖြင့် ပုံဖော်ထားသော ဓာတ်ပုံများကို အသုံးပြုပါ။
+photo_merge_advanced.invalid = မမှန်ကန်သော အရင်းအမြစ်ပုံများ သို့မဟုတ် ပေါင်းစည်းခြင်း ဆက်တင်များ။

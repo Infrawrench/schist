@@ -1,8 +1,7 @@
-# Virtual copies. Explicit English fallback pending translation review.
-variants.create = Create virtual copy…
-variants.rename = Rename virtual copy…
-variants.delete = Delete virtual copy
-variants.close = Close this photo and its virtual copies before moving or deleting them.
-variants.saved_hint = The copy starts from the saved edit, or the original when there is no edit. Save pending changes first.
-variants.move_original = Move the original photo to move its virtual copies.
-variants.protected_export = Choose another destination. Gallery exports cannot replace the original or its edit storage.
+variants.create = వర్చువల్ కాపీని సృష్టించు…
+variants.rename = వర్చువల్ కాపీ పేరు మార్చు…
+variants.delete = వర్చువల్ కాపీని తొలగించు
+variants.close = తరలించడానికి లేదా తొలగించడానికి ముందు ఈ ఫోటోను, దాని వర్చువల్ కాపీలను మూసివేయండి.
+variants.saved_hint = కాపీ సేవ్ చేసిన సవరణ నుంచి ప్రారంభమవుతుంది; సవరణ లేకపోతే అసలు ఫోటో నుంచి ప్రారంభమవుతుంది. పెండింగ్ మార్పులను ముందుగా సేవ్ చేయండి.
+variants.move_original = వర్చువల్ కాపీలను కూడా తరలించడానికి అసలు ఫోటోను తరలించండి.
+variants.protected_export = మరో గమ్యాన్ని ఎంచుకోండి. గ్యాలరీ ఎగుమతులు అసలు ఫోటోను లేదా దాని సవరణ నిల్వను భర్తీ చేయలేవు.

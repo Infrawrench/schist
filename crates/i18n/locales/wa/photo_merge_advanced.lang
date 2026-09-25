@@ -1,8 +1,8 @@
-# English fallback pending translation.
-photo_merge_advanced.projective = Perspective alignment (includes rotation)
-photo_merge_advanced.cylindrical = Cylindrical panorama
-photo_merge_advanced.deghost = Remove moving-subject ghosts (first photo reference)
-photo_merge_advanced.focal = Focal length (px) / image width (px)
-photo_merge_advanced.masks = Focus output uses editable layer masks. Select a mask in Layers and paint to refine.
-photo_merge_advanced.no_match = No reliable alignment found. Use textured photos with substantial overlap and modest viewpoint changes.
-photo_merge_advanced.invalid = Invalid source images or merge settings.
+# Translation draft; review by a native speaker.
+photo_merge_advanced.projective = Aliniaedje del perspective (avou rotåcion)
+photo_merge_advanced.cylindrical = Panorama cilindrike
+photo_merge_advanced.deghost = Oister les doubles imådjes des sudjets ki s’ bodjèt (li prumire foto come referince)
+photo_merge_advanced.focal = Distance focåle (px) / largeur di l’ imådje (px)
+photo_merge_advanced.masks = Li resultåt do raploûmaedje do focus eploye des måsses di coûtches modifiåves. Tchoezixhoz on måsse dins les Coûtches et pindez po rafiner.
+photo_merge_advanced.no_match = Nou aliniaedje fiåve n’ a stî trovè. Eployîz des fotos avou des detays clairs, bråmint d’ recovraedje et peu d’ candjmint do pont d’ vuwe.
+photo_merge_advanced.invalid = Les imådjes sourdants ou les apontiaedjes do raploûmaedje ni sont nén valåves.

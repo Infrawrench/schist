@@ -1,8 +1,8 @@
-# English fallback pending translation.
-photo_merge_advanced.projective = Perspective alignment (includes rotation)
-photo_merge_advanced.cylindrical = Cylindrical panorama
-photo_merge_advanced.deghost = Remove moving-subject ghosts (first photo reference)
-photo_merge_advanced.focal = Focal length (px) / image width (px)
-photo_merge_advanced.masks = Focus output uses editable layer masks. Select a mask in Layers and paint to refine.
-photo_merge_advanced.no_match = No reliable alignment found. Use textured photos with substantial overlap and modest viewpoint changes.
-photo_merge_advanced.invalid = Invalid source images or merge settings.
+# Advanced photo merge.
+photo_merge_advanced.projective = Ìtítẹ̀ ní ìrísí jíjìn (pẹ̀lú yíyípo)
+photo_merge_advanced.cylindrical = Panorama onísílíńdà
+photo_merge_advanced.deghost = Yọ àwòrán ojìji àwọn ohun tó ń rìn kúrò (fọ́tò àkọ́kọ́ ni àpẹẹrẹ)
+photo_merge_advanced.focal = Gígùn fóókù (px) / fífẹ̀ àwòrán (px)
+photo_merge_advanced.masks = Àbájáde ìdàpọ̀ fóókù ń lo ìbòjú fẹ́lẹ́fẹ́lẹ́ tí a lè ṣàtúnṣe. Yan ìbòjú kan nínú Àwọn fẹ́lẹ́fẹ́lẹ́, kí o sì fi fẹlẹ̀ kun un láti tún un ṣe.
+photo_merge_advanced.no_match = A kò rí ìtítẹ̀ tó ṣeé gbẹ́kẹ̀ lé. Lo àwọn fọ́tò tó ní àlàyé tó hàn, tí wọ́n bò ara wọn dáadáa, pẹ̀lú ìyípadà kékeré ní ibi tí a ti wo wọn.
+photo_merge_advanced.invalid = Àwọn àwòrán orísun tàbí ààtò ìdàpọ̀ kò péye.

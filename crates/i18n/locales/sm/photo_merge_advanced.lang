@@ -1,8 +1,8 @@
-# English fallback pending translation.
-photo_merge_advanced.projective = Perspective alignment (includes rotation)
-photo_merge_advanced.cylindrical = Cylindrical panorama
-photo_merge_advanced.deghost = Remove moving-subject ghosts (first photo reference)
-photo_merge_advanced.focal = Focal length (px) / image width (px)
-photo_merge_advanced.masks = Focus output uses editable layer masks. Select a mask in Layers and paint to refine.
-photo_merge_advanced.no_match = No reliable alignment found. Use textured photos with substantial overlap and modest viewpoint changes.
-photo_merge_advanced.invalid = Invalid source images or merge settings.
+# Advanced photo merge.
+photo_merge_advanced.projective = Faafetaui le vaaiga (e aofia ai le faataamilo)
+photo_merge_advanced.cylindrical = Ata lautele e pei o se ogāumu
+photo_merge_advanced.deghost = Aveese ata faalua o mea o loo gaoioi (faaaogā le ata muamua e fai ma faasino)
+photo_merge_advanced.focal = Umi o le taulaiga (px) / lautele o le ata (px)
+photo_merge_advanced.masks = E faaaogā e le ata ua taulaʻi ni ufimata o vaega e mafai ona toe sui. Filifili se ufimata i Vaega ma vali e faaleleia ai.
+photo_merge_advanced.no_match = E leai se faafetauiga mautinoa na maua. Faaaogā ata e tele auiliiliga, e tele vaega e tutusa ai, ma e laiti suiga o le tulimanu e pue ai.
+photo_merge_advanced.invalid = E lē aogā ata amata po o tulaga o le tuufaatasiga.

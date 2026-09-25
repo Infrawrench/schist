@@ -1,17 +1,16 @@
-# Lens profiles: English fallback pending translation review. No locale added.
-lens_profiles.invalid = Choose a valid Lensfun v1/v2 XML database (up to 8 MiB) with supported camera or lens data.
-lens_profiles.calibration = Lens calibration
-lens_profiles.no_calibration = No calibration covers these settings. Check focal length and camera crop factor; manual correction remains available.
-lens_profiles.import = Import Lensfun XML…
-lens_profiles.imported = Lensfun database imported for this session. Select a profile or match the photo metadata.
-lens_profiles.manual = Manual correction only
-lens_profiles.saved = Saved calibration (database unavailable)
-lens_profiles.profile = Lens profile
-lens_profiles.aperture = Aperture (0 = unknown)
-lens_profiles.distance = Focus distance (0 = unknown)
-lens_profiles.vignette = Calibrated vignetting
-lens_profiles.color_context = Calibrated vignetting requires the built-in sRGB profile. Convert to sRGB to preserve appearance, then reopen Lens Correction. For already-sRGB untagged pixels, assigning sRGB is sufficient. Geometry and chromatic correction remain available.
-lens_profiles.vignette_missing = No vignetting calibration covers the aperture and focus distance. Enter measured values to enable it; 1000 m represents distant focus in many Lensfun profiles.
-lens_profiles.note = Calibrated correction runs before the manual controls. Use the original full frame; crop afterward. Save a filter stack in PSD/PSB to retain editable calibration.
-lens_profiles.automatic = Match photo metadata
-lens_profiles.components = Profile pass: distortion {distortion}; color fringes {tca}; vignetting {vignette}.
+lens_profiles.invalid = ஆதரிக்கப்படும் கேமரா அல்லது வில்லைத் தரவுகளுடன் கூடிய செல்லுபடியான Lensfun v1/v2 XML தரவுத்தளத்தைத் தேர்ந்தெடுக்கவும் (அதிகபட்சம் 8 MiB).
+lens_profiles.calibration = வில்லை அளவுத்திருத்தம்
+lens_profiles.no_calibration = இந்த அமைப்புகளுக்கு அளவுத்திருத்தம் இல்லை. குவியத் தூரத்தையும் கேமராவின் செதுக்கல் காரணியையும் சரிபார்க்கவும்; கைமுறைத் திருத்தம் தொடர்ந்து கிடைக்கும்.
+lens_profiles.import = Lensfun XML-ஐ இறக்குமதி செய்…
+lens_profiles.imported = இந்த அமர்வுக்காக Lensfun தரவுத்தளம் இறக்குமதி செய்யப்பட்டது. ஒரு சுயவிவரத்தைத் தேர்ந்தெடுக்கவும் அல்லது படத்தின் மெட்டாதரவுடன் பொருத்தவும்.
+lens_profiles.manual = கைமுறைத் திருத்தம் மட்டும்
+lens_profiles.saved = சேமிக்கப்பட்ட அளவுத்திருத்தம் (தரவுத்தளம் கிடைக்கவில்லை)
+lens_profiles.profile = வில்லை சுயவிவரம்
+lens_profiles.aperture = துளை அளவு (0 = தெரியாது)
+lens_profiles.distance = குவிப்பு தூரம் (0 = தெரியாது)
+lens_profiles.vignette = அளவுத்திருத்தப்பட்ட விளிம்பு இருட்டடைவு
+lens_profiles.color_context = அளவுத்திருத்தப்பட்ட விளிம்பு இருட்டடைவுக்கு உள்ளமைந்த sRGB சுயவிவரம் தேவை. தோற்றத்தைப் பாதுகாக்க sRGB-க்கு மாற்றி, பின்னர் வில்லைத் திருத்தம் என்பதை மீண்டும் திறக்கவும். ஏற்கெனவே sRGB-யில் உள்ள, ஆனால் குறிச்சொல் இல்லாத பிக்சல்களுக்கு sRGB சுயவிவரத்தை ஒதுக்கினால் போதும். வடிவவியல் மற்றும் வண்ண விளிம்புத் திருத்தம் தொடர்ந்து கிடைக்கும்.
+lens_profiles.vignette_missing = துளை அளவுக்கும் குவிப்பு தூரத்துக்கும் பொருந்தும் விளிம்பு இருட்டடைவு அளவுத்திருத்தம் இல்லை. அதை இயக்க அளவிடப்பட்ட மதிப்புகளை உள்ளிடவும்; பல Lensfun சுயவிவரங்களில் 1000 m தொலைதூரக் குவிப்பைக் குறிக்கிறது.
+lens_profiles.note = அளவுத்திருத்தப்பட்ட திருத்தம் கைமுறை கட்டுப்பாடுகளுக்கு முன் செயல்படும். முழு அசல் சட்டகத்தைப் பயன்படுத்தவும்; பின்னர் படத்தைச் செதுக்கவும். திருத்தக்கூடிய அளவுத்திருத்தத்தைத் தக்கவைக்க வடிகட்டி அடுக்கை PSD/PSB-இல் சேமிக்கவும்.
+lens_profiles.automatic = பட மெட்டாதரவுடன் பொருத்து
+lens_profiles.components = சுயவிவரச் செயலாக்கம்: வடிவச் சிதைவு {distortion}; வண்ண விளிம்புகள் {tca}; விளிம்பு இருட்டடைவு {vignette}.

@@ -1,8 +1,8 @@
 # Move
-tool.move.name = Move
+tool.move.name = Na'kalamten
 tool.move.description = Arrastra i kontenidon i aktibu na layer para un nuebu na lugåt. Yanggen aktibu i Auto-Select, i pine'chon ha ayek i layer — pat i enteru na group — ni finenena gaige gi papa' i pointer.
 tool.move.option.auto_select = Auto-Select
-tool.move.history.move_layer = Move Layer
+tool.move.history.move_layer = Na'kalamten layer
 
 # Eyedropper
 tool.eyedropper.name = Eyedropper

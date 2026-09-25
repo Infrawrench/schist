@@ -1,4 +1,4 @@
-menu.file = File
+menu.file = Talaksan
 menu.file.new = Bago
 menu.file.open = Buksan…
 menu.file.open_recent = Buksan ang Kamakailan
@@ -23,9 +23,9 @@ menu.file.import_from_camera = Mag-import mula sa Kamera…
 menu.edit = I-edit
 menu.edit.fill = Punan…
 menu.edit.stroke = Guhit…
-menu.edit.content_aware_fill = Content-Aware Fill
-menu.edit.content_aware_scale = Content-Aware Scale…
-menu.edit.puppet_warp = Puppet Warp
+menu.edit.content_aware_fill = Puno ayon sa Nilalaman
+menu.edit.content_aware_scale = Pag-scale ayon sa Nilalaman…
+menu.edit.puppet_warp = Pagbaluktot na Papet
 menu.edit.free_transform = Malayang Transform
 menu.edit.transform = I-transform
 menu.edit.rotate_180 = Paikutin nang 180°
@@ -35,7 +35,7 @@ menu.edit.flip_horizontal = Baligtarin nang Pahalang
 menu.edit.flip_vertical = Baligtarin nang Patayo
 
 menu.image = Larawan
-menu.image.mode = Mode
+menu.image.mode = Paraan
 menu.image.adjustments = Mga Adjustment
 menu.image.auto_tone = Awtomatikong Tone
 menu.image.auto_contrast = Awtomatikong Contrast
@@ -63,7 +63,7 @@ menu.select.contract = Paliitin…
 menu.select.feather = Palambutin ang Gilid…
 menu.select.transform_selection = I-transform ang Seleksiyon
 
-menu.layer = Layer
+menu.layer = Patong
 menu.layer.layer_style = Estilo ng Layer…
 menu.layer.layer_comps = Mga Komposisyon ng Layer
 menu.layer.new_layer_comp = Bagong Komposisyon ng Layer
@@ -118,7 +118,7 @@ menu.view.disable_snapping = I-disable ang Snapping
 menu.view.enable_proof_colors = I-enable ang Mga Kulay ng Proof
 menu.view.disable_proof_colors = I-disable ang Mga Kulay ng Proof
 
-menu.gallery = Gallery
+menu.gallery = Galeriya
 menu.gallery.edit_selected = I-edit ang Napili
 menu.gallery.refresh = I-refresh
 menu.gallery.map_filter = Filter ng Mapa…

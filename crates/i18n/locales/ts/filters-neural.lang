@@ -10,7 +10,7 @@ filter.neural.msg.get_model = Yi kume eka Filitara ▸ Neural Filters ▸ Lawula
 
 filter.camera_raw.name = Filitara ya Camera Raw
 filter.camera_raw.param.temperature = Mahiselo
-filter.camera_raw.param.tint = Tint
+filter.camera_raw.param.tint = Nhlanganelo wa muhlovo
 filter.camera_raw.param.highlights = Tindhawu leti voningeke
 filter.camera_raw.param.shadows = Mindzhuti
 filter.camera_raw.param.whites = Mihlovo yo basa

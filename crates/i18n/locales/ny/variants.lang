@@ -1,8 +1,7 @@
-# Virtual copies. Explicit English fallback pending translation review.
-variants.create = Create virtual copy…
-variants.rename = Rename virtual copy…
-variants.delete = Delete virtual copy
-variants.close = Close this photo and its virtual copies before moving or deleting them.
-variants.saved_hint = The copy starts from the saved edit, or the original when there is no edit. Save pending changes first.
-variants.move_original = Move the original photo to move its virtual copies.
-variants.protected_export = Choose another destination. Gallery exports cannot replace the original or its edit storage.
+variants.create = Pangani kope ya virtual…
+variants.rename = Sinthani dzina la kope ya virtual…
+variants.delete = Chotsani kope ya virtual
+variants.close = Tsekani chithunzichi ndi makope ake a virtual musanawasamutse kapena kuwachotsa.
+variants.saved_hint = Kope imayambira pa zosintha zosungidwa, kapena pa chithunzi choyambirira ngati palibe zosintha. Sungani kaye zosintha zomwe sizinasungidwe.
+variants.move_original = Samutsani chithunzi choyambirira kuti makope ake a virtual asamukenso.
+variants.protected_export = Sankhani malo ena. Zithunzi zotumizidwa kuchokera mu Gallery sizingalowe m’malo mwa chithunzi choyambirira kapena mafayilo ake osinthira.

@@ -1,8 +1,7 @@
-# Virtual copies. Explicit English fallback pending translation review.
-variants.create = Create virtual copy…
-variants.rename = Rename virtual copy…
-variants.delete = Delete virtual copy
-variants.close = Close this photo and its virtual copies before moving or deleting them.
-variants.saved_hint = The copy starts from the saved edit, or the original when there is no edit. Save pending changes first.
-variants.move_original = Move the original photo to move its virtual copies.
-variants.protected_export = Choose another destination. Gallery exports cannot replace the original or its edit storage.
+variants.create = Kōmmane juon copy eo ejjab mol...
+variants.rename = Bar naetan copy eo ejjab mol…
+variants.delete = Jolok copy eo ejjab mol
+variants.close = Kilōk pija in im copy ko an mokta jen am bōklok ak jolok ir.
+variants.saved_hint = Copy eo ej jino jen edit eo kar kejbãrok, ak eo jinoin ñe ejelok edit. Kōjparok oktak ko rej bed mokta.
+variants.move_original = Kōm̧akūt pija eo jinointata n̄an kōm̧akūt kape ko an.
+variants.protected_export = Kālet bar juon jikin. Gallery export ko rejjab maroñ bōk jikin eo jinoin ak jikin kejbãrok eo an.

@@ -1,8 +1,7 @@
-# English fallback pending translation.
-photo_merge_advanced.projective = Perspective alignment (includes rotation)
-photo_merge_advanced.cylindrical = Cylindrical panorama
-photo_merge_advanced.deghost = Remove moving-subject ghosts (first photo reference)
-photo_merge_advanced.focal = Focal length (px) / image width (px)
-photo_merge_advanced.masks = Focus output uses editable layer masks. Select a mask in Layers and paint to refine.
-photo_merge_advanced.no_match = No reliable alignment found. Use textured photos with substantial overlap and modest viewpoint changes.
-photo_merge_advanced.invalid = Invalid source images or merge settings.
+photo_merge_advanced.projective = Aliniad persbectif (gan gynnwys cylchdroi)
+photo_merge_advanced.cylindrical = Panorama silindrog
+photo_merge_advanced.deghost = Tynnu olion pynciau symudol (y llun cyntaf fel cyfeirnod)
+photo_merge_advanced.focal = Hyd ffocal (px) / lled delwedd (px)
+photo_merge_advanced.masks = Mae'r canlyniad ffocws yn defnyddio masgiau haen y gellir eu golygu. Dewiswch fasg yn Haenau a phaentiwch i'w fireinio.
+photo_merge_advanced.no_match = Ni chanfuwyd aliniad dibynadwy. Defnyddiwch luniau gweadog gyda gorgyffwrdd sylweddol a newidiadau cymedrol i safbwyntiau.
+photo_merge_advanced.invalid = Delweddau ffynhonnell annilys neu osodiadau uno.

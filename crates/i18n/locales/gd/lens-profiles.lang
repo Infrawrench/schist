@@ -1,17 +1,17 @@
-# Lens profiles: English fallback pending translation review. No locale added.
-lens_profiles.invalid = Choose a valid Lensfun v1/v2 XML database (up to 8 MiB) with supported camera or lens data.
-lens_profiles.calibration = Lens calibration
-lens_profiles.no_calibration = No calibration covers these settings. Check focal length and camera crop factor; manual correction remains available.
-lens_profiles.import = Import Lensfun XML…
-lens_profiles.imported = Lensfun database imported for this session. Select a profile or match the photo metadata.
-lens_profiles.manual = Manual correction only
-lens_profiles.saved = Saved calibration (database unavailable)
-lens_profiles.profile = Lens profile
-lens_profiles.aperture = Aperture (0 = unknown)
-lens_profiles.distance = Focus distance (0 = unknown)
-lens_profiles.vignette = Calibrated vignetting
-lens_profiles.color_context = Calibrated vignetting requires the built-in sRGB profile. Convert to sRGB to preserve appearance, then reopen Lens Correction. For already-sRGB untagged pixels, assigning sRGB is sufficient. Geometry and chromatic correction remain available.
-lens_profiles.vignette_missing = No vignetting calibration covers the aperture and focus distance. Enter measured values to enable it; 1000 m represents distant focus in many Lensfun profiles.
-lens_profiles.note = Calibrated correction runs before the manual controls. Use the original full frame; crop afterward. Save a filter stack in PSD/PSB to retain editable calibration.
-lens_profiles.automatic = Match photo metadata
-lens_profiles.components = Profile pass: distortion {distortion}; color fringes {tca}; vignetting {vignette}.
+# Lens profiles.
+lens_profiles.invalid = Tagh stòr-dàta dligheach Lensfun v1/v2 XML (suas gu 8 MiB) le dàta camara no lionsa le taic.
+lens_profiles.calibration = Calibration lionsa
+lens_profiles.no_calibration = Chan eil calabrachadh a’ còmhdach nan roghainnean sin. Thoir sùil air fad fòcas agus factar bàrr camara; ceartachadh làimhe fhathast ri fhaighinn.
+lens_profiles.import = Cuir a-steach Lensfun XML…
+lens_profiles.imported = Stòr-dàta Lensfun air a thoirt a-steach airson an t-seisein seo. Tagh pròifil no maids ri meata-dàta an dealbh.
+lens_profiles.manual = Ceartachadh làimhe a-mhàin
+lens_profiles.saved = Calibration air a shàbhaladh (stòr-dàta gun a bhith ri fhaighinn)
+lens_profiles.profile = Pròifil lionsa
+lens_profiles.aperture = Fosgladh (0 = neo-aithnichte)
+lens_profiles.distance = Astar fòcas (0 = neo-aithnichte)
+lens_profiles.vignette = Cruth-clò calabraichte
+lens_profiles.color_context = Feumaidh vignetting calabraichte am pròifil sRGB a chaidh a thogail a-steach. Tionndaidh gu sRGB gus coltas a ghleidheadh, agus an uairsin fosgail Ceartachadh lionsa. Airson piogsail gun tagadh sRGB mar-thà, tha e gu leòr sRGB a shònrachadh. Tha geoimeatraidh agus ceartachadh chromatic fhathast rim faighinn.
+lens_profiles.vignette_missing = Chan eil calabrachadh vignetting a’ còmhdach an fhosglaidh agus an astar fòcas. Cuir a-steach luachan tomhaiste gus a chomasachadh; Tha 1000 m a’ riochdachadh fòcas fad às ann am mòran de phròifil Lensfun.
+lens_profiles.note = Bidh ceartachadh calabraichte a’ ruith ro na smachdan làimhe. Cleachd an dealbh tùsail gu lèir; geàrr às dèidh sin. Sàbhail stac sìoltachain ann an PSD/PSB gus calabrachadh deasaichte a chumail.
+lens_profiles.automatic = Co-fhreagair meata-dàta dealbh
+lens_profiles.components = Pròifil pas: saobhadh {distortion}; iomall dath {tca}; vigneting {vignette}.

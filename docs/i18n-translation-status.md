@@ -1,5 +1,69 @@
 # Translation refresh status
 
+## September 25, 2026: missing feature translations
+
+Ten GPT-6 Sol agents translated **5,067 previously English-identical values
+across all 149 non-English registered locales**. This includes **4,343 values**
+in the lens-profile, virtual-copy, and advanced-photo-merge catalogs, plus
+724 older labels and messages. Counts compare catalog values with the repository
+state before this pass; subsequent corrections to already translated values
+are not counted again.
+
+Those three feature catalogs now have no unresolved English fallback. Malay
+`lens_profiles.import = Import Lensfun XML…` intentionally matches English:
+`Import` is also the existing Malay import-command label. The `no` and `sh`
+catalogs were regenerated from `nb` and `hr`. All web loading-page catalogs
+already had their prose translated, so their text needed no changes. The
+150-locale registry is unchanged; the 34 unregistered ISO languages remain
+outside this refresh.
+
+The review corrected image cropping translated as harvesting, lens profiles
+translated as personal accounts, moving-subject ghosting, color-profile
+conversion versus assignment, and references to translated menu labels.
+Already-correct shared terms, product names, paper formats, and notation were
+retained. Existing translations of identical labels elsewhere in each language
+were reused only after checking their context.
+
+`make check-i18n` now runs `tools/check-i18n.py --strict-audit`, which fails on
+unchanged English prose containing at least seven words. The ordinary `--audit`
+option remains a nonfatal review report. Placeholders do not count as words;
+short shared terms and notation remain allowed. The validator also protects
+the Lensfun product name. These checks prevent copied English passages from
+silently passing validation, but do not establish fluency or detect every
+untranslated short label.
+
+Validation completed on the final catalogs:
+
+- `make check-i18n`: 27 Rust tests, one documentation test, six Python audit
+  regression tests, all 150 strict catalog audits, generated-file synchronization,
+  and four web tests passed. Font character coverage passed with existing assets.
+- `git diff --check`: passed.
+
+### Remaining language-review work
+
+Older short-label gaps remain, especially in Akan, Bislama, Bambara, Chamorro,
+Ewe, and Marshallese. Some specialized terms in Kinyarwanda, Northern Sámi,
+Samoan, Shona, Tswana, and Tongan still need fluent review. English-identical
+counts also include valid technical loanwords, units, placeholders, and proper
+names, so they are not counts of missing translations.
+
+Specific unresolved examples include Guarani `export_finishing.watermark`
+and the Cornish shear, ramp, stamp, and liquify labels (`filter.shear.name`,
+`filter.shear.choice.ramp`, `filter.stamp.name`, `menu.filter.liquify`,
+`tool.liquify.name`, and `tool.liquify.history.liquify`). Uncertain replacements
+were left out. The new specialist prose, particularly in less widely supported
+languages, also needs native-speaker review; no fluency certification is claimed.
+
+Agents composed text directly and used existing catalog vocabulary. Google
+Translate supplied initial drafts for part of the pass; MyMemory supplied
+candidate wording for Russian, Sindhi, Sinhala, Slovak, and Slovenian. Retained
+drafts were reviewed and corrected, and unreliable bulk output was reverted.
+Later handoffs used direct composition and independent review. Local per-agent
+reports, candidate ledgers, and verification logs are under
+`target/i18n-missing-refresh/`; those working artifacts are not shipped.
+
+## September 23, 2026: printing refresh (historical)
+
 Updated 2026-09-23. The initial pass used ten GPT-6 Sol subagents, each assigned
 14–15 non-English registered locales. A focused completion pass used ten GPT-6 Sol
 subagents, each assigned 2–3 of the 27 locales with remaining printing entries.

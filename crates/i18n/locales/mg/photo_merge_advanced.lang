@@ -1,8 +1,8 @@
 # English fallback pending translation.
-photo_merge_advanced.projective = Perspective alignment (includes rotation)
-photo_merge_advanced.cylindrical = Cylindrical panorama
-photo_merge_advanced.deghost = Remove moving-subject ghosts (first photo reference)
-photo_merge_advanced.focal = Focal length (px) / image width (px)
-photo_merge_advanced.masks = Focus output uses editable layer masks. Select a mask in Layers and paint to refine.
-photo_merge_advanced.no_match = No reliable alignment found. Use textured photos with substantial overlap and modest viewpoint changes.
-photo_merge_advanced.invalid = Invalid source images or merge settings.
+photo_merge_advanced.projective = Fandrindrana fomba fijery (ao anatin'izany ny fihodinana)
+photo_merge_advanced.cylindrical = Panorama cylindrical
+photo_merge_advanced.deghost = Esory ny dian-javatra mihetsika amin’ny sary natambatra (ny sary voalohany no atao fanovozan-kevitra)
+photo_merge_advanced.focal = Halava ifotony (px) / sakan'ny sary (px)
+photo_merge_advanced.masks = Ny vokatra mifantoka dia mampiasa saron-tava azo ovaina. Mifidiana saron-tava ao amin'ny Layers ary hosodoko mba hodiovina.
+photo_merge_advanced.no_match = Tsy misy fampifanarahana azo antoka hita. Mampiasà sary voahaingo miaraka amin'ny fifandimbiasan-javatra lehibe sy fiovana fomba fijery maotina.
+photo_merge_advanced.invalid = Sary loharano tsy mety na firafitry ny fanakambanana.

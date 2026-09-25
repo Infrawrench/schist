@@ -1,8 +1,7 @@
-# English fallback pending translation.
-photo_merge_advanced.projective = Perspective alignment (includes rotation)
-photo_merge_advanced.cylindrical = Cylindrical panorama
-photo_merge_advanced.deghost = Remove moving-subject ghosts (first photo reference)
-photo_merge_advanced.focal = Focal length (px) / image width (px)
-photo_merge_advanced.masks = Focus output uses editable layer masks. Select a mask in Layers and paint to refine.
-photo_merge_advanced.no_match = No reliable alignment found. Use textured photos with substantial overlap and modest viewpoint changes.
-photo_merge_advanced.invalid = Invalid source images or merge settings.
+photo_merge_advanced.projective = Panyelarasan perspektif (kalebu rotasi)
+photo_merge_advanced.cylindrical = Panorama silindris
+photo_merge_advanced.deghost = Ilangaké bayangan subyèk sing obah (foto kapisan dadi acuan)
+photo_merge_advanced.focal = Dawa fokus (px) / amba gambar (px)
+photo_merge_advanced.masks = Asil fokus nganggo topèng lapisan sing bisa diowahi. Pilih topèng ing Lapisan lan cat kanggo mbeneraké.
+photo_merge_advanced.no_match = Ora ditemokaké panyelarasan sing bisa dipercaya. Gunakna foto sing nduwé tèktur, tumpang tindih sing akèh, lan owah-owahan sudut pandang sing cilik.
+photo_merge_advanced.invalid = Gambar sumber utawa setèlan panggabungan ora bener.

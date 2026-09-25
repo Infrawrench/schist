@@ -1,17 +1,17 @@
-# Lens profiles: English fallback pending translation review. No locale added.
-lens_profiles.invalid = Choose a valid Lensfun v1/v2 XML database (up to 8 MiB) with supported camera or lens data.
-lens_profiles.calibration = Lens calibration
-lens_profiles.no_calibration = No calibration covers these settings. Check focal length and camera crop factor; manual correction remains available.
-lens_profiles.import = Import Lensfun XML…
-lens_profiles.imported = Lensfun database imported for this session. Select a profile or match the photo metadata.
-lens_profiles.manual = Manual correction only
-lens_profiles.saved = Saved calibration (database unavailable)
-lens_profiles.profile = Lens profile
-lens_profiles.aperture = Aperture (0 = unknown)
-lens_profiles.distance = Focus distance (0 = unknown)
-lens_profiles.vignette = Calibrated vignetting
-lens_profiles.color_context = Calibrated vignetting requires the built-in sRGB profile. Convert to sRGB to preserve appearance, then reopen Lens Correction. For already-sRGB untagged pixels, assigning sRGB is sufficient. Geometry and chromatic correction remain available.
-lens_profiles.vignette_missing = No vignetting calibration covers the aperture and focus distance. Enter measured values to enable it; 1000 m represents distant focus in many Lensfun profiles.
-lens_profiles.note = Calibrated correction runs before the manual controls. Use the original full frame; crop afterward. Save a filter stack in PSD/PSB to retain editable calibration.
-lens_profiles.automatic = Match photo metadata
-lens_profiles.components = Profile pass: distortion {distortion}; color fringes {tca}; vignetting {vignette}.
+# Lens profile controls.
+lens_profiles.invalid = Камера йәки объектив тураһында яраҡлы мәғлүмәт булған Lensfun v1/v2 XML базаһын һайлағыҙ (8 MiB тиклем).
+lens_profiles.calibration = Объективты калибровкалау
+lens_profiles.no_calibration = Был көйләүҙәргә ярашлы калибрлау юҡ. Фокус арауығын һәм камераның кроп-факторын тикшерегеҙ; ҡул менән төҙәтеү ҙә мөмкин.
+lens_profiles.import = Lensfun XML импортлау…
+lens_profiles.imported = Был сеанс өсөн Lensfun базаһы импортланды. Профилде һайлағыҙ йәки фотоның метамағлүмәттәренә ярашлыһын табығыҙ.
+lens_profiles.manual = Ҡул менән генә төҙәтеү
+lens_profiles.saved = Һаҡланған калибровка (мәғлүмәттәр базаһы юҡ)
+lens_profiles.profile = Объектив профиле
+lens_profiles.aperture = Диафрагма (0 = билдәһеҙ)
+lens_profiles.distance = Фокус арауығы (0 = билдәһеҙ)
+lens_profiles.vignette = Калибрланған виньетка
+lens_profiles.color_context = Калибрланған виньеткалау өсөн программаға индерелгән sRGB профиле кәрәк. Төҫтәрҙең күренешен һаҡлау өсөн sRGB-ға үҙгәртегеҙ, һуңынан Объективты төҙәтеүҙе яңынан асығыҙ. Пикселдәр sRGB форматында булып, тик билдәләнмәгән булһа, уларға sRGB профилен тәғәйенләү етә. Геометрик һәм хроматик төҙәтеүҙәр ҡулланырлыҡ булып ҡала.
+lens_profiles.vignette_missing = Был диафрагма һәм фокус арауығына ярашлы виньеткалау калибрлауы юҡ. Уны эшләтеү өсөн үлсәнгән ҡиммәттәрҙе индерегеҙ; күп Lensfun профилдәрендә 1000 m алыҫҡа фокуслауҙы аңлата.
+lens_profiles.note = Калибрланған төҙәтеү ҡул менән идара итеү элементтарынан алда ҡулланыла. Тәүге тулы кадрҙы файҙаланығыҙ; һуңынан ҡырҡығыҙ. Үҙгәртеп була торған калибрлауҙы һаҡлау өсөн фильтрҙар теҙмәһен PSD/PSB форматында һаҡлағыҙ.
+lens_profiles.automatic = Фото метамағлүмәттәрен тап килтерегеҙ
+lens_profiles.components = Профиль үткәреү: боҙолоу {distortion}; төҫлө ҡырҙар {tca}; виньеткалау {vignette}.

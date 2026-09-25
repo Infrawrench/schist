@@ -25,7 +25,7 @@ printing.source_error = Eng ausgewielt Foto, eng beaarbecht Begleetdatei oder en
 printing.save_error = De PDF konnt net gespäichert ginn. Wielt en neie Fichiersnumm an engem beschreifbaren Dossier; bestoend Fichiere ginn ni iwwerschriwwen.
 printing.downloaded = PDF erofgelueden. Maacht en an engem PDF-Betrachter op a dréckt en mat 100 %.
 printing.saved = PDF gespäichert: {path}
-printing.letter = US Letter
+printing.letter = US Bréif
 printing.a4 = A4
 printing.margin_value = {value} mm
 

@@ -1,8 +1,7 @@
-# Virtual copies. Explicit English fallback pending translation review.
-variants.create = Create virtual copy…
-variants.rename = Rename virtual copy…
-variants.delete = Delete virtual copy
-variants.close = Close this photo and its virtual copies before moving or deleting them.
-variants.saved_hint = The copy starts from the saved edit, or the original when there is no edit. Save pending changes first.
-variants.move_original = Move the original photo to move its virtual copies.
-variants.protected_export = Choose another destination. Gallery exports cannot replace the original or its edit storage.
+variants.create = අතථ්‍ය පිටපතක් සාදන්න…
+variants.rename = අතථ්‍ය පිටපත නැවත නම් කරන්න…
+variants.delete = අතථ්‍ය පිටපත මකන්න
+variants.close = ගෙනයාමට හෝ මකා දැමීමට පෙර මෙම ඡායාරූපය සහ එහි අතථ්‍ය පිටපත් වසන්න.
+variants.saved_hint = පිටපත සෑදෙන්නේ සුරැකි සංස්කරණයෙන් හෝ සංස්කරණයක් නැත්නම් මුල් ඡායාරූපයෙන් ය. පළමුව සුරැකීමට ඉතිරි වෙනස්කම් සුරකින්න.
+variants.move_original = අතථ්‍ය පිටපත් ගෙනයාමට මුල් ඡායාරූපය ගෙනයන්න.
+variants.protected_export = වෙනත් ගමනාන්තයක් තෝරන්න. ගැලරියෙන් අපනයනය කරන ගොනු මුල් ඡායාරූපය හෝ එහි සංස්කරණ ගබඩාව ප්‍රතිස්ථාපනය කළ නොහැක.

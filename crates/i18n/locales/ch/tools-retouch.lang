@@ -9,7 +9,7 @@ tool.patch.history.patch = Patch
 # Content-Aware Move
 tool.content_aware_move.name = Content-Aware Move
 tool.content_aware_move.description = Arrastra i ma'ayek na oheto para otro na lugåt, ya i hoyu ni ha dingo ma'omple ginen i uriyan-ña. Gi Extend mode, ma'estira i oheto en lugåt di makalamten.
-tool.content_aware_move.choice.move = Move
+tool.content_aware_move.choice.move = Na'kalamten
 tool.content_aware_move.choice.extend = Estira
 tool.content_aware_move.history.move = Content-Aware Move
 

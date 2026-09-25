@@ -3,9 +3,9 @@ tool.artboard.name = Zeechefläch
 tool.artboard.description = Zitt eng Zeechefläch op: e benannte Beräich vum Canvas, deen eegestänneg exportéiert gëtt. Wann Dir bannent enger bestoender Zeechefläch zitt, gëtt se verréckelt.
 tool.artboard.default_name = Zeechefläch {n}
 
-tool.slice.name = Slice
+tool.slice.name = Scheiwen
 tool.slice.description = Zitt en Export-Slice op, also e benannte rechteckege Beräich vum Canvas, deen als eegent Bild exportéiert gëtt. Wann Dir bannent engem bestoende Slice zitt, gëtt en verréckelt.
-tool.slice.default_name = Slice {n}
+tool.slice.default_name = Schnitt {n}
 
 tool.frame.name = Kader
 tool.frame.description = Zitt e Kader op: eng rechteckeg (oder elliptesch) Eben, déi alles maskéiert, wat dra placéiert gëtt.

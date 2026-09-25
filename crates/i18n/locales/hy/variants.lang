@@ -1,8 +1,7 @@
-# Virtual copies. Explicit English fallback pending translation review.
-variants.create = Create virtual copy…
-variants.rename = Rename virtual copy…
-variants.delete = Delete virtual copy
-variants.close = Close this photo and its virtual copies before moving or deleting them.
-variants.saved_hint = The copy starts from the saved edit, or the original when there is no edit. Save pending changes first.
-variants.move_original = Move the original photo to move its virtual copies.
-variants.protected_export = Choose another destination. Gallery exports cannot replace the original or its edit storage.
+variants.create = Ստեղծել վիրտուալ պատճեն…
+variants.rename = Վերանվանել վիրտուալ պատճենը…
+variants.delete = Ջնջել վիրտուալ պատճենը
+variants.close = Փակեք այս լուսանկարը և դրա վիրտուալ պատճենները՝ դրանք տեղափոխելուց կամ ջնջելուց առաջ:
+variants.saved_hint = Պատճենը սկսվում է պահպանված խմբագրումից կամ բնօրինակից, երբ խմբագրում չկա: Սկզբում պահպանեք առկախ փոփոխությունները:
+variants.move_original = Տեղափոխեք բնօրինակ լուսանկարը՝ դրա վիրտուալ պատճենները տեղափոխելու համար:
+variants.protected_export = Ընտրեք այլ նպատակակետ: Պատկերասրահի արտահանումը չի կարող փոխարինել բնօրինակը կամ դրա խմբագրման պահեստը:

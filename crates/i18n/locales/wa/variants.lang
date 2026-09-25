@@ -1,8 +1,8 @@
-# Virtual copies. Explicit English fallback pending translation review.
-variants.create = Create virtual copy…
-variants.rename = Rename virtual copy…
-variants.delete = Delete virtual copy
-variants.close = Close this photo and its virtual copies before moving or deleting them.
-variants.saved_hint = The copy starts from the saved edit, or the original when there is no edit. Save pending changes first.
-variants.move_original = Move the original photo to move its virtual copies.
-variants.protected_export = Choose another destination. Gallery exports cannot replace the original or its edit storage.
+# Translation draft; review by a native speaker.
+variants.create = Fé ene copie virtuèle…
+variants.rename = Rilomer ene copie virtuèle…
+variants.delete = Disfacer ene copie virtuèle
+variants.close = Clôyoz cisse foto et ses copies virtuèles divant d’ les bodjî ou disfacer.
+variants.saved_hint = Li copie cmince avou les candjmints schapés, ou avou l’ originåle s’ i gn a nou candjmint. Schapez d’ abôrd les candjmints nén co schapés.
+variants.move_original = Bodjîz l’ foto originåle po bodjî ses copies virtuèles.
+variants.protected_export = Tchoezixhoz ene ôte plaece. Les espôrtacions del galreye ni polèt nén rimplaecer l’ originåle ni l’ wårdaedje di ses candjmints.

@@ -105,7 +105,7 @@ filter.neural.super_zoom.name = Super-Zoom
 filter.neural.super_zoom.msg.no_model = {model} ist nicht installiert — stattdessen wird entlang der Kanten geschärft.
 
 filter.neural.style_transfer.name = Stilübertragung
-filter.neural.style_transfer.choice.mosaic = Mosaic
+filter.neural.style_transfer.choice.mosaic = Mosaikeffekt
 filter.neural.style_transfer.choice.candy = Candy
 filter.neural.style_transfer.choice.udnie = Udnie
 filter.neural.style_transfer.msg.no_styles = Keine Stilmodelle installiert — es wird nur die Farbe übertragen. Zu finden unter Filter ▸ Neural Filters ▸ Modelle verwalten.

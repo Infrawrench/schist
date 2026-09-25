@@ -72,7 +72,7 @@ panel.character.on_path_tip = Sebenzisa ikhophi yendlela esebenzako
 panel.character.path_offset = Ukusuka endleleni
 
 # AI
-panel.ai.title = AI
+panel.ai.title = I-AI
 panel.ai.empty_editor = Bawa itjhuguluko bese ubukela lisenzeka ekhanvasini. I-ejenti isebenzisa amathulusi, iinhlungi nemiyalo efana neyemamenyu, ngayinye iba ligadango linye lokubuyisela emuva.
 panel.ai.empty_gallery = Buza ngeenthombe zakho bese ubukela kwenzeka egalari: i-ejenti ingafuna, iqale iinthombana, ikhethe, ihlele ngeenqhema, begodu ivule isithombe kumhleli.
 panel.ai.thinking = iyacabanga…

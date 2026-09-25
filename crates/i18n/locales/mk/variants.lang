@@ -1,8 +1,7 @@
-# Virtual copies. Explicit English fallback pending translation review.
-variants.create = Create virtual copy…
-variants.rename = Rename virtual copy…
-variants.delete = Delete virtual copy
-variants.close = Close this photo and its virtual copies before moving or deleting them.
-variants.saved_hint = The copy starts from the saved edit, or the original when there is no edit. Save pending changes first.
-variants.move_original = Move the original photo to move its virtual copies.
-variants.protected_export = Choose another destination. Gallery exports cannot replace the original or its edit storage.
+variants.create = Создадете виртуелна копија…
+variants.rename = Преименувајте виртуелна копија…
+variants.delete = Избришете ја виртуелната копија
+variants.close = Затворете ја оваа фотографија и нејзините виртуелни копии пред да ги преместите или избришете.
+variants.saved_hint = Копијата започнува од зачуваното уредување или оригиналот кога нема уредување. Прво зачувајте ги промените што чекаат.
+variants.move_original = Поместете ја оригиналната фотографија за да ги преместите нејзините виртуелни копии.
+variants.protected_export = Изберете друга дестинација. Извозот на галеријата не може да го замени оригиналот или складиштето за уредување.

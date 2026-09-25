@@ -1,8 +1,8 @@
-# English fallback pending translation.
-photo_merge_advanced.projective = Perspective alignment (includes rotation)
-photo_merge_advanced.cylindrical = Cylindrical panorama
-photo_merge_advanced.deghost = Remove moving-subject ghosts (first photo reference)
-photo_merge_advanced.focal = Focal length (px) / image width (px)
-photo_merge_advanced.masks = Focus output uses editable layer masks. Select a mask in Layers and paint to refine.
-photo_merge_advanced.no_match = No reliable alignment found. Use textured photos with substantial overlap and modest viewpoint changes.
-photo_merge_advanced.invalid = Invalid source images or merge settings.
+# Translated photo merge options.
+photo_merge_advanced.projective = Alignment ya perspective (ezali na rotation) .
+photo_merge_advanced.cylindrical = Panorama ya cylindrique
+photo_merge_advanced.deghost = Longola bililingi ya mibale ya biloko oyo ezali kotambola (fɔtɔ ya liboso lokola référence)
+photo_merge_advanced.focal = Longueur focale (px) / largeur ya image (px) .
+photo_merge_advanced.masks = Elilingi oyo ebimi na kosangisa focus esalelaka ba masques ya ba kalke oyo ekoki kobongisama. Pona masque na Ba kalke mpe pakola yango langi mpo na kobongisa.
+photo_merge_advanced.no_match = Alignment ya kotyela motema ezwami te. Salelá bafɔtɔ oyo ezali na makomi oyo ezali na bozindi monene mpe mbongwana ya moke na ndenge ya kotala.
+photo_merge_advanced.invalid = Bilili ya source oyo ezali malamu te to ba paramètres ya kosangisa.

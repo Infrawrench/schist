@@ -1,17 +1,17 @@
-# Lens profiles: English fallback pending translation review. No locale added.
-lens_profiles.invalid = Choose a valid Lensfun v1/v2 XML database (up to 8 MiB) with supported camera or lens data.
-lens_profiles.calibration = Lens calibration
-lens_profiles.no_calibration = No calibration covers these settings. Check focal length and camera crop factor; manual correction remains available.
-lens_profiles.import = Import Lensfun XML…
-lens_profiles.imported = Lensfun database imported for this session. Select a profile or match the photo metadata.
-lens_profiles.manual = Manual correction only
-lens_profiles.saved = Saved calibration (database unavailable)
-lens_profiles.profile = Lens profile
-lens_profiles.aperture = Aperture (0 = unknown)
-lens_profiles.distance = Focus distance (0 = unknown)
-lens_profiles.vignette = Calibrated vignetting
-lens_profiles.color_context = Calibrated vignetting requires the built-in sRGB profile. Convert to sRGB to preserve appearance, then reopen Lens Correction. For already-sRGB untagged pixels, assigning sRGB is sufficient. Geometry and chromatic correction remain available.
-lens_profiles.vignette_missing = No vignetting calibration covers the aperture and focus distance. Enter measured values to enable it; 1000 m represents distant focus in many Lensfun profiles.
-lens_profiles.note = Calibrated correction runs before the manual controls. Use the original full frame; crop afterward. Save a filter stack in PSD/PSB to retain editable calibration.
-lens_profiles.automatic = Match photo metadata
-lens_profiles.components = Profile pass: distortion {distortion}; color fringes {tca}; vignetting {vignette}.
+# Lens profiles.
+lens_profiles.invalid = સમર્થિત કેમેરા અથવા લેન્સ ડેટા સાથે માન્ય Lensfun v1/v2 XML ડેટાબેઝ (8 MiB સુધી) પસંદ કરો.
+lens_profiles.calibration = લેન્સ માપાંકન
+lens_profiles.no_calibration = કોઈ કેલિબ્રેશન આ સેટિંગ્સને આવરી લેતું નથી. ફોકલ લેન્થ અને કેમેરા ક્રોપ ફેક્ટર તપાસો; મેન્યુઅલ કરેક્શન ઉપલબ્ધ રહે છે.
+lens_profiles.import = Lensfun XML આયાત કરો…
+lens_profiles.imported = આ સત્ર માટે Lensfun ડેટાબેઝ આયાત કરવામાં આવ્યો. પ્રોફાઇલ પસંદ કરો અથવા ફોટો મેટાડેટા સાથે મેળ કરો.
+lens_profiles.manual = માત્ર મેન્યુઅલ કરેક્શન
+lens_profiles.saved = સાચવેલ માપાંકન (ડેટાબેઝ અનુપલબ્ધ)
+lens_profiles.profile = લેન્સ પ્રોફાઇલ
+lens_profiles.aperture = છિદ્ર (0 = અજ્ઞાત)
+lens_profiles.distance = ફોકસ અંતર (0 = અજ્ઞાત)
+lens_profiles.vignette = માપાંકિત વિનેટિંગ
+lens_profiles.color_context = માપાંકિત વિનેટિંગ માટે બિલ્ટ-ઇન sRGB પ્રોફાઇલની જરૂર છે. દેખાવ જાળવવા માટે sRGB માં કન્વર્ટ કરો, પછી લેન્સ સુધારણા ફરીથી ખોલો. પહેલેથી જ-sRGB અનટેગ કરેલ પિક્સેલ માટે, sRGB સોંપવું પૂરતું છે. ભૂમિતિ અને રંગીન કરેક્શન ઉપલબ્ધ રહે છે.
+lens_profiles.vignette_missing = કોઈ વિગ્નેટીંગ કેલિબ્રેશન એપરચર અને ફોકસ અંતરને આવરી લેતું નથી. તેને સક્ષમ કરવા માટે માપેલા મૂલ્યો દાખલ કરો; 1000 m ઘણી Lensfun પ્રોફાઇલ્સમાં દૂરના ધ્યાનનું પ્રતિનિધિત્વ કરે છે.
+lens_profiles.note = માપાંકિત કરેક્શન મેન્યુઅલ નિયંત્રણો પહેલાં ચાલે છે. મૂળ આખી છબીનો ઉપયોગ કરો; પછી ક્રોપ કરો. સંપાદનયોગ્ય માપાંકન જાળવી રાખવા માટે PSD/PSB માં ફિલ્ટર સ્ટેક સાચવો.
+lens_profiles.automatic = ફોટો મેટાડેટા સાથે મેળ કરો
+lens_profiles.components = પ્રોફાઇલ પાસ: વિકૃતિ {distortion}; રંગ ફ્રિન્જ્સ {tca}; વિગ્નેટીંગ {vignette}.

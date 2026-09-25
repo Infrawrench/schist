@@ -1,8 +1,7 @@
-# Virtual copies. Explicit English fallback pending translation review.
-variants.create = Create virtual copy…
-variants.rename = Rename virtual copy…
-variants.delete = Delete virtual copy
-variants.close = Close this photo and its virtual copies before moving or deleting them.
-variants.saved_hint = The copy starts from the saved edit, or the original when there is no edit. Save pending changes first.
-variants.move_original = Move the original photo to move its virtual copies.
-variants.protected_export = Choose another destination. Gallery exports cannot replace the original or its edit storage.
+variants.create = Mamorona kopia virtoaly…
+variants.rename = Avereno anarana kopia virtoaly…
+variants.delete = Fafao ny kopia virtoaly
+variants.close = Akatona ity sary ity sy ireo dika virtoaly alohan'ny hamindra na famafana azy.
+variants.saved_hint = Ny dika mitovy dia manomboka amin'ny fanovana voatahiry, na ny tany am-boalohany rehefa tsy misy fanovana. Tehirizo aloha ny fanovana miandry.
+variants.move_original = Afindrao ny sary tany am-boalohany mba hamindra ireo dika virtoaly.
+variants.protected_export = Mifidiana toerana hafa. Ny fanondranana galera dia tsy afaka manolo ny tany am-boalohany na ny fitahirizana fanovana azy.

@@ -7,7 +7,7 @@ tool.marquee.rect.description = Kurura ukore itoranya ry'urukiramende. Gufata Sh
 tool.marquee.ellipse.name = Itoranya rya ellipse
 tool.marquee.ellipse.description = Kurura ukore itoranya rya ellipse, ukoreshe Shift na Alt mu kurihuza n'irisanzwe nk'uko bikorwa ku rukiramende.
 
-tool.lasso.name = Lasso
+tool.lasso.name = Umugozi wo guhitamwo
 tool.lasso.description = Kurura ucape urubibe ukoresheje ukuboko; itoranya ririyugara hagati y'impera iyo uhejeje gukurura. Shift iryongerako, Alt igakuramwo.
 tool.lasso.history.select = Gutoranya na Lasso
 tool.lasso.polygonal.name = Lasso y'impande nyinshi

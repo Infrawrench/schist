@@ -1,8 +1,8 @@
-# English fallback pending translation.
-photo_merge_advanced.projective = Perspective alignment (includes rotation)
-photo_merge_advanced.cylindrical = Cylindrical panorama
-photo_merge_advanced.deghost = Remove moving-subject ghosts (first photo reference)
-photo_merge_advanced.focal = Focal length (px) / image width (px)
-photo_merge_advanced.masks = Focus output uses editable layer masks. Select a mask in Layers and paint to refine.
-photo_merge_advanced.no_match = No reliable alignment found. Use textured photos with substantial overlap and modest viewpoint changes.
-photo_merge_advanced.invalid = Invalid source images or merge settings.
+# Advanced photo merge.
+photo_merge_advanced.projective = Lainemap long perspektiv (wetem rotesen)
+photo_merge_advanced.cylindrical = Panorama we i raon olsem silinda
+photo_merge_advanced.deghost = Tekemaot ol sado blong samting we i muv (fas foto i refarens)
+photo_merge_advanced.focal = Focal length (px) / bigfala blong image (px)
+photo_merge_advanced.masks = Foto blong fokus i yusum ol layer mask we yu save editim. Jusum wan mask long Layers mo pentem blong stretem.
+photo_merge_advanced.no_match = I no faenem wan stret lainemap. Yusum ol foto we i gat plante ditel, oli kavremap sem ples plante, mo lukluk i no jenisim tumas.
+photo_merge_advanced.invalid = Ol foto blong stat o ol setting blong joenem oli no stret.

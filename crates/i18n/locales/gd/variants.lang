@@ -1,8 +1,8 @@
-# Virtual copies. Explicit English fallback pending translation review.
-variants.create = Create virtual copy…
-variants.rename = Rename virtual copy…
-variants.delete = Delete virtual copy
-variants.close = Close this photo and its virtual copies before moving or deleting them.
-variants.saved_hint = The copy starts from the saved edit, or the original when there is no edit. Save pending changes first.
-variants.move_original = Move the original photo to move its virtual copies.
-variants.protected_export = Choose another destination. Gallery exports cannot replace the original or its edit storage.
+# Virtual copies.
+variants.create = Cruthaich leth-bhreac brìgheil…
+variants.rename = Ath-ainmich leth-bhreac brìgheil…
+variants.delete = Sguab às leth-bhreac brìgheil
+variants.close = Dùin an dealbh seo agus na leth-bhreacan brìgheil aige mus gluais thu no cuir às dhaibh.
+variants.saved_hint = Tòisichidh an leth-bhreac bhon deasachadh a chaidh a shàbhaladh, no an dreach tùsail nuair nach eil deasachadh ann. Sàbhail atharraichean a tha ri thighinn an-toiseach.
+variants.move_original = Gluais an dealbh tùsail gus na leth-bhreacan brìgheil aige a ghluasad.
+variants.protected_export = Tagh ceann-uidhe eile. Chan urrainn dha às-mhalairt gailearaidh a dhol an àite an tè thùsail no an stòr deasachaidh aige.
