@@ -181,12 +181,22 @@ that explain a failed upload.
 
 ### Debug info
 
+Release builds use size optimization (`opt-level = "s"`), thin LTO and one
+code-generation unit per crate. The app's final ThinLTO pass, pixel operations
+and numerical kernels retain optimization level 3 through the package overrides
+in `Cargo.toml` to preserve throughput in those paths. Loop vectorization,
+embedded assets and panic unwinding are retained (RAW import and the library's
+C API recover from panics).
+On x86-64 Linux, mold also folds identical functions where doing so preserves
+address identity (`--icf=safe` in `.cargo/config.toml`).
+
 The release profile builds with `debug = 1`, and each platform hands that
 to Sentry in the form its object format keeps it in:
 
-* **Linux** — DWARF lives inside the executable, and the workflow strips it
-  before packaging so the AppImage does not carry it. The upload therefore
-  happens *before* the strip, on the unstripped binary. What ships keeps its
+* **Linux** — DWARF lives inside the executable. Packaging strips debug info
+  and unneeded symbols from the shipping copies, including local `make release`
+  packages; the originals in `target/release` remain available for debugging.
+  The workflow uploads those originals before packaging. What ships keeps its
   build id, and that is what Sentry matches the upload against; both Linux
   targets pin `--build-id=sha1` in `.cargo/config.toml`, since mold writes
   one by default and Ubuntu's GNU ld does not.
