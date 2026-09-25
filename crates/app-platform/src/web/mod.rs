@@ -18,7 +18,9 @@
 //!   once the window exists; `loading_failed` turns it into an error
 //!   card instead of leaving a full bar sitting there forever.
 
+mod clipboard;
 mod pen;
+pub use clipboard::read_clipboard_entries;
 pub use pen::{install_pen_tilt, pen_tilt};
 mod drop;
 pub use drop::{import_dropped_file, listen_for_file_drops, FileDropListener};

@@ -205,3 +205,5 @@ dialog.prefs.camera_sync_enabled = Schist Cloud-mhi paṭirakkhatha
 dialog.prefs.camera_sync_sign_in = Chāyāgāhakasaṅgahaṃ paṭirakkhituṃ Schist Cloud pavisatha.
 dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Parivattetha…
+dialog.new_doc.from_clipboard = Lekhaphalakato
+dialog.new_doc.from_image_url = Cittassa URL to

@@ -264,3 +264,5 @@ dialog.prefs.camera_sync_enabled = Back up to Schist Cloud
 dialog.prefs.camera_sync_sign_in = Sign into Schist Cloud to back up your camera roll.
 dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Change…
+dialog.new_doc.from_clipboard = From Clipboard
+dialog.new_doc.from_image_url = From Image URL

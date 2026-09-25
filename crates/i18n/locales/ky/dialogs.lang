@@ -226,3 +226,5 @@ dialog.prefs.camera_sync_enabled = Schist Cloud'га камдык көчүрмө
 dialog.prefs.camera_sync_sign_in = Камера тасмасын камдык көчүрмөлөө үчүн Schist Cloud'га кириңиз.
 dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Өзгөртүү…
+dialog.new_doc.from_clipboard = Алмашуу буферинен
+dialog.new_doc.from_image_url = Сүрөттүн URL дарегинен

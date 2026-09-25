@@ -56,6 +56,7 @@ pub use schist_camera_sync::ios as camera_sync_ios;
 mod browser_gpu;
 mod chrome;
 mod clipboard;
+pub use clipboard::NewFileClipboard;
 pub(crate) mod cloud;
 mod cloud_batch;
 pub(crate) mod cloud_gallery;
@@ -1137,7 +1138,11 @@ pub enum Modal {
     },
     /// File ▸ New: the preset picker — one click for a common size,
     /// Custom… for the full dialog below.
-    NewFilePicker,
+    NewFilePicker {
+        clipboard: Arc<NewFileClipboard>,
+        importing: bool,
+        error: Option<String>,
+    },
     /// Schist's own open/save dialog, on the platforms with no native
     /// one; its state is `Workspace::file_picker`.
     FilePicker,

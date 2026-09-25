@@ -229,3 +229,5 @@ dialog.prefs.camera_sync_enabled = Dèan lethbhreac-glèidhidh gu Schist Cloud
 dialog.prefs.camera_sync_sign_in = Clàraich a-steach gu Schist Cloud gus lethbhreac-glèidhidh de rola a’ chamara agad a dhèanamh.
 dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Atharraich…
+dialog.new_doc.from_clipboard = Bhon bhòrd-chliopaichean
+dialog.new_doc.from_image_url = Bho URL deilbh

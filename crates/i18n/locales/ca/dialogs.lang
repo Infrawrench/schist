@@ -221,3 +221,5 @@ dialog.prefs.camera_sync_enabled = Fes una còpia de seguretat al Schist Cloud
 dialog.prefs.camera_sync_sign_in = Inicieu la sessió al Schist Cloud per fer una còpia de seguretat del carret de la càmera.
 dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Canvia…
+dialog.new_doc.from_clipboard = Des del porta-retalls
+dialog.new_doc.from_image_url = Des d’un URL d’imatge

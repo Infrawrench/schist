@@ -214,3 +214,5 @@ dialog.prefs.camera_sync_enabled = Պահուստավորել Schist Cloud-ու�
 dialog.prefs.camera_sync_sign_in = Մուտք գործեք Schist Cloud՝ տեսախցիկի ժապավենը պահուստավորելու համար։
 dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Փոխել…
+dialog.new_doc.from_clipboard = Փոխանակման բուֆերից
+dialog.new_doc.from_image_url = Պատկերի URL-ից

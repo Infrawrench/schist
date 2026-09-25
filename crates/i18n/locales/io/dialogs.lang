@@ -215,3 +215,5 @@ dialog.prefs.camera_sync_enabled = Krear rezervo en Schist Cloud
 dialog.prefs.camera_sync_sign_in = Apertar sesiono en Schist Cloud por rezervkopiar vua kamerorulo.
 dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Chanjar…
+dialog.new_doc.from_clipboard = De la tondilo
+dialog.new_doc.from_image_url = De URL di imajo

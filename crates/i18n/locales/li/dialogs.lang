@@ -228,3 +228,5 @@ dialog.prefs.camera_sync_enabled = Reservekopie nao Schist Cloud
 dialog.prefs.camera_sync_sign_in = Meldj uch aan bie Schist Cloud om 'n reservekopie van eur camera-album te make.
 dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Verangere…
+dialog.new_doc.from_clipboard = Oet ’t klembord
+dialog.new_doc.from_image_url = Oet ’n aafbeildings-URL

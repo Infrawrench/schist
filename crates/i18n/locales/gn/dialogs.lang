@@ -205,3 +205,5 @@ dialog.prefs.camera_sync_enabled = Eñongatu Schist Cloud-pe
 dialog.prefs.camera_sync_sign_in = Eike Schist Cloud-pe eñongatu hag̃ua ne kámara ra'anga renda.
 dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Moambue…
+dialog.new_doc.from_clipboard = Portapapeles-gui
+dialog.new_doc.from_image_url = Ta’ãnga URL-gui

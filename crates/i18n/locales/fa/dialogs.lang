@@ -213,3 +213,5 @@ dialog.prefs.camera_sync_enabled = پشتیبان‌گیری در Schist Cloud
 dialog.prefs.camera_sync_sign_in = برای پشتیبان‌گیری از عکس‌های دوربین وارد Schist Cloud شوید.
 dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = تغییر…
+dialog.new_doc.from_clipboard = از کلیپ‌بورد
+dialog.new_doc.from_image_url = از نشانی تصویر

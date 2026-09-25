@@ -205,3 +205,5 @@ dialog.prefs.camera_sync_enabled = Нусхаи эҳтиётӣ ба Schist Cloud
 dialog.prefs.camera_sync_sign_in = Барои нусхаи эҳтиётии навори камера ба Schist Cloud ворид шавед.
 dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Тағйир додан…
+dialog.new_doc.from_clipboard = Аз буфери мубодила
+dialog.new_doc.from_image_url = Аз URL-и тасвир

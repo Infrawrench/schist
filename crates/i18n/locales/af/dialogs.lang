@@ -228,3 +228,5 @@ dialog.prefs.camera_sync_enabled = Rugsteun na Schist Cloud
 dialog.prefs.camera_sync_sign_in = Meld aan by Schist Cloud om jou kamerarol te rugsteun.
 dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Verander…
+dialog.new_doc.from_clipboard = Vanaf knipbord
+dialog.new_doc.from_image_url = Vanaf prent-URL

@@ -213,3 +213,5 @@ dialog.prefs.camera_sync_enabled = Schist Cloud'a yedekle
 dialog.prefs.camera_sync_sign_in = Film rulonuzu yedeklemek için Schist Cloud'da oturum açın.
 dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Değiştir…
+dialog.new_doc.from_clipboard = Panodan
+dialog.new_doc.from_image_url = Görsel URL’sinden

@@ -213,3 +213,5 @@ dialog.prefs.camera_sync_enabled = Chengetedza kopi paSchist Cloud
 dialog.prefs.camera_sync_sign_in = Pinda muSchist Cloud kuti uchengetedze kopi yemapikicha ekamera yako.
 dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Chinja…
+dialog.new_doc.from_clipboard = Kubva pakabhodhi kekukopa
+dialog.new_doc.from_image_url = Kubva paURL yemufananidzo

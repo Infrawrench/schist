@@ -221,3 +221,5 @@ dialog.prefs.camera_sync_enabled = Kurti atsarginę kopiją Schist Cloud
 dialog.prefs.camera_sync_sign_in = Prisijunkite prie Schist Cloud, kad kurtumėte fotoaparato aplanko atsarginę kopiją.
 dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Keisti…
+dialog.new_doc.from_clipboard = Iš iškarpinės
+dialog.new_doc.from_image_url = Iš paveikslėlio URL

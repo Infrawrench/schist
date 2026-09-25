@@ -205,3 +205,5 @@ dialog.prefs.camera_sync_enabled = Schist Cloud에 백업
 dialog.prefs.camera_sync_sign_in = 카메라 롤을 백업하려면 Schist Cloud에 로그인하세요.
 dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = 변경…
+dialog.new_doc.from_clipboard = 클립보드에서
+dialog.new_doc.from_image_url = 이미지 URL에서

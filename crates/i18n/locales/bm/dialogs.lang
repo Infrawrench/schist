@@ -229,3 +229,5 @@ dialog.prefs.camera_sync_enabled = Kopi mara Schist Cloud la
 dialog.prefs.camera_sync_sign_in = Don Schist Cloud la ka i ka kamera jaw kopi mara.
 dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Yɛlɛma…
+dialog.new_doc.from_clipboard = Ka bɔ clipboard kɔnɔ
+dialog.new_doc.from_image_url = Ka bɔ ja URL la

@@ -205,3 +205,5 @@ dialog.prefs.camera_sync_enabled = Sao lưu lên Schist Cloud
 dialog.prefs.camera_sync_sign_in = Đăng nhập Schist Cloud để sao lưu cuộn camera.
 dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Thay đổi…
+dialog.new_doc.from_clipboard = Từ bảng nhớ tạm
+dialog.new_doc.from_image_url = Từ URL hình ảnh

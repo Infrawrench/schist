@@ -205,3 +205,5 @@ dialog.prefs.camera_sync_enabled = Backup para Schist Cloud
 dialog.prefs.camera_sync_sign_in = Sign in gi Schist Cloud para un backup i camera roll-mu.
 dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Tulaika…
+dialog.new_doc.from_clipboard = Ginen i clipboard
+dialog.new_doc.from_image_url = Ginen i URL i litratu

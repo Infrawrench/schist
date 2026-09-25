@@ -232,3 +232,5 @@ dialog.prefs.camera_sync_enabled = Ráhkat sihkarvurkosa Schist Cloudii
 dialog.prefs.camera_sync_sign_in = Čális sisa Schist Cloudii vai ráhkadat govvenapparáhta govvarullas sihkarvurkosa.
 dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Rievdat…
+dialog.new_doc.from_clipboard = Čuohpusgirjjis
+dialog.new_doc.from_image_url = Gova URL-čujuhusas

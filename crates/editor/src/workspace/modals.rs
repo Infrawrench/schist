@@ -900,7 +900,7 @@ impl Workspace {
             | Modal::CameraImport { .. }
             | Modal::CameraImportOptions { .. }
             | Modal::CameraImportFailed { .. }
-            | Modal::NewFilePicker
+            | Modal::NewFilePicker { .. }
             | Modal::FilePicker
             | Modal::MapFilter
             | Modal::SearchModels

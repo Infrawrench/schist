@@ -224,3 +224,5 @@ dialog.prefs.camera_sync_enabled = Schist Cloud-ҡа резерв күсермә
 dialog.prefs.camera_sync_sign_in = Камера фотоларының резерв күсермәһен яһау өсөн Schist Cloud-ҡа инегеҙ.
 dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Үҙгәртеү…
+dialog.new_doc.from_clipboard = Алмашыу буферынан
+dialog.new_doc.from_image_url = Һүрәт URL-ынан

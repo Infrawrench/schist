@@ -213,3 +213,5 @@ dialog.prefs.camera_sync_enabled = Schist Cloud ته شاتړ
 dialog.prefs.camera_sync_sign_in = د کامرې انځورونو د شاتړ لپاره Schist Cloud ته ورننوځئ.
 dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = بدلول…
+dialog.new_doc.from_clipboard = له کليپبورډ څخه
+dialog.new_doc.from_image_url = د انځور له URL څخه

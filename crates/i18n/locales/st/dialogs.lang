@@ -229,3 +229,5 @@ dialog.prefs.camera_sync_enabled = Etsa kopi ea polokeho ho Schist Cloud
 dialog.prefs.camera_sync_sign_in = Kena ho Schist Cloud ho etsa kopi ea polokeho ea pokello ea khamera.
 dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Fetola…
+dialog.new_doc.from_clipboard = Ho tsoa ho clipboard
+dialog.new_doc.from_image_url = Ho tsoa ho URL ea setšoantšo

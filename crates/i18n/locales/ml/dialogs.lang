@@ -213,3 +213,5 @@ dialog.prefs.camera_sync_enabled = Schist Cloud-ലേക്ക് ബാക്�
 dialog.prefs.camera_sync_sign_in = ക്യാമറ റോൾ ബാക്കപ്പ് ചെയ്യാൻ Schist Cloud-ലേക്ക് സൈൻ ഇൻ ചെയ്യുക.
 dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = മാറ്റുക…
+dialog.new_doc.from_clipboard = ക്ലിപ്പ്ബോർഡിൽ നിന്ന്
+dialog.new_doc.from_image_url = ചിത്രത്തിന്റെ URL-ൽ നിന്ന്

@@ -236,3 +236,5 @@ dialog.prefs.camera_sync_enabled = ናብ Schist Cloud ምትሕልላፊ ቅዳ
 dialog.prefs.camera_sync_sign_in = ናይ ጥቕላል ስእልታት ካሜራኻ ምትሕልላፊ ቅዳሕ ንምዕቃብ ናብ Schist Cloud እቶ።
 dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = ምቕያር…
+dialog.new_doc.from_clipboard = ካብ ቅንጥብ ሰሌዳ
+dialog.new_doc.from_image_url = ካብ URL ምስሊ

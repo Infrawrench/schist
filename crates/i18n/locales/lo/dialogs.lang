@@ -205,3 +205,5 @@ dialog.prefs.camera_sync_enabled = ສຳຮອງໄປ Schist Cloud
 dialog.prefs.camera_sync_sign_in = ເຂົ້າສູ່ລະບົບ Schist Cloud ເພື່ອສຳຮອງມ້ວນຮູບຈາກກ້ອງ.
 dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = ປ່ຽນ…
+dialog.new_doc.from_clipboard = ຈາກຄລິບບອດ
+dialog.new_doc.from_image_url = ຈາກ URL ຮູບພາບ

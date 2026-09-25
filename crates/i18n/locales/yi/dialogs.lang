@@ -213,3 +213,5 @@ dialog.prefs.camera_sync_enabled = מאַכן רעזערוו־קאָפּיע א�
 dialog.prefs.camera_sync_sign_in = גייט אַרײַן אין Schist Cloud כּדי צו מאַכן אַ רעזערוו־קאָפּיע פֿון אייער קאַמעראַ־רול.
 dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = ענדערן…
+dialog.new_doc.from_clipboard = פֿונעם קליפּבאָרד
+dialog.new_doc.from_image_url = פֿון אַ בילד־URL

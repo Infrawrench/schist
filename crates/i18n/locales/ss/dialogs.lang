@@ -213,3 +213,5 @@ dialog.prefs.camera_sync_enabled = Yenta ikhophi yesipele ku-Schist Cloud
 dialog.prefs.camera_sync_sign_in = Ngena ku-Schist Cloud kuze wente ikhophi yesipele yetitfombe tekhamera yakho.
 dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Shintja…
+dialog.new_doc.from_clipboard = Kusuka kubhodi yekukopa
+dialog.new_doc.from_image_url = Kusuka ku-URL yesitfombe

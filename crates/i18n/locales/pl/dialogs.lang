@@ -229,3 +229,5 @@ dialog.prefs.camera_sync_enabled = Twórz kopię zapasową w Schist Cloud
 dialog.prefs.camera_sync_sign_in = Zaloguj się do Schist Cloud, aby tworzyć kopię zapasową rolki z aparatu.
 dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Zmień…
+dialog.new_doc.from_clipboard = Ze schowka
+dialog.new_doc.from_image_url = Z adresu URL obrazu

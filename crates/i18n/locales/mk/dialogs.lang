@@ -213,3 +213,5 @@ dialog.prefs.camera_sync_enabled = Прави резервна копија на
 dialog.prefs.camera_sync_sign_in = Најавете се на Schist Cloud за да направите резервна копија од фотографиите на камерата.
 dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Промени…
+dialog.new_doc.from_clipboard = Од таблата со исечоци
+dialog.new_doc.from_image_url = Од URL на слика

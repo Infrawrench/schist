@@ -213,3 +213,5 @@ dialog.prefs.camera_sync_enabled = Schist Cloud இல் காப்பெட�
 dialog.prefs.camera_sync_sign_in = உங்கள் ஒளிப்படத் தொகுப்பைக் காப்பெடுக்க Schist Cloud இல் உள்நுழையவும்.
 dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = மாற்று…
+dialog.new_doc.from_clipboard = கிளிப்போர்டிலிருந்து
+dialog.new_doc.from_image_url = பட URL இலிருந்து

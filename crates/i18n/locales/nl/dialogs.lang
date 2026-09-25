@@ -237,3 +237,5 @@ dialog.prefs.camera_sync_enabled = Back-up maken naar Schist Cloud
 dialog.prefs.camera_sync_sign_in = Meld je aan bij Schist Cloud om een back-up van je filmrol te maken.
 dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Wijzigen…
+dialog.new_doc.from_clipboard = Van klembord
+dialog.new_doc.from_image_url = Van afbeeldings-URL

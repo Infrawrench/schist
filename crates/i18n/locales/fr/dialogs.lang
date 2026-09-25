@@ -221,3 +221,5 @@ dialog.prefs.camera_sync_enabled = Sauvegarder dans Schist Cloud
 dialog.prefs.camera_sync_sign_in = Connectez-vous à Schist Cloud pour sauvegarder votre pellicule.
 dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Modifier…
+dialog.new_doc.from_clipboard = Depuis le presse-papiers
+dialog.new_doc.from_image_url = Depuis une URL d’image

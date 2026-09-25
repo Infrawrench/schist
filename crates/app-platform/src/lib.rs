@@ -2,6 +2,7 @@
 #[cfg(target_os = "android")]
 pub mod android;
 pub mod assets;
+pub mod clipboard;
 #[cfg(not(any(target_arch = "wasm32", target_os = "ios", target_os = "android")))]
 pub mod drag_out;
 #[cfg(target_os = "linux")]

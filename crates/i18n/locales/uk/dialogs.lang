@@ -229,3 +229,5 @@ dialog.prefs.camera_sync_enabled = Резервне копіювання до Sc
 dialog.prefs.camera_sync_sign_in = Увійдіть до Schist Cloud, щоб створювати резервні копії фотоплівки.
 dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Змінити…
+dialog.new_doc.from_clipboard = З буфера обміну
+dialog.new_doc.from_image_url = За URL зображення

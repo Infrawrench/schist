@@ -213,3 +213,5 @@ dialog.prefs.camera_sync_enabled = Schist Cloud قا زاپاسلاش
 dialog.prefs.camera_sync_sign_in = كامېرا ئالبومىنى زاپاسلاش ئۈچۈن Schist Cloud قا كىرىڭ.
 dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = ئۆزگەرتىش…
+dialog.new_doc.from_clipboard = چاپلاش تاختىسىدىن
+dialog.new_doc.from_image_url = رەسىم URL دىن

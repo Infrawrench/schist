@@ -213,3 +213,5 @@ dialog.prefs.camera_sync_enabled = Varunda Schist Cloudi
 dialog.prefs.camera_sync_sign_in = Kaamerarulli varundamiseks logi Schist Cloudi sisse.
 dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Muuda…
+dialog.new_doc.from_clipboard = Lõikelaualt
+dialog.new_doc.from_image_url = Pildi URL-ilt

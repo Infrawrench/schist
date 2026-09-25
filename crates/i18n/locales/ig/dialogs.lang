@@ -205,3 +205,5 @@ dialog.prefs.camera_sync_enabled = Mee nkwado ndabere na Schist Cloud
 dialog.prefs.camera_sync_sign_in = Banye na Schist Cloud iji mee nkwado ndabere nke foto igwefoto gị.
 dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Gbanwee…
+dialog.new_doc.from_clipboard = Site na klipbọọdụ
+dialog.new_doc.from_image_url = Site na URL onyonyo
