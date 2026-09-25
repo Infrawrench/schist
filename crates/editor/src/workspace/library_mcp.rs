@@ -79,10 +79,12 @@ pub(super) fn tool_defs() -> Vec<Value> {
         def(
             "gallery_bucket_create",
             "Create a bucket, optionally smart: a query and/or a place name (matched against \
-             the gazetteer, e.g. \"Tokyo\") keeps it filling itself as photos are indexed.",
+             the gazetteer, e.g. \"Tokyo\") keeps it filling itself as photos are indexed. \
+             An exclusion query removes its matches from the smart results.",
             json!({
                 "name": {"type": "string"},
                 "query": {"type": "string", "description": "Optional content/place search the bucket keeps matching."},
+                "exclude_query": {"type": "string", "description": "Optional content/place search whose matches the bucket hides."},
                 "paths": paths,
             }),
             &["name"],
@@ -303,11 +305,14 @@ impl Workspace {
                     .ok_or_else(|| anyhow::anyhow!("name is required"))?
                     .to_string();
                 let index = self.library.add_bucket(name.clone());
-                if let Some(query) = str_arg(args, "query") {
+                let query = str_arg(args, "query").map(str::to_string);
+                let exclude_query = str_arg(args, "exclude_query").map(str::to_string);
+                if query.is_some() || exclude_query.is_some() {
                     self.library.configure_bucket(
                         index,
                         name.clone(),
-                        Some(query.to_string()),
+                        query,
+                        exclude_query,
                         None,
                         false,
                     );

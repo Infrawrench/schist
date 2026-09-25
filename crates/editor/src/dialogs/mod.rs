@@ -343,14 +343,24 @@ pub fn render(ws: &mut Workspace, cx: &mut Context<Workspace>) -> Option<gpui::A
         Modal::BucketName {
             name,
             query,
+            exclude_query,
             photos,
             editing,
             cloud,
             ..
-        } => {
-            crate::workspace::bucket_name_dialog(ws, name, query, photos.len(), editing, cloud, cx)
-                .into_any_element()
-        }
+        } => crate::workspace::bucket_name_dialog(
+            ws,
+            crate::workspace::BucketDialogText {
+                name,
+                query,
+                exclude_query,
+            },
+            photos.len(),
+            editing,
+            cloud,
+            cx,
+        )
+        .into_any_element(),
         #[cfg(target_arch = "wasm32")]
         Modal::BucketName { .. } => return None,
         m @ Modal::NewDocument { .. } => new_document_dialog(&state, m, cx).into_any_element(),

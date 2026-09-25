@@ -168,7 +168,7 @@ pub(crate) use library_view::map_element;
 #[cfg(not(target_arch = "wasm32"))]
 pub(crate) use library_view::{
     bucket_name_dialog, camera_import_dialog, camera_import_failed_dialog,
-    camera_import_options_dialog, map_filter_dialog, search_models_dialog,
+    camera_import_options_dialog, map_filter_dialog, search_models_dialog, BucketDialogText,
 };
 
 /// The most tabs a dropped folder may open at once.
@@ -1203,6 +1203,9 @@ pub enum Modal {
         name: String,
         exclude_nsfw: bool,
         query: String,
+        /// Matches of this second query are removed from the smart results.
+        /// Cloud buckets leave it empty until the provider protocol supports it.
+        exclude_query: String,
         photos: Vec<PathBuf>,
         editing: Option<usize>,
         /// A Schist Cloud bucket rather than a local one; which one, and

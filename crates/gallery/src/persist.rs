@@ -19,6 +19,10 @@ pub enum BucketFile {
         photos: Vec<PathBuf>,
         #[serde(default)]
         query: Option<String>,
+        /// A content/place query whose matches are left out of the smart
+        /// portion of the bucket. Older libraries simply have no exclusion.
+        #[serde(default)]
+        exclude_query: Option<String>,
         #[serde(default)]
         area: Option<(GeoBounds, String)>,
     },
@@ -48,6 +52,12 @@ impl BucketFile {
     pub fn query(&self) -> Option<&str> {
         match self {
             BucketFile::Rich { query, .. } => query.as_deref(),
+            BucketFile::Plain(..) => None,
+        }
+    }
+    pub fn exclude_query(&self) -> Option<&str> {
+        match self {
+            BucketFile::Rich { exclude_query, .. } => exclude_query.as_deref(),
             BucketFile::Plain(..) => None,
         }
     }
@@ -239,6 +249,7 @@ mod tests {
         assert!(restored.exclude_nsfw());
         assert_eq!(restored.photos(), &[PathBuf::from("/a.jpg")]);
         assert!(restored.query().is_none());
+        assert!(restored.exclude_query().is_none());
     }
 
     #[test]
@@ -249,11 +260,13 @@ mod tests {
             if name == "Trip" && photos == &[PathBuf::from("/a.jpg")]));
         let rich: Vec<BucketFile> = serde_json::from_str(
             r#"[{"name": "NYC dogs", "query": "dog",
+                 "exclude_query": "screenshot",
                  "area": [{"south": 40.0, "west": -75.0, "north": 41.0, "east": -73.0}, "New York City"]}]"#,
         )
         .expect("rich shape");
         assert_eq!(rich[0].name(), "NYC dogs");
         assert_eq!(rich[0].query(), Some("dog"));
+        assert_eq!(rich[0].exclude_query(), Some("screenshot"));
         assert!(rich[0]
             .area()
             .is_some_and(|(b, place)| place == "New York City" && b.contains(40.7, -74.0)));
