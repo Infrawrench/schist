@@ -23,7 +23,6 @@ pub(super) fn model_manager(ws: &Workspace, cx: &mut Context<Workspace>) -> impl
         .map(|spec| {
             let id = spec.id;
             let installed = schist_neural::installed(id);
-            let local = spec.source == schist_neural::ModelSource::Local;
             let busy = downloading.iter().find(|d| d.id == id);
             // Kilobytes below a megabyte: two of the built-in models
             // round to "0.2 MB", which reads as a rounding error rather
@@ -52,8 +51,6 @@ pub(super) fn model_manager(ws: &Workspace, cx: &mut Context<Workspace>) -> impl
             let fetchable = schist_neural::download_url(spec).is_some();
             let state = if carried {
                 tf!("dialog.models.built_in", size = size)
-            } else if local && busy.is_some() {
-                t("common.loading").to_owned()
             } else if let Some(download) = busy {
                 // Against the size this build expects rather than the
                 // one the server declared: they are the same file, and
@@ -66,8 +63,6 @@ pub(super) fn model_manager(ws: &Workspace, cx: &mut Context<Workspace>) -> impl
                 )
             } else if installed {
                 tf!("dialog.models.installed", size = size)
-            } else if local {
-                t("common.not_available").to_owned()
             } else if fetchable {
                 tf!("dialog.models.not_installed", size = size)
             } else {
@@ -76,7 +71,7 @@ pub(super) fn model_manager(ws: &Workspace, cx: &mut Context<Workspace>) -> impl
                 // cannot fetch them at all.
                 tf!("dialog.models.not_in_browser", size = size)
             };
-            let action: gpui::AnyElement = if carried || (!installed && !fetchable && !local) {
+            let action: gpui::AnyElement = if carried || (!installed && !fetchable) {
                 div().into_any_element()
             } else if busy.is_some() {
                 div()
@@ -84,22 +79,6 @@ pub(super) fn model_manager(ws: &Workspace, cx: &mut Context<Workspace>) -> impl
                     .text_color(gpui::rgb(ui::palette().text_dim))
                     .child("\u{2026}")
                     .into_any_element()
-            } else if local {
-                let mut actions = div().flex().flex_col().gap_1().child(ui::button(
-                    t("common.import"),
-                    true,
-                    move |ws, _w, cx| ws.import_neural_model(id, cx),
-                    cx,
-                ));
-                if installed {
-                    actions = actions.child(ui::button(
-                        t("common.remove"),
-                        false,
-                        move |ws, _w, cx| ws.remove_model(id, cx),
-                        cx,
-                    ));
-                }
-                actions.into_any_element()
             } else if installed {
                 ui::button(
                     t("common.remove"),
@@ -144,22 +123,14 @@ pub(super) fn model_manager(ws: &Workspace, cx: &mut Context<Workspace>) -> impl
                                 .child(SharedString::from(tf!(
                                     "dialog.models.state_license",
                                     state = state,
-                                    license = if local {
-                                        t("common.custom")
-                                    } else {
-                                        spec.license
-                                    }
+                                    license = spec.license
                                 ))),
                         )
                         .child(
                             div()
                                 .text_size(px(11.0))
                                 .text_color(gpui::rgb(ui::palette().text_dim))
-                                .child(SharedString::from(if local {
-                                    t("common.preview")
-                                } else {
-                                    spec.note
-                                })),
+                                .child(SharedString::from(spec.note)),
                         ),
                 )
                 .child(action)

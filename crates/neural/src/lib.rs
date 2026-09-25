@@ -6,7 +6,7 @@
 //! program that needs a 300 MB runtime and a matching CUDA to sharpen a
 //! photo is not a paint program anyone will use.
 //!
-//! Three kinds of model:
+//! Two kinds of model:
 //!
 //! * **Built in.** `detail.onnx`, `dejpeg.onnx`, `colorize.onnx`,
 //!   `portrait.onnx`, `inpaint.onnx`, the waifu2x upscalers and
@@ -16,8 +16,6 @@
 //!   networks are megabytes to tens of megabytes each and are somebody
 //!   else's work, so they are fetched on demand into the user's data
 //!   directory and checked against a known hash.
-//! * **Local.** Custom model specifications can accept user-trained weights
-//!   imported after validation, without a download URL.
 //!
 //! And two ways of feeding one, which is what [`Input`] distinguishes: a
 //! model that *changes* an image sees it in tiles at full resolution,
@@ -32,7 +30,7 @@
 //! missing, fails, or looks at the picture and has nothing to say.
 
 use std::collections::HashMap;
-use std::path::{Path, PathBuf};
+use std::path::PathBuf;
 use std::sync::{Arc, OnceLock, RwLock};
 
 use anyhow::{bail, Context as _, Result};
@@ -188,12 +186,11 @@ impl Input {
     }
 }
 
-/// Where a model comes from. Local models have no published weights or URL.
+/// Where a model comes from.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum ModelSource {
     BuiltIn,
     Download(&'static str),
-    Local,
 }
 
 /// A model this build knows about.
@@ -538,12 +535,9 @@ pub fn download_url(spec: &ModelSpec) -> Option<String> {
     }
     #[cfg(not(target_arch = "wasm32"))]
     {
-        if spec.built_in() {
-            return None;
-        }
         match spec.source {
             ModelSource::Download(url) => Some(url.to_owned()),
-            ModelSource::BuiltIn | ModelSource::Local => None,
+            ModelSource::BuiltIn => None,
         }
     }
 }
@@ -1038,12 +1032,8 @@ pub fn get(id: &str) -> Option<Arc<Model>> {
         .map_err(|e| log::warn!("neural model {id}: {e:#}"))
         .ok()
         .map(Arc::new);
-    // A local model may be imported after the filter was first opened.
-    // Imports invalidate the cache; an absent file need not occupy it.
-    if loaded.is_some() || spec.source != ModelSource::Local {
-        if let Ok(mut c) = cache().write() {
-            c.insert(id.to_string(), loaded.clone());
-        }
+    if let Ok(mut c) = cache().write() {
+        c.insert(id.to_string(), loaded.clone());
     }
     loaded
 }
@@ -1092,8 +1082,8 @@ fn load(spec: &'static ModelSpec) -> Result<Model> {
     Model::from_bytes(spec, &bytes)
 }
 
-/// Maximum size accepted by local model import, shared with file pickers.
-pub const MAX_LOCAL_MODEL_BYTES: usize = 128 * 1024 * 1024;
+/// Bound the temporary allocation when expanding a compressed model.
+const MAX_EXPANDED_MODEL_BYTES: usize = 128 * 1024 * 1024;
 
 /// Expand XZ only while constructing an inference plan. Raw ONNX remains
 /// borrowed; the temporary expanded buffer is dropped after parsing. The
@@ -1105,42 +1095,14 @@ fn decode_model_bytes(bytes: &[u8]) -> Result<std::borrow::Cow<'_, [u8]>> {
     }
     let mut expanded = Vec::new();
     lzma_rust2::XzReader::new(bytes, false)
-        .take(MAX_LOCAL_MODEL_BYTES as u64 + 1)
+        .take(MAX_EXPANDED_MODEL_BYTES as u64 + 1)
         .read_to_end(&mut expanded)
         .context("invalid XZ model")?;
     anyhow::ensure!(
-        expanded.len() <= MAX_LOCAL_MODEL_BYTES,
+        expanded.len() <= MAX_EXPANDED_MODEL_BYTES,
         "expanded model exceeds 128 MiB"
     );
     Ok(std::borrow::Cow::Owned(expanded))
-}
-
-/// Validate a restoration model before replacing installed weights.
-/// The app expects one RGB NCHW input/output at the declared tile dimensions.
-pub fn install_local(spec: &'static ModelSpec, bytes: &[u8]) -> Result<PathBuf> {
-    anyhow::ensure!(spec.source == ModelSource::Local, "not a local model");
-    anyhow::ensure!(
-        bytes.len() <= MAX_LOCAL_MODEL_BYTES,
-        "model exceeds 128 MiB"
-    );
-    let model = Model::from_bytes(spec, bytes)?;
-    anyhow::ensure!(
-        model.channels == 3 && !model.nhwc,
-        "expected NCHW RGB input"
-    );
-    let (w, h) = model.input_dims();
-    let outputs = model.run(&vec![0.5; w * h * 3])?;
-    anyhow::ensure!(outputs.len() == 1, "expected one image output");
-    let output = outputs[0].to_plain_array_view::<f32>()?;
-    anyhow::ensure!(
-        output.shape() == [1, 3, h, w],
-        "unexpected image output shape"
-    );
-    anyhow::ensure!(
-        output.iter().all(|v| v.is_finite()),
-        "non-finite model output"
-    );
-    install(spec, bytes)
 }
 
 /// Write a downloaded model into the store, rejecting it if the hash does
@@ -1243,12 +1205,6 @@ pub fn installed_size(spec: &ModelSpec) -> Option<u64> {
 /// Path a model would live at, for messages.
 pub fn path_of(spec: &ModelSpec) -> PathBuf {
     model_dir().join(spec.file)
-}
-
-/// True when `path` is inside the model directory, so callers can refuse
-/// to delete anything else.
-pub fn is_in_store(path: &Path) -> bool {
-    path.starts_with(model_dir())
 }
 
 #[cfg(all(test, not(target_arch = "wasm32")))]

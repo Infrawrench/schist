@@ -10,8 +10,6 @@ fn fixture_spec() -> &'static neural::ModelSpec {
     static SPEC: std::sync::OnceLock<neural::ModelSpec> = std::sync::OnceLock::new();
     SPEC.get_or_init(|| {
         let mut spec = neural::spec("anti-smudge").unwrap().clone();
-        spec.source = ModelSource::Local;
-        spec.sha256 = None;
         spec.input = neural::Input::Tiles {
             size: 384,
             overlap: 96,
@@ -158,13 +156,11 @@ fn anti_smudge_failed_later_tile_does_not_commit_earlier_tiles() {
 }
 
 #[test]
-fn anti_smudge_rejects_bad_buffers_and_invalid_imports() {
+fn anti_smudge_rejects_bad_buffers() {
     let spec = fixture_spec();
     let model = Model::from_bytes(spec, SCALE).unwrap();
     let mut rgb = vec![0.5; 3];
     assert!(neural::try_run_tiled(&model, &mut rgb, usize::MAX, 2, 1.0).is_err());
     assert!(neural::try_run_tiled(&model, &mut rgb, 1, 1, f32::NAN).is_err());
-    assert!(neural::install_local(spec, b"not ONNX").is_err());
-    assert!(neural::install_local(neural::spec("detail").unwrap(), SCALE).is_err());
     assert_eq!(rgb, vec![0.5; 3]);
 }

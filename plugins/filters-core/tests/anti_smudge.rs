@@ -20,7 +20,6 @@ fn anti_smudge_uses_the_embedded_model_without_an_external_install() {
     ));
     assert_eq!(schist_neural::installed_size(spec), Some(spec.bytes as u64));
     assert!(schist_neural::install(spec, b"corrupt download").is_err());
-    assert!(schist_neural::install_local(spec, b"external replacement").is_err());
     assert!(schist_neural::uninstall(spec).is_err());
 
     let mut registry = PluginRegistry::default();

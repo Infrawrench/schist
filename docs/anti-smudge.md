@@ -326,7 +326,7 @@ Calibration trains one scalar; it does not retrain the frozen Uformer. If it
 does not improve validation, the tool explicitly records `accepted: false` and
 retains the published model. The report records source hashes, validation crops,
 the learned and selected strengths, and the final model hash. The ONNX file is
-about 86 MB; local model imports accept up to 128 MiB.
+about 86 MB and can be evaluated with `make run-anti-smudge`.
 
 In the 2026-09-25 CPU experiments, the residual CNN and 1,600-step pyramid run
 changed clean images too much. A 1,000-step output-layer fine-tune also lost to
@@ -372,7 +372,7 @@ alpha and apply no partial result if inference fails.
 ## Validation
 
 Run `make check-anti-smudge` for synthesis, export parity, tile seam, failure
-atomicity, archive integrity, embedded loading, import and filter tests.
+atomicity, archive integrity, embedded loading and filter tests.
 `make check-anti-smudge-app` checks editor integration. Pixel tests use tiny
 arithmetic ONNX fixtures; a separate test loads the actual compressed model
 with deliberately invalid external model files to verify built-in loading.
