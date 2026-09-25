@@ -177,7 +177,7 @@ check-app-web:
 
 .PHONY: test-backers
 test-backers:
-	$(CARGO) test -p schist-editor --lib backers::tests
+	$(CARGO) test -p schist-editor --lib backers::
 
 .PHONY: test-new-doc-clipboard
 test-new-doc-clipboard:

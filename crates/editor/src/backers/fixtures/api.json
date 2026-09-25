@@ -1,0 +1,62 @@
+{
+  "project": "Schist",
+  "tiers": [
+    {
+      "id": "platinum",
+      "name": "Platinum",
+      "color": "#7779bc",
+      "price": 5000,
+      "benefits": [
+        "Featured placement on the website",
+        "Large logo in the README",
+        "Everything in Gold"
+      ],
+      "description": "For brands making a lasting impact."
+    },
+    {
+      "id": "gold",
+      "name": "Gold",
+      "color": "#cba347",
+      "price": 100,
+      "benefits": [
+        "Logo on the project website",
+        "Medium logo in the README",
+        "Everything in Silver"
+      ],
+      "description": "A bigger part of something good."
+    },
+    {
+      "id": "silver",
+      "name": "Silver",
+      "color": "#8394a8",
+      "price": 50,
+      "benefits": [
+        "Logo on the project website",
+        "Small logo in the README",
+        "Backer badge"
+      ],
+      "description": "A meaningful way to give back."
+    },
+    {
+      "id": "bronze",
+      "name": "Bronze",
+      "color": "#b98160",
+      "price": 10,
+      "benefits": [
+        "Name on the project website",
+        "Name in the README",
+        "Our endless appreciation"
+      ],
+      "description": "Small contributions. Real progress."
+    }
+  ],
+  "backers": [
+    {
+      "name": "LeanerCloud",
+      "website": "https://leanercloud.com",
+      "tier": "gold",
+      "logoLight": "https://backers.schist.app/api/logos/1070272e-84cb-4a8d-8b8d-3976fbf81d88/light",
+      "logoDark": "https://backers.schist.app/api/logos/1070272e-84cb-4a8d-8b8d-3976fbf81d88/dark"
+    }
+  ]
+}

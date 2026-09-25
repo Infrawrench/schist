@@ -28,18 +28,19 @@ See the platform guides below for their requirements and differences.
 
 Thanks to the people and brands supporting Schist.
 
-The app's **💜 Support Schist** dialog embeds [backers.json](backers.json).
-The backer updater can replace this file: `support_url` is the support page,
-and `tiers` is an ordered list of `{name, backers}` groups. Each backer has a
-`name`, an optional website `url`, and an optional `logo` with a `light` URL,
-an optional `dark` URL, and a display `width` (defaults to 120 pixels).
-Tier and backer names are displayed as supplied; empty tiers are hidden.
+The app's **💜 Support Schist** dialog uses
+[the backers API](https://backers.schist.app/api/backers). The editor's
+`build.rs` fetches the response, groups backers in the API's tier order,
+and generates `backers.json` in Cargo's build output directory. It also
+downloads the light and dark logos and embeds everything, so the dialog
+works offline on every platform. No backer or logo requests are made while
+the app runs, and builds do not modify the source tree.
 
-The editor's `build.rs` downloads the logos and embeds them, so this dialog
-works offline on every platform. Downloads are cached by URL in Cargo's
-build output; a clean build needs network access. Use versioned logo URLs
-when artwork changes, or `SCHIST_REFRESH_BACKER_LOGOS=1 make app` to refresh
-the cache. No backer or logo requests are made while the app runs.
+The generated catalog and logos are cached in Cargo's build output; a clean
+build needs network access. Run `SCHIST_REFRESH_BACKERS=1 make app` to
+refresh both the catalog and its logos (unset the variable between refreshes
+so Cargo notices the next change). Tier and backer names are displayed as
+supplied; empty tiers are hidden, and backers without logos appear by name.
 
 ## Build and run
 
