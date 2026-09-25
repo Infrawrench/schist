@@ -26,7 +26,7 @@ fn main() -> Result<()> {
     let catalog_path = out.join("backers.json");
     let cache = out.join("backer-logos");
     fs::create_dir_all(&cache)?;
-    let refresh = env::var("SCHIST_REFRESH_BACKERS").as_deref() == Ok("1");
+    let refresh = env::var_os("SCHIST_REFRESH_BACKERS").is_some();
     let agent = ureq::Agent::new_with_config(
         ureq::Agent::config_builder()
             .timeout_global(Some(Duration::from_secs(30)))

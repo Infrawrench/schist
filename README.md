@@ -37,10 +37,11 @@ works offline on every platform. No backer or logo requests are made while
 the app runs, and builds do not modify the source tree.
 
 The generated catalog and logos are cached in Cargo's build output; a clean
-build needs network access. Run `SCHIST_REFRESH_BACKERS=1 make app` to
-refresh both the catalog and its logos (unset the variable between refreshes
-so Cargo notices the next change). Tier and backer names are displayed as
-supplied; empty tiers are hidden, and backers without logos appear by name.
+build needs network access. Run
+`SCHIST_REFRESH_BACKERS="$(date +%s)" make app` to refresh both the catalog
+and its logos. A new value makes Cargo rerun the build script even when the
+app is otherwise up to date. Tier and backer names are displayed as supplied;
+empty tiers are hidden, and backers without logos appear by name.
 
 ## Build and run
 
