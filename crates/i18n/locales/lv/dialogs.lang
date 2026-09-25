@@ -245,3 +245,7 @@ dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Mainīt…
 dialog.new_doc.from_clipboard = No starpliktuves
 dialog.new_doc.from_image_url = No attēla URL
+
+# Backers
+dialog.support.title = Atbalstīt Schist
+dialog.support.thanks = Paldies cilvēkiem un zīmoliem, kas atbalsta Schist.

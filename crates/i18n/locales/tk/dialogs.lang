@@ -238,3 +238,7 @@ dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Üýtgetmek…
 dialog.new_doc.from_clipboard = Alyş-çalyş buferinden
 dialog.new_doc.from_image_url = Surat URL-den
+
+# Backers
+dialog.support.title = Schist-i goldaň
+dialog.support.thanks = Schist-i goldaýan adamlara we markalara sag bolsun aýdýarys.

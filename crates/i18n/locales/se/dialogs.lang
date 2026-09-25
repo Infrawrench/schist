@@ -234,3 +234,7 @@ dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Rievdat…
 dialog.new_doc.from_clipboard = Čuohpusgirjjis
 dialog.new_doc.from_image_url = Gova URL-čujuhusas
+
+# Backers
+dialog.support.title = Doarjjo Schist
+dialog.support.thanks = Giitu olbmuide ja fitnodagaide mat dorjot Schist.

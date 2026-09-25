@@ -245,3 +245,7 @@ dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Canza…
 dialog.new_doc.from_clipboard = Daga allon kwafi
 dialog.new_doc.from_image_url = Daga URL na hoto
+
+# Backers
+dialog.support.title = Tallafa wa Schist
+dialog.support.thanks = Godiya ga mutane da kamfanonin da ke tallafa wa Schist.

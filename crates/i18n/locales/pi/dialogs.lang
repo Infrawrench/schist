@@ -207,3 +207,7 @@ dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Parivattetha…
 dialog.new_doc.from_clipboard = Lekhaphalakato
 dialog.new_doc.from_image_url = Cittassa URL to
+
+# Backers
+dialog.support.title = Schist upatthambhetha
+dialog.support.thanks = Schist upatthambhentānaṃ janānañca vāṇijasaṅghānañca añjali.

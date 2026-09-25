@@ -238,3 +238,7 @@ dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Badilisha…
 dialog.new_doc.from_clipboard = Kutoka kwenye ubao wa kunakili
 dialog.new_doc.from_image_url = Kutoka URL ya picha
+
+# Backers
+dialog.support.title = Saidia Schist
+dialog.support.thanks = Asante kwa watu na chapa zinazosaidia Schist.

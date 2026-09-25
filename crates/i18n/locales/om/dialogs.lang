@@ -215,3 +215,7 @@ dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Jijjiiri…
 dialog.new_doc.from_clipboard = Gabatee waraabbii irraa
 dialog.new_doc.from_image_url = URL suuraa irraa
+
+# Backers
+dialog.support.title = Schist deeggaraa
+dialog.support.thanks = Namootaa fi dhaabbilee Schist deeggaran galateeffanna.

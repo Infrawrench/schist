@@ -28,6 +28,23 @@ See the platform guides below for their requirements and differences.
 
 Thanks to the people and brands supporting Schist.
 
+The app's **💜 Support Schist** dialog uses
+[the backers API](https://backers.schist.app/api/backers). The editor's
+`build.rs` fetches the response, groups backers in the API's tier order,
+and generates `backers.json` in Cargo's build output directory. It also
+downloads the light and dark logos and embeds everything, so the dialog
+works offline on every platform. No backer or logo requests are made while
+the app runs, and builds do not modify the source tree.
+
+The generated catalog and logos are cached in Cargo's build output; a clean
+build needs network access. Run
+`SCHIST_REFRESH_BACKERS="$(date +%s)" make app` to refresh both the catalog
+and its logos. A new value makes Cargo rerun the build script even when the
+app is otherwise up to date. Release CI sets a unique value for each run and
+rerun so every release refreshes the catalog and logos, including cached builds.
+Tier and backer names are displayed as supplied;
+empty tiers are hidden, and backers without logos appear by name.
+
 ## Build and run
 
 Install stable Rust through `rustup`, GNU Make, and your platform's native

@@ -444,6 +444,7 @@ pub fn tray(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElement
         )
         // Touch pinches the grid instead (see `grid_frame`).
         .children((!crate::ui::touch()).then(|| size_slider(ratio, cx)))
+        .child(crate::panels::support_link(cx))
 }
 
 impl Workspace {

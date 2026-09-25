@@ -207,3 +207,7 @@ dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Muta…
 dialog.new_doc.from_clipboard = Ex tabula excerptorum
 dialog.new_doc.from_image_url = Ex URL imaginis
+
+# Backers
+dialog.support.title = Schist sustine
+dialog.support.thanks = Gratias agimus hominibus et societatibus quae Schist sustinent.

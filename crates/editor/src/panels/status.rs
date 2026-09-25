@@ -3,7 +3,25 @@
 use super::*;
 use schist_i18n::{t, tf};
 
-pub fn status_bar(ws: &Workspace) -> impl IntoElement {
+pub fn support_link(cx: &mut Context<Workspace>) -> impl IntoElement {
+    div()
+        .id("support-schist")
+        .flex()
+        .items_center()
+        .gap_1()
+        .flex_none()
+        .cursor_pointer()
+        .text_size(px(ui::metrics().small_text))
+        .text_color(gpui::rgb(palette().accent))
+        .hover(|style| style.text_color(gpui::rgb(palette().accent_hover)))
+        // The browser fonts do not contain emoji. Draw the purple heart
+        // as an icon so the support control looks the same on every target.
+        .child(schist_ui::icon("heart", 14.0, 0xA855F7))
+        .child(t("dialog.support.title"))
+        .on_click(cx.listener(|ws, _, _, cx| ws.open_modal(Modal::Support, cx)))
+}
+
+pub fn status_bar(ws: &Workspace, cx: &mut Context<Workspace>) -> impl IntoElement {
     let title = ws
         .doc
         .as_ref()
@@ -41,7 +59,7 @@ pub fn status_bar(ws: &Workspace) -> impl IntoElement {
         .border_color(gpui::rgb(palette().panel_edge))
         .text_size(px(m.small_text))
         .text_color(gpui::rgb(palette().text_dim))
-        .child(title)
+        .child(div().min_w(px(0.0)).truncate().child(title))
         .child(zoom)
         .child(brush)
         .child(if ws.action_recorder.recording {
@@ -50,7 +68,8 @@ pub fn status_bar(ws: &Workspace) -> impl IntoElement {
             ""
         })
         .child(div().flex_grow())
-        .child(ws.status.clone())
+        .child(div().min_w(px(0.0)).truncate().child(ws.status.clone()))
+        .child(support_link(cx))
 }
 
 // ===== context menus =====

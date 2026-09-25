@@ -230,3 +230,7 @@ dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Verangere…
 dialog.new_doc.from_clipboard = Oet ’t klembord
 dialog.new_doc.from_image_url = Oet ’n aafbeildings-URL
+
+# Backers
+dialog.support.title = Sjteun Schist
+dialog.support.thanks = Bedank aan de luuj en merke die Schist sjteune.

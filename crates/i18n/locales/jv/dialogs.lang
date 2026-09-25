@@ -208,3 +208,7 @@ dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Ganti…
 dialog.new_doc.from_clipboard = Saka papan klip
 dialog.new_doc.from_image_url = Saka URL gambar
+
+# Backers
+dialog.support.title = Dhukung Schist
+dialog.support.thanks = Matur nuwun marang wong lan merek sing ndhukung Schist.

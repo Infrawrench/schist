@@ -232,3 +232,7 @@ dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = შეცვლა…
 dialog.new_doc.from_clipboard = გაცვლის ბუფერიდან
 dialog.new_doc.from_image_url = სურათის URL-დან
+
+# Backers
+dialog.support.title = მხარი დაუჭირეთ Schist-ს
+dialog.support.thanks = მადლობა ადამიანებსა და ბრენდებს, რომლებიც მხარს უჭერენ Schist-ს.

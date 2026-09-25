@@ -258,3 +258,7 @@ dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Tjhugulula…
 dialog.new_doc.from_clipboard = Kubhodi yokukopa
 dialog.new_doc.from_image_url = Ku-URL yesithombe
+
+# Backers
+dialog.support.title = Sekela i-Schist
+dialog.support.thanks = Sithokoza abantu namabhizinisi asekela i-Schist.

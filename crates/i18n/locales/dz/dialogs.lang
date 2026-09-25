@@ -207,3 +207,7 @@ dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = སྒྱུར་…
 dialog.new_doc.from_clipboard = འདྲ་བཤུས་པང་ལས།
 dialog.new_doc.from_image_url = པར་གྱི་ URL ལས།
+
+# Backers
+dialog.support.title = Schist ལུ་རྒྱབ་སྐྱོར་མཛད།
+dialog.support.thanks = Schist ལུ་རྒྱབ་སྐྱོར་མཛད་མི་མི་ངོམ་དང་ཚོང་ལས་ཚུ་ལུ་བཀྲིན་ཆེ།

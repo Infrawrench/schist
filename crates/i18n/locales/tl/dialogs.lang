@@ -215,3 +215,7 @@ dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Baguhin…
 dialog.new_doc.from_clipboard = Mula sa Clipboard
 dialog.new_doc.from_image_url = Mula sa URL ng Larawan
+
+# Backers
+dialog.support.title = Suportahan ang Schist
+dialog.support.thanks = Salamat sa mga tao at tatak na sumusuporta sa Schist.

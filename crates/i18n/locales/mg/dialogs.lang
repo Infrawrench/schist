@@ -215,3 +215,7 @@ dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Ovao…
 dialog.new_doc.from_clipboard = Avy amin’ny solaitrabe
 dialog.new_doc.from_image_url = Avy amin’ny URL-n’ny sary
+
+# Backers
+dialog.support.title = Tohano ny Schist
+dialog.support.thanks = Misaotra ny olona sy ny orinasa manohana ny Schist.

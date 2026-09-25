@@ -215,3 +215,7 @@ dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Kyusa…
 dialog.new_doc.from_clipboard = Okuva ku clipboard
 dialog.new_doc.from_image_url = Okuva ku URL y’ekifaananyi
+
+# Backers
+dialog.support.title = Wagira Schist
+dialog.support.thanks = Twebaza abantu ne kampuni eziwagira Schist.

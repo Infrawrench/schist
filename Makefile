@@ -175,6 +175,10 @@ lint-app:
 check-app-web:
 	$(CARGO) check -p schist-app --target wasm32-unknown-unknown
 
+.PHONY: test-backers
+test-backers:
+	$(CARGO) test -p schist-editor --lib backers::
+
 .PHONY: test-new-doc-clipboard
 test-new-doc-clipboard:
 	$(CARGO) test -p schist-app-platform --lib clipboard::tests

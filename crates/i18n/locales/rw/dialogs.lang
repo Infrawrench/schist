@@ -223,3 +223,7 @@ dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Guhindura…
 dialog.new_doc.from_clipboard = Bivuye mu bubiko bw’ibyandukuwe
 dialog.new_doc.from_image_url = Bivuye kuri URL y’ishusho
+
+# Backers
+dialog.support.title = Shyigikira Schist
+dialog.support.thanks = Turashimira abantu n’ibigo bishyigikira Schist.

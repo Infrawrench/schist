@@ -238,3 +238,7 @@ dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Shandula…
 dialog.new_doc.from_clipboard = U bva kha clipboard
 dialog.new_doc.from_image_url = U bva kha URL ya tshifanyiso
+
+# Backers
+dialog.support.title = Tikedzani Schist
+dialog.support.thanks = Ri livhuwa vhathu na mabindu ane a tikedza Schist.

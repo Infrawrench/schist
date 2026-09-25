@@ -215,3 +215,7 @@ dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = ئۆزگەرتىش…
 dialog.new_doc.from_clipboard = چاپلاش تاختىسىدىن
 dialog.new_doc.from_image_url = رەسىم URL دىن
+
+# Backers
+dialog.support.title = Schist نى قوللاڭ
+dialog.support.thanks = Schist نى قوللىغان كىشىلەر ۋە ماركىلارغا رەھمەت.

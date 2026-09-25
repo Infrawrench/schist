@@ -30,6 +30,7 @@ macro_rules! icons {
 
 icons!(
     "loading",
+    "heart",
     "character",
     "type-align-left",
     "type-align-center",

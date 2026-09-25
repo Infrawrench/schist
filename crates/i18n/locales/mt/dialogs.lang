@@ -240,3 +240,7 @@ dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Ibdel…
 dialog.new_doc.from_clipboard = Mill-clipboard
 dialog.new_doc.from_image_url = Minn URL ta’ immaġni
+
+# Backers
+dialog.support.title = Appoġġja Schist
+dialog.support.thanks = Grazzi lin-nies u lill-marki li jappoġġjaw Schist.

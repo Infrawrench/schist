@@ -238,3 +238,7 @@ dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Endre …
 dialog.new_doc.from_clipboard = Frå utklippstavla
 dialog.new_doc.from_image_url = Frå bilet-URL
+
+# Backers
+dialog.support.title = Støtt Schist
+dialog.support.thanks = Takk til personane og merkevarene som støttar Schist.

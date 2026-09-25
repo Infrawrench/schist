@@ -972,7 +972,7 @@ impl Render for Workspace {
             .children(editor_chrome.then(|| panels::tool_options_bar(self, window, cx)))
             .children(editor_chrome.then(|| panels::tab_bar(self, cx)))
             .child(body)
-            .children(editor_chrome.then(|| panels::status_bar(self)))
+            .children(editor_chrome.then(|| panels::status_bar(self, cx)))
             .children(tool_flyout)
             .children(context_menu)
             // A dialog's overlay is absolute, so the root's inset padding

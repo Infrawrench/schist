@@ -933,6 +933,7 @@ impl Workspace {
             // may legitimately be zero.
             | Modal::ColorPicker { .. }
             | Modal::PluginManager
+            | Modal::Support
             | Modal::Preferences
             | Modal::Export { .. }
             | Modal::Printing { .. }

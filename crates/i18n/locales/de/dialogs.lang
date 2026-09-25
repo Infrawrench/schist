@@ -266,3 +266,7 @@ dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Ändern…
 dialog.new_doc.from_clipboard = Aus Zwischenablage
 dialog.new_doc.from_image_url = Aus Bild-URL
+
+# Backers
+dialog.support.title = Schist unterstützen
+dialog.support.thanks = Vielen Dank an alle Menschen und Marken, die Schist unterstützen.

@@ -215,3 +215,7 @@ dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Tshintsha…
 dialog.new_doc.from_clipboard = Kwibhodi eqhotyoshwayo
 dialog.new_doc.from_image_url = Kwi-URL yomfanekiso
+
+# Backers
+dialog.support.title = Xhasa i-Schist
+dialog.support.thanks = Siyabulela kubantu nakwiinkampani ezixhasa i-Schist.

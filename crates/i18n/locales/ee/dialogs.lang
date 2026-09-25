@@ -230,3 +230,7 @@ dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Trɔ…
 dialog.new_doc.from_clipboard = Tso clipboard me
 dialog.new_doc.from_image_url = Tso nɔnɔmetata ƒe URL me
+
+# Backers
+dialog.support.title = Kpe ɖe Schist ŋu
+dialog.support.thanks = Akpe na amewo kple dɔwɔƒewo siwo le kpekpem ɖe Schist ŋu.

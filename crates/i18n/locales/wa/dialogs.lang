@@ -215,3 +215,7 @@ dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Candjî…
 dialog.new_doc.from_clipboard = Do presse-papî
 dialog.new_doc.from_image_url = D’ ene URL d’ imådje
+
+# Backers
+dialog.support.title = Sopoirtez Schist
+dialog.support.thanks = Mèrci ås djins et ås markes ki sopoirtnut Schist.

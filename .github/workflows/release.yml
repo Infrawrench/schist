@@ -23,6 +23,9 @@ jobs:
             artifact: schist-windows-x86_64
     runs-on: ${{ matrix.os }}
     env:
+      # Refresh the embedded catalog and logos for every release run and rerun,
+      # even when Cargo restores cached build output.
+      SCHIST_REFRESH_BACKERS: ${{ github.run_id }}-${{ github.run_attempt }}
       # Compiled into the app by crates/app-services/src/crash.rs. In a fork, or any
       # repository without the secret, this arrives as an empty string --
       # which that code reads as "no DSN", so the build still succeeds and

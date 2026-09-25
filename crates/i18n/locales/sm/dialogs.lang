@@ -207,3 +207,7 @@ dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Sui…
 dialog.new_doc.from_clipboard = Mai le laupapa kopi
 dialog.new_doc.from_image_url = Mai le URL o le ata
+
+# Backers
+dialog.support.title = Lagolago Schist
+dialog.support.thanks = Faafetai i tagata ma kamupani o loo lagolagoina Schist.

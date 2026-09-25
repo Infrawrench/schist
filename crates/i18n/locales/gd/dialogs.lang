@@ -231,3 +231,7 @@ dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Atharraich…
 dialog.new_doc.from_clipboard = Bhon bhòrd-chliopaichean
 dialog.new_doc.from_image_url = Bho URL deilbh
+
+# Backers
+dialog.support.title = Cuir taic ri Schist
+dialog.support.thanks = Taing dha na daoine agus na suaicheantasan a tha a’ toirt taic do Schist.
