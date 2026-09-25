@@ -40,7 +40,9 @@ The generated catalog and logos are cached in Cargo's build output; a clean
 build needs network access. Run
 `SCHIST_REFRESH_BACKERS="$(date +%s)" make app` to refresh both the catalog
 and its logos. A new value makes Cargo rerun the build script even when the
-app is otherwise up to date. Tier and backer names are displayed as supplied;
+app is otherwise up to date. Release CI sets a unique value for each run and
+rerun so every release refreshes the catalog and logos, including cached builds.
+Tier and backer names are displayed as supplied;
 empty tiers are hidden, and backers without logos appear by name.
 
 ## Build and run
