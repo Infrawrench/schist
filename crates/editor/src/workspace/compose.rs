@@ -59,19 +59,7 @@ impl Workspace {
         span.intersect(&canvas_rect)
     }
 
-    /// Assemble everything visible into one BGRA image the size of the
-    /// canvas element, resampling on the way.
-    ///
-    /// Integer zooms stay nearest-neighbour so pixels stay crisp (what an
-    /// image editor wants); fractional and rotated views interpolate, and
-    /// zooming out averages the whole pixel footprint to damp aliasing.
-    /// Transparency is checkered at a fixed *screen* size, like Photoshop.
-    pub(super) fn assemble_viewport(
-        &mut self,
-        bounds: Bounds<Pixels>,
-        scale_factor: f32,
-        _cx: &mut Context<Self>,
-    ) -> Option<Arc<RenderImage>> {
+    fn viewport_key(&self, bounds: Bounds<Pixels>, scale_factor: f32) -> Option<ViewportKey> {
         let sf = scale_factor.max(0.01);
         let width = (f32::from(bounds.size.width) * sf).round().max(1.0) as usize;
         let height = (f32::from(bounds.size.height) * sf).round().max(1.0) as usize;
@@ -80,21 +68,36 @@ impl Workspace {
             return None;
         }
         let doc = self.doc.as_ref()?;
-        let revision = doc.revision;
-        let canvas_rect = doc.canvas_rect();
-        let key = ViewportKey {
-            revision,
+        Some(ViewportKey {
+            revision: doc.revision,
             zoom: self.zoom.to_bits(),
             offset: (
-                (f32::from(self.offset.x) * sf).round() as i32,
-                (f32::from(self.offset.y) * sf).round() as i32,
+                (f32::from(self.offset.x) * sf).to_bits(),
+                (f32::from(self.offset.y) * sf).to_bits(),
             ),
+            scale_factor: sf.to_bits(),
             size: (width as u32, height as u32),
             color_epoch: self.color_epoch,
             rotation: self.rotation.to_bits(),
             surround: crate::ui::palette().canvas_bg,
             seamless: self.editor.seamless_painting,
-        };
+        })
+    }
+
+    /// Assemble the visible tiles into one resampled, checkered BGRA image.
+    /// While a browser GPU frame is pending, return the cached image positioned
+    /// at the current zoom and pan, including after the gesture has ended.
+    pub(super) fn assemble_viewport(
+        &mut self,
+        bounds: Bounds<Pixels>,
+        scale_factor: f32,
+        _cx: &mut Context<Self>,
+    ) -> Option<(Bounds<Pixels>, Arc<RenderImage>)> {
+        let key = self.viewport_key(bounds, scale_factor)?;
+        let sf = f32::from_bits(key.scale_factor);
+        let (width, height) = (key.size.0 as usize, key.size.1 as usize);
+        let doc = self.doc.as_ref()?;
+        let canvas_rect = doc.canvas_rect();
         // Even a cache hit or an empty view supersedes an in-flight frame.
         #[cfg(target_arch = "wasm32")]
         {
@@ -102,13 +105,13 @@ impl Workspace {
         }
         if let Some((cached_key, image)) = &self.viewport_image {
             if *cached_key == key {
-                return Some(image.clone());
+                return Some((bounds, image.clone()));
             }
         }
 
         // Which document pixels can land on screen?
         let zoom = self.zoom;
-        let origin = (f32::from(self.offset.x) * sf, f32::from(self.offset.y) * sf);
+        let origin = (f32::from_bits(key.offset.0), f32::from_bits(key.offset.1));
         let regions = if key.seamless {
             let span = self.visible_doc_rect(
                 width,
@@ -129,7 +132,7 @@ impl Workspace {
             if let Some((_, old)) = self.viewport_image.replace((key, img.clone())) {
                 self.retired_images.push(old);
             }
-            return Some(img);
+            return Some((bounds, img));
         }
 
         // Composite the visible tiles, then index them by grid position so
@@ -151,7 +154,7 @@ impl Workspace {
         coords.dedup();
         #[cfg(target_arch = "wasm32")]
         if !key.seamless && self.queue_browser_viewport(key, visible, &coords, sf, _cx) {
-            return self.viewport_image.as_ref().map(|(_, image)| image.clone());
+            return self.cached_viewport_quad(bounds, key);
         }
         let mut grid: Vec<Option<Arc<Vec<u8>>>> = vec![None; slots];
         if let Some(doc) = self.doc.as_ref() {
@@ -199,7 +202,7 @@ impl Workspace {
         if let Some((_, old)) = self.viewport_image.replace((key, img.clone())) {
             self.retired_images.push(old);
         }
-        Some(img)
+        Some((bounds, img))
     }
 
     /// Mid-gesture stand-in for `assemble_viewport`: the previous frame's
@@ -207,13 +210,7 @@ impl Workspace {
     /// on its GPU. Resampling the document and uploading a fresh
     /// full-viewport texture on every wheel tick is what made zooming lag;
     /// a slightly soft frame is invisible while the view is in motion, and
-    /// the settle timer rebuilds it crisp the moment the hand stops.
-    ///
-    /// Old and new transforms share the rotation about the viewport
-    /// centre, and uniform scaling commutes with rotation, so old-screen
-    /// to new-screen composes to scale-plus-translate:
-    /// `s1 = k*s0 + (1-k)*c + R((k-1)*c - k*o0 + o1)`. One axis-aligned
-    /// quad is therefore exact even for a turned view.
+    /// the settle timer requests a crisp replacement when the hand stops.
     pub(super) fn gesture_viewport_quad(
         &self,
         bounds: Bounds<Pixels>,
@@ -222,48 +219,33 @@ impl Workspace {
         if !self.view_gesture_active {
             return None;
         }
+        let requested = self.viewport_key(bounds, scale_factor)?;
+        // Edits still need a new frame even during a gesture.
+        if self.viewport_image.as_ref()?.0.revision != requested.revision {
+            return None;
+        }
+        self.cached_viewport_quad(bounds, requested)
+    }
+
+    fn cached_viewport_quad(
+        &self,
+        bounds: Bounds<Pixels>,
+        requested: ViewportKey,
+    ) -> Option<(Bounds<Pixels>, Arc<RenderImage>)> {
         let (key, image) = self.viewport_image.as_ref()?;
-        let doc = self.doc.as_ref()?;
-        let sf = scale_factor.max(0.01);
-        let width = (f32::from(bounds.size.width) * sf).round().max(1.0) as u32;
-        let height = (f32::from(bounds.size.height) * sf).round().max(1.0) as u32;
-        // Reuse is only sound when everything but zoom and pan matches
-        // what the image was built for.
-        if key.seamless != self.editor.seamless_painting
-            || key.revision != doc.revision
-            || key.size != (width, height)
-            || key.color_epoch != self.color_epoch
-            || key.rotation != self.rotation.to_bits()
-            || key.surround != crate::ui::palette().canvas_bg
-        {
-            return None;
-        }
-        let z0 = f32::from_bits(key.zoom);
-        if !z0.is_finite() || z0 <= 0.0 {
-            return None;
-        }
-        let k = self.zoom / z0;
-        let c = (
-            f32::from(bounds.size.width) / 2.0,
-            f32::from(bounds.size.height) / 2.0,
-        );
-        let o0 = (key.offset.0 as f32 / sf, key.offset.1 as f32 / sf);
-        let o1 = (f32::from(self.offset.x), f32::from(self.offset.y));
-        let (ux, uy) = (
-            (k - 1.0) * c.0 - k * o0.0 + o1.0,
-            (k - 1.0) * c.1 - k * o0.1 + o1.1,
-        );
-        let (rs, rc) = self.rotation.sin_cos();
+        let projection = key.reprojection_for(requested)?;
+        // Textures cover the logical bounds even when their device-pixel
+        // dimensions have been rounded. Use that same mapping for translation.
         let t = (
-            (1.0 - k) * c.0 + ux * rc - uy * rs,
-            (1.0 - k) * c.1 + ux * rs + uy * rc,
+            projection.translation.0 * f32::from(bounds.size.width) / key.size.0 as f32,
+            projection.translation.1 * f32::from(bounds.size.height) / key.size.1 as f32,
         );
         Some((
             Bounds {
                 origin: point(bounds.origin.x + px(t.0), bounds.origin.y + px(t.1)),
                 size: size(
-                    px(f32::from(bounds.size.width) * k),
-                    px(f32::from(bounds.size.height) * k),
+                    px(f32::from(bounds.size.width) * projection.scale),
+                    px(f32::from(bounds.size.height) * projection.scale),
                 ),
             },
             image.clone(),

@@ -178,10 +178,11 @@ impl Workspace {
             let h = (f32::from(bounds.size.height) * sf).round().max(1.0) as usize;
             let visible = self.visible_doc_rect(w, h, sf, canvas_rect);
             self.rebuild_prefetch_queue(canvas_rect, visible, true);
-        } else if let Some(img) = self.assemble_viewport(bounds, scale_factor, cx) {
-            // One image covering the whole canvas element, already
-            // resampled and checkered, so there are no tile edges to seam.
-            job.tiles.push((bounds, img));
+        } else if let Some(quad) = self.assemble_viewport(bounds, scale_factor, cx) {
+            // A pending browser frame keeps the old texture at the current
+            // transform. Its edges can expose surround after zooming out.
+            job.backdrop = Some((bounds, gpui::rgb(crate::ui::palette().canvas_bg).into()));
+            job.tiles.push(quad);
         }
 
         job.retired.extend(std::mem::take(&mut self.retired_images));
