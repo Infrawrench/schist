@@ -1,8 +1,8 @@
 # English fallback pending translation.
-photo_merge_advanced.projective = Perspective alignment (includes rotation)
-photo_merge_advanced.cylindrical = Cylindrical panorama
-photo_merge_advanced.deghost = Remove moving-subject ghosts (first photo reference)
-photo_merge_advanced.focal = Focal length (px) / image width (px)
-photo_merge_advanced.masks = Focus output uses editable layer masks. Select a mask in Layers and paint to refine.
-photo_merge_advanced.no_match = No reliable alignment found. Use textured photos with substantial overlap and modest viewpoint changes.
-photo_merge_advanced.invalid = Invalid source images or merge settings.
+photo_merge_advanced.projective = Perspectiva nisqaman hina alineación (muyuchiywan kuska)
+photo_merge_advanced.cylindrical = Cilindro rikch’aq panorama
+photo_merge_advanced.deghost = Kuyuq imakunapa qhipa rikch’ayninta qulluy (ñawpaq fotota rikch’anachiy)
+photo_merge_advanced.focal = Enfoquepa karun kaynin (px) / rikch’aypa anchun (px)
+photo_merge_advanced.masks = Enfoque huñuypa lluqsiyninqa allichanapaq capa mascarakunata llamk’achin. Capakunapi huk mascarata akllay, chaymanta allichanapaq llinp’iy.
+photo_merge_advanced.no_match = Mana confiable alineación tarikunchu. Sut’i detalliyuq fotokunata, achka tupanakuq partiyuqta, hinaspa uchuylla perspectiva tikrayniyuqta llamk’achiy.
+photo_merge_advanced.invalid = Qallariy rikch’aykuna utaq huñuna churaykuna mana allinchu.

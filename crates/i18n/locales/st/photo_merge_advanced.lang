@@ -1,8 +1,7 @@
-# English fallback pending translation.
-photo_merge_advanced.projective = Perspective alignment (includes rotation)
-photo_merge_advanced.cylindrical = Cylindrical panorama
-photo_merge_advanced.deghost = Remove moving-subject ghosts (first photo reference)
-photo_merge_advanced.focal = Focal length (px) / image width (px)
-photo_merge_advanced.masks = Focus output uses editable layer masks. Select a mask in Layers and paint to refine.
-photo_merge_advanced.no_match = No reliable alignment found. Use textured photos with substantial overlap and modest viewpoint changes.
-photo_merge_advanced.invalid = Invalid source images or merge settings.
+photo_merge_advanced.projective = Ho nyalanya ka pono (ho kenyeletsa ho potoloha)
+photo_merge_advanced.cylindrical = Panorama ea selindara
+photo_merge_advanced.deghost = Tlosa meriti ea lintho tse sisinyehang (setšoantšo sa pele e le motheo)
+photo_merge_advanced.focal = Bolelele ba tsepamiso (px) / bophara ba setšoantšo (px)
+photo_merge_advanced.masks = Sephetho sa ho tsepamisa se sebelisa limaske tsa likarolo tse ka hlophisoang. Khetha maske ho Likarolo, ebe u penta ho lokisa.
+photo_merge_advanced.no_match = Ha ho nyalanyo e tšepahalang e fumanoeng. Sebelisa linepe tse nang le lintlha tse hlakileng, tse kopanang haholo, le liphetoho tse nyenyane tsa pono.
+photo_merge_advanced.invalid = Litšoantšo tsa mohloli kapa litlhophiso tsa ho kopanya ha lia nepahala.

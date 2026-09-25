@@ -1,7 +1,7 @@
-tool.transform.name = Free Transform
+tool.transform.name = Fetola ka kgololesego
 tool.transform.description = Free Transform. Fa e dirisiwa, e bula lebokoso la phetolo go dikologa llaga e e dirang: goga sekhutlo go fetola bogolo, goga kwa ntle ga sekhutlo go dikolosa, goga lotlhakore go sekamisa. Ga go kwalwe sepe go fitlha o netefatsa (Enter), mme go khansela (Escape) go busetsa llaga kwa e neng e le teng.
 tool.transform.option.interpolation = Interpolation
-tool.transform.history.transform = Free Transform
+tool.transform.history.transform = Fetola ka kgololesego
 tool.transform.history.image_size = Bogolo jwa Setshwantsho
 tool.transform.history.canvas_size = Bogolo jwa Canvas
 tool.transform.selection.name = Fetola Tlhopho

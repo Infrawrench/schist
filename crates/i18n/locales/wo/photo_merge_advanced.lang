@@ -1,8 +1,8 @@
-# English fallback pending translation.
-photo_merge_advanced.projective = Perspective alignment (includes rotation)
-photo_merge_advanced.cylindrical = Cylindrical panorama
-photo_merge_advanced.deghost = Remove moving-subject ghosts (first photo reference)
-photo_merge_advanced.focal = Focal length (px) / image width (px)
-photo_merge_advanced.masks = Focus output uses editable layer masks. Select a mask in Layers and paint to refine.
-photo_merge_advanced.no_match = No reliable alignment found. Use textured photos with substantial overlap and modest viewpoint changes.
-photo_merge_advanced.invalid = Invalid source images or merge settings.
+# Advanced photo merge.
+photo_merge_advanced.projective = Méngale perspektif bi (ak wëréelu)
+photo_merge_advanced.cylindrical = Panorama bu mel ni silindar
+photo_merge_advanced.deghost = Dindi nataal yu des ci mbir yiy dox (foto bu njëkk bi mooy dëggalukaay)
+photo_merge_advanced.focal = Guddaayu focal (px) / yaatuwaayu nataal bi (px)
+photo_merge_advanced.masks = Li focus bi génne day jëfandikoo maske couche yu ñu mëna soppi. Tànnal maske ci Couche yi te rëdd ci kawam ngir jubanti.
+photo_merge_advanced.no_match = Gisuñu méngale bu wóor. Jëfandikool foto yu am ay benn-benn yu leer, yu bokk barab bu yaatu te seen perspektif wuutewul lool.
+photo_merge_advanced.invalid = Nataal yu cosaan yi walla ayaru boole bi baaxul.

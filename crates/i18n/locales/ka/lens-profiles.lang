@@ -1,17 +1,16 @@
-# Lens profiles: English fallback pending translation review. No locale added.
-lens_profiles.invalid = Choose a valid Lensfun v1/v2 XML database (up to 8 MiB) with supported camera or lens data.
-lens_profiles.calibration = Lens calibration
-lens_profiles.no_calibration = No calibration covers these settings. Check focal length and camera crop factor; manual correction remains available.
-lens_profiles.import = Import Lensfun XML…
-lens_profiles.imported = Lensfun database imported for this session. Select a profile or match the photo metadata.
-lens_profiles.manual = Manual correction only
-lens_profiles.saved = Saved calibration (database unavailable)
-lens_profiles.profile = Lens profile
-lens_profiles.aperture = Aperture (0 = unknown)
-lens_profiles.distance = Focus distance (0 = unknown)
-lens_profiles.vignette = Calibrated vignetting
-lens_profiles.color_context = Calibrated vignetting requires the built-in sRGB profile. Convert to sRGB to preserve appearance, then reopen Lens Correction. For already-sRGB untagged pixels, assigning sRGB is sufficient. Geometry and chromatic correction remain available.
-lens_profiles.vignette_missing = No vignetting calibration covers the aperture and focus distance. Enter measured values to enable it; 1000 m represents distant focus in many Lensfun profiles.
-lens_profiles.note = Calibrated correction runs before the manual controls. Use the original full frame; crop afterward. Save a filter stack in PSD/PSB to retain editable calibration.
-lens_profiles.automatic = Match photo metadata
-lens_profiles.components = Profile pass: distortion {distortion}; color fringes {tca}; vignetting {vignette}.
+lens_profiles.invalid = აირჩიეთ სწორი Lensfun v1/v2 XML მონაცემთა ბაზა (8 MiB-მდე) მხარდაჭერილი კამერის ან ლინზების მონაცემებით.
+lens_profiles.calibration = ლინზების კალიბრაცია
+lens_profiles.no_calibration = არანაირი კალიბრაცია არ მოიცავს ამ პარამეტრებს. შეამოწმეთ ფოკუსური მანძილი და კამერის ჩამოჭრის ფაქტორი; ხელით შესწორება რჩება ხელმისაწვდომი.
+lens_profiles.import = Lensfun XML-ის იმპორტი…
+lens_profiles.imported = Lensfun მონაცემთა ბაზა იმპორტირებულია ამ სესიისთვის. აირჩიეთ პროფილი ან ემთხვევა ფოტო მეტამონაცემებს.
+lens_profiles.manual = მხოლოდ ხელით შესწორება
+lens_profiles.saved = შენახული კალიბრაცია (მონაცემთა ბაზა მიუწვდომელია)
+lens_profiles.profile = ლინზის პროფილი
+lens_profiles.aperture = დიაფრაგმა (0 = უცნობი)
+lens_profiles.distance = ფოკუსირების მანძილი (0 = უცნობია)
+lens_profiles.vignette = კალიბრირებული ვინეტი
+lens_profiles.color_context = კალიბრირებული ვინეტინგისთვის საჭიროა ჩაშენებული sRGB პროფილი. კონვერტაცია sRGB-ზე გარეგნობის შესანარჩუნებლად, შემდეგ ხელახლა გახსენით ობიექტივის კორექცია. უკვე sRGB არატეგირებული პიქსელებისთვის საკმარისია sRGB მინიჭება. გეომეტრია და ქრომატული კორექტირება რჩება ხელმისაწვდომი.
+lens_profiles.vignette_missing = ვინეტინგის კალიბრაცია არ ფარავს დიაფრაგმასა და ფოკუსირების მანძილს. შეიყვანეთ გაზომილი მნიშვნელობები მის გასააქტიურებლად; 1000 მ წარმოადგენს შორეულ ფოკუსს Lensfun-ის ბევრ პროფილში.
+lens_profiles.note = კალიბრირებული შესწორება სრულდება ხელით მართვამდე. გამოიყენეთ სრული საწყისი კადრი; ამის შემდეგ ჩამოჭერით. რედაქტირებადი კალიბრაციის შესანარჩუნებლად შეინახეთ ფილტრების დასტა PSD/PSB ფორმატში.
+lens_profiles.automatic = ემთხვევა ფოტო მეტამონაცემებს
+lens_profiles.components = პროფილის გამოყენება: დამახინჯება {distortion}; ფერადი არშიები {tca}; ვინეტირება {vignette}.

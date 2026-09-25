@@ -1,8 +1,8 @@
-# Virtual copies. Explicit English fallback pending translation review.
-variants.create = Create virtual copy…
-variants.rename = Rename virtual copy…
-variants.delete = Delete virtual copy
-variants.close = Close this photo and its virtual copies before moving or deleting them.
-variants.saved_hint = The copy starts from the saved edit, or the original when there is no edit. Save pending changes first.
-variants.move_original = Move the original photo to move its virtual copies.
-variants.protected_export = Choose another destination. Gallery exports cannot replace the original or its edit storage.
+# Translation draft; review by a native speaker.
+variants.create = Tạo bản sao ảo…
+variants.rename = Đổi tên bản sao ảo…
+variants.delete = Xóa bản sao ảo
+variants.close = Đóng ảnh này và các bản sao ảo trước khi di chuyển hoặc xóa chúng.
+variants.saved_hint = Bản sao bắt đầu từ phiên bản đã lưu, hoặc từ ảnh gốc nếu chưa có chỉnh sửa. Hãy lưu các thay đổi đang chờ trước.
+variants.move_original = Di chuyển ảnh gốc để di chuyển các bản sao ảo của nó.
+variants.protected_export = Chọn đích khác. Bản xuất từ thư viện không thể thay thế ảnh gốc hoặc dữ liệu chỉnh sửa của ảnh.

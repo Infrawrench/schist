@@ -19,12 +19,12 @@ tool.clone.description = Kashe yo gukopa: kanda ufise Alt kugira ushinge akadomo
 tool.clone.history.stroke = Kashe yo gukopa
 
 # Dodge, Burn, Sponge
-tool.dodge.name = Dodge
+tool.dodge.name = Kwongerereza umuco
 tool.dodge.description = Komeza umuco w'amapikisele umurongo ucako.
-tool.dodge.history.stroke = Dodge
-tool.burn.name = Burn
+tool.dodge.history.stroke = Kwongerereza umuco
+tool.burn.name = Kwijimisha
 tool.burn.description = Gabanya umuco w'amapikisele umurongo ucako.
-tool.burn.history.stroke = Burn
+tool.burn.history.stroke = Kwijimisha
 tool.sponge.name = Eponje
 tool.sponge.description = Kongera canke kugabanya ubukomezi bw'ibara ry'amapikisele umurongo ucako.
 tool.sponge.history.stroke = Eponje

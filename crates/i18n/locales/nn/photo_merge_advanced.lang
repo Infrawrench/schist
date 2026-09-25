@@ -1,8 +1,7 @@
-# English fallback pending translation.
-photo_merge_advanced.projective = Perspective alignment (includes rotation)
-photo_merge_advanced.cylindrical = Cylindrical panorama
-photo_merge_advanced.deghost = Remove moving-subject ghosts (first photo reference)
-photo_merge_advanced.focal = Focal length (px) / image width (px)
-photo_merge_advanced.masks = Focus output uses editable layer masks. Select a mask in Layers and paint to refine.
-photo_merge_advanced.no_match = No reliable alignment found. Use textured photos with substantial overlap and modest viewpoint changes.
-photo_merge_advanced.invalid = Invalid source images or merge settings.
+photo_merge_advanced.projective = Perspektivjustering (inkludert rotasjon)
+photo_merge_advanced.cylindrical = Sylindrisk panorama
+photo_merge_advanced.deghost = Fjern spor etter motiv i rørsle (første bilete som referanse)
+photo_merge_advanced.focal = Brennvidd (px) / biletbreidd (px)
+photo_merge_advanced.masks = Fokusresultatet brukar redigerbare lagmasker. Vel ei maske i Lag og måla for å finjustere.
+photo_merge_advanced.no_match = Fann inga påliteleg justering. Bruk bilete med tydelege detaljar, mykje overlapping og små endringar i synsvinkel.
+photo_merge_advanced.invalid = Ugyldige kjeldebilete eller innstillingar for samanslåing.

@@ -1,8 +1,8 @@
-# Virtual copies. Explicit English fallback pending translation review.
-variants.create = Create virtual copy…
-variants.rename = Rename virtual copy…
-variants.delete = Delete virtual copy
-variants.close = Close this photo and its virtual copies before moving or deleting them.
-variants.saved_hint = The copy starts from the saved edit, or the original when there is no edit. Save pending changes first.
-variants.move_original = Move the original photo to move its virtual copies.
-variants.protected_export = Choose another destination. Gallery exports cannot replace the original or its edit storage.
+# Translation draft; review by a native speaker.
+variants.create = שאַפֿן אַ ווירטועלן קאָפּיע…
+variants.rename = אומנעמען אַ ווירטועלן קאָפּיע…
+variants.delete = אויסמעקן אַ ווירטועלן קאָפּיע
+variants.close = מאַכט צו די פֿאָטאָ און אירע ווירטועלע קאָפּיעס איידער איר פֿאַרשיבט אָדער מעקט זיי אויס.
+variants.saved_hint = די קאָפּיע הייבט אָן פֿון דער געהיטער רעדאַקציע, אָדער פֿון דעם אָריגינאַל אויב ס׳איז נישטאָ קיין רעדאַקציע. היט ערשט די נאָך נישט געהיטע ענדערונגען.
+variants.move_original = כּדי צו פֿאַרשיבן אירע ווירטועלע קאָפּיעס, פֿאַרשיבט די אָריגינעלע פֿאָטאָ.
+variants.protected_export = קלײַבט אַן אַנדער ציל. אַן עקספּאָרט פֿון דער גאַלעריע קען נישט פֿאַרבײַטן דעם אָריגינאַל אָדער זײַן רעדאַקציע־סטאָרידזש.

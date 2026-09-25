@@ -7,7 +7,7 @@ filter.neural.param.eyes = Көздөр
 filter.neural.msg.using_model = {model} колдонулууда · {license}.
 filter.neural.msg.get_model = Аны Фильтр ▸ Neural Filters ▸ Моделдерди башкаруу бөлүмүнөн алыңыз.
 
-filter.camera_raw.name = Camera Raw Filter
+filter.camera_raw.name = Camera Raw чыпкасы
 filter.camera_raw.param.temperature = Температура
 filter.camera_raw.param.tint = Түс жылышы
 filter.camera_raw.param.highlights = Жарык жерлер

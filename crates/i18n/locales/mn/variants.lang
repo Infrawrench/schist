@@ -1,8 +1,7 @@
-# Virtual copies. Explicit English fallback pending translation review.
-variants.create = Create virtual copy…
-variants.rename = Rename virtual copy…
-variants.delete = Delete virtual copy
-variants.close = Close this photo and its virtual copies before moving or deleting them.
-variants.saved_hint = The copy starts from the saved edit, or the original when there is no edit. Save pending changes first.
-variants.move_original = Move the original photo to move its virtual copies.
-variants.protected_export = Choose another destination. Gallery exports cannot replace the original or its edit storage.
+variants.create = Виртуал хуулбар үүсгэх...
+variants.rename = Виртуал хуулбарын нэрийг өөрчлөх...
+variants.delete = Виртуал хуулбарыг устгах
+variants.close = Энэ зураг болон түүний виртуал хуулбарыг зөөх, устгахаас өмнө хаа.
+variants.saved_hint = Хуулбар нь хадгалсан засвараас, эсвэл засвар байхгүй үед эх хувь нь эхэлдэг. Эхлээд хүлээгдэж буй өөрчлөлтүүдийг хадгална уу.
+variants.move_original = Виртуал хуулбарыг нь зөөхийн тулд эх зургийг зөөнө үү.
+variants.protected_export = Өөр очих газар сонгоно уу. Галерейн экспорт нь эх эсвэл түүний засварлах санг орлож чадахгүй.

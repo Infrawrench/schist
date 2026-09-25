@@ -1,8 +1,8 @@
-# Virtual copies. Explicit English fallback pending translation review.
-variants.create = Create virtual copy…
-variants.rename = Rename virtual copy…
-variants.delete = Delete virtual copy
-variants.close = Close this photo and its virtual copies before moving or deleting them.
-variants.saved_hint = The copy starts from the saved edit, or the original when there is no edit. Save pending changes first.
-variants.move_original = Move the original photo to move its virtual copies.
-variants.protected_export = Choose another destination. Gallery exports cannot replace the original or its edit storage.
+# Virtual copies.
+variants.create = ভার্চুয়াল কপি তৈরি করুন...
+variants.rename = ভার্চুয়াল কপির নাম পরিবর্তন করুন...
+variants.delete = ভার্চুয়াল কপি মুছুন
+variants.close = এই ফটো এবং এর ভার্চুয়াল কপিগুলি সরানোর বা মুছে ফেলার আগে বন্ধ করুন৷
+variants.saved_hint = অনুলিপিটি সংরক্ষিত সম্পাদনা থেকে শুরু হয়, অথবা কোন সম্পাদনা না থাকলে আসলটি। প্রথমে মুলতুবি পরিবর্তনগুলি সংরক্ষণ করুন।
+variants.move_original = এর ভার্চুয়াল কপিগুলি সরাতে আসল ফটোটি সরান৷
+variants.protected_export = অন্য গন্তব্য চয়ন করুন. গ্যালারি রপ্তানি মূল বা এর সম্পাদনা সঞ্চয়স্থান প্রতিস্থাপন করতে পারে না।

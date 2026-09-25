@@ -9,7 +9,7 @@ filter.neural.msg.get_model = Xɔe le Dzraɖoƒe ▸ Neural Filters ▸ Dzra mod
 
 filter.camera_raw.name = Camera Raw Filter
 filter.camera_raw.param.temperature = Xɔxɔme
-filter.camera_raw.param.tint = Tint
+filter.camera_raw.param.tint = Amavie
 filter.camera_raw.param.highlights = Teƒe Kleŋkleŋwo
 filter.camera_raw.param.shadows = Vɔvɔliwo
 filter.camera_raw.param.whites = Ɣiwo
@@ -69,7 +69,7 @@ filter.deinterlace.param.field = Ɖe ɖa
 filter.deinterlace.choice.odd_fields = Field Mavɔwo
 filter.deinterlace.choice.even_fields = Field Bliboawo
 filter.deinterlace.param.fill = Wɔ Field Yeyewo Kple
-filter.deinterlace.choice.interpolation = Interpolation
+filter.deinterlace.choice.interpolation = Gome siwo le dome ƒe bu
 filter.deinterlace.choice.duplication = Kɔpiwɔwɔ
 filter.ntsc_colors.name = NTSC Amadedewo
 

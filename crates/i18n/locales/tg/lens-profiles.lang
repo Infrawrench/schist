@@ -1,17 +1,16 @@
-# Lens profiles: English fallback pending translation review. No locale added.
-lens_profiles.invalid = Choose a valid Lensfun v1/v2 XML database (up to 8 MiB) with supported camera or lens data.
-lens_profiles.calibration = Lens calibration
-lens_profiles.no_calibration = No calibration covers these settings. Check focal length and camera crop factor; manual correction remains available.
-lens_profiles.import = Import Lensfun XML…
-lens_profiles.imported = Lensfun database imported for this session. Select a profile or match the photo metadata.
-lens_profiles.manual = Manual correction only
-lens_profiles.saved = Saved calibration (database unavailable)
-lens_profiles.profile = Lens profile
-lens_profiles.aperture = Aperture (0 = unknown)
-lens_profiles.distance = Focus distance (0 = unknown)
-lens_profiles.vignette = Calibrated vignetting
-lens_profiles.color_context = Calibrated vignetting requires the built-in sRGB profile. Convert to sRGB to preserve appearance, then reopen Lens Correction. For already-sRGB untagged pixels, assigning sRGB is sufficient. Geometry and chromatic correction remain available.
-lens_profiles.vignette_missing = No vignetting calibration covers the aperture and focus distance. Enter measured values to enable it; 1000 m represents distant focus in many Lensfun profiles.
-lens_profiles.note = Calibrated correction runs before the manual controls. Use the original full frame; crop afterward. Save a filter stack in PSD/PSB to retain editable calibration.
-lens_profiles.automatic = Match photo metadata
-lens_profiles.components = Profile pass: distortion {distortion}; color fringes {tca}; vignetting {vignette}.
+lens_profiles.invalid = Пойгоҳи додаҳои дурусти Lensfun v1/v2 XML-ро (то 8 MiB) бо маълумоти дастгиришавандаи камера ё линза интихоб кунед.
+lens_profiles.calibration = Калибркунии линза
+lens_profiles.no_calibration = Барои ин танзимот калибркунӣ ёфт нашуд. Масофаи фокусӣ ва коэффитсиенти буриши камераро санҷед; ислоҳи дастӣ ҳанӯз дастрас аст.
+lens_profiles.import = Ворид кардани Lensfun XML…
+lens_profiles.imported = Пойгоҳи додаҳои Lensfun барои ин ҷаласа ворид шуд. Профилро интихоб кунед ё бо метамаълумоти акс мувофиқ кунед.
+lens_profiles.manual = Танҳо ислоҳи дастӣ
+lens_profiles.saved = Калибркунии захирашуда (пойгоҳи додаҳо дастрас нест)
+lens_profiles.profile = Профили линза
+lens_profiles.aperture = Диафрагма (0 = номаълум)
+lens_profiles.distance = Масофаи фокусбандӣ (0 = номаълум)
+lens_profiles.vignette = Винйеткунии калибршуда
+lens_profiles.color_context = Винйеткунии калибршуда профили дарунсохти sRGB-ро талаб мекунад. Барои нигоҳ доштани намуди тасвир ба sRGB табдил диҳед ва баъд Ислоҳи линзаро аз нав кушоед. Барои пикселҳои бе профил, ки аллакай дар sRGB ҳастанд, таъин кардани sRGB кофист. Ислоҳи геометрӣ ва хатоҳои ранг низ дастрасанд.
+lens_profiles.vignette_missing = Барои диафрагма ва масофаи фокусбандӣ калибркунии винйеткунӣ вуҷуд надорад. Барои фаъол кардани он қиматҳои ченшударо ворид кунед; дар бисёр профилҳои Lensfun 1000 m фокуси дурро ифода мекунад.
+lens_profiles.note = Ислоҳи калибршуда пеш аз танзимоти дастӣ иҷро мешавад. Аввал кадри пурраи аслиро истифода баред ва баъд онро буред. Барои нигоҳ доштани калибркунии таҳриршаванда маҷмӯи филтрҳоро дар PSD/PSB захира кунед.
+lens_profiles.automatic = Мувофиқ кардан бо метамаълумоти акс
+lens_profiles.components = Ислоҳи профил: таҳриф {distortion}; ҳошияҳои ранга {tca}; винйеткунӣ {vignette}.

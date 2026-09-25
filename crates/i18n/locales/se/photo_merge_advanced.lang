@@ -1,8 +1,8 @@
-# English fallback pending translation.
-photo_merge_advanced.projective = Perspective alignment (includes rotation)
-photo_merge_advanced.cylindrical = Cylindrical panorama
-photo_merge_advanced.deghost = Remove moving-subject ghosts (first photo reference)
-photo_merge_advanced.focal = Focal length (px) / image width (px)
-photo_merge_advanced.masks = Focus output uses editable layer masks. Select a mask in Layers and paint to refine.
-photo_merge_advanced.no_match = No reliable alignment found. Use textured photos with substantial overlap and modest viewpoint changes.
-photo_merge_advanced.invalid = Invalid source images or merge settings.
+# Advanced photo merge.
+photo_merge_advanced.projective = Perspektiiva mielde heiveheapmi (maiddái jorahallan)
+photo_merge_advanced.cylindrical = Sylindárhámát panorama
+photo_merge_advanced.deghost = Váldde eret lihkadeaddji áššiid duppal govvaid (vuosttaš govva lea čujuhus)
+photo_merge_advanced.focal = Fokusgaska (px) / govva govdodat (px)
+photo_merge_advanced.masks = Fokusboađus geavaha rievdadhahtti geardemáskkaid. Vállje Máskka Gearddiin ja mále vai sáhtát buoridit.
+photo_merge_advanced.no_match = Luohtehahtti heiveheapmi ii gávdnon. Geavat govvaid main leat olu detáljat, stuorra oktasaš oassi ja dušše unnán rievdan govvenčiegus.
+photo_merge_advanced.invalid = Gáldogovat dahje ovttastahttima heivehusat eai gusto.

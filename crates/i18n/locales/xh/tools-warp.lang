@@ -16,5 +16,5 @@ tool.puppet_warp.history.puppet_warp = Uguqulo Lukanopopi
 tool.vanishing_point.name = Indawo Yokuphela
 tool.vanishing_point.description = Tsala umphezulu othe tyaba phezu kwento ebonisa i-perspective, uze utshintshe imo ibe nguClone upeyinte: iipikseli ezikhutshelweyo zilandela loo mphezulu, zisiba ncinane njengoko umgama usanda.
 tool.vanishing_point.choice.edit_plane = Hlela Umphezulu Othe Tyaba
-tool.vanishing_point.choice.clone = Clone
+tool.vanishing_point.choice.clone = Yenza ikopi
 tool.vanishing_point.history.vanishing_point = Indawo Yokuphela

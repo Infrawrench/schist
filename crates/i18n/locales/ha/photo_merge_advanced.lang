@@ -1,8 +1,8 @@
 # English fallback pending translation.
-photo_merge_advanced.projective = Perspective alignment (includes rotation)
-photo_merge_advanced.cylindrical = Cylindrical panorama
-photo_merge_advanced.deghost = Remove moving-subject ghosts (first photo reference)
-photo_merge_advanced.focal = Focal length (px) / image width (px)
-photo_merge_advanced.masks = Focus output uses editable layer masks. Select a mask in Layers and paint to refine.
-photo_merge_advanced.no_match = No reliable alignment found. Use textured photos with substantial overlap and modest viewpoint changes.
-photo_merge_advanced.invalid = Invalid source images or merge settings.
+photo_merge_advanced.projective = Daidaitawa (ya haɗa da juyawa)
+photo_merge_advanced.cylindrical = Silindrical panorama
+photo_merge_advanced.deghost = Cire fatalwowi masu motsi-masu motsi (tunanin hoto na farko)
+photo_merge_advanced.focal = Tsawon wuri (px) / faɗin hoto (px)
+photo_merge_advanced.masks = Fitowar mayar da hankali yana amfani da abin rufe fuska mai iya gyarawa. Zaɓi abin rufe fuska a cikin Layers kuma fenti don tacewa.
+photo_merge_advanced.no_match = Ba a sami daidaituwar abin dogaro ba. Yi amfani da faifan hotuna tare da ƙwaƙƙwaran zoba da ƙananan canje-canjen ra'ayi.
+photo_merge_advanced.invalid = Hotunan tushe mara inganci ko saitunan haɗin kai.

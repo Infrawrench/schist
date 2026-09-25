@@ -1,8 +1,7 @@
-# Virtual copies. Explicit English fallback pending translation review.
-variants.create = Create virtual copy…
-variants.rename = Rename virtual copy…
-variants.delete = Delete virtual copy
-variants.close = Close this photo and its virtual copies before moving or deleting them.
-variants.saved_hint = The copy starts from the saved edit, or the original when there is no edit. Save pending changes first.
-variants.move_original = Move the original photo to move its virtual copies.
-variants.protected_export = Choose another destination. Gallery exports cannot replace the original or its edit storage.
+variants.create = Endla khopi ya xiviri…
+variants.rename = Cinca vito ra khopi ya xiviri…
+variants.delete = Susa khopi ya xiviri
+variants.close = Pfala xifaniso lexi ni tikhopi ta xona ta xiviri u nga si swi rhurhisa kumbe ku swi susa.
+variants.saved_hint = Khopi yi sungula eka ku hlela loku hlayisiweke, kumbe eka xifaniso xo sungula loko ku nga ri na ku hlela. Rhanga u hlayisa ku cinca loku nga si hlayisiwa.
+variants.move_original = Rhurhisa xifaniso xo sungula leswaku tikhopi ta xona ta xiviri na tona ti rhurha.
+variants.protected_export = Hlawula ndhawu yin’wana. Swifaniso leswi humesiweke eka galari a swi nge sivi xifaniso xo sungula kumbe ndhawu yo hlayisa ku hlela ka xona.

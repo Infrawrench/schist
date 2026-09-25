@@ -1,8 +1,7 @@
-# Virtual copies. Explicit English fallback pending translation review.
-variants.create = Create virtual copy…
-variants.rename = Rename virtual copy…
-variants.delete = Delete virtual copy
-variants.close = Close this photo and its virtual copies before moving or deleting them.
-variants.saved_hint = The copy starts from the saved edit, or the original when there is no edit. Save pending changes first.
-variants.move_original = Move the original photo to move its virtual copies.
-variants.protected_export = Choose another destination. Gallery exports cannot replace the original or its edit storage.
+variants.create = மெய்நிகர் நகலை உருவாக்கு…
+variants.rename = மெய்நிகர் நகலின் பெயரை மாற்று…
+variants.delete = மெய்நிகர் நகலை நீக்கு
+variants.close = இந்தப் படத்தையும் அதன் மெய்நிகர் நகல்களையும் நகர்த்துவதற்கு அல்லது நீக்குவதற்கு முன் மூடவும்.
+variants.saved_hint = சேமித்த திருத்தத்திலிருந்து நகல் தொடங்கும்; திருத்தம் இல்லையெனில் அசலிலிருந்து தொடங்கும். நிலுவையில் உள்ள மாற்றங்களை முதலில் சேமிக்கவும்.
+variants.move_original = மெய்நிகர் நகல்களையும் நகர்த்த அசல் படத்தை நகர்த்தவும்.
+variants.protected_export = வேறு இடத்தைத் தேர்ந்தெடுக்கவும். காட்சியக ஏற்றுமதிகள் அசல் படத்தையோ அதன் திருத்தச் சேமிப்பையோ மாற்ற முடியாது.

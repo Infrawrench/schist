@@ -1,8 +1,7 @@
-# English fallback pending translation.
-photo_merge_advanced.projective = Perspective alignment (includes rotation)
-photo_merge_advanced.cylindrical = Cylindrical panorama
-photo_merge_advanced.deghost = Remove moving-subject ghosts (first photo reference)
-photo_merge_advanced.focal = Focal length (px) / image width (px)
-photo_merge_advanced.masks = Focus output uses editable layer masks. Select a mask in Layers and paint to refine.
-photo_merge_advanced.no_match = No reliable alignment found. Use textured photos with substantial overlap and modest viewpoint changes.
-photo_merge_advanced.invalid = Invalid source images or merge settings.
+photo_merge_advanced.projective = I inayek i punton lini'e' (ma'a'agang i rotasion)
+photo_merge_advanced.cylindrical = I panorama ni' silindriku
+photo_merge_advanced.deghost = Na'suha i do'lo' siha ginen i suhetu ni' kumekelek (i fine'nina na litråtu komo referensia)
+photo_merge_advanced.focal = Focal length (px) / anchu i litråtu (px)
+photo_merge_advanced.masks = I focus output ha usa i layer masks ni' siña ma'edit. Na'i un mask gi i Layers ya un pinta para un na'maolek.
+photo_merge_advanced.no_match = Tåya' ma sodda' na aliniasion ni' siña ma konfi'a. Usa litråtu siha ni' guaha textura, meggai na parte siha ni' parehu yan dididi' na tinulaika gi punton lini'e'.
+photo_merge_advanced.invalid = Ti válidu i litråtu siha ni' ginen pat i merge settings.

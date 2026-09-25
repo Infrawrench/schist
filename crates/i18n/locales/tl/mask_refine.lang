@@ -1,6 +1,6 @@
 # Pinuhin ang Mask.
 mask_refine.title = Pinuhin ang Mask…
-mask_refine.checkerboard = Checkerboard
+mask_refine.checkerboard = Siping-dama
 mask_refine.black = Itim
 mask_refine.white = Puti
 mask_refine.magenta = Magenta

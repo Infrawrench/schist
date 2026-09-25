@@ -1,8 +1,8 @@
 # English fallback pending translation.
-photo_merge_advanced.projective = Perspective alignment (includes rotation)
-photo_merge_advanced.cylindrical = Cylindrical panorama
-photo_merge_advanced.deghost = Remove moving-subject ghosts (first photo reference)
-photo_merge_advanced.focal = Focal length (px) / image width (px)
-photo_merge_advanced.masks = Focus output uses editable layer masks. Select a mask in Layers and paint to refine.
-photo_merge_advanced.no_match = No reliable alignment found. Use textured photos with substantial overlap and modest viewpoint changes.
-photo_merge_advanced.invalid = Invalid source images or merge settings.
+photo_merge_advanced.projective = Порамнување на перспективата (вклучува ротација)
+photo_merge_advanced.cylindrical = Цилиндрична панорама
+photo_merge_advanced.deghost = Отстранете ги двојните траги од подвижни објекти (првата фотографија е референца)
+photo_merge_advanced.focal = Фокусна должина (px) / ширина на сликата (px)
+photo_merge_advanced.masks = Излезот за фокусирање користи маски на слоеви што може да се уредуваат. Изберете маска во Слоеви и бојадисајте за да рафинирате.
+photo_merge_advanced.no_match = Не е пронајдено доверливо усогласување. Користете текстурирани фотографии со значително преклопување и скромни промени на гледиштето.
+photo_merge_advanced.invalid = Неважечки изворни слики или поставки за спојување.

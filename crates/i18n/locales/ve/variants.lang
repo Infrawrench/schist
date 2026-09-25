@@ -1,8 +1,8 @@
-# Virtual copies. Explicit English fallback pending translation review.
-variants.create = Create virtual copy…
-variants.rename = Rename virtual copy…
-variants.delete = Delete virtual copy
-variants.close = Close this photo and its virtual copies before moving or deleting them.
-variants.saved_hint = The copy starts from the saved edit, or the original when there is no edit. Save pending changes first.
-variants.move_original = Move the original photo to move its virtual copies.
-variants.protected_export = Choose another destination. Gallery exports cannot replace the original or its edit storage.
+# Virtual copies.
+variants.create = Itani khophi ya virtual…
+variants.rename = Shandulani dzina ḽa khophi ya virtual…
+variants.delete = Thuthani khophi ya virtual
+variants.close = Valani tshinepe itshi na khophi dzatsho dza virtual ni sa athu zwi sudzulusa kana u zwi thutha.
+variants.saved_hint = Khophi i thoma kha nzudzanyo yo vhulungwaho, kana kha tsha u thoma arali hu si na nzudzanyo. Vhulungani tshanduko dzi sa athu vhulungwaho u thoma.
+variants.move_original = Sudzulusani tshinepe tsha u thoma uri khophi dzatsho dza virtual dzi sudzuluswe.
+variants.protected_export = Nangani huṅwe hune ha yelwa hone. Zwine zwa bviswa kha gaḽari a zwi koni u dzhiela tsha u thoma kana faela dza nzudzanyo yatsho vhudzulo.

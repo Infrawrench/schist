@@ -1,8 +1,8 @@
 # English fallback pending translation.
-photo_merge_advanced.projective = Perspective alignment (includes rotation)
-photo_merge_advanced.cylindrical = Cylindrical panorama
-photo_merge_advanced.deghost = Remove moving-subject ghosts (first photo reference)
-photo_merge_advanced.focal = Focal length (px) / image width (px)
-photo_merge_advanced.masks = Focus output uses editable layer masks. Select a mask in Layers and paint to refine.
-photo_merge_advanced.no_match = No reliable alignment found. Use textured photos with substantial overlap and modest viewpoint changes.
-photo_merge_advanced.invalid = Invalid source images or merge settings.
+photo_merge_advanced.projective = Perspective alignment (ekoba rotation)
+photo_merge_advanced.cylindrical = Panorama eo āinwōt cylinder
+photo_merge_advanced.deghost = Jolok men ko rej etal (pija eo moktata)
+photo_merge_advanced.focal = joñan joñan (px) / joñan depakpak in pija eo (px)
+photo_merge_advanced.masks = Focus output ej kōjerbal layer mask ko remaroñ ukōti. Kālet juon mask ilo Layers im paint ñan kōmman bwe en emmanlok.
+photo_merge_advanced.no_match = Ejelok alignment eo emol kar loe. Kōjerbal pija ko rekar ļap aer ļap im oktak ko redik ilo wāween lale.
+photo_merge_advanced.invalid = pija ko rejjab jimwe ak kobaik setting ko.

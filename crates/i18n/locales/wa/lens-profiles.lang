@@ -1,17 +1,17 @@
-# Lens profiles: English fallback pending translation review. No locale added.
-lens_profiles.invalid = Choose a valid Lensfun v1/v2 XML database (up to 8 MiB) with supported camera or lens data.
-lens_profiles.calibration = Lens calibration
-lens_profiles.no_calibration = No calibration covers these settings. Check focal length and camera crop factor; manual correction remains available.
-lens_profiles.import = Import Lensfun XML…
-lens_profiles.imported = Lensfun database imported for this session. Select a profile or match the photo metadata.
-lens_profiles.manual = Manual correction only
-lens_profiles.saved = Saved calibration (database unavailable)
-lens_profiles.profile = Lens profile
-lens_profiles.aperture = Aperture (0 = unknown)
-lens_profiles.distance = Focus distance (0 = unknown)
-lens_profiles.vignette = Calibrated vignetting
-lens_profiles.color_context = Calibrated vignetting requires the built-in sRGB profile. Convert to sRGB to preserve appearance, then reopen Lens Correction. For already-sRGB untagged pixels, assigning sRGB is sufficient. Geometry and chromatic correction remain available.
-lens_profiles.vignette_missing = No vignetting calibration covers the aperture and focus distance. Enter measured values to enable it; 1000 m represents distant focus in many Lensfun profiles.
-lens_profiles.note = Calibrated correction runs before the manual controls. Use the original full frame; crop afterward. Save a filter stack in PSD/PSB to retain editable calibration.
-lens_profiles.automatic = Match photo metadata
-lens_profiles.components = Profile pass: distortion {distortion}; color fringes {tca}; vignetting {vignette}.
+# Translation draft; review by a native speaker.
+lens_profiles.invalid = Tchoezixhoz ene bone båze di dnêyes Lensfun v1/v2 XML (disqu’ å 8 MiB) avou des dnêyes di caméra ou d’ lintire sopoirtêyes.
+lens_profiles.calibration = Calibraedje del lintire
+lens_profiles.no_calibration = I gn a pont d’ calibraedje po ces apontiaedjes. Verifyîz li distance focåle et l’ facteur di crop del caméra; li coridjaedje a l’ mwin dmeure disponibe.
+lens_profiles.import = Abaguer Lensfun XML…
+lens_profiles.imported = Li båze di dnêyes Lensfun a stî abaguêye po cisse session. Tchoezixhoz on profil di lintire ou rascouez les meta-dnêyes del foto.
+lens_profiles.manual = Rén ki l’ coridjaedje a l’ mwin
+lens_profiles.saved = Calibraedje schapé (båze di dnêyes nén disponibe)
+lens_profiles.profile = Profil di lintire
+lens_profiles.aperture = Ovièrture (0 = nén cnoxhou)
+lens_profiles.distance = Distance di fokusaedje (0 = nén cnoxhou)
+lens_profiles.vignette = Vignetådje calibré
+lens_profiles.color_context = Li coridjaedje do vignetådje calibré a mezåjhe do profil sRGB intégré. Convertixhoz l’ imådje e sRGB po wårder si rivnance, adon radoûvrez « Coridjaedje del lintire ». Si les picsels sont ddja e sRGB mins sins etiket, assiner l’ profil sRGB suffit. Les coridjaedjes del geometrie et des aberråcions cromatiques dmourèt disponibes.
+lens_profiles.vignette_missing = Nou calibraedje do vignetådje ni covrè ciste ovièrture et cisse distance di fokusaedje. Intrez les valixhances mesurêyes po l’ mete e marche; dins bråmint des profils Lensfun, 1000 m vout dire fokuser å lon.
+lens_profiles.note = Li coridjaedje calibré s’ fwait divant les controles a l’ mwin. Eployîz li cåde origénå complet; ricôpez après. Schapez l’ pile di passetes e PSD/PSB po wårder li calibraedje modifiåve.
+lens_profiles.automatic = Rascouwer les meta-dnêyes del foto
+lens_profiles.components = Passaedje do profil : distorsion {distortion} ; boirds colorés {tca} ; vignetådje {vignette}.

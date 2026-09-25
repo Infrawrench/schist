@@ -15,5 +15,5 @@ tool.eyedropper.choice.all_layers = Semua Lapisan
 tool.eyedropper.choice.current_layer = Lapisan Saat Ini
 tool.hand.name = Tangan
 tool.hand.description = Menggeser tampilan. Area pandang merupakan bagian dari jendela, sehingga dalam mode tanpa antarmuka alat ini tidak mengubah dokumen.
-tool.zoom.name = Zoom
+tool.zoom.name = Perbesar
 tool.zoom.description = Memperbesar atau memperkecil tampilan. Area pandang merupakan bagian dari jendela, sehingga dalam mode tanpa antarmuka alat ini tidak mengubah dokumen.

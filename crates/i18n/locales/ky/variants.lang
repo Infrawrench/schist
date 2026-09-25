@@ -1,8 +1,8 @@
-# Virtual copies. Explicit English fallback pending translation review.
-variants.create = Create virtual copy…
-variants.rename = Rename virtual copy…
-variants.delete = Delete virtual copy
-variants.close = Close this photo and its virtual copies before moving or deleting them.
-variants.saved_hint = The copy starts from the saved edit, or the original when there is no edit. Save pending changes first.
-variants.move_original = Move the original photo to move its virtual copies.
-variants.protected_export = Choose another destination. Gallery exports cannot replace the original or its edit storage.
+# Virtual copies.
+variants.create = Виртуалдык көчүрмөнү түзүү…
+variants.rename = Виртуалдык көчүрмөнүн атын өзгөртүү…
+variants.delete = Виртуалдык көчүрмөнү жок кылуу
+variants.close = Бул сүрөттү жана анын виртуалдык көчүрмөлөрүн жылдыруудан же жок кылуудан мурун жабыңыз.
+variants.saved_hint = Көчүрмө сакталган түзөтүүдөн башталат, же түзөтүү жок болгондо түпнускадан башталат. Адегенде күтүүдөгү өзгөртүүлөрдү сактаңыз.
+variants.move_original = Анын виртуалдык көчүрмөлөрүн жылдыруу үчүн түпнуска сүрөттү жылдырыңыз.
+variants.protected_export = Башка көздөгөн жерди тандаңыз. Галереянын экспорту түпнуска же анын түзөтүү сактагычын алмаштыра албайт.

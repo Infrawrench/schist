@@ -1,8 +1,8 @@
-# Virtual copies. Explicit English fallback pending translation review.
-variants.create = Create virtual copy…
-variants.rename = Rename virtual copy…
-variants.delete = Delete virtual copy
-variants.close = Close this photo and its virtual copies before moving or deleting them.
-variants.saved_hint = The copy starts from the saved edit, or the original when there is no edit. Save pending changes first.
-variants.move_original = Move the original photo to move its virtual copies.
-variants.protected_export = Choose another destination. Gallery exports cannot replace the original or its edit storage.
+# Virtual copies.
+variants.create = Bosala copie virtuelle...
+variants.rename = Bobongola kombo ya copie virtuelle...
+variants.delete = Bolongola copie virtuelle
+variants.close = Bokanga photo oyo na ba copies virtuelles na yango avant bo déplacer to bo supprimer yango.
+variants.saved_hint = Kopi ebandi na bobongisi oyo ebombami, to ya ebandeli ntango bobongisi ezali te. Bomba liboso mbongwana oyo ezali kozela.
+variants.move_original = Bo déplacer photo originale pona ko déplacer ba copies virtuelles na yango.
+variants.protected_export = Poná esika mosusu oyo okokende. Ba exportations ya galerie ekoki te ko remplacer original to ebombelo na yango ya édition.

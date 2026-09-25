@@ -130,7 +130,7 @@ filter.patchwork.name = Patchwork
 filter.stained_glass.name = Buntglas-Mosaik
 filter.texturizer.name = Mit Struktur versehen
 
-filter.param.detail = Detail
+filter.param.detail = Details
 filter.param.smoothness = Glättung
 filter.param.texture = Struktur
 filter.param.scaling = Skalierung

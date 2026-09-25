@@ -1,8 +1,7 @@
-# Virtual copies. Explicit English fallback pending translation review.
-variants.create = Create virtual copy…
-variants.rename = Rename virtual copy…
-variants.delete = Delete virtual copy
-variants.close = Close this photo and its virtual copies before moving or deleting them.
-variants.saved_hint = The copy starts from the saved edit, or the original when there is no edit. Save pending changes first.
-variants.move_original = Move the original photo to move its virtual copies.
-variants.protected_export = Choose another destination. Gallery exports cannot replace the original or its edit storage.
+variants.create = Faʻu ha tatau fakaʻata…
+variants.rename = Liliu ʻa e hingoa ʻo e tatau fakaʻata…
+variants.delete = Tamateʻi ʻa e tatau fakaʻata
+variants.close = Tāpuni ʻa e tā ko ʻeni mo hono ngaahi tatau fakaʻata kimuʻa pea hiki pe tamateʻi kinautolu.
+variants.saved_hint = ʻOku kamata ʻa e tatau mei he fakatonutonu kuo tauhi, pe mei he ʻuluaki tā kapau ʻoku ʻikai ha fakatonutonu. Tauhi muʻa ʻa e ngaahi liliu ʻoku teʻeki tauhi.
+variants.move_original = Hiki ʻa e ʻuluaki tā ke hiki fakataha mo hono ngaahi tatau fakaʻata.
+variants.protected_export = Fili ha feituʻu kehe. ʻOku ʻikai lava ke fetongi ʻe he ngaahi tā ʻoku ʻave mei he kāleri ʻa e ʻuluaki tā pe hono tauhiʻanga fakatonutonu.

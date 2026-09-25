@@ -1,8 +1,8 @@
-# Virtual copies. Explicit English fallback pending translation review.
-variants.create = Create virtual copy…
-variants.rename = Rename virtual copy…
-variants.delete = Delete virtual copy
-variants.close = Close this photo and its virtual copies before moving or deleting them.
-variants.saved_hint = The copy starts from the saved edit, or the original when there is no edit. Save pending changes first.
-variants.move_original = Move the original photo to move its virtual copies.
-variants.protected_export = Choose another destination. Gallery exports cannot replace the original or its edit storage.
+# Virtual copies.
+variants.create = ವರ್ಚುವಲ್ ನಕಲನ್ನು ರಚಿಸಿ...
+variants.rename = ವರ್ಚುವಲ್ ನಕಲನ್ನು ಮರುಹೆಸರಿಸಿ...
+variants.delete = ವರ್ಚುವಲ್ ನಕಲನ್ನು ಅಳಿಸಿ
+variants.close = ಈ ಫೋಟೋ ಮತ್ತು ಅದರ ವರ್ಚುವಲ್ ಪ್ರತಿಗಳನ್ನು ಚಲಿಸುವ ಅಥವಾ ಅಳಿಸುವ ಮೊದಲು ಮುಚ್ಚಿ.
+variants.saved_hint = ಉಳಿಸಿದ ಸಂಪಾದನೆಯಿಂದ ನಕಲು ಪ್ರಾರಂಭವಾಗುತ್ತದೆ, ಅಥವಾ ಯಾವುದೇ ಸಂಪಾದನೆ ಇಲ್ಲದಿದ್ದಾಗ ಮೂಲ. ಬಾಕಿ ಉಳಿದಿರುವ ಬದಲಾವಣೆಗಳನ್ನು ಮೊದಲು ಉಳಿಸಿ.
+variants.move_original = ಅದರ ವರ್ಚುವಲ್ ಪ್ರತಿಗಳನ್ನು ಸರಿಸಲು ಮೂಲ ಫೋಟೋವನ್ನು ಸರಿಸಿ.
+variants.protected_export = ಇನ್ನೊಂದು ಗಮ್ಯಸ್ಥಾನವನ್ನು ಆಯ್ಕೆಮಾಡಿ. ಗ್ಯಾಲರಿ ರಫ್ತುಗಳು ಮೂಲ ಅಥವಾ ಅದರ ಸಂಪಾದನೆ ಸಂಗ್ರಹಣೆಯನ್ನು ಬದಲಾಯಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ.

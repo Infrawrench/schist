@@ -1,8 +1,7 @@
-# English fallback pending translation.
-photo_merge_advanced.projective = Perspective alignment (includes rotation)
-photo_merge_advanced.cylindrical = Cylindrical panorama
-photo_merge_advanced.deghost = Remove moving-subject ghosts (first photo reference)
-photo_merge_advanced.focal = Focal length (px) / image width (px)
-photo_merge_advanced.masks = Focus output uses editable layer masks. Select a mask in Layers and paint to refine.
-photo_merge_advanced.no_match = No reliable alignment found. Use textured photos with substantial overlap and modest viewpoint changes.
-photo_merge_advanced.invalid = Invalid source images or merge settings.
+photo_merge_advanced.projective = Fakafehoanaki ʻo e anga ʻo e sio (kau ai e vilo)
+photo_merge_advanced.cylindrical = Panorama silinita
+photo_merge_advanced.deghost = Toʻo e ngaahi ʻata toutou hā ʻo e ngaahi meʻa ʻoku ngaʻunu (fakaʻaongaʻi e ʻuluaki tā ko e fakahinohino)
+photo_merge_advanced.focal = Lōloa fōkasi (px) / laulahi ʻo e ʻata (px)
+photo_merge_advanced.masks = ʻOku ngāueʻaki ʻe he ola ʻo e fōkasi ʻa e ngaahi meʻa fūfuu fakakonga ʻoku lava ʻo fakatonutonu. Fili ha meʻa fūfuu ʻi he Ngaahi Layer pea vali ke fakaleleiʻi.
+photo_merge_advanced.no_match = ʻIkai maʻu ha fakatonutonu falalaʻanga. Ngāueʻaki ha ngaahi tā ʻoku lahi hono fakaikiiki mo ʻenau fehūʻaki, pea siʻi e liliu ʻo e anga sio.
+photo_merge_advanced.invalid = ʻOku hala e ngaahi ʻata tupuʻanga pe fokotuʻutuʻu fakataha.

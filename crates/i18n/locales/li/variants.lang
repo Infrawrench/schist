@@ -1,8 +1,8 @@
-# Virtual copies. Explicit English fallback pending translation review.
-variants.create = Create virtual copy…
-variants.rename = Rename virtual copy…
-variants.delete = Delete virtual copy
-variants.close = Close this photo and its virtual copies before moving or deleting them.
-variants.saved_hint = The copy starts from the saved edit, or the original when there is no edit. Save pending changes first.
-variants.move_original = Move the original photo to move its virtual copies.
-variants.protected_export = Choose another destination. Gallery exports cannot replace the original or its edit storage.
+# Virtual copies.
+variants.create = Maak virtuele kopie...
+variants.rename = Hernumme virtuele kopie...
+variants.delete = Virtuele kopie wisse
+variants.close = Maak deze foto en de virtuele kopieje toe veurtot geer ze verplaots of wis.
+variants.saved_hint = De kopie begint bij de opgeslage bewerking, of ‘t origineel es d’r gein bewerking is. Slaag iers afwachtende veranderinge op.
+variants.move_original = Verplaots de originele foto um de virtuele kopieje te verplaotse.
+variants.protected_export = Kies ‘n aandere bestumming. Galerie-exporte kinne de originele of de bewerkingsopsjlaag neet vervange.

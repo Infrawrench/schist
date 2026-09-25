@@ -1,8 +1,7 @@
-# English fallback pending translation.
-photo_merge_advanced.projective = Perspective alignment (includes rotation)
-photo_merge_advanced.cylindrical = Cylindrical panorama
-photo_merge_advanced.deghost = Remove moving-subject ghosts (first photo reference)
-photo_merge_advanced.focal = Focal length (px) / image width (px)
-photo_merge_advanced.masks = Focus output uses editable layer masks. Select a mask in Layers and paint to refine.
-photo_merge_advanced.no_match = No reliable alignment found. Use textured photos with substantial overlap and modest viewpoint changes.
-photo_merge_advanced.invalid = Invalid source images or merge settings.
+photo_merge_advanced.projective = จัดแนวมุมมอง (รวมการหมุน)
+photo_merge_advanced.cylindrical = พาโนรามาทรงกระบอก
+photo_merge_advanced.deghost = ลบภาพซ้อนของวัตถุที่เคลื่อนไหว (ใช้รูปแรกเป็นข้อมูลอ้างอิง)
+photo_merge_advanced.focal = ทางยาวโฟกัส (px) / ความกว้างภาพ (px)
+photo_merge_advanced.masks = ผลลัพธ์ของการรวมระยะชัดใช้มาสก์เลเยอร์ที่แก้ไขได้ เลือกมาสก์ในเลเยอร์แล้วระบายสีเพื่อปรับแต่ง
+photo_merge_advanced.no_match = ไม่พบการจัดแนวที่เชื่อถือได้ ใช้รูปที่มีรายละเอียดชัดเจน พื้นที่ซ้อนทับมาก และมุมมองต่างกันเพียงเล็กน้อย
+photo_merge_advanced.invalid = รูปต้นฉบับหรือการตั้งค่าการรวมไม่ถูกต้อง

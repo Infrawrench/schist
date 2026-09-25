@@ -1,8 +1,7 @@
-# Virtual copies. Explicit English fallback pending translation review.
-variants.create = Create virtual copy…
-variants.rename = Rename virtual copy…
-variants.delete = Delete virtual copy
-variants.close = Close this photo and its virtual copies before moving or deleting them.
-variants.saved_hint = The copy starts from the saved edit, or the original when there is no edit. Save pending changes first.
-variants.move_original = Move the original photo to move its virtual copies.
-variants.protected_export = Choose another destination. Gallery exports cannot replace the original or its edit storage.
+variants.create = Kreye kopi vityèl...
+variants.rename = Chanje non kopi vityèl...
+variants.delete = Efase kopi vityèl
+variants.close = Fèmen foto sa a ak kopi vityèl li yo anvan w deplase oswa efase yo.
+variants.saved_hint = Kopi a kòmanse soti nan modifye ki sove a, oswa orijinal la lè pa gen okenn modifye. Sove chanjman annatant yo an premye.
+variants.move_original = Deplase foto orijinal la pou deplase kopi vityèl li yo.
+variants.protected_export = Chwazi yon lòt destinasyon. Ekspòtasyon Galeri pa ka ranplase depo orijinal la oswa modifye li yo.

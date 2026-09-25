@@ -287,7 +287,7 @@ library.batch.no_psd_writer = Kein PSD-Schreiber ist geladen
 # Der Betrachter und das Album „Personen“
 library.viewer.back = ‹ Zurück zu den Fotos
 library.viewer.could_not_decode = Dieses Foto konnte nicht dekodiert werden.
-library.viewer.label_auto = {name} · auto
+library.viewer.label_auto = {name} · automatisch
 library.viewer.label_guess = {name}?
 library.viewer.people_heading = PERSONEN AUF DIESEM FOTO
 library.viewer.faces_intro = Gesichter findet ein kleines Modell, das einmal heruntergeladen wird. Rahmen lassen sich weiterhin von Hand ziehen.

@@ -1,8 +1,8 @@
-# English fallback pending translation.
-photo_merge_advanced.projective = Perspective alignment (includes rotation)
-photo_merge_advanced.cylindrical = Cylindrical panorama
-photo_merge_advanced.deghost = Remove moving-subject ghosts (first photo reference)
-photo_merge_advanced.focal = Focal length (px) / image width (px)
-photo_merge_advanced.masks = Focus output uses editable layer masks. Select a mask in Layers and paint to refine.
-photo_merge_advanced.no_match = No reliable alignment found. Use textured photos with substantial overlap and modest viewpoint changes.
-photo_merge_advanced.invalid = Invalid source images or merge settings.
+# Translation draft; review by a native speaker.
+photo_merge_advanced.projective = פּערספּעקטיוו־אויסגלײַך (מיט דרייונג)
+photo_merge_advanced.cylindrical = צילינדרישע פּאַנאָראַמע
+photo_merge_advanced.deghost = אַראָפּנעמען טאָפּלטע בילדער פֿון אַ באַוועגטן אָביעקט (די ערשטע פֿאָטאָ אַלס רעפֿערענץ)
+photo_merge_advanced.focal = פֿאָקוס־לענג (px) / בילד־ברייט (px)
+photo_merge_advanced.masks = דאָס רעזולטאַט פֿון פֿאָקוס־צונויפֿפֿירן ניצט רעדאַגירבאַרע שיכט־מאַסקעס. קלײַבט אַ מאַסקע אין „שיכטן“ און מאָלט כּדי צו פֿאַרפֿײַנערן.
+photo_merge_advanced.no_match = מען האָט נישט געפֿונען קיין פֿאַרלעסלעכן אויסגלײַך. ניצט פֿאָטאָס מיט קלאָרע דעטאַלן, אַ גרויסן איבערדעק און קליינע ענדערונגען פֿון דער קוקווינקל.
+photo_merge_advanced.invalid = די מקור־בילדער אָדער צונויפֿפֿיר־אײַנשטעלונגען זײַנען אומגילטיק.

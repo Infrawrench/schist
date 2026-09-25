@@ -1,8 +1,7 @@
-# Virtual copies. Explicit English fallback pending translation review.
-variants.create = Create virtual copy…
-variants.rename = Rename virtual copy…
-variants.delete = Delete virtual copy
-variants.close = Close this photo and its virtual copies before moving or deleting them.
-variants.saved_hint = The copy starts from the saved edit, or the original when there is no edit. Save pending changes first.
-variants.move_original = Move the original photo to move its virtual copies.
-variants.protected_export = Choose another destination. Gallery exports cannot replace the original or its edit storage.
+variants.create = Oħloq kopja virtwali...
+variants.rename = Semmi mill-ġdid kopja virtwali...
+variants.delete = Ħassar kopja virtwali
+variants.close = Agħlaq dan ir-ritratt u l-kopji virtwali tiegħu qabel ma ċċaqlaqhom jew tħassarhom.
+variants.saved_hint = Il-kopja tibda mill-editjar salvat, jew l-oriġinal meta ma jkunx hemm editjar. Issejvja l-bidliet pendenti l-ewwel.
+variants.move_original = Mexxi r-ritratt oriġinali biex iċċaqlaq il-kopji virtwali tiegħu.
+variants.protected_export = Agħżel destinazzjoni oħra. L-esportazzjonijiet tal-gallarija ma jistgħux jissostitwixxu l-ħażna oriġinali jew tal-editjar tagħha.

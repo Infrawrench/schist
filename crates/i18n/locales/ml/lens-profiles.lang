@@ -1,17 +1,16 @@
-# Lens profiles: English fallback pending translation review. No locale added.
-lens_profiles.invalid = Choose a valid Lensfun v1/v2 XML database (up to 8 MiB) with supported camera or lens data.
-lens_profiles.calibration = Lens calibration
-lens_profiles.no_calibration = No calibration covers these settings. Check focal length and camera crop factor; manual correction remains available.
-lens_profiles.import = Import Lensfun XML…
-lens_profiles.imported = Lensfun database imported for this session. Select a profile or match the photo metadata.
-lens_profiles.manual = Manual correction only
-lens_profiles.saved = Saved calibration (database unavailable)
-lens_profiles.profile = Lens profile
-lens_profiles.aperture = Aperture (0 = unknown)
-lens_profiles.distance = Focus distance (0 = unknown)
-lens_profiles.vignette = Calibrated vignetting
-lens_profiles.color_context = Calibrated vignetting requires the built-in sRGB profile. Convert to sRGB to preserve appearance, then reopen Lens Correction. For already-sRGB untagged pixels, assigning sRGB is sufficient. Geometry and chromatic correction remain available.
-lens_profiles.vignette_missing = No vignetting calibration covers the aperture and focus distance. Enter measured values to enable it; 1000 m represents distant focus in many Lensfun profiles.
-lens_profiles.note = Calibrated correction runs before the manual controls. Use the original full frame; crop afterward. Save a filter stack in PSD/PSB to retain editable calibration.
-lens_profiles.automatic = Match photo metadata
-lens_profiles.components = Profile pass: distortion {distortion}; color fringes {tca}; vignetting {vignette}.
+lens_profiles.invalid = പിന്തുണയ്‌ക്കുന്ന ക്യാമറയോ ലെൻസ് ഡാറ്റയോ ഉള്ള ഒരു സാധുവായ Lensfun v1/v2 XML ഡാറ്റാബേസ് (8 MiB വരെ) തിരഞ്ഞെടുക്കുക.
+lens_profiles.calibration = ലെൻസ് കാലിബ്രേഷൻ
+lens_profiles.no_calibration = ഒരു കാലിബ്രേഷനും ഈ ക്രമീകരണങ്ങൾ ഉൾക്കൊള്ളുന്നില്ല. ഫോക്കൽ ലെങ്ത്, ക്യാമറ ക്രോപ്പ് ഫാക്ടർ എന്നിവ പരിശോധിക്കുക; മാനുവൽ തിരുത്തൽ ലഭ്യമാണ്.
+lens_profiles.import = Lensfun XML ഇറക്കുമതി ചെയ്യുക...
+lens_profiles.imported = ഈ സെഷനായി Lensfun ഡാറ്റാബേസ് ഇറക്കുമതി ചെയ്തു. ഒരു പ്രൊഫൈൽ തിരഞ്ഞെടുക്കുക അല്ലെങ്കിൽ ഫോട്ടോ മെറ്റാഡാറ്റയുമായി പൊരുത്തപ്പെടുത്തുക.
+lens_profiles.manual = മാനുവൽ തിരുത്തൽ മാത്രം
+lens_profiles.saved = സംരക്ഷിച്ച കാലിബ്രേഷൻ (ഡാറ്റാബേസ് ലഭ്യമല്ല)
+lens_profiles.profile = ലെൻസ് പ്രൊഫൈൽ
+lens_profiles.aperture = അപ്പേർച്ചർ (0 = അജ്ഞാതം)
+lens_profiles.distance = ഫോക്കസ് ദൂരം (0 = അജ്ഞാതം)
+lens_profiles.vignette = കാലിബ്രേറ്റ് ചെയ്ത വിഗ്നിംഗ്
+lens_profiles.color_context = കാലിബ്രേറ്റ് ചെയ്‌ത വിഗ്‌നെറ്റിങ്ങിന് അന്തർനിർമ്മിത sRGB പ്രൊഫൈൽ ആവശ്യമാണ്. രൂപം നിലനിർത്താൻ sRGB-ലേക്ക് പരിവർത്തനം ചെയ്യുക, തുടർന്ന് ലെൻസ് തിരുത്തൽ വീണ്ടും തുറക്കുക. ഇതിനകം-sRGB ടാഗ് ചെയ്യാത്ത പിക്സലുകൾക്ക്, sRGB നൽകിയാൽ മതിയാകും. ജ്യാമിതിയും ക്രോമാറ്റിക് തിരുത്തലും ലഭ്യമാണ്.
+lens_profiles.vignette_missing = വിഗ്നറ്റിംഗ് കാലിബ്രേഷനൊന്നും അപ്പർച്ചറും ഫോക്കസ് ദൂരവും ഉൾക്കൊള്ളുന്നില്ല. ഇത് പ്രവർത്തനക്ഷമമാക്കുന്നതിന് അളന്ന മൂല്യങ്ങൾ നൽകുക; പല Lensfun പ്രൊഫൈലുകളിലും 1000 മീറ്റർ വിദൂര ഫോക്കസിനെ പ്രതിനിധീകരിക്കുന്നു.
+lens_profiles.note = മാനുവൽ നിയന്ത്രണങ്ങൾക്ക് മുമ്പായി കാലിബ്രേറ്റ് ചെയ്ത തിരുത്തൽ പ്രവർത്തിക്കുന്നു. യഥാർത്ഥ പൂർണ്ണ ഫ്രെയിം ഉപയോഗിക്കുക; പിന്നീട് ക്രോപ്പ് ചെയ്യുക. തിരുത്താവുന്ന കാലിബ്രേഷൻ നിലനിർത്താൻ PSD/PSB-യിൽ ഫിൽട്ടർ സ്റ്റാക്ക് സംരക്ഷിക്കുക.
+lens_profiles.automatic = ഫോട്ടോ മെറ്റാഡാറ്റ പൊരുത്തപ്പെടുത്തുക
+lens_profiles.components = പ്രൊഫൈൽ പാസ്: വക്രീകരണം {distortion}; വർണ്ണ അരികുകൾ {tca}; വിഗ്നിംഗ് {vignette}.

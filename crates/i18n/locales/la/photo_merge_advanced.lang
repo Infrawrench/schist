@@ -1,8 +1,8 @@
-# English fallback pending translation.
-photo_merge_advanced.projective = Perspective alignment (includes rotation)
-photo_merge_advanced.cylindrical = Cylindrical panorama
-photo_merge_advanced.deghost = Remove moving-subject ghosts (first photo reference)
-photo_merge_advanced.focal = Focal length (px) / image width (px)
-photo_merge_advanced.masks = Focus output uses editable layer masks. Select a mask in Layers and paint to refine.
-photo_merge_advanced.no_match = No reliable alignment found. Use textured photos with substantial overlap and modest viewpoint changes.
-photo_merge_advanced.invalid = Invalid source images or merge settings.
+# Optiones provectiores imaginum coniungendarum.
+photo_merge_advanced.projective = Ordinatio perspectiva (rotationem includit)
+photo_merge_advanced.cylindrical = Panorama cylindricum
+photo_merge_advanced.deghost = Vestigia rerum mobilium removere (prima imagine referente)
+photo_merge_advanced.focal = Longitudo focalis (px) / latitudo imaginis (px)
+photo_merge_advanced.masks = Effectus coniunctionis focorum larvis stratorum mutabilibus utitur. Larvam in Stratis elige et pinge ut emendes.
+photo_merge_advanced.no_match = Ordinatio certa non inventa. Imaginibus cum textura, magna area communi et parvis mutationibus perspectivae utere.
+photo_merge_advanced.invalid = Imagines originis vel optiones coniunctionis invalidae sunt.

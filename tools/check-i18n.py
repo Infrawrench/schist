@@ -4,7 +4,8 @@
 Use --locale fr [--files app.lang menu.lang] while translating. With no
 locale, checks every registered catalog. --all-iso also checks the entire
 ISO inventory and that all of it is registered. Structural checks cannot
-certify translation quality: --audit lists unchanged English prose for review.
+certify translation quality: --audit lists unchanged English prose for review;
+--strict-audit also fails when that prose remains untranslated.
 """
 
 import argparse
@@ -25,7 +26,7 @@ LITERAL_VALUES = {
     "cloud.error.edited_filter": ("any", "yes", "no"),
     "cloud.error.content_filter": ("all", "safe", "flagged"),
 }
-PRODUCTS = ("Schist Cloud", "Schist", "Photoshop", "Camera Raw", "Neural Filters")
+PRODUCTS = ("Schist Cloud", "Schist", "Photoshop", "Camera Raw", "Neural Filters", "Lensfun")
 # These two labels describe a raw camera file, not the Camera Raw product.
 GENERIC_RAW_KEYS = {"common.filetype.raw", "codec.raw.name"}
 BREADCRUMBS = {
@@ -82,7 +83,7 @@ def read_catalog(directory, files=None):
     return entries, errors
 
 
-def validate(tag, english, files, audit):
+def validate(tag, english, files, audit, strict_audit=False):
     categories = json.loads((I18N / "data/plural-categories.json").read_text())
     forms = categories.get(tag.split("-")[0], ["other"])
     stems = {key[:-4] for key in english if key.endswith(".one") and key[:-4] + ".other" in english}
@@ -151,8 +152,12 @@ def validate(tag, english, files, audit):
         source_words = re.findall(r"[A-Za-z]+", PLACEHOLDERS.sub("", expected[key]))
         if actual[key] == expected[key] and len(source_words) >= 7:
             unchanged.append(key)
-    if audit and tag != "en" and unchanged:
-        print(f"{tag}: review {len(unchanged)} unchanged English sentences: {', '.join(sorted(unchanged))}")
+    if (audit or strict_audit) and tag != "en" and unchanged:
+        message = f"{len(unchanged)} unchanged English sentences: {', '.join(sorted(unchanged))}"
+        if strict_audit:
+            errors.append(message)
+        else:
+            print(f"{tag}: review {message}")
     for error in errors:
         print(f"{tag}: {error}")
     if not errors:
@@ -166,6 +171,8 @@ def main():
     parser.add_argument("--files", nargs="+")
     parser.add_argument("--all-iso", action="store_true")
     parser.add_argument("--audit", action="store_true")
+    parser.add_argument("--strict-audit", action="store_true",
+                        help="fail on unchanged English prose (seven or more words)")
     args = parser.parse_args()
     registered = tags(I18N / "locales.tsv")
     requested = tags(I18N / "data/iso-639-1.tsv") if args.all_iso else args.locale or registered
@@ -177,7 +184,7 @@ def main():
         print(f"Registry is missing {len(set(requested) - set(registered))} ISO locales")
         failed = True
     for tag in requested:
-        failed |= validate(tag, english, args.files, args.audit)
+        failed |= validate(tag, english, args.files, args.audit, args.strict_audit)
     raise SystemExit(1 if failed else 0)
 
 

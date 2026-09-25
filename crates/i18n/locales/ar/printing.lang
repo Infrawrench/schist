@@ -27,7 +27,7 @@ printing.downloaded = اكتمل تنزيل PDF. افتحه في عارض PDF ل
 printing.saved = حُفظ PDF: {path}
 printing.letter = US Letter
 printing.a4 = A4
-printing.margin_value = {value} mm
+printing.margin_value = {value} ملم
 
 printing.layout_title = تخطيط الطباعة
 printing.preset = إعداد تخطيط مسبق

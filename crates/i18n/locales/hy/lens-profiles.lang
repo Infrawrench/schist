@@ -1,17 +1,16 @@
-# Lens profiles: English fallback pending translation review. No locale added.
-lens_profiles.invalid = Choose a valid Lensfun v1/v2 XML database (up to 8 MiB) with supported camera or lens data.
-lens_profiles.calibration = Lens calibration
-lens_profiles.no_calibration = No calibration covers these settings. Check focal length and camera crop factor; manual correction remains available.
-lens_profiles.import = Import Lensfun XML…
-lens_profiles.imported = Lensfun database imported for this session. Select a profile or match the photo metadata.
-lens_profiles.manual = Manual correction only
-lens_profiles.saved = Saved calibration (database unavailable)
-lens_profiles.profile = Lens profile
-lens_profiles.aperture = Aperture (0 = unknown)
-lens_profiles.distance = Focus distance (0 = unknown)
-lens_profiles.vignette = Calibrated vignetting
-lens_profiles.color_context = Calibrated vignetting requires the built-in sRGB profile. Convert to sRGB to preserve appearance, then reopen Lens Correction. For already-sRGB untagged pixels, assigning sRGB is sufficient. Geometry and chromatic correction remain available.
-lens_profiles.vignette_missing = No vignetting calibration covers the aperture and focus distance. Enter measured values to enable it; 1000 m represents distant focus in many Lensfun profiles.
-lens_profiles.note = Calibrated correction runs before the manual controls. Use the original full frame; crop afterward. Save a filter stack in PSD/PSB to retain editable calibration.
-lens_profiles.automatic = Match photo metadata
-lens_profiles.components = Profile pass: distortion {distortion}; color fringes {tca}; vignetting {vignette}.
+lens_profiles.invalid = Ընտրեք վավեր Lensfun v1/v2 XML տվյալների բազա (մինչև 8 MiB)՝ աջակցվող տեսախցիկի կամ ոսպնյակի տվյալների հետ:
+lens_profiles.calibration = Ոսպնյակների չափաբերում
+lens_profiles.no_calibration = Ոչ մի չափաբերում չի ընդգրկում այս կարգավորումները: Ստուգեք կիզակետային երկարությունը և տեսախցիկի կտրման գործակիցը; ձեռքով ուղղումը մնում է հասանելի:
+lens_profiles.import = Ներմուծել Lensfun XML…
+lens_profiles.imported = Lensfun տվյալների բազան ներմուծվել է այս նստաշրջանի համար: Ընտրեք պրոֆիլ կամ համապատասխանեք լուսանկարների մետատվյալներին:
+lens_profiles.manual = Միայն ձեռքով ուղղում
+lens_profiles.saved = Պահված չափաբերումը (տվյալների բազան անհասանելի է)
+lens_profiles.profile = Ոսպնյակի պրոֆիլը
+lens_profiles.aperture = բացվածք (0 = անհայտ)
+lens_profiles.distance = Կենտրոնացման հեռավորությունը (0 = անհայտ)
+lens_profiles.vignette = Կալիբրացված վինետավորում
+lens_profiles.color_context = Կալիբրացված վինետավորման համար անհրաժեշտ է ներկառուցված sRGB պրոֆիլ: Արտաքին տեսքը պահպանելու համար փոխարկեք sRGB-ի, այնուհետև նորից բացեք Ոսպնյակի շտկումը: Արդեն sRGB չպիտակավորված պիքսելների համար բավարար է sRGB հատկացնելը: Երկրաչափությունը և քրոմատիկ ուղղումը մնում են մատչելի:
+lens_profiles.vignette_missing = Ոչ մի վինետային տրամաչափում չի ծածկում բացվածքը և ֆոկուսի հեռավորությունը: Մուտքագրեք չափված արժեքները՝ այն միացնելու համար. 1000 մ-ը ներկայացնում է Lensfun-ի շատ պրոֆիլների հեռավոր ֆոկուս:
+lens_profiles.note = Չափաբերված ուղղումը կատարվում է ձեռքով կարգավորումներից առաջ։ Օգտագործեք բնօրինակ ամբողջական կադրը, այնուհետև կտրեք։ Պահպանեք զտիչների հավաքածուն PSD/PSB ձևաչափով՝ խմբագրվող չափաբերումը պահպանելու համար։
+lens_profiles.automatic = Համապատասխանեցրեք լուսանկարների մետատվյալներին
+lens_profiles.components = Պրոֆիլի կիրառում՝ աղավաղում {distortion}; գունային եզրեր {tca}; վինետավորում {vignette}։

@@ -1,17 +1,17 @@
-# Lens profiles: English fallback pending translation review. No locale added.
-lens_profiles.invalid = Choose a valid Lensfun v1/v2 XML database (up to 8 MiB) with supported camera or lens data.
-lens_profiles.calibration = Lens calibration
-lens_profiles.no_calibration = No calibration covers these settings. Check focal length and camera crop factor; manual correction remains available.
-lens_profiles.import = Import Lensfun XML…
-lens_profiles.imported = Lensfun database imported for this session. Select a profile or match the photo metadata.
-lens_profiles.manual = Manual correction only
-lens_profiles.saved = Saved calibration (database unavailable)
-lens_profiles.profile = Lens profile
-lens_profiles.aperture = Aperture (0 = unknown)
-lens_profiles.distance = Focus distance (0 = unknown)
-lens_profiles.vignette = Calibrated vignetting
-lens_profiles.color_context = Calibrated vignetting requires the built-in sRGB profile. Convert to sRGB to preserve appearance, then reopen Lens Correction. For already-sRGB untagged pixels, assigning sRGB is sufficient. Geometry and chromatic correction remain available.
-lens_profiles.vignette_missing = No vignetting calibration covers the aperture and focus distance. Enter measured values to enable it; 1000 m represents distant focus in many Lensfun profiles.
-lens_profiles.note = Calibrated correction runs before the manual controls. Use the original full frame; crop afterward. Save a filter stack in PSD/PSB to retain editable calibration.
-lens_profiles.automatic = Match photo metadata
-lens_profiles.components = Profile pass: distortion {distortion}; color fringes {tca}; vignetting {vignette}.
+# Lens profile controls.
+lens_profiles.invalid = समर्थितस्य चित्रग्राहकस्य अथवा काचस्य दत्तांशैः युक्तं वैधं Lensfun v1/v2 XML दत्तांशसञ्चयं (८ MiB पर्यन्तम्) चिनोतु।
+lens_profiles.calibration = काचस्य अंशशोधनम्
+lens_profiles.no_calibration = एतासां व्यवस्थासां कृते अंशशोधनं नास्ति। केन्द्रीयदूरं चित्रग्राहकस्य कर्तनगुणकं च परीक्षताम्; हस्तेन संशोधनमपि शक्यम्।
+lens_profiles.import = Lensfun XML आयातयतु…
+lens_profiles.imported = अस्मिन् सत्रे Lensfun दत्तांशसञ्चयः आयातितः। काचरूपरेखां चिनोतु अथवा चित्रस्य मेटादत्तांशेन मेलयतु।
+lens_profiles.manual = केवलं हस्तेन संशोधनम्
+lens_profiles.saved = रक्षितम् अंशशोधनम् (दत्तांशसञ्चयः अनुपलब्धः)
+lens_profiles.profile = काचस्य रूपरेखा
+lens_profiles.aperture = छिद्रविस्तारः (० = अज्ञातः)
+lens_profiles.distance = केन्द्रणदूरम् (० = अज्ञातम्)
+lens_profiles.vignette = अंशशोधितं सीमाच्छायनम्
+lens_profiles.color_context = अंशशोधितस्य सीमाच्छायनस्य कृते अन्तर्निहिता sRGB रूपरेखा आवश्यकी। दृश्यरूपं रक्षितुं sRGB मध्ये परिवर्तयतु, ततः काचसंशोधनं पुनरुद्घाटयतु। पूर्वमेव sRGB-वर्णव्यवस्थायां स्थितेभ्यः अचिह्नितेभ्यः चित्रकणेभ्यः sRGB रूपरेखां निर्देष्टुमेव पर्याप्तम्। आकृतिसंशोधनं वर्णसीमासंशोधनं च उपलब्धमेव।
+lens_profiles.vignette_missing = छिद्रविस्तारस्य केन्द्रणदूरस्य च अनुरूपं सीमाच्छायनांशशोधनं नास्ति। तत् सक्रियं कर्तुं मापितानि मूल्यानि निवेशयतु; बहुषु Lensfun रूपरेखासु 1000 m दूरस्थं केन्द्रणं सूचयति।
+lens_profiles.note = अंशशोधितं संशोधनं हस्तनियन्त्रणात् पूर्वं प्रयुज्यते। मूलं सम्पूर्णं चित्रफलकं प्रयुङ्क्ताम्; अनन्तरं कर्तयतु। सम्पादनीयं अंशशोधनं रक्षितुं शोधकस्तरसमूहं PSD/PSB मध्ये रक्षतु।
+lens_profiles.automatic = चित्रस्य मेटादत्तांशेन मेलयतु
+lens_profiles.components = रूपरेखानुसारं संशोधनम्: विकृतिः {distortion}; वर्णसीमाः {tca}; सीमाच्छायनम् {vignette}।

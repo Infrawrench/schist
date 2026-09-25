@@ -7,7 +7,7 @@ filter.neural.param.eyes = Oë
 filter.neural.msg.using_model = Gebruik {model} · {license}.
 filter.neural.msg.get_model = Kry dit by Filter ▸ Neural Filters ▸ Bestuur modelle.
 
-filter.camera_raw.name = Camera Raw-filter
+filter.camera_raw.name = Camera Raw
 filter.camera_raw.param.temperature = Temperatuur
 filter.camera_raw.param.tint = Tint
 filter.camera_raw.param.highlights = Hoogligte

@@ -193,6 +193,51 @@ pub fn ymd_from_unix(secs: u64) -> (i64, u32, u32) {
     (if m <= 2 { y + 1 } else { y }, m, d)
 }
 
+/// Copyright from embedded XMP rights or original EXIF tag 33432.
+pub fn copyright_of(path: &Path) -> Option<String> {
+    #[cfg(not(target_arch = "wasm32"))]
+    {
+        use image::ImageDecoder as _;
+        let embedded = (|| {
+            let reader = image::ImageReader::open(path)
+                .ok()?
+                .with_guessed_format()
+                .ok()?;
+            // The generic image reader loses TIFF metadata in the current dependency build.
+            // The concrete TIFF decoder exposes tag 700 correctly without decoding pixels.
+            let packet = if reader.format() == Some(image::ImageFormat::Tiff) {
+                image::codecs::tiff::TiffDecoder::new(reader.into_inner())
+                    .ok()?
+                    .xmp_metadata()
+                    .ok()??
+            } else {
+                reader.into_decoder().ok()?.xmp_metadata().ok()??
+            };
+            if packet.len() > 8 * 1024 * 1024 {
+                return None;
+            }
+            crate::xmp::copyright_packet(std::str::from_utf8(&packet).ok()?)
+                .ok()
+                .flatten()
+        })();
+        if embedded.is_some() {
+            return embedded;
+        }
+    }
+    let data = exif_of(path)?;
+    let field = data.get_field(exif::Tag::Copyright, exif::In::PRIMARY)?;
+    let exif::Value::Ascii(parts) = &field.value else {
+        return None;
+    };
+    Some(
+        parts
+            .iter()
+            .map(|part| String::from_utf8_lossy(part))
+            .collect::<Vec<_>>()
+            .join("; "),
+    )
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;

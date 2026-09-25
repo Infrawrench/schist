@@ -103,6 +103,6 @@ command.history.bring_forward = Bweretsani Patsogolo
 command.history.send_backward = Tumizani Kumbuyo
 command.history.bring_to_front = Bweretsani Kutsogolo
 command.history.send_to_back = Tumizani Kumbuyo Kwambiri
-command.history.clipping_mask = Clipping Mask
+command.history.clipping_mask = Maski yodulira
 command.history.layer_via_cut = Layer Kudzera mu Kudula
 command.history.add_layer_mask = Onjezani Mask ya Layer

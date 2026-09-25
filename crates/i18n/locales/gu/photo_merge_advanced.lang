@@ -1,8 +1,8 @@
 # English fallback pending translation.
-photo_merge_advanced.projective = Perspective alignment (includes rotation)
-photo_merge_advanced.cylindrical = Cylindrical panorama
-photo_merge_advanced.deghost = Remove moving-subject ghosts (first photo reference)
-photo_merge_advanced.focal = Focal length (px) / image width (px)
-photo_merge_advanced.masks = Focus output uses editable layer masks. Select a mask in Layers and paint to refine.
-photo_merge_advanced.no_match = No reliable alignment found. Use textured photos with substantial overlap and modest viewpoint changes.
-photo_merge_advanced.invalid = Invalid source images or merge settings.
+photo_merge_advanced.projective = પરિપ્રેક્ષ્ય સંરેખણ (રોટેશન સહિત)
+photo_merge_advanced.cylindrical = નળાકાર પેનોરમા
+photo_merge_advanced.deghost = મૂવિંગ-વિષય ભૂત દૂર કરો (પ્રથમ ફોટો સંદર્ભ)
+photo_merge_advanced.focal = ફોકલ લંબાઈ (px) / છબીની પહોળાઈ (px)
+photo_merge_advanced.masks = ફોકસ આઉટપુટ એડિટેબલ લેયર માસ્કનો ઉપયોગ કરે છે. સ્તરોમાં માસ્ક પસંદ કરો અને શુદ્ધ કરવા માટે પેઇન્ટ કરો.
+photo_merge_advanced.no_match = કોઈ વિશ્વસનીય સંરેખણ મળ્યું નથી. નોંધપાત્ર ઓવરલેપ અને સાધારણ દૃષ્ટિબિંદુ ફેરફારો સાથે ટેક્ષ્ચર ફોટાઓનો ઉપયોગ કરો.
+photo_merge_advanced.invalid = અમાન્ય સ્ત્રોત છબીઓ અથવા મર્જ સેટિંગ્સ.

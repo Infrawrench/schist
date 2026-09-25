@@ -1,8 +1,8 @@
-# English fallback pending translation.
-photo_merge_advanced.projective = Perspective alignment (includes rotation)
-photo_merge_advanced.cylindrical = Cylindrical panorama
-photo_merge_advanced.deghost = Remove moving-subject ghosts (first photo reference)
-photo_merge_advanced.focal = Focal length (px) / image width (px)
-photo_merge_advanced.masks = Focus output uses editable layer masks. Select a mask in Layers and paint to refine.
-photo_merge_advanced.no_match = No reliable alignment found. Use textured photos with substantial overlap and modest viewpoint changes.
-photo_merge_advanced.invalid = Invalid source images or merge settings.
+# Translated photo merge options.
+photo_merge_advanced.projective = Okukwatagana kw’endowooza (muli n’okukyusakyusa) .
+photo_merge_advanced.cylindrical = Ekifaananyi ekirabika obulungi (cylindrical panorama).
+photo_merge_advanced.deghost = Ggyawo ebifaananyi ebiddiddwamu eby’ebintu ebitambula (ekifaananyi ekisooka nga kye ky’okugeraageranya)
+photo_merge_advanced.focal = Obuwanvu bw’ekifo (px) / obugazi bw’ekifaananyi (px) .
+photo_merge_advanced.masks = Ekifaananyi ekiva mu kugatta okussa essira kikozesa masiki za layeri ezisobola okukyusibwa. Londa masiki mu Layers ogisiige langi okugitereeza.
+photo_merge_advanced.no_match = Tewali alignment eyesigika ezuuliddwa. Kozesa ebifaananyi ebiriko ebiwandiiko nga bikwatagana nnyo n’enkyukakyuka entonotono mu kulaba.
+photo_merge_advanced.invalid = Ebifaananyi by'ensibuko ebitali bituufu oba ensengeka z'okugatta.

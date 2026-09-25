@@ -1,10 +1,10 @@
 # Gallery photo metadata editing. ISO input examples stay language-neutral.
 metadata.title = Metadata ng larawan
 metadata.keywords = Mga keyword (;)
-metadata.caption = Caption
+metadata.caption = Kapsiyon
 metadata.copyright = Karapatang-ari
 metadata.hint = Piliin ang mga field na babaguhin. Binubura ng blangkong halaga ang nilalaman.
 metadata.invalid = Suriin ang mga halaga at XMP file.
 metadata.taken = Petsa
-metadata.offset = Offset (s)
+metadata.offset = Paglihis (s)
 metadata.gps = GPS

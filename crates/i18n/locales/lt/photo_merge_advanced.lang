@@ -1,8 +1,8 @@
-# English fallback pending translation.
-photo_merge_advanced.projective = Perspective alignment (includes rotation)
-photo_merge_advanced.cylindrical = Cylindrical panorama
-photo_merge_advanced.deghost = Remove moving-subject ghosts (first photo reference)
-photo_merge_advanced.focal = Focal length (px) / image width (px)
-photo_merge_advanced.masks = Focus output uses editable layer masks. Select a mask in Layers and paint to refine.
-photo_merge_advanced.no_match = No reliable alignment found. Use textured photos with substantial overlap and modest viewpoint changes.
-photo_merge_advanced.invalid = Invalid source images or merge settings.
+# Translated photo merge options.
+photo_merge_advanced.projective = Perspektyvus lygiavimas (įskaitant pasukimą)
+photo_merge_advanced.cylindrical = Cilindrinė panorama
+photo_merge_advanced.deghost = Pašalinti judančių objektų dvigubus atvaizdus (pirmoji nuotrauka kaip atskaita)
+photo_merge_advanced.focal = Židinio nuotolis (px) / vaizdo plotis (px)
+photo_merge_advanced.masks = Fokusavimo išvestis naudoja redaguojamas sluoksnių kaukes. Sluoksniuose pasirinkite kaukę ir pieškite, kad patikslintumėte.
+photo_merge_advanced.no_match = Nerasta patikimo derinimo. Naudokite tekstūruotas nuotraukas su dideliu persidengimu ir nedideliais požiūrio pasikeitimais.
+photo_merge_advanced.invalid = Netinkami šaltinio vaizdai arba sujungimo nustatymai.

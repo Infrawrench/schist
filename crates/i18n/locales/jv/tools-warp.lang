@@ -20,8 +20,8 @@ tool.puppet_warp.option.stiffness = Kakuné
 tool.puppet_warp.history.puppet_warp = Puppet Warp
 
 # Vanishing Point
-tool.vanishing_point.name = Vanishing Point
+tool.vanishing_point.name = Titik ilang
 tool.vanishing_point.description = Seret bidang ing ndhuwur samubarang sing nduwèni perspektif, banjur ganti modus dadi Klon lan pulasaké: piksel sing disalin bakal manut bidang lan saya cilik kanthi saya adoh.
 tool.vanishing_point.choice.edit_plane = Sunting Bidang
 tool.vanishing_point.choice.clone = Klon
-tool.vanishing_point.history.vanishing_point = Vanishing Point
+tool.vanishing_point.history.vanishing_point = Titik ilang

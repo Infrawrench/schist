@@ -9,9 +9,9 @@ tool.transform.selection.name = Sinthani Malo Osankhidwa
 tool.transform.selection.description = Sinthani Malo Osankhidwa: bokosi lomwelo limasuntha malire a malo osankhidwa m'malo mwa ma pixel amene ali mkati mwake. Tsimikizani kapena letsani kuti mumalize.
 tool.transform.selection.history.transform = Sinthani Malo Osankhidwa
 
-tool.transform.resample.nearest_neighbor = Nearest Neighbor
-tool.transform.resample.bilinear = Bilinear
-tool.transform.resample.bicubic = Bicubic
+tool.transform.resample.nearest_neighbor = Woyandikira kwambiri
+tool.transform.resample.bilinear = Bilineya
+tool.transform.resample.bicubic = Bikyubiki
 
 tool.crop.name = Dulani
 tool.crop.description = Kokani kuti musankhe dera losunga ndi kusintha zogwirira zake; kutsimikiza (Enter) kumadula chikalata kuti chikhale deralo, ndipo kuletsa (Escape) kumachisiya mmene chilili.

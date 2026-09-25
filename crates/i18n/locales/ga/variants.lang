@@ -1,8 +1,8 @@
-# Virtual copies. Explicit English fallback pending translation review.
-variants.create = Create virtual copy…
-variants.rename = Rename virtual copy…
-variants.delete = Delete virtual copy
-variants.close = Close this photo and its virtual copies before moving or deleting them.
-variants.saved_hint = The copy starts from the saved edit, or the original when there is no edit. Save pending changes first.
-variants.move_original = Move the original photo to move its virtual copies.
-variants.protected_export = Choose another destination. Gallery exports cannot replace the original or its edit storage.
+# Virtual copies.
+variants.create = Cruthaigh cóip fhíorúil…
+variants.rename = Athainmnigh cóip fhíorúil…
+variants.delete = Scrios cóip fhíorúil
+variants.close = Dún an grianghraf seo agus a chóipeanna fíorúla roimh iad a bhogadh nó a scriosadh.
+variants.saved_hint = Tosaíonn an chóip ón eagar atá sábháilte, nó ón mbunchóip nuair nach bhfuil aon eagarthóireacht ann. Sábháil athruithe ar feitheamh ar dtús.
+variants.move_original = Bog an grianghraf bunaidh chun a chóipeanna fíorúla a bhogadh.
+variants.protected_export = Roghnaigh ceann scríbe eile. Ní féidir le heaspórtálacha gailearaí ionad an bhunstórála ná a stór eagarthóireachta.

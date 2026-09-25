@@ -1,8 +1,8 @@
-# Virtual copies. Explicit English fallback pending translation review.
-variants.create = Create virtual copy…
-variants.rename = Rename virtual copy…
-variants.delete = Delete virtual copy
-variants.close = Close this photo and its virtual copies before moving or deleting them.
-variants.saved_hint = The copy starts from the saved edit, or the original when there is no edit. Save pending changes first.
-variants.move_original = Move the original photo to move its virtual copies.
-variants.protected_export = Choose another destination. Gallery exports cannot replace the original or its edit storage.
+# Virtual copies.
+variants.create = Kopiyek virtual biafirîne…
+variants.rename = Navê kopiya virtual biguherîne…
+variants.delete = Kopiya virtual jêbirin
+variants.close = Berî barkirin an jêbirina vê wêneyê û kopiyên wê yên virtual bigire.
+variants.saved_hint = Kopî ji guhertoya tomarkirî dest pê dike, an ji orîjînal gava ku guheztin tune be. Pêşî guhertinên li bendê hilînin.
+variants.move_original = Wêneya orjînal biguhezînin da ku kopiyên wê yên virtual biguhezînin.
+variants.protected_export = cîhek din hilbijêrin. Hinardekirina galeriyê nikare şûna orîjînal an hilanîna wê ya guherandinê bigire.

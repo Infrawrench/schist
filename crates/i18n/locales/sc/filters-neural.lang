@@ -95,7 +95,7 @@ filter.neural.colorize.name = Colora
 filter.neural.colorize.param.warmth = Calore
 filter.neural.colorize.msg.no_model = {model} no est installadu — in su logu suo est aplicada una tinta segundu sa luminàntzia.
 
-filter.neural.super_zoom.name = Super Zoom
+filter.neural.super_zoom.name = Super ingrandimentu
 filter.neural.super_zoom.msg.no_model = {model} no est installadu — in su logu suo est impreada un'afiladura orientada dae is oros.
 
 filter.neural.style_transfer.name = Trasferimentu de istile

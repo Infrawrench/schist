@@ -8,7 +8,7 @@ filter.neural.param.eyes = Күҙҙәр
 filter.neural.msg.using_model = {model} ҡулланыла · {license}.
 filter.neural.msg.get_model = Уны Фильтр ▸ Neural Filters ▸ Моделдәр менән идара итеү менюһынан алығыҙ.
 
-filter.camera_raw.name = Camera Raw фильтры
+filter.camera_raw.name = Camera Raw
 filter.camera_raw.param.temperature = Температура
 filter.camera_raw.param.tint = Төҫмөр
 filter.camera_raw.param.highlights = Яҡты өлкәләр

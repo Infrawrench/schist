@@ -1,17 +1,16 @@
-# Lens profiles: English fallback pending translation review. No locale added.
-lens_profiles.invalid = Choose a valid Lensfun v1/v2 XML database (up to 8 MiB) with supported camera or lens data.
-lens_profiles.calibration = Lens calibration
-lens_profiles.no_calibration = No calibration covers these settings. Check focal length and camera crop factor; manual correction remains available.
-lens_profiles.import = Import Lensfun XML…
-lens_profiles.imported = Lensfun database imported for this session. Select a profile or match the photo metadata.
-lens_profiles.manual = Manual correction only
-lens_profiles.saved = Saved calibration (database unavailable)
-lens_profiles.profile = Lens profile
-lens_profiles.aperture = Aperture (0 = unknown)
-lens_profiles.distance = Focus distance (0 = unknown)
-lens_profiles.vignette = Calibrated vignetting
-lens_profiles.color_context = Calibrated vignetting requires the built-in sRGB profile. Convert to sRGB to preserve appearance, then reopen Lens Correction. For already-sRGB untagged pixels, assigning sRGB is sufficient. Geometry and chromatic correction remain available.
-lens_profiles.vignette_missing = No vignetting calibration covers the aperture and focus distance. Enter measured values to enable it; 1000 m represents distant focus in many Lensfun profiles.
-lens_profiles.note = Calibrated correction runs before the manual controls. Use the original full frame; crop afterward. Save a filter stack in PSD/PSB to retain editable calibration.
-lens_profiles.automatic = Match photo metadata
-lens_profiles.components = Profile pass: distortion {distortion}; color fringes {tca}; vignetting {vignette}.
+lens_profiles.invalid = Tia Lensfun v1/v2 XML nyatakakadzraɖoƒe si sɔ (si ade 8 MiB) si me fotoɖemɔ̃ alo lens ƒe nyatakaka siwo wodo alɔe le.
+lens_profiles.calibration = Lens ƒe dzidzedzekpɔkpɔ
+lens_profiles.no_calibration = Dodokpɔ aɖeke meƒoa nu tso ɖoɖo siawo ŋu o. Kpɔ ŋkuléleɖenuŋu ƒe didime kple fotoɖemɔ̃ ƒe nuku ƒe akpa; asi ɖɔɖɔɖo gakpɔtɔ li.
+lens_profiles.import = Tsɔ Lensfun XML va eme…
+lens_profiles.imported = Wotsɔ Lensfun nyatakakadzraɖoƒe va eme na ɣeyiɣi sia. Tia nɔnɔmetata aɖe alo nàsɔe kple fotoa ƒe metadata.
+lens_profiles.manual = Asi ɖɔɖɔɖo ɖeɖeko
+lens_profiles.saved = Wodzra calibration ɖo (nyatakakadzraɖoƒea meli o) .
+lens_profiles.profile = Lens ƒe nɔnɔmetata
+lens_profiles.aperture = Aperture (0 = womenya o) .
+lens_profiles.distance = Focus ƒe didime (0 = womenya o) .
+lens_profiles.vignette = Vignetting si wodo kpɔ
+lens_profiles.color_context = Vignetting si wodo kpɔ hiã sRGB ƒe nɔnɔmetata si wotu ɖe eme. Trɔ ɖe sRGB ŋu be nàkpɔ dzedzeme ta, emegbe nàgaʋu Lens ƒe Dzadzra ake. Le piksel siwo womede dzesii o gake wonye sRGB xoxo la, sRGB dede asi na wo sɔ gbɔ. Geometry kple chromatic correction gakpɔtɔ li.
+lens_profiles.vignette_missing = Vignetting calibration aɖeke metsyɔa aperture kple focus ƒe didime dzi o. Ŋlɔ asixɔxɔ siwo wodzidze be wòawɔ dɔ; 1000 m tsi tre ɖi na didiƒe ʋĩ ƒe ŋkuléle ɖe nu ŋu le Lensfun ƒe nɔnɔmetata geɖe me.
+lens_profiles.note = Ðɔɖɔɖo si wodo kpɔ la zɔna do ŋgɔ na asidziɖuɖuawo. Zã foto gbãtɔa ƒe fli bliboa; tso akpa aɖe ɖa le ema megbe. Dzra filter stack ɖo ɖe PSD/PSB me be nàlé calibration si woateŋu atrɔ asi le la me ɖe asi.
+lens_profiles.automatic = Tsɔ fotowo ƒe metadata sɔ kple wo nɔewo
+lens_profiles.components = Nɔnɔmetata ƒe dɔwɔwɔ: tɔtɔ {distortion}; amadede ƒe alɔdzewo {tca}; vignetting {vignette}.

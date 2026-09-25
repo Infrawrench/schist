@@ -1,8 +1,8 @@
-# Virtual copies. Explicit English fallback pending translation review.
-variants.create = Create virtual copy…
-variants.rename = Rename virtual copy…
-variants.delete = Delete virtual copy
-variants.close = Close this photo and its virtual copies before moving or deleting them.
-variants.saved_hint = The copy starts from the saved edit, or the original when there is no edit. Save pending changes first.
-variants.move_original = Move the original photo to move its virtual copies.
-variants.protected_export = Choose another destination. Gallery exports cannot replace the original or its edit storage.
+# Virtual copies.
+variants.create = Ṣẹ̀dá ẹ̀dà àfojúrí…
+variants.rename = Tún orúkọ ẹ̀dà àfojúrí ṣe…
+variants.delete = Pa ẹ̀dà àfojúrí rẹ́
+variants.close = Pa fọ́tò yìí àti àwọn ẹ̀dà àfojúrí rẹ̀ kí o tó gbé wọn tàbí pa wọn rẹ́.
+variants.saved_hint = Ẹ̀dà náà bẹ̀rẹ̀ láti inú àtúnṣe tí a fipamọ́, tàbí láti àkọ́kọ́ bí kò bá sí àtúnṣe. Kọ́kọ́ fi àwọn ìyípadà tí kò tíì fipamọ́ pamọ́.
+variants.move_original = Gbé fọ́tò àkọ́kọ́ kí àwọn ẹ̀dà àfojúrí rẹ̀ lè bá a lọ.
+variants.protected_export = Yan ibi mìíràn. Ohun tí a gbé jáde láti ibi àkójọ kò lè rọ́pò fọ́tò àkọ́kọ́ tàbí ibi ìpamọ́ àtúnṣe rẹ̀.

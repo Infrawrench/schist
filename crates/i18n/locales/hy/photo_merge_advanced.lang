@@ -1,8 +1,7 @@
-# English fallback pending translation.
-photo_merge_advanced.projective = Perspective alignment (includes rotation)
-photo_merge_advanced.cylindrical = Cylindrical panorama
-photo_merge_advanced.deghost = Remove moving-subject ghosts (first photo reference)
-photo_merge_advanced.focal = Focal length (px) / image width (px)
-photo_merge_advanced.masks = Focus output uses editable layer masks. Select a mask in Layers and paint to refine.
-photo_merge_advanced.no_match = No reliable alignment found. Use textured photos with substantial overlap and modest viewpoint changes.
-photo_merge_advanced.invalid = Invalid source images or merge settings.
+photo_merge_advanced.projective = Հեռանկարային հավասարեցում (ներառում է ռոտացիա)
+photo_merge_advanced.cylindrical = Գլանաձև համայնապատկեր
+photo_merge_advanced.deghost = Հեռացրեք շարժվող առարկայի ուրվականները (առաջին լուսանկարի հղումը)
+photo_merge_advanced.focal = Կիզակետային երկարությունը (px) / պատկերի լայնությունը (px)
+photo_merge_advanced.masks = Ֆոկուս ելքը օգտագործում է խմբագրվող շերտերի դիմակներ: Ընտրեք դիմակ Շերտեր-ում և ներկեք՝ զտելու համար:
+photo_merge_advanced.no_match = Հուսալի հավասարեցում չի գտնվել: Օգտագործեք տեքստուրային լուսանկարներ՝ էական համընկնմամբ և տեսանկյունի համեստ փոփոխություններով:
+photo_merge_advanced.invalid = Աղբյուրի անվավեր պատկերներ կամ միաձուլման կարգավորումներ:

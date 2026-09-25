@@ -1,8 +1,8 @@
-# English fallback pending translation.
-photo_merge_advanced.projective = Perspective alignment (includes rotation)
-photo_merge_advanced.cylindrical = Cylindrical panorama
-photo_merge_advanced.deghost = Remove moving-subject ghosts (first photo reference)
-photo_merge_advanced.focal = Focal length (px) / image width (px)
-photo_merge_advanced.masks = Focus output uses editable layer masks. Select a mask in Layers and paint to refine.
-photo_merge_advanced.no_match = No reliable alignment found. Use textured photos with substantial overlap and modest viewpoint changes.
-photo_merge_advanced.invalid = Invalid source images or merge settings.
+# Dewisyow kesunya skeusennow.
+photo_merge_advanced.projective = Unlina perspektiv (gans troans)
+photo_merge_advanced.cylindrical = Panorama silindrek
+photo_merge_advanced.deghost = Dilea skeusow traow owth ober gwayans (an kynsa foto avel menodh)
+photo_merge_advanced.focal = Pellter fokal (px) / les an skeusen (px)
+photo_merge_advanced.masks = Eskorrans fokus a devnydh maskow gwisk golygiadow. Dewis mask yn Gwiskow ha pentya rag y ewnhe.
+photo_merge_advanced.no_match = Ny veu kevys unlina fydhyel. Devnydh fotos gans aren kemmyn bras ha chanjyow perspektiv bian.
+photo_merge_advanced.invalid = Skeusennow mamm po settyansow kesunya anwir.

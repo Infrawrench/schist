@@ -1,8 +1,8 @@
-# Virtual copies. Explicit English fallback pending translation review.
-variants.create = Create virtual copy…
-variants.rename = Rename virtual copy…
-variants.delete = Delete virtual copy
-variants.close = Close this photo and its virtual copies before moving or deleting them.
-variants.saved_hint = The copy starts from the saved edit, or the original when there is no edit. Save pending changes first.
-variants.move_original = Move the original photo to move its virtual copies.
-variants.protected_export = Choose another destination. Gallery exports cannot replace the original or its edit storage.
+# Virtual copies.
+variants.create = Sukurti virtualią kopiją…
+variants.rename = Pervardyti virtualią kopiją…
+variants.delete = Ištrinkite virtualią kopiją
+variants.close = Uždarykite šią nuotrauką ir jos virtualias kopijas prieš jas perkeldami arba ištrindami.
+variants.saved_hint = Kopija pradedama nuo išsaugoto redagavimo arba originalo, kai jo nėra. Pirmiausia išsaugokite laukiančius pakeitimus.
+variants.move_original = Perkelkite originalią nuotrauką, kad perkeltumėte jos virtualias kopijas.
+variants.protected_export = Pasirinkite kitą kelionės tikslą. Galerijos eksportavimas negali pakeisti originalo ar jos redagavimo saugyklos.

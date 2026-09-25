@@ -1,8 +1,8 @@
-# English fallback pending translation.
-photo_merge_advanced.projective = Perspective alignment (includes rotation)
-photo_merge_advanced.cylindrical = Cylindrical panorama
-photo_merge_advanced.deghost = Remove moving-subject ghosts (first photo reference)
-photo_merge_advanced.focal = Focal length (px) / image width (px)
-photo_merge_advanced.masks = Focus output uses editable layer masks. Select a mask in Layers and paint to refine.
-photo_merge_advanced.no_match = No reliable alignment found. Use textured photos with substantial overlap and modest viewpoint changes.
-photo_merge_advanced.invalid = Invalid source images or merge settings.
+# Translated photo merge options.
+photo_merge_advanced.projective = Aliniament da perspectiva (cun rotaziun)
+photo_merge_advanced.cylindrical = Panorama cilindric
+photo_merge_advanced.deghost = Allontanar fastizs da subjects en moviment (emprima fotografia sco referenza)
+photo_merge_advanced.focal = Distanza focala (px) / ladezza dal maletg (px)
+photo_merge_advanced.masks = Il resultat da la fusiun da focussaziun utilisescha mascras da stgalims modifitgablas. Tscherna ina mascra en Stgalims e malegia per meglierar il resultat.
+photo_merge_advanced.no_match = Nagin aliniament fidabel chattà. Utilisescha fotografias cun blers detagls, gronda surposiziun e pitschnas midadas dal punct da vista.
+photo_merge_advanced.invalid = Maletgs da funtauna u parameters da fusiun nunvalids.

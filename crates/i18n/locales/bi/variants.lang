@@ -1,8 +1,8 @@
-# Virtual copies. Explicit English fallback pending translation review.
-variants.create = Create virtual copy…
-variants.rename = Rename virtual copy…
-variants.delete = Delete virtual copy
-variants.close = Close this photo and its virtual copies before moving or deleting them.
-variants.saved_hint = The copy starts from the saved edit, or the original when there is no edit. Save pending changes first.
-variants.move_original = Move the original photo to move its virtual copies.
-variants.protected_export = Choose another destination. Gallery exports cannot replace the original or its edit storage.
+# Virtual copies.
+variants.create = Mekem wan virtual kopi…
+variants.rename = Jenisim nem blong virtual kopi…
+variants.delete = Deletem virtual kopi
+variants.close = Klosem foto ya mo ol virtual kopi blong hem bifo yu muvum o deletem olgeta.
+variants.saved_hint = Kopi i stat long edit we yu sevem, o long orijinal sipos i no gat edit. Sevem ol jenis we oli stap fastaem.
+variants.move_original = Muvum orijinal foto blong muvum ol virtual kopi blong hem.
+variants.protected_export = Jusum wan narafala ples. Ol export blong Gallery oli no save putum wan niufala fael long ples blong orijinal o ples we ol edit oli stap.

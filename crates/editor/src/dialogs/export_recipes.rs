@@ -1,6 +1,9 @@
 //! Saved recipes, with one output's controls visible at a time.
 use super::*;
-use crate::export_recipes::{Editor, Output, Recipe, Scope, FLAT_CODECS, MAX_OUTPUTS};
+use crate::export_recipes::{
+    Editor, FinishingCategory, Output, Placement, Recipe, Scope, TargetProfile, FLAT_CODECS,
+    MAX_OUTPUTS,
+};
 use schist_i18n::tf;
 
 fn field(
@@ -56,7 +59,10 @@ pub(super) fn export_recipes_dialog(
     state: &DialogState,
     editor: Editor,
     cx: &mut Context<Workspace>,
-) -> impl IntoElement {
+) -> gpui::AnyElement {
+    if let Some(category) = editor.finishing_category {
+        return export_finishing_dialog(ws, state, editor, category, cx).into_any_element();
+    }
     let mut body = div().flex().flex_col().gap_2();
     let mut saved: Vec<(SharedString, Option<usize>)> = editor
         .book
@@ -316,6 +322,30 @@ pub(super) fn export_recipes_dialog(
     } else if output.codec == "codec.webp" {
         body = body.child(t("export_recipes.lossless_webp"));
     }
+    let mut categories = div().flex().flex_wrap().gap_2();
+    for (category, label) in [
+        (
+            FinishingCategory::Watermark,
+            t("export_finishing.watermark"),
+        ),
+        (
+            FinishingCategory::Sharpening,
+            t("filter.camera_raw.param.sharpening"),
+        ),
+        (
+            FinishingCategory::Profile,
+            t("dialog.profile.convert_title"),
+        ),
+        (FinishingCategory::Metadata, t("metadata.title")),
+    ] {
+        categories = categories.child(ui::button(
+            label,
+            false,
+            move |ws, _window, cx| ws.open_export_finishing(category, cx),
+            cx,
+        ));
+    }
+    body = body.child(categories);
     if let Some(error) = editor.error {
         body = body.child(
             div()
@@ -352,5 +382,262 @@ pub(super) fn export_recipes_dialog(
             |ws, _w, cx| ws.run_export_recipe(cx),
             cx,
         ));
-    ui::modal_frame(t("export_recipes.title"), 550.0, body, actions)
+    ui::modal_frame(t("export_recipes.title"), 550.0, body, actions).into_any_element()
+}
+
+fn export_finishing_dialog(
+    ws: &mut Workspace,
+    state: &DialogState,
+    editor: Editor,
+    category: FinishingCategory,
+    cx: &mut Context<Workspace>,
+) -> impl IntoElement {
+    let output = editor
+        .draft
+        .outputs
+        .get(editor.output)
+        .cloned()
+        .unwrap_or_default();
+    let mut body = div().flex().flex_col().gap_2();
+    match category {
+        FinishingCategory::Watermark => {
+            body = body.child(ui::field_row(
+                t("export_finishing.watermark"),
+                field(state, "recipe-watermark", output.finishing.text.clone(), cx),
+            ));
+            for (id, label, value, min, max) in [
+                (
+                    "recipe-watermark-size",
+                    t("common.size"),
+                    output.finishing.text_size,
+                    0.5,
+                    25.0,
+                ),
+                (
+                    "recipe-watermark-opacity",
+                    t("common.opacity"),
+                    output.finishing.opacity * 100.0,
+                    0.0,
+                    100.0,
+                ),
+            ] {
+                body = body.child(param_slider(
+                    SliderSpec {
+                        id,
+                        label,
+                        value,
+                        min,
+                        max,
+                        suffix: "%",
+                        ..Default::default()
+                    },
+                    move |ws, value, _cx| {
+                        edit(ws, |editor| {
+                            let finishing = &mut editor.draft.outputs[editor.output].finishing;
+                            match id {
+                                "recipe-watermark-size" => finishing.text_size = value,
+                                _ => finishing.opacity = value / 100.0,
+                            }
+                        })
+                    },
+                    cx,
+                ));
+            }
+            body = body
+                .child(ui::field_row(
+                    t("common.position"),
+                    ui::dropdown(
+                        &ws.dropdown,
+                        ui::Dropdown {
+                            popup: Popup::Field("recipe-watermark-position"),
+                            is_open: state.open_popup
+                                == Some(Popup::Field("recipe-watermark-position")),
+                            current: output.finishing.placement,
+                            label: output.finishing.placement.label().into(),
+                            width: 250.0,
+                            options: [
+                                Placement::TopLeft,
+                                Placement::TopRight,
+                                Placement::Center,
+                                Placement::BottomLeft,
+                                Placement::BottomRight,
+                            ]
+                            .into_iter()
+                            .map(|p| (p.label().into(), p))
+                            .collect(),
+                        },
+                        |ws, value, _cx| {
+                            edit(ws, |editor| {
+                                editor.draft.outputs[editor.output].finishing.placement = value
+                            })
+                        },
+                        cx,
+                    ),
+                ))
+                .child(ui::field_row(
+                    t("common.color"),
+                    ui::dropdown(
+                        &ws.dropdown,
+                        ui::Dropdown {
+                            popup: Popup::Field("recipe-watermark-color"),
+                            is_open: state.open_popup
+                                == Some(Popup::Field("recipe-watermark-color")),
+                            current: output.finishing.white,
+                            label: t(if output.finishing.white {
+                                "common.white"
+                            } else {
+                                "common.black"
+                            })
+                            .into(),
+                            width: 250.0,
+                            options: vec![
+                                (t("common.white").into(), true),
+                                (t("common.black").into(), false),
+                            ],
+                        },
+                        |ws, value, _cx| {
+                            edit(ws, |editor| {
+                                editor.draft.outputs[editor.output].finishing.white = value
+                            })
+                        },
+                        cx,
+                    ),
+                ));
+        }
+        FinishingCategory::Sharpening => {
+            body = body.child(param_slider(
+                SliderSpec {
+                    id: "recipe-sharpen",
+                    label: t("filter.camera_raw.param.sharpening"),
+                    value: output.finishing.sharpen * 100.0,
+                    min: 0.0,
+                    max: 200.0,
+                    suffix: "%",
+                    ..Default::default()
+                },
+                |ws, value, _cx| {
+                    edit(ws, |editor| {
+                        editor.draft.outputs[editor.output].finishing.sharpen = value / 100.0
+                    })
+                },
+                cx,
+            ));
+        }
+        FinishingCategory::Profile => {
+            let mut profiles: Vec<_> = [
+                TargetProfile::Original,
+                TargetProfile::Srgb,
+                TargetProfile::DisplayP3,
+            ]
+            .into_iter()
+            .map(|p| (p.label().into(), p))
+            .collect();
+            if !output.finishing.custom_icc.is_empty() {
+                profiles.push((
+                    output.finishing.custom_name.clone().into(),
+                    TargetProfile::Custom,
+                ));
+            }
+            let profile_label: SharedString = if output.finishing.profile == TargetProfile::Custom {
+                output.finishing.custom_name.clone().into()
+            } else {
+                output.finishing.profile.label().into()
+            };
+            let profile_control = div().flex().gap_2().child(ui::dropdown(
+                &ws.dropdown,
+                ui::Dropdown {
+                    popup: Popup::Field("recipe-profile"),
+                    is_open: state.open_popup == Some(Popup::Field("recipe-profile")),
+                    current: output.finishing.profile,
+                    label: profile_label,
+                    width: 250.0,
+                    options: profiles,
+                },
+                |ws, value, _cx| {
+                    edit(ws, |editor| {
+                        editor.draft.outputs[editor.output].finishing.profile = value
+                    })
+                },
+                cx,
+            ));
+            #[cfg(not(target_arch = "wasm32"))]
+            let profile_control = profile_control.child(ui::button(
+                t("common.browse"),
+                false,
+                |ws, window, cx| ws.choose_recipe_profile(window, cx),
+                cx,
+            ));
+            body = body.child(ui::field_row(
+                t("dialog.profile.convert_title"),
+                profile_control,
+            ));
+        }
+        FinishingCategory::Metadata => {
+            body = body.child(ui::field_row(
+                t("metadata.title"),
+                ui::dropdown(
+                    &ws.dropdown,
+                    ui::Dropdown {
+                        popup: Popup::Field("recipe-metadata"),
+                        is_open: state.open_popup == Some(Popup::Field("recipe-metadata")),
+                        current: output.finishing.retain_copyright,
+                        label: t(if output.finishing.retain_copyright {
+                            "metadata.copyright"
+                        } else {
+                            "common.none"
+                        })
+                        .into(),
+                        width: 250.0,
+                        options: vec![
+                            (t("common.none").into(), false),
+                            (t("metadata.copyright").into(), true),
+                        ],
+                    },
+                    |ws, value, _cx| {
+                        edit(ws, |editor| {
+                            editor.draft.outputs[editor.output]
+                                .finishing
+                                .retain_copyright = value
+                        })
+                    },
+                    cx,
+                ),
+            ));
+            if output.finishing.retain_copyright {
+                body = body.child(ui::field_row(
+                    t("metadata.copyright"),
+                    field(
+                        state,
+                        "recipe-copyright",
+                        output.finishing.copyright.clone(),
+                        cx,
+                    ),
+                ));
+            }
+        }
+    }
+    if let Some(error) = editor.error {
+        body = body.child(
+            div()
+                .text_color(gpui::rgb(ui::palette().text))
+                .child(SharedString::from(error)),
+        );
+    }
+    let actions = div()
+        .flex()
+        .flex_wrap()
+        .gap_2()
+        .child(ui::button(
+            t("common.back"),
+            false,
+            |ws, _window, cx| ws.close_modal(cx),
+            cx,
+        ))
+        .child(ui::button(
+            t("common.save"),
+            true,
+            |ws, _window, cx| ws.save_export_finishing(cx),
+            cx,
+        ));
+    ui::modal_frame(category.label(), 500.0, body, actions)
 }

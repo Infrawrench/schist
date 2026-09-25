@@ -1,8 +1,8 @@
-# Virtual copies. Explicit English fallback pending translation review.
-variants.create = Create virtual copy…
-variants.rename = Rename virtual copy…
-variants.delete = Delete virtual copy
-variants.close = Close this photo and its virtual copies before moving or deleting them.
-variants.saved_hint = The copy starts from the saved edit, or the original when there is no edit. Save pending changes first.
-variants.move_original = Move the original photo to move its virtual copies.
-variants.protected_export = Choose another destination. Gallery exports cannot replace the original or its edit storage.
+# Virtual copies.
+variants.create = Ƙirƙiri kwafin kama-da-wane…
+variants.rename = Sake suna kwafin kama-da-wane…
+variants.delete = Share kwafin kama-da-wane
+variants.close = Rufe wannan hoton da kwafin kwafin sa kafin motsi ko share su.
+variants.saved_hint = Kwafin yana farawa daga ingantaccen gyara, ko ainihin lokacin da babu gyara. Ajiye canje-canje masu jiran aiki tukuna.
+variants.move_original = Matsar da ainihin hoton don matsar da kwafi na kama-da-wane.
+variants.protected_export = Zaɓi wani wuri. Fitar da gallery ba zai iya maye gurbin asali ko gyara ma'ajiyar sa ba.

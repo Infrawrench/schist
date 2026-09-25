@@ -1,17 +1,16 @@
-# Lens profiles: English fallback pending translation review. No locale added.
-lens_profiles.invalid = Choose a valid Lensfun v1/v2 XML database (up to 8 MiB) with supported camera or lens data.
-lens_profiles.calibration = Lens calibration
-lens_profiles.no_calibration = No calibration covers these settings. Check focal length and camera crop factor; manual correction remains available.
-lens_profiles.import = Import Lensfun XML…
-lens_profiles.imported = Lensfun database imported for this session. Select a profile or match the photo metadata.
-lens_profiles.manual = Manual correction only
-lens_profiles.saved = Saved calibration (database unavailable)
-lens_profiles.profile = Lens profile
-lens_profiles.aperture = Aperture (0 = unknown)
-lens_profiles.distance = Focus distance (0 = unknown)
-lens_profiles.vignette = Calibrated vignetting
-lens_profiles.color_context = Calibrated vignetting requires the built-in sRGB profile. Convert to sRGB to preserve appearance, then reopen Lens Correction. For already-sRGB untagged pixels, assigning sRGB is sufficient. Geometry and chromatic correction remain available.
-lens_profiles.vignette_missing = No vignetting calibration covers the aperture and focus distance. Enter measured values to enable it; 1000 m represents distant focus in many Lensfun profiles.
-lens_profiles.note = Calibrated correction runs before the manual controls. Use the original full frame; crop afterward. Save a filter stack in PSD/PSB to retain editable calibration.
-lens_profiles.automatic = Match photo metadata
-lens_profiles.components = Profile pass: distortion {distortion}; color fringes {tca}; vignetting {vignette}.
+lens_profiles.invalid = Επιλέξτε έγκυρη βάση δεδομένων XML Lensfun v1/v2 (έως 8 MiB) με υποστηριζόμενα δεδομένα κάμερας ή φακού.
+lens_profiles.calibration = Βαθμονόμηση φακού
+lens_profiles.no_calibration = Δεν υπάρχει βαθμονόμηση για αυτές τις ρυθμίσεις. Ελέγξτε την εστιακή απόσταση και τον συντελεστή περικοπής της κάμερας· η χειροκίνητη διόρθωση παραμένει διαθέσιμη.
+lens_profiles.import = Εισαγωγή XML Lensfun…
+lens_profiles.imported = Η βάση δεδομένων Lensfun εισήχθη για αυτή τη συνεδρία. Επιλέξτε προφίλ ή αντιστοιχίστε τα μεταδεδομένα της φωτογραφίας.
+lens_profiles.manual = Μόνο χειροκίνητη διόρθωση
+lens_profiles.saved = Αποθηκευμένη βαθμονόμηση (η βάση δεδομένων δεν είναι διαθέσιμη)
+lens_profiles.profile = Προφίλ φακού
+lens_profiles.aperture = Διάφραγμα (0 = άγνωστο)
+lens_profiles.distance = Απόσταση εστίασης (0 = άγνωστη)
+lens_profiles.vignette = Βαθμονομημένη βινιέτα
+lens_profiles.color_context = Η βαθμονομημένη βινιέτα απαιτεί το ενσωματωμένο προφίλ sRGB. Μετατρέψτε σε sRGB για να διατηρήσετε την εμφάνιση και ανοίξτε ξανά τη Διόρθωση φακού. Για εικονοστοιχεία που είναι ήδη sRGB αλλά δεν έχουν ετικέτα, αρκεί να εκχωρήσετε sRGB. Η γεωμετρική και η χρωματική διόρθωση παραμένουν διαθέσιμες.
+lens_profiles.vignette_missing = Δεν υπάρχει βαθμονόμηση βινιέτας για αυτό το διάφραγμα και την απόσταση εστίασης. Εισαγάγετε μετρημένες τιμές για να την ενεργοποιήσετε· σε πολλά προφίλ Lensfun τα 1000 m αντιπροσωπεύουν μακρινή εστίαση.
+lens_profiles.note = Η βαθμονομημένη διόρθωση εφαρμόζεται πριν από τα χειροκίνητα στοιχεία ελέγχου. Χρησιμοποιήστε ολόκληρο το αρχικό κάδρο και περικόψτε το μετά. Αποθηκεύστε μια στοίβα φίλτρων σε PSD/PSB ώστε η βαθμονόμηση να παραμείνει επεξεργάσιμη.
+lens_profiles.automatic = Αντιστοίχιση μεταδεδομένων φωτογραφίας
+lens_profiles.components = Εφαρμογή προφίλ: παραμόρφωση {distortion}· χρωματικά περιγράμματα {tca}· βινιέτα {vignette}.

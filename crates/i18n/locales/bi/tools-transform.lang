@@ -9,7 +9,7 @@ tool.transform.selection.name = Transformem Selection
 tool.transform.selection.description = Transformem Selection: hem i yusum sem box, be i muvum laen raon long selection mo i no muvum ol pixel insaed. Komitim o cansel blong finisim.
 tool.transform.selection.history.transform = Transformem Selection
 
-tool.transform.resample.nearest_neighbor = Nearest Neighbor
+tool.transform.resample.nearest_neighbor = Nea piksel
 tool.transform.resample.bilinear = Bilinear
 tool.transform.resample.bicubic = Bicubic
 

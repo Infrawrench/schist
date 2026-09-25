@@ -1,8 +1,7 @@
-# English fallback pending translation.
-photo_merge_advanced.projective = Perspective alignment (includes rotation)
-photo_merge_advanced.cylindrical = Cylindrical panorama
-photo_merge_advanced.deghost = Remove moving-subject ghosts (first photo reference)
-photo_merge_advanced.focal = Focal length (px) / image width (px)
-photo_merge_advanced.masks = Focus output uses editable layer masks. Select a mask in Layers and paint to refine.
-photo_merge_advanced.no_match = No reliable alignment found. Use textured photos with substantial overlap and modest viewpoint changes.
-photo_merge_advanced.invalid = Invalid source images or merge settings.
+photo_merge_advanced.projective = Perspektivikus igazítás (beleértve az elforgatást)
+photo_merge_advanced.cylindrical = Hengeres panoráma
+photo_merge_advanced.deghost = Távolítsa el a mozgó témák szellemeit (első fotó referencia)
+photo_merge_advanced.focal = Fókusztávolság (px) / kép szélessége (px)
+photo_merge_advanced.masks = A fókuszkimenet szerkeszthető rétegmaszkokat használ. Válasszon ki egy maszkot a Rétegek panelen, és festse be a finomításhoz.
+photo_merge_advanced.no_match = Nem található megbízható igazítás. Használjon texturált fényképeket jelentős átfedéssel és szerény nézőpont-módosítással.
+photo_merge_advanced.invalid = Érvénytelen forrásképek vagy egyesítési beállítások.

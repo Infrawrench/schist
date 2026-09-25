@@ -1,8 +1,7 @@
-# English fallback pending translation.
-photo_merge_advanced.projective = Perspective alignment (includes rotation)
-photo_merge_advanced.cylindrical = Cylindrical panorama
-photo_merge_advanced.deghost = Remove moving-subject ghosts (first photo reference)
-photo_merge_advanced.focal = Focal length (px) / image width (px)
-photo_merge_advanced.masks = Focus output uses editable layer masks. Select a mask in Layers and paint to refine.
-photo_merge_advanced.no_match = No reliable alignment found. Use textured photos with substantial overlap and modest viewpoint changes.
-photo_merge_advanced.invalid = Invalid source images or merge settings.
+photo_merge_advanced.projective = Go tlhamalatsa pono (go akaretsa go dikologa)
+photo_merge_advanced.cylindrical = Panorama ya selindara
+photo_merge_advanced.deghost = Tlosa ditshwantsho tse di ipoeletsang tsa dilo tse di tsamayang (setshwantsho sa ntlha ke tshupiso)
+photo_merge_advanced.focal = Boleele jwa tsepamiso (px) / bophara jwa setshwantsho (px)
+photo_merge_advanced.masks = Sephetho sa tsepamiso se dirisa dimaseke tsa dillaga tse di ka baakanngwang. Tlhopha maseke mo Dillageng mme o pente go e tokafatsa.
+photo_merge_advanced.no_match = Ga go tlhamalatso e e ikanyegang e e bonweng. Dirisa ditshwantsho tse di nang le dintlha tse dintsi, tse di kopanang thata, le diphetogo tse dinnye tsa pono.
+photo_merge_advanced.invalid = Ditshwantsho tsa motswedi kgotsa dithulaganyo tsa go kopanya ga di a siama.

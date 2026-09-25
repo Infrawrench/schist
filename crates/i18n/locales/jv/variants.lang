@@ -1,8 +1,7 @@
-# Virtual copies. Explicit English fallback pending translation review.
-variants.create = Create virtual copy…
-variants.rename = Rename virtual copy…
-variants.delete = Delete virtual copy
-variants.close = Close this photo and its virtual copies before moving or deleting them.
-variants.saved_hint = The copy starts from the saved edit, or the original when there is no edit. Save pending changes first.
-variants.move_original = Move the original photo to move its virtual copies.
-variants.protected_export = Choose another destination. Gallery exports cannot replace the original or its edit storage.
+variants.create = Gawe salinan virtual…
+variants.rename = Ganti jeneng salinan virtual…
+variants.delete = Busak salinan virtual
+variants.close = Tutup foto iki lan salinan virtualé sadurungé dipindhah utawa dibusak.
+variants.saved_hint = Salinan diwiwiti saka suntingan sing wis disimpen, utawa saka gambar asli yèn durung ana suntingan. Simpen dhisik owah-owahan sing durung disimpen.
+variants.move_original = Pindhah foto asli supaya salinan virtualé mèlu pindhah.
+variants.protected_export = Pilih tujuan liya. Èkspor galèri ora bisa ngganti gambar asli utawa panyimpenan suntingané.

@@ -1,8 +1,7 @@
-# Virtual copies. Explicit English fallback pending translation review.
-variants.create = Create virtual copy…
-variants.rename = Rename virtual copy…
-variants.delete = Delete virtual copy
-variants.close = Close this photo and its virtual copies before moving or deleting them.
-variants.saved_hint = The copy starts from the saved edit, or the original when there is no edit. Save pending changes first.
-variants.move_original = Move the original photo to move its virtual copies.
-variants.protected_export = Choose another destination. Gallery exports cannot replace the original or its edit storage.
+variants.create = Buat salinan virtual…
+variants.rename = Ganti nama salinan virtual…
+variants.delete = Hapus salinan virtual
+variants.close = Tutup foto ini dan salinan virtualnya sebelum memindahkan atau menghapusnya.
+variants.saved_hint = Salinan dimulai dari hasil edit yang disimpan, atau asli bila tidak ada editan. Simpan perubahan yang tertunda terlebih dahulu.
+variants.move_original = Pindahkan foto asli untuk memindahkan salinan virtualnya.
+variants.protected_export = Pilih tujuan lain. Ekspor galeri tidak dapat menggantikan penyimpanan asli atau penyimpanan editnya.

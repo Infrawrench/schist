@@ -173,7 +173,7 @@ library.search_models.model_size = {name} · {mb} MB
 library.search_models.by_apple = MobileCLIP ya Apple
 library.search_models.export = ONNX export ya Xenova
 library.search_models.license = Chilolezo
-library.search_models.download_note = Kutsitsa kumaika zonse ziwiri ({mb} MB zonse pamodzi) ndipo kumavomereza zilolezo zake. Zikhoza kuchotsedwanso pa Gallery ▸ Konzani Ma Model…
+library.search_models.download_note = Kutsitsa kumaika zonse ziwiri ({mb} MB zonse pamodzi) ndipo kumavomereza zilolezo zake. Zikhoza kuchotsedwanso pa Nyumba ya zithunzi ▸ Konzani Ma Model…
 library.search_models.agree = Vomerezani ndi Kutsitsa
 
 library.menu.add_all_to = Onjezani zonse ku {name}

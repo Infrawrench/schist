@@ -1,8 +1,8 @@
 # Translation draft; not reviewed by a native speaker.
-photo_merge_advanced.projective = Perspektivische Ausrichtung (mit Drehung)
+photo_merge_advanced.projective = Perspektivische Ausrichtung (einschließlich Drehung)
 photo_merge_advanced.cylindrical = Zylindrisches Panorama
 photo_merge_advanced.deghost = Geisterbilder bewegter Motive entfernen (erstes Foto als Referenz)
 photo_merge_advanced.focal = Brennweite (px) / Bildbreite (px)
-photo_merge_advanced.masks = Das Ergebnis verwendet bearbeitbare Ebenenmasken. Wählen Sie unter Ebenen eine Maske aus und verfeinern Sie sie mit dem Pinsel.
-photo_merge_advanced.no_match = Keine zuverlässige Ausrichtung gefunden. Verwenden Sie strukturreiche Fotos mit großer Überlappung und kleinen Blickwinkeländerungen.
-photo_merge_advanced.invalid = Ungültige Quellbilder oder Zusammenführungseinstellungen.
+photo_merge_advanced.masks = Das Fokus-Ergebnis verwendet bearbeitbare Ebenenmasken. Wählen Sie in Ebenen eine Maske aus und verfeinern Sie sie mit dem Pinsel.
+photo_merge_advanced.no_match = Keine zuverlässige Ausrichtung gefunden. Verwenden Sie detailreiche Fotos mit großer Überlappung und nur geringen Änderungen des Blickwinkels.
+photo_merge_advanced.invalid = Ungültige Quellbilder oder Einstellungen für das Zusammenfügen.

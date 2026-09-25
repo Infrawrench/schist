@@ -1,8 +1,7 @@
-# Virtual copies. Explicit English fallback pending translation review.
-variants.create = Create virtual copy…
-variants.rename = Rename virtual copy…
-variants.delete = Delete virtual copy
-variants.close = Close this photo and its virtual copies before moving or deleting them.
-variants.saved_hint = The copy starts from the saved edit, or the original when there is no edit. Save pending changes first.
-variants.move_original = Move the original photo to move its virtual copies.
-variants.protected_export = Choose another destination. Gallery exports cannot replace the original or its edit storage.
+variants.create = Нусхаи маҷозӣ эҷод кунед…
+variants.rename = Номи нусхаи маҷозиро иваз кунед…
+variants.delete = Нусхаи маҷозиро нест кунед
+variants.close = Пеш аз кӯчондан ё нест кардан ин акс ва нусхаҳои маҷозии онро пӯшед.
+variants.saved_hint = Нусха аз таҳрири захирашуда оғоз мешавад, ё аз акси аслӣ, агар таҳрире набошад. Аввал тағйироти захиранашударо захира кунед.
+variants.move_original = Барои кӯчондани нусхаҳои маҷозӣ акси аслиро кӯчонед.
+variants.protected_export = Ҷои дигар интихоб кунед. Содироти галерея наметавонад акси аслӣ ё захираи таҳрири онро иваз кунад.

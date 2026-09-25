@@ -1,8 +1,8 @@
-# English fallback pending translation.
-photo_merge_advanced.projective = Perspective alignment (includes rotation)
-photo_merge_advanced.cylindrical = Cylindrical panorama
-photo_merge_advanced.deghost = Remove moving-subject ghosts (first photo reference)
-photo_merge_advanced.focal = Focal length (px) / image width (px)
-photo_merge_advanced.masks = Focus output uses editable layer masks. Select a mask in Layers and paint to refine.
-photo_merge_advanced.no_match = No reliable alignment found. Use textured photos with substantial overlap and modest viewpoint changes.
-photo_merge_advanced.invalid = Invalid source images or merge settings.
+# Advanced photo merge.
+photo_merge_advanced.projective = Adwene a wɔde hwɛ ade a ɛne ne ho hyia (a nea ɛka ho ne nea wɔkyinkyini) .
+photo_merge_advanced.cylindrical = Panorama a ɛyɛ kurukuruwa
+photo_merge_advanced.deghost = Yi mfonini a ɛsan ba wɔ nneɛma a ɛrekeka wɔn ho mu (fa mfonini a edi kan no yɛ nhwɛso)
+photo_merge_advanced.focal = Focal tenten (px) / mfonini no trɛw (px) .
+photo_merge_advanced.masks = Focus output de layer masks a wotumi sesa di dwuma. Paw mask wɔ Layers mu na paint na fa siesie.
+photo_merge_advanced.no_match = Wonhuu nhyiam biara a wotumi de ho to so. Fa mfonini ahorow a wɔakyerɛw so a ɛka bom kɛse na nsakrae kakraa bi wɔ sɛnea wohwɛ nneɛma mu di dwuma.
+photo_merge_advanced.invalid = Mfonini ahorow a ɛnteɛ a efi fibea anaasɛ nhyehyɛe a wɔde ka bom.

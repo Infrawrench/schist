@@ -12,17 +12,17 @@ filter.neural.msg.get_model = Yironke muri Akayunguruzo ▸ Neural Filters ▸ G
 # Camera Raw Filter
 filter.camera_raw.name = Akayunguruzo ka Camera Raw
 filter.camera_raw.param.temperature = Ubushuhe
-filter.camera_raw.param.tint = Tint
+filter.camera_raw.param.tint = Ibara ryongeweko
 filter.camera_raw.param.highlights = Ahaka cane
 filter.camera_raw.param.shadows = Ibitutu
 filter.camera_raw.param.whites = Imyera
 filter.camera_raw.param.blacks = Imikara
 filter.camera_raw.param.clarity = Ugutomoka
 filter.camera_raw.param.dehaze = Gukuraho igipfungu
-filter.camera_raw.param.vibrance = Vibrance
+filter.camera_raw.param.vibrance = Ubukomezi bw’amabara
 filter.camera_raw.param.sharpening = Gukarisha
 filter.camera_raw.param.noise = Kugabanya urwamo
-filter.camera_raw.param.vignette = Vignette
+filter.camera_raw.param.vignette = Umwiza wo ku mpande
 
 # Lens Correction
 filter.lens_correction.name = Gukosora lentille
@@ -38,7 +38,7 @@ filter.lens_correction.param.horizontal = Perspective yo mu bugari
 filter.adaptive_wide_angle.name = Inguni yagutse yihindura
 filter.adaptive_wide_angle.param.projection = Ikosora
 filter.adaptive_wide_angle.choice.fisheye = Ijisho ry'ifi
-filter.adaptive_wide_angle.choice.perspective = Perspective
+filter.adaptive_wide_angle.choice.perspective = Uko ibintu biboneka
 filter.adaptive_wide_angle.choice.full_spherical = Umubumbe wose
 filter.adaptive_wide_angle.param.focal = Uburebure focal
 filter.adaptive_wide_angle.param.crop = Igipimo co gukata
@@ -77,7 +77,7 @@ filter.deinterlace.param.field = Gukuraho
 filter.deinterlace.choice.odd_fields = Imirongo y'ibiharuro bitagabanyika na kabiri
 filter.deinterlace.choice.even_fields = Imirongo y'ibiharuro bigabanyika na kabiri
 filter.deinterlace.param.fill = Gukora imirongo mishasha ukoresheje
-filter.deinterlace.choice.interpolation = Interpolation
+filter.deinterlace.choice.interpolation = Gufatanya ibice
 filter.deinterlace.choice.duplication = Gukopa
 filter.ntsc_colors.name = Amabara NTSC
 
@@ -98,7 +98,7 @@ filter.neural.super_zoom.name = Kwegera cane
 filter.neural.super_zoom.msg.no_model = {model} ntishizwemwo — hariko hakoreshwa gukarisha gukurikira inkombe.
 
 filter.neural.style_transfer.name = Kwimura imisusire
-filter.neural.style_transfer.choice.mosaic = Mosaic
+filter.neural.style_transfer.choice.mosaic = Mozayike
 filter.neural.style_transfer.choice.candy = Candy
 filter.neural.style_transfer.choice.udnie = Udnie
 filter.neural.style_transfer.msg.no_styles = Nta moderi z'imisusire zashizwemwo — hariko himurwa ibara gusa. Zironke muri Akayunguruzo ▸ Neural Filters ▸ Gucunga moderi.

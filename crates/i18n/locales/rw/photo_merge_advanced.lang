@@ -1,8 +1,8 @@
-# English fallback pending translation.
-photo_merge_advanced.projective = Perspective alignment (includes rotation)
-photo_merge_advanced.cylindrical = Cylindrical panorama
-photo_merge_advanced.deghost = Remove moving-subject ghosts (first photo reference)
-photo_merge_advanced.focal = Focal length (px) / image width (px)
-photo_merge_advanced.masks = Focus output uses editable layer masks. Select a mask in Layers and paint to refine.
-photo_merge_advanced.no_match = No reliable alignment found. Use textured photos with substantial overlap and modest viewpoint changes.
-photo_merge_advanced.invalid = Invalid source images or merge settings.
+# Advanced photo merge.
+photo_merge_advanced.projective = Guhuza hakurikijwe uko ibintu bigaragara (harimo kuzunguruka)
+photo_merge_advanced.cylindrical = Panorama y’uruziga rurerure
+photo_merge_advanced.deghost = Gukuraho amashusho asubiramo y’ibintu byimutse (ifoto ya mbere ni yo fatizo)
+photo_merge_advanced.focal = Uburebure bwa fokali (px) / ubugari bw’ishusho (px)
+photo_merge_advanced.masks = Ishusho yahujwe hakurikijwe ubukarishye ikoresha masike z’inzego zishobora guhindurwa. Hitamo masike mu Nzego maze usige irangi kugira ngo uyinonosore.
+photo_merge_advanced.no_match = Nta guhuza kwizewe kwabonetse. Koresha amafoto arimo ibisobanuro byinshi, ahurira ku gice kinini kandi yafatiwe ku mpande zitandukanye buhoro.
+photo_merge_advanced.invalid = Amafoto y’inkomoko cyangwa igenamiterere ryo guhuza si byo.

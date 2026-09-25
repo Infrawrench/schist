@@ -1,8 +1,8 @@
-# Virtual copies. Explicit English fallback pending translation review.
-variants.create = Create virtual copy…
-variants.rename = Rename virtual copy…
-variants.delete = Delete virtual copy
-variants.close = Close this photo and its virtual copies before moving or deleting them.
-variants.saved_hint = The copy starts from the saved edit, or the original when there is no edit. Save pending changes first.
-variants.move_original = Move the original photo to move its virtual copies.
-variants.protected_export = Choose another destination. Gallery exports cannot replace the original or its edit storage.
+# Virtual copies.
+variants.create = आभासप्रतिलिपिं रचयतु…
+variants.rename = आभासप्रतिलिपेः नाम परिवर्तयतु…
+variants.delete = आभासप्रतिलिपिं विलोपयतु
+variants.close = अस्य चित्रस्य तत्सम्बद्धानां आभासप्रतिलिपीनां च स्थानान्तरणात् विलोपनात् वा पूर्वं तानि पिदधातु।
+variants.saved_hint = प्रतिलिपिः रक्षितात् सम्पादनात् आरभ्यते; सम्पादनाभावे मूलचित्रात् आरभ्यते। प्रथमं अरक्षितान् परिवर्तनान् रक्षतु।
+variants.move_original = आभासप्रतिलिपीः स्थानान्तरयितुं मूलचित्रं स्थानान्तरयतु।
+variants.protected_export = अन्यं गन्तव्यस्थानं चिनोतु। चित्रवीथिकातः निर्यातितानि मूलचित्रं तस्य सम्पादनसञ्चयं वा न प्रतिस्थापयितुं शक्नुवन्ति।

@@ -1,8 +1,7 @@
-# Virtual copies. Explicit English fallback pending translation review.
-variants.create = Create virtual copy…
-variants.rename = Rename virtual copy…
-variants.delete = Delete virtual copy
-variants.close = Close this photo and its virtual copies before moving or deleting them.
-variants.saved_hint = The copy starts from the saved edit, or the original when there is no edit. Save pending changes first.
-variants.move_original = Move the original photo to move its virtual copies.
-variants.protected_export = Choose another destination. Gallery exports cannot replace the original or its edit storage.
+variants.create = ވާޗުއަލް ކޮޕީ އުފެއްދުން...
+variants.rename = ވާޗުއަލް ކޮޕީއަށް ނަން ބަދަލުކޮށް...
+variants.delete = ވާޗުއަލް ކޮޕީ ޑިލީޓްކުރުން
+variants.close = މި ފޮޓޯއާއި އޭގެ ވާޗުއަލް ކޮޕީތައް ބަދަލުކުރުމުގެ ނުވަތަ ޑިލީޓް ކުރުމުގެ ކުރިން ބަންދުކުރުން.
+variants.saved_hint = ކޮޕީ ފެށެނީ ސޭވްކޮށްފައިވާ އެޑިޓުން، ނުވަތަ އެޑިޓް ނެތް އިރު އަސްލު ކޮޕީންނެވެ. ފުރަތަމަ ޕެންޑިންގ ބަދަލުތައް ސޭވް ކުރާށެވެ.
+variants.move_original = އޭގެ ވާޗުއަލް ކޮޕީތައް ވެސް ދެމެހެއްޓުމަށް އަސްލު ފޮޓޯ މޫވްކުރާށެވެ.
+variants.protected_export = އެހެން މަންޒިލެއް ހޮވާށެވެ. ގެލެރީ އެކްސްޕޯޓްތަކަށް އަސްލު ނުވަތަ އޭގެ އެޑިޓް ސްޓޯރޭޖްގެ ބަދަލުގައި ނުކުރެވޭނެއެވެ.

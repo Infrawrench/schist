@@ -1,8 +1,7 @@
-# English fallback pending translation.
-photo_merge_advanced.projective = Perspective alignment (includes rotation)
-photo_merge_advanced.cylindrical = Cylindrical panorama
-photo_merge_advanced.deghost = Remove moving-subject ghosts (first photo reference)
-photo_merge_advanced.focal = Focal length (px) / image width (px)
-photo_merge_advanced.masks = Focus output uses editable layer masks. Select a mask in Layers and paint to refine.
-photo_merge_advanced.no_match = No reliable alignment found. Use textured photos with substantial overlap and modest viewpoint changes.
-photo_merge_advanced.invalid = Invalid source images or merge settings.
+photo_merge_advanced.projective = Aliañ ar savboent (enni an troiadur)
+photo_merge_advanced.cylindrical = Skeudennadur silindrek
+photo_merge_advanced.deghost = Dilemel tasmantoù danvez o fiñval (daveenn luc'hskeudenn gentañ)
+photo_merge_advanced.focal = Pellder fokal (px) / ledander ar skeudenn (px)
+photo_merge_advanced.masks = Ar disoc'h enfokañ a implij maskloù gwiskadoù a c'haller kemmañ. Dibabit ur maskl e Gwiskadoù ha livit evit e wellaat.
+photo_merge_advanced.no_match = N'eus ket bet kavet un aliniañ fizial. Implijit luc'hskeudennoù gant munudoù, kalz a dachenn voutin ha kemm bihan er savboent.
+photo_merge_advanced.invalid = Skeudennoù orin direizh pe arventennoù kendeuziñ.

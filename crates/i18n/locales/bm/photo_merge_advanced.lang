@@ -1,8 +1,8 @@
-# English fallback pending translation.
-photo_merge_advanced.projective = Perspective alignment (includes rotation)
-photo_merge_advanced.cylindrical = Cylindrical panorama
-photo_merge_advanced.deghost = Remove moving-subject ghosts (first photo reference)
-photo_merge_advanced.focal = Focal length (px) / image width (px)
-photo_merge_advanced.masks = Focus output uses editable layer masks. Select a mask in Layers and paint to refine.
-photo_merge_advanced.no_match = No reliable alignment found. Use textured photos with substantial overlap and modest viewpoint changes.
-photo_merge_advanced.invalid = Invalid source images or merge settings.
+# Advanced photo merge.
+photo_merge_advanced.projective = Perspective alignment (yɛrɛyɛrɛli sen bɛ o la) .
+photo_merge_advanced.cylindrical = Panorama silindrique ye
+photo_merge_advanced.deghost = Aw bɛ fɛn lamagalenw ka ja filanan bɔ (foto fɔlɔ ye misali ye)
+photo_merge_advanced.focal = Focal janya (px) / ja bonya (px) .
+photo_merge_advanced.masks = Focus bɔli bɛ baara kɛ ni layɛrɛ maskw ye minnu bɛ se ka ladilan. Maskɛ dɔ sugandi Layers kɔnɔ ani ka penti kɛ walasa ka a nɔgɔya.
+photo_merge_advanced.no_match = Labɛnni dafalen si ma Sɔrɔ. Baara kɛ ni fotow ye minnu bɛ kɛ ni sɛbɛnniw ye, ni u bɛ ɲɔgɔn dafa kosɛbɛ ani ni u yecogo caman Changements modes de voir.
+photo_merge_advanced.invalid = Soso ja minnu tɛ tiɲɛ walima minnu bɛ fara ɲɔgɔn kan.

@@ -27,7 +27,7 @@ printing.downloaded = PDF ডাউনলোড হয়েছে। 100% আ�
 printing.saved = PDF সংরক্ষিত হয়েছে: {path}
 printing.letter = US Letter
 printing.a4 = A4
-printing.margin_value = {value} mm
+printing.margin_value = {value} মিমি
 
 printing.layout_title = মুদ্রণের বিন্যাস
 printing.preset = বিন্যাসের পূর্বনির্ধারিত ধরন

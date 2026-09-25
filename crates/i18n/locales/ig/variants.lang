@@ -1,8 +1,7 @@
-# Virtual copies. Explicit English fallback pending translation review.
-variants.create = Create virtual copy…
-variants.rename = Rename virtual copy…
-variants.delete = Delete virtual copy
-variants.close = Close this photo and its virtual copies before moving or deleting them.
-variants.saved_hint = The copy starts from the saved edit, or the original when there is no edit. Save pending changes first.
-variants.move_original = Move the original photo to move its virtual copies.
-variants.protected_export = Choose another destination. Gallery exports cannot replace the original or its edit storage.
+variants.create = Mepụta oyiri mebere…
+variants.rename = Kpọgharịa oyiri mebere aha…
+variants.delete = Hichapụ oyiri mebere
+variants.close = Mechie foto a na oyiri mebere ya tupu ịkwaga ma ọ bụ ihichapụ ha.
+variants.saved_hint = Nnomi a na-amalite site na ndezi echekwara, ma ọ bụ nke mbụ mgbe enweghị ndezi. Buru ụzọ chekwaa mgbanwe na-echere.
+variants.move_original = Bugharịa foto mbụ iji bugharịa mbipụta mebere ya.
+variants.protected_export = Họrọ ebe ọzọ. Mbupụ gallery enweghị ike dochie foto mbụ ma ọ bụ ebe nchekwa ndezi ya.

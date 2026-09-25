@@ -14,7 +14,7 @@ filter.category.texture = Nɔnɔme
 filter.category.video = Video
 filter.category.other = Bubu
 filter.category.neural = Neural Filters
-filter.category.plugins = Plugins
+filter.category.plugins = Pluginwo
 
 filter.gaussian_blur.name = Gaussian Blur
 filter.box_blur.name = Box Blur
@@ -194,7 +194,7 @@ filter.add_noise.choice.uniform = Akɔta-kaka sɔsɔ
 filter.add_noise.choice.gaussian = Gaussian
 filter.radial_blur.param.method = Blur ƒe mɔ
 filter.radial_blur.choice.spin = Ƒo
-filter.radial_blur.choice.zoom = Zoom
+filter.radial_blur.choice.zoom = Gãtɔtɔ
 filter.radial_blur.choice.draft = Tata gbãtɔ
 filter.radial_blur.choice.good = Enyo
 filter.radial_blur.choice.best = Nyuitɔ

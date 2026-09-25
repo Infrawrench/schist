@@ -19,7 +19,7 @@ filter.neural.msg.using_model = {model} · {license} ব্যৱহাৰ ক�
 filter.neural.msg.get_model = ফিল্টাৰ ▸ Neural Filters ▸ মডেলসমূহ পৰিচালনা কৰক-ৰ পৰা ইয়াক লওক।
 
 # Camera Raw Filter
-filter.camera_raw.name = Camera Raw ফিল্টাৰ
+filter.camera_raw.name = Camera Raw
 filter.camera_raw.param.temperature = তাপমাত্ৰা
 filter.camera_raw.param.tint = ৰঙৰ আভা
 filter.camera_raw.param.highlights = উজ্জ্বল অংশ

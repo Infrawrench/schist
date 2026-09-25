@@ -1,17 +1,16 @@
-# Lens profiles: English fallback pending translation review. No locale added.
-lens_profiles.invalid = Choose a valid Lensfun v1/v2 XML database (up to 8 MiB) with supported camera or lens data.
-lens_profiles.calibration = Lens calibration
-lens_profiles.no_calibration = No calibration covers these settings. Check focal length and camera crop factor; manual correction remains available.
-lens_profiles.import = Import Lensfun XML…
-lens_profiles.imported = Lensfun database imported for this session. Select a profile or match the photo metadata.
-lens_profiles.manual = Manual correction only
-lens_profiles.saved = Saved calibration (database unavailable)
-lens_profiles.profile = Lens profile
-lens_profiles.aperture = Aperture (0 = unknown)
-lens_profiles.distance = Focus distance (0 = unknown)
-lens_profiles.vignette = Calibrated vignetting
-lens_profiles.color_context = Calibrated vignetting requires the built-in sRGB profile. Convert to sRGB to preserve appearance, then reopen Lens Correction. For already-sRGB untagged pixels, assigning sRGB is sufficient. Geometry and chromatic correction remain available.
-lens_profiles.vignette_missing = No vignetting calibration covers the aperture and focus distance. Enter measured values to enable it; 1000 m represents distant focus in many Lensfun profiles.
-lens_profiles.note = Calibrated correction runs before the manual controls. Use the original full frame; crop afterward. Save a filter stack in PSD/PSB to retain editable calibration.
-lens_profiles.automatic = Match photo metadata
-lens_profiles.components = Profile pass: distortion {distortion}; color fringes {tca}; vignetting {vignette}.
+lens_profiles.invalid = Hitamwo ububiko bw’amakuru bwa XML Lensfun v1/v2 bwemewe (butarenza 8 MiB) bufise amakuru ya kamera canke lentille bishigikiwe.
+lens_profiles.calibration = Gupima neza lentille
+lens_profiles.no_calibration = Nta bipimo bihuye n’aya magenamiterere. Suzuma uburebure bwa fokus n’igipimo co gukata ca kamera; gukosora n’intoke biracashoboka.
+lens_profiles.import = Kwinjiza XML ya Lensfun…
+lens_profiles.imported = Ububiko bw’amakuru bwa Lensfun bwinjijwe muri iki kiringo. Hitamwo profil canke uyigereranye n’amakuru y’ifoto.
+lens_profiles.manual = Gukosora n’intoke gusa
+lens_profiles.saved = Ibipimo vyabitswe (ububiko bw’amakuru ntibuboneka)
+lens_profiles.profile = Profil ya lentille
+lens_profiles.aperture = Ubugari bw’ifunguka (0 = ntibizwi)
+lens_profiles.distance = Intera ya fokus (0 = ntibizwi)
+lens_profiles.vignette = Gukosora umwiza wo ku mpande hakurikijwe ibipimo
+lens_profiles.color_context = Gukosora umwiza wo ku mpande hakurikijwe ibipimo bisaba profil ya sRGB iri muri porogarama. Hindura ifoto ibe sRGB kugira ngo igume isa uko yari, hanyuma wongere wugurure Gukosora lentille. Ku mapikiseli asanzwe ari sRGB ariko atagira ikimenyetso ca profil, kuyaha profil ya sRGB birahagije. Gukosora imiterere n’amabara biracashoboka.
+lens_profiles.vignette_missing = Nta bipimo vy’umwiza wo ku mpande bihuye n’ubugari bw’ifunguka n’intera ya fokus. Shiramwo ibipimo vyafashwe kugira ngo bikore; muri profil nyinshi za Lensfun, 1000 m yerekana fokus ya kure.
+lens_profiles.note = Gukosora hakurikijwe ibipimo bikorwa imbere y’ivyokosorwa n’intoke. Koresha ifoto yose y’intango, uyikate mu nyuma. Bika urukurikirane rw’amafiltiri muri PSD/PSB kugira ngo ibipimo bishobore guhindurwa.
+lens_profiles.automatic = Guhuza n’amakuru y’ifoto
+lens_profiles.components = Ivyakozwe na profil: kugorama {distortion}; imirongo y’amabara ku mpande {tca}; umwiza wo ku mpande {vignette}.

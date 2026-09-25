@@ -31,7 +31,7 @@ panel.history.title = Storia
 panel.history.opened = Aperto
 
 # Informazioni EXIF
-panel.info.title = Info
+panel.info.title = Informazioni
 panel.info.camera = Fotocamera
 panel.info.lens = Obiettivo
 panel.info.iso = ISO {iso}

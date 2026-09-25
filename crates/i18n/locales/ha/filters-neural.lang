@@ -23,7 +23,7 @@ filter.camera_raw.param.sharpening = Kaifafawa
 filter.camera_raw.param.noise = Rage Hayaniya
 filter.camera_raw.param.vignette = Duhun Gefe
 
-filter.lens_correction.name = Gyaran Ruwan Tabarau
+filter.lens_correction.name = Gyaran Lens
 filter.lens_correction.param.distortion = Cire Murgudawa
 filter.lens_correction.param.red = Gyara Gefen Ja/Sayan
 filter.lens_correction.param.blue = Gyara Gefen Shuɗi/Rawaya

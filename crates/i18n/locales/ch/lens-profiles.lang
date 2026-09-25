@@ -1,17 +1,16 @@
-# Lens profiles: English fallback pending translation review. No locale added.
-lens_profiles.invalid = Choose a valid Lensfun v1/v2 XML database (up to 8 MiB) with supported camera or lens data.
-lens_profiles.calibration = Lens calibration
-lens_profiles.no_calibration = No calibration covers these settings. Check focal length and camera crop factor; manual correction remains available.
-lens_profiles.import = Import Lensfun XML…
-lens_profiles.imported = Lensfun database imported for this session. Select a profile or match the photo metadata.
-lens_profiles.manual = Manual correction only
-lens_profiles.saved = Saved calibration (database unavailable)
-lens_profiles.profile = Lens profile
-lens_profiles.aperture = Aperture (0 = unknown)
-lens_profiles.distance = Focus distance (0 = unknown)
-lens_profiles.vignette = Calibrated vignetting
-lens_profiles.color_context = Calibrated vignetting requires the built-in sRGB profile. Convert to sRGB to preserve appearance, then reopen Lens Correction. For already-sRGB untagged pixels, assigning sRGB is sufficient. Geometry and chromatic correction remain available.
-lens_profiles.vignette_missing = No vignetting calibration covers the aperture and focus distance. Enter measured values to enable it; 1000 m represents distant focus in many Lensfun profiles.
-lens_profiles.note = Calibrated correction runs before the manual controls. Use the original full frame; crop afterward. Save a filter stack in PSD/PSB to retain editable calibration.
-lens_profiles.automatic = Match photo metadata
-lens_profiles.components = Profile pass: distortion {distortion}; color fringes {tca}; vignetting {vignette}.
+lens_profiles.invalid = A'atan i Lensfun v1/v2 XML na basen datos ni' válidu (asta 8 MiB) ya guaha datos i kamera pat lente ni' ma'apoya.
+lens_profiles.calibration = Kalibrasion i lente
+lens_profiles.no_calibration = Tåya' kalibrasion para este na setbisio siha. Chek i focal length yan i crop factor i kamera; siña ha' ma'usa i inadilånto gi kannai.
+lens_profiles.import = Importa Lensfun XML…
+lens_profiles.imported = Ma'importa i Lensfun na basen datos para este na sesion. A'atan un prufil pat na'daña' i metadata i litråtu.
+lens_profiles.manual = Manma'ayek ha'
+lens_profiles.saved = Ma na'setbe i kalibråsion (ti ma sodda' i basen datos)
+lens_profiles.profile = Prufil i lente
+lens_profiles.aperture = Apertura (0 = ti ma tungo')
+lens_profiles.distance = I distansian i inatan (0 = ti ma tungo')
+lens_profiles.vignette = Ma'ayek na viñeta
+lens_profiles.color_context = I kalibrao na vignetting ha nisisita i built-in sRGB na prufil. Konbiette guato gi sRGB para un guaha i parehu na lini'e', pues abri ta'lo i Lens Correction. Para i pixels ni' sRGB dija lao ti ma'tag, siña ma'asigna i sRGB. I geometry yan chromatic correction siha manma'usa ha'.
+lens_profiles.vignette_missing = Tåya' kalibrasion i vignetting para este na apertura yan distansian focus. Na'halom i bale siha ni' ma'amot para un na'funksiona; gi meggai na Lensfun na prufil, 1000 m ha reprisisenta i focus gi chågo'.
+lens_profiles.note = I kalibrao na inadilånto ma cho'gue antes di i kontrol gi kannai. Usa i orihinat na kuadru enteru; despues, kåtga i litråtu. Na'setbe i filter stack gi PSD/PSB para u siña ma'edit i kalibrasion.
+lens_profiles.automatic = Na'daña' i metgot na litråtu
+lens_profiles.components = I prufil na pasu: distorsion {distortion}; kulot i kanton {tca}; vignetting {vignette}.

@@ -1,8 +1,8 @@
 # English fallback pending translation.
-photo_merge_advanced.projective = Perspective alignment (includes rotation)
-photo_merge_advanced.cylindrical = Cylindrical panorama
-photo_merge_advanced.deghost = Remove moving-subject ghosts (first photo reference)
-photo_merge_advanced.focal = Focal length (px) / image width (px)
-photo_merge_advanced.masks = Focus output uses editable layer masks. Select a mask in Layers and paint to refine.
-photo_merge_advanced.no_match = No reliable alignment found. Use textured photos with substantial overlap and modest viewpoint changes.
-photo_merge_advanced.invalid = Invalid source images or merge settings.
+photo_merge_advanced.projective = Perspektiivne joondus (sisaldab pööramist)
+photo_merge_advanced.cylindrical = Silindriline panoraam
+photo_merge_advanced.deghost = Eemaldage liikuvate objektide kummitused (esimene foto viide)
+photo_merge_advanced.focal = Fookuskaugus (px) / pildi laius (px)
+photo_merge_advanced.masks = Fookuse väljund kasutab redigeeritavaid kihimaske. Valige jaotises Kihid mask ja värvige täpsustamiseks.
+photo_merge_advanced.no_match = Usaldusväärset joondust ei leitud. Kasutage tekstureeritud fotosid, millel on oluline kattumine ja tagasihoidlikud vaatenurgad.
+photo_merge_advanced.invalid = Valed lähtekujutised või liitmisseaded.

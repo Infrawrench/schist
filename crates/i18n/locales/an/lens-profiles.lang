@@ -1,17 +1,17 @@
-# Lens profiles: English fallback pending translation review. No locale added.
-lens_profiles.invalid = Choose a valid Lensfun v1/v2 XML database (up to 8 MiB) with supported camera or lens data.
-lens_profiles.calibration = Lens calibration
-lens_profiles.no_calibration = No calibration covers these settings. Check focal length and camera crop factor; manual correction remains available.
-lens_profiles.import = Import Lensfun XML…
-lens_profiles.imported = Lensfun database imported for this session. Select a profile or match the photo metadata.
-lens_profiles.manual = Manual correction only
-lens_profiles.saved = Saved calibration (database unavailable)
-lens_profiles.profile = Lens profile
-lens_profiles.aperture = Aperture (0 = unknown)
-lens_profiles.distance = Focus distance (0 = unknown)
-lens_profiles.vignette = Calibrated vignetting
-lens_profiles.color_context = Calibrated vignetting requires the built-in sRGB profile. Convert to sRGB to preserve appearance, then reopen Lens Correction. For already-sRGB untagged pixels, assigning sRGB is sufficient. Geometry and chromatic correction remain available.
-lens_profiles.vignette_missing = No vignetting calibration covers the aperture and focus distance. Enter measured values to enable it; 1000 m represents distant focus in many Lensfun profiles.
-lens_profiles.note = Calibrated correction runs before the manual controls. Use the original full frame; crop afterward. Save a filter stack in PSD/PSB to retain editable calibration.
-lens_profiles.automatic = Match photo metadata
-lens_profiles.components = Profile pass: distortion {distortion}; color fringes {tca}; vignetting {vignette}.
+# Lens profile controls.
+lens_profiles.invalid = Triga una base de datos XML Lensfun v1/v2 valida (dica 8 MiB) con datos de camara u obchectivo compatibles.
+lens_profiles.calibration = Calibración de l’obchectivo
+lens_profiles.no_calibration = No bi ha garra calibración ta istas opcions. Compreba la distancia focal y o factor de retalle d’a camara; encara puetz fer una corrección manual.
+lens_profiles.import = Importar XML de Lensfun…
+lens_profiles.imported = S’ha importau la base de datos Lensfun ta ista sesión. Triga un perfil u fa coincidir as metadatas d’a foto.
+lens_profiles.manual = Nomás corrección manual
+lens_profiles.saved = Calibración alzada (base de datos no disponible)
+lens_profiles.profile = Perfil de l’obchectivo
+lens_profiles.aperture = Obertura (0 = desconoixida)
+lens_profiles.distance = Distancia d’enfoque (0 = desconoixida)
+lens_profiles.vignette = Vinyeteau calibrau
+lens_profiles.color_context = O vinyeteau calibrau requiere o perfil sRGB incorporau. Convierte a sRGB ta conservar l’apariencia y torna a ubrir Corrección de l’obchectivo. Si os pixels ya son sRGB pero no tienen etiqueta, ye prou con asignar sRGB. A corrección cheometrica y cromatica siguen disponibles.
+lens_profiles.vignette_missing = No bi ha garra calibración de vinyeteau ta ista obertura y distancia d’enfoque. Mete valors mesuraus ta activar-la; 1000 m representa un enfoque luenyo en muitos perfils Lensfun.
+lens_profiles.note = A corrección calibrada s’aplica antes d’os controls manuals. Fa servir o fotograma orichinal completo y retalla dimpués. Alza una pila de filtros en PSD/PSB ta conservar a calibración editable.
+lens_profiles.automatic = Fer coincidir as metadatas d’a foto
+lens_profiles.components = Aplicación d’o perfil: distorsión {distortion}; franjas de color {tca}; vinyeteau {vignette}.

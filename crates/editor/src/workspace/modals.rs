@@ -678,6 +678,12 @@ impl Workspace {
                     match id {
                         "recipe-name" => editor.draft.name = buffer,
                         "recipe-destination" => editor.draft.destination = buffer.into(),
+                        "recipe-watermark" => {
+                            editor.draft.outputs[editor.output].finishing.text = buffer
+                        }
+                        "recipe-copyright" => {
+                            editor.draft.outputs[editor.output].finishing.copyright = buffer
+                        }
                         "recipe-template" => editor.draft.outputs[editor.output].template = buffer,
                         "recipe-max-edge" => match buffer.parse::<u32>() {
                             Ok(value) if value <= 32768 => {

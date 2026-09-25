@@ -1,8 +1,7 @@
-# Virtual copies. Explicit English fallback pending translation review.
-variants.create = Create virtual copy…
-variants.rename = Rename virtual copy…
-variants.delete = Delete virtual copy
-variants.close = Close this photo and its virtual copies before moving or deleting them.
-variants.saved_hint = The copy starts from the saved edit, or the original when there is no edit. Save pending changes first.
-variants.move_original = Move the original photo to move its virtual copies.
-variants.protected_export = Choose another destination. Gallery exports cannot replace the original or its edit storage.
+variants.create = Samee nuqul dalwad ah…
+variants.rename = Dib u magacow nuqulka dalwadda ah…
+variants.delete = Tirtir nuqulka dalwadda ah
+variants.close = Xir sawirkan iyo nuqulladiisa dalwadda ah ka hor inta aanad dhaqaajin ama tirtirin.
+variants.saved_hint = Nuqulku wuxuu ka bilaabmaa tafatirka la kaydiyey, ama asalka haddii aanu tafatir jirin. Marka hore kaydi isbeddellada aan weli la kaydin.
+variants.move_original = Si aad u dhaqaajiso nuqullada dalwadda ah, dhaqaaji sawirka asalka ah.
+variants.protected_export = Dooro meel kale. Dhoofinta maktabadda ma beddeli karto sawirka asalka ah ama kaydka tafatirradiisa.

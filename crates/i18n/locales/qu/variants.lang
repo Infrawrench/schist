@@ -1,8 +1,7 @@
-# Virtual copies. Explicit English fallback pending translation review.
-variants.create = Create virtual copy…
-variants.rename = Rename virtual copy…
-variants.delete = Delete virtual copy
-variants.close = Close this photo and its virtual copies before moving or deleting them.
-variants.saved_hint = The copy starts from the saved edit, or the original when there is no edit. Save pending changes first.
-variants.move_original = Move the original photo to move its virtual copies.
-variants.protected_export = Choose another destination. Gallery exports cannot replace the original or its edit storage.
+variants.create = Huk virtual copiata ruray…
+variants.rename = Virtual copiapa sutinta tikray…
+variants.delete = Virtual copiata qulluy
+variants.close = Kay fotota virtual copiakunantinta wichq’ay, chaymantaraq kuyuchiy utaq qulluy.
+variants.saved_hint = Copiaqa waqaychasqa allichaymanta qallarinqa; mana allichasqa kaptinqa original fotomanta qallarinqa. Ñawpaqta mana waqaychasqa tikraykunata waqaychay.
+variants.move_original = Virtual copiakunanta kuyuchinapaq original fotota kuyuchiy.
+variants.protected_export = Huk mayta akllay. Galeríamanta lluqsisqa fotokunaqa mana original fotopa utaq allichayninpa archivonkunapa rantinman yaykuyta atinchu.

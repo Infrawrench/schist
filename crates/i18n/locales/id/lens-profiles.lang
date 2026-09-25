@@ -1,17 +1,16 @@
-# Lens profiles: English fallback pending translation review. No locale added.
-lens_profiles.invalid = Choose a valid Lensfun v1/v2 XML database (up to 8 MiB) with supported camera or lens data.
-lens_profiles.calibration = Lens calibration
-lens_profiles.no_calibration = No calibration covers these settings. Check focal length and camera crop factor; manual correction remains available.
-lens_profiles.import = Import Lensfun XML…
-lens_profiles.imported = Lensfun database imported for this session. Select a profile or match the photo metadata.
-lens_profiles.manual = Manual correction only
-lens_profiles.saved = Saved calibration (database unavailable)
-lens_profiles.profile = Lens profile
-lens_profiles.aperture = Aperture (0 = unknown)
-lens_profiles.distance = Focus distance (0 = unknown)
-lens_profiles.vignette = Calibrated vignetting
-lens_profiles.color_context = Calibrated vignetting requires the built-in sRGB profile. Convert to sRGB to preserve appearance, then reopen Lens Correction. For already-sRGB untagged pixels, assigning sRGB is sufficient. Geometry and chromatic correction remain available.
-lens_profiles.vignette_missing = No vignetting calibration covers the aperture and focus distance. Enter measured values to enable it; 1000 m represents distant focus in many Lensfun profiles.
-lens_profiles.note = Calibrated correction runs before the manual controls. Use the original full frame; crop afterward. Save a filter stack in PSD/PSB to retain editable calibration.
-lens_profiles.automatic = Match photo metadata
-lens_profiles.components = Profile pass: distortion {distortion}; color fringes {tca}; vignetting {vignette}.
+lens_profiles.invalid = Pilih database XML Lensfun v1/v2 yang valid (hingga 8 MiB) dengan data kamera atau lensa yang didukung.
+lens_profiles.calibration = Kalibrasi lensa
+lens_profiles.no_calibration = Tidak ada kalibrasi yang mencakup pengaturan ini. Periksa panjang fokus dan faktor krop kamera; koreksi manual tetap tersedia.
+lens_profiles.import = Impor XML Lensfun…
+lens_profiles.imported = Basis data Lensfun diimpor untuk sesi ini. Pilih profil atau cocokkan dengan metadata foto.
+lens_profiles.manual = Hanya koreksi manual
+lens_profiles.saved = Kalibrasi tersimpan (database tidak tersedia)
+lens_profiles.profile = Profil lensa
+lens_profiles.aperture = Bukaan (0 = tidak diketahui)
+lens_profiles.distance = Jarak fokus (0 = tidak diketahui)
+lens_profiles.vignette = Vignette yang dikalibrasi
+lens_profiles.color_context = Vinyet terkalibrasi memerlukan profil sRGB bawaan. Konversikan ke sRGB untuk mempertahankan tampilan, lalu buka kembali Koreksi Lensa. Untuk piksel tanpa tag yang sudah berada dalam sRGB, cukup tetapkan profil sRGB. Koreksi geometri dan kromatik tetap tersedia.
+lens_profiles.vignette_missing = Tidak ada kalibrasi vignetting yang mencakup aperture dan jarak fokus. Masukkan nilai terukur untuk mengaktifkannya; 1000 m mewakili fokus jauh di banyak profil Lensfun.
+lens_profiles.note = Koreksi terkalibrasi dijalankan sebelum kontrol manual. Gunakan seluruh bingkai asli; pangkas setelahnya. Simpan tumpukan filter dalam PSD/PSB agar kalibrasi tetap dapat diedit.
+lens_profiles.automatic = Cocokkan metadata foto
+lens_profiles.components = Penerapan profil: distorsi {distortion}; pinggiran warna {tca}; vinyet {vignette}.

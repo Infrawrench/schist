@@ -189,6 +189,26 @@ pub fn read(photo: &Path) -> Result<Metadata> {
     }
 }
 
+/// Explicit rights override, including an empty value (which clears original EXIF copyright).
+pub fn copyright(photo: &Path) -> Result<Option<String>> {
+    let capture = crate::capture_original(photo);
+    let photo = capture.as_path();
+    if !exists(&exact_sidecar(photo)?)? && !exists(&photo.with_extension("xmp"))? {
+        return Ok(None);
+    }
+    let Some(text) = read_packet(&sidecar_path(photo)?)? else {
+        return Ok(None);
+    };
+    copyright_packet(&text)
+}
+
+/// Read rights while distinguishing absent properties from explicit empty rights.
+pub fn copyright_packet(text: &str) -> Result<Option<String>> {
+    parse(text)?;
+    let doc = Document::parse(text)?;
+    Ok(scalar(&doc, DC, "rights"))
+}
+
 fn descriptions<'a, 'i>(doc: &'a Document<'i>) -> impl Iterator<Item = Node<'a, 'i>> {
     let root = doc.descendants().find(|n| n.has_tag_name((RDF, "RDF")));
     doc.descendants()

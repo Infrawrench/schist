@@ -1,8 +1,8 @@
-# Virtual copies. Explicit English fallback pending translation review.
-variants.create = Create virtual copy…
-variants.rename = Rename virtual copy…
-variants.delete = Delete virtual copy
-variants.close = Close this photo and its virtual copies before moving or deleting them.
-variants.saved_hint = The copy starts from the saved edit, or the original when there is no edit. Save pending changes first.
-variants.move_original = Move the original photo to move its virtual copies.
-variants.protected_export = Choose another destination. Gallery exports cannot replace the original or its edit storage.
+# Virtual copies.
+variants.create = Kurema kopi y’ikoranabuhanga…
+variants.rename = Guhindura izina rya kopi y’ikoranabuhanga…
+variants.delete = Gusiba kopi y’ikoranabuhanga
+variants.close = Funga iyi foto na kopi zayo z’ikoranabuhanga mbere yo kuzimura cyangwa kuzisiba.
+variants.saved_hint = Kopi ishingira ku byahinduwe byabitswe, cyangwa ku mwimerere niba nta byahinduwe bihari. Banza ubike ibyahinduwe bitarabikwa.
+variants.move_original = Imura ifoto y’umwimerere kugira ngo kopi zayo z’ikoranabuhanga na zo zimuke.
+variants.protected_export = Hitamo ahandi ho kubika. Amafoto yoherejwe avuye mu bubiko bw’amafoto ntashobora gusimbura ifoto y’umwimerere cyangwa aho ibyahinduwe byayo bibikwa.

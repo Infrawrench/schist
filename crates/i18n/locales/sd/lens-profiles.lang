@@ -1,17 +1,16 @@
-# Lens profiles: English fallback pending translation review. No locale added.
-lens_profiles.invalid = Choose a valid Lensfun v1/v2 XML database (up to 8 MiB) with supported camera or lens data.
-lens_profiles.calibration = Lens calibration
-lens_profiles.no_calibration = No calibration covers these settings. Check focal length and camera crop factor; manual correction remains available.
-lens_profiles.import = Import Lensfun XML…
-lens_profiles.imported = Lensfun database imported for this session. Select a profile or match the photo metadata.
-lens_profiles.manual = Manual correction only
-lens_profiles.saved = Saved calibration (database unavailable)
-lens_profiles.profile = Lens profile
-lens_profiles.aperture = Aperture (0 = unknown)
-lens_profiles.distance = Focus distance (0 = unknown)
-lens_profiles.vignette = Calibrated vignetting
-lens_profiles.color_context = Calibrated vignetting requires the built-in sRGB profile. Convert to sRGB to preserve appearance, then reopen Lens Correction. For already-sRGB untagged pixels, assigning sRGB is sufficient. Geometry and chromatic correction remain available.
-lens_profiles.vignette_missing = No vignetting calibration covers the aperture and focus distance. Enter measured values to enable it; 1000 m represents distant focus in many Lensfun profiles.
-lens_profiles.note = Calibrated correction runs before the manual controls. Use the original full frame; crop afterward. Save a filter stack in PSD/PSB to retain editable calibration.
-lens_profiles.automatic = Match photo metadata
-lens_profiles.components = Profile pass: distortion {distortion}; color fringes {tca}; vignetting {vignette}.
+lens_profiles.invalid = سپورٽ ڪيل ڪئميرا يا لينس جي ڊيٽا سان صحيح Lensfun v1/v2 XML ڊيٽابيس چونڊيو (8 MiB تائين).
+lens_profiles.calibration = لينس جي ڪيليبريشن
+lens_profiles.no_calibration = انهن سيٽنگن لاءِ ڪا ڪيليبريشن موجود ناهي. فوڪل ڊيگهه ۽ ڪئميرا جو ڪراپ فيڪٽر چيڪ ڪريو؛ هٿ سان درستگي اڃا موجود آهي.
+lens_profiles.import = Lensfun XML درآمد ڪريو…
+lens_profiles.imported = هن سيشن لاءِ Lensfun ڊيٽابيس درآمد ٿيو. پروفائيل چونڊيو يا تصوير جي ميٽاڊيٽا سان ملائي.
+lens_profiles.manual = رڳو هٿ سان درستگي
+lens_profiles.saved = محفوظ ٿيل ڪيليبريشن (ڊيٽابيس موجود ناهي)
+lens_profiles.profile = لينس جو پروفائيل
+lens_profiles.aperture = اپرچر (0 = اڻڄاتل)
+lens_profiles.distance = فوڪس جو فاصلو (0 = اڻڄاتل)
+lens_profiles.vignette = ڪيليبريٽ ڪيل ونيٽنگ
+lens_profiles.color_context = ڪيليبريٽ ڪيل ونيٽنگ لاءِ ٺهيل sRGB پروفائيل گهربل آهي. ظاهر برقرار رکڻ لاءِ تصوير کي sRGB ۾ تبديل ڪريو، پوءِ لينس جي درستگي ٻيهر کوليو. جيڪي پکسل اڳ ئي sRGB ۾ آهن پر پروفائيل سان نشان لڳل ناهن، تن لاءِ sRGB مقرر ڪرڻ ڪافي آهي. جاميٽري ۽ رنگن جي ڪنارن جي درستگي اڃا موجود آهي.
+lens_profiles.vignette_missing = هن اپرچر ۽ فوڪس جي فاصلي لاءِ ونيٽنگ جي ڪا ڪيليبريشن موجود ناهي. ان کي فعال ڪرڻ لاءِ ماپيل قدر داخل ڪريو؛ ڪيترن Lensfun پروفائيلن ۾ 1000 m پري فوڪس کي ظاهر ڪري ٿو.
+lens_profiles.note = ڪيليبريٽ ڪيل درستگي هٿ وارن ڪنٽرولن کان اڳ لاڳو ٿئي ٿي. اصل مڪمل فريم استعمال ڪريو؛ پوءِ ڪراپ ڪريو. ڪيليبريشن کي قابل تدوين رکڻ لاءِ فلٽرن جو مجموعو PSD/PSB ۾ محفوظ ڪريو.
+lens_profiles.automatic = تصوير جي ميٽاڊيٽا سان ملائي
+lens_profiles.components = پروفائيل جي درستگي: بگاڙ {distortion}؛ رنگين ڪنارا {tca}؛ ونيٽنگ {vignette}.

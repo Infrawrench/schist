@@ -27,7 +27,7 @@ printing.downloaded = PDF ডাউনল'ড হ'ল। 100% আকাৰত �
 printing.saved = PDF সংৰক্ষিত হ'ল: {path}
 printing.letter = US Letter
 printing.a4 = A4
-printing.margin_value = {value} mm
+printing.margin_value = {value} মি.মি
 
 printing.layout_title = প্ৰিণ্টৰ বিন্যাস
 printing.preset = বিন্যাসৰ পূৰ্বনিৰ্ধাৰিত ৰূপ

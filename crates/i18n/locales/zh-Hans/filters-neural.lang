@@ -104,7 +104,7 @@ filter.neural.super_zoom.name = 超级缩放
 filter.neural.super_zoom.msg.no_model = 未安装 {model}，改为沿边缘方向锐化。
 
 filter.neural.style_transfer.name = 风格转换
-filter.neural.style_transfer.choice.mosaic = Mosaic
+filter.neural.style_transfer.choice.mosaic = 马赛克
 filter.neural.style_transfer.choice.candy = Candy
 filter.neural.style_transfer.choice.udnie = Udnie
 filter.neural.style_transfer.msg.no_styles = 未安装任何风格模型，仅转换颜色。可在"滤镜 ▸ Neural Filters ▸ 管理模型"中获取。

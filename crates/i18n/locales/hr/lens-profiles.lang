@@ -1,17 +1,16 @@
-# Lens profiles: English fallback pending translation review. No locale added.
-lens_profiles.invalid = Choose a valid Lensfun v1/v2 XML database (up to 8 MiB) with supported camera or lens data.
-lens_profiles.calibration = Lens calibration
-lens_profiles.no_calibration = No calibration covers these settings. Check focal length and camera crop factor; manual correction remains available.
-lens_profiles.import = Import Lensfun XML…
-lens_profiles.imported = Lensfun database imported for this session. Select a profile or match the photo metadata.
-lens_profiles.manual = Manual correction only
-lens_profiles.saved = Saved calibration (database unavailable)
-lens_profiles.profile = Lens profile
-lens_profiles.aperture = Aperture (0 = unknown)
-lens_profiles.distance = Focus distance (0 = unknown)
-lens_profiles.vignette = Calibrated vignetting
-lens_profiles.color_context = Calibrated vignetting requires the built-in sRGB profile. Convert to sRGB to preserve appearance, then reopen Lens Correction. For already-sRGB untagged pixels, assigning sRGB is sufficient. Geometry and chromatic correction remain available.
-lens_profiles.vignette_missing = No vignetting calibration covers the aperture and focus distance. Enter measured values to enable it; 1000 m represents distant focus in many Lensfun profiles.
-lens_profiles.note = Calibrated correction runs before the manual controls. Use the original full frame; crop afterward. Save a filter stack in PSD/PSB to retain editable calibration.
-lens_profiles.automatic = Match photo metadata
-lens_profiles.components = Profile pass: distortion {distortion}; color fringes {tca}; vignetting {vignette}.
+lens_profiles.invalid = Odaberite valjanu Lensfun v1/v2 XML bazu podataka (do 8 MiB) s podržanim podacima o fotoaparatu ili objektivu.
+lens_profiles.calibration = Kalibracija objektiva
+lens_profiles.no_calibration = Nijedna kalibracija ne pokriva ove postavke. Provjerite žarišnu duljinu i crop faktor fotoaparata; ručna korekcija ostaje dostupna.
+lens_profiles.import = Uvezi Lensfun XML...
+lens_profiles.imported = Lensfun baza podataka uvezena je za ovu sesiju. Odaberite profil ili spojite metapodatke fotografije.
+lens_profiles.manual = Samo ručna korekcija
+lens_profiles.saved = Spremljena kalibracija (baza podataka nije dostupna)
+lens_profiles.profile = Profil objektiva
+lens_profiles.aperture = Otvor blende (0 = nepoznato)
+lens_profiles.distance = Udaljenost fokusa (0 = nepoznato)
+lens_profiles.vignette = Kalibrirano vinjetiranje
+lens_profiles.color_context = Kalibrirano vinjetiranje zahtijeva ugrađeni sRGB profil. Pretvorite u sRGB da biste sačuvali izgled, a zatim ponovno otvorite Ispravljanje objektiva. Za već sRGB neoznačene piksele, dovoljno je dodijeliti sRGB. Geometrija i kromatska korekcija ostaju dostupni.
+lens_profiles.vignette_missing = Nikakva kalibracija vinjetiranja ne pokriva otvor blende i udaljenost fokusa. Unesite izmjerene vrijednosti kako biste to omogućili; 1000 m predstavlja udaljeni fokus u mnogim Lensfun profilima.
+lens_profiles.note = Kalibrirana korekcija izvodi se prije ručnih kontrola. Upotrijebite izvornu sliku punog kadra; obrežite je nakon toga. Spremite skup filtara u PSD/PSB kako bi kalibracija ostala uređiva.
+lens_profiles.automatic = Podudaranje metapodataka fotografije
+lens_profiles.components = Primjena profila: izobličenje {distortion}; obojeni rubovi {tca}; vinjetiranje {vignette}.

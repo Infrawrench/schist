@@ -1,17 +1,17 @@
-# Lens profiles: English fallback pending translation review. No locale added.
-lens_profiles.invalid = Choose a valid Lensfun v1/v2 XML database (up to 8 MiB) with supported camera or lens data.
-lens_profiles.calibration = Lens calibration
-lens_profiles.no_calibration = No calibration covers these settings. Check focal length and camera crop factor; manual correction remains available.
-lens_profiles.import = Import Lensfun XML…
-lens_profiles.imported = Lensfun database imported for this session. Select a profile or match the photo metadata.
-lens_profiles.manual = Manual correction only
-lens_profiles.saved = Saved calibration (database unavailable)
-lens_profiles.profile = Lens profile
-lens_profiles.aperture = Aperture (0 = unknown)
-lens_profiles.distance = Focus distance (0 = unknown)
-lens_profiles.vignette = Calibrated vignetting
-lens_profiles.color_context = Calibrated vignetting requires the built-in sRGB profile. Convert to sRGB to preserve appearance, then reopen Lens Correction. For already-sRGB untagged pixels, assigning sRGB is sufficient. Geometry and chromatic correction remain available.
-lens_profiles.vignette_missing = No vignetting calibration covers the aperture and focus distance. Enter measured values to enable it; 1000 m represents distant focus in many Lensfun profiles.
-lens_profiles.note = Calibrated correction runs before the manual controls. Use the original full frame; crop afterward. Save a filter stack in PSD/PSB to retain editable calibration.
-lens_profiles.automatic = Match photo metadata
-lens_profiles.components = Profile pass: distortion {distortion}; color fringes {tca}; vignetting {vignette}.
+# Translation draft; review by a native speaker.
+lens_profiles.invalid = קלײַבט אויס אַ גילטיקע Lensfun v1/v2 XML־דאַטאַבאַזע (ביז 8 MiB) מיט געשטיצטע קאַמעראַ־ אָדער אָביעקטיוו־דאַטן.
+lens_profiles.calibration = אָביעקטיוו־קאַליברירונג
+lens_profiles.no_calibration = פֿאַר די דאָזיקע אײַנשטעלונגען איז נישטאָ קיין קאַליברירונג. קאָנטראָלירט די פֿאָקוס־לענג און דעם קראָפּ־פֿאַקטאָר פֿון דער קאַמעראַ; מען קען נאָך אַלץ פֿאַרריכטן מאַניועל.
+lens_profiles.import = אימפּאָרטירן Lensfun XML…
+lens_profiles.imported = די Lensfun־דאַטאַבאַזע איז אימפּאָרטירט געוואָרן פֿאַר דעם זיץ. קלײַבט אַן אָביעקטיוו־פּראָפֿיל אָדער פּאַסט צו די מעטאַדאַטן פֿון דער פֿאָטאָ.
+lens_profiles.manual = בלויז מאַניועלע פֿאַרריכטונג
+lens_profiles.saved = געהיטע קאַליברירונג (דאַטאַבאַזע נישט בנימצא)
+lens_profiles.profile = אָביעקטיוו־פּראָפֿיל
+lens_profiles.aperture = בלענדע (0 = אומבאַקאַנט)
+lens_profiles.distance = פֿאָקוס־ווײַטקייט (0 = אומבאַקאַנט)
+lens_profiles.vignette = קאַליברירטע וויניעטירונג
+lens_profiles.color_context = קאַליברירטע וויניעטירונג דאַרף דעם אײַנגעבויטן sRGB־פּראָפֿיל. פֿאַרוואַנדלט דאָס בילד צו sRGB כּדי צו באַהאַלטן זײַן אויסזען, און עפֿנט דערנאָך ווידער „אָביעקטיוו־קאָרעקציע“. אויב די פּיקסעלן זײַנען שוין sRGB אָבער נישט באַצייכנט, איז גענוג צו צוטיילן דעם sRGB־פּראָפֿיל. געאָמעטרישע און כראָמאַטישע קאָרעקציעס בלײַבן בנימצא.
+lens_profiles.vignette_missing = קיין קאַליברירונג פֿון וויניעטירונג דעקט נישט די דאָזיקע בלענדע און פֿאָקוס־ווײַטקייט. גיט אַרײַן געמאָסטענע ווערטן כּדי זי אָנצוצינדן; אין אַ סך Lensfun־פּראָפֿילן מיינט 1000 m פֿאָקוסירן אויף אַ ווײַטן אָביעקט.
+lens_profiles.note = די קאַליברירטע קאָרעקציע ווערט אויסגעפֿירט פֿאַר די מאַניועלע קאָנטראָלן. ניצט דעם גאַנצן אָריגינעלן ראַם; שנײַדט אים דערנאָך צו. היט דעם פֿילטער־שטאַפּל אין PSD/PSB כּדי די קאַליברירונג זאָל בלײַבן רעדאַגירבאַר.
+lens_profiles.automatic = צופּאַסן צו די פֿאָטאָ־מעטאַדאַטן
+lens_profiles.components = פּראָפֿיל־קאָרעקציע: פֿאַרקרימונג {distortion}; קאָלירטע ראַנדן {tca}; וויניעטירונג {vignette}.

@@ -1,8 +1,7 @@
-# Virtual copies. Explicit English fallback pending translation review.
-variants.create = Create virtual copy…
-variants.rename = Rename virtual copy…
-variants.delete = Delete virtual copy
-variants.close = Close this photo and its virtual copies before moving or deleting them.
-variants.saved_hint = The copy starts from the saved edit, or the original when there is no edit. Save pending changes first.
-variants.move_original = Move the original photo to move its virtual copies.
-variants.protected_export = Choose another destination. Gallery exports cannot replace the original or its edit storage.
+variants.create = Krouiñ un eiladenn virtuel…
+variants.rename = Adenvel an eiladenn virtuel…
+variants.delete = Dilemel an eiladenn virtuel
+variants.close = Serriñ al luc'hskeudenn-mañ hag he skouerennoù virtuel a-raok o dilec'hiañ pe o diverkañ.
+variants.saved_hint = Kregiñ a ra an eiladenn gant ar c'hemm enrollet, pe an hini orin pa n'eus kemm ebet. Enrollañ ar c'hemmoù o c'hortoz da gentañ.
+variants.move_original = Dilec'hiañ al luc'hskeudenn orin evit dilec'hiañ he skouerennoù virtuel.
+variants.protected_export = Dibabit ul lec'h all. N'hall ket ezporzhiadurioù ar palier erlec'hiañ ar skeudenn orin na roadennoù he c'hemmoù.

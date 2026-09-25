@@ -1,8 +1,8 @@
-# Virtual copies. Explicit English fallback pending translation review.
-variants.create = Create virtual copy…
-variants.rename = Rename virtual copy…
-variants.delete = Delete virtual copy
-variants.close = Close this photo and its virtual copies before moving or deleting them.
-variants.saved_hint = The copy starts from the saved edit, or the original when there is no edit. Save pending changes first.
-variants.move_original = Move the original photo to move its virtual copies.
-variants.protected_export = Choose another destination. Gallery exports cannot replace the original or its edit storage.
+# Virtual copies.
+variants.create = ምናባዊ ቅጂ ፍጠር…
+variants.rename = ምናባዊ ቅጂን እንደገና ይሰይሙ…
+variants.delete = ምናባዊ ቅጂን ሰርዝ
+variants.close = ይህንን ፎቶ እና ምናባዊ ቅጂዎቹን ከማንቀሳቀስ ወይም ከመሰረዝዎ በፊት ይዝጉ።
+variants.saved_hint = ቅጂው ከተቀመጠው አርትዖት ይጀምራል፣ ወይም ምንም አርትዖት በማይኖርበት ጊዜ ዋናው ነው። መጀመሪያ በመጠባበቅ ላይ ያሉ ለውጦችን ያስቀምጡ።
+variants.move_original = ምናባዊ ቅጂዎቹን ለማንቀሳቀስ የመጀመሪያውን ፎቶ ያንቀሳቅሱ።
+variants.protected_export = ሌላ መድረሻ ይምረጡ። ጋለሪ ወደ ውጭ መላክ ዋናውን ወይም የአርትዖት ማከማቻውን መተካት አይችልም።

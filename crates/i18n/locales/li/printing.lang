@@ -25,7 +25,7 @@ printing.source_error = Ein gekoze foto, bewirk begeleidend besjtandj of bisjrif
 printing.save_error = De PDF kos neet opgeslage waere. Kies ein nuuje besjtandsnaam in eine map wo se in kèns sjrieve; besjtaonde besjtenj waere noeëts euversjreve.
 printing.downloaded = PDF gedownload. Maak häöm aope in eine PDF-kieker en drök häöm op 100%.
 printing.saved = PDF opgeslage: {path}
-printing.letter = US Letter
+printing.letter = Amerikaanse brief
 printing.a4 = A4
 printing.margin_value = {value} mm
 
