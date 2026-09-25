@@ -412,6 +412,14 @@ check-gpu-shaders:
 check-gpu-opportunities:
 	$(CARGO) test -p schist-compositor-gpu --test adjustment_coverage --test compute_programs --test async_filters --test native_parity --test remaining_opportunities
 
+.PHONY: check-neural-gpu lint-neural-gpu fmt-neural-gpu
+check-neural-gpu:
+	$(CARGO) test -p schist-compositor-gpu --test neural_catalog
+lint-neural-gpu:
+	$(CARGO) clippy -p schist-neural -p schist-compositor-gpu --all-targets -- -D warnings
+fmt-neural-gpu:
+	$(CARGO) fmt -p schist-neural -p schist-compositor-gpu
+
 .PHONY: check-gpu-domains
 check-gpu-domains:
 	$(CARGO) test -p schist-adjustments -p schist-core -p schist-layer-fx -p schist-codec-raw -p schist-colormgmt -p schist-vector -p schist-neural -p schist-tools-retouch -p schist-tools-transform -p schist-tools-select -p schist-commands-core -p schist-codecs-common

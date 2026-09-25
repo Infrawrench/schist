@@ -6,6 +6,11 @@
 //! program that needs a 300 MB runtime and a matching CUDA to sharpen a
 //! photo is not a paint program anyone will use.
 //!
+//! The installed effects backend runs compatible graphs on the GPU. On native
+//! hosts, graphs with unsupported operators or large tensors also offload
+//! individual convolutions and matrix contractions, with tract handling the
+//! remaining operations and any device failure. See `docs/neural-gpu.md`.
+//!
 //! Two kinds of model:
 //!
 //! * **Built in.** `detail.onnx`, `dejpeg.onnx`, `colorize.onnx`,
@@ -41,6 +46,7 @@ mod compat;
 mod depth;
 mod gpu;
 mod gpu_image;
+mod gpu_partition;
 // The gallery's search embeddings. Desktop only with the gallery — the
 // tokenizer tables it carries would be dead weight in the wasm module.
 #[cfg(not(target_arch = "wasm32"))]
@@ -584,6 +590,7 @@ pub fn installed(id: &str) -> bool {
 pub struct Model {
     plan: Arc<TypedSimplePlan>,
     gpu: Option<gpu::Network>,
+    partitioned: Option<gpu_partition::Partitioned>,
     /// Planes the graph's input takes, which is three for everything
     /// that sees only colour.
     channels: usize,
@@ -677,17 +684,19 @@ impl Model {
             if let Some(graph) = proto.graph.as_mut() {
                 graph.value_info.clear();
             }
-            let plan = onnx
+            let typed = onnx
                 .model_for_proto_model(&proto)
                 .context("not a model tract can parse")?
                 .with_input_fact(0, i64::fact([1, context]).into())
                 .context("model does not take a 1xN token input")?
-                .into_optimized()
-                .context("model uses an operator tract cannot run")?
-                .into_runnable()?;
+                .into_typed()
+                .context("model uses an operator tract cannot run")?;
+            let plan = typed.clone().into_optimized()?.into_runnable()?;
+            let partitioned = gpu_partition::Partitioned::compile(typed);
             return Ok(Model {
                 plan,
                 gpu: None,
+                partitioned,
                 channels: 0,
                 nhwc: false,
                 restoration_max_side: None,
@@ -769,13 +778,19 @@ impl Model {
             },
             &inferred,
         );
-        let plan = inferred
-            .into_optimized()
-            .context("model uses an operator tract cannot run")?
-            .into_runnable()?;
+        let typed = inferred
+            .into_typed()
+            .context("model uses an operator tract cannot run")?;
+        let plan = typed.clone().into_optimized()?.into_runnable()?;
+        let partitioned = if gpu.is_none() {
+            gpu_partition::Partitioned::compile(typed)
+        } else {
+            None
+        };
         Ok(Model {
             plan,
             gpu,
+            partitioned,
             channels,
             nhwc,
             restoration_max_side,
@@ -797,6 +812,13 @@ impl Model {
         self.gpu.as_ref().map(|g| &g.program)
     }
 
+    /// Number of GPU contractions available when the graph cannot run entirely
+    /// on-device. Shape/integer operations stay on tract; oversized convolutions
+    /// execute in exact bands without changing the model's input resolution.
+    pub fn gpu_partition_count(&self) -> usize {
+        self.partitioned.as_ref().map_or(0, |p| p.operations)
+    }
+
     fn run_input(&self, inputs: TVec<TValue>) -> Result<TVec<TValue>> {
         if let Some(gpu) = &self.gpu {
             if let Ok(view) = inputs[0].to_plain_array_view::<f32>() {
@@ -814,6 +836,11 @@ impl Model {
                     }
                     return Ok(results);
                 }
+            }
+        }
+        if schist_fx::backend().compute_available(usize::MAX) {
+            if let Some(partitioned) = &self.partitioned {
+                return partitioned.plan.run(inputs);
             }
         }
         self.plan.run(inputs)

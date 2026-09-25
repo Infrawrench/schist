@@ -90,7 +90,8 @@ accuracy. No copy of the example is committed.
 
 Python dependencies: PyTorch, NumPy, Pillow and ONNX. Use a virtual environment if
 these are not already installed. Training can use CPU or CUDA. Runtime inference
-inside Schist uses its existing Rust/tract runtime.
+inside Schist uses its existing Rust/tract runtime with native GPU contractions
+when available; see [GPU inference](neural-gpu.md) for execution and fallback details.
 
 For a developer preview through that same runtime, use:
 
