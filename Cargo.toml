@@ -194,11 +194,65 @@ opt-level = 1
 opt-level = 2
 
 [profile.release]
+# Favor smaller code in the UI, protocol clients and other application
+# plumbing. Keep vectorization enabled (`s`, rather than `z`), and retain
+# speed optimization for the image-processing crates below.
+opt-level = "s"
+# Optimize each crate as one unit. Thin LTO keeps the final link parallelizable.
 lto = "thin"
+codegen-units = 1
+# Keep debug info until release packaging: Sentry uploads it before stripping.
+# Panic unwinding is also required by RAW import and the library's C API.
 debug = 1
 
-# The .8bf plug-in helpers. They ship compressed inside the app binary,
-# so their size is worth caring about in a way the app's own is not, and
+# The executable's level also controls the final ThinLTO optimization pass.
+# Keep that pass at level 3 so it preserves throughput in the hot crates;
+# dependencies compiled for size retain their per-function size attributes.
+[profile.release.package.schist-app]
+opt-level = 3
+
+# Pixel loops and numerical kernels remain optimized for throughput.
+# These overrides are inherited by the web profile as well.
+[profile.release.package.schist-adjustments]
+opt-level = 3
+[profile.release.package.schist-codec-raw]
+opt-level = 3
+[profile.release.package.schist-color]
+opt-level = 3
+[profile.release.package.schist-colormgmt]
+opt-level = 3
+[profile.release.package.schist-compositor]
+opt-level = 3
+[profile.release.package.schist-core]
+opt-level = 3
+[profile.release.package.schist-filters-core]
+opt-level = 3
+[profile.release.package.schist-fx]
+opt-level = 3
+[profile.release.package.schist-layer-fx]
+opt-level = 3
+[profile.release.package.schist-neural]
+opt-level = 3
+[profile.release.package.schist-photo-merge]
+opt-level = 3
+[profile.release.package.schist-pixel-ops]
+opt-level = 3
+[profile.release.package.schist-tools-paint]
+opt-level = 3
+[profile.release.package.schist-tools-retouch]
+opt-level = 3
+[profile.release.package.schist-tools-transform]
+opt-level = 3
+[profile.release.package.schist-tools-warp]
+opt-level = 3
+[profile.release.package.moxcms]
+opt-level = 3
+[profile.release.package.rustfft]
+opt-level = 3
+[profile.release.package.tract-linalg]
+opt-level = 3
+
+# The .8bf plug-in helpers ship compressed inside the app binary.
 # `debug = 1` costs a great deal here: a helper is 2.8 MB with debug info
 # and 390 KB without. Nothing reads it — the crash handler reports a raw
 # fault address belonging to the *plug-in*, and never symbolises anything

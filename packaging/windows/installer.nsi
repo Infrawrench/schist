@@ -10,6 +10,9 @@ InstallDir "$PROGRAMFILES64\Schist"
 InstallDirRegKey HKLM "Software\Schist" "InstallDir"
 RequestExecutionLevel admin
 Unicode true
+; The app and MCP server share substantial code and embedded data. Compress
+; them together without changing either executable or its matching PDB.
+SetCompressor /SOLID lzma
 
 Icon "schist.ico"
 UninstallIcon "schist.ico"

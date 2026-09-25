@@ -18,6 +18,9 @@ stage_payload() {
     local dest="$1"
 
     install -Dm755 "$payload_root/target/release/schist" "$dest/usr/bin/schist"
+    # Strip only the shipping copy, retaining the original for debugging and
+    # Sentry uploads. Dynamic symbols, unwind tables and the build ID survive.
+    strip --strip-unneeded "$dest/usr/bin/schist"
     install -Dm644 "$payload_dir/schist.desktop" \
         "$dest/usr/share/applications/schist.desktop"
     # The desktop entry looks its icon up by the Icon= key, so the file has

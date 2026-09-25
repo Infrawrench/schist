@@ -181,25 +181,49 @@ that explain a failed upload.
 
 ### Debug info
 
+All desktop release builds and the browser's inherited `web` profile use size
+optimization (`opt-level = "s"`), thin LTO and one code-generation unit per crate.
+The app's final ThinLTO pass, pixel operations and numerical kernels retain
+optimization level 3 through the package overrides
+in `Cargo.toml` to preserve throughput in those paths. Loop vectorization,
+embedded assets and panic unwinding are retained (RAW import and the library's
+C API recover from panics).
+On x86-64 Linux, mold also folds identical functions where doing so preserves
+address identity (`--icf=safe` in `.cargo/config.toml`).
+
 The release profile builds with `debug = 1`, and each platform hands that
 to Sentry in the form its object format keeps it in:
 
-* **Linux** — DWARF lives inside the executable, and the workflow strips it
-  before packaging so the AppImage does not carry it. The upload therefore
-  happens *before* the strip, on the unstripped binary. What ships keeps its
+* **Linux** — DWARF lives inside the executable. Packaging strips debug info
+  and unneeded symbols from the shipping copies, including local `make release`
+  packages; the originals in `target/release` remain available for debugging.
+  The workflow uploads those originals before packaging. What ships keeps its
   build id, and that is what Sentry matches the upload against; both Linux
   targets pin `--build-id=sha1` in `.cargo/config.toml`, since mold writes
   one by default and Ubuntu's GNU ld does not.
 * **macOS** — the debug info stays in the object files, so `dsymutil`
-  gathers it into a `.dSYM` and that is uploaded. It runs after packaging,
-  because `bundle.sh` invokes cargo again and a relink there would change
-  the binary's `LC_UUID`. Code signing is harmless: it appends a signature
-  and leaves `LC_UUID` alone.
+  gathers it into a `.dSYM` and that is uploaded. Release packaging removes
+  local and debug symbols from copies of the app, both Quick Look extensions
+  and the MCP server, before signing. Global symbols and `LC_UUID` are retained.
+  `dsymutil` uses the intact originals after packaging, because `bundle.sh`
+  invokes cargo again and a relink there would change the binary's `LC_UUID`.
+  Debug bundles retain their symbols.
 * **Windows** — MSVC writes a `.pdb` beside the executable. Nothing is
-  stripped and the `.pdb` is uploaded as it is.
+  stripped from the shipping executable and the `.pdb` is uploaded as it is.
+  Rust already enables unused-code elimination and identical COMDAT folding
+  (`/OPT:REF,ICF`) for optimized MSVC builds. CI builds embedded plug-in helpers
+  with the same compact `helper` profile as local builds. The NSIS installer
+  uses solid LZMA compression without altering its executable payloads.
 
-All three upload with `--include-sources`, which bundles the source the
-debug info points at so stack frames come back with code beside them. The
+The browser's `web` profile omits DWARF. Its release packaging also removes the
+WASM `name` and `producers` metadata, then runs `wasm-opt -Oz` before
+chunking the module. Web CI sets `WASM_OPT_REQUIRED=1` so a missing, outdated or
+failed optimizer fails the build; local builds can still omit the optional tool.
+Debug web builds retain names and skip `wasm-opt`. All icons, fonts and models
+remain in the deployment. See [the web build](web.md#building-and-serving).
+
+All three desktop targets upload with `--include-sources`, which bundles the
+source the debug info points at so stack frames come back with code beside them. The
 sources are this repository and public crates, so there is nothing in that
 bundle that is not already published.
 

@@ -8,7 +8,7 @@
 #   1. cargo build for wasm32-unknown-unknown.
 #   2. wasm-bindgen writes the JS glue and the processed module. The CLI
 #      version must equal the crate's in Cargo.lock, so that's checked.
-#   3. wasm-opt -Oz (when installed) shaves 10-20% off the module.
+#   3. wasm-opt -Oz (when installed) optimizes for size. CI requires this step.
 #   4. The module is SPLIT into fixed-size chunks. One ~20 MB .wasm
 #      downloads as a single opaque stall; chunks download over parallel
 #      connections and give the loading page a byte-accurate bar. The
@@ -61,6 +61,25 @@ if [ "$LOCKED" != "$INSTALLED" ]; then
   exit 1
 fi
 
+# Only a modern binaryen may touch this module: version 108 silently mangles
+# the externref table's limits. CI requires optimization; local builds can
+# still proceed without the optional tool. Check before the expensive build.
+WASM_OPT_MIN=116
+WASM_OPT_REQUIRED="${WASM_OPT_REQUIRED:-0}"
+WASM_OPT_VER=''
+if command -v wasm-opt >/dev/null; then
+  WASM_OPT_VER=$(wasm-opt --version | sed -n 's/.*version \([0-9]*\).*/\1/p')
+fi
+WASM_OPT_READY=false
+if [ -n "$WASM_OPT_VER" ] && [ "$WASM_OPT_VER" -ge "$WASM_OPT_MIN" ]; then
+  WASM_OPT_READY=true
+fi
+if [ "$PROFILE" = web ] && [ "$WASM_OPT_REQUIRED" = 1 ] \
+  && [ "$WASM_OPT_READY" = false ]; then
+  echo "error: this release requires wasm-opt version $WASM_OPT_MIN or newer." >&2
+  exit 1
+fi
+
 echo '-- building (this is the whole editor plus tract; it takes a while)'
 cargo build --target "$TARGET" $PROFILE_FLAG -p schist-app
 
@@ -69,24 +88,15 @@ mkdir -p "$OUT/pkg" "$OUT/assets/icons" "$OUT/assets/fonts" \
   "$OUT/assets/models" "$OUT/assets/logo"
 
 echo '-- wasm-bindgen'
-wasm-bindgen --target web --out-name schist --out-dir "$OUT/pkg" \
-  "target/$TARGET/$PROFILE/schist.wasm"
-
-# wasm-opt takes ~40% off the module (45 -> 28 MB), but only a modern
-# binaryen may touch it: rustc emits reference types by default and
-# binaryen 108 (Ubuntu's packaged version) SILENTLY mangles the externref
-# table's limits — the module then dies at init with "WebAssembly.
-# Table.grow(): failed to grow table". Verified against version 123.
-# A too-old binaryen is therefore skipped, never trusted.
-WASM_OPT_MIN=116
-# Probed behind command -v: under `set -e` a bare $(wasm-opt ...) on a
-# machine without binaryen kills the whole script with a silent 127.
-WASM_OPT_VER=''
-if command -v wasm-opt >/dev/null; then
-  WASM_OPT_VER=$(wasm-opt --version | sed -n 's/.*version \([0-9]*\).*/\1/p')
+bindgen_args=(--target web --out-name schist --out-dir "$OUT/pkg" --no-typescript)
+if [ "$PROFILE" = web ]; then
+  # Remove only debugging/producer metadata, including when wasm-opt is absent.
+  # Keep names for local debug builds; no code, data or exports are stripped here.
+  bindgen_args+=(--remove-name-section --remove-producers-section)
 fi
-if [ -n "$WASM_OPT_VER" ] && [ "$WASM_OPT_VER" -ge "$WASM_OPT_MIN" ] \
-  && [ "$PROFILE" = web ]; then
+wasm-bindgen "${bindgen_args[@]}" "target/$TARGET/$PROFILE/schist.wasm"
+
+if [ "$WASM_OPT_READY" = true ] && [ "$PROFILE" = web ]; then
   echo "-- wasm-opt -Oz (binaryen $WASM_OPT_VER)"
   if wasm-opt -Oz \
     --enable-reference-types --enable-bulk-memory --enable-sign-ext \
@@ -95,8 +105,12 @@ if [ -n "$WASM_OPT_VER" ] && [ "$WASM_OPT_VER" -ge "$WASM_OPT_MIN" ] \
     -o "$OUT/pkg/schist_bg.wasm.opt" "$OUT/pkg/schist_bg.wasm"; then
     mv "$OUT/pkg/schist_bg.wasm.opt" "$OUT/pkg/schist_bg.wasm"
   else
-    echo '   wasm-opt failed; shipping the unoptimized module' >&2
     rm -f "$OUT/pkg/schist_bg.wasm.opt"
+    if [ "$WASM_OPT_REQUIRED" = 1 ]; then
+      echo 'error: required wasm-opt optimization failed.' >&2
+      exit 1
+    fi
+    echo '   wasm-opt failed; shipping the unoptimized module' >&2
   fi
 elif [ "$PROFILE" = web ]; then
   echo "-- wasm-opt missing or older than $WASM_OPT_MIN; skipping (get binaryen" >&2
@@ -108,8 +122,6 @@ echo "-- chunking ($CHUNK_MIB MiB)"
 # ones, and macOS's BSD split has no -d.
 split -b "${CHUNK_MIB}m" -a 3 "$OUT/pkg/schist_bg.wasm" "$OUT/pkg/schist_bg.wasm."
 rm "$OUT/pkg/schist_bg.wasm"
-# TypeScript declarations aren't served.
-rm -f "$OUT"/pkg/*.d.ts
 
 echo '-- assets'
 python3 tools/sync-i18n.py --check

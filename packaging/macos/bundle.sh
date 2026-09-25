@@ -43,10 +43,20 @@ else
     cargo build --"$target" "${packages[@]}"
 fi
 
+# Keep the build outputs intact for dsymutil and local debugging. Strip only
+# shipping copies, before signing: changing a signed executable invalidates it.
+# Keep global symbols for code loaded at runtime and Objective-C entry points.
+copy_executable() {
+    cp "$1" "$2"
+    if [ "$target" = "release" ]; then
+        xcrun strip -S -x "$2"
+    fi
+}
+
 rm -rf "$app"
 mkdir -p "$app/Contents/MacOS" "$app/Contents/Resources"
 cp "$root/packaging/macos/Info.plist" "$app/Contents/Info.plist"
-cp "$root/target/$target/schist" "$app/Contents/MacOS/schist"
+copy_executable "$root/target/$target/schist" "$app/Contents/MacOS/schist"
 cp "$root/packaging/macos/schist.icns" "$app/Contents/Resources/"
 
 # Quick Look ships as two app extensions around one executable: macOS
@@ -57,7 +67,7 @@ install_appex() {
     ext="$app/Contents/PlugIns/$1.appex"
     mkdir -p "$ext/Contents/MacOS"
     cp "$root/packaging/macos/quicklook/$2" "$ext/Contents/Info.plist"
-    cp "$root/target/$target/schist-quicklook" "$ext/Contents/MacOS/schist-quicklook"
+    copy_executable "$root/target/$target/schist-quicklook" "$ext/Contents/MacOS/schist-quicklook"
 }
 install_appex SchistQuickLookThumbnail thumbnail-Info.plist
 install_appex SchistQuickLookPreview preview-Info.plist
@@ -67,7 +77,7 @@ install_appex SchistQuickLookPreview preview-Info.plist
 # reachable by anyone who never installs the app.
 rm -rf "$mcp_stage"
 mkdir -p "$mcp_stage"
-cp "$root/target/$target/schist-mcp" "$mcp"
+copy_executable "$root/target/$target/schist-mcp" "$mcp"
 
 signed=false
 if [ -n "${MACOS_CERT_NAME:-}" ]; then

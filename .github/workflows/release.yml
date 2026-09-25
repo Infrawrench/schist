@@ -91,9 +91,9 @@ jobs:
             @{ target = 'x86_64-pc-windows-msvc'; name = 'schist-8bf-helper-x86_64.exe' },
             @{ target = 'i686-pc-windows-msvc';   name = 'schist-8bf-helper-x86.exe' })) {
             rustup target add $h.target
-            cargo build --release -p schist-plugin-host-8bf --bin schist-8bf-helper --target $h.target
+            cargo build --profile helper -p schist-plugin-host-8bf --bin schist-8bf-helper --target $h.target
             if ($LASTEXITCODE -ne 0) { throw "helper $($h.target) failed to build" }
-            Copy-Item "target/$($h.target)/release/schist-8bf-helper.exe" "$stage/$($h.name)"
+            Copy-Item "target/$($h.target)/helper/schist-8bf-helper.exe" "$stage/$($h.name)"
           }
           "SCHIST_BUNDLED_HELPERS=$stage" | Out-File -FilePath $env:GITHUB_ENV -Append
 
@@ -111,25 +111,14 @@ jobs:
       - name: Upload debug info to Sentry (Linux)
         if: runner.os == 'Linux' && env.SENTRY_AUTH_TOKEN != ''
         run: |
-          # Before the Package step strips them. ELF carries DWARF inside
-          # the executable, so this is the last moment it exists at all --
-          # what ships keeps only its build id, and that id is what a crash
-          # report is matched against these uploads on.
-          #
-          # schist-mcp is here even though only the app links the SDK: the
-          # strip is destructive, so this is the one chance to keep anything
-          # that could make sense of a fault in the server later.
+          # Upload the originals; packaging strips only its shipping copies.
+          # Their build IDs still match these binaries and their DWARF.
           sentry-cli debug-files upload --include-sources \
             target/release/schist target/release/schist-mcp
 
       - name: Package (Linux)
         if: runner.os == 'Linux'
         run: |
-          # The release profile compiles with debug = 1 for readable local
-          # backtraces, and ELF is the one format that embeds that info in the
-          # executable itself -- strip it here so neither the AppImage payload
-          # nor the loose binaries ship it. Symbols stay; only DWARF goes.
-          strip --strip-debug target/release/schist target/release/schist-mcp
           # libfuse2: appimagetool. rpm: rpmbuild, for the .rpm.
           # libarchive-tools: bsdtar, which writes the .pkg.tar.zst's .MTREE.
           sudo apt-get install -y libfuse2 rpm libarchive-tools || true
@@ -149,6 +138,10 @@ jobs:
           # The MCP server is headless and needs none of the AppImage's
           # runtime, so it ships as a plain binary rather than inside it.
           cp target/release/schist-mcp "dist/schist-mcp-linux-$(uname -m)"
+          # payload.sh strips the packages; do the same for the loose binaries.
+          # Keep the unstripped target/release copies for local debugging.
+          strip --strip-unneeded "dist/schist-linux-$(uname -m)" \
+            "dist/schist-mcp-linux-$(uname -m)"
 
       - name: Set up the signing keychain (macOS)
         if: runner.os == 'macOS'
@@ -229,9 +222,9 @@ jobs:
           # earlier would match. Signing is safe to have happened already --
           # codesign appends a signature and leaves LC_UUID alone.
           #
-          # Nothing is stripped on macOS; the debug info simply lives in the
-          # object files rather than the executable, and dsymutil is what
-          # gathers it into a form that can be uploaded.
+          # bundle.sh strips only its shipping copies, before signing. Keep
+          # these originals and their object files for dsymutil, which gathers
+          # the debug info without changing the UUID of the shipped copies.
           dsymutil target/release/schist target/release/schist-mcp
           sentry-cli debug-files upload --include-sources \
             target/release/schist.dSYM target/release/schist-mcp.dSYM

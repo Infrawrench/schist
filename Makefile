@@ -190,7 +190,7 @@ check-brush-workflows:
 # rules here: it is one linear pipeline (bindgen, opt, chunk, manifest)
 # with nothing make's dependency graph would add. See docs/web.md.
 web:
-	./tools/web-build.sh
+	./tools/web-build.sh $(if $(filter debug,$(PROFILE)),--debug,)
 
 # The Android package, assembled into dist/android/Schist.apk. A script
 # for the same reason as the web build; without --no-run it also installs
