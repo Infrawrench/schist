@@ -58,6 +58,10 @@ fn signature(ws: &Workspace) -> String {
             out.push_str(&comp.name);
         }
     }
+    for preset in &v.workspaces.saved {
+        out.push('\u{1e}');
+        out.push_str(&preset.name);
+    }
     // The recents render as menu rows, so a change to them has to
     // rebuild the bar.
     #[cfg(not(target_arch = "wasm32"))]

@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Laneko eremuak
+workspaces.manage = Kudeatu laneko eremuak…
+workspaces.painting = Pintura
+workspaces.photo = Argazkien garapena
+workspaces.retouching = Ukituak
+workspaces.current = Uneko antolamendua
+workspaces.help = Gorde honela aukerak uneko antolamenduaren kopia izendun bat sortzen du. Hautatu gordetako antolamendu bat aplikatzeko, eguneratzeko, izena aldatzeko edo ezabatzeko. Antolamenduaren aldaketak berehala aplikatzen dira.
+workspaces.show_panels = Erakutsi alboko panelak
+workspaces.automatic = Automatikoa
+workspaces.reset_help = Berrezarri aukerak panelen antolamendu lehenetsia bakarrik leheneratzen du. Gordetako laneko eremuak, dokumentuak eta gainerako hobespenak mantentzen dira.
+workspaces.save_error = Ezin izan dira laneko eremuaren hobespenak gorde. Aldaketa ez da aplikatu.
+workspaces.invalid_name = Idatzi 1–80 karaktereko izena, kontrol-karaktererik gabe.
+workspaces.duplicate = Izen horretako laneko eremu bat badago lehendik.
+workspaces.limit = Gehienez 64 laneko eremu gorde ditzakezu.
+workspaces.keyboard = Teklatua: Alt+↑/↓ teklak antolamendu bat hautatzen du. Ctrl/Cmd+N teklak izena editatzen du; +S teklak kopia gordetzen du; +Enter teklak aplikatzen du; +U teklak eguneratzen du; +R teklak izena aldatzen du; +D teklak ezabatzen du; +0 teklak berrezartzen du.

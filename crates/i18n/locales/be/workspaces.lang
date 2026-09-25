@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Працоўныя прасторы
+workspaces.manage = Кіраванне працоўнымі прасторамі…
+workspaces.painting = Маляванне
+workspaces.photo = Апрацоўка фота
+workspaces.retouching = Рэтуш
+workspaces.current = Бягучае размяшчэнне
+workspaces.help = Захаваць як стварае копію бягучага размяшчэння з назвай. Выберыце захаванае размяшчэнне, каб прымяніць, абнавіць, перайменаваць або выдаліць яго. Змены размяшчэння дзейнічаюць адразу.
+workspaces.show_panels = Паказаць бакавыя панэлі
+workspaces.automatic = Аўтаматычна
+workspaces.reset_help = Скінуць аднаўляе толькі стандартнае размяшчэнне панэляў. Захаваныя працоўныя прасторы, дакументы і іншыя налады застаюцца.
+workspaces.save_error = Не ўдалося захаваць налады працоўнай прасторы. Змена не была прыменена.
+workspaces.invalid_name = Увядзіце назву даўжынёй 1–80 сімвалаў без кіравальных сімвалаў.
+workspaces.duplicate = Працоўная прастора з такой назвай ужо існуе.
+workspaces.limit = Можна захаваць да 64 працоўных прастор.
+workspaces.keyboard = Клавіятура: Alt+↑/↓ выбірае размяшчэнне. Ctrl/Cmd+N змяняе яго назву; +S захоўвае копію; +Enter прымяняе; +U абнаўляе; +R пераймяноўвае; +D выдаляе; +0 скідае.

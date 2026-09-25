@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Darbo sritys
+workspaces.manage = Tvarkyti darbo sritis…
+workspaces.painting = Tapyba
+workspaces.photo = Nuotraukų apdorojimas
+workspaces.retouching = Retušavimas
+workspaces.current = Dabartinis išdėstymas
+workspaces.help = Įrašyti kaip sukuria pavadintą dabartinio išdėstymo kopiją. Pasirinkite įrašytą išdėstymą, kad jį pritaikytumėte, atnaujintumėte, pervadintumėte arba pašalintumėte. Išdėstymo pakeitimai įsigalioja iškart.
+workspaces.show_panels = Rodyti šoninius skydelius
+workspaces.automatic = Automatiškai
+workspaces.reset_help = Atkurti grąžina tik numatytąjį skydelių išdėstymą. Įrašytos darbo sritys, dokumentai ir kitos nuostatos išlieka.
+workspaces.save_error = Nepavyko įrašyti darbo srities nuostatų. Pakeitimas nebuvo pritaikytas.
+workspaces.invalid_name = Įveskite 1–80 ženklų pavadinimą be valdymo ženklų.
+workspaces.duplicate = Darbo sritis tokiu pavadinimu jau yra.
+workspaces.limit = Galite įrašyti iki 64 darbo sričių.
+workspaces.keyboard = Klaviatūra: Alt+↑/↓ pasirenka išdėstymą. Ctrl/Cmd+N taiso jo pavadinimą; +S įrašo kopiją; +Enter pritaiko; +U atnaujina; +R pervadina; +D pašalina; +0 atkuria.

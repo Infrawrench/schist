@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Zwivhumbelo zwa mushumo
+workspaces.manage = Langula zwivhumbelo zwa mushumo…
+workspaces.painting = U ola
+workspaces.photo = U lugisa zwinepe
+workspaces.retouching = U khwinisa zwinepe
+workspaces.current = Nzudzanyo ya zwino
+workspaces.help = «Vhulunga sa» i ita khophi i re na dzina ya nzudzanyo ya zwino. Nanga nzudzanyo yo vhulungwaho uri u i shumise, u i khwinise, u i nee dzina ḽiswa kana u i thuthe. Tshanduko dza nzudzanyo dzi shuma nga u ṱavhanya.
+workspaces.show_panels = Sumbedza phanele dza matungo
+workspaces.automatic = Zwa u tou ḓiitela
+workspaces.reset_help = «Vhuedzedza» i vhuedzedza fhedzi nzudzanyo ya phanele ya misi yoṱhe. Zwivhumbelo zwa mushumo zwo vhulungwaho, maṅwalo na dzinwe khetho zwi dzula zwi hone.
+workspaces.save_error = A zwo ngo konadzea u vhulunga khetho dza tshivhumbelo tsha mushumo. Tshanduko a yo ngo shumiswa.
+workspaces.invalid_name = Dzhenisani dzina ḽi re na zwiga zwa 1–80 ḽi si na zwiga zwa ndango.
+workspaces.duplicate = Hu na tshivhumbelo tsha mushumo tshi re na ḽeneḽi dzina.
+workspaces.limit = Ni nga vhulunga zwivhumbelo zwa mushumo zwi swikaho 64.
+workspaces.keyboard = Kiibodo: Alt+↑/↓ i nanga nzudzanyo. Ctrl/Cmd+N i dzudzanya dzina ḽayo; +S i vhulunga khophi; +Enter i shumisa; +U i khwinisa; +R i ira dzina hafhu; +D i thutha; +0 i vhuedzedza.

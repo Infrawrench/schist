@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Labor-spaci
+workspaces.manage = Administrar labor-spaci…
+workspaces.painting = Piktado
+workspaces.photo = Fotografiala developo
+workspaces.retouching = Retushado
+workspaces.current = Nuna aranjo
+workspaces.help = «Konservar kom» kreas nomizita kopio di la nuna aranjo. Selektez konservita aranjo por aplikar, aktualigar, renomar o efacar ol. Modifiki di la aranjo efikas imediat.
+workspaces.show_panels = Montrez laterala paneli
+workspaces.automatic = Automatik
+workspaces.reset_help = «Ripozar» restabligas nur la predeterminita aranjo di la paneli. Konservita labor-spaci, dokumenti ed altra preferi restas konservata.
+workspaces.save_error = Ne esis posible konservar la preferi di labor-spaco. La modifiko ne esis aplikita.
+workspaces.invalid_name = Enskriptez nomo di 1–80 karakteri sen kontrol-karakteri.
+workspaces.duplicate = Labor-spaco kun ca nomo ja existas.
+workspaces.limit = Vu povas konservar til 64 labor-spaci.
+workspaces.keyboard = Klavaro: Alt+↑/↓ selektas aranjo. Ctrl/Cmd+N redaktas lua nomo; +S konservas kopio; +Enter aplikas ol; +U aktualigas ol; +R renomas ol; +D efacas ol; +0 ripozas ol.

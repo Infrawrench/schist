@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Arbeidsområde
+workspaces.manage = Administrer arbeidsområde…
+workspaces.painting = Måling
+workspaces.photo = Framkalling av foto
+workspaces.retouching = Retusjering
+workspaces.current = Gjeldande oppsett
+workspaces.help = Lagre som lagar ein kopi med namn av det gjeldande oppsettet. Vel eit lagra oppsett for å bruke, oppdatere, gje nytt namn til eller slette det. Endringar i oppsettet får verknad med ein gong.
+workspaces.show_panels = Vis sidepanel
+workspaces.automatic = Automatisk
+workspaces.reset_help = Tilbakestill gjenopprettar berre standardoppsettet for panela. Lagra arbeidsområde, dokument og andre innstillingar blir tekne vare på.
+workspaces.save_error = Kunne ikkje lagre innstillingane for arbeidsområde. Endringa vart ikkje teken i bruk.
+workspaces.invalid_name = Skriv inn eit namn på 1–80 teikn utan kontrollteikn.
+workspaces.duplicate = Eit arbeidsområde med dette namnet finst alt.
+workspaces.limit = Du kan lagre opptil 64 arbeidsområde.
+workspaces.keyboard = Tastatur: Alt+↑/↓ vel eit oppsett. Ctrl/Cmd+N redigerer namnet; +S lagrar ein kopi; +Enter tek det i bruk; +U oppdaterer; +R gjev nytt namn; +D slettar; +0 tilbakestiller.

@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Mga Workspace
+workspaces.manage = Pamahalaan ang Mga Workspace…
+workspaces.painting = Pagpipinta
+workspaces.photo = Pagproseso ng Larawan
+workspaces.retouching = Pagretoke
+workspaces.current = Kasalukuyang ayos
+workspaces.help = Gumagawa ang I-save Bilang ng kopya ng kasalukuyang ayos na may pangalan. Pumili ng naka-save na ayos para ilapat, i-update, palitan ang pangalan, o tanggalin ito. Agad na magkakabisa ang mga pagbabago sa ayos.
+workspaces.show_panels = Ipakita ang mga panel sa gilid
+workspaces.automatic = Awtomatiko
+workspaces.reset_help = I-reset ay ibinabalik lamang ang default na ayos ng mga panel. Mananatili ang mga naka-save na workspace, dokumento, at iba pang kagustuhan.
+workspaces.save_error = Hindi ma-save ang mga kagustuhan sa workspace. Hindi nailapat ang pagbabago.
+workspaces.invalid_name = Maglagay ng pangalang may 1–80 character na walang mga control character.
+workspaces.duplicate = May workspace na sa pangalang ito.
+workspaces.limit = Maaari kang mag-save ng hanggang 64 na workspace.
+workspaces.keyboard = Keyboard: Alt+↑/↓ pumipili ng ayos. Ctrl/Cmd+N nag-e-edit ng pangalan nito; +S nagse-save ng kopya; +Enter naglalapat; +U nag-a-update; +R nagpapalit ng pangalan; +D nagtatanggal; +0 nagre-reset.

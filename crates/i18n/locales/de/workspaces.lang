@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Arbeitsbereiche
+workspaces.manage = Arbeitsbereiche verwalten…
+workspaces.painting = Malen
+workspaces.photo = Fotoentwicklung
+workspaces.retouching = Retusche
+workspaces.current = Aktuelles Layout
+workspaces.help = Sichern unter erstellt eine benannte Kopie des aktuellen Layouts. Wählen Sie ein gespeichertes Layout zum Anwenden, Aktualisieren, Umbenennen oder Löschen. Layoutänderungen werden sofort wirksam.
+workspaces.show_panels = Seitenbereiche anzeigen
+workspaces.automatic = Automatisch
+workspaces.reset_help = Zurücksetzen stellt nur das Standardlayout der Bedienfelder wieder her. Gespeicherte Arbeitsbereiche, Dokumente und andere Einstellungen bleiben erhalten.
+workspaces.save_error = Die Arbeitsbereichseinstellungen konnten nicht gespeichert werden. Die Änderung wurde nicht angewendet.
+workspaces.invalid_name = Geben Sie einen Namen mit 1–80 Zeichen ohne Steuerzeichen ein.
+workspaces.duplicate = Ein Arbeitsbereich mit diesem Namen existiert bereits.
+workspaces.limit = Sie können bis zu 64 Arbeitsbereiche speichern.
+workspaces.keyboard = Tastatur: Alt+↑/↓ wählt ein Layout. Ctrl/Cmd+N bearbeitet den Namen; +S speichert eine Kopie; +Enter wendet es an; +U aktualisiert; +R benennt um; +D löscht; +0 setzt zurück.

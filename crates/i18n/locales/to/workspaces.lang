@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Ngaahi Feituʻu Ngāue
+workspaces.manage = Puleʻi ʻa e Ngaahi Feituʻu Ngāue…
+workspaces.painting = Tā Valivali
+workspaces.photo = Fakaleleiʻi ʻo e ʻAta
+workspaces.retouching = Toe Fakaleleiʻi ʻo e ʻAta
+workspaces.current = Fokotuʻutuʻu lolotonga
+workspaces.help = ʻOku faʻu ʻe he Seivi ko e ha tatau kuo fakahingoa ʻo e fokotuʻutuʻu lolotonga. Fili ha fokotuʻutuʻu kuo seivi ke ngāueʻaki, fakafoʻou, liliu hono hingoa pe tamateʻi. ʻOku hoko leva ʻa e ngaahi liliu ki he fokotuʻutuʻu.
+workspaces.show_panels = Fakahaaʻi ʻa e ngaahi pēnolo tafaʻaki
+workspaces.automatic = Fakaʻotometiki
+workspaces.reset_help = ʻOku fakafoki ʻe he Toe Fokotuʻu ʻa e fokotuʻutuʻu tuʻumaʻu ʻo e ngaahi pēnolo pē. ʻOku kei tauhi ʻa e ngaahi feituʻu ngāue kuo seivi, ngaahi fakamatala mo e ngaahi fili kehe.
+workspaces.save_error = Naʻe ʻikai lava ʻo seivi ʻa e ngaahi fili ʻo e feituʻu ngāue. Naʻe ʻikai fakaʻaongaʻi ʻa e liliu.
+workspaces.invalid_name = Fakahū ha hingoa ʻoku 1–80 hono mataʻitohi pea ʻikai ha mataʻitohi pule.
+workspaces.duplicate = ʻOku ʻosi ʻi ai ha feituʻu ngāue ʻoku hingoa pehē.
+workspaces.limit = Te ke lava ʻo seivi ʻo aʻu ki he feituʻu ngāue ʻe 64.
+workspaces.keyboard = Papapātuʻi: Alt+↑/↓ ʻoku fili ha fokotuʻutuʻu. Ctrl/Cmd+N ʻoku fakatonutonu hono hingoa; +S ʻoku seivi ha tatau; +Enter ʻoku fakaʻaongaʻi; +U ʻoku fakafoʻou; +R ʻoku liliu hono hingoa; +D ʻoku tamateʻi; +0 ʻoku toe fokotuʻu.

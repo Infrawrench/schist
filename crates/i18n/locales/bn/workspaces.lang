@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = কর্মক্ষেত্রসমূহ
+workspaces.manage = কর্মক্ষেত্র পরিচালনা…
+workspaces.painting = আঁকা
+workspaces.photo = ফটো প্রসেসিং
+workspaces.retouching = ফটো রিটাচিং
+workspaces.current = বর্তমান বিন্যাস
+workspaces.help = অন্য নামে সংরক্ষণ বর্তমান বিন্যাসের একটি নামযুক্ত অনুলিপি তৈরি করে। প্রয়োগ, হালনাগাদ, নাম বদলানো বা মুছে ফেলার জন্য সংরক্ষিত বিন্যাস নির্বাচন করুন। বিন্যাসের পরিবর্তন সঙ্গে সঙ্গে কার্যকর হয়।
+workspaces.show_panels = পাশের প্যানেলগুলো দেখান
+workspaces.automatic = স্বয়ংক্রিয়
+workspaces.reset_help = রিসেট শুধু প্যানেলের ডিফল্ট বিন্যাস ফিরিয়ে আনে। সংরক্ষিত কর্মক্ষেত্র, নথি ও অন্যান্য পছন্দ অপরিবর্তিত থাকে।
+workspaces.save_error = কর্মক্ষেত্রের পছন্দ সংরক্ষণ করা যায়নি। পরিবর্তনটি প্রয়োগ করা হয়নি।
+workspaces.invalid_name = নিয়ন্ত্রণ অক্ষর ছাড়া 1–80 অক্ষরের একটি নাম লিখুন।
+workspaces.duplicate = এই নামে একটি কর্মক্ষেত্র ইতিমধ্যে আছে।
+workspaces.limit = আপনি সর্বোচ্চ 64টি কর্মক্ষেত্র সংরক্ষণ করতে পারবেন।
+workspaces.keyboard = কীবোর্ড: Alt+↑/↓ একটি বিন্যাস নির্বাচন করে। Ctrl/Cmd+N এর নাম সম্পাদনা করে; +S একটি অনুলিপি সংরক্ষণ করে; +Enter প্রয়োগ করে; +U হালনাগাদ করে; +R নাম বদলায়; +D মুছে ফেলে; +0 রিসেট করে।

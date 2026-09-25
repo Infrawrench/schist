@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Iindawo zokusebenza
+workspaces.manage = Lawula iindawo zokusebenza…
+workspaces.painting = Ukupeyinta
+workspaces.photo = Ukuphuhlisa iifoto
+workspaces.retouching = Ukulungisa iifoto
+workspaces.current = Ubeko lwangoku
+workspaces.help = «Gcina Njenge» yenza ikopi ebizwa ngegama yobeko lwangoku. Khetha ubeko olugciniweyo ukuze ulusebenzise, uluhlaziye, ulunike elinye igama okanye ulucime. Utshintsho kubeko lusebenza ngoko nangoko.
+workspaces.show_panels = Bonisa iiphaneli ezisecaleni
+workspaces.automatic = Ngokuzenzekelayo
+workspaces.reset_help = «Seta ngokutsha» ibuyisela kuphela ubeko olungagqibekanga lweepaneli. Iindawo zokusebenza ezigciniweyo, amaxwebhu nezinye iisetingi zihlala zikho.
+workspaces.save_error = Akukwazekanga ukugcina iisetingi zeendawo zokusebenza. Utshintsho alusetyenziswanga.
+workspaces.invalid_name = Faka igama elinoonobumba aba-1–80, ngaphandle koonobumba bolawulo.
+workspaces.duplicate = Indawo yokusebenza eneli gama sele ikhona.
+workspaces.limit = Ungagcina ukuya kutsho kwiindawo zokusebenza ezingama-64.
+workspaces.keyboard = Ibhodi yezitshixo: Alt+↑/↓ ikhetha ubeko. Ctrl/Cmd+N ihlela igama lalo; +S igcina ikopi; +Enter iyalusebenzisa; +U iyaluhlaziya; +R ilinika elinye igama; +D iyalicima; +0 iliseta ngokutsha.

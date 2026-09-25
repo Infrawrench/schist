@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = کاري ځایونه
+workspaces.manage = کاري ځایونه اداره کول…
+workspaces.painting = انځورګري
+workspaces.photo = د انځورونو پراختیا
+workspaces.retouching = د انځورونو سمونه
+workspaces.current = اوسنی ترتیب
+workspaces.help = په بل نوم ساتل… د اوسني ترتیب په نوم یوه کاپي جوړوي. ساتل شوی ترتیب وټاکئ چې پلي، تازه، بیا ونوموئ یا ړنګ یې کړئ. د ترتیب بدلونونه سمدستي پلي کېږي.
+workspaces.show_panels = څنګیزې تختې وښایئ
+workspaces.automatic = اتومات
+workspaces.reset_help = بیا ټاکل یوازې د تختو تلواله ترتیب بېرته راولي. ساتل شوي کاري ځایونه، سندونه او نور غوره توبونه ساتل کېږي.
+workspaces.save_error = د کاري ځای غوره توبونه ونه ساتل شول. بدلون پلي نه شو.
+workspaces.invalid_name = له کنټرولي تورو پرته د 1–80 نښو نوم دننه کړئ.
+workspaces.duplicate = په دې نوم کاري ځای له مخکې شته.
+workspaces.limit = تاسو تر 64 پورې کاري ځایونه ساتلی شئ.
+workspaces.keyboard = کیبورډ: Alt+↑/↓ ترتیب ټاکي. Ctrl/Cmd+N یې نوم سموي؛ +S یوه کاپي ساتي؛ +Enter یې پلي کوي؛ +U یې تازه کوي؛ +R یې بیا نوموي؛ +D یې ړنګوي؛ +0 یې بیا ټاکي.

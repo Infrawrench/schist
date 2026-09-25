@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Baara yɔrɔw
+workspaces.manage = Baara yɔrɔw ɲɛnabɔ…
+workspaces.painting = Jaa minɛ
+workspaces.photo = Fotow labɛn
+workspaces.retouching = Fotow ɲɛnabɔ
+workspaces.current = Sigili min bɛ yen sisan
+workspaces.help = Mara tɔgɔ wɛrɛ la bɛ sigili min bɛ yen sisan o kopi dɔ kɛ k'a tɔgɔ da. Sigili maralen dɔ sugandi walasa k'a kɛ, k'a kura, k'a tɔgɔ yɛlɛma walima k'a bɔ. Sigili yɛlɛmaw bɛ baara kɛ joona.
+workspaces.show_panels = Kɛnɛma panɛliw jira
+workspaces.automatic = A yɛrɛma
+workspaces.reset_help = Lasegin a daminɛ na bɛ panɛliw sigili daminɛntan dɔrɔn lasegin. Baara yɔrɔ maralenw, sɛbɛnniw ani yɛrɛ ɲiniw tɔw bɛ to.
+workspaces.save_error = A ma se ka baara yɔrɔ ɲiniw mara. Yɛlɛma ma kɛ.
+workspaces.invalid_name = Tɔgɔ dɔ sɛbɛn min bɛ ni sɛbɛnni 1–80 ye, min tɛ ni mara taamasiɲɛw ye.
+workspaces.duplicate = Baara yɔrɔ dɔ bɛ yen kabini ni nin tɔgɔ ye.
+workspaces.limit = I bɛ se ka baara yɔrɔw 64 mara.
+workspaces.keyboard = Klavye: Alt+↑/↓ bɛ sigili sugandi. Ctrl/Cmd+N bɛ a tɔgɔ yɛlɛma; +S bɛ kopi mara; +Enter bɛ a kɛ; +U bɛ a kura; +R bɛ a tɔgɔ yɛlɛma; +D bɛ a bɔ; +0 bɛ a lasegin.

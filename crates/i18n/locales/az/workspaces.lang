@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = İş sahələri
+workspaces.manage = İş sahələrini idarə et…
+workspaces.painting = Rəsm çəkmə
+workspaces.photo = Foto işləmə
+workspaces.retouching = Retuş
+workspaces.current = Cari düzülüş
+workspaces.help = Fərqli saxla cari düzülüşün adlandırılmış surətini yaradır. Tətbiq etmək, yeniləmək, adını dəyişmək və ya silmək üçün saxlanmış düzülüş seçin. Düzülüşdəki dəyişikliklər dərhal qüvvəyə minir.
+workspaces.show_panels = Yan panelləri göstər
+workspaces.automatic = Avtomatik
+workspaces.reset_help = Sıfırla yalnız standart panel düzülüşünü bərpa edir. Saxlanmış iş sahələri, sənədlər və digər seçimlər qorunur.
+workspaces.save_error = İş sahəsi seçimlərini saxlamaq mümkün olmadı. Dəyişiklik tətbiq edilmədi.
+workspaces.invalid_name = İdarəetmə simvolları olmayan 1–80 simvolluq ad daxil edin.
+workspaces.duplicate = Bu adda iş sahəsi artıq mövcuddur.
+workspaces.limit = Ən çox 64 iş sahəsi saxlaya bilərsiniz.
+workspaces.keyboard = Klaviatura: Alt+↑/↓ düzülüş seçir. Ctrl/Cmd+N adını redaktə edir; +S surətini saxlayır; +Enter tətbiq edir; +U yeniləyir; +R adını dəyişir; +D silir; +0 sıfırlayır.

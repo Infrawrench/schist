@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Labor-spacies
+workspaces.manage = Gerer labor-spacies…
+workspaces.painting = Pintura
+workspaces.photo = Developation de fotos
+workspaces.retouching = Retuchada
+workspaces.current = Actual aranjament
+workspaces.help = «Gardar quam» crea un copie con nómine del actual aranjament. Selecte un gardat aranjament por aplicar, actualisar, renominar o deleter it. Modificationes del aranjament efectua se strax.
+workspaces.show_panels = Monstrar lateral paneles
+workspaces.automatic = Automatic
+workspaces.reset_help = «Reinitialisar» restaura solmen li predefinit aranjament del paneles. Gardat labor-spacies, documentes e altri preferenties resta conservat.
+workspaces.save_error = Ne successat gardar li preferenties del labor-spacie. Li modification ne esset aplicat.
+workspaces.invalid_name = Intra un nómine de 1–80 caracteres sin control-caracteres.
+workspaces.duplicate = Un labor-spacie con ti nómine ja existe.
+workspaces.limit = Vu posse gardar til 64 labor-spacies.
+workspaces.keyboard = Claviatura: Alt+↑/↓ selecte un aranjament. Ctrl/Cmd+N redacter su nómine; +S garda un copie; +Enter aplica it; +U actualisa it; +R renomina it; +D delete it; +0 reinitialisa it.

@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Bisika ya mosala
+workspaces.manage = Kobongisa bisika ya mosala…
+workspaces.painting = Kosala bililingi
+workspaces.photo = Kobongisa bafɔtɔ
+workspaces.retouching = Kobongisa bililingi na bozindo
+workspaces.current = Bobongisi ya sikoyo
+workspaces.help = Kobomba lokola esalaka kopi ya bobongisi ya sikoyo oyo ezali na nkombo. Pona bobongisi oyo obombá mpo na kosalela yango, kobongisa yango lisusu, kobongola nkombo na yango to kolongola yango. Mbongwana ya bobongisi esalaka mbala moko.
+workspaces.show_panels = Kolakisa bipande ya mipanzi
+workspaces.automatic = Na ndenge ya yango moko
+workspaces.reset_help = Kozongisa na ebandeli ezongisaka kaka bobongisi ya liboso ya bipande. Bisika ya mosala oyo ebombami, mikanda mpe maponi mosusu etikalaka.
+workspaces.save_error = Ekoki te kobomba maponi ya esika ya mosala. Mbongwana esalemi te.
+workspaces.invalid_name = Koma nkombo ya bilembo 1–80 oyo ezangi bilembo ya botambwisi.
+workspaces.duplicate = Esika ya mosala ya nkombo oyo ezali deja.
+workspaces.limit = Okoki kobomba bisika ya mosala kino 64.
+workspaces.keyboard = Clavier: Alt+↑/↓ eponaka bobongisi. Ctrl/Cmd+N ebongolaka nkombo na yango; +S ebombaka kopi; +Enter esalelaka yango; +U ebongisaka yango lisusu; +R epesaka yango nkombo mosusu; +D elongolaka yango; +0 ezongisaka na ebandeli.

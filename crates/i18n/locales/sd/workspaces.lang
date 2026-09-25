@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = ڪم جون جايون
+workspaces.manage = ڪم جون جايون سنڀاليو…
+workspaces.painting = چٽسالي
+workspaces.photo = فوٽو تيار ڪرڻ
+workspaces.retouching = فوٽو سنوارڻ
+workspaces.current = موجوده ترتيب
+workspaces.help = هن نالي سان محفوظ ڪريو… موجوده ترتيب جي نالي واري ڪاپي ٺاهي ٿو. محفوظ ڪيل ترتيب چونڊيو ته جيئن ان کي لاڳو، تازه، ٻيهر نالو يا حذف ڪري سگهو. ترتيب ۾ تبديليون هڪدم لاڳو ٿين ٿيون.
+workspaces.show_panels = پاسن وارا پينل ڏيکاريو
+workspaces.automatic = پاڻمرادو
+workspaces.reset_help = اصل حالت ڏانهن موٽايو رڳو پينلن جي ڊفالٽ ترتيب بحال ڪري ٿو. محفوظ ڪيل ڪم جون جايون، دستاويز ۽ ٻيون ترجيحون برقرار رهن ٿيون.
+workspaces.save_error = ڪم جي جاءِ جون ترجيحون محفوظ نه ٿي سگهيون. تبديلي لاڳو نه ڪئي وئي.
+workspaces.invalid_name = 1–80 اکرن وارو نالو لکو، جنهن ۾ ڪنٽرول اکر نه هجن.
+workspaces.duplicate = هن نالي سان ڪم جي جاءِ اڳ ئي موجود آهي.
+workspaces.limit = توهان وڌ ۾ وڌ 64 ڪم جون جايون محفوظ ڪري سگهو ٿا.
+workspaces.keyboard = ڪي بورڊ: Alt+↑/↓ ترتيب چونڊي ٿو. Ctrl/Cmd+N ان جو نالو سنواري ٿو؛ +S ڪاپي محفوظ ڪري ٿو؛ +Enter لاڳو ڪري ٿو؛ +U تازه ڪري ٿو؛ +R نالو بدلائي ٿو؛ +D حذف ڪري ٿو؛ +0 اصل حالت ڏانهن موٽائي ٿو.

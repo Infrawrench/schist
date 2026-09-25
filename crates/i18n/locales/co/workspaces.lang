@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Spazii di travagliu
+workspaces.manage = Gestisce i spazii di travagliu…
+workspaces.painting = Pittura
+workspaces.photo = Sviluppu fotograficu
+workspaces.retouching = Ritoccu
+workspaces.current = Dispusizione attuale
+workspaces.help = Arregistrà cù u nome crea una copia cù un nome di a dispusizione attuale. Sceglite una dispusizione arregistrata per applicalla, aghjurnalla, rinuminalla o sguassalla. I cambiamenti di dispusizione anu effettu subitu.
+workspaces.show_panels = Mustrà i pannelli laterali
+workspaces.automatic = Autumaticu
+workspaces.reset_help = Rimette ristabilisce solu a dispusizione predefinita di i pannelli. I spazii di travagliu arregistrati, i ducumenti è l’altre preferenze fermanu cunservati.
+workspaces.save_error = Ùn si sò pussute arregistrà e preferenze di u spaziu di travagliu. U cambiamentu ùn hè statu applicatu.
+workspaces.invalid_name = Inserite un nome di 1–80 caratteri senza caratteri di cuntrollu.
+workspaces.duplicate = Un spaziu di travagliu cù stu nome esiste digià.
+workspaces.limit = Pudete arregistrà sin’à 64 spazii di travagliu.
+workspaces.keyboard = Tastiera: Alt+↑/↓ sceglie una dispusizione. Ctrl/Cmd+N ne mudifica u nome; +S ne arregistreghja una copia; +Enter l’applica; +U l’aghjurna; +R a rinumina; +D a sguassa; +0 a rimette.

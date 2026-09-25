@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Vinnusvæði
+workspaces.manage = Stjórna vinnusvæðum…
+workspaces.painting = Málun
+workspaces.photo = Framköllun ljósmynda
+workspaces.retouching = Lagfæring
+workspaces.current = Núverandi uppröðun
+workspaces.help = „Vista sem“ býr til nafngreint afrit af núverandi uppröðun. Veldu vistaða uppröðun til að nota hana, uppfæra, endurnefna eða eyða. Breytingar á uppröðun taka þegar gildi.
+workspaces.show_panels = Sýna hliðarspjöld
+workspaces.automatic = Sjálfvirkt
+workspaces.reset_help = „Endurstilla“ endurheimtir aðeins sjálfgefna uppröðun spjalda. Vistuð vinnusvæði, skjöl og aðrar kjörstillingar haldast óbreytt.
+workspaces.save_error = Ekki tókst að vista kjörstillingar vinnusvæðis. Breytingin var ekki notuð.
+workspaces.invalid_name = Sláðu inn nafn með 1–80 stöfum án stýritákna.
+workspaces.duplicate = Vinnusvæði með þessu nafni er þegar til.
+workspaces.limit = Þú getur vistað allt að 64 vinnusvæði.
+workspaces.keyboard = Lyklaborð: Alt+↑/↓ velur uppröðun. Ctrl/Cmd+N breytir nafni hennar; +S vistar afrit; +Enter notar hana; +U uppfærir hana; +R endurnefnir hana; +D eyðir henni; +0 endurstillir hana.

@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = कार्यस्थान
+workspaces.manage = कार्यस्थान प्रबंधित करें…
+workspaces.painting = चित्रकारी
+workspaces.photo = फ़ोटो डेवलपमेंट
+workspaces.retouching = रीटचिंग
+workspaces.current = वर्तमान लेआउट
+workspaces.help = इस रूप में सहेजें वर्तमान लेआउट की एक नाम वाली प्रति बनाता है। किसी सहेजे हुए लेआउट को लागू करने, अपडेट करने, उसका नाम बदलने या उसे हटाने के लिए उसे चुनें। लेआउट में बदलाव तुरंत लागू होते हैं।
+workspaces.show_panels = साइड पैनल दिखाएँ
+workspaces.automatic = स्वचालित
+workspaces.reset_help = रीसेट करें केवल पैनल का डिफ़ॉल्ट लेआउट बहाल करता है। सहेजे गए कार्यस्थान, दस्तावेज़ और अन्य प्राथमिकताएँ बनी रहती हैं।
+workspaces.save_error = कार्यस्थान की प्राथमिकताएँ सहेजी नहीं जा सकीं। बदलाव लागू नहीं हुआ।
+workspaces.invalid_name = कंट्रोल वर्णों के बिना 1–80 वर्णों का नाम दर्ज करें।
+workspaces.duplicate = इस नाम का कार्यस्थान पहले से मौजूद है।
+workspaces.limit = आप अधिकतम 64 कार्यस्थान सहेज सकते हैं।
+workspaces.keyboard = कीबोर्ड: Alt+↑/↓ लेआउट चुनता है। Ctrl/Cmd+N उसका नाम संपादित करता है; +S प्रति सहेजता है; +Enter लागू करता है; +U अपडेट करता है; +R नाम बदलता है; +D हटाता है; +0 रीसेट करता है।

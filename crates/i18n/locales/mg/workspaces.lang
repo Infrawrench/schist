@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Sehatra fiasana
+workspaces.manage = Tantano ny sehatra fiasana…
+workspaces.painting = Fandokoana sary
+workspaces.photo = Fanodinana sary
+workspaces.retouching = Fanitsiana sary
+workspaces.current = Fandaharana ankehitriny
+workspaces.help = Tehirizo ho dia mamorona kopia misy anarana amin'ny fandaharana ankehitriny. Safidio ny fandaharana voatahiry mba hampiharana, hanavaozana, hanovana anarana na hamafana azy. Mihatra avy hatrany ny fanovana ny fandaharana.
+workspaces.show_panels = Asehoy ny tontonana an-tsisiny
+workspaces.automatic = Ho azy
+workspaces.reset_help = Avereno dia mamerina ny fandaharana mahazatra an'ny tontonana ihany. Voatahiry hatrany ny sehatra fiasana, ny antontan-taratasy ary ny safidy hafa.
+workspaces.save_error = Tsy voatahiry ny safidin'ny sehatra fiasana. Tsy nampiharina ny fanovana.
+workspaces.invalid_name = Ampidiro anarana misy tarehintsoratra 1–80 tsy misy tarehintsoratra fanaraha-maso.
+workspaces.duplicate = Efa misy sehatra fiasana mitondra io anarana io.
+workspaces.limit = Afaka mitahiry sehatra fiasana hatramin'ny 64 ianao.
+workspaces.keyboard = Kitendry: Alt+↑/↓ misafidy fandaharana. Ctrl/Cmd+N manitsy ny anarany; +S mitahiry kopia; +Enter mampihatra; +U manavao; +R manova anarana; +D mamafa; +0 mamerina.

@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Izindawo zokusebenza
+workspaces.manage = Phatha izindawo zokusebenza…
+workspaces.painting = Ukudweba
+workspaces.photo = Ukucubungula izithombe
+workspaces.retouching = Ukulungisa izithombe
+workspaces.current = Ukuhlelwa kwamanje
+workspaces.help = «Londoloza Njenge» kwakha ikhophi enegama yokuhlelwa kwamanje. Khetha ukuhlelwa okulondoloziwe ukuze ukusebenzise, ukubuyekeze, ukuqambe kabusha noma ukususe. Izinguquko zokuhlelwa zisebenza ngokushesha.
+workspaces.show_panels = Bonisa amaphaneli aseceleni
+workspaces.automatic = Ngokuzenzakalelayo
+workspaces.reset_help = «Setha kabusha» kubuyisela ukuhlelwa kwamaphaneli okuzenzakalelayo kuphela. Izindawo zokusebenza ezilondoloziwe, amadokhumenti nezinye izintandokazi kuyagcinwa.
+workspaces.save_error = Ayikwazanga ukulondoloza izintandokazi zezindawo zokusebenza. Ushintsho aluzange lusetshenziswe.
+workspaces.invalid_name = Faka igama elinezinhlamvu ezingu-1–80 elingenazo izinhlamvu zokulawula.
+workspaces.duplicate = Indawo yokusebenza enaleli gama isivele ikhona.
+workspaces.limit = Ungalondoloza izindawo zokusebenza ezingafika ku-64.
+workspaces.keyboard = Ikhibhodi: Alt+↑/↓ ikhetha ukuhlelwa. Ctrl/Cmd+N ihlela igama lalo; +S ilondoloza ikhophi; +Enter iyakusebenzisa; +U iyakubuyekeza; +R ikuqamba kabusha; +D iyakususa; +0 ikubuyisela esimweni sokuqala.

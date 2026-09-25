@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = کام کی جگہیں
+workspaces.manage = کام کی جگہوں کا نظم کریں…
+workspaces.painting = مصوری
+workspaces.photo = تصاویر کی پروسیسنگ
+workspaces.retouching = تصاویر کی اصلاح
+workspaces.current = موجودہ ترتیب
+workspaces.help = «بطور محفوظ کریں» موجودہ ترتیب کی نام زد نقل بناتا ہے۔ محفوظ شدہ ترتیب منتخب کریں تاکہ اسے لاگو، اپ ڈیٹ، دوبارہ نام زد یا حذف کریں۔ ترتیب میں تبدیلیاں فوراً لاگو ہوتی ہیں۔
+workspaces.show_panels = اطراف کے پینل دکھائیں
+workspaces.automatic = خودکار
+workspaces.reset_help = «ازسرنو ترتیب دیں» صرف پینلوں کی طے شدہ ترتیب بحال کرتا ہے۔ محفوظ شدہ کام کی جگہیں، دستاویزات اور دیگر ترجیحات برقرار رہتی ہیں۔
+workspaces.save_error = کام کی جگہ کی ترجیحات محفوظ نہیں ہو سکیں۔ تبدیلی لاگو نہیں ہوئی۔
+workspaces.invalid_name = 1–80 حروف کا نام درج کریں جس میں کنٹرول حروف نہ ہوں۔
+workspaces.duplicate = اس نام کی کام کی جگہ پہلے سے موجود ہے۔
+workspaces.limit = آپ زیادہ سے زیادہ 64 کام کی جگہیں محفوظ کر سکتے ہیں۔
+workspaces.keyboard = کی بورڈ: Alt+↑/↓ ترتیب منتخب کرتا ہے۔ Ctrl/Cmd+N اس کا نام ترمیم کرتا ہے؛ +S نقل محفوظ کرتا ہے؛ +Enter لاگو کرتا ہے؛ +U اپ ڈیٹ کرتا ہے؛ +R نیا نام دیتا ہے؛ +D حذف کرتا ہے؛ +0 ازسرنو ترتیب دیتا ہے۔

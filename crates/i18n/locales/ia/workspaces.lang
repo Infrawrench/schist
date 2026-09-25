@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Spatios de labor
+workspaces.manage = Gerer spatios de labor…
+workspaces.painting = Pictura
+workspaces.photo = Developpamento de photos
+workspaces.retouching = Retocco
+workspaces.current = Disposition actual
+workspaces.help = «Salvar como» crea un copia con nomine del disposition actual. Selige un disposition salvate pro applicar, actualisar, renominar o deler lo. Le modificationes del disposition prende effecto immediatemente.
+workspaces.show_panels = Monstrar pannellos lateral
+workspaces.automatic = Automatic
+workspaces.reset_help = «Reinitialisar» restaura solmente le disposition predefinite del pannellos. Le spatios de labor salvate, le documentos e le altere preferentias es conservate.
+workspaces.save_error = Non esseva possibile salvar le preferentias del spatio de labor. Le modification non esseva applicate.
+workspaces.invalid_name = Insere un nomine de 1–80 characteres sin characteres de controlo.
+workspaces.duplicate = Un spatio de labor con iste nomine existe jam.
+workspaces.limit = Tu pote salvar usque a 64 spatios de labor.
+workspaces.keyboard = Claviero: Alt+↑/↓ selige un disposition. Ctrl/Cmd+N modifica su nomine; +S salva un copia; +Enter applica lo; +U actualisa lo; +R renomina lo; +D dele lo; +0 reinitialisa lo.

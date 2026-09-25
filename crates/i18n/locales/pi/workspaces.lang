@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Kammokāsā
+workspaces.manage = Kammokāse pariharetha…
+workspaces.painting = Cittakammaṃ
+workspaces.photo = Chāyācittānaṃ vikasanaṃ
+workspaces.retouching = Chāyācittānaṃ paṭisaṅkharaṇaṃ
+workspaces.current = Idāniṭṭhitā racanā
+workspaces.help = Aññanāmena rakkhatha… idāniṭṭhitāya racanāya nāmasahitaṃ paṭirūpaṃ karoti. Rakkhitaṃ racanaṃ payojetuṃ, navīkarituṃ, nāmaṃ parivattetuṃ vā nāsetuṃ vā taṃ gaṇhatha. Racanāya parivattanāni tāvadeva pavattanti.
+workspaces.show_panels = Passesu paṭṭake dassetha
+workspaces.automatic = Sayameva
+workspaces.reset_help = Puna patiṭṭhāpetha kevalaṃ paṭṭakānaṃ mūlaracanaṃ puna patiṭṭhāpeti. Rakkhitā kammokāsā, lekhā ca aññāni abhirucitāni ca tiṭṭhanti.
+workspaces.save_error = Kammokāsānaṃ abhirucitāni rakkhituṃ na sakkā. Parivattanaṃ na payojitaṃ.
+workspaces.invalid_name = Niyāmakakkharāni vinā 1–80 akkharānaṃ nāmaṃ pavisetha.
+workspaces.duplicate = Iminā nāmena kammokāso pubbeva atthi.
+workspaces.limit = Yāva 64 kammokāse rakkhituṃ sakkā.
+workspaces.keyboard = Akkharaphalakaṃ: Alt+↑/↓ racanaṃ gaṇhāti. Ctrl/Cmd+N tassā nāmaṃ parivatteti; +S paṭirūpaṃ rakkhati; +Enter payojeti; +U navīkaroti; +R nāmaṃ puna parivatteti; +D nāseti; +0 puna patiṭṭhāpeti.

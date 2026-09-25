@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Tindhawu ta Ntirho
+workspaces.manage = Lawula Tindhawu ta Ntirho…
+workspaces.painting = Ku Penda
+workspaces.photo = Ku Endla Swifaniso
+workspaces.retouching = Ku Lunghisa Swifaniso
+workspaces.current = Malulamiselo ya sweswi
+workspaces.help = Hlayisa tani hi yi endla khopi leyi nga ni vito ya malulamiselo ya sweswi. Hlawula malulamiselo lama hlayisiweke leswaku u ma tirhisa, u ma pfuxeta, u ma nyika vito rin’wana kumbe u ma susa. Ku cinca malulamiselo swi tirha hi nkarhi wolowo.
+workspaces.show_panels = Kombisa tiphanele ta le matlhelo
+workspaces.automatic = Hi ku tisungulela
+workspaces.reset_help = Tlherisela yi vuyisela malulamiselo ya ntolovelo ya tiphanele ntsena. Tindhawu ta ntirho leti hlayisiweke, tidokhumente ni leswi u swi hlawuleke swin’wana swa sala.
+workspaces.save_error = A swi kotekanga ku hlayisa leswi u swi hlawuleke swa ndhawu ya ntirho. Ku cinca a ku tirhisiwanga.
+workspaces.invalid_name = Nghenisa vito ra swihlawulekisi swa 1–80 leri nga riki na swihlawulekisi swa vulawuri.
+workspaces.duplicate = Ndhawu ya ntirho leyi nga ni vito leri se yi kona.
+workspaces.limit = U nga hlayisa tindhawu ta ntirho to fika eka 64.
+workspaces.keyboard = Khibodo: Alt+↑/↓ yi hlawula malulamiselo. Ctrl/Cmd+N yi lulamisa vito ra wona; +S yi hlayisa khopi; +Enter yi tirhisa; +U yi pfuxeta; +R yi cinca vito; +D yi susa; +0 yi tlherisela.

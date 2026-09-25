@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Spazis da lavur
+workspaces.manage = Administrar ils spazis da lavur…
+workspaces.painting = Pictura
+workspaces.photo = Sviluppar fotografias
+workspaces.retouching = Retuschar
+workspaces.current = Disposiziun actuala
+workspaces.help = Memorisar sco… creescha ina copia cun num da la disposiziun actuala. Tscherna ina disposiziun memorisada per l'applitgar, actualisar, renumnar u stizzar. Midadas da la disposiziun han immediat effect.
+workspaces.show_panels = Mussar ils panels laterals
+workspaces.automatic = Automatic
+workspaces.reset_help = Redefinir restabilescha mo la disposiziun da standard dals panels. Spazis da lavur memorisads, documents ed autras preferenzas vegnan mantegnids.
+workspaces.save_error = Las preferenzas dals spazis da lavur n'han betg pudì vegnir memorisadas. La midada n'è betg vegnida applitgada.
+workspaces.invalid_name = Endatescha in num cun 1–80 caracters senza caracters da controlla.
+workspaces.duplicate = In spazi da lavur cun quest num exista gia.
+workspaces.limit = Ti pos memorisar fin a 64 spazis da lavur.
+workspaces.keyboard = Tastatura: Alt+↑/↓ tscherna ina disposiziun. Ctrl/Cmd+N modifiescha ses num; +S memorisescha ina copia; +Enter applitgescha; +U actualisescha; +R renumna; +D stizza; +0 redefiniescha.

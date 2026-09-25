@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Imiterere y'aho gukorera
+workspaces.manage = Gucunga imiterere y'aho gukorera…
+workspaces.painting = Gushushanya
+workspaces.photo = Gutunganya amafoto
+workspaces.retouching = Gukosora amafoto
+workspaces.current = Imiterere iriho
+workspaces.help = Kubika nka… bikora kopi y'imiterere iriho ikayihesha izina. Hitamo imiterere wabitse kugira ngo uyikoreshe, uyivugurure, uyihindure izina cyangwa uyisibe. Impinduka ku miterere zihita zikurikizwa.
+workspaces.show_panels = Kwerekana imbaho zo ku mpande
+workspaces.automatic = Byikora
+workspaces.reset_help = Gusubizaho bigarura gusa imiterere isanzwe y'imbaho. Imiterere y'aho gukorera yabitswe, inyandiko n'ibindi byahiswemo biragumaho.
+workspaces.save_error = Ntibyashobotse kubika ibyahiswemo by'imiterere y'aho gukorera. Impinduka ntiyakurikijwe.
+workspaces.invalid_name = Andika izina rifite inyuguti 1–80 ridafite inyuguti zigenzura.
+workspaces.duplicate = Hari indi miterere y'aho gukorera ifite iri zina.
+workspaces.limit = Ushobora kubika imiterere y'aho gukorera igera kuri 64.
+workspaces.keyboard = Mwandikisho: Alt+↑/↓ ihitamo imiterere. Ctrl/Cmd+N ihindura izina ryayo; +S ibika kopi; +Enter irayikoresha; +U irayivugurura; +R iyihindura izina; +D irayisiba; +0 igarura imiterere isanzwe.

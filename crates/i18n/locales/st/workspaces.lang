@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Libaka tsa Mosebetsi
+workspaces.manage = Laola Libaka tsa Mosebetsi…
+workspaces.painting = Ho Penta
+workspaces.photo = Ho Hlahisa Lifoto
+workspaces.retouching = Ho Lokisa Lifoto
+workspaces.current = Tlhophiso ea hajoale
+workspaces.help = Boloka E le e etsa kopi e nang le lebitso ea tlhophiso ea hajoale. Khetha tlhophiso e bolokiloeng ho e sebelisa, ho e ntlafatsa, ho e reha lebitso le lecha kapa ho e hlakola. Liphetoho tsa tlhophiso li sebetsa hang-hang.
+workspaces.show_panels = Bontša liphanele tse ka mahlakoreng
+workspaces.automatic = Ka boiketsetso
+workspaces.reset_help = Khutlisetsa Boemong ba Pele e khutlisetsa tlhophiso ea kamehla ea liphanele feela. Libaka tsa mosebetsi tse bolokiloeng, litokomane le likhetho tse ling li sala li le teng.
+workspaces.save_error = Ha hoa khoneha ho boloka likhetho tsa sebaka sa mosebetsi. Phetoho ha ea sebelisoa.
+workspaces.invalid_name = Kenya lebitso la litlhaku tse 1–80 le se nang litlhaku tsa taolo.
+workspaces.duplicate = Sebaka sa mosebetsi se nang le lebitso lena se se se le teng.
+workspaces.limit = U ka boloka libaka tsa mosebetsi tse fihlang ho 64.
+workspaces.keyboard = Khiboto: Alt+↑/↓ e khetha tlhophiso. Ctrl/Cmd+N e hlophisa lebitso la eona; +S e boloka kopi; +Enter e e sebelisa; +U e e ntlafatsa; +R e e reha lebitso le lecha; +D e e hlakola; +0 e khutlisetsa boemong ba pele.

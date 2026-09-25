@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Ibibanza vy'akazi
+workspaces.manage = Gucungera ibibanza vy'akazi…
+workspaces.painting = Gusiga amarangi
+workspaces.photo = Gutunganya amafoto
+workspaces.retouching = Gukosora amafoto
+workspaces.current = Uko bitunganijwe ubu
+workspaces.help = Kubika nka… birakora kopi ifise izina y'uko bitunganijwe ubu. Hitamwo uko bitunganijwe kwabitswe kugira ubishire mu ngiro, ubivugurure, uhindure izina canke ubifute. Ivyo uhinduye bica bishirwa mu ngiro ubwo nyene.
+workspaces.show_panels = Erekana ibipande vyo ku mpande
+workspaces.automatic = Vyikoresha
+workspaces.reset_help = Gusubiza ku ntango bigarukana gusa uko ibipande vyari bitunganijwe mu ntango. Ibibanza vy'akazi vyabitswe, inyandiko n'ibindi wahisemwo biragumaho.
+workspaces.save_error = Ntivyashobotse kubika ivyo wahisemwo ku bibanza vy'akazi. Ihinduka ntiryashizwe mu ngiro.
+workspaces.invalid_name = Injiza izina rifise inyuguti 1–80 ridafise inyuguti zo kugenzura.
+workspaces.duplicate = Ikibanza c'akazi gifise iri zina kiramaze kubaho.
+workspaces.limit = Ushobora kubika ibibanza vy'akazi gushika kuri 64.
+workspaces.keyboard = Mwandiko: Alt+↑/↓ ihitamwo uko bitunganijwe. Ctrl/Cmd+N ihindura izina ryavyo; +S ibika kopi; +Enter ibishira mu ngiro; +U ibivugurura; +R ihindura izina; +D ibifuta; +0 ibisubiza ku ntango.

@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Espais de treball
+workspaces.manage = Gestiona els espais de treball…
+workspaces.painting = Pintura
+workspaces.photo = Revelatge fotogràfic
+workspaces.retouching = Retoc
+workspaces.current = Disposició actual
+workspaces.help = Anomena i desa crea una còpia amb nom de la disposició actual. Seleccioneu una disposició desada per aplicar-la, actualitzar-la, canviar-li el nom o suprimir-la. Els canvis de disposició s’apliquen immediatament.
+workspaces.show_panels = Mostra els plafons laterals
+workspaces.automatic = Automàtic
+workspaces.reset_help = Restableix només recupera la disposició predeterminada dels plafons. Es conserven els espais de treball desats, els documents i les altres preferències.
+workspaces.save_error = No s’han pogut desar les preferències de l’espai de treball. El canvi no s’ha aplicat.
+workspaces.invalid_name = Introduïu un nom d’1–80 caràcters sense caràcters de control.
+workspaces.duplicate = Ja hi ha un espai de treball amb aquest nom.
+workspaces.limit = Podeu desar fins a 64 espais de treball.
+workspaces.keyboard = Teclat: Alt+↑/↓ selecciona una disposició. Ctrl/Cmd+N n’edita el nom; +S en desa una còpia; +Enter l’aplica; +U l’actualitza; +R li canvia el nom; +D la suprimeix; +0 restableix.

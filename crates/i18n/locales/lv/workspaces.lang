@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Darbvietas
+workspaces.manage = Pārvaldīt darbvietas…
+workspaces.painting = Gleznošana
+workspaces.photo = Fotoattēlu apstrāde
+workspaces.retouching = Retušēšana
+workspaces.current = Pašreizējais izkārtojums
+workspaces.help = Saglabāt kā izveido pašreizējā izkārtojuma kopiju ar nosaukumu. Atlasiet saglabātu izkārtojumu, lai to lietotu, atjauninātu, pārdēvētu vai dzēstu. Izkārtojuma izmaiņas stājas spēkā uzreiz.
+workspaces.show_panels = Rādīt sānu paneļus
+workspaces.automatic = Automātiski
+workspaces.reset_help = Atiestatīt atjauno tikai paneļu noklusējuma izkārtojumu. Saglabātās darbvietas, dokumenti un citi iestatījumi paliek saglabāti.
+workspaces.save_error = Neizdevās saglabāt darbvietas iestatījumus. Izmaiņa netika piemērota.
+workspaces.invalid_name = Ievadiet nosaukumu, kurā ir 1–80 rakstzīmes un nav vadības rakstzīmju.
+workspaces.duplicate = Darbvieta ar šādu nosaukumu jau pastāv.
+workspaces.limit = Varat saglabāt līdz 64 darbvietām.
+workspaces.keyboard = Tastatūra: Alt+↑/↓ atlasa izkārtojumu. Ctrl/Cmd+N rediģē tā nosaukumu; +S saglabā kopiju; +Enter lieto; +U atjaunina; +R pārdēvē; +D dzēš; +0 atiestata.

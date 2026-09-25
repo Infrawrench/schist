@@ -285,6 +285,8 @@ fn editor_menus(ws: &Workspace) -> Vec<(&'static str, Vec<MenuEntry>)> {
         (
             t("menu.view"),
             vec![
+                Sub(t("workspaces.title"), workspace_entries(ws)),
+                Sep,
                 App(t("menu.view.rotate_view_cw"), RotateViewCw, None),
                 App(t("menu.view.rotate_view_ccw"), RotateViewCcw, None),
                 App(t("menu.view.reset_view"), ResetView, None),
@@ -457,12 +459,11 @@ fn gallery_menus(ws: &Workspace) -> Vec<(&'static str, Vec<MenuEntry>)> {
                 ),
             ],
         ),
-        // On macOS Preferences sits in the application menu instead and
-        // this menu converts to nothing; the native bar drops menus that
-        // end up empty.
+        // Workspaces remain available while browsing the gallery.
         (
             t("menu.view"),
             vec![
+                Sub(t("workspaces.title"), workspace_entries(ws)),
                 App(t("menu.view.ai_panel"), ToggleAi, Some("cmd-shift-a")),
                 Sep,
                 App(t("common.preferences"), Preferences, Some("cmd-k")),
@@ -805,6 +806,36 @@ fn cloud_menu(enabled: bool, signed_in: bool) -> Option<MenuEntry> {
         vec![App(t("menu.cloud.sign_in"), CloudSignIn, None)]
     };
     Some(Sub(t("menu.file.schist_cloud"), entries))
+}
+
+fn workspace_entries(ws: &Workspace) -> Vec<MenuEntry> {
+    use MenuEntry::*;
+    let mut entries = vec![
+        App(t("workspaces.manage"), AppItem::Workspaces, None),
+        App(t("common.save_as"), AppItem::WorkspaceSave, None),
+        App(t("common.update"), AppItem::WorkspaceUpdate, None),
+        App(t("common.rename"), AppItem::WorkspaceRename, None),
+        App(t("common.delete"), AppItem::WorkspaceDelete, None),
+        App(t("common.reset"), AppItem::WorkspaceReset, None),
+        Sep,
+        App(t("workspaces.painting"), AppItem::WorkspaceStarter(0), None),
+        App(t("workspaces.photo"), AppItem::WorkspaceStarter(1), None),
+        App(
+            t("workspaces.retouching"),
+            AppItem::WorkspaceStarter(2),
+            None,
+        ),
+        Sep,
+    ];
+    entries.extend(
+        ws.view
+            .workspaces
+            .saved
+            .iter()
+            .enumerate()
+            .map(|(i, p)| Dynamic(p.name.clone(), AppItem::WorkspaceSelect(i))),
+    );
+    entries
 }
 
 #[cfg(test)]

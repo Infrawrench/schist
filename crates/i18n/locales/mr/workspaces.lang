@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = कार्यस्थाने
+workspaces.manage = कार्यस्थाने व्यवस्थापित करा…
+workspaces.painting = चित्रकला
+workspaces.photo = फोटो विकसित करणे
+workspaces.retouching = फोटो सुधारणा
+workspaces.current = सध्याची मांडणी
+workspaces.help = म्हणून जतन करा सध्याच्या मांडणीची नावासह प्रत तयार करते. जतन केलेली मांडणी लागू करण्यासाठी, अद्ययावत करण्यासाठी, नाव बदलण्यासाठी किंवा हटवण्यासाठी ती निवडा. मांडणीतील बदल लगेच लागू होतात.
+workspaces.show_panels = बाजूची पटले दाखवा
+workspaces.automatic = स्वयंचलित
+workspaces.reset_help = रीसेट करा फक्त पटलांची डीफॉल्ट मांडणी पूर्ववत करते. जतन केलेली कार्यस्थाने, दस्तऐवज आणि इतर प्राधान्ये तशीच राहतात.
+workspaces.save_error = कार्यस्थानाची प्राधान्ये जतन करता आली नाहीत. बदल लागू झाला नाही.
+workspaces.invalid_name = नियंत्रण वर्ण नसलेले 1–80 वर्णांचे नाव प्रविष्ट करा.
+workspaces.duplicate = या नावाचे कार्यस्थान आधीच अस्तित्वात आहे.
+workspaces.limit = तुम्ही जास्तीत जास्त 64 कार्यस्थाने जतन करू शकता.
+workspaces.keyboard = कीबोर्ड: Alt+↑/↓ मांडणी निवडते. Ctrl/Cmd+N तिचे नाव संपादित करते; +S प्रत जतन करते; +Enter लागू करते; +U अद्ययावत करते; +R नाव बदलते; +D हटवते; +0 रीसेट करते.

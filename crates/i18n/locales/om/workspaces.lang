@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Iddoowwan hojii
+workspaces.manage = Iddoowwan hojii bulchi…
+workspaces.painting = Halluu dibuu
+workspaces.photo = Suuraa qopheessuu
+workspaces.retouching = Suuraa sirreessuu
+workspaces.current = Qindaa'ina ammaa
+workspaces.help = Akka… Olkaa'i qindaa'ina ammaa maqaa kennameefiin garagalcha isaa uuma. Qindaa'ina olkaa'ame filachuun hojiirra oolchuu, haaromsuu, maqaa jijjiiruu yookaan haquu dandeessa. Jijjiiramni qindaa'inaa battaluma hojiirra oola.
+workspaces.show_panels = Paanaaliiwwan cinaa agarsiisi
+workspaces.automatic = Ofumaan
+workspaces.reset_help = Deebisi qindaa'ina paanaalii durtii qofa deebisa. Iddoowwan hojii olkaa'aman, sanadoonnii fi filannoowwan biroon ni turu.
+workspaces.save_error = Filannoowwan iddoo hojii olkaa'uun hin danda'amne. Jijjiiramni sun hojiirra hin oolle.
+workspaces.invalid_name = Maqaa arfiilee 1–80 qabu, arfiilee to'annoo hin qabne galchi.
+workspaces.duplicate = Iddoon hojii maqaa kana qabu duraan jira.
+workspaces.limit = Iddoowwan hojii hanga 64 olkaa'uu dandeessa.
+workspaces.keyboard = Gabatee cuqoo: Alt+↑/↓ qindaa'ina filata. Ctrl/Cmd+N maqaa isaa gulaala; +S garagalcha olkaa'a; +Enter hojiirra oolcha; +U haaromsa; +R maqaa jijjiira; +D haqa; +0 deebisa.

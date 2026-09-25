@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Ish maydonlari
+workspaces.manage = Ish maydonlarini boshqarish…
+workspaces.painting = Rasm chizish
+workspaces.photo = Suratlarga ishlov berish
+workspaces.retouching = Retush qilish
+workspaces.current = Joriy joylashuv
+workspaces.help = «Boshqa nom bilan saqlash» joriy joylashuvning nomlangan nusxasini yaratadi. Saqlangan joylashuvni qo‘llash, yangilash, nomini o‘zgartirish yoki o‘chirish uchun uni tanlang. Joylashuvdagi o‘zgarishlar darhol kuchga kiradi.
+workspaces.show_panels = Yon panellarni ko‘rsatish
+workspaces.automatic = Avtomatik
+workspaces.reset_help = «Tiklash» faqat panellarning standart joylashuvini qaytaradi. Saqlangan ish maydonlari, hujjatlar va boshqa sozlamalar saqlanib qoladi.
+workspaces.save_error = Ish maydoni sozlamalarini saqlab bo‘lmadi. O‘zgarish qo‘llanmadi.
+workspaces.invalid_name = Boshqaruv belgilarisiz 1–80 ta belgidan iborat nom kiriting.
+workspaces.duplicate = Bu nomli ish maydoni allaqachon mavjud.
+workspaces.limit = Ko‘pi bilan 64 ta ish maydonini saqlashingiz mumkin.
+workspaces.keyboard = Klaviatura: Alt+↑/↓ joylashuvni tanlaydi. Ctrl/Cmd+N uning nomini tahrirlaydi; +S nusxasini saqlaydi; +Enter qo‘llaydi; +U yangilaydi; +R nomini o‘zgartiradi; +D o‘chiradi; +0 tiklaydi.

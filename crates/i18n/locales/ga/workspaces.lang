@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Spásanna oibre
+workspaces.manage = Bainistigh spásanna oibre…
+workspaces.painting = Péinteáil
+workspaces.photo = Forbairt grianghraf
+workspaces.retouching = Mioncheartú
+workspaces.current = Leagan amach reatha
+workspaces.help = Cruthaíonn Sábháil Mar cóip ainmnithe den leagan amach reatha. Roghnaigh leagan amach sábháilte chun é a chur i bhfeidhm, a nuashonrú, a athainmniú nó a scriosadh. Tagann athruithe ar an leagan amach i bhfeidhm láithreach.
+workspaces.show_panels = Taispeáin na painéil taoibh
+workspaces.automatic = Uathoibríoch
+workspaces.reset_help = Ní chuireann Athshocraigh ar ais ach leagan amach réamhshocraithe na bpainéal. Coinnítear spásanna oibre sábháilte, doiciméid agus sainroghanna eile.
+workspaces.save_error = Níorbh fhéidir sainroghanna an spáis oibre a shábháil. Níor cuireadh an t-athrú i bhfeidhm.
+workspaces.invalid_name = Cuir isteach ainm 1–80 carachtar gan carachtair rialaithe.
+workspaces.duplicate = Tá spás oibre leis an ainm seo ann cheana.
+workspaces.limit = Is féidir leat suas le 64 spás oibre a shábháil.
+workspaces.keyboard = Méarchlár: roghnaíonn Alt+↑/↓ leagan amach. Athraíonn Ctrl/Cmd+N a ainm; sábhálann +S cóip; cuireann +Enter i bhfeidhm é; nuashonraíonn +U é; athainmníonn +R é; scriosann +D é; athshocraíonn +0 é.

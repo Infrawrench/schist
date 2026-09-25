@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Radni prostori
+workspaces.manage = Upravljanje radnim prostorima…
+workspaces.painting = Slikanje
+workspaces.photo = Razvijanje fotografija
+workspaces.retouching = Retuširanje
+workspaces.current = Trenutni raspored
+workspaces.help = Sačuvaj kao pravi imenovanu kopiju trenutnog rasporeda. Odaberite sačuvani raspored da ga primijenite, ažurirate, preimenujete ili izbrišete. Promjene rasporeda stupaju na snagu odmah.
+workspaces.show_panels = Prikaži bočne panele
+workspaces.automatic = Automatski
+workspaces.reset_help = Vrati na početno vraća samo zadani raspored panela. Sačuvani radni prostori, dokumenti i ostale postavke ostaju sačuvani.
+workspaces.save_error = Postavke radnog prostora nisu mogle biti sačuvane. Promjena nije primijenjena.
+workspaces.invalid_name = Unesite naziv od 1–80 znakova bez kontrolnih znakova.
+workspaces.duplicate = Radni prostor s ovim nazivom već postoji.
+workspaces.limit = Možete sačuvati do 64 radna prostora.
+workspaces.keyboard = Tastatura: Alt+↑/↓ bira raspored. Ctrl/Cmd+N uređuje njegov naziv; +S čuva kopiju; +Enter ga primjenjuje; +U ažurira; +R preimenuje; +D briše; +0 vraća na početno.

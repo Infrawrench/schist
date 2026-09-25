@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Adwumayɛ mmeae
+workspaces.manage = Hwɛ adwumayɛ mmeae so…
+workspaces.painting = Mfoniniyɛ
+workspaces.photo = Foto ahorow a wɔsiesie
+workspaces.retouching = Mfonini a wɔsan siesie
+workspaces.current = Nhyehyɛe a ɛwɔ hɔ seesei
+workspaces.help = Kora Sɛ yɛ nhyehyɛe a ɛwɔ hɔ seesei no bi na ɛma no din. Paw nhyehyɛe a wɔakora no na fa di dwuma, yɛ no foforo, sesa ne din anaa pepa no. Nhyehyɛe mu nsakrae di dwuma ntɛm ara.
+workspaces.show_panels = Kyerɛ afã panel ahorow
+workspaces.automatic = Ɛyɛ ne ho
+workspaces.reset_help = San Hyɛ Ase de panel ahorow no nhyehyɛe a ɛbaa kan no nko ara san ba. Adwumayɛ mmeae a wɔakora, nkrataa ne nhyehyɛe afoforo da so wɔ hɔ.
+workspaces.save_error = Antumi ankora adwumayɛ beae no nhyehyɛe. Wɔamfa nsakrae no anni dwuma.
+workspaces.invalid_name = Kyerɛw din a ɛwɔ nkyerɛwde 1–80 na ɛnni control nkyerɛwde.
+workspaces.duplicate = Adwumayɛ beae a ɛwɔ saa din yi wɔ hɔ dedaw.
+workspaces.limit = Wubetumi akora adwumayɛ mmeae dodow a ɛkɔsi 64.
+workspaces.keyboard = Kiborɔ: Alt+↑/↓ paw nhyehyɛe. Ctrl/Cmd+N sesa ne din; +S kora ne bi; +Enter fa di dwuma; +U yɛ no foforo; +R sesa din; +D pepa; +0 san hyɛ ase.

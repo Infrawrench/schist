@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = סביבות עבודה
+workspaces.manage = ניהול סביבות עבודה…
+workspaces.painting = ציור
+workspaces.photo = פיתוח תמונות
+workspaces.retouching = ריטוש
+workspaces.current = הפריסה הנוכחית
+workspaces.help = ״שמירה בשם״ יוצרת עותק בעל שם של הפריסה הנוכחית. יש לבחור פריסה שנשמרה כדי להחיל, לעדכן, לשנות את שמה או למחוק אותה. שינויים בפריסה נכנסים לתוקף מיד.
+workspaces.show_panels = הצגת החלוניות הצדדיות
+workspaces.automatic = אוטומטי
+workspaces.reset_help = ״איפוס״ משחזר את פריסת ברירת המחדל של החלוניות בלבד. סביבות עבודה שנשמרו, מסמכים והעדפות אחרות נשמרים.
+workspaces.save_error = לא ניתן לשמור את העדפות סביבת העבודה. השינוי לא הוחל.
+workspaces.invalid_name = יש להזין שם באורך 1–80 תווים ללא תווי בקרה.
+workspaces.duplicate = כבר קיימת סביבת עבודה בשם הזה.
+workspaces.limit = ניתן לשמור עד 64 סביבות עבודה.
+workspaces.keyboard = מקלדת: Alt+↑/↓ בוחר פריסה. Ctrl/Cmd+N עורך את שמה; +S שומר עותק; +Enter מחיל; +U מעדכן; +R משנה שם; +D מוחק; +0 מאפס.

@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Spazji tax-xogħol
+workspaces.manage = Immaniġġja l-Ispazji tax-Xogħol…
+workspaces.painting = Pittura
+workspaces.photo = Żvilupp tar-Ritratti
+workspaces.retouching = Irtokk
+workspaces.current = Tqassim attwali
+workspaces.help = Issejvja Bħala joħloq kopja bit-titlu tat-tqassim attwali. Agħżel tqassim issejvjat biex tapplikah, taġġornah, tibdillu ismu jew tħassru. Il-bidliet fit-tqassim jidħlu fis-seħħ minnufih.
+workspaces.show_panels = Uri l-pannelli tal-ġenb
+workspaces.automatic = Awtomatiku
+workspaces.reset_help = Irrisettja jerġa’ jġib biss it-tqassim awtomatiku tal-pannelli. L-ispazji tax-xogħol issejvjati, id-dokumenti u l-preferenzi l-oħra jinżammu.
+workspaces.save_error = Ma setgħux jiġu ssejvjati l-preferenzi tal-ispazji tax-xogħol. Il-bidla ma ġietx applikata.
+workspaces.invalid_name = Daħħal isem ta’ 1–80 karattru mingħajr karattri ta’ kontroll.
+workspaces.duplicate = Diġà jeżisti spazju tax-xogħol b’dan l-isem.
+workspaces.limit = Tista’ tissejvja sa 64 spazju tax-xogħol.
+workspaces.keyboard = Tastiera: Alt+↑/↓ jagħżel tqassim. Ctrl/Cmd+N jeditja ismu; +S jissejvja kopja; +Enter japplika; +U jaġġorna; +R ibiddel l-isem; +D iħassar; +0 jirrisettja.

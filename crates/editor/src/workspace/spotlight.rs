@@ -59,7 +59,15 @@ impl Target {
                 use AppItem::*;
                 !matches!(
                     item,
-                    Search
+                    Workspaces
+                        | WorkspaceSave
+                        | WorkspaceUpdate
+                        | WorkspaceRename
+                        | WorkspaceDelete
+                        | WorkspaceReset
+                        | WorkspaceStarter(_)
+                        | WorkspaceSelect(_)
+                        | Search
                         | CloudSignIn
                         | CloudGenerate
                         | CloudBrowse

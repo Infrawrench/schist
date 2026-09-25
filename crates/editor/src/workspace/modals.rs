@@ -387,6 +387,10 @@ impl Workspace {
         if self.modal.is_none() {
             return false;
         }
+        if self.workspace_key(ev, cx) {
+            cx.stop_propagation();
+            return true;
+        }
         if modal_enter_confirms(
             self.focused_field,
             &ev.keystroke.key,
@@ -439,6 +443,7 @@ impl Workspace {
             || id == "layer-name"
             || id == "brush-preset-name"
             || id == "recorded-action-name"
+            || id == "workspace-name"
             || id == "new-doc-name"
             || id == "bucket-name"
             || id == "bucket-query"
@@ -646,6 +651,14 @@ impl Workspace {
                     *name = buffer;
                 }
             }
+            return;
+        }
+        if id == "workspace-name" {
+            self.update_modal(|modal| {
+                if let Modal::Workspaces { name, .. } = modal {
+                    *name = buffer;
+                }
+            });
             return;
         }
         if id == "recorded-action-name" {
@@ -875,6 +888,7 @@ impl Workspace {
             }
             // These dialogs have no typed fields.
             Modal::DestructiveAdjustment { .. }
+            | Modal::Workspaces { .. }
             | Modal::RecordedActions { .. }
             | Modal::RecordedActionBatch { .. }
             | Modal::Busy { .. }

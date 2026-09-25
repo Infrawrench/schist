@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = መስርሒ ቦታታት
+workspaces.manage = መስርሒ ቦታታት ኣመሓድር…
+workspaces.painting = ስእሊ ምስኣል
+workspaces.photo = ስእሊ ምምዕባል
+workspaces.retouching = ስእሊ ምምሕያሽ
+workspaces.current = ናይ ሕጂ ኣቀማምጣ
+workspaces.help = ከምዚ ምቕማጥ ናይ ሕጂ ኣቀማምጣ ስም ዘለዎ ቅዳሕ ይፈጥር። ዝተቐመጠ ኣቀማምጣ ንምትግባር፣ ንምሕዳስ፣ ስሙ ንምቕያር ወይ ንምድምሳስ ምረጽ። ኣብ ኣቀማምጣ ዝግበር ለውጢ ብኡንብኡ ይትግበር።
+workspaces.show_panels = ናይ ጎድኒ ፓነላት ኣርኢ
+workspaces.automatic = ብኣውቶማቲክ
+workspaces.reset_help = ዳግማይ ምትዕርራይ ነቲ ነባሪ ኣቀማምጣ ፓነላት ጥራይ ይመልስ። ዝተቐመጡ መስርሒ ቦታታት፣ ሰነዳትን ካልኦት ምርጫታትን ከም ዘለዉ ይቕጽሉ።
+workspaces.save_error = ናይ መስርሒ ቦታ ምርጫታት ምቕማጥ ኣይተኻእለን። እቲ ለውጢ ኣይተተግበረን።
+workspaces.invalid_name = ናይ ቁጽጽር ፊደላት ዘይብሉ 1–80 ፊደላት ዝሓዘ ስም ኣእቱ።
+workspaces.duplicate = በዚ ስም ዝፍለጥ መስርሒ ቦታ ድሮ ኣሎ።
+workspaces.limit = ክሳብ 64 መስርሒ ቦታታት ክትቕምጥ ትኽእል።
+workspaces.keyboard = ቁልፊ ሰሌዳ: Alt+↑/↓ ኣቀማምጣ ይመርጽ። Ctrl/Cmd+N ስሙ የዐርይ፤ +S ቅዳሕ ይቕምጥ፤ +Enter ይትግብር፤ +U የሐድስ፤ +R ስሙ ይቕይር፤ +D ይድምስስ፤ +0 ዳግማይ የተዓራሪ።

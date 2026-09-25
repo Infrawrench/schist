@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Ol ples blong wok
+workspaces.manage = Manejim ol ples blong wok…
+workspaces.painting = Pentem pija
+workspaces.photo = Wokem foto
+workspaces.retouching = Retusum foto
+workspaces.current = Lukluk blong naoia
+workspaces.help = Sevem Olsem i mekem wan kopi blong lukluk blong naoia we i gat nem. Jusum wan lukluk we yu bin sevem blong yusum, apdetem, jenisim nem o deletem. Ol jenis long lukluk oli wok kwiktaem.
+workspaces.show_panels = Soem ol panel long saed
+workspaces.automatic = Otomatik
+workspaces.reset_help = Setem Bakegen i putumbak nomo ol panel long stret ples blong olgeta. Ol ples blong wok we yu sevem, ol dokumen mo ol narafala seting oli stap yet.
+workspaces.save_error = No save sevem ol seting blong ples blong wok. Jenis ya i no wok.
+workspaces.invalid_name = Putum wan nem we i gat 1–80 leta mo i no gat ol kontrol karakter.
+workspaces.duplicate = I gat wan ples blong wok finis wetem nem ya.
+workspaces.limit = Yu save sevem kasem 64 ples blong wok.
+workspaces.keyboard = Kibod: Alt+↑/↓ i jusum wan lukluk. Ctrl/Cmd+N i jenisim nem blong hem; +S i sevem wan kopi; +Enter i yusum; +U i apdetem; +R i jenisim nem; +D i deletem; +0 i setem bakegen.

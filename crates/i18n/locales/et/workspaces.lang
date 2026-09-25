@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Tööruumid
+workspaces.manage = Halda tööruume…
+workspaces.painting = Maalimine
+workspaces.photo = Fotode töötlemine
+workspaces.retouching = Retušeerimine
+workspaces.current = Praegune paigutus
+workspaces.help = Salvesta nimega loob praegusest paigutusest nimega koopia. Salvestatud paigutuse valimisel saad seda rakendada, uuendada, ümber nimetada või kustutada. Paigutuse muudatused jõustuvad kohe.
+workspaces.show_panels = Kuva külgpaneelid
+workspaces.automatic = Automaatne
+workspaces.reset_help = Lähtesta taastab ainult paneelide vaikepaigutuse. Salvestatud tööruumid, dokumendid ja muud eelistused säilivad.
+workspaces.save_error = Tööruumi eelistusi ei saanud salvestada. Muudatust ei rakendatud.
+workspaces.invalid_name = Sisesta 1–80 märgi pikkune nimi, mis ei sisalda juhtmärke.
+workspaces.duplicate = Selle nimega tööruum on juba olemas.
+workspaces.limit = Saad salvestada kuni 64 tööruumi.
+workspaces.keyboard = Klaviatuur: Alt+↑/↓ valib paigutuse. Ctrl/Cmd+N muudab selle nime; +S salvestab koopia; +Enter rakendab; +U uuendab; +R nimetab ümber; +D kustutab; +0 lähtestab.

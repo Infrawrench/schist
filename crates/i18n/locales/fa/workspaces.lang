@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = فضاهای کاری
+workspaces.manage = مدیریت فضاهای کاری…
+workspaces.painting = نقاشی
+workspaces.photo = پردازش عکس
+workspaces.retouching = روتوش
+workspaces.current = چیدمان فعلی
+workspaces.help = «ذخیره به‌عنوان» یک نسخهٔ نام‌گذاری‌شده از چیدمان فعلی می‌سازد. برای اعمال، به‌روزرسانی، تغییر نام یا حذف یک چیدمان ذخیره‌شده، آن را انتخاب کنید. تغییرات چیدمان بلافاصله اعمال می‌شوند.
+workspaces.show_panels = نمایش پنل‌های کناری
+workspaces.automatic = خودکار
+workspaces.reset_help = «بازنشانی» فقط چیدمان پیش‌فرض پنل‌ها را بازمی‌گرداند. فضاهای کاری ذخیره‌شده، سندها و سایر ترجیحات حفظ می‌شوند.
+workspaces.save_error = ترجیحات فضای کاری ذخیره نشد. تغییر اعمال نشد.
+workspaces.invalid_name = نامی با 1–80 نویسه و بدون نویسهٔ کنترلی وارد کنید.
+workspaces.duplicate = فضای کاری دیگری با این نام وجود دارد.
+workspaces.limit = می‌توانید حداکثر 64 فضای کاری ذخیره کنید.
+workspaces.keyboard = صفحه‌کلید: Alt+↑/↓ یک چیدمان را انتخاب می‌کند. Ctrl/Cmd+N نام آن را ویرایش می‌کند؛ +S یک نسخه ذخیره می‌کند؛ +Enter اعمال می‌کند؛ +U به‌روزرسانی می‌کند؛ +R تغییر نام می‌دهد؛ +D حذف می‌کند؛ +0 بازنشانی می‌کند.

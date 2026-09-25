@@ -149,6 +149,38 @@ pub(crate) fn run_app_item(
         AppItem::ToggleGuides => ws.toggle_guides(cx),
         AppItem::ToggleNotes => ws.toggle_notes(cx),
         AppItem::ToggleAi => ws.toggle_ai_panel(cx),
+        AppItem::Workspaces => ws.open_modal(
+            Modal::Workspaces {
+                primary: None,
+                selected: None,
+                name: String::new(),
+                error: None,
+            },
+            cx,
+        ),
+        AppItem::WorkspaceSave => {
+            ws.open_workspace_command(crate::workspace::WorkspaceEdit::Save, cx)
+        }
+        AppItem::WorkspaceUpdate => {
+            ws.open_workspace_command(crate::workspace::WorkspaceEdit::Update, cx)
+        }
+        AppItem::WorkspaceRename => {
+            ws.open_workspace_command(crate::workspace::WorkspaceEdit::Rename, cx)
+        }
+        AppItem::WorkspaceDelete => {
+            ws.open_workspace_command(crate::workspace::WorkspaceEdit::Delete, cx)
+        }
+        AppItem::WorkspaceReset => {
+            ws.open_workspace_command(crate::workspace::WorkspaceEdit::Reset, cx)
+        }
+        AppItem::WorkspaceStarter(index) => {
+            ws.apply_workspace(schist_app_settings::workspaces::starter(index), cx)
+        }
+        AppItem::WorkspaceSelect(index) => {
+            if let Some(preset) = ws.view.workspaces.saved.get(index) {
+                ws.apply_workspace(preset.layout.clone(), cx);
+            }
+        }
         AppItem::ToggleExtras => ws.toggle_extras(cx),
         AppItem::ToggleSnap => ws.toggle_snap(cx),
         AppItem::ClearGuides => ws.clear_guides(cx),

@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Mannau gwaith
+workspaces.manage = Rheoli mannau gwaith…
+workspaces.painting = Peintio
+workspaces.photo = Datblygu lluniau
+workspaces.retouching = Ailgyffwrdd
+workspaces.current = Cynllun presennol
+workspaces.help = Mae Cadw Fel yn creu copi o’r cynllun presennol gydag enw arno. Dewiswch gynllun sydd wedi’i gadw i’w gymhwyso, ei ddiweddaru, ei ailenwi neu ei ddileu. Daw newidiadau i’r cynllun i rym ar unwaith.
+workspaces.show_panels = Dangos paneli ochr
+workspaces.automatic = Awtomatig
+workspaces.reset_help = Mae Ailosod yn adfer cynllun rhagosodedig y paneli yn unig. Cedwir mannau gwaith sydd wedi’u cadw, dogfennau a dewisiadau eraill.
+workspaces.save_error = Methu cadw dewisiadau’r man gwaith. Ni chymhwyswyd y newid.
+workspaces.invalid_name = Rhowch enw sy’n 1–80 nod o hyd heb nodau rheoli.
+workspaces.duplicate = Mae man gwaith â’r enw hwn eisoes yn bodoli.
+workspaces.limit = Gallwch gadw hyd at 64 man gwaith.
+workspaces.keyboard = Bysellfwrdd: Mae Alt+↑/↓ yn dewis cynllun. Mae Ctrl/Cmd+N yn golygu ei enw; +S yn cadw copi; +Enter yn ei gymhwyso; +U yn ei ddiweddaru; +R yn ei ailenwi; +D yn ei ddileu; +0 yn ailosod.

@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Ebe ọrụ
+workspaces.manage = Jikwaa ebe ọrụ…
+workspaces.painting = Ịse ihe
+workspaces.photo = Nhazi foto
+workspaces.retouching = Imegharị foto
+workspaces.current = Nhazi dị ugbu a
+workspaces.help = “Chekwaa Dịka” na-emepụta otu nhazi dị ugbu a nwere aha. Họrọ nhazi echekwara ka itinye ya n'ọrụ, melite ya, nyegharịa ya aha ma ọ bụ hichapụ ya. Mgbanwe nhazi na-amalite ịrụ ọrụ ozugbo.
+workspaces.show_panels = Gosi panel ndị dị n'akụkụ
+workspaces.automatic = Akpaaka
+workspaces.reset_help = “Tọgharịa” na-eweghachi naanị nhazi panel nke ndabara. A na-edobe ebe ọrụ echekwara, akwụkwọ na mmasị ndị ọzọ.
+workspaces.save_error = Enweghị ike ichekwa mmasị ebe ọrụ. E tinyeghị mgbanwe ahụ n'ọrụ.
+workspaces.invalid_name = Tinye aha nwere mkpụrụedemede 1–80 nke na-enweghị akara njikwa.
+workspaces.duplicate = Ebe ọrụ nwere aha a adịlarị.
+workspaces.limit = Ị nwere ike ichekwa ebe ọrụ ruru 64.
+workspaces.keyboard = Ahụigodo: Alt+↑/↓ na-ahọrọ nhazi. Ctrl/Cmd+N na-edezi aha ya; +S na-echekwa otu ya; +Enter na-etinye ya n'ọrụ; +U na-emelite ya; +R na-enyegharị ya aha; +D na-ehichapụ ya; +0 na-atọgharị ya.

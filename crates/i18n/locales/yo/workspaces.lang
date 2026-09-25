@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Àwọn àyè iṣẹ́
+workspaces.manage = Ṣàkóso àwọn àyè iṣẹ́…
+workspaces.painting = Yíyàwòrán
+workspaces.photo = Ṣíṣe àtúnṣe fọ́tò
+workspaces.retouching = Ṣíṣe ìtúnṣe fọ́tò
+workspaces.current = Ètò ìṣètò lọ́wọ́lọ́wọ́
+workspaces.help = «Fipamọ́ gẹ́gẹ́ bí» dá ẹ̀dà tí a fún ní orúkọ ti ètò ìṣètò lọ́wọ́lọ́wọ́. Yan ètò ìṣètò tí a ti fipamọ́ láti lò ó, ṣe àfikún tuntun sí i, ṣe àtúnlórúkọ rẹ̀ tàbí parẹ́. Àwọn ìyípadà sí ètò ìṣètò ń ṣiṣẹ́ lẹ́sẹ̀kẹsẹ̀.
+workspaces.show_panels = Fi àwọn pánẹ́lì ẹ̀gbẹ́ hàn
+workspaces.automatic = Laifọwọyi
+workspaces.reset_help = «Tún padà» máa ń dá ètò àwọn pánẹ́lì ìbẹ̀rẹ̀ padà nìkan. Àwọn àyè iṣẹ́ tí a ti fipamọ́, àwọn ìwé àti àwọn ààyò míràn yóò wà gẹ́gẹ́ bí wọ́n ṣe wà.
+workspaces.save_error = A kò lè fipamọ́ àwọn ààyò àyè iṣẹ́. A kò lo ìyípadà náà.
+workspaces.invalid_name = Tẹ orúkọ tí ó ní àmì 1–80 sílẹ̀ láìsí àwọn àmì ìṣàkóso.
+workspaces.duplicate = Àyè iṣẹ́ kan ti wà pẹ̀lú orúkọ yìí.
+workspaces.limit = O lè fipamọ́ tó àyè iṣẹ́ 64.
+workspaces.keyboard = Àtẹ bọ́tìnì: Alt+↑/↓ yan ètò ìṣètò. Ctrl/Cmd+N ṣàtúnṣe orúkọ rẹ̀; +S fipamọ́ ẹ̀dà; +Enter lò ó; +U ṣe àfikún tuntun; +R ṣe àtúnlórúkọ; +D parẹ́; +0 tún padà.

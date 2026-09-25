@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Эш киңлекләре
+workspaces.manage = Эш киңлекләре белән идарә итү…
+workspaces.painting = Рәсем ясау
+workspaces.photo = Фотоларны эшкәртү
+workspaces.retouching = Ретушлау
+workspaces.current = Хәзерге урнашу
+workspaces.help = «Башкача саклау» хәзерге урнашуның исемле күчермәсен ясый. Сакланган урнашуны куллану, яңарту, исемен үзгәртү яки бетерү өчен аны сайлагыз. Урнашуны үзгәртүләр шунда ук гамәлгә керә.
+workspaces.show_panels = Ян панельләрне күрсәтү
+workspaces.automatic = Автоматик
+workspaces.reset_help = «Кайтару» панельләрнең башлангыч урнашуын гына торгыза. Сакланган эш киңлекләре, документлар һәм башка көйләүләр саклана.
+workspaces.save_error = Эш киңлеге көйләүләрен саклап булмады. Үзгәртү кулланылмады.
+workspaces.invalid_name = Идарә символлары булмаган 1–80 символлы исем кертегез.
+workspaces.duplicate = Мондый исемле эш киңлеге инде бар.
+workspaces.limit = 64 кә кадәр эш киңлеге саклый аласыз.
+workspaces.keyboard = Клавиатура: Alt+↑/↓ урнашуны сайлый. Ctrl/Cmd+N аның исемен үзгәртү өчен ача; +S күчермәсен саклый; +Enter куллана; +U яңарта; +R исемен үзгәртә; +D бетерә; +0 башлангыч хәлгә кайтара.

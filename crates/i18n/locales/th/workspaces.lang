@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = พื้นที่ทำงาน
+workspaces.manage = จัดการพื้นที่ทำงาน…
+workspaces.painting = การวาดภาพ
+workspaces.photo = การปรับแต่งภาพถ่าย
+workspaces.retouching = การรีทัชภาพ
+workspaces.current = เค้าโครงปัจจุบัน
+workspaces.help = บันทึกเป็นจะสร้างสำเนาเค้าโครงปัจจุบันพร้อมชื่อ เลือกเค้าโครงที่บันทึกไว้เพื่อนำไปใช้ อัปเดต เปลี่ยนชื่อ หรือลบ การแก้ไขเค้าโครงมีผลทันที
+workspaces.show_panels = แสดงแผงด้านข้าง
+workspaces.automatic = อัตโนมัติ
+workspaces.reset_help = รีเซ็ตจะคืนค่าเฉพาะเค้าโครงเริ่มต้นของแผง พื้นที่ทำงานที่บันทึกไว้ เอกสาร และค่ากำหนดอื่น ๆ จะยังคงอยู่
+workspaces.save_error = ไม่สามารถบันทึกค่ากำหนดของพื้นที่ทำงานได้ การเปลี่ยนแปลงจึงไม่มีผล
+workspaces.invalid_name = ป้อนชื่อที่มี 1–80 อักขระและไม่มีอักขระควบคุม
+workspaces.duplicate = มีพื้นที่ทำงานชื่อนี้อยู่แล้ว
+workspaces.limit = คุณสามารถบันทึกพื้นที่ทำงานได้สูงสุด 64 รายการ
+workspaces.keyboard = แป้นพิมพ์: Alt+↑/↓ เลือกเค้าโครง Ctrl/Cmd+N แก้ไขชื่อ; +S บันทึกสำเนา; +Enter นำไปใช้; +U อัปเดต; +R เปลี่ยนชื่อ; +D ลบ; +0 รีเซ็ต

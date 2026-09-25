@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Ruang kerja
+workspaces.manage = Urus Ruang Kerja…
+workspaces.painting = Melukis
+workspaces.photo = Pemprosesan Foto
+workspaces.retouching = Sentuhan Semula
+workspaces.current = Susun atur semasa
+workspaces.help = Simpan Sebagai menghasilkan salinan bernama bagi susun atur semasa. Pilih susun atur yang disimpan untuk menggunakannya, mengemas kini, menamakan semula atau memadamkannya. Perubahan susun atur berkuat kuasa serta-merta.
+workspaces.show_panels = Tunjukkan panel sisi
+workspaces.automatic = Automatik
+workspaces.reset_help = Tetapkan Semula hanya mengembalikan susun atur panel lalai. Ruang kerja yang disimpan, dokumen dan keutamaan lain dikekalkan.
+workspaces.save_error = Keutamaan ruang kerja tidak dapat disimpan. Perubahan tidak digunakan.
+workspaces.invalid_name = Masukkan nama sepanjang 1–80 aksara tanpa aksara kawalan.
+workspaces.duplicate = Ruang kerja dengan nama ini sudah wujud.
+workspaces.limit = Anda boleh menyimpan sehingga 64 ruang kerja.
+workspaces.keyboard = Papan kekunci: Alt+↑/↓ memilih susun atur. Ctrl/Cmd+N mengedit namanya; +S menyimpan salinan; +Enter menggunakannya; +U mengemas kini; +R menamakan semula; +D memadam; +0 menetapkan semula.

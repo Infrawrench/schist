@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Hapësirat e punës
+workspaces.manage = Menaxho hapësirat e punës…
+workspaces.painting = Pikturë
+workspaces.photo = Zhvillim fotografish
+workspaces.retouching = Retushim
+workspaces.current = Paraqitja aktuale
+workspaces.help = Ruaj si… krijon një kopje me emër të paraqitjes aktuale. Përzgjidhni një paraqitje të ruajtur për ta zbatuar, përditësuar, riemërtuar ose fshirë. Ndryshimet e paraqitjes hyjnë në fuqi menjëherë.
+workspaces.show_panels = Shfaq panelet anësore
+workspaces.automatic = Automatikisht
+workspaces.reset_help = Rivendos rikthen vetëm paraqitjen e parazgjedhur të paneleve. Hapësirat e ruajtura të punës, dokumentet dhe parapëlqimet e tjera ruhen.
+workspaces.save_error = Nuk u ruajtën dot parapëlqimet e hapësirave të punës. Ndryshimi nuk u zbatua.
+workspaces.invalid_name = Jepni një emër me 1–80 karaktere, pa karaktere kontrolli.
+workspaces.duplicate = Ekziston tashmë një hapësirë pune me këtë emër.
+workspaces.limit = Mund të ruani deri në 64 hapësira pune.
+workspaces.keyboard = Tastiera: Alt+↑/↓ përzgjedh një paraqitje. Ctrl/Cmd+N ndryshon emrin e saj; +S ruan një kopje; +Enter e zbaton; +U e përditëson; +R e riemërton; +D e fshin; +0 e rivendos.

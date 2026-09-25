@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Obszary robocze
+workspaces.manage = Zarządzaj obszarami roboczymi…
+workspaces.painting = Malowanie
+workspaces.photo = Wywoływanie zdjęć
+workspaces.retouching = Retusz
+workspaces.current = Bieżący układ
+workspaces.help = Zapisz jako… tworzy nazwaną kopię bieżącego układu. Wybierz zapisany układ, aby go zastosować, zaktualizować, zmienić jego nazwę lub usunąć. Zmiany układu są widoczne od razu.
+workspaces.show_panels = Pokaż panele boczne
+workspaces.automatic = Automatycznie
+workspaces.reset_help = Wyzeruj przywraca tylko domyślny układ paneli. Zapisane obszary robocze, dokumenty i pozostałe preferencje zostają zachowane.
+workspaces.save_error = Nie udało się zapisać preferencji obszaru roboczego. Zmiana nie została zastosowana.
+workspaces.invalid_name = Wpisz nazwę o długości 1–80 znaków, bez znaków sterujących.
+workspaces.duplicate = Obszar roboczy o tej nazwie już istnieje.
+workspaces.limit = Możesz zapisać maksymalnie 64 obszary robocze.
+workspaces.keyboard = Klawiatura: Alt+↑/↓ wybiera układ. Ctrl/Cmd+N edytuje jego nazwę; +S zapisuje kopię; +Enter stosuje; +U aktualizuje; +R zmienia nazwę; +D usuwa; +0 resetuje.

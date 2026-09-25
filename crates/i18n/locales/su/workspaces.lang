@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Rohangan Gawé
+workspaces.manage = Atur Rohangan Gawé…
+workspaces.painting = Ngalukis
+workspaces.photo = Ngolah Poto
+workspaces.retouching = Ngabenerkeun Poto
+workspaces.current = Tata perenah ayeuna
+workspaces.help = Simpen Salaku nyieun salinan tata perenah ayeuna anu dibéré ngaran. Pilih tata perenah anu geus disimpen pikeun dipaké, diropéa, diganti ngaranna, atawa dipupus. Parobahan tata perenah langsung lumaku.
+workspaces.show_panels = Témbongkeun panel sisi
+workspaces.automatic = Otomatis
+workspaces.reset_help = Setél Deui ngan mulangkeun tata perenah panel bawaan. Rohangan gawé anu geus disimpen, dokumén, jeung préferénsi séjén tetep disimpen.
+workspaces.save_error = Préferénsi rohangan gawé teu bisa disimpen. Parobahan henteu dilarapkeun.
+workspaces.invalid_name = Asupkeun ngaran 1–80 karakter tanpa karakter kontrol.
+workspaces.duplicate = Rohangan gawé nu ngaranna kieu geus aya.
+workspaces.limit = Anjeun bisa nyimpen nepi ka 64 rohangan gawé.
+workspaces.keyboard = Kibor: Alt+↑/↓ milih tata perenah. Ctrl/Cmd+N ngédit ngaranna; +S nyimpen salinan; +Enter ngalarapkeun; +U ngapdet; +R ngaganti ngaran; +D mupus; +0 nyetél deui.

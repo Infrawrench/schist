@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Werkruimtes
+workspaces.manage = Bestuur werkruimtes…
+workspaces.painting = Skilder
+workspaces.photo = Foto-ontwikkeling
+workspaces.retouching = Retouchering
+workspaces.current = Huidige uitleg
+workspaces.help = Stoor as skep 'n benoemde kopie van die huidige uitleg. Kies 'n gestoorde uitleg om dit toe te pas, by te werk, te hernoem of te skrap. Uitlegveranderings tree onmiddellik in werking.
+workspaces.show_panels = Wys sypanele
+workspaces.automatic = Outomaties
+workspaces.reset_help = Stel terug herstel slegs die verstekpaneeluitleg. Gestoorde werkruimtes, dokumente en ander voorkeure bly behoue.
+workspaces.save_error = Kon nie werkruimtevoorkeure stoor nie. Die verandering is nie toegepas nie.
+workspaces.invalid_name = Voer 'n naam van 1–80 karakters sonder beheerkarakters in.
+workspaces.duplicate = 'n Werkruimte met hierdie naam bestaan reeds.
+workspaces.limit = Jy kan tot 64 werkruimtes stoor.
+workspaces.keyboard = Sleutelbord: Alt+↑/↓ kies 'n uitleg. Ctrl/Cmd+N wysig die naam; +S stoor 'n kopie; +Enter pas toe; +U werk by; +R hernoem; +D skrap; +0 stel terug.

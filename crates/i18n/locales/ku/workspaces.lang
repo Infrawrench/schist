@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Cihên Xebatê
+workspaces.manage = Cihên Xebatê Birêve Bibe…
+workspaces.painting = Wênekirin
+workspaces.photo = Pêşxistina Wêneyan
+workspaces.retouching = Sererastkirina Wêneyan
+workspaces.current = Rêzkirina niha
+workspaces.help = Tomar Bike Wek kopiyeke bi nav ji rêzkirina niha çêdike. Rêzkirineke tomarkirî hilbijêre da ku wê bi kar bînî, nû bikî, navê wê biguherînî an jê bibî. Guherînên rêzkirinê yekser têne sepandin.
+workspaces.show_panels = Panelên alî nîşan bide
+workspaces.automatic = Bixweber
+workspaces.reset_help = Vegerîne Destpêkê tenê rêzkirina panelan a bingehîn vedigerîne. Cihên xebatê yên tomarkirî, belge û tercîhên din tên parastin.
+workspaces.save_error = Tercîhên cihê xebatê nehatin tomarkirin. Guherîn nehat sepandin.
+workspaces.invalid_name = Navekî ji 1–80 tîpan bêyî tîpên kontrolê binivîse.
+workspaces.duplicate = Cihekî xebatê bi vî navî jixwe heye.
+workspaces.limit = Tu dikarî heta 64 cihên xebatê tomar bikî.
+workspaces.keyboard = Klavye: Alt+↑/↓ rêzkirinekê hilbijêre. Ctrl/Cmd+N navê wê biguherîne; +S kopiyek tomar dike; +Enter bi kar tîne; +U nû dike; +R navê diguherîne; +D jê dibe; +0 vedigerîne destpêkê.

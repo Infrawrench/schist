@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = ワークスペース
+workspaces.manage = ワークスペースを管理…
+workspaces.painting = ペイント
+workspaces.photo = 写真現像
+workspaces.retouching = レタッチ
+workspaces.current = 現在のレイアウト
+workspaces.help = 「別名で保存」で現在のレイアウトのコピーに名前を付けて保存します。保存済みのレイアウトを選択して、適用、更新、名前変更、削除ができます。レイアウトの変更はすぐに反映されます。
+workspaces.show_panels = サイドパネルを表示
+workspaces.automatic = 自動
+workspaces.reset_help = リセットはパネルのレイアウトのみを初期設定に戻します。保存済みのワークスペース、ドキュメント、その他の環境設定は保持されます。
+workspaces.save_error = ワークスペースの環境設定を保存できませんでした。変更は適用されていません。
+workspaces.invalid_name = 制御文字を含まない1～80文字の名前を入力してください。
+workspaces.duplicate = この名前のワークスペースは既に存在します。
+workspaces.limit = ワークスペースは64個まで保存できます。
+workspaces.keyboard = キーボード：Alt+↑/↓でレイアウトを選択。Ctrl/Cmd+Nで名前を編集、+Sでコピーを保存、+Enterで適用、+Uで更新、+Rで名前変更、+Dで削除、+0でリセット。

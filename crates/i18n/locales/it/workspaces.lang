@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Spazi di lavoro
+workspaces.manage = Gestisci spazi di lavoro…
+workspaces.painting = Pittura
+workspaces.photo = Sviluppo fotografico
+workspaces.retouching = Ritocco
+workspaces.current = Disposizione corrente
+workspaces.help = «Salva con nome» crea una copia con nome della disposizione corrente. Seleziona una disposizione salvata per applicarla, aggiornarla, rinominarla o eliminarla. Le modifiche alla disposizione hanno effetto immediato.
+workspaces.show_panels = Mostra pannelli laterali
+workspaces.automatic = Automatico
+workspaces.reset_help = «Ripristina» riporta solo la disposizione dei pannelli a quella predefinita. Gli spazi di lavoro salvati, i documenti e le altre preferenze vengono mantenuti.
+workspaces.save_error = Impossibile salvare le preferenze degli spazi di lavoro. La modifica non è stata applicata.
+workspaces.invalid_name = Inserisci un nome da 1–80 caratteri senza caratteri di controllo.
+workspaces.duplicate = Esiste già uno spazio di lavoro con questo nome.
+workspaces.limit = Puoi salvare fino a 64 spazi di lavoro.
+workspaces.keyboard = Tastiera: Alt+↑/↓ seleziona una disposizione. Ctrl/Cmd+N ne modifica il nome; +S salva una copia; +Enter la applica; +U la aggiorna; +R la rinomina; +D la elimina; +0 la ripristina.

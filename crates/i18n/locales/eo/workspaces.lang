@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Laborspacoj
+workspaces.manage = Administri laborspacojn…
+workspaces.painting = Pentrado
+workspaces.photo = Fotodisvolvado
+workspaces.retouching = Retuŝado
+workspaces.current = Aktuala aranĝo
+workspaces.help = Konservi kiel kreas nomitan kopion de la aktuala aranĝo. Elektu konservitan aranĝon por apliki, ĝisdatigi, alinomi aŭ forigi ĝin. Ŝanĝoj de la aranĝo ekvalidas tuj.
+workspaces.show_panels = Montri flankajn panelojn
+workspaces.automatic = Aŭtomate
+workspaces.reset_help = Restarigi restarigas nur la defaŭltan aranĝon de la paneloj. Konservitaj laborspacoj, dokumentoj kaj aliaj preferoj restas netuŝitaj.
+workspaces.save_error = Ne eblis konservi la preferojn de la laborspaco. La ŝanĝo ne estis aplikita.
+workspaces.invalid_name = Enigu nomon de 1–80 signoj sen stirsignoj.
+workspaces.duplicate = Laborspaco kun tiu nomo jam ekzistas.
+workspaces.limit = Vi povas konservi ĝis 64 laborspacojn.
+workspaces.keyboard = Klavaro: Alt+↑/↓ elektas aranĝon. Ctrl/Cmd+N redaktas ĝian nomon; +S konservas kopion; +Enter aplikas ĝin; +U ĝisdatigas; +R alinomigas; +D forigas; +0 restarigas.

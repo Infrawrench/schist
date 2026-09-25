@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Ruang kerja
+workspaces.manage = Kelola Ruang Kerja…
+workspaces.painting = Melukis
+workspaces.photo = Pengembangan Foto
+workspaces.retouching = Retus
+workspaces.current = Tata letak saat ini
+workspaces.help = “Simpan Sebagai” membuat salinan tata letak saat ini dengan nama. Pilih tata letak tersimpan untuk menerapkan, memperbarui, mengganti nama, atau menghapusnya. Perubahan tata letak langsung berlaku.
+workspaces.show_panels = Tampilkan panel samping
+workspaces.automatic = Otomatis
+workspaces.reset_help = “Atur Ulang” hanya memulihkan tata letak panel bawaan. Ruang kerja tersimpan, dokumen, dan preferensi lainnya tetap dipertahankan.
+workspaces.save_error = Preferensi ruang kerja tidak dapat disimpan. Perubahan tidak diterapkan.
+workspaces.invalid_name = Masukkan nama sepanjang 1–80 karakter tanpa karakter kontrol.
+workspaces.duplicate = Ruang kerja dengan nama ini sudah ada.
+workspaces.limit = Anda dapat menyimpan hingga 64 ruang kerja.
+workspaces.keyboard = Papan ketik: Alt+↑/↓ memilih tata letak. Ctrl/Cmd+N mengedit namanya; +S menyimpan salinan; +Enter menerapkan; +U memperbarui; +R mengganti nama; +D menghapus; +0 mengatur ulang.

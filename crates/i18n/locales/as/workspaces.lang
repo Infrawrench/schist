@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = কৰ্মস্থানসমূহ
+workspaces.manage = কৰ্মস্থানসমূহ পৰিচালনা কৰক…
+workspaces.painting = চিত্ৰাংকন
+workspaces.photo = ফটো বিকাশ
+workspaces.retouching = ফটো সংশোধন
+workspaces.current = বৰ্তমানৰ বিন্যাস
+workspaces.help = এই ৰূপে সংৰক্ষণ কৰক-এ বৰ্তমানৰ বিন্যাসৰ এটা নামযুক্ত প্ৰতিলিপি সৃষ্টি কৰে। প্ৰয়োগ, আপডেট, পুনৰ নামকৰণ বা মচিবলৈ সংৰক্ষিত বিন্যাস এটা নিৰ্বাচন কৰক। বিন্যাসৰ সম্পাদনাসমূহ তৎক্ষণাৎ কাৰ্যকৰী হয়।
+workspaces.show_panels = কাষৰ পেনেলসমূহ দেখুৱাওক
+workspaces.automatic = স্বয়ংক্ৰিয়
+workspaces.reset_help = পুনঃস্থাপন কৰক-এ কেৱল পেনেলসমূহৰ পূৰ্বনিৰ্ধাৰিত বিন্যাস ঘূৰাই আনে। সংৰক্ষিত কৰ্মস্থান, নথিপত্ৰ আৰু অন্য পছন্দসমূহ অক্ষত থাকে।
+workspaces.save_error = কৰ্মস্থানৰ পছন্দসমূহ সংৰক্ষণ কৰিব পৰা নগ'ল। পৰিৱৰ্তনটো প্ৰয়োগ কৰা নহ'ল।
+workspaces.invalid_name = নিয়ন্ত্ৰণ আখৰ নথকা 1–80টা আখৰৰ নাম লিখক।
+workspaces.duplicate = এই নামৰ কৰ্মস্থান ইতিমধ্যে আছে।
+workspaces.limit = আপুনি সৰ্বাধিক 64টা কৰ্মস্থান সংৰক্ষণ কৰিব পাৰে।
+workspaces.keyboard = কীব'ৰ্ড: Alt+↑/↓-এ বিন্যাস নিৰ্বাচন কৰে। Ctrl/Cmd+N-এ ইয়াৰ নাম সম্পাদনা কৰে; +S-এ প্ৰতিলিপি সংৰক্ষণ কৰে; +Enter-এ প্ৰয়োগ কৰে; +U-এ আপডেট কৰে; +R-এ পুনৰ নাম দিয়ে; +D-এ মচে; +0-এ পুনঃস্থাপন কৰে।

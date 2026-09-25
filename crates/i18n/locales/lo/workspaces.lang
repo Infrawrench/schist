@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = ພື້ນທີ່ເຮັດວຽກ
+workspaces.manage = ຈັດການພື້ນທີ່ເຮັດວຽກ…
+workspaces.painting = ການແຕ້ມຮູບ
+workspaces.photo = ການພັດທະນາຮູບຖ່າຍ
+workspaces.retouching = ການຕົກແຕ່ງຮູບພາບ
+workspaces.current = ການຈັດວາງປັດຈຸບັນ
+workspaces.help = ບັນທຶກເປັນ ຈະສ້າງສຳເນົາການຈັດວາງປັດຈຸບັນທີ່ມີຊື່. ເລືອກການຈັດວາງທີ່ບັນທຶກໄວ້ເພື່ອນຳໃຊ້, ອັບເດດ, ປ່ຽນຊື່ ຫຼື ລຶບ. ການແກ້ໄຂການຈັດວາງມີຜົນທັນທີ.
+workspaces.show_panels = ສະແດງແຜງດ້ານຂ້າງ
+workspaces.automatic = ອັດຕະໂນມັດ
+workspaces.reset_help = ຣີເຊັດ ຈະຄືນຄ່າສະເພາະການຈັດວາງແຜງເລີ່ມຕົ້ນ. ພື້ນທີ່ເຮັດວຽກທີ່ບັນທຶກໄວ້, ເອກະສານ ແລະ ການຕັ້ງຄ່າອື່ນໆ ຍັງຄົງຢູ່.
+workspaces.save_error = ບໍ່ສາມາດບັນທຶກການຕັ້ງຄ່າພື້ນທີ່ເຮັດວຽກໄດ້. ການປ່ຽນແປງບໍ່ໄດ້ຖືກນຳໃຊ້.
+workspaces.invalid_name = ປ້ອນຊື່ຍາວ 1–80 ຕົວອັກສອນ ໂດຍບໍ່ມີອັກສອນຄວບຄຸມ.
+workspaces.duplicate = ມີພື້ນທີ່ເຮັດວຽກຊື່ນີ້ແລ້ວ.
+workspaces.limit = ທ່ານສາມາດບັນທຶກພື້ນທີ່ເຮັດວຽກໄດ້ສູງສຸດ 64 ອັນ.
+workspaces.keyboard = ແປ້ນພິມ: Alt+↑/↓ ເລືອກການຈັດວາງ. Ctrl/Cmd+N ແກ້ໄຂຊື່; +S ບັນທຶກສຳເນົາ; +Enter ນຳໃຊ້; +U ອັບເດດ; +R ປ່ຽນຊື່; +D ລຶບ; +0 ຣີເຊັດ.

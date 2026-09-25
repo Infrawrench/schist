@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Mafelo a Tiro
+workspaces.manage = Laola Mafelo a Tiro…
+workspaces.painting = Go Penta
+workspaces.photo = Go Tlhagisa Ditshwantsho
+workspaces.retouching = Go Baakanya Ditshwantsho
+workspaces.current = Thulaganyo ya jaanong
+workspaces.help = Boloka Jaaka e dira khopi e e nang le leina ya thulaganyo ya jaanong. Tlhopha thulaganyo e e bolokilweng go e dirisa, go e ntšhafatsa, go e naya leina le lesha kgotsa go e phimola. Diphetogo tsa thulaganyo di dira ka bonako.
+workspaces.show_panels = Bontsha diphanele tsa mo matlhakoreng
+workspaces.automatic = Ka boiketsetso
+workspaces.reset_help = Simolola sešwa e busetsa thulaganyo ya tlhago ya diphanele fela. Mafelo a tiro a a bolokilweng, ditokomane le ditlhopho tse dingwe di a sala.
+workspaces.save_error = Ga go a kgonega go boloka ditlhopho tsa lefelo la tiro. Phetogo ga e a dirisiwa.
+workspaces.invalid_name = Tsenya leina la ditlhaka tse 1–80 le le se nang ditlhaka tsa taolo.
+workspaces.duplicate = Lefelo la tiro le le nang le leina leno le setse le le teng.
+workspaces.limit = O ka boloka mafelo a tiro a a fitlhang go 64.
+workspaces.keyboard = Khiboto: Alt+↑/↓ e tlhopha thulaganyo. Ctrl/Cmd+N e baakanya leina la yone; +S e boloka khopi; +Enter e e dirisa; +U e e ntšhafatsa; +R e e naya leina le lesha; +D e e phimola; +0 e simolola sešwa.

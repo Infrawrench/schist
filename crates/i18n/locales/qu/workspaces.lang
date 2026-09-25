@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Llank'ana k'itikuna
+workspaces.manage = Llank'ana k'itikunata kamachiy…
+workspaces.painting = Llimp'iy
+workspaces.photo = Fotokunata allinchay
+workspaces.retouching = Fotokunata musuqmanta allinchay
+workspaces.current = Kunan kaq churay
+workspaces.help = Huk hina waqaychay… kunan kaq churaypa sutiyuq kikinchasqanta ruwan. Waqaychasqa churayta akllay, chayta churanaykipaq, musuqchanaykipaq, sutinta tikranaykipaq utaq qullunaykipaq. Churaypi tikraykuna chaylla ruwakun.
+workspaces.show_panels = Waqta panelkunata rikuchiy
+workspaces.automatic = Kikinmanta
+workspaces.reset_help = Qallariyman kutichiy panelkunapa ñawpaqmanta akllasqa churaynillanta kutichin. Waqaychasqa llank'ana k'itikuna, qillqakuna hinaspa huk munasqakuna waqaychasqallam kanku.
+workspaces.save_error = Llank'ana k'itipa munasqankunata waqaychayta mana atikurqanchu. Tikrayqa manam churasqachu karqan.
+workspaces.invalid_name = Kamachiq sanampakunata mana hap'ichispa 1–80 sanampayuq sutita qillqay.
+workspaces.duplicate = Kay sutiyuq llank'ana k'itiqa ñam kanña.
+workspaces.limit = 64 llank'ana k'itikunakama waqaychayta atinki.
+workspaces.keyboard = Ñit'ina tabla: Alt+↑/↓ churayta akllan. Ctrl/Cmd+N sutinta allichan; +S kikinchasqanta waqaychan; +Enter churan; +U musuqchan; +R sutinta tikran; +D qullun; +0 qallariyman kutichin.

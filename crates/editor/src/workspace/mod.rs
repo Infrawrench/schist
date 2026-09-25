@@ -155,6 +155,8 @@ mod toolbar;
 mod typography;
 mod view_options;
 mod viewport;
+mod workspace_presets;
+pub use workspace_presets::WorkspaceEdit;
 
 #[cfg(not(target_arch = "wasm32"))]
 pub(crate) use library_geo::MapSlot;
@@ -901,6 +903,12 @@ pub enum UpdateProgress {
 // plumbing matches exhaustively on every target.
 #[cfg_attr(target_arch = "wasm32", allow(dead_code))]
 pub enum Modal {
+    Workspaces {
+        primary: Option<WorkspaceEdit>,
+        selected: Option<usize>,
+        name: String,
+        error: Option<String>,
+    },
     #[cfg(not(target_arch = "wasm32"))]
     PhotoMerge {
         documents: Vec<schist_core::DocumentId>,

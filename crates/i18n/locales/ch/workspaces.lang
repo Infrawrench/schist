@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Lugåt siha gi cho’cho’
+workspaces.manage = Maneha i lugåt siha gi cho’cho’…
+workspaces.painting = Pintura
+workspaces.photo = Desaroyu fotu siha
+workspaces.retouching = Retoke
+workspaces.current = I disposision på’go
+workspaces.help = Såtba komu ha fa’tinas unu kopia ni gai na’an gi disposision på’go. Ayek unu disposision ni masåtba para un aplika, na’hånom, tulaika i na’ån-ña pat na’suha gui’. I tinilaika gi disposision umifekto ensegidas.
+workspaces.show_panels = Fanue’ i panel siha gi bandan
+workspaces.automatic = Automåtiku
+workspaces.reset_help = Reset ha na’halom tåtte i difettu na disposision i panel siha ha’. I lugåt siha gi cho’cho’ ni masåtba, i dokumentu siha yan i otro na preferensia siha manmåmamaila’ ha’.
+workspaces.save_error = Ti siña masåtba i preferensia siha i lugåt gi cho’cho’. Ti ma’aplika i tinilaika.
+workspaces.invalid_name = Na’halom na’an ni gai 1–80 karakter sin karakter siha ni mankokontrola.
+workspaces.duplicate = Guaha esta lugåt gi cho’cho’ ni parehu na’ån-ña.
+workspaces.limit = Siña un såtba asta 64 lugåt siha gi cho’cho’.
+workspaces.keyboard = Teklådu: Alt+↑/↓ ha ayek i disposision. Ctrl/Cmd+N ha tulaika i na’ån-ña; +S ha såtba unu kopia; +Enter ha aplika; +U ha na’hånom; +R ha tulaika i na’ån-ña; +D ha na’suha; +0 ha reset.

@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Työtilat
+workspaces.manage = Hallitse työtiloja…
+workspaces.painting = Maalaus
+workspaces.photo = Valokuvien kehitys
+workspaces.retouching = Retusointi
+workspaces.current = Nykyinen asettelu
+workspaces.help = Tallenna nimellä luo nykyisestä asettelusta nimetyn kopion. Valitse tallennettu asettelu, kun haluat ottaa sen käyttöön, päivittää sen, nimetä sen uudelleen tai poistaa sen. Asettelun muutokset tulevat voimaan heti.
+workspaces.show_panels = Näytä sivupaneelit
+workspaces.automatic = Automaattinen
+workspaces.reset_help = Palauta palauttaa vain paneelien oletusasettelun. Tallennetut työtilat, asiakirjat ja muut asetukset säilyvät.
+workspaces.save_error = Työtilan asetuksia ei voitu tallentaa. Muutosta ei otettu käyttöön.
+workspaces.invalid_name = Anna 1–80 merkin pituinen nimi, jossa ei ole ohjausmerkkejä.
+workspaces.duplicate = Samanniminen työtila on jo olemassa.
+workspaces.limit = Voit tallentaa enintään 64 työtilaa.
+workspaces.keyboard = Näppäimistö: Alt+↑/↓ valitsee asettelun. Ctrl/Cmd+N muokkaa sen nimeä; +S tallentaa kopion; +Enter ottaa käyttöön; +U päivittää; +R nimeää uudelleen; +D poistaa; +0 palauttaa.

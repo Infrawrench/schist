@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Iş giňişlikleri
+workspaces.manage = Iş giňişliklerini dolandyrmak…
+workspaces.painting = Surat çekmek
+workspaces.photo = Fotosuratlary işlemek
+workspaces.retouching = Fotosuratlary retuş etmek
+workspaces.current = Häzirki ýerleşiş
+workspaces.help = Başgaça saklamak häzirki ýerleşişiň atlandyrylan nusgasyny döredýär. Saklanan ýerleşişi ulanmak, täzelemek, adyny üýtgetmek ýa-da pozmak üçin ony saýlaň. Ýerleşişdäki üýtgeşmeler dessine güýje girýär.
+workspaces.show_panels = Gapdal panelleri görkezmek
+workspaces.automatic = Awtomatik
+workspaces.reset_help = Täzeden düzmek diňe panelleriň başlangyç ýerleşişini dikeldýär. Saklanan iş giňişlikleri, resminamalar we beýleki sazlamalar saklanýar.
+workspaces.save_error = Iş giňişliginiň sazlamalaryny saklap bolmady. Üýtgeşme ulanylmady.
+workspaces.invalid_name = Dolandyryş nyşanlary bolmadyk 1–80 nyşanly at giriziň.
+workspaces.duplicate = Şeýle atly iş giňişligi eýýäm bar.
+workspaces.limit = 64-e çenli iş giňişligini saklap bilersiňiz.
+workspaces.keyboard = Klawiatura: Alt+↑/↓ ýerleşişi saýlaýar. Ctrl/Cmd+N onuň adyny redaktirleýär; +S nusgasyny saklaýar; +Enter ulanýar; +U täzeleýär; +R adyny üýtgedýär; +D pozýar; +0 täzeden düzýär.

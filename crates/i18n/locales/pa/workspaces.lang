@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = ਕਾਰਜ-ਥਾਵਾਂ
+workspaces.manage = ਕਾਰਜ-ਥਾਵਾਂ ਦਾ ਪ੍ਰਬੰਧ ਕਰੋ…
+workspaces.painting = ਚਿੱਤਰਕਾਰੀ
+workspaces.photo = ਫ਼ੋਟੋ ਵਿਕਾਸ
+workspaces.retouching = ਫ਼ੋਟੋ ਸੁਧਾਈ
+workspaces.current = ਮੌਜੂਦਾ ਖਾਕਾ
+workspaces.help = ਇਸ ਵਜੋਂ ਸੰਭਾਲੋ… ਮੌਜੂਦਾ ਖਾਕੇ ਦੀ ਨਾਮ ਵਾਲੀ ਕਾਪੀ ਬਣਾਉਂਦਾ ਹੈ। ਸੰਭਾਲੇ ਖਾਕੇ ਨੂੰ ਲਾਗੂ ਕਰਨ, ਅੱਪਡੇਟ ਕਰਨ, ਨਾਮ ਬਦਲਣ ਜਾਂ ਮਿਟਾਉਣ ਲਈ ਚੁਣੋ। ਖਾਕੇ ਵਿੱਚ ਤਬਦੀਲੀਆਂ ਤੁਰੰਤ ਲਾਗੂ ਹੁੰਦੀਆਂ ਹਨ।
+workspaces.show_panels = ਪਾਸੇ ਦੇ ਪੈਨਲ ਦਿਖਾਓ
+workspaces.automatic = ਆਪਣੇ ਆਪ
+workspaces.reset_help = ਰੀਸੈੱਟ ਕਰੋ ਸਿਰਫ਼ ਮੂਲ ਪੈਨਲ ਖਾਕਾ ਬਹਾਲ ਕਰਦਾ ਹੈ। ਸੰਭਾਲੀਆਂ ਕਾਰਜ-ਥਾਵਾਂ, ਦਸਤਾਵੇਜ਼ ਅਤੇ ਹੋਰ ਤਰਜੀਹਾਂ ਬਰਕਰਾਰ ਰਹਿੰਦੀਆਂ ਹਨ।
+workspaces.save_error = ਕਾਰਜ-ਥਾਂ ਦੀਆਂ ਤਰਜੀਹਾਂ ਸੰਭਾਲੀਆਂ ਨਹੀਂ ਜਾ ਸਕੀਆਂ। ਤਬਦੀਲੀ ਲਾਗੂ ਨਹੀਂ ਹੋਈ।
+workspaces.invalid_name = ਕੰਟਰੋਲ ਅੱਖਰਾਂ ਤੋਂ ਬਿਨਾਂ 1–80 ਅੱਖਰਾਂ ਦਾ ਨਾਮ ਦਰਜ ਕਰੋ।
+workspaces.duplicate = ਇਸ ਨਾਮ ਦੀ ਕਾਰਜ-ਥਾਂ ਪਹਿਲਾਂ ਹੀ ਮੌਜੂਦ ਹੈ।
+workspaces.limit = ਤੁਸੀਂ ਵੱਧ ਤੋਂ ਵੱਧ 64 ਕਾਰਜ-ਥਾਵਾਂ ਸੰਭਾਲ ਸਕਦੇ ਹੋ।
+workspaces.keyboard = ਕੀਬੋਰਡ: Alt+↑/↓ ਖਾਕਾ ਚੁਣਦਾ ਹੈ। Ctrl/Cmd+N ਇਸ ਦਾ ਨਾਮ ਸੋਧਦਾ ਹੈ; +S ਕਾਪੀ ਸੰਭਾਲਦਾ ਹੈ; +Enter ਲਾਗੂ ਕਰਦਾ ਹੈ; +U ਅੱਪਡੇਟ ਕਰਦਾ ਹੈ; +R ਨਾਮ ਬਦਲਦਾ ਹੈ; +D ਮਿਟਾਉਂਦਾ ਹੈ; +0 ਰੀਸੈੱਟ ਕਰਦਾ ਹੈ।

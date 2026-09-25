@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Espacios de treballo
+workspaces.manage = Chestionar espacios de treballo…
+workspaces.painting = Pintura
+workspaces.photo = Revelau de fotos
+workspaces.retouching = Retuque
+workspaces.current = Disposición actual
+workspaces.help = Alzar como crea una copia con nombre d'a disposición actual. Tría una disposición alzada ta aplicar-la, actualizar-la, renombrar-la u borrar-la. Os cambios en a disposición s'aplican de traza immediata.
+workspaces.show_panels = Amostrar os panels laterals
+workspaces.automatic = Automatico
+workspaces.reset_help = Restablir recupera nomás a disposición predeterminada d'os panels. Os espacios de treballo alzaus, os documentos y as atras preferencias se conservan.
+workspaces.save_error = No s'han puesto alzar as preferencias d'o espacio de treballo. O cambio no s'ha aplicau.
+workspaces.invalid_name = Introduz un nombre de 1–80 caracters sin caracters de control.
+workspaces.duplicate = Ya existe un espacio de treballo con iste nombre.
+workspaces.limit = Puetz alzar dica 64 espacios de treballo.
+workspaces.keyboard = Teclau: Alt+↑/↓ tría una disposición. Ctrl/Cmd+N edita o suyo nombre; +S alza una copia; +Enter aplica; +U actualiza; +R renombra; +D borra; +0 restableix.

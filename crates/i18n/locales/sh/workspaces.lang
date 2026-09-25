@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Radni prostori
+workspaces.manage = Upravljaj radnim prostorima…
+workspaces.painting = Slikanje
+workspaces.photo = Razvijanje fotografija
+workspaces.retouching = Retuširanje
+workspaces.current = Trenutačni raspored
+workspaces.help = „Spremi kao” stvara imenovanu kopiju trenutačnog rasporeda. Odaberite spremljeni raspored da biste ga primijenili, ažurirali, preimenovali ili izbrisali. Promjene rasporeda stupaju na snagu odmah.
+workspaces.show_panels = Prikaži bočne ploče
+workspaces.automatic = Automatski
+workspaces.reset_help = „Ponovno postavi” vraća samo zadani raspored ploča. Spremljeni radni prostori, dokumenti i ostale postavke ostaju sačuvani.
+workspaces.save_error = Postavke radnog prostora nije bilo moguće spremiti. Promjena nije primijenjena.
+workspaces.invalid_name = Unesite naziv od 1–80 znakova bez kontrolnih znakova.
+workspaces.duplicate = Radni prostor s tim nazivom već postoji.
+workspaces.limit = Možete spremiti najviše 64 radna prostora.
+workspaces.keyboard = Tipkovnica: Alt+↑/↓ odabire raspored. Ctrl/Cmd+N uređuje njegov naziv; +S sprema kopiju; +Enter primjenjuje; +U ažurira; +R preimenuje; +D briše; +0 ponovno postavlja.

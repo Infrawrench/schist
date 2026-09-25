@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Espacis de trabalh
+workspaces.manage = Gerir los espacis de trabalh…
+workspaces.painting = Pintura
+workspaces.photo = Desvolopament fotografic
+workspaces.retouching = Retòca
+workspaces.current = Disposicion actuala
+workspaces.help = Enregistrar jos… crèa una còpia nomenada de la disposicion actuala. Seleccionatz una disposicion enregistrada per l'aplicar, l'actualizar, la renomenar o la suprimir. Las modificacions de la disposicion prenon efièch sulpic.
+workspaces.show_panels = Afichar los panèls laterals
+workspaces.automatic = Automatic
+workspaces.reset_help = Reïnicializar restablís sonque la disposicion per defaut dels panèls. Los espacis de trabalh enregistrats, los documents e las autras preferéncias son conservats.
+workspaces.save_error = Impossible d'enregistrar las preferéncias dels espacis de trabalh. La modificacion es pas estada aplicada.
+workspaces.invalid_name = Picatz un nom de 1–80 caractèrs sens caractèrs de contraròtle.
+workspaces.duplicate = Un espaci de trabalh amb aquel nom existís ja.
+workspaces.limit = Podètz enregistrar fins a 64 espacis de trabalh.
+workspaces.keyboard = Clavièr: Alt+↑/↓ selecciona una disposicion. Ctrl/Cmd+N modifica son nom; +S n'enregistra una còpia; +Enter l'aplica; +U l'actualiza; +R la renomena; +D la suprimís; +0 la reïnicializa.

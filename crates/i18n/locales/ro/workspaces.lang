@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Spații de lucru
+workspaces.manage = Gestionează spațiile de lucru…
+workspaces.painting = Pictură
+workspaces.photo = Developare foto
+workspaces.retouching = Retușare
+workspaces.current = Aspectul curent
+workspaces.help = Salvare ca… creează o copie cu nume a aspectului curent. Selectează un aspect salvat pentru a-l aplica, actualiza, redenumi sau șterge. Modificările aspectului se aplică imediat.
+workspaces.show_panels = Afișează panourile laterale
+workspaces.automatic = Automat
+workspaces.reset_help = Resetare restabilește doar aranjarea implicită a panourilor. Spațiile de lucru salvate, documentele și celelalte preferințe se păstrează.
+workspaces.save_error = Preferințele spațiului de lucru nu au putut fi salvate. Modificarea nu a fost aplicată.
+workspaces.invalid_name = Introdu un nume de 1–80 de caractere, fără caractere de control.
+workspaces.duplicate = Există deja un spațiu de lucru cu acest nume.
+workspaces.limit = Poți salva până la 64 de spații de lucru.
+workspaces.keyboard = Tastatură: Alt+↑/↓ selectează un aspect. Ctrl/Cmd+N îi editează numele; +S salvează o copie; +Enter îl aplică; +U îl actualizează; +R îl redenumește; +D îl șterge; +0 îl resetează.

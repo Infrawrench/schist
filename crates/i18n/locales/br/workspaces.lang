@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Tachennoù labour
+workspaces.manage = Merañ an tachennoù labour…
+workspaces.painting = Livañ
+workspaces.photo = Diorren luc’hskeudennoù
+workspaces.retouching = Retouchañ
+workspaces.current = Kempennadur bremañ
+workspaces.help = Enrollañ evel a grou un eilenn anvet eus ar c’hempennadur bremañ. Diuzit ur c’hempennadur enrollet evit e arloañ, e hizivaat, e adenvel pe e zilemel. Ar cheñchamantoù er c’hempennadur a zeu da dalvezout diouzhtu.
+workspaces.show_panels = Diskouez ar panelloù kostez
+workspaces.automatic = Emgefreek
+workspaces.reset_help = Adderaouekaat a adlaka kempennadur dre ziouer ar panelloù hepken. Miret e vez an tachennoù labour enrollet, an teulioù hag an dibaboù all.
+workspaces.save_error = N’haller ket enrollañ dibaboù an dachenn labour. N’eo ket bet arloet ar cheñchamant.
+workspaces.invalid_name = Roit un anv a 1–80 arouezenn hep arouezenn reoliñ.
+workspaces.duplicate = Un dachenn labour gant an anv-mañ a zo anezhi dija.
+workspaces.limit = Gallout a rit enrollañ betek 64 tachenn labour.
+workspaces.keyboard = Klavier: Alt+↑/↓ a zibab ur c’hempennadur. Ctrl/Cmd+N a gemm e anv; +S a enroll un eilenn; +Enter a arlo anezhañ; +U a hiziva anezhañ; +R a adenvel anezhañ; +D a zilemel anezhañ; +0 a adderaoueka.

@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Werkruimten
+workspaces.manage = Werkruimten beheren…
+workspaces.painting = Schilderen
+workspaces.photo = Foto-ontwikkeling
+workspaces.retouching = Retoucheren
+workspaces.current = Huidige indeling
+workspaces.help = Opslaan als maakt een kopie met een eigen naam van de huidige indeling. Selecteer een opgeslagen indeling om deze toe te passen, bij te werken, te hernoemen of te verwijderen. Wijzigingen in de indeling worden direct van kracht.
+workspaces.show_panels = Zijpanelen tonen
+workspaces.automatic = Automatisch
+workspaces.reset_help = Herstellen zet alleen de standaardindeling van de panelen terug. Opgeslagen werkruimten, documenten en andere voorkeuren blijven behouden.
+workspaces.save_error = Kan de voorkeuren voor werkruimten niet opslaan. De wijziging is niet toegepast.
+workspaces.invalid_name = Voer een naam van 1–80 tekens in zonder besturingstekens.
+workspaces.duplicate = Er bestaat al een werkruimte met deze naam.
+workspaces.limit = U kunt maximaal 64 werkruimten opslaan.
+workspaces.keyboard = Toetsenbord: Alt+↑/↓ selecteert een indeling. Ctrl/Cmd+N bewerkt de naam; +S slaat een kopie op; +Enter past toe; +U werkt bij; +R wijzigt de naam; +D verwijdert; +0 herstelt de standaardindeling.

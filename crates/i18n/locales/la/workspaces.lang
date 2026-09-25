@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Spatia Laboris
+workspaces.manage = Spatia Laboris Administra…
+workspaces.painting = Pictura
+workspaces.photo = Elaboratio Photographematum
+workspaces.retouching = Emendatio Imaginum
+workspaces.current = Dispositio praesens
+workspaces.help = Serva Ut exemplar nominatum dispositionis praesentis creat. Dispositionem servatam elige ut eam adhibeas, renoves, alio nomine appelles aut deleas. Mutationes dispositionis statim valent.
+workspaces.show_panels = Tabulas laterales ostende
+workspaces.automatic = Automatum
+workspaces.reset_help = Restitue solam dispositionem tabularum pristinam reddit. Spatia laboris servata, documenta ceteraeque optiones servantur.
+workspaces.save_error = Optiones spatii laboris servari non potuerunt. Mutatio non adhibita est.
+workspaces.invalid_name = Nomen 1–80 characterum sine characteribus moderantibus inscribe.
+workspaces.duplicate = Spatium laboris hoc nomine iam exstat.
+workspaces.limit = Usque ad 64 spatia laboris servare potes.
+workspaces.keyboard = Claviatura: Alt+↑/↓ dispositionem eligit. Ctrl/Cmd+N nomen eius emendat; +S exemplar servat; +Enter adhibet; +U renovat; +R alio nomine appellat; +D delet; +0 restituit.

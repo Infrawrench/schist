@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Tindzawo tekusebenta
+workspaces.manage = Phatsa tindzawo tekusebenta…
+workspaces.painting = Kupenda
+workspaces.photo = Kutfutfukisa titfombe
+workspaces.retouching = Kulolonga titfombe
+workspaces.current = Kuhleleka kwamanje
+workspaces.help = Gcina Njenge… kwakha ikhophi lenelibito yekuhleleka kwamanje. Khetsa kuhleleka lokugciniwe kuze ukusebentise, ukubuyekete, ukukwetsa libito lelisha noma ukukususe. Tingucuko ekuhlelekeni tisebenta masinyane.
+workspaces.show_panels = Khombisa emaphaneli lasemaceleni
+workspaces.automatic = Ngekutentakalela
+workspaces.reset_help = Setha Kabusha kubuyisela kuhleleka kwemaphaneli lokumisiwe kuphela. Tindzawo tekusebenta letigciniwe, emadokhumenti nalokunye lokukhetsiwe kuhlala kukhona.
+workspaces.save_error = Akukhonakali kugcina lokukhetsiwe kwetindzawo tekusebenta. Ingucuko ayikasetjentiswa.
+workspaces.invalid_name = Faka libito lelinetinhlavu letingu-1–80 lelingenatinhlavu tekulawula.
+workspaces.duplicate = Sekuvele kunendzawo yekusebenta lenalelibito.
+workspaces.limit = Ungagcina tindzawo tekusebenta letifika ku-64.
+workspaces.keyboard = Ikhibhodi: Alt+↑/↓ ikhetsa kuhleleka. Ctrl/Cmd+N ihlela libito lakho; +S igcina ikhophi; +Enter iyakusebentisa; +U iyakubuyeketa; +R ikwetsa libito lelisha; +D iyakususa; +0 ikusethela kabusha.

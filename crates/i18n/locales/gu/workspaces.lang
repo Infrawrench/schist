@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = કાર્યસ્થાનો
+workspaces.manage = કાર્યસ્થાનો સંચાલિત કરો…
+workspaces.painting = ચિત્રકામ
+workspaces.photo = ફોટો વિકાસ
+workspaces.retouching = રીટચિંગ
+workspaces.current = વર્તમાન ગોઠવણી
+workspaces.help = આ રીતે સાચવો વર્તમાન ગોઠવણીની નામવાળી નકલ બનાવે છે. સાચવેલી ગોઠવણી લાગુ કરવા, અપડેટ કરવા, તેનું નામ બદલવા અથવા તેને કાઢી નાખવા માટે તેને પસંદ કરો. ગોઠવણીના ફેરફારો તરત લાગુ થાય છે.
+workspaces.show_panels = બાજુની પેનલો બતાવો
+workspaces.automatic = આપમેળે
+workspaces.reset_help = રીસેટ કરો ફક્ત પેનલોની મૂળભૂત ગોઠવણી પુનઃસ્થાપિત કરે છે. સાચવેલાં કાર્યસ્થાનો, દસ્તાવેજો અને અન્ય પસંદગીઓ જળવાઈ રહે છે.
+workspaces.save_error = કાર્યસ્થાનની પસંદગીઓ સાચવી શકાઈ નથી. ફેરફાર લાગુ થયો નથી.
+workspaces.invalid_name = નિયંત્રણ અક્ષરો વગરનું 1–80 અક્ષરનું નામ દાખલ કરો.
+workspaces.duplicate = આ નામનું કાર્યસ્થાન પહેલેથી અસ્તિત્વમાં છે.
+workspaces.limit = તમે વધુમાં વધુ 64 કાર્યસ્થાનો સાચવી શકો છો.
+workspaces.keyboard = કીબોર્ડ: Alt+↑/↓ ગોઠવણી પસંદ કરે છે. Ctrl/Cmd+N તેનું નામ સંપાદિત કરે છે; +S નકલ સાચવે છે; +Enter લાગુ કરે છે; +U અપડેટ કરે છે; +R નામ બદલે છે; +D કાઢી નાખે છે; +0 રીસેટ કરે છે.

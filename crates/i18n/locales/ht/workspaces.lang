@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Espas travay
+workspaces.manage = Jere espas travay yo…
+workspaces.painting = Penti
+workspaces.photo = Devlopman foto
+workspaces.retouching = Retouch foto
+workspaces.current = Dispozisyon aktyèl la
+workspaces.help = « Anrejistre kòm » kreye yon kopi dispozisyon aktyèl la ak yon non. Chwazi yon dispozisyon ou te anrejistre pou aplike l, mete l ajou, chanje non l oswa efase l. Chanjman nan dispozisyon an pran efè touswit.
+workspaces.show_panels = Montre pano sou kote yo
+workspaces.automatic = Otomatik
+workspaces.reset_help = « Reyinisyalize » remete sèlman dispozisyon pano yo nan eta pa defo. Espas travay ou te anrejistre yo, dokiman yo ak lòt preferans yo rete konsève.
+workspaces.save_error = Nou pa t kapab anrejistre preferans espas travay yo. Chanjman an pa t aplike.
+workspaces.invalid_name = Antre yon non ki gen 1–80 karaktè san karaktè kontwòl.
+workspaces.duplicate = Gen yon espas travay ki deja gen non sa a.
+workspaces.limit = Ou ka anrejistre jiska 64 espas travay.
+workspaces.keyboard = Klavye: Alt+↑/↓ chwazi yon dispozisyon. Ctrl/Cmd+N modifye non li; +S anrejistre yon kopi; +Enter aplike li; +U mete l ajou; +R chanje non li; +D efase li; +0 reyinisyalize li.

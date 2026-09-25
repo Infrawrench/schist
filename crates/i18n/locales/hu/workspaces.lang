@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Munkaterületek
+workspaces.manage = Munkaterületek kezelése…
+workspaces.painting = Festés
+workspaces.photo = Fotók előhívása
+workspaces.retouching = Retusálás
+workspaces.current = Jelenlegi elrendezés
+workspaces.help = A „Mentés másként” névvel ellátott másolatot készít a jelenlegi elrendezésről. Válasszon ki egy mentett elrendezést az alkalmazásához, frissítéséhez, átnevezéséhez vagy törléséhez. Az elrendezés módosításai azonnal érvénybe lépnek.
+workspaces.show_panels = Oldalsó panelek megjelenítése
+workspaces.automatic = Automatikus
+workspaces.reset_help = A „Visszaállítás” csak a panelek alapértelmezett elrendezését állítja vissza. A mentett munkaterületek, dokumentumok és egyéb beállítások megmaradnak.
+workspaces.save_error = Nem sikerült menteni a munkaterület beállításait. A módosítás nem lépett érvénybe.
+workspaces.invalid_name = Adjon meg egy 1–80 karakter hosszú nevet vezérlőkarakterek nélkül.
+workspaces.duplicate = Már létezik ilyen nevű munkaterület.
+workspaces.limit = Legfeljebb 64 munkaterületet menthet.
+workspaces.keyboard = Billentyűzet: Alt+↑/↓ elrendezést választ. Ctrl/Cmd+N szerkeszti a nevét; +S másolatot ment; +Enter alkalmazza; +U frissíti; +R átnevezi; +D törli; +0 visszaállítja.

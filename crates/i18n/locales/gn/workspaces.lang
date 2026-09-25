@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Tembiaporã renda
+workspaces.manage = Eñangareko tembiaporã rendáre…
+workspaces.painting = Pintura
+workspaces.photo = Ta'anga ñembosako'i
+workspaces.retouching = Ta'anga ñemyatyrõ
+workspaces.current = Ñemohenda ko'ág̃agua
+workspaces.help = Ñongatu péicha ojapo peteĩ kópia herava ñemohenda ko'ág̃uágui. Eiporavo peteĩ ñemohenda oñeñongatuva'ekue emoĩ, embopyahu, embohéra jey térã embogue hag̃ua. Ñemohenda ñemoambue ojeporu pya'e.
+workspaces.show_panels = Ehechauka panel ykepegua
+workspaces.automatic = Ijehegui
+workspaces.reset_help = Moĩjey omboguevi panel-kuéra ñemohenda ypykuépe añoite. Tembiaporã renda oñeñongatuva'ekue, kuatia ha ambue jeporavo opyta.
+workspaces.save_error = Ndaikatúi oñeñongatu tembiaporã renda jeporavokuéra. Ñemoambue ndojeporúi.
+workspaces.invalid_name = Emoinge peteĩ téra oguerekóva 1–80 tai ha ndoguerekóiva tai control-pegua.
+workspaces.duplicate = Oĩma peteĩ tembiaporã renda ko térava.
+workspaces.limit = Ikatu reñongatu 64 tembiaporã renda peve.
+workspaces.keyboard = Teclado: Alt+↑/↓ oiporavo peteĩ ñemohenda. Ctrl/Cmd+N omoambue héra; +S oñongatu peteĩ kópia; +Enter omoĩ; +U ombopyahu; +R ombohéra jey; +D ombogue; +0 omoĩjey.

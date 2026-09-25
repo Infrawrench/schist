@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Dɔwɔƒeƒewo
+workspaces.manage = Dzikpɔ dɔwɔƒeƒewo dzi…
+workspaces.painting = Nutata
+workspaces.photo = Fotowo ŋu dɔwɔwɔ
+workspaces.retouching = Fotowo ŋu gbugbɔwɔ
+workspaces.current = Ɖoɖo si le fifia
+workspaces.help = Dzra ɖo abe wɔa ɖoɖo si le fifia ƒe kopi si ŋkɔ le ŋu. Tia ɖoɖo si woɖo da ɖi be nàzãe, atrɔe, atrɔ eŋkɔ alo atutui. Tɔtrɔ siwo nèwɔ le ɖoɖoa ŋu la wɔa dɔ enumake.
+workspaces.show_panels = Fia teƒe siwo le axawo ŋu
+workspaces.automatic = Ewɔa eɖokui
+workspaces.reset_help = Ɖo egɔme gbugbɔna teƒeawo ƒe ɖoɖo gbãtɔ ko. Dɔwɔƒeƒe siwo woɖo da ɖi, nuŋlɔɖiwo kple tiatia bubuwo nɔa anyi.
+workspaces.save_error = Mete ŋu ɖo dɔwɔƒeƒe ƒe tiatiawo da o. Womezã tɔtrɔa o.
+workspaces.invalid_name = Ŋlɔ ŋkɔ si me dzesi 1–80 le eye dziɖuɖu ƒe dzesiwo mele eme o.
+workspaces.duplicate = Dɔwɔƒeƒe si ŋkɔ le nenema la li xoxo.
+workspaces.limit = Àte ŋu aɖo dɔwɔƒeƒe 64 va se ɖe afima.
+workspaces.keyboard = Kibɔd: Alt+↑/↓ tiaa ɖoɖo. Ctrl/Cmd+N trɔa eŋkɔ; +S ɖoa kopi da ɖi; +Enter zãe; +U trɔa eƒe nyawo; +R trɔa eŋkɔ; +D tutui; +0 ɖoa egɔme.

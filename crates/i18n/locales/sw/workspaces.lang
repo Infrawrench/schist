@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Nafasi za Kazi
+workspaces.manage = Dhibiti Nafasi za Kazi…
+workspaces.painting = Uchoraji
+workspaces.photo = Uandaaji wa Picha
+workspaces.retouching = Urekebishaji wa Picha
+workspaces.current = Mpangilio wa sasa
+workspaces.help = Hifadhi Kama huunda nakala yenye jina ya mpangilio wa sasa. Chagua mpangilio uliohifadhiwa ili kuutumia, kuusasisha, kuubadilisha jina au kuufuta. Mabadiliko ya mpangilio hutumika mara moja.
+workspaces.show_panels = Onyesha paneli za pembeni
+workspaces.automatic = Kiotomatiki
+workspaces.reset_help = Weka Upya hurejesha mpangilio chaguomsingi wa paneli pekee. Nafasi za kazi zilizohifadhiwa, hati na mapendeleo mengine hubaki.
+workspaces.save_error = Imeshindwa kuhifadhi mapendeleo ya nafasi za kazi. Badiliko halikutumika.
+workspaces.invalid_name = Weka jina lenye herufi 1–80 bila vibambo vya udhibiti.
+workspaces.duplicate = Nafasi ya kazi yenye jina hili tayari ipo.
+workspaces.limit = Unaweza kuhifadhi hadi nafasi 64 za kazi.
+workspaces.keyboard = Kibodi: Alt+↑/↓ huchagua mpangilio. Ctrl/Cmd+N huhariri jina lake; +S huhifadhi nakala; +Enter hutumia; +U husasisha; +R hubadilisha jina; +D hufuta; +0 huweka upya.

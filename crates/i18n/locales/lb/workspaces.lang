@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Aarbechtsberäicher
+workspaces.manage = Aarbechtsberäicher verwalten…
+workspaces.painting = Molerei
+workspaces.photo = Fotoentwécklung
+workspaces.retouching = Retusche
+workspaces.current = Aktuellt Layout
+workspaces.help = Späicheren als erstellt eng Kopie vum aktuelle Layout mat engem Numm. Wielt e gespäichert Layout aus, fir et unzewenden, ze aktualiséieren, ëmzebenennen oder ze läschen. Ännerungen um Layout wierken direkt.
+workspaces.show_panels = Säitepanneauen uweisen
+workspaces.automatic = Automatesch
+workspaces.reset_help = Zerécksetzen stellt nëmmen d'Standarduerdnung vun de Panneauen erëm hier. Gespäichert Aarbechtsberäicher, Dokumenter an aner Astellunge bleiwen erhalen.
+workspaces.save_error = D'Astellunge vum Aarbechtsberäich konnten net gespäichert ginn. D'Ännerung gouf net ugewannt.
+workspaces.invalid_name = Gitt en Numm mat 1–80 Zeechen ouni Steierzeechen an.
+workspaces.duplicate = En Aarbechtsberäich mat dësem Numm gëtt et schonn.
+workspaces.limit = Dir kënnt bis zu 64 Aarbechtsberäicher späicheren.
+workspaces.keyboard = Tastatur: Alt+↑/↓ wielt e Layout. Ctrl/Cmd+N ännert säin Numm; +S späichert eng Kopie; +Enter applizéiert et; +U aktualiséiert et; +R benennt et ëm; +D läscht et; +0 setzt et zeréck.

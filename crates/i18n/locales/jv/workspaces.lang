@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Ruang kerja
+workspaces.manage = Atur ruang kerja…
+workspaces.painting = Nglukis
+workspaces.photo = Ngolah foto
+workspaces.retouching = Mbenerake foto
+workspaces.current = Tata letak saiki
+workspaces.help = “Simpen Minangka” nggawe salinan tata letak saiki sing diwenehi jeneng. Pilih tata letak sing wis disimpen kanggo ngetrapake, nganyari, ngganti jeneng, utawa mbusak. Owah-owahan tata letak langsung ditrapake.
+workspaces.show_panels = Tampilake panel sisih
+workspaces.automatic = Otomatis
+workspaces.reset_help = “Balèkna” mung mbalèkake tata letak panel menyang setelan gawan. Ruang kerja sing wis disimpen, dokumen, lan pilihan liyane tetep ana.
+workspaces.save_error = Pilihan ruang kerja ora bisa disimpen. Owah-owahan ora ditrapake.
+workspaces.invalid_name = Lebokna jeneng 1–80 karakter tanpa karakter kontrol.
+workspaces.duplicate = Ruang kerja kanthi jeneng iki wis ana.
+workspaces.limit = Sampeyan bisa nyimpen nganti 64 ruang kerja.
+workspaces.keyboard = Papan ketik: Alt+↑/↓ milih tata letak. Ctrl/Cmd+N ngowahi jenenge; +S nyimpen salinan; +Enter ngetrapake; +U nganyari; +R ngganti jeneng; +D mbusak; +0 mbalèkake.

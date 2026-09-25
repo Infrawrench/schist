@@ -349,6 +349,14 @@ pub fn local_get(key: &str) -> Option<String> {
         .ok()?
 }
 
+pub fn local_set_checked(key: &str, value: &str) -> Result<(), wasm_bindgen::JsValue> {
+    let storage = web_sys::window()
+        .ok_or_else(|| wasm_bindgen::JsValue::from_str("No window"))?
+        .local_storage()?
+        .ok_or_else(|| wasm_bindgen::JsValue::from_str("Storage unavailable"))?;
+    storage.set_item(key, value)
+}
+
 pub fn local_set(key: &str, value: &str) {
     if let Some(storage) = web_sys::window().and_then(|w| w.local_storage().ok().flatten()) {
         let _ = storage.set_item(key, value);

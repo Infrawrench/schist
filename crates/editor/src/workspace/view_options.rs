@@ -94,7 +94,7 @@ impl Workspace {
         if crate::ui::compact(window) {
             self.panels_overlay_open
         } else {
-            self.view.side_panels || !crate::ui::touch()
+            self.view.side_panels
         }
     }
 

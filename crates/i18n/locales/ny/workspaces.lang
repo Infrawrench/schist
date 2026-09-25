@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Malo ogwirira ntchito
+workspaces.manage = Sinthani malo ogwirira ntchito…
+workspaces.painting = Kujambula
+workspaces.photo = Kukonza zithunzi
+workspaces.retouching = Kukongoletsa zithunzi
+workspaces.current = Kapangidwe kamene kalipo
+workspaces.help = Sungani Monga… imapanga kopi ya kapangidwe kamene kalipo yokhala ndi dzina. Sankhani kapangidwe kosungidwa kuti mugwiritse ntchito, musinthe, musinthe dzina kapena muchotse. Zosintha za kapangidwe zimagwira ntchito nthawi yomweyo.
+workspaces.show_panels = Onetsani mapanelo am'mbali
+workspaces.automatic = Zodziwikiratu
+workspaces.reset_help = Bwezeretsani imabwezeretsa kapangidwe koyambirira ka mapanelo kokha. Malo ogwirira ntchito osungidwa, zikalata ndi zokonda zina zimasungidwabe.
+workspaces.save_error = Sitinakwanitse kusunga zokonda za malo ogwirira ntchito. Kusinthaku sikunagwire ntchito.
+workspaces.invalid_name = Lowetsani dzina la zilembo 1–80 lopanda zilembo zowongolera.
+workspaces.duplicate = Malo ogwirira ntchito okhala ndi dzinali alipo kale.
+workspaces.limit = Mungasunge malo ogwirira ntchito mpaka 64.
+workspaces.keyboard = Kiyibodi: Alt+↑/↓ imasankha kapangidwe. Ctrl/Cmd+N imasintha dzina lake; +S imasunga kopi; +Enter imagwiritsa ntchito; +U imasintha; +R imasintha dzina; +D imachotsa; +0 imabwezeretsa.

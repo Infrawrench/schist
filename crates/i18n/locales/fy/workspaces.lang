@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Wurkromten
+workspaces.manage = Wurkromten beheare…
+workspaces.painting = Skilderjen
+workspaces.photo = Fotobewurking
+workspaces.retouching = Retûsjearjen
+workspaces.current = Aktuele yndieling
+workspaces.help = Bewarje as makket in kopy mei in namme fan de aktuele yndieling. Selektearje in bewarre yndieling om dy ta te passen, by te wurkjen, om te neamen of te wiskjen. Feroarings oan de yndieling wurde fuortendaliks tapast.
+workspaces.show_panels = Sydpanelen sjen litte
+workspaces.automatic = Automatysk
+workspaces.reset_help = Weromsette bringt allinnich de standertyndieling fan de panielen werom. Bewarre wurkromten, dokuminten en oare foarkarren bliuwe bewarre.
+workspaces.save_error = De foarkarren foar wurkromten koene net bewarre wurde. De feroaring is net tapast.
+workspaces.invalid_name = Fier in namme fan 1–80 tekens yn sûnder bestjoeringstekens.
+workspaces.duplicate = Der bestiet al in wurkromte mei dizze namme.
+workspaces.limit = Do kinst maksimaal 64 wurkromten bewarje.
+workspaces.keyboard = Toetseboerd: Alt+↑/↓ selektearret in yndieling. Ctrl/Cmd+N bewurket de namme; +S bewarret in kopy; +Enter past ta; +U wurket by; +R neamt om; +D wisket; +0 set werom.

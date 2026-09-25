@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Bereb yu liggéey
+workspaces.manage = Saytu bereb yu liggéey…
+workspaces.painting = Ràññee nataal
+workspaces.photo = Liggéeyu foto
+workspaces.retouching = Defar foto
+workspaces.current = Noseetu léegi
+workspaces.help = «Denc ni» dafay sos ab duppi bu am tur ci noseetu léegi. Tànnal noseet buñ denc ngir jëfe ko, yeesal ko, soppi turam walla far ko. Coppite yi ci noseet bi dañuy jëfandikoo ci saa si.
+workspaces.show_panels = Wone pano yi ci wet gi
+workspaces.automatic = Boppam
+workspaces.reset_help = «Delloo» dafay delloo noseetu pano yi woon ci tambali rekk. Bereb yu liggéey yiñ denc, jukki yi ak tànneef yu yeneen yi dañuy des.
+workspaces.save_error = Mëneesul denc tànneef yi ci berebu liggéey bi. Coppite bi jëfeewu ko.
+workspaces.invalid_name = Bindal tur bu am araf 1–80 te amul araf yu jiite.
+workspaces.duplicate = Am na ba pare berebu liggéey bu am tur woowu.
+workspaces.limit = Mën nga denc ba 64 bereb yu liggéey.
+workspaces.keyboard = Tablo bu araf: Alt+↑/↓ tànn noseet. Ctrl/Cmd+N soppi turam; +S denc ab duppi; +Enter jëfe ko; +U yeesal ko; +R soppi turam; +D far ko; +0 delloo ko.

@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Pracovné priestory
+workspaces.manage = Spravovať pracovné priestory…
+workspaces.painting = Maľovanie
+workspaces.photo = Vyvolávanie fotografií
+workspaces.retouching = Retušovanie
+workspaces.current = Aktuálne rozloženie
+workspaces.help = Uložiť ako… vytvorí pomenovanú kópiu aktuálneho rozloženia. Vyberte uložené rozloženie, ak ho chcete použiť, aktualizovať, premenovať alebo odstrániť. Zmeny rozloženia sa prejavia okamžite.
+workspaces.show_panels = Zobraziť bočné panely
+workspaces.automatic = Automaticky
+workspaces.reset_help = Obnoviť obnoví iba predvolené rozloženie panelov. Uložené pracovné priestory, dokumenty a ostatné nastavenia zostanú zachované.
+workspaces.save_error = Nastavenia pracovných priestorov sa nepodarilo uložiť. Zmena sa nepoužila.
+workspaces.invalid_name = Zadajte názov s 1–80 znakmi bez riadiacich znakov.
+workspaces.duplicate = Pracovný priestor s týmto názvom už existuje.
+workspaces.limit = Môžete uložiť najviac 64 pracovných priestorov.
+workspaces.keyboard = Klávesnica: Alt+↑/↓ vyberie rozloženie. Ctrl/Cmd+N upraví jeho názov; +S uloží kópiu; +Enter použije; +U aktualizuje; +R premenuje; +D odstráni; +0 obnoví.

@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Wèrkplekke
+workspaces.manage = Wèrkplekke behere…
+workspaces.painting = Sjildere
+workspaces.photo = Foto's óntwikkele
+workspaces.retouching = Foto's retouchere
+workspaces.current = Huidige indeling
+workspaces.help = Opslaon es maak 'n kopie mit 'ne naam van de huidige indeling. Kies 'n opgesjlage indeling óm die toe te passe, bie te wirke, euver te neume of te verwiedere. Verangeringe aan de indeling gaon direk in.
+workspaces.show_panels = Ziepanelle toene
+workspaces.automatic = Automatisch
+workspaces.reset_help = Trökzètte sjtèlt allein de sjtandaardindeling van de panelle weer in. Opgesjlage wèrkplekke, dokkemènte en anger veurkäöre blieve bewaord.
+workspaces.save_error = De veurkäöre veur wèrkplekke kónne neet opgesjlage waere. De verangering is neet toegepas.
+workspaces.invalid_name = Veur 'ne naam van 1–80 teikes in zónger sjtuurteikes.
+workspaces.duplicate = D'r besjteit al 'n wèrkplek mit deze naam.
+workspaces.limit = Geer kènt tot 64 wèrkplekke opslaon.
+workspaces.keyboard = Toetsenbord: Alt+↑/↓ kies 'n indeling. Ctrl/Cmd+N bewèrk de naam; +S sjleit 'n kopie op; +Enter pas toe; +U wèrk bie; +R neum euver; +D verwiedert; +0 zèt trök.

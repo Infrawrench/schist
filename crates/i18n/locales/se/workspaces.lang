@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Bargosajit
+workspaces.manage = Hálddaš bargosajiid…
+workspaces.painting = Málen
+workspaces.photo = Govvagieđahallan
+workspaces.retouching = Govvabuorideapmi
+workspaces.current = Dálá ásahus
+workspaces.help = Vurke namain… ráhkada dálá ásahusas namahuvvon kopiija. Vállje vurkejuvvon ásahusa vai sáhtát dan geavahit, ođasmahttit, rievdadit dan nama dahje sihkkut dan. Ásahusa rievdadusat bohtet fápmui dakkaviđe.
+workspaces.show_panels = Čájet siidopanelaid
+workspaces.automatic = Automáhtalaš
+workspaces.reset_help = Máhcat máhcaha dušše panelaid ovdagihtii mearriduvvon ásahusa. Vurkejuvvon bargosajit, dokumeanttat ja eará válljemat báhcet.
+workspaces.save_error = Bargosaji válljemiid ii sáhttán vurket. Rievdadus ii boahtán fápmui.
+workspaces.invalid_name = Čále namma mas leat 1–80 mearkka, almmá stivrenmearkkaid haga.
+workspaces.duplicate = Bargosadji dainna namain lea juo gávdnamis.
+workspaces.limit = Sáhtát vurket eanemusat 64 bargosaji.
+workspaces.keyboard = Boallobeavdi: Alt+↑/↓ vállje ásahusa. Ctrl/Cmd+N rievdada dan nama; +S vurke kopiija; +Enter geavaha; +U ođasmahttá; +R rievdada nama; +D sihkká; +0 máhcaha.

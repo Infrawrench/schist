@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Çalışma Alanları
+workspaces.manage = Çalışma Alanlarını Yönet…
+workspaces.painting = Boyama
+workspaces.photo = Fotoğraf Geliştirme
+workspaces.retouching = Rötuş
+workspaces.current = Geçerli düzen
+workspaces.help = Farklı Kaydet, geçerli düzenin adlandırılmış bir kopyasını oluşturur. Uygulamak, güncellemek, yeniden adlandırmak veya silmek için kayıtlı bir düzen seçin. Düzen değişiklikleri hemen uygulanır.
+workspaces.show_panels = Yan panelleri göster
+workspaces.automatic = Otomatik
+workspaces.reset_help = Sıfırla yalnızca varsayılan panel düzenini geri yükler. Kaydedilmiş çalışma alanları, belgeler ve diğer tercihler korunur.
+workspaces.save_error = Çalışma alanı tercihleri kaydedilemedi. Değişiklik uygulanmadı.
+workspaces.invalid_name = Kontrol karakterleri içermeyen 1–80 karakterlik bir ad girin.
+workspaces.duplicate = Bu adda bir çalışma alanı zaten var.
+workspaces.limit = En fazla 64 çalışma alanı kaydedebilirsiniz.
+workspaces.keyboard = Klavye: Alt+↑/↓ bir düzen seçer. Ctrl/Cmd+N adını düzenler; +S bir kopyasını kaydeder; +Enter uygular; +U günceller; +R yeniden adlandırır; +D siler; +0 sıfırlar.

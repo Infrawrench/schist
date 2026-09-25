@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Ispàtzios de traballu
+workspaces.manage = Gesti is ispàtzios de traballu…
+workspaces.painting = Pintura
+workspaces.photo = Isvilupu de fotografias
+workspaces.retouching = Ritocu
+workspaces.current = Dispositzione atuale
+workspaces.help = Sarva comente… creat una còpia cun nùmene de sa dispositzione atuale. Seletziona una dispositzione sarvada pro dda aplicare, agiornare, torrare a numenare o cantzellare. Is modìficas a sa dispositzione s'aplicant sùbitu.
+workspaces.show_panels = Ammustra is pannellos laterales
+workspaces.automatic = Automàticu
+workspaces.reset_help = Riprìstina torrat a sa dispositzione predefinida de is pannellos ebbia. Is ispàtzios de traballu sarvados, is documentos e is àteras preferèntzias abarrant.
+workspaces.save_error = No est istadu possìbile sarvare is preferèntzias de is ispàtzios de traballu. Sa modìfica no est istada aplicada.
+workspaces.invalid_name = Inserta unu nùmene de 1–80 caràteres chene caràteres de controllu.
+workspaces.duplicate = Esistet giai unu ispàtziu de traballu cun custu nùmene.
+workspaces.limit = Podes sarvare finas a 64 ispàtzios de traballu.
+workspaces.keyboard = Tastiera: Alt+↑/↓ seletzionat una dispositzione. Ctrl/Cmd+N nde modìficat su nùmene; +S sarvat una còpia; +Enter dda aplicat; +U dda agiornat; +R dda torra a numenare; +D dda cantzellat; +0 dda riprìstinat.

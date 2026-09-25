@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Arbejdsområder
+workspaces.manage = Administrer arbejdsområder…
+workspaces.painting = Maleri
+workspaces.photo = Fotofremkaldelse
+workspaces.retouching = Retouchering
+workspaces.current = Aktuelt layout
+workspaces.help = Gem som opretter en navngivet kopi af det aktuelle layout. Vælg et gemt layout for at anvende, opdatere, omdøbe eller slette det. Ændringer i layoutet træder i kraft med det samme.
+workspaces.show_panels = Vis sidepaneler
+workspaces.automatic = Automatisk
+workspaces.reset_help = Nulstil gendanner kun panelernes standardlayout. Gemte arbejdsområder, dokumenter og andre indstillinger bevares.
+workspaces.save_error = Indstillingerne for arbejdsområdet kunne ikke gemmes. Ændringen blev ikke anvendt.
+workspaces.invalid_name = Indtast et navn på 1–80 tegn uden kontroltegn.
+workspaces.duplicate = Der findes allerede et arbejdsområde med dette navn.
+workspaces.limit = Du kan gemme op til 64 arbejdsområder.
+workspaces.keyboard = Tastatur: Alt+↑/↓ vælger et layout. Ctrl/Cmd+N redigerer dets navn; +S gemmer en kopi; +Enter anvender det; +U opdaterer; +R omdøber; +D sletter; +0 nulstiller.

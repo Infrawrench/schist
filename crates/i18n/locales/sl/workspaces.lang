@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Delovni prostori
+workspaces.manage = Upravljaj delovne prostore …
+workspaces.painting = Slikanje
+workspaces.photo = Razvijanje fotografij
+workspaces.retouching = Retuširanje
+workspaces.current = Trenutna razporeditev
+workspaces.help = Shrani kot … ustvari poimenovano kopijo trenutne razporeditve. Izberite shranjeno razporeditev, da jo uporabite, posodobite, preimenujete ali izbrišete. Spremembe razporeditve začnejo veljati takoj.
+workspaces.show_panels = Prikaži stranske plošče
+workspaces.automatic = Samodejno
+workspaces.reset_help = Ponastavi obnovi le privzeto razporeditev plošč. Shranjeni delovni prostori, dokumenti in druge nastavitve ostanejo ohranjeni.
+workspaces.save_error = Nastavitev delovnih prostorov ni bilo mogoče shraniti. Sprememba ni bila uveljavljena.
+workspaces.invalid_name = Vnesite ime z 1–80 znaki brez kontrolnih znakov.
+workspaces.duplicate = Delovni prostor s tem imenom že obstaja.
+workspaces.limit = Shranite lahko največ 64 delovnih prostorov.
+workspaces.keyboard = Tipkovnica: Alt+↑/↓ izbere razporeditev. Ctrl/Cmd+N uredi njeno ime; +S shrani kopijo; +Enter jo uporabi; +U jo posodobi; +R jo preimenuje; +D jo izbriše; +0 jo ponastavi.

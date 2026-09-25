@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Goobaha shaqada
+workspaces.manage = Maamul goobaha shaqada…
+workspaces.painting = Rinjiyeyn
+workspaces.photo = Horumarinta sawirrada
+workspaces.retouching = Hagaajinta sawirrada
+workspaces.current = Qaabka hadda jira
+workspaces.help = U Kaydi Sida… waxay abuurtaa nuqul magac leh oo qaabka hadda jira ah. Dooro qaab kaydsan si aad u dabaqdo, u cusboonaysiiso, magaciisa u beddesho ama u tirtirto. Isbeddellada qaabka isla markiiba way dhaqan galaan.
+workspaces.show_panels = Muuji guddiyada dhinacyada
+workspaces.automatic = Toos ah
+workspaces.reset_help = Dib u celi waxay soo celisaa oo keliya qaabka caadiga ah ee guddiyada. Goobaha shaqada ee kaydsan, dukumentiyada iyo doorbidyada kale way sii jiraan.
+workspaces.save_error = Lama kaydin karin doorbidyada goobaha shaqada. Isbeddelka lama dabaqin.
+workspaces.invalid_name = Geli magac ka kooban 1–80 xaraf oo aan lahayn xarfo xakamayn ah.
+workspaces.duplicate = Goob shaqo oo magacan leh ayaa hore u jirta.
+workspaces.limit = Waxaad kaydin kartaa ilaa 64 goobood oo shaqo.
+workspaces.keyboard = Kiiboodhka: Alt+↑/↓ wuxuu doortaa qaab. Ctrl/Cmd+N wuxuu tafatiraa magaciisa; +S wuxuu kaydiyaa nuqul; +Enter wuu dabaqaa; +U wuu cusboonaysiiyaa; +R magaciisa ayuu beddelaa; +D wuu tirtiraa; +0 dib ayuu u celiyaa.

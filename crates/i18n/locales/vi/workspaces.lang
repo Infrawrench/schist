@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Không gian làm việc
+workspaces.manage = Quản lý không gian làm việc…
+workspaces.painting = Vẽ tranh
+workspaces.photo = Xử lý ảnh
+workspaces.retouching = Chỉnh sửa ảnh
+workspaces.current = Bố cục hiện tại
+workspaces.help = «Lưu thành» tạo một bản sao có tên của bố cục hiện tại. Chọn bố cục đã lưu để áp dụng, cập nhật, đổi tên hoặc xóa. Các thay đổi bố cục có hiệu lực ngay lập tức.
+workspaces.show_panels = Hiện bảng điều khiển bên
+workspaces.automatic = Tự động
+workspaces.reset_help = «Đặt lại» chỉ khôi phục bố cục bảng điều khiển mặc định. Các không gian làm việc đã lưu, tài liệu và tùy chọn khác vẫn được giữ nguyên.
+workspaces.save_error = Không thể lưu tùy chọn không gian làm việc. Thay đổi chưa được áp dụng.
+workspaces.invalid_name = Nhập tên dài 1–80 ký tự và không chứa ký tự điều khiển.
+workspaces.duplicate = Đã có không gian làm việc mang tên này.
+workspaces.limit = Bạn có thể lưu tối đa 64 không gian làm việc.
+workspaces.keyboard = Bàn phím: Alt+↑/↓ chọn bố cục. Ctrl/Cmd+N sửa tên; +S lưu bản sao; +Enter áp dụng; +U cập nhật; +R đổi tên; +D xóa; +0 đặt lại.

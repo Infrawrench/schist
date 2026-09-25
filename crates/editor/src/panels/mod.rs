@@ -128,6 +128,9 @@ pub fn side_panels(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::Sta
     let order = panel_order(&ws.view.side_panel_order);
     let mut panels = Vec::with_capacity(order.len());
     for kind in order {
+        if ws.view.hidden_panels.iter().any(|key| key == kind.key()) {
+            continue;
+        }
         let (label, body, grows) = match kind {
             SidePanel::Navigator => (
                 t("panel.navigator.title"),
@@ -181,7 +184,7 @@ pub fn side_panels(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::Sta
         .id("side-panels")
         .flex()
         .flex_col()
-        .w(px(ui::metrics().panel_w))
+        .w(px(ws.view.panel_width.unwrap_or(ui::metrics().panel_w)))
         .flex_none()
         .min_h(px(0.0))
         .overflow_y_scroll()

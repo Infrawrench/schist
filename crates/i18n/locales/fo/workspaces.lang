@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Arbeiðsøki
+workspaces.manage = Umsit arbeiðsøki…
+workspaces.painting = Máling
+workspaces.photo = Myndaviðgerð
+workspaces.retouching = Retusjering
+workspaces.current = Núverandi uppseting
+workspaces.help = Goym sum ger eitt navngivið avrit av núverandi uppseting. Vel eina goymda uppseting fyri at nýta, dagføra, geva henni nýtt navn ella strika hana. Broytingar í uppsetingini fáa gildi beinanvegin.
+workspaces.show_panels = Vís síðupanel
+workspaces.automatic = Sjálvvirkandi
+workspaces.reset_help = Set aftur endurreisir bert vanliga uppsetingina av panelunum. Goymd arbeiðsøki, skjøl og aðrar stillingar verða varðveitt.
+workspaces.save_error = Bar ikki til at goyma stillingarnar fyri arbeiðsøki. Broytingin varð ikki nýtt.
+workspaces.invalid_name = Skriva eitt navn við 1–80 teknum uttan stýritekn.
+workspaces.duplicate = Eitt arbeiðsøki við hesum navni er longu til.
+workspaces.limit = Tú kanst goyma í mesta lagi 64 arbeiðsøki.
+workspaces.keyboard = Knappaborð: Alt+↑/↓ velur eina uppseting. Ctrl/Cmd+N broytir navnið; +S goymir eitt avrit; +Enter nýtir; +U dagførir; +R gevur nýtt navn; +D strikar; +0 setur aftur.

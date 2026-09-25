@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Ebifo eby'Okukoleramu
+workspaces.manage = Fuga Ebifo eby'Okukoleramu…
+workspaces.painting = Okusiiga ebifaananyi
+workspaces.photo = Okulongoosa ebifaananyi
+workspaces.retouching = Okutereeza ebifaananyi
+workspaces.current = Enteekateeka eriwo
+workspaces.help = Tereka Nga ekola kopi erina erinnya ey'enteekateeka eriwo. Londa enteekateeka eyaterekwa okugikozesa, okugizza obuggya, okugikyusa erinnya oba okugiggyawo. Enkyukakyuka mu nteekateeka zikola amangu ddala.
+workspaces.show_panels = Laga ebipande eby'oku mabbali
+workspaces.automatic = Kyekola
+workspaces.reset_help = Ddamu oteekewo ekomyawo enteekateeka y'ebipande eya bulijjo yokka. Ebifo eby'okukoleramu ebyaterekwa, ebiwandiiko n'enteekateeka endala bisigala nga bwe biri.
+workspaces.save_error = Tekisobose kutereka nteekateeka z'ekifo eky'okukoleramu. Enkyukakyuka teyakolebwa.
+workspaces.invalid_name = Yingiza erinnya eririmu ennukuta 1–80 nga teririmu bubonero bwa kufuga.
+workspaces.duplicate = Ekifo eky'okukoleramu ekirina erinnya lino kiriyo dda.
+workspaces.limit = Osobola okutereka ebifo eby'okukoleramu ebitasukka 64.
+workspaces.keyboard = Kiboodi: Alt+↑/↓ eronda enteekateeka. Ctrl/Cmd+N ekyusa erinnya lyayo; +S etereka kopi; +Enter egikozesa; +U egizza obuggya; +R egikyusa erinnya; +D egiggyawo; +0 eddamu okugiteekawo.

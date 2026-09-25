@@ -1,0 +1,16 @@
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Ngā mokowāhi
+workspaces.manage = Whakahaere mokowāhi…
+workspaces.painting = Peita
+workspaces.photo = Whakawhanake whakaahua
+workspaces.retouching = Whakatika ātaahua
+workspaces.current = Tahora o nāianei
+workspaces.help = Mā Tiaki Hei e hanga he tārua kua tapaina o te tahora o nāianei. Tīpakohia tētahi tahora kua tiakina hei whakamahi, hei whakahou, hei whakaingoa anō, hei muku rānei. Ka whai mana tonu ngā huringa tahora.
+workspaces.show_panels = Whakaatu i ngā paewhiri taha
+workspaces.automatic = Aunoa
+workspaces.reset_help = Mā Tautuhi Anō e whakahoki te tahora taunoa o ngā paewhiri anake. Ka mau tonu ngā mokowāhi kua tiakina, ngā tuhinga me ērā atu manakohanga.
+workspaces.save_error = Kāore i taea te tiaki i ngā manakohanga mokowāhi. Kāore te huringa i whakamahia.
+workspaces.invalid_name = Whakaurua he ingoa 1–80 pūāhua te roa, kāore he pūāhua whakahaere.
+workspaces.duplicate = Kei te tīariari kē tētahi mokowāhi ko tēnei te ingoa.
+workspaces.limit = Ka taea te tiaki kia 64 ngā mokowāhi.
+workspaces.keyboard = Papapātuhi: Mā Alt+↑/↓ e tīpako he tahora. Mā Ctrl/Cmd+N e whakatika tōna ingoa; mā +S e tiaki he tārua; mā +Enter e whakamahi; mā +U e whakahou; mā +R e whakaingoa anō; mā +D e muku; mā +0 e tautuhi anō.

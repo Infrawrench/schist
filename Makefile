@@ -942,3 +942,12 @@ format-virtual-copies:
 	$(CARGO) fmt -p schist-gallery -p schist-editor
 lint-virtual-copies:
 	$(CARGO) clippy -p schist-gallery -p schist-editor --all-targets -- -D warnings
+
+.PHONY: test-workspace-presets fmt-workspace-presets
+test-workspace-presets:
+	$(CARGO) test -p schist-app-settings workspaces::tests
+fmt-workspace-presets:
+	$(CARGO) fmt -p schist-app-settings -p schist-editor -p schist-app-actions -p schist-app-platform
+.PHONY: lint-workspace-presets
+lint-workspace-presets:
+	$(CARGO) clippy -p schist-app-settings -p schist-editor -p schist-app-actions -p schist-app-platform --all-targets -- -D warnings
