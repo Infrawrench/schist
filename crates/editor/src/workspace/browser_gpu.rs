@@ -529,10 +529,7 @@ impl Workspace {
         let params = schist_compositor::viewport::ViewportParams {
             width: key.size.0 as usize,
             height: key.size.1 as usize,
-            origin: (
-                f32::from(self.offset.x) * scale_factor,
-                f32::from(self.offset.y) * scale_factor,
-            ),
+            origin: (f32::from_bits(key.offset.0), f32::from_bits(key.offset.1)),
             zoom: self.zoom,
             scale_factor,
             rotation: self.rotation,
