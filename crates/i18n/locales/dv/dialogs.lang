@@ -213,3 +213,5 @@ dialog.prefs.camera_sync_enabled = Schist Cloud އަށް ބެކަޕް ކުރުނ
 dialog.prefs.camera_sync_sign_in = ކެމެރާ ރޯލް ބެކަޕްކުރުމަށް Schist Cloud އަށް ސައިންއިން ކުރާ.
 dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = ބަދަލު ކުރުން…
+dialog.new_doc.from_clipboard = ކްލިޕްބޯޑުން
+dialog.new_doc.from_image_url = ފޮޓޯގެ URL އިން

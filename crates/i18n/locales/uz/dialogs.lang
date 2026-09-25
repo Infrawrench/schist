@@ -213,3 +213,5 @@ dialog.prefs.camera_sync_enabled = Schist Cloud’ga zaxiralash
 dialog.prefs.camera_sync_sign_in = Kamera tasmasini zaxiralash uchun Schist Cloud hisobiga kiring.
 dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = O‘zgartirish…
+dialog.new_doc.from_clipboard = Almashish buferidan
+dialog.new_doc.from_image_url = Rasm URL manzilidan

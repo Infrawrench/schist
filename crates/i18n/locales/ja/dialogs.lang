@@ -258,3 +258,5 @@ dialog.prefs.camera_sync_enabled = Schist Cloud にバックアップ
 dialog.prefs.camera_sync_sign_in = カメラロールをバックアップするには Schist Cloud にサインインしてください。
 dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = 変更…
+dialog.new_doc.from_clipboard = クリップボードから
+dialog.new_doc.from_image_url = 画像 URL から

@@ -205,3 +205,5 @@ dialog.prefs.camera_sync_enabled = Kōjparok kōpi ilo Schist Cloud
 dialog.prefs.camera_sync_sign_in = Deloñ ilo Schist Cloud ñan kōjparok kōpi in pija ko an camera.
 dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Ukot…
+dialog.new_doc.from_clipboard = Jān clipboard
+dialog.new_doc.from_image_url = Jān URL in pija

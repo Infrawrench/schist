@@ -245,3 +245,5 @@ dialog.prefs.camera_sync_enabled = Gwitha kopi war Schist Cloud
 dialog.prefs.camera_sync_sign_in = Omgelmi dhe Schist Cloud rag gwitha kopi a'th rol kamera.
 dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Chanjya…
+dialog.new_doc.from_clipboard = Dhyworth an astel glip
+dialog.new_doc.from_image_url = Dhyworth URL imach

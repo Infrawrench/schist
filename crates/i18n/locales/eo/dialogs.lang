@@ -213,3 +213,5 @@ dialog.prefs.camera_sync_enabled = Sekurkopii al Schist Cloud
 dialog.prefs.camera_sync_sign_in = Ensalutu en Schist Cloud por sekurkopii vian fotilan albumon.
 dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Ŝanĝi…
+dialog.new_doc.from_clipboard = El tondujo
+dialog.new_doc.from_image_url = El bilda URL

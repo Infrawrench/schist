@@ -213,3 +213,5 @@ dialog.prefs.camera_sync_enabled = Trygdarrita til Schist Cloud
 dialog.prefs.camera_sync_sign_in = Rita inn í Schist Cloud fyri at trygdarrita myndarulluna.
 dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Broyt…
+dialog.new_doc.from_clipboard = Av klippiborði
+dialog.new_doc.from_image_url = Frá mynda-URL

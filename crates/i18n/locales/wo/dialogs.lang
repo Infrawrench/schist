@@ -205,3 +205,5 @@ dialog.prefs.camera_sync_enabled = Aar ci Schist Cloud
 dialog.prefs.camera_sync_sign_in = Dugg ci Schist Cloud ngir aar nataali sa kamera.
 dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Soppi…
+dialog.new_doc.from_clipboard = Jële ci clipboard
+dialog.new_doc.from_image_url = Jële ci URL bu nataal

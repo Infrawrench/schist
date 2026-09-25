@@ -205,3 +205,5 @@ dialog.prefs.camera_sync_enabled = Cadangkan ke Schist Cloud
 dialog.prefs.camera_sync_sign_in = Masuk ke Schist Cloud untuk mencadangkan rol kamera Anda.
 dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Ubah…
+dialog.new_doc.from_clipboard = Dari papan klip
+dialog.new_doc.from_image_url = Dari URL gambar

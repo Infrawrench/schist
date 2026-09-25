@@ -252,3 +252,5 @@ dialog.prefs.camera_sync_enabled = Schist Cloud मध्ये सुरक्�
 dialog.prefs.camera_sync_sign_in = चित्रगुच्छस्य सुरक्षाप्रतिलिप्यर्थं Schist Cloud मध्ये प्रवेशं करोतु।
 dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = परिवर्तयतु…
+dialog.new_doc.from_clipboard = फलकात्
+dialog.new_doc.from_image_url = चित्रस्य URL तः

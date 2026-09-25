@@ -258,3 +258,5 @@ dialog.prefs.camera_sync_enabled = Egin babeskopia Schist Cloud-en
 dialog.prefs.camera_sync_sign_in = Hasi Schist Cloud-eko saioa kameraren argazki-bildumaren babeskopia egiteko.
 dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Aldatu…
+dialog.new_doc.from_clipboard = Arbeletik
+dialog.new_doc.from_image_url = Irudiaren URLtik

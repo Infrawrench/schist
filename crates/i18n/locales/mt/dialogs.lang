@@ -238,3 +238,5 @@ dialog.prefs.camera_sync_enabled = Agħmel backup fuq Schist Cloud
 dialog.prefs.camera_sync_sign_in = Idħol fi Schist Cloud biex tagħmel backup tar-ritratti tal-kamera tiegħek.
 dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Ibdel…
+dialog.new_doc.from_clipboard = Mill-clipboard
+dialog.new_doc.from_image_url = Minn URL ta’ immaġni

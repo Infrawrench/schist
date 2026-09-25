@@ -221,3 +221,5 @@ dialog.prefs.camera_sync_enabled = גיבוי ל־Schist Cloud
 dialog.prefs.camera_sync_sign_in = יש להיכנס ל־Schist Cloud כדי לגבות את סרט הצילום.
 dialog.prefs.camera_sync_rule = {source} ← {folder}
 dialog.prefs.camera_sync_change = שינוי…
+dialog.new_doc.from_clipboard = מהלוח
+dialog.new_doc.from_image_url = מכתובת URL של תמונה

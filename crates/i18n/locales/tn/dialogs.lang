@@ -213,3 +213,5 @@ dialog.prefs.camera_sync_enabled = Boloka kopi kwa Schist Cloud
 dialog.prefs.camera_sync_sign_in = Tsena mo Schist Cloud go boloka kopi ya camera roll.
 dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Fetola…
+dialog.new_doc.from_clipboard = Go tswa mo clipboard
+dialog.new_doc.from_image_url = Go tswa mo URL ya setshwantsho

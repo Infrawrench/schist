@@ -213,3 +213,5 @@ dialog.prefs.camera_sync_enabled = Manaova tahiry ao amin'ny Schist Cloud
 dialog.prefs.camera_sync_sign_in = Midira amin'ny Schist Cloud hanaovana tahiry ny horonan-tsarin'ny fakantsary.
 dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Ovao…
+dialog.new_doc.from_clipboard = Avy amin’ny solaitrabe
+dialog.new_doc.from_image_url = Avy amin’ny URL-n’ny sary

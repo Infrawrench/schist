@@ -205,3 +205,5 @@ dialog.prefs.camera_sync_enabled = Yɛ backup kɔ Schist Cloud
 dialog.prefs.camera_sync_sign_in = Kɔ Schist Cloud mu na yɛ wo kamera mfonini backup.
 dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Sesa…
+dialog.new_doc.from_clipboard = Fi clipboard so
+dialog.new_doc.from_image_url = Fi mfonini URL mu

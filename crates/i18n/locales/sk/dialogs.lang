@@ -236,3 +236,5 @@ dialog.prefs.camera_sync_enabled = Zálohovať do Schist Cloud
 dialog.prefs.camera_sync_sign_in = Prihláste sa do Schist Cloud, aby ste mohli zálohovať fotografie z fotoaparátu.
 dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Zmeniť…
+dialog.new_doc.from_clipboard = Zo schránky
+dialog.new_doc.from_image_url = Z URL obrázka

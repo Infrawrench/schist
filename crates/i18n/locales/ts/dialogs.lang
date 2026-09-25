@@ -236,3 +236,5 @@ dialog.prefs.camera_sync_enabled = Endla kopi yo sirhelela eka Schist Cloud
 dialog.prefs.camera_sync_sign_in = Nghena eka Schist Cloud ku endla kopi yo sirhelela ya swifaniso swa khamera.
 dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Cinca…
+dialog.new_doc.from_clipboard = Ku suka eka clipboard
+dialog.new_doc.from_image_url = Ku suka eka URL ya xifaniso

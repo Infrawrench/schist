@@ -274,7 +274,11 @@ pub fn render(ws: &mut Workspace, cx: &mut Context<Workspace>) -> Option<gpui::A
         Modal::Profile { convert, selected } => {
             profile_dialog(&state, convert, selected, cx).into_any_element()
         }
-        Modal::NewFilePicker => new_file_picker(cx).into_any_element(),
+        Modal::NewFilePicker {
+            clipboard,
+            importing,
+            error,
+        } => new_file_picker(&clipboard, importing, error, cx).into_any_element(),
         Modal::FilePicker => file_picker(ws, &state, cx),
         #[cfg(not(target_arch = "wasm32"))]
         Modal::MapFilter => crate::workspace::map_filter_dialog(ws, cx).into_any_element(),

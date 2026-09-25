@@ -205,3 +205,5 @@ dialog.prefs.camera_sync_enabled = Cadangkeun ka Schist Cloud
 dialog.prefs.camera_sync_sign_in = Asup kana Schist Cloud pikeun nyadangkeun rol kaméra anjeun.
 dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Robah…
+dialog.new_doc.from_clipboard = Tina papan klip
+dialog.new_doc.from_image_url = Tina URL gambar

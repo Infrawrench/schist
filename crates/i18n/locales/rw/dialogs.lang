@@ -221,3 +221,5 @@ dialog.prefs.camera_sync_enabled = Kubika kopi kuri Schist Cloud
 dialog.prefs.camera_sync_sign_in = Injira muri Schist Cloud kugira ngo ubike kopi y'amafoto ya kamera.
 dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Guhindura…
+dialog.new_doc.from_clipboard = Bivuye mu bubiko bw’ibyandukuwe
+dialog.new_doc.from_image_url = Bivuye kuri URL y’ishusho

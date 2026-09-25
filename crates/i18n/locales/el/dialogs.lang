@@ -213,3 +213,5 @@ dialog.prefs.camera_sync_enabled = Αντίγραφο ασφαλείας στο 
 dialog.prefs.camera_sync_sign_in = Συνδεθείτε στο Schist Cloud για να δημιουργήσετε αντίγραφο ασφαλείας του άλμπουμ κάμερας.
 dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Αλλαγή…
+dialog.new_doc.from_clipboard = Από το πρόχειρο
+dialog.new_doc.from_image_url = Από URL εικόνας

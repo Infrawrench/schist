@@ -214,3 +214,5 @@ dialog.prefs.camera_sync_enabled = Rezervo në Schist Cloud
 dialog.prefs.camera_sync_sign_in = Hyni në Schist Cloud për të rezervuar fotot e kamerës.
 dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Ndrysho…
+dialog.new_doc.from_clipboard = Nga kujtesa e përkohshme
+dialog.new_doc.from_image_url = Nga URL-ja e figurës

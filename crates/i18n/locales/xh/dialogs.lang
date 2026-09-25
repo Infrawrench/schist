@@ -213,3 +213,5 @@ dialog.prefs.camera_sync_enabled = Gcina ukhuseleko kwiSchist Cloud
 dialog.prefs.camera_sync_sign_in = Ngena kwiSchist Cloud ukuze ugcine ukhuseleko lwemifanekiso yekhamera.
 dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Tshintsha…
+dialog.new_doc.from_clipboard = Kwibhodi eqhotyoshwayo
+dialog.new_doc.from_image_url = Kwi-URL yomfanekiso

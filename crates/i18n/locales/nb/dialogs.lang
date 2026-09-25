@@ -214,3 +214,5 @@ dialog.prefs.camera_sync_enabled = Sikkerhetskopier til Schist Cloud
 dialog.prefs.camera_sync_sign_in = Logg på Schist Cloud for å sikkerhetskopiere kamerarullen.
 dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Endre…
+dialog.new_doc.from_clipboard = Fra utklippstavlen
+dialog.new_doc.from_image_url = Fra bilde-URL

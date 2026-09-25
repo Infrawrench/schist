@@ -224,3 +224,5 @@ dialog.prefs.camera_sync_enabled = Schist Cloudman waqaychay
 dialog.prefs.camera_sync_sign_in = Cámara rollota waqaychanapaq Schist Cloudman yaykuy.
 dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Tikray…
+dialog.new_doc.from_clipboard = Portapapelesmanta
+dialog.new_doc.from_image_url = Rikch’aypa URL-ninmanta

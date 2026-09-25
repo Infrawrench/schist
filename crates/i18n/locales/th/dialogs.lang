@@ -205,3 +205,5 @@ dialog.prefs.camera_sync_enabled = สำรองข้อมูลไปยั
 dialog.prefs.camera_sync_sign_in = ลงชื่อเข้าใช้ Schist Cloud เพื่อสำรองม้วนฟิล์ม
 dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = เปลี่ยน…
+dialog.new_doc.from_clipboard = จากคลิปบอร์ด
+dialog.new_doc.from_image_url = จาก URL รูปภาพ

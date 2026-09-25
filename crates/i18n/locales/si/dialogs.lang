@@ -262,3 +262,5 @@ dialog.prefs.camera_sync_enabled = Schist Cloud වෙත උපස්ථ කර
 dialog.prefs.camera_sync_sign_in = ඔබගේ කැමරා රෝල උපස්ථ කිරීමට Schist Cloud වෙත පිවිසෙන්න.
 dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = වෙනස් කරන්න…
+dialog.new_doc.from_clipboard = පසුරු පුවරුවෙන්
+dialog.new_doc.from_image_url = රූප URL එකකින්

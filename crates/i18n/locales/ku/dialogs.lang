@@ -213,3 +213,5 @@ dialog.prefs.camera_sync_enabled = Li Schist Cloud piştgir bike
 dialog.prefs.camera_sync_sign_in = Ji bo piştgiriya rola kameraya xwe têkeve Schist Cloud.
 dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Biguherîne…
+dialog.new_doc.from_clipboard = Ji clipboardê
+dialog.new_doc.from_image_url = Ji URL-ya wêneyê

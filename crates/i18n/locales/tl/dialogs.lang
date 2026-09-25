@@ -213,3 +213,5 @@ dialog.prefs.camera_sync_enabled = I-back up sa Schist Cloud
 dialog.prefs.camera_sync_sign_in = Mag-sign in sa Schist Cloud upang i-back up ang iyong camera roll.
 dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Baguhin…
+dialog.new_doc.from_clipboard = Mula sa Clipboard
+dialog.new_doc.from_image_url = Mula sa URL ng Larawan

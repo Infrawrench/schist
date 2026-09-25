@@ -50,7 +50,39 @@ impl Workspace {
     /// File ▸ New: the preset picker. A preset creates on the spot;
     /// Custom… goes on to the full dialog.
     pub fn open_new_file_picker(&mut self, cx: &mut Context<Self>) {
-        self.open_modal(Modal::NewFilePicker, cx);
+        #[cfg(not(target_arch = "wasm32"))]
+        let clipboard = Arc::new(NewFileClipboard::from_item(cx.read_from_clipboard()));
+        #[cfg(target_arch = "wasm32")]
+        let clipboard = Arc::new(NewFileClipboard::default());
+        self.open_modal(
+            Modal::NewFilePicker {
+                clipboard: clipboard.clone(),
+                importing: false,
+                error: None,
+            },
+            cx,
+        );
+        #[cfg(target_arch = "wasm32")]
+        {
+            // Start the browser request during the gesture that opened New.
+            let read = crate::web::read_clipboard_entries();
+            cx.spawn(async move |this, cx| {
+                let entries = read.await;
+                this.update(cx, |ws, cx| {
+                    if let Some(Modal::NewFilePicker {
+                        clipboard: current, ..
+                    }) = &mut ws.modal
+                    {
+                        if Arc::ptr_eq(current, &clipboard) {
+                            *current = Arc::new(NewFileClipboard::from_entries(entries));
+                            cx.notify();
+                        }
+                    }
+                })
+                .ok();
+            })
+            .detach();
+        }
     }
 
     /// The full new-document dialog (the picker's Custom…). Photoshop

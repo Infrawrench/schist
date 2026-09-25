@@ -236,3 +236,5 @@ dialog.prefs.camera_sync_enabled = Ita khophi ya u tsireledza kha Schist Cloud
 dialog.prefs.camera_sync_sign_in = Dzhena kha Schist Cloud uri ni ite khophi ya u tsireledza ya camera roll yaṋu.
 dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Shandula…
+dialog.new_doc.from_clipboard = U bva kha clipboard
+dialog.new_doc.from_image_url = U bva kha URL ya tshifanyiso

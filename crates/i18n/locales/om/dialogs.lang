@@ -213,3 +213,5 @@ dialog.prefs.camera_sync_enabled = Gara Schist Cloudtti waraabii olkaa'i
 dialog.prefs.camera_sync_sign_in = Galmee suuraa kaameraa waraabii olkaa'uuf Schist Cloud seeni.
 dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Jijjiiri…
+dialog.new_doc.from_clipboard = Gabatee waraabbii irraa
+dialog.new_doc.from_image_url = URL suuraa irraa

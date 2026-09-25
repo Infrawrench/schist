@@ -213,3 +213,5 @@ dialog.prefs.camera_sync_enabled = Архивиране в Schist Cloud
 dialog.prefs.camera_sync_sign_in = Влезте в Schist Cloud, за да архивирате снимките от фотоапарата.
 dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Промяна…
+dialog.new_doc.from_clipboard = От клипборда
+dialog.new_doc.from_image_url = От URL на изображение

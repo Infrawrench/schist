@@ -230,3 +230,5 @@ dialog.prefs.camera_sync_enabled = სარეზერვო ასლის S
 dialog.prefs.camera_sync_sign_in = კამერის ალბომის სარეზერვო ასლისთვის შედით Schist Cloud-ში.
 dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = შეცვლა…
+dialog.new_doc.from_clipboard = გაცვლის ბუფერიდან
+dialog.new_doc.from_image_url = სურათის URL-დან

@@ -228,3 +228,5 @@ dialog.prefs.camera_sync_enabled = Wɔ backup yi Schist Cloud
 dialog.prefs.camera_sync_sign_in = Ge ɖe Schist Cloud me be nàwɔ backup na wò kamera ƒe fotoawo.
 dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Trɔ…
+dialog.new_doc.from_clipboard = Tso clipboard me
+dialog.new_doc.from_image_url = Tso nɔnɔmetata ƒe URL me

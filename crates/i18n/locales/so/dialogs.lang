@@ -213,3 +213,5 @@ dialog.prefs.camera_sync_enabled = Ku kaydi Schist Cloud
 dialog.prefs.camera_sync_sign_in = Gal Schist Cloud si aad duubka kameradda ugu kaydiso.
 dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Beddel…
+dialog.new_doc.from_clipboard = Ka soo qaad sabuuradda
+dialog.new_doc.from_image_url = Ka soo qaad URL-ka sawirka

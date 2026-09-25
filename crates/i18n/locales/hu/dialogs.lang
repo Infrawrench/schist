@@ -213,3 +213,5 @@ dialog.prefs.camera_sync_enabled = Biztonsági mentés a Schist Cloudba
 dialog.prefs.camera_sync_sign_in = Jelentkezzen be a Schist Cloudba a filmtekercs biztonsági mentéséhez.
 dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Módosítás…
+dialog.new_doc.from_clipboard = Vágólapról
+dialog.new_doc.from_image_url = Kép URL-címéről

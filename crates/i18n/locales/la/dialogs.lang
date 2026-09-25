@@ -205,3 +205,5 @@ dialog.prefs.camera_sync_enabled = In Schist Cloud conserva
 dialog.prefs.camera_sync_sign_in = In Schist Cloud intra ut album camerae conserves.
 dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Muta…
+dialog.new_doc.from_clipboard = Ex tabula excerptorum
+dialog.new_doc.from_image_url = Ex URL imaginis

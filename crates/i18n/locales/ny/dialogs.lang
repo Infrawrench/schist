@@ -228,3 +228,5 @@ dialog.prefs.camera_sync_enabled = Sungani kope ku Schist Cloud
 dialog.prefs.camera_sync_sign_in = Lowani mu Schist Cloud kuti musunge kope la zithunzi za kamera.
 dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Sinthani…
+dialog.new_doc.from_clipboard = Kuchokera pa bolodi lokopera
+dialog.new_doc.from_image_url = Kuchokera pa URL ya chithunzi

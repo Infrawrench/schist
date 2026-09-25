@@ -213,3 +213,5 @@ dialog.prefs.camera_sync_enabled = Varmuuskopioi Schist Cloudiin
 dialog.prefs.camera_sync_sign_in = Kirjaudu Schist Cloudiin varmuuskopioidaksesi kameran kuvat.
 dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Muuta…
+dialog.new_doc.from_clipboard = Leikepöydältä
+dialog.new_doc.from_image_url = Kuvan URL-osoitteesta

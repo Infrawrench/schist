@@ -2,6 +2,7 @@
 
 use super::*;
 use schist_i18n::{t, tf};
+use schist_ui::Button;
 
 /// (label key, width, height, ppi) rows of the File ▸ New preset
 /// dropdown, matched against the dialog's current values to show which
@@ -30,7 +31,12 @@ fn mode_name(mode: ColorMode) -> &'static str {
 /// File ▸ New: the preset picker. One card per common size — a click
 /// creates the document on the spot — and Custom… opens the full
 /// dialog below for everything else.
-pub(super) fn new_file_picker(cx: &mut Context<Workspace>) -> impl IntoElement {
+pub(super) fn new_file_picker(
+    clipboard: &crate::workspace::NewFileClipboard,
+    importing: bool,
+    error: Option<String>,
+    cx: &mut Context<Workspace>,
+) -> impl IntoElement {
     let mut cards = div().flex().flex_row().flex_wrap().gap_2();
     for &(key, width, height, ppi) in NEW_DOC_PRESETS {
         cards = cards.child(preset_card(key, width, height, ppi, cx));
@@ -55,13 +61,42 @@ pub(super) fn new_file_picker(cx: &mut Context<Workspace>) -> impl IntoElement {
             }))
             .child(t("dialog.new_doc.custom_ellipsis")),
     );
+    let mut body = div().flex().flex_col().gap_3().child(cards);
+    if clipboard.image.is_some() || clipboard.url.is_some() {
+        let mut sources = div().flex().flex_row().flex_wrap().gap_2();
+        if clipboard.image.is_some() {
+            sources = sources.child(
+                Button::new("new-doc-clipboard", t("dialog.new_doc.from_clipboard"))
+                    .disabled(importing)
+                    .on_click(cx.listener(|ws, _e, _w, cx| {
+                        ws.new_document_from_clipboard(false, cx);
+                    })),
+            );
+        }
+        if clipboard.url.is_some() {
+            sources = sources.child(
+                Button::new("new-doc-url", t("dialog.new_doc.from_image_url"))
+                    .disabled(importing)
+                    .on_click(cx.listener(|ws, _e, _w, cx| {
+                        ws.new_document_from_clipboard(true, cx);
+                    })),
+            );
+        }
+        body = body.child(sources);
+    }
+    if importing {
+        body = body.child(div().text_size(px(12.0)).child(t("common.loading")));
+    }
+    if let Some(error) = error {
+        body = body.child(div().text_size(px(12.0)).child(error));
+    }
     let actions = div().flex().flex_row().gap_2().child(ui::button(
-        "Cancel",
+        t("common.cancel"),
         false,
         |ws, _w, cx| ws.close_modal(cx),
         cx,
     ));
-    ui::modal_frame(t("dialog.new_doc.picker_title"), 520.0, cards, actions)
+    ui::modal_frame(t("dialog.new_doc.picker_title"), 520.0, body, actions)
 }
 
 /// A preset card: click it and the document exists. `key` is the

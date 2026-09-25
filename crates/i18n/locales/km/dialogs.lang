@@ -205,3 +205,5 @@ dialog.prefs.camera_sync_enabled = បម្រុងទុកទៅ Schist Clou
 dialog.prefs.camera_sync_sign_in = ចូល Schist Cloud ដើម្បីបម្រុងទុកកម្រងរូបថតកាមេរ៉ារបស់អ្នក។
 dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = ផ្លាស់ប្តូរ…
+dialog.new_doc.from_clipboard = ពីក្ដារតម្បៀតខ្ទាស់
+dialog.new_doc.from_image_url = ពី URL រូបភាព

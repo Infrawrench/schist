@@ -265,3 +265,5 @@ dialog.prefs.camera_sync_enabled = Backup su Schist Cloud
 dialog.prefs.camera_sync_sign_in = Accedi a Schist Cloud per eseguire il backup del rullino foto.
 dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Modifica…
+dialog.new_doc.from_clipboard = Dagli appunti
+dialog.new_doc.from_image_url = Da URL immagine

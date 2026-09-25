@@ -252,3 +252,5 @@ dialog.prefs.camera_sync_enabled = Reservekopy meitsje yn Schist Cloud
 dialog.prefs.camera_sync_sign_in = Meld jo oan by Schist Cloud om in reservekopy fan jo kamerarol te meitsjen.
 dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Wizigje…
+dialog.new_doc.from_clipboard = Fan klamboerd
+dialog.new_doc.from_image_url = Fan ôfbyldings-URL

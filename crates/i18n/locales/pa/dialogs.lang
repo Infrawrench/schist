@@ -213,3 +213,5 @@ dialog.prefs.camera_sync_enabled = Schist Cloud ਉੱਤੇ ਬੈਕਅੱਪ 
 dialog.prefs.camera_sync_sign_in = ਆਪਣੇ ਕੈਮਰਾ ਰੋਲ ਦਾ ਬੈਕਅੱਪ ਲੈਣ ਲਈ Schist Cloud ਵਿੱਚ ਸਾਈਨ ਇਨ ਕਰੋ।
 dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = ਬਦਲੋ…
+dialog.new_doc.from_clipboard = ਕਲਿੱਪਬੋਰਡ ਤੋਂ
+dialog.new_doc.from_image_url = ਚਿੱਤਰ URL ਤੋਂ

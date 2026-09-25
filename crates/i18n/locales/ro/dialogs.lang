@@ -221,3 +221,5 @@ dialog.prefs.camera_sync_enabled = Copie de siguranță în Schist Cloud
 dialog.prefs.camera_sync_sign_in = Conectați-vă la Schist Cloud pentru a crea copia de siguranță a albumului camerei.
 dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Modificare…
+dialog.new_doc.from_clipboard = Din clipboard
+dialog.new_doc.from_image_url = Din URL-ul imaginii

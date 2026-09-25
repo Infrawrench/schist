@@ -214,3 +214,5 @@ dialog.prefs.camera_sync_enabled = Far ina copia da segirezza en Schist Cloud
 dialog.prefs.camera_sync_sign_in = T'annunzia a Schist Cloud per segirar tes rullin da camera.
 dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Midar…
+dialog.new_doc.from_clipboard = Dal portafegls
+dialog.new_doc.from_image_url = Da l’URL d’in maletg

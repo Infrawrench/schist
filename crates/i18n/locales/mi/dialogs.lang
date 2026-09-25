@@ -205,3 +205,5 @@ dialog.prefs.camera_sync_enabled = Pūrua ki Schist Cloud
 dialog.prefs.camera_sync_sign_in = Takiuru ki Schist Cloud hei pūrua i tō rārangi kāmera.
 dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Huri…
+dialog.new_doc.from_clipboard = Mai i te papatopenga
+dialog.new_doc.from_image_url = Mai i te URL atahanga

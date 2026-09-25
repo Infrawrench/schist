@@ -244,3 +244,5 @@ dialog.prefs.camera_sync_enabled = Sigurnosno kopiraj na Schist Cloud
 dialog.prefs.camera_sync_sign_in = Prijavite se na Schist Cloud da biste sigurnosno kopirali snimke kamere.
 dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Promijeni…
+dialog.new_doc.from_clipboard = Iz međuspremnika
+dialog.new_doc.from_image_url = Iz URL-a slike

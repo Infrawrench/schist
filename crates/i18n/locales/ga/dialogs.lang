@@ -237,3 +237,5 @@ dialog.prefs.camera_sync_enabled = Déan cúltaca chuig Schist Cloud
 dialog.prefs.camera_sync_sign_in = Sín isteach in Schist Cloud chun cúltaca a dhéanamh de do rolla ceamara.
 dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Athraigh…
+dialog.new_doc.from_clipboard = Ón ngearrthaisce
+dialog.new_doc.from_image_url = Ó URL íomhá

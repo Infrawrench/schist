@@ -175,6 +175,10 @@ lint-app:
 check-app-web:
 	$(CARGO) check -p schist-app --target wasm32-unknown-unknown
 
+.PHONY: test-new-doc-clipboard
+test-new-doc-clipboard:
+	$(CARGO) test -p schist-editor --lib workspace::clipboard::tests
+
 .PHONY: test-brush-workflows check-brush-workflows
 test-brush-workflows:
 	$(CARGO) test -p schist-tools-paint -p schist-app-settings

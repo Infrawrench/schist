@@ -236,3 +236,5 @@ dialog.prefs.camera_sync_enabled = Ta tryggleikskopi til Schist Cloud
 dialog.prefs.camera_sync_sign_in = Logg inn på Schist Cloud for å ta tryggleikskopi av kamerarullen.
 dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Endre …
+dialog.new_doc.from_clipboard = Frå utklippstavla
+dialog.new_doc.from_image_url = Frå bilet-URL

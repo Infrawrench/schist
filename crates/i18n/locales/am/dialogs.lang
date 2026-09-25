@@ -214,3 +214,5 @@ dialog.prefs.camera_sync_enabled = ወደ Schist Cloud ምትኬ ውሰድ
 dialog.prefs.camera_sync_sign_in = የካሜራ ፎቶዎችዎን ምትኬ ለመውሰድ ወደ Schist Cloud ይግቡ።
 dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = ቀይር…
+dialog.new_doc.from_clipboard = ከቅንጥብ ሰሌዳ
+dialog.new_doc.from_image_url = ከምስል URL

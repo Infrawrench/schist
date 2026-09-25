@@ -260,3 +260,5 @@ dialog.prefs.camera_sync_enabled = Schist Cloud-д нөөцлөх
 dialog.prefs.camera_sync_sign_in = Камерын зургаа нөөцлөхийн тулд Schist Cloud-д нэвтэрнэ үү.
 dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Өөрчлөх…
+dialog.new_doc.from_clipboard = Түр санах ойгоос
+dialog.new_doc.from_image_url = Зургийн URL-аас
