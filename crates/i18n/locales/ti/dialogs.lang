@@ -238,3 +238,7 @@ dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = ምቕያር…
 dialog.new_doc.from_clipboard = ካብ ቅንጥብ ሰሌዳ
 dialog.new_doc.from_image_url = ካብ URL ምስሊ
+
+# Backers
+dialog.support.title = Schist ደግፉ
+dialog.support.thanks = ንSchist ዝድግፉ ሰባትን ትካላትን ነመስግን።

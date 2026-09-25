@@ -221,3 +221,7 @@ dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Chanje…
 dialog.new_doc.from_clipboard = Soti nan près-papye
 dialog.new_doc.from_image_url = Soti nan URL imaj
+
+# Backers
+dialog.support.title = Sipòte Schist
+dialog.support.thanks = Mèsi ak moun ak mak ki sipòte Schist.

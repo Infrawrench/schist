@@ -215,3 +215,7 @@ dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Muuta…
 dialog.new_doc.from_clipboard = Leikepöydältä
 dialog.new_doc.from_image_url = Kuvan URL-osoitteesta
+
+# Backers
+dialog.support.title = Tue Schistiä
+dialog.support.thanks = Kiitos Schistiä tukeville ihmisille ja yrityksille.

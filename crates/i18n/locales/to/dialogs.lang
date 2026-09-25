@@ -227,3 +227,7 @@ dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Liliu…
 dialog.new_doc.from_clipboard = Mei he papa hiki
 dialog.new_doc.from_image_url = Mei he URL ʻo e ʻīmisi
+
+# Backers
+dialog.support.title = Poupouʻi ʻa Schist
+dialog.support.thanks = Mālō ki he kakai mo e ngaahi kautaha ʻoku nau poupouʻi ʻa Schist.

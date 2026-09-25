@@ -904,6 +904,7 @@ pub enum UpdateProgress {
 // plumbing matches exhaustively on every target.
 #[cfg_attr(target_arch = "wasm32", allow(dead_code))]
 pub enum Modal {
+    Support,
     Workspaces {
         primary: Option<WorkspaceEdit>,
         selected: Option<usize>,

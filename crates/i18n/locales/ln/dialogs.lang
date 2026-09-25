@@ -238,3 +238,7 @@ dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Kobongola…
 dialog.new_doc.from_clipboard = Uta na clipboard
 dialog.new_doc.from_image_url = Uta na URL ya elilingi
+
+# Backers
+dialog.support.title = Sunga Schist
+dialog.support.thanks = Matɔndi na bato mpe bakompanyi oyo basungaka Schist.

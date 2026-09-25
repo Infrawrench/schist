@@ -207,3 +207,7 @@ dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Huri…
 dialog.new_doc.from_clipboard = Mai i te papatopenga
 dialog.new_doc.from_image_url = Mai i te URL atahanga
+
+# Backers
+dialog.support.title = Tautoko i a Schist
+dialog.support.thanks = Ngā mihi ki ngā tāngata me ngā pakihi e tautoko ana i a Schist.

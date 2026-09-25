@@ -215,3 +215,7 @@ dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Chinja…
 dialog.new_doc.from_clipboard = Kubva pakabhodhi kekukopa
 dialog.new_doc.from_image_url = Kubva paURL yemufananidzo
+
+# Backers
+dialog.support.title = Tsigira Schist
+dialog.support.thanks = Tinotenda vanhu nemakambani anotsigira Schist.

@@ -18,6 +18,7 @@ use schist_app_services::{crash, update};
 use schist_app_settings::feature_enabled;
 #[cfg(not(target_arch = "wasm32"))]
 use schist_video as video;
+mod backers;
 mod color_picker;
 mod curve_editor;
 mod dialogs;

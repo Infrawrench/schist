@@ -207,3 +207,7 @@ dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Robah…
 dialog.new_doc.from_clipboard = Tina papan klip
 dialog.new_doc.from_image_url = Tina URL gambar
+
+# Backers
+dialog.support.title = Dukung Schist
+dialog.support.thanks = Hatur nuhun ka jalma jeung mérek anu ngarojong Schist.

@@ -207,3 +207,7 @@ dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Jenisim…
 dialog.new_doc.from_clipboard = Long klipbod
 dialog.new_doc.from_image_url = Long URL blong pikja
+
+# Backers
+dialog.support.title = Sapotenem Schist
+dialog.support.thanks = Tangkyu long ol man mo ol kampani we oli sapotenem Schist.

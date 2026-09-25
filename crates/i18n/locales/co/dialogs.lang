@@ -207,3 +207,7 @@ dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Cambià…
 dialog.new_doc.from_clipboard = Da u port’appunti
 dialog.new_doc.from_image_url = Da l’URL d’una maghjina
+
+# Backers
+dialog.support.title = Sustenite Schist
+dialog.support.thanks = Grazie à e persone è à e marche chì sustenenu Schist.

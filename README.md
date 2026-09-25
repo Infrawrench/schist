@@ -28,6 +28,19 @@ See the platform guides below for their requirements and differences.
 
 Thanks to the people and brands supporting Schist.
 
+The app's **💜 Support Schist** dialog embeds [backers.json](backers.json).
+The backer updater can replace this file: `support_url` is the support page,
+and `tiers` is an ordered list of `{name, backers}` groups. Each backer has a
+`name`, an optional website `url`, and an optional `logo` with a `light` URL,
+an optional `dark` URL, and a display `width` (defaults to 120 pixels).
+Tier and backer names are displayed as supplied; empty tiers are hidden.
+
+The editor's `build.rs` downloads the logos and embeds them, so this dialog
+works offline on every platform. Downloads are cached by URL in Cargo's
+build output; a clean build needs network access. Use versioned logo URLs
+when artwork changes, or `SCHIST_REFRESH_BACKER_LOGOS=1 make app` to refresh
+the cache. No backer or logo requests are made while the app runs.
+
 ## Build and run
 
 Install stable Rust through `rustup`, GNU Make, and your platform's native

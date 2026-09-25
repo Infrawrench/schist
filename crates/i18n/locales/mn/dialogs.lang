@@ -262,3 +262,7 @@ dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Өөрчлөх…
 dialog.new_doc.from_clipboard = Түр санах ойгоос
 dialog.new_doc.from_image_url = Зургийн URL-аас
+
+# Backers
+dialog.support.title = Schist-ийг дэмжих
+dialog.support.thanks = Schist-ийг дэмжиж буй хүмүүс болон брэндүүдэд баярлалаа.

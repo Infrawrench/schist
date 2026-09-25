@@ -207,3 +207,7 @@ dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Moambue…
 dialog.new_doc.from_clipboard = Portapapeles-gui
 dialog.new_doc.from_image_url = Ta’ãnga URL-gui
+
+# Backers
+dialog.support.title = Eipytyvõ Schist-pe
+dialog.support.thanks = Aguyje tapicha ha empresa oipytyvõvape Schist-pe.

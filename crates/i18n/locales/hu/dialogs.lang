@@ -215,3 +215,7 @@ dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Módosítás…
 dialog.new_doc.from_clipboard = Vágólapról
 dialog.new_doc.from_image_url = Kép URL-címéről
+
+# Backers
+dialog.support.title = A Schist támogatása
+dialog.support.thanks = Köszönjük a Schist támogatóinak és a támogató márkáknak.

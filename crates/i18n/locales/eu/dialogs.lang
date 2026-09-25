@@ -260,3 +260,7 @@ dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Aldatu…
 dialog.new_doc.from_clipboard = Arbeletik
 dialog.new_doc.from_image_url = Irudiaren URLtik
+
+# Backers
+dialog.support.title = Lagundu Schist-i
+dialog.support.thanks = Eskerrik asko Schist babesten duten pertsonei eta markei.

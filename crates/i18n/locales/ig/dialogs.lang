@@ -207,3 +207,7 @@ dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Gbanwee…
 dialog.new_doc.from_clipboard = Site na klipbọọdụ
 dialog.new_doc.from_image_url = Site na URL onyonyo
+
+# Backers
+dialog.support.title = Kwado Schist
+dialog.support.thanks = Daalụ ndị mmadụ na ụlọ ọrụ na-akwado Schist.

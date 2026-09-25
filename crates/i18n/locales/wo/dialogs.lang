@@ -207,3 +207,7 @@ dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Soppi…
 dialog.new_doc.from_clipboard = Jële ci clipboard
 dialog.new_doc.from_image_url = Jële ci URL bu nataal
+
+# Backers
+dialog.support.title = Dimbali Schist
+dialog.support.thanks = Jërëjëf ñi ak liggéeyukaay yi di dimbali Schist.

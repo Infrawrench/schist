@@ -207,3 +207,7 @@ dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Yí padà…
 dialog.new_doc.from_clipboard = Láti inú àkọsílẹ̀ ẹ̀dà
 dialog.new_doc.from_image_url = Láti URL àwòrán
+
+# Backers
+dialog.support.title = Ṣe àtìlẹ́yìn fún Schist
+dialog.support.thanks = Ẹ ṣé fún àwọn ènìyàn àti ilé iṣẹ́ tí ń ṣe àtìlẹ́yìn fún Schist.

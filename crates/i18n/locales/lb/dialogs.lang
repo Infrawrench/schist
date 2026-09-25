@@ -229,3 +229,7 @@ dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Änneren…
 dialog.new_doc.from_clipboard = Aus der Tëschenoflag
 dialog.new_doc.from_image_url = Vun enger Bild-URL
+
+# Backers
+dialog.support.title = Ënnerstëtzt Schist
+dialog.support.thanks = Merci un d'Leit an d'Marken, déi Schist ënnerstëtzen.

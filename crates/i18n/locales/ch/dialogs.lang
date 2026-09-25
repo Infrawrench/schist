@@ -207,3 +207,7 @@ dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Tulaika…
 dialog.new_doc.from_clipboard = Ginen i clipboard
 dialog.new_doc.from_image_url = Ginen i URL i litratu
+
+# Backers
+dialog.support.title = Sostieni Schist
+dialog.support.thanks = Si Yu’os ma’åse’ i taotao yan kompania siha ni sumosostieni Schist.

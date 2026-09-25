@@ -223,3 +223,7 @@ dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Keisti…
 dialog.new_doc.from_clipboard = Iš iškarpinės
 dialog.new_doc.from_image_url = Iš paveikslėlio URL
+
+# Backers
+dialog.support.title = Paremkite Schist
+dialog.support.thanks = Dėkojame žmonėms ir prekių ženklams, remiantiems Schist.

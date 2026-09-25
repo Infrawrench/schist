@@ -264,3 +264,7 @@ dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = වෙනස් කරන්න…
 dialog.new_doc.from_clipboard = පසුරු පුවරුවෙන්
 dialog.new_doc.from_image_url = රූප URL එකකින්
+
+# Backers
+dialog.support.title = Schist වෙත සහාය දෙන්න
+dialog.support.thanks = Schist වෙත සහාය දෙන පුද්ගලයන්ට සහ සන්නාමවලට ස්තූතියි.

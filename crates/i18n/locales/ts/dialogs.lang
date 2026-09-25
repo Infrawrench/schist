@@ -238,3 +238,7 @@ dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Cinca…
 dialog.new_doc.from_clipboard = Ku suka eka clipboard
 dialog.new_doc.from_image_url = Ku suka eka URL ya xifaniso
+
+# Backers
+dialog.support.title = Seketela Schist
+dialog.support.thanks = Ha nkhensa vanhu ni mabindzu lama seketelaka Schist.

@@ -207,3 +207,7 @@ dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = ປ່ຽນ…
 dialog.new_doc.from_clipboard = ຈາກຄລິບບອດ
 dialog.new_doc.from_image_url = ຈາກ URL ຮູບພາບ
+
+# Backers
+dialog.support.title = ສະໜັບສະໜູນ Schist
+dialog.support.thanks = ຂອບໃຈບຸກຄົນ ແລະ ຍີ່ຫໍ້ທີ່ສະໜັບສະໜູນ Schist.

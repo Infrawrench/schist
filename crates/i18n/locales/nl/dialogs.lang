@@ -239,3 +239,7 @@ dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Wijzigen…
 dialog.new_doc.from_clipboard = Van klembord
 dialog.new_doc.from_image_url = Van afbeeldings-URL
+
+# Backers
+dialog.support.title = Steun Schist
+dialog.support.thanks = Dank aan de mensen en merken die Schist steunen.

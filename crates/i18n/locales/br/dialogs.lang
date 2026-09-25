@@ -262,3 +262,7 @@ dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Kemmañ…
 dialog.new_doc.from_clipboard = Diwar ar golver
 dialog.new_doc.from_image_url = Diwar URL ur skeudenn
+
+# Backers
+dialog.support.title = Harpit Schist
+dialog.support.thanks = Trugarez d'an dud ha d'ar merkoù a harp Schist.

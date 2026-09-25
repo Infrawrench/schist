@@ -254,3 +254,7 @@ dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Wizigje…
 dialog.new_doc.from_clipboard = Fan klamboerd
 dialog.new_doc.from_image_url = Fan ôfbyldings-URL
+
+# Backers
+dialog.support.title = Stypje Schist
+dialog.support.thanks = Tank oan de minsken en merken dy't Schist stypje.

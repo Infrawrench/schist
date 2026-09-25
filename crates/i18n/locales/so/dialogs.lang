@@ -215,3 +215,7 @@ dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Beddel…
 dialog.new_doc.from_clipboard = Ka soo qaad sabuuradda
 dialog.new_doc.from_image_url = Ka soo qaad URL-ka sawirka
+
+# Backers
+dialog.support.title = Taageer Schist
+dialog.support.thanks = Waad ku mahadsan tihiin dadka iyo shirkadaha taageera Schist.

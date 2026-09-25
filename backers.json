@@ -1,0 +1,19 @@
+{
+  "support_url": "https://backers.schist.app",
+  "tiers": [
+    {
+      "name": "Gold",
+      "backers": [
+        {
+          "name": "LeanerCloud",
+          "url": "https://leanercloud.com",
+          "logo": {
+            "light": "https://backers.schist.app/api/logos/1070272e-84cb-4a8d-8b8d-3976fbf81d88/light",
+            "dark": "https://backers.schist.app/api/logos/1070272e-84cb-4a8d-8b8d-3976fbf81d88/dark",
+            "width": 120
+          }
+        }
+      ]
+    }
+  ]
+}

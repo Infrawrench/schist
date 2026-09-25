@@ -41,6 +41,7 @@ mod recorded_actions;
 #[cfg(not(target_arch = "wasm32"))]
 mod save_image;
 mod size;
+mod support;
 #[cfg(not(sandboxed))]
 mod update;
 mod workspaces;
@@ -115,6 +116,7 @@ pub fn render(ws: &mut Workspace, cx: &mut Context<Workspace>) -> Option<gpui::A
     // action while it builds, so Enter can fire it.
     ui::reset_default_action();
     let body = match modal {
+        Modal::Support => support::dialog(cx).into_any_element(),
         Modal::Workspaces {
             primary,
             selected,

@@ -207,3 +207,7 @@ dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Тағйир додан…
 dialog.new_doc.from_clipboard = Аз буфери мубодила
 dialog.new_doc.from_image_url = Аз URL-и тасвир
+
+# Backers
+dialog.support.title = Дастгирии Schist
+dialog.support.thanks = Ташаккур ба одамон ва брендҳое, ки Schist-ро дастгирӣ мекунанд.

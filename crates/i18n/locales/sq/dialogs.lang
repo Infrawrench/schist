@@ -216,3 +216,7 @@ dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Ndrysho…
 dialog.new_doc.from_clipboard = Nga kujtesa e përkohshme
 dialog.new_doc.from_image_url = Nga URL-ja e figurës
+
+# Backers
+dialog.support.title = Mbështetni Schist
+dialog.support.thanks = Faleminderit njerëzve dhe markave që mbështesin Schist.

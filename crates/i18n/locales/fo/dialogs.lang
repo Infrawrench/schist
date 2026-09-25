@@ -215,3 +215,7 @@ dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Broyt…
 dialog.new_doc.from_clipboard = Av klippiborði
 dialog.new_doc.from_image_url = Frá mynda-URL
+
+# Backers
+dialog.support.title = Stuðla Schist
+dialog.support.thanks = Takk til fólkini og fyritøkurnar, sum stuðla Schist.

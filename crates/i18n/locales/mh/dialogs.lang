@@ -207,3 +207,7 @@ dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Ukot…
 dialog.new_doc.from_clipboard = Jān clipboard
 dialog.new_doc.from_image_url = Jān URL in pija
+
+# Backers
+dialog.support.title = Jipan Schist
+dialog.support.thanks = Kommool ñan armej im peej kein rej jipañ Schist.

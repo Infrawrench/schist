@@ -215,3 +215,7 @@ dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Ŝanĝi…
 dialog.new_doc.from_clipboard = El tondujo
 dialog.new_doc.from_image_url = El bilda URL
+
+# Backers
+dialog.support.title = Subtenu Schist
+dialog.support.thanks = Dankon al la homoj kaj markoj kiuj subtenas Schist.

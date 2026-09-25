@@ -231,3 +231,7 @@ dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Fetola…
 dialog.new_doc.from_clipboard = Ho tsoa ho clipboard
 dialog.new_doc.from_image_url = Ho tsoa ho URL ea setšoantšo
+
+# Backers
+dialog.support.title = Tshehetsa Schist
+dialog.support.thanks = Re leboha batho le dikgwebo tse tshehetsang Schist.

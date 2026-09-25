@@ -228,3 +228,7 @@ dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Өзгөртүү…
 dialog.new_doc.from_clipboard = Алмашуу буферинен
 dialog.new_doc.from_image_url = Сүрөттүн URL дарегинен
+
+# Backers
+dialog.support.title = Schist долбоорун колдоо
+dialog.support.thanks = Schist долбоорун колдогон адамдарга жана бренддерге рахмат.

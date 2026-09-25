@@ -257,3 +257,7 @@ dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = 更改…
 dialog.new_doc.from_clipboard = 从剪贴板
 dialog.new_doc.from_image_url = 从图像 URL
+
+# Backers
+dialog.support.title = 支持 Schist
+dialog.support.thanks = 感谢所有支持 Schist 的个人和品牌。

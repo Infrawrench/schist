@@ -223,3 +223,7 @@ dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Canvia…
 dialog.new_doc.from_clipboard = Des del porta-retalls
 dialog.new_doc.from_image_url = Des d’un URL d’imatge
+
+# Backers
+dialog.support.title = Dona suport a Schist
+dialog.support.thanks = Gràcies a les persones i marques que donen suport a Schist.

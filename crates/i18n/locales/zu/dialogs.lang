@@ -215,3 +215,7 @@ dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Shintsha…
 dialog.new_doc.from_clipboard = Kusuka ebhodini lokunamathisela
 dialog.new_doc.from_image_url = Kusuka ku-URL yesithombe
+
+# Backers
+dialog.support.title = Sekela i-Schist
+dialog.support.thanks = Siyabonga kubantu nemikhiqizo esekela i-Schist.

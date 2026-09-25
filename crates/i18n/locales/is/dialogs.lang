@@ -262,3 +262,7 @@ dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Breyta…
 dialog.new_doc.from_clipboard = Af klippispjaldi
 dialog.new_doc.from_image_url = Af myndslóð
+
+# Backers
+dialog.support.title = Styrktu Schist
+dialog.support.thanks = Þökkum fólkinu og fyrirtækjunum sem styðja Schist.

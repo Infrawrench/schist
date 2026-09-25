@@ -231,3 +231,7 @@ dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Yɛlɛma…
 dialog.new_doc.from_clipboard = Ka bɔ clipboard kɔnɔ
 dialog.new_doc.from_image_url = Ka bɔ ja URL la
+
+# Backers
+dialog.support.title = Schist dɛmɛ
+dialog.support.thanks = An bɛ bato mɔgɔw ni jagoɲɔgɔnw la minnu bɛ Schist dɛmɛ.

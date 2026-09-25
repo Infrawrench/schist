@@ -216,3 +216,7 @@ dialog.prefs.camera_sync_rule = {source} → {folder}
 dialog.prefs.camera_sync_change = Changear…
 dialog.new_doc.from_clipboard = Ex li paperiere
 dialog.new_doc.from_image_url = Ex un URL de image
+
+# Backers
+dialog.support.title = Subtene Schist
+dialog.support.thanks = Mersí al persones e marcas quel subtene Schist.
