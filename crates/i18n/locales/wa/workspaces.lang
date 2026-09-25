@@ -1,16 +1,16 @@
-# Workspace strings. Explicit English fallback; translation pending.
-workspaces.title = Workspaces
-workspaces.manage = Manage Workspaces…
-workspaces.painting = Painting
-workspaces.photo = Photo Development
-workspaces.retouching = Retouching
-workspaces.current = Current layout
-workspaces.help = Save As creates a named copy of the current layout. Select a saved layout to apply, update, rename or delete it. Layout edits take effect immediately.
-workspaces.show_panels = Show side panels
-workspaces.automatic = Automatic
-workspaces.reset_help = Reset restores the default panel layout only. Saved workspaces, documents and other preferences are kept.
-workspaces.save_error = Could not save workspace preferences. The change was not applied.
-workspaces.invalid_name = Enter a name of 1–80 characters without control characters.
-workspaces.duplicate = A workspace with this name already exists.
-workspaces.limit = You can save up to 64 workspaces.
-workspaces.keyboard = Keyboard: Alt+↑/↓ selects a layout. Ctrl/Cmd+N edits its name; +S saves a copy; +Enter applies; +U updates; +R renames; +D deletes; +0 resets.
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Espåces di ovraedje
+workspaces.manage = Manaedjî les espåces di ovraedje…
+workspaces.painting = Pindaedje
+workspaces.photo = Tratmint des fotos
+workspaces.retouching = Ritotchaedje
+workspaces.current = Adjinçmint do moumint
+workspaces.help = «Schaper et rlomer» fwait ene cope lomêye di l'adjinçmint do moumint. Tchoezixhoz èn adjinçmint schapé po l' mete, l' mete a djoû, l' rilomer ou l' disfacer. Les candjmints d'adjinçmint s'aplikèt tot dreût.
+workspaces.show_panels = Mostrer les paneas sol costé
+workspaces.automatic = Otomåtike
+workspaces.reset_help = «Rimete a zero» rimete seulmint l'adjinçmint prémetou des paneas. Les espåces di ovraedje schapés, les documints et les ôtès preferinces dmorèt.
+workspaces.save_error = Dji n'a nén polou schaper les preferinces des espåces di ovraedje. Li candjmint n'a nén stî metou.
+workspaces.invalid_name = Intrez on no di 1–80 caracteres sins caracteres di contrôle.
+workspaces.duplicate = I gn a ddja èn espåce di ovraedje avou ç' no-là.
+workspaces.limit = Vos ploz schaper disk'a 64 espåces di ovraedje.
+workspaces.keyboard = Clavî: Alt+↑/↓ tchoezixh èn adjinçmint. Ctrl/Cmd+N candje si no; +S schape ene cope; +Enter l' mete; +U l' mete a djoû; +R l' rilome; +D l' disface; +0 l' rimete a zero.

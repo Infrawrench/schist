@@ -1,16 +1,16 @@
-# Workspace strings. Explicit English fallback; translation pending.
-workspaces.title = Workspaces
-workspaces.manage = Manage Workspaces…
-workspaces.painting = Painting
-workspaces.photo = Photo Development
-workspaces.retouching = Retouching
-workspaces.current = Current layout
-workspaces.help = Save As creates a named copy of the current layout. Select a saved layout to apply, update, rename or delete it. Layout edits take effect immediately.
-workspaces.show_panels = Show side panels
-workspaces.automatic = Automatic
-workspaces.reset_help = Reset restores the default panel layout only. Saved workspaces, documents and other preferences are kept.
-workspaces.save_error = Could not save workspace preferences. The change was not applied.
-workspaces.invalid_name = Enter a name of 1–80 characters without control characters.
-workspaces.duplicate = A workspace with this name already exists.
-workspaces.limit = You can save up to 64 workspaces.
-workspaces.keyboard = Keyboard: Alt+↑/↓ selects a layout. Ctrl/Cmd+N edits its name; +S saves a copy; +Enter applies; +U updates; +R renames; +D deletes; +0 resets.
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Ruang kerja
+workspaces.manage = Kelola Ruang Kerja…
+workspaces.painting = Melukis
+workspaces.photo = Pengembangan Foto
+workspaces.retouching = Retus
+workspaces.current = Tata letak saat ini
+workspaces.help = “Simpan Sebagai” membuat salinan tata letak saat ini dengan nama. Pilih tata letak tersimpan untuk menerapkan, memperbarui, mengganti nama, atau menghapusnya. Perubahan tata letak langsung berlaku.
+workspaces.show_panels = Tampilkan panel samping
+workspaces.automatic = Otomatis
+workspaces.reset_help = “Atur Ulang” hanya memulihkan tata letak panel bawaan. Ruang kerja tersimpan, dokumen, dan preferensi lainnya tetap dipertahankan.
+workspaces.save_error = Preferensi ruang kerja tidak dapat disimpan. Perubahan tidak diterapkan.
+workspaces.invalid_name = Masukkan nama sepanjang 1–80 karakter tanpa karakter kontrol.
+workspaces.duplicate = Ruang kerja dengan nama ini sudah ada.
+workspaces.limit = Anda dapat menyimpan hingga 64 ruang kerja.
+workspaces.keyboard = Papan ketik: Alt+↑/↓ memilih tata letak. Ctrl/Cmd+N mengedit namanya; +S menyimpan salinan; +Enter menerapkan; +U memperbarui; +R mengganti nama; +D menghapus; +0 mengatur ulang.

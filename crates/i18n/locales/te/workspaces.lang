@@ -1,16 +1,16 @@
-# Workspace strings. Explicit English fallback; translation pending.
-workspaces.title = Workspaces
-workspaces.manage = Manage Workspaces…
-workspaces.painting = Painting
-workspaces.photo = Photo Development
-workspaces.retouching = Retouching
-workspaces.current = Current layout
-workspaces.help = Save As creates a named copy of the current layout. Select a saved layout to apply, update, rename or delete it. Layout edits take effect immediately.
-workspaces.show_panels = Show side panels
-workspaces.automatic = Automatic
-workspaces.reset_help = Reset restores the default panel layout only. Saved workspaces, documents and other preferences are kept.
-workspaces.save_error = Could not save workspace preferences. The change was not applied.
-workspaces.invalid_name = Enter a name of 1–80 characters without control characters.
-workspaces.duplicate = A workspace with this name already exists.
-workspaces.limit = You can save up to 64 workspaces.
-workspaces.keyboard = Keyboard: Alt+↑/↓ selects a layout. Ctrl/Cmd+N edits its name; +S saves a copy; +Enter applies; +U updates; +R renames; +D deletes; +0 resets.
+# Workspace strings. AI translation; human review pending.
+workspaces.title = పని ప్రదేశాలు
+workspaces.manage = పని ప్రదేశాలను నిర్వహించు…
+workspaces.painting = చిత్రలేఖనం
+workspaces.photo = ఫోటో అభివృద్ధి
+workspaces.retouching = ఫోటో సవరణ
+workspaces.current = ప్రస్తుత అమరిక
+workspaces.help = ఇలా సేవ్ చేయి ప్రస్తుత అమరికకు పేరుతో ఒక కాపీని సృష్టిస్తుంది. సేవ్ చేసిన అమరికను వర్తింపజేయడానికి, నవీకరించడానికి, పేరు మార్చడానికి లేదా తొలగించడానికి దాన్ని ఎంచుకోండి. అమరికలో మార్పులు వెంటనే అమలవుతాయి.
+workspaces.show_panels = పక్క ప్యానెల్‌లను చూపు
+workspaces.automatic = స్వయంచాలకం
+workspaces.reset_help = తిరిగి అమర్చు డిఫాల్ట్ ప్యానెల్ అమరికను మాత్రమే పునరుద్ధరిస్తుంది. సేవ్ చేసిన పని ప్రదేశాలు, పత్రాలు, ఇతర ప్రాధాన్యతలు అలాగే ఉంటాయి.
+workspaces.save_error = పని ప్రదేశ ప్రాధాన్యతలను సేవ్ చేయలేకపోయాం. మార్పు వర్తింపజేయబడలేదు.
+workspaces.invalid_name = నియంత్రణ అక్షరాలు లేని 1–80 అక్షరాల పేరును నమోదు చేయండి.
+workspaces.duplicate = ఈ పేరుతో పని ప్రదేశం ఇప్పటికే ఉంది.
+workspaces.limit = మీరు గరిష్ఠంగా 64 పని ప్రదేశాలను సేవ్ చేయవచ్చు.
+workspaces.keyboard = కీబోర్డ్: Alt+↑/↓ అమరికను ఎంచుకుంటుంది. Ctrl/Cmd+N దాని పేరును సవరిస్తుంది; +S కాపీని సేవ్ చేస్తుంది; +Enter వర్తింపజేస్తుంది; +U నవీకరిస్తుంది; +R పేరు మారుస్తుంది; +D తొలగిస్తుంది; +0 తిరిగి అమర్చుతుంది.

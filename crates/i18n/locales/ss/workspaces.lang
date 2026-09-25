@@ -1,16 +1,16 @@
-# Workspace strings. Explicit English fallback; translation pending.
-workspaces.title = Workspaces
-workspaces.manage = Manage Workspaces…
-workspaces.painting = Painting
-workspaces.photo = Photo Development
-workspaces.retouching = Retouching
-workspaces.current = Current layout
-workspaces.help = Save As creates a named copy of the current layout. Select a saved layout to apply, update, rename or delete it. Layout edits take effect immediately.
-workspaces.show_panels = Show side panels
-workspaces.automatic = Automatic
-workspaces.reset_help = Reset restores the default panel layout only. Saved workspaces, documents and other preferences are kept.
-workspaces.save_error = Could not save workspace preferences. The change was not applied.
-workspaces.invalid_name = Enter a name of 1–80 characters without control characters.
-workspaces.duplicate = A workspace with this name already exists.
-workspaces.limit = You can save up to 64 workspaces.
-workspaces.keyboard = Keyboard: Alt+↑/↓ selects a layout. Ctrl/Cmd+N edits its name; +S saves a copy; +Enter applies; +U updates; +R renames; +D deletes; +0 resets.
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Tindzawo tekusebenta
+workspaces.manage = Phatsa tindzawo tekusebenta…
+workspaces.painting = Kupenda
+workspaces.photo = Kutfutfukisa titfombe
+workspaces.retouching = Kulolonga titfombe
+workspaces.current = Kuhleleka kwamanje
+workspaces.help = Gcina Njenge… kwakha ikhophi lenelibito yekuhleleka kwamanje. Khetsa kuhleleka lokugciniwe kuze ukusebentise, ukubuyekete, ukukwetsa libito lelisha noma ukukususe. Tingucuko ekuhlelekeni tisebenta masinyane.
+workspaces.show_panels = Khombisa emaphaneli lasemaceleni
+workspaces.automatic = Ngekutentakalela
+workspaces.reset_help = Setha Kabusha kubuyisela kuhleleka kwemaphaneli lokumisiwe kuphela. Tindzawo tekusebenta letigciniwe, emadokhumenti nalokunye lokukhetsiwe kuhlala kukhona.
+workspaces.save_error = Akukhonakali kugcina lokukhetsiwe kwetindzawo tekusebenta. Ingucuko ayikasetjentiswa.
+workspaces.invalid_name = Faka libito lelinetinhlavu letingu-1–80 lelingenatinhlavu tekulawula.
+workspaces.duplicate = Sekuvele kunendzawo yekusebenta lenalelibito.
+workspaces.limit = Ungagcina tindzawo tekusebenta letifika ku-64.
+workspaces.keyboard = Ikhibhodi: Alt+↑/↓ ikhetsa kuhleleka. Ctrl/Cmd+N ihlela libito lakho; +S igcina ikhophi; +Enter iyakusebentisa; +U iyakubuyeketa; +R ikwetsa libito lelisha; +D iyakususa; +0 ikusethela kabusha.

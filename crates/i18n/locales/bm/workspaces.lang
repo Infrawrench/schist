@@ -1,16 +1,16 @@
-# Workspace strings. Explicit English fallback; translation pending.
-workspaces.title = Workspaces
-workspaces.manage = Manage Workspaces…
-workspaces.painting = Painting
-workspaces.photo = Photo Development
-workspaces.retouching = Retouching
-workspaces.current = Current layout
-workspaces.help = Save As creates a named copy of the current layout. Select a saved layout to apply, update, rename or delete it. Layout edits take effect immediately.
-workspaces.show_panels = Show side panels
-workspaces.automatic = Automatic
-workspaces.reset_help = Reset restores the default panel layout only. Saved workspaces, documents and other preferences are kept.
-workspaces.save_error = Could not save workspace preferences. The change was not applied.
-workspaces.invalid_name = Enter a name of 1–80 characters without control characters.
-workspaces.duplicate = A workspace with this name already exists.
-workspaces.limit = You can save up to 64 workspaces.
-workspaces.keyboard = Keyboard: Alt+↑/↓ selects a layout. Ctrl/Cmd+N edits its name; +S saves a copy; +Enter applies; +U updates; +R renames; +D deletes; +0 resets.
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Baara yɔrɔw
+workspaces.manage = Baara yɔrɔw ɲɛnabɔ…
+workspaces.painting = Jaa minɛ
+workspaces.photo = Fotow labɛn
+workspaces.retouching = Fotow ɲɛnabɔ
+workspaces.current = Sigili min bɛ yen sisan
+workspaces.help = Mara tɔgɔ wɛrɛ la bɛ sigili min bɛ yen sisan o kopi dɔ kɛ k'a tɔgɔ da. Sigili maralen dɔ sugandi walasa k'a kɛ, k'a kura, k'a tɔgɔ yɛlɛma walima k'a bɔ. Sigili yɛlɛmaw bɛ baara kɛ joona.
+workspaces.show_panels = Kɛnɛma panɛliw jira
+workspaces.automatic = A yɛrɛma
+workspaces.reset_help = Lasegin a daminɛ na bɛ panɛliw sigili daminɛntan dɔrɔn lasegin. Baara yɔrɔ maralenw, sɛbɛnniw ani yɛrɛ ɲiniw tɔw bɛ to.
+workspaces.save_error = A ma se ka baara yɔrɔ ɲiniw mara. Yɛlɛma ma kɛ.
+workspaces.invalid_name = Tɔgɔ dɔ sɛbɛn min bɛ ni sɛbɛnni 1–80 ye, min tɛ ni mara taamasiɲɛw ye.
+workspaces.duplicate = Baara yɔrɔ dɔ bɛ yen kabini ni nin tɔgɔ ye.
+workspaces.limit = I bɛ se ka baara yɔrɔw 64 mara.
+workspaces.keyboard = Klavye: Alt+↑/↓ bɛ sigili sugandi. Ctrl/Cmd+N bɛ a tɔgɔ yɛlɛma; +S bɛ kopi mara; +Enter bɛ a kɛ; +U bɛ a kura; +R bɛ a tɔgɔ yɛlɛma; +D bɛ a bɔ; +0 bɛ a lasegin.

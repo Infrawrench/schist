@@ -1,16 +1,16 @@
-# Workspace strings. Explicit English fallback; translation pending.
-workspaces.title = Workspaces
-workspaces.manage = Manage Workspaces…
-workspaces.painting = Painting
-workspaces.photo = Photo Development
-workspaces.retouching = Retouching
-workspaces.current = Current layout
-workspaces.help = Save As creates a named copy of the current layout. Select a saved layout to apply, update, rename or delete it. Layout edits take effect immediately.
-workspaces.show_panels = Show side panels
-workspaces.automatic = Automatic
-workspaces.reset_help = Reset restores the default panel layout only. Saved workspaces, documents and other preferences are kept.
-workspaces.save_error = Could not save workspace preferences. The change was not applied.
-workspaces.invalid_name = Enter a name of 1–80 characters without control characters.
-workspaces.duplicate = A workspace with this name already exists.
-workspaces.limit = You can save up to 64 workspaces.
-workspaces.keyboard = Keyboard: Alt+↑/↓ selects a layout. Ctrl/Cmd+N edits its name; +S saves a copy; +Enter applies; +U updates; +R renames; +D deletes; +0 resets.
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Avanoa faigaluega
+workspaces.manage = Pulea avanoa faigaluega…
+workspaces.painting = Valiina
+workspaces.photo = Faagasologa o ata pue
+workspaces.retouching = Teuteuina o ata pue
+workspaces.current = Faatulagaga o loo iai nei
+workspaces.help = Sefe o se… e fai ai se kopi ua faaigoaina o le faatulagaga o loo iai nei. Filifili se faatulagaga ua sefe e faaaoga, faafou, toe faaigoa pe tape. E aoga loa suiga i le faatulagaga.
+workspaces.show_panels = Faaali vaega i autafa
+workspaces.automatic = Otometi
+workspaces.reset_help = Toe Seti e toe faafoi na o le faatulagaga masani o vaega. E tumau avanoa faigaluega ua sefe, pepa ma isi filifiliga.
+workspaces.save_error = Ua lē mafai ona sefe filifiliga o avanoa faigaluega. E leʻi faaaogaina le suiga.
+workspaces.invalid_name = Tusi se igoa e 1–80 mataitusi, e aunoa ma mataitusi e pulea ai.
+workspaces.duplicate = Ua iai se avanoa faigaluega i lenei igoa.
+workspaces.limit = E mafai ona sefe seʻia oo i le 64 avanoa faigaluega.
+workspaces.keyboard = Piano: Alt+↑/↓ e filifili ai se faatulagaga. Ctrl/Cmd+N e faasaʻo ai lona igoa; +S e sefe ai se kopi; +Enter e faaaoga ai; +U e faafou ai; +R e toe faaigoa ai; +D e tape ai; +0 e toe seti ai.

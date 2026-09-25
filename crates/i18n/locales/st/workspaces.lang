@@ -1,16 +1,16 @@
-# Workspace strings. Explicit English fallback; translation pending.
-workspaces.title = Workspaces
-workspaces.manage = Manage Workspaces…
-workspaces.painting = Painting
-workspaces.photo = Photo Development
-workspaces.retouching = Retouching
-workspaces.current = Current layout
-workspaces.help = Save As creates a named copy of the current layout. Select a saved layout to apply, update, rename or delete it. Layout edits take effect immediately.
-workspaces.show_panels = Show side panels
-workspaces.automatic = Automatic
-workspaces.reset_help = Reset restores the default panel layout only. Saved workspaces, documents and other preferences are kept.
-workspaces.save_error = Could not save workspace preferences. The change was not applied.
-workspaces.invalid_name = Enter a name of 1–80 characters without control characters.
-workspaces.duplicate = A workspace with this name already exists.
-workspaces.limit = You can save up to 64 workspaces.
-workspaces.keyboard = Keyboard: Alt+↑/↓ selects a layout. Ctrl/Cmd+N edits its name; +S saves a copy; +Enter applies; +U updates; +R renames; +D deletes; +0 resets.
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Libaka tsa Mosebetsi
+workspaces.manage = Laola Libaka tsa Mosebetsi…
+workspaces.painting = Ho Penta
+workspaces.photo = Ho Hlahisa Lifoto
+workspaces.retouching = Ho Lokisa Lifoto
+workspaces.current = Tlhophiso ea hajoale
+workspaces.help = Boloka E le e etsa kopi e nang le lebitso ea tlhophiso ea hajoale. Khetha tlhophiso e bolokiloeng ho e sebelisa, ho e ntlafatsa, ho e reha lebitso le lecha kapa ho e hlakola. Liphetoho tsa tlhophiso li sebetsa hang-hang.
+workspaces.show_panels = Bontša liphanele tse ka mahlakoreng
+workspaces.automatic = Ka boiketsetso
+workspaces.reset_help = Khutlisetsa Boemong ba Pele e khutlisetsa tlhophiso ea kamehla ea liphanele feela. Libaka tsa mosebetsi tse bolokiloeng, litokomane le likhetho tse ling li sala li le teng.
+workspaces.save_error = Ha hoa khoneha ho boloka likhetho tsa sebaka sa mosebetsi. Phetoho ha ea sebelisoa.
+workspaces.invalid_name = Kenya lebitso la litlhaku tse 1–80 le se nang litlhaku tsa taolo.
+workspaces.duplicate = Sebaka sa mosebetsi se nang le lebitso lena se se se le teng.
+workspaces.limit = U ka boloka libaka tsa mosebetsi tse fihlang ho 64.
+workspaces.keyboard = Khiboto: Alt+↑/↓ e khetha tlhophiso. Ctrl/Cmd+N e hlophisa lebitso la eona; +S e boloka kopi; +Enter e e sebelisa; +U e e ntlafatsa; +R e e reha lebitso le lecha; +D e e hlakola; +0 e khutlisetsa boemong ba pele.

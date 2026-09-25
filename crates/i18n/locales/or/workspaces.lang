@@ -1,16 +1,16 @@
-# Workspace strings. Explicit English fallback; translation pending.
-workspaces.title = Workspaces
-workspaces.manage = Manage Workspaces…
-workspaces.painting = Painting
-workspaces.photo = Photo Development
-workspaces.retouching = Retouching
-workspaces.current = Current layout
-workspaces.help = Save As creates a named copy of the current layout. Select a saved layout to apply, update, rename or delete it. Layout edits take effect immediately.
-workspaces.show_panels = Show side panels
-workspaces.automatic = Automatic
-workspaces.reset_help = Reset restores the default panel layout only. Saved workspaces, documents and other preferences are kept.
-workspaces.save_error = Could not save workspace preferences. The change was not applied.
-workspaces.invalid_name = Enter a name of 1–80 characters without control characters.
-workspaces.duplicate = A workspace with this name already exists.
-workspaces.limit = You can save up to 64 workspaces.
-workspaces.keyboard = Keyboard: Alt+↑/↓ selects a layout. Ctrl/Cmd+N edits its name; +S saves a copy; +Enter applies; +U updates; +R renames; +D deletes; +0 resets.
+# Workspace strings. AI translation; human review pending.
+workspaces.title = କାର୍ଯ୍ୟକ୍ଷେତ୍ର
+workspaces.manage = କାର୍ଯ୍ୟକ୍ଷେତ୍ର ପରିଚାଳନା କରନ୍ତୁ…
+workspaces.painting = ଚିତ୍ରାଙ୍କନ
+workspaces.photo = ଫଟୋ ପ୍ରସେସିଂ
+workspaces.retouching = ଫଟୋ ସଂଶୋଧନ
+workspaces.current = ବର୍ତ୍ତମାନର ବିନ୍ୟାସ
+workspaces.help = ଏହି ନାମରେ ସଞ୍ଚୟ କରନ୍ତୁ… ବର୍ତ୍ତମାନର ବିନ୍ୟାସର ଏକ ନାମଯୁକ୍ତ ନକଲ ସୃଷ୍ଟି କରେ। ସଞ୍ଚିତ ବିନ୍ୟାସକୁ ପ୍ରୟୋଗ, ଅପଡେଟ୍, ନାମ ପରିବର୍ତ୍ତନ କିମ୍ବା ବିଲୋପ କରିବାକୁ ଏହାକୁ ବାଛନ୍ତୁ। ବିନ୍ୟାସର ପରିବର୍ତ୍ତନ ତୁରନ୍ତ ପ୍ରଭାବୀ ହୁଏ।
+workspaces.show_panels = ପାର୍ଶ୍ୱ ପ୍ୟାନେଲ୍ ଦେଖାନ୍ତୁ
+workspaces.automatic = ସ୍ୱୟଂଚାଳିତ
+workspaces.reset_help = ପୁନଃସେଟ୍ କରନ୍ତୁ କେବଳ ପୂର୍ବନିର୍ଦ୍ଧାରିତ ପ୍ୟାନେଲ୍ ବିନ୍ୟାସକୁ ଫେରାଇ ଆଣେ। ସଞ୍ଚିତ କାର୍ଯ୍ୟକ୍ଷେତ୍ର, ଦଲିଲ ଏବଂ ଅନ୍ୟ ପସନ୍ଦଗୁଡ଼ିକ ରହିଥାଏ।
+workspaces.save_error = କାର୍ଯ୍ୟକ୍ଷେତ୍ର ପସନ୍ଦଗୁଡ଼ିକ ସଞ୍ଚୟ କରାଯାଇପାରିଲା ନାହିଁ। ପରିବର୍ତ୍ତନଟି ପ୍ରୟୋଗ ହୋଇନାହିଁ।
+workspaces.invalid_name = ନିୟନ୍ତ୍ରଣ ଅକ୍ଷର ବିନା 1–80 ଅକ୍ଷରର ଏକ ନାମ ଦିଅନ୍ତୁ।
+workspaces.duplicate = ଏହି ନାମରେ ଏକ କାର୍ଯ୍ୟକ୍ଷେତ୍ର ପୂର୍ବରୁ ଅଛି।
+workspaces.limit = ଆପଣ ସର୍ବାଧିକ 64ଟି କାର୍ଯ୍ୟକ୍ଷେତ୍ର ସଞ୍ଚୟ କରିପାରିବେ।
+workspaces.keyboard = କୀବୋର୍ଡ୍: Alt+↑/↓ ଏକ ବିନ୍ୟାସ ବାଛେ। Ctrl/Cmd+N ଏହାର ନାମ ସମ୍ପାଦନ କରେ; +S ନକଲ ସଞ୍ଚୟ କରେ; +Enter ପ୍ରୟୋଗ କରେ; +U ଅପଡେଟ୍ କରେ; +R ନାମ ପରିବର୍ତ୍ତନ କରେ; +D ବିଲୋପ କରେ; +0 ପୁନଃସେଟ୍ କରେ।

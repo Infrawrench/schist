@@ -1,16 +1,16 @@
-# Workspace strings. Explicit English fallback; translation pending.
-workspaces.title = Workspaces
-workspaces.manage = Manage Workspaces…
-workspaces.painting = Painting
-workspaces.photo = Photo Development
-workspaces.retouching = Retouching
-workspaces.current = Current layout
-workspaces.help = Save As creates a named copy of the current layout. Select a saved layout to apply, update, rename or delete it. Layout edits take effect immediately.
-workspaces.show_panels = Show side panels
-workspaces.automatic = Automatic
-workspaces.reset_help = Reset restores the default panel layout only. Saved workspaces, documents and other preferences are kept.
-workspaces.save_error = Could not save workspace preferences. The change was not applied.
-workspaces.invalid_name = Enter a name of 1–80 characters without control characters.
-workspaces.duplicate = A workspace with this name already exists.
-workspaces.limit = You can save up to 64 workspaces.
-workspaces.keyboard = Keyboard: Alt+↑/↓ selects a layout. Ctrl/Cmd+N edits its name; +S saves a copy; +Enter applies; +U updates; +R renames; +D deletes; +0 resets.
+# Workspace strings. AI translation; human review pending.
+workspaces.title = 작업 영역
+workspaces.manage = 작업 영역 관리…
+workspaces.painting = 페인팅
+workspaces.photo = 사진 현상
+workspaces.retouching = 리터칭
+workspaces.current = 현재 레이아웃
+workspaces.help = 다른 이름으로 저장은 현재 레이아웃의 사본을 이름을 붙여 만듭니다. 저장된 레이아웃을 선택하면 적용, 업데이트, 이름 변경 또는 삭제할 수 있습니다. 레이아웃을 편집하면 즉시 반영됩니다.
+workspaces.show_panels = 측면 패널 표시
+workspaces.automatic = 자동
+workspaces.reset_help = 재설정은 기본 패널 레이아웃만 복원합니다. 저장된 작업 영역, 문서 및 다른 환경 설정은 유지됩니다.
+workspaces.save_error = 작업 영역 환경 설정을 저장할 수 없습니다. 변경 사항이 적용되지 않았습니다.
+workspaces.invalid_name = 제어 문자를 제외하고 1–80자로 된 이름을 입력하세요.
+workspaces.duplicate = 같은 이름의 작업 영역이 이미 있습니다.
+workspaces.limit = 작업 영역은 최대 64개까지 저장할 수 있습니다.
+workspaces.keyboard = 키보드: Alt+↑/↓로 레이아웃을 선택합니다. Ctrl/Cmd+N은 이름 편집, +S는 사본 저장, +Enter는 적용, +U는 업데이트, +R은 이름 변경, +D는 삭제, +0은 재설정입니다.

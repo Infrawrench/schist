@@ -1,16 +1,16 @@
-# Workspace strings. Explicit English fallback; translation pending.
-workspaces.title = Workspaces
-workspaces.manage = Manage Workspaces…
-workspaces.painting = Painting
-workspaces.photo = Photo Development
-workspaces.retouching = Retouching
-workspaces.current = Current layout
-workspaces.help = Save As creates a named copy of the current layout. Select a saved layout to apply, update, rename or delete it. Layout edits take effect immediately.
-workspaces.show_panels = Show side panels
-workspaces.automatic = Automatic
-workspaces.reset_help = Reset restores the default panel layout only. Saved workspaces, documents and other preferences are kept.
-workspaces.save_error = Could not save workspace preferences. The change was not applied.
-workspaces.invalid_name = Enter a name of 1–80 characters without control characters.
-workspaces.duplicate = A workspace with this name already exists.
-workspaces.limit = You can save up to 64 workspaces.
-workspaces.keyboard = Keyboard: Alt+↑/↓ selects a layout. Ctrl/Cmd+N edits its name; +S saves a copy; +Enter applies; +U updates; +R renames; +D deletes; +0 resets.
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Kammokāsā
+workspaces.manage = Kammokāse pariharetha…
+workspaces.painting = Cittakammaṃ
+workspaces.photo = Chāyācittānaṃ vikasanaṃ
+workspaces.retouching = Chāyācittānaṃ paṭisaṅkharaṇaṃ
+workspaces.current = Idāniṭṭhitā racanā
+workspaces.help = Aññanāmena rakkhatha… idāniṭṭhitāya racanāya nāmasahitaṃ paṭirūpaṃ karoti. Rakkhitaṃ racanaṃ payojetuṃ, navīkarituṃ, nāmaṃ parivattetuṃ vā nāsetuṃ vā taṃ gaṇhatha. Racanāya parivattanāni tāvadeva pavattanti.
+workspaces.show_panels = Passesu paṭṭake dassetha
+workspaces.automatic = Sayameva
+workspaces.reset_help = Puna patiṭṭhāpetha kevalaṃ paṭṭakānaṃ mūlaracanaṃ puna patiṭṭhāpeti. Rakkhitā kammokāsā, lekhā ca aññāni abhirucitāni ca tiṭṭhanti.
+workspaces.save_error = Kammokāsānaṃ abhirucitāni rakkhituṃ na sakkā. Parivattanaṃ na payojitaṃ.
+workspaces.invalid_name = Niyāmakakkharāni vinā 1–80 akkharānaṃ nāmaṃ pavisetha.
+workspaces.duplicate = Iminā nāmena kammokāso pubbeva atthi.
+workspaces.limit = Yāva 64 kammokāse rakkhituṃ sakkā.
+workspaces.keyboard = Akkharaphalakaṃ: Alt+↑/↓ racanaṃ gaṇhāti. Ctrl/Cmd+N tassā nāmaṃ parivatteti; +S paṭirūpaṃ rakkhati; +Enter payojeti; +U navīkaroti; +R nāmaṃ puna parivatteti; +D nāseti; +0 puna patiṭṭhāpeti.

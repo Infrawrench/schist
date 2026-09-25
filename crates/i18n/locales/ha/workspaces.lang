@@ -1,16 +1,16 @@
-# Workspace strings. Explicit English fallback; translation pending.
-workspaces.title = Workspaces
-workspaces.manage = Manage Workspaces…
-workspaces.painting = Painting
-workspaces.photo = Photo Development
-workspaces.retouching = Retouching
-workspaces.current = Current layout
-workspaces.help = Save As creates a named copy of the current layout. Select a saved layout to apply, update, rename or delete it. Layout edits take effect immediately.
-workspaces.show_panels = Show side panels
-workspaces.automatic = Automatic
-workspaces.reset_help = Reset restores the default panel layout only. Saved workspaces, documents and other preferences are kept.
-workspaces.save_error = Could not save workspace preferences. The change was not applied.
-workspaces.invalid_name = Enter a name of 1–80 characters without control characters.
-workspaces.duplicate = A workspace with this name already exists.
-workspaces.limit = You can save up to 64 workspaces.
-workspaces.keyboard = Keyboard: Alt+↑/↓ selects a layout. Ctrl/Cmd+N edits its name; +S saves a copy; +Enter applies; +U updates; +R renames; +D deletes; +0 resets.
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Wuraren aiki
+workspaces.manage = Sarrafa wuraren aiki…
+workspaces.painting = Zane-zane
+workspaces.photo = Sarrafa hotuna
+workspaces.retouching = Gyaran hotuna
+workspaces.current = Tsarin yanzu
+workspaces.help = Ajiye Kamar yana ƙirƙirar kwafin tsarin yanzu mai suna. Zaɓi tsarin da aka ajiye don aiwatarwa, sabuntawa, sake suna ko share shi. Canje-canjen tsari suna aiki nan take.
+workspaces.show_panels = Nuna falolin gefe
+workspaces.automatic = Ta atomatik
+workspaces.reset_help = Sake Saitawa yana dawo da tsarin faloli na asali kawai. Wuraren aiki da aka ajiye, takardu da sauran zaɓuɓɓuka suna nan.
+workspaces.save_error = Ba a iya ajiye zaɓuɓɓukan wurin aiki ba. Ba a aiwatar da canjin ba.
+workspaces.invalid_name = Shigar da suna mai haruffa 1–80 ba tare da haruffan sarrafawa ba.
+workspaces.duplicate = An riga an sami wurin aiki mai wannan suna.
+workspaces.limit = Za ka iya ajiye wuraren aiki har 64.
+workspaces.keyboard = Allon rubutu: Alt+↑/↓ yana zaɓar tsari. Ctrl/Cmd+N yana gyara sunansa; +S yana ajiye kwafi; +Enter yana aiwatarwa; +U yana sabuntawa; +R yana sake suna; +D yana sharewa; +0 yana sake saitawa.

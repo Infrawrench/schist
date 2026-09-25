@@ -1,16 +1,16 @@
-# Workspace strings. Explicit English fallback; translation pending.
-workspaces.title = Workspaces
-workspaces.manage = Manage Workspaces…
-workspaces.painting = Painting
-workspaces.photo = Photo Development
-workspaces.retouching = Retouching
-workspaces.current = Current layout
-workspaces.help = Save As creates a named copy of the current layout. Select a saved layout to apply, update, rename or delete it. Layout edits take effect immediately.
-workspaces.show_panels = Show side panels
-workspaces.automatic = Automatic
-workspaces.reset_help = Reset restores the default panel layout only. Saved workspaces, documents and other preferences are kept.
-workspaces.save_error = Could not save workspace preferences. The change was not applied.
-workspaces.invalid_name = Enter a name of 1–80 characters without control characters.
-workspaces.duplicate = A workspace with this name already exists.
-workspaces.limit = You can save up to 64 workspaces.
-workspaces.keyboard = Keyboard: Alt+↑/↓ selects a layout. Ctrl/Cmd+N edits its name; +S saves a copy; +Enter applies; +U updates; +R renames; +D deletes; +0 resets.
+# Workspace strings. AI translation; human review pending.
+workspaces.title = പ്രവർത്തന ഇടങ്ങൾ
+workspaces.manage = പ്രവർത്തന ഇടങ്ങൾ നിയന്ത്രിക്കുക…
+workspaces.painting = ചിത്രരചന
+workspaces.photo = ഫോട്ടോ വികസിപ്പിക്കൽ
+workspaces.retouching = റീടച്ചിങ്
+workspaces.current = നിലവിലെ വിന്യാസം
+workspaces.help = ഇങ്ങനെ സംരക്ഷിക്കുക നിലവിലെ വിന്യാസത്തിന്റെ പേരുള്ള ഒരു പകർപ്പ് സൃഷ്ടിക്കുന്നു. സംരക്ഷിച്ച വിന്യാസം പ്രയോഗിക്കാനോ പുതുക്കാനോ പേരുമാറ്റാനോ ഇല്ലാതാക്കാനോ അത് തിരഞ്ഞെടുക്കുക. വിന്യാസത്തിലെ മാറ്റങ്ങൾ ഉടൻ പ്രാബല്യത്തിൽ വരും.
+workspaces.show_panels = വശങ്ങളിലെ പാനലുകൾ കാണിക്കുക
+workspaces.automatic = സ്വയമേവ
+workspaces.reset_help = പുനഃസജ്ജമാക്കുക പാനലുകളുടെ സ്ഥിരസ്ഥിതി വിന്യാസം മാത്രം പുനഃസ്ഥാപിക്കുന്നു. സംരക്ഷിച്ച പ്രവർത്തന ഇടങ്ങളും രേഖകളും മറ്റ് മുൻഗണനകളും നിലനിൽക്കും.
+workspaces.save_error = പ്രവർത്തന ഇടങ്ങളുടെ മുൻഗണനകൾ സംരക്ഷിക്കാനായില്ല. മാറ്റം പ്രയോഗിച്ചില്ല.
+workspaces.invalid_name = നിയന്ത്രണ പ്രതീകങ്ങൾ ഇല്ലാത്ത 1–80 അക്ഷരങ്ങളുള്ള പേര് നൽകുക.
+workspaces.duplicate = ഈ പേരിൽ ഒരു പ്രവർത്തന ഇടം ഇതിനകം നിലവിലുണ്ട്.
+workspaces.limit = നിങ്ങൾക്ക് പരമാവധി 64 പ്രവർത്തന ഇടങ്ങൾ സംരക്ഷിക്കാം.
+workspaces.keyboard = കീബോർഡ്: Alt+↑/↓ വിന്യാസം തിരഞ്ഞെടുക്കുന്നു. Ctrl/Cmd+N അതിന്റെ പേര് തിരുത്തുന്നു; +S പകർപ്പ് സംരക്ഷിക്കുന്നു; +Enter പ്രയോഗിക്കുന്നു; +U പുതുക്കുന്നു; +R പേരുമാറ്റുന്നു; +D ഇല്ലാതാക്കുന്നു; +0 പുനഃസജ്ജമാക്കുന്നു.

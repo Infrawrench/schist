@@ -1,16 +1,16 @@
-# Workspace strings. Explicit English fallback; translation pending.
-workspaces.title = Workspaces
-workspaces.manage = Manage Workspaces…
-workspaces.painting = Painting
-workspaces.photo = Photo Development
-workspaces.retouching = Retouching
-workspaces.current = Current layout
-workspaces.help = Save As creates a named copy of the current layout. Select a saved layout to apply, update, rename or delete it. Layout edits take effect immediately.
-workspaces.show_panels = Show side panels
-workspaces.automatic = Automatic
-workspaces.reset_help = Reset restores the default panel layout only. Saved workspaces, documents and other preferences are kept.
-workspaces.save_error = Could not save workspace preferences. The change was not applied.
-workspaces.invalid_name = Enter a name of 1–80 characters without control characters.
-workspaces.duplicate = A workspace with this name already exists.
-workspaces.limit = You can save up to 64 workspaces.
-workspaces.keyboard = Keyboard: Alt+↑/↓ selects a layout. Ctrl/Cmd+N edits its name; +S saves a copy; +Enter applies; +U updates; +R renames; +D deletes; +0 resets.
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Labor-spaci
+workspaces.manage = Administrar labor-spaci…
+workspaces.painting = Piktado
+workspaces.photo = Fotografiala developo
+workspaces.retouching = Retushado
+workspaces.current = Nuna aranjo
+workspaces.help = «Konservar kom» kreas nomizita kopio di la nuna aranjo. Selektez konservita aranjo por aplikar, aktualigar, renomar o efacar ol. Modifiki di la aranjo efikas imediat.
+workspaces.show_panels = Montrez laterala paneli
+workspaces.automatic = Automatik
+workspaces.reset_help = «Ripozar» restabligas nur la predeterminita aranjo di la paneli. Konservita labor-spaci, dokumenti ed altra preferi restas konservata.
+workspaces.save_error = Ne esis posible konservar la preferi di labor-spaco. La modifiko ne esis aplikita.
+workspaces.invalid_name = Enskriptez nomo di 1–80 karakteri sen kontrol-karakteri.
+workspaces.duplicate = Labor-spaco kun ca nomo ja existas.
+workspaces.limit = Vu povas konservar til 64 labor-spaci.
+workspaces.keyboard = Klavaro: Alt+↑/↓ selektas aranjo. Ctrl/Cmd+N redaktas lua nomo; +S konservas kopio; +Enter aplikas ol; +U aktualigas ol; +R renomas ol; +D efacas ol; +0 ripozas ol.

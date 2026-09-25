@@ -57,7 +57,7 @@ commit the change to the live layout or saved preset list. Browser storage is
 local to the browser/profile and can be cleared by its settings. Simultaneous
 application instances retain the existing last-writer-wins preference behavior.
 
-The new workspace strings have English source plus AI translations for German,
-Spanish, French, Japanese, Portuguese, Swedish and Simplified Chinese; human
-review is pending. Other existing catalogs explicitly retain English fallback
-text for these strings. Existing common button/panel labels stay localized.
+Workspace strings are available in all 150 supported locales, with English
+source and AI translations for the other 149 locales; human review is pending.
+Norwegian and Serbo-Croatian follow the shared Bokmål and Croatian catalogs.
+Existing common button/panel labels stay localized.

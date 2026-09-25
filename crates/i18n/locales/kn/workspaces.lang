@@ -1,16 +1,16 @@
-# Workspace strings. Explicit English fallback; translation pending.
-workspaces.title = Workspaces
-workspaces.manage = Manage Workspaces…
-workspaces.painting = Painting
-workspaces.photo = Photo Development
-workspaces.retouching = Retouching
-workspaces.current = Current layout
-workspaces.help = Save As creates a named copy of the current layout. Select a saved layout to apply, update, rename or delete it. Layout edits take effect immediately.
-workspaces.show_panels = Show side panels
-workspaces.automatic = Automatic
-workspaces.reset_help = Reset restores the default panel layout only. Saved workspaces, documents and other preferences are kept.
-workspaces.save_error = Could not save workspace preferences. The change was not applied.
-workspaces.invalid_name = Enter a name of 1–80 characters without control characters.
-workspaces.duplicate = A workspace with this name already exists.
-workspaces.limit = You can save up to 64 workspaces.
-workspaces.keyboard = Keyboard: Alt+↑/↓ selects a layout. Ctrl/Cmd+N edits its name; +S saves a copy; +Enter applies; +U updates; +R renames; +D deletes; +0 resets.
+# Workspace strings. AI translation; human review pending.
+workspaces.title = ಕಾರ್ಯಸ್ಥಳಗಳು
+workspaces.manage = ಕಾರ್ಯಸ್ಥಳಗಳನ್ನು ನಿರ್ವಹಿಸಿ…
+workspaces.painting = ಚಿತ್ರಕಲೆ
+workspaces.photo = ಫೋಟೊ ಸಂಸ್ಕರಣೆ
+workspaces.retouching = ಚಿತ್ರ ತಿದ್ದುಪಡಿ
+workspaces.current = ಪ್ರಸ್ತುತ ವಿನ್ಯಾಸ
+workspaces.help = ಹೀಗೆ ಉಳಿಸಿ ಪ್ರಸ್ತುತ ವಿನ್ಯಾಸದ ಹೆಸರಿರುವ ಪ್ರತಿಯನ್ನು ರಚಿಸುತ್ತದೆ. ಉಳಿಸಿದ ವಿನ್ಯಾಸವನ್ನು ಅನ್ವಯಿಸಲು, ನವೀಕರಿಸಲು, ಮರುಹೆಸರಿಸಲು ಅಥವಾ ಅಳಿಸಲು ಅದನ್ನು ಆಯ್ಕೆಮಾಡಿ. ವಿನ್ಯಾಸದ ಬದಲಾವಣೆಗಳು ತಕ್ಷಣ ಜಾರಿಗೆ ಬರುತ್ತವೆ.
+workspaces.show_panels = ಬದಿಯ ಫಲಕಗಳನ್ನು ತೋರಿಸಿ
+workspaces.automatic = ಸ್ವಯಂಚಾಲಿತ
+workspaces.reset_help = ಮರುಹೊಂದಿಸಿ ಕೇವಲ ಡೀಫಾಲ್ಟ್ ಫಲಕ ವಿನ್ಯಾಸವನ್ನು ಮರುಸ್ಥಾಪಿಸುತ್ತದೆ. ಉಳಿಸಿದ ಕಾರ್ಯಸ್ಥಳಗಳು, ದಾಖಲೆಗಳು ಮತ್ತು ಇತರ ಆದ್ಯತೆಗಳು ಹಾಗೆಯೇ ಉಳಿಯುತ್ತವೆ.
+workspaces.save_error = ಕಾರ್ಯಸ್ಥಳದ ಆದ್ಯತೆಗಳನ್ನು ಉಳಿಸಲಾಗಲಿಲ್ಲ. ಬದಲಾವಣೆಯನ್ನು ಅನ್ವಯಿಸಲಾಗಿಲ್ಲ.
+workspaces.invalid_name = ನಿಯಂತ್ರಣ ಅಕ್ಷರಗಳಿಲ್ಲದ 1–80 ಅಕ್ಷರಗಳ ಹೆಸರನ್ನು ನಮೂದಿಸಿ.
+workspaces.duplicate = ಈ ಹೆಸರಿನ ಕಾರ್ಯಸ್ಥಳ ಈಗಾಗಲೇ ಇದೆ.
+workspaces.limit = ನೀವು ಗರಿಷ್ಠ 64 ಕಾರ್ಯಸ್ಥಳಗಳನ್ನು ಉಳಿಸಬಹುದು.
+workspaces.keyboard = ಕೀಬೋರ್ಡ್: Alt+↑/↓ ವಿನ್ಯಾಸವನ್ನು ಆಯ್ಕೆಮಾಡುತ್ತದೆ. Ctrl/Cmd+N ಅದರ ಹೆಸರನ್ನು ತಿದ್ದುತ್ತದೆ; +S ಪ್ರತಿಯನ್ನು ಉಳಿಸುತ್ತದೆ; +Enter ಅನ್ವಯಿಸುತ್ತದೆ; +U ನವೀಕರಿಸುತ್ತದೆ; +R ಮರುಹೆಸರಿಸುತ್ತದೆ; +D ಅಳಿಸುತ್ತದೆ; +0 ಮರುಹೊಂದಿಸುತ್ತದೆ.

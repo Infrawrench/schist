@@ -1,16 +1,16 @@
-# Workspace strings. Explicit English fallback; translation pending.
-workspaces.title = Workspaces
-workspaces.manage = Manage Workspaces…
-workspaces.painting = Painting
-workspaces.photo = Photo Development
-workspaces.retouching = Retouching
-workspaces.current = Current layout
-workspaces.help = Save As creates a named copy of the current layout. Select a saved layout to apply, update, rename or delete it. Layout edits take effect immediately.
-workspaces.show_panels = Show side panels
-workspaces.automatic = Automatic
-workspaces.reset_help = Reset restores the default panel layout only. Saved workspaces, documents and other preferences are kept.
-workspaces.save_error = Could not save workspace preferences. The change was not applied.
-workspaces.invalid_name = Enter a name of 1–80 characters without control characters.
-workspaces.duplicate = A workspace with this name already exists.
-workspaces.limit = You can save up to 64 workspaces.
-workspaces.keyboard = Keyboard: Alt+↑/↓ selects a layout. Ctrl/Cmd+N edits its name; +S saves a copy; +Enter applies; +U updates; +R renames; +D deletes; +0 resets.
+# Workspace strings. AI translation; human review pending.
+workspaces.title = कार्यस्थानानि
+workspaces.manage = कार्यस्थानानि व्यवस्थापयतु…
+workspaces.painting = चित्रलेखनम्
+workspaces.photo = छायाचित्रविकासः
+workspaces.retouching = छायाचित्रपरिष्कारः
+workspaces.current = वर्तमानविन्यासः
+workspaces.help = अन्यथा रक्षतु… इत्यनेन वर्तमानविन्यासस्य नामयुक्ता प्रतिलिपिः निर्मीयते। रक्षितं विन्यासं चिनुत, तत् प्रयोजयितुं, अद्यतनीकर्तुं, पुनर्नामयितुं वा विलोपयितुं वा। विन्यासे परिवर्तनानि तत्क्षणमेव प्रवर्तन्ते।
+workspaces.show_panels = पार्श्वफलकानि दर्शयतु
+workspaces.automatic = स्वचालितम्
+workspaces.reset_help = पुनः स्थापयतु इत्यनेन केवलं फलकानां पूर्वनिर्धारितः विन्यासः पुनः स्थाप्यते। रक्षितानि कार्यस्थानानि, लेख्यपत्राणि, अन्याः प्राधान्यव्यवस्थाश्च अवशिष्यन्ते।
+workspaces.save_error = कार्यस्थानस्य प्राधान्यव्यवस्थाः रक्षितुं न शक्यन्ते। परिवर्तनं न प्रवर्तितम्।
+workspaces.invalid_name = नियन्त्रणवर्णैः रहितं 1–80 वर्णयुक्तं नाम प्रविशतु।
+workspaces.duplicate = अनेन नाम्ना कार्यस्थानं पूर्वमेव अस्ति।
+workspaces.limit = अधिकतमं 64 कार्यस्थानानि रक्षितुं शक्नुवन्ति।
+workspaces.keyboard = कुञ्जीपटलम्: Alt+↑/↓ विन्यासं चिनोति। Ctrl/Cmd+N तस्य नाम सम्पादयति; +S प्रतिलिपिं रक्षति; +Enter प्रयोजयति; +U अद्यतनीकरोति; +R पुनर्नामयति; +D विलोपयति; +0 पुनः स्थापयति।

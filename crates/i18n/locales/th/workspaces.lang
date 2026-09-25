@@ -1,16 +1,16 @@
-# Workspace strings. Explicit English fallback; translation pending.
-workspaces.title = Workspaces
-workspaces.manage = Manage Workspaces…
-workspaces.painting = Painting
-workspaces.photo = Photo Development
-workspaces.retouching = Retouching
-workspaces.current = Current layout
-workspaces.help = Save As creates a named copy of the current layout. Select a saved layout to apply, update, rename or delete it. Layout edits take effect immediately.
-workspaces.show_panels = Show side panels
-workspaces.automatic = Automatic
-workspaces.reset_help = Reset restores the default panel layout only. Saved workspaces, documents and other preferences are kept.
-workspaces.save_error = Could not save workspace preferences. The change was not applied.
-workspaces.invalid_name = Enter a name of 1–80 characters without control characters.
-workspaces.duplicate = A workspace with this name already exists.
-workspaces.limit = You can save up to 64 workspaces.
-workspaces.keyboard = Keyboard: Alt+↑/↓ selects a layout. Ctrl/Cmd+N edits its name; +S saves a copy; +Enter applies; +U updates; +R renames; +D deletes; +0 resets.
+# Workspace strings. AI translation; human review pending.
+workspaces.title = พื้นที่ทำงาน
+workspaces.manage = จัดการพื้นที่ทำงาน…
+workspaces.painting = การวาดภาพ
+workspaces.photo = การปรับแต่งภาพถ่าย
+workspaces.retouching = การรีทัชภาพ
+workspaces.current = เค้าโครงปัจจุบัน
+workspaces.help = บันทึกเป็นจะสร้างสำเนาเค้าโครงปัจจุบันพร้อมชื่อ เลือกเค้าโครงที่บันทึกไว้เพื่อนำไปใช้ อัปเดต เปลี่ยนชื่อ หรือลบ การแก้ไขเค้าโครงมีผลทันที
+workspaces.show_panels = แสดงแผงด้านข้าง
+workspaces.automatic = อัตโนมัติ
+workspaces.reset_help = รีเซ็ตจะคืนค่าเฉพาะเค้าโครงเริ่มต้นของแผง พื้นที่ทำงานที่บันทึกไว้ เอกสาร และค่ากำหนดอื่น ๆ จะยังคงอยู่
+workspaces.save_error = ไม่สามารถบันทึกค่ากำหนดของพื้นที่ทำงานได้ การเปลี่ยนแปลงจึงไม่มีผล
+workspaces.invalid_name = ป้อนชื่อที่มี 1–80 อักขระและไม่มีอักขระควบคุม
+workspaces.duplicate = มีพื้นที่ทำงานชื่อนี้อยู่แล้ว
+workspaces.limit = คุณสามารถบันทึกพื้นที่ทำงานได้สูงสุด 64 รายการ
+workspaces.keyboard = แป้นพิมพ์: Alt+↑/↓ เลือกเค้าโครง Ctrl/Cmd+N แก้ไขชื่อ; +S บันทึกสำเนา; +Enter นำไปใช้; +U อัปเดต; +R เปลี่ยนชื่อ; +D ลบ; +0 รีเซ็ต

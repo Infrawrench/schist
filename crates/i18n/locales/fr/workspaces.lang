@@ -13,4 +13,4 @@ workspaces.save_error = Impossible d’enregistrer les préférences de l’espa
 workspaces.invalid_name = Saisissez un nom de 1 à 80 caractères sans caractères de contrôle.
 workspaces.duplicate = Un espace de travail porte déjà ce nom.
 workspaces.limit = Vous pouvez enregistrer jusqu’à 64 espaces de travail.
-workspaces.keyboard = Clavier : Alt+↑/↓ sélectionne une disposition. Ctrl/Cmd+N modifie le nom ; +S enregistre une copie ; +Entrée applique ; +U met à jour ; +R renomme ; +D supprime ; +0 réinitialise.
+workspaces.keyboard = Clavier : Alt+↑/↓ sélectionne une disposition. Ctrl/Cmd+N modifie le nom ; +S enregistre une copie ; +Enter applique ; +U met à jour ; +R renomme ; +D supprime ; +0 réinitialise.

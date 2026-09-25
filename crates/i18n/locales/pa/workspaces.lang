@@ -1,16 +1,16 @@
-# Workspace strings. Explicit English fallback; translation pending.
-workspaces.title = Workspaces
-workspaces.manage = Manage Workspaces…
-workspaces.painting = Painting
-workspaces.photo = Photo Development
-workspaces.retouching = Retouching
-workspaces.current = Current layout
-workspaces.help = Save As creates a named copy of the current layout. Select a saved layout to apply, update, rename or delete it. Layout edits take effect immediately.
-workspaces.show_panels = Show side panels
-workspaces.automatic = Automatic
-workspaces.reset_help = Reset restores the default panel layout only. Saved workspaces, documents and other preferences are kept.
-workspaces.save_error = Could not save workspace preferences. The change was not applied.
-workspaces.invalid_name = Enter a name of 1–80 characters without control characters.
-workspaces.duplicate = A workspace with this name already exists.
-workspaces.limit = You can save up to 64 workspaces.
-workspaces.keyboard = Keyboard: Alt+↑/↓ selects a layout. Ctrl/Cmd+N edits its name; +S saves a copy; +Enter applies; +U updates; +R renames; +D deletes; +0 resets.
+# Workspace strings. AI translation; human review pending.
+workspaces.title = ਕਾਰਜ-ਥਾਵਾਂ
+workspaces.manage = ਕਾਰਜ-ਥਾਵਾਂ ਦਾ ਪ੍ਰਬੰਧ ਕਰੋ…
+workspaces.painting = ਚਿੱਤਰਕਾਰੀ
+workspaces.photo = ਫ਼ੋਟੋ ਵਿਕਾਸ
+workspaces.retouching = ਫ਼ੋਟੋ ਸੁਧਾਈ
+workspaces.current = ਮੌਜੂਦਾ ਖਾਕਾ
+workspaces.help = ਇਸ ਵਜੋਂ ਸੰਭਾਲੋ… ਮੌਜੂਦਾ ਖਾਕੇ ਦੀ ਨਾਮ ਵਾਲੀ ਕਾਪੀ ਬਣਾਉਂਦਾ ਹੈ। ਸੰਭਾਲੇ ਖਾਕੇ ਨੂੰ ਲਾਗੂ ਕਰਨ, ਅੱਪਡੇਟ ਕਰਨ, ਨਾਮ ਬਦਲਣ ਜਾਂ ਮਿਟਾਉਣ ਲਈ ਚੁਣੋ। ਖਾਕੇ ਵਿੱਚ ਤਬਦੀਲੀਆਂ ਤੁਰੰਤ ਲਾਗੂ ਹੁੰਦੀਆਂ ਹਨ।
+workspaces.show_panels = ਪਾਸੇ ਦੇ ਪੈਨਲ ਦਿਖਾਓ
+workspaces.automatic = ਆਪਣੇ ਆਪ
+workspaces.reset_help = ਰੀਸੈੱਟ ਕਰੋ ਸਿਰਫ਼ ਮੂਲ ਪੈਨਲ ਖਾਕਾ ਬਹਾਲ ਕਰਦਾ ਹੈ। ਸੰਭਾਲੀਆਂ ਕਾਰਜ-ਥਾਵਾਂ, ਦਸਤਾਵੇਜ਼ ਅਤੇ ਹੋਰ ਤਰਜੀਹਾਂ ਬਰਕਰਾਰ ਰਹਿੰਦੀਆਂ ਹਨ।
+workspaces.save_error = ਕਾਰਜ-ਥਾਂ ਦੀਆਂ ਤਰਜੀਹਾਂ ਸੰਭਾਲੀਆਂ ਨਹੀਂ ਜਾ ਸਕੀਆਂ। ਤਬਦੀਲੀ ਲਾਗੂ ਨਹੀਂ ਹੋਈ।
+workspaces.invalid_name = ਕੰਟਰੋਲ ਅੱਖਰਾਂ ਤੋਂ ਬਿਨਾਂ 1–80 ਅੱਖਰਾਂ ਦਾ ਨਾਮ ਦਰਜ ਕਰੋ।
+workspaces.duplicate = ਇਸ ਨਾਮ ਦੀ ਕਾਰਜ-ਥਾਂ ਪਹਿਲਾਂ ਹੀ ਮੌਜੂਦ ਹੈ।
+workspaces.limit = ਤੁਸੀਂ ਵੱਧ ਤੋਂ ਵੱਧ 64 ਕਾਰਜ-ਥਾਵਾਂ ਸੰਭਾਲ ਸਕਦੇ ਹੋ।
+workspaces.keyboard = ਕੀਬੋਰਡ: Alt+↑/↓ ਖਾਕਾ ਚੁਣਦਾ ਹੈ। Ctrl/Cmd+N ਇਸ ਦਾ ਨਾਮ ਸੋਧਦਾ ਹੈ; +S ਕਾਪੀ ਸੰਭਾਲਦਾ ਹੈ; +Enter ਲਾਗੂ ਕਰਦਾ ਹੈ; +U ਅੱਪਡੇਟ ਕਰਦਾ ਹੈ; +R ਨਾਮ ਬਦਲਦਾ ਹੈ; +D ਮਿਟਾਉਂਦਾ ਹੈ; +0 ਰੀਸੈੱਟ ਕਰਦਾ ਹੈ।

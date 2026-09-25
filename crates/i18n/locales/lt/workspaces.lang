@@ -1,16 +1,16 @@
-# Workspace strings. Explicit English fallback; translation pending.
-workspaces.title = Workspaces
-workspaces.manage = Manage Workspaces…
-workspaces.painting = Painting
-workspaces.photo = Photo Development
-workspaces.retouching = Retouching
-workspaces.current = Current layout
-workspaces.help = Save As creates a named copy of the current layout. Select a saved layout to apply, update, rename or delete it. Layout edits take effect immediately.
-workspaces.show_panels = Show side panels
-workspaces.automatic = Automatic
-workspaces.reset_help = Reset restores the default panel layout only. Saved workspaces, documents and other preferences are kept.
-workspaces.save_error = Could not save workspace preferences. The change was not applied.
-workspaces.invalid_name = Enter a name of 1–80 characters without control characters.
-workspaces.duplicate = A workspace with this name already exists.
-workspaces.limit = You can save up to 64 workspaces.
-workspaces.keyboard = Keyboard: Alt+↑/↓ selects a layout. Ctrl/Cmd+N edits its name; +S saves a copy; +Enter applies; +U updates; +R renames; +D deletes; +0 resets.
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Darbo sritys
+workspaces.manage = Tvarkyti darbo sritis…
+workspaces.painting = Tapyba
+workspaces.photo = Nuotraukų apdorojimas
+workspaces.retouching = Retušavimas
+workspaces.current = Dabartinis išdėstymas
+workspaces.help = Įrašyti kaip sukuria pavadintą dabartinio išdėstymo kopiją. Pasirinkite įrašytą išdėstymą, kad jį pritaikytumėte, atnaujintumėte, pervadintumėte arba pašalintumėte. Išdėstymo pakeitimai įsigalioja iškart.
+workspaces.show_panels = Rodyti šoninius skydelius
+workspaces.automatic = Automatiškai
+workspaces.reset_help = Atkurti grąžina tik numatytąjį skydelių išdėstymą. Įrašytos darbo sritys, dokumentai ir kitos nuostatos išlieka.
+workspaces.save_error = Nepavyko įrašyti darbo srities nuostatų. Pakeitimas nebuvo pritaikytas.
+workspaces.invalid_name = Įveskite 1–80 ženklų pavadinimą be valdymo ženklų.
+workspaces.duplicate = Darbo sritis tokiu pavadinimu jau yra.
+workspaces.limit = Galite įrašyti iki 64 darbo sričių.
+workspaces.keyboard = Klaviatūra: Alt+↑/↓ pasirenka išdėstymą. Ctrl/Cmd+N taiso jo pavadinimą; +S įrašo kopiją; +Enter pritaiko; +U atnaujina; +R pervadina; +D pašalina; +0 atkuria.

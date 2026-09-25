@@ -1,16 +1,16 @@
-# Workspace strings. Explicit English fallback; translation pending.
-workspaces.title = Workspaces
-workspaces.manage = Manage Workspaces…
-workspaces.painting = Painting
-workspaces.photo = Photo Development
-workspaces.retouching = Retouching
-workspaces.current = Current layout
-workspaces.help = Save As creates a named copy of the current layout. Select a saved layout to apply, update, rename or delete it. Layout edits take effect immediately.
-workspaces.show_panels = Show side panels
-workspaces.automatic = Automatic
-workspaces.reset_help = Reset restores the default panel layout only. Saved workspaces, documents and other preferences are kept.
-workspaces.save_error = Could not save workspace preferences. The change was not applied.
-workspaces.invalid_name = Enter a name of 1–80 characters without control characters.
-workspaces.duplicate = A workspace with this name already exists.
-workspaces.limit = You can save up to 64 workspaces.
-workspaces.keyboard = Keyboard: Alt+↑/↓ selects a layout. Ctrl/Cmd+N edits its name; +S saves a copy; +Enter applies; +U updates; +R renames; +D deletes; +0 resets.
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Iindawo zokusebenza
+workspaces.manage = Lawula iindawo zokusebenza…
+workspaces.painting = Ukupeyinta
+workspaces.photo = Ukuphuhlisa iifoto
+workspaces.retouching = Ukulungisa iifoto
+workspaces.current = Ubeko lwangoku
+workspaces.help = «Gcina Njenge» yenza ikopi ebizwa ngegama yobeko lwangoku. Khetha ubeko olugciniweyo ukuze ulusebenzise, uluhlaziye, ulunike elinye igama okanye ulucime. Utshintsho kubeko lusebenza ngoko nangoko.
+workspaces.show_panels = Bonisa iiphaneli ezisecaleni
+workspaces.automatic = Ngokuzenzekelayo
+workspaces.reset_help = «Seta ngokutsha» ibuyisela kuphela ubeko olungagqibekanga lweepaneli. Iindawo zokusebenza ezigciniweyo, amaxwebhu nezinye iisetingi zihlala zikho.
+workspaces.save_error = Akukwazekanga ukugcina iisetingi zeendawo zokusebenza. Utshintsho alusetyenziswanga.
+workspaces.invalid_name = Faka igama elinoonobumba aba-1–80, ngaphandle koonobumba bolawulo.
+workspaces.duplicate = Indawo yokusebenza eneli gama sele ikhona.
+workspaces.limit = Ungagcina ukuya kutsho kwiindawo zokusebenza ezingama-64.
+workspaces.keyboard = Ibhodi yezitshixo: Alt+↑/↓ ikhetha ubeko. Ctrl/Cmd+N ihlela igama lalo; +S igcina ikopi; +Enter iyalusebenzisa; +U iyaluhlaziya; +R ilinika elinye igama; +D iyalicima; +0 iliseta ngokutsha.

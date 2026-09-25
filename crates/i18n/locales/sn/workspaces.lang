@@ -1,16 +1,16 @@
-# Workspace strings. Explicit English fallback; translation pending.
-workspaces.title = Workspaces
-workspaces.manage = Manage Workspaces…
-workspaces.painting = Painting
-workspaces.photo = Photo Development
-workspaces.retouching = Retouching
-workspaces.current = Current layout
-workspaces.help = Save As creates a named copy of the current layout. Select a saved layout to apply, update, rename or delete it. Layout edits take effect immediately.
-workspaces.show_panels = Show side panels
-workspaces.automatic = Automatic
-workspaces.reset_help = Reset restores the default panel layout only. Saved workspaces, documents and other preferences are kept.
-workspaces.save_error = Could not save workspace preferences. The change was not applied.
-workspaces.invalid_name = Enter a name of 1–80 characters without control characters.
-workspaces.duplicate = A workspace with this name already exists.
-workspaces.limit = You can save up to 64 workspaces.
-workspaces.keyboard = Keyboard: Alt+↑/↓ selects a layout. Ctrl/Cmd+N edits its name; +S saves a copy; +Enter applies; +U updates; +R renames; +D deletes; +0 resets.
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Nzvimbo dzekushandira
+workspaces.manage = Ronga nzvimbo dzekushandira…
+workspaces.painting = Kupenda
+workspaces.photo = Kugadzira mapikicha
+workspaces.retouching = Kugadziridza mapikicha
+workspaces.current = Marongerwo aripo
+workspaces.help = Chengeta Se… inogadzira kopi ine zita remarongerwo aripo. Sarudza marongerwo akachengetwa kuti uashandise, uavandudze, uatumidze patsva kana kuadzima. Shanduko dzemarongerwo dzinoshanda pakarepo.
+workspaces.show_panels = Ratidza mapaneru ekumativi
+workspaces.automatic = Otomatiki
+workspaces.reset_help = Dzorera Pakutanga inodzorera marongerwo akajairwa emapaneru chete. Nzvimbo dzekushandira dzakachengetwa, magwaro nezvimwe zvaunofarira zvinoramba zviripo.
+workspaces.save_error = Hazvina kukwanisika kuchengetedza zvaunofarira zvenzvimbo dzekushandira. Shanduko haina kushandiswa.
+workspaces.invalid_name = Isa zita rine mavara 1–80 risina mavara ekudzora.
+workspaces.duplicate = Nzvimbo yekushandira ine zita iri yatovepo.
+workspaces.limit = Unogona kuchengetedza nzvimbo dzekushandira dzinosvika 64.
+workspaces.keyboard = Kiyibhodhi: Alt+↑/↓ inosarudza marongerwo. Ctrl/Cmd+N inogadzirisa zita rawo; +S inochengeta kopi; +Enter inoashandisa; +U inoavandudza; +R inoatumidza patsva; +D inoadzima; +0 inoadzorera pakutanga.

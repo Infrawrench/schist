@@ -1,16 +1,16 @@
-# Workspace strings. Explicit English fallback; translation pending.
-workspaces.title = Workspaces
-workspaces.manage = Manage Workspaces…
-workspaces.painting = Painting
-workspaces.photo = Photo Development
-workspaces.retouching = Retouching
-workspaces.current = Current layout
-workspaces.help = Save As creates a named copy of the current layout. Select a saved layout to apply, update, rename or delete it. Layout edits take effect immediately.
-workspaces.show_panels = Show side panels
-workspaces.automatic = Automatic
-workspaces.reset_help = Reset restores the default panel layout only. Saved workspaces, documents and other preferences are kept.
-workspaces.save_error = Could not save workspace preferences. The change was not applied.
-workspaces.invalid_name = Enter a name of 1–80 characters without control characters.
-workspaces.duplicate = A workspace with this name already exists.
-workspaces.limit = You can save up to 64 workspaces.
-workspaces.keyboard = Keyboard: Alt+↑/↓ selects a layout. Ctrl/Cmd+N edits its name; +S saves a copy; +Enter applies; +U updates; +R renames; +D deletes; +0 resets.
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Laneko eremuak
+workspaces.manage = Kudeatu laneko eremuak…
+workspaces.painting = Pintura
+workspaces.photo = Argazkien garapena
+workspaces.retouching = Ukituak
+workspaces.current = Uneko antolamendua
+workspaces.help = Gorde honela aukerak uneko antolamenduaren kopia izendun bat sortzen du. Hautatu gordetako antolamendu bat aplikatzeko, eguneratzeko, izena aldatzeko edo ezabatzeko. Antolamenduaren aldaketak berehala aplikatzen dira.
+workspaces.show_panels = Erakutsi alboko panelak
+workspaces.automatic = Automatikoa
+workspaces.reset_help = Berrezarri aukerak panelen antolamendu lehenetsia bakarrik leheneratzen du. Gordetako laneko eremuak, dokumentuak eta gainerako hobespenak mantentzen dira.
+workspaces.save_error = Ezin izan dira laneko eremuaren hobespenak gorde. Aldaketa ez da aplikatu.
+workspaces.invalid_name = Idatzi 1–80 karaktereko izena, kontrol-karaktererik gabe.
+workspaces.duplicate = Izen horretako laneko eremu bat badago lehendik.
+workspaces.limit = Gehienez 64 laneko eremu gorde ditzakezu.
+workspaces.keyboard = Teklatua: Alt+↑/↓ teklak antolamendu bat hautatzen du. Ctrl/Cmd+N teklak izena editatzen du; +S teklak kopia gordetzen du; +Enter teklak aplikatzen du; +U teklak eguneratzen du; +R teklak izena aldatzen du; +D teklak ezabatzen du; +0 teklak berrezartzen du.

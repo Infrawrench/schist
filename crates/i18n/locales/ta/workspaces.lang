@@ -1,16 +1,16 @@
-# Workspace strings. Explicit English fallback; translation pending.
-workspaces.title = Workspaces
-workspaces.manage = Manage Workspaces…
-workspaces.painting = Painting
-workspaces.photo = Photo Development
-workspaces.retouching = Retouching
-workspaces.current = Current layout
-workspaces.help = Save As creates a named copy of the current layout. Select a saved layout to apply, update, rename or delete it. Layout edits take effect immediately.
-workspaces.show_panels = Show side panels
-workspaces.automatic = Automatic
-workspaces.reset_help = Reset restores the default panel layout only. Saved workspaces, documents and other preferences are kept.
-workspaces.save_error = Could not save workspace preferences. The change was not applied.
-workspaces.invalid_name = Enter a name of 1–80 characters without control characters.
-workspaces.duplicate = A workspace with this name already exists.
-workspaces.limit = You can save up to 64 workspaces.
-workspaces.keyboard = Keyboard: Alt+↑/↓ selects a layout. Ctrl/Cmd+N edits its name; +S saves a copy; +Enter applies; +U updates; +R renames; +D deletes; +0 resets.
+# Workspace strings. AI translation; human review pending.
+workspaces.title = பணியிடங்கள்
+workspaces.manage = பணியிடங்களை நிர்வகி…
+workspaces.painting = ஓவியம் வரைதல்
+workspaces.photo = புகைப்படச் செம்மையாக்கம்
+workspaces.retouching = புகைப்படத் திருத்தம்
+workspaces.current = தற்போதைய அமைப்பு
+workspaces.help = இவ்வாறு சேமி என்பது தற்போதைய அமைப்பின் பெயரிடப்பட்ட நகலை உருவாக்கும். சேமித்த அமைப்பைத் தேர்ந்தெடுத்து அதைப் பயன்படுத்தலாம், புதுப்பிக்கலாம், மறுபெயரிடலாம் அல்லது நீக்கலாம். அமைப்பில் செய்யும் மாற்றங்கள் உடனடியாக நடைமுறைக்கு வரும்.
+workspaces.show_panels = பக்கப் பலகங்களைக் காட்டு
+workspaces.automatic = தானியங்கி
+workspaces.reset_help = மீட்டமை என்பது பலகங்களின் இயல்புநிலை அமைப்பை மட்டுமே மீட்டெடுக்கும். சேமித்த பணியிடங்கள், ஆவணங்கள் மற்றும் பிற விருப்பத்தேர்வுகள் அப்படியே இருக்கும்.
+workspaces.save_error = பணியிட விருப்பத்தேர்வுகளைச் சேமிக்க முடியவில்லை. மாற்றம் பயன்படுத்தப்படவில்லை.
+workspaces.invalid_name = கட்டுப்பாட்டு எழுத்துகள் இல்லாத 1–80 எழுத்துகள் கொண்ட பெயரை உள்ளிடவும்.
+workspaces.duplicate = இந்தப் பெயரில் ஒரு பணியிடம் ஏற்கெனவே உள்ளது.
+workspaces.limit = நீங்கள் அதிகபட்சம் 64 பணியிடங்களைச் சேமிக்கலாம்.
+workspaces.keyboard = விசைப்பலகை: Alt+↑/↓ ஓர் அமைப்பைத் தேர்ந்தெடுக்கும். Ctrl/Cmd+N அதன் பெயரைத் திருத்தும்; +S ஒரு நகலைச் சேமிக்கும்; +Enter பயன்படுத்தும்; +U புதுப்பிக்கும்; +R மறுபெயரிடும்; +D நீக்கும்; +0 மீட்டமைக்கும்.

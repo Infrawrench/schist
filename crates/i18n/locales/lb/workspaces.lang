@@ -1,16 +1,16 @@
-# Workspace strings. Explicit English fallback; translation pending.
-workspaces.title = Workspaces
-workspaces.manage = Manage Workspaces…
-workspaces.painting = Painting
-workspaces.photo = Photo Development
-workspaces.retouching = Retouching
-workspaces.current = Current layout
-workspaces.help = Save As creates a named copy of the current layout. Select a saved layout to apply, update, rename or delete it. Layout edits take effect immediately.
-workspaces.show_panels = Show side panels
-workspaces.automatic = Automatic
-workspaces.reset_help = Reset restores the default panel layout only. Saved workspaces, documents and other preferences are kept.
-workspaces.save_error = Could not save workspace preferences. The change was not applied.
-workspaces.invalid_name = Enter a name of 1–80 characters without control characters.
-workspaces.duplicate = A workspace with this name already exists.
-workspaces.limit = You can save up to 64 workspaces.
-workspaces.keyboard = Keyboard: Alt+↑/↓ selects a layout. Ctrl/Cmd+N edits its name; +S saves a copy; +Enter applies; +U updates; +R renames; +D deletes; +0 resets.
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Aarbechtsberäicher
+workspaces.manage = Aarbechtsberäicher verwalten…
+workspaces.painting = Molerei
+workspaces.photo = Fotoentwécklung
+workspaces.retouching = Retusche
+workspaces.current = Aktuellt Layout
+workspaces.help = Späicheren als erstellt eng Kopie vum aktuelle Layout mat engem Numm. Wielt e gespäichert Layout aus, fir et unzewenden, ze aktualiséieren, ëmzebenennen oder ze läschen. Ännerungen um Layout wierken direkt.
+workspaces.show_panels = Säitepanneauen uweisen
+workspaces.automatic = Automatesch
+workspaces.reset_help = Zerécksetzen stellt nëmmen d'Standarduerdnung vun de Panneauen erëm hier. Gespäichert Aarbechtsberäicher, Dokumenter an aner Astellunge bleiwen erhalen.
+workspaces.save_error = D'Astellunge vum Aarbechtsberäich konnten net gespäichert ginn. D'Ännerung gouf net ugewannt.
+workspaces.invalid_name = Gitt en Numm mat 1–80 Zeechen ouni Steierzeechen an.
+workspaces.duplicate = En Aarbechtsberäich mat dësem Numm gëtt et schonn.
+workspaces.limit = Dir kënnt bis zu 64 Aarbechtsberäicher späicheren.
+workspaces.keyboard = Tastatur: Alt+↑/↓ wielt e Layout. Ctrl/Cmd+N ännert säin Numm; +S späichert eng Kopie; +Enter applizéiert et; +U aktualiséiert et; +R benennt et ëm; +D läscht et; +0 setzt et zeréck.

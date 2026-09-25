@@ -1,16 +1,16 @@
-# Workspace strings. Explicit English fallback; translation pending.
-workspaces.title = Workspaces
-workspaces.manage = Manage Workspaces…
-workspaces.painting = Painting
-workspaces.photo = Photo Development
-workspaces.retouching = Retouching
-workspaces.current = Current layout
-workspaces.help = Save As creates a named copy of the current layout. Select a saved layout to apply, update, rename or delete it. Layout edits take effect immediately.
-workspaces.show_panels = Show side panels
-workspaces.automatic = Automatic
-workspaces.reset_help = Reset restores the default panel layout only. Saved workspaces, documents and other preferences are kept.
-workspaces.save_error = Could not save workspace preferences. The change was not applied.
-workspaces.invalid_name = Enter a name of 1–80 characters without control characters.
-workspaces.duplicate = A workspace with this name already exists.
-workspaces.limit = You can save up to 64 workspaces.
-workspaces.keyboard = Keyboard: Alt+↑/↓ selects a layout. Ctrl/Cmd+N edits its name; +S saves a copy; +Enter applies; +U updates; +R renames; +D deletes; +0 resets.
+# Workspace strings. AI translation; human review pending.
+workspaces.title = ވާކްސްޕޭސްތައް
+workspaces.manage = ވާކްސްޕޭސްތައް މެނޭޖް ކުރުން…
+workspaces.painting = ކުރެހުން
+workspaces.photo = ފޮޓޯ ޑިވެލޮޕް ކުރުން
+workspaces.retouching = ރީޓަޗް ކުރުން
+workspaces.current = މިހާރުގެ ލޭއައުޓް
+workspaces.help = މި ގޮތަށް ސޭވް ކުރުމުން މިހާރުގެ ލޭއައުޓްގެ ނަން ދީފައިވާ ކޮޕީއެއް ހެދޭނެ. ސޭވް ކޮށްފައިވާ ލޭއައުޓެއް ނަގާ، އެއް ބޭނުން ކުރުމަށް، އަޕްޑޭޓް ކުރުމަށް، ނަން ބަދަލު ކުރުމަށް ނުވަތަ ފޮހެލުމަށް. ލޭއައުޓްގައި ކުރާ ބަދަލުތައް ހަމަ އެ ވަގުތުން ހިނގައެވެ.
+workspaces.show_panels = ފަރާތްތަކުގެ ޕެނަލްތައް ދެއްކުން
+workspaces.automatic = އޮޓޮމެޓިކް
+workspaces.reset_help = ރީސެޓް ކުރުމުން އަލުން ލިބެނީ ޕެނަލްތަކުގެ ޑީފޯލްޓް ލޭއައުޓް އެކަންޏެވެ. ސޭވް ކޮށްފައިވާ ވާކްސްޕޭސްތަކާއި، ޑޮކިއުމަންޓްތަކާއި، އެހެން ޕްރެފަރެންސްތައް ބަދަލެއް ނުވެ ދެމެހެއްޓޭނެއެވެ.
+workspaces.save_error = ވާކްސްޕޭސްގެ ޕްރެފަރެންސްތައް ސޭވް ނުކުރެވުނު. ބަދަލު ބޭނުން ނުކުރެވުނު.
+workspaces.invalid_name = ކޮންޓްރޯލް ކެރެކްޓަރތައް ނުހިމެނޭ 1–80 ކެރެކްޓަރގެ ނަމެއް ލިޔުއްވާ.
+workspaces.duplicate = މި ނަމުން ވާކްސްޕޭސްއެއް ކުރިންވެސް އެބައިން.
+workspaces.limit = 64 ވާކްސްޕޭސްއަށް ދެންމެ ސޭވް ކުރެވޭނެ.
+workspaces.keyboard = ކީބޯޑް: Alt+↑/↓ އިން ލޭއައުޓެއް ނެގޭނެ. Ctrl/Cmd+N އިން ނަން އެޑިޓް ކުރެވޭނެ؛ +S އިން ކޮޕީއެއް ސޭވް ކުރެވޭނެ؛ +Enter އިން ބޭނުން ކުރެވޭނެ؛ +U އިން އަޕްޑޭޓް ކުރެވޭނެ؛ +R އިން ނަން ބަދަލު ކުރެވޭނެ؛ +D އިން ފޮހެލެވޭނެ؛ +0 އިން ރީސެޓް ކުރެވޭނެ.

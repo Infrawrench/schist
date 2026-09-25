@@ -1,16 +1,16 @@
-# Workspace strings. Explicit English fallback; translation pending.
-workspaces.title = Workspaces
-workspaces.manage = Manage Workspaces…
-workspaces.painting = Painting
-workspaces.photo = Photo Development
-workspaces.retouching = Retouching
-workspaces.current = Current layout
-workspaces.help = Save As creates a named copy of the current layout. Select a saved layout to apply, update, rename or delete it. Layout edits take effect immediately.
-workspaces.show_panels = Show side panels
-workspaces.automatic = Automatic
-workspaces.reset_help = Reset restores the default panel layout only. Saved workspaces, documents and other preferences are kept.
-workspaces.save_error = Could not save workspace preferences. The change was not applied.
-workspaces.invalid_name = Enter a name of 1–80 characters without control characters.
-workspaces.duplicate = A workspace with this name already exists.
-workspaces.limit = You can save up to 64 workspaces.
-workspaces.keyboard = Keyboard: Alt+↑/↓ selects a layout. Ctrl/Cmd+N edits its name; +S saves a copy; +Enter applies; +U updates; +R renames; +D deletes; +0 resets.
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Tachennoù labour
+workspaces.manage = Merañ an tachennoù labour…
+workspaces.painting = Livañ
+workspaces.photo = Diorren luc’hskeudennoù
+workspaces.retouching = Retouchañ
+workspaces.current = Kempennadur bremañ
+workspaces.help = Enrollañ evel a grou un eilenn anvet eus ar c’hempennadur bremañ. Diuzit ur c’hempennadur enrollet evit e arloañ, e hizivaat, e adenvel pe e zilemel. Ar cheñchamantoù er c’hempennadur a zeu da dalvezout diouzhtu.
+workspaces.show_panels = Diskouez ar panelloù kostez
+workspaces.automatic = Emgefreek
+workspaces.reset_help = Adderaouekaat a adlaka kempennadur dre ziouer ar panelloù hepken. Miret e vez an tachennoù labour enrollet, an teulioù hag an dibaboù all.
+workspaces.save_error = N’haller ket enrollañ dibaboù an dachenn labour. N’eo ket bet arloet ar cheñchamant.
+workspaces.invalid_name = Roit un anv a 1–80 arouezenn hep arouezenn reoliñ.
+workspaces.duplicate = Un dachenn labour gant an anv-mañ a zo anezhi dija.
+workspaces.limit = Gallout a rit enrollañ betek 64 tachenn labour.
+workspaces.keyboard = Klavier: Alt+↑/↓ a zibab ur c’hempennadur. Ctrl/Cmd+N a gemm e anv; +S a enroll un eilenn; +Enter a arlo anezhañ; +U a hiziva anezhañ; +R a adenvel anezhañ; +D a zilemel anezhañ; +0 a adderaoueka.

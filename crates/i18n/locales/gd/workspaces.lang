@@ -1,16 +1,16 @@
-# Workspace strings. Explicit English fallback; translation pending.
-workspaces.title = Workspaces
-workspaces.manage = Manage Workspaces…
-workspaces.painting = Painting
-workspaces.photo = Photo Development
-workspaces.retouching = Retouching
-workspaces.current = Current layout
-workspaces.help = Save As creates a named copy of the current layout. Select a saved layout to apply, update, rename or delete it. Layout edits take effect immediately.
-workspaces.show_panels = Show side panels
-workspaces.automatic = Automatic
-workspaces.reset_help = Reset restores the default panel layout only. Saved workspaces, documents and other preferences are kept.
-workspaces.save_error = Could not save workspace preferences. The change was not applied.
-workspaces.invalid_name = Enter a name of 1–80 characters without control characters.
-workspaces.duplicate = A workspace with this name already exists.
-workspaces.limit = You can save up to 64 workspaces.
-workspaces.keyboard = Keyboard: Alt+↑/↓ selects a layout. Ctrl/Cmd+N edits its name; +S saves a copy; +Enter applies; +U updates; +R renames; +D deletes; +0 resets.
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Àiteachan-obrach
+workspaces.manage = Stiùirich àiteachan-obrach…
+workspaces.painting = Peantadh
+workspaces.photo = Leasachadh dhealbhan
+workspaces.retouching = Retusadh
+workspaces.current = Co-dhealbhachd làithreach
+workspaces.help = Cruthaichidh Sàbhail mar lethbhreac ainmichte den cho-dhealbhachd làithrich. Tagh co-dhealbhachd shàbhailte airson a cur an sàs, ùrachadh, ainm ùr a thoirt oirre no a sguabadh às. Thig atharrachaidhean air a’ cho-dhealbhachd gu buil sa bhad.
+workspaces.show_panels = Seall na panalan-taoibh
+workspaces.automatic = Fèin-obrachail
+workspaces.reset_help = Cha chuir Ath-shuidhich air ais ach co-dhealbhachd bhunaiteach nam panal. Cumar àiteachan-obrach sàbhailte, sgrìobhainnean agus roghainnean eile.
+workspaces.save_error = Cha b’ urrainn dhuinn roghainnean an àite-obrach a shàbhaladh. Cha deach an t-atharrachadh a chur an sàs.
+workspaces.invalid_name = Cuir a-steach ainm le 1–80 caractar gun charactaran-smachd.
+workspaces.duplicate = Tha àite-obrach leis an ainm seo ann mu thràth.
+workspaces.limit = Faodaidh tu suas ri 64 àiteachan-obrach a shàbhaladh.
+workspaces.keyboard = Meur-chlàr: taghaidh Alt+↑/↓ co-dhealbhachd. Deasaichidh Ctrl/Cmd+N a h-ainm; sàbhalaidh +S lethbhreac; cuiridh +Enter an sàs i; ùraichidh +U i; bheir +R ainm ùr oirre; sguabaidh +D às i; ath-shuidhichidh +0 i.

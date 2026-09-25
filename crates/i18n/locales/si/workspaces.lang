@@ -1,16 +1,16 @@
-# Workspace strings. Explicit English fallback; translation pending.
-workspaces.title = Workspaces
-workspaces.manage = Manage Workspaces…
-workspaces.painting = Painting
-workspaces.photo = Photo Development
-workspaces.retouching = Retouching
-workspaces.current = Current layout
-workspaces.help = Save As creates a named copy of the current layout. Select a saved layout to apply, update, rename or delete it. Layout edits take effect immediately.
-workspaces.show_panels = Show side panels
-workspaces.automatic = Automatic
-workspaces.reset_help = Reset restores the default panel layout only. Saved workspaces, documents and other preferences are kept.
-workspaces.save_error = Could not save workspace preferences. The change was not applied.
-workspaces.invalid_name = Enter a name of 1–80 characters without control characters.
-workspaces.duplicate = A workspace with this name already exists.
-workspaces.limit = You can save up to 64 workspaces.
-workspaces.keyboard = Keyboard: Alt+↑/↓ selects a layout. Ctrl/Cmd+N edits its name; +S saves a copy; +Enter applies; +U updates; +R renames; +D deletes; +0 resets.
+# Workspace strings. AI translation; human review pending.
+workspaces.title = වැඩබිම්
+workspaces.manage = වැඩබිම් කළමනාකරණය කරන්න…
+workspaces.painting = පින්තාරු කිරීම
+workspaces.photo = ඡායාරූප සැකසීම
+workspaces.retouching = ඡායාරූප පිරිපහදු කිරීම
+workspaces.current = වත්මන් සැකැස්ම
+workspaces.help = වෙනත් නමකින් සුරකින්න… මඟින් වත්මන් සැකැස්මේ නම් කළ පිටපතක් සාදයි. සුරැකි සැකැස්මක් යෙදීමට, යාවත්කාලීන කිරීමට, නැවත නම් කිරීමට හෝ මැකීමට එය තෝරන්න. සැකැස්මේ වෙනස්කම් වහාම ක්‍රියාත්මක වේ.
+workspaces.show_panels = පැති පැනල පෙන්වන්න
+workspaces.automatic = ස්වයංක්‍රීය
+workspaces.reset_help = යළි සකසන්න මඟින් පෙරනිමි පැනල සැකැස්ම පමණක් ප්‍රතිස්ථාපනය වේ. සුරැකි වැඩබිම්, ලේඛන සහ අනෙකුත් මනාප එලෙසම පවතී.
+workspaces.save_error = වැඩබිම් මනාප සුරැකීමට නොහැකි විය. වෙනස ක්‍රියාත්මක නොවීය.
+workspaces.invalid_name = පාලන අක්ෂර රහිත අක්ෂර 1–80ක නමක් ඇතුළත් කරන්න.
+workspaces.duplicate = මෙම නම ඇති වැඩබිමක් දැනටමත් පවතී.
+workspaces.limit = ඔබට වැඩබිම් 64ක් දක්වා සුරැකිය හැක.
+workspaces.keyboard = යතුරුපුවරුව: Alt+↑/↓ සැකැස්මක් තෝරයි. Ctrl/Cmd+N එහි නම සංස්කරණය කරයි; +S පිටපතක් සුරකියි; +Enter යොදයි; +U යාවත්කාලීන කරයි; +R නැවත නම් කරයි; +D මකයි; +0 යළි සකසයි.

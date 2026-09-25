@@ -1,16 +1,16 @@
-# Workspace strings. Explicit English fallback; translation pending.
-workspaces.title = Workspaces
-workspaces.manage = Manage Workspaces…
-workspaces.painting = Painting
-workspaces.photo = Photo Development
-workspaces.retouching = Retouching
-workspaces.current = Current layout
-workspaces.help = Save As creates a named copy of the current layout. Select a saved layout to apply, update, rename or delete it. Layout edits take effect immediately.
-workspaces.show_panels = Show side panels
-workspaces.automatic = Automatic
-workspaces.reset_help = Reset restores the default panel layout only. Saved workspaces, documents and other preferences are kept.
-workspaces.save_error = Could not save workspace preferences. The change was not applied.
-workspaces.invalid_name = Enter a name of 1–80 characters without control characters.
-workspaces.duplicate = A workspace with this name already exists.
-workspaces.limit = You can save up to 64 workspaces.
-workspaces.keyboard = Keyboard: Alt+↑/↓ selects a layout. Ctrl/Cmd+N edits its name; +S saves a copy; +Enter applies; +U updates; +R renames; +D deletes; +0 resets.
+# Workspace strings. AI translation; human review pending.
+workspaces.title = مساحات العمل
+workspaces.manage = إدارة مساحات العمل…
+workspaces.painting = الرسم
+workspaces.photo = معالجة الصور الفوتوغرافية
+workspaces.retouching = تنقيح الصور
+workspaces.current = التخطيط الحالي
+workspaces.help = ينشئ «حفظ باسم» نسخة مُسمّاة من التخطيط الحالي. حدّد تخطيطًا محفوظًا لتطبيقه أو تحديثه أو إعادة تسميته أو حذفه. تسري تعديلات التخطيط فورًا.
+workspaces.show_panels = إظهار اللوحات الجانبية
+workspaces.automatic = تلقائي
+workspaces.reset_help = تعيد «إعادة ضبط» تخطيط اللوحات الافتراضي فقط. تبقى مساحات العمل المحفوظة والمستندات والتفضيلات الأخرى كما هي.
+workspaces.save_error = تعذّر حفظ تفضيلات مساحة العمل. لم يُطبَّق التغيير.
+workspaces.invalid_name = أدخل اسمًا يتكون من 1–80 حرفًا دون محارف تحكّم.
+workspaces.duplicate = توجد مساحة عمل بهذا الاسم بالفعل.
+workspaces.limit = يمكنك حفظ ما يصل إلى 64 مساحة عمل.
+workspaces.keyboard = لوحة المفاتيح: Alt+↑/↓ يحدّد تخطيطًا. Ctrl/Cmd+N يحرّر اسمه؛ +S يحفظ نسخة؛ +Enter يطبّق؛ +U يحدّث؛ +R يعيد التسمية؛ +D يحذف؛ +0 يعيد الضبط.

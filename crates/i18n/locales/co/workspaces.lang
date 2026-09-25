@@ -1,16 +1,16 @@
-# Workspace strings. Explicit English fallback; translation pending.
-workspaces.title = Workspaces
-workspaces.manage = Manage Workspaces…
-workspaces.painting = Painting
-workspaces.photo = Photo Development
-workspaces.retouching = Retouching
-workspaces.current = Current layout
-workspaces.help = Save As creates a named copy of the current layout. Select a saved layout to apply, update, rename or delete it. Layout edits take effect immediately.
-workspaces.show_panels = Show side panels
-workspaces.automatic = Automatic
-workspaces.reset_help = Reset restores the default panel layout only. Saved workspaces, documents and other preferences are kept.
-workspaces.save_error = Could not save workspace preferences. The change was not applied.
-workspaces.invalid_name = Enter a name of 1–80 characters without control characters.
-workspaces.duplicate = A workspace with this name already exists.
-workspaces.limit = You can save up to 64 workspaces.
-workspaces.keyboard = Keyboard: Alt+↑/↓ selects a layout. Ctrl/Cmd+N edits its name; +S saves a copy; +Enter applies; +U updates; +R renames; +D deletes; +0 resets.
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Spazii di travagliu
+workspaces.manage = Gestisce i spazii di travagliu…
+workspaces.painting = Pittura
+workspaces.photo = Sviluppu fotograficu
+workspaces.retouching = Ritoccu
+workspaces.current = Dispusizione attuale
+workspaces.help = Arregistrà cù u nome crea una copia cù un nome di a dispusizione attuale. Sceglite una dispusizione arregistrata per applicalla, aghjurnalla, rinuminalla o sguassalla. I cambiamenti di dispusizione anu effettu subitu.
+workspaces.show_panels = Mustrà i pannelli laterali
+workspaces.automatic = Autumaticu
+workspaces.reset_help = Rimette ristabilisce solu a dispusizione predefinita di i pannelli. I spazii di travagliu arregistrati, i ducumenti è l’altre preferenze fermanu cunservati.
+workspaces.save_error = Ùn si sò pussute arregistrà e preferenze di u spaziu di travagliu. U cambiamentu ùn hè statu applicatu.
+workspaces.invalid_name = Inserite un nome di 1–80 caratteri senza caratteri di cuntrollu.
+workspaces.duplicate = Un spaziu di travagliu cù stu nome esiste digià.
+workspaces.limit = Pudete arregistrà sin’à 64 spazii di travagliu.
+workspaces.keyboard = Tastiera: Alt+↑/↓ sceglie una dispusizione. Ctrl/Cmd+N ne mudifica u nome; +S ne arregistreghja una copia; +Enter l’applica; +U l’aghjurna; +R a rinumina; +D a sguassa; +0 a rimette.

@@ -1,16 +1,16 @@
-# Workspace strings. Explicit English fallback; translation pending.
-workspaces.title = Workspaces
-workspaces.manage = Manage Workspaces…
-workspaces.painting = Painting
-workspaces.photo = Photo Development
-workspaces.retouching = Retouching
-workspaces.current = Current layout
-workspaces.help = Save As creates a named copy of the current layout. Select a saved layout to apply, update, rename or delete it. Layout edits take effect immediately.
-workspaces.show_panels = Show side panels
-workspaces.automatic = Automatic
-workspaces.reset_help = Reset restores the default panel layout only. Saved workspaces, documents and other preferences are kept.
-workspaces.save_error = Could not save workspace preferences. The change was not applied.
-workspaces.invalid_name = Enter a name of 1–80 characters without control characters.
-workspaces.duplicate = A workspace with this name already exists.
-workspaces.limit = You can save up to 64 workspaces.
-workspaces.keyboard = Keyboard: Alt+↑/↓ selects a layout. Ctrl/Cmd+N edits its name; +S saves a copy; +Enter applies; +U updates; +R renames; +D deletes; +0 resets.
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Imiterere y'aho gukorera
+workspaces.manage = Gucunga imiterere y'aho gukorera…
+workspaces.painting = Gushushanya
+workspaces.photo = Gutunganya amafoto
+workspaces.retouching = Gukosora amafoto
+workspaces.current = Imiterere iriho
+workspaces.help = Kubika nka… bikora kopi y'imiterere iriho ikayihesha izina. Hitamo imiterere wabitse kugira ngo uyikoreshe, uyivugurure, uyihindure izina cyangwa uyisibe. Impinduka ku miterere zihita zikurikizwa.
+workspaces.show_panels = Kwerekana imbaho zo ku mpande
+workspaces.automatic = Byikora
+workspaces.reset_help = Gusubizaho bigarura gusa imiterere isanzwe y'imbaho. Imiterere y'aho gukorera yabitswe, inyandiko n'ibindi byahiswemo biragumaho.
+workspaces.save_error = Ntibyashobotse kubika ibyahiswemo by'imiterere y'aho gukorera. Impinduka ntiyakurikijwe.
+workspaces.invalid_name = Andika izina rifite inyuguti 1–80 ridafite inyuguti zigenzura.
+workspaces.duplicate = Hari indi miterere y'aho gukorera ifite iri zina.
+workspaces.limit = Ushobora kubika imiterere y'aho gukorera igera kuri 64.
+workspaces.keyboard = Mwandikisho: Alt+↑/↓ ihitamo imiterere. Ctrl/Cmd+N ihindura izina ryayo; +S ibika kopi; +Enter irayikoresha; +U irayivugurura; +R iyihindura izina; +D irayisiba; +0 igarura imiterere isanzwe.

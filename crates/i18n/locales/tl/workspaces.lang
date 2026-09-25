@@ -1,16 +1,16 @@
-# Workspace strings. Explicit English fallback; translation pending.
-workspaces.title = Workspaces
-workspaces.manage = Manage Workspaces…
-workspaces.painting = Painting
-workspaces.photo = Photo Development
-workspaces.retouching = Retouching
-workspaces.current = Current layout
-workspaces.help = Save As creates a named copy of the current layout. Select a saved layout to apply, update, rename or delete it. Layout edits take effect immediately.
-workspaces.show_panels = Show side panels
-workspaces.automatic = Automatic
-workspaces.reset_help = Reset restores the default panel layout only. Saved workspaces, documents and other preferences are kept.
-workspaces.save_error = Could not save workspace preferences. The change was not applied.
-workspaces.invalid_name = Enter a name of 1–80 characters without control characters.
-workspaces.duplicate = A workspace with this name already exists.
-workspaces.limit = You can save up to 64 workspaces.
-workspaces.keyboard = Keyboard: Alt+↑/↓ selects a layout. Ctrl/Cmd+N edits its name; +S saves a copy; +Enter applies; +U updates; +R renames; +D deletes; +0 resets.
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Mga Workspace
+workspaces.manage = Pamahalaan ang Mga Workspace…
+workspaces.painting = Pagpipinta
+workspaces.photo = Pagproseso ng Larawan
+workspaces.retouching = Pagretoke
+workspaces.current = Kasalukuyang ayos
+workspaces.help = Gumagawa ang I-save Bilang ng kopya ng kasalukuyang ayos na may pangalan. Pumili ng naka-save na ayos para ilapat, i-update, palitan ang pangalan, o tanggalin ito. Agad na magkakabisa ang mga pagbabago sa ayos.
+workspaces.show_panels = Ipakita ang mga panel sa gilid
+workspaces.automatic = Awtomatiko
+workspaces.reset_help = I-reset ay ibinabalik lamang ang default na ayos ng mga panel. Mananatili ang mga naka-save na workspace, dokumento, at iba pang kagustuhan.
+workspaces.save_error = Hindi ma-save ang mga kagustuhan sa workspace. Hindi nailapat ang pagbabago.
+workspaces.invalid_name = Maglagay ng pangalang may 1–80 character na walang mga control character.
+workspaces.duplicate = May workspace na sa pangalang ito.
+workspaces.limit = Maaari kang mag-save ng hanggang 64 na workspace.
+workspaces.keyboard = Keyboard: Alt+↑/↓ pumipili ng ayos. Ctrl/Cmd+N nag-e-edit ng pangalan nito; +S nagse-save ng kopya; +Enter naglalapat; +U nag-a-update; +R nagpapalit ng pangalan; +D nagtatanggal; +0 nagre-reset.

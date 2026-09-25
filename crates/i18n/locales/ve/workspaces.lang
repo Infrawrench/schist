@@ -1,16 +1,16 @@
-# Workspace strings. Explicit English fallback; translation pending.
-workspaces.title = Workspaces
-workspaces.manage = Manage Workspaces…
-workspaces.painting = Painting
-workspaces.photo = Photo Development
-workspaces.retouching = Retouching
-workspaces.current = Current layout
-workspaces.help = Save As creates a named copy of the current layout. Select a saved layout to apply, update, rename or delete it. Layout edits take effect immediately.
-workspaces.show_panels = Show side panels
-workspaces.automatic = Automatic
-workspaces.reset_help = Reset restores the default panel layout only. Saved workspaces, documents and other preferences are kept.
-workspaces.save_error = Could not save workspace preferences. The change was not applied.
-workspaces.invalid_name = Enter a name of 1–80 characters without control characters.
-workspaces.duplicate = A workspace with this name already exists.
-workspaces.limit = You can save up to 64 workspaces.
-workspaces.keyboard = Keyboard: Alt+↑/↓ selects a layout. Ctrl/Cmd+N edits its name; +S saves a copy; +Enter applies; +U updates; +R renames; +D deletes; +0 resets.
+# Workspace strings. AI translation; human review pending.
+workspaces.title = Zwivhumbelo zwa mushumo
+workspaces.manage = Langula zwivhumbelo zwa mushumo…
+workspaces.painting = U ola
+workspaces.photo = U lugisa zwinepe
+workspaces.retouching = U khwinisa zwinepe
+workspaces.current = Nzudzanyo ya zwino
+workspaces.help = «Vhulunga sa» i ita khophi i re na dzina ya nzudzanyo ya zwino. Nanga nzudzanyo yo vhulungwaho uri u i shumise, u i khwinise, u i nee dzina ḽiswa kana u i thuthe. Tshanduko dza nzudzanyo dzi shuma nga u ṱavhanya.
+workspaces.show_panels = Sumbedza phanele dza matungo
+workspaces.automatic = Zwa u tou ḓiitela
+workspaces.reset_help = «Vhuedzedza» i vhuedzedza fhedzi nzudzanyo ya phanele ya misi yoṱhe. Zwivhumbelo zwa mushumo zwo vhulungwaho, maṅwalo na dzinwe khetho zwi dzula zwi hone.
+workspaces.save_error = A zwo ngo konadzea u vhulunga khetho dza tshivhumbelo tsha mushumo. Tshanduko a yo ngo shumiswa.
+workspaces.invalid_name = Dzhenisani dzina ḽi re na zwiga zwa 1–80 ḽi si na zwiga zwa ndango.
+workspaces.duplicate = Hu na tshivhumbelo tsha mushumo tshi re na ḽeneḽi dzina.
+workspaces.limit = Ni nga vhulunga zwivhumbelo zwa mushumo zwi swikaho 64.
+workspaces.keyboard = Kiibodo: Alt+↑/↓ i nanga nzudzanyo. Ctrl/Cmd+N i dzudzanya dzina ḽayo; +S i vhulunga khophi; +Enter i shumisa; +U i khwinisa; +R i ira dzina hafhu; +D i thutha; +0 i vhuedzedza.
