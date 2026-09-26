@@ -38,6 +38,16 @@ Large contiguous host matrix transposes use a cache-blocked copy, while moving
 unit dimensions remains a zero-copy reshape. The release profile optimizes the
 host tensor and upload/readback loops for speed.
 
+The background detectors keep their data-dependent `Floor → Cast<int64>` pixel
+indices as ordinary integers, avoiding tract's symbolic-dimension arithmetic.
+Concrete float GatherND operations copy checked contiguous slices, including
+batched and negative indices. Fixed linear resizes reuse tract's interpolation
+plans and specialize two-tap contiguous rows without changing their accumulation
+order. ARM64 transposes use blocked NEON bit shuffles with scalar tails; other
+architectures retain the portable transpose implementation. These host passes
+apply to both CPU and partitioned GPU plans, preserving model resolution and
+precision.
+
 The native automatic background-removal action opts into measured placement.
 On its first input it times both CPU and accelerated execution of each large
 model family, including transfers and host operators. It uses CPU when at
@@ -55,6 +65,15 @@ Anti-Smudge inference in the browser still uses tract. Compilation alone does
 not imply that a browser or device can execute a model on the GPU.
 
 ## Verification
+
+`SCHIST_MATTING_PROFILE=1 make profile-background-removal ARGS='cpu photo.jpg cutout.png'`
+logs operator timings for each model's first CPU input. It does not record image
+or tensor contents. `make profile-neural-tensors` compares portable and native
+transposes on representative synthetic tensor sizes; timings are diagnostic,
+not assertions in the regression suite.
+For paired end-to-end comparisons, `SCHIST_NEURAL_LEGACY_HOST=1` selects the
+previous host operators in the same executable. It is a native diagnostic
+control read once per process; weights, precision and tiling stay unchanged.
 
 `make check-neural-gpu` executes real GPU dispatches and compares them with tract:
 PReLU, inference Dropout, grouped/dilated/asymmetrically padded convolution,

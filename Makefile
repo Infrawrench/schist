@@ -568,6 +568,9 @@ background-removal-example:
 .PHONY: profile-background-removal
 profile-background-removal:
 	$(CARGO) run $(PROFILE_FLAG) -p schist-compositor-gpu --example background_removal -- $(ARGS)
+.PHONY: profile-neural-tensors
+profile-neural-tensors:
+	$(CARGO) test $(PROFILE_FLAG) -p schist-neural --lib profile_host_transposes -- --ignored --nocapture
 detail-matting-example:
 	$(CARGO) run $(PROFILE_FLAG) -p schist-neural --example detail_matting -- $(ARGS)
 

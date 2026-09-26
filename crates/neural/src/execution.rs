@@ -6,6 +6,47 @@ use std::cell::Cell;
 use std::collections::HashMap;
 use std::sync::{Arc, Mutex, OnceLock, Weak};
 use std::time::{Duration, Instant};
+use tract_onnx::prelude::*;
+
+/// Opt-in development timings for the first CPU input of each model. Normal
+/// inference does not install a per-node callback or retain tensor contents.
+pub(super) fn run_cpu(
+    id: &str,
+    plan: &Arc<TypedSimplePlan>,
+    inputs: TVec<TValue>,
+) -> Result<TVec<TValue>> {
+    static ENABLED: OnceLock<bool> = OnceLock::new();
+    static SEEN: OnceLock<Mutex<std::collections::HashSet<String>>> = OnceLock::new();
+    if !*ENABLED.get_or_init(|| std::env::var_os("SCHIST_MATTING_PROFILE").is_some())
+        || !SEEN
+            .get_or_init(Mutex::default)
+            .lock()
+            .unwrap()
+            .insert(id.to_owned())
+    {
+        return plan.run(inputs);
+    }
+    let mut timing: HashMap<String, (usize, Duration)> = HashMap::new();
+    let output = plan
+        .spawn()?
+        .run_plan_with_eval(inputs, |state, op_state, node, inputs| {
+            let start = Instant::now();
+            let output = tract_onnx::tract_core::plan::eval(state, op_state, node, inputs);
+            let entry = timing.entry(node.op().name().into_owned()).or_default();
+            entry.0 += 1;
+            entry.1 += start.elapsed();
+            output
+        })?;
+    let mut timing = timing.into_iter().collect::<Vec<_>>();
+    timing.sort_by_key(|(_, (_, elapsed))| std::cmp::Reverse(*elapsed));
+    for (op, (calls, elapsed)) in timing.into_iter().take(15) {
+        log::info!(
+            "CPU profile {id}: {op} {calls} calls {:.3}s",
+            elapsed.as_secs_f64()
+        );
+    }
+    Ok(output)
+}
 
 thread_local! {
     static ADAPTIVE: Cell<bool> = const { Cell::new(false) };

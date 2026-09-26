@@ -119,6 +119,10 @@ impl Partitioned {
             model
         };
         crate::tensor_layout::optimize(&mut model)?;
+        if crate::fast_host_ops() {
+            crate::gather_copy::optimize(&mut model)?;
+            crate::resize_copy::optimize(&mut model)?;
+        }
         Ok(Some(Self {
             plan: model.into_runnable()?,
             operations,

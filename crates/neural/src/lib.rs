@@ -65,14 +65,28 @@ pub use face_rect::{FaceRect, SAME_FACE_IOU};
 mod detail_matting;
 mod foreground_color;
 mod framed;
+mod gather_copy;
 mod gather_nd;
 mod halo;
 mod inpaint;
 mod matting;
 mod resample;
+mod resize_copy;
 mod segment;
 mod subject_guidance;
 mod tensor_layout;
+
+// Development control for paired before/after timings in the same executable.
+// No weights, tile geometry, backend placement or image processing settings vary.
+pub(crate) fn fast_host_ops() -> bool {
+    #[cfg(not(target_arch = "wasm32"))]
+    {
+        static ENABLED: std::sync::OnceLock<bool> = std::sync::OnceLock::new();
+        *ENABLED.get_or_init(|| std::env::var_os("SCHIST_NEURAL_LEGACY_HOST").is_none())
+    }
+    #[cfg(target_arch = "wasm32")]
+    true
+}
 mod tile;
 pub use colour::{chroma, recolour};
 pub use depth::depth_map;
@@ -764,6 +778,9 @@ impl Model {
         let mut proto = onnx
             .proto_model_for_read(&mut cursor)
             .context("not a readable ONNX model")?;
+        if fast_host_ops() && matches!(spec.id, "foreground" | "foreground-matting") {
+            gather_nd::specialize_pixel_indices(&mut proto);
+        }
         let restoration_tile_size = if spec.id == "anti-smudge" {
             proto
                 .metadata_props
@@ -904,6 +921,10 @@ impl Model {
             cpu = cpu.into_optimized()?;
         }
         tensor_layout::optimize(&mut cpu)?;
+        if fast_host_ops() {
+            gather_copy::optimize(&mut cpu)?;
+            resize_copy::optimize(&mut cpu)?;
+        }
         let plan = cpu.into_runnable()?;
         let partitioned = if gpu.is_none() {
             if has_batched_gather {
@@ -954,7 +975,7 @@ impl Model {
                 return execution::run(
                     key,
                     backend,
-                    || self.plan.run(inputs.clone()),
+                    || self.run_cpu(inputs.clone()),
                     || self.run_accelerated(inputs.clone()),
                 );
             }
@@ -986,6 +1007,13 @@ impl Model {
                 return partitioned.plan.run(inputs);
             }
         }
+        self.run_cpu(inputs)
+    }
+
+    fn run_cpu(&self, inputs: TVec<TValue>) -> Result<TVec<TValue>> {
+        #[cfg(not(target_arch = "wasm32"))]
+        return execution::run_cpu(self.spec.id, &self.plan, inputs);
+        #[cfg(target_arch = "wasm32")]
         self.plan.run(inputs)
     }
 

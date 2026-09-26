@@ -2,8 +2,9 @@
 //!
 //! tract 0.23.5's typed kernel handles this operator, but its inference rule
 //! reads the indices shape where it needs the data shape and omits batch_dims.
-//! BiRefNet's deformable convolutions expose that mismatch. Keep the upstream
-//! typed kernel and infer the output using the ONNX definition.
+//! BiRefNet's deformable convolutions expose that mismatch. Infer using the
+//! ONNX definition and wire the upstream typed op; the post-optimization
+//! gather_copy pass specializes concrete float tensors into slice copies.
 
 use tract_onnx::tract_hir::{infer::*, internal::*};
 
@@ -68,6 +69,12 @@ impl Expansion for GatherNd {
 }
 
 pub fn register(onnx: &mut tract_onnx::Onnx) {
+    onnx.op_register.insert("SchistIndexCast", |_, _| {
+        Ok((
+            tract_onnx::tract_hir::ops::cast::cast(i64::datum_type()).into(),
+            vec![],
+        ))
+    });
     onnx.op_register.insert("GatherND", |_, node| {
         let batch = node
             .attribute
@@ -84,9 +91,57 @@ pub fn register(onnx: &mut tract_onnx::Onnx) {
     });
 }
 
+/// These detector casts convert sampled pixel offsets, not symbolic shapes.
+/// tract's ONNX importer otherwise turns every Cast-to-I64 into symbolic
+/// TDim arithmetic, including millions of Clip/Concat/reshape index values.
+/// Retain ONNX's integer type for the unambiguous Floor -> Cast<I64> pattern.
+pub fn specialize_pixel_indices(proto: &mut tract_onnx::pb::ModelProto) {
+    let Some(graph) = proto.graph.as_mut() else {
+        return;
+    };
+    let rounded: std::collections::HashSet<String> = graph
+        .node
+        .iter()
+        .filter(|n| n.op_type == "Floor" && (n.domain.is_empty() || n.domain == "ai.onnx"))
+        .flat_map(|n| n.output.iter().cloned())
+        .collect();
+    for node in &mut graph.node {
+        if node.op_type == "Cast"
+            && node.input.len() == 1
+            && (node.domain.is_empty() || node.domain == "ai.onnx")
+            && rounded.contains(&node.input[0])
+            && node.attribute.iter().any(|a| a.name == "to" && a.i == 7)
+        {
+            node.op_type = "SchistIndexCast".into();
+        }
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn pixel_index_cast_preserves_rounded_values_as_plain_integers() -> TractResult<()> {
+        let values = [-3.8f32, -1.1, -0.1, 0.0, 1.9, 256.4];
+        let rounded = Tensor::from_shape(&[6], &values.map(f32::floor))?;
+        let expected = rounded.cast_to::<TDim>()?.cast_to::<i64>()?.into_owned();
+        let cast = tract_onnx::tract_hir::ops::cast::cast(i64::datum_type());
+        let mut model = InferenceModel::default();
+        let input = model.add_source("input", f32::fact([6]).into())?;
+        let out = model.wire_node("cast", cast, &[input])?;
+        model.select_output_outlets(&out)?;
+        let actual = model
+            .into_optimized()?
+            .into_runnable()?
+            .run(tvec!(rounded.into()))?;
+        assert_eq!(actual[0].datum_type(), i64::datum_type());
+        assert_eq!(
+            actual[0].to_plain_array_view::<i64>()?,
+            expected.to_plain_array_view::<i64>()?
+        );
+        Ok(())
+    }
 
     #[test]
     fn batched_gather_infers_data_tail_and_runs() -> TractResult<()> {

@@ -394,7 +394,7 @@ These are single-image development timings with model loading and PNG output,
 not a cross-device benchmark. Full-resolution high-quality removal remains an
 expensive operation.
 
-The final automatic-placement run in a GPU-enabled process took **117.83
+Before the additional host-operator pass, automatic placement took **117.83
 seconds** including initial calibration, then **97.51 seconds** with the cached
 choices and freshly loaded model plans. It selected CPU for both large model
 families and retained GPU dispatches for the guide and opaque cores. Timings
@@ -407,6 +407,29 @@ and automatic results differ at two alpha pixels and three RGB values, each by
 one 8-bit level. Hair boundaries were also inspected against white and dark backgrounds.
 These comparisons establish preservation of the accepted output on this input;
 they do not establish perfect segmentation of arbitrary photographs.
+
+A further host-operator pass retains ordinary integer pixel indices, copies
+GatherND slices directly, preplans exact linear interpolation and uses NEON
+transposes on ARM64. In a paired run of the same executable and photograph,
+the previous host path took **100.97 seconds**, and the new path **77.23
+seconds** (about **24% less time**). Both detector passes fell from 35.91 to
+25.47 seconds combined, and detail refinement from 52.56 to 39.54 seconds.
+Every decoded RGBA byte matched the previous output. Other runs varied with
+machine load, so this is a local paired measurement, not a latency guarantee.
+Two- and four-worker tensor executors were also tested and rejected because
+they were slower on this machine; the shipped change does not enable them.
+
+With these host passes, a GPU-enabled automatic run took **81.59 seconds**
+including calibration and **86.84 seconds** on a repeat with cached placement
+and reloaded model plans. Both families selected CPU; the guide and opaque-core
+model retained GPU dispatches. The automatic cutout also matched every RGBA
+byte of the CPU baseline. Variation between runs remains substantial; cached
+placement avoids duplicate calibration work but cannot ensure a lower wall
+time under changing machine load.
+The current forced-GPU run took **125.03 seconds**, with two alpha pixels and
+three RGB values differing from the CPU baseline by one byte each. The earlier
+forced-GPU run took 193.41 seconds; these runs were not back-to-back. Automatic
+placement still avoids the slower complete hybrid graph on this machine.
 
 To measure the same complete pipeline on an installed model set:
 
