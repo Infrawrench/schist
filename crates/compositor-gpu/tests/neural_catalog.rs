@@ -81,6 +81,7 @@ fn missing_catalogue_operations_execute_and_fall_back_correctly() {
         minimum_work: 0,
     });
     eprintln!("neural parity adapter: {:?}", gpu.ctx.adapter_info());
+    let mut tiled_matrix = false;
     for (bytes, input, resident) in [
         (
             include_bytes!("../../neural/tests/fixtures/gpu-prelu-dropout.onnx").as_slice(),
@@ -90,6 +91,17 @@ fn missing_catalogue_operations_execute_and_fall_back_correctly() {
         (
             include_bytes!("../../neural/tests/fixtures/gpu-partitioned-conv.onnx").as_slice(),
             frame(27, 31),
+            false,
+        ),
+        (
+            include_bytes!("../../neural/tests/fixtures/gpu-partitioned-wide.onnx").as_slice(),
+            frame(27, 31),
+            false,
+        ),
+        (
+            include_bytes!("../../neural/tests/fixtures/gpu-partitioned-wide-bands.onnx")
+                .as_slice(),
+            frame(1027, 684),
             false,
         ),
         (
@@ -105,6 +117,36 @@ fn missing_catalogue_operations_execute_and_fall_back_correctly() {
         (
             include_bytes!("../../neural/tests/fixtures/gpu-partitioned-tokens.onnx").as_slice(),
             Input::Tokens { context: 7 },
+            false,
+        ),
+        (
+            include_bytes!("../../neural/tests/fixtures/gpu-matrix-transposed.onnx").as_slice(),
+            frame(19, 17),
+            false,
+        ),
+        (
+            include_bytes!("../../neural/tests/fixtures/gpu-matrix-tails.onnx").as_slice(),
+            frame(71, 67),
+            false,
+        ),
+        (
+            include_bytes!("../../neural/tests/fixtures/gpu-matrix-unit-axis.onnx").as_slice(),
+            frame(19, 17),
+            false,
+        ),
+        (
+            include_bytes!("../../neural/tests/fixtures/gpu-matrix-broadcast.onnx").as_slice(),
+            frame(19, 17),
+            false,
+        ),
+        (
+            include_bytes!("../../neural/tests/fixtures/gpu-matrix-relative.onnx").as_slice(),
+            frame(10, 17),
+            false,
+        ),
+        (
+            include_bytes!("../../neural/tests/fixtures/gpu-matrix-reductions.onnx").as_slice(),
+            frame(19, 17),
             false,
         ),
     ] {
@@ -130,6 +172,13 @@ fn missing_catalogue_operations_execute_and_fall_back_correctly() {
         schist_fx::set_backend(gpu.clone());
         let actual = run();
         close(&actual, &expected, 3e-5);
+        tiled_matrix |= gpu.seen.lock().unwrap().contains(&"neural-matrix-tiled");
+        if w == 71 {
+            assert!(
+                gpu.seen.lock().unwrap().contains(&"neural-matrix-tiled"),
+                "matrix tile tails used the fallback shader"
+            );
+        }
         assert!(
             !gpu.seen.lock().unwrap().is_empty(),
             "model silently ran on CPU"
@@ -164,6 +213,7 @@ fn missing_catalogue_operations_execute_and_fall_back_correctly() {
             );
         }
     }
+    assert!(tiled_matrix, "tiled matrix shader was not exercised");
 }
 
 #[test]
@@ -277,6 +327,6 @@ fn anti_smudge_network_matches_cpu() {
     close(&actual, &expected, 3e-4);
     let seen = gpu.seen.lock().unwrap();
     assert!(seen.contains(&"neural-convolution-band"));
-    assert!(seen.contains(&"neural-contraction"));
+    assert!(seen.contains(&"neural-matrix-tiled"));
     eprintln!("Anti-Smudge: {} GPU dispatches", seen.len());
 }

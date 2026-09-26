@@ -533,6 +533,55 @@ check-mask-refinement:
 	$(CARGO) test -p schist-core payload_budget_tests
 	$(CARGO) check -p schist-editor --all-targets
 
+# Reproducible local matting training. The foreground detector is a separate,
+# hash-checked BiRefNet download managed by the app.
+MATTING_PYTHON ?= target/background-removal/venv/bin/python
+MATTING_DATA ?= target/background-removal/data
+MATTING_OUT ?= target/background-removal/matting.onnx.xz
+MATTING_STEPS ?= 2500
+MATTING_ARGS ?=
+.PHONY: matting-data train-matting export-subject-guide export-foreground export-detail-matting check-background-removal format-background-removal background-removal-example detail-matting-example
+matting-data:
+	$(MATTING_PYTHON) tools/train/matting_data.py --out '$(MATTING_DATA)'
+train-matting:
+	$(MATTING_PYTHON) tools/train/matting.py --data '$(MATTING_DATA)' --out '$(MATTING_OUT)' --steps $(MATTING_STEPS) $(MATTING_ARGS)
+export-subject-guide:
+	$(MATTING_PYTHON) tools/train/export_subject_guide.py
+export-foreground:
+	$(MATTING_PYTHON) tools/train/export_foreground.py --install
+export-detail-matting:
+	$(MATTING_PYTHON) tools/train/export_detail_matting.py
+check-background-removal:
+	$(MATTING_PYTHON) tools/train/test_background.py
+	$(CARGO) test $(PROFILE_FLAG) -p schist-core --lib automatic_mask
+	$(CARGO) test $(PROFILE_FLAG) -p schist-neural --lib --test inference
+	$(CARGO) check $(PROFILE_FLAG) -p schist-editor --all-targets
+.PHONY: check-background-removal-gpu check-background-removal-web lint-background-removal
+check-background-removal-gpu:
+	$(CARGO) test $(PROFILE_FLAG) -p schist-compositor-gpu --test neural_catalog --test background_removal -- --test-threads=1 $(ARGS)
+check-background-removal-web:
+	$(CARGO) check -p schist-neural --target wasm32-unknown-unknown
+lint-background-removal:
+	$(CARGO) clippy $(PROFILE_FLAG) -p schist-core -p schist-neural -p schist-compositor-gpu -p schist-editor --all-targets -- -D warnings
+format-background-removal:
+	$(CARGO) fmt -p schist-core -p schist-neural -p schist-editor -p schist-app-actions
+background-removal-example:
+	$(CARGO) run $(PROFILE_FLAG) -p schist-neural --example remove_background -- $(ARGS)
+.PHONY: profile-background-removal
+profile-background-removal:
+	$(CARGO) run $(PROFILE_FLAG) -p schist-compositor-gpu --example background_removal -- $(ARGS)
+.PHONY: profile-neural-tensors
+profile-neural-tensors:
+	$(CARGO) test $(PROFILE_FLAG) -p schist-neural --lib profile_host_transposes -- --ignored --nocapture
+.PHONY: profile-attention-matrices
+profile-attention-matrices:
+	$(CARGO) test $(PROFILE_FLAG) -p schist-neural --lib profile_attention_matrices -- --ignored --nocapture
+.PHONY: profile-decoder-convolutions
+profile-decoder-convolutions:
+	$(CARGO) test $(PROFILE_FLAG) -p schist-neural --lib profile_decoder_convolutions -- --ignored --nocapture
+detail-matting-example:
+	$(CARGO) run $(PROFILE_FLAG) -p schist-neural --example detail_matting -- $(ARGS)
+
 # Native video decoding, gallery invariants, and catalogs.
 .PHONY: check-video format-video
 check-video:

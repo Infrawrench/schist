@@ -13,6 +13,7 @@ lzma-rust2 = { version = "0.16.5", default-features = false, features = ["std", 
 rayon.workspace = true
 sha2 = "0.10"
 tract-onnx = "0.23"
+transpose = "0.2.3"
 
 [dev-dependencies]
 # The classify example decodes the image it is pointed at.

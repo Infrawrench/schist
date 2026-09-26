@@ -230,6 +230,8 @@ fn editor_menus(ws: &Workspace) -> Vec<(&'static str, Vec<MenuEntry>)> {
                 Cmd("layer.new"),
                 Cmd("layer.duplicate"),
                 Cmd("layer.delete"),
+                #[cfg(not(target_arch = "wasm32"))]
+                App(t("tool.background_eraser.name"), RemoveBackground, None),
                 Sep,
                 Cmd("layer.smart_object"),
                 App(t("smart.place_embedded"), SmartPlaceEmbedded, None),

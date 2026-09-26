@@ -120,6 +120,8 @@ the browser where the device supplies it; native tilt is not yet available.
 colour range, grow/similar, feathering and saved selections.
 [Mask refinement](docs/mask-refinement.md) provides edge cleanup and previews
 before applying the result to a selection or layer mask.
+[Automatic background removal](docs/background-removal.md) creates an editable
+layer mask with native-resolution hair matting and foreground edge-color cleanup.
 
 **Vectors and text.** Editable paths and live shapes, path selection, fills and
 strokes. [Text layers](docs/text.md) support OpenType controls, text on paths,

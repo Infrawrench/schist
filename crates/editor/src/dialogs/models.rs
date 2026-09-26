@@ -6,7 +6,7 @@ use schist_i18n::{t, tf};
 /// Filter ▸ Neural Filters ▸ Manage Models.
 ///
 /// The style-transfer, depth, face and segmentation networks are
-/// somebody else's work and up to sixty-six megabytes of it, so they are
+/// somebody else's work and vary substantially in size, so they are
 /// fetched here rather than shipped. The ones trained for this
 /// application are small enough to live in the binary, and are listed as
 /// built in rather than being hidden: which filter has which model is
@@ -22,6 +22,13 @@ pub(super) fn model_manager(ws: &Workspace, cx: &mut Context<Workspace>) -> impl
         .iter()
         .map(|spec| {
             let id = spec.id;
+            let note = match id {
+                "matting" | "detail-matting" => t("mask_refine.strength"),
+                "foreground" | "foreground-matting" | "subject-guide" => {
+                    t("tool.background_eraser.name")
+                }
+                _ => spec.note,
+            };
             let installed = schist_neural::installed(id);
             let busy = downloading.iter().find(|d| d.id == id);
             // Kilobytes below a megabyte: two of the built-in models
@@ -63,7 +70,7 @@ pub(super) fn model_manager(ws: &Workspace, cx: &mut Context<Workspace>) -> impl
                 )
             } else if installed {
                 tf!("dialog.models.installed", size = size)
-            } else if fetchable {
+            } else if fetchable || cfg!(not(target_arch = "wasm32")) {
                 tf!("dialog.models.not_installed", size = size)
             } else {
                 // The externally-hosted models: their GitHub URLs redirect
@@ -130,7 +137,7 @@ pub(super) fn model_manager(ws: &Workspace, cx: &mut Context<Workspace>) -> impl
                             div()
                                 .text_size(px(11.0))
                                 .text_color(gpui::rgb(ui::palette().text_dim))
-                                .child(SharedString::from(spec.note)),
+                                .child(SharedString::from(note)),
                         ),
                 )
                 .child(action)

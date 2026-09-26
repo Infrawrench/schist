@@ -1,0 +1,8 @@
+torch==2.14.0
+numpy==2.5.3
+pillow==12.3.0
+pillow-heif==1.8.0
+onnx==1.23.0
+onnxruntime==1.30.0
+scipy==1.18.1
+torchvision==0.29.0

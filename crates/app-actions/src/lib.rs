@@ -169,6 +169,8 @@ pub enum AppItem {
     SelectSmooth,
     SelectFeatherItem,
     RefineMask,
+    #[cfg(not(target_arch = "wasm32"))]
+    RemoveBackground,
     ColorRangeItem,
     ModeRgb,
     ModeGrayscale,
