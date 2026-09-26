@@ -142,7 +142,9 @@ impl FilterStack {
     /// Reuses the compressed source byte-for-byte during parameter edits.
     pub fn blocks(&self, layer: &Layer, source: &TileMap) -> Result<Vec<RawBlock>> {
         self.validate()?;
-        let mut extras = without_stack(&layer.extras);
+        // Filter stacks retain a raster source. Remove procedural generators
+        // so a later shape/3D edit cannot silently overwrite the filtered pixels.
+        let mut extras = crate::creative::without_sources(&without_stack(&layer.extras));
         extras.push(RawBlock {
             key: STACK_KEY,
             data: serde_json::to_vec(self)?,
@@ -289,7 +291,7 @@ impl LayerTransform {
                 source: smart.source.clone(),
                 matrix: smart.transform,
                 filter,
-                extras: layer.extras.clone(),
+                extras: crate::creative::transformed_extras(layer, matrix),
                 smart: Some(smart),
             });
         }
@@ -299,7 +301,7 @@ impl LayerTransform {
                 source: raster.tiles.clone(),
                 matrix: *matrix,
                 filter,
-                extras: layer.extras.clone(),
+                extras: crate::creative::transformed_extras(layer, matrix),
                 smart: None,
             });
         };
@@ -343,8 +345,10 @@ impl LayerTransform {
         } else {
             IntRect::EMPTY
         };
+        let extras = crate::creative::transformed_blocks(&self.extras, matrix);
         let matrix = self.preview_matrix(matrix, bounds)?;
         let mut next = self.clone();
+        next.extras = extras;
         next.matrix = matrix;
         next.filter = filter;
         if let Some(smart) = next.smart.as_mut() {

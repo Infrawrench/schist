@@ -1797,7 +1797,9 @@ impl Workspace {
                 .registry
                 .tools()
                 .find(|tool| tool.id() == self.editor.active_tool)
-                .is_some_and(|tool| tool.committed_layer_pixels().is_some())
+                .is_some_and(|tool| {
+                    tool.committed_layer_pixels().is_some() || tool.committed_layer().is_some()
+                })
         {
             return;
         }

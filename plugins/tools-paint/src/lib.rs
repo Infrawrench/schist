@@ -6,6 +6,8 @@
 //! same spot at 50% opacity stays 50%, but two separate strokes darken.
 
 use rustc_hash::FxHashMap;
+pub mod mask;
+mod mask_sky;
 use schist_color::Rgba;
 use schist_core::{
     Document, IntRect, LayerId, LayerKind, StrokeEdit, TileCoord, TileMap, TILE_SIZE,
@@ -2037,6 +2039,7 @@ impl PluginManifest for PaintToolsPlugin {
         registry.register_tool(Box::new(PaintTool::new(PaintMode::Blur)));
         registry.register_tool(Box::new(PaintTool::new(PaintMode::Sharpen)));
         registry.register_tool(Box::new(PaintTool::new(PaintMode::Smudge)));
+        registry.register_tool(Box::new(mask::MaskTool::default()));
         registry.register_tool(Box::new(GradientTool::new(GradientKind::Linear)));
         registry.register_tool(Box::new(GradientTool::new(GradientKind::Radial)));
         registry.register_tool(Box::new(BucketTool::new()));

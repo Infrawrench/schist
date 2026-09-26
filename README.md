@@ -177,6 +177,13 @@ filters, documents, layers and photos. The editor includes draggable and
 resizable side panels, rulers, guides, snapping, a navigator, themes and
 remappable keyboard shortcuts.
 
+**Blends, masks and 3D.** Editable shape blends support curve spacing, easing,
+point mapping and two guide paths. The Mask Tool combines textured brushes,
+sharp shapes, sky masking and live gradients. Direct Selection offers curvature
+combs and G2 snapping. Import 3D models to adjust their angle, scale and lighting,
+or reconstruct an image locally with TripoSR on desktop.
+See [creative tools](docs/creative-tools.md) for controls, setup and limits.
+
 **GPU acceleration.** Supported compositing, viewport rendering, filters and
 other pixel operations use GPU compute, with CPU fallbacks for unsupported
 operations or unavailable compute adapters. Browser canvas and supported
@@ -194,6 +201,7 @@ boundaries.
 | PNG, JPEG, WebP, TIFF | Import and export raster images. |
 | HEIC / HEIF | Native import through a supported runtime libheif decoder; Schist can offer a download when needed. |
 | Camera RAW | Import through Schist's pure-Rust decoder and develop in Camera Raw. The original capture and development settings can survive PSD/PSB save and reopen. See [camera and codec coverage](crates/codec-raw/README.md). |
+| GLB, OBJ, STL | Import as editable 3D layers with lighting, rotation and scale. See [3D support](docs/creative-tools.md#3d-layers). |
 
 Format support is not a guarantee of identical rendering or complete feature
 interchange. Schist preserves unrecognized PSD data where supported, and uses

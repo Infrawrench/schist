@@ -50,6 +50,15 @@ impl LayerProps {
 
 #[derive(Debug, Clone)]
 pub enum EditOp {
+    VectorShapeSet {
+        layer: LayerId,
+        before: Option<Box<crate::VectorShape>>,
+        after: Option<Box<crate::VectorShape>>,
+    },
+    PathsSet {
+        before: Vec<crate::VectorPath>,
+        after: Vec<crate::VectorPath>,
+    },
     InkChannelsSet {
         before: Vec<crate::InkChannel>,
         after: Vec<crate::InkChannel>,
@@ -213,6 +222,16 @@ impl EditOp {
     fn retained_bytes(&self) -> usize {
         let tile = |t: &Option<Arc<TileBuf>>| t.as_ref().map_or(0, |t| t.byte_len());
         match self {
+            EditOp::VectorShapeSet { before, after, .. } => before
+                .iter()
+                .chain(after)
+                .map(|s| s.path.anchors().count() * std::mem::size_of::<crate::Anchor>())
+                .sum(),
+            EditOp::PathsSet { before, after } => before
+                .iter()
+                .chain(after)
+                .map(|p| p.anchors().count() * std::mem::size_of::<crate::Anchor>())
+                .sum(),
             EditOp::InkChannelsSet { before, after } => before
                 .iter()
                 .chain(after)

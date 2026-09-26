@@ -39,6 +39,8 @@ pub(crate) fn run_app_item(
     match item {
         #[cfg(not(target_arch = "wasm32"))]
         AppItem::PhotoMerge => ws.open_photo_merge(cx),
+        #[cfg(any(target_os = "linux", target_os = "windows", target_os = "macos"))]
+        AppItem::ImageTo3d => ws.open_image_to_3d(cx),
         AppItem::RecordedActions => ws.open_actions(cx),
         AppItem::Search => ws.show_spotlight(window, cx),
         AppItem::CloudGenerate => {

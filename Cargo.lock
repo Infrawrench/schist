@@ -2868,6 +2868,42 @@ dependencies = [
 ]
 
 [[package]]
+name = "gltf"
+version = "1.4.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "e3ce1918195723ce6ac74e80542c5a96a40c2b26162c1957a5cd70799b8cacf7"
+dependencies = [
+ "byteorder",
+ "gltf-json",
+ "lazy_static",
+ "serde_json",
+]
+
+[[package]]
+name = "gltf-derive"
+version = "1.4.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "14070e711538afba5d6c807edb74bcb84e5dbb9211a3bf5dea0dfab5b24f4c51"
+dependencies = [
+ "inflections",
+ "proc-macro2",
+ "quote",
+ "syn 2.0.119",
+]
+
+[[package]]
+name = "gltf-json"
+version = "1.4.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "e6176f9d60a7eab0a877e8e96548605dedbde9190a7ae1e80bbcc1c9af03ab14"
+dependencies = [
+ "gltf-derive",
+ "serde",
+ "serde_derive",
+ "serde_json",
+]
+
+[[package]]
 name = "glutin_wgl_sys"
 version = "0.6.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3654,6 +3690,12 @@ dependencies = [
  "serde",
  "serde_core",
 ]
+
+[[package]]
+name = "inflections"
+version = "1.1.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a257582fdcde896fd96463bf2d40eefea0580021c0712a0e2b028b60b47a837a"
 
 [[package]]
 name = "inout"
@@ -6703,6 +6745,7 @@ dependencies = [
  "schist-core",
  "schist-fx",
  "schist-i18n",
+ "schist-model3d",
  "schist-plugin-api",
  "sha2 0.10.9",
 ]
@@ -6872,6 +6915,7 @@ dependencies = [
  "schist-i18n",
  "schist-map-view",
  "schist-mcp",
+ "schist-model3d",
  "schist-neural",
  "schist-photo-merge",
  "schist-plugin-api",
@@ -7033,6 +7077,22 @@ dependencies = [
  "schist-tools-warp",
  "serde",
  "serde_json",
+]
+
+[[package]]
+name = "schist-model3d"
+version = "0.15.0"
+dependencies = [
+ "anyhow",
+ "gltf",
+ "image",
+ "libc",
+ "schist-codec-psd",
+ "schist-color",
+ "schist-core",
+ "schist-i18n",
+ "serde_json",
+ "tempfile",
 ]
 
 [[package]]
@@ -7286,6 +7346,7 @@ dependencies = [
  "schist-color",
  "schist-core",
  "schist-i18n",
+ "schist-model3d",
  "schist-plugin-api",
  "schist-vector",
 ]

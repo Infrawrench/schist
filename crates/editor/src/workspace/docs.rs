@@ -200,6 +200,8 @@ impl Workspace {
         if !pristine {
             self.stash_active_tab();
             self.active_tab = self.background_tabs.len();
+        } else {
+            self.leave_tool_document();
         }
         self.doc = Some(doc);
         // Imported effects have settings but no styled raster yet. Build
@@ -250,6 +252,7 @@ impl Workspace {
     /// tab list at its current position.
     pub(super) fn stash_active_tab(&mut self) {
         self.discard_stack_filter_for_document_change();
+        self.leave_tool_document();
         if let Some(doc) = self.doc.take() {
             let at = self.active_tab.min(self.background_tabs.len());
             self.background_tabs.insert(
@@ -262,6 +265,19 @@ impl Workspace {
                 },
             );
         }
+    }
+
+    fn leave_tool_document(&mut self) {
+        if let (Some(doc), Some(tool)) = (
+            self.doc.as_mut(),
+            self.registry.tool_mut(self.editor.active_tool),
+        ) {
+            tool.on_document_leave(&mut ToolCtx {
+                doc,
+                state: &mut self.editor,
+            });
+        }
+        self.pointer_down = false;
     }
 
     /// Check a parked tab out onto the canvas, restoring its view.
@@ -383,6 +399,7 @@ impl Workspace {
             return;
         }
         if index == self.active_tab {
+            self.leave_tool_document();
             if let Some(doc) = self.doc.take() {
                 self.forget_smart_contents(doc.id);
                 self.remove_recovery_for(doc.id);
@@ -681,6 +698,14 @@ impl Workspace {
     /// Decode `path` off the UI thread and insert it into the current
     /// document as a new raster layer, centered like a paste.
     pub fn place_image_as_layer(&mut self, path: PathBuf, cx: &mut Context<Self>) {
+        if path.extension().and_then(|e| e.to_str()).is_some_and(|e| {
+            ["glb", "obj", "stl"]
+                .iter()
+                .any(|format| e.eq_ignore_ascii_case(format))
+        }) {
+            self.place_model3d(path, cx);
+            return;
+        }
         self.status = tf!(
             "workspace.docs.placing",
             name = crate::ui::shown_path(&path)

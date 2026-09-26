@@ -430,6 +430,33 @@ impl Document {
                 }
                 self.structure_changed();
             }
+            EditOp::VectorShapeSet {
+                layer,
+                before,
+                after,
+            } => {
+                if let Some(l) = self.tree.find_mut(*layer) {
+                    l.shape = if dir == Direction::Undo {
+                        before.clone()
+                    } else {
+                        after.clone()
+                    };
+                    l.shape_key = 0;
+                    l.styled = None;
+                }
+                self.damage_all();
+                self.structure_changed();
+            }
+            EditOp::PathsSet { before, after } => {
+                self.paths = if dir == Direction::Undo {
+                    before.clone()
+                } else {
+                    after.clone()
+                };
+                self.active_path = self.active_path.filter(|&i| i < self.paths.len());
+                self.damage_all();
+                self.structure_changed();
+            }
             EditOp::LayerExtrasSet {
                 layer,
                 before,
@@ -651,7 +678,9 @@ fn prepare_layer_mode(layer: &mut Layer, mode: ColorMode) {
                 ColorMode::Rgb
             };
             if r.tiles.mode() != storage_mode {
-                layer.extras = crate::filter_stack::without_stack(&layer.extras);
+                layer.extras = crate::creative::without_sources(
+                    &crate::filter_stack::without_stack(&layer.extras),
+                );
             }
             r.tiles = r.tiles.converted(storage_mode);
         }
@@ -691,8 +720,10 @@ impl<'a> EditBuilder<'a> {
     /// recipe/source removal is in the same undo entry as the pixels.
     fn bake_filter_stack(&mut self, id: LayerId) {
         if let Some(layer) = self.doc.tree.find(id) {
-            if crate::filter_stack::has_stack(layer) {
-                let extras = crate::filter_stack::without_stack(&layer.extras);
+            if crate::filter_stack::has_stack(layer) || crate::creative::has_source(layer) {
+                let extras = crate::creative::without_sources(&crate::filter_stack::without_stack(
+                    &layer.extras,
+                ));
                 self.set_extras(id, extras);
             }
         }
@@ -720,12 +751,25 @@ impl<'a> EditBuilder<'a> {
         Some(raster.tiles.get_mut_or_insert_mode(coord, depth, mode))
     }
 
+    fn bake_live_mask(&mut self, id: LayerId) {
+        if let Some(layer) = self
+            .doc
+            .tree
+            .find(id)
+            .filter(|l| l.extras.iter().any(|b| b.key == crate::live_mask::BLOCK))
+        {
+            let extras = crate::creative::without_live_mask(&layer.extras);
+            self.set_extras(id, extras);
+        }
+    }
+
     /// Copy-on-write access to a layer-mask tile, with undo capture.
     pub fn writable_mask_tile(
         &mut self,
         layer_id: LayerId,
         coord: TileCoord,
     ) -> Option<&mut [u8; TILE_PIXELS]> {
+        self.bake_live_mask(layer_id);
         let entry_key = (layer_id, coord);
         let layer = self.doc.tree.find_mut(layer_id)?;
         let mask = layer.mask.as_mut()?;
@@ -841,6 +885,22 @@ impl<'a> EditBuilder<'a> {
                     extras[index].data = data;
                     out.push((layer.id, extras));
                 }
+            }
+            if crate::creative::has_source(layer)
+                || layer
+                    .extras
+                    .iter()
+                    .any(|b| b.key == crate::live_mask::BLOCK)
+            {
+                let mut source = layer.clone();
+                if let Some((_, extras)) = out.last().filter(|(id, _)| *id == layer.id) {
+                    source.extras = extras.clone();
+                    out.pop();
+                }
+                out.push((
+                    layer.id,
+                    crate::creative::translated_extras(&source, dx, dy),
+                ));
             }
             if let crate::layer::LayerKind::Group(group) = &layer.kind {
                 for child in &group.children {
@@ -1067,6 +1127,33 @@ impl<'a> EditBuilder<'a> {
         self.damage = self.damage.union(&canvas);
     }
 
+    pub fn set_shape(&mut self, layer: LayerId, after: Option<Box<crate::VectorShape>>) {
+        let Some(l) = self.doc.tree.find_mut(layer) else {
+            return;
+        };
+        if l.shape == after {
+            return;
+        }
+        let before = std::mem::replace(&mut l.shape, after.clone());
+        l.shape_key = 0;
+        l.styled = None;
+        self.ops.push(EditOp::VectorShapeSet {
+            layer,
+            before,
+            after,
+        });
+        self.damage = self.damage.union(&self.doc.canvas_rect());
+    }
+
+    pub fn set_paths(&mut self, after: Vec<crate::VectorPath>) {
+        if self.doc.paths == after {
+            return;
+        }
+        let before = std::mem::replace(&mut self.doc.paths, after.clone());
+        self.ops.push(EditOp::PathsSet { before, after });
+        self.damage = self.damage.union(&self.doc.canvas_rect());
+    }
+
     /// Replace a layer's preserved blocks, recording the change.
     pub fn set_extras(&mut self, layer: LayerId, after: Vec<RawBlock>) {
         let Some(l) = self.doc.tree.find_mut(layer) else {
@@ -1156,6 +1243,7 @@ impl<'a> EditBuilder<'a> {
     }
 
     pub fn set_mask(&mut self, id: LayerId, mask: Option<LayerMask>) {
+        self.bake_live_mask(id);
         let canvas = self.doc.canvas_rect();
         if let Some(layer) = self.doc.tree.find_mut(id) {
             let before = layer.mask.take().map(Box::new);
@@ -1505,11 +1593,13 @@ impl StrokeEdit {
         let depth = doc.depth;
         let mode = doc.mode;
         let layer = doc.tree.find_mut(layer_id)?;
-        if crate::filter_stack::has_stack(layer) {
+        if crate::filter_stack::has_stack(layer) || crate::creative::has_source(layer) {
             self.stack_befores
                 .entry(layer_id)
                 .or_insert_with(|| layer.extras.clone());
-            layer.extras = crate::filter_stack::without_stack(&layer.extras);
+            layer.extras = crate::creative::without_sources(&crate::filter_stack::without_stack(
+                &layer.extras,
+            ));
         }
         let raster = layer.as_raster_mut()?;
         self.befores
@@ -1526,6 +1616,16 @@ impl StrokeEdit {
         coord: TileCoord,
     ) -> Option<&'d mut [u8; TILE_PIXELS]> {
         let layer = doc.tree.find_mut(layer_id)?;
+        if layer
+            .extras
+            .iter()
+            .any(|b| b.key == crate::live_mask::BLOCK)
+        {
+            self.stack_befores
+                .entry(layer_id)
+                .or_insert_with(|| layer.extras.clone());
+            layer.extras = crate::creative::without_live_mask(&layer.extras);
+        }
         let mask = layer.mask.as_mut()?;
         self.mask_befores
             .entry((layer_id, coord))
@@ -1542,7 +1642,18 @@ impl StrokeEdit {
         layer_id: LayerId,
     ) -> Option<&'d mut LayerMask> {
         let canvas = doc.canvas_rect();
-        let mask = doc.tree.find_mut(layer_id)?.mask.as_mut()?;
+        let layer = doc.tree.find_mut(layer_id)?;
+        if layer
+            .extras
+            .iter()
+            .any(|b| b.key == crate::live_mask::BLOCK)
+        {
+            self.stack_befores
+                .entry(layer_id)
+                .or_insert_with(|| layer.extras.clone());
+            layer.extras = crate::creative::without_live_mask(&layer.extras);
+        }
+        let mask = layer.mask.as_mut()?;
         self.whole_mask_befores
             .entry(layer_id)
             .or_insert_with(|| mask.clone());

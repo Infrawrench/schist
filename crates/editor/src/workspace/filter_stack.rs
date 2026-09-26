@@ -163,11 +163,14 @@ impl Workspace {
         if let Some(session) = &self.stack_filter_session {
             return Some(committed_snapshot(doc, &session.original));
         }
-        let (id, pixels) = self
+        let tool = self
             .registry
             .tools()
-            .find(|tool| tool.id() == self.editor.active_tool)?
-            .committed_layer_pixels()?;
+            .find(|tool| tool.id() == self.editor.active_tool)?;
+        if let Some(original) = tool.committed_layer() {
+            return Some(committed_snapshot(doc, original));
+        }
+        let (id, pixels) = tool.committed_layer_pixels()?;
         let mut original = doc.tree.find(id)?.clone();
         original.as_raster_mut()?.tiles = pixels.clone();
         original.styled = None;

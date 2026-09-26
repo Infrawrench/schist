@@ -133,6 +133,10 @@ pub struct PathSelectTool {
     last: Option<(f32, f32)>,
     /// Direct selection: which anchor, and whether a handle was grabbed.
     grabbed: Option<(usize, usize, Grab)>,
+    comb: bool,
+    g2: bool,
+    comb_scale: f32,
+    before: Option<(Option<schist_core::Layer>, Vec<VectorPath>)>,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -148,11 +152,18 @@ impl PathSelectTool {
             kind,
             last: None,
             grabbed: None,
+            comb: false,
+            g2: false,
+            comb_scale: 1200.0,
+            before: None,
         }
     }
 }
 
 impl ToolPlugin for PathSelectTool {
+    fn committed_layer(&self) -> Option<&schist_core::Layer> {
+        self.before.as_ref().and_then(|(layer, _)| layer.as_ref())
+    }
     fn id(&self) -> &'static str {
         match self.kind {
             ArrowKind::Path => "path_select",
@@ -185,6 +196,24 @@ impl ToolPlugin for PathSelectTool {
     }
 
     fn on_pointer_down(&mut self, ctx: &mut ToolCtx, input: PointerInput) {
+        if !input.x.is_finite() || !input.y.is_finite() {
+            return;
+        }
+        self.on_cancel(ctx);
+        if ctx
+            .doc
+            .active_layer
+            .and_then(|id| ctx.doc.tree.find(id))
+            .is_some_and(|l| l.locked)
+        {
+            return;
+        }
+        self.before = Some((
+            ctx.doc
+                .active_layer
+                .and_then(|id| ctx.doc.tree.find(id).filter(|l| l.shape.is_some()).cloned()),
+            ctx.doc.paths.clone(),
+        ));
         self.last = Some((input.x, input.y));
         let r = 8.0 / ctx.state.zoom.max(0.01);
         if self.kind == ArrowKind::Path {
@@ -225,6 +254,9 @@ impl ToolPlugin for PathSelectTool {
     }
 
     fn on_pointer_move(&mut self, ctx: &mut ToolCtx, input: PointerInput) {
+        if !input.x.is_finite() || !input.y.is_finite() {
+            return;
+        }
         let Some((lx, ly)) = self.last else { return };
         let (dx, dy) = (input.x - lx, input.y - ly);
         self.last = Some((input.x, input.y));
@@ -265,22 +297,110 @@ impl ToolPlugin for PathSelectTool {
                             }
                         }
                     }
+                    if self.g2 && grab != Grab::Point {
+                        if let Some(sub) = path.subpaths.get_mut(s) {
+                            schist_core::curves::snap_g2(sub, a, grab == Grab::HandleOut);
+                        }
+                    }
                 }
             }
         }
         ctx.doc.add_damage(ctx.doc.canvas_rect());
     }
 
-    fn on_pointer_up(&mut self, _ctx: &mut ToolCtx, _input: PointerInput) {
+    fn on_pointer_up(&mut self, ctx: &mut ToolCtx, input: PointerInput) {
+        self.on_pointer_move(ctx, input);
+        self.last = None;
+        self.grabbed = None;
+        let Some((shape, paths)) = self.before.take() else {
+            return;
+        };
+        if let Some(before) = shape {
+            let id = before.id;
+            let Some(after) = ctx.doc.tree.find(id).and_then(|l| l.shape.clone()) else {
+                return;
+            };
+            *ctx.doc.tree.find_mut(id).unwrap() = before;
+            let tiles = crate::render_shape(&after, ctx.doc.depth, ctx.doc.canvas_rect());
+            let mut edit = ctx.doc.begin_edit(t("tool.direct_select.name"));
+            edit.set_shape(id, Some(after));
+            edit.replace_layer_render(id, tiles);
+            edit.commit();
+        } else {
+            let after = std::mem::replace(&mut ctx.doc.paths, paths);
+            let mut edit = ctx.doc.begin_edit(t("tool.direct_select.name"));
+            edit.set_paths(after);
+            edit.commit();
+        }
+    }
+    fn on_cancel(&mut self, ctx: &mut ToolCtx) {
+        if let Some((shape, paths)) = self.before.take() {
+            if let Some(before) = shape {
+                if let Some(l) = ctx.doc.tree.find_mut(before.id) {
+                    *l = before;
+                }
+            }
+            ctx.doc.paths = paths;
+            ctx.doc.damage_all();
+        }
         self.last = None;
         self.grabbed = None;
     }
-
-    fn overlays(&self, doc: &Document, _state: &EditorState) -> Vec<Overlay> {
-        match active(doc) {
-            Some(p) => path_overlays(p, self.kind == ArrowKind::Direct),
-            None => Vec::new(),
+    fn on_deactivate(&mut self, ctx: &mut ToolCtx) {
+        self.on_cancel(ctx);
+    }
+    fn on_document_leave(&mut self, ctx: &mut ToolCtx) {
+        self.on_cancel(ctx);
+    }
+    fn options(&self) -> Vec<ToolOption> {
+        if self.kind != ArrowKind::Direct {
+            return Vec::new();
         }
+        vec![
+            ToolOption::toggle(
+                "curvature-comb",
+                t("tool.direct_select.option.curvature_comb"),
+                self.comb,
+            ),
+            ToolOption::toggle("g2-snap", t("tool.direct_select.option.g2_snap"), self.g2),
+            ToolOption::slider(
+                "comb-scale",
+                t("tool.direct_select.option.comb_scale"),
+                self.comb_scale,
+                10.0,
+                10000.0,
+                "",
+            ),
+        ]
+    }
+    fn set_option(&mut self, key: &str, value: OptionValue) {
+        match key {
+            "curvature-comb" => self.comb = value.bool(),
+            "g2-snap" => self.g2 = value.bool(),
+            "comb-scale" if value.num().is_finite() => {
+                self.comb_scale = value.num().clamp(10.0, 10000.0)
+            }
+            _ => {}
+        }
+    }
+    fn overlays(&self, doc: &Document, _state: &EditorState) -> Vec<Overlay> {
+        let Some(p) = active(doc) else {
+            return Vec::new();
+        };
+        let mut out = path_overlays(p, self.kind == ArrowKind::Direct);
+        if self.comb && self.kind == ArrowKind::Direct {
+            out.extend(
+                schist_core::curves::curvature_comb(p, 24, self.comb_scale)
+                    .into_iter()
+                    .map(|(a, b)| Overlay::GuideLine {
+                        x1: a.0,
+                        y1: a.1,
+                        x2: b.0,
+                        y2: b.1,
+                    }),
+            );
+        }
+        out
     }
 }
 

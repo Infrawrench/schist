@@ -19,6 +19,10 @@ impl Workspace {
         #[cfg(not(target_arch = "wasm32"))]
         {
             self.photo_merge_job = None;
+            #[cfg(any(target_os = "linux", target_os = "windows", target_os = "macos"))]
+            {
+                self.model3d_job = None;
+            }
         }
         if !crate::feature_enabled("schist-cloud")
             && matches!(
@@ -165,6 +169,10 @@ impl Workspace {
         #[cfg(not(target_arch = "wasm32"))]
         {
             self.photo_merge_job = None;
+            #[cfg(any(target_os = "linux", target_os = "windows", target_os = "macos"))]
+            {
+                self.model3d_job = None;
+            }
         }
         if matches!(
             self.modal,
@@ -840,6 +848,8 @@ impl Workspace {
             Modal::VersionHistory => {},
             #[cfg(not(target_arch = "wasm32"))]
             Modal::PhotoMerge { .. } => {},
+            #[cfg(any(target_os = "linux", target_os = "windows", target_os = "macos"))]
+            Modal::ImageTo3d => {},
             Modal::Cloud {..} | Modal::CloudGenerate => {},
             Modal::ImageSize {
                 width,

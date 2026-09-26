@@ -116,6 +116,8 @@ pub enum AppItem {
     WorkspaceSelect(usize),
     #[cfg(not(target_arch = "wasm32"))]
     PhotoMerge,
+    #[cfg(any(target_os = "linux", target_os = "windows", target_os = "macos"))]
+    ImageTo3d,
     RecordedActions,
     Search,
     CloudSignIn,

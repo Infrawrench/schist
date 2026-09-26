@@ -302,6 +302,19 @@ clean-helpers:
 
 FORCE:
 
+.PHONY: check-creative-tools test-creative-tools fmt-creative-tools lint-creative-tools
+check-creative-tools:
+	$(CARGO) check -p schist-core -p schist-model3d -p schist-tools-vector -p schist-tools-paint -p schist-codecs-common --all-targets
+test-creative-tools:
+	$(CARGO) test -p schist-core -p schist-model3d -p schist-tools-vector -p schist-tools-paint
+fmt-creative-tools:
+	$(CARGO) fmt -p schist-core -p schist-model3d -p schist-tools-vector -p schist-tools-paint -p schist-editor -p schist-plugin-api -p schist-app-actions -p schist-codecs-common -p schist-commands-core
+lint-creative-tools:
+	$(CARGO) clippy -p schist-core -p schist-model3d -p schist-tools-vector -p schist-tools-paint -p schist-codecs-common --all-targets -- -D warnings
+.PHONY: render-model3d
+render-model3d:
+	$(CARGO) run $(PROFILE_FLAG) -p schist-model3d --example render -- $(ARGS)
+
 .PHONY: check-recordable-actions check-recordable-actions-catalogs format-recordable-actions
 check-recordable-actions:
 	$(CARGO) test -p schist-editor --lib workspace::recorded_actions::tests
