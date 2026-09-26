@@ -7050,6 +7050,7 @@ dependencies = [
  "serde",
  "sha2 0.10.9",
  "tract-onnx",
+ "transpose",
 ]
 
 [[package]]

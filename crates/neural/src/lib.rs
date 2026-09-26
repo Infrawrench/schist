@@ -48,9 +48,13 @@ use tract_onnx::prelude::*;
 mod colour;
 mod compat;
 mod depth;
+#[cfg(not(target_arch = "wasm32"))]
+mod execution;
 mod gpu;
 mod gpu_image;
 mod gpu_partition;
+#[cfg(not(target_arch = "wasm32"))]
+pub use execution::with_adaptive_execution;
 // The gallery's search embeddings. Desktop only with the gallery — the
 // tokenizer tables it carries would be dead weight in the wasm module.
 #[cfg(not(target_arch = "wasm32"))]
@@ -68,6 +72,7 @@ mod matting;
 mod resample;
 mod segment;
 mod subject_guidance;
+mod tensor_layout;
 mod tile;
 pub use colour::{chroma, recolour};
 pub use depth::depth_map;
@@ -892,13 +897,14 @@ impl Model {
         });
         // tract's preliminary PushSliceUp rewrite panics on BiRefNet's
         // batched index tensors. Codegen optimization handles this graph.
-        let plan = if has_batched_gather {
-            let mut cpu = typed.clone();
+        let mut cpu = typed.clone();
+        if has_batched_gather {
             cpu.optimize()?;
-            cpu.into_runnable()?
         } else {
-            typed.clone().into_optimized()?.into_runnable()?
-        };
+            cpu = cpu.into_optimized()?;
+        }
+        tensor_layout::optimize(&mut cpu)?;
+        let plan = cpu.into_runnable()?;
         let partitioned = if gpu.is_none() {
             if has_batched_gather {
                 gpu_partition::Partitioned::compile_without_declutter(typed)
@@ -941,6 +947,22 @@ impl Model {
     }
 
     fn run_input(&self, inputs: TVec<TValue>) -> Result<TVec<TValue>> {
+        #[cfg(not(target_arch = "wasm32"))]
+        if let Some(key) = execution::Key::for_model(self.spec.id, inputs[0].shape()) {
+            let backend = schist_fx::backend();
+            if backend.compute_available(usize::MAX) {
+                return execution::run(
+                    key,
+                    backend,
+                    || self.plan.run(inputs.clone()),
+                    || self.run_accelerated(inputs.clone()),
+                );
+            }
+        }
+        self.run_accelerated(inputs)
+    }
+
+    fn run_accelerated(&self, inputs: TVec<TValue>) -> Result<TVec<TValue>> {
         if let Some(gpu) = &self.gpu {
             if let Ok(view) = inputs[0].to_plain_array_view::<f32>() {
                 if let Some(output) = view

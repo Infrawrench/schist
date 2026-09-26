@@ -48,71 +48,76 @@ impl Workspace {
             let result = cx
                 .background_executor()
                 .spawn(async move {
-                    if worker_cancel.load(Ordering::Relaxed) {
-                        anyhow::bail!("cancelled");
-                    }
-                    let detector = schist_neural::get(detector_id)
-                        .ok_or_else(|| anyhow::anyhow!("foreground model unavailable"))?;
-                    // This larger detector is used once per layer action.
-                    // The worker owns it; reclaim its plan after completion.
-                    schist_neural::release(detector_id);
-                    let (w, h) = session.dimensions();
-                    let rgb = session.rgb();
-                    let raw_coarse = schist_neural::foreground(&detector, &rgb, w, h)?;
-                    drop(detector);
-                    if worker_cancel.load(Ordering::Relaxed) {
-                        anyhow::bail!("cancelled");
-                    }
-                    let reference = if detector_id == "foreground-matting" {
-                        let general = schist_neural::get("foreground").ok_or_else(|| {
-                            anyhow::anyhow!("general foreground model unavailable")
-                        })?;
-                        schist_neural::release("foreground");
-                        Some(schist_neural::foreground(&general, &rgb, w, h)?)
-                    } else {
-                        None
-                    };
-                    if worker_cancel.load(Ordering::Relaxed) {
-                        anyhow::bail!("cancelled");
-                    }
-                    let guide = schist_neural::get("subject-guide")
-                        .ok_or_else(|| anyhow::anyhow!("subject guide unavailable"))?;
-                    schist_neural::release("subject-guide");
-                    let coarse = schist_neural::guide_foreground_with_reference(
-                        &guide,
-                        &rgb,
-                        &raw_coarse,
-                        reference.as_deref(),
-                        w,
-                        h,
-                    )?;
-                    drop(guide);
-                    drop(reference);
-                    drop(raw_coarse);
-                    if worker_cancel.load(Ordering::Relaxed) {
-                        anyhow::bail!("cancelled");
-                    }
-                    let refiner_id = schist_neural::matting_model_id();
-                    let refiner = schist_neural::get(refiner_id)
-                        .ok_or_else(|| anyhow::anyhow!("matting model unavailable"))?;
-                    schist_neural::release(refiner_id);
-                    let matte = schist_neural::refine_alpha_cancellable(
-                        &refiner,
-                        &rgb,
-                        &coarse,
-                        w,
-                        h,
-                        || worker_cancel.load(Ordering::Relaxed),
-                    )?;
-                    drop(refiner);
-                    drop(coarse);
-                    let foreground =
-                        schist_neural::clean_foreground_cancellable(&rgb, &matte, w, h, || {
-                            worker_cancel.load(Ordering::Relaxed)
-                        })?;
-                    session
-                        .prepare_with_foreground(&matte, &foreground, duplicate_name)
-                        .map_err(|e| anyhow::anyhow!("invalid generated mask: {e:?}"))
+                    schist_neural::with_adaptive_execution(|| {
+                        if worker_cancel.load(Ordering::Relaxed) {
+                            anyhow::bail!("cancelled");
+                        }
+                        let detector = schist_neural::get(detector_id)
+                            .ok_or_else(|| anyhow::anyhow!("foreground model unavailable"))?;
+                        // This larger detector is used once per layer action.
+                        // The worker owns it; reclaim its plan after completion.
+                        schist_neural::release(detector_id);
+                        let (w, h) = session.dimensions();
+                        let rgb = session.rgb();
+                        let raw_coarse = schist_neural::foreground(&detector, &rgb, w, h)?;
+                        drop(detector);
+                        if worker_cancel.load(Ordering::Relaxed) {
+                            anyhow::bail!("cancelled");
+                        }
+                        let reference = if detector_id == "foreground-matting" {
+                            let general = schist_neural::get("foreground").ok_or_else(|| {
+                                anyhow::anyhow!("general foreground model unavailable")
+                            })?;
+                            schist_neural::release("foreground");
+                            Some(schist_neural::foreground(&general, &rgb, w, h)?)
+                        } else {
+                            None
+                        };
+                        if worker_cancel.load(Ordering::Relaxed) {
+                            anyhow::bail!("cancelled");
+                        }
+                        let guide = schist_neural::get("subject-guide")
+                            .ok_or_else(|| anyhow::anyhow!("subject guide unavailable"))?;
+                        schist_neural::release("subject-guide");
+                        let coarse = schist_neural::guide_foreground_with_reference(
+                            &guide,
+                            &rgb,
+                            &raw_coarse,
+                            reference.as_deref(),
+                            w,
+                            h,
+                        )?;
+                        drop(guide);
+                        drop(reference);
+                        drop(raw_coarse);
+                        if worker_cancel.load(Ordering::Relaxed) {
+                            anyhow::bail!("cancelled");
+                        }
+                        let refiner_id = schist_neural::matting_model_id();
+                        let refiner = schist_neural::get(refiner_id)
+                            .ok_or_else(|| anyhow::anyhow!("matting model unavailable"))?;
+                        schist_neural::release(refiner_id);
+                        let matte = schist_neural::refine_alpha_cancellable(
+                            &refiner,
+                            &rgb,
+                            &coarse,
+                            w,
+                            h,
+                            || worker_cancel.load(Ordering::Relaxed),
+                        )?;
+                        drop(refiner);
+                        drop(coarse);
+                        let foreground = schist_neural::clean_foreground_cancellable(
+                            &rgb,
+                            &matte,
+                            w,
+                            h,
+                            || worker_cancel.load(Ordering::Relaxed),
+                        )?;
+                        session
+                            .prepare_with_foreground(&matte, &foreground, duplicate_name)
+                            .map_err(|e| anyhow::anyhow!("invalid generated mask: {e:?}"))
+                    })
                 })
                 .await;
             let _ = this.update(cx, |ws, cx| {

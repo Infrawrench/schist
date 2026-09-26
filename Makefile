@@ -565,6 +565,9 @@ format-background-removal:
 	$(CARGO) fmt -p schist-core -p schist-neural -p schist-editor -p schist-app-actions
 background-removal-example:
 	$(CARGO) run $(PROFILE_FLAG) -p schist-neural --example remove_background -- $(ARGS)
+.PHONY: profile-background-removal
+profile-background-removal:
+	$(CARGO) run $(PROFILE_FLAG) -p schist-compositor-gpu --example background_removal -- $(ARGS)
 detail-matting-example:
 	$(CARGO) run $(PROFILE_FLAG) -p schist-neural --example detail_matting -- $(ARGS)
 

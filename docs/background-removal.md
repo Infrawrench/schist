@@ -157,6 +157,8 @@ tensors. The worker releases each detector/guide plan after its stage finishes. 
 All background models participate in the existing resident/partitioned GPU
 runtime. Expensive convolutions and matrix products use the installed wgpu
 backend; unsupported operations and failed dispatches retain CPU fallbacks.
+The native layer action measures CPU versus accelerated execution for the
+large detector/refiner graphs and reuses the faster placement (details below).
 The BiRefNet graph uses codegen optimization in both plans to avoid tract's
 preliminary `PushSliceUp` failure on its batched index tensors.
 Its export, upstream weight hash, classes and license are recorded in
@@ -343,8 +345,8 @@ excludes their inference time. It is an implementation check on one image.
 
 ## Native GPU integration checks
 
-After rebasing onto the native GPU pipeline, `make check-background-removal`
-passes 74 tests (13 Python, 4 core, 36 neural unit and 21 inference tests) and
+With the GPU and tensor-execution changes, `make check-background-removal`
+passes 79 tests (13 Python, 4 core, 41 neural unit and 21 inference tests) and
 the editor all-targets check. `make check-background-removal-gpu` verifies real
 GPU dispatches for the bundled refiners and guide at the production offload
 threshold, alongside the existing catalog, Anti-Smudge and fallback checks.
@@ -364,6 +366,60 @@ most **0.00000596** in float alpha. Against the earlier Python export, only
 crop was rechecked on white and black backgrounds. This validates the GPU
 implementation of the accepted refinement; it is not a repeat of the entire
 40-photo audit on GPU, an accuracy benchmark or a speedup claim.
+
+## Native execution performance
+
+The automatic layer action calibrates its large partially accelerated models
+on first use. Both pinned BiRefNet Lite detectors share a placement decision;
+ViTMatte calibrates on its first 768px tile. Each calibration runs the actual
+input on both paths and keeps CPU execution if it is at least 20% faster.
+The decision survives model-plan releases for the lifetime of the installed
+backend, so subsequent actions avoid calibration. A new backend or app restart
+recalibrates. The resident semantic guide and small opaque-core model continue
+using the GPU when available. Calibration adds work to the first action, and
+the detector cannot be cancelled until its inferences finish.
+
+The performance follow-up uses cooperative tiled matrix/convolution kernels,
+cache-blocked host transposes, and speed-optimized host tensor loops. It changes
+neither weights, precision, input resolution, trimaps nor overlap. Raw CPU/GPU
+tests bypass calibration to exercise the actual GPU kernels and their fallbacks.
+
+On one 1536 × 2048 phone photograph on an Apple M4 (Metal), the complete native
+pipeline with both detectors took **361.50 seconds** on the original hybrid GPU
+path and **109.11 seconds** on the original CPU path. After the changes, forced
+GPU execution took **193.41 seconds** and CPU execution **75.63 seconds**.
+The GPU math within detail refinement fell from 205.77 to 39.07 seconds, but
+host operations and repeated transfers still made that graph slower than CPU.
+These are single-image development timings with model loading and PNG output,
+not a cross-device benchmark. Full-resolution high-quality removal remains an
+expensive operation.
+
+The final automatic-placement run in a GPU-enabled process took **117.83
+seconds** including initial calibration, then **97.51 seconds** with the cached
+choices and freshly loaded model plans. It selected CPU for both large model
+families and retained GPU dispatches for the guide and opaque cores. Timings
+vary with process/device state and memory pressure; the separate 75.63-second
+CPU-only run is not a promise of layer-action latency. Calibration is a single
+sample per family and can be affected by concurrent work.
+
+The optimized GPU result is byte-identical to the original GPU cutout. The CPU
+and automatic results differ at two alpha pixels and three RGB values, each by
+one 8-bit level. Hair boundaries were also inspected against white and dark backgrounds.
+These comparisons establish preservation of the accepted output on this input;
+they do not establish perfect segmentation of arbitrary photographs.
+
+To measure the same complete pipeline on an installed model set:
+
+```sh
+make profile-background-removal ARGS='auto photo.jpg cutout.png 2'
+```
+
+The optional run count repeats model loading and inference in the same process
+to show initial calibration and reused placement. Only the final run saves a
+PNG, and existing outputs are never overwritten. `cpu` and `gpu` select the
+reference and forced accelerated paths for comparison. Stage timings include
+GPU submission counts and shader timings. Benchmark with other heavy jobs
+stopped; memory pressure materially affects these large graphs.
 
 ## Reproduce
 

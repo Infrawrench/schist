@@ -18,8 +18,12 @@ group boundaries. Each band preserves the original convolution's receptive
 field. The model still sees its full 2048px input and full attention context;
 inference does not substitute smaller image tiles or change the weights.
 Each band holds at most 4,194,304 floats in its image and output buffers. Dense
-convolutions use cooperative 16×16 matrix tiles; small grouped kernels use the
-element shader. The offload threshold applies to the entire contraction so a
+convolutions use cooperative 32×64 output tiles with 2×4 register blocks per
+thread; narrow convolutions retain 16×16 tiles and small grouped kernels use
+the element shader. Matrix contractions use 64×64 output tiles with 4×4
+register blocks, including strided/broadcast batches and compound reduction
+axes. Unsupported contraction layouts retain the scalar kernel.
+The offload threshold applies to the entire contraction so a
 short final band cannot inadvertently force the whole operation back to CPU.
 
 Without a GPU, Schist runs the original optimized tract plan. If a GPU operation
@@ -27,6 +31,23 @@ fails or exceeds device limits, that operation runs through an independently
 optimized tract fallback using its original inputs. A failure after a successful
 band discards the partial output and recomputes the operation. No partial tensor
 is passed to subsequent layers.
+
+GPU eligibility alone is not a speed guarantee: partial graphs can spend more
+time copying, indexing and rearranging tensors on the host than doing GPU math.
+Large contiguous host matrix transposes use a cache-blocked copy, while moving
+unit dimensions remains a zero-copy reshape. The release profile optimizes the
+host tensor and upload/readback loops for speed.
+
+The native automatic background-removal action opts into measured placement.
+On its first input it times both CPU and accelerated execution of each large
+model family, including transfers and host operators. It uses CPU when at
+least 20% faster; otherwise it keeps GPU offloading. Both pinned BiRefNet Lite
+detectors share a calibration; ViTMatte calibrates independently on its first
+tile. Choices are scoped by input shape and backend identity, retained across
+model-plan releases, and reset when the backend is replaced or the app restarts.
+The resident subject guide and small MatteNet remain eligible for GPU execution.
+The scope changes neither the global backend nor unrelated filters, and raw
+CPU/GPU parity tests bypass it. See [background-removal timings](background-removal.md#native-execution-performance).
 
 The partitioned path uses the synchronous native effects backend. Browser
 filters retain their existing asynchronous resident-graph path; partitioned
@@ -37,8 +58,9 @@ not imply that a browser or device can execute a model on the GPU.
 
 `make check-neural-gpu` executes real GPU dispatches and compares them with tract:
 PReLU, inference Dropout, grouped/dilated/asymmetrically padded convolution,
-broadcast matrix products, integer token lookup followed by matrix products,
-large convolution bands, and failure before or during a GPU operation. It also
+broadcast/transposed matrix products, compound reductions, non-tile-aligned
+dimensions, integer token lookup followed by matrix products, large convolution
+bands (including the wider kernel), and failure before or during a GPU operation. It also
 checks that every installed catalog model has a resident or partitioned path.
 `make lint-neural-gpu` runs strict Clippy for both affected crates.
 
