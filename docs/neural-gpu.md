@@ -48,6 +48,20 @@ architectures retain the portable transpose implementation. These host passes
 apply to both CPU and partitioned GPU plans, preserving model resolution and
 precision.
 
+The foreground models also recognize the exporter's four-corner deformable
+sampling subgraph. A fused operation performs the same gathers, weighted sum,
+modulation and convolution-layout conversion directly. Sampling metadata is
+prepared in blocks of 1024 pixels and reused across feature channels, avoiding
+four large channel-expanded tensors and their transposes. The matcher checks
+topology, shapes, kernel layout and ONNX domains; other consumers of the original
+nodes remain live. Model weights and compressed ONNX files are unchanged.
+
+On macOS, the background models' CPU plans use Accelerate vForce for contiguous
+float32 softmax exponentials, with tract's SIMD sum and normalization. Stable
+maximum subtraction is retained. Vector exp and reduction order can introduce
+small rounding differences; this does not use reduced-precision weights or
+approximate fast-exp softmax. Other platforms retain tract's softmax.
+
 The native automatic background-removal action opts into measured placement.
 On its first input it times both CPU and accelerated execution of each large
 model family, including transfers and host operators. It uses CPU when at
@@ -74,6 +88,8 @@ not assertions in the regression suite.
 For paired end-to-end comparisons, `SCHIST_NEURAL_LEGACY_HOST=1` selects the
 previous host operators in the same executable. It is a native diagnostic
 control read once per process; weights, precision and tiling stay unchanged.
+`SCHIST_NEURAL_LEGACY_MODEL=1` separately disables deformable-sampling fusion and
+the macOS vector softmax for comparisons with the preceding model execution.
 
 `make check-neural-gpu` executes real GPU dispatches and compares them with tract:
 PReLU, inference Dropout, grouped/dilated/asymmetrically padded convolution,

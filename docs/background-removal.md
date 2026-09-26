@@ -346,20 +346,23 @@ excludes their inference time. It is an implementation check on one image.
 ## Native GPU integration checks
 
 With the GPU and tensor-execution changes, `make check-background-removal`
-passes 79 tests (13 Python, 4 core, 41 neural unit and 21 inference tests) and
+passes 92 tests (13 Python, 4 core, 54 neural unit and 21 inference tests) and
 the editor all-targets check. `make check-background-removal-gpu` verifies real
 GPU dispatches for the bundled refiners and guide at the production offload
 threshold, alongside the existing catalog, Anti-Smudge and fallback checks.
-Strict `make lint-background-removal`, `make check-web-gpu` and the
-internationalisation audit also pass. The final native release app builds with
-`make app`.
-Both installed BiRefNet detectors also execute 422 GPU dispatches on the
-real-image check. Their decoded alpha matches native CPU exactly for this
-input and differs from the independent Python references by at most 0.00001163
-(general) and 0.00001413 (matting). This additional reference comparison guards
-against errors shared by the native CPU and GPU graph paths.
+Strict `make lint-background-removal`, the affected neural crate’s WebAssembly
+check (`make check-background-removal-web`) and the internationalisation audit
+also pass. The final native release app builds with `make app`.
+With `SCHIST_BACKGROUND_GPU_DETECTORS=1`, both installed BiRefNet detectors
+execute 422 GPU dispatches each on the synthetic regression input. Maximum
+CPU/GPU alpha differences are 0.00000000119 (general) and 0.00000263 (matting).
+The bundled detail refiner differs by at most 0.00000537 on its fixture.
+Earlier independent-runtime real-photo checks differed from the Python
+references by at most 0.00001163 (general) and 0.00001413 (matting); that
+additional reference comparison guarded against errors shared by the native
+CPU and GPU graph paths.
 
-On the same 2316 × 3088 source and cached detector/guide alpha, native GPU
+In the earlier 2316 × 3088 check with cached detector/guide alpha, native GPU
 detail refinement makes 3,338 dispatches and differs from native CPU by at
 most **0.00000596** in float alpha. Against the earlier Python export, only
 29 of 7,151,808 saved alpha pixels differ, each by one byte. The supplied hair
@@ -379,57 +382,52 @@ recalibrates. The resident semantic guide and small opaque-core model continue
 using the GPU when available. Calibration adds work to the first action, and
 the detector cannot be cancelled until its inferences finish.
 
-The performance follow-up uses cooperative tiled matrix/convolution kernels,
-cache-blocked host transposes, and speed-optimized host tensor loops. It changes
-neither weights, precision, input resolution, trimaps nor overlap. Raw CPU/GPU
-tests bypass calibration to exercise the actual GPU kernels and their fallbacks.
+Execution uses tiled GPU matrix/convolution kernels, direct GatherND slice
+copies, preplanned linear interpolation and blocked ARM64 transposes. The
+foreground model graphs now fuse each four-corner deformable sampler into one
+operation. It reuses sampling metadata across channels and writes the final
+convolution layout without four large intermediate tensors. The original ONNX
+archives and weights are unchanged. On macOS, CPU attention softmax also uses
+Accelerate vector exponentials and SIMD reduction with stable maximum
+subtraction. Resolution, float32 precision, trimaps and overlap are preserved.
 
-On one 1536 × 2048 phone photograph on an Apple M4 (Metal), the complete native
-pipeline with both detectors took **361.50 seconds** on the original hybrid GPU
-path and **109.11 seconds** on the original CPU path. After the changes, forced
-GPU execution took **193.41 seconds** and CPU execution **75.63 seconds**.
-The GPU math within detail refinement fell from 205.77 to 39.07 seconds, but
-host operations and repeated transfers still made that graph slower than CPU.
-These are single-image development timings with model loading and PNG output,
-not a cross-device benchmark. Full-resolution high-quality removal remains an
-expensive operation.
+The latest paired measurements use the same executable on an Apple M4, with
+`SCHIST_NEURAL_LEGACY_MODEL=1` disabling only sampling fusion and vector softmax
+for the preceding implementation. Each run reloads the models and processes
+the complete photo through PNG output. No detector cache is reused:
 
-Before the additional host-operator pass, automatic placement took **117.83
-seconds** including initial calibration, then **97.51 seconds** with the cached
-choices and freshly loaded model plans. It selected CPU for both large model
-families and retained GPU dispatches for the guide and opaque cores. Timings
-vary with process/device state and memory pressure; the separate 75.63-second
-CPU-only run is not a promise of layer-action latency. Calibration is a single
-sample per family and can be affected by concurrent work.
+| Photo | Dimensions | Previous execution | Optimized execution |
+| --- | --- | ---: | ---: |
+| Supplied portrait | 1536 × 2048 | 91.99 s | 66.32 s |
+| Gallery portrait 010 | 2316 × 3088 | 114.77 s | 94.13 s |
+| Gallery portrait 285 | 2316 × 3088 | 93.45 s | 71.63 s |
 
-The optimized GPU result is byte-identical to the original GPU cutout. The CPU
-and automatic results differ at two alpha pixels and three RGB values, each by
-one 8-bit level. Hair boundaries were also inspected against white and dark backgrounds.
-These comparisons establish preservation of the accepted output on this input;
-they do not establish perfect segmentation of arbitrary photographs.
+That is 18–28% less total time across these three development photos. On the
+supplied portrait, the detector passes fell from 31.28 to 13.00 seconds combined.
+The peak process memory footprint reported by macOS fell from 4.03 to 2.32 GB
+(42%); maximum resident set size fell from 2.57 to 2.21 GB (14%). Timing varies
+with concurrent work, device state and memory pressure. These are paired local
+measurements, not a cross-device benchmark or a layer-action latency guarantee.
 
-A further host-operator pass retains ordinary integer pixel indices, copies
-GatherND slices directly, preplans exact linear interpolation and uses NEON
-transposes on ARM64. In a paired run of the same executable and photograph,
-the previous host path took **100.97 seconds**, and the new path **77.23
-seconds** (about **24% less time**). Both detector passes fell from 35.91 to
-25.47 seconds combined, and detail refinement from 52.56 to 39.54 seconds.
-Every decoded RGBA byte matched the previous output. Other runs varied with
-machine load, so this is a local paired measurement, not a latency guarantee.
-Two- and four-worker tensor executors were also tested and rejected because
-they were slower on this machine; the shipped change does not enable them.
+The supplied portrait's alpha is byte-identical; two RGB values differ by one
+8-bit level. Gallery 010 has 11 alpha values and one RGB value changed, and
+gallery 285 has nine alpha values and seven RGB values changed, each by one
+8-bit level. The fused sampling kernel is tested bit-for-bit against expanded
+sampling; the vector softmax can introduce small rounding differences. Hair
+crops were also compared on white and dark backgrounds. This confirms
+preservation of the accepted output on these inputs, not perfect segmentation
+of arbitrary photographs. Original photo hashes remain unchanged.
 
-With these host passes, a GPU-enabled automatic run took **81.59 seconds**
-including calibration and **86.84 seconds** on a repeat with cached placement
-and reloaded model plans. Both families selected CPU; the guide and opaque-core
-model retained GPU dispatches. The automatic cutout also matched every RGBA
-byte of the CPU baseline. Variation between runs remains substantial; cached
-placement avoids duplicate calibration work but cannot ensure a lower wall
-time under changing machine load.
-The current forced-GPU run took **125.03 seconds**, with two alpha pixels and
-three RGB values differing from the CPU baseline by one byte each. The earlier
-forced-GPU run took 193.41 seconds; these runs were not back-to-back. Automatic
-placement still avoids the slower complete hybrid graph on this machine.
+With these changes, GPU-enabled automatic placement took **76.98 seconds**
+including calibration, then **67.97 seconds** with cached decisions and freshly
+loaded model plans. Calibration selected CPU for both large model families:
+5.48 versus 11.97 seconds for the detector and 2.25 versus 2.84 seconds for the
+first detail tile. The guide and opaque-core stages retained GPU dispatches.
+The automatic output matches the optimized CPU cutout. A separate forced-GPU
+run took **115.83 seconds** and differed from optimized CPU at two alpha pixels
+and one RGB value, each by one byte. Reduced copying helps both paths, but the
+complete partitioned GPU graphs remain slower on this M4. The remaining host
+operations and GPU transfers are included in these timings.
 
 To measure the same complete pipeline on an installed model set:
 

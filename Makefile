@@ -556,9 +556,11 @@ check-background-removal:
 	$(CARGO) test $(PROFILE_FLAG) -p schist-core --lib automatic_mask
 	$(CARGO) test $(PROFILE_FLAG) -p schist-neural --lib --test inference
 	$(CARGO) check $(PROFILE_FLAG) -p schist-editor --all-targets
-.PHONY: check-background-removal-gpu lint-background-removal
+.PHONY: check-background-removal-gpu check-background-removal-web lint-background-removal
 check-background-removal-gpu:
 	$(CARGO) test $(PROFILE_FLAG) -p schist-compositor-gpu --test neural_catalog --test background_removal -- --test-threads=1 $(ARGS)
+check-background-removal-web:
+	$(CARGO) check -p schist-neural --target wasm32-unknown-unknown
 lint-background-removal:
 	$(CARGO) clippy $(PROFILE_FLAG) -p schist-core -p schist-neural -p schist-compositor-gpu -p schist-editor --all-targets -- -D warnings
 format-background-removal:

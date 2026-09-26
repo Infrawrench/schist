@@ -62,6 +62,7 @@ pub mod embed;
 mod face_rect;
 mod faces;
 pub use face_rect::{FaceRect, SAME_FACE_IOU};
+mod deform_sample;
 mod detail_matting;
 mod foreground_color;
 mod framed;
@@ -75,6 +76,8 @@ mod resize_copy;
 mod segment;
 mod subject_guidance;
 mod tensor_layout;
+#[cfg(target_os = "macos")]
+mod vector_softmax;
 
 // Development control for paired before/after timings in the same executable.
 // No weights, tile geometry, backend placement or image processing settings vary.
@@ -83,6 +86,17 @@ pub(crate) fn fast_host_ops() -> bool {
     {
         static ENABLED: std::sync::OnceLock<bool> = std::sync::OnceLock::new();
         *ENABLED.get_or_init(|| std::env::var_os("SCHIST_NEURAL_LEGACY_HOST").is_none())
+    }
+    #[cfg(target_arch = "wasm32")]
+    true
+}
+
+// Paired performance/accuracy diagnostics keep the original model graph.
+fn fast_model_ops() -> bool {
+    #[cfg(not(target_arch = "wasm32"))]
+    {
+        static ENABLED: std::sync::OnceLock<bool> = std::sync::OnceLock::new();
+        *ENABLED.get_or_init(|| std::env::var_os("SCHIST_NEURAL_LEGACY_MODEL").is_none())
     }
     #[cfg(target_arch = "wasm32")]
     true
@@ -775,11 +789,16 @@ impl Model {
         let mut cursor = std::io::Cursor::new(bytes.as_ref());
         let mut onnx = tract_onnx::onnx();
         gather_nd::register(&mut onnx);
+        deform_sample::register(&mut onnx);
         let mut proto = onnx
             .proto_model_for_read(&mut cursor)
             .context("not a readable ONNX model")?;
         if fast_host_ops() && matches!(spec.id, "foreground" | "foreground-matting") {
             gather_nd::specialize_pixel_indices(&mut proto);
+        }
+        if fast_model_ops() && matches!(spec.id, "foreground" | "foreground-matting") {
+            let fused = deform_sample::optimize(&mut proto);
+            log::info!(target: "schist_neural::execution", "{}: fused {fused} deformable samplers", spec.id);
         }
         let restoration_tile_size = if spec.id == "anti-smudge" {
             proto
@@ -906,10 +925,11 @@ impl Model {
             .context("model uses an operator tract cannot run")?;
         let has_batched_gather = proto.graph.as_ref().is_some_and(|g| {
             g.node.iter().any(|n| {
-                n.op_type == "GatherND"
-                    && n.attribute
-                        .iter()
-                        .any(|a| a.name == "batch_dims" && a.i > 0)
+                n.op_type == "SchistDeformSample"
+                    || (n.op_type == "GatherND"
+                        && n.attribute
+                            .iter()
+                            .any(|a| a.name == "batch_dims" && a.i > 0))
             })
         });
         // tract's preliminary PushSliceUp rewrite panics on BiRefNet's
@@ -924,6 +944,15 @@ impl Model {
         if fast_host_ops() {
             gather_copy::optimize(&mut cpu)?;
             resize_copy::optimize(&mut cpu)?;
+        }
+        #[cfg(target_os = "macos")]
+        if fast_model_ops()
+            && matches!(
+                spec.id,
+                "foreground" | "foreground-matting" | "detail-matting" | "subject-guide"
+            )
+        {
+            vector_softmax::optimize(&mut cpu)?;
         }
         let plan = cpu.into_runnable()?;
         let partitioned = if gpu.is_none() {
