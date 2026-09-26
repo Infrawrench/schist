@@ -76,6 +76,14 @@ multiply-accumulates; small or unsupported contractions retain tract.
 This changes execution kernels, not model weights, precision, trimaps or tile
 geometry. Accumulation order may introduce small floating-point differences.
 
+Windowed attention and split-head projections can also use Accelerate when
+their left operand needs rearranging. A checked packing plan copies contiguous
+feature blocks into at most 16 MiB of float scratch, reused across batches.
+The weights and output still use direct views. This converts fragmented
+contractions into large matrix calls while retaining the same reduction axes
+and float32 values. Unsupported layouts and larger scratch requirements retain
+tract. Operator profiles distinguish these calls as `PackedAccelerateMatMul`.
+
 The native automatic background-removal action opts into measured placement.
 On its first input it times both CPU and accelerated execution of each large
 model family, including transfers and host operators. It uses CPU when at
@@ -99,6 +107,11 @@ logs operator timings for each model's first CPU input. It does not record image
 or tensor contents. `make profile-neural-tensors` compares portable and native
 transposes on representative synthetic tensor sizes; timings are diagnostic,
 not assertions in the regression suite.
+`make profile-attention-matrices` compares optimized tract contractions with
+packed Accelerate plans on the three production ViTMatte attention layouts.
+It uses identical synthetic tensors and constant weights, warms both plans,
+then reports medians from 12 alternating measurements per implementation.
+Packing is included in the measured time.
 For paired end-to-end comparisons, `SCHIST_NEURAL_LEGACY_HOST=1` selects the
 previous host operators in the same executable. It is a native diagnostic
 control read once per process; weights, precision and tiling stay unchanged.
@@ -106,6 +119,8 @@ control read once per process; weights, precision and tiling stay unchanged.
 the macOS vector softmax for comparisons with the preceding model execution.
 `SCHIST_NEURAL_LEGACY_COMPUTE=1` disables the Accelerate matrix and contiguous
 padding passes for paired comparisons with the preceding implementation.
+`SCHIST_NEURAL_LEGACY_PACKING=1` disables only the additional packed-input matrix
+path, retaining the preceding direct-view matrix and padding optimizations.
 `SCHIST_MATRIX_LAYOUTS=1` logs unsupported contraction equations and shapes
 without tensor contents, to identify further packing/stride costs.
 

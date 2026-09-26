@@ -346,7 +346,7 @@ excludes their inference time. It is an implementation check on one image.
 ## Native GPU integration checks
 
 With the GPU and tensor-execution changes, `make check-background-removal`
-passes 100 tests (13 Python, 4 core, 62 neural unit and 21 inference tests) and
+passes 103 tests (13 Python, 4 core, 65 neural unit and 21 inference tests) and
 the editor all-targets check. `make check-background-removal-gpu` verifies real
 GPU dispatches for the bundled refiners and guide at the production offload
 threshold, alongside the existing catalog, Anti-Smudge and fallback checks.
@@ -356,7 +356,7 @@ also pass. The final native release app builds with `make app`.
 With `SCHIST_BACKGROUND_GPU_DETECTORS=1`, both installed BiRefNet detectors
 execute 422 GPU dispatches each on the synthetic regression input. Maximum
 CPU/GPU alpha differences are 0.00000000119 (general) and 0.00000263 (matting).
-The bundled detail refiner differs by at most 0.00000537 on its fixture.
+The bundled detail refiner differs by at most 0.00000716 on its fixture.
 Earlier independent-runtime real-photo checks differed from the Python
 references by at most 0.00001163 (general) and 0.00001413 (matting); that
 additional reference comparison guarded against errors shared by the native
@@ -398,6 +398,13 @@ retain tract. Constant padding uses contiguous row copies in both CPU and
 partitioned GPU plans, preserving every input and padding-value bit. These
 passes optimize model execution without retraining, pruning or quantization.
 Matrix accumulation order can differ; photo comparisons check the saved output.
+
+An additional bounded input-packing path handles windowed attention and
+split-head projections whose inputs do not form direct matrix views. It copies
+contiguous feature blocks, reuses the float scratch across batches and leaves
+the weights and output in direct views. Packing scratch is capped at 16 MiB
+per operation; unsupported layouts retain the preceding implementation. The
+same weights, float32 inputs and reduction axes are preserved.
 
 Earlier paired measurements used the same executable on an Apple M4, with
 `SCHIST_NEURAL_LEGACY_MODEL=1` disabling only sampling fusion and vector softmax
@@ -461,6 +468,45 @@ It selected CPU for both large families: 4.04 versus 7.65 seconds for the
 detector, and 1.15 versus 2.33 seconds for the first detail tile. The guide and
 opaque-core model still use GPU dispatches. Thus reduced copying and improved
 matrix execution do not make partitioned GPU execution preferable on this M4.
+
+The subsequent packed-input attention pass uses
+`SCHIST_NEURAL_LEGACY_PACKING=1` as its same-executable control, retaining all
+preceding optimizations. In another optimized/previous/previous/optimized
+comparison, the supplied portrait averaged **73.75 → 63.53 seconds (14% less)**.
+Previous runs took 77.95 and 69.55 seconds; packed-input runs took 62.23 and
+64.82 seconds. Mean detail-refinement time fell **45.83 → 38.93 seconds (15%)**.
+Twenty additional ViTMatte products use Accelerate, bringing the total to 88;
+the two detectors remain at 102 each. The first-tile operator profile shows
+20 fewer tract matrix products, 20 fewer tract packing operations and 12 fewer
+axis moves. Packed-input matrix calls account for 0.051 seconds on that tile.
+
+An isolated benchmark uses the actual window-QKV, window-projection and global
+head-projection shapes with identical synthetic inputs and constant weights.
+After warming both plans, 12 measurements per implementation alternate order.
+Median times decrease from **6.913 to 3.370 ms**, **3.148 to 1.412 ms**, and
+**1.886 to 0.935 ms**, respectively. These include input packing and show a
+50–55% reduction for the three contractions, not the entire refiner.
+Run `make profile-attention-matrices` to reproduce this diagnostic.
+
+Each gallery photo was also measured twice per implementation, reversing the
+order on the repeat. Across all runs, portrait 010 averages **74.30 → 69.48
+seconds (6% less)** and portrait 285 averages **67.65 → 66.53 seconds (2%
+less)**. Previous/packed ranges are 73.30–75.30 / 60.86–78.10 seconds for 010,
+and 64.91–70.40 / 65.85–67.20 seconds for 285. The first pair on each photo
+was slower with packing; the small average gallery gains are within substantial
+run-to-run variation. They do not establish a consistent speedup on every photo.
+
+On the supplied portrait, both optimized CPU repeats and automatic mode differ
+from the previous saved image at two alpha pixels by one 8-bit level; RGB is
+unchanged. Portrait 010 changes six alpha and two RGB values, while portrait
+285 changes seven alpha and four RGB values, all by one 8-bit level. Repeated
+outputs for each implementation are identical. Hair crops on white and dark
+backgrounds show no visible regression; existing faint haze and fringe remain.
+Automatic mode took **75.12 seconds** initially and **60.81 seconds**
+with cached placement in this round. It selected CPU for both large families
+(4.54 versus 9.08 seconds for the detector; 2.19 versus 3.51 seconds for the
+first detail tile). Use the paired measurements to compare implementations;
+absolute timings from separate rounds have different machine load.
 
 To measure the same complete pipeline on an installed model set:
 

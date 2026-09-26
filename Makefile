@@ -573,6 +573,9 @@ profile-background-removal:
 .PHONY: profile-neural-tensors
 profile-neural-tensors:
 	$(CARGO) test $(PROFILE_FLAG) -p schist-neural --lib profile_host_transposes -- --ignored --nocapture
+.PHONY: profile-attention-matrices
+profile-attention-matrices:
+	$(CARGO) test $(PROFILE_FLAG) -p schist-neural --lib profile_attention_matrices -- --ignored --nocapture
 detail-matting-example:
 	$(CARGO) run $(PROFILE_FLAG) -p schist-neural --example detail_matting -- $(ARGS)
 
