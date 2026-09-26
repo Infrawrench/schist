@@ -44,6 +44,7 @@ mod ai;
 mod camera_import;
 #[cfg(not(target_arch = "wasm32"))]
 pub(crate) mod camera_sync;
+pub(crate) mod model3d;
 #[cfg(not(target_arch = "wasm32"))]
 pub(crate) mod photo_merge;
 pub(crate) mod recorded_actions;
@@ -489,6 +490,8 @@ pub struct Workspace {
     mask_refine: Option<mask_refine::State>,
     #[cfg(not(target_arch = "wasm32"))]
     pub(crate) photo_merge_job: Option<photo_merge::Job>,
+    #[cfg(any(target_os = "linux", target_os = "windows", target_os = "macos"))]
+    pub(crate) model3d_job: Option<model3d::Job>,
     /// Navigator thumbnail, tagged with the revision it was rendered at.
     nav_thumb: Option<(u64, Arc<RenderImage>)>,
     /// The canvas takes focus on the first frame so keyboard shortcuts work
@@ -904,6 +907,8 @@ pub enum UpdateProgress {
 // plumbing matches exhaustively on every target.
 #[cfg_attr(target_arch = "wasm32", allow(dead_code))]
 pub enum Modal {
+    #[cfg(any(target_os = "linux", target_os = "windows", target_os = "macos"))]
+    ImageTo3d,
     Support,
     Workspaces {
         primary: Option<WorkspaceEdit>,
@@ -1474,6 +1479,8 @@ impl Workspace {
             mask_refine: None,
             #[cfg(not(target_arch = "wasm32"))]
             photo_merge_job: None,
+            #[cfg(any(target_os = "linux", target_os = "windows", target_os = "macos"))]
+            model3d_job: None,
             nav_thumb: None,
             focused_once: false,
             pending_fit: false,

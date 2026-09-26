@@ -6,6 +6,7 @@
 
 pub use affinity::AffinityCodec;
 mod layered;
+mod model3d;
 mod pdn;
 mod xcf;
 pub use pdn::PdnCodec;
@@ -424,6 +425,9 @@ impl PluginManifest for CommonCodecsPlugin {
     }
 
     fn register(&self, registry: &mut PluginRegistry) {
+        for format in ["glb", "obj", "stl"] {
+            registry.register_codec(Box::new(model3d::ModelCodec(format)));
+        }
         registry.register_codec(Box::new(PngCodec));
         registry.register_codec(Box::new(JpegCodec));
         registry.register_codec(Box::new(WebPCodec));

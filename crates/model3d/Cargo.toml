@@ -1,0 +1,23 @@
+[package]
+name = "schist-model3d"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+schist-core.workspace = true
+schist-color.workspace = true
+schist-i18n.workspace = true
+anyhow.workspace = true
+image.workspace = true
+gltf = { version = "1.4", default-features = false, features = ["utils"] }
+
+[target.'cfg(not(target_arch = "wasm32"))'.dependencies]
+tempfile = "3"
+
+[target.'cfg(unix)'.dependencies]
+libc = "0.2"
+
+[dev-dependencies]
+serde_json.workspace = true
+schist-codec-psd.workspace = true

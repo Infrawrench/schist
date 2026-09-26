@@ -10,3 +10,4 @@ schist-core.workspace = true
 schist-plugin-api.workspace = true
 schist-color.workspace = true
 schist-vector.workspace = true
+schist-model3d.workspace = true

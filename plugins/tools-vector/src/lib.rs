@@ -1,10 +1,10 @@
 //! Shape tools (U) and the pen tool (P).
 //!
-//! Shapes and pen paths are rasterized onto their own layer through
-//! `schist-vector`. They are *not* PSD vector shape layers: we render
-//! pixels and keep no editable vector data, which is why re-opening a saved
-//! file gives raster layers (a deliberate v1 scope cut).
+//! Shapes and pen paths retain editable vectors alongside their raster previews.
+//! Blends and 3D models likewise retain their sources in private layer blocks.
 
+pub mod blend;
+pub mod model3d;
 pub mod paths;
 
 use schist_color::Rgba;
@@ -928,6 +928,8 @@ impl PluginManifest for VectorToolsPlugin {
     }
 
     fn register(&self, registry: &mut PluginRegistry) {
+        registry.register_tool(Box::new(blend::BlendTool::default()));
+        registry.register_tool(Box::new(model3d::ModelTool::default()));
         registry.register_tool(Box::new(PenTool::default()));
         registry.register_tool(Box::new(paths::FreeformPenTool::new(false)));
         registry.register_tool(Box::new(paths::FreeformPenTool::new(true)));

@@ -117,6 +117,8 @@ pub fn render(ws: &mut Workspace, cx: &mut Context<Workspace>) -> Option<gpui::A
     ui::reset_default_action();
     let body = match modal {
         Modal::Support => support::dialog(cx).into_any_element(),
+        #[cfg(any(target_os = "linux", target_os = "windows", target_os = "macos"))]
+        Modal::ImageTo3d => crate::workspace::model3d::dialog(ws, cx),
         Modal::Workspaces {
             primary,
             selected,

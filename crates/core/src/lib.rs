@@ -6,14 +6,19 @@
 
 pub mod annotate;
 pub mod blend;
+pub mod creative;
+pub mod curves;
 pub mod document;
 pub mod filter_stack;
 pub mod geom;
 pub mod history;
 pub mod ink;
 pub mod layer;
+pub mod vector_blend;
 pub use ink::{InkChannel, InkChannelInfo, InkPreview, InkTiles};
+pub mod live_mask;
 pub mod mask_refine;
+pub mod model3d;
 pub mod path;
 pub mod raw;
 pub mod resample;

@@ -21,6 +21,9 @@ pub fn tool_options_bar(
     cx: &mut Context<Workspace>,
 ) -> impl IntoElement {
     let tool_id = ws.editor.active_tool;
+    if let (Some(doc), Some(tool)) = (ws.doc.as_ref(), ws.registry.tool_mut(tool_id)) {
+        tool.sync_document(doc);
+    }
     if tool_id == "type" {
         return super::typography::type_options_bar(ws, cx).into_any_element();
     }
@@ -30,7 +33,7 @@ pub fn tool_options_bar(
         .find(|t| t.id() == tool_id)
         .map(|t| (t.icon(), t.name()))
         .unwrap_or(("move", "Move"));
-    let is_paint = matches!(tool_id, "brush" | "pencil" | "eraser");
+    let is_paint = matches!(tool_id, "brush" | "pencil" | "eraser" | "mask");
 
     let m = ui::metrics();
     let mut bar = div()

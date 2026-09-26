@@ -794,12 +794,12 @@ impl CommandPlugin for CoreCommandsPlugin {
                     let Some(id) = ctx.doc.active_layer else {
                         return;
                     };
-                    if ctx
-                        .doc
-                        .tree
-                        .find(id)
-                        .and_then(|l| l.smart.as_ref())
-                        .is_none()
+                    let Some(layer) = ctx.doc.tree.find(id).filter(|l| !l.locked) else {
+                        return;
+                    };
+                    if layer.smart.is_none()
+                        && layer.shape.is_none()
+                        && !schist_core::creative::has_source(layer)
                     {
                         return;
                     }
@@ -807,6 +807,7 @@ impl CommandPlugin for CoreCommandsPlugin {
                     // are, so this is only a loss of future editability.
                     let mut edit = ctx.doc.begin_edit(t("command.history.rasterize_layer"));
                     edit.set_smart_object(id, None);
+                    edit.set_shape(id, None);
                     edit.commit();
                 },
             ),

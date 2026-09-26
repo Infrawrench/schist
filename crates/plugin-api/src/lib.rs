@@ -260,6 +260,11 @@ pub enum Overlay {
 /// A canvas tool. One tool is active at a time; the canvas routes pointer
 /// events (already in document space) to it.
 pub trait ToolPlugin: Send {
+    /// A complete layer hidden by an uncommitted preview (including editable
+    /// source data or masks). Saves and collaboration use this snapshot.
+    fn committed_layer(&self) -> Option<&schist_core::Layer> {
+        None
+    }
     /// Original committed pixels hidden by a modal tool's live preview.
     /// Hosts use these for saves/recovery and defer shared edits until commit.
     fn committed_layer_pixels(&self) -> Option<(schist_core::LayerId, &schist_core::TileMap)> {
@@ -353,6 +358,12 @@ pub trait ToolPlugin: Send {
     /// The user switched to this tool. Modal tools (free transform, crop)
     /// start their session here.
     fn on_activate(&mut self, _ctx: &mut ToolCtx) {}
+    /// Refresh options from a newly selected layer or an undo/redo result.
+    /// A live gesture retains its own settings until it commits or cancels.
+    fn sync_document(&mut self, _doc: &Document) {}
+    /// Called with the old document before a tab switch, replacement or close.
+    /// Tools retaining document-local previews restore them here.
+    fn on_document_leave(&mut self, _ctx: &mut ToolCtx) {}
     /// Semantic values for a pending transform. Hosts record only after commit.
     fn action_transform(&self, _doc: &Document, _state: &EditorState) -> Option<ActionTransform> {
         None

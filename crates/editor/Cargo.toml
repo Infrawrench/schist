@@ -13,6 +13,7 @@ sha2 = "0.10"
 ureq = { version = "3", default-features = false, features = ["rustls"] }
 
 [dependencies]
+schist-model3d.workspace = true
 schist-filters-core.workspace = true
 schist-photo-merge.workspace = true
 schist-i18n.workspace = true
