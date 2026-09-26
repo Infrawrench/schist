@@ -27,14 +27,31 @@ pub(super) fn run_cpu(
         return plan.run(inputs);
     }
     let mut timing: HashMap<String, (usize, Duration)> = HashMap::new();
+    let detailed = std::env::var_os("SCHIST_MATTING_PROFILE_NODES").is_some();
+    let mut nodes = Vec::new();
     let output = plan
         .spawn()?
         .run_plan_with_eval(inputs, |state, op_state, node, inputs| {
+            let shapes = detailed.then(|| {
+                inputs
+                    .iter()
+                    .map(|v| v.shape().to_vec())
+                    .collect::<Vec<_>>()
+            });
             let start = Instant::now();
             let output = tract_onnx::tract_core::plan::eval(state, op_state, node, inputs);
+            let elapsed = start.elapsed();
             let entry = timing.entry(node.op().name().into_owned()).or_default();
             entry.0 += 1;
-            entry.1 += start.elapsed();
+            entry.1 += elapsed;
+            if let Some(shapes) = shapes {
+                nodes.push((
+                    elapsed,
+                    node.name.clone(),
+                    node.op().name().into_owned(),
+                    shapes,
+                ));
+            }
             output
         })?;
     let mut timing = timing.into_iter().collect::<Vec<_>>();
@@ -42,6 +59,13 @@ pub(super) fn run_cpu(
     for (op, (calls, elapsed)) in timing.into_iter().take(15) {
         log::info!(
             "CPU profile {id}: {op} {calls} calls {:.3}s",
+            elapsed.as_secs_f64()
+        );
+    }
+    nodes.sort_by_key(|(elapsed, ..)| std::cmp::Reverse(*elapsed));
+    for (elapsed, name, op, shapes) in nodes.into_iter().take(40) {
+        log::info!(
+            "CPU node {id}: {op} {name} {shapes:?} {:.6}s",
             elapsed.as_secs_f64()
         );
     }

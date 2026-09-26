@@ -84,6 +84,19 @@ contractions into large matrix calls while retaining the same reduction axes
 and float32 values. Unsupported layouts and larger scratch requirements retain
 tract. Operator profiles distinguish these calls as `PackedAccelerateMatMul`.
 
+ViTMatte's three large, low-channel decoder convolutions use a bounded CPU
+banding path on macOS. It packs the 3×3 neighborhoods directly from the original
+feature map, supplies zeros at the image boundary and writes Accelerate matrix
+results into the output planes with their original bias. This avoids a separate
+full-size padded feature map. The float scratch is capped at 16 MiB and reused
+across bands and batches. Bands follow whole image rows when possible; narrower
+outputs use longer bands to amortize matrix-call overhead. Only fixed float32
+NCHW, ungrouped, stride-one, dilation-one, same-padded 3×3 convolutions with at
+least 65,536 spatial positions and 16–64 output channels qualify. The smaller
+decoder stages retain tract after local benchmarks found mixed or slower
+results there. This path changes execution, preserving the filters, biases,
+resolution and model tile overlap. It is logged as `BandedAccelerateConv`.
+
 The native automatic background-removal action opts into measured placement.
 On its first input it times both CPU and accelerated execution of each large
 model family, including transfers and host operators. It uses CPU when at
@@ -107,20 +120,29 @@ logs operator timings for each model's first CPU input. It does not record image
 or tensor contents. `make profile-neural-tensors` compares portable and native
 transposes on representative synthetic tensor sizes; timings are diagnostic,
 not assertions in the regression suite.
+Adding `SCHIST_MATTING_PROFILE_NODES=1` to the model profiler also reports the
+40 slowest nodes with their names and input shapes. It records no tensor values.
 `make profile-attention-matrices` compares optimized tract contractions with
 packed Accelerate plans on the three production ViTMatte attention layouts.
 It uses identical synthetic tensors and constant weights, warms both plans,
 then reports medians from 12 alternating measurements per implementation.
 Packing is included in the measured time.
+`make profile-decoder-convolutions` compares the selected banded decoder layers
+with optimized tract plus the existing fast-padding pass, using synthetic tensors
+(including constant filters and bias) and eight alternating measurements per
+implementation after warm-up and a
+numerical comparison. It also identifies the layers kept on tract.
 For paired end-to-end comparisons, `SCHIST_NEURAL_LEGACY_HOST=1` selects the
 previous host operators in the same executable. It is a native diagnostic
 control read once per process; weights, precision and tiling stay unchanged.
 `SCHIST_NEURAL_LEGACY_MODEL=1` separately disables deformable-sampling fusion and
 the macOS vector softmax for comparisons with the preceding model execution.
-`SCHIST_NEURAL_LEGACY_COMPUTE=1` disables the Accelerate matrix and contiguous
-padding passes for paired comparisons with the preceding implementation.
+`SCHIST_NEURAL_LEGACY_COMPUTE=1` disables the Accelerate matrix, decoder
+convolution and contiguous-padding passes.
 `SCHIST_NEURAL_LEGACY_PACKING=1` disables only the additional packed-input matrix
 path, retaining the preceding direct-view matrix and padding optimizations.
+`SCHIST_NEURAL_LEGACY_CONV=1` disables only the banded decoder convolutions,
+retaining the preceding matrix, packing and padding optimizations.
 `SCHIST_MATRIX_LAYOUTS=1` logs unsupported contraction equations and shapes
 without tensor contents, to identify further packing/stride costs.
 

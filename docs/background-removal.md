@@ -346,7 +346,7 @@ excludes their inference time. It is an implementation check on one image.
 ## Native GPU integration checks
 
 With the GPU and tensor-execution changes, `make check-background-removal`
-passes 103 tests (13 Python, 4 core, 65 neural unit and 21 inference tests) and
+passes 106 tests (13 Python, 4 core, 68 neural unit and 21 inference tests) and
 the editor all-targets check. `make check-background-removal-gpu` verifies real
 GPU dispatches for the bundled refiners and guide at the production offload
 threshold, alongside the existing catalog, Anti-Smudge and fallback checks.
@@ -356,7 +356,7 @@ also pass. The final native release app builds with `make app`.
 With `SCHIST_BACKGROUND_GPU_DETECTORS=1`, both installed BiRefNet detectors
 execute 422 GPU dispatches each on the synthetic regression input. Maximum
 CPU/GPU alpha differences are 0.00000000119 (general) and 0.00000263 (matting).
-The bundled detail refiner differs by at most 0.00000716 on its fixture.
+The bundled detail refiner differs by at most 0.00000734 on its fixture.
 Earlier independent-runtime real-photo checks differed from the Python
 references by at most 0.00001163 (general) and 0.00001413 (matting); that
 additional reference comparison guarded against errors shared by the native
@@ -405,6 +405,15 @@ contiguous feature blocks, reuses the float scratch across batches and leaves
 the weights and output in direct views. Packing scratch is capped at 16 MiB
 per operation; unsupported layouts retain the preceding implementation. The
 same weights, float32 inputs and reduction axes are preserved.
+
+The three largest low-channel decoder convolutions also use bounded spatial
+bands on macOS CPU plans. They assemble 3×3 neighborhoods directly from the
+input, handling image-edge padding while copying row interiors, then use
+Accelerate matrix products with the original filters and bias. This removes
+full-size padded intermediates, with at most 16 MiB of reusable float scratch.
+The smaller decoder stages retain their preceding implementation; their local
+timings did not show a reliable improvement. This preserves model precision,
+resolution, trimaps and overlap.
 
 Earlier paired measurements used the same executable on an Apple M4, with
 `SCHIST_NEURAL_LEGACY_MODEL=1` disabling only sampling fusion and vector softmax
@@ -507,6 +516,61 @@ with cached placement in this round. It selected CPU for both large families
 (4.54 versus 9.08 seconds for the detector; 2.19 versus 3.51 seconds for the
 first detail tile). Use the paired measurements to compare implementations;
 absolute timings from separate rounds have different machine load.
+
+The banded decoder-convolution pass was selected with isolated tests at the
+production layer sizes on the same M4. The comparison includes the preceding
+contiguous-padding optimization and identical synthetic inputs, filters and
+biases, with filters and biases held constant in the graph. After a numerical
+comparison and warm-up, eight measurements per
+implementation alternate order (`make profile-decoder-convolutions`):
+
+| Input → output channels | Spatial size | Previous convolution | Banded convolution |
+| --- | --- | ---: | ---: |
+| 176 → 64 | 384 × 384 | 122.735 ms | 61.025 ms |
+| 68 → 32 | 768 × 768 | 166.237 ms | 67.714 ms |
+| 32 → 16 | 768 × 768 | 90.544 ms | 23.056 ms |
+
+These medians are 50–75% lower for the three isolated convolutions. The 96px
+and 192px decoder stages retain tract because earlier trials showed slower or
+mixed results. The model profile confirms three replacements, reducing tract
+matrix products from 30 to 27 and full-size padding operations from 20 to 17
+per detail tile. Attention products, model weights and input resolution remain
+unchanged.
+
+Full-pipeline comparisons use `SCHIST_NEURAL_LEGACY_CONV=1` to disable only this
+new pass in the same executable. Each photo has two runs per implementation,
+with the order reversed on the second pair. All runs reload their model plans
+and save the cutout, without cached detector predictions:
+
+| Photo | Previous total, mean (range) | Banded total, mean (range) | Previous → banded detail refinement, mean |
+| --- | ---: | ---: | ---: |
+| Supplied, 1536 × 2048 | 57.35 s (57.08–57.63) | 55.66 s (54.54–56.77) | 34.87 → 30.53 s |
+| Gallery 010, 2316 × 3088 | 105.76 s (92.70–118.83) | 77.92 s (72.87–82.96) | 65.03 → 51.51 s |
+| Gallery 285, 2316 × 3088 | 69.13 s (57.30–80.95) | 60.17 s (53.70–66.63) | 45.20 → 34.19 s |
+
+Detail-refinement means fall **12%, 21% and 24%**, respectively. Whole-pipeline
+means fall **3%, 26% and 13%**, but unmodified detector stages fluctuate by
+several seconds; the entire total-time difference cannot be attributed to the
+new convolutions. For example, the two detector passes average 10.61 seconds
+before versus 12.94 seconds after on the supplied portrait, and 21.45 versus
+12.04 seconds on gallery 010. These are local development measurements with
+substantial run-to-run variation, not a latency guarantee. The supplied-photo
+mean peak process footprint remains approximately 2.28 GB on both paths.
+
+The supplied image changes two saved alpha values and one RGB value; gallery
+010 changes six alpha and two RGB values, and gallery 285 changes four alpha
+and two RGB values. Every change is one 8-bit level. Repeat outputs, diagnostic
+profile outputs and the saved automatic result match their corresponding CPU
+outputs exactly. Hair crops viewed on white and dark backgrounds show no visible
+regression; existing fringe and haze remain. Original photograph hashes are
+unchanged, and generated images are removed after review.
+
+Automatic mode in this round takes **77.15 seconds** including calibration and
+**63.43 seconds** with cached placement. It selects CPU for both large families:
+11.99 versus 15.11 seconds for the detector and 1.32 versus 3.31 seconds for the
+first detail tile. The guide and opaque-core model still use GPU dispatches.
+Use the within-round paired measurements for performance comparisons, rather
+than comparing absolute automatic-mode timings from different rounds.
 
 To measure the same complete pipeline on an installed model set:
 

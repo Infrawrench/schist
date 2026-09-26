@@ -576,6 +576,9 @@ profile-neural-tensors:
 .PHONY: profile-attention-matrices
 profile-attention-matrices:
 	$(CARGO) test $(PROFILE_FLAG) -p schist-neural --lib profile_attention_matrices -- --ignored --nocapture
+.PHONY: profile-decoder-convolutions
+profile-decoder-convolutions:
+	$(CARGO) test $(PROFILE_FLAG) -p schist-neural --lib profile_decoder_convolutions -- --ignored --nocapture
 detail-matting-example:
 	$(CARGO) run $(PROFILE_FLAG) -p schist-neural --example detail_matting -- $(ARGS)
 

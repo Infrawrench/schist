@@ -63,6 +63,8 @@ mod face_rect;
 mod faces;
 pub use face_rect::{FaceRect, SAME_FACE_IOU};
 #[cfg(target_os = "macos")]
+mod accelerate_conv;
+#[cfg(target_os = "macos")]
 mod accelerate_matrix;
 mod deform_sample;
 mod detail_matting;
@@ -950,6 +952,14 @@ impl Model {
         let mut cpu = typed.clone();
         if !has_batched_gather {
             cpu.declutter()?;
+        }
+        #[cfg(target_os = "macos")]
+        if spec.id == "detail-matting"
+            && fast_compute_ops()
+            && std::env::var_os("SCHIST_NEURAL_LEGACY_CONV").is_none()
+        {
+            let count = accelerate_conv::optimize(&mut cpu)?;
+            log::info!(target: "schist_neural::execution", "{}: accelerated {count} decoder convolutions", spec.id);
         }
         #[cfg(target_os = "macos")]
         if matches!(

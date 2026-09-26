@@ -6,7 +6,7 @@ use tract_onnx::tract_core::{internal::*, ops::einsum::EinSum};
 #[link(name = "Accelerate", kind = "framework")]
 unsafe extern "C" {
     // The stable LP64 CBLAS ABI also supports macOS versions before 13.3.
-    fn cblas_sgemm(
+    pub(super) fn cblas_sgemm(
         order: i32,
         trans_a: i32,
         trans_b: i32,
