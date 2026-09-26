@@ -637,9 +637,130 @@ pub(super) fn compact(proto: &mut ModelProto, id: &str) -> Result<()> {
     Ok(())
 }
 
+// The general detector's exporter splits two whole axes into one piece and
+// concatenates six individual tensors with themselves as the only input.
+// These identity operations split Core ML into three partitions, forcing the
+// 96-channel, full-resolution decoder result back through CPU memory.
+pub(super) fn single_parts(proto: &mut ModelProto) -> Result<()> {
+    let graph = proto.graph.as_mut().context("missing detector graph")?;
+    let values = constants(graph);
+    let (mut splits, mut concats) = (0, 0);
+    for n in &mut graph.node {
+        if !n.domain.is_empty() || n.output.len() != 1 {
+            continue;
+        }
+        if n.op_type == "Concat" && n.input.len() == 1 {
+            concats += 1;
+        } else if n.op_type == "Split" {
+            ensure!(n.input.len() == 2, "unexpected single-output split");
+            let sizes = i64s(values.get(&n.input[1]).context("missing split sizes")?)?;
+            ensure!(sizes == [1024], "unexpected single-output split sizes");
+            ensure!(
+                matches!(integer(n, "axis", 0), -1 | -2),
+                "unexpected split axis"
+            );
+            n.input.truncate(1);
+            splits += 1;
+        } else {
+            continue;
+        }
+        // Preserve output names, including any shared consumer or graph
+        // output. ORT's standard identity elimination reconnects the edges.
+        n.op_type = "Identity".into();
+        n.attribute.clear();
+    }
+    ensure!(
+        (splits, concats) == (2, 6),
+        "unexpected detector identity layout: {splits} splits, {concats} concats"
+    );
+    Ok(())
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn one_piece_layouts_preserve_edges_and_reject_unexpected_split_sizes() {
+        let mut graph = GraphProto::default();
+        graph.initializer.push(Tensor {
+            name: "sizes".into(),
+            dims: vec![1],
+            data_type: 7,
+            int64_data: vec![1024],
+            ..Default::default()
+        });
+        let mut input = "input".to_string();
+        for (i, axis) in [-1, -2].into_iter().enumerate() {
+            let output = format!("split{i}");
+            graph.node.push(node(
+                "Split",
+                &output,
+                vec![input, "sizes".into()],
+                vec![output.clone()],
+                vec![av("axis", axis)],
+            ));
+            input = output;
+        }
+        for i in 0..6 {
+            let output = format!("concat{i}");
+            graph.node.push(node(
+                "Concat",
+                &output,
+                vec![input],
+                vec![output.clone()],
+                vec![av("axis", 0)],
+            ));
+            input = output;
+        }
+        // A real concatenation still combines two tensors, including a shared
+        // use of a rewritten output; it must not be folded as an identity.
+        graph.node.push(node(
+            "Concat",
+            "out",
+            vec![input, "split0".into()],
+            vec!["out".into()],
+            vec![av("axis", 0)],
+        ));
+        graph.output.push(tract_onnx::pb::ValueInfoProto {
+            name: "out".into(),
+            ..Default::default()
+        });
+        let original = ModelProto {
+            graph: Some(graph),
+            ..Default::default()
+        };
+        let mut optimized = original.clone();
+        single_parts(&mut optimized).unwrap();
+        let rewritten = optimized.graph.as_ref().unwrap();
+        for (before, after) in original
+            .graph
+            .as_ref()
+            .unwrap()
+            .node
+            .iter()
+            .zip(&rewritten.node)
+        {
+            assert_eq!(before.output, after.output);
+            assert_eq!(before.input[0], after.input[0]);
+        }
+        assert!(rewritten.node[..8]
+            .iter()
+            .all(|n| n.op_type == "Identity" && n.input.len() == 1 && n.attribute.is_empty()));
+        assert_eq!(rewritten.node[8], original.graph.as_ref().unwrap().node[8]);
+        assert_eq!(rewritten.output, original.graph.as_ref().unwrap().output);
+        for sizes in [vec![512], vec![512, 512], vec![-1]] {
+            let mut bad = original.clone();
+            let tensor = &mut bad.graph.as_mut().unwrap().initializer[0];
+            tensor.dims = vec![sizes.len() as i64];
+            tensor.int64_data = sizes;
+            assert!(single_parts(&mut bad).is_err());
+        }
+        assert!(
+            single_parts(&mut optimized).is_err(),
+            "unexpected graph must not be silently accepted"
+        );
+    }
 
     #[test]
     fn gather_preserves_float_bits_and_negative_multidimensional_indices() {

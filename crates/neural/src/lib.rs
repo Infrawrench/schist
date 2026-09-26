@@ -38,9 +38,10 @@
 //! run. The other fallbacks run when a model is
 //! missing, fails, or looks at the picture and has nothing to say.
 
-use std::collections::HashMap;
 use std::path::PathBuf;
-use std::sync::{Arc, OnceLock, RwLock};
+use std::sync::{Arc, OnceLock};
+#[cfg(target_arch = "wasm32")]
+use std::{collections::HashMap, sync::RwLock};
 
 use anyhow::{bail, Context as _, Result};
 use tract_onnx::prelude::*;
@@ -75,6 +76,11 @@ mod gather_nd;
 mod halo;
 mod inpaint;
 mod matting;
+mod model_cache;
+#[cfg(all(target_os = "macos", not(schist_library)))]
+mod preload;
+#[cfg(all(target_os = "macos", not(schist_library)))]
+pub use preload::preload_background_removal;
 #[cfg(target_os = "macos")]
 mod native_coreml;
 #[cfg(all(
@@ -1421,7 +1427,7 @@ fn frame(spec: &ModelSpec, rgb: &[f32], width: usize, height: usize) -> (Vec<f32
     )
 }
 
-type Cache = RwLock<HashMap<String, Option<Arc<Model>>>>;
+type Cache = model_cache::Cache<Model>;
 
 fn cache() -> &'static Cache {
     static CACHE: OnceLock<Cache> = OnceLock::new();
@@ -1435,6 +1441,14 @@ fn cache() -> &'static Cache {
 /// failure is cached too, so a broken file is not re-parsed on every dab.
 #[cfg(not(schist_library))]
 pub fn get(id: &str) -> Option<Arc<Model>> {
+    #[cfg(target_os = "macos")]
+    preload::foreground_started(id);
+    get_prepared(id, |_| {})
+}
+
+#[cfg(not(schist_library))]
+fn get_prepared(id: &str, prepare: impl FnOnce(&Model)) -> Option<Arc<Model>> {
+    let spec = spec(id)?;
     #[cfg(all(target_os = "macos", target_arch = "aarch64"))]
     let key = if native_onnx::requested(id) {
         format!("native:{id}")
@@ -1449,18 +1463,13 @@ pub fn get(id: &str) -> Option<Arc<Model>> {
     } else {
         key
     };
-    if let Some(hit) = cache().read().ok()?.get(&key) {
-        return hit.clone();
-    }
-    let spec = spec(id)?;
-    let loaded = load(spec)
-        .map_err(|e| log::warn!("neural model {id}: {e:#}"))
-        .ok()
-        .map(Arc::new);
-    if let Ok(mut c) = cache().write() {
-        c.insert(key, loaded.clone());
-    }
-    loaded
+    model_cache::get(cache(), key, || {
+        let model = load(spec)
+            .map_err(|e| log::warn!("neural model {id}: {e:#}"))
+            .ok()?;
+        prepare(&model);
+        Some(model)
+    })
 }
 
 /// Drop a loaded model from the cache; its memory comes back once any
@@ -1481,6 +1490,7 @@ pub fn release(id: &str) {
             // The native reaper releases idle, unowned Model entries too.
             if !c
                 .get(&key)
+                .and_then(|slot| slot.get())
                 .and_then(Option::as_ref)
                 .is_some_and(|model| model.native.is_some())
             {

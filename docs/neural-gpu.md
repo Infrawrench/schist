@@ -132,7 +132,12 @@ coordinates, border behavior and modulation. Constant Gather folding preserves
 float bits; relative-position Einsum becomes Transpose/MatMul; redundant batch
 axes and scalar Gather layouts are rewritten without changing weights or
 resolution. The matting detector and detail refiner each form one Core ML graph.
-The general detector has three Core ML partitions with small host shape steps.
+The general detector also forms one Core ML graph: two one-piece splits and
+six single-input concatenations are replaced by identities, which ORT removes.
+This avoids sending the final 96 × 1024 × 1024 float32 decoder tensor through
+CPU memory between GPU partitions (about 403 MB for that tensor alone).
+The source weights, precision and tensor values are unchanged. This detector
+uses `coreml-ort128-v3`; unchanged model families keep their v2 cache paths.
 The offline subject-guide export expands its 20 HardSwish operations into
 HardSigmoid/Multiply, uses BASIC optimization to avoid unsupported activation
 fusions, and produces one complete Core ML graph.
@@ -168,6 +173,19 @@ Source pins and versioned cache paths isolate derived graphs. Prepared ONNX
 files are checked against their digest before reuse. At most five pinned native
 sessions can be retained; a five-minute idle timeout also releases their validated
 source buffers. `SCHIST_NEURAL_CACHE` overrides the cache root.
+
+After opening the macOS window, the app starts one detached Rust thread to
+load the installed background-removal pipeline and run a synthetic prediction
+through each native model. No images are read and no model is downloaded.
+Apple Silicon warms both detectors when installed, the guide, opaque-core
+model and detail refiner; Intel warms the three compiled refiners. Without
+an installed foreground detector, startup does no model work. Cache loading
+uses a shared `OnceLock` per model/backend, so startup and an action share
+in-flight work without holding the global cache lock. Invalidation removes
+the slot even if a load is in flight, preventing stale results from restoring
+it. A real background-model request stops preloading after the current model;
+the action's worker then loads anything still needed. Loaded models retain
+the five-minute idle timeout, so startup does not pin them indefinitely.
 `SCHIST_NEURAL_LEGACY_NATIVE=1` bypasses the detector Core ML path for diagnostics;
 `SCHIST_NEURAL_COREML_CPU=1` forces compiled refiners onto the CPU.
 

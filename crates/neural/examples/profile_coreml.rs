@@ -1,5 +1,5 @@
 //! Compare a compiled detail-refinement candidate through the actual Rust pipeline.
-//! make profile-background-coreml ARGS='input.jpg output.png 3 [model.mlmodelc]'
+//! make profile-background-coreml ARGS='input.jpg output.png 3 [model.mlmodelc|--preload]'
 #[cfg(all(target_os = "macos", feature = "coreml-export"))]
 fn main() -> anyhow::Result<()> {
     use anyhow::{ensure, Context};
@@ -11,7 +11,7 @@ fn main() -> anyhow::Result<()> {
     let args: Vec<_> = std::env::args_os().skip(1).collect();
     ensure!(
         (3..=4).contains(&args.len()),
-        "usage: profile_coreml input output.png runs [model.mlmodelc]"
+        "usage: profile_coreml input output.png runs [model.mlmodelc|--preload]"
     );
     let runs: usize = args[2].to_str().context("invalid runs")?.parse()?;
     ensure!((1..=10).contains(&runs), "runs must be 1..10");
@@ -26,6 +26,15 @@ fn main() -> anyhow::Result<()> {
             [p[0], p[1], p[2]].map(|v| v as f32 / 255.0 * a + 0.5 * (1.0 - a))
         })
         .collect();
+    if args.get(3).is_some_and(|arg| arg == "--preload") {
+        let start = Instant::now();
+        if let Some(worker) = neural::preload_background_removal() {
+            worker
+                .join()
+                .map_err(|_| anyhow::anyhow!("preload panicked"))?;
+        }
+        eprintln!("startup preload: {:.3}s", start.elapsed().as_secs_f64());
+    }
     neural::with_adaptive_execution(|| -> anyhow::Result<()> {
         let mut candidate = None;
         for run in 1..=runs {
@@ -70,7 +79,7 @@ fn main() -> anyhow::Result<()> {
             drop(model);
             drop(raw);
             drop(reference);
-            let model = if let Some(path) = args.get(3) {
+            let model = if let Some(path) = args.get(3).filter(|arg| *arg != "--preload") {
                 if candidate.is_none() {
                     let start = Instant::now();
                     candidate = Some(Arc::new(neural::Model::from_coreml_path(

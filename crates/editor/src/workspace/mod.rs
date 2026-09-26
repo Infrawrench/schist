@@ -23,6 +23,8 @@ pub use schist_app_settings::{load_view_options, ViewOptions};
 use schist_color::{ColorMode, Depth, Rgba};
 use schist_compositor::TileCache;
 use schist_core::{blit_rgba8, Document, IntRect, Layer, TileCoord, TILE_SIZE};
+#[cfg(target_os = "macos")]
+pub use schist_neural::preload_background_removal;
 use schist_plugin_api::{
     CommandCtx, EditorState, Modifiers, Overlay, PluginRegistry, PointerInput, ToolCtx,
 };

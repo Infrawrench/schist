@@ -515,8 +515,9 @@ fn start_reaper() {
                     let keys: Vec<_> = cache
                         .iter()
                         .filter_map(|(key, entry)| {
-                            let model = entry.as_ref()?;
-                            (std::sync::Arc::strong_count(model) == 1
+                            let model = entry.get()?.as_ref()?;
+                            (std::sync::Arc::strong_count(entry) == 1
+                                && std::sync::Arc::strong_count(model) == 1
                                 && model.compiled.as_ref().is_some_and(|m| m.idle(now)))
                             .then(|| key.clone())
                         })

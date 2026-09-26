@@ -22,7 +22,13 @@ use std::{
 };
 use tract_onnx::{pb, prelude::*};
 
-const CACHE_VERSION: &str = "coreml-ort128-v2";
+fn cache_version(id: &str) -> &'static str {
+    if id == "foreground" {
+        "coreml-ort128-v3"
+    } else {
+        "coreml-ort128-v2"
+    }
+}
 
 pub(super) fn requested(id: &str) -> bool {
     crate::execution::adaptive_enabled()
@@ -59,16 +65,17 @@ fn initialize() {
         ort::init().with_name("schist-background").commit();
     });
 }
-fn cache_root() -> PathBuf {
+fn cache_root(id: &str) -> PathBuf {
+    let version = cache_version(id);
     if let Some(path) = std::env::var_os("SCHIST_NEURAL_CACHE") {
-        return PathBuf::from(path).join(CACHE_VERSION);
+        return PathBuf::from(path).join(version);
     }
     let base = std::env::var_os("XDG_CACHE_HOME")
         .map(PathBuf::from)
         .unwrap_or_else(|| {
             PathBuf::from(std::env::var_os("HOME").unwrap_or_default()).join("Library/Caches")
         });
-    base.join("schist/neural").join(CACHE_VERSION)
+    base.join("schist/neural").join(version)
 }
 fn builder() -> Result<ort::session::builder::SessionBuilder> {
     Session::builder()?
@@ -141,7 +148,7 @@ fn prepared(spec: &ModelSpec, original: &[u8], hash: &str) -> Result<PathBuf> {
     let _lock = PREPARE
         .lock()
         .map_err(|_| anyhow::anyhow!("native preparation lock poisoned"))?;
-    let dir = cache_root().join(hash);
+    let dir = cache_root(spec.id).join(hash);
     std::fs::create_dir_all(&dir)?;
     let path = dir.join("model.onnx");
     let manifest = dir.join("model.sha256");
@@ -186,12 +193,15 @@ fn prepared(spec: &ModelSpec, original: &[u8], hash: &str) -> Result<PathBuf> {
         proto = pb::ModelProto::decode(bytes.as_slice())?;
         crate::native_onnx_graph::compact(&mut proto, spec.id)?;
     }
+    if spec.id == "foreground" {
+        crate::native_onnx_graph::single_parts(&mut proto)?;
+    }
     // Core ML's default in-memory/path cache key does not include weight data.
     // Include the source hash and rewrite/runtime version explicitly.
     proto.metadata_props.retain(|p| p.key != "CACHE_KEY");
     proto.metadata_props.push(pb::StringStringEntryProto {
         key: "CACHE_KEY".into(),
-        value: crate::sha256_hex(format!("{CACHE_VERSION}:{hash}").as_bytes()),
+        value: crate::sha256_hex(format!("{}:{hash}", cache_version(spec.id)).as_bytes()),
     });
     let bytes = proto.encode_to_vec();
     let digest = crate::sha256_hex(&bytes);
@@ -243,9 +253,10 @@ fn prune_idle(now: Instant) {
         let keys: Vec<_> = cache
             .iter()
             .filter_map(|(key, entry)| {
-                let model = entry.as_ref()?;
+                let model = entry.get()?.as_ref()?;
                 let native = model.native.as_ref()?;
                 (key.starts_with("native:")
+                    && Arc::strong_count(entry) == 1
                     && Arc::strong_count(model) == 1
                     && native
                         .resident
@@ -564,10 +575,10 @@ mod tests {
             .lock()
             .unwrap()
             .insert("idle-cache-test", resident);
-        crate::cache()
-            .write()
-            .unwrap()
-            .insert("native:idle-cache-test".into(), Some(model.clone()));
+        crate::cache().write().unwrap().insert(
+            "native:idle-cache-test".into(),
+            Arc::new(OnceLock::from(Some(model.clone()))),
+        );
         prune_idle(now);
         assert!(weak.upgrade().is_some());
         assert!(crate::cache()
@@ -575,6 +586,16 @@ mod tests {
             .unwrap()
             .contains_key("native:idle-cache-test"));
         drop(model);
+        // A caller can have obtained the slot but not yet cloned its model.
+        // Keep that handoff alive just like an already returned Model owner.
+        let loading = crate::cache().read().unwrap()["native:idle-cache-test"].clone();
+        prune_idle(now);
+        assert!(weak.upgrade().is_some());
+        assert!(crate::cache()
+            .read()
+            .unwrap()
+            .contains_key("native:idle-cache-test"));
+        drop(loading);
         prune_idle(now);
         assert!(weak.upgrade().is_none());
         assert!(!crate::cache()

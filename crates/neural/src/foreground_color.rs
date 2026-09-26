@@ -116,15 +116,28 @@ fn box_mean(input: &[f32], w: usize, h: usize, radius: usize) -> Vec<f32> {
     let mut out = vec![0.0; input.len()];
     let divisor = (2 * radius + 1) as f64;
     // SciPy traverses axis 0 before axis 1.
-    for x in 0..w {
-        let mut sum = 0.0;
-        for j in -(radius as isize)..=radius as isize {
-            sum += input[j.clamp(0, h as isize - 1) as usize * w + x] as f64;
+    // Keep a running sum per column and traverse contiguous rows. The order
+    // of additions for each pixel is unchanged, but neighboring pixels now
+    // share cache lines and the compiler can vectorize the independent sums.
+    let mut sums = vec![0.0f64; w];
+    for j in -(radius as isize)..=radius as isize {
+        let row = j.clamp(0, h as isize - 1) as usize * w;
+        for (sum, &value) in sums.iter_mut().zip(&input[row..row + w]) {
+            *sum += value as f64;
         }
-        for y in 0..h {
-            temp[y * w + x] = (sum / divisor) as f32;
-            sum -= input[y.saturating_sub(radius) * w + x] as f64;
-            sum += input[(y + radius + 1).min(h - 1) * w + x] as f64;
+    }
+    for y in 0..h {
+        let remove = y.saturating_sub(radius) * w;
+        let add = (y + radius + 1).min(h - 1) * w;
+        for (((value, sum), &old), &new) in temp[y * w..(y + 1) * w]
+            .iter_mut()
+            .zip(&mut sums)
+            .zip(&input[remove..remove + w])
+            .zip(&input[add..add + w])
+        {
+            *value = (*sum / divisor) as f32;
+            *sum -= old as f64;
+            *sum += new as f64;
         }
     }
     for y in 0..h {
@@ -144,6 +157,45 @@ fn box_mean(input: &[f32], w: usize, h: usize, radius: usize) -> Vec<f32> {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn contiguous_box_pass_matches_column_order_bit_for_bit() {
+        for (w, h) in [(1, 1), (7, 13), (353, 349)] {
+            let input: Vec<_> = (0..w * h)
+                .map(|i| ((i * 131 + 17) % 251) as f32 / 250.0)
+                .collect();
+            for radius in [0, 3, 45] {
+                let divisor = (2 * radius + 1) as f64;
+                let mut vertical = vec![0.0; input.len()];
+                for x in 0..w {
+                    let mut sum = 0.0;
+                    for j in -(radius as isize)..=radius as isize {
+                        sum += input[j.clamp(0, h as isize - 1) as usize * w + x] as f64;
+                    }
+                    for y in 0..h {
+                        vertical[y * w + x] = (sum / divisor) as f32;
+                        sum -= input[y.saturating_sub(radius) * w + x] as f64;
+                        sum += input[(y + radius + 1).min(h - 1) * w + x] as f64;
+                    }
+                }
+                // The horizontal window can be summed directly in f64: all
+                // inputs are f32, so these short nonnegative sums are exact.
+                let expected: Vec<_> = (0..w * h)
+                    .map(|i| {
+                        let (y, x) = (i / w, i % w);
+                        ((-(radius as isize)..=radius as isize)
+                            .map(|j| {
+                                vertical[y * w + (x as isize + j).clamp(0, w as isize - 1) as usize]
+                                    as f64
+                            })
+                            .sum::<f64>()
+                            / divisor) as f32
+                    })
+                    .collect();
+                assert_eq!(box_mean(&input, w, h, radius), expected);
+            }
+        }
+    }
 
     #[test]
     fn foreground_estimation_removes_spill_without_changing_opaque_colors() {

@@ -396,12 +396,25 @@ resolution, 128-pixel context margin and normal 128-pixel overlaps. Direct
 plane copies and contiguous output copies reduce tensor-allocation overhead.
 Validated model/session objects stay resident for up to five idle minutes so
 consecutive layer actions avoid rereading and hashing large source buffers.
+The macOS app starts loading and warming the installed pipeline on a dedicated
+thread after opening its window. Actions share an in-flight load; a real action
+stops further speculative warm-up. No weights are downloaded at startup, and
+the existing five-minute idle eviction still applies. This moves preparation
+ahead of the first action when the app has had time to finish warming up.
+
+The general detector now removes eight identity layout operations during Rust
+graph preparation, allowing one GPU graph instead of three and eliminating a
+large decoder transfer. Foreground color cleanup traverses contiguous rows
+while retaining the exact per-pixel addition order. Neither change reduces
+image resolution, changes model weights or alters refinement geometry.
 
 See [native preparation and packaging](neural-gpu.md) for exact graph passes,
 archive verification, CPU fallback, platform support and export commands.
 Measure first-install preparation, a fresh process with the disk cache, and
 resident repeat actions separately: downloaded-detector compilation can still
-make first use much slower than a warm action.
+make first use much slower than a warm action. Add `--preload` to the profiling
+example's final argument to time startup preparation separately and measure
+an action after it completes; the GUI detaches that worker instead of joining.
 
 The packaged model was measured on an Apple M4 with 16 GB RAM and macOS
 15.6.1. Each row starts a fresh process using prepared disk caches, then
@@ -428,6 +441,33 @@ precedes the timer. First-ever detector conversion/compilation is excluded
 and can still take substantially longer. The final portrait process had a
 2.64 GB maximum resident size and 8.40 GB peak process footprint; GPU allocations
 make available memory significant.
+
+A subsequent startup/graph optimization audit compared the previous three-part
+and new single-part general detector with the same packaged refiners. All
+three photos produced **pixel-identical RGBA output**, including both supplied
+portrait batches. The color-filter traversal also has a bit-exact regression
+test. Two portrait process pairs ran in opposite order; each gallery pair ran
+three complete actions after preloading, with order reversed for the second
+photo. Normal desktop activity caused substantial timing variation:
+
+| Image | Previous pipeline mean (range) | Optimized mean (range) | General detector mean, previous → optimized | Peak footprint, previous → optimized |
+| --- | ---: | ---: | ---: | ---: |
+| Supplied portrait, 1536 × 2048 | 5.681 s (4.814–6.531) | 5.478 s (4.146–7.251) | 1.164 → 0.673 s | 8.29–8.36 → 5.23–5.30 GB |
+| Gallery portrait 010, 2316 × 3088 | 12.015 s (11.507–12.544) | 9.909 s (9.619–10.460) | 2.132 → 1.034 s | 7.89 → 5.29 GB |
+| Gallery portrait 285, 2316 × 3088 | 8.825 s (8.759–8.938) | 7.685 s (7.427–8.112) | 1.927 → 1.036 s | 7.82 → 5.29 GB |
+
+These pipeline totals exclude PNG output and source decoding. Both sides use
+the exact color-filter optimization, isolating the detector graph change.
+The earlier unmodified portrait baseline took 12.919 s for its fresh-process
+first action. With the new startup worker, cached preload took 10.493 s on a
+background thread and the first action after completion took 4.146 s; the
+second optimized batch took 10.762 s preload and 7.251 s for its first action
+under heavier desktop load. The newly prepared detector took 74.761 s for
+initial conversion/compilation plus startup warm-up. Launch remains independent
+of that worker, but an immediate action can still wait for unfinished work.
+After idle eviction the next action reloads models normally. Startup work is
+reported separately, not counted as eliminated processing time.
+
 
 The GPU detail graph keeps layer normalization, reductions, softmax, powers,
 reciprocal square roots, division and the final sigmoid in float32, lowering
