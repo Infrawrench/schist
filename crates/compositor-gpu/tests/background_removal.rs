@@ -53,6 +53,16 @@ fn read_alpha(path: impl AsRef<std::path::Path>) -> Vec<f32> {
     values.iter().map(|b| f32::from_le_bytes(*b)).collect()
 }
 
+// Explicitly exercise the portable tract/wgpu plans here. On macOS, get()
+// loads compiled Core ML assets; their CPU/GPU parity has a separate native test.
+fn portable_model(id: &str) -> schist_neural::Model {
+    let spec = schist_neural::spec(id).unwrap();
+    let path = std::path::Path::new(env!("CARGO_MANIFEST_DIR"))
+        .join("../neural/models")
+        .join(spec.file);
+    schist_neural::Model::from_bytes(spec, &std::fs::read(path).unwrap()).unwrap()
+}
+
 #[test]
 fn bundled_refiners_and_guide_execute_on_gpu_and_match_cpu() {
     let _lock = BACKEND.lock().unwrap_or_else(|p| p.into_inner());
@@ -63,8 +73,7 @@ fn bundled_refiners_and_guide_execute_on_gpu_and_match_cpu() {
     });
     eprintln!("background removal adapter: {:?}", gpu.ctx.adapter_info());
     for id in ["matting", "detail-matting", "subject-guide"] {
-        let model = schist_neural::get(id).unwrap();
-        schist_neural::release(id);
+        let model = portable_model(id);
         assert!(model.gpu_program().is_some() || model.gpu_partition_count() > 0);
         let (w, h) = if id == "subject-guide" {
             (520, 520)
@@ -166,8 +175,7 @@ fn full_resolution_private_photo_matches_cpu_when_requested() {
         .collect::<Vec<_>>();
     let coarse = read_alpha(coarse_path);
     assert_eq!(coarse.len(), w * h);
-    let model = schist_neural::get("detail-matting").unwrap();
-    schist_neural::release("detail-matting");
+    let model = portable_model("detail-matting");
     schist_fx::set_backend(Arc::new(schist_fx::CpuFx));
     let expected = schist_neural::refine_alpha(&model, &rgb, &coarse, w, h).unwrap();
     let gpu = Arc::new(Tracking {

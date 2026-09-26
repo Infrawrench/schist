@@ -25,10 +25,11 @@ changes foreground color only; it never thickens the mask or fills hair gaps.
 
 The pipeline combines pretrained detection, semantic guidance and alpha matting.
 Pipeline revision 9 uses **ViTMatte-S** for native-resolution hair/fur details.
-Native builds embed `detail-matting.onnx.xz` (95,638,600 bytes), the semantic
-guide (40,454,876 bytes) and MatteNet (81,960 bytes). These XZ archives expand
-in memory when their inference plans are constructed; raw ONNX copies are not
-shipped. The locally trained MatteNet supplies broad opaque interior seeds.
+Non-Mac native builds embed `detail-matting.onnx.xz` (95,638,600 bytes), the
+semantic guide (40,454,876 bytes) and MatteNet (81,960 bytes), expanding them
+in memory when their plans are constructed. Mac builds embed only compressed
+precompiled Core ML versions of these three models; their ONNX payloads are
+excluded. The locally trained MatteNet supplies broad opaque interior seeds.
 Model cards record both archive and expanded hashes, checked by regression tests.
 Web builds serve compressed assets on demand, following the existing model loader;
 the automatic layer action currently remains native-only.
@@ -372,7 +373,67 @@ implementation of the accepted refinement; it is not a repeat of the entire
 
 ## Native execution performance
 
-The automatic layer action calibrates its large partially accelerated models
+macOS ships compressed, precompiled Core ML archives for the three bundled
+background refiners; their ONNX copies are excluded from the Mac executable.
+Rust bindings call the system Core ML framework directly, with Core ML CPU
+fallback using the same compiled assets. The archives target Core ML 5 /
+macOS 12 or newer.
+The two downloaded foreground detectors use a statically linked Rust `ort`
+dependency on Apple Silicon. No ONNX Runtime dylib, Python process or Swift
+helper is shipped.
+
+Large inline float32 weights are moved to binary MIL storage without changing
+bits. This avoids parsing hundreds of megabytes of hexadecimal weight text.
+The opaque-region erosion/dilation also uses running counts with the same clipped
+window semantics, replacing repeated radius scans with linear pixel passes.
+Validated model/session objects stay resident for up to five idle minutes so
+consecutive layer actions avoid rereading and hashing large source buffers.
+
+See [native preparation and packaging](neural-gpu.md) for exact graph passes,
+archive verification, CPU fallback, platform support and export commands.
+Measure first-install preparation, a fresh process with the disk cache, and
+resident repeat actions separately: downloaded-detector compilation can still
+make first use much slower than a warm action.
+
+The final compiled assets were measured on an Apple M4 with 16 GB RAM and
+macOS 15.6.1. Each row starts a fresh process using already prepared disk caches,
+then repeats the complete model pipeline twice with resident sessions:
+
+| Image | First action, cached files | Resident actions |
+| --- | ---: | ---: |
+| Supplied portrait, 1536 × 2048, first batch | 24.624 s | 13.237 / 13.020 s |
+| Supplied portrait, independent repeat batch | 13.978 s | 6.997 / 7.699 s |
+| Gallery portrait 010, 2316 × 3088 | 19.902 s | 15.092 / 15.500 s |
+| Gallery portrait 285, 2316 × 3088 | 16.246 s | 8.523 / 8.303 s |
+
+The supplied portrait reaches the sub-10-second target on resident repeats,
+but the full observed range is retained here: this is not a consistent bound
+across machine load, initial loading or larger images. No compilation or other
+model benchmark ran concurrently; normal desktop applications remained open.
+The timer includes model loading, inference, native-resolution refinement and
+color cleanup. Only the final repeat also writes a PNG; source image decoding
+precedes the timer. First-ever detector conversion/compilation is excluded and
+can still take substantially longer. `/usr/bin/time -l` reports maximum resident
+sizes of 2.10–2.97 GB and peak process footprints of 7.61–7.95 GB, so available
+memory matters when using this GPU path.
+
+Both saved supplied-photo results are pixel-identical to the preceding native
+float32 output. All three photos were reviewed at native hair scale on white
+and dark backgrounds. Soft fringe, background retained between some hair
+strands, and a partially missed hand remain visible in the gallery checks;
+these execution changes do not solve those segmentation errors. Original
+source hashes are unchanged. Generated review images are removed after review.
+
+Final validation passes 119 standard tests (13 Python, 4 core, 81 neural unit,
+21 inference), the editor all-targets check, the portable GPU/catalog suite,
+and the two opt-in native parity tests covering all five background models.
+Strict Clippy, Web and Intel Mac compilation, i18n audit, `make app`, and the
+archive/dylib checks on both normal and stripped Mac executables also pass.
+
+The measurements below document earlier portable-kernel improvements. The
+portable automatic path still calibrates CPU versus partial GPU execution.
+
+The portable layer action calibrates its large partially accelerated models
 on first use. Both pinned BiRefNet Lite detectors share a placement decision;
 ViTMatte calibrates on its first 768px tile. Each calibration runs the actual
 input on both paths and keeps CPU execution if it is at least 20% faster.

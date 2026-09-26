@@ -57,60 +57,91 @@ fn seed_opaque(
     height: usize,
     cancelled: &mut impl FnMut() -> bool,
 ) -> Result<()> {
-    let mut horizontal = vec![false; hint.len()];
-    let mut core = vec![false; hint.len()];
-    for y in 0..height {
-        if cancelled() {
-            bail!("matting cancelled");
-        }
-        for x in 0..width {
-            let row = &hint[y * width..(y + 1) * width];
-            horizontal[y * width + x] = row
-                [x.saturating_sub(CORE_RADIUS)..=(x + CORE_RADIUS).min(width - 1)]
-                .iter()
-                .all(|&a| a > 0.98);
-        }
-    }
-    for y in 0..height {
-        if cancelled() {
-            bail!("matting cancelled");
-        }
-        for x in 0..width {
-            let i = y * width + x;
-            if (y.saturating_sub(CORE_RADIUS)..=(y + CORE_RADIUS).min(height - 1))
-                .all(|sy| horizontal[sy * width + x])
-            {
-                core[i] = true;
-            }
-        }
-    }
+    let confident: Vec<bool> = hint.iter().map(|&a| a > 0.98).collect();
+    let core = binary_window(&confident, width, height, CORE_RADIUS, true, cancelled)?;
+    drop(confident);
     // Expansion smaller than erosion stays within the original opaque hint,
     // keeping four pixels of unknown boundary for the detail model to solve.
-    for y in 0..height {
-        if cancelled() {
-            bail!("matting cancelled");
-        }
-        for x in 0..width {
-            horizontal[y * width + x] = core[y * width + x.saturating_sub(CORE_EXPANSION)
-                ..=y * width + (x + CORE_EXPANSION).min(width - 1)]
-                .contains(&true);
-        }
-    }
+    let expanded = binary_window(&core, width, height, CORE_EXPANSION, false, cancelled)?;
     for y in 0..height {
         if cancelled() {
             bail!("matting cancelled");
         }
         for x in 0..width {
             let i = y * width + x;
-            if tri[i] != 0
-                && (y.saturating_sub(CORE_EXPANSION)..=(y + CORE_EXPANSION).min(height - 1))
-                    .any(|sy| horizontal[sy * width + x])
-            {
+            if tri[i] != 0 && expanded[i] {
                 tri[i] = 2;
             }
         }
     }
     Ok(())
+}
+
+// A running count gives exactly the same clipped all/any box windows as the
+// scalar morphology, in O(pixels) rather than O(pixels * radius). Each row
+// remains a cancellation boundary, including the vertical pass.
+fn binary_window(
+    source: &[bool],
+    width: usize,
+    height: usize,
+    radius: usize,
+    erode: bool,
+    cancelled: &mut impl FnMut() -> bool,
+) -> Result<Vec<bool>> {
+    let mut horizontal = vec![false; source.len()];
+    let decide = |count, length| if erode { count == length } else { count > 0 };
+    for y in 0..height {
+        if cancelled() {
+            bail!("matting cancelled");
+        }
+        let row = &source[y * width..(y + 1) * width];
+        let mut count: usize = row[..(radius + 1).min(width)]
+            .iter()
+            .map(|&v| usize::from(v))
+            .sum();
+        for x in 0..width {
+            let length = (x + radius + 1).min(width) - x.saturating_sub(radius);
+            horizontal[y * width + x] = decide(count, length);
+            if x >= radius {
+                count -= usize::from(row[x - radius]);
+            }
+            if x + radius + 1 < width {
+                count += usize::from(row[x + radius + 1]);
+            }
+        }
+    }
+    let mut counts = vec![0usize; width];
+    for row in horizontal
+        .chunks_exact(width)
+        .take((radius + 1).min(height))
+    {
+        for (count, &v) in counts.iter_mut().zip(row) {
+            *count += usize::from(v);
+        }
+    }
+    let mut result = vec![false; source.len()];
+    for y in 0..height {
+        if cancelled() {
+            bail!("matting cancelled");
+        }
+        let length = (y + radius + 1).min(height) - y.saturating_sub(radius);
+        for x in 0..width {
+            result[y * width + x] = decide(counts[x], length);
+        }
+        if y >= radius {
+            let row = &horizontal[(y - radius) * width..(y - radius + 1) * width];
+            for (count, &v) in counts.iter_mut().zip(row) {
+                *count -= usize::from(v);
+            }
+        }
+        if y + radius + 1 < height {
+            let row = &horizontal[(y + radius + 1) * width..(y + radius + 2) * width];
+            for (count, &v) in counts.iter_mut().zip(row) {
+                *count += usize::from(v);
+            }
+        }
+    }
+    Ok(result)
 }
 
 // 0 = known background, 1 = unknown, 2 = known foreground. Shrink confidence
@@ -251,6 +282,49 @@ fn refine_seeded_with(
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn running_binary_windows_match_scalar_boxes_at_clipped_edges() {
+        for (w, h) in [(1, 1), (1, 19), (23, 1), (7, 13), (65, 47)] {
+            for pattern in 0..3 {
+                let input: Vec<bool> = (0..w * h)
+                    .map(|i| match pattern {
+                        0 => false,
+                        1 => true,
+                        _ => (i * 37 + i / w * 19) % 101 > 11,
+                    })
+                    .collect();
+                for radius in [0, 1, 4, 12, 16, 128] {
+                    for erode in [false, true] {
+                        let actual =
+                            binary_window(&input, w, h, radius, erode, &mut || false).unwrap();
+                        for y in 0..h {
+                            for x in 0..w {
+                                let mut values = (y.saturating_sub(radius)
+                                    ..=(y + radius).min(h - 1))
+                                    .flat_map(|sy| {
+                                        (x.saturating_sub(radius)..=(x + radius).min(w - 1))
+                                            .map(move |sx| sy * w + sx)
+                                    })
+                                    .map(|i| input[i]);
+                                let expected = if erode {
+                                    values.all(|v| v)
+                                } else {
+                                    values.any(|v| v)
+                                };
+                                assert_eq!(
+                                    actual[y * w + x],
+                                    expected,
+                                    "{w}x{h} ({x},{y}) radius {radius} erode {erode}"
+                                );
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        assert!(binary_window(&[true], 1, 1, 4, true, &mut || true).is_err());
+    }
 
     fn refine_with(
         rgb: &[f32],

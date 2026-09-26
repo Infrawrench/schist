@@ -551,12 +551,24 @@ export-foreground:
 	$(MATTING_PYTHON) tools/train/export_foreground.py --install
 export-detail-matting:
 	$(MATTING_PYTHON) tools/train/export_detail_matting.py
+.PHONY: export-background-coreml-sources export-background-coreml
+export-background-coreml-sources:
+	mkdir -p target/background-removal
+	$(CARGO) run $(PROFILE_FLAG) -p schist-neural --features coreml-export --example export_coreml > target/background-removal/coreml-sources.tsv
+export-background-coreml: export-background-coreml-sources
+	$(MATTING_PYTHON) tools/train/export_coreml.py --sources target/background-removal/coreml-sources.tsv
 check-background-removal:
 	$(MATTING_PYTHON) tools/train/test_background.py
 	$(CARGO) test $(PROFILE_FLAG) -p schist-core --lib automatic_mask
 	$(CARGO) test $(PROFILE_FLAG) -p schist-neural --lib --test inference
 	$(CARGO) check $(PROFILE_FLAG) -p schist-editor --all-targets
 .PHONY: check-background-removal-gpu check-background-removal-web lint-background-removal
+.PHONY: check-background-removal-native
+check-background-removal-native:
+	$(CARGO) test $(PROFILE_FLAG) -p schist-neural --lib background_models_match_original_cpu_graphs -- --ignored --nocapture --test-threads=1
+.PHONY: check-background-coreml-bundle
+check-background-coreml-bundle:
+	python3 tools/check-background-coreml-bundle.py target/$(PROFILE)/schist
 check-background-removal-gpu:
 	$(CARGO) test $(PROFILE_FLAG) -p schist-compositor-gpu --test neural_catalog --test background_removal -- --test-threads=1 $(ARGS)
 check-background-removal-web:
@@ -564,7 +576,7 @@ check-background-removal-web:
 lint-background-removal:
 	$(CARGO) clippy $(PROFILE_FLAG) -p schist-core -p schist-neural -p schist-compositor-gpu -p schist-editor --all-targets -- -D warnings
 format-background-removal:
-	$(CARGO) fmt -p schist-core -p schist-neural -p schist-editor -p schist-app-actions
+	$(CARGO) fmt -p schist-core -p schist-neural -p schist-compositor-gpu -p schist-editor -p schist-app-actions
 background-removal-example:
 	$(CARGO) run $(PROFILE_FLAG) -p schist-neural --example remove_background -- $(ARGS)
 .PHONY: profile-background-removal

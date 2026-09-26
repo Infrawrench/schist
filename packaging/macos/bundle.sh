@@ -57,7 +57,10 @@ rm -rf "$app"
 mkdir -p "$app/Contents/MacOS" "$app/Contents/Resources"
 cp "$root/packaging/macos/Info.plist" "$app/Contents/Info.plist"
 copy_executable "$root/target/$target/schist" "$app/Contents/MacOS/schist"
+# Verify the actual shipping copy, after stripping and before signing.
+python3 "$root/tools/check-background-coreml-bundle.py" "$app/Contents/MacOS/schist"
 cp "$root/packaging/macos/schist.icns" "$app/Contents/Resources/"
+cp -R "$root/crates/neural/licenses" "$app/Contents/Resources/neural-runtime-licenses"
 
 # Quick Look ships as two app extensions around one executable: macOS
 # allows a bundle only one extension point, and thumbnails (Finder icons)

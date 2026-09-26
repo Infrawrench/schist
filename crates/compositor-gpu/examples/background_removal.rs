@@ -109,7 +109,8 @@ fn main() {
                 let model = schist_neural::get(id).expect("model must be installed");
                 schist_neural::release(id);
                 eprintln!(
-                    "{id}: resident={}, partitions={}",
+                    "{id}: native={}, resident={}, partitions={}",
+                    model.uses_native_inference(),
                     model.gpu_program().is_some(),
                     model.gpu_partition_count()
                 );

@@ -1,0 +1,115 @@
+{
+  "detail-matting": {
+    "archive": "detail-matting.mlmodelc.tar.xz",
+    "sha256": "ce1dffadd2ad527c8cf034146eca95cb57712a26ee1bf797c2e1f41a5ecdedda",
+    "bytes": 98406432,
+    "files": [
+      [
+        "analytics/coremldata.bin",
+        243,
+        "0151f182c0c9462f6fcfa3a1617d8cb071a7cc67bfc588a3c4b672fa617c11d7"
+      ],
+      [
+        "coremldata.bin",
+        157,
+        "8f626d099b80cae679786dc6e2ce83aa491f223e2f4fadca159f36a699ec4116"
+      ],
+      [
+        "model.mil",
+        440899,
+        "e13508927c89795206ac5a0e3555032c6422af8cb9f926f82fd38f252078dc7b"
+      ],
+      [
+        "weights/inline.bin",
+        85014592,
+        "0d8a3f057cb6effd9b8b940ccdbc61bddef5fe2813bd6ba915c5526f7daebf0c"
+      ],
+      [
+        "weights/weight.bin",
+        26773632,
+        "3c332f4e3d6aebfb4d96efc1ce9b70d12c770a4e50a8ca286f9ec19a4e3702c8"
+      ]
+    ],
+    "externalized_constants": 96,
+    "externalized_bytes": 85008384,
+    "specification_version": 6,
+    "opsets": [
+      "CoreML5"
+    ],
+    "source_onnx_xz_sha256": "3c31c66e8ca3a9ec550fec06e2b23c7ac57225fe7a97953e4d8ae38c326a6f37",
+    "coremltools": "9.0",
+    "xcode": "Xcode 26.3\nBuild version 17C529"
+  },
+  "subject-guide": {
+    "archive": "subject-guide.mlmodelc.tar.xz",
+    "sha256": "07fe85985d61498bc122c5432ee2c9743358d1fb391881ad3c1b72ced322ee2d",
+    "bytes": 40418952,
+    "files": [
+      [
+        "analytics/coremldata.bin",
+        243,
+        "2dffb31e6225018c0bb1b4fc0c8a1f48179ca4d91c3b4c8b8fc79df72618dfcd"
+      ],
+      [
+        "coremldata.bin",
+        153,
+        "f3dc08266900ca1f8e8e889fb8c846eb0c7c4460e4e7c95e98fad9d08133de64"
+      ],
+      [
+        "model.mil",
+        163597,
+        "f05cb323b2b051c6e2895e9b475b5f701b98405521a11b6ded033f186170c0ee"
+      ],
+      [
+        "weights/weight.bin",
+        44056064,
+        "80df5f936595705db25f608a14516f5acf675c423b1bda9cc990d1622bd26ada"
+      ]
+    ],
+    "externalized_constants": 0,
+    "externalized_bytes": 0,
+    "specification_version": 6,
+    "opsets": [
+      "CoreML5"
+    ],
+    "source_onnx_xz_sha256": "883dd1d4b4c7bdfc24c38ba516f2a299fa0fe1af355f22af4906a1627daa07fa",
+    "coremltools": "9.0",
+    "xcode": "Xcode 26.3\nBuild version 17C529"
+  },
+  "matting": {
+    "archive": "matting.mlmodelc.tar.xz",
+    "sha256": "360317283b672e41888c02a1b0f572889c429210efefee1c79617967a39cceca",
+    "bytes": 82916,
+    "files": [
+      [
+        "analytics/coremldata.bin",
+        243,
+        "e011f59dc0a364fb3c6746453a9d45b377a7cb5632375fe5db8c73b56212306e"
+      ],
+      [
+        "coremldata.bin",
+        156,
+        "0daad2fe008b430978c3c96412e96b2f1bec81bd499e1a841446d1391430ca40"
+      ],
+      [
+        "model.mil",
+        12867,
+        "235deb7be8ee0098b24d53c46c934c999af08b56d8a1cd685aacda9c0dc9ee9a"
+      ],
+      [
+        "weights/weight.bin",
+        88704,
+        "887245b0fa2f6fed5cee343d40b9566e65cdbdec937403127ad5064c42de4be1"
+      ]
+    ],
+    "externalized_constants": 0,
+    "externalized_bytes": 0,
+    "specification_version": 6,
+    "opsets": [
+      "CoreML5"
+    ],
+    "source_onnx_xz_sha256": "485a9ba783fde2442aa00f52a90a7aa027e086745045f99a16b4ddf4f9b60a2c",
+    "coremltools": "9.0",
+    "xcode": "Xcode 26.3\nBuild version 17C529"
+  }
+}

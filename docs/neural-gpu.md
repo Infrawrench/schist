@@ -5,7 +5,8 @@ Compatible networks compile to resident compute graphs, including SFace
 recognition's PReLU and inference Dropout layers. Anti-Smudge, the MobileCLIP
 text encoder and unsupported background-matting graphs run their expensive
 contractions on the GPU within a tract execution plan. This uses the existing
-wgpu device, without a separate inference runtime or CUDA requirement.
+wgpu device. macOS background removal additionally uses Core ML through Rust
+bindings and the statically linked `ort` dependency described below.
 
 Anti-Smudge has 279 eligible contractions and the text encoder has 29. These
 counts describe graph coverage, not guaranteed dispatches: the production
@@ -97,7 +98,74 @@ decoder stages retain tract after local benchmarks found mixed or slower
 results there. This path changes execution, preserving the filters, biases,
 resolution and model tile overlap. It is logged as `BandedAccelerateConv`.
 
-The native automatic background-removal action opts into measured placement.
+On macOS, the three bundled background refiners use precompiled Core ML
+archives through Rust `objc2-core-ml` bindings. The Mac executable embeds only
+`detail-matting.mlmodelc.tar.xz`, `subject-guide.mlmodelc.tar.xz` and
+`matting.mlmodelc.tar.xz`; their ONNX archives remain in the repository for other
+platforms and are excluded from Mac production builds. The archives total
+138,908,300 bytes; excluding their ONNX copies avoids another 136,175,436 bytes.
+They target Core ML 5 / macOS 12 or newer; these compiled refiners are
+unavailable on macOS 11. Runtime validation here uses macOS 15.6.1; Intel Mac
+and Web are also compile-checked.
+
+Archives are checked against pinned SHA-256 hashes and extracted to stable,
+versioned paths under `~/Library/Caches/schist/neural/coreml-bundled-v1`.
+Extraction checks every member name, size and digest, disallows links and
+traversal, bounds decompression, and publishes the complete directory by rename.
+Core ML GPU failures retry the **same compiled model on the CPU**, so no fallback
+ONNX copy needs shipping. Input/output shapes, strides and float32 values are
+validated. Synchronous predictions own their input storage and serialize access
+to each model. Idle models are released after five minutes; active callers keep
+their ownership. CPU and GPU model caches are separate.
+
+The two optional/downloaded foreground detectors use the statically linked
+`ort` 2.0.0-rc.13 / ONNX Runtime 1.28.0 Core ML provider on Apple Silicon. Cargo
+verifies its static archive at build time. No ONNX Runtime dylib is packaged or
+loaded. The application invokes no Python or Swift process. Other neural
+filters, Linux, Windows and Web retain the existing tract/wgpu paths.
+
+Rust graph preparation is restricted to five pinned source hashes. Detector
+bilinear sampling is expressed as `GridSample` with the same padded input,
+coordinates, border behavior and modulation. Constant Gather folding preserves
+float bits; relative-position Einsum becomes Transpose/MatMul; redundant batch
+axes and scalar Gather layouts are rewritten without changing weights or
+resolution. The matting detector and detail refiner each form one Core ML graph.
+The general detector has three Core ML partitions with small host shape steps.
+The offline subject-guide export expands its 20 HardSwish operations into
+HardSigmoid/Multiply, uses BASIC optimization to avoid unsupported activation
+fusions, and produces one complete Core ML graph.
+
+Large inline float constants are stored in standard binary MIL weight blobs,
+keeping their bits and reducing both loading time and cache size. The bundled
+models are converted offline by `make export-background-coreml` (Apple Silicon,
+Xcode and `coremltools==9.0` in `MATTING_PYTHON`). The Rust source exporter reads
+ONNX from disk; enabling its optional feature does not embed it in the app.
+`models/background-coreml.json` records archive/member hashes and provenance.
+Downloaded-detector caches receive the same lossless transformation in Rust
+before an existing graph is loaded again. Their first conversion/compilation can
+still be slow. The original downloaded ONNX files are retained for tract CPU
+fallback; they are not part of the application bundle.
+
+Source pins and versioned cache paths isolate derived graphs. Prepared ONNX
+files are checked against their digest before reuse. At most five pinned native
+sessions can be retained; a five-minute idle timeout also releases their validated
+source buffers. `SCHIST_NEURAL_CACHE` overrides the cache root.
+`SCHIST_NEURAL_LEGACY_NATIVE=1` bypasses the detector Core ML path for diagnostics;
+`SCHIST_NEURAL_COREML_CPU=1` forces compiled refiners onto the CPU.
+
+`make check-background-removal-native` compares the two installed detectors
+against original CPU ONNX graphs and all three compiled refiners against the
+original tract CPU plans, on both Core ML GPU and CPU. It is an opt-in Apple
+Silicon check. Ordinary tests cover graph constants, archive integrity, tensor
+layouts, malformed inputs and idle cache ownership.
+The final compiled assets differ from original CPU output by at most
+0.00001151 in float alpha on the parity inputs; the two native detectors differ
+by at most 0.00001497. `make check-background-coreml-bundle` inspects the release
+executable for all three compiled archives, absence of their ONNX payloads,
+and absence of an ONNX Runtime dylib dependency. Mac packaging runs this check
+on the stripped shipping copy before signing the application bundle.
+
+The portable automatic background-removal path opts into measured placement.
 On its first input it times both CPU and accelerated execution of each large
 model family, including transfers and host operators. It uses CPU when at
 least 20% faster; otherwise it keeps GPU offloading. Both pinned BiRefNet Lite

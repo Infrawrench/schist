@@ -76,6 +76,11 @@ thread_local! {
     static ADAPTIVE: Cell<bool> = const { Cell::new(false) };
 }
 
+#[cfg(target_os = "macos")]
+pub(super) fn adaptive_enabled() -> bool {
+    ADAPTIVE.get()
+}
+
 /// Measure CPU and accelerated execution once per background-model family and
 /// input shape, then reuse the faster placement for this backend's lifetime.
 /// Only affects synchronous inference inside `run` on the calling thread; do

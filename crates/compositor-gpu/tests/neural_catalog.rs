@@ -226,7 +226,9 @@ fn every_installed_catalogue_model_has_a_gpu_path() {
         let model =
             schist_neural::get(spec.id).unwrap_or_else(|| panic!("{} failed to load", spec.id));
         assert!(
-            model.gpu_program().is_some() || model.gpu_partition_count() > 0,
+            model.uses_native_inference()
+                || model.gpu_program().is_some()
+                || model.gpu_partition_count() > 0,
             "{} has no GPU path",
             spec.id
         );

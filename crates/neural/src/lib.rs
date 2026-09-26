@@ -1,10 +1,10 @@
 //! Neural network inference: the Neural Filters, and the two tools that
 //! need a model as much as any of them.
 //!
-//! Runs ONNX models through [`tract`], which is pure Rust -- no ONNX
-//! Runtime, no C toolchain, nothing to install. That matters here: a paint
-//! program that needs a 300 MB runtime and a matching CUDA to sharpen a
-//! photo is not a paint program anyone will use.
+//! Runs ONNX models through the portable Rust `tract` backend. macOS embeds
+//! precompiled Core ML background refiners instead of their ONNX copies. On
+//! Apple Silicon, downloaded detectors also use a statically linked `ort`
+//! dependency. No separate inference runtime needs installing.
 //!
 //! The installed effects backend runs compatible graphs on the GPU. On native
 //! hosts, graphs with unsupported operators or large tensors also offload
@@ -15,7 +15,7 @@
 //!
 //! * **Built in.** `detail.onnx`, `dejpeg.onnx`, `colorize.onnx`,
 //!   `portrait.onnx`, `inpaint.onnx`, the waifu2x upscalers and
-//!   `anti-smudge.onnx.xz` and the background-removal refiners/guide ship inside
+//!   `anti-smudge.onnx.xz` and background refiners (compiled Core ML on Mac) ship inside
 //!   the binary. XZ weights stay compressed until first use; see the respective
 //!   feature documents for provenance.
 //! * **Downloaded.** The style-transfer, depth, face and segmentation
@@ -75,6 +75,20 @@ mod gather_nd;
 mod halo;
 mod inpaint;
 mod matting;
+#[cfg(target_os = "macos")]
+mod native_coreml;
+#[cfg(all(
+    feature = "coreml-export",
+    target_os = "macos",
+    target_arch = "aarch64"
+))]
+pub use native_onnx::export_coreml_source;
+#[cfg(all(target_os = "macos", target_arch = "aarch64"))]
+mod coreml_weights;
+#[cfg(all(target_os = "macos", target_arch = "aarch64"))]
+mod native_onnx;
+#[cfg(all(target_os = "macos", target_arch = "aarch64"))]
+mod native_onnx_graph;
 mod pad_copy;
 mod resample;
 mod resize_copy;
@@ -148,11 +162,29 @@ const COLORIZE_ONNX: &[u8] = include_bytes!("../models/colorize.onnx");
 const PORTRAIT_ONNX: &[u8] = include_bytes!("../models/portrait.onnx");
 #[cfg(any(not(target_arch = "wasm32"), schist_library))]
 const INPAINT_ONNX: &[u8] = include_bytes!("../models/inpaint.onnx");
-#[cfg(any(not(target_arch = "wasm32"), schist_library))]
+#[cfg(any(
+    test,
+    all(
+        not(target_os = "macos"),
+        any(not(target_arch = "wasm32"), schist_library)
+    )
+))]
 const DETAIL_MATTING_ONNX_XZ: &[u8] = include_bytes!("../models/detail-matting.onnx.xz");
-#[cfg(any(not(target_arch = "wasm32"), schist_library))]
+#[cfg(any(
+    test,
+    all(
+        not(target_os = "macos"),
+        any(not(target_arch = "wasm32"), schist_library)
+    )
+))]
 const MATTING_ONNX_XZ: &[u8] = include_bytes!("../models/matting.onnx.xz");
-#[cfg(any(not(target_arch = "wasm32"), schist_library))]
+#[cfg(any(
+    test,
+    all(
+        not(target_os = "macos"),
+        any(not(target_arch = "wasm32"), schist_library)
+    )
+))]
 const SUBJECT_GUIDE_ONNX_XZ: &[u8] = include_bytes!("../models/subject-guide.onnx.xz");
 #[cfg(any(not(target_arch = "wasm32"), schist_library))]
 const WAIFU2X_ART_ONNX: &[u8] = include_bytes!("../models/waifu2x-art.onnx");
@@ -736,7 +768,11 @@ pub fn installed(id: &str) -> bool {
 
 /// A loaded model, ready to run.
 pub struct Model {
-    plan: Arc<TypedSimplePlan>,
+    #[cfg(target_os = "macos")]
+    compiled: Option<native_coreml::Network>,
+    plan: Option<Arc<TypedSimplePlan>>,
+    #[cfg(all(target_os = "macos", target_arch = "aarch64"))]
+    native: Option<native_onnx::Network>,
     gpu: Option<gpu::Network>,
     partitioned: Option<gpu_partition::Partitioned>,
     /// Planes the graph's input takes, which is three for everything
@@ -799,7 +835,40 @@ impl Model {
     /// optimize the graph completely rather than for an unknown size.
     /// XZ-compressed ONNX is expanded in memory for parsing.
     pub fn from_bytes(spec: &'static ModelSpec, bytes: &[u8]) -> Result<Model> {
-        let bytes = decode_model_bytes(bytes)?;
+        Self::from_bytes_inner(spec, bytes, true)
+    }
+
+    fn from_bytes_inner(
+        spec: &'static ModelSpec,
+        original: &[u8],
+        allow_native: bool,
+    ) -> Result<Model> {
+        #[cfg(not(all(target_os = "macos", target_arch = "aarch64")))]
+        let _ = allow_native;
+        #[cfg(all(target_os = "macos", target_arch = "aarch64"))]
+        if allow_native && native_onnx::requested(spec.id) {
+            match native_onnx::Network::load(spec, original) {
+                Ok(native) => {
+                    return Ok(Model {
+                        channels: native.channels(),
+                        native: Some(native),
+                        compiled: None,
+                        plan: None,
+                        gpu: None,
+                        partitioned: None,
+                        nhwc: false,
+                        restoration_max_side: None,
+                        restoration_tile_size: None,
+                        restoration_halo_cleanup: false,
+                        spec,
+                    })
+                }
+                Err(error) => {
+                    log::info!(target: "schist_neural::execution", "{}: native unavailable, using tract: {error:#}", spec.id)
+                }
+            }
+        }
+        let bytes = decode_model_bytes(original)?;
         let (mut w, mut h) = spec.input.dims();
         let mut cursor = std::io::Cursor::new(bytes.as_ref());
         let mut onnx = tract_onnx::onnx();
@@ -851,7 +920,11 @@ impl Model {
             let plan = typed.clone().into_optimized()?.into_runnable()?;
             let partitioned = gpu_partition::Partitioned::compile(typed);
             return Ok(Model {
-                plan,
+                plan: Some(plan),
+                #[cfg(all(target_os = "macos", target_arch = "aarch64"))]
+                native: None,
+                #[cfg(target_os = "macos")]
+                compiled: None,
                 gpu: None,
                 partitioned,
                 channels: 0,
@@ -999,7 +1072,11 @@ impl Model {
             None
         };
         Ok(Model {
-            plan,
+            plan: Some(plan),
+            #[cfg(all(target_os = "macos", target_arch = "aarch64"))]
+            native: None,
+            #[cfg(target_os = "macos")]
+            compiled: None,
             gpu,
             partitioned,
             channels,
@@ -1017,6 +1094,22 @@ impl Model {
             .unwrap_or_else(|| self.spec.input.dims())
     }
 
+    /// Whether this plan uses the optional native inference runtime.
+    pub fn uses_native_inference(&self) -> bool {
+        #[cfg(all(target_os = "macos", not(target_arch = "aarch64")))]
+        {
+            self.compiled.is_some()
+        }
+        #[cfg(all(target_os = "macos", target_arch = "aarch64"))]
+        {
+            self.native.is_some() || self.compiled.is_some()
+        }
+        #[cfg(not(target_os = "macos"))]
+        {
+            false
+        }
+    }
+
     /// The checked resident graph, also submit-able by an asynchronous GPU host.
     /// Input uses the model's declared tensor layout and encoded value range.
     pub fn gpu_program(&self) -> Option<&schist_fx::ComputeProgram> {
@@ -1031,6 +1124,14 @@ impl Model {
     }
 
     fn run_input(&self, inputs: TVec<TValue>) -> Result<TVec<TValue>> {
+        #[cfg(all(target_os = "macos", target_arch = "aarch64"))]
+        if let Some(native) = &self.native {
+            return native.run(self.spec, inputs);
+        }
+        #[cfg(target_os = "macos")]
+        if let Some(compiled) = &self.compiled {
+            return compiled.run(self.spec, inputs);
+        }
         #[cfg(not(target_arch = "wasm32"))]
         if let Some(key) = execution::Key::for_model(self.spec.id, inputs[0].shape()) {
             let backend = schist_fx::backend();
@@ -1075,9 +1176,16 @@ impl Model {
 
     fn run_cpu(&self, inputs: TVec<TValue>) -> Result<TVec<TValue>> {
         #[cfg(not(target_arch = "wasm32"))]
-        return execution::run_cpu(self.spec.id, &self.plan, inputs);
+        return execution::run_cpu(
+            self.spec.id,
+            self.plan.as_ref().context("CPU plan unavailable")?,
+            inputs,
+        );
         #[cfg(target_arch = "wasm32")]
-        self.plan.run(inputs)
+        self.plan
+            .as_ref()
+            .context("CPU plan unavailable")?
+            .run(inputs)
     }
 
     /// How many planes the graph wants.
@@ -1292,7 +1400,21 @@ fn cache() -> &'static Cache {
 /// failure is cached too, so a broken file is not re-parsed on every dab.
 #[cfg(not(schist_library))]
 pub fn get(id: &str) -> Option<Arc<Model>> {
-    if let Some(hit) = cache().read().ok()?.get(id) {
+    #[cfg(all(target_os = "macos", target_arch = "aarch64"))]
+    let key = if native_onnx::requested(id) {
+        format!("native:{id}")
+    } else {
+        id.to_owned()
+    };
+    #[cfg(not(all(target_os = "macos", target_arch = "aarch64")))]
+    let key = id.to_owned();
+    #[cfg(target_os = "macos")]
+    let key = if native_coreml::bundled(id) {
+        native_coreml::cache_key(id)
+    } else {
+        key
+    };
+    if let Some(hit) = cache().read().ok()?.get(&key) {
         return hit.clone();
     }
     let spec = spec(id)?;
@@ -1301,7 +1423,7 @@ pub fn get(id: &str) -> Option<Arc<Model>> {
         .ok()
         .map(Arc::new);
     if let Ok(mut c) = cache().write() {
-        c.insert(id.to_string(), loaded.clone());
+        c.insert(key, loaded.clone());
     }
     loaded
 }
@@ -1311,9 +1433,25 @@ pub fn get(id: &str) -> Option<Arc<Model>> {
 /// from disk — callers use this when a model's whole feature has left
 /// the screen (the gallery's scorer and search towers are hundreds of
 /// resident megabytes between them).
+/// Apple Silicon background sessions have a separate five-minute idle pool so
+/// consecutive layer actions can reuse their expensive GPU specialization.
 pub fn release(id: &str) {
     if let Ok(mut c) = cache().write() {
         c.remove(id);
+        #[cfg(all(target_os = "macos", target_arch = "aarch64"))]
+        {
+            let key = format!("native:{id}");
+            // Keep the validated source with its GPU session. Otherwise every
+            // layer action rereads/copies/hashes hundreds of MB just to reuse it.
+            // The native reaper releases idle, unowned Model entries too.
+            if !c
+                .get(&key)
+                .and_then(Option::as_ref)
+                .is_some_and(|model| model.native.is_some())
+            {
+                c.remove(&key);
+            }
+        }
     }
 }
 
@@ -1331,6 +1469,24 @@ fn load(spec: &'static ModelSpec) -> Result<Model> {
 
 #[cfg(any(not(target_arch = "wasm32"), schist_library))]
 fn load(spec: &'static ModelSpec) -> Result<Model> {
+    #[cfg(target_os = "macos")]
+    if native_coreml::bundled(spec.id) {
+        let compiled = native_coreml::Network::load(spec)?;
+        return Ok(Model {
+            compiled: Some(compiled),
+            #[cfg(target_arch = "aarch64")]
+            native: None,
+            channels: if spec.id == "subject-guide" { 3 } else { 4 },
+            plan: None,
+            gpu: None,
+            partitioned: None,
+            nhwc: false,
+            restoration_max_side: None,
+            restoration_tile_size: None,
+            restoration_halo_cleanup: false,
+            spec,
+        });
+    }
     if spec.built_in() {
         let bytes = match spec.id {
             "anti-smudge" => ANTI_SMUDGE_ONNX_XZ,
@@ -1339,8 +1495,11 @@ fn load(spec: &'static ModelSpec) -> Result<Model> {
             "colorize" => COLORIZE_ONNX,
             "portrait" => PORTRAIT_ONNX,
             "inpaint" => INPAINT_ONNX,
+            #[cfg(not(target_os = "macos"))]
             "detail-matting" => DETAIL_MATTING_ONNX_XZ,
+            #[cfg(not(target_os = "macos"))]
             "matting" => MATTING_ONNX_XZ,
+            #[cfg(not(target_os = "macos"))]
             "subject-guide" => SUBJECT_GUIDE_ONNX_XZ,
             "waifu2x-art" => WAIFU2X_ART_ONNX,
             "waifu2x-photo" => WAIFU2X_PHOTO_ONNX,
@@ -1449,6 +1608,13 @@ pub fn uninstall(spec: &ModelSpec) -> Result<()> {
 pub fn forget(id: &str) {
     if let Ok(mut c) = cache().write() {
         c.remove(id);
+        #[cfg(all(target_os = "macos", target_arch = "aarch64"))]
+        c.remove(&format!("native:{id}"));
+        #[cfg(target_os = "macos")]
+        {
+            c.remove(&format!("compiled:cpu:{id}"));
+            c.remove(&format!("compiled:gpu:{id}"));
+        }
     }
 }
 
@@ -1470,6 +1636,10 @@ pub fn installed_size(spec: &ModelSpec) -> Option<u64> {
     #[cfg(not(target_arch = "wasm32"))]
     {
         if spec.built_in() {
+            #[cfg(target_os = "macos")]
+            if let Some(size) = native_coreml::archive_size(spec.id) {
+                return Some(size);
+            }
             return Some(spec.bytes as u64);
         }
         std::fs::metadata(model_dir().join(spec.file))
