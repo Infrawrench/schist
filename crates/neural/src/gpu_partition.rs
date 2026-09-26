@@ -119,6 +119,9 @@ impl Partitioned {
             model
         };
         crate::tensor_layout::optimize(&mut model)?;
+        if crate::fast_compute_ops() {
+            crate::pad_copy::optimize(&mut model)?;
+        }
         if crate::fast_host_ops() {
             crate::gather_copy::optimize(&mut model)?;
             crate::resize_copy::optimize(&mut model)?;

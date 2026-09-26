@@ -62,6 +62,8 @@ pub mod embed;
 mod face_rect;
 mod faces;
 pub use face_rect::{FaceRect, SAME_FACE_IOU};
+#[cfg(target_os = "macos")]
+mod accelerate_matrix;
 mod deform_sample;
 mod detail_matting;
 mod foreground_color;
@@ -71,6 +73,7 @@ mod gather_nd;
 mod halo;
 mod inpaint;
 mod matting;
+mod pad_copy;
 mod resample;
 mod resize_copy;
 mod segment;
@@ -92,6 +95,16 @@ pub(crate) fn fast_host_ops() -> bool {
 }
 
 // Paired performance/accuracy diagnostics keep the original model graph.
+pub(crate) fn fast_compute_ops() -> bool {
+    #[cfg(not(target_arch = "wasm32"))]
+    {
+        static ENABLED: std::sync::OnceLock<bool> = std::sync::OnceLock::new();
+        *ENABLED.get_or_init(|| std::env::var_os("SCHIST_NEURAL_LEGACY_COMPUTE").is_none())
+    }
+    #[cfg(target_arch = "wasm32")]
+    true
+}
+
 fn fast_model_ops() -> bool {
     #[cfg(not(target_arch = "wasm32"))]
     {
@@ -935,12 +948,23 @@ impl Model {
         // tract's preliminary PushSliceUp rewrite panics on BiRefNet's
         // batched index tensors. Codegen optimization handles this graph.
         let mut cpu = typed.clone();
-        if has_batched_gather {
-            cpu.optimize()?;
-        } else {
-            cpu = cpu.into_optimized()?;
+        if !has_batched_gather {
+            cpu.declutter()?;
         }
+        #[cfg(target_os = "macos")]
+        if matches!(
+            spec.id,
+            "detail-matting" | "foreground" | "foreground-matting"
+        ) && fast_compute_ops()
+        {
+            let count = accelerate_matrix::optimize(&mut cpu)?;
+            log::info!(target: "schist_neural::execution", "{}: accelerated {count} matrix products", spec.id);
+        }
+        cpu.optimize()?;
         tensor_layout::optimize(&mut cpu)?;
+        if fast_compute_ops() {
+            pad_copy::optimize(&mut cpu)?;
+        }
         if fast_host_ops() {
             gather_copy::optimize(&mut cpu)?;
             resize_copy::optimize(&mut cpu)?;

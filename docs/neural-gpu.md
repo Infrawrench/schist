@@ -26,8 +26,8 @@ axes. Unsupported contraction layouts retain the scalar kernel.
 The offload threshold applies to the entire contraction so a
 short final band cannot inadvertently force the whole operation back to CPU.
 
-Without a GPU, Schist runs the original optimized tract plan. If a GPU operation
-fails or exceeds device limits, that operation runs through an independently
+Without a GPU, Schist runs an optimized tract plan with native host kernels.
+If a GPU operation fails or exceeds device limits, it runs through an independently
 optimized tract fallback using its original inputs. A failure after a successful
 band discards the partial output and recomputes the operation. No partial tensor
 is passed to subsequent layers.
@@ -48,6 +48,10 @@ architectures retain the portable transpose implementation. These host passes
 apply to both CPU and partitioned GPU plans, preserving model resolution and
 precision.
 
+Fixed float32 constant padding copies whole contiguous rows into a prefilled
+output. Input and padding-value bits are preserved, including signed zero and
+NaN payloads. Reflect/edge padding and unsupported shapes retain tract.
+
 The foreground models also recognize the exporter's four-corner deformable
 sampling subgraph. A fused operation performs the same gathers, weighted sum,
 modulation and convolution-layout conversion directly. Sampling metadata is
@@ -61,6 +65,16 @@ float32 softmax exponentials, with tract's SIMD sum and normalization. Stable
 maximum subtraction is retained. Vector exp and reduction order can introduce
 small rounding differences; this does not use reduced-precision weights or
 approximate fast-exp softmax. Other platforms retain tract's softmax.
+
+The macOS CPU plans for both BiRefNet detectors and ViTMatte also rewrite
+compatible large float32 Einstein contractions to Accelerate `cblas_sgemm`.
+Checked matrix views cover transposed operands/output, broadcast weights,
+interleaved attention heads and contiguous compound reduction axes, without
+packing copies. Shapes, strides, allocation extents and the 32-bit BLAS limits
+are checked before dispatch. Each product must require at least one million
+multiply-accumulates; small or unsupported contractions retain tract.
+This changes execution kernels, not model weights, precision, trimaps or tile
+geometry. Accumulation order may introduce small floating-point differences.
 
 The native automatic background-removal action opts into measured placement.
 On its first input it times both CPU and accelerated execution of each large
@@ -90,6 +104,10 @@ previous host operators in the same executable. It is a native diagnostic
 control read once per process; weights, precision and tiling stay unchanged.
 `SCHIST_NEURAL_LEGACY_MODEL=1` separately disables deformable-sampling fusion and
 the macOS vector softmax for comparisons with the preceding model execution.
+`SCHIST_NEURAL_LEGACY_COMPUTE=1` disables the Accelerate matrix and contiguous
+padding passes for paired comparisons with the preceding implementation.
+`SCHIST_MATRIX_LAYOUTS=1` logs unsupported contraction equations and shapes
+without tensor contents, to identify further packing/stride costs.
 
 `make check-neural-gpu` executes real GPU dispatches and compares them with tract:
 PReLU, inference Dropout, grouped/dilated/asymmetrically padded convolution,

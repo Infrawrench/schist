@@ -346,7 +346,7 @@ excludes their inference time. It is an implementation check on one image.
 ## Native GPU integration checks
 
 With the GPU and tensor-execution changes, `make check-background-removal`
-passes 92 tests (13 Python, 4 core, 54 neural unit and 21 inference tests) and
+passes 100 tests (13 Python, 4 core, 62 neural unit and 21 inference tests) and
 the editor all-targets check. `make check-background-removal-gpu` verifies real
 GPU dispatches for the bundled refiners and guide at the production offload
 threshold, alongside the existing catalog, Anti-Smudge and fallback checks.
@@ -391,7 +391,15 @@ archives and weights are unchanged. On macOS, CPU attention softmax also uses
 Accelerate vector exponentials and SIMD reduction with stable maximum
 subtraction. Resolution, float32 precision, trimaps and overlap are preserved.
 
-The latest paired measurements use the same executable on an Apple M4, with
+The macOS CPU plans additionally send compatible large float32 matrix products
+to Accelerate BLAS, including strided attention heads and transposed output.
+Validated direct views avoid packing copies. Small and unsupported products
+retain tract. Constant padding uses contiguous row copies in both CPU and
+partitioned GPU plans, preserving every input and padding-value bit. These
+passes optimize model execution without retraining, pruning or quantization.
+Matrix accumulation order can differ; photo comparisons check the saved output.
+
+Earlier paired measurements used the same executable on an Apple M4, with
 `SCHIST_NEURAL_LEGACY_MODEL=1` disabling only sampling fusion and vector softmax
 for the preceding implementation. Each run reloads the models and processes
 the complete photo through PNG output. No detector cache is reused:
@@ -418,7 +426,7 @@ crops were also compared on white and dark backgrounds. This confirms
 preservation of the accepted output on these inputs, not perfect segmentation
 of arbitrary photographs. Original photo hashes remain unchanged.
 
-With these changes, GPU-enabled automatic placement took **76.98 seconds**
+With sampling fusion and vector softmax, GPU-enabled automatic placement took **76.98 seconds**
 including calibration, then **67.97 seconds** with cached decisions and freshly
 loaded model plans. Calibration selected CPU for both large model families:
 5.48 versus 11.97 seconds for the detector and 2.25 versus 2.84 seconds for the
@@ -428,6 +436,31 @@ run took **115.83 seconds** and differed from optimized CPU at two alpha pixels
 and one RGB value, each by one byte. Reduced copying helps both paths, but the
 complete partitioned GPU graphs remain slower on this M4. The remaining host
 operations and GPU transfers are included in these timings.
+
+The additional Accelerate matrix and contiguous padding passes were measured
+with `SCHIST_NEURAL_LEGACY_COMPUTE=1` as the same-executable control, retaining
+the preceding sampling/softmax optimizations. Four supplied-photo runs used
+optimized/previous/previous/optimized order. Mean total time decreased from
+**87.36 to 64.78 seconds (26%)**; individual previous runs took 93.86 and 80.86
+seconds, versus 71.99 and 57.57 seconds optimized. Mean detail refinement time
+decreased from 58.74 to 38.01 seconds (35%). Both detectors accelerate 102 matrix
+products and the detail refiner accelerates 68. The large run-to-run variation
+reflects concurrent machine load, so these figures remain development timings.
+
+Two 2316 × 3088 gallery comparisons, with the run order reversed between
+photos, also retained identical saved RGBA values. Portrait 010 decreased from
+**78.88 to 63.43 seconds (20%)** and the long-hair portrait 285 from **66.71 to
+55.09 seconds (17%)**. Native-size hair crops on white and dark backgrounds
+show no regression. These checks preserve the accepted output on three photos;
+they do not establish artifact-free segmentation on arbitrary inputs.
+
+The supplied photo's saved RGBA pixels are identical across all four CPU runs
+and the automatic result. Automatic mode took **59.39 seconds** including
+calibration, then **52.11 seconds** with cached placement and reloaded plans.
+It selected CPU for both large families: 4.04 versus 7.65 seconds for the
+detector, and 1.15 versus 2.33 seconds for the first detail tile. The guide and
+opaque-core model still use GPU dispatches. Thus reduced copying and improved
+matrix execution do not make partitioned GPU execution preferable on this M4.
 
 To measure the same complete pipeline on an installed model set:
 
