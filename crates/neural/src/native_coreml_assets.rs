@@ -19,4 +19,11 @@ const ASSETS: &[Asset] = &[
         ("model.mil", 12867, "235deb7be8ee0098b24d53c46c934c999af08b56d8a1cd685aacda9c0dc9ee9a"),
         ("weights/weight.bin", 88704, "887245b0fa2f6fed5cee343d40b9566e65cdbdec937403127ad5064c42de4be1"),
     ] },
+    #[cfg(target_arch = "aarch64")]
+    Asset { id: "detail-matting-gpu", archive: include_bytes!("../models/detail-matting-gpu.mlmodelc.tar.xz"), hash: "4cb525636e778b8c45192669953a1787decd686710977b233660afa89ef77d5c", files: &[
+        ("analytics/coremldata.bin", 243, "21c3da3cd6ad8f32f42d07293ebdd1aa995bc5ca432b55727536d30f7c3f79ac"),
+        ("coremldata.bin", 318, "6bf672bf333cf2687c3d8b16aafe9c9084ab2ebbec47f0b819369574b8a02288"),
+        ("model.mil", 532250, "125fc5ed73b54a29987dd0cff2b2d40b11dbb8a4f26c5f9a6646bc40157f1994"),
+        ("weights/weight.bin", 55940768, "7a282de6a9e79bb1153f107708c40bce39c29227ff1fd8ce7c8c3676a3234636"),
+    ] },
 ];

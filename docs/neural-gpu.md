@@ -101,9 +101,11 @@ resolution and model tile overlap. It is logged as `BandedAccelerateConv`.
 On macOS, the three bundled background refiners use precompiled Core ML
 archives through Rust `objc2-core-ml` bindings. The Mac executable embeds only
 `detail-matting.mlmodelc.tar.xz`, `subject-guide.mlmodelc.tar.xz` and
-`matting.mlmodelc.tar.xz`; their ONNX archives remain in the repository for other
-platforms and are excluded from Mac production builds. The archives total
-138,908,300 bytes; excluding their ONNX copies avoids another 136,175,436 bytes.
+`matting.mlmodelc.tar.xz`, plus `detail-matting-gpu.mlmodelc.tar.xz` on Apple
+Silicon. Their ONNX archives remain in the repository for other platforms and
+are excluded from Mac production builds. The float32 archives total
+138,908,300 bytes; the Apple Silicon GPU variant adds 48,339,112 bytes.
+Excluding their ONNX copies avoids another 136,175,436 bytes.
 They target Core ML 5 / macOS 12 or newer; these compiled refiners are
 unavailable on macOS 11. Runtime validation here uses macOS 15.6.1; Intel Mac
 and Web are also compile-checked.
@@ -112,8 +114,8 @@ Archives are checked against pinned SHA-256 hashes and extracted to stable,
 versioned paths under `~/Library/Caches/schist/neural/coreml-bundled-v1`.
 Extraction checks every member name, size and digest, disallows links and
 traversal, bounds decompression, and publishes the complete directory by rename.
-Core ML GPU failures retry the **same compiled model on the CPU**, so no fallback
-ONNX copy needs shipping. Input/output shapes, strides and float32 values are
+Core ML GPU failures retry the full-precision compiled model on the CPU, so no
+fallback ONNX copy needs shipping. Input/output shapes, strides and float32 values are
 validated. Synchronous predictions own their input storage and serialize access
 to each model. Idle models are released after five minutes; active callers keep
 their ownership. CPU and GPU model caches are separate.
@@ -141,10 +143,26 @@ models are converted offline by `make export-background-coreml` (Apple Silicon,
 Xcode and `coremltools==9.0` in `MATTING_PYTHON`). The Rust source exporter reads
 ONNX from disk; enabling its optional feature does not embed it in the app.
 `models/background-coreml.json` records archive/member hashes and provenance.
-Downloaded-detector caches receive the same lossless transformation in Rust
-before an existing graph is loaded again. Their first conversion/compilation can
-still be slow. The original downloaded ONNX files are retained for tract CPU
-fallback; they are not part of the application bundle.
+Downloaded-detector caches receive the same lossless weight-storage
+transformation in Rust before an existing graph is loaded again. Their first
+conversion/compilation can still be slow. The original downloaded ONNX files
+are retained for tract CPU fallback; they are not part of the application bundle.
+
+The Apple Silicon detail variant additionally uses mixed-precision arithmetic:
+layer normalization, reductions, softmax, powers, reciprocal square roots,
+division and the final sigmoid stay float32, with other eligible operations
+lowered to float16. Input/output remain float32. Core ML uses CPU+GPU with
+low-precision GPU accumulation disabled. The original float32 detail archive
+is retained for CPU fallback and Intel Macs: the mixed graph had excessive
+CPU error on both stress inputs and a real portrait. GPU-load failure is
+explicitly tested to select the float32 graph. The guide, opaque-core model
+and detectors retain float32 execution. No image-resolution reduction is used.
+`export_coreml.py --gpu-only` preserves verified float32 archives when updating
+the GPU variant; their original source pins and archive hashes must match.
+
+Plane inputs are copied directly into tract tensors; contiguous Core ML output
+uses a bulk copy after validating capacity and strides. Padded/transposed
+outputs retain checked logical-element access without reading padding.
 
 Source pins and versioned cache paths isolate derived graphs. Prepared ONNX
 files are checked against their digest before reuse. At most five pinned native
@@ -158,10 +176,12 @@ against original CPU ONNX graphs and all three compiled refiners against the
 original tract CPU plans, on both Core ML GPU and CPU. It is an opt-in Apple
 Silicon check. Ordinary tests cover graph constants, archive integrity, tensor
 layouts, malformed inputs and idle cache ownership.
-The final compiled assets differ from original CPU output by at most
-0.00001151 in float alpha on the parity inputs; the two native detectors differ
-by at most 0.00001497. `make check-background-coreml-bundle` inspects the release
-executable for all three compiled archives, absence of their ONNX payloads,
+Float32 models retain the original maximum-alpha-error limit of 0.0005.
+The intentional GPU quantization has separate limits, expressed in 8-bit
+alpha levels: mean error below 0.5, 99th percentile below 2, maximum below 8.
+Full-image phone-photo checks supplement these synthetic numerical checks.
+`make check-background-coreml-bundle` inspects the release
+executable for its architecture's compiled archives, absence of their ONNX payloads,
 and absence of an ONNX Runtime dylib dependency. Mac packaging runs this check
 on the stripped shipping copy before signing the application bundle.
 

@@ -557,6 +557,9 @@ export-background-coreml-sources:
 	$(CARGO) run $(PROFILE_FLAG) -p schist-neural --features coreml-export --example export_coreml > target/background-removal/coreml-sources.tsv
 export-background-coreml: export-background-coreml-sources
 	$(MATTING_PYTHON) tools/train/export_coreml.py --sources target/background-removal/coreml-sources.tsv
+.PHONY: profile-background-coreml
+profile-background-coreml:
+	$(CARGO) run $(PROFILE_FLAG) -p schist-neural --features coreml-export --example profile_coreml -- $(ARGS)
 check-background-removal:
 	$(MATTING_PYTHON) tools/train/test_background.py
 	$(CARGO) test $(PROFILE_FLAG) -p schist-core --lib automatic_mask

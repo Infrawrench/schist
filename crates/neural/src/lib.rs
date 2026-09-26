@@ -831,6 +831,35 @@ fn declared_nhwc(proto: &tract_onnx::pb::ModelProto) -> bool {
 }
 
 impl Model {
+    /// Offline evaluation of a compiled background-refinement candidate.
+    /// This maintainer-only entry point never changes the installed model cache.
+    #[cfg(all(target_os = "macos", feature = "coreml-export"))]
+    pub fn from_coreml_path(spec: &'static ModelSpec, path: &std::path::Path) -> Result<Model> {
+        anyhow::ensure!(native_coreml::bundled(spec.id), "unknown compiled model");
+        Ok(Self::from_compiled(
+            spec,
+            native_coreml::Network::from_path(spec, path.into())?,
+        ))
+    }
+
+    #[cfg(target_os = "macos")]
+    fn from_compiled(spec: &'static ModelSpec, compiled: native_coreml::Network) -> Model {
+        Model {
+            compiled: Some(compiled),
+            #[cfg(target_arch = "aarch64")]
+            native: None,
+            channels: if spec.id == "subject-guide" { 3 } else { 4 },
+            plan: None,
+            gpu: None,
+            partitioned: None,
+            nhwc: false,
+            restoration_max_side: None,
+            restoration_tile_size: None,
+            restoration_halo_cleanup: false,
+            spec,
+        }
+    }
+
     /// Load from ONNX bytes, fixing the input to one frame so tract can
     /// optimize the graph completely rather than for an unknown size.
     /// XZ-compressed ONNX is expanded in memory for parsing.
@@ -1205,11 +1234,17 @@ impl Model {
                 planes.iter().map(|p| p.len()).collect::<Vec<_>>()
             );
         }
-        let input = tract_ndarray::Array4::<f32>::from_shape_fn(
-            (1, self.channels, h, w),
-            |(_, c, y, x)| planes[c][y * w + x],
-        );
-        self.run_input(tvec!(input.into_tensor().into()))
+        let mut input = Tensor::zero::<f32>(&[1, self.channels, h, w])?;
+        for (destination, source) in input
+            .to_plain_array_view_mut::<f32>()?
+            .as_slice_mut()
+            .context("non-contiguous plane tensor")?
+            .chunks_exact_mut(w * h)
+            .zip(planes)
+        {
+            destination.copy_from_slice(source);
+        }
+        self.run_input(tvec!(input.into()))
     }
 
     /// Run the graph over one frame of interleaved RGB in 0..=1, sized
@@ -1472,20 +1507,7 @@ fn load(spec: &'static ModelSpec) -> Result<Model> {
     #[cfg(target_os = "macos")]
     if native_coreml::bundled(spec.id) {
         let compiled = native_coreml::Network::load(spec)?;
-        return Ok(Model {
-            compiled: Some(compiled),
-            #[cfg(target_arch = "aarch64")]
-            native: None,
-            channels: if spec.id == "subject-guide" { 3 } else { 4 },
-            plan: None,
-            gpu: None,
-            partitioned: None,
-            nhwc: false,
-            restoration_max_side: None,
-            restoration_tile_size: None,
-            restoration_halo_cleanup: false,
-            spec,
-        });
+        return Ok(Model::from_compiled(spec, compiled));
     }
     if spec.built_in() {
         let bytes = match spec.id {

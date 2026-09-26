@@ -26,14 +26,36 @@ struct Asset {
 include!("native_coreml_assets.rs");
 
 pub(super) fn bundled(id: &str) -> bool {
-    ASSETS.iter().any(|asset| asset.id == id)
+    matches!(id, "detail-matting" | "subject-guide" | "matting")
 }
 
 pub(super) fn archive_size(id: &str) -> Option<u64> {
+    bundled(id).then(|| {
+        let gpu = format!("{id}-gpu");
+        ASSETS
+            .iter()
+            .filter(|a| a.id == id || a.id == gpu)
+            .map(|a| a.archive.len() as u64)
+            .sum()
+    })
+}
+
+fn asset(id: &str, cpu: bool) -> Result<&'static Asset> {
+    let id = if cfg!(target_arch = "aarch64") && !cpu && id == "detail-matting" {
+        "detail-matting-gpu"
+    } else {
+        id
+    };
     ASSETS
         .iter()
-        .find(|asset| asset.id == id)
-        .map(|asset| asset.archive.len() as u64)
+        .find(|a| a.id == id)
+        .context("unknown compiled asset")
+}
+
+fn cpu_path(path: &Path, fallback: Option<&Asset>) -> Result<PathBuf> {
+    fallback
+        .map(prepared)
+        .unwrap_or_else(|| Ok(path.to_owned()))
 }
 
 fn cpu_requested() -> bool {
@@ -338,17 +360,13 @@ impl Session {
                     // Strides are read inside the block: Core ML can change storage
                     // when making a GPU result CPU-accessible.
                     if let Ok(strides) = dimensions(&array.strides()) {
-                        if let Ok(offsets) =
-                            output_offsets(&self.output_shape, &strides, size as usize / 4)
-                        {
-                            let base = ptr.cast::<f32>().as_ptr();
-                            *values.borrow_mut() = Some(
-                                offsets
-                                    .into_iter()
-                                    .map(|i| *base.add(i))
-                                    .collect::<Vec<_>>(),
-                            );
-                        }
+                        *values.borrow_mut() = copy_output(
+                            ptr.cast::<f32>().as_ptr(),
+                            size as usize / 4,
+                            &self.output_shape,
+                            &strides,
+                        )
+                        .ok();
                     }
                 },
             ));
@@ -366,7 +384,15 @@ impl Session {
     }
 }
 
-fn output_offsets(shape: &[usize], strides: &[usize], capacity: usize) -> Result<Vec<usize>> {
+/// # Safety
+/// `storage` must cover `capacity` f32 slots, with the logical array elements
+/// initialized and readable for this call. Padding is never read or borrowed.
+unsafe fn copy_output(
+    storage: *const f32,
+    capacity: usize,
+    shape: &[usize],
+    strides: &[usize],
+) -> Result<Vec<f32>> {
     ensure!(
         shape.len() == 4 && strides.len() == 4 && shape[0] == 1 && shape[1] == 1,
         "invalid output layout"
@@ -375,18 +401,27 @@ fn output_offsets(shape: &[usize], strides: &[usize], capacity: usize) -> Result
         .checked_mul(shape[3])
         .filter(|&n| n > 0 && n <= 16_777_216)
         .context("invalid output size")?;
-    let mut offsets = Vec::with_capacity(len);
+    // Nonnegative strides put the furthest element at the bottom right. Check
+    // that bound once, then copy contiguous output without an index allocation.
+    let last = (shape[2] - 1)
+        .checked_mul(strides[2])
+        .and_then(|y| {
+            (shape[3] - 1)
+                .checked_mul(strides[3])
+                .and_then(|x| y.checked_add(x))
+        })
+        .context("compiled output offset overflow")?;
+    ensure!(last < capacity, "compiled output exceeds storage");
+    if strides[3] == 1 && strides[2] == shape[3] {
+        return Ok(unsafe { std::slice::from_raw_parts(storage, len) }.to_vec());
+    }
+    let mut values = Vec::with_capacity(len);
     for y in 0..shape[2] {
         for x in 0..shape[3] {
-            offsets.push(
-                y.checked_mul(strides[2])
-                    .and_then(|y| x.checked_mul(strides[3]).and_then(|x| y.checked_add(x)))
-                    .filter(|&i| i < capacity)
-                    .context("compiled output exceeds storage")?,
-            );
+            values.push(unsafe { *storage.add(y * strides[2] + x * strides[3]) });
         }
     }
-    Ok(offsets)
+    Ok(values)
 }
 
 struct State {
@@ -397,14 +432,24 @@ struct State {
 pub(super) struct Network {
     state: Mutex<State>,
     path: PathBuf,
+    fallback: Option<&'static Asset>,
 }
 impl Network {
     pub(super) fn load(spec: &crate::ModelSpec) -> Result<Self> {
-        let asset = ASSETS
-            .iter()
-            .find(|a| a.id == spec.id)
-            .context("unknown compiled asset")?;
-        let path = prepared(asset)?;
+        let selected = asset(spec.id, cpu_requested())?;
+        let cpu = asset(spec.id, true)?;
+        let fallback = (selected.hash != cpu.hash).then_some(cpu);
+        Self::from_paths(spec, prepared(selected)?, fallback)
+    }
+    #[cfg(feature = "coreml-export")]
+    pub(super) fn from_path(spec: &crate::ModelSpec, path: PathBuf) -> Result<Self> {
+        Self::from_paths(spec, path, None)
+    }
+    fn from_paths(
+        spec: &crate::ModelSpec,
+        path: PathBuf,
+        fallback: Option<&'static Asset>,
+    ) -> Result<Self> {
         let mut cpu = cpu_requested();
         let session = Session::load(&path, spec, cpu).or_else(|error| {
             if cpu {
@@ -415,7 +460,7 @@ impl Network {
                 spec.id
             );
             cpu = true;
-            Session::load(&path, spec, true)
+            Session::load(&cpu_path(&path, fallback)?, spec, true)
         })?;
         start_reaper();
         Ok(Self {
@@ -425,6 +470,7 @@ impl Network {
                 last_used: Instant::now(),
             }),
             path,
+            fallback,
         })
     }
     pub(super) fn idle(&self, now: Instant) -> bool {
@@ -449,7 +495,7 @@ impl Network {
                     "{} Core ML GPU prediction failed; using Core ML CPU: {error:#}",
                     spec.id
                 );
-                state.session = Session::load(&self.path, spec, true)?;
+                state.session = Session::load(&cpu_path(&self.path, self.fallback)?, spec, true)?;
                 state.cpu = true;
                 state.session.predict(&inputs)
             }
@@ -559,33 +605,85 @@ mod tests {
                 model.run_cpu(tensors.clone()).unwrap()
             };
             let reference = reference[0].to_plain_array_view::<f32>().unwrap();
-            let path = prepared(ASSETS.iter().find(|a| a.id == id).unwrap()).unwrap();
             for cpu in [false, true] {
+                let selected = asset(id, cpu).unwrap();
+                let path = prepared(selected).unwrap();
                 let model = Session::load(&path, spec, cpu).unwrap();
                 let actual = model.predict(&tensors).unwrap();
                 let actual = actual[0].to_plain_array_view::<f32>().unwrap();
-                let error = actual
+                let mut errors: Vec<_> = actual
                     .iter()
                     .zip(reference.iter())
                     .map(|(a, b)| (a - b).abs())
-                    .fold(0f32, f32::max);
-                eprintln!("{id} compiled cpu={cpu}: maximum alpha error {error}");
-                assert!(error < 0.0005, "{id} cpu={cpu} alpha error {error}");
+                    .collect();
+                errors.sort_unstable_by(f32::total_cmp);
+                let error = *errors.last().unwrap();
+                let mean = errors.iter().map(|&v| f64::from(v)).sum::<f64>() / errors.len() as f64;
+                let p99 = errors[errors.len() * 99 / 100];
+                eprintln!("{id} compiled cpu={cpu}: max={error}, mean={mean}, p99={p99}");
+                if selected.id == "detail-matting-gpu" {
+                    // Intentional GPU quantization, in units of an 8-bit matte:
+                    // average < half a level, 99% < two levels, worst < eight.
+                    // CPU fallback and the other models retain strict f32 parity.
+                    assert!(error < 8. / 255. && mean < 0.5 / 255. && p99 < 2. / 255.);
+                } else {
+                    assert!(error < 0.0005, "{id} cpu={cpu} alpha error {error}");
+                }
+            }
+            if id == "detail-matting" {
+                // A failed GPU load must use the original full-precision graph,
+                // not retry the lower-precision GPU graph on Core ML's CPU.
+                let missing = std::env::temp_dir().join(format!(
+                    "schist-missing-coreml-{}.mlmodelc",
+                    std::process::id()
+                ));
+                assert!(!missing.exists());
+                let fallback = crate::with_adaptive_execution(|| {
+                    Network::from_paths(spec, missing, Some(asset(id, true).unwrap())).unwrap()
+                });
+                assert!(fallback.state.lock().unwrap().cpu);
+                let actual = fallback.run(spec, tensors.clone()).unwrap();
+                let actual = actual[0].to_plain_array_view::<f32>().unwrap();
+                assert!(actual
+                    .iter()
+                    .zip(reference.iter())
+                    .all(|(a, b)| (a - b).abs() < 0.0005));
             }
         }
     }
     #[test]
+    fn gpu_detail_asset_has_a_distinct_full_precision_cpu_fallback() {
+        assert_eq!(asset("detail-matting", true).unwrap().id, "detail-matting");
+        assert_eq!(asset("subject-guide", false).unwrap().id, "subject-guide");
+        assert_eq!(asset("matting", false).unwrap().id, "matting");
+        let gpu = asset("detail-matting", false).unwrap();
+        if cfg!(target_arch = "aarch64") {
+            assert_eq!(gpu.id, "detail-matting-gpu");
+            assert_ne!(gpu.hash, asset("detail-matting", true).unwrap().hash);
+        } else {
+            assert_eq!(gpu.id, "detail-matting");
+        }
+    }
+    #[test]
     fn output_layout_handles_padding_and_rejects_out_of_bounds() {
+        let storage: Vec<_> = (0..8).map(|n| n as f32).collect();
+        let copy = |storage: &[f32], shape: &[usize], strides: &[usize]| unsafe {
+            copy_output(storage.as_ptr(), storage.len(), shape, strides)
+        };
         assert_eq!(
-            output_offsets(&[1, 1, 2, 3], &[8, 8, 4, 1], 8).unwrap(),
-            [0, 1, 2, 4, 5, 6]
+            copy(&storage, &[1, 1, 2, 3], &[8, 8, 4, 1]).unwrap(),
+            [0., 1., 2., 4., 5., 6.]
         );
         assert_eq!(
-            output_offsets(&[1, 1, 2, 2], &[4, 4, 1, 2], 4).unwrap(),
-            [0, 2, 1, 3]
+            copy(&storage, &[1, 1, 2, 2], &[4, 4, 1, 2]).unwrap(),
+            [0., 2., 1., 3.]
         );
-        assert!(output_offsets(&[1, 1, 2, 3], &[8, 8, 4, 1], 6).is_err());
-        assert!(output_offsets(&[1, 1, 2, 3], &[8, 8, usize::MAX, 1], 6).is_err());
-        assert!(output_offsets(&[1, 1, 0, 3], &[8, 8, 4, 1], 6).is_err());
+        assert_eq!(
+            copy(&storage, &[1, 1, 2, 3], &[6, 6, 3, 1]).unwrap(),
+            storage[..6]
+        );
+        assert!(copy(&storage[..6], &[1, 1, 2, 3], &[8, 8, 4, 1]).is_err());
+        assert!(copy(&storage, &[1, 1, 2, 3], &[8, 8, usize::MAX, 1]).is_err());
+        assert!(copy(&storage, &[1, 1, 0, 3], &[8, 8, 4, 1]).is_err());
     }
 }

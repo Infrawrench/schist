@@ -12,6 +12,13 @@ const RADIUS: usize = 4;
 const CORE_RADIUS: usize = 16;
 const CORE_EXPANSION: usize = 12;
 
+// Stop once the last central window covers the image boundary. Advancing all
+// the way to `length` adds a mostly padded tile when the preceding window
+// already covers the edge, without extending the image's coverage.
+fn tile_starts(length: usize) -> impl Iterator<Item = usize> {
+    (0..=length.saturating_sub(WINDOW).div_ceil(STRIDE)).map(|i| i * STRIDE)
+}
+
 pub(crate) fn refine(
     model: &Model,
     rgb: &[f32],
@@ -226,9 +233,9 @@ fn refine_seeded_with(
     let mut result = vec![0.0f32; n];
     let mut weights = vec![0.0f32; n];
     let mut planes = vec![vec![0.0f32; SIDE * SIDE]; 4];
-    for top in (0..height).step_by(STRIDE) {
+    for top in tile_starts(height) {
         let bh = WINDOW.min(height - top);
-        for left in (0..width).step_by(STRIDE) {
+        for left in tile_starts(width) {
             if cancelled() {
                 bail!("matting cancelled");
             }
@@ -413,6 +420,40 @@ mod tests {
             .iter()
             .zip(expected)
             .all(|(a, b)| (a - b).abs() < 2e-7));
+    }
+
+    #[test]
+    fn terminal_windows_cover_edges_without_redundant_padded_tiles() {
+        for length in [1, 128, 384, 511, 512, 513, 768, 896, 897, 1280, 2048, 3088] {
+            let starts: Vec<_> = tile_starts(length).collect();
+            assert_eq!(starts[0], 0);
+            let last = *starts.last().unwrap();
+            assert!(last < length && last + WINDOW >= length);
+            if starts.len() > 1 {
+                assert!(starts[starts.len() - 2] + WINDOW < length);
+            }
+            let (w, h) = (length, 1);
+            let expected: Vec<_> = (0..w).map(|x| (x % 251) as f32 / 250.).collect();
+            let rgb: Vec<_> = expected.iter().flat_map(|&v| [v, v, v]).collect();
+            let mut calls = 0;
+            let actual = refine_with(
+                &rgb,
+                &vec![0.5; w],
+                w,
+                h,
+                || false,
+                |planes| {
+                    calls += 1;
+                    Ok(planes[0].clone())
+                },
+            )
+            .unwrap();
+            assert_eq!(calls, starts.len());
+            assert!(actual
+                .iter()
+                .zip(expected)
+                .all(|(a, b)| (a - b).abs() < 2e-7));
+        }
     }
 
     #[test]

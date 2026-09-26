@@ -29,6 +29,12 @@ def window_weights():
     return np.minimum(np.minimum(x, WINDOW-x) / (WINDOW-STRIDE), 1)
 
 
+def tile_starts(length):
+    """Stop when the last central window covers the boundary."""
+    last = (max(0, length-WINDOW)+STRIDE-1)//STRIDE*STRIDE
+    return range(0, last+1, STRIDE)
+
+
 def refine_detail(model, rgb, alpha, opaque_hint=None):
     if alpha.ndim != 2 or not alpha.size or alpha.size > 16_777_216 or rgb.shape != (*alpha.shape, 3):
         raise ValueError("invalid detail matting dimensions")
@@ -42,10 +48,10 @@ def refine_detail(model, rgb, alpha, opaque_hint=None):
     weight_sum = np.zeros_like(alpha)
     ramp = window_weights()
     indices = np.arange(SIDE)
-    for top in range(0, h, STRIDE):
+    for top in tile_starts(h):
         rows = (indices + top-HALO).clip(0, h-1)
         bh = min(WINDOW, h-top)
-        for left in range(0, w, STRIDE):
+        for left in tile_starts(w):
             bw = min(WINDOW, w-left)
             dest = (slice(top, top+bh), slice(left, left+bw))
             known = tri[dest]

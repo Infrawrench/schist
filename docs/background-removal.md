@@ -28,8 +28,10 @@ Pipeline revision 9 uses **ViTMatte-S** for native-resolution hair/fur details.
 Non-Mac native builds embed `detail-matting.onnx.xz` (95,638,600 bytes), the
 semantic guide (40,454,876 bytes) and MatteNet (81,960 bytes), expanding them
 in memory when their plans are constructed. Mac builds embed only compressed
-precompiled Core ML versions of these three models; their ONNX payloads are
-excluded. The locally trained MatteNet supplies broad opaque interior seeds.
+precompiled Core ML versions of these three models, including a separate
+mixed-precision detail graph for Apple Silicon GPUs and the original float32
+graph for CPU fallback; their ONNX payloads are excluded.
+The locally trained MatteNet supplies broad opaque interior seeds.
 Model cards record both archive and expanded hashes, checked by regression tests.
 Web builds serve compressed assets on demand, following the existing model loader;
 the automatic layer action currently remains native-only.
@@ -83,7 +85,9 @@ its SHA-256 is checked on load and it has no import or download action.
    discard 128 pixels of context on each side; the central 512-pixel windows
    advance 384 pixels and blend through their 128-pixel overlaps. This matters
    because transformer predictions depend on distant context, unlike the
-   previous local convolutional model. Known regions remain exactly 0/1.
+   previous local convolutional model. The final row/column stops once its
+   central window covers the image boundary, avoiding an extra mostly padded
+   prediction over an already covered edge. Known regions remain exactly 0/1.
    To avoid thinning opaque sleeves or hands, additional foreground seeds come
    from MatteNet regions whose 33×33 minimum exceeds 0.98. Those cores expand
    by 12 pixels, leaving four pixels of unknown boundary inside the original
@@ -375,8 +379,9 @@ implementation of the accepted refinement; it is not a repeat of the entire
 
 macOS ships compressed, precompiled Core ML archives for the three bundled
 background refiners; their ONNX copies are excluded from the Mac executable.
-Rust bindings call the system Core ML framework directly, with Core ML CPU
-fallback using the same compiled assets. The archives target Core ML 5 /
+Rust bindings call the system Core ML framework directly, with a full-precision
+Core ML CPU fallback. Apple Silicon uses a mixed-precision detail graph on the
+GPU; Intel Macs keep the original float32 graph. The archives target Core ML 5 /
 macOS 12 or newer.
 The two downloaded foreground detectors use a statically linked Rust `ort`
 dependency on Apple Silicon. No ONNX Runtime dylib, Python process or Swift
@@ -386,6 +391,9 @@ Large inline float32 weights are moved to binary MIL storage without changing
 bits. This avoids parsing hundreds of megabytes of hexadecimal weight text.
 The opaque-region erosion/dilation also uses running counts with the same clipped
 window semantics, replacing repeated radius scans with linear pixel passes.
+The detail tiler avoids redundant terminal windows while preserving its native
+resolution, 128-pixel context margin and normal 128-pixel overlaps. Direct
+plane copies and contiguous output copies reduce tensor-allocation overhead.
 Validated model/session objects stay resident for up to five idle minutes so
 consecutive layer actions avoid rereading and hashing large source buffers.
 
@@ -395,40 +403,66 @@ Measure first-install preparation, a fresh process with the disk cache, and
 resident repeat actions separately: downloaded-detector compilation can still
 make first use much slower than a warm action.
 
-The final compiled assets were measured on an Apple M4 with 16 GB RAM and
-macOS 15.6.1. Each row starts a fresh process using already prepared disk caches,
-then repeats the complete model pipeline twice with resident sessions:
+The packaged model was measured on an Apple M4 with 16 GB RAM and macOS
+15.6.1. Each row starts a fresh process using prepared disk caches, then
+repeats the complete model pipeline with resident sessions:
 
 | Image | First action, cached files | Resident actions |
 | --- | ---: | ---: |
-| Supplied portrait, 1536 × 2048, first batch | 24.624 s | 13.237 / 13.020 s |
-| Supplied portrait, independent repeat batch | 13.978 s | 6.997 / 7.699 s |
-| Gallery portrait 010, 2316 × 3088 | 19.902 s | 15.092 / 15.500 s |
-| Gallery portrait 285, 2316 × 3088 | 16.246 s | 8.523 / 8.303 s |
+| Supplied portrait, 1536 × 2048 | 10.919 s | **4.666 / 4.392 / 3.963 s** |
+| Gallery portrait 010, 2316 × 3088 | 9.742 s | 6.097 / 6.410 s |
+| Gallery portrait 285, 2316 × 3088 | 11.428 s | 5.508 / 6.072 s |
 
-The supplied portrait reaches the sub-10-second target on resident repeats,
-but the full observed range is retained here: this is not a consistent bound
-across machine load, initial loading or larger images. No compilation or other
-model benchmark ran concurrently; normal desktop applications remained open.
-The timer includes model loading, inference, native-resolution refinement and
+The supplied portrait's preceding float32 baseline took 6.412 / 6.394 seconds
+warm. An independent optimized batch took 4.814 / 4.737 / 4.656 seconds warm.
+The gallery trials used the candidate's compiled graph and weights, which
+are byte-identical to the packaged model. The packaged portrait output is
+also pixel-identical to the reviewed candidate.
+
+These are pipeline measurements, not a sub-five-second bound for cold starts,
+larger photographs or every machine load. No compilation or other model
+benchmark ran concurrently; normal desktop applications remained open. The
+timer includes model loading, inference, native-resolution refinement and
 color cleanup. Only the final repeat also writes a PNG; source image decoding
-precedes the timer. First-ever detector conversion/compilation is excluded and
-can still take substantially longer. `/usr/bin/time -l` reports maximum resident
-sizes of 2.10–2.97 GB and peak process footprints of 7.61–7.95 GB, so available
-memory matters when using this GPU path.
+precedes the timer. First-ever detector conversion/compilation is excluded
+and can still take substantially longer. The final portrait process had a
+2.64 GB maximum resident size and 8.40 GB peak process footprint; GPU allocations
+make available memory significant.
 
-Both saved supplied-photo results are pixel-identical to the preceding native
-float32 output. All three photos were reviewed at native hair scale on white
-and dark backgrounds. Soft fringe, background retained between some hair
-strands, and a partially missed hand remain visible in the gallery checks;
-these execution changes do not solve those segmentation errors. Original
-source hashes are unchanged. Generated review images are removed after review.
+The GPU detail graph keeps layer normalization, reductions, softmax, powers,
+reciprocal square roots, division and the final sigmoid in float32, lowering
+other eligible operations to float16. CPU execution uses the existing float32
+archive: trials of the mixed graph on the CPU had excessive numerical error.
+The GPU archive adds 48,339,112 bytes on Apple Silicon; Intel builds omit it.
 
-Final validation passes 119 standard tests (13 Python, 4 core, 81 neural unit,
-21 inference), the editor all-targets check, the portable GPU/catalog suite,
-and the two opt-in native parity tests covering all five background models.
-Strict Clippy, Web and Intel Mac compilation, i18n audit, `make app`, and the
-archive/dylib checks on both normal and stripped Mac executables also pass.
+The precision-only portrait comparison changed alpha by at most 3/255;
+99% of translucent-edge differences were at most 1/255. Removing its redundant
+last tile row changed only the bottom 128 image rows, with a maximum difference
+of 14/255. White/dark composites of the affected hand/clothing edge and all
+three hair crops showed no visible new artifacts. The two larger photos had
+maximum alpha differences of 9/255 and 6/255; their mean translucent-edge
+differences were 0.174/255 and 0.117/255. Existing fringe, retained background
+between some strands and the missed hand remain. Original photos are preserved;
+generated review images are removed after the audit.
+
+`make check-background-removal` passes 122 tests (14 Python, 4 core, 83 neural
+unit, 21 inference), plus the editor all-targets check. Both opt-in native
+parity tests pass: the full-precision CPU detail model's maximum alpha error
+is 0.00000865, and its mixed GPU counterpart has maximum/mean/99th-percentile
+errors of 0.016547 / 0.001301 / 0.006814 on the stress input. The other compiled
+models retain strict float32 parity. A forced GPU-load failure verifies
+selection of the full-precision CPU archive.
+The portable GPU/catalog suite, strict Clippy (including the maintainer
+profiler), Web and Intel Mac compilation, i18n audit and `make app` also pass.
+Bundle checks pass on both the normal and stripped Mac executable, including
+the expected compiled assets and absence of their ONNX payloads and an ONNX
+Runtime dylib dependency.
+
+`make profile-background-coreml ARGS='input.jpg output.png 3 [candidate.mlmodelc]'`
+profiles the complete Rust pipeline on macOS. The optional compiled detail
+candidate is loaded only by this maintainer tool, without replacing cached
+production assets. `pipeline` excludes output encoding; `total` includes PNG
+writing on the final repeat. The input is decoded before either timer.
 
 The measurements below document earlier portable-kernel improvements. The
 portable automatic path still calibrates CPU versus partial GPU execution.

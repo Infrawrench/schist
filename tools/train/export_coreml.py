@@ -20,17 +20,23 @@ from coremltools.libmilstoragepython import _BlobStorageWriter
 import numpy as np
 
 IDS = ('detail-matting', 'subject-guide', 'matting')
+VARIANTS = (*IDS, 'detail-matting-gpu')
+FP32_OPERATIONS = frozenset({
+    'layer_norm', 'reduce_mean', 'reduce_sum', 'softmax', 'pow',
+    'rsqrt', 'real_div', 'sigmoid',
+})
 
 
 def sha(data):
     return hashlib.sha256(data).hexdigest()
 
 
-def compact(source, destination):
+def compact(source, destination, *, mixed=False):
     """Move inline float constants into standard MIL binary weight storage.
 
     ORT's transposed MatMul weights otherwise become huge hexadecimal text in
-    model.mil. This preserves float32 values and every operation exactly.
+    model.mil. Storage compaction preserves the float32 values exactly; the
+    optional GPU variant then applies a separate mixed-precision conversion.
     """
     spec = ct.utils.load_spec(str(source))
     weights = destination / 'weights'
@@ -76,12 +82,31 @@ def compact(source, destination):
     spec.specificationVersion = 6
     del writer
     package = destination / 'model.mlpackage'
-    ct.models.MLModel(spec, weights_dir=str(weights), skip_model_load=True).save(str(package))
+    model = ct.models.MLModel(spec, weights_dir=str(weights), skip_model_load=True)
+    if mixed:
+        # Keep layer normalization, reductions, softmax and the final sigmoid
+        # in float32. GPU-eligible arithmetic is otherwise lowered to float16;
+        # the public image/trimap input and alpha output remain float32.
+        from coremltools.converters.mil.frontend.milproto.load import load
+        program = load(spec, spec.specificationVersion, file_weights_dir=str(weights))
+        model = ct.convert(
+            program, source='milinternal', convert_to='mlprogram',
+            compute_precision=ct.transform.FP16ComputePrecision(
+                op_selector=lambda operation: operation.op_type not in FP32_OPERATIONS),
+            minimum_deployment_target=ct.target.macOS12, skip_model_load=True,
+        )
+        converted = model.get_spec()
+        assert converted.description.input == spec.description.input
+        assert converted.description.output == spec.description.output
+        assert converted.specificationVersion == spec.specificationVersion
+    model.save(str(package))
     compiled = destination / 'model.mlmodelc'
     ct.models.utils.compile_model(str(package), destination_path=str(compiled))
     return compiled, {'externalized_constants': count, 'externalized_bytes': size,
                       'specification_version': spec.specificationVersion,
-                      'opsets': sorted({f.opset for f in spec.mlProgram.functions.values()})}
+                      'opsets': sorted({f.opset for f in spec.mlProgram.functions.values()}),
+                      'compute_precision': 'mixed_float16' if mixed else 'float32',
+                      'float32_operations': sorted(FP32_OPERATIONS) if mixed else None}
 
 
 def pack(compiled, archive):
@@ -108,6 +133,8 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--sources', type=Path, required=True, help='Rust export TSV')
     parser.add_argument('--work', type=Path, default=Path('target/background-removal/coreml-export'))
+    parser.add_argument('--gpu-only', action='store_true',
+                        help='Preserve verified float32 archives and rebuild only the GPU variant')
     args = parser.parse_args()
     sources = dict(line.split('\t', 1) for line in args.sources.read_text().splitlines())
     assert set(sources) == set(IDS)
@@ -120,28 +147,47 @@ def main():
     args.work.mkdir(parents=True)
     out = Path('crates/neural/models')
     manifest = {}
-    rows = []
-    for id in IDS:
+    if args.gpu_only:
+        previous = json.loads((out / 'background-coreml.json').read_text())
+        for id in IDS:
+            record = previous[id]
+            assert record['sha256'] == sha((out / record['archive']).read_bytes())
+            assert record['source_onnx_xz_sha256'] == sha((out / (id + '.onnx.xz')).read_bytes())
+            assert record.get('compute_precision', 'float32') == 'float32'
+            manifest[id] = record
+    updated = ('detail-matting-gpu',) if args.gpu_only else VARIANTS
+    for id in updated:
+        source_id = id.removesuffix('-gpu')
         work = args.work / id
         work.mkdir()
-        compiled, report = compact(source_models[id], work)
+        compiled, report = compact(source_models[source_id], work, mixed=id.endswith('-gpu'))
         archive = work / (id + '.mlmodelc.tar.xz')
         record = pack(compiled, archive)
         record.update(report)
-        record['source_onnx_xz_sha256'] = sha((out / (id + '.onnx.xz')).read_bytes())
+        record['source_onnx_xz_sha256'] = sha((out / (source_id + '.onnx.xz')).read_bytes())
+        record['source_model'] = source_id
+        record['target_arch'] = 'aarch64' if id.endswith('-gpu') else None
         record['coremltools'] = ct.__version__
         record['xcode'] = subprocess.check_output(['xcodebuild', '-version'], text=True).strip()
         manifest[id] = record
-        files = ''.join(f'        ({json.dumps(n)}, {s}, {json.dumps(h)}),\n' for n, s, h in record['files'])
-        rows.append(f'    Asset {{ id: {json.dumps(id)}, archive: include_bytes!("../models/{archive.name}"), hash: {json.dumps(record["sha256"])}, files: &[\n{files}    ] }},')
         print(id, record['bytes'], record['sha256'], flush=True)
     # Publish only after every model has compiled and packed successfully.
-    for id in IDS:
+    for id in updated:
         filename = manifest[id]['archive']
         temporary = out / (filename + '.tmp')
         shutil.copyfile(args.work / id / filename, temporary)
         temporary.replace(out / filename)
     (out / 'background-coreml.json').write_text(json.dumps(manifest, indent=2) + '\n')
+    write_assets(manifest)
+
+
+def write_assets(manifest):
+    rows = []
+    for id in VARIANTS:
+        record = manifest[id]
+        files = ''.join(f'        ({json.dumps(n)}, {s}, {json.dumps(h)}),\n' for n, s, h in record['files'])
+        cfg = '    #[cfg(target_arch = "aarch64")]\n' if id.endswith('-gpu') else ''
+        rows.append(f'{cfg}    Asset {{ id: {json.dumps(id)}, archive: include_bytes!("../models/{record["archive"]}"), hash: {json.dumps(record["sha256"])}, files: &[\n{files}    ] }},')
     Path('crates/neural/src/native_coreml_assets.rs').write_text(
         '// Generated by make export-background-coreml. Source ONNX is excluded on macOS.\n'
         'const ASSETS: &[Asset] = &[\n' + '\n'.join(rows) + '\n];\n')

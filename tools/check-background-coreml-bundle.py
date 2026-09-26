@@ -12,13 +12,16 @@ parser.add_argument('binary', type=Path)
 args = parser.parse_args()
 models = Path(__file__).resolve().parents[1] / 'crates/neural/models'
 manifest = json.loads((models / 'background-coreml.json').read_text())
+architectures = subprocess.check_output(['lipo', '-archs', str(args.binary)], text=True).split()
 with args.binary.open('rb') as file, mmap.mmap(file.fileno(), 0, access=mmap.ACCESS_READ) as binary:
-    for id in ('detail-matting', 'subject-guide', 'matting'):
-        record = manifest[id]
+    for id, record in manifest.items():
         archive = (models / record['archive']).read_bytes()
         assert hashlib.sha256(archive).hexdigest() == record['sha256'], id
+        if record.get('target_arch') == 'aarch64' and 'arm64' not in architectures:
+            assert binary.find(archive) < 0, f'{id}: unused Apple Silicon variant is embedded'
+            continue
         assert binary.find(archive) >= 0, f'{id}: compiled archive missing from executable'
-        original = (models / (id + '.onnx.xz')).read_bytes()
+        original = (models / (record.get('source_model', id) + '.onnx.xz')).read_bytes()
         # Check multiple unique spans as well as the complete original, catching
         # an accidentally embedded copy even if link-time deduplication splits it.
         assert binary.find(original) < 0, f'{id}: original ONNX is embedded'

@@ -24,6 +24,23 @@ class FakeDetector:
 
 
 class BackgroundTests(unittest.TestCase):
+    def test_detail_window_covers_exact_image_boundary_once(self):
+        from detail_matting import refine_detail
+        class Identity:
+            calls = 0
+            def get_inputs(self):
+                return [type("Input", (), {"name": "rgb_trimap"})()]
+            def run(self, _, values):
+                self.calls += 1
+                return [values["rgb_trimap"][:, :1]]
+        model = Identity()
+        yy, xx = np.mgrid[:512, :512]
+        expected = (xx+yy).astype(np.float32)/1024
+        rgb = np.repeat(expected[..., None], 3, axis=-1)
+        actual = refine_detail(model, rgb, np.full((512, 512), .5, np.float32))
+        np.testing.assert_allclose(actual, expected, atol=2e-7)
+        self.assertEqual(model.calls, 1)
+
     def test_detail_windows_reconstruct_soft_strands_without_joins(self):
         from detail_matting import refine_detail
         class Identity:
