@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Verify the shipping Mac binary embeds only compiled background assets."""
+"""Verify a shipping Apple binary embeds only compiled background assets."""
 import argparse
 import hashlib
 import json

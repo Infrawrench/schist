@@ -75,13 +75,15 @@ mod gather_copy;
 mod gather_nd;
 mod halo;
 mod inpaint;
+#[cfg(all(test, target_os = "ios"))]
+mod ios_tests;
 mod matting;
 mod model_cache;
-#[cfg(all(target_os = "macos", not(schist_library)))]
+#[cfg(all(any(target_os = "macos", target_os = "ios"), not(schist_library)))]
 mod preload;
-#[cfg(all(target_os = "macos", not(schist_library)))]
+#[cfg(all(any(target_os = "macos", target_os = "ios"), not(schist_library)))]
 pub use preload::preload_background_removal;
-#[cfg(target_os = "macos")]
+#[cfg(any(target_os = "macos", target_os = "ios"))]
 mod native_coreml;
 #[cfg(all(
     feature = "coreml-export",
@@ -89,11 +91,11 @@ mod native_coreml;
     target_arch = "aarch64"
 ))]
 pub use native_onnx::export_coreml_source;
-#[cfg(all(target_os = "macos", target_arch = "aarch64"))]
+#[cfg(all(any(target_os = "macos", target_os = "ios"), target_arch = "aarch64"))]
 mod coreml_weights;
-#[cfg(all(target_os = "macos", target_arch = "aarch64"))]
+#[cfg(all(any(target_os = "macos", target_os = "ios"), target_arch = "aarch64"))]
 mod native_onnx;
-#[cfg(all(target_os = "macos", target_arch = "aarch64"))]
+#[cfg(all(any(target_os = "macos", target_os = "ios"), target_arch = "aarch64"))]
 mod native_onnx_graph;
 mod pad_copy;
 mod resample;
@@ -171,7 +173,7 @@ const INPAINT_ONNX: &[u8] = include_bytes!("../models/inpaint.onnx");
 #[cfg(any(
     test,
     all(
-        not(target_os = "macos"),
+        not(any(target_os = "macos", target_os = "ios")),
         any(not(target_arch = "wasm32"), schist_library)
     )
 ))]
@@ -179,7 +181,7 @@ const DETAIL_MATTING_ONNX_XZ: &[u8] = include_bytes!("../models/detail-matting.o
 #[cfg(any(
     test,
     all(
-        not(target_os = "macos"),
+        not(any(target_os = "macos", target_os = "ios")),
         any(not(target_arch = "wasm32"), schist_library)
     )
 ))]
@@ -187,7 +189,7 @@ const MATTING_ONNX_XZ: &[u8] = include_bytes!("../models/matting.onnx.xz");
 #[cfg(any(
     test,
     all(
-        not(target_os = "macos"),
+        not(any(target_os = "macos", target_os = "ios")),
         any(not(target_arch = "wasm32"), schist_library)
     )
 ))]
@@ -774,10 +776,10 @@ pub fn installed(id: &str) -> bool {
 
 /// A loaded model, ready to run.
 pub struct Model {
-    #[cfg(target_os = "macos")]
+    #[cfg(any(target_os = "macos", target_os = "ios"))]
     compiled: Option<native_coreml::Network>,
     plan: Option<Arc<TypedSimplePlan>>,
-    #[cfg(all(target_os = "macos", target_arch = "aarch64"))]
+    #[cfg(all(any(target_os = "macos", target_os = "ios"), target_arch = "aarch64"))]
     native: Option<native_onnx::Network>,
     gpu: Option<gpu::Network>,
     partitioned: Option<gpu_partition::Partitioned>,
@@ -848,7 +850,7 @@ impl Model {
         ))
     }
 
-    #[cfg(target_os = "macos")]
+    #[cfg(any(target_os = "macos", target_os = "ios"))]
     fn from_compiled(spec: &'static ModelSpec, compiled: native_coreml::Network) -> Model {
         Model {
             compiled: Some(compiled),
@@ -878,9 +880,9 @@ impl Model {
         original: &[u8],
         allow_native: bool,
     ) -> Result<Model> {
-        #[cfg(not(all(target_os = "macos", target_arch = "aarch64")))]
+        #[cfg(not(all(any(target_os = "macos", target_os = "ios"), target_arch = "aarch64")))]
         let _ = allow_native;
-        #[cfg(all(target_os = "macos", target_arch = "aarch64"))]
+        #[cfg(all(any(target_os = "macos", target_os = "ios"), target_arch = "aarch64"))]
         if allow_native && native_onnx::requested(spec.id) {
             match native_onnx::Network::load(spec, original) {
                 Ok(native) => {
@@ -956,9 +958,9 @@ impl Model {
             let partitioned = gpu_partition::Partitioned::compile(typed);
             return Ok(Model {
                 plan: Some(plan),
-                #[cfg(all(target_os = "macos", target_arch = "aarch64"))]
+                #[cfg(all(any(target_os = "macos", target_os = "ios"), target_arch = "aarch64"))]
                 native: None,
-                #[cfg(target_os = "macos")]
+                #[cfg(any(target_os = "macos", target_os = "ios"))]
                 compiled: None,
                 gpu: None,
                 partitioned,
@@ -1108,9 +1110,9 @@ impl Model {
         };
         Ok(Model {
             plan: Some(plan),
-            #[cfg(all(target_os = "macos", target_arch = "aarch64"))]
+            #[cfg(all(any(target_os = "macos", target_os = "ios"), target_arch = "aarch64"))]
             native: None,
-            #[cfg(target_os = "macos")]
+            #[cfg(any(target_os = "macos", target_os = "ios"))]
             compiled: None,
             gpu,
             partitioned,
@@ -1131,15 +1133,21 @@ impl Model {
 
     /// Whether this plan uses the optional native inference runtime.
     pub fn uses_native_inference(&self) -> bool {
-        #[cfg(all(target_os = "macos", not(target_arch = "aarch64")))]
+        #[cfg(all(
+            any(target_os = "macos", target_os = "ios"),
+            not(target_arch = "aarch64")
+        ))]
         {
             self.compiled.is_some()
         }
-        #[cfg(all(target_os = "macos", target_arch = "aarch64"))]
+        #[cfg(all(any(target_os = "macos", target_os = "ios"), target_arch = "aarch64"))]
         {
-            self.native.is_some() || self.compiled.is_some()
+            self.native
+                .as_ref()
+                .is_some_and(native_onnx::Network::active)
+                || self.compiled.is_some()
         }
-        #[cfg(not(target_os = "macos"))]
+        #[cfg(not(any(target_os = "macos", target_os = "ios")))]
         {
             false
         }
@@ -1159,11 +1167,11 @@ impl Model {
     }
 
     fn run_input(&self, inputs: TVec<TValue>) -> Result<TVec<TValue>> {
-        #[cfg(all(target_os = "macos", target_arch = "aarch64"))]
+        #[cfg(all(any(target_os = "macos", target_os = "ios"), target_arch = "aarch64"))]
         if let Some(native) = &self.native {
             return native.run(self.spec, inputs);
         }
-        #[cfg(target_os = "macos")]
+        #[cfg(any(target_os = "macos", target_os = "ios"))]
         if let Some(compiled) = &self.compiled {
             return compiled.run(self.spec, inputs);
         }
@@ -1240,7 +1248,7 @@ impl Model {
                 planes.iter().map(|p| p.len()).collect::<Vec<_>>()
             );
         }
-        #[cfg(target_os = "macos")]
+        #[cfg(any(target_os = "macos", target_os = "ios"))]
         if let Some(compiled) = &self.compiled {
             return compiled.run_planes(self.spec, planes);
         }
@@ -1445,7 +1453,7 @@ fn cache() -> &'static Cache {
 /// failure is cached too, so a broken file is not re-parsed on every dab.
 #[cfg(not(schist_library))]
 pub fn get(id: &str) -> Option<Arc<Model>> {
-    #[cfg(target_os = "macos")]
+    #[cfg(any(target_os = "macos", target_os = "ios"))]
     preload::foreground_started(id);
     get_prepared(id, |_| {})
 }
@@ -1453,15 +1461,15 @@ pub fn get(id: &str) -> Option<Arc<Model>> {
 #[cfg(not(schist_library))]
 fn get_prepared(id: &str, prepare: impl FnOnce(&Model)) -> Option<Arc<Model>> {
     let spec = spec(id)?;
-    #[cfg(all(target_os = "macos", target_arch = "aarch64"))]
+    #[cfg(all(any(target_os = "macos", target_os = "ios"), target_arch = "aarch64"))]
     let key = if native_onnx::requested(id) {
         format!("native:{id}")
     } else {
         id.to_owned()
     };
-    #[cfg(not(all(target_os = "macos", target_arch = "aarch64")))]
+    #[cfg(not(all(any(target_os = "macos", target_os = "ios"), target_arch = "aarch64")))]
     let key = id.to_owned();
-    #[cfg(target_os = "macos")]
+    #[cfg(any(target_os = "macos", target_os = "ios"))]
     let key = if native_coreml::bundled(id) {
         native_coreml::cache_key(id)
     } else {
@@ -1481,11 +1489,18 @@ fn get_prepared(id: &str, prepare: impl FnOnce(&Model)) -> Option<Arc<Model>> {
 /// from disk — callers use this when a model's whole feature has left
 /// the screen (the gallery's scorer and search towers are hundreds of
 /// resident megabytes between them).
-/// Apple Silicon background sessions have a separate five-minute idle pool so
+/// macOS background sessions have a separate five-minute idle pool so
 /// consecutive layer actions can reuse their expensive GPU specialization.
+/// iOS releases sessions after each processing stage to bound resident memory.
 pub fn release(id: &str) {
     if let Ok(mut c) = cache().write() {
         c.remove(id);
+        #[cfg(target_os = "ios")]
+        {
+            c.remove(&format!("native:{id}"));
+            c.remove(&format!("compiled:cpu:{id}"));
+            c.remove(&format!("compiled:gpu:{id}"));
+        }
         #[cfg(all(target_os = "macos", target_arch = "aarch64"))]
         {
             let key = format!("native:{id}");
@@ -1518,7 +1533,7 @@ fn load(spec: &'static ModelSpec) -> Result<Model> {
 
 #[cfg(any(not(target_arch = "wasm32"), schist_library))]
 fn load(spec: &'static ModelSpec) -> Result<Model> {
-    #[cfg(target_os = "macos")]
+    #[cfg(any(target_os = "macos", target_os = "ios"))]
     if native_coreml::bundled(spec.id) {
         let compiled = native_coreml::Network::load(spec)?;
         return Ok(Model::from_compiled(spec, compiled));
@@ -1531,11 +1546,11 @@ fn load(spec: &'static ModelSpec) -> Result<Model> {
             "colorize" => COLORIZE_ONNX,
             "portrait" => PORTRAIT_ONNX,
             "inpaint" => INPAINT_ONNX,
-            #[cfg(not(target_os = "macos"))]
+            #[cfg(not(any(target_os = "macos", target_os = "ios")))]
             "detail-matting" => DETAIL_MATTING_ONNX_XZ,
-            #[cfg(not(target_os = "macos"))]
+            #[cfg(not(any(target_os = "macos", target_os = "ios")))]
             "matting" => MATTING_ONNX_XZ,
-            #[cfg(not(target_os = "macos"))]
+            #[cfg(not(any(target_os = "macos", target_os = "ios")))]
             "subject-guide" => SUBJECT_GUIDE_ONNX_XZ,
             "waifu2x-art" => WAIFU2X_ART_ONNX,
             "waifu2x-photo" => WAIFU2X_PHOTO_ONNX,
@@ -1644,9 +1659,9 @@ pub fn uninstall(spec: &ModelSpec) -> Result<()> {
 pub fn forget(id: &str) {
     if let Ok(mut c) = cache().write() {
         c.remove(id);
-        #[cfg(all(target_os = "macos", target_arch = "aarch64"))]
+        #[cfg(all(any(target_os = "macos", target_os = "ios"), target_arch = "aarch64"))]
         c.remove(&format!("native:{id}"));
-        #[cfg(target_os = "macos")]
+        #[cfg(any(target_os = "macos", target_os = "ios"))]
         {
             c.remove(&format!("compiled:cpu:{id}"));
             c.remove(&format!("compiled:gpu:{id}"));
@@ -1672,7 +1687,7 @@ pub fn installed_size(spec: &ModelSpec) -> Option<u64> {
     #[cfg(not(target_arch = "wasm32"))]
     {
         if spec.built_in() {
-            #[cfg(target_os = "macos")]
+            #[cfg(any(target_os = "macos", target_os = "ios"))]
             if let Some(size) = native_coreml::archive_size(spec.id) {
                 return Some(size);
             }

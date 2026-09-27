@@ -31,6 +31,8 @@ pub(crate) fn refine(
         bail!("invalid detail matting model");
     }
     let core_model = crate::get("matting").context("opaque core model unavailable")?;
+    #[cfg(target_os = "ios")]
+    crate::release("matting");
     let opaque_hint =
         crate::matting::refine_local(&core_model, rgb, coarse, width, height, &mut cancelled)?;
     drop(core_model);

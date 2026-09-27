@@ -25,9 +25,9 @@ changes foreground color only; it never thickens the mask or fills hair gaps.
 
 The pipeline combines pretrained detection, semantic guidance and alpha matting.
 Pipeline revision 9 uses **ViTMatte-S** for native-resolution hair/fur details.
-Non-Mac native builds embed `detail-matting.onnx.xz` (95,638,600 bytes), the
+Non-Apple native builds embed `detail-matting.onnx.xz` (95,638,600 bytes), the
 semantic guide (40,454,876 bytes) and MatteNet (81,960 bytes), expanding them
-in memory when their plans are constructed. Mac builds embed only compressed
+in memory when their plans are constructed. macOS and iOS builds embed only compressed
 precompiled Core ML versions of these three models, including a separate
 mixed-precision detail graph for Apple Silicon GPUs and the original float32
 graph for CPU fallback; their ONNX payloads are excluded.
@@ -377,15 +377,20 @@ implementation of the accepted refinement; it is not a repeat of the entire
 
 ## Native execution performance
 
-macOS ships compressed, precompiled Core ML archives for the three bundled
-background refiners; their ONNX copies are excluded from the Mac executable.
+macOS and iOS ship compressed, precompiled Core ML archives for the three bundled
+background refiners; their ONNX copies are excluded from the Apple executable.
 Rust bindings call the system Core ML framework directly, with a full-precision
 Core ML CPU fallback. Apple Silicon uses a mixed-precision detail graph on the
 GPU; Intel Macs keep the original float32 graph. The archives target Core ML 5 /
-macOS 12 or newer.
+macOS 12 or newer; the iOS app requires iOS 16 or newer.
 The two downloaded foreground detectors use a statically linked Rust `ort`
 dependency on Apple Silicon. No ONNX Runtime dylib, Python process or Swift
 helper is shipped.
+
+iOS uses the same model weights and tile geometry, with stage-scoped session
+lifetimes instead of desktop's idle residency. Its startup worker only prepares
+cached files. See [the iOS port](ios.md#what-is-different) for memory policy and
+Simulator validation commands; desktop timings below do not describe phones.
 
 Large inline float32 weights are moved to binary MIL storage without changing
 bits. This avoids parsing hundreds of megabytes of hexadecimal weight text.

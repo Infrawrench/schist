@@ -23,7 +23,7 @@ fn models(installed: impl Fn(&str) -> bool) -> Vec<&'static str> {
     let mut ids = Vec::new();
     // Intel uses tract for detectors, whose plans are released after an action.
     // Only preload sessions supported by the existing native idle caches.
-    #[cfg(target_arch = "aarch64")]
+    #[cfg(all(target_os = "macos", target_arch = "aarch64"))]
     {
         if installed("foreground-matting") {
             ids.push("foreground-matting");
@@ -36,35 +36,47 @@ fn models(installed: impl Fn(&str) -> bool) -> Vec<&'static str> {
 
 /// Start one background loading thread at GUI startup. Only already installed
 /// background models are used; this never downloads weights or reads photos.
-/// A synthetic prediction prepares GPU execution as well as loading weights.
+/// macOS warms resident GPU sessions; iOS only verifies/extracts compiled files
+/// to avoid retaining models or submitting GPU work at startup.
 /// The caller must drop the handle without joining to keep startup nonblocking.
-/// Sessions retain their normal five-minute idle eviction policy.
+/// Desktop sessions retain their normal five-minute idle eviction policy.
 pub fn preload_background_removal() -> Option<JoinHandle<()>> {
     start_once(&STARTED, || {
-        crate::with_adaptive_execution(|| {
-            let start = Instant::now();
-            let mut count = 0;
-            for id in models(crate::installed) {
-                // An actual action takes priority. Finish the current shared
-                // load, then let its worker load the remaining models itself.
-                if FOREGROUND_STARTED.load(Ordering::Relaxed) {
-                    break;
-                }
-                let loaded = crate::get_prepared(id, |model| {
-                    if let Err(error) = warm(model) {
-                        // A failed warm-up never discards a successfully loaded
-                        // model or prevents the ordinary prediction fallback.
-                        log::warn!("background model {id} warm-up: {error:#}");
-                    }
-                });
-                count += usize::from(loaded.is_some());
-                crate::release(id);
+        let start = Instant::now();
+        let mut count = 0;
+        for id in models(crate::installed) {
+            // An actual action takes priority. Finish the current shared
+            // preparation, then let its worker prepare remaining models itself.
+            if FOREGROUND_STARTED.load(Ordering::Relaxed) {
+                break;
             }
-            log::info!(
-                "background model preload: {count} models in {:.3}s",
-                start.elapsed().as_secs_f64()
-            );
+            count += usize::from(prepare(id));
+        }
+        log::info!(
+            "background model preload: {count} models in {:.3}s",
+            start.elapsed().as_secs_f64()
+        );
+    })
+}
+
+#[cfg(target_os = "ios")]
+fn prepare(id: &str) -> bool {
+    crate::native_coreml::prepare_bundled(id)
+        .map_err(|error| log::warn!("background model {id} preparation: {error:#}"))
+        .is_ok()
+}
+
+#[cfg(target_os = "macos")]
+fn prepare(id: &str) -> bool {
+    crate::with_adaptive_execution(|| {
+        let loaded = crate::get_prepared(id, |model| {
+            if let Err(error) = warm(model) {
+                // Failed warm-up retains the ordinary prediction fallback.
+                log::warn!("background model {id} warm-up: {error:#}");
+            }
         });
+        crate::release(id);
+        loaded.is_some()
     })
 }
 
@@ -88,6 +100,7 @@ fn start_once(
     }
 }
 
+#[cfg(target_os = "macos")]
 fn warm(model: &crate::Model) -> anyhow::Result<()> {
     let (w, h) = model.input_dims();
     if model.channels() == 3 {
@@ -123,10 +136,15 @@ mod tests {
     fn startup_only_prepares_an_installed_background_pipeline() {
         assert!(models(|_| false).is_empty());
         assert!(models(|id| id != "foreground").is_empty());
+        #[cfg(target_os = "ios")]
+        assert_eq!(
+            models(|_| true),
+            ["subject-guide", "matting", "detail-matting"]
+        );
         let general = models(|id| id == "foreground");
         assert!(general.contains(&"detail-matting"));
         assert!(!general.contains(&"foreground-matting"));
-        #[cfg(target_arch = "aarch64")]
+        #[cfg(all(target_os = "macos", target_arch = "aarch64"))]
         assert_eq!(
             models(|_| true),
             [

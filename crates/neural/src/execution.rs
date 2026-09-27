@@ -76,7 +76,7 @@ thread_local! {
     static ADAPTIVE: Cell<bool> = const { Cell::new(false) };
 }
 
-#[cfg(target_os = "macos")]
+#[cfg(any(target_os = "macos", target_os = "ios"))]
 pub(super) fn adaptive_enabled() -> bool {
     ADAPTIVE.get()
 }
@@ -87,6 +87,16 @@ pub(super) fn adaptive_enabled() -> bool {
 /// not return a future and expect the setting to follow it across executors.
 /// Other models and the global effects backend are unchanged.
 pub fn with_adaptive_execution<T>(run: impl FnOnce() -> T) -> T {
+    // Multiple windows must not hold multiple phone-sized inference pipelines.
+    // Nested calls on this thread inherit the outer guard rather than deadlock.
+    #[cfg(target_os = "ios")]
+    static MOBILE_INFERENCE: Mutex<()> = Mutex::new(());
+    #[cfg(target_os = "ios")]
+    let _mobile = (!ADAPTIVE.get()).then(|| {
+        MOBILE_INFERENCE
+            .lock()
+            .unwrap_or_else(|poisoned| poisoned.into_inner())
+    });
     struct Restore(bool);
     impl Drop for Restore {
         fn drop(&mut self) {

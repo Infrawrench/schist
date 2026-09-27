@@ -19,14 +19,14 @@ sha2 = "0.10"
 tract-onnx = "0.23"
 transpose = "0.2.3"
 
-[target.'cfg(target_os = "macos")'.dependencies]
+[target.'cfg(any(target_os = "macos", target_os = "ios"))'.dependencies]
 objc2 = "0.6"
 objc2-foundation = { version = "0.3", default-features = false, features = ["std", "NSArray", "NSDictionary", "NSString", "NSURL", "NSValue", "NSError"] }
 objc2-core-ml = { version = "0.3.2", default-features = false, features = ["std", "block2", "MLModel", "MLModel_MLModelCompilation", "MLOptimizationHints", "MLSpecializationStrategy", "MLModelConfiguration", "MLModelDescription", "MLFeatureDescription", "MLFeatureType", "MLFeatureValue", "MLFeatureProvider", "MLDictionaryFeatureProvider", "MLMultiArray", "MLMultiArrayConstraint"] }
 block2 = "0.6"
 tar = { version = "0.4", default-features = false }
 
-[target.'cfg(all(target_os = "macos", target_arch = "aarch64"))'.dependencies]
+[target.'cfg(all(any(target_os = "macos", target_os = "ios"), target_arch = "aarch64"))'.dependencies]
 # The pinned crate downloads a verified static Core ML archive at build time.
 # Do not enable load-dynamic or copy-dylibs: the app ships one linked runtime.
 ort = { version = "=2.0.0-rc.13", default-features = false, features = ["std", "download-binaries", "tls-native", "coreml", "api-27"] }
@@ -37,7 +37,7 @@ sha2 = { version = "0.10", features = ["asm"] }
 # The classify example decodes the image it is pointed at.
 image.workspace = true
 
-[target.'cfg(target_os = "macos")'.dev-dependencies]
+[target.'cfg(any(target_os = "macos", target_os = "ios"))'.dev-dependencies]
 lzma-rust2 = { version = "0.16.5", default-features = false, features = ["std", "xz", "encoder"] }
 
 # tract pulls rand, whose getrandom needs the browser's crypto API selected

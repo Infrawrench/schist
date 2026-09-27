@@ -1,4 +1,4 @@
-//! Compressed, precompiled macOS background refiners. No ONNX copy is linked.
+//! Compressed, precompiled Apple background refiners. No ONNX copy is linked.
 use anyhow::{ensure, Context, Result};
 use block2::StackBlock;
 use objc2::{
@@ -27,6 +27,13 @@ include!("native_coreml_assets.rs");
 
 pub(super) fn bundled(id: &str) -> bool {
     matches!(id, "detail-matting" | "subject-guide" | "matting")
+}
+
+/// Startup on a phone prepares files without loading sessions or using its GPU.
+#[cfg(target_os = "ios")]
+pub(super) fn prepare_bundled(id: &str) -> Result<()> {
+    prepared(asset(id, cfg!(target_abi = "sim"))?)?;
+    Ok(())
 }
 
 pub(super) fn archive_size(id: &str) -> Option<u64> {
@@ -59,7 +66,18 @@ fn cpu_path(path: &Path, fallback: Option<&Asset>) -> Result<PathBuf> {
 }
 
 fn cpu_requested() -> bool {
-    !crate::execution::adaptive_enabled() || std::env::var_os("SCHIST_NEURAL_COREML_CPU").is_some()
+    // Simulator's Core ML framework has no MPSGraph engine. Select the
+    // original float32 CPU graph before loading, not the GPU-only detail crop.
+    cfg!(all(target_os = "ios", target_abi = "sim"))
+        || !crate::execution::adaptive_enabled()
+        || std::env::var_os("SCHIST_NEURAL_COREML_CPU").is_some()
+}
+
+#[cfg(target_arch = "aarch64")]
+pub(super) fn supports_fast_prediction() -> bool {
+    use objc2::runtime::NSObjectProtocol;
+    // Constructing a default configuration is valid on every supported OS.
+    unsafe { MLModelConfiguration::new() }.respondsToSelector(objc2::sel!(setOptimizationHints:))
 }
 
 pub(super) fn cache_key(id: &str) -> String {
@@ -479,7 +497,7 @@ impl Network {
         let fallback = (selected.hash != cpu.hash).then_some(cpu);
         Self::from_paths(spec, prepared(selected)?, fallback)
     }
-    #[cfg(feature = "coreml-export")]
+    #[cfg(all(target_os = "macos", feature = "coreml-export"))]
     pub(super) fn from_path(spec: &crate::ModelSpec, path: PathBuf) -> Result<Self> {
         Self::from_paths(spec, path, None)
     }
@@ -500,7 +518,9 @@ impl Network {
             cpu = true;
             Session::load(&cpu_path(&path, fallback)?, spec, true)
         })?;
-        start_reaper();
+        if !cfg!(target_os = "ios") {
+            start_reaper();
+        }
         Ok(Self {
             state: Mutex::new(State {
                 session,
@@ -591,6 +611,27 @@ fn start_reaper() {
 #[cfg(test)]
 mod tests {
     use super::*;
+    #[cfg(target_os = "ios")]
+    #[test]
+    #[ignore = "requires Core ML in Simulator/device; make check-background-removal-ios-native"]
+    fn ios_background_compiled_models_match_reference_and_release_sessions() {
+        compiled_background_models_match_original_cpu_graphs();
+        crate::with_adaptive_execution(|| {
+            for id in ["matting", "subject-guide", "detail-matting"] {
+                let model = crate::get(id).expect("bundled Core ML model");
+                crate::release(id);
+                assert_eq!(std::sync::Arc::strong_count(&model), 1);
+                assert_eq!(
+                    model.compiled.as_ref().unwrap().state.lock().unwrap().cpu,
+                    cfg!(target_abi = "sim"),
+                );
+                let weak = std::sync::Arc::downgrade(&model);
+                drop(model);
+                assert!(weak.upgrade().is_none(), "{id} retained after its stage");
+            }
+        });
+    }
+
     #[test]
     fn reused_input_storage_observes_new_values_after_rejected_inputs() {
         let spec = crate::spec("matting").unwrap();
@@ -692,7 +733,12 @@ mod tests {
                 model.run_cpu(tensors.clone()).unwrap()
             };
             let reference = reference[0].to_plain_array_view::<f32>().unwrap();
-            for cpu in [false, true] {
+            let modes: &[bool] = if cfg!(all(target_os = "ios", target_abi = "sim")) {
+                &[true]
+            } else {
+                &[false, true]
+            };
+            for &cpu in modes {
                 let selected = asset(id, cpu).unwrap();
                 let path = prepared(selected).unwrap();
                 let mut model = Session::load(&path, spec, cpu).unwrap();
@@ -730,7 +776,7 @@ mod tests {
                     assert!(error < 0.0005, "{id} cpu={cpu} alpha error {error}");
                 }
             }
-            if id == "detail-matting" {
+            if id == "detail-matting" && !cfg!(all(target_os = "ios", target_abi = "sim")) {
                 // A failed GPU load must use the original full-precision graph,
                 // not retry the lower-precision GPU graph on Core ML's CPU.
                 let missing = std::env::temp_dir().join(format!(

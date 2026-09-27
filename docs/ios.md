@@ -45,6 +45,58 @@ xcrun devicectl device process launch --device <device-id> --console com.infrawr
 
 ## What is different
 
+**Background removal.** The existing layer action uses the same detection,
+subject guidance, hair/fur matting and color cleanup as macOS. On arm64 iOS,
+downloaded detectors use the statically linked Rust `ort` runtime with Core ML
+GPU execution. Simulator builds select Core ML CPU execution because their
+Core ML framework lacks the MPSGraph engine required by the GPU detail model.
+The three bundled refiners use compressed
+compiled Core ML assets directly; their ONNX copies and an ONNX Runtime dylib
+are not bundled. The existing Models dialog installs the general foreground
+detector. Processing stays on a worker and produces the same editable mask,
+with cancellation and undo.
+
+Phone memory is managed differently from desktop: jobs are serialized across
+windows and model sessions are released after each stage instead of retained
+in the desktop's five-minute pool. Startup only verifies/extracts bundled
+assets for an installed pipeline; it does not load detectors or warm the GPU.
+Compiled files remain in the app's cache for later actions. Core ML optimization
+hints are enabled only when supported, preserving the app's iOS 16 minimum.
+Physical-device GPU output, memory limits and speed still need testing on
+representative iPhones and iPads; Simulator timings are not phone performance
+measurements.
+
+To check the port and run its native tests on a booted Simulator:
+
+```sh
+make check-background-removal-ios
+make lint-background-removal-ios
+# Use an existing downloaded foreground-birefnet-lite.onnx, without copying it
+# into the app bundle. These paths are host paths for Simulator tests only.
+SIMCTL_CHILD_SCHIST_MODEL_DIR="$HOME/.local/share/schist/models" \
+  make check-background-removal-ios-native
+make ios
+make check-background-coreml-bundle-ios
+```
+
+The ignored native tests compare every compiled refiner to the original ONNX
+CPU graph, run the full pipeline, and check session release and worker
+serialization. Simulator tests cover CPU execution; device tests additionally
+cover GPU execution. Set `SIMCTL_CHILD_SCHIST_IOS_TEST_IMAGE` to a local image to
+exercise the pipeline with that image instead of the small checked-in fixture.
+Tests do not save or upload images. Device builds still need the signing setup
+described above.
+
+On 2026-09-27, the arm64 device app built and passed the compiled-asset packaging
+check. All three native tests passed on the iOS 26.3 Simulator, including the
+supplied 1536×2048 portrait through Core ML CPU without Tract fallback. Maximum
+refiner alpha error against the original CPU graphs was 0.00001592. Its 89.420 s
+cold pipeline run includes model preparation and is only a compatibility result.
+A signed device test bundle was prepared with
+`make build-background-removal-ios-device-tests`, but installation failed twice
+over the paired phone's wireless connection. No physical-device GPU result is
+claimed from those attempts.
+
 **Input.** One finger on the canvas paints, drags or pans, whatever the
 active tool would do with the mouse; the canvas claims single-finger
 drags (`Window::claim_touch_drag`) so they are never scrolls. Two fingers

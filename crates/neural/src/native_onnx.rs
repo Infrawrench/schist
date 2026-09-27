@@ -1,4 +1,4 @@
-//! Optional macOS Core ML execution for checksum-pinned background models.
+//! Optional Apple Core ML execution for checksum-pinned background models.
 //! Derived graphs and device compilation are cached; source weights stay ONNX.
 use crate::{Model, ModelSpec};
 use anyhow::{ensure, Context, Result};
@@ -91,7 +91,7 @@ fn builder() -> Result<ort::session::builder::SessionBuilder> {
 
 /// Offline exporter for the three bundled refiners. Source ONNX is explicitly
 /// read from the repository, so enabling this tool cannot add it to the app.
-#[cfg(feature = "coreml-export")]
+#[cfg(all(target_os = "macos", feature = "coreml-export"))]
 pub fn export_coreml_source(id: &str) -> Result<PathBuf> {
     ensure!(
         matches!(id, "detail-matting" | "subject-guide" | "matting"),
@@ -347,13 +347,21 @@ impl Network {
         }
         let ep = ep::CoreML::default()
             .with_model_format(ModelFormat::MLProgram)
-            .with_compute_units(ComputeUnits::CPUAndGPU)
+            .with_compute_units(if cfg!(all(target_os = "ios", target_abi = "sim")) {
+                ComputeUnits::CPUOnly
+            } else {
+                ComputeUnits::CPUAndGPU
+            })
             .with_static_input_shapes(true)
             .with_low_precision_accumulation_on_gpu(false)
-            .with_specialization_strategy(SpecializationStrategy::FastPrediction)
-            .with_model_cache_dir(cache.to_string_lossy())
-            .build()
-            .error_on_failure();
+            .with_model_cache_dir(cache.to_string_lossy());
+        // Optimization hints arrived in iOS 18; keep iOS 16/17 usable.
+        let ep = if crate::native_coreml::supports_fast_prediction() {
+            ep.with_specialization_strategy(SpecializationStrategy::FastPrediction)
+        } else {
+            ep
+        };
+        let ep = ep.build().error_on_failure();
         let session = builder()?
             .with_execution_providers([ep])
             .map_err(|e| anyhow::anyhow!(e.to_string()))?
@@ -402,11 +410,15 @@ impl Network {
             last_used: Mutex::new(Instant::now()),
             failed: AtomicBool::new(false),
         });
-        residents()
-            .lock()
-            .map_err(|_| anyhow::anyhow!("native cache lock poisoned"))?
-            .insert(expected, resident.clone());
-        start_reaper();
+        // A phone releases each detector before loading the next stage. Keep
+        // the compiled disk cache, but never retain a second owning session.
+        if !cfg!(target_os = "ios") {
+            residents()
+                .lock()
+                .map_err(|_| anyhow::anyhow!("native cache lock poisoned"))?
+                .insert(expected, resident.clone());
+            start_reaper();
+        }
         Ok(Self {
             resident,
             source: original.into(),
@@ -415,6 +427,9 @@ impl Network {
     }
     pub(super) fn channels(&self) -> usize {
         self.resident.shape[1]
+    }
+    pub(super) fn active(&self) -> bool {
+        !self.resident.failed.load(Ordering::Relaxed)
     }
     fn predict(&self, inputs: &TVec<TValue>) -> Result<TVec<TValue>> {
         ensure!(

@@ -569,6 +569,21 @@ check-background-removal:
 .PHONY: check-background-removal-native
 check-background-removal-native:
 	$(CARGO) test $(PROFILE_FLAG) -p schist-neural --lib background_models_match_original_cpu_graphs -- --ignored --nocapture --test-threads=1
+.PHONY: check-background-removal-ios check-background-removal-ios-native check-background-coreml-bundle-ios
+.PHONY: build-background-removal-ios-device-tests
+build-background-removal-ios-device-tests:
+	$(CARGO) test --no-run $(PROFILE_FLAG) -p schist-neural --lib --target aarch64-apple-ios
+.PHONY: lint-background-removal-ios
+lint-background-removal-ios:
+	$(CARGO) clippy $(PROFILE_FLAG) -p schist-neural --all-targets --target aarch64-apple-ios -- -D warnings
+	$(CARGO) clippy $(PROFILE_FLAG) -p schist-neural --all-targets --target aarch64-apple-ios-sim -- -D warnings
+check-background-removal-ios:
+	$(CARGO) check -p schist-neural --all-targets --target aarch64-apple-ios
+	$(CARGO) check -p schist-neural --all-targets --target aarch64-apple-ios-sim
+check-background-removal-ios-native:
+	IOS_TEST_FILTER=ios_background IOS_TEST_IGNORED=1 ./tools/ios-test.sh $(PROFILE_FLAG) -p schist-neural --lib
+check-background-coreml-bundle-ios:
+	python3 tools/check-background-coreml-bundle.py dist/ios/Schist.app/schist
 .PHONY: check-background-coreml-bundle
 check-background-coreml-bundle:
 	python3 tools/check-background-coreml-bundle.py target/$(PROFILE)/schist

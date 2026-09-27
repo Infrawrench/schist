@@ -470,9 +470,10 @@ pub fn main() {
         #[cfg(target_arch = "wasm32")]
         web::loading_done();
         cx.activate(true);
-        // Loading and the first GPU prediction run on a dedicated worker.
+        // Prepare background models on a dedicated worker; iOS only unpacks
+        // bundled assets, while macOS also warms its resident GPU sessions.
         // Dropping its handle detaches it; the window never waits for models.
-        #[cfg(target_os = "macos")]
+        #[cfg(any(target_os = "macos", target_os = "ios"))]
         drop(workspace::preload_background_removal());
         // Closing the last window ends the session. The X11, Wayland and
         // Windows backends already stop themselves once no window is left;

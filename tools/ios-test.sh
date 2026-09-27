@@ -50,7 +50,9 @@ PLIST
     xcrun simctl install "$udid" "$app"
     # The harness's summary is the verdict; the launch itself exits 0
     # whatever the tests did.
-    xcrun simctl launch --console-pty "$udid" "$id" "${IOS_TEST_FILTER:-}" | tee "$out/$name.log"
+    harness_args=("${IOS_TEST_FILTER:-}")
+    [ "${IOS_TEST_IGNORED:-0}" != 1 ] || harness_args+=(--ignored --nocapture --test-threads=1)
+    xcrun simctl launch --console-pty "$udid" "$id" "${harness_args[@]}" | tee "$out/$name.log"
     xcrun simctl uninstall "$udid" "$id" || true
     if ! grep -q '^test result: .*ok' "$out/$name.log" || grep -q 'FAILED' "$out/$name.log"; then
         echo "$name: FAILED" >&2
