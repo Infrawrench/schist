@@ -7188,6 +7188,7 @@ dependencies = [
  "block2",
  "getrandom 0.4.3",
  "image",
+ "libloading",
  "log",
  "lzma-rust2 0.16.5",
  "objc2",
@@ -7202,6 +7203,7 @@ dependencies = [
  "tar",
  "tract-linalg",
  "tract-onnx",
+ "tract-onnx-opl",
  "transpose",
 ]
 

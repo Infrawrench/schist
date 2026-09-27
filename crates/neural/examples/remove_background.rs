@@ -65,7 +65,11 @@ fn main() -> Result<()> {
         } else {
             schist_neural::release(id);
         }
-        eprintln!("{id} load: {:.3}s", start.elapsed().as_secs_f64());
+        eprintln!(
+            "{id} load: {:.3}s, CUDA={}",
+            start.elapsed().as_secs_f64(),
+            model.as_ref().is_some_and(|model| model.uses_cuda())
+        );
         model
     };
     if preload {

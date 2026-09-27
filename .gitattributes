@@ -1,0 +1,4 @@
+# Tiny protobuf fixtures can lack NUL bytes in Git's sniffed prefix.
+*.onnx binary
+# The readable source is beside the checked-in, reproducible PTX module.
+crates/neural/src/cuda/kernels.ptx linguist-generated=true

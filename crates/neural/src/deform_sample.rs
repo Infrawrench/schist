@@ -346,7 +346,17 @@ impl Expansion for Sample {
 }
 
 #[derive(Debug, Clone, Hash, PartialEq, Eq)]
-struct FusedSample(Sample);
+pub(super) struct FusedSample(Sample);
+#[cfg(any(
+    target_os = "linux",
+    target_os = "windows",
+    all(test, not(target_arch = "wasm32"))
+))]
+impl FusedSample {
+    pub(super) fn geometry(&self) -> (&[usize], &[usize], [usize; 2]) {
+        (&self.0.data, &self.0.sample, self.0.kernel)
+    }
+}
 impl Op for FusedSample {
     fn name(&self) -> StaticName {
         "DeformSample".into()

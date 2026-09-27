@@ -50,6 +50,12 @@ mod colour;
 mod compat;
 #[cfg(not(target_arch = "wasm32"))]
 mod cpu_threads;
+#[cfg(any(
+    target_os = "linux",
+    target_os = "windows",
+    all(test, not(target_arch = "wasm32"))
+))]
+mod cuda;
 mod depth;
 #[cfg(not(target_arch = "wasm32"))]
 mod execution;
@@ -193,7 +199,7 @@ const PORTRAIT_ONNX: &[u8] = include_bytes!("../models/portrait.onnx");
 #[cfg(any(not(target_arch = "wasm32"), schist_library))]
 const INPAINT_ONNX: &[u8] = include_bytes!("../models/inpaint.onnx");
 #[cfg(any(
-    test,
+    all(test, not(target_arch = "wasm32")),
     all(
         not(any(target_os = "macos", target_os = "ios")),
         any(not(target_arch = "wasm32"), schist_library)
@@ -201,7 +207,7 @@ const INPAINT_ONNX: &[u8] = include_bytes!("../models/inpaint.onnx");
 ))]
 const DETAIL_MATTING_ONNX_XZ: &[u8] = include_bytes!("../models/detail-matting.onnx.xz");
 #[cfg(any(
-    test,
+    all(test, not(target_arch = "wasm32")),
     all(
         not(any(target_os = "macos", target_os = "ios")),
         any(not(target_arch = "wasm32"), schist_library)
@@ -209,7 +215,7 @@ const DETAIL_MATTING_ONNX_XZ: &[u8] = include_bytes!("../models/detail-matting.o
 ))]
 const MATTING_ONNX_XZ: &[u8] = include_bytes!("../models/matting.onnx.xz");
 #[cfg(any(
-    test,
+    all(test, not(target_arch = "wasm32")),
     all(
         not(any(target_os = "macos", target_os = "ios")),
         any(not(target_arch = "wasm32"), schist_library)
@@ -806,6 +812,8 @@ pub fn installed(id: &str) -> bool {
 
 /// A loaded model, ready to run.
 pub struct Model {
+    #[cfg(any(target_os = "linux", target_os = "windows"))]
+    cuda: Option<cuda::Network>,
     #[cfg(any(target_os = "macos", target_os = "ios"))]
     compiled: Option<native_coreml::Network>,
     plan: Option<Arc<TypedSimplePlan>>,
@@ -992,6 +1000,8 @@ impl Model {
             let partitioned = gpu_partition::Partitioned::compile(typed);
             return Ok(Model {
                 plan: Some(plan),
+                #[cfg(any(target_os = "linux", target_os = "windows"))]
+                cuda: None,
                 #[cfg(all(any(target_os = "macos", target_os = "ios"), target_arch = "aarch64"))]
                 native: None,
                 #[cfg(any(target_os = "macos", target_os = "ios"))]
@@ -1082,6 +1092,8 @@ impl Model {
         let typed = inferred
             .into_typed()
             .context("model uses an operator tract cannot run")?;
+        #[cfg(any(target_os = "linux", target_os = "windows"))]
+        let cuda = cuda::Network::load(spec.id, &typed);
         let has_batched_gather = proto.graph.as_ref().is_some_and(|g| {
             g.node.iter().any(|n| {
                 n.op_type == "SchistDeformSample"
@@ -1144,6 +1156,8 @@ impl Model {
         };
         Ok(Model {
             plan: Some(plan),
+            #[cfg(any(target_os = "linux", target_os = "windows"))]
+            cuda,
             #[cfg(all(any(target_os = "macos", target_os = "ios"), target_arch = "aarch64"))]
             native: None,
             #[cfg(any(target_os = "macos", target_os = "ios"))]
@@ -1200,7 +1214,20 @@ impl Model {
         self.partitioned.as_ref().map_or(0, |p| p.operations)
     }
 
+    /// Whether this model has a resident NVIDIA graph. Useful for benchmarks:
+    /// a fallback must not be mistaken for a successful CUDA measurement.
+    pub fn uses_cuda(&self) -> bool {
+        #[cfg(any(target_os = "linux", target_os = "windows"))]
+        return self.cuda.as_ref().is_some_and(cuda::Network::active);
+        #[cfg(not(any(target_os = "linux", target_os = "windows")))]
+        false
+    }
+
     fn run_input(&self, inputs: TVec<TValue>) -> Result<TVec<TValue>> {
+        #[cfg(any(target_os = "linux", target_os = "windows"))]
+        if let Some(output) = self.cuda.as_ref().and_then(|network| network.run(&inputs)) {
+            return Ok(output);
+        }
         #[cfg(all(any(target_os = "macos", target_os = "ios"), target_arch = "aarch64"))]
         if let Some(native) = &self.native {
             return native.run(self.spec, inputs);

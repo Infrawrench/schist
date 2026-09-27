@@ -148,7 +148,8 @@ The two optional/downloaded foreground detectors use the statically linked
 `ort` 2.0.0-rc.13 / ONNX Runtime 1.28.0 Core ML provider on Apple Silicon. Cargo
 verifies its static archive at build time. No ONNX Runtime dylib is packaged or
 loaded. The application invokes no Python or Swift process. Other neural
-filters, Linux, Windows and Web retain the existing tract/wgpu paths.
+filters and Web retain the existing tract/wgpu paths. Linux/Windows can opt into
+the [embedded CUDA executor](neural-cuda.md) on supported NVIDIA hardware.
 
 Rust graph preparation is restricted to five pinned source hashes. Detector
 bilinear sampling is expressed as `GridSample` with the same padded input,
@@ -379,7 +380,10 @@ still measures complete predictions, including transfers. No new runtime DLL,
 SO, Python process or vendor SDK is shipped. The static ORT distributions were
 also investigated: their WebGPU backend requires a separate Dawn library, while
 Android [NNAPI is deprecated](https://developer.android.com/ndk/guides/neuralnetworks). This change keeps the portable Rust/wgpu path;
-it does not claim new DirectML, CUDA or NPU execution.
+it does not claim new DirectML or NPU execution. Linux/Windows additionally have
+an opt-in [Rust CUDA executor with embedded kernels](neural-cuda.md), using only
+the installed NVIDIA driver. Its hardware validation and benchmarking commands
+are separate from the portable wgpu checks below.
 
 For reproducible diagnostics:
 

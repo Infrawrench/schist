@@ -41,7 +41,8 @@ fn models(installed: impl Fn(&str) -> bool) -> Vec<&'static str> {
 /// background models are used; this never downloads weights or reads photos.
 /// macOS warms resident GPU sessions; iOS only verifies/extracts compiled files
 /// to avoid retaining models or submitting GPU work at startup.
-/// Linux/Windows prepare CPU/GPU plans without running inference at startup.
+/// Linux/Windows prepare CPU/GPU plans and opted-in CUDA weights without running
+/// inference at startup.
 /// The caller must drop the handle without joining to keep startup nonblocking.
 /// Desktop sessions retain their normal five-minute idle eviction policy.
 pub fn preload_background_removal() -> Option<JoinHandle<()>> {

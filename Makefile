@@ -608,6 +608,32 @@ background-removal-example:
 .PHONY: profile-background-removal
 profile-background-removal:
 	$(CARGO) run $(PROFILE_FLAG) -p schist-compositor-gpu --example background_removal -- $(ARGS)
+.PHONY: check-neural-cuda
+check-neural-cuda: target/background-removal/cuda-host
+	python3 tools/neural-cuda-ptx.py --check
+	SCHIST_CUDA_HOST_RUNNER=$(CURDIR)/target/background-removal/cuda-host $(CARGO) test $(PROFILE_FLAG) -p schist-neural --lib cuda:: -- $(ARGS)
+target/background-removal/cuda-host: tools/neural-cuda-host.cpp crates/neural/src/cuda/kernels.cu
+	mkdir -p target/background-removal
+	$(CXX) -std=c++17 -O2 -ffp-contract=off tools/neural-cuda-host.cpp -o $@
+.PHONY: lint-neural-cuda
+NEURAL_LINT_TARGETS ?= --all-targets
+lint-neural-cuda:
+	$(CARGO) clippy $(PROFILE_FLAG) -p schist-neural $(NEURAL_LINT_TARGETS) $(ARGS)
+.PHONY: check-neural-cuda-hardware check-neural-cuda-hardware-models
+check-neural-cuda-hardware:
+	python3 tools/neural-cuda-ptx.py --check
+	SCHIST_NEURAL_CUDA=1 $(CARGO) test $(PROFILE_FLAG) -p schist-neural --lib cuda_hardware_matches_cpu -- --ignored --nocapture --test-threads=1
+check-neural-cuda-hardware-models:
+	python3 tools/neural-cuda-ptx.py --check
+	SCHIST_NEURAL_CUDA=1 $(CARGO) test $(PROFILE_FLAG) -p schist-neural --lib cuda_hardware_background_models_match_cpu -- --ignored --nocapture --test-threads=1
+
+# Maintainer-only: ordinary Rust builds embed the checked-in PTX and require
+# neither LLVM nor the CUDA SDK. No vendor runtime is linked or redistributed.
+CUDA_CLANG ?= clang++
+.PHONY: neural-cuda-ptx
+neural-cuda-ptx:
+	python3 tools/neural-cuda-ptx.py --clang $(CUDA_CLANG)
+
 .PHONY: profile-neural-tensors
 profile-neural-tensors:
 	$(CARGO) test $(PROFILE_FLAG) -p schist-neural --lib profile_host_transposes -- --ignored --nocapture
