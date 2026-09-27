@@ -1240,6 +1240,10 @@ impl Model {
                 planes.iter().map(|p| p.len()).collect::<Vec<_>>()
             );
         }
+        #[cfg(target_os = "macos")]
+        if let Some(compiled) = &self.compiled {
+            return compiled.run_planes(self.spec, planes);
+        }
         let mut input = Tensor::zero::<f32>(&[1, self.channels, h, w])?;
         for (destination, source) in input
             .to_plain_array_view_mut::<f32>()?

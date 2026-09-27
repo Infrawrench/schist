@@ -403,6 +403,14 @@ Threshold-mask erosion replaces the trimap's floating-point min/max scans,
 and independent RGB resampling rows and foreground-color channels run in
 parallel with their original accumulation order. Known pixels skip discarded
 overlap arithmetic.
+Each compiled session also retains its Core ML input array and feature provider.
+Planar RGB/trimap data copies directly into that array, avoiding an intermediate
+Tract tensor and per-tile Foundation allocations. Each detail tile avoids a
+9 MiB staging tensor. The session mutex serializes
+updates and predictions; output is copied to CPU-accessible storage before input
+reuse, and a failed GPU session is replaced for fallback. Shape and finite-value
+checks run before writing. A regression alternates tensor and plane inputs,
+including rejected malformed/non-finite inputs, to check for stale predictions.
 Validated model/session objects stay resident for up to five idle minutes so
 consecutive layer actions avoid rereading and hashing large source buffers.
 The macOS app starts loading and warming the installed pipeline on a dedicated
@@ -454,6 +462,35 @@ on an invisible pixel. Composites on black, white and magenta differ by at most
 one level in every channel. Visual review found no new edge artifacts; existing
 fringe and segmentation mistakes remain. The portrait comparison against the
 previous host implementation has the same one-pixel alpha difference.
+
+The subsequent input-storage change was compared with `bb3f456d` using the
+same cropped model. Four-action processes again excluded their first action,
+with portrait order old/new/new/old and opposite gallery pair orders:
+
+| Image | Previous storage, warm mean (range) | Reused storage, warm mean (range) |
+| --- | ---: | ---: |
+| Supplied portrait | 7.598 s (6.942–8.606) | 7.508 s (7.247–7.763) |
+| Gallery 010 | 10.062 s (9.744–10.287) | 11.555 s (10.632–12.533) |
+| Gallery 285 | 8.401 s (8.243–8.608) | 9.426 s (9.276–9.551) |
+
+All three saved PNGs are byte-for-byte identical. These timings do **not**
+establish a speedup from allocation reuse, or sub-three-second processing.
+They were collected later under different desktop load; macOS reported about
+9.9 GB of swap in use during the run, and untouched detector phases varied too.
+The change removes repeated tensor/array/provider allocations and one planar
+copy, but model execution still dominates. No other build or inference benchmark
+ran concurrently, and no desktop applications were closed.
+
+Further model candidates were rejected. Adaptive tile placement and the
+[authors' grid-attention inference strategy](https://arxiv.org/html/2305.15272v1)
+changed hair edges substantially
+(worst portrait alpha differences 221 and 179 byte levels respectively).
+Cropping unused final attention queries and using float16 softmax preserved
+synthetic outputs exactly but did not improve isolated prediction latency.
+Fused normalization and lower-precision accumulation also failed to improve it.
+Larger opaque-core tiles preserved portrait pixels, while mixed-precision
+detectors reduced isolated latency and memory; neither established a consistent
+whole-pipeline improvement in this round. None of these candidates ships.
 
 Earlier, the full-output mixed model was measured on an Apple M4 with 16 GB RAM and macOS
 15.6.1. Each row starts a fresh process using prepared disk caches, then

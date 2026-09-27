@@ -200,7 +200,8 @@ fn dimensions(values: &NSArray<NSNumber>) -> Result<Vec<usize>> {
 
 pub(super) struct Session {
     model: Retained<MLModel>,
-    input: Retained<NSString>,
+    input_array: Retained<MLMultiArray>,
+    provider: Retained<MLDictionaryFeatureProvider>,
     output: Retained<NSString>,
     shape: Vec<usize>,
     output_shape: Vec<usize>,
@@ -280,9 +281,26 @@ impl Session {
                     "invalid compiled model shape or precision"
                 );
             }
+            let input_array = MLMultiArray::initWithShape_dataType_error(
+                MLMultiArray::alloc(),
+                &numbers(&shape),
+                MLMultiArrayDataType::Float32,
+            )
+            .map_err(|e| anyhow::anyhow!(e.to_string()))?;
+            let value = MLFeatureValue::featureValueWithMultiArray(&input_array);
+            let dictionary = NSDictionary::from_slices(
+                &[&*input],
+                &[value.as_ref() as &objc2::runtime::AnyObject],
+            );
+            let provider = MLDictionaryFeatureProvider::initWithDictionary_error(
+                MLDictionaryFeatureProvider::alloc(),
+                &dictionary,
+            )
+            .map_err(|e| anyhow::anyhow!(e.to_string()))?;
             Ok(Self {
                 model,
-                input,
+                input_array,
+                provider,
                 output,
                 shape,
                 output_shape,
@@ -290,7 +308,7 @@ impl Session {
         })
     }
 
-    pub(super) fn predict(&self, inputs: &TVec<TValue>) -> Result<TVec<TValue>> {
+    pub(super) fn predict(&mut self, inputs: &TVec<TValue>) -> Result<TVec<TValue>> {
         ensure!(
             inputs.len() == 1
                 && inputs[0].datum_type() == f32::datum_type()
@@ -299,58 +317,65 @@ impl Session {
         );
         let view = inputs[0].to_plain_array_view::<f32>()?;
         let input = view.as_slice().context("compiled input not contiguous")?;
+        self.predict_parts(&[input])
+    }
+
+    fn predict_planes(&mut self, planes: &[&[f32]]) -> Result<TVec<TValue>> {
         ensure!(
-            input.iter().all(|v| v.is_finite()),
+            planes.len() == self.shape[1]
+                && planes
+                    .iter()
+                    .all(|p| p.len() == self.shape[2] * self.shape[3]),
+            "compiled model planes differ"
+        );
+        self.predict_parts(planes)
+    }
+
+    fn predict_parts(&mut self, parts: &[&[f32]]) -> Result<TVec<TValue>> {
+        let count = self.shape.iter().product::<usize>();
+        ensure!(
+            parts.iter().map(|p| p.len()).sum::<usize>() == count
+                && parts.iter().flat_map(|p| p.iter()).all(|v| v.is_finite()),
             "non-finite compiled input"
         );
         autoreleasepool(|_| unsafe {
-            // Core ML owns this allocation, including while a GPU command uses
-            // it. We never lend an immutable Rust allocation as writable memory.
-            let array = MLMultiArray::initWithShape_dataType_error(
-                MLMultiArray::alloc(),
-                &numbers(&self.shape),
-                MLMultiArrayDataType::Float32,
-            )
-            .map_err(|e| anyhow::anyhow!(e.to_string()))?;
+            // The session owns this allocation and is serialized by Network's
+            // mutex. Output is made CPU-accessible before the next call can
+            // overwrite it; failed GPU sessions are replaced, not reused.
             let copied = RefCell::new(false);
-            array.getMutableBytesWithHandler(&StackBlock::new(
-                |ptr: std::ptr::NonNull<std::ffi::c_void>,
-                 size: isize,
-                 strides: std::ptr::NonNull<NSArray<NSNumber>>| {
-                    let expected = vec![
-                        self.shape[1] * self.shape[2] * self.shape[3],
-                        self.shape[2] * self.shape[3],
-                        self.shape[3],
-                        1,
-                    ];
-                    if size >= 0
-                        && size as usize >= input.len() * 4
-                        && dimensions(strides.as_ref()).is_ok_and(|s| s == expected)
-                    {
-                        std::ptr::copy_nonoverlapping(
-                            input.as_ptr(),
-                            ptr.cast::<f32>().as_ptr(),
-                            input.len(),
-                        );
-                        *copied.borrow_mut() = true;
-                    }
-                },
-            ));
+            self.input_array
+                .getMutableBytesWithHandler(&StackBlock::new(
+                    |ptr: std::ptr::NonNull<std::ffi::c_void>,
+                     size: isize,
+                     strides: std::ptr::NonNull<NSArray<NSNumber>>| {
+                        let expected = vec![
+                            self.shape[1] * self.shape[2] * self.shape[3],
+                            self.shape[2] * self.shape[3],
+                            self.shape[3],
+                            1,
+                        ];
+                        if size >= 0
+                            && size as usize >= count * 4
+                            && dimensions(strides.as_ref()).is_ok_and(|s| s == expected)
+                        {
+                            let mut offset = 0;
+                            for input in parts {
+                                std::ptr::copy_nonoverlapping(
+                                    input.as_ptr(),
+                                    ptr.cast::<f32>().as_ptr().add(offset),
+                                    input.len(),
+                                );
+                                offset += input.len();
+                            }
+                            *copied.borrow_mut() = true;
+                        }
+                    },
+                ));
             ensure!(*copied.borrow(), "invalid compiled input storage");
-            let value = MLFeatureValue::featureValueWithMultiArray(&array);
-            let dictionary = NSDictionary::from_slices(
-                &[&*self.input],
-                &[value.as_ref() as &objc2::runtime::AnyObject],
-            );
-            let provider = MLDictionaryFeatureProvider::initWithDictionary_error(
-                MLDictionaryFeatureProvider::alloc(),
-                &dictionary,
-            )
-            .map_err(|e| anyhow::anyhow!(e.to_string()))?;
             let start = Instant::now();
             let output = self
                 .model
-                .predictionFromFeatures_error(ProtocolObject::from_ref(&*provider))
+                .predictionFromFeatures_error(ProtocolObject::from_ref(&*self.provider))
                 .map_err(|e| anyhow::anyhow!(e.to_string()))?;
             if std::env::var_os("SCHIST_NEURAL_NATIVE_TIMING").is_some() {
                 log::info!(target: "schist_neural::execution", "compiled {:?} prediction: {:.6}s", self.shape, start.elapsed().as_secs_f64());
@@ -496,12 +521,26 @@ impl Network {
         spec: &crate::ModelSpec,
         inputs: TVec<TValue>,
     ) -> Result<TVec<TValue>> {
+        self.run_with(spec, |session| session.predict(&inputs))
+    }
+    pub(super) fn run_planes(
+        &self,
+        spec: &crate::ModelSpec,
+        planes: &[&[f32]],
+    ) -> Result<TVec<TValue>> {
+        self.run_with(spec, |session| session.predict_planes(planes))
+    }
+    fn run_with(
+        &self,
+        spec: &crate::ModelSpec,
+        mut predict: impl FnMut(&mut Session) -> Result<TVec<TValue>>,
+    ) -> Result<TVec<TValue>> {
         let mut state = self
             .state
             .lock()
             .map_err(|_| anyhow::anyhow!("compiled session lock poisoned"))?;
         state.last_used = Instant::now();
-        match state.session.predict(&inputs) {
+        match predict(&mut state.session) {
             Ok(output) => Ok(output),
             Err(error) if !state.cpu => {
                 log::warn!(
@@ -510,7 +549,7 @@ impl Network {
                 );
                 state.session = Session::load(&cpu_path(&self.path, self.fallback)?, spec, true)?;
                 state.cpu = true;
-                state.session.predict(&inputs)
+                predict(&mut state.session)
             }
             Err(error) => Err(error),
         }
@@ -552,6 +591,40 @@ fn start_reaper() {
 #[cfg(test)]
 mod tests {
     use super::*;
+    #[test]
+    fn reused_input_storage_observes_new_values_after_rejected_inputs() {
+        let spec = crate::spec("matting").unwrap();
+        let path = prepared(asset("matting", true).unwrap()).unwrap();
+        let mut session = Session::load(&path, spec, true).unwrap();
+        let shape = [1, 4, 128, 128];
+        let zero = vec![0.0; 128 * 128];
+        let one = vec![1.0; 128 * 128];
+        let tensor = |value| {
+            tvec!(Tensor::from_shape(&shape, &vec![value; 4 * 128 * 128])
+                .unwrap()
+                .into())
+        };
+        let assert_value = |outputs: TVec<TValue>, expected: f32| {
+            let output = outputs[0].to_plain_array_view::<f32>().unwrap();
+            assert_eq!(output.shape(), [1, 1, 128, 128]);
+            assert!(output.iter().all(|&v| v == expected));
+        };
+        assert_value(session.predict(&tensor(0.0)).unwrap(), 0.0);
+        assert_value(session.predict_planes(&[one.as_slice(); 4]).unwrap(), 1.0);
+        assert!(session.predict(&tvec!()).is_err());
+        assert!(session.predict_planes(&[zero.as_slice(); 3]).is_err());
+        assert!(session.predict_planes(&[&zero[..127]; 4]).is_err());
+        let mut invalid = zero.clone();
+        invalid[17] = f32::NAN;
+        assert!(session
+            .predict_planes(&[&zero, &zero, &invalid, &zero])
+            .is_err());
+        assert!(session.predict(&tensor(f32::INFINITY)).is_err());
+        assert_value(session.predict_planes(&[zero.as_slice(); 4]).unwrap(), 0.0);
+        assert_value(session.predict(&tensor(1.0)).unwrap(), 1.0);
+        assert_value(session.predict(&tensor(0.0)).unwrap(), 0.0);
+    }
+
     #[test]
     fn archive_checks_members_contents_and_truncated_xz_footer() {
         use std::io::Write;
@@ -622,7 +695,7 @@ mod tests {
             for cpu in [false, true] {
                 let selected = asset(id, cpu).unwrap();
                 let path = prepared(selected).unwrap();
-                let model = Session::load(&path, spec, cpu).unwrap();
+                let mut model = Session::load(&path, spec, cpu).unwrap();
                 let actual = model.predict(&tensors).unwrap();
                 let actual = actual[0].to_plain_array_view::<f32>().unwrap();
                 let (oh, ow) = (actual.shape()[2], actual.shape()[3]);
