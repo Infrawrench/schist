@@ -252,7 +252,20 @@ impl Session {
                 h,
                 w,
             ];
-            let output_shape = vec![1, 1, h, w];
+            // The GPU detail graph reconstructs only the center consumed by
+            // the tiler. CPU fallback retains the original full tile output.
+            let output_shape = dimensions(
+                &outputs
+                    .objectForKey(&output)
+                    .and_then(|f| f.multiArrayConstraint())
+                    .context("compiled model needs array output")?
+                    .shape(),
+            )?;
+            ensure!(
+                output_shape == [1, 1, h, w]
+                    || (!cpu && spec.id == "detail-matting" && output_shape == [1, 1, 512, 512]),
+                "invalid compiled output extent"
+            );
             for (features, name, expected) in [
                 (&inputs, &input, &shape),
                 (&outputs, &output, &output_shape),
@@ -340,7 +353,7 @@ impl Session {
                 .predictionFromFeatures_error(ProtocolObject::from_ref(&*provider))
                 .map_err(|e| anyhow::anyhow!(e.to_string()))?;
             if std::env::var_os("SCHIST_NEURAL_NATIVE_TIMING").is_some() {
-                log::info!(target: "schist_neural::execution", "compiled {:?} prediction: {:.3}s", self.shape, start.elapsed().as_secs_f64());
+                log::info!(target: "schist_neural::execution", "compiled {:?} prediction: {:.6}s", self.shape, start.elapsed().as_secs_f64());
             }
             let array = output
                 .featureValueForName(&self.output)
@@ -612,11 +625,24 @@ mod tests {
                 let model = Session::load(&path, spec, cpu).unwrap();
                 let actual = model.predict(&tensors).unwrap();
                 let actual = actual[0].to_plain_array_view::<f32>().unwrap();
-                let mut errors: Vec<_> = actual
-                    .iter()
-                    .zip(reference.iter())
-                    .map(|(a, b)| (a - b).abs())
-                    .collect();
+                let (oh, ow) = (actual.shape()[2], actual.shape()[3]);
+                let offset = if actual.shape() == reference.shape() {
+                    0
+                } else {
+                    assert_eq!(id, "detail-matting");
+                    assert!(!cpu);
+                    assert_eq!(actual.shape(), [1, 1, 512, 512]);
+                    128
+                };
+                let mut errors = Vec::with_capacity(oh * ow);
+                for y in 0..oh {
+                    for x in 0..ow {
+                        errors.push(
+                            (actual[[0, 0, y, x]] - reference[[0, 0, y + offset, x + offset]])
+                                .abs(),
+                        );
+                    }
+                }
                 errors.sort_unstable_by(f32::total_cmp);
                 let error = *errors.last().unwrap();
                 let mean = errors.iter().map(|&v| f64::from(v)).sum::<f64>() / errors.len() as f64;

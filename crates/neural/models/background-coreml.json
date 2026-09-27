@@ -114,23 +114,23 @@
   },
   "detail-matting-gpu": {
     "archive": "detail-matting-gpu.mlmodelc.tar.xz",
-    "sha256": "4cb525636e778b8c45192669953a1787decd686710977b233660afa89ef77d5c",
-    "bytes": 48339112,
+    "sha256": "5192481c929c348555b3a2c6ddcc12925e9634d3a07a1d36c4fbcf2759bee7e8",
+    "bytes": 48335976,
     "files": [
       [
         "analytics/coremldata.bin",
         243,
-        "21c3da3cd6ad8f32f42d07293ebdd1aa995bc5ca432b55727536d30f7c3f79ac"
+        "8149b7f1c9d8e16e6557b3338fc078aaabe56e3e26262466e52f9440efa45e1b"
       ],
       [
         "coremldata.bin",
         318,
-        "6bf672bf333cf2687c3d8b16aafe9c9084ab2ebbec47f0b819369574b8a02288"
+        "b4f5e32becd1573023d2d4d35a1a3bbc7cb41b37142a94fc86622c547cc9ef04"
       ],
       [
         "model.mil",
-        532250,
-        "125fc5ed73b54a29987dd0cff2b2d40b11dbb8a4f26c5f9a6646bc40157f1994"
+        539246,
+        "302f5cfd11e34abcd335f26546668bc97a59f3ac6f54ff6ba608b7bcb32862e1"
       ],
       [
         "weights/weight.bin",
@@ -154,6 +154,29 @@
       "rsqrt",
       "sigmoid",
       "softmax"
+    ],
+    "output_region": [
+      128,
+      128,
+      512,
+      512
+    ],
+    "crop_validation": [
+      {
+        "max": 0.0004373788833618164,
+        "mean": 4.3291163365211105e-07,
+        "p99": 1.1801719665527344e-05
+      },
+      {
+        "max": 6.0677528381347656e-05,
+        "mean": 6.273439545623205e-09,
+        "p99": 0.0
+      },
+      {
+        "max": 0.00032076239585876465,
+        "mean": 5.05872662870388e-07,
+        "p99": 1.3530254364013672e-05
+      }
     ],
     "source_onnx_xz_sha256": "3c31c66e8ca3a9ec550fec06e2b23c7ac57225fe7a97953e4d8ae38c326a6f37",
     "source_model": "detail-matting",

@@ -3,6 +3,8 @@
 //! Direct bilinear point sampling aliases high-resolution camera textures.
 //! Widening the triangle on reduction averages the whole source footprint.
 
+use rayon::prelude::*;
+
 fn taps(source: usize, target: usize) -> Vec<Vec<(usize, f64)>> {
     let scale = source as f64 / target as f64;
     let radius = scale.max(1.0);
@@ -38,33 +40,85 @@ pub(crate) fn rgb_triangle(
     let xs = taps(width, out_width);
     let ys = taps(height, out_height);
     let mut horizontal = vec![0.0f32; out_width * height * 3];
-    for y in 0..height {
-        for (x, taps) in xs.iter().enumerate() {
-            for c in 0..3 {
-                horizontal[(y * out_width + x) * 3 + c] = taps
-                    .iter()
-                    .map(|&(ix, weight)| rgb[(y * width + ix) * 3 + c] as f64 * weight)
-                    .sum::<f64>() as f32;
+    horizontal
+        .par_chunks_mut(out_width * 3)
+        .with_min_len(height.div_ceil(4))
+        .enumerate()
+        .for_each(|(y, row)| {
+            for (pixel, taps) in row.as_chunks_mut::<3>().0.iter_mut().zip(&xs) {
+                let mut sum = [0.0f64; 3];
+                for &(ix, weight) in taps {
+                    let source = &rgb[(y * width + ix) * 3..];
+                    for c in 0..3 {
+                        sum[c] += source[c] as f64 * weight;
+                    }
+                }
+                *pixel = sum.map(|v| v as f32);
             }
-        }
-    }
+        });
     let mut result = vec![0.0f32; out_width * out_height * 3];
-    for (y, taps) in ys.iter().enumerate() {
-        for x in 0..out_width {
-            for c in 0..3 {
-                result[(y * out_width + x) * 3 + c] = taps
-                    .iter()
-                    .map(|&(iy, weight)| horizontal[(iy * out_width + x) * 3 + c] as f64 * weight)
-                    .sum::<f64>() as f32;
+    result
+        .par_chunks_mut(out_width * 3)
+        .with_min_len(out_height.div_ceil(4))
+        .enumerate()
+        .for_each(|(y, row)| {
+            for (x, pixel) in row.as_chunks_mut::<3>().0.iter_mut().enumerate() {
+                let mut sum = [0.0f64; 3];
+                for &(iy, weight) in &ys[y] {
+                    let source = &horizontal[(iy * out_width + x) * 3..];
+                    for c in 0..3 {
+                        sum[c] += source[c] as f64 * weight;
+                    }
+                }
+                *pixel = sum.map(|v| v as f32);
             }
-        }
-    }
+        });
     result
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn parallel_rgb_passes_preserve_scalar_channel_sums() {
+        for (w, h, ow, oh) in [
+            (1, 1, 9, 7),
+            (37, 29, 11, 13),
+            (17, 11, 43, 31),
+            (127, 97, 13, 9),
+        ] {
+            let rgb: Vec<_> = (0..w * h * 3)
+                .map(|i| (i * 31 % 251) as f32 / 250.)
+                .collect();
+            let xs = taps(w, ow);
+            let ys = taps(h, oh);
+            let mut horizontal = vec![0.0f32; ow * h * 3];
+            for y in 0..h {
+                for (x, taps) in xs.iter().enumerate() {
+                    for c in 0..3 {
+                        horizontal[(y * ow + x) * 3 + c] =
+                            taps.iter()
+                                .map(|&(ix, weight)| rgb[(y * w + ix) * 3 + c] as f64 * weight)
+                                .sum::<f64>() as f32;
+                    }
+                }
+            }
+            let mut expected = vec![0.0f32; ow * oh * 3];
+            for (y, taps) in ys.iter().enumerate() {
+                for x in 0..ow {
+                    for c in 0..3 {
+                        expected[(y * ow + x) * 3 + c] = taps
+                            .iter()
+                            .map(|&(iy, weight)| horizontal[(iy * ow + x) * 3 + c] as f64 * weight)
+                            .sum::<f64>()
+                            as f32;
+                    }
+                }
+            }
+            assert_eq!(rgb_triangle(&rgb, w, h, ow, oh), expected);
+        }
+    }
 
     #[test]
     fn reduction_averages_texture_instead_of_aliasing_it() {

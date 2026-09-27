@@ -104,7 +104,7 @@ archives through Rust `objc2-core-ml` bindings. The Mac executable embeds only
 `matting.mlmodelc.tar.xz`, plus `detail-matting-gpu.mlmodelc.tar.xz` on Apple
 Silicon. Their ONNX archives remain in the repository for other platforms and
 are excluded from Mac production builds. The float32 archives total
-138,908,300 bytes; the Apple Silicon GPU variant adds 48,339,112 bytes.
+138,908,300 bytes; the Apple Silicon GPU variant adds 48,335,976 bytes.
 Excluding their ONNX copies avoids another 136,175,436 bytes.
 They target Core ML 5 / macOS 12 or newer; these compiled refiners are
 unavailable on macOS 11. Runtime validation here uses macOS 15.6.1; Intel Mac
@@ -119,6 +119,30 @@ fallback ONNX copy needs shipping. Input/output shapes, strides and float32 valu
 validated. Synchronous predictions own their input storage and serialize access
 to each model. Idle models are released after five minutes; active callers keep
 their ownership. CPU and GPU model caches are separate.
+
+The Apple Silicon detail decoder returns the central 512×512 region consumed
+by the tiler. Its transformer still processes the complete 768×768 input,
+including the 128px context on each side. The offline exporter propagates
+the required region backwards through decoder convolutions and half-pixel
+bilinear upsampling, retaining every contributing sample and the original
+weights. Shared branches use the union of their required regions. Unsupported
+decoder layouts fail export. CPU fallback and Intel retain the original
+768×768 float32 output; Rust validates both layouts and blends their matching
+central regions in the same order.
+
+Before publishing an archive, the exporter compares the cropped GPU decoder
+with the full GPU decoder on deterministic noise, gradient and fine texture
+inputs with three-valued trimaps. The current maximum alpha difference is
+0.00043738, with mean at most 0.000000506 and 99th percentile at most
+0.000013531. These checks guard sampling and context preservation; they do not
+measure segmentation accuracy. The manifest records the output region and
+all three comparisons.
+
+Trimap confidence now erodes threshold masks using running counts, equivalent
+to comparing the former 9×9 floating-point extrema. Known pixels skip blending
+that would subsequently be overwritten. Antialiased RGB preparation runs
+independent rows in bounded parallel tasks, and color cleanup evaluates its
+three channels concurrently. Their per-pixel accumulation order is preserved.
 
 The two optional/downloaded foreground detectors use the statically linked
 `ort` 2.0.0-rc.13 / ONNX Runtime 1.28.0 Core ML provider on Apple Silicon. Cargo
@@ -220,6 +244,11 @@ Anti-Smudge inference in the browser still uses tract. Compilation alone does
 not imply that a browser or device can execute a model on the GPU.
 
 ## Verification
+
+`SCHIST_NEURAL_NATIVE_TIMING=1 make profile-background-coreml ARGS='photo.jpg cutout.png 4 --preload'`
+also reports individual Core ML prediction times and tensor shapes. It records
+no pixel or tensor contents. Startup preparation, pipeline processing and final
+PNG encoding are reported separately.
 
 `SCHIST_MATTING_PROFILE=1 make profile-background-removal ARGS='cpu photo.jpg cutout.png'`
 logs operator timings for each model's first CPU input. It does not record image

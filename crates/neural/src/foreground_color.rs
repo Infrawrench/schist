@@ -4,6 +4,7 @@
 //! for provenance. Context is discarded so processing blocks have no seams.
 
 use anyhow::{bail, Result};
+use rayon::prelude::*;
 
 const BLOCK: usize = 256;
 const RADII: [usize; 2] = [45, 3];
@@ -78,20 +79,25 @@ pub fn clean_foreground_cancellable(
             let mut b = colors.clone();
             for radius in RADII {
                 let mass = box_mean(&a, w, h, radius);
-                for c in 0..3 {
-                    let fa: Vec<_> = f[c].iter().zip(&a).map(|(v, a)| v * a).collect();
-                    let ba: Vec<_> = b[c].iter().zip(&a).map(|(v, a)| v * (1.0 - a)).collect();
-                    let fm = box_mean(&fa, w, h, radius);
-                    let bm = box_mean(&ba, w, h, radius);
-                    for i in 0..a.len() {
-                        let mass = mass[i].clamp(0.0, 1.0);
-                        let fg = fm[i] / mass.max(1e-5);
-                        let bg = bm[i] / (1.0 - mass).max(1e-5);
-                        f[c][i] = (fg + a[i] * (colors[c][i] - a[i] * fg - (1.0 - a[i]) * bg))
-                            .clamp(0.0, 1.0);
-                        b[c][i] = bg;
-                    }
-                }
+                // Channels are independent. Keep the per-pixel summation order
+                // and block cancellation boundaries, with at most three jobs.
+                f.par_iter_mut()
+                    .zip(&mut b)
+                    .zip(&colors)
+                    .for_each(|((f, b), colors)| {
+                        let fa: Vec<_> = f.iter().zip(&a).map(|(v, a)| v * a).collect();
+                        let ba: Vec<_> = b.iter().zip(&a).map(|(v, a)| v * (1.0 - a)).collect();
+                        let fm = box_mean(&fa, w, h, radius);
+                        let bm = box_mean(&ba, w, h, radius);
+                        for i in 0..a.len() {
+                            let mass = mass[i].clamp(0.0, 1.0);
+                            let fg = fm[i] / mass.max(1e-5);
+                            let bg = bm[i] / (1.0 - mass).max(1e-5);
+                            f[i] = (fg + a[i] * (colors[i] - a[i] * fg - (1.0 - a[i]) * bg))
+                                .clamp(0.0, 1.0);
+                            b[i] = bg;
+                        }
+                    });
             }
             for y in top..bottom {
                 for x in left..right {

@@ -394,6 +394,15 @@ window semantics, replacing repeated radius scans with linear pixel passes.
 The detail tiler avoids redundant terminal windows while preserving its native
 resolution, 128-pixel context margin and normal 128-pixel overlaps. Direct
 plane copies and contiguous output copies reduce tensor-allocation overhead.
+The Apple Silicon GPU decoder computes only the central 512×512 output that
+the tiler uses, while the transformer retains the full 768×768 context.
+Decoder convolution and interpolation neighborhoods are propagated exactly
+through the cropped graph; model weights, input resolution and overlap geometry
+are unchanged. Intel and CPU fallback retain the original full-output graph.
+Threshold-mask erosion replaces the trimap's floating-point min/max scans,
+and independent RGB resampling rows and foreground-color channels run in
+parallel with their original accumulation order. Known pixels skip discarded
+overlap arithmetic.
 Validated model/session objects stay resident for up to five idle minutes so
 consecutive layer actions avoid rereading and hashing large source buffers.
 The macOS app starts loading and warming the installed pipeline on a dedicated
@@ -416,7 +425,37 @@ make first use much slower than a warm action. Add `--preload` to the profiling
 example's final argument to time startup preparation separately and measure
 an action after it completes; the GUI detaches that worker instead of joining.
 
-The packaged model was measured on an Apple M4 with 16 GB RAM and macOS
+The cropped decoder was compared with the preceding full-output GPU graph on
+Apple M4 / 16 GB using the same optimized Rust host path. Each process ran four
+complete actions; the table excludes the first action's model loading and
+warm-up. The portrait ran two pairs in opposite order. The gallery pairs used
+opposite orders as well. Source decoding and PNG encoding are excluded:
+
+| Image | Full decoder, mean (range) | Cropped decoder, mean (range) | Cropped median |
+| --- | ---: | ---: | ---: |
+| Supplied portrait, 1536 × 2048 | 5.857 s (4.454–7.560) | 4.498 s (4.213–5.703) | 4.266 s |
+| Gallery 010, 2316 × 3088 | 8.289 s (7.888–8.605) | 6.530 s (6.316–6.724) | 6.549 s |
+| Gallery 285, 2316 × 3088 | 9.441 s (8.429–10.510) | 6.706 s (6.204–7.575) | 6.339 s |
+
+An isolated tile comparison measured about 20% less prediction time. Observed
+whole-pipeline means were 21–29% lower, with substantial desktop-load variation;
+these measurements do **not** establish sub-three-second processing. No build
+or other inference benchmark ran concurrently, and desktop apps stayed open.
+One full-decoder control process aborted in Apple's MPSGraph during general
+detection, before detail refinement. Its immediate four-action retry and all
+subsequent gallery processes completed. The failed run is recorded separately
+and is not treated as a successful timing; this does not establish that the
+underlying framework assertion is fixed.
+
+Full-image comparisons changed only 1 / 10 / 9 alpha pixels respectively,
+each by one 8-bit level. RGB differences were also at most one level except
+for one gallery pixel whose alpha crossed from 1 to 0, disabling color cleanup
+on an invisible pixel. Composites on black, white and magenta differ by at most
+one level in every channel. Visual review found no new edge artifacts; existing
+fringe and segmentation mistakes remain. The portrait comparison against the
+previous host implementation has the same one-pixel alpha difference.
+
+Earlier, the full-output mixed model was measured on an Apple M4 with 16 GB RAM and macOS
 15.6.1. Each row starts a fresh process using prepared disk caches, then
 repeats the complete model pipeline with resident sessions:
 

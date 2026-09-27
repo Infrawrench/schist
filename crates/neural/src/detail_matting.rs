@@ -44,7 +44,7 @@ pub(crate) fn refine(
         |planes| {
             let output = model.run_planes(&planes.iter().map(Vec::as_slice).collect::<Vec<_>>())?;
             let view = output[0].to_plain_array_view::<f32>()?;
-            if view.shape() != [1, 1, SIDE, SIDE] {
+            if view.shape() != [1, 1, SIDE, SIDE] && view.shape() != [1, 1, WINDOW, WINDOW] {
                 bail!("unexpected detail matting output shape");
             }
             Ok(view
@@ -159,44 +159,38 @@ fn trimap(
     height: usize,
     cancelled: &mut impl FnMut() -> bool,
 ) -> Result<Vec<u8>> {
-    let mut horizontal = vec![[0.0f32; 2]; coarse.len()];
-    for y in 0..height {
-        if cancelled() {
-            bail!("matting cancelled");
-        }
-        for x in 0..width {
-            let mut low = 1.0f32;
-            let mut high = 0.0f32;
-            for sx in x.saturating_sub(RADIUS)..=(x + RADIUS).min(width - 1) {
-                low = low.min(coarse[y * width + sx]);
-                high = high.max(coarse[y * width + sx]);
-            }
-            horizontal[y * width + x] = [low, high];
-        }
-    }
-    let mut result = vec![1; coarse.len()];
-    for y in 0..height {
-        if cancelled() {
-            bail!("matting cancelled");
-        }
-        for x in 0..width {
-            let mut low = 1.0f32;
-            let mut high = 0.0f32;
-            for sy in y.saturating_sub(RADIUS)..=(y + RADIUS).min(height - 1) {
-                let range = horizontal[sy * width + x];
-                low = low.min(range[0]);
-                high = high.max(range[1]);
-            }
-            result[y * width + x] = if high < 0.02 {
+    // Only threshold comparisons are used from each min/max window. Eroding
+    // the two threshold masks is equivalent and avoids 18 floating-point
+    // comparisons per pixel and the full-size pair of f32 intermediates.
+    let background = binary_window(
+        &coarse.iter().map(|&a| a < 0.02).collect::<Vec<_>>(),
+        width,
+        height,
+        RADIUS,
+        true,
+        cancelled,
+    )?;
+    let foreground = binary_window(
+        &coarse.iter().map(|&a| a > 0.98).collect::<Vec<_>>(),
+        width,
+        height,
+        RADIUS,
+        true,
+        cancelled,
+    )?;
+    Ok(background
+        .iter()
+        .zip(foreground)
+        .map(|(&b, f)| {
+            if b {
                 0
-            } else if low > 0.98 {
+            } else if f {
                 2
             } else {
                 1
-            };
-        }
-    }
-    Ok(result)
+            }
+        })
+        .collect())
 }
 
 fn refine_seeded_with(
@@ -242,33 +236,41 @@ fn refine_seeded_with(
             let bw = WINDOW.min(width - left);
             let unknown =
                 (top..top + bh).any(|y| tri[y * width + left..y * width + left + bw].contains(&1));
-            let output = if unknown {
-                for y in 0..SIDE {
-                    let sy = (top + y).saturating_sub(HALO).min(height - 1);
-                    for x in 0..SIDE {
-                        let sx = (left + x).saturating_sub(HALO).min(width - 1);
-                        let src = sy * width + sx;
-                        let dst = y * SIDE + x;
-                        for c in 0..3 {
-                            planes[c][dst] = rgb[src * 3 + c].clamp(0.0, 1.0);
-                        }
-                        planes[3][dst] = tri[src] as f32 * 0.5;
+            if !unknown {
+                continue;
+            }
+            for y in 0..SIDE {
+                let sy = (top + y).saturating_sub(HALO).min(height - 1);
+                for x in 0..SIDE {
+                    let sx = (left + x).saturating_sub(HALO).min(width - 1);
+                    let src = sy * width + sx;
+                    let dst = y * SIDE + x;
+                    for c in 0..3 {
+                        planes[c][dst] = rgb[src * 3 + c].clamp(0.0, 1.0);
                     }
+                    planes[3][dst] = tri[src] as f32 * 0.5;
                 }
-                let output = predict(&planes)?;
-                if output.len() != SIDE * SIDE || output.iter().any(|a| !a.is_finite()) {
-                    bail!("invalid detail matting output");
-                }
-                Some(output)
+            }
+            let output = predict(&planes)?;
+            if ![SIDE * SIDE, WINDOW * WINDOW].contains(&output.len())
+                || output.iter().any(|a| !a.is_finite())
+            {
+                bail!("invalid detail matting output");
+            }
+            let (side, offset) = if output.len() == WINDOW * WINDOW {
+                (WINDOW, 0)
             } else {
-                None
+                (SIDE, HALO)
             };
             for y in 0..bh {
                 for x in 0..bw {
                     let i = (top + y) * width + left + x;
-                    let value = output.as_ref().map_or(tri[i] as f32 * 0.5, |a| {
-                        a[(y + HALO) * SIDE + x + HALO].clamp(0.0, 1.0)
-                    });
+                    // Known pixels are restored exactly below. They never
+                    // contribute to a neighboring pixel's overlap average.
+                    if tri[i] != 1 {
+                        continue;
+                    }
+                    let value = output[(y + offset) * side + x + offset].clamp(0.0, 1.0);
                     let weight = ramp[y] * ramp[x];
                     result[i] += value * weight;
                     weights[i] += weight;
@@ -381,6 +383,77 @@ mod tests {
         assert_eq!(t[8 * 41 + 8], 1);
         assert_eq!(t[8 * 41 + 16], 1);
         assert_eq!(t[8 * 41 + 24], 2);
+    }
+
+    #[test]
+    fn threshold_windows_match_scalar_min_max_at_edges_and_thresholds() {
+        for (w, h) in [(1, 1), (1, 19), (23, 1), (37, 29)] {
+            for pattern in 0..3 {
+                let values = [-0.1, 0.0, 0.01999, 0.02, 0.5, 0.98, 0.98001, 1.0, 1.1];
+                let coarse: Vec<_> = (0..w * h)
+                    .map(|i| match pattern {
+                        0 => 0.01999,
+                        1 => 0.98001,
+                        _ => values[(i / 11 + i / w / 13) % values.len()],
+                    })
+                    .collect();
+                let actual = trimap(&coarse, w, h, &mut || false).unwrap();
+                for y in 0..h {
+                    for x in 0..w {
+                        let (mut low, mut high) = (1.0f32, 0.0f32);
+                        for sy in y.saturating_sub(RADIUS)..=(y + RADIUS).min(h - 1) {
+                            for sx in x.saturating_sub(RADIUS)..=(x + RADIUS).min(w - 1) {
+                                low = low.min(coarse[sy * w + sx]);
+                                high = high.max(coarse[sy * w + sx]);
+                            }
+                        }
+                        let expected = if high < 0.02 {
+                            0
+                        } else if low > 0.98 {
+                            2
+                        } else {
+                            1
+                        };
+                        assert_eq!(actual[y * w + x], expected);
+                    }
+                }
+            }
+        }
+        assert!(trimap(&[0.5], 1, 1, &mut || true).is_err());
+    }
+
+    #[test]
+    fn cropped_decoder_matches_full_output_at_seams_and_partial_edges() {
+        let (w, h) = (901, 17);
+        let rgb: Vec<_> = (0..w * h * 3).map(|i| (i % 251) as f32 / 250.).collect();
+        let coarse = vec![0.5; w * h];
+        let full = refine_with(
+            &rgb,
+            &coarse,
+            w,
+            h,
+            || false,
+            |planes| Ok(planes[0].clone()),
+        )
+        .unwrap();
+        let cropped = refine_with(
+            &rgb,
+            &coarse,
+            w,
+            h,
+            || false,
+            |planes| {
+                Ok((HALO..HALO + WINDOW)
+                    .flat_map(|y| {
+                        planes[0][y * SIDE + HALO..y * SIDE + HALO + WINDOW]
+                            .iter()
+                            .copied()
+                    })
+                    .collect())
+            },
+        )
+        .unwrap();
+        assert_eq!(full, cropped);
     }
 
     #[test]

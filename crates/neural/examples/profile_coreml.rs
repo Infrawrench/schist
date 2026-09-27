@@ -8,6 +8,23 @@ fn main() -> anyhow::Result<()> {
     use std::sync::Arc;
     use std::time::Instant;
 
+    struct TimingLogger;
+    impl log::Log for TimingLogger {
+        fn enabled(&self, metadata: &log::Metadata<'_>) -> bool {
+            metadata.target() == "schist_neural::execution"
+        }
+        fn log(&self, record: &log::Record<'_>) {
+            if self.enabled(record.metadata()) {
+                eprintln!("{}", record.args());
+            }
+        }
+        fn flush(&self) {}
+    }
+    if std::env::var_os("SCHIST_NEURAL_NATIVE_TIMING").is_some() {
+        log::set_logger(&TimingLogger).map_err(|error| anyhow::anyhow!(error.to_string()))?;
+        log::set_max_level(log::LevelFilter::Info);
+    }
+
     let args: Vec<_> = std::env::args_os().skip(1).collect();
     ensure!(
         (3..=4).contains(&args.len()),

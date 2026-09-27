@@ -31,13 +31,43 @@ def sha(data):
     return hashlib.sha256(data).hexdigest()
 
 
-def compact(source, destination, *, mixed=False):
+def verify_detail_crop(reference_path, cropped_path):
+    """Check decoder sampling/halo preservation before publishing the archive."""
+    options = {'compute_units': ct.ComputeUnit.CPU_AND_GPU}
+    reference = ct.models.CompiledMLModel(str(reference_path), **options)
+    cropped = ct.models.CompiledMLModel(str(cropped_path), **options)
+    indices = np.arange(4 * 768 * 768, dtype=np.uint64)
+    noise = ((indices * 1664525 + 1013904223) % 65536).astype(np.float32)
+    noise = noise.reshape(1, 4, 768, 768) / np.float32(65535)
+    noise[:, 3] = np.where(noise[:, 3] < .2, 0., np.where(noise[:, 3] > .8, 1., .5))
+    yy, xx = np.indices((768, 768))
+    gradient = np.stack([xx / 767., yy / 767., (xx + yy) / 1534.,
+                         np.where(xx < 300, 0., np.where(xx > 450, 1., .5))])[None].astype(np.float32)
+    strands = np.full((1, 4, 768, 768), .5, dtype=np.float32)
+    strands[:, :3] = ((xx // 3 + yy // 5) % 2)[None, None]
+    strands[:, 3] = np.where(xx < 250, 0., np.where(xx > 520, 1., .5))
+    errors = []
+    for sample in (noise, gradient, strands):
+        expected = reference.predict({'rgb_trimap': sample})['alpha'][:, :, 128:640, 128:640]
+        actual = cropped.predict({'rgb_trimap': sample})['alpha']
+        assert actual.shape == expected.shape == (1, 1, 512, 512)
+        assert np.isfinite(actual).all() and np.isfinite(expected).all()
+        difference = np.abs(actual - expected)
+        record = {'max': float(difference.max()), 'mean': float(difference.mean()),
+                  'p99': float(np.quantile(difference, .99))}
+        assert record['max'] < 1 / 255 and record['mean'] < .025 / 255 and record['p99'] < .1 / 255, record
+        errors.append(record)
+    return errors
+
+
+def compact(source, destination, *, mixed=False, crop_detail=False):
     """Move inline float constants into standard MIL binary weight storage.
 
     ORT's transposed MatMul weights otherwise become huge hexadecimal text in
     model.mil. Storage compaction preserves the float32 values exactly; the
     optional GPU variant then applies a separate mixed-precision conversion.
     """
+    assert not crop_detail or mixed, 'decoder cropping is only enabled for the GPU variant'
     spec = ct.utils.load_spec(str(source))
     weights = destination / 'weights'
     shutil.copytree(source.parent / 'weights', weights)
@@ -95,18 +125,46 @@ def compact(source, destination, *, mixed=False):
                 op_selector=lambda operation: operation.op_type not in FP32_OPERATIONS),
             minimum_deployment_target=ct.target.macOS12, skip_model_load=True,
         )
+        if crop_detail:
+            from coreml_detail_crop import crop_detail_decoder
+            reference_package = destination / 'validation-full.mlpackage'
+            reference_compiled = destination / 'validation-full.mlmodelc'
+            model.save(str(reference_package))
+            ct.models.utils.compile_model(str(reference_package),
+                                          destination_path=str(reference_compiled))
+            program = load(model.get_spec(), spec.specificationVersion,
+                           file_weights_dir=model.weights_dir)
+            crop_detail_decoder(program)
+            model = ct.convert(
+                program, source='milinternal', convert_to='mlprogram',
+                compute_precision=ct.precision.FLOAT32,
+                minimum_deployment_target=ct.target.macOS12, skip_model_load=True,
+            )
         converted = model.get_spec()
         assert converted.description.input == spec.description.input
-        assert converted.description.output == spec.description.output
+        if crop_detail:
+            expected = type(spec.description.output[0])()
+            expected.CopyFrom(spec.description.output[0])
+            expected.type.multiArrayType.shape[:] = [1, 1, 512, 512]
+            assert list(converted.description.output) == [expected]
+        else:
+            assert converted.description.output == spec.description.output
         assert converted.specificationVersion == spec.specificationVersion
     model.save(str(package))
     compiled = destination / 'model.mlmodelc'
     ct.models.utils.compile_model(str(package), destination_path=str(compiled))
+    crop_validation = None
+    if crop_detail:
+        crop_validation = verify_detail_crop(reference_compiled, compiled)
+        shutil.rmtree(reference_package)
+        shutil.rmtree(reference_compiled)
     return compiled, {'externalized_constants': count, 'externalized_bytes': size,
                       'specification_version': spec.specificationVersion,
                       'opsets': sorted({f.opset for f in spec.mlProgram.functions.values()}),
                       'compute_precision': 'mixed_float16' if mixed else 'float32',
-                      'float32_operations': sorted(FP32_OPERATIONS) if mixed else None}
+                      'float32_operations': sorted(FP32_OPERATIONS) if mixed else None,
+                      'output_region': [128, 128, 512, 512] if crop_detail else None,
+                      'crop_validation': crop_validation}
 
 
 def pack(compiled, archive):
@@ -160,7 +218,8 @@ def main():
         source_id = id.removesuffix('-gpu')
         work = args.work / id
         work.mkdir()
-        compiled, report = compact(source_models[source_id], work, mixed=id.endswith('-gpu'))
+        compiled, report = compact(source_models[source_id], work, mixed=id.endswith('-gpu'),
+                                   crop_detail=id == 'detail-matting-gpu')
         archive = work / (id + '.mlmodelc.tar.xz')
         record = pack(compiled, archive)
         record.update(report)
