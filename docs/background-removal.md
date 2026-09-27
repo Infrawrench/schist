@@ -190,7 +190,8 @@ The matting exporter also retains the
 [deformable-convolution exporter attribution](../crates/neural/models/licenses/deform-conv2d-onnx-exporter-NOTICE.txt).
 The native loader fixes tract 0.23.5's batched GatherND shape rule and avoids
 its preliminary slice rewrite, which otherwise crashes on this model's index
-tensors. The worker releases each detector/guide plan after its stage finishes. The
+tensors. The worker releases each detector/guide after its stage; desktop idle
+pools retain prepared background plans briefly for consecutive actions. The
 44,091,283-byte semantic guide is embedded as a 40,454,876-byte XZ archive.
 All background models participate in the existing resident/partitioned GPU
 runtime. Expensive convolutions and matrix products use the installed wgpu
@@ -622,14 +623,33 @@ The measurements below document earlier portable-kernel improvements. The
 portable automatic path still calibrates CPU versus partial GPU execution.
 
 The portable layer action calibrates its large partially accelerated models
-on first use. Both pinned BiRefNet Lite detectors share a placement decision;
-ViTMatte calibrates on its first 768px tile. Each calibration runs the actual
-input on both paths and keeps CPU execution if it is at least 20% faster.
+using successive real inputs. Both pinned BiRefNet Lite detectors share a
+placement decision. The first input warms GPU shaders and constant uploads;
+the next two inputs of the same family and shape time CPU and warm GPU
+execution. All outputs are used, so calibration adds no duplicate inference,
+and cold shader compilation cannot unfairly select CPU for the whole session.
+ViTMatte compares successive edge tiles, and CPU wins
+when accelerated execution takes more than 1.2 times its duration.
 The decision survives model-plan releases for the lifetime of the installed
 backend, so subsequent actions avoid calibration. A new backend or app restart
 recalibrates. The resident semantic guide and small opaque-core model continue
-using the GPU when available. Calibration adds work to the first action, and
-the detector cannot be cancelled until its inferences finish.
+using the GPU when available. A failed prediction retries the other backend;
+the detector cannot be cancelled until its current inference finishes. The
+historical benchmarks below predate this incremental calibration change.
+
+Linux and Windows retain successfully prepared background plans for five
+minutes after their last release, with a reaper checking once a minute. Only
+the five background models (and the full/cropped detail variant) are eligible;
+unrelated gallery models still release immediately. Active model users and
+loading-slot handoffs prevent eviction. Installation/removal invalidates old
+slots immediately, including when preparation is still in flight.
+
+After opening the first window, the dedicated startup worker prepares the
+installed Linux/Windows background pipeline without running predictions. An
+actual removal stops further preloading after the current shared model load.
+This moves parsing, decompression and CPU/GPU plan optimization off the first
+action when startup preparation has finished. Phone and browser memory policies
+are unchanged; retained desktop plans trade additional idle memory for reuse.
 
 Execution uses tiled GPU matrix/convolution kernels, direct GatherND slice
 copies, preplanned linear interpolation and blocked ARM64 transposes. The
@@ -827,12 +847,45 @@ To measure the same complete pipeline on an installed model set:
 make profile-background-removal ARGS='auto photo.jpg cutout.png 2'
 ```
 
-The optional run count repeats model loading and inference in the same process
-to show initial calibration and reused placement. Only the final run saves a
+The optional run count repeats model access and inference in the same process
+to show initial calibration and reused placement/plans. Only the final run saves a
 PNG, and existing outputs are never overwritten. `cpu` and `gpu` select the
 reference and forced accelerated paths for comparison. Stage timings include
 GPU submission counts and shader timings. Benchmark with other heavy jobs
 stopped; memory pressure materially affects these large graphs.
+
+For a CPU-only end-to-end comparison of desktop preparation/reuse, run:
+
+```sh
+make background-removal-example ARGS='photo.jpg reused.png 3'
+make background-removal-example ARGS='photo.jpg reload.png 3 --reload'
+make background-removal-example ARGS='photo.jpg preloaded.png 3 --preload'
+```
+
+`--reload` invalidates every plan around each load to reproduce the old desktop
+release policy. `--preload` waits for the startup worker before timing actions;
+the GUI detaches that worker. The example uses the production adaptive scope
+(including cropped portable decoding), reports loading and inference separately,
+and saves only the last output. Apple models retain their platform runtime.
+
+The desktop cache was measured on the supplied 1536×2048 portrait with both
+BiRefNet detectors installed, using an ARM64 Debian Bookworm container on an
+M4 (four-CPU quota, 5 GiB memory limit, release build, no GPU). Forced reloads
+took **73.899 and 69.069 seconds**, including **17.147 and 12.907 seconds** of
+loading the four large models. Cache reuse reduced each measured load to less
+than a millisecond: the two warm actions took **57.146 and 68.499 seconds**.
+With the startup worker explicitly completed first, actions took **63.248 and
+51.421 seconds**, after **12.647 seconds** of separate preparation. The initial
+unprepared cached action took **74.483 seconds**. Timings exclude PNG encoding;
+desktop load varied substantially, so these are not Ryzen/RTX latency claims.
+
+Reloaded, reused and preloaded runs produced **byte-identical PNGs**. Retaining
+all plans increased peak process RSS from **2.65 GiB** in the reload control to
+**3.66 GiB** in the preload experiment. The reaper bounds this memory's idle
+lifetime; phone/Web workers do not enter this desktop pool. These CPU-only
+measurements isolate preparation/reuse, not the separate saving from removing
+duplicate calibration or using warm GPU timings. An RTX 3060 was not available
+for a hardware measurement.
 
 ## Reproduce
 

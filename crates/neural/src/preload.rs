@@ -21,9 +21,12 @@ fn models(installed: impl Fn(&str) -> bool) -> Vec<&'static str> {
         return Vec::new();
     }
     let mut ids = Vec::new();
-    // Intel uses tract for detectors, whose plans are released after an action.
-    // Only preload sessions supported by the existing native idle caches.
-    #[cfg(all(target_os = "macos", target_arch = "aarch64"))]
+    // Only preload sessions supported by the desktop idle caches.
+    #[cfg(any(
+        target_os = "linux",
+        target_os = "windows",
+        all(target_os = "macos", target_arch = "aarch64")
+    ))]
     {
         if installed("foreground-matting") {
             ids.push("foreground-matting");
@@ -38,6 +41,7 @@ fn models(installed: impl Fn(&str) -> bool) -> Vec<&'static str> {
 /// background models are used; this never downloads weights or reads photos.
 /// macOS warms resident GPU sessions; iOS only verifies/extracts compiled files
 /// to avoid retaining models or submitting GPU work at startup.
+/// Linux/Windows prepare CPU/GPU plans without running inference at startup.
 /// The caller must drop the handle without joining to keep startup nonblocking.
 /// Desktop sessions retain their normal five-minute idle eviction policy.
 pub fn preload_background_removal() -> Option<JoinHandle<()>> {
@@ -75,6 +79,15 @@ fn prepare(id: &str) -> bool {
                 log::warn!("background model {id} warm-up: {error:#}");
             }
         });
+        crate::release(id);
+        loaded.is_some()
+    })
+}
+
+#[cfg(any(target_os = "linux", target_os = "windows"))]
+fn prepare(id: &str) -> bool {
+    crate::with_adaptive_execution(|| {
+        let loaded = crate::get_prepared(id, |_| {});
         crate::release(id);
         loaded.is_some()
     })
@@ -144,7 +157,11 @@ mod tests {
         let general = models(|id| id == "foreground");
         assert!(general.contains(&"detail-matting"));
         assert!(!general.contains(&"foreground-matting"));
-        #[cfg(all(target_os = "macos", target_arch = "aarch64"))]
+        #[cfg(any(
+            target_os = "linux",
+            target_os = "windows",
+            all(target_os = "macos", target_arch = "aarch64")
+        ))]
         assert_eq!(
             models(|_| true),
             [

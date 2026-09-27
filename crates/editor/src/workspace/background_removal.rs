@@ -34,7 +34,7 @@ fn infer(
     let detector = schist_neural::get(detector_id)
         .ok_or_else(|| anyhow::anyhow!("foreground model unavailable"))?;
     // This larger detector is used once per layer action.
-    // The worker owns it; reclaim its plan after completion.
+    // Desktop idle pools reuse its plan; phone/Web workers reclaim it.
     schist_neural::release(detector_id);
     let raw_coarse = schist_neural::foreground(&detector, rgb, w, h)?;
     drop(detector);

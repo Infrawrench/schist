@@ -228,11 +228,13 @@ and absence of an ONNX Runtime dylib dependency. Mac packaging runs this check
 on the stripped shipping copy before signing the application bundle.
 
 The portable automatic background-removal path opts into measured placement.
-On its first input it times both CPU and accelerated execution of each large
-model family, including transfers and host operators. It uses CPU when at
-least 20% faster; otherwise it keeps GPU offloading. Both pinned BiRefNet Lite
-detectors share a calibration; ViTMatte calibrates independently on its first
-tile. Choices are scoped by input shape and backend identity, retained across
+The first real input warms GPU shaders/uploads; the next two time CPU and warm
+accelerated execution, including transfers and host operators. Each result is
+used, so calibration never duplicates successful inference or mistakes cold
+shader setup for steady GPU cost. CPU wins when accelerated execution takes
+more than 1.2 times its duration. Both pinned BiRefNet Lite detectors share a
+calibration; ViTMatte uses successive real edge tiles. Choices are scoped by
+input shape and backend identity, retained across
 model-plan releases, and reset when the backend is replaced or the app restarts.
 The resident subject guide and small MatteNet remain eligible for GPU execution.
 The scope changes neither the global backend nor unrelated filters, and raw
@@ -353,8 +355,19 @@ half-pixel interpolation neighbours. Shared branches use the union of their
 required regions. The source hash, topology and sampling mode are checked before
 rewriting; weights remain float32 and the compressed ONNX archive is unchanged.
 This reduces both CPU decoder arithmetic and GPU dispatch/upload sizes. Full
-and cropped plans have separate cache entries; release/invalidation removes
+and cropped plans have separate cache entries; explicit invalidation removes
 both. General callers outside automatic-background execution retain full output.
+
+Windows/Linux retain prepared background plans for five idle minutes instead
+of parsing and optimizing them again after every action. A dedicated startup
+thread prepares only installed background models, without running predictions
+or delaying the event loop. It stops after the current shared load when a real
+action begins. The idle reaper protects active users/loading handoffs, drops
+plans outside the cache lock and never revives invalidated models. Retention
+is limited to the five background IDs and the full/cropped detail variant;
+unrelated model release policies are unchanged. It trades additional desktop
+RAM for reduced latency; see the measured memory/timing results in
+[background removal](background-removal.md#native-execution-performance).
 
 Android serializes complete background-removal actions, including nested calls,
 and releases the small opaque-core model after use. It retains the existing

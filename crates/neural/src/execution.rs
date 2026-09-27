@@ -1,5 +1,5 @@
 //! Opt-in native placement for the expensive, partially accelerated matting graphs.
-//! Keep the choice outside the model cache: the layer worker releases each plan.
+//! Keep placement outside the model cache so idle eviction preserves timings.
 use anyhow::Result;
 use schist_fx::FxBackend;
 use std::cell::Cell;
@@ -91,8 +91,9 @@ pub(super) fn adaptive_enabled() -> bool {
     ADAPTIVE.get()
 }
 
-/// Measure CPU and accelerated execution once per background-model family and
-/// input shape, then reuse the faster placement for this backend's lifetime.
+/// Warm GPU, then time CPU and GPU on successive real inputs of each background
+/// model family and shape, reusing the faster placement for this backend. No
+/// input is evaluated twice unless execution fails and needs the other backend.
 /// Only affects synchronous inference inside `run` on the calling thread; do
 /// not return a future and expect the setting to follow it across executors.
 /// Other models and the global effects backend are unchanged.
@@ -144,16 +145,26 @@ impl Key {
     }
 }
 
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+enum Placement {
+    // The first GPU output has already been used. Time CPU on the next actual
+    // input (another edge tile or detector pass), without repeating either.
+    ProbeCpu,
+    // The cold GPU prediction compiled shaders and uploaded constants. Give
+    // its warmed path a fair comparison before permanently selecting the CPU.
+    ProbeGpu(Duration),
+    Selected(bool),
+}
 struct Choice {
     backend: Weak<dyn FxBackend>,
-    gpu: bool,
+    placement: Placement,
 }
 impl Choice {
-    fn for_backend(&self, backend: &Arc<dyn FxBackend>) -> Option<bool> {
+    fn for_backend(&self, backend: &Arc<dyn FxBackend>) -> Option<Placement> {
         self.backend
             .upgrade()
             .filter(|previous| Arc::ptr_eq(previous, backend))
-            .map(|_| self.gpu)
+            .map(|_| self.placement)
     }
 }
 static CHOICES: OnceLock<Mutex<HashMap<Key, Choice>>> = OnceLock::new();
@@ -176,9 +187,7 @@ pub(super) fn run<T>(
         .unwrap()
         .get(&key)
         .and_then(|choice| choice.for_backend(&backend));
-    if let Some(use_gpu) = choice {
-        // A device failure may make yesterday's winning placement unusable.
-        // Invalidate it and retain the other result if it succeeds.
+    if let Some(Placement::Selected(use_gpu)) = choice {
         let mut failed = false;
         let result = if use_gpu {
             gpu().or_else(|_| {
@@ -197,49 +206,54 @@ pub(super) fn run<T>(
         return result;
     }
 
-    // Do not hold the cache lock while executing either graph. Concurrent
-    // workers may calibrate independently rather than blocking one another.
+    // Calibration must do useful work. In particular, a cold removal must not
+    // pay for a second complete detector and attention pass merely to time it.
+    // These fixed-shape graphs have the same work for each input. Concurrent
+    // callers may repeat a probe, but never hold the cache lock during inference.
     let start = Instant::now();
-    let reference = cpu();
-    let cpu_time = start.elapsed();
-    let start = Instant::now();
-    let accelerated = gpu();
-    let gpu_time = start.elapsed();
-    let (result, use_gpu) = select(reference, accelerated, cpu_time, gpu_time)?;
-    log::info!(
-        "neural placement {} {:?}: CPU {:.3}s, accelerated {:.3}s; using {}",
-        key.family,
-        key.shape,
-        cpu_time.as_secs_f64(),
-        gpu_time.as_secs_f64(),
-        if use_gpu { "GPU" } else { "CPU" },
-    );
+    let attempt = match choice {
+        Some(Placement::ProbeCpu) => match cpu() {
+            Ok(result) => Ok((result, Placement::ProbeGpu(start.elapsed()))),
+            Err(error) => gpu()
+                .map(|result| (result, Placement::Selected(true)))
+                .map_err(|_| error),
+        },
+        Some(Placement::ProbeGpu(cpu_time)) => match gpu() {
+            Ok(result) => {
+                let gpu_time = start.elapsed();
+                let use_gpu = prefer_gpu(cpu_time, gpu_time);
+                log::info!(
+                    "neural placement {} {:?}: CPU {:.3}s, accelerated {:.3}s; using {}",
+                    key.family,
+                    key.shape,
+                    cpu_time.as_secs_f64(),
+                    gpu_time.as_secs_f64(),
+                    if use_gpu { "GPU" } else { "CPU" },
+                );
+                Ok((result, Placement::Selected(use_gpu)))
+            }
+            Err(_) => cpu().map(|result| (result, Placement::Selected(false))),
+        },
+        _ => match gpu() {
+            Ok(result) => Ok((result, Placement::ProbeCpu)),
+            Err(_) => cpu().map(|result| (result, Placement::Selected(false))),
+        },
+    };
+    let (result, placement) = match attempt {
+        Ok(success) => success,
+        Err(error) => {
+            cache.lock().unwrap().remove(&key);
+            return Err(error);
+        }
+    };
     cache.lock().unwrap().insert(
         key,
         Choice {
             backend: Arc::downgrade(&backend),
-            gpu: use_gpu,
+            placement,
         },
     );
     Ok(result)
-}
-
-fn select<T>(
-    cpu: Result<T>,
-    gpu: Result<T>,
-    cpu_time: Duration,
-    gpu_time: Duration,
-) -> Result<(T, bool)> {
-    match (cpu, gpu) {
-        (Ok(cpu), Ok(gpu)) => Ok(if prefer_gpu(cpu_time, gpu_time) {
-            (gpu, true)
-        } else {
-            (cpu, false)
-        }),
-        (Ok(cpu), Err(_)) => Ok((cpu, false)),
-        (Err(_), Ok(gpu)) => Ok((gpu, true)),
-        (Err(cpu), Err(_)) => Err(cpu),
-    }
 }
 
 #[cfg(test)]
@@ -291,27 +305,153 @@ mod tests {
     }
 
     #[test]
-    fn calibration_keeps_successful_results_and_requires_a_clear_cpu_win() {
+    fn calibration_requires_a_clear_cpu_win() {
         let cpu = Duration::from_secs(10);
         assert!(!prefer_gpu(cpu, Duration::from_secs(20)));
         assert!(prefer_gpu(cpu, Duration::from_secs(11)));
         assert!(prefer_gpu(cpu, Duration::from_secs(5)));
-        assert_eq!(select(Ok(1), Ok(2), cpu, cpu).unwrap(), (2, true));
+    }
+
+    #[test]
+    fn calibration_uses_each_input_once_and_returns_its_own_output() {
+        let backend: Arc<dyn FxBackend> = Arc::new(schist_fx::CpuFx);
+        let key = Key {
+            family: "test-incremental",
+            shape: vec![19],
+        };
         assert_eq!(
-            select(Ok(1), Err(anyhow::anyhow!("device lost")), cpu, cpu).unwrap(),
-            (1, false)
+            run(
+                key.clone(),
+                backend.clone(),
+                || panic!("duplicate inference"),
+                || Ok(1)
+            )
+            .unwrap(),
+            1
+        );
+        assert!(matches!(
+            CHOICES.get().unwrap().lock().unwrap()[&key].placement,
+            Placement::ProbeCpu
+        ));
+        assert_eq!(
+            run(
+                key.clone(),
+                backend.clone(),
+                || Ok(2),
+                || panic!("duplicate inference")
+            )
+            .unwrap(),
+            2
+        );
+        assert!(matches!(
+            CHOICES.get().unwrap().lock().unwrap()[&key].placement,
+            Placement::ProbeGpu(_)
+        ));
+        assert_eq!(
+            run(
+                key.clone(),
+                backend,
+                || panic!("duplicate inference"),
+                || Ok(3)
+            )
+            .unwrap(),
+            3
+        );
+        assert!(matches!(
+            CHOICES.get().unwrap().lock().unwrap()[&key].placement,
+            Placement::Selected(_)
+        ));
+    }
+
+    #[test]
+    fn failed_cpu_probe_falls_back_and_failed_pair_can_retry() {
+        let backend: Arc<dyn FxBackend> = Arc::new(schist_fx::CpuFx);
+        let key = Key {
+            family: "test-probe-failure",
+            shape: vec![23],
+        };
+        run(
+            key.clone(),
+            backend.clone(),
+            || panic!("duplicate"),
+            || Ok(1),
+        )
+        .unwrap();
+        assert_eq!(
+            run(
+                key.clone(),
+                backend.clone(),
+                || anyhow::bail!("CPU failed"),
+                || Ok(2)
+            )
+            .unwrap(),
+            2
         );
         assert_eq!(
-            select(Err(anyhow::anyhow!("CPU failed")), Ok(2), cpu, cpu).unwrap(),
-            (2, true)
+            run(
+                key.clone(),
+                backend.clone(),
+                || panic!("cached GPU"),
+                || Ok(3)
+            )
+            .unwrap(),
+            3
         );
-        assert!(select::<()>(
-            Err(anyhow::anyhow!("CPU failed")),
-            Err(anyhow::anyhow!("GPU failed")),
-            cpu,
-            cpu
+        assert!(run::<()>(
+            key.clone(),
+            backend.clone(),
+            || anyhow::bail!("CPU failed"),
+            || anyhow::bail!("GPU failed")
         )
         .is_err());
+        assert!(!CHOICES.get().unwrap().lock().unwrap().contains_key(&key));
+        assert_eq!(
+            run(key, backend, || Ok(4), || anyhow::bail!("GPU failed")).unwrap(),
+            4
+        );
+    }
+
+    #[test]
+    fn failed_warm_gpu_probe_retries_cpu_without_losing_the_input() {
+        let backend: Arc<dyn FxBackend> = Arc::new(schist_fx::CpuFx);
+        let key = Key {
+            family: "test-warm-probe-failure",
+            shape: vec![29],
+        };
+        run(
+            key.clone(),
+            backend.clone(),
+            || panic!("duplicate"),
+            || Ok(1),
+        )
+        .unwrap();
+        run(
+            key.clone(),
+            backend.clone(),
+            || Ok(2),
+            || panic!("duplicate"),
+        )
+        .unwrap();
+        assert_eq!(
+            run(
+                key.clone(),
+                backend.clone(),
+                || Ok(3),
+                || anyhow::bail!("device lost")
+            )
+            .unwrap(),
+            3
+        );
+        assert_eq!(
+            run(
+                key,
+                backend,
+                || Ok(4),
+                || panic!("failed GPU should not be selected")
+            )
+            .unwrap(),
+            4
+        );
     }
 
     #[test]
@@ -320,9 +460,12 @@ mod tests {
         let replacement: Arc<dyn FxBackend> = Arc::new(schist_fx::CpuFx);
         let choice = Choice {
             backend: Arc::downgrade(&backend),
-            gpu: false,
+            placement: Placement::Selected(false),
         };
-        assert_eq!(choice.for_backend(&backend), Some(false));
+        assert_eq!(
+            choice.for_backend(&backend),
+            Some(Placement::Selected(false))
+        );
         assert_eq!(choice.for_backend(&replacement), None);
         drop(backend);
         assert!(choice.backend.upgrade().is_none());

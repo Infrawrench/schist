@@ -602,7 +602,7 @@ lint-background-removal-web:
 lint-background-removal:
 	$(CARGO) clippy $(PROFILE_FLAG) -p schist-core -p schist-neural -p schist-compositor-gpu -p schist-editor --all-targets -- -D warnings
 format-background-removal:
-	$(CARGO) fmt -p schist-core -p schist-neural -p schist-compositor-gpu -p schist-editor -p schist-app-actions
+	$(CARGO) fmt -p schist-core -p schist-neural -p schist-compositor-gpu -p schist-editor -p schist-app-actions -p schist-app
 background-removal-example:
 	$(CARGO) run $(PROFILE_FLAG) -p schist-neural --example remove_background -- $(ARGS)
 .PHONY: profile-background-removal

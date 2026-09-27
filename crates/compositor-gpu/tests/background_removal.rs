@@ -231,7 +231,10 @@ fn cropped_detail_graph_matches_original_on_cpu_and_gpu() {
     eprintln!("cropped detail adapter: {:?}", gpu.ctx.adapter_info());
     schist_fx::set_backend(gpu.clone());
     close(
-        &schist_neural::refine_alpha(&center, &rgb, &coarse, w, h).unwrap(),
+        &schist_neural::with_adaptive_execution(|| {
+            schist_neural::refine_alpha(&center, &rgb, &coarse, w, h)
+        })
+        .unwrap(),
         &reference,
         5e-4,
     );
@@ -240,4 +243,16 @@ fn cropped_detail_graph_matches_original_on_cpu_and_gpu() {
         "cropped detail: {} GPU dispatches",
         gpu.dispatches.lock().unwrap()
     );
+    // The next actual inputs supply CPU and warm GPU calibration results.
+    // Every output must retain the original quality when placement changes.
+    for _ in 0..2 {
+        close(
+            &schist_neural::with_adaptive_execution(|| {
+                schist_neural::refine_alpha(&center, &rgb, &coarse, w, h)
+            })
+            .unwrap(),
+            &reference,
+            5e-4,
+        );
+    }
 }

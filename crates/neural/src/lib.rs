@@ -83,9 +83,27 @@ mod inpaint;
 mod ios_tests;
 mod matting;
 mod model_cache;
-#[cfg(all(any(target_os = "macos", target_os = "ios"), not(schist_library)))]
+#[cfg(any(target_os = "linux", target_os = "windows", test))]
+mod portable_cache;
+#[cfg(all(
+    any(
+        target_os = "macos",
+        target_os = "ios",
+        target_os = "linux",
+        target_os = "windows"
+    ),
+    not(schist_library)
+))]
 mod preload;
-#[cfg(all(any(target_os = "macos", target_os = "ios"), not(schist_library)))]
+#[cfg(all(
+    any(
+        target_os = "macos",
+        target_os = "ios",
+        target_os = "linux",
+        target_os = "windows"
+    ),
+    not(schist_library)
+))]
 pub use preload::preload_background_removal;
 #[cfg(any(target_os = "macos", target_os = "ios"))]
 mod native_coreml;
@@ -1472,7 +1490,12 @@ fn cache() -> &'static Cache {
 /// failure is cached too, so a broken file is not re-parsed on every dab.
 #[cfg(not(schist_library))]
 pub fn get(id: &str) -> Option<Arc<Model>> {
-    #[cfg(any(target_os = "macos", target_os = "ios"))]
+    #[cfg(any(
+        target_os = "macos",
+        target_os = "ios",
+        target_os = "linux",
+        target_os = "windows"
+    ))]
     preload::foreground_started(id);
     get_prepared(id, |_| {})
 }
@@ -1516,8 +1539,13 @@ fn get_prepared(id: &str, prepare: impl FnOnce(&Model)) -> Option<Arc<Model>> {
 /// resident megabytes between them).
 /// macOS background sessions have a separate five-minute idle pool so
 /// consecutive layer actions can reuse their expensive GPU specialization.
+/// Linux/Windows keep the prepared background plans in a five-minute idle pool.
 /// iOS releases sessions after each processing stage to bound resident memory.
 pub fn release(id: &str) {
+    #[cfg(any(target_os = "linux", target_os = "windows"))]
+    if portable_cache::release(id) {
+        return;
+    }
     if let Ok(mut c) = cache().write() {
         c.remove(id);
         c.remove(&format!("center:{id}"));

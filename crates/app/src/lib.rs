@@ -474,9 +474,15 @@ pub fn main() {
         web::loading_done();
         cx.activate(true);
         // Prepare background models on a dedicated worker; iOS only unpacks
-        // bundled assets, while macOS also warms its resident GPU sessions.
+        // bundled assets, macOS warms GPU sessions, and Linux/Windows prepare
+        // their reusable inference plans without running predictions.
         // Dropping its handle detaches it; the window never waits for models.
-        #[cfg(any(target_os = "macos", target_os = "ios"))]
+        #[cfg(any(
+            target_os = "macos",
+            target_os = "ios",
+            target_os = "linux",
+            target_os = "windows"
+        ))]
         drop(workspace::preload_background_removal());
         // Closing the last window ends the session. The X11, Wayland and
         // Windows backends already stop themselves once no window is left;
