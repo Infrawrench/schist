@@ -15,6 +15,14 @@ pub(super) fn run_cpu(
     plan: &Arc<TypedSimplePlan>,
     inputs: TVec<TValue>,
 ) -> Result<TVec<TValue>> {
+    crate::cpu_threads::run(id, || run_cpu_inner(id, plan, inputs))
+}
+
+fn run_cpu_inner(
+    id: &str,
+    plan: &Arc<TypedSimplePlan>,
+    inputs: TVec<TValue>,
+) -> Result<TVec<TValue>> {
     static ENABLED: OnceLock<bool> = OnceLock::new();
     static SEEN: OnceLock<Mutex<std::collections::HashSet<String>>> = OnceLock::new();
     if !*ENABLED.get_or_init(|| std::env::var_os("SCHIST_MATTING_PROFILE").is_some())
@@ -73,10 +81,12 @@ pub(super) fn run_cpu(
 }
 
 thread_local! {
+    // Android's OS-key TLS macro expands this const initializer through a
+    // non-const helper, which triggers a false positive in Clippy 1.98.
+    #[cfg_attr(target_os = "android", allow(clippy::missing_const_for_thread_local))]
     static ADAPTIVE: Cell<bool> = const { Cell::new(false) };
 }
 
-#[cfg(any(target_os = "macos", target_os = "ios"))]
 pub(super) fn adaptive_enabled() -> bool {
     ADAPTIVE.get()
 }
@@ -87,12 +97,14 @@ pub(super) fn adaptive_enabled() -> bool {
 /// not return a future and expect the setting to follow it across executors.
 /// Other models and the global effects backend are unchanged.
 pub fn with_adaptive_execution<T>(run: impl FnOnce() -> T) -> T {
+    adaptive_scope(cfg!(any(target_os = "ios", target_os = "android")), run)
+}
+
+fn adaptive_scope<T>(mobile: bool, run: impl FnOnce() -> T) -> T {
     // Multiple windows must not hold multiple phone-sized inference pipelines.
     // Nested calls on this thread inherit the outer guard rather than deadlock.
-    #[cfg(target_os = "ios")]
     static MOBILE_INFERENCE: Mutex<()> = Mutex::new(());
-    #[cfg(target_os = "ios")]
-    let _mobile = (!ADAPTIVE.get()).then(|| {
+    let _mobile = (mobile && !ADAPTIVE.get()).then(|| {
         MOBILE_INFERENCE
             .lock()
             .unwrap_or_else(|poisoned| poisoned.into_inner())
@@ -233,6 +245,30 @@ fn select<T>(
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn mobile_jobs_serialize_nest_and_recover_from_panics() {
+        use std::sync::atomic::{AtomicUsize, Ordering};
+        let active = AtomicUsize::new(0);
+        let barrier = std::sync::Barrier::new(4);
+        std::thread::scope(|scope| {
+            for _ in 0..4 {
+                scope.spawn(|| {
+                    barrier.wait();
+                    adaptive_scope(true, || {
+                        assert_eq!(active.fetch_add(1, Ordering::SeqCst), 0);
+                        adaptive_scope(true, std::thread::yield_now);
+                        assert_eq!(active.fetch_sub(1, Ordering::SeqCst), 1);
+                    });
+                });
+            }
+        });
+        assert!(
+            std::panic::catch_unwind(|| adaptive_scope(true, || panic!("test unwind"))).is_err()
+        );
+        adaptive_scope(true, || assert!(adaptive_enabled()));
+        assert!(!adaptive_enabled());
+    }
 
     #[test]
     fn placement_is_scoped_and_only_shared_by_matching_graphs() {

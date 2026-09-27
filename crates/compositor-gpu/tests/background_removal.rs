@@ -195,3 +195,49 @@ fn full_resolution_private_photo_matches_cpu_when_requested() {
             .unwrap();
     }
 }
+
+#[test]
+#[ignore = "portable cropped graph; make check-background-portable-gpu"]
+fn cropped_detail_graph_matches_original_on_cpu_and_gpu() {
+    // Suppress optional Apple ORT only in this dedicated test process. Other
+    // platforms already use the same Rust/ONNX path without this switch.
+    assert!(std::env::var_os("SCHIST_NEURAL_LEGACY_NATIVE").is_some());
+    assert!(std::env::var_os("SCHIST_NEURAL_LEGACY_CROP").is_none());
+    let _lock = BACKEND.lock().unwrap_or_else(|p| p.into_inner());
+    let _restore = Restore(schist_fx::backend());
+    let (w, h) = (73, 61);
+    let rgb: Vec<_> = (0..w * h * 3)
+        .map(|i| (i * 17 % 251) as f32 / 250.)
+        .collect();
+    let coarse: Vec<_> = (0..w * h)
+        .map(|i| (i % w) as f32 / (w - 1) as f32)
+        .collect();
+    schist_fx::set_backend(Arc::new(schist_fx::CpuFx));
+    let full = portable_model("detail-matting");
+    let reference = schist_neural::refine_alpha(&full, &rgb, &coarse, w, h).unwrap();
+    drop(full);
+    let center = schist_neural::with_adaptive_execution(|| portable_model("detail-matting"));
+    assert!(!center.uses_native_inference());
+    assert!(center.gpu_partition_count() > 0);
+    close(
+        &schist_neural::refine_alpha(&center, &rgb, &coarse, w, h).unwrap(),
+        &reference,
+        5e-4,
+    );
+    let gpu = Arc::new(Tracking {
+        ctx: GpuContext::new().expect("GPU adapter"),
+        dispatches: Mutex::new(0),
+    });
+    eprintln!("cropped detail adapter: {:?}", gpu.ctx.adapter_info());
+    schist_fx::set_backend(gpu.clone());
+    close(
+        &schist_neural::refine_alpha(&center, &rgb, &coarse, w, h).unwrap(),
+        &reference,
+        5e-4,
+    );
+    assert!(*gpu.dispatches.lock().unwrap() > 0);
+    eprintln!(
+        "cropped detail: {} GPU dispatches",
+        gpu.dispatches.lock().unwrap()
+    );
+}

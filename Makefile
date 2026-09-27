@@ -1094,3 +1094,21 @@ fetch-anti-smudge-pairs:
 .PHONY: run-anti-smudge
 run-anti-smudge:
 	$(CARGO) run $(PROFILE_FLAG) -p schist-neural --example anti_smudge -- $(ARGS)
+
+# Portable native background inference: no extra runtime shared library.
+.PHONY: check-background-portable profile-background-portable lint-background-portable
+check-background-portable:
+	$(CARGO) test $(PROFILE_FLAG) -p schist-neural --lib --test inference
+profile-background-portable:
+	$(CARGO) test $(PROFILE_FLAG) -p schist-neural --lib profile_portable_detail_decoder -- --ignored --nocapture --test-threads=1
+lint-background-portable:
+	$(CARGO) clippy $(PROFILE_FLAG) -p schist-neural --all-targets -- -D warnings
+.PHONY: check-background-portable-gpu check-background-target lint-background-target
+check-background-portable-gpu:
+	SCHIST_NEURAL_LEGACY_NATIVE=1 SCHIST_NEURAL_CPU_THREADS=4 $(CARGO) test $(PROFILE_FLAG) -p schist-compositor-gpu --test background_removal cropped_detail_graph -- --ignored --nocapture --test-threads=1
+# Set NEURAL_TARGET to a Rust target triple; supply its C compiler in the
+# environment when cross-compiling tract's statically linked SIMD kernels.
+check-background-target:
+	$(CARGO) check -p schist-neural --all-targets --target $(NEURAL_TARGET)
+lint-background-target:
+	$(CARGO) clippy -p schist-neural --all-targets --target $(NEURAL_TARGET) -- -D warnings

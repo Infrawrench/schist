@@ -16,8 +16,15 @@ log.workspace = true
 lzma-rust2 = { version = "0.16.5", default-features = false, features = ["std", "xz"] }
 rayon.workspace = true
 sha2 = "0.10"
-tract-onnx = "0.23"
+# Keep this aligned with tract-linalg below: the scoped executor must be the
+# same instance used by tract's kernels.
+tract-onnx = "=0.23.5"
 transpose = "0.2.3"
+
+[target.'cfg(not(target_arch = "wasm32"))'.dependencies]
+# Use tract's SIMD kernels across a bounded, shared Rust worker pool. No BLAS
+# or inference runtime shared library is required on Windows/Linux/Android.
+tract-linalg = { version = "=0.23.5", features = ["multithread-mm"] }
 
 [target.'cfg(any(target_os = "macos", target_os = "ios"))'.dependencies]
 objc2 = "0.6"

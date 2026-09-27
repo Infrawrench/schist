@@ -7197,6 +7197,7 @@ dependencies = [
  "serde",
  "sha2 0.10.9",
  "tar",
+ "tract-linalg",
  "tract-onnx",
  "transpose",
 ]
@@ -8950,6 +8951,7 @@ dependencies = [
  "minijinja",
  "num-traits",
  "pastey 0.2.3",
+ "rayon",
  "scan_fmt",
  "tract-data",
  "walkdir",

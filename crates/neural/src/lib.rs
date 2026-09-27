@@ -48,6 +48,8 @@ use tract_onnx::prelude::*;
 
 mod colour;
 mod compat;
+#[cfg(not(target_arch = "wasm32"))]
+mod cpu_threads;
 mod depth;
 #[cfg(not(target_arch = "wasm32"))]
 mod execution;
@@ -68,6 +70,8 @@ mod accelerate_conv;
 #[cfg(target_os = "macos")]
 mod accelerate_matrix;
 mod deform_sample;
+#[cfg(not(target_arch = "wasm32"))]
+mod detail_crop;
 mod detail_matting;
 mod foreground_color;
 mod framed;
@@ -914,6 +918,10 @@ impl Model {
         let mut proto = onnx
             .proto_model_for_read(&mut cursor)
             .context("not a readable ONNX model")?;
+        #[cfg(not(target_arch = "wasm32"))]
+        if detail_crop::requested(spec.id) && detail_crop::matches(bytes.as_ref()) {
+            detail_crop::optimize(&mut proto)?;
+        }
         if fast_host_ops() && matches!(spec.id, "foreground" | "foreground-matting") {
             gather_nd::specialize_pixel_indices(&mut proto);
         }
@@ -1211,6 +1219,9 @@ impl Model {
         }
         if schist_fx::backend().compute_available(usize::MAX) {
             if let Some(partitioned) = &self.partitioned {
+                #[cfg(not(target_arch = "wasm32"))]
+                return cpu_threads::run(self.spec.id, || partitioned.plan.run(inputs));
+                #[cfg(target_arch = "wasm32")]
                 return partitioned.plan.run(inputs);
             }
         }
@@ -1469,6 +1480,12 @@ fn get_prepared(id: &str, prepare: impl FnOnce(&Model)) -> Option<Arc<Model>> {
     };
     #[cfg(not(all(any(target_os = "macos", target_os = "ios"), target_arch = "aarch64")))]
     let key = id.to_owned();
+    #[cfg(not(target_arch = "wasm32"))]
+    let key = if detail_crop::requested(id) {
+        format!("center:{key}")
+    } else {
+        key
+    };
     #[cfg(any(target_os = "macos", target_os = "ios"))]
     let key = if native_coreml::bundled(id) {
         native_coreml::cache_key(id)
@@ -1495,6 +1512,7 @@ fn get_prepared(id: &str, prepare: impl FnOnce(&Model)) -> Option<Arc<Model>> {
 pub fn release(id: &str) {
     if let Ok(mut c) = cache().write() {
         c.remove(id);
+        c.remove(&format!("center:{id}"));
         #[cfg(target_os = "ios")]
         {
             c.remove(&format!("native:{id}"));
@@ -1659,6 +1677,7 @@ pub fn uninstall(spec: &ModelSpec) -> Result<()> {
 pub fn forget(id: &str) {
     if let Ok(mut c) = cache().write() {
         c.remove(id);
+        c.remove(&format!("center:{id}"));
         #[cfg(all(any(target_os = "macos", target_os = "ios"), target_arch = "aarch64"))]
         c.remove(&format!("native:{id}"));
         #[cfg(any(target_os = "macos", target_os = "ios"))]

@@ -327,3 +327,98 @@ not segmentation quality or an artifact-free guarantee.
 `SCHIST_BACKGROUND_REFERENCE_DIR` optionally supplies independent runtime
 references as `foreground.f32` and `foreground-matting.f32`, using the same
 full-size alpha format. This also checks the CPU graph against those outputs.
+
+## Portable background inference on Windows, Linux and Android
+
+The portable background pipeline uses tract's statically linked Rust SIMD
+kernels with a shared, bounded worker pool: up to four workers on Windows/Linux
+and two on Android, limited by the available CPUs. Small operations retain
+tract's serial dispatch thresholds. CPU calibration and the CPU portions of
+partitioned GPU plans use the same pool, including device-failure fallbacks.
+Executor selection is scoped to the five background models; it restores the
+previous selection after nested calls, errors and unwinding. It does not change
+the global Rayon pool or other filters. Apple production inference retains its
+existing Core ML/Accelerate scheduling.
+
+The pinned portable ViTMatte graph now computes only the central 512×512 decoder
+output consumed by the tiler. The transformer still receives the complete
+768×768 context. A Rust ONNX rewrite propagates the required spatial region
+backwards through the local decoder, retaining convolution halos and both
+half-pixel interpolation neighbours. Shared branches use the union of their
+required regions. The source hash, topology and sampling mode are checked before
+rewriting; weights remain float32 and the compressed ONNX archive is unchanged.
+This reduces both CPU decoder arithmetic and GPU dispatch/upload sizes. Full
+and cropped plans have separate cache entries; release/invalidation removes
+both. General callers outside automatic-background execution retain full output.
+
+Android serializes complete background-removal actions, including nested calls,
+and releases the small opaque-core model after use. It retains the existing
+per-stage release of large detector/refiner plans. This avoids simultaneous
+phone-sized inference jobs competing for memory and CPU workers.
+
+The existing wgpu backend provides D3D12/Vulkan acceleration; CPU/GPU calibration
+still measures complete predictions, including transfers. No new runtime DLL,
+SO, Python process or vendor SDK is shipped. The static ORT distributions were
+also investigated: their WebGPU backend requires a separate Dawn library, while
+Android [NNAPI is deprecated](https://developer.android.com/ndk/guides/neuralnetworks). This change keeps the portable Rust/wgpu path;
+it does not claim new DirectML, CUDA or NPU execution.
+
+For reproducible diagnostics:
+
+```sh
+make check-background-portable
+make profile-background-portable
+make check-background-portable-gpu
+make lint-background-portable
+make check-background-target NEURAL_TARGET=aarch64-linux-android
+```
+
+Cross-target checks need the target C toolchain for tract's SIMD assembly.
+`SCHIST_NEURAL_CPU_THREADS=1` selects the serial reference; values 2–8 select a
+bounded alternative pool (also on a Mac for portable diagnostics).
+`SCHIST_NEURAL_LEGACY_CROP=1` retains the full decoder inside automatic background
+removal. Both controls are for paired measurements; they do not alter weights
+or the tiler's context, overlap or blending.
+
+The decoder benchmark compares the original and cropped production weights on
+noise, gradients and fine texture at one, two and four threads. It checks a
+maximum alpha error below 0.0005 and requires threaded cropped results to match
+the single-threaded crop exactly. The GPU check runs the complete transformer
+and cropped decoder through real dispatches, comparing the final matte with the
+original full-output CPU graph. Existing seam and partial-edge tests cover the
+central-output tiling contract. These are numerical consistency checks, not a
+guarantee that segmentation is perfect on every photograph.
+
+Validation on 2026-09-27 used an ARM64 Debian Bookworm container on an Apple M4,
+limited to four CPUs and 5 GiB RAM. Release optimization was unchanged; debug
+information was disabled to reduce build storage. All 70 portable unit tests,
+21 inference tests, the decoder comparison and strict all-targets Clippy passed.
+The decoder's three cases reported zero maximum alpha difference to nine
+decimal places for both graphs at all worker counts. Cropped outputs also
+passed exact-equality checks across worker counts.
+
+| Decoder | 1 worker median (range) | 2 workers median (range) | 4 workers median (range) |
+| --- | ---: | ---: | ---: |
+| Original 768px output | 2.148 s (1.878–2.426) | 1.555 s (1.467–1.674) | 1.810 s (1.094–1.911) |
+| Central 512px output | 0.890 s (0.800–1.059) | 0.844 s (0.702–0.953) | 0.661 s (0.527–1.167) |
+
+Cropping alone lowered the median decoder time by 59%; with four workers the
+median was 69% lower than the previous single-worker full decoder. These are
+three synthetic decoder runs per configuration, with visible scheduling noise,
+not whole-image or physical Android/Windows timings. No build or second inference
+benchmark ran concurrently. The transformer, loading, detection, host image
+processing and GPU transfers are excluded from this decoder table.
+
+The complete portable model also passed the real-GPU check on Apple M4/Metal:
+115 dispatches, maximum final-alpha error 0.00000734 relative to the original
+CPU graph. The cropped CPU graph differed by at most 0.00000167. This verifies
+the existing portable GPU kernels with the rewritten shapes; it is not a
+measurement of D3D12 or Android/Linux Vulkan hardware.
+
+Strict all-targets neural-crate Clippy also passed for
+`aarch64-linux-android` (NDK 27.2, API 30) and `x86_64-pc-windows-gnu`
+(cross-compilation with Clang). These establish compilation, not device speed,
+GPU-driver compatibility or whole-application packaging on those platforms.
+
+Mac integration also passes `make lint-background-removal`;
+`make check-background-removal-web` passes with the native-only changes excluded.
