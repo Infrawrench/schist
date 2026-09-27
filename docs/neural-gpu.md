@@ -242,6 +242,11 @@ The partitioned path uses the synchronous native effects backend. Browser
 filters retain their existing asynchronous resident-graph path; partitioned
 Anti-Smudge inference in the browser still uses tract. Compilation alone does
 not imply that a browser or device can execute a model on the GPU.
+The browser's automatic background-removal action runs the Rust CPU pipeline
+in a dedicated worker, with weights fetched on demand outside the WASM binary.
+It shares compiled code with the editor, but has independent memory; terminating
+the worker cancels blocking kernels and releases its models. It does not yet
+use asynchronous WebGPU for the multi-stage matting pipeline.
 
 ## Verification
 

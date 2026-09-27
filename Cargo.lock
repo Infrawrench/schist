@@ -6983,6 +6983,7 @@ dependencies = [
  "futures",
  "gpui",
  "image",
+ "js-sys",
  "log",
  "lopdf",
  "moxcms",
@@ -7038,6 +7039,8 @@ dependencies = [
  "tempfile",
  "ureq",
  "url",
+ "wasm-bindgen",
+ "wasm-bindgen-futures",
  "web-sys",
  "web-time",
 ]

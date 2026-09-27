@@ -227,6 +227,9 @@ pub fn main() {
             web::loading_failed(&info.to_string());
         }));
         console_log::init_with_level(log::Level::Info).ok();
+        if web::is_worker() {
+            return;
+        }
     }
     // The language, before anything builds a label: the plugin registry
     // below asks every command for its title as it registers, and the

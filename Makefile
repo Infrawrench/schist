@@ -590,7 +590,15 @@ check-background-coreml-bundle:
 check-background-removal-gpu:
 	$(CARGO) test $(PROFILE_FLAG) -p schist-compositor-gpu --test neural_catalog --test background_removal -- --test-threads=1 $(ARGS)
 check-background-removal-web:
-	$(CARGO) check -p schist-neural --target wasm32-unknown-unknown
+	$(CARGO) check -p schist-app --target wasm32-unknown-unknown
+	$(MAKE) test-background-removal-web
+.PHONY: test-background-removal-web
+test-background-removal-web:
+	python3 tools/test-web-models.py
+	node --test web/models.test.mjs web/background-removal.test.mjs
+.PHONY: lint-background-removal-web
+lint-background-removal-web:
+	$(CARGO) clippy -p schist-app -p schist-app-platform -p schist-app-actions -p schist-editor -p schist-neural --target wasm32-unknown-unknown --no-deps -- -D warnings $(ARGS)
 lint-background-removal:
 	$(CARGO) clippy $(PROFILE_FLAG) -p schist-core -p schist-neural -p schist-compositor-gpu -p schist-editor --all-targets -- -D warnings
 format-background-removal:

@@ -717,19 +717,27 @@ pub fn matting_model_id() -> &'static str {
     }
 }
 
+/// The complete on-demand browser pipeline, including the small opaque-core
+/// refiner used by ViTMatte. No weights are embedded in the browser module.
+pub const BACKGROUND_REMOVAL_MODELS: &[&str] =
+    &["foreground", "subject-guide", "detail-matting", "matting"];
+
 /// Where a build that lacks a model can fetch it, or `None` when it
 /// cannot.
 ///
 /// Natively that is the catalogue URL (built-ins need no fetching). On the
 /// web it is the other way round: the formerly-embedded models are served
-/// beside the app and fetched same-origin, while the external ones are
+/// beside the app and fetched same-origin. The web packager also stages the
+/// verified foreground detector. Other external ones are
 /// unreachable — their GitHub URLs redirect through a host that sends no
 /// CORS headers, so a browser fetch is refused before it starts.
 pub fn download_url(spec: &ModelSpec) -> Option<String> {
     #[cfg(target_arch = "wasm32")]
     {
-        spec.built_in()
-            .then(|| format!("assets/models/{}", spec.file))
+        (spec.built_in() || spec.id == "foreground").then(|| {
+            let version = spec.sha256.unwrap_or(env!("CARGO_PKG_VERSION"));
+            format!("assets/models/{}.json?v={version}", spec.file)
+        })
     }
     #[cfg(not(target_arch = "wasm32"))]
     {

@@ -2,7 +2,7 @@
 
 Select an unlocked RGB pixel layer and choose **Layer → Background Eraser**.
 This is the automatic layer action; the toolbar's Background Eraser remains
-the existing brush. On first use, the model manager opens if BiRefNet Lite is absent.
+the existing brush. On native builds, the model manager opens if BiRefNet Lite is absent.
 Download **BiRefNet Lite**, then invoke the layer action again. Photographs are
 processed locally; model setup downloads the required weights.
 
@@ -14,7 +14,9 @@ One undo restores the source and its visibility. Fully opaque colors and
 already-transparent source pixels retain their original RGB. Escape cancels the pending application; a document
 edit or switch to another layer also invalidates the pending result. The
 detector itself cannot be interrupted mid-inference, but refinement checks
-cancellation between tiles. The action currently supports native builds and
+cancellation between tiles. Browser inference runs in a dedicated worker, which
+Escape can terminate even during model loading or a blocking tensor operation.
+The action supports native and browser builds and
 up to 16,777,216 pixels in the visible raster bounds. It does not run on groups,
 CMYK/Lab documents, locked layers, or a transient uncommitted drag.
 
@@ -33,8 +35,39 @@ mixed-precision detail graph for Apple Silicon GPUs and the original float32
 graph for CPU fallback; their ONNX payloads are excluded.
 The locally trained MatteNet supplies broad opaque interior seeds.
 Model cards record both archive and expanded hashes, checked by regression tests.
-Web builds serve compressed assets on demand, following the existing model loader;
-the automatic layer action currently remains native-only.
+Web builds keep all weights outside the WASM binary and startup manifest.
+Invoking the layer action fetches BiRefNet Lite, the semantic guide, ViTMatte-S
+and MatteNet from same-origin model manifests, checks their catalogue SHA-256
+hashes, and runs the same Rust pipeline in a dedicated worker. The browser's
+HTTP cache can reuse the downloads on subsequent runs. Each completed,
+cancelled or failed action terminates its worker and releases model memory.
+The model manager uses the same chunked download path for other neural filters.
+
+`make web` / `make web-debug` stages the verified upstream BiRefNet Lite download
+(reusing a matching local installation or `target/web-models` cache) alongside
+the repository's compressed models. Payloads are split into at most 16 MiB
+files, with a manifest per model; none are requested during application startup.
+No photographs are uploaded. A worker instantiates the already-compiled app
+module with independent memory and skips GUI initialization; shared memory and
+cross-origin isolation headers are unnecessary. This is the portable CPU path,
+not the native Core ML or partitioned synchronous GPU path, so browser latency
+is not expected to match the Apple app's timings.
+
+Browser validation: `make check-background-removal-web` checks the entire app
+and runs 14 asset/worker tests; `make web-debug` also rejects embedded ONNX
+payloads before packaging. A Chrome 153 smoke test on the M4 loaded the editor
+with zero model requests, rejected corrupt weights in the actual Rust worker,
+and completed the supplied portrait resized to 128 × 171 with finite alpha and
+foreground output (alpha range 0–1). Its cold development-build CPU run took
+188.4 seconds, including about six seconds for local asset transfer/verification;
+the main page delivered 1,884 100 ms timer callbacks during the job. This is a
+functional smoke test, not a controlled release-speed benchmark. A second run
+cancelled synchronous model work in 302 ms. Browser CPU speed remains a limit.
+
+Native strict Clippy passes. Browser Clippy for the changed crates passes with
+the existing `workspace/printing.rs` `unnecessary_filter_map` warning allowed;
+the broader Web lint also encounters pre-existing `drop_non_drop` warnings in
+gallery file handling. Neither lint suppression is added to production code.
 
 The general detector is downloaded separately. The stronger matting detector
 used in the photo audit is an **optional pinned local export**, not a bundled

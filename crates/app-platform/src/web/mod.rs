@@ -25,6 +25,12 @@ pub use pen::{install_pen_tilt, pen_tilt};
 mod drop;
 pub use drop::{import_dropped_file, listen_for_file_drops, FileDropListener};
 
+/// The shared WebAssembly module can also run neural inference in a worker.
+/// That instance must not initialize the editor or request a window.
+pub fn is_worker() -> bool {
+    web_sys::window().is_none()
+}
+
 use std::borrow::Cow;
 use std::collections::HashMap;
 use std::path::{Path, PathBuf};
@@ -338,6 +344,28 @@ pub async fn fetch_bytes(url: String, got: Arc<AtomicU64>) -> Result<Vec<u8>, St
         }
     }
     Ok(bytes)
+}
+
+/// Models are chunked sidecar assets, never part of the startup payload.
+/// The model manager and inference worker use the same manifest reader.
+pub async fn fetch_model(url: String, got: Arc<AtomicU64>) -> Result<Vec<u8>, String> {
+    #[wasm_bindgen::prelude::wasm_bindgen]
+    extern "C" {
+        #[wasm_bindgen(catch, js_namespace = window, js_name = __schistFetchModel)]
+        fn fetch(url: &str, progress: &js_sys::Function) -> Result<js_sys::Promise, JsValue>;
+    }
+    let progress = Closure::<dyn FnMut(f64)>::new(move |bytes| {
+        got.store(bytes as u64, Ordering::Relaxed);
+    });
+    let promise = fetch(&url, progress.as_ref().unchecked_ref())
+        .map_err(|error| format!("model fetch: {error:?}"))?;
+    let result = wasm_bindgen_futures::JsFuture::from(promise)
+        .await
+        .map_err(|error| format!("model fetch: {error:?}"))?;
+    result
+        .dyn_into::<js_sys::Uint8Array>()
+        .map(|bytes| bytes.to_vec())
+        .map_err(|_| "invalid model response".into())
 }
 
 /// Preferences persistence: localStorage stands in for the config file.

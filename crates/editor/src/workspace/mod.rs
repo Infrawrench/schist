@@ -42,7 +42,6 @@ mod ai;
 #[cfg(sandboxed)]
 #[path = "ai_stub.rs"]
 mod ai;
-#[cfg(not(target_arch = "wasm32"))]
 mod background_removal;
 #[cfg(not(target_arch = "wasm32"))]
 mod camera_import;
@@ -491,7 +490,6 @@ pub struct Workspace {
     /// traced from.
     selection_outline: Option<(u64, SelectionOutline)>,
     mask_refine: Option<mask_refine::State>,
-    #[cfg(not(target_arch = "wasm32"))]
     background_removal: Option<Arc<std::sync::atomic::AtomicBool>>,
     #[cfg(not(target_arch = "wasm32"))]
     pub(crate) photo_merge_job: Option<photo_merge::Job>,
@@ -1478,7 +1476,6 @@ impl Workspace {
             note_edit: None,
             selection_outline: None,
             mask_refine: None,
-            #[cfg(not(target_arch = "wasm32"))]
             background_removal: None,
             #[cfg(not(target_arch = "wasm32"))]
             photo_merge_job: None,

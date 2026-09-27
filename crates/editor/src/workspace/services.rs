@@ -56,7 +56,7 @@ impl Workspace {
             // is async where ureq blocks, so it runs right here on the
             // foreground executor.
             #[cfg(target_arch = "wasm32")]
-            let fetched = crate::web::fetch_bytes(url, got).await;
+            let fetched = crate::web::fetch_model(url, got).await;
             this.update(cx, |ws, cx| {
                 ws.model_downloads.retain(|d| d.id != id);
                 let Some(spec) = schist_neural::spec(id) else {
