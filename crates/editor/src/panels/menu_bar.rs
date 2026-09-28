@@ -219,6 +219,7 @@ pub(crate) fn run_app_item(
             cx,
         ),
         AppItem::ContentAwareFill => ws.content_aware_fill(cx),
+        AppItem::RemoveBackground => ws.remove_background(cx),
         AppItem::ContentAwareScaleItem => {
             let (w, h) = ws
                 .doc

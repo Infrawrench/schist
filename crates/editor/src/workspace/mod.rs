@@ -23,6 +23,13 @@ pub use schist_app_settings::{load_view_options, ViewOptions};
 use schist_color::{ColorMode, Depth, Rgba};
 use schist_compositor::TileCache;
 use schist_core::{blit_rgba8, Document, IntRect, Layer, TileCoord, TILE_SIZE};
+#[cfg(any(
+    target_os = "macos",
+    target_os = "ios",
+    target_os = "linux",
+    target_os = "windows"
+))]
+pub use schist_neural::preload_background_removal;
 use schist_plugin_api::{
     CommandCtx, EditorState, Modifiers, Overlay, PluginRegistry, PointerInput, ToolCtx,
 };
@@ -40,6 +47,7 @@ mod ai;
 #[cfg(sandboxed)]
 #[path = "ai_stub.rs"]
 mod ai;
+mod background_removal;
 #[cfg(not(target_arch = "wasm32"))]
 mod camera_import;
 #[cfg(not(target_arch = "wasm32"))]
@@ -487,6 +495,7 @@ pub struct Workspace {
     /// traced from.
     selection_outline: Option<(u64, SelectionOutline)>,
     mask_refine: Option<mask_refine::State>,
+    background_removal: Option<Arc<std::sync::atomic::AtomicBool>>,
     #[cfg(not(target_arch = "wasm32"))]
     pub(crate) photo_merge_job: Option<photo_merge::Job>,
     /// Navigator thumbnail, tagged with the revision it was rendered at.
@@ -1472,6 +1481,7 @@ impl Workspace {
             note_edit: None,
             selection_outline: None,
             mask_refine: None,
+            background_removal: None,
             #[cfg(not(target_arch = "wasm32"))]
             photo_merge_job: None,
             nav_thumb: None,

@@ -385,3 +385,196 @@ training set, and inspect the supplied example separately. Report hardware,
 speed and memory on multi-megapixel photos. Preserve dataset credits and training
 provenance with any weights proposed for distribution; resolve the relevant
 permission or exception basis for that distribution separately.
+
+## Runtime optimizations
+
+Anti-Smudge uses the same Rust/embedded-PTX executor as background removal on
+Linux/Windows when `SCHIST_NEURAL_CUDA=1` is set. All intermediates stay on the
+GPU, with reused device workspaces, parallel spatial reductions and split-K
+channel attention. Pooling, bicubic resize and the export's empty-ROI nearest resize are lowered
+without host transfers. The system NVIDIA driver is the only dynamic dependency;
+no inference runtime is bundled. Unsupported devices, insufficient VRAM and
+execution failures retain the portable path. This remains opt-in pending NVIDIA
+hardware parity and timing checks; see [CUDA validation](neural-cuda.md).
+
+Portable CPU inference shares the bounded tensor worker pool: at most four
+workers on Linux/Windows, two on Android, capped by available CPUs.
+`SCHIST_NEURAL_CPU_THREADS` can override this (1–8). macOS Anti-Smudge also
+uses at most four workers for its tiled CPU attention, alongside Accelerate
+kernels. The Mac background-removal models retain their existing Core ML and
+Accelerate scheduling; their default executor remains single-threaded.
+
+The CPU plan also replaces supported 3×3 and 5×5 depthwise convolutions with
+row-contiguous Rust kernels. They preserve filter-tap accumulation order and
+use the existing bounded executor for independent output rows. Unsupported
+layouts, strides, dilation and quantized operators retain tract. On macOS,
+spatially banded Accelerate convolutions also cover the model's RGB output
+layers, including valid convolutions after reflection padding; scratch remains
+bounded to 16 MiB. These extra graph rewrites are scoped to Anti-Smudge.
+
+The CPU attention pass recognizes the complete dense matrix-product, scalar
+scale, softmax and value-product chain before general graph optimization. It
+processes 32 queries at a time, retaining all keys and the original stable
+softmax. A 512×512×512 score tensor (512 MiB) becomes two 32×512 score buffers
+(128 KiB total per worker), plus a small value buffer. The Rust implementation
+shares the bounded executor; macOS uses existing Accelerate BLAS and vForce
+inside each block. Masks, shared intermediate outputs, non-scalar scaling,
+unsupported layouts, types and dimensions retain the original operators. This
+CPU-only rewrite leaves CUDA and GPU-partition graphs unchanged.
+
+The restoration CPU plan also caches linear, nearest and bicubic resize plans,
+processing independent output rows on the same bounded executor. Coordinates,
+tap weights, skipped zero weights and axis/accumulation order retain tract's
+behavior. Spatial reflection copies contiguous row interiors and fills only
+their borders. The per-pixel channel maximum scans contiguous channel rows,
+retaining tract's channel order, comparisons, signed zeros and non-finite
+behavior. Other reduction
+axes and padding geometries retain the original operators.
+
+The atomic restoration driver fills the reflected model tensor directly and
+copies only the needed output pixels. It avoids two 48 MiB RGB context buffers
+for a 2048 tile. It still checks discarded context for non-finite results before
+committing anything. Model weights, FP32 precision, 2048 context, 1536 working
+resolution, light recovery and halo cleanup are unchanged.
+
+Focused validation (all synthetic input; no photo artifacts retained):
+
+```sh
+make check-anti-smudge-runtime
+make check-anti-smudge-cuda-graph
+make check-neural-cuda
+# macOS: full 2048 model against the previous CPU plan, with timings.
+make check-anti-smudge-cpu-parity
+# macOS: compare the latest kernels against the preceding accelerated plan.
+make profile-anti-smudge-kernels
+# Native: full model before/after tiled attention, with timings and parity.
+make profile-anti-smudge-attention
+# Native: compare image-row operations with the preceding tiled-attention plan.
+make profile-anti-smudge-rows
+# macOS: convolution band-size sweep with output parity checks.
+make profile-anti-smudge-bands
+# macOS: operator breakdown for the current full restoration graph.
+make profile-anti-smudge
+# NVIDIA: full graph CPU comparison and repeated GPU execution; no fallback allowed.
+make check-neural-cuda-hardware-models
+```
+
+A paired release-build run on the local Apple Silicon Mac (2026-09-28), using
+identical synthetic RGB input and the complete 2048 model, measured CPU inference
+at **28.769 s before / 18.159 s after** (about 37% less time). CPU plan preparation
+was 2.553 s / 1.592 s. Across all 12,582,912 output values, the maximum absolute
+difference was **4.21e-6** on the unit scale. These are model-only, single-run
+measurements, not an end-to-end camera-photo or NVIDIA timing claim.
+
+The subsequent row-kernel/RGB-convolution pass was measured against that
+already-accelerated CPU plan in one release executable. After one
+warm-up pair, three alternating runs per plan gave medians of **18.420 s before /
+15.931 s after** (about 14% less time). Warm-run ranges were 16.210–21.999 s before
+and 14.544–19.641 s after; the optimized plan was faster in every pair despite
+substantial timing variation. Across the same 12,582,912 values, maximum absolute
+difference was **7.75e-7**. These remain local Mac, model-only measurements;
+Linux/Windows/Android timing needs target hardware. The current graph uses 37
+row-depthwise and 16 banded Accelerate convolutions. Regression checks cover
+borders, narrow images, scalar/channel bias, batches, valid padding, rejected
+geometry, and bit-identical serial/threaded row-kernel output.
+
+Tiled attention plus the bounded Mac restoration pool was then compared with
+the preceding production CPU plan (including the row/RGB kernels, using its
+previous single-threaded executor). One warm-up pair followed by three
+alternating runs measured **7.187 s before / 4.158 s after** in the same release
+executable: about **42% less time**. Warm-run ranges were 7.037–7.218 s and
+4.157–4.231 s respectively. All 14 intended attention blocks fused. Two complete
+2048 synthetic inputs—the repeated RGB pattern and a spatial dark/bright
+scene—produced identical final FP32 outputs in this check (maximum absolute
+difference 0 across 25,165,824 values). This is a measured result for those
+inputs, not a promise of bit-identical output for all inputs or architectures;
+operator tests also compare the portable and Accelerate calculations against
+tract across scaling, batches and block tails.
+
+These timings measure Mac model inference, excluding loading and image cleanup.
+The baseline also ran faster than in the earlier session, so compare the paired
+before/after numbers within each run. Linux/Windows/Android timings remain
+unmeasured. That pass's Mac operator profile placed all tiled attention at
+0.507 s out of 4.189 s total.
+
+The following image-row pass was compared with that tiled-attention plan, with
+both plans using the same four-worker executor. One warm-up pair followed by
+three alternating pairs measured **4.652 s before / 3.902 s after**, about
+**16% less time**. Warm-run ranges were 4.602–4.671 s and 3.856–3.967 s. An initial
+run had large swings (6–17 s) and was repeated before drawing a timing
+conclusion. Both complete 2048 synthetic inputs again produced identical FP32
+outputs (maximum difference 0 across 25,165,824 values).
+
+All eight resizes, sixteen reflection pads and the RGB channel maximum use the
+new row operations. A separate operator profile measured resizing at 0.047 s,
+reflection at 0.136 s and the channel maximum at 0.002 s, out of 4.334 s total.
+The convolution band sweep did not justify changing production band sizes.
+Operator parity checks cover all six supported resize coordinate modes, linear,
+nearest and cubic interpolation, sizes/scales, both nearest tie modes,
+non-finite values, signed zeros, batch/plane boundaries and threaded execution.
+These remain Mac CPU model-only timings; loading, image cleanup and other
+platforms require separate measurements.
+
+The full CUDA graph compiles to 2075 dispatches with **1758.4 MiB** of planned
+resident tensor storage, excluding driver/context overhead. Source arithmetic
+checks use synthetic operators, plus a small complete matting graph; only the
+strict NVIDIA hardware suite can establish full restoration parity on the GPU.
+
+## Core ML feasibility probe
+
+Anti-Smudge can export as one complete Core ML MLProgram, but the September 28
+Mac experiment did not justify changing the production backend. The app retains
+the optimized Rust CPU path; no Anti-Smudge Core ML weights, Python dependency,
+or additional runtime library are bundled by this probe.
+
+`tools/train/anti_smudge_coreml.py` verifies the shipped ONNX checksums, folds
+static shape calculations, and lowers the 71 unsupported operations: 32 L2
+reductions, 32 normalization broadcasts, three flattens and four cubic resizes.
+The cubic lowering preserves half-pixel sampling, coefficient -0.75 and clamped
+edge taps. Export requires one complete partition with ONNX Runtime CPU fallback
+disabled. ONNX Runtime is an offline converter here; predictions use the compiled
+model through Apple's Core ML framework.
+
+Four candidate graphs were measured on macOS 15.6.1 with coremltools 9.0 and
+onnxruntime 1.30.0, using a deterministic `[1, 3, 2048, 2048]` FP32 input. Times
+below exclude loading and image postprocessing. `CPU_AND_GPU` permits Core ML
+to choose either device; it does not prove every operation ran on the GPU.
+
+| Candidate | Compute units | Observed prediction times |
+| --- | --- | --- |
+| Original float32 graph | CPU + GPU | 16.90 s, then 94.01 s with severe memory pressure; stopped |
+| Mixed precision, fused attention | CPU + GPU | 15.42 s |
+| Fused attention padded to 32 channels | CPU + GPU | 15.78 s, 19.34 s |
+| Mixed precision, 32-query attention blocks | CPU + GPU | 8.56 s first trial; separate repeat 9.48, 10.22, 11.89 s |
+| Same blocked graph | CPU only | 12.43 s, 12.91 s |
+| Same blocked graph | All devices, including Neural Engine | Loading exceeded the 45 s process limit; no inference timing |
+
+The earlier paired Rust CPU median was 3.90 s. A later CPU operator-profile
+control during this investigation took 7.41 s, so system load was variable and
+these figures are not a controlled speedup ratio. None of the Core ML candidates
+demonstrated a useful advantage. Full-image mixed-precision quality parity has
+not been established; finite RGB outputs alone are insufficient to approve them.
+
+The attention rewrite removes fourteen explicit 512×512×512 score tensors
+(512 MiB each in float32). The blocked variant preserves score scaling and
+softmax over every key. Fused variants compensate for SDPA's built-in scaling
+and require macOS 15; the other variants target macOS 12. iOS performance is
+unmeasured. Operator tests check cubic edge/fractional sampling and normalization
+against ONNX Runtime, validate all three attention rewrites, and reject changed
+topologies. Mixed variants preserve FP32 reductions, normalization divisions,
+softmax, clipping, square roots and the L2 square operation.
+
+Reproduce on a Mac with the Python dependencies above in `MATTING_PYTHON`:
+
+```sh
+make check-anti-smudge-coreml-export
+make export-anti-smudge-coreml ARGS='--variant tiled --benchmark --runs 2'
+make export-anti-smudge-coreml ARGS='--reuse-export --variant sdpa --benchmark'
+```
+
+All artifacts stay under `target/background-removal/anti-coreml`. Use a fresh
+`--work` directory after changing exporter code or weights. Benchmarking runs in
+a child process with a 45-second total load/prediction timeout (`--timeout` can
+override it). This bounds stalled inference even when Core ML blocks the calling
+Python thread. Temporary export and compiled model files from this investigation
+were removed after validation.

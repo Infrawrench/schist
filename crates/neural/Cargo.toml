@@ -4,6 +4,10 @@ version.workspace = true
 edition.workspace = true
 license.workspace = true
 
+[features]
+# Offline maintainer export only; source ONNX is read from disk, never embedded.
+coreml-export = []
+
 [dependencies]
 schist-fx.workspace = true
 serde.workspace = true
@@ -12,11 +16,47 @@ log.workspace = true
 lzma-rust2 = { version = "0.16.5", default-features = false, features = ["std", "xz"] }
 rayon.workspace = true
 sha2 = "0.10"
-tract-onnx = "0.23"
+# Keep this aligned with tract-linalg below: the scoped executor must be the
+# same instance used by tract's kernels.
+tract-onnx = "=0.23.5"
+# CUDA lowering reads the pre-declutter ONNX Resize attributes. Already part of
+# tract-onnx; pin the direct dependency to the same graph implementation.
+tract-onnx-opl = "=0.23.5"
+transpose = "0.2.3"
+
+[target.'cfg(not(target_arch = "wasm32"))'.dependencies]
+# Use tract's SIMD kernels across a bounded, shared Rust worker pool. No BLAS
+# or inference runtime shared library is required on Windows/Linux/Android.
+tract-linalg = { version = "=0.23.5", features = ["multithread-mm"] }
+
+[target.'cfg(any(target_os = "linux", target_os = "windows"))'.dependencies]
+# Only opens the NVIDIA driver installed by the OS. No CUDA toolkit, cuDNN,
+# TensorRT, NVRTC, or inference-runtime shared library is shipped.
+libloading = "0.8.9"
+
+[target.'cfg(any(target_os = "macos", target_os = "ios"))'.dependencies]
+objc2 = "0.6"
+objc2-foundation = { version = "0.3", default-features = false, features = ["std", "NSArray", "NSDictionary", "NSString", "NSURL", "NSValue", "NSError"] }
+objc2-core-ml = { version = "0.3.2", default-features = false, features = ["std", "block2", "MLModel", "MLModel_MLModelCompilation", "MLOptimizationHints", "MLSpecializationStrategy", "MLModelConfiguration", "MLModelDescription", "MLFeatureDescription", "MLFeatureType", "MLFeatureValue", "MLFeatureProvider", "MLDictionaryFeatureProvider", "MLMultiArray", "MLMultiArrayConstraint"] }
+block2 = "0.6"
+tar = { version = "0.4", default-features = false }
+
+[target.'cfg(all(any(target_os = "macos", target_os = "ios"), target_arch = "aarch64"))'.dependencies]
+# The pinned crate downloads a verified static Core ML archive at build time.
+# Do not enable load-dynamic or copy-dylibs: the app ships one linked runtime.
+ort = { version = "=2.0.0-rc.13", default-features = false, features = ["std", "download-binaries", "tls-native", "coreml", "api-27"] }
+prost = "0.14"
+sha2 = { version = "0.10", features = ["asm"] }
 
 [dev-dependencies]
 # The classify example decodes the image it is pointed at.
 image.workspace = true
+
+[target.'cfg(not(target_arch = "wasm32"))'.dev-dependencies]
+libloading = "0.8.9"
+
+[target.'cfg(any(target_os = "macos", target_os = "ios"))'.dev-dependencies]
+lzma-rust2 = { version = "0.16.5", default-features = false, features = ["std", "xz", "encoder"] }
 
 # tract pulls rand, whose getrandom needs the browser's crypto API selected
 # explicitly on wasm32-unknown-unknown.

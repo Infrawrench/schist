@@ -164,3 +164,35 @@ fn anti_smudge_rejects_bad_buffers() {
     assert!(neural::try_run_tiled(&model, &mut rgb, 1, 1, f32::NAN).is_err());
     assert_eq!(rgb, vec![0.5; 3]);
 }
+
+#[test]
+fn direct_tensor_tiles_match_interleaved_driver_for_all_ranges() {
+    static SPECS: std::sync::OnceLock<[neural::ModelSpec; 3]> = std::sync::OnceLock::new();
+    let specs = SPECS.get_or_init(|| {
+        [
+            neural::Range::Unit,
+            neural::Range::Byte,
+            neural::Range::Standard {
+                mean: [0.4, 0.5, 0.6],
+                sd: [0.2, 0.3, 0.4],
+            },
+        ]
+        .map(|range| {
+            let mut spec = fixture_spec().clone();
+            spec.range = range;
+            spec
+        })
+    });
+    for spec in specs {
+        let model =
+            Model::from_bytes(spec, include_bytes!("fixtures/anti-smudge-tile64.onnx")).unwrap();
+        for (w, h) in [(83, 71), (1, 97), (79, 1)] {
+            let source: Vec<_> = (0..w * h * 3).map(|i| (i % 137) as f32 / 136.).collect();
+            let mut expected = source.clone();
+            neural::run_tiled(&model, &mut expected, w, h, 0.7);
+            let mut actual = source;
+            neural::try_run_tiled(&model, &mut actual, w, h, 0.7).unwrap();
+            assert_eq!(actual, expected, "{w}x{h} {:?}", spec.range);
+        }
+    }
+}

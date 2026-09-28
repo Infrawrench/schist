@@ -223,6 +223,8 @@ opt-level = 3
 opt-level = 3
 [profile.release.package.schist-compositor]
 opt-level = 3
+[profile.release.package.schist-compositor-gpu]
+opt-level = 3
 [profile.release.package.schist-core]
 opt-level = 3
 [profile.release.package.schist-filters-core]
@@ -250,6 +252,17 @@ opt-level = 3
 [profile.release.package.rustfft]
 opt-level = 3
 [profile.release.package.tract-linalg]
+opt-level = 3
+# The hybrid GPU plan still executes normalization, broadcasts, gathers and
+# resize on tract. Size-optimizing those tensor loops dominates inference even
+# when the contractions run on the GPU.
+[profile.release.package.tract-core]
+opt-level = 3
+[profile.release.package.tract-onnx-opl]
+opt-level = 3
+[profile.release.package.tract-data]
+opt-level = 3
+[profile.release.package.ndarray]
 opt-level = 3
 
 # The .8bf plug-in helpers ship compressed inside the app binary.

@@ -10,7 +10,9 @@
 //! black, for the same reason -- a network fed a black border will draw
 //! one.
 
+use anyhow::Context;
 use rayon::prelude::*;
+use tract_onnx::prelude::*;
 
 use crate::{Input, Model};
 
@@ -133,28 +135,72 @@ pub fn try_run_tiled(
     anyhow::ensure!(rgb.iter().all(|v| v.is_finite()), "non-finite input pixel");
     let g = grid(model, width, height).ok_or_else(|| anyhow::anyhow!("not a tiled model"))?;
     let mut result = rgb.to_vec();
-    let mut patch = vec![0.0; g.t * g.t * 3];
     for cy in 0..g.rows {
         for cx in 0..g.cols {
             let ox = (cx * g.step) as i64 - g.overlap as i64;
             let oy = (cy * g.step) as i64 - g.overlap as i64;
+            // Fill the model layout directly: no interleaved context copy,
+            // and no full interleaved output allocation for discarded overlap.
+            let shape = if model.nhwc {
+                [1, g.t, g.t, 3]
+            } else {
+                [1, 3, g.t, g.t]
+            };
+            let mut input = Tensor::zero::<f32>(&shape)?;
+            let mut view = input.to_plain_array_view_mut::<f32>()?;
+            let patch = view.as_slice_mut().context("non-contiguous input")?;
+            let xs: Vec<_> = (0..g.t).map(|x| reflect(ox + x as i64, width)).collect();
             for y in 0..g.t {
-                for x in 0..g.t {
-                    let from = (reflect(oy + y as i64, height) * width
-                        + reflect(ox + x as i64, width))
-                        * 3;
-                    let to = (y * g.t + x) * 3;
-                    patch[to..to + 3].copy_from_slice(&rgb[from..from + 3]);
+                let row = reflect(oy + y as i64, height) * width;
+                for (x, &sx) in xs.iter().enumerate() {
+                    for c in 0..3 {
+                        let to = if model.nhwc {
+                            (y * g.t + x) * 3 + c
+                        } else {
+                            (c * g.t + y) * g.t + x
+                        };
+                        patch[to] = model.spec.range.encode(rgb[(row + sx) * 3 + c], c);
+                    }
                 }
             }
-            let out = model.run_tile(&patch)?;
+            let out = model.run_input(tvec!(input.into()))?;
+            let view = out
+                .first()
+                .context("missing restoration output")?
+                .to_plain_array_view::<f32>()?;
+            let shape = view.shape();
+            anyhow::ensure!(
+                shape.len() == 4 && shape[0] > 0 && shape[1] >= 3 && shape[2] > 0 && shape[3] > 0,
+                "unexpected output shape {shape:?}"
+            );
+            let (oh, ow) = (shape[2], shape[3]);
+            let flat = view.as_slice().context("non-contiguous output")?;
+            let decoded = |y: usize, x: usize, c: usize| {
+                model
+                    .spec
+                    .range
+                    .decode(flat[(c * oh + y.min(oh - 1)) * ow + x.min(ow - 1)], c)
+            };
+            // Validate the entire requested context, including the discarded
+            // border, just as run_tile does. A later bad tile must stay atomic.
+            for c in 0..3 {
+                for y in 0..g.t.min(oh) {
+                    for x in 0..g.t.min(ow) {
+                        anyhow::ensure!(
+                            decoded(y, x, c).is_finite(),
+                            "model returned a non-finite pixel"
+                        );
+                    }
+                }
+            }
             for y in 0..g.step.min(height - cy * g.step) {
                 for x in 0..g.step.min(width - cx * g.step) {
                     let to = ((cy * g.step + y) * width + cx * g.step + x) * 3;
-                    let from = ((y + g.overlap) * g.t + x + g.overlap) * 3;
                     for c in 0..3 {
-                        result[to + c] =
-                            rgb[to + c] + (out[from + c] - rgb[to + c]) * blend.min(1.0);
+                        result[to + c] = rgb[to + c]
+                            + (decoded(y + g.overlap, x + g.overlap, c).clamp(0.0, 1.0)
+                                - rgb[to + c])
+                                * blend.min(1.0);
                     }
                 }
             }

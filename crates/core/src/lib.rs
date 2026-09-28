@@ -5,6 +5,7 @@
 //! app would boot to an empty workspace that can do nothing.
 
 pub mod annotate;
+pub mod automatic_mask;
 pub mod blend;
 pub mod document;
 pub mod filter_stack;

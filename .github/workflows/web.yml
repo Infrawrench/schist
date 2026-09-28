@@ -11,6 +11,7 @@ on:
       - "plugins/**"
       - "web/**"
       - "tools/web-build.sh"
+      - "tools/*web-models.py"
       - "Makefile"
       - "Cargo.*"
       - ".cargo/**"
@@ -57,6 +58,9 @@ jobs:
           curl -sSfL "https://github.com/WebAssembly/binaryen/releases/download/version_123/binaryen-version_123-x86_64-linux.tar.gz" \
             | tar xz -C "$RUNNER_TEMP"
           echo "$RUNNER_TEMP/binaryen-version_123/bin" >> "$GITHUB_PATH"
+
+      - name: Test on-demand models and worker lifecycle
+        run: make test-background-removal-web
 
       - name: Build dist/web
         env:

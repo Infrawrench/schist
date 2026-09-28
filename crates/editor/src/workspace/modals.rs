@@ -1023,6 +1023,10 @@ impl Workspace {
     }
 
     pub fn cancel_gesture(&mut self, cx: &mut Context<Self>) {
+        if self.cancel_background_removal() {
+            cx.notify();
+            return;
+        }
         #[cfg(target_arch = "wasm32")]
         self.cancel_browser_edits();
         // Escape reaches here as the CancelGesture action, ahead of the

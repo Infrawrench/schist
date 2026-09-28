@@ -227,6 +227,9 @@ pub fn main() {
             web::loading_failed(&info.to_string());
         }));
         console_log::init_with_level(log::Level::Info).ok();
+        if web::is_worker() {
+            return;
+        }
     }
     // The language, before anything builds a label: the plugin registry
     // below asks every command for its title as it registers, and the
@@ -470,6 +473,17 @@ pub fn main() {
         #[cfg(target_arch = "wasm32")]
         web::loading_done();
         cx.activate(true);
+        // Prepare background models on a dedicated worker; iOS only unpacks
+        // bundled assets, macOS warms GPU sessions, and Linux/Windows prepare
+        // their reusable inference plans without running predictions.
+        // Dropping its handle detaches it; the window never waits for models.
+        #[cfg(any(
+            target_os = "macos",
+            target_os = "ios",
+            target_os = "linux",
+            target_os = "windows"
+        ))]
+        drop(workspace::preload_background_removal());
         // Closing the last window ends the session. The X11, Wayland and
         // Windows backends already stop themselves once no window is left;
         // AppKit instead keeps a window-less app sitting in the dock, and

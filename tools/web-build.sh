@@ -117,6 +117,7 @@ elif [ "$PROFILE" = web ]; then
   echo '   from https://github.com/WebAssembly/binaryen/releases)' >&2
 fi
 
+python3 tools/web-models.py --check-wasm "$OUT/pkg/schist_bg.wasm"
 echo "-- chunking ($CHUNK_MIB MiB)"
 # Alphabetic suffixes (.aaa, .aab, ...): they sort the same as numeric
 # ones, and macOS's BSD split has no -d.
@@ -126,11 +127,11 @@ rm "$OUT/pkg/schist_bg.wasm"
 echo '-- assets'
 python3 tools/sync-i18n.py --check
 cp web/index.html web/loader.js web/tethered.mjs web/i18n.js web/i18n-data.js "$OUT/"
+cp web/models.mjs web/background-removal.mjs web/background-removal-worker.mjs "$OUT/"
 cp crates/app-platform/assets/icons/*.svg "$OUT/assets/icons/"
 cp web/fonts/*.ttf web/fonts/*.otf web/fonts/LICENSE-* "$OUT/assets/fonts/"
-cp crates/neural/models/*.onnx "$OUT/assets/models/"
-cp crates/neural/models/*.onnx.xz "$OUT/assets/models/"
-cp crates/neural/models/anti-smudge.json "$OUT/assets/models/"
+python3 tools/web-models.py "$OUT/assets/models"
+cp -R crates/neural/models/licenses "$OUT/assets/models/"
 cp assets/logo/schist.svg "$OUT/assets/logo/"
 
 echo '-- manifest'

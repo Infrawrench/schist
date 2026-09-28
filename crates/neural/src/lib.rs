@@ -1,26 +1,30 @@
 //! Neural network inference: the Neural Filters, and the two tools that
 //! need a model as much as any of them.
 //!
-//! Runs ONNX models through [`tract`], which is pure Rust -- no ONNX
-//! Runtime, no C toolchain, nothing to install. That matters here: a paint
-//! program that needs a 300 MB runtime and a matching CUDA to sharpen a
-//! photo is not a paint program anyone will use.
+//! Runs ONNX models through the portable Rust `tract` backend. macOS embeds
+//! precompiled Core ML background refiners instead of their ONNX copies. On
+//! Apple Silicon, downloaded detectors also use a statically linked `ort`
+//! dependency. No separate inference runtime needs installing.
 //!
 //! The installed effects backend runs compatible graphs on the GPU. On native
 //! hosts, graphs with unsupported operators or large tensors also offload
 //! individual convolutions and matrix contractions, with tract handling the
 //! remaining operations and any device failure. See `docs/neural-gpu.md`.
 //!
-//! Two kinds of model:
+//! Model sources:
 //!
 //! * **Built in.** `detail.onnx`, `dejpeg.onnx`, `colorize.onnx`,
 //!   `portrait.onnx`, `inpaint.onnx`, the waifu2x upscalers and
-//!   `anti-smudge.onnx.xz` ship inside the binary. Anti-Smudge stays
-//!   compressed until first use; see `docs/anti-smudge.md` for its provenance.
+//!   `anti-smudge.onnx.xz` and background refiners (compiled Core ML on Mac) ship inside
+//!   the binary. XZ weights stay compressed until first use; see the respective
+//!   feature documents for provenance.
 //! * **Downloaded.** The style-transfer, depth, face and segmentation
 //!   networks are megabytes to tens of megabytes each and are somebody
 //!   else's work, so they are fetched on demand into the user's data
 //!   directory and checked against a known hash.
+//! * **Generated.** The optional matting detector is exported locally from
+//!   pinned upstream weights. Its checksum is verified when loaded; see
+//!   `docs/background-removal.md`. There is no arbitrary-model import action.
 //!
 //! And two ways of feeding one, which is what [`Input`] distinguishes: a
 //! model that *changes* an image sees it in tiles at full resolution,
@@ -34,19 +38,32 @@
 //! run. The other fallbacks run when a model is
 //! missing, fails, or looks at the picture and has nothing to say.
 
-use std::collections::HashMap;
 use std::path::PathBuf;
-use std::sync::{Arc, OnceLock, RwLock};
+use std::sync::{Arc, OnceLock};
+#[cfg(target_arch = "wasm32")]
+use std::{collections::HashMap, sync::RwLock};
 
 use anyhow::{bail, Context as _, Result};
 use tract_onnx::prelude::*;
 
 mod colour;
 mod compat;
+#[cfg(not(target_arch = "wasm32"))]
+mod cpu_threads;
+#[cfg(any(
+    target_os = "linux",
+    target_os = "windows",
+    all(test, not(target_arch = "wasm32"))
+))]
+mod cuda;
 mod depth;
+#[cfg(not(target_arch = "wasm32"))]
+mod execution;
 mod gpu;
 mod gpu_image;
 mod gpu_partition;
+#[cfg(not(target_arch = "wasm32"))]
+pub use execution::with_adaptive_execution;
 // The gallery's search embeddings. Desktop only with the gallery — the
 // tokenizer tables it carries would be dead weight in the wasm module.
 #[cfg(not(target_arch = "wasm32"))]
@@ -54,22 +71,119 @@ pub mod embed;
 mod face_rect;
 mod faces;
 pub use face_rect::{FaceRect, SAME_FACE_IOU};
+#[cfg(target_os = "macos")]
+mod accelerate_conv;
+#[cfg(target_os = "macos")]
+mod accelerate_matrix;
+mod deform_sample;
+mod depthwise_conv;
+#[cfg(not(target_arch = "wasm32"))]
+mod detail_crop;
+mod detail_matting;
+mod foreground_color;
 mod framed;
+mod gather_copy;
+mod gather_nd;
 mod halo;
 mod inpaint;
+#[cfg(all(test, target_os = "ios"))]
+mod ios_tests;
+mod matting;
+mod model_cache;
+#[cfg(any(target_os = "linux", target_os = "windows", test))]
+mod portable_cache;
+#[cfg(all(
+    any(
+        target_os = "macos",
+        target_os = "ios",
+        target_os = "linux",
+        target_os = "windows"
+    ),
+    not(schist_library)
+))]
+mod preload;
+#[cfg(all(
+    any(
+        target_os = "macos",
+        target_os = "ios",
+        target_os = "linux",
+        target_os = "windows"
+    ),
+    not(schist_library)
+))]
+pub use preload::preload_background_removal;
+#[cfg(any(target_os = "macos", target_os = "ios"))]
+mod native_coreml;
+#[cfg(all(
+    feature = "coreml-export",
+    target_os = "macos",
+    target_arch = "aarch64"
+))]
+pub use native_onnx::export_coreml_source;
+#[cfg(all(any(target_os = "macos", target_os = "ios"), target_arch = "aarch64"))]
+mod coreml_weights;
+#[cfg(all(any(target_os = "macos", target_os = "ios"), target_arch = "aarch64"))]
+mod native_onnx;
+#[cfg(all(any(target_os = "macos", target_os = "ios"), target_arch = "aarch64"))]
+mod native_onnx_graph;
+mod pad_copy;
+mod resample;
+mod resize_copy;
+mod restoration_rows;
 mod segment;
+mod subject_guidance;
+mod tensor_layout;
+mod tiled_attention;
+#[cfg(target_os = "macos")]
+mod vector_softmax;
+
+// Development control for paired before/after timings in the same executable.
+// No weights, tile geometry, backend placement or image processing settings vary.
+pub(crate) fn fast_host_ops() -> bool {
+    #[cfg(not(target_arch = "wasm32"))]
+    {
+        static ENABLED: std::sync::OnceLock<bool> = std::sync::OnceLock::new();
+        *ENABLED.get_or_init(|| std::env::var_os("SCHIST_NEURAL_LEGACY_HOST").is_none())
+    }
+    #[cfg(target_arch = "wasm32")]
+    true
+}
+
+// Paired performance/accuracy diagnostics keep the original model graph.
+pub(crate) fn fast_compute_ops() -> bool {
+    #[cfg(not(target_arch = "wasm32"))]
+    {
+        static ENABLED: std::sync::OnceLock<bool> = std::sync::OnceLock::new();
+        *ENABLED.get_or_init(|| std::env::var_os("SCHIST_NEURAL_LEGACY_COMPUTE").is_none())
+    }
+    #[cfg(target_arch = "wasm32")]
+    true
+}
+
+fn fast_model_ops() -> bool {
+    #[cfg(not(target_arch = "wasm32"))]
+    {
+        static ENABLED: std::sync::OnceLock<bool> = std::sync::OnceLock::new();
+        *ENABLED.get_or_init(|| std::env::var_os("SCHIST_NEURAL_LEGACY_MODEL").is_none())
+    }
+    #[cfg(target_arch = "wasm32")]
+    true
+}
 mod tile;
 pub use colour::{chroma, recolour};
 pub use depth::depth_map;
 pub use faces::{embed_face, faces, Face, FACE_EMBED_DIM};
+pub use foreground_color::{clean_foreground, clean_foreground_cancellable};
 pub use framed::run_framed;
 pub use inpaint::inpaint;
-pub use segment::segment;
+pub use matting::{refine_alpha, refine_alpha_cancellable};
+pub use segment::{foreground, segment};
+pub use subject_guidance::{guide_foreground, guide_foreground_with_reference};
 pub use tile::{run_scaled, run_tiled, try_restore, try_run_tiled};
 
 /// The models shipped inside the binary.
 ///
-/// Not on the web: tens of megabytes of baseline download for filters that
+/// Not on the web: model payloads in the baseline download for filters that
 /// may never run is the wrong trade there, so the same files are served
 /// beside the app (`tools/web-build.sh` copies them) and fetched into the
 /// in-memory store on demand, like any other download. The catalogue's
@@ -87,6 +201,30 @@ const COLORIZE_ONNX: &[u8] = include_bytes!("../models/colorize.onnx");
 const PORTRAIT_ONNX: &[u8] = include_bytes!("../models/portrait.onnx");
 #[cfg(any(not(target_arch = "wasm32"), schist_library))]
 const INPAINT_ONNX: &[u8] = include_bytes!("../models/inpaint.onnx");
+#[cfg(any(
+    all(test, not(target_arch = "wasm32")),
+    all(
+        not(any(target_os = "macos", target_os = "ios")),
+        any(not(target_arch = "wasm32"), schist_library)
+    )
+))]
+const DETAIL_MATTING_ONNX_XZ: &[u8] = include_bytes!("../models/detail-matting.onnx.xz");
+#[cfg(any(
+    all(test, not(target_arch = "wasm32")),
+    all(
+        not(any(target_os = "macos", target_os = "ios")),
+        any(not(target_arch = "wasm32"), schist_library)
+    )
+))]
+const MATTING_ONNX_XZ: &[u8] = include_bytes!("../models/matting.onnx.xz");
+#[cfg(any(
+    all(test, not(target_arch = "wasm32")),
+    all(
+        not(any(target_os = "macos", target_os = "ios")),
+        any(not(target_arch = "wasm32"), schist_library)
+    )
+))]
+const SUBJECT_GUIDE_ONNX_XZ: &[u8] = include_bytes!("../models/subject-guide.onnx.xz");
 #[cfg(any(not(target_arch = "wasm32"), schist_library))]
 const WAIFU2X_ART_ONNX: &[u8] = include_bytes!("../models/waifu2x-art.onnx");
 #[cfg(any(not(target_arch = "wasm32"), schist_library))]
@@ -197,6 +335,8 @@ impl Input {
 pub enum ModelSource {
     BuiltIn,
     Download(&'static str),
+    /// Reproducible local export; no arbitrary-model import UI or network URL.
+    Generated,
 }
 
 /// A model this build knows about.
@@ -237,6 +377,66 @@ pub const CATALOG: &[ModelSpec] = &[
         range: Range::Unit,
         license: "MFDNet / FlareReal600",
         note: "", // Provenance and upstream terms are in docs/anti-smudge.md.
+    },
+    ModelSpec {
+        id: "detail-matting",
+        name: "ViTMatte-S",
+        file: "detail-matting.onnx.xz",
+        source: ModelSource::BuiltIn,
+        sha256: Some("3c31c66e8ca3a9ec550fec06e2b23c7ac57225fe7a97953e4d8ae38c326a6f37"),
+        bytes: 95_638_600,
+        input: Input::Tiles { size: 768, overlap: 128, scale: 1 },
+        range: Range::Unit,
+        license: "ViTMatte MIT; Hugging Face weights Apache-2.0",
+        note: "tools/train/export_detail_matting.py; docs/background-removal.md",
+    },
+    ModelSpec {
+        id: "foreground-matting",
+        name: "BiRefNet Lite Matting",
+        file: "foreground-birefnet-matting.onnx",
+        source: ModelSource::Generated,
+        sha256: Some("273501048979b3012b544232234618819225745a13e316b21b4db439a2f28fe8"),
+        bytes: 223_559_431,
+        input: Input::Frame { width: 1024, height: 1024, fit: Fit::Stretch },
+        range: IMAGENET,
+        license: "BiRefNet, Zheng Peng et al., MIT",
+        note: "tools/train/export_foreground.py; docs/background-removal.md",
+    },
+    ModelSpec {
+        id: "subject-guide",
+        name: "DeepLabV3 Subject Guide",
+        file: "subject-guide.onnx.xz",
+        source: ModelSource::BuiltIn,
+        sha256: Some("883dd1d4b4c7bdfc24c38ba516f2a299fa0fe1af355f22af4906a1627daa07fa"),
+        bytes: 40_454_876,
+        input: Input::Frame { width: 520, height: 520, fit: Fit::Stretch },
+        range: IMAGENET,
+        license: "Torchvision, BSD-3-Clause; pretrained COCO/VOC weights",
+        note: "tools/train/export_subject_guide.py; docs/background-removal.md",
+    },
+    ModelSpec {
+        id: "matting",
+        name: "Schist MatteNet",
+        file: "matting.onnx.xz",
+        source: ModelSource::BuiltIn,
+        sha256: Some("485a9ba783fde2442aa00f52a90a7aa027e086745045f99a16b4ddf4f9b60a2c"),
+        bytes: 81_960,
+        input: Input::Tiles { size: 128, overlap: 16, scale: 1 },
+        range: Range::Unit,
+        license: "Schist; MicroMat-3K (CC BY 4.0)",
+        note: "tools/train/matting.py; docs/background-removal.md",
+    },
+    ModelSpec {
+        id: "foreground",
+        name: "BiRefNet Lite",
+        file: "foreground-birefnet-lite.onnx",
+        source: ModelSource::Download("https://github.com/ZhengPeng7/BiRefNet/releases/download/v1/BiRefNet-general-bb_swin_v1_tiny-epoch_232.onnx"),
+        sha256: Some("5600024376f572a557870a5eb0afb1e5961636bef4e1e22132025467d0f03333"),
+        bytes: 224_005_088,
+        input: Input::Frame { width: 1024, height: 1024, fit: Fit::Stretch },
+        range: Range::Standard { mean: [0.485, 0.456, 0.406], sd: [0.229, 0.224, 0.225] },
+        license: "BiRefNet, Zheng Peng et al., MIT",
+        note: "https://github.com/ZhengPeng7/BiRefNet",
     },
     ModelSpec {
         id: "detail",
@@ -525,25 +725,52 @@ pub fn spec(id: &str) -> Option<&'static ModelSpec> {
     CATALOG.iter().find(|m| m.id == id)
 }
 
+/// Prefer the matting-trained weights after their reproducible local export.
+/// The downloadable general detector remains available on other installations.
+pub fn foreground_model_id() -> &'static str {
+    if installed("foreground-matting") && installed("foreground") {
+        "foreground-matting"
+    } else {
+        "foreground"
+    }
+}
+
+/// Prefer the bundled native-resolution trimap refiner when available.
+pub fn matting_model_id() -> &'static str {
+    if installed("detail-matting") {
+        "detail-matting"
+    } else {
+        "matting"
+    }
+}
+
+/// The complete on-demand browser pipeline, including the small opaque-core
+/// refiner used by ViTMatte. No weights are embedded in the browser module.
+pub const BACKGROUND_REMOVAL_MODELS: &[&str] =
+    &["foreground", "subject-guide", "detail-matting", "matting"];
+
 /// Where a build that lacks a model can fetch it, or `None` when it
 /// cannot.
 ///
 /// Natively that is the catalogue URL (built-ins need no fetching). On the
 /// web it is the other way round: the formerly-embedded models are served
-/// beside the app and fetched same-origin, while the external ones are
+/// beside the app and fetched same-origin. The web packager also stages the
+/// verified foreground detector. Other external ones are
 /// unreachable — their GitHub URLs redirect through a host that sends no
 /// CORS headers, so a browser fetch is refused before it starts.
 pub fn download_url(spec: &ModelSpec) -> Option<String> {
     #[cfg(target_arch = "wasm32")]
     {
-        spec.built_in()
-            .then(|| format!("assets/models/{}", spec.file))
+        (spec.built_in() || spec.id == "foreground").then(|| {
+            let version = spec.sha256.unwrap_or(env!("CARGO_PKG_VERSION"));
+            format!("assets/models/{}.json?v={version}", spec.file)
+        })
     }
     #[cfg(not(target_arch = "wasm32"))]
     {
         match spec.source {
             ModelSource::Download(url) => Some(url.to_owned()),
-            ModelSource::BuiltIn => None,
+            ModelSource::BuiltIn | ModelSource::Generated => None,
         }
     }
 }
@@ -588,7 +815,13 @@ pub fn installed(id: &str) -> bool {
 
 /// A loaded model, ready to run.
 pub struct Model {
-    plan: Arc<TypedSimplePlan>,
+    #[cfg(any(target_os = "linux", target_os = "windows"))]
+    cuda: Option<cuda::Network>,
+    #[cfg(any(target_os = "macos", target_os = "ios"))]
+    compiled: Option<native_coreml::Network>,
+    plan: Option<Arc<TypedSimplePlan>>,
+    #[cfg(all(any(target_os = "macos", target_os = "ios"), target_arch = "aarch64"))]
+    native: Option<native_onnx::Network>,
     gpu: Option<gpu::Network>,
     partitioned: Option<gpu_partition::Partitioned>,
     /// Planes the graph's input takes, which is three for everything
@@ -647,17 +880,92 @@ fn declared_nhwc(proto: &tract_onnx::pb::ModelProto) -> bool {
 }
 
 impl Model {
+    /// Offline evaluation of a compiled background-refinement candidate.
+    /// This maintainer-only entry point never changes the installed model cache.
+    #[cfg(all(target_os = "macos", feature = "coreml-export"))]
+    pub fn from_coreml_path(spec: &'static ModelSpec, path: &std::path::Path) -> Result<Model> {
+        anyhow::ensure!(native_coreml::bundled(spec.id), "unknown compiled model");
+        Ok(Self::from_compiled(
+            spec,
+            native_coreml::Network::from_path(spec, path.into())?,
+        ))
+    }
+
+    #[cfg(any(target_os = "macos", target_os = "ios"))]
+    fn from_compiled(spec: &'static ModelSpec, compiled: native_coreml::Network) -> Model {
+        Model {
+            compiled: Some(compiled),
+            #[cfg(target_arch = "aarch64")]
+            native: None,
+            channels: if spec.id == "subject-guide" { 3 } else { 4 },
+            plan: None,
+            gpu: None,
+            partitioned: None,
+            nhwc: false,
+            restoration_max_side: None,
+            restoration_tile_size: None,
+            restoration_halo_cleanup: false,
+            spec,
+        }
+    }
+
     /// Load from ONNX bytes, fixing the input to one frame so tract can
     /// optimize the graph completely rather than for an unknown size.
     /// XZ-compressed ONNX is expanded in memory for parsing.
     pub fn from_bytes(spec: &'static ModelSpec, bytes: &[u8]) -> Result<Model> {
-        let bytes = decode_model_bytes(bytes)?;
+        Self::from_bytes_inner(spec, bytes, true)
+    }
+
+    fn from_bytes_inner(
+        spec: &'static ModelSpec,
+        original: &[u8],
+        allow_native: bool,
+    ) -> Result<Model> {
+        #[cfg(not(all(any(target_os = "macos", target_os = "ios"), target_arch = "aarch64")))]
+        let _ = allow_native;
+        #[cfg(all(any(target_os = "macos", target_os = "ios"), target_arch = "aarch64"))]
+        if allow_native && native_onnx::requested(spec.id) {
+            match native_onnx::Network::load(spec, original) {
+                Ok(native) => {
+                    return Ok(Model {
+                        channels: native.channels(),
+                        native: Some(native),
+                        compiled: None,
+                        plan: None,
+                        gpu: None,
+                        partitioned: None,
+                        nhwc: false,
+                        restoration_max_side: None,
+                        restoration_tile_size: None,
+                        restoration_halo_cleanup: false,
+                        spec,
+                    })
+                }
+                Err(error) => {
+                    log::info!(target: "schist_neural::execution", "{}: native unavailable, using tract: {error:#}", spec.id)
+                }
+            }
+        }
+        let bytes = decode_model_bytes(original)?;
         let (mut w, mut h) = spec.input.dims();
         let mut cursor = std::io::Cursor::new(bytes.as_ref());
-        let onnx = tract_onnx::onnx();
+        let mut onnx = tract_onnx::onnx();
+        gather_nd::register(&mut onnx);
+        deform_sample::register(&mut onnx);
         let mut proto = onnx
             .proto_model_for_read(&mut cursor)
             .context("not a readable ONNX model")?;
+        #[cfg(not(target_arch = "wasm32"))]
+        if detail_crop::requested(spec.id) && detail_crop::matches(bytes.as_ref()) {
+            detail_crop::optimize(&mut proto)?;
+        }
+        if fast_host_ops() && matches!(spec.id, "foreground" | "foreground-matting") {
+            gather_nd::specialize_pixel_indices(&mut proto);
+        }
+        if fast_model_ops() && matches!(spec.id, "foreground" | "foreground-matting") {
+            let fused = deform_sample::optimize(&mut proto);
+            log::info!(target: "schist_neural::execution", "{}: fused {fused} deformable samplers", spec.id);
+        }
         let restoration_tile_size = if spec.id == "anti-smudge" {
             proto
                 .metadata_props
@@ -694,7 +1002,13 @@ impl Model {
             let plan = typed.clone().into_optimized()?.into_runnable()?;
             let partitioned = gpu_partition::Partitioned::compile(typed);
             return Ok(Model {
-                plan,
+                plan: Some(plan),
+                #[cfg(any(target_os = "linux", target_os = "windows"))]
+                cuda: None,
+                #[cfg(all(any(target_os = "macos", target_os = "ios"), target_arch = "aarch64"))]
+                native: None,
+                #[cfg(any(target_os = "macos", target_os = "ios"))]
+                compiled: None,
                 gpu: None,
                 partitioned,
                 channels: 0,
@@ -781,14 +1095,35 @@ impl Model {
         let typed = inferred
             .into_typed()
             .context("model uses an operator tract cannot run")?;
-        let plan = typed.clone().into_optimized()?.into_runnable()?;
+        #[cfg(any(target_os = "linux", target_os = "windows"))]
+        let cuda = cuda::Network::load(spec.id, &typed);
+        let has_batched_gather = proto.graph.as_ref().is_some_and(|g| {
+            g.node.iter().any(|n| {
+                n.op_type == "SchistDeformSample"
+                    || (n.op_type == "GatherND"
+                        && n.attribute
+                            .iter()
+                            .any(|a| a.name == "batch_dims" && a.i > 0))
+            })
+        });
+        let plan = prepare_cpu_plan(spec.id, typed.clone(), has_batched_gather)?;
         let partitioned = if gpu.is_none() {
-            gpu_partition::Partitioned::compile(typed)
+            if has_batched_gather {
+                gpu_partition::Partitioned::compile_without_declutter(typed)
+            } else {
+                gpu_partition::Partitioned::compile(typed)
+            }
         } else {
             None
         };
         Ok(Model {
-            plan,
+            plan: Some(plan),
+            #[cfg(any(target_os = "linux", target_os = "windows"))]
+            cuda,
+            #[cfg(all(any(target_os = "macos", target_os = "ios"), target_arch = "aarch64"))]
+            native: None,
+            #[cfg(any(target_os = "macos", target_os = "ios"))]
+            compiled: None,
             gpu,
             partitioned,
             channels,
@@ -806,6 +1141,28 @@ impl Model {
             .unwrap_or_else(|| self.spec.input.dims())
     }
 
+    /// Whether this plan uses the optional native inference runtime.
+    pub fn uses_native_inference(&self) -> bool {
+        #[cfg(all(
+            any(target_os = "macos", target_os = "ios"),
+            not(target_arch = "aarch64")
+        ))]
+        {
+            self.compiled.is_some()
+        }
+        #[cfg(all(any(target_os = "macos", target_os = "ios"), target_arch = "aarch64"))]
+        {
+            self.native
+                .as_ref()
+                .is_some_and(native_onnx::Network::active)
+                || self.compiled.is_some()
+        }
+        #[cfg(not(any(target_os = "macos", target_os = "ios")))]
+        {
+            false
+        }
+    }
+
     /// The checked resident graph, also submit-able by an asynchronous GPU host.
     /// Input uses the model's declared tensor layout and encoded value range.
     pub fn gpu_program(&self) -> Option<&schist_fx::ComputeProgram> {
@@ -819,7 +1176,44 @@ impl Model {
         self.partitioned.as_ref().map_or(0, |p| p.operations)
     }
 
+    /// Whether this model has a resident NVIDIA graph. Useful for benchmarks:
+    /// a fallback must not be mistaken for a successful CUDA measurement.
+    pub fn uses_cuda(&self) -> bool {
+        #[cfg(any(target_os = "linux", target_os = "windows"))]
+        return self.cuda.as_ref().is_some_and(cuda::Network::active);
+        #[cfg(not(any(target_os = "linux", target_os = "windows")))]
+        false
+    }
+
     fn run_input(&self, inputs: TVec<TValue>) -> Result<TVec<TValue>> {
+        #[cfg(any(target_os = "linux", target_os = "windows"))]
+        if let Some(output) = self.cuda.as_ref().and_then(|network| network.run(&inputs)) {
+            return Ok(output);
+        }
+        #[cfg(all(any(target_os = "macos", target_os = "ios"), target_arch = "aarch64"))]
+        if let Some(native) = &self.native {
+            return native.run(self.spec, inputs);
+        }
+        #[cfg(any(target_os = "macos", target_os = "ios"))]
+        if let Some(compiled) = &self.compiled {
+            return compiled.run(self.spec, inputs);
+        }
+        #[cfg(not(target_arch = "wasm32"))]
+        if let Some(key) = execution::Key::for_model(self.spec.id, inputs[0].shape()) {
+            let backend = schist_fx::backend();
+            if backend.compute_available(usize::MAX) {
+                return execution::run(
+                    key,
+                    backend,
+                    || self.run_cpu(inputs.clone()),
+                    || self.run_accelerated(inputs.clone()),
+                );
+            }
+        }
+        self.run_accelerated(inputs)
+    }
+
+    fn run_accelerated(&self, inputs: TVec<TValue>) -> Result<TVec<TValue>> {
         if let Some(gpu) = &self.gpu {
             if let Ok(view) = inputs[0].to_plain_array_view::<f32>() {
                 if let Some(output) = view
@@ -840,10 +1234,27 @@ impl Model {
         }
         if schist_fx::backend().compute_available(usize::MAX) {
             if let Some(partitioned) = &self.partitioned {
+                #[cfg(not(target_arch = "wasm32"))]
+                return cpu_threads::run(self.spec.id, || partitioned.plan.run(inputs));
+                #[cfg(target_arch = "wasm32")]
                 return partitioned.plan.run(inputs);
             }
         }
-        self.plan.run(inputs)
+        self.run_cpu(inputs)
+    }
+
+    fn run_cpu(&self, inputs: TVec<TValue>) -> Result<TVec<TValue>> {
+        #[cfg(not(target_arch = "wasm32"))]
+        return execution::run_cpu(
+            self.spec.id,
+            self.plan.as_ref().context("CPU plan unavailable")?,
+            inputs,
+        );
+        #[cfg(target_arch = "wasm32")]
+        self.plan
+            .as_ref()
+            .context("CPU plan unavailable")?
+            .run(inputs)
     }
 
     /// How many planes the graph wants.
@@ -863,11 +1274,21 @@ impl Model {
                 planes.iter().map(|p| p.len()).collect::<Vec<_>>()
             );
         }
-        let input = tract_ndarray::Array4::<f32>::from_shape_fn(
-            (1, self.channels, h, w),
-            |(_, c, y, x)| planes[c][y * w + x],
-        );
-        self.run_input(tvec!(input.into_tensor().into()))
+        #[cfg(any(target_os = "macos", target_os = "ios"))]
+        if let Some(compiled) = &self.compiled {
+            return compiled.run_planes(self.spec, planes);
+        }
+        let mut input = Tensor::zero::<f32>(&[1, self.channels, h, w])?;
+        for (destination, source) in input
+            .to_plain_array_view_mut::<f32>()?
+            .as_slice_mut()
+            .context("non-contiguous plane tensor")?
+            .chunks_exact_mut(w * h)
+            .zip(planes)
+        {
+            destination.copy_from_slice(source);
+        }
+        self.run_input(tvec!(input.into()))
     }
 
     /// Run the graph over one frame of interleaved RGB in 0..=1, sized
@@ -952,6 +1373,99 @@ impl Model {
     }
 }
 
+// Shared by production and the full restoration parity/benchmark test.
+fn prepare_cpu_plan(
+    id: &str,
+    cpu: TypedModel,
+    has_batched_gather: bool,
+) -> Result<Arc<TypedSimplePlan>> {
+    prepare_cpu_plan_with_options(id, cpu, has_batched_gather, CpuOptimizations::ALL)
+}
+
+#[derive(Clone, Copy)]
+struct CpuOptimizations {
+    restoration_kernels: bool,
+    tiled_attention: bool,
+    image_rows: bool,
+}
+
+impl CpuOptimizations {
+    const ALL: Self = Self {
+        restoration_kernels: true,
+        tiled_attention: true,
+        image_rows: true,
+    };
+}
+
+fn prepare_cpu_plan_with_options(
+    id: &str,
+    mut cpu: TypedModel,
+    has_batched_gather: bool,
+    options: CpuOptimizations,
+) -> Result<Arc<TypedSimplePlan>> {
+    let restoration = options.restoration_kernels && id == "anti-smudge" && fast_compute_ops();
+    if options.tiled_attention && id == "anti-smudge" && fast_compute_ops() {
+        let count = tiled_attention::optimize(&mut cpu)?;
+        log::info!(target: "schist_neural::execution", "{id}: tiled {count} attention blocks");
+    }
+    // tract's preliminary PushSliceUp rewrite panics on BiRefNet's
+    // batched index tensors. Codegen optimization handles this graph.
+    if !has_batched_gather {
+        cpu.declutter()?;
+    }
+    if restoration {
+        let count = depthwise_conv::optimize(&mut cpu)?;
+        log::info!(target: "schist_neural::execution", "{id}: accelerated {count} depthwise convolutions");
+    }
+    #[cfg(target_os = "macos")]
+    if matches!(id, "detail-matting" | "anti-smudge")
+        && fast_compute_ops()
+        && std::env::var_os("SCHIST_NEURAL_LEGACY_CONV").is_none()
+    {
+        let count = accelerate_conv::optimize(&mut cpu, restoration)?;
+        log::info!(target: "schist_neural::execution", "{}: accelerated {count} decoder convolutions", id);
+    }
+    #[cfg(target_os = "macos")]
+    if matches!(
+        id,
+        "detail-matting" | "foreground" | "foreground-matting" | "anti-smudge"
+    ) && fast_compute_ops()
+    {
+        let count = accelerate_matrix::optimize(&mut cpu)?;
+        log::info!(target: "schist_neural::execution", "{}: accelerated {count} matrix products", id);
+    }
+    cpu.optimize()?;
+    tensor_layout::optimize(&mut cpu)?;
+    if fast_compute_ops() {
+        pad_copy::optimize(&mut cpu)?;
+        if options.image_rows && id == "anti-smudge" {
+            restoration_rows::optimize(&mut cpu)?;
+        }
+    }
+    if fast_host_ops() {
+        gather_copy::optimize(&mut cpu)?;
+        if options.image_rows && id == "anti-smudge" {
+            resize_copy::optimize_restoration(&mut cpu)?;
+        } else {
+            resize_copy::optimize(&mut cpu)?;
+        }
+    }
+    #[cfg(target_os = "macos")]
+    if fast_model_ops()
+        && matches!(
+            id,
+            "foreground"
+                | "foreground-matting"
+                | "detail-matting"
+                | "subject-guide"
+                | "anti-smudge"
+        )
+    {
+        vector_softmax::optimize(&mut cpu)?;
+    }
+    cpu.into_runnable()
+}
+
 /// How an image was fitted into a model's frame, so an answer in frame
 /// coordinates can be read back in image ones.
 #[derive(Debug, Clone, Copy)]
@@ -1017,7 +1531,14 @@ fn frame(spec: &ModelSpec, rgb: &[f32], width: usize, height: usize) -> (Vec<f32
             if ix < -0.5 || iy < -0.5 || ix > width as f32 - 0.5 || iy > height as f32 - 0.5 {
                 continue;
             }
-            let (x0, y0) = (ix.floor().max(0.0) as usize, iy.floor().max(0.0) as usize);
+            // Upsampling puts the first centre slightly outside the image.
+            // Clamp the coordinate before forming weights, otherwise a negative
+            // weight extrapolates colors beyond the source's range.
+            let (ix, iy) = (
+                ix.clamp(0.0, width as f32 - 1.0),
+                iy.clamp(0.0, height as f32 - 1.0),
+            );
+            let (x0, y0) = (ix.floor() as usize, iy.floor() as usize);
             let (x1, y1) = ((x0 + 1).min(width - 1), (y0 + 1).min(height - 1));
             let (tx, ty) = (ix - x0 as f32, iy - y0 as f32);
             for c in 0..3 {
@@ -1037,7 +1558,7 @@ fn frame(spec: &ModelSpec, rgb: &[f32], width: usize, height: usize) -> (Vec<f32
     )
 }
 
-type Cache = RwLock<HashMap<String, Option<Arc<Model>>>>;
+type Cache = model_cache::Cache<Model>;
 
 fn cache() -> &'static Cache {
     static CACHE: OnceLock<Cache> = OnceLock::new();
@@ -1051,18 +1572,46 @@ fn cache() -> &'static Cache {
 /// failure is cached too, so a broken file is not re-parsed on every dab.
 #[cfg(not(schist_library))]
 pub fn get(id: &str) -> Option<Arc<Model>> {
-    if let Some(hit) = cache().read().ok()?.get(id) {
-        return hit.clone();
-    }
+    #[cfg(any(
+        target_os = "macos",
+        target_os = "ios",
+        target_os = "linux",
+        target_os = "windows"
+    ))]
+    preload::foreground_started(id);
+    get_prepared(id, |_| {})
+}
+
+#[cfg(not(schist_library))]
+fn get_prepared(id: &str, prepare: impl FnOnce(&Model)) -> Option<Arc<Model>> {
     let spec = spec(id)?;
-    let loaded = load(spec)
-        .map_err(|e| log::warn!("neural model {id}: {e:#}"))
-        .ok()
-        .map(Arc::new);
-    if let Ok(mut c) = cache().write() {
-        c.insert(id.to_string(), loaded.clone());
-    }
-    loaded
+    #[cfg(all(any(target_os = "macos", target_os = "ios"), target_arch = "aarch64"))]
+    let key = if native_onnx::requested(id) {
+        format!("native:{id}")
+    } else {
+        id.to_owned()
+    };
+    #[cfg(not(all(any(target_os = "macos", target_os = "ios"), target_arch = "aarch64")))]
+    let key = id.to_owned();
+    #[cfg(not(target_arch = "wasm32"))]
+    let key = if detail_crop::requested(id) {
+        format!("center:{key}")
+    } else {
+        key
+    };
+    #[cfg(any(target_os = "macos", target_os = "ios"))]
+    let key = if native_coreml::bundled(id) {
+        native_coreml::cache_key(id)
+    } else {
+        key
+    };
+    model_cache::get(cache(), key, || {
+        let model = load(spec)
+            .map_err(|e| log::warn!("neural model {id}: {e:#}"))
+            .ok()?;
+        prepare(&model);
+        Some(model)
+    })
 }
 
 /// Drop a loaded model from the cache; its memory comes back once any
@@ -1070,9 +1619,39 @@ pub fn get(id: &str) -> Option<Arc<Model>> {
 /// from disk — callers use this when a model's whole feature has left
 /// the screen (the gallery's scorer and search towers are hundreds of
 /// resident megabytes between them).
+/// macOS background sessions have a separate five-minute idle pool so
+/// consecutive layer actions can reuse their expensive GPU specialization.
+/// Linux/Windows keep the prepared background plans in a five-minute idle pool.
+/// iOS releases sessions after each processing stage to bound resident memory.
 pub fn release(id: &str) {
+    #[cfg(any(target_os = "linux", target_os = "windows"))]
+    if portable_cache::release(id) {
+        return;
+    }
     if let Ok(mut c) = cache().write() {
         c.remove(id);
+        c.remove(&format!("center:{id}"));
+        #[cfg(target_os = "ios")]
+        {
+            c.remove(&format!("native:{id}"));
+            c.remove(&format!("compiled:cpu:{id}"));
+            c.remove(&format!("compiled:gpu:{id}"));
+        }
+        #[cfg(all(target_os = "macos", target_arch = "aarch64"))]
+        {
+            let key = format!("native:{id}");
+            // Keep the validated source with its GPU session. Otherwise every
+            // layer action rereads/copies/hashes hundreds of MB just to reuse it.
+            // The native reaper releases idle, unowned Model entries too.
+            if !c
+                .get(&key)
+                .and_then(|slot| slot.get())
+                .and_then(Option::as_ref)
+                .is_some_and(|model| model.native.is_some())
+            {
+                c.remove(&key);
+            }
+        }
     }
 }
 
@@ -1090,6 +1669,11 @@ fn load(spec: &'static ModelSpec) -> Result<Model> {
 
 #[cfg(any(not(target_arch = "wasm32"), schist_library))]
 fn load(spec: &'static ModelSpec) -> Result<Model> {
+    #[cfg(any(target_os = "macos", target_os = "ios"))]
+    if native_coreml::bundled(spec.id) {
+        let compiled = native_coreml::Network::load(spec)?;
+        return Ok(Model::from_compiled(spec, compiled));
+    }
     if spec.built_in() {
         let bytes = match spec.id {
             "anti-smudge" => ANTI_SMUDGE_ONNX_XZ,
@@ -1098,6 +1682,12 @@ fn load(spec: &'static ModelSpec) -> Result<Model> {
             "colorize" => COLORIZE_ONNX,
             "portrait" => PORTRAIT_ONNX,
             "inpaint" => INPAINT_ONNX,
+            #[cfg(not(any(target_os = "macos", target_os = "ios")))]
+            "detail-matting" => DETAIL_MATTING_ONNX_XZ,
+            #[cfg(not(any(target_os = "macos", target_os = "ios")))]
+            "matting" => MATTING_ONNX_XZ,
+            #[cfg(not(any(target_os = "macos", target_os = "ios")))]
+            "subject-guide" => SUBJECT_GUIDE_ONNX_XZ,
             "waifu2x-art" => WAIFU2X_ART_ONNX,
             "waifu2x-photo" => WAIFU2X_PHOTO_ONNX,
             other => bail!("no built-in model named {other}"),
@@ -1106,6 +1696,11 @@ fn load(spec: &'static ModelSpec) -> Result<Model> {
     }
     let path = model_dir().join(spec.file);
     let bytes = std::fs::read(&path).with_context(|| format!("{}", path.display()))?;
+    if spec.source == ModelSource::Generated
+        && spec.sha256.is_some_and(|want| sha256_hex(&bytes) != want)
+    {
+        bail!("local model checksum mismatch: {}", spec.file);
+    }
     Model::from_bytes(spec, &bytes)
 }
 
@@ -1200,6 +1795,14 @@ pub fn uninstall(spec: &ModelSpec) -> Result<()> {
 pub fn forget(id: &str) {
     if let Ok(mut c) = cache().write() {
         c.remove(id);
+        c.remove(&format!("center:{id}"));
+        #[cfg(all(any(target_os = "macos", target_os = "ios"), target_arch = "aarch64"))]
+        c.remove(&format!("native:{id}"));
+        #[cfg(any(target_os = "macos", target_os = "ios"))]
+        {
+            c.remove(&format!("compiled:cpu:{id}"));
+            c.remove(&format!("compiled:gpu:{id}"));
+        }
     }
 }
 
@@ -1221,6 +1824,10 @@ pub fn installed_size(spec: &ModelSpec) -> Option<u64> {
     #[cfg(not(target_arch = "wasm32"))]
     {
         if spec.built_in() {
+            #[cfg(any(target_os = "macos", target_os = "ios"))]
+            if let Some(size) = native_coreml::archive_size(spec.id) {
+                return Some(size);
+            }
             return Some(spec.bytes as u64);
         }
         std::fs::metadata(model_dir().join(spec.file))
@@ -1238,6 +1845,15 @@ pub fn path_of(spec: &ModelSpec) -> PathBuf {
 mod catalogue_tests {
     use super::*;
 
+    #[test]
+    fn foreground_framing_clamps_upsampled_borders() {
+        let spec = spec("foreground").unwrap();
+        let (rgb, _) = frame(spec, &[0.0, 0.0, 0.0, 1.0, 1.0, 1.0], 2, 1);
+        assert_eq!(&rgb[..3], &[0.0; 3]);
+        assert_eq!(&rgb[rgb.len() - 3..], &[1.0; 3]);
+        assert!(rgb.iter().all(|v| (0.0..=1.0).contains(v)));
+    }
+
     // The web build cannot take these sizes from the embedded bytes (it
     // has none), so the catalogue carries literals; this is what keeps
     // them the truth when a model is retrained.
@@ -1250,6 +1866,9 @@ mod catalogue_tests {
             ("colorize", COLORIZE_ONNX),
             ("portrait", PORTRAIT_ONNX),
             ("inpaint", INPAINT_ONNX),
+            ("detail-matting", DETAIL_MATTING_ONNX_XZ),
+            ("matting", MATTING_ONNX_XZ),
+            ("subject-guide", SUBJECT_GUIDE_ONNX_XZ),
             ("waifu2x-art", WAIFU2X_ART_ONNX),
             ("waifu2x-photo", WAIFU2X_PHOTO_ONNX),
         ] {
@@ -1276,6 +1895,31 @@ mod catalogue_tests {
         assert!(
             decode_model_bytes(&ANTI_SMUDGE_ONNX_XZ[..ANTI_SMUDGE_ONNX_XZ.len() - 16]).is_err()
         );
+    }
+
+    #[test]
+    fn bundled_background_models_expand_to_the_validated_weights() {
+        for (bytes, size, hash) in [
+            (
+                DETAIL_MATTING_ONNX_XZ,
+                103_979_583,
+                "b6240e8404b30bd94c1e84498a03949b7d2e7e891bed85ed06ac1f8ae1d1dc58",
+            ),
+            (
+                SUBJECT_GUIDE_ONNX_XZ,
+                44_091_283,
+                "7a7fc4963357feabd82a3b677824349696d740e31ea0e7c6b249ce9ae632270f",
+            ),
+            (
+                MATTING_ONNX_XZ,
+                91_521,
+                "368329288b05675c70cc7a13fbcb0845eb1ca98620017e640fd2fc70e267073a",
+            ),
+        ] {
+            let expanded = decode_model_bytes(bytes).unwrap();
+            assert_eq!(expanded.len(), size);
+            assert_eq!(sha256_hex(&expanded), hash);
+        }
     }
 }
 

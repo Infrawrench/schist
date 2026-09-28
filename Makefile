@@ -533,6 +533,120 @@ check-mask-refinement:
 	$(CARGO) test -p schist-core payload_budget_tests
 	$(CARGO) check -p schist-editor --all-targets
 
+# Reproducible local matting training. The foreground detector is a separate,
+# hash-checked BiRefNet download managed by the app.
+MATTING_PYTHON ?= target/background-removal/venv/bin/python
+MATTING_DATA ?= target/background-removal/data
+MATTING_OUT ?= target/background-removal/matting.onnx.xz
+MATTING_STEPS ?= 2500
+MATTING_ARGS ?=
+.PHONY: matting-data train-matting export-subject-guide export-foreground export-detail-matting check-background-removal format-background-removal background-removal-example detail-matting-example
+matting-data:
+	$(MATTING_PYTHON) tools/train/matting_data.py --out '$(MATTING_DATA)'
+train-matting:
+	$(MATTING_PYTHON) tools/train/matting.py --data '$(MATTING_DATA)' --out '$(MATTING_OUT)' --steps $(MATTING_STEPS) $(MATTING_ARGS)
+export-subject-guide:
+	$(MATTING_PYTHON) tools/train/export_subject_guide.py
+export-foreground:
+	$(MATTING_PYTHON) tools/train/export_foreground.py --install
+export-detail-matting:
+	$(MATTING_PYTHON) tools/train/export_detail_matting.py
+.PHONY: export-background-coreml-sources export-background-coreml
+export-background-coreml-sources:
+	mkdir -p target/background-removal
+	$(CARGO) run $(PROFILE_FLAG) -p schist-neural --features coreml-export --example export_coreml > target/background-removal/coreml-sources.tsv
+export-background-coreml: export-background-coreml-sources
+	$(MATTING_PYTHON) tools/train/export_coreml.py --sources target/background-removal/coreml-sources.tsv
+.PHONY: profile-background-coreml
+profile-background-coreml:
+	$(CARGO) run $(PROFILE_FLAG) -p schist-neural --features coreml-export --example profile_coreml -- $(ARGS)
+check-background-removal:
+	$(MATTING_PYTHON) tools/train/test_background.py
+	$(CARGO) test $(PROFILE_FLAG) -p schist-core --lib automatic_mask
+	$(CARGO) test $(PROFILE_FLAG) -p schist-neural --lib --test inference
+	$(CARGO) check $(PROFILE_FLAG) -p schist-editor --all-targets
+.PHONY: check-background-removal-gpu check-background-removal-web lint-background-removal
+.PHONY: check-background-removal-native
+check-background-removal-native:
+	$(CARGO) test $(PROFILE_FLAG) -p schist-neural --lib background_models_match_original_cpu_graphs -- --ignored --nocapture --test-threads=1
+.PHONY: check-background-removal-ios check-background-removal-ios-native check-background-coreml-bundle-ios
+.PHONY: build-background-removal-ios-device-tests
+build-background-removal-ios-device-tests:
+	$(CARGO) test --no-run $(PROFILE_FLAG) -p schist-neural --lib --target aarch64-apple-ios
+.PHONY: lint-background-removal-ios
+lint-background-removal-ios:
+	$(CARGO) clippy $(PROFILE_FLAG) -p schist-neural --all-targets --target aarch64-apple-ios -- -D warnings
+	$(CARGO) clippy $(PROFILE_FLAG) -p schist-neural --all-targets --target aarch64-apple-ios-sim -- -D warnings
+check-background-removal-ios:
+	$(CARGO) check -p schist-neural --all-targets --target aarch64-apple-ios
+	$(CARGO) check -p schist-neural --all-targets --target aarch64-apple-ios-sim
+check-background-removal-ios-native:
+	IOS_TEST_FILTER=ios_background IOS_TEST_IGNORED=1 ./tools/ios-test.sh $(PROFILE_FLAG) -p schist-neural --lib
+check-background-coreml-bundle-ios:
+	python3 tools/check-background-coreml-bundle.py dist/ios/Schist.app/schist
+.PHONY: check-background-coreml-bundle
+check-background-coreml-bundle:
+	python3 tools/check-background-coreml-bundle.py target/$(PROFILE)/schist
+check-background-removal-gpu:
+	$(CARGO) test $(PROFILE_FLAG) -p schist-compositor-gpu --test neural_catalog --test background_removal -- --test-threads=1 $(ARGS)
+check-background-removal-web:
+	$(CARGO) check -p schist-app --target wasm32-unknown-unknown
+	$(MAKE) test-background-removal-web
+.PHONY: test-background-removal-web
+test-background-removal-web:
+	python3 tools/test-web-models.py
+	node --test web/models.test.mjs web/background-removal.test.mjs
+.PHONY: lint-background-removal-web
+lint-background-removal-web:
+	$(CARGO) clippy -p schist-app -p schist-app-platform -p schist-app-actions -p schist-editor -p schist-neural --target wasm32-unknown-unknown --no-deps -- -D warnings $(ARGS)
+lint-background-removal:
+	$(CARGO) clippy $(PROFILE_FLAG) -p schist-core -p schist-neural -p schist-compositor-gpu -p schist-editor --all-targets -- -D warnings
+format-background-removal:
+	$(CARGO) fmt -p schist-core -p schist-neural -p schist-compositor-gpu -p schist-editor -p schist-app-actions -p schist-app
+background-removal-example:
+	$(CARGO) run $(PROFILE_FLAG) -p schist-neural --example remove_background -- $(ARGS)
+.PHONY: profile-background-removal
+profile-background-removal:
+	$(CARGO) run $(PROFILE_FLAG) -p schist-compositor-gpu --example background_removal -- $(ARGS)
+NEURAL_CUDA_TEST_FILTER ?= cuda::
+.PHONY: check-neural-cuda
+check-neural-cuda: target/background-removal/cuda-host
+	python3 tools/neural-cuda-ptx.py --check
+	SCHIST_CUDA_HOST_RUNNER=$(CURDIR)/target/background-removal/cuda-host $(CARGO) test $(PROFILE_FLAG) -p schist-neural --lib $(NEURAL_CUDA_TEST_FILTER) -- $(ARGS)
+target/background-removal/cuda-host: tools/neural-cuda-host.cpp crates/neural/src/cuda/kernels.cu
+	mkdir -p target/background-removal
+	$(CXX) -std=c++17 -O2 -ffp-contract=off tools/neural-cuda-host.cpp -o $@
+.PHONY: lint-neural-cuda
+NEURAL_LINT_TARGETS ?= --all-targets
+lint-neural-cuda:
+	$(CARGO) clippy $(PROFILE_FLAG) -p schist-neural $(NEURAL_LINT_TARGETS) $(ARGS)
+.PHONY: check-neural-cuda-hardware check-neural-cuda-hardware-models
+check-neural-cuda-hardware:
+	python3 tools/neural-cuda-ptx.py --check
+	SCHIST_NEURAL_CUDA=1 $(CARGO) test $(PROFILE_FLAG) -p schist-neural --lib cuda_hardware_matches_cpu -- --ignored --nocapture --test-threads=1
+check-neural-cuda-hardware-models:
+	python3 tools/neural-cuda-ptx.py --check
+	SCHIST_NEURAL_CUDA=1 $(CARGO) test $(PROFILE_FLAG) -p schist-neural --lib cuda_hardware_background_models_match_cpu -- --ignored --nocapture --test-threads=1
+
+# Maintainer-only: ordinary Rust builds embed the checked-in PTX and require
+# neither LLVM nor the CUDA SDK. No vendor runtime is linked or redistributed.
+CUDA_CLANG ?= clang++
+.PHONY: neural-cuda-ptx
+neural-cuda-ptx:
+	python3 tools/neural-cuda-ptx.py --clang $(CUDA_CLANG)
+
+.PHONY: profile-neural-tensors
+profile-neural-tensors:
+	$(CARGO) test $(PROFILE_FLAG) -p schist-neural --lib profile_host_transposes -- --ignored --nocapture
+.PHONY: profile-attention-matrices
+profile-attention-matrices:
+	$(CARGO) test $(PROFILE_FLAG) -p schist-neural --lib profile_attention_matrices -- --ignored --nocapture
+.PHONY: profile-decoder-convolutions
+profile-decoder-convolutions:
+	$(CARGO) test $(PROFILE_FLAG) -p schist-neural --lib profile_decoder_convolutions -- --ignored --nocapture
+detail-matting-example:
+	$(CARGO) run $(PROFILE_FLAG) -p schist-neural --example detail_matting -- $(ARGS)
+
 # Native video decoding, gallery invariants, and catalogs.
 .PHONY: check-video format-video
 check-video:
@@ -1015,3 +1129,60 @@ fetch-anti-smudge-pairs:
 .PHONY: run-anti-smudge
 run-anti-smudge:
 	$(CARGO) run $(PROFILE_FLAG) -p schist-neural --example anti_smudge -- $(ARGS)
+
+# Portable native background inference: no extra runtime shared library.
+.PHONY: check-background-portable profile-background-portable lint-background-portable
+check-background-portable:
+	$(CARGO) test $(PROFILE_FLAG) -p schist-neural --lib --test inference
+profile-background-portable:
+	$(CARGO) test $(PROFILE_FLAG) -p schist-neural --lib profile_portable_detail_decoder -- --ignored --nocapture --test-threads=1
+lint-background-portable:
+	$(CARGO) clippy $(PROFILE_FLAG) -p schist-neural --all-targets -- -D warnings
+.PHONY: check-background-portable-gpu check-background-target lint-background-target
+check-background-portable-gpu:
+	SCHIST_NEURAL_LEGACY_NATIVE=1 SCHIST_NEURAL_CPU_THREADS=4 $(CARGO) test $(PROFILE_FLAG) -p schist-compositor-gpu --test background_removal cropped_detail_graph -- --ignored --nocapture --test-threads=1
+# Set NEURAL_TARGET to a Rust target triple; supply its C compiler in the
+# environment when cross-compiling tract's statically linked SIMD kernels.
+check-background-target:
+	$(CARGO) check -p schist-neural --all-targets --target $(NEURAL_TARGET)
+lint-background-target:
+	$(CARGO) clippy -p schist-neural --all-targets --target $(NEURAL_TARGET) -- -D warnings
+
+.PHONY: check-anti-smudge-runtime check-anti-smudge-cuda-graph
+check-anti-smudge-runtime:
+	$(CARGO) test $(PROFILE_FLAG) -p schist-neural --test anti_smudge
+check-anti-smudge-cuda-graph: target/background-removal/cuda-host
+	$(PYTHON) tools/neural-cuda-ptx.py --check
+	SCHIST_CUDA_HOST_RUNNER=$(CURDIR)/target/background-removal/cuda-host $(CARGO) test $(PROFILE_FLAG) -p schist-neural --lib anti_smudge_compiles_to_resident_cuda_graph -- --ignored --nocapture --test-threads=1
+
+.PHONY: check-anti-smudge-cpu-parity
+check-anti-smudge-cpu-parity:
+	$(CARGO) test $(PROFILE_FLAG) -p schist-neural --lib anti_smudge_accelerated_cpu_matches_original -- --ignored --nocapture --test-threads=1
+
+.PHONY: profile-anti-smudge
+profile-anti-smudge:
+	$(CARGO) test $(PROFILE_FLAG) -p schist-neural --lib profile_anti_smudge_cpu -- --ignored --nocapture --test-threads=1
+
+.PHONY: profile-anti-smudge-kernels
+profile-anti-smudge-kernels:
+	$(CARGO) test $(PROFILE_FLAG) -p schist-neural --lib anti_smudge_row_kernels_match_previous_cpu -- --ignored --nocapture --test-threads=1
+
+.PHONY: profile-anti-smudge-attention
+profile-anti-smudge-attention:
+	$(CARGO) test $(PROFILE_FLAG) -p schist-neural --lib anti_smudge_tiled_attention_matches_previous_cpu -- --ignored --nocapture --test-threads=1
+
+.PHONY: profile-anti-smudge-rows
+profile-anti-smudge-rows:
+	$(CARGO) test $(PROFILE_FLAG) -p schist-neural --lib anti_smudge_image_rows_match_previous_cpu -- --ignored --nocapture --test-threads=1
+
+.PHONY: profile-anti-smudge-bands
+profile-anti-smudge-bands:
+	$(CARGO) test $(PROFILE_FLAG) -p schist-neural --lib profile_restoration_convolution_bands -- --ignored --nocapture --test-threads=1
+
+.PHONY: export-anti-smudge-coreml check-anti-smudge-coreml-export
+export-anti-smudge-coreml:
+	mkdir -p target/background-removal/anti-coreml/tmp
+	TMPDIR=$(CURDIR)/target/background-removal/anti-coreml/tmp $(MATTING_PYTHON) tools/train/anti_smudge_coreml.py $(ARGS)
+
+check-anti-smudge-coreml-export:
+	$(MATTING_PYTHON) -m unittest discover -s tools/train -p 'test_anti_smudge_coreml.py'

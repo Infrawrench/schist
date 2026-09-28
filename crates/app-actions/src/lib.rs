@@ -169,6 +169,7 @@ pub enum AppItem {
     SelectSmooth,
     SelectFeatherItem,
     RefineMask,
+    RemoveBackground,
     ColorRangeItem,
     ModeRgb,
     ModeGrayscale,

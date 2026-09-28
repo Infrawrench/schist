@@ -11,6 +11,12 @@ mod ops;
 mod shape_metadata;
 pub(super) static SHADER: ComputeShader =
     ComputeShader::new("neural-tensor", include_str!("gpu.wgsl"));
+static CONV: ComputeShader =
+    ComputeShader::workgroup("neural-convolution-band", include_str!("gpu_conv.wgsl"));
+static CONV_WIDE: ComputeShader = ComputeShader::workgroup(
+    "neural-convolution-tiled",
+    include_str!("gpu_conv_tiled.wgsl"),
+);
 #[derive(Clone)]
 struct Value {
     source: ComputeSource,
@@ -353,7 +359,7 @@ impl Network {
             let mut shape = a.shape.clone();
             let mut auxiliary = a.source;
             let mut work = size(&shape)?.saturating_mul(4);
-            let params = match node.op_type.as_str() {
+            let mut params = match node.op_type.as_str() {
                 "Identity" => {
                     values.insert(node.output[0].clone(), a);
                     continue;
@@ -994,14 +1000,37 @@ impl Network {
             };
             let len = size(&shape)?;
             p.work = p.work.saturating_add(work);
+            // Dense resident convolutions share the cooperative kernel used by
+            // partitioned inference. Keep groups, batches and transposed
+            // convolution on the general tensor kernel.
+            let (shader, invocations) = if node.op_type == "Conv"
+                && a.shape[0] == 1
+                && params[15] == 1.0
+                && shape[1] >= 4
+            {
+                params = params[1..15].to_vec();
+                if shape[1] >= 16 {
+                    (
+                        CONV_WIDE,
+                        shape[1].div_ceil(32) * (shape[2] * shape[3]).div_ceil(64),
+                    )
+                } else {
+                    (
+                        CONV,
+                        shape[1].div_ceil(16) * (shape[2] * shape[3]).div_ceil(16),
+                    )
+                }
+            } else {
+                (SHADER, len)
+            };
             let source = ComputeSource::Step(p.steps.len());
             p.steps.push(ComputeStep {
-                shader: SHADER,
+                shader,
                 source: a.source,
                 auxiliary,
                 params,
                 output_len: len,
-                invocations: len,
+                invocations,
                 shape: [len as u32, 1, 1],
             });
             values.insert(node.output[0].clone(), Value { source, shape });

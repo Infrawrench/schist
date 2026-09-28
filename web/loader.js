@@ -2,6 +2,9 @@ import { installTethered } from "./tethered.mjs";
 installTethered();
 import { LOCALES, STRINGS } from "./i18n-data.js";
 import { negotiate, fontMatches } from "./i18n.js";
+import { installModelLoader } from "./models.mjs";
+import { installBackgroundRemoval } from "./background-removal.mjs";
+installModelLoader();
 
 // Boot Schist in the browser.
 //
@@ -158,8 +161,12 @@ async function boot() {
   };
 
   setStatus(S.starting);
+  // Share compiled code with inference workers, not the editor's memory or
+  // assets. Workers are created only when the layer action is invoked.
+  const module = await WebAssembly.compile(wasm);
+  installBackgroundRemoval(module, manifest.js);
   const { default: init } = await import(`./${manifest.js}`);
-  await init({ module_or_path: wasm });
+  await init({ module_or_path: module });
   // From here the app owns the page; __schistLoadingDone fires once its
   // window is up and painting.
 }

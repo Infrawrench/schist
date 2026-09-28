@@ -1,0 +1,35 @@
+{
+  "model": "ViTMatte-S Composition-1K",
+  "source": "https://huggingface.co/hustvl/vitmatte-small-composition-1k",
+  "revision": "6a58ad7646403c1df626fbd746900aec7361ea1d",
+  "source_sha256": {
+    "model.safetensors": "bda9289db1bb6762d978b42d1c62ae3f34daf7497171a347a1d09657efd788cb",
+    "config.json": "ae1006f5a83227048b563b2e60709d4203e432b2276949ebef41a8cfeeeaf45f",
+    "README.md": "5545af4bf41cc017cd1a75ff096d27ff4e6e6ea0bb41c9a272dd4072a0fefaaf"
+  },
+  "normalization_source": "https://github.com/hustvl/ViTMatte/blob/main/configs/common/model.py",
+  "preprocessing": "Native-resolution straight sRGB 0..1 and trimap 0/0.5/1. ImageNet RGB normalization is embedded in the graph.",
+  "input": [
+    1,
+    4,
+    768,
+    768
+  ],
+  "output": "Soft alpha; known trimap pixels are constrained by the runtime.",
+  "tiling": "768 input, 128 context, 512 output, 384 stride; overlapping output windows blended with linear weights.",
+  "trimap": "Foreground min(alpha, radius 4) > .98; background max(alpha, radius 4) < .02; otherwise unknown. Add foreground cores where min(Schist MatteNet alpha, radius 16) > .98, then expand those cores by radius 12, without overriding known background.",
+  "opaque_core_refiner_sha256": "368329288b05675c70cc7a13fbcb0845eb1ca98620017e640fd2fc70e267073a",
+  "training": "Pretrained upstream; no Schist or private-photo fine-tuning.",
+  "license": "Upstream ViTMatte MIT; Hugging Face model card Apache-2.0; see models/licenses.",
+  "torch": "2.14.0",
+  "onnx_max_abs_error": 4.285573959350586e-05,
+  "onnx_sha256": "b6240e8404b30bd94c1e84498a03949b7d2e7e891bed85ed06ac1f8ae1d1dc58",
+  "bytes": 103979583,
+  "compressed_sha256": "3c31c66e8ca3a9ec550fec06e2b23c7ac57225fe7a97953e4d8ae38c326a6f37",
+  "compressed_bytes": 95638600,
+  "compression": "XZ preset 9; expanded ONNX is byte-identical.",
+  "limitations": [
+    "Automatic trimaps inherit detector mistakes.",
+    "Fine transparent detail is not guaranteed; ambiguous backgrounds still need review."
+  ]
+}

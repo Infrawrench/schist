@@ -10,8 +10,14 @@ use tract_onnx::tract_core::ops::{cnn::Conv, cnn::KernelFormat, einsum::EinSum, 
 const BAND_FLOATS: usize = 4 * 1024 * 1024;
 static CONV: ComputeShader =
     ComputeShader::workgroup("neural-convolution-band", include_str!("gpu_conv.wgsl"));
+static CONV_WIDE: ComputeShader = ComputeShader::workgroup(
+    "neural-convolution-tiled",
+    include_str!("gpu_conv_tiled.wgsl"),
+);
 static EINSUM: ComputeShader =
     ComputeShader::new("neural-contraction", include_str!("gpu_einsum.wgsl"));
+static MATRIX: ComputeShader =
+    ComputeShader::workgroup("neural-matrix-tiled", include_str!("gpu_matrix.wgsl"));
 
 pub(super) struct Partitioned {
     pub plan: Arc<TypedSimplePlan>,
@@ -21,14 +27,25 @@ pub(super) struct Partitioned {
 impl Partitioned {
     pub fn compile(model: TypedModel) -> Option<Self> {
         // Optional acceleration must not make a CPU-runnable model unloadable.
-        Self::try_compile(model).unwrap_or_else(|error| {
+        Self::try_compile(model, true).unwrap_or_else(|error| {
             log::debug!("GPU partition compiler declined: {error:#}");
             None
         })
     }
 
-    fn try_compile(mut model: TypedModel) -> TractResult<Option<Self>> {
-        model.declutter()?;
+    /// BiRefNet's batched GatherND index tensors require codegen optimization
+    /// without tract's preliminary PushSliceUp rewrite, on CPU and GPU alike.
+    pub fn compile_without_declutter(model: TypedModel) -> Option<Self> {
+        Self::try_compile(model, false).unwrap_or_else(|error| {
+            log::debug!("GPU partition compiler declined: {error:#}");
+            None
+        })
+    }
+
+    fn try_compile(mut model: TypedModel, preliminary: bool) -> TractResult<Option<Self>> {
+        if preliminary {
+            model.declutter()?;
+        }
         let mut operations = 0;
         for id in model.eval_order()? {
             let node = model.node(id);
@@ -95,8 +112,22 @@ impl Partitioned {
         if operations == 0 {
             return Ok(None);
         }
+        let mut model = if preliminary {
+            model.into_optimized()?
+        } else {
+            model.optimize()?;
+            model
+        };
+        crate::tensor_layout::optimize(&mut model)?;
+        if crate::fast_compute_ops() {
+            crate::pad_copy::optimize(&mut model)?;
+        }
+        if crate::fast_host_ops() {
+            crate::gather_copy::optimize(&mut model)?;
+            crate::resize_copy::optimize(&mut model)?;
+        }
         Ok(Some(Self {
-            plan: model.into_optimized()?.into_runnable()?,
+            plan: model.into_runnable()?,
             operations,
         }))
     }
@@ -241,7 +272,12 @@ fn convolution(conv: &Conv, inputs: &[TValue], output: &[usize]) -> Option<Vec<f
                     band.extend_from_slice(&input[offset + first * iw..offset + end * iw]);
                 }
                 let len = co * height * ow;
-                let groups = co.div_ceil(16) * (height * ow).div_ceil(16);
+                let wide = co >= 16;
+                let groups = if wide {
+                    co.div_ceil(32) * (height * ow).div_ceil(64)
+                } else {
+                    co.div_ceil(16) * (height * ow).div_ceil(16)
+                };
                 let direct = ci * co <= 16;
                 let mut params = vec![
                     ci as f32,
@@ -264,7 +300,13 @@ fn convolution(conv: &Conv, inputs: &[TValue], output: &[usize]) -> Option<Vec<f
                     params.push(1.0);
                 }
                 program.steps = vec![ComputeStep {
-                    shader: if direct { super::gpu::SHADER } else { CONV },
+                    shader: if direct {
+                        super::gpu::SHADER
+                    } else if wide {
+                        CONV_WIDE
+                    } else {
+                        CONV
+                    },
                     source: ComputeSource::Input(0),
                     auxiliary: ComputeSource::Input(1),
                     params,
@@ -334,6 +376,11 @@ fn einsum(op: &EinSum, inputs: &[TValue], output: &[usize]) -> Option<Vec<f32>> 
     if !schist_fx::backend().compute_available(work) {
         return None;
     }
+    if let Some(mut program) = matrix_program(&out_axes, &reduction, len, work) {
+        program.buffers.push(b.to_vec());
+        program.steps[0].auxiliary = ComputeSource::Input(1);
+        return schist_fx::try_compute(a, &program);
+    }
     let mut params = vec![output.len() as f32, reduction.len() as f32, count as f32];
     for axis in out_axes.into_iter().chain(reduction) {
         params.extend(axis.map(|v| v as f32));
@@ -342,4 +389,65 @@ fn einsum(op: &EinSum, inputs: &[TValue], output: &[usize]) -> Option<Vec<f32>> 
     program.buffers.push(b.to_vec());
     program.steps[0].auxiliary = ComputeSource::Input(1);
     schist_fx::try_compute(a, &program)
+}
+
+// Factor arbitrary output layouts into rows, columns, and shared batch axes.
+// Broadcasting has stride zero. Decode compound reduction axes while loading
+// each shared tile, rather than for every multiply of every output element.
+fn matrix_program(
+    output: &[[usize; 3]],
+    reduction: &[[usize; 3]],
+    len: usize,
+    work: usize,
+) -> Option<ComputeProgram> {
+    let reductions: Vec<_> = reduction.iter().copied().filter(|a| a[0] > 1).collect();
+    if reductions.is_empty() {
+        return None;
+    }
+    let mut rows = Vec::new();
+    let mut columns = Vec::new();
+    let mut batches = Vec::new();
+    let mut stride = len;
+    for &[dim, a, b] in output {
+        stride /= dim;
+        if dim == 1 {
+            continue;
+        }
+        let axis = [dim, a, b, stride];
+        match (a != 0, b != 0) {
+            (true, false) => rows.push(axis),
+            (false, true) => columns.push(axis),
+            (true, true) => batches.push(axis),
+            (false, false) => return None,
+        }
+    }
+    if rows.is_empty() || columns.is_empty() {
+        return None;
+    }
+    let count = |axes: &[[usize; 4]]| axes.iter().map(|axis| axis[0]).product::<usize>();
+    let m = count(&rows);
+    let n = count(&columns);
+    let groups = m
+        .div_ceil(64)
+        .checked_mul(n.div_ceil(64))?
+        .checked_mul(count(&batches))?;
+    let mut params = vec![
+        m as f32,
+        n as f32,
+        reductions.iter().map(|a| a[0]).product::<usize>() as f32,
+        reductions.len() as f32,
+        (rows.len() + columns.len() + batches.len()) as f32,
+        rows.len() as f32,
+        columns.len() as f32,
+        batches.len() as f32,
+    ];
+    for axis in rows.into_iter().chain(columns).chain(batches) {
+        params.extend(axis.map(|v| v as f32));
+    }
+    for [dim, a, b] in reductions {
+        params.extend([dim as f32, a as f32, b as f32, 0.0]);
+    }
+    let mut program = ComputeProgram::single(&MATRIX, params, len, [len as u32, 1, 1], work);
+    program.steps[0].invocations = groups;
+    Some(program)
 }

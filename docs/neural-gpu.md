@@ -1,11 +1,12 @@
 # Neural inference on the GPU
 
-All 18 models in Schist's catalog have a native GPU inference path through the
-installed effects backend. Sixteen compile to resident compute graphs, including
-SFace recognition's PReLU and inference Dropout layers. Anti-Smudge and the
-MobileCLIP text encoder run their expensive contractions on the GPU within a
-tract execution plan. This uses the existing wgpu device, without a separate
-inference runtime or CUDA requirement.
+Catalog models use native GPU inference through the installed effects backend.
+Compatible networks compile to resident compute graphs, including SFace
+recognition's PReLU and inference Dropout layers. Anti-Smudge, the MobileCLIP
+text encoder and unsupported background-matting graphs run their expensive
+contractions on the GPU within a tract execution plan. This uses the existing
+wgpu device. macOS background removal additionally uses Core ML through Rust
+bindings and the statically linked `ort` dependency described below.
 
 Anti-Smudge has 279 eligible contractions and the text encoder has 29. These
 counts describe graph coverage, not guaranteed dispatches: the production
@@ -18,27 +19,281 @@ group boundaries. Each band preserves the original convolution's receptive
 field. The model still sees its full 2048px input and full attention context;
 inference does not substitute smaller image tiles or change the weights.
 Each band holds at most 4,194,304 floats in its image and output buffers. Dense
-convolutions use cooperative 16×16 matrix tiles; small grouped kernels use the
-element shader. The offload threshold applies to the entire contraction so a
+convolutions use cooperative 32×64 output tiles with 2×4 register blocks per
+thread; narrow convolutions retain 16×16 tiles and small grouped kernels use
+the element shader. Matrix contractions use 64×64 output tiles with 4×4
+register blocks, including strided/broadcast batches and compound reduction
+axes. Unsupported contraction layouts retain the scalar kernel.
+The offload threshold applies to the entire contraction so a
 short final band cannot inadvertently force the whole operation back to CPU.
 
-Without a GPU, Schist runs the original optimized tract plan. If a GPU operation
-fails or exceeds device limits, that operation runs through an independently
+Without a GPU, Schist runs an optimized tract plan with native host kernels.
+If a GPU operation fails or exceeds device limits, it runs through an independently
 optimized tract fallback using its original inputs. A failure after a successful
 band discards the partial output and recomputes the operation. No partial tensor
 is passed to subsequent layers.
+
+GPU eligibility alone is not a speed guarantee: partial graphs can spend more
+time copying, indexing and rearranging tensors on the host than doing GPU math.
+Large contiguous host matrix transposes use a cache-blocked copy, while moving
+unit dimensions remains a zero-copy reshape. The release profile optimizes the
+host tensor and upload/readback loops for speed.
+
+The background detectors keep their data-dependent `Floor → Cast<int64>` pixel
+indices as ordinary integers, avoiding tract's symbolic-dimension arithmetic.
+Concrete float GatherND operations copy checked contiguous slices, including
+batched and negative indices. Fixed linear resizes reuse tract's interpolation
+plans and specialize two-tap contiguous rows without changing their accumulation
+order. ARM64 transposes use blocked NEON bit shuffles with scalar tails; other
+architectures retain the portable transpose implementation. These host passes
+apply to both CPU and partitioned GPU plans, preserving model resolution and
+precision.
+
+Fixed float32 constant padding copies whole contiguous rows into a prefilled
+output. Input and padding-value bits are preserved, including signed zero and
+NaN payloads. Reflect/edge padding and unsupported shapes retain tract.
+
+The foreground models also recognize the exporter's four-corner deformable
+sampling subgraph. A fused operation performs the same gathers, weighted sum,
+modulation and convolution-layout conversion directly. Sampling metadata is
+prepared in blocks of 1024 pixels and reused across feature channels, avoiding
+four large channel-expanded tensors and their transposes. The matcher checks
+topology, shapes, kernel layout and ONNX domains; other consumers of the original
+nodes remain live. Model weights and compressed ONNX files are unchanged.
+
+On macOS, the background models' CPU plans use Accelerate vForce for contiguous
+float32 softmax exponentials, with tract's SIMD sum and normalization. Stable
+maximum subtraction is retained. Vector exp and reduction order can introduce
+small rounding differences; this does not use reduced-precision weights or
+approximate fast-exp softmax. Other platforms retain tract's softmax.
+
+The macOS CPU plans for both BiRefNet detectors and ViTMatte also rewrite
+compatible large float32 Einstein contractions to Accelerate `cblas_sgemm`.
+Checked matrix views cover transposed operands/output, broadcast weights,
+interleaved attention heads and contiguous compound reduction axes, without
+packing copies. Shapes, strides, allocation extents and the 32-bit BLAS limits
+are checked before dispatch. Each product must require at least one million
+multiply-accumulates; small or unsupported contractions retain tract.
+This changes execution kernels, not model weights, precision, trimaps or tile
+geometry. Accumulation order may introduce small floating-point differences.
+
+Windowed attention and split-head projections can also use Accelerate when
+their left operand needs rearranging. A checked packing plan copies contiguous
+feature blocks into at most 16 MiB of float scratch, reused across batches.
+The weights and output still use direct views. This converts fragmented
+contractions into large matrix calls while retaining the same reduction axes
+and float32 values. Unsupported layouts and larger scratch requirements retain
+tract. Operator profiles distinguish these calls as `PackedAccelerateMatMul`.
+
+ViTMatte's three large, low-channel decoder convolutions use a bounded CPU
+banding path on macOS. It packs the 3×3 neighborhoods directly from the original
+feature map, supplies zeros at the image boundary and writes Accelerate matrix
+results into the output planes with their original bias. This avoids a separate
+full-size padded feature map. The float scratch is capped at 16 MiB and reused
+across bands and batches. Bands follow whole image rows when possible; narrower
+outputs use longer bands to amortize matrix-call overhead. Only fixed float32
+NCHW, ungrouped, stride-one, dilation-one, same-padded 3×3 convolutions with at
+least 65,536 spatial positions and 16–64 output channels qualify. The smaller
+decoder stages retain tract after local benchmarks found mixed or slower
+results there. This path changes execution, preserving the filters, biases,
+resolution and model tile overlap. It is logged as `BandedAccelerateConv`.
+
+On macOS, the three bundled background refiners use precompiled Core ML
+archives through Rust `objc2-core-ml` bindings. The Mac executable embeds only
+`detail-matting.mlmodelc.tar.xz`, `subject-guide.mlmodelc.tar.xz` and
+`matting.mlmodelc.tar.xz`, plus `detail-matting-gpu.mlmodelc.tar.xz` on Apple
+Silicon. Their ONNX archives remain in the repository for other platforms and
+are excluded from Mac production builds. The float32 archives total
+138,908,300 bytes; the Apple Silicon GPU variant adds 48,335,976 bytes.
+Excluding their ONNX copies avoids another 136,175,436 bytes.
+They target Core ML 5 / macOS 12 or newer; these compiled refiners are
+unavailable on macOS 11. Runtime validation here uses macOS 15.6.1; Intel Mac
+and Web are also compile-checked.
+
+Archives are checked against pinned SHA-256 hashes and extracted to stable,
+versioned paths under `~/Library/Caches/schist/neural/coreml-bundled-v1`.
+Extraction checks every member name, size and digest, disallows links and
+traversal, bounds decompression, and publishes the complete directory by rename.
+Core ML GPU failures retry the full-precision compiled model on the CPU, so no
+fallback ONNX copy needs shipping. Input/output shapes, strides and float32 values are
+validated. Synchronous predictions own their input storage and serialize access
+to each model. Idle models are released after five minutes; active callers keep
+their ownership. CPU and GPU model caches are separate.
+
+The Apple Silicon detail decoder returns the central 512×512 region consumed
+by the tiler. Its transformer still processes the complete 768×768 input,
+including the 128px context on each side. The offline exporter propagates
+the required region backwards through decoder convolutions and half-pixel
+bilinear upsampling, retaining every contributing sample and the original
+weights. Shared branches use the union of their required regions. Unsupported
+decoder layouts fail export. CPU fallback and Intel retain the original
+768×768 float32 output; Rust validates both layouts and blends their matching
+central regions in the same order.
+
+Before publishing an archive, the exporter compares the cropped GPU decoder
+with the full GPU decoder on deterministic noise, gradient and fine texture
+inputs with three-valued trimaps. The current maximum alpha difference is
+0.00043738, with mean at most 0.000000506 and 99th percentile at most
+0.000013531. These checks guard sampling and context preservation; they do not
+measure segmentation accuracy. The manifest records the output region and
+all three comparisons.
+
+Trimap confidence now erodes threshold masks using running counts, equivalent
+to comparing the former 9×9 floating-point extrema. Known pixels skip blending
+that would subsequently be overwritten. Antialiased RGB preparation runs
+independent rows in bounded parallel tasks, and color cleanup evaluates its
+three channels concurrently. Their per-pixel accumulation order is preserved.
+
+The two optional/downloaded foreground detectors use the statically linked
+`ort` 2.0.0-rc.13 / ONNX Runtime 1.28.0 Core ML provider on Apple Silicon. Cargo
+verifies its static archive at build time. No ONNX Runtime dylib is packaged or
+loaded. The application invokes no Python or Swift process. Other neural
+filters and Web retain the existing tract/wgpu paths. Linux/Windows can opt into
+the [embedded CUDA executor](neural-cuda.md) on supported NVIDIA hardware.
+
+Rust graph preparation is restricted to five pinned source hashes. Detector
+bilinear sampling is expressed as `GridSample` with the same padded input,
+coordinates, border behavior and modulation. Constant Gather folding preserves
+float bits; relative-position Einsum becomes Transpose/MatMul; redundant batch
+axes and scalar Gather layouts are rewritten without changing weights or
+resolution. The matting detector and detail refiner each form one Core ML graph.
+The general detector also forms one Core ML graph: two one-piece splits and
+six single-input concatenations are replaced by identities, which ORT removes.
+This avoids sending the final 96 × 1024 × 1024 float32 decoder tensor through
+CPU memory between GPU partitions (about 403 MB for that tensor alone).
+The source weights, precision and tensor values are unchanged. This detector
+uses `coreml-ort128-v3`; unchanged model families keep their v2 cache paths.
+The offline subject-guide export expands its 20 HardSwish operations into
+HardSigmoid/Multiply, uses BASIC optimization to avoid unsupported activation
+fusions, and produces one complete Core ML graph.
+
+Large inline float constants are stored in standard binary MIL weight blobs,
+keeping their bits and reducing both loading time and cache size. The bundled
+models are converted offline by `make export-background-coreml` (Apple Silicon,
+Xcode and `coremltools==9.0` in `MATTING_PYTHON`). The Rust source exporter reads
+ONNX from disk; enabling its optional feature does not embed it in the app.
+`models/background-coreml.json` records archive/member hashes and provenance.
+Downloaded-detector caches receive the same lossless weight-storage
+transformation in Rust before an existing graph is loaded again. Their first
+conversion/compilation can still be slow. The original downloaded ONNX files
+are retained for tract CPU fallback; they are not part of the application bundle.
+
+The Apple Silicon detail variant additionally uses mixed-precision arithmetic:
+layer normalization, reductions, softmax, powers, reciprocal square roots,
+division and the final sigmoid stay float32, with other eligible operations
+lowered to float16. Input/output remain float32. Core ML uses CPU+GPU with
+low-precision GPU accumulation disabled. The original float32 detail archive
+is retained for CPU fallback and Intel Macs: the mixed graph had excessive
+CPU error on both stress inputs and a real portrait. GPU-load failure is
+explicitly tested to select the float32 graph. The guide, opaque-core model
+and detectors retain float32 execution. No image-resolution reduction is used.
+`export_coreml.py --gpu-only` preserves verified float32 archives when updating
+the GPU variant; their original source pins and archive hashes must match.
+
+Plane inputs are copied directly into tract tensors; contiguous Core ML output
+uses a bulk copy after validating capacity and strides. Padded/transposed
+outputs retain checked logical-element access without reading padding.
+
+Source pins and versioned cache paths isolate derived graphs. Prepared ONNX
+files are checked against their digest before reuse. At most five pinned native
+sessions can be retained; a five-minute idle timeout also releases their validated
+source buffers. `SCHIST_NEURAL_CACHE` overrides the cache root.
+
+After opening the macOS window, the app starts one detached Rust thread to
+load the installed background-removal pipeline and run a synthetic prediction
+through each native model. No images are read and no model is downloaded.
+Apple Silicon warms both detectors when installed, the guide, opaque-core
+model and detail refiner; Intel warms the three compiled refiners. Without
+an installed foreground detector, startup does no model work. Cache loading
+uses a shared `OnceLock` per model/backend, so startup and an action share
+in-flight work without holding the global cache lock. Invalidation removes
+the slot even if a load is in flight, preventing stale results from restoring
+it. A real background-model request stops preloading after the current model;
+the action's worker then loads anything still needed. Loaded models retain
+the five-minute idle timeout, so startup does not pin them indefinitely.
+`SCHIST_NEURAL_LEGACY_NATIVE=1` bypasses the detector Core ML path for diagnostics;
+`SCHIST_NEURAL_COREML_CPU=1` forces compiled refiners onto the CPU.
+
+`make check-background-removal-native` compares the two installed detectors
+against original CPU ONNX graphs and all three compiled refiners against the
+original tract CPU plans, on both Core ML GPU and CPU. It is an opt-in Apple
+Silicon check. Ordinary tests cover graph constants, archive integrity, tensor
+layouts, malformed inputs and idle cache ownership.
+Float32 models retain the original maximum-alpha-error limit of 0.0005.
+The intentional GPU quantization has separate limits, expressed in 8-bit
+alpha levels: mean error below 0.5, 99th percentile below 2, maximum below 8.
+Full-image phone-photo checks supplement these synthetic numerical checks.
+`make check-background-coreml-bundle` inspects the release
+executable for its architecture's compiled archives, absence of their ONNX payloads,
+and absence of an ONNX Runtime dylib dependency. Mac packaging runs this check
+on the stripped shipping copy before signing the application bundle.
+
+The portable automatic background-removal path opts into measured placement.
+The first real input warms GPU shaders/uploads; the next two time CPU and warm
+accelerated execution, including transfers and host operators. Each result is
+used, so calibration never duplicates successful inference or mistakes cold
+shader setup for steady GPU cost. CPU wins when accelerated execution takes
+more than 1.2 times its duration. Both pinned BiRefNet Lite detectors share a
+calibration; ViTMatte uses successive real edge tiles. Choices are scoped by
+input shape and backend identity, retained across
+model-plan releases, and reset when the backend is replaced or the app restarts.
+The resident subject guide and small MatteNet remain eligible for GPU execution.
+The scope changes neither the global backend nor unrelated filters, and raw
+CPU/GPU parity tests bypass it. See [background-removal timings](background-removal.md#native-execution-performance).
 
 The partitioned path uses the synchronous native effects backend. Browser
 filters retain their existing asynchronous resident-graph path; partitioned
 Anti-Smudge inference in the browser still uses tract. Compilation alone does
 not imply that a browser or device can execute a model on the GPU.
+The browser's automatic background-removal action runs the Rust CPU pipeline
+in a dedicated worker, with weights fetched on demand outside the WASM binary.
+It shares compiled code with the editor, but has independent memory; terminating
+the worker cancels blocking kernels and releases its models. It does not yet
+use asynchronous WebGPU for the multi-stage matting pipeline.
 
 ## Verification
 
+`SCHIST_NEURAL_NATIVE_TIMING=1 make profile-background-coreml ARGS='photo.jpg cutout.png 4 --preload'`
+also reports individual Core ML prediction times and tensor shapes. It records
+no pixel or tensor contents. Startup preparation, pipeline processing and final
+PNG encoding are reported separately.
+
+`SCHIST_MATTING_PROFILE=1 make profile-background-removal ARGS='cpu photo.jpg cutout.png'`
+logs operator timings for each model's first CPU input. It does not record image
+or tensor contents. `make profile-neural-tensors` compares portable and native
+transposes on representative synthetic tensor sizes; timings are diagnostic,
+not assertions in the regression suite.
+Adding `SCHIST_MATTING_PROFILE_NODES=1` to the model profiler also reports the
+40 slowest nodes with their names and input shapes. It records no tensor values.
+`make profile-attention-matrices` compares optimized tract contractions with
+packed Accelerate plans on the three production ViTMatte attention layouts.
+It uses identical synthetic tensors and constant weights, warms both plans,
+then reports medians from 12 alternating measurements per implementation.
+Packing is included in the measured time.
+`make profile-decoder-convolutions` compares the selected banded decoder layers
+with optimized tract plus the existing fast-padding pass, using synthetic tensors
+(including constant filters and bias) and eight alternating measurements per
+implementation after warm-up and a
+numerical comparison. It also identifies the layers kept on tract.
+For paired end-to-end comparisons, `SCHIST_NEURAL_LEGACY_HOST=1` selects the
+previous host operators in the same executable. It is a native diagnostic
+control read once per process; weights, precision and tiling stay unchanged.
+`SCHIST_NEURAL_LEGACY_MODEL=1` separately disables deformable-sampling fusion and
+the macOS vector softmax for comparisons with the preceding model execution.
+`SCHIST_NEURAL_LEGACY_COMPUTE=1` disables the Accelerate matrix, decoder
+convolution and contiguous-padding passes.
+`SCHIST_NEURAL_LEGACY_PACKING=1` disables only the additional packed-input matrix
+path, retaining the preceding direct-view matrix and padding optimizations.
+`SCHIST_NEURAL_LEGACY_CONV=1` disables only the banded decoder convolutions,
+retaining the preceding matrix, packing and padding optimizations.
+`SCHIST_MATRIX_LAYOUTS=1` logs unsupported contraction equations and shapes
+without tensor contents, to identify further packing/stride costs.
+
 `make check-neural-gpu` executes real GPU dispatches and compares them with tract:
 PReLU, inference Dropout, grouped/dilated/asymmetrically padded convolution,
-broadcast matrix products, integer token lookup followed by matrix products,
-large convolution bands, and failure before or during a GPU operation. It also
+broadcast/transposed matrix products, compound reductions, non-tile-aligned
+dimensions, integer token lookup followed by matrix products, large convolution
+bands (including the wider kernel), and failure before or during a GPU operation. It also
 checks that every installed catalog model has a resident or partitioned path.
 `make lint-neural-gpu` runs strict Clippy for both affected crates.
 
@@ -57,3 +312,135 @@ input using the exact compressed shipping weights. Its shipping 2048px contract
 is loaded by the catalog coverage check, and the large convolution fixture
 separately verifies banding. Software Vulkan can establish shader correctness
 but does not measure hardware GPU speedup.
+
+`make check-background-removal-gpu` adds GPU/CPU comparisons for the bundled
+MatteNet, ViTMatte-S and semantic guide, using the production offload threshold.
+It requires real dispatches, including ViTMatte's full 768px input. Optional
+checks exercise both installed background detectors and full-resolution detail
+matting on a local photograph:
+
+```sh
+SCHIST_BACKGROUND_GPU_DETECTORS=1 make check-background-removal-gpu \
+  ARGS='installed_background_detectors --nocapture'
+SCHIST_MATTING_INPUT=/absolute/path/to/srgb-photo.png \
+SCHIST_MATTING_COARSE=/absolute/path/to/coarse.f32 \
+  make check-background-removal-gpu ARGS='full_resolution_private_photo --nocapture'
+```
+
+The coarse buffer is row-major little-endian float32 alpha at the photograph's
+dimensions. Optional fixtures remain local; these tests do not fetch or commit
+photographs. `SCHIST_MATTING_INPUT` also supplies a real photograph to the
+detector comparison when set. GPU parity verifies implementation consistency,
+not segmentation quality or an artifact-free guarantee.
+`SCHIST_BACKGROUND_REFERENCE_DIR` optionally supplies independent runtime
+references as `foreground.f32` and `foreground-matting.f32`, using the same
+full-size alpha format. This also checks the CPU graph against those outputs.
+
+## Portable background inference on Windows, Linux and Android
+
+The portable background pipeline uses tract's statically linked Rust SIMD
+kernels with a shared, bounded worker pool: up to four workers on Windows/Linux
+and two on Android, limited by the available CPUs. Small operations retain
+tract's serial dispatch thresholds. CPU calibration and the CPU portions of
+partitioned GPU plans use the same pool, including device-failure fallbacks.
+Executor selection is scoped to the five background models; it restores the
+previous selection after nested calls, errors and unwinding. It does not change
+the global Rayon pool or other filters. Apple production inference retains its
+existing Core ML/Accelerate scheduling.
+
+The pinned portable ViTMatte graph now computes only the central 512×512 decoder
+output consumed by the tiler. The transformer still receives the complete
+768×768 context. A Rust ONNX rewrite propagates the required spatial region
+backwards through the local decoder, retaining convolution halos and both
+half-pixel interpolation neighbours. Shared branches use the union of their
+required regions. The source hash, topology and sampling mode are checked before
+rewriting; weights remain float32 and the compressed ONNX archive is unchanged.
+This reduces both CPU decoder arithmetic and GPU dispatch/upload sizes. Full
+and cropped plans have separate cache entries; explicit invalidation removes
+both. General callers outside automatic-background execution retain full output.
+
+Windows/Linux retain prepared background plans for five idle minutes instead
+of parsing and optimizing them again after every action. A dedicated startup
+thread prepares only installed background models, without running predictions
+or delaying the event loop. It stops after the current shared load when a real
+action begins. The idle reaper protects active users/loading handoffs, drops
+plans outside the cache lock and never revives invalidated models. Retention
+is limited to the five background IDs and the full/cropped detail variant;
+unrelated model release policies are unchanged. It trades additional desktop
+RAM for reduced latency; see the measured memory/timing results in
+[background removal](background-removal.md#native-execution-performance).
+
+Android serializes complete background-removal actions, including nested calls,
+and releases the small opaque-core model after use. It retains the existing
+per-stage release of large detector/refiner plans. This avoids simultaneous
+phone-sized inference jobs competing for memory and CPU workers.
+
+The existing wgpu backend provides D3D12/Vulkan acceleration; CPU/GPU calibration
+still measures complete predictions, including transfers. No new runtime DLL,
+SO, Python process or vendor SDK is shipped. The static ORT distributions were
+also investigated: their WebGPU backend requires a separate Dawn library, while
+Android [NNAPI is deprecated](https://developer.android.com/ndk/guides/neuralnetworks). This change keeps the portable Rust/wgpu path;
+it does not claim new DirectML or NPU execution. Linux/Windows additionally have
+an opt-in [Rust CUDA executor with embedded kernels](neural-cuda.md), using only
+the installed NVIDIA driver. Its hardware validation and benchmarking commands
+are separate from the portable wgpu checks below.
+
+For reproducible diagnostics:
+
+```sh
+make check-background-portable
+make profile-background-portable
+make check-background-portable-gpu
+make lint-background-portable
+make check-background-target NEURAL_TARGET=aarch64-linux-android
+```
+
+Cross-target checks need the target C toolchain for tract's SIMD assembly.
+`SCHIST_NEURAL_CPU_THREADS=1` selects the serial reference; values 2–8 select a
+bounded alternative pool (also on a Mac for portable diagnostics).
+`SCHIST_NEURAL_LEGACY_CROP=1` retains the full decoder inside automatic background
+removal. Both controls are for paired measurements; they do not alter weights
+or the tiler's context, overlap or blending.
+
+The decoder benchmark compares the original and cropped production weights on
+noise, gradients and fine texture at one, two and four threads. It checks a
+maximum alpha error below 0.0005 and requires threaded cropped results to match
+the single-threaded crop exactly. The GPU check runs the complete transformer
+and cropped decoder through real dispatches, comparing the final matte with the
+original full-output CPU graph. Existing seam and partial-edge tests cover the
+central-output tiling contract. These are numerical consistency checks, not a
+guarantee that segmentation is perfect on every photograph.
+
+Validation on 2026-09-27 used an ARM64 Debian Bookworm container on an Apple M4,
+limited to four CPUs and 5 GiB RAM. Release optimization was unchanged; debug
+information was disabled to reduce build storage. All 70 portable unit tests,
+21 inference tests, the decoder comparison and strict all-targets Clippy passed.
+The decoder's three cases reported zero maximum alpha difference to nine
+decimal places for both graphs at all worker counts. Cropped outputs also
+passed exact-equality checks across worker counts.
+
+| Decoder | 1 worker median (range) | 2 workers median (range) | 4 workers median (range) |
+| --- | ---: | ---: | ---: |
+| Original 768px output | 2.148 s (1.878–2.426) | 1.555 s (1.467–1.674) | 1.810 s (1.094–1.911) |
+| Central 512px output | 0.890 s (0.800–1.059) | 0.844 s (0.702–0.953) | 0.661 s (0.527–1.167) |
+
+Cropping alone lowered the median decoder time by 59%; with four workers the
+median was 69% lower than the previous single-worker full decoder. These are
+three synthetic decoder runs per configuration, with visible scheduling noise,
+not whole-image or physical Android/Windows timings. No build or second inference
+benchmark ran concurrently. The transformer, loading, detection, host image
+processing and GPU transfers are excluded from this decoder table.
+
+The complete portable model also passed the real-GPU check on Apple M4/Metal:
+115 dispatches, maximum final-alpha error 0.00000734 relative to the original
+CPU graph. The cropped CPU graph differed by at most 0.00000167. This verifies
+the existing portable GPU kernels with the rewritten shapes; it is not a
+measurement of D3D12 or Android/Linux Vulkan hardware.
+
+Strict all-targets neural-crate Clippy also passed for
+`aarch64-linux-android` (NDK 27.2, API 30) and `x86_64-pc-windows-gnu`
+(cross-compilation with Clang). These establish compilation, not device speed,
+GPU-driver compatibility or whole-application packaging on those platforms.
+
+Mac integration also passes `make lint-background-removal`;
+`make check-background-removal-web` passes with the native-only changes excluded.

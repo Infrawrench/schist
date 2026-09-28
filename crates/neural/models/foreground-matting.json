@@ -1,0 +1,26 @@
+{
+  "model": "BiRefNet Lite Matting",
+  "source": "https://huggingface.co/ZhengPeng7/BiRefNet_lite-matting",
+  "revision": "99c33412e3f58e1f33187abdc8c435c645243690",
+  "source_sha256": {
+    "birefnet.py": "af8568b5be406bf4d2a68a7ed6d72e40f73b37a1fb6fc9ebd71b5b3cbcd069c9",
+    "BiRefNet_config.py": "e7b8c2a74f6cea6a59553d517f71d47f2c1d90e670a13416af17c25fe2f3dc52",
+    "model.safetensors": "ce8bcfc045e336322c0424a5863dcfb7e9ce8fed0a5fd4d1b2b20adf12d97243"
+  },
+  "onnx_sha256": "273501048979b3012b544232234618819225745a13e316b21b4db439a2f28fe8",
+  "bytes": 223559431,
+  "torch": "2.14.0",
+  "input": [
+    1,
+    3,
+    1024,
+    1024
+  ],
+  "output": "foreground logits; sigmoid before resizing",
+  "preprocessing": "Antialiased triangle resize; sRGB float32; ImageNet mean/std",
+  "training": "Pretrained upstream; no private-photo gradient training or uploads",
+  "license": "BiRefNet MIT; deform_conv2d_onnx_exporter MIT",
+  "max_probability_error": 4.678964614868164e-06,
+  "mean_probability_error": 3.024078125690721e-07,
+  "seconds": 99.40966081619263
+}
