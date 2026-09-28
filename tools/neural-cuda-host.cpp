@@ -58,7 +58,10 @@ int main() {
       const unsigned *cols = rows + ra * 4;
       const unsigned *batches = cols + ca * 4;
       const unsigned *red = batches + ba * 4;
-      for (unsigned batch = 0; batch < len / (m * n); ++batch)
+      const unsigned *split = red + ka * 3;
+      unsigned parts = split[0], output_len = split[1], chunk = parts == 1 ? k : 4096;
+      for (unsigned part = 0; part < parts; ++part)
+      for (unsigned batch = 0; batch < output_len / (m * n); ++batch)
         for (unsigned r = 0; r < m; ++r)
           for (unsigned c = 0; c < n; ++c) {
             float sum = 0;
@@ -66,12 +69,22 @@ int main() {
                          offset(r, rows, ra, 4, 1),
                      b = offset(batch, batches, ba, 4, 2) +
                          offset(c, cols, ca, 4, 2);
-            for (unsigned j = 0; j < k; ++j)
+            for (unsigned j = part * chunk; j < min(k, (part + 1) * chunk); ++j)
               sum += xs[0][a + offset(j, red, ka, 3, 1)] *
                      xs[1][b + offset(j, red, ka, 3, 2)];
-            dst[offset(batch, batches, ba, 4, 3) + offset(r, rows, ra, 4, 3) +
+            dst[part * output_len + offset(batch, batches, ba, 4, 3) + offset(r, rows, ra, 4, 3) +
                 offset(c, cols, ca, 4, 3)] = sum;
           }
+    } else if (kernel == 4) {
+      for (unsigned i = 0; i < len; ++i) {
+        float partial[256];
+        for (unsigned l = 0; l < 256; ++l)
+          partial[l] = reduce_lane(xs[0], p.data(), i, l, 256);
+        for (unsigned k = 128; k; k /= 2)
+          for (unsigned l = 0; l < k; ++l)
+            partial[l] = reduce_combine(partial[l], partial[l + k], p[1]);
+        dst[i] = partial[0];
+      }
     } else {
       for (unsigned i = 0; i < len; ++i)
         element(xs, dst, p.data(), i);

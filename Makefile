@@ -608,10 +608,11 @@ background-removal-example:
 .PHONY: profile-background-removal
 profile-background-removal:
 	$(CARGO) run $(PROFILE_FLAG) -p schist-compositor-gpu --example background_removal -- $(ARGS)
+NEURAL_CUDA_TEST_FILTER ?= cuda::
 .PHONY: check-neural-cuda
 check-neural-cuda: target/background-removal/cuda-host
 	python3 tools/neural-cuda-ptx.py --check
-	SCHIST_CUDA_HOST_RUNNER=$(CURDIR)/target/background-removal/cuda-host $(CARGO) test $(PROFILE_FLAG) -p schist-neural --lib cuda:: -- $(ARGS)
+	SCHIST_CUDA_HOST_RUNNER=$(CURDIR)/target/background-removal/cuda-host $(CARGO) test $(PROFILE_FLAG) -p schist-neural --lib $(NEURAL_CUDA_TEST_FILTER) -- $(ARGS)
 target/background-removal/cuda-host: tools/neural-cuda-host.cpp crates/neural/src/cuda/kernels.cu
 	mkdir -p target/background-removal
 	$(CXX) -std=c++17 -O2 -ffp-contract=off tools/neural-cuda-host.cpp -o $@
@@ -1146,3 +1147,42 @@ check-background-target:
 	$(CARGO) check -p schist-neural --all-targets --target $(NEURAL_TARGET)
 lint-background-target:
 	$(CARGO) clippy -p schist-neural --all-targets --target $(NEURAL_TARGET) -- -D warnings
+
+.PHONY: check-anti-smudge-runtime check-anti-smudge-cuda-graph
+check-anti-smudge-runtime:
+	$(CARGO) test $(PROFILE_FLAG) -p schist-neural --test anti_smudge
+check-anti-smudge-cuda-graph: target/background-removal/cuda-host
+	$(PYTHON) tools/neural-cuda-ptx.py --check
+	SCHIST_CUDA_HOST_RUNNER=$(CURDIR)/target/background-removal/cuda-host $(CARGO) test $(PROFILE_FLAG) -p schist-neural --lib anti_smudge_compiles_to_resident_cuda_graph -- --ignored --nocapture --test-threads=1
+
+.PHONY: check-anti-smudge-cpu-parity
+check-anti-smudge-cpu-parity:
+	$(CARGO) test $(PROFILE_FLAG) -p schist-neural --lib anti_smudge_accelerated_cpu_matches_original -- --ignored --nocapture --test-threads=1
+
+.PHONY: profile-anti-smudge
+profile-anti-smudge:
+	$(CARGO) test $(PROFILE_FLAG) -p schist-neural --lib profile_anti_smudge_cpu -- --ignored --nocapture --test-threads=1
+
+.PHONY: profile-anti-smudge-kernels
+profile-anti-smudge-kernels:
+	$(CARGO) test $(PROFILE_FLAG) -p schist-neural --lib anti_smudge_row_kernels_match_previous_cpu -- --ignored --nocapture --test-threads=1
+
+.PHONY: profile-anti-smudge-attention
+profile-anti-smudge-attention:
+	$(CARGO) test $(PROFILE_FLAG) -p schist-neural --lib anti_smudge_tiled_attention_matches_previous_cpu -- --ignored --nocapture --test-threads=1
+
+.PHONY: profile-anti-smudge-rows
+profile-anti-smudge-rows:
+	$(CARGO) test $(PROFILE_FLAG) -p schist-neural --lib anti_smudge_image_rows_match_previous_cpu -- --ignored --nocapture --test-threads=1
+
+.PHONY: profile-anti-smudge-bands
+profile-anti-smudge-bands:
+	$(CARGO) test $(PROFILE_FLAG) -p schist-neural --lib profile_restoration_convolution_bands -- --ignored --nocapture --test-threads=1
+
+.PHONY: export-anti-smudge-coreml check-anti-smudge-coreml-export
+export-anti-smudge-coreml:
+	mkdir -p target/background-removal/anti-coreml/tmp
+	TMPDIR=$(CURDIR)/target/background-removal/anti-coreml/tmp $(MATTING_PYTHON) tools/train/anti_smudge_coreml.py $(ARGS)
+
+check-anti-smudge-coreml-export:
+	$(MATTING_PYTHON) -m unittest discover -s tools/train -p 'test_anti_smudge_coreml.py'

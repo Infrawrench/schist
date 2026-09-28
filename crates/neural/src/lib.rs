@@ -76,6 +76,7 @@ mod accelerate_conv;
 #[cfg(target_os = "macos")]
 mod accelerate_matrix;
 mod deform_sample;
+mod depthwise_conv;
 #[cfg(not(target_arch = "wasm32"))]
 mod detail_crop;
 mod detail_matting;
@@ -128,9 +129,11 @@ mod native_onnx_graph;
 mod pad_copy;
 mod resample;
 mod resize_copy;
+mod restoration_rows;
 mod segment;
 mod subject_guidance;
 mod tensor_layout;
+mod tiled_attention;
 #[cfg(target_os = "macos")]
 mod vector_softmax;
 
@@ -1103,48 +1106,7 @@ impl Model {
                             .any(|a| a.name == "batch_dims" && a.i > 0))
             })
         });
-        // tract's preliminary PushSliceUp rewrite panics on BiRefNet's
-        // batched index tensors. Codegen optimization handles this graph.
-        let mut cpu = typed.clone();
-        if !has_batched_gather {
-            cpu.declutter()?;
-        }
-        #[cfg(target_os = "macos")]
-        if spec.id == "detail-matting"
-            && fast_compute_ops()
-            && std::env::var_os("SCHIST_NEURAL_LEGACY_CONV").is_none()
-        {
-            let count = accelerate_conv::optimize(&mut cpu)?;
-            log::info!(target: "schist_neural::execution", "{}: accelerated {count} decoder convolutions", spec.id);
-        }
-        #[cfg(target_os = "macos")]
-        if matches!(
-            spec.id,
-            "detail-matting" | "foreground" | "foreground-matting"
-        ) && fast_compute_ops()
-        {
-            let count = accelerate_matrix::optimize(&mut cpu)?;
-            log::info!(target: "schist_neural::execution", "{}: accelerated {count} matrix products", spec.id);
-        }
-        cpu.optimize()?;
-        tensor_layout::optimize(&mut cpu)?;
-        if fast_compute_ops() {
-            pad_copy::optimize(&mut cpu)?;
-        }
-        if fast_host_ops() {
-            gather_copy::optimize(&mut cpu)?;
-            resize_copy::optimize(&mut cpu)?;
-        }
-        #[cfg(target_os = "macos")]
-        if fast_model_ops()
-            && matches!(
-                spec.id,
-                "foreground" | "foreground-matting" | "detail-matting" | "subject-guide"
-            )
-        {
-            vector_softmax::optimize(&mut cpu)?;
-        }
-        let plan = cpu.into_runnable()?;
+        let plan = prepare_cpu_plan(spec.id, typed.clone(), has_batched_gather)?;
         let partitioned = if gpu.is_none() {
             if has_batched_gather {
                 gpu_partition::Partitioned::compile_without_declutter(typed)
@@ -1409,6 +1371,99 @@ impl Model {
         }
         Ok(rgb_out)
     }
+}
+
+// Shared by production and the full restoration parity/benchmark test.
+fn prepare_cpu_plan(
+    id: &str,
+    cpu: TypedModel,
+    has_batched_gather: bool,
+) -> Result<Arc<TypedSimplePlan>> {
+    prepare_cpu_plan_with_options(id, cpu, has_batched_gather, CpuOptimizations::ALL)
+}
+
+#[derive(Clone, Copy)]
+struct CpuOptimizations {
+    restoration_kernels: bool,
+    tiled_attention: bool,
+    image_rows: bool,
+}
+
+impl CpuOptimizations {
+    const ALL: Self = Self {
+        restoration_kernels: true,
+        tiled_attention: true,
+        image_rows: true,
+    };
+}
+
+fn prepare_cpu_plan_with_options(
+    id: &str,
+    mut cpu: TypedModel,
+    has_batched_gather: bool,
+    options: CpuOptimizations,
+) -> Result<Arc<TypedSimplePlan>> {
+    let restoration = options.restoration_kernels && id == "anti-smudge" && fast_compute_ops();
+    if options.tiled_attention && id == "anti-smudge" && fast_compute_ops() {
+        let count = tiled_attention::optimize(&mut cpu)?;
+        log::info!(target: "schist_neural::execution", "{id}: tiled {count} attention blocks");
+    }
+    // tract's preliminary PushSliceUp rewrite panics on BiRefNet's
+    // batched index tensors. Codegen optimization handles this graph.
+    if !has_batched_gather {
+        cpu.declutter()?;
+    }
+    if restoration {
+        let count = depthwise_conv::optimize(&mut cpu)?;
+        log::info!(target: "schist_neural::execution", "{id}: accelerated {count} depthwise convolutions");
+    }
+    #[cfg(target_os = "macos")]
+    if matches!(id, "detail-matting" | "anti-smudge")
+        && fast_compute_ops()
+        && std::env::var_os("SCHIST_NEURAL_LEGACY_CONV").is_none()
+    {
+        let count = accelerate_conv::optimize(&mut cpu, restoration)?;
+        log::info!(target: "schist_neural::execution", "{}: accelerated {count} decoder convolutions", id);
+    }
+    #[cfg(target_os = "macos")]
+    if matches!(
+        id,
+        "detail-matting" | "foreground" | "foreground-matting" | "anti-smudge"
+    ) && fast_compute_ops()
+    {
+        let count = accelerate_matrix::optimize(&mut cpu)?;
+        log::info!(target: "schist_neural::execution", "{}: accelerated {count} matrix products", id);
+    }
+    cpu.optimize()?;
+    tensor_layout::optimize(&mut cpu)?;
+    if fast_compute_ops() {
+        pad_copy::optimize(&mut cpu)?;
+        if options.image_rows && id == "anti-smudge" {
+            restoration_rows::optimize(&mut cpu)?;
+        }
+    }
+    if fast_host_ops() {
+        gather_copy::optimize(&mut cpu)?;
+        if options.image_rows && id == "anti-smudge" {
+            resize_copy::optimize_restoration(&mut cpu)?;
+        } else {
+            resize_copy::optimize(&mut cpu)?;
+        }
+    }
+    #[cfg(target_os = "macos")]
+    if fast_model_ops()
+        && matches!(
+            id,
+            "foreground"
+                | "foreground-matting"
+                | "detail-matting"
+                | "subject-guide"
+                | "anti-smudge"
+        )
+    {
+        vector_softmax::optimize(&mut cpu)?;
+    }
+    cpu.into_runnable()
 }
 
 /// How an image was fitted into a model's frame, so an answer in frame

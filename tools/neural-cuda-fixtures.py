@@ -84,3 +84,36 @@ for corner in range(5):
 save("cuda-deform", data, [2, 6, 4, 9],
      [h.make_node("SchistDeformSample", ["input"] + [f"i{i}" for i in range(4)] + [f"w{i}" for i in range(5)],
                   ["output"], data=data, sample=sample, kernel=kernel)], constants, custom=True)
+
+# Restoration operators: empty ROI from PyTorch export, leaky activations,
+# padded pooling and long, strided/multi-axis spatial statistics.
+save("cuda-restore-resize", [2, 3, 4, 5], [2, 3, 8, 10],
+     [h.make_node("Resize", ["input", "roi", "scale", ""], ["resized"],
+                  mode="nearest", coordinate_transformation_mode="asymmetric", nearest_mode="floor"),
+      h.make_node("LeakyRelu", ["resized"], ["output"], alpha=0.13)],
+     [constant("roi", []), constant("scale", [1, 1, 2, 2])])
+for include in [0, 1]:
+    save(f"cuda-pool-{include}", [2, 3, 9, 11], [2, 3, 5, 4],
+         [h.make_node("AveragePool", ["input"], ["output"], kernel_shape=[3, 4],
+                      strides=[2, 3], pads=[1, 2, 1, 0], count_include_pad=include)], [])
+save("cuda-pool-global", [2, 3, 9, 11], [2, 3, 1, 1],
+     [h.make_node("AveragePool", ["input"], ["output"], kernel_shape=[9, 11])], [])
+for kind in ["ReduceSum", "ReduceMax", "ReduceMin"]:
+    save("cuda-" + kind, [2, 3, 65, 67], [1, 3, 1, 1],
+         [h.make_node(kind, ["input", "axes"] if kind == "ReduceSum" else ["input"], ["output"],
+                      **({} if kind == "ReduceSum" else {"axes": [0, 2, 3]}))],
+         [constant("axes", [0, 2, 3], np.int64)] if kind == "ReduceSum" else [])
+
+# Few output channels, long spatial reduction, non-multiple K and M/N tails.
+save("cuda-split-matrix", [2, 3, 65, 67], [2, 3, 17],
+     [h.make_node("Reshape", ["input", "shape"], ["flat"]),
+      h.make_node("MatMul", ["flat", "weights"], ["output"])],
+     [constant("shape", [2, 3, 4355], np.int64),
+      constant("weights", (np.arange(4355*17).reshape(4355, 17) % 29 - 14) / 47)])
+
+for coefficient in [-0.75, -0.5]:
+    save(f"cuda-cubic{coefficient}", [2, 3, 4, 5], [2, 3, 7, 2],
+         [h.make_node("Resize", ["input", "roi", "", "size"], ["output"],
+                      mode="cubic", cubic_coeff_a=coefficient,
+                      coordinate_transformation_mode="half_pixel")],
+         [constant("roi", []), constant("size", [2, 3, 7, 2], np.int64)])

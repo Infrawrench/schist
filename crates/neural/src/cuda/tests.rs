@@ -139,6 +139,16 @@ fn fixtures() -> Result<Vec<TypedModel>> {
         ("cuda-softmax-2.onnx", vec![2, 3, 17, 19]),
         ("cuda-softmax-3.onnx", vec![2, 3, 4, 513]),
         ("cuda-grouped-conv.onnx", vec![2, 6, 9, 11]),
+        ("cuda-cubic-0.75.onnx", vec![2, 3, 4, 5]),
+        ("cuda-cubic-0.5.onnx", vec![2, 3, 4, 5]),
+        ("cuda-restore-resize.onnx", vec![2, 3, 4, 5]),
+        ("cuda-pool-0.onnx", vec![2, 3, 9, 11]),
+        ("cuda-pool-1.onnx", vec![2, 3, 9, 11]),
+        ("cuda-pool-global.onnx", vec![2, 3, 9, 11]),
+        ("cuda-ReduceSum.onnx", vec![2, 3, 65, 67]),
+        ("cuda-ReduceMax.onnx", vec![2, 3, 65, 67]),
+        ("cuda-ReduceMin.onnx", vec![2, 3, 65, 67]),
+        ("cuda-split-matrix.onnx", vec![2, 3, 65, 67]),
     ] {
         let bytes = std::fs::read(
             std::path::Path::new(env!("CARGO_MANIFEST_DIR"))
@@ -180,7 +190,7 @@ fn embedded_ptx_is_standalone_and_has_all_entry_points() {
     assert!(PTX.ends_with('\0'));
     assert!(PTX.contains(".target sm_75"));
     assert!(!PTX.contains(".extern .func"));
-    for kernel in ["tensor", "convolution", "matrix", "softmax"] {
+    for kernel in ["tensor", "convolution", "matrix", "softmax", "reduction"] {
         assert!(PTX.contains(&format!(".entry {kernel}(")));
     }
 }
@@ -296,6 +306,7 @@ fn all_background_models_compile_to_resident_cuda_graphs() -> Result<()> {
 #[ignore = "requires NVIDIA hardware and installed maintainer weights; runs full CPU references"]
 fn cuda_hardware_background_models_match_cpu() -> Result<()> {
     for (id, cropped) in [
+        ("anti-smudge", false),
         ("matting", false),
         ("subject-guide", false),
         ("detail-matting", false),
@@ -369,4 +380,168 @@ fn background_model(id: &str, cropped: bool) -> Result<TypedModel> {
     onnx.model_for_proto_model(&proto)?
         .with_input_fact(0, f32::fact([1, c, h, w]).into())?
         .into_typed()
+}
+
+#[test]
+#[ignore = "compiles the shipped restoration graph; no NVIDIA device required"]
+fn anti_smudge_compiles_to_resident_cuda_graph() -> Result<()> {
+    let bytes = crate::decode_model_bytes(crate::ANTI_SMUDGE_ONNX_XZ)?;
+    let model = typed(&bytes, &[1, 3, 2048, 2048])?;
+    let graph = Graph::compile(&model)?;
+    assert!(graph.steps.iter().any(|s| s.kernel == 4));
+    assert!(graph.steps.iter().any(|s| s.params[0] == 15));
+    let layout = memory::Layout::plan(&graph)?;
+    eprintln!(
+        "CUDA anti-smudge: {} dispatches, {:.1} MiB resident storage",
+        graph.steps.len(),
+        layout.bytes()? as f64 / 1048576.
+    );
+    Ok(())
+}
+
+#[cfg(target_os = "macos")]
+#[test]
+#[ignore = "runs the full 2048 restoration model twice on CPU"]
+fn anti_smudge_accelerated_cpu_matches_original() -> Result<()> {
+    let bytes = crate::decode_model_bytes(crate::ANTI_SMUDGE_ONNX_XZ)?;
+    let model = typed(&bytes, &[1, 3, 2048, 2048])?;
+    let data = Tensor::from_shape(
+        &[1, 3, 2048, 2048],
+        &(0..3 * 2048 * 2048)
+            .map(|i| ((i * 17 % 101) as f32) / 100.)
+            .collect::<Vec<_>>(),
+    )?;
+    let mut reference = None;
+    for id in ["reference", "anti-smudge"] {
+        let start = std::time::Instant::now();
+        let plan = crate::prepare_cpu_plan(id, model.clone(), false)?;
+        eprintln!("{id}: CPU preparation {:?}", start.elapsed());
+        let start = std::time::Instant::now();
+        let output = plan.run(tvec!(data.clone().into()))?;
+        eprintln!("{id}: CPU inference {:?}", start.elapsed());
+        if let Some(expected) = &reference {
+            let actual = output[0].to_plain_array_view::<f32>()?;
+            compare(actual.as_slice().context("noncontiguous output")?, expected);
+        } else {
+            reference = Some(output);
+        }
+    }
+    Ok(())
+}
+
+#[cfg(target_os = "macos")]
+#[test]
+#[ignore = "full restoration operator timings; make profile-anti-smudge"]
+fn profile_anti_smudge_cpu() -> Result<()> {
+    let bytes = crate::decode_model_bytes(crate::ANTI_SMUDGE_ONNX_XZ)?;
+    let model = typed(&bytes, &[1, 3, 2048, 2048])?;
+    let plan = crate::prepare_cpu_plan("anti-smudge", model, false)?;
+    let data = input(&[1, 3, 2048, 2048])?;
+    let mut totals = std::collections::HashMap::<String, (usize, f64)>::new();
+    let mut nodes = Vec::new();
+    let start = std::time::Instant::now();
+    let mut state = plan.spawn()?;
+    let output = crate::cpu_threads::run("anti-smudge", || {
+        state.run_plan_with_eval(tvec!(data), |state, op_state, node, inputs| {
+            let shapes = inputs
+                .iter()
+                .map(|v| v.shape().to_vec())
+                .collect::<Vec<_>>();
+            let start = std::time::Instant::now();
+            let result = tract_onnx::tract_core::plan::eval(state, op_state, node, inputs);
+            let seconds = start.elapsed().as_secs_f64();
+            let kind = node.op().name().into_owned();
+            let entry = totals.entry(kind.clone()).or_default();
+            entry.0 += 1;
+            entry.1 += seconds;
+            nodes.push((seconds, kind, node.name.clone(), shapes));
+            result
+        })
+    })?;
+    std::hint::black_box(output);
+    eprintln!("Restoration total: {:.3}s", start.elapsed().as_secs_f64());
+    let mut totals = totals.into_iter().collect::<Vec<_>>();
+    totals.sort_by(|a, b| b.1 .1.total_cmp(&a.1 .1));
+    for (op, (calls, seconds)) in totals {
+        eprintln!("{seconds:.6}s {calls} {op}");
+    }
+    nodes.sort_by(|a, b| b.0.total_cmp(&a.0));
+    for (seconds, op, name, shapes) in nodes.into_iter().take(50) {
+        eprintln!("{seconds:.6}s {op} {name} {shapes:?}");
+    }
+    Ok(())
+}
+
+#[cfg(target_os = "macos")]
+#[test]
+#[ignore = "paired full-model restoration kernel timing; make profile-anti-smudge-kernels"]
+fn anti_smudge_row_kernels_match_previous_cpu() -> Result<()> {
+    let bytes = crate::decode_model_bytes(crate::ANTI_SMUDGE_ONNX_XZ)?;
+    let model = typed(&bytes, &[1, 3, 2048, 2048])?;
+    let data: TValue = Tensor::from_shape(
+        &[1, 3, 2048, 2048],
+        &(0..3 * 2048 * 2048)
+            .map(|i| (i * 17 % 101) as f32 / 100.)
+            .collect::<Vec<_>>(),
+    )?
+    .into();
+    let before = crate::prepare_cpu_plan_with_options(
+        "anti-smudge",
+        model.clone(),
+        false,
+        crate::CpuOptimizations {
+            restoration_kernels: false,
+            tiled_attention: false,
+            image_rows: false,
+        },
+    )?;
+    let after = crate::prepare_cpu_plan_with_options(
+        "anti-smudge",
+        model,
+        false,
+        crate::CpuOptimizations {
+            restoration_kernels: true,
+            tiled_attention: false,
+            image_rows: false,
+        },
+    )?;
+    let mut expected: Option<TVec<TValue>> = None;
+    let mut times = [Vec::new(), Vec::new()];
+    let mut max_difference = 0.0f32;
+    for round in 0..4 {
+        for slot in if round % 2 == 0 { [0, 1] } else { [1, 0] } {
+            let start = std::time::Instant::now();
+            let output = crate::cpu_threads::run("anti-smudge", || {
+                if slot == 0 { &before } else { &after }.run(tvec!(data.clone()))
+            })?;
+            let seconds = start.elapsed().as_secs_f64();
+            eprintln!(
+                "restoration kernels round={round} optimized={}: {seconds:.3}s",
+                slot == 1
+            );
+            if round != 0 {
+                times[slot].push(seconds);
+            }
+            if let Some(reference) = &expected {
+                let reference = reference[0].to_plain_array_view::<f32>()?;
+                let actual = output[0].to_plain_array_view::<f32>()?;
+                assert_eq!(actual.shape(), reference.shape());
+                for (&a, &b) in actual.iter().zip(reference.iter()) {
+                    let difference = (a - b).abs();
+                    assert!(
+                        a.is_finite() && b.is_finite() && difference < 5e-5,
+                        "restoration output {a} != {b}"
+                    );
+                    max_difference = max_difference.max(difference);
+                }
+            } else {
+                expected = Some(output);
+            }
+        }
+    }
+    for values in &mut times {
+        values.sort_by(f64::total_cmp);
+    }
+    eprintln!("Restoration kernels paired medians (3 warm runs each): {:.3}s -> {:.3}s; max absolute difference {max_difference}", times[0][1], times[1][1]);
+    Ok(())
 }

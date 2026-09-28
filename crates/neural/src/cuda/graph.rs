@@ -10,7 +10,7 @@ use tract_onnx::tract_core::{
         binary::TypedBinOp,
         cast::Cast,
         change_axes::AxisOp,
-        cnn::{Conv, KernelFormat},
+        cnn::{Conv, KernelFormat, SumPool},
         einsum::EinSum,
         element_wise::ElementWiseOp,
         nn::{DataFormat, Reduce, Reducer, Softmax},
@@ -237,6 +237,38 @@ impl Graph {
     fn element(&mut self, inputs: Vec<usize>, params: Vec<u32>, len: usize) -> Result<usize> {
         self.emit(inputs, params, len, 0, len.div_ceil(256))
     }
+    // Split long spatial reductions into bounded chunks, then merge partials.
+    // This exposes enough blocks even for channel attention with few outputs.
+    fn reduction(&mut self, input: usize, mut p: Vec<u32>, len: usize) -> Result<usize> {
+        let n = p[3] as usize;
+        if n < 256 {
+            return self.element(vec![input], p, len);
+        }
+        let parts = n.div_ceil(4096);
+        if parts == 1 {
+            return self.emit(vec![input], p, len, 4, len);
+        }
+        let kind = p[1];
+        p[0] = 14;
+        p.extend([4096, parts as u32]);
+        let partial = self.emit(vec![input], p, len * parts, 4, len * parts)?;
+        self.reduction(
+            partial,
+            vec![
+                5,
+                kind,
+                2,
+                parts as u32,
+                len as u32,
+                parts as u32,
+                0,
+                parts as u32,
+                1,
+                1,
+            ],
+            len,
+        )
+    }
     fn lower(
         &mut self,
         node: &TypedNode,
@@ -327,6 +359,70 @@ impl Graph {
                 a[0] * op.group * (out[1] / op.group).div_ceil(16) * (out[2] * out[3]).div_ceil(16);
             return self.emit(inputs, p, len, 2, blocks);
         }
+        if let Some(op) = node.op_as::<SumPool>() {
+            let pool = &op.pool_spec;
+            ensure!(
+                pool.data_format == DataFormat::NCHW
+                    && a.len() == 4
+                    && out.len() == 4
+                    && a[..2] == out[..2]
+                    && pool.kernel_shape.len() == 2
+                    && facts[0].datum_type == DatumType::F32,
+                "unsupported pooling"
+            );
+            let pads = pool.computed_padding(&a[2..]);
+            if out[2..] == [1, 1]
+                && pool.kernel_shape.as_slice() == &a[2..]
+                && (0..2).all(|i| pool.dilation(i) == 1 && pads[i].pad_before == 0)
+            {
+                let spatial = a[2] * a[3];
+                let summed = self.reduction(
+                    inputs[0],
+                    vec![
+                        5,
+                        1,
+                        2,
+                        spatial as u32,
+                        len as u32,
+                        spatial as u32,
+                        0,
+                        spatial as u32,
+                        1,
+                        1,
+                    ],
+                    len,
+                )?;
+                if !op.normalize {
+                    return Ok(summed);
+                }
+                let scale = self.lengths.len();
+                self.lengths.push(1);
+                self.constants
+                    .insert(scale, vec![(1. / spatial as f32).to_bits()]);
+                return self.element(vec![summed, scale], vec![1, 2, 1, len as u32, 1, 0], len);
+            }
+            return self.element(
+                vec![inputs[0]],
+                vec![
+                    15,
+                    a[2] as u32,
+                    a[3] as u32,
+                    out[2] as u32,
+                    out[3] as u32,
+                    pool.kernel_shape[0] as u32,
+                    pool.kernel_shape[1] as u32,
+                    pool.stride(0) as u32,
+                    pool.stride(1) as u32,
+                    pool.dilation(0) as u32,
+                    pool.dilation(1) as u32,
+                    pads[0].pad_before as u32,
+                    pads[1].pad_before as u32,
+                    u32::from(op.normalize),
+                    u32::from(op.count_include_pad),
+                ],
+                len,
+            );
+        }
         if let Some(op) = node.op_as::<TypedBinOp>() {
             ensure!(facts.len() == 2, "invalid binary arity");
             let integer = facts
@@ -391,6 +487,12 @@ impl Graph {
                 facts[0].datum_type == DatumType::F32,
                 "nonfloat unary operator"
             );
+            if let Some(leaky) =
+                op.0.downcast_ref::<tract_onnx::tract_core::ops::nn::LeakyRelu>()
+            {
+                ensure!(leaky.alpha.is_finite(), "nonfinite leaky slope");
+                return self.element(vec![inputs[0]], vec![0, 2, leaky.alpha.to_bits()], len);
+            }
             let kind = match op.0.name().as_str() {
                 "Relu" => 1,
                 "Sigmoid" => 3,
@@ -454,8 +556,35 @@ impl Graph {
                 "einsum output mismatch"
             );
             let count = red.iter().map(|a| a[0]).product::<usize>();
-            if let Some((p, blocks)) = matrix(&axes, &red, len) {
-                return self.emit(inputs, p, len, 1, blocks);
+            if let Some((mut p, blocks)) = matrix(&axes, &red, len) {
+                // Channel attention has tiny M/N and a very long spatial K.
+                // Split K to fill the device, then merge the bounded partials.
+                let parts = if count > 4096 && blocks < 128 {
+                    count.div_ceil(4096)
+                } else {
+                    1
+                };
+                p.extend([parts as u32, len as u32]);
+                let partial = self.emit(inputs, p, len * parts, 1, blocks * parts)?;
+                if parts == 1 {
+                    return Ok(partial);
+                }
+                return self.reduction(
+                    partial,
+                    vec![
+                        5,
+                        1,
+                        2,
+                        parts as u32,
+                        parts as u32,
+                        len as u32,
+                        1,
+                        len as u32,
+                        1,
+                        0,
+                    ],
+                    len,
+                );
             }
             let mut p = vec![4, axes.len() as u32, red.len() as u32, count as u32];
             for axis in axes.into_iter().chain(red) {
@@ -482,7 +611,7 @@ impl Graph {
                 p.extend([d as u32, st[k] as u32, u32::from(r)]);
             }
             p[3] = n as u32;
-            return self.element(vec![inputs[0]], p, len);
+            return self.reduction(inputs[0], p, len);
         }
         if let Some(op) = node.op_as::<Softmax>() {
             ensure!(
@@ -619,6 +748,7 @@ impl Graph {
             }
             return Ok(result);
         }
+        let mut cubic_a = -0.75f32;
         let resize = if let Some(op) = node.op_as::<tract_onnx_opl::resize::Resize>() {
             use tract_onnx::tract_core::ops::nn::resize;
             use tract_onnx_opl::resize::{AspectRatio, CoordTransform, Nearest};
@@ -626,10 +756,14 @@ impl Graph {
                 !op.antialias
                     && !op.exclude_outside
                     && op.keep_aspect_ratio_policy == AspectRatio::Stretch
-                    && op.optional_roi_input.is_none()
+                    && op
+                        .optional_roi_input
+                        .is_none_or(|i| facts[i].konst.as_ref().is_some_and(|t| t.len() == 0))
                     && op.axes.as_ref().is_none_or(|a| a == &[0, 1, 2, 3]),
                 "unsupported ONNX resize attributes"
             );
+            cubic_a = op.cubic_coeff_a();
+            ensure!(cubic_a.is_finite(), "nonfinite cubic coefficient");
             let CoordTransform::Plain(coord) = &op.coord_transformer else {
                 bail!("ROI resize unsupported")
             };
@@ -669,7 +803,7 @@ impl Graph {
             let interp = match op.interpolator {
                 I::Nearest => 0,
                 I::Linear => 1,
-                _ => bail!("unsupported resize interpolation"),
+                I::Cubic => 2,
             };
             let nearest = match op.nearest {
                 N::Floor => 0,
@@ -701,6 +835,7 @@ impl Graph {
                     coord,
                     interp,
                     nearest,
+                    cubic_a.to_bits(),
                 ],
                 len,
             );

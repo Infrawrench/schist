@@ -44,6 +44,7 @@ impl Network {
                     | "detail-matting"
                     | "subject-guide"
                     | "matting"
+                    | "anti-smudge"
             )
         {
             return None;

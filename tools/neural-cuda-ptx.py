@@ -28,7 +28,7 @@ else:
         ptx = output.read_text()
         if ".extern .func" in ptx:
             raise SystemExit("PTX must not depend on external device functions")
-        for entry in ("tensor", "matrix", "convolution", "softmax"):
+        for entry in ("tensor", "matrix", "convolution", "softmax", "reduction"):
             if ".entry " + entry + "(" not in ptx:
                 raise SystemExit("missing CUDA kernel: " + entry)
         destination.write_text(stamp + "\n" + ptx)

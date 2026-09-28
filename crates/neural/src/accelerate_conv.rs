@@ -1,4 +1,4 @@
-//! Bounded spatial bands for large, same-padded 3×3 decoder convolutions.
+//! Bounded spatial bands for large 3×3 decoder and restoration RGB convolutions.
 //! Keep the model's float32 filters, bias and sampling geometry unchanged.
 use crate::accelerate_matrix::cblas_sgemm;
 use tract_onnx::tract_core::{
@@ -25,6 +25,10 @@ struct BandedConv {
     oc: usize,
     height: usize,
     width: usize,
+    input_height: usize,
+    input_width: usize,
+    input_spatial: usize,
+    pad: usize,
     spatial: usize,
     reduction: usize,
     band: usize,
@@ -46,13 +50,13 @@ impl BandedConv {
         if lengths.iter().any(Option::is_none) {
             return None;
         }
-        let &[batch, ic, height, width] = shapes[0].as_slice() else {
+        let &[batch, ic, input_height, input_width] = shapes[0].as_slice() else {
             return None;
         };
-        let &[ob, oc, oh, ow] = shapes[3].as_slice() else {
+        let &[ob, oc, height, width] = shapes[3].as_slice() else {
             return None;
         };
-        if [ob, oh, ow] != [batch, height, width]
+        if ob != batch
             || shapes[1] != [oc, ic, 3, 3]
             || conv.input_channels() != ic
             || conv.output_channels() != oc
@@ -61,16 +65,27 @@ impl BandedConv {
         {
             return None;
         }
-        let same_padding = match &conv.pool_spec.padding {
-            PaddingSpec::SameUpper | PaddingSpec::SameLower => true,
-            PaddingSpec::Explicit(before, after) => {
-                before.as_slice() == [1, 1] && after.as_slice() == [1, 1]
+        let pad = match &conv.pool_spec.padding {
+            PaddingSpec::SameUpper | PaddingSpec::SameLower => 1,
+            PaddingSpec::Explicit(before, after)
+                if before.as_slice() == [1, 1] && after.as_slice() == [1, 1] =>
+            {
+                1
             }
-            _ => false,
+            PaddingSpec::Valid => 0,
+            PaddingSpec::Explicit(before, after)
+                if before.as_slice() == [0, 0] && after.as_slice() == [0, 0] =>
+            {
+                0
+            }
+            _ => return None,
         };
-        if !same_padding {
+        if input_height.checked_add(2 * pad)?.checked_sub(2)? != height
+            || input_width.checked_add(2 * pad)?.checked_sub(2)? != width
+        {
             return None;
         }
+        let input_spatial = input_height.checked_mul(input_width)?;
         let spatial = height.checked_mul(width)?;
         let reduction = ic.checked_mul(9)?;
         if [oc, spatial, reduction]
@@ -98,6 +113,10 @@ impl BandedConv {
             height,
             width,
             spatial,
+            input_height,
+            input_width,
+            input_spatial,
+            pad,
             reduction,
             band,
         })
@@ -106,7 +125,7 @@ impl BandedConv {
     /// Pack K×N in filter order. Copy contiguous row interiors; only image
     /// borders contribute zeros. Every scratch element is written each time.
     fn pack(&self, input: &[f32], start: usize, count: usize, packed: &mut [f32]) {
-        assert_eq!(input.len(), self.ic * self.spatial);
+        assert_eq!(input.len(), self.ic * self.input_spatial);
         assert_eq!(packed.len(), self.reduction * count);
         for (k, destination) in packed.chunks_exact_mut(count).enumerate() {
             let channel = k / 9;
@@ -119,13 +138,16 @@ impl BandedConv {
                 let x = position % self.width;
                 let n = (count - done).min(self.width - x);
                 let row = &mut destination[done..done + n];
-                let sy = (y + ky).checked_sub(1).filter(|&v| v < self.height);
-                let left = x.max(usize::from(kx == 0));
-                let right = (x + n).min(self.width - usize::from(kx == 2));
+                let sy = (y + ky)
+                    .checked_sub(self.pad)
+                    .filter(|&v| v < self.input_height);
+                let left = x.max(self.pad.saturating_sub(kx));
+                let right = (x + n).min((self.input_width + self.pad).saturating_sub(kx));
                 if let Some(sy) = sy.filter(|_| left < right) {
                     row[..left - x].fill(0.);
                     row[right - x..].fill(0.);
-                    let source = channel * self.spatial + sy * self.width + left + kx - 1;
+                    let source =
+                        channel * self.input_spatial + sy * self.input_width + left + kx - self.pad;
                     row[left - x..right - x].copy_from_slice(&input[source..source + right - left]);
                 } else {
                     row.fill(0.);
@@ -136,7 +158,7 @@ impl BandedConv {
     }
 }
 
-pub(super) fn optimize(model: &mut TypedModel) -> TractResult<usize> {
+pub(super) fn optimize(model: &mut TypedModel, restoration: bool) -> TractResult<usize> {
     let mut count = 0;
     for id in model.eval_order()? {
         let node = model.node(id);
@@ -162,9 +184,11 @@ pub(super) fn optimize(model: &mut TypedModel) -> TractResult<usize> {
         let Some(plan) = BandedConv::new(conv, shapes) else {
             continue;
         };
-        // Target the large decoder stages, retaining tract's small/depthwise
-        // kernels and the backbone's smaller residual convolutions.
-        if plan.spatial < 65_536 || !(16..=64).contains(&plan.oc) {
+        // Keep the existing decoder selection. Restoration also has expensive
+        // full-resolution RGB heads, including valid convolutions after reflection.
+        let decoder = plan.pad == 1 && (16..=64).contains(&plan.oc);
+        let rgb = restoration && plan.oc == 3 && plan.ic <= 64;
+        if plan.spatial < 65_536 || !(decoder || rgb) {
             continue;
         }
         model.node_mut(id).op = Box::new(plan);
@@ -215,8 +239,8 @@ impl EvalOp for BandedConv {
                 .as_slice_mut()
                 .context("non-contiguous convolution output")?;
             for batch in 0..self.batch {
-                let source =
-                    &input[batch * self.ic * self.spatial..(batch + 1) * self.ic * self.spatial];
+                let source = &input[batch * self.ic * self.input_spatial
+                    ..(batch + 1) * self.ic * self.input_spatial];
                 let destination = &mut values
                     [batch * self.oc * self.spatial..(batch + 1) * self.oc * self.spatial];
                 for (channel, row) in destination.chunks_exact_mut(self.spatial).enumerate() {
@@ -357,6 +381,32 @@ mod tests {
     }
 
     #[test]
+    fn valid_rgb_convolution_matches_tract_and_respects_model_selection() -> TractResult<()> {
+        for (ic, h, w) in [(9, 257, 258), (15, 258, 259), (3, 3, 3)] {
+            let mut model = graph(ic, 3, h, w)?;
+            let id = model.node_by_name("conv")?.id;
+            let mut op = conv(ic, 3);
+            op.pool_spec.padding = PaddingSpec::Valid;
+            model.node_mut(id).op = Box::new(op);
+            model.node_mut(id).outputs[0].fact = f32::fact([1, 3, h - 2, w - 2]);
+            let original = model.clone().into_optimized()?.into_runnable()?;
+            model.declutter()?;
+            assert_eq!(optimize(&mut model, false)?, 0);
+            assert_eq!(
+                optimize(&mut model, true)?,
+                usize::from((h - 2) * (w - 2) >= 65_536)
+            );
+            let accelerated = model.into_optimized()?.into_runnable()?;
+            let input = tvec!(tensor(&[1, ic, h, w], 0.)?);
+            close(
+                &accelerated.run(input.clone())?[0],
+                &original.run(input)?[0],
+            )?;
+        }
+        Ok(())
+    }
+
+    #[test]
     fn convolution_packing_preserves_bits_and_rewrites_only_supported_geometry() -> TractResult<()>
     {
         let shape = shapes(1, 2, 3, 3, 5, false);
@@ -447,7 +497,7 @@ mod tests {
             let original = graph(3, oc, h, w)?;
             let mut accelerated = original.clone();
             accelerated.declutter()?;
-            assert_eq!(optimize(&mut accelerated)?, usize::from(replaced));
+            assert_eq!(optimize(&mut accelerated, false)?, usize::from(replaced));
             let original = original.into_optimized()?.into_runnable()?;
             let accelerated = accelerated.into_optimized()?.into_runnable()?;
             let input = tvec!(tensor(&[1, 3, h, w], 0.)?);
@@ -473,7 +523,7 @@ mod tests {
             let original = graph(ic, oc, side, side)?;
             let mut accelerated = original.clone();
             accelerated.declutter()?;
-            if optimize(&mut accelerated)? == 0 {
+            if optimize(&mut accelerated, false)? == 0 {
                 eprintln!("decoder {ic}->{oc} {side}px: retained tract");
                 continue;
             }
@@ -505,6 +555,56 @@ mod tests {
                 median(&times[0]),
                 median(&times[1])
             );
+        }
+        Ok(())
+    }
+
+    #[test]
+    #[ignore = "restoration band sweep; make profile-anti-smudge-bands"]
+    fn profile_restoration_convolution_bands() -> TractResult<()> {
+        use std::time::Instant;
+        for (ic, oc, side) in [(64, 64, 1024), (64, 3, 1024), (15, 3, 2048)] {
+            let shapes = shapes(1, ic, oc, side, side, false);
+            let plan = BandedConv::new(&conv(ic, oc), shapes.clone()).unwrap();
+            let inputs = tvec!(
+                tensor(&shapes[0], 0.)?,
+                tensor(&shapes[1], 0.3)?,
+                tensor(&shapes[2], 0.8)?
+            );
+            let reference = plan.eval(inputs.clone())?;
+            let bands: Vec<_> = [512, 1024, 2048, 4096, 8192]
+                .into_iter()
+                .filter(|&n| n * plan.reduction <= SCRATCH_FLOATS)
+                .collect();
+            let mut times = vec![Vec::new(); bands.len()];
+            for round in 0..4 {
+                let slots: Vec<_> = if round % 2 == 0 {
+                    (0..bands.len()).collect()
+                } else {
+                    (0..bands.len()).rev().collect()
+                };
+                for slot in slots {
+                    let mut candidate = plan.clone();
+                    candidate.band = bands[slot];
+                    let start = Instant::now();
+                    let output = candidate.eval(inputs.clone())?;
+                    let elapsed = start.elapsed().as_secs_f64();
+                    if round > 0 {
+                        times[slot].push(elapsed);
+                    }
+                    if round == 0 {
+                        close(&output[0], &reference[0])?;
+                    }
+                    std::hint::black_box(output);
+                }
+            }
+            for (band, values) in bands.into_iter().zip(&mut times) {
+                values.sort_by(f64::total_cmp);
+                eprintln!(
+                    "restoration {ic}->{oc} {side}px band={band}: {:.3}ms",
+                    values[1] * 1000.
+                );
+            }
         }
         Ok(())
     }

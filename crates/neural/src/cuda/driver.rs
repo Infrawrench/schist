@@ -58,7 +58,7 @@ pub(super) struct Device {
     device: c_int,
     context: Handle,
     module: Handle,
-    functions: [Handle; 4],
+    functions: [Handle; 5],
     stream: Handle,
     lock: Mutex<()>,
     pub name: String,
@@ -129,7 +129,7 @@ impl Device {
                 device,
                 context,
                 module: std::ptr::null_mut(),
-                functions: [std::ptr::null_mut(); 4],
+                functions: [std::ptr::null_mut(); 5],
                 stream: std::ptr::null_mut(),
                 lock: Mutex::new(()),
                 name: CStr::from_ptr(name.as_ptr()).to_string_lossy().into_owned(),
@@ -146,6 +146,7 @@ impl Device {
                     c"matrix",
                     c"convolution",
                     c"softmax",
+                    c"reduction",
                 ]) {
                     check(
                         (result.api.function)(slot, result.module, name.as_ptr()),

@@ -1,6 +1,6 @@
-# NVIDIA background inference
+# NVIDIA background and restoration inference
 
-The Linux/Windows background pipeline has an experimental CUDA executor in
+The Linux/Windows background and Anti-Smudge pipelines has an experimental CUDA executor in
 `crates/neural/src/cuda`. Enable it with `SCHIST_NEURAL_CUDA=1` before launching
 the app. It is opt-in until the device parity suite has been run on NVIDIA
 hardware. Apple, Android and browser execution are unchanged.
@@ -28,8 +28,11 @@ Unsupported operators or layouts decline the graph before execution.
 
 Float32 weights, activations and accumulation preserve the existing model
 precision. Matrix products and dense convolutions use cooperative shared-memory
-tiles; softmax uses a parallel row reduction. Strided copies, broadcasting,
-reductions, padding, resizing and deformable sampling also stay on the GPU.
+tiles; softmax uses a parallel row reduction. Long spatial reductions use
+4096-element partials and a second device merge. Small attention matrices with
+long K dimensions similarly split K to expose more blocks, avoiding a few blocks
+serially processing an entire spatial plane. Strided copies, broadcasting,
+sum/average pooling, leaky activations, reductions, padding, resizing and deformable sampling also stay on the GPU.
 This first implementation does not use Tensor Cores, TF32 or quantization.
 Transcendental functions use device float instructions and an erf approximation;
 parity tests check numerical error rather than claiming bit-identical output.
@@ -45,11 +48,11 @@ Pageable uploads are synchronized before the nonblocking execution stream reads
 them; returning from the host copy call alone does not guarantee DMA completion.
 
 Startup's existing detached preload thread also prepares opted-in CUDA graphs
-for already installed models. It JIT-loads PTX through the driver and uploads
+for already installed background models. Anti-Smudge loads on demand. It JIT-loads PTX through the driver and uploads
 weights without running a dummy prediction. The driver's PTX cache avoids
 recompilation on subsequent launches. Sessions share one serialized CUDA stream
 and balance primary-context retain/release, restoring the caller's previous
-context after use. Model eviction frees GPU allocations under the existing
+context after use. Model eviction frees GPU allocations; background models retain the existing
 five-minute desktop idle policy.
 
 Each model checks its complete allocation requirement against available VRAM,
@@ -65,10 +68,12 @@ Opted-in resident CUDA execution bypasses the CPU/partitioned-wgpu calibration.
 # Source-level arithmetic, graph lowering and workspace lifetime checks.
 make check-neural-cuda
 # Maintainer weights: both detectors, guide, opaque-core and detail refiners.
-make check-neural-cuda ARGS='all_background_models --ignored --nocapture'
+make check-neural-cuda NEURAL_CUDA_TEST_FILTER=all_background_models ARGS='--ignored --nocapture'
+# Full 2048px restoration graph; no GPU required.
+make check-anti-smudge-cuda-graph
 # On a real NVIDIA machine: strictly requires CUDA; fallback cannot pass.
 make check-neural-cuda-hardware
-# Full-size model parity, with installed weights; CPU references take longer.
+# Full-size background and Anti-Smudge parity, with installed weights; CPU references take longer.
 make check-neural-cuda-hardware-models
 # End-to-end portrait run. Output must not exist; only the final PNG is saved.
 SCHIST_NEURAL_CUDA=1 make background-removal-example ARGS='input.jpg cuda-result.png 3 --preload'
@@ -94,3 +99,7 @@ The Make target uses `-nocudainc -nocudalib`; the PTX contains no external
 function dependencies. Review source and generated PTX together. CUDA Driver
 API behavior and PTX portability are documented by
 [NVIDIA](https://docs.nvidia.com/cuda/cuda-programming-guide/03-advanced/driver-api.html).
+
+Reduction barriers follow the block synchronization requirements in NVIDIA's
+[CUDA programming guide](https://docs.nvidia.com/cuda/archive/13.1.0/cuda-programming-guide/05-appendices/cpp-language-extensions.html).
+Host checks reproduce the partial-sum order but cannot prove device synchronization.

@@ -10,7 +10,7 @@ use tract_onnx::tract_core::{
 #[link(name = "Accelerate", kind = "framework")]
 unsafe extern "C" {
     // https://developer.apple.com/documentation/accelerate/vvexpf(_:_:_:)
-    fn vvexpf(output: *mut f32, input: *const f32, count: *const i32);
+    pub(super) fn vvexpf(output: *mut f32, input: *const f32, count: *const i32);
 }
 
 pub(super) fn optimize(model: &mut TypedModel) -> TractResult<()> {

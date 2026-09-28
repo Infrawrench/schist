@@ -1,4 +1,4 @@
-//! Bounded native tensor parallelism, scoped to the background models.
+//! Bounded native tensor parallelism, scoped to background and restoration models.
 //! Share workers across plans/tiles; leave unrelated filters and Web alone.
 use std::sync::{Arc, OnceLock};
 use tract_linalg::multithread::{multithread_tract_scope, Executor};
@@ -11,15 +11,19 @@ fn thread_count(available: usize, mobile: bool, override_count: Option<usize>) -
         .min(available.max(1))
 }
 
-fn executor() -> &'static Executor {
+fn executor(id: &str) -> &'static Executor {
     static EXECUTOR: OnceLock<Executor> = OnceLock::new();
-    EXECUTOR.get_or_init(|| {
-        // The override also lets maintainers compare this portable path on a
-        // Mac. Apple's production path keeps Core ML/Accelerate scheduling.
+    static RESTORATION: OnceLock<Executor> = OnceLock::new();
+    // Mac restoration benefits from bounded parallel attention blocks. Keep
+    // the Core ML/background-model schedule independent of this CPU pool.
+    let restoration = cfg!(target_os = "macos") && id == "anti-smudge";
+    let cache = if restoration { &RESTORATION } else { &EXECUTOR };
+    cache.get_or_init(|| {
         let override_count = std::env::var("SCHIST_NEURAL_CPU_THREADS")
             .ok()
             .and_then(|value| value.parse().ok());
         if !cfg!(any(target_os = "windows", target_os = "linux", target_os = "android"))
+            && !restoration
             && override_count.is_none()
         {
             return Executor::SingleThread;
@@ -62,11 +66,16 @@ fn scoped<T>(executor: Executor, run: impl FnOnce() -> T) -> T {
 pub(super) fn run<T>(id: &str, run: impl FnOnce() -> T) -> T {
     if !matches!(
         id,
-        "foreground" | "foreground-matting" | "detail-matting" | "subject-guide" | "matting"
+        "foreground"
+            | "foreground-matting"
+            | "detail-matting"
+            | "subject-guide"
+            | "matting"
+            | "anti-smudge"
     ) {
         return run();
     }
-    scoped(executor().clone(), run)
+    scoped(executor(id).clone(), run)
 }
 
 #[cfg(test)]

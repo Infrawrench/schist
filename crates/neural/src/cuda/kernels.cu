@@ -200,6 +200,49 @@ D float coordinate(unsigned i, unsigned mode, unsigned n, unsigned out,
     return (float(i) + 0.5f) / scale;
   return (float(i) + 0.5f) / scale - 0.5f;
 }
+D float cubic_weight(float s, float a) {
+  s = fabs(s);
+  if (s <= 1.f)
+    return (a + 2.f) * s * s * s - (a + 3.f) * s * s + 1.f;
+  if (s <= 2.f)
+    return a * s * s * s - 5.f * a * s * s + 8.f * a * s - 4.f * a;
+  return 0;
+}
+D float reduce_identity(unsigned kind) {
+  return kind == 2 ? -3.402823466e38f : kind == 3 ? 3.402823466e38f : 0;
+}
+D float reduce_combine(float a, float b, unsigned kind) {
+  return kind == 2 ? max(a, b) : kind == 3 ? min(a, b) : a + b;
+}
+// Same indexing and bounded partials in the host oracle and GPU reduction.
+D float reduce_lane(const float *a, const unsigned *p, unsigned i,
+                    unsigned lane, unsigned step) {
+  const unsigned *axes = p + 4;
+  unsigned start = 0, end = p[3];
+  if (p[0] == 14) {
+    const unsigned *chunk = axes + p[2] * 3;
+    start = (i % chunk[1]) * chunk[0];
+    end = min(end, start + chunk[0]);
+    i /= chunk[1];
+  }
+  unsigned base = 0;
+  for (int k = int(p[2]) - 1; k >= 0; --k)
+    if (!axes[k * 3 + 2]) {
+      base += (i % axes[k * 3]) * axes[k * 3 + 1];
+      i /= axes[k * 3];
+    }
+  float sum = reduce_identity(p[1]);
+  for (unsigned j = start + lane; j < end; j += step) {
+    unsigned k = j, idx = base;
+    for (int d = int(p[2]) - 1; d >= 0; --d)
+      if (axes[d * 3 + 2]) {
+        idx += (k % axes[d * 3]) * axes[d * 3 + 1];
+        k /= axes[d * 3];
+      }
+    sum = reduce_combine(sum, a[idx], p[1]);
+  }
+  return sum;
+}
 D void element(const float *const *xs, float *dst, const unsigned *p,
                unsigned i) {
   const float *a = xs[0];
@@ -296,26 +339,25 @@ D void element(const float *const *xs, float *dst, const unsigned *p,
     dst[i] = sum;
     break;
   }
-  case 5: { // reductions retain the source rank; reduced axes have output dim 1
-    const unsigned *axes = p + 4;
-    unsigned base = 0, rem = i;
-    for (int k = int(p[2]) - 1; k >= 0; --k)
-      if (!axes[k * 3 + 2]) {
-        base += (rem % axes[k * 3]) * axes[k * 3 + 1];
-        rem /= axes[k * 3];
-      }
-    float sum = p[1] == 2 ? -3.402823466e38f : p[1] == 3 ? 3.402823466e38f : 0;
-    for (unsigned j = 0; j < p[3]; ++j) {
-      unsigned k = j, idx = base;
-      for (int d = int(p[2]) - 1; d >= 0; --d)
-        if (axes[d * 3 + 2]) {
-          idx += (k % axes[d * 3]) * axes[d * 3 + 1];
-          k /= axes[d * 3];
+  case 5:
+  case 14:
+    dst[i] = reduce_lane(a, p, i, 0, 1);
+    break;
+  case 15: { // NCHW sum/average pooling, including explicit padding.
+    unsigned ih = p[1], iw = p[2], oh = p[3], ow = p[4],
+             plane = i / (oh * ow), count = 0;
+    float sum = 0;
+    for (unsigned ky = 0; ky < p[5]; ++ky)
+      for (unsigned kx = 0; kx < p[6]; ++kx) {
+        int y = int(i / ow % oh * p[7] + ky * p[9]) - int(p[11]),
+            x = int(i % ow * p[8] + kx * p[10]) - int(p[12]);
+        if (y >= 0 && x >= 0 && y < int(ih) && x < int(iw)) {
+          sum += a[(plane * ih + unsigned(y)) * iw + unsigned(x)];
+          ++count;
         }
-      float v = a[idx];
-      sum = p[1] == 2 ? max(sum, v) : p[1] == 3 ? min(sum, v) : sum + v;
-    }
-    dst[i] = p[1] == 0 ? sum / float(p[3]) : sum;
+      }
+    unsigned divisor = p[14] ? p[5] * p[6] : count;
+    dst[i] = p[13] ? sum * (1.f / float(divisor)) : sum;
     break;
   }
   case 6: {
@@ -377,6 +419,18 @@ D void element(const float *const *xs, float *dst, const unsigned *p,
         yy = floor(y + .5f);
       }
       dst[i] = at(a, int(yy), int(xx), ih, iw, plane);
+    } else if (p[8] == 2) {
+      // Match tract's separable axis order: vertical, then horizontal.
+      int xx = int(ceil(x) - 1.f), yy = int(ceil(y) - 1.f);
+      float sum = 0, coeff = bits(p[10]);
+      for (int kx = -1; kx <= 2; ++kx) {
+        float column = 0;
+        for (int ky = -1; ky <= 2; ++ky)
+          column += at(a, yy + ky, xx + kx, ih, iw, plane) *
+                    cubic_weight(float(ky) - (y - float(yy)), coeff);
+        sum += column * cubic_weight(float(kx) - (x - float(xx)), coeff);
+      }
+      dst[i] = sum;
     } else {
       int xx = int(floor(x)), yy = int(floor(y));
       float tx = x - float(xx), ty = y - float(yy);
@@ -498,18 +552,24 @@ extern "C" K void matrix(const float *const *xs, float *, float *dst,
   const unsigned *cols = rows + ra * 4;
   const unsigned *batches = cols + ca * 4;
   const unsigned *red = batches + ba * 4;
+  const unsigned *split = red + ka * 3;
+  unsigned parts = split[0], output_len = split[1],
+           batches_count = output_len / (m * n), part = batch / batches_count;
+  batch %= batches_count;
+  unsigned chunk = parts == 1 ? k : 4096,
+           start = part * chunk, end = min(k, start + chunk);
   unsigned ab = offset(batch, batches, ba, 4, 1),
            bb = offset(batch, batches, ba, 4, 2),
            ob = offset(batch, batches, ba, 4, 3);
   float sum = 0;
-  for (unsigned base = 0; base < k; base += 16) {
+  for (unsigned base = start; base < end; base += 16) {
     unsigned ak = base + col, bk = base + row;
     a[lane()] =
-        (r < m && ak < k)
+        (r < m && ak < end)
             ? xs[0][ab + offset(r, rows, ra, 4, 1) + offset(ak, red, ka, 3, 1)]
             : 0;
     b[lane()] =
-        (c < n && bk < k)
+        (c < n && bk < end)
             ? xs[1][bb + offset(c, cols, ca, 4, 2) + offset(bk, red, ka, 3, 2)]
             : 0;
     barrier();
@@ -518,7 +578,7 @@ extern "C" K void matrix(const float *const *xs, float *, float *dst,
     barrier();
   }
   if (r < m && c < n)
-    dst[ob + offset(r, rows, ra, 4, 3) + offset(c, cols, ca, 4, 3)] = sum;
+    dst[part * output_len + ob + offset(r, rows, ra, 4, 3) + offset(c, cols, ca, 4, 3)] = sum;
 }
 extern "C" K void convolution(const float *const *xs, float *, float *dst,
                               const unsigned *p, unsigned len) {
@@ -588,5 +648,19 @@ extern "C" K void softmax(const float *const *xs, float *, float *dst,
   sum = reduce[0];
   for (unsigned j = l; j < n; j += 256)
     dst[base + j * stride] = exp(xs[0][base + j * stride] - top) / sum;
+}
+extern "C" K void reduction(const float *const *xs, float *, float *dst,
+                            const unsigned *p, unsigned len) {
+  __attribute__((shared)) float partial[256];
+  unsigned l = lane();
+  partial[l] = reduce_lane(xs[0], p, group(), l, 256);
+  barrier();
+  for (unsigned k = 128; k; k /= 2) {
+    if (l < k)
+      partial[l] = reduce_combine(partial[l], partial[l + k], p[1]);
+    barrier();
+  }
+  if (l == 0)
+    dst[group()] = partial[0];
 }
 #endif
