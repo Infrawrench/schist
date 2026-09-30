@@ -23,6 +23,7 @@ impl Colors {
 
 pub fn read(opened: &DesignPackage<'_>, report: &mut Report) -> Colors {
     let mut colors = Colors::default();
+    let mut tints = Vec::new();
     for part in opened.listed.iter().filter(|p| p.role == "Graphic") {
         let Ok(text) = opened.text_of(&part.name) else {
             continue;
@@ -30,6 +31,7 @@ pub fn read(opened: &DesignPackage<'_>, report: &mut Report) -> Colors {
         let Ok(root) = xml::parse(text) else {
             continue;
         };
+        tints.extend(root.find_all("Tint").into_iter().cloned());
         for el in root.find_all("Color") {
             let Some(id) = el.attr("Self") else {
                 continue;
@@ -61,6 +63,40 @@ pub fn read(opened: &DesignPackage<'_>, report: &mut Report) -> Colors {
             colors.0.push((id.to_owned(), ink));
         }
     }
+    // Resolve after every Graphic part, so XML/resource order is irrelevant.
+    // Native BaseColor references Color, never another Tint.
+    for el in tints {
+        let Some(id) = el.attr("Self") else { continue };
+        let name = el.attr("Name").unwrap_or(id);
+        let raw = el.attr("TintValue").unwrap_or("100");
+        let Some(value) = raw
+            .parse::<f32>()
+            .ok()
+            .filter(|v| v.is_finite() && (0.0..=100.0).contains(v))
+        else {
+            report.skip(schist_i18n::tf!(
+                "design.idml_tint_invalid",
+                property = "TintValue",
+                value = raw
+            ));
+            continue;
+        };
+        let Some(base) = el
+            .attr("BaseColor")
+            .and_then(|id| colors.get(id))
+            .filter(|ink| ink.tint.is_none())
+        else {
+            report.skip(schist_i18n::tf!(
+                "design.idml_color_unread",
+                name = el.attr("BaseColor").unwrap_or(id)
+            ));
+            continue;
+        };
+        let ink = base
+            .named_tint(name, value / 100.0)
+            .expect("validated tint");
+        colors.0.push((id.to_owned(), ink));
+    }
     colors
 }
 
@@ -80,8 +116,7 @@ pub fn resolve(el: &Element, key: &str, colors: &Colors, report: &mut Report) ->
 }
 
 /// Native direct tint percentages; -1 has the same inheritance meaning as
-/// an omitted value. Named Tint swatches remain unsupported and are diagnosed
-/// by colour-reference resolution instead of being mistaken for full ink.
+/// an omitted value. Named Tint resources own their fraction and use -1 here.
 pub fn tint(el: &Element, key: &str, report: &mut Report) -> Option<f32> {
     let raw = el.attr(key)?;
     match raw.parse::<f32>() {
@@ -99,6 +134,14 @@ pub fn tint(el: &Element, key: &str, report: &mut Report) -> Option<f32> {
 }
 
 pub fn reference(ink: &Ink) -> String {
+    if let Some(tint) = &ink.tint {
+        return format!(
+            "Tint/Schist-{}-{:08x}-{}",
+            ink.name,
+            tint.value.to_bits(),
+            reference(&ink.base_color())
+        );
+    }
     // Include the definition: two inline inks may share a display name.
     let bits: String = ink
         .lab
@@ -110,7 +153,26 @@ pub fn reference(ink: &Ink) -> String {
     format!("Color/Schist-{}-{}-{bits}", ink.name, u8::from(ink.spot))
 }
 
+/// A named Tint is applied with -1, never another percentage (which would
+/// detach it to its base Color in the native application).
+pub fn paint_tint(ink: Option<&Ink>, value: Option<f32>) -> Option<f32> {
+    if ink.is_some_and(|ink| ink.tint.is_some()) {
+        Some(-1.0)
+    } else {
+        value.map(|v| v * 100.0)
+    }
+}
+
 pub fn resource(ink: &Ink) -> String {
+    if let Some(tint) = &ink.tint {
+        return format!(
+            r#"<Tint Self="{}" Name="{}" BaseColor="{}" TintValue="{}"/>"#,
+            crate::export::escape(&reference(ink)),
+            crate::export::escape(&ink.name),
+            crate::export::escape(&reference(&ink.base_color())),
+            tint.value * 100.0
+        );
+    }
     let (space, values) = if let Some(cmyk) = ink.source_cmyk {
         (
             "CMYK",

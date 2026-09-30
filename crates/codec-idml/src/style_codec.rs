@@ -300,8 +300,16 @@ pub fn paragraph(style: &ParagraphStyle) -> String {
         "StrokeColor",
         style.stroke.as_ref().map(crate::color_codec::reference),
     );
-    optional(&mut out, "FillTint", style.fill_tint.map(|v| v * 100.0));
-    optional(&mut out, "StrokeTint", style.stroke_tint.map(|v| v * 100.0));
+    optional(
+        &mut out,
+        "FillTint",
+        crate::color_codec::paint_tint(style.fill.as_ref(), style.fill_tint),
+    );
+    optional(
+        &mut out,
+        "StrokeTint",
+        crate::color_codec::paint_tint(style.stroke.as_ref(), style.stroke_tint),
+    );
     optional(&mut out, "OverprintFill", style.overprint_fill);
     optional(&mut out, "OverprintStroke", style.overprint_stroke);
     optional(
@@ -389,8 +397,16 @@ pub fn character(style: &CharacterStyle) -> String {
         "StrokeColor",
         style.stroke.as_ref().map(crate::color_codec::reference),
     );
-    optional(&mut out, "FillTint", style.fill_tint.map(|v| v * 100.0));
-    optional(&mut out, "StrokeTint", style.stroke_tint.map(|v| v * 100.0));
+    optional(
+        &mut out,
+        "FillTint",
+        crate::color_codec::paint_tint(style.fill.as_ref(), style.fill_tint),
+    );
+    optional(
+        &mut out,
+        "StrokeTint",
+        crate::color_codec::paint_tint(style.stroke.as_ref(), style.stroke_tint),
+    );
     optional(&mut out, "OverprintFill", style.overprint_fill);
     optional(&mut out, "OverprintStroke", style.overprint_stroke);
     optional(&mut out, "PointSize", style.point_size);

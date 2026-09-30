@@ -6,12 +6,14 @@ use schist_layout::{properties, LayoutObject, ObjectId};
 
 #[derive(Default)]
 pub struct Controls {
+    pub swatch: Option<usize>,
     pub paragraph: Option<String>,
     pub character: Option<String>,
     pub field: Option<Target>,
 }
 #[derive(Clone)]
 pub enum Target {
+    Swatch(schist_layout::Ink),
     Pages(Vec<usize>),
     Section(usize),
     Objects(Vec<ObjectId>),
@@ -134,6 +136,52 @@ pub fn commit(state: &mut DesignState, id: &str, text: &str) -> bool {
         return false;
     }
     match target {
+        Target::Swatch(ink) => {
+            let Some(value) = value else {
+                return false;
+            };
+            let mut after;
+            if id == "design-prop-swatch-tint" {
+                return schist_layout::swatches::set_tint(
+                    &mut state.document,
+                    &mut state.history,
+                    &ink,
+                    value / 100.0,
+                );
+            } else if id.starts_with("design-prop-swatch-cmyk-") {
+                let channel = match id {
+                    "design-prop-swatch-cmyk-c" => 0,
+                    "design-prop-swatch-cmyk-m" => 1,
+                    "design-prop-swatch-cmyk-y" => 2,
+                    "design-prop-swatch-cmyk-k" => 3,
+                    _ => return false,
+                };
+                let Some(mut cmyk) = ink.source_cmyk else {
+                    return false;
+                };
+                if ink.tint.is_some() || !(0.0..=100.0).contains(&value) {
+                    return false;
+                }
+                cmyk[channel] = value / 100.0;
+                after = schist_layout::Ink::cmyk(ink.name.clone(), cmyk);
+                after.spot = ink.spot;
+            } else {
+                let channel = match id {
+                    "design-prop-swatch-red" => 0,
+                    "design-prop-swatch-green" => 1,
+                    "design-prop-swatch-blue" => 2,
+                    _ => return false,
+                };
+                if ink.tint.is_some() || !(0.0..=255.0).contains(&value) {
+                    return false;
+                }
+                let mut rgb = ink.preview_rgb;
+                rgb[channel] = value / 255.0;
+                after = schist_layout::Ink::process(ink.name.clone(), rgb);
+                after.spot = ink.spot;
+            }
+            schist_layout::swatches::replace(&mut state.document, &mut state.history, &ink, after)
+        }
         Target::Pages(pages) => value.is_some_and(|value| {
             page_property(id).is_some_and(|property| {
                 properties::set_page_property(
@@ -175,6 +223,19 @@ pub fn commit(state: &mut DesignState, id: &str, text: &str) -> bool {
             })
         }),
         Target::Paragraph(name) => {
+            let tint_base = state
+                .document
+                .styles
+                .resolve_paragraph(&name)
+                .character(
+                    state
+                        .document
+                        .styles
+                        .resolve_character(&state.document.default_character_style),
+                )
+                .fill
+                .filter(|ink| ink.tint.is_some())
+                .map(|ink| ink.base_color().into_owned());
             if matches!(id, "design-prop-size" | "design-prop-leading")
                 && value.is_some_and(|value| value <= 0.0)
             {
@@ -189,7 +250,12 @@ pub fn commit(state: &mut DesignState, id: &str, text: &str) -> bool {
                     return;
                 };
                 match id {
-                    "design-prop-paragraph-fill-tint" => style.fill_tint = value.map(|v| v / 100.0),
+                    "design-prop-paragraph-fill-tint" => {
+                        style.fill_tint = value.map(|v| v / 100.0);
+                        if value.is_some() && tint_base.is_some() {
+                            style.fill = tint_base;
+                        }
+                    }
                     "design-prop-size" => style.point_size = value,
                     "design-prop-leading" => style.leading = value,
                     "design-prop-tracking" => style.tracking = value,
@@ -207,6 +273,13 @@ pub fn commit(state: &mut DesignState, id: &str, text: &str) -> bool {
             })
         }
         Target::Character(name) => {
+            let tint_base = state
+                .document
+                .styles
+                .resolve_character(&name)
+                .fill
+                .filter(|ink| ink.tint.is_some())
+                .map(|ink| ink.base_color().into_owned());
             if matches!(id, "design-prop-char-size" | "design-prop-char-leading")
                 && value.is_some_and(|value| value <= 0.0)
             {
@@ -221,7 +294,12 @@ pub fn commit(state: &mut DesignState, id: &str, text: &str) -> bool {
                     return;
                 };
                 match id {
-                    "design-prop-char-fill-tint" => style.fill_tint = value.map(|v| v / 100.0),
+                    "design-prop-char-fill-tint" => {
+                        style.fill_tint = value.map(|v| v / 100.0);
+                        if value.is_some() && tint_base.is_some() {
+                            style.fill = tint_base;
+                        }
+                    }
                     "design-prop-char-size" => style.point_size = value,
                     "design-prop-char-leading" => style.leading = value,
                     "design-prop-char-tracking" => style.tracking = value,
@@ -249,6 +327,36 @@ pub fn all_text_frames(state: &DesignState) -> bool {
 #[cfg(test)]
 mod tests {
     use super::*;
+    #[test]
+    fn swatch_fields_edit_captured_definitions_keep_cmyk_and_reject_invalid_values() {
+        let mut state = DesignState::new();
+        let base = schist_layout::Ink::cmyk("Native", [0.6, 0.4, 0.2, 0.1]);
+        let tint = base.named_tint("Quarter", 0.25).unwrap();
+        state.document.inks.extend([base.clone(), tint.clone()]);
+        let original = state.document.clone();
+        for (id, ink, value) in [
+            ("design-prop-swatch-tint", &tint, "50"),
+            ("design-prop-swatch-cmyk-c", &base, "80"),
+        ] {
+            for invalid in ["NaN", "inf", "-1", "101", ""] {
+                state.controls.field = Some(Target::Swatch(ink.clone()));
+                assert!(!commit(&mut state, id, invalid));
+                assert_eq!(state.document, original);
+            }
+            state.controls.field = Some(Target::Swatch(ink.clone()));
+            state.controls.swatch = Some(0);
+            assert!(commit(&mut state, id, value));
+            assert_eq!(state.history.undo_depth(), 1);
+            let changed = state.document.ink(&ink.name).unwrap();
+            if ink.tint.is_some() {
+                assert_eq!(changed.tint_amount(), 0.5);
+            } else {
+                assert_eq!(changed.source_cmyk, Some([0.8, 0.4, 0.2, 0.1]));
+            }
+            assert!(state.history.undo(&mut state.document));
+            assert_eq!(state.document, original);
+        }
+    }
     #[test]
     fn baseline_fields_commit_once_restore_inheritance_and_reject_nonfinite_values() {
         for (id, target) in [

@@ -153,14 +153,25 @@ impl ObjectProperty {
     pub fn value(self, object: &PlacedObject) -> Option<f32> {
         match self {
             Self::FillTint | Self::StrokeTint => match &object.object {
-                LayoutObject::Shape { tints, .. } => Some(
-                    100.0
-                        * if self == Self::FillTint {
-                            tints.fill
-                        } else {
-                            tints.stroke
-                        },
-                ),
+                LayoutObject::Shape {
+                    tints,
+                    fill,
+                    stroke,
+                    ..
+                } => {
+                    let (ink, value) = if self == Self::FillTint {
+                        (fill, tints.fill)
+                    } else {
+                        (stroke, tints.stroke)
+                    };
+                    Some(
+                        100.0
+                            * ink
+                                .as_ref()
+                                .filter(|ink| ink.tint.is_some())
+                                .map_or(value, |ink| ink.tint_amount()),
+                    )
+                }
                 _ => None,
             },
             Self::X => Some(object.bounds.x),
@@ -227,13 +238,21 @@ pub fn set_object_property(
         let mut changed = object.clone();
         match property {
             ObjectProperty::FillTint | ObjectProperty::StrokeTint => {
-                let LayoutObject::Shape { tints, .. } = &mut changed.object else {
+                let LayoutObject::Shape {
+                    tints,
+                    fill,
+                    stroke,
+                    ..
+                } = &mut changed.object
+                else {
                     return false;
                 };
                 if property == ObjectProperty::FillTint {
                     tints.fill = value / 100.0;
+                    *fill = fill.as_ref().map(|ink| ink.base_color().into_owned());
                 } else {
                     tints.stroke = value / 100.0;
+                    *stroke = stroke.as_ref().map(|ink| ink.base_color().into_owned());
                 }
             }
             ObjectProperty::X => changed.bounds.x = value,

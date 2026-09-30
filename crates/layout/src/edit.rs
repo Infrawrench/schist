@@ -60,6 +60,10 @@ impl History {
 /// Apply an edit.
 pub fn forward(doc: &mut LayoutDocument, edit: &LayoutEdit) -> bool {
     match edit {
+        LayoutEdit::SwatchesChanged { after, .. } => {
+            doc.inks.clone_from(after);
+            true
+        }
         LayoutEdit::Batch { edits } => {
             for (index, edit) in edits.iter().enumerate() {
                 if !forward(doc, edit) {
@@ -235,6 +239,10 @@ pub fn forward(doc: &mut LayoutDocument, edit: &LayoutEdit) -> bool {
 /// Reverse an edit.
 pub fn reverse(doc: &mut LayoutDocument, edit: &LayoutEdit) -> bool {
     match edit {
+        LayoutEdit::SwatchesChanged { before, .. } => {
+            doc.inks.clone_from(before);
+            true
+        }
         LayoutEdit::Batch { edits } => {
             for (index, edit) in edits.iter().enumerate().rev() {
                 if !reverse(doc, edit) {
@@ -743,6 +751,7 @@ pub fn snapshot_ink(ink: &crate::ink::Ink) -> InkSnapshot {
         preview_rgb: ink.preview_rgb,
         source_cmyk: ink.source_cmyk,
         spot: ink.spot,
+        tint: ink.tint.clone(),
     }
 }
 
@@ -753,6 +762,7 @@ fn ink_from(snapshot: &InkSnapshot) -> crate::ink::Ink {
         preview_rgb: snapshot.preview_rgb,
         source_cmyk: snapshot.source_cmyk,
         spot: snapshot.spot,
+        tint: snapshot.tint.clone(),
     }
 }
 

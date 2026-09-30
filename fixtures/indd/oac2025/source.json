@@ -1,0 +1,158 @@
+{
+  "url": "https://www.oac.or.jp/creator2025/dwld/Creator2025_OACkaiin_format_indd.zip",
+  "archive_sha256": "3dbfa59455efe588e1e1055ef3599bd03c35f4811abbbd291bbb99ebb559439b",
+  "files": [
+    {
+      "source_path": "Creator2025_OACkaiin_format_indd/4ページVer/Creator2025_OAC会員_フォーマット_A_4ページVer.idml",
+      "file": "oac2025-A-4.idml",
+      "bytes": 220341,
+      "sha256": "b7c58224c2c3c27c52ff95ed71335c99d09605ae0432727b4b1bc50bd409122d",
+      "creator_tools": [
+        "Adobe InDesign 19.5 (Macintosh)"
+      ],
+      "parts": [
+        {
+          "part": "MasterSpreads/MasterSpread_ud7.xml",
+          "pages": 2,
+          "items": 4,
+          "overrides": []
+        },
+        {
+          "part": "Spreads/Spread_u17f.xml",
+          "pages": 2,
+          "items": 69,
+          "overrides": []
+        },
+        {
+          "part": "Spreads/Spread_u46a.xml",
+          "pages": 2,
+          "items": 43,
+          "overrides": []
+        }
+      ]
+    },
+    {
+      "source_path": "Creator2025_OACkaiin_format_indd/4ページVer/Creator2025_OAC会員_フォーマット_A_4ページVer.indd",
+      "file": "oac2025-A-4.indd",
+      "bytes": 2367488,
+      "sha256": "c7e523de668fe67095d032f14ed62d03afda89186f4d32526bf564f303cb21b7"
+    },
+    {
+      "source_path": "Creator2025_OACkaiin_format_indd/4ページVer/Creator2025_OAC会員_フォーマット_A_4ページVer.pdf",
+      "file": "oac2025-A-4.pdf",
+      "bytes": 690657,
+      "sha256": "096d3f8e1c14323c849b075816da990382e45fa8e4e5ad41828f24df2104df58"
+    },
+    {
+      "source_path": "Creator2025_OACkaiin_format_indd/4ページVer/Creator2025_OAC会員_フォーマット_B_4ページVer.indd",
+      "file": "oac2025-B-4.indd",
+      "bytes": 2347008,
+      "sha256": "238a9d6c707a6147614c502ec7113ae5ad18e4435a5a79333845aaa443f0cefc"
+    },
+    {
+      "source_path": "Creator2025_OACkaiin_format_indd/4ページVer/Creator2025_OAC会員_フォーマット_B_4ページVer.idml",
+      "file": "oac2025-B-4.idml",
+      "bytes": 213309,
+      "sha256": "abf5108b119181c2b50080113ec598e9c3d6c0f49ed50cc1549d2441c8353063",
+      "creator_tools": [
+        "Adobe InDesign 19.5 (Macintosh)"
+      ],
+      "parts": [
+        {
+          "part": "MasterSpreads/MasterSpread_ud7.xml",
+          "pages": 2,
+          "items": 4,
+          "overrides": []
+        },
+        {
+          "part": "Spreads/Spread_u195.xml",
+          "pages": 2,
+          "items": 60,
+          "overrides": []
+        },
+        {
+          "part": "Spreads/Spread_u40d.xml",
+          "pages": 2,
+          "items": 51,
+          "overrides": []
+        }
+      ]
+    },
+    {
+      "source_path": "Creator2025_OACkaiin_format_indd/4ページVer/Creator2025_OAC会員_フォーマット_B_4ページVer.pdf",
+      "file": "oac2025-B-4.pdf",
+      "bytes": 853557,
+      "sha256": "5642c53b9e6b9b4769358293ba873deca7f1843357265edb265bcf2b02414e2e"
+    },
+    {
+      "source_path": "Creator2025_OACkaiin_format_indd/2ページVer/Creator2025_OAC会員_フォーマット_B.indd",
+      "file": "oac2025-B-2.indd",
+      "bytes": 2105344,
+      "sha256": "cf1e91a9f45236135313cc91de5d801d60588ca026737c30620c58d3c59cdf2a"
+    },
+    {
+      "source_path": "Creator2025_OACkaiin_format_indd/2ページVer/Creator2025_OAC会員_フォーマット_B.idml",
+      "file": "oac2025-B-2.idml",
+      "bytes": 190594,
+      "sha256": "1bbc26dd5dec47f8eda49c81bebb94bcf399807780a3856d7162d60f82aefebb",
+      "creator_tools": [
+        "Adobe InDesign 19.5 (Macintosh)"
+      ],
+      "parts": [
+        {
+          "part": "MasterSpreads/MasterSpread_ud7.xml",
+          "pages": 2,
+          "items": 4,
+          "overrides": []
+        },
+        {
+          "part": "Spreads/Spread_u194.xml",
+          "pages": 2,
+          "items": 62,
+          "overrides": []
+        }
+      ]
+    },
+    {
+      "source_path": "Creator2025_OACkaiin_format_indd/2ページVer/Creator2025_OAC会員_フォーマット_A.pdf",
+      "file": "oac2025-A-2.pdf",
+      "bytes": 680688,
+      "sha256": "76e268b945be6993d98ae2849c7bbbef707ea35f92e69244ab0086fb863a1520"
+    },
+    {
+      "source_path": "Creator2025_OACkaiin_format_indd/2ページVer/Creator2025_OAC会員_フォーマット_B.pdf",
+      "file": "oac2025-B-2.pdf",
+      "bytes": 848568,
+      "sha256": "0836141ba2fa3a2439467d6f831fbbca5bf45a3e7933f732ea277737787ca817"
+    },
+    {
+      "source_path": "Creator2025_OACkaiin_format_indd/2ページVer/Creator2025_OAC会員_フォーマット_A.indd",
+      "file": "oac2025-A-2.indd",
+      "bytes": 2117632,
+      "sha256": "199c7e6c449d2ff6f59e508bfd0df47bc2bba1157ba75b410c49ae28fcac8de6"
+    },
+    {
+      "source_path": "Creator2025_OACkaiin_format_indd/2ページVer/Creator2025_OAC会員_フォーマット_A.idml",
+      "file": "oac2025-A-2.idml",
+      "bytes": 190409,
+      "sha256": "0ae24f1543f8f9eb20a2b4782dffff6ac878dde1c2f32e21caa3bb65feac252e",
+      "creator_tools": [
+        "Adobe InDesign 19.5 (Macintosh)"
+      ],
+      "parts": [
+        {
+          "part": "MasterSpreads/MasterSpread_ud7.xml",
+          "pages": 2,
+          "items": 4,
+          "overrides": []
+        },
+        {
+          "part": "Spreads/Spread_u17e.xml",
+          "pages": 2,
+          "items": 69,
+          "overrides": []
+        }
+      ]
+    }
+  ]
+}

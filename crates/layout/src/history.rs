@@ -29,6 +29,10 @@ pub enum LayoutEdit {
         before: Box<crate::StyleSet>,
         after: Box<crate::StyleSet>,
     },
+    SwatchesChanged {
+        before: Vec<crate::Ink>,
+        after: Vec<crate::Ink>,
+    },
     LayersChanged {
         before: Box<crate::structure::Layers>,
         after: Box<crate::structure::Layers>,
@@ -218,6 +222,8 @@ pub struct InkSnapshot {
     #[serde(default)]
     pub source_cmyk: Option<[f32; 4]>,
     pub spot: bool,
+    #[serde(default)]
+    pub tint: Option<crate::ink::InkTint>,
 }
 
 /// The document-wide settings an edit can change.
@@ -333,6 +339,7 @@ impl History {
             LayoutEdit::ThreadsChanged { .. }
             | LayoutEdit::TopologyChanged { .. }
             | LayoutEdit::LayersChanged { .. }
+            | LayoutEdit::SwatchesChanged { .. }
             | LayoutEdit::StylesChanged { .. } => true,
             LayoutEdit::AddedPage { .. }
             | LayoutEdit::RemovedPage { .. }

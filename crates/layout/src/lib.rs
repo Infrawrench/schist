@@ -34,6 +34,7 @@ pub mod properties;
 pub mod story;
 pub mod structure;
 pub mod styles;
+pub mod swatches;
 pub mod threading;
 
 pub use compose::{compose_object, compose_thread, ComposedFrame, ComposedLine, ComposedThread};

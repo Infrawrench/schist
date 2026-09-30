@@ -334,22 +334,15 @@ stream.
 
 ### What is still needed
 
-Reading is done for the subset the specimens cover, and every file reports
-what it could not read rather than dropping it quietly. What is *not* yet
-covered by a real file:
-
-- **Facing pages and a spread of two pages.** `multipage.idml` has several
-  pages; nothing yet has confirmed a two-page spread, its gutter, or
-  `AppliedAlternateLayout`.
-- **A master page with items overridden on a page.** A master is present
-  in every file, so the inheritance *shape* is known, but no fixture
-  exercises an override.
-- **A spot ink.** Native Color Model=Spot is covered by synthetic tests;
-  no supplied vendor fixture corroborates spot output.
-- **Overprint**, and **table and footnote composition**.
-- **A non-ASCII script**, which several of these files nominally declare
-  fonts for (Minion Pro, Kozuka Mincho) but none of which actually sets
-  Japanese or Arabic text.
+Reading reports unsupported content. The public Penn State templates now cover
+populated two-sheet parents, facing spreads and a native spot ink; their supported
+page geometry, parent artwork and text survive repeated saves. OAC's independently
+published v19.5 templates add Japanese prose and populated facing masters. The
+reference PDFs were inspected, but no matching native application comparison has
+been performed. Missing evidence includes real overridden parent items,
+alternate-layout sections, RTL/foldout spreads and overprint. Table, footnote,
+math and anchored-content composition remain unsupported even though the new
+academic template contains examples.
 
 File open/save is wired. Remaining fidelity gaps must be resolved or clearly
 reported before the feature is enabled:
@@ -370,7 +363,7 @@ reported before the feature is enabled:
   based on the original style, with a conversion notice. Opaque resource IDs
   and duplicate names in style groups resolve through an explicit map. Paragraph
   font/paint defaults inherit per property; character overrides win. Advanced
-  properties (including arbitrary font variants, named Tint swatches and some decoration
+  properties (including arbitrary font variants and some decoration
   attributes) still need representation and validation. Tracking uses native
   thousandths of an em, converted per effective run size during composition.
   IDML combines bold/italic into FontStyle; export preserves the resolved face
@@ -390,7 +383,7 @@ Named styles, inheritance, font resources, layer membership/properties and
 embedded images are now read and written. The earlier statements that
 Styles.xml and object mapping were unimplemented were stale.
 
-INDD has one public paired specimen, recorded separately in
+INDD has seven acquired public pairs, with three redistributable pairs in the repository, recorded separately in
 [indd-format.md](indd-format.md). It does not validate INDD object semantics.
 
 ## Writing
@@ -641,9 +634,8 @@ Canvas, single-page preview, separation and preflight now include same-spread
 crossovers. This follows the published [pages and spreads model](https://helpx.adobe.com/indesign/using/pages-spreads.html)
 and the IDML spread-sibling structure described above. Tests and the independent
 PDF proof cover ordinary artwork and applied parent instances; an unapplied
-neighboring master sheet is not implicitly instantiated. A real populated facing
-master and external application validation are still needed to establish that
-last behavior's native agreement.
+neighboring master sheet is not implicitly instantiated. The Penn State templates now corroborate populated facing masters; external
+application validation is still needed to establish that behavior's native agreement.
 
 ### Direct ink tints
 
@@ -659,8 +651,7 @@ Export writes percentages without altering the base Color resource or opacity.
 Property tests cover zero, fractional and full tints, process and spot identity,
 independent fill/stroke values, style inheritance and local overrides through
 repeated native saves. These are synthetic specification-based checks. Named
-`Tint` resources (`BaseColor` plus `TintValue` in the published XML specification)
-are not yet represented; referenced ones still produce unresolved-colour notices.
+`Tint` resources are now represented separately, as described below.
 Object-style paint inheritance is not implemented, so an inherited shape tint
 falls back to full strength. Text stroke tints round-trip, but the compositor
 still renders text fills only. External application validation remains needed.
@@ -698,3 +689,22 @@ was removed. Explicit `BaselineShift::None` exports a native zero, which reads a
 `Offset(0)` with the same meaning. Native populated-document/application validation
 is still outstanding; synthetic native XML and independent rendered PDF proofs
 establish only the tested subset.
+
+
+### Named tint swatches
+
+Native `Tint` resources retain `Name`, `BaseColor` and a 0–100 `TintValue` as
+specified by the public IDML schema (example 99) and [Tint reference](https://developer.adobe.com/indesign/uxp/dom/api/t/tint/).
+The reader resolves base Colors before Tints, independent of part/element order;
+missing bases, nested Tint references and invalid percentages are diagnosed.
+Export includes the base Color even when only an inline named tint uses it.
+
+A named tint owns its percentage. Native page/style paint references therefore
+write `FillTint`/`StrokeTint=-1`; they do not multiply two percentages. The
+[original Cell tint experiment](https://indiscripts.com/post/2021/05/cell-tint-enigma)
+documents that assigning an explicit direct percentage detaches from the named
+Tint to its base Color. Schist's direct controls follow that behavior. The model
+retains named base identity so base-color edits update every use in one undo step.
+Synthetic native XML tests cover opaque/forward references, percentages, invalid
+resources and repeated saves. The current public templates do not contain named
+Tint resources; acceptance by a native application remains unverified.

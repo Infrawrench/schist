@@ -45,7 +45,10 @@ fn main() {
         );
         for point in story.points.iter().take(2) {
             if let schist_layout::StoryPoint::Paragraph { text, style } = point {
-                println!("    {style:?} {:?}", &text[..text.len().min(60)]);
+                println!(
+                    "    {style:?} {:?}",
+                    text.chars().take(60).collect::<String>()
+                );
             }
         }
     }

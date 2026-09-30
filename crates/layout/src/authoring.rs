@@ -839,7 +839,7 @@ fn text_length(story: &Story) -> usize {
     story.text_len()
 }
 
-/// Fill several objects with a named ink./// Fill several objects with a named ink.
+/// Fill several objects with a named ink.
 ///
 /// Objects that cannot take a fill — a line, or anything that is not a
 /// shape — are skipped rather than refused, so a mixed selection still does
@@ -863,6 +863,20 @@ pub fn set_fill(
         // a document that cannot be output.
         return false;
     };
+    set_fill_ink(document, history, ids, &ink)
+}
+
+/// Fill with the exact swatch definition, retaining the documented per-object
+/// undo behavior of set_fill. Same-named swatches must remain distinguishable.
+pub fn set_fill_ink(
+    document: &mut LayoutDocument,
+    history: &mut History,
+    ids: &[ObjectId],
+    ink: &crate::Ink,
+) -> bool {
+    if !document.inks.contains(ink) {
+        return false;
+    }
     let mut applied: Vec<(usize, ObjectId, ObjectSnapshot)> = Vec::new();
     for (index, placed) in document.objects.iter().enumerate() {
         if !ids.contains(&placed.id) || document.object_locked(placed.id) {
@@ -871,7 +885,7 @@ pub fn set_fill(
         let LayoutObject::Shape { path, fill, .. } = &placed.object else {
             continue;
         };
-        if !path_can_be_filled(path) || fill.as_ref() == Some(&ink) {
+        if !path_can_be_filled(path) || fill.as_ref() == Some(ink) {
             // An open path has no interior, and an object already this
             // colour is not a change.
             continue;

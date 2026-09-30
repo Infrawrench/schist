@@ -312,3 +312,7 @@ design.baseline_shift = Baseline shift (pt)
 design.unsupported_text_position = Unsupported text position
 design.idml_position_unsupported = Unsupported text position: {value}
 design.idml_baseline_invalid = Invalid baseline shift: {value}
+
+# Named tint swatches
+design.new_tint = New tint swatch
+design.tint_value = Tint (%)

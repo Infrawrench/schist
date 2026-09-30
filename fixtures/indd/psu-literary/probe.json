@@ -1,0 +1,28 @@
+{
+  "sha256": "e79b29f4172f5609a02eafb7839a7397bdc4c61775432929a37248bcc54bcd8f",
+  "bytes": 2457600,
+  "master_sequences": [
+    9,
+    8
+  ],
+  "active_master": 0,
+  "stream_endian": "little",
+  "database_pages": 547,
+  "contiguous_start": 2240512,
+  "objects": [
+    {
+      "offset": 2240512,
+      "uid": 2147483649,
+      "class_id": "0xc0000000",
+      "bytes": 213212,
+      "checksum": "0x665ec1ee",
+      "zlib_at": [],
+      "xmp_bytes": 213208,
+      "creator_tools": [
+        "Adobe InDesign 20.2 (Windows)"
+      ]
+    }
+  ],
+  "trailing_bytes": 3812,
+  "trailing_nonzero_bytes": 0
+}

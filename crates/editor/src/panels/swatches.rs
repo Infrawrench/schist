@@ -35,7 +35,59 @@ pub(super) fn swatches_panel(
         return None;
     }
     let chips = swatch_chips(&inks, &ws.design.document, &ws.design.selection, cx);
-    let spots = inks.iter().filter(|ink| ink.spot).count();
+    let spots = inks
+        .iter()
+        .filter(|ink| ink.spot && ink.tint.is_none())
+        .count();
+    let selected_index = ws
+        .design
+        .controls
+        .swatch
+        .filter(|i| *i < inks.len())
+        .unwrap_or(0);
+    let selected = inks[selected_index].clone();
+    let mut fields = Vec::new();
+    if let Some(tint) = &selected.tint {
+        fields.push(super::design_controls::field(
+            ws,
+            "design-prop-swatch-tint",
+            "design.tint_value",
+            format!("{:.2}", tint.value * 100.0),
+            crate::design::controls::Target::Swatch(selected.clone()),
+            cx,
+        ));
+    } else if let Some(cmyk) = selected.source_cmyk {
+        for (index, id, label) in [
+            (0, "design-prop-swatch-cmyk-c", "common.cyan"),
+            (1, "design-prop-swatch-cmyk-m", "common.magenta"),
+            (2, "design-prop-swatch-cmyk-y", "common.yellow"),
+            (3, "design-prop-swatch-cmyk-k", "common.black"),
+        ] {
+            fields.push(super::design_controls::field(
+                ws,
+                id,
+                label,
+                format!("{:.2}", cmyk[index] * 100.0),
+                crate::design::controls::Target::Swatch(selected.clone()),
+                cx,
+            ));
+        }
+    } else {
+        for (index, id, label) in [
+            (0, "design-prop-swatch-red", "common.red"),
+            (1, "design-prop-swatch-green", "common.green"),
+            (2, "design-prop-swatch-blue", "common.blue"),
+        ] {
+            fields.push(super::design_controls::field(
+                ws,
+                id,
+                label,
+                format!("{:.2}", selected.preview_rgb[index] * 255.0),
+                crate::design::controls::Target::Swatch(selected.clone()),
+                cx,
+            ));
+        }
+    }
     Some(
         div()
             .flex()
@@ -60,6 +112,31 @@ pub(super) fn swatches_panel(
                     }),
             )
             .child(div().flex().flex_wrap().gap_2().children(chips))
+            .child(div().text_xs().child(selected.name))
+            .children(fields)
+            .child(
+                div()
+                    .id("design-new-tint")
+                    .text_xs()
+                    .cursor_pointer()
+                    .child(t("design.new_tint"))
+                    .on_click(cx.listener(move |ws, _, _, cx| {
+                        ws.commit_focused_field();
+                        let Some(base) = ws.design.document.inks.get(selected_index).cloned()
+                        else {
+                            return;
+                        };
+                        if let Some(index) = schist_layout::swatches::add_tint(
+                            &mut ws.design.document,
+                            &mut ws.design.history,
+                            &base,
+                            0.5,
+                        ) {
+                            ws.design.controls.swatch = Some(index);
+                            cx.notify();
+                        }
+                    })),
+            )
             .into_any_element(),
     )
 }
@@ -78,7 +155,6 @@ fn swatch_chips(
             // this ink, so the panel answers "what is this shape?" without
             // the user having to look back at the pasteboard.
             let in_use = filled_with(document, selection, ink);
-            let name = ink.name.clone();
             let colour = rgb(hex_of(ink));
             let mut chip = div()
                 // Keyed by position, not by name: two inks can share a
@@ -123,7 +199,17 @@ fn swatch_chips(
                 chip = chip.bg(rgb(palette().selection_bg));
             }
             chip.on_click(cx.listener(move |ws, _ev, _window, cx| {
-                ws.fill_selection_with(&name, cx);
+                ws.commit_focused_field();
+                ws.design.controls.swatch = Some(index);
+                if let Some(chosen) = ws.design.document.inks.get(index).cloned() {
+                    schist_layout::authoring::set_fill_ink(
+                        &mut ws.design.document,
+                        &mut ws.design.history,
+                        &ws.design.selection,
+                        &chosen,
+                    );
+                }
+                cx.notify();
             }))
             .into_any_element()
         })
@@ -137,28 +223,22 @@ fn swatch_chips(
 /// round: a black ink showing as white is a bug that looks like a feature.
 fn hex_of(ink: &schist_layout::Ink) -> u32 {
     let channel = |value: f32| (value.clamp(0.0, 1.0) * 255.0).round() as u32;
-    (channel(ink.preview_rgb[0]) << 16)
-        | (channel(ink.preview_rgb[1]) << 8)
-        | channel(ink.preview_rgb[2])
+    let rgb = ink.preview_at_tint(1.0);
+    (channel(rgb[0]) << 16) | (channel(rgb[1]) << 8) | channel(rgb[2])
 }
 
 /// Whether an object is filled with an ink.
 ///
-/// A name comparison, not a pointer one: an ink loaded by two different
-/// routes is one ink, and a swatch that did not light up for a fill it set
-/// would be a swatch lying.
+/// Compare complete definitions, since distinct tints or colours can share names.
 fn filled_with(
     document: &schist_layout::LayoutDocument,
     selection: &[schist_layout::ObjectId],
     ink: &schist_layout::Ink,
 ) -> bool {
-    // By name, not by identity: an ink reached by two routes is one ink,
-    // and a swatch that failed to light up for a fill it set would be a
-    // swatch lying about the selection.
     selection.iter().any(|id| {
         matches!(
             document.object(*id).map(|placed| &placed.object),
-            Some(schist_layout::LayoutObject::Shape { fill: Some(fill), .. }) if fill.name == ink.name
+            Some(schist_layout::LayoutObject::Shape { fill: Some(fill), .. }) if fill == ink
         )
     })
 }
@@ -203,6 +283,7 @@ mod tests {
             preview_rgb: [-1.0, 2.0, 0.5],
             source_cmyk: None,
             spot: true,
+            tint: None,
         };
         // Not 0xFFFF7F, which is what an unclamped shift would give.
         assert_eq!(hex_of(&out_of_range), 0x00FF80);
@@ -226,10 +307,14 @@ mod tests {
         .expect("a shape");
         schist_layout::authoring::set_fill(&mut document, &mut history, &[object], &cyan);
         let selection = vec![object];
-        assert!(filled_with(&document, &selection, &ink(&cyan)));
+        assert!(filled_with(
+            &document,
+            &selection,
+            document.ink(&cyan).unwrap()
+        ));
         assert!(!filled_with(&document, &selection, &ink("Magenta")));
         // And an empty selection lights up nothing.
-        assert!(!filled_with(&document, &[], &ink(&cyan)));
+        assert!(!filled_with(&document, &[], document.ink(&cyan).unwrap()));
     }
 
     #[test]

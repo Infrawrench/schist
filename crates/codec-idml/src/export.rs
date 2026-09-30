@@ -514,6 +514,10 @@ fn object_xml(
             if path.even_odd {
                 warnings.push(schist_i18n::tf!("design.idml_even_odd", name = object.name));
             }
+            let fill_tint =
+                crate::color_codec::paint_tint(fill.as_ref(), Some(tints.fill)).unwrap();
+            let stroke_tint =
+                crate::color_codec::paint_tint(stroke.as_ref(), Some(tints.stroke)).unwrap();
             let fill = fill
                 .as_ref()
                 .map(crate::color_codec::reference)
@@ -530,8 +534,8 @@ fn object_xml(
                 number(*stroke_width),
                 escape(&fill),
                 escape(&stroke),
-                number(tints.fill * 100.0),
-                number(tints.stroke * 100.0)
+                number(fill_tint),
+                number(stroke_tint)
             )
         }
         LayoutObject::GraphicFrame { clip_path, .. } => {
@@ -894,7 +898,14 @@ fn graphic_xml(document: &LayoutDocument) -> String {
         r#"<idPkg:Graphic xmlns:idPkg="{NS_PACKAGING}" DOMVersion="{DOM_VERSION}">"#
     ));
     out.push_str(r#"<Swatch Self="Swatch/None" Name="None"/>"#);
-    for ink in document.all_inks() {
+    let mut inks = document.all_inks();
+    for ink in inks.clone() {
+        let base = ink.base_color().into_owned();
+        if !inks.contains(&base) {
+            inks.push(base);
+        }
+    }
+    for ink in inks {
         out.push_str(&crate::color_codec::resource(&ink));
     }
     out.push_str("</idPkg:Graphic>");

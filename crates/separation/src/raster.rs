@@ -120,7 +120,8 @@ pub fn coats_for(plan: &mut PlatePlan, ink: &Ink) -> (Vec<Coat>, Vec<[f32; 4]>) 
         // The plan had not seen this spot, so it needs a plate before it
         // can be laid down. Adding it here is what makes a swatch
         // dragged in mid-document actually print.
-        entries = vec![(plan.add_spot(ink), 1.0)];
+        plan.add_spot(ink);
+        entries = plan.coats_for(ink);
     }
     let coats = entries
         .iter()
@@ -151,7 +152,11 @@ pub fn coats_for(plan: &mut PlatePlan, ink: &Ink) -> (Vec<Coat>, Vec<[f32; 4]>) 
 /// Alias resolution, ICC conversion and black generation precede tinting.
 pub fn tinted_coats_for(plan: &mut PlatePlan, ink: &Ink, tint: f32) -> (Vec<Coat>, Vec<[f32; 4]>) {
     let (mut coats, build) = coats_for(plan, ink);
-    let tint = schist_layout::ink::bounded_tint(tint);
+    let tint = if ink.tint.is_some() {
+        1.0
+    } else {
+        schist_layout::ink::bounded_tint(tint)
+    };
     for coat in &mut coats {
         coat.weight *= tint;
     }
@@ -401,7 +406,12 @@ pub fn line_paints(
         let style = doc.styles.resolve_character(&range.style);
         run.color = Some((inks.len() as u32).to_le_bytes());
         inks.push((
-            style.fill.unwrap_or_else(|| default_ink.clone()),
+            schist_layout::styles::inherited_paint(
+                &style.fill,
+                style.fill_tint,
+                Some(&default_ink),
+            )
+            .unwrap(),
             style.opacity.or(base.opacity).unwrap_or(1.0),
             style
                 .overprint_fill

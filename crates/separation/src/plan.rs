@@ -104,6 +104,28 @@ impl PlatePlan {
         manager: &InkManager,
         builds: &dyn crate::build::CmykSource,
     ) -> PlatePlan {
+        // A named tint shares its base colour's aliases, ICC build and plate.
+        // Resolve full-strength bases first, then scale only ink amounts.
+        if inks.iter().any(|ink| ink.tint.is_some()) {
+            let mut bases = Vec::new();
+            for ink in inks {
+                let base = ink.base_color().into_owned();
+                if !bases.contains(&base) {
+                    bases.push(base);
+                }
+            }
+            let mut plan = Self::with_build(&bases, manager, builds);
+            for ink in inks.iter().filter(|ink| ink.tint.is_some()) {
+                let targets = plan
+                    .coats_for(&ink.base_color())
+                    .into_iter()
+                    .map(|(plate, weight)| (plate, weight * ink.tint_amount()))
+                    .collect();
+                plan.ink_plates.push((ink.name.clone(), targets));
+                plan.resolved_inks.push(ink.clone());
+            }
+            return plan;
+        }
         let plates: Vec<Plate> = PROCESS
             .iter()
             .enumerate()
@@ -185,6 +207,13 @@ impl PlatePlan {
         {
             return targets.clone();
         }
+        if ink.tint.is_some() {
+            return self
+                .coats_for(&ink.base_color())
+                .into_iter()
+                .map(|(plate, weight)| (plate, weight * ink.tint_amount()))
+                .collect();
+        }
         if ink.spot {
             // A spot nobody has heard of needs a plate that does not
             // exist yet. This must be read, not written, so the caller
@@ -212,6 +241,9 @@ impl PlatePlan {
     /// Whether an ink is separated onto its own plate, which decides
     /// whether overprint means anything for it.
     pub fn is_separated(&self, ink: &Ink) -> bool {
+        if ink.tint.is_some() {
+            return self.is_separated(&ink.base_color());
+        }
         match self
             .resolved_inks
             .iter()
@@ -234,6 +266,15 @@ impl PlatePlan {
     /// `plates_for` finds the plate it just created instead of inventing
     /// another index past the end of the list.
     pub fn add_spot(&mut self, ink: &Ink) -> usize {
+        if ink.tint.is_some() {
+            let index = self.add_spot(&ink.base_color());
+            if !self.resolved_inks.contains(ink) {
+                self.ink_plates
+                    .push((ink.name.clone(), vec![(index, ink.tint_amount())]));
+                self.resolved_inks.push(ink.clone());
+            }
+            return index;
+        }
         // A same-named process paint may have no coats (white). Only a
         // spot plate is a reusable destination for this operation.
         let index = self

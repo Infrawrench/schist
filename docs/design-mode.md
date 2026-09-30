@@ -495,9 +495,7 @@ The model stores fractions separately from full-strength ink definitions. This
 keeps every tint of a spot on the same plate. Canvas shapes and text fills show
 these values, and separation applies tint after ink aliases and process builds.
 Text stroke tint is retained for IDML, but text strokes are not yet rendered and
-have no authoring control. Named IDML Tint swatches and inherited object-style
-paint are separate unsupported features, diagnosed as unresolved colour
-references where applicable. Native window visual QA remains outstanding.
+have no authoring control. Inherited object-style paint remains unsupported. Native window visual QA remains outstanding.
 
 
 ## Text decorations
@@ -518,3 +516,12 @@ step against the style captured on focus. Glyphs, underlines, strikes, carets an
 selections move together, and hit testing follows their visible positions even
 with frame transforms. Line spacing, flow, baseline grids and drop-cap reservations
 stay fixed. Automatic superscript/subscript sizing remains unsupported.
+
+
+The Swatches panel now edits base RGB or native CMYK components, creates named
+tints and edits their percentages. A base edit updates matching uses in shapes,
+styles, parent artwork and its named tints in one undo step. Same-named unrelated
+inline colors are preserved. Tint edits update all uses together; generated names
+follow the percentage while imported custom names remain intact. Applying a
+swatch retains the documented per-object fill undo behavior. Direct tint controls
+detach a named tint to its base color before assigning the new percentage.

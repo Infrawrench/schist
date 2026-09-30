@@ -31,10 +31,31 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     spot.spot = true;
     doc.inks.push(spot);
     for (i, tint) in [0.0, 0.25, 0.5, 0.75, 1.0].into_iter().enumerate() {
-        patch(&mut doc, "Black", 10.0 + i as f32 * 36.0, 10.0, tint, 1.0);
+        let process_name = format!("Black {i}");
+        let spot_name = format!("Spot green {i}");
+        doc.inks.push(
+            doc.ink("Black")
+                .unwrap()
+                .named_tint(&process_name, tint)
+                .unwrap(),
+        );
+        doc.inks.push(
+            doc.ink("Spot green")
+                .unwrap()
+                .named_tint(&spot_name, tint)
+                .unwrap(),
+        );
         patch(
             &mut doc,
-            "Spot green",
+            if i % 2 == 0 { "Black" } else { &process_name },
+            10.0 + i as f32 * 36.0,
+            10.0,
+            tint,
+            1.0,
+        );
+        patch(
+            &mut doc,
+            if i % 2 == 0 { &spot_name } else { "Spot green" },
             10.0 + i as f32 * 36.0,
             45.0,
             tint,
@@ -69,10 +90,11 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         .find(|s| s.name == "Body")
         .unwrap();
     style.point_size = Some(28.0);
-    style.fill_tint = Some(0.25);
+    style.fill = Some(Ink::black().named_tint("Black quarter", 0.25).unwrap());
     doc.styles.add_character(CharacterStyle {
         name: "Full".into(),
         fill_tint: Some(1.0),
+        fill: Some(Ink::black()),
         ..Default::default()
     });
     let mut story = Story::from_text("HHHHHH", "Body");

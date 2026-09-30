@@ -335,7 +335,7 @@ Property tests cover tint/opacity/overprint combinations for fills and strokes,
 spot aliases, process conversion, and inherited text paints. The `tint_proof`
 example adds an independent Poppler check of process/spot ramps, zero-tint
 knockout, transparency, overprint and styled glyphs. Text stroke rendering,
-named Tint swatches and external native-application comparison remain gaps.
+and external native-application comparison remain gaps.
 
 
 ## Decorated text paints
@@ -369,3 +369,12 @@ Page contribution bounds expand for the largest supported absolute baseline
 offset referenced by a story, before frame transforms. This conservative envelope
 keeps ink crossing a gutter even when its frame remains wholly on the source
 page; a two-direction plate comparison checks against explicit placement.
+
+
+Named tint swatches reuse their full-strength base Color's plate or process build.
+A named percentage is applied once, after alias resolution, and owns the paint's
+tint even if a stale per-use fraction remains. Spot aliases and conversion to
+process behave identically to a direct tint; neither creates a second spot plate.
+Tests compare every plate and composite sample against direct-tint references,
+including zero-tint knockout. The existing Poppler tint proof now alternates
+named and direct process/spot patches and uses a named tint for body text.

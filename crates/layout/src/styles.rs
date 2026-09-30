@@ -107,6 +107,25 @@ impl BaselineShift {
     }
 }
 
+/// Resolve a paint across a style boundary. A nearer explicit direct tint
+/// detaches an inherited named Tint to its base Color. A paint explicitly naming
+/// a Tint owns its percentage, even when the same style also carries a number.
+pub fn inherited_paint(
+    paint: &Option<Ink>,
+    direct_tint: Option<f32>,
+    fallback: Option<&Ink>,
+) -> Option<Ink> {
+    paint.clone().or_else(|| {
+        fallback.map(|ink| {
+            if direct_tint.is_some() {
+                ink.base_color().into_owned()
+            } else {
+                ink.clone()
+            }
+        })
+    })
+}
+
 /// A named set of paragraph properties.
 ///
 /// Every field is optional and means "inherit". That makes a style cheap
@@ -415,10 +434,10 @@ impl ResolvedParagraph {
         fallback.underline = self.underline.or(fallback.underline);
         fallback.strikethrough = self.strikethrough.or(fallback.strikethrough);
         fallback.baseline_shift = self.baseline_shift.or(fallback.baseline_shift);
+        fallback.fill = inherited_paint(&self.fill, self.fill_tint, fallback.fill.as_ref());
+        fallback.stroke = inherited_paint(&self.stroke, self.stroke_tint, fallback.stroke.as_ref());
         fallback.fill_tint = self.fill_tint.or(fallback.fill_tint);
         fallback.stroke_tint = self.stroke_tint.or(fallback.stroke_tint);
-        fallback.fill = self.fill.clone().or(fallback.fill);
-        fallback.stroke = self.stroke.clone().or(fallback.stroke);
         fallback.overprint_fill = self.overprint_fill.or(fallback.overprint_fill);
         fallback.overprint_stroke = self.overprint_stroke.or(fallback.overprint_stroke);
         fallback
@@ -436,10 +455,10 @@ impl ResolvedParagraph {
             out.underline = out.underline.or(style.underline);
             out.strikethrough = out.strikethrough.or(style.strikethrough);
             out.baseline_shift = out.baseline_shift.or(style.baseline_shift);
+            out.fill = inherited_paint(&out.fill, out.fill_tint, style.fill.as_ref());
+            out.stroke = inherited_paint(&out.stroke, out.stroke_tint, style.stroke.as_ref());
             out.fill_tint = out.fill_tint.or(style.fill_tint);
             out.stroke_tint = out.stroke_tint.or(style.stroke_tint);
-            out.fill = out.fill.clone().or_else(|| style.fill.clone());
-            out.stroke = out.stroke.clone().or_else(|| style.stroke.clone());
             out.overprint_fill = out.overprint_fill.or(style.overprint_fill);
             out.overprint_stroke = out.overprint_stroke.or(style.overprint_stroke);
             out.point_size = out.point_size.or(style.point_size);
@@ -513,10 +532,10 @@ impl ResolvedCharacter {
             out.baseline_shift = out.baseline_shift.or(style.baseline_shift);
             out.all_caps = out.all_caps.or(style.all_caps);
             out.small_caps = out.small_caps.or(style.small_caps);
+            out.fill = inherited_paint(&out.fill, out.fill_tint, style.fill.as_ref());
+            out.stroke = inherited_paint(&out.stroke, out.stroke_tint, style.stroke.as_ref());
             out.fill_tint = out.fill_tint.or(style.fill_tint);
             out.stroke_tint = out.stroke_tint.or(style.stroke_tint);
-            out.fill = out.fill.clone().or_else(|| style.fill.clone());
-            out.stroke = out.stroke.clone().or_else(|| style.stroke.clone());
             out.stroke_weight = out.stroke_weight.or(style.stroke_weight);
             out.opacity = out.opacity.or(style.opacity);
             out.overprint_fill = out.overprint_fill.or(style.overprint_fill);

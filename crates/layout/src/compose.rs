@@ -282,11 +282,12 @@ pub fn spec_for(
                         .or(character.baseline_shift)
                         .and_then(crate::styles::BaselineShift::explicit_offset),
                     color: Some(
-                        style
-                            .fill
-                            .clone()
-                            .or_else(|| character.fill.clone())
-                            .unwrap_or_else(crate::Ink::black),
+                        crate::styles::inherited_paint(
+                            &style.fill,
+                            style.fill_tint,
+                            character.fill.as_ref(),
+                        )
+                        .unwrap_or_else(crate::Ink::black),
                     )
                     .map(|ink| {
                         let rgb = ink.preview_at_tint(

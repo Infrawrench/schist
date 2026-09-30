@@ -21,6 +21,79 @@ fn close(a: f32, b: f32) {
 }
 
 #[test]
+fn named_tints_match_direct_tints_under_aliasing_conversion_opacity_and_knockout() {
+    for spot in [false, true] {
+        for convert in [false, true] {
+            for tint in [0.0, 0.125, 0.5, 1.0] {
+                for local in [0.0, 0.25, 1.0] {
+                    for opacity in [0.25, 1.0] {
+                        let mut named = LayoutDocument::new(vec![Page::new("1", 40.0, 40.0)]);
+                        let mut base = Ink::cmyk("Base", [0.6, 0.4, 0.2, 0.0]);
+                        base.spot = spot;
+                        named.inks.push(base.clone());
+                        named.inks.push(Ink::spot("Target", [50.0, 20.0, -30.0]));
+                        if spot {
+                            named
+                                .ink_manager
+                                .set_rule("Base", InkAlias::Alias("Target".into()));
+                            if convert {
+                                named
+                                    .ink_manager
+                                    .set_rule("Target", InkAlias::ConvertToProcess);
+                            }
+                        }
+                        let swatch = base.named_tint("Named", tint).unwrap();
+                        named.inks.push(swatch);
+                        rectangle(&mut named, "Black", 10.0);
+                        rectangle(&mut named, "Named", 10.0);
+                        named.objects[1].transparency = opacity;
+                        if let LayoutObject::Shape { tints, .. } = &mut named.objects[1].object {
+                            tints.fill = local;
+                        }
+                        let mut direct = named.clone();
+                        direct.inks.retain(|ink| ink.tint.is_none());
+                        if let LayoutObject::Shape { fill, tints, .. } =
+                            &mut direct.objects[1].object
+                        {
+                            *fill = Some(base);
+                            tints.fill = tint;
+                        }
+                        let builds = NamedBuilds::new()
+                            .with("Base", [0.7, 0.5, 0.3, 0.1])
+                            .with("Target", [0.8, 0.6, 0.4, 0.2]);
+                        let a = separate_page_built(
+                            &named,
+                            0,
+                            OutputSettings::at(72.0),
+                            &NoGraphics,
+                            &builds,
+                        )
+                        .unwrap();
+                        let b = separate_page_built(
+                            &direct,
+                            0,
+                            OutputSettings::at(72.0),
+                            &NoGraphics,
+                            &builds,
+                        )
+                        .unwrap();
+                        assert_eq!(a.plan.plates, b.plan.plates);
+                        for plate in 0..a.plan.plates.len() {
+                            assert_eq!(a.separation.plate(plate), b.separation.plate(plate));
+                        }
+                        assert_eq!(a.composite(), b.composite());
+                        close(
+                            a.separation.plate(3).unwrap().at(20, 20),
+                            b.separation.plate(3).unwrap().at(20, 20),
+                        );
+                    }
+                }
+            }
+        }
+    }
+}
+
+#[test]
 fn tint_scales_ink_not_knockout_for_fills_and_strokes_at_every_opacity() {
     for tint in [0.0, 0.125, 0.5, 1.0] {
         for opacity in [0.0, 0.25, 1.0] {

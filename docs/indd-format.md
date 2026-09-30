@@ -19,7 +19,7 @@ reference the public XMP Part 3 specification. No implementation code was
 copied into Schist; `tools/research/indd_probe.py` is a bounded, read-only
 research script using those field descriptions.
 
-## Observed specimen
+## Initial observed specimen
 
 The MIT-licensed [Proof template](https://github.com/kennethormandy/proof)
 is recorded with its matching IDML, license, pinned source URLs and hashes
@@ -46,9 +46,10 @@ Checksums are recorded but not verified; the algorithm is not established.
 
 ## Gate still to meet
 
-One older template is insufficient for the requested 6–10 paired examples,
-v18–v21 coverage, controlled one-property changes, or an INDD writer.
-The pair's semantic equivalence also remains unverified. Public acquisition
+Seven paired templates now span an older release, v19.5 and v20.2. They meet
+the lower corpus count but lack v18/v21 and controlled one-property changes.
+Database layout semantics, checksums and pairwise semantic equivalence remain
+unverified; these are not grounds for an INDD writer. Public acquisition
 can continue without proprietary executable analysis. A production codec
 must wait for a documented go/no-go supported by those results. IDML is
 still the write target; recognizing a container must never be presented as
@@ -85,3 +86,30 @@ AI-session transcripts.
    fetch these ZIPs; a direct HTTPS download failed DNS resolution in this
    sandbox. Neither ZIP was acquired, inspected or counted in the corpus.
    Redistribution terms and actual file versions remain unverified.
+
+
+## Additional specimens, September 30, 2026
+
+The OAC download described above succeeded from the unrestricted environment.
+Four INDD/IDML/PDF pairs identify **InDesign 19.5 (Macintosh)** in both formats.
+Their two/four-page layouts contain populated facing masters and Japanese prose.
+Redistribution terms remain unverified, so only exact provenance and probe output
+are checked in under `fixtures/indd/oac2025/`.
+
+Two public-domain templates from Penn State Libraries Open Publishing identify
+**InDesign 20.2 (Windows)**. Their CC0 dedication, seven/eight-page IDML layouts,
+INDD and reference PDFs are included under `fixtures/indd/psu-*`. Public native
+IDML now corroborates populated facing masters and a spot Color resource.
+Repeated-save tests establish the imported supported subset, not full native
+rendering: tables, footnotes, math and anchored objects remain unsupported.
+
+All six new INDD probes show exactly one framed contiguous XMP object, class
+`0xc0000000`, followed by zero padding. Database extents range from 434 to 548
+4096-byte pages. This corroborates the container map across two modern versions;
+it supplies no evidence of the database's page-layout semantics or compression.
+No production codec or speculative object-stream decoder has been added.
+
+The public specimen PDFs and the named-tint proof were inspected with Poppler.
+Only document data and public XML/API documentation were read; no Adobe SDK
+headers, font-cache files, proprietary executable code or decompilation were used.
+This remains an evidence log, not an exported AI conversation transcript.

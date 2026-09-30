@@ -42,6 +42,18 @@ pub struct Ink {
     pub source_cmyk: Option<[f32; 4]>,
     /// True for a premixed ink needing its own plate.
     pub spot: bool,
+    /// Named tint of a base colour. Colour components above remain the base's
+    /// full-strength definition; this swatch does not introduce another plate.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub tint: Option<InkTint>,
+}
+
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+pub struct InkTint {
+    pub base_name: String,
+    /// Fraction of the base colour. Named tints own their percentage; changing
+    /// a per-object tint detaches it to its base colour.
+    pub value: f32,
 }
 
 /// Fractions of the full-strength fill and stroke inks, independent of opacity.
@@ -72,10 +84,49 @@ pub fn bounded_tint(value: f32) -> f32 {
 }
 
 impl Ink {
+    /// Full-strength base definition, without creating a chain of tint swatches.
+    pub fn base_color(&self) -> std::borrow::Cow<'_, Ink> {
+        match &self.tint {
+            None => std::borrow::Cow::Borrowed(self),
+            Some(tint) => {
+                let mut base = self.clone();
+                base.name.clone_from(&tint.base_name);
+                base.tint = None;
+                std::borrow::Cow::Owned(base)
+            }
+        }
+    }
+
+    pub fn tint_amount(&self) -> f32 {
+        self.tint.as_ref().map_or(1.0, |t| bounded_tint(t.value))
+    }
+
+    pub fn base_name(&self) -> &str {
+        self.tint.as_ref().map_or(&self.name, |t| &t.base_name)
+    }
+
+    /// Create a named tint; tinting an existing tint uses its underlying colour.
+    pub fn named_tint(&self, name: impl Into<String>, value: f32) -> Option<Ink> {
+        if !value.is_finite() || !(0.0..=1.0).contains(&value) {
+            return None;
+        }
+        let mut ink = self.base_color().into_owned();
+        ink.tint = Some(InkTint {
+            base_name: ink.name.clone(),
+            value,
+        });
+        ink.name = name.into();
+        Some(ink)
+    }
+
     /// Screen approximation at a fraction of this ink. Native CMYK channels
     /// are scaled before conversion; other colours interpolate toward paper.
     pub fn preview_at_tint(&self, tint: f32) -> [f32; 3] {
-        let tint = bounded_tint(tint);
+        let tint = if self.tint.is_some() {
+            self.tint_amount()
+        } else {
+            bounded_tint(tint)
+        };
         if let Some(cmyk) = self.source_cmyk.filter(|_| !self.spot) {
             let [c, m, y, k] = cmyk.map(|v| v * tint);
             [
@@ -96,6 +147,7 @@ impl Ink {
             preview_rgb: rgb,
             source_cmyk: None,
             spot: false,
+            tint: None,
         }
     }
 
@@ -108,6 +160,7 @@ impl Ink {
             preview_rgb: lab_to_rgb(lab),
             source_cmyk: None,
             spot: true,
+            tint: None,
         }
     }
 
@@ -152,6 +205,9 @@ impl Ink {
     /// instead, which is why the separation crate takes its CMYK build
     /// from a caller rather than calling this.
     pub fn to_cmyk(&self) -> [f32; 4] {
+        if self.tint.is_some() {
+            return self.base_color().to_cmyk().map(|v| v * self.tint_amount());
+        }
         if let Some(cmyk) = self.source_cmyk {
             return cmyk;
         }
@@ -171,7 +227,7 @@ impl Ink {
 
     /// Luminance 0..=1, for the greyscale proof view.
     pub fn lightness(&self) -> f32 {
-        (self.lab[0] / 100.0).clamp(0.0, 1.0)
+        1.0 - (1.0 - (self.lab[0] / 100.0).clamp(0.0, 1.0)) * self.tint_amount()
     }
 }
 
@@ -240,7 +296,7 @@ impl InkManager {
     pub fn rule_for(&self, ink: &Ink) -> InkAlias {
         self.inks
             .iter()
-            .find(|(name, _)| *name == ink.name)
+            .find(|(name, _)| *name == ink.base_name())
             .map(|(_, rule)| rule.clone())
             .unwrap_or(if ink.spot {
                 InkAlias::Separate
@@ -267,7 +323,7 @@ impl InkManager {
             .map(|ink| {
                 let rule = self.rule_for(ink);
                 let (plate_of, separate) = match &rule {
-                    InkAlias::Separate => (ink.name.clone(), true),
+                    InkAlias::Separate => (ink.base_name().to_owned(), true),
                     InkAlias::ConvertToProcess => ("Process".to_string(), false),
                     InkAlias::Alias(_) => {
                         let target = self.follow_alias(ink, inks);
@@ -290,7 +346,7 @@ impl InkManager {
 
     /// Walk an alias chain to the ink that owns the plate.
     fn follow_alias(&self, ink: &Ink, inks: &[Ink]) -> String {
-        let mut current = ink.name.clone();
+        let mut current = ink.base_name().to_owned();
         // Bounded by the ink count; each step must reach a different ink
         // or we have found a cycle.
         for _ in 0..inks.len() {
