@@ -58,13 +58,16 @@ impl PasteboardView {
     /// is on screen, so a document opens at the same zoom whatever the
     /// window was doing.
     pub fn fit_page(page: &Page, into: Pt, margin: Pt) -> PasteboardView {
-        let bleed = page.bleed;
-        let width = (page.width + bleed * 2.0).max(1.0);
-        let height = (page.height + bleed * 2.0).max(1.0);
+        let bounds = page.bleed_rect();
+        let width = bounds.width.max(1.0);
+        let height = bounds.height.max(1.0);
         let available = (into - margin * 2.0).max(1.0);
         let scale = (available / width.max(height)).min(1.0);
         PasteboardView {
-            origin: Point::new(margin + (available - width * scale) / 2.0, margin),
+            origin: Point::new(
+                margin + (available - width * scale) / 2.0 - bounds.x * scale,
+                margin - bounds.y * scale,
+            ),
             scale,
             page: Some(0),
             ..PasteboardView::default()
@@ -442,10 +445,13 @@ fn guides_for(
 
     if view.show_bleed {
         for (x, y) in [
-            (-page.bleed, -page.bleed),
-            (-page.bleed, page.height + page.bleed),
-            (page.width + page.bleed, -page.bleed),
-            (page.width + page.bleed, page.height + page.bleed),
+            (-page.bleed.left, -page.bleed.top),
+            (-page.bleed.left, page.height + page.bleed.bottom),
+            (page.width + page.bleed.right, -page.bleed.top),
+            (
+                page.width + page.bleed.right,
+                page.height + page.bleed.bottom,
+            ),
         ] {
             push(&mut guides, view, offset, x, y, GuideKind::Bleed);
         }
@@ -835,7 +841,7 @@ mod tests {
     #[test]
     fn a_page_lands_where_the_view_puts_it() {
         let mut doc = blank_a4();
-        doc.pages[0].bleed = 0.0;
+        doc.pages[0].bleed = (0.0).into();
         let board = pasteboard(&doc, &view()).unwrap();
         assert_eq!(board.pages.len(), 1);
         let trim = &board.pages[0].page.trim;
@@ -871,7 +877,7 @@ mod tests {
         let view = PasteboardView::fit_page(&page, 1000.0, 20.0);
         // The fit is limited by whichever of width and height is
         // tighter, and A4's is its height.
-        let expected = (960.0 / (page.height + page.bleed * 2.0)).min(1.0);
+        let expected = (960.0 / page.bleed_rect().height).min(1.0);
         assert!(
             (view.scale - expected).abs() < 1e-4,
             "{} against {expected}",
@@ -998,7 +1004,7 @@ mod tests {
     #[test]
     fn bleed_and_margins_become_guides() {
         let mut page = Page::a4();
-        page.bleed = mm(3.0);
+        page.bleed = (mm(3.0)).into();
         page.margins = Insets::uniform(mm(20.0));
         let doc = LayoutDocument::new(vec![page]);
         let mut view = PasteboardView {

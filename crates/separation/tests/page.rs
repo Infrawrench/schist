@@ -68,7 +68,7 @@ fn pdf_plate_matrix_preserves_width_and_places_bleed_at_the_sheet_origin() {
         for bleed in [0.0, 6.0, 12.0] {
             let mut doc = blank_a4();
             doc.pages[0] = Page::new("1", 180.0, 240.0);
-            doc.pages[0].bleed = bleed;
+            doc.pages[0].bleed = (bleed).into();
             doc.add_object(shape_at(
                 0,
                 Rect::new(0.0, 0.0, 20.0, 20.0),
@@ -80,7 +80,8 @@ fn pdf_plate_matrix_preserves_width_and_places_bleed_at_the_sheet_origin() {
             let output = PageOutput {
                 separated: &separated,
                 trim: (180.0, 240.0),
-                bleed,
+                bleed: bleed.into(),
+                slug: schist_layout::Insets::ZERO,
                 settings,
                 imposition: Imposition::default(),
                 marks: Marks::default(),
@@ -846,7 +847,7 @@ fn a_higher_resolution_puts_the_same_ink_on_more_pixels() {
 #[test]
 fn bleed_moves_the_page_origin_and_keeps_the_artwork_aligned() {
     let mut page = Page::a4();
-    page.bleed = mm(3.0);
+    page.bleed = (mm(3.0)).into();
     let mut doc = doc_with(vec![Ink::black()], page);
     // A shape at the top-left of the trim, which with bleed is inset from
     // the paper's corner.
@@ -951,7 +952,8 @@ fn the_file_records_bleed_trim_and_crop_marks() {
         &PageOutput {
             separated: &page,
             trim: (595.0, 842.0),
-            bleed: mm(3.0),
+            bleed: (mm(3.0)).into(),
+            slug: schist_layout::Insets::ZERO,
             settings,
             imposition: Imposition::single(),
             marks: Marks::default(),
@@ -989,7 +991,8 @@ fn overprint_is_recorded_in_a_graphics_state() {
             &PageOutput {
                 separated: &page,
                 trim: (595.0, 842.0),
-                bleed: 0.0,
+                bleed: (0.0).into(),
+                slug: schist_layout::Insets::ZERO,
                 settings,
                 imposition: Imposition::single(),
                 marks: Marks::default(),
@@ -1014,7 +1017,8 @@ fn a_composite_proof_knocks_every_plate_out() {
             &PageOutput {
                 separated: &page,
                 trim: (595.0, 842.0),
-                bleed: 0.0,
+                bleed: (0.0).into(),
+                slug: schist_layout::Insets::ZERO,
                 settings: OutputSettings::at(150.0),
                 imposition: Imposition::single(),
                 marks: Marks::default(),
@@ -1048,7 +1052,8 @@ fn marks_can_be_left_off_for_a_screen_pdf() {
             &PageOutput {
                 separated: &page,
                 trim: (595.0, 842.0),
-                bleed: 0.0,
+                bleed: (0.0).into(),
+                slug: schist_layout::Insets::ZERO,
                 settings: OutputSettings::at(150.0),
                 imposition: Imposition {
                     up: 1,
@@ -1079,7 +1084,8 @@ fn a_plate_with_no_ink_still_gets_a_colour_space() {
         &PageOutput {
             separated: &page,
             trim: (595.0, 842.0),
-            bleed: 0.0,
+            bleed: (0.0).into(),
+            slug: schist_layout::Insets::ZERO,
             settings: OutputSettings::at(150.0),
             imposition: Imposition::single(),
             marks: Marks::default(),

@@ -38,18 +38,27 @@ fn main() {
     }
     println!("stories: {}", document.stories.len());
     for (index, story) in document.stories.iter().take(3).enumerate() {
-        println!("  {index}: {} points, {} ranges", story.points.len(), story.ranges.len());
+        println!(
+            "  {index}: {} points, {} ranges",
+            story.points.len(),
+            story.ranges.len()
+        );
         for point in story.points.iter().take(2) {
             if let schist_layout::StoryPoint::Paragraph { text, style } = point {
                 println!("    {style:?} {:?}", &text[..text.len().min(60)]);
             }
         }
     }
-    println!("inks: {:?}", document.inks.iter().map(|i| &i.name).collect::<Vec<_>>());
+    println!(
+        "inks: {:?}",
+        document.inks.iter().map(|i| &i.name).collect::<Vec<_>>()
+    );
     println!("objects: {}", document.objects.len());
     for object in document.objects.iter().take(12) {
         let kind = match &object.object {
-            LayoutObject::TextFrame { story, columns, .. } => format!("TextFrame story={} columns={columns}", story.0),
+            LayoutObject::TextFrame { story, columns, .. } => {
+                format!("TextFrame story={} columns={columns}", story.0)
+            }
             LayoutObject::Shape { .. } => "Shape".to_string(),
             LayoutObject::GraphicFrame { embedded, .. } => format!("Graphic embedded={embedded}"),
             LayoutObject::Note { .. } => "Note".to_string(),

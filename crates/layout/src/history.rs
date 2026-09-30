@@ -114,7 +114,7 @@ pub enum LayoutEdit {
         after: Option<InkSnapshot>,
     },
 
-    /// The whole document settings changed, as a grid or numbering edit.
+    /// The whole document settings changed, as a grid or binding edit.
     ///
     /// Boxed because a settings snapshot is several strings wide and an
     /// undo stack holds a pair of them. Unboxed it made this variant the
@@ -134,10 +134,12 @@ pub enum LayoutEdit {
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct PageSnapshot {
     pub name: String,
+    #[serde(default)]
+    pub section: Option<crate::Section>,
     pub width: f32,
     pub height: f32,
-    pub bleed: f32,
-    pub slug: f32,
+    pub bleed: crate::Insets,
+    pub slug: crate::Insets,
     pub margins: [f32; 4],
     pub landscape: bool,
     pub hidden: bool,
@@ -221,9 +223,6 @@ pub struct InkSnapshot {
 /// The document-wide settings an edit can change.
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct SettingsSnapshot {
-    pub page_number_start: u32,
-    pub page_number_style: String,
-    pub page_number_prefix: String,
     pub facing_pages: bool,
     #[serde(default)]
     pub page_binding: crate::PageBinding,

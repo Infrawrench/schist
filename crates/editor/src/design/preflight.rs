@@ -83,8 +83,8 @@ pub fn check(request: &Request) -> Option<PreflightReport> {
         .plates
         .len()
         + 4;
-    let width = f64::from(page.width + page.bleed * 2.0);
-    let height = f64::from(page.height + page.bleed * 2.0);
+    let width = f64::from(page.bleed_rect().width);
+    let height = f64::from(page.bleed_rect().height);
     if !width.is_finite()
         || !height.is_finite()
         || width <= 0.0

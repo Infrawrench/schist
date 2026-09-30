@@ -355,3 +355,23 @@ base templates first and then their children, applying scoped overrides and
 composing overlays on temporary objects. Shared composition boxes remain unchanged.
 Page insertion, removal and reordering remap the applications in the same undo
 transaction. Parent text composes against the destination page's baseline grid.
+
+### Page numbering and outside-trim geometry
+
+`Page.section` carries an optional numbering boundary; `numbering::Section`
+stores restart/continuation, style, prefix visibility, name and marker. The first
+page has an implicit Arabic section starting at 1 when no boundary is present.
+`section_at`, `page_number_value` and `page_number` use document reading order,
+including hidden pages. Boundaries follow their starting page through moves and
+undo; deleting that page removes the boundary, and inserting a page copy clears
+its boundary. Section edits use page snapshots, with no duplicate global
+numbering state in document settings.
+
+`Page.bleed` and `Page.slug` are physical top/right/bottom/left `Insets`, measured
+from trim. The bleed rectangle expands each trim edge independently; media uses
+the larger bleed/slug extent per edge. A slug inside bleed is retained as authored
+settings rather than reduced to zero. The Pages controls translate inside/outside
+through the spread spine, while the kernel retains physical offsets on each page.
+Per-page offsets can differ; IDML's global preferences require an explicit export
+notice and per-edge expansion in that case, including after moving pages with
+different physical offsets between spine sides.

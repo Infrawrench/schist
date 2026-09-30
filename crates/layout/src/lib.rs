@@ -27,6 +27,7 @@ pub mod grid;
 pub mod history;
 pub mod ink;
 pub mod model;
+pub mod numbering;
 pub mod parents;
 pub mod pasteboard;
 pub mod properties;
@@ -55,6 +56,7 @@ pub use model::{
     blank_a4, FrameOverflow, GraphicFit, GraphicInfo, LayerId, LayoutDocument, LayoutLayer,
     LayoutObject, Link, ObjectId, ParentObject, ParentPage, PlacedObject, StoryId,
 };
+pub use numbering::Section;
 pub use pasteboard::{pasteboard, Display, Guide, PageBox, PagePlan, Pasteboard, PasteboardView};
 pub use story::{
     Point as StoryPoint, Story, StoryDirection, StoryOrientation, StoryPreferences, StyleRange,

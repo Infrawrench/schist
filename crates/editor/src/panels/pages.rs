@@ -112,8 +112,14 @@ fn page_setup(ws: &Workspace, cx: &mut Context<Workspace>) -> gpui::AnyElement {
     let rows = [
         ("design-prop-page-width", "design.width"),
         ("design-prop-page-height", "design.height"),
-        ("design-prop-bleed", "design.bleed_all"),
-        ("design-prop-slug", "design.slug_all"),
+        ("design-prop-bleed-top", "design.bleed_top_all"),
+        ("design-prop-bleed-bottom", "design.bleed_bottom_all"),
+        ("design-prop-bleed-inside", "design.bleed_inside_all"),
+        ("design-prop-bleed-outside", "design.bleed_outside_all"),
+        ("design-prop-slug-top", "design.slug_top_all"),
+        ("design-prop-slug-bottom", "design.slug_bottom_all"),
+        ("design-prop-slug-inside", "design.slug_inside_all"),
+        ("design-prop-slug-outside", "design.slug_outside_all"),
         ("design-prop-margin-top", "design.margin_top"),
         ("design-prop-margin-right", "design.margin_right"),
         ("design-prop-margin-bottom", "design.margin_bottom"),
@@ -121,21 +127,27 @@ fn page_setup(ws: &Workspace, cx: &mut Context<Workspace>) -> gpui::AnyElement {
     ]
     .into_iter()
     .map(|(id, label)| {
-        let pages = if matches!(id, "design-prop-bleed" | "design-prop-slug") {
+        let pages = if id.starts_with("design-prop-bleed-") || id.starts_with("design-prop-slug-") {
             (0..ws.design.document.pages.len()).collect()
         } else {
             vec![current]
         };
-        let value = format!("{:.2}", page_property(id).unwrap().value(page));
+        let value = format!(
+            "{:.2}",
+            page_property(id)
+                .unwrap()
+                .value_for(&ws.design.document, current)
+        );
         super::design_controls::field(ws, id, label, value, Target::Pages(pages), cx)
     })
     .collect::<Vec<_>>();
+    let (section_page, section) = ws.design.document.section_at(current);
     let numbering = [
-        ("1, 2, 3", "Arabic"),
-        ("i, ii, iii", "RomanLower"),
-        ("I, II, III", "RomanUpper"),
-        ("a, b, c", "AlphaLower"),
-        ("A, B, C", "AlphaUpper"),
+        ("1, 2, 3", schist_layout::NumberStyle::Arabic),
+        ("i, ii, iii", schist_layout::NumberStyle::RomanLower),
+        ("I, II, III", schist_layout::NumberStyle::RomanUpper),
+        ("a, b, c", schist_layout::NumberStyle::AlphaLower),
+        ("A, B, C", schist_layout::NumberStyle::AlphaUpper),
     ]
     .into_iter()
     .enumerate()
@@ -143,14 +155,42 @@ fn page_setup(ws: &Workspace, cx: &mut Context<Workspace>) -> gpui::AnyElement {
         Button::new(("design-number-style", index), label).on_click(cx.listener(
             move |ws, _, _, cx| {
                 ws.commit_focused_field();
-                schist_layout::properties::edit_settings(
+                schist_layout::numbering::edit_section(
                     &mut ws.design.document,
                     &mut ws.design.history,
-                    |settings| settings.page_number_style = style.into(),
+                    section_page,
+                    |section| section.style = style,
                 );
                 cx.notify();
             },
         ))
+    })
+    .collect::<Vec<_>>();
+    let fields = [
+        (
+            "design-prop-number-start",
+            "design.number_start",
+            section.start.to_string(),
+        ),
+        (
+            "design-prop-number-prefix",
+            "design.number_prefix",
+            section.prefix.clone(),
+        ),
+        (
+            "design-prop-section-name",
+            "design.section_name",
+            section.name.clone(),
+        ),
+        (
+            "design-prop-section-marker",
+            "design.section_marker",
+            section.marker.clone(),
+        ),
+    ]
+    .into_iter()
+    .map(|(id, label, value)| {
+        super::design_controls::field(ws, id, label, value, Target::Section(section_page), cx)
     })
     .collect::<Vec<_>>();
     div()
@@ -159,22 +199,84 @@ fn page_setup(ws: &Workspace, cx: &mut Context<Workspace>) -> gpui::AnyElement {
         .gap_1()
         .child(div().text_xs().child(t("design.page_setup_points")))
         .children(rows)
-        .child(super::design_controls::field(
-            ws,
-            "design-prop-number-start",
-            "design.number_start",
-            ws.design.document.page_number_start.to_string(),
-            Target::Document,
-            cx,
-        ))
-        .child(super::design_controls::field(
-            ws,
-            "design-prop-number-prefix",
-            "design.number_prefix",
-            ws.design.document.page_number_prefix.clone(),
-            Target::Document,
-            cx,
-        ))
+        .child(div().text_xs().child(t("design.section_numbering")))
+        .child(
+            div()
+                .flex()
+                .flex_wrap()
+                .gap_1()
+                .child(
+                    Button::new("design-section-new", t("design.section_start_here"))
+                        .disabled(current == section_page)
+                        .on_click(cx.listener(move |ws, _, _, cx| {
+                            ws.commit_focused_field();
+                            let (_, mut section) = ws.design.document.section_at(current);
+                            section.continue_numbering = true;
+                            schist_layout::numbering::set_section(
+                                &mut ws.design.document,
+                                &mut ws.design.history,
+                                current,
+                                Some(section),
+                            );
+                            cx.notify();
+                        })),
+                )
+                .child(
+                    Button::new("design-section-remove", t("design.section_remove"))
+                        .disabled(current == 0 || page.section.is_none())
+                        .on_click(cx.listener(move |ws, _, _, cx| {
+                            ws.commit_focused_field();
+                            schist_layout::numbering::set_section(
+                                &mut ws.design.document,
+                                &mut ws.design.history,
+                                current,
+                                None,
+                            );
+                            cx.notify();
+                        })),
+                ),
+        )
+        .children(fields)
+        .child(
+            Button::new(
+                "design-section-continue",
+                t(if section.continue_numbering {
+                    "design.section_restart"
+                } else {
+                    "design.section_continue"
+                }),
+            )
+            .on_click(cx.listener(move |ws, _, _, cx| {
+                ws.commit_focused_field();
+                schist_layout::numbering::edit_section(
+                    &mut ws.design.document,
+                    &mut ws.design.history,
+                    section_page,
+                    |section| section.continue_numbering = !section.continue_numbering,
+                );
+                cx.notify();
+            })),
+        )
+        .child(
+            Button::new(
+                "design-section-prefix",
+                t(if section.include_prefix {
+                    "design.section_hide_prefix"
+                } else {
+                    "design.section_show_prefix"
+                }),
+            )
+            .on_click(cx.listener(move |ws, _, _, cx| {
+                ws.commit_focused_field();
+                schist_layout::numbering::edit_section(
+                    &mut ws.design.document,
+                    &mut ws.design.history,
+                    section_page,
+                    |section| section.include_prefix = !section.include_prefix,
+                );
+                cx.notify();
+            })),
+        )
         .child(div().flex().flex_wrap().gap_1().children(numbering))
         .into_any_element()
 }

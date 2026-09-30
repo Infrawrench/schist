@@ -50,10 +50,12 @@ pub(super) fn links_panel(
         // In the warning colour, because a missing link is a problem the
         // user has to act on and not a fact to file away.
         header = header.child(
-            div().text_color(rgb(palette().warning)).child(schist_i18n::tn!(
-                "design.unavailable_link_count",
-                missing as u64
-            )),
+            div()
+                .text_color(rgb(palette().warning))
+                .child(schist_i18n::tn!(
+                    "design.unavailable_link_count",
+                    missing as u64
+                )),
         );
     }
     Some(
@@ -67,9 +69,11 @@ pub(super) fn links_panel(
             .border_t_1()
             .border_color(rgb(palette().panel_edge))
             .child(header)
-            .child(Button::new("design-links-refresh", t("design.refresh_links"))
-                .disabled(ws.design.graphics_busy)
-                .on_click(cx.listener(|ws, _, _, cx| ws.refresh_design_graphics(cx))))
+            .child(
+                Button::new("design-links-refresh", t("design.refresh_links"))
+                    .disabled(ws.design.graphics_busy)
+                    .on_click(cx.listener(|ws, _, _, cx| ws.refresh_design_graphics(cx))),
+            )
             .child(div().flex().flex_col().gap_1().children(rows))
             .into_any_element(),
     )
@@ -83,8 +87,7 @@ fn link_rows(ws: &Workspace, cx: &mut Context<Workspace>) -> Vec<gpui::AnyElemen
         .objects
         .iter()
         .filter_map(|placed| {
-            let schist_layout::LayoutObject::GraphicFrame { link, embedded, .. } =
-                &placed.object
+            let schist_layout::LayoutObject::GraphicFrame { link, embedded, .. } = &placed.object
             else {
                 return None;
             };
@@ -96,7 +99,8 @@ fn link_rows(ws: &Workspace, cx: &mut Context<Workspace>) -> Vec<gpui::AnyElemen
         .map(|(object, page, link, embedded)| {
             let is_selected = selected.contains(&object);
             let decoded = ws.design.graphics.sources.get(&link.path);
-            let missing = decoded.is_some_and(Result::is_err) || (decoded.is_none() && !link.present);
+            let missing =
+                decoded.is_some_and(Result::is_err) || (decoded.is_none() && !link.present);
             let error = decoded.and_then(|result| result.as_ref().err()).cloned();
             let name = file_name_of(link);
             let mut row = div()
@@ -145,13 +149,25 @@ fn link_rows(ws: &Workspace, cx: &mut Context<Workspace>) -> Vec<gpui::AnyElemen
                         .text_color(rgb(palette().text_dim))
                         .child(schist_i18n::tn!("design.link_on_page", (page + 1) as u64)),
                 );
-            row = row.child(Button::new(("design-relink", object.0), t("design.relink"))
-                .disabled(ws.design.graphics_busy || document.object_locked(object))
-                .on_click(cx.listener(move |ws, _, _, cx| {
-                    ws.pick_design_graphic(crate::workspace::design_graphics::Destination::Relink(object), cx);
-                    cx.stop_propagation();
-                })));
-            if let Some(error) = error { row = row.child(div().text_xs().text_color(rgb(palette().warning)).child(error)); }
+            row = row.child(
+                Button::new(("design-relink", object.0), t("design.relink"))
+                    .disabled(ws.design.graphics_busy || document.object_locked(object))
+                    .on_click(cx.listener(move |ws, _, _, cx| {
+                        ws.pick_design_graphic(
+                            crate::workspace::design_graphics::Destination::Relink(object),
+                            cx,
+                        );
+                        cx.stop_propagation();
+                    })),
+            );
+            if let Some(error) = error {
+                row = row.child(
+                    div()
+                        .text_xs()
+                        .text_color(rgb(palette().warning))
+                        .child(error),
+                );
+            }
             if is_selected {
                 row = row.bg(rgb(palette().selection_bg));
             }

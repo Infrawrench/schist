@@ -106,7 +106,7 @@ impl LayoutDocument {
                     spread.pages.len() / 2
                 } else {
                     spread.pages.first().map_or(0, |page| {
-                        let even = (self.page_number_start as usize + page).is_multiple_of(2);
+                        let even = self.page_number_value(*page).is_multiple_of(2);
                         usize::from(even != (self.page_binding == crate::PageBinding::RightToLeft))
                     })
                 }

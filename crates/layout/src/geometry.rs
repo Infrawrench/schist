@@ -294,8 +294,40 @@ impl Insets {
         }
     }
 
+    pub fn max(self, other: Self) -> Self {
+        Self::new(
+            self.top.max(other.top),
+            self.right.max(other.right),
+            self.bottom.max(other.bottom),
+            self.left.max(other.left),
+        )
+    }
+
+    pub fn expanded(self, amount: Pt) -> Self {
+        Self::new(
+            self.top + amount,
+            self.right + amount,
+            self.bottom + amount,
+            self.left + amount,
+        )
+    }
+
+    pub fn mirrored(self) -> Self {
+        Self::new(self.top, self.left, self.bottom, self.right)
+    }
+
+    pub fn is_uniform(self) -> bool {
+        self.top == self.right && self.top == self.bottom && self.top == self.left
+    }
+
     pub fn is_zero(self) -> bool {
         self.top == 0.0 && self.right == 0.0 && self.bottom == 0.0 && self.left == 0.0
+    }
+}
+
+impl From<Pt> for Insets {
+    fn from(value: Pt) -> Self {
+        Self::uniform(value)
     }
 }
 
@@ -425,14 +457,19 @@ fn to_alpha(n: u32, upper: bool) -> String {
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct Page {
     pub name: String,
+    /// A numbering section begins here and follows this page when reordered.
+    /// Pages without a boundary inherit the preceding section.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub section: Option<crate::Section>,
     /// Trim width, in points.
     pub width: Pt,
     /// Trim height, in points.
     pub height: Pt,
-    /// Extra paper beyond trim on every side, in points.
-    pub bleed: Pt,
-    /// Extra paper beyond bleed for printer's marks and barcodes.
-    pub slug: Pt,
+    /// Physical top/right/bottom/left offsets beyond trim, in points.
+    pub bleed: Insets,
+    /// Slug offsets measured from trim, independently of bleed. The media
+    /// contains both areas, even when one slug edge is inside the bleed.
+    pub slug: Insets,
     pub margins: Insets,
     pub orientation: Orientation,
     /// Hidden pages retain their numbering and appear muted on the pasteboard.
@@ -458,10 +495,11 @@ impl Page {
     pub fn new(name: impl Into<String>, width: Pt, height: Pt) -> Page {
         Page {
             name: name.into(),
+            section: None,
             width: width.max(1.0),
             height: height.max(1.0),
-            bleed: 0.0,
-            slug: 0.0,
+            bleed: Insets::ZERO,
+            slug: Insets::ZERO,
             margins: Insets::ZERO,
             orientation: if width > height {
                 Orientation::Landscape
@@ -487,23 +525,21 @@ impl Page {
     /// Trim plus bleed: the paper that has to be printed for a page to
     /// come off the press without a white sliver at the cut.
     pub fn bleed_rect(&self) -> Rect {
-        Rect::new(
-            -self.bleed,
-            -self.bleed,
-            self.width + self.bleed * 2.0,
-            self.height + self.bleed * 2.0,
-        )
+        self.expanded_rect(self.bleed)
     }
 
-    /// Bleed plus slug: the whole sheet as it comes off the press, with
-    /// room outside the bleed for printer's marks and a barcode.
+    /// Paper enclosing both bleed and slug, whose offsets are measured from
+    /// trim independently. Printer marks may require additional output media.
     pub fn media_rect(&self) -> Rect {
-        let bleed = self.bleed + self.slug;
+        self.expanded_rect(self.bleed.max(self.slug))
+    }
+
+    fn expanded_rect(&self, offsets: Insets) -> Rect {
         Rect::new(
-            -bleed,
-            -bleed,
-            self.width + bleed * 2.0,
-            self.height + bleed * 2.0,
+            -offsets.left,
+            -offsets.top,
+            self.width + offsets.left + offsets.right,
+            self.height + offsets.top + offsets.bottom,
         )
     }
 
@@ -657,17 +693,17 @@ mod tests {
     }
 
     #[test]
-    fn bleed_sits_outside_trim_and_slug_outside_bleed() {
+    fn bleed_and_slug_offsets_are_measured_from_trim() {
         let mut page = Page::a4();
-        page.bleed = mm(3.0);
-        page.slug = mm(5.0);
+        page.bleed = (mm(3.0)).into();
+        page.slug = (mm(5.0)).into();
         let bleed = page.bleed_rect();
         let media = page.media_rect();
-        assert_eq!(bleed.origin(), Point::new(-page.bleed, -page.bleed));
         assert_eq!(
-            media.origin(),
-            Point::new(-page.bleed - page.slug, -page.bleed - page.slug)
+            bleed.origin(),
+            Point::new(-page.bleed.left, -page.bleed.top)
         );
+        assert_eq!(media.origin(), Point::new(-page.slug.left, -page.slug.top));
         assert!((bleed.center().x - page.width / 2.0).abs() < 0.001);
         assert!((media.center().y - page.height / 2.0).abs() < 0.001);
         // Bleed is trim grown by the bleed on every side...
@@ -676,7 +712,7 @@ mod tests {
         assert!((bleed.width - bleed_expected).abs() < 0.001);
         // ...and slug grows it further.
         assert!(media.width > bleed.width);
-        let expected = page.width + (mm(3.0) + mm(5.0)) * 2.0;
+        let expected = page.width + mm(5.0) * 2.0;
         assert!((media.width - expected).abs() < 0.001);
     }
 

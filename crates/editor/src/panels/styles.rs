@@ -52,26 +52,22 @@ pub(super) fn styles_panel(
                     .text_color(rgb(palette().text_dim))
                     .child(t("design.paragraph_styles")),
             )
-            .child(
-                div()
-                    .flex()
-                    .flex_col()
-                    .gap_1()
-                    .children(paragraph_rows(&styles.paragraphs, paragraph_in_use.as_deref(), cx)),
-            )
+            .child(div().flex().flex_col().gap_1().children(paragraph_rows(
+                &styles.paragraphs,
+                paragraph_in_use.as_deref(),
+                cx,
+            )))
             .child(
                 div()
                     .text_xs()
                     .text_color(rgb(palette().text_dim))
                     .child(t("design.character_styles")),
             )
-            .child(
-                div()
-                    .flex()
-                    .flex_col()
-                    .gap_1()
-                    .children(character_rows(&styles.characters, character_in_use.as_deref(), cx)),
-            )
+            .child(div().flex().flex_col().gap_1().children(character_rows(
+                &styles.characters,
+                character_in_use.as_deref(),
+                cx,
+            )))
             .into_any_element(),
     )
 }
@@ -136,7 +132,11 @@ fn character_rows(
                     };
                     let story = typing.story;
                     let text = schist_layout::authoring::text_of(&ws.design.document, story);
-                    let (start, end) = if typing.at!=typing.anchor {(typing.at.min(typing.anchor),typing.at.max(typing.anchor))} else {word_around(&text, typing.at)};
+                    let (start, end) = if typing.at != typing.anchor {
+                        (typing.at.min(typing.anchor), typing.at.max(typing.anchor))
+                    } else {
+                        word_around(&text, typing.at)
+                    };
                     if schist_layout::authoring::set_character_style(
                         &mut ws.design.document,
                         &mut ws.design.history,
@@ -216,7 +216,14 @@ fn style_row(
         .px_2()
         .py_1()
         .rounded_sm()
-        .child(div().flex_1().text_sm().overflow_hidden().text_ellipsis().child(name.clone()))
+        .child(
+            div()
+                .flex_1()
+                .text_sm()
+                .overflow_hidden()
+                .text_ellipsis()
+                .child(name.clone()),
+        )
         .child(
             div()
                 .text_xs()
@@ -363,6 +370,10 @@ mod tests {
         // "héllo": the é is bytes 1..3, so an offset of 2 is inside it.
         let (start, end) = word_around("héllo", 2);
         assert!((start..=end).contains(&0));
-        assert_eq!(&"héllo"[start..end], "héllo", "the whole word, not half a character");
+        assert_eq!(
+            &"héllo"[start..end],
+            "héllo",
+            "the whole word, not half a character"
+        );
     }
 }

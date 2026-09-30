@@ -155,7 +155,9 @@ impl Workspace {
     }
 
     pub fn activate_tool(&mut self, id: &str, cx: &mut Context<Self>) {
-        if self.design_mode() { return; }
+        if self.design_mode() {
+            return;
+        }
         let previous = self.editor.active_tool;
         if previous != id {
             #[cfg(target_arch = "wasm32")]

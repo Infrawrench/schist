@@ -207,7 +207,9 @@ impl Workspace {
         if self.design_mode() {
             self.commit_focused_field();
             for _ in 0..steps.unsigned_abs() {
-                if !self.design.undo_or_redo(steps > 0) { break; }
+                if !self.design.undo_or_redo(steps > 0) {
+                    break;
+                }
             }
             self.after_design_change(cx);
             return;

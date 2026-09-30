@@ -25,15 +25,15 @@
 //! `docs/idml-format.md` records what is verified, and what is only read
 //! from the specification.
 
+mod auto_direction;
 pub mod container;
 pub mod designmap;
 pub mod error;
 pub mod export;
 pub mod import;
 pub mod plugin;
-mod style_codec;
 mod story_codec;
-mod auto_direction;
+mod style_codec;
 pub mod xml;
 
 pub use error::Error;

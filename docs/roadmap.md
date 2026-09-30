@@ -312,20 +312,20 @@ The browser build reused the native build's cached backer catalog because
 the initial sandbox could not resolve the catalog host. A file-URL portability defect
 and Design Save As filename routing were fixed before that browser check.
 
-The initial sandbox run passed 377 editor tests and blocked the clipboard HTTP
-test at `TcpListener::bind`. After restarting with filesystem and network access,
-the unfiltered `CARGO_INCREMENTAL=0 make check-design` passed all 378 editor tests,
-including that HTTP test, plus its layout, settings and i18n checks. The successful
-retry is recorded in `/tmp/schist-commit-check-design.log`.
+The unfiltered `CARGO_INCREMENTAL=0 make check-design` now passes all 379 editor
+tests, including the clipboard HTTP test that the earlier sandbox blocked, plus
+its layout, settings and i18n checks.
 
-Distinct passing Rust tests across the sweep and retry: editor 378, layout 281,
-text engine 42, IDML 156, separation 143, core 120, settings 24 and i18n 28
-(including its doctest): **1,172**, plus four browser i18n tests. Poppler
+Distinct passing Rust tests at the sections/offsets checkpoint: editor 379, layout 288,
+text engine 42, IDML 162, separation 146, core 120, settings 24 and i18n 28
+(including its doctest): **1,189**, plus four browser i18n tests. Poppler
 checks verify ink patches, rotated text, sheared frames, inner image rotation
 and curved/compound frame clipping, enlarged paragraph initials, vertical Japanese/Latin text, n-up reading
 order, sheet counts and empty slots. The updated affine/compound-frame proof was also visually inspected.
-Logs and exit codes are under `/tmp/schist-visibility-sweep-*`, with the result index
-in `/tmp/schist-visibility-sweep-results.json`. Future changes require a new sweep.
+Logs and exit codes are under `/tmp/schist-sections-offsets-sweep-*`, with the result
+index in `/tmp/schist-sections-offsets-sweep-results.json`. The asymmetric-offset
+proof also verifies PDF MediaBox/TrimBox/BleedBox with Poppler and was visually
+inspected. Future changes require a new sweep.
 
 The debug app builds. Native window visual QA remains unverified because
 Computer Use was not approved for Schist. Frame affine implementation and its
@@ -405,7 +405,7 @@ remaining order is now explicit:
    fixture coverage and the complete verification sweep. PDF/profile/n-up and
    package UI are implemented. Layout save-state tracking, delayed dialog guards
    and Save/Discard/Cancel transitions now cover New/Open/Close/Quit. Pages edits
-   trim, margins, shared bleed/slug and numbering. Native Color resources,
+   trim, margins, four-sided document bleed/slug and numbering sections. Native Color resources,
    document preferences, section numbering, style containers and tracking units
    have been corrected against public XML/specification evidence. Outer frame
    affines now preserve composition, preview/hit geometry, strokes, native CMYK
@@ -447,3 +447,27 @@ checkpoint. Visibility survives IDML saves in a namespaced label with an explici
 native-visibility notice, added to all 150 locale catalogs. Acyclic parent chains
 can revisit a different sheet without losing base artwork; true cycles remain
 reported. Two additional property tests cover repeated saves for these cases.
+
+Numbering sections and asymmetric bleed/slug are now implemented in item 9.
+Section boundaries retain restarts, continuation, prefix visibility, name and
+marker, follow their pages through edits, and save through native IDML references.
+The Pages panel exposes these controls. Bleed/slug retain four edges from trim;
+inside/outside follow the spread spine. Canvas geometry, separation and PDF boxes,
+plate placement, media and marks share those extents. Slug offsets inside bleed
+remain preserved. Per-page differences still require an IDML export notice because
+native preferences are document-wide. Alternate-layout section settings remain
+unsupported and are disclosed. Further native application/facing-document
+validation, advanced story attributes and the modern INDD corpus remain open.
+
+PR #192's initial CI run exposed formatting failures and a headless WASM compile
+error: browser startup called the process-wide font registration API, which is
+intentionally excluded from `schist_library`. The browser-only installer now has
+the same configuration boundary. Workspace formatting is corrected; the library
+continues using call-local font resources and its embedded fallback font.
+
+The complete sections/offsets sweep passes. After the CI fixes, `cargo fmt --all
+--check`, `make lint-all`, `make check-app-web` and the isolated
+`CARGO_INCREMENTAL=0 CARGO_PROFILE_DEV_DEBUG=0 make check-library-wasm` also pass.
+Logs for the final configuration checks are `/tmp/schist-design-ci-fixes.log` and
+`/tmp/schist-library-wasm-check.log`. Remote CI must rerun on the follow-up commit;
+these local checks do not establish native UI or external InDesign validation.

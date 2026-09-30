@@ -526,6 +526,7 @@ fn renumber(doc: &mut LayoutDocument, mut map: impl FnMut(usize) -> Option<usize
 fn page_from(snapshot: &PageSnapshot) -> Page {
     Page {
         name: snapshot.name.clone(),
+        section: snapshot.section.clone(),
         width: snapshot.width,
         height: snapshot.height,
         bleed: snapshot.bleed,
@@ -551,6 +552,7 @@ fn page_from(snapshot: &PageSnapshot) -> Page {
 pub fn snapshot_page(page: &Page) -> PageSnapshot {
     PageSnapshot {
         name: page.name.clone(),
+        section: page.section.clone(),
         width: page.width,
         height: page.height,
         bleed: page.bleed,
@@ -755,17 +757,10 @@ fn ink_from(snapshot: &InkSnapshot) -> crate::ink::Ink {
 }
 
 fn apply_settings(doc: &mut LayoutDocument, snapshot: &SettingsSnapshot) {
-    doc.page_number_start = snapshot.page_number_start;
-    doc.page_number_prefix = snapshot.page_number_prefix.clone();
     doc.facing_pages = snapshot.facing_pages;
     doc.page_binding = snapshot.page_binding;
     doc.default_paragraph_style = snapshot.default_paragraph_style.clone();
     doc.default_character_style = snapshot.default_character_style.clone();
-    if let Ok(style) = serde_json::from_value::<crate::geometry::NumberStyle>(
-        serde_json::Value::String(snapshot.page_number_style.clone()),
-    ) {
-        doc.page_number_style = style;
-    }
     if let Ok(grids) = serde_json::from_value(snapshot.grids.clone()) {
         doc.grids = grids;
     }
@@ -777,9 +772,6 @@ fn apply_settings(doc: &mut LayoutDocument, snapshot: &SettingsSnapshot) {
 /// Snapshot the document-wide settings.
 pub fn snapshot_settings(doc: &LayoutDocument) -> SettingsSnapshot {
     SettingsSnapshot {
-        page_number_start: doc.page_number_start,
-        page_number_style: format!("{:?}", doc.page_number_style),
-        page_number_prefix: doc.page_number_prefix.clone(),
         facing_pages: doc.facing_pages,
         page_binding: doc.page_binding,
         default_paragraph_style: doc.default_paragraph_style.clone(),

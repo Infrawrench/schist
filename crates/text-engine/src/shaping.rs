@@ -191,7 +191,11 @@ fn shape_item(
             };
         }
         out.width += spec.style_at(start + cluster).tracking * char_bytes.len() as f32;
-        out.width += spec.word_spacing * text[cluster..cluster_end].chars().filter(|ch| *ch == ' ').count() as f32;
+        out.width += spec.word_spacing
+            * text[cluster..cluster_end]
+                .chars()
+                .filter(|ch| *ch == ' ')
+                .count() as f32;
         let count = char_bytes.len().max(1) as f32;
         for (k, byte) in char_bytes.into_iter().enumerate() {
             let (a, b) = if rtl && !ttb {
@@ -325,7 +329,7 @@ pub(super) fn layout(spec: &TextSpec, base: &LoadedFace, widths: &[f32]) -> Layo
     let total_height: f32 = lines
         .iter()
         .map(|(start, end, _)| {
-run_line_advance(spec, &faces, *start, *end, faces.line_metrics(0).1)
+            run_line_advance(spec, &faces, *start, *end, faces.line_metrics(0).1)
         })
         .sum();
     let mut top = 0.0;

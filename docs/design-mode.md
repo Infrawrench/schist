@@ -466,9 +466,14 @@ status. Save/Discard/Cancel apply to the pending transition. Delayed loaders
 and save dialogs check document/session identity, and relative external links
 are resolved against the opened layout before a later Save As changes folders.
 
-The Pages panel edits trim size and four margins on the current page; bleed
-and extra slug apply to all pages in one undo step. Number start, prefix and
-all five numbering styles are editable. Geometry values use points; text
+The Pages panel edits trim size and four margins on the current page. Four-sided
+bleed and slug offsets apply to all pages in one undo step, with inside/outside
+following the spread spine on facing pages. Slug is measured from trim,
+independently of bleed. PDF media encloses both and reserves room for marks.
+Numbering controls edit the current section: start/remove a boundary, restart or
+continue numbering, choose any of five styles, edit the prefix and its visibility,
+and retain a section name and marker. Fields capture their section when focused;
+each committed value is one undo step. Geometry values use points; text
 tracking uses thousandths of an em. Paragraph font families are editable.
 Local supported IDML formatting becomes editable named styles with a notice;
 paragraph font/paint inheritance and native paragraph/structural breaks now

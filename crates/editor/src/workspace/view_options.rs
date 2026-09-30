@@ -129,7 +129,11 @@ impl Workspace {
     }
 
     pub fn toggle_grid(&mut self, cx: &mut Context<Self>) {
-        if self.design_mode() {self.design.view.show_baseline = !self.design.view.show_baseline;cx.notify();return;}
+        if self.design_mode() {
+            self.design.view.show_baseline = !self.design.view.show_baseline;
+            cx.notify();
+            return;
+        }
         self.view.grid = !self.view.grid;
         self.status = if self.view.grid {
             t("workspace.canvas.grid_on")
@@ -142,7 +146,11 @@ impl Workspace {
     }
 
     pub fn toggle_guides(&mut self, cx: &mut Context<Self>) {
-        if self.design_mode() {self.design.show_guides = !self.design.show_guides;cx.notify();return;}
+        if self.design_mode() {
+            self.design.show_guides = !self.design.show_guides;
+            cx.notify();
+            return;
+        }
         self.view.guides = !self.view.guides;
         self.status = if self.view.guides {
             t("workspace.canvas.guides_on")
@@ -155,7 +163,11 @@ impl Workspace {
     }
 
     pub fn toggle_extras(&mut self, cx: &mut Context<Self>) {
-        if self.design_mode() {self.design.show_guides = !self.design.show_guides;cx.notify();return;}
+        if self.design_mode() {
+            self.design.show_guides = !self.design.show_guides;
+            cx.notify();
+            return;
+        }
         self.view.extras = !self.view.extras;
         self.status = if self.view.extras {
             t("workspace.canvas.extras_on")
@@ -168,7 +180,11 @@ impl Workspace {
     }
 
     pub fn toggle_snap(&mut self, cx: &mut Context<Self>) {
-        if self.design_mode() {self.design.snap_guides = !self.design.snap_guides;cx.notify();return;}
+        if self.design_mode() {
+            self.design.snap_guides = !self.design.snap_guides;
+            cx.notify();
+            return;
+        }
         self.view.snap = !self.view.snap;
         self.status = if self.view.snap {
             t("workspace.canvas.snap_on")
@@ -263,15 +279,28 @@ impl Workspace {
     /// Remove every guide.
     pub fn clear_guides(&mut self, cx: &mut Context<Self>) {
         if self.design_mode() {
-            let mut edits=Vec::new();
-            for (index,page) in self.design.document.pages.iter().enumerate() {
-                if page.guides.iter().all(|g|g.locked) {continue;}
-                let before=schist_layout::edit::snapshot_page(page);let mut after=before.clone();
-                after.guides.retain(|g|g.locked);
-                edits.push(schist_layout::LayoutEdit::PageChanged {index,before,after});
+            let mut edits = Vec::new();
+            for (index, page) in self.design.document.pages.iter().enumerate() {
+                if page.guides.iter().all(|g| g.locked) {
+                    continue;
+                }
+                let before = schist_layout::edit::snapshot_page(page);
+                let mut after = before.clone();
+                after.guides.retain(|g| g.locked);
+                edits.push(schist_layout::LayoutEdit::PageChanged {
+                    index,
+                    before,
+                    after,
+                });
             }
-            if !edits.is_empty() {self.design.history.apply(&mut self.design.document,schist_layout::LayoutEdit::Batch {edits});}
-            cx.notify();return;
+            if !edits.is_empty() {
+                self.design.history.apply(
+                    &mut self.design.document,
+                    schist_layout::LayoutEdit::Batch { edits },
+                );
+            }
+            cx.notify();
+            return;
         }
         if let Some(doc) = self.doc.as_mut() {
             // Clearing an already-empty list changes nothing, and marking

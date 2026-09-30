@@ -70,13 +70,46 @@ fn editor_menus(ws: &Workspace) -> Vec<(&'static str, Vec<MenuEntry>)> {
     use MenuEntry::*;
     if ws.design_mode() {
         return vec![
-            (t("menu.file"), vec![App(t("menu.file.new"), New, Some("cmd-n")), App(t("menu.file.open"), Open, Some("cmd-o")), App(t("menu.file.close"),Close,Some("cmd-w")),
-                App(t("menu.file.save"), Save, Some("cmd-s")), App(t("menu.file.save_as"), SaveAs, Some("cmd-shift-s")), Sep,
-                App(t("design.place_graphic"), DesignPlace, None), App(t("design.import_graphic_pages"), DesignImportPages, None),
-                App(t("design.refresh_links"), DesignRefreshLinks, None), Sep, App(t("design.output_title"), DesignOutput, None)]),
-            (t("menu.edit"), vec![Cmd("edit.undo"), Cmd("edit.redo"), Sep, Cmd("edit.delete"), Cmd("edit.duplicate"), Cmd("select.all"), Cmd("select.deselect")]),
-            (t("menu.view"), vec![Sub(t("workspaces.title"), workspace_entries(ws)), Sep, App(t("menu.view.zoom_in"), ZoomIn, None), App(t("menu.view.zoom_out"), ZoomOut, None),
-                App(t("menu.view.fit_on_screen"), ZoomFit, None), App(t("design.spread_view"), PasteboardSpread, None), App(t("design.single_page_view"), PasteboardSinglePage, None)]),
+            (
+                t("menu.file"),
+                vec![
+                    App(t("menu.file.new"), New, Some("cmd-n")),
+                    App(t("menu.file.open"), Open, Some("cmd-o")),
+                    App(t("menu.file.close"), Close, Some("cmd-w")),
+                    App(t("menu.file.save"), Save, Some("cmd-s")),
+                    App(t("menu.file.save_as"), SaveAs, Some("cmd-shift-s")),
+                    Sep,
+                    App(t("design.place_graphic"), DesignPlace, None),
+                    App(t("design.import_graphic_pages"), DesignImportPages, None),
+                    App(t("design.refresh_links"), DesignRefreshLinks, None),
+                    Sep,
+                    App(t("design.output_title"), DesignOutput, None),
+                ],
+            ),
+            (
+                t("menu.edit"),
+                vec![
+                    Cmd("edit.undo"),
+                    Cmd("edit.redo"),
+                    Sep,
+                    Cmd("edit.delete"),
+                    Cmd("edit.duplicate"),
+                    Cmd("select.all"),
+                    Cmd("select.deselect"),
+                ],
+            ),
+            (
+                t("menu.view"),
+                vec![
+                    Sub(t("workspaces.title"), workspace_entries(ws)),
+                    Sep,
+                    App(t("menu.view.zoom_in"), ZoomIn, None),
+                    App(t("menu.view.zoom_out"), ZoomOut, None),
+                    App(t("menu.view.fit_on_screen"), ZoomFit, None),
+                    App(t("design.spread_view"), PasteboardSpread, None),
+                    App(t("design.single_page_view"), PasteboardSinglePage, None),
+                ],
+            ),
         ];
     }
     // `mut` for the desktop-only recents insertion below.
@@ -293,10 +326,8 @@ fn editor_menus(ws: &Workspace) -> Vec<(&'static str, Vec<MenuEntry>)> {
             out.extend(filter_menu_entries(ws));
             out
         }),
-        (
-            t("menu.view"),
-            {
-                let mut view_menu = vec![
+        (t("menu.view"), {
+            let mut view_menu = vec![
                 Sub(t("workspaces.title"), workspace_entries(ws)),
                 Sep,
                 App(t("menu.view.rotate_view_cw"), RotateViewCw, None),
@@ -306,7 +337,6 @@ fn editor_menus(ws: &Workspace) -> Vec<(&'static str, Vec<MenuEntry>)> {
                 App(t("menu.view.zoom_in"), ZoomIn, Some("cmd-=")),
                 App(t("menu.view.zoom_out"), ZoomOut, Some("cmd--")),
                 App(t("menu.view.fit_on_screen"), ZoomFit, Some("cmd-0")),
-
                 App(t("menu.view.actual_size"), ZoomActual, Some("cmd-1")),
                 Sep,
                 App(t("menu.view.rulers"), ToggleRulers, Some("cmd-r")),
@@ -324,17 +354,16 @@ fn editor_menus(ws: &Workspace) -> Vec<(&'static str, Vec<MenuEntry>)> {
                 App(t("menu.view.proof_colors"), ProofColors, None),
                 Sep,
                 App(t("common.preferences"), Preferences, Some("cmd-k")),
-                ];
-                // The pasteboard's two layouts. Only meaningful in Design
-                // Mode, so they are left out of the photo editor's View
-                // menu rather than shown permanently disabled.
-                if !design_pasteboard_menus(ws).is_empty() {
-                    view_menu.push(Sep);
-                    view_menu.extend(design_pasteboard_menus(ws));
-                }
-                view_menu
-            },
-        ),
+            ];
+            // The pasteboard's two layouts. Only meaningful in Design
+            // Mode, so they are left out of the photo editor's View
+            // menu rather than shown permanently disabled.
+            if !design_pasteboard_menus(ws).is_empty() {
+                view_menu.push(Sep);
+                view_menu.extend(design_pasteboard_menus(ws));
+            }
+            view_menu
+        }),
     ];
     if let Some(cloud) = cloud_menu(
         crate::feature_enabled("schist-cloud"),
@@ -845,7 +874,11 @@ fn design_pasteboard_menus(ws: &Workspace) -> Vec<MenuEntry> {
         return Vec::new();
     }
     vec![
-        MenuEntry::App(t("design.spread_view"), AppItem::PasteboardSpread, Some("cmd-1")),
+        MenuEntry::App(
+            t("design.spread_view"),
+            AppItem::PasteboardSpread,
+            Some("cmd-1"),
+        ),
         MenuEntry::App(
             t("design.single_page_view"),
             AppItem::PasteboardSinglePage,

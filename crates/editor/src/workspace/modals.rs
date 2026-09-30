@@ -161,7 +161,10 @@ impl Workspace {
     }
 
     pub fn close_modal(&mut self, cx: &mut Context<Self>) {
-        if matches!(self.modal,Some(Modal::ConfirmCloseDesign)) {self.design.lifecycle.cancel();self.cancel_quit();}
+        if matches!(self.modal, Some(Modal::ConfirmCloseDesign)) {
+            self.design.lifecycle.cancel();
+            self.cancel_quit();
+        }
         self.cancel_printing();
         #[cfg(not(target_arch = "wasm32"))]
         {
@@ -440,7 +443,10 @@ impl Workspace {
         // Text fields (layer and document names) take any printable
         // character; the picker's hex field takes hex digits up to a full
         // triplet; numeric fields only digits.
-        let textual = matches!(id, "design-prop-family" | "design-prop-style-name" | "design-prop-char-name") || id == "spot-name"
+        let textual = matches!(
+            id,
+            "design-prop-family" | "design-prop-style-name" | "design-prop-char-name"
+        ) || id == "spot-name"
             || id == "layer-name"
             || id == "brush-preset-name"
             || id == "recorded-action-name"
@@ -591,14 +597,21 @@ impl Workspace {
         }
         self.reset_caret_phase();
         // Apply as you type so the dialog stays live.
-        if !id.starts_with("design-prop-") { self.commit_field_value(id); }
+        if !id.starts_with("design-prop-") {
+            self.commit_field_value(id);
+        }
         true
     }
 
     pub(super) fn commit_field(&mut self, id: &'static str) {
         if self.design_mode() && id.starts_with("design-prop-") {
             let changed = crate::design::controls::commit(&mut self.design, id, &self.field_buffer);
-            if changed && (id.starts_with("design-prop-page-") || matches!(id,"design-prop-bleed"|"design-prop-slug")) {self.refit_design=true;}
+            if changed
+                && (id.starts_with("design-prop-page-")
+                    || matches!(id, "design-prop-bleed" | "design-prop-slug"))
+            {
+                self.refit_design = true;
+            }
         }
         if id == "spot-name" && !self.field_buffer.trim().is_empty() {
             if let Some(doc) = self.doc.as_mut() {
@@ -628,7 +641,9 @@ impl Workspace {
     }
 
     pub(super) fn commit_field_value(&mut self, id: &'static str) {
-        if id.starts_with("design-prop-") { return; }
+        if id.starts_with("design-prop-") {
+            return;
+        }
         if id == "spot-name" {
             return;
         }
@@ -953,7 +968,9 @@ impl Workspace {
 
     /// True when the active tool is capturing raw typing.
     pub fn tool_captures_keys(&mut self) -> bool {
-        if self.design_mode() { return self.design.typing.is_some(); }
+        if self.design_mode() {
+            return self.design.typing.is_some();
+        }
         let id = self.editor.active_tool;
         self.registry
             .tool_mut(id)
@@ -963,7 +980,9 @@ impl Workspace {
 
     /// Feed a keystroke to the active tool. Returns true if it consumed it.
     pub(super) fn tool_key(&mut self, ev: &gpui::KeyDownEvent) -> bool {
-        if self.design_mode() { return false; }
+        if self.design_mode() {
+            return false;
+        }
         let tool_id = self.editor.active_tool;
         let key = ev.keystroke.key.clone();
         let text = ev.keystroke.key_char.clone();
@@ -985,10 +1004,16 @@ impl Workspace {
     /// Enter: let the active tool commit its pending gesture.
     pub fn commit_gesture(&mut self, cx: &mut Context<Self>) {
         if self.design_mode() {
-            if self.focused_field.is_some() { self.commit_focused_field(); }
-            else if self.design.typing.is_some() { crate::design::tools::type_text(&mut self.design, "\n"); }
-            else { crate::design::tools::release(&mut self.design); self.design.pen = None; }
-            cx.notify(); return;
+            if self.focused_field.is_some() {
+                self.commit_focused_field();
+            } else if self.design.typing.is_some() {
+                crate::design::tools::type_text(&mut self.design, "\n");
+            } else {
+                crate::design::tools::release(&mut self.design);
+                self.design.pen = None;
+            }
+            cx.notify();
+            return;
         }
         self.commit_gesture_with_async(true, cx);
     }
@@ -996,7 +1021,9 @@ impl Workspace {
     /// Finish a transform before another operation changes its source or recipe.
     /// Even a clean activation holds a snapshot which must not survive the edit.
     pub(super) fn commit_pending_transform(&mut self, cx: &mut Context<Self>) {
-        if self.design_mode() { return; }
+        if self.design_mode() {
+            return;
+        }
         if matches!(self.editor.active_tool, "transform" | "transform.selection") {
             // Also invalidates an already running result whose tool session
             // was consumed by an earlier asynchronous commit. Keep this at
@@ -1114,7 +1141,8 @@ impl Workspace {
         if self.design_mode() {
             self.design.controls.field = None;
             self.design.cancel_gesture();
-            cx.notify(); return;
+            cx.notify();
+            return;
         }
         let tool_id = self.editor.active_tool;
         if let (Some(doc), Some(tool)) = (self.doc.as_mut(), self.registry.tool_mut(tool_id)) {

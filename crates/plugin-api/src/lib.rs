@@ -561,19 +561,13 @@ pub trait LayoutCodecPlugin: Send + Sync {
     /// The result carries what could not be read alongside the document,
     /// because a partly read document is useful and saying what is
     /// missing is what makes it usable.
-    fn read_layout(
-        &self,
-        bytes: &[u8],
-    ) -> anyhow::Result<(LayoutDocument, Vec<String>)>;
+    fn read_layout(&self, bytes: &[u8]) -> anyhow::Result<(LayoutDocument, Vec<String>)>;
 
     fn can_export(&self) -> bool {
         false
     }
     /// Write a layout document, and what the writer could not carry.
-    fn export_layout(
-        &self,
-        _document: &LayoutDocument,
-    ) -> anyhow::Result<(Vec<u8>, Vec<String>)> {
+    fn export_layout(&self, _document: &LayoutDocument) -> anyhow::Result<(Vec<u8>, Vec<String>)> {
         anyhow::bail!("{} cannot export layout documents", self.name())
     }
 }

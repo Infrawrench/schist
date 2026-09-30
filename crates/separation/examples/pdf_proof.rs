@@ -36,7 +36,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let mut doc = blank_a4();
     doc.pages[0].width = 180.0;
     doc.pages[0].height = 120.0;
-    doc.pages[0].bleed = 6.0;
+    doc.pages[0].bleed = (6.0).into();
     let colors = [
         Ink::process("Red", [1.0, 0.0, 0.0]),
         Ink::process("Blue", [0.0, 0.0, 1.0]),

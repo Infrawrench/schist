@@ -1,8 +1,6 @@
 //! Plugin registries — the kernel's catalog of everything installed.
 
-use crate::{
-    CodecPlugin, Command, CommandPlugin, FilterPlugin, LayoutCodecPlugin, ToolPlugin,
-};
+use crate::{CodecPlugin, Command, CommandPlugin, FilterPlugin, LayoutCodecPlugin, ToolPlugin};
 use std::sync::Arc;
 
 /// All registered plugins, assembled at startup by the app shell from each

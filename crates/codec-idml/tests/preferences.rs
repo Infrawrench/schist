@@ -8,8 +8,8 @@ fn native_fixture_document_offsets_are_applied_to_every_page() {
     assert!(doc.pages.len() > 1);
     assert!(!doc.facing_pages);
     for page in doc.pages {
-        assert_eq!(page.bleed, 9.0);
-        assert_eq!(page.slug, 9.0); // native slug = 18 from trim
+        assert_eq!(page.bleed, 9.0.into());
+        assert_eq!(page.slug, 18.0.into()); // native slug is measured from trim
     }
 }
 
@@ -33,13 +33,18 @@ fn page_settings_survive_repeated_native_saves_for_every_numbering_style() {
                     origin: Default::default(),
                 }];
                 for page in &mut doc.pages {
-                    page.bleed = bleed;
-                    page.slug = slug;
+                    page.bleed = (bleed).into();
+                    page.slug = (slug).into();
                 }
                 doc.facing_pages = facing;
-                doc.page_number_start = 27;
-                doc.page_number_style = style;
-                doc.page_number_prefix = "Ch / 空 & ".into();
+                doc.pages[0].section = Some(schist_layout::Section {
+                    start: 27,
+                    continue_numbering: false,
+                    style,
+                    prefix: "Ch / 空 & ".into(),
+                    include_prefix: true,
+                    ..Default::default()
+                });
                 for _ in 0..4 {
                     let written = export::write(&doc);
                     let package = container::read(&written.bytes).unwrap();
@@ -82,15 +87,18 @@ fn per_page_offsets_cannot_silently_become_document_offsets() {
         gutter: 0.0,
         origin: Default::default(),
     });
-    doc.pages[0].bleed = 5.0;
-    doc.pages[1].slug = 12.0;
+    doc.pages[0].bleed = (5.0).into();
+    doc.pages[1].slug = (12.0).into();
     let written = export::write(&doc);
     assert!(written
         .warnings
         .iter()
         .any(|w| w == schist_i18n::t("design.idml_per_page_offsets")));
     let back = import::read(&written.bytes).unwrap().document;
-    assert!(back.pages.iter().all(|p| p.bleed == 5.0 && p.slug == 12.0));
+    assert!(back
+        .pages
+        .iter()
+        .all(|p| p.bleed == 5.0.into() && p.slug == 12.0.into()));
 }
 
 #[test]

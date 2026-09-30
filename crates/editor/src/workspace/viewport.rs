@@ -9,7 +9,11 @@ impl Workspace {
     /// Zoom for the active editor body; shared chrome must not show the
     /// photo's magnification while the pasteboard is being viewed.
     pub fn viewport_zoom(&self) -> f32 {
-        if self.design_mode() { self.design.view.scale } else { self.zoom }
+        if self.design_mode() {
+            self.design.view.scale
+        } else {
+            self.zoom
+        }
     }
 
     pub fn fit_to_view(&mut self) {
@@ -42,11 +46,16 @@ impl Workspace {
 
     pub fn zoom_by(&mut self, factor: f32, around: Option<Point<Pixels>>) {
         if self.design_mode() {
-            let pivot = around.unwrap_or_else(|| point(
-                self.canvas_bounds.size.width / 2.0,
-                self.canvas_bounds.size.height / 2.0,
-            ));
-            self.design.zoom_view(factor, schist_layout::Point::new(f32::from(pivot.x), f32::from(pivot.y)));
+            let pivot = around.unwrap_or_else(|| {
+                point(
+                    self.canvas_bounds.size.width / 2.0,
+                    self.canvas_bounds.size.height / 2.0,
+                )
+            });
+            self.design.zoom_view(
+                factor,
+                schist_layout::Point::new(f32::from(pivot.x), f32::from(pivot.y)),
+            );
             self.refit_design = false;
             return;
         }

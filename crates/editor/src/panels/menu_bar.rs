@@ -31,15 +31,43 @@ pub(crate) fn run_app_item(
     window: &mut Window,
     cx: &mut Context<Workspace>,
 ) {
-    if ws.design_mode() && !matches!(item,
-        AppItem::New | AppItem::Close | AppItem::Open | AppItem::OpenRecent(_) | AppItem::Save | AppItem::SaveAs | AppItem::Quit | AppItem::Search
-        | AppItem::ZoomIn | AppItem::ZoomOut | AppItem::ZoomFit | AppItem::ZoomActual
-        | AppItem::DesignPlace | AppItem::DesignImportPages | AppItem::DesignRefreshLinks | AppItem::DesignOutput
-        | AppItem::PasteboardSpread | AppItem::PasteboardSinglePage | AppItem::OpenGallery
-        | AppItem::Workspaces | AppItem::WorkspaceSave | AppItem::WorkspaceUpdate | AppItem::WorkspaceRename
-        | AppItem::WorkspaceDelete | AppItem::WorkspaceReset | AppItem::WorkspaceStarter(_) | AppItem::WorkspaceSelect(_)
-        | AppItem::Preferences | AppItem::ScreenModeItem) {
-        ws.status = t("design.command_unavailable").into(); cx.notify(); return;
+    if ws.design_mode()
+        && !matches!(
+            item,
+            AppItem::New
+                | AppItem::Close
+                | AppItem::Open
+                | AppItem::OpenRecent(_)
+                | AppItem::Save
+                | AppItem::SaveAs
+                | AppItem::Quit
+                | AppItem::Search
+                | AppItem::ZoomIn
+                | AppItem::ZoomOut
+                | AppItem::ZoomFit
+                | AppItem::ZoomActual
+                | AppItem::DesignPlace
+                | AppItem::DesignImportPages
+                | AppItem::DesignRefreshLinks
+                | AppItem::DesignOutput
+                | AppItem::PasteboardSpread
+                | AppItem::PasteboardSinglePage
+                | AppItem::OpenGallery
+                | AppItem::Workspaces
+                | AppItem::WorkspaceSave
+                | AppItem::WorkspaceUpdate
+                | AppItem::WorkspaceRename
+                | AppItem::WorkspaceDelete
+                | AppItem::WorkspaceReset
+                | AppItem::WorkspaceStarter(_)
+                | AppItem::WorkspaceSelect(_)
+                | AppItem::Preferences
+                | AppItem::ScreenModeItem
+        )
+    {
+        ws.status = t("design.command_unavailable").into();
+        cx.notify();
+        return;
     }
     if matches!(
         item,
@@ -72,7 +100,13 @@ pub(crate) fn run_app_item(
         AppItem::CloudUpload => {
             ws.cloud_upload_document(cx);
         }
-        AppItem::New => if ws.design_mode() {ws.request_design_transition(crate::design::lifecycle::Transition::New,cx)}else{ws.open_new_file_picker(cx)},
+        AppItem::New => {
+            if ws.design_mode() {
+                ws.request_design_transition(crate::design::lifecycle::Transition::New, cx)
+            } else {
+                ws.open_new_file_picker(cx)
+            }
+        }
         AppItem::Open => crate::keymap::open_file_dialog(ws, window, cx),
         AppItem::Close => ws.request_close_tab(ws.active_tab(), cx),
         AppItem::Save => ws.save_current(window, cx),
@@ -213,8 +247,13 @@ pub(crate) fn run_app_item(
         AppItem::PasteboardSinglePage => {
             ws.set_pasteboard_mode(crate::design::PasteboardMode::SinglePage, cx)
         }
-        AppItem::DesignPlace => ws.pick_design_graphic(crate::workspace::design_graphics::Destination::Page(ws.design.current_page()), cx),
-        AppItem::DesignImportPages => ws.pick_design_graphic(crate::workspace::design_graphics::Destination::Pages, cx),
+        AppItem::DesignPlace => ws.pick_design_graphic(
+            crate::workspace::design_graphics::Destination::Page(ws.design.current_page()),
+            cx,
+        ),
+        AppItem::DesignImportPages => {
+            ws.pick_design_graphic(crate::workspace::design_graphics::Destination::Pages, cx)
+        }
         AppItem::DesignRefreshLinks => ws.refresh_design_graphics(cx),
         AppItem::DesignOutput => ws.open_design_output(cx),
         AppItem::ToggleExtras => ws.toggle_extras(cx),

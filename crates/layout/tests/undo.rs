@@ -126,7 +126,7 @@ fn editing_a_story_round_trips() {
 fn a_page_change_round_trips() {
     let mut doc = doc_with_three_pages();
     let mut after = doc.pages[1].clone();
-    after.bleed = mm(3.0);
+    after.bleed = (mm(3.0)).into();
     after.margins = Insets::uniform(mm(10.0));
     let edit = LayoutEdit::PageChanged {
         index: 1,
@@ -209,8 +209,6 @@ fn an_ink_change_round_trips() {
 fn a_settings_change_round_trips() {
     let mut doc = blank_a4();
     let mut after = doc.clone();
-    after.page_number_start = 7;
-    after.page_number_prefix = "A-".into();
     after.facing_pages = true;
     after.page_binding = schist_layout::PageBinding::RightToLeft;
     after.grids.document = GridSettings {

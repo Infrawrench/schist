@@ -84,6 +84,9 @@ mod viewport_frame;
 pub use video_mobile::install_ios_window_scene_fix;
 // The path prompts, and the picker drawn where the platform has none.
 mod brushes;
+pub(crate) mod design_graphics;
+mod design_input;
+mod design_lifecycle;
 pub mod file_picker;
 mod filter_canvas;
 pub(crate) mod filter_stack;
@@ -91,9 +94,6 @@ mod filters;
 pub(crate) mod gallery_chrome;
 mod gallery_metadata;
 mod image_ops;
-mod design_input;
-mod design_lifecycle;
-pub(crate) mod design_graphics;
 mod input;
 mod layers_panel;
 mod lens_profiles;
@@ -609,8 +609,7 @@ impl Workspace {
         if !self.design.ready() {
             return job;
         }
-        let Some(plan) = self.design.plan()
-        else {
+        let Some(plan) = self.design.plan() else {
             // A document mid-edit can be briefly inconsistent, and a blank
             // pasteboard is a better answer than a panic during a paint.
             return job;
@@ -622,16 +621,37 @@ impl Workspace {
         frame.pen_preview = crate::design::pen::preview(&self.design);
         frame.typing = self.design.typing;
         frame.drawing = self.design.drawing.map(|d| {
-            let bounds=d.bounds();
-            let mut path=if self.design.tool==crate::design::DesignTool::Line {
-                schist_layout::ShapePath {subpaths:vec![schist_layout::SubPath {points:vec![d.from,d.to],handles:Vec::new(),closed:false}],even_odd:false}
+            let bounds = d.bounds();
+            let mut path = if self.design.tool == crate::design::DesignTool::Line {
+                schist_layout::ShapePath {
+                    subpaths: vec![schist_layout::SubPath {
+                        points: vec![d.from, d.to],
+                        handles: Vec::new(),
+                        closed: false,
+                    }],
+                    even_odd: false,
+                }
             } else {
-                let mut path=schist_layout::authoring::path_for(self.design.tool.shape_kind().unwrap_or(schist_layout::authoring::ShapeKind::Rectangle),bounds.width,bounds.height);
-                path.map_points(|p|p+bounds.origin());path
+                let mut path = schist_layout::authoring::path_for(
+                    self.design
+                        .tool
+                        .shape_kind()
+                        .unwrap_or(schist_layout::authoring::ShapeKind::Rectangle),
+                    bounds.width,
+                    bounds.height,
+                );
+                path.map_points(|p| p + bounds.origin());
+                path
             };
-            path.map_points(|p|self.design.to_pasteboard(p));path
+            path.map_points(|p| self.design.to_pasteboard(p));
+            path
         });
-        frame.band = self.design.band.map(|b|schist_layout::Rect::from_corners(self.design.to_pasteboard(b.from),self.design.to_pasteboard(b.to)));
+        frame.band = self.design.band.map(|b| {
+            schist_layout::Rect::from_corners(
+                self.design.to_pasteboard(b.from),
+                self.design.to_pasteboard(b.to),
+            )
+        });
         job.design = Some(frame);
         job
     }
@@ -644,16 +664,35 @@ impl Workspace {
     /// space, because that is what the painter draws in, and are clipped
     /// to selected shapes so an unselected shape never shows handles.
     fn design_anchor_points(&self) -> Vec<(usize, schist_layout::ShapePath)> {
-        if self.design.tool != crate::design::DesignTool::DirectSelect { return Vec::new(); }
+        if self.design.tool != crate::design::DesignTool::DirectSelect {
+            return Vec::new();
+        }
         let view = self.design.view_for_mode();
-        self.design.selection.iter().filter_map(|id| {
-            let placed = self.design.document.object(*id)?;
-            let schist_layout::LayoutObject::Shape { path, .. } = &placed.object else { return None; };
-            let origin = self.design.document.page_origin(placed.page).unwrap_or_default();
-            let mut path = path.clone();
-            path.map_points(|point| view.to_pasteboard(schist_layout::affine::point(placed.content_transform(), point + placed.bounds.origin()) + origin));
-            Some((placed.page,path))
-        }).collect()
+        self.design
+            .selection
+            .iter()
+            .filter_map(|id| {
+                let placed = self.design.document.object(*id)?;
+                let schist_layout::LayoutObject::Shape { path, .. } = &placed.object else {
+                    return None;
+                };
+                let origin = self
+                    .design
+                    .document
+                    .page_origin(placed.page)
+                    .unwrap_or_default();
+                let mut path = path.clone();
+                path.map_points(|point| {
+                    view.to_pasteboard(
+                        schist_layout::affine::point(
+                            placed.content_transform(),
+                            point + placed.bounds.origin(),
+                        ) + origin,
+                    )
+                });
+                Some((placed.page, path))
+            })
+            .collect()
     }
 
     /// Fit the pasteboard for the current mode.
@@ -661,7 +700,8 @@ impl Workspace {
     /// The two modes need different zooms: a single page fills the canvas,
     /// a spread is as wide as two pages and so is fitted as a whole.
     fn fit_design_to_view(&mut self, bounds: Bounds<Pixels>) {
-        self.design.fit_view(f32::from(bounds.size.width), f32::from(bounds.size.height));
+        self.design
+            .fit_view(f32::from(bounds.size.width), f32::from(bounds.size.height));
     }
 
     /// The selected objects' rectangles, paired with the page each is on.
@@ -675,7 +715,12 @@ impl Workspace {
             .iter()
             .filter_map(|id| {
                 let placed = self.design.document.object(*id)?;
-                Some((placed.page, self.design.view.rect(self.design.document.object_rect(*id)?)))
+                Some((
+                    placed.page,
+                    self.design
+                        .view
+                        .rect(self.design.document.object_rect(*id)?),
+                ))
             })
             .collect()
     }
@@ -1974,7 +2019,11 @@ fn decode_file(
     decode_bytes(codecs, path, &bytes)
 }
 
-fn decode_bytes(codecs: &[Arc<dyn schist_plugin_api::CodecPlugin>], path: &std::path::Path, bytes: &[u8]) -> anyhow::Result<Document> {
+fn decode_bytes(
+    codecs: &[Arc<dyn schist_plugin_api::CodecPlugin>],
+    path: &std::path::Path,
+    bytes: &[u8],
+) -> anyhow::Result<Document> {
     let ext = path.extension().and_then(|e| e.to_str());
     let codec = codecs
         .iter()
@@ -2012,16 +2061,12 @@ fn decode_layout_file(
 ) -> anyhow::Result<Option<(schist_layout::LayoutDocument, Vec<String>)>> {
     let bytes = std::fs::read(path)?;
     let extension = path.extension().and_then(|extension| extension.to_str());
-    let Some(codec) = codecs
-        .iter()
-        .find(|codec| codec.probe(&bytes))
-        .or_else(|| {
-            let extension = extension?.to_ascii_lowercase();
-            codecs
-                .iter()
-                .find(|codec| codec.extensions().contains(&extension.as_str()))
-        })
-    else {
+    let Some(codec) = codecs.iter().find(|codec| codec.probe(&bytes)).or_else(|| {
+        let extension = extension?.to_ascii_lowercase();
+        codecs
+            .iter()
+            .find(|codec| codec.extensions().contains(&extension.as_str()))
+    }) else {
         return Ok(None);
     };
     let (mut document, skipped) = codec.read_layout(&bytes)?;
@@ -2041,16 +2086,12 @@ fn decode_layout_file(
 ) -> anyhow::Result<Option<(schist_layout::LayoutDocument, Vec<String>)>> {
     let bytes = crate::web::read_file(path)?;
     let extension = path.extension().and_then(|extension| extension.to_str());
-    let Some(codec) = codecs
-        .iter()
-        .find(|codec| codec.probe(&bytes))
-        .or_else(|| {
-            let extension = extension?.to_ascii_lowercase();
-            codecs
-                .iter()
-                .find(|codec| codec.extensions().contains(&extension.as_str()))
-        })
-    else {
+    let Some(codec) = codecs.iter().find(|codec| codec.probe(&bytes)).or_else(|| {
+        let extension = extension?.to_ascii_lowercase();
+        codecs
+            .iter()
+            .find(|codec| codec.extensions().contains(&extension.as_str()))
+    }) else {
         return Ok(None);
     };
     let (mut document, skipped) = codec.read_layout(&bytes)?;

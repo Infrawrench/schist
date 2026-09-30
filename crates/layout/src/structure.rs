@@ -104,6 +104,8 @@ pub fn add_page(
 ) -> bool {
     let index = (after_page.saturating_add(1)).min(doc.pages.len());
     page.master = None;
+    // Inserting a copy of a page must not duplicate its numbering restart.
+    page.section = None;
     let before = Topology::of(doc);
     let mut after = before.clone();
     after.pages.insert(index, page);
@@ -127,6 +129,8 @@ pub fn add_page(
 
 /// Remove a page and its direct objects in one undo step. Stories remain
 /// available to the Story Editor, including those shared by other pages.
+/// A section boundary on the removed page goes with it; following pages
+/// inherit the preceding section until the next surviving boundary.
 pub fn remove_page(doc: &mut LayoutDocument, history: &mut History, index: usize) -> bool {
     if doc.pages.len() <= 1 || index >= doc.pages.len() {
         return false;

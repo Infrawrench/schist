@@ -85,7 +85,7 @@ impl OutputSettings {
 ///
 /// Zero is the trim origin. Including bleed expands the output rectangle
 /// into negative coordinates; it never translates the artwork. PDF output
-/// offsets the complete plate by the bleed when placing it on the sheet.
+/// offsets the complete plate by the media margins when placing it on the sheet.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct PagePixel {
     pub x: i32,
@@ -101,11 +101,11 @@ impl PagePixel {
         let bleed = if settings.include_bleed {
             page.bleed
         } else {
-            0.0
+            schist_layout::Insets::ZERO
         };
         PagePixel {
-            x: -settings.to_pixels(bleed),
-            y: -settings.to_pixels(bleed),
+            x: -settings.to_pixels(bleed.left),
+            y: -settings.to_pixels(bleed.top),
         }
     }
 
@@ -182,7 +182,7 @@ mod tests {
     #[test]
     fn the_bleed_origin_is_negative() {
         let mut page = Page::a4();
-        page.bleed = mm(3.0);
+        page.bleed = (mm(3.0)).into();
         let s = OutputSettings::at(300.0);
         let origin = PagePixel::origin(s, &page);
         // Paper starts above and left of the trim.
@@ -198,7 +198,7 @@ mod tests {
     #[test]
     fn the_bleed_output_box_is_larger_than_the_trim_box() {
         let mut page = Page::a4();
-        page.bleed = mm(3.0);
+        page.bleed = (mm(3.0)).into();
         let with = OutputSettings::at(300.0).output_box(&page);
         let without = OutputSettings {
             include_bleed: false,

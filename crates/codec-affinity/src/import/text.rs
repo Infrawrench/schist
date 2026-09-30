@@ -256,7 +256,7 @@ impl Walker<'_> {
                                 ),
                                 size: Some(size),
                                 color: run_color(graph, item).filter(|c| *c != color),
-                ..Default::default()
+                                ..Default::default()
                             });
                         }
                         start = end;

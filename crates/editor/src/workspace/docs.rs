@@ -329,7 +329,10 @@ impl Workspace {
     /// Close a tab, asking about unsaved changes first. A dirty tab is
     /// brought to the front so the prompt is about what's on screen.
     pub fn request_close_tab(&mut self, index: usize, cx: &mut Context<Self>) {
-        if self.design_mode() {self.request_design_transition(crate::design::lifecycle::Transition::Close,cx);return;}
+        if self.design_mode() {
+            self.request_design_transition(crate::design::lifecycle::Transition::Close, cx);
+            return;
+        }
         let dirty = self.tab_strip().get(index).is_some_and(|(_, dirty)| *dirty);
         if dirty {
             self.select_tab(index, cx);
@@ -351,11 +354,15 @@ impl Workspace {
     /// answered.
     pub fn request_quit(&mut self, cx: &mut Context<Self>) {
         self.commit_focused_field();
-        if self.design.lifecycle.dirty(&self.design.document) {self.pending_quit=true;self.request_design_transition(crate::design::lifecycle::Transition::Quit,cx);return;}
+        if self.design.lifecycle.dirty(&self.design.document) {
+            self.pending_quit = true;
+            self.request_design_transition(crate::design::lifecycle::Transition::Quit, cx);
+            return;
+        }
         match self.first_dirty_tab() {
             Some(index) => {
                 self.pending_quit = true;
-                self.set_mode(crate::design::WorkspaceMode::Photo,cx);
+                self.set_mode(crate::design::WorkspaceMode::Photo, cx);
                 self.select_tab(index, cx);
                 self.open_modal(Modal::ConfirmCloseTab, cx);
             }
@@ -492,9 +499,7 @@ impl Workspace {
         #[cfg(target_arch = "wasm32")]
         let bytes = Vec::new();
         let extension = path.extension().and_then(|extension| extension.to_str());
-        self.registry
-            .layout_codec_for(&bytes, extension)
-            .is_some()
+        self.registry.layout_codec_for(&bytes, extension).is_some()
     }
 
     /// Read a page layout document and show it in Design Mode.
@@ -506,8 +511,9 @@ impl Workspace {
         .into();
         cx.notify();
         let codecs = self.registry.shared_layout_codecs();
-        let session=self.design.session.clone();
-        let request=Arc::new(());self.design.lifecycle.load=request.clone();
+        let session = self.design.session.clone();
+        let request = Arc::new(());
+        self.design.lifecycle.load = request.clone();
         cx.spawn(async move |this, cx| {
             let decode_path = path.clone();
             let result = cx
@@ -515,12 +521,27 @@ impl Workspace {
                 .spawn(async move { decode_layout_file(&codecs, &decode_path) })
                 .await;
             this.update(cx, |ws, cx| {
-                if !Arc::ptr_eq(&session,&ws.design.session) || !Arc::ptr_eq(&request,&ws.design.lifecycle.load) {return;}
+                if !Arc::ptr_eq(&session, &ws.design.session)
+                    || !Arc::ptr_eq(&request, &ws.design.lifecycle.load)
+                {
+                    return;
+                }
                 match result {
-                    Ok(Some((document, skipped))) => ws.request_design_transition(crate::design::lifecycle::Transition::Open {path,document:Box::new(document),skipped},cx),
-                    Ok(None) => {ws.status=schist_i18n::t("design.layout_unreadable").into();cx.notify();},
+                    Ok(Some((document, skipped))) => ws.request_design_transition(
+                        crate::design::lifecycle::Transition::Open {
+                            path,
+                            document: Box::new(document),
+                            skipped,
+                        },
+                        cx,
+                    ),
+                    Ok(None) => {
+                        ws.status = schist_i18n::t("design.layout_unreadable").into();
+                        cx.notify();
+                    }
                     Err(error) => {
-                        ws.status = tf!("workspace.docs.open_failed", name = error.to_string()).into();
+                        ws.status =
+                            tf!("workspace.docs.open_failed", name = error.to_string()).into();
                         cx.notify();
                     }
                 }
@@ -540,14 +561,28 @@ impl Workspace {
     ) {
         // Resolve normal links once, before history starts. Save As to a
         // different directory then cannot retarget relative artwork paths.
-        for object in document.objects.iter_mut().chain(document.parents.iter_mut().flat_map(|p|p.objects.iter_mut().map(|o|&mut o.object))) {
-            if let schist_layout::LayoutObject::GraphicFrame {link,embedded:false,..}=&mut object.object {
-                if let Some(resolved)=crate::design::graphics::resolve_path(&link.path,Some(&path)) {link.path=resolved.to_string_lossy().into_owned();}
+        for object in document.objects.iter_mut().chain(
+            document
+                .parents
+                .iter_mut()
+                .flat_map(|p| p.objects.iter_mut().map(|o| &mut o.object)),
+        ) {
+            if let schist_layout::LayoutObject::GraphicFrame {
+                link,
+                embedded: false,
+                ..
+            } = &mut object.object
+            {
+                if let Some(resolved) =
+                    crate::design::graphics::resolve_path(&link.path, Some(&path))
+                {
+                    link.path = resolved.to_string_lossy().into_owned();
+                }
             }
         }
         self.design.cancel_gesture();
         self.design.document = document;
-        self.design.lifecycle=crate::design::lifecycle::Lifecycle::new(&self.design.document);
+        self.design.lifecycle = crate::design::lifecycle::Lifecycle::new(&self.design.document);
         self.design.session = Arc::new(());
         self.design.graphics = Default::default();
         self.design.graphics_busy = false;
@@ -580,7 +615,11 @@ impl Workspace {
         }
         .into();
         if !skipped.is_empty() {
-            log::warn!("IDML import: {} not read: {}", skipped.len(), skipped.join("; "));
+            log::warn!(
+                "IDML import: {} not read: {}",
+                skipped.len(),
+                skipped.join("; ")
+            );
         }
         self.set_mode(crate::design::WorkspaceMode::Design, cx);
         self.refresh_design_graphics(cx);
@@ -807,7 +846,11 @@ impl Workspace {
     /// document as a new raster layer, centered like a paste.
     pub fn place_image_as_layer(&mut self, path: PathBuf, cx: &mut Context<Self>) {
         if self.design_mode() {
-            self.load_design_graphics(vec![path], super::design_graphics::Destination::Page(self.design.current_page()), cx);
+            self.load_design_graphics(
+                vec![path],
+                super::design_graphics::Destination::Page(self.design.current_page()),
+                cx,
+            );
             return;
         }
         self.status = tf!(
@@ -1005,11 +1048,15 @@ impl Workspace {
             // Said rather than logged only: a save that quietly drops
             // part of a document is the failure this whole path exists to
             // avoid, and the user is the one who can act on it.
-            log::warn!("layout export dropped {}: {}", warnings.len(), warnings.join("; "));
+            log::warn!(
+                "layout export dropped {}: {}",
+                warnings.len(),
+                warnings.join("; ")
+            );
         }
         #[cfg(not(target_arch = "wasm32"))]
         {
-            crate::design::output::write_atomic(path,&bytes)?;
+            crate::design::output::write_atomic(path, &bytes)?;
         }
         #[cfg(target_arch = "wasm32")]
         {
@@ -1034,16 +1081,21 @@ impl Workspace {
                 self.design.lifecycle.saved(&self.design.document);
                 self.status =
                     tf!("workspace.docs.saved", name = crate::ui::shown_path(&path)).into();
-                if !warnings.is_empty() {self.status=format!("{} — {}",self.status,warnings.join("; ")).into();}
+                if !warnings.is_empty() {
+                    self.status = format!("{} — {}", self.status, warnings.join("; ")).into();
+                }
                 #[cfg(not(target_arch = "wasm32"))]
                 self.note_recent(&path);
                 if self.design.lifecycle.waiting_save {
-                    self.design.lifecycle.waiting_save=false;
-                    if let Some(transition)=self.design.lifecycle.pending.take() {self.finish_design_transition(transition,cx);}
+                    self.design.lifecycle.waiting_save = false;
+                    if let Some(transition) = self.design.lifecycle.pending.take() {
+                        self.finish_design_transition(transition, cx);
+                    }
                 }
             }
             Err(error) => {
-                self.design.lifecycle.cancel();self.cancel_quit();
+                self.design.lifecycle.cancel();
+                self.cancel_quit();
                 log::error!("layout save failed: {error:#}");
                 self.status = tf!("workspace.docs.save_failed", error = error).into();
             }
@@ -1054,7 +1106,8 @@ impl Workspace {
     /// ⌘S in Design Mode: over the document's own path, or Save As when
     /// there is none or nothing can write that format.
     pub fn save_design(&mut self, window: &mut Window, cx: &mut Context<Self>) {
-        self.commit_focused_field();self.design.cancel_gesture();
+        self.commit_focused_field();
+        self.design.cancel_gesture();
         let path = self.design_path.clone();
         match path {
             Some(path) if self.design_exporter_for(&path).is_some() => {

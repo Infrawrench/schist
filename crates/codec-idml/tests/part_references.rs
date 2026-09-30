@@ -8,8 +8,8 @@ fn escape(value: &str) -> String {
 #[test]
 fn part_names_and_namespace_prefixes_do_not_change_the_document() {
     let mut doc = blank_a4();
-    doc.pages[0].bleed = 7.0;
-    doc.pages[0].slug = 11.0;
+    doc.pages[0].bleed = (7.0).into();
+    doc.pages[0].slug = (11.0).into();
     doc.stories.push(Story::from_text("é & 空", "Body"));
     let ink = Ink::cmyk("Brand / 空", [0.1, 0.7, 0.3, 0.2]);
     doc.inks.push(ink.clone());

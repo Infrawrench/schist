@@ -150,8 +150,8 @@ pub fn pdf_report(
         let mut separated = Vec::new();
         for index in chunk {
             let p = &document.pages[*index];
-            let width = f64::from(p.width + 2.0 * p.bleed) * f64::from(settings.scale());
-            let height = f64::from(p.height + 2.0 * p.bleed) * f64::from(settings.scale());
+            let width = f64::from(p.bleed_rect().width) * f64::from(settings.scale());
+            let height = f64::from(p.bleed_rect().height) * f64::from(settings.scale());
             anyhow::ensure!(
                 width.is_finite()
                     && height.is_finite()
@@ -204,6 +204,7 @@ pub fn pdf_report(
                 separated: page,
                 trim: (document.pages[*i].width, document.pages[*i].height),
                 bleed: document.pages[*i].bleed,
+                slug: document.pages[*i].slug,
                 settings,
                 imposition: Imposition {
                     up: 1,

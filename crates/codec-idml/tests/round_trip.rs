@@ -24,10 +24,11 @@ fn document() -> LayoutDocument {
     let mut document = blank_a4();
     document.pages = vec![Page {
         name: "Cover".into(),
+        section: None,
         width: 600.0,
         height: 800.0,
-        bleed: 3.0,
-        slug: 6.0,
+        bleed: 3.0.into(),
+        slug: 6.0.into(),
         margins: Insets {
             top: 12.0,
             right: 18.0,

@@ -21,9 +21,17 @@ pub fn tool_options_bar(
     cx: &mut Context<Workspace>,
 ) -> impl IntoElement {
     if ws.design_mode() {
-        return div().flex().items_center().px_3().py_1().min_h(px(ui::metrics().options_bar_h))
-            .bg(gpui::rgb(palette().panel_bg)).border_b_1().border_color(gpui::rgb(palette().panel_edge))
-            .child(t("design.mode")).into_any_element();
+        return div()
+            .flex()
+            .items_center()
+            .px_3()
+            .py_1()
+            .min_h(px(ui::metrics().options_bar_h))
+            .bg(gpui::rgb(palette().panel_bg))
+            .border_b_1()
+            .border_color(gpui::rgb(palette().panel_edge))
+            .child(t("design.mode"))
+            .into_any_element();
     }
     let tool_id = ws.editor.active_tool;
     if tool_id == "type" {
@@ -333,7 +341,9 @@ fn tool_option_control(
 }
 
 pub fn toolbar(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElement {
-    if ws.design_mode() { return design_toolbar(ws, cx); }
+    if ws.design_mode() {
+        return design_toolbar(ws, cx);
+    }
     let active = ws.editor.active_tool;
     // One slot per group, showing whichever tool that group last used —
     // Photoshop's nested tools, so twenty tools take eleven slots.
@@ -456,48 +466,118 @@ fn design_toolbar(ws: &Workspace, cx: &mut Context<Workspace>) -> gpui::Stateful
     use crate::design::DesignTool;
     let tools = [
         (DesignTool::Select, "move", "design.select_tool"),
-        (DesignTool::DirectSelect, "direct-select", "tool.direct_select.name"),
+        (
+            DesignTool::DirectSelect,
+            "direct-select",
+            "tool.direct_select.name",
+        ),
         (DesignTool::TextFrame, "type", "design.text_frame"),
         (DesignTool::Pen, "pen", "tool.pen.name"),
         (DesignTool::Rectangle, "shape-rect", "tool.shape.rect.name"),
-        (DesignTool::Ellipse, "shape-ellipse", "tool.shape.ellipse.name"),
+        (
+            DesignTool::Ellipse,
+            "shape-ellipse",
+            "tool.shape.ellipse.name",
+        ),
         (DesignTool::Line, "shape-line", "tool.shape.line.name"),
-        (DesignTool::Polygon, "shape-polygon", "tool.shape.polygon.name"),
+        (
+            DesignTool::Polygon,
+            "shape-polygon",
+            "tool.shape.polygon.name",
+        ),
         (DesignTool::Delete, "trash", "common.delete"),
         (DesignTool::Hand, "hand", "tool.hand.name"),
         (DesignTool::Zoom, "zoom", "tool.zoom.name"),
         (DesignTool::Eyedropper, "eyedropper", "tool.eyedropper.name"),
     ];
     let m = ui::metrics();
-    div().id("design-toolbar").flex().flex_col().w(px(m.toolbar_w)).flex_none()
-        .min_h(px(0.0)).overflow_y_scroll().items_center().bg(gpui::rgb(palette().panel_bg))
-        .border_r_1().border_color(gpui::rgb(palette().panel_edge)).pt_1()
+    div()
+        .id("design-toolbar")
+        .flex()
+        .flex_col()
+        .w(px(m.toolbar_w))
+        .flex_none()
+        .min_h(px(0.0))
+        .overflow_y_scroll()
+        .items_center()
+        .bg(gpui::rgb(palette().panel_bg))
+        .border_r_1()
+        .border_color(gpui::rgb(palette().panel_edge))
+        .pt_1()
         .children(tools.into_iter().map(|(tool, icon_name, label)| {
             let selected = ws.design.tool == tool;
-            div().id(tool.as_str()).flex().items_center().justify_center().size(px(m.tool_slot))
-                .rounded_sm().cursor_pointer().tooltip(ui::tip(t(label), None))
+            div()
+                .id(tool.as_str())
+                .flex()
+                .items_center()
+                .justify_center()
+                .size(px(m.tool_slot))
+                .rounded_sm()
+                .cursor_pointer()
+                .tooltip(ui::tip(t(label), None))
                 .when(selected, |row| row.bg(gpui::rgb(palette().selection_bg)))
                 .hover(|row| row.bg(gpui::rgb(palette().hover)))
                 .child(icon(icon_name, m.tool_icon, palette().text))
                 .on_click(cx.listener(move |ws, _, _, cx| {
                     ws.commit_focused_field();
                     ws.design.cancel_gesture();
-                    ws.design.tool = tool; cx.notify();
+                    ws.design.tool = tool;
+                    cx.notify();
                 }))
         }))
-        .child(div().id("design-guides-toggle").text_xs().cursor_pointer().p_1()
-            .bg(gpui::rgb(if ws.design.show_guides {palette().selection_bg} else {palette().panel_bg}))
-            .child(t("design.guides"))
-            .on_click(cx.listener(|ws,_,_,cx|{ws.design.show_guides = !ws.design.show_guides;cx.notify();})))
-        .child(div().id("design-snap-toggle").text_xs().cursor_pointer().p_1()
-            .bg(gpui::rgb(if ws.design.snap_guides {palette().selection_bg} else {palette().panel_bg}))
-            .child(t("design.snap_guides"))
-            .on_click(cx.listener(|ws,_,_,cx|{ws.design.snap_guides = !ws.design.snap_guides;cx.notify();})))
-        .child(div().id("design-place-tool").flex().items_center().justify_center().size(px(m.tool_slot))
-            .cursor_pointer().tooltip(ui::tip(t("design.place_graphic"), None))
-            .child(icon("folder", m.tool_icon, palette().text))
-            .on_click(cx.listener(|ws, _, _, cx| ws.pick_design_graphic(
-                crate::workspace::design_graphics::Destination::Page(ws.design.current_page()), cx))))
+        .child(
+            div()
+                .id("design-guides-toggle")
+                .text_xs()
+                .cursor_pointer()
+                .p_1()
+                .bg(gpui::rgb(if ws.design.show_guides {
+                    palette().selection_bg
+                } else {
+                    palette().panel_bg
+                }))
+                .child(t("design.guides"))
+                .on_click(cx.listener(|ws, _, _, cx| {
+                    ws.design.show_guides = !ws.design.show_guides;
+                    cx.notify();
+                })),
+        )
+        .child(
+            div()
+                .id("design-snap-toggle")
+                .text_xs()
+                .cursor_pointer()
+                .p_1()
+                .bg(gpui::rgb(if ws.design.snap_guides {
+                    palette().selection_bg
+                } else {
+                    palette().panel_bg
+                }))
+                .child(t("design.snap_guides"))
+                .on_click(cx.listener(|ws, _, _, cx| {
+                    ws.design.snap_guides = !ws.design.snap_guides;
+                    cx.notify();
+                })),
+        )
+        .child(
+            div()
+                .id("design-place-tool")
+                .flex()
+                .items_center()
+                .justify_center()
+                .size(px(m.tool_slot))
+                .cursor_pointer()
+                .tooltip(ui::tip(t("design.place_graphic"), None))
+                .child(icon("folder", m.tool_icon, palette().text))
+                .on_click(cx.listener(|ws, _, _, cx| {
+                    ws.pick_design_graphic(
+                        crate::workspace::design_graphics::Destination::Page(
+                            ws.design.current_page(),
+                        ),
+                        cx,
+                    )
+                })),
+        )
 }
 
 /// The flyout listing a group's tools, opened by holding or right-clicking

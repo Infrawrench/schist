@@ -80,8 +80,11 @@ impl Workspace {
             return Some((&self.field_buffer, self.field_selection()));
         }
         if self.design_mode() {
-            if let Some(typing)=self.design.typing {
-                return Some((&self.design.text_buffer,typing.at.min(typing.anchor)..typing.at.max(typing.anchor)));
+            if let Some(typing) = self.design.typing {
+                return Some((
+                    &self.design.text_buffer,
+                    typing.at.min(typing.anchor)..typing.at.max(typing.anchor),
+                ));
             }
         }
         if self.gallery_open() {
@@ -190,12 +193,18 @@ impl EntityInputHandler for Workspace {
         _window: &mut Window,
         _cx: &mut Context<Self>,
     ) -> Option<Range<usize>> {
-        let draft=self.design.composition.as_ref()?;
-        Some(utf16_len(&self.design.text_buffer[..draft.range.start])..utf16_len(&self.design.text_buffer[..draft.range.end]))
+        let draft = self.design.composition.as_ref()?;
+        Some(
+            utf16_len(&self.design.text_buffer[..draft.range.start])
+                ..utf16_len(&self.design.text_buffer[..draft.range.end]),
+        )
     }
 
     fn unmark_text(&mut self, _window: &mut Window, cx: &mut Context<Self>) {
-        if self.design_mode() {crate::design::composition::commit(&mut self.design);cx.notify();}
+        if self.design_mode() {
+            crate::design::composition::commit(&mut self.design);
+            cx.notify();
+        }
     }
 
     fn replace_text_in_range(
@@ -208,9 +217,16 @@ impl EntityInputHandler for Workspace {
         if REPLAYING.load(Ordering::SeqCst) {
             return;
         }
-        if self.design_mode() && self.design.typing.is_some() && self.focused_field.is_none() && !self.spotlight.open {
-            if !crate::design::composition::replace(&mut self.design,range,text,None,false) {self.status=schist_i18n::t("design.story_edit_refused").into();}
-            cx.notify();return;
+        if self.design_mode()
+            && self.design.typing.is_some()
+            && self.focused_field.is_none()
+            && !self.spotlight.open
+        {
+            if !crate::design::composition::replace(&mut self.design, range, text, None, false) {
+                self.status = schist_i18n::t("design.story_edit_refused").into();
+            }
+            cx.notify();
+            return;
         }
         // A range other than the caret is autocorrect rewriting the word
         // just typed, which ends at the caret: take it back first.
@@ -233,11 +249,20 @@ impl EntityInputHandler for Workspace {
     }
 
     fn replace_and_mark_text_in_range(
-        &mut self, range: Option<Range<usize>>, text: &str, selected: Option<Range<usize>>,
-        _window: &mut Window, cx: &mut Context<Self>,
+        &mut self,
+        range: Option<Range<usize>>,
+        text: &str,
+        selected: Option<Range<usize>>,
+        _window: &mut Window,
+        cx: &mut Context<Self>,
     ) {
-        if self.design_mode() && self.design.typing.is_some() && self.focused_field.is_none() && !self.spotlight.open {
-            crate::design::composition::replace(&mut self.design,range,text,selected,true);cx.notify();
+        if self.design_mode()
+            && self.design.typing.is_some()
+            && self.focused_field.is_none()
+            && !self.spotlight.open
+        {
+            crate::design::composition::replace(&mut self.design, range, text, selected, true);
+            cx.notify();
         }
     }
 

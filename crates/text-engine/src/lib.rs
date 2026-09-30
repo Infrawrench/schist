@@ -199,9 +199,15 @@ impl StyleRun {
         if over.size.is_some() {
             self.size = over.size;
         }
-        if over.tracking.is_some() { self.tracking = over.tracking; }
-        if over.leading.is_some() { self.leading = over.leading; }
-        if over.underline.is_some() { self.underline = over.underline; }
+        if over.tracking.is_some() {
+            self.tracking = over.tracking;
+        }
+        if over.leading.is_some() {
+            self.leading = over.leading;
+        }
+        if over.underline.is_some() {
+            self.underline = over.underline;
+        }
         if over.color.is_some() {
             self.color = over.color;
         }
@@ -331,8 +337,13 @@ impl TextSpec {
         if over.is_plain() {
             return;
         }
-        if range.start == 0 && range.end == len && over.color.is_none()
-            && over.tracking.is_none() && over.leading.is_none() && over.underline.is_none() {
+        if range.start == 0
+            && range.end == len
+            && over.color.is_none()
+            && over.tracking.is_none()
+            && over.leading.is_none()
+            && over.underline.is_none()
+        {
             if let Some(f) = &over.family {
                 self.family = f.clone();
                 self.runs.iter_mut().for_each(|r| r.family = None);
@@ -1115,11 +1126,25 @@ impl Faces {
 
 /// Absolute run leading participates in the same maximum as inherited font
 /// metrics, so a large run cannot overlap the following line accidentally.
-fn run_line_advance(spec: &TextSpec, faces: &Faces, start: usize, end: usize, fallback: f32) -> f32 {
-    spec.text[start..end].char_indices().map(|(i, _)| {
-        spec.style_at(start + i).leading.filter(|v| v.is_finite() && *v > 0.0)
-            .unwrap_or_else(|| faces.line_metrics(faces.at(start + i)).1 * spec.line_height.max(0.1))
-    }).reduce(f32::max).unwrap_or(fallback * spec.line_height.max(0.1))
+fn run_line_advance(
+    spec: &TextSpec,
+    faces: &Faces,
+    start: usize,
+    end: usize,
+    fallback: f32,
+) -> f32 {
+    spec.text[start..end]
+        .char_indices()
+        .map(|(i, _)| {
+            spec.style_at(start + i)
+                .leading
+                .filter(|v| v.is_finite() && *v > 0.0)
+                .unwrap_or_else(|| {
+                    faces.line_metrics(faces.at(start + i)).1 * spec.line_height.max(0.1)
+                })
+        })
+        .reduce(f32::max)
+        .unwrap_or(fallback * spec.line_height.max(0.1))
 }
 
 /// One laid-out line, and the byte range of `TextSpec::text` it covers.
@@ -1229,7 +1254,10 @@ fn layout_with_widths(spec: &TextSpec, base: &LoadedFace, widths: &[f32]) -> Lay
                 None => face.font.horizontal_kern(p, ch, *size),
             })
             .unwrap_or(0.0);
-        m.advance_width + kern + spec.style_at(byte).tracking + if ch == ' ' { spec.word_spacing } else { 0.0 }
+        m.advance_width
+            + kern
+            + spec.style_at(byte).tracking
+            + if ch == ' ' { spec.word_spacing } else { 0.0 }
     };
     // Advance of `word` starting at byte `from`, after `prev`.
     let measure_word = |word: &str, from: usize, mut prev: Option<(char, usize)>| -> f32 {
@@ -1836,17 +1864,29 @@ pub fn measure(spec: &TextSpec) -> Option<TextMetrics> {
     let laid = layout(spec, &face);
     let ink_bounds = if spec.writing_mode == WritingMode::Horizontal && spec.path.is_none() {
         let faces = Faces::resolve(spec, &face);
-        laid.glyphs.iter().filter_map(|glyph| {
-            let (face, size) = &faces.faces[glyph.face];
-            let b = face.font.metrics_indexed(glyph.glyph, *size).bounds;
-            (b.width > 0.0 && b.height > 0.0).then_some([
-                glyph.x + b.xmin,
-                glyph.baseline - b.ymin - b.height,
-                glyph.x + b.xmin + b.width,
-                glyph.baseline - b.ymin,
-            ])
-        }).reduce(|a, b| [a[0].min(b[0]), a[1].min(b[1]), a[2].max(b[2]), a[3].max(b[3])])
-    } else { None };
+        laid.glyphs
+            .iter()
+            .filter_map(|glyph| {
+                let (face, size) = &faces.faces[glyph.face];
+                let b = face.font.metrics_indexed(glyph.glyph, *size).bounds;
+                (b.width > 0.0 && b.height > 0.0).then_some([
+                    glyph.x + b.xmin,
+                    glyph.baseline - b.ymin - b.height,
+                    glyph.x + b.xmin + b.width,
+                    glyph.baseline - b.ymin,
+                ])
+            })
+            .reduce(|a, b| {
+                [
+                    a[0].min(b[0]),
+                    a[1].min(b[1]),
+                    a[2].max(b[2]),
+                    a[3].max(b[3]),
+                ]
+            })
+    } else {
+        None
+    };
     Some(TextMetrics {
         ink_bounds,
         first_baseline: laid.first_baseline,
@@ -1866,28 +1906,49 @@ type ColoredRaster = (IntRect, Vec<u8>, Option<[u8; 4]>);
 
 fn underline_rasters(spec: &TextSpec, faces: &Faces, laid: &Layout) -> Vec<ColoredRaster> {
     let mut out = Vec::new();
-    if spec.path.is_some() || !spec.runs.iter().any(|run| run.underline == Some(true)) { return out; }
+    if spec.path.is_some() || !spec.runs.iter().any(|run| run.underline == Some(true)) {
+        return out;
+    }
     let total_height: f32 = laid.lines.iter().map(|line| line.height).sum();
     for line in &laid.lines {
-        let ascent = spec.text[line.start..line.end].char_indices()
+        let ascent = spec.text[line.start..line.end]
+            .char_indices()
             .map(|(i, _)| faces.line_metrics(faces.at(line.start + i)).0)
-            .reduce(f32::max).unwrap_or_else(|| faces.line_metrics(0).0);
-        for ch in laid.chars.iter().filter(|ch| line.start <= ch.byte && ch.byte < line.end) {
+            .reduce(f32::max)
+            .unwrap_or_else(|| faces.line_metrics(0).0);
+        for ch in laid
+            .chars
+            .iter()
+            .filter(|ch| line.start <= ch.byte && ch.byte < line.end)
+        {
             let style = spec.style_at(ch.byte);
-            if !style.underline { continue; }
+            if !style.underline {
+                continue;
+            }
             let start = ch.x.min(ch.end_x).floor() as i32;
             let length = (ch.x.max(ch.end_x).ceil() as i32 - start).max(0) as u32;
             let thickness = (style.size / 16.0).round().max(1.0) as u32;
             let rect = if spec.writing_mode.is_vertical() {
                 let cross = if spec.writing_mode == WritingMode::VerticalRl {
                     total_height - line.top - line.height / 2.0 + style.size * 0.55
-                } else { line.top + line.height / 2.0 - style.size * 0.55 };
+                } else {
+                    line.top + line.height / 2.0 - style.size * 0.55
+                };
                 IntRect::from_xywh(cross.round() as i32, start, thickness, length)
             } else {
-                IntRect::from_xywh(start, (line.top + ascent + style.size * 0.1).round() as i32, length, thickness)
+                IntRect::from_xywh(
+                    start,
+                    (line.top + ascent + style.size * 0.1).round() as i32,
+                    length,
+                    thickness,
+                )
             };
             if !rect.is_empty() {
-                out.push((rect, vec![255; rect.width() as usize * rect.height() as usize], style.color));
+                out.push((
+                    rect,
+                    vec![255; rect.width() as usize * rect.height() as usize],
+                    style.color,
+                ));
             }
         }
     }
@@ -2012,7 +2073,10 @@ fn rasterize_impl(spec: &TextSpec, retain_paints: bool) -> Option<TextRaster> {
     let mut paints: Vec<TextPaint> = Vec::new();
     for (rect, bitmap, color) in rasterized {
         if retain_paints && paints.last().is_none_or(|paint| paint.color != color) {
-            paints.push(TextPaint { color, coverage: vec![0; w*h] });
+            paints.push(TextPaint {
+                color,
+                coverage: vec![0; w * h],
+            });
         }
         for gy in 0..rect.height() {
             for gx in 0..rect.width() {
@@ -2097,13 +2161,18 @@ mod tests {
         for text in ["AV", "A V", "A  V ", "café café", "שלום עולם"] {
             for shaped in [false, true] {
                 let (mut s, face) = opentype_spec(text);
-                if shaped { s.set_feature("liga", true); }
+                if shaped {
+                    s.set_feature("liga", true);
+                }
                 let before = layout(&s, &face).layout_width;
                 for spacing in [-1.0, 2.0, 10.0] {
                     s.word_spacing = spacing;
                     let after = layout(&s, &face).layout_width;
                     let expected = text.chars().filter(|c| *c == ' ').count() as f32 * spacing;
-                    assert!((after - before - expected).abs() < 0.001, "{text}: {before} -> {after}");
+                    assert!(
+                        (after - before - expected).abs() < 0.001,
+                        "{text}: {before} -> {after}"
+                    );
                 }
             }
         }
@@ -2113,11 +2182,18 @@ mod tests {
     fn run_tracking_and_leading_affect_only_their_text() {
         for shaped in [false, true] {
             let (mut s, face) = opentype_spec("AB CD\nEF GH");
-            if shaped { s.set_feature("liga", true); }
+            if shaped {
+                s.set_feature("liga", true);
+            }
             let before = layout(&s, &face);
-            s.apply_style(0..2, &StyleRun {
-                tracking: Some(7.0), leading: Some(120.0), ..Default::default()
-            });
+            s.apply_style(
+                0..2,
+                &StyleRun {
+                    tracking: Some(7.0),
+                    leading: Some(120.0),
+                    ..Default::default()
+                },
+            );
             let after = layout(&s, &face);
             assert!((after.lines[0].width - before.lines[0].width - 14.0).abs() < 0.001);
             assert_eq!(after.lines[1].width, before.lines[1].width);
@@ -2131,15 +2207,28 @@ mod tests {
 
     #[test]
     fn underline_uses_spaces_and_survives_vertical_layout() {
-        for mode in [WritingMode::Horizontal, WritingMode::VerticalRl, WritingMode::VerticalLr] {
+        for mode in [
+            WritingMode::Horizontal,
+            WritingMode::VerticalRl,
+            WritingMode::VerticalLr,
+        ] {
             let (mut s, _) = opentype_spec("   ");
             s.writing_mode = mode;
             assert!(rasterize(&s).unwrap().is_empty());
-            s.apply_style(0..s.text.len(), &StyleRun { underline: Some(true), ..Default::default() });
+            s.apply_style(
+                0..s.text.len(),
+                &StyleRun {
+                    underline: Some(true),
+                    ..Default::default()
+                },
+            );
             let raster = rasterize(&s).unwrap();
             assert!(!raster.is_empty());
             assert!(raster.coverage.contains(&255));
-            assert_eq!(raster.coverage.len(), raster.bounds.width() as usize * raster.bounds.height() as usize);
+            assert_eq!(
+                raster.coverage.len(),
+                raster.bounds.width() as usize * raster.bounds.height() as usize
+            );
         }
     }
 

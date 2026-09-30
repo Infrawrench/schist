@@ -20,6 +20,7 @@
 //! [`Pdf`] builds that graph and [`write_page`] fills it in. Nothing
 //! here knows about layout or separation beyond what it is handed.
 
+use schist_layout::Insets;
 use std::io::Write;
 
 use crate::coverage::PlateCoverage;
@@ -275,29 +276,32 @@ pub fn plate_to_bits(coverage: &PlateCoverage, threshold: f32) -> Vec<u8> {
 /// The marks are in the page's own space, outside the trim, which is
 /// what makes the same code work for a single page and for a sheet with
 /// four imposed.
-pub fn marks_for(trim: (f32, f32), bleed: f32, marks: &Marks) -> String {
+pub fn marks_for(trim: (f32, f32), bleed: impl Into<Insets>, marks: &Marks) -> String {
+    let bleed = bleed.into();
     let mut out = format!("q /Registration CS 1 SCN {} w\n", marks.weight);
-    let gap = bleed + marks.offset;
-    let far = gap + marks.crop_length;
     for (x, y, dx, dy) in [
         (0.0, 0.0, -1.0, -1.0),
         (trim.0, 0.0, 1.0, -1.0),
         (0.0, trim.1, -1.0, 1.0),
         (trim.0, trim.1, 1.0, 1.0),
     ] {
+        let gap_x = if dx < 0.0 { bleed.left } else { bleed.right } + marks.offset;
+        let gap_y = if dy < 0.0 { bleed.bottom } else { bleed.top } + marks.offset;
+        let far_x = gap_x + marks.crop_length;
+        let far_y = gap_y + marks.crop_length;
         out.push_str(&format!(
             "{x:.3} {:.3} m {x:.3} {:.3} l S\n",
-            y + gap * dy,
-            y + far * dy
+            y + gap_y * dy,
+            y + far_y * dy
         ));
         out.push_str(&format!(
             "{:.3} {y:.3} m {:.3} {y:.3} l S\n",
-            x + gap * dx,
-            x + far * dx
+            x + gap_x * dx,
+            x + far_x * dx
         ));
         if marks.registration {
-            let cx = x + far * dx;
-            let cy = y + far * dy;
+            let cx = x + far_x * dx;
+            let cy = y + far_y * dy;
             let r = marks.crop_length;
             let k = r * 0.5522848;
             out.push_str(&format!("{} {} m\n", cx + r, cy));
@@ -334,7 +338,10 @@ pub struct PageOutput<'a> {
     pub separated: &'a SeparatedPage,
     /// The page's trim size, in points.
     pub trim: (f32, f32),
-    pub bleed: f32,
+    /// Physical offsets beyond trim.
+    pub bleed: Insets,
+    /// Slug offsets from trim; the media encloses both slug and bleed.
+    pub slug: Insets,
     pub settings: OutputSettings,
     pub imposition: Imposition,
     pub marks: Marks,
@@ -378,27 +385,31 @@ pub fn tint_function(build: [f32; 4]) -> String {
     format!("<< /FunctionType 2 /Domain [0 1] /Range [0 1 0 1 0 1 0 1] /C0 [0 0 0 0] /C1 [{} {} {} {}] /N 1 >>",values[0],values[1],values[2],values[3])
 }
 
-/// The sheet a page occupies, in points: trim plus bleed on every side.
-pub fn sheet_size(trim: (f32, f32), bleed: f32) -> (f32, f32) {
-    (trim.0 + bleed * 2.0, trim.1 + bleed * 2.0)
-}
-
-/// A page's trim box, for a file that records it.
-pub fn trim_box(trim: (f32, f32), bleed: f32) -> String {
-    format!(
-        "[{bleed:.2} {bleed:.2} {:.2} {:.2}]",
-        trim.0 + bleed,
-        trim.1 + bleed
+/// The sheet a page occupies: trim expanded by physical media offsets.
+pub fn sheet_size(trim: (f32, f32), offsets: impl Into<Insets>) -> (f32, f32) {
+    let offsets = offsets.into();
+    (
+        trim.0 + offsets.left + offsets.right,
+        trim.1 + offsets.top + offsets.bottom,
     )
 }
 
-/// A page's bleed box.
-pub fn bleed_box(trim: (f32, f32), bleed: f32) -> String {
+/// PDF coordinates start at the bottom left, unlike layout's top left.
+pub fn trim_box(trim: (f32, f32), offsets: impl Into<Insets>) -> String {
+    let offsets = offsets.into();
     format!(
-        "[0.00 0.00 {:.2} {:.2}]",
-        trim.0 + bleed * 2.0,
-        trim.1 + bleed * 2.0
+        "[{:.2} {:.2} {:.2} {:.2}]",
+        offsets.left,
+        offsets.bottom,
+        trim.0 + offsets.left,
+        trim.1 + offsets.bottom
     )
+}
+
+/// A page's bleed box when media is exactly the bleed extent.
+pub fn bleed_box(trim: (f32, f32), bleed: impl Into<Insets>) -> String {
+    let size = sheet_size(trim, bleed);
+    format!("[0.00 0.00 {:.2} {:.2}]", size.0, size.1)
 }
 
 /// Extra media outside bleed leaves crop and registration marks intact.
@@ -410,6 +421,10 @@ fn mark_padding(page: &PageOutput<'_>) -> f32 {
     }
 }
 
+fn media_offsets(page: &PageOutput<'_>) -> Insets {
+    page.bleed.expanded(mark_padding(page)).max(page.slug)
+}
+
 /// One DeviceN image carries all already-composited plates. Independent
 /// opaque plate images erase earlier inks in viewers without overprint simulation.
 pub fn page_content(page: &PageOutput<'_>, images: &[(usize, PlateCoverage)]) -> String {
@@ -419,20 +434,22 @@ pub fn page_content(page: &PageOutput<'_>, images: &[(usize, PlateCoverage)]) ->
 fn page_content_for(page: &PageOutput<'_>, has_ink: bool) -> String {
     let mut content = String::new();
     let scale = 1.0 / page.settings.scale();
-    let padding = mark_padding(page);
-    let offset = page.bleed + padding;
+    let offset = media_offsets(page);
     if has_ink {
         let rect = page.separated.separation.rect();
         let (w, h) = (rect.width() as f32 * scale, rect.height() as f32 * scale);
-        let x = rect.left as f32 * scale + offset;
-        let y = page.trim.1 + offset - rect.bottom as f32 * scale;
+        let x = rect.left as f32 * scale + offset.left;
+        let y = page.trim.1 + offset.bottom - rect.bottom as f32 * scale;
         let state = if page.overprint { "OP" } else { "KO" };
         content.push_str(&format!(
             "q /{state} gs {w:.3} 0 0 {h:.3} {x:.3} {y:.3} cm /InkImage Do Q\n"
         ));
     }
     if page.imposition.marks {
-        content.push_str(&format!("q 1 0 0 1 {offset:.3} {offset:.3} cm\n"));
+        content.push_str(&format!(
+            "q 1 0 0 1 {:.3} {:.3} cm\n",
+            offset.left, offset.bottom
+        ));
         content.push_str(&marks_for(page.trim, page.bleed, &page.marks));
         content.push_str("Q\n");
     }
@@ -504,7 +521,14 @@ fn write_leaf(pdf: &mut Pdf, page: &PageOutput<'_>, form: bool) -> Result<usize,
     if ![
         page.trim.0,
         page.trim.1,
-        page.bleed,
+        page.bleed.top,
+        page.bleed.right,
+        page.bleed.bottom,
+        page.bleed.left,
+        page.slug.top,
+        page.slug.right,
+        page.slug.bottom,
+        page.slug.left,
         page.marks.crop_length,
         page.marks.weight,
         page.marks.offset,
@@ -592,13 +616,14 @@ fn write_leaf(pdf: &mut Pdf, page: &PageOutput<'_>, form: bool) -> Result<usize,
     }
     let resources=format!("<< /ColorSpace << /Inks {space} 0 R /Registration {registration} 0 R >> /ExtGState << /OP {over} 0 R /KO {knock} 0 R >> /XObject << {xobjects} >> >>");
     let content = page_content_for(page, has_ink);
-    let padding = mark_padding(page);
-    let offset = padding + page.bleed;
+    let offset = media_offsets(page);
     let (width, height) = sheet_size(page.trim, offset);
     let bleed = format!(
-        "[{padding:.2} {padding:.2} {:.2} {:.2}]",
-        width - padding,
-        height - padding
+        "[{:.2} {:.2} {:.2} {:.2}]",
+        offset.left - page.bleed.left,
+        offset.bottom - page.bleed.bottom,
+        width - offset.right + page.bleed.right,
+        height - offset.top + page.bleed.top,
     );
     if !pdf.within_limit() {
         return Err(Error::new(
@@ -613,7 +638,8 @@ fn write_leaf(pdf: &mut Pdf, page: &PageOutput<'_>, form: bool) -> Result<usize,
     Ok(pdf.add_str(&format!("<< /Type /Page /Parent 2 0 R /MediaBox [0 0 {width:.2} {height:.2}] /TrimBox {} /BleedBox {bleed} /Resources {resources} /Contents {content} 0 R >>",trim_box(page.trim,offset))))
 }
 
-/// Write a whole document, one PDF page per separated page.
+/// Write a document with uniform bleed and no slug, one PDF page per separated
+/// page. Use `write_sheet` with `PageOutput` for independent bleed/slug edges.
 pub fn write_document(
     pages: &[SeparatedPage],
     trims: &[(f32, f32)],
@@ -653,7 +679,8 @@ pub fn write_document_imposed(
             .map(|i| PageOutput {
                 separated: &pages[*i],
                 trim: trims[*i],
-                bleed: bleeds[*i],
+                bleed: bleeds[*i].into(),
+                slug: Insets::ZERO,
                 settings,
                 imposition: Imposition {
                     up: 1,
@@ -690,7 +717,7 @@ pub fn write_sheet(
     let mut forms = Vec::new();
     let mut cell = (0.0_f32, 0.0_f32);
     for page in outputs {
-        let size = sheet_size(page.trim, page.bleed + mark_padding(page));
+        let size = sheet_size(page.trim, media_offsets(page));
         let form = write_leaf(pdf, page, true)?;
         cell.0 = cell.0.max(size.0);
         cell.1 = cell.1.max(size.1);

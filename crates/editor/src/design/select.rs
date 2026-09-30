@@ -306,7 +306,7 @@ mod tests {
         // selects nothing. Otherwise a click near the edge would select a
         // page the reader cannot see.
         let mut page = Page::a4();
-        page.bleed = 3.0;
+        page.bleed = (3.0).into();
         let doc = LayoutDocument::new(vec![page]);
         let plan = plan_of(&doc);
         // The media box is centred on the trim, so the slug is the band

@@ -145,10 +145,15 @@ fn design_rulers(ws: &Workspace, cx: &mut Context<Workspace>) -> gpui::AnyElemen
                 .h(px(SIZE))
                 .bg(gpui::rgb(palette().ruler_bg))
                 .overflow_hidden()
-                 .on_mouse_down(MouseButton::Left, cx.listener(|ws, ev: &MouseDownEvent, _, cx| {
-                    let at=ws.design_page_point(ev.position);
-                    crate::design::guides::begin(&mut ws.design,true,at);cx.stop_propagation();cx.notify();
-                }))
+                .on_mouse_down(
+                    MouseButton::Left,
+                    cx.listener(|ws, ev: &MouseDownEvent, _, cx| {
+                        let at = ws.design_page_point(ev.position);
+                        crate::design::guides::begin(&mut ws.design, true, at);
+                        cx.stop_propagation();
+                        cx.notify();
+                    }),
+                )
                 .children(horizontal.into_iter().map(|tick| {
                     let length = if tick.label.is_some() { 9.0 } else { 4.0 };
                     div()
@@ -182,10 +187,15 @@ fn design_rulers(ws: &Workspace, cx: &mut Context<Workspace>) -> gpui::AnyElemen
                 .w(px(SIZE))
                 .bg(gpui::rgb(palette().ruler_bg))
                 .overflow_hidden()
-                 .on_mouse_down(MouseButton::Left, cx.listener(|ws, ev: &MouseDownEvent, _, cx| {
-                    let at=ws.design_page_point(ev.position);
-                    crate::design::guides::begin(&mut ws.design,false,at);cx.stop_propagation();cx.notify();
-                }))
+                .on_mouse_down(
+                    MouseButton::Left,
+                    cx.listener(|ws, ev: &MouseDownEvent, _, cx| {
+                        let at = ws.design_page_point(ev.position);
+                        crate::design::guides::begin(&mut ws.design, false, at);
+                        cx.stop_propagation();
+                        cx.notify();
+                    }),
+                )
                 .children(vertical.into_iter().map(|tick| {
                     let length = if tick.label.is_some() { 9.0 } else { 4.0 };
                     div()

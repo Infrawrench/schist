@@ -30,24 +30,24 @@ mod ai;
 mod brushes;
 mod color;
 mod context;
+mod design_controls;
+mod design_layers;
 mod history;
 mod info;
 mod layers;
-mod design_layers;
-mod design_controls;
+mod links;
 mod menu_bar;
 mod menus;
 mod navigator;
-mod links;
 mod notes;
 mod pages;
 mod preflight;
-mod stories;
-mod styles;
-mod swatches;
 mod rulers;
 mod sliders;
 mod status;
+mod stories;
+mod styles;
+mod swatches;
 mod symmetry;
 mod tabs;
 mod titlebar;
@@ -205,19 +205,27 @@ pub fn side_panels(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::Sta
                 (t("design.styles"), styles, false)
             }
             SidePanel::Control => {
-                let Some(body) = design_controls::control_panel(ws, cx) else { continue; };
+                let Some(body) = design_controls::control_panel(ws, cx) else {
+                    continue;
+                };
                 (t("design.control"), body, false)
             }
             SidePanel::Character => {
-                let Some(body) = design_controls::character_panel(ws, cx) else { continue; };
+                let Some(body) = design_controls::character_panel(ws, cx) else {
+                    continue;
+                };
                 (t("design.character"), body, false)
             }
             SidePanel::Paragraph => {
-                let Some(body) = design_controls::paragraph_panel(ws, cx) else { continue; };
+                let Some(body) = design_controls::paragraph_panel(ws, cx) else {
+                    continue;
+                };
                 (t("design.paragraph"), body, false)
             }
             SidePanel::DesignLayers => {
-                let Some(body) = design_layers::design_layers_panel(ws, cx) else { continue; };
+                let Some(body) = design_layers::design_layers_panel(ws, cx) else {
+                    continue;
+                };
                 (t("design.layers"), body, true)
             }
             SidePanel::Preflight => {
@@ -374,7 +382,11 @@ fn panel_order(saved: &[String], design: bool) -> Vec<SidePanel> {
         let Some(panel) = SidePanel::from_key(key) else {
             continue;
         };
-        let panel = if design && panel == SidePanel::Layers { SidePanel::DesignLayers } else { panel };
+        let panel = if design && panel == SidePanel::Layers {
+            SidePanel::DesignLayers
+        } else {
+            panel
+        };
         if !design && panel.design_only() {
             // A preset saved in Design Mode is loaded in the photo editor
             // too, and a panel that would render nothing is worse than one
@@ -389,7 +401,11 @@ fn panel_order(saved: &[String], design: bool) -> Vec<SidePanel> {
         .into_iter()
         .chain(design.then_some(DESIGN_ONLY_PANELS).into_iter().flatten())
     {
-        let panel = if design && panel == SidePanel::Layers { SidePanel::DesignLayers } else { panel };
+        let panel = if design && panel == SidePanel::Layers {
+            SidePanel::DesignLayers
+        } else {
+            panel
+        };
         if !order.contains(&panel) {
             order.push(panel);
         }
@@ -430,21 +446,31 @@ mod panel_order_tests {
         }
         let design = panel_order(&[], true);
         for panel in DESIGN_ONLY_PANELS {
-            assert!(design.contains(&panel), "{panel:?} is missing in Design Mode");
+            assert!(
+                design.contains(&panel),
+                "{panel:?} is missing in Design Mode"
+            );
         }
     }
 
     #[test]
     fn a_saved_design_preset_does_not_strand_its_panels_in_the_photo_editor() {
         let saved = DESIGN_ONLY_PANELS
-            .iter().rev()
+            .iter()
+            .rev()
             .map(|panel| panel.key().to_owned())
             .collect::<Vec<_>>();
         let photo = panel_order(&saved, false);
         assert!(photo.iter().all(|panel| !panel.design_only()));
         // And the design order is the saved one, first.
         let design = panel_order(&saved, true);
-        assert_eq!(design[..saved.len()].iter().map(|panel| panel.key()).collect::<Vec<_>>(), saved);
+        assert_eq!(
+            design[..saved.len()]
+                .iter()
+                .map(|panel| panel.key())
+                .collect::<Vec<_>>(),
+            saved
+        );
     }
 
     #[test]
@@ -611,7 +637,15 @@ fn panel_resize_grip(
         // that size; the other Design panels are lists of one-line rows, so
         // they start shorter and grow.
         SidePanel::Pages => 200.0,
-        SidePanel::Stories | SidePanel::Links | SidePanel::Swatches | SidePanel::Styles | SidePanel::Preflight | SidePanel::DesignLayers | SidePanel::Control | SidePanel::Character | SidePanel::Paragraph => 180.0,
+        SidePanel::Stories
+        | SidePanel::Links
+        | SidePanel::Swatches
+        | SidePanel::Styles
+        | SidePanel::Preflight
+        | SidePanel::DesignLayers
+        | SidePanel::Control
+        | SidePanel::Character
+        | SidePanel::Paragraph => 180.0,
     };
     let entity = cx.entity();
     div()

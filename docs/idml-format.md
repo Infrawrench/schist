@@ -375,10 +375,10 @@ reported before the feature is enabled:
   thousandths of an em, converted per effective run size during composition.
   IDML combines bold/italic into FontStyle; export preserves the resolved face
   but cannot retain independent inheritance of those two properties.
-- Multiple numbering sections, asymmetric document offsets,
-  and unsupported content need further work. Thread ordering,
-  scalar/four-sided insets, single-section numbering, paints and opacity have
-  synthetic native XML checks; external application rendering remains unverified.
+- Unsupported story content and alternate-layout sections need further work.
+  Thread ordering, scalar/four-sided frame insets, numbering sections, asymmetric
+  document offsets, paints and opacity have synthetic native XML checks; external
+  application rendering remains unverified.
 - Schist page visibility survives saves in a `Schist.PageVisibility.v1` page
   label. Export explicitly warns that visibility is retained in Schist only;
   it does not invent a native hidden-page attribute. The visibility tests cover
@@ -432,18 +432,38 @@ Three things writing got wrong, all found by those tests:
 
 `Resources/Preferences.xml` uses **DocumentPreference** (singular). The
 multipage fixture sets 9-point uniform bleed and an 18-point slug offset
-from trim. The layout model records slug as extra paper beyond bleed, so
-this maps to bleed=9 and slug=9. FacingPages is also read. Asymmetric offsets
-expand to their largest extent with a warning. Differing per-page offsets
-similarly warn on export because IDML document preferences are global.
+from trim. Both bleed and slug now retain all four offsets measured from trim;
+this fixture maps to uniform bleed=9 and slug=18. A slug edge inside bleed is
+preserved, even though it does not enlarge the media. Facing-page inside/outside
+offsets map to physical right/left on pages left of the spread spine; they map
+to left/right otherwise, independently of LTR/RTL reading order. Native export
+sets the uniform flags only when all edges agree. Differing per-page logical
+offsets still warn on export because IDML document preferences are global; only
+the affected edges expand to their largest extent.
 
 Numbering is a **Section in designmap.xml**, not a DocumentPreference
-attribute. PageStart references the first Page Self; PageNumberStart,
+attribute. PageStart references the section's starting Page Self; PageNumberStart,
 IncludeSectionPrefix and SectionPrefix are attributes. PageNumberStyle is a
 Properties child with native enum values Arabic, LowerRoman, UpperRoman,
-LowerLetters and UpperLetters. Tests cover every style, prefix escaping,
-facing-page setting, offsets and repeated saves. Multiple sections currently
-warn and reduce to the first section.
+LowerLetters and UpperLetters. Every section resolves through the native page
+reference, independently of XML section order. ContinueNumbering preserves the
+sequence across style changes; explicit restarts reset it. Prefix contents and
+the include flag remain separate, and Name/Marker survive saves. Length is
+recomputed from adjacent boundaries after page edits. Unresolved/duplicate
+references and inconsistent lengths are diagnosed. Alternate-layout attributes
+remain unsupported and produce a notice.
+
+The layout model stores an optional Section on its starting Page. Boundaries
+follow reordered pages, are removed with deleted pages, and participate in the
+same single undo step as that operation. Newly inserted copies inherit the
+surrounding numbering rather than duplicating a restart. Before an explicit
+boundary, the document uses Arabic numbering from 1. A redundant default section
+on the first page is normalized away. Tests cover all boundary combinations,
+restarts/continuations, styles, hidden prefixes, opaque page IDs, hidden pages,
+page moves/deletions, undo and repeated saves. Asymmetric offset tests cover
+both reading directions and every binding-spine position in a four-page spread.
+These are specification-derived synthetic XML checks, not external application
+validation of populated multi-section/facing documents.
 
 Styles are children of RootParagraphStyleGroup and RootCharacterStyleGroup,
 not an invented Resources wrapper. Fonts likewise sit directly in idPkg:Fonts.

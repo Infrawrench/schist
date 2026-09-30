@@ -123,3 +123,35 @@ if len(sys.argv) > 3:
             assert 398 <= left < right <= 698 and 288 <= top < bottom <= 438, (left, top, right, bottom)
             assert right - left > 130 and bottom - top > 130, "vertical text used the wrong flow axes"
     print("Design PDF: enlarged initials and vertical Japanese/Latin text rendered within their frames.")
+
+if len(sys.argv) > 4:
+    # Independent parser validates boxes, renderer validates the plate origin.
+    boxes = subprocess.run(["pdfinfo", "-f", "1", "-l", "1", "-box", sys.argv[4]],
+                           check=True, capture_output=True, text=True)
+    assert not boxes.stderr.strip(), boxes.stderr
+    for label, expected in [("MediaBox", [0, 0, 86, 52]),
+                            ("TrimBox", [14, 8, 74, 48]),
+                            ("BleedBox", [4, 0, 80, 52])]:
+        line = next(line for line in boxes.stdout.splitlines() if label + ":" in line)
+        assert [float(v) for v in line.split(":", 1)[1].split()] == expected, line
+    with tempfile.TemporaryDirectory(prefix="schist-offsets-check-") as temporary:
+        prefix = Path(temporary) / "offsets"
+        result = subprocess.run(["pdftoppm", "-png", "-r", "72", sys.argv[4], str(prefix)],
+                                check=True, capture_output=True, text=True)
+        assert not result.stderr.strip(), result.stderr
+        images = sorted(Path(temporary).glob("offsets-*.png"))
+        assert len(images) == 2
+        for i, file in enumerate(images):
+            with Image.open(file) as opened:
+                image = opened.convert("RGB")
+                assert image.size == ((86 if i == 0 else 172), 52), image.size
+                # First page has 4/6/8/10pt bleed. The second has 8/10/4/6pt.
+                for x, y in [(8, 20), (40, 2), (77, 20), (40, 48)] + (
+                        [(95, 20), (125, 3), (162, 20), (125, 50)] if i else []):
+                    r, g, b = image.getpixel((x, y))
+                    assert r > 180 and max(g, b) < 80, (i, x, y, (r, g, b))
+                for point in [(40, 20)] + ([(125, 20)] if i else []):
+                    assert max(image.getpixel(point)) < 90, (i, point)
+                for point in [(1, 20), (83, 20)] + ([(88, 20), (170, 20)] if i else []):
+                    assert min(image.getpixel(point)) > 240, (i, point)
+    print("Design PDF: asymmetric bleed, absolute slug, boxes, plate origins and n-up placement verified.")

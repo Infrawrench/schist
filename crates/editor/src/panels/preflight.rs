@@ -119,7 +119,11 @@ impl Workspace {
             return;
         }
         let page = self.design.current_page();
-        let Some(request) = self.design.preflight.start(&self.design.document, page, self.design.graphics.clone()) else {
+        let Some(request) =
+            self.design
+                .preflight
+                .start(&self.design.document, page, self.design.graphics.clone())
+        else {
             return;
         };
         cx.notify();

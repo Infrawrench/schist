@@ -372,7 +372,7 @@ fn read_spread(
 ///
 /// `GeometricBounds` is `top left bottom right`, so the size is the
 /// difference between the last pair rather than the values themselves.
-fn page_of(element: &Element) -> Option<Page> {
+pub(crate) fn page_of(element: &Element) -> Option<Page> {
     let bounds = xml::numbers(element.attr("GeometricBounds")?);
     if bounds.len() < 4 {
         return None;
@@ -394,11 +394,12 @@ fn page_of(element: &Element) -> Option<Page> {
         .unwrap_or_default();
     Some(Page {
         name: element.attr("Name").unwrap_or_default().to_owned(),
+        section: None,
         width,
         height,
         // Filled from DocumentPreference after the pages and parents load.
-        bleed: 0.0,
-        slug: 0.0,
+        bleed: Insets::ZERO,
+        slug: Insets::ZERO,
         margins,
         orientation: if width > height {
             Orientation::Landscape

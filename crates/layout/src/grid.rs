@@ -106,7 +106,7 @@ impl GridSettings {
         let Some(first) = self.first_baseline(page) else {
             return Vec::new();
         };
-        let bottom = page.height + page.bleed;
+        let bottom = page.height + page.bleed.bottom;
         let mut out = Vec::new();
         let mut y = first;
         // 4000 lines is far past any real page and stops a divide-by-a-
@@ -295,7 +295,7 @@ mod tests {
     #[test]
     fn baselines_cover_the_bleed_as_well_as_the_trim() {
         let mut page = Page::a4();
-        page.bleed = mm(10.0);
+        page.bleed = (mm(10.0)).into();
         let lines = grid().baselines(&page);
         let last = *lines.last().unwrap();
         assert!(

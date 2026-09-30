@@ -71,8 +71,7 @@ fn swatch_chips(
     selection: &[schist_layout::ObjectId],
     cx: &mut Context<Workspace>,
 ) -> Vec<gpui::AnyElement> {
-    inks
-        .iter()
+    inks.iter()
         .enumerate()
         .map(|(index, ink)| {
             // A swatch is brighter if the selection is already filled with

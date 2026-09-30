@@ -287,3 +287,15 @@ supplies the localised form.
   press-profile modelling.
 - **The spot ICC path.** A spot's Lab is stored, but nothing resolves it
   through a profile to a real ink.
+
+Four-sided bleed and slug now reach `PageOutput` as physical offsets from trim.
+Media encloses both and any required printer marks. PDF's bottom-left coordinates
+use the left/bottom media offsets for TrimBox and plate placement; BleedBox is
+inset separately on each side. Each crop mark starts outside its corresponding
+bleed edge. The uniform-bleed `write_document` convenience API still writes no
+slug; `write_sheet` accepts the complete geometry used by the editor. Slug adds
+paper for marks; artwork separation remains clipped to the bleed box.
+
+`offsets_proof` and `check-design-output` exercise unequal bleed/slug edges and
+single/two-up placement. Independent Poppler parsing and pixel checks distinguish
+all four bleed bands, the trim origin, blank slug paper, and PDF page boxes.

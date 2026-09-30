@@ -13,7 +13,7 @@ pub struct Controls {
 #[derive(Clone)]
 pub enum Target {
     Pages(Vec<usize>),
-    Document,
+    Section(usize),
     Objects(Vec<ObjectId>),
     Paragraph(String),
     Character(String),
@@ -26,6 +26,14 @@ pub fn page_property(id: &str) -> Option<properties::PageProperty> {
         "design-prop-page-height" => Height,
         "design-prop-bleed" => Bleed,
         "design-prop-slug" => Slug,
+        "design-prop-bleed-top" => BleedTop,
+        "design-prop-bleed-bottom" => BleedBottom,
+        "design-prop-bleed-inside" => BleedInside,
+        "design-prop-bleed-outside" => BleedOutside,
+        "design-prop-slug-top" => SlugTop,
+        "design-prop-slug-bottom" => SlugBottom,
+        "design-prop-slug-inside" => SlugInside,
+        "design-prop-slug-outside" => SlugOutside,
         "design-prop-margin-top" => MarginTop,
         "design-prop-margin-right" => MarginRight,
         "design-prop-margin-bottom" => MarginBottom,
@@ -51,10 +59,23 @@ pub fn commit(state: &mut DesignState, id: &str, text: &str) -> bool {
     let Some(target) = state.controls.field.take() else {
         return false;
     };
-    if matches!(target, Target::Document) && id == "design-prop-number-prefix" {
-        return properties::edit_settings(&mut state.document, &mut state.history, |settings| {
-            settings.page_number_prefix = text.to_string()
-        });
+    if let Target::Section(page) = target {
+        if matches!(
+            id,
+            "design-prop-number-prefix" | "design-prop-section-name" | "design-prop-section-marker"
+        ) {
+            return schist_layout::numbering::edit_section(
+                &mut state.document,
+                &mut state.history,
+                page,
+                |section| match id {
+                    "design-prop-number-prefix" => section.prefix = text.into(),
+                    "design-prop-section-name" => section.name = text.into(),
+                    "design-prop-section-marker" => section.marker = text.into(),
+                    _ => unreachable!(),
+                },
+            );
+        }
     }
     if id == "design-prop-family" || id == "design-prop-paragraph-family" {
         let family = text.trim().to_owned();
@@ -119,7 +140,7 @@ pub fn commit(state: &mut DesignState, id: &str, text: &str) -> bool {
                 )
             })
         }),
-        Target::Document => {
+        Target::Section(page) => {
             if id != "design-prop-number-start" {
                 return false;
             }
@@ -127,9 +148,15 @@ pub fn commit(state: &mut DesignState, id: &str, text: &str) -> bool {
             else {
                 return false;
             };
-            properties::edit_settings(&mut state.document, &mut state.history, |settings| {
-                settings.page_number_start = value as u32
-            })
+            schist_layout::numbering::edit_section(
+                &mut state.document,
+                &mut state.history,
+                page,
+                |section| {
+                    section.start = value as u32;
+                    section.continue_numbering = false;
+                },
+            )
         }
         Target::Objects(ids) => value.is_some_and(|value| {
             object_property(id).is_some_and(|property| {
@@ -207,6 +234,42 @@ pub fn all_text_frames(state: &DesignState) -> bool {
 #[cfg(test)]
 mod tests {
     use super::*;
+    #[test]
+    fn section_fields_edit_the_captured_boundary_once_and_reject_invalid_starts() {
+        for field in [
+            "design-prop-number-start",
+            "design-prop-number-prefix",
+            "design-prop-section-name",
+            "design-prop-section-marker",
+        ] {
+            let mut state = DesignState::new();
+            for _ in 0..4 {
+                state.document.add_page(schist_layout::Page::a4());
+            }
+            state.document.pages[2].section = Some(schist_layout::Section::default());
+            let before = state.document.clone();
+            state.controls.field = Some(Target::Section(2));
+            state.page = Some(4);
+            assert!(commit(&mut state, field, "37"));
+            assert_eq!(state.history.undo_depth(), 1);
+            assert_eq!(state.document.pages[0], before.pages[0]);
+            assert!(state.document.pages[4].section.is_none());
+            if field == "design-prop-number-start" {
+                assert_eq!(state.document.page_number(4), "39");
+            }
+            assert!(state.history.undo(&mut state.document));
+            assert_eq!(state.document, before);
+        }
+        let mut state = DesignState::new();
+        let before = state.document.clone();
+        for text in ["", "NaN", "inf", "-1", "0", "1.5", "1000000", "garbage"] {
+            state.controls.field = Some(Target::Section(0));
+            assert!(!commit(&mut state, "design-prop-number-start", text));
+        }
+        assert_eq!(state.document, before);
+        assert_eq!(state.history.undo_depth(), 0);
+    }
+
     #[test]
     fn committing_targets_the_original_selection_once() {
         for count in 1..12 {

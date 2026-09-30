@@ -21,7 +21,7 @@
 
 use serde::{Deserialize, Serialize};
 
-use crate::geometry::{Insets, NumberStyle, Page, Point, Pt, Rect, ShapePath, Spread, SPREAD_GAP};
+use crate::geometry::{Insets, Page, Point, Pt, Rect, ShapePath, Spread, SPREAD_GAP};
 use crate::grid::GridSet;
 use crate::ink::{Ink, InkManager};
 use crate::story::Story;
@@ -331,11 +331,6 @@ pub struct LayoutDocument {
     /// Which layer each object is on, keyed by object id.
     pub object_layers: Vec<(ObjectId, LayerId)>,
 
-    /// The page range shown in the Pages panel, 0-based inclusive.
-    pub page_number_start: u32,
-    pub page_number_style: NumberStyle,
-    /// The prefix a section adds to its page numbers: "A-1".
-    pub page_number_prefix: String,
     /// Documents printed on both sides of the sheet.
     pub facing_pages: bool,
     #[serde(default)]
@@ -410,9 +405,6 @@ impl LayoutDocument {
             layers: vec![LayerId(0)],
             layer_properties: Vec::new(),
             object_layers: Vec::new(),
-            page_number_start: 1,
-            page_number_style: NumberStyle::Arabic,
-            page_number_prefix: String::new(),
             facing_pages: false,
             page_binding: crate::PageBinding::LeftToRight,
             default_paragraph_style: "Body".into(),
@@ -590,15 +582,6 @@ impl LayoutDocument {
         origins
     }
 
-    pub fn page_number(&self, page: usize) -> String {
-        let n = self.page_number_start as usize + page;
-        format!(
-            "{}{}",
-            self.page_number_prefix,
-            self.page_number_style.format(n as u32)
-        )
-    }
-
     /// Add a page to the end, and to the last spread if the document has
     /// one. A spread is a presentation grouping, so appending to the
     /// document means appending inside the existing spread.
@@ -727,12 +710,17 @@ mod tests {
     fn page_numbers_account_for_start_style_and_prefix() {
         let mut doc = LayoutDocument::new(vec![Page::a4(), Page::a4()]);
         assert_eq!(doc.page_number(0), "1");
-        doc.page_number_start = 5;
+        doc.pages[0].section = Some(crate::Section {
+            start: 5,
+            continue_numbering: false,
+            ..Default::default()
+        });
         assert_eq!(doc.page_number(0), "5");
         assert_eq!(doc.page_number(1), "6");
-        doc.page_number_style = NumberStyle::RomanLower;
+        doc.pages[0].section.as_mut().unwrap().style = crate::NumberStyle::RomanLower;
         assert_eq!(doc.page_number(0), "v");
-        doc.page_number_prefix = "A-".into();
+        doc.pages[0].section.as_mut().unwrap().prefix = "A-".into();
+        doc.pages[0].section.as_mut().unwrap().include_prefix = true;
         assert_eq!(doc.page_number(0), "A-v");
     }
 

@@ -8,18 +8,51 @@ pub enum PageProperty {
     Height,
     Bleed,
     Slug,
+    BleedTop,
+    BleedBottom,
+    BleedInside,
+    BleedOutside,
+    SlugTop,
+    SlugBottom,
+    SlugInside,
+    SlugOutside,
     MarginTop,
     MarginRight,
     MarginBottom,
     MarginLeft,
 }
 impl PageProperty {
+    /// Inside/outside follow the spine on facing pages, left/right otherwise.
+    fn physical(self, doc: &LayoutDocument, page: usize) -> Self {
+        if doc.facing_pages && doc.page_is_left(page) {
+            match self {
+                Self::BleedInside => Self::BleedOutside,
+                Self::BleedOutside => Self::BleedInside,
+                Self::SlugInside => Self::SlugOutside,
+                Self::SlugOutside => Self::SlugInside,
+                property => property,
+            }
+        } else {
+            self
+        }
+    }
+
+    pub fn value_for(self, doc: &LayoutDocument, page: usize) -> f32 {
+        self.physical(doc, page).value(&doc.pages[page])
+    }
+
     pub fn value(self, page: &Page) -> f32 {
         match self {
             Self::Width => page.width,
             Self::Height => page.height,
-            Self::Bleed => page.bleed,
-            Self::Slug => page.slug,
+            Self::Bleed | Self::BleedTop => page.bleed.top,
+            Self::Slug | Self::SlugTop => page.slug.top,
+            Self::BleedBottom => page.bleed.bottom,
+            Self::BleedInside => page.bleed.left,
+            Self::BleedOutside => page.bleed.right,
+            Self::SlugBottom => page.slug.bottom,
+            Self::SlugInside => page.slug.left,
+            Self::SlugOutside => page.slug.right,
             Self::MarginTop => page.margins.top,
             Self::MarginRight => page.margins.right,
             Self::MarginBottom => page.margins.bottom,
@@ -54,11 +87,19 @@ pub fn set_page_property(
         };
         let before = snapshot_page(page);
         let mut after = before.clone();
-        match property {
+        match property.physical(doc, *index) {
             PageProperty::Width => after.width = value,
             PageProperty::Height => after.height = value,
-            PageProperty::Bleed => after.bleed = value,
-            PageProperty::Slug => after.slug = value,
+            PageProperty::Bleed => after.bleed = value.into(),
+            PageProperty::Slug => after.slug = value.into(),
+            PageProperty::BleedTop => after.bleed.top = value,
+            PageProperty::BleedBottom => after.bleed.bottom = value,
+            PageProperty::BleedInside => after.bleed.left = value,
+            PageProperty::BleedOutside => after.bleed.right = value,
+            PageProperty::SlugTop => after.slug.top = value,
+            PageProperty::SlugBottom => after.slug.bottom = value,
+            PageProperty::SlugInside => after.slug.left = value,
+            PageProperty::SlugOutside => after.slug.right = value,
             PageProperty::MarginTop => after.margins[0] = value,
             PageProperty::MarginRight => after.margins[1] = value,
             PageProperty::MarginBottom => after.margins[2] = value,
