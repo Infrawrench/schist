@@ -316,3 +316,15 @@ design.idml_baseline_invalid = Invalid baseline shift: {value}
 # Named tint swatches
 design.new_tint = New tint swatch
 design.tint_value = Tint (%)
+
+# Automatic text positions
+design.text_position = Text position
+design.position_normal = Normal
+design.position_superscript = Superscript
+design.position_subscript = Subscript
+design.text_preferences = Document text preferences
+design.superscript_size = Superscript size (%)
+design.superscript_position = Superscript position (leading %)
+design.subscript_size = Subscript size (%)
+design.subscript_position = Subscript position (leading %)
+design.idml_text_preference_invalid = Invalid {property}: {value}

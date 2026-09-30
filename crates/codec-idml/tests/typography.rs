@@ -488,7 +488,7 @@ fn invalid_offsets_and_unsupported_native_positions_are_disclosed() {
             ..Default::default()
         });
         let mut package = container::read(&export::write(&doc).bytes).unwrap();
-        package.insert("Resources/Styles.xml", format!(r#"<idPkg:Styles><RootCharacterStyleGroup><CharacterStyle Self="bad" Name="Bad" BaselineShift="{value}" Position="Superscript"/></RootCharacterStyleGroup></idPkg:Styles>"#).into_bytes());
+        package.insert("Resources/Styles.xml", format!(r#"<idPkg:Styles><RootCharacterStyleGroup><CharacterStyle Self="bad" Name="Bad" BaselineShift="{value}" Position="OTNumerator"/></RootCharacterStyleGroup></idPkg:Styles>"#).into_bytes());
         let read = import::read(&container::write(&package.into_parts())).unwrap();
         assert_eq!(
             read.document
@@ -503,17 +503,16 @@ fn invalid_offsets_and_unsupported_native_positions_are_disclosed() {
             .report
             .skipped
             .iter()
-            .any(|m| m.contains("Superscript")));
+            .any(|m| m.contains("OTNumerator")));
     }
 }
 
 #[test]
-fn unsupported_legacy_baseline_variants_and_invalid_offsets_are_not_exported_as_plain_offsets() {
+fn invalid_baseline_offsets_are_not_exported_as_plain_offsets() {
     use schist_layout::styles::BaselineShift;
     for shift in [
-        BaselineShift::Superscript,
-        BaselineShift::Subscript,
         BaselineShift::Offset(f32::NAN),
+        BaselineShift::Offset(f32::INFINITY),
     ] {
         let mut doc = blank_a4();
         doc.styles.add_character(CharacterStyle {

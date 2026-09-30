@@ -87,23 +87,102 @@ pub enum WritingMode {
 pub enum BaselineShift {
     #[default]
     None,
-    /// Retained for legacy serialization; font scaling/preferences are not implemented.
+    /// Legacy script choice; new styles use TextPosition independently.
     Superscript,
-    /// Retained for legacy serialization; font scaling/preferences are not implemented.
+    /// Legacy script choice; new styles use TextPosition independently.
     Subscript,
     /// A fixed offset in points, positive raising the text.
     Offset(f32),
 }
 
 impl BaselineShift {
-    /// Explicit shifts supported by composition and native IDML. The legacy
-    /// superscript/subscript variants still need size and position preferences.
+    /// Explicit point offsets. Legacy script variants resolve through TextPosition.
     pub fn explicit_offset(self) -> Option<f32> {
         match self {
             Self::None => Some(0.0),
             Self::Offset(value) if value.is_finite() => Some(value),
             _ => None,
         }
+    }
+}
+
+/// Automatic script positioning, independent of an explicit point offset.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Default, Serialize, Deserialize)]
+pub enum TextPosition {
+    #[default]
+    Normal,
+    Superscript,
+    Subscript,
+}
+
+impl TextPosition {
+    /// Legacy documents encoded the script choice as a baseline shift. New
+    /// documents retain the two independent native properties separately.
+    pub fn resolved(position: Option<Self>, shift: Option<BaselineShift>) -> Self {
+        position.unwrap_or(match shift {
+            Some(BaselineShift::Superscript) => Self::Superscript,
+            Some(BaselineShift::Subscript) => Self::Subscript,
+            _ => Self::Normal,
+        })
+    }
+}
+
+/// Document-wide text defaults from native TextPreference. Sizes are percent of
+/// nominal font size; positions are percent of regular leading (not script size).
+/// Stored with the style context so every measurement sees the same preferences.
+#[derive(Debug, Clone, Copy, PartialEq, Serialize, Deserialize)]
+#[serde(default)]
+pub struct TextPreferences {
+    pub superscript_size: f32,
+    pub superscript_position: f32,
+    pub subscript_size: f32,
+    pub subscript_position: f32,
+}
+
+impl Default for TextPreferences {
+    fn default() -> Self {
+        Self {
+            superscript_size: 58.3,
+            superscript_position: 33.3,
+            subscript_size: 58.3,
+            subscript_position: 33.3,
+        }
+    }
+}
+
+impl TextPreferences {
+    /// Rendering scale and signed displacement. Malformed serialized values use
+    /// native defaults; import and authoring diagnose/reject them at their edges.
+    pub fn script(self, position: TextPosition, leading: f32) -> (f32, f32) {
+        let defaults = Self::default();
+        let (size, offset, default_size, default_offset, sign) = match position {
+            TextPosition::Normal => return (1.0, 0.0),
+            TextPosition::Superscript => (
+                self.superscript_size,
+                self.superscript_position,
+                defaults.superscript_size,
+                defaults.superscript_position,
+                1.0,
+            ),
+            TextPosition::Subscript => (
+                self.subscript_size,
+                self.subscript_position,
+                defaults.subscript_size,
+                defaults.subscript_position,
+                -1.0,
+            ),
+        };
+        let size = if size.is_finite() && (1.0..=200.0).contains(&size) {
+            size
+        } else {
+            default_size
+        };
+        let offset = if offset.is_finite() && (-500.0..=500.0).contains(&offset) {
+            offset
+        } else {
+            default_offset
+        };
+        (size / 100.0, sign * offset * leading / 100.0)
     }
 }
 
@@ -148,6 +227,7 @@ pub struct ParagraphStyle {
     pub underline: Option<bool>,
     pub strikethrough: Option<bool>,
     pub baseline_shift: Option<BaselineShift>,
+    pub position: Option<TextPosition>,
     /// Fraction of full-strength ink; None inherits independently of colour.
     pub fill_tint: Option<f32>,
     pub stroke_tint: Option<f32>,
@@ -217,8 +297,9 @@ pub struct CharacterStyle {
     /// Underline toggle; None inherits.
     pub underline: Option<bool>,
     pub strikethrough: Option<bool>,
-    /// Superscript, subscript or a fixed shift.
+    /// Explicit shift; legacy script variants resolve through position.
     pub baseline_shift: Option<BaselineShift>,
+    pub position: Option<TextPosition>,
     /// All-small-caps or small-caps, as a pair of booleans.
     pub all_caps: Option<bool>,
     pub small_caps: Option<bool>,
@@ -249,6 +330,8 @@ pub struct CharacterStyle {
 /// The document's style tables.
 #[derive(Debug, Clone, Default, PartialEq, Serialize, Deserialize)]
 pub struct StyleSet {
+    #[serde(default)]
+    pub text_preferences: TextPreferences,
     pub paragraphs: Vec<ParagraphStyle>,
     pub characters: Vec<CharacterStyle>,
 }
@@ -262,6 +345,7 @@ impl StyleSet {
     /// has to produce a value.
     pub fn with_defaults() -> StyleSet {
         StyleSet {
+            text_preferences: TextPreferences::default(),
             paragraphs: vec![
                 ParagraphStyle {
                     name: "Default".into(),
@@ -396,6 +480,7 @@ pub struct ResolvedParagraph {
     pub underline: Option<bool>,
     pub strikethrough: Option<bool>,
     pub baseline_shift: Option<BaselineShift>,
+    pub position: Option<TextPosition>,
     /// Fraction of full-strength ink; None inherits independently of colour.
     pub fill_tint: Option<f32>,
     pub stroke_tint: Option<f32>,
@@ -433,6 +518,7 @@ impl ResolvedParagraph {
         fallback.italic = self.italic.or(fallback.italic);
         fallback.underline = self.underline.or(fallback.underline);
         fallback.strikethrough = self.strikethrough.or(fallback.strikethrough);
+        fallback.position = self.position.or(fallback.position);
         fallback.baseline_shift = self.baseline_shift.or(fallback.baseline_shift);
         fallback.fill = inherited_paint(&self.fill, self.fill_tint, fallback.fill.as_ref());
         fallback.stroke = inherited_paint(&self.stroke, self.stroke_tint, fallback.stroke.as_ref());
@@ -454,6 +540,7 @@ impl ResolvedParagraph {
             out.italic = out.italic.or(style.italic);
             out.underline = out.underline.or(style.underline);
             out.strikethrough = out.strikethrough.or(style.strikethrough);
+            out.position = out.position.or(style.position);
             out.baseline_shift = out.baseline_shift.or(style.baseline_shift);
             out.fill = inherited_paint(&out.fill, out.fill_tint, style.fill.as_ref());
             out.stroke = inherited_paint(&out.stroke, out.stroke_tint, style.stroke.as_ref());
@@ -498,6 +585,7 @@ pub struct ResolvedCharacter {
     pub underline: Option<bool>,
     pub strikethrough: Option<bool>,
     pub baseline_shift: Option<BaselineShift>,
+    pub position: Option<TextPosition>,
     pub all_caps: Option<bool>,
     pub small_caps: Option<bool>,
     /// Fraction of full-strength ink; None inherits independently of colour.
@@ -529,6 +617,7 @@ impl ResolvedCharacter {
             out.italic = out.italic.or(style.italic);
             out.underline = out.underline.or(style.underline);
             out.strikethrough = out.strikethrough.or(style.strikethrough);
+            out.position = out.position.or(style.position);
             out.baseline_shift = out.baseline_shift.or(style.baseline_shift);
             out.all_caps = out.all_caps.or(style.all_caps);
             out.small_caps = out.small_caps.or(style.small_caps);
@@ -564,6 +653,7 @@ mod tests {
 
     fn set_with(styles: Vec<ParagraphStyle>) -> StyleSet {
         StyleSet {
+            text_preferences: TextPreferences::default(),
             paragraphs: styles,
             characters: Vec::new(),
         }
@@ -677,6 +767,7 @@ mod tests {
     #[test]
     fn character_features_accumulate_across_the_chain() {
         let mut set = StyleSet {
+            text_preferences: TextPreferences::default(),
             paragraphs: Vec::new(),
             characters: vec![
                 CharacterStyle {
@@ -704,6 +795,7 @@ mod tests {
     #[test]
     fn character_inheritance_resolves_like_paragraphs() {
         let set = StyleSet {
+            text_preferences: TextPreferences::default(),
             paragraphs: Vec::new(),
             characters: vec![
                 CharacterStyle {

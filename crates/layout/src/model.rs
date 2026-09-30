@@ -628,39 +628,57 @@ impl LayoutDocument {
         out
     }
 
-    /// Largest supported absolute offset referenced by this story. Cached per
-    /// story by page_artwork; no text shaping is needed to conservatively cull.
+    /// Largest supported cross-axis displacement referenced by this story.
+    /// Cached per story by page_artwork. Resolving run styles/font metrics does
+    /// not shape text, and includes script preferences plus explicit offsets.
     fn story_baseline_extent(&self, id: StoryId) -> f32 {
-        let fallback = self.styles.resolve_character(&self.default_character_style);
-        let default = self
-            .styles
-            .resolve_paragraph(&self.default_paragraph_style)
-            .character(fallback.clone())
-            .baseline_shift;
         let Some(story) = self.story(id) else {
             return 0.0;
         };
-        std::iter::once(default)
-            .chain(story.points.iter().filter_map(|point| {
-                match point {
-                    crate::story::Point::Paragraph { style, .. } => Some(
-                        self.styles
-                            .resolve_paragraph(style)
-                            .character(fallback.clone())
-                            .baseline_shift,
-                    ),
-                    _ => None,
-                }
-            }))
-            .chain(
-                story
-                    .ranges
-                    .iter()
-                    .map(|range| self.styles.resolve_character(&range.style).baseline_shift),
-            )
-            .flatten()
-            .filter_map(crate::styles::BaselineShift::explicit_offset)
-            .map(f32::abs)
+        story
+            .points
+            .iter()
+            .zip(story.point_offsets())
+            .filter_map(|(point, start)| {
+                let crate::story::Point::Paragraph { text, style } = point else {
+                    return None;
+                };
+                let spec = crate::compose::spec_for(
+                    story,
+                    start,
+                    start + text.len(),
+                    &self.styles,
+                    style,
+                    &self.default_character_style,
+                    0.0,
+                );
+                Some(
+                    spec.runs
+                        .iter()
+                        .map(|run| {
+                            let offset = run.baseline_shift.unwrap_or(0.0).abs();
+                            // Preferences allow glyphs larger than their nominal em. Reserve
+                            // their full natural line height as conservative extra ink room.
+                            let growth = run
+                                .metric_size
+                                .filter(|size| run.size.unwrap_or(spec.size) > *size)
+                                .map(|_| {
+                                    crate::compose::natural_line_advance(
+                                        &crate::styles::ResolvedCharacter {
+                                            bold: run.bold.or(Some(spec.bold)),
+                                            italic: run.italic.or(Some(spec.italic)),
+                                            ..Default::default()
+                                        },
+                                        run.size.unwrap_or(spec.size),
+                                        run.family.as_deref().unwrap_or(&spec.family),
+                                    )
+                                })
+                                .unwrap_or(0.0);
+                            offset + growth
+                        })
+                        .fold(0.0, f32::max),
+                )
+            })
             .fold(0.0, f32::max)
     }
 

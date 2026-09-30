@@ -13,6 +13,7 @@ pub struct Controls {
 }
 #[derive(Clone)]
 pub enum Target {
+    TextPreferences,
     Swatch(schist_layout::Ink),
     Pages(Vec<usize>),
     Section(usize),
@@ -56,6 +57,43 @@ pub fn object_property(id: &str) -> Option<ObjectProperty> {
         "design-prop-fill-tint" => ObjectProperty::FillTint,
         "design-prop-stroke-tint" => ObjectProperty::StrokeTint,
         _ => return None,
+    })
+}
+
+/// Position and explicit baseline offset are independent. Choosing Normal
+/// resets inherited positioning, while None restores it. One style edit undoes it.
+pub fn set_position(
+    state: &mut DesignState,
+    target: &Target,
+    position: Option<schist_layout::styles::TextPosition>,
+) -> bool {
+    properties::edit_styles(&mut state.document, &mut state.history, |styles| {
+        let fields = match target {
+            Target::Paragraph(name) => styles
+                .paragraphs
+                .iter_mut()
+                .find(|s| s.name == *name)
+                .map(|s| (&mut s.position, &mut s.baseline_shift)),
+            Target::Character(name) => styles
+                .characters
+                .iter_mut()
+                .find(|s| s.name == *name)
+                .map(|s| (&mut s.position, &mut s.baseline_shift)),
+            _ => None,
+        };
+        if let Some((field, shift)) = fields {
+            *field = position;
+            // Remove only legacy conflated script state; keep numeric offsets.
+            if matches!(
+                shift,
+                Some(
+                    schist_layout::styles::BaselineShift::Superscript
+                        | schist_layout::styles::BaselineShift::Subscript
+                )
+            ) {
+                *shift = None;
+            }
+        }
     })
 }
 
@@ -136,6 +174,29 @@ pub fn commit(state: &mut DesignState, id: &str, text: &str) -> bool {
         return false;
     }
     match target {
+        Target::TextPreferences => {
+            let Some(value) = value else {
+                return false;
+            };
+            let size = matches!(
+                id,
+                "design-prop-superscript-size" | "design-prop-subscript-size"
+            );
+            let range = if size { 1.0..=200.0 } else { -500.0..=500.0 };
+            if !range.contains(&value) {
+                return false;
+            }
+            properties::edit_styles(&mut state.document, &mut state.history, |styles| {
+                let prefs = &mut styles.text_preferences;
+                match id {
+                    "design-prop-superscript-size" => prefs.superscript_size = value,
+                    "design-prop-superscript-position" => prefs.superscript_position = value,
+                    "design-prop-subscript-size" => prefs.subscript_size = value,
+                    "design-prop-subscript-position" => prefs.subscript_position = value,
+                    _ => {}
+                }
+            })
+        }
         Target::Swatch(ink) => {
             let Some(value) = value else {
                 return false;
@@ -327,6 +388,59 @@ pub fn all_text_frames(state: &DesignState) -> bool {
 #[cfg(test)]
 mod tests {
     use super::*;
+    #[test]
+    fn position_and_document_preferences_undo_once_without_changing_explicit_offsets() {
+        use schist_layout::styles::{BaselineShift, TextPosition};
+        let mut state = DesignState::new();
+        state.document.styles.characters[0].baseline_shift = Some(BaselineShift::Offset(8.0));
+        let name = state.document.styles.characters[0].name.clone();
+        let original = state.document.clone();
+        for position in [
+            TextPosition::Normal,
+            TextPosition::Superscript,
+            TextPosition::Subscript,
+        ] {
+            assert!(set_position(
+                &mut state,
+                &Target::Character(name.clone()),
+                Some(position)
+            ));
+            assert_eq!(state.history.undo_depth(), 1);
+            assert_eq!(
+                state
+                    .document
+                    .styles
+                    .character(&name)
+                    .unwrap()
+                    .baseline_shift,
+                Some(BaselineShift::Offset(8.0))
+            );
+            assert_eq!(
+                state.document.styles.character(&name).unwrap().position,
+                Some(position)
+            );
+            assert!(state.history.undo(&mut state.document));
+            assert_eq!(state.document, original);
+        }
+        for (id, value) in [
+            ("design-prop-superscript-size", "65"),
+            ("design-prop-subscript-size", "75"),
+            ("design-prop-superscript-position", "-45"),
+            ("design-prop-subscript-position", "25"),
+        ] {
+            for invalid in ["NaN", "inf", "501", "-501", ""] {
+                state.controls.field = Some(Target::TextPreferences);
+                assert!(!commit(&mut state, id, invalid));
+                assert_eq!(state.document, original);
+            }
+            state.controls.field = Some(Target::TextPreferences);
+            assert!(commit(&mut state, id, value));
+            assert_eq!(state.history.undo_depth(), 1);
+            assert!(state.history.undo(&mut state.document));
+            assert_eq!(state.document, original);
+        }
+    }
+
     #[test]
     fn swatch_fields_edit_captured_definitions_keep_cmyk_and_reject_invalid_values() {
         let mut state = DesignState::new();

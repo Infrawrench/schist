@@ -236,9 +236,17 @@ pub fn spec_for(
     } else {
         direction
     };
+    let base_position =
+        crate::styles::TextPosition::resolved(character.position, character.baseline_shift);
+    let base_leading = paragraph
+        .leading
+        .or(character.leading)
+        .unwrap_or(natural * line_height);
+    let (base_scale, base_shift) = styles.text_preferences.script(base_position, base_leading);
+    let base_script = base_position != crate::styles::TextPosition::Normal;
     let mut spec = TextSpec {
         text,
-        family,
+        family: family.clone(),
         bold: character.bold.unwrap_or(false),
         italic: character.italic.unwrap_or(false),
         size,
@@ -262,25 +270,64 @@ pub fn spec_for(
             .filter(|range| range.start < end && range.end > start)
             .map(|range| {
                 let style = styles.resolve_character(&range.style);
+                let shift = style.baseline_shift.or(character.baseline_shift);
+                let position = crate::styles::TextPosition::resolved(
+                    style.position.or(character.position),
+                    shift,
+                );
+                let scripted = position != crate::styles::TextPosition::Normal;
+                let nominal = style.point_size.unwrap_or(size);
+                let leading = if scripted {
+                    Some(
+                        style
+                            .leading
+                            .or(paragraph.leading)
+                            .or(character.leading)
+                            .unwrap_or_else(|| {
+                                let metrics_style = ResolvedCharacter {
+                                    bold: style.bold.or(character.bold),
+                                    italic: style.italic.or(character.italic),
+                                    ..Default::default()
+                                };
+                                natural_line_advance(
+                                    &metrics_style,
+                                    nominal,
+                                    style.family.as_deref().unwrap_or(&family),
+                                ) * line_height
+                            }),
+                    )
+                } else {
+                    style.leading
+                };
+                let (script_scale, script_shift) = styles
+                    .text_preferences
+                    .script(position, leading.unwrap_or(0.0));
                 schist_text_engine::StyleRun {
                     start: range.start.max(start) - start,
                     end: range.end.min(end) - start,
                     family: style.family,
                     bold: style.bold,
                     italic: style.italic,
-                    size: style.point_size,
+                    size: if scripted {
+                        Some(nominal * script_scale)
+                    } else {
+                        style.point_size
+                    },
+                    metric_size: scripted.then_some(nominal),
                     tracking: style
                         .tracking
                         .or(paragraph.tracking)
                         .or(character.tracking)
-                        .map(|tracking| tracking * style.point_size.unwrap_or(size) / 1000.0),
-                    leading: style.leading,
+                        .map(|tracking| tracking * nominal * script_scale / 1000.0),
+                    leading,
                     underline: style.underline.or(character.underline),
                     strikethrough: style.strikethrough.or(character.strikethrough),
-                    baseline_shift: style
-                        .baseline_shift
-                        .or(character.baseline_shift)
-                        .and_then(crate::styles::BaselineShift::explicit_offset),
+                    baseline_shift: Some(
+                        shift
+                            .and_then(crate::styles::BaselineShift::explicit_offset)
+                            .unwrap_or(0.0)
+                            + script_shift,
+                    ),
                     color: Some(
                         crate::styles::inherited_paint(
                             &style.fill,
@@ -319,9 +366,17 @@ pub fn spec_for(
         end: spec.text.len(),
         underline: character.underline,
         strikethrough: character.strikethrough,
-        baseline_shift: character
-            .baseline_shift
-            .and_then(crate::styles::BaselineShift::explicit_offset),
+        size: base_script.then_some(size * base_scale),
+        metric_size: base_script.then_some(size),
+        leading: base_script.then_some(base_leading),
+        tracking: base_script.then_some(spec.tracking * base_scale),
+        baseline_shift: Some(
+            character
+                .baseline_shift
+                .and_then(crate::styles::BaselineShift::explicit_offset)
+                .unwrap_or(0.0)
+                + base_shift,
+        ),
         color: Some([
             (rgb[0].clamp(0.0, 1.0) * 255.0).round() as u8,
             (rgb[1].clamp(0.0, 1.0) * 255.0).round() as u8,
@@ -395,7 +450,8 @@ pub fn engine_align(align: Option<Align>) -> schist_text_engine::Align {
 /// plausible metrics rather than collapsing to zero-height lines.
 pub fn natural_line_advance(character: &ResolvedCharacter, size: Pt, family: &str) -> Pt {
     let spec = TextSpec {
-        text: "Hxy".into(),
+        // An empty logical line reads font metrics without shaping glyphs.
+        text: String::new(),
         family: family.to_string(),
         bold: character.bold.unwrap_or(false),
         italic: character.italic.unwrap_or(false),
@@ -1773,6 +1829,7 @@ fn scale_initial_spec(mut spec: TextSpec, scale: Pt) -> TextSpec {
     spec.align = schist_text_engine::Align::Left;
     for run in &mut spec.runs {
         run.size = run.size.map(|v| v * scale);
+        run.metric_size = run.metric_size.map(|v| v * scale);
         run.tracking = run.tracking.map(|v| v * scale);
         run.leading = run.leading.map(|v| v * scale);
     }

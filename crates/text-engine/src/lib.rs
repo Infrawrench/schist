@@ -100,10 +100,10 @@ pub struct TextSpec {
     /// Inline wrap length in pixels (column length in vertical writing); `None` means never wrap.
     pub wrap_width: Option<f32>,
     /// Stretches of `text` set differently from the rest, by byte range.
-    /// Sorted and non-overlapping; whatever they leave uncovered is set
-    /// in the layer's own `family`/`bold`/`italic`/`size`. Empty for
-    /// text in one font, which is also what files written before runs
-    /// existed load as.
+    /// The first matching run wins; callers may append a whole-paragraph
+    /// fallback after local overrides. Editing normalizes ranges. Uncovered
+    /// text uses the layer's own `family`/`bold`/`italic`/`size`. Empty for
+    /// text in one font, including files written before runs existed.
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
     pub runs: Vec<StyleRun>,
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
@@ -150,6 +150,10 @@ pub struct StyleRun {
     pub italic: Option<bool>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub size: Option<f32>,
+    /// Nominal size for line metrics when glyphs use a different size (scripts).
+    /// None uses the rendered size. Does not change shaping or glyph coverage.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub metric_size: Option<f32>,
     /// Extra advance in pixels, overriding the layer tracking.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub tracking: Option<f32>,
@@ -176,6 +180,7 @@ impl StyleRun {
             && self.bold.is_none()
             && self.italic.is_none()
             && self.size.is_none()
+            && self.metric_size.is_none()
             && self.color.is_none()
             && self.tracking.is_none()
             && self.leading.is_none()
@@ -207,6 +212,9 @@ impl StyleRun {
         if over.size.is_some() {
             self.size = over.size;
         }
+        if over.metric_size.is_some() {
+            self.metric_size = over.metric_size;
+        }
         if over.tracking.is_some() {
             self.tracking = over.tracking;
         }
@@ -233,6 +241,7 @@ impl StyleRun {
             && self.bold == other.bold
             && self.italic == other.italic
             && self.size == other.size
+            && self.metric_size == other.metric_size
             && self.color == other.color
             && self.tracking == other.tracking
             && self.leading == other.leading
@@ -256,6 +265,7 @@ pub struct CharStyle {
     pub bold: bool,
     pub italic: bool,
     pub size: f32,
+    pub metric_size: Option<f32>,
 }
 
 impl CharStyle {
@@ -281,6 +291,7 @@ impl CharStyle {
             bold: Some(self.bold),
             italic: Some(self.italic),
             size: Some(self.size),
+            metric_size: self.metric_size,
             color: self.color,
             tracking: Some(self.tracking),
             leading: self.leading,
@@ -321,6 +332,7 @@ impl TextSpec {
             bold: self.bold,
             italic: self.italic,
             size: self.size,
+            metric_size: None,
         }
     }
 
@@ -340,6 +352,7 @@ impl TextSpec {
             if let Some(s) = run.size {
                 style.size = s;
             }
+            style.metric_size = run.metric_size.filter(|v| v.is_finite() && *v > 0.0);
             style.color = run.color;
             style.tracking = run.tracking.unwrap_or(style.tracking);
             style.leading = run.leading;
@@ -377,6 +390,7 @@ impl TextSpec {
         if range.start == 0
             && range.end == len
             && over.color.is_none()
+            && over.metric_size.is_none()
             && over.tracking.is_none()
             && over.leading.is_none()
             && over.underline.is_none()
@@ -494,37 +508,45 @@ impl TextSpec {
         self.normalize_runs();
     }
 
-    /// Sort the runs, drop the empty and the plain, and join neighbours
-    /// that say the same thing.
+    /// Partition using first-match precedence, drop empty/plain intervals and
+    /// join equal neighbours. Normalization must preserve overlapping fallbacks.
     pub fn normalize_runs(&mut self) {
         let len = self.text.len();
-        for run in &mut self.runs {
+        let mut input = std::mem::take(&mut self.runs);
+        let mut boundaries = Vec::with_capacity(input.len() * 2);
+        for run in &mut input {
             run.start = run.start.min(len);
             run.end = run.end.min(len);
+            if run.start < run.end {
+                boundaries.extend([run.start, run.end]);
+            }
         }
-        self.runs.retain(|r| r.start < r.end && !r.is_plain());
-        self.runs.sort_by_key(|r| (r.start, r.end));
-        let mut merged: Vec<StyleRun> = Vec::with_capacity(self.runs.len());
-        for run in self.runs.drain(..) {
-            if let Some(last) = merged.last_mut() {
-                if last.end == run.start && last.same_style(&run) {
-                    last.end = run.end;
-                    continue;
-                }
-                // Overlaps only arise from corrupt input; the later run
-                // starts where the earlier one ends.
-                if run.start < last.end {
-                    let mut run = run;
-                    run.start = last.end;
-                    if run.start < run.end {
-                        merged.push(run);
-                    }
+        boundaries.sort_unstable();
+        boundaries.dedup();
+        for interval in boundaries.windows(2) {
+            let (start, end) = (interval[0], interval[1]);
+            let Some(mut run) = input
+                .iter()
+                .find(|r| r.start <= start && start < r.end)
+                .cloned()
+            else {
+                continue;
+            };
+            // Choose before dropping plain runs: an explicit plain interval can
+            // mask a later fallback and must leave a plain gap in the result.
+            if run.is_plain() {
+                continue;
+            }
+            run.start = start;
+            run.end = end;
+            if let Some(previous) = self.runs.last_mut() {
+                if previous.end == start && previous.same_style(&run) {
+                    previous.end = end;
                     continue;
                 }
             }
-            merged.push(run);
+            self.runs.push(run);
         }
-        self.runs = merged;
     }
 }
 
@@ -1116,11 +1138,17 @@ impl Faces {
         let mut styles = vec![base_style.clone()];
         let mut faces = vec![(base.clone(), spec.size)];
         let mut by_byte = vec![0usize; spec.text.len()];
+        // Runs may overlap (a paragraph fallback follows more specific runs).
+        // Resolve disjoint intervals with style_at's first-match precedence;
+        // assigning every byte of the last run would erase local font overrides.
+        let mut boundaries = vec![0, spec.text.len()];
         for run in &spec.runs {
-            let (s, e) = (run.start.min(spec.text.len()), run.end.min(spec.text.len()));
-            if s >= e {
-                continue;
-            }
+            boundaries.extend([run.start.min(spec.text.len()), run.end.min(spec.text.len())]);
+        }
+        boundaries.sort_unstable();
+        boundaries.dedup();
+        for interval in boundaries.windows(2) {
+            let (s, e) = (interval[0], interval[1]);
             let mut style = spec.style_at(s);
             // These properties do not change the font face or kerning.
             style.color = None;
@@ -1129,6 +1157,7 @@ impl Faces {
             style.underline = base_style.underline;
             style.strikethrough = base_style.strikethrough;
             style.baseline_shift = base_style.baseline_shift;
+            style.metric_size = base_style.metric_size;
             if style == base_style {
                 continue;
             }
@@ -1153,6 +1182,19 @@ impl Faces {
 
     fn at(&self, byte: usize) -> usize {
         self.by_byte.get(byte).copied().unwrap_or(0)
+    }
+
+    fn line_metrics_at(&self, spec: &TextSpec, byte: usize) -> (f32, f32) {
+        let ix = self.at(byte);
+        let Some(size) = spec.style_at(byte).metric_size else {
+            return self.line_metrics(ix);
+        };
+        self.faces[ix]
+            .0
+            .font
+            .horizontal_line_metrics(size)
+            .map(|m| (m.ascent, m.new_line_size))
+            .unwrap_or((size * 0.8, size * 1.2))
     }
 
     /// Ascent and natural line step of face `ix`.
@@ -1181,7 +1223,7 @@ fn run_line_advance(
                 .leading
                 .filter(|v| v.is_finite() && *v > 0.0)
                 .unwrap_or_else(|| {
-                    faces.line_metrics(faces.at(start + i)).1 * spec.line_height.max(0.1)
+                    faces.line_metrics_at(spec, start + i).1 * spec.line_height.max(0.1)
                 })
         })
         .reduce(f32::max)
@@ -1391,22 +1433,13 @@ fn layout_with_widths(spec: &TextSpec, base: &LoadedFace, widths: &[f32]) -> Lay
     let mut first_advance = 0.0;
     let mut top = 0.0f32;
     for (i, line) in lines.iter().enumerate() {
-        // A line is as tall as the tallest face on it, and an empty line
-        // as tall as the layer's own font.
-        let mut used: Vec<usize> = line
+        // Nominal script sizes keep line geometry independent of glyph scaling.
+        let (ascent, line_gap) = line
             .text
             .char_indices()
-            .map(|(k, _)| faces.at(line.start + k))
-            .collect();
-        used.sort_unstable();
-        used.dedup();
-        if used.is_empty() {
-            used.push(0);
-        }
-        let (ascent, line_gap) = used
-            .iter()
-            .map(|&ix| faces.line_metrics(ix))
-            .fold((0.0f32, 0.0f32), |(a, g), (fa, fg)| (a.max(fa), g.max(fg)));
+            .map(|(byte, _)| faces.line_metrics_at(spec, line.start + byte))
+            .reduce(|(a, g), (fa, fg)| (a.max(fa), g.max(fg)))
+            .unwrap_or_else(|| faces.line_metrics(0));
         let line_advance = run_line_advance(spec, &faces, line.start, line.end, line_gap);
         let baseline = top + ascent;
         if i == 0 {
@@ -1611,24 +1644,38 @@ fn caret_in_layout_affinity(spec: &TextSpec, laid: &Layout, position: CaretPosit
     } else {
         upto
     };
-    shift_caret(
+    styled_caret(spec, laid, span, style_byte, x)
+}
+
+/// The same styled insertion segment bounds the caret and each selection cell.
+fn styled_caret(spec: &TextSpec, laid: &Layout, span: LineSpan, byte: usize, x: f32) -> Caret {
+    let style = spec.style_at(byte);
+    let ratio = style
+        .metric_size
+        .map(|nominal| style.size / nominal)
+        .unwrap_or(1.0);
+    let height = if span.height > 0.0 {
+        span.height
+    } else {
+        spec.size
+    };
+    let mut caret = orient_caret(
         spec,
-        style_byte,
-        orient_caret(
-            spec,
-            laid,
-            Caret {
-                x,
-                top: span.top,
-                height: if span.height > 0.0 {
-                    span.height
-                } else {
-                    spec.size
-                },
-                angle: 0.0,
-            },
-        ),
-    )
+        laid,
+        Caret {
+            x,
+            top: span.top,
+            height,
+            angle: 0.0,
+        },
+    );
+    if spec.writing_mode.is_vertical() {
+        caret.x -= height * (1.0 - ratio) / 2.0;
+    } else {
+        caret.top += (span.baseline - span.top) * (1.0 - ratio);
+    }
+    caret.height *= ratio;
+    shift_caret(spec, byte, caret)
 }
 
 fn shift_caret(spec: &TextSpec, byte: usize, mut caret: Caret) -> Caret {
@@ -1835,17 +1882,7 @@ pub fn selection_rects(spec: &TextSpec, range: std::ops::Range<usize>) -> Vec<In
         {
             let mut points = Vec::new();
             for x in [ch.x, ch.end_x] {
-                let c = orient_caret(
-                    spec,
-                    &laid,
-                    Caret {
-                        x,
-                        top: span.top,
-                        height: span.height,
-                        angle: 0.0,
-                    },
-                );
-                let c = shift_caret(spec, ch.byte, c);
+                let c = styled_caret(spec, &laid, *span, ch.byte, x);
                 let c = guide
                     .as_ref()
                     .map_or(c, |g| g.caret(c, laid.first_baseline));

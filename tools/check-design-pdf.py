@@ -300,3 +300,45 @@ if len(sys.argv) > 8:
             before_box, after_box = ink_bounds(rendered[pair*2]), ink_bounds(rendered[pair*2+1])
             assert all(abs(b-a-d)<=1 for a,b,d in zip(before_box,after_box,(dx,dy,dx,dy))), (pair,before_box,after_box)
     print("Design PDF: point baseline shifts translate horizontal, mixed upright/rotated vertical and rotated-frame ink without changing glyph colours or decorations.")
+
+
+if len(sys.argv) > 9:
+    with tempfile.TemporaryDirectory(prefix="schist-script-check-") as temporary:
+        prefix = Path(temporary) / "scripts"
+        result = subprocess.run(["pdfimages", "-png", sys.argv[9], str(prefix)],
+                                check=True, capture_output=True, text=True)
+        assert not result.stderr.strip(), result.stderr
+        files = sorted(Path(temporary).glob("scripts-*.png"))
+        assert len(files) == 9
+        images = []
+        for file in files:
+            with Image.open(file) as opened:
+                images.append(opened.convert("RGB"))
+        def colour_box(image, cyan):
+            points = [(x,y) for y in range(400) for x in range(400)
+                      if image.getpixel((x,y))[0 if cyan else 1] < 200
+                      and image.getpixel((x,y))[1 if cyan else 0] > image.getpixel((x,y))[0 if cyan else 1] + 30
+                      and image.getpixel((x,y))[2] > image.getpixel((x,y))[0 if cyan else 1] + 30]
+            assert len(points)>100
+            return min(x for x,y in points),min(y for x,y in points),max(x for x,y in points),max(y for x,y in points)
+        for mode in range(3):
+            plain, superior, inferior = images[mode*3:mode*3+3]
+            assert plain.size == superior.size == inferior.size == (400,400)
+            dx,dy = (0,80) if mode==0 else (-80,0)
+            # Equal-size super/subscript glyphs differ only in their displacement:
+            # 50% of 40pt leading in opposite directions, at 144 dpi.
+            for y in range(400):
+                for x in range(400):
+                    sx,sy=x-dx,y-dy
+                    expected=superior.getpixel((sx,sy)) if 0<=sx<400 and 0<=sy<400 else (255,255,255)
+                    assert inferior.getpixel((x,y))==expected, (mode,x,y)
+            for cyan in [True,False]:
+                a,b=colour_box(plain,cyan),colour_box(superior,cyan)
+                for start,end in [(0,2),(1,3)]:
+                    assert abs((b[end]-b[start]+1)-(a[end]-a[start]+1)*0.5)<=3, (mode,a,b)
+            # The two differently coloured paragraphs retain a 40pt advance.
+            for image in [plain,superior,inferior]:
+                first,second=colour_box(image,True),colour_box(image,False)
+                axis=1 if mode==0 else 0
+                assert abs(abs(second[axis]-first[axis])-80)<=1, (mode,first,second)
+    print("Design PDF: script glyph scaling, regular leading, explicit offsets and opposite super/subscript displacement verified in horizontal and both vertical modes.")

@@ -71,7 +71,8 @@ pub fn write(document: &LayoutDocument) -> Written {
                 .filter_map(|s| s.baseline_shift),
         )
     {
-        if shift.explicit_offset().is_none() {
+        if matches!(shift, schist_layout::styles::BaselineShift::Offset(value) if !value.is_finite())
+        {
             out.warnings.push(schist_i18n::tf!(
                 "design.idml_position_unsupported",
                 value = format!("{shift:?}")

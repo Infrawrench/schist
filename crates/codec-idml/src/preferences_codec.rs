@@ -1,4 +1,4 @@
-//! DocumentPreference and Section follow the public IDML specification
+//! DocumentPreference, TextPreference and Section follow the public IDML specification
 //! (sections 6.3.21 and the designmap Section schema). Bleed/slug are
 //! document-wide in IDML; layout pages store physical four-sided offsets.
 use crate::{
@@ -49,6 +49,34 @@ pub fn read(
             part: part.name.clone(),
             message,
         })?;
+        if let Some(prefs) = root.find("TextPreference") {
+            let text = &mut document.styles.text_preferences;
+            for (key, target, range) in [
+                ("SuperscriptSize", &mut text.superscript_size, 1.0..=200.0),
+                (
+                    "SuperscriptPosition",
+                    &mut text.superscript_position,
+                    -500.0..=500.0,
+                ),
+                ("SubscriptSize", &mut text.subscript_size, 1.0..=200.0),
+                (
+                    "SubscriptPosition",
+                    &mut text.subscript_position,
+                    -500.0..=500.0,
+                ),
+            ] {
+                if let Some(raw) = prefs.attr(key) {
+                    match raw.parse::<f32>() {
+                        Ok(value) if value.is_finite() && range.contains(&value) => *target = value,
+                        _ => report.skip(schist_i18n::tf!(
+                            "design.idml_text_preference_invalid",
+                            property = key,
+                            value = raw
+                        )),
+                    }
+                }
+            }
+        }
         if let Some(prefs) = root.find("DocumentPreference") {
             document.facing_pages = prefs.attr("FacingPages") == Some("true");
             document.page_binding = if prefs.attr("PageBinding") == Some("RightToLeft") {
@@ -217,6 +245,47 @@ pub fn preferences(document: &LayoutDocument, warnings: &mut Vec<String>) -> Str
         {
             out.push_str(&format!(r#" {key}="{}""#, number(value)));
         }
+    }
+    out.push_str(" /><TextPreference");
+    let text = document.styles.text_preferences;
+    let default = schist_layout::styles::TextPreferences::default();
+    for (key, value, fallback, range) in [
+        (
+            "SuperscriptSize",
+            text.superscript_size,
+            default.superscript_size,
+            1.0..=200.0,
+        ),
+        (
+            "SuperscriptPosition",
+            text.superscript_position,
+            default.superscript_position,
+            -500.0..=500.0,
+        ),
+        (
+            "SubscriptSize",
+            text.subscript_size,
+            default.subscript_size,
+            1.0..=200.0,
+        ),
+        (
+            "SubscriptPosition",
+            text.subscript_position,
+            default.subscript_position,
+            -500.0..=500.0,
+        ),
+    ] {
+        let value = if value.is_finite() && range.contains(&value) {
+            value
+        } else {
+            warnings.push(schist_i18n::tf!(
+                "design.idml_text_preference_invalid",
+                property = key,
+                value = value
+            ));
+            fallback
+        };
+        out.push_str(&format!(r#" {key}="{}""#, number(value)));
     }
     out.push_str(" />");
     out

@@ -681,14 +681,34 @@ point offsets, omitted inheritance and local zero resets through repeated saves;
 supported local overrides reuse named styles rather than multiplying on save.
 Malformed/nonfinite offsets produce an import diagnostic.
 
-`Position` superscript/subscript and their TypePreference size/position settings
-remain unsupported and are now explicitly reported when encountered. Legacy
-model variants for them are retained for serialization but are not interpreted as
-numeric offsets; export reports their loss. The unused approximate-offset helper
-was removed. Explicit `BaselineShift::None` exports a native zero, which reads as
-`Offset(0)` with the same meaning. Native populated-document/application validation
-is still outstanding; synthetic native XML and independent rendered PDF proofs
-establish only the tested subset.
+Native `Position` is independent of the explicit baseline offset. Normal,
+superscript and subscript now import/export, including explicit Normal resets and
+local overrides. Other native OpenType position variants remain diagnosed. Legacy
+model script variants export as Position; explicit `BaselineShift::None` still
+writes zero, while malformed numeric offsets produce a notice.
+
+### Automatic superscript and subscript
+
+Document `TextPreference` preserves SuperscriptSize/Position and
+SubscriptSize/Position. The public XML schema accepts size 1–200 and position
+-500–500; defaults in specification appendix C are 58.3% and 33.3%. The
+[TextPreference reference](https://developer.adobe.com/indesign/uxp/dom/api/t/text-preference/)
+and [character-formatting guide](https://helpx.adobe.com/ie/indesign/desktop/format-and-style-text/character-formatting/apply-drop-caps-text-positioning.html)
+define size relative to nominal font size and displacement relative to regular
+leading. Explicit point offsets remain additive. This implementation follows the
+XML size range; zero is diagnosed rather than producing an invisible font.
+
+Both public-domain Penn State v20.2 templates carry those defaults and a named
+superscript footnote-number style; the academic template also has local superscript
+ranges. Tests preserve those native positions and preferences through repeated
+saves without generating more styles. This establishes attribute evidence, not
+footnote layout support or matching native rendering. Tables, math, footnote and
+anchored-content composition remain separate gaps.
+
+The shared renderer retains nominal line metrics while scaling actual glyphs,
+carets and selection segments. The output proof independently checks both script
+positions in horizontal and vertical Japanese text, including explicit offsets,
+regular paragraph spacing and equal-size super/subscript pixel displacement.
 
 
 ### Named tint swatches

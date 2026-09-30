@@ -367,17 +367,22 @@ fn independent_vertical_type_imports_and_regenerates_native_orientation() {
 }
 
 #[test]
-fn nonzero_baseline_shifts_keep_private_editability_without_plain_native_type() {
-    for shift in [-12.5, 0.0, 8.25] {
+fn offsets_and_nominal_metrics_keep_private_editability_without_plain_native_type() {
+    for (key, shift, unsupported) in [
+        ("baseline_shift", -12.5, true),
+        ("baseline_shift", 0.0, false),
+        ("baseline_shift", 8.25, true),
+        ("metric_size", 24.0, true),
+    ] {
         let mut doc = document();
         let mut stored = spec(&doc.tree.layers[0]);
-        stored["spec"]["runs"][0]["baseline_shift"] = json!(shift);
+        stored["spec"]["runs"][0][key] = json!(shift);
         doc.tree.layers[0].extras[0].data = serde_json::to_vec(&stored).unwrap();
         for _ in 0..3 {
             doc = schist_codec_psd::read_psd(&schist_codec_psd::write_psd(&doc).unwrap()).unwrap();
             assert_eq!(
                 doc.tree.layers[0].extras.iter().any(|b| b.key == *b"TySh"),
-                shift == 0.0
+                !unsupported
             );
             assert_eq!(spec(&doc.tree.layers[0]), stored);
         }

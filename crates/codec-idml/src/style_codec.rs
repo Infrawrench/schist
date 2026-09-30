@@ -100,6 +100,7 @@ pub(crate) fn paragraph_properties(
         underline: character.underline,
         strikethrough: character.strikethrough,
         baseline_shift: character.baseline_shift,
+        position: character.position,
         fill_tint: character.fill_tint,
         stroke_tint: character.stroke_tint,
         fill: character.fill,
@@ -137,12 +138,19 @@ pub(crate) fn character_properties(
     report: &mut crate::import::Report,
 ) -> CharacterStyle {
     let font_style = element.attr("FontStyle");
-    if let Some(position) = element.attr("Position").filter(|v| *v != "Normal") {
-        report.skip(schist_i18n::tf!(
-            "design.idml_position_unsupported",
-            value = position
-        ));
-    }
+    use schist_layout::styles::TextPosition;
+    let position = element.attr("Position").and_then(|value| match value {
+        "Normal" => Some(TextPosition::Normal),
+        "Superscript" => Some(TextPosition::Superscript),
+        "Subscript" => Some(TextPosition::Subscript),
+        _ => {
+            report.skip(schist_i18n::tf!(
+                "design.idml_position_unsupported",
+                value = value
+            ));
+            None
+        }
+    });
     let baseline_shift = element
         .attr("BaselineShift")
         .and_then(|raw| match raw.parse::<f32>() {
@@ -174,6 +182,7 @@ pub(crate) fn character_properties(
         underline: boolean(element, "Underline"),
         strikethrough: boolean(element, "StrikeThru"),
         baseline_shift,
+        position,
         language: element.attr("AppliedLanguage").map(str::to_owned),
         ..CharacterStyle::default()
     }
@@ -272,6 +281,30 @@ fn font_style(out: &mut String, bold: Option<bool>, italic: Option<bool>) {
     }
 }
 
+fn position(
+    out: &mut String,
+    value: Option<schist_layout::styles::TextPosition>,
+    shift: Option<schist_layout::styles::BaselineShift>,
+) {
+    use schist_layout::styles::{BaselineShift, TextPosition};
+    if value.is_some()
+        || matches!(
+            shift,
+            Some(BaselineShift::Superscript | BaselineShift::Subscript)
+        )
+    {
+        attr(
+            out,
+            "Position",
+            match TextPosition::resolved(value, shift) {
+                TextPosition::Normal => "Normal",
+                TextPosition::Superscript => "Superscript",
+                TextPosition::Subscript => "Subscript",
+            },
+        );
+    }
+}
+
 pub fn paragraph(style: &ParagraphStyle) -> String {
     let mut out = String::from("<ParagraphStyle");
     attr(
@@ -283,6 +316,7 @@ pub fn paragraph(style: &ParagraphStyle) -> String {
     font_style(&mut out, style.bold, style.italic);
     optional(&mut out, "Underline", style.underline);
     optional(&mut out, "StrikeThru", style.strikethrough);
+    position(&mut out, style.position, style.baseline_shift);
     optional(
         &mut out,
         "BaselineShift",
@@ -414,6 +448,7 @@ pub fn character(style: &CharacterStyle) -> String {
     font_style(&mut out, style.bold, style.italic);
     optional(&mut out, "Underline", style.underline);
     optional(&mut out, "StrikeThru", style.strikethrough);
+    position(&mut out, style.position, style.baseline_shift);
     optional(
         &mut out,
         "BaselineShift",

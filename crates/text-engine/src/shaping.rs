@@ -336,7 +336,7 @@ pub(super) fn layout(spec: &TextSpec, base: &LoadedFace, widths: &[f32]) -> Layo
     for (i, (start, end, mut line)) in lines.into_iter().enumerate() {
         let (ascent, step) = spec.text[start..end]
             .char_indices()
-            .map(|(k, _)| faces.line_metrics(faces.at(start + k)))
+            .map(|(k, _)| faces.line_metrics_at(spec, start + k))
             .reduce(|(a, h), (b, j)| (a.max(b), h.max(j)))
             .unwrap_or_else(|| faces.line_metrics(0));
         let height = run_line_advance(spec, &faces, start, end, step);

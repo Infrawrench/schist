@@ -378,3 +378,19 @@ process behave identically to a direct tint; neither creates a second spot plate
 Tests compare every plate and composite sample against direct-tint references,
 including zero-tint knockout. The existing Poppler tint proof now alternates
 named and direct process/spot patches and uses a named tint for body text.
+
+
+## Automatic text positions
+
+The same resolved glyph sizes and nominal metrics reach preview and output.
+Document preferences scale superscript/subscript glyphs and derive signed movement
+from regular leading, with explicit offsets added afterward. Point-to-pixel and
+canvas scaling include nominal metrics; scripts retain regular line spacing.
+Conservative page-contribution bounds include the derived shift, so scripts can
+cross the gutter while their frame remains entirely on its source page.
+
+The nine-page script proof uses horizontal Latin and both vertical Japanese column
+progressions. Poppler extraction checks exact displacement between equal-size
+super/subscript images, half-size glyph extents and unchanged spacing between
+coloured paragraphs. Every proof page was visually inspected. This does not
+establish native application agreement for advanced OpenType positioning.

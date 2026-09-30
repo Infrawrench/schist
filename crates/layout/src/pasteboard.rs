@@ -611,6 +611,7 @@ fn objects_for(
                                 .round() as u8;
                         }
                         run.size = run.size.map(|size| size * view.scale);
+                        run.metric_size = run.metric_size.map(|v| v * view.scale);
                         run.baseline_shift = run.baseline_shift.map(|v| v * view.scale);
                         run.tracking = run.tracking.map(|v| v * view.scale);
                         run.leading = run.leading.map(|v| v * view.scale);

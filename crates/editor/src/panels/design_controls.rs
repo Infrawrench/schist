@@ -197,6 +197,77 @@ fn style_picker(
     .into_any_element()
 }
 
+fn position_picker(
+    ws: &Workspace,
+    paragraph: bool,
+    position: Option<schist_layout::styles::TextPosition>,
+    shift: Option<schist_layout::styles::BaselineShift>,
+    cx: &mut Context<Workspace>,
+) -> gpui::AnyElement {
+    use schist_layout::styles::{BaselineShift, TextPosition};
+    let values = [
+        None,
+        Some(TextPosition::Normal),
+        Some(TextPosition::Superscript),
+        Some(TextPosition::Subscript),
+    ];
+    let position = position.or(match shift {
+        Some(BaselineShift::Superscript) => Some(TextPosition::Superscript),
+        Some(BaselineShift::Subscript) => Some(TextPosition::Subscript),
+        _ => None,
+    });
+    let labels = [
+        "design.inherited",
+        "design.position_normal",
+        "design.position_superscript",
+        "design.position_subscript",
+    ];
+    let current = values
+        .iter()
+        .position(|value| *value == position)
+        .unwrap_or(0);
+    let popup = Popup::Field(if paragraph {
+        "design-paragraph-position"
+    } else {
+        "design-character-position"
+    });
+    div()
+        .flex()
+        .items_center()
+        .gap_2()
+        .child(div().flex_1().text_xs().child(t("design.text_position")))
+        .child(ui::dropdown(
+            &ws.dropdown,
+            ui::Dropdown {
+                popup,
+                is_open: ws.open_popup == Some(popup),
+                current,
+                label: t(labels[current]).to_string().into(),
+                width: 130.0,
+                options: labels
+                    .iter()
+                    .enumerate()
+                    .map(|(i, key)| (t(key).to_string().into(), i))
+                    .collect(),
+            },
+            move |ws, index, cx| {
+                ws.commit_focused_field();
+                if let (Some(name), Some(position)) = (style_name(ws, paragraph), values.get(index))
+                {
+                    let target = if paragraph {
+                        Target::Paragraph(name)
+                    } else {
+                        Target::Character(name)
+                    };
+                    controls::set_position(&mut ws.design, &target, *position);
+                    cx.notify();
+                }
+            },
+            cx,
+        ))
+        .into_any_element()
+}
+
 fn style_actions(paragraph: bool, cx: &mut Context<Workspace>) -> gpui::AnyElement {
     div()
         .flex()
@@ -354,6 +425,13 @@ pub(super) fn paragraph_panel(
         target.clone(),
         cx,
     ));
+    rows.push(position_picker(
+        ws,
+        true,
+        style.position,
+        style.baseline_shift,
+        cx,
+    ));
     let alignments = [
         (Align::Left, "design.align_left"),
         (Align::Center, "design.align_center"),
@@ -457,6 +535,52 @@ pub(super) fn character_panel(
         target.clone(),
         cx,
     ));
+    rows.push(position_picker(
+        ws,
+        false,
+        style.position,
+        style.baseline_shift,
+        cx,
+    ));
+    rows.push(
+        div()
+            .text_xs()
+            .pt_2()
+            .child(t("design.text_preferences"))
+            .into_any_element(),
+    );
+    let prefs = ws.design.document.styles.text_preferences;
+    for (id, label, value) in [
+        (
+            "design-prop-superscript-size",
+            "design.superscript_size",
+            prefs.superscript_size,
+        ),
+        (
+            "design-prop-superscript-position",
+            "design.superscript_position",
+            prefs.superscript_position,
+        ),
+        (
+            "design-prop-subscript-size",
+            "design.subscript_size",
+            prefs.subscript_size,
+        ),
+        (
+            "design-prop-subscript-position",
+            "design.subscript_position",
+            prefs.subscript_position,
+        ),
+    ] {
+        rows.push(field(
+            ws,
+            id,
+            label,
+            number(Some(value)),
+            Target::TextPreferences,
+            cx,
+        ));
+    }
     let buttons = [
         "design.bold",
         "design.italic",

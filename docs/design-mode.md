@@ -515,7 +515,7 @@ raise horizontal text or move vertical text right. Each field commit is one undo
 step against the style captured on focus. Glyphs, underlines, strikes, carets and
 selections move together, and hit testing follows their visible positions even
 with frame transforms. Line spacing, flow, baseline grids and drop-cap reservations
-stay fixed. Automatic superscript/subscript sizing remains unsupported.
+stay fixed. Automatic script sizing and positioning use the controls below.
 
 
 The Swatches panel now edits base RGB or native CMYK components, creates named
@@ -525,3 +525,13 @@ inline colors are preserved. Tint edits update all uses together; generated name
 follow the percentage while imported custom names remain intact. Applying a
 swatch retains the documented per-object fill undo behavior. Direct tint controls
 detach a named tint to its base color before assigning the new percentage.
+
+
+Paragraph and Character now select inherited, normal, superscript or subscript
+position independently of the explicit point offset. Character also edits the
+four document-wide script size/position preferences. Each committed choice or
+field is one reversible style-context edit. Empty numeric preference fields and
+out-of-range values are rejected; position inheritance has its own explicit choice.
+Preferences change all affected stories, with defaults and the supported range
+matching the native XML specification. Automatic OpenType glyph variants remain
+unsupported and import reports them.

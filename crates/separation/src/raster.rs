@@ -643,6 +643,7 @@ pub fn scale_spec(spec: schist_text_engine::TextSpec, scale: f32) -> schist_text
     spec.word_spacing *= scale;
     for run in &mut spec.runs {
         run.size = run.size.map(|size| size * scale);
+        run.metric_size = run.metric_size.map(|v| v * scale);
         run.baseline_shift = run.baseline_shift.map(|v| v * scale);
         run.tracking = run.tracking.map(|v| v * scale);
         run.leading = run.leading.map(|v| v * scale);
