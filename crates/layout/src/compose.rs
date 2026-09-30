@@ -239,6 +239,7 @@ pub fn spec_for(
     let mut spec = TextSpec {
         text,
         family: family.clone(),
+        font_style: character.font_style.clone(),
         bold: character.bold.unwrap_or(false),
         italic: character.italic.unwrap_or(false),
         size,
@@ -278,6 +279,14 @@ pub fn spec_for(
                     .or_else(|| {
                         scripted.then(|| {
                             let metrics_style = ResolvedCharacter {
+                                font_style: if style.font_style.is_some()
+                                    || style.bold.is_some()
+                                    || style.italic.is_some()
+                                {
+                                    style.font_style.clone()
+                                } else {
+                                    character.font_style.clone()
+                                },
                                 bold: style.bold.or(character.bold),
                                 italic: style.italic.or(character.italic),
                                 ..Default::default()
@@ -296,6 +305,7 @@ pub fn spec_for(
                     start: range.start.max(start) - start,
                     end: range.end.min(end) - start,
                     family: style.family,
+                    font_style: style.font_style,
                     bold: style.bold,
                     italic: style.italic,
                     size: if scripted {
@@ -453,6 +463,7 @@ pub fn natural_line_advance(character: &ResolvedCharacter, size: Pt, family: &st
         // An empty logical line reads font metrics without shaping glyphs.
         text: String::new(),
         family: family.to_string(),
+        font_style: character.font_style.clone(),
         bold: character.bold.unwrap_or(false),
         italic: character.italic.unwrap_or(false),
         size,

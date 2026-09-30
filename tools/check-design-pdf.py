@@ -397,3 +397,38 @@ if len(sys.argv) > 11:
                 assert actual.tobytes() == reference.tobytes(), (prefix, index, "leading differs from independently placed baselines")
                 assert min(channel[0] for channel in actual.getextrema()) < 100, (prefix, index, "empty proof")
     print("Design PDF: fixed/automatic mixed-size leading and blank-line spacing match independently placed horizontal/vertical baselines.")
+
+if len(sys.argv) > 12:
+    with tempfile.TemporaryDirectory(prefix="schist-font-style-check-") as temporary:
+        # Check both decoded image samples and independently rendered pages.
+        for command, prefix in [("pdfimages", "samples"), ("pdftoppm", "pages")]:
+            args = [command, "-png"]
+            if command == "pdftoppm":
+                args += ["-r", "144"]
+            result = subprocess.run(args + [sys.argv[12], str(Path(temporary)/prefix)],
+                                    check=True, capture_output=True, text=True)
+            assert not result.stderr.strip(), result.stderr
+            files = sorted(Path(temporary).glob(prefix+"-*.png"))
+            assert len(files) == 9
+            for mode in range(3):
+                images=[]
+                for file in files[mode*3:mode*3+3]:
+                    with Image.open(file) as opened:
+                        images.append(opened.convert("RGB"))
+                regular,light,mixed=images
+                assert regular.size == light.size == mixed.size == (400,400)
+                assert sum(255-v for v in light.convert("L").tobytes()) < sum(255-v for v in regular.convert("L").tobytes()) * 0.8, (prefix,mode,"Light must use its actual lighter glyphs")
+                cross=1 if mode==0 else 0
+                occupied=[]
+                for coordinate in range(400):
+                    if any(min(im.getpixel((along,coordinate) if cross else (coordinate,along))) < 240
+                           for im in (regular,light) for along in range(400)):
+                        occupied.append(coordinate)
+                gaps=[(a,b) for a,b in zip(occupied,occupied[1:]) if b-a>8]
+                assert len(gaps)==1, (prefix,mode,gaps)
+                split=sum(gaps[0])//2
+                first=(0,0,400,split) if cross else ((split,0,400,400) if mode==1 else (0,0,split,400))
+                expected=regular.copy()
+                expected.paste(light.crop(first),first[:2])
+                assert expected.tobytes()==mixed.tobytes(), (prefix,mode,"font variants leaked across paragraph/range boundaries")
+    print("Design PDF: named font faces match whole-style controls in horizontal and both vertical modes, in extracted samples and rendered pages.")

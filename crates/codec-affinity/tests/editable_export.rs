@@ -279,6 +279,8 @@ fn unencoded_decorations_use_the_reported_raster_fallback() {
 #[test]
 fn unsupported_run_settings_use_the_reported_raster_fallback() {
     for (key, value, unsupported) in [
+        ("font_style", serde_json::json!("Light"), true),
+        ("global_font_style", serde_json::json!("Regular"), true),
         ("global_leading", serde_json::json!(0.0), true),
         ("global_leading", serde_json::json!(24.0), true),
         ("baseline_shift", serde_json::json!(-12.5), true),
@@ -299,8 +301,8 @@ fn unsupported_run_settings_use_the_reported_raster_fallback() {
         let mut doc = text_doc(false);
         let mut stored: serde_json::Value =
             serde_json::from_slice(&doc.tree.layers[0].extras[0].data).unwrap();
-        if key == "global_leading" {
-            stored["spec"]["leading"] = value;
+        if let Some(key) = key.strip_prefix("global_") {
+            stored["spec"][key] = value;
         } else {
             stored["spec"]["runs"][0][key] = value;
         }

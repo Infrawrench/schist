@@ -25,8 +25,7 @@
 //! contents without saying so is the worst kind.
 
 use schist_layout::{
-    CharacterStyle, FrameOverflow, Insets, LayoutDocument, LayoutObject, Page, ParagraphStyle,
-    Rect, Story, StoryId, StoryPoint,
+    FrameOverflow, Insets, LayoutDocument, LayoutObject, Page, Rect, Story, StoryId, StoryPoint,
 };
 
 use crate::container::{self, MIMETYPE, MIMETYPE_PART};
@@ -933,11 +932,13 @@ fn styles_xml(document: &LayoutDocument, warnings: &mut Vec<String>) -> String {
             // needs an explicit character count to enable the initial.
             native.drop_caps_characters = Some(1);
         }
-        if native.bold.is_some() || native.italic.is_some() {
-            native.bold = Some(resolved.bold.unwrap_or(false));
-            native.italic = Some(resolved.italic.unwrap_or(false));
-        }
-        out.push_str(&paragraph_style_xml(&native));
+        out.push_str(&crate::style_codec::paragraph_resolved(
+            &native,
+            (
+                resolved.bold.unwrap_or(false),
+                resolved.italic.unwrap_or(false),
+            ),
+        ));
     }
     out.push_str(
         r#"</RootParagraphStyleGroup><RootCharacterStyleGroup Self="SchistCharacterStyles">"#,
@@ -945,13 +946,14 @@ fn styles_xml(document: &LayoutDocument, warnings: &mut Vec<String>) -> String {
     for style in &document.styles.characters {
         crate::opentype_codec::warn(&style.features, warnings);
         crate::style_codec::warn_leading(style.leading, None, warnings);
-        let mut native = style.clone();
-        if native.bold.is_some() || native.italic.is_some() {
-            let resolved = document.styles.resolve_character(&style.name);
-            native.bold = Some(resolved.bold.unwrap_or(false));
-            native.italic = Some(resolved.italic.unwrap_or(false));
-        }
-        out.push_str(&character_style_xml(&native));
+        let resolved = document.styles.resolve_character(&style.name);
+        out.push_str(&crate::style_codec::character_resolved(
+            style,
+            (
+                resolved.bold.unwrap_or(false),
+                resolved.italic.unwrap_or(false),
+            ),
+        ));
     }
     if !document.styles.paragraphs.is_empty() || !document.styles.characters.is_empty() {
         warnings.push(schist_i18n::t("design.idml_style_limits").to_string());
@@ -960,52 +962,86 @@ fn styles_xml(document: &LayoutDocument, warnings: &mut Vec<String>) -> String {
     out
 }
 
-fn paragraph_style_xml(style: &ParagraphStyle) -> String {
-    crate::style_codec::paragraph(style)
+/// Named and actually composed faces, including a character variant inheriting
+/// its family from the paragraph. Kept shared with the delivery manifest.
+pub(crate) fn font_inventory(
+    document: &LayoutDocument,
+) -> std::collections::BTreeSet<(String, String)> {
+    let mut faces = std::collections::BTreeSet::new();
+    let mut add =
+        |family: Option<String>, name: Option<String>, bold: Option<bool>, italic: Option<bool>| {
+            if let Some(family) = family.filter(|f| !f.is_empty()) {
+                let name = name.unwrap_or_else(|| {
+                    match (bold.unwrap_or(false), italic.unwrap_or(false)) {
+                        (true, true) => "Bold Italic",
+                        (true, false) => "Bold",
+                        (false, true) => "Italic",
+                        _ => "Regular",
+                    }
+                    .to_owned()
+                });
+                faces.insert((family, name));
+            }
+        };
+    for style in &document.styles.paragraphs {
+        let r = document.styles.resolve_paragraph(&style.name);
+        add(r.family, r.font_style, r.bold, r.italic);
+    }
+    for style in &document.styles.characters {
+        let r = document.styles.resolve_character(&style.name);
+        add(r.family, r.font_style, r.bold, r.italic);
+    }
+    for story in &document.stories {
+        for (point, start) in story.points.iter().zip(story.point_offsets()) {
+            let schist_layout::StoryPoint::Paragraph { text, style } = point else {
+                continue;
+            };
+            let spec = schist_layout::compose::spec_for(
+                story,
+                start,
+                start + text.len(),
+                &document.styles,
+                style,
+                &document.default_character_style,
+                0.0,
+            );
+            for at in std::iter::once(0)
+                .chain(spec.runs.iter().flat_map(|r| [r.start, r.end]))
+                .filter(|at| *at < spec.text.len())
+            {
+                let r = spec.style_at(at);
+                add(Some(r.family), r.font_style, Some(r.bold), Some(r.italic));
+            }
+        }
+    }
+    faces
 }
 
-fn character_style_xml(style: &CharacterStyle) -> String {
-    crate::style_codec::character(style)
-}
-
-/// The fonts a document's styles name.
-///
-/// A font that is not installed is a warning rather than a failure: a
-/// document can name a font the machine opening it does not have, which
-/// is the normal case for a document travelling between machines.
+/// Native font resources name the exact requested faces, even when missing.
+/// Fonts are referenced, never embedded or silently renamed to substitutes.
 fn fonts_xml(document: &LayoutDocument, warnings: &mut Vec<String>) -> String {
-    let mut families: Vec<&str> = document
-        .styles
-        .characters
-        .iter()
-        .filter_map(|style| style.family.as_deref())
-        .chain(
-            document
-                .styles
-                .paragraphs
-                .iter()
-                .filter_map(|style| style.family.as_deref()),
-        )
-        .collect();
-    families.sort_unstable();
-    families.dedup();
+    let mut families = std::collections::BTreeMap::<String, Vec<String>>::new();
+    for (family, style) in font_inventory(document) {
+        families.entry(family).or_default().push(style);
+    }
     if !families.is_empty() {
         warnings.push(schist_i18n::tf!(
             "design.idml_fonts_unembedded",
             count = families.len()
         ));
     }
-    let mut out = String::new();
-    out.push_str(DECLARATION);
-    out.push_str(&format!(
-        r#"<idPkg:Fonts xmlns:idPkg="{NS_PACKAGING}" DOMVersion="{DOM_VERSION}">"#
-    ));
-    for (index, family) in families.iter().enumerate() {
+    let mut out = format!(
+        r#"{DECLARATION}<idPkg:Fonts xmlns:idPkg="{NS_PACKAGING}" DOMVersion="{DOM_VERSION}">"#
+    );
+    for (index, (family, styles)) in families.iter().enumerate() {
         out.push_str(&format!(
-            r#"<FontFamily Self="u{:x}" Name="{}" />"#,
-            0x900 + index,
+            r#"<FontFamily Self="SchistFontFamily{index}" Name="{}">"#,
             escape(family)
         ));
+        for (face, style) in styles.iter().enumerate() {
+            out.push_str(&format!(r#"<Font Self="SchistFont{index}_{face}" FontFamily="{}" Name="{} {}" FontStyleName="{}"/>"#, escape(family), escape(family), escape(style), escape(style)));
+        }
+        out.push_str("</FontFamily>");
     }
     out.push_str("</idPkg:Fonts>");
     out
@@ -1089,6 +1125,7 @@ pub(crate) fn escape(value: &str) -> String {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use schist_layout::ParagraphStyle;
 
     #[test]
     fn a_number_written_comes_back_the_same() {

@@ -46,8 +46,8 @@ Checksums are recorded but not verified; the algorithm is not established.
 
 ## Gate still to meet
 
-Seven paired templates now span an older release, v19.5 and v20.2. They meet
-the lower corpus count but lack v18/v21 and controlled one-property changes.
+Eleven paired templates now span an older release, v19.5 and v20.2. They exceed
+the original corpus count but lack v18/v21 and controlled one-property changes.
 Database layout semantics, checksums and pairwise semantic equivalence remain
 unverified; these are not grounds for an INDD writer. Public acquisition
 can continue without proprietary executable analysis. A production codec
@@ -125,3 +125,26 @@ The [OAC Creator 2024 formats](https://www.oac.or.jp/creator2024/detail.html)
 are labelled CC2022 (v17), and [NanoLund's poster ZIP](https://www.nano.lu.se/nanolundians/templates-downloads) has a
 November 2020 Last-Modified response. Neither supplies verified v18/v21 evidence;
 neither archive was downloaded. No corpus count or production gate changed.
+
+
+The [OAC Creator 2027 release](https://www.oac.or.jp/news/5532/) is dated September 7,
+2026. Its public InDesign archive was acquired September 30; four INDD/IDML/PDF
+pairs were extracted, skipping fonts, caches and resource forks. Both formats in all four pairs'
+XMP CreatorTool values identify **19.5 (Macintosh)**, not v21. Probe and acquisition
+metadata are in `fixtures/indd/oac2027/`; document bytes are research-only because
+redistribution terms are unverified. Each probe again finds a single XMP object,
+following 576–659 undecoded database pages. There are now eleven acquired pairs,
+three redistributed, but no new covered version and no change to the production gate.
+
+The Oxford stationery lead now redirects to a page placing staff communication
+resources behind SSO. No files were acquired there. Public 2026 product listings
+also led to paid/subscription downloads; no purchase, account creation or access
+bypass was attempted. No InDesign app bundle was found in the two standard local
+Applications directories, so generating controlled paired samples locally is not
+available in this environment. No Adobe headers or executable contents were read.
+
+The 2025/2027 A-2 and B-2 IDML comparisons preserve many part IDs and include a
+year-text edit, but also color, style and structural changes. The four-page variants
+replace most part IDs. These naturally revised templates are not controlled
+one-property samples, so their binary differences cannot be attributed to the
+year change alone. No inferred object mapping is treated as verified.

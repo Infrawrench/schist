@@ -95,6 +95,7 @@ pub(crate) fn paragraph_properties(
     let character = character_properties(element, colors, report);
     ParagraphStyle {
         family: character.family,
+        font_style: character.font_style,
         bold: character.bold,
         italic: character.italic,
         underline: character.underline,
@@ -139,7 +140,7 @@ pub(crate) fn character_properties(
     colors: &crate::color_codec::Colors,
     report: &mut crate::import::Report,
 ) -> CharacterStyle {
-    let font_style = element.attr("FontStyle");
+    let (font_style, bold, italic) = read_font_choice(element);
     use schist_layout::styles::TextPosition;
     let position = element.attr("Position").and_then(|value| match value {
         "Normal" => Some(TextPosition::Normal),
@@ -179,8 +180,9 @@ pub(crate) fn character_properties(
         leading: leading(element, report),
         tracking: element.number("Tracking"),
         kerning: element.attr("KerningMethod").map(|v| v != "$ID/None"),
-        bold: font_style.map(|v| v.contains("Bold")),
-        italic: font_style.map(|v| v.contains("Italic") || v.contains("Oblique")),
+        font_style,
+        bold,
+        italic,
         underline: boolean(element, "Underline"),
         strikethrough: boolean(element, "StrikeThru"),
         baseline_shift,
@@ -348,18 +350,81 @@ fn props(
     out.push_str(&format!("</Properties></{kind}>"));
 }
 
-fn font_style(out: &mut String, bold: Option<bool>, italic: Option<bool>) {
-    if bold.is_some() || italic.is_some() {
-        attr(
-            out,
-            "FontStyle",
-            match (bold.unwrap_or(false), italic.unwrap_or(false)) {
-                (true, true) => "Bold Italic",
-                (true, false) => "Bold",
-                (false, true) => "Italic",
-                _ => "Regular",
-            },
-        );
+const FONT_CHOICE_LABEL: &str = "schist.font-choice";
+
+#[derive(serde::Serialize, serde::Deserialize)]
+struct FontChoice {
+    native: String,
+    name: Option<String>,
+    bold: Option<bool>,
+    italic: Option<bool>,
+}
+
+fn read_font_choice(element: &Element) -> (Option<String>, Option<bool>, Option<bool>) {
+    let native = element.attr("FontStyle");
+    if let Some(choice) = element
+        .child("Properties")
+        .and_then(|p| p.child("Label"))
+        .and_then(|label| {
+            label
+                .children
+                .iter()
+                .find(|e| e.attr("Key") == Some(FONT_CHOICE_LABEL))
+        })
+        .and_then(|e| e.attr("Value"))
+        .and_then(|v| serde_json::from_str::<FontChoice>(v).ok())
+        .filter(|choice| Some(choice.native.as_str()) == native)
+    {
+        // An external native edit takes precedence over stale extension data.
+        return (choice.name, choice.bold, choice.italic);
+    }
+    (
+        native.map(str::to_owned),
+        native.map(|n| n.contains("Bold")),
+        native.map(|n| n.contains("Italic") || n.contains("Oblique")),
+    )
+}
+
+/// Native FontStyle is an atomic face name. The label retains Schist's
+/// independent legacy bold/italic inheritance without changing that name.
+fn font_choice(
+    name: Option<&str>,
+    bold: Option<bool>,
+    italic: Option<bool>,
+    resolved: (bool, bool),
+) -> Option<FontChoice> {
+    if name.is_none() && bold.is_none() && italic.is_none() {
+        return None;
+    }
+    let native = name
+        .unwrap_or(match resolved {
+            (true, true) => "Bold Italic",
+            (true, false) => "Bold",
+            (false, true) => "Italic",
+            _ => "Regular",
+        })
+        .to_owned();
+    Some(FontChoice {
+        native,
+        name: name.map(str::to_owned),
+        bold,
+        italic,
+    })
+}
+
+fn font_choice_label(out: &mut String, choice: Option<&FontChoice>) {
+    let Some(choice) = choice else {
+        return;
+    };
+    let value = serde_json::to_string(choice).expect("font choice contains strings and booleans");
+    let pair = format!(
+        r#"<KeyValuePair Key="{FONT_CHOICE_LABEL}" Value="{}"/>"#,
+        escape(&value)
+    );
+    if let Some(at) = out.find("</Label>") {
+        out.insert_str(at, &pair);
+    } else if let Some(at) = out.find("</Properties>") {
+        out.insert_str(at, &format!("<Label>{pair}</Label>"));
     }
 }
 
@@ -387,7 +452,21 @@ fn position(
     }
 }
 
+#[cfg(test)]
 pub fn paragraph(style: &ParagraphStyle) -> String {
+    paragraph_resolved(
+        style,
+        (style.bold.unwrap_or(false), style.italic.unwrap_or(false)),
+    )
+}
+
+pub fn paragraph_resolved(style: &ParagraphStyle, resolved: (bool, bool)) -> String {
+    let choice = font_choice(
+        style.font_style.as_deref(),
+        style.bold,
+        style.italic,
+        resolved,
+    );
     let mut out = String::from("<ParagraphStyle");
     crate::opentype_codec::attributes(&mut out, &style.features);
     optional(
@@ -403,7 +482,7 @@ pub fn paragraph(style: &ParagraphStyle) -> String {
         format!("ParagraphStyle/$ID/{}", style.name),
     );
     attr(&mut out, "Name", &style.name);
-    font_style(&mut out, style.bold, style.italic);
+    optional(&mut out, "FontStyle", choice.as_ref().map(|c| &c.native));
     optional(&mut out, "Underline", style.underline);
     optional(&mut out, "StrikeThru", style.strikethrough);
     position(&mut out, style.position, style.baseline_shift);
@@ -501,10 +580,17 @@ pub fn paragraph(style: &ParagraphStyle) -> String {
         },
         &style.features,
     );
+    font_choice_label(&mut out, choice.as_ref());
     out
 }
 
-pub fn character(style: &CharacterStyle) -> String {
+pub fn character_resolved(style: &CharacterStyle, resolved: (bool, bool)) -> String {
+    let choice = font_choice(
+        style.font_style.as_deref(),
+        style.bold,
+        style.italic,
+        resolved,
+    );
     let mut out = String::from("<CharacterStyle");
     crate::opentype_codec::attributes(&mut out, &style.features);
     attr(
@@ -537,7 +623,7 @@ pub fn character(style: &CharacterStyle) -> String {
     optional(&mut out, "OverprintStroke", style.overprint_stroke);
     optional(&mut out, "PointSize", style.point_size);
     optional(&mut out, "Tracking", style.tracking);
-    font_style(&mut out, style.bold, style.italic);
+    optional(&mut out, "FontStyle", choice.as_ref().map(|c| &c.native));
     optional(&mut out, "Underline", style.underline);
     optional(&mut out, "StrikeThru", style.strikethrough);
     position(&mut out, style.position, style.baseline_shift);
@@ -565,5 +651,6 @@ pub fn character(style: &CharacterStyle) -> String {
         None,
         &style.features,
     );
+    font_choice_label(&mut out, choice.as_ref());
     out
 }

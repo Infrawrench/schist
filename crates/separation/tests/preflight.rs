@@ -181,3 +181,56 @@ fn font_checks_follow_visible_text_and_do_not_flag_unused_styles() {
         1
     );
 }
+
+#[test]
+fn preflight_detects_a_missing_named_face_even_when_its_family_is_present() {
+    schist_text_engine::add_font_data(
+        include_bytes!("../../../web/fonts/IBMPlexSans-Regular.ttf").to_vec(),
+    );
+    let mut doc = blank_a4();
+    let frame = authoring::text_frame(
+        &mut doc,
+        &mut History::default(),
+        0,
+        Rect::new(10.0, 10.0, 400.0, 80.0),
+    )
+    .unwrap();
+    doc.stories[frame.story.0 as usize] = schist_layout::Story::from_text("HéH", "Body");
+    let name = "Schist missing style 57321";
+    doc.styles.add_character(schist_layout::CharacterStyle {
+        name: "Face".into(),
+        family: Some("IBM Plex Sans".into()),
+        font_style: Some(name.into()),
+        ..Default::default()
+    });
+    let check = |doc: &schist_layout::LayoutDocument| {
+        separate_page(doc, 0, OutputSettings::at(36.0), &NoGraphics)
+            .unwrap()
+            .report
+    };
+    assert!(
+        check(&doc).is_printable(),
+        "unused styles do not fail preflight"
+    );
+    doc.stories[frame.story.0 as usize].apply_style(1, 3, "Face");
+    for _ in 0..2 {
+        let report = check(&doc);
+        assert_eq!(
+            report
+                .findings
+                .iter()
+                .filter(|f| f.severity == Severity::Error
+                    && f.message.contains(name)
+                    && f.message.contains("IBM Plex Sans"))
+                .count(),
+            1
+        );
+    }
+    doc.styles
+        .characters
+        .iter_mut()
+        .find(|s| s.name == "Face")
+        .unwrap()
+        .font_style = Some("Regular".into());
+    assert!(check(&doc).is_printable());
+}

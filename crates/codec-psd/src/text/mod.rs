@@ -50,9 +50,10 @@ fn merge(base: &Value, over: &Value) -> Value {
 fn feature_supported(spec: &TextSpec, raw: &Value) -> bool {
     spec.path.is_none()
         && spec.leading.is_none()
+        && spec.font_style.is_none()
         // Native EngineData below writes undecorated styles. Keep unsupported
         // decorations/offsets/nominal metrics/ranged features in PsTx plus pixels.
-        && !spec.runs.iter().any(|r| !r.features.is_empty() || r.metric_size.is_some() || r.underline == Some(true) || r.strikethrough == Some(true) || r.baseline_shift.is_some_and(|v| v != 0.0))
+        && !spec.runs.iter().any(|r| !r.features.is_empty() || r.font_style.is_some() || r.metric_size.is_some() || r.underline == Some(true) || r.strikethrough == Some(true) || r.baseline_shift.is_some_and(|v| v != 0.0))
         && !requires_bidi_interchange(&spec.text)
         && spec.features.iter().all(|f| matches!(f.tag.as_str(), "kern" | "liga" | "dlig" | "smcp") && f.value <= 1)
         // PSD vertical type advances columns right-to-left.

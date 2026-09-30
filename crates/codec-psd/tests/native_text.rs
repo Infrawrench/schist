@@ -369,6 +369,8 @@ fn independent_vertical_type_imports_and_regenerates_native_orientation() {
 #[test]
 fn unsupported_run_settings_keep_private_editability_without_plain_native_type() {
     for (key, value, unsupported) in [
+        ("font_style", serde_json::json!("Light"), true),
+        ("global_font_style", serde_json::json!("Regular"), true),
         ("global_leading", serde_json::json!(0.0), true),
         ("global_leading", serde_json::json!(24.0), true),
         ("baseline_shift", serde_json::json!(-12.5), true),
@@ -388,8 +390,8 @@ fn unsupported_run_settings_keep_private_editability_without_plain_native_type()
     ] {
         let mut doc = document();
         let mut stored = spec(&doc.tree.layers[0]);
-        if key == "global_leading" {
-            stored["spec"]["leading"] = value;
+        if let Some(key) = key.strip_prefix("global_") {
+            stored["spec"][key] = value;
         } else {
             stored["spec"]["runs"][0][key] = value;
         }

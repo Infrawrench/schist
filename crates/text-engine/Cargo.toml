@@ -17,6 +17,7 @@ unicode-linebreak = "0.1"
 fontdue = "0.9"
 fontdb = "0.24"
 ttf-parser = "0.25"
+encoding_rs = "0.8"
 log.workspace = true
 serde.workspace = true
 

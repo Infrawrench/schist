@@ -260,6 +260,7 @@ impl Exporter {
             || spec.tracking != 0.0
             || spec.line_height != 1.0
             || spec.leading.is_some()
+            || spec.font_style.is_some()
             || !spec.size.is_finite()
             || !(0.5..=10_000.0).contains(&spec.size)
             || spec.text.contains('\0')
@@ -275,6 +276,7 @@ impl Exporter {
                     || run.strikethrough == Some(true)
                     || run.baseline_shift.is_some_and(|v| v != 0.0)
                     || run.metric_size.is_some()
+                    || run.font_style.is_some()
                     || !run.features.is_empty()
                     || run.start > run.end
                     || !spec.text.is_char_boundary(run.start)

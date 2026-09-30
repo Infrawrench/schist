@@ -164,6 +164,7 @@ impl Walker<'_> {
         let mut spec = schist_text_engine::TextSpec {
             text,
             family,
+            font_style: None,
             bold: weight >= 600
                 || post.contains("Bold")
                 || post.contains("Black")

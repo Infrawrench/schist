@@ -15,7 +15,7 @@ The layout engine and IDML open/save work. Design Mode ships dark behind
 
 | Phase | Scope | State |
 | --- | --- | --- |
-| 0 | INDD spike: fixtures, container map, go/no-go, `docs/indd-format.md` | **Started — seven public pairs acquired; database semantics unresolved** |
+| 0 | INDD spike: fixtures, container map, go/no-go, `docs/indd-format.md` | **Started — eleven public pairs acquired; database semantics unresolved** |
 | 1 | `schist-layout` kernel: model, geometry, styles, stories, composition, threading, grids, undo | **Implemented — composition integration fixes ongoing** |
 | 2 | `schist-codec-idml`: reader, then writer, lossless round-trip | **Done** — both directions verified, and wired to open and save |
 | 3 | Design UI: pasteboard, panels, tools, story editor, rulers | **In progress — items 1–8 implemented; item 9 output integration in progress** |
@@ -80,7 +80,7 @@ overprint display simulation, with PSD/PSB interchange.
 ```
 Phase 1 (integration fixes) ──► Phase 2 (IDML subset) ──► Phase 3 ──► Phase 4 export
 
-Phase 0 (INDD spike, seven paired samples) ──go/no-go──► Phase 5 (INDD)
+Phase 0 (INDD spike, eleven paired samples) ──go/no-go──► Phase 5 (INDD)
 ```
 
 - **Phase 2 is complete for the supported IDML subset.** Layout documents
@@ -113,7 +113,7 @@ observable behaviour of our own fixtures only, exactly as
 `docs/affinity-format.md` was done.
 
 Publicly distributed INDD/IDML pairs may be acquired under the user’s
-2026-09-29 authorization. Seven acquired pairs now cover an older version,
+2026-09-29 authorization. Eleven acquired pairs now cover an older version,
 v19.5 and v20.2, with three redistributable pairs recorded in
 `fixtures/indd/README.md`. Version 18/21, controlled changes and database
 semantics are still required before a format go/no-go.
@@ -306,30 +306,32 @@ are marked.
 
 ## Handoff
 
-Verification checkpoint, 2026-09-30: all 15 targets pass: `check-layout`,
+Verification checkpoint, 2026-10-01: all 15 targets pass: `check-layout`,
 `lint-layout`, `lint-text-directions`, `check-design`, `lint-design`,
 `check-idml`, `lint-idml`, `check-separation`, `check-i18n`, `lint-all`
 (`cargo clippy --all-targets -- -D warnings`), `check-layered-codecs-app`
 (`cargo check -p schist-app`), `check-app-web`, `check-design-output`,
 `check-editable-interchange` and `lint-editable-interchange`.
+The additional headless `check-library-wasm` target also passes with
+`CARGO_PROFILE_DEV_DEBUG=0`.
 The browser build reused the native build's cached backer catalog because
 the initial sandbox could not resolve the catalog host. A file-URL portability defect
 and Design Save As filename routing were fixed before that browser check.
 
-The unfiltered `CARGO_INCREMENTAL=0 make check-design` now passes all 388 editor
+The unfiltered `CARGO_INCREMENTAL=0 make check-design` now passes all 390 editor
 tests, including the clipboard HTTP test that the earlier sandbox blocked, plus
 its layout, settings and i18n checks.
 
-Distinct passing Rust tests at the leading checkpoint: editor 388, layout 311,
-text engine 55, IDML 184, separation 156, core 120, settings 24 and i18n 28
-(including its doctest): **1,266**. The expanded editable-interchange checks add
-Affinity 39, PSD 150 and Type tools 38, for **1,493** distinct Rust tests across
+Distinct passing Rust tests at the named-font checkpoint: editor 390, layout 312,
+text engine 57, IDML 186, separation 157, core 120, settings 24 and i18n 28
+(including its doctest): **1,274**. The expanded editable-interchange checks add
+Affinity 39, PSD 150 and Type tools 38, for **1,501** distinct Rust tests across
 11 crates, plus four browser i18n tests. Poppler
 checks verify ink patches, rotated text, sheared frames, inner image rotation
 and curved/compound frame clipping, enlarged paragraph initials, vertical Japanese/Latin text, n-up reading
 order, sheet counts and empty slots. The updated affine/compound-frame proof was also visually inspected.
-Logs and exit codes are under `/tmp/schist-leading-sweep-*`, with the result
-index in `/tmp/schist-leading-sweep-results.json`. The asymmetric-offset
+Logs and exit codes are under `/tmp/schist-variants-sweep-*`, with the result
+index in `/tmp/schist-variants-sweep-results.json`. The asymmetric-offset
 proof also verifies PDF MediaBox/TrimBox/BleedBox with Poppler and was visually
 inspected. Future changes require a new sweep.
 
@@ -717,8 +719,49 @@ evidence remain under `/tmp/schist-leading-*`; superseded development logs were
 removed. The preceding OpenType commit passed remote Linux, macOS, web and
 headless checks; Windows was still running when this checkpoint was prepared.
 
-Named font variants are the next integration gap. Object-style paints, text
+Named font variants were the next integration gap at that checkpoint; they are
+implemented below. Object-style paints, text
 strokes, custom decorations, structured story composition, alternate layouts and
 native GUI/application validation remain open. Public research found a v21 paired
 template lead behind BOOTH sign-in, but no new acquired/version-verified sample;
 Phase 5 remains gated and Design Mode remains disabled by default.
+
+
+Exact named font variants are implemented in item 9. Paragraph and Character
+styles inherit typographic subfamilies independently from font family and size.
+A nearer legacy bold/italic choice resets an inherited named face. Resolution
+uses OpenType typographic names, with legacy subfamily fallback and Unicode or
+Mac Roman decoding. Equivalent spelling/casing boundaries retain ligatures.
+Variable-font named instances and axis coordinates remain unsupported.
+
+Captured style fields commit one undoable edit; unchanged legacy values remain
+independently inherited. All Design property fields now accept text, fixing
+previously numeric-only input for font families, Auto leading and feature tags.
+Native IDML preserves FontStyle names and resource face inventories; extension
+labels retain legacy independent flags, with external native edits taking
+precedence. Packages list used faces, and preflight reports unavailable used
+variants without flagging unused styles. Two labels are in all 150 catalogs.
+PSD/Affinity retain their existing fallback for unsupported named requests.
+
+Eight new properties bring this checkpoint to 1,501 distinct Rust tests plus
+four browser tests. All 15 sweep targets, the additional headless WASM check,
+formatting and whitespace checks pass, including 390 editor tests. A licensed
+IBM Plex Sans Light fixture checks actual face selection against Regular. The
+nine-page proof compares named and mixed faces in all three writing modes
+through Poppler image extraction and page rendering; every page was visually
+inspected. Current proof and sweep evidence remain under `/tmp/schist-variants-*`
+and `/tmp/schist-font-style-*`; superseded development files were removed.
+
+Four more public OAC pairs, released in September 2026, still identify InDesign
+19.5 in both formats. The corpus is now eleven acquired pairs, three redistributed.
+Only provenance and bounded probe metadata for the new samples are committed;
+redistribution terms are unverified. Differences from the earlier templates are
+not controlled single-property changes. Version 18/21 and database semantics
+remain unresolved. No proprietary executable or Adobe SDK header was read.
+
+Object-style paint inheritance is the next integration gap. Text strokes,
+custom decorations, structured stories, alternate layouts and native GUI or
+external application validation remain open. Phase 5 stays spike-gated and
+Design Mode remains disabled by default. The preceding leading commit passed
+remote Linux, macOS, web and headless checks; Windows was still running when
+this checkpoint was prepared. The next commit requires its own CI.

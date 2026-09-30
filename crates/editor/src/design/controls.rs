@@ -97,10 +97,79 @@ pub fn set_position(
     })
 }
 
+/// Show explicit legacy face choices too; blank must mean inheritance.
+pub fn font_style_value(styles: &schist_layout::StyleSet, target: &Target) -> String {
+    let (named, bold, italic, resolved) = match target {
+        Target::Paragraph(name) => {
+            let Some(s) = styles.paragraph(name) else {
+                return String::new();
+            };
+            let r = styles.resolve_paragraph(name);
+            (&s.font_style, s.bold, s.italic, (r.bold, r.italic))
+        }
+        Target::Character(name) => {
+            let Some(s) = styles.character(name) else {
+                return String::new();
+            };
+            let r = styles.resolve_character(name);
+            (&s.font_style, s.bold, s.italic, (r.bold, r.italic))
+        }
+        _ => return String::new(),
+    };
+    if let Some(name) = named {
+        return name.clone();
+    }
+    if bold.is_none() && italic.is_none() {
+        return String::new();
+    }
+    match (resolved.0.unwrap_or(false), resolved.1.unwrap_or(false)) {
+        (true, true) => "Bold Italic",
+        (true, false) => "Bold",
+        (false, true) => "Italic",
+        _ => "Regular",
+    }
+    .into()
+}
+
 pub fn commit(state: &mut DesignState, id: &str, text: &str) -> bool {
     let Some(target) = state.controls.field.take() else {
         return false;
     };
+    if matches!(
+        id,
+        "design-prop-font-style" | "design-prop-paragraph-font-style"
+    ) {
+        let name = text.trim();
+        // Focusing and leaving a legacy face must not turn its independent
+        // inheritance into a new atomic named override.
+        if name == font_style_value(&state.document.styles, &target) {
+            return false;
+        }
+        if name.chars().any(char::is_control) {
+            return false;
+        }
+        return properties::edit_styles(&mut state.document, &mut state.history, |styles| {
+            let fields = match &target {
+                Target::Paragraph(name) => styles
+                    .paragraphs
+                    .iter_mut()
+                    .find(|s| s.name == *name)
+                    .map(|s| (&mut s.font_style, &mut s.bold, &mut s.italic)),
+                Target::Character(name) => styles
+                    .characters
+                    .iter_mut()
+                    .find(|s| s.name == *name)
+                    .map(|s| (&mut s.font_style, &mut s.bold, &mut s.italic)),
+                _ => None,
+            };
+            if let Some((style, bold, italic)) = fields {
+                *style = (!name.is_empty()).then(|| name.to_owned());
+                // Blank restores face inheritance, including old imported flags.
+                *bold = None;
+                *italic = None;
+            }
+        });
+    }
     if matches!(id, "design-prop-leading" | "design-prop-char-leading") {
         use schist_layout::styles::Leading;
         let text = text.trim();
@@ -779,6 +848,99 @@ mod tests {
             state.document.styles.paragraph(&name).unwrap().point_size,
             None
         );
+    }
+
+    #[test]
+    fn named_font_fields_capture_the_target_and_restore_inheritance_in_one_edit() {
+        for paragraph in [false, true] {
+            let name = if paragraph { "Body" } else { "Default" };
+            let target = if paragraph {
+                Target::Paragraph(name.into())
+            } else {
+                Target::Character(name.into())
+            };
+            let id = if paragraph {
+                "design-prop-paragraph-font-style"
+            } else {
+                "design-prop-font-style"
+            };
+            for face in ["Light", "Regular", "Bold Condensed", "書体 W3 & Narrow"] {
+                let mut state = DesignState::new();
+                let before = state.document.clone();
+                state.controls.field = Some(target.clone());
+                state.controls.character = Some("Bold".into());
+                state.controls.paragraph = Some("Default".into());
+                assert!(commit(&mut state, id, face));
+                assert_eq!(state.history.undo_depth(), 1);
+                let selected = if paragraph {
+                    &state.document.styles.paragraph(name).unwrap().font_style
+                } else {
+                    &state.document.styles.character(name).unwrap().font_style
+                };
+                assert_eq!(selected.as_deref(), Some(face));
+                let after = state.document.clone();
+                state.controls.field = Some(target.clone());
+                assert!(!commit(&mut state, id, "Bad\nFace"));
+                assert_eq!(state.document, after);
+                assert!(state.history.undo(&mut state.document));
+                assert_eq!(state.document, before);
+                assert!(state.history.redo(&mut state.document));
+                assert_eq!(state.document, after);
+                state.controls.field = Some(target.clone());
+                assert!(commit(&mut state, id, ""));
+                assert_eq!(state.document, before);
+            }
+        }
+    }
+
+    #[test]
+    fn an_unchanged_font_field_does_not_flatten_legacy_face_inheritance() {
+        for paragraph in [false, true] {
+            for bold in [None, Some(false), Some(true)] {
+                for italic in [None, Some(false), Some(true)] {
+                    if bold.is_none() && italic.is_none() {
+                        continue;
+                    }
+                    let mut state = DesignState::new();
+                    let target = if paragraph {
+                        let style = state
+                            .document
+                            .styles
+                            .paragraphs
+                            .iter_mut()
+                            .find(|s| s.name == "Body")
+                            .unwrap();
+                        style.bold = bold;
+                        style.italic = italic;
+                        Target::Paragraph("Body".into())
+                    } else {
+                        let style = state
+                            .document
+                            .styles
+                            .characters
+                            .iter_mut()
+                            .find(|s| s.name == "Default")
+                            .unwrap();
+                        style.bold = bold;
+                        style.italic = italic;
+                        Target::Character("Default".into())
+                    };
+                    let shown = font_style_value(&state.document.styles, &target);
+                    assert!(!shown.is_empty());
+                    let before = state.document.clone();
+                    state.controls.field = Some(target.clone());
+                    assert!(!commit(&mut state, "design-prop-font-style", &shown));
+                    assert_eq!(state.document, before);
+                    assert_eq!(state.history.undo_depth(), 0);
+                    state.controls.field = Some(target.clone());
+                    assert!(commit(&mut state, "design-prop-font-style", ""));
+                    assert!(font_style_value(&state.document.styles, &target).is_empty());
+                    assert_eq!(state.history.undo_depth(), 1);
+                    assert!(state.history.undo(&mut state.document));
+                    assert_eq!(state.document, before);
+                }
+            }
+        }
     }
 
     #[test]

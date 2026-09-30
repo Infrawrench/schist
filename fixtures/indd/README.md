@@ -36,3 +36,12 @@ explains reproduction and the redistribution limitation. Those samples include
 Japanese prose and populated facing masters. Together with Proof and Penn State,
 there are seven acquired pairs, three redistributed here. Version 18/21 and
 controlled one-property changes remain missing. None decodes the INDD database.
+
+
+## OAC Creator 2027
+
+Four additional pairs from OAC's September 2026 template release also identify
+**InDesign 19.5**, despite the publication date. `oac2027/` contains provenance and
+probe metadata only; document redistribution terms remain unverified. The acquired
+corpus now contains eleven pairs, with the same three redistributed here. The
+v18/v21 and controlled-change gaps remain; no production gate changes.

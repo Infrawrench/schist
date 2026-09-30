@@ -26,6 +26,117 @@ fn native_story(styles: &str, story: &str) -> schist_layout::LayoutDocument {
 }
 
 #[test]
+fn exact_font_names_and_local_resets_survive_repeated_native_saves() {
+    for face in ["Light", "Regular", "Bold Condensed", "書体 W3 & Narrow"] {
+        let escaped = face.replace('&', "&amp;");
+        let mut doc = native_story(
+            &format!(
+                r#"<ParagraphStyle Self="p0" Name="Parent" FontStyle="{escaped}"><Properties><AppliedFont type="string">IBM Plex Sans</AppliedFont></Properties></ParagraphStyle><ParagraphStyle Self="p1" Name="Child"><Properties><BasedOn type="object">p0</BasedOn></Properties></ParagraphStyle>"#
+            ),
+            r#"<ParagraphStyleRange AppliedParagraphStyle="p1"><CharacterStyleRange><Content>é</Content></CharacterStyleRange><CharacterStyleRange FontStyle="Medium"><Content>中</Content></CharacterStyleRange><CharacterStyleRange FontStyle="Regular"><Content>z</Content></CharacterStyleRange></ParagraphStyleRange>"#,
+        );
+        let counts = (doc.styles.paragraphs.len(), doc.styles.characters.len());
+        for _ in 0..4 {
+            assert_eq!(
+                doc.styles.resolve_paragraph("Child").font_style.as_deref(),
+                Some(face)
+            );
+            let spec = schist_layout::compose::spec_for(
+                &doc.stories[0],
+                0,
+                6,
+                &doc.styles,
+                "Child",
+                "Default",
+                400.0,
+            );
+            for (at, expected) in [(0, face), (2, "Medium"), (5, "Regular")] {
+                assert_eq!(spec.style_at(at).font_style.as_deref(), Some(expected));
+            }
+            let before = doc.styles.clone();
+            let written = export::write(&doc);
+            let package = container::read(&written.bytes).unwrap();
+            let fonts = xml::parse(
+                std::str::from_utf8(package.get("Resources/Fonts.xml").unwrap()).unwrap(),
+            )
+            .unwrap();
+            for name in [face, "Medium", "Regular"] {
+                assert!(fonts
+                    .find_all("Font")
+                    .iter()
+                    .any(|font| font.attr("FontFamily") == Some("IBM Plex Sans")
+                        && font.attr("FontStyleName") == Some(name)));
+            }
+            let packaged = schist_codec_idml::package::build(&doc, |_| panic!("no links")).unwrap();
+            let files = container::read(&packaged.bytes).unwrap();
+            let manifest: serde_json::Value =
+                serde_json::from_slice(files.get("manifest.json").unwrap()).unwrap();
+            assert!(manifest["font_styles"]
+                .as_array()
+                .unwrap()
+                .iter()
+                .any(|v| v["family"] == "IBM Plex Sans" && v["style"] == "Medium"));
+            doc = import::read(&written.bytes).unwrap().document;
+            assert_eq!(doc.styles, before);
+            assert_eq!(
+                (doc.styles.paragraphs.len(), doc.styles.characters.len()),
+                counts
+            );
+        }
+    }
+}
+
+#[test]
+fn legacy_face_inheritance_is_lossless_and_external_native_font_edits_win() {
+    for bold in [None, Some(false), Some(true)] {
+        for italic in [None, Some(false), Some(true)] {
+            let mut doc = blank_a4();
+            doc.styles.add_character(CharacterStyle {
+                name: "Parent".into(),
+                bold: Some(true),
+                italic: Some(true),
+                ..Default::default()
+            });
+            doc.styles.add_character(CharacterStyle {
+                name: "Child".into(),
+                based_on: Some("Parent".into()),
+                bold,
+                italic,
+                ..Default::default()
+            });
+            let expected = doc.styles.clone();
+            for _ in 0..3 {
+                doc = import::read(&export::write(&doc).bytes).unwrap().document;
+                assert_eq!(doc.styles, expected);
+            }
+        }
+    }
+    let mut doc = blank_a4();
+    doc.styles.add_character(CharacterStyle {
+        name: "Named".into(),
+        font_style: Some("Light".into()),
+        ..Default::default()
+    });
+    let mut parts = container::read(&export::write(&doc).bytes).unwrap();
+    let styles = std::str::from_utf8(parts.get("Resources/Styles.xml").unwrap())
+        .unwrap()
+        .replace("FontStyle=\"Light\"", "FontStyle=\"Medium\"");
+    parts.insert("Resources/Styles.xml", styles.into_bytes());
+    let edited = import::read(&container::write(&parts.into_parts()))
+        .unwrap()
+        .document;
+    assert_eq!(
+        edited
+            .styles
+            .character("Named")
+            .unwrap()
+            .font_style
+            .as_deref(),
+        Some("Medium")
+    );
+}
+
+#[test]
 fn local_overrides_inherit_per_property_and_never_multiply_on_save() {
     for repeats in [1, 2, 5, 9] {
         let styles = r#"<RootParagraphStyleGroup>

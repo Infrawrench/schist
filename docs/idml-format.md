@@ -363,11 +363,11 @@ reported before the feature is enabled:
   based on the original style, with a conversion notice. Opaque resource IDs
   and duplicate names in style groups resolve through an explicit map. Paragraph
   font/paint defaults inherit per property; character overrides win. Advanced
-  properties (including arbitrary font variants and some decoration
-  attributes) still need representation and validation. Tracking uses native
+  properties (including custom decoration attributes) still need
+  representation and validation. Tracking uses native
   thousandths of an em, converted per effective run size during composition.
-  IDML combines bold/italic into FontStyle; export preserves the resolved face
-  but cannot retain independent inheritance of those two properties.
+  IDML combines bold/italic into FontStyle; export writes the resolved face
+  and retains independent Schist inheritance in a guarded extension label.
 - Unsupported story content and alternate-layout sections need further work.
   Thread ordering, scalar/four-sided frame insets, numbering sections, asymmetric
   document offsets, paints and opacity have synthetic native XML checks; external
@@ -788,3 +788,31 @@ of that spacing. Fixed leading no longer scales again for larger character runs,
 and first lines/blank paragraphs have explicit geometry. The independent output
 proof covers mixed sizes in horizontal and both vertical progressions; external
 application rendering remains unverified.
+
+
+### Exact font variants
+
+Native `FontStyle` now retains the exact typographic subfamily, including Light,
+Medium, Condensed and localized names. Font family and variant inherit independently;
+a nearer explicit legacy bold/italic choice resets the inherited named face. Local
+ranges use the same rule. `Resources/Fonts.xml` lists actual `Font` children with
+`FontFamily`, `Name` and `FontStyleName`, including character faces that inherit a
+paragraph's family. Delivery manifests retain `font_families` and add `font_styles`.
+Missing faces are never renamed to the renderer's fallback.
+
+The public specification's Stories example 51 uses Bold Condensed; Fonts section
+6.1.1 and schema example 92 define the per-face resources. The engine uses the
+[OpenType naming table](https://learn.microsoft.com/en-us/typography/opentype/spec/name):
+typographic subfamily ID 17 takes precedence over legacy ID 2. This matters for
+IBM Plex Sans Light, whose legacy subfamily is Regular. The unmodified OFL test
+fixture and provenance live in `crates/text-engine/tests/fixtures/`. Unicode and
+MacRoman names are decoded. Variable-font named instances and custom axes are not
+implemented; unavailable exact faces remain preflight errors.
+
+A `schist.font-choice` Label records original optional named/legacy fields alongside
+the native name. It preserves independent bold/italic inheritance on Schist reload;
+an external edit to native FontStyle wins over stale label data. Native consumers
+see the resolved atomic face selection. Repeated-save properties cover opaque style
+IDs, UTF-8 local ranges, common and nonstandard names, legacy inheritance, native
+edits, resources and package manifests. All existing public-template round trips
+also exercise the expanded model; external application rendering remains unverified.

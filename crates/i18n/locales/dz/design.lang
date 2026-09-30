@@ -339,3 +339,6 @@ design.leading_value = Leading (pt or Auto)
 design.leading_auto = Auto
 design.auto_leading_percent = Automatic leading (%)
 design.idml_leading_invalid = Invalid leading setting: {property}={value}
+
+design.font_style = Font style
+design.preflight_missing_font_style = Missing font: {family}, {style}

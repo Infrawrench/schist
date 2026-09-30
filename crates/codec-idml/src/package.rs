@@ -65,21 +65,13 @@ pub fn build(
         link.present = true;
     }
     let exported = crate::export::write(&copy);
-    let mut fonts: Vec<_> = copy
-        .styles
-        .characters
+    let faces = crate::export::font_inventory(&copy);
+    let fonts: std::collections::BTreeSet<_> = faces.iter().map(|(family, _)| family).collect();
+    let font_styles: Vec<_> = faces
         .iter()
-        .filter_map(|style| style.family.clone())
-        .chain(
-            copy.styles
-                .paragraphs
-                .iter()
-                .filter_map(|style| style.family.clone()),
-        )
+        .map(|(family, style)| serde_json::json!({"family":family,"style":style}))
         .collect();
-    fonts.sort();
-    fonts.dedup();
-    let manifest = serde_json::json!({"format":"schist-idml-package","version":1,"document":"layout.idml","links":links,"font_families":fonts,"fonts_included":false,"warnings":exported.warnings});
+    let manifest = serde_json::json!({"format":"schist-idml-package","version":1,"document":"layout.idml","links":links,"font_families":fonts,"font_styles":font_styles,"fonts_included":false,"warnings":exported.warnings});
     files.push(("layout.idml".into(), exported.bytes));
     files.push((
         "manifest.json".into(),

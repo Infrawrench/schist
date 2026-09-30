@@ -396,6 +396,14 @@ pub(super) fn paragraph_panel(
         target.clone(),
         cx,
     ));
+    rows.push(field(
+        ws,
+        "design-prop-paragraph-font-style",
+        "design.font_style",
+        controls::font_style_value(&ws.design.document.styles, &target),
+        target.clone(),
+        cx,
+    ));
     for (id, label, value) in [
         (
             "design-prop-paragraph-fill-tint",
@@ -541,6 +549,14 @@ pub(super) fn character_panel(
             cx,
         ),
     ];
+    rows.push(field(
+        ws,
+        "design-prop-font-style",
+        "design.font_style",
+        controls::font_style_value(&ws.design.document.styles, &target),
+        target.clone(),
+        cx,
+    ));
     for (id, label, value) in [
         (
             "design-prop-char-fill-tint",
@@ -659,10 +675,12 @@ pub(super) fn character_panel(
                         if let Some(style) = styles.characters.iter_mut().find(|s| s.name == name) {
                             match index {
                                 0 => {
+                                    style.font_style = None;
                                     style.bold = Some(!resolved.bold.unwrap_or(false));
                                     style.italic = Some(resolved.italic.unwrap_or(false));
                                 }
                                 1 => {
+                                    style.font_style = None;
                                     style.italic = Some(!resolved.italic.unwrap_or(false));
                                     style.bold = Some(resolved.bold.unwrap_or(false));
                                 }

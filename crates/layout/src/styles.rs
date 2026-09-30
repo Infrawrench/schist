@@ -272,6 +272,9 @@ pub struct ParagraphStyle {
     /// Character defaults inherited by every run in this paragraph.
     /// A character style can override each property independently.
     pub family: Option<String>,
+    /// Exact typographic subfamily. Overrides bold/italic at this level;
+    /// a nearer explicit bold/italic choice resets an inherited name.
+    pub font_style: Option<String>,
     pub bold: Option<bool>,
     pub italic: Option<bool>,
     pub underline: Option<bool>,
@@ -340,6 +343,9 @@ pub struct CharacterStyle {
     /// The font family name, matched against the installed font database
     /// rather than being a path.
     pub family: Option<String>,
+    /// Exact typographic subfamily. Overrides bold/italic at this level;
+    /// a nearer explicit bold/italic choice resets an inherited name.
+    pub font_style: Option<String>,
     pub point_size: Option<f32>,
     pub leading: Option<Leading>,
     /// Letter spacing in thousandths of an em.
@@ -531,6 +537,9 @@ impl StyleSet {
 pub struct ResolvedParagraph {
     pub features: Vec<(String, bool)>,
     pub family: Option<String>,
+    /// Exact typographic subfamily. Overrides bold/italic at this level;
+    /// a nearer explicit bold/italic choice resets an inherited name.
+    pub font_style: Option<String>,
     pub bold: Option<bool>,
     pub italic: Option<bool>,
     pub underline: Option<bool>,
@@ -572,6 +581,9 @@ impl ResolvedParagraph {
     pub fn character(&self, mut fallback: ResolvedCharacter) -> ResolvedCharacter {
         fallback.features = inherited_features(&self.features, &fallback.features);
         fallback.family = self.family.clone().or(fallback.family);
+        if self.font_style.is_some() || self.bold.is_some() || self.italic.is_some() {
+            fallback.font_style = self.font_style.clone();
+        }
         fallback.bold = self.bold.or(fallback.bold);
         fallback.italic = self.italic.or(fallback.italic);
         fallback.underline = self.underline.or(fallback.underline);
@@ -592,11 +604,22 @@ impl ResolvedParagraph {
         // Nearest first. `or` keeps the value already present, so walking
         // from the style outwards means the most specific definition of
         // each property is the one that survives.
+        let mut face_selected = false;
         for style in set.paragraph_chain(name) {
+            if !face_selected
+                && (style.font_style.is_some() || style.bold.is_some() || style.italic.is_some())
+            {
+                out.font_style = style.font_style.clone();
+                face_selected = true;
+            }
             out.features = inherited_features(&out.features, &style.features);
             out.family = out.family.clone().or_else(|| style.family.clone());
-            out.bold = out.bold.or(style.bold);
-            out.italic = out.italic.or(style.italic);
+            let hints = style
+                .font_style
+                .as_deref()
+                .map(schist_text_engine::font_style_hints);
+            out.bold = out.bold.or(hints.map(|v| v.0).or(style.bold));
+            out.italic = out.italic.or(hints.map(|v| v.1).or(style.italic));
             out.underline = out.underline.or(style.underline);
             out.strikethrough = out.strikethrough.or(style.strikethrough);
             out.position = out.position.or(style.position);
@@ -636,6 +659,9 @@ impl ResolvedParagraph {
 #[derive(Debug, Clone, Default, PartialEq)]
 pub struct ResolvedCharacter {
     pub family: Option<String>,
+    /// Exact typographic subfamily. Overrides bold/italic at this level;
+    /// a nearer explicit bold/italic choice resets an inherited name.
+    pub font_style: Option<String>,
     pub point_size: Option<f32>,
     pub leading: Option<Leading>,
     pub tracking: Option<f32>,
@@ -667,14 +693,25 @@ impl ResolvedCharacter {
     fn new(set: &StyleSet, name: &str) -> ResolvedCharacter {
         let mut out = ResolvedCharacter::default();
         let chain = set.character_chain(name);
+        let mut face_selected = false;
         for style in &chain {
+            if !face_selected
+                && (style.font_style.is_some() || style.bold.is_some() || style.italic.is_some())
+            {
+                out.font_style = style.font_style.clone();
+                face_selected = true;
+            }
             out.family = out.family.clone().or_else(|| style.family.clone());
             out.point_size = out.point_size.or(style.point_size);
             out.leading = out.leading.or(style.leading);
             out.tracking = out.tracking.or(style.tracking);
             out.kerning = out.kerning.or(style.kerning);
-            out.bold = out.bold.or(style.bold);
-            out.italic = out.italic.or(style.italic);
+            let hints = style
+                .font_style
+                .as_deref()
+                .map(schist_text_engine::font_style_hints);
+            out.bold = out.bold.or(hints.map(|v| v.0).or(style.bold));
+            out.italic = out.italic.or(hints.map(|v| v.1).or(style.italic));
             out.underline = out.underline.or(style.underline);
             out.strikethrough = out.strikethrough.or(style.strikethrough);
             out.position = out.position.or(style.position);

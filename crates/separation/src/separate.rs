@@ -224,7 +224,8 @@ fn layout_report(
                     .chain(spec.runs.iter().flat_map(|r| [r.start, r.end]))
                     .filter(|i| *i < spec.text.len())
                 {
-                    families.insert(spec.style_at(byte).family);
+                    let style = spec.style_at(byte);
+                    families.insert((style.family, style.font_style));
                 }
             }
         }
@@ -275,7 +276,8 @@ fn layout_report(
             }
         }
     }
-    for family in families {
+    let mut missing_families = std::collections::BTreeSet::new();
+    for (family, font_style) in families {
         if !family.is_empty()
             && !matches!(
                 family.as_str(),
@@ -283,10 +285,23 @@ fn layout_report(
             )
             && !schist_text_engine::has_family(&family)
         {
-            report.add(
-                crate::report::Severity::Error,
-                schist_i18n::tf!("design.preflight_missing_font", name = family),
-            );
+            if missing_families.insert(family.clone()) {
+                report.add(
+                    crate::report::Severity::Error,
+                    schist_i18n::tf!("design.preflight_missing_font", name = family),
+                );
+            }
+        } else if let Some(name) = font_style {
+            if !schist_text_engine::has_font_style(&family, &name) {
+                report.add(
+                    crate::report::Severity::Error,
+                    schist_i18n::tf!(
+                        "design.preflight_missing_font_style",
+                        family = family,
+                        style = name
+                    ),
+                );
+            }
         }
     }
     report

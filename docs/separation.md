@@ -414,3 +414,12 @@ Fixed and automatic spacing run through horizontal and both vertical modes.
 extracted image samples. Conservative story contribution bounds also include
 nominal cells extending before a frame under tight leading; a cross-gutter
 property compares that ink with explicit placement at three resolutions.
+
+
+Named static font variants use the same resolver in preview and print. Preflight
+checks used family/variant pairs, reports a missing family once, and reports missing
+variants of available families separately. Unused styles do not fail preflight.
+The nine-page `font_style_proof` compares Regular, Light and mixed ranges in all
+three writing modes. Poppler checks lighter glyph density and exact mixed-page
+agreement with the controls, in extracted samples and rendered pages. Every page
+was visually inspected. The font is an unmodified public IBM OFL fixture.

@@ -440,13 +440,13 @@ impl Workspace {
         let fresh = std::mem::take(&mut self.field_fresh);
         let shift = mods.shift;
         let primary = mods.platform || mods.control;
-        // Text fields (layer and document names) take any printable
-        // character; the picker's hex field takes hex digits up to a full
-        // triplet; numeric fields only digits.
-        let textual = matches!(
-            id,
-            "design-prop-family" | "design-prop-style-name" | "design-prop-char-name"
-        ) || id == "spot-name"
+        // Ordinary text fields take printable characters. The picker and
+        // other numeric controls keep their own input filters below.
+        // Design controls validate on commit. Treat their buffers as text so
+        // names, Auto leading, feature syntax and section prefixes are editable,
+        // with selection and clipboard support also available to numeric values.
+        let textual = id.starts_with("design-prop-")
+            || id == "spot-name"
             || id == "layer-name"
             || id == "brush-preset-name"
             || id == "recorded-action-name"

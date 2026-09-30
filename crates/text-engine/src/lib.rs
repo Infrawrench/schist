@@ -92,6 +92,9 @@ impl WritingMode {
 pub struct TextSpec {
     pub text: String,
     pub family: String,
+    /// Exact typographic subfamily, such as Light or Bold Condensed.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub font_style: Option<String>,
     /// Ask the font database for the bold face of `family`. Defaulted so
     /// that text layers written before this existed still load.
     #[serde(default)]
@@ -138,6 +141,7 @@ impl Default for TextSpec {
         TextSpec {
             text: String::new(),
             family: default_family(),
+            font_style: None,
             bold: false,
             italic: false,
             size: 48.0,
@@ -165,6 +169,9 @@ pub struct StyleRun {
     pub end: usize,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub family: Option<String>,
+    /// Exact face name; an explicit bold/italic override resets inheritance.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub font_style: Option<String>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub bold: Option<bool>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -200,7 +207,8 @@ pub struct StyleRun {
 impl StyleRun {
     /// True when this run changes nothing, so it can be dropped.
     pub fn is_plain(&self) -> bool {
-        self.family.is_none()
+        self.font_style.is_none()
+            && self.family.is_none()
             && self.bold.is_none()
             && self.italic.is_none()
             && self.size.is_none()
@@ -227,6 +235,17 @@ impl StyleRun {
     pub fn merge(&mut self, over: &StyleRun) {
         if over.family.is_some() {
             self.family = over.family.clone();
+        }
+        if over.font_style.is_some() {
+            self.font_style = over.font_style.clone();
+            self.bold = None;
+            self.italic = None;
+        } else if over.bold.is_some() || over.italic.is_some() {
+            if let Some(name) = self.font_style.take() {
+                let (bold, italic) = font_style_hints(&name);
+                self.bold = Some(bold);
+                self.italic = Some(italic);
+            }
         }
         if over.bold.is_some() {
             self.bold = over.bold;
@@ -263,7 +282,8 @@ impl StyleRun {
 
     /// Whether the two runs would set a character the same way.
     fn same_style(&self, other: &StyleRun) -> bool {
-        self.family == other.family
+        self.font_style == other.font_style
+            && self.family == other.family
             && self.bold == other.bold
             && self.italic == other.italic
             && self.size == other.size
@@ -289,6 +309,7 @@ pub struct CharStyle {
     pub baseline_shift: f32,
     pub color: Option<[u8; 4]>,
     pub family: String,
+    pub font_style: Option<String>,
     pub bold: bool,
     pub italic: bool,
     pub size: f32,
@@ -297,13 +318,23 @@ pub struct CharStyle {
 }
 
 impl CharStyle {
-    /// Decorations do not split shaping runs: toggling a line through a word
-    /// must not change its ligatures, kerning, wrapping or caret positions.
-    fn shapes_like(&self, other: &Self) -> bool {
-        self.family == other.family
+    fn same_font_request(&self, other: &Self) -> bool {
+        let same_name = match (&self.font_style, &other.font_style) {
+            (Some(a), Some(b)) => a.trim().eq_ignore_ascii_case(b.trim()),
+            (None, None) => true,
+            _ => false,
+        };
+        same_name
+            && self.family == other.family
             && self.bold == other.bold
             && self.italic == other.italic
             && self.size == other.size
+    }
+
+    /// Decorations do not split shaping runs: toggling a line through a word
+    /// must not change its ligatures, kerning, wrapping or caret positions.
+    fn shapes_like(&self, other: &Self) -> bool {
+        self.same_font_request(other)
             && self.features == other.features
             && self.tracking == other.tracking
             && self.baseline_shift == other.baseline_shift
@@ -316,6 +347,7 @@ impl CharStyle {
             start: 0,
             end: 0,
             family: Some(self.family.clone()),
+            font_style: self.font_style.clone(),
             bold: Some(self.bold),
             italic: Some(self.italic),
             size: Some(self.size),
@@ -366,8 +398,15 @@ impl TextSpec {
             baseline_shift: 0.0,
             color: None,
             family: self.family.clone(),
-            bold: self.bold,
-            italic: self.italic,
+            font_style: self.font_style.clone(),
+            bold: self
+                .font_style
+                .as_deref()
+                .map_or(self.bold, |n| font_style_hints(n).0),
+            italic: self
+                .font_style
+                .as_deref()
+                .map_or(self.italic, |n| font_style_hints(n).1),
             size: self.size,
             metric_size: None,
             features: merged_features(&[], &self.features),
@@ -381,11 +420,17 @@ impl TextSpec {
             if let Some(f) = &run.family {
                 style.family = f.clone();
             }
+            if run.font_style.is_some() || run.bold.is_some() || run.italic.is_some() {
+                style.font_style = run.font_style.clone();
+            }
             if let Some(b) = run.bold {
                 style.bold = b;
             }
             if let Some(i) = run.italic {
                 style.italic = i;
+            }
+            if let Some(name) = &style.font_style {
+                (style.bold, style.italic) = font_style_hints(name);
             }
             if let Some(s) = run.size {
                 style.size = s;
@@ -443,6 +488,23 @@ impl TextSpec {
             if let Some(f) = &over.family {
                 self.family = f.clone();
                 self.runs.iter_mut().for_each(|r| r.family = None);
+            }
+            if over.font_style.is_some() || over.bold.is_some() || over.italic.is_some() {
+                if let Some(name) = &self.font_style {
+                    (self.bold, self.italic) = font_style_hints(name);
+                }
+                self.font_style = over.font_style.clone();
+                self.runs.iter_mut().for_each(|r| {
+                    if over.font_style.is_some() {
+                        r.bold = None;
+                        r.italic = None;
+                    } else if let Some(name) = &r.font_style {
+                        let (bold, italic) = font_style_hints(name);
+                        r.bold = Some(bold);
+                        r.italic = Some(italic);
+                    }
+                    r.font_style = None;
+                });
             }
             if let Some(b) = over.bold {
                 self.bold = b;
@@ -749,7 +811,7 @@ pub fn install_face(file_name: &str, bytes: &[u8]) -> Result<PathBuf, String> {
 
 /// Parsed faces, keyed by the whole request: the bold face of a family
 /// is a different file from its regular one.
-type FaceKey = (String, bool, bool);
+type FaceKey = (String, Option<String>, bool, bool);
 
 /// A loaded face: the parsed font plus its raw file bytes, kept because
 /// fontdue reads only the legacy `kern` table and modern faces store
@@ -992,17 +1054,104 @@ pub fn nearest_substitute(family: &str) -> Option<&'static str> {
     substitutes(family).first().copied()
 }
 
+fn font_family(family: &str) -> fontdb::Family<'_> {
+    match family {
+        "sans-serif" | "system-ui" => fontdb::Family::SansSerif,
+        "serif" => fontdb::Family::Serif,
+        "monospace" => fontdb::Family::Monospace,
+        _ => fontdb::Family::Name(family),
+    }
+}
+
+fn font_name(name: ttf_parser::name::Name<'_>) -> Option<String> {
+    name.to_string().or_else(|| {
+        (name.platform_id == ttf_parser::PlatformId::Macintosh && name.encoding_id == 0).then(
+            || {
+                encoding_rs::MACINTOSH
+                    .decode_without_bom_handling(name.name)
+                    .0
+                    .into_owned()
+            },
+        )
+    })
+}
+
+/// Match a static face's typographic subfamily, falling back to the legacy
+/// subfamily only when no typographic subfamily exists. A Light face can have
+/// legacy name "Regular"; matching both would select the wrong font.
+fn named_face(database: &fontdb::Database, family: &str, name: &str) -> Option<fontdb::ID> {
+    let requested = font_family(family.trim());
+    let family = database.family_name(&requested);
+    database.faces().find_map(|info| {
+        if !info
+            .families
+            .iter()
+            .any(|(f, _)| f.eq_ignore_ascii_case(family.trim()))
+        {
+            return None;
+        }
+        database
+            .with_face_data(info.id, |data, index| {
+                let face = ttf_parser::Face::parse(data, index).ok()?;
+                let names = face.names();
+                let id = if names
+                    .into_iter()
+                    .any(|n| n.name_id == ttf_parser::name_id::TYPOGRAPHIC_SUBFAMILY)
+                {
+                    ttf_parser::name_id::TYPOGRAPHIC_SUBFAMILY
+                } else {
+                    ttf_parser::name_id::SUBFAMILY
+                };
+                names
+                    .into_iter()
+                    .any(|n| {
+                        n.name_id == id
+                            && font_name(n).is_some_and(|s| s.eq_ignore_ascii_case(name.trim()))
+                    })
+                    .then_some(info.id)
+            })
+            .flatten()
+    })
+}
+
+/// Conventional weight/slant hints when an exact named face is unavailable.
+/// These are fallback hints, never a replacement for named face matching.
+pub fn font_style_hints(name: &str) -> (bool, bool) {
+    let name = name.to_ascii_lowercase();
+    (
+        name.contains("bold") || name.contains("black") || name.contains("heavy"),
+        name.contains("italic") || name.contains("oblique"),
+    )
+}
+
+/// Whether this exact family and named static face are available. Rendering
+/// substitutes a font when absent; preflight must disclose that substitution.
+pub fn has_font_style(family: &str, name: &str) -> bool {
+    named_face(&db(), family, name).is_some()
+}
+
 /// Load and cache a parsed font by family name.
-fn load_font(family: &str, bold: bool, italic: bool) -> Option<LoadedFace> {
+fn load_font(
+    family: &str,
+    font_style: Option<&str>,
+    bold: bool,
+    italic: bool,
+) -> Option<LoadedFace> {
+    let (bold, italic) = font_style.map_or((bold, italic), font_style_hints);
     let cache = font_cache();
-    let key = (family.to_string(), bold, italic);
+    let key = (
+        family.to_string(),
+        font_style.map(str::to_owned),
+        bold,
+        italic,
+    );
     if let Some(hit) = cache.lock().ok()?.get(&key) {
         return hit.clone();
     }
 
     // Asked-for family first, then its metric equivalents, then the
     // generic sans as a last resort.
-    let mut families = vec![fontdb::Family::Name(family)];
+    let mut families = vec![font_family(family)];
     families.extend(substitutes(family).iter().map(|n| fontdb::Family::Name(n)));
     families.push(fontdb::Family::SansSerif);
     let query = fontdb::Query {
@@ -1019,28 +1168,33 @@ fn load_font(family: &str, bold: bool, italic: bool) -> Option<LoadedFace> {
         },
         ..Default::default()
     };
-    let font = db().query(&query).and_then(|id| {
-        db().with_face_data(id, |data, index| {
-            fontdue::Font::from_bytes(
-                data,
-                fontdue::FontSettings {
-                    collection_index: index,
-                    ..Default::default()
-                },
-            )
-            .ok()
-            .map(|font| LoadedFace {
-                font: Arc::new(font),
-                data: Arc::new(data.to_vec()),
-                index,
-                cap_ratio: ttf_parser::Face::parse(data, index).ok().and_then(|f| {
-                    let cap = f.capital_height().filter(|&c| c > 0)? as f32;
-                    Some(cap / f.units_per_em() as f32)
-                }),
-            })
-        })
-        .flatten()
-    });
+    let database = db();
+    let font = font_style
+        .and_then(|name| named_face(&database, family, name))
+        .or_else(|| database.query(&query))
+        .and_then(|id| {
+            database
+                .with_face_data(id, |data, index| {
+                    fontdue::Font::from_bytes(
+                        data,
+                        fontdue::FontSettings {
+                            collection_index: index,
+                            ..Default::default()
+                        },
+                    )
+                    .ok()
+                    .map(|font| LoadedFace {
+                        font: Arc::new(font),
+                        data: Arc::new(data.to_vec()),
+                        index,
+                        cap_ratio: ttf_parser::Face::parse(data, index).ok().and_then(|f| {
+                            let cap = f.capital_height().filter(|&c| c > 0)? as f32;
+                            Some(cap / f.units_per_em() as f32)
+                        }),
+                    })
+                })
+                .flatten()
+        });
     if font.is_none() {
         log::warn!("text-engine: no usable font for {family:?}");
     }
@@ -1192,26 +1346,24 @@ impl Faces {
         boundaries.dedup();
         for interval in boundaries.windows(2) {
             let (s, e) = (interval[0], interval[1]);
-            let mut style = spec.style_at(s);
-            // These properties do not change the font face or kerning.
-            style.color = None;
-            style.tracking = base_style.tracking;
-            style.leading = base_style.leading;
-            style.underline = base_style.underline;
-            style.strikethrough = base_style.strikethrough;
-            style.baseline_shift = base_style.baseline_shift;
-            style.metric_size = base_style.metric_size;
-            style.features.clone_from(&base_style.features);
-            if style == base_style {
+            let style = spec.style_at(s);
+            // Only face selection and glyph size choose a rasterizer. Equivalent
+            // case-insensitive names must not create a false shaping boundary.
+            if style.same_font_request(&base_style) {
                 continue;
             }
-            let ix = match styles.iter().position(|k| *k == style) {
+            let ix = match styles.iter().position(|k| k.same_font_request(&style)) {
                 Some(ix) => ix,
                 None => {
                     // A family that cannot be loaded falls back to the
                     // layer's own face, at the run's size.
-                    let face = load_font(&style.family, style.bold, style.italic)
-                        .unwrap_or_else(|| base.clone());
+                    let face = load_font(
+                        &style.family,
+                        style.font_style.as_deref(),
+                        style.bold,
+                        style.italic,
+                    )
+                    .unwrap_or_else(|| base.clone());
                     styles.push(style.clone());
                     faces.push((face, style.size));
                     faces.len() - 1
@@ -1611,7 +1763,12 @@ pub fn line_spans_with_widths(spec: &TextSpec, widths: &[f32]) -> Vec<LineSpan> 
     if widths.iter().any(|w| !w.is_finite() || *w <= 0.0) {
         return Vec::new();
     }
-    let Some(face) = load_font(&spec.family, spec.bold, spec.italic) else {
+    let Some(face) = load_font(
+        &spec.family,
+        spec.font_style.as_deref(),
+        spec.bold,
+        spec.italic,
+    ) else {
         return Vec::new();
     };
     layout_with_widths(spec, &face, widths).lines
@@ -1627,7 +1784,12 @@ pub fn caret_at(spec: &TextSpec, byte: usize) -> Option<Caret> {
 }
 
 pub fn caret_at_position(spec: &TextSpec, position: CaretPosition) -> Option<Caret> {
-    let face = load_font(&spec.family, spec.bold, spec.italic)?;
+    let face = load_font(
+        &spec.family,
+        spec.font_style.as_deref(),
+        spec.bold,
+        spec.italic,
+    )?;
     let laid = layout(spec, &face);
     let caret = caret_in_layout_affinity(spec, &laid, position);
     Some(match path_guide(spec, &laid) {
@@ -1645,7 +1807,12 @@ fn path_guide(spec: &TextSpec, laid: &Layout) -> Option<text_path::Guide> {
 
 /// All insertion points in a single layout pass, including the final one.
 pub fn carets(spec: &TextSpec) -> Vec<(usize, Caret)> {
-    let Some(face) = load_font(&spec.family, spec.bold, spec.italic) else {
+    let Some(face) = load_font(
+        &spec.family,
+        spec.font_style.as_deref(),
+        spec.bold,
+        spec.italic,
+    ) else {
         return Vec::new();
     };
     let laid = layout(spec, &face);
@@ -1805,7 +1972,12 @@ pub fn hit_test(spec: &TextSpec, x: f32, y: f32) -> Option<usize> {
 
 /// Both affinities at directional boundaries; coincident positions are merged.
 pub fn insertion_points(spec: &TextSpec) -> Vec<(CaretPosition, Caret)> {
-    let Some(face) = load_font(&spec.family, spec.bold, spec.italic) else {
+    let Some(face) = load_font(
+        &spec.family,
+        spec.font_style.as_deref(),
+        spec.bold,
+        spec.italic,
+    ) else {
         return Vec::new();
     };
     let laid = layout(spec, &face);
@@ -1956,7 +2128,12 @@ pub fn move_caret(spec: &TextSpec, from: CaretPosition, movement: CaretMovement)
 /// Highlight each selected character's own visual cell. A logical bidi
 /// selection can occupy disjoint rectangles on the same line.
 pub fn selection_rects(spec: &TextSpec, range: std::ops::Range<usize>) -> Vec<IntRect> {
-    let Some(face) = load_font(&spec.family, spec.bold, spec.italic) else {
+    let Some(face) = load_font(
+        &spec.family,
+        spec.font_style.as_deref(),
+        spec.bold,
+        spec.italic,
+    ) else {
         return Vec::new();
     };
     let laid = layout(spec, &face);
@@ -2059,7 +2236,12 @@ pub struct TextMetrics {
 }
 
 pub fn measure(spec: &TextSpec) -> Option<TextMetrics> {
-    let face = load_font(&spec.family, spec.bold, spec.italic)?;
+    let face = load_font(
+        &spec.family,
+        spec.font_style.as_deref(),
+        spec.bold,
+        spec.italic,
+    )?;
     let laid = layout(spec, &face);
     let ink_bounds = if spec.writing_mode == WritingMode::Horizontal && spec.path.is_none() {
         let faces = Faces::resolve(spec, &face);
@@ -2215,7 +2397,12 @@ pub fn rasterize_with_paints(spec: &TextSpec) -> Option<TextRaster> {
 }
 
 fn rasterize_impl(spec: &TextSpec, retain_paints: bool) -> Option<TextRaster> {
-    let face = load_font(&spec.family, spec.bold, spec.italic)?;
+    let face = load_font(
+        &spec.family,
+        spec.font_style.as_deref(),
+        spec.bold,
+        spec.italic,
+    )?;
     if spec.text.is_empty() || spec.size <= 0.0 {
         return Some(TextRaster {
             bounds: IntRect::EMPTY,
@@ -2385,6 +2572,35 @@ fn rasterize_impl(spec: &TextSpec, retain_paints: bool) -> Option<TextRaster> {
 mod tests {
     use super::*;
 
+    #[test]
+    fn typographic_names_prevent_light_faces_from_claiming_regular() {
+        let mac = ttf_parser::name::Name {
+            platform_id: ttf_parser::PlatformId::Macintosh,
+            encoding_id: 0,
+            language_id: 0,
+            name_id: 2,
+            name: b"L\x8eger",
+        };
+        assert_eq!(font_name(mac).as_deref(), Some("Léger"));
+        let mut database = fontdb::Database::new();
+        database.load_font_data(include_bytes!("../tests/fixtures/IBMPlexSans-Light.ttf").to_vec());
+        let light = named_face(&database, "IBM Plex Sans", "Light").unwrap();
+        assert!(named_face(&database, "IBM Plex Sans", "Regular").is_none());
+        database
+            .load_font_data(include_bytes!("../../../web/fonts/IBMPlexSans-Regular.ttf").to_vec());
+        let regular = named_face(&database, "IBM Plex Sans", "Regular").unwrap();
+        assert_ne!(light, regular);
+        assert_eq!(
+            database.face(light).unwrap().post_script_name,
+            "IBMPlexSans-Light"
+        );
+        assert_eq!(
+            database.face(regular).unwrap().post_script_name,
+            "IBMPlexSans"
+        );
+        assert!(named_face(&database, "Missing family", "Light").is_none());
+    }
+
     fn opentype_spec(text: &str) -> (TextSpec, LoadedFace) {
         // The browser's OFL font is also a deterministic shaping fixture.
         let data = include_bytes!("../../../web/fonts/IBMPlexSans-Regular.ttf");
@@ -2396,10 +2612,10 @@ mod tests {
         };
         let mut spec = spec(text);
         spec.family = "Schist OpenType test fixture".into();
-        font_cache()
-            .lock()
-            .unwrap()
-            .insert((spec.family.clone(), false, false), Some(face.clone()));
+        font_cache().lock().unwrap().insert(
+            (spec.family.clone(), None, false, false),
+            Some(face.clone()),
+        );
         (spec, face)
     }
 

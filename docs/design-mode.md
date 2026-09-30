@@ -568,3 +568,21 @@ paragraph request. The first line fits by its font metrics, without reserving a
 full leading interval before it. Vertical columns use center spacing. Grids may
 increase spacing. Nominal cells and caret segments remain measurable even when
 leading is zero; intentionally overlapping cells are retained.
+
+
+### Named font variants
+
+Character and Paragraph expose an exact font-style name, such as Light or Bold
+Condensed. A blank restores face inheritance. Choosing bold or italic resets the
+named face and uses the conventional weight/slant request. The field targets the
+style captured on focus, and each commit is one undo step. Family and type size
+inherit independently. All Design property buffers now support ordinary text
+editing and clipboard operations; numeric fields still validate their values on
+commit, while Auto leading, feature syntax and section text accept letters.
+
+Preview and print resolve the requested static face from the font's typographic
+subfamily. Missing variants receive a preflight error even when the family is
+installed. Font installation in a session invalidates fallback caches. Variable
+font axes and named variable instances remain unsupported. Native PSD/Affinity
+writers retain the existing private/pixel or reported raster fallback for the
+shared renderer's new named-face setting.
