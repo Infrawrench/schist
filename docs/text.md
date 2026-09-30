@@ -117,3 +117,22 @@ raster Type UI is unchanged. PSD retains decorated text in Schist's private
 these decorations. Affinity export uses its reported raster fallback for them.
 Both native writers now reject active decoration flags rather than emit editable
 text with the lines silently removed.
+
+
+### Baseline offsets
+
+`StyleRun::baseline_shift` is an optional pixel offset. Positive values raise
+horizontal glyphs and move vertical glyphs to the right, independently of column
+progression. It moves decorations, glyph bounds, caret segments and selections;
+logical line advance and baseline grids do not change. Uniform shifts preserve
+shaping and wrapping. Different shifts split shaping items so one ligature cannot
+carry two offsets. The engine treats nonfinite programmatic offsets as zero;
+Design controls and IDML reject them with a diagnostic where appropriate.
+
+Design stores offsets in points, scales them for canvas zoom and output DPI, and
+retains absolute offsets when a drop-cap font is enlarged. The initial's body
+reservation stays unchanged while its reported painted extent moves. Text hits
+compare the visible caret segments instead of unshifted line boxes. PSD and
+Affinity native writers do not yet encode this property: active offsets use their
+existing private-data/pixel or reported raster fallback; explicit zero remains
+eligible for native text. Old serialized specs without the field keep zero shift.

@@ -36,6 +36,15 @@ pub(super) fn field(
         )
         .into_any_element()
 }
+fn baseline_value(value: Option<schist_layout::styles::BaselineShift>) -> String {
+    match value {
+        None => String::new(),
+        Some(value) => value
+            .explicit_offset()
+            .map(|v| format!("{v:.2}"))
+            .unwrap_or_else(|| t("design.unsupported_text_position").to_string()),
+    }
+}
 fn number(value: Option<f32>) -> String {
     value.map(|v| format!("{v:.2}")).unwrap_or_default()
 }
@@ -337,6 +346,14 @@ pub(super) fn paragraph_panel(
     ] {
         rows.push(field(ws, id, label, number(value), target.clone(), cx));
     }
+    rows.push(field(
+        ws,
+        "design-prop-baseline",
+        "design.baseline_shift",
+        baseline_value(style.baseline_shift),
+        target.clone(),
+        cx,
+    ));
     let alignments = [
         (Align::Left, "design.align_left"),
         (Align::Center, "design.align_center"),
@@ -432,6 +449,14 @@ pub(super) fn character_panel(
     ] {
         rows.push(field(ws, id, label, number(value), target.clone(), cx));
     }
+    rows.push(field(
+        ws,
+        "design-prop-char-baseline",
+        "design.baseline_shift",
+        baseline_value(style.baseline_shift),
+        target.clone(),
+        cx,
+    ));
     let buttons = [
         "design.bold",
         "design.italic",

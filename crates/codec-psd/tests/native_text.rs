@@ -365,3 +365,21 @@ fn independent_vertical_type_imports_and_regenerates_native_orientation() {
         }
     }
 }
+
+#[test]
+fn nonzero_baseline_shifts_keep_private_editability_without_plain_native_type() {
+    for shift in [-12.5, 0.0, 8.25] {
+        let mut doc = document();
+        let mut stored = spec(&doc.tree.layers[0]);
+        stored["spec"]["runs"][0]["baseline_shift"] = json!(shift);
+        doc.tree.layers[0].extras[0].data = serde_json::to_vec(&stored).unwrap();
+        for _ in 0..3 {
+            doc = schist_codec_psd::read_psd(&schist_codec_psd::write_psd(&doc).unwrap()).unwrap();
+            assert_eq!(
+                doc.tree.layers[0].extras.iter().any(|b| b.key == *b"TySh"),
+                shift == 0.0
+            );
+            assert_eq!(spec(&doc.tree.layers[0]), stored);
+        }
+    }
+}

@@ -160,6 +160,10 @@ pub struct StyleRun {
     pub underline: Option<bool>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub strikethrough: Option<bool>,
+    /// Cross-axis offset in pixels: positive raises horizontal text and moves
+    /// vertical text right. It does not change line advance.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub baseline_shift: Option<f32>,
     /// Character fill; None inherits the text layer fill.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub color: Option<[u8; 4]>,
@@ -177,6 +181,7 @@ impl StyleRun {
             && self.leading.is_none()
             && self.underline.is_none()
             && self.strikethrough.is_none()
+            && self.baseline_shift.is_none()
     }
 
     /// The overrides alone, without the range: what an edit applies.
@@ -208,6 +213,9 @@ impl StyleRun {
         if over.leading.is_some() {
             self.leading = over.leading;
         }
+        if over.baseline_shift.is_some() {
+            self.baseline_shift = over.baseline_shift;
+        }
         if over.strikethrough.is_some() {
             self.strikethrough = over.strikethrough;
         }
@@ -230,6 +238,7 @@ impl StyleRun {
             && self.leading == other.leading
             && self.underline == other.underline
             && self.strikethrough == other.strikethrough
+            && self.baseline_shift == other.baseline_shift
     }
 }
 
@@ -241,6 +250,7 @@ pub struct CharStyle {
     pub leading: Option<f32>,
     pub underline: bool,
     pub strikethrough: bool,
+    pub baseline_shift: f32,
     pub color: Option<[u8; 4]>,
     pub family: String,
     pub bold: bool,
@@ -258,6 +268,7 @@ impl CharStyle {
             && self.size == other.size
             && self.tracking == other.tracking
             && self.leading == other.leading
+            && self.baseline_shift == other.baseline_shift
             && self.color == other.color
     }
 
@@ -275,6 +286,7 @@ impl CharStyle {
             leading: self.leading,
             underline: Some(self.underline),
             strikethrough: Some(self.strikethrough),
+            baseline_shift: Some(self.baseline_shift),
         }
     }
 }
@@ -303,6 +315,7 @@ impl TextSpec {
             leading: None,
             underline: false,
             strikethrough: false,
+            baseline_shift: 0.0,
             color: None,
             family: self.family.clone(),
             bold: self.bold,
@@ -332,6 +345,7 @@ impl TextSpec {
             style.leading = run.leading;
             style.underline = run.underline.unwrap_or(false);
             style.strikethrough = run.strikethrough.unwrap_or(false);
+            style.baseline_shift = run.baseline_shift.filter(|v| v.is_finite()).unwrap_or(0.0);
         }
         style
     }
@@ -367,6 +381,7 @@ impl TextSpec {
             && over.leading.is_none()
             && over.underline.is_none()
             && over.strikethrough.is_none()
+            && over.baseline_shift.is_none()
         {
             if let Some(f) = &over.family {
                 self.family = f.clone();
@@ -1113,6 +1128,7 @@ impl Faces {
             style.leading = base_style.leading;
             style.underline = base_style.underline;
             style.strikethrough = base_style.strikethrough;
+            style.baseline_shift = base_style.baseline_shift;
             if style == base_style {
                 continue;
             }
@@ -1205,6 +1221,22 @@ pub struct Caret {
     pub height: f32,
     /// Clockwise rotation in radians; zero for ordinary horizontal text.
     pub angle: f32,
+}
+
+impl Caret {
+    /// Distance to this caret's line segment: cross-axis first, then inline.
+    /// Comparing these pairs keeps drags beyond a short line on that line.
+    pub fn hit_distance(self, x: f32, y: f32) -> (f32, f32) {
+        let (sin, cos) = self.angle.sin_cos();
+        let (dx, dy) = (x - self.x, y - self.top);
+        let along = -dx * sin + dy * cos;
+        let cross = if along < 0.0 {
+            -along
+        } else {
+            (along - self.height).max(0.0)
+        };
+        (cross, (dx * cos + dy * sin).abs())
+    }
 }
 
 /// A logical boundary can have two visual positions where directional runs
@@ -1410,7 +1442,7 @@ fn layout_with_widths(spec: &TextSpec, base: &LoadedFace, widths: &[f32]) -> Lay
                     glyph: faces.faces[ix].0.font.lookup_glyph_index(ch),
                     byte,
                     x,
-                    baseline,
+                    baseline: baseline - spec.style_at(byte).baseline_shift,
                     face: ix,
                     sideways: false,
                 });
@@ -1569,20 +1601,44 @@ fn caret_in_layout_affinity(spec: &TextSpec, laid: &Layout, position: CaretPosit
             .map(|c| c.x)
             .unwrap_or(span.x + span.width)
     };
-    orient_caret(
+    let style_byte = if upto >= span.end
+        || (position.affinity == CaretAffinity::Upstream && upto > span.start)
+    {
+        spec.text[..upto]
+            .grapheme_indices(true)
+            .next_back()
+            .map_or(upto, |(at, _)| at)
+    } else {
+        upto
+    };
+    shift_caret(
         spec,
-        laid,
-        Caret {
-            x,
-            top: span.top,
-            height: if span.height > 0.0 {
-                span.height
-            } else {
-                spec.size
+        style_byte,
+        orient_caret(
+            spec,
+            laid,
+            Caret {
+                x,
+                top: span.top,
+                height: if span.height > 0.0 {
+                    span.height
+                } else {
+                    spec.size
+                },
+                angle: 0.0,
             },
-            angle: 0.0,
-        },
+        ),
     )
+}
+
+fn shift_caret(spec: &TextSpec, byte: usize, mut caret: Caret) -> Caret {
+    let shift = spec.style_at(byte).baseline_shift;
+    if spec.writing_mode.is_vertical() {
+        caret.x += shift;
+    } else {
+        caret.top -= shift;
+    }
+    caret
 }
 
 fn orient_caret(spec: &TextSpec, laid: &Layout, caret: Caret) -> Caret {
@@ -1652,15 +1708,7 @@ pub fn hit_test_position(spec: &TextSpec, x: f32, y: f32) -> Option<CaretPositio
         .into_iter()
         .min_by(|(_, a), (_, b)| {
             let distance = |c: &Caret| {
-                let (sin, cos) = c.angle.sin_cos();
-                let (dx, dy) = (x - c.x, y - c.top);
-                let along = -dx * sin + dy * cos;
-                let cross_distance = if along < 0.0 {
-                    -along
-                } else {
-                    (along - c.height).max(0.0)
-                };
-                let inline_distance = (dx * cos + dy * sin).abs();
+                let (cross_distance, inline_distance) = c.hit_distance(x, y);
                 if spec.path.is_some() && !spec.writing_mode.is_vertical() {
                     (cross_distance.hypot(inline_distance), 0.0)
                 } else {
@@ -1797,6 +1845,7 @@ pub fn selection_rects(spec: &TextSpec, range: std::ops::Range<usize>) -> Vec<In
                         angle: 0.0,
                     },
                 );
+                let c = shift_caret(spec, ch.byte, c);
                 let c = guide
                     .as_ref()
                     .map_or(c, |g| g.caret(c, laid.first_baseline));
@@ -1998,11 +2047,16 @@ fn decoration_rasters(spec: &TextSpec, faces: &Faces, laid: &Layout) -> Vec<Colo
                     } else {
                         center - style.size * 0.55 - thickness as f32
                     };
-                    IntRect::from_xywh(cross.round() as i32, start, thickness, length)
+                    IntRect::from_xywh(
+                        (cross + style.baseline_shift).round() as i32,
+                        start,
+                        thickness,
+                        length,
+                    )
                 } else {
                     IntRect::from_xywh(
                         start,
-                        (line.baseline - position).round() as i32,
+                        (line.baseline - style.baseline_shift - position).round() as i32,
                         length,
                         thickness,
                     )
@@ -2292,6 +2346,180 @@ mod tests {
             assert_eq!(after.lines[1].top, 120.0);
             let saved = serde_json::to_string(&s).unwrap();
             assert_eq!(serde_json::from_str::<TextSpec>(&saved).unwrap(), s);
+        }
+    }
+
+    #[test]
+    fn uniform_baseline_shifts_translate_ink_and_editing_geometry_without_reflow() {
+        for text in ["AV office ffi\nH H", "אבגד אבגד"] {
+            for mode in [
+                WritingMode::Horizontal,
+                WritingMode::VerticalRl,
+                WritingMode::VerticalLr,
+            ] {
+                for decorated in [false, true] {
+                    let (mut spec, _) = opentype_spec(text);
+                    spec.writing_mode = mode;
+                    spec.size = 32.0;
+                    spec.wrap_width = Some(140.0);
+                    spec.apply_style(
+                        0..text.len(),
+                        &StyleRun {
+                            underline: Some(decorated),
+                            strikethrough: Some(decorated),
+                            ..Default::default()
+                        },
+                    );
+                    let plain = rasterize_with_paints(&spec).unwrap();
+                    let lines = line_spans(&spec);
+                    let carets_before = carets(&spec);
+                    let selection = selection_rects(&spec, 0..text.len());
+                    let measured = measure(&spec).unwrap();
+                    for shift in [-12.0, 0.0, 7.0, 20.0] {
+                        spec.apply_style(
+                            0..text.len(),
+                            &StyleRun {
+                                baseline_shift: Some(shift),
+                                ..Default::default()
+                            },
+                        );
+                        let shifted = rasterize_with_paints(&spec).unwrap();
+                        let (dx, dy) = if mode.is_vertical() {
+                            (shift as i32, 0)
+                        } else {
+                            (0, -shift as i32)
+                        };
+                        assert_eq!(shifted.bounds.left, plain.bounds.left + dx);
+                        assert_eq!(shifted.bounds.top, plain.bounds.top + dy);
+                        assert_eq!(shifted.bounds.width(), plain.bounds.width());
+                        assert_eq!(shifted.bounds.height(), plain.bounds.height());
+                        assert_eq!(shifted.coverage, plain.coverage);
+                        assert_eq!(line_spans(&spec), lines);
+                        let after = measure(&spec).unwrap();
+                        assert_eq!(
+                            (
+                                after.width,
+                                after.height,
+                                after.first_baseline,
+                                after.line_advance
+                            ),
+                            (
+                                measured.width,
+                                measured.height,
+                                measured.first_baseline,
+                                measured.line_advance
+                            )
+                        );
+                        if let (Some(a), Some(b)) = (measured.ink_bounds, after.ink_bounds) {
+                            for (i, delta) in [0.0, -shift, 0.0, -shift].into_iter().enumerate() {
+                                assert!((b[i] - a[i] - delta).abs() < 0.001);
+                            }
+                        }
+                        for ((byte, before), (after_byte, after)) in
+                            carets_before.iter().zip(carets(&spec))
+                        {
+                            assert_eq!(*byte, after_byte);
+                            assert!((after.x - before.x - dx as f32).abs() < 0.001);
+                            assert!((after.top - before.top - dy as f32).abs() < 0.001);
+                            assert_eq!(after.height, before.height);
+                        }
+                        for (before, after) in
+                            selection.iter().zip(selection_rects(&spec, 0..text.len()))
+                        {
+                            assert_eq!(after.left, before.left + dx);
+                            assert_eq!(after.top, before.top + dy);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    #[test]
+    fn mixed_baseline_shifts_keep_affinities_and_selection_on_their_own_runs() {
+        for mode in [
+            WritingMode::Horizontal,
+            WritingMode::VerticalRl,
+            WritingMode::VerticalLr,
+        ] {
+            let (mut spec, _) = opentype_spec("HéH H");
+            spec.writing_mode = mode;
+            let before = caret_at(&spec, 1).unwrap();
+            spec.apply_style(
+                1..3,
+                &StyleRun {
+                    baseline_shift: Some(9.0),
+                    ..Default::default()
+                },
+            );
+            let raised = caret_at(&spec, 1).unwrap();
+            let previous = caret_at_position(
+                &spec,
+                CaretPosition {
+                    byte: 1,
+                    affinity: CaretAffinity::Upstream,
+                },
+            )
+            .unwrap();
+            assert_eq!(previous, before);
+            if mode.is_vertical() {
+                assert!((raised.x - before.x - 9.0).abs() < 0.001);
+            } else {
+                assert!((raised.top - before.top + 9.0).abs() < 0.001);
+            }
+            let selected = selection_rects(&spec, 1..3);
+            assert_eq!(selected.len(), 1);
+            let hit = hit_test_position(&spec, raised.x, raised.top).unwrap();
+            assert_eq!(hit.byte, 1);
+            let points = insertion_points(&spec);
+            assert!(points.iter().any(|(p, c)| p.byte == 1 && *c == raised));
+            assert!(points.iter().any(|(p, c)| p.byte == 1 && *c == previous));
+        }
+    }
+
+    #[test]
+    fn baseline_shift_edits_preserve_explicit_zero_and_legacy_serialization() {
+        let (mut spec, _) = opentype_spec("Aé中Z");
+        spec.apply_style(
+            0..spec.text.len(),
+            &StyleRun {
+                baseline_shift: Some(12.0),
+                ..Default::default()
+            },
+        );
+        spec.apply_style(
+            1..6,
+            &StyleRun {
+                baseline_shift: Some(0.0),
+                ..Default::default()
+            },
+        );
+        assert_eq!(spec.style_at(0).baseline_shift, 12.0);
+        assert_eq!(spec.style_at(3).as_run().baseline_shift, Some(0.0));
+        spec.text.replace_range(1..3, "ab");
+        spec.splice_runs(1..3, 2);
+        assert_eq!(spec.style_at(1).baseline_shift, 0.0);
+        let json = serde_json::to_value(&spec).unwrap();
+        assert_eq!(
+            serde_json::from_value::<TextSpec>(json.clone()).unwrap(),
+            spec
+        );
+        let mut old = json;
+        for run in old["runs"].as_array_mut().unwrap() {
+            run.as_object_mut().unwrap().remove("baseline_shift");
+        }
+        let old: TextSpec = serde_json::from_value(old).unwrap();
+        assert!(old.runs.iter().all(|r| r.baseline_shift.is_none()));
+        assert_eq!(old.style_at(0).baseline_shift, 0.0);
+        for invalid in [f32::NAN, f32::INFINITY, f32::NEG_INFINITY] {
+            spec.apply_style(
+                0..spec.text.len(),
+                &StyleRun {
+                    baseline_shift: Some(invalid),
+                    ..Default::default()
+                },
+            );
+            assert_eq!(spec.style_at(0).baseline_shift, 0.0);
         }
     }
 

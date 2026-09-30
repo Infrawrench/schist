@@ -277,6 +277,10 @@ pub fn spec_for(
                     leading: style.leading,
                     underline: style.underline.or(character.underline),
                     strikethrough: style.strikethrough.or(character.strikethrough),
+                    baseline_shift: style
+                        .baseline_shift
+                        .or(character.baseline_shift)
+                        .and_then(crate::styles::BaselineShift::explicit_offset),
                     color: Some(
                         style
                             .fill
@@ -314,6 +318,9 @@ pub fn spec_for(
         end: spec.text.len(),
         underline: character.underline,
         strikethrough: character.strikethrough,
+        baseline_shift: character
+            .baseline_shift
+            .and_then(crate::styles::BaselineShift::explicit_offset),
         color: Some([
             (rgb[0].clamp(0.0, 1.0) * 255.0).round() as u8,
             (rgb[1].clamp(0.0, 1.0) * 255.0).round() as u8,
@@ -1371,6 +1378,7 @@ struct CapArea {
 }
 
 struct Opening {
+    spec: TextSpec,
     bytes: usize,
     lines: usize,
     metrics: schist_text_engine::TextMetrics,
@@ -1421,8 +1429,14 @@ fn opening(spec: &TextSpec, paragraph: &ResolvedParagraph) -> Option<Opening> {
     let mut initial = slice_spec(spec, 0, bytes);
     initial.wrap_width = None;
     initial.align = schist_text_engine::Align::Left;
+    let painted = initial.clone();
+    // Baseline offsets move ink, not the initial reservation or body leading.
+    for run in &mut initial.runs {
+        run.baseline_shift = None;
+    }
     let metrics = schist_text_engine::measure(&initial)?;
     Some(Opening {
+        spec: painted,
         bytes,
         lines,
         ink: metrics.ink_bounds?,
@@ -1446,6 +1460,7 @@ fn plan_initial(
     for run in &mut probe.runs {
         run.start = 0;
         run.end = 1;
+        run.baseline_shift = None;
     }
     probe.wrap_width = None;
     let body_metrics = schist_text_engine::measure(&probe).unwrap();
@@ -1489,13 +1504,22 @@ fn plan_initial(
         opening.metrics.width * scale,
         opening.metrics.height * scale,
     );
+    // Preserve the fixed point offsets when enlarging the initial's font.
+    // Its painted extent moves, while the body-text reservation stays put.
+    let mut painted = scale_initial_spec(opening.spec.clone(), scale);
+    painted.wrap_width = None;
+    let painted_ink = schist_text_engine::measure(&painted)
+        .and_then(|m| m.ink_bounds)
+        .map_or(ink, |b| {
+            Rect::new(bounds.x + b[0], bounds.y + b[1], b[2] - b[0], b[3] - b[1])
+        });
     // A small gap belongs to the reservation, not to the glyph width.
     let gap = body.size * 0.15;
     InitialPlan {
         lines: opening.lines,
         scale,
         bounds,
-        ink,
+        ink: painted_ink,
         baseline: bounds.y + opening.metrics.first_baseline * scale,
         area: CapArea {
             bounds: Rect::new(
@@ -1741,6 +1765,19 @@ pub fn compose_object(doc: &LayoutDocument, placed: &PlacedObject) -> Option<Com
         .find(|frame| frame.object == placed.id)
 }
 
+// Enlarge the font and spacing, retaining authored offsets in absolute points.
+fn scale_initial_spec(mut spec: TextSpec, scale: Pt) -> TextSpec {
+    spec.size *= scale;
+    spec.tracking *= scale;
+    spec.align = schist_text_engine::Align::Left;
+    for run in &mut spec.runs {
+        run.size = run.size.map(|v| v * scale);
+        run.tracking = run.tracking.map(|v| v * scale);
+        run.leading = run.leading.map(|v| v * scale);
+    }
+    spec
+}
+
 /// Render/edit one composed line without wrapping it again. A reserved blank
 /// line carries an empty spec for its caret, never a newline creating two rows.
 pub fn line_spec(line: &ComposedLine, story: &Story, doc: &LayoutDocument) -> TextSpec {
@@ -1754,14 +1791,7 @@ pub fn line_spec(line: &ComposedLine, story: &Story, doc: &LayoutDocument) -> Te
         0.0,
     );
     if let Some(initial) = line.initial {
-        spec.size *= initial.scale;
-        spec.tracking *= initial.scale;
-        spec.align = schist_text_engine::Align::Left;
-        for run in &mut spec.runs {
-            run.size = run.size.map(|v| v * initial.scale);
-            run.tracking = run.tracking.map(|v| v * initial.scale);
-            run.leading = run.leading.map(|v| v * initial.scale);
-        }
+        spec = scale_initial_spec(spec, initial.scale);
     }
     spec = with_leading(spec, line.advance);
     spec.word_spacing = line.word_space.unwrap_or(0.0);

@@ -509,3 +509,12 @@ paragraph's underline or strike. An explicit false turns only that decoration of
 Preview and print use the shared text renderer for horizontal and both vertical
 writing directions. Solid lines use the text's fill, tint, opacity and overprint.
 Custom decoration paint, weight, offset and line styles remain unsupported.
+
+
+Paragraph and Character controls now expose baseline offsets in points. Blank
+restores inheritance; zero explicitly resets an inherited offset; positive values
+raise horizontal text or move vertical text right. Each field commit is one undo
+step against the style captured on focus. Glyphs, underlines, strikes, carets and
+selections move together, and hit testing follows their visible positions even
+with frame transforms. Line spacing, flow, baseline grids and drop-cap reservations
+stay fixed. Automatic superscript/subscript sizing remains unsupported.

@@ -676,3 +676,25 @@ The renderer uses automatic font metrics for horizontal text and column-relative
 lines for vertical text. Custom native decoration colour, tint, weight, offset,
 gap and line-type attributes still lack representation; no native-application
 agreement is claimed for those attributes or the automatic metrics.
+
+
+### Explicit baseline offsets
+
+The [published IDML specification](https://raw.githubusercontent.com/jorisros/IDMLlib/master/docs/idml-specification.pdf)
+lists `BaselineShift` as an optional numeric attribute on paragraph/character
+styles and story ranges. The [public CharacterStyle reference](https://developer.adobe.com/indesign/uxp/dom/api/c/character-style/)
+distinguishes this unit value from the `Position` enumeration. Adobe's
+[baseline guide](https://helpx.adobe.com/indesign/desktop/format-and-style-text/tabs-indents-and-spacing/adjust-text-baseline.html)
+describes movement without changing leading. The codec now preserves explicit
+point offsets, omitted inheritance and local zero resets through repeated saves;
+supported local overrides reuse named styles rather than multiplying on save.
+Malformed/nonfinite offsets produce an import diagnostic.
+
+`Position` superscript/subscript and their TypePreference size/position settings
+remain unsupported and are now explicitly reported when encountered. Legacy
+model variants for them are retained for serialization but are not interpreted as
+numeric offsets; export reports their loss. The unused approximate-offset helper
+was removed. Explicit `BaselineShift::None` exports a native zero, which reads as
+`Offset(0)` with the same meaning. Native populated-document/application validation
+is still outstanding; synthetic native XML and independent rendered PDF proofs
+establish only the tested subset.

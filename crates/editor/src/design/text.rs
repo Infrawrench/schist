@@ -12,7 +12,7 @@ pub fn hit(state: &DesignState, at: Point, object: Option<ObjectId>) -> Option<(
     let at = state.to_pasteboard(at);
     let id = object.or_else(|| super::select::hit_test(&board, at).object())?;
     schist_layout::threading::story_of(&state.document, id)?;
-    let (spec, start, origin, at) = board
+    let (_, _, _, byte) = board
         .pages
         .iter()
         .flat_map(|p| &p.objects)
@@ -28,21 +28,58 @@ pub fn hit(state: &DesignState, at: Point, object: Option<ObjectId>) -> Option<(
             else {
                 return None;
             };
+            if *object != id {
+                return None;
+            }
             let local = schist_layout::affine::point(transform.invert()?, at);
-            (*object == id).then(|| (spec, *start, line_origin(spec, *rect), *rect, local))
+            let origin = line_origin(spec, *rect);
+            // The visible caret segments include each run's baseline offset.
+            // Unshifted line boxes can pick an adjacent line after a large shift.
+            let points = schist_text_engine::insertion_points(spec);
+            let (x, y) = (local.x - origin.x, local.y - origin.y);
+            let (left, top, right, bottom) = points
+                .iter()
+                .flat_map(|(_, caret)| {
+                    [
+                        (caret.x, caret.top),
+                        (
+                            caret.x - caret.angle.sin() * caret.height,
+                            caret.top + caret.angle.cos() * caret.height,
+                        ),
+                    ]
+                })
+                .fold(
+                    (
+                        f32::INFINITY,
+                        f32::INFINITY,
+                        f32::NEG_INFINITY,
+                        f32::NEG_INFINITY,
+                    ),
+                    |(l, t, r, b), (x, y)| (l.min(x), t.min(y), r.max(x), b.max(y)),
+                );
+            // Prefer the text extent containing the click. A drop cap spans
+            // several body lines; its nearest edge need not be the nearest caret.
+            let outside =
+                x < left - 0.01 || x > right + 0.01 || y < top - 0.01 || y > bottom + 0.01;
+            points
+                .into_iter()
+                .map(|(position, caret)| {
+                    let (cross, inline) = caret.hit_distance(x, y);
+                    (outside, cross, inline, start + position.byte)
+                })
+                .min_by(compare_text_hits)
         })
-        .min_by(|a, b| {
-            let distance = |rect: Rect, at: Point| {
-                (at.y - at.y.clamp(rect.y, rect.bottom())).powi(2)
-                    + (at.x - at.x.clamp(rect.x, rect.right())).powi(2)
-            };
-            distance(a.3, a.4).total_cmp(&distance(b.3, b.4))
-        })
-        .map(|(spec, start, origin, _, at)| (spec, start, origin, at))?;
-    Some((
-        id,
-        start + schist_text_engine::hit_test(spec, at.x - origin.x, at.y - origin.y).unwrap_or(0),
-    ))
+        .min_by(compare_text_hits)?;
+    Some((id, byte))
+}
+
+fn compare_text_hits(
+    a: &(bool, f32, f32, usize),
+    b: &(bool, f32, f32, usize),
+) -> std::cmp::Ordering {
+    a.0.cmp(&b.0)
+        .then(a.1.total_cmp(&b.1))
+        .then(a.2.total_cmp(&b.2))
 }
 
 pub fn press(state: &mut DesignState, at: Point) -> bool {
@@ -177,6 +214,76 @@ pub fn adjacent_line_caret(state: &DesignState, forward: bool) -> Option<usize> 
 mod tests {
     use super::*;
     use schist_layout::{authoring, threading};
+
+    #[test]
+    fn shifted_text_hits_its_visible_line_at_every_zoom_and_frame_transform() {
+        use schist_layout::{
+            affine::{self, Affine},
+            compose,
+            styles::BaselineShift,
+            ParagraphStyle, Story, WritingMode,
+        };
+        for mode in [
+            WritingMode::Horizontal,
+            WritingMode::VerticalRightToLeft,
+            WritingMode::VerticalLeftToRight,
+        ] {
+            for shift in [-25.0, 25.0] {
+                let mut state = DesignState::new();
+                state.document.styles.add_paragraph(ParagraphStyle {
+                    name: "Shifted".into(),
+                    point_size: Some(12.0),
+                    leading: Some(18.0),
+                    writing_mode: Some(mode),
+                    baseline_shift: Some(BaselineShift::Offset(shift)),
+                    ..Default::default()
+                });
+                let frame = authoring::text_frame(
+                    &mut state.document,
+                    &mut state.history,
+                    0,
+                    Rect::new(40.0, 40.0, 150.0, 150.0),
+                )
+                .unwrap();
+                *state.document.story_mut(frame.story) =
+                    Story::from_text("abc e\u{301} fg hi jkl mn ".repeat(10), "Shifted");
+                let thread = compose::compose_story(&state.document, frame.story);
+                assert!(thread.lines().count() > 2);
+                for line in thread.lines().skip(1).take(3) {
+                    let spec = compose::line_spec(
+                        line,
+                        state.document.story(frame.story).unwrap(),
+                        &state.document,
+                    );
+                    let origin = line_origin(&spec, line.bounds);
+                    let boundaries: Vec<_> =
+                        schist_text_engine::grapheme_boundaries(&spec.text).collect();
+                    let byte = boundaries[boundaries.len() / 2];
+                    let caret = schist_text_engine::caret_at(&spec, byte).unwrap();
+                    let local = Point::new(
+                        origin.x + caret.x - caret.angle.sin() * caret.height / 2.0,
+                        origin.y + caret.top + caret.angle.cos() * caret.height / 2.0,
+                    );
+                    for scale in [0.5, 1.0, 3.0] {
+                        state.view.scale = scale;
+                        for matrix in [
+                            Affine::IDENTITY,
+                            Affine::rotate(0.4),
+                            Affine::skew(0.2, -0.1),
+                        ] {
+                            state.document.objects[0].transform = matrix;
+                            let point =
+                                affine::point(state.document.objects[0].content_transform(), local);
+                            assert_eq!(
+                                hit(&state, point, Some(frame.object)),
+                                Some((frame.object, line.start + byte))
+                            );
+                        }
+                    }
+                }
+            }
+        }
+    }
 
     #[test]
     fn vertical_hits_and_cross_column_carets_follow_shaped_graphemes() {

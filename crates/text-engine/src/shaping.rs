@@ -363,11 +363,11 @@ pub(super) fn layout(spec: &TextSpec, base: &LoadedFace, widths: &[f32]) -> Layo
                 } else {
                     top + height / 2.0
                 };
-                g.x = center + cross;
+                g.x = center + cross + spec.style_at(g.byte).baseline_shift;
                 g.baseline = inline;
             } else {
                 g.x += x;
-                g.baseline += top + ascent;
+                g.baseline += top + ascent - spec.style_at(g.byte).baseline_shift;
             }
         }
         for c in &mut line.chars {

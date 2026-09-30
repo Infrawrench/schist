@@ -309,3 +309,8 @@ design.fill_tint = Fill tint (%)
 design.stroke_tint = Stroke tint (%)
 design.idml_tint_invalid = Ignored invalid {property}: {value}
 design.strikethrough = Strikethrough
+
+design.baseline_shift = Baseline shift (pt)
+design.unsupported_text_position = Unsupported text position
+design.idml_position_unsupported = Unsupported text position: {value}
+design.idml_baseline_invalid = Invalid baseline shift: {value}

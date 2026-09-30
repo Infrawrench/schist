@@ -588,6 +588,7 @@ impl LayoutDocument {
         let destination = spread.pages.iter().position(|p| *p == page).unwrap();
         let origin = spread.page_origin(&self.pages, destination);
         let mut out = Vec::new();
+        let mut text_padding = std::collections::HashMap::new();
         for (slot, source) in spread.pages.iter().enumerate() {
             let at = spread.page_origin(&self.pages, slot);
             let offset = Point::new(at.x - origin.x, at.y - origin.y);
@@ -596,7 +597,27 @@ impl LayoutDocument {
                     out.push(object);
                 } else {
                     let placed = object.translated_artwork(offset);
-                    if placed.paint_bounds().intersects(clip) {
+                    let bounds = if let LayoutObject::TextFrame { story, .. } = &placed.object {
+                        // Offsets can move ink across the gutter while the frame
+                        // stays on its source page. Expand in local axes before
+                        // rotation/shear, conservatively covering mixed modes.
+                        let padding = *text_padding
+                            .entry(*story)
+                            .or_insert_with(|| self.story_baseline_extent(*story));
+                        let r = placed.bounds;
+                        crate::affine::bounds(
+                            placed.content_transform(),
+                            Rect::new(
+                                r.x - padding,
+                                r.y - padding,
+                                r.width + 2.0 * padding,
+                                r.height + 2.0 * padding,
+                            ),
+                        )
+                    } else {
+                        placed.paint_bounds()
+                    };
+                    if bounds.intersects(clip) {
                         out.push(std::borrow::Cow::Owned(placed));
                     }
                 }
@@ -605,6 +626,42 @@ impl LayoutDocument {
         let order = self.paint_order();
         out.sort_by_key(|object| order[&object.id]);
         out
+    }
+
+    /// Largest supported absolute offset referenced by this story. Cached per
+    /// story by page_artwork; no text shaping is needed to conservatively cull.
+    fn story_baseline_extent(&self, id: StoryId) -> f32 {
+        let fallback = self.styles.resolve_character(&self.default_character_style);
+        let default = self
+            .styles
+            .resolve_paragraph(&self.default_paragraph_style)
+            .character(fallback.clone())
+            .baseline_shift;
+        let Some(story) = self.story(id) else {
+            return 0.0;
+        };
+        std::iter::once(default)
+            .chain(story.points.iter().filter_map(|point| {
+                match point {
+                    crate::story::Point::Paragraph { style, .. } => Some(
+                        self.styles
+                            .resolve_paragraph(style)
+                            .character(fallback.clone())
+                            .baseline_shift,
+                    ),
+                    _ => None,
+                }
+            }))
+            .chain(
+                story
+                    .ranges
+                    .iter()
+                    .map(|range| self.styles.resolve_character(&range.style).baseline_shift),
+            )
+            .flatten()
+            .filter_map(crate::styles::BaselineShift::explicit_offset)
+            .map(f32::abs)
+            .fold(0.0, f32::max)
     }
 
     pub fn object_layer(&self, object: ObjectId) -> LayerId {

@@ -169,9 +169,11 @@ fn text_tint_inherits_per_run_without_weakening_its_knockout_mask() {
         for y in 0..120 {
             for x in 0..200 {
                 let removed = 1.0 - black.at(x, y);
-                if removed > 0.99 {
-                    // Classify by the actual amount; the glyph shape itself is irrelevant.
-                    let amount = cyan.at(x, y);
+                if removed > 0.001 {
+                    // Ink scales with actual knockout coverage, including
+                    // antialiased edges. Coverage above 99% is not necessarily
+                    // solid: Linux fonts exposed 253/255 samples in this test.
+                    let amount = cyan.at(x, y) / removed;
                     if (amount - tint).abs() < 1e-5 {
                         hits[0] += 1;
                     } else {

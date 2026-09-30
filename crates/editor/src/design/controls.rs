@@ -193,6 +193,10 @@ pub fn commit(state: &mut DesignState, id: &str, text: &str) -> bool {
                     "design-prop-size" => style.point_size = value,
                     "design-prop-leading" => style.leading = value,
                     "design-prop-tracking" => style.tracking = value,
+                    "design-prop-baseline" => {
+                        style.baseline_shift =
+                            value.map(schist_layout::styles::BaselineShift::Offset)
+                    }
                     "design-prop-before" => style.space_before = value,
                     "design-prop-after" => style.space_after = value,
                     "design-prop-left" => style.left_indent = value,
@@ -221,6 +225,10 @@ pub fn commit(state: &mut DesignState, id: &str, text: &str) -> bool {
                     "design-prop-char-size" => style.point_size = value,
                     "design-prop-char-leading" => style.leading = value,
                     "design-prop-char-tracking" => style.tracking = value,
+                    "design-prop-char-baseline" => {
+                        style.baseline_shift =
+                            value.map(schist_layout::styles::BaselineShift::Offset)
+                    }
                     _ => {}
                 }
             })
@@ -241,6 +249,65 @@ pub fn all_text_frames(state: &DesignState) -> bool {
 #[cfg(test)]
 mod tests {
     use super::*;
+    #[test]
+    fn baseline_fields_commit_once_restore_inheritance_and_reject_nonfinite_values() {
+        for (id, target) in [
+            ("design-prop-baseline", Target::Paragraph("Body".into())),
+            (
+                "design-prop-char-baseline",
+                Target::Character("Default".into()),
+            ),
+        ] {
+            let mut state = DesignState::new();
+            let original = state.document.clone();
+            for invalid in ["NaN", "inf", "-inf", "garbage"] {
+                state.controls.field = Some(target.clone());
+                assert!(!commit(&mut state, id, invalid));
+                assert_eq!(state.document, original);
+                assert_eq!(state.history.undo_depth(), 0);
+            }
+            for value in ["-12.5", "0", "8.25"] {
+                state.controls.field = Some(target.clone());
+                state.controls.paragraph = Some("Other".into());
+                state.controls.character = Some("Other".into());
+                assert!(commit(&mut state, id, value));
+                assert_eq!(state.history.undo_depth(), 1);
+                let actual = match &target {
+                    Target::Paragraph(name) => {
+                        state
+                            .document
+                            .styles
+                            .paragraph(name)
+                            .unwrap()
+                            .baseline_shift
+                    }
+                    Target::Character(name) => {
+                        state
+                            .document
+                            .styles
+                            .character(name)
+                            .unwrap()
+                            .baseline_shift
+                    }
+                    _ => unreachable!(),
+                };
+                assert_eq!(
+                    actual,
+                    Some(schist_layout::styles::BaselineShift::Offset(
+                        value.parse().unwrap()
+                    ))
+                );
+                assert!(state.history.undo(&mut state.document));
+                assert_eq!(state.document, original);
+                assert!(state.history.redo(&mut state.document));
+                state.controls.field = Some(target.clone());
+                assert!(commit(&mut state, id, ""));
+                assert_eq!(state.document, original);
+                state.history.clear();
+            }
+        }
+    }
+
     #[test]
     fn tint_fields_commit_once_to_the_captured_targets_and_blank_styles_inherit() {
         for paragraph in [false, true] {

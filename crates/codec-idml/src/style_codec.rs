@@ -99,6 +99,7 @@ pub(crate) fn paragraph_properties(
         italic: character.italic,
         underline: character.underline,
         strikethrough: character.strikethrough,
+        baseline_shift: character.baseline_shift,
         fill_tint: character.fill_tint,
         stroke_tint: character.stroke_tint,
         fill: character.fill,
@@ -136,6 +137,26 @@ pub(crate) fn character_properties(
     report: &mut crate::import::Report,
 ) -> CharacterStyle {
     let font_style = element.attr("FontStyle");
+    if let Some(position) = element.attr("Position").filter(|v| *v != "Normal") {
+        report.skip(schist_i18n::tf!(
+            "design.idml_position_unsupported",
+            value = position
+        ));
+    }
+    let baseline_shift = element
+        .attr("BaselineShift")
+        .and_then(|raw| match raw.parse::<f32>() {
+            Ok(value) if value.is_finite() => {
+                Some(schist_layout::styles::BaselineShift::Offset(value))
+            }
+            _ => {
+                report.skip(schist_i18n::tf!(
+                    "design.idml_baseline_invalid",
+                    value = raw
+                ));
+                None
+            }
+        });
     CharacterStyle {
         family: property(element, "AppliedFont").map(str::to_owned),
         fill_tint: crate::color_codec::tint(element, "FillTint", report),
@@ -152,6 +173,7 @@ pub(crate) fn character_properties(
         italic: font_style.map(|v| v.contains("Italic") || v.contains("Oblique")),
         underline: boolean(element, "Underline"),
         strikethrough: boolean(element, "StrikeThru"),
+        baseline_shift,
         language: element.attr("AppliedLanguage").map(str::to_owned),
         ..CharacterStyle::default()
     }
@@ -263,6 +285,13 @@ pub fn paragraph(style: &ParagraphStyle) -> String {
     optional(&mut out, "StrikeThru", style.strikethrough);
     optional(
         &mut out,
+        "BaselineShift",
+        style
+            .baseline_shift
+            .and_then(schist_layout::styles::BaselineShift::explicit_offset),
+    );
+    optional(
+        &mut out,
         "FillColor",
         style.fill.as_ref().map(crate::color_codec::reference),
     );
@@ -369,6 +398,13 @@ pub fn character(style: &CharacterStyle) -> String {
     font_style(&mut out, style.bold, style.italic);
     optional(&mut out, "Underline", style.underline);
     optional(&mut out, "StrikeThru", style.strikethrough);
+    optional(
+        &mut out,
+        "BaselineShift",
+        style
+            .baseline_shift
+            .and_then(schist_layout::styles::BaselineShift::explicit_offset),
+    );
     optional(&mut out, "AppliedLanguage", style.language.as_ref());
     optional(
         &mut out,

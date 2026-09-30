@@ -422,3 +422,117 @@ fn decoration_inheritance_and_local_false_overrides_reach_rendering_after_every_
         }
     }
 }
+
+#[test]
+fn native_baseline_offsets_inherit_and_local_zero_survives_every_save() {
+    use schist_layout::styles::BaselineShift;
+    for offset in [-15.5, 0.0, 8.25] {
+        let styles = format!(
+            r#"<RootParagraphStyleGroup>
+          <ParagraphStyle Self="base" Name="Base" BaselineShift="{offset}"/>
+          <ParagraphStyle Self="body" Name="Shifted"><Properties><BasedOn type="object">base</BasedOn></Properties></ParagraphStyle>
+        </RootParagraphStyleGroup><RootCharacterStyleGroup>
+          <CharacterStyle Self="c" Name="Character" BaselineShift="-4.5"/>
+          <CharacterStyle Self="child" Name="Child"><Properties><BasedOn type="object">c</BasedOn></Properties></CharacterStyle>
+        </RootCharacterStyleGroup>"#
+        );
+        let story = r#"<ParagraphStyleRange AppliedParagraphStyle="body">
+          <CharacterStyleRange><Content>é</Content></CharacterStyleRange>
+          <CharacterStyleRange AppliedCharacterStyle="child"><Content>中</Content></CharacterStyleRange>
+          <CharacterStyleRange AppliedCharacterStyle="child" BaselineShift="0"><Content>Z</Content></CharacterStyleRange>
+        </ParagraphStyleRange>"#;
+        let mut doc = native_story(&styles, story);
+        let counts = (doc.styles.paragraphs.len(), doc.styles.characters.len());
+        for _ in 0..5 {
+            assert_eq!(
+                doc.styles.resolve_paragraph("Shifted").baseline_shift,
+                Some(BaselineShift::Offset(offset))
+            );
+            assert_eq!(doc.styles.character("Child").unwrap().baseline_shift, None);
+            let spec = schist_layout::compose::spec_for(
+                &doc.stories[0],
+                0,
+                6,
+                &doc.styles,
+                "Shifted",
+                "Default",
+                200.0,
+            );
+            assert_eq!(spec.style_at(0).baseline_shift, offset);
+            assert_eq!(spec.style_at(2).baseline_shift, -4.5);
+            assert_eq!(spec.style_at(5).baseline_shift, 0.0);
+            assert_eq!(
+                (doc.styles.paragraphs.len(), doc.styles.characters.len()),
+                counts
+            );
+            let bytes = export::write(&doc).bytes;
+            let package = container::read(&bytes).unwrap();
+            let root = xml::parse(package.text("Resources/Styles.xml").unwrap()).unwrap();
+            let base = root
+                .find_all("ParagraphStyle")
+                .into_iter()
+                .find(|s| s.attr("Name") == Some("Base"))
+                .unwrap();
+            assert_eq!(base.number("BaselineShift"), Some(offset));
+            doc = import::read(&bytes).unwrap().document;
+        }
+    }
+}
+
+#[test]
+fn invalid_offsets_and_unsupported_native_positions_are_disclosed() {
+    for value in ["NaN", "inf", "-inf", "garbage"] {
+        let mut doc = blank_a4();
+        doc.styles.add_character(CharacterStyle {
+            name: "Bad".into(),
+            ..Default::default()
+        });
+        let mut package = container::read(&export::write(&doc).bytes).unwrap();
+        package.insert("Resources/Styles.xml", format!(r#"<idPkg:Styles><RootCharacterStyleGroup><CharacterStyle Self="bad" Name="Bad" BaselineShift="{value}" Position="Superscript"/></RootCharacterStyleGroup></idPkg:Styles>"#).into_bytes());
+        let read = import::read(&container::write(&package.into_parts())).unwrap();
+        assert_eq!(
+            read.document
+                .styles
+                .character("Bad")
+                .unwrap()
+                .baseline_shift,
+            None
+        );
+        assert!(read.report.skipped.iter().any(|m| m.contains(value)));
+        assert!(read
+            .report
+            .skipped
+            .iter()
+            .any(|m| m.contains("Superscript")));
+    }
+}
+
+#[test]
+fn unsupported_legacy_baseline_variants_and_invalid_offsets_are_not_exported_as_plain_offsets() {
+    use schist_layout::styles::BaselineShift;
+    for shift in [
+        BaselineShift::Superscript,
+        BaselineShift::Subscript,
+        BaselineShift::Offset(f32::NAN),
+    ] {
+        let mut doc = blank_a4();
+        doc.styles.add_character(CharacterStyle {
+            name: "Unsupported".into(),
+            baseline_shift: Some(shift),
+            ..Default::default()
+        });
+        let exported = export::write(&doc);
+        assert!(exported
+            .warnings
+            .iter()
+            .any(|w| w.contains(&format!("{shift:?}"))));
+        let package = container::read(&exported.bytes).unwrap();
+        let root = xml::parse(package.text("Resources/Styles.xml").unwrap()).unwrap();
+        let style = root
+            .find_all("CharacterStyle")
+            .into_iter()
+            .find(|s| s.attr("Name") == Some("Unsupported"))
+            .unwrap();
+        assert_eq!(style.attr("BaselineShift"), None);
+    }
+}

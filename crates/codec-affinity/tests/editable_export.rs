@@ -275,3 +275,23 @@ fn unencoded_decorations_use_the_reported_raster_fallback() {
         }
     }
 }
+
+#[test]
+fn nonzero_baseline_shifts_use_the_reported_raster_fallback() {
+    for shift in [-12.5, 0.0, 8.25] {
+        let mut doc = text_doc(false);
+        let mut stored: serde_json::Value =
+            serde_json::from_slice(&doc.tree.layers[0].extras[0].data).unwrap();
+        stored["spec"]["runs"][0]["baseline_shift"] = serde_json::json!(shift);
+        doc.tree.layers[0].extras[0].data = serde_json::to_vec(&stored).unwrap();
+        let (bytes, report) = write_affinity(&doc, None).unwrap();
+        assert_eq!(report.skipped.len(), usize::from(shift != 0.0));
+        assert_eq!(
+            graph(&bytes)
+                .nodes
+                .iter()
+                .any(|n| matches!(n.type_tag().to_be_bytes(), [b'T', b'x', b't', b'A' | b'F'])),
+            shift == 0.0
+        );
+    }
+}

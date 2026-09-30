@@ -352,3 +352,20 @@ The paired `decoration_proof` pages let Poppler compare undecorated/decorated
 output directly. Checks require added continuous ink through spaces and unchanged
 solid glyph colours. The proof also has visually inspected horizontal/vertical
 pages. Custom decoration paints and text strokes remain separate gaps.
+
+
+Explicit text baseline offsets scale from document points to output pixels before
+rasterization, independently of leading, tint and opacity. Separation tests compare
+whole plates to translated references at three resolutions in horizontal and both
+vertical writing modes. The baseline PDF proof pairs unshifted and shifted pages
+for horizontal type, mixed upright Japanese/rotated Latin vertical type, both
+column directions and a rotated frame. Poppler extracts and compares every image
+sample exactly, then checks rendered page placement. This separates image-sample
+fidelity from page rasterization. The checks include decorated translucent glyphs,
+so a lost offset, wrong sign, unscaled point value or repeated opacity cannot pass
+by matching metadata alone.
+
+Page contribution bounds expand for the largest supported absolute baseline
+offset referenced by a story, before frame transforms. This conservative envelope
+keeps ink crossing a gutter even when its frame remains wholly on the source
+page; a two-direction plate comparison checks against explicit placement.

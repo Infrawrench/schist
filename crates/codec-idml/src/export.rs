@@ -58,6 +58,27 @@ pub fn write(document: &LayoutDocument) -> Written {
             .push(schist_i18n::t("design.idml_page_visibility").into());
     }
 
+    for shift in document
+        .styles
+        .paragraphs
+        .iter()
+        .filter_map(|s| s.baseline_shift)
+        .chain(
+            document
+                .styles
+                .characters
+                .iter()
+                .filter_map(|s| s.baseline_shift),
+        )
+    {
+        if shift.explicit_offset().is_none() {
+            out.warnings.push(schist_i18n::tf!(
+                "design.idml_position_unsupported",
+                value = format!("{shift:?}")
+            ));
+        }
+    }
+
     // Part names and the ids in them, gathered before anything is
     // written, because the root part has to list them all.
     let story_parts: Vec<(StoryId, String, String)> = document

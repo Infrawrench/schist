@@ -87,19 +87,22 @@ pub enum WritingMode {
 pub enum BaselineShift {
     #[default]
     None,
+    /// Retained for legacy serialization; font scaling/preferences are not implemented.
     Superscript,
+    /// Retained for legacy serialization; font scaling/preferences are not implemented.
     Subscript,
     /// A fixed offset in points, positive raising the text.
     Offset(f32),
 }
 
 impl BaselineShift {
-    pub fn offset(self, size: f32) -> f32 {
+    /// Explicit shifts supported by composition and native IDML. The legacy
+    /// superscript/subscript variants still need size and position preferences.
+    pub fn explicit_offset(self) -> Option<f32> {
         match self {
-            BaselineShift::None => 0.0,
-            BaselineShift::Superscript => size * 0.33,
-            BaselineShift::Subscript => -size * 0.2,
-            BaselineShift::Offset(v) => v,
+            Self::None => Some(0.0),
+            Self::Offset(value) if value.is_finite() => Some(value),
+            _ => None,
         }
     }
 }
@@ -125,6 +128,7 @@ pub struct ParagraphStyle {
     pub italic: Option<bool>,
     pub underline: Option<bool>,
     pub strikethrough: Option<bool>,
+    pub baseline_shift: Option<BaselineShift>,
     /// Fraction of full-strength ink; None inherits independently of colour.
     pub fill_tint: Option<f32>,
     pub stroke_tint: Option<f32>,
@@ -191,7 +195,7 @@ pub struct CharacterStyle {
 
     pub bold: Option<bool>,
     pub italic: Option<bool>,
-    /// Underline style, None meaning off.
+    /// Underline toggle; None inherits.
     pub underline: Option<bool>,
     pub strikethrough: Option<bool>,
     /// Superscript, subscript or a fixed shift.
@@ -372,6 +376,7 @@ pub struct ResolvedParagraph {
     pub italic: Option<bool>,
     pub underline: Option<bool>,
     pub strikethrough: Option<bool>,
+    pub baseline_shift: Option<BaselineShift>,
     /// Fraction of full-strength ink; None inherits independently of colour.
     pub fill_tint: Option<f32>,
     pub stroke_tint: Option<f32>,
@@ -409,6 +414,7 @@ impl ResolvedParagraph {
         fallback.italic = self.italic.or(fallback.italic);
         fallback.underline = self.underline.or(fallback.underline);
         fallback.strikethrough = self.strikethrough.or(fallback.strikethrough);
+        fallback.baseline_shift = self.baseline_shift.or(fallback.baseline_shift);
         fallback.fill_tint = self.fill_tint.or(fallback.fill_tint);
         fallback.stroke_tint = self.stroke_tint.or(fallback.stroke_tint);
         fallback.fill = self.fill.clone().or(fallback.fill);
@@ -429,6 +435,7 @@ impl ResolvedParagraph {
             out.italic = out.italic.or(style.italic);
             out.underline = out.underline.or(style.underline);
             out.strikethrough = out.strikethrough.or(style.strikethrough);
+            out.baseline_shift = out.baseline_shift.or(style.baseline_shift);
             out.fill_tint = out.fill_tint.or(style.fill_tint);
             out.stroke_tint = out.stroke_tint.or(style.stroke_tint);
             out.fill = out.fill.clone().or_else(|| style.fill.clone());

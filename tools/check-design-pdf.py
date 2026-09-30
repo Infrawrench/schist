@@ -256,3 +256,47 @@ if len(sys.argv) > 7:
                 axes[x if vertical else y].add(y if vertical else x)
             assert max(len(points) for points in axes.values())>150
     print("Design PDF: horizontal/vertical underline and strikethrough, spaces and single-pass translucent glyph coverage verified.")
+
+
+if len(sys.argv) > 8:
+    with tempfile.TemporaryDirectory(prefix="schist-baseline-check-") as temporary:
+        prefix = Path(temporary) / "baseline"
+        result = subprocess.run(["pdftoppm", "-png", "-r", "144", sys.argv[8], str(prefix)],
+                                check=True, capture_output=True, text=True)
+        assert not result.stderr.strip(), result.stderr
+        rendered = sorted(Path(temporary).glob("baseline-*.png"))
+        assert len(rendered) == 8
+        # pdftoppm's page rasterization changes antialiased edge colours by up
+        # to six levels after a shift, despite identical translated samples.
+        # Compare exact image samples through Poppler's independent extractor,
+        # and separately verify their rendered placement on the PDF pages.
+        result = subprocess.run(["pdfimages", "-png", sys.argv[8], str(Path(temporary)/"samples")],
+                                check=True, capture_output=True, text=True)
+        assert not result.stderr.strip(), result.stderr
+        files = sorted(Path(temporary).glob("samples-*.png"))
+        assert len(files) == 8
+        def ink_bounds(path):
+            with Image.open(path) as image:
+                image = image.convert("RGB")
+                assert image.size == (400,400)
+                points = [(x,y) for y in range(400) for x in range(400) if min(image.getpixel((x,y)))<240]
+            assert len(points)>1000
+            return min(x for x,y in points), min(y for x,y in points), max(x for x,y in points), max(y for x,y in points)
+        for pair, (dx, dy) in enumerate([(0,-16), (16,0), (-16,0), (16,0)]):
+            with Image.open(files[pair*2]) as opened:
+                before = opened.convert("RGB")
+            with Image.open(files[pair*2+1]) as opened:
+                after = opened.convert("RGB")
+            assert before.size == after.size == (400,400)
+            ink = 0
+            for y in range(400):
+                for x in range(400):
+                    sx, sy = x-dx, y-dy
+                    expected = before.getpixel((sx,sy)) if 0<=sx<400 and 0<=sy<400 else (255,255,255)
+                    actual = after.getpixel((x,y))
+                    assert expected == actual, (pair,x,y,expected,actual)
+                    ink += min(actual)<240
+            assert ink>1000
+            before_box, after_box = ink_bounds(rendered[pair*2]), ink_bounds(rendered[pair*2+1])
+            assert all(abs(b-a-d)<=1 for a,b,d in zip(before_box,after_box,(dx,dy,dx,dy))), (pair,before_box,after_box)
+    print("Design PDF: point baseline shifts translate horizontal, mixed upright/rotated vertical and rotated-frame ink without changing glyph colours or decorations.")
