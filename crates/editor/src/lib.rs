@@ -24,6 +24,7 @@ mod curve_editor;
 mod dialogs;
 mod export_recipes;
 mod gallery;
+pub mod design;
 pub mod keymap;
 pub mod native_menu;
 mod panels;

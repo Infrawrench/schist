@@ -75,7 +75,7 @@ fn items(
         };
         if at > begin
             && (face != faces.at(at)
-                || spec.style_at(begin).color != spec.style_at(at).color
+                || spec.style_at(begin) != spec.style_at(at)
                 || next_script != script
                 || (spec.writing_mode.is_vertical()
                     && (next_vertical != vertical
@@ -190,7 +190,8 @@ fn shape_item(
                 pos.x_advance as f32 * scale
             };
         }
-        out.width += spec.tracking * char_bytes.len() as f32;
+        out.width += spec.style_at(start + cluster).tracking * char_bytes.len() as f32;
+        out.width += spec.word_spacing * text[cluster..cluster_end].chars().filter(|ch| *ch == ' ').count() as f32;
         let count = char_bytes.len().max(1) as f32;
         for (k, byte) in char_bytes.into_iter().enumerate() {
             let (a, b) = if rtl && !ttb {
@@ -275,7 +276,7 @@ pub(super) fn paragraph_is_rtl(spec: &TextSpec, byte: usize) -> bool {
         .is_some_and(|p| p.level.is_rtl())
 }
 
-pub(super) fn layout(spec: &TextSpec, base: &LoadedFace) -> Layout {
+pub(super) fn layout(spec: &TextSpec, base: &LoadedFace, widths: &[f32]) -> Layout {
     let faces = Faces::resolve(spec, base);
     let mut lines = Vec::new();
     let level = match spec.direction {
@@ -287,14 +288,14 @@ pub(super) fn layout(spec: &TextSpec, base: &LoadedFace) -> Layout {
         let paragraph = &spec.text[start..end];
         let bidi = BidiInfo::new(paragraph, level);
         let mut line_start = start;
-        if let Some(limit) = spec
-            .wrap_width
-            .filter(|_| spec.path.is_none() || spec.writing_mode.is_vertical())
+        if (spec.path.is_none() || spec.writing_mode.is_vertical())
+            && wrap_width_at(spec, widths, lines.len()).is_some()
         {
             let mut previous = start;
             for (boundary, _) in unicode_linebreak::linebreaks(paragraph) {
                 let at = start + boundary;
                 let candidate = shape(spec, &faces, &bidi, start, line_start, at);
+                let limit = wrap_width_at(spec, widths, lines.len()).unwrap();
                 if previous > line_start && candidate.width > limit {
                     lines.push((
                         line_start,
@@ -324,12 +325,7 @@ pub(super) fn layout(spec: &TextSpec, base: &LoadedFace) -> Layout {
     let total_height: f32 = lines
         .iter()
         .map(|(start, end, _)| {
-            spec.text[*start..*end]
-                .char_indices()
-                .map(|(k, _)| faces.line_metrics(faces.at(start + k)).1)
-                .reduce(f32::max)
-                .unwrap_or_else(|| faces.line_metrics(0).1)
-                * spec.line_height.max(0.1)
+run_line_advance(spec, &faces, *start, *end, faces.line_metrics(0).1)
         })
         .sum();
     let mut top = 0.0;
@@ -339,7 +335,7 @@ pub(super) fn layout(spec: &TextSpec, base: &LoadedFace) -> Layout {
             .map(|(k, _)| faces.line_metrics(faces.at(start + k)))
             .reduce(|(a, h), (b, j)| (a.max(b), h.max(j)))
             .unwrap_or_else(|| faces.line_metrics(0));
-        let height = step * spec.line_height.max(0.1);
+        let height = run_line_advance(spec, &faces, start, end, step);
         if i == 0 {
             out.first_baseline = ascent;
             out.line_advance = height;
@@ -382,6 +378,7 @@ pub(super) fn layout(spec: &TextSpec, base: &LoadedFace) -> Layout {
             x,
             width: line.width,
             top,
+            baseline: top + ascent,
             height,
         });
         top += height;

@@ -4,7 +4,10 @@ use super::*;
 use schist_i18n::t;
 
 pub(super) fn history_panel(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElement {
-    let (undo_entries, redo_entries): (Vec<String>, Vec<String>) = ws
+    let (undo_entries, redo_entries): (Vec<String>, Vec<String>) = if ws.design_mode() {
+        (vec![t("design.history_edit").to_string(); ws.design.history.undo_depth()],
+         vec![t("design.history_edit").to_string(); ws.design.history.redo_depth()])
+    } else { ws
         .doc
         .as_ref()
         .map(|d| {
@@ -19,10 +22,10 @@ pub(super) fn history_panel(ws: &mut Workspace, cx: &mut Context<Workspace>) -> 
                     .collect(),
             )
         })
-        .unwrap_or_default();
+        .unwrap_or_default() };
     let n_undo = undo_entries.len() as i32;
     #[cfg(not(target_arch = "wasm32"))]
-    let versions = ws.version_history_original().map(|original| {
+    let versions = (!ws.design_mode()).then(|| ws.version_history_original()).flatten().map(|original| {
         schist_ui::Button::new("history-saved-versions", t("versions.open"))
             .on_click(cx.listener(move |ws, _ev, _window, cx| {
                 ws.open_version_history(original.clone(), cx);

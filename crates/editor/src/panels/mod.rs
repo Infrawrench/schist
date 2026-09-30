@@ -33,10 +33,18 @@ mod context;
 mod history;
 mod info;
 mod layers;
+mod design_layers;
+mod design_controls;
 mod menu_bar;
 mod menus;
 mod navigator;
+mod links;
 mod notes;
+mod pages;
+mod preflight;
+mod stories;
+mod styles;
+mod swatches;
 mod rulers;
 mod sliders;
 mod status;
@@ -51,6 +59,10 @@ pub use ai::*;
 pub(crate) use color::spot_ink_dialog;
 use color::*;
 use info::*;
+use links::links_panel;
+use stories::stories_panel;
+use styles::styles_panel;
+use swatches::swatches_panel;
 
 /// The sidebar renders nothing on the web or iOS, where the AI subsystem
 /// (which drives locally installed agent CLIs) is compiled out.
@@ -65,6 +77,8 @@ pub use menu_bar::*;
 pub(crate) use menus::*;
 pub use navigator::*;
 use notes::*;
+use pages::*;
+use preflight::preflight_panel;
 pub use rulers::*;
 pub use sliders::*;
 pub use status::*;
@@ -125,7 +139,7 @@ pub fn side_panels(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::Sta
     // Layers over History, a stray border across the map. Short content
     // still fills the column (the growing panels take the slack); tall
     // content scrolls.
-    let order = panel_order(&ws.view.side_panel_order);
+    let order = panel_order(&ws.view.side_panel_order, ws.design_mode());
     let mut panels = Vec::with_capacity(order.len());
     for kind in order {
         if ws.view.hidden_panels.iter().any(|key| key == kind.key()) {
@@ -157,6 +171,61 @@ pub fn side_panels(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::Sta
                 history_panel(ws, cx).into_any_element(),
                 false,
             ),
+            // Design-only panels skip themselves in the photo editor
+            // rather than showing empty, so a dock preset carrying one
+            // cannot leave a blank section behind.
+            SidePanel::Pages => {
+                let Some(pages) = pages_panel(ws, cx) else {
+                    continue;
+                };
+                (t("design.pages"), pages, false)
+            }
+            SidePanel::Stories => {
+                let Some(stories) = stories_panel(ws, cx) else {
+                    continue;
+                };
+                (t("design.stories"), stories, false)
+            }
+            SidePanel::Links => {
+                let Some(links) = links_panel(ws, cx) else {
+                    continue;
+                };
+                (t("design.links"), links, false)
+            }
+            SidePanel::Swatches => {
+                let Some(swatches) = swatches_panel(ws, cx) else {
+                    continue;
+                };
+                (t("design.swatches"), swatches, false)
+            }
+            SidePanel::Styles => {
+                let Some(styles) = styles_panel(ws, cx) else {
+                    continue;
+                };
+                (t("design.styles"), styles, false)
+            }
+            SidePanel::Control => {
+                let Some(body) = design_controls::control_panel(ws, cx) else { continue; };
+                (t("design.control"), body, false)
+            }
+            SidePanel::Character => {
+                let Some(body) = design_controls::character_panel(ws, cx) else { continue; };
+                (t("design.character"), body, false)
+            }
+            SidePanel::Paragraph => {
+                let Some(body) = design_controls::paragraph_panel(ws, cx) else { continue; };
+                (t("design.paragraph"), body, false)
+            }
+            SidePanel::DesignLayers => {
+                let Some(body) = design_layers::design_layers_panel(ws, cx) else { continue; };
+                (t("design.layers"), body, true)
+            }
+            SidePanel::Preflight => {
+                let Some(preflight) = preflight_panel(ws, cx) else {
+                    continue;
+                };
+                (t("design.preflight"), preflight, false)
+            }
         };
         let key = kind.key();
         let saved_height = ws
@@ -210,7 +279,45 @@ enum SidePanel {
     Layers,
     Notes,
     History,
+    /// Design Mode only. It has no meaning for a photo, so it is not in
+    /// the default order and only appears in a Design dock preset.
+    Pages,
+    /// Design Mode only: every story in the document, so text that has
+    /// flowed off a page is still reachable.
+    Stories,
+    /// Design Mode only: the links behind the placed graphics, and which
+    /// of them are missing.
+    Links,
+    /// Design Mode only: the document's inks, as swatches to fill with.
+    Swatches,
+    /// Design Mode only: the document's own paragraph and character
+    /// styles.
+    Styles,
+    /// Design Mode only: the separation checks for the current page.
+    Preflight,
+    DesignLayers,
+    Control,
+    Character,
+    Paragraph,
 }
+
+/// The panels that only make sense in Design Mode.
+///
+/// Listed rather than being worked out from each one, so that a Design
+/// dock preset and the panels that skip themselves in the photo editor
+/// cannot disagree about which are which.
+const DESIGN_ONLY_PANELS: [SidePanel; 10] = [
+    SidePanel::Pages,
+    SidePanel::Stories,
+    SidePanel::Links,
+    SidePanel::Swatches,
+    SidePanel::Styles,
+    SidePanel::Preflight,
+    SidePanel::DesignLayers,
+    SidePanel::Control,
+    SidePanel::Character,
+    SidePanel::Paragraph,
+];
 
 impl SidePanel {
     fn key(self) -> &'static str {
@@ -220,26 +327,69 @@ impl SidePanel {
             Self::Layers => "layers",
             Self::Notes => "notes",
             Self::History => "history",
+            Self::Pages => "pages",
+            Self::Stories => "stories",
+            Self::Links => "links",
+            Self::Swatches => "swatches",
+            Self::Styles => "styles",
+            Self::Preflight => "preflight",
+            Self::DesignLayers => "design_layers",
+            Self::Control => "design_control",
+            Self::Character => "design_character",
+            Self::Paragraph => "design_paragraph",
         }
     }
 
+    /// Whether this panel is one a photo has no use for.
+    fn design_only(self) -> bool {
+        DESIGN_ONLY_PANELS.contains(&self)
+    }
+
     fn from_key(key: &str) -> Option<Self> {
+        // A Design dock preset saves panels that are not in the default
+        // order, so the design-only ones are matched explicitly. Without
+        // this a saved Design layout would silently lose its first panel.
+        if let Some(panel) = DESIGN_ONLY_PANELS
+            .into_iter()
+            .find(|panel| panel.key() == key)
+        {
+            return Some(panel);
+        }
         DEFAULT_PANEL_ORDER
             .into_iter()
             .find(|panel| panel.key() == key)
     }
 }
 
-fn panel_order(saved: &[String]) -> Vec<SidePanel> {
+/// The panels to show, in order.
+///
+/// The saved order is honoured first, then anything the saved list left
+/// out. The Design-only panels are appended **only** in Design Mode: a
+/// saved Design dock preset must not leave the Pages panel stranded in the
+/// photo editor, and the photo editor must not gain panels it has no
+/// use for.
+fn panel_order(saved: &[String], design: bool) -> Vec<SidePanel> {
     let mut order = Vec::with_capacity(DEFAULT_PANEL_ORDER.len());
     for key in saved {
-        if let Some(panel) = SidePanel::from_key(key) {
-            if !order.contains(&panel) {
-                order.push(panel);
-            }
+        let Some(panel) = SidePanel::from_key(key) else {
+            continue;
+        };
+        let panel = if design && panel == SidePanel::Layers { SidePanel::DesignLayers } else { panel };
+        if !design && panel.design_only() {
+            // A preset saved in Design Mode is loaded in the photo editor
+            // too, and a panel that would render nothing is worse than one
+            // that is not there.
+            continue;
+        }
+        if !order.contains(&panel) {
+            order.push(panel);
         }
     }
-    for panel in DEFAULT_PANEL_ORDER {
+    for panel in DEFAULT_PANEL_ORDER
+        .into_iter()
+        .chain(design.then_some(DESIGN_ONLY_PANELS).into_iter().flatten())
+    {
+        let panel = if design && panel == SidePanel::Layers { SidePanel::DesignLayers } else { panel };
         if !order.contains(&panel) {
             order.push(panel);
         }
@@ -258,7 +408,7 @@ mod panel_order_tests {
             .map(str::to_owned)
             .collect::<Vec<_>>();
         assert_eq!(
-            panel_order(&saved),
+            panel_order(&saved, false),
             vec![
                 SidePanel::Layers,
                 SidePanel::Color,
@@ -270,13 +420,41 @@ mod panel_order_tests {
     }
 
     #[test]
+    fn the_design_panels_appear_in_design_mode_and_nowhere_else() {
+        // The photo editor must not gain panels it cannot fill, and a
+        // Design preset saved while designing must not leave them stranded
+        // when the same window is switched back to a photo.
+        let photo = panel_order(&[], false);
+        for panel in DESIGN_ONLY_PANELS {
+            assert!(!photo.contains(&panel), "{panel:?} has no place in a photo");
+        }
+        let design = panel_order(&[], true);
+        for panel in DESIGN_ONLY_PANELS {
+            assert!(design.contains(&panel), "{panel:?} is missing in Design Mode");
+        }
+    }
+
+    #[test]
+    fn a_saved_design_preset_does_not_strand_its_panels_in_the_photo_editor() {
+        let saved = DESIGN_ONLY_PANELS
+            .iter().rev()
+            .map(|panel| panel.key().to_owned())
+            .collect::<Vec<_>>();
+        let photo = panel_order(&saved, false);
+        assert!(photo.iter().all(|panel| !panel.design_only()));
+        // And the design order is the saved one, first.
+        let design = panel_order(&saved, true);
+        assert_eq!(design[..saved.len()].iter().map(|panel| panel.key()).collect::<Vec<_>>(), saved);
+    }
+
+    #[test]
     fn unknown_and_duplicate_panel_ids_are_ignored() {
         let saved = ["history", "future-panel", "history", "layers"]
             .into_iter()
             .map(str::to_owned)
             .collect::<Vec<_>>();
         assert_eq!(
-            panel_order(&saved),
+            panel_order(&saved, false),
             vec![
                 SidePanel::History,
                 SidePanel::Layers,
@@ -309,7 +487,7 @@ impl gpui::Render for PanelDragPreview {
 }
 
 fn move_panel(ws: &mut Workspace, source: SidePanel, before: Option<SidePanel>) {
-    let mut order = panel_order(&ws.view.side_panel_order);
+    let mut order = panel_order(&ws.view.side_panel_order, ws.design_mode());
     order.retain(|panel| *panel != source);
     let at = before
         .and_then(|target| order.iter().position(|panel| *panel == target))
@@ -429,6 +607,11 @@ fn panel_resize_grip(
         SidePanel::Navigator | SidePanel::Color => 120.0,
         SidePanel::Notes => 100.0,
         SidePanel::History => 120.0,
+        // The Pages panel is tall because a page thumbnail is legible at
+        // that size; the other Design panels are lists of one-line rows, so
+        // they start shorter and grow.
+        SidePanel::Pages => 200.0,
+        SidePanel::Stories | SidePanel::Links | SidePanel::Swatches | SidePanel::Styles | SidePanel::Preflight | SidePanel::DesignLayers | SidePanel::Control | SidePanel::Character | SidePanel::Paragraph => 180.0,
     };
     let entity = cx.entity();
     div()

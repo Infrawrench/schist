@@ -121,7 +121,57 @@ pub fn sanitize_view(mut view: ViewOptions) -> ViewOptions {
     view.workspaces.sanitize();
     view
 }
+/// How many starter layouts a document offers. The fourth is Design
+/// Mode's, and it is only offered when the feature is on.
+pub const STARTERS: usize = 4;
+
+/// The starter layout for Design Mode.
+///
+/// A page layout document's questions are not a photo's: which pages
+/// exist, what is on each, what styles its text uses, what the text says,
+/// whether its links are still there, and which inks it separates to. So
+/// the column leads with pages, layers and styles, then the document
+/// panels and preflight, and hides the notes panel, which has nothing to say about a
+/// document before review.
+pub fn design_starter() -> Layout {
+    Layout {
+        order: [
+            "pages",
+            "design_layers",
+            "design_control",
+            "design_character",
+            "design_paragraph",
+            "styles",
+            "stories",
+            "links",
+            "swatches",
+            "preflight",
+            "color",
+            "history",
+            "notes",
+        ]
+        .into_iter()
+        .map(str::to_owned)
+        .collect(),
+        hidden: vec!["notes".into()],
+        width: Some(300.0),
+        heights: [
+            ("pages".into(), 300.0),
+            ("styles".into(), 200.0),
+            ("stories".into(), 160.0),
+            ("links".into(), 120.0),
+            ("swatches".into(), 110.0),
+            ("preflight".into(), 180.0),
+        ]
+        .into(),
+        ..Default::default()
+    }
+}
+
 pub fn starter(index: usize) -> Layout {
+    if index == 3 {
+        return design_starter();
+    }
     let order = match index {
         0 => ["color", "layers", "navigator", "history", "notes"],
         1 => ["navigator", "color", "history", "layers", "notes"],

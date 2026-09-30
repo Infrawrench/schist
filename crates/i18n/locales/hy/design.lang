@@ -1,0 +1,288 @@
+# Դիզայնի ռեժիմ. էջադրումի խմբագրիչ։
+#
+# Առանձին մաս է լուսանկարների խմբագրիչից՝ ինքնուրույն տերմիններով։ Այստեղ «էջ»ները
+# փաստաթղթի էջերն են, ոչ թե ֆայլերի դիտարկիչ, «շրջանակ»ները՝ տեքստային և
+# գրաֆիկական շրջանակներ, «աշխատանքային հարթեղեղ»ը՝ այն մակերևույթը, որին էջը
+# ընկած է, ոչ թե բուրդային։ Պահելով դրանք մեկ ֆայլում՝ պարզ է դառնում, թե երբ նոր
+# տողը հորինել է, այլ ոչ թե վերցվել է լուսանկարների խմբագրիչից. հենց սա է այն
+# սխալը, որի պատճառով հավելվածի երկու կեսը խոսում են իրարից անցնելով։
+
+# Ռեժիմի անջատիչը
+design.mode = Դիզայն
+design.mode_hint = Տեղադրում
+design.photo_mode = Լուսանկար
+design.photo_mode_hint = Պատկեր
+design.switch_to_design = Անցնել դիզայնի ռեժիմ
+design.switch_to_photo = Անցնել լուսանկարների ռեժիմ
+design.mode_locked = Դիզայնի ռեժիմը միացված չէ այս հավաքումում։
+
+# Աշխատանքային հարթեղեղը
+design.pasteboard = Աշխատանքային հարթեղեղ
+design.pasteboard.hint = Էջի շուրջը գտնվող տարածքը
+design.spread = Կրկնվող էջեր
+design.single_page = Մեկ էջ
+design.spread_view = Կրկնվող էջերի դիտում
+design.single_page_view = Մեկ էջի դիտում
+design.fit_page = Տեղավորեցնել էջը
+design.actual_size = Միշտական չափ
+design.show_marks = Ցուցադրել նշումները
+design.show_bleed = Ցուցադրել հատուկը
+design.show_margins = Ցուցադրել լուսանցքները
+design.show_columns = Ցուցադրել սյունակները
+design.show_baseline_grid = Ցուցադրել հիմնագծային ցանցը
+design.show_parents = Ցուցադրել ծնողական տարրերը
+design.page = Էջ
+design.no_pages = Այս փաստաթուղթն դեռ էջեր չունի։
+
+# Շրջանակները և օբյեկտները
+design.frame = Շրջանակ
+design.text_frame = Տեքստային շրջանակ
+design.graphic_frame = Գրաֆիկական շրջանակ
+design.empty_frame = Պատարող տեքստային շրջանակ
+design.missing_link = Միացումը բացակայում է
+design.embedded = Ներդրված
+design.linked = Միացված
+design.placeholder = Կոշտ տեղահան
+design.select_tool = Ընտրիչի գործիք
+design.hand_tool = Ձեռքի գործիք
+design.zoom_tool = Խոշորացման գործիք
+
+# Էջերի վահանակը
+design.pages = Էջեր
+design.page_number = Համար
+design.page_count = {count} էջ
+design.spreads = Կրկնվող էջեր
+design.page_options = Էջի տարբերակներ
+design.master = Մայիստր
+design.parent_page = Ծնող էջ
+design.no_parent = Ոչ մեկը
+design.apply_to = Կիրառել
+
+# Հետարկում և պատմություն
+design.undo = Հետարկել
+design.redo = Կրկնել
+design.moved_object = Տեղափոխել օբյեկտը
+design.object_locked = {name}-ը փոկված է
+design.object_locked_hint = Փոկեք այն՝ տեղափոխելու համար։
+
+# Հաղորդակցություններ
+design.saved = Տեղադրման փաստաթուղթը պահվեց
+design.no_file_format = Այս հավաքումը դեռ չի կարող պահել տեղադրման փաստաթուղթեր։
+design.imported = Opened {name}
+design.imported_with_warnings = Opened {name}; {count} unread
+design.blank_document = Նոր տեղադրման փաստաթուղթ
+design.document_size = Էջի չափը {width} × {height}
+
+design.stories = Stories
+design.story_count = {count} stories
+design.story_number = Story {number}
+design.on_a_frame = On a frame
+design.overflowed = Overflowed
+design.empty_story = (empty)
+design.editing_story = Editing
+design.links = Links
+design.link_count = {count} links
+design.missing_link_count = {count} missing
+design.link_on_page = Page {number}
+design.swatches = Swatches
+design.ink_count = {count} inks
+design.spot_ink_count = {count} spot
+design.spot = Spot
+
+design.styles = Styles
+design.paragraph_styles = Paragraph Styles
+design.character_styles = Character Styles
+design.inherited = Inherited
+
+# Preflight (English placeholders pending translation)
+design.preflight = Preflight
+design.preflight_run = Check page
+design.preflight_running = Checking page…
+design.preflight_stale = Page changed; check again
+design.preflight_not_run = Page not checked
+design.preflight_no_findings = No findings
+design.preflight_counts = Errors: {errors}; warnings: {warnings}
+design.preflight_preview = Coverage preview: {dpi} dpi
+design.preflight_error = Error
+design.preflight_warning = Warning
+design.preflight_info = Info
+design.preflight_missing_link = Missing link: {path}
+design.preflight_unavailable_graphic = Unavailable graphic: {path}
+design.preflight_coverage_exceeded = Ink: {percent}% > {limit}%; {pixels} pixels
+design.preflight_coverage_peak = Peak ink coverage: {percent}%
+
+# Ruler units (English placeholders pending translation)
+design.ruler_mm = mm
+design.ruler_pt = pt
+design.ruler_in = in
+design.ruler_unit_hint = Click to change ruler units
+
+# Layout layers and page management
+design.layers = Layout Layers
+design.layer_number = Layer {number}
+design.layer_page = Page {page}
+design.hide = Hide
+design.show = Show
+design.lock = Lock
+design.unlock = Unlock
+design.raise = Raise
+design.lower = Lower
+design.move_selection_here = Move selection here
+design.parent_items = Parent items
+design.new_layer = New layer
+design.add_page = Add page
+design.remove_page = Remove page
+design.change_parent = Change parent
+
+design.command_unavailable = Unavailable in Design Mode
+design.history_edit = Layout edit
+
+# Layout controls and named typography
+design.control = Control
+design.character = Character
+design.paragraph = Paragraph
+design.position_x = X
+design.position_y = Y
+design.width = Width
+design.height = Height
+design.columns = Columns
+design.gutter = Gutter
+design.inset = Inset
+design.control_units = Dimensions in points
+design.point_size = Size (pt)
+design.leading = Leading (pt)
+design.tracking = Tracking (pt) (1/1000 em)
+design.space_before = Space before (pt)
+design.space_after = Space after (pt)
+design.indent_left = Left indent (pt)
+design.indent_right = Right indent (pt)
+design.indent_first = First line (pt)
+design.font_family = Font family
+design.style_name = Style name
+design.apply_style = Apply style
+design.new_style = New style
+design.style_number = Style {number}
+design.named_style_hint = Edits this named style
+design.align_left = Left
+design.align_center = Centre
+design.align_right = Right
+design.justify = Justify
+design.bold = Bold
+design.italic = Italic
+design.underline = Underline
+
+design.idml_style_limits = Advanced style properties: partial IDML support
+
+design.place_graphic = Place graphic…
+design.import_graphic_pages = Import images as pages…
+design.refresh_links = Refresh links
+design.relink = Relink…
+design.graphic_invalid = Invalid decoded image
+design.graphic_unresolved = Cannot resolve this link
+design.graphic_target_changed = Layout changed; repeat placement
+design.graphic_load_failed = Cannot load graphic: {error}
+design.graphics_loading = Loading artwork…
+design.graphics_ready = Artwork ready
+
+design.idml_embedded_invalid = Invalid embedded image data
+design.idml_embedded_unavailable = Embedded image bytes are unavailable
+design.idml_image_transform = Invalid image geometry or transform
+design.idml_graphic_unwritten = Cannot export graphic: {name}
+design.idml_even_odd = {name}: even-odd fill unsupported
+design.unavailable_link = Unavailable
+design.unavailable_link_count = {count} unavailable
+design.idml_bad_thread = Broken or cyclic text thread
+design.story_editor = Story Editor
+design.story_edit_refused = Locked story or protected structure
+design.story_session_closed = This document is no longer open
+design.story_window_failed = Cannot open Story Editor: {error}
+design.story_frame_range = Page {page}: In {start} · Out {end}
+design.thread_to_frame = Thread to frame
+design.choose_empty_frame = Choose an empty text frame
+design.detach_frame = Detach frame; keep story text
+design.unplaced_story = No frame
+
+design.guides = Guides
+design.snap_guides = Snap
+
+design.idml_color_unread = Unsupported color: {name}
+design.idml_registration = Registration converted to CMYK: {name}
+design.idml_group_flattened = Group imported as individual objects
+design.idml_clipped_group = Clipped group contents are unsupported
+design.idml_frame_transform = Frame affine is partially supported
+design.package_too_large = Package exceeds 512 MB
+design.output_invalid = Invalid output settings or page geometry
+design.output_no_pages = No visible pages to export
+design.output_too_large = Output exceeds memory limit; lower resolution
+design.output_preflight = Page {page}: {errors}
+design.output_failed = Output failed: {error}
+design.output_title = Design output
+design.export_pdf = Export PDF…
+design.package = Package IDML…
+design.output_resolution = Resolution: {dpi} dpi
+design.output_up = {count} pages per sheet
+design.output_marks = Crop and registration marks
+design.output_hidden = Include hidden pages
+design.output_profile = Choose CMYK profile…
+design.output_preview = RGB conversion: preview quality
+design.output_profile_name = CMYK profile: {name}
+design.output_busy = Preparing output…
+design.output_saved = Exported: {path}
+design.output_snapshot = Exports the document at export time
+design.output_package_note = IDML, original links, and font manifest
+design.layout_unreadable = Cannot read this layout file
+design.save_target_changed = Save target changed; try again
+design.preflight_overset = Overset text: {name}
+
+design.idml_invalid_page_offsets = Invalid bleed or slug offsets
+design.idml_asymmetric_offsets = Asymmetric offsets expanded uniformly
+design.idml_multiple_sections = Multiple numbering sections reduced to one
+design.idml_section_start = Numbering section starts after first page
+design.idml_number_style = Unsupported page numbering replaced with Arabic
+design.idml_per_page_offsets = Bleed and slug expanded document-wide
+design.idml_number_start = Page number start exceeds IDML limits
+
+design.page_setup_points = Page setup (points)
+design.bleed_all = Bleed (all pages)
+design.slug_all = Extra slug beyond bleed (all pages)
+design.margin_top = Top margin
+design.margin_right = Right margin
+design.margin_bottom = Bottom margin
+design.margin_left = Left margin
+design.number_start = Start numbering at
+design.number_prefix = Number prefix
+
+design.preflight_low_resolution = {name}: effective resolution {dpi} dpi
+design.preflight_missing_font = Missing font: {name}
+
+design.output_page_warning = Page {page}: {message}
+
+design.preflight_ink_conflict = Conflicting ink name: {name}
+
+design.imported_style = Imported style
+
+design.idml_local_styles = Local formatting becomes named styles
+
+design.idml_story_structure = Unsupported story structure omitted
+
+design.idml_structural_line_break = Standalone line break becomes empty paragraph
+
+design.idml_page_parity = Page parity becomes ordinary page break
+
+design.preflight_transform = Invalid frame transform: {name}
+
+# IDML diagnostics
+design.idml_unlisted_parts = {count} unlisted parts: {parts}
+design.idml_unreadable_xml = Unreadable XML: {part}
+design.idml_missing_element = {part} has no {element} element
+design.idml_page_geometry = Page geometry unavailable
+design.idml_missing_story = Frame references missing story: {story}
+design.idml_unsupported_frame = Unsupported frame: {kind}
+design.idml_frame_geometry = Unreadable frame geometry: {kind}
+design.idml_unknown_parent = Page references unknown parent: {parent}
+design.idml_group_unwritten = Group omitted: {name}, {count} children
+design.idml_fonts_unembedded = {count} fonts referenced, not embedded
+
+design.idml_parent_cycle = Cyclic parent hierarchy
+design.idml_parent_override = Unknown parent override: {item}
+design.idml_page_visibility = Page visibility retained in Schist only

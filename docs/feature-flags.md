@@ -47,6 +47,7 @@ service or new dependency is required.
 | Name | Default | Effect |
 | --- | --- | --- |
 | `gpu-compositing` | `true` | Allows the GPU compositor and GPU filter/warp kernels. When false, they use the CPU backend. |
+| `design-mode` | `false` | The page layout editor. Dark because a layout document cannot be saved yet; see [Design Mode](design-mode.md). |
 | `schist-cloud` | `true` (native only) | Enables Schist Cloud menus, sign-in, gallery, generation, uploads, collaborative editing, and camera backup settings and jobs. Unavailable on WASM. |
 
 The GPU preference and existing `SCHIST_GPU=0|1` override still apply when

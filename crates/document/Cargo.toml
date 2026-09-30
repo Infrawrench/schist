@@ -22,6 +22,9 @@ serde_bytes = "0.11"
 yrs = "0.24"
 uuid = { version = "1", features = ["v4"] }
 schist-core.workspace = true
+# A page layout document is a different type, and a file that is one has
+# to be told apart from a raster one before it is opened.
+schist-layout.workspace = true
 schist-color.workspace = true
 schist-codec-psd.workspace = true
 schist-codecs-common.workspace = true

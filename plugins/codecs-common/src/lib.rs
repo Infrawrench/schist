@@ -438,6 +438,14 @@ impl PluginManifest for CommonCodecsPlugin {
         registry.register_codec(Box::new(AffinityCodec));
         registry.register_codec(Box::new(PdnCodec));
         registry.register_codec(Box::new(XcfCodec));
+        // The page layout codecs, which read a `LayoutDocument` rather
+        // than a raster one and so are a separate list. Gated on the same
+        // feature as Design Mode itself: a build that can open a layout
+        // document but has no way to show one would be worse than not
+        // offering.
+        if schist_app_settings::feature_enabled("design-mode") {
+            registry.register_layout_codec(Box::new(schist_codec_idml::IdmlCodec));
+        }
     }
 }
 

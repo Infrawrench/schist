@@ -811,6 +811,21 @@ pub struct NativeColorTransform {
 }
 
 impl NativeColorTransform {
+    /// Checked CPU conversion for print output. Unlike the interactive
+    /// native conversion helper, this never silently falls back to a naive
+    /// CMYK build when an ICC conversion is unavailable or fails.
+    pub fn rgb_to_cmyk_checked(&self, rgb: &[[f32;3]]) -> Result<Vec<[f32;4]>> {
+        if self.mode != schist_color::ColorMode::Cmyk || rgb.iter().flatten().any(|v|!v.is_finite()) {
+            return Err(anyhow!("CMYK transform and finite RGB samples required"));
+        }
+        let from=self.from_rgb.as_ref().ok_or_else(||anyhow!("ICC profile has no RGB to CMYK transform"))?;
+        let input:Vec<_>=rgb.iter().flatten().copied().collect();
+        let mut output=vec![0.0;rgb.len()*4];
+        from.transform(&input,&mut output).map_err(|error|anyhow!("ICC output conversion failed: {error:?}"))?;
+        if output.iter().any(|v|!v.is_finite()) {return Err(anyhow!("ICC output conversion produced non-finite samples"));}
+        Ok(output.as_chunks::<4>().0.to_vec())
+    }
+
     /// Input is packed native channels; output is three sRGB channels per pixel.
     pub fn to_rgb_program(&self, count: usize) -> Option<schist_fx::ComputeProgram> {
         Some(

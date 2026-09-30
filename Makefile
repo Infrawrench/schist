@@ -151,7 +151,10 @@ app:
 APP_CRATES := app editor app-actions app-ai app-fonts app-platform app-services \
               app-settings camera-sync tethered cloud-transfer gallery-ui map-view video
 APP_PACKAGES := $(foreach crate,$(APP_CRATES),-p schist-$(crate))
-.PHONY: check-app test-app lint-app check-app-web
+.PHONY: check-app test-app lint-app check-app-web lint-all
+lint-all:
+	CARGO_INCREMENTAL=0 $(CARGO) clippy --all-targets -- -D warnings
+
 check-app:
 	$(CARGO) check $(APP_PACKAGES) --all-targets
 
@@ -361,6 +364,48 @@ check-layered-codecs-app:
 .PHONY: check-text check-gpu-fx check-readme
 check-text:
 	$(CARGO) test -p schist-core -p schist-text-engine -p schist-tools-type -p schist-codec-affinity
+
+# Design Mode's page layout kernel. No GPUI, so this is a plain test run
+# plus a wasm type check to keep the browser build viable.
+.PHONY: check-layout lint-layout check-layout-wasm
+check-layout:
+	$(CARGO) test -p schist-layout -p schist-text-engine
+lint-layout:
+	$(CARGO) clippy -p schist-layout --all-targets -- -D warnings
+check-layout-wasm:
+	$(CARGO) check -p schist-layout --target wasm32-unknown-unknown
+
+# Design Mode: the pasteboard plan, the editor's painter, hit testing,
+# dragging and the Pages panel, plus the layout kernel they stand on. The
+# editor is compiled with CARGO_INCREMENTAL off by convention elsewhere, and
+# its test binary is large enough that the incremental cache is not worth
+# the disk.
+.PHONY: check-design lint-design
+check-design:
+	CARGO_INCREMENTAL=0 $(CARGO) test -p schist-editor --lib -- $(DESIGN_TEST_ARGS)
+	CARGO_INCREMENTAL=0 $(CARGO) test -p schist-layout -p schist-i18n -p schist-app-settings
+lint-design:
+	CARGO_INCREMENTAL=0 $(CARGO) clippy -p schist-editor -p schist-layout -p schist-text-engine -p schist-app-settings -p schist-ui -p schist-separation --all-targets -- -D warnings
+
+# IDML: the OPC/UCF package and its part index. The interop tests use the
+# system `zip`/`unzip` when they are installed, and skip loudly when they
+# are not; that is the only place this crate is measured against something
+# other than itself.
+.PHONY: check-idml lint-idml
+check-idml:
+	$(CARGO) test -p schist-codec-idml
+lint-idml:
+	$(CARGO) clippy -p schist-codec-idml --all-targets -- -D warnings
+
+# Print separation: inks, plates, knockout and overprint. Layout's
+# composition and separation's plates must agree, so both run together.
+.PHONY: check-separation lint-separation check-separation-wasm
+check-separation:
+	$(CARGO) test -p schist-separation -p schist-layout -p schist-core
+lint-separation:
+	$(CARGO) clippy -p schist-separation -p schist-layout --all-targets -- -D warnings
+check-separation-wasm:
+	$(CARGO) check -p schist-separation --target wasm32-unknown-unknown
 
 .PHONY: check-psd-interchange lint-psd-interchange
 check-psd-interchange:
@@ -1015,3 +1060,15 @@ fetch-anti-smudge-pairs:
 .PHONY: run-anti-smudge
 run-anti-smudge:
 	$(CARGO) run $(PROFILE_FLAG) -p schist-neural --example anti_smudge -- $(ARGS)
+
+# Deterministic output for independent PDF parser/renderer verification.
+.PHONY: design-pdf-proof
+design-pdf-proof:
+	$(CARGO) run -p schist-separation --example pdf_proof -- $(or $(DESIGN_PDF_PROOF),/tmp/schist-pdf-proof.pdf)
+
+.PHONY: check-design-output
+check-design-output: design-pdf-proof
+	$(CARGO) run -p schist-separation --example pdf_imposition_proof -- /tmp/schist-nup-2.pdf 2
+	$(CARGO) run -p schist-separation --example pdf_imposition_proof -- /tmp/schist-nup-4.pdf 4
+	$(CARGO) run -p schist-separation --example text_proof -- /tmp/schist-text-proof.pdf
+	python3 tools/check-design-pdf.py $(or $(DESIGN_PDF_PROOF),/tmp/schist-pdf-proof.pdf) /tmp /tmp/schist-text-proof.pdf

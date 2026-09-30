@@ -6,7 +6,18 @@ use schist_i18n::{t, tf};
 impl Workspace {
     // ----- viewport -----
 
+    /// Zoom for the active editor body; shared chrome must not show the
+    /// photo's magnification while the pasteboard is being viewed.
+    pub fn viewport_zoom(&self) -> f32 {
+        if self.design_mode() { self.design.view.scale } else { self.zoom }
+    }
+
     pub fn fit_to_view(&mut self) {
+        if self.design_mode() {
+            self.fit_design_to_view(self.canvas_bounds);
+            self.refit_design = false;
+            return;
+        }
         let Some(doc) = &self.doc else { return };
         let avail = self.canvas_bounds.size;
         if avail.width <= px(0.0) || avail.height <= px(0.0) {
@@ -30,6 +41,15 @@ impl Workspace {
     }
 
     pub fn zoom_by(&mut self, factor: f32, around: Option<Point<Pixels>>) {
+        if self.design_mode() {
+            let pivot = around.unwrap_or_else(|| point(
+                self.canvas_bounds.size.width / 2.0,
+                self.canvas_bounds.size.height / 2.0,
+            ));
+            self.design.zoom_view(factor, schist_layout::Point::new(f32::from(pivot.x), f32::from(pivot.y)));
+            self.refit_design = false;
+            return;
+        }
         let old = self.zoom;
         let new = (old * factor).clamp(0.005, 32.0);
         let pivot = around.unwrap_or_else(|| {

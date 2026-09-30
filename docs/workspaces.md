@@ -1,12 +1,15 @@
 # Named workspaces
 
 Use **View → Workspaces** to switch to Painting, Photo Development or
-Retouching, or to a layout you saved. These entries also appear in Spotlight
+Retouching, to Design, or to a layout you saved. These entries also appear in Spotlight
 (**Ctrl/Cmd+Shift+P**) under Actions, including when no document is open.
 The submenu also offers Save As, Update, Rename, Delete and Reset commands;
 each opens the manager with that operation as its Enter action, so its target
 and effect can be reviewed first.
-The starter layouts emphasize color, navigator/history, and layers/history,
+The starter layouts emphasize color, navigator/history, and layers/history.
+The Design starter is listed only when the `design-mode` feature is on, and
+choosing it switches the mode as well as the dock, because a layout with a
+Pages panel in a photo editor is a blank dock section.
 respectively; they do not select tools or modify image processing settings.
 
 Open **Manage Workspaces…** to edit the current dock and save it:

@@ -1,0 +1,20 @@
+[
+  {
+    "path": "proof.indd",
+    "url": "https://raw.githubusercontent.com/kennethormandy/proof/d08584512fc76a8582cf8633f654414e30ba8d9a/proof.indd",
+    "bytes": 1212416,
+    "sha256": "19eb24065d0987a21b24cd551976bc8135cd9cdf6330c1ecaf85bebb8d1ffe34"
+  },
+  {
+    "path": "proof.idml",
+    "url": "https://raw.githubusercontent.com/kennethormandy/proof/d08584512fc76a8582cf8633f654414e30ba8d9a/proof.idml",
+    "bytes": 50913,
+    "sha256": "f2dc6baa7f795d785346a30c5130be004bf831e3c11bf55529c7adf1c1d8cdb8"
+  },
+  {
+    "path": "LICENSE.md",
+    "url": "https://raw.githubusercontent.com/kennethormandy/proof/d08584512fc76a8582cf8633f654414e30ba8d9a/LICENSE.md",
+    "bytes": 1096,
+    "sha256": "6cf3f7a74630a9bc1e5adfb914946c191eac1116e65eef89e8ec41354902ca38"
+  }
+]

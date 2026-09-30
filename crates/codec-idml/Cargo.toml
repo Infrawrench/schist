@@ -1,0 +1,34 @@
+[package]
+name = "schist-codec-idml"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+schist-layout.workspace = true
+schist-text-engine.workspace = true
+schist-i18n.workspace = true
+# IDML is an OPC/UCF package: a ZIP whose `mimetype` entry is first and
+# stored uncompressed. The container is implemented here rather than taken
+# from `zip`, which is yanked at the version available offline; it is small
+# enough to own, and the test suite cross-checks it against the system
+# `zip` and `unzip`.
+flate2.workspace = true
+# Every part is checksummed on read and stamped on write, which is the
+# only way a corrupt entry is caught before it becomes a confusing XML
+# parse error.
+crc32fast.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+base64 = "0.22"
+thiserror.workspace = true
+log.workspace = true
+# The plugin adapter implements a `plugin-api` trait, whose signatures use
+# `anyhow::Result` like every other plugin trait in the app.
+schist-plugin-api.workspace = true
+anyhow.workspace = true
+# The streaming reader and writer. The low-level API rather than its serde
+# integration: IDML refers to objects across parts by `Self` attributes, so
+# a deserialiser would need the whole package resolved before it could
+# type a single object, which is the opposite of what this layer needs.
+quick-xml = "0.41"

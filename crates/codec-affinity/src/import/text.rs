@@ -172,6 +172,7 @@ impl Walker<'_> {
             size: eff_size,
             align,
             line_height: 1.0,
+            word_spacing: 0.0,
             tracking: 0.0,
             // Frame text reflows to its box; artistic text never wraps.
             wrap_width: (frame_text && frame_width > 8).then_some(frame_width as f32),
@@ -255,6 +256,7 @@ impl Walker<'_> {
                                 ),
                                 size: Some(size),
                                 color: run_color(graph, item).filter(|c| *c != color),
+                ..Default::default()
                             });
                         }
                         start = end;

@@ -497,6 +497,7 @@ fn read_type(bytes: &[u8]) -> Option<Value> {
                 italic: Some(italic),
                 size: Some(size),
                 color: (Some(rgba) != color).then_some(rgba),
+                ..Default::default()
             });
         }
         offset_utf16 = end_utf16;

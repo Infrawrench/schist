@@ -448,7 +448,7 @@ pub fn main() {
             win.on_window_should_close(cx, move |_win, cx| {
                 window
                     .update(cx, |ws, _window, cx| {
-                        if ws.first_dirty_tab().is_some() {
+                        if ws.has_unsaved_changes() {
                             ws.request_quit(cx);
                             false
                         } else {

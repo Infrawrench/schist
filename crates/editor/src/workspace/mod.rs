@@ -91,6 +91,9 @@ mod filters;
 pub(crate) mod gallery_chrome;
 mod gallery_metadata;
 mod image_ops;
+mod design_input;
+mod design_lifecycle;
+pub(crate) mod design_graphics;
 mod input;
 mod layers_panel;
 mod lens_profiles;
@@ -250,6 +253,18 @@ pub struct Workspace {
     pub brush_preset_name: String,
     pub brush_scroll: gpui::ScrollHandle,
     pub doc: Option<Document>,
+    /// Which body the workspace is showing.
+    pub mode: crate::design::WorkspaceMode,
+    /// Set when the pasteboard has to be refitted: after a page change,
+    /// after a mode change, or on the first real canvas.
+    pub(crate) refit_design: bool,
+    /// Where the open layout document came from, so a save has a path to
+    /// write back to.
+    pub(crate) design_path: Option<std::path::PathBuf>,
+    /// Design Mode's own state, kept beside the raster document rather
+    /// than inside it. It is only read in Design mode, so a half-finished
+    /// page layout feature cannot disturb a working image editor.
+    pub design: crate::design::DesignState,
     pub(crate) action_library: recorded_actions::ActionLibrary,
     pub(crate) action_recorder: recorded_actions::Recorder,
     /// The other open documents, in tab order with a gap at `active_tab`
@@ -552,6 +567,119 @@ pub struct GallerySwipe {
 }
 
 impl Workspace {
+    /// What the canvas paints this frame.
+    ///
+    /// Design Mode returns before any raster work happens. That is the
+    /// point: the tile compositor, the prefetch queue and the browser GPU
+    /// path all exist to draw pixels, and a pasteboard has none.
+    pub(super) fn prepare_canvas_paint(
+        &mut self,
+        bounds: Bounds<Pixels>,
+        scale_factor: f32,
+        cx: &mut Context<Self>,
+    ) -> PaintJob {
+        if self.design_mode() {
+            let refitting = self.refit_design;
+            let job = self.prepare_design_paint(bounds);
+            if refitting {
+                // Ruler elements were laid out before the canvas acquired
+                // its bounds; redraw them with the fitted transform.
+                cx.notify();
+            }
+            return job;
+        }
+        let job = self.prepare_paint(bounds, scale_factor, cx);
+        // Idle prefetch rides the paint cycle: whatever this frame left
+        // unrendered starts warming in the background.
+        self.kick_prefetch(cx);
+        job
+    }
+
+    /// Design Mode's pasteboard plan, sized to the canvas.
+    fn prepare_design_paint(&mut self, bounds: Bounds<Pixels>) -> PaintJob {
+        let mut job = PaintJob::default();
+        self.canvas_bounds = bounds;
+        // Fit a fresh document the first time the canvas has real bounds,
+        // for the same reason the raster path does: the fit owed a
+        // document is owed now that the size is known.
+        if self.refit_design {
+            self.refit_design = false;
+            self.fit_design_to_view(bounds);
+        }
+        if !self.design.ready() {
+            return job;
+        }
+        let Some(plan) = self.design.plan()
+        else {
+            // A document mid-edit can be briefly inconsistent, and a blank
+            // pasteboard is a better answer than a panic during a paint.
+            return job;
+        };
+        let mut frame = crate::design::paint::PasteboardFrame::new(plan, bounds);
+        frame.graphics = self.design.graphics.clone();
+        frame.selected = self.design_selection_rects();
+        frame.anchors = self.design_anchor_points();
+        frame.pen_preview = crate::design::pen::preview(&self.design);
+        frame.typing = self.design.typing;
+        frame.drawing = self.design.drawing.map(|d| {
+            let bounds=d.bounds();
+            let mut path=if self.design.tool==crate::design::DesignTool::Line {
+                schist_layout::ShapePath {subpaths:vec![schist_layout::SubPath {points:vec![d.from,d.to],handles:Vec::new(),closed:false}],even_odd:false}
+            } else {
+                let mut path=schist_layout::authoring::path_for(self.design.tool.shape_kind().unwrap_or(schist_layout::authoring::ShapeKind::Rectangle),bounds.width,bounds.height);
+                path.map_points(|p|p+bounds.origin());path
+            };
+            path.map_points(|p|self.design.to_pasteboard(p));path
+        });
+        frame.band = self.design.band.map(|b|schist_layout::Rect::from_corners(self.design.to_pasteboard(b.from),self.design.to_pasteboard(b.to)));
+        job.design = Some(frame);
+        job
+    }
+
+    /// The anchor points of the selected shapes, but only while the
+    /// direct selection tool is in use.
+    ///
+    /// Showing them for every tool would put dots on every shape all the
+    /// time, which is a page nobody can read. They are in pasteboard
+    /// space, because that is what the painter draws in, and are clipped
+    /// to selected shapes so an unselected shape never shows handles.
+    fn design_anchor_points(&self) -> Vec<(usize, schist_layout::ShapePath)> {
+        if self.design.tool != crate::design::DesignTool::DirectSelect { return Vec::new(); }
+        let view = self.design.view_for_mode();
+        self.design.selection.iter().filter_map(|id| {
+            let placed = self.design.document.object(*id)?;
+            let schist_layout::LayoutObject::Shape { path, .. } = &placed.object else { return None; };
+            let origin = self.design.document.page_origin(placed.page).unwrap_or_default();
+            let mut path = path.clone();
+            path.map_points(|point| view.to_pasteboard(schist_layout::affine::point(placed.content_transform(), point + placed.bounds.origin()) + origin));
+            Some((placed.page,path))
+        }).collect()
+    }
+
+    /// Fit the pasteboard for the current mode.
+    ///
+    /// The two modes need different zooms: a single page fills the canvas,
+    /// a spread is as wide as two pages and so is fitted as a whole.
+    fn fit_design_to_view(&mut self, bounds: Bounds<Pixels>) {
+        self.design.fit_view(f32::from(bounds.size.width), f32::from(bounds.size.height));
+    }
+
+    /// The selected objects' rectangles, paired with the page each is on.
+    ///
+    /// A selected object whose page is not in the plan is skipped by the
+    /// painter, so a stale selection across a page change draws nothing
+    /// rather than a box in the wrong place.
+    fn design_selection_rects(&self) -> Vec<(usize, schist_layout::Rect)> {
+        self.design
+            .selection
+            .iter()
+            .filter_map(|id| {
+                let placed = self.design.document.object(*id)?;
+                Some((placed.page, self.design.view.rect(self.design.document.object_rect(*id)?)))
+            })
+            .collect()
+    }
+
     /// Whether the gallery view is showing instead of the editor. Always
     /// false on the web, where the gallery does not exist.
     pub fn gallery_open(&self) -> bool {
@@ -563,6 +691,56 @@ impl Workspace {
         {
             self.cloud.show
         }
+    }
+
+    /// Whether the pasteboard is showing.
+    pub fn design_mode(&self) -> bool {
+        self.mode == crate::design::WorkspaceMode::Design
+    }
+
+    /// Switch the pasteboard between spread view and a single page.
+    pub fn set_pasteboard_mode(
+        &mut self,
+        mode: crate::design::PasteboardMode,
+        cx: &mut Context<Self>,
+    ) {
+        if self.design.mode == mode {
+            return;
+        }
+        self.design.set_mode(mode);
+        self.refit_design = true;
+        cx.notify();
+    }
+
+    /// The other pasteboard mode, for a toggle command.
+    pub fn toggle_pasteboard_mode(&mut self, cx: &mut Context<Self>) {
+        self.set_pasteboard_mode(self.design.mode.toggled(), cx);
+    }
+
+    /// Switch between the photo editor and the page layout editor.
+    ///
+    /// Returns false and changes nothing when the feature is dark, so a
+    /// command that asks for Design Mode cannot get there behind the
+    /// flag's back.
+    pub fn set_mode(&mut self, mode: crate::design::WorkspaceMode, cx: &mut Context<Self>) -> bool {
+        if mode == crate::design::WorkspaceMode::Design && !crate::design::available() {
+            return false;
+        }
+        if self.mode == mode {
+            return true;
+        }
+        self.mode = mode;
+        // A drag that was in flight belonged to the other body, so it ends
+        // here rather than resolving against a document it did not start
+        // in.
+        self.design.drag = None;
+        cx.notify();
+        true
+    }
+
+    /// The other mode, for a toggle command.
+    pub fn toggle_mode(&mut self, cx: &mut Context<Self>) -> bool {
+        self.set_mode(self.mode.toggled(), cx)
     }
 }
 
@@ -1043,6 +1221,7 @@ pub enum Modal {
     },
     /// "Save changes before closing?" for the active tab.
     ConfirmCloseTab,
+    ConfirmCloseDesign,
     /// Files another app handed over on iOS: into the gallery, or open
     /// in the editor?
     #[cfg_attr(not(target_os = "ios"), allow(dead_code))]
@@ -1373,6 +1552,10 @@ impl Workspace {
             brush_preset_name: String::new(),
             brush_scroll: gpui::ScrollHandle::new(),
             doc: None,
+            mode: crate::design::WorkspaceMode::default(),
+            refit_design: true,
+            design_path: None,
+            design: crate::design::DesignState::new(),
             action_library: recorded_actions::ActionLibrary::default(),
             action_recorder: recorded_actions::Recorder::default(),
             background_tabs: Vec::new(),
@@ -1650,6 +1833,12 @@ pub struct PaintJob {
     lines: Vec<(Bounds<Pixels>, gpui::Hsla)>,
     /// Images superseded this frame, freed after painting.
     retired: Vec<Arc<RenderImage>>,
+    /// Design Mode's pasteboard, when that is what is showing.
+    ///
+    /// A field rather than a second job type because the paint closure
+    /// is one place, and branching there keeps both bodies on the same
+    /// canvas element and the same event handlers.
+    design: Option<crate::design::paint::PasteboardFrame>,
 }
 
 /// Blend one tile's worth of a filtered region back over the original,
@@ -1782,10 +1971,14 @@ fn decode_file(
     // arrived when the file was picked or dropped.
     #[cfg(target_arch = "wasm32")]
     let bytes = crate::web::read_file(path)?;
+    decode_bytes(codecs, path, &bytes)
+}
+
+fn decode_bytes(codecs: &[Arc<dyn schist_plugin_api::CodecPlugin>], path: &std::path::Path, bytes: &[u8]) -> anyhow::Result<Document> {
     let ext = path.extension().and_then(|e| e.to_str());
     let codec = codecs
         .iter()
-        .find(|c| c.probe(&bytes))
+        .find(|c| c.probe(bytes))
         .or_else(|| {
             let ext = ext?.to_ascii_lowercase();
             codecs
@@ -1798,13 +1991,74 @@ fn decode_file(
                 schist_i18n::tf!("workspace.docs.no_codec", name = path.display())
             )
         })?;
-    let mut doc = codec.import(&bytes)?;
+    let mut doc = codec.import(bytes)?;
     doc.title = path
         .file_name()
         .map(|n| n.to_string_lossy().into_owned())
         .unwrap_or_else(|| schist_i18n::t("common.untitled").into());
     doc.path = Some(path.to_path_buf());
     Ok(doc)
+}
+
+/// Read a page layout document off disk.
+///
+/// `Ok(None)` means the file is not one after all: the extension said so
+/// and the media type disagreed, which is the user's file being wrong
+/// rather than ours, and the caller falls through to the raster path.
+#[cfg(not(target_arch = "wasm32"))]
+fn decode_layout_file(
+    codecs: &[Arc<dyn schist_plugin_api::LayoutCodecPlugin>],
+    path: &std::path::Path,
+) -> anyhow::Result<Option<(schist_layout::LayoutDocument, Vec<String>)>> {
+    let bytes = std::fs::read(path)?;
+    let extension = path.extension().and_then(|extension| extension.to_str());
+    let Some(codec) = codecs
+        .iter()
+        .find(|codec| codec.probe(&bytes))
+        .or_else(|| {
+            let extension = extension?.to_ascii_lowercase();
+            codecs
+                .iter()
+                .find(|codec| codec.extensions().contains(&extension.as_str()))
+        })
+    else {
+        return Ok(None);
+    };
+    let (mut document, skipped) = codec.read_layout(&bytes)?;
+    document.name = path
+        .file_name()
+        .map(|name| name.to_string_lossy().into_owned())
+        .unwrap_or_else(|| schist_i18n::t("common.untitled").into());
+    Ok(Some((document, skipped)))
+}
+
+/// The browser half of [`decode_layout_file`], where the bytes are already
+/// in memory under an invented name.
+#[cfg(target_arch = "wasm32")]
+fn decode_layout_file(
+    codecs: &[Arc<dyn schist_plugin_api::LayoutCodecPlugin>],
+    path: &std::path::Path,
+) -> anyhow::Result<Option<(schist_layout::LayoutDocument, Vec<String>)>> {
+    let bytes = crate::web::read_file(path)?;
+    let extension = path.extension().and_then(|extension| extension.to_str());
+    let Some(codec) = codecs
+        .iter()
+        .find(|codec| codec.probe(&bytes))
+        .or_else(|| {
+            let extension = extension?.to_ascii_lowercase();
+            codecs
+                .iter()
+                .find(|codec| codec.extensions().contains(&extension.as_str()))
+        })
+    else {
+        return Ok(None);
+    };
+    let (mut document, skipped) = codec.read_layout(&bytes)?;
+    document.name = path
+        .file_name()
+        .map(|name| name.to_string_lossy().into_owned())
+        .unwrap_or_else(|| schist_i18n::t("common.untitled").into());
+    Ok(Some((document, skipped)))
 }
 
 /// Fetch a model over HTTP. Blocking, so it runs on a background thread.

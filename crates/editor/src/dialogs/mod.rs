@@ -216,6 +216,7 @@ pub fn render(ws: &mut Workspace, cx: &mut Context<Workspace>) -> Option<gpui::A
             original,
         } => crate::color_picker::render(ws, target, hsv, original, cx).into_any_element(),
         Modal::ConfirmCloseTab => confirm_close_tab(ws, cx).into_any_element(),
+        Modal::ConfirmCloseDesign => confirm_close_design(ws, cx).into_any_element(),
         Modal::DropImage { path } => drop_image(path, cx).into_any_element(),
         Modal::SharedImage { paths } => shared_image(paths, cx).into_any_element(),
         #[cfg(not(target_arch = "wasm32"))]

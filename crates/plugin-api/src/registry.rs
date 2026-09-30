@@ -1,6 +1,8 @@
 //! Plugin registries — the kernel's catalog of everything installed.
 
-use crate::{CodecPlugin, Command, CommandPlugin, FilterPlugin, ToolPlugin};
+use crate::{
+    CodecPlugin, Command, CommandPlugin, FilterPlugin, LayoutCodecPlugin, ToolPlugin,
+};
 use std::sync::Arc;
 
 /// All registered plugins, assembled at startup by the app shell from each
@@ -16,6 +18,9 @@ pub struct PluginRegistry {
     /// process is driven from a background thread, which needs to hold
     /// it beyond the registry borrow.
     filters: Vec<Arc<dyn FilterPlugin>>,
+    /// Page layout codecs, kept apart from `codecs` because they read a
+    /// different document type. See [`crate::LayoutCodecPlugin`].
+    layout_codecs: Vec<Arc<dyn LayoutCodecPlugin>>,
 }
 
 impl PluginRegistry {
@@ -34,6 +39,18 @@ impl PluginRegistry {
 
     pub fn register_codec(&mut self, codec: Box<dyn CodecPlugin>) {
         self.codecs.push(Arc::from(codec));
+    }
+
+    pub fn register_layout_codec(&mut self, codec: Box<dyn LayoutCodecPlugin>) {
+        debug_assert!(
+            !self
+                .layout_codecs
+                .iter()
+                .any(|existing| existing.id() == codec.id()),
+            "duplicate layout codec id {}",
+            codec.id()
+        );
+        self.layout_codecs.push(Arc::from(codec));
     }
 
     pub fn register_commands(&mut self, plugin: &dyn CommandPlugin) {
@@ -77,6 +94,38 @@ impl PluginRegistry {
     /// Clones of every codec, for decoding on a background thread.
     pub fn shared_codecs(&self) -> Vec<Arc<dyn CodecPlugin>> {
         self.codecs.clone()
+    }
+
+    pub fn layout_codecs(&self) -> impl Iterator<Item = &dyn LayoutCodecPlugin> {
+        self.layout_codecs.iter().map(|codec| codec.as_ref())
+    }
+
+    /// Find a layout codec by sniffing bytes, falling back to extension.
+    ///
+    /// Deliberately parallel to [`PluginRegistry::codec_for`] and
+    /// deliberately *not* consulted by it: a `.idml` is a layout document
+    /// and never a raster one, so letting the raster path match it would
+    /// mean trying to decode a page as pixels.
+    pub fn layout_codec_for(
+        &self,
+        bytes: &[u8],
+        extension: Option<&str>,
+    ) -> Option<&dyn LayoutCodecPlugin> {
+        self.layout_codecs
+            .iter()
+            .find(|codec| codec.probe(bytes))
+            .or_else(|| {
+                let extension = extension?.to_ascii_lowercase();
+                self.layout_codecs
+                    .iter()
+                    .find(|codec| codec.extensions().contains(&extension.as_str()))
+            })
+            .map(|codec| codec.as_ref())
+    }
+
+    /// Clones of every layout codec, for reading on a background thread.
+    pub fn shared_layout_codecs(&self) -> Vec<Arc<dyn LayoutCodecPlugin>> {
+        self.layout_codecs.clone()
     }
 
     pub fn commands(&self) -> &[Command] {

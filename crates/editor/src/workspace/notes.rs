@@ -33,6 +33,7 @@ impl Workspace {
     }
 
     pub fn toggle_notes(&mut self, cx: &mut Context<Self>) {
+        if self.design_mode() {return;}
         self.view.notes = !self.view.notes;
         self.status = if self.view.notes {
             t("workspace.canvas.notes_on")

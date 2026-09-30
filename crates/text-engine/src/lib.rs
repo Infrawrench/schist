@@ -94,6 +94,9 @@ pub struct TextSpec {
     pub line_height: f32,
     /// Extra spacing between characters, in pixels.
     pub tracking: f32,
+    /// Extra advance for each ordinary word space, independent of tracking.
+    #[serde(default)]
+    pub word_spacing: f32,
     /// Inline wrap length in pixels (column length in vertical writing); `None` means never wrap.
     pub wrap_width: Option<f32>,
     /// Stretches of `text` set differently from the rest, by byte range.
@@ -123,6 +126,7 @@ impl Default for TextSpec {
             writing_mode: WritingMode::Horizontal,
             line_height: 1.0,
             tracking: 0.0,
+            word_spacing: 0.0,
             wrap_width: None,
             runs: Vec::new(),
             features: Vec::new(),
@@ -146,6 +150,14 @@ pub struct StyleRun {
     pub italic: Option<bool>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub size: Option<f32>,
+    /// Extra advance in pixels, overriding the layer tracking.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub tracking: Option<f32>,
+    /// Absolute line advance in pixels for this run.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub leading: Option<f32>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub underline: Option<bool>,
     /// Character fill; None inherits the text layer fill.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub color: Option<[u8; 4]>,
@@ -159,6 +171,9 @@ impl StyleRun {
             && self.italic.is_none()
             && self.size.is_none()
             && self.color.is_none()
+            && self.tracking.is_none()
+            && self.leading.is_none()
+            && self.underline.is_none()
     }
 
     /// The overrides alone, without the range: what an edit applies.
@@ -184,6 +199,9 @@ impl StyleRun {
         if over.size.is_some() {
             self.size = over.size;
         }
+        if over.tracking.is_some() { self.tracking = over.tracking; }
+        if over.leading.is_some() { self.leading = over.leading; }
+        if over.underline.is_some() { self.underline = over.underline; }
         if over.color.is_some() {
             self.color = over.color;
         }
@@ -196,6 +214,9 @@ impl StyleRun {
             && self.italic == other.italic
             && self.size == other.size
             && self.color == other.color
+            && self.tracking == other.tracking
+            && self.leading == other.leading
+            && self.underline == other.underline
     }
 }
 
@@ -203,6 +224,9 @@ impl StyleRun {
 /// any run covering it have been reconciled.
 #[derive(Debug, Clone, PartialEq)]
 pub struct CharStyle {
+    pub tracking: f32,
+    pub leading: Option<f32>,
+    pub underline: bool,
     pub color: Option<[u8; 4]>,
     pub family: String,
     pub bold: bool,
@@ -221,6 +245,9 @@ impl CharStyle {
             italic: Some(self.italic),
             size: Some(self.size),
             color: self.color,
+            tracking: Some(self.tracking),
+            leading: self.leading,
+            underline: Some(self.underline),
         }
     }
 }
@@ -245,6 +272,9 @@ impl TextSpec {
     /// The layer's own font, which uncovered text is set in.
     pub fn base_style(&self) -> CharStyle {
         CharStyle {
+            tracking: self.tracking,
+            leading: None,
+            underline: false,
             color: None,
             family: self.family.clone(),
             bold: self.bold,
@@ -270,6 +300,9 @@ impl TextSpec {
                 style.size = s;
             }
             style.color = run.color;
+            style.tracking = run.tracking.unwrap_or(style.tracking);
+            style.leading = run.leading;
+            style.underline = run.underline.unwrap_or(false);
         }
         style
     }
@@ -298,7 +331,8 @@ impl TextSpec {
         if over.is_plain() {
             return;
         }
-        if range.start == 0 && range.end == len && over.color.is_none() {
+        if range.start == 0 && range.end == len && over.color.is_none()
+            && over.tracking.is_none() && over.leading.is_none() && over.underline.is_none() {
             if let Some(f) = &over.family {
                 self.family = f.clone();
                 self.runs.iter_mut().for_each(|r| r.family = None);
@@ -444,6 +478,15 @@ impl TextSpec {
     }
 }
 
+/// One consecutive paint in glyph draw order. Coverage uses the parent
+/// raster's bounds. Separate paints preserve overlapping differently colored
+/// glyphs; the merged preview mask alone cannot recover them.
+#[derive(Debug, Clone)]
+pub struct TextPaint {
+    pub color: Option<[u8; 4]>,
+    pub coverage: Vec<u8>,
+}
+
 /// A rasterized text run: an 8-bit coverage mask and where it sits relative
 /// to the text origin.
 #[derive(Debug, Clone)]
@@ -455,6 +498,8 @@ pub struct TextRaster {
     pub coverage: Vec<u8>,
     /// Per-pixel run fill overrides, empty when all glyphs inherit the layer fill.
     pub colors: Vec<Option<[u8; 4]>>,
+    /// Populated only by `rasterize_with_paints`.
+    pub paints: Vec<TextPaint>,
     /// Baseline of the first line, in the same space as `bounds`. With
     /// `bounds.top` this gives the block's cap height, which is what
     /// page geometry recorded by other apps tends to be measured from.
@@ -521,21 +566,18 @@ pub fn refresh() {
     }
 }
 
-/// Font files handed over at startup on the web, where there are no font
-/// directories to scan: the loading page fetches them and the app calls
-/// [`add_font_data`] before anything shapes text.
-#[cfg(target_arch = "wasm32")]
+/// Fonts supplied in memory, without installing files in the user's font
+/// directory. The browser also uses this for its startup font catalog.
 #[cfg(not(schist_library))]
-fn web_faces() -> &'static std::sync::Mutex<Vec<Vec<u8>>> {
+fn registered_faces() -> &'static std::sync::Mutex<Vec<Vec<u8>>> {
     static FACES: OnceLock<std::sync::Mutex<Vec<Vec<u8>>>> = OnceLock::new();
     FACES.get_or_init(|| std::sync::Mutex::new(Vec::new()))
 }
 
-/// Register a font from raw file bytes and make it usable at once.
-#[cfg(target_arch = "wasm32")]
+/// Register a font from raw bytes for this process without installing it.
 #[cfg(not(schist_library))]
 pub fn add_font_data(bytes: Vec<u8>) {
-    if let Ok(mut faces) = web_faces().lock() {
+    if let Ok(mut faces) = registered_faces().lock() {
         faces.push(bytes);
     }
     refresh();
@@ -633,8 +675,8 @@ fn scan_fonts() -> fontdb::Database {
             PathBuf::from(home).join("Library/Containers/com.apple.FontBook/Data/Library/Fonts"),
         );
     }
-    #[cfg(all(target_arch = "wasm32", not(schist_library)))]
-    if let Ok(faces) = web_faces().lock() {
+    #[cfg(not(schist_library))]
+    if let Ok(faces) = registered_faces().lock() {
         for bytes in faces.iter() {
             db.load_font_data(bytes.clone());
         }
@@ -1030,7 +1072,11 @@ impl Faces {
                 continue;
             }
             let mut style = spec.style_at(s);
-            style.color = None; // Fill does not change the font face or kerning.
+            // These properties do not change the font face or kerning.
+            style.color = None;
+            style.tracking = base_style.tracking;
+            style.leading = base_style.leading;
+            style.underline = base_style.underline;
             if style == base_style {
                 continue;
             }
@@ -1067,6 +1113,15 @@ impl Faces {
     }
 }
 
+/// Absolute run leading participates in the same maximum as inherited font
+/// metrics, so a large run cannot overlap the following line accidentally.
+fn run_line_advance(spec: &TextSpec, faces: &Faces, start: usize, end: usize, fallback: f32) -> f32 {
+    spec.text[start..end].char_indices().map(|(i, _)| {
+        spec.style_at(start + i).leading.filter(|v| v.is_finite() && *v > 0.0)
+            .unwrap_or_else(|| faces.line_metrics(faces.at(start + i)).1 * spec.line_height.max(0.1))
+    }).reduce(f32::max).unwrap_or(fallback * spec.line_height.max(0.1))
+}
+
 /// One laid-out line, and the byte range of `TextSpec::text` it covers.
 ///
 /// Wrapping means a line does not always correspond to a source line, so
@@ -1086,7 +1141,9 @@ pub struct LineSpan {
     pub width: f32,
     /// y of the line's top, relative to the raster origin.
     pub top: f32,
-    /// Baseline-to-baseline step, i.e. this line's height.
+    /// Baseline in logical block coordinates, relative to the raster origin.
+    pub baseline: f32,
+    /// Logical line-box advance. Baseline spacing also depends on font ascent.
     pub height: f32,
 }
 
@@ -1136,8 +1193,20 @@ pub enum CaretMovement {
 }
 
 fn layout(spec: &TextSpec, base: &LoadedFace) -> Layout {
+    layout_with_widths(spec, base, &[])
+}
+
+fn wrap_width_at(spec: &TextSpec, widths: &[f32], index: usize) -> Option<f32> {
+    widths
+        .get(index)
+        .or_else(|| widths.last())
+        .copied()
+        .or(spec.wrap_width)
+}
+
+fn layout_with_widths(spec: &TextSpec, base: &LoadedFace, widths: &[f32]) -> Layout {
     if shaping::required(spec) {
-        return shaping::layout(spec, base);
+        return shaping::layout(spec, base, widths);
     }
     let faces = Faces::resolve(spec, base);
     // A face with GPOS kerning speaks through it alone; the legacy
@@ -1150,7 +1219,7 @@ fn layout(spec: &TextSpec, base: &LoadedFace) -> Layout {
         .iter()
         .map(|(face, size)| GposKern::new(&face.data, face.index, *size))
         .collect();
-    let advance = |ch: char, prev: Option<(char, usize)>, ix: usize| -> f32 {
+    let advance = |ch: char, prev: Option<(char, usize)>, ix: usize, byte: usize| -> f32 {
         let (face, size) = &faces.faces[ix];
         let m = face.font.metrics(ch, *size);
         let kern = prev
@@ -1160,14 +1229,14 @@ fn layout(spec: &TextSpec, base: &LoadedFace) -> Layout {
                 None => face.font.horizontal_kern(p, ch, *size),
             })
             .unwrap_or(0.0);
-        m.advance_width + kern + spec.tracking
+        m.advance_width + kern + spec.style_at(byte).tracking + if ch == ' ' { spec.word_spacing } else { 0.0 }
     };
     // Advance of `word` starting at byte `from`, after `prev`.
     let measure_word = |word: &str, from: usize, mut prev: Option<(char, usize)>| -> f32 {
         let mut width = 0.0;
         for (i, ch) in word.char_indices() {
             let ix = faces.at(from + i);
-            width += advance(ch, prev, ix);
+            width += advance(ch, prev, ix, from + i);
             prev = Some((ch, ix));
         }
         width
@@ -1195,7 +1264,7 @@ fn layout(spec: &TextSpec, base: &LoadedFace) -> Layout {
         // overflow rather than being broken mid-word.
         for word in raw_line.split_inclusive(' ') {
             let mut word_width = measure_word(word, at, prev);
-            let wraps = spec.wrap_width.is_some_and(|w| {
+            let wraps = wrap_width_at(spec, widths, lines.len()).is_some_and(|w| {
                 spec.path.is_none() && !current.is_empty() && width + word_width > w
             });
             if wraps {
@@ -1253,7 +1322,7 @@ fn layout(spec: &TextSpec, base: &LoadedFace) -> Layout {
             .iter()
             .map(|&ix| faces.line_metrics(ix))
             .fold((0.0f32, 0.0f32), |(a, g), (fa, fg)| (a.max(fa), g.max(fg)));
-        let line_advance = line_gap * spec.line_height.max(0.1);
+        let line_advance = run_line_advance(spec, &faces, line.start, line.end, line_gap);
         let baseline = top + ascent;
         if i == 0 {
             first_baseline = ascent;
@@ -1270,6 +1339,7 @@ fn layout(spec: &TextSpec, base: &LoadedFace) -> Layout {
             x: start_x,
             width: line.width,
             top,
+            baseline,
             height: line_advance,
         });
         let mut x = start_x;
@@ -1280,7 +1350,7 @@ fn layout(spec: &TextSpec, base: &LoadedFace) -> Layout {
             chars.push(CharPos {
                 byte,
                 x,
-                end_x: x + advance(ch, prev, ix),
+                end_x: x + advance(ch, prev, ix, byte),
             });
             if !ch.is_whitespace() {
                 placed.push(PlacedGlyph {
@@ -1292,7 +1362,7 @@ fn layout(spec: &TextSpec, base: &LoadedFace) -> Layout {
                     sideways: false,
                 });
             }
-            x += advance(ch, prev, ix);
+            x += advance(ch, prev, ix, byte);
             prev = Some((ch, ix));
         }
         top += line_advance;
@@ -1312,10 +1382,34 @@ fn layout(spec: &TextSpec, base: &LoadedFace) -> Layout {
 ///
 /// Returns an empty vec when no font can be loaded.
 pub fn line_spans(spec: &TextSpec) -> Vec<LineSpan> {
+    line_spans_with_widths(spec, &[])
+}
+
+/// Resolve an automatic paragraph direction before splitting it into frames
+/// or rendering individual lines. Continuations retain this original context.
+pub fn base_direction(text: &str) -> ParagraphDirection {
+    if unicode_bidi::BidiInfo::new(text, None)
+        .paragraphs
+        .first()
+        .is_some_and(|p| p.level.is_rtl())
+    {
+        ParagraphDirection::RightToLeft
+    } else {
+        ParagraphDirection::LeftToRight
+    }
+}
+
+/// Compose a paragraph against successive inline measures, keeping full
+/// shaping context. The final width repeats for remaining lines. An empty
+/// slice uses `spec.wrap_width`. Callers supply finite, positive widths.
+pub fn line_spans_with_widths(spec: &TextSpec, widths: &[f32]) -> Vec<LineSpan> {
+    if widths.iter().any(|w| !w.is_finite() || *w <= 0.0) {
+        return Vec::new();
+    }
     let Some(face) = load_font(&spec.family, spec.bold, spec.italic) else {
         return Vec::new();
     };
-    layout(spec, &face).lines
+    layout_with_widths(spec, &face, widths).lines
 }
 
 /// Where a caret sitting at `byte` in `spec.text` lands, relative to the
@@ -1399,6 +1493,7 @@ fn caret_in_layout_affinity(spec: &TextSpec, laid: &Layout, position: CaretPosit
             x: 0.0,
             width: 0.0,
             top: 0.0,
+            baseline: laid.first_baseline,
             height: laid.line_advance,
         });
 
@@ -1730,12 +1825,30 @@ pub struct TextMetrics {
     pub line_advance: f32,
     pub width: f32,
     pub height: f32,
+    /// Union of horizontal glyph outlines [left, top, right, bottom], in
+    /// layout coordinates. Excludes decorations; absent for empty text,
+    /// vertical writing and text on a path. No coverage bitmap is allocated.
+    pub ink_bounds: Option<[f32; 4]>,
 }
 
 pub fn measure(spec: &TextSpec) -> Option<TextMetrics> {
     let face = load_font(&spec.family, spec.bold, spec.italic)?;
     let laid = layout(spec, &face);
+    let ink_bounds = if spec.writing_mode == WritingMode::Horizontal && spec.path.is_none() {
+        let faces = Faces::resolve(spec, &face);
+        laid.glyphs.iter().filter_map(|glyph| {
+            let (face, size) = &faces.faces[glyph.face];
+            let b = face.font.metrics_indexed(glyph.glyph, *size).bounds;
+            (b.width > 0.0 && b.height > 0.0).then_some([
+                glyph.x + b.xmin,
+                glyph.baseline - b.ymin - b.height,
+                glyph.x + b.xmin + b.width,
+                glyph.baseline - b.ymin,
+            ])
+        }).reduce(|a, b| [a[0].min(b[0]), a[1].min(b[1]), a[2].max(b[2]), a[3].max(b[3])])
+    } else { None };
     Some(TextMetrics {
+        ink_bounds,
         first_baseline: laid.first_baseline,
         line_advance: laid.line_advance,
         width: laid.layout_width,
@@ -1747,17 +1860,63 @@ pub fn measure(spec: &TextSpec) -> Option<TextMetrics> {
     })
 }
 
+/// Underlines follow character advances (including spaces and RTL), not
+/// individual glyph ink boxes. Path decorations are not supported yet.
+type ColoredRaster = (IntRect, Vec<u8>, Option<[u8; 4]>);
+
+fn underline_rasters(spec: &TextSpec, faces: &Faces, laid: &Layout) -> Vec<ColoredRaster> {
+    let mut out = Vec::new();
+    if spec.path.is_some() || !spec.runs.iter().any(|run| run.underline == Some(true)) { return out; }
+    let total_height: f32 = laid.lines.iter().map(|line| line.height).sum();
+    for line in &laid.lines {
+        let ascent = spec.text[line.start..line.end].char_indices()
+            .map(|(i, _)| faces.line_metrics(faces.at(line.start + i)).0)
+            .reduce(f32::max).unwrap_or_else(|| faces.line_metrics(0).0);
+        for ch in laid.chars.iter().filter(|ch| line.start <= ch.byte && ch.byte < line.end) {
+            let style = spec.style_at(ch.byte);
+            if !style.underline { continue; }
+            let start = ch.x.min(ch.end_x).floor() as i32;
+            let length = (ch.x.max(ch.end_x).ceil() as i32 - start).max(0) as u32;
+            let thickness = (style.size / 16.0).round().max(1.0) as u32;
+            let rect = if spec.writing_mode.is_vertical() {
+                let cross = if spec.writing_mode == WritingMode::VerticalRl {
+                    total_height - line.top - line.height / 2.0 + style.size * 0.55
+                } else { line.top + line.height / 2.0 - style.size * 0.55 };
+                IntRect::from_xywh(cross.round() as i32, start, thickness, length)
+            } else {
+                IntRect::from_xywh(start, (line.top + ascent + style.size * 0.1).round() as i32, length, thickness)
+            };
+            if !rect.is_empty() {
+                out.push((rect, vec![255; rect.width() as usize * rect.height() as usize], style.color));
+            }
+        }
+    }
+    out
+}
+
 /// Lay out and rasterize `spec` into a coverage mask.
 ///
 /// Returns `None` when no font could be loaded; an empty string yields an
 /// empty raster rather than an error.
 pub fn rasterize(spec: &TextSpec) -> Option<TextRaster> {
+    rasterize_impl(spec, false)
+}
+
+/// Shape once, retaining separate coverage for each consecutive paint.
+/// Color values are opaque to rasterization, so a separation client may use
+/// them as ink IDs without converting a spot ink through screen RGB.
+pub fn rasterize_with_paints(spec: &TextSpec) -> Option<TextRaster> {
+    rasterize_impl(spec, true)
+}
+
+fn rasterize_impl(spec: &TextSpec, retain_paints: bool) -> Option<TextRaster> {
     let face = load_font(&spec.family, spec.bold, spec.italic)?;
     if spec.text.is_empty() || spec.size <= 0.0 {
         return Some(TextRaster {
             bounds: IntRect::EMPTY,
             coverage: Vec::new(),
             colors: Vec::new(),
+            paints: Vec::new(),
             first_baseline: 0.0,
             line_advance: 0.0,
             layout_width: 0.0,
@@ -1767,6 +1926,7 @@ pub fn rasterize(spec: &TextSpec) -> Option<TextRaster> {
     let faces = Faces::resolve(spec, &face);
     let laid = layout(spec, &face);
     let guide = path_guide(spec, &laid);
+    let decorations = underline_rasters(spec, &faces, &laid);
     let Layout {
         glyphs: placed,
         first_baseline,
@@ -1774,11 +1934,12 @@ pub fn rasterize(spec: &TextSpec) -> Option<TextRaster> {
         layout_width,
         ..
     } = laid;
-    if placed.is_empty() {
+    if placed.is_empty() && decorations.is_empty() {
         return Some(TextRaster {
             bounds: IntRect::EMPTY,
             coverage: Vec::new(),
             colors: Vec::new(),
+            paints: Vec::new(),
             first_baseline: 0.0,
             line_advance: 0.0,
             layout_width: 0.0,
@@ -1822,11 +1983,16 @@ pub fn rasterize(spec: &TextSpec) -> Option<TextRaster> {
         bounds = bounds.union(&rect);
         rasterized.push((rect, bitmap, spec.style_at(g.byte).color));
     }
+    for (rect, bitmap, color) in decorations {
+        bounds = bounds.union(&rect);
+        rasterized.push((rect, bitmap, color));
+    }
     if bounds.is_empty() {
         return Some(TextRaster {
             bounds: IntRect::EMPTY,
             coverage: Vec::new(),
             colors: Vec::new(),
+            paints: Vec::new(),
             first_baseline: 0.0,
             line_advance: 0.0,
             layout_width: 0.0,
@@ -1843,7 +2009,11 @@ pub fn rasterize(spec: &TextSpec) -> Option<TextRaster> {
     } else {
         Vec::new()
     };
+    let mut paints: Vec<TextPaint> = Vec::new();
     for (rect, bitmap, color) in rasterized {
+        if retain_paints && paints.last().is_none_or(|paint| paint.color != color) {
+            paints.push(TextPaint { color, coverage: vec![0; w*h] });
+        }
         for gy in 0..rect.height() {
             for gx in 0..rect.width() {
                 let v = bitmap[(gy * rect.width() + gx) as usize];
@@ -1852,6 +2022,10 @@ pub fn rasterize(spec: &TextSpec) -> Option<TextRaster> {
                 }
                 let x = (rect.left + gx - bounds.left) as usize;
                 let y = (rect.top + gy - bounds.top) as usize;
+                if let Some(paint) = paints.last_mut() {
+                    let slot = &mut paint.coverage[y * w + x];
+                    *slot = (*slot).max(v);
+                }
                 let slot = &mut coverage[y * w + x];
                 if v >= *slot {
                     *slot = v;
@@ -1866,6 +2040,7 @@ pub fn rasterize(spec: &TextSpec) -> Option<TextRaster> {
         bounds,
         coverage,
         colors,
+        paints,
         first_baseline,
         line_advance,
         layout_width,
@@ -1915,6 +2090,57 @@ mod tests {
         assert!(layout(&s, &face).layout_width < unkerned);
         let json = serde_json::to_string(&s).unwrap();
         assert_eq!(serde_json::from_str::<TextSpec>(&json).unwrap(), s);
+    }
+
+    #[test]
+    fn word_spacing_changes_only_spaces_in_both_layout_paths() {
+        for text in ["AV", "A V", "A  V ", "café café", "שלום עולם"] {
+            for shaped in [false, true] {
+                let (mut s, face) = opentype_spec(text);
+                if shaped { s.set_feature("liga", true); }
+                let before = layout(&s, &face).layout_width;
+                for spacing in [-1.0, 2.0, 10.0] {
+                    s.word_spacing = spacing;
+                    let after = layout(&s, &face).layout_width;
+                    let expected = text.chars().filter(|c| *c == ' ').count() as f32 * spacing;
+                    assert!((after - before - expected).abs() < 0.001, "{text}: {before} -> {after}");
+                }
+            }
+        }
+    }
+
+    #[test]
+    fn run_tracking_and_leading_affect_only_their_text() {
+        for shaped in [false, true] {
+            let (mut s, face) = opentype_spec("AB CD\nEF GH");
+            if shaped { s.set_feature("liga", true); }
+            let before = layout(&s, &face);
+            s.apply_style(0..2, &StyleRun {
+                tracking: Some(7.0), leading: Some(120.0), ..Default::default()
+            });
+            let after = layout(&s, &face);
+            assert!((after.lines[0].width - before.lines[0].width - 14.0).abs() < 0.001);
+            assert_eq!(after.lines[1].width, before.lines[1].width);
+            assert_eq!(after.lines[0].height, 120.0);
+            assert_eq!(after.lines[1].height, before.lines[1].height);
+            assert_eq!(after.lines[1].top, 120.0);
+            let saved = serde_json::to_string(&s).unwrap();
+            assert_eq!(serde_json::from_str::<TextSpec>(&saved).unwrap(), s);
+        }
+    }
+
+    #[test]
+    fn underline_uses_spaces_and_survives_vertical_layout() {
+        for mode in [WritingMode::Horizontal, WritingMode::VerticalRl, WritingMode::VerticalLr] {
+            let (mut s, _) = opentype_spec("   ");
+            s.writing_mode = mode;
+            assert!(rasterize(&s).unwrap().is_empty());
+            s.apply_style(0..s.text.len(), &StyleRun { underline: Some(true), ..Default::default() });
+            let raster = rasterize(&s).unwrap();
+            assert!(!raster.is_empty());
+            assert!(raster.coverage.contains(&255));
+            assert_eq!(raster.coverage.len(), raster.bounds.width() as usize * raster.bounds.height() as usize);
+        }
     }
 
     #[test]

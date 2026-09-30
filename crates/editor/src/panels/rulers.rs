@@ -2,9 +2,12 @@
 
 use super::*;
 
-/// Horizontal and vertical rulers around the canvas. Dragging from a ruler
-/// pulls out a guide.
-pub fn rulers(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElement {
+/// Horizontal and vertical rulers around the canvas. Raster rulers also
+/// support pulling out guides; Design rulers use page-relative units.
+pub fn rulers(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::AnyElement {
+    if ws.design_mode() {
+        return design_rulers(ws, cx);
+    }
     let size = Workspace::RULER_SIZE;
     let zoom = ws.zoom;
     // Choose a tick spacing that stays legible at any zoom.
@@ -116,6 +119,117 @@ pub fn rulers(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoEleme
                 .size(px(size))
                 .bg(gpui::rgb(palette().panel_bg)),
         )
+        .into_any_element()
 }
 
-// ===== navigator =====
+/// Layout rulers measure from the active page's trim, including on later
+/// spreads. Guide gestures belong to the layout document.
+fn design_rulers(ws: &Workspace, cx: &mut Context<Workspace>) -> gpui::AnyElement {
+    use crate::design::rulers::ticks;
+    const SIZE: f32 = 32.0;
+    let origin = ws.design.to_pasteboard(schist_layout::Point::ZERO);
+    let scale = ws.design.view.scale;
+    let unit = ws.design.ruler_unit;
+    let bounds = ws.canvas_bounds();
+    let horizontal = ticks(origin.x, scale, f32::from(bounds.size.width), unit);
+    let vertical = ticks(origin.y, scale, f32::from(bounds.size.height), unit);
+    div()
+        .absolute()
+        .inset_0()
+        .child(
+            div()
+                .absolute()
+                .top_0()
+                .left_0()
+                .right_0()
+                .h(px(SIZE))
+                .bg(gpui::rgb(palette().ruler_bg))
+                .overflow_hidden()
+                 .on_mouse_down(MouseButton::Left, cx.listener(|ws, ev: &MouseDownEvent, _, cx| {
+                    let at=ws.design_page_point(ev.position);
+                    crate::design::guides::begin(&mut ws.design,true,at);cx.stop_propagation();cx.notify();
+                }))
+                .children(horizontal.into_iter().map(|tick| {
+                    let length = if tick.label.is_some() { 9.0 } else { 4.0 };
+                    div()
+                        .absolute()
+                        .left(px(tick.offset))
+                        .top_0()
+                        .h(px(SIZE))
+                        .child(
+                            div()
+                                .absolute()
+                                .bottom_0()
+                                .w(px(1.0))
+                                .h(px(length))
+                                .bg(gpui::rgb(palette().text_dim)),
+                        )
+                        .children(tick.label.map(|label| {
+                            div()
+                                .pl(px(2.0))
+                                .text_size(px(9.0))
+                                .text_color(gpui::rgb(palette().text_dim))
+                                .child(label)
+                        }))
+                })),
+        )
+        .child(
+            div()
+                .absolute()
+                .top_0()
+                .left_0()
+                .bottom_0()
+                .w(px(SIZE))
+                .bg(gpui::rgb(palette().ruler_bg))
+                .overflow_hidden()
+                 .on_mouse_down(MouseButton::Left, cx.listener(|ws, ev: &MouseDownEvent, _, cx| {
+                    let at=ws.design_page_point(ev.position);
+                    crate::design::guides::begin(&mut ws.design,false,at);cx.stop_propagation();cx.notify();
+                }))
+                .children(vertical.into_iter().map(|tick| {
+                    let length = if tick.label.is_some() { 9.0 } else { 4.0 };
+                    div()
+                        .absolute()
+                        .top(px(tick.offset))
+                        .left_0()
+                        .w(px(SIZE))
+                        .child(
+                            div()
+                                .absolute()
+                                .right_0()
+                                .h(px(1.0))
+                                .w(px(length))
+                                .bg(gpui::rgb(palette().text_dim)),
+                        )
+                        .children(tick.label.map(|label| {
+                            div()
+                                .pt(px(2.0))
+                                .text_size(px(8.0))
+                                .text_color(gpui::rgb(palette().text_dim))
+                                .child(label)
+                        }))
+                })),
+        )
+        .child(
+            div()
+                .id("design-ruler-unit")
+                .absolute()
+                .top_0()
+                .left_0()
+                .size(px(SIZE))
+                .flex()
+                .items_center()
+                .justify_center()
+                .text_xs()
+                .bg(gpui::rgb(palette().panel_bg))
+                .cursor_pointer()
+                .tooltip(ui::tip(t("design.ruler_unit_hint"), None))
+                .on_mouse_down(MouseButton::Left, |_, _, cx| cx.stop_propagation())
+                .on_click(cx.listener(|ws, _, _, cx| {
+                    ws.design.ruler_unit = ws.design.ruler_unit.next();
+                    cx.notify();
+                }))
+                .child(t(unit.label())),
+        )
+        .into_any_element()
+}

@@ -12,6 +12,9 @@ use std::sync::OnceLock;
 /// case-sensitive; an override cannot enable an unregistered flag.
 const DEFAULTS: &[(&str, bool)] = &[
     ("gpu-compositing", true),
+    // IDML open/save and layout authoring are available. Keep the mode
+    // dark while interchange fidelity and native UI validation continue.
+    ("design-mode", false),
     // Cloud is unavailable in the browser, including through saved overrides.
     #[cfg(not(target_arch = "wasm32"))]
     ("schist-cloud", true),
