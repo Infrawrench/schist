@@ -49,6 +49,14 @@ fn number(value: Option<f32>) -> String {
     value.map(|v| format!("{v:.2}")).unwrap_or_default()
 }
 
+fn leading_value(value: Option<schist_layout::styles::Leading>) -> String {
+    match value {
+        Some(schist_layout::styles::Leading::Auto) => t("design.leading_auto").to_string(),
+        Some(schist_layout::styles::Leading::Points(points)) => number(Some(points)),
+        None => String::new(),
+    }
+}
+
 pub(super) fn control_panel(
     ws: &mut Workspace,
     cx: &mut Context<Workspace>,
@@ -395,7 +403,11 @@ pub(super) fn paragraph_panel(
             style.fill_tint.map(|v| v * 100.0),
         ),
         ("design-prop-size", "design.point_size", style.point_size),
-        ("design-prop-leading", "design.leading", style.leading),
+        (
+            "design-prop-auto-leading",
+            "design.auto_leading_percent",
+            style.auto_leading,
+        ),
         ("design-prop-tracking", "design.tracking", style.tracking),
         (
             "design-prop-before",
@@ -422,6 +434,14 @@ pub(super) fn paragraph_panel(
         "design-prop-baseline",
         "design.baseline_shift",
         baseline_value(style.baseline_shift),
+        target.clone(),
+        cx,
+    ));
+    rows.push(field(
+        ws,
+        "design-prop-leading",
+        "design.leading_value",
+        leading_value(style.leading),
         target.clone(),
         cx,
     ));
@@ -532,7 +552,6 @@ pub(super) fn character_panel(
             "design.point_size",
             style.point_size,
         ),
-        ("design-prop-char-leading", "design.leading", style.leading),
         (
             "design-prop-char-tracking",
             "design.tracking",
@@ -546,6 +565,14 @@ pub(super) fn character_panel(
         "design-prop-char-baseline",
         "design.baseline_shift",
         baseline_value(style.baseline_shift),
+        target.clone(),
+        cx,
+    ));
+    rows.push(field(
+        ws,
+        "design-prop-char-leading",
+        "design.leading_value",
+        leading_value(style.leading),
         target.clone(),
         cx,
     ));

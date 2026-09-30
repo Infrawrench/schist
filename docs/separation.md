@@ -402,3 +402,15 @@ mode. `check-design-output` compares the mixed page to the appropriate paragraph
 from each control using both Poppler image extraction and page rasterization.
 This checks actual ligature/kerning changes, inheritance boundaries and unchanged
 paragraph placement instead of merely looking for feature tags in serialized data.
+
+
+## Leading output
+
+Absolute leading scales with output resolution independently of nominal glyph
+metrics. The leading proof pairs flowed mixed-size text with separately placed
+lines at known baseline or column-center distances, including a blank line.
+Fixed and automatic spacing run through horizontal and both vertical modes.
+`check-design-output` compares both Poppler-rendered pages and independently
+extracted image samples. Conservative story contribution bounds also include
+nominal cells extending before a frame under tight leading; a cross-gutter
+property compares that ink with explicit placement at three resolutions.

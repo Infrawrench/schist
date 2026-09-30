@@ -58,7 +58,7 @@ fn shifts_preserve_composed_flow_and_scale_with_the_pasteboard() {
         doc.styles.add_paragraph(ParagraphStyle {
             name: "Body".into(),
             point_size: Some(20.0),
-            leading: Some(28.0),
+            leading: Some(schist_layout::styles::Leading::Points(28.0)),
             writing_mode: Some(mode),
             ..Default::default()
         });
@@ -138,7 +138,7 @@ fn initial_reservations_ignore_shifts_while_their_ink_keeps_the_authored_offset(
     doc.styles.add_paragraph(ParagraphStyle {
         name: "Caps".into(),
         point_size: Some(14.0),
-        leading: Some(18.0),
+        leading: Some(schist_layout::styles::Leading::Points(18.0)),
         drop_caps_lines: Some(3),
         ..Default::default()
     });

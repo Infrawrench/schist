@@ -337,3 +337,10 @@ design.opentype_hint = Empty inherits; 0 disables, 1 enables
 design.idml_feature_invalid = Invalid OpenType setting: {property}={value}
 design.idml_feature_unsupported = Unsupported OpenType setting: {property}={value}
 design.idml_features_private = Custom features require Schist: {features}
+
+# Explicit and automatic leading
+
+design.leading_value = Leading (pt or Auto)
+design.leading_auto = Auto
+design.auto_leading_percent = Automatic leading (%)
+design.idml_leading_invalid = Invalid leading setting: {property}={value}

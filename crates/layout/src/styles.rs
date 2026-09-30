@@ -17,6 +17,56 @@
 
 use serde::{Deserialize, Serialize};
 
+/// An explicit leading request. Auto is distinct from an absent/inherited
+/// value and uses the paragraph's AutoLeading percentage of nominal type size.
+#[derive(Debug, Clone, Copy, PartialEq)]
+pub enum Leading {
+    Auto,
+    Points(f32),
+}
+
+impl Leading {
+    pub fn points(self, size: f32, percentage: Option<f32>) -> Option<f32> {
+        let value = match self {
+            Self::Auto => {
+                size * percentage
+                    .filter(|v| v.is_finite() && (0.0..=500.0).contains(v))
+                    .unwrap_or(120.0)
+                    / 100.0
+            }
+            Self::Points(value) => value,
+        };
+        (value.is_finite() && value >= 0.0).then_some(value)
+    }
+}
+
+// Preserve legacy numeric JSON; only the new automatic case needs a keyword.
+impl Serialize for Leading {
+    fn serialize<S: serde::Serializer>(&self, serializer: S) -> Result<S::Ok, S::Error> {
+        match self {
+            Self::Auto => serializer.serialize_str("Auto"),
+            Self::Points(value) => serializer.serialize_f32(*value),
+        }
+    }
+}
+impl<'de> Deserialize<'de> for Leading {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        #[derive(Deserialize)]
+        #[serde(untagged)]
+        enum Value {
+            Points(f32),
+            Keyword(String),
+        }
+        match Value::deserialize(deserializer)? {
+            Value::Points(value) => Ok(Self::Points(value)),
+            Value::Keyword(value) if value == "Auto" => Ok(Self::Auto),
+            _ => Err(serde::de::Error::custom(
+                "expected leading in points or Auto",
+            )),
+        }
+    }
+}
+
 use crate::ink::Ink;
 
 /// Horizontal alignment of a line within its column.
@@ -238,9 +288,10 @@ pub struct ParagraphStyle {
     pub overprint_stroke: Option<bool>,
 
     pub point_size: Option<f32>,
-    /// Baseline-to-baseline distance. `None` means the font's own
-    /// recommended leading, which is what a body style should use.
-    pub leading: Option<f32>,
+    /// None inherits; an unresolved legacy None uses the font's metrics.
+    pub leading: Option<Leading>,
+    /// Percentage of nominal type size used by Auto leading; None inherits.
+    pub auto_leading: Option<f32>,
     /// Letter spacing in thousandths of an em, as in IDML. Composition
     /// converts this to points using each run's effective font size.
     pub tracking: Option<f32>,
@@ -290,7 +341,7 @@ pub struct CharacterStyle {
     /// rather than being a path.
     pub family: Option<String>,
     pub point_size: Option<f32>,
-    pub leading: Option<f32>,
+    pub leading: Option<Leading>,
     /// Letter spacing in thousandths of an em.
     pub tracking: Option<f32>,
     pub kerning: Option<bool>,
@@ -359,7 +410,7 @@ impl StyleSet {
                     name: "Body".into(),
                     based_on: Some("Default".into()),
                     point_size: Some(11.0),
-                    leading: Some(13.5),
+                    leading: Some(crate::styles::Leading::Points(13.5)),
                     hyphenate: Some(true),
                     keep_lines: Some(2),
                     ..ParagraphStyle::default()
@@ -495,7 +546,8 @@ pub struct ResolvedParagraph {
     pub overprint_fill: Option<bool>,
     pub overprint_stroke: Option<bool>,
     pub point_size: Option<f32>,
-    pub leading: Option<f32>,
+    pub leading: Option<Leading>,
+    pub auto_leading: Option<f32>,
     pub tracking: Option<f32>,
     pub kerning: Option<bool>,
     pub align: Option<Align>,
@@ -557,6 +609,7 @@ impl ResolvedParagraph {
             out.overprint_stroke = out.overprint_stroke.or(style.overprint_stroke);
             out.point_size = out.point_size.or(style.point_size);
             out.leading = out.leading.or(style.leading);
+            out.auto_leading = out.auto_leading.or(style.auto_leading);
             out.tracking = out.tracking.or(style.tracking);
             out.kerning = out.kerning.or(style.kerning);
             out.align = out.align.or(style.align);
@@ -584,7 +637,7 @@ impl ResolvedParagraph {
 pub struct ResolvedCharacter {
     pub family: Option<String>,
     pub point_size: Option<f32>,
-    pub leading: Option<f32>,
+    pub leading: Option<Leading>,
     pub tracking: Option<f32>,
     pub kerning: Option<bool>,
     pub bold: Option<bool>,

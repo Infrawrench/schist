@@ -109,6 +109,7 @@ pub(crate) fn paragraph_properties(
         overprint_stroke: character.overprint_stroke,
         point_size: character.point_size,
         leading: character.leading,
+        auto_leading: auto_leading(element, report),
         tracking: character.tracking,
         kerning: character.kerning,
         align: element.attr("Justification").and_then(align),
@@ -175,7 +176,7 @@ pub(crate) fn character_properties(
         overprint_fill: boolean(element, "OverprintFill"),
         overprint_stroke: boolean(element, "OverprintStroke"),
         point_size: element.number("PointSize"),
-        leading: property(element, "Leading").and_then(xml::parse_number),
+        leading: leading(element, report),
         tracking: element.number("Tracking"),
         kerning: element.attr("KerningMethod").map(|v| v != "$ID/None"),
         bold: font_style.map(|v| v.contains("Bold")),
@@ -187,6 +188,70 @@ pub(crate) fn character_properties(
         features: crate::opentype_codec::read(element, report),
         language: element.attr("AppliedLanguage").map(str::to_owned),
         ..CharacterStyle::default()
+    }
+}
+
+fn leading(
+    element: &Element,
+    report: &mut crate::import::Report,
+) -> Option<schist_layout::styles::Leading> {
+    let raw = property(element, "Leading")?;
+    if raw == "Auto" {
+        return Some(schist_layout::styles::Leading::Auto);
+    }
+    if let Some(value) = xml::parse_number(raw).filter(|v| v.is_finite() && *v >= 0.0) {
+        return Some(schist_layout::styles::Leading::Points(value));
+    }
+    report.skip(schist_i18n::tf!(
+        "design.idml_leading_invalid",
+        property = "Leading",
+        value = raw
+    ));
+    None
+}
+fn auto_leading(element: &Element, report: &mut crate::import::Report) -> Option<f32> {
+    let raw = element.attr("AutoLeading")?;
+    if let Some(value) =
+        xml::parse_number(raw).filter(|v| v.is_finite() && (0.0..=500.0).contains(v))
+    {
+        return Some(value);
+    }
+    report.skip(schist_i18n::tf!(
+        "design.idml_leading_invalid",
+        property = "AutoLeading",
+        value = raw
+    ));
+    None
+}
+
+pub(crate) fn warn_leading(
+    leading: Option<schist_layout::styles::Leading>,
+    automatic: Option<f32>,
+    warnings: &mut Vec<String>,
+) {
+    let points = match leading {
+        Some(schist_layout::styles::Leading::Points(v)) => Some(v),
+        _ => None,
+    };
+    for (property, value, valid) in [
+        (
+            "Leading",
+            points,
+            points.is_none_or(|v| v.is_finite() && v >= 0.0),
+        ),
+        (
+            "AutoLeading",
+            automatic,
+            automatic.is_none_or(|v| v.is_finite() && (0.0..=500.0).contains(&v)),
+        ),
+    ] {
+        if !valid {
+            warnings.push(schist_i18n::tf!(
+                "design.idml_leading_invalid",
+                property = property,
+                value = value.unwrap().to_string()
+            ));
+        }
     }
 }
 
@@ -239,7 +304,7 @@ fn props(
     out: &mut String,
     kind: &str,
     based_on: &Option<String>,
-    leading: Option<f32>,
+    leading: Option<schist_layout::styles::Leading>,
     family: Option<&str>,
     automatic_direction: Option<&str>,
     features: &[(String, bool)],
@@ -252,7 +317,15 @@ fn props(
         ));
     }
     if let Some(value) = leading {
-        out.push_str(&format!("<Leading type=\"unit\">{value}</Leading>"));
+        match value {
+            schist_layout::styles::Leading::Auto => {
+                out.push_str("<Leading type=\"enumeration\">Auto</Leading>")
+            }
+            schist_layout::styles::Leading::Points(value) if value.is_finite() && value >= 0.0 => {
+                out.push_str(&format!("<Leading type=\"unit\">{value}</Leading>"))
+            }
+            _ => {}
+        }
     }
     if let Some(family) = family {
         out.push_str(&format!(
@@ -317,6 +390,13 @@ fn position(
 pub fn paragraph(style: &ParagraphStyle) -> String {
     let mut out = String::from("<ParagraphStyle");
     crate::opentype_codec::attributes(&mut out, &style.features);
+    optional(
+        &mut out,
+        "AutoLeading",
+        style
+            .auto_leading
+            .filter(|v| v.is_finite() && (0.0..=500.0).contains(v)),
+    );
     attr(
         &mut out,
         "Self",

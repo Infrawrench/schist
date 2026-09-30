@@ -46,7 +46,8 @@ pub struct ComposedLine {
     pub inline_origin: Pt,
     /// Baseline in the same local page coordinates as the line box.
     pub baseline: Pt,
-    /// Logical line advance: height for horizontal rows, width for vertical columns.
+    /// Requested distance from the preceding baseline or vertical column center.
+    /// Independent of the nominal line-cell dimensions in `bounds`.
     pub advance: Pt,
     /// Paragraph style, resolved, for the caller to render with.
     pub paragraph: ResolvedParagraph,
@@ -169,13 +170,10 @@ pub fn columns(bounds: Rect, count: u16, gutter: Pt) -> Vec<Rect> {
 ///
 /// # Leading and alignment
 ///
-/// A page style states leading as an **absolute** distance in points,
-/// because that is how a designer thinks about it and how it has to
-/// behave across a change of font. The text engine takes a *multiple* of
-/// the font's own line gap, so the conversion happens through
-/// [`natural_line_advance`] below rather than by dividing by the point
-/// size, which would be wrong for every font whose ascent and descent do
-/// not sum to the em.
+/// Fixed leading is an absolute baseline distance in points. Auto uses the
+/// paragraph percentage of each run's nominal type size. Both reach the engine
+/// as absolute spacing; font ascent and descent still determine cell geometry.
+/// An absent value retains the engine's natural font spacing.
 ///
 /// Justification is not something this hands to the text engine, which
 /// has no notion of it. The engine left-aligns and the renderer stretches
@@ -208,13 +206,10 @@ pub fn spec_for(
     let natural = natural_line_advance(&character, size, &family);
     // Paragraph bidi direction is independent of story column progression.
     // Resolve Auto from the complete paragraph before slicing a rendered line.
-    let line_height = match paragraph.leading.or(character.leading) {
-        // An absolute leading in points becomes a multiple of the font's
-        // own gap. The engine clamps a multiple below its own minimum, so
-        // a leading tighter than the font's default still takes effect.
-        Some(absolute) if natural > 0.0 => absolute / natural,
-        _ => 1.0,
-    };
+    let leading = paragraph
+        .leading
+        .or(character.leading)
+        .and_then(|leading| leading.points(size, paragraph.auto_leading));
     let direction = paragraph
         .direction
         .map(engine_direction)
@@ -238,10 +233,7 @@ pub fn spec_for(
     };
     let base_position =
         crate::styles::TextPosition::resolved(character.position, character.baseline_shift);
-    let base_leading = paragraph
-        .leading
-        .or(character.leading)
-        .unwrap_or(natural * line_height);
+    let base_leading = leading.unwrap_or(natural);
     let (base_scale, base_shift) = styles.text_preferences.script(base_position, base_leading);
     let base_script = base_position != crate::styles::TextPosition::Normal;
     let mut spec = TextSpec {
@@ -260,7 +252,8 @@ pub fn spec_for(
                 crate::StoryOrientation::Vertical => schist_text_engine::WritingMode::VerticalRl,
             },
         ),
-        line_height,
+        line_height: 1.0,
+        leading,
         tracking: paragraph.tracking.or(character.tracking).unwrap_or(0.0) * size / 1000.0,
         word_spacing: 0.0,
         wrap_width: (width > 0.0).then_some(width),
@@ -277,28 +270,25 @@ pub fn spec_for(
                 );
                 let scripted = position != crate::styles::TextPosition::Normal;
                 let nominal = style.point_size.unwrap_or(size);
-                let leading = if scripted {
-                    Some(
-                        style
-                            .leading
-                            .or(paragraph.leading)
-                            .or(character.leading)
-                            .unwrap_or_else(|| {
-                                let metrics_style = ResolvedCharacter {
-                                    bold: style.bold.or(character.bold),
-                                    italic: style.italic.or(character.italic),
-                                    ..Default::default()
-                                };
-                                natural_line_advance(
-                                    &metrics_style,
-                                    nominal,
-                                    style.family.as_deref().unwrap_or(&family),
-                                ) * line_height
-                            }),
-                    )
-                } else {
-                    style.leading
-                };
+                let leading = style
+                    .leading
+                    .or(paragraph.leading)
+                    .or(character.leading)
+                    .and_then(|leading| leading.points(nominal, paragraph.auto_leading))
+                    .or_else(|| {
+                        scripted.then(|| {
+                            let metrics_style = ResolvedCharacter {
+                                bold: style.bold.or(character.bold),
+                                italic: style.italic.or(character.italic),
+                                ..Default::default()
+                            };
+                            natural_line_advance(
+                                &metrics_style,
+                                nominal,
+                                style.family.as_deref().unwrap_or(&family),
+                            )
+                        })
+                    });
                 let (script_scale, script_shift) = styles
                     .text_preferences
                     .script(position, leading.unwrap_or(0.0));
@@ -429,22 +419,11 @@ pub fn engine_writing_mode(mode: WritingMode) -> schist_text_engine::WritingMode
 
 /// Force a spec onto an exact baseline-to-baseline distance.
 ///
-/// A grid imposes a leading, and the spec has to carry it: measuring with
-/// the style's own leading and then placing at the grid's would make the
-/// engine's line heights disagree with the positions, which shows up as
-/// text drifting off the grid a line at a time.
+/// A grid may increase the composed step. Carry that resolved step into
+/// rendering and editing specifications without changing nominal cell metrics.
 pub fn with_leading(spec: TextSpec, leading: Pt) -> TextSpec {
     let mut spec = spec;
-    let character = ResolvedCharacter {
-        family: Some(spec.family.clone()),
-        bold: Some(spec.bold),
-        italic: Some(spec.italic),
-        ..ResolvedCharacter::default()
-    };
-    let natural = natural_line_advance(&character, spec.size, &spec.family);
-    if natural > 0.0 {
-        spec.line_height = (leading / natural).max(0.01);
-    }
+    spec.leading = Some(leading);
     for run in &mut spec.runs {
         run.leading = Some(leading);
     }
@@ -490,8 +469,8 @@ pub fn natural_line_advance(character: &ResolvedCharacter, size: Pt, family: &st
 ///
 /// Returns the height in points, or `None` when the font is unavailable,
 /// so a caller can distinguish "no text" from "cannot measure yet". The
-/// height comes from the engine's real line advance rather than a guessed
-/// multiple of the point size.
+/// height is the extent of the engine's positioned cells, including explicit
+/// leading, rather than a guessed multiple of the point size.
 pub fn measure_slice(
     story: &Story,
     start: usize,
@@ -514,8 +493,12 @@ pub fn measure_slice(
     if lines.is_empty() {
         return Some(0.0);
     }
-    let advance = lines[0].height.max(0.1);
-    Some(lines.len() as Pt * advance)
+    Some(
+        lines
+            .iter()
+            .map(|line| line.top + line.height)
+            .fold(0.0, f32::max),
+    )
 }
 
 /// Fit a story into a thread of frames.
@@ -1035,7 +1018,7 @@ fn break_line(
     column: &Rect,
     block: &Block,
     top: Pt,
-    metrics: (Pt, Pt),
+    metrics: LineFlow,
 ) -> ComposedLine {
     let style = if block.style.is_empty() {
         &doc.default_paragraph_style
@@ -1052,10 +1035,10 @@ fn break_line(
     ComposedLine {
         start: block.start,
         end: block.end.min(story.text_len()),
-        bounds: Rect::new(measure.x, top, measure.width, metrics.1),
+        bounds: Rect::new(measure.x, top, measure.width, metrics.height),
         inline_origin: column.x,
-        baseline: top + metrics.0,
-        advance: metrics.1,
+        baseline: top + metrics.ascent,
+        advance: metrics.advance,
         paragraph,
         paragraph_style: style.clone(),
         characters: Vec::new(),
@@ -1115,9 +1098,6 @@ fn fill_column_with_rules(
             paragraph.space_before.unwrap_or(0.0).max(0.0)
         };
         used += gap;
-        if used >= column.height {
-            break;
-        }
         let before = lines.len();
         let placed = if block.is_paragraph {
             place_block(
@@ -1129,7 +1109,7 @@ fn fill_column_with_rules(
                     top: column.y + used,
                     height: column.height - used,
                     whole: whole_paragraphs,
-                    previous: lines.last().map(|line| (line.baseline, line.bounds.height)),
+                    previous: lines.last().map(PreviousLine::from_line),
                 },
                 grid,
             )
@@ -1150,26 +1130,25 @@ fn fill_column_with_rules(
             let Some(metrics) = schist_text_engine::measure(&spec) else {
                 break;
             };
+            let mut flow = LineFlow {
+                ascent: metrics.first_baseline,
+                height: metrics.height,
+                advance: metrics.line_advance,
+                writing: spec.writing_mode,
+                absolute: spec.has_absolute_leading(),
+            };
             let (top, advance) = grid_position(
                 grid,
                 column.y + used,
-                metrics.first_baseline,
-                metrics.line_advance,
-                lines.last().map(|line| (line.baseline, line.bounds.height)),
-                spec.writing_mode,
+                flow,
+                lines.last().map(PreviousLine::from_line),
             );
-            if advance <= 0.0 || top + advance > column.bottom() {
+            if top + flow.height > column.bottom() {
                 break;
             }
+            flow.advance = advance;
             Placed {
-                lines: vec![break_line(
-                    story,
-                    doc,
-                    &column,
-                    block,
-                    top,
-                    (metrics.first_baseline, advance),
-                )],
+                lines: vec![break_line(story, doc, &column, block, top, flow)],
                 consumed_to: block.end,
             }
         };
@@ -1178,11 +1157,10 @@ fn fill_column_with_rules(
         }
         cursor = placed.consumed_to;
         lines.extend(placed.lines);
-        used = lines
-            .iter()
-            .map(|line| line.bounds.bottom())
-            .fold(column.y, f32::max)
-            - column.y;
+        // Tight leading can put a smaller last cell inside an earlier large
+        // cell. Continue from the last baseline, without inventing a gap from
+        // the union of all preceding bounds; each cell was checked for fit.
+        used = lines.last().unwrap().bounds.bottom() - column.y;
         if cursor < block.end {
             // A partial paragraph owns the rest of this column. Never skip
             // ahead to a smaller paragraph just because it could fit the gap.
@@ -1238,25 +1216,56 @@ impl BaselineGrid {
 }
 
 /// Snap forward, accounting for the measured ascent and the previous baseline.
-/// Never move a line above its available space or let a smaller face make the
-/// next baseline run backwards. Vertical columns do not use horizontal guides.
+/// Explicit leading controls baseline/column-center spacing. Relative legacy
+/// spacing reserves line boxes. Vertical columns do not use horizontal guides.
+#[derive(Clone, Copy)]
+struct LineFlow {
+    ascent: Pt,
+    height: Pt,
+    advance: Pt,
+    writing: schist_text_engine::WritingMode,
+    absolute: bool,
+}
+impl LineFlow {
+    fn from_span(span: &schist_text_engine::LineSpan, spec: &TextSpec) -> Self {
+        Self {
+            ascent: span.baseline - span.top,
+            height: span.height,
+            advance: span.advance,
+            writing: spec.writing_mode,
+            absolute: spec.has_absolute_leading(),
+        }
+    }
+}
 fn grid_position(
     grid: Option<BaselineGrid>,
     top: Pt,
-    ascent: Pt,
-    advance: Pt,
-    previous: Option<(Pt, Pt)>,
-    writing: schist_text_engine::WritingMode,
+    flow: LineFlow,
+    previous: Option<PreviousLine>,
 ) -> (Pt, Pt) {
-    let advance = advance.max(0.1);
+    let LineFlow {
+        ascent,
+        height,
+        advance,
+        writing,
+        absolute,
+    } = flow;
+    let advance = advance.max(0.0);
+    let top = previous.filter(|_| absolute).map_or(top, |previous| {
+        let gap = (top - previous.bottom).max(0.0);
+        if writing.is_vertical() {
+            previous.bottom - previous.height / 2.0 + advance - height / 2.0 + gap
+        } else {
+            previous.baseline + advance - ascent + gap
+        }
+    });
     let Some(grid) = grid.filter(|_| writing == schist_text_engine::WritingMode::Horizontal) else {
         return (top, advance);
     };
-    let minimum = previous.map_or(top + ascent, |(baseline, step)| {
-        (top + ascent).max(baseline + step)
+    let minimum = previous.map_or(top + ascent, |previous| {
+        (top + ascent).max(previous.baseline + if absolute { advance } else { previous.advance })
     });
-    // The small tolerance keeps a baseline already on a guide from jumping
-    // an extra interval due to floating-point accumulation.
+    // Tolerance keeps a baseline already on a guide from jumping an interval.
     let steps = (((minimum - grid.first) / grid.interval) - 0.00001)
         .ceil()
         .max(0.0);
@@ -1269,11 +1278,29 @@ fn grid_position(
     ((baseline - ascent).max(top), advance)
 }
 
+#[derive(Clone, Copy)]
+struct PreviousLine {
+    baseline: Pt,
+    advance: Pt,
+    height: Pt,
+    bottom: Pt,
+}
+impl PreviousLine {
+    fn from_line(line: &ComposedLine) -> Self {
+        Self {
+            baseline: line.baseline,
+            advance: line.advance,
+            height: line.bounds.height,
+            bottom: line.bounds.bottom(),
+        }
+    }
+}
+
 struct PlacementSpace {
     top: Pt,
     height: Pt,
     whole: bool,
-    previous: Option<(Pt, Pt)>,
+    previous: Option<PreviousLine>,
 }
 
 /// Shape with the actual per-line measures, then select complete lines.
@@ -1366,15 +1393,19 @@ fn place_block(
     let mut previous = space.previous;
     let mut positions = Vec::new();
     for span in &all {
-        let ascent = span.baseline - span.top;
-        let (placed_top, advance) =
-            grid_position(grid, top, ascent, span.height, previous, spec.writing_mode);
-        if placed_top + advance > space.top + space.height {
+        let flow = LineFlow::from_span(span, &spec);
+        let (placed_top, advance) = grid_position(grid, top, flow, previous);
+        if placed_top + span.height > space.top + space.height {
             break;
         }
         positions.push((placed_top, advance));
-        previous = Some((placed_top + ascent, advance));
-        top = placed_top + advance;
+        previous = Some(PreviousLine {
+            baseline: placed_top + flow.ascent,
+            advance,
+            height: span.height,
+            bottom: placed_top + span.height,
+        });
+        top = placed_top + span.height;
     }
     let mut count = positions.len();
     if count < all.len() {
@@ -1410,7 +1441,8 @@ fn place_block(
                 &body,
                 span,
                 LinePlacement {
-                    bounds: Rect::new(measure.x, top, measure.width, advance),
+                    bounds: Rect::new(measure.x, top, measure.width, span.height),
+                    advance,
                     inline_origin: column.x,
                     is_paragraph_end: i + 1 == all.len(),
                     drop_cap: area.is_some(),
@@ -1554,15 +1586,27 @@ fn plan_initial(
     for i in 0..opening.lines {
         let span = spans.get(i).or_else(|| spans.last());
         let ascent = span.map_or(body_metrics.first_baseline, |s| s.baseline - s.top);
-        let advance = span.map_or(body_metrics.line_advance, |s| s.height);
-        let (placed_top, advance) =
-            grid_position(grid, top, ascent, advance, previous, body.writing_mode);
+        let advance = span.map_or(body_metrics.line_advance, |s| s.advance);
+        let height = span.map_or(body_metrics.height, |s| s.height);
+        let flow = LineFlow {
+            ascent,
+            height,
+            advance,
+            writing: body.writing_mode,
+            absolute: body.has_absolute_leading(),
+        };
+        let (placed_top, advance) = grid_position(grid, top, flow, previous);
         baseline = placed_top + ascent;
         if i == 0 {
             first_ink_top = baseline - cap_height;
         }
-        previous = Some((baseline, advance));
-        top = placed_top + advance;
+        previous = Some(PreviousLine {
+            baseline,
+            advance,
+            height,
+            bottom: placed_top + height,
+        });
+        top = placed_top + height;
     }
     let scale = (baseline - first_ink_top) / (opening.ink[3] - opening.ink[1]);
     let width = (opening.ink[2] - opening.ink[0]) * scale;
@@ -1639,6 +1683,7 @@ fn line_measure(
 
 struct LinePlacement {
     bounds: Rect,
+    advance: Pt,
     inline_origin: Pt,
     is_paragraph_end: bool,
     drop_cap: bool,
@@ -1671,7 +1716,7 @@ fn line_at(
         bounds: placement.bounds,
         inline_origin: placement.inline_origin,
         baseline: placement.bounds.y + span.baseline - span.top,
-        advance: placement.bounds.height,
+        advance: placement.advance,
         paragraph,
         paragraph_style: block.style.clone(),
         characters: character_styles(story, doc, start, end),
@@ -1846,6 +1891,7 @@ pub fn compose_object(doc: &LayoutDocument, placed: &PlacedObject) -> Option<Com
 // Enlarge the font and spacing, retaining authored offsets in absolute points.
 fn scale_initial_spec(mut spec: TextSpec, scale: Pt) -> TextSpec {
     spec.size *= scale;
+    spec.leading = spec.leading.map(|v| v * scale);
     spec.tracking *= scale;
     spec.align = schist_text_engine::Align::Left;
     for run in &mut spec.runs {
@@ -1975,7 +2021,11 @@ mod tests {
             spans.len() >= 4,
             "two-line keeps need four or more lines to split"
         );
-        let height = spans[..2].iter().map(|line| line.height).sum::<f32>() + 0.01;
+        let height = spans[..2]
+            .iter()
+            .map(|line| line.top + line.height)
+            .fold(0.0, f32::max)
+            + 0.01;
         // A frame two lines tall: the body style keeps two lines
         // together, so a one-line frame could hold nothing at all.
         let thread = compose_thread(
@@ -2265,13 +2315,13 @@ mod tests {
     }
 
     #[test]
-    fn absolute_leading_becomes_a_multiple_of_the_font_gap() {
+    fn absolute_leading_is_independent_of_font_metrics() {
         let mut doc = blank_a4();
         doc.styles.add_paragraph(ParagraphStyle {
             name: "Tight".into(),
             based_on: Some("Default".into()),
             point_size: Some(11.0),
-            leading: Some(13.5),
+            leading: Some(crate::styles::Leading::Points(13.5)),
             ..Default::default()
         });
         let story = doc.add_story(Story::from_text("Hxy", "Tight"));
@@ -2289,9 +2339,9 @@ mod tests {
         // the style asked for.
         let spans = schist_text_engine::line_spans(&spec);
         assert!(
-            (spans[0].height - 13.5).abs() < 0.01,
+            (spans[0].advance - 13.5).abs() < 0.01,
             "advance {}",
-            spans[0].height
+            spans[0].advance
         );
     }
 
@@ -2467,7 +2517,7 @@ mod tests {
             based_on: Some("Default".into()),
             align: Some(Align::Justify),
             point_size: Some(11.0),
-            leading: Some(14.0),
+            leading: Some(crate::styles::Leading::Points(14.0)),
             ..Default::default()
         });
         doc.default_paragraph_style = "Just".into();
@@ -2753,7 +2803,7 @@ mod tests {
         doc.styles.add_paragraph(ParagraphStyle {
             based_on: Some("Default".into()),
             point_size: Some(11.0),
-            leading: Some(14.0),
+            leading: Some(crate::styles::Leading::Points(14.0)),
             ..paragraph
         });
         doc.default_paragraph_style = name.clone();
@@ -2772,7 +2822,7 @@ mod tests {
         doc.styles.add_paragraph(ParagraphStyle {
             based_on: Some("Default".into()),
             point_size: Some(11.0),
-            leading: Some(14.0),
+            leading: Some(crate::styles::Leading::Points(14.0)),
             keep_lines: Some(1),
             ..style
         });
@@ -2870,7 +2920,7 @@ mod tests {
             name: "Gapped".into(),
             based_on: Some("Default".into()),
             point_size: Some(11.0),
-            leading: Some(14.0),
+            leading: Some(crate::styles::Leading::Points(14.0)),
             space_after: Some(12.0),
             keep_lines: Some(1),
             ..Default::default()
@@ -2908,7 +2958,7 @@ mod tests {
             name: "Keep".into(),
             based_on: Some("Default".into()),
             point_size: Some(11.0),
-            leading: Some(14.0),
+            leading: Some(crate::styles::Leading::Points(14.0)),
             keep_lines: Some(2),
             ..Default::default()
         });
@@ -2956,7 +3006,7 @@ mod tests {
             name: "Keep".into(),
             based_on: Some("Default".into()),
             point_size: Some(11.0),
-            leading: Some(14.0),
+            leading: Some(crate::styles::Leading::Points(14.0)),
             keep_lines: Some(2),
             ..Default::default()
         });
@@ -2993,7 +3043,7 @@ mod tests {
             name: "Heading".into(),
             based_on: Some("Default".into()),
             point_size: Some(18.0),
-            leading: Some(22.0),
+            leading: Some(crate::styles::Leading::Points(22.0)),
             keep_with_next: Some(true),
             space_after: Some(0.0),
             keep_lines: Some(1),
@@ -3003,7 +3053,7 @@ mod tests {
             name: "Plain".into(),
             based_on: Some("Default".into()),
             point_size: Some(11.0),
-            leading: Some(14.0),
+            leading: Some(crate::styles::Leading::Points(14.0)),
             keep_lines: Some(1),
             ..Default::default()
         });
@@ -3161,7 +3211,7 @@ mod tests {
         );
         // A 6pt guide interval must not compress 13.5pt text into 6pt rows.
         for line in thread.lines() {
-            assert!((line.bounds.height - 13.5).abs() < 0.01);
+            assert!((line.advance - 13.5).abs() < 0.01);
             let phase = (line.baseline - doc.pages[0].margins.top) / 6.0;
             assert!((phase - phase.round()).abs() < 0.001);
         }
@@ -3180,9 +3230,9 @@ mod tests {
         );
         for line in thread.lines() {
             assert!(
-                (line.bounds.height - 13.5).abs() < 0.01,
+                (line.advance - 13.5).abs() < 0.01,
                 "leading {}",
-                line.bounds.height
+                line.advance
             );
         }
     }

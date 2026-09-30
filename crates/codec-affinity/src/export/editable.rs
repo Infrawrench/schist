@@ -259,6 +259,7 @@ impl Exporter {
             || !spec.features.is_empty()
             || spec.tracking != 0.0
             || spec.line_height != 1.0
+            || spec.leading.is_some()
             || !spec.size.is_finite()
             || !(0.5..=10_000.0).contains(&spec.size)
             || spec.text.contains('\0')

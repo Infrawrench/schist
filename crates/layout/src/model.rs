@@ -630,7 +630,8 @@ impl LayoutDocument {
 
     /// Largest supported cross-axis displacement referenced by this story.
     /// Cached per story by page_artwork. Resolving run styles/font metrics does
-    /// not shape text, and includes script preferences plus explicit offsets.
+    /// not shape text. Includes scripts, explicit offsets and nominal cells
+    /// extending before the frame under tight absolute leading.
     fn story_baseline_extent(&self, id: StoryId) -> f32 {
         let Some(story) = self.story(id) else {
             return 0.0;
@@ -652,29 +653,42 @@ impl LayoutDocument {
                     &self.default_character_style,
                     0.0,
                 );
+                let base = schist_text_engine::StyleRun::default();
                 Some(
                     spec.runs
                         .iter()
+                        .chain(std::iter::once(&base))
                         .map(|run| {
                             let offset = run.baseline_shift.unwrap_or(0.0).abs();
+                            let natural = |size| {
+                                crate::compose::natural_line_advance(
+                                    &crate::styles::ResolvedCharacter {
+                                        bold: run.bold.or(Some(spec.bold)),
+                                        italic: run.italic.or(Some(spec.italic)),
+                                        ..Default::default()
+                                    },
+                                    size,
+                                    run.family.as_deref().unwrap_or(&spec.family),
+                                )
+                            };
                             // Preferences allow glyphs larger than their nominal em. Reserve
                             // their full natural line height as conservative extra ink room.
                             let growth = run
                                 .metric_size
                                 .filter(|size| run.size.unwrap_or(spec.size) > *size)
-                                .map(|_| {
-                                    crate::compose::natural_line_advance(
-                                        &crate::styles::ResolvedCharacter {
-                                            bold: run.bold.or(Some(spec.bold)),
-                                            italic: run.italic.or(Some(spec.italic)),
-                                            ..Default::default()
-                                        },
-                                        run.size.unwrap_or(spec.size),
-                                        run.family.as_deref().unwrap_or(&spec.family),
-                                    )
+                                .map(|_| natural(run.size.unwrap_or(spec.size)))
+                                .unwrap_or(0.0);
+                            let tight = run
+                                .leading
+                                .or(spec.leading)
+                                .filter(|v| v.is_finite() && *v >= 0.0)
+                                .map(|leading| {
+                                    (natural(run.metric_size.or(run.size).unwrap_or(spec.size))
+                                        - leading)
+                                        .max(0.0)
                                 })
                                 .unwrap_or(0.0);
-                            offset + growth
+                            offset + growth + tight
                         })
                         .fold(0.0, f32::max),
                 )

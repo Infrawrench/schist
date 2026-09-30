@@ -30,7 +30,7 @@ fn script_position_size_and_baseline_offset_inherit_independently() {
                     name: "Base".into(),
                     position: Some(parent),
                     point_size: Some(20.0),
-                    leading: Some(30.0),
+                    leading: Some(schist_layout::styles::Leading::Points(30.0)),
                     baseline_shift: Some(BaselineShift::Offset(shift)),
                     ..Default::default()
                 });
@@ -48,7 +48,7 @@ fn script_position_size_and_baseline_offset_inherit_independently() {
                     name: "Character child".into(),
                     based_on: Some("Character base".into()),
                     point_size: Some(40.0),
-                    leading: Some(50.0),
+                    leading: Some(schist_layout::styles::Leading::Points(50.0)),
                     ..Default::default()
                 });
                 let mut story = Story::from_text("aé中z", "Child");
@@ -93,7 +93,7 @@ fn positions_preserve_logical_spacing_and_scale_every_metric_with_canvas_zoom() 
         doc.styles.add_paragraph(ParagraphStyle {
             name: "Body".into(),
             point_size: Some(24.0),
-            leading: Some(32.0),
+            leading: Some(schist_layout::styles::Leading::Points(32.0)),
             writing_mode: Some(mode),
             ..Default::default()
         });

@@ -639,6 +639,7 @@ pub fn frame_coverage(
 pub fn scale_spec(spec: schist_text_engine::TextSpec, scale: f32) -> schist_text_engine::TextSpec {
     let mut spec = spec;
     spec.size *= scale;
+    spec.leading = spec.leading.map(|v| v * scale);
     spec.tracking *= scale;
     spec.word_spacing *= scale;
     for run in &mut spec.runs {

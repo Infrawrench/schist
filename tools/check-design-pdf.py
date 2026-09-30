@@ -377,3 +377,23 @@ if len(sys.argv) > 10:
                 expected.paste(on.crop(first),first[:2])
                 assert expected.tobytes()==mixed.tobytes(), (prefix,mode,"feature settings leaked across paragraph/range boundaries")
     print("Design PDF: ranged OpenType ligatures and kerning match whole-style controls in horizontal and both vertical modes, in extracted samples and rendered pages.")
+
+if len(sys.argv) > 11:
+    with tempfile.TemporaryDirectory(prefix="schist-leading-check-") as temporary:
+        directory = Path(temporary)
+        result = subprocess.run(["pdftoppm", "-png", "-r", "144", sys.argv[11], str(directory / "page")], check=True, capture_output=True, text=True)
+        assert not result.stderr.strip(), result.stderr
+        result = subprocess.run(["pdfimages", "-png", sys.argv[11], str(directory / "ink")], check=True, capture_output=True, text=True)
+        assert not result.stderr.strip(), result.stderr
+        for prefix in ("page", "ink"):
+            files = sorted(directory.glob(prefix + "-*.png"))
+            assert len(files) == 12, (prefix, len(files))
+            for index in range(0, 12, 2):
+                with Image.open(files[index]) as opened:
+                    actual = opened.convert("RGB")
+                with Image.open(files[index + 1]) as opened:
+                    reference = opened.convert("RGB")
+                assert actual.size == reference.size
+                assert actual.tobytes() == reference.tobytes(), (prefix, index, "leading differs from independently placed baselines")
+                assert min(channel[0] for channel in actual.getextrema()) < 100, (prefix, index, "empty proof")
+    print("Design PDF: fixed/automatic mixed-size leading and blank-line spacing match independently placed horizontal/vertical baselines.")

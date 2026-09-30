@@ -15,7 +15,7 @@ fn every_line_wraps_to_its_actual_indented_measure() {
             doc.styles.add_paragraph(ParagraphStyle {
                 name: "Indented".into(),
                 point_size: Some(11.0),
-                leading: Some(14.0),
+                leading: Some(schist_layout::styles::Leading::Points(14.0)),
                 left_indent: Some(left),
                 right_indent: Some(right),
                 first_line_indent: Some(first),
@@ -58,7 +58,7 @@ fn a_first_line_indent_occurs_once_per_paragraph_across_threaded_frames() {
         doc.styles.add_paragraph(ParagraphStyle {
             name: "Indented".into(),
             point_size: Some(11.0),
-            leading: Some(14.0),
+            leading: Some(schist_layout::styles::Leading::Points(14.0)),
             left_indent: Some(20.0),
             first_line_indent: Some(first),
             keep_lines: Some(1),

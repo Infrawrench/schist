@@ -767,3 +767,24 @@ The shared engine preserves arbitrary valid four-byte feature overrides, but
 Schist's named style controls currently expose on/off values only. Native
 PSD/Affinity writing uses its existing fallback for per-run overrides, without
 claiming editable native parity for them.
+
+
+### Leading and automatic percentages
+
+Native `Leading` is a Properties child with `type="unit"` for points or
+`type="enumeration"` for `Auto`. Auto is an explicit inheritance reset, not a
+missing value. `AutoLeading` is a paragraph attribute giving a percentage of
+nominal type size (0–500); unresolved Auto uses 120%. Both survive named style
+inheritance, local formatting lowered into reusable styles, and repeated saves.
+Invalid values are diagnosed and omitted. Legacy Schist numeric leading JSON
+remains readable; only Auto adds a string representation.
+
+The public XML specification and the Penn State templates corroborate these
+encodings. The public [leading guide](https://helpx.adobe.com/gr_en/indesign/desktop/format-and-style-text/character-formatting/adjust-line-spacing-with-leading.html)
+explains baseline spacing and the largest requested value on each line; the
+[ParagraphStyle DOM documentation](https://developer.adobe.com/indesign/uxp/dom/api/p/paragraph-style/)
+defines AutoLeading as a percentage of type size. Font cell height is independent
+of that spacing. Fixed leading no longer scales again for larger character runs,
+and first lines/blank paragraphs have explicit geometry. The independent output
+proof covers mixed sizes in horizontal and both vertical progressions; external
+application rendering remains unverified.

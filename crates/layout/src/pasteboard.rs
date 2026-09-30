@@ -603,6 +603,7 @@ fn objects_for(
                     let text = spec.text.clone();
                     has_text |= !text.is_empty();
                     spec.size *= view.scale;
+                    spec.leading = spec.leading.map(|v| v * view.scale);
                     spec.tracking *= view.scale;
                     spec.word_spacing = line.word_space.unwrap_or(0.0) * view.scale;
                     for run in &mut spec.runs {
@@ -642,6 +643,7 @@ fn objects_for(
                         0.0,
                     );
                     spec.size *= view.scale;
+                    spec.leading = spec.leading.map(|v| v * view.scale);
                     let content = match &object.object {
                         LayoutObject::TextFrame { insets, .. } => object.bounds.inset(*insets),
                         _ => object.bounds,

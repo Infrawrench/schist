@@ -369,6 +369,8 @@ fn independent_vertical_type_imports_and_regenerates_native_orientation() {
 #[test]
 fn unsupported_run_settings_keep_private_editability_without_plain_native_type() {
     for (key, value, unsupported) in [
+        ("global_leading", serde_json::json!(0.0), true),
+        ("global_leading", serde_json::json!(24.0), true),
         ("baseline_shift", serde_json::json!(-12.5), true),
         ("baseline_shift", serde_json::json!(0.0), false),
         ("baseline_shift", serde_json::json!(8.25), true),
@@ -386,7 +388,11 @@ fn unsupported_run_settings_keep_private_editability_without_plain_native_type()
     ] {
         let mut doc = document();
         let mut stored = spec(&doc.tree.layers[0]);
-        stored["spec"]["runs"][0][key] = value;
+        if key == "global_leading" {
+            stored["spec"]["leading"] = value;
+        } else {
+            stored["spec"]["runs"][0][key] = value;
+        }
         doc.tree.layers[0].extras[0].data = serde_json::to_vec(&stored).unwrap();
         for _ in 0..3 {
             doc = schist_codec_psd::read_psd(&schist_codec_psd::write_psd(&doc).unwrap()).unwrap();

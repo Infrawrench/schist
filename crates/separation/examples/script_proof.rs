@@ -56,7 +56,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                 .into(),
             ),
             point_size: Some(24.0),
-            leading: Some(40.0),
+            leading: Some(schist_layout::styles::Leading::Points(40.0)),
             writing_mode: Some(mode),
             position: Some(position),
             baseline_shift: Some(BaselineShift::Offset(3.0)),

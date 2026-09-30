@@ -101,6 +101,40 @@ pub fn commit(state: &mut DesignState, id: &str, text: &str) -> bool {
     let Some(target) = state.controls.field.take() else {
         return false;
     };
+    if matches!(id, "design-prop-leading" | "design-prop-char-leading") {
+        use schist_layout::styles::Leading;
+        let text = text.trim();
+        let leading = if text.is_empty() {
+            None
+        } else if text.eq_ignore_ascii_case("Auto")
+            || text.eq_ignore_ascii_case(schist_i18n::t("design.leading_auto"))
+        {
+            Some(Leading::Auto)
+        } else {
+            match text.parse::<f32>() {
+                Ok(v) if v.is_finite() && v >= 0.0 => Some(Leading::Points(v)),
+                _ => return false,
+            }
+        };
+        return properties::edit_styles(&mut state.document, &mut state.history, |styles| {
+            let field = match &target {
+                Target::Paragraph(name) => styles
+                    .paragraphs
+                    .iter_mut()
+                    .find(|s| s.name == *name)
+                    .map(|s| &mut s.leading),
+                Target::Character(name) => styles
+                    .characters
+                    .iter_mut()
+                    .find(|s| s.name == *name)
+                    .map(|s| &mut s.leading),
+                _ => None,
+            };
+            if let Some(field) = field {
+                *field = leading;
+            }
+        });
+    }
     if matches!(
         id,
         "design-prop-paragraph-features" | "design-prop-char-features"
@@ -323,8 +357,11 @@ pub fn commit(state: &mut DesignState, id: &str, text: &str) -> bool {
                 .fill
                 .filter(|ink| ink.tint.is_some())
                 .map(|ink| ink.base_color().into_owned());
-            if matches!(id, "design-prop-size" | "design-prop-leading")
-                && value.is_some_and(|value| value <= 0.0)
+            if id == "design-prop-size" && value.is_some_and(|value| value <= 0.0) {
+                return false;
+            }
+            if id == "design-prop-auto-leading"
+                && value.is_some_and(|v| !(0.0..=500.0).contains(&v))
             {
                 return false;
             }
@@ -344,7 +381,7 @@ pub fn commit(state: &mut DesignState, id: &str, text: &str) -> bool {
                         }
                     }
                     "design-prop-size" => style.point_size = value,
-                    "design-prop-leading" => style.leading = value,
+                    "design-prop-auto-leading" => style.auto_leading = value,
                     "design-prop-tracking" => style.tracking = value,
                     "design-prop-baseline" => {
                         style.baseline_shift =
@@ -388,7 +425,6 @@ pub fn commit(state: &mut DesignState, id: &str, text: &str) -> bool {
                         }
                     }
                     "design-prop-char-size" => style.point_size = value,
-                    "design-prop-char-leading" => style.leading = value,
                     "design-prop-char-tracking" => style.tracking = value,
                     "design-prop-char-baseline" => {
                         style.baseline_shift =
@@ -743,6 +779,73 @@ mod tests {
             state.document.styles.paragraph(&name).unwrap().point_size,
             None
         );
+    }
+
+    #[test]
+    fn leading_fields_distinguish_auto_zero_and_inheritance_with_one_step_undo() {
+        use schist_layout::styles::Leading;
+        for paragraph in [false, true] {
+            let name = if paragraph { "Body" } else { "Default" };
+            let target = if paragraph {
+                Target::Paragraph(name.into())
+            } else {
+                Target::Character(name.into())
+            };
+            let id = if paragraph {
+                "design-prop-leading"
+            } else {
+                "design-prop-char-leading"
+            };
+            for (text, expected) in [
+                ("Auto", Some(Leading::Auto)),
+                ("0", Some(Leading::Points(0.0))),
+                ("19.5", Some(Leading::Points(19.5))),
+            ] {
+                let mut state = DesignState::new();
+                let before = state.document.clone();
+                state.controls.field = Some(target.clone());
+                assert!(commit(&mut state, id, text));
+                assert_eq!(state.history.undo_depth(), 1);
+                let actual = if paragraph {
+                    state.document.styles.paragraph(name).unwrap().leading
+                } else {
+                    state.document.styles.character(name).unwrap().leading
+                };
+                assert_eq!(actual, expected);
+                let after = state.document.clone();
+                for invalid in ["-1", "NaN", "inf", "19 pt", "automatic"] {
+                    state.controls.field = Some(target.clone());
+                    assert!(!commit(&mut state, id, invalid));
+                    assert_eq!(state.document, after);
+                    assert_eq!(state.history.undo_depth(), 1);
+                }
+                assert!(state.history.undo(&mut state.document));
+                assert_eq!(state.document, before);
+                assert!(state.history.redo(&mut state.document));
+                assert_eq!(state.document, after);
+                state.controls.field = Some(target.clone());
+                assert!(commit(&mut state, id, ""));
+                let cleared = if paragraph {
+                    state.document.styles.paragraph(name).unwrap().leading
+                } else {
+                    state.document.styles.character(name).unwrap().leading
+                };
+                assert_eq!(cleared, None);
+            }
+        }
+        for percent in ["0", "150", "500"] {
+            let mut state = DesignState::new();
+            let before = state.document.clone();
+            state.controls.field = Some(Target::Paragraph("Body".into()));
+            assert!(commit(&mut state, "design-prop-auto-leading", percent));
+            assert_eq!(state.history.undo_depth(), 1);
+            for invalid in ["-1", "501", "NaN"] {
+                state.controls.field = Some(Target::Paragraph("Body".into()));
+                assert!(!commit(&mut state, "design-prop-auto-leading", invalid));
+            }
+            assert!(state.history.undo(&mut state.document));
+            assert_eq!(state.document, before);
+        }
     }
 
     #[test]

@@ -633,7 +633,7 @@ mod tests {
                     name: "Vertical".into(),
                     writing_mode: Some(mode),
                     point_size: Some(12.0),
-                    leading: Some(16.0),
+                    leading: Some(schist_layout::styles::Leading::Points(16.0)),
                     keep_lines: Some(1),
                     ..Default::default()
                 });

@@ -552,3 +552,19 @@ export notice because another application cannot reproduce their inheritance
 from the corresponding native attribute. Native mode-dependent CJK kana and
 proportional-metric activation remain unsupported and are reported. Explicit
 false values disable both horizontal and vertical variants.
+
+
+### Automatic and fixed leading
+
+Character and Paragraph accept a point value, `Auto`, or a blank field for
+inheritance. Zero is explicit overlapping leading. Paragraph also exposes the
+inherited automatic percentage, from 0 to 500; unresolved Auto defaults to 120%.
+Each field edit targets the captured style and undoes once.
+
+Fixed leading sets baseline spacing independently of nominal font size. Auto
+uses each run's nominal size, including superscript/subscript, and the largest
+request on the incoming line controls the spacing. Empty paragraphs use the
+paragraph request. The first line fits by its font metrics, without reserving a
+full leading interval before it. Vertical columns use center spacing. Grids may
+increase spacing. Nominal cells and caret segments remain measurable even when
+leading is zero; intentionally overlapping cells are retained.

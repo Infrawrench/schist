@@ -95,7 +95,7 @@ fn shifted_ink_crosses_the_gutter_even_when_its_frame_does_not() {
                 name: "Crossing".into(),
                 point_size: Some(14.0),
                 writing_mode: Some(WritingMode::VerticalRightToLeft),
-                leading: Some(20.0),
+                leading: Some(schist_layout::styles::Leading::Points(20.0)),
                 position: scripted.then_some(if source == 0 {
                     schist_layout::styles::TextPosition::Superscript
                 } else {

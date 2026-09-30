@@ -1078,4 +1078,5 @@ check-design-output: design-pdf-proof
 	$(CARGO) run -p schist-separation --example baseline_proof -- /tmp/schist-baseline-proof.pdf
 	$(CARGO) run -p schist-separation --example script_proof -- /tmp/schist-script-proof.pdf
 	$(CARGO) run -p schist-separation --example opentype_proof -- /tmp/schist-opentype-proof.pdf
-	python3 tools/check-design-pdf.py $(or $(DESIGN_PDF_PROOF),/tmp/schist-pdf-proof.pdf) /tmp /tmp/schist-text-proof.pdf /tmp/schist-offsets-proof.pdf /tmp/schist-crossover-proof.pdf /tmp/schist-tint-proof.pdf /tmp/schist-decoration-proof.pdf /tmp/schist-baseline-proof.pdf /tmp/schist-script-proof.pdf /tmp/schist-opentype-proof.pdf
+	$(CARGO) run -p schist-separation --example leading_proof -- /tmp/schist-leading-proof.pdf
+	python3 tools/check-design-pdf.py $(or $(DESIGN_PDF_PROOF),/tmp/schist-pdf-proof.pdf) /tmp /tmp/schist-text-proof.pdf /tmp/schist-offsets-proof.pdf /tmp/schist-crossover-proof.pdf /tmp/schist-tint-proof.pdf /tmp/schist-decoration-proof.pdf /tmp/schist-baseline-proof.pdf /tmp/schist-script-proof.pdf /tmp/schist-opentype-proof.pdf /tmp/schist-leading-proof.pdf

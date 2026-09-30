@@ -18,7 +18,7 @@ fn mixed_writing_modes_reserve_separate_regions_and_never_lose_source_text() {
                     name: name.into(),
                     writing_mode: Some(mode),
                     point_size: Some(11.0),
-                    leading: Some(15.0),
+                    leading: Some(schist_layout::styles::Leading::Points(15.0)),
                     keep_lines: Some(1),
                     ..Default::default()
                 });
@@ -48,12 +48,13 @@ fn mixed_writing_modes_reserve_separate_regions_and_never_lose_source_text() {
             let mut covered = vec![false; story.text_len()];
             for frame in &composed.frames {
                 for line in &frame.lines {
-                    let advance = if line.paragraph_style == "H" {
+                    assert!((line.advance - 15.0).abs() < 0.001);
+                    let cross = if line.paragraph_style == "H" {
                         line.bounds.height
                     } else {
                         line.bounds.width
                     };
-                    assert!((advance - 15.0).abs() < 0.001, "wrong axes: {line:?}");
+                    assert!(cross > 0.0 && cross < 15.0, "wrong axes: {line:?}");
                     assert!(
                         line.bounds.x >= size.x - 0.001
                             && line.bounds.right() <= size.right() + 0.001
@@ -105,8 +106,10 @@ fn keep_with_next_crosses_writing_mode_changes_and_exhausted_regions_thread() {
                 doc.styles.add_paragraph(ParagraphStyle {
                     name: name.into(),
                     writing_mode: Some(mode),
-                    point_size: Some(11.0),
-                    leading: Some(leading),
+                    // A large cell forces the keep chain into the next frame.
+                    // Leading alone never reserves space before its first line.
+                    point_size: Some(if name == "Body" { 130.0 } else { 11.0 }),
+                    leading: Some(schist_layout::styles::Leading::Points(leading)),
                     keep_with_next: Some(keep),
                     keep_lines: Some(1),
                     ..Default::default()
@@ -152,7 +155,7 @@ fn keep_with_next_crosses_writing_mode_changes_and_exhausted_regions_thread() {
             name: name.into(),
             writing_mode: Some(mode),
             point_size: Some(11.0),
-            leading: Some(15.0),
+            leading: Some(schist_layout::styles::Leading::Points(15.0)),
             keep_lines: Some(1),
             ..Default::default()
         });
@@ -160,7 +163,18 @@ fn keep_with_next_crosses_writing_mode_changes_and_exhausted_regions_thread() {
     let mut story = Story::from_text("a\nb", "H");
     story.push_paragraph("c", "V");
     let id = doc.add_story(story);
-    let frames: Vec<_> = [30.0, 200.0]
+    let story = doc.story(id).unwrap();
+    let spec = spec_for(
+        story,
+        0,
+        3,
+        &doc.styles,
+        "H",
+        &doc.default_character_style,
+        170.0,
+    );
+    let occupied = schist_text_engine::measure(&spec).unwrap().height;
+    let frames: Vec<_> = [(30.0 + occupied) - 30.0, 200.0]
         .into_iter()
         .map(|height| {
             (
@@ -193,7 +207,7 @@ fn vertical_lines_wrap_to_frame_height_and_progress_across_frame_width() {
             doc.styles.add_paragraph(ParagraphStyle {
                 name: "Vertical".into(),
                 point_size: Some(11.0),
-                leading: Some(15.0),
+                leading: Some(schist_layout::styles::Leading::Points(15.0)),
                 writing_mode: Some(mode),
                 keep_lines: Some(1),
                 ..Default::default()
@@ -234,7 +248,7 @@ fn vertical_lines_wrap_to_frame_height_and_progress_across_frame_width() {
             );
             for frame in &thread.frames {
                 for line in &frame.lines {
-                    assert!((line.bounds.width - 15.0).abs() < 0.001);
+                    assert!((line.advance - 15.0).abs() < 0.001);
                     assert!(line.bounds.x >= size.x && line.bounds.right() <= size.right() + 0.001);
                     assert!((line.bounds.y - size.y).abs() < 0.001);
                     assert!(line.natural_width <= size.height + 0.001);
@@ -259,7 +273,7 @@ fn vertical_bands_balance_and_thread_blank_paragraphs_inside_asymmetric_insets()
             doc.styles.add_paragraph(ParagraphStyle {
                 name: "Vertical".into(),
                 point_size: Some(11.0),
-                leading: Some(15.0),
+                leading: Some(schist_layout::styles::Leading::Points(15.0)),
                 keep_lines: Some(1),
                 space_before: Some(2.0),
                 space_after: Some(3.0),
@@ -321,7 +335,7 @@ fn vertical_bands_balance_and_thread_blank_paragraphs_inside_asymmetric_insets()
                     a.bounds.y >= content.y - 0.001
                         && a.bounds.bottom() <= content.bottom() + 0.001
                 );
-                assert!((a.bounds.width - 15.0).abs() < 0.001);
+                assert!((a.advance - 15.0).abs() < 0.001);
             }
             let paragraphs = doc.story(id).unwrap().points.iter().filter(|p| matches!(p, schist_layout::story::Point::Paragraph { text, .. } if text.is_empty())).count();
             assert_eq!(rl.lines().filter(|l| l.forced_break).count(), paragraphs);

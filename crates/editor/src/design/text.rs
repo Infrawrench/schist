@@ -233,7 +233,7 @@ mod tests {
                 state.document.styles.add_paragraph(ParagraphStyle {
                     name: "Shifted".into(),
                     point_size: Some(12.0),
-                    leading: Some(18.0),
+                    leading: Some(schist_layout::styles::Leading::Points(18.0)),
                     writing_mode: Some(mode),
                     baseline_shift: Some(BaselineShift::Offset(shift)),
                     ..Default::default()
@@ -304,7 +304,7 @@ mod tests {
                 state.document.styles.add_paragraph(ParagraphStyle {
                     name: "Vertical".into(),
                     point_size: Some(11.0),
-                    leading: Some(17.0),
+                    leading: Some(schist_layout::styles::Leading::Points(17.0)),
                     writing_mode: Some(mode),
                     align: Some(align),
                     left_indent: Some(5.0),
@@ -401,7 +401,7 @@ mod tests {
                 .add_paragraph(schist_layout::ParagraphStyle {
                     name: "Initial".into(),
                     point_size: Some(11.0),
-                    leading: Some(14.0),
+                    leading: Some(schist_layout::styles::Leading::Points(14.0)),
                     drop_caps_lines: Some(3),
                     drop_caps_characters: Some(
                         schist_text_engine::grapheme_boundaries(prefix).count() - 1,

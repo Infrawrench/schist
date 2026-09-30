@@ -22,7 +22,7 @@ fn baselines_follow_each_frames_page_grid_with_mixed_fonts_and_empty_paragraphs(
             doc.styles.add_paragraph(ParagraphStyle {
                 name: "Plain".into(),
                 point_size: Some(11.0),
-                leading: Some(15.0),
+                leading: Some(schist_layout::styles::Leading::Points(15.0)),
                 keep_lines: Some(1),
                 space_after: Some(3.0),
                 ..Default::default()
@@ -30,7 +30,7 @@ fn baselines_follow_each_frames_page_grid_with_mixed_fonts_and_empty_paragraphs(
             doc.styles.add_character(CharacterStyle {
                 name: "Large".into(),
                 point_size: Some(22.0),
-                leading: Some(29.0),
+                leading: Some(schist_layout::styles::Leading::Points(29.0)),
                 ..Default::default()
             });
             for page in 0..2 {

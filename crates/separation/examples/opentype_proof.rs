@@ -25,7 +25,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             name: name.clone(),
             family: Some("IBM Plex Sans".into()),
             point_size: Some(24.0),
-            leading: Some(44.0),
+            leading: Some(schist_layout::styles::Leading::Points(44.0)),
             writing_mode: Some(
                 [
                     WritingMode::Horizontal,

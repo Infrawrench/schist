@@ -18,7 +18,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         name: "Caps".into(),
         family: Some(schist_text_engine::default_family()),
         point_size: Some(11.0),
-        leading: Some(14.0),
+        leading: Some(schist_layout::styles::Leading::Points(14.0)),
         drop_caps_lines: Some(3),
         drop_caps_characters: Some(1),
         keep_lines: Some(1),
@@ -82,7 +82,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         name: "Vertical".into(),
         family: Some("Noto Sans CJK JP".into()),
         point_size: Some(11.0),
-        leading: Some(15.0),
+        leading: Some(schist_layout::styles::Leading::Points(15.0)),
         keep_lines: Some(1),
         ..Default::default()
     });

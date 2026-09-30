@@ -34,7 +34,7 @@ fn every_empty_paragraph_including_the_terminal_one_reserves_a_line() {
             doc.styles.add_paragraph(ParagraphStyle {
                 name: "Plain".into(),
                 point_size: Some(11.0),
-                leading: Some(14.0),
+                leading: Some(schist_layout::styles::Leading::Points(14.0)),
                 keep_lines: Some(1),
                 ..Default::default()
             });
@@ -61,9 +61,9 @@ fn every_empty_paragraph_including_the_terminal_one_reserves_a_line() {
                 let thread = compose_thread(&doc, id, &frames);
                 assert!(!thread.has_overflow());
                 assert_eq!(thread.lines().map(|l| l.start).collect::<Vec<_>>(), offsets);
-                assert!(thread.lines().all(|l| l.start <= l.end
-                    && l.end <= end
-                    && (l.bounds.height - 14.0).abs() < 0.001));
+                assert!(thread
+                    .lines()
+                    .all(|l| l.start <= l.end && l.end <= end && (l.advance - 14.0).abs() < 0.001));
                 assert!(thread.frames.iter().all(|f| f.consumed_to <= end));
                 if height < 15.0 {
                     assert!(thread.frames.iter().all(|f| f.lines.len() == 1));

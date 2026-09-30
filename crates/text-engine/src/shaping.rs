@@ -327,23 +327,44 @@ pub(super) fn layout(spec: &TextSpec, base: &LoadedFace, widths: &[f32]) -> Layo
         line_advance: 0.0,
         layout_width: max_width,
     };
-    let total_height: f32 = lines
-        .iter()
-        .map(|(start, end, _)| {
-            run_line_advance(spec, &faces, *start, *end, faces.line_metrics(0).1)
-        })
-        .sum();
-    let mut top = 0.0;
-    for (i, (start, end, mut line)) in lines.into_iter().enumerate() {
-        let (ascent, step) = spec.text[start..end]
+    let absolute = spec.has_absolute_leading();
+    let mut geometry = Vec::with_capacity(lines.len());
+    let mut metrics = Vec::with_capacity(lines.len());
+    for (start, end, line) in &lines {
+        let (ascent, step) = spec.text[*start..*end]
             .char_indices()
-            .map(|(k, _)| faces.line_metrics_at(spec, start + k))
+            .map(|(k, _)| faces.line_metrics_at(spec, *start + k))
             .reduce(|(a, h), (b, j)| (a.max(b), h.max(j)))
             .unwrap_or_else(|| faces.line_metrics(0));
-        let height = run_line_advance(spec, &faces, start, end, step);
+        let advance = run_line_advance(spec, &faces, *start, *end, step);
+        let height = if absolute { step } else { advance };
+        let top = next_line_top(
+            geometry.last(),
+            ascent,
+            height,
+            advance,
+            spec.writing_mode,
+            absolute,
+        );
+        geometry.push(LineSpan {
+            start: *start,
+            end: *end,
+            x: 0.0,
+            width: line.width,
+            top,
+            baseline: top + ascent,
+            height,
+            advance,
+        });
+        metrics.push((ascent, step));
+    }
+    let total_height = block_extent(&geometry);
+    for (i, ((start, end, mut line), span)) in lines.into_iter().zip(geometry).enumerate() {
+        let (ascent, step) = metrics[i];
+        let (top, height) = (span.top, span.height);
         if i == 0 {
             out.first_baseline = ascent;
-            out.line_advance = height;
+            out.line_advance = span.advance;
         }
         let x = match spec.align {
             Align::Left => 0.0,
@@ -385,8 +406,8 @@ pub(super) fn layout(spec: &TextSpec, base: &LoadedFace, widths: &[f32]) -> Layo
             top,
             baseline: top + ascent,
             height,
+            advance: span.advance,
         });
-        top += height;
     }
     out
 }

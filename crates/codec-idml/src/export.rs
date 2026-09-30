@@ -923,6 +923,7 @@ fn styles_xml(document: &LayoutDocument, warnings: &mut Vec<String>) -> String {
     out.push_str(r#"<RootParagraphStyleGroup Self="SchistParagraphStyles">"#);
     for style in &document.styles.paragraphs {
         crate::opentype_codec::warn(&style.features, warnings);
+        crate::style_codec::warn_leading(style.leading, style.auto_leading, warnings);
         let mut native = style.clone();
         let resolved = document.styles.resolve_paragraph(&style.name);
         if resolved.drop_caps_lines.is_some_and(|lines| lines > 1)
@@ -943,6 +944,7 @@ fn styles_xml(document: &LayoutDocument, warnings: &mut Vec<String>) -> String {
     );
     for style in &document.styles.characters {
         crate::opentype_codec::warn(&style.features, warnings);
+        crate::style_codec::warn_leading(style.leading, None, warnings);
         let mut native = style.clone();
         if native.bold.is_some() || native.italic.is_some() {
             let resolved = document.styles.resolve_character(&style.name);

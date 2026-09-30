@@ -21,7 +21,7 @@ fn opening_graphemes_are_enlarged_once_and_body_lines_clear_their_actual_ink() {
                     doc.styles.add_paragraph(ParagraphStyle {
                         name: "Initial".into(),
                         point_size: Some(11.0),
-                        leading: Some(14.0),
+                        leading: Some(schist_layout::styles::Leading::Points(14.0)),
                         drop_caps_lines: Some(height),
                         drop_caps_characters: Some(characters),
                         direction: Some(direction),
@@ -127,7 +127,7 @@ fn a_drop_cap_and_its_covered_lines_move_together_or_remain_overset() {
         doc.styles.add_paragraph(ParagraphStyle {
             name: "Initial".into(),
             point_size: Some(11.0),
-            leading: Some(14.0),
+            leading: Some(schist_layout::styles::Leading::Points(14.0)),
             drop_caps_lines: Some(height),
             keep_lines: Some(1),
             ..Default::default()

@@ -316,20 +316,20 @@ The browser build reused the native build's cached backer catalog because
 the initial sandbox could not resolve the catalog host. A file-URL portability defect
 and Design Save As filename routing were fixed before that browser check.
 
-The unfiltered `CARGO_INCREMENTAL=0 make check-design` now passes all 387 editor
+The unfiltered `CARGO_INCREMENTAL=0 make check-design` now passes all 388 editor
 tests, including the clipboard HTTP test that the earlier sandbox blocked, plus
 its layout, settings and i18n checks.
 
-Distinct passing Rust tests at the OpenType checkpoint: editor 387, layout 307,
-text engine 54, IDML 181, separation 155, core 120, settings 24 and i18n 28
-(including its doctest): **1,256**. The expanded editable-interchange checks add
-Affinity 39, PSD 150 and Type tools 38, for **1,483** distinct Rust tests across
+Distinct passing Rust tests at the leading checkpoint: editor 388, layout 311,
+text engine 55, IDML 184, separation 156, core 120, settings 24 and i18n 28
+(including its doctest): **1,266**. The expanded editable-interchange checks add
+Affinity 39, PSD 150 and Type tools 38, for **1,493** distinct Rust tests across
 11 crates, plus four browser i18n tests. Poppler
 checks verify ink patches, rotated text, sheared frames, inner image rotation
 and curved/compound frame clipping, enlarged paragraph initials, vertical Japanese/Latin text, n-up reading
 order, sheet counts and empty slots. The updated affine/compound-frame proof was also visually inspected.
-Logs and exit codes are under `/tmp/schist-features-sweep-*`, with the result
-index in `/tmp/schist-features-sweep-results.json`. The asymmetric-offset
+Logs and exit codes are under `/tmp/schist-leading-sweep-*`, with the result
+index in `/tmp/schist-leading-sweep-results.json`. The asymmetric-offset
 proof also verifies PDF MediaBox/TrimBox/BleedBox with Poppler and was visually
 inspected. Future changes require a new sweep.
 
@@ -686,6 +686,39 @@ saves. Existing local-formatting and raster-codec fallback properties were also
 extended. The nine-page OpenType proof passes both Poppler sample and rendered
 page comparisons; all pages were visually inspected. Superseded development logs
 were removed; proofs and sweep evidence remain under `/tmp/schist-features-sweep-*`.
-Automatic leading versus inherited point leading is the next composition gap.
+Automatic leading versus inherited point leading remained a gap at that checkpoint;
+it is addressed below.
 Object-style paints, text strokes, font variants, custom decorations, structured
 stories, alternate layouts and native GUI/application validation remain open.
+
+
+Automatic, fixed and inherited leading are implemented in item 9. Native Auto
+resets inherited fixed values; paragraph percentages inherit independently.
+Composition resolves Auto from each nominal run size and keeps fixed points
+absolute. The shared engine separates nominal cell height from incoming baseline
+or vertical center spacing, including explicit zero and empty paragraphs. First
+lines fit by their font metrics; tight mixed-size paragraphs do not invent gaps.
+Grids, threading, balancing, carets, preview zoom and print use those semantics.
+Conservative contribution bounds retain tight-leading glyphs across the gutter.
+
+Paragraph and Character controls accept points, Auto or blank inheritance; the
+paragraph percentage field accepts 0–500. Each edit undoes once and all four keys
+are present in 150 catalogs. Native IDML properties, local overrides and repeated
+public-template saves preserve the settings. Legacy numeric JSON remains readable.
+PSD/Affinity retain their existing fallback for unsupported absolute layer leading.
+
+Ten new property tests and strengthened existing properties bring this checkpoint
+to 1,493 distinct Rust tests plus four browser tests. All 15 targets, formatting
+and whitespace checks pass, including 388 editor tests, workspace clippy and
+native/browser app checks. The 12-page leading proof exactly matches independently
+placed baseline/column-center references through both Poppler sample extraction
+and page rendering; every page was visually inspected. Current proof and sweep
+evidence remain under `/tmp/schist-leading-*`; superseded development logs were
+removed. The preceding OpenType commit passed remote Linux, macOS, web and
+headless checks; Windows was still running when this checkpoint was prepared.
+
+Named font variants are the next integration gap. Object-style paints, text
+strokes, custom decorations, structured story composition, alternate layouts and
+native GUI/application validation remain open. Public research found a v21 paired
+template lead behind BOOTH sign-in, but no new acquired/version-verified sample;
+Phase 5 remains gated and Design Mode remains disabled by default.

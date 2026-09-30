@@ -9,7 +9,7 @@ fn styled(size: f32, leading: f32) -> LayoutDocument {
     doc.styles.add_paragraph(ParagraphStyle {
         name: "Plain".into(),
         point_size: Some(size),
-        leading: Some(leading),
+        leading: Some(schist_layout::styles::Leading::Points(leading)),
         keep_lines: Some(1),
         ..Default::default()
     });
@@ -23,7 +23,7 @@ fn a_partial_paragraph_never_skips_forward_to_a_smaller_later_paragraph() {
         doc.styles.add_paragraph(ParagraphStyle {
             name: "Small".into(),
             point_size: Some(5.0),
-            leading: Some(6.0),
+            leading: Some(schist_layout::styles::Leading::Points(6.0)),
             ..Default::default()
         });
         let mut story = Story::from_text(
@@ -91,7 +91,11 @@ fn a_frame_split_uses_the_shapers_complete_line_breaks() {
         assert!(lines.len() > 6);
         let id = doc.add_story(story);
         for count in 1..6 {
-            let height = lines[..count].iter().map(|line| line.height).sum::<f32>() + 0.01;
+            let height = lines[..count]
+                .iter()
+                .map(|line| line.top + line.height)
+                .fold(0.0, f32::max)
+                + 0.01;
             let thread = compose_thread(
                 &doc,
                 id,
@@ -121,7 +125,7 @@ fn mixed_size_lines_reserve_their_own_height() {
     doc.styles.add_character(CharacterStyle {
         name: "Large".into(),
         point_size: Some(32.0),
-        leading: Some(40.0),
+        leading: Some(schist_layout::styles::Leading::Points(40.0)),
         ..Default::default()
     });
     let mut story = Story::from_text("small\nBIG\nsmall", "Plain");
@@ -139,7 +143,7 @@ fn mixed_size_lines_reserve_their_own_height() {
     assert_eq!(spans.len(), 3);
     assert!(spans[1].height > spans[0].height);
     let id = doc.add_story(story);
-    let height = spans.iter().map(|s| s.height).sum::<f32>();
+    let height = spans.iter().map(|s| s.top + s.height).fold(0.0, f32::max);
     let thread = compose_thread(
         &doc,
         id,
@@ -153,11 +157,11 @@ fn mixed_size_lines_reserve_their_own_height() {
         )],
     );
     assert!(!thread.has_overflow());
-    let mut top = 0.0;
     for (line, span) in thread.lines().zip(spans) {
-        assert!((line.bounds.y - top).abs() < 0.001);
+        assert!((line.bounds.y - span.top).abs() < 0.001);
         assert!((line.bounds.height - span.height).abs() < 0.001);
-        top += span.height;
+        assert!((line.advance - span.advance).abs() < 0.001);
+        assert!((line.baseline - span.baseline).abs() < 0.001);
     }
 }
 
@@ -170,7 +174,7 @@ fn balanced_columns_keep_paragraph_spacing_and_heading_chains() {
                 doc.styles.add_paragraph(ParagraphStyle {
                     name: name.into(),
                     point_size: Some(11.0),
-                    leading: Some(14.0),
+                    leading: Some(schist_layout::styles::Leading::Points(14.0)),
                     space_before: Some(4.0),
                     space_after: Some(9.0),
                     keep_with_next: Some(keep),
@@ -235,7 +239,11 @@ fn every_split_obeys_both_sides_of_the_minimum_line_count() {
         ));
         let id = doc.add_story(story);
         for room in 1..spans.len() {
-            let height = spans[..room].iter().map(|l| l.height).sum::<f32>() + 0.01;
+            let height = spans[..room]
+                .iter()
+                .map(|l| l.top + l.height)
+                .fold(0.0, f32::max)
+                + 0.01;
             let thread = compose_thread(
                 &doc,
                 id,
@@ -286,7 +294,7 @@ fn balancing_uses_the_same_grid_baselines_as_sequential_flow() {
         for line in thread.lines() {
             let phase = (line.baseline - doc.pages[0].margins.top) / 24.0;
             assert!((phase - phase.round()).abs() < 0.001);
-            assert!((line.bounds.height - 14.0).abs() < 0.01);
+            assert!((line.advance - 14.0).abs() < 0.01);
         }
     }
 }

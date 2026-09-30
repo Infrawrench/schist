@@ -113,3 +113,15 @@ The public specimen PDFs and the named-tint proof were inspected with Poppler.
 Only document data and public XML/API documentation were read; no Adobe SDK
 headers, font-cache files, proprietary executable code or decompilation were used.
 This remains an evidence log, not an exported AI conversation transcript.
+
+
+## Further version leads, September 30, 2026
+
+The public [Seiyo Shobo novel template](https://booth.pm/ja/items/751606)
+explicitly lists an August 2026 update for InDesign 2026 and accompanying IDML.
+Its free download endpoint redirects to BOOTH sign-in. No authenticated download
+was available, so it is a lead only, not an acquired or version-verified specimen.
+The [OAC Creator 2024 formats](https://www.oac.or.jp/creator2024/detail.html)
+are labelled CC2022 (v17), and [NanoLund's poster ZIP](https://www.nano.lu.se/nanolundians/templates-downloads) has a
+November 2020 Last-Modified response. Neither supplies verified v18/v21 evidence;
+neither archive was downloaded. No corpus count or production gate changed.

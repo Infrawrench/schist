@@ -29,17 +29,17 @@ fn native_story(styles: &str, story: &str) -> schist_layout::LayoutDocument {
 fn local_overrides_inherit_per_property_and_never_multiply_on_save() {
     for repeats in [1, 2, 5, 9] {
         let styles = r#"<RootParagraphStyleGroup>
-          <ParagraphStyle Self="p0" Name="Base / 空" FontStyle="Bold" PointSize="13" FillColor="Color/Black" Ligatures="true"><Properties><AppliedFont type="string">serif</AppliedFont></Properties></ParagraphStyle>
+          <ParagraphStyle Self="p0" Name="Base / 空" FontStyle="Bold" PointSize="13" FillColor="Color/Black" Ligatures="true" AutoLeading="120"><Properties><Leading type="unit">42</Leading><AppliedFont type="string">serif</AppliedFont></Properties></ParagraphStyle>
           <ParagraphStyle Self="p1" Name="Body / 空"><Properties><BasedOn type="object">p0</BasedOn></Properties></ParagraphStyle>
         </RootParagraphStyleGroup><RootCharacterStyleGroup>
           <CharacterStyle Self="c0" Name="Emphasis / 空" FontStyle="Italic" Underline="true"/>
         </RootCharacterStyleGroup>"#;
         let mut story = String::new();
         for index in 0..repeats {
-            story.push_str(r#"<ParagraphStyleRange AppliedParagraphStyle="p1" PointSize="18" SpaceBefore="7" OTFContextualAlternate="false">
+            story.push_str(r#"<ParagraphStyleRange AppliedParagraphStyle="p1" PointSize="18" SpaceBefore="7" OTFContextualAlternate="false" AutoLeading="150"><Properties><Leading type="enumeration">Auto</Leading></Properties>
               <CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]"><Content>é</Content></CharacterStyleRange>
-              <CharacterStyleRange AppliedCharacterStyle="c0" PointSize="24" Underline="false" Ligatures="false"><Content>中</Content></CharacterStyleRange>
-              <CharacterStyleRange AppliedCharacterStyle="c0" PointSize="24" Underline="false" Ligatures="false"><Content>😀</Content></CharacterStyleRange>
+              <CharacterStyleRange AppliedCharacterStyle="c0" PointSize="24" Underline="false" Ligatures="false"><Properties><Leading type="unit">0</Leading></Properties><Content>中</Content></CharacterStyleRange>
+              <CharacterStyleRange AppliedCharacterStyle="c0" PointSize="24" Underline="false" Ligatures="false"><Properties><Leading type="unit">0</Leading></Properties><Content>😀</Content></CharacterStyleRange>
             </ParagraphStyleRange>"#);
             if index + 1 < repeats {
                 story.push_str("<ParagraphStyleRange><CharacterStyleRange><Br/></CharacterStyleRange></ParagraphStyleRange>");
@@ -75,6 +75,7 @@ fn local_overrides_inherit_per_property_and_never_multiply_on_save() {
                 let plain = spec.style_at(0);
                 assert_eq!(plain.family, "serif");
                 assert_eq!(plain.size, 18.0);
+                assert_eq!(plain.leading, Some(27.0));
                 assert!(plain.bold);
                 assert!(!plain.italic);
                 assert!(plain
@@ -89,6 +90,7 @@ fn local_overrides_inherit_per_property_and_never_multiply_on_save() {
                     let run = spec.style_at(byte);
                     assert_eq!(run.family, "serif");
                     assert_eq!(run.size, 24.0);
+                    assert_eq!(run.leading, Some(0.0));
                     assert!(!run.bold);
                     assert!(run.italic);
                     assert!(run.features.iter().any(|f| f.tag == "liga" && f.value == 0));

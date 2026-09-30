@@ -108,6 +108,10 @@ pub struct TextSpec {
     pub writing_mode: WritingMode,
     /// Extra spacing between lines, as a multiple of the font's default.
     pub line_height: f32,
+    /// Absolute leading in pixels. None uses font metrics times line_height.
+    /// Zero is a deliberate overlap; an empty line uses this value too.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub leading: Option<f32>,
     /// Extra spacing between characters, in pixels.
     pub tracking: f32,
     /// Extra advance for each ordinary word space, independent of tracking.
@@ -141,6 +145,7 @@ impl Default for TextSpec {
             direction: ParagraphDirection::Auto,
             writing_mode: WritingMode::Horizontal,
             line_height: 1.0,
+            leading: None,
             tracking: 0.0,
             word_spacing: 0.0,
             wrap_width: None,
@@ -301,7 +306,6 @@ impl CharStyle {
             && self.size == other.size
             && self.features == other.features
             && self.tracking == other.tracking
-            && self.leading == other.leading
             && self.baseline_shift == other.baseline_shift
             && self.color == other.color
     }
@@ -328,6 +332,14 @@ impl CharStyle {
 }
 
 impl TextSpec {
+    /// Explicit leading measures baseline/column-center distances, independent
+    /// of font ascent. Legacy relative line-height keeps its original box flow.
+    pub fn has_absolute_leading(&self) -> bool {
+        self.leading
+            .into_iter()
+            .chain(self.runs.iter().filter_map(|run| run.leading))
+            .any(|v| v.is_finite() && v >= 0.0)
+    }
     pub fn feature(&self, tag: &str, default: bool) -> bool {
         self.features
             .iter()
@@ -348,7 +360,7 @@ impl TextSpec {
     pub fn base_style(&self) -> CharStyle {
         CharStyle {
             tracking: self.tracking,
-            leading: None,
+            leading: self.leading.filter(|v| v.is_finite() && *v >= 0.0),
             underline: false,
             strikethrough: false,
             baseline_shift: 0.0,
@@ -382,7 +394,10 @@ impl TextSpec {
             style.features = merged_features(&style.features, &run.features);
             style.color = run.color;
             style.tracking = run.tracking.unwrap_or(style.tracking);
-            style.leading = run.leading;
+            style.leading = run
+                .leading
+                .filter(|v| v.is_finite() && *v >= 0.0)
+                .or(style.leading);
             style.underline = run.underline.unwrap_or(false);
             style.strikethrough = run.strikethrough.unwrap_or(false);
             style.baseline_shift = run.baseline_shift.filter(|v| v.is_finite()).unwrap_or(0.0);
@@ -1236,8 +1251,9 @@ impl Faces {
     }
 }
 
-/// Absolute run leading participates in the same maximum as inherited font
-/// metrics, so a large run cannot overlap the following line accidentally.
+/// The largest requested leading on a line controls its distance from the
+/// preceding baseline. Unset runs use font metrics; explicit tight values may
+/// deliberately overlap nominal cells.
 fn run_line_advance(
     spec: &TextSpec,
     faces: &Faces,
@@ -1250,13 +1266,17 @@ fn run_line_advance(
         .map(|(i, _)| {
             spec.style_at(start + i)
                 .leading
-                .filter(|v| v.is_finite() && *v > 0.0)
+                .filter(|v| v.is_finite() && *v >= 0.0)
                 .unwrap_or_else(|| {
                     faces.line_metrics_at(spec, start + i).1 * spec.line_height.max(0.1)
                 })
         })
         .reduce(f32::max)
-        .unwrap_or(fallback * spec.line_height.max(0.1))
+        .unwrap_or_else(|| {
+            spec.leading
+                .filter(|v| v.is_finite() && *v >= 0.0)
+                .unwrap_or(fallback * spec.line_height.max(0.1))
+        })
 }
 
 /// One laid-out line, and the byte range of `TextSpec::text` it covers.
@@ -1280,8 +1300,37 @@ pub struct LineSpan {
     pub top: f32,
     /// Baseline in logical block coordinates, relative to the raster origin.
     pub baseline: f32,
-    /// Logical line-box advance. Baseline spacing also depends on font ascent.
+    /// Nominal line cell height. Explicit leading can overlap adjacent cells;
+    /// glyphs and carets retain their font metrics.
     pub height: f32,
+    /// Requested advance from the preceding baseline/vertical column center.
+    /// Legacy relative spacing advances line boxes, using the same cell height.
+    pub advance: f32,
+}
+
+fn next_line_top(
+    previous: Option<&LineSpan>,
+    ascent: f32,
+    height: f32,
+    advance: f32,
+    mode: WritingMode,
+    absolute: bool,
+) -> f32 {
+    previous.map_or(0.0, |previous| {
+        if !absolute {
+            previous.top + previous.height
+        } else if mode.is_vertical() {
+            previous.top + previous.height / 2.0 + advance - height / 2.0
+        } else {
+            previous.baseline + advance - ascent
+        }
+    })
+}
+fn block_extent(lines: &[LineSpan]) -> f32 {
+    lines
+        .iter()
+        .map(|line| line.top + line.height)
+        .fold(0.0, f32::max)
 }
 
 /// Where a caret sits, relative to the text raster's origin.
@@ -1460,7 +1509,7 @@ fn layout_with_widths(spec: &TextSpec, base: &LoadedFace, widths: &[f32]) -> Lay
     let mut spans = Vec::with_capacity(lines.len());
     let mut first_baseline = 0.0;
     let mut first_advance = 0.0;
-    let mut top = 0.0f32;
+    let absolute = spec.has_absolute_leading();
     for (i, line) in lines.iter().enumerate() {
         // Nominal script sizes keep line geometry independent of glyph scaling.
         let (ascent, line_gap) = line
@@ -1470,6 +1519,15 @@ fn layout_with_widths(spec: &TextSpec, base: &LoadedFace, widths: &[f32]) -> Lay
             .reduce(|(a, g), (fa, fg)| (a.max(fa), g.max(fg)))
             .unwrap_or_else(|| faces.line_metrics(0));
         let line_advance = run_line_advance(spec, &faces, line.start, line.end, line_gap);
+        let height = if absolute { line_gap } else { line_advance };
+        let top = next_line_top(
+            spans.last(),
+            ascent,
+            height,
+            line_advance,
+            spec.writing_mode,
+            absolute,
+        );
         let baseline = top + ascent;
         if i == 0 {
             first_baseline = ascent;
@@ -1487,7 +1545,8 @@ fn layout_with_widths(spec: &TextSpec, base: &LoadedFace, widths: &[f32]) -> Lay
             width: line.width,
             top,
             baseline,
-            height: line_advance,
+            height,
+            advance: line_advance,
         });
         let mut x = start_x;
         let mut prev: Option<(char, usize)> = None;
@@ -1512,7 +1571,6 @@ fn layout_with_widths(spec: &TextSpec, base: &LoadedFace, widths: &[f32]) -> Lay
             x += advance(ch, prev, ix, byte);
             prev = Some((ch, ix));
         }
-        top += line_advance;
     }
     Layout {
         glyphs: placed,
@@ -1642,6 +1700,7 @@ fn caret_in_layout_affinity(spec: &TextSpec, laid: &Layout, position: CaretPosit
             top: 0.0,
             baseline: laid.first_baseline,
             height: laid.line_advance,
+            advance: laid.line_advance,
         });
 
     let upto = byte.clamp(span.start, span.end);
@@ -1721,7 +1780,7 @@ fn orient_caret(spec: &TextSpec, laid: &Layout, caret: Caret) -> Caret {
     if !spec.writing_mode.is_vertical() {
         return caret;
     }
-    let total = laid.lines.last().map_or(0.0, |l| l.top + l.height);
+    let total = block_extent(&laid.lines);
     let right = match spec.writing_mode {
         WritingMode::VerticalRl => total - caret.top,
         _ => caret.top + caret.height,
@@ -1833,7 +1892,7 @@ pub fn move_caret(spec: &TextSpec, from: CaretPosition, movement: CaretMovement)
         CaretMovement::Right | CaretMovement::Down | CaretMovement::End
     );
     let spans = line_spans(spec);
-    let total = spans.last().map_or(0.0, |l| l.top + l.height);
+    let total = block_extent(&spans);
     let line_index = spans
         .iter()
         .enumerate()
@@ -2084,7 +2143,7 @@ fn decoration_rasters(spec: &TextSpec, faces: &Faces, laid: &Layout) -> Vec<Colo
             })
         })
         .collect();
-    let total_height: f32 = laid.lines.iter().map(|line| line.height).sum();
+    let total_height = block_extent(&laid.lines);
     for line in &laid.lines {
         for ch in laid
             .chars
@@ -2544,12 +2603,74 @@ mod tests {
             let after = layout(&s, &face);
             assert!((after.lines[0].width - before.lines[0].width - 14.0).abs() < 0.001);
             assert_eq!(after.lines[1].width, before.lines[1].width);
-            assert_eq!(after.lines[0].height, 120.0);
+            assert_eq!(after.lines[0].advance, 120.0);
+            assert_eq!(after.lines[0].height, before.lines[0].height);
             assert_eq!(after.lines[1].height, before.lines[1].height);
-            assert_eq!(after.lines[1].top, 120.0);
+            assert!((after.lines[1].top - before.lines[1].top).abs() < 0.001);
+            // Leading belongs to the arriving line, not the preceding one.
+            s.apply_style(
+                6..8,
+                &StyleRun {
+                    leading: Some(120.0),
+                    ..Default::default()
+                },
+            );
+            let after = layout(&s, &face);
+            assert!((after.lines[1].baseline - after.lines[0].baseline - 120.0).abs() < 0.001);
             let saved = serde_json::to_string(&s).unwrap();
             assert_eq!(serde_json::from_str::<TextSpec>(&saved).unwrap(), s);
         }
+    }
+
+    #[test]
+    fn absolute_leading_keeps_nominal_cells_and_ligatures_in_every_writing_mode() {
+        for mode in [
+            WritingMode::Horizontal,
+            WritingMode::VerticalRl,
+            WritingMode::VerticalLr,
+        ] {
+            for shaped in [false, true] {
+                let (mut spec, face) = opentype_spec("office\n\noffice");
+                spec.writing_mode = mode;
+                if shaped {
+                    spec.set_feature("liga", true);
+                }
+                let original = layout(&spec, &face);
+                for leading in [0.0, 3.0, 120.0] {
+                    spec.leading = Some(leading);
+                    spec.runs = vec![StyleRun {
+                        start: 2,
+                        end: 3,
+                        leading: Some(leading + 1.0),
+                        ..Default::default()
+                    }];
+                    let spaced = layout(&spec, &face);
+                    assert_eq!(spaced.glyphs.len(), original.glyphs.len());
+                    assert_eq!(spaced.lines.len(), 3);
+                    for (a, b) in original.lines.iter().zip(&spaced.lines) {
+                        assert_eq!(a.height, b.height);
+                        assert_eq!(a.width, b.width);
+                    }
+                    assert_eq!(spaced.lines[0].top, 0.0);
+                    assert_eq!(spaced.lines[0].advance, leading + 1.0);
+                    for pair in spaced.lines.windows(2) {
+                        assert!((pair[1].baseline - pair[0].baseline - leading).abs() < 0.001);
+                    }
+                    for (byte, _) in spec.text.char_indices() {
+                        let caret = caret_in_layout(&spec, &spaced, byte);
+                        assert!(caret.x.is_finite() && caret.top.is_finite());
+                        assert!(
+                            caret.height > 0.0,
+                            "overlap does not collapse the insertion segment"
+                        );
+                    }
+                }
+            }
+        }
+        let (spec, _) = opentype_spec("legacy");
+        let mut old = serde_json::to_value(&spec).unwrap();
+        old.as_object_mut().unwrap().remove("leading");
+        assert_eq!(serde_json::from_value::<TextSpec>(old).unwrap(), spec);
     }
 
     #[test]
