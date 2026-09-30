@@ -432,6 +432,20 @@ pub(super) fn paragraph_panel(
         style.baseline_shift,
         cx,
     ));
+    rows.push(field(
+        ws,
+        "design-prop-paragraph-features",
+        "design.opentype_features",
+        crate::design::controls::feature_text(&style.features),
+        target.clone(),
+        cx,
+    ));
+    rows.push(
+        div()
+            .text_xs()
+            .child(t("design.opentype_hint"))
+            .into_any_element(),
+    );
     let alignments = [
         (Align::Left, "design.align_left"),
         (Align::Center, "design.align_center"),
@@ -542,6 +556,20 @@ pub(super) fn character_panel(
         style.baseline_shift,
         cx,
     ));
+    rows.push(field(
+        ws,
+        "design-prop-char-features",
+        "design.opentype_features",
+        crate::design::controls::feature_text(&style.features),
+        target.clone(),
+        cx,
+    ));
+    rows.push(
+        div()
+            .text_xs()
+            .child(t("design.opentype_hint"))
+            .into_any_element(),
+    );
     rows.push(
         div()
             .text_xs()

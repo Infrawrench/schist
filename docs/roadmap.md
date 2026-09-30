@@ -316,20 +316,20 @@ The browser build reused the native build's cached backer catalog because
 the initial sandbox could not resolve the catalog host. A file-URL portability defect
 and Design Save As filename routing were fixed before that browser check.
 
-The unfiltered `CARGO_INCREMENTAL=0 make check-design` now passes all 386 editor
+The unfiltered `CARGO_INCREMENTAL=0 make check-design` now passes all 387 editor
 tests, including the clipboard HTTP test that the earlier sandbox blocked, plus
 its layout, settings and i18n checks.
 
-Distinct passing Rust tests at the script-position checkpoint: editor 386, layout 306,
-text engine 52, IDML 177, separation 155, core 120, settings 24 and i18n 28
-(including its doctest): **1,248**. The expanded editable-interchange checks add
-Affinity 39, PSD 150 and Type tools 38, for **1,475** distinct Rust tests across
+Distinct passing Rust tests at the OpenType checkpoint: editor 387, layout 307,
+text engine 54, IDML 181, separation 155, core 120, settings 24 and i18n 28
+(including its doctest): **1,256**. The expanded editable-interchange checks add
+Affinity 39, PSD 150 and Type tools 38, for **1,483** distinct Rust tests across
 11 crates, plus four browser i18n tests. Poppler
 checks verify ink patches, rotated text, sheared frames, inner image rotation
 and curved/compound frame clipping, enlarged paragraph initials, vertical Japanese/Latin text, n-up reading
 order, sheet counts and empty slots. The updated affine/compound-frame proof was also visually inspected.
-Logs and exit codes are under `/tmp/schist-script-sweep-*`, with the result
-index in `/tmp/schist-script-sweep-results.json`. The asymmetric-offset
+Logs and exit codes are under `/tmp/schist-features-sweep-*`, with the result
+index in `/tmp/schist-features-sweep-results.json`. The asymmetric-offset
 proof also verifies PDF MediaBox/TrimBox/BleedBox with Poppler and was visually
 inspected. Future changes require a new sweep.
 
@@ -665,3 +665,27 @@ preferences, repeated real-template saves and one-step undo. The strengthened
 shaping test enables real ligatures; normalization also covers plain ranges that
 mask a later fallback. Superseded development logs were removed; the current
 proofs and full-sweep logs remain under `/tmp/schist-script-sweep-*`.
+
+
+Per-range OpenType shaping is implemented in item 9. Paragraph and character
+styles inherit per tag, including explicit disables; the captured style field
+commits one undoable edit. The shared engine preserves features through text edits
+and activates shaping for local overrides, with identical feature boundaries
+retaining ligatures. Native IDML boolean switches, figure styles, complete set
+masks and local formatting survive repeated saves. Partial atomic groups and
+arbitrary tags use reported extension labels; native edits take precedence.
+Mode-dependent native CJK activation remains an explicit gap. Five new labels and
+diagnostics are present in all 150 catalogs. PSD/Affinity keep the existing
+fallback for unsupported native per-run settings.
+
+The OpenType checkpoint passes all 15 make targets, formatting and whitespace
+checks: 1,483 distinct Rust tests plus four browser i18n tests, including 387
+editor tests. Eight new properties cover feature boundaries, real ligatures,
+inheritance, syntax and undo, native masks, diagnostics and repeated specimen
+saves. Existing local-formatting and raster-codec fallback properties were also
+extended. The nine-page OpenType proof passes both Poppler sample and rendered
+page comparisons; all pages were visually inspected. Superseded development logs
+were removed; proofs and sweep evidence remain under `/tmp/schist-features-sweep-*`.
+Automatic leading versus inherited point leading is the next composition gap.
+Object-style paints, text strokes, font variants, custom decorations, structured
+stories, alternate layouts and native GUI/application validation remain open.

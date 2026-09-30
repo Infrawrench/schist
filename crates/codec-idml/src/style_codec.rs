@@ -128,6 +128,7 @@ pub(crate) fn paragraph_properties(
         direction: crate::auto_direction::style_direction(element),
         hyphenate: boolean(element, "Hyphenation"),
         language: character.language,
+        features: character.features,
         ..ParagraphStyle::default()
     }
 }
@@ -183,6 +184,7 @@ pub(crate) fn character_properties(
         strikethrough: boolean(element, "StrikeThru"),
         baseline_shift,
         position,
+        features: crate::opentype_codec::read(element, report),
         language: element.attr("AppliedLanguage").map(str::to_owned),
         ..CharacterStyle::default()
     }
@@ -240,6 +242,7 @@ fn props(
     leading: Option<f32>,
     family: Option<&str>,
     automatic_direction: Option<&str>,
+    features: &[(String, bool)],
 ) {
     out.push_str("><Properties>");
     if let Some(base) = based_on {
@@ -257,11 +260,17 @@ fn props(
             escape(family)
         ));
     }
-    if let Some(value) = automatic_direction {
-        out.push_str(&format!(
-            r#"<Label><KeyValuePair Key="{}" Value="{value}"/></Label>"#,
-            crate::auto_direction::STYLE_LABEL
-        ));
+    let feature_label = crate::opentype_codec::label(features);
+    if automatic_direction.is_some() || !feature_label.is_empty() {
+        out.push_str("<Label>");
+        if let Some(value) = automatic_direction {
+            out.push_str(&format!(
+                r#"<KeyValuePair Key="{}" Value="{value}"/>"#,
+                crate::auto_direction::STYLE_LABEL
+            ));
+        }
+        out.push_str(&feature_label);
+        out.push_str("</Label>");
     }
     out.push_str(&format!("</Properties></{kind}>"));
 }
@@ -307,6 +316,7 @@ fn position(
 
 pub fn paragraph(style: &ParagraphStyle) -> String {
     let mut out = String::from("<ParagraphStyle");
+    crate::opentype_codec::attributes(&mut out, &style.features);
     attr(
         &mut out,
         "Self",
@@ -409,12 +419,14 @@ pub fn paragraph(style: &ParagraphStyle) -> String {
             None if style.based_on.is_none() => Some("AutoDefault"),
             _ => None,
         },
+        &style.features,
     );
     out
 }
 
 pub fn character(style: &CharacterStyle) -> String {
     let mut out = String::from("<CharacterStyle");
+    crate::opentype_codec::attributes(&mut out, &style.features);
     attr(
         &mut out,
         "Self",
@@ -471,6 +483,7 @@ pub fn character(style: &CharacterStyle) -> String {
         style.leading,
         style.family.as_deref(),
         None,
+        &style.features,
     );
     out
 }

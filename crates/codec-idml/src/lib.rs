@@ -43,6 +43,7 @@ mod graphic_codec;
 mod thread_codec;
 
 mod color_codec;
+mod opentype_codec;
 mod preferences_codec;
 
 pub mod package;

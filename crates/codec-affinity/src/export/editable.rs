@@ -268,11 +268,13 @@ impl Exporter {
                 .is_some_and(|width| !width.is_finite() || !(1.0..=1_000_000.0).contains(&width))
             || spec.runs.len() > 4096
             || spec.runs.iter().any(|run| {
-                // The native subset has no decoration, baseline-offset or nominal-metric encoding.
+                // This native subset cannot encode decorations, offsets,
+                // nominal metrics or per-run OpenType features.
                 run.underline == Some(true)
                     || run.strikethrough == Some(true)
                     || run.baseline_shift.is_some_and(|v| v != 0.0)
                     || run.metric_size.is_some()
+                    || !run.features.is_empty()
                     || run.start > run.end
                     || !spec.text.is_char_boundary(run.start)
                     || !spec.text.is_char_boundary(run.end)

@@ -394,3 +394,11 @@ progressions. Poppler extraction checks exact displacement between equal-size
 super/subscript images, half-size glyph extents and unchanged spacing between
 coloured paragraphs. Every proof page was visually inspected. This does not
 establish native application agreement for advanced OpenType positioning.
+
+
+Ranged OpenType settings share the same shaper in preview and separation. The
+`opentype_proof` example emits all-off, all-on and mixed pages in each writing
+mode. `check-design-output` compares the mixed page to the appropriate paragraph
+from each control using both Poppler image extraction and page rasterization.
+This checks actual ligature/kerning changes, inheritance boundaries and unchanged
+paragraph placement instead of merely looking for feature tags in serialized data.

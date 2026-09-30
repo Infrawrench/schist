@@ -275,6 +275,9 @@ pub struct ParagraphStyle {
     pub direction: Option<ParagraphDirection>,
     /// Whether this paragraph runs horizontally or vertically.
     pub writing_mode: Option<WritingMode>,
+    /// Per-tag OpenType overrides. Unspecified tags inherit independently.
+    #[serde(default)]
+    pub features: Vec<(String, bool)>,
 }
 
 /// A named set of character properties, applied over a paragraph style.
@@ -323,6 +326,7 @@ pub struct CharacterStyle {
     pub optical_margin: Option<bool>,
 
     /// OpenType features to force on or off for runs carrying this style.
+    #[serde(default)]
     pub features: Vec<(String, bool)>,
     pub language: Option<String>,
 }
@@ -474,6 +478,7 @@ impl StyleSet {
 /// A paragraph style with its inheritance chain applied.
 #[derive(Debug, Clone, Default, PartialEq)]
 pub struct ResolvedParagraph {
+    pub features: Vec<(String, bool)>,
     pub family: Option<String>,
     pub bold: Option<bool>,
     pub italic: Option<bool>,
@@ -513,6 +518,7 @@ pub struct ResolvedParagraph {
 impl ResolvedParagraph {
     /// Character defaults for an unstyled run, with document fallback.
     pub fn character(&self, mut fallback: ResolvedCharacter) -> ResolvedCharacter {
+        fallback.features = inherited_features(&self.features, &fallback.features);
         fallback.family = self.family.clone().or(fallback.family);
         fallback.bold = self.bold.or(fallback.bold);
         fallback.italic = self.italic.or(fallback.italic);
@@ -535,6 +541,7 @@ impl ResolvedParagraph {
         // from the style outwards means the most specific definition of
         // each property is the one that survives.
         for style in set.paragraph_chain(name) {
+            out.features = inherited_features(&out.features, &style.features);
             out.family = out.family.clone().or_else(|| style.family.clone());
             out.bold = out.bold.or(style.bold);
             out.italic = out.italic.or(style.italic);
@@ -637,14 +644,22 @@ impl ResolvedCharacter {
         // that correct: walking outwards, a base's value for a feature
         // the child already set must not replace it.
         for style in &chain {
-            for (feature, on) in &style.features {
-                if !out.features.iter().any(|(f, _)| f == feature) {
-                    out.features.push((feature.clone(), *on));
-                }
-            }
+            out.features = inherited_features(&out.features, &style.features);
         }
         out
     }
+}
+
+/// Nearest style wins per tag, including explicit false; omitted tags inherit.
+pub fn inherited_features(
+    nearest: &[(String, bool)],
+    fallback: &[(String, bool)],
+) -> Vec<(String, bool)> {
+    let mut result = std::collections::BTreeMap::new();
+    for (tag, enabled) in nearest.iter().chain(fallback) {
+        result.entry(tag.clone()).or_insert(*enabled);
+    }
+    result.into_iter().collect()
 }
 
 #[cfg(test)]

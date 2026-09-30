@@ -101,6 +101,32 @@ pub fn commit(state: &mut DesignState, id: &str, text: &str) -> bool {
     let Some(target) = state.controls.field.take() else {
         return false;
     };
+    if matches!(
+        id,
+        "design-prop-paragraph-features" | "design-prop-char-features"
+    ) {
+        let Some(features) = parse_features(text) else {
+            return false;
+        };
+        return properties::edit_styles(&mut state.document, &mut state.history, |styles| {
+            let field = match &target {
+                Target::Paragraph(name) => styles
+                    .paragraphs
+                    .iter_mut()
+                    .find(|s| s.name == *name)
+                    .map(|s| &mut s.features),
+                Target::Character(name) => styles
+                    .characters
+                    .iter_mut()
+                    .find(|s| s.name == *name)
+                    .map(|s| &mut s.features),
+                _ => None,
+            };
+            if let Some(field) = field {
+                *field = features;
+            }
+        });
+    }
     if let Target::Section(page) = target {
         if matches!(
             id,
@@ -373,6 +399,41 @@ pub fn commit(state: &mut DesignState, id: &str, text: &str) -> bool {
             })
         }
     }
+}
+
+/// Empty restores inheritance. Four-byte tags and explicit 0/1 values prevent
+/// a malformed field from silently clearing other feature overrides.
+fn parse_features(text: &str) -> Option<Vec<(String, bool)>> {
+    let mut result = Vec::new();
+    if text.trim().is_empty() {
+        return Some(result);
+    }
+    for item in text.split(',') {
+        let (tag, value) = item.split_once('=')?;
+        let tag = tag.trim();
+        if tag.len() != 4
+            || !tag.bytes().all(|b| b.is_ascii_alphanumeric())
+            || result.iter().any(|(previous, _)| previous == tag)
+        {
+            return None;
+        }
+        let enabled = match value.trim() {
+            "1" => true,
+            "0" => false,
+            _ => return None,
+        };
+        result.push((tag.to_owned(), enabled));
+    }
+    result.sort_by(|a, b| a.0.cmp(&b.0));
+    Some(result)
+}
+
+pub fn feature_text(features: &[(String, bool)]) -> String {
+    features
+        .iter()
+        .map(|(tag, enabled)| format!("{tag}={}", u8::from(*enabled)))
+        .collect::<Vec<_>>()
+        .join(", ")
 }
 
 pub fn all_text_frames(state: &DesignState) -> bool {
@@ -682,5 +743,55 @@ mod tests {
             state.document.styles.paragraph(&name).unwrap().point_size,
             None
         );
+    }
+
+    #[test]
+    fn feature_fields_commit_once_to_the_captured_style_and_reject_partial_invalid_input() {
+        for paragraph in [false, true] {
+            let mut state = DesignState::new();
+            let name = if paragraph { "Body" } else { "Default" };
+            let target = if paragraph {
+                Target::Paragraph(name.into())
+            } else {
+                Target::Character(name.into())
+            };
+            let id = if paragraph {
+                "design-prop-paragraph-features"
+            } else {
+                "design-prop-char-features"
+            };
+            let before = state.document.clone();
+            state.controls.field = Some(target.clone());
+            assert!(commit(&mut state, id, "liga=1, kern=0, ss03=1"));
+            assert_eq!(state.history.undo_depth(), 1);
+            let features = if paragraph {
+                &state.document.styles.paragraph(name).unwrap().features
+            } else {
+                &state.document.styles.character(name).unwrap().features
+            };
+            assert_eq!(feature_text(features), "kern=0, liga=1, ss03=1");
+            let after = state.document.clone();
+            for invalid in [
+                "liga",
+                "liga=2",
+                "liga=1,",
+                "liga=0, liga=1",
+                "abc=1",
+                "éabc=1",
+                "liga=1, kern=no",
+            ] {
+                state.controls.field = Some(target.clone());
+                assert!(!commit(&mut state, id, invalid));
+                assert_eq!(state.document, after);
+                assert_eq!(state.history.undo_depth(), 1);
+            }
+            assert!(state.history.undo(&mut state.document));
+            assert_eq!(state.document, before);
+            assert!(state.history.redo(&mut state.document));
+            assert_eq!(state.document, after);
+            state.controls.field = Some(target);
+            assert!(commit(&mut state, id, ""));
+            assert_eq!(state.document, before);
+        }
     }
 }

@@ -8,6 +8,7 @@ use unicode_vo::{char_orientation, Orientation};
 
 pub(super) fn required(spec: &TextSpec) -> bool {
     !spec.features.is_empty()
+        || spec.runs.iter().any(|run| !run.features.is_empty())
         || spec.direction != ParagraphDirection::Auto
         || spec.writing_mode.is_vertical()
         || spec.text.chars().any(|c| {
@@ -24,14 +25,14 @@ struct Shaped {
     width: f32,
 }
 
-fn features(spec: &TextSpec) -> Vec<rustybuzz::Feature> {
+fn features(style: &CharStyle) -> Vec<rustybuzz::Feature> {
     // Preserve the editor's discretionary Latin ligature default. Required
     // Arabic ligatures remain enabled by rustybuzz's script shaper.
     let mut features = vec![
         rustybuzz::Feature::new(ttf_parser::Tag::from_bytes(b"liga"), 0, ..),
         rustybuzz::Feature::new(ttf_parser::Tag::from_bytes(b"clig"), 0, ..),
     ];
-    for f in &spec.features {
+    for f in &style.features {
         if f.tag.len() == 4 && f.tag.bytes().all(|b| b.is_ascii_graphic()) {
             let tag = ttf_parser::Tag::from_bytes(f.tag.as_bytes().try_into().unwrap());
             features.retain(|f| f.tag != tag);
@@ -123,7 +124,7 @@ fn shape_item(
     } else {
         rustybuzz::Direction::LeftToRight
     });
-    let shaped = rustybuzz::shape(&face, &features(spec), buffer);
+    let shaped = rustybuzz::shape(&face, &features(&spec.style_at(start)), buffer);
     // UAX #50 Tr uses the vertical alternate when the font has one, and a
     // clockwise horizontal glyph otherwise. Do not leave brackets upright
     // in fonts with no vert/vrt2 substitution.

@@ -277,17 +277,27 @@ fn unencoded_decorations_use_the_reported_raster_fallback() {
 }
 
 #[test]
-fn offsets_and_nominal_metrics_use_the_reported_raster_fallback() {
-    for (key, shift, unsupported) in [
-        ("baseline_shift", -12.5, true),
-        ("baseline_shift", 0.0, false),
-        ("baseline_shift", 8.25, true),
-        ("metric_size", 24.0, true),
+fn unsupported_run_settings_use_the_reported_raster_fallback() {
+    for (key, value, unsupported) in [
+        ("baseline_shift", serde_json::json!(-12.5), true),
+        ("baseline_shift", serde_json::json!(0.0), false),
+        ("baseline_shift", serde_json::json!(8.25), true),
+        ("metric_size", serde_json::json!(24.0), true),
+        (
+            "features",
+            serde_json::json!([{"tag":"liga", "value":0}]),
+            true,
+        ),
+        (
+            "features",
+            serde_json::json!([{"tag":"liga", "value":1}]),
+            true,
+        ),
     ] {
         let mut doc = text_doc(false);
         let mut stored: serde_json::Value =
             serde_json::from_slice(&doc.tree.layers[0].extras[0].data).unwrap();
-        stored["spec"]["runs"][0][key] = serde_json::json!(shift);
+        stored["spec"]["runs"][0][key] = value;
         doc.tree.layers[0].extras[0].data = serde_json::to_vec(&stored).unwrap();
         let (bytes, report) = write_affinity(&doc, None).unwrap();
         assert_eq!(report.skipped.len(), usize::from(unsupported));

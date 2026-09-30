@@ -535,3 +535,20 @@ out-of-range values are rejected; position inheritance has its own explicit choi
 Preferences change all affected stories, with defaults and the supported range
 matching the native XML specification. Automatic OpenType glyph variants remain
 unsupported and import reports them.
+
+
+Paragraph and Character expose OpenType overrides as comma-separated four-byte
+tags and 0/1 values, for example `liga=1, dlig=0`. Blank restores inheritance;
+omitted tags inherit independently, and zero explicitly disables a feature.
+Committing the field edits its captured named style in one undo step. Invalid
+syntax or duplicate tags leave the style unchanged. Features flow through the
+shared shaper into measuring, wrapping, carets, preview and print; equivalent
+feature settings on adjacent ranges do not split a ligature. Font support still
+determines whether a requested substitution exists.
+
+Native IDML boolean switches, figure styles and complete stylistic-set masks are
+retained. Arbitrary tags and partial atomic groups use a standard Label and an
+export notice because another application cannot reproduce their inheritance
+from the corresponding native attribute. Native mode-dependent CJK kana and
+proportional-metric activation remain unsupported and are reported. Explicit
+false values disable both horizontal and vertical variants.

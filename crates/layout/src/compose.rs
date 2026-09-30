@@ -314,6 +314,7 @@ pub fn spec_for(
                         style.point_size
                     },
                     metric_size: scripted.then_some(nominal),
+                    features: engine_features(&style.features, style.kerning),
                     tracking: style
                         .tracking
                         .or(paragraph.tracking)
@@ -356,7 +357,7 @@ pub fn spec_for(
                 }
             })
             .collect(),
-        features: Vec::new(),
+        features: engine_features(&character.features, paragraph.kerning.or(character.kerning)),
         path: None,
     };
     let ink = character.fill.unwrap_or_else(crate::Ink::black);
@@ -386,6 +387,26 @@ pub fn spec_for(
         ..Default::default()
     });
     spec
+}
+
+fn engine_features(
+    features: &[(String, bool)],
+    kerning: Option<bool>,
+) -> Vec<schist_text_engine::OpenTypeFeature> {
+    let mut result: Vec<_> = features
+        .iter()
+        .map(|(tag, enabled)| schist_text_engine::OpenTypeFeature {
+            tag: tag.clone(),
+            value: u32::from(*enabled),
+        })
+        .collect();
+    if let Some(enabled) = kerning.filter(|_| !features.iter().any(|(tag, _)| tag == "kern")) {
+        result.push(schist_text_engine::OpenTypeFeature {
+            tag: "kern".into(),
+            value: u32::from(enabled),
+        });
+    }
+    result
 }
 
 /// The engine's base direction for a page-layout direction.

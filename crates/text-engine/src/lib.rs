@@ -19,12 +19,28 @@ mod shaping;
 mod text_path;
 pub use text_path::TextPath;
 
-/// A layer-wide OpenType feature override. Tags are four ASCII bytes,
+/// An OpenType feature override. Tags are four ASCII bytes,
 /// e.g. `liga`, `kern`, `smcp`, or `ss01`; zero disables a feature.
 #[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
 pub struct OpenTypeFeature {
     pub tag: String,
     pub value: u32,
+}
+
+/// Overlay features by tag. A run inherits unspecified layer features; zero is
+/// an explicit disable. Stable ordering avoids splitting equivalent shaping runs.
+fn merged_features(
+    base: &[OpenTypeFeature],
+    overrides: &[OpenTypeFeature],
+) -> Vec<OpenTypeFeature> {
+    let mut result = std::collections::BTreeMap::new();
+    for feature in overrides.iter().chain(base) {
+        result.entry(feature.tag.clone()).or_insert(feature.value);
+    }
+    result
+        .into_iter()
+        .map(|(tag, value)| OpenTypeFeature { tag, value })
+        .collect()
 }
 
 /// Alignment along the inline axis (horizontal x, or vertical y).
@@ -154,6 +170,9 @@ pub struct StyleRun {
     /// None uses the rendered size. Does not change shaping or glyph coverage.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub metric_size: Option<f32>,
+    /// Per-tag overrides of the layer's OpenType features. Empty inherits all.
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub features: Vec<OpenTypeFeature>,
     /// Extra advance in pixels, overriding the layer tracking.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub tracking: Option<f32>,
@@ -181,6 +200,7 @@ impl StyleRun {
             && self.italic.is_none()
             && self.size.is_none()
             && self.metric_size.is_none()
+            && self.features.is_empty()
             && self.color.is_none()
             && self.tracking.is_none()
             && self.leading.is_none()
@@ -215,6 +235,7 @@ impl StyleRun {
         if over.metric_size.is_some() {
             self.metric_size = over.metric_size;
         }
+        self.features = merged_features(&self.features, &over.features);
         if over.tracking.is_some() {
             self.tracking = over.tracking;
         }
@@ -242,6 +263,7 @@ impl StyleRun {
             && self.italic == other.italic
             && self.size == other.size
             && self.metric_size == other.metric_size
+            && self.features == other.features
             && self.color == other.color
             && self.tracking == other.tracking
             && self.leading == other.leading
@@ -266,6 +288,7 @@ pub struct CharStyle {
     pub italic: bool,
     pub size: f32,
     pub metric_size: Option<f32>,
+    pub features: Vec<OpenTypeFeature>,
 }
 
 impl CharStyle {
@@ -276,6 +299,7 @@ impl CharStyle {
             && self.bold == other.bold
             && self.italic == other.italic
             && self.size == other.size
+            && self.features == other.features
             && self.tracking == other.tracking
             && self.leading == other.leading
             && self.baseline_shift == other.baseline_shift
@@ -292,6 +316,7 @@ impl CharStyle {
             italic: Some(self.italic),
             size: Some(self.size),
             metric_size: self.metric_size,
+            features: self.features.clone(),
             color: self.color,
             tracking: Some(self.tracking),
             leading: self.leading,
@@ -333,6 +358,7 @@ impl TextSpec {
             italic: self.italic,
             size: self.size,
             metric_size: None,
+            features: merged_features(&[], &self.features),
         }
     }
 
@@ -353,6 +379,7 @@ impl TextSpec {
                 style.size = s;
             }
             style.metric_size = run.metric_size.filter(|v| v.is_finite() && *v > 0.0);
+            style.features = merged_features(&style.features, &run.features);
             style.color = run.color;
             style.tracking = run.tracking.unwrap_or(style.tracking);
             style.leading = run.leading;
@@ -391,6 +418,7 @@ impl TextSpec {
             && range.end == len
             && over.color.is_none()
             && over.metric_size.is_none()
+            && over.features.is_empty()
             && over.tracking.is_none()
             && over.leading.is_none()
             && over.underline.is_none()
@@ -1158,6 +1186,7 @@ impl Faces {
             style.strikethrough = base_style.strikethrough;
             style.baseline_shift = base_style.baseline_shift;
             style.metric_size = base_style.metric_size;
+            style.features.clone_from(&base_style.features);
             if style == base_style {
                 continue;
             }
@@ -2335,6 +2364,143 @@ mod tests {
         assert!(layout(&s, &face).layout_width < unkerned);
         let json = serde_json::to_string(&s).unwrap();
         assert_eq!(serde_json::from_str::<TextSpec>(&json).unwrap(), s);
+    }
+
+    #[test]
+    fn range_features_override_only_their_text_and_equivalent_boundaries_do_not_split_ligatures() {
+        for mode in [
+            WritingMode::Horizontal,
+            WritingMode::VerticalRl,
+            WritingMode::VerticalLr,
+        ] {
+            for enabled in [false, true] {
+                let (mut spec, face) = opentype_spec("office office");
+                spec.writing_mode = mode;
+                spec.set_feature("liga", enabled);
+                spec.set_feature("kern", true);
+                let original = layout(&spec, &face);
+                spec.runs.push(StyleRun {
+                    start: 2,
+                    end: 4,
+                    features: vec![
+                        OpenTypeFeature {
+                            tag: "kern".into(),
+                            value: 1,
+                        },
+                        OpenTypeFeature {
+                            tag: "liga".into(),
+                            value: u32::from(enabled),
+                        },
+                    ],
+                    ..Default::default()
+                });
+                let equal = layout(&spec, &face);
+                assert_eq!(original.glyphs.len(), equal.glyphs.len());
+                assert_eq!(original.layout_width, equal.layout_width);
+                spec.runs[0].start = 0;
+                spec.runs[0].end = 6;
+                spec.runs[0].features[1].value = u32::from(!enabled);
+                let changed = layout(&spec, &face);
+                let count = |laid: &Layout, from, to| {
+                    laid.glyphs
+                        .iter()
+                        .filter(|g| g.byte >= from && g.byte < to)
+                        .count()
+                };
+                assert_eq!(count(&original, 7, 13), count(&changed, 7, 13));
+                if enabled {
+                    assert!(count(&changed, 0, 6) > count(&original, 0, 6));
+                } else {
+                    assert!(count(&changed, 0, 6) < count(&original, 0, 6));
+                }
+                for (byte, caret) in carets(&spec) {
+                    assert!(spec.text.is_char_boundary(byte));
+                    assert!(caret.x.is_finite() && caret.top.is_finite());
+                }
+                // A whole-range override is equivalent to a layer setting,
+                // including activation of shaping when no global flag is set.
+                spec.runs[0].end = spec.text.len();
+                let mut uniform = spec.clone();
+                uniform.runs.clear();
+                uniform.set_feature("liga", !enabled);
+                spec.features.clear();
+                assert_eq!(line_spans(&spec), line_spans(&uniform));
+                assert_eq!(
+                    rasterize(&spec).unwrap().coverage,
+                    rasterize(&uniform).unwrap().coverage
+                );
+            }
+        }
+    }
+
+    #[test]
+    fn feature_edits_merge_by_tag_preserve_unset_values_and_load_legacy_runs() {
+        let (mut spec, _) = opentype_spec("office affine");
+        spec.set_feature("liga", true);
+        spec.apply_style(
+            2..4,
+            &StyleRun {
+                features: vec![OpenTypeFeature {
+                    tag: "kern".into(),
+                    value: 0,
+                }],
+                ..Default::default()
+            },
+        );
+        spec.apply_style(
+            1..8,
+            &StyleRun {
+                features: vec![OpenTypeFeature {
+                    tag: "dlig".into(),
+                    value: 1,
+                }],
+                ..Default::default()
+            },
+        );
+        for byte in 0..spec.text.len() {
+            let style = spec.style_at(byte);
+            let get = |tag| {
+                style
+                    .features
+                    .iter()
+                    .find(|f| f.tag == tag)
+                    .map(|f| f.value)
+            };
+            assert_eq!(get("liga"), Some(1));
+            assert_eq!(get("kern"), (2..4).contains(&byte).then_some(0));
+            assert_eq!(get("dlig"), (1..8).contains(&byte).then_some(1));
+        }
+        // The full-range font fast path must not discard feature-only edits.
+        spec.apply_style(
+            0..spec.text.len(),
+            &StyleRun {
+                features: vec![OpenTypeFeature {
+                    tag: "liga".into(),
+                    value: 0,
+                }],
+                ..Default::default()
+            },
+        );
+        assert!(spec
+            .style_at(0)
+            .features
+            .iter()
+            .any(|f| f.tag == "liga" && f.value == 0));
+        let mut json = serde_json::to_value(&spec).unwrap();
+        assert_eq!(
+            serde_json::from_value::<TextSpec>(json.clone()).unwrap(),
+            spec
+        );
+        for run in json["runs"].as_array_mut().unwrap() {
+            run.as_object_mut().unwrap().remove("features");
+        }
+        let old: TextSpec = serde_json::from_value(json).unwrap();
+        assert!(old.runs.iter().all(|run| run.features.is_empty()));
+        assert!(old
+            .style_at(0)
+            .features
+            .iter()
+            .any(|f| f.tag == "liga" && f.value == 1));
     }
 
     #[test]

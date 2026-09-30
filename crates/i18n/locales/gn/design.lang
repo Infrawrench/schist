@@ -332,3 +332,11 @@ design.superscript_position = Superscript position (leading %)
 design.subscript_size = Subscript size (%)
 design.subscript_position = Subscript position (leading %)
 design.idml_text_preference_invalid = Invalid {property}: {value}
+
+# OpenType feature controls and native interchange
+
+design.opentype_features = OpenType features (liga=1, dlig=0)
+design.opentype_hint = Empty inherits; 0 disables, 1 enables
+design.idml_feature_invalid = Invalid OpenType setting: {property}={value}
+design.idml_feature_unsupported = Unsupported OpenType setting: {property}={value}
+design.idml_features_private = Custom features require Schist: {features}

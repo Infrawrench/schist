@@ -728,3 +728,42 @@ retains named base identity so base-color edits update every use in one undo ste
 Synthetic native XML tests cover opaque/forward references, percentages, invalid
 resources and repeated saves. The current public templates do not contain named
 Tint resources; acceptance by a native application remains unverified.
+
+
+### OpenType features through composition
+
+Named paragraph/character styles and local ranges read the native `Ligatures`
+and supported `OTF*` boolean attributes. Figure styles expand to explicit
+`tnum`/`pnum`/`lnum`/`onum` values; `OTFStylisticSets` is a 20-bit mask, including
+an explicit zero reset. Missing tags inherit independently. These values now
+reach per-range rustybuzz shaping rather than remaining unused style metadata.
+The separate `KerningMethod` boolean also reaches composition.
+
+Mappings use the public IDML specification's Stories/Styles attribute tables,
+the [public CharacterStyle DOM](https://developer.adobe.com/indesign/uxp/dom/api/c/character-style/),
+and Microsoft's [OpenType a–e](https://learn.microsoft.com/en-us/typography/opentype/spec/features_ae),
+[f–j](https://learn.microsoft.com/en-us/typography/opentype/spec/features_fj),
+[k–o](https://learn.microsoft.com/en-us/typography/opentype/spec/features_ko),
+[p–t](https://learn.microsoft.com/en-us/typography/opentype/spec/features_pt) and
+[u–z](https://learn.microsoft.com/en-us/typography/opentype/spec/features_uz)
+registries. The named switch-to-tag mappings are inferred from those documented
+meanings, not from proprietary headers. Public native fixtures corroborate
+ligatures/contextual alternates and the disabled/default settings. Enabled
+swash/alternate forms still lack native-application visual validation.
+
+A native figure/set attribute replaces its entire group. A partial per-tag
+override cannot faithfully express that inheritance in one native attribute.
+Such overrides and arbitrary tags are retained in `Schist.OpenTypeFeatures.v1`
+inside the standard Properties/Label extension, with a localized export notice.
+They do not emit a misleading partial native mask. When a later external edit
+adds a native feature attribute, its value takes precedence over overlapping
+extension tags. Invalid attributes and labels are diagnosed. Boolean switches,
+all figure styles, mask edges, inheritance, partial-group notices, UTF-8 local
+ranges and repeated real-template saves have property coverage.
+
+`OTFHVKana` and `OTFProportionalMetrics` choose mode-dependent features. Their
+false states reset both relevant tags; activation still reports a limitation.
+The shared engine preserves arbitrary valid four-byte feature overrides, but
+Schist's named style controls currently expose on/off values only. Native
+PSD/Affinity writing uses its existing fallback for per-run overrides, without
+claiming editable native parity for them.
