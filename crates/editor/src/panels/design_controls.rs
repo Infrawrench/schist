@@ -432,45 +432,50 @@ pub(super) fn character_panel(
     ] {
         rows.push(field(ws, id, label, number(value), target.clone(), cx));
     }
-    let buttons = ["design.bold", "design.italic", "design.underline"]
-        .into_iter()
-        .enumerate()
-        .map(|(index, label)| {
-            Button::new(("design-char-toggle", index), t(label)).on_click(cx.listener(
-                move |ws, _, _, cx| {
-                    ws.commit_focused_field();
-                    let Some(name) = style_name(ws, false) else {
-                        return;
-                    };
-                    properties::edit_styles(
-                        &mut ws.design.document,
-                        &mut ws.design.history,
-                        |styles| {
-                            let resolved = styles.resolve_character(&name);
-                            if let Some(style) =
-                                styles.characters.iter_mut().find(|s| s.name == name)
-                            {
-                                match index {
-                                    0 => {
-                                        style.bold = Some(!resolved.bold.unwrap_or(false));
-                                        style.italic = Some(resolved.italic.unwrap_or(false));
-                                    }
-                                    1 => {
-                                        style.italic = Some(!resolved.italic.unwrap_or(false));
-                                        style.bold = Some(resolved.bold.unwrap_or(false));
-                                    }
-                                    _ => {
-                                        style.underline = Some(!resolved.underline.unwrap_or(false))
-                                    }
+    let buttons = [
+        "design.bold",
+        "design.italic",
+        "design.underline",
+        "design.strikethrough",
+    ]
+    .into_iter()
+    .enumerate()
+    .map(|(index, label)| {
+        Button::new(("design-char-toggle", index), t(label)).on_click(cx.listener(
+            move |ws, _, _, cx| {
+                ws.commit_focused_field();
+                let Some(name) = style_name(ws, false) else {
+                    return;
+                };
+                properties::edit_styles(
+                    &mut ws.design.document,
+                    &mut ws.design.history,
+                    |styles| {
+                        let resolved = styles.resolve_character(&name);
+                        if let Some(style) = styles.characters.iter_mut().find(|s| s.name == name) {
+                            match index {
+                                0 => {
+                                    style.bold = Some(!resolved.bold.unwrap_or(false));
+                                    style.italic = Some(resolved.italic.unwrap_or(false));
+                                }
+                                1 => {
+                                    style.italic = Some(!resolved.italic.unwrap_or(false));
+                                    style.bold = Some(resolved.bold.unwrap_or(false));
+                                }
+                                2 => style.underline = Some(!resolved.underline.unwrap_or(false)),
+                                _ => {
+                                    style.strikethrough =
+                                        Some(!resolved.strikethrough.unwrap_or(false))
                                 }
                             }
-                        },
-                    );
-                    cx.notify();
-                },
-            ))
-        })
-        .collect::<Vec<_>>();
+                        }
+                    },
+                );
+                cx.notify();
+            },
+        ))
+    })
+    .collect::<Vec<_>>();
     Some(
         div()
             .flex()

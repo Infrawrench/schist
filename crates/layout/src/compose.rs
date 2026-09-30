@@ -275,7 +275,8 @@ pub fn spec_for(
                         .or(character.tracking)
                         .map(|tracking| tracking * style.point_size.unwrap_or(size) / 1000.0),
                     leading: style.leading,
-                    underline: style.underline,
+                    underline: style.underline.or(character.underline),
+                    strikethrough: style.strikethrough.or(character.strikethrough),
                     color: Some(
                         style
                             .fill
@@ -312,6 +313,7 @@ pub fn spec_for(
         start: 0,
         end: spec.text.len(),
         underline: character.underline,
+        strikethrough: character.strikethrough,
         color: Some([
             (rgb[0].clamp(0.0, 1.0) * 255.0).round() as u8,
             (rgb[1].clamp(0.0, 1.0) * 255.0).round() as u8,

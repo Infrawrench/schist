@@ -158,6 +158,8 @@ pub struct StyleRun {
     pub leading: Option<f32>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub underline: Option<bool>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub strikethrough: Option<bool>,
     /// Character fill; None inherits the text layer fill.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub color: Option<[u8; 4]>,
@@ -174,6 +176,7 @@ impl StyleRun {
             && self.tracking.is_none()
             && self.leading.is_none()
             && self.underline.is_none()
+            && self.strikethrough.is_none()
     }
 
     /// The overrides alone, without the range: what an edit applies.
@@ -205,6 +208,9 @@ impl StyleRun {
         if over.leading.is_some() {
             self.leading = over.leading;
         }
+        if over.strikethrough.is_some() {
+            self.strikethrough = over.strikethrough;
+        }
         if over.underline.is_some() {
             self.underline = over.underline;
         }
@@ -223,6 +229,7 @@ impl StyleRun {
             && self.tracking == other.tracking
             && self.leading == other.leading
             && self.underline == other.underline
+            && self.strikethrough == other.strikethrough
     }
 }
 
@@ -233,6 +240,7 @@ pub struct CharStyle {
     pub tracking: f32,
     pub leading: Option<f32>,
     pub underline: bool,
+    pub strikethrough: bool,
     pub color: Option<[u8; 4]>,
     pub family: String,
     pub bold: bool,
@@ -241,6 +249,18 @@ pub struct CharStyle {
 }
 
 impl CharStyle {
+    /// Decorations do not split shaping runs: toggling a line through a word
+    /// must not change its ligatures, kerning, wrapping or caret positions.
+    fn shapes_like(&self, other: &Self) -> bool {
+        self.family == other.family
+            && self.bold == other.bold
+            && self.italic == other.italic
+            && self.size == other.size
+            && self.tracking == other.tracking
+            && self.leading == other.leading
+            && self.color == other.color
+    }
+
     /// The style as an override that would reproduce it in full.
     pub fn as_run(&self) -> StyleRun {
         StyleRun {
@@ -254,6 +274,7 @@ impl CharStyle {
             tracking: Some(self.tracking),
             leading: self.leading,
             underline: Some(self.underline),
+            strikethrough: Some(self.strikethrough),
         }
     }
 }
@@ -281,6 +302,7 @@ impl TextSpec {
             tracking: self.tracking,
             leading: None,
             underline: false,
+            strikethrough: false,
             color: None,
             family: self.family.clone(),
             bold: self.bold,
@@ -309,6 +331,7 @@ impl TextSpec {
             style.tracking = run.tracking.unwrap_or(style.tracking);
             style.leading = run.leading;
             style.underline = run.underline.unwrap_or(false);
+            style.strikethrough = run.strikethrough.unwrap_or(false);
         }
         style
     }
@@ -343,6 +366,7 @@ impl TextSpec {
             && over.tracking.is_none()
             && over.leading.is_none()
             && over.underline.is_none()
+            && over.strikethrough.is_none()
         {
             if let Some(f) = &over.family {
                 self.family = f.clone();
@@ -1088,6 +1112,7 @@ impl Faces {
             style.tracking = base_style.tracking;
             style.leading = base_style.leading;
             style.underline = base_style.underline;
+            style.strikethrough = base_style.strikethrough;
             if style == base_style {
                 continue;
             }
@@ -1900,55 +1925,95 @@ pub fn measure(spec: &TextSpec) -> Option<TextMetrics> {
     })
 }
 
-/// Underlines follow character advances (including spaces and RTL), not
-/// individual glyph ink boxes. Path decorations are not supported yet.
-type ColoredRaster = (IntRect, Vec<u8>, Option<[u8; 4]>);
+/// A glyph or decoration fragment, retaining the owning source cluster.
+struct ColoredRaster {
+    rect: IntRect,
+    bitmap: Vec<u8>,
+    byte: usize,
+}
 
-fn underline_rasters(spec: &TextSpec, faces: &Faces, laid: &Layout) -> Vec<ColoredRaster> {
+/// Solid decorations follow character advances, including spaces and RTL.
+/// Horizontal offsets/thickness use OpenType post/OS/2 metrics when available.
+/// Vertical underlines follow the column's outside edge; strikes cross its
+/// center. Path decorations and custom line styles are not supported yet.
+fn decoration_rasters(spec: &TextSpec, faces: &Faces, laid: &Layout) -> Vec<ColoredRaster> {
     let mut out = Vec::new();
-    if spec.path.is_some() || !spec.runs.iter().any(|run| run.underline == Some(true)) {
+    if spec.path.is_some()
+        || !spec
+            .runs
+            .iter()
+            .any(|run| run.underline == Some(true) || run.strikethrough == Some(true))
+    {
         return out;
     }
+    let metrics: Vec<_> = faces
+        .faces
+        .iter()
+        .map(|(loaded, size)| {
+            let face = ttf_parser::Face::parse(&loaded.data, loaded.index).ok();
+            let scale = face
+                .as_ref()
+                .map_or(1.0, |face| size / face.units_per_em() as f32);
+            [false, true].map(|strike| {
+                let metric = face.as_ref().and_then(|face| {
+                    if strike {
+                        face.strikeout_metrics()
+                    } else {
+                        face.underline_metrics()
+                    }
+                });
+                metric.filter(|m| m.thickness > 0).map_or(
+                    (if strike { size * 0.3 } else { -size * 0.1 }, size / 16.0),
+                    |m| (m.position as f32 * scale, m.thickness as f32 * scale),
+                )
+            })
+        })
+        .collect();
     let total_height: f32 = laid.lines.iter().map(|line| line.height).sum();
     for line in &laid.lines {
-        let ascent = spec.text[line.start..line.end]
-            .char_indices()
-            .map(|(i, _)| faces.line_metrics(faces.at(line.start + i)).0)
-            .reduce(f32::max)
-            .unwrap_or_else(|| faces.line_metrics(0).0);
         for ch in laid
             .chars
             .iter()
             .filter(|ch| line.start <= ch.byte && ch.byte < line.end)
         {
             let style = spec.style_at(ch.byte);
-            if !style.underline {
-                continue;
-            }
             let start = ch.x.min(ch.end_x).floor() as i32;
             let length = (ch.x.max(ch.end_x).ceil() as i32 - start).max(0) as u32;
-            let thickness = (style.size / 16.0).round().max(1.0) as u32;
-            let rect = if spec.writing_mode.is_vertical() {
-                let cross = if spec.writing_mode == WritingMode::VerticalRl {
-                    total_height - line.top - line.height / 2.0 + style.size * 0.55
+            for (strike, enabled) in [(false, style.underline), (true, style.strikethrough)] {
+                if !enabled {
+                    continue;
+                }
+                let (position, thickness) = metrics[faces.at(ch.byte)][usize::from(strike)];
+                let thickness = thickness.round().max(1.0) as u32;
+                let rect = if spec.writing_mode.is_vertical() {
+                    let center = if spec.writing_mode == WritingMode::VerticalRl {
+                        total_height - line.top - line.height / 2.0
+                    } else {
+                        line.top + line.height / 2.0
+                    };
+                    let cross = if strike {
+                        center - thickness as f32 / 2.0
+                    } else if spec.writing_mode == WritingMode::VerticalRl {
+                        center + style.size * 0.55
+                    } else {
+                        center - style.size * 0.55 - thickness as f32
+                    };
+                    IntRect::from_xywh(cross.round() as i32, start, thickness, length)
                 } else {
-                    line.top + line.height / 2.0 - style.size * 0.55
+                    IntRect::from_xywh(
+                        start,
+                        (line.baseline - position).round() as i32,
+                        length,
+                        thickness,
+                    )
                 };
-                IntRect::from_xywh(cross.round() as i32, start, thickness, length)
-            } else {
-                IntRect::from_xywh(
-                    start,
-                    (line.top + ascent + style.size * 0.1).round() as i32,
-                    length,
-                    thickness,
-                )
-            };
-            if !rect.is_empty() {
-                out.push((
-                    rect,
-                    vec![255; rect.width() as usize * rect.height() as usize],
-                    style.color,
-                ));
+                if !rect.is_empty() {
+                    out.push(ColoredRaster {
+                        rect,
+                        bitmap: vec![255; rect.width() as usize * rect.height() as usize],
+                        byte: ch.byte,
+                    });
+                }
             }
         }
     }
@@ -1987,7 +2052,22 @@ fn rasterize_impl(spec: &TextSpec, retain_paints: bool) -> Option<TextRaster> {
     let faces = Faces::resolve(spec, &face);
     let laid = layout(spec, &face);
     let guide = path_guide(spec, &laid);
-    let decorations = underline_rasters(spec, &faces, &laid);
+    let decorations = decoration_rasters(spec, &faces, &laid);
+    // Associate decorations with the same consecutive visual paint as their
+    // glyphs. Appending all decoration masks after the glyphs repaints earlier
+    // translucent runs and lets their lines cross later differently colored ink.
+    let paint_groups = (!decorations.is_empty()).then(|| {
+        let mut colors = Vec::new();
+        let mut groups = std::collections::HashMap::new();
+        for ch in &laid.chars {
+            let color = spec.style_at(ch.byte).color;
+            if colors.last() != Some(&color) {
+                colors.push(color);
+            }
+            groups.insert(ch.byte, colors.len() - 1);
+        }
+        groups
+    });
     let Layout {
         glyphs: placed,
         first_baseline,
@@ -2042,11 +2122,20 @@ fn rasterize_impl(spec: &TextSpec, retain_paints: bool) -> Option<TextRaster> {
             )
         };
         bounds = bounds.union(&rect);
-        rasterized.push((rect, bitmap, spec.style_at(g.byte).color));
+        rasterized.push(ColoredRaster {
+            rect,
+            bitmap,
+            byte: g.byte,
+        });
     }
-    for (rect, bitmap, color) in decorations {
-        bounds = bounds.union(&rect);
-        rasterized.push((rect, bitmap, color));
+    for decoration in decorations {
+        bounds = bounds.union(&decoration.rect);
+        rasterized.push(decoration);
+    }
+    // Stable within a paint: glyph overlap and decoration masks are unioned
+    // before opacity/knockout are applied once by the separation client.
+    if let Some(groups) = paint_groups {
+        rasterized.sort_by_key(|fragment| groups.get(&fragment.byte).copied().unwrap_or(0));
     }
     if bounds.is_empty() {
         return Some(TextRaster {
@@ -2071,7 +2160,8 @@ fn rasterize_impl(spec: &TextSpec, retain_paints: bool) -> Option<TextRaster> {
         Vec::new()
     };
     let mut paints: Vec<TextPaint> = Vec::new();
-    for (rect, bitmap, color) in rasterized {
+    for ColoredRaster { rect, bitmap, byte } in rasterized {
+        let color = spec.style_at(byte).color;
         if retain_paints && paints.last().is_none_or(|paint| paint.color != color) {
             paints.push(TextPaint {
                 color,
@@ -2202,6 +2292,202 @@ mod tests {
             assert_eq!(after.lines[1].top, 120.0);
             let saved = serde_json::to_string(&s).unwrap();
             assert_eq!(serde_json::from_str::<TextSpec>(&saved).unwrap(), s);
+        }
+    }
+
+    #[test]
+    fn decorations_never_change_shaping_wrapping_or_carets() {
+        for text in [
+            "AV office affine office AV",
+            "אבג אבג אבג",
+            "é ffi café ffi",
+        ] {
+            for mode in [
+                WritingMode::Horizontal,
+                WritingMode::VerticalRl,
+                WritingMode::VerticalLr,
+            ] {
+                let (mut spec, face) = opentype_spec(text);
+                spec.writing_mode = mode;
+                spec.wrap_width = Some(170.0);
+                spec.set_feature("liga", true);
+                spec.set_feature("kern", true);
+                let before = layout(&spec, &face);
+                let before_lines = line_spans(&spec);
+                let before_carets = carets(&spec);
+                let glyphs = |laid: &Layout| {
+                    laid.glyphs
+                        .iter()
+                        .map(|g| (g.glyph, g.byte, g.x, g.baseline, g.sideways))
+                        .collect::<Vec<_>>()
+                };
+                let boundaries: Vec<_> = text.char_indices().map(|(i, _)| i).collect();
+                for (i, byte) in boundaries.iter().enumerate() {
+                    spec.apply_style(
+                        *byte..boundaries.get(i + 1).copied().unwrap_or(text.len()),
+                        &StyleRun {
+                            underline: Some(i % 2 == 0),
+                            strikethrough: Some(i % 3 == 0),
+                            ..Default::default()
+                        },
+                    );
+                }
+                let after = layout(&spec, &face);
+                assert_eq!(glyphs(&before), glyphs(&after));
+                assert_eq!(line_spans(&spec), before_lines);
+                assert_eq!(carets(&spec), before_carets);
+                assert!(!rasterize(&spec).unwrap().is_empty());
+            }
+        }
+    }
+
+    #[test]
+    fn decorations_cover_spaces_without_repainting_translucent_glyphs() {
+        for mode in [
+            WritingMode::Horizontal,
+            WritingMode::VerticalRl,
+            WritingMode::VerticalLr,
+        ] {
+            for underline in [false, true] {
+                for strike in [false, true] {
+                    let (mut spec, face) = opentype_spec("HH HH HH");
+                    spec.writing_mode = mode;
+                    spec.size = 40.0;
+                    let red = Some([220, 0, 0, 128]);
+                    let blue = Some([0, 0, 220, 128]);
+                    for (start, end, color) in [(0, 3, red), (3, 6, blue), (6, 8, red)] {
+                        spec.apply_style(
+                            start..end,
+                            &StyleRun {
+                                color,
+                                underline: Some(underline),
+                                strikethrough: Some(strike),
+                                ..Default::default()
+                            },
+                        );
+                    }
+                    let raster = rasterize_with_paints(&spec).unwrap();
+                    assert_eq!(
+                        raster.paints.iter().map(|p| p.color).collect::<Vec<_>>(),
+                        vec![red, blue, red]
+                    );
+                    // Each pixel of a paint is a union, even where its glyphs
+                    // and both decoration lines overlap. Alpha is applied once.
+                    let laid = layout(&spec, &face);
+                    let faces = Faces::resolve(&spec, &face);
+                    let decorations = decoration_rasters(&spec, &faces, &laid);
+                    assert_eq!(
+                        decorations.len(),
+                        8 * (usize::from(underline) + usize::from(strike))
+                    );
+                    for decoration in decorations {
+                        let group = if decoration.byte < 3 {
+                            0
+                        } else if decoration.byte < 6 {
+                            1
+                        } else {
+                            2
+                        };
+                        for y in decoration.rect.top..decoration.rect.bottom {
+                            for x in decoration.rect.left..decoration.rect.right {
+                                let at = ((y - raster.bounds.top) * raster.bounds.width() + x
+                                    - raster.bounds.left)
+                                    as usize;
+                                assert_eq!(raster.paints[group].coverage[at], 255);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    #[test]
+    fn decoration_fragments_preserve_visual_paint_order_in_mixed_bidi_text() {
+        for text in ["ab אב cd גד ef", "אב ab גד cd הו"] {
+            let (mut spec, _) = opentype_spec(text);
+            spec.size = 32.0;
+            let boundaries: Vec<_> = text
+                .char_indices()
+                .map(|(i, _)| i)
+                .chain(std::iter::once(text.len()))
+                .collect();
+            for (i, pair) in boundaries.windows(2).enumerate() {
+                spec.apply_style(
+                    pair[0]..pair[1],
+                    &StyleRun {
+                        color: Some([(i % 3) as u8, 0, 0, 128]),
+                        ..Default::default()
+                    },
+                );
+            }
+            let before = rasterize_with_paints(&spec).unwrap();
+            // Spaces also get glyph entries in shaping, but have no bitmap.
+            // Avoid decorating spaces here so paints have identical membership.
+            for (byte, ch) in text.char_indices() {
+                if !ch.is_whitespace() {
+                    spec.apply_style(
+                        byte..byte + ch.len_utf8(),
+                        &StyleRun {
+                            underline: Some(true),
+                            strikethrough: Some(true),
+                            ..Default::default()
+                        },
+                    );
+                }
+            }
+            let after = rasterize_with_paints(&spec).unwrap();
+            assert_eq!(
+                after.paints.iter().map(|p| p.color).collect::<Vec<_>>(),
+                before.paints.iter().map(|p| p.color).collect::<Vec<_>>()
+            );
+        }
+    }
+
+    #[test]
+    fn strike_and_underline_are_distinct_and_run_edits_preserve_their_values() {
+        for size in [12.0, 28.0, 72.0] {
+            let (mut spec, face) = opentype_spec("HH HH");
+            spec.size = size;
+            let glyphs = rasterize(&spec).unwrap().bounds;
+            spec.apply_style(
+                0..spec.text.len(),
+                &StyleRun {
+                    strikethrough: Some(true),
+                    underline: Some(true),
+                    ..Default::default()
+                },
+            );
+            let faces = Faces::resolve(&spec, &face);
+            let laid = layout(&spec, &face);
+            let lines = decoration_rasters(&spec, &faces, &laid);
+            assert!(lines.iter().any(|r| r.rect.top >= glyphs.bottom));
+            assert!(lines
+                .iter()
+                .any(|r| r.rect.top > glyphs.top && r.rect.bottom < glyphs.bottom));
+            spec.apply_style(
+                1..4,
+                &StyleRun {
+                    strikethrough: Some(false),
+                    ..Default::default()
+                },
+            );
+            assert!(spec.style_at(0).strikethrough);
+            assert!(!spec.style_at(2).strikethrough);
+            assert!(spec.style_at(2).underline);
+            spec.text.replace_range(2..3, "é中");
+            spec.splice_runs(2..3, "é中".len());
+            assert!(!spec.style_at(4).strikethrough);
+            assert!(spec.style_at(4).underline);
+            assert_eq!(spec.style_at(4).as_run().strikethrough, Some(false));
+            let saved = serde_json::to_vec(&spec).unwrap();
+            assert_eq!(serde_json::from_slice::<TextSpec>(&saved).unwrap(), spec);
+            let mut old = serde_json::to_value(&spec).unwrap();
+            for run in old["runs"].as_array_mut().unwrap() {
+                run.as_object_mut().unwrap().remove("strikethrough");
+            }
+            let old: TextSpec = serde_json::from_value(old).unwrap();
+            assert!(!old.style_at(0).strikethrough);
         }
     }
 

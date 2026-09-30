@@ -75,7 +75,7 @@ fn items(
         };
         if at > begin
             && (face != faces.at(at)
-                || spec.style_at(begin) != spec.style_at(at)
+                || !spec.style_at(begin).shapes_like(&spec.style_at(at))
                 || next_script != script
                 || (spec.writing_mode.is_vertical()
                     && (next_vertical != vertical

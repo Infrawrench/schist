@@ -209,6 +209,27 @@ fn unsupported_new_type_settings_do_not_emit_a_misleading_native_layer() {
 }
 
 #[test]
+fn decorations_keep_private_editability_without_false_native_type_metadata() {
+    for field in ["underline", "strikethrough"] {
+        for enabled in [false, true] {
+            let mut doc = document();
+            let mut stored = spec(&doc.tree.layers[0]);
+            stored["spec"]["runs"][0][field] = json!(enabled);
+            doc.tree.layers[0].extras[0].data = serde_json::to_vec(&stored).unwrap();
+            for _ in 0..3 {
+                doc = schist_codec_psd::read_psd(&schist_codec_psd::write_psd(&doc).unwrap())
+                    .unwrap();
+                assert_eq!(
+                    doc.tree.layers[0].extras.iter().any(|b| b.key == *b"TySh"),
+                    !enabled
+                );
+                assert_eq!(spec(&doc.tree.layers[0]), stored);
+            }
+        }
+    }
+}
+
+#[test]
 fn native_ligature_flag_follows_the_actual_schist_layout_default_and_override() {
     for enabled in [false, true] {
         let mut doc = document();

@@ -89,3 +89,31 @@ The engine uses [unicode-bidi](https://docs.rs/unicode-bidi/latest/unicode_bidi/
 for paragraph and line ordering, [rustybuzz](https://docs.rs/rustybuzz/latest/rustybuzz/)
 for directional OpenType shaping, and [unicode-vo](https://docs.rs/unicode-vo/latest/unicode_vo/)
 for Unicode vertical orientation.
+
+
+## Shared text decorations
+
+`StyleRun` carries independent optional underline and strikethrough flags. They
+survive edits and serialization; explicit false overrides an inherited true in
+Design Mode. Both solid decorations follow character advances, including spaces
+and bidi text. They do not split shaping runs, so toggles preserve kerning,
+ligatures, wrapping and caret geometry.
+
+Horizontal placement and thickness use the font's OpenType
+[`post` underline metrics](https://learn.microsoft.com/en-us/typography/opentype/spec/post)
+and [`OS/2` strikeout metrics](https://learn.microsoft.com/en-us/typography/opentype/spec/os2#ystrikeoutposition),
+with em-based fallback values when absent. Vertical strikes cross the column
+center and underlines follow its outside edge. Custom decoration colours, dashes,
+weights and offsets, and decorations along a path, remain unsupported.
+
+A glyph and its decoration fragments share one mask in their consecutive visual
+paint. Unioning that coverage before separation prevents translucent glyphs from
+receiving a second coat where the line crosses them. Differently coloured paints
+keep their visual order, including mixed bidi text.
+
+Design Mode's Character panel exposes strikethrough alongside underline. The
+raster Type UI is unchanged. PSD retains decorated text in Schist's private
+`PsTx` data and rendered pixels; its current native `TySh` subset does not encode
+these decorations. Affinity export uses its reported raster fallback for them.
+Both native writers now reject active decoration flags rather than emit editable
+text with the lines silently removed.

@@ -218,3 +218,41 @@ if len(sys.argv) > 6:
                     dark += max(abs(a-b) for a,b in zip(pixel,grays[-1]))<5
             assert light>100 and dark>100, (light,dark)
     print("Design PDF: process/spot tint ramps, zero-tint knockout, opacity, overprint and styled text verified.")
+
+if len(sys.argv) > 7:
+    with tempfile.TemporaryDirectory(prefix="schist-decoration-check-") as temporary:
+        prefix = Path(temporary) / "decorations"
+        result = subprocess.run(["pdftoppm", "-png", "-r", "144", sys.argv[7], str(prefix)],
+                                check=True, capture_output=True, text=True)
+        assert not result.stderr.strip(), result.stderr
+        files = sorted(Path(temporary).glob("decorations-*.png"))
+        assert len(files) == 4
+        images = []
+        for file in files:
+            with Image.open(file) as opened:
+                images.append(opened.convert("RGB"))
+        for before, after in [(images[0],images[1]),(images[2],images[3])]:
+            assert before.size == after.size == (400,400)
+            plain = [before.getpixel((x,y)) for y in range(400) for x in range(400)]
+            decorated = [after.getpixel((x,y)) for y in range(400) for x in range(400)]
+            # Solid interior glyph colours must stay unchanged: the decoration
+            # crossing a translucent glyph must not lay a second coat of ink.
+            from collections import Counter
+            interiors = [colour for colour,count in Counter(plain).most_common(3) if min(colour)<240]
+            assert len(interiors) == 2, interiors
+            for colour in interiors:
+                assert sum(pixel==colour for pixel in plain)>300
+                for original, actual in zip(plain,decorated):
+                    if original==colour:
+                        assert max(abs(a-b) for a,b in zip(original,actual))<5, (original,actual)
+            added = [(i%400,i//400) for i,(a,b) in enumerate(zip(plain,decorated)) if min(a)>250 and min(b)<230]
+            assert len(added)>400, "missing decoration ink through spaces"
+            # A decoration axis contains over 150 new pixels through previously
+            # blank space. Glyph-only rasterization cannot satisfy this.
+            from collections import defaultdict
+            axes = defaultdict(set)
+            vertical = before is images[2]
+            for x,y in added:
+                axes[x if vertical else y].add(y if vertical else x)
+            assert max(len(points) for points in axes.values())>150
+    print("Design PDF: horizontal/vertical underline and strikethrough, spaces and single-pass translucent glyph coverage verified.")

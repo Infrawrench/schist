@@ -498,3 +498,14 @@ Text stroke tint is retained for IDML, but text strokes are not yet rendered and
 have no authoring control. Named IDML Tint swatches and inherited object-style
 paint are separate unsupported features, diagnosed as unresolved colour
 references where applicable. Native window visual QA remains outstanding.
+
+
+## Text decorations
+
+The Character panel now edits strikethrough in a named style, using the same
+single reversible style edit as underline. Paragraph and character decorations
+inherit independently; a character style with no decoration override retains the
+paragraph's underline or strike. An explicit false turns only that decoration off.
+Preview and print use the shared text renderer for horizontal and both vertical
+writing directions. Solid lines use the text's fill, tint, opacity and overprint.
+Custom decoration paint, weight, offset and line styles remain unsupported.

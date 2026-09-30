@@ -304,10 +304,12 @@ are marked.
 
 ## Handoff
 
-Verification checkpoint, 2026-09-30: `check-layout`, `check-design`, `lint-design`,
+Verification checkpoint, 2026-09-30: all 15 targets pass: `check-layout`,
+`lint-layout`, `lint-text-directions`, `check-design`, `lint-design`,
 `check-idml`, `lint-idml`, `check-separation`, `check-i18n`, `lint-all`
 (`cargo clippy --all-targets -- -D warnings`), `check-layered-codecs-app`
-(`cargo check -p schist-app`), `check-app-web` and `check-design-output` pass.
+(`cargo check -p schist-app`), `check-app-web`, `check-design-output`,
+`check-editable-interchange` and `lint-editable-interchange`.
 The browser build reused the native build's cached backer catalog because
 the initial sandbox could not resolve the catalog host. A file-URL portability defect
 and Design Save As filename routing were fixed before that browser check.
@@ -316,14 +318,16 @@ The unfiltered `CARGO_INCREMENTAL=0 make check-design` now passes all 382 editor
 tests, including the clipboard HTTP test that the earlier sandbox blocked, plus
 its layout, settings and i18n checks.
 
-Distinct passing Rust tests at the tint checkpoint: editor 382, layout 295,
-text engine 42, IDML 166, separation 151, core 120, settings 24 and i18n 28
-(including its doctest): **1,208**, plus four browser i18n tests. Poppler
+Distinct passing Rust tests at the decoration checkpoint: editor 382, layout 296,
+text engine 46, IDML 167, separation 152, core 120, settings 24 and i18n 28
+(including its doctest): **1,215**. The expanded editable-interchange checks add
+Affinity 38, PSD 149 and Type tools 38, for **1,440** distinct Rust tests across
+11 crates, plus four browser i18n tests. Poppler
 checks verify ink patches, rotated text, sheared frames, inner image rotation
 and curved/compound frame clipping, enlarged paragraph initials, vertical Japanese/Latin text, n-up reading
 order, sheet counts and empty slots. The updated affine/compound-frame proof was also visually inspected.
-Logs and exit codes are under `/tmp/schist-tint-sweep-*`, with the result
-index in `/tmp/schist-tint-sweep-results.json`. The asymmetric-offset
+Logs and exit codes are under `/tmp/schist-decoration-sweep-*`, with the result
+index in `/tmp/schist-decoration-sweep-results.json`. The asymmetric-offset
 proof also verifies PDF MediaBox/TrimBox/BleedBox with Poppler and was visually
 inspected. Future changes require a new sweep.
 
@@ -519,3 +523,32 @@ checks both tint values. Logs/results are under `/tmp/schist-tint-sweep-*`.
 Temporary spec downloads and superseded tint development logs were removed; the
 current proof and verification evidence remain. Native GUI/application validation
 and the modern INDD paired corpus remain outstanding, and the feature stays dark.
+
+
+Solid text decoration rendering is implemented in item 9. Strikethrough now
+reaches preview and print; character styles retain inherited paragraph underlines
+and strikes unless explicitly overridden. Character exposes a reversible
+strikethrough toggle, with its label in all 150 catalogs. Decoration changes no
+longer split shaping runs, preserving ligatures, kerning, wrapping and carets.
+Horizontal lines use OpenType font metrics; vertical lines follow the column.
+
+Glyphs and decorations now share coverage within each consecutive visual paint.
+This fixes repeated opacity at intersections and preserves paint order across
+mixed bidi text. Property tests cover inheritance, native IDML saves, text edits,
+legacy serialization, spaces, both vertical directions and translucent output.
+Paired PDF pages verify added decoration ink and unchanged solid glyph colours
+with Poppler; horizontal and vertical proofs were visually inspected.
+
+The shared renderer's new flag also exposed unsupported native PSD/Affinity text
+encoding. Their writers now retain the existing private/pixel or reported raster
+fallback for active decorations instead of emitting plain editable text. No Adobe
+headers or proprietary executables were read. Custom decoration paints, weights,
+offsets, line types and path decorations remain unsupported; text strokes are a
+separate gap. All 15 targets in the expanded sweep pass, including the
+editable-interchange tests and lint, workspace clippy and both app checks.
+Formatting passes. Nine new property tests bring the Design-related count to
+1,215; with the added codec/Type-tool coverage the sweep runs 1,440 distinct Rust
+tests, plus four browser i18n tests. Superseded decoration development logs and
+the initial proof image were removed; current proof and sweep evidence remain.
+Native GUI/application validation and the modern INDD paired corpus remain
+outstanding. The feature stays disabled by default.

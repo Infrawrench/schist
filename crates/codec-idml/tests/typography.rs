@@ -377,3 +377,48 @@ fn native_tint_inheritance_and_local_overrides_survive_without_style_growth() {
         }
     }
 }
+
+#[test]
+fn decoration_inheritance_and_local_false_overrides_reach_rendering_after_every_save() {
+    for underline in [false, true] {
+        for strike in [false, true] {
+            let styles = format!(
+                r#"<RootParagraphStyleGroup>
+              <ParagraphStyle Self="p0" Name="Decorated base" Underline="{underline}" StrikeThru="{strike}"/>
+              <ParagraphStyle Self="p1" Name="Decorated"><Properties><BasedOn type="object">p0</BasedOn></Properties></ParagraphStyle>
+            </RootParagraphStyleGroup><RootCharacterStyleGroup>
+              <CharacterStyle Self="c0" Name="No overrides"/>
+            </RootCharacterStyleGroup>"#
+            );
+            let story = r#"<ParagraphStyleRange AppliedParagraphStyle="p1">
+              <CharacterStyleRange><Content>A</Content></CharacterStyleRange>
+              <CharacterStyleRange AppliedCharacterStyle="c0"><Content>B</Content></CharacterStyleRange>
+              <CharacterStyleRange AppliedCharacterStyle="c0" Underline="false" StrikeThru="false"><Content>C</Content></CharacterStyleRange>
+            </ParagraphStyleRange>"#;
+            let mut doc = native_story(&styles, story);
+            let counts = (doc.styles.paragraphs.len(), doc.styles.characters.len());
+            for _ in 0..4 {
+                let spec = schist_layout::compose::spec_for(
+                    &doc.stories[0],
+                    0,
+                    3,
+                    &doc.styles,
+                    "Decorated",
+                    "Default",
+                    200.0,
+                );
+                for byte in [0, 1] {
+                    assert_eq!(spec.style_at(byte).underline, underline);
+                    assert_eq!(spec.style_at(byte).strikethrough, strike);
+                }
+                assert!(!spec.style_at(2).underline);
+                assert!(!spec.style_at(2).strikethrough);
+                assert_eq!(
+                    (doc.styles.paragraphs.len(), doc.styles.characters.len()),
+                    counts
+                );
+                doc = import::read(&export::write(&doc).bytes).unwrap().document;
+            }
+        }
+    }
+}

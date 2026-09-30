@@ -268,7 +268,10 @@ impl Exporter {
                 .is_some_and(|width| !width.is_finite() || !(1.0..=1_000_000.0).contains(&width))
             || spec.runs.len() > 4096
             || spec.runs.iter().any(|run| {
-                run.start > run.end
+                // The native text subset has no decoration encoding yet.
+                run.underline == Some(true)
+                    || run.strikethrough == Some(true)
+                    || run.start > run.end
                     || !spec.text.is_char_boundary(run.start)
                     || !spec.text.is_char_boundary(run.end)
             })

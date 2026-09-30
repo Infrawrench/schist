@@ -128,6 +128,7 @@ pub struct ParagraphStyle {
     /// Fraction of full-strength ink; None inherits independently of colour.
     pub fill_tint: Option<f32>,
     pub stroke_tint: Option<f32>,
+    /// The fill ink; unset inherits the paragraph or document text colour.
     pub fill: Option<Ink>,
     pub stroke: Option<Ink>,
     pub overprint_fill: Option<bool>,
@@ -199,10 +200,10 @@ pub struct CharacterStyle {
     pub all_caps: Option<bool>,
     pub small_caps: Option<bool>,
 
-    /// The fill ink. Defaults to the document's text colour when unset.
     /// Fraction of full-strength ink; None inherits independently of colour.
     pub fill_tint: Option<f32>,
     pub stroke_tint: Option<f32>,
+    /// The fill ink; unset inherits the paragraph or document text colour.
     pub fill: Option<Ink>,
     pub stroke: Option<Ink>,
     /// Stroke weight as a percentage of the fill's.
@@ -374,6 +375,7 @@ pub struct ResolvedParagraph {
     /// Fraction of full-strength ink; None inherits independently of colour.
     pub fill_tint: Option<f32>,
     pub stroke_tint: Option<f32>,
+    /// The fill ink; unset inherits the paragraph or document text colour.
     pub fill: Option<Ink>,
     pub stroke: Option<Ink>,
     pub overprint_fill: Option<bool>,
@@ -475,6 +477,7 @@ pub struct ResolvedCharacter {
     /// Fraction of full-strength ink; None inherits independently of colour.
     pub fill_tint: Option<f32>,
     pub stroke_tint: Option<f32>,
+    /// The fill ink; unset inherits the paragraph or document text colour.
     pub fill: Option<Ink>,
     pub stroke: Option<Ink>,
     pub stroke_weight: Option<f32>,

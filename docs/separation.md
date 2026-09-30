@@ -336,3 +336,19 @@ spot aliases, process conversion, and inherited text paints. The `tint_proof`
 example adds an independent Poppler check of process/spot ramps, zero-tint
 knockout, transparency, overprint and styled glyphs. Text stroke rendering,
 named Tint swatches and external native-application comparison remain gaps.
+
+
+## Decorated text paints
+
+Solid underlines and strikethroughs use their character's resolved fill paint,
+including spot identity, tint, opacity and overprint. Decoration fragments are
+unioned with glyphs within each consecutive visual paint before separation.
+Previously the renderer appended all underlines after all glyphs, which could
+apply opacity twice at intersections or repaint an earlier run over a later one.
+Tests bound every decorated plate pixel by its requested opacity in knockout and
+overprint modes, across horizontal and both vertical writing directions.
+
+The paired `decoration_proof` pages let Poppler compare undecorated/decorated
+output directly. Checks require added continuous ink through spaces and unchanged
+solid glyph colours. The proof also has visually inspected horizontal/vertical
+pages. Custom decoration paints and text strokes remain separate gaps.

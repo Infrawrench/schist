@@ -664,3 +664,15 @@ are not yet represented; referenced ones still produce unresolved-colour notices
 Object-style paint inheritance is not implemented, so an inherited shape tint
 falls back to full strength. Text stroke tints round-trip, but the compositor
 still renders text fills only. External application validation remains needed.
+
+
+### Solid text decorations
+
+Native `Underline` and `StrikeThru` flags now reach composition, preview and print
+through paragraph/character inheritance and local style overrides. The existing
+native boolean encoding remains unchanged. A new repeated-save property test
+checks inherited true/false values and local explicit false without style growth.
+The renderer uses automatic font metrics for horizontal text and column-relative
+lines for vertical text. Custom native decoration colour, tint, weight, offset,
+gap and line-type attributes still lack representation; no native-application
+agreement is claimed for those attributes or the automatic metrics.

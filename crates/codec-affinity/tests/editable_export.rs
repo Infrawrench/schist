@@ -253,3 +253,25 @@ fn unverified_astral_run_units_use_the_existing_raster_fallback() {
         .iter()
         .any(|n| matches!(n.type_tag().to_be_bytes(), [b'T', b'x', b't', b'A' | b'F'])));
 }
+
+#[test]
+fn unencoded_decorations_use_the_reported_raster_fallback() {
+    for field in ["underline", "strikethrough"] {
+        for enabled in [false, true] {
+            let mut doc = text_doc(false);
+            let mut stored: serde_json::Value =
+                serde_json::from_slice(&doc.tree.layers[0].extras[0].data).unwrap();
+            stored["spec"]["runs"][0][field] = serde_json::json!(enabled);
+            doc.tree.layers[0].extras[0].data = serde_json::to_vec(&stored).unwrap();
+            let (bytes, report) = write_affinity(&doc, None).unwrap();
+            assert_eq!(report.skipped.len(), usize::from(enabled));
+            assert_eq!(
+                graph(&bytes)
+                    .nodes
+                    .iter()
+                    .any(|n| matches!(n.type_tag().to_be_bytes(), [b'T', b'x', b't', b'A' | b'F'])),
+                !enabled
+            );
+        }
+    }
+}
