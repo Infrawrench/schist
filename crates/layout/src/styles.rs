@@ -125,6 +125,9 @@ pub struct ParagraphStyle {
     pub italic: Option<bool>,
     pub underline: Option<bool>,
     pub strikethrough: Option<bool>,
+    /// Fraction of full-strength ink; None inherits independently of colour.
+    pub fill_tint: Option<f32>,
+    pub stroke_tint: Option<f32>,
     pub fill: Option<Ink>,
     pub stroke: Option<Ink>,
     pub overprint_fill: Option<bool>,
@@ -197,6 +200,9 @@ pub struct CharacterStyle {
     pub small_caps: Option<bool>,
 
     /// The fill ink. Defaults to the document's text colour when unset.
+    /// Fraction of full-strength ink; None inherits independently of colour.
+    pub fill_tint: Option<f32>,
+    pub stroke_tint: Option<f32>,
     pub fill: Option<Ink>,
     pub stroke: Option<Ink>,
     /// Stroke weight as a percentage of the fill's.
@@ -365,6 +371,9 @@ pub struct ResolvedParagraph {
     pub italic: Option<bool>,
     pub underline: Option<bool>,
     pub strikethrough: Option<bool>,
+    /// Fraction of full-strength ink; None inherits independently of colour.
+    pub fill_tint: Option<f32>,
+    pub stroke_tint: Option<f32>,
     pub fill: Option<Ink>,
     pub stroke: Option<Ink>,
     pub overprint_fill: Option<bool>,
@@ -398,6 +407,8 @@ impl ResolvedParagraph {
         fallback.italic = self.italic.or(fallback.italic);
         fallback.underline = self.underline.or(fallback.underline);
         fallback.strikethrough = self.strikethrough.or(fallback.strikethrough);
+        fallback.fill_tint = self.fill_tint.or(fallback.fill_tint);
+        fallback.stroke_tint = self.stroke_tint.or(fallback.stroke_tint);
         fallback.fill = self.fill.clone().or(fallback.fill);
         fallback.stroke = self.stroke.clone().or(fallback.stroke);
         fallback.overprint_fill = self.overprint_fill.or(fallback.overprint_fill);
@@ -416,6 +427,8 @@ impl ResolvedParagraph {
             out.italic = out.italic.or(style.italic);
             out.underline = out.underline.or(style.underline);
             out.strikethrough = out.strikethrough.or(style.strikethrough);
+            out.fill_tint = out.fill_tint.or(style.fill_tint);
+            out.stroke_tint = out.stroke_tint.or(style.stroke_tint);
             out.fill = out.fill.clone().or_else(|| style.fill.clone());
             out.stroke = out.stroke.clone().or_else(|| style.stroke.clone());
             out.overprint_fill = out.overprint_fill.or(style.overprint_fill);
@@ -459,6 +472,9 @@ pub struct ResolvedCharacter {
     pub baseline_shift: Option<BaselineShift>,
     pub all_caps: Option<bool>,
     pub small_caps: Option<bool>,
+    /// Fraction of full-strength ink; None inherits independently of colour.
+    pub fill_tint: Option<f32>,
+    pub stroke_tint: Option<f32>,
     pub fill: Option<Ink>,
     pub stroke: Option<Ink>,
     pub stroke_weight: Option<f32>,
@@ -487,6 +503,8 @@ impl ResolvedCharacter {
             out.baseline_shift = out.baseline_shift.or(style.baseline_shift);
             out.all_caps = out.all_caps.or(style.all_caps);
             out.small_caps = out.small_caps.or(style.small_caps);
+            out.fill_tint = out.fill_tint.or(style.fill_tint);
+            out.stroke_tint = out.stroke_tint.or(style.stroke_tint);
             out.fill = out.fill.clone().or_else(|| style.fill.clone());
             out.stroke = out.stroke.clone().or_else(|| style.stroke.clone());
             out.stroke_weight = out.stroke_weight.or(style.stroke_weight);

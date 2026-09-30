@@ -75,6 +75,7 @@ fn document() -> LayoutDocument {
                     stroke_width: 1.0,
                     fill_overprint: false,
                     stroke_overprint: false,
+                    tints: Default::default(),
                 },
                 rotation: 0.0,
                 transform: Default::default(),

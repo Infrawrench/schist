@@ -926,6 +926,7 @@ pub fn sample_paint(state: &mut DesignState, at: schist_layout::Point) -> bool {
         stroke_width,
         fill_overprint,
         stroke_overprint,
+        tints,
         ..
     } = &source.object
     else {
@@ -946,6 +947,7 @@ pub fn sample_paint(state: &mut DesignState, at: schist_layout::Point) -> bool {
             stroke_width: w,
             fill_overprint: fo,
             stroke_overprint: so,
+            tints: target_tints,
             ..
         } = &mut after.object
         else {
@@ -956,6 +958,7 @@ pub fn sample_paint(state: &mut DesignState, at: schist_layout::Point) -> bool {
         *w = *stroke_width;
         *fo = *fill_overprint;
         *so = *stroke_overprint;
+        *target_tints = *tints;
         after.transparency = source.transparency;
         after.overprint = source.overprint;
         if after != *target {
@@ -1094,12 +1097,24 @@ mod selection_gesture_tests {
                 .unwrap();
                 state.selection.push(id);
             }
+            let expected_tints = schist_layout::PaintTints {
+                fill: count as f32 / 8.0,
+                stroke: 0.25,
+            };
+            let LayoutObject::Shape { tints, .. } = &mut state.document.objects[0].object else {
+                panic!()
+            };
+            *tints = expected_tints;
             let before = state.document.clone();
             let depth = state.history.undo_depth();
             assert!(sample_paint(&mut state, Point::new(20.0, 20.0)));
             assert_eq!(state.history.undo_depth(), depth + 1);
             for (a, b) in before.objects.iter().zip(&state.document.objects) {
                 assert_eq!(a.bounds, b.bounds);
+                let LayoutObject::Shape { tints, .. } = &b.object else {
+                    panic!()
+                };
+                assert_eq!(*tints, expected_tints);
             }
             state.history.undo(&mut state.document);
             assert_eq!(state.document, before);

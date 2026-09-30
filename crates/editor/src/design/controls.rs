@@ -51,6 +51,8 @@ pub fn object_property(id: &str) -> Option<ObjectProperty> {
         "design-prop-columns" => ObjectProperty::Columns,
         "design-prop-gutter" => ObjectProperty::Gutter,
         "design-prop-inset" => ObjectProperty::Inset,
+        "design-prop-fill-tint" => ObjectProperty::FillTint,
+        "design-prop-stroke-tint" => ObjectProperty::StrokeTint,
         _ => return None,
     })
 }
@@ -128,6 +130,9 @@ pub fn commit(state: &mut DesignState, id: &str, text: &str) -> bool {
             _ => return false,
         }
     };
+    if id.ends_with("-tint") && value.is_some_and(|v| !(0.0..=100.0).contains(&v)) {
+        return false;
+    }
     match target {
         Target::Pages(pages) => value.is_some_and(|value| {
             page_property(id).is_some_and(|property| {
@@ -184,6 +189,7 @@ pub fn commit(state: &mut DesignState, id: &str, text: &str) -> bool {
                     return;
                 };
                 match id {
+                    "design-prop-paragraph-fill-tint" => style.fill_tint = value.map(|v| v / 100.0),
                     "design-prop-size" => style.point_size = value,
                     "design-prop-leading" => style.leading = value,
                     "design-prop-tracking" => style.tracking = value,
@@ -211,6 +217,7 @@ pub fn commit(state: &mut DesignState, id: &str, text: &str) -> bool {
                     return;
                 };
                 match id {
+                    "design-prop-char-fill-tint" => style.fill_tint = value.map(|v| v / 100.0),
                     "design-prop-char-size" => style.point_size = value,
                     "design-prop-char-leading" => style.leading = value,
                     "design-prop-char-tracking" => style.tracking = value,
@@ -234,6 +241,74 @@ pub fn all_text_frames(state: &DesignState) -> bool {
 #[cfg(test)]
 mod tests {
     use super::*;
+    #[test]
+    fn tint_fields_commit_once_to_the_captured_targets_and_blank_styles_inherit() {
+        for paragraph in [false, true] {
+            let mut state = DesignState::new();
+            let (id, name, target) = if paragraph {
+                (
+                    "design-prop-paragraph-fill-tint",
+                    "Body",
+                    Target::Paragraph("Body".into()),
+                )
+            } else {
+                (
+                    "design-prop-char-fill-tint",
+                    "Default",
+                    Target::Character("Default".into()),
+                )
+            };
+            let before = state.document.clone();
+            for invalid in ["-1", "100.01", "NaN", "inf"] {
+                state.controls.field = Some(target.clone());
+                assert!(!commit(&mut state, id, invalid));
+                assert_eq!(state.document, before);
+            }
+            state.controls.field = Some(target.clone());
+            assert!(commit(&mut state, id, "12.5"));
+            assert_eq!(state.history.undo_depth(), 1);
+            let value = if paragraph {
+                state.document.styles.paragraph(name).unwrap().fill_tint
+            } else {
+                state.document.styles.character(name).unwrap().fill_tint
+            };
+            assert_eq!(value, Some(0.125));
+            assert!(state.history.undo(&mut state.document));
+            assert_eq!(state.document, before);
+            assert!(state.history.redo(&mut state.document));
+            state.controls.field = Some(target);
+            assert!(commit(&mut state, id, ""));
+            assert_eq!(state.document, before);
+        }
+        for id in ["design-prop-fill-tint", "design-prop-stroke-tint"] {
+            let mut state = DesignState::new();
+            let objects: Vec<_> = (0..3)
+                .map(|_| {
+                    schist_layout::authoring::rectangle(
+                        &mut state.document,
+                        &mut schist_layout::History::default(),
+                        0,
+                        schist_layout::Rect::new(5.0, 5.0, 10.0, 10.0),
+                        schist_layout::authoring::Paint::filled("Black"),
+                    )
+                    .unwrap()
+                })
+                .collect();
+            let before = state.document.clone();
+            state.controls.field = Some(Target::Objects(objects));
+            state.selection.clear();
+            assert!(commit(&mut state, id, "25"));
+            assert!(state
+                .document
+                .objects
+                .iter()
+                .all(|o| object_property(id).unwrap().value(o) == Some(25.0)));
+            assert_eq!(state.history.undo_depth(), 1);
+            assert!(state.history.undo(&mut state.document));
+            assert_eq!(state.document, before);
+        }
+    }
+
     #[test]
     fn section_fields_edit_the_captured_boundary_once_and_reject_invalid_starts() {
         for field in [

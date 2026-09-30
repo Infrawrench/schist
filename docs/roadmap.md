@@ -312,18 +312,18 @@ The browser build reused the native build's cached backer catalog because
 the initial sandbox could not resolve the catalog host. A file-URL portability defect
 and Design Save As filename routing were fixed before that browser check.
 
-The unfiltered `CARGO_INCREMENTAL=0 make check-design` now passes all 381 editor
+The unfiltered `CARGO_INCREMENTAL=0 make check-design` now passes all 382 editor
 tests, including the clipboard HTTP test that the earlier sandbox blocked, plus
 its layout, settings and i18n checks.
 
-Distinct passing Rust tests at the crossover checkpoint: editor 381, layout 291,
-text engine 42, IDML 163, separation 148, core 120, settings 24 and i18n 28
-(including its doctest): **1,197**, plus four browser i18n tests. Poppler
+Distinct passing Rust tests at the tint checkpoint: editor 382, layout 295,
+text engine 42, IDML 166, separation 151, core 120, settings 24 and i18n 28
+(including its doctest): **1,208**, plus four browser i18n tests. Poppler
 checks verify ink patches, rotated text, sheared frames, inner image rotation
 and curved/compound frame clipping, enlarged paragraph initials, vertical Japanese/Latin text, n-up reading
 order, sheet counts and empty slots. The updated affine/compound-frame proof was also visually inspected.
-Logs and exit codes are under `/tmp/schist-crossover-sweep-*`, with the result
-index in `/tmp/schist-crossover-sweep-results.json`. The asymmetric-offset
+Logs and exit codes are under `/tmp/schist-tint-sweep-*`, with the result
+index in `/tmp/schist-tint-sweep-results.json`. The asymmetric-offset
 proof also verifies PDF MediaBox/TrimBox/BleedBox with Poppler and was visually
 inspected. Future changes require a new sweep.
 
@@ -494,3 +494,28 @@ formatting passes. The final editor checks were repeated after the selection fix
 No new user-facing strings or locales were introduced. Native GUI, populated
 facing-master/application validation, advanced typography and the modern INDD
 paired corpus remain open. The feature stays disabled by default.
+
+
+Direct ink tints are implemented in item 9. Shapes retain independent fill/stroke
+fractions; named paragraph and character styles inherit tint independently of
+ink and opacity. Control commits shape percentages to the captured selection in
+one undo step; text style fields allow blank inheritance. The eyedropper copies
+tints. IDML retains direct percentages and -1 inheritance, and reports invalid
+values. Named Tint swatches and object-style paint inheritance remain gaps.
+Text stroke tint is retained for interchange; text stroke rendering remains
+unsupported and has no new authoring control.
+
+Separation applies tint after alias/process-build resolution, preserving one
+plate per spot and full knockout coverage. Zero tint still knocks out; opacity
+retains underlying ink. Property tests cover fills, strokes, text runs, aliases,
+process conversion, inheritance, native saves, preview and undo. The independent
+Poppler tint proof covers process/spot ramps, knockout, transparency, overprint
+and styled glyphs; it was visually inspected. The three new keys are present in
+all 150 locale catalogs. All 13 make targets in the new full sweep pass, including
+workspace clippy, native/browser app checks and independent PDF proofs; formatting
+also passes. The count is 1,208 distinct Rust tests plus four browser i18n tests.
+Eleven new tests cover tint behavior; the existing eyedropper property test also
+checks both tint values. Logs/results are under `/tmp/schist-tint-sweep-*`.
+Temporary spec downloads and superseded tint development logs were removed; the
+current proof and verification evidence remain. Native GUI/application validation
+and the modern INDD paired corpus remain outstanding, and the feature stays dark.

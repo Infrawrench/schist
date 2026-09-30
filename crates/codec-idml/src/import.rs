@@ -507,6 +507,10 @@ fn placed_object(
             stroke_width: element.number("StrokeWeight").unwrap_or(0.0),
             fill_overprint: element.attr("OverprintFill") == Some("true"),
             stroke_overprint: element.attr("OverprintStroke") == Some("true"),
+            tints: schist_layout::PaintTints {
+                fill: crate::color_codec::tint(element, "FillTint", report).unwrap_or(1.0),
+                stroke: crate::color_codec::tint(element, "StrokeTint", report).unwrap_or(1.0),
+            },
         },
         other => {
             if !other.is_empty() {

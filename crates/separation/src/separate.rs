@@ -19,7 +19,7 @@ use crate::build::{CmykSource, NaiveBuild};
 use crate::coverage::{InkMode, PlateCoverage, Separation};
 use crate::geometry::{OutputSettings, PagePixel};
 use crate::plan::PlatePlan;
-use crate::raster::{coats_for, graphic_coverage, GraphicSource, NoGraphics};
+use crate::raster::{graphic_coverage, tinted_coats_for, GraphicSource, NoGraphics};
 use crate::report::PreflightReport;
 
 /// A page separated into plates.
@@ -378,11 +378,12 @@ fn paint_object<'a>(
             stroke,
             fill_overprint,
             stroke_overprint,
+            tints,
             ..
         } => {
             let coverage = crate::raster::placed_shape_coverage(placed, settings, page, false);
             if let Some(ink) = fill {
-                let (coats, build) = coats_for(plan, ink);
+                let (coats, build) = tinted_coats_for(plan, ink, tints.fill);
                 let mode = if *fill_overprint {
                     InkMode::Overprint
                 } else {
@@ -397,7 +398,7 @@ fn paint_object<'a>(
                 // overprints is an ordinary way to draw a keyline.
                 let stroke_mask =
                     crate::raster::placed_shape_coverage(placed, settings, page, true);
-                let (coats, build) = coats_for(plan, ink);
+                let (coats, build) = tinted_coats_for(plan, ink, tints.stroke);
                 let mode = if *stroke_overprint {
                     InkMode::Overprint
                 } else {
@@ -412,12 +413,16 @@ fn paint_object<'a>(
             let composed = compose_object(doc, placed)?;
             let story_def = doc.story(*story)?;
             for line in &composed.lines {
-                for (coverage, ink, alpha, overprint) in
-                    crate::raster::line_paints(line, story_def, doc, settings, page)
-                {
-                    let coverage = crate::raster::warp_coverage(coverage, placed, settings, page);
-                    let mode = if overprint { InkMode::Overprint } else { mode };
-                    let (coats, build) = coats_for(plan, &ink);
+                for paint in crate::raster::line_paints(line, story_def, doc, settings, page) {
+                    let coverage =
+                        crate::raster::warp_coverage(paint.coverage, placed, settings, page);
+                    let mode = if paint.overprint {
+                        InkMode::Overprint
+                    } else {
+                        mode
+                    };
+                    let alpha = paint.opacity;
+                    let (coats, build) = tinted_coats_for(plan, &paint.ink, paint.tint);
                     separation.paint(&coverage, &coats, mode, opacity * alpha);
                     separation.paint_composite(&coverage, &coats, &build, mode, opacity * alpha);
                 }

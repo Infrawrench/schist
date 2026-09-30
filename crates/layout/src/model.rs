@@ -207,6 +207,8 @@ pub enum LayoutObject {
         stroke_width: Pt,
         fill_overprint: bool,
         stroke_overprint: bool,
+        #[serde(default)]
+        tints: crate::PaintTints,
     },
     /// Other frames, for grouping. The child bounds are relative to this
     /// frame's origin, so a group can be moved as one.

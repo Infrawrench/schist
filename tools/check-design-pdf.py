@@ -188,3 +188,33 @@ if len(sys.argv) > 5:
         for image, xs in [(left, range(96, 126)), (right, range(6, 60))]:
             assert sum(max(image.getpixel((x,y))) < 150 for x in xs for y in range(68, 93)) > 20, "crossing text lost one side"
     print("Design PDF: crossover shapes, continuous image/text, inside bleed and identical n-up placement verified.")
+
+if len(sys.argv) > 6:
+    with tempfile.TemporaryDirectory(prefix="schist-tint-check-") as temporary:
+        prefix = Path(temporary) / "tints"
+        result = subprocess.run(["pdftoppm", "-png", "-r", "72", "-singlefile", sys.argv[6], str(prefix)],
+                                check=True, capture_output=True, text=True)
+        assert not result.stderr.strip(), result.stderr
+        with Image.open(prefix.with_suffix(".png")) as opened:
+            image = opened.convert("RGB")
+            assert image.size == (200, 170), image.size
+            grays = [image.getpixel((25+i*36,22)) for i in range(5)]
+            greens = [image.getpixel((25+i*36,57)) for i in range(5)]
+            assert min(grays[0]) > 245 and max(grays[-1]) < 60, grays
+            assert all(a[0] > b[0]+15 for a,b in zip(grays,grays[1:])), grays
+            assert all(a[0] > b[0]+15 for a,b in zip(greens,greens[1:])), greens
+            assert all(g > max(r,b)+15 for r,g,b in greens[1:]), greens
+            zero, tint, opacity, overprint = [image.getpixel((25+i*45,92)) for i in range(4)]
+            assert min(zero)>245, ("zero tint did not knock out",zero)
+            assert max(tint)-min(tint)<10 and 140<min(tint)<235, tint
+            assert opacity[0]>max(opacity[1:])+70, opacity
+            assert overprint[0]>max(overprint[1:])+70, overprint
+            # Compare solid glyph interiors with the matching 25%/100% patches.
+            light = dark = 0
+            for y in range(115,155):
+                for x in range(10,190):
+                    pixel = image.getpixel((x,y))
+                    light += max(abs(a-b) for a,b in zip(pixel,grays[1]))<5
+                    dark += max(abs(a-b) for a,b in zip(pixel,grays[-1]))<5
+            assert light>100 and dark>100, (light,dark)
+    print("Design PDF: process/spot tint ramps, zero-tint knockout, opacity, overprint and styled text verified.")

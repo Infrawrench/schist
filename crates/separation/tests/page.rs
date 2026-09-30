@@ -137,6 +137,7 @@ fn shape_at(page: usize, bounds: Rect, fill: Option<Ink>, overprint: bool) -> Pl
             stroke_width: 0.0,
             fill_overprint: overprint,
             stroke_overprint: false,
+            tints: Default::default(),
         },
         rotation: 0.0,
         transform: Default::default(),

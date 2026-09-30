@@ -282,8 +282,8 @@ impl Separation {
     /// own plates would turn every knockout into a silent overprint.
     ///
     /// `opacity` is the object's own transparency, which is not the same
-    /// as an ink's weight: a 50% transparent black object lays down half
-    /// the ink, and the other half is paper.
+    /// as an ink's weight: a 50% opaque black object lays down half
+    /// its ink and retains half the underlying ink in knockout mode.
     pub fn paint(&mut self, mask: &Coverage, coats: &[Coat], mode: InkMode, opacity: Pt) {
         if mask.is_empty() {
             return;

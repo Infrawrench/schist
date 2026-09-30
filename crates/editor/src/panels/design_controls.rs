@@ -60,6 +60,17 @@ pub(super) fn control_panel(
             ("design-prop-inset", "design.inset"),
         ]);
     }
+    if ws.design.selection.iter().all(|id| {
+        ws.design
+            .document
+            .object(*id)
+            .is_some_and(|o| matches!(o.object, schist_layout::LayoutObject::Shape { .. }))
+    }) {
+        fields.extend([
+            ("design-prop-fill-tint", "design.fill_tint"),
+            ("design-prop-stroke-tint", "design.stroke_tint"),
+        ]);
+    }
     let target = Target::Objects(ws.design.selection.clone());
     let rows = fields
         .into_iter()
@@ -298,6 +309,11 @@ pub(super) fn paragraph_panel(
         cx,
     ));
     for (id, label, value) in [
+        (
+            "design-prop-paragraph-fill-tint",
+            "design.fill_tint",
+            style.fill_tint.map(|v| v * 100.0),
+        ),
         ("design-prop-size", "design.point_size", style.point_size),
         ("design-prop-leading", "design.leading", style.leading),
         ("design-prop-tracking", "design.tracking", style.tracking),
@@ -397,6 +413,11 @@ pub(super) fn character_panel(
         ),
     ];
     for (id, label, value) in [
+        (
+            "design-prop-char-fill-tint",
+            "design.fill_tint",
+            style.fill_tint.map(|v| v * 100.0),
+        ),
         (
             "design-prop-char-size",
             "design.point_size",

@@ -320,3 +320,19 @@ image/text, transparent overlaps, inside bleed, and identical single/two-up outp
 with Poppler. Its n-up sheet includes both pages' inside bleeds; those repeated
 strips are outside the trim, as expected. This is sequential n-up, not booklet
 imposition or an external application's rendering comparison.
+
+## Direct ink tints
+
+Shape fill/stroke and styled text fill tints scale the resolved coat weights.
+The full-strength ink definition still identifies a spot plate and supplies an
+ICC/process build or alias target. Tint is applied after that resolution; it
+never scales the geometric mask. A 0% knockout therefore removes all underlying
+ink, while opacity retains the corresponding fraction of underlying ink.
+Overprint keeps underlying plates and adds the tinted amounts under the existing
+additive model. Both plate coverage and composite preview follow the same rule.
+
+Property tests cover tint/opacity/overprint combinations for fills and strokes,
+spot aliases, process conversion, and inherited text paints. The `tint_proof`
+example adds an independent Poppler check of process/spot ramps, zero-tint
+knockout, transparency, overprint and styled glyphs. Text stroke rendering,
+named Tint swatches and external native-application comparison remain gaps.

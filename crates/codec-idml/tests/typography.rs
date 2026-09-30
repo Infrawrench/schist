@@ -328,3 +328,52 @@ fn native_story_axes_and_paragraph_direction_remain_independent_on_save() {
         }
     }
 }
+
+#[test]
+fn native_tint_inheritance_and_local_overrides_survive_without_style_growth() {
+    for tint in [0.0, 12.5, 50.0, 100.0] {
+        let styles = format!(
+            r#"<RootParagraphStyleGroup>
+          <ParagraphStyle Self="p0" Name="Tint base" FillTint="{tint}" StrokeTint="25"/>
+          <ParagraphStyle Self="p1" Name="Tint child" FillTint="-1"><Properties><BasedOn type="object">p0</BasedOn></Properties></ParagraphStyle>
+        </RootParagraphStyleGroup><RootCharacterStyleGroup>
+          <CharacterStyle Self="c0" Name="Tint character" FillTint="75" StrokeTint="12.5"/>
+          <CharacterStyle Self="c1" Name="Tint inherited" FillTint="-1"><Properties><BasedOn type="object">c0</BasedOn></Properties></CharacterStyle>
+        </RootCharacterStyleGroup>"#
+        );
+        let story = r#"<ParagraphStyleRange AppliedParagraphStyle="p1" FillTint="-1">
+          <CharacterStyleRange><Content>A</Content></CharacterStyleRange>
+          <CharacterStyleRange AppliedCharacterStyle="c1" FillTint="-1"><Content>B</Content></CharacterStyleRange>
+          <CharacterStyleRange AppliedCharacterStyle="c1" FillTint="0" StrokeTint="50"><Content>C</Content></CharacterStyleRange>
+        </ParagraphStyleRange>"#;
+        let mut doc = native_story(&styles, story);
+        let counts = (doc.styles.paragraphs.len(), doc.styles.characters.len());
+        for _ in 0..4 {
+            assert_eq!(doc.styles.paragraph("Tint child").unwrap().fill_tint, None);
+            assert_eq!(
+                doc.styles.character("Tint inherited").unwrap().fill_tint,
+                None
+            );
+            let para = doc.styles.resolve_paragraph("Tint child");
+            assert_eq!(para.fill_tint, Some(tint / 100.0));
+            assert_eq!(para.stroke_tint, Some(0.25));
+            let inherited = doc.styles.resolve_character("Tint inherited");
+            assert_eq!(inherited.fill_tint, Some(0.75));
+            assert_eq!(inherited.stroke_tint, Some(0.125));
+            let local = &doc.stories[0]
+                .ranges
+                .iter()
+                .find(|r| r.start == 2)
+                .unwrap()
+                .style;
+            let local = doc.styles.resolve_character(local);
+            assert_eq!(local.fill_tint, Some(0.0));
+            assert_eq!(local.stroke_tint, Some(0.5));
+            assert_eq!(
+                (doc.styles.paragraphs.len(), doc.styles.characters.len()),
+                counts
+            );
+            doc = import::read(&export::write(&doc).bytes).unwrap().document;
+        }
+    }
+}

@@ -487,6 +487,7 @@ fn object_xml(
             stroke_width,
             fill_overprint,
             stroke_overprint,
+            tints,
         } => {
             let geometry = path_geometry(path);
             if path.even_odd {
@@ -504,10 +505,12 @@ fn object_xml(
             let fill_overprint = object.overprint || *fill_overprint;
             let stroke_overprint = object.overprint || *stroke_overprint;
             format!(
-                r#"<Polygon Self="{id}" Name="{name}" {transform} Locked="{locked}" StrokeWeight="{}" FillColor="{}" StrokeColor="{}" OverprintFill="{fill_overprint}" OverprintStroke="{stroke_overprint}" ContentType="Unassigned"><Properties>{geometry}</Properties>{opacity}</Polygon>"#,
+                r#"<Polygon Self="{id}" Name="{name}" {transform} Locked="{locked}" StrokeWeight="{}" FillColor="{}" StrokeColor="{}" FillTint="{}" StrokeTint="{}" OverprintFill="{fill_overprint}" OverprintStroke="{stroke_overprint}" ContentType="Unassigned"><Properties>{geometry}</Properties>{opacity}</Polygon>"#,
                 number(*stroke_width),
                 escape(&fill),
-                escape(&stroke)
+                escape(&stroke),
+                number(tints.fill * 100.0),
+                number(tints.stroke * 100.0)
             )
         }
         LayoutObject::GraphicFrame { clip_path, .. } => {

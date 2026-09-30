@@ -115,3 +115,117 @@ fn every_color_space_paint_and_opacity_survives_repeated_saves() {
         }
     }
 }
+
+#[test]
+fn direct_tints_preserve_ink_identity_opacity_and_native_percentages_on_every_save() {
+    for ink in [
+        Ink::black(),
+        Ink::cmyk("Rich", [0.6, 0.4, 0.3, 0.8]),
+        Ink::spot("Spot", [50.0, -20.0, 30.0]),
+    ] {
+        for tint in [0.0, 0.125, 0.5, 1.0] {
+            let mut doc = blank_a4();
+            authoring::rectangle(
+                &mut doc,
+                &mut History::default(),
+                0,
+                Rect::new(10.0, 10.0, 30.0, 30.0),
+                authoring::Paint::none(),
+            )
+            .unwrap();
+            let shape = &mut doc.objects[0];
+            shape.transparency = 0.25;
+            let LayoutObject::Shape {
+                fill,
+                stroke,
+                tints,
+                ..
+            } = &mut shape.object
+            else {
+                panic!()
+            };
+            *fill = Some(ink.clone());
+            *stroke = Some(ink.clone());
+            tints.fill = tint;
+            tints.stroke = 1.0 - tint;
+            for _ in 0..4 {
+                let encoded = export::write(&doc);
+                let package = container::read(&encoded.bytes).unwrap();
+                let spread = package
+                    .names()
+                    .into_iter()
+                    .find(|p| p.starts_with("Spreads/"))
+                    .unwrap();
+                let root = xml::parse(package.text(spread).unwrap()).unwrap();
+                let shapes = root.find_all("Polygon");
+                assert_eq!(shapes[0].number("FillTint"), Some(tint * 100.0));
+                assert_eq!(shapes[0].number("StrokeTint"), Some((1.0 - tint) * 100.0));
+                doc = import::read(&encoded.bytes).unwrap().document;
+                let LayoutObject::Shape {
+                    fill: Some(fill),
+                    stroke: Some(stroke),
+                    tints,
+                    ..
+                } = &doc.objects[0].object
+                else {
+                    panic!()
+                };
+                assert_eq!(tints.fill, tint);
+                assert_eq!(tints.stroke, 1.0 - tint);
+                assert_eq!(fill.name, ink.name);
+                assert_eq!(fill.spot, ink.spot);
+                assert_eq!(fill.source_cmyk, ink.source_cmyk);
+                assert_eq!(stroke, fill);
+                assert_eq!(doc.objects[0].transparency, 0.25);
+            }
+        }
+    }
+}
+
+#[test]
+fn malformed_native_tints_are_reported_while_inherited_values_remain_unset() {
+    for (raw, expected, warning) in [
+        ("-1", 1.0, false),
+        ("0", 0.0, false),
+        ("37.5", 0.375, false),
+        ("101", 1.0, true),
+        ("-2", 1.0, true),
+        ("NaN", 1.0, true),
+        ("bad", 1.0, true),
+    ] {
+        let mut doc = blank_a4();
+        authoring::rectangle(
+            &mut doc,
+            &mut History::default(),
+            0,
+            Rect::new(1.0, 2.0, 30.0, 40.0),
+            authoring::Paint::filled("Black"),
+        )
+        .unwrap();
+        let mut package = container::read(&export::write(&doc).bytes).unwrap();
+        let path = package
+            .names()
+            .into_iter()
+            .find(|p| p.starts_with("Spreads/"))
+            .unwrap()
+            .to_owned();
+        let xml = package
+            .text(&path)
+            .unwrap()
+            .replace("FillTint=\"100\"", &format!("FillTint=\"{raw}\""));
+        package.insert(path, xml.into_bytes());
+        let imported = import::read(&container::write(&package.into_parts())).unwrap();
+        let LayoutObject::Shape { tints, .. } = &imported.document.objects[0].object else {
+            panic!()
+        };
+        assert_eq!(tints.fill, expected);
+        assert_eq!(
+            imported
+                .report
+                .skipped
+                .iter()
+                .any(|m| m.contains("FillTint")),
+            warning
+        );
+    }
+}

@@ -147,6 +147,17 @@ pub fn coats_for(plan: &mut PlatePlan, ink: &Ink) -> (Vec<Coat>, Vec<[f32; 4]>) 
     (coats, build)
 }
 
+/// Tint scales resolved ink amounts, never the shape's knockout coverage.
+/// Alias resolution, ICC conversion and black generation precede tinting.
+pub fn tinted_coats_for(plan: &mut PlatePlan, ink: &Ink, tint: f32) -> (Vec<Coat>, Vec<[f32; 4]>) {
+    let (mut coats, build) = coats_for(plan, ink);
+    let tint = schist_layout::ink::bounded_tint(tint);
+    for coat in &mut coats {
+        coat.weight *= tint;
+    }
+    (coats, build)
+}
+
 /// The coverage of a shape: its fill, then its stroke.
 ///
 /// `shape`'s points are **relative to `bounds`' origin**, the same
@@ -345,6 +356,15 @@ pub fn line_coverage(
     })
 }
 
+/// One rasterized text paint, with tint distinct from coverage and opacity.
+pub struct TextPaint {
+    pub coverage: Coverage,
+    pub ink: Ink,
+    pub opacity: f32,
+    pub overprint: bool,
+    pub tint: f32,
+}
+
 /// A composed line split into its actual ink paints without reshaping each
 /// substring. Ink IDs travel through the text rasterizer as opaque colors,
 /// preserving spot identity even when two inks have the same RGB preview.
@@ -354,7 +374,7 @@ pub fn line_paints(
     doc: &LayoutDocument,
     settings: OutputSettings,
     page: &schist_layout::Page,
-) -> Vec<(Coverage, Ink, f32, bool)> {
+) -> Vec<TextPaint> {
     if line.forced_break || line.end <= line.start {
         return Vec::new();
     }
@@ -366,6 +386,7 @@ pub fn line_paints(
         default_ink.clone(),
         base.opacity.unwrap_or(1.0),
         base.overprint_fill.unwrap_or(false),
+        base.fill_tint.unwrap_or(1.0),
     )];
     let mut spec = line_spec(line, story, doc);
     for run in &mut spec.runs {
@@ -386,6 +407,7 @@ pub fn line_paints(
                 .overprint_fill
                 .or(base.overprint_fill)
                 .unwrap_or(false),
+            style.fill_tint.or(base.fill_tint).unwrap_or(1.0),
         ));
     }
     spec.word_spacing = line.word_space.unwrap_or(0.0);
@@ -422,16 +444,17 @@ pub fn line_paints(
         .into_iter()
         .map(|paint| {
             let index = paint.color.map(u32::from_le_bytes).unwrap_or(0) as usize;
-            let (ink, opacity, overprint) = &inks[index];
-            (
-                Coverage {
+            let (ink, opacity, overprint, tint) = &inks[index];
+            TextPaint {
+                coverage: Coverage {
                     rect,
                     data: paint.coverage,
                 },
-                ink.clone(),
-                *opacity,
-                *overprint,
-            )
+                ink: ink.clone(),
+                opacity: *opacity,
+                overprint: *overprint,
+                tint: *tint,
+            }
         })
         .collect()
 }

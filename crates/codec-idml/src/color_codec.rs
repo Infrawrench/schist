@@ -79,6 +79,25 @@ pub fn resolve(el: &Element, key: &str, colors: &Colors, report: &mut Report) ->
     ink
 }
 
+/// Native direct tint percentages; -1 has the same inheritance meaning as
+/// an omitted value. Named Tint swatches remain unsupported and are diagnosed
+/// by colour-reference resolution instead of being mistaken for full ink.
+pub fn tint(el: &Element, key: &str, report: &mut Report) -> Option<f32> {
+    let raw = el.attr(key)?;
+    match raw.parse::<f32>() {
+        Ok(-1.0) => None,
+        Ok(value) if value.is_finite() && (0.0..=100.0).contains(&value) => Some(value / 100.0),
+        _ => {
+            report.skip(schist_i18n::tf!(
+                "design.idml_tint_invalid",
+                property = key,
+                value = raw
+            ));
+            None
+        }
+    }
+}
+
 pub fn reference(ink: &Ink) -> String {
     // Include the definition: two inline inks may share a display name.
     let bits: String = ink

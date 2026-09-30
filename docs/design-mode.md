@@ -6,9 +6,9 @@ else that matters.
 
 It ships **dark**, behind the default-off `design-mode` flag. IDML open/save,
 text and shape authoring, placed graphics, relinking, page import, typography
-controls and ten layout panels are implemented. Pen and curve editing are
-being verified. Story Editor, thread editing, the remaining navigation tools,
-guide dragging and output integration remain in the ordered roadmap.
+controls and ten layout panels are implemented. Pen and curve editing, Story
+Editor, thread editing, navigation tools, guides and output UI are implemented.
+Interchange fidelity and external validation remain in roadmap item 9.
 
 ## Why a separate body, and not a raster document with pages
 
@@ -481,3 +481,20 @@ survive saves. Blank paragraphs reserve line space, and balanced paragraphs
 use distinct vertical positions. The browser check passes using the native
 build's cached backer catalog. Native window visual validation is blocked:
 Computer Use was not approved for Schist. The debug application builds.
+
+## Ink tint controls
+
+Control edits fill and stroke tint percentages for selected shapes. One committed
+field changes the captured selection in one undo step; invalid values and locked
+selections leave the document unchanged. The eyedropper copies both tints with the
+paint. Character and Paragraph panels edit named styles' fill tint; clearing a
+style field restores inheritance. All controls use 0–100%, independently of
+opacity. Zero tint is paper that still knocks out underlying ink.
+
+The model stores fractions separately from full-strength ink definitions. This
+keeps every tint of a spot on the same plate. Canvas shapes and text fills show
+these values, and separation applies tint after ink aliases and process builds.
+Text stroke tint is retained for IDML, but text strokes are not yet rendered and
+have no authoring control. Named IDML Tint swatches and inherited object-style
+paint are separate unsupported features, diagnosed as unresolved colour
+references where applicable. Native window visual QA remains outstanding.

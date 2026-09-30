@@ -370,7 +370,7 @@ reported before the feature is enabled:
   based on the original style, with a conversion notice. Opaque resource IDs
   and duplicate names in style groups resolve through an explicit map. Paragraph
   font/paint defaults inherit per property; character overrides win. Advanced
-  properties (including arbitrary font variants, tints and some decoration
+  properties (including arbitrary font variants, named Tint swatches and some decoration
   attributes) still need representation and validation. Tracking uses native
   thousandths of an em, converted per effective run size during composition.
   IDML combines bold/italic into FontStyle; export preserves the resolved face
@@ -644,3 +644,23 @@ PDF proof cover ordinary artwork and applied parent instances; an unapplied
 neighboring master sheet is not implicitly instantiated. A real populated facing
 master and external application validation are still needed to establish that
 last behavior's native agreement.
+
+### Direct ink tints
+
+`FillTint` and `StrokeTint` are native percentages. The published
+[page-item properties](https://developer.adobe.com/indesign/uxp/dom/api/p/page-item/)
+and [text properties](https://developer.adobe.com/indesign/uxp/dom/api/t/text-default/)
+define 0–100 as explicit tints and -1 as the inherited/overridden value. The
+reader retains direct shape tints and optional paragraph/character style tints;
+-1 remains unset in styles. Local text overrides use the existing reusable-style
+lowering. Invalid, nonfinite and out-of-range values produce localized notices.
+Export writes percentages without altering the base Color resource or opacity.
+
+Property tests cover zero, fractional and full tints, process and spot identity,
+independent fill/stroke values, style inheritance and local overrides through
+repeated native saves. These are synthetic specification-based checks. Named
+`Tint` resources (`BaseColor` plus `TintValue` in the published XML specification)
+are not yet represented; referenced ones still produce unresolved-colour notices.
+Object-style paint inheritance is not implemented, so an inherited shape tint
+falls back to full strength. Text stroke tints round-trip, but the compositor
+still renders text fills only. External application validation remains needed.

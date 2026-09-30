@@ -145,11 +145,24 @@ pub enum ObjectProperty {
     Columns,
     Gutter,
     Inset,
+    FillTint,
+    StrokeTint,
 }
 
 impl ObjectProperty {
     pub fn value(self, object: &PlacedObject) -> Option<f32> {
         match self {
+            Self::FillTint | Self::StrokeTint => match &object.object {
+                LayoutObject::Shape { tints, .. } => Some(
+                    100.0
+                        * if self == Self::FillTint {
+                            tints.fill
+                        } else {
+                            tints.stroke
+                        },
+                ),
+                _ => None,
+            },
             Self::X => Some(object.bounds.x),
             Self::Y => Some(object.bounds.y),
             Self::Width => Some(object.bounds.width),
@@ -187,6 +200,13 @@ pub fn set_object_property(
     if matches!(property, ObjectProperty::Gutter | ObjectProperty::Inset) && value < 0.0 {
         return false;
     }
+    if matches!(
+        property,
+        ObjectProperty::FillTint | ObjectProperty::StrokeTint
+    ) && !(0.0..=100.0).contains(&value)
+    {
+        return false;
+    }
     if property == ObjectProperty::Columns
         && (!(1.0..=100.0).contains(&value) || value.fract() != 0.0)
     {
@@ -206,6 +226,16 @@ pub fn set_object_property(
         }
         let mut changed = object.clone();
         match property {
+            ObjectProperty::FillTint | ObjectProperty::StrokeTint => {
+                let LayoutObject::Shape { tints, .. } = &mut changed.object else {
+                    return false;
+                };
+                if property == ObjectProperty::FillTint {
+                    tints.fill = value / 100.0;
+                } else {
+                    tints.stroke = value / 100.0;
+                }
+            }
             ObjectProperty::X => changed.bounds.x = value,
             ObjectProperty::Y => changed.bounds.y = value,
             ObjectProperty::Width | ObjectProperty::Height => {

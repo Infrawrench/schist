@@ -284,10 +284,13 @@ pub fn spec_for(
                             .unwrap_or_else(crate::Ink::black),
                     )
                     .map(|ink| {
+                        let rgb = ink.preview_at_tint(
+                            style.fill_tint.or(character.fill_tint).unwrap_or(1.0),
+                        );
                         [
-                            (ink.preview_rgb[0].clamp(0.0, 1.0) * 255.0).round() as u8,
-                            (ink.preview_rgb[1].clamp(0.0, 1.0) * 255.0).round() as u8,
-                            (ink.preview_rgb[2].clamp(0.0, 1.0) * 255.0).round() as u8,
+                            (rgb[0].clamp(0.0, 1.0) * 255.0).round() as u8,
+                            (rgb[1].clamp(0.0, 1.0) * 255.0).round() as u8,
+                            (rgb[2].clamp(0.0, 1.0) * 255.0).round() as u8,
                             (style
                                 .opacity
                                 .or(character.opacity)
@@ -304,14 +307,15 @@ pub fn spec_for(
         path: None,
     };
     let ink = character.fill.unwrap_or_else(crate::Ink::black);
+    let rgb = ink.preview_at_tint(character.fill_tint.unwrap_or(1.0));
     spec.runs.push(schist_text_engine::StyleRun {
         start: 0,
         end: spec.text.len(),
         underline: character.underline,
         color: Some([
-            (ink.preview_rgb[0].clamp(0.0, 1.0) * 255.0).round() as u8,
-            (ink.preview_rgb[1].clamp(0.0, 1.0) * 255.0).round() as u8,
-            (ink.preview_rgb[2].clamp(0.0, 1.0) * 255.0).round() as u8,
+            (rgb[0].clamp(0.0, 1.0) * 255.0).round() as u8,
+            (rgb[1].clamp(0.0, 1.0) * 255.0).round() as u8,
+            (rgb[2].clamp(0.0, 1.0) * 255.0).round() as u8,
             (character.opacity.unwrap_or(1.0).clamp(0.0, 1.0) * 255.0).round() as u8,
         ]),
         ..Default::default()

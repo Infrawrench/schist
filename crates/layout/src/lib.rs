@@ -51,7 +51,7 @@ pub use history::{
     History, InkSnapshot, LayoutEdit, ObjectSnapshot, PageSnapshot, SettingsSnapshot,
     SpreadSnapshot, StoryPointSnapshot, StorySnapshot, StyleSnapshot,
 };
-pub use ink::{Ink, InkAlias, InkManager, PlatedInk};
+pub use ink::{Ink, InkAlias, InkManager, PaintTints, PlatedInk};
 pub use model::{
     blank_a4, FrameOverflow, GraphicFit, GraphicInfo, LayerId, LayoutDocument, LayoutLayer,
     LayoutObject, Link, ObjectId, ParentObject, ParentPage, PlacedObject, StoryId,

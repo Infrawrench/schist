@@ -99,6 +99,8 @@ pub(crate) fn paragraph_properties(
         italic: character.italic,
         underline: character.underline,
         strikethrough: character.strikethrough,
+        fill_tint: character.fill_tint,
+        stroke_tint: character.stroke_tint,
         fill: character.fill,
         stroke: character.stroke,
         overprint_fill: character.overprint_fill,
@@ -136,6 +138,8 @@ pub(crate) fn character_properties(
     let font_style = element.attr("FontStyle");
     CharacterStyle {
         family: property(element, "AppliedFont").map(str::to_owned),
+        fill_tint: crate::color_codec::tint(element, "FillTint", report),
+        stroke_tint: crate::color_codec::tint(element, "StrokeTint", report),
         fill: crate::color_codec::resolve(element, "FillColor", colors, report),
         stroke: crate::color_codec::resolve(element, "StrokeColor", colors, report),
         overprint_fill: boolean(element, "OverprintFill"),
@@ -267,6 +271,8 @@ pub fn paragraph(style: &ParagraphStyle) -> String {
         "StrokeColor",
         style.stroke.as_ref().map(crate::color_codec::reference),
     );
+    optional(&mut out, "FillTint", style.fill_tint.map(|v| v * 100.0));
+    optional(&mut out, "StrokeTint", style.stroke_tint.map(|v| v * 100.0));
     optional(&mut out, "OverprintFill", style.overprint_fill);
     optional(&mut out, "OverprintStroke", style.overprint_stroke);
     optional(
@@ -354,6 +360,8 @@ pub fn character(style: &CharacterStyle) -> String {
         "StrokeColor",
         style.stroke.as_ref().map(crate::color_codec::reference),
     );
+    optional(&mut out, "FillTint", style.fill_tint.map(|v| v * 100.0));
+    optional(&mut out, "StrokeTint", style.stroke_tint.map(|v| v * 100.0));
     optional(&mut out, "OverprintFill", style.overprint_fill);
     optional(&mut out, "OverprintStroke", style.overprint_stroke);
     optional(&mut out, "PointSize", style.point_size);

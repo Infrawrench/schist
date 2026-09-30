@@ -300,3 +300,8 @@ design.slug_top_all = Top slug from trim (all pages)
 design.slug_bottom_all = Bottom slug from trim (all pages)
 design.slug_inside_all = Inside/left slug (all pages)
 design.slug_outside_all = Outside/right slug (all pages)
+
+# Direct ink tint controls and IDML validation
+design.fill_tint = Fill tint (%)
+design.stroke_tint = Stroke tint (%)
+design.idml_tint_invalid = Ignored invalid {property}: {value}

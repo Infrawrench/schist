@@ -44,7 +44,50 @@ pub struct Ink {
     pub spot: bool,
 }
 
+/// Fractions of the full-strength fill and stroke inks, independent of opacity.
+/// Zero still paints opaque paper in knockout mode. Ink identity never changes.
+#[derive(Debug, Clone, Copy, PartialEq, Serialize, Deserialize)]
+#[serde(default)]
+pub struct PaintTints {
+    pub fill: f32,
+    pub stroke: f32,
+}
+impl Default for PaintTints {
+    fn default() -> Self {
+        Self {
+            fill: 1.0,
+            stroke: 1.0,
+        }
+    }
+}
+
+/// Invalid programmatic values fall back to full strength; authored values are
+/// validated by controls/codecs. Rendering always receives a finite fraction.
+pub fn bounded_tint(value: f32) -> f32 {
+    if value.is_finite() {
+        value.clamp(0.0, 1.0)
+    } else {
+        1.0
+    }
+}
+
 impl Ink {
+    /// Screen approximation at a fraction of this ink. Native CMYK channels
+    /// are scaled before conversion; other colours interpolate toward paper.
+    pub fn preview_at_tint(&self, tint: f32) -> [f32; 3] {
+        let tint = bounded_tint(tint);
+        if let Some(cmyk) = self.source_cmyk.filter(|_| !self.spot) {
+            let [c, m, y, k] = cmyk.map(|v| v * tint);
+            [
+                (1.0 - c) * (1.0 - k),
+                (1.0 - m) * (1.0 - k),
+                (1.0 - y) * (1.0 - k),
+            ]
+        } else {
+            self.preview_rgb.map(|v| 1.0 - tint * (1.0 - v))
+        }
+    }
+
     /// A process ink, black unless told otherwise.
     pub fn process(name: impl Into<String>, rgb: [f32; 3]) -> Ink {
         Ink {

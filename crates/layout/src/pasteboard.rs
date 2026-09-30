@@ -724,6 +724,7 @@ fn objects_for(
                 fill,
                 stroke,
                 stroke_width,
+                tints,
                 ..
             } => {
                 // A shape's points are relative to its frame, so they
@@ -746,21 +747,13 @@ fn objects_for(
                     inherited,
                     locked: object.locked || doc.layer_locked(doc.object_layer(object.id)),
                     fill: fill.as_ref().map(|ink| {
-                        [
-                            ink.preview_rgb[0],
-                            ink.preview_rgb[1],
-                            ink.preview_rgb[2],
-                            object.transparency,
-                        ]
+                        let rgb = ink.preview_at_tint(tints.fill);
+                        [rgb[0], rgb[1], rgb[2], object.transparency]
                     }),
                     stroke: stroke.as_ref().map(|ink| {
+                        let rgb = ink.preview_at_tint(tints.stroke);
                         (
-                            [
-                                ink.preview_rgb[0],
-                                ink.preview_rgb[1],
-                                ink.preview_rgb[2],
-                                object.transparency,
-                            ],
+                            [rgb[0], rgb[1], rgb[2], object.transparency],
                             stroke_width * view.scale,
                         )
                     }),
@@ -1322,6 +1315,7 @@ mod tests {
                 stroke_width: 0.0,
                 fill_overprint: false,
                 stroke_overprint: false,
+                tints: Default::default(),
             },
             rotation: 0.0,
             transform: Default::default(),
