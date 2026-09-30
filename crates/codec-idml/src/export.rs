@@ -345,12 +345,10 @@ fn spread_xml(
         ));
     }
 
-    for (index, page_x) in &positions {
-        for object in document
-            .objects
-            .iter()
-            .filter(|object| object.page == *index)
-        {
+    // Items are spread siblings. Grouping them by owning page changes stacking
+    // whenever artwork crosses the gutter, even though its geometry survives.
+    for object in &document.objects {
+        if let Some((_, page_x)) = positions.iter().find(|(index, _)| *index == object.page) {
             let mut positioned = object.clone();
             positioned.bounds.x += *page_x;
             out.push_str(&object_xml(

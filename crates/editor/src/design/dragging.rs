@@ -208,28 +208,33 @@ pub fn click(state: &mut super::DesignState, hit: super::select::Hit) {
     }
 }
 
-/// Select everything on the current page, front to back.
+/// Select ordinary artwork contributing to the current page, back to front.
+/// Crossovers belong to the selection in both spread and single-page views;
+/// inherited objects still require an explicit override before editing.
 pub fn select_all(state: &mut super::DesignState) {
     let page = state.current_page();
-    // Going through the plan rather than the document, so "everything on
-    // this page" means everything the reader can see, including a parent
-    // page's items and excluding the other page of a spread.
-    let plan = match schist_layout::pasteboard::pasteboard(&state.document, &state.view) {
-        Some(plan) => plan,
-        None => {
-            state.selection.clear();
-            return;
-        }
-    };
-    state.selection = plan
+    state.selection = state
+        .document
         .pages
-        .iter()
-        .find(|p| p.page.page == page)
-        .map(super::select::ids)
+        .get(page)
+        .map(|definition| {
+            state
+                .document
+                .page_artwork(page, definition.bleed_rect())
+                .into_iter()
+                .filter(|object| state.document.object(object.id).is_some())
+                .filter(|object| {
+                    object.page == page
+                        || state
+                            .document
+                            .pages
+                            .get(object.page)
+                            .is_none_or(|p| !p.hidden)
+                })
+                .map(|object| object.id)
+                .collect()
+        })
         .unwrap_or_default();
-    state
-        .selection
-        .retain(|id| state.document.object(*id).is_some());
 }
 
 #[cfg(test)]
@@ -240,6 +245,60 @@ mod tests {
     use schist_layout::{
         blank_a4, LayoutDocument, LayoutObject, ObjectId, PlacedObject, Point, Rect, Story,
     };
+
+    #[test]
+    fn selecting_and_dragging_crossovers_moves_all_contributors_in_one_undo_step() {
+        use schist_layout::{
+            authoring::{self, Paint},
+            History, Page, Spread,
+        };
+        for mode in [
+            super::super::PasteboardMode::Spread,
+            super::super::PasteboardMode::SinglePage,
+        ] {
+            let mut state = DesignState::new();
+            state.document = LayoutDocument::new(vec![Page::new("page", 100.0, 100.0); 3]);
+            state.document.spreads = vec![
+                Spread {
+                    pages: vec![0, 1],
+                    ..Spread::single(0)
+                },
+                Spread::single(2),
+            ];
+            for page in 0..3 {
+                authoring::rectangle(
+                    &mut state.document,
+                    &mut History::default(),
+                    page,
+                    Rect::new(80.0 - page as f32 * 100.0, 20.0, 40.0, 30.0),
+                    Paint::filled("Black"),
+                )
+                .unwrap();
+            }
+            state.page = Some(1);
+            state.mode = mode;
+            select_all(&mut state);
+            let selected: Vec<_> = state.document.objects[..2].iter().map(|o| o.id).collect();
+            assert_eq!(state.selection, selected);
+            let before = state.document.objects.clone();
+            begin(&mut state, selected[0], Point::new(10.0, 30.0));
+            for step in 1..=10 {
+                drag_to(&mut state, Point::new(10.0 + step as f32, 30.0));
+            }
+            assert!(end(&mut state));
+            assert_eq!(state.history.undo_depth(), 1);
+            for (object, original) in state.document.objects.iter().zip(&before).take(2) {
+                assert_eq!(object.page, original.page);
+                assert_eq!(
+                    object.bounds,
+                    original.bounds.translated(Point::new(10.0, 0.0))
+                );
+            }
+            assert_eq!(state.document.objects[2], before[2]);
+            state.history.undo(&mut state.document);
+            assert_eq!(state.document.objects, before);
+        }
+    }
 
     /// A document with one text frame, and the frame's id.
     fn doc_with_frame() -> (LayoutDocument, ObjectId) {

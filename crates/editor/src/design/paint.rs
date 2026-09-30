@@ -103,13 +103,14 @@ pub fn paint_pasteboard(frame: &PasteboardFrame, window: &mut Window) {
     fill_rect(window, &frame.visible(), frame.bounds, PASTEBOARD);
 
     for plan in &frame.plan.pages {
-        // Paper first, then what is on it. A hidden page is still drawn,
-        // just washed: a page that vanishes from under the pointer is
-        // worse than one you have to notice.
+        // All paper precedes all artwork: the next sheet must not erase
+        // objects extending across its gutter.
         fill_rect(window, &plan.page.media, frame.bounds, PAPER);
-        for object in &plan.objects {
-            paint_object(window, frame, object);
-        }
+    }
+    for object in frame.plan.objects() {
+        paint_object(window, frame, object);
+    }
+    for plan in &frame.plan.pages {
         if plan.page.hidden {
             fill_rect(window, &plan.page.trim, frame.bounds, HIDDEN_WASH);
         }
@@ -402,7 +403,7 @@ fn paint_object(window: &mut Window, frame: &PasteboardFrame, object: &Display) 
                 let _ = paint_label(window, frame.bounds, *rect, label, colour);
             }
         }
-        Display::Note { at, text } => {
+        Display::Note { at, text, .. } => {
             let _ = paint_label_at(
                 window,
                 frame.bounds,

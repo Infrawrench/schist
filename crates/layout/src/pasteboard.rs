@@ -262,10 +262,26 @@ pub enum Display {
         transform: schist_core::Affine,
     },
     /// A review note.
-    Note { at: Point, text: String },
+    Note {
+        object: ObjectId,
+        at: Point,
+        text: String,
+    },
 }
 
 impl Display {
+    pub fn object(&self) -> ObjectId {
+        match self {
+            Self::Frame { object, .. }
+            | Self::Text { object, .. }
+            | Self::Ports { object, .. }
+            | Self::Shape { object, .. }
+            | Self::Graphic { object, .. }
+            | Self::EmptyFrame { object, .. }
+            | Self::Note { object, .. } => *object,
+        }
+    }
+
     /// Selectable frame geometry before its affine, plus interaction state.
     pub fn frame(&self) -> Option<(ObjectId, Rect, schist_core::Affine, bool, bool)> {
         match self {
@@ -315,10 +331,22 @@ pub struct PagePlan {
 #[derive(Debug, Clone, PartialEq)]
 pub struct Pasteboard {
     pub pages: Vec<PagePlan>,
+    /// Indices into page plans, sorted across pages by layer and object order.
+    paint_order: Vec<(usize, usize)>,
     /// The spread's total area, in pasteboard points, for a scroll view.
     pub bounds: Rect,
     /// The size of every page, for a thumbnail strip.
     pub page_size: Pt,
+}
+
+impl Pasteboard {
+    /// Paint and hit-test artwork in the same spread-wide order. Page paper is
+    /// painted separately, before every object, so it cannot erase a crossover.
+    pub fn objects(&self) -> impl DoubleEndedIterator<Item = &Display> {
+        self.paint_order
+            .iter()
+            .map(|(page, object)| &self.pages[*page].objects[*object])
+    }
 }
 
 /// Work out what the pasteboard holds.
@@ -333,6 +361,7 @@ pub fn pasteboard(doc: &LayoutDocument, view: &PasteboardView) -> Option<Pastebo
     let scale = if view.scale > 0.0 { view.scale } else { 1.0 };
     let mut pasteboard = Pasteboard {
         pages: Vec::new(),
+        paint_order: Vec::new(),
         bounds: Rect::ZERO,
         page_size: doc.pages[0].width * scale,
     };
@@ -406,6 +435,15 @@ pub fn pasteboard(doc: &LayoutDocument, view: &PasteboardView) -> Option<Pastebo
         }
         pasteboard.bounds = pasteboard.bounds.union(placed);
     }
+    let mut order: Vec<_> = pasteboard
+        .pages
+        .iter()
+        .enumerate()
+        .flat_map(|(page, plan)| (0..plan.objects.len()).map(move |object| (page, object)))
+        .collect();
+    let ranks = doc.paint_order();
+    order.sort_by_key(|(page, object)| ranks[&pasteboard.pages[*page].objects[*object].object()]);
+    pasteboard.paint_order = order;
     Some(pasteboard)
 }
 
@@ -524,7 +562,15 @@ fn objects_for(
     offset: Point,
 ) -> Vec<Display> {
     let mut out = Vec::new();
-    for object in doc.page_objects(page) {
+    let objects = if view.page.is_some() {
+        doc.page_artwork(page, doc.pages[page].bleed_rect())
+    } else {
+        doc.page_objects(page)
+    };
+    for object in objects {
+        if object.page != page && doc.pages.get(object.page).is_some_and(|p| p.hidden) {
+            continue;
+        }
         let inherited = doc.object(object.id).is_none();
         if inherited && !view.show_parents {
             continue;
@@ -723,6 +769,7 @@ fn objects_for(
             }
             LayoutObject::Note { text, .. } => {
                 out.push(Display::Note {
+                    object: object.id,
                     at: move_to(
                         Rect::new(object.bounds.x, object.bounds.y, 0.0, 0.0),
                         view,

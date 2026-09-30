@@ -155,3 +155,36 @@ if len(sys.argv) > 4:
                 for point in [(1, 20), (83, 20)] + ([(88, 20), (170, 20)] if i else []):
                     assert min(image.getpixel(point)) > 240, (i, point)
     print("Design PDF: asymmetric bleed, absolute slug, boxes, plate origins and n-up placement verified.")
+
+if len(sys.argv) > 5:
+    with tempfile.TemporaryDirectory(prefix="schist-crossover-check-") as temporary:
+        prefix = Path(temporary) / "crossovers"
+        result = subprocess.run(["pdftoppm", "-png", "-r", "72", sys.argv[5], str(prefix)],
+                                check=True, capture_output=True, text=True)
+        assert not result.stderr.strip(), result.stderr
+        files = sorted(Path(temporary).glob("crossovers-*.png"))
+        assert len(files) == 3
+        images = []
+        for file in files:
+            with Image.open(file) as image:
+                images.append(image.convert("RGB"))
+        left, right, imposed = images
+        assert left.size == right.size == (132, 102)
+        assert imposed.size == (264, 102)
+        assert imposed.crop((0, 0, 132, 102)).tobytes() == left.tobytes()
+        assert imposed.crop((132, 0, 264, 102)).tobytes() == right.tobytes()
+        # A continuous image has blue pixels on the left and green on the right.
+        # Both pages' inside bleeds must contain the adjacent part of that image.
+        for image, point in [(left, (110, 50)), (right, (3, 50))]:
+            r, g, b = image.getpixel(point)
+            assert b > 100 and max(r, g) < 90, (point, (r, g, b))
+        for image, point in [(right, (20, 50)), (left, (128, 50))]:
+            r, g, b = image.getpixel(point)
+            assert g > 100 and g > max(r, b), (point, (r, g, b))
+        # The 50% black shape is above the red shape on both sides of the spine.
+        assert left.getpixel((120, 26)) == right.getpixel((12, 26))
+        assert left.getpixel((106, 26))[0] > left.getpixel((120, 26))[0] + 30
+        assert right.getpixel((26, 26))[0] > right.getpixel((12, 26))[0] + 30
+        for image, xs in [(left, range(96, 126)), (right, range(6, 60))]:
+            assert sum(max(image.getpixel((x,y))) < 150 for x in xs for y in range(68, 93)) > 20, "crossing text lost one side"
+    print("Design PDF: crossover shapes, continuous image/text, inside bleed and identical n-up placement verified.")

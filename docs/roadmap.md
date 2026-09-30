@@ -312,18 +312,18 @@ The browser build reused the native build's cached backer catalog because
 the initial sandbox could not resolve the catalog host. A file-URL portability defect
 and Design Save As filename routing were fixed before that browser check.
 
-The unfiltered `CARGO_INCREMENTAL=0 make check-design` now passes all 379 editor
+The unfiltered `CARGO_INCREMENTAL=0 make check-design` now passes all 381 editor
 tests, including the clipboard HTTP test that the earlier sandbox blocked, plus
 its layout, settings and i18n checks.
 
-Distinct passing Rust tests at the sections/offsets checkpoint: editor 379, layout 288,
-text engine 42, IDML 162, separation 146, core 120, settings 24 and i18n 28
-(including its doctest): **1,189**, plus four browser i18n tests. Poppler
+Distinct passing Rust tests at the crossover checkpoint: editor 381, layout 291,
+text engine 42, IDML 163, separation 148, core 120, settings 24 and i18n 28
+(including its doctest): **1,197**, plus four browser i18n tests. Poppler
 checks verify ink patches, rotated text, sheared frames, inner image rotation
 and curved/compound frame clipping, enlarged paragraph initials, vertical Japanese/Latin text, n-up reading
 order, sheet counts and empty slots. The updated affine/compound-frame proof was also visually inspected.
-Logs and exit codes are under `/tmp/schist-sections-offsets-sweep-*`, with the result
-index in `/tmp/schist-sections-offsets-sweep-results.json`. The asymmetric-offset
+Logs and exit codes are under `/tmp/schist-crossover-sweep-*`, with the result
+index in `/tmp/schist-crossover-sweep-results.json`. The asymmetric-offset
 proof also verifies PDF MediaBox/TrimBox/BleedBox with Poppler and was visually
 inspected. Future changes require a new sweep.
 
@@ -412,6 +412,8 @@ remaining order is now explicit:
    sampling and repeated IDML saves. Independent inner image transforms now retain
    native geometry, preview/print clipping and effective resolution. Curved image
    clipping and parent-sheet geometry, overlays and scoped overrides are implemented.
+   Same-spread crossovers retain paint order through preview, hit testing, IDML and
+   PDF output; Select All and a single undoable drag include page contributors.
    Advanced story attributes remain explicit gaps. Package resource roles and object IDs resolve
    through XML instead of filename assumptions.
    Local supported formatting now becomes reusable named styles; native paragraph
@@ -468,6 +470,27 @@ continues using call-local font resources and its embedded fallback font.
 The complete sections/offsets sweep passes. After the CI fixes, `cargo fmt --all
 --check`, `make lint-all`, `make check-app-web` and the isolated
 `CARGO_INCREMENTAL=0 CARGO_PROFILE_DEV_DEBUG=0 make check-library-wasm` also pass.
-Logs for the final configuration checks are `/tmp/schist-design-ci-fixes.log` and
-`/tmp/schist-library-wasm-check.log`. Remote CI must rerun on the follow-up commit;
-these local checks do not establish native UI or external InDesign validation.
+Logs for those configuration checks are `/tmp/schist-design-ci-fixes.log` and
+`/tmp/schist-library-wasm-check.log`. The follow-up passed remote macOS, web and
+headless-library CI; Linux/Windows workspace tests were still running when the
+crossover checkpoint was prepared. New commits require their own CI run. These
+checks do not establish native UI or external InDesign validation.
+
+
+Cross-gutter integration is included in the current checkpoint. Page output now
+includes same-spread objects reaching trim or inside bleed, with source ownership,
+composition and parent-instance grids retained. Canvas paper is painted before all
+artwork; drawing and hit tests share layer/object order across page boundaries.
+IDML no longer reorders spread items by owning page. Select All includes current
+page contributors in both views, and dragging them remains one undo step.
+
+Eight new property tests cover source grids, scoped parent instances, selection
+and undo, repeated native saves, neighbor resource preflight, and plate equality
+against a whole-spread reference. The Poppler crossover proof checks continuous
+text/images, transparent overlaps, adjacent artwork in inside bleed and identical
+n-up placement; it was also visually inspected. All 13 targets in the current
+sweep pass, including workspace clippy, native/browser app checks and PDF proofs;
+formatting passes. The final editor checks were repeated after the selection fix.
+No new user-facing strings or locales were introduced. Native GUI, populated
+facing-master/application validation, advanced typography and the modern INDD
+paired corpus remain open. The feature stays disabled by default.

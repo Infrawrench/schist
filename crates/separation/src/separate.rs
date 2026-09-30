@@ -98,9 +98,9 @@ pub fn separate_page_built(
     let page_def = doc.pages.get(page)?;
     let frame = PagePixel::rect(settings, page_def, settings.output_box(page_def));
     let mut separation = Separation::new(plan.plates.len(), frame);
-    let mut report = layout_report(doc, page, source, &plan);
+    let mut report = layout_report(doc, page, settings, source, &plan);
     let mut working = plan.clone();
-    for placed in doc.page_objects(page) {
+    for placed in doc.page_artwork(page, settings.output_box(page_def)) {
         if let Some(link) = missing_link(&placed) {
             report.missing_link(&link);
             continue;
@@ -138,10 +138,10 @@ pub fn separate_page_with(
     let box_rect = settings.output_box(page_def);
     let frame = PagePixel::rect(settings, page_def, box_rect);
     let mut separation = Separation::new(plan.plates.len(), frame);
-    let mut report = layout_report(doc, page, source, &plan);
+    let mut report = layout_report(doc, page, settings, source, &plan);
     let mut working = plan.clone();
 
-    for placed in doc.page_objects(page) {
+    for placed in doc.page_artwork(page, box_rect) {
         if let Some(link) = missing_link(&placed) {
             report.missing_link(&link);
             continue;
@@ -173,6 +173,7 @@ pub fn separate_page_with(
 fn layout_report(
     doc: &LayoutDocument,
     page: usize,
+    settings: OutputSettings,
     source: &dyn GraphicSource,
     plan: &PlatePlan,
 ) -> PreflightReport {
@@ -187,7 +188,7 @@ fn layout_report(
         }
     }
     let mut families = std::collections::BTreeSet::new();
-    for object in doc.page_objects(page) {
+    for object in doc.page_artwork(page, settings.output_box(&doc.pages[page])) {
         if !schist_layout::affine::finite(object.content_transform())
             || object.content_transform().invert().is_none()
         {

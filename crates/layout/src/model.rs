@@ -276,6 +276,49 @@ impl PlacedObject {
     pub fn visual_bounds(&self) -> Rect {
         crate::affine::bounds(self.content_transform(), self.bounds)
     }
+
+    /// Conservative painted extent, including joins outside a shape's frame.
+    /// Selection continues to use the frame bounds rather than this ink extent.
+    pub fn paint_bounds(&self) -> Rect {
+        let bounds = match &self.object {
+            LayoutObject::Shape {
+                path,
+                stroke,
+                stroke_width,
+                ..
+            } => {
+                let bounds = path.bounds().translated(self.bounds.origin());
+                let padding = if stroke.is_some() {
+                    stroke_width.max(0.0) * 0.5 * schist_vector::StrokeStyle::default().miter_limit
+                } else {
+                    0.0
+                };
+                Rect::new(
+                    bounds.x - padding,
+                    bounds.y - padding,
+                    bounds.width + 2.0 * padding,
+                    bounds.height + 2.0 * padding,
+                )
+            }
+            _ => self.bounds,
+        };
+        crate::affine::bounds(self.content_transform(), bounds)
+    }
+
+    /// Move rendered artwork to another page coordinate system without changing
+    /// ownership, the composition box, or the baseline grid used by its story.
+    pub fn translated_artwork(&self, offset: Point) -> Self {
+        let mut placed = self.clone();
+        placed.transform = crate::affine::Affine::translate(-self.bounds.x, -self.bounds.y)
+            .then(&crate::affine::Affine::translate(offset.x, offset.y))
+            .then(&self.content_transform())
+            .then(&crate::affine::Affine::translate(
+                self.bounds.x,
+                self.bounds.y,
+            ));
+        placed.rotation = 0.0;
+        placed
+    }
     pub fn contains(&self, point: crate::Point) -> bool {
         self.content_transform()
             .invert()
@@ -466,9 +509,8 @@ impl LayoutDocument {
         None
     }
 
-    /// The objects on a page, in z-order, including the ones its parent
-    /// page contributes. This is the order the renderer and the
-    /// separation engine walk.
+    /// Objects owned by a page, including its parent instances, in z-order.
+    /// Output uses `page_artwork` to also include artwork crossing the gutter.
     pub fn page_objects(&self, page: usize) -> Vec<std::borrow::Cow<'_, PlacedObject>> {
         let mut out = Vec::new();
         for (index, parent) in self.parents.iter().enumerate() {
@@ -488,14 +530,78 @@ impl LayoutDocument {
         );
         out.retain(|o| self.layer_visible(self.object_layer(o.id)));
         // Stable sorting preserves each layer's own object order.
-        out.sort_by_key(|o| {
-            std::cmp::Reverse(
-                self.layers
+        let order = self.paint_order();
+        out.sort_by_key(|o| order[&o.id]);
+        out
+    }
+
+    /// Stable back-to-front order across page boundaries. Parent instances stay
+    /// below ordinary artwork on the same layer; their hierarchy order is stable.
+    pub fn paint_order(
+        &self,
+    ) -> std::collections::HashMap<ObjectId, (std::cmp::Reverse<usize>, Option<usize>)> {
+        // Index once per plan, not once per comparison: large documents should
+        // not scan every object and layer for each sorting comparison.
+        let layers: std::collections::HashMap<_, _> = self
+            .layers
+            .iter()
+            .enumerate()
+            .map(|(index, layer)| (*layer, std::cmp::Reverse(index)))
+            .collect();
+        let memberships: std::collections::HashMap<_, _> =
+            self.object_layers.iter().rev().copied().collect();
+        let key = |id, rank| {
+            let layer = memberships
+                .get(&id)
+                .and_then(|layer| layers.get(layer))
+                .copied()
+                .unwrap_or(std::cmp::Reverse(0));
+            (id, (layer, rank))
+        };
+        self.parents
+            .iter()
+            .flat_map(|parent| parent.objects.iter())
+            .map(|entry| key(entry.object.id, None))
+            .chain(
+                self.objects
                     .iter()
-                    .position(|id| *id == self.object_layer(o.id))
-                    .unwrap_or(0),
+                    .enumerate()
+                    .map(|(index, object)| key(object.id, Some(index))),
             )
-        });
+            .collect()
+    }
+
+    /// Artwork contributing to a page's output rectangle, in that page's
+    /// coordinates. Adjacent pages of the same spread can contribute to trim or
+    /// inside bleed. An object's `page` and bounds retain their source meaning:
+    /// only its final placement changes, so threaded text is never recomposed in
+    /// the destination page's grid. Objects on other spreads never contribute.
+    ///
+    /// Own-page objects remain present even outside the rectangle, so preflight
+    /// still reports their missing resources and invalid transforms.
+    pub fn page_artwork(&self, page: usize, clip: Rect) -> Vec<std::borrow::Cow<'_, PlacedObject>> {
+        let Some(spread) = self.spread_containing(page) else {
+            return self.page_objects(page);
+        };
+        let destination = spread.pages.iter().position(|p| *p == page).unwrap();
+        let origin = spread.page_origin(&self.pages, destination);
+        let mut out = Vec::new();
+        for (slot, source) in spread.pages.iter().enumerate() {
+            let at = spread.page_origin(&self.pages, slot);
+            let offset = Point::new(at.x - origin.x, at.y - origin.y);
+            for object in self.page_objects(*source) {
+                if *source == page {
+                    out.push(object);
+                } else {
+                    let placed = object.translated_artwork(offset);
+                    if placed.paint_bounds().intersects(clip) {
+                        out.push(std::borrow::Cow::Owned(placed));
+                    }
+                }
+            }
+        }
+        let order = self.paint_order();
+        out.sort_by_key(|object| order[&object.id]);
         out
     }
 

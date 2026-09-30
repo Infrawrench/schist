@@ -56,41 +56,35 @@ impl Hit {
 /// Front to back: a later object in the plan is drawn on top, so it is
 /// the one picked.
 pub fn hit_test(plan: &Pasteboard, at: Point) -> Hit {
-    plan.pages
-        .iter()
+    plan.objects()
         .rev()
-        .find_map(|page| hit_page(page, at))
+        .find_map(|display| hit_display(display, at))
+        .or_else(|| {
+            plan.pages
+                .iter()
+                .rev()
+                .find(|page| page.page.trim.contains(at))
+                .map(|page| Hit::Page {
+                    page: page.page.page,
+                })
+        })
         .unwrap_or(Hit::Nothing)
 }
 
-/// The object under a point on one page.
-///
-/// A frame is a rectangle, and the point is inside it or it is not. There
-/// is no notion of a "nearest" hit: clicking just outside a frame is
-/// clicking the page, which is what a reader expects and what makes a
-/// selection that spans two frames possible.
-pub fn hit_page(page: &PagePlan, at: Point) -> Option<Hit> {
-    for display in page.objects.iter().rev() {
-        let Some((object, rect, transform, inherited, locked)) = display.frame() else {
-            continue;
-        };
-        let Some(inverse) = transform.invert() else {
-            continue;
-        };
-        let local = schist_layout::affine::point(inverse, at);
-        if hit_bounds(rect).contains(local) {
-            return Some(Hit::Object {
-                object,
-                bounds: schist_layout::affine::bounds(transform, rect),
-                at,
-                inherited,
-                locked,
-            });
-        }
+fn hit_display(display: &Display, at: Point) -> Option<Hit> {
+    let (object, rect, transform, inherited, locked) = display.frame()?;
+    let inverse = transform.invert()?;
+    let local = schist_layout::affine::point(inverse, at);
+    if hit_bounds(rect).contains(local) {
+        return Some(Hit::Object {
+            object,
+            bounds: schist_layout::affine::bounds(transform, rect),
+            at,
+            inherited,
+            locked,
+        });
     }
-    page.page.trim.contains(at).then_some(Hit::Page {
-        page: page.page.page,
-    })
+    None
 }
 
 /// A zero-width line is still pickable, without changing saved geometry.
@@ -119,52 +113,48 @@ pub fn hit_anchor(
     selected: &[ObjectId],
 ) -> Option<(ObjectId, schist_layout::authoring::PointRef)> {
     use schist_layout::authoring::{PointPart, PointRef};
-    for page in plan.pages.iter().rev() {
-        for display in page.objects.iter().rev() {
-            let Display::Shape {
-                object,
-                path,
-                inherited: false,
-                locked: false,
-                ..
-            } = display
-            else {
-                continue;
-            };
-            let mut best: Option<(f32, PointRef)> = None;
-            for (subpath, sub) in path.subpaths.iter().enumerate() {
-                for (index, anchor) in sub.points.iter().enumerate() {
-                    let h = sub.handles_at(index);
-                    for (part, point) in [
-                        (PointPart::Anchor, Some(*anchor)),
-                        (PointPart::Incoming, h.incoming),
-                        (PointPart::Outgoing, h.outgoing),
-                    ] {
-                        if part != PointPart::Anchor && !selected.contains(object) {
-                            continue;
-                        }
-                        let Some(point) = point else {
-                            continue;
-                        };
-                        let distance = (point.x - at.x).powi(2) + (point.y - at.y).powi(2);
-                        if distance <= within * within
-                            && best.is_none_or(|(seen, _)| distance < seen)
-                        {
-                            best = Some((
-                                distance,
-                                PointRef {
-                                    subpath,
-                                    index,
-                                    part,
-                                },
-                            ));
-                        }
+    for display in plan.objects().rev() {
+        let Display::Shape {
+            object,
+            path,
+            inherited: false,
+            locked: false,
+            ..
+        } = display
+        else {
+            continue;
+        };
+        let mut best: Option<(f32, PointRef)> = None;
+        for (subpath, sub) in path.subpaths.iter().enumerate() {
+            for (index, anchor) in sub.points.iter().enumerate() {
+                let h = sub.handles_at(index);
+                for (part, point) in [
+                    (PointPart::Anchor, Some(*anchor)),
+                    (PointPart::Incoming, h.incoming),
+                    (PointPart::Outgoing, h.outgoing),
+                ] {
+                    if part != PointPart::Anchor && !selected.contains(object) {
+                        continue;
+                    }
+                    let Some(point) = point else {
+                        continue;
+                    };
+                    let distance = (point.x - at.x).powi(2) + (point.y - at.y).powi(2);
+                    if distance <= within * within && best.is_none_or(|(seen, _)| distance < seen) {
+                        best = Some((
+                            distance,
+                            PointRef {
+                                subpath,
+                                index,
+                                part,
+                            },
+                        ));
                     }
                 }
             }
-            if let Some((_, point)) = best {
-                return Some((*object, point));
-            }
+        }
+        if let Some((_, point)) = best {
+            return Some((*object, point));
         }
     }
     None
@@ -247,6 +237,71 @@ mod tests {
     use schist_layout::{
         blank_a4, LayoutDocument, LayoutObject, ObjectId, Page, Point, Rect, Story,
     };
+
+    #[test]
+    fn crossover_selection_follows_global_stacking_in_spread_and_single_page_views() {
+        use schist_layout::{
+            authoring::{self, Paint},
+            History, LayerId, Spread,
+        };
+        for reverse in [false, true] {
+            let mut doc = LayoutDocument::new(vec![Page::new("page", 100.0, 100.0); 2]);
+            doc.spreads = vec![Spread {
+                pages: vec![0, 1],
+                ..Spread::single(0)
+            }];
+            doc.layers = vec![LayerId(1), LayerId(0)];
+            let order = if reverse { [0, 1] } else { [1, 0] };
+            let mut ids = Vec::new();
+            for page in order {
+                ids.push(
+                    authoring::rectangle(
+                        &mut doc,
+                        &mut History::default(),
+                        page,
+                        Rect::new(80.0 - page as f32 * 100.0, 20.0, 40.0, 30.0),
+                        Paint::filled("Black"),
+                    )
+                    .unwrap(),
+                );
+            }
+            for top_layer in [false, true] {
+                if top_layer {
+                    doc.object_layers[0].1 = LayerId(1);
+                    doc.object_layers[1].1 = LayerId(0);
+                }
+                let top = ids[usize::from(!top_layer)];
+                for page in [None, Some(0), Some(1)] {
+                    let plan = pasteboard(
+                        &doc,
+                        &PasteboardView {
+                            page,
+                            ..Default::default()
+                        },
+                    )
+                    .unwrap();
+                    let view = PasteboardView::default();
+                    for x in [85.0, 115.0] {
+                        let at = view.to_pasteboard(Point::new(x, 30.0));
+                        assert_eq!(hit_test(&plan, at).object(), Some(top));
+                        assert_eq!(
+                            within(&plan, Rect::new(at.x - 1.0, at.y - 1.0, 2.0, 2.0)).len(),
+                            2
+                        );
+                    }
+                    let drawn: Vec<_> = plan
+                        .objects()
+                        .filter_map(|display| match display {
+                            Display::Shape { object, .. } => Some(*object),
+                            _ => None,
+                        })
+                        .collect();
+                    assert_eq!(drawn.len(), 2, "crossovers must not paint twice");
+                    assert_eq!(drawn.last(), Some(&top));
+                }
+            }
+        }
+    }
 
     /// A document with one text frame, whose id is returned.
     fn doc_with_frame() -> (LayoutDocument, ObjectId) {

@@ -375,3 +375,23 @@ through the spread spine, while the kernel retains physical offsets on each page
 Per-page offsets can differ; IDML's global preferences require an explicit export
 notice and per-edge expansion in that case, including after moving pages with
 different physical offsets between spine sides.
+
+
+### Artwork crossing page boundaries
+
+Ownership and rendering have separate queries. `page_objects` lists the page's
+own objects and applied parent instances. `page_artwork` also includes neighboring
+instances whose painted bounds reach the requested trim/bleed box, translated
+from the same spread. The translation changes only the final affine: the original
+composition box, source page and baseline grid remain intact. Stroke extents are
+included, and other spreads never contribute. Parent overrides remain scoped to
+the source instance, so suppressing a right-page instance does not suppress a
+left-page instance's crossover.
+
+The pasteboard paints every paper box before artwork, then uses one order across
+pages for drawing and hit tests. Layers retain priority; within a layer, inherited
+artwork precedes ordinary objects and ordinary insertion order remains stable.
+Single-page views include neighboring crossovers once. Select All includes the
+current page’s contributors in either view; a selection drag changes all of them
+in one undo step. Page ownership does not
+change merely because an object is visible or selected across a gutter.

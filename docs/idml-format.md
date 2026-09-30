@@ -594,7 +594,8 @@ geometry, destination-page baseline grids, and page permutations with reversible
 placement remapping. These are synthetic specification-based checks, not external
 application confirmation. The supplied vendor masters are still single-sheet and
 empty; no real specimen yet corroborates a populated facing master or override.
-Cross-gutter artwork needs further validation. Parent text threads now resolve master-frame NextTextFrame references alongside
+Cross-gutter artwork now has synthetic geometry, stacking and output checks;
+external facing-page validation remains needed. Parent text threads now resolve master-frame NextTextFrame references alongside
 ordinary-frame references. Composition keeps separate ordinary and parent flow
 scopes, respects explicit frame order, and carries page breaks across template
 sheets. Repeated native saves check uninterrupted UTF-8 text consumption and both
@@ -624,3 +625,22 @@ that default, including Hebrew or Arabic text. Schist's distinct unset Auto inte
 uses a validated `Schist.ParagraphDirection.v1` label with `AutoDefault`; a native
 explicit direction always wins over stale metadata. `tests/automatic_direction.rs`
 checks omitted root direction, child inheritance and subsequent native edits.
+
+
+### Spread item order and crossovers
+
+Spread items are emitted in their original stacking order, with each owner's
+page origin applied to its geometry. The earlier page-by-page writer silently
+reordered items that overlapped across a gutter. Repeated native saves now verify
+global geometry and stacking for interleaved ownership/layers, two through four
+pages, and both reading directions. An importer may assign a crossing item to a
+different nearest page; its visible spread geometry and object order must remain
+unchanged.
+
+Canvas, single-page preview, separation and preflight now include same-spread
+crossovers. This follows the published [pages and spreads model](https://helpx.adobe.com/indesign/using/pages-spreads.html)
+and the IDML spread-sibling structure described above. Tests and the independent
+PDF proof cover ordinary artwork and applied parent instances; an unapplied
+neighboring master sheet is not implicitly instantiated. A real populated facing
+master and external application validation are still needed to establish that
+last behavior's native agreement.

@@ -288,6 +288,8 @@ supplies the localised form.
 - **The spot ICC path.** A spot's Lab is stored, but nothing resolves it
   through a profile to a real ink.
 
+## Page geometry and spread artwork
+
 Four-sided bleed and slug now reach `PageOutput` as physical offsets from trim.
 Media encloses both and any required printer marks. PDF's bottom-left coordinates
 use the left/bottom media offsets for TrimBox and plate placement; BleedBox is
@@ -299,3 +301,22 @@ paper for marks; artwork separation remains clipped to the bleed box.
 `offsets_proof` and `check-design-output` exercise unequal bleed/slug edges and
 single/two-up placement. Independent Poppler parsing and pixel checks distinguish
 all four bleed bands, the trim origin, blank slug paper, and PDF page boxes.
+
+
+Both separation entry points and preflight use spread artwork in the destination
+page's coordinate system. Artwork crossing a gutter contributes to both pages;
+inside bleed can include adjacent-page artwork. Shapes retain opacity, strokes
+and layer stacking; graphics retain native process channels; text composes
+in its original frame/grid before placement. Missing graphics crossing into the
+requested output area are reported on that page too. Objects belonging to another
+spread are excluded.
+
+Property tests compare every output plate pixel against the same region of a
+whole-spread reference for two through four unequal pages, both physical orders,
+zero/nonzero gutters and two resolutions. The exact raster comparison uses binary
+representable shear so coordinate rounding does not introduce one-step alpha
+quantization differences. `crossover_proof` independently checks continuous
+image/text, transparent overlaps, inside bleed, and identical single/two-up output
+with Poppler. Its n-up sheet includes both pages' inside bleeds; those repeated
+strips are outside the trim, as expected. This is sequential n-up, not booklet
+imposition or an external application's rendering comparison.
