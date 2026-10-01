@@ -282,19 +282,46 @@ mod tests {
     }
     #[test]
     fn links_resolve_against_the_layout_and_file_uris_decode_once() {
-        let base = Path::new("/work/layout/book.idml");
-        assert_eq!(
-            resolve_path("Links/photo.psd", Some(base)),
-            Some(PathBuf::from("/work/layout/Links/photo.psd"))
-        );
-        assert_eq!(
-            resolve_path("/other/photo.psd", Some(base)),
-            Some(PathBuf::from("/other/photo.psd"))
-        );
-        assert_eq!(
-            resolve_path("file:///work/a%20b.psd", Some(base)),
-            Some(PathBuf::from("/work/a b.psd"))
-        );
+        // File URLs must name a native absolute path. A Unix root without
+        // a drive or UNC share correctly cannot resolve on Windows.
+        #[cfg(windows)]
+        let roots = [
+            ("C:/work", "file:///C:/work"),
+            ("D:/work", "file://localhost/D:/work"),
+            (r"\\server\share\work", "file://server/share/work"),
+        ];
+        #[cfg(not(windows))]
+        let roots = [
+            ("/work", "file:///work"),
+            ("/work", "file://localhost/work"),
+        ];
+        for (root, uri) in roots {
+            let root = Path::new(root);
+            let base = root.join("layout/book.idml");
+            assert!(base.is_absolute());
+            assert_eq!(
+                resolve_path("Links/photo.psd", Some(&base)),
+                Some(root.join("layout/Links/photo.psd"))
+            );
+            let absolute = root.join("other/photo.psd");
+            for document in [None, Some(base.as_path())] {
+                assert_eq!(
+                    resolve_path(absolute.to_str().unwrap(), document),
+                    Some(absolute.clone())
+                );
+                for (encoded, name) in [
+                    ("photo.psd", "photo.psd"),
+                    ("a%20b.psd", "a b.psd"),
+                    ("a%2520b.psd", "a%20b.psd"),
+                    ("caf%C3%A9%23%25.psd", "café#%.psd"),
+                ] {
+                    assert_eq!(
+                        resolve_path(&format!("{uri}/{encoded}"), document),
+                        Some(root.join(name))
+                    );
+                }
+            }
+        }
         assert_eq!(resolve_path("relative.psd", None), None);
     }
     #[test]

@@ -308,6 +308,17 @@ are marked.
 
 ## Handoff
 
+Windows CI follow-up, 2026-10-01: run `36860614185` found one editor test
+using a Unix file URL as if it were a native Windows path. The resolver correctly
+rejected it. The test now uses native absolute paths, covers Windows drive/UNC
+paths and localhost URLs, and verifies spaces, Unicode and literal percent escapes
+decode exactly once with or without a document base. Production behavior is
+unchanged. A fresh local sweep passes all 16 targets listed below, **1,666 distinct
+Rust tests** (including all 408 editor tests), four browser checks and eight Python
+audit tests. Formatting and whitespace checks pass. Results and counts are in
+`/tmp/schist-windows-fix-results.json` and `/tmp/schist-windows-fix-counts.json`;
+individual logs use the same prefix. The Windows-specific cases await hosted CI.
+
 Verification checkpoint, 2026-10-01 (paragraph tabs and publication): all targets
 below pass. After permissions were restored, an unfiltered `check-design` rerun
 passed all 408 editor tests, including the unchanged clipboard HTTP-listener test.
