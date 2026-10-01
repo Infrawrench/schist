@@ -68,7 +68,16 @@ pub(super) fn styles_panel(
                 character_in_use.as_deref(),
                 cx,
             )))
-            .child(super::object_styles::style_controls(ws, cx))
+            .child({
+                let options = super::object_styles::style_controls(ws, cx);
+                super::design_dock::section(
+                    ws,
+                    "object-style-options",
+                    "design.object_styles",
+                    vec![options],
+                    cx,
+                )
+            })
             .into_any_element(),
     )
 }

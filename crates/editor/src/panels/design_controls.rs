@@ -4,6 +4,98 @@ use crate::design::controls::{self, Target};
 use schist_layout::styles::Align;
 use schist_layout::{properties, CharacterStyle, ParagraphStyle};
 
+#[derive(Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
+enum InspectorSection {
+    Basic,
+    Font,
+    Appearance,
+    Typography,
+    Decorations,
+    Lists,
+    Style,
+    Preferences,
+}
+
+struct Inspector {
+    rows: std::collections::BTreeMap<InspectorSection, Vec<gpui::AnyElement>>,
+    current: InspectorSection,
+}
+impl Inspector {
+    fn new(mut header: Vec<gpui::AnyElement>) -> Self {
+        let name = header.remove(1);
+        let mut rows = std::collections::BTreeMap::new();
+        rows.insert(InspectorSection::Basic, header);
+        rows.insert(InspectorSection::Style, vec![name]);
+        Self {
+            rows,
+            current: InspectorSection::Basic,
+        }
+    }
+    fn group(&mut self, section: InspectorSection) {
+        self.current = section;
+    }
+    fn push(&mut self, row: gpui::AnyElement) {
+        self.rows.entry(self.current).or_default().push(row);
+    }
+    fn extend(&mut self, rows: Vec<gpui::AnyElement>) {
+        self.rows.entry(self.current).or_default().extend(rows);
+    }
+    fn render(
+        mut self,
+        ws: &Workspace,
+        paragraph: bool,
+        cx: &mut Context<Workspace>,
+    ) -> gpui::AnyElement {
+        self.rows
+            .entry(InspectorSection::Style)
+            .or_default()
+            .push(style_actions(paragraph, cx));
+        let mut body = div().flex().flex_col().gap_2().children(
+            self.rows
+                .remove(&InspectorSection::Basic)
+                .unwrap_or_default(),
+        );
+        // Font family, face, size, leading and tracking are the everyday Character controls.
+        if !paragraph {
+            body = body.children(
+                self.rows
+                    .remove(&InspectorSection::Font)
+                    .unwrap_or_default(),
+            );
+        }
+        for (section, rows) in self.rows {
+            let (character_id, paragraph_id, label) = match section {
+                InspectorSection::Font => ("char-font", "para-font", "design.font_family"),
+                InspectorSection::Appearance => ("char-paint", "para-paint", "design.appearance"),
+                InspectorSection::Typography => ("char-type", "para-type", "design.advanced_type"),
+                InspectorSection::Decorations => {
+                    ("char-decorations", "para-decorations", "design.decorations")
+                }
+                InspectorSection::Lists => ("char-lists", "para-lists", "design.list_type"),
+                InspectorSection::Style => ("char-style", "para-style", "design.style_options"),
+                InspectorSection::Preferences => (
+                    "char-preferences",
+                    "para-preferences",
+                    "design.text_preferences",
+                ),
+                InspectorSection::Basic => continue,
+            };
+            body = body.child(super::design_dock::section(
+                ws,
+                if paragraph {
+                    paragraph_id
+                } else {
+                    character_id
+                },
+                label,
+                rows,
+                cx,
+            ));
+        }
+        body.into_any_element()
+    }
+}
+
 pub(super) fn field(
     ws: &Workspace,
     id: &'static str,
@@ -18,15 +110,21 @@ pub(super) fn field(
     } else {
         value.clone()
     };
+    let inherited = matches!(
+        target,
+        Target::Character(_) | Target::Paragraph(_) | Target::ObjectStyle(_)
+    );
     div()
         .flex()
         .items_center()
         .gap_2()
-        .child(div().text_xs().flex_1().child(t(label)))
+        .min_w_0()
+        .child(div().text_xs().flex_1().min_w_0().child(t(label)))
         .child(
             TextInput::new(id, shown)
                 .active(focused)
-                .w(px(130.0))
+                .when(inherited, |input| input.placeholder(t("design.inherited")))
+                .w(px(108.0))
                 .on_focus(cx.listener(move |ws, _, _, cx| {
                     ws.commit_focused_field();
                     ws.focus_field(id, value.clone());
@@ -57,6 +155,134 @@ fn leading_value(value: Option<schist_layout::styles::Leading>) -> String {
     }
 }
 
+pub(super) fn control_bar(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::AnyElement {
+    let mut fields = Vec::new();
+    if ws.design.selection.is_empty() {
+        let page = ws.design.current_page();
+        if let Some(p) = ws.design.document.pages.get(page) {
+            for (id, label, value) in [
+                ("design-prop-bar-page-width", "design.width", p.width),
+                ("design-prop-bar-page-height", "design.height", p.height),
+            ] {
+                fields.push(field(
+                    ws,
+                    id,
+                    label,
+                    number(Some(value)),
+                    Target::Pages(vec![page]),
+                    cx,
+                ));
+            }
+        }
+    } else {
+        for (id, label) in [
+            ("design-prop-x", "design.position_x"),
+            ("design-prop-y", "design.position_y"),
+            ("design-prop-width", "design.width"),
+            ("design-prop-height", "design.height"),
+        ] {
+            fields.push(object_field(ws, id, label, cx));
+        }
+    }
+    let mut groups = Vec::new();
+    let mut fields = fields.into_iter();
+    while let Some(first) = fields.next() {
+        groups.push(
+            div()
+                .flex()
+                .flex_col()
+                .gap_1()
+                .w(px(160.0))
+                .child(first)
+                .children(fields.next()),
+        );
+    }
+    div()
+        .flex()
+        .flex_wrap()
+        .items_center()
+        .gap_3()
+        .px_3()
+        .py_2()
+        .flex_none()
+        .bg(gpui::rgb(palette().panel_bg))
+        .border_b_1()
+        .border_color(gpui::rgb(palette().panel_edge))
+        .child(
+            div()
+                .flex()
+                .flex_col()
+                .gap_1()
+                .w(px(80.0))
+                .text_xs()
+                .child(t("design.mode"))
+                .child(
+                    div()
+                        .text_color(gpui::rgb(palette().text_dim))
+                        .child(t("design.ruler_pt")),
+                ),
+        )
+        .children(groups)
+        .child(
+            div().flex().flex_wrap().gap_1().children(
+                [
+                    ("design_control", "design.properties", "adjust"),
+                    ("design_character", "design.character", "character"),
+                    ("design_paragraph", "design.paragraph", "type-align-left"),
+                ]
+                .into_iter()
+                .map(|(key, label, glyph)| {
+                    div()
+                        .id(SharedString::from(format!("design-control-panel-{}", key)))
+                        .flex()
+                        .items_center()
+                        .gap_1()
+                        .px_2()
+                        .h(px(26.0))
+                        .cursor_pointer()
+                        .text_xs()
+                        .hover(|d| d.bg(gpui::rgb(palette().hover)))
+                        .child(icon(glyph, 14.0, palette().text))
+                        .child(t(label))
+                        .on_click(
+                            cx.listener(move |ws, _, _, cx| {
+                                super::design_dock::select(ws, key, cx)
+                            }),
+                        )
+                }),
+            ),
+        )
+        .into_any_element()
+}
+
+fn object_field(
+    ws: &Workspace,
+    id: &'static str,
+    label: &'static str,
+    cx: &mut Context<Workspace>,
+) -> gpui::AnyElement {
+    let property = controls::object_property(id).expect("control property");
+    let values: Vec<_> = ws
+        .design
+        .selection
+        .iter()
+        .filter_map(|id| ws.design.document.object(*id))
+        .filter_map(|o| property.value(&o.resolved_appearance(&ws.design.document.styles)))
+        .collect();
+    let value = values
+        .first()
+        .copied()
+        .filter(|first| values.iter().all(|v| v == first));
+    field(
+        ws,
+        id,
+        label,
+        number(value),
+        Target::Objects(ws.design.selection.clone()),
+        cx,
+    )
+}
+
 pub(super) fn control_panel(
     ws: &mut Workspace,
     cx: &mut Context<Workspace>,
@@ -64,12 +290,7 @@ pub(super) fn control_panel(
     if !ws.design_mode() || ws.design.selection.is_empty() {
         return None;
     }
-    let mut fields = vec![
-        ("design-prop-x", "design.position_x"),
-        ("design-prop-y", "design.position_y"),
-        ("design-prop-width", "design.width"),
-        ("design-prop-height", "design.height"),
-    ];
+    let mut fields = Vec::new();
     if controls::all_text_frames(&ws.design)
         && ws.design.selection.iter().all(|id| {
             ws.design.document.object(*id).is_some_and(|o| {
@@ -104,19 +325,7 @@ pub(super) fn control_panel(
     let target = Target::Objects(ws.design.selection.clone());
     let mut rows = fields
         .into_iter()
-        .map(|(id, label)| {
-            let property = controls::object_property(id).expect("control property");
-            let values: Vec<_> = ws
-                .design
-                .selection
-                .iter()
-                .filter_map(|id| ws.design.document.object(*id))
-                .filter_map(|o| property.value(&o.resolved_appearance(&ws.design.document.styles)))
-                .collect();
-            let first = values.first().copied();
-            let value = first.filter(|first| values.iter().all(|v| v == first));
-            field(ws, id, label, number(value), target.clone(), cx)
-        })
+        .map(|(id, label)| object_field(ws, id, label, cx))
         .collect::<Vec<_>>();
     let paths: Vec<_> = ws
         .design
@@ -274,7 +483,7 @@ fn style_picker(
             is_open: ws.open_popup == Some(popup),
             current,
             label: selected.to_owned().into(),
-            width: 240.0,
+            width: ws.view.panel_width.unwrap_or(300.0).max(280.0) - 50.0,
             options: names
                 .iter()
                 .enumerate()
@@ -371,14 +580,15 @@ fn style_actions(paragraph: bool, cx: &mut Context<Workspace>) -> gpui::AnyEleme
         .flex()
         .gap_1()
         .child(
-            Button::new(
+            IconButton::new(
                 if paragraph {
                     "design-apply-para"
                 } else {
                     "design-apply-char"
                 },
-                t("design.apply_style"),
+                "check",
             )
+            .tooltip(t("design.apply_style"), None)
             .on_click(cx.listener(move |ws, _, _, cx| {
                 ws.commit_focused_field();
                 let Some(name) = style_name(ws, paragraph) else {
@@ -406,14 +616,15 @@ fn style_actions(paragraph: bool, cx: &mut Context<Workspace>) -> gpui::AnyEleme
             })),
         )
         .child(
-            Button::new(
+            IconButton::new(
                 if paragraph {
                     "design-new-para"
                 } else {
                     "design-new-char"
                 },
-                t("design.new_style"),
+                "plus",
             )
+            .tooltip(t("design.new_style"), None)
             .on_click(cx.listener(move |ws, _, _, cx| {
                 ws.commit_focused_field();
                 let mut n = 1;
@@ -467,7 +678,7 @@ pub(super) fn paragraph_panel(
     let name = style_name(ws, true)?;
     let style = ws.design.document.styles.paragraph(&name)?.clone();
     let target = Target::Paragraph(name.clone());
-    let mut rows = vec![
+    let mut rows = Inspector::new(vec![
         style_picker(ws, true, &name, cx),
         field(
             ws,
@@ -477,7 +688,8 @@ pub(super) fn paragraph_panel(
             target.clone(),
             cx,
         ),
-    ];
+    ]);
+    rows.group(InspectorSection::Font);
     rows.push(field(
         ws,
         "design-prop-paragraph-family",
@@ -486,6 +698,7 @@ pub(super) fn paragraph_panel(
         target.clone(),
         cx,
     ));
+    rows.group(InspectorSection::Typography);
     rows.push(field(
         ws,
         "design-prop-paragraph-language",
@@ -500,6 +713,7 @@ pub(super) fn paragraph_panel(
             .child(t("design.language_help"))
             .into_any_element(),
     );
+    rows.group(InspectorSection::Appearance);
     for (fill, ink, disabled) in [
         (true, &style.fill, style.fill_disabled),
         (false, &style.stroke, style.stroke_disabled),
@@ -517,6 +731,7 @@ pub(super) fn paragraph_panel(
             cx,
         ));
     }
+    rows.group(InspectorSection::Typography);
     rows.push(capitalization_row(
         ws,
         &target,
@@ -530,6 +745,7 @@ pub(super) fn paragraph_panel(
         style.directional_features,
         cx,
     ));
+    rows.group(InspectorSection::Decorations);
     rows.extend(super::text_decorations::rows(
         ws,
         &target,
@@ -539,6 +755,7 @@ pub(super) fn paragraph_panel(
         ],
         cx,
     ));
+    rows.group(InspectorSection::Appearance);
     rows.push(text_join(ws, &target, style.stroke_join, cx));
     rows.extend(text_paint_flags(
         ws,
@@ -548,6 +765,7 @@ pub(super) fn paragraph_panel(
         style.stroke_outside,
         cx,
     ));
+    rows.group(InspectorSection::Font);
     rows.push(field(
         ws,
         "design-prop-paragraph-font-style",
@@ -602,8 +820,23 @@ pub(super) fn paragraph_panel(
             style.first_line_indent,
         ),
     ] {
+        rows.group(if id.contains("stroke") || id.contains("fill-tint") {
+            InspectorSection::Appearance
+        } else if matches!(
+            id,
+            "design-prop-before"
+                | "design-prop-after"
+                | "design-prop-left"
+                | "design-prop-right"
+                | "design-prop-first"
+        ) {
+            InspectorSection::Basic
+        } else {
+            InspectorSection::Font
+        });
         rows.push(field(ws, id, label, number(value), target.clone(), cx));
     }
+    rows.group(InspectorSection::Typography);
     rows.push(field(
         ws,
         "design-prop-baseline",
@@ -612,6 +845,7 @@ pub(super) fn paragraph_panel(
         target.clone(),
         cx,
     ));
+    rows.group(InspectorSection::Font);
     rows.push(field(
         ws,
         "design-prop-leading",
@@ -620,6 +854,7 @@ pub(super) fn paragraph_panel(
         target.clone(),
         cx,
     ));
+    rows.group(InspectorSection::Lists);
     rows.extend(list_fields(
         ws,
         &style
@@ -628,6 +863,7 @@ pub(super) fn paragraph_panel(
         target.clone(),
         cx,
     ));
+    rows.group(InspectorSection::Typography);
     rows.push(position_picker(
         ws,
         true,
@@ -649,18 +885,27 @@ pub(super) fn paragraph_panel(
             .child(t("design.opentype_hint"))
             .into_any_element(),
     );
+    let active_align = ws
+        .design
+        .document
+        .styles
+        .resolve_paragraph(&name)
+        .align
+        .unwrap_or_default();
     let alignments = [
-        (Align::Left, "design.align_left"),
-        (Align::Center, "design.align_center"),
-        (Align::Right, "design.align_right"),
-        (Align::Justify, "design.justify"),
+        (Align::Left, "design.align_left", "type-align-left"),
+        (Align::Center, "design.align_center", "type-align-center"),
+        (Align::Right, "design.align_right", "type-align-right"),
+        (Align::Justify, "design.justify", "type-align-justify"),
     ];
     let buttons = alignments
         .into_iter()
         .enumerate()
-        .map(|(index, (align, label))| {
-            Button::new(("design-align-text", index), t(label)).on_click(cx.listener(
-                move |ws, _, _, cx| {
+        .map(|(index, (align, label, icon))| {
+            IconButton::new(("design-align-text", index), icon)
+                .tooltip(t(label), None)
+                .active(active_align == align)
+                .on_click(cx.listener(move |ws, _, _, cx| {
                     ws.commit_focused_field();
                     let Some(name) = style_name(ws, true) else {
                         return;
@@ -677,8 +922,7 @@ pub(super) fn paragraph_panel(
                         },
                     );
                     cx.notify();
-                },
-            ))
+                }))
         })
         .collect::<Vec<_>>();
     Some(
@@ -688,9 +932,8 @@ pub(super) fn paragraph_panel(
             .p_2()
             .gap_1()
             .child(div().text_xs().child(t("design.named_style_hint")))
-            .children(rows)
             .child(div().flex().flex_wrap().gap_1().children(buttons))
-            .child(style_actions(true, cx))
+            .child(rows.render(ws, true, cx))
             .into_any_element(),
     )
 }
@@ -705,7 +948,7 @@ pub(super) fn character_panel(
     let name = style_name(ws, false)?;
     let style = ws.design.document.styles.character(&name)?.clone();
     let target = Target::Character(name.clone());
-    let mut rows = vec![
+    let mut rows = Inspector::new(vec![
         style_picker(ws, false, &name, cx),
         field(
             ws,
@@ -723,7 +966,8 @@ pub(super) fn character_panel(
             target.clone(),
             cx,
         ),
-    ];
+    ]);
+    rows.group(InspectorSection::Typography);
     rows.push(field(
         ws,
         "design-prop-language",
@@ -738,6 +982,7 @@ pub(super) fn character_panel(
             .child(t("design.language_help"))
             .into_any_element(),
     );
+    rows.group(InspectorSection::Appearance);
     for (fill, ink, disabled) in [
         (true, &style.fill, style.fill_disabled),
         (false, &style.stroke, style.stroke_disabled),
@@ -755,6 +1000,7 @@ pub(super) fn character_panel(
             cx,
         ));
     }
+    rows.group(InspectorSection::Typography);
     rows.push(capitalization_row(
         ws,
         &target,
@@ -768,6 +1014,7 @@ pub(super) fn character_panel(
         style.directional_features,
         cx,
     ));
+    rows.group(InspectorSection::Decorations);
     rows.extend(super::text_decorations::rows(
         ws,
         &target,
@@ -777,6 +1024,7 @@ pub(super) fn character_panel(
         ],
         cx,
     ));
+    rows.group(InspectorSection::Appearance);
     rows.push(text_join(ws, &target, style.stroke_join, cx));
     rows.extend(text_paint_flags(
         ws,
@@ -786,6 +1034,7 @@ pub(super) fn character_panel(
         style.stroke_outside,
         cx,
     ));
+    rows.group(InspectorSection::Font);
     rows.push(field(
         ws,
         "design-prop-font-style",
@@ -826,8 +1075,14 @@ pub(super) fn character_panel(
             style.tracking,
         ),
     ] {
+        rows.group(if id.contains("stroke") || id.contains("fill-tint") {
+            InspectorSection::Appearance
+        } else {
+            InspectorSection::Font
+        });
         rows.push(field(ws, id, label, number(value), target.clone(), cx));
     }
+    rows.group(InspectorSection::Typography);
     rows.push(field(
         ws,
         "design-prop-char-baseline",
@@ -836,6 +1091,7 @@ pub(super) fn character_panel(
         target.clone(),
         cx,
     ));
+    rows.group(InspectorSection::Font);
     rows.push(field(
         ws,
         "design-prop-char-leading",
@@ -844,6 +1100,7 @@ pub(super) fn character_panel(
         target.clone(),
         cx,
     ));
+    rows.group(InspectorSection::Typography);
     rows.push(position_picker(
         ws,
         false,
@@ -865,13 +1122,7 @@ pub(super) fn character_panel(
             .child(t("design.opentype_hint"))
             .into_any_element(),
     );
-    rows.push(
-        div()
-            .text_xs()
-            .pt_2()
-            .child(t("design.text_preferences"))
-            .into_any_element(),
-    );
+    rows.group(InspectorSection::Preferences);
     let prefs = ws.design.document.styles.text_preferences;
     for (id, label, value) in [
         (
@@ -909,17 +1160,24 @@ pub(super) fn character_panel(
             cx,
         ));
     }
+    let resolved = ws.design.document.styles.resolve_character(&name);
     let buttons = [
-        "design.bold",
-        "design.italic",
-        "design.underline",
-        "design.strikethrough",
+        ("design.bold", "type-bold", resolved.bold),
+        ("design.italic", "type-italic", resolved.italic),
+        ("design.underline", "type-underline", resolved.underline),
+        (
+            "design.strikethrough",
+            "type-strike",
+            resolved.strikethrough,
+        ),
     ]
     .into_iter()
     .enumerate()
-    .map(|(index, label)| {
-        Button::new(("design-char-toggle", index), t(label)).on_click(cx.listener(
-            move |ws, _, _, cx| {
+    .map(|(index, (label, icon, active))| {
+        IconButton::new(("design-char-toggle", index), icon)
+            .tooltip(t(label), None)
+            .active(active.unwrap_or(false))
+            .on_click(cx.listener(move |ws, _, _, cx| {
                 ws.commit_focused_field();
                 let Some(name) = style_name(ws, false) else {
                     return;
@@ -951,8 +1209,7 @@ pub(super) fn character_panel(
                     },
                 );
                 cx.notify();
-            },
-        ))
+            }))
     })
     .collect::<Vec<_>>();
     Some(
@@ -962,9 +1219,8 @@ pub(super) fn character_panel(
             .p_2()
             .gap_1()
             .child(div().text_xs().child(t("design.named_style_hint")))
-            .children(rows)
             .child(div().flex().flex_wrap().gap_1().children(buttons))
-            .child(style_actions(false, cx))
+            .child(rows.render(ws, false, cx))
             .into_any_element(),
     )
 }

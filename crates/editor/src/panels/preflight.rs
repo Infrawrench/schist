@@ -50,17 +50,21 @@ pub(super) fn preflight_panel(
             .border_color(gpui::rgb(palette().panel_edge))
             .child(
                 div()
+                    .flex()
+                    .items_center()
+                    .justify_between()
                     .text_xs()
                     .text_color(gpui::rgb(palette().text_dim))
                     .child(schist_i18n::tf!(
                         "design.link_on_page",
                         number = document.page_number(page)
-                    )),
-            )
-            .child(
-                Button::new("design-preflight-run", t("design.preflight_run"))
-                    .disabled(state.running)
-                    .on_click(cx.listener(|ws, _, _, cx| ws.check_design_page(cx))),
+                    ))
+                    .child(
+                        IconButton::new("design-preflight-run", "refresh")
+                            .tooltip(t("design.preflight_run"), None)
+                            .disabled(state.running)
+                            .on_click(cx.listener(|ws, _, _, cx| ws.check_design_page(cx))),
+                    ),
             )
             .child(div().text_xs().child(status))
             .child(

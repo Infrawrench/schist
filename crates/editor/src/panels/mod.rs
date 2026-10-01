@@ -31,6 +31,7 @@ mod brushes;
 mod color;
 mod context;
 mod design_controls;
+mod design_dock;
 mod design_layers;
 mod history;
 mod info;
@@ -88,6 +89,14 @@ pub use tabs::*;
 pub use titlebar::*;
 pub use toolbar::*;
 
+fn design_document_name(ws: &Workspace) -> String {
+    ws.design_path
+        .as_deref()
+        .and_then(|p| p.file_name())
+        .map(|n| n.to_string_lossy().into_owned())
+        .unwrap_or_else(|| t("design.blank_document").to_owned())
+}
+
 fn swatch_hex(c: Rgba) -> gpui::Rgba {
     let [r, g, b, _] = c.to_u8();
     gpui::rgb(((r as u32) << 16) | ((g as u32) << 8) | b as u32)
@@ -136,6 +145,9 @@ pub(crate) fn keybind_hint(kb: Option<&str>) -> String {
 }
 
 pub fn side_panels(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::Stateful<gpui::Div> {
+    if ws.design_mode() {
+        return design_dock::dock(ws, cx);
+    }
     // Scrollable: the Info tab can be taller than a small window, and
     // without this the panels below it were squeezed into each other —
     // Layers over History, a stray border across the map. Short content
@@ -147,95 +159,8 @@ pub fn side_panels(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::Sta
         if ws.view.hidden_panels.iter().any(|key| key == kind.key()) {
             continue;
         }
-        let (label, body, grows) = match kind {
-            SidePanel::Navigator => (
-                t("panel.navigator.title"),
-                navigator(ws, cx).into_any_element(),
-                false,
-            ),
-            SidePanel::Color => {
-                let body = top_panel(ws, cx);
-                (top_panel_label(ws), body, false)
-            }
-            SidePanel::Layers => (
-                t("common.layers"),
-                layers_panel(ws, cx).into_any_element(),
-                true,
-            ),
-            SidePanel::Notes => {
-                let Some(notes) = notes_panel(ws, cx) else {
-                    continue;
-                };
-                (t("menu.view.notes"), notes, false)
-            }
-            SidePanel::History => (
-                t("panel.history.title"),
-                history_panel(ws, cx).into_any_element(),
-                false,
-            ),
-            // Design-only panels skip themselves in the photo editor
-            // rather than showing empty, so a dock preset carrying one
-            // cannot leave a blank section behind.
-            SidePanel::Pages => {
-                let Some(pages) = pages_panel(ws, cx) else {
-                    continue;
-                };
-                (t("design.pages"), pages, false)
-            }
-            SidePanel::Stories => {
-                let Some(stories) = stories_panel(ws, cx) else {
-                    continue;
-                };
-                (t("design.stories"), stories, false)
-            }
-            SidePanel::Links => {
-                let Some(links) = links_panel(ws, cx) else {
-                    continue;
-                };
-                (t("design.links"), links, false)
-            }
-            SidePanel::Swatches => {
-                let Some(swatches) = swatches_panel(ws, cx) else {
-                    continue;
-                };
-                (t("design.swatches"), swatches, false)
-            }
-            SidePanel::Styles => {
-                let Some(styles) = styles_panel(ws, cx) else {
-                    continue;
-                };
-                (t("design.styles"), styles, false)
-            }
-            SidePanel::Control => {
-                let Some(body) = design_controls::control_panel(ws, cx) else {
-                    continue;
-                };
-                (t("design.control"), body, false)
-            }
-            SidePanel::Character => {
-                let Some(body) = design_controls::character_panel(ws, cx) else {
-                    continue;
-                };
-                (t("design.character"), body, false)
-            }
-            SidePanel::Paragraph => {
-                let Some(body) = design_controls::paragraph_panel(ws, cx) else {
-                    continue;
-                };
-                (t("design.paragraph"), body, false)
-            }
-            SidePanel::DesignLayers => {
-                let Some(body) = design_layers::design_layers_panel(ws, cx) else {
-                    continue;
-                };
-                (t("design.layers"), body, true)
-            }
-            SidePanel::Preflight => {
-                let Some(preflight) = preflight_panel(ws, cx) else {
-                    continue;
-                };
-                (t("design.preflight"), preflight, false)
-            }
+        let Some((label, body, grows)) = panel_content(kind, ws, cx) else {
+            continue;
         };
         let key = kind.key();
         let saved_height = ws
@@ -272,6 +197,81 @@ pub fn side_panels(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::Sta
         .border_color(gpui::rgb(palette().panel_edge))
         .children(panels)
         .child(panel_drop_end(cx))
+}
+
+fn panel_content(
+    kind: SidePanel,
+    ws: &mut Workspace,
+    cx: &mut Context<Workspace>,
+) -> Option<(&'static str, gpui::AnyElement, bool)> {
+    Some(match kind {
+        SidePanel::Navigator => (
+            t("panel.navigator.title"),
+            navigator(ws, cx).into_any_element(),
+            false,
+        ),
+        SidePanel::Color => {
+            let body = top_panel(ws, cx);
+            (top_panel_label(ws), body, false)
+        }
+        SidePanel::Layers => (
+            t("common.layers"),
+            layers_panel(ws, cx).into_any_element(),
+            true,
+        ),
+        SidePanel::Notes => {
+            let notes = notes_panel(ws, cx)?;
+            (t("menu.view.notes"), notes, false)
+        }
+        SidePanel::History => (
+            t("panel.history.title"),
+            history_panel(ws, cx).into_any_element(),
+            false,
+        ),
+        // Design-only panels skip themselves in the photo editor
+        // rather than showing empty, so a dock preset carrying one
+        // cannot leave a blank section behind.
+        SidePanel::Pages => {
+            let pages = pages_panel(ws, cx)?;
+            (t("design.pages"), pages, false)
+        }
+        SidePanel::Stories => {
+            let stories = stories_panel(ws, cx)?;
+            (t("design.stories"), stories, false)
+        }
+        SidePanel::Links => {
+            let links = links_panel(ws, cx)?;
+            (t("design.links"), links, false)
+        }
+        SidePanel::Swatches => {
+            let swatches = swatches_panel(ws, cx)?;
+            (t("design.swatches"), swatches, false)
+        }
+        SidePanel::Styles => {
+            let styles = styles_panel(ws, cx)?;
+            (t("design.styles"), styles, false)
+        }
+        SidePanel::Control => {
+            let body = design_controls::control_panel(ws, cx)?;
+            (t("design.control"), body, false)
+        }
+        SidePanel::Character => {
+            let body = design_controls::character_panel(ws, cx)?;
+            (t("design.character"), body, false)
+        }
+        SidePanel::Paragraph => {
+            let body = design_controls::paragraph_panel(ws, cx)?;
+            (t("design.paragraph"), body, false)
+        }
+        SidePanel::DesignLayers => {
+            let body = design_layers::design_layers_panel(ws, cx)?;
+            (t("design.layers"), body, true)
+        }
+        SidePanel::Preflight => {
+            let preflight = preflight_panel(ws, cx)?;
+            (t("design.preflight"), preflight, false)
+        }
+    })
 }
 
 const DEFAULT_PANEL_ORDER: [SidePanel; 5] = [
@@ -418,6 +418,17 @@ fn panel_order(saved: &[String], design: bool) -> Vec<SidePanel> {
 #[cfg(test)]
 mod panel_order_tests {
     use super::*;
+
+    #[test]
+    fn design_panel_registration_matches_the_persisted_workspace_schema() {
+        let registered: std::collections::BTreeSet<_> =
+            DESIGN_ONLY_PANELS.into_iter().map(SidePanel::key).collect();
+        let persisted: std::collections::BTreeSet<_> =
+            schist_app_settings::workspaces::DESIGN_PANELS
+                .into_iter()
+                .collect();
+        assert_eq!(registered, persisted);
+    }
 
     #[test]
     fn saved_order_is_kept_and_new_panels_are_appended() {

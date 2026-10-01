@@ -30,6 +30,16 @@ macro_rules! icons {
 
 icons!(
     "loading",
+    "lock",
+    "unlock",
+    "link",
+    "unlink",
+    "refresh",
+    "type-align-justify",
+    "type-bold",
+    "type-italic",
+    "type-underline",
+    "type-strike",
     "heart",
     "character",
     "type-align-left",

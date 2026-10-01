@@ -149,7 +149,7 @@ design.inset = Inset
 design.control_units = Dimensions in points
 design.point_size = Size (pt)
 design.leading = Leading (pt)
-design.tracking = Tracking (pt) (1/1000 em)
+design.tracking = Tracking (1/1000 em)
 design.space_before = Space before (pt)
 design.space_after = Space after (pt)
 design.indent_left = Left indent (pt)
@@ -479,3 +479,13 @@ design.list_keep_level = Continue this level
 design.idml_tabs_unsupported = Unsupported paragraph tab setting: {value}
 design.idml_tabs_implicit = Implicit tabs use Schist’s 36-point interval.
 design.paragraph_tabs = Paragraph tabs (pt)
+
+# Design workspace controls (English placeholders pending translation)
+design.properties = Properties
+design.expand_panels = Expand panels
+design.collapse_panels = Collapse panels
+design.panel_empty = Nothing to display
+design.appearance = Appearance
+design.advanced_type = Advanced typography
+design.decorations = Underlines and strikethroughs
+design.style_options = Style options

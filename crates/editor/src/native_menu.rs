@@ -52,6 +52,8 @@ fn signature(ws: &Workspace) -> String {
         // original capture, so switching documents/layers must rebuild it.
         ws.is_raw_redevelopment("filter.camera_raw") as u8,
     );
+    // Design replaces the menu set even when no raster tab or gallery state changes.
+    out.push_str(ws.mode.as_str());
     if let Some(doc) = ws.doc.as_ref() {
         for comp in &doc.layer_comps {
             out.push('\u{1f}');

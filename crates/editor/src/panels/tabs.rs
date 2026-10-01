@@ -7,6 +7,36 @@ use schist_i18n::tf;
 /// a dot marking unsaved changes. Click to switch, middle-click or the ×
 /// to close.
 pub fn tab_bar(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElement {
+    if ws.design_mode() {
+        let title = super::design_document_name(ws);
+        let label = if ws.design.lifecycle.dirty(&ws.design.document) {
+            tf!("panel.tabs.dirty", title = title)
+        } else {
+            title
+        };
+        let close = cx.entity();
+        return div()
+            .flex()
+            .items_end()
+            .h(px(ui::metrics().tab_h))
+            .flex_none()
+            .bg(gpui::rgb(palette().deep_bg))
+            .border_b_1()
+            .border_color(gpui::rgb(palette().panel_edge))
+            .overflow_hidden()
+            .child(
+                Tab::new("design-document-tab", label)
+                    .active(true)
+                    .on_close(move |_, cx| {
+                        close.update(cx, |ws, cx| {
+                            ws.request_design_transition(
+                                crate::design::lifecycle::Transition::Close,
+                                cx,
+                            )
+                        })
+                    }),
+            );
+    }
     let active = ws.active_tab();
     let tabs = ws.tab_strip();
     let m = ui::metrics();

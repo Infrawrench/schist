@@ -21,17 +21,7 @@ pub fn tool_options_bar(
     cx: &mut Context<Workspace>,
 ) -> impl IntoElement {
     if ws.design_mode() {
-        return div()
-            .flex()
-            .items_center()
-            .px_3()
-            .py_1()
-            .min_h(px(ui::metrics().options_bar_h))
-            .bg(gpui::rgb(palette().panel_bg))
-            .border_b_1()
-            .border_color(gpui::rgb(palette().panel_edge))
-            .child(t("design.mode"))
-            .into_any_element();
+        return super::design_controls::control_bar(ws, cx);
     }
     let tool_id = ws.editor.active_tool;
     if tool_id == "type" {
@@ -465,7 +455,7 @@ pub fn toolbar(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElem
 fn design_toolbar(ws: &Workspace, cx: &mut Context<Workspace>) -> gpui::Stateful<gpui::Div> {
     use crate::design::DesignTool;
     let tools = [
-        (DesignTool::Select, "move", "design.select_tool"),
+        (DesignTool::Select, "path-select", "design.select_tool"),
         (
             DesignTool::DirectSelect,
             "direct-select",
@@ -528,15 +518,18 @@ fn design_toolbar(ws: &Workspace, cx: &mut Context<Workspace>) -> gpui::Stateful
         .child(
             div()
                 .id("design-guides-toggle")
-                .text_xs()
+                .flex()
+                .items_center()
+                .justify_center()
+                .size(px(m.tool_slot))
                 .cursor_pointer()
-                .p_1()
+                .tooltip(ui::tip(t("design.guides"), None))
                 .bg(gpui::rgb(if ws.design.show_guides {
                     palette().selection_bg
                 } else {
                     palette().panel_bg
                 }))
-                .child(t("design.guides"))
+                .child(icon("artboard", m.tool_icon, palette().text))
                 .on_click(cx.listener(|ws, _, _, cx| {
                     ws.design.show_guides = !ws.design.show_guides;
                     cx.notify();
@@ -545,15 +538,18 @@ fn design_toolbar(ws: &Workspace, cx: &mut Context<Workspace>) -> gpui::Stateful
         .child(
             div()
                 .id("design-snap-toggle")
-                .text_xs()
+                .flex()
+                .items_center()
+                .justify_center()
+                .size(px(m.tool_slot))
                 .cursor_pointer()
-                .p_1()
+                .tooltip(ui::tip(t("design.snap_guides"), None))
                 .bg(gpui::rgb(if ws.design.snap_guides {
                     palette().selection_bg
                 } else {
                     palette().panel_bg
                 }))
-                .child(t("design.snap_guides"))
+                .child(icon("marquee-rect", m.tool_icon, palette().text))
                 .on_click(cx.listener(|ws, _, _, cx| {
                     ws.design.snap_guides = !ws.design.snap_guides;
                     cx.notify();

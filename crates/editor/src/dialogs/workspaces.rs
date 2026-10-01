@@ -147,12 +147,27 @@ pub(super) fn dialog(
             ws.commit_workspace_view(next, cx);
         })),
     );
-    for (i, key) in PANELS.into_iter().enumerate() {
+    let panels = if ws.design_mode() {
+        schist_app_settings::workspaces::DESIGN_PANELS.as_slice()
+    } else {
+        PANELS.as_slice()
+    };
+    for (i, &key) in panels.iter().enumerate() {
         let label = t(match key {
             "navigator" => "panel.navigator.title",
             "color" => "common.color",
             "layers" => "common.layers",
             "notes" => "menu.view.notes",
+            "pages" => "design.pages",
+            "design_layers" => "design.layers",
+            "design_control" => "design.properties",
+            "design_character" => "design.character",
+            "design_paragraph" => "design.paragraph",
+            "styles" => "design.styles",
+            "swatches" => "design.swatches",
+            "links" => "design.links",
+            "stories" => "design.stories",
+            "preflight" => "design.preflight",
             _ => "panel.history.title",
         });
         body = body.child(

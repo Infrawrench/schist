@@ -61,9 +61,9 @@ pub(super) fn stories_panel(
                     .justify_between()
                     .text_xs()
                     .text_color(rgb(palette().text_dim))
-                    .child(schist_i18n::tn!(
+                    .child(schist_i18n::tf!(
                         "design.story_count",
-                        document.stories.len() as u64
+                        count = document.stories.len()
                     ))
                     .child(if editing.is_some() {
                         t("design.editing_story").to_string()
@@ -72,62 +72,77 @@ pub(super) fn stories_panel(
                     }),
             )
             .child(
-                Button::new("story-editor-open", t("design.story_editor")).on_click(cx.listener(
-                    |ws, _, _, cx| {
-                        let story = ws
-                            .design
-                            .typing
-                            .map(|t| t.story)
-                            .or_else(|| {
-                                ws.design.selection.first().and_then(|id| {
-                                    schist_layout::threading::story_of(&ws.design.document, *id)
-                                })
-                            })
-                            .unwrap_or(StoryId(0));
-                        ws.open_story_editor(story, cx);
-                    },
-                )),
-            )
-            .child(
-                Button::new("thread-start", t("design.thread_to_frame"))
-                    .disabled(
-                        ws.design
-                            .selection
-                            .first()
-                            .and_then(|id| {
-                                schist_layout::threading::story_of(&ws.design.document, *id)
-                            })
-                            .is_none(),
+                div()
+                    .flex()
+                    .items_center()
+                    .gap_1()
+                    .child(
+                        IconButton::new("story-editor-open", "note")
+                            .tooltip(t("design.story_editor"), None)
+                            .on_click(cx.listener(|ws, _, _, cx| {
+                                let story = ws
+                                    .design
+                                    .typing
+                                    .map(|t| t.story)
+                                    .or_else(|| {
+                                        ws.design.selection.first().and_then(|id| {
+                                            schist_layout::threading::story_of(
+                                                &ws.design.document,
+                                                *id,
+                                            )
+                                        })
+                                    })
+                                    .unwrap_or(StoryId(0));
+                                ws.open_story_editor(story, cx);
+                            })),
                     )
-                    .on_click(cx.listener(|ws, _, _, cx| {
-                        ws.design.thread_source = ws.design.selection.first().copied();
-                        ws.design.typing = None;
-                        ws.status = t("design.choose_empty_frame").into();
-                        cx.notify();
-                    })),
-            )
-            .child(
-                Button::new("thread-detach", t("design.detach_frame"))
-                    .disabled(
-                        ws.design
-                            .selection
-                            .first()
-                            .and_then(|id| {
-                                schist_layout::threading::story_of(&ws.design.document, *id)
-                            })
-                            .is_none(),
+                    .child(
+                        IconButton::new("thread-start", "link")
+                            .tooltip(t("design.thread_to_frame"), None)
+                            .disabled(
+                                ws.design
+                                    .selection
+                                    .first()
+                                    .and_then(|id| {
+                                        schist_layout::threading::story_of(&ws.design.document, *id)
+                                    })
+                                    .is_none(),
+                            )
+                            .on_click(cx.listener(|ws, _, _, cx| {
+                                ws.commit_focused_field();
+                                ws.design.cancel_gesture();
+                                ws.design.thread_source = ws.design.selection.first().copied();
+                                ws.design.typing = None;
+                                ws.status = t("design.choose_empty_frame").into();
+                                cx.notify();
+                            })),
                     )
-                    .on_click(cx.listener(|ws, _, _, cx| {
-                        if let Some(id) = ws.design.selection.first().copied() {
-                            schist_layout::threading::detach(
-                                &mut ws.design.document,
-                                &mut ws.design.history,
-                                id,
-                            );
-                        }
-                        ws.design.typing = None;
-                        cx.notify();
-                    })),
+                    .child(
+                        IconButton::new("thread-detach", "unlink")
+                            .tooltip(t("design.detach_frame"), None)
+                            .disabled(
+                                ws.design
+                                    .selection
+                                    .first()
+                                    .and_then(|id| {
+                                        schist_layout::threading::story_of(&ws.design.document, *id)
+                                    })
+                                    .is_none(),
+                            )
+                            .on_click(cx.listener(|ws, _, _, cx| {
+                                ws.commit_focused_field();
+                                ws.design.cancel_gesture();
+                                if let Some(id) = ws.design.selection.first().copied() {
+                                    schist_layout::threading::detach(
+                                        &mut ws.design.document,
+                                        &mut ws.design.history,
+                                        id,
+                                    );
+                                }
+                                ws.design.typing = None;
+                                cx.notify();
+                            })),
+                    ),
             )
             .child(div().flex().flex_col().gap_1().children(rows))
             .into_any_element(),
@@ -164,6 +179,9 @@ fn story_rows(
             let selected = editing == Some(id);
             let mut row = div()
                 .id(("story-row", index))
+                .w_full()
+                .min_w_0()
+                .tooltip(ui::tip(preview.clone(), None))
                 .flex()
                 .flex_col()
                 .p_1()
@@ -175,7 +193,7 @@ fn story_rows(
                         .justify_between()
                         .text_xs()
                         .text_color(rgb(palette().text_dim))
-                        .child(schist_i18n::tn!("design.story_number", (index + 1) as u64))
+                        .child(schist_i18n::tf!("design.story_number", number = index + 1))
                         .child(if overset {
                             t("design.overflowed").to_string()
                         } else if attached {
@@ -185,10 +203,15 @@ fn story_rows(
                         }),
                 )
                 .child(
-                    div()
-                        .text_sm()
-                        .text_color(rgb(palette().text))
-                        .child(preview),
+                    div().flex().min_w_0().w_full().child(
+                        div()
+                            .flex_1()
+                            .min_w_0()
+                            .truncate()
+                            .text_xs()
+                            .text_color(rgb(palette().text))
+                            .child(preview),
+                    ),
                 );
             if selected {
                 row = row.bg(rgb(palette().selection_bg));
@@ -232,6 +255,8 @@ impl Workspace {
     /// Bring the first threaded frame into view for canvas editing.
     /// Unplaced stories open directly in the Story Editor.
     pub fn edit_story(&mut self, story: StoryId, cx: &mut Context<Self>) {
+        self.commit_focused_field();
+        self.design.cancel_gesture();
         let frame = self
             .design
             .document

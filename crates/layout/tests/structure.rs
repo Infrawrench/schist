@@ -297,3 +297,202 @@ fn paragraph_style_application_is_one_step_for_any_number_of_stories() {
     ));
     reversible(&before, &mut doc, &mut history);
 }
+
+#[test]
+fn layer_drag_inserts_at_every_boundary_without_permuting_other_layers() {
+    let mut before = document();
+    for index in 0..5 {
+        structure::add_layer(
+            &mut before,
+            &mut History::default(),
+            format!("Layer {index}"),
+        );
+    }
+    for &id in &before.layers {
+        for target in before.layers.iter().copied().map(Some).chain([None]) {
+            let mut doc = before.clone();
+            let mut history = History::default();
+            let changed = structure::place_layer(&mut doc, &mut history, id, target);
+            if target == Some(id) {
+                assert!(!changed);
+            } else {
+                let remaining: Vec<_> = before
+                    .layers
+                    .iter()
+                    .copied()
+                    .filter(|other| *other != id)
+                    .collect();
+                assert_eq!(
+                    doc.layers
+                        .iter()
+                        .copied()
+                        .filter(|other| *other != id)
+                        .collect::<Vec<_>>(),
+                    remaining
+                );
+                let index = doc.layers.iter().position(|other| *other == id).unwrap();
+                assert_eq!(doc.layers.get(index + 1).copied(), target);
+            }
+            if changed {
+                reversible(&before, &mut doc, &mut history);
+            } else {
+                assert_eq!(doc, before);
+                assert_eq!(history.undo_depth(), 0);
+            }
+        }
+    }
+}
+
+#[test]
+fn layer_moves_insert_for_any_distance_and_invalid_targets_are_inert() {
+    let mut before = document();
+    for index in 0..5 {
+        structure::add_layer(
+            &mut before,
+            &mut History::default(),
+            format!("Layer {index}"),
+        );
+    }
+    for from in 0..before.layers.len() {
+        for to in 0..before.layers.len() {
+            let mut doc = before.clone();
+            let mut history = History::default();
+            let mut expected = before.layers.clone();
+            let id = expected.remove(from);
+            expected.insert(to, id);
+            assert_eq!(
+                structure::move_layer(&mut doc, &mut history, id, to as isize - from as isize),
+                from != to
+            );
+            assert_eq!(doc.layers, expected);
+            if from != to {
+                reversible(&before, &mut doc, &mut history);
+            }
+        }
+    }
+    let mut doc = before.clone();
+    let mut history = History::default();
+    for (id, target) in [(LayerId(999), None), (doc.layers[0], Some(LayerId(999)))] {
+        assert!(!structure::place_layer(&mut doc, &mut history, id, target));
+    }
+    assert_eq!(doc, before);
+    assert_eq!(history.undo_depth(), 0);
+}
+
+#[test]
+fn dragging_any_size_selection_to_a_layer_is_one_edit_and_preserves_objects() {
+    let mut before = document();
+    let target =
+        structure::add_layer(&mut before, &mut History::default(), "Target".into()).unwrap();
+    for count in 1..=before.objects.len() {
+        let mut doc = before.clone();
+        let mut history = History::default();
+        let ids: Vec<_> = doc
+            .objects
+            .iter()
+            .take(count)
+            .map(|object| object.id)
+            .collect();
+        assert!(structure::move_objects_to_layer(
+            &mut doc,
+            &mut history,
+            &ids,
+            target
+        ));
+        assert_eq!(doc.objects, before.objects);
+        for object in &doc.objects {
+            assert_eq!(
+                doc.object_layer(object.id),
+                if ids.contains(&object.id) {
+                    target
+                } else {
+                    before.object_layer(object.id)
+                }
+            );
+        }
+        reversible(&before, &mut doc, &mut history);
+        let after = doc.clone();
+        assert!(!structure::move_objects_to_layer(
+            &mut doc,
+            &mut history,
+            &ids,
+            target
+        ));
+        assert_eq!(doc, after);
+        assert_eq!(history.undo_depth(), 1);
+    }
+}
+
+#[test]
+fn a_layer_drop_rejects_the_whole_selection_if_any_member_or_destination_is_invalid() {
+    for invalid in 0..4 {
+        let mut doc = document();
+        let target =
+            structure::add_layer(&mut doc, &mut History::default(), "Target".into()).unwrap();
+        let mut ids: Vec<_> = doc.objects.iter().map(|object| object.id).collect();
+        let destination = match invalid {
+            0 => {
+                doc.objects.last_mut().unwrap().locked = true;
+                target
+            }
+            1 => {
+                ids.push(ObjectId(999));
+                target
+            }
+            2 => {
+                doc.layer_properties
+                    .iter_mut()
+                    .find(|layer| layer.id == target)
+                    .unwrap()
+                    .locked = true;
+                target
+            }
+            _ => LayerId(999),
+        };
+        let before = doc.clone();
+        let mut history = History::default();
+        assert!(!structure::move_objects_to_layer(
+            &mut doc,
+            &mut history,
+            &ids,
+            destination
+        ));
+        assert_eq!(doc, before);
+        assert_eq!(history.undo_depth(), 0);
+    }
+}
+
+#[test]
+fn changing_layer_order_preserves_implicit_membership_and_same_layer_drops_do_nothing() {
+    let mut before = document();
+    before.object_layers.clear();
+    before.parents[0].objects[0].object.id = ObjectId(999);
+    let original = before.layers[0];
+    let mut ids: Vec<_> = before.objects.iter().map(|object| object.id).collect();
+    let mut doc = before.clone();
+    let mut history = History::default();
+    assert!(!structure::move_objects_to_layer(
+        &mut doc,
+        &mut history,
+        &ids,
+        original
+    ));
+    assert_eq!(doc, before);
+    assert_eq!(history.undo_depth(), 0);
+    ids.push(ObjectId(999));
+    structure::add_layer(&mut doc, &mut history, "New top".into()).unwrap();
+    assert!(ids.iter().all(|id| doc.object_layer(*id) == original));
+    reversible(&before, &mut doc, &mut history);
+    doc.object_layers.clear();
+    let before = doc.clone();
+    let implicit_layer = doc.layers[0];
+    history.clear();
+    assert!(structure::place_layer(
+        &mut doc,
+        &mut history,
+        implicit_layer,
+        None
+    ));
+    assert!(ids.iter().all(|id| doc.object_layer(*id) == implicit_layer));
+    reversible(&before, &mut doc, &mut history);
+}

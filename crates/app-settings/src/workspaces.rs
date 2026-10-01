@@ -5,6 +5,36 @@ use serde::{Deserialize, Serialize};
 use std::collections::BTreeMap;
 
 pub const PANELS: [&str; 5] = ["navigator", "color", "layers", "notes", "history"];
+pub const DESIGN_PANELS: [&str; 10] = [
+    "pages",
+    "design_layers",
+    "links",
+    "design_control",
+    "design_character",
+    "design_paragraph",
+    "styles",
+    "swatches",
+    "stories",
+    "preflight",
+];
+
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[serde(default)]
+pub struct DesignDock {
+    pub active: String,
+    pub collapsed: bool,
+}
+impl Default for DesignDock {
+    fn default() -> Self {
+        Self {
+            active: "pages".into(),
+            collapsed: false,
+        }
+    }
+}
+fn known_panel(key: &str) -> bool {
+    PANELS.contains(&key) || DESIGN_PANELS.contains(&key)
+}
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(default)]
 pub struct Layout {
@@ -15,6 +45,7 @@ pub struct Layout {
     pub visible: bool,
     pub ai: bool,
     pub history_height: f32,
+    pub design_dock: DesignDock,
 }
 impl Default for Layout {
     fn default() -> Self {
@@ -31,22 +62,26 @@ impl Layout {
             visible: v.side_panels,
             ai: v.ai_panel,
             history_height: v.history_h,
+            design_dock: v.design_dock.clone(),
         }
         .sanitized()
     }
     pub fn sanitized(mut self) -> Self {
         let mut order = Vec::new();
         for key in self.order.iter().map(String::as_str).chain(PANELS) {
-            if PANELS.contains(&key) && !order.iter().any(|s| s == key) {
+            if known_panel(key) && !order.iter().any(|s| s == key) {
                 order.push(key.to_owned());
             }
         }
         self.order = order;
-        self.hidden.retain(|s| PANELS.contains(&s.as_str()));
+        self.hidden.retain(|s| known_panel(s));
         self.hidden.sort();
         self.hidden.dedup();
         self.heights
-            .retain(|key, h| PANELS.contains(&key.as_str()) && h.is_finite());
+            .retain(|key, h| known_panel(key) && h.is_finite());
+        if !DESIGN_PANELS.contains(&self.design_dock.active.as_str()) {
+            self.design_dock.active = DesignDock::default().active;
+        }
         for h in self.heights.values_mut() {
             *h = h.clamp(60.0, 1200.0);
         }
@@ -70,6 +105,7 @@ impl Layout {
         v.side_panels = s.visible;
         v.ai_panel = s.ai;
         v.history_h = s.history_height;
+        v.design_dock = s.design_dock;
     }
 }
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -130,9 +166,8 @@ pub const STARTERS: usize = 4;
 /// A page layout document's questions are not a photo's: which pages
 /// exist, what is on each, what styles its text uses, what the text says,
 /// whether its links are still there, and which inks it separates to. So
-/// the column leads with pages, layers and styles, then the document
-/// panels and preflight, and hides the notes panel, which has nothing to say about a
-/// document before review.
+/// the Design dock starts on Pages and groups its document, typography and
+/// resource panels, with the photo controls hidden.
 pub fn design_starter() -> Layout {
     Layout {
         order: [
@@ -153,7 +188,10 @@ pub fn design_starter() -> Layout {
         .into_iter()
         .map(str::to_owned)
         .collect(),
-        hidden: vec!["notes".into()],
+        hidden: ["navigator", "color", "history", "notes"]
+            .into_iter()
+            .map(str::to_owned)
+            .collect(),
         width: Some(300.0),
         heights: [
             ("pages".into(), 300.0),
@@ -242,6 +280,41 @@ pub fn deserialize_presets<'de, D: serde::Deserializer<'de>>(
 #[cfg(test)]
 mod tests {
     use super::*;
+    #[test]
+    fn every_design_panel_survives_saving_restoring_and_sanitizing_a_workspace() {
+        for (i, panel) in DESIGN_PANELS.into_iter().enumerate() {
+            let mut layout = design_starter();
+            layout.design_dock.active = panel.into();
+            layout.design_dock.collapsed = i % 2 == 0;
+            layout.hidden.push(panel.into());
+            layout.heights.insert(panel.into(), 240.0);
+            let expected = layout.clone().sanitized();
+            assert!(expected.order.iter().any(|key| key == panel));
+            assert!(expected.hidden.iter().any(|key| key == panel));
+            assert_eq!(expected.heights[panel], 240.0);
+            assert_eq!(expected.design_dock.active, panel);
+            let mut view = ViewOptions::default();
+            view.workspaces.save("Design", layout).unwrap();
+            let mut restored: ViewOptions =
+                serde_json::from_slice(&serde_json::to_vec(&view).unwrap()).unwrap();
+            restored.workspaces.saved[0]
+                .layout
+                .clone()
+                .apply(&mut restored);
+            assert_eq!(Layout::capture(&sanitize_view(restored)), expected);
+        }
+    }
+
+    #[test]
+    fn legacy_and_invalid_design_docks_get_a_usable_default() {
+        let mut json = serde_json::to_value(ViewOptions::default()).unwrap();
+        json.as_object_mut().unwrap().remove("design_dock");
+        let legacy: ViewOptions = serde_json::from_value(json).unwrap();
+        assert_eq!(legacy.design_dock, DesignDock::default());
+        let mut layout = design_starter();
+        layout.design_dock.active = "unknown".into();
+        assert_eq!(layout.sanitized().design_dock.active, "pages");
+    }
     #[test]
     fn legacy_preferences_preserve_live_layout_and_unrelated_preferences() {
         let mut old = serde_json::to_value(ViewOptions::default()).unwrap();

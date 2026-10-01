@@ -263,7 +263,9 @@ image resolution, as well as graphics availability and ink coverage.
 
 Remaining output work includes more external fixture/application validation,
 advanced IDML text attributes and related
-interchange gaps. The native debug build succeeds; GUI inspection was denied by Computer Use. INDD export remains
+interchange gaps. The native debug build succeeds; development-window inspection
+now covers the compact Design dock, contextual controls and undo. External
+application rendering remains unverified. INDD export remains
 gated by Phase 0/5. See [IDML evidence and limits](idml-format.md).
 
 ### Phase 5 — INDD
@@ -308,6 +310,56 @@ are marked.
 
 ## Handoff
 
+Compact Design panel contents, 2026-10-01: Layers now has a collapsible tree,
+visibility/lock columns, object-type icons and full-name tooltips. Dragging layer
+names inserts them in order; dragging selected object names onto another layer
+moves the selection in one undo step. Shift-click selects multiple rows. Model
+operations preserve other layers' relative order and implicit first-layer
+membership, reject invalid or locked object drops atomically, and omit no-op
+history entries. Object stacking within a layer is unchanged.
+
+Pages, Links, Stories and Preflight use compact icon toolbars; filenames and
+story previews fit their rows. Swatches have readable list rows with colour
+inputs behind Appearance. Character formatting and paragraph alignment have
+active-state icons. All action tooltips reuse existing localized keys; ten new
+SVG icons are registered for native and browser builds. Native inspection in
+`target/design-ui/Schist Dev.app` with `design-mode=true` verified layer/object
+drags, one-step undo, disclosure, visibility, locking, formatting, swatches,
+story previews and preflight. The scratch document was restored after edits.
+
+All 16 verification targets pass: **1,675 distinct Rust tests**, including all
+410 editor tests and five new layer-operation properties, plus four browser
+checks and eight Python i18n-audit tests. Workspace clippy with warnings denied,
+native/browser/headless checks, PDF proofs, formatting and whitespace checks
+pass. Logs/results/counts are `/tmp/schist-design-compact-sweep-*`. Changes are
+on `more-indesign`; the default feature flag and remaining item 9 gaps are
+unchanged.
+
+Design workspace UI follow-up, 2026-10-01: the always-expanded stack is replaced
+by a single active panel, related tabs and a collapsible icon rail. Page or object
+geometry lives in a compact top control bar; advanced type, paint, list, page and
+object-style settings expand on demand. Saved workspaces retain every Design
+panel key, visibility, active panel and collapse state. Eight new labels are in
+all 150 catalogs, and Tracking now shows its actual thousandths-of-em unit.
+
+Native UI inspection uses the local `target/design-ui/Schist Dev.app`, built from
+this checkout with `design-mode=true` and isolated preferences. It verified the
+Pages/Character/Paragraph views, disclosure controls, dock collapse, geometry
+edits with one-step undo and returning from Gallery through the Design workspace
+menu. Page thumbnail origins/clipping and the native menu mode signature were
+fixed during inspection. This is Schist window QA, not external InDesign rendering
+agreement; the default feature flag remains false and the item 9 fidelity gaps
+below remain open.
+
+The full 16-target sweep below passes, including workspace clippy with warnings
+denied and native/browser/headless app checks: **1,670 distinct Rust tests**, all
+410 editor tests, four browser tests and eight Python i18n-audit tests. The editor
+target was rerun after the final label fixes. New properties cover every persisted
+Design panel, legacy dock defaults, panel registration and thumbnail origins at
+multiple pages, zooms and viewport offsets. Print-output proofs and Poppler checks
+pass. Formatting and whitespace checks pass. Results/counts and logs are under
+`/tmp/schist-design-ui-sweep-*`. The UI follow-up is on `more-indesign`.
+
 Windows CI follow-up, 2026-10-01: run `36860614185` found one editor test
 using a Unix file URL as if it were a native Windows path. The resolver correctly
 rejected it. The test now uses native absolute paths, covers Windows drive/UNC
@@ -317,7 +369,9 @@ unchanged. A fresh local sweep passes all 16 targets listed below, **1,666 disti
 Rust tests** (including all 408 editor tests), four browser checks and eight Python
 audit tests. Formatting and whitespace checks pass. Results and counts are in
 `/tmp/schist-windows-fix-results.json` and `/tmp/schist-windows-fix-counts.json`;
-individual logs use the same prefix. The Windows-specific cases await hosted CI.
+individual logs use the same prefix. Follow-up hosted run `36875296169` passed
+Windows, macOS and Linux. PR #192 has since merged; UI follow-up work is on
+`more-indesign`.
 
 Verification checkpoint, 2026-10-01 (paragraph tabs and publication): all targets
 below pass. After permissions were restored, an unfiltered `check-design` rerun
@@ -357,9 +411,9 @@ proof passes exact plate/PDF comparisons and visual inspection; eight Python
 i18n-audit tests pass. The asymmetric-offset proof also verifies PDF MediaBox/TrimBox/BleedBox with Poppler and was visually
 inspected. Future changes require a new sweep.
 
-The debug app was built at the preceding checkpoint; the current native app check
-passes. Native window visual QA remains unverified because
-Computer Use was not approved for Schist. Frame affine implementation and its
+At the paragraph-tab checkpoint, the debug app built and the native app check
+passed, but Computer Use was unavailable. The UI follow-up above now records
+development-window inspection. Frame affine implementation and its
 verification are included in this checkpoint. Composition review found paragraph splitting/spacing/keep-rule defects. They
 are fixed and covered by six new property tests and this full sweep. Inner
 image transforms, native geometry, CMYK sampling and localized IDML diagnostics
@@ -407,6 +461,7 @@ Where the code is:
 | Design Mode: state, tools, hit testing, painting | `crates/editor/src/design/` |
 | Design Mode: pointer and keyboard | `crates/editor/src/workspace/design_input.rs` |
 | Design panels | `crates/editor/src/panels/{pages,stories,links,swatches,styles,preflight}.rs` |
+| Design dock and contextual controls | `crates/editor/src/panels/{design_dock,design_controls}.rs` |
 | IDML reader, writer, container, fixtures | `crates/codec-idml/`, `fixtures/idml/` |
 | Design Mode documentation | `docs/design-mode.md` |
 | Verified IDML facts and known gaps | `docs/idml-format.md` |
