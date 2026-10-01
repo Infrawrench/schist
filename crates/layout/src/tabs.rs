@@ -10,8 +10,24 @@ pub(crate) fn stops(paragraph: &ResolvedParagraph) -> schist_text_engine::TabSto
             .flatten()
             .map(|tab| tab.position)
             .collect(),
+        alignments: paragraph
+            .list
+            .tabs
+            .iter()
+            .flatten()
+            .map(|tab| tab.text_alignment().unwrap_or_default())
+            .collect(),
         ..Default::default()
     }
+}
+
+pub(crate) fn has_aligned_stops(paragraph: &ResolvedParagraph) -> bool {
+    paragraph
+        .list
+        .tabs
+        .iter()
+        .flatten()
+        .any(|tab| tab.alignment != "LeftAlign")
 }
 
 /// Retained options whose native layout is not implemented. Diagnose only
@@ -22,7 +38,7 @@ pub fn unsupported(paragraph: &ResolvedParagraph, text: &str, path: bool) -> Vec
     }
     let mut out = Vec::new();
     if paragraph.list.tabs.iter().flatten().any(|tab| {
-        !tab.position.is_finite() || tab.alignment != "LeftAlign" || !tab.leader.is_empty()
+        !tab.position.is_finite() || tab.text_alignment().is_none() || !tab.leader.is_empty()
     }) {
         out.push("TabList");
     }
@@ -37,7 +53,9 @@ pub fn unsupported(paragraph: &ResolvedParagraph, text: &str, path: bool) -> Vec
     if rtl {
         out.push("ParagraphDirection + TabList");
     }
-    if matches!(paragraph.align, Some(Align::Center | Align::Right)) {
+    if matches!(paragraph.align, Some(Align::Center | Align::Right))
+        || paragraph.align.is_some_and(|align| align.is_justified()) && has_aligned_stops(paragraph)
+    {
         out.push("Justification + TabList");
     }
     if path {

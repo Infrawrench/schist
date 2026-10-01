@@ -28,7 +28,7 @@ pub use capitalization::Capitalization;
 mod shaping;
 mod tabs;
 mod text_path;
-pub use tabs::{InlineMeasure, TabStops};
+pub use tabs::{InlineMeasure, TabAlignment, TabStops};
 mod text_stroke;
 pub use text_path::TextPath;
 
@@ -2683,6 +2683,20 @@ struct ColoredRaster {
     byte: usize,
 }
 
+/// Glyph masks use integer placement. A few f32 arithmetic operations (for
+/// example stop - field width + glyph advance) can land just below an integer;
+/// flooring that round-off would move the whole mask by a pixel. Snap only
+/// within the arithmetic precision before flooring, without changing layout
+/// metrics, source coordinates or genuinely fractional placements.
+fn glyph_pixel_start(value: f32) -> i32 {
+    let integer = value.round();
+    if (value - integer).abs() <= 4.0 * f32::EPSILON * value.abs().max(1.0) {
+        integer as i32
+    } else {
+        value.floor() as i32
+    }
+}
+
 /// Font-derived line weight at a source position, without composing the text.
 /// Used by layout contribution bounds when automatic capped lines can extend
 /// along the inline axis beyond their otherwise nonintersecting frame.
@@ -3109,8 +3123,8 @@ fn rasterize_impl(spec: &TextSpec, retain_paints: bool) -> Option<TextRaster> {
         let (rect, bitmap) = if let Some(guide) = &guide {
             text_path::glyph_bitmap(guide, g, first_baseline, &metrics, bitmap)
         } else if g.sideways {
-            let left = (g.x + metrics.ymin as f32).floor() as i32;
-            let top = (g.baseline + metrics.xmin as f32).floor() as i32;
+            let left = glyph_pixel_start(g.x + metrics.ymin as f32);
+            let top = glyph_pixel_start(g.baseline + metrics.xmin as f32);
             let mut rotated = vec![0; bitmap.len()];
             for y in 0..metrics.height {
                 for x in 0..metrics.width {
@@ -3123,8 +3137,8 @@ fn rasterize_impl(spec: &TextSpec, retain_paints: bool) -> Option<TextRaster> {
                 rotated,
             )
         } else {
-            let left = (g.x + metrics.xmin as f32).floor() as i32;
-            let top = (g.baseline - metrics.height as f32 - metrics.ymin as f32).floor() as i32;
+            let left = glyph_pixel_start(g.x + metrics.xmin as f32);
+            let top = glyph_pixel_start(g.baseline - metrics.height as f32 - metrics.ymin as f32);
             (
                 IntRect::from_xywh(left, top, metrics.width as u32, metrics.height as u32),
                 bitmap,

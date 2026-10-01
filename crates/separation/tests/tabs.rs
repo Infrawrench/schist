@@ -13,8 +13,10 @@ fn tab_preflight_follows_used_settings_and_the_full_paragraph_context() {
     for (alignment, leader, expected) in [
         ("LeftAlign", "", false),
         ("LeftAlign", ".", true),
-        ("RightAlign", "", true),
-        ("CharacterAlign", "", true),
+        ("RightAlign", "", false),
+        ("CenterAlign", "", false),
+        ("CharacterAlign", "", false),
+        ("unknown", "", true),
     ] {
         let mut doc = LayoutDocument::new(vec![Page::new("proof", 240.0, 160.0)]);
         doc.styles.add_paragraph(ParagraphStyle {

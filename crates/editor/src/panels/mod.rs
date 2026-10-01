@@ -33,6 +33,7 @@ mod context;
 mod design_controls;
 mod design_dock;
 mod design_layers;
+mod design_tabs;
 mod history;
 mod info;
 mod layers;

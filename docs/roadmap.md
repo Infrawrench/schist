@@ -310,6 +310,54 @@ are marked.
 
 ## Handoff
 
+Aligned paragraph tabs, 2026-10-01: Phase 3 item 9 now composes right, center
+and character/decimal source tabs using the following field's shaped metrics.
+Caret positions, mixed styles, ligatures, all three writing modes, column origins,
+indents, wrapping and threading share those anchors. Preview inspection also
+found that the pasteboard scaled glyphs without scaling tab rulers; the ruler
+and its origin now scale together, with caret-position properties across zooms. Empty fields still advance.
+Repeated IDML saves preserve inherited/replaced/cleared stops and literal
+alignment characters. The folded Paragraph Tabs section edits one selected stop
+with alignment icons; inherited edits, deletion and restoring inheritance are
+single undo operations, and stale field targets cannot overwrite changed records.
+Five new short labels are in all 150 catalogs.
+
+The 48-case print proof compares tabbed text with independent frame placements
+at three output resolutions. It found a reference case with overlapping fields
+(the engine correctly skipped the colliding stop), then a separate integer pixel
+rounding defect. Glyph fill and stroke placement now ignore f32 round-off near
+integer boundaries without changing document coordinates. The corrected proof
+fails without that fix and passes with it; see `/tmp/schist-aligned-tabs-rounding-regression.log`.
+The PDF proof now has 96 pages; all pairs match and all 48 actual cases passed
+visual review. All 16 verification targets pass: **1,687 distinct Rust tests**
+(including layout 357, text engine 102, editor 413 and IDML 231), four browser checks and eight
+Python i18n-audit tests. Workspace clippy, native/browser/headless app checks,
+formatting and whitespace checks pass. Logs/results/counts are under
+`/tmp/schist-aligned-tabs-sweep-*`. `CARGO_INCREMENTAL=0 make build PROFILE=debug`
+passes. The resulting executable matches `target/design-ui/Schist Dev.app`,
+running with `design-mode=true` and isolated preferences. Native window checks
+verified right/center/decimal alignment, position and character edits, add/remove,
+inheritance and one-step undo. The preview's 135% zoom now preserves the ruler's
+position. The saved `target/design-ui/aligned-tabs.idml` demo is open with its
+compact Tabs section visible; its native XML contains the selected character
+alignment, literal period and 220 pt position. App/build logs use the same
+`/tmp/schist-aligned-tabs-*` prefix.
+
+Next item 9 work is tab leaders, followed by native RTL/paragraph-alignment,
+justified aligned tabs, path/initial-tab cases and generated list-marker tabs.
+Cross-story/further-format lists, dictionary hyphenation, vertical initials,
+structured stories, alternate layouts and advanced object behavior remain open.
+Collision and absent-character fallbacks are documented Schist policies, pending
+native reference fixtures. Unsupported combinations remain retained and diagnosed.
+Native application agreement is unverified; INDD remains Phase-0-gated and the
+feature default remains false.
+
+The compact UI changes were merged in
+[PR #193](https://github.com/Infrawrench/schist/pull/193) as `ebe9e82c`. All its
+hosted checks passed, including Windows, macOS, Linux, web and headless builds.
+The aligned-tab follow-up is on `design-aligned-tabs`, based on the merged UI
+changes; it is separate from that UI PR.
+
 Compact Design panel contents, 2026-10-01: Layers now has a collapsible tree,
 visibility/lock columns, object-type icons and full-name tooltips. Dragging layer
 names inserts them in order; dragging selected object names onto another layer
@@ -1487,10 +1535,11 @@ updated local PR description is `/tmp/schist-tabs-pr-body.md`. Three new keys ar
 present in all 150 catalogs. The explanatory implicit-tab sentence has an exact,
 visible translation deferral guarded by the disabled Design flag.
 
-Right/center/decimal tabs, leaders, native RTL/alignment/path/initial-tab cases,
-cross-story and further-format lists, dictionary hyphenation, vertical initials,
-structured stories, alternate layouts and advanced object behavior remain open.
-Native GUI/external-application QA remains unavailable. INDD stays Phase-0-gated.
+At that checkpoint, right/center/decimal tabs, leaders, native RTL/alignment/path/initial-tab
+cases, cross-story and further-format lists, dictionary hyphenation, vertical initials,
+structured stories, alternate layouts and advanced object behavior remained open.
+Later tab and native-window progress is recorded in Handoff above; external-application
+agreement remains unverified. INDD stays Phase-0-gated.
 The feature remains disabled. At the paragraph-tab checkpoint, changes after
 `8ce6a1eb` were local because the sandbox denied Git index writes. That restriction
 was lifted for the publication checkpoint below.

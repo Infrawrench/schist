@@ -112,7 +112,10 @@ pub(super) fn raster(
     // fills. Keep it out of floating-point outline rasterization so distant
     // tabs cannot change edge coverage through coordinate rounding.
     let rect = if along.is_none() {
-        rect.translated(glyph.x.floor() as i32, glyph.baseline.floor() as i32)
+        rect.translated(
+            super::glyph_pixel_start(glyph.x),
+            super::glyph_pixel_start(glyph.baseline),
+        )
     } else {
         rect
     };

@@ -45,6 +45,7 @@ icons!(
     "type-align-left",
     "type-align-center",
     "type-align-right",
+    "tab-character",
     "move",
     "swap",
     "eyedropper",

@@ -2049,6 +2049,12 @@ pub fn word_space(
     if !align.is_justified() {
         return None;
     }
+    // Expanding an aligned field could move its start behind the preceding
+    // text or select another stop. Until native justification of these tabs
+    // is implemented, keep natural spacing and diagnose this combination.
+    if crate::tabs::has_aligned_stops(paragraph) && story.slice(start, end).contains('\t') {
+        return None;
+    }
     if is_paragraph_end && !matches!(align, Align::JustifyAll) {
         return None;
     }

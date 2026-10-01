@@ -11,6 +11,7 @@ enum InspectorSection {
     Appearance,
     Typography,
     Decorations,
+    Tabs,
     Lists,
     Style,
     Preferences,
@@ -72,6 +73,7 @@ impl Inspector {
                     ("char-decorations", "para-decorations", "design.decorations")
                 }
                 InspectorSection::Lists => ("char-lists", "para-lists", "design.list_type"),
+                InspectorSection::Tabs => ("char-tabs", "para-tabs", "design.paragraph_tabs"),
                 InspectorSection::Style => ("char-style", "para-style", "design.style_options"),
                 InspectorSection::Preferences => (
                     "char-preferences",
@@ -854,6 +856,8 @@ pub(super) fn paragraph_panel(
         target.clone(),
         cx,
     ));
+    rows.group(InspectorSection::Tabs);
+    rows.extend(super::design_tabs::rows(ws, &name, cx));
     rows.group(InspectorSection::Lists);
     rows.extend(list_fields(
         ws,
@@ -1534,11 +1538,6 @@ fn list_fields(
             "design-prop-list-expression",
             "design.list_expression",
             list.expression.clone().unwrap_or_default(),
-        ),
-        (
-            "design-prop-list-tab",
-            "design.paragraph_tabs",
-            controls::list_tab_value(list),
         ),
     ] {
         rows.push(field(ws, id, label, value, target.clone(), cx));

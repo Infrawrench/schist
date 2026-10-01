@@ -1228,13 +1228,13 @@ and the default restart policy; none establishes specific/range policy encoding.
 The public IDML `TabList` record applies to ordinary paragraphs as well as list
 markers. The [public tab guide](https://helpx.adobe.com/ca/indesign/desktop/format-and-style-text/tabs-indents-and-spacing/set-and-repeat-tabs.html)
 describes frame-relative positions, explicit stops replacing preceding defaults,
-and left/right/center/decimal alignment. This implementation composes explicit
-left stops; the other alignments and leader painting are retained and diagnosed.
+and left/right/center/decimal alignment. Explicit source tabs now support all
+four alignments. Leader painting remains retained and diagnosed.
 `Leader` and `AlignmentCharacter` are literal strings: import preserves their
 whitespace. Missing, inherited, replaced and explicitly empty tab lists remain
 distinct through repeated native saves. Source tabs retain their UTF-8 offsets.
 
-The shared text engine now accepts optional leading tab stops. Design passes
+The shared text engine accepts optional column-relative tab stops. Design passes
 column-relative line starts during wrapping, including indents, generated markers
 and enlarged initials, then uses the same origin for standalone line rendering
 and carets. Implicit tabs use Schist's 36-point interval, which is disclosed rather
@@ -1253,3 +1253,55 @@ The paragraph-tab sweep and subsequent unrestricted publication rerun pass
 1,666 distinct Rust tests plus four browser checks. All 408 editor tests now pass,
 including the previously blocked, unchanged clipboard listener. All 24 new
 tab-proof pages pass exact comparisons and visual inspection.
+
+
+### Aligned source tabs
+
+The public [TabStop properties](https://developer.adobe.com/indesign/uxp/dom/api/t/tab-stop/)
+and [character alignment guide](https://helpx.adobe.com/ca/indesign/desktop/format-and-style-text/tabs-indents-and-spacing/specify-characters-for-decimal-tabs.html)
+define right/center alignment and a single character for decimal alignment.
+`RightAlign`, `CenterAlign` and `CharacterAlign` now anchor the following shaped
+field at its end, midpoint or first matching character's grapheme caret. The
+anchor uses actual styled glyph metrics, including vertical writing and caret
+positions within ligatures. Source strings and UTF-8 offsets remain unchanged.
+Missing alignment metadata in older TextSpec records still means leading stops.
+
+The public guidance does not establish collision or missing-character behavior.
+Schist skips stops that would overlap preceding text and resumes its implicit
+leading grid after the final explicit stop. A character absent from a field
+anchors its end. These are explicit Schist policies pending native reference
+fixtures, not claims of InDesign rendering agreement. Empty fields still advance
+to the next stop. Unknown alignment names, invalid character strings and leaders
+remain intact and diagnosed. Generated list-marker spacing still diagnoses
+non-leading stops; source-tab support does not implement marker alignment.
+
+Justified paragraphs with non-leading tabs retain natural spacing and report
+`Justification + TabList`: expanding the field could otherwise move its anchor
+behind preceding text or jump to another stop. Existing RTL, paragraph
+center/right alignment, path and initial-tab diagnostics remain.
+
+The Paragraph panel has a collapsed Tabs section with one selected stop,
+alignment icons, a position field and a character field only when relevant.
+Editing an inherited stop creates a local list; deleting its last stop explicitly
+clears that list. The inheritance action removes the override. Each action is
+one history entry, and field commits reject stale captured records. Changing
+positions or alignment preserves unrelated native leader/character metadata.
+
+The independent print proof now has 48 cases (96 paired pages): four alignments,
+three writing modes, two font sizes, first-line indents, process/spot inks, tint,
+opacity, strokes and overprint. Reference frames are placed independently;
+ordinary shaped field metrics determine the tab ruler anchors. It exposed
+round-off just below integer glyph positions that moved entire masks by a pixel.
+Glyph fill/stroke placement now snaps within f32 arithmetic precision before
+flooring, keeping genuine fractional positions and all document geometry.
+
+Pasteboard zoom also scales the tab ruler and its column-relative origin. A
+preview property compares every tabbed caret with document-space composition
+across four alignments, three writing modes, indents and five zoom levels.
+
+The aligned-tab checkpoint passes all 16 roadmap verification targets and
+1,687 distinct Rust tests. All 96 PDF pages match their paired reference samples
+and page renders; contact-sheet inspection covers all 48 actual cases. Native
+Schist Dev window checks cover alignment, position/character edits, add/remove,
+inheritance, single-step undo and saving the selected native tab record. This
+is Schist integration verification, not external InDesign rendering agreement.

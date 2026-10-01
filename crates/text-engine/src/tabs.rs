@@ -1,13 +1,27 @@
 //! Inline tab geometry shared by measurement, painting and caret placement.
 use serde::{Deserialize, Serialize};
 
-/// Leading tab stops measured from a column origin, in text-layout units.
+/// Anchor in the shaped field following a tab, measured along the inline axis.
+#[derive(Debug, Clone, Copy, Default, PartialEq, Eq, Serialize, Deserialize)]
+pub enum TabAlignment {
+    #[default]
+    Leading,
+    Trailing,
+    Center,
+    Character(char),
+}
+
+/// Tab stops measured from a column origin, in text-layout units.
 /// Explicit stops replace implicit stops before the last explicit position.
 /// `repeat` is Schist's implicit interval, not a claim about an imported ruler.
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(default)]
 pub struct TabStops {
     pub positions: Vec<f32>,
+    /// Parallel to `positions`. Omitted entries are leading stops, preserving
+    /// the geometry and serialized form of older text specifications.
+    #[serde(skip_serializing_if = "Vec::is_empty")]
+    pub alignments: Vec<TabAlignment>,
     pub repeat: f32,
     /// Start of this spec's inline measure relative to the column origin.
     pub origin: f32,
@@ -17,6 +31,7 @@ impl Default for TabStops {
     fn default() -> Self {
         Self {
             positions: Vec::new(),
+            alignments: Vec::new(),
             repeat: 36.0,
             origin: 0.0,
         }
@@ -29,12 +44,27 @@ impl TabStops {
             && self.repeat.is_finite()
             && self.repeat > 0.0
             && self.positions.iter().all(|v| v.is_finite())
+            && self.alignments.len() <= self.positions.len()
     }
 
-    /// Position after a tab, relative to this line's inline start. The extra
+    /// Position after a tab with an empty field, relative to the inline start. The extra
     /// start offset lets wrapping use first-line, list and initial indents
     /// without moving the paragraph's tab ruler.
     pub fn next(&self, pen: f32, start: f32) -> Option<f32> {
+        self.next_aligned(pen, start, |_| 0.0)
+    }
+
+    /// Place the next field without overlapping preceding text. `anchor`
+    /// supplies a shaped field's anchor for each explicit stop. Stops whose
+    /// aligned field would start at or before the pen are skipped; after the
+    /// final explicit stop Schist resumes its implicit leading grid. These
+    /// collision semantics are Schist's policy, not verified native behavior.
+    pub(crate) fn next_aligned(
+        &self,
+        pen: f32,
+        start: f32,
+        anchor: impl Fn(TabAlignment) -> f32,
+    ) -> Option<f32> {
         if !self.valid() || !pen.is_finite() || !start.is_finite() {
             return None;
         }
@@ -44,12 +74,23 @@ impl TabStops {
             .positions
             .iter()
             .copied()
-            .filter(|p| f64::from(*p) > absolute)
-            .min_by(f32::total_cmp)
-            .map(f64::from)
+            .enumerate()
+            .filter_map(|(index, position)| {
+                let alignment = self.alignments.get(index).copied().unwrap_or_default();
+                let offset = anchor(alignment);
+                let aligned = f64::from(position) - f64::from(offset);
+                (offset.is_finite() && f64::from(position) > absolute && aligned > absolute)
+                    .then_some((position, aligned))
+            })
+            .min_by(|a, b| a.0.total_cmp(&b.0))
+            .map(|(_, aligned)| aligned)
             .unwrap_or_else(|| {
                 let step = f64::from(self.repeat);
-                (absolute / step).floor().mul_add(step, step)
+                let after = self
+                    .positions
+                    .iter()
+                    .fold(absolute, |a, p| a.max(f64::from(*p)));
+                (after / step).floor().mul_add(step, step)
             });
         let next = (target - origin) as f32;
         (next.is_finite() && next > pen).then_some(next)
@@ -292,6 +333,249 @@ mod tests {
                     assert!(
                         (measure(&part).unwrap().width - line.width).abs() < 0.001,
                         "{width}/{start}/{index}"
+                    );
+                }
+            }
+        }
+    }
+
+    #[test]
+    fn aligned_fields_share_shaped_glyph_and_caret_anchors_in_every_writing_mode() {
+        use crate::{
+            caret_at, insertion_points, measure, ParagraphDirection, StyleRun, TextSpec,
+            WritingMode,
+        };
+        for writing_mode in [
+            WritingMode::Horizontal,
+            WritingMode::VerticalLr,
+            WritingMode::VerticalRl,
+        ] {
+            for text in [
+                "12.34",
+                ".12.34",
+                "é,15",
+                "fi:12",
+                "e\u{301}35",
+                "no delimiter",
+            ] {
+                for alignment in [
+                    TabAlignment::Trailing,
+                    TabAlignment::Center,
+                    TabAlignment::Character('.'),
+                    TabAlignment::Character(','),
+                    TabAlignment::Character(':'),
+                    TabAlignment::Character('i'),
+                    TabAlignment::Character('\u{301}'),
+                ] {
+                    for scale in [0.5, 1.0, 2.0] {
+                        let reference = TextSpec {
+                            text: text.into(),
+                            family: fixture_family().into(),
+                            size: 12.0 * scale,
+                            direction: ParagraphDirection::LeftToRight,
+                            features: vec![crate::OpenTypeFeature {
+                                tag: "liga".into(),
+                                value: 1,
+                            }],
+                            writing_mode,
+                            runs: vec![StyleRun {
+                                start: text.char_indices().nth(2).map_or(text.len(), |(i, _)| i),
+                                end: text.len(),
+                                size: Some(15.0 * scale),
+                                ..Default::default()
+                            }],
+                            ..Default::default()
+                        };
+                        let inline = |caret: crate::Caret| {
+                            if writing_mode.is_vertical() {
+                                caret.top
+                            } else {
+                                caret.x
+                            }
+                        };
+                        let width = measure(&reference).unwrap().width;
+                        let anchor = match alignment {
+                            TabAlignment::Trailing => width,
+                            TabAlignment::Center => width / 2.0,
+                            TabAlignment::Character(c) => text.find(c).map_or(width, |at| {
+                                let boundary = crate::grapheme_boundaries(text)
+                                    .take_while(|b| *b <= at)
+                                    .last()
+                                    .unwrap();
+                                inline(caret_at(&reference, boundary).unwrap())
+                            }),
+                            _ => unreachable!(),
+                        };
+                        for origin in [-12.0, 0.0, 9.0] {
+                            let prefix = "é\t";
+                            let mut spec = reference.clone();
+                            spec.text = format!("{prefix}{text}");
+                            for run in &mut spec.runs {
+                                run.start += prefix.len();
+                                run.end += prefix.len();
+                            }
+                            spec.tabs = Some(TabStops {
+                                positions: vec![180.0 * scale],
+                                alignments: vec![alignment],
+                                origin: origin * scale,
+                                ..Default::default()
+                            });
+                            let offset = (180.0 - origin) * scale - anchor;
+                            assert!(
+                                (inline(caret_at(&spec, prefix.len()).unwrap()) - offset).abs()
+                                    < 0.001,
+                                "{writing_mode:?}/{alignment:?}/{text}"
+                            );
+                            assert!(
+                                (measure(&spec).unwrap().width - (offset + width)).abs() < 0.001
+                            );
+                            let face = crate::load_font(&spec.family, None, false, false).unwrap();
+                            let actual = crate::layout(&spec, &face);
+                            let expected = crate::layout(&reference, &face);
+                            let glyphs = actual
+                                .glyphs
+                                .iter()
+                                .filter(|g| g.byte >= prefix.len())
+                                .collect::<Vec<_>>();
+                            assert_eq!(glyphs.len(), expected.glyphs.len());
+                            for (a, b) in glyphs.iter().zip(&expected.glyphs) {
+                                assert_eq!(a.glyph, b.glyph);
+                                let (x, y) = if writing_mode.is_vertical() {
+                                    (0.0, offset)
+                                } else {
+                                    (offset, 0.0)
+                                };
+                                assert!((a.x - b.x - x).abs() < 0.001);
+                                assert!((a.baseline - b.baseline - y).abs() < 0.001);
+                            }
+                            for (position, _) in insertion_points(&spec) {
+                                assert!(crate::grapheme_boundaries(&spec.text)
+                                    .any(|b| b == position.byte));
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    #[test]
+    fn aligned_stop_collisions_never_overlap_or_fall_back_before_the_last_stop() {
+        for reverse in [false, true] {
+            let mut tabs = TabStops {
+                positions: vec![60.0, 120.0],
+                alignments: vec![TabAlignment::Trailing, TabAlignment::Center],
+                ..Default::default()
+            };
+            if reverse {
+                tabs.positions.reverse();
+                tabs.alignments.reverse();
+            }
+            for width in [0.0, 20.0, 80.0, 240.0] {
+                for pen in 0..180 {
+                    let anchor = |a| match a {
+                        TabAlignment::Trailing => width,
+                        TabAlignment::Center => width / 2.0,
+                        _ => 0.0,
+                    };
+                    let expected = if 60.0 - width > pen as f32 {
+                        60.0 - width
+                    } else if 120.0 - width / 2.0 > pen as f32 {
+                        120.0 - width / 2.0
+                    } else {
+                        ((pen as f32).max(120.0) / 36.0).floor() * 36.0 + 36.0
+                    };
+                    for origin in [-12.0, 0.0, 17.0] {
+                        tabs.origin = origin;
+                        let value = tabs.next_aligned(pen as f32 - origin, 0.0, anchor).unwrap();
+                        assert_eq!(value + origin, expected);
+                        assert!(value > pen as f32 - origin);
+                    }
+                }
+            }
+        }
+        let legacy: TabStops =
+            serde_json::from_str(r#"{"positions":[60,120],"repeat":36,"origin":0}"#).unwrap();
+        assert_eq!(legacy.next(20.0, 0.0), Some(60.0));
+        let aligned = TabStops {
+            alignments: vec![TabAlignment::Character('€')],
+            ..legacy
+        };
+        assert_eq!(
+            serde_json::from_str::<TabStops>(&serde_json::to_string(&aligned).unwrap()).unwrap(),
+            aligned
+        );
+    }
+
+    #[test]
+    fn glyph_pixel_placement_ignores_round_off_but_keeps_fractional_offsets() {
+        for integer in (-4096..=4096).step_by(17) {
+            let value = integer as f32;
+            for close in [
+                value.next_down().next_down(),
+                value,
+                value.next_up().next_up(),
+            ] {
+                assert_eq!(crate::glyph_pixel_start(close), integer);
+            }
+            for fraction in [-0.25, -0.01, 0.01, 0.25, 0.99] {
+                let value = value + fraction;
+                assert_eq!(crate::glyph_pixel_start(value), value.floor() as i32);
+            }
+        }
+    }
+
+    #[test]
+    fn empty_and_adjacent_aligned_fields_preserve_every_tab_and_terminal_caret() {
+        use crate::{
+            caret_at, insertion_points, measure, ParagraphDirection, TextSpec, WritingMode,
+        };
+        for writing_mode in [
+            WritingMode::Horizontal,
+            WritingMode::VerticalLr,
+            WritingMode::VerticalRl,
+        ] {
+            for alignment in [
+                TabAlignment::Trailing,
+                TabAlignment::Center,
+                TabAlignment::Character('.'),
+            ] {
+                for text in ["\t", "\t\t", "é\t\t", "é\tH\t", "é\t\tH"] {
+                    let spec = TextSpec {
+                        text: text.into(),
+                        family: fixture_family().into(),
+                        size: 12.0,
+                        direction: ParagraphDirection::LeftToRight,
+                        writing_mode,
+                        tabs: Some(TabStops {
+                            positions: vec![72.0, 144.0, 216.0],
+                            alignments: vec![alignment; 3],
+                            ..Default::default()
+                        }),
+                        ..Default::default()
+                    };
+                    let inline = |c: crate::Caret| {
+                        if writing_mode.is_vertical() {
+                            c.top
+                        } else {
+                            c.x
+                        }
+                    };
+                    for (at, _) in text.match_indices('\t') {
+                        assert!(
+                            inline(caret_at(&spec, at + 1).unwrap())
+                                > inline(caret_at(&spec, at).unwrap())
+                        );
+                    }
+                    let points = insertion_points(&spec);
+                    for byte in crate::grapheme_boundaries(text) {
+                        assert!(points.iter().any(|(p, _)| p.byte == byte));
+                    }
+                    assert!(
+                        (inline(caret_at(&spec, text.len()).unwrap())
+                            - measure(&spec).unwrap().width)
+                            .abs()
+                            < 0.001
                     );
                 }
             }

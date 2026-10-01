@@ -3,7 +3,7 @@
 ## October 1, 2026: explicit Design Mode translation deferrals
 
 Automatic lists add 13 keys, number-format controls add ten, and level/restart
-controls add four to all 150 catalogs. Paragraph tabs add three more. New Design keys remain
+controls add four to all 150 catalogs. Paragraph tabs add three more, and aligned-tab controls add five short labels. New Design keys remain
 English placeholders where translations are deferred. Three longer messages,
 `design.idml_list_implicit_tabs`, `design.idml_tabs_implicit` and `design.list_hint`, are declared with
 their exact English source and a reason in

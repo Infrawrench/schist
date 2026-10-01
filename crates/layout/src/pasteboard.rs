@@ -613,6 +613,9 @@ fn objects_for(
                     let text = spec.text.clone();
                     has_text |= !text.is_empty();
                     spec.size *= view.scale;
+                    if let Some(tabs) = &mut spec.tabs {
+                        tabs.scaled(view.scale);
+                    }
                     if let Some(path) = &mut spec.path {
                         path.scaled(view.scale);
                     }
