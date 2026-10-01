@@ -329,6 +329,10 @@ impl Workspace {
     /// Close a tab, asking about unsaved changes first. A dirty tab is
     /// brought to the front so the prompt is about what's on screen.
     pub fn request_close_tab(&mut self, index: usize, cx: &mut Context<Self>) {
+        if self.design_mode() {
+            self.request_design_transition(crate::design::lifecycle::Transition::Close, cx);
+            return;
+        }
         let dirty = self.tab_strip().get(index).is_some_and(|(_, dirty)| *dirty);
         if dirty {
             self.select_tab(index, cx);
@@ -349,9 +353,16 @@ impl Workspace {
     /// not, so quitting is vetoed and resumed here once the prompts are
     /// answered.
     pub fn request_quit(&mut self, cx: &mut Context<Self>) {
+        self.commit_focused_field();
+        if self.design.lifecycle.dirty(&self.design.document) {
+            self.pending_quit = true;
+            self.request_design_transition(crate::design::lifecycle::Transition::Quit, cx);
+            return;
+        }
         match self.first_dirty_tab() {
             Some(index) => {
                 self.pending_quit = true;
+                self.set_mode(crate::design::WorkspaceMode::Photo, cx);
                 self.select_tab(index, cx);
                 self.open_modal(Modal::ConfirmCloseTab, cx);
             }
@@ -435,6 +446,15 @@ impl Workspace {
             self.load_palette(path, cx);
             return;
         }
+        // A page layout document is not a raster one, and the two halves
+        // of the workspace are separate: an IDML opened here has to land
+        // in Design Mode, not be decoded as pixels. Asked before the
+        // status line is set, because the answer changes which half the
+        // window is about to be.
+        if crate::design::available() && self.path_is_layout(&path) {
+            self.load_layout_file(path, cx);
+            return;
+        }
         #[cfg(not(target_arch = "wasm32"))]
         if schist_gallery::is_video(&path) {
             self.open_video(path, cx);
@@ -460,6 +480,150 @@ impl Workspace {
             .ok();
         })
         .detach();
+    }
+
+    /// Whether a file on disk is a page layout document.
+    ///
+    /// The bytes are read here rather than on the background thread, which
+    /// is a second read of a file that may be large. The probe is cheap
+    /// and the alternative is handing a page to the raster decoder and
+    /// showing the user a grey rectangle the size of a page.
+    fn path_is_layout(&self, path: &std::path::Path) -> bool {
+        #[cfg(not(target_arch = "wasm32"))]
+        let Ok(bytes) = std::fs::read(path) else {
+            return false;
+        };
+        // A browser path is an invented name over an in-memory map, and
+        // the bytes arrived when the file was picked, so there is nothing
+        // to read here; the background read answers instead.
+        #[cfg(target_arch = "wasm32")]
+        let bytes = Vec::new();
+        let extension = path.extension().and_then(|extension| extension.to_str());
+        self.registry.layout_codec_for(&bytes, extension).is_some()
+    }
+
+    /// Read a page layout document and show it in Design Mode.
+    fn load_layout_file(&mut self, path: PathBuf, cx: &mut Context<Self>) {
+        self.status = tf!(
+            "workspace.docs.opening",
+            name = crate::ui::shown_path(&path)
+        )
+        .into();
+        cx.notify();
+        let codecs = self.registry.shared_layout_codecs();
+        let session = self.design.session.clone();
+        let request = Arc::new(());
+        self.design.lifecycle.load = request.clone();
+        cx.spawn(async move |this, cx| {
+            let decode_path = path.clone();
+            let result = cx
+                .background_executor()
+                .spawn(async move { decode_layout_file(&codecs, &decode_path) })
+                .await;
+            this.update(cx, |ws, cx| {
+                if !Arc::ptr_eq(&session, &ws.design.session)
+                    || !Arc::ptr_eq(&request, &ws.design.lifecycle.load)
+                {
+                    return;
+                }
+                match result {
+                    Ok(Some((document, skipped))) => ws.request_design_transition(
+                        crate::design::lifecycle::Transition::Open {
+                            path,
+                            document: Box::new(document),
+                            skipped,
+                        },
+                        cx,
+                    ),
+                    Ok(None) => {
+                        ws.status = schist_i18n::t("design.layout_unreadable").into();
+                        cx.notify();
+                    }
+                    Err(error) => {
+                        ws.status =
+                            tf!("workspace.docs.open_failed", name = error.to_string()).into();
+                        cx.notify();
+                    }
+                }
+            })
+            .ok();
+        })
+        .detach();
+    }
+
+    /// Install a layout document and switch to Design Mode.
+    pub(super) fn finish_layout_load(
+        &mut self,
+        path: PathBuf,
+        mut document: schist_layout::LayoutDocument,
+        skipped: Vec<String>,
+        cx: &mut Context<Self>,
+    ) {
+        // Resolve normal links once, before history starts. Save As to a
+        // different directory then cannot retarget relative artwork paths.
+        for object in document.objects.iter_mut().chain(
+            document
+                .parents
+                .iter_mut()
+                .flat_map(|p| p.objects.iter_mut().map(|o| &mut o.object)),
+        ) {
+            if let schist_layout::LayoutObject::GraphicFrame {
+                link,
+                embedded: false,
+                ..
+            } = &mut object.object
+            {
+                if let Some(resolved) =
+                    crate::design::graphics::resolve_path(&link.path, Some(&path))
+                {
+                    link.path = resolved.to_string_lossy().into_owned();
+                }
+            }
+        }
+        self.design.cancel_gesture();
+        self.design.document = document;
+        self.design.lifecycle = crate::design::lifecycle::Lifecycle::new(&self.design.document);
+        self.design.session = Arc::new(());
+        self.design.graphics = Default::default();
+        self.design.graphics_busy = false;
+        self.design.page = None;
+        self.design.view.page = None;
+        self.design.selection.clear();
+        self.design.history = Default::default();
+        self.design.preflight = Default::default();
+        self.design.controls = Default::default();
+        self.design.typing = None;
+        self.design.drag = None;
+        self.design.drawing = None;
+        self.design.anchor = None;
+        self.design.needs_refit = true;
+        self.refit_design = true;
+        self.design_path = Some(path);
+        // What the reader could not read is said, rather than left for
+        // the user to notice as a missing frame.
+        let shown = crate::ui::shown_path(
+            self.design_path
+                .as_deref()
+                .unwrap_or(std::path::Path::new("")),
+        );
+        // What the reader could not read is said in the status line, not
+        // only logged: a user who opens a document and finds a frame
+        // missing deserves to be told rather than left to notice.
+        self.status = match skipped.len() {
+            0 => tf!("design.imported", name = shown).to_string(),
+            count => tf!("design.imported_with_warnings", name = shown, count = count).to_string(),
+        }
+        .into();
+        if !skipped.is_empty() {
+            log::warn!(
+                "IDML import: {} not read: {}",
+                skipped.len(),
+                skipped.join("; ")
+            );
+        }
+        self.set_mode(crate::design::WorkspaceMode::Design, cx);
+        self.refresh_design_graphics(cx);
+        cx.notify();
     }
 
     pub(super) fn finish_load(
@@ -681,6 +845,14 @@ impl Workspace {
     /// Decode `path` off the UI thread and insert it into the current
     /// document as a new raster layer, centered like a paste.
     pub fn place_image_as_layer(&mut self, path: PathBuf, cx: &mut Context<Self>) {
+        if self.design_mode() {
+            self.load_design_graphics(
+                vec![path],
+                super::design_graphics::Destination::Page(self.design.current_page()),
+                cx,
+            );
+            return;
+        }
         self.status = tf!(
             "workspace.docs.placing",
             name = crate::ui::shown_path(&path)
@@ -842,12 +1014,118 @@ impl Workspace {
 
     /// The save never happened, so nothing is waiting on it.
     pub fn cancel_pending_save(&mut self) {
+        self.design.lifecycle.cancel();
         self.close_after_save = None;
+    }
+
+    /// The layout codec that can write `path`, if one can.
+    pub(crate) fn design_exporter_for(
+        &self,
+        path: &std::path::Path,
+    ) -> Option<&dyn schist_plugin_api::LayoutCodecPlugin> {
+        let extension = path.extension()?.to_str()?.to_ascii_lowercase();
+        self.registry
+            .layout_codecs()
+            .find(|codec| codec.can_export() && codec.extensions().contains(&extension.as_str()))
+    }
+
+    /// Write the open layout document to `path`.
+    ///
+    /// The same temp-file-and-rename as the raster path, for the same
+    /// reason: an interrupted save must not truncate the user's file.
+    pub(super) fn write_design_to(&self, path: &std::path::Path) -> anyhow::Result<Vec<String>> {
+        let codec = self.design_exporter_for(path).ok_or_else(|| {
+            anyhow::anyhow!(
+                "{}",
+                tf!(
+                    "workspace.docs.no_exporter",
+                    ext = path.extension().and_then(|e| e.to_str()).unwrap_or("")
+                )
+            )
+        })?;
+        let (bytes, warnings) = codec.export_layout(&self.design.document)?;
+        if !warnings.is_empty() {
+            // Said rather than logged only: a save that quietly drops
+            // part of a document is the failure this whole path exists to
+            // avoid, and the user is the one who can act on it.
+            log::warn!(
+                "layout export dropped {}: {}",
+                warnings.len(),
+                warnings.join("; ")
+            );
+        }
+        #[cfg(not(target_arch = "wasm32"))]
+        {
+            crate::design::output::write_atomic(path, &bytes)?;
+        }
+        #[cfg(target_arch = "wasm32")]
+        {
+            crate::web::write_file(path, bytes.clone());
+            let name = path
+                .file_name()
+                .map(|name| name.to_string_lossy().into_owned())
+                .unwrap_or_else(|| "untitled.idml".into());
+            crate::web::download_bytes(&name, &bytes)?;
+        }
+        Ok(warnings)
+    }
+
+    /// Save a layout document to `path`, as Save As does for a photo.
+    pub fn save_design_as(&mut self, path: PathBuf, cx: &mut Context<Self>) {
+        match self.write_design_to(&path) {
+            Ok(warnings) => {
+                if let Some(name) = path.file_name() {
+                    self.design.document.name = name.to_string_lossy().into_owned();
+                }
+                self.design_path = Some(path.clone());
+                self.design.lifecycle.saved(&self.design.document);
+                self.status =
+                    tf!("workspace.docs.saved", name = crate::ui::shown_path(&path)).into();
+                if !warnings.is_empty() {
+                    self.status = format!("{} — {}", self.status, warnings.join("; ")).into();
+                }
+                #[cfg(not(target_arch = "wasm32"))]
+                self.note_recent(&path);
+                if self.design.lifecycle.waiting_save {
+                    self.design.lifecycle.waiting_save = false;
+                    if let Some(transition) = self.design.lifecycle.pending.take() {
+                        self.finish_design_transition(transition, cx);
+                    }
+                }
+            }
+            Err(error) => {
+                self.design.lifecycle.cancel();
+                self.cancel_quit();
+                log::error!("layout save failed: {error:#}");
+                self.status = tf!("workspace.docs.save_failed", error = error).into();
+            }
+        }
+        cx.notify();
+    }
+
+    /// ⌘S in Design Mode: over the document's own path, or Save As when
+    /// there is none or nothing can write that format.
+    pub fn save_design(&mut self, window: &mut Window, cx: &mut Context<Self>) {
+        self.commit_focused_field();
+        self.design.cancel_gesture();
+        let path = self.design_path.clone();
+        match path {
+            Some(path) if self.design_exporter_for(&path).is_some() => {
+                self.save_design_as(path, cx)
+            }
+            _ => keymap::save_file_dialog(self, window, cx),
+        }
     }
 
     /// ⌘S: save over the document's existing path, or fall back to Save As
     /// when it has never been saved (or its format can't be written).
     pub fn save_current(&mut self, window: &mut Window, cx: &mut Context<Self>) {
+        // A layout document is a different thing being saved, and the
+        // raster path would look for a raster exporter and fail.
+        if self.design_mode() {
+            self.save_design(window, cx);
+            return;
+        }
         if self.save_smart_contents(cx) {
             return;
         }

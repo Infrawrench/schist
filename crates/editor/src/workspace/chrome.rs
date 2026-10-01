@@ -204,6 +204,16 @@ impl Workspace {
 
     /// Jump in history: negative = undo n steps, positive = redo n steps.
     pub fn history_jump(&mut self, steps: i32, cx: &mut Context<Self>) {
+        if self.design_mode() {
+            self.commit_focused_field();
+            for _ in 0..steps.unsigned_abs() {
+                if !self.design.undo_or_redo(steps > 0) {
+                    break;
+                }
+            }
+            self.after_design_change(cx);
+            return;
+        }
         let profile_before = self.doc.as_ref().and_then(|doc| doc.icc_profile.clone());
         if let Some(doc) = &mut self.doc {
             if steps < 0 {
@@ -334,7 +344,7 @@ impl Workspace {
 
     /// Set an absolute zoom level about the viewport centre.
     pub fn set_zoom(&mut self, zoom: f32) {
-        let factor = zoom / self.zoom.max(1e-6);
+        let factor = zoom / self.viewport_zoom().max(1e-6);
         self.zoom_by(factor, None);
     }
 

@@ -1,0 +1,20 @@
+[package]
+name = "schist-layout"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+schist-core.workspace = true
+schist-i18n.workspace = true
+schist-color.workspace = true
+schist-text-engine.workspace = true
+schist-vector.workspace = true
+serde = { workspace = true, features = ["rc"] }
+serde_json.workspace = true
+log.workspace = true
+
+[dev-dependencies]
+
+[lints.rust]
+unexpected_cfgs = { level = "warn", check-cfg = ["cfg(schist_library)"] }

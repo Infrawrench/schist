@@ -93,6 +93,8 @@ pub fn asset(path: &str) -> Option<&'static [u8]> {
 /// Register the fetched fonts with the text engine (the type tool's side).
 /// gpui's own text system gets the same faces inside `run`, where a
 /// context exists to hand them to.
+/// Headless builds use call-local font resources, not the browser app catalog.
+#[cfg(not(schist_library))]
 pub fn install_fonts() {
     for bytes in &boot().fonts {
         schist_text_engine::add_font_data(bytes.clone());

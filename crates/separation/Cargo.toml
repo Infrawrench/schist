@@ -1,0 +1,22 @@
+[package]
+name = "schist-separation"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+schist-core.workspace = true
+schist-color.workspace = true
+schist-layout.workspace = true
+schist-i18n.workspace = true
+schist-vector.workspace = true
+schist-text-engine.workspace = true
+serde.workspace = true
+flate2.workspace = true
+log.workspace = true
+
+[dev-dependencies]
+serde_json.workspace = true
+
+[lints.rust]
+unexpected_cfgs = { level = "warn", check-cfg = ["cfg(schist_library)"] }

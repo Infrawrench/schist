@@ -150,6 +150,14 @@ pub enum AppItem {
     ToggleGuides,
     ToggleNotes,
     ToggleExtras,
+    /// Design Mode: show every spread on the pasteboard.
+    PasteboardSpread,
+    /// Design Mode: show one page at a time.
+    PasteboardSinglePage,
+    DesignPlace,
+    DesignImportPages,
+    DesignRefreshLinks,
+    DesignOutput,
     ToggleSnap,
     ToggleAi,
     ClearGuides,

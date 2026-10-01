@@ -49,6 +49,13 @@ fn merge(base: &Value, over: &Value) -> Value {
 
 fn feature_supported(spec: &TextSpec, raw: &Value) -> bool {
     spec.path.is_none()
+        && spec.tabs.is_none()
+        && spec.leading.is_none()
+        && spec.font_style.is_none()
+        && spec.language.is_empty()
+        // Native EngineData below writes undecorated styles. Keep unsupported
+        // decorations/offsets/nominal metrics/ranged features in PsTx plus pixels.
+        && !spec.runs.iter().any(|r| r.language.as_deref().is_some_and(|v| !v.is_empty()) || !r.features.is_empty() || r.capitalization.is_some_and(|v| v != schist_text_engine::Capitalization::Normal) || r.font_style.is_some() || r.underline_style.as_ref().is_some_and(|v| *v != Default::default()) || r.strike_style.as_ref().is_some_and(|v| *v != Default::default()) || r.fill_disabled == Some(true) || r.stroke.is_some_and(|s| s.width > 0.0) || r.metric_size.is_some() || r.underline == Some(true) || r.strikethrough == Some(true) || r.baseline_shift.is_some_and(|v| v != 0.0))
         && !requires_bidi_interchange(&spec.text)
         && spec.features.iter().all(|f| matches!(f.tag.as_str(), "kern" | "liga" | "dlig" | "smcp") && f.value <= 1)
         // PSD vertical type advances columns right-to-left.
@@ -497,6 +504,7 @@ fn read_type(bytes: &[u8]) -> Option<Value> {
                 italic: Some(italic),
                 size: Some(size),
                 color: (Some(rgba) != color).then_some(rgba),
+                ..Default::default()
             });
         }
         offset_utf16 = end_utf16;

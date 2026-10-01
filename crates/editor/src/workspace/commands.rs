@@ -60,6 +60,10 @@ impl Workspace {
     }
 
     pub fn run_command(&mut self, id: &str, cx: &mut Context<Self>) {
+        if self.design_mode() {
+            self.run_design_command(id, cx);
+            return;
+        }
         if recorded_actions::command_supported(id) {
             self.commit_recording_transform(cx);
         }
@@ -151,6 +155,9 @@ impl Workspace {
     }
 
     pub fn activate_tool(&mut self, id: &str, cx: &mut Context<Self>) {
+        if self.design_mode() {
+            return;
+        }
         let previous = self.editor.active_tool;
         if previous != id {
             #[cfg(target_arch = "wasm32")]

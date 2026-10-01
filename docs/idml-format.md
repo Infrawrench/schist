@@ -1,0 +1,1255 @@
+# IDML
+
+How `schist-codec-idml` reads and writes IDML, what it relies on, and —
+importantly — which parts of that are **verified** and which are still
+**assumed**. The two are not the same, and the file format does not care
+which one you are looking at.
+
+IDML has a published specification (the IDML File Format Specification, with
+RNC schemas per part), so unlike INDD this is engineering against a document
+rather than reverse engineering a binary. That does not make it
+self-verifying: the spec says what an element means, and only a real file
+says whether a given producer emits it the way the spec implies.
+
+## Status summary
+
+| Layer | State | Verified against |
+| --- | --- | --- |
+| `container` — the ZIP/OPC package | **Done** | The system `zip` and `unzip`, in both directions, and seven real InDesign exports |
+| `designmap` — root part and part index | **Done** | The same seven real exports |
+| `import` — objects to `LayoutDocument` | **Done for the verified subset** | The same seven real exports, end to end into the layout kernel |
+| `export` — a `LayoutDocument` back to IDML | **Done for the verified subset** | A round trip, the real exports rewritten, and the system `unzip` |
+| File ▸ Open / Save / Save As | **Implemented, feature-flagged** | Registry routing and filesystem tests |
+
+The container and part index were built before any specimen existed and
+both were **wrong** in ways only a real file could reveal. See
+[What the specimens proved](#what-the-specimens-proved) — it is the
+clearest argument in this project for testing against somebody else's
+output rather than your own assumptions.
+
+## The container
+
+An IDML package is an OPC/UCF archive: a ZIP with two rules a plain ZIP
+writer gets wrong.
+
+1. **`mimetype` is the first entry, and is stored, not deflated.** This is
+   not a convention. A conforming reader is expected to determine the
+   package's media type by reading the first bytes of the file, before it
+   has a central directory to consult. A deflated or relocated `mimetype`
+   makes the package unreadable to such a reader.
+2. Everything else may be deflated as normal.
+
+`container::write` emits `mimetype` first and stored whatever order the
+parts were inserted in, and `container::read` takes an entry's sizes from
+the central directory rather than the local header, which is what makes it
+tolerant of a writer that streams an entry and leaves a trailing data
+descriptor.
+
+### Why the container is hand-written
+
+The obvious choice is the `zip` crate. It is not used because the version
+available in the local registry cache is **yanked**, and this crate has to
+build offline. The replacement is small — end-of-central-directory scan,
+central directory walk, stored and deflated — and the test suite
+compensates by using the system's own `zip` and `unzip` as the other side
+of every comparison:
+
+- `zip` writes a package (stored and deflated) that this crate must read;
+- `unzip` verifies and extracts a package this crate writes;
+- `unzip -Z1` and `unzip -v` confirm `mimetype` is first and stored;
+- a package read from a system-written archive and written back is still
+  readable, which is what a resave does.
+
+Those tests skip, visibly, when the tools are absent. On a machine with
+them they are the only thing giving this code confidence, and they are the
+reason to believe the reader will open a file it has never seen.
+
+Scope limits, all deliberate: stored and deflated only, no encryption, no
+multi-disk. Zip64 is *read* (sizes are taken as 64-bit and the extra field
+is parsed) but never written. Embedded images can make packages large;
+container and embedded-payload limits are enforced before decoding.
+
+## The parts
+
+Navigation is OPC's, not by convention. `META-INF/container.xml` names the
+root part through `<rootfile full-path="…"/>`, and that — read, not assumed
+to be `designmap.xml` — is where the document starts. (The metadata part is
+`META-INF/metadata.xml`, not a `Metadata/` directory.)
+
+The root part then lists every object part:
+
+```xml
+<idPkg:Story       src="Stories/Story_u39c.xml" />
+<idPkg:Spread      src="Spreads/Spread_ueb.xml" />
+<idPkg:MasterSpread src="MasterSpreads/MasterSpread_ub8.xml" />
+<idPkg:Graphic     src="Resources/Graphic.xml" />
+```
+
+Those `src` paths are the authoritative map. These directory and filename
+patterns are conventions, not identity rules:
+
+```
+Spreads/Spread_*.xml        Stories/Story_*.xml
+MasterSpreads/MasterSpread_*.xml
+Resources/*.xml             XML/…
+```
+
+### Three kinds of reference
+
+A document contains three sorts of pointer, and confusing them is the
+easiest way to write a reader that looks right and resolves nothing:
+
+1. **Part paths** — `src="Spreads/Spread_ueb.xml"`, from the root part.
+2. **Object ids** — `Self="u39c"`, `ParentStory="u373"`, resolved
+   through `Parts::file_for`.
+3. **Resource names** — `ParagraphStyle/$ID/NormalParagraphStyle`,
+   `Color/Black`, `Ink/$ID/Process Cyan`. These name something *inside* a
+   resource part rather than a part of its own, and are resolved against
+   the resource parts, not the object index. `Color/Black` means nothing
+   without the colour it names.
+
+The prefix table is matched **longest first**, so `MasterSpread` is not
+read as `Spread` and a master reference is not sent to a page part.
+
+## What the specimens proved
+
+Written before the fixtures existed, three assumptions turned out to be
+false. All three were wrong in the same direction — about what a
+conforming document always contains — which is the most dangerous kind of
+wrong, because a reader built on any of them works on most files and
+fails on the rest.
+
+### 1. An object id does not carry its type
+
+The obvious assumption is that a part's file name is its object's id, so
+`Self="Story_u39c"` names `Stories/Story_u39c.xml`. Real ids are `u39c`,
+`ueb`, `ub8`, `d`. The packaging element supplies the type and the
+referenced XML supplies its `Self` id:
+
+```text
+<idPkg:Story src="Stories/Story_u39c.xml" />   file name ─┐
+<Story Self="u39c">                               id     ─┘ together, the part
+```
+
+An index built by prefixing the id with a type resolves **nothing**. Opening
+now builds the index from the actual XML `Self` attributes. Resource roles
+come from the packaging elements, not `Styles.xml`/`Graphic.xml` filename
+suffixes. Tests rename every listed part, use XML-escaped paths and vary
+namespace prefixes; rebinding a familiar prefix to another URI invents no
+parts.
+
+### 2. Most objects have no part of their own
+
+Styles, fonts, layers, swatch groups and every frame inside a spread are
+declared **inline**, in whichever part holds them. Only stories, spreads
+and master spreads are promoted to a file each. In
+`bounded-text.idml` there are 38 object ids that resolve to no part at
+all, against about 30 that do.
+
+So an unresolved id is usually an inline object, not a missing part. A
+reader that treated every unresolved id as an error would reject every
+file in the set. `Parts::file_for` returning `None` is the normal case,
+and `unlisted` exists so a writer can report what it skipped rather than
+lose it silently.
+
+### 3. Not every document has a story
+
+`images.idml` places images and `placeholders.idml` holds barcodes.
+Neither has a text flow, so neither has a `Stories/` directory. Two of the
+seven. A reader that assumed a story part would report a missing part for
+a document that is complete — and the failure would look like corruption.
+
+## The object encoding, as read from the specimens
+
+Implemented in `import.rs`, and recorded here because the observations are
+the part worth keeping.
+
+**Geometry** is points, in two attributes. A page:
+
+```xml
+<Page Self="uf0" Name="1" GeometricBounds="0 0 600 800"
+      ItemTransform="1 0 0 1 -400 -300" AppliedMaster="ub8">
+  <MarginPreference ColumnCount="1" ColumnGutter="12"
+                    Top="0" Bottom="0" Left="0" Right="0" />
+```
+
+- `GeometricBounds` is **top left bottom right**: the example is 800×600
+  points. The earlier x/y reading swapped non-square pages; Table 100 of
+  the public specification corrected it.
+- `ItemTransform` is an affine **a b c d tx ty** — scale, skew, translate
+  — and it carries the position, while the bounds carry the size.
+- `AppliedMaster` points at a `MasterSpread` part.
+
+Text, graphic and shape frames retain the complete item and enclosing-group
+affine. Bounds describe the local composition box; the matrix places it on
+the page. Text wraps before transformation. Shape strokes are outlined before
+transformation, retaining nonuniform widths under scale and shear. Groups are
+flattened with an explicit report entry; clipped frame groups still warn.
+Synthetic native XML tests cover reflection, quarter turns, nonuniform scale,
+shear and nested group matrices over repeated saves. Preview hit tests and
+print sampling use the same coordinate conventions.
+
+**A story** nests paragraph and character formatting ranges. `<Br/>` ends
+a paragraph; literal LF inside `<Content>` is a soft line break:
+
+```xml
+<Story Self="u373">
+  <StoryPreference FrameType="TextFrameType" StoryOrientation="Horizontal"
+                   StoryDirection="LeftToRightDirection" />
+  <ParagraphStyleRange AppliedParagraphStyle="ParagraphStyle/$ID/NormalParagraphStyle"
+                       Justification="CenterAlign">
+    <CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]"
+                        FontStyle="Bold" PointSize="18">
+      <Properties><AppliedFont type="string">Raleway</AppliedFont></Properties>
+      <Content>Text with limited</Content>
+      <Br />
+      <Content>line and character count</Content>
+    </CharacterStyleRange>
+  </ParagraphStyleRange>
+</Story>
+```
+
+A formatting range can span several paragraphs. The sample above therefore
+becomes two `Point::Paragraph`s. `StyleRange` offsets include the model's
+one-byte paragraph separators, and every character range is clipped to its
+paragraph. `ParagraphBreakType` (also read as the older `GoToNextX`) selects
+column/frame/page destinations. The public specification's examples 48–50
+make these distinctions explicit; earlier code and tests incorrectly treated
+Br as a soft break. The writer now emits native paragraph delimiters and
+uses character references for soft line feeds. Structural breaks retain their
+kind through repeated saves. Odd/even page parity currently degrades to an
+ordinary page break with a warning.
+
+**A text frame** names its story and threads to the next one:
+
+```xml
+<TextFrame Self="u370" ParentStory="u373" PreviousTextFrame="n" NextTextFrame="n"
+           Name="..." ItemTransform="1 0 0 1 -260 181.97">
+  <TextFramePreference TextColumnCount="1" TextColumnFixedWidth="720" ...>
+    <Properties><InsetSpacing type="list">0 0 0 0</InsetSpacing></Properties>
+  </TextFramePreference>
+```
+
+`InsetSpacing` accepts a scalar or a four-item list in top, left, bottom,
+right order. The writer uses native ListItem children; asymmetric synthetic
+round trips verify the mapping.
+
+**Inks and colours** are in `Resources/Graphic.xml`:
+
+```xml
+<Ink Self="Ink/$ID/Process Cyan" Name="$ID/Process Cyan" Angle="75"
+     Frequency="70" TrapOrder="1" InkType="Normal" />
+<Color Self="Color/Black" Model="Process" Space="CMYK" ColorValue="0 0 0 100" />
+```
+
+The paint reference names **Color**, not the press Ink settings. `Model`
+distinguishes Process and Spot, and `Space` determines the components: CMYK
+percentages, RGB 0–255, or Lab. CMYK builds survive as authored channels;
+RGB previews never become their separation source. The earlier importer
+read Ink entries instead and reduced paints to black. A native fixture test
+now compares the page-level polygon paints with their referenced Color
+resources. Opaque Self IDs are resolved separately from names containing
+slashes or Unicode. Per-fill/per-stroke overprint and object opacity use
+native attributes and TransparencySetting/BlendingSetting respectively.
+Registration colors are currently converted to process with a warning.
+
+**Items belong to the spread, not the page.** A `<Spread>` holds its
+`<Page>` elements *and then* the items, as siblings rather than children.
+Object geometry and transforms place items in spread coordinates. Import
+chooses the containing page (or nearest page for pasteboard items), subtracts
+its origin, and stores page-local coordinates. Export applies the page's
+spread offset. Synthetic multi-page tests translate the whole spread and
+assert unchanged page-local geometry. A public facing-page fixture is still
+needed to corroborate the mapping beyond single-page exports.
+
+An absent item transform is identity. The earlier claim that it inherited
+the page transform was incorrect. The background in `text.idml` now occupies
+the full trim, rather than a negative-offset rectangle.
+
+And the nesting that carries a frame's size is
+`PathGeometry > GeometryPathType > PathPointArray > PathPointType`, where
+**one `GeometryPathType` is one subpath**. Reading each `PathPointType` as
+its own subpath yields a document with one shape per point.
+
+**Linked images** are `<Link>` elements inside the part that places them,
+not parts the root lists, and say whether their pixels are in the package:
+
+```xml
+<Link Self="u17c" LinkResourceURI="file:C:/.../restricted%20source%20folder.png"
+      StoredState="Embedded" LinkResourceFormat="$ID/Portable Network Graphics (PNG)" />
+<Link Self="u10a" LinkResourceURI="file:C:/.../linked.png" StoredState="Normal" />
+```
+
+An `Image` is a child of a Rectangle/Polygon/Oval frame, with its own bounds,
+transform and Link. Embedded bytes are base64 in `Image/Properties/Contents`,
+verified with a PNG in `images.idml`; assuming a `Links/` payload was wrong.
+Original bytes are preserved in `LayoutDocument::assets`. Normal links refer
+to external files and may need relinking. URL escapes are decoded once.
+
+The writer emits this native image hierarchy and fitting geometry. Optional
+Schist fitting intent uses the public `Properties/Label/KeyValuePair`
+extension. The reader restores it only when link identity and native image
+geometry still agree, so edits in another application take precedence.
+
+Cubic contours preserve Anchor, LeftDirection (incoming), RightDirection
+(outgoing), and PathOpen. All subpaths are written, including the closing
+cubic. IDML uses nonzero winding; an even-odd layout path currently produces
+an export warning. Repeated-save tests check anchors, handles, contour count,
+closure and curve bounds to 0.001 point, allowing f32 extrema rounding.
+
+These mappings use the [public IDML specification](https://raw.githubusercontent.com/jorisros/IDMLlib/master/docs/idml-specification.pdf)
+and [public PathPoint documentation](https://developer.adobe.com/indesign/dom/api/p/PathPoint/),
+plus the Customer's Canvas XML fixtures. No Adobe headers were consulted.
+
+### One bug this found in another crate
+
+`Rect::union` in `schist-layout` treated a zero-size rectangle as "no
+value yet" and returned the other operand, which is the right behaviour
+for an accumulator and the wrong one for a point — and they are the same
+type. `ShapePath::bounds` unions one zero-size rect per path point, so
+every shape was being placed at its *last point* rather than where it was
+drawn. Nothing in the layout crate's own tests caught it, because nothing
+in that crate built a rectangle out of points.
+
+It is fixed, with `a_union_of_points_is_the_box_around_them` to keep it
+fixed. Worth recording because the bug was in a crate two layers from
+where it showed up.
+
+## Fixtures
+
+Seven real InDesign exports, in `fixtures/idml/`, with their provenance
+and licensing reasoning in [`fixtures/idml/README.md`](../fixtures/idml/README.md).
+They are plain XML inside a ZIP from a published specification, obtained
+from a third party that publishes them for this purpose — no Adobe binary
+was read, which is the rule `AGENTS.md` sets.
+
+## Evidence limits
+
+The container is cross-checked with system ZIP tools. Object mapping is
+checked against seven published IDML exports and synthetic model cases.
+Schist roundtrips alone do not prove that InDesign accepts the generated
+files or renders them identically. No InDesign application validation has
+been performed here. IDML geometry is decimal XML, not a binary fixed-point
+stream.
+
+### What is still needed
+
+Reading reports unsupported content. The public Penn State templates now cover
+populated two-sheet parents, facing spreads and a native spot ink; their supported
+page geometry, parent artwork and text survive repeated saves. OAC's independently
+published v19.5 templates add Japanese prose and populated facing masters. The
+reference PDFs were inspected, but no matching native application comparison has
+been performed. Missing evidence includes real overridden parent items,
+alternate-layout sections, RTL/foldout spreads and overprint. Table, footnote,
+math and anchored-content composition remain unsupported even though the new
+academic template contains examples.
+
+File open/save is wired. Remaining fidelity gaps must be resolved or clearly
+reported before the feature is enabled:
+
+- Outer frame affines and independent
+  image rotation, reflection, shear and scale are retained and rendered. Inner
+  Image/ItemTransform and GraphicBounds map to normalized frame coordinates;
+  fitting precedes that map, and the frame clips the transformed image. Native
+  point geometry survives repeated saves without private labels. Fitting labels
+  are accepted only when all native image corners still agree. Invalid image
+  geometry stays unpaintable and produces an import/preflight diagnostic.
+  Curved and compound graphic frames keep their normalized cubic clipping paths.
+  A shared antialiased mask clips preview and print alpha after the outer affine,
+  without changing native CMYK channels. Native outline edits invalidate stale
+  clipping metadata independently of fitting metadata. The published oval image
+  in `placeholders.idml` and repeated saves without labels cover this path.
+- Local supported paragraph/character formatting becomes reusable named styles
+  based on the original style, with a conversion notice. Opaque resource IDs
+  and duplicate names in style groups resolve through an explicit map. Paragraph
+  font/paint defaults inherit per property; character overrides win. Advanced
+  properties (including patterned decorations) still need
+  representation and validation. Tracking uses native
+  thousandths of an em, converted per effective run size during composition.
+  IDML combines bold/italic into FontStyle; export writes the resolved face
+  and retains independent Schist inheritance in a guarded extension label.
+- Unsupported story content and alternate-layout sections need further work.
+  Thread ordering, scalar/four-sided frame insets, numbering sections, asymmetric
+  document offsets, paints and opacity have synthetic native XML checks; external
+  application rendering remains unverified.
+- Schist page visibility survives saves in a `Schist.PageVisibility.v1` page
+  label. Export explicitly warns that visibility is retained in Schist only;
+  it does not invent a native hidden-page attribute. The visibility tests cover
+  every hidden-page combination and verify that unrelated labels never hide
+  native pages.
+- Even-odd fills have no direct IDML winding-rule equivalent.
+
+Named styles, inheritance, font resources, layer membership/properties and
+embedded images are now read and written. The earlier statements that
+Styles.xml and object mapping were unimplemented were stale.
+
+INDD has seven acquired public pairs, with three redistributable pairs in the repository, recorded separately in
+[indd-format.md](indd-format.md). It does not validate INDD object semantics.
+
+## Writing
+
+`export.rs` is the mirror of the reader, and the two are held against each
+other by `tests/round_trip.rs` in both directions:
+
+- **Out and back.** A `LayoutDocument` written as IDML and read again is
+  the same document: the page and its four margins, the frame's position,
+  size, column count, gutter and insets, the story's text with its `<Br/>`
+  as a newline, its character ranges over the right bytes, the master page
+  and the page that applies it, and the inks **with their kinds** — a spot
+  ink read back as a process one is a print error, not a cosmetic one.
+- **A real file, rewritten.** A document read from a genuine export, written
+  out, and read again. Harder than the round trip, because it starts from
+  a file this writer never saw.
+- **The system `unzip`** accepts what we write, so the package is not one
+  only our own reader can open.
+
+Three things writing got wrong, all found by those tests:
+
+1. **Text outside every character range was dropped.** A range is a
+   character *style* over some bytes, and the bytes outside every range are
+   ordinary text. Filling only the styled spans deleted the rest of every
+   paragraph that had any styling on it, which is most of them. The runs
+   now cover the paragraph completely, with the unstyled spans written too.
+2. **Resource parts were named `Resources/Graphic_u123.xml`.** The id is a
+   property of the objects inside a resource part, not of the part itself;
+   real files call it `Resources/Graphic.xml`. The writer now matches, so
+   its output is shaped like a file InDesign wrote rather than one only
+   this writer can read.
+3. **A run carrying IDML's `[No character style]` became a style range**,
+   putting an entry named `[No character style]` into the document for
+   every text frame. Fixed in the reader, which is where the mistake was:
+   most files have one of these on most frames, so the range list was
+   mostly noise.
+
+### Native preferences and style resources
+
+`Resources/Preferences.xml` uses **DocumentPreference** (singular). The
+multipage fixture sets 9-point uniform bleed and an 18-point slug offset
+from trim. Both bleed and slug now retain all four offsets measured from trim;
+this fixture maps to uniform bleed=9 and slug=18. A slug edge inside bleed is
+preserved, even though it does not enlarge the media. Facing-page inside/outside
+offsets map to physical right/left on pages left of the spread spine; they map
+to left/right otherwise, independently of LTR/RTL reading order. Native export
+sets the uniform flags only when all edges agree. Differing per-page logical
+offsets still warn on export because IDML document preferences are global; only
+the affected edges expand to their largest extent.
+
+Numbering is a **Section in designmap.xml**, not a DocumentPreference
+attribute. PageStart references the section's starting Page Self; PageNumberStart,
+IncludeSectionPrefix and SectionPrefix are attributes. PageNumberStyle is a
+Properties child with native enum values Arabic, LowerRoman, UpperRoman,
+LowerLetters and UpperLetters. Every section resolves through the native page
+reference, independently of XML section order. ContinueNumbering preserves the
+sequence across style changes; explicit restarts reset it. Prefix contents and
+the include flag remain separate, and Name/Marker survive saves. Length is
+recomputed from adjacent boundaries after page edits. Unresolved/duplicate
+references and inconsistent lengths are diagnosed. Alternate-layout attributes
+remain unsupported and produce a notice.
+
+The layout model stores an optional Section on its starting Page. Boundaries
+follow reordered pages, are removed with deleted pages, and participate in the
+same single undo step as that operation. Newly inserted copies inherit the
+surrounding numbering rather than duplicating a restart. Before an explicit
+boundary, the document uses Arabic numbering from 1. A redundant default section
+on the first page is normalized away. Tests cover all boundary combinations,
+restarts/continuations, styles, hidden prefixes, opaque page IDs, hidden pages,
+page moves/deletions, undo and repeated saves. Asymmetric offset tests cover
+both reading directions and every binding-spine position in a four-page spread.
+These are specification-derived synthetic XML checks, not external application
+validation of populated multi-section/facing documents.
+
+Styles are children of RootParagraphStyleGroup and RootCharacterStyleGroup,
+not an invented Resources wrapper. Fonts likewise sit directly in idPkg:Fonts.
+Native justification names are LeftAlign, CenterAlign, RightAlign,
+LeftJustified and FullyJustified. Story export references named styles without
+copying unresolved defaults over their inheritance. Tracking values follow
+[the published type-size units](https://helpx.adobe.com/indesign/desktop/format-and-style-text/tabs-indents-and-spacing/adjust-tracking.html):
+thousandths of an em, converted to points only for the text engine. Mixed-size
+and repeated-save tests enforce this distinction.
+
+These changes follow the [public IDML specification, Section and
+DocumentPreference schemas](https://raw.githubusercontent.com/jorisros/IDMLlib/master/docs/idml-specification.pdf)
+and the public XML fixtures. None was derived from Adobe headers or program
+binaries.
+
+## Wiring into the app
+
+`CodecPlugin` cannot carry this codec. Its `import` and `export` are typed
+on `schist_core::Document`, the raster document — the same wall `ToolPlugin`
+hits, and the same reason Design Mode's tools are a separate path.
+
+So there is a **parallel trait**, `LayoutCodecPlugin`, in
+`crates/plugin-api`, with its own registry list and its own
+`layout_codec_for` lookup. Widening `CodecPlugin` to accept either would
+put a layout engine inside the image editor's data model and make every
+caller match on which it got.
+
+`schist-codec-idml::IdmlCodec` implements it, and is registered by
+`plugins/codecs-common` behind the same `design-mode` flag as the editor: a
+build that can open a layout document but has no way to show one would be
+worse than not offering.
+
+`Workspace::load_file` asks the question before it commits, because the
+answer decides which half of the window the file lands in. The open path
+runs on a background thread as the raster one does, and installs the
+result into the design state and switches to Design Mode. What the reader
+could not read goes into the status line, not only the log: a user who
+opens a document and finds a frame missing deserves to be told rather than
+left to notice.
+
+### The failure this guards against
+
+An IDML offered to the **raster** decoder does not error. It produces a
+small grey image the size of a page. So a routing mistake shows up as "the
+file opened but it is blank", which looks like a successful open and takes
+an hour to find. `tests/open_path.rs` asserts the two lookups stay apart
+in both directions, and that a real export is recognised and reads.
+
+A layout document also needs a name, and the format has nowhere to keep
+one that survives a resave, so `LayoutDocument` grew a `name` field. The
+open path fills it from the file's name.
+
+## Checks
+
+```sh
+make check-idml
+```
+
+`tests/container_interop.rs` checks system ZIP interoperability;
+`import_real.rs` and `real_fixtures.rs` exercise public exports. Graphic and
+curve tests additionally inspect native XML structure and deliberate external
+geometry edits.
+
+
+### Thread references and ruler guides
+
+TextFrame PreviousTextFrame/NextTextFrame references are resolved after all
+spreads have been read. They determine story flow independently of XML child
+order or page order. Dangling/cyclic references produce a report entry.
+`tests/threading.rs` exercises reverse page order, reversed object insertion
+order and repeated saves across two through six spreads.
+
+Page-local Guide elements carry Orientation (Horizontal/Vertical), Location,
+FitToPage=true and Locked. The public IDML specification's Spreads/Master
+Spreads chapter lists this encoding; `tests/guides.rs` covers its synthetic
+round trip, including negative locations. No supplied vendor specimen has
+Guide elements, so external coordinate agreement is not yet fixture-verified.
+
+Drop-cap character and line counts are read/written as native `DropCapCharacters` and `DropCapLines`, including style inheritance and local overrides. The published [ParagraphStyle property reference](https://developer.adobe.com/indesign/uxp/dom/api/p/paragraph-style/) documents both counts. Schist's legacy implicit one-character count is made explicit on native export. Horizontal initials now render from their actual glyph outlines; vertical initials remain a composition gap.
+
+Direction evidence: the published IDML specification
+(Stories paragraph properties and StoryPreference properties) distinguishes
+`ParagraphDirection` from `StoryDirection` and `StoryOrientation`. The
+[official direction guide](https://helpx.adobe.com/indesign/desktop/language-and-proofing/arabic-and-hebrew/change-text-direction.html)
+and [scripting guide](https://developer.adobe.com/indesign/uxp/resources/recipes/rtl/)
+confirm that story direction controls column progression; it must not be used
+as a substitute for the paragraph's bidi direction. The codec retains explicit
+paragraph directions and story preferences separately. `StoryDirection` changes
+frame-column progression without changing paragraph bidi. Native vertical
+stories now compose with vertical axes in preview, editing and print.
+
+The public [ParagraphDirectionOptions reference](https://developer.adobe.com/indesign/uxp/dom/api/p/paragraph-direction-options/)
+has only LTR and RTL. Automatic paragraphs therefore export an explicit
+resolved `ParagraphDirection` on each range. Standard `Properties/Label` entries
+retain Auto editing intent: style labels require the expected native direction,
+and story labels require matching range index, style, text, break and direction.
+Changed native data takes precedence over stale metadata. Repeated-save tests
+check style stability and changed text, styles and directions; removing every
+private label still preserves the original visible bidi result. The published
+[IDML specification](https://raw.githubusercontent.com/jorisros/IDMLlib/master/docs/idml-specification.pdf)
+includes Labels in the Story and ParagraphStyle property schemas.
+Paragraph-specific writing-mode interchange and vertical initials remain gaps.
+No Adobe headers or executable code were consulted for this evidence.
+
+
+### Parent sheets, overlays and overrides
+
+The published [IDML specification](https://raw.githubusercontent.com/jorisros/IDMLlib/master/docs/idml-specification.pdf)
+describes `PageCount`, `AppliedMaster`, `MasterPageTransform`, `ShowMasterItems`
+and page `OverrideList` Self references. The reader now keeps master page geometry,
+assigns each item to its sheet, and converts overlays into page-local coordinates.
+Export emits real master `<Page>` elements instead of a zero-page master spread.
+Document-page overrides suppress shared items only on their destination page;
+master-page overrides suppress ancestors only in their own template chain.
+Hierarchies retain per-sheet base references, overlays and overrides. Cycles and
+unresolved override IDs produce localized import diagnostics; iterative traversal
+avoids recursive stack growth.
+
+Cycle detection keys both the parent and its sheet. A valid chain can revisit
+another sheet of the same parent; treating the whole parent as one graph node
+incorrectly reported a cycle and omitted base artwork. A repeated-save regression
+covers that acyclic case as well as the existing true-cycle test.
+
+`tests/parent_pages.rs` covers cover/right and facing left/right pages, translations,
+rotations, reflection, shear, hidden parent artwork, nested parent chains and both
+override scopes across repeated native saves. Kernel tests verify unchanged shared
+geometry, destination-page baseline grids, and page permutations with reversible
+placement remapping. These are synthetic specification-based checks, not external
+application confirmation. The supplied vendor masters are still single-sheet and
+empty; no real specimen yet corroborates a populated facing master or override.
+Cross-gutter artwork now has synthetic geometry, stacking and output checks;
+external facing-page validation remains needed. Parent text threads now resolve master-frame NextTextFrame references alongside
+ordinary-frame references. Composition keeps separate ordinary and parent flow
+scopes, respects explicit frame order, and carries page breaks across template
+sheets. Repeated native saves check uninterrupted UTF-8 text consumption and both
+NextTextFrame/PreviousTextFrame chains. External populated-master specimens remain
+needed to corroborate this behavior.
+
+Spread binding and page-reading direction now survive import and export. The
+[published specification, §10.3.6](https://raw.githubusercontent.com/jorisros/IDMLlib/master/docs/idml-specification.pdf)
+defines page XML order relative to `DocumentPreference/PageBinding`; the
+[Adobe IDML Cookbook, p. 14](https://community.adobe.com/havfw69955/attachments/havfw69955/indesign/632677/1/IDML_cookbook_9627253.pdf)
+describes `Spread/BindingLocation`. The model stores physical slots from left to
+right and the spine independently of the applied parent. Native pages are emitted
+in reading order, with coordinates measured from that spine. Export disables
+automatic page shuffling to retain these fixed spread slots.
+
+Page moves retain direct artwork, parent assignment, overlays and override IDs;
+the facing template is reselected for the destination slot. Removing a page moves
+the spine index only when a left-side slot disappears. The entire edit remains
+one undo step. `tests/binding.rs` covers every spine position in one- through
+five-page spreads, variable widths and gutters, LTR/RTL page order, page moves,
+removals and repeated native saves. These are synthetic checks of the interpreted
+specification rules. A real RTL facing/foldout export is still needed to validate
+the interaction between native binding indices and reading direction externally.
+
+Native paragraph styles with omitted direction default to LTR. Inheritance keeps
+that default, including Hebrew or Arabic text. Schist's distinct unset Auto intent
+uses a validated `Schist.ParagraphDirection.v1` label with `AutoDefault`; a native
+explicit direction always wins over stale metadata. `tests/automatic_direction.rs`
+checks omitted root direction, child inheritance and subsequent native edits.
+
+
+### Spread item order and crossovers
+
+Spread items are emitted in their original stacking order, with each owner's
+page origin applied to its geometry. The earlier page-by-page writer silently
+reordered items that overlapped across a gutter. Repeated native saves now verify
+global geometry and stacking for interleaved ownership/layers, two through four
+pages, and both reading directions. An importer may assign a crossing item to a
+different nearest page; its visible spread geometry and object order must remain
+unchanged.
+
+Canvas, single-page preview, separation and preflight now include same-spread
+crossovers. This follows the published [pages and spreads model](https://helpx.adobe.com/indesign/using/pages-spreads.html)
+and the IDML spread-sibling structure described above. Tests and the independent
+PDF proof cover ordinary artwork and applied parent instances; an unapplied
+neighboring master sheet is not implicitly instantiated. The Penn State templates now corroborate populated facing masters; external
+application validation is still needed to establish that behavior's native agreement.
+
+### Direct ink tints
+
+`FillTint` and `StrokeTint` are native percentages. The published
+[page-item properties](https://developer.adobe.com/indesign/uxp/dom/api/p/page-item/)
+and [text properties](https://developer.adobe.com/indesign/uxp/dom/api/t/text-default/)
+define 0–100 as explicit tints and -1 as the inherited/overridden value. The
+reader retains direct shape tints and optional paragraph/character style tints;
+-1 remains unset in styles. Local text overrides use the existing reusable-style
+lowering. Invalid, nonfinite and out-of-range values produce localized notices.
+Export writes percentages without altering the base Color resource or opacity.
+
+Property tests cover zero, fractional and full tints, process and spot identity,
+independent fill/stroke values, style inheritance and local overrides through
+repeated native saves. These are synthetic specification-based checks. Named
+`Tint` resources are now represented separately, as described below.
+Object-style paint inheritance and text stroke rendering are now implemented,
+as described below. Their independent tints reach preview and separation.
+External application validation remains needed.
+
+
+### Solid text decorations
+
+Native `Underline` and `StrikeThru` flags now reach composition, preview and print
+through paragraph/character inheritance and local style overrides. The existing
+native boolean encoding remains unchanged. A new repeated-save property test
+checks inherited true/false values and local explicit false without style growth.
+The renderer uses automatic font metrics for horizontal text and column-relative
+lines for vertical text. Solid custom color, tint, weight, offset and overprint
+properties are now represented independently for paragraph/character styles.
+The public XML schema and Appendix B example specify `Underline*` and
+`StrikeThrough*` property names, although the strike enable flag is `StrikeThru`.
+Weight/offset `-9999` explicitly means Auto; absent values inherit. Color and line
+type are children of `Properties`: `Text Color` is a string, swatches and
+`StrokeStyle/$ID/Solid` are object references. The writer retains these native
+encodings, named Tint references and explicit no-ink values. Local formatting
+becomes stable named styles; repeated saves must not grow the style set.
+The public [InDesign user reference](https://helpx.adobe.com/pdf/indesign_reference.pdf),
+"Change underline or strikethrough options", confirms that offsets are baseline
+relative: negative underline moves above, while negative strike moves below.
+
+Invalid dimensions/booleans and unsupported line types are reported. Striped
+lines, unadjusted dashes and gap paints are supported as described
+below. Dotted and path decorations are described below; other built-in patterns remain unsupported.
+No native-application agreement is claimed for automatic metrics or explicit
+line placement; the PDF proof validates Schist's preview/output semantics.
+
+
+### Explicit baseline offsets
+
+The [published IDML specification](https://raw.githubusercontent.com/jorisros/IDMLlib/master/docs/idml-specification.pdf)
+lists `BaselineShift` as an optional numeric attribute on paragraph/character
+styles and story ranges. The [public CharacterStyle reference](https://developer.adobe.com/indesign/uxp/dom/api/c/character-style/)
+distinguishes this unit value from the `Position` enumeration. Adobe's
+[baseline guide](https://helpx.adobe.com/indesign/desktop/format-and-style-text/tabs-indents-and-spacing/adjust-text-baseline.html)
+describes movement without changing leading. The codec now preserves explicit
+point offsets, omitted inheritance and local zero resets through repeated saves;
+supported local overrides reuse named styles rather than multiplying on save.
+Malformed/nonfinite offsets produce an import diagnostic.
+
+Native `Position` is independent of the explicit baseline offset. Normal,
+superscript and subscript now import/export, including explicit Normal resets and
+local overrides. Other native OpenType position variants remain diagnosed. Legacy
+model script variants export as Position; explicit `BaselineShift::None` still
+writes zero, while malformed numeric offsets produce a notice.
+
+### Automatic superscript and subscript
+
+Document `TextPreference` preserves SuperscriptSize/Position and
+SubscriptSize/Position. The public XML schema accepts size 1–200 and position
+-500–500; defaults in specification appendix C are 58.3% and 33.3%. The
+[TextPreference reference](https://developer.adobe.com/indesign/uxp/dom/api/t/text-preference/)
+and [character-formatting guide](https://helpx.adobe.com/ie/indesign/desktop/format-and-style-text/character-formatting/apply-drop-caps-text-positioning.html)
+define size relative to nominal font size and displacement relative to regular
+leading. Explicit point offsets remain additive. This implementation follows the
+XML size range; zero is diagnosed rather than producing an invisible font.
+
+Both public-domain Penn State v20.2 templates carry those defaults and a named
+superscript footnote-number style; the academic template also has local superscript
+ranges. Tests preserve those native positions and preferences through repeated
+saves without generating more styles. This establishes attribute evidence, not
+footnote layout support or matching native rendering. Tables, math, footnote and
+anchored-content composition remain separate gaps.
+
+The shared renderer retains nominal line metrics while scaling actual glyphs,
+carets and selection segments. The output proof independently checks both script
+positions in horizontal and vertical Japanese text, including explicit offsets,
+regular paragraph spacing and equal-size super/subscript pixel displacement.
+
+
+### Named tint swatches
+
+Native `Tint` resources retain `Name`, `BaseColor` and a 0–100 `TintValue` as
+specified by the public IDML schema (example 99) and [Tint reference](https://developer.adobe.com/indesign/uxp/dom/api/t/tint/).
+The reader resolves base Colors before Tints, independent of part/element order;
+missing bases, nested Tint references and invalid percentages are diagnosed.
+Export includes the base Color even when only an inline named tint uses it.
+
+A named tint owns its percentage. Native page/style paint references therefore
+write `FillTint`/`StrokeTint=-1`; they do not multiply two percentages. The
+[original Cell tint experiment](https://indiscripts.com/post/2021/05/cell-tint-enigma)
+documents that assigning an explicit direct percentage detaches from the named
+Tint to its base Color. Schist's direct controls follow that behavior. The model
+retains named base identity so base-color edits update every use in one undo step.
+Synthetic native XML tests cover opaque/forward references, percentages, invalid
+resources and repeated saves. The current public templates do not contain named
+Tint resources; acceptance by a native application remains unverified.
+
+
+### OpenType features through composition
+
+Named paragraph/character styles and local ranges read the native `Ligatures`
+and supported `OTF*` boolean attributes. Figure styles expand to explicit
+`tnum`/`pnum`/`lnum`/`onum` values; `OTFStylisticSets` is a 20-bit mask, including
+an explicit zero reset. Missing tags inherit independently. These values now
+reach per-range rustybuzz shaping rather than remaining unused style metadata.
+The separate `KerningMethod` boolean also reaches composition.
+
+Mappings use the public IDML specification's Stories/Styles attribute tables,
+the [public CharacterStyle DOM](https://developer.adobe.com/indesign/uxp/dom/api/c/character-style/),
+and Microsoft's [OpenType a–e](https://learn.microsoft.com/en-us/typography/opentype/spec/features_ae),
+[f–j](https://learn.microsoft.com/en-us/typography/opentype/spec/features_fj),
+[k–o](https://learn.microsoft.com/en-us/typography/opentype/spec/features_ko),
+[p–t](https://learn.microsoft.com/en-us/typography/opentype/spec/features_pt) and
+[u–z](https://learn.microsoft.com/en-us/typography/opentype/spec/features_uz)
+registries. The named switch-to-tag mappings are inferred from those documented
+meanings, not from proprietary headers. Public native fixtures corroborate
+ligatures/contextual alternates and the disabled/default settings. Enabled
+swash/alternate forms still lack native-application visual validation.
+
+A native figure/set attribute replaces its entire group. A partial per-tag
+override cannot faithfully express that inheritance in one native attribute.
+Such overrides and arbitrary tags are retained in `Schist.OpenTypeFeatures.v1`
+inside the standard Properties/Label extension, with a localized export notice.
+They do not emit a misleading partial native mask. When a later external edit
+adds a native feature attribute, its value takes precedence over overlapping
+extension tags. Invalid attributes and labels are diagnosed. Boolean switches,
+all figure styles, mask edges, inheritance, partial-group notices, UTF-8 local
+ranges and repeated real-template saves have property coverage.
+
+`OTFHVKana` and `OTFProportionalMetrics` choose mode-dependent features. Their
+false states reset both relevant tags; activation selects the paragraph axis
+as described below.
+The shared engine preserves arbitrary valid four-byte feature overrides, but
+Schist's named style controls currently expose on/off values only. Native
+PSD/Affinity writing uses its existing fallback for per-run overrides, without
+claiming editable native parity for them.
+
+
+### Leading and automatic percentages
+
+Native `Leading` is a Properties child with `type="unit"` for points or
+`type="enumeration"` for `Auto`. Auto is an explicit inheritance reset, not a
+missing value. `AutoLeading` is a paragraph attribute giving a percentage of
+nominal type size (0–500); unresolved Auto uses 120%. Both survive named style
+inheritance, local formatting lowered into reusable styles, and repeated saves.
+Invalid values are diagnosed and omitted. Legacy Schist numeric leading JSON
+remains readable; only Auto adds a string representation.
+
+The public XML specification and the Penn State templates corroborate these
+encodings. The public [leading guide](https://helpx.adobe.com/gr_en/indesign/desktop/format-and-style-text/character-formatting/adjust-line-spacing-with-leading.html)
+explains baseline spacing and the largest requested value on each line; the
+[ParagraphStyle DOM documentation](https://developer.adobe.com/indesign/uxp/dom/api/p/paragraph-style/)
+defines AutoLeading as a percentage of type size. Font cell height is independent
+of that spacing. Fixed leading no longer scales again for larger character runs,
+and first lines/blank paragraphs have explicit geometry. The independent output
+proof covers mixed sizes in horizontal and both vertical progressions; external
+application rendering remains unverified.
+
+
+### Exact font variants
+
+Native `FontStyle` now retains the exact typographic subfamily, including Light,
+Medium, Condensed and localized names. Font family and variant inherit independently;
+a nearer explicit legacy bold/italic choice resets the inherited named face. Local
+ranges use the same rule. `Resources/Fonts.xml` lists actual `Font` children with
+`FontFamily`, `Name` and `FontStyleName`, including character faces that inherit a
+paragraph's family. Delivery manifests retain `font_families` and add `font_styles`.
+Missing faces are never renamed to the renderer's fallback.
+
+The public specification's Stories example 51 uses Bold Condensed; Fonts section
+6.1.1 and schema example 92 define the per-face resources. The engine uses the
+[OpenType naming table](https://learn.microsoft.com/en-us/typography/opentype/spec/name):
+typographic subfamily ID 17 takes precedence over legacy ID 2. This matters for
+IBM Plex Sans Light, whose legacy subfamily is Regular. The unmodified OFL test
+fixture and provenance live in `crates/text-engine/tests/fixtures/`. Unicode and
+MacRoman names are decoded. Variable-font named instances and custom axes are not
+implemented; unavailable exact faces remain preflight errors.
+
+A `schist.font-choice` Label records original optional named/legacy fields alongside
+the native name. It preserves independent bold/italic inheritance on Schist reload;
+an external edit to native FontStyle wins over stale label data. Native consumers
+see the resolved atomic face selection. Repeated-save properties cover opaque style
+IDs, UTF-8 local ranges, common and nonstandard names, legacy inheritance, native
+edits, resources and package manifests. All existing public-template round trips
+also exercise the expanded model; external application rendering remains unverified.
+
+
+### Object-style paint and frame appearance
+
+ObjectStyle and AppliedObjectStyle now preserve the native paint subset:
+BasedOn, EnableFill, EnableStroke, EnableStrokeAndCornerOptions, FillColor,
+StrokeColor, StrokeWeight, FillTint, StrokeTint, OverprintFill and OverprintStroke.
+Opaque style IDs and duplicate display names use the same reference table as
+text styles. Missing bases/references and cycles are reported. Stored colours in
+disabled categories do not apply; an explicit Swatch/None clears inherited ink.
+Inline item attributes remain local overrides instead of flattening style paint.
+RootObjectStyleGroup is written alongside the text style groups.
+
+Evidence: the public IDML specification's Schema 161 and default object styles in
+Appendix C, the public [ObjectStyle API documentation](https://developer.adobe.com/indesign/uxp/dom/api/o/object-style/),
+and the published Customer's Canvas/OAC resource XML. NormalGraphicsFrame enables
+fill/stroke while NormalTextFrame stores no paint. OAC's custom styles include
+stored black fills with EnableFill=false, which must not turn text frames black.
+BasedOn can be a native string or object reference. Tint -1 inherits.
+
+TextFrame and image-frame inline fill/stroke now reach both preview and output.
+Text frame paths are normalized independently of rectangular composition; cubic
+outlines survive save/load, with an explicit rectangular-flow notice. Image frame
+paint follows its existing clip_path. Unsupported enabled style categories and
+nondefault stroke/corner effects are diagnosed; retaining the category switch
+alone does not implement those effects. No native application visual comparison
+has been performed for this addition.
+
+Unstyled legacy shapes retain their original paint fields. Styled shapes use
+ObjectAppearance local overrides and ignore those legacy paint fields; import and
+authoring neutralize them when attaching a style. This keeps raster documents and
+ToolPlugin separate and lets old serialized layout snapshots read with defaults.
+
+### Text stroke geometry and explicit no-ink overrides
+
+Native paragraph, character and local text styles now retain StrokeWeight and
+StrokeAlignment, independently of StrokeColor, StrokeTint and OverprintStroke.
+The public [Character API](https://developer.adobe.com/indesign/uxp/dom/api/c/character/)
+defines stroke weight as a measurement; it is stored as points, not a percentage
+of fill or font size. The public [TextStrokeAlign API](https://developer.adobe.com/indesign/uxp/dom/api/t/text-stroke-align/)
+distinguishes a centered contour stroke from one entirely outside the contour.
+Both native enum values are supported. Appendix C of the published XML
+specification contains an explicit OutsideAlignment paragraph style; it must
+not be silently treated as centered.
+
+Swatch/None and the native no-swatch marker are explicit no-ink overrides, distinct
+from missing/inherited FillColor and StrokeColor. Named inheritance and lowered
+local ranges preserve them through repeated saves. Existing layout JSON without
+the new no-ink fields retains its former behavior. Nonfinite/negative weights or
+miter limits, and unknown alignment/join values, are reported.
+
+Native `EndJoin` retains MiterEndJoin, RoundEndJoin and BevelEndJoin, as defined by
+the public [OutlineJoin API](https://developer.adobe.com/indesign/uxp/dom/api/o/outline-join/).
+`MiterLimit` is an independently inherited ratio, with four as the default and
+zero forcing bevels. Both paragraph and character properties, including lowered
+local ranges, survive repeated saves. Older layout/engine JSON still defaults to
+miter joins with limit four.
+
+The renderer uses TrueType/OpenType font outlines and the shared vector stroke
+rasterizer, with the selected join and miter limit. Fill precedes stroke; a centered
+stroke straddles the contour, while outside coverage excludes its interior.
+Equal inks union before opacity, and distinct inks retain separate coverage for
+knockout/overprint and spot output. Native application visual comparison remains
+outstanding; the PDF proof compares combined paints against independently placed
+fill-only and stroke-only text objects.
+
+
+### Mode-dependent CJK defaults
+
+`OTFHVKana` and `OTFProportionalMetrics` retain absent, enabled and disabled
+values independently on paragraph/character styles and local ranges. The public
+[Character reference](https://developer.adobe.com/indesign/uxp/dom/api/c/character/)
+and Microsoft feature registries above establish the horizontal/vertical
+`hkna`/`vkna` and `palt`/`vpal` choices. Composition selects the paragraph axis.
+Nearer switches reset inherited tags in their pair; nearer explicit tags win.
+
+Independent per-tag exceptions still require the reported feature label.
+`Schist.OpenTypeModeDefaults.v1` records the native baseline only for groups
+that also contain private exceptions. External native additions, changes or
+removals override stale exceptions without disturbing another group's values.
+Malformed native switches and labels are diagnosed. Repeated-save properties
+cover raw inheritance, false resets and stable lowering of local formatting.
+
+The licensed bundled Noto CJK font verifies real proportional metrics in all
+three writing modes through shaping, plates and a nine-page PDF proof. Its
+feature tables contain no `hkna`/`vkna`; those switches have axis/precedence tests,
+not a real alternate-glyph or native-application rendering comparison.
+
+
+### Capitalization and small-cap preferences
+
+The public XML attribute table/schema and
+[Capitalization reference](https://developer.adobe.com/indesign/uxp/dom/api/c/capitalization/)
+define `Normal`, `AllCaps`, `SmallCaps` and `CapToSmallCap`. These map to complete
+capitalization flag pairs; absent attributes retain inheritance. Native local
+formatting lowers into reusable styles without altering source text. Customer's
+Canvas themes, bounded-text and shapes fixtures contain AllCaps ranges, now
+covered through repeated saves. Their TextPreference parts corroborate SmallCap's
+default 70 percent; the public specification gives its 1–200 range. Invalid values
+are diagnosed, with safe defaults for invalid exported percentages.
+
+The native capitalization property is atomic. A legacy style defining only one
+of Schist's two flags uses `Schist.CapitalizationFlags.v1` and an export notice,
+without pretending another application can reproduce its partial inheritance.
+Native attributes added by another application override the extension. Unknown
+native capitalization values are reported rather than silently called Normal.
+
+The public [case-formatting guide](https://helpx.adobe.com/indesign/desktop/format-and-style-text/character-formatting/change-text-case.html)
+describes small caps using native glyphs where available and scaled capitals
+otherwise. Microsoft documents `smcp` for lowercase and `c2sc` for capitals.
+The shared renderer probes each lowercase grapheme for an actual substitution,
+retains marks and source clusters when synthesizing, and preserves nominal cells.
+Licensed Noto and IBM Plex fixtures cover native and synthetic behavior. The
+24-page proof matches independently authored uppercase, feature-tag and scaled
+controls in every writing mode. Language-tailored case mapping is covered below;
+native GUI/application rendering is not established by these tests.
+
+
+### Striped decoration resources and gap inks
+
+The public IDML specification's Graphics chapter (tables 129 and 132) defines
+`StrokeStyle` and `StripedStrokeStyle`; the [public striped-stroke reference](https://developer.adobe.com/indesign/uxp/dom/api/s/striped-stroke-style/)
+confirms percentage start/end pairs. The codec retains named stripe definitions,
+including unused resources, resolves opaque IDs, and emits distinct IDs for
+same-named definitions. Arrays must be finite, strictly increasing pairs within
+0–100. Invalid resources and references receive diagnostics; invalid model values
+are not emitted as fake Solid references. Duplicate definitions are deduplicated.
+
+`UnderlineType`/`StrikeThroughType` independently inherit. A weight or color edit
+does not reset an inherited pattern; explicit Solid does. `*GapColor`, `*GapTint`
+and `*GapOverprint` retain separate paints, direct percentages, named Tints and
+explicit no-ink. Text Color follows glyph paint; no gap value means transparency.
+A nearer percentage detaches a named Tint to its base Color, matching other paints.
+Local formatting lowers once and remains stable through repeated saves.
+
+These are synthetic public-specification checks. Dash/dot corner adjustment,
+other built-in styles and native application visual agreement remain unverified
+or unsupported; no equivalence is implied for them. Path decoration rendering
+is described below.
+
+
+### Dashed decoration resources
+
+The public Graphics schema/table 130 and [DashedStrokeStyle reference](https://developer.adobe.com/indesign/uxp/dom/api/d/dashed-stroke-style/)
+define alternating point-valued dash/gap lengths, up to ten values. Schist retains
+finite, nonnegative even arrays with a positive cycle, including zero dash/gap
+members. They remain distinct from stripe percentages and scale with output DPI.
+Named resources, unused definitions, opaque IDs, inherited properties and local
+formatting survive repeated saves.
+
+This subset writes native `ButtEndCap`, `RoundEndCap` and `ProjectingEndCap`,
+with native corner-adjustment values described below. Cap choice contributes to resource identity;
+same-named patterns with different caps remain distinct. Unsupported cap/fitting
+values are diagnosed and their resource references are reported; they are not
+imported as if their appearance were supported. Invalid arrays are
+also diagnosed. Missing cap/adjustment attributes currently use butt/none defaults;
+external application agreement for these defaults and decoration phase remains
+unverified. The [public corner-adjustment reference](https://developer.adobe.com/indesign/uxp/dom/api/s/stroke-corner-adjustment/)
+describes fitting but does not specify its exact numeric algorithm. No native
+compatibility claim is made for unsupported fitting or built-in patterns.
+
+
+Native cap definitions follow public Graphics table 130 and the
+[InDesign cap reference](https://helpx.adobe.com/indesign/desktop/create-lines-and-shapes/edit-and-style-paths/line-stroke-options-and-settings.html):
+round/projecting caps extend beyond dash endpoints. Geometric checks use the
+[SVG 2 cap definitions](https://www.w3.org/TR/SVG2/painting.html#LineCaps) for circles
+and half-width rectangular extensions, independently of the native codec. These
+are public specification checks, not external InDesign rendering validation.
+
+Public IDML example 75 uses DotArray values summing to
+12 points. Figure 54 on printed/PDF page 279 shows the corresponding 12-point
+pattern and a second dot center at 5.554 points. This establishes center-to-center
+intervals despite the table's shorthand "gaps" wording. A local rendering of that
+public specification page is retained as `/tmp/schist-idml-dot-style-reference.png`.
+No custom stripe/dash/dot resources were found in the 17 acquired public IDML files
+checked during this pass.
+
+
+### Dotted decoration resources
+
+Native `DottedStrokeStyle` resources retain one to five finite, nonnegative
+center-to-center point intervals with a positive total cycle. The line weight
+sets the circle diameter independently of those intervals. Zero intervals repeat
+a center; overlapping circles contribute one silhouette. Named and unused
+resources, same-name variants, opaque references, inheritance and local formatting
+survive repeated saves. Invalid arrays and unsupported `StrokeCornerAdjustment`
+values remain diagnosed rather than imported as a supported appearance.
+
+The twelve-page dot proof matches independent analytic circles in all writing
+modes. These are public-specification checks; external application agreement and
+native fitting agreement remain unverified. No acquired public fixture has yet supplied
+a custom dotted resource for an application-rendered comparison.
+
+
+### Straight-decoration fitting
+
+`StrokeCornerAdjustment` now retains None, Dashes, Gaps and DashesAndGaps for
+custom dashed resources; dotted resources retain None, Gaps and DashesAndGaps.
+Dash-only dot adjustment is still diagnosed because its behavior is not established
+by the public reference. Adjustment contributes to resource identity, so same-name
+patterns with different fitting stay distinct through opaque references, named
+inventories, inheritance and repeated saves. Older serialized resources default
+to None. Unsupported combinations are not exported as fake native resources.
+
+The [public adjustment reference](https://developer.adobe.com/indesign/uxp/dom/api/s/stroke-corner-adjustment/)
+identifies the adjustable components. Schist's renderer implements those rules for
+straight decorations with a bounded proportional-fit search. Short fixed-dash
+lines close gaps and clip the last dash; an adjustable zero first dash may grow
+when no proportional solution exists. These numerical choices are Schist's and
+have not been compared with InDesign output. Path corners and global fitting over
+multiple path segments remain outside this subset.
+
+
+### Language resources, shaping and case tailoring
+
+The public specification, section 10.2.2/table 5, places `Language` declarations
+in designmap.xml. Only Self and Name are required. The remaining attributes
+include quotation pairs, primary/sublanguage names, Id and dictionary vendors;
+standard Properties/Label metadata is also allowed. These are references to
+installed dictionaries: adding a declaration does not install a new language.
+The 17-file public corpus inventory is retained at
+`/tmp/schist-idml-language-resources.json`. It contains both native resource IDs
+and AppliedLanguage name aliases, notably English USA and Japanese.
+
+The codec retains declared resources, including unused entries, and resolves Self
+before Name. IDs are opaque even when they look like language tags. New authored
+tags use an explicit tagged model value, bypassing that native namespace. Legacy
+string values still load with their original identity-first semantics. Missing/empty
+identities, duplicate IDs, invalid numeric Ids and unresolved AppliedLanguage
+references are diagnosed. Paragraph and character defaults and local formatting
+preserve their original references through repeated saves.
+
+Authored tags normalize separators/case for shaping and pass RFC 5646 syntax checks,
+without asserting registry membership. A finite mapping to names observed in the
+public corpus supplies native references for supported tags. Arbitrary region or
+script subtags are not dropped to force a match. Standard `Schist.Language.v1`
+metadata preserves exact authored values, including explicit default resets, only
+while the native reference and entire referenced declaration still match. Native
+reference, dictionary or label changes invalidate that metadata. Unsupported native
+mappings emit No Language and an explicit notice; Schist's tag stays in metadata.
+This does not claim those tags render equivalently in other applications.
+
+Language reaches the shared Rustybuzz shaper and its small-cap probes. The casing
+implementation follows the Turkic and Lithuanian uppercase rules in
+[Unicode 17 SpecialCasing](https://www.unicode.org/Public/17.0.0/ucd/SpecialCasing.txt),
+using original source context and the
+[After_Soft_Dotted definition](https://www.unicode.org/versions/Unicode17.0.0/core-spec/chapter-3/).
+Soft_Dotted data come from Unicode 17 PropList; combining classes use the already
+available unicode-normalization 0.1.25. Tag syntax follows
+[RFC 5646](https://www.rfc-editor.org/rfc/rfc5646.html#section-2.1).
+Romanian locl glyphs in the licensed IBM Plex fixture provide an independent
+comparison with explicit comma-below Unicode text. Other CLDR case tailorings,
+hyphenation/proofing dictionaries and native application agreement remain open.
+
+## Native text paths
+
+`fixtures/idml/text.idml` contains two `TextPath` children on open `Polygon`
+parents (`u2f5/u309/u2f7` and `u398/u399/u39c`: parent/path/story). Both paths
+have a 348.03286170167985-point straight baseline, start bracket zero, center
+path alignment, baseline text alignment, Rainbow effect and zero path spacing.
+The source attributes and checksum are recorded in
+`/tmp/schist-text-path-evidence.json`. The public
+[TextPath DOM reference](https://developer.adobe.com/indesign/uxp/dom/api/t/text-path/)
+confirms point-distance brackets, terminal overset and mixed TextFrame/TextPath
+thread references. The public [creation guide](https://helpx.adobe.com/sk/indesign/using/creating-type-path.html)
+also limits a path to one line and excludes compound paths; paragraph spacing
+does not add rows. The [effects guide](https://helpx.adobe.com/indesign/desktop/add-and-manage-text/type-on-a-path/apply-effects.html)
+defines Rainbow placement at each character's baseline center and tangent.
+These are public XML documents and API documentation; no
+Adobe headers or executable implementation were used.
+
+The reader now attaches those stories to Design path containers. A TextPath has
+its own native ID: previous/next references target that child, while layers,
+parent overrides, affine placement and frame paint retain the parent item ID.
+The writer emits native Polygon/PathGeometry/TextPath structures, including all
+cubic handles. Brackets retain point distances. An authored blank end follows
+future geometry edits; a guarded `Schist.TextPath.FollowEnd.v1` Label preserves
+that intent while the native EndBracket remains unchanged. Native bracket edits
+supersede the label. Repeated saves retain the supported source geometry, stories,
+thread order and bracket intent.
+
+This subset supports one contour and one baseline per container, with horizontal
+text following the baseline tangent (Rainbow), center-of-stroke path alignment
+and baseline text alignment. Nondefault effects, flips, alignment, path spacing,
+multiple content containers and invalid geometry/brackets are diagnosed.
+When a native box or image also carries a TextPath, its primary content is kept
+and the additional path container is reported instead of binding the wrong story.
+Nonfinite imported brackets are diagnosed and sanitized before entering the
+serializable model. Existing native underline/strike resources also render along
+paths, retaining their independent line/gap paints and fitting settings. Schist
+fits in baseline arc coordinates and bends the resolved masks; native corner
+fitting and additional path effects remain open;
+external application rendering has not been verified.
+
+## Automatic lists
+
+The public `multipage.idml` fixture declares 12 numbered paragraph ranges and
+one bulleted range spanning multiple paragraphs. The first numbered range sets
+`NumberingContinue="false"`; the remainder inherit continuation. Both examples
+use `LeftIndent="18"` and `FirstLineIndent="-18"`. The document's default named
+numbering resource does not continue across stories or documents. Exact XML and
+the source checksum are retained in `/tmp/schist-idml-list-evidence.json`.
+The published IDML specification defines the native list attributes, BulletChar,
+TabList records, marker character-style references and NumberingList resources.
+Adobe's public [list guide](https://helpx.adobe.com/indesign/desktop/format-and-style-text/lists-and-numbering/create-lists.html)
+describes generated markers and their indent/tab controls; no executable or SDK
+headers were used.
+
+These properties now remain independent through style inheritance, local override
+normalization and repeated saves. Opaque numbering-resource IDs, flags and labels
+are retained. Unicode bullet values remain distinct from font glyph indices. NumberingFormat
+retains its native string/enumeration distinction as one inherited value; existing
+serialized string formats still load. The public schema permits both types.
+Legacy numbered suffixes escape a literal caret before entering the native
+expression grammar.
+The compositor supports horizontal Unicode bullets and numbered lists at levels 1–9, explicit restart/continuation within each story, marker
+alignment, marker character styles and left tab stops. Generated glyphs own no
+story bytes. A legacy Schist literal-bullet gap stays in a guarded standard Label;
+its native approximation is diagnosed, and later native list edits invalidate
+the extension.
+
+Specific/range restart policies, additional numbering formats, glyph-index bullets,
+continuation across stories/books, non-left/leader tabs, and list combinations
+with vertical text, enlarged initials or text paths remain diagnosed. Their
+represented native settings are retained. Without explicit stops, Schist uses
+the hanging indent when it clears the marker, then a 36-point tab interval;
+import/export reports this policy because native implicit stops depend on ruler
+settings. This is not an external-application rendering agreement claim.
+
+### Counter-format integration
+
+The [public NumberingStyle definition](https://developer.adobe.com/indesign/uxp/dom/api/n/numbering-style/)
+and the IDML schema define Arabic, upper/lower Roman, upper/lower letters,
+one/two/three leading-zero formats and FormatNone. These formats now compose;
+conventional named strings and native enumerations retain their exact value/type
+through inheritance and repeated saves. A repeated-save property exposed the
+generic reader trimming literal format strings; this property now preserves
+whitespace. Paragraph controls author enumerations
+and preserve unchanged imported names. Native dictionary-specific formats remain
+retained and diagnosed.
+
+Letter counters use bijective base 26 (Z, AA, AB), independent of PDF page-label
+repeated-letter numbering. Decimal padding is a minimum width of two, three or
+four digits. FormatNone suppresses the number substitution while retaining the
+expression's literal text and tab. Roman composition is limited to 1–3999; a
+continued sequence that exceeds that range is diagnosed by preflight and both
+codec directions without discarding the source settings. Higher-value native
+Roman conventions and native application agreement remain unverified.
+
+Synthetic properties cover every counter boundary through 20,000, very large
+Arabic/alphabetic values, Roman decoding, named/enumerated inheritance and repeated
+saves. The public fixture establishes the decimal named format; the other named
+format tests are synthetic, not additional native specimens. The proof adds
+independent literal Roman/alphabetic/padded strings, including digit transitions
+and an empty marker. All 40 proof pages have been visually inspected without clipping or layout
+changes between generated and reference pairs. The full counter-format sweep passes all eligible tests: 1,648 distinct Rust
+tests plus four browser tests. The unchanged clipboard HTTP listener is the sole
+sandbox-blocked test; native GUI/application parity remains unverified.
+
+
+### Multilevel numbering integration
+
+The [public multilevel-list documentation](https://helpx.adobe.com/indesign/desktop/format-and-style-text/lists-and-numbering/create-multi-level-lists.html)
+describes per-level counters, higher-level references such as `^1`, restarting
+after higher levels and disabling that restart. The published IDML example uses
+`NumberingRestartPolicies` with `AnyPreviousLevel`, `LowerLevel="0"` and
+`UpperLevel="0"`. These are public XML/DOM references, not SDK headers.
+
+Levels 1–9 now compose in story order. Parent references use the referenced
+level's number format. A new higher-level paragraph is a restart event even when
+its number repeats the previous value. Explicit Start At still takes precedence;
+automatic higher-level restarts use one. The implicit default sequence shares
+the native default resource's identity, while equal display names never merge
+distinct IDs. Counter results and measured marker plans are local to a composition
+call and reused across columns and balancing trials. Resource inventories and
+diagnostics batch their queries by story. No global document cache is introduced.
+
+Specific-level/range restart-policy encoding is not established by the acquired
+fixtures. Those policies remain retained and diagnosed when enabled. Missing or
+stale parent references are also diagnosed; the renderer does not guess a zero
+or reuse a parent from an earlier branch. Cross-story numbering remains open.
+The new hierarchy tests and proof cases are synthetic, and do not establish
+native application rendering agreement.
+
+The multilevel full sweep passes 1,654 distinct Rust tests plus four browser tests,
+with the unchanged clipboard listener as the sole sandbox-blocked test. All 48
+list-proof pages pass automated comparisons and visual inspection. A read-only
+scan of the ten checked-in public IDML documents found only level-one counters
+and the default restart policy; none establishes specific/range policy encoding.
+
+
+### General paragraph tabs
+
+The public IDML `TabList` record applies to ordinary paragraphs as well as list
+markers. The [public tab guide](https://helpx.adobe.com/ca/indesign/desktop/format-and-style-text/tabs-indents-and-spacing/set-and-repeat-tabs.html)
+describes frame-relative positions, explicit stops replacing preceding defaults,
+and left/right/center/decimal alignment. This implementation composes explicit
+left stops; the other alignments and leader painting are retained and diagnosed.
+`Leader` and `AlignmentCharacter` are literal strings: import preserves their
+whitespace. Missing, inherited, replaced and explicitly empty tab lists remain
+distinct through repeated native saves. Source tabs retain their UTF-8 offsets.
+
+The shared text engine now accepts optional leading tab stops. Design passes
+column-relative line starts during wrapping, including indents, generated markers
+and enlarged initials, then uses the same origin for standalone line rendering
+and carets. Implicit tabs use Schist's 36-point interval, which is disclosed rather
+than presented as native geometry. Unsupported RTL, centered/right-aligned, path
+and initial-tab combinations produce diagnostics. Preflight checks visible uses
+with their original paragraph context, so a continued line beginning with a tab
+is not mistaken for a tab inside its paragraph's enlarged initial.
+
+Legacy raster text specifications default to no tab-stop model. PSD and Affinity
+editable writers use their existing private/pixel or reported raster fallback
+when this new setting is present. These properties and the new synthetic proof
+verify Schist integration; no acquired native fixture establishes tab rendering
+agreement with InDesign.
+
+The paragraph-tab sweep and subsequent unrestricted publication rerun pass
+1,666 distinct Rust tests plus four browser checks. All 408 editor tests now pass,
+including the previously blocked, unchanged clipboard listener. All 24 new
+tab-proof pages pass exact comparisons and visual inspection.

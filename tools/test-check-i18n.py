@@ -4,6 +4,7 @@
 import contextlib
 import importlib.util
 import io
+import json
 from pathlib import Path
 import tempfile
 import unittest
@@ -17,7 +18,7 @@ SPEC.loader.exec_module(CHECK)
 
 
 class AuditTests(unittest.TestCase):
-    def run_audit(self, english, french, *args):
+    def run_audit(self, english, french, *args, deferred=None, enabled=False, key="example.message"):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             (root / "data").mkdir()
@@ -26,14 +27,40 @@ class AuditTests(unittest.TestCase):
             for tag, value in (("en", english), ("fr", french)):
                 catalog = root / "locales" / tag
                 catalog.mkdir(parents=True)
-                (catalog / "example.lang").write_text(f"example.message = {value}\n")
+                (catalog / "example.lang").write_text(f"{key} = {value}\n")
+            if deferred is not None:
+                (root / "deferred-english.json").write_text(json.dumps(deferred))
+            flags = root / "crates/app-settings/src/feature_flags.rs"
+            flags.parent.mkdir(parents=True)
+            flags.write_text('// ("design-mode", false)\nconst DEFAULTS: &[(&str, bool)] = &[\n("design-mode", ' + str(enabled).lower() + '),\n];\n')
             output = io.StringIO()
-            with patch.object(CHECK, "I18N", root), \
+            with patch.object(CHECK, "I18N", root), patch.object(CHECK, "ROOT", root), \
                     patch("sys.argv", ["check-i18n.py", *args]), \
                     contextlib.redirect_stdout(output), \
                     self.assertRaises(SystemExit) as result:
                 CHECK.main()
             return result.exception.code, output.getvalue()
+
+    def test_design_debt_is_visible_and_expires_when_enabled_or_changed(self):
+        source = "The Design paragraph has an explicitly deferred English explanation."
+        manifest = {"feature": "design-mode", "reason": "Translation deferred", "entries": {"design.example": source}}
+        code, output = self.run_audit(source, source, "--strict-audit", key="design.example", deferred=manifest)
+        self.assertEqual(code, 0)
+        self.assertIn("fr: explicitly deferred English", output)
+        code, output = self.run_audit(source, source, "--strict-audit", key="design.example", deferred=manifest, enabled=True)
+        self.assertEqual(code, 1)
+        self.assertIn("unchanged English sentences", output)
+        code, _ = self.run_audit(source, source, "--strict-audit", key="example.message", deferred={"feature": "design-mode", "reason": "Translation deferred", "entries": {"example.message": source}})
+        self.assertEqual(code, 1)
+        code, _ = self.run_audit(source + " Changed.", source + " Changed.", "--strict-audit", key="design.example", deferred=manifest)
+        self.assertEqual(code, 1)
+
+    def test_deferred_source_still_requires_matching_placeholders(self):
+        source = "This Design explanation must always retain the placeholder {value}."
+        manifest = {"feature": "design-mode", "reason": "Translation deferred", "entries": {"design.example": source}}
+        code, output = self.run_audit(source, "Translated explanation", "--strict-audit", key="design.example", deferred=manifest)
+        self.assertEqual(code, 1)
+        self.assertIn("placeholders differ", output)
 
     def test_copied_english_prose_fails_strict_audit(self):
         source = "Close this photo and its virtual copies before moving them."

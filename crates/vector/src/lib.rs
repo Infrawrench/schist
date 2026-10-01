@@ -377,10 +377,6 @@ fn add_span(row: &mut [f32], x0: f32, x1: f32, weight: f32, w: usize) {
     }
 }
 
-/// Convert a stroke into fillable outline polygons: one quad per segment
-/// plus a disc at each joint, filled with the nonzero rule so overlaps
-/// merge. Good enough for shape outlines and pen strokes; it does not do
-/// miter joins or dashes.
 /// How a stroke terminates at the free end of an open subpath.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Default)]
 pub enum LineCap {

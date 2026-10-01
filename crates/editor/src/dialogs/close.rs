@@ -79,3 +79,42 @@ pub(super) fn confirm_close_tab(
             )),
     )
 }
+
+pub(super) fn confirm_close_design(
+    ws: &mut Workspace,
+    cx: &mut Context<Workspace>,
+) -> impl IntoElement {
+    let title = if ws.design.document.name.is_empty() {
+        t("common.untitled").to_string()
+    } else {
+        ws.design.document.name.clone()
+    };
+    ui::modal_frame(
+        t("common.unsaved_changes"),
+        420.0,
+        div()
+            .text_size(px(12.0))
+            .child(tf!("common.unsaved_changes_prompt", name = title)),
+        div()
+            .flex()
+            .gap_2()
+            .child(ui::button(
+                t("common.dont_save"),
+                false,
+                |ws, _, cx| ws.discard_design_transition(cx),
+                cx,
+            ))
+            .child(ui::button(
+                t("common.cancel"),
+                false,
+                |ws, _, cx| ws.close_modal(cx),
+                cx,
+            ))
+            .child(ui::button(
+                t("dialog.save_ellipsis"),
+                true,
+                |ws, window, cx| ws.save_design_transition(window, cx),
+                cx,
+            )),
+    )
+}

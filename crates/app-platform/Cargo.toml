@@ -75,3 +75,6 @@ web-sys = { version = "0.3", features = ["DragEventInit", "DataTransferItem", "D
 [target.'cfg(target_os = "linux")'.dependencies]
 ash = "0.38"
 x11rb = "0.13"
+
+[lints.rust]
+unexpected_cfgs = { level = "warn", check-cfg = ["cfg(schist_library)"] }

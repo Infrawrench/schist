@@ -253,3 +253,142 @@ fn unverified_astral_run_units_use_the_existing_raster_fallback() {
         .iter()
         .any(|n| matches!(n.type_tag().to_be_bytes(), [b'T', b'x', b't', b'A' | b'F'])));
 }
+
+#[test]
+fn unencoded_decorations_use_the_reported_raster_fallback() {
+    for field in ["underline", "strikethrough"] {
+        for enabled in [false, true] {
+            let mut doc = text_doc(false);
+            let mut stored: serde_json::Value =
+                serde_json::from_slice(&doc.tree.layers[0].extras[0].data).unwrap();
+            stored["spec"]["runs"][0][field] = serde_json::json!(enabled);
+            doc.tree.layers[0].extras[0].data = serde_json::to_vec(&stored).unwrap();
+            let (bytes, report) = write_affinity(&doc, None).unwrap();
+            assert_eq!(report.skipped.len(), usize::from(enabled));
+            assert_eq!(
+                graph(&bytes)
+                    .nodes
+                    .iter()
+                    .any(|n| matches!(n.type_tag().to_be_bytes(), [b'T', b'x', b't', b'A' | b'F'])),
+                !enabled
+            );
+        }
+    }
+}
+
+#[test]
+fn unsupported_run_settings_use_the_reported_raster_fallback() {
+    for (key, value, unsupported) in [
+        ("global_tabs", serde_json::Value::Null, false),
+        (
+            "global_tabs",
+            serde_json::json!({"positions":[24.0,48.0],"origin":0.0,"repeat":36.0}),
+            true,
+        ),
+        ("font_style", serde_json::json!("Light"), true),
+        ("capitalization", serde_json::json!("Normal"), false),
+        ("capitalization", serde_json::json!("AllCaps"), true),
+        ("capitalization", serde_json::json!("SmallCaps"), true),
+        (
+            "capitalization",
+            serde_json::json!("OpenTypeAllSmallCaps"),
+            true,
+        ),
+        ("fill_disabled", serde_json::json!(true), true),
+        ("fill_disabled", serde_json::json!(false), false),
+        ("underline_style", serde_json::json!({"weight":0.75}), true),
+        ("strike_style", serde_json::json!({"offset":-3.0}), true),
+        (
+            "underline_style",
+            serde_json::json!({"pattern":{"Stripes":[0,25,75,100]}}),
+            true,
+        ),
+        (
+            "strike_style",
+            serde_json::json!({"gap_color":[20,80,200,128]}),
+            true,
+        ),
+        (
+            "underline_style",
+            serde_json::json!({"pattern":{"Dashes":[6,3]}}),
+            true,
+        ),
+        (
+            "underline_style",
+            serde_json::json!({"pattern":{"Dashes":{"lengths":[6,3],"cap":"Round"}}}),
+            true,
+        ),
+        (
+            "underline_style",
+            serde_json::json!({"pattern":{"Dashes":{"lengths":[6,3],"cap":"Projecting"}}}),
+            true,
+        ),
+        (
+            "underline_style",
+            serde_json::json!({"pattern":{"Dots":[5,7]}}),
+            true,
+        ),
+        (
+            "underline_style",
+            serde_json::json!({"pattern":{"Dots":[5,7]},"fitting":"Gaps"}),
+            true,
+        ),
+        (
+            "underline_style",
+            serde_json::json!({"pattern":{"Dashes":[6,3]},"fitting":"DashesAndGaps"}),
+            true,
+        ),
+        ("underline_style", serde_json::json!({}), false),
+        ("strike_style", serde_json::json!({}), false),
+        (
+            "stroke",
+            serde_json::json!({"width":2.0,"color":[10,20,30,255]}),
+            true,
+        ),
+        (
+            "stroke",
+            serde_json::json!({"width":0.0,"color":[10,20,30,255]}),
+            false,
+        ),
+        ("global_font_style", serde_json::json!("Regular"), true),
+        ("language", serde_json::json!("ro"), true),
+        ("language", serde_json::json!(""), false),
+        ("global_language", serde_json::json!("tr"), true),
+        ("global_language", serde_json::json!(""), false),
+        ("global_leading", serde_json::json!(0.0), true),
+        ("global_leading", serde_json::json!(24.0), true),
+        ("baseline_shift", serde_json::json!(-12.5), true),
+        ("baseline_shift", serde_json::json!(0.0), false),
+        ("baseline_shift", serde_json::json!(8.25), true),
+        ("metric_size", serde_json::json!(24.0), true),
+        (
+            "features",
+            serde_json::json!([{"tag":"liga", "value":0}]),
+            true,
+        ),
+        (
+            "features",
+            serde_json::json!([{"tag":"liga", "value":1}]),
+            true,
+        ),
+    ] {
+        let mut doc = text_doc(false);
+        let mut stored: serde_json::Value =
+            serde_json::from_slice(&doc.tree.layers[0].extras[0].data).unwrap();
+        if let Some(key) = key.strip_prefix("global_") {
+            stored["spec"][key] = value;
+        } else {
+            stored["spec"]["runs"][0][key] = value;
+        }
+        doc.tree.layers[0].extras[0].data = serde_json::to_vec(&stored).unwrap();
+        let (bytes, report) = write_affinity(&doc, None).unwrap();
+        assert_eq!(report.skipped.len(), usize::from(unsupported));
+        assert_eq!(
+            graph(&bytes)
+                .nodes
+                .iter()
+                .any(|n| matches!(n.type_tag().to_be_bytes(), [b'T', b'x', b't', b'A' | b'F'])),
+            !unsupported
+        );
+    }
+}

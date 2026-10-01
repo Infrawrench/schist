@@ -9,6 +9,7 @@
 
 use schist_color::Rgba;
 use schist_core::{Document, IntRect};
+use schist_layout::LayoutDocument;
 
 pub use registry::{PluginManifest, PluginRegistry};
 
@@ -532,6 +533,42 @@ pub trait CodecPlugin: Send + Sync {
     /// Whether the export dialog should offer a quality slider.
     fn supports_quality(&self) -> bool {
         false
+    }
+}
+
+/// A codec for a **page layout** document.
+///
+/// This exists because [`CodecPlugin`] is typed on the raster
+/// [`Document`], and a page layout document is not a raster document with
+/// extra fields. Widening `CodecPlugin` to accept either would put a
+/// layout engine inside the image editor's data model, and every caller
+/// would have to match on which it got -- so the traits are separate and
+/// a codec implements whichever it is for.
+///
+/// A document that is *both* -- a layout with a placed image, say -- is
+/// two documents, and the relationship between them is a link, which is
+/// how `schist-layout` already models a placed graphic.
+pub trait LayoutCodecPlugin: Send + Sync {
+    fn id(&self) -> &'static str;
+    fn name(&self) -> &'static str;
+    /// Lowercase extensions without dot, e.g. ["idml"].
+    fn extensions(&self) -> &'static [&'static str];
+    /// Cheap signature sniff, before the file is parsed.
+    fn probe(&self, bytes: &[u8]) -> bool;
+
+    /// Read a layout document.
+    ///
+    /// The result carries what could not be read alongside the document,
+    /// because a partly read document is useful and saying what is
+    /// missing is what makes it usable.
+    fn read_layout(&self, bytes: &[u8]) -> anyhow::Result<(LayoutDocument, Vec<String>)>;
+
+    fn can_export(&self) -> bool {
+        false
+    }
+    /// Write a layout document, and what the writer could not carry.
+    fn export_layout(&self, _document: &LayoutDocument) -> anyhow::Result<(Vec<u8>, Vec<String>)> {
+        anyhow::bail!("{} cannot export layout documents", self.name())
     }
 }
 

@@ -9,6 +9,37 @@ pub struct TextPath {
     pub curve: SubPath,
     #[serde(default)]
     pub offset: f32,
+    /// Optional inline interval used for alignment. The layout composer owns
+    /// overflow; the shared renderer still extrapolates to keep text editable.
+    /// None retains the raster Type tool's whole-path alignment plus offset.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub span: Option<f32>,
+}
+
+impl TextPath {
+    /// The same flattened arc length used to place glyphs and carets.
+    pub fn length(&self) -> Option<f32> {
+        Guide::new(self, Align::Left, 0.0)?
+            .distances
+            .last()
+            .copied()
+    }
+
+    /// Convert baseline geometry and its inline interval to another resolution.
+    pub fn scaled(&mut self, scale: f32) {
+        for anchor in &mut self.curve.anchors {
+            for point in [
+                &mut anchor.point,
+                &mut anchor.handle_in,
+                &mut anchor.handle_out,
+            ] {
+                point.0 *= scale;
+                point.1 *= scale;
+            }
+        }
+        self.offset *= scale;
+        self.span = self.span.map(|value| value * scale);
+    }
 }
 
 pub(super) struct Guide {
@@ -18,10 +49,22 @@ pub(super) struct Guide {
 }
 
 impl Guide {
+    /// Baseline vertices and their aligned inline coordinates. Decorations use
+    /// the same flattened curve as glyphs rather than measuring it again.
+    pub(super) fn vertices(&self) -> impl Iterator<Item = (f32, (f32, f32))> + '_ {
+        self.distances
+            .iter()
+            .zip(&self.points)
+            .map(|(distance, point)| (*distance - self.offset, *point))
+    }
+
     pub fn new(path: &TextPath, align: Align, width: f32) -> Option<Self> {
         let anchors = &path.curve.anchors;
         if anchors.len() < 2
             || !path.offset.is_finite()
+            || path
+                .span
+                .is_some_and(|span| !span.is_finite() || span < 0.0)
             || anchors.iter().any(|a| {
                 [a.point, a.handle_in, a.handle_out]
                     .into_iter()
@@ -36,6 +79,13 @@ impl Guide {
         for i in 0..count {
             let a = anchors[i];
             let b = anchors[(i + 1) % anchors.len()];
+            // A native straight segment has coincident handles. Flattening
+            // that degenerate cubic adds short, rounded edges near its ends;
+            // their noisy tangent becomes visible when a caret extrapolates.
+            if a.handle_out == (0.0, 0.0) && b.handle_in == (0.0, 0.0) {
+                builder.line_to(b.point.0, b.point.1);
+                continue;
+            }
             builder.cubic_to(
                 a.point.0 + a.handle_out.0,
                 a.point.1 + a.handle_out.1,
@@ -60,11 +110,12 @@ impl Guide {
         if !length.is_finite() || length <= 0.0 {
             return None;
         }
+        let interval = path.span.unwrap_or(length);
         let offset = path.offset
             + match align {
                 Align::Left => 0.0,
-                Align::Center => (length - width) / 2.0,
-                Align::Right => length - width,
+                Align::Center => (interval - width) / 2.0,
+                Align::Right => interval - width,
             };
         Some(Self {
             points,
@@ -184,4 +235,63 @@ pub(super) fn glyph_bitmap(
         }
     }
     (bounds, out)
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    #[test]
+    fn bounded_alignment_scaling_and_legacy_paths_share_one_arc_coordinate_system() {
+        for angle in [
+            0.0_f32,
+            0.5,
+            std::f32::consts::FRAC_PI_2,
+            std::f32::consts::PI,
+        ] {
+            let (sin, cos) = angle.sin_cos();
+            let original = TextPath {
+                curve: SubPath {
+                    anchors: vec![
+                        schist_core::path::Anchor::corner(13.0, 29.0),
+                        schist_core::path::Anchor::corner(13.0 + 200.0 * cos, 29.0 + 200.0 * sin),
+                    ],
+                    closed: false,
+                },
+                offset: 20.0,
+                span: Some(120.0),
+            };
+            for span in [None, Some(120.0), Some(0.0)] {
+                for align in [Align::Left, Align::Center, Align::Right] {
+                    let mut path = original.clone();
+                    path.span = span;
+                    for scale in [0.5, 1.0, 3.0] {
+                        let mut scaled = path.clone();
+                        scaled.scaled(scale);
+                        let guide = Guide::new(&scaled, align, 30.0 * scale).unwrap();
+                        let interval = span.unwrap_or(200.0);
+                        let distance = 20.0
+                            + match align {
+                                Align::Left => 0.0,
+                                Align::Center => (interval - 30.0) / 2.0,
+                                Align::Right => interval - 30.0,
+                            };
+                        for x in [-10.0, 0.0, 25.0, 230.0] {
+                            let (a, b, _) = guide.at(x * scale, 7.0 * scale);
+                            assert!(
+                                (a - (13.0 + (distance + x) * cos - 7.0 * sin) * scale).abs()
+                                    < 0.001
+                            );
+                            assert!(
+                                (b - (29.0 + (distance + x) * sin + 7.0 * cos) * scale).abs()
+                                    < 0.001
+                            );
+                        }
+                    }
+                }
+            }
+            let mut json = serde_json::to_value(&original).unwrap();
+            json.as_object_mut().unwrap().remove("span");
+            assert_eq!(serde_json::from_value::<TextPath>(json).unwrap().span, None);
+        }
+    }
 }

@@ -19,10 +19,10 @@ fn fixture(text: &str, script: &str) -> (TextSpec, LoadedFace) {
         size: 32.0,
         ..Default::default()
     };
-    font_cache()
-        .lock()
-        .unwrap()
-        .insert((spec.family.clone(), false, false), Some(face.clone()));
+    font_cache().lock().unwrap().insert(
+        (spec.family.clone(), None, false, false),
+        Some(face.clone()),
+    );
     (spec, face)
 }
 

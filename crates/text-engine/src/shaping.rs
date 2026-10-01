@@ -7,7 +7,11 @@ use unicode_segmentation::UnicodeSegmentation;
 use unicode_vo::{char_orientation, Orientation};
 
 pub(super) fn required(spec: &TextSpec) -> bool {
-    !spec.features.is_empty()
+    (spec.tabs.is_some() && spec.text.contains('\t'))
+        || !super::language::effective(&spec.language).is_empty()
+        || spec.runs.iter().any(|r| r.language.as_deref().is_some_and(|v| !super::language::effective(v).is_empty()))
+        || !spec.features.is_empty()
+        || spec.runs.iter().any(|run| !run.features.is_empty() || run.capitalization.is_some_and(|v| v != Capitalization::Normal))
         || spec.direction != ParagraphDirection::Auto
         || spec.writing_mode.is_vertical()
         || spec.text.chars().any(|c| {
@@ -24,14 +28,14 @@ struct Shaped {
     width: f32,
 }
 
-fn features(spec: &TextSpec) -> Vec<rustybuzz::Feature> {
+fn features(style: &CharStyle) -> Vec<rustybuzz::Feature> {
     // Preserve the editor's discretionary Latin ligature default. Required
     // Arabic ligatures remain enabled by rustybuzz's script shaper.
     let mut features = vec![
         rustybuzz::Feature::new(ttf_parser::Tag::from_bytes(b"liga"), 0, ..),
         rustybuzz::Feature::new(ttf_parser::Tag::from_bytes(b"clig"), 0, ..),
     ];
-    for f in &spec.features {
+    for f in &capitalization::features(style) {
         if f.tag.len() == 4 && f.tag.bytes().all(|b| b.is_ascii_graphic()) {
             let tag = ttf_parser::Tag::from_bytes(f.tag.as_bytes().try_into().unwrap());
             features.retain(|f| f.tag != tag);
@@ -75,7 +79,7 @@ fn items(
         };
         if at > begin
             && (face != faces.at(at)
-                || spec.style_at(begin).color != spec.style_at(at).color
+                || !spec.style_at(begin).shapes_like(&spec.style_at(at))
                 || next_script != script
                 || (spec.writing_mode.is_vertical()
                     && (next_vertical != vertical
@@ -111,11 +115,28 @@ fn shape_item(
     let scale = size / face.units_per_em() as f32;
     let text = &spec.text[start..end];
     let ttb = spec.writing_mode.is_vertical() && vertical != Orientation::Rotated;
+    let style = spec.style_at(start);
     let mut buffer = rustybuzz::UnicodeBuffer::new();
-    buffer.push_str(text);
+    for (offset, c) in text.char_indices() {
+        if faces
+            .uppercase
+            .get(start + offset)
+            .copied()
+            .unwrap_or(false)
+        {
+            for upper in super::language::uppercase(&spec.text, start + offset, &style.language) {
+                buffer.add(upper, offset as u32);
+            }
+        } else {
+            buffer.add(c, offset as u32);
+        }
+    }
     buffer.set_pre_context(&spec.text[..start]);
     buffer.set_post_context(&spec.text[end..]);
     buffer.guess_segment_properties();
+    if let Ok(language) = style.language.parse() {
+        buffer.set_language(language);
+    }
     buffer.set_direction(if ttb {
         rustybuzz::Direction::TopToBottom
     } else if rtl {
@@ -123,7 +144,7 @@ fn shape_item(
     } else {
         rustybuzz::Direction::LeftToRight
     });
-    let shaped = rustybuzz::shape(&face, &features(spec), buffer);
+    let shaped = rustybuzz::shape(&face, &features(&style), buffer);
     // UAX #50 Tr uses the vertical alternate when the font has one, and a
     // clockwise horizontal glyph otherwise. Do not leave brackets upright
     // in fonts with no vert/vrt2 substitution.
@@ -190,7 +211,12 @@ fn shape_item(
                 pos.x_advance as f32 * scale
             };
         }
-        out.width += spec.tracking * char_bytes.len() as f32;
+        out.width += spec.style_at(start + cluster).tracking * char_bytes.len() as f32;
+        out.width += spec.word_spacing
+            * text[cluster..cluster_end]
+                .chars()
+                .filter(|ch| *ch == ' ')
+                .count() as f32;
         let count = char_bytes.len().max(1) as f32;
         for (k, byte) in char_bytes.into_iter().enumerate() {
             let (a, b) = if rtl && !ttb {
@@ -208,7 +234,7 @@ fn shape_item(
     }
 }
 
-fn shape(
+fn shape_plain(
     spec: &TextSpec,
     faces: &Faces,
     bidi: &BidiInfo<'_>,
@@ -239,6 +265,101 @@ fn shape(
             shape_item(spec, faces, start, end, rtl, vertical, &mut out);
         }
     }
+    out
+}
+
+/// Tabs separate shaping fields but retain paragraph bidi context and source
+/// byte positions. Leading stops progress from the paragraph's inline start.
+fn shape(
+    spec: &TextSpec,
+    faces: &Faces,
+    bidi: &BidiInfo<'_>,
+    paragraph_start: usize,
+    range: std::ops::Range<usize>,
+    start: f32,
+) -> Shaped {
+    let Some(tabs) = spec
+        .tabs
+        .as_ref()
+        .filter(|_| spec.text[range.clone()].contains('\t'))
+    else {
+        return shape_plain(spec, faces, bidi, paragraph_start, range.start, range.end);
+    };
+    // Justification expands only the final field. Earlier fields must not grow
+    // past their tab stops and jump to a different stop during painting.
+    let unspaced = (spec.word_spacing != 0.0).then(|| {
+        let mut copy = spec.clone();
+        copy.word_spacing = 0.0;
+        copy
+    });
+    let mut fields = Vec::new();
+    let mut tab_positions = Vec::new();
+    let mut from = range.start;
+    let mut pen = 0.0;
+    for at in spec.text[range.clone()]
+        .char_indices()
+        .filter_map(|(i, c)| (c == '\t').then_some(range.start + i))
+        .chain(std::iter::once(range.end))
+    {
+        let field_spec = if at < range.end {
+            unspaced.as_ref().unwrap_or(spec)
+        } else {
+            spec
+        };
+        let field = shape_plain(field_spec, faces, bidi, paragraph_start, from, at);
+        let next_pen = pen + field.width;
+        fields.push((pen, field));
+        pen = next_pen;
+        if at < range.end {
+            let Some(next) = tabs.next(pen, start) else {
+                return Shaped {
+                    width: f32::INFINITY,
+                    ..Default::default()
+                };
+            };
+            tab_positions.push(CharPos {
+                byte: at,
+                x: pen,
+                end_x: next,
+            });
+            pen = next;
+            from = at + 1;
+        }
+    }
+    let rtl = bidi.paragraphs[0].level.is_rtl();
+    let mut out = Shaped {
+        width: pen,
+        ..Default::default()
+    };
+    for (offset, mut field) in fields {
+        let offset = if rtl {
+            pen - offset - field.width
+        } else {
+            offset
+        };
+        for glyph in &mut field.glyphs {
+            glyph.x += offset;
+        }
+        for character in &mut field.chars {
+            character.x += offset;
+            character.end_x += offset;
+        }
+        out.glyphs.extend(field.glyphs);
+        out.chars.extend(field.chars);
+    }
+    if rtl {
+        for character in &mut tab_positions {
+            character.x = pen - character.x;
+            character.end_x = pen - character.end_x;
+        }
+    }
+    out.chars.extend(tab_positions);
+    // Paint grouping follows visual adjacency, including styled tab spaces.
+    out.chars.sort_by(|a, b| {
+        a.x.min(a.end_x)
+            .total_cmp(&b.x.min(b.end_x))
+            .then(a.byte.cmp(&b.byte))
+    });
     out
 }
 
@@ -275,7 +396,14 @@ pub(super) fn paragraph_is_rtl(spec: &TextSpec, byte: usize) -> bool {
         .is_some_and(|p| p.level.is_rtl())
 }
 
-pub(super) fn layout(spec: &TextSpec, base: &LoadedFace) -> Layout {
+pub(super) fn layout(spec: &TextSpec, base: &LoadedFace, measures: &[InlineMeasure]) -> Layout {
+    let widths = measures.iter().map(|m| m.width).collect::<Vec<_>>();
+    let inline_start = |index| {
+        measures
+            .get(index)
+            .or_else(|| measures.last())
+            .map_or(0.0, |m| m.start)
+    };
     let faces = Faces::resolve(spec, base);
     let mut lines = Vec::new();
     let level = match spec.direction {
@@ -287,19 +415,33 @@ pub(super) fn layout(spec: &TextSpec, base: &LoadedFace) -> Layout {
         let paragraph = &spec.text[start..end];
         let bidi = BidiInfo::new(paragraph, level);
         let mut line_start = start;
-        if let Some(limit) = spec
-            .wrap_width
-            .filter(|_| spec.path.is_none() || spec.writing_mode.is_vertical())
+        if (spec.path.is_none() || spec.writing_mode.is_vertical())
+            && wrap_width_at(spec, &widths, lines.len()).is_some()
         {
             let mut previous = start;
             for (boundary, _) in unicode_linebreak::linebreaks(paragraph) {
                 let at = start + boundary;
-                let candidate = shape(spec, &faces, &bidi, start, line_start, at);
+                let candidate = shape(
+                    spec,
+                    &faces,
+                    &bidi,
+                    start,
+                    line_start..at,
+                    inline_start(lines.len()),
+                );
+                let limit = wrap_width_at(spec, &widths, lines.len()).unwrap();
                 if previous > line_start && candidate.width > limit {
                     lines.push((
                         line_start,
                         previous,
-                        shape(spec, &faces, &bidi, start, line_start, previous),
+                        shape(
+                            spec,
+                            &faces,
+                            &bidi,
+                            start,
+                            line_start..previous,
+                            inline_start(lines.len()),
+                        ),
                     ));
                     line_start = previous;
                 }
@@ -309,8 +451,18 @@ pub(super) fn layout(spec: &TextSpec, base: &LoadedFace) -> Layout {
         lines.push((
             line_start,
             end,
-            shape(spec, &faces, &bidi, start, line_start, end),
+            shape(
+                spec,
+                &faces,
+                &bidi,
+                start,
+                line_start..end,
+                inline_start(lines.len()),
+            ),
         ));
+    }
+    if lines.iter().any(|(_, _, line)| !line.width.is_finite()) {
+        return Layout::default();
     }
     let max_width = lines.iter().map(|(_, _, l)| l.width).fold(0.0f32, f32::max);
     let mut out = Layout {
@@ -321,28 +473,44 @@ pub(super) fn layout(spec: &TextSpec, base: &LoadedFace) -> Layout {
         line_advance: 0.0,
         layout_width: max_width,
     };
-    let total_height: f32 = lines
-        .iter()
-        .map(|(start, end, _)| {
-            spec.text[*start..*end]
-                .char_indices()
-                .map(|(k, _)| faces.line_metrics(faces.at(start + k)).1)
-                .reduce(f32::max)
-                .unwrap_or_else(|| faces.line_metrics(0).1)
-                * spec.line_height.max(0.1)
-        })
-        .sum();
-    let mut top = 0.0;
-    for (i, (start, end, mut line)) in lines.into_iter().enumerate() {
-        let (ascent, step) = spec.text[start..end]
+    let absolute = spec.has_absolute_leading();
+    let mut geometry = Vec::with_capacity(lines.len());
+    let mut metrics = Vec::with_capacity(lines.len());
+    for (start, end, line) in &lines {
+        let (ascent, step) = spec.text[*start..*end]
             .char_indices()
-            .map(|(k, _)| faces.line_metrics(faces.at(start + k)))
+            .map(|(k, _)| faces.line_metrics_at(spec, *start + k))
             .reduce(|(a, h), (b, j)| (a.max(b), h.max(j)))
             .unwrap_or_else(|| faces.line_metrics(0));
-        let height = step * spec.line_height.max(0.1);
+        let advance = run_line_advance(spec, &faces, *start, *end, step);
+        let height = if absolute { step } else { advance };
+        let top = next_line_top(
+            geometry.last(),
+            ascent,
+            height,
+            advance,
+            spec.writing_mode,
+            absolute,
+        );
+        geometry.push(LineSpan {
+            start: *start,
+            end: *end,
+            x: 0.0,
+            width: line.width,
+            top,
+            baseline: top + ascent,
+            height,
+            advance,
+        });
+        metrics.push((ascent, step));
+    }
+    let total_height = block_extent(&geometry);
+    for (i, ((start, end, mut line), span)) in lines.into_iter().zip(geometry).enumerate() {
+        let (ascent, step) = metrics[i];
+        let (top, height) = (span.top, span.height);
         if i == 0 {
             out.first_baseline = ascent;
-            out.line_advance = height;
+            out.line_advance = span.advance;
         }
         let x = match spec.align {
             Align::Left => 0.0,
@@ -363,11 +531,11 @@ pub(super) fn layout(spec: &TextSpec, base: &LoadedFace) -> Layout {
                 } else {
                     top + height / 2.0
                 };
-                g.x = center + cross;
+                g.x = center + cross + spec.style_at(g.byte).baseline_shift;
                 g.baseline = inline;
             } else {
                 g.x += x;
-                g.baseline += top + ascent;
+                g.baseline += top + ascent - spec.style_at(g.byte).baseline_shift;
             }
         }
         for c in &mut line.chars {
@@ -382,9 +550,10 @@ pub(super) fn layout(spec: &TextSpec, base: &LoadedFace) -> Layout {
             x,
             width: line.width,
             top,
+            baseline: top + ascent,
             height,
+            advance: span.advance,
         });
-        top += height;
     }
     out
 }

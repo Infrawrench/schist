@@ -8,6 +8,9 @@ license.workspace = true
 schist-colormgmt.workspace = true
 schist-i18n.workspace = true
 schist-core.workspace = true
+# For `LayoutCodecPlugin`, which is why it is a parallel trait rather than
+# a widened `CodecPlugin`.
+schist-layout.workspace = true
 schist-fx.workspace = true
 schist-color.workspace = true
 anyhow.workspace = true

@@ -209,6 +209,27 @@ fn unsupported_new_type_settings_do_not_emit_a_misleading_native_layer() {
 }
 
 #[test]
+fn decorations_keep_private_editability_without_false_native_type_metadata() {
+    for field in ["underline", "strikethrough"] {
+        for enabled in [false, true] {
+            let mut doc = document();
+            let mut stored = spec(&doc.tree.layers[0]);
+            stored["spec"]["runs"][0][field] = json!(enabled);
+            doc.tree.layers[0].extras[0].data = serde_json::to_vec(&stored).unwrap();
+            for _ in 0..3 {
+                doc = schist_codec_psd::read_psd(&schist_codec_psd::write_psd(&doc).unwrap())
+                    .unwrap();
+                assert_eq!(
+                    doc.tree.layers[0].extras.iter().any(|b| b.key == *b"TySh"),
+                    !enabled
+                );
+                assert_eq!(spec(&doc.tree.layers[0]), stored);
+            }
+        }
+    }
+}
+
+#[test]
 fn native_ligature_flag_follows_the_actual_schist_layout_default_and_override() {
     for enabled in [false, true] {
         let mut doc = document();
@@ -341,6 +362,121 @@ fn independent_vertical_type_imports_and_regenerates_native_orientation() {
                 encoded,
             )
             .unwrap();
+        }
+    }
+}
+
+#[test]
+fn unsupported_run_settings_keep_private_editability_without_plain_native_type() {
+    for (key, value, unsupported) in [
+        ("global_tabs", serde_json::Value::Null, false),
+        (
+            "global_tabs",
+            serde_json::json!({"positions":[24.0,48.0],"origin":0.0,"repeat":36.0}),
+            true,
+        ),
+        ("font_style", serde_json::json!("Light"), true),
+        ("capitalization", serde_json::json!("Normal"), false),
+        ("capitalization", serde_json::json!("AllCaps"), true),
+        ("capitalization", serde_json::json!("SmallCaps"), true),
+        (
+            "capitalization",
+            serde_json::json!("OpenTypeAllSmallCaps"),
+            true,
+        ),
+        ("fill_disabled", serde_json::json!(true), true),
+        ("fill_disabled", serde_json::json!(false), false),
+        ("underline_style", serde_json::json!({"weight":0.75}), true),
+        ("strike_style", serde_json::json!({"offset":-3.0}), true),
+        (
+            "underline_style",
+            serde_json::json!({"pattern":{"Stripes":[0,25,75,100]}}),
+            true,
+        ),
+        (
+            "strike_style",
+            serde_json::json!({"gap_color":[20,80,200,128]}),
+            true,
+        ),
+        (
+            "underline_style",
+            serde_json::json!({"pattern":{"Dashes":[6,3]}}),
+            true,
+        ),
+        (
+            "underline_style",
+            serde_json::json!({"pattern":{"Dashes":{"lengths":[6,3],"cap":"Round"}}}),
+            true,
+        ),
+        (
+            "underline_style",
+            serde_json::json!({"pattern":{"Dashes":{"lengths":[6,3],"cap":"Projecting"}}}),
+            true,
+        ),
+        (
+            "underline_style",
+            serde_json::json!({"pattern":{"Dots":[5,7]}}),
+            true,
+        ),
+        (
+            "underline_style",
+            serde_json::json!({"pattern":{"Dots":[5,7]},"fitting":"Gaps"}),
+            true,
+        ),
+        (
+            "underline_style",
+            serde_json::json!({"pattern":{"Dashes":[6,3]},"fitting":"DashesAndGaps"}),
+            true,
+        ),
+        ("underline_style", serde_json::json!({}), false),
+        ("strike_style", serde_json::json!({}), false),
+        (
+            "stroke",
+            serde_json::json!({"width":2.0,"color":[10,20,30,255]}),
+            true,
+        ),
+        (
+            "stroke",
+            serde_json::json!({"width":0.0,"color":[10,20,30,255]}),
+            false,
+        ),
+        ("global_font_style", serde_json::json!("Regular"), true),
+        ("language", serde_json::json!("ro"), true),
+        ("language", serde_json::json!(""), false),
+        ("global_language", serde_json::json!("tr"), true),
+        ("global_language", serde_json::json!(""), false),
+        ("global_leading", serde_json::json!(0.0), true),
+        ("global_leading", serde_json::json!(24.0), true),
+        ("baseline_shift", serde_json::json!(-12.5), true),
+        ("baseline_shift", serde_json::json!(0.0), false),
+        ("baseline_shift", serde_json::json!(8.25), true),
+        ("metric_size", serde_json::json!(24.0), true),
+        (
+            "features",
+            serde_json::json!([{"tag":"liga", "value":0}]),
+            true,
+        ),
+        (
+            "features",
+            serde_json::json!([{"tag":"liga", "value":1}]),
+            true,
+        ),
+    ] {
+        let mut doc = document();
+        let mut stored = spec(&doc.tree.layers[0]);
+        if let Some(key) = key.strip_prefix("global_") {
+            stored["spec"][key] = value;
+        } else {
+            stored["spec"]["runs"][0][key] = value;
+        }
+        doc.tree.layers[0].extras[0].data = serde_json::to_vec(&stored).unwrap();
+        for _ in 0..3 {
+            doc = schist_codec_psd::read_psd(&schist_codec_psd::write_psd(&doc).unwrap()).unwrap();
+            assert_eq!(
+                doc.tree.layers[0].extras.iter().any(|b| b.key == *b"TySh"),
+                !unsupported
+            );
+            assert_eq!(spec(&doc.tree.layers[0]), stored);
         }
     }
 }

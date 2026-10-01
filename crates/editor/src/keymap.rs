@@ -80,13 +80,79 @@ pub fn save_file_dialog(ws: &mut Workspace, _window: &mut Window, cx: &mut Conte
     // No paths to prompt for: the one open question is the file's name
     // (whose extension picks the format), and the browser's own prompt
     // answers it. The save lands as a download.
-    let suggested = suggested_name(ws);
+    let suggested = if ws.design_mode() {
+        suggested_layout_name(ws)
+    } else {
+        suggested_name(ws)
+    };
     match crate::web::prompt_string(t("panel.keymap.save_as_prompt"), &suggested) {
         Some(name) => {
             let path = PathBuf::from("/web/save").join(name);
-            ws.save_file_as(path, cx);
+            if ws.design_mode() {
+                ws.save_design_as(path, cx);
+            } else {
+                ws.save_file_as(path, cx);
+            }
         }
         None => ws.cancel_pending_save(),
+    }
+}
+
+/// The name a layout save prompt starts from.
+///
+/// The document's own stem, with a writable extension. IDML is the only
+/// format a layout document can be written as, so that is what it gets
+/// when it has none — offering a raster format here would produce a save
+/// that cannot land.
+fn suggested_layout_name(ws: &Workspace) -> String {
+    layout_name(
+        ws.design_path.as_deref(),
+        ws.design.document.name.trim(),
+        |path| ws.design_exporter_for(path).is_some(),
+    )
+}
+
+/// The naming rule, with the document's own inputs.
+///
+/// Taken apart from [`suggested_layout_name`] so it can be tested without
+/// a window: the rule is three fallbacks and an extension, and all three
+/// fallbacks are the sort of thing that breaks silently.
+fn layout_name(
+    path: Option<&std::path::Path>,
+    document_name: &str,
+    exporter: impl Fn(&std::path::Path) -> bool,
+) -> String {
+    let stem = path
+        .and_then(|path| path.file_stem())
+        .map(|stem| stem.to_string_lossy().into_owned())
+        .or_else(|| {
+            // A name beginning with a dot is a hidden file, not a document
+            // name: `.idml` has no stem in the sense that matters here, and
+            // appending an extension to it gives `.idml.idml`. Neither is
+            // a name a user could have meant.
+            let name = document_name.trim();
+            if name.is_empty() || name.starts_with('.') {
+                return None;
+            }
+            Some(
+                std::path::Path::new(name)
+                    .file_stem()
+                    .map(|stem| stem.to_string_lossy().into_owned())
+                    .unwrap_or_else(|| name.to_owned()),
+            )
+        })
+        .filter(|stem| !stem.is_empty())
+        .unwrap_or_else(|| "untitled".to_string());
+
+    match path.and_then(|path| path.extension()) {
+        // An extension the document already has is kept, so a repeated
+        // Save As does not append another one.
+        Some(extension) if exporter(path.expect("an extension implies a path")) => {
+            format!("{stem}.{}", extension.to_string_lossy())
+        }
+        // Anything else, including no extension at all, becomes the one
+        // format a layout document can be written as.
+        _ => format!("{stem}.idml"),
     }
 }
 
@@ -122,22 +188,47 @@ fn suggested_name(ws: &Workspace) -> String {
 
 #[cfg(not(target_arch = "wasm32"))]
 pub fn save_file_dialog(ws: &mut Workspace, window: &mut Window, cx: &mut Context<Workspace>) {
-    let dir = ws
-        .doc
-        .as_ref()
-        .and_then(|d| d.path.as_ref())
-        .and_then(|p| p.parent().map(|p| p.to_path_buf()))
-        .or_else(|| std::env::var("HOME").ok().map(PathBuf::from))
-        .unwrap_or_else(|| PathBuf::from("."));
-    // PSD is the native save format; keep an existing
-    // extension when the document already has a writable one.
-    let suggested = suggested_name(ws);
+    // A layout document's own directory is where it was opened from; the
+    // raster path would suggest the photo's, which is a different folder
+    // and a confusing thing to save into.
+    let design = ws.design_mode();
+    let session = ws.design.session.clone();
+    let raster = ws.doc.as_ref().map(|d| d.id);
+    let dir = match design {
+        true => ws
+            .design_path
+            .as_ref()
+            .and_then(|path| path.parent().map(|parent| parent.to_path_buf())),
+        false => ws
+            .doc
+            .as_ref()
+            .and_then(|d| d.path.as_ref())
+            .and_then(|p| p.parent().map(|p| p.to_path_buf())),
+    }
+    .or_else(|| std::env::var("HOME").ok().map(PathBuf::from))
+    .unwrap_or_else(|| PathBuf::from("."));
+    // PSD is the native save format for a photo; IDML is the one writable
+    // format for a layout document, and an existing extension is kept.
+    let suggested = match design {
+        true => suggested_layout_name(ws),
+        false => suggested_name(ws),
+    };
     let rx = ws.prompt_for_new_path(&dir, Some(&suggested), cx);
     cx.spawn_in(window, async move |this, cx| {
         match rx.await {
             Ok(Ok(Some(path))) => {
-                this.update_in(cx, |ws, _window, cx| ws.save_file_as(path, cx))
-                    .ok();
+                this.update_in(cx, |ws, _window, cx| {
+                    if design && std::sync::Arc::ptr_eq(&session, &ws.design.session) {
+                        ws.save_design_as(path, cx);
+                    } else if !design && raster == ws.doc.as_ref().map(|d| d.id) {
+                        ws.save_file_as(path, cx);
+                    } else {
+                        ws.cancel_pending_save();
+                        ws.status = schist_i18n::t("design.save_target_changed").into();
+                        cx.notify();
+                    }
+                })
+                .ok();
             }
             // Cancelled, or the prompt failed. Anything waiting on the
             // save -- closing the tab, say -- has to be called off, or it
@@ -149,4 +240,59 @@ pub fn save_file_dialog(ws: &mut Workspace, window: &mut Window, cx: &mut Contex
         }
     })
     .detach();
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use std::path::Path;
+
+    /// Every path is writable here, which is the common case.
+    fn writable(_path: &Path) -> bool {
+        true
+    }
+    /// Nothing is, which is a build where the codec is compiled out.
+    fn none(_path: &Path) -> bool {
+        false
+    }
+
+    #[test]
+    fn a_layout_save_suggests_the_idml_the_codec_can_actually_write() {
+        // A raster extension here would produce a save that cannot land,
+        // so the suggestion is the one writable format.
+        assert_eq!(layout_name(None, "brochure", writable), "brochure.idml");
+        assert_eq!(layout_name(None, "", writable), "untitled.idml");
+    }
+
+    #[test]
+    fn a_layout_save_keeps_an_extension_it_can_still_write() {
+        // A repeated Save As must not append a second extension.
+        assert_eq!(
+            layout_name(Some(Path::new("/tmp/brochure.idml")), "brochure", writable),
+            "brochure.idml"
+        );
+    }
+
+    #[test]
+    fn a_layout_save_replaces_an_extension_nothing_can_write() {
+        // A path left over from a raster document, or a build without the
+        // codec, must not be offered as a name that would fail to save.
+        assert_eq!(
+            layout_name(Some(Path::new("/tmp/photo.psd")), "photo", none),
+            "photo.idml"
+        );
+        assert_eq!(
+            layout_name(Some(Path::new("/tmp/photo.psd")), "photo", writable),
+            "photo.psd"
+        );
+    }
+
+    #[test]
+    fn a_layout_suggestion_ignores_a_document_name_that_is_only_an_extension() {
+        // `.idml` is a file name, not a document name: appending an
+        // extension to it gives `.idml.idml`.
+        assert_eq!(layout_name(None, ".idml", writable), "untitled.idml");
+        assert_eq!(layout_name(None, "..", writable), "untitled.idml");
+        assert_eq!(layout_name(None, "  ", writable), "untitled.idml");
+    }
 }

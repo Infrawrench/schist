@@ -4,8 +4,8 @@ use super::*;
 /// A thumbnail of the whole document with the viewport marked, plus a zoom
 /// slider.
 pub fn navigator(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElement {
-    let zoom_ratio = ((ws.zoom.log2() + 7.0) / 12.0).clamp(0.0, 1.0);
-    let zoom_label = format!("{:.0}%", ws.zoom * 100.0);
+    let zoom_ratio = ((ws.viewport_zoom().log2() + 7.0) / 12.0).clamp(0.0, 1.0);
+    let zoom_label = format!("{:.0}%", ws.viewport_zoom() * 100.0);
     let thumb = ws.document_thumbnail();
     div()
         .flex()

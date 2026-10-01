@@ -15,6 +15,12 @@ pub(super) fn app_item_checked(ws: &Workspace, item: AppItem) -> Option<bool> {
         AppItem::ToggleExtras => ws.view.extras,
         AppItem::ToggleSnap => ws.view.snap,
         AppItem::ProofColors => ws.color.proof.is_some(),
+        AppItem::PasteboardSpread => {
+            ws.design_mode() && ws.design.mode == crate::design::PasteboardMode::Spread
+        }
+        AppItem::PasteboardSinglePage => {
+            ws.design_mode() && ws.design.mode == crate::design::PasteboardMode::SinglePage
+        }
         _ => return None,
     })
 }
@@ -25,6 +31,44 @@ pub(crate) fn run_app_item(
     window: &mut Window,
     cx: &mut Context<Workspace>,
 ) {
+    if ws.design_mode()
+        && !matches!(
+            item,
+            AppItem::New
+                | AppItem::Close
+                | AppItem::Open
+                | AppItem::OpenRecent(_)
+                | AppItem::Save
+                | AppItem::SaveAs
+                | AppItem::Quit
+                | AppItem::Search
+                | AppItem::ZoomIn
+                | AppItem::ZoomOut
+                | AppItem::ZoomFit
+                | AppItem::ZoomActual
+                | AppItem::DesignPlace
+                | AppItem::DesignImportPages
+                | AppItem::DesignRefreshLinks
+                | AppItem::DesignOutput
+                | AppItem::PasteboardSpread
+                | AppItem::PasteboardSinglePage
+                | AppItem::OpenGallery
+                | AppItem::Workspaces
+                | AppItem::WorkspaceSave
+                | AppItem::WorkspaceUpdate
+                | AppItem::WorkspaceRename
+                | AppItem::WorkspaceDelete
+                | AppItem::WorkspaceReset
+                | AppItem::WorkspaceStarter(_)
+                | AppItem::WorkspaceSelect(_)
+                | AppItem::Preferences
+                | AppItem::ScreenModeItem
+        )
+    {
+        ws.status = t("design.command_unavailable").into();
+        cx.notify();
+        return;
+    }
     if matches!(
         item,
         AppItem::CloudSignIn
@@ -56,7 +100,13 @@ pub(crate) fn run_app_item(
         AppItem::CloudUpload => {
             ws.cloud_upload_document(cx);
         }
-        AppItem::New => ws.open_new_file_picker(cx),
+        AppItem::New => {
+            if ws.design_mode() {
+                ws.request_design_transition(crate::design::lifecycle::Transition::New, cx)
+            } else {
+                ws.open_new_file_picker(cx)
+            }
+        }
         AppItem::Open => crate::keymap::open_file_dialog(ws, window, cx),
         AppItem::Close => ws.request_close_tab(ws.active_tab(), cx),
         AppItem::Save => ws.save_current(window, cx),
@@ -72,9 +122,13 @@ pub(crate) fn run_app_item(
         }
         AppItem::ZoomFit => ws.fit_to_view(),
         AppItem::ZoomActual => {
-            ws.zoom = 1.0;
-            ws.editor.zoom = 1.0;
-            ws.center();
+            if ws.design_mode() {
+                ws.set_zoom(1.0);
+            } else {
+                ws.zoom = 1.0;
+                ws.editor.zoom = 1.0;
+                ws.center();
+            }
         }
         AppItem::ImageSize => {
             if let Some(doc) = ws.doc.as_ref() {
@@ -174,6 +228,12 @@ pub(crate) fn run_app_item(
             ws.open_workspace_command(crate::workspace::WorkspaceEdit::Reset, cx)
         }
         AppItem::WorkspaceStarter(index) => {
+            // The Design starter is not just a dock layout: it is the mode
+            // itself, so applying it has to switch bodies or the user
+            // would get a Pages panel in a photo editor.
+            if index == 3 {
+                ws.set_mode(crate::design::WorkspaceMode::Design, cx);
+            }
             ws.apply_workspace(schist_app_settings::workspaces::starter(index), cx)
         }
         AppItem::WorkspaceSelect(index) => {
@@ -181,6 +241,21 @@ pub(crate) fn run_app_item(
                 ws.apply_workspace(preset.layout.clone(), cx);
             }
         }
+        AppItem::PasteboardSpread => {
+            ws.set_pasteboard_mode(crate::design::PasteboardMode::Spread, cx)
+        }
+        AppItem::PasteboardSinglePage => {
+            ws.set_pasteboard_mode(crate::design::PasteboardMode::SinglePage, cx)
+        }
+        AppItem::DesignPlace => ws.pick_design_graphic(
+            crate::workspace::design_graphics::Destination::Page(ws.design.current_page()),
+            cx,
+        ),
+        AppItem::DesignImportPages => {
+            ws.pick_design_graphic(crate::workspace::design_graphics::Destination::Pages, cx)
+        }
+        AppItem::DesignRefreshLinks => ws.refresh_design_graphics(cx),
+        AppItem::DesignOutput => ws.open_design_output(cx),
         AppItem::ToggleExtras => ws.toggle_extras(cx),
         AppItem::ToggleSnap => ws.toggle_snap(cx),
         AppItem::ClearGuides => ws.clear_guides(cx),

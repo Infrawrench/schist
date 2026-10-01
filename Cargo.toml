@@ -3,6 +3,7 @@ resolver = "2"
 # Example plugins compile to wasm32-unknown-unknown, not the host target.
 exclude = ["examples/plugins/sepia-filter", "examples/plugins/pgm-codec"]
 members = [
+    "crates/codec-idml",
     "crates/tethered",
     "crates/photo-merge",
     "crates/app",
@@ -30,6 +31,8 @@ members = [
     "crates/compositor-gpu",
     "crates/fx",
     "crates/color",
+    "crates/layout",
+    "crates/separation",
     "crates/codec-psd",
     "crates/codec-affinity",
     "crates/codec-raw",
@@ -92,8 +95,12 @@ schist-compositor-gpu = { path = "crates/compositor-gpu" }
 schist-fx = { path = "crates/fx" }
 schist-color = { path = "crates/color" }
 schist-codec-psd = { path = "crates/codec-psd" }
+schist-layout = { path = "crates/layout" }
+schist-separation = { path = "crates/separation" }
+flate2 = "1"
 schist-codec-affinity = { path = "crates/codec-affinity" }
 schist-codec-raw = { path = "crates/codec-raw" }
+schist-codec-idml = { path = "crates/codec-idml" }
 schist-vector = { path = "crates/vector" }
 schist-layer-fx = { path = "crates/layer-fx" }
 schist-neural = { path = "crates/neural" }

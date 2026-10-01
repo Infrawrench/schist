@@ -143,6 +143,17 @@ Pantone libraries are bundled. [Spot ink channels](docs/spot-ink.md) provide
 editable separations and an overprint display simulation, with PSD/PSB
 interchange and documented proofing limits.
 
+**Design Mode.** A page layout editor alongside the photo editor, sharing
+the window and the panels: pages and spreads, a fitted pasteboard with
+trim, bleed, margin and baseline guides, text frames composed through the
+layout engine, parent pages, grids, spot inks and overprint, selectable
+and movable with undo. It is a separate document model rather than a raster
+document with extra metadata, so a page layout engine never ends up inside
+the image editor's data model, and it reads and writes IDML so a real
+InDesign document opens in it. It ships behind the `design-mode` flag
+because it cannot yet author a document — there is no text tool. See
+[Design Mode](docs/design-mode.md).
+
 **Photo library.** The [gallery](docs/gallery.md) watches local folders, imports
 from cameras, organizes photos by folder/date/place, and provides buckets, maps,
 search and People indexing. Rate, flag and label photos, compare them with
@@ -315,7 +326,11 @@ Edit that source and run `make logos` (requires Pillow) to regenerate them.
   [mask refinement](docs/mask-refinement.md), [text](docs/text.md),
   [smart objects](docs/smart-objects.md), [filter stacks](docs/filter-stacks.md),
   [filter canvas controls](docs/filter-canvas.md),
-  [native colour](docs/native-colour-editing.md), [spot ink](docs/spot-ink.md).
+  [native colour](docs/native-colour-editing.md), [spot ink](docs/spot-ink.md),
+  [page layout](docs/layout.md), [Design Mode](docs/design-mode.md),
+  [IDML](docs/idml-format.md),
+  [print separation](docs/separation.md). See the [roadmap](docs/roadmap.md)
+  for what is built and what gates what.
 - **Interchange:** [PSD/PSB](docs/psd-interchange.md),
   [native smart filters](docs/native-smart-filters.md),
   [Affinity](docs/affinity-format.md), [PDN/XCF](docs/layered-formats.md),

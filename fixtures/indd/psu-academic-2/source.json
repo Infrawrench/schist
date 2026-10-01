@@ -1,0 +1,29 @@
+{
+  "record": "https://zenodo.org/records/15800442",
+  "license": "CC0-1.0",
+  "files": [
+    {
+      "name": "psu-academic-2.idml",
+      "source_name": "Open Publishing Journal Article Template Academic Style 2.idml",
+      "url": "https://zenodo.org/api/records/15800442/files/Open%20Publishing%20Journal%20Article%20Template%20Academic%20Style%202.idml/content",
+      "bytes": 209118,
+      "sha256": "788fd8139d3eb76dee83fb63578eb51a4ee7515f08f14c5f369f25e56b33e22b"
+    },
+    {
+      "name": "psu-academic-2.indd",
+      "source_name": "Open Publishing Journal Article Template Academic Style 2.indd",
+      "url": "https://zenodo.org/api/records/15800442/files/Open%20Publishing%20Journal%20Article%20Template%20Academic%20Style%202.indd/content",
+      "bytes": 2539520,
+      "sha256": "13d50191948cd437752669dc26a164bd33799f1943cb342154df9540290c99a0"
+    },
+    {
+      "name": "psu-academic-2.pdf",
+      "source_name": "Open Publishing Journal Article Template Academic Style 2.pdf",
+      "url": "https://zenodo.org/api/records/15800442/files/Open%20Publishing%20Journal%20Article%20Template%20Academic%20Style%202.pdf/content",
+      "bytes": 312919,
+      "sha256": "b55beedb63512910077d37a46bfaa015f0c4801265701ad73aaa7bbdac43a58e"
+    }
+  ],
+  "acquired": "2026-09-30",
+  "creator_tool": "Adobe InDesign 20.2 (Windows)"
+}

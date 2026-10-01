@@ -372,6 +372,20 @@ impl Workspace {
     /// click will do before it happens.
     pub(super) fn canvas_cursor(&self) -> gpui::CursorStyle {
         use gpui::CursorStyle;
+        if self.design_mode() {
+            use crate::design::DesignTool;
+            if self.design.pan.is_some() {
+                return CursorStyle::ClosedHand;
+            }
+            if self.space_held || self.design.tool == DesignTool::Hand {
+                return CursorStyle::OpenHand;
+            }
+            return match self.design.tool {
+                DesignTool::Select | DesignTool::DirectSelect => CursorStyle::Arrow,
+                DesignTool::TextFrame => CursorStyle::IBeam,
+                _ => CursorStyle::Crosshair,
+            };
+        }
         // Space-to-pan overrides whatever tool is active, and a pan in
         // progress grabs.
         if self.space_held || self.pan_last.is_some() {
@@ -469,6 +483,15 @@ impl Workspace {
                     cx.stop_propagation();
                     return;
                 }
+                // Design Mode claims its own keys -- tool shortcuts and
+                // typing into a frame -- before the raster tools, which
+                // have no meaning here and would eat the keystrokes.
+                if ws.design_mode() {
+                    if ws.design_key_down(ev, cx) {
+                        cx.stop_propagation();
+                    }
+                    return;
+                }
                 if ws.tool_key(ev) {
                     ws.after_change(cx);
                     cx.stop_propagation();
@@ -492,17 +515,18 @@ impl Workspace {
                 canvas(
                     move |bounds, window, cx| {
                         let scale = window.scale_factor();
-                        entity.update(cx, |ws, cx| {
-                            let job = ws.prepare_paint(bounds, scale, cx);
-                            // Idle prefetch rides the paint cycle:
-                            // whatever this frame left unrendered starts
-                            // warming in the background.
-                            ws.kick_prefetch(cx);
-                            job
-                        })
+                        entity.update(cx, |ws, cx| ws.prepare_canvas_paint(bounds, scale, cx))
                     },
                     move |_bounds, job: PaintJob, window, cx| {
-                        capture.update(cx, |ws, cx| ws.capture_filter_canvas(window, cx));
+                        // Design Mode has no filtered canvas to capture,
+                        // and asking for one would rasterise a page.
+                        if job.design.is_none() {
+                            capture.update(cx, |ws, cx| ws.capture_filter_canvas(window, cx));
+                        }
+                        if let Some(frame) = &job.design {
+                            crate::design::paint_pasteboard(frame, window);
+                            return;
+                        }
                         if let Some((bounds, color)) = job.backdrop {
                             window.paint_quad(gpui::fill(bounds, color));
                         }
@@ -671,6 +695,12 @@ impl Render for Workspace {
             "Workspace spotlight text_entry"
         } else if self.modal.is_some() {
             "Workspace modal"
+        } else if self.design_mode()
+            && (self.focused_field.is_some() || self.design.typing.is_some())
+        {
+            "Workspace design text_entry"
+        } else if self.design_mode() {
+            "Workspace design"
         } else if self.tool_captures_keys()
             || self.type_field_option().is_some()
             || self.focused_field == Some(palettes::SEARCH_FIELD)
@@ -810,6 +840,9 @@ impl Render for Workspace {
                 ws.toggle_side_panels(window, cx);
             }))
             .on_action(cx.listener(|ws, action: &OpenFilter, _w, cx| {
+                if ws.design_mode() {
+                    return;
+                }
                 // The dialog holds the filter's id for the life of the
                 // modal, so it needs the registry's 'static one.
                 let id = ws
@@ -822,6 +855,9 @@ impl Render for Workspace {
                 }
             }))
             .on_action(cx.listener(|ws, action: &CycleToolGroup, _w, cx| {
+                if ws.design_mode() {
+                    return;
+                }
                 // The group ids are 'static strings from the registry; find
                 // the matching one rather than leaking a new allocation.
                 let group = ws
@@ -834,11 +870,18 @@ impl Render for Workspace {
                 }
             }))
             .on_action(cx.listener(|ws, action: &SetToolOpacity, _w, cx| {
+                if ws.design_mode() {
+                    return;
+                }
                 ws.editor.tool_opacity = action.percent as f32 / 100.0;
                 ws.status = tf!("workspace.canvas.opacity_percent", n = action.percent).into();
                 cx.notify();
             }))
             .on_action(cx.listener(|ws, _: &NewFile, _w, cx| {
+                if ws.design_mode() {
+                    ws.request_design_transition(crate::design::lifecycle::Transition::New, cx);
+                    return;
+                }
                 ws.open_new_file_picker(cx);
             }))
             .on_action(cx.listener(|ws, _: &OpenFile, window, cx| {
@@ -868,24 +911,40 @@ impl Render for Workspace {
                 cx.notify();
             }))
             .on_action(cx.listener(|ws, _: &ZoomActual, _w, cx| {
-                ws.zoom = 1.0;
-                ws.editor.zoom = 1.0;
-                ws.center();
+                if ws.design_mode() {
+                    ws.set_zoom(1.0);
+                } else {
+                    ws.zoom = 1.0;
+                    ws.editor.zoom = 1.0;
+                    ws.center();
+                }
                 cx.notify();
             }))
             .on_action(cx.listener(|ws, _: &BrushSmaller, _w, cx| {
+                if ws.design_mode() {
+                    return;
+                }
                 ws.editor.brush_size = (ws.editor.brush_size / 1.25).max(1.0);
                 cx.notify();
             }))
             .on_action(cx.listener(|ws, _: &BrushLarger, _w, cx| {
+                if ws.design_mode() {
+                    return;
+                }
                 ws.editor.brush_size = (ws.editor.brush_size * 1.25).min(500.0);
                 cx.notify();
             }))
             .on_action(cx.listener(|ws, _: &SwapColors, _w, cx| {
+                if ws.design_mode() {
+                    return;
+                }
                 std::mem::swap(&mut ws.editor.foreground, &mut ws.editor.background);
                 cx.notify();
             }))
             .on_action(cx.listener(|ws, _: &DefaultColors, _w, cx| {
+                if ws.design_mode() {
+                    return;
+                }
                 ws.editor.foreground = schist_color::Rgba::BLACK;
                 ws.editor.background = schist_color::Rgba::WHITE;
                 cx.notify();
@@ -910,6 +969,9 @@ impl Render for Workspace {
                 ws.commit_gesture(cx);
             }))
             .on_action(cx.listener(|ws, _: &ShowImageSize, _w, cx| {
+                if ws.design_mode() {
+                    return;
+                }
                 if let Some(doc) = ws.doc.as_ref() {
                     let modal = Modal::ImageSize {
                         width: doc.width,
@@ -921,6 +983,9 @@ impl Render for Workspace {
                 }
             }))
             .on_action(cx.listener(|ws, action: &AddAdjustment, _w, cx| {
+                if ws.design_mode() {
+                    return;
+                }
                 match adjustment_from_id(&action.kind) {
                     Some(kind) => ws.add_adjustment(kind, cx),
                     None => log::warn!("unknown adjustment {}", action.kind),
@@ -941,6 +1006,9 @@ impl Render for Workspace {
                 _ws.toggle_gallery(_cx);
             }))
             .on_action(cx.listener(|ws, _: &ShowLayerStyle, _w, cx| {
+                if ws.design_mode() {
+                    return;
+                }
                 if let Some(id) = ws.doc.as_ref().and_then(|d| d.active_layer) {
                     ws.show_layer_style(id, cx);
                 }
@@ -950,6 +1018,9 @@ impl Render for Workspace {
                 ws.open_modal(Modal::Preferences, cx);
             }))
             .on_action(cx.listener(|ws, _: &ShowCanvasSize, _w, cx| {
+                if ws.design_mode() {
+                    return;
+                }
                 if let Some(doc) = ws.doc.as_ref() {
                     let modal = Modal::CanvasSize {
                         width: doc.width,

@@ -29,7 +29,8 @@ impl Workspace {
     /// Whether something is taking typing right now: what should have
     /// the keyboard up.
     fn wants_text_input(&mut self) -> bool {
-        self.spotlight.open
+        (self.design_mode() && self.design.typing.is_some())
+            || self.spotlight.open
             || (self.dropdown_open() && self.dropdown_search.active)
             || self.focused_field.is_some()
             || self.gallery_typing()
@@ -77,6 +78,14 @@ impl Workspace {
         }
         if self.focused_field.is_some() {
             return Some((&self.field_buffer, self.field_selection()));
+        }
+        if self.design_mode() {
+            if let Some(typing) = self.design.typing {
+                return Some((
+                    &self.design.text_buffer,
+                    typing.at.min(typing.anchor)..typing.at.max(typing.anchor),
+                ));
+            }
         }
         if self.gallery_open() {
             let edit = if self.cloud.show {
@@ -184,10 +193,19 @@ impl EntityInputHandler for Workspace {
         _window: &mut Window,
         _cx: &mut Context<Self>,
     ) -> Option<Range<usize>> {
-        None
+        let draft = self.design.composition.as_ref()?;
+        Some(
+            utf16_len(&self.design.text_buffer[..draft.range.start])
+                ..utf16_len(&self.design.text_buffer[..draft.range.end]),
+        )
     }
 
-    fn unmark_text(&mut self, _window: &mut Window, _cx: &mut Context<Self>) {}
+    fn unmark_text(&mut self, _window: &mut Window, cx: &mut Context<Self>) {
+        if self.design_mode() {
+            crate::design::composition::commit(&mut self.design);
+            cx.notify();
+        }
+    }
 
     fn replace_text_in_range(
         &mut self,
@@ -197,6 +215,17 @@ impl EntityInputHandler for Workspace {
         cx: &mut Context<Self>,
     ) {
         if REPLAYING.load(Ordering::SeqCst) {
+            return;
+        }
+        if self.design_mode()
+            && self.design.typing.is_some()
+            && self.focused_field.is_none()
+            && !self.spotlight.open
+        {
+            if !crate::design::composition::replace(&mut self.design, range, text, None, false) {
+                self.status = schist_i18n::t("design.story_edit_refused").into();
+            }
+            cx.notify();
             return;
         }
         // A range other than the caret is autocorrect rewriting the word
@@ -221,14 +250,20 @@ impl EntityInputHandler for Workspace {
 
     fn replace_and_mark_text_in_range(
         &mut self,
-        _range: Option<Range<usize>>,
-        _new_text: &str,
-        _new_selected_range: Option<Range<usize>>,
+        range: Option<Range<usize>>,
+        text: &str,
+        selected: Option<Range<usize>>,
         _window: &mut Window,
-        _cx: &mut Context<Self>,
+        cx: &mut Context<Self>,
     ) {
-        // Composition previews are not drawn; the committed text arrives
-        // through `replace_text_in_range`.
+        if self.design_mode()
+            && self.design.typing.is_some()
+            && self.focused_field.is_none()
+            && !self.spotlight.open
+        {
+            crate::design::composition::replace(&mut self.design, range, text, selected, true);
+            cx.notify();
+        }
     }
 
     fn bounds_for_range(

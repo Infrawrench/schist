@@ -43,6 +43,12 @@ impl Workspace {
         cx: &mut Context<Self>,
     ) {
         window.focus(&self.focus);
+        // Design Mode has its own pointer vocabulary and its own tools,
+        // so it takes the event before anything below has to know it
+        // exists. The raster path below is unchanged.
+        if self.design_mode() && self.design_mouse_down(ev, cx) {
+            return;
+        }
         // On a touch screen a moving finger scrolls by default; on the
         // canvas it paints, pans or drags a tool instead, and two fingers
         // do the scrolling and zooming.
@@ -113,6 +119,10 @@ impl Workspace {
         _window: &mut Window,
         cx: &mut Context<Self>,
     ) {
+        if self.design_mode() {
+            self.design_mouse_move(ev, cx);
+            return;
+        }
         // An OS file drag reaches here as synthetic left-button moves;
         // they must not feed the active tool.
         if cx.has_active_drag() {
@@ -175,6 +185,10 @@ impl Workspace {
         _window: &mut Window,
         cx: &mut Context<Self>,
     ) {
+        if self.design_mode() {
+            self.design_mouse_up(ev, cx);
+            return;
+        }
         if self.dragging_guide() {
             self.finish_guide(cx);
             return;
@@ -237,6 +251,13 @@ impl Workspace {
                 self.view_gesture_event(cx);
             }
         } else {
+            if self.design_mode() {
+                self.design.view.origin.x += f32::from(delta.x);
+                self.design.view.origin.y += f32::from(delta.y);
+                self.refit_design = false;
+                cx.notify();
+                return;
+            }
             self.offset = point(self.offset.x + delta.x, self.offset.y + delta.y);
             self.view_gesture_event(cx);
         }

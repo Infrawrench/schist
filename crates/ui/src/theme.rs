@@ -38,6 +38,12 @@ pub struct Palette {
     pub accent_text: u32,
     /// Selected rows that keep their own text colour (lists, tiles).
     pub selection_bg: u32,
+    /// Something is wrong and the user has to act on it: a missing linked
+    /// file, an overfull frame, a prepress error.
+    ///
+    /// Not the accent colour. A warning that looks like a selection is a
+    /// warning that gets read as a highlight.
+    pub warning: u32,
 }
 
 pub const DARK: Palette = Palette {
@@ -64,6 +70,9 @@ pub const DARK: Palette = Palette {
     accent_hover: 0x4A80BC,
     accent_text: 0xFFFFFF,
     selection_bg: 0x2F5B8C,
+    // Amber, chosen to stay legible on the dark panel rather than to match
+    // any other product's warning colour.
+    warning: 0xE0A030,
 };
 
 pub const LIGHT: Palette = Palette {
@@ -90,6 +99,9 @@ pub const LIGHT: Palette = Palette {
     accent_hover: 0x2E5E95,
     accent_text: 0xFFFFFF,
     selection_bg: 0xB8D2EE,
+    // Darkened for the light panel: the dark theme's amber is unreadable
+    // against near-white.
+    warning: 0x9A6400,
 };
 
 static LIGHT_THEME: std::sync::atomic::AtomicBool = std::sync::atomic::AtomicBool::new(false);

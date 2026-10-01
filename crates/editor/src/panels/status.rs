@@ -43,7 +43,7 @@ pub fn status_bar(ws: &Workspace, cx: &mut Context<Workspace>) -> impl IntoEleme
             }
         })
         .unwrap_or_else(|| t("common.no_document").to_string());
-    let zoom = format!("{:.0}%", ws.zoom * 100.0);
+    let zoom = format!("{:.0}%", ws.viewport_zoom() * 100.0);
     let brush = format!("{:.0}px", ws.editor.brush_size);
     let m = ui::metrics();
     div()

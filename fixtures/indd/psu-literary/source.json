@@ -1,0 +1,29 @@
+{
+  "record": "https://zenodo.org/records/15800497",
+  "license": "CC0-1.0",
+  "files": [
+    {
+      "name": "psu-literary.indd",
+      "source_name": "Open Publishing Journal Article Template Literary.indd",
+      "url": "https://zenodo.org/api/records/15800497/files/Open%20Publishing%20Journal%20Article%20Template%20Literary.indd/content",
+      "bytes": 2457600,
+      "sha256": "e79b29f4172f5609a02eafb7839a7397bdc4c61775432929a37248bcc54bcd8f"
+    },
+    {
+      "name": "psu-literary.idml",
+      "source_name": "Open Publishing Journal Article Template Literary.idml",
+      "url": "https://zenodo.org/api/records/15800497/files/Open%20Publishing%20Journal%20Article%20Template%20Literary.idml/content",
+      "bytes": 143434,
+      "sha256": "0b0ba3d0e3cf6bd78702bc06f005dc83ae69e9e9ddd209c7a5309407c1269b71"
+    },
+    {
+      "name": "psu-literary.pdf",
+      "source_name": "Open Publishing Journal Article Template Literary.pdf",
+      "url": "https://zenodo.org/api/records/15800497/files/Open%20Publishing%20Journal%20Article%20Template%20Literary.pdf/content",
+      "bytes": 649585,
+      "sha256": "57aecf7b44f68360e5dbaecc017f7e8a7b0d36b8efed5b07ccfc6816aec36d0f"
+    }
+  ],
+  "acquired": "2026-09-30",
+  "creator_tool": "Adobe InDesign 20.2 (Windows)"
+}

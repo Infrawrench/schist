@@ -21,6 +21,7 @@ use schist_video as video;
 mod backers;
 mod color_picker;
 mod curve_editor;
+pub mod design;
 mod dialogs;
 mod export_recipes;
 mod gallery;

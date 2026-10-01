@@ -29,6 +29,10 @@ crates/app              entry points, plugin assembly, application/window startu
 ├── crates/adjustments  adjustment parameters, PSD payloads, LUT compilation
 ├── crates/vector       path building, Bézier flattening, AA rasterization
 ├── crates/text-engine  font discovery, layout, glyph rasterization
+├── crates/layout      page layout: pages, spreads, frames, stories, styles, grids, undo
+│                     plus `pasteboard`, the pure display plan Design Mode paints
+├── crates/codec-idml  IDML interchange: the OPC/UCF package and its part index
+├── crates/separation  print separation, prepress PDF, halftoning, trapping
 ├── crates/colormgmt    ICC profiles, display transforms, dithering
 ├── crates/codec-psd    PSD/PSB reader and writer
 ├── crates/codec-raw    camera raw decoding and development, clean-room pure Rust
@@ -231,3 +235,5 @@ Plugins are WebAssembly modules loaded by `wasmtime` with exactly one host
 import (`schist::log`) and a fuel budget. No filesystem, no network, no
 clock, no randomness: isolation comes from what the sandbox lacks. See
 [plugin-guide.md](plugin-guide.md).
+
+Design Mode's phase status and gating live in the [roadmap](roadmap.md).

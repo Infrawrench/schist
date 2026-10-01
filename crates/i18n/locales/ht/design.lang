@@ -1,0 +1,483 @@
+# Mode Dizayn: editè paj la.
+#
+# Yon kòp separe ak editè foto a, ak pwòp tèm pa. "Paj" isit la se paj
+# dokiman an, se pa yon navigatè fichye; "kad" se kad tèks ak kad grafik;
+# "plan tablo" se sifik ki paj la kanpe sou li, se pa yon presspapye.
+# Rete yo tout nan yon sèl fichye fè sa klè lè yon chak nouvo te envante
+# olye li te pran nan editè foto a, se erè ki fè de mwat yon aplikasyon
+# pale nan yon lòt.
+
+# Bascoul mòd la
+design.mode = Dizayn
+design.mode_hint = Layout
+design.photo_mode = Foto
+design.photo_mode_hint = Imaj
+design.switch_to_design = Bascoul nan mòd Dizayn
+design.switch_to_photo = Bascoul nan mòd Foto
+design.mode_locked = Mòd Dizayn pa aktive nan vèsyon sa a.
+
+# Plan tablo a
+design.pasteboard = Plan tablo
+design.pasteboard.hint = Zòn nan toutou paj la
+design.spread = Egzisyon
+design.single_page = Paj Inik
+design.spread_view = Afiche egzisyon
+design.single_page_view = Afiche paj inik
+design.fit_page = Ajiste paj la
+design.actual_size = Gwosè Reyèl
+design.show_marks = Montre mak yo
+design.show_bleed = Montre plis la
+design.show_margins = Montre maj yo
+design.show_columns = Montre kolòn yo
+design.show_baseline_grid = Montre griy baz la
+design.show_parents = Montre atik paran yo
+design.page = Paj
+design.no_pages = Dokiman sa a pa gen paj ankò.
+
+# Kad ak objè
+design.frame = Kadr
+design.text_frame = Kadr tèks
+design.graphic_frame = Kadr grafik
+design.empty_frame = Kadr tèks vid
+design.missing_link = Lyen manke
+design.embedded = Enbarke
+design.linked = Lyen
+design.placeholder = Espas rezève
+design.select_tool = Zouti seleksyon
+design.hand_tool = Zouti men
+design.zoom_tool = Zouti zoum
+
+# Panèy Paj yo
+design.pages = Paj
+design.page_number = Nimewo
+design.page_count = {count} paj
+design.spreads = Egzisyon
+design.page_options = Opsyon paj
+design.master = Manitè
+design.parent_page = Paj paran
+design.no_parent = Okenn
+design.apply_to = Aplike sou
+
+# Defe ak istorik
+design.undo = Defè
+design.redo = Refè
+design.moved_object = Deplase objè
+design.object_locked = {name} ye vwouye
+design.object_locked_hint = Debloke l pou kapab deplace l.
+
+# Mesaj
+design.saved = Dokiman layout anrejistre
+design.no_file_format = Vèsyon sa a pa ka anrejistre dokiman layout yo ankò.
+design.imported = Opened {name}
+design.imported_with_warnings = Opened {name}; {count} unread
+design.blank_document = Nouvo Dokiman Layout
+design.document_size = Gwosè paj {width} × {height}
+
+design.stories = Stories
+design.story_count = {count} stories
+design.story_number = Story {number}
+design.on_a_frame = On a frame
+design.overflowed = Overflowed
+design.empty_story = (empty)
+design.editing_story = Editing
+design.links = Links
+design.link_count = {count} links
+design.missing_link_count = {count} missing
+design.link_on_page = Page {number}
+design.swatches = Swatches
+design.ink_count = {count} inks
+design.spot_ink_count = {count} spot
+design.spot = Spot
+
+design.styles = Styles
+design.paragraph_styles = Paragraph Styles
+design.character_styles = Character Styles
+design.inherited = Inherited
+
+# Preflight (English placeholders pending translation)
+design.preflight = Preflight
+design.preflight_run = Check page
+design.preflight_running = Checking page…
+design.preflight_stale = Page changed; check again
+design.preflight_not_run = Page not checked
+design.preflight_no_findings = No findings
+design.preflight_counts = Errors: {errors}; warnings: {warnings}
+design.preflight_preview = Coverage preview: {dpi} dpi
+design.preflight_error = Error
+design.preflight_warning = Warning
+design.preflight_info = Info
+design.preflight_missing_link = Missing link: {path}
+design.preflight_unavailable_graphic = Unavailable graphic: {path}
+design.preflight_coverage_exceeded = Ink: {percent}% > {limit}%; {pixels} pixels
+design.preflight_coverage_peak = Peak ink coverage: {percent}%
+
+# Ruler units (English placeholders pending translation)
+design.ruler_mm = mm
+design.ruler_pt = pt
+design.ruler_in = in
+design.ruler_unit_hint = Click to change ruler units
+
+# Layout layers and page management
+design.layers = Layout Layers
+design.layer_number = Layer {number}
+design.layer_page = Page {page}
+design.hide = Hide
+design.show = Show
+design.lock = Lock
+design.unlock = Unlock
+design.raise = Raise
+design.lower = Lower
+design.move_selection_here = Move selection here
+design.parent_items = Parent items
+design.new_layer = New layer
+design.add_page = Add page
+design.remove_page = Remove page
+design.change_parent = Change parent
+
+design.command_unavailable = Unavailable in Design Mode
+design.history_edit = Layout edit
+
+# Layout controls and named typography
+design.control = Control
+design.character = Character
+design.paragraph = Paragraph
+design.position_x = X
+design.position_y = Y
+design.width = Width
+design.height = Height
+design.columns = Columns
+design.gutter = Gutter
+design.inset = Inset
+design.control_units = Dimensions in points
+design.point_size = Size (pt)
+design.leading = Leading (pt)
+design.tracking = Tracking (pt) (1/1000 em)
+design.space_before = Space before (pt)
+design.space_after = Space after (pt)
+design.indent_left = Left indent (pt)
+design.indent_right = Right indent (pt)
+design.indent_first = First line (pt)
+design.font_family = Font family
+design.style_name = Style name
+design.apply_style = Apply style
+design.new_style = New style
+design.style_number = Style {number}
+design.named_style_hint = Edits this named style
+design.align_left = Left
+design.align_center = Centre
+design.align_right = Right
+design.justify = Justify
+design.bold = Bold
+design.italic = Italic
+design.underline = Underline
+
+design.idml_style_limits = Advanced style properties: partial IDML support
+
+design.place_graphic = Place graphic…
+design.import_graphic_pages = Import images as pages…
+design.refresh_links = Refresh links
+design.relink = Relink…
+design.graphic_invalid = Invalid decoded image
+design.graphic_unresolved = Cannot resolve this link
+design.graphic_target_changed = Layout changed; repeat placement
+design.graphic_load_failed = Cannot load graphic: {error}
+design.graphics_loading = Loading artwork…
+design.graphics_ready = Artwork ready
+
+design.idml_embedded_invalid = Invalid embedded image data
+design.idml_embedded_unavailable = Embedded image bytes are unavailable
+design.idml_image_transform = Invalid image geometry or transform
+design.idml_graphic_unwritten = Cannot export graphic: {name}
+design.idml_even_odd = {name}: even-odd fill unsupported
+design.unavailable_link = Unavailable
+design.unavailable_link_count = {count} unavailable
+design.idml_bad_thread = Broken or cyclic text thread
+design.story_editor = Story Editor
+design.story_edit_refused = Locked story or protected structure
+design.story_session_closed = This document is no longer open
+design.story_window_failed = Cannot open Story Editor: {error}
+design.story_frame_range = Page {page}: In {start} · Out {end}
+design.thread_to_frame = Thread to frame
+design.choose_empty_frame = Choose an empty text frame
+design.detach_frame = Detach frame; keep story text
+design.unplaced_story = No frame
+
+design.guides = Guides
+design.snap_guides = Snap
+
+design.idml_color_unread = Unsupported color: {name}
+design.idml_registration = Registration converted to CMYK: {name}
+design.idml_group_flattened = Group imported as individual objects
+design.idml_clipped_group = Clipped group contents are unsupported
+design.idml_frame_transform = Frame affine is partially supported
+design.package_too_large = Package exceeds 512 MB
+design.output_invalid = Invalid output settings or page geometry
+design.output_no_pages = No visible pages to export
+design.output_too_large = Output exceeds memory limit; lower resolution
+design.output_preflight = Page {page}: {errors}
+design.output_failed = Output failed: {error}
+design.output_title = Design output
+design.export_pdf = Export PDF…
+design.package = Package IDML…
+design.output_resolution = Resolution: {dpi} dpi
+design.output_up = {count} pages per sheet
+design.output_marks = Crop and registration marks
+design.output_hidden = Include hidden pages
+design.output_profile = Choose CMYK profile…
+design.output_preview = RGB conversion: preview quality
+design.output_profile_name = CMYK profile: {name}
+design.output_busy = Preparing output…
+design.output_saved = Exported: {path}
+design.output_snapshot = Exports the document at export time
+design.output_package_note = IDML, original links, and font manifest
+design.layout_unreadable = Cannot read this layout file
+design.save_target_changed = Save target changed; try again
+design.preflight_overset = Overset text: {name}
+
+design.idml_invalid_page_offsets = Invalid bleed or slug offsets
+design.idml_number_style = Unsupported page numbering replaced with Arabic
+design.idml_per_page_offsets = Bleed and slug expanded document-wide
+design.idml_number_start = Page number start exceeds IDML limits
+
+design.page_setup_points = Page setup (points)
+design.margin_top = Top margin
+design.margin_right = Right margin
+design.margin_bottom = Bottom margin
+design.margin_left = Left margin
+design.number_start = Start numbering at
+design.number_prefix = Number prefix
+
+design.preflight_low_resolution = {name}: effective resolution {dpi} dpi
+design.preflight_missing_font = Missing font: {name}
+
+design.output_page_warning = Page {page}: {message}
+
+design.preflight_ink_conflict = Conflicting ink name: {name}
+
+design.imported_style = Imported style
+
+design.idml_local_styles = Local formatting becomes named styles
+
+design.idml_story_structure = Unsupported story structure omitted
+
+design.idml_structural_line_break = Standalone line break becomes empty paragraph
+
+design.idml_page_parity = Page parity becomes ordinary page break
+
+design.preflight_transform = Invalid frame transform: {name}
+
+# IDML diagnostics
+design.idml_unlisted_parts = {count} unlisted parts: {parts}
+design.idml_unreadable_xml = Unreadable XML: {part}
+design.idml_missing_element = {part} has no {element} element
+design.idml_page_geometry = Page geometry unavailable
+design.idml_missing_story = Frame references missing story: {story}
+design.idml_unsupported_frame = Unsupported frame: {kind}
+design.idml_frame_geometry = Unreadable frame geometry: {kind}
+design.idml_unknown_parent = Page references unknown parent: {parent}
+design.idml_group_unwritten = Group omitted: {name}, {count} children
+design.idml_fonts_unembedded = {count} fonts referenced, not embedded
+
+design.idml_parent_cycle = Cyclic parent hierarchy
+design.idml_parent_override = Unknown parent override: {item}
+design.idml_page_visibility = Page visibility retained in Schist only
+
+design.section_numbering = Section numbering
+design.section_start_here = Start section here
+design.section_remove = Remove section
+design.section_name = Section name
+design.section_marker = Section marker
+design.section_continue = Continue previous numbering
+design.section_restart = Restart numbering
+design.section_show_prefix = Show section prefix
+design.section_hide_prefix = Hide section prefix
+design.idml_invalid_section = Invalid numbering section
+design.idml_alternate_sections = Alternate layout sections unsupported
+
+design.bleed_top_all = Top bleed (all pages)
+design.bleed_bottom_all = Bottom bleed (all pages)
+design.bleed_inside_all = Inside/left bleed (all pages)
+design.bleed_outside_all = Outside/right bleed (all pages)
+design.slug_top_all = Top slug from trim (all pages)
+design.slug_bottom_all = Bottom slug from trim (all pages)
+design.slug_inside_all = Inside/left slug (all pages)
+design.slug_outside_all = Outside/right slug (all pages)
+
+# Direct ink tint controls and IDML validation
+design.fill_tint = Fill tint (%)
+design.stroke_tint = Stroke tint (%)
+design.idml_tint_invalid = Ignored invalid {property}: {value}
+design.strikethrough = Strikethrough
+
+design.baseline_shift = Baseline shift (pt)
+design.unsupported_text_position = Unsupported text position
+design.idml_position_unsupported = Unsupported text position: {value}
+design.idml_baseline_invalid = Invalid baseline shift: {value}
+
+# Named tint swatches
+design.new_tint = New tint swatch
+design.tint_value = Tint (%)
+
+# Automatic text positions
+design.text_position = Text position
+design.position_normal = Normal
+design.position_superscript = Superscript
+design.position_subscript = Subscript
+design.text_preferences = Document text preferences
+design.superscript_size = Superscript size (%)
+design.superscript_position = Superscript position (leading %)
+design.subscript_size = Subscript size (%)
+design.subscript_position = Subscript position (leading %)
+design.idml_text_preference_invalid = Invalid {property}: {value}
+
+# OpenType feature controls and native interchange
+
+design.opentype_features = OpenType features (liga=1, dlig=0)
+design.opentype_hint = Empty inherits; 0 disables, 1 enables
+design.idml_feature_invalid = Invalid OpenType setting: {property}={value}
+design.idml_feature_unsupported = Unsupported OpenType setting: {property}={value}
+design.idml_features_private = Custom features require Schist: {features}
+
+# Explicit and automatic leading
+
+design.leading_value = Leading (pt or Auto)
+design.leading_auto = Auto
+design.auto_leading_percent = Automatic leading (%)
+design.idml_leading_invalid = Invalid leading setting: {property}={value}
+
+design.font_style = Font style
+design.preflight_missing_font_style = Missing font: {family}, {style}
+
+design.idml_object_style_limits = Object style {name}: unsupported categories
+design.idml_object_style_missing = Missing object style: {name}
+design.idml_object_style_cycle = Object style cycle: {name}
+
+design.stroke_width = Stroke width
+design.frame_fill = Frame fill
+design.frame_stroke = Frame stroke
+design.no_paint = No paint
+design.mixed_paint = Mixed paints
+design.object_styles = Object styles
+design.based_on = Based on
+design.style_category_off = Disabled
+design.style_category_on = Enabled
+design.style_fill_category = Fill category
+design.style_stroke_category = Stroke category
+design.knockout = Knockout
+design.overprint = Overprint
+design.apply_clear_style = Apply style; clear enabled overrides
+design.detach_object_style = Detach style; keep paint
+design.idml_object_paint_invalid = Invalid frame paint: {property}
+design.idml_curved_text_flow = {name}: rectangular text composition
+
+design.text_fill = Text fill
+design.text_stroke = Text stroke
+design.idml_text_stroke_invalid = Invalid text stroke: {value}
+design.idml_text_stroke_option = Unsupported text stroke: {property}
+design.text_stroke_outside = Stroke outside text
+design.overprint_fill = Overprint text fill
+design.overprint_stroke = Overprint text stroke
+design.enabled = Enabled
+design.disabled = Disabled
+
+design.idml_decoration_invalid = Invalid decoration {property}: {value}
+design.idml_decoration_unsupported = Unsupported decoration: {property}
+design.decoration_text_color = Text color
+design.decoration_color = Line color
+design.decoration_weight = Line weight
+design.decoration_offset = Line offset
+design.decoration_tint = Line tint (%)
+design.decoration_dimensions = Points, Auto or blank inheritance
+
+# Text outline joins
+design.text_stroke_join = Text stroke join
+design.text_miter_limit = Miter limit
+design.join_miter = Miter
+design.join_round = Round
+design.join_bevel = Bevel
+
+# Mode-dependent CJK features
+design.cjk_kana_forms = Kana forms by writing mode
+design.cjk_proportional_metrics = Proportional CJK metrics
+
+design.capitalization = Capitalization
+design.caps_normal = Normal case
+design.caps_all = All caps
+design.caps_small = Small caps
+design.caps_all_small = OpenType all small caps
+design.partial_inheritance = Partial inheritance
+design.small_cap_size = Small cap size (%)
+design.idml_caps_invalid = Unsupported capitalization: {value}
+design.idml_caps_private = Partial capitalization needs Schist metadata
+
+design.decoration_pattern = Line pattern
+design.decoration_solid = Solid
+design.decoration_striped = Striped line
+design.stripe_edges = Stripe edges (%)
+design.decoration_gap_color = Gap color
+design.decoration_gap_tint = Gap tint (%)
+design.decoration_gap_overprint = Gap overprint
+
+design.decoration_dashed = Dashed line
+design.dash_lengths = Dash/gap lengths (pt)
+
+design.dash_cap = Dash cap
+design.cap_butt = Butt
+design.cap_round = Round
+design.cap_projecting = Projecting
+
+design.decoration_dotted = Dotted line
+design.dot_spacing = Dot center spacing (pt)
+
+design.decoration_fitting = Fit to line ends
+design.decoration_fit_none = Keep pattern lengths
+design.decoration_fit_dashes = Adjust dashes
+design.decoration_fit_gaps = Adjust gaps
+design.decoration_fit_both = Adjust dashes and gaps
+
+design.idml_language_invalid = Invalid IDML language resource: {value}
+design.idml_language_unresolved = Unresolved language: {value}
+design.idml_language_private = Native language unavailable: {value}
+design.language = Language (BCP 47)
+design.language_help = Blank inherits; und uses default shaping
+
+design.idml_text_path_unsupported = Unsupported text path setting: {value}
+design.idml_text_path_invalid = Invalid text path geometry or brackets
+design.text_on_path = Text on path
+design.path_start = Path start
+design.path_end = Path end
+design.path_end_help = Blank end follows the curve
+design.idml_list_unsupported = Unsupported or invalid list setting: {value}
+design.idml_list_implicit_tabs = Lists without explicit tab stops use the hanging indent, then Schist's 36 pt tab interval.
+design.list_type = List
+design.list_none = No list
+design.list_bullets = Bullets
+design.list_numbers = Numbers
+design.list_bullet = Bullet character
+design.list_start = Start at
+design.list_expression = Number expression
+design.list_tab = List tab (pt)
+design.list_continue = Continue numbering
+design.list_restart = Restart numbering
+design.list_hint = Blank fields inherit. Use ^# for the number and a final ^t for a tab. Left and first-line indents position the marker.
+
+# UNTRANSLATED PLACEHOLDER
+design.list_format = Number format
+design.list_decimal = 1, 2, 3
+design.list_roman_upper = I, II, III
+design.list_roman_lower = i, ii, iii
+design.list_letters_upper = A, B, C
+design.list_letters_lower = a, b, c
+design.list_zero_one = 01, 02, 03
+design.list_zero_two = 001, 002, 003
+design.list_zero_three = 0001, 0002, 0003
+design.list_no_number = No number
+
+design.list_level = List level
+design.list_restart_policy = Level restart
+design.list_restart_higher = Restart after higher levels
+design.list_keep_level = Continue this level
+
+design.idml_tabs_unsupported = Unsupported paragraph tab setting: {value}
+design.idml_tabs_implicit = Implicit tabs use Schist’s 36-point interval.
+design.paragraph_tabs = Paragraph tabs (pt)

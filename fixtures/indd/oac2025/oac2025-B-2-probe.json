@@ -1,0 +1,28 @@
+{
+  "sha256": "cf1e91a9f45236135313cc91de5d801d60588ca026737c30620c58d3c59cdf2a",
+  "bytes": 2105344,
+  "master_sequences": [
+    7,
+    6
+  ],
+  "active_master": 0,
+  "stream_endian": "little",
+  "database_pages": 438,
+  "contiguous_start": 1794048,
+  "objects": [
+    {
+      "offset": 1794048,
+      "uid": 2147483649,
+      "class_id": "0xc0000000",
+      "bytes": 309922,
+      "checksum": "0xf0d053d2",
+      "zlib_at": [],
+      "xmp_bytes": 309918,
+      "creator_tools": [
+        "Adobe InDesign 19.5 (Macintosh)"
+      ]
+    }
+  ],
+  "trailing_bytes": 1310,
+  "trailing_nonzero_bytes": 0
+}
