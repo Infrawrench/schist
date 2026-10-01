@@ -161,9 +161,13 @@ impl ParentObject {
 /// Anything that can sit on a page.
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub enum LayoutObject {
-    /// A box of flowing text.
+    /// A box of flowing text, or one bounded baseline when `text_path` is set.
     TextFrame {
         story: StoryId,
+        /// A single path container shares the story/thread model with boxes.
+        /// Columns, gutters and insets apply only to rectangular frames.
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        text_path: Option<crate::text_path::PathText>,
         /// Column count, 1 for a single-column frame.
         columns: u16,
         /// Space between columns.
@@ -218,6 +222,29 @@ pub enum LayoutObject {
 }
 
 impl LayoutObject {
+    /// Geometry editable by Design's anchor tools, excluding synthetic frame paint.
+    pub fn editable_path(&self) -> Option<&ShapePath> {
+        match self {
+            Self::Shape { path, .. } => Some(path),
+            Self::TextFrame {
+                text_path: Some(path),
+                ..
+            } => Some(&path.path),
+            _ => None,
+        }
+    }
+
+    pub fn editable_path_mut(&mut self) -> Option<&mut ShapePath> {
+        match self {
+            Self::Shape { path, .. } => Some(path),
+            Self::TextFrame {
+                text_path: Some(path),
+                ..
+            } => Some(&mut path.path),
+            _ => None,
+        }
+    }
+
     /// The inset content area of a text frame, given its bounds.
     ///
     /// Only text frames have margins. Every other kind of frame's content
@@ -225,7 +252,11 @@ impl LayoutObject {
     /// unchanged for them rather than a zero rect.
     pub fn content_bounds(&self, bounds: Rect) -> Rect {
         match self {
-            LayoutObject::TextFrame { insets, .. } => bounds.inset(*insets),
+            LayoutObject::TextFrame {
+                insets,
+                text_path: None,
+                ..
+            } => bounds.inset(*insets),
             _ => bounds,
         }
     }
@@ -242,6 +273,8 @@ impl LayoutObject {
 /// same object without duplicating its position.
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct PlacedObject {
+    #[serde(default)]
+    pub appearance: crate::object_styles::ObjectAppearance,
     pub id: ObjectId,
     /// The page this object sits on, 0-based. A parent page's own
     /// objects are not in `LayoutDocument::objects`; they are in
@@ -304,7 +337,9 @@ impl PlacedObject {
             }
             _ => self.bounds,
         };
-        crate::affine::bounds(self.content_transform(), bounds)
+        let bounds = crate::affine::bounds(self.content_transform(), bounds);
+        self.frame_paint(true)
+            .map_or(bounds, |stroke| bounds.union(stroke.paint_bounds()))
     }
 
     /// Move rendered artwork to another page coordinate system without changing
@@ -392,6 +427,35 @@ impl Default for LayoutDocument {
 }
 
 impl LayoutDocument {
+    /// Native stroke resources and inline decoration definitions, deduplicated.
+    pub fn all_decoration_strokes(&self) -> Vec<crate::decorations::DecorationStroke> {
+        let mut strokes = Vec::new();
+        for stroke in &self.styles.strokes {
+            if !strokes.contains(stroke) {
+                strokes.push(stroke.clone());
+            }
+        }
+        for style in self
+            .styles
+            .paragraphs
+            .iter()
+            .flat_map(|s| [&s.underline_style, &s.strike_style])
+            .chain(
+                self.styles
+                    .characters
+                    .iter()
+                    .flat_map(|s| [&s.underline_style, &s.strike_style]),
+            )
+        {
+            if let Some(stroke) = &style.stroke {
+                if !strokes.contains(stroke) {
+                    strokes.push(stroke.clone());
+                }
+            }
+        }
+        strokes
+    }
+
     /// Resource and inline ink definitions needed by interchange and output.
     /// Shape and character paints need not be registered as named swatches.
     pub fn all_inks(&self) -> Vec<Ink> {
@@ -406,16 +470,60 @@ impl LayoutDocument {
         for style in &self.styles.paragraphs {
             add(&style.fill);
             add(&style.stroke);
+            add(&style
+                .underline_style
+                .paint
+                .as_ref()
+                .and_then(crate::decorations::DecorationPaint::ink)
+                .cloned());
+            add(&style
+                .strike_style
+                .paint
+                .as_ref()
+                .and_then(crate::decorations::DecorationPaint::ink)
+                .cloned());
+            for decoration in [&style.underline_style, &style.strike_style] {
+                add(&decoration
+                    .gap_paint
+                    .as_ref()
+                    .and_then(crate::decorations::DecorationPaint::ink)
+                    .cloned());
+            }
         }
         for style in &self.styles.characters {
             add(&style.fill);
             add(&style.stroke);
+            add(&style
+                .underline_style
+                .paint
+                .as_ref()
+                .and_then(crate::decorations::DecorationPaint::ink)
+                .cloned());
+            add(&style
+                .strike_style
+                .paint
+                .as_ref()
+                .and_then(crate::decorations::DecorationPaint::ink)
+                .cloned());
+            for decoration in [&style.underline_style, &style.strike_style] {
+                add(&decoration
+                    .gap_paint
+                    .as_ref()
+                    .and_then(crate::decorations::DecorationPaint::ink)
+                    .cloned());
+            }
+        }
+        for style in &self.styles.objects {
+            add(&style.paint.fill_ink().cloned());
+            add(&style.paint.stroke_ink().cloned());
         }
         for object in self.objects.iter().chain(
             self.parents
                 .iter()
                 .flat_map(|p| p.objects.iter().map(|o| &o.object)),
         ) {
+            add(&object.appearance.paint.fill_ink().cloned());
+            add(&object.appearance.paint.stroke_ink().cloned());
             if let LayoutObject::Shape { fill, stroke, .. } = &object.object {
                 add(fill);
                 add(stroke);
@@ -534,6 +642,13 @@ impl LayoutDocument {
         // Stable sorting preserves each layer's own object order.
         let order = self.paint_order();
         out.sort_by_key(|o| order[&o.id]);
+        for object in &mut out {
+            if object.appearance.style.is_some()
+                || object.appearance.paint != crate::ObjectPaint::default()
+            {
+                *object = std::borrow::Cow::Owned(object.resolved_appearance(&self.styles));
+            }
+        }
         out
     }
 
@@ -597,14 +712,71 @@ impl LayoutDocument {
                     out.push(object);
                 } else {
                     let placed = object.translated_artwork(offset);
-                    let bounds = if let LayoutObject::TextFrame { story, .. } = &placed.object {
+                    let bounds = if let LayoutObject::TextFrame {
+                        story, text_path, ..
+                    } = &placed.object
+                    {
                         // Offsets can move ink across the gutter while the frame
                         // stays on its source page. Expand in local axes before
                         // rotation/shear, conservatively covering mixed modes.
-                        let padding = *text_padding
+                        let mut padding = *text_padding
                             .entry(*story)
                             .or_insert_with(|| self.story_baseline_extent(*story));
-                        let r = placed.bounds;
+                        let mut r = placed.bounds;
+                        let has_lists = self.story(*story).is_some_and(|story| {
+                            story.points.iter().any(|point| {
+                                let crate::StoryPoint::Paragraph { style, .. } = point else {
+                                    return false;
+                                };
+                                matches!(
+                                    self.styles.resolve_paragraph(style).list.kind,
+                                    Some(
+                                        crate::lists::ListKind::Bullet
+                                            | crate::lists::ListKind::Numbered
+                                    )
+                                )
+                            })
+                        });
+                        if text_path.is_some() || has_lists {
+                            let path_padding = padding;
+                            // A baseline has no ascent/descent box. Include the
+                            // actually rotated glyph outlines before the object
+                            // affine, without allocating any coverage bitmaps.
+                            if let (Some(flow), Some(story)) = (
+                                crate::compose::compose_object(self, &object),
+                                self.story(*story),
+                            ) {
+                                for line in &flow.lines {
+                                    if text_path.is_none() && line.generated.is_none() {
+                                        continue;
+                                    }
+                                    let metrics = schist_text_engine::measure(
+                                        &crate::compose::line_spec(line, story, self),
+                                    );
+                                    // Decorations bend around baseline corners with a
+                                    // four-offset miter bound. Nominal line height also
+                                    // covers font-derived automatic offsets/weights,
+                                    // including spaces that have no glyph outline.
+                                    if let Some(metrics) = &metrics {
+                                        padding =
+                                            padding.max(4.0 * (path_padding + metrics.height));
+                                    }
+                                    if let Some([left, top, right, bottom]) =
+                                        metrics.and_then(|m| m.ink_bounds)
+                                    {
+                                        r = r.union(
+                                            Rect::new(
+                                                left - 1.0,
+                                                top - 1.0,
+                                                right - left + 2.0,
+                                                bottom - top + 2.0,
+                                            )
+                                            .translated(line.bounds.origin()),
+                                        );
+                                    }
+                                }
+                            }
+                        }
                         crate::affine::bounds(
                             placed.content_transform(),
                             Rect::new(
@@ -614,6 +786,7 @@ impl LayoutDocument {
                                 r.height + 2.0 * padding,
                             ),
                         )
+                        .union(placed.paint_bounds())
                     } else {
                         placed.paint_bounds()
                     };
@@ -628,7 +801,7 @@ impl LayoutDocument {
         out
     }
 
-    /// Largest supported cross-axis displacement referenced by this story.
+    /// Largest supported ink displacement referenced by this story.
     /// Cached per story by page_artwork. Resolving run styles/font metrics does
     /// not shape text. Includes scripts, explicit offsets and nominal cells
     /// extending before the frame under tight absolute leading.
@@ -678,6 +851,18 @@ impl LayoutDocument {
                                 .filter(|size| run.size.unwrap_or(spec.size) > *size)
                                 .map(|_| natural(run.size.unwrap_or(spec.size)))
                                 .unwrap_or(0.0);
+                            let caps_growth = if run.capitalization
+                                == Some(schist_text_engine::Capitalization::SmallCaps)
+                            {
+                                run.small_cap_scale
+                                    .filter(|scale| {
+                                        scale.is_finite() && *scale > 1.0 && *scale <= 2.0
+                                    })
+                                    .map(|scale| natural(run.size.unwrap_or(spec.size) * scale))
+                                    .unwrap_or(0.0)
+                            } else {
+                                0.0
+                            };
                             let tight = run
                                 .leading
                                 .or(spec.leading)
@@ -688,7 +873,32 @@ impl LayoutDocument {
                                         .max(0.0)
                                 })
                                 .unwrap_or(0.0);
-                            offset + growth + tight
+                            // Miter limit bounds sharp glyph corners; stroke points
+                            // do not change line advance, but may cross the gutter.
+                            let stroke = run
+                                .stroke
+                                .map_or(0.0, schist_text_engine::TextStroke::extent);
+                            let decoration =
+                                [run.underline_style.clone(), run.strike_style.clone()]
+                                    .into_iter()
+                                    .enumerate()
+                                    .filter_map(|(index, d)| d.map(|d| (index, d)))
+                                    .map(|(index, d)| {
+                                        let weight = d.weight.unwrap_or_else(|| {
+                                            if d.pattern.cap_extension(1.0) > 0.0 {
+                                                schist_text_engine::automatic_decoration_weight(
+                                                    &spec,
+                                                    run.start,
+                                                    index == 1,
+                                                )
+                                            } else {
+                                                0.0
+                                            }
+                                        });
+                                        d.offset.unwrap_or(0.0).abs() + weight.max(0.0)
+                                    })
+                                    .fold(0.0, f32::max);
+                            offset + growth + caps_growth + tight + stroke + decoration
                         })
                         .fold(0.0, f32::max),
                 )
@@ -806,10 +1016,12 @@ mod tests {
 
     fn text_frame(page: usize, rect: Rect) -> PlacedObject {
         PlacedObject {
+            appearance: Default::default(),
             id: ObjectId::next(),
             page,
             bounds: rect,
             object: LayoutObject::TextFrame {
+                text_path: None,
                 story: StoryId(0),
                 columns: 1,
                 gutter: 0.0,
@@ -878,6 +1090,7 @@ mod tests {
     #[test]
     fn text_frame_insets_shrink_only_the_content_area() {
         let frame = LayoutObject::TextFrame {
+            text_path: None,
             story: StoryId(0),
             columns: 1,
             gutter: 0.0,

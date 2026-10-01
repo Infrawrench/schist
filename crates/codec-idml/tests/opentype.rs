@@ -194,13 +194,13 @@ fn invalid_native_features_report_each_property_without_poisoning_valid_values()
         );
     }
     let read = document_with_styles(
-        r#"<CharacterStyle Self="c" Name="Test" OTFHVKana="true" OTFProportionalMetrics="true"/>"#,
+        r#"<CharacterStyle Self="c" Name="Test" OTFHVKana="invalid" OTFProportionalMetrics="invalid"/>"#,
     );
     assert_eq!(
         read.report
             .skipped
             .iter()
-            .filter(|s| s.contains("Unsupported OpenType"))
+            .filter(|s| s.contains("invalid"))
             .count(),
         2
     );
@@ -236,5 +236,183 @@ fn real_native_feature_defaults_and_local_resets_remain_stable_without_style_gro
                 );
             }
         }
+    }
+}
+
+#[test]
+fn native_directional_features_preserve_inheritance_and_explicit_resets_through_saves() {
+    use schist_layout::{directional_features::DirectionalFeatures, ParagraphStyle};
+    for kana in [None, Some(false), Some(true)] {
+        for proportional_metrics in [None, Some(false), Some(true)] {
+            let mut doc = schist_layout::blank_a4();
+            let value = DirectionalFeatures {
+                kana,
+                proportional_metrics,
+            };
+            doc.styles.add_paragraph(ParagraphStyle {
+                name: "Base".into(),
+                directional_features: value,
+                ..Default::default()
+            });
+            doc.styles.add_paragraph(ParagraphStyle {
+                name: "Child".into(),
+                based_on: Some("Base".into()),
+                directional_features: DirectionalFeatures {
+                    kana: Some(false),
+                    ..Default::default()
+                },
+                ..Default::default()
+            });
+            doc.styles.add_character(CharacterStyle {
+                name: "Base".into(),
+                directional_features: value,
+                ..Default::default()
+            });
+            doc.styles.add_character(CharacterStyle {
+                name: "Child".into(),
+                based_on: Some("Base".into()),
+                directional_features: DirectionalFeatures {
+                    proportional_metrics: Some(false),
+                    ..Default::default()
+                },
+                ..Default::default()
+            });
+            let expected = doc.styles.clone();
+            for _ in 0..4 {
+                let written = export::write(&doc);
+                assert!(!written
+                    .warnings
+                    .iter()
+                    .any(|w| w.contains("Custom features")));
+                let read = import::read(&written.bytes).unwrap();
+                assert!(!read.report.skipped.iter().any(|w| w.contains("OpenType")));
+                doc = read.document;
+                for name in ["Base", "Child"] {
+                    assert_eq!(doc.styles.paragraph(name), expected.paragraph(name));
+                    assert_eq!(doc.styles.character(name), expected.character(name));
+                }
+                assert_eq!(
+                    doc.styles.resolve_paragraph("Child").directional_features,
+                    DirectionalFeatures {
+                        kana: Some(false),
+                        proportional_metrics
+                    }
+                );
+                assert_eq!(
+                    doc.styles.resolve_character("Child").directional_features,
+                    DirectionalFeatures {
+                        kana,
+                        proportional_metrics: Some(false)
+                    }
+                );
+            }
+        }
+    }
+}
+
+#[test]
+fn independent_cjk_tag_exceptions_are_reported_and_native_edits_win_per_group() {
+    use schist_layout::directional_features::DirectionalFeatures;
+    for kana in [None, Some(false), Some(true)] {
+        let mut doc = schist_layout::blank_a4();
+        let features = inherited_features(
+            &[
+                ("hkna".into(), false),
+                ("vkna".into(), true),
+                ("palt".into(), true),
+                ("vpal".into(), false),
+                ("liga".into(), true),
+            ],
+            &[],
+        );
+        doc.styles.add_character(CharacterStyle {
+            name: "Exceptions".into(),
+            directional_features: DirectionalFeatures {
+                kana,
+                proportional_metrics: Some(false),
+            },
+            features: features.clone(),
+            ..Default::default()
+        });
+        for _ in 0..4 {
+            let written = export::write(&doc);
+            assert!(written
+                .warnings
+                .iter()
+                .any(|w| w.contains("Custom features") && w.contains("palt")));
+            doc = import::read(&written.bytes).unwrap().document;
+            let style = doc.styles.character("Exceptions").unwrap();
+            assert_eq!(style.features, features);
+            assert_eq!(style.directional_features.kana, kana);
+        }
+        for new_value in [Some("true"), Some("false"), None] {
+            if kana == new_value.map(|value| value == "true") {
+                continue;
+            }
+            let mut package = container::read(&export::write(&doc).bytes).unwrap();
+            let original = package.text("Resources/Styles.xml").unwrap();
+            let replacement = new_value
+                .map(|value| format!(" OTFHVKana=\"{value}\""))
+                .unwrap_or_default();
+            let edited = if let Some(kana) = kana {
+                original.replace(&format!(" OTFHVKana=\"{kana}\""), &replacement)
+            } else {
+                original.replace(
+                    "Name=\"Exceptions\"",
+                    &format!("Name=\"Exceptions\"{replacement}"),
+                )
+            };
+            package.insert("Resources/Styles.xml", edited.into_bytes());
+            let read = import::read(&container::write(&package.into_parts())).unwrap();
+            let style = read.document.styles.character("Exceptions").unwrap();
+            assert_eq!(
+                style.directional_features.kana,
+                new_value.map(|value| value == "true")
+            );
+            assert_eq!(feature(&style.features, "hkna"), None);
+            assert_eq!(feature(&style.features, "vkna"), None);
+            assert_eq!(feature(&style.features, "palt"), Some(true));
+            assert_eq!(feature(&style.features, "vpal"), Some(false));
+            assert_eq!(feature(&style.features, "liga"), Some(true));
+        }
+    }
+}
+
+#[test]
+fn local_native_cjk_flags_lower_to_stable_styles_without_losing_false() {
+    use schist_layout::{authoring, History, Rect};
+    let mut doc = schist_layout::blank_a4();
+    let frame = authoring::text_frame(
+        &mut doc,
+        &mut History::default(),
+        0,
+        Rect::new(20.0, 20.0, 200.0, 100.0),
+    )
+    .unwrap();
+    authoring::set_text(&mut doc, &mut History::default(), frame.story, "かなカナ");
+    let mut parts = container::read(&export::write(&doc).bytes)
+        .unwrap()
+        .into_parts();
+    for (name, content) in &mut parts {
+        if name.starts_with("Stories/") {
+            *content = String::from_utf8(content.clone())
+                .unwrap()
+                .replace(
+                    "<CharacterStyleRange ",
+                    r#"<CharacterStyleRange OTFHVKana="true" OTFProportionalMetrics="false" "#,
+                )
+                .into_bytes();
+        }
+    }
+    doc = import::read(&container::write(&parts)).unwrap().document;
+    let count = doc.styles.characters.len();
+    for _ in 0..4 {
+        let style = doc
+            .styles
+            .resolve_character(&doc.stories[0].ranges[0].style);
+        assert_eq!(style.directional_features.kana, Some(true));
+        assert_eq!(style.directional_features.proportional_metrics, Some(false));
+        doc = import::read(&export::write(&doc).bytes).unwrap().document;
+        assert_eq!(doc.styles.characters.len(), count);
     }
 }

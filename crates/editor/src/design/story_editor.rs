@@ -126,7 +126,14 @@ impl StoryEditor {
             cx.stop_propagation();
             return;
         }
-        match self.edit.key(event, cx) {
+        let result =
+            if !modified && !event.keystroke.modifiers.shift && event.keystroke.key == "tab" {
+                self.edit.insert("\t");
+                ui::LineEditKey::Changed
+            } else {
+                self.edit.key(event, cx)
+            };
+        match result {
             ui::LineEditKey::Changed => {
                 self.marked = None;
                 self.commit(cx);

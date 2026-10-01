@@ -165,6 +165,8 @@ pub struct SpreadSnapshot {
 /// An object, detached from the document.
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct ObjectSnapshot {
+    #[serde(default)]
+    pub appearance: Box<crate::object_styles::ObjectAppearance>,
     pub id: u32,
     pub page: usize,
     pub bounds: [f32; 4],
@@ -389,6 +391,7 @@ mod tests {
 
     fn object(id: u32, name: &str) -> ObjectSnapshot {
         ObjectSnapshot {
+            appearance: Default::default(),
             id,
             page: 0,
             bounds: [0.0, 0.0, 10.0, 10.0],

@@ -1,5 +1,21 @@
 # Translation refresh status
 
+## October 1, 2026: explicit Design Mode translation deferrals
+
+Automatic lists add 13 keys, number-format controls add ten, and level/restart
+controls add four to all 150 catalogs. Paragraph tabs add three more. New Design keys remain
+English placeholders where translations are deferred. Three longer messages,
+`design.idml_list_implicit_tabs`, `design.idml_tabs_implicit` and `design.list_hint`, are declared with
+their exact English source and a reason in
+[`deferred-english.json`](../crates/i18n/deferred-english.json).
+
+The strict audit reports every deferred value. This narrow exception applies
+only while `design-mode` is false in the feature defaults; enabling it or
+changing a declared source string fails the audit. Missing keys, malformed
+placeholders and other structural defects still fail. Eight audit tests cover
+these rules. This replaces shortening useful messages to pass the prose
+threshold; the historical September counts below describe the original catalog.
+
 ## September 29, 2026: Design Mode catalog added
 
 The initial `design.lang` catalog (50 keys) exists for all 149 non-English

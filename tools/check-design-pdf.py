@@ -432,3 +432,239 @@ if len(sys.argv) > 12:
                 expected.paste(light.crop(first),first[:2])
                 assert expected.tobytes()==mixed.tobytes(), (prefix,mode,"font variants leaked across paragraph/range boundaries")
     print("Design PDF: named font faces match whole-style controls in horizontal and both vertical modes, in extracted samples and rendered pages.")
+
+if len(sys.argv) > 13:
+    with tempfile.TemporaryDirectory(prefix="schist-object-style-check-") as temporary:
+        for command, prefix in [("pdfimages", "samples"), ("pdftoppm", "pages")]:
+            args = [command, "-png"]
+            if command == "pdftoppm":
+                args += ["-r", "144"]
+            result = subprocess.run(args + [sys.argv[13], str(Path(temporary)/prefix)],
+                                    check=True, capture_output=True, text=True)
+            assert not result.stderr.strip(), result.stderr
+            files = sorted(Path(temporary).glob(prefix+"-*.png"))
+            assert len(files) == 8
+            for index in range(0, 8, 2):
+                with Image.open(files[index]) as opened:
+                    actual = opened.convert("RGB")
+                with Image.open(files[index+1]) as opened:
+                    expected = opened.convert("RGB")
+                assert actual.size == expected.size == (400,400)
+                assert actual.tobytes() == expected.tobytes(), (prefix,index,"frame paint order differs from independent artwork")
+                assert min(v[0] for v in actual.getextrema()) < 150, (prefix,index,"empty frame proof")
+    print("Design PDF: inherited rectangular and curved text/image frame paints match independent fill/content/stroke objects under affine placement.")
+
+if len(sys.argv) > 14:
+    with tempfile.TemporaryDirectory(prefix="schist-text-stroke-check-") as temporary:
+        for command, prefix in [("pdfimages", "samples"), ("pdftoppm", "pages")]:
+            args = [command, "-png"]
+            if command == "pdftoppm":
+                args += ["-r", "144"]
+            result = subprocess.run(args + [sys.argv[14], str(Path(temporary)/prefix)],
+                                    check=True, capture_output=True, text=True)
+            assert not result.stderr.strip(), result.stderr
+            files = sorted(Path(temporary).glob(prefix+"-*.png"))
+            assert len(files) == 12
+            for index in range(0, 12, 2):
+                with Image.open(files[index]) as opened:
+                    actual = opened.convert("RGB")
+                with Image.open(files[index+1]) as opened:
+                    expected = opened.convert("RGB")
+                assert actual.size == expected.size == (400,400)
+                assert actual.tobytes() == expected.tobytes(), (prefix,index,"text paints differ from independent fill/stroke objects")
+                assert min(v[0] for v in actual.getextrema()) < 150, (prefix,index,"empty text stroke proof")
+    print("Design PDF: centered/outside glyph strokes with miter/round/bevel joins match independent fill/stroke text objects, including spot tints, opacity, overprint, affine placement and both vertical directions.")
+
+if len(sys.argv) > 15:
+    with tempfile.TemporaryDirectory(prefix="schist-custom-decoration-check-") as temporary:
+        for command, prefix in [("pdfimages", "samples"), ("pdftoppm", "pages")]:
+            args = [command, "-png"]
+            if command == "pdftoppm":
+                args += ["-r", "144"]
+            result = subprocess.run(args + [sys.argv[15], str(Path(temporary)/prefix)],
+                                    check=True, capture_output=True, text=True)
+            assert not result.stderr.strip(), result.stderr
+            files = sorted(Path(temporary).glob(prefix+"-*.png"))
+            assert len(files) == 12
+            for index in range(0, 12, 2):
+                with Image.open(files[index]) as opened:
+                    actual = opened.convert("RGB")
+                with Image.open(files[index+1]) as opened:
+                    expected = opened.convert("RGB")
+                assert actual.size == expected.size == (400,400)
+                assert actual.tobytes() == expected.tobytes(), (prefix,index,"decorated text differs from independent underline/fill/strike objects")
+                assert min(v[0] for v in actual.getextrema()) < 150, (prefix,index,"empty custom decoration proof")
+    print("Design PDF: custom underline/strike paints match independent text objects, including spot tints, opacity, overprint, affine placement and both vertical directions.")
+
+if len(sys.argv) > 16:
+    with tempfile.TemporaryDirectory(prefix="schist-cjk-feature-check-") as temporary:
+        for command, prefix in [("pdfimages", "samples"), ("pdftoppm", "pages")]:
+            args = [command, "-png"]
+            if command == "pdftoppm":
+                args += ["-r", "144"]
+            result = subprocess.run(args + [sys.argv[16], str(Path(temporary)/prefix)],
+                                    check=True, capture_output=True, text=True)
+            assert not result.stderr.strip(), result.stderr
+            files = sorted(Path(temporary).glob(prefix+"-*.png"))
+            assert len(files) == 9
+            for index in range(0, 9, 3):
+                images = []
+                for file in files[index:index+3]:
+                    with Image.open(file) as opened:
+                        images.append(opened.convert("RGB"))
+                off, actual, expected = images
+                assert actual.size == expected.size == off.size == (400,400)
+                assert actual.tobytes() == expected.tobytes(), (prefix,index,"directional defaults differ from explicit font features")
+                assert off.tobytes() != actual.tobytes(), (prefix,index,"proportional metrics did not change real glyph placement")
+                assert min(v[0] for v in actual.getextrema()) < 150, (prefix,index,"empty CJK feature proof")
+    print("Design PDF: mode-dependent CJK defaults match explicit OpenType tags, and real horizontal/vertical proportional metrics differ from full-em controls.")
+
+if len(sys.argv) > 17:
+    with tempfile.TemporaryDirectory(prefix="schist-caps-check-") as temporary:
+        for prefix, args in [("samples", ["pdfimages", "-png"]), ("pages", ["pdftoppm", "-r", "144", "-png"])]:
+            result = subprocess.run(args + [sys.argv[17], str(Path(temporary)/prefix)], capture_output=True, text=True)
+            assert result.returncode == 0 and not result.stderr.strip(), result.stderr
+            files = sorted(Path(temporary).glob(prefix + "-*.png"))
+            assert len(files) == 24, (prefix, len(files))
+            for index in range(0, 24, 2):
+                actual = Image.open(files[index]).convert("RGB")
+                expected = Image.open(files[index+1]).convert("RGB")
+                assert actual.size == expected.size == (400,400), (prefix,index,actual.size)
+                assert actual.tobytes() == expected.tobytes(), (prefix,index,"capitalization differs from independent control")
+                assert min(v[0] for v in actual.getextrema()) < 150, (prefix,index,"empty capitalization proof")
+    print("Design PDF: uppercase expansion, native small/all-small caps and synthetic small caps match independently authored glyph/feature controls in all three writing modes.")
+
+if len(sys.argv) > 18:
+    with tempfile.TemporaryDirectory(prefix="schist-striped-decoration-check-") as temporary:
+        for prefix, args in [("samples", ["pdfimages", "-png"]), ("pages", ["pdftoppm", "-r", "144", "-png"])]:
+            result = subprocess.run(args + [sys.argv[18], str(Path(temporary)/prefix)], capture_output=True, text=True)
+            assert result.returncode == 0 and not result.stderr.strip(), result.stderr
+            files = sorted(Path(temporary).glob(prefix + "-*.png"))
+            assert len(files) == 12, (prefix, len(files))
+            for index in range(0, 12, 2):
+                actual = Image.open(files[index]).convert("RGB")
+                expected = Image.open(files[index+1]).convert("RGB")
+                assert actual.size == expected.size == (400,400), (prefix,index,actual.size)
+                assert actual.tobytes() == expected.tobytes(), (prefix,index,"stripes/gaps differ from independent solid bands")
+                assert min(v[0] for v in actual.getextrema()) < 150, (prefix,index,"empty striped decoration proof")
+    print("Design PDF: striped underline/strike and independent gap inks match solid-band text objects, including fractional weights, spot tints, opacity, overprint, affine placement and all writing modes.")
+
+if len(sys.argv) > 19:
+    with tempfile.TemporaryDirectory(prefix="schist-dashed-decoration-check-") as temporary:
+        for prefix, args in [("samples", ["pdfimages", "-png"]), ("pages", ["pdftoppm", "-r", "144", "-png"])]:
+            result = subprocess.run(args + [sys.argv[19], str(Path(temporary)/prefix)], capture_output=True, text=True)
+            assert result.returncode == 0 and not result.stderr.strip(), result.stderr
+            files = sorted(Path(temporary).glob(prefix + "-*.png"))
+            assert len(files) == 12, (prefix, len(files))
+            for index in range(0, 12, 2):
+                actual = Image.open(files[index]).convert("RGB")
+                expected = Image.open(files[index+1]).convert("RGB")
+                assert actual.size == expected.size == (400,400), (prefix,index,actual.size)
+                assert actual.tobytes() == expected.tobytes(), (prefix,index,"dashes/gaps differ from independent solid rectangles")
+                assert min(v[0] for v in actual.getextrema()) < 150, (prefix,index,"empty dashed decoration proof")
+    print("Design PDF: unadjusted butt-ended underline/strike dashes and gap inks match independent solid rectangles in all writing modes, including fractional lengths, spot tints, opacity and affine placement.")
+
+if len(sys.argv) > 20:
+    with tempfile.TemporaryDirectory(prefix="schist-capped-decoration-check-") as temporary:
+        for prefix, args in [("samples", ["pdfimages", "-png"]), ("pages", ["pdftoppm", "-r", "144", "-png"])]:
+            result = subprocess.run(args + [sys.argv[20], str(Path(temporary)/prefix)], capture_output=True, text=True)
+            assert result.returncode == 0 and not result.stderr.strip(), result.stderr
+            files = sorted(Path(temporary).glob(prefix + "-*.png"))
+            assert len(files) == 24, (prefix, len(files))
+            for index in range(0, 24, 2):
+                actual = Image.open(files[index]).convert("RGB")
+                expected = Image.open(files[index+1]).convert("RGB")
+                assert actual.size == expected.size == (400,400), (prefix,index,actual.size)
+                assert actual.tobytes() == expected.tobytes(), (prefix,index,"capped dashes differ from independent analytic capsules")
+                assert min(v[0] for v in actual.getextrema()) < 150, (prefix,index,"empty capped decoration proof")
+    print("Design PDF: round/projecting dash caps and gap inks match independent analytic capsules in all writing modes, with fractional weights, spot tints, opacity and affine placement.")
+
+if len(sys.argv) > 21:
+    with tempfile.TemporaryDirectory(prefix="schist-dotted-decoration-check-") as temporary:
+        for prefix, args in [("samples", ["pdfimages", "-png"]), ("pages", ["pdftoppm", "-r", "144", "-png"])]:
+            result = subprocess.run(args + [sys.argv[21], str(Path(temporary)/prefix)], capture_output=True, text=True)
+            assert result.returncode == 0 and not result.stderr.strip(), result.stderr
+            files = sorted(Path(temporary).glob(prefix + "-*.png"))
+            assert len(files) == 12, (prefix, len(files))
+            for index in range(0, 12, 2):
+                actual = Image.open(files[index]).convert("RGB")
+                expected = Image.open(files[index+1]).convert("RGB")
+                assert actual.size == expected.size == (400,400), (prefix,index,actual.size)
+                assert actual.tobytes() == expected.tobytes(), (prefix,index,"dotted ink differs from independently positioned circles")
+                assert min(v[0] for v in actual.getextrema()) < 150, (prefix,index,"empty dotted decoration proof")
+    print("Design PDF: unadjusted dotted underline/strike and gap inks match independently positioned analytic circles in all writing modes, including fractional weights, spot tints, opacity and affine placement.")
+
+if len(sys.argv) > 22:
+    with tempfile.TemporaryDirectory(prefix="schist-fitted-decoration-check-") as temporary:
+        for prefix, args in [("samples", ["pdfimages", "-png"]), ("pages", ["pdftoppm", "-r", "144", "-png"])]:
+            result = subprocess.run(args + [sys.argv[22], str(Path(temporary)/prefix)], capture_output=True, text=True)
+            assert result.returncode == 0 and not result.stderr.strip(), result.stderr
+            files = sorted(Path(temporary).glob(prefix + "-*.png"))
+            assert len(files) == 24, (prefix, len(files))
+            for index in range(0, 24, 2):
+                actual = Image.open(files[index]).convert("RGB")
+                expected = Image.open(files[index+1]).convert("RGB")
+                assert actual.size == expected.size == (400,400), (prefix,index,actual.size)
+                assert actual.tobytes() == expected.tobytes(), (prefix,index,"fitted dashes differ from independent analytic capsules")
+                assert min(v[0] for v in actual.getextrema()) < 150, (prefix,index,"empty fitted decoration proof")
+    print("Design PDF: fitted straight dashes/dots match independently enumerated placements and analytic coverage in all writing modes, preserving selected lengths, inks and affine placement.")
+
+if len(sys.argv) > 23:
+    with tempfile.TemporaryDirectory(prefix="schist-language-check-") as temporary:
+        for prefix, args in [("samples", ["pdfimages", "-png"]), ("pages", ["pdftoppm", "-r", "144", "-png"])]:
+            result = subprocess.run(args + [sys.argv[23], str(Path(temporary)/prefix)], capture_output=True, text=True)
+            assert result.returncode == 0 and not result.stderr.strip(), result.stderr
+            files = sorted(Path(temporary).glob(prefix + "-*.png"))
+            assert len(files) == 24, (prefix, len(files))
+            for index in range(0, 24, 2):
+                actual = Image.open(files[index]).convert("RGB")
+                expected = Image.open(files[index+1]).convert("RGB")
+                assert actual.size == expected.size == (400,400), (prefix,index,actual.size)
+                assert actual.tobytes() == expected.tobytes(), (prefix,index,"language shaping differs from independent glyphs")
+                assert min(v[0] for v in actual.getextrema()) < 150, (prefix,index,"empty language proof")
+    print("Design PDF: Turkic/Lithuanian capitals and Romanian glyphs match independent Unicode text, including inherited languages and explicit resets in all writing modes.")
+
+if len(sys.argv) > 24:
+    with tempfile.TemporaryDirectory(prefix="schist-text-path-check-") as temporary:
+        for prefix, args in [("samples", ["pdfimages", "-png"]), ("pages", ["pdftoppm", "-r", "144", "-png"])]:
+            result = subprocess.run(args + [sys.argv[24], str(Path(temporary)/prefix)], capture_output=True, text=True)
+            assert result.returncode == 0 and not result.stderr.strip(), result.stderr
+            files = sorted(Path(temporary).glob(prefix + "-*.png"))
+            assert len(files) == 24, (prefix, len(files))
+            for index in range(0,24,2):
+                actual = Image.open(files[index]).convert("RGB")
+                expected = Image.open(files[index+1]).convert("RGB")
+                assert actual.size == expected.size == (400,400), (prefix,index,actual.size)
+                assert actual.tobytes() == expected.tobytes(), (prefix,index,"Design path differs from independent engine specification")
+                assert min(v[0] for v in actual.getextrema()) < 150, (prefix,index,"empty path proof")
+    print("Design PDF: bounded path alignment, glyph strokes, solid/striped/dashed/dotted decorations, gap inks and affine placement match independent engine baseline specifications; native application agreement remains unverified.")
+
+if len(sys.argv) > 25:
+    with tempfile.TemporaryDirectory(prefix="schist-lists-check-") as temporary:
+        for prefix, args in [("samples", ["pdfimages", "-png"]), ("pages", ["pdftoppm", "-r", "144", "-png"])]:
+            result = subprocess.run(args + [sys.argv[25], str(Path(temporary)/prefix)], capture_output=True, text=True)
+            assert result.returncode == 0 and not result.stderr.strip(), result.stderr
+            files = sorted(Path(temporary).glob(prefix + "-*.png"))
+            assert len(files) == 48, (prefix, len(files))
+            for index in range(0,48,2):
+                actual = Image.open(files[index]).convert("RGB")
+                expected = Image.open(files[index+1]).convert("RGB")
+                assert actual.size == expected.size == (400,400), (prefix,index,actual.size)
+                assert actual.tobytes() == expected.tobytes(), (prefix,index,"automatic markers differ from ordinary text frame controls")
+                assert min(v[0] for v in actual.getextrema()) < 150, (prefix,index,"empty list proof")
+    print("Design PDF: generated bullets, decimal/Roman/alphabetic/padded numbers and hidden counters match independently positioned text frames across marker sizes, alignments, strokes, spot tints, opacity and overprint.")
+
+if len(sys.argv) > 26:
+    with tempfile.TemporaryDirectory(prefix="schist-tabs-check-") as temporary:
+        for prefix, args in [("samples", ["pdfimages", "-png"]), ("pages", ["pdftoppm", "-r", "144", "-png"])]:
+            result = subprocess.run(args + [sys.argv[26], str(Path(temporary)/prefix)], capture_output=True, text=True)
+            assert result.returncode == 0 and not result.stderr.strip(), result.stderr
+            files = sorted(Path(temporary).glob(prefix + "-*.png"))
+            assert len(files) == 24, (prefix, len(files))
+            for index in range(0,24,2):
+                actual = Image.open(files[index]).convert("RGB")
+                expected = Image.open(files[index+1]).convert("RGB")
+                assert actual.size == expected.size == (400,400), (prefix,index,actual.size)
+                assert actual.tobytes() == expected.tobytes(), (prefix,index,"tabbed fields differ from independently positioned frames")
+                assert min(v[0] for v in actual.getextrema()) < 150, (prefix,index,"empty tab proof")
+    print("Design PDF: paragraph tab fields match independently positioned frames across writing modes, font sizes, initial indents, spot/process paint, strokes and opacity; native application agreement remains unverified.")

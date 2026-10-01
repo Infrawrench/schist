@@ -178,6 +178,7 @@ fn paint_object(window: &mut Window, frame: &PasteboardFrame, object: &Display) 
             affine_outline(window, frame.bounds, *rect, *transform, FRAME, true);
         }
         Display::Text {
+            generated,
             object,
             story,
             start,
@@ -187,7 +188,7 @@ fn paint_object(window: &mut Window, frame: &PasteboardFrame, object: &Display) 
             transform,
             ..
         } => {
-            let typing = frame.typing.filter(|t| t.story == *story);
+            let typing = frame.typing.filter(|t| !*generated && t.story == *story);
             let origin = super::text::line_origin(spec, *rect);
             if let Some(typing) = typing {
                 let from = typing.anchor.min(typing.at).max(*start);
@@ -211,9 +212,9 @@ fn paint_object(window: &mut Window, frame: &PasteboardFrame, object: &Display) 
                 }
             }
             paint_text(window, frame.bounds, *rect, spec, *transform);
-            if let Some(typing) = typing
-                .filter(|t| super::text::caret_line(&frame.plan, *t) == Some((*object, *start)))
-            {
+            if let Some(typing) = typing.filter(|t| {
+                !*generated && super::text::caret_line(&frame.plan, *t) == Some((*object, *start))
+            }) {
                 let caret = schist_text_engine::caret_at(spec, typing.at.saturating_sub(*start))
                     .unwrap_or(schist_text_engine::Caret {
                         x: 0.0,
@@ -843,7 +844,8 @@ fn blit_transformed(
     if width <= 0 || height <= 0 || raster.coverage.len() < (width * height) as usize {
         return;
     }
-    let buffer = text_pixels(&raster.coverage, &raster.colors, colour);
+    let [r, g, b] = channels(colour);
+    let buffer = raster.rgba([r, g, b, 255]);
     let Some(image) = image::RgbaImage::from_raw(width as u32, height as u32, buffer) else {
         return;
     };
@@ -957,25 +959,6 @@ fn affine_fill(
     if let Ok(path) = path.build() {
         window.paint_path(path, rgb(color));
     }
-}
-
-/// RenderImage consumes straight RGBA: its sprite pipeline multiplies RGB
-/// by source alpha while blending. Premultiplying here darkens glyph edges.
-fn text_pixels(coverage: &[u8], colors: &[Option<[u8; 4]>], fallback: u32) -> Vec<u8> {
-    let [r, g, b] = channels(fallback);
-    coverage
-        .iter()
-        .enumerate()
-        .flat_map(|(i, coverage)| {
-            let [r, g, b, alpha] = colors.get(i).copied().flatten().unwrap_or([r, g, b, 255]);
-            [
-                r,
-                g,
-                b,
-                ((*coverage as u16 * alpha as u16 + 127) / 255) as u8,
-            ]
-        })
-        .collect()
 }
 
 /// A packed colour's channels, ignoring any alpha in it.
@@ -1099,7 +1082,17 @@ mod tests {
     fn text_pixels_keep_straight_color_and_multiply_only_alpha() {
         let coverage: Vec<u8> = (0..=255).collect();
         for color in [None, Some([200, 100, 50, 128]), Some([1, 2, 3, 0])] {
-            let pixels = text_pixels(&coverage, &vec![color; coverage.len()], 0xABCDEF);
+            let raster = TextRaster {
+                coverage: coverage.to_vec(),
+                colors: vec![color; coverage.len()],
+                bounds: schist_core::IntRect::from_xywh(0, 0, coverage.len() as u32, 1),
+                paints: Vec::new(),
+                first_baseline: 0.0,
+                line_advance: 0.0,
+                layout_width: 0.0,
+                cap_height: None,
+            };
+            let pixels = raster.rgba([0xAB, 0xCD, 0xEF, 255]);
             assert_eq!(pixels.len(), coverage.len() * 4);
             let expected = color.unwrap_or([0xAB, 0xCD, 0xEF, 255]);
             for (coverage, pixel) in coverage.iter().zip(pixels.as_chunks::<4>().0) {

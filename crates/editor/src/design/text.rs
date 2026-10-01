@@ -18,6 +18,7 @@ pub fn hit(state: &DesignState, at: Point, object: Option<ObjectId>) -> Option<(
         .flat_map(|p| &p.objects)
         .filter_map(|d| {
             let Display::Text {
+                generated: false,
                 object,
                 rect,
                 spec,
@@ -151,6 +152,7 @@ pub fn caret_line(
         .flat_map(|p| &p.objects)
         .filter_map(|display| {
             let Display::Text {
+                generated: false,
                 object,
                 story,
                 start,
@@ -173,7 +175,12 @@ pub fn caret_line(
 pub fn adjacent_line_caret(state: &DesignState, forward: bool) -> Option<usize> {
     let typing = state.typing?;
     let thread = schist_layout::compose::compose_story(&state.document, typing.story);
-    let lines: Vec<_> = thread.frames.iter().flat_map(|f| &f.lines).collect();
+    let lines: Vec<_> = thread
+        .frames
+        .iter()
+        .flat_map(|f| &f.lines)
+        .filter(|l| l.generated.is_none())
+        .collect();
     let index = lines.iter().rposition(|l| l.start <= typing.at)?;
     let next = if forward {
         index.checked_add(1)?
@@ -214,6 +221,192 @@ pub fn adjacent_line_caret(state: &DesignState, forward: bool) -> Option<usize> 
 mod tests {
     use super::*;
     use schist_layout::{authoring, threading};
+
+    #[test]
+    fn generated_list_ink_never_becomes_a_caret_or_vertical_navigation_stop() {
+        use schist_layout::{
+            authoring, compose,
+            lists::{ListKind, ListStyle},
+            ParagraphStyle, Story,
+        };
+        for content in ["", "aé e\u{301}"] {
+            for scale in [0.5, 1.0, 3.0] {
+                for transform in [
+                    schist_core::Affine::IDENTITY,
+                    schist_core::Affine::rotate(0.2),
+                    schist_core::Affine::skew(0.1, -0.2),
+                ] {
+                    let mut state = DesignState::new();
+                    state.document.styles.add_paragraph(ParagraphStyle {
+                        name: "List".into(),
+                        point_size: Some(12.0),
+                        left_indent: Some(30.0),
+                        first_line_indent: Some(-30.0),
+                        list: ListStyle {
+                            kind: Some(ListKind::Numbered),
+                            start: Some(999),
+                            numbering_alignment: Some(schist_layout::lists::MarkerAlignment::Right),
+                            ..Default::default()
+                        },
+                        ..Default::default()
+                    });
+                    let frame = authoring::text_frame(
+                        &mut state.document,
+                        &mut state.history,
+                        0,
+                        Rect::new(50.0, 50.0, 200.0, 180.0),
+                    )
+                    .unwrap();
+                    let mut story = Story::from_text(content, "List");
+                    story.push_paragraph("second", "List");
+                    state.document.stories[frame.story.0 as usize] = story;
+                    state.document.objects[0].transform = transform;
+                    state.view.scale = scale;
+                    let board = state.plan().unwrap();
+                    for display in board.objects() {
+                        if let Display::Text {
+                            generated: true,
+                            rect,
+                            transform,
+                            start,
+                            ..
+                        } = display
+                        {
+                            let at = schist_layout::affine::point(
+                                *transform,
+                                Point::new(rect.x + rect.width / 2.0, rect.y + rect.height / 2.0),
+                            );
+                            assert_eq!(
+                                super::super::select::hit_test(&board, at).object(),
+                                Some(frame.object)
+                            );
+                            assert_eq!(
+                                hit(&state, state.to_page(at), None),
+                                Some((frame.object, *start))
+                            );
+                        }
+                        let Display::Text {
+                            generated: false,
+                            spec,
+                            rect,
+                            transform,
+                            start,
+                            ..
+                        } = display
+                        else {
+                            continue;
+                        };
+                        let origin = line_origin(spec, *rect);
+                        for (position, caret) in schist_text_engine::insertion_points(spec) {
+                            let at = schist_layout::affine::point(
+                                *transform,
+                                Point::new(
+                                    origin.x + caret.x,
+                                    origin.y + caret.top + caret.height / 2.0,
+                                ),
+                            );
+                            assert_eq!(
+                                hit(&state, state.to_page(at), Some(frame.object)),
+                                Some((frame.object, start + position.byte))
+                            );
+                        }
+                        assert!(tools::begin_typing(&mut state, frame.object, *start));
+                        assert_eq!(
+                            caret_line(&board, state.typing.unwrap()),
+                            Some((frame.object, *start))
+                        );
+                    }
+                    let flow = compose::compose_story(&state.document, frame.story);
+                    let starts = flow
+                        .lines()
+                        .filter(|l| l.generated.is_none())
+                        .map(|l| l.start)
+                        .collect::<Vec<_>>();
+                    assert_eq!(starts.len(), 2);
+                    assert!(tools::begin_typing(&mut state, frame.object, starts[0]));
+                    assert_eq!(adjacent_line_caret(&state, true), Some(starts[1]));
+                }
+            }
+        }
+    }
+
+    #[test]
+    fn path_glyphs_and_empty_baselines_are_clickable_and_keep_grapheme_carets_under_affines() {
+        use schist_layout::{affine, text_path, ShapePath, Story};
+        for curve in [false, true] {
+            let mut state = DesignState::new();
+            let mut path = if curve {
+                ShapePath::ellipse(200.0, 100.0)
+            } else {
+                ShapePath {
+                    subpaths: vec![schist_layout::SubPath {
+                        points: vec![Point::ZERO, Point::new(200.0, 0.0)],
+                        ..Default::default()
+                    }],
+                    even_odd: false,
+                }
+            };
+            path.map_points(|p| p + Point::new(50.0, 90.0));
+            let id = authoring::path_shape(
+                &mut state.document,
+                &mut state.history,
+                0,
+                path,
+                authoring::Paint::none(),
+            )
+            .unwrap();
+            let frame = text_path::attach(&mut state.document, &mut state.history, id).unwrap();
+            for content in ["", "aé e\u{301} xyz"] {
+                state.document.stories[frame.story.0 as usize] =
+                    Story::from_text(content, "Default");
+                for scale in [0.5, 1.0, 3.0] {
+                    state.view.scale = scale;
+                    for transform in [
+                        affine::Affine::IDENTITY,
+                        affine::Affine::rotate(0.3),
+                        affine::Affine::skew(0.2, -0.1),
+                    ] {
+                        state.document.objects[0].transform = transform;
+                        let board = state.plan().unwrap();
+                        let (spec, rect, matrix) = board
+                            .objects()
+                            .find_map(|d| match d {
+                                Display::Text {
+                                    object,
+                                    spec,
+                                    rect,
+                                    transform,
+                                    ..
+                                } if *object == id => Some((spec, rect, transform)),
+                                _ => None,
+                            })
+                            .unwrap();
+                        let origin = line_origin(spec, *rect);
+                        for (byte, caret) in schist_text_engine::carets(spec) {
+                            let point = affine::point(
+                                *matrix,
+                                Point::new(
+                                    origin.x + caret.x - caret.angle.sin() * caret.height / 2.0,
+                                    origin.y + caret.top + caret.angle.cos() * caret.height / 2.0,
+                                ),
+                            );
+                            assert_eq!(
+                                super::super::select::hit_test(&board, point).object(),
+                                Some(id),
+                                "{curve} {content:?} {scale} {byte}, point={point:?}, matrix={matrix:?}, frames={:?}", board.objects().filter_map(|d| d.frame()).collect::<Vec<_>>()
+                            );
+                            let point = state.to_page(point);
+                            assert_eq!(
+                                hit(&state, point, None),
+                                Some((id, byte)),
+                                "{curve} {content:?} {scale} {byte}"
+                            );
+                        }
+                    }
+                }
+            }
+        }
+    }
 
     #[test]
     fn shifted_text_hits_its_visible_line_at_every_zoom_and_frame_transform() {
@@ -539,14 +732,18 @@ mod tests {
                 .chain([text.len()])
                 .collect();
             for start in &boundaries {
-                for end in boundaries.iter().filter(|end| *end > start) {
+                for (end, replacement) in boundaries
+                    .iter()
+                    .filter(|end| *end >= start)
+                    .flat_map(|end| ["漢字", "\t"].map(|replacement| (end, replacement)))
+                {
                     assert!(tools::begin_typing(&mut state, a.object, *start));
                     tools::select_to(&mut state, *end, true);
                     let before = state.document.clone();
                     let depth = state.history.undo_depth();
-                    assert!(tools::type_text(&mut state, "漢字"));
+                    assert!(tools::type_text(&mut state, replacement));
                     let mut expected = text.to_owned();
-                    expected.replace_range(*start..*end, "漢字");
+                    expected.replace_range(*start..*end, replacement);
                     assert_eq!(authoring::text_of(&state.document, a.story), expected);
                     assert_eq!(state.history.undo_depth(), depth + 1);
                     state.history.undo(&mut state.document);

@@ -95,7 +95,7 @@ impl Align {
 pub enum Bullet {
     #[default]
     None,
-    /// A literal character repeated at the start of each line.
+    /// A literal character repeated at the start of each paragraph.
     Character {
         char: char,
         /// Gap between the bullet and the text.
@@ -187,6 +187,8 @@ pub struct TextPreferences {
     pub superscript_position: f32,
     pub subscript_size: f32,
     pub subscript_position: f32,
+    /// Synthetic small capitals as a percentage of nominal glyph size.
+    pub small_cap_size: f32,
 }
 
 impl Default for TextPreferences {
@@ -196,6 +198,7 @@ impl Default for TextPreferences {
             superscript_position: 33.3,
             subscript_size: 58.3,
             subscript_position: 33.3,
+            small_cap_size: 70.0,
         }
     }
 }
@@ -255,6 +258,25 @@ pub fn inherited_paint(
     })
 }
 
+/// No-ink is a real override, distinct from an unspecified/inherited color.
+pub fn inherited_text_paint(
+    paint: &Option<Ink>,
+    disabled: bool,
+    tint: Option<f32>,
+    fallback: Option<&Ink>,
+    fallback_disabled: bool,
+) -> (Option<Ink>, bool) {
+    if disabled {
+        (None, true)
+    } else if paint.is_some() {
+        (paint.clone(), false)
+    } else if fallback_disabled {
+        (None, true)
+    } else {
+        (inherited_paint(paint, tint, fallback), false)
+    }
+}
+
 /// A named set of paragraph properties.
 ///
 /// Every field is optional and means "inherit". That makes a style cheap
@@ -279,14 +301,36 @@ pub struct ParagraphStyle {
     pub italic: Option<bool>,
     pub underline: Option<bool>,
     pub strikethrough: Option<bool>,
+    #[serde(default)]
+    pub underline_style: crate::decorations::DecorationStyle,
+    #[serde(default)]
+    pub strike_style: crate::decorations::DecorationStyle,
     pub baseline_shift: Option<BaselineShift>,
     pub position: Option<TextPosition>,
+    /// Independent legacy flags; both true selects OpenType all-small-caps.
+    pub all_caps: Option<bool>,
+    pub small_caps: Option<bool>,
     /// Fraction of full-strength ink; None inherits independently of colour.
     pub fill_tint: Option<f32>,
     pub stroke_tint: Option<f32>,
     /// The fill ink; unset inherits the paragraph or document text colour.
     pub fill: Option<Ink>,
     pub stroke: Option<Ink>,
+    pub stroke_weight: Option<f32>,
+    /// True paints wholly outside the outline; false centers the stroke.
+    pub stroke_outside: Option<bool>,
+    /// Glyph outline corner; None inherits, with Miter as the document default.
+    #[serde(default)]
+    pub stroke_join: Option<schist_text_engine::TextStrokeJoin>,
+    /// Nonnegative ratio; zero bevels every nonstraight miter. None inherits four.
+    #[serde(default)]
+    pub stroke_miter_limit: Option<f32>,
+    /// Explicit native no-ink values. False with no ink means inherit; true
+    /// suppresses even an ancestor's ink. A disabled paint takes precedence.
+    #[serde(default)]
+    pub fill_disabled: bool,
+    #[serde(default)]
+    pub stroke_disabled: bool,
     pub overprint_fill: Option<bool>,
     pub overprint_stroke: Option<bool>,
 
@@ -319,11 +363,13 @@ pub struct ParagraphStyle {
     pub drop_caps_characters: Option<usize>,
 
     pub bullet: Option<Bullet>,
+    #[serde(default)]
+    pub list: crate::lists::ListStyle,
     /// Whether hyphenation is allowed in this paragraph.
     pub hyphenate: Option<bool>,
-    /// A language tag that drives the hyphenation dictionary and the
-    /// proofing rules. Not translated: it is a BCP 47 tag, not prose.
-    pub language: Option<String>,
+    /// A BCP 47 tag or a declared native language resource. Used by shaping and
+    /// display casing; hyphenation dictionaries and proofing remain separate work.
+    pub language: Option<crate::language::TextLanguage>,
     /// Base paragraph direction. `None` means auto, where the first
     /// strong character decides.
     pub direction: Option<ParagraphDirection>,
@@ -332,6 +378,8 @@ pub struct ParagraphStyle {
     /// Per-tag OpenType overrides. Unspecified tags inherit independently.
     #[serde(default)]
     pub features: Vec<(String, bool)>,
+    #[serde(default)]
+    pub directional_features: crate::directional_features::DirectionalFeatures,
 }
 
 /// A named set of character properties, applied over a paragraph style.
@@ -357,10 +405,15 @@ pub struct CharacterStyle {
     /// Underline toggle; None inherits.
     pub underline: Option<bool>,
     pub strikethrough: Option<bool>,
+    #[serde(default)]
+    pub underline_style: crate::decorations::DecorationStyle,
+    #[serde(default)]
+    pub strike_style: crate::decorations::DecorationStyle,
     /// Explicit shift; legacy script variants resolve through position.
     pub baseline_shift: Option<BaselineShift>,
     pub position: Option<TextPosition>,
-    /// All-small-caps or small-caps, as a pair of booleans.
+    /// Independent flags: all only = uppercase, small only = small caps,
+    /// both true = OpenType all-small-caps; both false explicitly resets.
     pub all_caps: Option<bool>,
     pub small_caps: Option<bool>,
 
@@ -370,9 +423,23 @@ pub struct CharacterStyle {
     /// The fill ink; unset inherits the paragraph or document text colour.
     pub fill: Option<Ink>,
     pub stroke: Option<Ink>,
-    /// Stroke weight as a percentage of the fill's.
+    /// Explicit native no-ink values. False with no ink means inherit; true
+    /// suppresses even an ancestor's ink. A disabled paint takes precedence.
+    #[serde(default)]
+    pub fill_disabled: bool,
+    #[serde(default)]
+    pub stroke_disabled: bool,
+    /// Outline thickness in points, independent of font size.
     pub stroke_weight: Option<f32>,
-    /// Fill opacity, 0..=1. Transparency and overprint are separate.
+    /// True paints wholly outside the outline; false centers the stroke.
+    pub stroke_outside: Option<bool>,
+    /// Glyph outline corner; None inherits, with Miter as the document default.
+    #[serde(default)]
+    pub stroke_join: Option<schist_text_engine::TextStrokeJoin>,
+    /// Nonnegative ratio; zero bevels every nonstraight miter. None inherits four.
+    #[serde(default)]
+    pub stroke_miter_limit: Option<f32>,
+    /// Text paint opacity, 0..=1. Transparency and overprint are separate.
     pub opacity: Option<f32>,
     /// Print this object in every ink beneath it rather than knocking out
     /// what it covers.
@@ -385,12 +452,22 @@ pub struct CharacterStyle {
     /// OpenType features to force on or off for runs carrying this style.
     #[serde(default)]
     pub features: Vec<(String, bool)>,
-    pub language: Option<String>,
+    #[serde(default)]
+    pub directional_features: crate::directional_features::DirectionalFeatures,
+    pub language: Option<crate::language::TextLanguage>,
 }
 
 /// The document's style tables.
 #[derive(Debug, Clone, Default, PartialEq, Serialize, Deserialize)]
 pub struct StyleSet {
+    #[serde(default)]
+    pub numbering_lists: Vec<crate::lists::NumberingList>,
+    #[serde(default)]
+    pub languages: Vec<crate::language::LanguageResource>,
+    #[serde(default)]
+    pub strokes: Vec<crate::decorations::DecorationStroke>,
+    #[serde(default)]
+    pub objects: Vec<crate::object_styles::ObjectStyle>,
     #[serde(default)]
     pub text_preferences: TextPreferences,
     pub paragraphs: Vec<ParagraphStyle>,
@@ -400,12 +477,16 @@ pub struct StyleSet {
 impl StyleSet {
     /// A set with the handful of styles a new document cannot do without.
     ///
-    /// Every document gets a "Default" for both kinds and a "Body" based
+    /// Every document gets a "Default" for both text kinds and a "Body" based
     /// on it. A blank style table would force every consumer to special
     /// case the empty state, and a `None` resolved against nothing still
     /// has to produce a value.
     pub fn with_defaults() -> StyleSet {
         StyleSet {
+            numbering_lists: Vec::new(),
+            languages: Vec::new(),
+            objects: Vec::new(),
+            strokes: Vec::new(),
             text_preferences: TextPreferences::default(),
             paragraphs: vec![
                 ParagraphStyle {
@@ -536,6 +617,7 @@ impl StyleSet {
 #[derive(Debug, Clone, Default, PartialEq)]
 pub struct ResolvedParagraph {
     pub features: Vec<(String, bool)>,
+    pub directional_features: crate::directional_features::DirectionalFeatures,
     pub family: Option<String>,
     /// Exact typographic subfamily. Overrides bold/italic at this level;
     /// a nearer explicit bold/italic choice resets an inherited name.
@@ -544,14 +626,30 @@ pub struct ResolvedParagraph {
     pub italic: Option<bool>,
     pub underline: Option<bool>,
     pub strikethrough: Option<bool>,
+    pub underline_style: crate::decorations::DecorationStyle,
+    pub strike_style: crate::decorations::DecorationStyle,
     pub baseline_shift: Option<BaselineShift>,
     pub position: Option<TextPosition>,
+    /// Independent legacy flags; both true selects OpenType all-small-caps.
+    pub all_caps: Option<bool>,
+    pub small_caps: Option<bool>,
     /// Fraction of full-strength ink; None inherits independently of colour.
     pub fill_tint: Option<f32>,
     pub stroke_tint: Option<f32>,
     /// The fill ink; unset inherits the paragraph or document text colour.
     pub fill: Option<Ink>,
     pub stroke: Option<Ink>,
+    pub stroke_weight: Option<f32>,
+    /// True paints wholly outside the outline; false centers the stroke.
+    pub stroke_outside: Option<bool>,
+    /// Glyph outline corner; None inherits, with Miter as the document default.
+    pub stroke_join: Option<schist_text_engine::TextStrokeJoin>,
+    /// Nonnegative ratio; zero bevels every nonstraight miter. None inherits four.
+    pub stroke_miter_limit: Option<f32>,
+    /// Explicit native no-ink values. False with no ink means inherit; true
+    /// suppresses even an ancestor's ink. A disabled paint takes precedence.
+    pub fill_disabled: bool,
+    pub stroke_disabled: bool,
     pub overprint_fill: Option<bool>,
     pub overprint_stroke: Option<bool>,
     pub point_size: Option<f32>,
@@ -570,8 +668,9 @@ pub struct ResolvedParagraph {
     pub drop_caps_lines: Option<usize>,
     pub drop_caps_characters: Option<usize>,
     pub bullet: Option<Bullet>,
+    pub list: crate::lists::ListStyle,
     pub hyphenate: Option<bool>,
-    pub language: Option<String>,
+    pub language: Option<crate::language::TextLanguage>,
     pub direction: Option<ParagraphDirection>,
     pub writing_mode: Option<WritingMode>,
 }
@@ -579,7 +678,13 @@ pub struct ResolvedParagraph {
 impl ResolvedParagraph {
     /// Character defaults for an unstyled run, with document fallback.
     pub fn character(&self, mut fallback: ResolvedCharacter) -> ResolvedCharacter {
-        fallback.features = inherited_features(&self.features, &fallback.features);
+        fallback.features = self
+            .directional_features
+            .inherit_features(&self.features, &fallback.features);
+        fallback.directional_features = self
+            .directional_features
+            .over(fallback.directional_features);
+        fallback.language = self.language.clone().or(fallback.language);
         fallback.family = self.family.clone().or(fallback.family);
         if self.font_style.is_some() || self.bold.is_some() || self.italic.is_some() {
             fallback.font_style = self.font_style.clone();
@@ -588,10 +693,30 @@ impl ResolvedParagraph {
         fallback.italic = self.italic.or(fallback.italic);
         fallback.underline = self.underline.or(fallback.underline);
         fallback.strikethrough = self.strikethrough.or(fallback.strikethrough);
+        fallback.underline_style = self.underline_style.over(&fallback.underline_style);
+        fallback.strike_style = self.strike_style.over(&fallback.strike_style);
         fallback.position = self.position.or(fallback.position);
+        fallback.all_caps = self.all_caps.or(fallback.all_caps);
+        fallback.small_caps = self.small_caps.or(fallback.small_caps);
         fallback.baseline_shift = self.baseline_shift.or(fallback.baseline_shift);
-        fallback.fill = inherited_paint(&self.fill, self.fill_tint, fallback.fill.as_ref());
-        fallback.stroke = inherited_paint(&self.stroke, self.stroke_tint, fallback.stroke.as_ref());
+        (fallback.fill, fallback.fill_disabled) = inherited_text_paint(
+            &self.fill,
+            self.fill_disabled,
+            self.fill_tint,
+            fallback.fill.as_ref(),
+            fallback.fill_disabled,
+        );
+        (fallback.stroke, fallback.stroke_disabled) = inherited_text_paint(
+            &self.stroke,
+            self.stroke_disabled,
+            self.stroke_tint,
+            fallback.stroke.as_ref(),
+            fallback.stroke_disabled,
+        );
+        fallback.stroke_weight = self.stroke_weight.or(fallback.stroke_weight);
+        fallback.stroke_outside = self.stroke_outside.or(fallback.stroke_outside);
+        fallback.stroke_join = self.stroke_join.or(fallback.stroke_join);
+        fallback.stroke_miter_limit = self.stroke_miter_limit.or(fallback.stroke_miter_limit);
         fallback.fill_tint = self.fill_tint.or(fallback.fill_tint);
         fallback.stroke_tint = self.stroke_tint.or(fallback.stroke_tint);
         fallback.overprint_fill = self.overprint_fill.or(fallback.overprint_fill);
@@ -612,7 +737,10 @@ impl ResolvedParagraph {
                 out.font_style = style.font_style.clone();
                 face_selected = true;
             }
-            out.features = inherited_features(&out.features, &style.features);
+            out.features = out
+                .directional_features
+                .inherit_features(&out.features, &style.features);
+            out.directional_features = out.directional_features.over(style.directional_features);
             out.family = out.family.clone().or_else(|| style.family.clone());
             let hints = style
                 .font_style
@@ -622,12 +750,32 @@ impl ResolvedParagraph {
             out.italic = out.italic.or(hints.map(|v| v.1).or(style.italic));
             out.underline = out.underline.or(style.underline);
             out.strikethrough = out.strikethrough.or(style.strikethrough);
+            out.underline_style = out.underline_style.over(&style.underline_style);
+            out.strike_style = out.strike_style.over(&style.strike_style);
             out.position = out.position.or(style.position);
+            out.all_caps = out.all_caps.or(style.all_caps);
+            out.small_caps = out.small_caps.or(style.small_caps);
             out.baseline_shift = out.baseline_shift.or(style.baseline_shift);
-            out.fill = inherited_paint(&out.fill, out.fill_tint, style.fill.as_ref());
-            out.stroke = inherited_paint(&out.stroke, out.stroke_tint, style.stroke.as_ref());
+            (out.fill, out.fill_disabled) = inherited_text_paint(
+                &out.fill,
+                out.fill_disabled,
+                out.fill_tint,
+                style.fill.as_ref(),
+                style.fill_disabled,
+            );
+            (out.stroke, out.stroke_disabled) = inherited_text_paint(
+                &out.stroke,
+                out.stroke_disabled,
+                out.stroke_tint,
+                style.stroke.as_ref(),
+                style.stroke_disabled,
+            );
             out.fill_tint = out.fill_tint.or(style.fill_tint);
             out.stroke_tint = out.stroke_tint.or(style.stroke_tint);
+            out.stroke_weight = out.stroke_weight.or(style.stroke_weight);
+            out.stroke_outside = out.stroke_outside.or(style.stroke_outside);
+            out.stroke_join = out.stroke_join.or(style.stroke_join);
+            out.stroke_miter_limit = out.stroke_miter_limit.or(style.stroke_miter_limit);
             out.overprint_fill = out.overprint_fill.or(style.overprint_fill);
             out.overprint_stroke = out.overprint_stroke.or(style.overprint_stroke);
             out.point_size = out.point_size.or(style.point_size);
@@ -646,6 +794,11 @@ impl ResolvedParagraph {
             out.drop_caps_lines = out.drop_caps_lines.or(style.drop_caps_lines);
             out.drop_caps_characters = out.drop_caps_characters.or(style.drop_caps_characters);
             out.bullet = out.bullet.or(style.bullet);
+            out.list = out.list.over(
+                &style
+                    .list
+                    .over(&crate::lists::ListStyle::from_legacy(style.bullet)),
+            );
             out.hyphenate = out.hyphenate.or(style.hyphenate);
             out.language = out.language.clone().or_else(|| style.language.clone());
             out.direction = out.direction.or(style.direction);
@@ -670,6 +823,8 @@ pub struct ResolvedCharacter {
     pub italic: Option<bool>,
     pub underline: Option<bool>,
     pub strikethrough: Option<bool>,
+    pub underline_style: crate::decorations::DecorationStyle,
+    pub strike_style: crate::decorations::DecorationStyle,
     pub baseline_shift: Option<BaselineShift>,
     pub position: Option<TextPosition>,
     pub all_caps: Option<bool>,
@@ -680,16 +835,124 @@ pub struct ResolvedCharacter {
     /// The fill ink; unset inherits the paragraph or document text colour.
     pub fill: Option<Ink>,
     pub stroke: Option<Ink>,
+    /// Explicit native no-ink values. False with no ink means inherit; true
+    /// suppresses even an ancestor's ink. A disabled paint takes precedence.
+    pub fill_disabled: bool,
+    pub stroke_disabled: bool,
     pub stroke_weight: Option<f32>,
+    /// True paints wholly outside the outline; false centers the stroke.
+    pub stroke_outside: Option<bool>,
+    /// Glyph outline corner; None inherits, with Miter as the document default.
+    pub stroke_join: Option<schist_text_engine::TextStrokeJoin>,
+    /// Nonnegative ratio; zero bevels every nonstraight miter. None inherits four.
+    pub stroke_miter_limit: Option<f32>,
     pub opacity: Option<f32>,
     pub overprint_fill: Option<bool>,
     pub overprint_stroke: Option<bool>,
     pub optical_margin: Option<bool>,
     pub features: Vec<(String, bool)>,
-    pub language: Option<String>,
+    pub directional_features: crate::directional_features::DirectionalFeatures,
+    pub language: Option<crate::language::TextLanguage>,
 }
 
 impl ResolvedCharacter {
+    /// Merge all character properties with a lower-precedence resolved style.
+    /// Used by generated markers: an explicit marker style overrides the first
+    /// character, which in turn overrides the paragraph and document defaults.
+    pub fn over(mut self, base: &Self) -> Self {
+        let face_selected =
+            self.font_style.is_some() || self.bold.is_some() || self.italic.is_some();
+        self = self.with_paint_defaults(base);
+        if !face_selected {
+            self.font_style = base.font_style.clone();
+        }
+        fn fallback<T: Clone>(value: &mut Option<T>, base: &Option<T>) {
+            if value.is_none() {
+                *value = base.as_ref().cloned();
+            }
+        }
+        macro_rules! inherit {
+            ($($field:ident),+ $(,)?) => { $(fallback(&mut self.$field, &base.$field);)+ };
+        }
+        inherit!(
+            family,
+            point_size,
+            leading,
+            tracking,
+            kerning,
+            bold,
+            italic,
+            underline,
+            strikethrough,
+            baseline_shift,
+            position,
+            all_caps,
+            small_caps,
+            optical_margin,
+            language
+        );
+        self.features = self
+            .directional_features
+            .inherit_features(&self.features, &base.features);
+        self.directional_features = self.directional_features.over(base.directional_features);
+        self
+    }
+
+    /// Paint defaults layered under this character style. Geometry and font
+    /// properties are resolved separately by composition.
+    pub fn with_paint_defaults(mut self, base: &Self) -> Self {
+        self.underline_style = self.underline_style.over(&base.underline_style);
+        self.strike_style = self.strike_style.over(&base.strike_style);
+        (self.fill, self.fill_disabled) = inherited_text_paint(
+            &self.fill,
+            self.fill_disabled,
+            self.fill_tint,
+            base.fill.as_ref(),
+            base.fill_disabled,
+        );
+        (self.stroke, self.stroke_disabled) = inherited_text_paint(
+            &self.stroke,
+            self.stroke_disabled,
+            self.stroke_tint,
+            base.stroke.as_ref(),
+            base.stroke_disabled,
+        );
+        self.stroke_weight = self.stroke_weight.or(base.stroke_weight);
+        self.stroke_outside = self.stroke_outside.or(base.stroke_outside);
+        self.stroke_join = self.stroke_join.or(base.stroke_join);
+        self.stroke_miter_limit = self.stroke_miter_limit.or(base.stroke_miter_limit);
+        self.fill_tint = self.fill_tint.or(base.fill_tint);
+        self.stroke_tint = self.stroke_tint.or(base.stroke_tint);
+        self.opacity = self.opacity.or(base.opacity);
+        self.overprint_fill = self.overprint_fill.or(base.overprint_fill);
+        self.overprint_stroke = self.overprint_stroke.or(base.overprint_stroke);
+        self
+    }
+
+    pub fn preview_stroke(&self) -> Option<schist_text_engine::TextStroke> {
+        let ink = self.stroke.as_ref().filter(|_| !self.stroke_disabled)?;
+        let width = self.stroke_weight.unwrap_or(1.0);
+        if !width.is_finite() || width <= 0.0 {
+            return None;
+        }
+        let rgb = ink.preview_at_tint(self.stroke_tint.unwrap_or(1.0));
+        Some(schist_text_engine::TextStroke {
+            width,
+            outside: self.stroke_outside.unwrap_or(false),
+            join: self.stroke_join.unwrap_or_default(),
+            miter_limit: self
+                .stroke_miter_limit
+                .filter(|v| v.is_finite() && *v >= 0.0)
+                .unwrap_or(4.0),
+            color: Some([
+                (rgb[0].clamp(0.0, 1.0) * 255.0).round() as u8,
+                (rgb[1].clamp(0.0, 1.0) * 255.0).round() as u8,
+                (rgb[2].clamp(0.0, 1.0) * 255.0).round() as u8,
+                (self.opacity.unwrap_or(1.0).clamp(0.0, 1.0) * 255.0).round() as u8,
+            ]),
+        })
+    }
+
     fn new(set: &StyleSet, name: &str) -> ResolvedCharacter {
         let mut out = ResolvedCharacter::default();
         let chain = set.character_chain(name);
@@ -714,15 +977,32 @@ impl ResolvedCharacter {
             out.italic = out.italic.or(hints.map(|v| v.1).or(style.italic));
             out.underline = out.underline.or(style.underline);
             out.strikethrough = out.strikethrough.or(style.strikethrough);
+            out.underline_style = out.underline_style.over(&style.underline_style);
+            out.strike_style = out.strike_style.over(&style.strike_style);
             out.position = out.position.or(style.position);
             out.baseline_shift = out.baseline_shift.or(style.baseline_shift);
             out.all_caps = out.all_caps.or(style.all_caps);
             out.small_caps = out.small_caps.or(style.small_caps);
-            out.fill = inherited_paint(&out.fill, out.fill_tint, style.fill.as_ref());
-            out.stroke = inherited_paint(&out.stroke, out.stroke_tint, style.stroke.as_ref());
+            (out.fill, out.fill_disabled) = inherited_text_paint(
+                &out.fill,
+                out.fill_disabled,
+                out.fill_tint,
+                style.fill.as_ref(),
+                style.fill_disabled,
+            );
+            (out.stroke, out.stroke_disabled) = inherited_text_paint(
+                &out.stroke,
+                out.stroke_disabled,
+                out.stroke_tint,
+                style.stroke.as_ref(),
+                style.stroke_disabled,
+            );
             out.fill_tint = out.fill_tint.or(style.fill_tint);
             out.stroke_tint = out.stroke_tint.or(style.stroke_tint);
             out.stroke_weight = out.stroke_weight.or(style.stroke_weight);
+            out.stroke_outside = out.stroke_outside.or(style.stroke_outside);
+            out.stroke_join = out.stroke_join.or(style.stroke_join);
+            out.stroke_miter_limit = out.stroke_miter_limit.or(style.stroke_miter_limit);
             out.opacity = out.opacity.or(style.opacity);
             out.overprint_fill = out.overprint_fill.or(style.overprint_fill);
             out.overprint_stroke = out.overprint_stroke.or(style.overprint_stroke);
@@ -734,7 +1014,10 @@ impl ResolvedCharacter {
         // that correct: walking outwards, a base's value for a feature
         // the child already set must not replace it.
         for style in &chain {
-            out.features = inherited_features(&out.features, &style.features);
+            out.features = out
+                .directional_features
+                .inherit_features(&out.features, &style.features);
+            out.directional_features = out.directional_features.over(style.directional_features);
         }
         out
     }
@@ -758,6 +1041,10 @@ mod tests {
 
     fn set_with(styles: Vec<ParagraphStyle>) -> StyleSet {
         StyleSet {
+            numbering_lists: Vec::new(),
+            languages: Vec::new(),
+            objects: Vec::new(),
+            strokes: Vec::new(),
             text_preferences: TextPreferences::default(),
             paragraphs: styles,
             characters: Vec::new(),
@@ -872,6 +1159,10 @@ mod tests {
     #[test]
     fn character_features_accumulate_across_the_chain() {
         let mut set = StyleSet {
+            numbering_lists: Vec::new(),
+            languages: Vec::new(),
+            objects: Vec::new(),
+            strokes: Vec::new(),
             text_preferences: TextPreferences::default(),
             paragraphs: Vec::new(),
             characters: vec![
@@ -900,6 +1191,10 @@ mod tests {
     #[test]
     fn character_inheritance_resolves_like_paragraphs() {
         let set = StyleSet {
+            numbering_lists: Vec::new(),
+            languages: Vec::new(),
+            objects: Vec::new(),
+            strokes: Vec::new(),
             text_preferences: TextPreferences::default(),
             paragraphs: Vec::new(),
             characters: vec![

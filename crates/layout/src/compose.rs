@@ -37,6 +37,11 @@ use crate::styles::{
 /// One laid-out line, positioned in page space.
 #[derive(Debug, Clone, PartialEq)]
 pub struct ComposedLine {
+    /// Generated list ink owns no story bytes and no editable caret positions.
+    pub generated: Option<crate::list_composition::GeneratedText>,
+    /// A baseline relative to `bounds.origin()`. Its offset already includes
+    /// paragraph alignment; line_spec disables a second rectangular alignment.
+    pub text_path: Option<schist_text_engine::TextPath>,
     /// Byte range within the story's concatenated text.
     pub start: usize,
     pub end: usize,
@@ -190,6 +195,18 @@ pub fn spec_for(
 ) -> TextSpec {
     let paragraph = styles.resolve_paragraph(paragraph_style);
     let character = paragraph.character(styles.resolve_character(character_style));
+    spec_with_character(story, (start, end), styles, &paragraph, character, width)
+}
+
+pub(crate) fn spec_with_character(
+    story: &Story,
+    range: (usize, usize),
+    styles: &StyleSet,
+    paragraph: &ResolvedParagraph,
+    character: ResolvedCharacter,
+    width: Pt,
+) -> TextSpec {
+    let (start, end) = range;
     let text = story.slice(start, end);
     let size = paragraph
         .point_size
@@ -236,7 +253,21 @@ pub fn spec_for(
     let base_leading = leading.unwrap_or(natural);
     let (base_scale, base_shift) = styles.text_preferences.script(base_position, base_leading);
     let base_script = base_position != crate::styles::TextPosition::Normal;
+    let writing_mode =
+        paragraph
+            .writing_mode
+            .map(engine_writing_mode)
+            .unwrap_or(match story.prefs.orientation {
+                crate::StoryOrientation::Horizontal => schist_text_engine::WritingMode::Horizontal,
+                crate::StoryOrientation::Vertical => schist_text_engine::WritingMode::VerticalRl,
+            });
+    let tabs = text.contains('\t').then(|| crate::tabs::stops(paragraph));
     let mut spec = TextSpec {
+        language: character
+            .language
+            .as_ref()
+            .and_then(|v| styles.resolve_language(v))
+            .unwrap_or_default(),
         text,
         family: family.clone(),
         font_style: character.font_style.clone(),
@@ -247,23 +278,21 @@ pub fn spec_for(
         // Paragraph direction controls bidi; writing mode may override the
         // story's default axis without changing its column progression.
         direction,
-        writing_mode: paragraph.writing_mode.map(engine_writing_mode).unwrap_or(
-            match story.prefs.orientation {
-                crate::StoryOrientation::Horizontal => schist_text_engine::WritingMode::Horizontal,
-                crate::StoryOrientation::Vertical => schist_text_engine::WritingMode::VerticalRl,
-            },
-        ),
+        writing_mode,
         line_height: 1.0,
         leading,
         tracking: paragraph.tracking.or(character.tracking).unwrap_or(0.0) * size / 1000.0,
         word_spacing: 0.0,
         wrap_width: (width > 0.0).then_some(width),
+        tabs,
         runs: story
             .ranges
             .iter()
             .filter(|range| range.start < end && range.end > start)
             .map(|range| {
-                let style = styles.resolve_character(&range.style);
+                let style = styles
+                    .resolve_character(&range.style)
+                    .with_paint_defaults(&character);
                 let shift = style.baseline_shift.or(character.baseline_shift);
                 let position = crate::styles::TextPosition::resolved(
                     style.position.or(character.position),
@@ -302,8 +331,16 @@ pub fn spec_for(
                     .text_preferences
                     .script(position, leading.unwrap_or(0.0));
                 schist_text_engine::StyleRun {
+                    language: style
+                        .language
+                        .as_ref()
+                        .map(|v| styles.resolve_language(v).unwrap_or_default()),
                     start: range.start.max(start) - start,
                     end: range.end.min(end) - start,
+                    fill_disabled: Some(style.fill_disabled),
+                    stroke: style.preview_stroke(),
+                    underline_style: Some(style.underline_style.preview(&style)),
+                    strike_style: Some(style.strike_style.preview(&style)),
                     family: style.family,
                     font_style: style.font_style,
                     bold: style.bold,
@@ -314,7 +351,17 @@ pub fn spec_for(
                         style.point_size
                     },
                     metric_size: scripted.then_some(nominal),
-                    features: engine_features(&style.features, style.kerning),
+                    capitalization: Some(schist_text_engine::Capitalization::from_flags(
+                        style.all_caps.or(character.all_caps).unwrap_or(false),
+                        style.small_caps.or(character.small_caps).unwrap_or(false),
+                    )),
+                    small_cap_scale: Some(styles.text_preferences.small_cap_size / 100.0),
+                    features: engine_features(
+                        &style.features,
+                        style.kerning,
+                        style.directional_features,
+                        writing_mode.is_vertical(),
+                    ),
                     tracking: style
                         .tracking
                         .or(paragraph.tracking)
@@ -357,18 +404,35 @@ pub fn spec_for(
                 }
             })
             .collect(),
-        features: engine_features(&character.features, paragraph.kerning.or(character.kerning)),
+        features: engine_features(
+            &character.features,
+            paragraph.kerning.or(character.kerning),
+            character.directional_features,
+            writing_mode.is_vertical(),
+        ),
         path: None,
     };
+    let stroke = character.preview_stroke();
+    let underline_style = Some(character.underline_style.preview(&character));
+    let strike_style = Some(character.strike_style.preview(&character));
     let ink = character.fill.unwrap_or_else(crate::Ink::black);
     let rgb = ink.preview_at_tint(character.fill_tint.unwrap_or(1.0));
     spec.runs.push(schist_text_engine::StyleRun {
         start: 0,
         end: spec.text.len(),
+        fill_disabled: Some(character.fill_disabled),
+        stroke,
+        underline_style,
+        strike_style,
         underline: character.underline,
         strikethrough: character.strikethrough,
         size: base_script.then_some(size * base_scale),
         metric_size: base_script.then_some(size),
+        capitalization: Some(schist_text_engine::Capitalization::from_flags(
+            character.all_caps.unwrap_or(false),
+            character.small_caps.unwrap_or(false),
+        )),
+        small_cap_scale: Some(styles.text_preferences.small_cap_size / 100.0),
         leading: base_script.then_some(base_leading),
         tracking: base_script.then_some(spec.tracking * base_scale),
         baseline_shift: Some(
@@ -392,7 +456,10 @@ pub fn spec_for(
 fn engine_features(
     features: &[(String, bool)],
     kerning: Option<bool>,
+    directional: crate::directional_features::DirectionalFeatures,
+    vertical: bool,
 ) -> Vec<schist_text_engine::OpenTypeFeature> {
+    let features = directional.selected(features, vertical);
     let mut result: Vec<_> = features
         .iter()
         .map(|(tag, enabled)| schist_text_engine::OpenTypeFeature {
@@ -525,6 +592,12 @@ pub fn compose_thread(
     compose_thread_on_page(doc, story_id, frames, None)
 }
 
+struct FlowSource<'a> {
+    doc: &'a LayoutDocument,
+    story: &'a Story,
+    markers: crate::list_composition::MarkerPlans,
+}
+
 fn compose_thread_on_page(
     doc: &LayoutDocument,
     story_id: crate::model::StoryId,
@@ -552,7 +625,20 @@ fn compose_thread_on_page(
             .collect();
         return out;
     };
+    let source = FlowSource {
+        doc,
+        story,
+        markers: crate::list_composition::MarkerPlans::new(doc, story),
+    };
     let text_end = story.text_len();
+    // An automatic marker is printable content even when its paragraph has no
+    // source bytes. Ordinary untouched blank stories retain an insertion point
+    // without reporting overset text.
+    let has_content = text_end > 0
+        || story.points.iter().any(|point| match point {
+            Point::Paragraph { style, .. } => doc.styles.resolve_paragraph(style).list.active(),
+            _ => false,
+        });
     // A terminal empty paragraph has no source bytes, but still owns a line.
     // One internal flow position represents that line; all public text ranges
     // and consumed offsets are clamped to the actual story coordinate system.
@@ -602,12 +688,50 @@ fn compose_thread_on_page(
                 lines: Vec::new(),
                 drop_cap: None,
                 consumed_to: cursor.min(text_end),
-                passed_on: text_end > 0 && cursor < total && !is_last,
-                lost: text_end > 0 && cursor < total && is_last,
+                passed_on: has_content && cursor < total && !is_last,
+                lost: has_content && cursor < total && is_last,
             });
             continue;
         }
         skip_page = None;
+        let text_path = doc
+            .object(*object)
+            .or_else(|| {
+                doc.parents
+                    .iter()
+                    .flat_map(|p| &p.objects)
+                    .find(|p| p.object.id == *object)
+                    .map(|p| &p.object)
+            })
+            .and_then(|placed| match &placed.object {
+                crate::LayoutObject::TextFrame { text_path, .. } => text_path.as_ref(),
+                _ => None,
+            });
+        if let Some(path) = text_path {
+            let stop = breaks.get(break_index).map_or(total, |(_, at)| *at);
+            let (lines, next) = compose_path(story, cursor, stop, *bounds, path, doc);
+            cursor = next;
+            if let Some((kind, _)) = breaks.get(break_index).filter(|(_, at)| *at == cursor) {
+                break_index += 1;
+                if matches!(kind, Point::PageBreak) {
+                    skip_page = Some(page_key);
+                }
+            }
+            let overflowed = has_content && cursor < total;
+            let threads = *overflow == FrameOverflow::Thread;
+            out.frames.push(ComposedFrame {
+                object: *object,
+                lines,
+                drop_cap: None,
+                consumed_to: cursor.min(text_end),
+                passed_on: overflowed && !is_last && threads,
+                lost: overflowed && (is_last || !threads),
+            });
+            if !overflowed || !threads {
+                break;
+            }
+            continue;
+        }
         let mut available = bounds.inset(insets.resolve());
         let mut lines = Vec::new();
         let mut pending_keep = None;
@@ -656,7 +780,7 @@ fn compose_thread_on_page(
             // Balance the last region only when all remaining text fits.
             if columns.len() > 1 && section_end == total && break_index == breaks.len() {
                 let (mut balanced, consumed) =
-                    balance_columns(story, cursor, total, &columns, doc, grid);
+                    balance_columns(&source, cursor, total, &columns, grid);
                 if consumed >= total {
                     cursor = consumed;
                     axes.place_lines(&mut balanced);
@@ -677,7 +801,7 @@ fn compose_thread_on_page(
                     .min(section_end);
                 if cursor < stop {
                     let (part, consumed) =
-                        fill_column_gridded(story, cursor, stop, *column, doc, grid);
+                        fill_column_gridded(&source, cursor, stop, *column, grid);
                     placed.extend(part);
                     let previous = cursor;
                     cursor = consumed;
@@ -730,8 +854,8 @@ fn compose_thread_on_page(
         }
 
         let consumed_to = cursor.min(text_end);
-        // An untouched empty story has an insertion point, but no text to lose.
-        let overflowed = text_end > 0 && cursor < total;
+        // Empty list paragraphs still have a generated marker to place.
+        let overflowed = has_content && cursor < total;
         // Text is only genuinely lost when there is no next frame to take
         // it, or when the frame is told to clip rather than thread.
         let threads = *overflow == FrameOverflow::Thread;
@@ -758,7 +882,110 @@ fn compose_thread_on_page(
             lost: false,
         });
     }
+    crate::list_composition::insert_markers(&source.markers, &mut out);
     out
+}
+
+/// One baseline accepts one shaped line. Paragraph/soft breaks advance to the
+/// next container. Box-only vertical spacing, grids, multi-line keeps and
+/// enlarged initials cannot reserve additional rows on a path.
+fn compose_path(
+    story: &Story,
+    start: usize,
+    end: usize,
+    bounds: Rect,
+    path: &crate::text_path::PathText,
+    doc: &LayoutDocument,
+) -> (Vec<ComposedLine>, usize) {
+    let empty = || (Vec::new(), start);
+    let Some(mut guide) = path.engine_path() else {
+        return empty();
+    };
+    let Some(mut block) = blocks(story, start, end).into_iter().next() else {
+        return empty();
+    };
+    if block.style.is_empty() {
+        block.style.clone_from(&doc.default_paragraph_style);
+    }
+    let paragraph = doc.styles.resolve_paragraph(&block.style);
+    let measure = line_measure(
+        &paragraph,
+        Rect::new(0.0, 0.0, guide.span.unwrap_or(0.0), 0.0),
+        block.paragraph_start == Some(block.start),
+        None,
+    );
+    if measure.width <= 0.0 {
+        return empty();
+    }
+    let spec = spec_for(
+        story,
+        block.start,
+        if block.is_paragraph {
+            block.end
+        } else {
+            block.start
+        },
+        &doc.styles,
+        &block.style,
+        &doc.default_character_style,
+        measure.width,
+    );
+    if spec.writing_mode.is_vertical() {
+        return empty();
+    }
+    let spans = line_spans(&spec);
+    let Some(span) = spans.first() else {
+        return empty();
+    };
+    // The shared engine emergency-wraps an oversized grapheme. A bounded path
+    // must keep that grapheme overset instead of extrapolating past its bracket.
+    if span.width > measure.width + 0.0001 {
+        return empty();
+    }
+    let paragraph_end = spans.len() == 1;
+    let mut line = if block.is_paragraph {
+        line_at(
+            story,
+            doc,
+            &block,
+            span,
+            LinePlacement {
+                bounds: Rect::new(bounds.x, bounds.y, measure.width, span.height),
+                advance: span.advance,
+                inline_origin: bounds.x,
+                is_paragraph_end: paragraph_end,
+                drop_cap: false,
+            },
+        )
+    } else {
+        break_line(
+            story,
+            doc,
+            &bounds,
+            &block,
+            bounds.y,
+            LineFlow::from_span(span, &spec),
+        )
+    };
+    let width = span.width
+        + line.word_space.unwrap_or(0.0) * count_spaces(story, line.start, line.end) as f32;
+    guide.offset += measure.x
+        + match spec.align {
+            schist_text_engine::Align::Left => 0.0,
+            schist_text_engine::Align::Center => (measure.width - width) / 2.0,
+            schist_text_engine::Align::Right => measure.width - width,
+        };
+    guide.span = Some(measure.width);
+    line.text_path = Some(guide);
+    let mut consumed = spans
+        .get(1)
+        .map_or(block.end, |next| block.start + next.start);
+    // Paragraph separators consume no second baseline. Explicit LineBreak
+    // points still own a blank line when they are encountered on their own.
+    if consumed == block.end && consumed < end && story.slice(consumed, consumed + 1) == "\n" {
+        consumed += 1;
+    }
+    (vec![line], consumed)
 }
 
 /// First paragraph in the final keep-with-next chain, if there is one.
@@ -965,13 +1192,13 @@ fn first_drop_cap(lines: &[ComposedLine]) -> Option<Rect> {
 /// same spacing, keep and grid rules as ordinary flow. Paragraphs are not split
 /// just to balance a frame; an oversized paragraph falls back to ordinary flow.
 fn balance_columns(
-    story: &Story,
+    source: &FlowSource<'_>,
     start: usize,
     end: usize,
     columns: &[Rect],
-    doc: &LayoutDocument,
     grid: Option<BaselineGrid>,
 ) -> (Vec<ComposedLine>, usize) {
+    let story = source.story;
     let Some(first) = columns.first() else {
         return (Vec::new(), start);
     };
@@ -980,11 +1207,10 @@ fn balance_columns(
         let mut cursor = start;
         for column in columns {
             let (lines, next) = fill_column_with_rules(
-                story,
+                source,
                 cursor,
                 end,
                 Rect::new(column.x, column.y, column.width, height),
-                doc,
                 grid,
                 true,
             );
@@ -1044,6 +1270,8 @@ fn break_line(
         None,
     );
     ComposedLine {
+        generated: None,
+        text_path: None,
         start: block.start,
         end: block.end.min(story.text_len()),
         bounds: Rect::new(measure.x, top, measure.width, metrics.height),
@@ -1070,25 +1298,25 @@ fn break_line(
 /// 18pt lower because the paragraph above it has space after it", and
 /// every one of those features needs to.
 fn fill_column_gridded(
-    story: &Story,
+    source: &FlowSource<'_>,
     start: usize,
     end: usize,
     column: Rect,
-    doc: &LayoutDocument,
     grid: Option<BaselineGrid>,
 ) -> (Vec<ComposedLine>, usize) {
-    fill_column_with_rules(story, start, end, column, doc, grid, false)
+    fill_column_with_rules(source, start, end, column, grid, false)
 }
 
 fn fill_column_with_rules(
-    story: &Story,
+    source: &FlowSource<'_>,
     start: usize,
     end: usize,
     column: Rect,
-    doc: &LayoutDocument,
     grid: Option<BaselineGrid>,
     whole_paragraphs: bool,
 ) -> (Vec<ComposedLine>, usize) {
+    let story = source.story;
+    let doc = source.doc;
     let mut lines: Vec<ComposedLine> = Vec::new();
     let mut cursor = start;
     let mut used = 0.0;
@@ -1112,10 +1340,9 @@ fn fill_column_with_rules(
         let before = lines.len();
         let placed = if block.is_paragraph {
             place_block(
-                story,
+                source,
                 block,
                 column,
-                doc,
                 PlacementSpace {
                     top: column.y + used,
                     height: column.height - used,
@@ -1158,8 +1385,20 @@ fn fill_column_with_rules(
                 break;
             }
             flow.advance = advance;
+            let mut line = break_line(story, doc, &column, block, top, flow);
+            if paragraph.list.active() && block.paragraph_start == Some(block.start) {
+                if let Some(marker) = source.markers.get(block.start) {
+                    let body = marker.body_start(column.x, &paragraph);
+                    let width = line.bounds.right() - body;
+                    if width <= 0.0 {
+                        break;
+                    }
+                    line.bounds.x = body;
+                    line.bounds.width = width;
+                }
+            }
             Placed {
-                lines: vec![break_line(story, doc, &column, block, top, flow)],
+                lines: vec![line],
                 consumed_to: block.end,
             }
         };
@@ -1317,17 +1556,32 @@ struct PlacementSpace {
 /// Shape with the actual per-line measures, then select complete lines.
 /// Measuring arbitrary prefixes can split a word at a frame boundary.
 fn place_block(
-    story: &Story,
+    source: &FlowSource<'_>,
     block: &Block,
     column: Rect,
-    doc: &LayoutDocument,
     space: PlacementSpace,
     grid: Option<BaselineGrid>,
 ) -> Placed {
+    let story = source.story;
+    let doc = source.doc;
     let paragraph = doc.styles.resolve_paragraph(&block.style);
     let first = block.paragraph_start == Some(block.start);
     let normal = line_measure(&paragraph, column, false, None);
-    let initial = line_measure(&paragraph, column, first, None);
+    let mut initial = line_measure(&paragraph, column, first, None);
+    let marker = (first && paragraph.list.active())
+        .then(|| source.markers.get(block.start))
+        .flatten();
+    if let Some(marker) = &marker {
+        let body = marker.body_start(column.x, &paragraph);
+        initial.width = (initial.right() - body).max(0.0);
+        initial.x = body;
+        if initial.width <= 0.0 {
+            return Placed {
+                lines: Vec::new(),
+                consumed_to: block.start,
+            };
+        }
+    }
     let full_spec = spec_for(
         story,
         block.start,
@@ -1337,7 +1591,7 @@ fn place_block(
         &doc.default_character_style,
         normal.width,
     );
-    let opening = if first {
+    let opening = if first && marker.is_none() {
         opening(&full_spec, &paragraph)
     } else {
         None
@@ -1348,7 +1602,13 @@ fn place_block(
         start: block.start + prefix,
         ..block.clone()
     };
-    let mut all = schist_text_engine::line_spans_with_widths(&spec, &[initial.width, normal.width]);
+    let mut all = schist_text_engine::line_spans_with_measures(
+        &spec,
+        &[
+            inline_measure(initial, column),
+            inline_measure(normal, column),
+        ],
+    );
     let mut cap = None;
     if let Some(opening) = &opening {
         // Bound work for malformed imported counts. Preserve the text as
@@ -1379,18 +1639,20 @@ fn place_block(
                 cap = Some(planned);
                 break;
             }
-            let widths: Vec<_> = (0..=opening.lines)
+            let measures: Vec<_> = (0..=opening.lines)
                 .map(|i| {
-                    line_measure(
-                        &paragraph,
+                    inline_measure(
+                        line_measure(
+                            &paragraph,
+                            column,
+                            first && i == 0,
+                            (i < opening.lines).then_some(planned.area),
+                        ),
                         column,
-                        first && i == 0,
-                        (i < opening.lines).then_some(planned.area),
                     )
-                    .width
                 })
                 .collect();
-            all = schist_text_engine::line_spans_with_widths(&spec, &widths);
+            all = schist_text_engine::line_spans_with_measures(&spec, &measures);
             cap = Some(planned);
         }
         if !settled {
@@ -1400,10 +1662,26 @@ fn place_block(
             };
         }
     }
+    let measure_at = |index| {
+        if index == 0 && marker.is_some() {
+            initial
+        } else {
+            let area = cap
+                .as_ref()
+                .filter(|cap| index < cap.lines)
+                .map(|cap| cap.area);
+            line_measure(&paragraph, column, first && index == 0, area)
+        }
+    };
     let mut top = space.top;
     let mut previous = space.previous;
     let mut positions = Vec::new();
-    for span in &all {
+    for (index, span) in all.iter().enumerate() {
+        if spec.text[span.start..span.end].contains('\t')
+            && span.width > measure_at(index).width + 0.001
+        {
+            break;
+        }
         let flow = LineFlow::from_span(span, &spec);
         let (placed_top, advance) = grid_position(grid, top, flow, previous);
         if placed_top + span.height > space.top + space.height {
@@ -1445,7 +1723,7 @@ fn place_block(
         .map(|(i, span)| {
             let (top, advance) = positions[i];
             let area = cap.as_ref().filter(|cap| i < cap.lines).map(|cap| cap.area);
-            let measure = line_measure(&paragraph, column, first && i == 0, area);
+            let measure = measure_at(i);
             line_at(
                 story,
                 doc,
@@ -1465,6 +1743,8 @@ fn place_block(
         lines.insert(
             0,
             ComposedLine {
+                generated: None,
+                text_path: None,
                 start: block.start,
                 end: body.start,
                 bounds: cap.bounds,
@@ -1666,6 +1946,13 @@ fn plan_initial(
     }
 }
 
+fn inline_measure(rect: Rect, column: Rect) -> schist_text_engine::InlineMeasure {
+    schist_text_engine::InlineMeasure {
+        width: rect.width,
+        start: rect.x - column.x,
+    }
+}
+
 /// Horizontal measure used by both shaping and placement.
 fn line_measure(
     paragraph: &ResolvedParagraph,
@@ -1722,6 +2009,8 @@ fn line_at(
         is_paragraph_end,
     );
     ComposedLine {
+        generated: None,
+        text_path: None,
         start,
         end,
         bounds: placement.bounds,
@@ -1777,12 +2066,16 @@ pub fn word_space(
     Some(slack / spaces as Pt)
 }
 
-/// How many word spaces a line has to share the slack between.
+/// Count the ordinary spaces the engine expands. Tabbed lines justify their
+/// final field; earlier fields remain anchored to the paragraph's stops.
 pub fn count_spaces(story: &Story, start: usize, end: usize) -> usize {
     story
         .slice(start, end)
+        .rsplit('\t')
+        .next()
+        .unwrap_or_default()
         .chars()
-        .filter(|c| c.is_whitespace())
+        .filter(|c| *c == ' ')
         .count()
 }
 
@@ -1901,6 +2194,9 @@ pub fn compose_object(doc: &LayoutDocument, placed: &PlacedObject) -> Option<Com
 
 // Enlarge the font and spacing, retaining authored offsets in absolute points.
 fn scale_initial_spec(mut spec: TextSpec, scale: Pt) -> TextSpec {
+    if let Some(tabs) = &mut spec.tabs {
+        tabs.scaled(scale);
+    }
     spec.size *= scale;
     spec.leading = spec.leading.map(|v| v * scale);
     spec.tracking *= scale;
@@ -1917,6 +2213,9 @@ fn scale_initial_spec(mut spec: TextSpec, scale: Pt) -> TextSpec {
 /// Render/edit one composed line without wrapping it again. A reserved blank
 /// line carries an empty spec for its caret, never a newline creating two rows.
 pub fn line_spec(line: &ComposedLine, story: &Story, doc: &LayoutDocument) -> TextSpec {
+    if let Some(generated) = &line.generated {
+        return generated.spec.clone();
+    }
     let mut spec = spec_for(
         story,
         line.start,
@@ -1931,6 +2230,17 @@ pub fn line_spec(line: &ComposedLine, story: &Story, doc: &LayoutDocument) -> Te
     }
     spec = with_leading(spec, line.advance);
     spec.word_spacing = line.word_space.unwrap_or(0.0);
+    if let Some(tabs) = &mut spec.tabs {
+        tabs.origin = if spec.writing_mode.is_vertical() {
+            line.bounds.y
+        } else {
+            line.bounds.x
+        } - line.inline_origin;
+    }
+    if let Some(path) = &line.text_path {
+        spec.path = Some(path.clone());
+        spec.align = schist_text_engine::Align::Left;
+    }
     if line.forced_break {
         spec.text.clear();
         spec.runs.clear();

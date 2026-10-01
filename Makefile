@@ -1080,4 +1080,26 @@ check-design-output: design-pdf-proof
 	$(CARGO) run -p schist-separation --example opentype_proof -- /tmp/schist-opentype-proof.pdf
 	$(CARGO) run -p schist-separation --example leading_proof -- /tmp/schist-leading-proof.pdf
 	$(CARGO) run -p schist-separation --example font_style_proof -- /tmp/schist-font-style-proof.pdf
-	python3 tools/check-design-pdf.py $(or $(DESIGN_PDF_PROOF),/tmp/schist-pdf-proof.pdf) /tmp /tmp/schist-text-proof.pdf /tmp/schist-offsets-proof.pdf /tmp/schist-crossover-proof.pdf /tmp/schist-tint-proof.pdf /tmp/schist-decoration-proof.pdf /tmp/schist-baseline-proof.pdf /tmp/schist-script-proof.pdf /tmp/schist-opentype-proof.pdf /tmp/schist-leading-proof.pdf /tmp/schist-font-style-proof.pdf
+	$(CARGO) run -p schist-separation --example object_style_proof -- /tmp/schist-object-style-proof.pdf
+	$(CARGO) run -p schist-separation --example text_stroke_proof -- /tmp/schist-text-stroke-proof.pdf
+	$(CARGO) run -p schist-separation --example custom_decoration_proof -- /tmp/schist-custom-decoration-proof.pdf
+	$(CARGO) run -p schist-separation --example cjk_feature_proof -- /tmp/schist-cjk-feature-proof.pdf
+	$(CARGO) run -p schist-separation --example capitalization_proof -- /tmp/schist-capitalization-proof.pdf
+	$(CARGO) run -p schist-separation --example striped_decoration_proof -- /tmp/schist-striped-decoration-proof.pdf
+	$(CARGO) run -p schist-separation --example dashed_decoration_proof -- /tmp/schist-dashed-decoration-proof.pdf
+	$(CARGO) run -p schist-separation --example capped_decoration_proof -- /tmp/schist-capped-decoration-proof.pdf
+	$(CARGO) run -p schist-separation --example dotted_decoration_proof -- /tmp/schist-dotted-decoration-proof.pdf
+	$(CARGO) run -p schist-separation --example fitted_decoration_proof -- /tmp/schist-fitted-decoration-proof.pdf
+	$(CARGO) run -p schist-separation --example language_proof -- /tmp/schist-language-proof.pdf
+	$(CARGO) run -p schist-separation --example text_path_proof -- /tmp/schist-text-path-proof.pdf
+	$(CARGO) run -p schist-separation --example lists_proof -- /tmp/schist-lists-proof.pdf
+	$(CARGO) run -p schist-separation --example tabs_proof -- /tmp/schist-tabs-proof.pdf
+	python3 tools/check-design-pdf.py $(or $(DESIGN_PDF_PROOF),/tmp/schist-pdf-proof.pdf) /tmp /tmp/schist-text-proof.pdf /tmp/schist-offsets-proof.pdf /tmp/schist-crossover-proof.pdf /tmp/schist-tint-proof.pdf /tmp/schist-decoration-proof.pdf /tmp/schist-baseline-proof.pdf /tmp/schist-script-proof.pdf /tmp/schist-opentype-proof.pdf /tmp/schist-leading-proof.pdf /tmp/schist-font-style-proof.pdf /tmp/schist-object-style-proof.pdf /tmp/schist-text-stroke-proof.pdf /tmp/schist-custom-decoration-proof.pdf /tmp/schist-cjk-feature-proof.pdf /tmp/schist-capitalization-proof.pdf /tmp/schist-striped-decoration-proof.pdf /tmp/schist-dashed-decoration-proof.pdf /tmp/schist-capped-decoration-proof.pdf /tmp/schist-dotted-decoration-proof.pdf /tmp/schist-fitted-decoration-proof.pdf /tmp/schist-language-proof.pdf /tmp/schist-text-path-proof.pdf /tmp/schist-lists-proof.pdf /tmp/schist-tabs-proof.pdf
+
+.PHONY: design-lists-proof
+design-lists-proof:
+	$(CARGO) run -p schist-separation --example lists_proof -- /tmp/schist-lists-proof.pdf
+
+.PHONY: design-tabs-proof
+design-tabs-proof:
+	$(CARGO) run -p schist-separation --example tabs_proof -- /tmp/schist-tabs-proof.pdf

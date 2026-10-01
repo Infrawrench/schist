@@ -325,7 +325,7 @@ pub fn line_coverage(
     }
     // A break line stands for a point with no glyphs, and an empty line
     // is not worth rasterising.
-    if line.end <= line.start {
+    if line.end <= line.start && line.generated.is_none() {
         return None;
     }
     let spec = line_spec(line, story, doc);
@@ -380,45 +380,71 @@ pub fn line_paints(
     settings: OutputSettings,
     page: &schist_layout::Page,
 ) -> Vec<TextPaint> {
-    if line.forced_break || line.end <= line.start {
+    if line.forced_break || (line.end <= line.start && line.generated.is_none()) {
         return Vec::new();
     }
     let base = line
         .paragraph
         .character(doc.styles.resolve_character(&doc.default_character_style));
-    let default_ink = base.fill.clone().unwrap_or_else(Ink::black);
-    let mut inks = vec![(
-        default_ink.clone(),
-        base.opacity.unwrap_or(1.0),
-        base.overprint_fill.unwrap_or(false),
-        base.fill_tint.unwrap_or(1.0),
-    )];
+    let mut inks = Vec::new();
     let mut spec = line_spec(line, story, doc);
-    for run in &mut spec.runs {
-        run.color = None;
-    }
-    for (run, range) in spec.runs.iter_mut().zip(
-        story
-            .ranges
-            .iter()
-            .filter(|r| r.start < line.end && r.end > line.start),
-    ) {
-        let style = doc.styles.resolve_character(&range.style);
-        run.color = Some((inks.len() as u32).to_le_bytes());
-        inks.push((
-            schist_layout::styles::inherited_paint(
-                &style.fill,
-                style.fill_tint,
-                Some(&default_ink),
-            )
-            .unwrap(),
-            style.opacity.or(base.opacity).unwrap_or(1.0),
-            style
-                .overprint_fill
-                .or(base.overprint_fill)
-                .unwrap_or(false),
-            style.fill_tint.or(base.fill_tint).unwrap_or(1.0),
-        ));
+    let ranges: Vec<_> = story
+        .ranges
+        .iter()
+        .filter(|r| r.start < line.end && r.end > line.start)
+        .collect();
+    // Composition appends its paragraph fallback after the local style ranges.
+    for (index, run) in spec.runs.iter_mut().enumerate() {
+        let style = line
+            .generated
+            .as_ref()
+            .map(|g| g.character.clone())
+            .unwrap_or_else(|| {
+                ranges.get(index).map_or_else(
+                    || base.clone(),
+                    |range| {
+                        doc.styles
+                            .resolve_character(&range.style)
+                            .with_paint_defaults(&base)
+                    },
+                )
+            });
+        let mut paint_id = |ink: Ink, overprint: bool, tint: f32| {
+            let paint = (ink, style.opacity.unwrap_or(1.0), overprint, tint);
+            let index = inks
+                .iter()
+                .position(|existing| existing == &paint)
+                .unwrap_or_else(|| {
+                    inks.push(paint);
+                    inks.len() - 1
+                });
+            Some((index as u32).to_le_bytes())
+        };
+        run.color = paint_id(
+            style.fill.clone().unwrap_or_else(Ink::black),
+            style.overprint_fill.unwrap_or(false),
+            style.fill_tint.unwrap_or(1.0),
+        );
+        if let Some(stroke) = &mut run.stroke {
+            stroke.color = paint_id(
+                style.stroke.clone().unwrap_or_else(Ink::black),
+                style.overprint_stroke.unwrap_or(false),
+                style.stroke_tint.unwrap_or(1.0),
+            );
+        }
+        for (rendered, definition) in [
+            (&mut run.underline_style, &style.underline_style),
+            (&mut run.strike_style, &style.strike_style),
+        ] {
+            if let Some(rendered) = rendered {
+                if let Some((ink, tint, overprint)) = definition.paint(&style) {
+                    rendered.color = paint_id(ink, overprint, tint);
+                }
+                if let Some((ink, tint, overprint)) = definition.gap_paint(&style) {
+                    rendered.gap_color = paint_id(ink, overprint, tint);
+                }
+            }
+        }
     }
     spec.word_spacing = line.word_space.unwrap_or(0.0);
     spec.wrap_width = None;
@@ -642,10 +668,25 @@ pub fn scale_spec(spec: schist_text_engine::TextSpec, scale: f32) -> schist_text
     spec.leading = spec.leading.map(|v| v * scale);
     spec.tracking *= scale;
     spec.word_spacing *= scale;
+    if let Some(tabs) = &mut spec.tabs {
+        tabs.scaled(scale);
+    }
+    if let Some(path) = &mut spec.path {
+        path.scaled(scale);
+    }
     for run in &mut spec.runs {
         run.size = run.size.map(|size| size * scale);
         run.metric_size = run.metric_size.map(|v| v * scale);
         run.baseline_shift = run.baseline_shift.map(|v| v * scale);
+        for d in [&mut run.underline_style, &mut run.strike_style]
+            .into_iter()
+            .flatten()
+        {
+            d.scaled(scale);
+        }
+        if let Some(stroke) = &mut run.stroke {
+            stroke.width *= scale;
+        }
         run.tracking = run.tracking.map(|v| v * scale);
         run.leading = run.leading.map(|v| v * scale);
     }
@@ -847,10 +888,12 @@ mod tests {
     fn an_empty_frame_coverage_matches_the_frame() {
         let page = schist_layout::Page::a4();
         let placed = PlacedObject {
+            appearance: Default::default(),
             id: ObjectId::next(),
             page: 0,
             bounds: Rect::new(mm(10.0), mm(10.0), mm(50.0), mm(50.0)),
             object: LayoutObject::TextFrame {
+                text_path: None,
                 story: StoryId(0),
                 columns: 1,
                 gutter: 0.0,

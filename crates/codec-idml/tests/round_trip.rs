@@ -54,6 +54,7 @@ fn document() -> LayoutDocument {
         based_on: None,
         objects: vec![schist_layout::ParentObject {
             object: PlacedObject {
+                appearance: Default::default(),
                 id: ObjectId::next(),
                 page: 0,
                 bounds: Rect::new(10.0, 10.0, 100.0, 20.0),
@@ -102,10 +103,12 @@ fn document() -> LayoutDocument {
     }];
 
     let id = document.add_object(PlacedObject {
+        appearance: Default::default(),
         id: ObjectId::next(),
         page: 0,
         bounds: Rect::new(-260.0, 181.97, 720.0, 47.0),
         object: LayoutObject::TextFrame {
+            text_path: None,
             story: StoryId(0),
             columns: 2,
             gutter: 18.0,

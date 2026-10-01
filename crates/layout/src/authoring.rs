@@ -54,10 +54,12 @@ pub fn text_frame(
     let story = StoryId(document.stories.len() as u32);
     let id = ObjectId::next();
     let placed = PlacedObject {
+        appearance: Default::default(),
         id,
         page,
         bounds,
         object: LayoutObject::TextFrame {
+            text_path: None,
             story,
             columns: 1,
             gutter: 0.0,
@@ -187,6 +189,7 @@ pub fn path_shape(
         schist_i18n::t("common.path")
     };
     let placed = PlacedObject {
+        appearance: Default::default(),
         id: ObjectId::next(),
         page,
         bounds,
@@ -227,7 +230,7 @@ pub fn replace_path(
     };
     let before = snapshot_object(placed);
     let mut changed = placed.clone();
-    let LayoutObject::Shape { path: target, .. } = &mut changed.object else {
+    let Some(target) = changed.object.editable_path_mut() else {
         return false;
     };
     if !path.is_finite() {
@@ -283,6 +286,7 @@ pub fn shape(
     let (width, height) = (bounds.width, bounds.height);
     let path = path_for(kind, width, height);
     let placed = PlacedObject {
+        appearance: Default::default(),
         id: ObjectId::next(),
         page,
         bounds: Rect::new(bounds.x, bounds.y, width, height),
@@ -391,6 +395,7 @@ pub fn graphic_frame_with_link(
     embedded: bool,
 ) -> Option<ObjectId> {
     let placed = PlacedObject {
+        appearance: Default::default(),
         id: ObjectId::next(),
         page,
         bounds: grown(bounds),
@@ -472,6 +477,7 @@ pub fn duplicate(
     let object = match &original.object {
         LayoutObject::TextFrame {
             story,
+            text_path,
             columns,
             gutter,
             insets,
@@ -484,6 +490,7 @@ pub fn duplicate(
                 story: snapshot_story(&copy),
             });
             LayoutObject::TextFrame {
+                text_path: text_path.clone(),
                 story: new_story,
                 columns: *columns,
                 gutter: *gutter,
@@ -495,6 +502,7 @@ pub fn duplicate(
     };
 
     let placed = PlacedObject {
+        appearance: original.appearance.clone(),
         id: ObjectId::next(),
         page: original.page,
         bounds,
@@ -600,7 +608,7 @@ pub fn set_point(document: &mut LayoutDocument, object: ObjectId, at: PointRef, 
         return false;
     }
     let placed = &document.objects[index];
-    let LayoutObject::Shape { path, .. } = &placed.object else {
+    let Some(path) = placed.object.editable_path() else {
         return false;
     };
     let Some(sub) = path.subpaths.get(at.subpath) else {
@@ -624,7 +632,7 @@ pub fn set_point(document: &mut LayoutDocument, object: ObjectId, at: PointRef, 
     };
     let to = crate::affine::point(inverse, to);
     let origin = document.objects[index].bounds.origin();
-    let LayoutObject::Shape { path, .. } = &mut document.objects[index].object else {
+    let Some(path) = document.objects[index].object.editable_path_mut() else {
         return false;
     };
     let Some(subpath) = path.subpaths.get_mut(at.subpath) else {
@@ -882,19 +890,17 @@ pub fn set_fill_ink(
         if !ids.contains(&placed.id) || document.object_locked(placed.id) {
             continue;
         }
-        let LayoutObject::Shape { path, fill, .. } = &placed.object else {
-            continue;
-        };
-        if !path_can_be_filled(path) || fill.as_ref() == Some(ink) {
-            // An open path has no interior, and an object already this
-            // colour is not a change.
+        if !placed.supports_paint()
+            || matches!(&placed.object, LayoutObject::Shape {path, ..} if !path_can_be_filled(path))
+            || document.styles.object_paint(placed).fill_ink() == Some(ink)
+        {
             continue;
         }
         let mut updated = placed.clone();
-        let LayoutObject::Shape { fill, .. } = &mut updated.object else {
-            continue;
-        };
-        *fill = Some(ink.clone());
+        updated.set_local_paint(&crate::ObjectPaint {
+            fill: Some(crate::Paint::Ink(ink.clone())),
+            ..Default::default()
+        });
         applied.push((index, placed.id, snapshot_object(&updated)));
     }
     if applied.is_empty() {
@@ -1405,7 +1411,7 @@ mod tests {
         )
         .expect("a rectangle is created");
         let placed = document.object(id).expect("it is there");
-        let LayoutObject::Shape { path, .. } = &placed.object else {
+        let Some(path) = placed.object.editable_path() else {
             panic!("expected a shape");
         };
         let points = &path.subpaths[0].points;
@@ -1931,7 +1937,7 @@ mod tests {
             Rect::new(50.0, 40.0, 250.0, 160.0),
             "bounds follow the edited path"
         );
-        let LayoutObject::Shape { path, .. } = &placed.object else {
+        let Some(path) = placed.object.editable_path() else {
             panic!("expected a shape");
         };
         // The local origin changed; the other anchors stay in page space.

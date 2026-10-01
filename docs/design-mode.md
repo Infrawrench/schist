@@ -398,6 +398,11 @@ translated; new feature keys use English placeholders under an explicit
 `# UNTRANSLATED PLACEHOLDER` marker so the gap is visible rather than
 silent.
 
+Long English placeholders require an exact source entry and reason in
+[`deferred-english.json`](../crates/i18n/deferred-english.json). The strict
+audit prints this debt and permits it only while Design Mode is disabled
+by default; source changes or enabling the feature expire the exception.
+
 The i18n suite enforces two things worth knowing before editing these
 files: every locale must have exactly the English key set, and every
 visible character must be drawable by one of that locale's web fonts. The
@@ -487,26 +492,35 @@ Computer Use was not approved for Schist. The debug application builds.
 Control edits fill and stroke tint percentages for selected shapes. One committed
 field changes the captured selection in one undo step; invalid values and locked
 selections leave the document unchanged. The eyedropper copies both tints with the
-paint. Character and Paragraph panels edit named styles' fill tint; clearing a
+paint. Character and Paragraph panels edit named styles' fill/stroke tint; clearing a
 style field restores inheritance. All controls use 0–100%, independently of
 opacity. Zero tint is paper that still knocks out underlying ink.
 
 The model stores fractions separately from full-strength ink definitions. This
-keeps every tint of a spot on the same plate. Canvas shapes and text fills show
+keeps every tint of a spot on the same plate. Canvas shapes and text paints show
 these values, and separation applies tint after ink aliases and process builds.
-Text stroke tint is retained for IDML, but text strokes are not yet rendered and
-have no authoring control. Inherited object-style paint remains unsupported. Native window visual QA remains outstanding.
+Text strokes and inherited object-style paint are rendered and editable, as
+described below. Native window visual QA remains outstanding.
 
 
 ## Text decorations
 
-The Character panel now edits strikethrough in a named style, using the same
-single reversible style edit as underline. Paragraph and character decorations
-inherit independently; a character style with no decoration override retains the
-paragraph's underline or strike. An explicit false turns only that decoration off.
-Preview and print use the shared text renderer for horizontal and both vertical
-writing directions. Solid lines use the text's fill, tint, opacity and overprint.
-Custom decoration paint, weight, offset and line styles remain unsupported.
+Character and Paragraph edit underline and strikethrough independently. Each
+enabled flag, line paint, point weight/offset, tint and overprint setting inherits
+separately. Blank dimensions inherit; Auto resets an ancestor's explicit dimension.
+Text color resets an inherited line ink to the current glyph fill; no ink suppresses
+the line without discarding its other settings. A custom ink can remain visible
+when glyph fill is disabled. Each captured style change is one undo step.
+
+Preview and print share the renderer in horizontal and both vertical directions.
+Automatic dimensions retain font/column defaults. Explicit horizontal offsets
+place line centers below the baseline for underline and above it for strike;
+vertical offsets measure from the column center, positive toward the outside
+(right in right-to-left columns, left in left-to-right columns). Dimensions scale
+with zoom and output DPI, without changing shaping, wrapping or carets. Fractional
+solid weights use exact pixel area. Stripes, unadjusted dashes and gap
+paints are described below. Dotted and path decorations are described below; native
+application agreement still needs visual validation.
 
 
 Paragraph and Character controls now expose baseline offsets in points. Blank
@@ -549,9 +563,13 @@ determines whether a requested substitution exists.
 Native IDML boolean switches, figure styles and complete stylistic-set masks are
 retained. Arbitrary tags and partial atomic groups use a standard Label and an
 export notice because another application cannot reproduce their inheritance
-from the corresponding native attribute. Native mode-dependent CJK kana and
-proportional-metric activation remain unsupported and are reported. Explicit
-false values disable both horizontal and vertical variants.
+from the corresponding native attribute. Paragraph and Character also expose independently inherited mode-dependent CJK
+kana and proportional metrics. Enabled selects `hkna`/`palt` horizontally or
+`vkna`/`vpal` vertically; disabled clears both axes. A nearer mode switch clears
+inherited tags in its pair, while equally near explicit tags take precedence.
+Choosing a switch in the UI clears its same-level tag exceptions in one undo step.
+Native IDML retains these switches; independent tag exceptions use the reported
+feature label, guarded so later native edits take precedence.
 
 
 ### Automatic and fixed leading
@@ -586,3 +604,277 @@ installed. Font installation in a session invalidates fallback caches. Variable
 font axes and named variable instances remain unsupported. Native PSD/Affinity
 writers retain the existing private/pixel or reported raster fallback for the
 shared renderer's new named-face setting.
+
+
+Object paint styles are editable in Styles. New style captures the first selected
+frame's visible paint. The definition has a name, an optional base, independent
+fill/stroke category switches, colour, tint, stroke width and overprint. Blank
+numeric/base fields restore inheritance; no paint explicitly clears an ink.
+Apply clears local overrides in enabled categories while preserving disabled
+categories. Detach keeps the current paint. Apply, detach, rename and definition
+edits each undo once for any selection size. Locked objects are skipped.
+
+Control now edits fill/stroke swatches, percentages and stroke width for shapes,
+text frames and image frames. An unchanged numeric value leaves named tint
+inheritance intact. Eyedropper transfers resolved frame paint and opacity; Swatches
+updates object styles and local/parent frame paint. The existing per-object undo
+exception for filling from Swatches remains deliberate.
+
+Frame fill draws before content, with stroke afterwards. Frame outlines scale
+with their boxes and share frame affines, separation tints and overprint rules.
+Curved text-frame outlines are retained for paint, but composition still uses the
+rectangular box; import and export disclose that difference. Synthetic frame
+paint does not expose editable shape anchors. Object-style effects, paragraph
+application, corner/stroke patterns, text wrap and fitting categories are not
+implemented by these paint controls; unsupported native categories are reported.
+
+Text paints are now editable in Character and Paragraph. Fill and stroke each
+allow inherited, no-ink or named swatch values; a no-ink choice explicitly clears
+an ancestor's paint. Stroke weight is an absolute point value, with centered or
+outside alignment. Tint and overprint are independent for the two paints. Each
+control change targets the captured style and undoes once; blank numeric values
+restore inheritance. The renderer strokes actual font contours, including curved
+glyphs and vertical/rotated text, without changing line advances or carets.
+Preview composites the separate paint coverages, preserving translucent overlaps.
+Stroke joins independently inherit miter, round or bevel geometry. Character and
+Paragraph also edit the nonnegative miter limit; blank restores inheritance and
+zero bevels every nonstraight miter. The ratio stays unchanged with output DPI,
+while stroke point widths scale. Join edits leave line metrics and carets intact,
+and each captured style change undoes once. Striped decorations are described
+below; supported dashes follow them. Dotted and path decorations are described below.
+
+
+### Capitalization
+
+Character and Paragraph offer inherited, normal, all caps, small caps and OpenType
+all-small-caps choices. A choice sets both legacy capitalization flags in one
+captured, undoable edit; older independently inherited flags remain supported and
+are labelled Partial inheritance. Character's document preferences include the
+synthetic small-cap percentage, from 1 to 200 (default 70). Nine new keys are in
+all 150 catalogs.
+
+All caps changes displayed glyphs without changing the story. Unicode expansions
+such as `ß` to `SS` keep original byte clusters, selection and caret boundaries.
+Small caps uses real substitutions where available, otherwise scaled uppercase
+graphemes; combining marks stay with their base. Nominal line metrics remain
+unchanged, including automatic underline/strike geometry. Oversized synthetic
+caps contribute ink across gutters beyond their nominal frames. OpenType all-small-caps requests native `smcp` and `c2sc` without
+synthesis. Explicit feature tags override those defaults, including disabling
+small caps. Casing uses Unicode uppercase mappings with Turkic and Lithuanian
+tailoring selected by the resolved language (see below). Native-application visual
+agreement remains unverified.
+
+Native IDML Capitalization and SmallCap preferences survive repeated saves. A
+legacy partial flag pair requires reported Schist metadata because the native
+property is atomic; a later native capitalization edit takes precedence. Existing
+public fixtures now retain their previously dropped AllCaps local ranges.
+
+
+### Striped underlines and strikethroughs
+
+Character and Paragraph expose line pattern, stripe edges, gap color, gap tint
+and gap overprint. A stripe definition is a sequence of increasing start/end
+percentages of the line weight, for example `0 25 75 100` makes two outer bands.
+The pattern picker includes imported named definitions. Solid explicitly resets
+an inherited pattern; clearing a stripe edge value restores inheritance. Unchanged
+fields preserve imported names and explicit Solid resets. Each control uses its
+captured style target and commits one undoable edit. Seven labels are present
+in all 150 catalogs.
+
+Gap paint is independent of line paint. It may inherit, use text color, select a
+swatch or explicitly use no ink. Named Tint changes follow the existing base-color
+detachment rule. Gaps can remain visible when the main line or glyph fill has no
+ink. Equal stripe and gap inks become one solid silhouette before opacity is
+applied. Point weights and offsets scale with zoom; stripe percentages do not.
+Capped dashes are implemented below. Dotted patterns and decorations following text paths are described below.
+
+
+### Dashed underlines and strikethroughs
+
+The pattern picker also includes unadjusted dashes. Dash/gap lengths
+are alternating point values, at most five pairs; they scale with canvas zoom and
+print resolution. Zero-length members are allowed when the whole cycle is
+positive. The dash phase continues across characters, spaces, bidi runs and
+paint-only changes along each uninterrupted line. An offset, width or pattern
+change begins a new pattern. Main and gap inks retain the same independent
+color, tint and overprint controls as stripes.
+
+Unchanged dash fields preserve imported resource names and do not add undo steps;
+each real edit commits once. Two labels are present in all 150 catalogs. Native
+IDML retains named resources, opaque references, inherited lengths and local
+formatting across repeated saves. Straight endpoint fitting is described below; native application visual
+agreement remains unverified.
+
+
+Dash definitions retain butt, round and projecting caps. Character and Paragraph
+expose the cap choice for an explicit dashed pattern. Editing lengths preserves
+the imported name and cap; each cap change targets the captured style and undoes
+once. Four labels are present in all 150 catalogs. Earlier array-only serialized
+dash definitions still load as butt-ended patterns.
+
+Caps extend at real dash endpoints. Internal character and paint boundaries do
+not create extra endpoints. Round zero-length dashes are circles; projecting
+zero-length dashes are squares. Overlapping caps form a single paint silhouette,
+so opacity applies once. Line layout and caret positions remain unchanged.
+
+Automatic capped lines reserve their font-derived thickness in cross-gutter
+contribution bounds, even when the frame itself does not touch the other page.
+The output property checks automatic and explicit weights on both spread sides.
+
+
+### Dotted underlines and strikethroughs
+
+Character and Paragraph offer a dotted pattern and a dot-center spacing field.
+One to five point intervals repeat along the line, with a positive total cycle;
+line weight sets circle diameter without moving centers. Named imported resources
+and explicit Solid overrides survive unchanged field commits. Real pattern or
+spacing edits use the captured target and undo once. Two labels are in all 150
+catalogs. Native IDML resources, inherited settings and local formatting survive
+repeated saves.
+
+Dot phase continues across characters, spaces and paint changes. Overlapping dots
+form one silhouette before opacity, and gap inks remain independent. Automatic
+and explicit dot thickness contributes across both sides of page gutters.
+Straight endpoint fitting and decorations following text paths are described below.
+
+
+### Fitting straight decorations
+
+Character and Paragraph can fit dashed patterns to the ends of each continuous
+line by adjusting dashes, gaps or both. Dot fitting adjusts center intervals
+without changing diameter; gap-only and combined settings are available. The
+choice belongs to the named stroke resource. Editing its lengths preserves both
+name and fitting; an unchanged commit adds no undo step, and each real edit
+undoes once. Five labels are present in all 150 catalogs.
+
+The shared renderer chooses complete dash sequences that minimize proportional
+change, while keeping the other component fixed. Gap fitting on a line too short
+for two complete fixed-length dashes closes the gaps and clips the final dash.
+Dash-only fitting can grow a zero first dash when proportional scaling cannot
+fit it. Zero intervals otherwise remain zero. Character/paint boundaries do not
+restart fitting. Fitted endpoints are explicit so division rounding cannot erase
+a terminal dot or cap.
+
+These are Schist's straight-segment rules. The public specification identifies
+which lengths may change but does not define numerical repetition selection.
+Native application agreement and fitting around path corners remain unverified.
+Dot resources requesting dash-only adjustment remain diagnosed as unsupported.
+
+
+### Text languages
+
+Character and Paragraph accept language tags, such as `tr`, `ro` and `en-US`.
+Blank restores inheritance; `und` explicitly requests default shaping and casing.
+Committing a field edits the captured style once. Leaving an imported language
+unchanged retains its native resource identity and dictionary settings. Authored
+tags have a distinct representation, so an imported resource ID that happens to
+look like a tag cannot intercept an edit.
+
+Paragraph defaults, character inheritance and local ranges now carry language to
+OpenType shaping, including ordinary Latin text using automatic direction. Font
+language systems can select localized glyphs. All caps and synthesized small caps
+use Turkic dotted-I rules and Lithuanian dot removal from Unicode 17 SpecialCasing.
+Casing reads the original source context, keeps story bytes and grapheme carets,
+and supports horizontal and both vertical writing modes. Equivalent empty/`und`
+resets do not introduce shaping boundaries. Other locale-specific CLDR tailorings,
+hyphenation dictionaries and spell checking are not implemented by this change.
+
+Native IDML language declarations retain opaque IDs, names, quote pairs, dictionary
+vendors, numeric identifiers and labels. Known authored tags lower to observed
+native language names; guarded metadata keeps the exact authored tag. Unsupported
+native mappings use No Language with an explicit export notice and preserve the tag
+as metadata. Later native reference or resource changes take precedence. No claim
+of external InDesign rendering agreement follows from a Schist round trip.
+
+## Text on a path
+
+Select a single-contour shape and choose **Text on path** in Control. Conversion
+keeps its identity, layer, affine and frame paint, creates one story and starts
+text editing. One undo restores the original shape and removes the new story.
+The existing Direct Selection tool edits baseline anchors and handles; the
+original story and bracket distances survive these edits. Duplicate copies the
+story independently, as with rectangular text frames.
+
+Control exposes start/end arc distances in points. A blank end follows the curve;
+an explicit end remains an absolute distance when the curve changes. Shortening
+past an explicit bracket leaves the container overset until its brackets are
+adjusted. Captured multi-object edits validate the whole selection and undo once.
+Unchanged displayed values retain imported precision; an explicit commit still
+normalizes mixed raw values that round to the same display. Box-only columns, gutters
+and insets are hidden for path containers.
+
+A path accepts one shaped line and threads excess text to another path or box.
+Paragraph and structural breaks advance through the same story coordinate system;
+UTF-8 source text and grapheme carets remain unchanged. Paragraph indents and
+alignment operate inside the brackets. Grids, multiline keep rules, enlarged
+initials and vertical story orientation do not add rows to a path. Visible glyphs
+and insertion segments remain clickable above/beside a zero-height baseline,
+including under zoom and object affines. Rotated glyph bounds also contribute to
+neighboring-page output when only the text crosses the gutter.
+
+Native IDML uses a TextPath child on a Polygon parent, with the child's identity
+in mixed path/box threads. The supported effect is horizontal text following the
+baseline tangent, with baseline/center-of-stroke alignment. Other native path
+options are diagnosed. Underlines and strikes follow the path, including solid,
+striped, dashed and dotted paints with independent gap inks. Pattern phase and
+endpoint fitting span consecutive characters before bending; a formatting
+boundary does not restart them. Sharp joins use Schist's bounded miter/bevel
+raster policy. Native corner-fitting agreement and additional effects remain
+open. The integration proof compares independently constructed shared-engine
+baseline specifications; native GUI and external application agreement remain
+unverified. Design Mode remains disabled by default.
+
+### Automatic list markers
+
+Paragraph styles now carry independent list kind, bullet, numbering start and
+continuation, expression, marker formatting and tab settings. The Paragraph
+panel exposes list kind, a Unicode bullet, starting number, number format, expression,
+continuation and list tabs. Blank fields inherit; `^#` inserts the current number
+and a final `^t` separates the marker from the body with a tab. Existing left and
+first-line indents position the marker. Field targets are captured on focus.
+
+Generated markers are separate paint records with zero source length. They do
+not enter the Story Editor, clipboard, selection or caret navigation. Numbering
+follows paragraph order and named sequence identity, independently of frame
+wrapping; explicit restarts take precedence. Markers inherit the first character
+before their own character style is applied. The initial support is horizontal
+Unicode bullets and decimal, Roman, alphabetic and padded sequences at levels 1–9
+within a story. A hidden-number format retains any expression literals and tabs.
+Unchanged format choices retain imported native names and types. Roman values
+outside 1–3999 are preserved and diagnosed. Unsupported
+native list options are preserved and diagnosed by IDML import/export. Empty items reserve their marker and caret, including overset when a frame is
+too narrow. Marker ink outside a frame remains clickable without becoming an
+editable caret stop. Editor, output, native/browser/headless checks and the full
+sweep pass. The previously sandbox-denied clipboard HTTP test also passes in
+the unrestricted publication rerun. Native application rendering remains unverified.
+
+
+Multilevel numbering adds a level field and higher-level restart selector.
+Levels 1–9 may include previous levels with `^1` through `^8`; `^#` is the current
+level. Restart choices inherit, restart after any higher level, or continue the
+current level. Disabling a retained native policy keeps its definition; choosing
+inheritance clears the local policy override. All fields use captured targets
+and one undo step. The multilevel full sweep passes all eligible tests (1,654 distinct Rust tests
+plus four browser tests); its unchanged clipboard listener was sandbox-blocked
+at that checkpoint and passes in the later publication rerun.
+
+
+### Paragraph tabs
+
+Paragraph tabs accepts point positions for ordinary paragraphs as well as lists.
+Unmodified Tab inserts a source tab in the canvas editor and Story Editor. A
+captured style edit or text replacement remains one undo step. Blank tab fields
+restore inheritance; existing imported alignment/leader records are preserved
+when their displayed positions are committed unchanged.
+
+Leading stops are measured from the column origin, independently of first-line
+indents, list markers and enlarged initials. Wrapping, painting and caret placement
+share that origin in horizontal and vertical flow. A tab which cannot fit remains
+overset and can resume in a wider threaded frame. Justification expands ordinary
+spaces after the final tab; earlier fields retain their stop positions.
+
+Explicit left stops compose. Missing/empty stops use Schist's 36-point grid,
+with an IDML notice. Right, centered and decimal tabs, leaders, RTL native tab
+semantics, centered/right paragraph alignment, path tabs and tabs inside an
+enlarged initial remain unsupported and are diagnosed. Their native records are
+retained. Native application rendering agreement is not established.

@@ -162,6 +162,7 @@ impl Walker<'_> {
         }
 
         let mut spec = schist_text_engine::TextSpec {
+            language: String::new(),
             text,
             family,
             font_style: None,
@@ -175,6 +176,7 @@ impl Walker<'_> {
             line_height: 1.0,
             leading: None,
             word_spacing: 0.0,
+            tabs: None,
             tracking: 0.0,
             // Frame text reflows to its box; artistic text never wraps.
             wrap_width: (frame_text && frame_width > 8).then_some(frame_width as f32),
@@ -383,20 +385,7 @@ impl Walker<'_> {
         };
         let mut layer = Layer::new_raster(display_name);
         let bounds = raster.bounds.translated(origin.0, origin.1);
-        let mut rgba = vec![0u8; raster.coverage.len() * 4];
-        for (i, (px, &cov)) in rgba
-            .as_chunks_mut::<4>()
-            .0
-            .iter_mut()
-            .zip(&raster.coverage)
-            .enumerate()
-        {
-            let color = raster.colors.get(i).copied().flatten().unwrap_or(color);
-            px[0] = color[0];
-            px[1] = color[1];
-            px[2] = color[2];
-            px[3] = (cov as u16 * color[3] as u16 / 255) as u8;
-        }
+        let rgba = raster.rgba(color);
         if rotated {
             // Map layout space back through the rotation: a layout
             // pixel p sits at ctm · (frame_local_origin + p/scale).

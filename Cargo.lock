@@ -7240,6 +7240,7 @@ dependencies = [
  "ttf-parser 0.25.1",
  "unicode-bidi",
  "unicode-linebreak",
+ "unicode-normalization",
  "unicode-script",
  "unicode-segmentation",
  "unicode-vo",

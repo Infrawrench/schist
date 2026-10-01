@@ -26,13 +26,17 @@
 //! from the specification.
 
 mod auto_direction;
+mod capitalization_codec;
 pub mod container;
 pub mod designmap;
 pub mod error;
 pub mod export;
 pub mod import;
+mod language_codec;
+mod list_codec;
 pub mod plugin;
 mod story_codec;
+mod stroke_style_codec;
 mod style_codec;
 pub mod xml;
 
@@ -40,9 +44,12 @@ pub use error::Error;
 pub use plugin::IdmlCodec;
 
 mod graphic_codec;
+mod text_path_codec;
 mod thread_codec;
 
 mod color_codec;
+mod decoration_codec;
+mod object_style_codec;
 mod opentype_codec;
 mod preferences_codec;
 

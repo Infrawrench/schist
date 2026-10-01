@@ -242,6 +242,7 @@ impl Workspace {
             // point for, so it is typed like any other character rather
             // than being a key the editor swallows.
             "return" | "enter" => tools::type_text(&mut self.design, "\n"),
+            "tab" if !keystroke.modifiers.shift => tools::type_text(&mut self.design, "\t"),
             "backspace" => tools::backspace(&mut self.design),
             "delete" => tools::delete_forward(&mut self.design),
             // The arrow keys move the caret. Left and right step by a

@@ -72,12 +72,7 @@ fn render_tiles(doc: &Document, stored: &StoredText) -> (TileMap, IntRect) {
     }
     let bounds = raster.bounds.translated(stored.origin.0, stored.origin.1);
     let w = raster.bounds.width() as usize;
-    let color = Rgba::from_u8(
-        stored.color[0],
-        stored.color[1],
-        stored.color[2],
-        stored.color[3],
-    );
+    let pixels = raster.rgba(stored.color);
     let depth = doc.depth;
     for coord in TileCoord::covering(&bounds) {
         let trect = coord.rect();
@@ -88,26 +83,13 @@ fn render_tiles(doc: &Document, stored: &StoredText) -> (TileMap, IntRect) {
         let buf = tiles.get_mut_or_insert(coord, depth);
         for y in clip.top..clip.bottom {
             for x in clip.left..clip.right {
-                let cov =
-                    raster.coverage[(y - bounds.top) as usize * w + (x - bounds.left) as usize];
-                if cov == 0 {
+                let index = ((y - bounds.top) as usize * w + (x - bounds.left) as usize) * 4;
+                let c = &pixels[index..index + 4];
+                if c[3] == 0 {
                     continue;
                 }
-                let color = raster
-                    .colors
-                    .get((y - bounds.top) as usize * w + (x - bounds.left) as usize)
-                    .copied()
-                    .flatten()
-                    .map(|c| Rgba::from_u8(c[0], c[1], c[2], c[3]))
-                    .unwrap_or(color);
                 let ix = ((y - trect.top) * TILE_SIZE + (x - trect.left)) as usize;
-                buf.set(
-                    ix,
-                    Rgba {
-                        a: color.a * (cov as f32 / 255.0),
-                        ..color
-                    },
-                );
+                buf.set(ix, Rgba::from_u8(c[0], c[1], c[2], c[3]));
             }
         }
     }
@@ -469,7 +451,11 @@ fn active_text_path(doc: &Document, origin: (i32, i32)) -> Option<TextPath> {
     for anchor in &mut curve.anchors {
         *anchor = anchor.translated(-(origin.0 as f32), -(origin.1 as f32));
     }
-    Some(TextPath { curve, offset: 0.0 })
+    Some(TextPath {
+        curve,
+        offset: 0.0,
+        span: None,
+    })
 }
 
 impl ToolPlugin for TypeTool {

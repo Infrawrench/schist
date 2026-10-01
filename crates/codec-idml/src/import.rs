@@ -23,7 +23,7 @@
 //!
 //! ## What is not read
 //!
-//! Tables, footnotes, anchored objects and text on a path. Those go into the [`Report`] rather than being dropped
+//! Tables, footnotes and anchored objects. Those go into the [`Report`] rather than being dropped
 //! silently, because a reader that quietly discards part of a document is
 //! worse than one that says which part.
 
@@ -93,6 +93,8 @@ pub fn read_package(opened: &DesignPackage<'_>) -> Result<Imported, Error> {
         }
     }
     document.inks = colors.values().cloned().collect();
+    document.styles.languages = crate::language_codec::read(opened, &mut report)?;
+    document.styles.numbering_lists = crate::list_codec::read_resources(opened, &mut report)?;
     let layers = read_layers(opened, &mut document)?;
     let mut style_roots = Vec::new();
     for part in opened.listed.iter().filter(|part| part.role == "Styles") {
@@ -102,8 +104,23 @@ pub fn read_package(opened: &DesignPackage<'_>) -> Result<Imported, Error> {
         })?;
         style_roots.push(root);
     }
-    let style_refs = crate::style_codec::References::new(&style_roots);
+    let mut style_refs = crate::style_codec::References::new(&style_roots);
+    style_refs.languages = document.styles.languages.clone();
+    style_refs.strokes = crate::stroke_style_codec::read(opened, &mut report);
+    document.styles.strokes = style_refs
+        .strokes
+        .values()
+        .filter(|s| !matches!(s.pattern, schist_text_engine::TextDecorationPattern::Solid))
+        .cloned()
+        .collect();
     for root in &style_roots {
+        crate::object_style_codec::read_styles(
+            root,
+            &mut document,
+            &colors,
+            &style_refs,
+            &mut report,
+        );
         crate::style_codec::read(
             root,
             &mut document.styles,
@@ -153,8 +170,12 @@ pub fn read_package(opened: &DesignPackage<'_>) -> Result<Imported, Error> {
     crate::thread_codec::resolve(&mut document, &frames, &mut report);
     resolve_master_sources(&mut document, &masters, &mut report);
     apply_masters(&mut document, &masters, &master_claims, &mut report);
+    crate::object_style_codec::resolve_references(&mut document, &style_refs, &mut report);
     crate::preferences_codec::read(opened, &mut document, &mut report)?;
 
+    report
+        .skipped
+        .extend(crate::list_codec::diagnostics(&document));
     if !opened.unlisted.is_empty() {
         report.skip(schist_i18n::tf!(
             "design.idml_unlisted_parts",
@@ -333,7 +354,7 @@ fn read_spread(
         placed.bounds.x -= boxes[owner].x;
         placed.bounds.y -= boxes[owner].y;
         let id = document.add_object(placed);
-        if child.name == "TextFrame" {
+        if let Some(child) = crate::text_path_codec::reference(child) {
             references.push(crate::thread_codec::FrameReference {
                 external: child.attr("Self").unwrap_or_default().to_string(),
                 next: child
@@ -453,9 +474,11 @@ fn placed_object(
     if element.child("Group").is_some() {
         report.skip(schist_i18n::t("design.idml_clipped_group"));
     }
+    let baseline = crate::text_path_codec::read(element, report);
     let mut object = match element.name.as_str() {
-        "TextFrame" => {
-            let reference = element.attr("ParentStory").unwrap_or_default();
+        _ if element.name == "TextFrame" || baseline.is_some() => {
+            let native = crate::text_path_codec::reference(element).unwrap();
+            let reference = native.attr("ParentStory").unwrap_or_default();
             // `n` is InDesign's null reference, on a frame with no flow.
             let Some(story) = story_index(reference, stories) else {
                 report.skip(schist_i18n::tf!(
@@ -465,6 +488,7 @@ fn placed_object(
                 return None;
             };
             LayoutObject::TextFrame {
+                text_path: baseline,
                 story: StoryId(story as u32),
                 columns: element
                     .find("TextFramePreference")
@@ -476,7 +500,7 @@ fn placed_object(
                     .and_then(|p| p.number("TextColumnGutter"))
                     .unwrap_or(0.0),
                 insets: insets_of(element),
-                overflow: if element
+                overflow: if native
                     .attr("NextTextFrame")
                     .is_some_and(|next| !next.is_empty() && next != "n")
                 {
@@ -500,18 +524,9 @@ fn placed_object(
             text: element.attr("Name").unwrap_or_default().to_owned(),
             author: String::new(),
         },
-        "Rectangle" | "Polygon" | "Ellipse" | "Oval" | "GraphicLine" => LayoutObject::Shape {
-            path: path_of(element).unwrap_or_default(),
-            fill: crate::color_codec::resolve(element, "FillColor", colors, report),
-            stroke: crate::color_codec::resolve(element, "StrokeColor", colors, report),
-            stroke_width: element.number("StrokeWeight").unwrap_or(0.0),
-            fill_overprint: element.attr("OverprintFill") == Some("true"),
-            stroke_overprint: element.attr("OverprintStroke") == Some("true"),
-            tints: schist_layout::PaintTints {
-                fill: crate::color_codec::tint(element, "FillTint", report).unwrap_or(1.0),
-                stroke: crate::color_codec::tint(element, "StrokeTint", report).unwrap_or(1.0),
-            },
-        },
+        "Rectangle" | "Polygon" | "Ellipse" | "Oval" | "GraphicLine" => {
+            schist_layout::ObjectPaint::default().shape(path_of(element).unwrap_or_default())
+        }
         other => {
             if !other.is_empty() {
                 report.skip(schist_i18n::tf!(
@@ -539,13 +554,19 @@ fn placed_object(
         tx: 0.0,
         ty: 0.0,
     };
-    if let LayoutObject::Shape { path, .. } = &mut object {
-        path.map_points(|point| point - bounds.origin());
+    match &mut object {
+        LayoutObject::Shape { path, .. } => path.map_points(|point| point - bounds.origin()),
+        LayoutObject::TextFrame {
+            text_path: Some(path),
+            ..
+        } => path.path.map_points(|point| point - bounds.origin()),
+        _ => {}
     }
     let origin = transform.apply(bounds.origin());
     bounds.x = origin.x;
     bounds.y = origin.y;
-    Some(PlacedObject {
+    let mut placed = PlacedObject {
+        appearance: Default::default(),
         id: ObjectId::next(),
         page: 0,
         bounds,
@@ -558,7 +579,15 @@ fn placed_object(
             .is_some_and(|locked| locked == "true"),
         overprint: false,
         transparency: crate::color_codec::opacity(element),
-    })
+    };
+    crate::object_style_codec::read_appearance(
+        element,
+        &mut placed,
+        local.unwrap(),
+        colors,
+        report,
+    );
+    Some(placed)
 }
 
 /// A frame's inset spacing.
@@ -788,7 +817,7 @@ fn read_master_spreads(
                 if let Some(reference) = child.attr("Self") {
                     object_refs.push((reference.to_owned(), id));
                 }
-                if child.name == "TextFrame" {
+                if let Some(child) = crate::text_path_codec::reference(child) {
                     frames.push(crate::thread_codec::FrameReference {
                         external: child.attr("Self").unwrap_or_default().to_owned(),
                         next: child

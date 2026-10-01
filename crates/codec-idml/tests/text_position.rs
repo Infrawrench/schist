@@ -17,6 +17,7 @@ fn native_positions_keep_independent_offsets_inheritance_and_preferences_on_resa
             superscript_position: 42.0,
             subscript_size: 70.0,
             subscript_position: 17.0,
+            ..Default::default()
         };
         doc.styles.add_paragraph(ParagraphStyle {
             name: "Parent".into(),

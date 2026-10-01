@@ -340,9 +340,11 @@ and external native-application comparison remain gaps.
 
 ## Decorated text paints
 
-Solid underlines and strikethroughs use their character's resolved fill paint,
-including spot identity, tint, opacity and overprint. Decoration fragments are
-unioned with glyphs within each consecutive visual paint before separation.
+Solid underlines and strikethroughs default to their character's resolved fill
+paint, including spot identity, tint, opacity and overprint. Custom line inks,
+tints and overprint retain independent native plate identity. Consecutive equal
+paints union before opacity; differing inks keep underline/glyph/stroke/strike
+order within each visual text run.
 Previously the renderer appended all underlines after all glyphs, which could
 apply opacity twice at intersections or repaint an earlier run over a later one.
 Tests bound every decorated plate pixel by its requested opacity in knockout and
@@ -351,7 +353,7 @@ overprint modes, across horizontal and both vertical writing directions.
 The paired `decoration_proof` pages let Poppler compare undecorated/decorated
 output directly. Checks require added continuous ink through spaces and unchanged
 solid glyph colours. The proof also has visually inspected horizontal/vertical
-pages. Custom decoration paints and text strokes remain separate gaps.
+pages. Text strokes and custom solid decoration paints are implemented below.
 
 
 Explicit text baseline offsets scale from document points to output pixels before
@@ -423,3 +425,238 @@ The nine-page `font_style_proof` compares Regular, Light and mixed ranges in all
 three writing modes. Poppler checks lighter glyph density and exact mixed-page
 agreement with the controls, in extracted samples and rendered pages. Every page
 was visually inspected. The font is an unmodified public IBM OFL fixture.
+
+
+Object-style and inline frame paints share shape separation. Fill precedes text
+or placed pixels and stroke follows them; each retains its own tint/overprint
+while using the frame transform and opacity. Stroke bounds contribute across
+page gutters. A missing image still produces a preflight error, while the frame's
+available fill and stroke remain printable. The object-style proof compares
+inherited rectangular/elliptical text and image frames against three independently
+placed objects (fill, content, stroke). Curved text flow remains rectangular and
+is disclosed by the IDML codec.
+
+Text fill and glyph strokes reach separation as distinct ink-tagged coverage
+paints from a single shaping pass. Stroke points scale with output DPI; glyph
+metrics and line wrapping remain unchanged. Centered and outside outlines,
+independent tints/overprint, explicit no-fill/no-stroke and inherited styles share
+the preview model. Repeated equal inks merge before opacity is applied. Stroke
+extents also participate in cross-gutter contribution bounds. The
+`text_stroke_proof` example compares six pairs of PDF pages across horizontal
+and both vertical writing modes, affine placement, spot tint and transparency.
+It also covers miter, round and bevel joins, with zero and extended miter limits.
+The dimensionless limit stays unchanged during DPI scaling. Contribution bounds
+use the resolved limit for miter joins and stroke width for round/bevel joins.
+
+Custom solid decorations scale point weights and offsets before rasterization.
+Exact rectangle coverage avoids direction-dependent quantization of thin lines.
+They leave font shaping and advances unchanged, remain visible with a separate
+ink when glyph fill is disabled, and contribute outside frames across gutters.
+The twelve-page `custom_decoration_proof` compares six decorated/reference pairs
+using independent underline, glyph and strike objects, including fractional
+weights, all writing modes, affine placement, spot tints, opacity and overprint.
+Striped decorations, gap inks and unadjusted dashes are implemented
+below. Dotted and path decorations are described below.
+
+
+Mode-dependent CJK kana/proportional defaults are expanded before shaping for
+each paragraph's axis, including ranged overrides. Plate checks cover all three
+writing modes, affine frames and multiple resolutions. The nine-page CJK proof
+compares mode defaults against explicit feature tags in both extracted samples
+and rendered pages. Bundled Noto CJK supplies real horizontal/vertical
+proportional adjustments; kana alternate glyphs and native-application agreement
+remain unverified.
+
+
+Capitalization shares the source-cluster-aware shaper used by preview and caret
+geometry. Ranged native small caps and expanded uppercase text retain spot ink,
+tint and affine placement across output resolutions. The capitalization proof
+pairs all caps, native small caps, OpenType all-small-caps and synthetic small
+caps with independently authored controls in all three writing modes. Poppler
+compares both sample data and rendered pages; all 24 pages were visually inspected.
+Synthetic percentages scale glyphs without changing nominal line cells,
+automatic decoration metrics or source text. Conservative contribution bounds
+include oversized synthetic caps crossing page gutters. PSD/Affinity preserve their existing reported/private or pixel fallback for
+unsupported native capitalization; Normal remains native-eligible.
+
+
+Striped underline/strike paints partition exact pixel area across the line weight.
+Gap area complements stripe area before each ink is quantized independently,
+including fractional edges. Their 8-bit sum can differ by one rounding level.
+Equal paints share a single silhouette before opacity. Separate inks retain
+independent spot/process identity, tints and overprint; gap paint precedes line
+paint. Glyph shaping, advances and caret positions remain unchanged. Point sizes
+scale with DPI, while the stripe definition stays in percentages.
+
+The `striped_decoration_proof` compares twelve pages with independently authored
+solid bands. Cases cover both decorations, all writing modes, fractional widths,
+affine transforms, opacity, spot tints and opposite line/gap overprint settings.
+Kernel properties also check subpixel stripe area and transposed horizontal/
+vertical coverage, plus independent gap paint with the main line disabled.
+
+The solid-band comparison exposed padding-dependent affine sampling: dividing a
+pixel coordinate by a source width and multiplying by the same width could round
+an edge differently when the mask had more transparent padding. The sampler now
+computes the scale ratio first. A general padding-invariance property guards the
+fix, and the band comparison remains exact at three output resolutions.
+
+
+Dashed underline/strike coverage integrates a periodic rectangular wave. Full
+cycles and at most two partial cycles suffice for a pixel, so arbitrarily small
+valid periods cannot cause an unbounded repetition loop. Phase follows visual
+character order and continues across spaces, bidi runs and paint-only changes.
+Each ink is quantized independently; equal main/gap paints use one silhouette.
+Inactive glyph colors do not break kerning or split decoration opacity groups.
+
+The twelve-page `dashed_decoration_proof` compares two dash arrays in every writing
+mode against independently enumerated solid rectangles. It covers fractional
+lengths, spot/process paints, tints, opacity, opposite overprint choices and affine
+placement. The kernel compares plain and transformed output at 72/144/216 dpi.
+Reference masks are rasterized locally before integer page placement: translating
+floating-point geometry first would round away near-half-pixel coverage. Round and projecting caps are described below; straight fitting and path decoration
+geometry are described below.
+
+
+Round/projecting dash caps now extend the real geometric segment endpoints. A
+first pass identifies uninterrupted geometry before the renderer paints each
+character-owned portion. Main-ink caps beyond the segment have no invented gap
+paint. Caps that overlap are unioned before opacity. Projecting caps integrate
+exact intervals; round caps use bounded adaptive quadrature over circle sections.
+Work is independent of the number of repeated dashes, including subnormal periods.
+
+The 24-page `capped_decoration_proof` compares both cap shapes, two arrays/weights
+and three writing modes against independently enumerated capsules. The reference
+uses analytic disk/rectangle antiderivatives rather than the production quadrature.
+Plate and PDF sample comparisons require exact equality, including fractional
+weights, spot/process paints, tint, opacity, overprint and affine placement.
+Kernel properties also compare projected interval unions and analytic circle,
+capsule and overlapping-circle areas. Metrics and carets remain unchanged.
+
+Automatic cap thickness also reaches cross-gutter contribution bounds through a
+font-metric query that does not recompose the story. A separate property requires
+visible ink and exact plate agreement on both sides of a spread for automatic
+and explicit line weights at three resolutions.
+
+
+Dotted underline/strike patterns use center-to-center point intervals and a diameter
+set by line weight. Coverage shares the bounded round-cap integrator, representing
+dots as zero-length segments without altering the native DotArray model. Duplicate
+centers and overlapping dots union before opacity; gaps stay inside the line's
+base rectangle. Changing weight leaves center positions unchanged.
+
+The twelve-page `dotted_decoration_proof` compares independently enumerated circles
+using analytic disk/rectangle antiderivatives. Cases cover two spacing arrays and
+weights, all writing modes, spot/process inks, tints, opacity, opposite overprint
+and affine placement. Plain and transformed plates agree exactly at 72/144/216 dpi;
+Poppler verifies sample and rendered-page equality. All pages were visually
+inspected. The cross-gutter property includes automatic and explicit dot weights
+on both spread sides and requires real neighboring-page ink.
+
+
+Straight decoration fitting resolves a complete visual segment before any
+character-owned pieces are painted. It changes the requested component and keeps
+fixed lengths intact. Repetition selection examines at most four cycle counts
+per array prefix, independent of the number of repeats. Computation stays in f64
+through periodic area integration, including subnormal input periods. A fitted
+terminal marker prevents remainder rounding from dropping the final dot/cap.
+
+The independent fitted-decoration reference exhaustively enumerates controlled
+fixture sequences, then integrates analytic rectangles, capsules and circles.
+It covers dash-only, gap-only and combined fitting, all cap shapes and writing
+modes, dot spacing, independent inks and affine placement. This checks Schist's
+specified algorithm, not equivalence with native InDesign output.
+
+The fitted proof contains 24 pages. Plain and affine plate samples agree exactly
+at 72/144/216 dpi; Poppler sample and page comparisons pass. All pages were visually
+inspected, and final renders match the reviewed pages exactly. Its unequal-dot
+case caught a terminal-circle loss from a rounded remainder, now covered by a
+separate property over multiple spacing arrays and many segment lengths.
+
+
+Text language now follows paragraph defaults and local character overrides into
+both preview and print shaping. `language_proof` compares Turkic capitals,
+Lithuanian combining-dot removal and Romanian localized glyphs with independently
+authored Unicode text, including explicit language resets. Its 24 pages cover
+horizontal and both vertical modes, spot/process glyph paints, tint, opacity,
+overprint and affine frames. The kernel property compares plain and transformed
+plate samples at 72, 144 and 216 dpi; `check-design-output` compares extracted PDF
+samples and Poppler pages. Native application agreement, dictionary-based
+hyphenation and spell checking remain outside this verification.
+
+Path text uses the same composed line specification in preview and print. Baseline
+coordinates, handles, start offset and interval scale with output resolution;
+glyph outlines rotate individually before the frame affine. Frame paint retains
+its actual path even for zero-height baselines. Page-contribution checks include
+rotated glyph extents, and the neighboring-page property requires nonempty,
+identical plates at 72/144/216 dpi on either spread side.
+
+`text_path_proof` pairs Design output with independently constructed engine path
+specifications for left/center/right bracket alignment, horizontal/opposing
+vertical baseline directions and a cubic curve, including spot fill, process
+stroke, tint, opacity, overprint and affine placement. It also covers solid,
+striped, butt/round/projecting dashed and dotted underlines/strikes with gap ink.
+This checks integration with the shared renderer, not independent native
+application agreement. Additional native path effects remain open.
+
+Path decoration masks retain their existing inline area integration and fitting.
+Equal consecutive paint fragments are combined before bending, so character
+boundaries cannot introduce resampling seams. A strip mesh follows the same
+flattened baseline used by glyphs and carets; offset intersections use a miter
+limited to four times the offset, then a bevel. Four-by-four destination samples
+read the source coverage cells, taking their union before averaging and applying
+opacity. Scratch coverage uses one row, independently of output height. Cardinal
+rotations and integer translations preserve every source coverage value exactly.
+This bounded raster policy does not establish native corner fitting or distortion
+semantics. Cross-gutter bounds include automatic font metrics and join extents;
+the neighboring-page property also requires actual ink from decorated spaces.
+
+### Generated list proof
+
+`make design-lists-proof` writes `/tmp/schist-lists-proof.pdf`, also included in
+`make check-design-output`. Twenty-four automatic-list cases are paired with ordinary
+text frames positioned independently from font metrics. They cover Unicode
+bullets, the decimal transition from 9 to 10, left/center/right marker alignment,
+12/24-point markers beside 18-point body text, strokes, spot tints, opacity and
+overprint. Additional cases cover upper/lower Roman and alphabetic counters,
+Z-to-AA transitions, three padding widths crossing digit boundaries, and a hidden
+number whose tab still positions the body. The kernel comparison checks every plate at 72, 144 and 216 DPI; the
+PDF check compares both extracted samples and Poppler-rendered pages. The 48
+144-DPI proof pages were rendered without diagnostics and visually reviewed.
+This verifies shared-renderer integration, not native InDesign output agreement.
+
+Generated-marker bounds are also checked independently of the frame rectangle:
+right-aligned markers contribute nonempty cyan ink on either neighboring page,
+including a half-turn of the source frame. Every plate sample agrees with a
+reference frame explicitly placed on that page at 72/144/216 DPI.
+
+
+The multilevel list extension adds four generated/reference pairs: Roman parents
+with alphabetic children, continuously numbered children, three nested formats,
+and a repeated parent number that restarts its child. The independent reference
+contains literal labels in ordinary text frames. Kernel plate comparisons pass
+at 72/144/216 DPI, and all 48 list-proof pages were visually inspected with no
+clipping or pairwise placement differences. The full multilevel sweep passes apart from the unchanged sandbox-denied
+clipboard listener. These synthetic cases establish shared-renderer integration, not external native
+application agreement.
+
+
+### Paragraph tab proof
+
+`make design-tabs-proof` writes `/tmp/schist-tabs-proof.pdf`, also included in
+`make check-design-output`. Twelve tabbed cases are paired with ordinary text
+frames at independently fixed positions. The cases cover horizontal and both
+vertical writing modes, 12/18-point type, first-line indents, spot/process paint,
+strokes, opacity and overprint. Kernel checks compare every plate at 72/144/216
+DPI; the PDF check compares extracted samples and Poppler-rendered page pairs.
+
+The comparison exposed position-dependent rounding in glyph outline coverage.
+Ordinary glyph strokes now rasterize in local coordinates and apply their integer
+translation to the finished mask, matching bitmap fill placement. A distant tab
+therefore cannot change a glyph's edge coverage. A separate engine property checks
+that invariant in all writing modes and at several sizes. Path glyphs retain their
+continuous baseline transform.
+
+All 24 tab-proof pages were rendered at 144 DPI without Poppler diagnostics and
+visually inspected. Each tabbed/reference pair matches exactly, including both
+vertical progressions. This establishes shared-renderer integration rather than
+external native application agreement.

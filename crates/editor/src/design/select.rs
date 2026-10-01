@@ -89,8 +89,16 @@ fn hit_display(display: &Display, at: Point) -> Option<Hit> {
 
 /// A zero-width line is still pickable, without changing saved geometry.
 fn hit_bounds(rect: Rect) -> Rect {
-    let width = rect.width.max(6.0);
-    let height = rect.height.max(6.0);
+    // Forward/inverse f32 affines can move an exact edge point a few ULPs
+    // outside. Keep a caret on the first/last baseline point selectable;
+    // this is numerical padding, independent of the six-pixel line hit area.
+    let magnitude = [rect.x, rect.y, rect.right(), rect.bottom()]
+        .into_iter()
+        .map(f32::abs)
+        .fold(1.0, f32::max);
+    let epsilon = (4.0 * f32::EPSILON * magnitude).max(0.001);
+    let width = rect.width.max(6.0) + 2.0 * epsilon;
+    let height = rect.height.max(6.0) + 2.0 * epsilon;
     Rect::new(
         rect.x - (width - rect.width) / 2.0,
         rect.y - (height - rect.height) / 2.0,
@@ -115,6 +123,7 @@ pub fn hit_anchor(
     use schist_layout::authoring::{PointPart, PointRef};
     for display in plan.objects().rev() {
         let Display::Shape {
+            path_editable: true,
             object,
             path,
             inherited: false,
@@ -239,6 +248,47 @@ mod tests {
     };
 
     #[test]
+    fn painted_frames_remain_one_selection_without_exposing_synthetic_anchors() {
+        use schist_layout::{authoring, object_styles, History, Ink, ObjectPaint, Paint};
+        for graphic in [false, true] {
+            let mut doc = blank_a4();
+            let mut history = History::default();
+            let rect = Rect::new(30.0, 30.0, 80.0, 80.0);
+            let id = if graphic {
+                authoring::graphic_frame(&mut doc, &mut history, 0, rect, "image.png", false)
+                    .unwrap()
+            } else {
+                authoring::text_frame(&mut doc, &mut history, 0, rect)
+                    .unwrap()
+                    .object
+            };
+            object_styles::edit_paint(
+                &mut doc,
+                &mut history,
+                &[id],
+                &ObjectPaint {
+                    fill: Some(Paint::Ink(Ink::white())),
+                    stroke: Some(Paint::Ink(Ink::black())),
+                    stroke_width: Some(4.0),
+                    ..Default::default()
+                },
+            );
+            let plan = schist_layout::pasteboard(&doc, &Default::default()).unwrap();
+            assert_eq!(ids(&plan.pages[0]), vec![id]);
+            for display in plan.objects() {
+                if let Display::Shape { path, .. } = display {
+                    for subpath in &path.subpaths {
+                        for point in &subpath.points {
+                            assert!(hit_anchor(&plan, *point, 4.0, &[id]).is_none());
+                            assert_eq!(hit_test(&plan, *point).object(), Some(id));
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    #[test]
     fn crossover_selection_follows_global_stacking_in_spread_and_single_page_views() {
         use schist_layout::{
             authoring::{self, Paint},
@@ -309,10 +359,12 @@ mod tests {
         let story = doc.add_story(Story::from_text("hello", "Body"));
         let id = ObjectId::next();
         doc.add_object(PlacedObject {
+            appearance: Default::default(),
             id,
             page: 0,
             bounds: Rect::new(100.0, 100.0, 200.0, 40.0),
             object: LayoutObject::TextFrame {
+                text_path: None,
                 story,
                 columns: 1,
                 gutter: 0.0,
@@ -406,10 +458,12 @@ mod tests {
         let story = doc.add_story(Story::from_text("front", "Body"));
         let front = ObjectId::next();
         doc.add_object(PlacedObject {
+            appearance: Default::default(),
             id: front,
             page: 0,
             bounds: Rect::new(120.0, 110.0, 200.0, 40.0),
             object: LayoutObject::TextFrame {
+                text_path: None,
                 story,
                 columns: 1,
                 gutter: 0.0,
@@ -482,10 +536,12 @@ mod tests {
         let story = doc.add_story(Story::from_text("", "Body"));
         let id = ObjectId::next();
         doc.add_object(PlacedObject {
+            appearance: Default::default(),
             id,
             page: 0,
             bounds: Rect::new(100.0, 100.0, 200.0, 40.0),
             object: LayoutObject::TextFrame {
+                text_path: None,
                 story,
                 columns: 1,
                 gutter: 0.0,
@@ -517,10 +573,12 @@ mod tests {
         let story = doc.add_story(Story::from_text("far", "Body"));
         let far = ObjectId::next();
         doc.add_object(PlacedObject {
+            appearance: Default::default(),
             id: far,
             page: 0,
             bounds: Rect::new(400.0, 400.0, 50.0, 50.0),
             object: LayoutObject::TextFrame {
+                text_path: None,
                 story,
                 columns: 1,
                 gutter: 0.0,

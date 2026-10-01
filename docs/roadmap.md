@@ -277,11 +277,13 @@ Phase 0 justifies it.
 98 carrying English** under an explicit `# UNTRANSLATED PLACEHOLDER`
 marker. The 19 new Preflight/ruler keys use English placeholders in every
 non-English locale. Keys are added to all 150 catalogs at once, in English, and translation is a
-separate pass — a new feature must not block on 149 translators. `check-i18n.py --strict-audit` fails any value identical to English
-with seven or more words, which is why two Design Mode strings were
-shortened in the English source to stay under that line while the catalog
-is untranslated. They read better short, but the constraint is real and the
-other long strings will need attention as the catalog grows. See
+separate pass — a new feature must not block on 149 translators. The strict
+audit normally fails English-identical prose of seven or more words. Three
+list/tab messages have exact, reasoned deferrals in
+`crates/i18n/deferred-english.json`. The audit reports these untranslated
+values and permits them only while Design Mode is disabled by default.
+Changing the English source or enabling the feature expires the deferral;
+key, placeholder and catalog checks still apply. See
 [i18n translation status](i18n-translation-status.md).
 
 ## Build and check targets
@@ -293,7 +295,7 @@ make lint-design
 make check-idml        # the IDML package, cross-checked against zip/unzip
 make lint-idml
 make check-separation  # inks, plates, PDF
-make check-i18n        # fails on untranslated English prose
+make check-i18n        # catalog checks and explicit translation-debt audit
 ```
 
 `check-design` compiles the editor with `CARGO_INCREMENTAL=0`: its test
@@ -306,7 +308,10 @@ are marked.
 
 ## Handoff
 
-Verification checkpoint, 2026-10-01: all 15 targets pass: `check-layout`,
+Verification checkpoint, 2026-10-01 (paragraph tabs and publication): all targets
+below pass. After permissions were restored, an unfiltered `check-design` rerun
+passed all 408 editor tests, including the unchanged clipboard HTTP-listener test.
+The rest of the complete sweep remains valid for the unchanged source. It covers: `check-layout`,
 `lint-layout`, `lint-text-directions`, `check-design`, `lint-design`,
 `check-idml`, `lint-idml`, `check-separation`, `check-i18n`, `lint-all`
 (`cargo clippy --all-targets -- -D warnings`), `check-layered-codecs-app`
@@ -318,24 +323,31 @@ The browser build reused the native build's cached backer catalog because
 the initial sandbox could not resolve the catalog host. A file-URL portability defect
 and Design Save As filename routing were fixed before that browser check.
 
-The unfiltered `CARGO_INCREMENTAL=0 make check-design` now passes all 390 editor
-tests, including the clipboard HTTP test that the earlier sandbox blocked, plus
-its layout, settings and i18n checks.
+The initial paragraph-tab sweep recorded a PermissionDenied failure for the
+clipboard listener and passed the other 407 editor tests. The publication rerun
+passes all 408 without filtering, plus the layout, settings and i18n checks.
+No test was modified or ignored to conceal the former environment restriction.
 
-Distinct passing Rust tests at the named-font checkpoint: editor 390, layout 312,
-text engine 57, IDML 186, separation 157, core 120, settings 24 and i18n 28
-(including its doctest): **1,274**. The expanded editable-interchange checks add
-Affinity 39, PSD 150 and Type tools 38, for **1,501** distinct Rust tests across
-11 crates, plus four browser i18n tests. Poppler
+Distinct passing Rust tests at the publication checkpoint: editor 408, layout 349,
+text engine 98, IDML 229, separation 183, core 120, settings 24 and i18n 28
+(including its doctest): **1,439**. The expanded editable-interchange checks add
+Affinity 39, PSD 150 and Type tools 38, for **1,666** distinct passing Rust tests across
+11 crates, plus four browser i18n tests. No editor tests remain blocked. Poppler
 checks verify ink patches, rotated text, sheared frames, inner image rotation
 and curved/compound frame clipping, enlarged paragraph initials, vertical Japanese/Latin text, n-up reading
 order, sheet counts and empty slots. The updated affine/compound-frame proof was also visually inspected.
-Logs and exit codes are under `/tmp/schist-variants-sweep-*`, with the result
-index in `/tmp/schist-variants-sweep-results.json`. The asymmetric-offset
-proof also verifies PDF MediaBox/TrimBox/BleedBox with Poppler and was visually
+Logs and exit codes are under `/tmp/schist-tabs-sweep-*`, with the result
+index in `/tmp/schist-tabs-sweep-results.json`. The unfiltered publication rerun
+is `/tmp/schist-publish-check-design.log`, with the updated result index and counts
+in `/tmp/schist-publish-results.json` and `/tmp/schist-publish-counts.json`.
+The list proof also passes,
+and all 48 pages were visually inspected at its checkpoint. The new 24-page tab
+proof passes exact plate/PDF comparisons and visual inspection; eight Python
+i18n-audit tests pass. The asymmetric-offset proof also verifies PDF MediaBox/TrimBox/BleedBox with Poppler and was visually
 inspected. Future changes require a new sweep.
 
-The debug app builds. Native window visual QA remains unverified because
+The debug app was built at the preceding checkpoint; the current native app check
+passes. Native window visual QA remains unverified because
 Computer Use was not approved for Schist. Frame affine implementation and its
 verification are included in this checkpoint. Composition review found paragraph splitting/spacing/keep-rule defects. They
 are fixed and covered by six new property tests and this full sweep. Inner
@@ -363,8 +375,10 @@ has since been corrected to LTR, preserving Schist Auto defaults through labels.
 
 The preceding sweep hit disk exhaustion. Unused temporary files, old compiler
 caches and superseded editor test executables were removed. This sweep finished
-without disk failures. Its sandbox-denied HTTP listener passed in the unrestricted
-retry above. Source files were not removed; current proofs and verification logs remain.
+without disk failures. The named-font checkpoint previously passed that HTTP test in an unrestricted
+run; the publication rerun now passes it again. Source files were not removed;
+current proofs and verification logs remain. The historical checkpoints below
+record earlier test/publication restrictions, which have since been lifted.
 
 The implementation spans new layout, IDML and separation crates, editor modules,
 public fixtures and all 150 `design.lang` catalogs. Read `git status --short`
@@ -765,3 +779,671 @@ external application validation remain open. Phase 5 stays spike-gated and
 Design Mode remains disabled by default. The preceding leading commit passed
 remote Linux, macOS, web and headless checks; Windows was still running when
 this checkpoint was prepared. The next commit requires its own CI.
+
+
+Object-style paint work follows the named-font checkpoint and has completed
+local verification subject to the clipboard sandbox restriction below. Styles now edits named object paints and inheritance, with explicit
+no-ink values and enabled/disabled fill/stroke categories. Control applies local
+paint to text, image and shape frames. Style apply/clear, detach, rename and
+multi-object property commits are one undo step; the documented Swatches fill
+exception remains. Parent artwork, swatch edits, eyedropper, paint bounds and
+cross-gutter contributions share resolved paints. Frame fill precedes content and
+stroke follows it. Missing graphics still report errors while available frame
+paint renders. Synthetic frame paint exposes no shape-editing handles.
+
+Native IDML references, opaque IDs, category flags, local overrides and normalized
+text-frame outlines are retained. Unsupported enabled effects/categories and
+stroke/corner options are reported. Curved text frame paint is supported, but text
+still composes in a rectangle, with an explicit import/export notice. Full
+object-style text-wrap, paragraph, effects, fitting and corner semantics remain
+outside this paint subset. Text stroke rendering is implemented in the following checkpoint.
+
+The environment changed to a restricted sandbox during this work. The unfiltered
+editor run now fails its clipboard HTTP-listener test with PermissionDenied; the
+same test passed at the preceding unrestricted checkpoint. The test has not been
+softened. Filtered verification retains an explicit record of that omission.
+The complete object-paint sweep is in `/tmp/schist-object-paint-sweep-*`: all
+non-editor targets and headless WASM pass, alongside the filtered editor target.
+Workspace clippy, native/browser app checks, editable interchange, formatting
+and whitespace checks pass. Twelve new properties cover inheritance, explicit
+no-ink, disabled categories, paint order, geometry, undo, diagnostics and control
+targets. All eight proof pages were visually inspected and match independent
+fill/content/stroke objects through both Poppler sample extraction and rendering.
+Superseded development logs were removed. Native GUI QA remains unverified.
+
+
+Git publication is blocked under the current sandbox: `git add -A` cannot create
+`.git/index.lock` (Operation not permitted). The named-font checkpoint `8ce6a1eb`
+was committed and pushed before that permissions change; object-paint and text-stroke work remain
+uncommitted. Do not report it as part of remote PR #192 until publication succeeds.
+Do not change clipboard tests to conceal the local-listener restriction.
+
+
+Text stroke rendering is implemented in item 9. Paragraph and character styles
+retain absolute point widths and centered/outside alignment, with independently
+inherited fill/stroke inks, tints and overprint. Explicit no-fill and no-stroke
+values clear inherited inks instead of falling back to black. Character and
+Paragraph expose these choices; each captured style edit undoes once. Nine new
+labels/diagnostics are present in all 150 catalogs. Native IDML named and local
+properties survive repeated saves without creating new styles each time.
+
+The shared renderer strokes actual font contours and scales widths at canvas zoom
+and output DPI. Glyph advances, line spacing and carets remain unchanged. Outside
+strokes exclude filled interiors. Equal fill/stroke inks use one silhouette to
+avoid an antialiased seam and receive opacity once; distinct inks keep their paint
+order and native spot identity. Preview and raster Type consumers composite the
+separate paints. Cross-gutter bounds include stroke extents. Whole-text style
+edits now retain paint overrides rather than taking the font-only fast path;
+resolved no-stroke styles also explicitly clear prior outlines during editing.
+PSD/Affinity keep their established fallback for unsupported native stroke/no-fill
+settings, while zero-width strokes remain eligible for native text.
+
+Eleven new properties bring this checkpoint to **1,523 distinct passing Rust tests
+plus four browser tests**, with one additional editor test blocked by the sandbox.
+All non-editor targets, workspace clippy, native/browser/headless app checks,
+editable interchange, formatting and whitespace checks pass. Filtered editor
+verification passes 392 tests; the unfiltered run preserves its unchanged
+clipboard listener PermissionDenied failure. Logs/results are retained under
+`/tmp/schist-text-stroke-sweep-*`. The twelve-page proof matches separately placed
+fill-only and stroke-only text through both Poppler sample extraction and page
+rendering. All pages were visually inspected. The first local-formatting test
+used an absent color ID; it now uses the resource actually declared by its fixture.
+Superseded development logs and one-use edit helpers were removed.
+
+Nondefault stroke joins/miter limits, custom decorations, mode-dependent CJK
+features, caps, structured story composition, alternate layouts and native
+GUI/application validation remain open. The next typography integration gap is
+custom decoration properties, addressed in the following checkpoint. Phase 5 remains spike-gated; v18/v21 specimens,
+controlled changes and database semantics remain unresolved. Design Mode remains
+disabled by default. Git publication is still blocked by the read-only `.git`
+sandbox; these object-paint and text-stroke changes are not in remote PR #192.
+
+
+Custom solid underline/strikethrough properties are implemented in item 9.
+Paragraph and character styles independently inherit enabled state, line ink,
+point weight/offset, tint and overprint. Explicit Auto resets an inherited point
+value; Text color resets a named line paint to glyph fill. No ink suppresses a
+line while retaining its settings. Separate line ink remains visible without glyph
+fill. Character and Paragraph expose these properties with captured-target,
+one-step undo. Eight new keys are present in all 150 catalogs.
+
+Native IDML uses the published Underline*/StrikeThrough* scalar and Properties
+encodings, Auto's -9999 sentinel and opaque swatch references. Named/local styles
+survive repeated saves without style growth. Invalid dimensions/booleans and
+unsupported pattern/gap properties are reported. PSD/Affinity retain their existing
+private/pixel or reported raster fallback for unsupported custom settings.
+
+The renderer keeps shaping, wrapping and carets unchanged. Explicit solid lines
+use exact rectangle coverage, fixing direction-dependent quantization of thin
+weights in the shared scanline rasterizer. Equal consecutive inks receive opacity
+once; distinct inks preserve underline/glyph/stroke/strike order. Point dimensions
+scale with preview/output resolution, and offset lines contribute across gutters.
+The public user reference confirms horizontal offset signs; native application
+agreement for automatic/vertical placement remains unverified.
+
+Twelve new properties bring the checkpoint to **1,535 distinct passing Rust tests
+plus four browser tests**, with one additional editor test blocked by the sandbox.
+All non-editor targets and headless WASM pass; filtered editor verification passes
+393 tests. The unchanged clipboard HTTP listener remains a recorded PermissionDenied
+failure in the unfiltered run. Workspace clippy, native/browser builds, editable
+interchange, formatting and whitespace checks pass. Logs/results are retained
+under `/tmp/schist-custom-decoration-sweep-*`. Final review caught a test-file
+collision: new properties now live in separate files and original decoration
+coverage is retained. The affected full targets were rechecked and recounted.
+
+The twelve-page PDF proof matches independent underline/glyph/strike objects in
+both extracted samples and rendered pages, across three writing modes, fractional
+weights, affine placement, spot tints, opacity and overprint. Every page was visually
+inspected. One-use edit helpers and superseded development logs were removed.
+
+Next integration work is nondefault glyph stroke joins/miter limits, followed by
+mode-dependent CJK features and caps. Patterned/path decorations, structured story
+composition, alternate layouts, advanced object styles, curved text flow and native
+GUI/application validation remain open. Phase 5 is still spike-gated. Design Mode
+remains disabled by default. Git publication is still blocked by read-only `.git`;
+object paint, text stroke and decoration work are uncommitted and not in PR #192.
+
+
+Glyph stroke joins and miter limits are implemented in item 9. Paragraph and
+character styles independently inherit miter, round or bevel joins and a
+nonnegative ratio. Zero bevels every nonstraight miter; absent values retain
+legacy miter/four defaults. Native EndJoin/MiterLimit and local overrides survive
+repeated saves. Invalid/unknown values remain reported. Character and Paragraph
+edit both settings against captured targets, one undo step per gesture. Five
+labels are present in all 150 catalogs.
+
+The existing vector renderer receives the selected geometry. Join settings leave
+text metrics/carets unchanged, remain dimensionless through DPI scaling and feed
+conservative cross-gutter bounds. Four new properties plus strengthened native,
+separation and local-formatting checks bring the checkpoint to **1,539 distinct
+passing Rust tests plus four browser tests**. All non-editor targets, workspace
+clippy, native/browser/headless checks, editable interchange, formatting and
+whitespace checks pass. The editor passes 394 tests; its unchanged clipboard
+listener is the sole sandbox-blocked failure. Results are retained under
+`/tmp/schist-stroke-join-sweep-*`.
+
+The twelve-page stroke PDF proof now exercises all three joins and zero/extended
+miter limits. Extracted samples and rendered pages exactly match independently
+placed fill/stroke objects; all pages were visually inspected. The old test that
+called supported round joins invalid now checks unknown joins and invalid limits.
+Superseded helpers, development logs and old stroke-review images were removed.
+
+Next work is mode-dependent CJK OpenType defaults, then caps. Patterned/path
+decorations, structured stories, alternate layouts, advanced object styles, curved
+text flow and native GUI/application validation remain open. Production INDD is
+still spike-gated. The feature remains dark, and read-only `.git` still blocks
+publication of the work following 8ce6a1eb to PR #192.
+
+
+Mode-dependent CJK kana and proportional-metric defaults are implemented in item 9.
+Paragraph and character styles independently inherit absent/on/off settings.
+Composition selects horizontal or vertical OpenType tags; nearer switches reset
+inherited tags, while equally near explicit exceptions win. Captured UI choices
+clear same-level exceptions in one undo step. Two keys are in all 150 catalogs.
+Native IDML retains the switches, including local formatting lowered once. Private
+tag exceptions remain reported and have a native-value guard so external changes,
+additions or removals override stale metadata independently per group.
+
+Seven new properties bring this checkpoint to **1,546 distinct passing Rust tests
+plus four browser tests**. All non-editor sweep targets and headless WASM pass,
+along with workspace clippy, formatting and whitespace checks. The editor passes
+395 tests; its unchanged clipboard listener remains the sole sandbox-blocked test.
+Logs/results are retained under `/tmp/schist-cjk-features-sweep-*`.
+
+The nine-page proof matches explicit feature tags in both extracted samples and
+rendered pages; all pages were visually inspected. Real Noto CJK proportional
+spacing differs from full-em controls in all three writing modes. That font has
+no `hkna`/`vkna` alternate glyphs, so kana activation has axis/precedence tests but
+no real alternate-glyph or native-application comparison. Superseded development
+logs and the preceding local PR-body draft were removed.
+
+Next work is capitalization and small caps. Patterned/path decorations, structured
+stories, alternate layouts, advanced object styles, curved text flow and native
+GUI/application validation remain open. Production INDD stays spike-gated. The
+feature stays dark. Read-only `.git` still blocks publishing work after 8ce6a1eb;
+the current local draft description is `/tmp/schist-cjk-features-pr-body.md`.
+
+
+Capitalization is implemented in item 9. Character and Paragraph expose inherited,
+normal, all-caps, small-caps and OpenType all-small-caps choices, with a document
+small-cap percentage. One captured choice sets both flags in one undo step; legacy
+partial inheritance remains visible and preserved. Nine keys are in all 150 catalogs.
+Native Capitalization/SmallCap values and local formatting survive repeated saves.
+Partial legacy pairs use reported metadata, with external native edits winning.
+Public themes, bounded-text and shapes fixtures now retain formerly dropped AllCaps.
+
+Display casing keeps source bytes and grapheme caret positions, including Unicode
+uppercase expansions. Ordinary small caps probes real glyph substitutions and
+otherwise scales uppercase graphemes with their marks. OpenType all-small-caps
+requests native features without synthesis. Explicit feature overrides win. Nominal
+line cells and automatic decoration geometry remain unchanged; oversized synthetic
+caps contribute across gutters. PSD/Affinity retain their established fallbacks.
+Casing uses Unicode default mappings; language-tailored case mapping and native
+application agreement remain unverified.
+
+Twelve new properties bring this checkpoint to **1,558 distinct passing Rust tests
+plus four browser tests**. All non-editor sweep targets, workspace clippy, native/
+browser/headless checks, editable interchange, formatting and whitespace checks
+pass. The editor passes 396 tests; its unchanged HTTP-listener test remains the
+sole sandbox-blocked failure. Results are under `/tmp/schist-caps-sweep-*`. The
+full sweep was repeated after correcting decoration continuity and cross-gutter
+bounds. A test-only font-registration race was fixed by isolating fixture cache
+names; existing geometry properties were retained.
+
+The 24-page PDF proof compares uppercase expansion, native small/all-small caps
+and synthetic small caps against independently authored glyph/feature controls
+in all writing modes. Extracted samples and rendered pages match exactly, and all
+pages were visually inspected. Superseded development logs and local PR-body
+drafts were removed. Current local description: `/tmp/schist-caps-pr-body.md`.
+
+Next work is patterned decorations and gap inks, then the remaining typography
+and structured-story gaps. Path decorations, alternate layouts, advanced object
+styles, curved text flow and native GUI/application validation remain open.
+Production INDD is still spike-gated. Design Mode stays disabled by default.
+Read-only `.git` still prevents publishing work after 8ce6a1eb to PR #192.
+
+
+Striped underline/strike resources and independent gap paints are implemented in
+item 9. Native Graphics.xml definitions, opaque references, unused resources,
+inheritance and local overrides survive repeated saves without style/resource
+growth. Different definitions may share a display name. Invalid arrays and
+unsupported patterns remain diagnosed; explicit Solid resets inheritance.
+Character and Paragraph expose pattern, edge percentages, gap ink/tint/overprint.
+Seven keys are present in all 150 catalogs. Each captured edit undoes once;
+unchanged fields preserve imported names and Solid overrides.
+
+Stripe and gap areas are computed before each ink is quantized independently.
+A regression proof caught biased half-pixel gap rounding, now fixed. Equal inks
+use a single silhouette before opacity. An independent solid-band comparison also
+exposed transparent-padding-dependent affine sampling, fixed by evaluating the
+scale ratio first. Geometry, source text, carets and shaping remain unchanged.
+Gap inks keep spot/process identity and remain visible without main-line paint.
+Swatch edits include gap inks in one undo step. PSD/Affinity retain their existing
+fallbacks for unsupported native pattern/gap settings.
+
+Eleven new properties bring this checkpoint to **1,569 distinct passing Rust tests
+plus four browser tests**. All non-editor sweep targets, workspace clippy, native/
+browser/headless checks, editable interchange, formatting and whitespace checks
+pass. The editor passes 398 tests; its unchanged clipboard HTTP-listener test
+remains the sole sandbox-blocked failure. Results are under
+`/tmp/schist-stripes-sweep-*`; editor checks were repeated after the unchanged-field
+fix. The twelve-page stripe proof matches independently authored solid bands in
+both extracted samples and rendered pages, and all pages were visually inspected.
+It covers all writing modes, fractional widths, affine placement, spot tints,
+opacity and opposite gap/line overprint settings. Superseded development logs and
+the preceding local PR-body draft were removed. Current local description:
+`/tmp/schist-stripes-pr-body.md`.
+
+Next work is dashed/dotted and path decorations, then remaining typography and
+structured-story integration. Alternate layouts, advanced object styles, curved
+text flow and native GUI/application validation remain open. Production INDD is
+still spike-gated; v18/v21 pairs, controlled changes and database semantics remain
+unresolved. Design Mode stays disabled by default. Read-only `.git` still prevents
+publishing work after 8ce6a1eb to draft PR #192.
+
+
+Unadjusted butt-ended dash decorations are implemented in item 9. Native
+DashArray resources use alternating point lengths, including zero members with a
+positive total cycle. Named inventories, opaque references, inherited settings and
+local formatting survive repeated saves. Invalid arrays and unsupported caps or
+fitting remain diagnosed. Character/Paragraph expose the pattern and length
+fields; unchanged imported names and Solid overrides survive focus/commit without
+an undo entry. Real edits undo once. Two keys are present in all 150 catalogs.
+
+The renderer integrates periodic coverage without enumerating repetitions, so
+subnormal positive periods cannot hang. Dash phase follows visual order across
+characters, spaces, bidi and paint changes. Main/gap inks remain independent.
+A property test exposed inactive glyph colors changing kerning and splitting
+translucent decoration groups; both now ignore that inactive color. Existing
+PSD/Affinity fallback behavior remains covered. The independent reference initially
+translated float geometry before rasterizing, losing near-half-pixel precision;
+it now follows the local-raster/integer-placement contract. Equality stays exact.
+
+Six new properties bring this checkpoint to **1,575 distinct passing Rust tests
+plus four browser tests**. All non-editor sweep targets, workspace clippy, native/
+browser/headless checks, editable interchange, formatting and whitespace checks
+pass. All 398 eligible editor tests pass; the unchanged clipboard HTTP-listener
+test is the sole sandbox-blocked failure in the unfiltered run. Logs/results are
+under `/tmp/schist-dashes-sweep-*`. The twelve-page PDF proof matches independent
+solid rectangles in extracted samples and rendered pages, covering two arrays,
+all writing modes, affine placement, fractional lengths, spot tints, opacity and
+overprint. Every page was visually inspected. Kernel comparisons are exact at
+72/144/216 dpi both with and without affine transforms. Superseded development
+logs and the preceding local PR-body draft were removed. Current description:
+`/tmp/schist-dashes-pr-body.md`.
+
+Next work is dash caps/fitting and dots, then path decorations and the remaining
+typography/structured-story gaps. Alternate layouts, advanced object styles,
+curved text flow and native GUI/application validation remain open. Phase 5 is
+still spike-gated; v18/v21 samples, controlled changes and database semantics
+remain unresolved. Design Mode stays disabled by default. Read-only `.git`
+continues to block publication after 8ce6a1eb to draft PR #192.
+
+
+Round/projecting dash caps are implemented in item 9, alongside the existing butt
+ends. Native resource identity includes cap shape, preserving same-named variants,
+unused resources, opaque references and local formatting through repeated saves.
+The earlier array-only serialized representation still loads as butt-ended dashes.
+Character/Paragraph cap choices and length edits preserve imported names; changed
+caps undo once, while unchanged fields add no step. Four keys are in all 150 catalogs.
+
+Rendering identifies a whole continuous segment before applying caps, so character
+and paint boundaries do not invent endpoints. Projecting caps use exact intervals;
+round caps use bounded adaptive circle-section integration. Overlapping caps form
+one silhouette before opacity, including zero-length and extremely short dashes.
+Independent properties check interval unions, circle/capsule and overlapping-circle
+areas, unchanged metrics/carets and every inactive-color split. Auto cap weights now
+reserve their font-derived extent in cross-gutter bounds. A separate property
+requires actual neighboring-page ink for both spread sides and three resolutions.
+
+Seven new properties bring this checkpoint to **1,582 distinct passing Rust tests
+plus four browser tests**. All non-editor sweep targets, workspace clippy, native/
+browser/headless checks, editable interchange, formatting and whitespace checks
+pass. The editor passes 399 tests; its unchanged clipboard HTTP-listener test is
+the sole sandbox-blocked failure. Results are under `/tmp/schist-dash-caps-sweep-*`.
+The sweep was rerun after the bounds fix; malformed PSD/Affinity test tuples were
+corrected, and the affected checks completed. IDML/clippy were repeated after the
+same-name resource property was strengthened.
+
+The 24-page cap proof exactly matches independently enumerated capsules in both
+extracted samples and rendered pages. Its reference uses circle antiderivatives,
+independent of production quadrature. All pages were visually inspected; final
+renders match those reviewed images byte for byte. Cases cover both cap shapes,
+two arrays/weights, all writing modes, affine placement, spot/process paints,
+tints, opacity and overprint. Superseded development logs and the preceding local
+PR-body draft were removed. Current description: `/tmp/schist-dash-caps-pr-body.md`.
+
+Next work is dotted decorations and automatic dash/dot fitting, then paths and
+remaining typography/structured stories. Public IDML figure 54 establishes dot
+center spacing; the local evidence page is recorded in `docs/idml-format.md`.
+Advanced object styles, alternate layouts, curved text flow and native application
+QA remain open. Phase 5 remains spike-gated. Design Mode stays disabled by default.
+Read-only `.git` still prevents publishing changes after 8ce6a1eb to draft PR #192.
+
+
+Dotted decorations are implemented in item 9. Native DotArray center intervals
+remain independent of line weight, including duplicate centers and overlap.
+Names, unused resources, same-name variants, opaque references, inheritance and
+local formatting survive repeated saves. Invalid arrays and automatic fitting
+remain diagnosed. Character/Paragraph expose pattern and spacing controls;
+unchanged fields preserve imported names, and real edits undo once. Two keys are
+in all 150 catalogs. Existing PSD/Affinity fallbacks remain covered.
+
+Four new properties bring this checkpoint to **1,586 distinct passing Rust tests
+plus four browser tests**. All non-editor sweep targets, workspace clippy, native/
+browser/headless checks, editable interchange, formatting and whitespace checks
+pass. The editor passes 399 tests; its unchanged clipboard HTTP-listener test is
+the sole sandbox-blocked failure. Results are under `/tmp/schist-dots-sweep-*`.
+
+The twelve-page dot proof exactly matches independent analytic circle coverage in
+extracted samples and rendered pages. All pages were visually inspected. Plain
+and affine plates agree at 72/144/216 dpi across two weights/arrays, all writing
+modes, spot/process paints, tints, opacity and overprint. The existing cross-gutter
+property now also requires real dot ink on either neighboring page, for automatic
+and explicit weights. Superseded development logs and the preceding local PR-body
+draft were removed. Current description: `/tmp/schist-dots-pr-body.md`.
+
+Next work is straight-segment dash/dot fitting, using the published rules for
+which lengths may change. The public reference does not specify numerical
+repetition selection; external application agreement must remain unverified.
+Path decorations, typography/structured stories, advanced object styles, alternate
+layouts, curved text flow and native application QA remain open. INDD production
+remains spike-gated. The feature flag is still false, and read-only `.git` prevents
+publishing changes after 8ce6a1eb to draft PR #192.
+
+
+Straight-decoration fitting is implemented in item 9. Named dash resources retain
+None/Dashes/Gaps/DashesAndGaps; dots retain None/Gaps/DashesAndGaps. Resource IDs
+include fitting, preserving same-name variants, opaque references and inheritance
+through repeated saves. Old resources default to None. Character/Paragraph edit
+the captured definition in one undo step; length edits retain its name and fitting.
+Five keys are in all 150 catalogs. Dash-only adjustment on a dotted resource is
+still diagnosed because its public semantics are not established.
+
+The renderer changes only the selected lengths, choosing a nearby complete dash
+sequence with bounded work. Short fixed-dash spans close gaps and clip the last
+dash; dash-only fitting may grow an initially zero first dash when proportional
+scaling cannot fit. An independent output comparison found a remainder-rounding
+bug that erased terminal dots. Fitted endpoints are now explicit; unequal-interval
+properties require terminal coverage across many lengths. Whole segments are
+resolved before character-owned pieces, so formatting boundaries do not refit.
+
+Eight new properties bring this checkpoint to **1,594 distinct passing Rust tests
+plus four browser tests**. All non-editor sweep targets, workspace clippy, native/
+browser/headless checks, editable interchange, formatting and whitespace checks
+pass. The editor passes 400 tests; its unchanged clipboard HTTP-listener test is
+the sole sandbox-blocked failure. Results are under `/tmp/schist-fitting-sweep-*`.
+The 24-page proof matches an independently enumerated placement search with
+analytic rectangle/capsule/circle coverage. Plain and affine plates agree exactly
+at 72/144/216 dpi. All pages were visually inspected, and final renders match the
+reviewed images exactly. Superseded development logs and the preceding local
+PR-body draft were removed. Current description: `/tmp/schist-fitting-pr-body.md`.
+
+The public specification states which lengths may change but not how to choose
+repetition counts. Schist's numerical fitting policy is documented; agreement
+with InDesign remains unverified. Path-corner fitting is outside this subset.
+
+Next is language inheritance/shaping: the existing paragraph language is retained
+in styles but dropped by `ResolvedParagraph::character`, and no language reaches
+the shaper. Public designmap Language resources are also not retained. Research
+found both opaque Self references and native names; the 17-file corpus inventory
+is at `/tmp/schist-idml-language-resources.json`. This work precedes the larger
+path/structured-story connection. Hyphenation, vertical initials, alternate layouts,
+advanced object styles, curved text flow and native application QA remain open.
+Production INDD remains spike-gated. Design Mode stays disabled by default, and
+read-only `.git` still blocks publication after 8ce6a1eb to draft PR #192.
+
+
+Text languages are implemented in item 9. Paragraph defaults, inherited character
+styles and local ranges reach shaping in preview and print, including ordinary
+Latin text with automatic direction. Authored tags have a distinct model value;
+legacy strings retain native-identity-first resolution. This fixes the case where
+an imported opaque ID such as `tr` intercepted a newly typed Turkish tag. Explicit
+`und`/empty resets preserve default behavior without artificial shaping boundaries.
+Character/Paragraph edits retain unchanged imported dictionary identities and undo
+once against the captured style. Five keys are in all 150 catalogs.
+
+Native designmap Language resources retain IDs, names, dictionary settings, quote
+pairs, numeric identifiers and labels. Known authored tags lower to observed native
+names; guarded metadata retains exact tags while native references/declarations
+agree. Unsupported native mappings use No Language with an explicit notice. Native
+edits supersede stale metadata. Romanian locl glyphs and Turkic/Lithuanian uppercase
+rules now have independent Unicode references; original text and grapheme carets
+remain intact. RFC 5646 syntax checks reject malformed tags without claiming registry
+validation. PSD/Affinity retain their existing private-data/pixel fallbacks.
+
+Thirteen new properties bring this checkpoint to **1,607 distinct passing Rust tests
+plus four browser tests**. All non-editor sweep targets, workspace clippy, native/
+browser/headless checks, editable interchange, formatting and whitespace checks
+pass. The editor passes 401 tests; its unchanged clipboard HTTP-listener test is
+the sole sandbox-blocked failure. Results are under `/tmp/schist-language-sweep-*`.
+The full sweep was repeated after the native-ID collision fix. All 24 proof pages
+match independent Unicode text exactly; plain and affine plates agree at 72/144/216
+dpi. Every page was visually inspected, and the final renders match reviewed pixels.
+Eleven superseded development logs and the preceding local PR-body draft were
+removed. Removing superseded test executables reclaimed 5.15 GiB while preserving
+current binaries, proofs and verification logs. Current description:
+`/tmp/schist-language-pr-body.md`.
+
+Next is the text-on-path/decoration connection. The existing public
+`fixtures/idml/text.idml` already has two straight native TextPath children on
+Polygon parents, with independent Self/ParentStory IDs, center/baseline alignment,
+RainbowPathEffect and finite start/end brackets. Exact attributes, geometry and
+source hash are recorded at `/tmp/schist-text-path-evidence.json`; public DOM
+references describe path brackets and alignment/effects. No path implementation
+has been added at this checkpoint. Further typography/structured stories,
+hyphenation, vertical initials, alternate layouts, advanced object styles, curved
+text flow and native application QA remain open. Production INDD remains
+spike-gated. Design Mode stays disabled by default, and read-only `.git` still
+blocks publication after 8ce6a1eb to draft PR #192.
+
+
+Text-on-path integration is implemented in item 9 and has completed the full
+verification sweep, subject to the unchanged clipboard sandbox restriction. A Design path is a bounded, single-contour story container,
+separate from raster Type tools. Control converts a shape without changing its
+identity, geometry, affine or frame paint; conversion creates its story in the
+same undo step. Captured start/end edits validate the whole selection, preserve
+unchanged precision and undo once. Blank end follows the curve; explicit brackets
+remain point distances. Duplicate now retains frame appearance and copies the
+story independently. Six keys are in all 150 catalogs.
+
+One baseline accepts one shaped line and threads into paths or boxes. Indents,
+alignment, source bytes and grapheme carets stay consistent through zoom and
+affines. Consecutive zero-width frame/column/page breaks preserve their destinations
+and the next character; terminal blank paragraphs retain one baseline. A selection
+property found inverse-affine rounding excluding the first caret, fixed with
+numerical hit padding. Straight paths now use actual line segments rather than
+degenerate cubics, removing noisy endpoint tangents during extrapolation.
+
+Native Polygon/TextPath structures retain independent child IDs, stories,
+thread references, brackets and cubic handles. Guarded follow-end metadata yields
+to external bracket edits. Additional box/image path containers preserve primary
+content and report the unsupported secondary container. Unsupported effects,
+alignment/flip/spacing and invalid geometry remain diagnosed. Public native paths
+survive repeated saves and actually rasterize.
+
+Underlines and strikes now follow the curve, with solid/striped/dashed/dotted
+patterns and independent gap paints. Whole-segment phase/fitting precedes bending;
+equal consecutive paint fragments merge before resampling. A shared-baseline strip
+mesh uses bounded miter/bevel joins and unions destination subpixel coverage before
+opacity. Tests require exact cardinal coverage, subdivision invariance, bounded
+reversal overlaps, independent annular geometry and unchanged text/carets across
+every character boundary. Cross-gutter checks require real neighboring ink from
+rotated glyphs and decorated spaces, including automatic metrics.
+
+The 24-page path proof compares independently constructed shared-engine baseline
+specifications with Design output, including alignment, opposing directions,
+cubic geometry, glyph strokes, every supported decoration family, gap inks,
+tints, opacity, overprint and affine placement. Kernel plates agree exactly at
+72/144/216 dpi, and Poppler sample/page comparisons pass. Every updated proof page
+was visually inspected. This validates shared-renderer integration, not independent
+native application agreement or native corner fitting. Nineteen new properties
+bring the checkpoint to **1,626 distinct passing Rust tests plus four browser
+tests**. All non-editor sweep targets, headless WASM, formatting and whitespace
+checks pass; the editor passes all 403 eligible tests, with its unchanged HTTP
+listener test recorded as the sole sandbox-blocked failure. Logs, counts and exit
+codes are under `/tmp/schist-text-path-sweep-*`. Superseded development logs and
+the previous local PR-body draft were removed; current proofs, source evidence
+and verification logs remain. Current local description:
+`/tmp/schist-text-path-pr-body.md`.
+
+The existing public `multipage.idml` also contains automatic numbered and bulleted
+lists whose native attributes are currently dropped. Its XML and source checksum
+are captured at `/tmp/schist-idml-list-evidence.json`; list composition/interchange
+is the next item 9 integration gap. Other open work includes additional path
+effects, hyphenation, vertical initials, structured stories, alternate layouts,
+advanced object styles, curved frame text flow and native GUI/application QA.
+Production INDD stays spike-gated, the feature flag remains false, and read-only
+`.git` still prevents publishing changes after 8ce6a1eb.
+
+
+Automatic Unicode bullets and single-level decimal lists are implemented in item 9.
+Generated markers keep source bytes, grapheme carets and story editing intact;
+sequence identity and explicit restarts survive wrapping and threading. Marker
+character styles, alignment, tab positions, native resources and local overrides
+are retained. Captured Paragraph controls undo once, preserve unchanged native
+values and reject invalid input. Thirteen keys are present in all 150 catalogs.
+Two long English placeholders have explicit exact-source audit deferrals, visible
+in audit output and expiring when Design Mode becomes enabled by default.
+
+Verification found empty-list caret/overset defects and marker ink outside the
+frame being unclickable. These are fixed and covered across zoom, affine maps
+and empty/populated paragraphs. Marker fonts participate in preflight and package
+inventories; unsupported visible settings are preflight errors. The independent
+24-page list proof matches manually positioned ordinary text frames exactly at
+72/144/216 DPI and passes Poppler sample/page comparisons. Every page was visually
+inspected. This verifies shared-renderer integration, not native application parity.
+
+The full sweep passes except for the unchanged clipboard HTTP listener denied by
+the sandbox: **1,641 distinct passing Rust tests plus four browser tests**. All
+405 eligible editor tests, eight Python i18n-audit tests, workspace clippy, native/
+browser/headless checks, formatting and whitespace checks pass. Results/counts
+and logs are under `/tmp/schist-lists-sweep-*`; the local PR description is
+`/tmp/schist-lists-pr-body.md`.
+
+Review identified native NumberingFormat type loss and a literal caret suffix
+escaping defect for the next list pass. Additional list formats/levels, cross-story
+sequences, glyph-index bullets, non-left tabs and vertical/path/initial combinations
+remain open. Further typography, structured stories, alternate layouts, advanced
+object styles, curved frame flow and native application QA are still outstanding.
+Production INDD remains spike-gated and Design Mode disabled by default. Read-only
+`.git` continues to prevent publishing local changes after 8ce6a1eb to draft PR #192.
+
+
+Common list formats now compose and have captured Paragraph controls: Arabic,
+upper/lower Roman, upper/lower letters, three leading-zero widths and hidden
+counters. Native named/enumerated formats preserve exact types and whitespace.
+Literal legacy caret suffixes survive native saves. Roman range failures are
+diagnosed at the actual continued number; lower-level paragraphs no longer
+advance a level-one counter. Marker ink crossing either page gutter has independent
+coverage tests even when the frame bounds do not cross.
+
+The counter-format checkpoint passes **1,648 distinct Rust tests plus four browser
+tests**, with all 406 eligible editor tests and eight Python i18n audit tests.
+The unchanged HTTP listener test remains the sole sandbox-denied failure. All
+other full-sweep targets, headless WASM, workspace clippy, native app check,
+formatting and whitespace checks pass. Twenty independent list cases compare
+plates at three resolutions and all 40 PDF pages pass Poppler checks and visual
+inspection. Logs/results/counts are `/tmp/schist-list-formats-sweep-*`; the current
+local PR description is `/tmp/schist-list-formats-pr-body.md`. Superseded list
+development logs and the previous local PR draft were removed.
+
+Item 9 continues with multilevel numbering and call-local composition caching.
+Cross-story sequences, additional formats, unsupported tab settings and the
+previously documented typography/story/object gaps remain open. Native GUI and
+external-application agreement remain unverified; production INDD remains gated.
+The feature flag is false and read-only `.git` still prevents publishing after
+8ce6a1eb to draft PR #192.
+
+
+Multilevel numbering is integrated in item 9. Levels 1–9 share per-story named
+sequence state; higher-level references retain their own format. Parent events
+restart children even when the parent number repeats, while disabled restarts
+continue a level and explicit Start At takes precedence. Implicit and explicit
+native default lists share one identity; equal display names do not merge IDs.
+Missing/stale ancestors and unverified specific/range restart policies remain
+diagnosed and preserved. Native fixture evidence currently covers only level one.
+
+Counter results are computed once per story query, and measured marker plans are
+reused across threaded columns and balance trials. Resource inventories and
+preflight batch their queries. Level/restart Paragraph controls use captured
+targets and one undo step; four new keys are in all 150 locale catalogs.
+
+The multilevel checkpoint passes **1,654 distinct Rust tests plus four browser
+tests**, with all 407 eligible editor tests. The unchanged HTTP-listener test is
+the sole sandbox-denied failure. Every other sweep target, workspace clippy,
+native/browser/headless checks, eight Python i18n audits, formatting and whitespace
+checks pass. Twenty-four list cases match independent text-frame controls at
+three resolutions; all 48 PDF pages pass Poppler checks and visual inspection.
+This establishes shared-renderer integration, not native application agreement.
+Logs/results/counts are `/tmp/schist-multilevel-sweep-*`; the current local PR
+description is `/tmp/schist-multilevel-pr-body.md`. Superseded development logs
+and the previous local PR draft were removed.
+
+General paragraph tabs are the next item 9 integration gap: TabList is retained
+but source tabs do not yet have tab-stop composition. Cross-story lists, further
+formats, glyph-index bullets, vertical/path/initial list combinations and the
+previous typography/story/object gaps remain open. Production INDD remains
+spike-gated and Design Mode disabled by default. Native GUI/application QA and
+publishing changes after 8ce6a1eb remain blocked by the existing environment.
+
+
+### Paragraph tabs checkpoint — 2026-10-01
+
+Ordinary source tabs now use column-relative leading stops through wrapping,
+painting, carets, indents, enlarged initials, generated list markers, columns and
+threading. Tabs which cannot fit remain overset and resume unchanged in a wider
+frame. Justification expands ordinary spaces after the final tab without moving
+earlier fields. Unmodified Tab inserts text in both the canvas and Story Editor;
+selection replacements, including tabs, remain one undo step. Paragraph exposes
+tab positions for ordinary text as well as lists.
+
+Native TabList inheritance, replacements and explicit clearing survive repeated
+saves. Leader and alignment-character strings now preserve literal whitespace.
+Unsupported settings are retained and diagnosed. Preflight uses the original
+paragraph context, avoiding false initial-tab errors on continued lines. The new
+shared TextSpec field defaults to None for existing raster layers; PSD/Affinity
+retain their established fallbacks when it is present.
+
+A new proof exposed coordinate-rounding changes in translated glyph strokes.
+Ordinary outlines now rasterize locally before their integer placement, preserving
+exact coverage. Twelve independent fixed-position frame controls cover writing
+modes, sizes, first-line indents and process/spot paints. All plates match at
+72/144/216 DPI; all 24 PDF pages match extracted/reference samples and rendered
+pairs and were visually inspected. Native application agreement is not claimed.
+
+The full sweep passes **1,665 distinct Rust tests**, four browser checks and eight
+Python i18n-audit tests. All 407 eligible editor tests pass; the unchanged HTTP
+listener remains the sole sandbox-denied failure in the unfiltered run. All other
+make targets, workspace clippy, native/browser/headless app checks, formatting and
+whitespace checks pass. Logs/results/counts are `/tmp/schist-tabs-sweep-*`; the
+updated local PR description is `/tmp/schist-tabs-pr-body.md`. Three new keys are
+present in all 150 catalogs. The explanatory implicit-tab sentence has an exact,
+visible translation deferral guarded by the disabled Design flag.
+
+Right/center/decimal tabs, leaders, native RTL/alignment/path/initial-tab cases,
+cross-story and further-format lists, dictionary hyphenation, vertical initials,
+structured stories, alternate layouts and advanced object behavior remain open.
+Native GUI/external-application QA remains unavailable. INDD stays Phase-0-gated.
+The feature remains disabled. At the paragraph-tab checkpoint, changes after
+`8ce6a1eb` were local because the sandbox denied Git index writes. That restriction
+was lifted for the publication checkpoint below.
+
+
+### Publication verification — 2026-10-01
+
+After the user restarted Codex with unrestricted filesystem/network access,
+`CARGO_INCREMENTAL=0 make check-design` passes without filters: all 408 editor
+tests, including the previously denied clipboard HTTP listener, plus its layout,
+settings and i18n checks. Source code and tests are unchanged from the complete
+paragraph-tab sweep. The combined verification now covers **1,666 distinct Rust
+tests**, four browser checks and eight Python i18n-audit tests. All sweep targets,
+workspace clippy and native/browser/headless checks pass. The old failure log is
+retained alongside the passing rerun; no test was softened or ignored.
+
+Git writes and network access are restored. The accumulated paint, typography,
+path-text, list and paragraph-tab work after `8ce6a1eb` is prepared for the
+`indesign` branch and draft PR #192. Historical statements above about blocked
+publication describe the earlier environment. Native window/external-application
+QA remains unverified, the remaining item 9 work is unchanged, and Design Mode
+stays disabled by default.

@@ -38,9 +38,19 @@ fn native_fixture_color_references_keep_the_authored_cmyk_builds() {
                 .iter()
                 .map(|v| v / 100.0)
                 .collect();
-            let index=remaining.iter().position(|object| {
-                object.name == name && matches!(&object.object, LayoutObject::Shape {fill:Some(ink),..} if ink.source_cmyk.is_some_and(|v|v.as_slice()==expected))
-            }).unwrap_or_else(||panic!("lost native color on {name}: {expected:?}"));
+            let index = remaining
+                .iter()
+                .position(|object| {
+                    object.name == name
+                        && doc
+                            .styles
+                            .object_paint(object)
+                            .fill_ink()
+                            .is_some_and(|ink| {
+                                ink.source_cmyk.is_some_and(|v| v.as_slice() == expected)
+                            })
+                })
+                .unwrap_or_else(|| panic!("lost native color on {name}: {expected:?}"));
             remaining.remove(index);
             checked += 1;
         }

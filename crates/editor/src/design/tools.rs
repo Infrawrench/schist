@@ -186,7 +186,7 @@ fn drag_anchor(state: &mut DesignState, at: schist_layout::Point) {
     let Some(placed) = state.document.object(object) else {
         return;
     };
-    let schist_layout::LayoutObject::Shape { path, .. } = &placed.object else {
+    let Some(path) = placed.object.editable_path() else {
         return;
     };
     let Some(sub) = path.subpaths.get(point.subpath) else {
@@ -920,18 +920,10 @@ pub fn sample_paint(state: &mut DesignState, at: schist_layout::Point) -> bool {
     else {
         return false;
     };
-    let schist_layout::LayoutObject::Shape {
-        fill,
-        stroke,
-        stroke_width,
-        fill_overprint,
-        stroke_overprint,
-        tints,
-        ..
-    } = &source.object
-    else {
+    if !source.supports_paint() {
         return false;
-    };
+    }
+    let paint = state.document.styles.object_paint(source);
     let mut edits = Vec::new();
     for id in &state.selection {
         if *id == source.id || state.document.object_locked(*id) {
@@ -941,24 +933,10 @@ pub fn sample_paint(state: &mut DesignState, at: schist_layout::Point) -> bool {
             continue;
         };
         let mut after = target.clone();
-        let schist_layout::LayoutObject::Shape {
-            fill: f,
-            stroke: s,
-            stroke_width: w,
-            fill_overprint: fo,
-            stroke_overprint: so,
-            tints: target_tints,
-            ..
-        } = &mut after.object
-        else {
+        if !target.supports_paint() {
             continue;
-        };
-        f.clone_from(fill);
-        s.clone_from(stroke);
-        *w = *stroke_width;
-        *fo = *fill_overprint;
-        *so = *stroke_overprint;
-        *target_tints = *tints;
+        }
+        after.set_local_paint(&paint);
         after.transparency = source.transparency;
         after.overprint = source.overprint;
         if after != *target {

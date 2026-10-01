@@ -5,6 +5,8 @@
 use crate::{import::Report, xml::Element};
 
 const LABEL: &str = "Schist.OpenTypeFeatures.v1";
+const MODE_GUARD: &str = "Schist.OpenTypeModeDefaults.v1";
+use schist_layout::directional_features::DirectionalFeatures;
 const SWITCHES: &[(&str, &str)] = &[
     ("Ligatures", "liga"),
     ("OTFDiscretionaryLigature", "dlig"),
@@ -80,28 +82,38 @@ pub(crate) fn read(element: &Element, report: &mut Report) -> Vec<(String, bool)
             invalid(report, "OTFStylisticSets", raw);
         }
     }
-    // These native switches choose different tags in horizontal/vertical text.
-    // Their conditional behavior is not represented by independent tag switches.
-    for (property, tags) in CONDITIONAL {
-        if let Some(raw) = element.attr(property) {
-            if matches!(raw, "false" | "0") {
-                // Disabling both modes is representable and must reset an
-                // inherited per-tag override rather than silently inheriting.
-                result.extend(tags.iter().map(|tag| ((*tag).into(), false)));
-            } else {
-                report.skip(schist_i18n::tf!(
-                    "design.idml_feature_unsupported",
-                    property = property,
-                    value = raw
-                ));
-            }
-        }
-    }
     if let Some(raw) = crate::auto_direction::label(element, LABEL) {
         match serde_json::from_str::<Vec<(String, bool)>>(raw) {
             Ok(extra) if valid(&extra) => {
-                // Native edits take precedence if another application changed
-                // an attribute while retaining our extension label.
+                // Directional switches cannot natively encode independent tag
+                // exceptions. Keep those exceptions only while their native
+                // baseline is unchanged; external native edits take precedence.
+                let guard = crate::auto_direction::label(element, MODE_GUARD)
+                    .and_then(|raw| serde_json::from_str::<DirectionalFeatures>(raw).ok());
+                let extra: Vec<_> = extra
+                    .into_iter()
+                    .filter(|(tag, _)| {
+                        CONDITIONAL
+                            .iter()
+                            .enumerate()
+                            .all(|(index, (property, tags))| {
+                                if !tags.contains(&tag.as_str()) {
+                                    return true;
+                                }
+                                let expected = guard.and_then(|g| {
+                                    if index == 0 {
+                                        g.kana
+                                    } else {
+                                        g.proportional_metrics
+                                    }
+                                });
+                                match expected {
+                                    Some(value) => switch(element, property) == Some(value),
+                                    None => element.attr(property).is_none(),
+                                }
+                            })
+                    })
+                    .collect();
                 result = schist_layout::styles::inherited_features(&result, &extra);
             }
             _ => invalid(report, LABEL, raw),
@@ -137,10 +149,6 @@ fn extras(features: &[(String, bool)]) -> Vec<(String, bool)> {
             !SWITCHES.iter().any(|(_, native)| native == tag)
                 && !(figure.is_some() && FIGURE_TAGS.contains(&tag.as_str()))
                 && !(sets.is_some() && (1..=20).any(|i| *tag == format!("ss{i:02}")))
-                && !CONDITIONAL.iter().any(|(_, tags)| {
-                    tags.contains(&tag.as_str())
-                        && tags.iter().all(|t| value(features, t) == Some(false))
-                })
         })
         .cloned()
         .collect()
@@ -157,11 +165,6 @@ pub(crate) fn attributes(out: &mut String, features: &[(String, bool)]) {
     }
     if let Some(mask) = sets(features) {
         out.push_str(&format!(" OTFStylisticSets=\"{mask}\""));
-    }
-    for (property, tags) in CONDITIONAL {
-        if tags.iter().all(|tag| value(features, tag) == Some(false)) {
-            out.push_str(&format!(" {property}=\"false\""));
-        }
     }
 }
 /// Contents of a Properties/Label, shared with the paragraph direction label.
@@ -188,5 +191,77 @@ pub(crate) fn warn(features: &[(String, bool)], warnings: &mut Vec<String>) {
         if !warnings.contains(&message) {
             warnings.push(message);
         }
+    }
+}
+
+fn switch(element: &Element, property: &str) -> Option<bool> {
+    match element.attr(property)? {
+        "true" | "1" => Some(true),
+        "false" | "0" => Some(false),
+        _ => None,
+    }
+}
+
+pub(crate) fn directional(element: &Element, report: &mut Report) -> DirectionalFeatures {
+    let mut values = [None, None];
+    for (index, (property, _)) in CONDITIONAL.iter().enumerate() {
+        values[index] = switch(element, property);
+        if let Some(raw) = element.attr(property).filter(|_| values[index].is_none()) {
+            invalid(report, property, raw);
+        }
+    }
+    if let Some(raw) = crate::auto_direction::label(element, MODE_GUARD) {
+        if serde_json::from_str::<DirectionalFeatures>(raw).is_err() {
+            invalid(report, MODE_GUARD, raw);
+        }
+    }
+    DirectionalFeatures {
+        kana: values[0],
+        proportional_metrics: values[1],
+    }
+}
+
+pub(crate) fn directional_attributes(out: &mut String, value: DirectionalFeatures) {
+    for (property, value) in [
+        ("OTFHVKana", value.kana),
+        ("OTFProportionalMetrics", value.proportional_metrics),
+    ] {
+        if let Some(value) = value {
+            out.push_str(&format!(" {property}=\"{value}\""));
+        }
+    }
+}
+
+/// Independent tag exceptions use the existing reported feature label. A
+/// native-value guard lets a later native application change override them.
+pub(crate) fn directional_label(
+    out: &mut String,
+    value: DirectionalFeatures,
+    features: &[(String, bool)],
+) {
+    let guard = DirectionalFeatures {
+        kana: value.kana.filter(|_| {
+            features
+                .iter()
+                .any(|(tag, _)| matches!(tag.as_str(), "hkna" | "vkna"))
+        }),
+        proportional_metrics: value.proportional_metrics.filter(|_| {
+            features
+                .iter()
+                .any(|(tag, _)| matches!(tag.as_str(), "palt" | "vpal"))
+        }),
+    };
+    if guard == DirectionalFeatures::default() {
+        return;
+    }
+    let json = serde_json::to_string(&guard).expect("optional feature booleans serialize");
+    let pair = format!(
+        "<KeyValuePair Key=\"{MODE_GUARD}\" Value=\"{}\"/>",
+        crate::export::escape(&json)
+    );
+    if let Some(at) = out.find("</Label>") {
+        out.insert_str(at, &pair);
+    } else if let Some(at) = out.find("</Properties>") {
+        out.insert_str(at, &format!("<Label>{pair}</Label>"));
     }
 }

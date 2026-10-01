@@ -31,10 +31,12 @@ fn doc_with_three_pages() -> LayoutDocument {
 
 fn text_object(page: usize, name: &str) -> PlacedObject {
     PlacedObject {
+        appearance: Default::default(),
         id: ObjectId::next(),
         page,
         bounds: Rect::new(mm(20.0), mm(20.0), mm(50.0), mm(30.0)),
         object: LayoutObject::TextFrame {
+            text_path: None,
             story: StoryId(0),
             columns: 1,
             gutter: 0.0,
@@ -297,6 +299,7 @@ fn an_edit_that_cannot_apply_leaves_the_document_alone() {
     let edit = LayoutEdit::RemovedObject {
         index: 99,
         object: schist_layout::ObjectSnapshot {
+            appearance: Default::default(),
             id: 1,
             page: 0,
             bounds: [0.0; 4],

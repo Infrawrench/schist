@@ -361,6 +361,7 @@ fn threads(document: &schist_layout::LayoutDocument) -> Vec<Thread> {
             gutter,
             insets,
             overflow,
+            ..
         } = &object.object
         {
             by_story.entry(*story).or_default().push((

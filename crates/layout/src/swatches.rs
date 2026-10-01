@@ -63,7 +63,16 @@ pub fn replace(doc: &mut LayoutDocument, history: &mut History, before: &Ink, af
             update(ink);
         }
     };
-    let object = |object: &mut LayoutObject| {
+    let object_paint = |p: &mut crate::ObjectPaint| {
+        for paint in [&mut p.fill, &mut p.stroke] {
+            if let Some(crate::Paint::Ink(ink)) = paint {
+                update(ink);
+            }
+        }
+    };
+    let object = |object: &mut crate::PlacedObject| {
+        object_paint(&mut object.appearance.paint);
+        let object = &mut object.object;
         if let LayoutObject::Shape { fill, stroke, .. } = object {
             paint(fill);
             paint(stroke);
@@ -81,10 +90,27 @@ pub fn replace(doc: &mut LayoutDocument, history: &mut History, before: &Ink, af
     for style in &mut styles.paragraphs {
         paint(&mut style.fill);
         paint(&mut style.stroke);
+        for decoration in [&mut style.underline_style, &mut style.strike_style] {
+            for paint in [&mut decoration.paint, &mut decoration.gap_paint] {
+                if let Some(crate::decorations::DecorationPaint::Ink(ink)) = paint {
+                    update(ink);
+                }
+            }
+        }
     }
     for style in &mut styles.characters {
         paint(&mut style.fill);
         paint(&mut style.stroke);
+        for decoration in [&mut style.underline_style, &mut style.strike_style] {
+            for paint in [&mut decoration.paint, &mut decoration.gap_paint] {
+                if let Some(crate::decorations::DecorationPaint::Ink(ink)) = paint {
+                    update(ink);
+                }
+            }
+        }
+    }
+    for style in &mut styles.objects {
+        object_paint(&mut style.paint);
     }
     if styles != doc.styles {
         edits.push(LayoutEdit::StylesChanged {
@@ -94,7 +120,7 @@ pub fn replace(doc: &mut LayoutDocument, history: &mut History, before: &Ink, af
     }
     for placed in &doc.objects {
         let mut changed = placed.clone();
-        object(&mut changed.object);
+        object(&mut changed);
         if changed != *placed {
             edits.push(LayoutEdit::ObjectChanged {
                 id: placed.id.0,
@@ -107,7 +133,7 @@ pub fn replace(doc: &mut LayoutDocument, history: &mut History, before: &Ink, af
     let mut after = before.clone();
     for parent in &mut after.parents {
         for placed in &mut parent.objects {
-            object(&mut placed.object.object);
+            object(&mut placed.object);
         }
     }
     if before != after {

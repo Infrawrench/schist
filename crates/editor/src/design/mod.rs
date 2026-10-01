@@ -694,10 +694,12 @@ mod tests {
             .document
             .add_story(schist_layout::Story::from_text("hi", "Body"));
         let id = state.document.add_object(schist_layout::PlacedObject {
+            appearance: Default::default(),
             id: ObjectId::next(),
             page: 0,
             bounds: schist_layout::Rect::new(0.0, 0.0, 100.0, 50.0),
             object: schist_layout::LayoutObject::TextFrame {
+                text_path: None,
                 story,
                 columns: 1,
                 gutter: 0.0,
@@ -714,6 +716,7 @@ mod tests {
         // A text frame has a story and a shape does not.
         assert!(state.story_of(id).is_some());
         let shape = state.document.add_object(schist_layout::PlacedObject {
+            appearance: Default::default(),
             id: ObjectId::next(),
             page: 0,
             bounds: schist_layout::Rect::new(0.0, 0.0, 10.0, 10.0),
@@ -739,10 +742,12 @@ mod tests {
             .document
             .add_story(schist_layout::Story::from_text("hi", "Body"));
         state.document.add_object(schist_layout::PlacedObject {
+            appearance: Default::default(),
             id: ObjectId::next(),
             page: 0,
             bounds: schist_layout::Rect::new(0.0, 0.0, 100.0, 50.0),
             object: schist_layout::LayoutObject::TextFrame {
+                text_path: None,
                 story,
                 columns: 1,
                 gutter: 0.0,

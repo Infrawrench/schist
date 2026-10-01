@@ -35,7 +35,7 @@ fn visit(
         }
         "ParagraphStyleRange" => {
             let base = refs.paragraph(element.attr("AppliedParagraphStyle").unwrap_or_default());
-            let mut local = style_codec::paragraph_properties(element, colors, report);
+            let mut local = style_codec::paragraph_properties(element, colors, refs, report);
             let name = if local == ParagraphStyle::default() {
                 base
             } else {
@@ -62,7 +62,7 @@ fn visit(
                 }
             }
             let base = refs.character(element.attr("AppliedCharacterStyle").unwrap_or_default());
-            let mut local = style_codec::character_properties(element, colors, report);
+            let mut local = style_codec::character_properties(element, colors, refs, report);
             let name = if local == CharacterStyle::default() {
                 base
             } else {

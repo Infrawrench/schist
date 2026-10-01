@@ -151,10 +151,12 @@ fn a_saved_document_keeps_its_pages_and_its_frames() {
         ranges: Vec::new(),
     });
     let id = document.add_object(schist_layout::PlacedObject {
+        appearance: Default::default(),
         id: schist_layout::ObjectId::next(),
         page: 0,
         bounds: schist_layout::Rect::new(10.0, 20.0, 300.0, 40.0),
         object: schist_layout::LayoutObject::TextFrame {
+            text_path: None,
             story: schist_layout::StoryId(0),
             columns: 1,
             gutter: 0.0,
@@ -192,6 +194,7 @@ fn the_codec_reports_what_a_save_could_not_carry() {
     // aid.
     let mut document = schist_layout::blank_a4();
     document.add_object(schist_layout::PlacedObject {
+        appearance: Default::default(),
         id: schist_layout::ObjectId::next(),
         page: 0,
         bounds: schist_layout::Rect::new(0.0, 0.0, 50.0, 50.0),

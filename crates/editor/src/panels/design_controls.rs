@@ -70,7 +70,19 @@ pub(super) fn control_panel(
         ("design-prop-width", "design.width"),
         ("design-prop-height", "design.height"),
     ];
-    if controls::all_text_frames(&ws.design) {
+    if controls::all_text_frames(&ws.design)
+        && ws.design.selection.iter().all(|id| {
+            ws.design.document.object(*id).is_some_and(|o| {
+                matches!(
+                    o.object,
+                    schist_layout::LayoutObject::TextFrame {
+                        text_path: None,
+                        ..
+                    }
+                )
+            })
+        })
+    {
         fields.extend([
             ("design-prop-columns", "design.columns"),
             ("design-prop-gutter", "design.gutter"),
@@ -81,15 +93,16 @@ pub(super) fn control_panel(
         ws.design
             .document
             .object(*id)
-            .is_some_and(|o| matches!(o.object, schist_layout::LayoutObject::Shape { .. }))
+            .is_some_and(|o| o.supports_paint())
     }) {
         fields.extend([
             ("design-prop-fill-tint", "design.fill_tint"),
             ("design-prop-stroke-tint", "design.stroke_tint"),
+            ("design-prop-stroke-width", "design.stroke_width"),
         ]);
     }
     let target = Target::Objects(ws.design.selection.clone());
-    let rows = fields
+    let mut rows = fields
         .into_iter()
         .map(|(id, label)| {
             let property = controls::object_property(id).expect("control property");
@@ -98,13 +111,90 @@ pub(super) fn control_panel(
                 .selection
                 .iter()
                 .filter_map(|id| ws.design.document.object(*id))
-                .filter_map(|o| property.value(o))
+                .filter_map(|o| property.value(&o.resolved_appearance(&ws.design.document.styles)))
                 .collect();
             let first = values.first().copied();
             let value = first.filter(|first| values.iter().all(|v| v == first));
             field(ws, id, label, number(value), target.clone(), cx)
         })
         .collect::<Vec<_>>();
+    let paths: Vec<_> = ws
+        .design
+        .selection
+        .iter()
+        .filter_map(|id| match &ws.design.document.object(*id)?.object {
+            schist_layout::LayoutObject::TextFrame {
+                text_path: Some(path),
+                ..
+            } => Some(path),
+            _ => None,
+        })
+        .collect();
+    if paths.len() == ws.design.selection.len() {
+        for (id, label, values) in [
+            (
+                "design-prop-path-start",
+                "design.path_start",
+                paths.iter().map(|p| Some(p.start)).collect::<Vec<_>>(),
+            ),
+            (
+                "design-prop-path-end",
+                "design.path_end",
+                paths.iter().map(|p| p.end).collect(),
+            ),
+        ] {
+            let value = values
+                .first()
+                .copied()
+                .flatten()
+                .filter(|v| values.iter().all(|p| *p == Some(*v)));
+            rows.push(field(ws, id, label, number(value), target.clone(), cx));
+        }
+        rows.push(
+            div()
+                .text_xs()
+                .child(t("design.path_end_help"))
+                .into_any_element(),
+        );
+    }
+    if let [id] = ws.design.selection.as_slice() {
+        let id = *id;
+        if ws
+            .design
+            .document
+            .object(id)
+            .is_some_and(|o| match &o.object {
+                schist_layout::LayoutObject::Shape { path, .. } => {
+                    schist_layout::text_path::PathText {
+                        path: path.clone(),
+                        start: 0.0,
+                        end: None,
+                    }
+                    .engine_path()
+                    .is_some()
+                }
+                _ => false,
+            })
+            && !ws.design.document.object_locked(id)
+        {
+            rows.push(
+                Button::new("design-attach-path-text", t("design.text_on_path"))
+                    .on_click(cx.listener(move |ws, _, _, cx| {
+                        ws.commit_focused_field();
+                        if let Some(frame) = schist_layout::text_path::attach(
+                            &mut ws.design.document,
+                            &mut ws.design.history,
+                            id,
+                        ) {
+                            crate::design::tools::begin_typing(&mut ws.design, frame.object, 0);
+                        }
+                        cx.notify();
+                    }))
+                    .into_any_element(),
+            );
+        }
+    }
+    rows.extend(super::object_styles::selection_paint(ws, cx));
     Some(
         div()
             .flex()
@@ -398,6 +488,68 @@ pub(super) fn paragraph_panel(
     ));
     rows.push(field(
         ws,
+        "design-prop-paragraph-language",
+        "design.language",
+        controls::language_value(&ws.design.document.styles, &target),
+        target.clone(),
+        cx,
+    ));
+    rows.push(
+        div()
+            .text_xs()
+            .child(t("design.language_help"))
+            .into_any_element(),
+    );
+    for (fill, ink, disabled) in [
+        (true, &style.fill, style.fill_disabled),
+        (false, &style.stroke, style.stroke_disabled),
+    ] {
+        let paint = if disabled {
+            Some(schist_layout::Paint::None)
+        } else {
+            ink.clone().map(schist_layout::Paint::Ink)
+        };
+        rows.push(super::object_styles::paint_picker(
+            ws,
+            target.clone(),
+            fill,
+            paint,
+            cx,
+        ));
+    }
+    rows.push(capitalization_row(
+        ws,
+        &target,
+        style.all_caps,
+        style.small_caps,
+        cx,
+    ));
+    rows.extend(directional_feature_rows(
+        ws,
+        &target,
+        style.directional_features,
+        cx,
+    ));
+    rows.extend(super::text_decorations::rows(
+        ws,
+        &target,
+        [
+            (&style.underline_style, style.underline),
+            (&style.strike_style, style.strikethrough),
+        ],
+        cx,
+    ));
+    rows.push(text_join(ws, &target, style.stroke_join, cx));
+    rows.extend(text_paint_flags(
+        ws,
+        &target,
+        style.overprint_fill,
+        style.overprint_stroke,
+        style.stroke_outside,
+        cx,
+    ));
+    rows.push(field(
+        ws,
         "design-prop-paragraph-font-style",
         "design.font_style",
         controls::font_style_value(&ws.design.document.styles, &target),
@@ -405,6 +557,21 @@ pub(super) fn paragraph_panel(
         cx,
     ));
     for (id, label, value) in [
+        (
+            "design-prop-paragraph-stroke-width",
+            "design.stroke_width",
+            style.stroke_weight,
+        ),
+        (
+            "design-prop-paragraph-stroke-miter",
+            "design.text_miter_limit",
+            style.stroke_miter_limit,
+        ),
+        (
+            "design-prop-paragraph-stroke-tint",
+            "design.stroke_tint",
+            style.stroke_tint.map(|v| v * 100.0),
+        ),
         (
             "design-prop-paragraph-fill-tint",
             "design.fill_tint",
@@ -450,6 +617,14 @@ pub(super) fn paragraph_panel(
         "design-prop-leading",
         "design.leading_value",
         leading_value(style.leading),
+        target.clone(),
+        cx,
+    ));
+    rows.extend(list_fields(
+        ws,
+        &style
+            .list
+            .over(&schist_layout::lists::ListStyle::from_legacy(style.bullet)),
         target.clone(),
         cx,
     ));
@@ -551,6 +726,68 @@ pub(super) fn character_panel(
     ];
     rows.push(field(
         ws,
+        "design-prop-language",
+        "design.language",
+        controls::language_value(&ws.design.document.styles, &target),
+        target.clone(),
+        cx,
+    ));
+    rows.push(
+        div()
+            .text_xs()
+            .child(t("design.language_help"))
+            .into_any_element(),
+    );
+    for (fill, ink, disabled) in [
+        (true, &style.fill, style.fill_disabled),
+        (false, &style.stroke, style.stroke_disabled),
+    ] {
+        let paint = if disabled {
+            Some(schist_layout::Paint::None)
+        } else {
+            ink.clone().map(schist_layout::Paint::Ink)
+        };
+        rows.push(super::object_styles::paint_picker(
+            ws,
+            target.clone(),
+            fill,
+            paint,
+            cx,
+        ));
+    }
+    rows.push(capitalization_row(
+        ws,
+        &target,
+        style.all_caps,
+        style.small_caps,
+        cx,
+    ));
+    rows.extend(directional_feature_rows(
+        ws,
+        &target,
+        style.directional_features,
+        cx,
+    ));
+    rows.extend(super::text_decorations::rows(
+        ws,
+        &target,
+        [
+            (&style.underline_style, style.underline),
+            (&style.strike_style, style.strikethrough),
+        ],
+        cx,
+    ));
+    rows.push(text_join(ws, &target, style.stroke_join, cx));
+    rows.extend(text_paint_flags(
+        ws,
+        &target,
+        style.overprint_fill,
+        style.overprint_stroke,
+        style.stroke_outside,
+        cx,
+    ));
+    rows.push(field(
+        ws,
         "design-prop-font-style",
         "design.font_style",
         controls::font_style_value(&ws.design.document.styles, &target),
@@ -558,6 +795,21 @@ pub(super) fn character_panel(
         cx,
     ));
     for (id, label, value) in [
+        (
+            "design-prop-char-stroke-width",
+            "design.stroke_width",
+            style.stroke_weight,
+        ),
+        (
+            "design-prop-char-stroke-miter",
+            "design.text_miter_limit",
+            style.stroke_miter_limit,
+        ),
+        (
+            "design-prop-char-stroke-tint",
+            "design.stroke_tint",
+            style.stroke_tint.map(|v| v * 100.0),
+        ),
         (
             "design-prop-char-fill-tint",
             "design.fill_tint",
@@ -622,6 +874,11 @@ pub(super) fn character_panel(
     );
     let prefs = ws.design.document.styles.text_preferences;
     for (id, label, value) in [
+        (
+            "design-prop-small-cap-size",
+            "design.small_cap_size",
+            prefs.small_cap_size,
+        ),
         (
             "design-prop-superscript-size",
             "design.superscript_size",
@@ -710,4 +967,461 @@ pub(super) fn character_panel(
             .child(style_actions(false, cx))
             .into_any_element(),
     )
+}
+
+fn text_paint_flags(
+    ws: &Workspace,
+    target: &Target,
+    fill: Option<bool>,
+    stroke: Option<bool>,
+    outside: Option<bool>,
+    cx: &mut Context<Workspace>,
+) -> Vec<gpui::AnyElement> {
+    let paragraph = matches!(target, Target::Paragraph(_));
+    [
+        (
+            "fill",
+            "design.overprint_fill",
+            fill,
+            if paragraph {
+                "design-paragraph-overprint-fill"
+            } else {
+                "design-char-overprint-fill"
+            },
+        ),
+        (
+            "stroke",
+            "design.overprint_stroke",
+            stroke,
+            if paragraph {
+                "design-paragraph-overprint-stroke"
+            } else {
+                "design-char-overprint-stroke"
+            },
+        ),
+        (
+            "outside",
+            "design.text_stroke_outside",
+            outside,
+            if paragraph {
+                "design-paragraph-stroke-outside"
+            } else {
+                "design-char-stroke-outside"
+            },
+        ),
+    ]
+    .into_iter()
+    .map(|(flag, label, value, id)| {
+        let target = target.clone();
+        div()
+            .flex()
+            .flex_col()
+            .gap_1()
+            .child(div().text_xs().child(t(label)))
+            .child(super::object_styles::picker(
+                ws,
+                id,
+                vec![
+                    t("design.inherited").into(),
+                    t("design.enabled").into(),
+                    t("design.disabled").into(),
+                ],
+                match value {
+                    None => 0,
+                    Some(true) => 1,
+                    Some(false) => 2,
+                },
+                move |ws, index, _| {
+                    controls::set_text_paint_flag(
+                        &mut ws.design,
+                        &target,
+                        flag,
+                        match index {
+                            1 => Some(true),
+                            2 => Some(false),
+                            _ => None,
+                        },
+                    );
+                },
+                cx,
+            ))
+            .into_any_element()
+    })
+    .collect()
+}
+
+fn text_join(
+    ws: &mut Workspace,
+    target: &Target,
+    value: Option<schist_text_engine::TextStrokeJoin>,
+    cx: &mut Context<Workspace>,
+) -> gpui::AnyElement {
+    use schist_text_engine::TextStrokeJoin;
+    let values = [
+        None,
+        Some(TextStrokeJoin::Miter),
+        Some(TextStrokeJoin::Round),
+        Some(TextStrokeJoin::Bevel),
+    ];
+    let index = values.iter().position(|v| *v == value).unwrap_or(0);
+    let target = target.clone();
+    let id = if matches!(target, Target::Paragraph(_)) {
+        "design-paragraph-stroke-join"
+    } else {
+        "design-char-stroke-join"
+    };
+    div()
+        .flex()
+        .flex_col()
+        .gap_1()
+        .child(div().text_xs().child(t("design.text_stroke_join")))
+        .child(super::object_styles::picker(
+            ws,
+            id,
+            [
+                "design.inherited",
+                "design.join_miter",
+                "design.join_round",
+                "design.join_bevel",
+            ]
+            .into_iter()
+            .map(|key| t(key).into())
+            .collect(),
+            index,
+            move |ws, index, _| {
+                if let Some(value) = values.get(index) {
+                    controls::set_text_join(&mut ws.design, &target, *value);
+                }
+            },
+            cx,
+        ))
+        .into_any_element()
+}
+
+fn directional_feature_rows(
+    ws: &mut Workspace,
+    target: &Target,
+    value: schist_layout::directional_features::DirectionalFeatures,
+    cx: &mut Context<Workspace>,
+) -> Vec<gpui::AnyElement> {
+    let paragraph = matches!(target, Target::Paragraph(_));
+    [
+        (false, "design.cjk_kana_forms", value.kana),
+        (
+            true,
+            "design.cjk_proportional_metrics",
+            value.proportional_metrics,
+        ),
+    ]
+    .into_iter()
+    .map(|(proportional, label, value)| {
+        let target = target.clone();
+        let id = match (paragraph, proportional) {
+            (true, false) => "design-para-kana",
+            (true, true) => "design-para-proportional",
+            (false, false) => "design-char-kana",
+            (false, true) => "design-char-proportional",
+        };
+        div()
+            .flex()
+            .flex_col()
+            .gap_1()
+            .child(div().text_xs().child(t(label)))
+            .child(super::object_styles::picker(
+                ws,
+                id,
+                ["design.inherited", "design.enabled", "design.disabled"]
+                    .into_iter()
+                    .map(|key| t(key).into())
+                    .collect(),
+                match value {
+                    None => 0,
+                    Some(true) => 1,
+                    Some(false) => 2,
+                },
+                move |ws, index, _| {
+                    controls::set_directional_feature(
+                        &mut ws.design,
+                        &target,
+                        proportional,
+                        match index {
+                            1 => Some(true),
+                            2 => Some(false),
+                            _ => None,
+                        },
+                    );
+                },
+                cx,
+            ))
+            .into_any_element()
+    })
+    .collect()
+}
+
+fn capitalization_row(
+    ws: &mut Workspace,
+    target: &Target,
+    all: Option<bool>,
+    small: Option<bool>,
+    cx: &mut Context<Workspace>,
+) -> gpui::AnyElement {
+    use schist_text_engine::Capitalization::*;
+    let values = [
+        None,
+        Some(Normal),
+        Some(AllCaps),
+        Some(SmallCaps),
+        Some(OpenTypeAllSmallCaps),
+    ];
+    let selected = match (all, small) {
+        (None, None) => 0,
+        (Some(all), Some(small)) => values
+            .iter()
+            .position(|v| *v == Some(schist_text_engine::Capitalization::from_flags(all, small)))
+            .unwrap(),
+        _ => 5,
+    };
+    let mut labels: Vec<_> = [
+        "design.inherited",
+        "design.caps_normal",
+        "design.caps_all",
+        "design.caps_small",
+        "design.caps_all_small",
+    ]
+    .into_iter()
+    .map(|key| t(key).into())
+    .collect();
+    if selected == 5 {
+        labels.push(t("design.partial_inheritance").into());
+    }
+    let id = if matches!(target, Target::Paragraph(_)) {
+        "design-para-caps"
+    } else {
+        "design-char-caps"
+    };
+    let target = target.clone();
+    div()
+        .flex()
+        .flex_col()
+        .gap_1()
+        .child(div().text_xs().child(t("design.capitalization")))
+        .child(super::object_styles::picker(
+            ws,
+            id,
+            labels,
+            selected,
+            move |ws, index, _| {
+                if let Some(value) = values.get(index) {
+                    controls::set_capitalization(&mut ws.design, &target, *value);
+                }
+            },
+            cx,
+        ))
+        .into_any_element()
+}
+
+fn list_fields(
+    ws: &mut Workspace,
+    list: &schist_layout::lists::ListStyle,
+    target: Target,
+    cx: &mut Context<Workspace>,
+) -> Vec<gpui::AnyElement> {
+    use schist_layout::lists::ListKind;
+    let mut rows = vec![div()
+        .text_xs()
+        .child(t("design.list_type"))
+        .into_any_element()];
+    let choices = [
+        None,
+        Some(ListKind::None),
+        Some(ListKind::Bullet),
+        Some(ListKind::Numbered),
+    ];
+    let captured = target.clone();
+    rows.push(super::object_styles::picker(
+        ws,
+        "design-list-kind",
+        [
+            "design.inherited",
+            "design.list_none",
+            "design.list_bullets",
+            "design.list_numbers",
+        ]
+        .into_iter()
+        .map(|k| t(k).into())
+        .collect(),
+        choices.iter().position(|v| *v == list.kind).unwrap_or(0),
+        move |ws, i, _| {
+            if let Some(value) = choices.get(i) {
+                controls::set_list_kind(&mut ws.design, &captured, *value);
+            }
+        },
+        cx,
+    ));
+    for (id, label, value) in [
+        (
+            "design-prop-list-level",
+            "design.list_level",
+            list.level.map(|v| v.to_string()).unwrap_or_default(),
+        ),
+        (
+            "design-prop-list-bullet",
+            "design.list_bullet",
+            controls::list_bullet_value(list),
+        ),
+        (
+            "design-prop-list-start",
+            "design.list_start",
+            list.start.map(|v| v.to_string()).unwrap_or_default(),
+        ),
+        (
+            "design-prop-list-expression",
+            "design.list_expression",
+            list.expression.clone().unwrap_or_default(),
+        ),
+        (
+            "design-prop-list-tab",
+            "design.paragraph_tabs",
+            controls::list_tab_value(list),
+        ),
+    ] {
+        rows.push(field(ws, id, label, value, target.clone(), cx));
+    }
+    rows.extend(list_format_field(ws, list, target.clone(), cx));
+    rows.extend(list_restart_field(ws, list, target.clone(), cx));
+    let captured = target;
+    let choices = [None, Some(true), Some(false)];
+    rows.push(super::object_styles::picker(
+        ws,
+        "design-list-continuation",
+        [
+            "design.inherited",
+            "design.list_continue",
+            "design.list_restart",
+        ]
+        .into_iter()
+        .map(|k| t(k).into())
+        .collect(),
+        choices
+            .iter()
+            .position(|v| *v == list.continue_numbering)
+            .unwrap_or(0),
+        move |ws, i, _| {
+            if let Some(value) = choices.get(i) {
+                controls::edit_list(&mut ws.design, &captured, |list| {
+                    list.continue_numbering = *value
+                });
+            }
+        },
+        cx,
+    ));
+    rows.push(
+        div()
+            .text_xs()
+            .child(t("design.list_hint"))
+            .into_any_element(),
+    );
+    rows
+}
+
+fn list_format_field(
+    ws: &mut Workspace,
+    list: &schist_layout::lists::ListStyle,
+    target: Target,
+    cx: &mut Context<Workspace>,
+) -> Vec<gpui::AnyElement> {
+    use schist_layout::list_numbering::CounterFormat;
+    let choices = std::iter::once(None)
+        .chain(CounterFormat::ALL.into_iter().map(Some))
+        .collect::<Vec<_>>();
+    let mut labels = [
+        "design.inherited",
+        "design.list_decimal",
+        "design.list_roman_upper",
+        "design.list_roman_lower",
+        "design.list_letters_upper",
+        "design.list_letters_lower",
+        "design.list_zero_one",
+        "design.list_zero_two",
+        "design.list_zero_three",
+        "design.list_no_number",
+    ]
+    .into_iter()
+    .map(|key| t(key).into())
+    .collect::<Vec<String>>();
+    let selected = if let Some(native) = &list.format {
+        if let Some(format) = native.counter_format() {
+            choices.iter().position(|v| *v == Some(format)).unwrap_or(0)
+        } else {
+            labels.push(native.value().to_owned());
+            labels.len() - 1
+        }
+    } else {
+        0
+    };
+    vec![
+        div()
+            .text_xs()
+            .child(t("design.list_format"))
+            .into_any_element(),
+        super::object_styles::picker(
+            ws,
+            "design-list-format",
+            labels,
+            selected,
+            move |ws, i, _| {
+                if let Some(format) = choices.get(i) {
+                    controls::set_list_format(&mut ws.design, &target, *format);
+                }
+            },
+            cx,
+        ),
+    ]
+}
+
+fn list_restart_field(
+    ws: &mut Workspace,
+    list: &schist_layout::lists::ListStyle,
+    target: Target,
+    cx: &mut Context<Workspace>,
+) -> Vec<gpui::AnyElement> {
+    let choices = [None, Some(true), Some(false)];
+    let mut labels = [
+        "design.inherited",
+        "design.list_restart_higher",
+        "design.list_keep_level",
+    ]
+    .into_iter()
+    .map(|key| t(key).into())
+    .collect::<Vec<String>>();
+    let selected = if let Some(policy) = list.restart_policy.as_ref().filter(|p| {
+        list.apply_restart_policy != Some(false)
+            && (p.policy != "AnyPreviousLevel" || p.lower != 0 || p.upper != 0)
+    }) {
+        labels.push(policy.policy.clone());
+        labels.len() - 1
+    } else {
+        choices
+            .iter()
+            .position(|v| *v == list.apply_restart_policy)
+            .unwrap_or(0)
+    };
+    vec![
+        div()
+            .text_xs()
+            .child(t("design.list_restart_policy"))
+            .into_any_element(),
+        super::object_styles::picker(
+            ws,
+            "design-list-restart-policy",
+            labels,
+            selected,
+            move |ws, i, _| {
+                if let Some(value) = choices.get(i) {
+                    controls::set_list_restart_policy(&mut ws.design, &target, *value);
+                }
+            },
+            cx,
+        ),
+    ]
 }

@@ -148,3 +148,10 @@ year-text edit, but also color, style and structural changes. The four-page vari
 replace most part IDs. These naturally revised templates are not controlled
 one-property samples, so their binary differences cannot be attributed to the
 year change alone. No inferred object mapping is treated as verified.
+
+On October 1, 2026, a further [public export bug report](https://indesign.uservoice.com/forums/601180-adobe-indesign-bugs/suggestions/50666021-id2026-export-issues)
+described a 2026 INDD and a 2025 INDD recreated through IDML. The accessible page
+does not expose document download links or the matching IDML. This is another
+lead only; no document was acquired or version-verified, and the paired corpus
+count remains eleven. Other current search results led to paid templates or the
+already recorded Penn State samples. No production gate changed.

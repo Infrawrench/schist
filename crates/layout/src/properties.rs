@@ -147,33 +147,37 @@ pub enum ObjectProperty {
     Inset,
     FillTint,
     StrokeTint,
+    StrokeWidth,
 }
 
 impl ObjectProperty {
     pub fn value(self, object: &PlacedObject) -> Option<f32> {
         match self {
-            Self::FillTint | Self::StrokeTint => match &object.object {
-                LayoutObject::Shape {
-                    tints,
-                    fill,
-                    stroke,
-                    ..
-                } => {
-                    let (ink, value) = if self == Self::FillTint {
-                        (fill, tints.fill)
-                    } else {
-                        (stroke, tints.stroke)
-                    };
-                    Some(
-                        100.0
-                            * ink
-                                .as_ref()
-                                .filter(|ink| ink.tint.is_some())
-                                .map_or(value, |ink| ink.tint_amount()),
-                    )
+            Self::StrokeWidth => object.supports_paint().then(|| {
+                object
+                    .appearance
+                    .paint
+                    .over(&object.legacy_paint())
+                    .stroke_width
+                    .unwrap_or(0.0)
+            }),
+            Self::FillTint | Self::StrokeTint => {
+                if !object.supports_paint() {
+                    return None;
                 }
-                _ => None,
-            },
+                let paint = object.appearance.paint.over(&object.legacy_paint());
+                let (ink, tint) = if self == Self::FillTint {
+                    (paint.fill_ink(), paint.fill_tint)
+                } else {
+                    (paint.stroke_ink(), paint.stroke_tint)
+                };
+                Some(
+                    100.0
+                        * ink
+                            .filter(|ink| ink.tint.is_some())
+                            .map_or(tint.unwrap_or(1.0), |ink| ink.tint_amount()),
+                )
+            }
             Self::X => Some(object.bounds.x),
             Self::Y => Some(object.bounds.y),
             Self::Width => Some(object.bounds.width),
@@ -183,6 +187,7 @@ impl ObjectProperty {
                     columns,
                     gutter,
                     insets,
+                    text_path: None,
                     ..
                 } => match self {
                     Self::Columns => Some(*columns as f32),
@@ -208,7 +213,11 @@ pub fn set_object_property(
     if matches!(property, ObjectProperty::Width | ObjectProperty::Height) && value <= 0.0 {
         return false;
     }
-    if matches!(property, ObjectProperty::Gutter | ObjectProperty::Inset) && value < 0.0 {
+    if matches!(
+        property,
+        ObjectProperty::Gutter | ObjectProperty::Inset | ObjectProperty::StrokeWidth
+    ) && value < 0.0
+    {
         return false;
     }
     if matches!(
@@ -235,25 +244,30 @@ pub fn set_object_property(
         if property.value(object).is_none() {
             return false;
         }
+        if property.value(&object.resolved_appearance(&doc.styles)) == Some(value) {
+            continue;
+        }
         let mut changed = object.clone();
         match property {
+            ObjectProperty::StrokeWidth => changed.set_local_paint(&crate::ObjectPaint {
+                stroke_width: Some(value),
+                ..Default::default()
+            }),
             ObjectProperty::FillTint | ObjectProperty::StrokeTint => {
-                let LayoutObject::Shape {
-                    tints,
-                    fill,
-                    stroke,
-                    ..
-                } = &mut changed.object
-                else {
-                    return false;
-                };
+                let current = doc.styles.object_paint(object);
+                let mut paint = crate::ObjectPaint::default();
                 if property == ObjectProperty::FillTint {
-                    tints.fill = value / 100.0;
-                    *fill = fill.as_ref().map(|ink| ink.base_color().into_owned());
+                    paint.fill_tint = Some(value / 100.0);
+                    paint.fill = current
+                        .fill_ink()
+                        .map(|ink| crate::Paint::Ink(ink.base_color().into_owned()));
                 } else {
-                    tints.stroke = value / 100.0;
-                    *stroke = stroke.as_ref().map(|ink| ink.base_color().into_owned());
+                    paint.stroke_tint = Some(value / 100.0);
+                    paint.stroke = current
+                        .stroke_ink()
+                        .map(|ink| crate::Paint::Ink(ink.base_color().into_owned()));
                 }
+                changed.set_local_paint(&paint);
             }
             ObjectProperty::X => changed.bounds.x = value,
             ObjectProperty::Y => changed.bounds.y = value,
@@ -264,7 +278,15 @@ pub fn set_object_property(
                 } else {
                     object.bounds.height
                 };
-                if let LayoutObject::Shape { path, .. } = &mut changed.object {
+                let path = match &mut changed.object {
+                    LayoutObject::Shape { path, .. } => Some(path),
+                    LayoutObject::TextFrame {
+                        text_path: Some(path),
+                        ..
+                    } => Some(&mut path.path),
+                    _ => None,
+                };
+                if let Some(path) = path {
                     if old <= 0.0 {
                         return false;
                     }
@@ -366,6 +388,17 @@ pub fn rename_style(
             }
         }
     } else {
+        for style in &mut after.paragraphs {
+            for marker in [
+                &mut style.list.bullet_character_style,
+                &mut style.list.numbering_character_style,
+            ]
+            .into_iter()
+            .flatten()
+            {
+                rename(marker);
+            }
+        }
         for style in &mut after.characters {
             rename(&mut style.name);
             if let Some(base) = &mut style.based_on {

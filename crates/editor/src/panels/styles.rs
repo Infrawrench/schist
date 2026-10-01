@@ -30,7 +30,7 @@ pub(super) fn styles_panel(
         return None;
     }
     let styles = ws.design.document.styles.clone();
-    if styles.paragraphs.is_empty() && styles.characters.is_empty() {
+    if styles.paragraphs.is_empty() && styles.characters.is_empty() && styles.objects.is_empty() {
         return None;
     }
     // What the selection already uses, so the applied style is visible
@@ -68,6 +68,7 @@ pub(super) fn styles_panel(
                 character_in_use.as_deref(),
                 cx,
             )))
+            .child(super::object_styles::style_controls(ws, cx))
             .into_any_element(),
     )
 }

@@ -234,3 +234,128 @@ fn preflight_detects_a_missing_named_face_even_when_its_family_is_present() {
         .font_style = Some("Regular".into());
     assert!(check(&doc).is_printable());
 }
+
+#[test]
+fn visible_generated_markers_contribute_their_own_font_to_preflight() {
+    use schist_layout::{
+        lists::{ListKind, ListStyle},
+        CharacterStyle, ParagraphStyle, Story,
+    };
+    for kind in [ListKind::None, ListKind::Bullet, ListKind::Numbered] {
+        let mut doc = blank_a4();
+        let missing = "Schist nonexistent marker family 740521";
+        doc.styles.add_character(CharacterStyle {
+            name: "Marker".into(),
+            family: Some(missing.into()),
+            ..Default::default()
+        });
+        doc.styles.add_paragraph(ParagraphStyle {
+            name: "List".into(),
+            left_indent: Some(30.0),
+            first_line_indent: Some(-30.0),
+            list: ListStyle {
+                kind: Some(kind),
+                bullet_character_style: Some("Marker".into()),
+                numbering_character_style: Some("Marker".into()),
+                ..Default::default()
+            },
+            ..Default::default()
+        });
+        let frame = authoring::text_frame(
+            &mut doc,
+            &mut History::default(),
+            0,
+            Rect::new(20.0, 20.0, 200.0, 100.0),
+        )
+        .unwrap();
+        doc.stories[frame.story.0 as usize] = Story::from_text("Visible", "List");
+        let page = separate_page(&doc, 0, OutputSettings::at(36.0), &NoGraphics).unwrap();
+        assert_eq!(
+            page.report
+                .findings
+                .iter()
+                .filter(|f| f.severity == Severity::Error && f.message.contains(missing))
+                .count(),
+            usize::from(kind != ListKind::None)
+        );
+    }
+}
+
+#[test]
+fn unsupported_visible_list_markers_are_errors_even_when_the_body_fits() {
+    use schist_layout::{
+        lists::{ListKind, ListStyle, NumberingList},
+        ParagraphStyle, Story,
+    };
+    for property in [
+        "NumberingLevel",
+        "NumberingExpression.MissingLevel",
+        "NumberingRestartPolicies",
+        "NumberingFormat",
+        "NumberingFormat.RomanRange",
+        "ContinueNumbersAcrossStories",
+    ] {
+        let mut doc = blank_a4();
+        doc.styles.numbering_lists.push(NumberingList {
+            id: "sequence".into(),
+            across_stories: property == "ContinueNumbersAcrossStories",
+            ..Default::default()
+        });
+        doc.styles.add_paragraph(ParagraphStyle {
+            name: "List".into(),
+            list: ListStyle {
+                kind: Some(ListKind::Numbered),
+                list: Some("sequence".into()),
+                level: Some(match property {
+                    "NumberingLevel" => 10,
+                    "NumberingExpression.MissingLevel" => 2,
+                    _ => 1,
+                }),
+                expression: (property == "NumberingExpression.MissingLevel")
+                    .then(|| "^1.^#^t".into()),
+                restart_policy: (property == "NumberingRestartPolicies").then(|| {
+                    schist_layout::lists::RestartPolicy {
+                        policy: "AfterSpecificLevel".into(),
+                        lower: 1,
+                        upper: 0,
+                    }
+                }),
+                start: Some(if property == "NumberingFormat.RomanRange" {
+                    3999
+                } else {
+                    1
+                }),
+                format: match property {
+                    "NumberingFormat" => Some("Custom".into()),
+                    "NumberingFormat.RomanRange" => {
+                        Some(schist_layout::list_numbering::CounterFormat::UpperRoman.native())
+                    }
+                    _ => None,
+                },
+                ..Default::default()
+            },
+            ..Default::default()
+        });
+        let frame = authoring::text_frame(
+            &mut doc,
+            &mut History::default(),
+            0,
+            Rect::new(20.0, 20.0, 200.0, 100.0),
+        )
+        .unwrap();
+        doc.stories[frame.story.0 as usize] = Story::from_text("Visible", "List");
+        if property == "NumberingFormat.RomanRange" {
+            doc.stories[frame.story.0 as usize].push_paragraph("Continued", "List");
+        }
+        let page = separate_page(&doc, 0, OutputSettings::at(36.0), &NoGraphics).unwrap();
+        assert_eq!(
+            page.report
+                .findings
+                .iter()
+                .filter(|f| f.severity == Severity::Error && f.message.contains(property))
+                .count(),
+            1
+        );
+        assert!(!page.report.is_printable());
+    }
+}

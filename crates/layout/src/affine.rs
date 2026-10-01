@@ -160,8 +160,11 @@ pub fn sample<const N: usize>(
     if size.0 == 0 || size.1 == 0 || source.width <= 0.0 || source.height <= 0.0 {
         return ([0.0; N], 0.0);
     }
-    let x = (at.x - source.x) / source.width * size.0 as f32 - 0.5;
-    let y = (at.y - source.y) / source.height * size.1 as f32 - 0.5;
+    // Cancel matching grid dimensions before applying coordinates. Dividing
+    // and multiplying by the same width introduces padding-dependent rounding
+    // at half-coverage edges, even for an unscaled pixel-aligned source.
+    let x = (at.x - source.x) * (size.0 as f32 / source.width) - 0.5;
+    let y = (at.y - source.y) * (size.1 as f32 / source.height) - 0.5;
     let left = x.floor();
     let top = y.floor();
     let dx = x - left;
@@ -194,6 +197,44 @@ pub fn sample<const N: usize>(
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn transparent_padding_does_not_change_pixel_aligned_bilinear_coverage() {
+        for width in [7, 11, 37, 83, 257] {
+            for height in [9, 31, 67, 131] {
+                for x in 0..95 {
+                    for y in 0..115 {
+                        let at = Point::new(x as f32 / 10.0, y as f32 / 10.0);
+                        let read = |width: u32, height: u32| {
+                            let (_, alpha) = sample::<0>(
+                                Rect::new(0.0, 0.0, width as f32, height as f32),
+                                (width, height),
+                                at,
+                                |i| {
+                                    let x = i % width as usize;
+                                    let y = i / width as usize;
+                                    (
+                                        [],
+                                        if (2..5).contains(&x) && (3..7).contains(&y) {
+                                            0.7
+                                        } else {
+                                            0.0
+                                        },
+                                    )
+                                },
+                            );
+                            (alpha * 255.0).round() as u8
+                        };
+                        assert_eq!(
+                            read(width, height),
+                            read(7, 9),
+                            "{width}x{height}, at={at:?}"
+                        );
+                    }
+                }
+            }
+        }
+    }
 
     #[test]
     fn inverses_remain_valid_when_the_f32_determinant_exceeds_its_range() {

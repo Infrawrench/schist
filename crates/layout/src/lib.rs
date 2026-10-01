@@ -20,14 +20,22 @@ pub mod affine;
 pub mod authoring;
 pub mod compose;
 mod curves;
+pub mod decorations;
+pub mod directional_features;
 pub mod edit;
 pub mod geometry;
 pub mod graphics;
 pub mod grid;
 pub mod history;
 pub mod ink;
+pub mod language;
+pub mod list_composition;
+pub mod list_counters;
+pub mod list_numbering;
+pub mod lists;
 pub mod model;
 pub mod numbering;
+pub mod object_styles;
 pub mod parents;
 pub mod pasteboard;
 pub mod properties;
@@ -35,6 +43,8 @@ pub mod story;
 pub mod structure;
 pub mod styles;
 pub mod swatches;
+pub mod tabs;
+pub mod text_path;
 pub mod threading;
 
 pub use compose::{compose_object, compose_thread, ComposedFrame, ComposedLine, ComposedThread};
@@ -58,6 +68,7 @@ pub use model::{
     LayoutObject, Link, ObjectId, ParentObject, ParentPage, PlacedObject, StoryId,
 };
 pub use numbering::Section;
+pub use object_styles::{ObjectAppearance, ObjectPaint, ObjectStyle, Paint};
 pub use pasteboard::{pasteboard, Display, Guide, PageBox, PagePlan, Pasteboard, PasteboardView};
 pub use story::{
     Point as StoryPoint, Story, StoryDirection, StoryOrientation, StoryPreferences, StyleRange,

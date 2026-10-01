@@ -238,7 +238,7 @@ fn near(a: Point, b: Point) -> bool {
 
 /// Canonicalize only a real four-corner rectangle, not a bow tie or a
 /// degenerate contour that happens to share the same bounds.
-fn is_rectangle(path: &ShapePath) -> bool {
+pub(crate) fn is_rectangle(path: &ShapePath) -> bool {
     let [sub] = path.subpaths.as_slice() else {
         return false;
     };
@@ -375,9 +375,10 @@ pub(crate) fn write(
     };
     let uri = file_uri(&link.path);
     let opacity = crate::color_codec::transparency(object.transparency);
+    let paint = crate::object_style_codec::object_attributes(object);
     let state = if *embedded { "Embedded" } else { "Normal" };
     Some(format!(
-        r#"<Rectangle Self="{id}" Name="{name}" ItemLayer="SchistLayer{}" ContentType="GraphicType" Locked="{}" ItemTransform="{}"><Properties>{geometry}<Label><KeyValuePair Key="{LABEL}" Value="{metadata}" /></Label></Properties><Image Self="{id}image" ActualPpi="{dpi} {dpi}" ItemTransform="{inner}"><Properties><GraphicBounds Left="0" Top="0" Right="{}" Bottom="{}" />{contents}</Properties><Link Self="{id}link" LinkResourceURI="{}" StoredState="{state}" /></Image>{opacity}</Rectangle>"#,
+        r#"<Rectangle Self="{id}" Name="{name}" ItemLayer="SchistLayer{}" ContentType="GraphicType" Locked="{}" ItemTransform="{}"{paint}><Properties>{geometry}<Label><KeyValuePair Key="{LABEL}" Value="{metadata}" /></Label></Properties><Image Self="{id}image" ActualPpi="{dpi} {dpi}" ItemTransform="{inner}"><Properties><GraphicBounds Left="0" Top="0" Right="{}" Bottom="{}" />{contents}</Properties><Link Self="{id}link" LinkResourceURI="{}" StoredState="{state}" /></Image>{opacity}</Rectangle>"#,
         layer.0,
         object.locked,
         crate::export::item_transform(object),

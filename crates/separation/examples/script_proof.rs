@@ -20,6 +20,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         superscript_position: 50.0,
         subscript_size: 50.0,
         subscript_position: 50.0,
+        ..Default::default()
     };
     for (name, ink) in [
         ("Cyan", Ink::cmyk("Cyan", [1.0, 0.0, 0.0, 0.0])),

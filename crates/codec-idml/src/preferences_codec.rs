@@ -52,6 +52,7 @@ pub fn read(
         if let Some(prefs) = root.find("TextPreference") {
             let text = &mut document.styles.text_preferences;
             for (key, target, range) in [
+                ("SmallCap", &mut text.small_cap_size, 1.0..=200.0),
                 ("SuperscriptSize", &mut text.superscript_size, 1.0..=200.0),
                 (
                     "SuperscriptPosition",
@@ -250,6 +251,12 @@ pub fn preferences(document: &LayoutDocument, warnings: &mut Vec<String>) -> Str
     let text = document.styles.text_preferences;
     let default = schist_layout::styles::TextPreferences::default();
     for (key, value, fallback, range) in [
+        (
+            "SmallCap",
+            text.small_cap_size,
+            default.small_cap_size,
+            1.0..=200.0,
+        ),
         (
             "SuperscriptSize",
             text.superscript_size,

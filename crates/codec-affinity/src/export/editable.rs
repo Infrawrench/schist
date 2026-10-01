@@ -248,6 +248,7 @@ impl Exporter {
         if spec.text.is_empty()
             || spec.text.len() > 1_000_000
             || spec.path.is_some()
+            || spec.tabs.is_some()
             || spec.writing_mode != WritingMode::Horizontal
             || spec.direction == ParagraphDirection::RightToLeft
             || spec.text.chars().any(|ch| {
@@ -261,6 +262,7 @@ impl Exporter {
             || spec.line_height != 1.0
             || spec.leading.is_some()
             || spec.font_style.is_some()
+            || !spec.language.is_empty()
             || !spec.size.is_finite()
             || !(0.5..=10_000.0).contains(&spec.size)
             || spec.text.contains('\0')
@@ -272,11 +274,25 @@ impl Exporter {
             || spec.runs.iter().any(|run| {
                 // This native subset cannot encode decorations, offsets,
                 // nominal metrics or per-run OpenType features.
-                run.underline == Some(true)
+                run.language.as_deref().is_some_and(|v| !v.is_empty())
+                    || run.underline == Some(true)
                     || run.strikethrough == Some(true)
                     || run.baseline_shift.is_some_and(|v| v != 0.0)
+                    || run
+                        .capitalization
+                        .is_some_and(|v| v != schist_text_engine::Capitalization::Normal)
                     || run.metric_size.is_some()
                     || run.font_style.is_some()
+                    || run
+                        .underline_style
+                        .as_ref()
+                        .is_some_and(|v| *v != Default::default())
+                    || run
+                        .strike_style
+                        .as_ref()
+                        .is_some_and(|v| *v != Default::default())
+                    || run.fill_disabled == Some(true)
+                    || run.stroke.is_some_and(|s| s.width > 0.0)
                     || !run.features.is_empty()
                     || run.start > run.end
                     || !spec.text.is_char_boundary(run.start)

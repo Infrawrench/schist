@@ -363,7 +363,7 @@ reported before the feature is enabled:
   based on the original style, with a conversion notice. Opaque resource IDs
   and duplicate names in style groups resolve through an explicit map. Paragraph
   font/paint defaults inherit per property; character overrides win. Advanced
-  properties (including custom decoration attributes) still need
+  properties (including patterned decorations) still need
   representation and validation. Tracking uses native
   thousandths of an em, converted per effective run size during composition.
   IDML combines bold/italic into FontStyle; export writes the resolved face
@@ -652,9 +652,9 @@ Property tests cover zero, fractional and full tints, process and spot identity,
 independent fill/stroke values, style inheritance and local overrides through
 repeated native saves. These are synthetic specification-based checks. Named
 `Tint` resources are now represented separately, as described below.
-Object-style paint inheritance is not implemented, so an inherited shape tint
-falls back to full strength. Text stroke tints round-trip, but the compositor
-still renders text fills only. External application validation remains needed.
+Object-style paint inheritance and text stroke rendering are now implemented,
+as described below. Their independent tints reach preview and separation.
+External application validation remains needed.
 
 
 ### Solid text decorations
@@ -664,9 +664,24 @@ through paragraph/character inheritance and local style overrides. The existing
 native boolean encoding remains unchanged. A new repeated-save property test
 checks inherited true/false values and local explicit false without style growth.
 The renderer uses automatic font metrics for horizontal text and column-relative
-lines for vertical text. Custom native decoration colour, tint, weight, offset,
-gap and line-type attributes still lack representation; no native-application
-agreement is claimed for those attributes or the automatic metrics.
+lines for vertical text. Solid custom color, tint, weight, offset and overprint
+properties are now represented independently for paragraph/character styles.
+The public XML schema and Appendix B example specify `Underline*` and
+`StrikeThrough*` property names, although the strike enable flag is `StrikeThru`.
+Weight/offset `-9999` explicitly means Auto; absent values inherit. Color and line
+type are children of `Properties`: `Text Color` is a string, swatches and
+`StrokeStyle/$ID/Solid` are object references. The writer retains these native
+encodings, named Tint references and explicit no-ink values. Local formatting
+becomes stable named styles; repeated saves must not grow the style set.
+The public [InDesign user reference](https://helpx.adobe.com/pdf/indesign_reference.pdf),
+"Change underline or strikethrough options", confirms that offsets are baseline
+relative: negative underline moves above, while negative strike moves below.
+
+Invalid dimensions/booleans and unsupported line types are reported. Striped
+lines, unadjusted dashes and gap paints are supported as described
+below. Dotted and path decorations are described below; other built-in patterns remain unsupported.
+No native-application agreement is claimed for automatic metrics or explicit
+line placement; the PDF proof validates Schist's preview/output semantics.
 
 
 ### Explicit baseline offsets
@@ -762,7 +777,8 @@ all figure styles, mask edges, inheritance, partial-group notices, UTF-8 local
 ranges and repeated real-template saves have property coverage.
 
 `OTFHVKana` and `OTFProportionalMetrics` choose mode-dependent features. Their
-false states reset both relevant tags; activation still reports a limitation.
+false states reset both relevant tags; activation selects the paragraph axis
+as described below.
 The shared engine preserves arbitrary valid four-byte feature overrides, but
 Schist's named style controls currently expose on/off values only. Native
 PSD/Affinity writing uses its existing fallback for per-run overrides, without
@@ -816,3 +832,424 @@ see the resolved atomic face selection. Repeated-save properties cover opaque st
 IDs, UTF-8 local ranges, common and nonstandard names, legacy inheritance, native
 edits, resources and package manifests. All existing public-template round trips
 also exercise the expanded model; external application rendering remains unverified.
+
+
+### Object-style paint and frame appearance
+
+ObjectStyle and AppliedObjectStyle now preserve the native paint subset:
+BasedOn, EnableFill, EnableStroke, EnableStrokeAndCornerOptions, FillColor,
+StrokeColor, StrokeWeight, FillTint, StrokeTint, OverprintFill and OverprintStroke.
+Opaque style IDs and duplicate display names use the same reference table as
+text styles. Missing bases/references and cycles are reported. Stored colours in
+disabled categories do not apply; an explicit Swatch/None clears inherited ink.
+Inline item attributes remain local overrides instead of flattening style paint.
+RootObjectStyleGroup is written alongside the text style groups.
+
+Evidence: the public IDML specification's Schema 161 and default object styles in
+Appendix C, the public [ObjectStyle API documentation](https://developer.adobe.com/indesign/uxp/dom/api/o/object-style/),
+and the published Customer's Canvas/OAC resource XML. NormalGraphicsFrame enables
+fill/stroke while NormalTextFrame stores no paint. OAC's custom styles include
+stored black fills with EnableFill=false, which must not turn text frames black.
+BasedOn can be a native string or object reference. Tint -1 inherits.
+
+TextFrame and image-frame inline fill/stroke now reach both preview and output.
+Text frame paths are normalized independently of rectangular composition; cubic
+outlines survive save/load, with an explicit rectangular-flow notice. Image frame
+paint follows its existing clip_path. Unsupported enabled style categories and
+nondefault stroke/corner effects are diagnosed; retaining the category switch
+alone does not implement those effects. No native application visual comparison
+has been performed for this addition.
+
+Unstyled legacy shapes retain their original paint fields. Styled shapes use
+ObjectAppearance local overrides and ignore those legacy paint fields; import and
+authoring neutralize them when attaching a style. This keeps raster documents and
+ToolPlugin separate and lets old serialized layout snapshots read with defaults.
+
+### Text stroke geometry and explicit no-ink overrides
+
+Native paragraph, character and local text styles now retain StrokeWeight and
+StrokeAlignment, independently of StrokeColor, StrokeTint and OverprintStroke.
+The public [Character API](https://developer.adobe.com/indesign/uxp/dom/api/c/character/)
+defines stroke weight as a measurement; it is stored as points, not a percentage
+of fill or font size. The public [TextStrokeAlign API](https://developer.adobe.com/indesign/uxp/dom/api/t/text-stroke-align/)
+distinguishes a centered contour stroke from one entirely outside the contour.
+Both native enum values are supported. Appendix C of the published XML
+specification contains an explicit OutsideAlignment paragraph style; it must
+not be silently treated as centered.
+
+Swatch/None and the native no-swatch marker are explicit no-ink overrides, distinct
+from missing/inherited FillColor and StrokeColor. Named inheritance and lowered
+local ranges preserve them through repeated saves. Existing layout JSON without
+the new no-ink fields retains its former behavior. Nonfinite/negative weights or
+miter limits, and unknown alignment/join values, are reported.
+
+Native `EndJoin` retains MiterEndJoin, RoundEndJoin and BevelEndJoin, as defined by
+the public [OutlineJoin API](https://developer.adobe.com/indesign/uxp/dom/api/o/outline-join/).
+`MiterLimit` is an independently inherited ratio, with four as the default and
+zero forcing bevels. Both paragraph and character properties, including lowered
+local ranges, survive repeated saves. Older layout/engine JSON still defaults to
+miter joins with limit four.
+
+The renderer uses TrueType/OpenType font outlines and the shared vector stroke
+rasterizer, with the selected join and miter limit. Fill precedes stroke; a centered
+stroke straddles the contour, while outside coverage excludes its interior.
+Equal inks union before opacity, and distinct inks retain separate coverage for
+knockout/overprint and spot output. Native application visual comparison remains
+outstanding; the PDF proof compares combined paints against independently placed
+fill-only and stroke-only text objects.
+
+
+### Mode-dependent CJK defaults
+
+`OTFHVKana` and `OTFProportionalMetrics` retain absent, enabled and disabled
+values independently on paragraph/character styles and local ranges. The public
+[Character reference](https://developer.adobe.com/indesign/uxp/dom/api/c/character/)
+and Microsoft feature registries above establish the horizontal/vertical
+`hkna`/`vkna` and `palt`/`vpal` choices. Composition selects the paragraph axis.
+Nearer switches reset inherited tags in their pair; nearer explicit tags win.
+
+Independent per-tag exceptions still require the reported feature label.
+`Schist.OpenTypeModeDefaults.v1` records the native baseline only for groups
+that also contain private exceptions. External native additions, changes or
+removals override stale exceptions without disturbing another group's values.
+Malformed native switches and labels are diagnosed. Repeated-save properties
+cover raw inheritance, false resets and stable lowering of local formatting.
+
+The licensed bundled Noto CJK font verifies real proportional metrics in all
+three writing modes through shaping, plates and a nine-page PDF proof. Its
+feature tables contain no `hkna`/`vkna`; those switches have axis/precedence tests,
+not a real alternate-glyph or native-application rendering comparison.
+
+
+### Capitalization and small-cap preferences
+
+The public XML attribute table/schema and
+[Capitalization reference](https://developer.adobe.com/indesign/uxp/dom/api/c/capitalization/)
+define `Normal`, `AllCaps`, `SmallCaps` and `CapToSmallCap`. These map to complete
+capitalization flag pairs; absent attributes retain inheritance. Native local
+formatting lowers into reusable styles without altering source text. Customer's
+Canvas themes, bounded-text and shapes fixtures contain AllCaps ranges, now
+covered through repeated saves. Their TextPreference parts corroborate SmallCap's
+default 70 percent; the public specification gives its 1–200 range. Invalid values
+are diagnosed, with safe defaults for invalid exported percentages.
+
+The native capitalization property is atomic. A legacy style defining only one
+of Schist's two flags uses `Schist.CapitalizationFlags.v1` and an export notice,
+without pretending another application can reproduce its partial inheritance.
+Native attributes added by another application override the extension. Unknown
+native capitalization values are reported rather than silently called Normal.
+
+The public [case-formatting guide](https://helpx.adobe.com/indesign/desktop/format-and-style-text/character-formatting/change-text-case.html)
+describes small caps using native glyphs where available and scaled capitals
+otherwise. Microsoft documents `smcp` for lowercase and `c2sc` for capitals.
+The shared renderer probes each lowercase grapheme for an actual substitution,
+retains marks and source clusters when synthesizing, and preserves nominal cells.
+Licensed Noto and IBM Plex fixtures cover native and synthetic behavior. The
+24-page proof matches independently authored uppercase, feature-tag and scaled
+controls in every writing mode. Language-tailored case mapping is covered below;
+native GUI/application rendering is not established by these tests.
+
+
+### Striped decoration resources and gap inks
+
+The public IDML specification's Graphics chapter (tables 129 and 132) defines
+`StrokeStyle` and `StripedStrokeStyle`; the [public striped-stroke reference](https://developer.adobe.com/indesign/uxp/dom/api/s/striped-stroke-style/)
+confirms percentage start/end pairs. The codec retains named stripe definitions,
+including unused resources, resolves opaque IDs, and emits distinct IDs for
+same-named definitions. Arrays must be finite, strictly increasing pairs within
+0–100. Invalid resources and references receive diagnostics; invalid model values
+are not emitted as fake Solid references. Duplicate definitions are deduplicated.
+
+`UnderlineType`/`StrikeThroughType` independently inherit. A weight or color edit
+does not reset an inherited pattern; explicit Solid does. `*GapColor`, `*GapTint`
+and `*GapOverprint` retain separate paints, direct percentages, named Tints and
+explicit no-ink. Text Color follows glyph paint; no gap value means transparency.
+A nearer percentage detaches a named Tint to its base Color, matching other paints.
+Local formatting lowers once and remains stable through repeated saves.
+
+These are synthetic public-specification checks. Dash/dot corner adjustment,
+other built-in styles and native application visual agreement remain unverified
+or unsupported; no equivalence is implied for them. Path decoration rendering
+is described below.
+
+
+### Dashed decoration resources
+
+The public Graphics schema/table 130 and [DashedStrokeStyle reference](https://developer.adobe.com/indesign/uxp/dom/api/d/dashed-stroke-style/)
+define alternating point-valued dash/gap lengths, up to ten values. Schist retains
+finite, nonnegative even arrays with a positive cycle, including zero dash/gap
+members. They remain distinct from stripe percentages and scale with output DPI.
+Named resources, unused definitions, opaque IDs, inherited properties and local
+formatting survive repeated saves.
+
+This subset writes native `ButtEndCap`, `RoundEndCap` and `ProjectingEndCap`,
+with native corner-adjustment values described below. Cap choice contributes to resource identity;
+same-named patterns with different caps remain distinct. Unsupported cap/fitting
+values are diagnosed and their resource references are reported; they are not
+imported as if their appearance were supported. Invalid arrays are
+also diagnosed. Missing cap/adjustment attributes currently use butt/none defaults;
+external application agreement for these defaults and decoration phase remains
+unverified. The [public corner-adjustment reference](https://developer.adobe.com/indesign/uxp/dom/api/s/stroke-corner-adjustment/)
+describes fitting but does not specify its exact numeric algorithm. No native
+compatibility claim is made for unsupported fitting or built-in patterns.
+
+
+Native cap definitions follow public Graphics table 130 and the
+[InDesign cap reference](https://helpx.adobe.com/indesign/desktop/create-lines-and-shapes/edit-and-style-paths/line-stroke-options-and-settings.html):
+round/projecting caps extend beyond dash endpoints. Geometric checks use the
+[SVG 2 cap definitions](https://www.w3.org/TR/SVG2/painting.html#LineCaps) for circles
+and half-width rectangular extensions, independently of the native codec. These
+are public specification checks, not external InDesign rendering validation.
+
+Public IDML example 75 uses DotArray values summing to
+12 points. Figure 54 on printed/PDF page 279 shows the corresponding 12-point
+pattern and a second dot center at 5.554 points. This establishes center-to-center
+intervals despite the table's shorthand "gaps" wording. A local rendering of that
+public specification page is retained as `/tmp/schist-idml-dot-style-reference.png`.
+No custom stripe/dash/dot resources were found in the 17 acquired public IDML files
+checked during this pass.
+
+
+### Dotted decoration resources
+
+Native `DottedStrokeStyle` resources retain one to five finite, nonnegative
+center-to-center point intervals with a positive total cycle. The line weight
+sets the circle diameter independently of those intervals. Zero intervals repeat
+a center; overlapping circles contribute one silhouette. Named and unused
+resources, same-name variants, opaque references, inheritance and local formatting
+survive repeated saves. Invalid arrays and unsupported `StrokeCornerAdjustment`
+values remain diagnosed rather than imported as a supported appearance.
+
+The twelve-page dot proof matches independent analytic circles in all writing
+modes. These are public-specification checks; external application agreement and
+native fitting agreement remain unverified. No acquired public fixture has yet supplied
+a custom dotted resource for an application-rendered comparison.
+
+
+### Straight-decoration fitting
+
+`StrokeCornerAdjustment` now retains None, Dashes, Gaps and DashesAndGaps for
+custom dashed resources; dotted resources retain None, Gaps and DashesAndGaps.
+Dash-only dot adjustment is still diagnosed because its behavior is not established
+by the public reference. Adjustment contributes to resource identity, so same-name
+patterns with different fitting stay distinct through opaque references, named
+inventories, inheritance and repeated saves. Older serialized resources default
+to None. Unsupported combinations are not exported as fake native resources.
+
+The [public adjustment reference](https://developer.adobe.com/indesign/uxp/dom/api/s/stroke-corner-adjustment/)
+identifies the adjustable components. Schist's renderer implements those rules for
+straight decorations with a bounded proportional-fit search. Short fixed-dash
+lines close gaps and clip the last dash; an adjustable zero first dash may grow
+when no proportional solution exists. These numerical choices are Schist's and
+have not been compared with InDesign output. Path corners and global fitting over
+multiple path segments remain outside this subset.
+
+
+### Language resources, shaping and case tailoring
+
+The public specification, section 10.2.2/table 5, places `Language` declarations
+in designmap.xml. Only Self and Name are required. The remaining attributes
+include quotation pairs, primary/sublanguage names, Id and dictionary vendors;
+standard Properties/Label metadata is also allowed. These are references to
+installed dictionaries: adding a declaration does not install a new language.
+The 17-file public corpus inventory is retained at
+`/tmp/schist-idml-language-resources.json`. It contains both native resource IDs
+and AppliedLanguage name aliases, notably English USA and Japanese.
+
+The codec retains declared resources, including unused entries, and resolves Self
+before Name. IDs are opaque even when they look like language tags. New authored
+tags use an explicit tagged model value, bypassing that native namespace. Legacy
+string values still load with their original identity-first semantics. Missing/empty
+identities, duplicate IDs, invalid numeric Ids and unresolved AppliedLanguage
+references are diagnosed. Paragraph and character defaults and local formatting
+preserve their original references through repeated saves.
+
+Authored tags normalize separators/case for shaping and pass RFC 5646 syntax checks,
+without asserting registry membership. A finite mapping to names observed in the
+public corpus supplies native references for supported tags. Arbitrary region or
+script subtags are not dropped to force a match. Standard `Schist.Language.v1`
+metadata preserves exact authored values, including explicit default resets, only
+while the native reference and entire referenced declaration still match. Native
+reference, dictionary or label changes invalidate that metadata. Unsupported native
+mappings emit No Language and an explicit notice; Schist's tag stays in metadata.
+This does not claim those tags render equivalently in other applications.
+
+Language reaches the shared Rustybuzz shaper and its small-cap probes. The casing
+implementation follows the Turkic and Lithuanian uppercase rules in
+[Unicode 17 SpecialCasing](https://www.unicode.org/Public/17.0.0/ucd/SpecialCasing.txt),
+using original source context and the
+[After_Soft_Dotted definition](https://www.unicode.org/versions/Unicode17.0.0/core-spec/chapter-3/).
+Soft_Dotted data come from Unicode 17 PropList; combining classes use the already
+available unicode-normalization 0.1.25. Tag syntax follows
+[RFC 5646](https://www.rfc-editor.org/rfc/rfc5646.html#section-2.1).
+Romanian locl glyphs in the licensed IBM Plex fixture provide an independent
+comparison with explicit comma-below Unicode text. Other CLDR case tailorings,
+hyphenation/proofing dictionaries and native application agreement remain open.
+
+## Native text paths
+
+`fixtures/idml/text.idml` contains two `TextPath` children on open `Polygon`
+parents (`u2f5/u309/u2f7` and `u398/u399/u39c`: parent/path/story). Both paths
+have a 348.03286170167985-point straight baseline, start bracket zero, center
+path alignment, baseline text alignment, Rainbow effect and zero path spacing.
+The source attributes and checksum are recorded in
+`/tmp/schist-text-path-evidence.json`. The public
+[TextPath DOM reference](https://developer.adobe.com/indesign/uxp/dom/api/t/text-path/)
+confirms point-distance brackets, terminal overset and mixed TextFrame/TextPath
+thread references. The public [creation guide](https://helpx.adobe.com/sk/indesign/using/creating-type-path.html)
+also limits a path to one line and excludes compound paths; paragraph spacing
+does not add rows. The [effects guide](https://helpx.adobe.com/indesign/desktop/add-and-manage-text/type-on-a-path/apply-effects.html)
+defines Rainbow placement at each character's baseline center and tangent.
+These are public XML documents and API documentation; no
+Adobe headers or executable implementation were used.
+
+The reader now attaches those stories to Design path containers. A TextPath has
+its own native ID: previous/next references target that child, while layers,
+parent overrides, affine placement and frame paint retain the parent item ID.
+The writer emits native Polygon/PathGeometry/TextPath structures, including all
+cubic handles. Brackets retain point distances. An authored blank end follows
+future geometry edits; a guarded `Schist.TextPath.FollowEnd.v1` Label preserves
+that intent while the native EndBracket remains unchanged. Native bracket edits
+supersede the label. Repeated saves retain the supported source geometry, stories,
+thread order and bracket intent.
+
+This subset supports one contour and one baseline per container, with horizontal
+text following the baseline tangent (Rainbow), center-of-stroke path alignment
+and baseline text alignment. Nondefault effects, flips, alignment, path spacing,
+multiple content containers and invalid geometry/brackets are diagnosed.
+When a native box or image also carries a TextPath, its primary content is kept
+and the additional path container is reported instead of binding the wrong story.
+Nonfinite imported brackets are diagnosed and sanitized before entering the
+serializable model. Existing native underline/strike resources also render along
+paths, retaining their independent line/gap paints and fitting settings. Schist
+fits in baseline arc coordinates and bends the resolved masks; native corner
+fitting and additional path effects remain open;
+external application rendering has not been verified.
+
+## Automatic lists
+
+The public `multipage.idml` fixture declares 12 numbered paragraph ranges and
+one bulleted range spanning multiple paragraphs. The first numbered range sets
+`NumberingContinue="false"`; the remainder inherit continuation. Both examples
+use `LeftIndent="18"` and `FirstLineIndent="-18"`. The document's default named
+numbering resource does not continue across stories or documents. Exact XML and
+the source checksum are retained in `/tmp/schist-idml-list-evidence.json`.
+The published IDML specification defines the native list attributes, BulletChar,
+TabList records, marker character-style references and NumberingList resources.
+Adobe's public [list guide](https://helpx.adobe.com/indesign/desktop/format-and-style-text/lists-and-numbering/create-lists.html)
+describes generated markers and their indent/tab controls; no executable or SDK
+headers were used.
+
+These properties now remain independent through style inheritance, local override
+normalization and repeated saves. Opaque numbering-resource IDs, flags and labels
+are retained. Unicode bullet values remain distinct from font glyph indices. NumberingFormat
+retains its native string/enumeration distinction as one inherited value; existing
+serialized string formats still load. The public schema permits both types.
+Legacy numbered suffixes escape a literal caret before entering the native
+expression grammar.
+The compositor supports horizontal Unicode bullets and numbered lists at levels 1–9, explicit restart/continuation within each story, marker
+alignment, marker character styles and left tab stops. Generated glyphs own no
+story bytes. A legacy Schist literal-bullet gap stays in a guarded standard Label;
+its native approximation is diagnosed, and later native list edits invalidate
+the extension.
+
+Specific/range restart policies, additional numbering formats, glyph-index bullets,
+continuation across stories/books, non-left/leader tabs, and list combinations
+with vertical text, enlarged initials or text paths remain diagnosed. Their
+represented native settings are retained. Without explicit stops, Schist uses
+the hanging indent when it clears the marker, then a 36-point tab interval;
+import/export reports this policy because native implicit stops depend on ruler
+settings. This is not an external-application rendering agreement claim.
+
+### Counter-format integration
+
+The [public NumberingStyle definition](https://developer.adobe.com/indesign/uxp/dom/api/n/numbering-style/)
+and the IDML schema define Arabic, upper/lower Roman, upper/lower letters,
+one/two/three leading-zero formats and FormatNone. These formats now compose;
+conventional named strings and native enumerations retain their exact value/type
+through inheritance and repeated saves. A repeated-save property exposed the
+generic reader trimming literal format strings; this property now preserves
+whitespace. Paragraph controls author enumerations
+and preserve unchanged imported names. Native dictionary-specific formats remain
+retained and diagnosed.
+
+Letter counters use bijective base 26 (Z, AA, AB), independent of PDF page-label
+repeated-letter numbering. Decimal padding is a minimum width of two, three or
+four digits. FormatNone suppresses the number substitution while retaining the
+expression's literal text and tab. Roman composition is limited to 1–3999; a
+continued sequence that exceeds that range is diagnosed by preflight and both
+codec directions without discarding the source settings. Higher-value native
+Roman conventions and native application agreement remain unverified.
+
+Synthetic properties cover every counter boundary through 20,000, very large
+Arabic/alphabetic values, Roman decoding, named/enumerated inheritance and repeated
+saves. The public fixture establishes the decimal named format; the other named
+format tests are synthetic, not additional native specimens. The proof adds
+independent literal Roman/alphabetic/padded strings, including digit transitions
+and an empty marker. All 40 proof pages have been visually inspected without clipping or layout
+changes between generated and reference pairs. The full counter-format sweep passes all eligible tests: 1,648 distinct Rust
+tests plus four browser tests. The unchanged clipboard HTTP listener is the sole
+sandbox-blocked test; native GUI/application parity remains unverified.
+
+
+### Multilevel numbering integration
+
+The [public multilevel-list documentation](https://helpx.adobe.com/indesign/desktop/format-and-style-text/lists-and-numbering/create-multi-level-lists.html)
+describes per-level counters, higher-level references such as `^1`, restarting
+after higher levels and disabling that restart. The published IDML example uses
+`NumberingRestartPolicies` with `AnyPreviousLevel`, `LowerLevel="0"` and
+`UpperLevel="0"`. These are public XML/DOM references, not SDK headers.
+
+Levels 1–9 now compose in story order. Parent references use the referenced
+level's number format. A new higher-level paragraph is a restart event even when
+its number repeats the previous value. Explicit Start At still takes precedence;
+automatic higher-level restarts use one. The implicit default sequence shares
+the native default resource's identity, while equal display names never merge
+distinct IDs. Counter results and measured marker plans are local to a composition
+call and reused across columns and balancing trials. Resource inventories and
+diagnostics batch their queries by story. No global document cache is introduced.
+
+Specific-level/range restart-policy encoding is not established by the acquired
+fixtures. Those policies remain retained and diagnosed when enabled. Missing or
+stale parent references are also diagnosed; the renderer does not guess a zero
+or reuse a parent from an earlier branch. Cross-story numbering remains open.
+The new hierarchy tests and proof cases are synthetic, and do not establish
+native application rendering agreement.
+
+The multilevel full sweep passes 1,654 distinct Rust tests plus four browser tests,
+with the unchanged clipboard listener as the sole sandbox-blocked test. All 48
+list-proof pages pass automated comparisons and visual inspection. A read-only
+scan of the ten checked-in public IDML documents found only level-one counters
+and the default restart policy; none establishes specific/range policy encoding.
+
+
+### General paragraph tabs
+
+The public IDML `TabList` record applies to ordinary paragraphs as well as list
+markers. The [public tab guide](https://helpx.adobe.com/ca/indesign/desktop/format-and-style-text/tabs-indents-and-spacing/set-and-repeat-tabs.html)
+describes frame-relative positions, explicit stops replacing preceding defaults,
+and left/right/center/decimal alignment. This implementation composes explicit
+left stops; the other alignments and leader painting are retained and diagnosed.
+`Leader` and `AlignmentCharacter` are literal strings: import preserves their
+whitespace. Missing, inherited, replaced and explicitly empty tab lists remain
+distinct through repeated native saves. Source tabs retain their UTF-8 offsets.
+
+The shared text engine now accepts optional leading tab stops. Design passes
+column-relative line starts during wrapping, including indents, generated markers
+and enlarged initials, then uses the same origin for standalone line rendering
+and carets. Implicit tabs use Schist's 36-point interval, which is disclosed rather
+than presented as native geometry. Unsupported RTL, centered/right-aligned, path
+and initial-tab combinations produce diagnostics. Preflight checks visible uses
+with their original paragraph context, so a continued line beginning with a tab
+is not mistaken for a tab inside its paragraph's enlarged initial.
+
+Legacy raster text specifications default to no tab-stop model. PSD and Affinity
+editable writers use their existing private/pixel or reported raster fallback
+when this new setting is present. These properties and the new synthetic proof
+verify Schist integration; no acquired native fixture establishes tab rendering
+agreement with InDesign.
+
+The paragraph-tab sweep and subsequent unrestricted publication rerun pass
+1,666 distinct Rust tests plus four browser checks. All 408 editor tests now pass,
+including the previously blocked, unchanged clipboard listener. All 24 new
+tab-proof pages pass exact comparisons and visual inspection.

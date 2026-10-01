@@ -13,7 +13,7 @@ impl Colors {
     pub fn values(&self) -> impl Iterator<Item = &Ink> {
         self.0.iter().map(|(_, ink)| ink)
     }
-    fn get(&self, reference: &str) -> Option<&Ink> {
+    pub(crate) fn get(&self, reference: &str) -> Option<&Ink> {
         self.0
             .iter()
             .find(|(id, _)| id == reference)

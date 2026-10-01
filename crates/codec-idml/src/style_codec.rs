@@ -8,11 +8,12 @@ pub(crate) fn name(value: &str) -> String {
     value
         .strip_prefix("ParagraphStyle/")
         .or_else(|| value.strip_prefix("CharacterStyle/"))
+        .or_else(|| value.strip_prefix("ObjectStyle/"))
         .unwrap_or(value)
         .trim_start_matches("$ID/")
         .to_owned()
 }
-fn property<'a>(element: &'a Element, key: &str) -> Option<&'a str> {
+pub(crate) fn property<'a>(element: &'a Element, key: &str) -> Option<&'a str> {
     element
         .child("Properties")
         .and_then(|p| p.child(key))
@@ -45,8 +46,12 @@ fn align(value: &str) -> Option<Align> {
 /// IDs are opaque; display names need not match Self or be unique across groups.
 #[derive(Default)]
 pub(crate) struct References {
+    pub(crate) languages: Vec<schist_layout::language::LanguageResource>,
+    pub(crate) strokes:
+        std::collections::BTreeMap<String, schist_layout::decorations::DecorationStroke>,
     paragraphs: std::collections::BTreeMap<String, String>,
     characters: std::collections::BTreeMap<String, String>,
+    objects: std::collections::BTreeMap<String, String>,
 }
 impl References {
     pub(crate) fn new(roots: &[Element]) -> Self {
@@ -54,6 +59,7 @@ impl References {
         for (kind, names) in [
             ("ParagraphStyle", &mut out.paragraphs),
             ("CharacterStyle", &mut out.characters),
+            ("ObjectStyle", &mut out.objects),
         ] {
             for root in roots {
                 for element in root.find_all(kind) {
@@ -85,14 +91,23 @@ impl References {
             .cloned()
             .unwrap_or_else(|| name(reference))
     }
+    pub(crate) fn object(&self, reference: &str) -> String {
+        self.objects
+            .get(reference)
+            .cloned()
+            .unwrap_or_else(|| name(reference))
+    }
 }
 
 pub(crate) fn paragraph_properties(
     element: &Element,
     colors: &crate::color_codec::Colors,
+    refs: &References,
     report: &mut crate::import::Report,
 ) -> ParagraphStyle {
-    let character = character_properties(element, colors, report);
+    let character = character_properties(element, colors, refs, report);
+    let (list, bullet) =
+        crate::list_codec::restore(element, crate::list_codec::read(element, refs, report));
     ParagraphStyle {
         family: character.family,
         font_style: character.font_style,
@@ -100,12 +115,22 @@ pub(crate) fn paragraph_properties(
         italic: character.italic,
         underline: character.underline,
         strikethrough: character.strikethrough,
+        underline_style: character.underline_style,
+        strike_style: character.strike_style,
         baseline_shift: character.baseline_shift,
         position: character.position,
+        all_caps: character.all_caps,
+        small_caps: character.small_caps,
         fill_tint: character.fill_tint,
         stroke_tint: character.stroke_tint,
         fill: character.fill,
         stroke: character.stroke,
+        fill_disabled: character.fill_disabled,
+        stroke_disabled: character.stroke_disabled,
+        stroke_weight: character.stroke_weight,
+        stroke_outside: character.stroke_outside,
+        stroke_join: character.stroke_join,
+        stroke_miter_limit: character.stroke_miter_limit,
         overprint_fill: character.overprint_fill,
         overprint_stroke: character.overprint_stroke,
         point_size: character.point_size,
@@ -128,9 +153,12 @@ pub(crate) fn paragraph_properties(
             .number("DropCapCharacters")
             .map(|v| v.max(0.0) as usize),
         direction: crate::auto_direction::style_direction(element),
+        list,
+        bullet,
         hyphenate: boolean(element, "Hyphenation"),
         language: character.language,
         features: character.features,
+        directional_features: character.directional_features,
         ..ParagraphStyle::default()
     }
 }
@@ -138,9 +166,48 @@ pub(crate) fn paragraph_properties(
 pub(crate) fn character_properties(
     element: &Element,
     colors: &crate::color_codec::Colors,
+    refs: &References,
     report: &mut crate::import::Report,
 ) -> CharacterStyle {
     let (font_style, bold, italic) = read_font_choice(element);
+    let (all_caps, small_caps) = crate::capitalization_codec::read(element, report);
+    let stroke_weight = element
+        .attr("StrokeWeight")
+        .and_then(|raw| match raw.parse::<f32>() {
+            Ok(value) if value.is_finite() && value >= 0.0 => Some(value),
+            _ => {
+                report.skip(schist_i18n::tf!(
+                    "design.idml_text_stroke_invalid",
+                    value = raw
+                ));
+                None
+            }
+        });
+    use schist_text_engine::TextStrokeJoin;
+    let stroke_join = element.attr("EndJoin").and_then(|value| match value {
+        "MiterEndJoin" => Some(TextStrokeJoin::Miter),
+        "RoundEndJoin" => Some(TextStrokeJoin::Round),
+        "BevelEndJoin" => Some(TextStrokeJoin::Bevel),
+        _ => {
+            report.skip(schist_i18n::tf!(
+                "design.idml_text_stroke_option",
+                property = "EndJoin"
+            ));
+            None
+        }
+    });
+    let stroke_miter_limit = element
+        .attr("MiterLimit")
+        .and_then(|raw| match raw.parse::<f32>() {
+            Ok(value) if value.is_finite() && value >= 0.0 => Some(value),
+            _ => {
+                report.skip(schist_i18n::tf!(
+                    "design.idml_text_stroke_option",
+                    property = "MiterLimit"
+                ));
+                None
+            }
+        });
     use schist_layout::styles::TextPosition;
     let position = element.attr("Position").and_then(|value| match value {
         "Normal" => Some(TextPosition::Normal),
@@ -169,11 +236,29 @@ pub(crate) fn character_properties(
             }
         });
     CharacterStyle {
+        all_caps,
+        small_caps,
         family: property(element, "AppliedFont").map(str::to_owned),
         fill_tint: crate::color_codec::tint(element, "FillTint", report),
         stroke_tint: crate::color_codec::tint(element, "StrokeTint", report),
         fill: crate::color_codec::resolve(element, "FillColor", colors, report),
         stroke: crate::color_codec::resolve(element, "StrokeColor", colors, report),
+        fill_disabled: matches!(element.attr("FillColor"), Some("Swatch/None" | "n")),
+        stroke_disabled: matches!(element.attr("StrokeColor"), Some("Swatch/None" | "n")),
+        stroke_weight,
+        stroke_join,
+        stroke_miter_limit,
+        stroke_outside: element.attr("StrokeAlignment").and_then(|v| match v {
+            "CenterAlignment" => Some(false),
+            "OutsideAlignment" => Some(true),
+            _ => {
+                report.skip(schist_i18n::tf!(
+                    "design.idml_text_stroke_option",
+                    property = "StrokeAlignment"
+                ));
+                None
+            }
+        }),
         overprint_fill: boolean(element, "OverprintFill"),
         overprint_stroke: boolean(element, "OverprintStroke"),
         point_size: element.number("PointSize"),
@@ -185,10 +270,25 @@ pub(crate) fn character_properties(
         italic,
         underline: boolean(element, "Underline"),
         strikethrough: boolean(element, "StrikeThru"),
+        underline_style: crate::decoration_codec::read(
+            element,
+            "Underline",
+            colors,
+            &refs.strokes,
+            report,
+        ),
+        strike_style: crate::decoration_codec::read(
+            element,
+            "StrikeThrough",
+            colors,
+            &refs.strokes,
+            report,
+        ),
         baseline_shift,
         position,
         features: crate::opentype_codec::read(element, report),
-        language: element.attr("AppliedLanguage").map(str::to_owned),
+        directional_features: crate::opentype_codec::directional(element, report),
+        language: crate::language_codec::applied(element, &refs.languages, report),
         ..CharacterStyle::default()
     }
 }
@@ -268,7 +368,7 @@ pub fn read(
         let Some(raw) = element.attr("Self").or_else(|| element.attr("Name")) else {
             continue;
         };
-        let mut style = paragraph_properties(element, colors, report);
+        let mut style = paragraph_properties(element, colors, refs, report);
         style.name = refs.paragraph(raw);
         style.based_on =
             base(element).map(|base| refs.paragraph(property(element, "BasedOn").unwrap_or(&base)));
@@ -279,7 +379,7 @@ pub fn read(
         let Some(raw) = element.attr("Self").or_else(|| element.attr("Name")) else {
             continue;
         };
-        let mut style = character_properties(element, colors, report);
+        let mut style = character_properties(element, colors, refs, report);
         style.name = refs.character(raw);
         style.based_on =
             base(element).map(|base| refs.character(property(element, "BasedOn").unwrap_or(&base)));
@@ -287,7 +387,7 @@ pub fn read(
     }
 }
 
-fn escape(value: &str) -> String {
+pub(crate) fn escape(value: &str) -> String {
     value
         .replace('&', "&amp;")
         .replace('"', "&quot;")
@@ -468,7 +568,11 @@ pub fn paragraph_resolved(style: &ParagraphStyle, resolved: (bool, bool)) -> Str
         resolved,
     );
     let mut out = String::from("<ParagraphStyle");
+    crate::list_codec::attributes(&mut out, &crate::list_codec::native(style));
+    crate::capitalization_codec::attributes(&mut out, style.all_caps, style.small_caps);
     crate::opentype_codec::attributes(&mut out, &style.features);
+    crate::opentype_codec::directional_attributes(&mut out, style.directional_features);
+    crate::decoration_codec::attributes(&mut out, [&style.underline_style, &style.strike_style]);
     optional(
         &mut out,
         "AutoLeading",
@@ -496,12 +600,20 @@ pub fn paragraph_resolved(style: &ParagraphStyle, resolved: (bool, bool)) -> Str
     optional(
         &mut out,
         "FillColor",
-        style.fill.as_ref().map(crate::color_codec::reference),
+        if style.fill_disabled {
+            Some("Swatch/None".into())
+        } else {
+            style.fill.as_ref().map(crate::color_codec::reference)
+        },
     );
     optional(
         &mut out,
         "StrokeColor",
-        style.stroke.as_ref().map(crate::color_codec::reference),
+        if style.stroke_disabled {
+            Some("Swatch/None".into())
+        } else {
+            style.stroke.as_ref().map(crate::color_codec::reference)
+        },
     );
     optional(
         &mut out,
@@ -515,6 +627,38 @@ pub fn paragraph_resolved(style: &ParagraphStyle, resolved: (bool, bool)) -> Str
     );
     optional(&mut out, "OverprintFill", style.overprint_fill);
     optional(&mut out, "OverprintStroke", style.overprint_stroke);
+    optional(
+        &mut out,
+        "StrokeAlignment",
+        style.stroke_outside.map(|v| {
+            if v {
+                "OutsideAlignment"
+            } else {
+                "CenterAlignment"
+            }
+        }),
+    );
+    optional(
+        &mut out,
+        "StrokeWeight",
+        style.stroke_weight.filter(|v| v.is_finite() && *v >= 0.0),
+    );
+    optional(
+        &mut out,
+        "EndJoin",
+        style.stroke_join.map(|join| match join {
+            schist_text_engine::TextStrokeJoin::Miter => "MiterEndJoin",
+            schist_text_engine::TextStrokeJoin::Round => "RoundEndJoin",
+            schist_text_engine::TextStrokeJoin::Bevel => "BevelEndJoin",
+        }),
+    );
+    optional(
+        &mut out,
+        "MiterLimit",
+        style
+            .stroke_miter_limit
+            .filter(|v| v.is_finite() && *v >= 0.0),
+    );
     optional(
         &mut out,
         "NextStyle",
@@ -581,6 +725,11 @@ pub fn paragraph_resolved(style: &ParagraphStyle, resolved: (bool, bool)) -> Str
         &style.features,
     );
     font_choice_label(&mut out, choice.as_ref());
+    crate::list_codec::properties(&mut out, &crate::list_codec::native(style));
+    crate::list_codec::label(&mut out, style);
+    crate::decoration_codec::properties(&mut out, [&style.underline_style, &style.strike_style]);
+    crate::opentype_codec::directional_label(&mut out, style.directional_features, &style.features);
+    crate::capitalization_codec::label(&mut out, style.all_caps, style.small_caps);
     out
 }
 
@@ -592,7 +741,10 @@ pub fn character_resolved(style: &CharacterStyle, resolved: (bool, bool)) -> Str
         resolved,
     );
     let mut out = String::from("<CharacterStyle");
+    crate::capitalization_codec::attributes(&mut out, style.all_caps, style.small_caps);
     crate::opentype_codec::attributes(&mut out, &style.features);
+    crate::opentype_codec::directional_attributes(&mut out, style.directional_features);
+    crate::decoration_codec::attributes(&mut out, [&style.underline_style, &style.strike_style]);
     attr(
         &mut out,
         "Self",
@@ -602,12 +754,20 @@ pub fn character_resolved(style: &CharacterStyle, resolved: (bool, bool)) -> Str
     optional(
         &mut out,
         "FillColor",
-        style.fill.as_ref().map(crate::color_codec::reference),
+        if style.fill_disabled {
+            Some("Swatch/None".into())
+        } else {
+            style.fill.as_ref().map(crate::color_codec::reference)
+        },
     );
     optional(
         &mut out,
         "StrokeColor",
-        style.stroke.as_ref().map(crate::color_codec::reference),
+        if style.stroke_disabled {
+            Some("Swatch/None".into())
+        } else {
+            style.stroke.as_ref().map(crate::color_codec::reference)
+        },
     );
     optional(
         &mut out,
@@ -621,6 +781,38 @@ pub fn character_resolved(style: &CharacterStyle, resolved: (bool, bool)) -> Str
     );
     optional(&mut out, "OverprintFill", style.overprint_fill);
     optional(&mut out, "OverprintStroke", style.overprint_stroke);
+    optional(
+        &mut out,
+        "StrokeAlignment",
+        style.stroke_outside.map(|v| {
+            if v {
+                "OutsideAlignment"
+            } else {
+                "CenterAlignment"
+            }
+        }),
+    );
+    optional(
+        &mut out,
+        "StrokeWeight",
+        style.stroke_weight.filter(|v| v.is_finite() && *v >= 0.0),
+    );
+    optional(
+        &mut out,
+        "EndJoin",
+        style.stroke_join.map(|join| match join {
+            schist_text_engine::TextStrokeJoin::Miter => "MiterEndJoin",
+            schist_text_engine::TextStrokeJoin::Round => "RoundEndJoin",
+            schist_text_engine::TextStrokeJoin::Bevel => "BevelEndJoin",
+        }),
+    );
+    optional(
+        &mut out,
+        "MiterLimit",
+        style
+            .stroke_miter_limit
+            .filter(|v| v.is_finite() && *v >= 0.0),
+    );
     optional(&mut out, "PointSize", style.point_size);
     optional(&mut out, "Tracking", style.tracking);
     optional(&mut out, "FontStyle", choice.as_ref().map(|c| &c.native));
@@ -652,5 +844,27 @@ pub fn character_resolved(style: &CharacterStyle, resolved: (bool, bool)) -> Str
         &style.features,
     );
     font_choice_label(&mut out, choice.as_ref());
+    crate::decoration_codec::properties(&mut out, [&style.underline_style, &style.strike_style]);
+    crate::opentype_codec::directional_label(&mut out, style.directional_features, &style.features);
+    crate::capitalization_codec::label(&mut out, style.all_caps, style.small_caps);
     out
+}
+
+pub(crate) fn warn_stroke(
+    weight: Option<f32>,
+    miter_limit: Option<f32>,
+    warnings: &mut Vec<String>,
+) {
+    if miter_limit.is_some_and(|v| !v.is_finite() || v < 0.0) {
+        warnings.push(schist_i18n::tf!(
+            "design.idml_text_stroke_option",
+            property = "MiterLimit"
+        ));
+    }
+    if let Some(value) = weight.filter(|v| !v.is_finite() || *v < 0.0) {
+        warnings.push(schist_i18n::tf!(
+            "design.idml_text_stroke_invalid",
+            value = value
+        ));
+    }
 }

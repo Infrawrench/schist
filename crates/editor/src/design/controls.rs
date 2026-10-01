@@ -9,6 +9,7 @@ pub struct Controls {
     pub swatch: Option<usize>,
     pub paragraph: Option<String>,
     pub character: Option<String>,
+    pub object_style: Option<String>,
     pub field: Option<Target>,
 }
 #[derive(Clone)]
@@ -20,6 +21,7 @@ pub enum Target {
     Objects(Vec<ObjectId>),
     Paragraph(String),
     Character(String),
+    ObjectStyle(String),
 }
 
 pub fn page_property(id: &str) -> Option<properties::PageProperty> {
@@ -56,8 +58,458 @@ pub fn object_property(id: &str) -> Option<ObjectProperty> {
         "design-prop-inset" => ObjectProperty::Inset,
         "design-prop-fill-tint" => ObjectProperty::FillTint,
         "design-prop-stroke-tint" => ObjectProperty::StrokeTint,
+        "design-prop-stroke-width" => ObjectProperty::StrokeWidth,
         _ => return None,
     })
+}
+
+/// Paint selection is one style edit. None inherits; Paint::None explicitly
+/// suppresses inherited ink, and choosing a color re-enables that paint.
+pub fn set_text_paint(
+    state: &mut DesignState,
+    target: &Target,
+    fill: bool,
+    paint: Option<schist_layout::Paint>,
+) -> bool {
+    properties::edit_styles(&mut state.document, &mut state.history, |styles| {
+        let fields =
+            match target {
+                Target::Paragraph(name) => styles
+                    .paragraphs
+                    .iter_mut()
+                    .find(|s| s.name == *name)
+                    .map(|s| {
+                        if fill {
+                            (&mut s.fill, &mut s.fill_disabled)
+                        } else {
+                            (&mut s.stroke, &mut s.stroke_disabled)
+                        }
+                    }),
+                Target::Character(name) => styles
+                    .characters
+                    .iter_mut()
+                    .find(|s| s.name == *name)
+                    .map(|s| {
+                        if fill {
+                            (&mut s.fill, &mut s.fill_disabled)
+                        } else {
+                            (&mut s.stroke, &mut s.stroke_disabled)
+                        }
+                    }),
+                _ => None,
+            };
+        if let Some((ink, disabled)) = fields {
+            *disabled = paint == Some(schist_layout::Paint::None);
+            *ink = paint.as_ref().and_then(schist_layout::Paint::ink).cloned();
+        }
+    })
+}
+
+pub fn set_text_paint_flag(
+    state: &mut DesignState,
+    target: &Target,
+    flag: &str,
+    value: Option<bool>,
+) -> bool {
+    properties::edit_styles(&mut state.document, &mut state.history, |styles| {
+        let fields =
+            match target {
+                Target::Paragraph(name) => styles
+                    .paragraphs
+                    .iter_mut()
+                    .find(|s| s.name == *name)
+                    .map(|s| {
+                        (
+                            &mut s.overprint_fill,
+                            &mut s.overprint_stroke,
+                            &mut s.stroke_outside,
+                        )
+                    }),
+                Target::Character(name) => styles
+                    .characters
+                    .iter_mut()
+                    .find(|s| s.name == *name)
+                    .map(|s| {
+                        (
+                            &mut s.overprint_fill,
+                            &mut s.overprint_stroke,
+                            &mut s.stroke_outside,
+                        )
+                    }),
+                _ => None,
+            };
+        if let Some((fill, stroke, outside)) = fields {
+            match flag {
+                "fill" => *fill = value,
+                "stroke" => *stroke = value,
+                "outside" => *outside = value,
+                _ => {}
+            }
+        }
+    })
+}
+
+pub fn set_capitalization(
+    state: &mut DesignState,
+    target: &Target,
+    value: Option<schist_text_engine::Capitalization>,
+) -> bool {
+    properties::edit_styles(&mut state.document, &mut state.history, |styles| {
+        let fields = match target {
+            Target::Paragraph(name) => styles
+                .paragraphs
+                .iter_mut()
+                .find(|s| s.name == *name)
+                .map(|s| (&mut s.all_caps, &mut s.small_caps)),
+            Target::Character(name) => styles
+                .characters
+                .iter_mut()
+                .find(|s| s.name == *name)
+                .map(|s| (&mut s.all_caps, &mut s.small_caps)),
+            _ => None,
+        };
+        if let Some((all, small)) = fields {
+            *all = value.map(|v| v.flags().0);
+            *small = value.map(|v| v.flags().1);
+        }
+    })
+}
+
+pub fn set_directional_feature(
+    state: &mut DesignState,
+    target: &Target,
+    proportional: bool,
+    value: Option<bool>,
+) -> bool {
+    properties::edit_styles(&mut state.document, &mut state.history, |styles| {
+        let fields = match target {
+            Target::Paragraph(name) => styles
+                .paragraphs
+                .iter_mut()
+                .find(|s| s.name == *name)
+                .map(|s| (&mut s.directional_features, &mut s.features)),
+            Target::Character(name) => styles
+                .characters
+                .iter_mut()
+                .find(|s| s.name == *name)
+                .map(|s| (&mut s.directional_features, &mut s.features)),
+            _ => None,
+        };
+        if let Some((mode, features)) = fields {
+            let (field, tags) = if proportional {
+                (&mut mode.proportional_metrics, ["palt", "vpal"])
+            } else {
+                (&mut mode.kana, ["hkna", "vkna"])
+            };
+            *field = value;
+            // Choosing a mode default also clears same-level tag exceptions;
+            // otherwise an Enabled/Disabled choice could appear to do nothing.
+            features.retain(|(tag, _)| !tags.contains(&tag.as_str()));
+        }
+    })
+}
+
+pub fn set_text_join(
+    state: &mut DesignState,
+    target: &Target,
+    value: Option<schist_text_engine::TextStrokeJoin>,
+) -> bool {
+    properties::edit_styles(&mut state.document, &mut state.history, |styles| {
+        let field = match target {
+            Target::Paragraph(name) => styles
+                .paragraphs
+                .iter_mut()
+                .find(|s| s.name == *name)
+                .map(|s| &mut s.stroke_join),
+            Target::Character(name) => styles
+                .characters
+                .iter_mut()
+                .find(|s| s.name == *name)
+                .map(|s| &mut s.stroke_join),
+            _ => None,
+        };
+        if let Some(field) = field {
+            *field = value;
+        }
+    })
+}
+
+pub fn edit_decoration(
+    state: &mut DesignState,
+    target: &Target,
+    strike: bool,
+    edit: impl FnOnce(&mut schist_layout::decorations::DecorationStyle),
+) -> bool {
+    properties::edit_styles(&mut state.document, &mut state.history, |styles| {
+        let field =
+            match target {
+                Target::Paragraph(name) => styles
+                    .paragraphs
+                    .iter_mut()
+                    .find(|s| s.name == *name)
+                    .map(|s| {
+                        if strike {
+                            &mut s.strike_style
+                        } else {
+                            &mut s.underline_style
+                        }
+                    }),
+                Target::Character(name) => styles
+                    .characters
+                    .iter_mut()
+                    .find(|s| s.name == *name)
+                    .map(|s| {
+                        if strike {
+                            &mut s.strike_style
+                        } else {
+                            &mut s.underline_style
+                        }
+                    }),
+                _ => None,
+            };
+        if let Some(field) = field {
+            edit(field);
+        }
+    })
+}
+
+pub fn set_decoration_enabled(
+    state: &mut DesignState,
+    target: &Target,
+    strike: bool,
+    value: Option<bool>,
+) -> bool {
+    properties::edit_styles(&mut state.document, &mut state.history, |styles| {
+        let field =
+            match target {
+                Target::Paragraph(name) => styles
+                    .paragraphs
+                    .iter_mut()
+                    .find(|s| s.name == *name)
+                    .map(|s| {
+                        if strike {
+                            &mut s.strikethrough
+                        } else {
+                            &mut s.underline
+                        }
+                    }),
+                Target::Character(name) => styles
+                    .characters
+                    .iter_mut()
+                    .find(|s| s.name == *name)
+                    .map(|s| {
+                        if strike {
+                            &mut s.strikethrough
+                        } else {
+                            &mut s.underline
+                        }
+                    }),
+                _ => None,
+            };
+        if let Some(field) = field {
+            *field = value;
+        }
+    })
+}
+
+/// Caps belong to the selected native dash definition; one resource edit undoes once.
+pub fn set_decoration_cap(
+    state: &mut DesignState,
+    target: &Target,
+    strike: bool,
+    cap: schist_text_engine::DecorationCap,
+) -> bool {
+    edit_decoration(state, target, strike, |d| {
+        if let Some(schist_layout::decorations::DecorationStroke {
+            pattern: schist_text_engine::TextDecorationPattern::Dashes(dashes),
+            ..
+        }) = &mut d.stroke
+        {
+            dashes.cap = cap;
+        }
+    })
+}
+
+/// Fitting is part of the named resource, captured and changed in one edit.
+pub fn set_decoration_fitting(
+    state: &mut DesignState,
+    target: &Target,
+    strike: bool,
+    fitting: schist_text_engine::DecorationFit,
+) -> bool {
+    edit_decoration(state, target, strike, |d| {
+        if let Some(stroke) = &mut d.stroke {
+            let mut changed = stroke.clone();
+            changed.fitting = fitting;
+            if changed.valid() {
+                *stroke = changed;
+            }
+        }
+    })
+}
+
+fn decoration_field(
+    state: &mut DesignState,
+    target: &Target,
+    strike: bool,
+    field: &str,
+    text: &str,
+) -> bool {
+    use schist_layout::decorations::{DecorationMeasure, DecorationPaint};
+    if matches!(field, "stripes" | "dashes" | "dots") {
+        use schist_text_engine::TextDecorationPattern;
+        let same_kind = |p: &TextDecorationPattern| {
+            matches!(
+                (p, field),
+                (TextDecorationPattern::Dashes(_), "dashes")
+                    | (TextDecorationPattern::Stripes(_), "stripes")
+                    | (TextDecorationPattern::Dots(_), "dots")
+            )
+        };
+        let pattern = if text.is_empty() {
+            None
+        } else {
+            let Ok(values) = text
+                .split_whitespace()
+                .map(str::parse)
+                .collect::<Result<Vec<f32>, _>>()
+            else {
+                return false;
+            };
+            let pattern = match field {
+                "dashes" => TextDecorationPattern::Dashes(values.into()),
+                "dots" => TextDecorationPattern::Dots(values),
+                _ => TextDecorationPattern::Stripes(values),
+            };
+            if !pattern.valid() {
+                return false;
+            }
+            Some(pattern)
+        };
+        return edit_decoration(state, target, strike, |d| {
+            if let Some(mut pattern) = pattern {
+                if let (
+                    TextDecorationPattern::Dashes(new),
+                    Some(schist_layout::decorations::DecorationStroke {
+                        pattern: TextDecorationPattern::Dashes(old),
+                        ..
+                    }),
+                ) = (&mut pattern, &d.stroke)
+                {
+                    new.cap = old.cap;
+                }
+                if d.stroke.as_ref().is_some_and(|s| s.pattern == pattern) {
+                    return;
+                }
+                d.stroke = Some(schist_layout::decorations::DecorationStroke {
+                    fitting: d
+                        .stroke
+                        .as_ref()
+                        .filter(|s| same_kind(&s.pattern))
+                        .map(|s| s.fitting)
+                        .unwrap_or_default(),
+                    name: d
+                        .stroke
+                        .as_ref()
+                        .filter(|s| same_kind(&s.pattern))
+                        .map(|s| s.name.clone())
+                        .unwrap_or_else(|| {
+                            schist_i18n::t(match field {
+                                "dashes" => "design.decoration_dashed",
+                                "dots" => "design.decoration_dotted",
+                                _ => "design.decoration_striped",
+                            })
+                            .to_string()
+                        }),
+                    pattern,
+                });
+            } else if d.stroke.as_ref().is_some_and(|s| same_kind(&s.pattern)) {
+                // Other patterns have no value in this field. Focusing a blank
+                // must not restore inheritance; the pattern picker does that.
+                d.stroke = None;
+            }
+        });
+    }
+    if field == "weight" || field == "offset" {
+        let value = if text.is_empty() {
+            None
+        } else if text.eq_ignore_ascii_case("auto")
+            || text.eq_ignore_ascii_case(schist_i18n::t("design.leading_auto"))
+        {
+            Some(DecorationMeasure::Auto)
+        } else {
+            match text.parse::<f32>() {
+                Ok(value)
+                    if value.is_finite()
+                        && value != -9999.0
+                        && (field != "weight" || value >= 0.0) =>
+                {
+                    Some(DecorationMeasure::Points(value))
+                }
+                _ => return false,
+            }
+        };
+        return edit_decoration(state, target, strike, |d| {
+            if field == "weight" {
+                d.weight = value;
+            } else {
+                d.offset = value;
+            }
+        });
+    }
+    if field == "tint" || field == "gap-tint" {
+        let value = if text.is_empty() {
+            None
+        } else {
+            match text.parse::<f32>() {
+                Ok(v) if v.is_finite() && (0.0..=100.0).contains(&v) => Some(v / 100.0),
+                _ => return false,
+            }
+        };
+        let resolved = match target {
+            Target::Paragraph(name) => {
+                let s = state.document.styles.resolve_paragraph(name);
+                if strike {
+                    s.strike_style
+                } else {
+                    s.underline_style
+                }
+            }
+            Target::Character(name) => {
+                let s = state.document.styles.resolve_character(name);
+                if strike {
+                    s.strike_style
+                } else {
+                    s.underline_style
+                }
+            }
+            _ => return false,
+        };
+        let gap = field == "gap-tint";
+        let detached = (if gap {
+            resolved.gap_paint.as_ref()
+        } else {
+            resolved.paint.as_ref()
+        })
+        .and_then(DecorationPaint::ink)
+        .filter(|i| i.tint.is_some())
+        .map(|ink| DecorationPaint::Ink(ink.base_color().into_owned()));
+        return edit_decoration(state, target, strike, |d| {
+            if gap {
+                d.gap_tint = value;
+            } else {
+                d.tint = value;
+            }
+            if value.is_some() && detached.is_some() {
+                if gap {
+                    d.gap_paint = detached;
+                } else {
+                    d.paint = detached;
+                }
+            }
+        });
+    }
+    false
 }
 
 /// Position and explicit baseline offset are independent. Choosing Normal
@@ -131,10 +583,361 @@ pub fn font_style_value(styles: &schist_layout::StyleSet, target: &Target) -> St
     .into()
 }
 
+/// Display a tag while retaining the identity/dictionary of an unchanged
+/// imported resource. An explicit empty language is the default, not inheritance.
+pub fn language_value(styles: &schist_layout::StyleSet, target: &Target) -> String {
+    let value = match target {
+        Target::Paragraph(name) => styles.paragraph(name).and_then(|s| s.language.as_ref()),
+        Target::Character(name) => styles.character(name).and_then(|s| s.language.as_ref()),
+        _ => None,
+    };
+    match value {
+        None => String::new(),
+        Some(value) if value.as_str().is_empty() => "und".into(),
+        Some(value) => styles
+            .resolve_language(value)
+            .unwrap_or_else(|| value.as_str().trim_start_matches("$ID/").to_owned()),
+    }
+}
+
+/// List fields edit the style captured at focus, in one history operation.
+pub fn edit_list(
+    state: &mut DesignState,
+    target: &Target,
+    edit: impl FnOnce(&mut schist_layout::lists::ListStyle),
+) -> bool {
+    let Target::Paragraph(name) = target else {
+        return false;
+    };
+    properties::edit_styles(&mut state.document, &mut state.history, |styles| {
+        if let Some(style) = styles.paragraphs.iter_mut().find(|s| s.name == *name) {
+            edit(&mut style.list);
+        }
+    })
+}
+
+pub fn list_bullet_value(list: &schist_layout::lists::ListStyle) -> String {
+    list.bullet
+        .as_ref()
+        .map(|b| {
+            b.character()
+                .map(|v| v.to_string())
+                .unwrap_or_else(|| format!("{}:{}", b.kind, b.value))
+        })
+        .unwrap_or_default()
+}
+
+pub fn list_tab_value(list: &schist_layout::lists::ListStyle) -> String {
+    list.tabs
+        .as_ref()
+        .map(|tabs| {
+            tabs.iter()
+                .map(|t| t.position.to_string())
+                .collect::<Vec<_>>()
+                .join(", ")
+        })
+        .unwrap_or_default()
+}
+
+pub fn set_list_kind(
+    state: &mut DesignState,
+    target: &Target,
+    kind: Option<schist_layout::lists::ListKind>,
+) -> bool {
+    let Target::Paragraph(name) = target else {
+        return false;
+    };
+    properties::edit_styles(&mut state.document, &mut state.history, |styles| {
+        if let Some(style) = styles.paragraphs.iter_mut().find(|s| s.name == *name) {
+            style.bullet = None;
+            style.list.kind = kind;
+        }
+    })
+}
+
+pub fn set_list_format(
+    state: &mut DesignState,
+    target: &Target,
+    format: Option<schist_layout::list_numbering::CounterFormat>,
+) -> bool {
+    edit_list(state, target, |list| {
+        // Picking the displayed format must not rewrite an imported named
+        // definition to an enumeration or erase its original spelling.
+        if list.format.is_none() && format.is_none()
+            || format.is_some() && list.format.as_ref().and_then(|f| f.counter_format()) == format
+        {
+            return;
+        }
+        list.format = format.map(|f| f.native());
+    })
+}
+
+/// Change the captured paragraph's restart behavior in one undoable edit.
+/// Disabling retains an imported policy; choosing inheritance clears both fields.
+pub fn set_list_restart_policy(
+    state: &mut DesignState,
+    target: &Target,
+    enabled: Option<bool>,
+) -> bool {
+    edit_list(state, target, |list| {
+        list.apply_restart_policy = enabled;
+        match enabled {
+            None => list.restart_policy = None,
+            Some(true) => {
+                list.restart_policy = Some(schist_layout::lists::RestartPolicy {
+                    policy: "AnyPreviousLevel".into(),
+                    lower: 0,
+                    upper: 0,
+                })
+            }
+            Some(false) => {}
+        }
+    })
+}
+
+fn commit_list(state: &mut DesignState, target: &Target, id: &str, text: &str) -> bool {
+    use schist_layout::lists::{BulletSymbol, ListTab};
+    let raw = text.trim();
+    match id {
+        "design-prop-list-level" => {
+            let value = if raw.is_empty() {
+                None
+            } else {
+                match raw.parse::<u32>() {
+                    Ok(v) if (1..=9).contains(&v) => Some(v),
+                    _ => return false,
+                }
+            };
+            edit_list(state, target, |list| list.level = value)
+        }
+        "design-prop-list-start" => {
+            let value = if raw.is_empty() {
+                None
+            } else {
+                match raw.parse::<u32>() {
+                    Ok(v) if v > 0 && v <= i32::MAX as u32 => Some(v),
+                    _ => return false,
+                }
+            };
+            edit_list(state, target, |list| list.start = value)
+        }
+        "design-prop-list-bullet" => {
+            let Target::Paragraph(name) = target else {
+                return false;
+            };
+            if state
+                .document
+                .styles
+                .paragraph(name)
+                .is_some_and(|s| raw == list_bullet_value(&s.list))
+            {
+                return false;
+            }
+            let value = if raw.is_empty() {
+                None
+            } else {
+                let mut chars = raw.chars();
+                let Some(c) = chars.next().filter(|c| !c.is_control()) else {
+                    return false;
+                };
+                if chars.next().is_some() {
+                    return false;
+                }
+                Some(BulletSymbol::unicode(c))
+            };
+            edit_list(state, target, |list| list.bullet = value)
+        }
+        "design-prop-list-tab" => {
+            let Target::Paragraph(name) = target else {
+                return false;
+            };
+            if state
+                .document
+                .styles
+                .paragraph(name)
+                .is_some_and(|s| raw == list_tab_value(&s.list))
+            {
+                return false;
+            }
+            let value = if raw.is_empty() {
+                None
+            } else {
+                let Some(values) = raw
+                    .split(',')
+                    .map(|v| {
+                        v.trim()
+                            .parse::<f32>()
+                            .ok()
+                            .filter(|v| v.is_finite() && *v >= 0.0)
+                    })
+                    .collect::<Option<Vec<_>>>()
+                else {
+                    return false;
+                };
+                Some(
+                    values
+                        .into_iter()
+                        .map(|position| ListTab {
+                            position,
+                            alignment: "LeftAlign".into(),
+                            alignment_character: ".".into(),
+                            leader: String::new(),
+                        })
+                        .collect(),
+                )
+            };
+            edit_list(state, target, |list| list.tabs = value)
+        }
+        "design-prop-list-expression" => {
+            if text.chars().any(char::is_control) {
+                return false;
+            }
+            let value = (!text.is_empty()).then(|| text.to_owned());
+            let Target::Paragraph(name) = target else {
+                return false;
+            };
+            let level = state.document.styles.resolve_paragraph(name).list.level;
+            let probe = schist_layout::lists::ListStyle {
+                level,
+                kind: Some(schist_layout::lists::ListKind::Numbered),
+                expression: value.clone(),
+                ..Default::default()
+            };
+            if !schist_layout::list_composition::unsupported(&probe).is_empty() {
+                return false;
+            }
+            edit_list(state, target, |list| list.expression = value)
+        }
+        _ => false,
+    }
+}
+
 pub fn commit(state: &mut DesignState, id: &str, text: &str) -> bool {
     let Some(target) = state.controls.field.take() else {
         return false;
     };
+    if id.starts_with("design-prop-list-") {
+        return commit_list(state, &target, id, text);
+    }
+    if matches!(
+        id,
+        "design-prop-paragraph-language" | "design-prop-language"
+    ) {
+        let text = text.trim();
+        if text == language_value(&state.document.styles, &target) {
+            return false;
+        }
+        let value = if text.is_empty() {
+            None
+        } else {
+            let Some(tag) = schist_text_engine::normalize_language(text) else {
+                return false;
+            };
+            Some(schist_layout::language::TextLanguage::Tag { tag })
+        };
+        return properties::edit_styles(&mut state.document, &mut state.history, |styles| {
+            let field = match &target {
+                Target::Paragraph(name) => styles
+                    .paragraphs
+                    .iter_mut()
+                    .find(|s| s.name == *name)
+                    .map(|s| &mut s.language),
+                Target::Character(name) => styles
+                    .characters
+                    .iter_mut()
+                    .find(|s| s.name == *name)
+                    .map(|s| &mut s.language),
+                _ => None,
+            };
+            if let Some(field) = field {
+                *field = value;
+            }
+        });
+    }
+    for (prefix, strike) in [
+        ("design-prop-para-underline-", false),
+        ("design-prop-para-strike-", true),
+        ("design-prop-char-underline-", false),
+        ("design-prop-char-strike-", true),
+    ] {
+        if let Some(field) = id.strip_prefix(prefix) {
+            return decoration_field(state, &target, strike, field, text.trim());
+        }
+    }
+    if let Target::ObjectStyle(name) = &target {
+        let text = text.trim();
+        if id == "design-prop-object-name" {
+            let changed = schist_layout::object_styles::rename_style(
+                &mut state.document,
+                &mut state.history,
+                name,
+                text,
+            );
+            if changed {
+                state.controls.object_style = Some(text.into());
+            }
+            return changed;
+        }
+        if id == "design-prop-object-base" {
+            if !text.is_empty() {
+                let mut next = Some(text);
+                let mut seen = std::collections::HashSet::new();
+                while let Some(base) = next {
+                    if base == name || !seen.insert(base) {
+                        return false;
+                    }
+                    let Some(style) = state.document.styles.object_style(base) else {
+                        return false;
+                    };
+                    next = style.based_on.as_deref();
+                }
+            }
+            return properties::edit_styles(&mut state.document, &mut state.history, |styles| {
+                if let Some(style) = styles.objects.iter_mut().find(|s| s.name == *name) {
+                    style.based_on = (!text.is_empty()).then(|| text.into());
+                }
+            });
+        }
+        let value = if text.is_empty() {
+            None
+        } else {
+            match text.parse::<f32>() {
+                Ok(v) if v.is_finite() && v >= 0.0 => Some(v),
+                _ => return false,
+            }
+        };
+        if id.ends_with("tint") && value.is_some_and(|v| v > 100.0) {
+            return false;
+        }
+        let resolved = state.document.styles.resolve_object(name).paint;
+        return properties::edit_styles(&mut state.document, &mut state.history, |styles| {
+            let Some(style) = styles.objects.iter_mut().find(|s| s.name == *name) else {
+                return;
+            };
+            match id {
+                "design-prop-object-fill-tint" => {
+                    style.paint.fill_tint = value.map(|v| v / 100.0);
+                    if value.is_some() {
+                        if let Some(ink) = resolved.fill_ink().filter(|i| i.tint.is_some()) {
+                            style.paint.fill =
+                                Some(schist_layout::Paint::Ink(ink.base_color().into_owned()));
+                        }
+                    }
+                }
+                "design-prop-object-stroke-tint" => {
+                    style.paint.stroke_tint = value.map(|v| v / 100.0);
+                    if value.is_some() {
+                        if let Some(ink) = resolved.stroke_ink().filter(|i| i.tint.is_some()) {
+                            style.paint.stroke =
+                                Some(schist_layout::Paint::Ink(ink.base_color().into_owned()));
+                        }
+                    }
+                }
+                "design-prop-object-stroke-width" => style.paint.stroke_width = value,
+                _ => {}
+            }
+        });
+    }
     if matches!(
         id,
         "design-prop-font-style" | "design-prop-paragraph-font-style"
@@ -299,17 +1102,25 @@ pub fn commit(state: &mut DesignState, id: &str, text: &str) -> bool {
             _ => return false,
         }
     };
+    if (id.ends_with("stroke-width") || id.ends_with("stroke-miter"))
+        && value.is_some_and(|v| v < 0.0)
+    {
+        return false;
+    }
     if id.ends_with("-tint") && value.is_some_and(|v| !(0.0..=100.0).contains(&v)) {
         return false;
     }
     match target {
+        Target::ObjectStyle(_) => false,
         Target::TextPreferences => {
             let Some(value) = value else {
                 return false;
             };
             let size = matches!(
                 id,
-                "design-prop-superscript-size" | "design-prop-subscript-size"
+                "design-prop-superscript-size"
+                    | "design-prop-subscript-size"
+                    | "design-prop-small-cap-size"
             );
             let range = if size { 1.0..=200.0 } else { -500.0..=500.0 };
             if !range.contains(&value) {
@@ -318,6 +1129,7 @@ pub fn commit(state: &mut DesignState, id: &str, text: &str) -> bool {
             properties::edit_styles(&mut state.document, &mut state.history, |styles| {
                 let prefs = &mut styles.text_preferences;
                 match id {
+                    "design-prop-small-cap-size" => prefs.small_cap_size = value,
                     "design-prop-superscript-size" => prefs.superscript_size = value,
                     "design-prop-superscript-position" => prefs.superscript_position = value,
                     "design-prop-subscript-size" => prefs.subscript_size = value,
@@ -401,6 +1213,43 @@ pub fn commit(state: &mut DesignState, id: &str, text: &str) -> bool {
                 },
             )
         }
+        Target::Objects(ids) if matches!(id, "design-prop-path-start" | "design-prop-path-end") => {
+            use schist_layout::text_path::{set_bracket, Bracket};
+            let values: Option<Vec<_>> = ids
+                .iter()
+                .map(|object| match &state.document.object(*object)?.object {
+                    LayoutObject::TextFrame {
+                        text_path: Some(path),
+                        ..
+                    } => Some(if id == "design-prop-path-start" {
+                        Some(path.start)
+                    } else {
+                        path.end
+                    }),
+                    _ => None,
+                })
+                .collect();
+            if values.as_ref().is_some_and(|values| {
+                values.first().is_some_and(|first| {
+                    values.iter().all(|value| value == first)
+                        && first.map(|v| format!("{v:.2}")).unwrap_or_default() == text.trim()
+                })
+            }) {
+                return false;
+            }
+            let bracket = if id == "design-prop-path-start" {
+                let Some(value) = value else {
+                    return false;
+                };
+                Bracket::Start(value)
+            } else {
+                if !text.trim().is_empty() && value.is_none() {
+                    return false;
+                }
+                Bracket::End(value)
+            };
+            set_bracket(&mut state.document, &mut state.history, &ids, bracket)
+        }
         Target::Objects(ids) => value.is_some_and(|value| {
             object_property(id).is_some_and(|property| {
                 properties::set_object_property(
@@ -426,6 +1275,19 @@ pub fn commit(state: &mut DesignState, id: &str, text: &str) -> bool {
                 .fill
                 .filter(|ink| ink.tint.is_some())
                 .map(|ink| ink.base_color().into_owned());
+            let stroke_tint_base = state
+                .document
+                .styles
+                .resolve_paragraph(&name)
+                .character(
+                    state
+                        .document
+                        .styles
+                        .resolve_character(&state.document.default_character_style),
+                )
+                .stroke
+                .filter(|ink| ink.tint.is_some())
+                .map(|ink| ink.base_color().into_owned());
             if id == "design-prop-size" && value.is_some_and(|value| value <= 0.0) {
                 return false;
             }
@@ -443,6 +1305,14 @@ pub fn commit(state: &mut DesignState, id: &str, text: &str) -> bool {
                     return;
                 };
                 match id {
+                    "design-prop-paragraph-stroke-miter" => style.stroke_miter_limit = value,
+                    "design-prop-paragraph-stroke-width" => style.stroke_weight = value,
+                    "design-prop-paragraph-stroke-tint" => {
+                        style.stroke_tint = value.map(|v| v / 100.0);
+                        if value.is_some() && stroke_tint_base.is_some() {
+                            style.stroke = stroke_tint_base;
+                        }
+                    }
                     "design-prop-paragraph-fill-tint" => {
                         style.fill_tint = value.map(|v| v / 100.0);
                         if value.is_some() && tint_base.is_some() {
@@ -473,6 +1343,13 @@ pub fn commit(state: &mut DesignState, id: &str, text: &str) -> bool {
                 .fill
                 .filter(|ink| ink.tint.is_some())
                 .map(|ink| ink.base_color().into_owned());
+            let stroke_tint_base = state
+                .document
+                .styles
+                .resolve_character(&name)
+                .stroke
+                .filter(|ink| ink.tint.is_some())
+                .map(|ink| ink.base_color().into_owned());
             if matches!(id, "design-prop-char-size" | "design-prop-char-leading")
                 && value.is_some_and(|value| value <= 0.0)
             {
@@ -487,6 +1364,14 @@ pub fn commit(state: &mut DesignState, id: &str, text: &str) -> bool {
                     return;
                 };
                 match id {
+                    "design-prop-char-stroke-miter" => style.stroke_miter_limit = value,
+                    "design-prop-char-stroke-width" => style.stroke_weight = value,
+                    "design-prop-char-stroke-tint" => {
+                        style.stroke_tint = value.map(|v| v / 100.0);
+                        if value.is_some() && stroke_tint_base.is_some() {
+                            style.stroke = stroke_tint_base;
+                        }
+                    }
                     "design-prop-char-fill-tint" => {
                         style.fill_tint = value.map(|v| v / 100.0);
                         if value.is_some() && tint_base.is_some() {
@@ -554,6 +1439,1039 @@ pub fn all_text_frames(state: &DesignState) -> bool {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn list_format_choices_preserve_native_names_and_change_the_captured_style_once() {
+        use schist_layout::{list_numbering::CounterFormat, lists::NumberingFormat};
+        for old in [
+            None,
+            Some(NumberingFormat::from(" 1, 2, 3, 4… ")),
+            Some(NumberingFormat::from("Unknown native format")),
+        ] {
+            for choice in std::iter::once(None).chain(CounterFormat::ALL.into_iter().map(Some)) {
+                let mut state = DesignState::new();
+                state
+                    .document
+                    .styles
+                    .paragraphs
+                    .iter_mut()
+                    .find(|s| s.name == "Body")
+                    .unwrap()
+                    .list
+                    .format = old.clone();
+                state.controls.paragraph = Some("Different selection".into());
+                let before = state.document.clone();
+                let expected_change = match (&old, choice) {
+                    (None, None) => false,
+                    (Some(old), Some(new)) => old.counter_format() != Some(new),
+                    _ => true,
+                };
+                let target = Target::Paragraph("Body".into());
+                assert_eq!(
+                    set_list_format(&mut state, &target, choice),
+                    expected_change
+                );
+                assert_eq!(state.history.undo_depth(), usize::from(expected_change));
+                assert!(!set_list_format(&mut state, &target, choice));
+                if expected_change {
+                    assert!(state.history.undo(&mut state.document));
+                }
+                assert_eq!(state.document, before);
+            }
+        }
+    }
+
+    #[test]
+    fn level_expressions_and_restart_policies_target_captured_styles_and_undo_once() {
+        use schist_layout::lists::RestartPolicy;
+        for enabled in [None, Some(true), Some(false)] {
+            let mut state = DesignState::new();
+            let target = Target::Paragraph("Body".into());
+            let body = state
+                .document
+                .styles
+                .paragraphs
+                .iter_mut()
+                .find(|p| p.name == "Body")
+                .unwrap();
+            let policy = RestartPolicy {
+                policy: "RangeOfLevels".into(),
+                lower: 1,
+                upper: 2,
+            };
+            body.list.restart_policy = Some(policy.clone());
+            body.list.apply_restart_policy = Some(true);
+            let before = state.document.clone();
+            state.controls.paragraph = Some("Another selection".into());
+            assert!(set_list_restart_policy(&mut state, &target, enabled));
+            assert_eq!(state.history.undo_depth(), 1);
+            assert!(!set_list_restart_policy(&mut state, &target, enabled));
+            if enabled == Some(false) {
+                assert_eq!(
+                    state
+                        .document
+                        .styles
+                        .paragraph("Body")
+                        .unwrap()
+                        .list
+                        .restart_policy,
+                    Some(policy)
+                );
+            }
+            assert!(state.history.undo(&mut state.document));
+            assert_eq!(state.document, before);
+        }
+        for level in 2..=9 {
+            let mut state = DesignState::new();
+            state
+                .document
+                .styles
+                .paragraphs
+                .iter_mut()
+                .find(|p| p.name == "Body")
+                .unwrap()
+                .list
+                .level = Some(level);
+            let expression = (1..level).map(|v| format!("^{v}.")).collect::<String>() + "^#^t";
+            let before = state.document.clone();
+            state.controls.field = Some(Target::Paragraph("Body".into()));
+            assert!(commit(
+                &mut state,
+                "design-prop-list-expression",
+                &expression
+            ));
+            assert_eq!(state.history.undo_depth(), 1);
+            assert!(state.history.undo(&mut state.document));
+            assert_eq!(state.document, before);
+        }
+    }
+
+    #[test]
+    fn list_fields_use_captured_styles_preserve_unchanged_tabs_and_undo_once() {
+        use schist_layout::lists::{ListKind, ListTab};
+        for (id, value) in [
+            ("design-prop-list-start", "7"),
+            ("design-prop-list-level", "9"),
+            ("design-prop-list-bullet", "→"),
+            ("design-prop-list-expression", "Item ^#)^t"),
+            ("design-prop-list-tab", "24.125, 48"),
+        ] {
+            let mut state = DesignState::new();
+            let before = state.document.clone();
+            state.controls.field = Some(Target::Paragraph("Body".into()));
+            state.controls.paragraph = Some("Different selection".into());
+            assert!(commit(&mut state, id, value));
+            assert_eq!(state.history.undo_depth(), 1);
+            state.controls.field = Some(Target::Paragraph("Body".into()));
+            assert!(!commit(&mut state, id, value));
+            assert_eq!(state.history.undo_depth(), 1);
+            assert!(state.history.undo(&mut state.document));
+            assert_eq!(state.document, before);
+        }
+        let mut state = DesignState::new();
+        let target = Target::Paragraph("Body".into());
+        for kind in [
+            None,
+            Some(ListKind::None),
+            Some(ListKind::Bullet),
+            Some(ListKind::Numbered),
+        ] {
+            state
+                .document
+                .styles
+                .paragraphs
+                .iter_mut()
+                .find(|s| s.name == "Body")
+                .unwrap()
+                .bullet = Some(schist_layout::styles::Bullet::Character {
+                char: '•',
+                indent: 8.0,
+            });
+            let before = state.document.clone();
+            let depth = state.history.undo_depth();
+            assert!(set_list_kind(&mut state, &target, kind));
+            assert_eq!(state.history.undo_depth(), depth + 1);
+            assert_eq!(
+                state.document.styles.paragraph("Body").unwrap().bullet,
+                None
+            );
+            assert!(state.history.undo(&mut state.document));
+            assert_eq!(state.document, before);
+        }
+        for (id, value) in [
+            ("design-prop-list-start", "0"),
+            ("design-prop-list-level", "0"),
+            ("design-prop-list-level", "10"),
+            ("design-prop-list-level", "1.5"),
+            ("design-prop-list-start", "1.5"),
+            ("design-prop-list-start", "4294967296"),
+            ("design-prop-list-bullet", "ab"),
+            ("design-prop-list-tab", "NaN"),
+            ("design-prop-list-tab", "1,-2"),
+            ("design-prop-list-expression", "^1^t"),
+        ] {
+            let before = state.document.clone();
+            state.controls.field = Some(target.clone());
+            assert!(!commit(&mut state, id, value));
+            assert_eq!(state.document, before);
+        }
+        state
+            .document
+            .styles
+            .paragraphs
+            .iter_mut()
+            .find(|s| s.name == "Body")
+            .unwrap()
+            .list
+            .tabs = Some(vec![
+            ListTab {
+                position: 12.3456,
+                alignment: "CharacterAlign".into(),
+                alignment_character: ",".into(),
+                leader: ".".into(),
+            },
+            ListTab {
+                position: 30.0,
+                alignment: "RightAlign".into(),
+                alignment_character: ".".into(),
+                leader: String::new(),
+            },
+        ]);
+        state
+            .document
+            .styles
+            .paragraphs
+            .iter_mut()
+            .find(|s| s.name == "Body")
+            .unwrap()
+            .list
+            .bullet = Some(schist_layout::lists::BulletSymbol {
+            kind: "GlyphWithFont".into(),
+            value: 65,
+        });
+        let before = state.document.clone();
+        state.controls.field = Some(target.clone());
+        let bullet = list_bullet_value(&state.document.styles.paragraph("Body").unwrap().list);
+        assert!(!commit(&mut state, "design-prop-list-bullet", &bullet));
+        assert_eq!(state.document, before);
+        let value = list_tab_value(&state.document.styles.paragraph("Body").unwrap().list);
+        state.controls.field = Some(target);
+        assert!(!commit(&mut state, "design-prop-list-tab", &value));
+        assert_eq!(state.document, before);
+    }
+
+    #[test]
+    fn path_bracket_fields_keep_captured_targets_native_precision_and_one_undo() {
+        let mut state = DesignState::new();
+        let mut ids = Vec::new();
+        for _ in 0..2 {
+            let id = schist_layout::authoring::path_shape(
+                &mut state.document,
+                &mut state.history,
+                0,
+                schist_layout::ShapePath::ellipse(180.0, 70.0),
+                schist_layout::authoring::Paint::none(),
+            )
+            .unwrap();
+            schist_layout::text_path::attach(&mut state.document, &mut state.history, id).unwrap();
+            ids.push(id);
+        }
+        state.history = Default::default();
+        let before = state.document.clone();
+        for input in ["NaN", "inf", "-1", "99999", "invalid"] {
+            state.controls.field = Some(Target::Objects(ids.clone()));
+            assert!(!commit(&mut state, "design-prop-path-start", input));
+            assert_eq!(state.document, before);
+        }
+        state.controls.field = Some(Target::Objects(ids.clone()));
+        state.selection.clear();
+        assert!(commit(&mut state, "design-prop-path-start", "12.3456"));
+        assert_eq!(state.history.undo_depth(), 1);
+        for object in &state.document.objects {
+            assert!(
+                matches!(&object.object, LayoutObject::TextFrame { text_path: Some(path), .. } if path.start == 12.3456)
+            );
+        }
+        state.controls.field = Some(Target::Objects(ids.clone()));
+        assert!(!commit(&mut state, "design-prop-path-start", "12.35"));
+        assert_eq!(state.history.undo_depth(), 1);
+        assert!(state.history.undo(&mut state.document));
+        assert_eq!(state.document, before);
+        for input in ["100", ""] {
+            state.controls.field = Some(Target::Objects(ids.clone()));
+            assert!(commit(&mut state, "design-prop-path-end", input));
+        }
+        assert_eq!(state.document, before);
+        assert_eq!(state.history.undo_depth(), 2);
+        // Equal formatted values can still be a mixed selection. An explicit
+        // entry must normalize them, while an unchanged single value keeps precision.
+        for (object, value) in state.document.objects.iter_mut().zip([12.3456, 12.3499]) {
+            let LayoutObject::TextFrame {
+                text_path: Some(path),
+                ..
+            } = &mut object.object
+            else {
+                unreachable!()
+            };
+            path.start = value;
+        }
+        let mixed = state.document.clone();
+        state.history = Default::default();
+        state.controls.field = Some(Target::Objects(ids));
+        assert!(commit(&mut state, "design-prop-path-start", "12.35"));
+        assert_eq!(state.history.undo_depth(), 1);
+        assert!(state.history.undo(&mut state.document));
+        assert_eq!(state.document, mixed);
+    }
+
+    #[test]
+    fn language_fields_preserve_imported_identity_and_commit_to_captured_targets_once() {
+        for paragraph in [false, true] {
+            let mut state = DesignState::new();
+            state
+                .document
+                .styles
+                .languages
+                .push(schist_layout::language::LanguageResource {
+                    id: "tr".into(),
+                    name: "$ID/Romanian".into(),
+                    spelling_vendor: Some("Vendor".into()),
+                    ..Default::default()
+                });
+            let target = if paragraph {
+                state.document.styles.paragraphs[0].language = Some("tr".into());
+                Target::Paragraph(state.document.styles.paragraphs[0].name.clone())
+            } else {
+                state.document.styles.characters[0].language = Some("tr".into());
+                Target::Character(state.document.styles.characters[0].name.clone())
+            };
+            let id = if paragraph {
+                "design-prop-paragraph-language"
+            } else {
+                "design-prop-language"
+            };
+            let before = state.document.clone();
+            for text in ["ro", "en-u", "en--US", "Language/unresolved"] {
+                state.controls.field = Some(target.clone());
+                assert!(!commit(&mut state, id, text));
+                assert_eq!(state.document, before);
+            }
+            for text in ["tr", "TR_tr", "und", ""] {
+                state.controls.field = Some(target.clone());
+                state.controls.paragraph = Some("Selection changed".into());
+                state.controls.character = Some("Selection changed".into());
+                assert!(commit(&mut state, id, text));
+                assert_eq!(
+                    language_value(&state.document.styles, &target),
+                    text.replace('_', "-").to_ascii_lowercase()
+                );
+                assert!(state.history.undo(&mut state.document));
+                assert_eq!(state.document, before);
+                assert!(!state.history.undo(&mut state.document));
+            }
+        }
+    }
+
+    #[test]
+    fn capitalization_uses_captured_targets_and_small_cap_preferences_undo_once() {
+        use schist_text_engine::Capitalization::*;
+        for paragraph in [false, true] {
+            for value in [
+                None,
+                Some(Normal),
+                Some(AllCaps),
+                Some(SmallCaps),
+                Some(OpenTypeAllSmallCaps),
+            ] {
+                let mut state = DesignState::new();
+                let target = if paragraph {
+                    state.document.styles.paragraphs[0].all_caps = Some(true);
+                    Target::Paragraph(state.document.styles.paragraphs[0].name.clone())
+                } else {
+                    state.document.styles.characters[0].all_caps = Some(true);
+                    Target::Character(state.document.styles.characters[0].name.clone())
+                };
+                let before = state.document.clone();
+                assert!(set_capitalization(&mut state, &target, value));
+                assert_eq!(state.history.undo_depth(), 1);
+                let actual = if paragraph {
+                    let s = &state.document.styles.paragraphs[0];
+                    (s.all_caps, s.small_caps)
+                } else {
+                    let s = &state.document.styles.characters[0];
+                    (s.all_caps, s.small_caps)
+                };
+                assert_eq!(
+                    actual,
+                    (value.map(|v| v.flags().0), value.map(|v| v.flags().1))
+                );
+                assert!(state.history.undo(&mut state.document));
+                assert_eq!(state.document, before);
+            }
+        }
+        let mut state = DesignState::new();
+        let before = state.document.clone();
+        for value in ["", "NaN", "inf", "0", "201", "-1"] {
+            state.controls.field = Some(Target::TextPreferences);
+            assert!(!commit(&mut state, "design-prop-small-cap-size", value));
+            assert_eq!(state.document, before);
+        }
+        for value in ["1", "55.5", "200"] {
+            state.controls.field = Some(Target::TextPreferences);
+            assert!(commit(&mut state, "design-prop-small-cap-size", value));
+            assert_eq!(state.history.undo_depth(), 1);
+            assert!(state.history.undo(&mut state.document));
+            assert_eq!(state.document, before);
+        }
+    }
+
+    #[test]
+    fn directional_feature_choices_replace_only_their_tag_exceptions_and_undo_once() {
+        for paragraph in [false, true] {
+            for proportional in [false, true] {
+                for value in [None, Some(false), Some(true)] {
+                    let mut state = DesignState::new();
+                    let target = if paragraph {
+                        Target::Paragraph("Body".into())
+                    } else {
+                        Target::Character("Default".into())
+                    };
+                    let features = vec![
+                        ("hkna".into(), true),
+                        ("vkna".into(), false),
+                        ("palt".into(), false),
+                        ("vpal".into(), true),
+                        ("liga".into(), true),
+                    ];
+                    if paragraph {
+                        state
+                            .document
+                            .styles
+                            .paragraphs
+                            .iter_mut()
+                            .find(|p| p.name == "Body")
+                            .unwrap()
+                            .features = features;
+                    } else {
+                        state
+                            .document
+                            .styles
+                            .characters
+                            .iter_mut()
+                            .find(|p| p.name == "Default")
+                            .unwrap()
+                            .features = features;
+                    }
+                    let before = state.document.clone();
+                    assert!(set_directional_feature(
+                        &mut state,
+                        &target,
+                        proportional,
+                        value
+                    ));
+                    assert_eq!(state.history.undo_depth(), 1);
+                    let (mode, features) = if paragraph {
+                        let style = state.document.styles.paragraph("Body").unwrap();
+                        (style.directional_features, &style.features)
+                    } else {
+                        let style = state.document.styles.character("Default").unwrap();
+                        (style.directional_features, &style.features)
+                    };
+                    assert_eq!(
+                        if proportional {
+                            mode.proportional_metrics
+                        } else {
+                            mode.kana
+                        },
+                        value
+                    );
+                    let removed = if proportional {
+                        ["palt", "vpal"]
+                    } else {
+                        ["hkna", "vkna"]
+                    };
+                    assert!(features
+                        .iter()
+                        .all(|(tag, _)| !removed.contains(&tag.as_str())));
+                    assert_eq!(features.len(), 3);
+                    assert!(features.iter().any(|(tag, on)| tag == "liga" && *on));
+                    assert!(state.history.undo(&mut state.document));
+                    assert_eq!(state.document, before);
+                }
+            }
+        }
+    }
+
+    #[test]
+    fn text_join_and_miter_edits_keep_captured_targets_and_undo_one_gesture() {
+        use schist_text_engine::TextStrokeJoin;
+        for paragraph in [false, true] {
+            let mut state = DesignState::new();
+            let target = if paragraph {
+                Target::Paragraph("Body".into())
+            } else {
+                Target::Character("Default".into())
+            };
+            let id = if paragraph {
+                "design-prop-paragraph-stroke-miter"
+            } else {
+                "design-prop-char-stroke-miter"
+            };
+            let before = state.document.clone();
+            for join in [
+                TextStrokeJoin::Miter,
+                TextStrokeJoin::Round,
+                TextStrokeJoin::Bevel,
+            ] {
+                assert!(set_text_join(&mut state, &target, Some(join)));
+                assert_eq!(state.history.undo_depth(), 1);
+                assert!(state.history.undo(&mut state.document));
+                assert_eq!(state.document, before);
+            }
+            for invalid in ["-1", "NaN", "inf", "bad"] {
+                state.controls.field = Some(target.clone());
+                assert!(!commit(&mut state, id, invalid));
+                assert_eq!(state.history.undo_depth(), 0);
+            }
+            for value in ["0", "0.5", "4", "16"] {
+                state.controls.field = Some(target.clone());
+                state.controls.paragraph = Some("Missing".into());
+                state.controls.character = Some("Missing".into());
+                assert!(commit(&mut state, id, value));
+                assert_eq!(state.history.undo_depth(), 1);
+                let limit = match &target {
+                    Target::Paragraph(name) => {
+                        state
+                            .document
+                            .styles
+                            .paragraph(name)
+                            .unwrap()
+                            .stroke_miter_limit
+                    }
+                    Target::Character(name) => {
+                        state
+                            .document
+                            .styles
+                            .character(name)
+                            .unwrap()
+                            .stroke_miter_limit
+                    }
+                    _ => unreachable!(),
+                };
+                assert_eq!(limit, Some(value.parse::<f32>().unwrap()));
+                state.controls.field = Some(target.clone());
+                assert!(commit(&mut state, id, ""));
+                assert_eq!(state.document, before);
+                assert!(state.history.undo(&mut state.document));
+                assert!(state.history.undo(&mut state.document));
+                assert_eq!(state.document, before);
+            }
+        }
+    }
+
+    #[test]
+    fn decoration_fields_distinguish_auto_inheritance_and_explicit_points_with_one_undo() {
+        use schist_layout::decorations::{DecorationMeasure, DecorationPaint};
+        for paragraph in [false, true] {
+            for strike in [false, true] {
+                let mut state = DesignState::new();
+                let target = if paragraph {
+                    Target::Paragraph("Body".into())
+                } else {
+                    Target::Character("Default".into())
+                };
+                let prefix = format!(
+                    "design-prop-{}-{}-",
+                    if paragraph { "para" } else { "char" },
+                    if strike { "strike" } else { "underline" }
+                );
+                let before = state.document.clone();
+                for field in ["weight", "offset", "tint"] {
+                    let id = format!("{prefix}{field}");
+                    for invalid in ["NaN", "inf", "bad", "-9999"] {
+                        state.controls.field = Some(target.clone());
+                        assert!(!commit(&mut state, &id, invalid));
+                        assert_eq!(state.document, before);
+                    }
+                    for value in if field == "tint" {
+                        vec!["0", "37.5", "100"]
+                    } else {
+                        vec!["0", "2.75", "Auto"]
+                    } {
+                        state.controls.field = Some(target.clone());
+                        // A later panel choice cannot change this captured target.
+                        state.controls.character = Some("Missing".into());
+                        assert!(commit(&mut state, &id, value));
+                        assert_eq!(state.history.undo_depth(), 1);
+                        let style = match &target {
+                            Target::Paragraph(name) => {
+                                let s = state.document.styles.paragraph(name).unwrap();
+                                if strike {
+                                    &s.strike_style
+                                } else {
+                                    &s.underline_style
+                                }
+                            }
+                            Target::Character(name) => {
+                                let s = state.document.styles.character(name).unwrap();
+                                if strike {
+                                    &s.strike_style
+                                } else {
+                                    &s.underline_style
+                                }
+                            }
+                            _ => unreachable!(),
+                        };
+                        if value == "Auto" {
+                            assert_eq!(
+                                if field == "weight" {
+                                    style.weight
+                                } else {
+                                    style.offset
+                                },
+                                Some(DecorationMeasure::Auto)
+                            );
+                        }
+                        assert!(state.history.undo(&mut state.document));
+                        assert_eq!(state.document, before);
+                    }
+                    state.controls.field = Some(target.clone());
+                    assert!(commit(&mut state, &id, "2"));
+                    state.controls.field = Some(target.clone());
+                    assert!(commit(&mut state, &id, ""));
+                    assert_eq!(state.document, before);
+                    assert!(state.history.undo(&mut state.document));
+                    assert!(state.history.undo(&mut state.document));
+                    assert_eq!(state.document, before);
+                }
+                for paint in [
+                    DecorationPaint::Text,
+                    DecorationPaint::None,
+                    DecorationPaint::Ink(schist_layout::Ink::black()),
+                ] {
+                    assert!(edit_decoration(&mut state, &target, strike, |s| s.paint = Some(paint)));
+                    assert_eq!(state.history.undo_depth(), 1);
+                    assert!(state.history.undo(&mut state.document));
+                    assert_eq!(state.document, before);
+                }
+                for value in [true, false] {
+                    assert!(set_decoration_enabled(
+                        &mut state,
+                        &target,
+                        strike,
+                        Some(value)
+                    ));
+                    assert_eq!(state.history.undo_depth(), 1);
+                    assert!(state.history.undo(&mut state.document));
+                    assert_eq!(state.document, before);
+                }
+            }
+        }
+    }
+
+    #[test]
+    fn pattern_and_gap_controls_validate_capture_and_undo_each_property_once() {
+        use schist_layout::decorations::DecorationPaint;
+        for paragraph in [false, true] {
+            for strike in [false, true] {
+                let mut state = DesignState::new();
+                let target = if paragraph {
+                    Target::Paragraph("Body".into())
+                } else {
+                    Target::Character("Default".into())
+                };
+                let prefix = format!(
+                    "design-prop-{}-{}-",
+                    if paragraph { "para" } else { "char" },
+                    if strike { "strike" } else { "underline" }
+                );
+                let before = state.document.clone();
+                for (field, valid, invalid) in [
+                    (
+                        "stripes",
+                        "0 25 75 100",
+                        vec!["0", "25 20", "0 101", "0 NaN", "0 bad"],
+                    ),
+                    ("gap-tint", "37.5", vec!["-1", "101", "NaN", "inf", "bad"]),
+                    (
+                        "dots",
+                        "5 7",
+                        vec!["0", "0 0", "-1", "NaN", "inf", "1 2 3 4 5 6"],
+                    ),
+                    (
+                        "dashes",
+                        "6 3 2 1",
+                        vec!["1", "0 0", "1 -1", "1 NaN", "1 1 1 1 1 1 1 1 1 1 1 1"],
+                    ),
+                ] {
+                    let id = format!("{prefix}{field}");
+                    for value in invalid {
+                        state.controls.field = Some(target.clone());
+                        assert!(!commit(&mut state, &id, value));
+                        assert_eq!(state.document, before);
+                    }
+                    state.controls.field = Some(target.clone());
+                    state.controls.character = Some("Missing".into());
+                    assert!(commit(&mut state, &id, valid));
+                    assert_eq!(state.history.undo_depth(), 1);
+                    assert!(state.history.undo(&mut state.document));
+                    assert_eq!(state.document, before);
+                }
+                let base = schist_layout::Ink::black();
+                let named = base.named_tint("Quarter gap", 0.25).unwrap();
+                assert!(edit_decoration(&mut state, &target, strike, |d| d
+                    .gap_paint =
+                    Some(DecorationPaint::Ink(named))));
+                let named_doc = state.document.clone();
+                state.controls.field = Some(target.clone());
+                assert!(commit(&mut state, &format!("{prefix}gap-tint"), "70"));
+                let resolved = match &target {
+                    Target::Paragraph(name) => {
+                        let s = state.document.styles.resolve_paragraph(name);
+                        if strike {
+                            s.strike_style
+                        } else {
+                            s.underline_style
+                        }
+                    }
+                    Target::Character(name) => {
+                        let s = state.document.styles.resolve_character(name);
+                        if strike {
+                            s.strike_style
+                        } else {
+                            s.underline_style
+                        }
+                    }
+                    _ => unreachable!(),
+                };
+                assert_eq!(resolved.gap_paint, Some(DecorationPaint::Ink(base)));
+                assert_eq!(resolved.gap_tint, Some(0.7));
+                assert!(state.history.undo(&mut state.document));
+                assert_eq!(state.document, named_doc);
+                assert!(state.history.undo(&mut state.document));
+                assert_eq!(state.document, before);
+            }
+        }
+    }
+
+    #[test]
+    fn fitting_controls_preserve_resource_names_capture_targets_and_undo_exactly_once() {
+        use schist_layout::decorations::DecorationStroke;
+        use schist_text_engine::{DecorationFit, TextDecorationPattern};
+        for paragraph in [false, true] {
+            for strike in [false, true] {
+                for pattern in [
+                    TextDecorationPattern::Dashes(vec![6.0, 3.0].into()),
+                    TextDecorationPattern::Dots(vec![6.0]),
+                ] {
+                    for fitting in [
+                        DecorationFit::Dashes,
+                        DecorationFit::Gaps,
+                        DecorationFit::DashesAndGaps,
+                    ] {
+                        let mut state = DesignState::new();
+                        let target = if paragraph {
+                            Target::Paragraph("Body".into())
+                        } else {
+                            Target::Character("Default".into())
+                        };
+                        edit_decoration(&mut state, &target, strike, |d| {
+                            d.stroke = Some(DecorationStroke {
+                                name: "Imported name".into(),
+                                pattern: pattern.clone(),
+                                fitting: DecorationFit::None,
+                            })
+                        });
+                        let before = state.document.clone();
+                        let depth = state.history.undo_depth();
+                        state.controls.character = Some("Missing".into());
+                        let supported = !(matches!(pattern, TextDecorationPattern::Dots(_))
+                            && fitting == DecorationFit::Dashes);
+                        assert_eq!(
+                            set_decoration_fitting(&mut state, &target, strike, fitting),
+                            supported
+                        );
+                        if !supported {
+                            assert_eq!(state.document, before);
+                            continue;
+                        }
+                        assert_eq!(state.history.undo_depth(), depth + 1);
+                        let fitted = state.document.clone();
+                        assert!(!set_decoration_fitting(
+                            &mut state, &target, strike, fitting
+                        ));
+                        assert_eq!(state.history.undo_depth(), depth + 1);
+                        let field = if matches!(pattern, TextDecorationPattern::Dots(_)) {
+                            "dots"
+                        } else {
+                            "dashes"
+                        };
+                        let id = format!(
+                            "design-prop-{}-{}-{field}",
+                            if paragraph { "para" } else { "char" },
+                            if strike { "strike" } else { "underline" }
+                        );
+                        state.controls.field = Some(target.clone());
+                        assert!(commit(
+                            &mut state,
+                            &id,
+                            if field == "dots" { "5 7" } else { "4 2" }
+                        ));
+                        let actual = if paragraph {
+                            state.document.styles.resolve_paragraph("Body")
+                        } else {
+                            Default::default()
+                        };
+                        let stroke = if paragraph {
+                            if strike {
+                                actual.strike_style.stroke
+                            } else {
+                                actual.underline_style.stroke
+                            }
+                        } else {
+                            let actual = state.document.styles.resolve_character("Default");
+                            if strike {
+                                actual.strike_style.stroke
+                            } else {
+                                actual.underline_style.stroke
+                            }
+                        }
+                        .unwrap();
+                        assert_eq!(stroke.name, "Imported name");
+                        assert_eq!(stroke.fitting, fitting);
+                        assert!(state.history.undo(&mut state.document));
+                        assert_eq!(state.document, fitted);
+                        assert!(state.history.undo(&mut state.document));
+                        assert_eq!(state.document, before);
+                    }
+                }
+            }
+        }
+    }
+
+    #[test]
+    fn dash_cap_controls_capture_targets_preserve_names_and_undo_once_without_length_edits_resetting_caps(
+    ) {
+        use schist_layout::decorations::DecorationStroke;
+        use schist_text_engine::{DecorationCap, TextDecorationPattern};
+        for paragraph in [false, true] {
+            for strike in [false, true] {
+                for cap in [DecorationCap::Round, DecorationCap::Projecting] {
+                    let mut state = DesignState::new();
+                    let target = if paragraph {
+                        Target::Paragraph("Body".into())
+                    } else {
+                        Target::Character("Default".into())
+                    };
+                    edit_decoration(&mut state, &target, strike, |d| {
+                        d.stroke = Some(DecorationStroke {
+                            fitting: Default::default(),
+                            name: "Imported dash".into(),
+                            pattern: TextDecorationPattern::Dashes(vec![6.0, 3.0].into()),
+                        })
+                    });
+                    state.history = Default::default();
+                    let before = state.document.clone();
+                    assert!(set_decoration_cap(&mut state, &target, strike, cap));
+                    assert_eq!(state.history.undo_depth(), 1);
+                    let capped = state.document.clone();
+                    assert!(!set_decoration_cap(&mut state, &target, strike, cap));
+                    let id = format!(
+                        "design-prop-{}-{}-dashes",
+                        if paragraph { "para" } else { "char" },
+                        if strike { "strike" } else { "underline" }
+                    );
+                    state.controls.field = Some(target.clone());
+                    assert!(!commit(&mut state, &id, "6 3"));
+                    assert_eq!(state.document, capped);
+                    state.controls.field = Some(target.clone());
+                    assert!(commit(&mut state, &id, "5 2"));
+                    assert!(state.document.all_decoration_strokes().iter().any(|s| s.name=="Imported dash" && matches!(&s.pattern,TextDecorationPattern::Dashes(d) if d.cap==cap && d.lengths==[5.0,2.0])));
+                    assert_eq!(state.history.undo_depth(), 2);
+                    assert!(state.history.undo(&mut state.document));
+                    assert_eq!(state.document, capped);
+                    assert!(state.history.undo(&mut state.document));
+                    assert_eq!(state.document, before);
+                }
+            }
+        }
+    }
+
+    #[test]
+    fn unchanged_pattern_fields_preserve_native_names_solid_resets_and_undo_depth() {
+        use schist_layout::decorations::DecorationStroke;
+        use schist_text_engine::TextDecorationPattern;
+        for paragraph in [false, true] {
+            for strike in [false, true] {
+                for (field, original, shown, changed_text, changed_pattern) in [
+                    (
+                        "stripes",
+                        TextDecorationPattern::Stripes(vec![0.0, 25.0, 75.0, 100.0]),
+                        "0 25 75 100",
+                        "0 20 80 100",
+                        TextDecorationPattern::Stripes(vec![0.0, 20.0, 80.0, 100.0]),
+                    ),
+                    (
+                        "dashes",
+                        TextDecorationPattern::Dashes(vec![6.0, 3.0].into()),
+                        "6 3",
+                        "6 3 2 1",
+                        TextDecorationPattern::Dashes(vec![6.0, 3.0, 2.0, 1.0].into()),
+                    ),
+                    (
+                        "dots",
+                        TextDecorationPattern::Dots(vec![6.0]),
+                        "6",
+                        "5 7",
+                        TextDecorationPattern::Dots(vec![5.0, 7.0]),
+                    ),
+                ] {
+                    for stroke in [
+                        None,
+                        Some(DecorationStroke::solid()),
+                        Some(DecorationStroke {
+                            fitting: Default::default(),
+                            name: "Imported stripe / native".into(),
+                            pattern: TextDecorationPattern::Stripes(vec![0.0, 25.0, 75.0, 100.0]),
+                        }),
+                        Some(DecorationStroke {
+                            fitting: Default::default(),
+                            name: "Imported dash / native".into(),
+                            pattern: TextDecorationPattern::Dashes(vec![6.0, 3.0].into()),
+                        }),
+                        Some(DecorationStroke {
+                            fitting: Default::default(),
+                            name: "Imported dots / native".into(),
+                            pattern: TextDecorationPattern::Dots(vec![6.0]),
+                        }),
+                    ] {
+                        let mut state = DesignState::new();
+                        let target = if paragraph {
+                            Target::Paragraph("Body".into())
+                        } else {
+                            Target::Character("Default".into())
+                        };
+                        edit_decoration(&mut state, &target, strike, |d| d.stroke = stroke.clone());
+                        state.history = Default::default();
+                        let id = format!(
+                            "design-prop-{}-{}-{field}",
+                            if paragraph { "para" } else { "char" },
+                            if strike { "strike" } else { "underline" }
+                        );
+                        let matching = stroke.as_ref().is_some_and(|s| s.pattern == original);
+                        let before = state.document.clone();
+                        state.controls.field = Some(target.clone());
+                        assert!(!commit(&mut state, &id, if matching { shown } else { "" }));
+                        assert_eq!(state.document, before);
+                        assert_eq!(state.history.undo_depth(), 0);
+                        state.controls.field = Some(target.clone());
+                        assert!(commit(&mut state, &id, changed_text));
+                        assert_eq!(state.history.undo_depth(), 1);
+                        if matching {
+                            let changed = state.document.all_decoration_strokes();
+                            assert!(changed
+                                .iter()
+                                .any(|s| s.name == stroke.as_ref().unwrap().name
+                                    && s.pattern == changed_pattern));
+                        }
+                        assert!(state.history.undo(&mut state.document));
+                        assert_eq!(state.document, before);
+                    }
+                }
+            }
+        }
+    }
+
+    #[test]
+    fn text_stroke_controls_capture_targets_validate_values_and_undo_each_gesture_once() {
+        for paragraph in [false, true] {
+            let mut state = DesignState::new();
+            let target = if paragraph {
+                Target::Paragraph("Body".into())
+            } else {
+                Target::Character("Default".into())
+            };
+            let id = if paragraph {
+                "design-prop-paragraph-stroke-width"
+            } else {
+                "design-prop-char-stroke-width"
+            };
+            let before = state.document.clone();
+            state.controls.field = Some(target.clone());
+            assert!(commit(&mut state, id, "2.5"));
+            assert_eq!(state.history.undo_depth(), 1);
+            for invalid in ["-1", "NaN", "inf", "bad"] {
+                state.controls.field = Some(target.clone());
+                assert!(!commit(&mut state, id, invalid));
+                assert_eq!(state.history.undo_depth(), 1);
+            }
+            assert!(state.history.undo(&mut state.document));
+            assert_eq!(state.document, before);
+            for fill in [false, true] {
+                for paint in [
+                    schist_layout::Paint::None,
+                    schist_layout::Paint::Ink(schist_layout::Ink::black()),
+                ] {
+                    assert!(set_text_paint(&mut state, &target, fill, Some(paint)));
+                    assert_eq!(state.history.undo_depth(), 1);
+                    assert!(state.history.undo(&mut state.document));
+                    assert_eq!(state.document, before);
+                }
+            }
+            for flag in ["fill", "stroke", "outside"] {
+                for value in [false, true] {
+                    assert!(set_text_paint_flag(&mut state, &target, flag, Some(value)));
+                    assert_eq!(state.history.undo_depth(), 1);
+                    assert!(state.history.undo(&mut state.document));
+                    assert_eq!(state.document, before);
+                }
+            }
+        }
+    }
+
+    #[test]
+    fn object_style_fields_keep_captured_targets_validate_values_and_undo_once() {
+        use schist_layout::{Ink, ObjectPaint, ObjectStyle, Paint};
+        let mut state = DesignState::new();
+        let base = Ink::cmyk("cyan", [1.0, 0.0, 0.0, 0.0]);
+        state.document.styles.objects = vec![
+            ObjectStyle {
+                name: "Base".into(),
+                enable_fill: Some(true),
+                paint: ObjectPaint {
+                    fill: Some(Paint::Ink(base.named_tint("Quarter", 0.25).unwrap())),
+                    ..Default::default()
+                },
+                ..Default::default()
+            },
+            ObjectStyle {
+                name: "Child".into(),
+                based_on: Some("Base".into()),
+                ..Default::default()
+            },
+        ];
+        let before = state.document.clone();
+        for value in ["NaN", "inf", "-1", "101", "bad"] {
+            state.controls.field = Some(Target::ObjectStyle("Child".into()));
+            assert!(!commit(&mut state, "design-prop-object-fill-tint", value));
+            assert_eq!(state.document, before);
+        }
+        state.controls.field = Some(Target::ObjectStyle("Child".into()));
+        state.controls.object_style = Some("Base".into());
+        assert!(commit(&mut state, "design-prop-object-fill-tint", "70"));
+        assert_eq!(state.history.undo_depth(), 1);
+        let paint = state.document.styles.resolve_object("Child").paint;
+        assert_eq!(paint.fill_ink(), Some(&base));
+        assert_eq!(paint.fill_tint, Some(0.7));
+        assert_eq!(state.document.styles.objects[0], before.styles.objects[0]);
+        state.history.undo(&mut state.document);
+        assert_eq!(state.document, before);
+        for target in ["Child", "Base", "Missing"] {
+            state.controls.field = Some(Target::ObjectStyle("Base".into()));
+            assert!(!commit(&mut state, "design-prop-object-base", target));
+            assert_eq!(state.document, before);
+        }
+    }
     #[test]
     fn position_and_document_preferences_undo_once_without_changing_explicit_offsets() {
         use schist_layout::styles::{BaselineShift, TextPosition};

@@ -5,7 +5,9 @@ Use --locale fr [--files app.lang menu.lang] while translating. With no
 locale, checks every registered catalog. --all-iso also checks the entire
 ISO inventory and that all of it is registered. Structural checks cannot
 certify translation quality: --audit lists unchanged English prose for review;
---strict-audit also fails when that prose remains untranslated.
+--strict-audit also fails when that prose remains untranslated, except explicit
+exact-source Design debt while its feature flag defaults to false. Deferred prose
+is always identified in audit output; structural checks still apply.
 """
 
 import argparse
@@ -83,7 +85,7 @@ def read_catalog(directory, files=None):
     return entries, errors
 
 
-def validate(tag, english, files, audit, strict_audit=False):
+def validate(tag, english, files, audit, strict_audit=False, deferred=None):
     categories = json.loads((I18N / "data/plural-categories.json").read_text())
     forms = categories.get(tag.split("-")[0], ["other"])
     stems = {key[:-4] for key in english if key.endswith(".one") and key[:-4] + ".other" in english}
@@ -98,7 +100,7 @@ def validate(tag, english, files, audit, strict_audit=False):
     for name, keys in (("missing", expected.keys() - actual.keys()), ("extra", actual.keys() - expected.keys())):
         if keys:
             errors.append(f"{len(keys)} {name} keys: {', '.join(sorted(keys)[:12])}")
-    unchanged = []
+    unchanged, pending = [], []
     for key in expected.keys() & actual.keys():
         wanted = set(PLACEHOLDERS.findall(expected[key]))
         supplied = set(PLACEHOLDERS.findall(actual[key]))
@@ -151,7 +153,12 @@ def validate(tag, english, files, audit, strict_audit=False):
         # language-neutral notation, not untranslated English prose.
         source_words = re.findall(r"[A-Za-z]+", PLACEHOLDERS.sub("", expected[key]))
         if actual[key] == expected[key] and len(source_words) >= 7:
-            unchanged.append(key)
+            if key in (deferred or set()):
+                pending.append(key)
+            else:
+                unchanged.append(key)
+    if (audit or strict_audit) and tag != "en" and pending:
+        print(f"{tag}: explicitly deferred English for disabled Design Mode: {', '.join(sorted(pending))}")
     if (audit or strict_audit) and tag != "en" and unchanged:
         message = f"{len(unchanged)} unchanged English sentences: {', '.join(sorted(unchanged))}"
         if strict_audit:
@@ -163,6 +170,32 @@ def validate(tag, english, files, audit, strict_audit=False):
     if not errors:
         print(f"{tag}: {len(actual)} entries validated")
     return bool(errors)
+
+
+def deferred_design(english):
+    """Exact-source, Design-only debt; never exempt structural validation.
+
+    Turning the feature on by default expires these exceptions. Changed source
+    prose also needs an explicit update rather than inheriting an old exception.
+    """
+    path = I18N / "deferred-english.json"
+    if not path.exists():
+        return set()
+    manifest = json.loads(path.read_text())
+    if manifest.get("feature") != "design-mode" or not manifest.get("reason"):
+        raise ValueError("Deferred translations must name Design Mode and a reason")
+    entries = manifest.get("entries", {})
+    if not isinstance(entries, dict) or any(not key.startswith("design.") for key in entries):
+        raise ValueError("Deferred translation keys must be explicit Design keys")
+    for key in entries.keys() & english.keys():
+        if entries[key] != english[key]:
+            raise ValueError(f"{key}: deferred source changed; review the translation debt")
+    flags = (ROOT / "crates/app-settings/src/feature_flags.rs").read_text()
+    flags = re.sub(r"/\*.*?\*/|//[^\n]*", "", flags, flags=re.S)
+    defaults = re.search(r"const\s+DEFAULTS\s*:.*?=\s*&\[(.*?)\];", flags, re.S)
+    if not defaults or not re.search(r'\("design-mode",\s*false\)', defaults[1]):
+        return set()
+    return entries.keys() & english.keys()
 
 
 def main():
@@ -179,12 +212,16 @@ def main():
     english, errors = read_catalog(I18N / "locales/en", args.files)
     if errors:
         parser.exit(1, "\n".join(errors) + "\n")
+    try:
+        deferred = deferred_design(english)
+    except (ValueError, OSError) as error:
+        parser.exit(1, str(error) + "\n")
     failed = False
     if args.all_iso and set(requested) != set(registered):
         print(f"Registry is missing {len(set(requested) - set(registered))} ISO locales")
         failed = True
     for tag in requested:
-        failed |= validate(tag, english, args.files, args.audit, args.strict_audit)
+        failed |= validate(tag, english, args.files, args.audit, args.strict_audit, deferred)
     raise SystemExit(1 if failed else 0)
 
 

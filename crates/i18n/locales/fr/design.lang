@@ -349,3 +349,137 @@ design.idml_leading_invalid = Invalid leading setting: {property}={value}
 
 design.font_style = Font style
 design.preflight_missing_font_style = Missing font: {family}, {style}
+
+design.idml_object_style_limits = Object style {name}: unsupported categories
+design.idml_object_style_missing = Missing object style: {name}
+design.idml_object_style_cycle = Object style cycle: {name}
+
+design.stroke_width = Stroke width
+design.frame_fill = Frame fill
+design.frame_stroke = Frame stroke
+design.no_paint = No paint
+design.mixed_paint = Mixed paints
+design.object_styles = Object styles
+design.based_on = Based on
+design.style_category_off = Disabled
+design.style_category_on = Enabled
+design.style_fill_category = Fill category
+design.style_stroke_category = Stroke category
+design.knockout = Knockout
+design.overprint = Overprint
+design.apply_clear_style = Apply style; clear enabled overrides
+design.detach_object_style = Detach style; keep paint
+design.idml_object_paint_invalid = Invalid frame paint: {property}
+design.idml_curved_text_flow = {name}: rectangular text composition
+
+design.text_fill = Text fill
+design.text_stroke = Text stroke
+design.idml_text_stroke_invalid = Invalid text stroke: {value}
+design.idml_text_stroke_option = Unsupported text stroke: {property}
+design.text_stroke_outside = Stroke outside text
+design.overprint_fill = Overprint text fill
+design.overprint_stroke = Overprint text stroke
+design.enabled = Enabled
+design.disabled = Disabled
+
+design.idml_decoration_invalid = Invalid decoration {property}: {value}
+design.idml_decoration_unsupported = Unsupported decoration: {property}
+design.decoration_text_color = Text color
+design.decoration_color = Line color
+design.decoration_weight = Line weight
+design.decoration_offset = Line offset
+design.decoration_tint = Line tint (%)
+design.decoration_dimensions = Points, Auto or blank inheritance
+
+# Text outline joins
+design.text_stroke_join = Text stroke join
+design.text_miter_limit = Miter limit
+design.join_miter = Miter
+design.join_round = Round
+design.join_bevel = Bevel
+
+# Mode-dependent CJK features
+design.cjk_kana_forms = Kana forms by writing mode
+design.cjk_proportional_metrics = Proportional CJK metrics
+
+design.capitalization = Capitalization
+design.caps_normal = Normal case
+design.caps_all = All caps
+design.caps_small = Small caps
+design.caps_all_small = OpenType all small caps
+design.partial_inheritance = Partial inheritance
+design.small_cap_size = Small cap size (%)
+design.idml_caps_invalid = Unsupported capitalization: {value}
+design.idml_caps_private = Partial capitalization needs Schist metadata
+
+design.decoration_pattern = Line pattern
+design.decoration_solid = Solid
+design.decoration_striped = Striped line
+design.stripe_edges = Stripe edges (%)
+design.decoration_gap_color = Gap color
+design.decoration_gap_tint = Gap tint (%)
+design.decoration_gap_overprint = Gap overprint
+
+design.decoration_dashed = Dashed line
+design.dash_lengths = Dash/gap lengths (pt)
+
+design.dash_cap = Dash cap
+design.cap_butt = Butt
+design.cap_round = Round
+design.cap_projecting = Projecting
+
+design.decoration_dotted = Dotted line
+design.dot_spacing = Dot center spacing (pt)
+
+design.decoration_fitting = Fit to line ends
+design.decoration_fit_none = Keep pattern lengths
+design.decoration_fit_dashes = Adjust dashes
+design.decoration_fit_gaps = Adjust gaps
+design.decoration_fit_both = Adjust dashes and gaps
+
+design.idml_language_invalid = Invalid IDML language resource: {value}
+design.idml_language_unresolved = Unresolved language: {value}
+design.idml_language_private = Native language unavailable: {value}
+design.language = Language (BCP 47)
+design.language_help = Blank inherits; und uses default shaping
+
+design.idml_text_path_unsupported = Unsupported text path setting: {value}
+design.idml_text_path_invalid = Invalid text path geometry or brackets
+design.text_on_path = Text on path
+design.path_start = Path start
+design.path_end = Path end
+design.path_end_help = Blank end follows the curve
+design.idml_list_unsupported = Unsupported or invalid list setting: {value}
+design.idml_list_implicit_tabs = Lists without explicit tab stops use the hanging indent, then Schist's 36 pt tab interval.
+design.list_type = List
+design.list_none = No list
+design.list_bullets = Bullets
+design.list_numbers = Numbers
+design.list_bullet = Bullet character
+design.list_start = Start at
+design.list_expression = Number expression
+design.list_tab = List tab (pt)
+design.list_continue = Continue numbering
+design.list_restart = Restart numbering
+design.list_hint = Blank fields inherit. Use ^# for the number and a final ^t for a tab. Left and first-line indents position the marker.
+
+# UNTRANSLATED PLACEHOLDER
+design.list_format = Number format
+design.list_decimal = 1, 2, 3
+design.list_roman_upper = I, II, III
+design.list_roman_lower = i, ii, iii
+design.list_letters_upper = A, B, C
+design.list_letters_lower = a, b, c
+design.list_zero_one = 01, 02, 03
+design.list_zero_two = 001, 002, 003
+design.list_zero_three = 0001, 0002, 0003
+design.list_no_number = No number
+
+design.list_level = List level
+design.list_restart_policy = Level restart
+design.list_restart_higher = Restart after higher levels
+design.list_keep_level = Continue this level
+
+design.idml_tabs_unsupported = Unsupported paragraph tab setting: {value}
+design.idml_tabs_implicit = Implicit tabs use Schist’s 36-point interval.
+design.paragraph_tabs = Paragraph tabs (pt)

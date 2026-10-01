@@ -103,7 +103,6 @@ pub fn separate_page_built(
     for placed in doc.page_artwork(page, settings.output_box(page_def)) {
         if let Some(link) = missing_link(&placed) {
             report.missing_link(&link);
-            continue;
         }
         if let Some(path) = paint_object(
             &mut separation,
@@ -144,7 +143,6 @@ pub fn separate_page_with(
     for placed in doc.page_artwork(page, box_rect) {
         if let Some(link) = missing_link(&placed) {
             report.missing_link(&link);
-            continue;
         }
         if let Some(path) = paint_object(
             &mut separation,
@@ -188,6 +186,9 @@ fn layout_report(
         }
     }
     let mut families = std::collections::BTreeSet::new();
+    let mut list_issues = std::collections::BTreeSet::new();
+    let mut tab_issues = std::collections::BTreeSet::new();
+    let mut counters = std::collections::BTreeMap::new();
     for object in doc.page_artwork(page, settings.output_box(&doc.pages[page])) {
         if !schist_layout::affine::finite(object.content_transform())
             || object.content_transform().invert().is_none()
@@ -207,19 +208,67 @@ fn layout_report(
                     schist_i18n::tf!("design.preflight_overset", name = object.name),
                 );
             }
+            let story_id = *story;
             let Some(story) = doc.stories.get(story.0 as usize) else {
                 continue;
             };
+            let (counters, paragraphs) = counters.entry(story_id).or_insert_with(|| {
+                (
+                    schist_layout::list_counters::StoryCounters::new(doc, story),
+                    story
+                        .points
+                        .iter()
+                        .zip(story.point_offsets())
+                        .filter_map(|(point, at)| match point {
+                            schist_layout::StoryPoint::Paragraph { text, .. } => {
+                                Some((at, text.as_str()))
+                            }
+                            _ => None,
+                        })
+                        .collect::<std::collections::BTreeMap<_, _>>(),
+                )
+            });
             for line in frame.lines {
-                let spec = schist_layout::compose::spec_for(
-                    story,
-                    line.start,
-                    line.end,
-                    &doc.styles,
-                    &line.paragraph_style,
-                    &doc.default_character_style,
-                    line.bounds.width,
-                );
+                let spec = schist_layout::compose::line_spec(&line, story, doc);
+                if spec.text.contains('\t') {
+                    let context = paragraphs
+                        .range(..=line.start)
+                        .next_back()
+                        .map_or(spec.text.as_str(), |(_, text)| *text);
+                    tab_issues.extend(schist_layout::tabs::unsupported(
+                        &line.paragraph,
+                        context,
+                        line.text_path.is_some(),
+                    ));
+                }
+                use schist_layout::lists::ListKind;
+                let list = &line.paragraph.list;
+                if matches!(list.kind, Some(ListKind::Bullet | ListKind::Numbered)) {
+                    list_issues.extend(schist_layout::list_composition::unsupported(list));
+                    if let Some(issue) = counters.issue(line.start) {
+                        list_issues.insert(issue);
+                    }
+                    if line.paragraph.drop_caps_lines.unwrap_or(0) > 1 {
+                        list_issues.insert("DropCapLines + BulletsAndNumberingListType");
+                    }
+                    if spec.writing_mode.is_vertical() {
+                        list_issues.insert("StoryOrientation + BulletsAndNumberingListType");
+                    }
+                    if line.text_path.is_some() {
+                        list_issues.insert("TextPath + BulletsAndNumberingListType");
+                    }
+                    if let Some(resource) = doc.styles.numbering_lists.iter().find(|r| {
+                        list.kind == Some(ListKind::Numbered)
+                            && r.id == schist_layout::list_counters::sequence_id(list)
+                    }) {
+                        if resource.across_stories {
+                            list_issues.insert("ContinueNumbersAcrossStories");
+                        }
+                        if resource.across_documents {
+                            list_issues.insert("ContinueNumbersAcrossDocuments");
+                        }
+                    }
+                }
                 for byte in std::iter::once(0)
                     .chain(spec.runs.iter().flat_map(|r| [r.start, r.end]))
                     .filter(|i| *i < spec.text.len())
@@ -277,6 +326,18 @@ fn layout_report(
         }
     }
     let mut missing_families = std::collections::BTreeSet::new();
+    for property in tab_issues {
+        report.add(
+            crate::report::Severity::Error,
+            schist_i18n::tf!("design.idml_tabs_unsupported", value = property),
+        );
+    }
+    for property in list_issues {
+        report.add(
+            crate::report::Severity::Error,
+            schist_i18n::tf!("design.idml_list_unsupported", value = property),
+        );
+    }
     for (family, font_style) in families {
         if !family.is_empty()
             && !matches!(
@@ -367,6 +428,29 @@ fn missing_link(placed: &PlacedObject) -> Option<String> {
 /// Paint one object onto the plates, returning an unresolved graphic's
 /// path so neither separation entry point can silently omit its error.
 fn paint_object<'a>(
+    separation: &mut Separation,
+    plan: &mut PlatePlan,
+    doc: &LayoutDocument,
+    placed: &'a PlacedObject,
+    settings: OutputSettings,
+    page: &schist_layout::Page,
+    source: &dyn GraphicSource,
+) -> Option<&'a str> {
+    if let Some(fill) = placed.frame_paint(false) {
+        paint_object_content(separation, plan, doc, &fill, settings, page, source);
+    }
+    let missing = if missing_link(placed).is_none() {
+        paint_object_content(separation, plan, doc, placed, settings, page, source)
+    } else {
+        None
+    };
+    if let Some(stroke) = placed.frame_paint(true) {
+        paint_object_content(separation, plan, doc, &stroke, settings, page, source);
+    }
+    missing
+}
+
+fn paint_object_content<'a>(
     separation: &mut Separation,
     plan: &mut PlatePlan,
     doc: &LayoutDocument,

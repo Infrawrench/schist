@@ -194,6 +194,8 @@ pub enum Display {
     },
     /// One composed line of text.
     Text {
+        /// Automatic list markers paint normally but have no editable source range.
+        generated: bool,
         object: ObjectId,
         story: StoryId,
         start: usize,
@@ -221,6 +223,8 @@ pub enum Display {
     },
     /// A shape's outline.
     Shape {
+        /// Only actual shape geometry exposes anchors; frame paint is decorative.
+        path_editable: bool,
         /// The shape, so a caller can answer "what did I click" the same
         /// way it can for a frame. Without this a shape can be drawn but
         /// not clicked, which is not a shape a user can use.
@@ -581,8 +585,13 @@ fn objects_for(
             view.scale,
             view.to_pasteboard(offset),
         );
+        if let Some(fill) = object.frame_paint(false) {
+            out.extend(shape_display(doc, &fill, view, offset, inherited, false));
+        }
         match &object.object {
-            LayoutObject::TextFrame { story, .. } => {
+            LayoutObject::TextFrame {
+                story, text_path, ..
+            } => {
                 let Some(definition) = doc.story(*story) else {
                     out.push(Display::Frame {
                         object: object.id,
@@ -596,6 +605,7 @@ fn objects_for(
                 let composed = compose_object(doc, &object);
                 let mut drew = false;
                 let mut has_text = false;
+                let mut interaction = rect;
                 for line in composed.iter().flat_map(|frame| &frame.lines) {
                     drew = true;
                     let bounds = move_to(line.bounds, view, offset);
@@ -603,6 +613,9 @@ fn objects_for(
                     let text = spec.text.clone();
                     has_text |= !text.is_empty();
                     spec.size *= view.scale;
+                    if let Some(path) = &mut spec.path {
+                        path.scaled(view.scale);
+                    }
                     spec.leading = spec.leading.map(|v| v * view.scale);
                     spec.tracking *= view.scale;
                     spec.word_spacing = line.word_space.unwrap_or(0.0) * view.scale;
@@ -614,10 +627,24 @@ fn objects_for(
                         run.size = run.size.map(|size| size * view.scale);
                         run.metric_size = run.metric_size.map(|v| v * view.scale);
                         run.baseline_shift = run.baseline_shift.map(|v| v * view.scale);
+                        for d in [&mut run.underline_style, &mut run.strike_style]
+                            .into_iter()
+                            .flatten()
+                        {
+                            d.scaled(view.scale);
+                        }
+                        if let Some(stroke) = &mut run.stroke {
+                            stroke.width *= view.scale;
+                        }
                         run.tracking = run.tracking.map(|v| v * view.scale);
                         run.leading = run.leading.map(|v| v * view.scale);
                     }
+                    if spec.path.is_some() || line.generated.is_some() {
+                        interaction =
+                            interaction.union(path_text_bounds(&spec).translated(bounds.origin()));
+                    }
                     out.push(Display::Text {
+                        generated: line.generated.is_some(),
                         object: object.id,
                         transform,
                         story: *story,
@@ -642,13 +669,34 @@ fn objects_for(
                         &doc.default_character_style,
                         0.0,
                     );
+                    spec.path = text_path.as_ref().and_then(|path| path.engine_path());
+                    if let Some(path) = &mut spec.path {
+                        path.offset += match spec.align {
+                            schist_text_engine::Align::Left => 0.0,
+                            schist_text_engine::Align::Center => path.span.unwrap_or(0.0) / 2.0,
+                            schist_text_engine::Align::Right => path.span.unwrap_or(0.0),
+                        };
+                        spec.align = schist_text_engine::Align::Left;
+                    }
                     spec.size *= view.scale;
+                    if let Some(path) = &mut spec.path {
+                        path.scaled(view.scale);
+                    }
                     spec.leading = spec.leading.map(|v| v * view.scale);
                     let content = match &object.object {
-                        LayoutObject::TextFrame { insets, .. } => object.bounds.inset(*insets),
+                        LayoutObject::TextFrame {
+                            insets,
+                            text_path: None,
+                            ..
+                        } => object.bounds.inset(*insets),
                         _ => object.bounds,
                     };
+                    if spec.path.is_some() {
+                        interaction =
+                            interaction.union(path_text_bounds(&spec).translated(rect.origin()));
+                    }
                     out.push(Display::Text {
+                        generated: false,
                         object: object.id,
                         transform,
                         story: *story,
@@ -674,10 +722,15 @@ fn objects_for(
                 out.push(Display::Frame {
                     object: object.id,
                     transform,
-                    rect,
+                    rect: interaction,
                     inherited,
                     locked: object.locked || doc.layer_locked(doc.object_layer(object.id)),
                 });
+                if let Some(path) = text_path {
+                    let mut baseline = object.clone().into_owned();
+                    baseline.object = crate::ObjectPaint::default().shape(path.path.clone());
+                    out.extend(shape_display(doc, &baseline, view, offset, inherited, true));
+                }
                 if !inherited {
                     let frames = doc.story_frames(*story);
                     let index = frames.iter().position(|o| o.id == object.id).unwrap_or(0);
@@ -723,46 +776,8 @@ fn objects_for(
                     opacity: object.transparency,
                 });
             }
-            LayoutObject::Shape {
-                path,
-                fill,
-                stroke,
-                stroke_width,
-                tints,
-                ..
-            } => {
-                // A shape's points are relative to its frame, so they
-                // have to be offset by the frame's origin before they
-                // reach the pasteboard. Left unshifted, every shape on a
-                // page would be drawn in the corner.
-                let mut path = path.clone();
-                path.map_points(|p| {
-                    let p = crate::affine::point(
-                        object.content_transform(),
-                        Point::new(object.bounds.x + p.x, object.bounds.y + p.y),
-                    );
-                    move_to(Rect::new(p.x, p.y, 0.0, 0.0), view, offset).origin()
-                });
-                out.push(Display::Shape {
-                    object: object.id,
-                    transform,
-                    rect,
-                    path,
-                    inherited,
-                    locked: object.locked || doc.layer_locked(doc.object_layer(object.id)),
-                    fill: fill.as_ref().map(|ink| {
-                        let rgb = ink.preview_at_tint(tints.fill);
-                        [rgb[0], rgb[1], rgb[2], object.transparency]
-                    }),
-                    stroke: stroke.as_ref().map(|ink| {
-                        let rgb = ink.preview_at_tint(tints.stroke);
-                        (
-                            [rgb[0], rgb[1], rgb[2], object.transparency],
-                            stroke_width * view.scale,
-                        )
-                    }),
-                    overprint: object.overprint,
-                });
+            LayoutObject::Shape { .. } => {
+                out.extend(shape_display(doc, &object, view, offset, inherited, true));
             }
             LayoutObject::Note { text, .. } => {
                 out.push(Display::Note {
@@ -788,6 +803,9 @@ fn objects_for(
                 });
             }
         }
+        if let Some(stroke) = object.frame_paint(true) {
+            out.extend(shape_display(doc, &stroke, view, offset, inherited, false));
+        }
         if !matches!(
             object.object,
             LayoutObject::TextFrame { .. } | LayoutObject::Group { .. }
@@ -802,6 +820,91 @@ fn objects_for(
         }
     }
     out
+}
+
+/// The editable area includes rotated glyphs and insertion segments, even for
+/// an empty zero-height baseline. Dimensions are already in pasteboard pixels.
+fn path_text_bounds(spec: &schist_text_engine::TextSpec) -> Rect {
+    let glyphs = schist_text_engine::measure(spec)
+        .and_then(|m| m.ink_bounds)
+        .map(|[l, t, r, b]| Rect::new(l, t, r - l, b - t));
+    let carets = schist_text_engine::insertion_points(spec)
+        .into_iter()
+        .map(|(_, caret)| {
+            Rect::from_corners(
+                Point::new(caret.x, caret.top),
+                Point::new(
+                    caret.x - caret.angle.sin() * caret.height,
+                    caret.top + caret.angle.cos() * caret.height,
+                ),
+            )
+        })
+        .reduce(Rect::union);
+    match (glyphs, carets) {
+        (Some(a), Some(b)) => a.union(b),
+        (Some(a), None) | (None, Some(a)) => a,
+        _ => Rect::ZERO,
+    }
+}
+
+fn shape_display(
+    doc: &LayoutDocument,
+    object: &crate::PlacedObject,
+    view: &PasteboardView,
+    offset: Point,
+    inherited: bool,
+    path_editable: bool,
+) -> Option<Display> {
+    let LayoutObject::Shape {
+        path,
+        fill,
+        stroke,
+        stroke_width,
+        tints,
+        ..
+    } = &object.object
+    else {
+        return None;
+    };
+    let rect = move_to(object.bounds, view, offset);
+    let transform = crate::affine::in_view(
+        object.content_transform(),
+        view.scale,
+        view.to_pasteboard(offset),
+    );
+    // A shape's points are relative to its frame, so they
+    // have to be offset by the frame's origin before they
+    // reach the pasteboard. Left unshifted, every shape on a
+    // page would be drawn in the corner.
+    let mut path = path.clone();
+    path.map_points(|p| {
+        let p = crate::affine::point(
+            object.content_transform(),
+            Point::new(object.bounds.x + p.x, object.bounds.y + p.y),
+        );
+        move_to(Rect::new(p.x, p.y, 0.0, 0.0), view, offset).origin()
+    });
+    Some(Display::Shape {
+        path_editable,
+        object: object.id,
+        transform,
+        rect,
+        path,
+        inherited,
+        locked: object.locked || doc.layer_locked(doc.object_layer(object.id)),
+        fill: fill.as_ref().map(|ink| {
+            let rgb = ink.preview_at_tint(tints.fill);
+            [rgb[0], rgb[1], rgb[2], object.transparency]
+        }),
+        stroke: stroke.as_ref().map(|ink| {
+            let rgb = ink.preview_at_tint(tints.stroke);
+            (
+                [rgb[0], rgb[1], rgb[2], object.transparency],
+                stroke_width * view.scale,
+            )
+        }),
+        overprint: object.overprint,
+    })
 }
 
 /// A link's file name, for a graphic's placeholder label.
@@ -1128,10 +1231,12 @@ mod tests {
             "Body",
         ));
         doc.add_object(PlacedObject {
+            appearance: Default::default(),
             id: ObjectId::next(),
             page: 0,
             bounds: Rect::new(mm(20.0), mm(20.0), mm(60.0), mm(60.0)),
             object: LayoutObject::TextFrame {
+                text_path: None,
                 story,
                 columns: 1,
                 gutter: 0.0,
@@ -1170,10 +1275,12 @@ mod tests {
         let mut doc = blank_a4();
         let story = doc.add_story(Story::from_text("", "Body"));
         doc.add_object(PlacedObject {
+            appearance: Default::default(),
             id: ObjectId::next(),
             page: 0,
             bounds: Rect::new(mm(20.0), mm(20.0), mm(60.0), mm(30.0)),
             object: LayoutObject::TextFrame {
+                text_path: None,
                 story,
                 columns: 1,
                 gutter: 0.0,
@@ -1200,6 +1307,7 @@ mod tests {
         let mut link = Link::new("/photos/wedding/portrait.psd");
         link.present = false;
         doc.add_object(PlacedObject {
+            appearance: Default::default(),
             id: ObjectId::next(),
             page: 0,
             bounds: Rect::new(mm(20.0), mm(20.0), mm(60.0), mm(60.0)),
@@ -1309,6 +1417,7 @@ mod tests {
             closed: true,
         });
         doc.add_object(PlacedObject {
+            appearance: Default::default(),
             id: ObjectId::next(),
             page: 0,
             bounds: Rect::new(mm(30.0), mm(30.0), mm(20.0), mm(20.0)),
@@ -1348,10 +1457,12 @@ mod tests {
     fn a_parent_page_contributes_a_dashed_frame() {
         let mut doc = blank_a4();
         doc.add_object(PlacedObject {
+            appearance: Default::default(),
             id: ObjectId::next(),
             page: 0,
             bounds: Rect::new(0.0, 0.0, mm(50.0), mm(10.0)),
             object: LayoutObject::TextFrame {
+                text_path: None,
                 story: StoryId(0),
                 columns: 1,
                 gutter: 0.0,
@@ -1373,10 +1484,12 @@ mod tests {
             based_on: None,
             objects: vec![crate::model::ParentObject {
                 object: PlacedObject {
+                    appearance: Default::default(),
                     id: ObjectId::next(),
                     page: 0,
                     bounds: Rect::new(0.0, 0.0, mm(170.0), mm(15.0)),
                     object: LayoutObject::TextFrame {
+                        text_path: None,
                         story: StoryId(0),
                         columns: 1,
                         gutter: 0.0,
