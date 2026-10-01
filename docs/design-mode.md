@@ -10,6 +10,32 @@ controls and ten layout panels are implemented. Pen and curve editing, Story
 Editor, thread editing, navigation tools, guides and output UI are implemented.
 Interchange fidelity and external validation remain in roadmap item 9.
 
+## Workspace and controls
+
+Enable `design-mode` through `SCHIST_FEATURE_FLAGS='{"design-mode":true}'`
+when launching the local build, then choose **View → Workspaces → Design**.
+Choosing that workspace also leaves the gallery. The default feature flag stays
+off; a development launch does not enable it for other installations.
+
+Design uses a compact control bar above its document tab, a narrow tool column,
+and one expanded panel beside a collapsible icon rail. Related panels share tabs:
+Pages/Layers/Links, Properties/Character/Paragraph, Styles/Swatches and
+Stories/Preflight. The active panel and collapsed state survive saved workspaces;
+Design panel visibility is available in the workspace dialog.
+
+The control bar shows page width/height without a selection and object X/Y/width/
+height with a selection. Properties shows the selected frame's relevant settings.
+Character and Paragraph retain their existing named-style editing semantics:
+the named style is shown explicitly. Everyday settings are visible; appearance,
+advanced typography, decorations, lists and style operations expand on demand.
+Page setup and object-style details also start folded. Switching panels or closing
+a section commits a focused field against its captured target before hiding it.
+
+The Pages thumbnails are schematic frame bounds, clipped to each page and
+normalized to its origin; they do not rasterize page artwork. The document tab
+shows the layout filename and unsaved state, and closing it uses the existing
+Save/Discard/Cancel transition.
+
 ## Why a separate body, and not a raster document with pages
 
 A layout document is not a raster document with extra metadata. It has

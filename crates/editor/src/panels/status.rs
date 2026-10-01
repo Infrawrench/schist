@@ -22,27 +22,30 @@ pub fn support_link(cx: &mut Context<Workspace>) -> impl IntoElement {
 }
 
 pub fn status_bar(ws: &Workspace, cx: &mut Context<Workspace>) -> impl IntoElement {
-    let title = ws
-        .doc
-        .as_ref()
-        .map(|d| {
-            if d.dirty {
-                tf!(
-                    "panel.status.document_dirty",
-                    title = d.title,
-                    w = d.width,
-                    h = d.height
-                )
-            } else {
-                tf!(
-                    "panel.status.document",
-                    title = d.title,
-                    w = d.width,
-                    h = d.height
-                )
-            }
-        })
-        .unwrap_or_else(|| t("common.no_document").to_string());
+    let title = if ws.design_mode() {
+        super::design_document_name(ws)
+    } else {
+        ws.doc
+            .as_ref()
+            .map(|d| {
+                if d.dirty {
+                    tf!(
+                        "panel.status.document_dirty",
+                        title = d.title,
+                        w = d.width,
+                        h = d.height
+                    )
+                } else {
+                    tf!(
+                        "panel.status.document",
+                        title = d.title,
+                        w = d.width,
+                        h = d.height
+                    )
+                }
+            })
+            .unwrap_or_else(|| t("common.no_document").to_string())
+    };
     let zoom = format!("{:.0}%", ws.viewport_zoom() * 100.0);
     let brush = format!("{:.0}px", ws.editor.brush_size);
     let m = ui::metrics();
@@ -61,7 +64,7 @@ pub fn status_bar(ws: &Workspace, cx: &mut Context<Workspace>) -> impl IntoEleme
         .text_color(gpui::rgb(palette().text_dim))
         .child(div().min_w(px(0.0)).truncate().child(title))
         .child(zoom)
-        .child(brush)
+        .when(!ws.design_mode(), |d| d.child(brush))
         .child(if ws.action_recorder.recording {
             t("actions.recording_indicator")
         } else {

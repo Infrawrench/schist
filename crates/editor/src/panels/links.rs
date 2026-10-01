@@ -45,16 +45,16 @@ pub(super) fn links_panel(
         .justify_between()
         .text_xs()
         .text_color(rgb(palette().text_dim))
-        .child(schist_i18n::tn!("design.link_count", rows.len() as u64));
+        .child(schist_i18n::tf!("design.link_count", count = rows.len()));
     if missing > 0 {
         // In the warning colour, because a missing link is a problem the
         // user has to act on and not a fact to file away.
         header = header.child(
             div()
                 .text_color(rgb(palette().warning))
-                .child(schist_i18n::tn!(
+                .child(schist_i18n::tf!(
                     "design.unavailable_link_count",
-                    missing as u64
+                    count = missing
                 )),
         );
     }
@@ -147,7 +147,7 @@ fn link_rows(ws: &Workspace, cx: &mut Context<Workspace>) -> Vec<gpui::AnyElemen
                     div()
                         .text_xs()
                         .text_color(rgb(palette().text_dim))
-                        .child(schist_i18n::tn!("design.link_on_page", (page + 1) as u64)),
+                        .child(schist_i18n::tf!("design.link_on_page", number = page + 1)),
                 );
             row = row.child(
                 Button::new(("design-relink", object.0), t("design.relink"))

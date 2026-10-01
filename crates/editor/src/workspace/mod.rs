@@ -771,6 +771,10 @@ impl Workspace {
         if mode == crate::design::WorkspaceMode::Design && !crate::design::available() {
             return false;
         }
+        #[cfg(not(target_arch = "wasm32"))]
+        if mode == crate::design::WorkspaceMode::Design && self.gallery_open() {
+            self.toggle_gallery(cx);
+        }
         if self.mode == mode {
             return true;
         }

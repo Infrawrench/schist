@@ -61,9 +61,9 @@ pub(super) fn stories_panel(
                     .justify_between()
                     .text_xs()
                     .text_color(rgb(palette().text_dim))
-                    .child(schist_i18n::tn!(
+                    .child(schist_i18n::tf!(
                         "design.story_count",
-                        document.stories.len() as u64
+                        count = document.stories.len()
                     ))
                     .child(if editing.is_some() {
                         t("design.editing_story").to_string()
@@ -175,7 +175,7 @@ fn story_rows(
                         .justify_between()
                         .text_xs()
                         .text_color(rgb(palette().text_dim))
-                        .child(schist_i18n::tn!("design.story_number", (index + 1) as u64))
+                        .child(schist_i18n::tf!("design.story_number", number = index + 1))
                         .child(if overset {
                             t("design.overflowed").to_string()
                         } else if attached {

@@ -104,9 +104,9 @@ pub(super) fn swatches_panel(
                     .justify_between()
                     .text_xs()
                     .text_color(rgb(palette().text_dim))
-                    .child(schist_i18n::tn!("design.ink_count", inks.len() as u64))
+                    .child(schist_i18n::tf!("design.ink_count", count = inks.len()))
                     .child(if spots > 0 {
-                        schist_i18n::tn!("design.spot_ink_count", spots as u64)
+                        schist_i18n::tf!("design.spot_ink_count", count = spots)
                     } else {
                         String::new()
                     }),

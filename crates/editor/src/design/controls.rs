@@ -11,6 +11,8 @@ pub struct Controls {
     pub character: Option<String>,
     pub object_style: Option<String>,
     pub field: Option<Target>,
+    /// Disclosure state is chrome, not a document edit or an undo step.
+    pub expanded: std::collections::HashSet<&'static str>,
 }
 #[derive(Clone)]
 pub enum Target {
@@ -27,8 +29,8 @@ pub enum Target {
 pub fn page_property(id: &str) -> Option<properties::PageProperty> {
     use properties::PageProperty::*;
     Some(match id {
-        "design-prop-page-width" => Width,
-        "design-prop-page-height" => Height,
+        "design-prop-page-width" | "design-prop-bar-page-width" => Width,
+        "design-prop-page-height" | "design-prop-bar-page-height" => Height,
         "design-prop-bleed" => Bleed,
         "design-prop-slug" => Slug,
         "design-prop-bleed-top" => BleedTop,

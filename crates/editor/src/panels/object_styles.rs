@@ -19,7 +19,7 @@ pub(super) fn picker(
             is_open: ws.open_popup == Some(popup),
             current,
             label: labels.get(current).cloned().unwrap_or_default().into(),
-            width: 240.0,
+            width: ws.view.panel_width.unwrap_or(300.0).max(280.0) - 50.0,
             options: labels
                 .into_iter()
                 .enumerate()

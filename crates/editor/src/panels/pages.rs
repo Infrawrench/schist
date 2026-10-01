@@ -2,10 +2,8 @@
 //!
 //! A page layout editor is navigated by page, so this is the first thing
 //! in the dock rather than a palette that happens to be available. Each
-//! row is a live thumbnail drawn from the same pasteboard plan the canvas
-//! paints, which is the only way a thumbnail can be trusted: a second
-//! renderer for the same document is a second answer, and the two would
-//! disagree the first time a layout rule changed.
+//! row is a schematic thumbnail using the same frame geometry as the
+//! pasteboard. It shows the page's arrangement as clipped frame bounds.
 
 use gpui::{div, px, rgb, Context, IntoElement, Window};
 
@@ -18,7 +16,7 @@ use super::*;
 ///
 /// Small enough for a page to be recognisable and a spread to fit beside
 /// it, large enough that a reader can see whether a frame is square.
-const THUMB_WIDTH: f32 = 96.0;
+const THUMB_WIDTH: f32 = 64.0;
 
 /// The pages panel.
 ///
@@ -38,7 +36,7 @@ pub(super) fn pages_panel(
     let rows = page_rows(ws, cx);
     let current = ws.design.current_page();
     let count = document.pages.len();
-    let label = schist_i18n::tn!("design.page_count", count as u64);
+    let label = schist_i18n::tf!("design.page_count", count = count);
     let setup = page_setup(ws, cx);
     Some(
         div()
@@ -99,8 +97,14 @@ pub(super) fn pages_panel(
                             })),
                     ),
             )
-            .child(setup)
             .child(div().flex().flex_col().gap_1().children(rows))
+            .child(super::design_dock::section(
+                ws,
+                "page-setup",
+                "design.page_options",
+                vec![setup],
+                cx,
+            ))
             .into_any_element(),
     )
 }
@@ -451,32 +455,19 @@ fn thumbnail_height(page: Option<&Page>, fallback: f32) -> f32 {
 
 /// One page's thumbnail.
 ///
-/// A paper rectangle with the frames on it. Deliberately not a raster
-/// render: compositing a page's text for a 96-pixel thumbnail would cost
-/// more than the whole canvas, and the point of a thumbnail is the page's
-/// arrangement, which boxes convey.
+/// A paper rectangle with page-local frame bounds. The thumbnail represents
+/// artwork schematically instead of rasterizing its text or graphics.
 fn thumbnail(
     plan: Option<schist_layout::pasteboard::Pasteboard>,
     width: f32,
     height: f32,
 ) -> impl IntoElement {
     let plan = plan.and_then(|p| p.pages.into_iter().next());
-    let frames: Vec<schist_layout::Rect> = plan
-        .as_ref()
-        .map(|page| {
-            page.objects
-                .iter()
-                .filter_map(|object| match object {
-                    Display::Frame { rect, .. } | Display::EmptyFrame { rect, .. } => Some(*rect),
-                    _ => None,
-                })
-                .collect()
-        })
-        .unwrap_or_default();
-    // A parent's items and a page's own are drawn the same at this size:
-    // the difference is a one-pixel dash nobody can see.
+    let frames = plan.as_ref().map(thumbnail_frames).unwrap_or_default();
+    // Parent and page-owned frames use the same schematic outline.
     div()
         .relative()
+        .overflow_hidden()
         .w(px(width))
         .h(px(height))
         .flex_none()
@@ -495,10 +486,88 @@ fn thumbnail(
         }))
 }
 
+fn thumbnail_frames(page: &schist_layout::pasteboard::PagePlan) -> Vec<schist_layout::Rect> {
+    page.objects
+        .iter()
+        .filter_map(|object| match object {
+            // Every object has one interaction frame. Empty text frames also
+            // have a separate paint outline, which must not be drawn twice.
+            Display::Frame {
+                rect, transform, ..
+            } => {
+                let rect = schist_layout::affine::bounds(*transform, *rect);
+                Some(schist_layout::Rect::new(
+                    rect.x - page.page.trim.x,
+                    rect.y - page.page.trim.y,
+                    rect.width,
+                    rect.height,
+                ))
+            }
+            _ => None,
+        })
+        .collect()
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
     use schist_layout::{blank_a4, LayoutDocument, Page};
+
+    #[test]
+    fn thumbnail_frames_are_page_local_for_every_page_origin_and_zoom() {
+        let mut doc = blank_a4();
+        let mut history = schist_layout::History::default();
+        for index in 0..4 {
+            if index > 0 {
+                let page = doc.pages[0].clone();
+                assert!(schist_layout::structure::add_page(
+                    &mut doc,
+                    &mut history,
+                    index - 1,
+                    page
+                ));
+            }
+            schist_layout::authoring::text_frame(
+                &mut doc,
+                &mut history,
+                index,
+                schist_layout::Rect::new(16.0, 32.0, 128.0, 64.0),
+            )
+            .unwrap();
+        }
+        for page in 0..doc.pages.len() {
+            for scale in [0.125, 0.5, 1.0, 2.0] {
+                for origin in [
+                    schist_layout::Point::ZERO,
+                    schist_layout::Point::new(-512.0, 128.0),
+                ] {
+                    let plan = pasteboard(
+                        &doc,
+                        &PasteboardView {
+                            page: Some(page),
+                            scale,
+                            origin,
+                            ..Default::default()
+                        },
+                    )
+                    .unwrap();
+                    let frames = thumbnail_frames(&plan.pages[0]);
+                    assert_eq!(frames.len(), 1);
+                    let expected = [16.0 * scale, 32.0 * scale, 128.0 * scale, 64.0 * scale];
+                    let rect = frames[0];
+                    for (actual, expected) in [rect.x, rect.y, rect.width, rect.height]
+                        .into_iter()
+                        .zip(expected)
+                    {
+                        assert!(
+                            (actual - expected).abs() < 0.001,
+                            "page {page}: {actual} != {expected}"
+                        );
+                    }
+                }
+            }
+        }
+    }
 
     #[test]
     fn a_thumbnail_keeps_the_page_aspect_ratio() {
