@@ -218,8 +218,23 @@ which is on the plate. Missing files are counted in the header and marked on
 their row. Refresh decodes sources off-thread; Relink preserves placement and
 crop in one edit. Decode errors are displayed as unavailable, with their cause.
 
-**Layout Layers** controls visibility, locking, order and selected-object
-membership. **Control** edits selection geometry and text-frame columns,
+**Layout Layers** is a compact tree with visibility and lock columns. The
+chevron folds a layer; full names are available in tooltips. Drag a layer name
+above another layer, or into the slot below the last layer, to reorder it.
+Shift-click object rows to select several, then drag a selected name onto a
+layer header to move the selection there. Locked objects and locked destination
+layers reject the move. Each successful drop is one undo step; a drop which
+changes nothing records none. Adding or reordering layers preserves membership
+for older documents which omit explicit first-layer assignments.
+
+Pages, Links, Stories and Preflight use icon toolbars with localized tooltips.
+Pages retain draggable thumbnails; link filenames and story previews fit one
+row, while missing-link causes and preflight findings stay visible. Swatches
+show readable names beside colour chips, with their component inputs folded
+under Appearance. Character formatting and paragraph alignment use icon buttons
+which display the resolved style's active settings.
+
+**Control** edits selection geometry and text-frame columns,
 gutter and inset. **Character** and **Paragraph** edit named styles, with
 new/rename/apply controls in **Styles**. An input captures its edit target on
 focus and commits one edit, so a later selection cannot redirect it.

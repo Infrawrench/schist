@@ -13,6 +13,7 @@ pub struct Controls {
     pub field: Option<Target>,
     /// Disclosure state is chrome, not a document edit or an undo step.
     pub expanded: std::collections::HashSet<&'static str>,
+    pub collapsed_layers: std::collections::HashSet<schist_layout::LayerId>,
 }
 #[derive(Clone)]
 pub enum Target {

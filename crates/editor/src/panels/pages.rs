@@ -50,17 +50,20 @@ pub(super) fn pages_panel(
             .border_color(rgb(palette().panel_edge))
             .child(
                 div()
-                    .text_xs()
-                    .text_color(rgb(palette().text_dim))
-                    .child(label),
-            )
-            .child(
-                div()
                     .flex()
+                    .items_center()
                     .gap_1()
                     .child(
-                        Button::new("design-add-page", t("design.add_page")).on_click(cx.listener(
-                            move |ws, _, window, cx| {
+                        div()
+                            .flex_1()
+                            .text_xs()
+                            .text_color(rgb(palette().text_dim))
+                            .child(label),
+                    )
+                    .child(
+                        IconButton::new("design-add-page", "plus")
+                            .tooltip(t("design.add_page"), None)
+                            .on_click(cx.listener(move |ws, _, window, cx| {
                                 ws.commit_focused_field();
                                 ws.design.cancel_gesture();
                                 let page = ws.design.document.pages[current].clone();
@@ -72,11 +75,11 @@ pub(super) fn pages_panel(
                                 ) {
                                     ws.show_page(current + 1, window, cx);
                                 }
-                            },
-                        )),
+                            })),
                     )
                     .child(
-                        Button::new("design-remove-page", t("design.remove_page"))
+                        IconButton::new("design-remove-page", "trash")
+                            .tooltip(t("design.remove_page"), None)
                             .disabled(count <= 1)
                             .on_click(cx.listener(move |ws, _, _, cx| {
                                 ws.commit_focused_field();
@@ -310,66 +313,83 @@ fn page_rows(ws: &Workspace, cx: &mut Context<Workspace>) -> Vec<gpui::AnyElemen
                 row = row.bg(rgb(palette().selection_bg));
             }
             let parent = page.master.and_then(|id| document.parents.get(id));
-            row = row.child(
-                div()
-                    .flex()
-                    .flex_col()
-                    .flex_1()
-                    .min_w_0()
-                    .gap_1()
-                    .child(div().text_sm().child(number.clone()))
-                    .child(
-                        div().text_xs().overflow_hidden().text_ellipsis().child(
-                            parent
-                                .map(|p| p.name.clone())
-                                .unwrap_or_else(|| t("design.no_parent").to_string()),
+            row =
+                row.child(
+                    div()
+                        .flex()
+                        .flex_col()
+                        .flex_1()
+                        .min_w_0()
+                        .gap_1()
+                        .child(div().text_sm().child(number.clone()))
+                        .child(
+                            div()
+                                .flex()
+                                .items_center()
+                                .gap_1()
+                                .child(
+                                    IconButton::new(
+                                        ("page-hidden", index),
+                                        if page.hidden { "eye-off" } else { "eye" },
+                                    )
+                                    .consume_press()
+                                    .tooltip(
+                                        t(if page.hidden {
+                                            "design.show"
+                                        } else {
+                                            "design.hide"
+                                        }),
+                                        None,
+                                    )
+                                    .on_click(cx.listener(
+                                        move |ws, _, _, cx| {
+                                            cx.stop_propagation();
+                                            ws.commit_focused_field();
+                                            ws.design.cancel_gesture();
+                                            schist_layout::structure::toggle_page_hidden(
+                                                &mut ws.design.document,
+                                                &mut ws.design.history,
+                                                index,
+                                            );
+                                            ws.refit_design = true;
+                                            cx.notify();
+                                        },
+                                    )),
+                                )
+                                .child(
+                                    Button::bare(("page-parent", index))
+                                        .child(div().min_w_0().truncate().text_xs().child(
+                                            parent.map(|p| p.name.clone()).unwrap_or_else(|| {
+                                                t("design.no_parent").to_string()
+                                            }),
+                                        ))
+                                        .min_w_0()
+                                        .flex_1()
+                                        .consume_press()
+                                        .ghost()
+                                        .tooltip(t("design.change_parent"), None)
+                                        .disabled(document.parents.is_empty())
+                                        .on_click(cx.listener(move |ws, _, _, cx| {
+                                            cx.stop_propagation();
+                                            ws.commit_focused_field();
+                                            ws.design.cancel_gesture();
+                                            let count = ws.design.document.parents.len();
+                                            let next = ws.design.document.pages[index]
+                                                .master
+                                                .map(|i| i + 1)
+                                                .or(Some(0))
+                                                .filter(|i| *i < count);
+                                            schist_layout::structure::set_parent(
+                                                &mut ws.design.document,
+                                                &mut ws.design.history,
+                                                index,
+                                                next,
+                                            );
+                                            cx.notify();
+                                        })),
+                                ),
                         ),
-                    )
-                    .child(
-                        Button::new(
-                            ("page-hidden", index),
-                            t(if page.hidden {
-                                "design.show"
-                            } else {
-                                "design.hide"
-                            }),
-                        )
-                        .on_click(cx.listener(move |ws, _, _, cx| {
-                            cx.stop_propagation();
-                            ws.commit_focused_field();
-                            ws.design.cancel_gesture();
-                            schist_layout::structure::toggle_page_hidden(
-                                &mut ws.design.document,
-                                &mut ws.design.history,
-                                index,
-                            );
-                            ws.refit_design = true;
-                            cx.notify();
-                        })),
-                    )
-                    .child(
-                        Button::new(("page-parent", index), t("design.change_parent"))
-                            .disabled(document.parents.is_empty())
-                            .on_click(cx.listener(move |ws, _, _, cx| {
-                                cx.stop_propagation();
-                                ws.commit_focused_field();
-                                ws.design.cancel_gesture();
-                                let count = ws.design.document.parents.len();
-                                let next = ws.design.document.pages[index]
-                                    .master
-                                    .map(|i| i + 1)
-                                    .or(Some(0))
-                                    .filter(|i| *i < count);
-                                schist_layout::structure::set_parent(
-                                    &mut ws.design.document,
-                                    &mut ws.design.history,
-                                    index,
-                                    next,
-                                );
-                                cx.notify();
-                            })),
-                    ),
-            );
+                );
             row.on_drag(
                 PageDrag {
                     index,

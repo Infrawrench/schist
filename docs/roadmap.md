@@ -310,6 +310,31 @@ are marked.
 
 ## Handoff
 
+Compact Design panel contents, 2026-10-01: Layers now has a collapsible tree,
+visibility/lock columns, object-type icons and full-name tooltips. Dragging layer
+names inserts them in order; dragging selected object names onto another layer
+moves the selection in one undo step. Shift-click selects multiple rows. Model
+operations preserve other layers' relative order and implicit first-layer
+membership, reject invalid or locked object drops atomically, and omit no-op
+history entries. Object stacking within a layer is unchanged.
+
+Pages, Links, Stories and Preflight use compact icon toolbars; filenames and
+story previews fit their rows. Swatches have readable list rows with colour
+inputs behind Appearance. Character formatting and paragraph alignment have
+active-state icons. All action tooltips reuse existing localized keys; ten new
+SVG icons are registered for native and browser builds. Native inspection in
+`target/design-ui/Schist Dev.app` with `design-mode=true` verified layer/object
+drags, one-step undo, disclosure, visibility, locking, formatting, swatches,
+story previews and preflight. The scratch document was restored after edits.
+
+All 16 verification targets pass: **1,675 distinct Rust tests**, including all
+410 editor tests and five new layer-operation properties, plus four browser
+checks and eight Python i18n-audit tests. Workspace clippy with warnings denied,
+native/browser/headless checks, PDF proofs, formatting and whitespace checks
+pass. Logs/results/counts are `/tmp/schist-design-compact-sweep-*`. Changes are
+on `more-indesign`; the default feature flag and remaining item 9 gaps are
+unchanged.
+
 Design workspace UI follow-up, 2026-10-01: the always-expanded stack is replaced
 by a single active panel, related tabs and a collapsible icon rail. Page or object
 geometry lives in a compact top control bar; advanced type, paint, list, page and

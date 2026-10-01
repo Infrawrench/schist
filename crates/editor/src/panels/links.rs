@@ -58,6 +58,12 @@ pub(super) fn links_panel(
                 )),
         );
     }
+    header = header.items_center().child(
+        IconButton::new("design-links-refresh", "refresh")
+            .tooltip(t("design.refresh_links"), None)
+            .disabled(ws.design.graphics_busy)
+            .on_click(cx.listener(|ws, _, _, cx| ws.refresh_design_graphics(cx))),
+    );
     Some(
         div()
             .flex()
@@ -69,11 +75,6 @@ pub(super) fn links_panel(
             .border_t_1()
             .border_color(rgb(palette().panel_edge))
             .child(header)
-            .child(
-                Button::new("design-links-refresh", t("design.refresh_links"))
-                    .disabled(ws.design.graphics_busy)
-                    .on_click(cx.listener(|ws, _, _, cx| ws.refresh_design_graphics(cx))),
-            )
             .child(div().flex().flex_col().gap_1().children(rows))
             .into_any_element(),
     )
@@ -103,63 +104,79 @@ fn link_rows(ws: &Workspace, cx: &mut Context<Workspace>) -> Vec<gpui::AnyElemen
                 decoded.is_some_and(Result::is_err) || (decoded.is_none() && !link.present);
             let error = decoded.and_then(|result| result.as_ref().err()).cloned();
             let name = file_name_of(link);
+            let state = t(if missing {
+                "design.unavailable_link"
+            } else if embedded {
+                "design.embedded"
+            } else {
+                "design.linked"
+            });
             let mut row = div()
                 .id(("link-row", object.0))
                 .flex()
                 .flex_col()
+                .min_w_0()
                 .p_1()
-                .rounded_sm()
                 .gap_1()
                 .child(
                     div()
                         .flex()
-                        .justify_between()
-                        .gap_2()
+                        .items_center()
+                        .gap_1()
+                        .child(schist_ui::icon(
+                            if missing { "unlink" } else { "link" },
+                            13.0,
+                            if missing {
+                                palette().warning
+                            } else {
+                                palette().text_dim
+                            },
+                        ))
                         .child(
                             div()
+                                .id(("link-name", object.0))
                                 .flex_1()
-                                .text_sm()
-                                .child(name)
-                                // The file name is the long part and the
-                                // panel is narrow, so it is cut rather than
-                                // allowed to push the state off the row.
-                                .overflow_hidden()
-                                .text_ellipsis(),
+                                .min_w_0()
+                                .text_xs()
+                                .truncate()
+                                .tooltip(ui::tip(link.path.clone(), None))
+                                .child(name),
                         )
                         .child(
                             div()
                                 .text_xs()
-                                .text_color(rgb(if !missing {
-                                    palette().text_dim
-                                } else {
-                                    palette().warning
-                                }))
-                                .child(if missing {
-                                    t("design.unavailable_link").to_string()
-                                } else if embedded {
-                                    t("design.embedded").to_string()
-                                } else {
-                                    t("design.linked").to_string()
-                                }),
+                                .text_color(rgb(palette().text_dim))
+                                .child(document.page_number(page)),
+                        )
+                        .child(
+                            IconButton::new(("design-relink", object.0), "folder")
+                                .size(22.0)
+                                .icon_size(13.0)
+                                .consume_press()
+                                .tooltip(t("design.relink"), None)
+                                .disabled(ws.design.graphics_busy || document.object_locked(object))
+                                .on_click(cx.listener(move |ws, _, _, cx| {
+                                    cx.stop_propagation();
+                                    ws.pick_design_graphic(
+                                        crate::workspace::design_graphics::Destination::Relink(
+                                            object,
+                                        ),
+                                        cx,
+                                    );
+                                })),
                         ),
                 )
                 .child(
                     div()
+                        .pl(px(17.0))
                         .text_xs()
-                        .text_color(rgb(palette().text_dim))
-                        .child(schist_i18n::tf!("design.link_on_page", number = page + 1)),
+                        .text_color(rgb(if missing {
+                            palette().warning
+                        } else {
+                            palette().text_dim
+                        }))
+                        .child(state),
                 );
-            row = row.child(
-                Button::new(("design-relink", object.0), t("design.relink"))
-                    .disabled(ws.design.graphics_busy || document.object_locked(object))
-                    .on_click(cx.listener(move |ws, _, _, cx| {
-                        ws.pick_design_graphic(
-                            crate::workspace::design_graphics::Destination::Relink(object),
-                            cx,
-                        );
-                        cx.stop_propagation();
-                    })),
-            );
             if let Some(error) = error {
                 row = row.child(
                     div()

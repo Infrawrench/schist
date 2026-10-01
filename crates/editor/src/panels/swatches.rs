@@ -18,7 +18,7 @@ use super::*;
 /// Square, because an ink is a colour and not a quantity. Large enough to
 /// tell two similar spot inks apart by eye, which is the one judgement a
 /// name cannot make for you.
-const CHIP: f32 = 22.0;
+const CHIP: f32 = 16.0;
 
 /// The swatches panel.
 ///
@@ -102,6 +102,7 @@ pub(super) fn swatches_panel(
                 div()
                     .flex()
                     .justify_between()
+                    .items_center()
                     .text_xs()
                     .text_color(rgb(palette().text_dim))
                     .child(schist_i18n::tf!("design.ink_count", count = inks.len()))
@@ -109,34 +110,43 @@ pub(super) fn swatches_panel(
                         schist_i18n::tf!("design.spot_ink_count", count = spots)
                     } else {
                         String::new()
-                    }),
+                    })
+                    .child(
+                        IconButton::new("design-new-tint", "plus")
+                            .tooltip(t("design.new_tint"), None)
+                            .on_click(cx.listener(move |ws, _, _, cx| {
+                                ws.commit_focused_field();
+                                let Some(base) =
+                                    ws.design.document.inks.get(selected_index).cloned()
+                                else {
+                                    return;
+                                };
+                                if let Some(index) = schist_layout::swatches::add_tint(
+                                    &mut ws.design.document,
+                                    &mut ws.design.history,
+                                    &base,
+                                    0.5,
+                                ) {
+                                    ws.design.controls.swatch = Some(index);
+                                    cx.notify();
+                                }
+                            })),
+                    ),
             )
-            .child(div().flex().flex_wrap().gap_2().children(chips))
-            .child(div().text_xs().child(selected.name))
-            .children(fields)
-            .child(
-                div()
-                    .id("design-new-tint")
-                    .text_xs()
-                    .cursor_pointer()
-                    .child(t("design.new_tint"))
-                    .on_click(cx.listener(move |ws, _, _, cx| {
-                        ws.commit_focused_field();
-                        let Some(base) = ws.design.document.inks.get(selected_index).cloned()
-                        else {
-                            return;
-                        };
-                        if let Some(index) = schist_layout::swatches::add_tint(
-                            &mut ws.design.document,
-                            &mut ws.design.history,
-                            &base,
-                            0.5,
-                        ) {
-                            ws.design.controls.swatch = Some(index);
-                            cx.notify();
-                        }
-                    })),
-            )
+            .child(super::design_dock::section(
+                ws,
+                "swatch-options",
+                "design.appearance",
+                vec![div()
+                    .flex()
+                    .flex_col()
+                    .gap_1()
+                    .child(div().text_xs().truncate().child(selected.name))
+                    .children(fields)
+                    .into_any_element()],
+                cx,
+            ))
+            .child(div().flex().flex_col().children(chips))
             .into_any_element(),
     )
 }
@@ -163,12 +173,15 @@ fn swatch_chips(
                 // clicks.
                 .id(("swatch", index))
                 .flex()
-                .flex_col()
                 .items_center()
-                .gap_1()
-                .w(px(CHIP + 16.0))
+                .min_w_0()
+                .h(px(26.0))
+                .px_1()
+                .gap_2()
+                .tooltip(ui::tip(ink.name.clone(), None))
                 .child(
                     div()
+                        .flex_shrink_0()
                         .w(px(CHIP))
                         .h(px(CHIP))
                         .rounded_sm()
@@ -178,9 +191,9 @@ fn swatch_chips(
                 )
                 .child(
                     div()
-                        .w(px(CHIP + 16.0))
-                        .overflow_hidden()
-                        .text_ellipsis()
+                        .flex_1()
+                        .min_w_0()
+                        .truncate()
                         .text_xs()
                         .child(ink.name.clone()),
                 );
@@ -198,20 +211,21 @@ fn swatch_chips(
             if in_use {
                 chip = chip.bg(rgb(palette().selection_bg));
             }
-            chip.on_click(cx.listener(move |ws, _ev, _window, cx| {
-                ws.commit_focused_field();
-                ws.design.controls.swatch = Some(index);
-                if let Some(chosen) = ws.design.document.inks.get(index).cloned() {
-                    schist_layout::authoring::set_fill_ink(
-                        &mut ws.design.document,
-                        &mut ws.design.history,
-                        &ws.design.selection,
-                        &chosen,
-                    );
-                }
-                cx.notify();
-            }))
-            .into_any_element()
+            chip.hover(|s| s.bg(rgb(palette().hover)))
+                .on_click(cx.listener(move |ws, _ev, _window, cx| {
+                    ws.commit_focused_field();
+                    ws.design.controls.swatch = Some(index);
+                    if let Some(chosen) = ws.design.document.inks.get(index).cloned() {
+                        schist_layout::authoring::set_fill_ink(
+                            &mut ws.design.document,
+                            &mut ws.design.history,
+                            &ws.design.selection,
+                            &chosen,
+                        );
+                    }
+                    cx.notify();
+                }))
+                .into_any_element()
         })
         .collect()
 }

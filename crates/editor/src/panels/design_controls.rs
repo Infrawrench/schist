@@ -580,14 +580,15 @@ fn style_actions(paragraph: bool, cx: &mut Context<Workspace>) -> gpui::AnyEleme
         .flex()
         .gap_1()
         .child(
-            Button::new(
+            IconButton::new(
                 if paragraph {
                     "design-apply-para"
                 } else {
                     "design-apply-char"
                 },
-                t("design.apply_style"),
+                "check",
             )
+            .tooltip(t("design.apply_style"), None)
             .on_click(cx.listener(move |ws, _, _, cx| {
                 ws.commit_focused_field();
                 let Some(name) = style_name(ws, paragraph) else {
@@ -615,14 +616,15 @@ fn style_actions(paragraph: bool, cx: &mut Context<Workspace>) -> gpui::AnyEleme
             })),
         )
         .child(
-            Button::new(
+            IconButton::new(
                 if paragraph {
                     "design-new-para"
                 } else {
                     "design-new-char"
                 },
-                t("design.new_style"),
+                "plus",
             )
+            .tooltip(t("design.new_style"), None)
             .on_click(cx.listener(move |ws, _, _, cx| {
                 ws.commit_focused_field();
                 let mut n = 1;
@@ -883,18 +885,27 @@ pub(super) fn paragraph_panel(
             .child(t("design.opentype_hint"))
             .into_any_element(),
     );
+    let active_align = ws
+        .design
+        .document
+        .styles
+        .resolve_paragraph(&name)
+        .align
+        .unwrap_or_default();
     let alignments = [
-        (Align::Left, "design.align_left"),
-        (Align::Center, "design.align_center"),
-        (Align::Right, "design.align_right"),
-        (Align::Justify, "design.justify"),
+        (Align::Left, "design.align_left", "type-align-left"),
+        (Align::Center, "design.align_center", "type-align-center"),
+        (Align::Right, "design.align_right", "type-align-right"),
+        (Align::Justify, "design.justify", "type-align-justify"),
     ];
     let buttons = alignments
         .into_iter()
         .enumerate()
-        .map(|(index, (align, label))| {
-            Button::new(("design-align-text", index), t(label)).on_click(cx.listener(
-                move |ws, _, _, cx| {
+        .map(|(index, (align, label, icon))| {
+            IconButton::new(("design-align-text", index), icon)
+                .tooltip(t(label), None)
+                .active(active_align == align)
+                .on_click(cx.listener(move |ws, _, _, cx| {
                     ws.commit_focused_field();
                     let Some(name) = style_name(ws, true) else {
                         return;
@@ -911,8 +922,7 @@ pub(super) fn paragraph_panel(
                         },
                     );
                     cx.notify();
-                },
-            ))
+                }))
         })
         .collect::<Vec<_>>();
     Some(
@@ -1150,17 +1160,24 @@ pub(super) fn character_panel(
             cx,
         ));
     }
+    let resolved = ws.design.document.styles.resolve_character(&name);
     let buttons = [
-        "design.bold",
-        "design.italic",
-        "design.underline",
-        "design.strikethrough",
+        ("design.bold", "type-bold", resolved.bold),
+        ("design.italic", "type-italic", resolved.italic),
+        ("design.underline", "type-underline", resolved.underline),
+        (
+            "design.strikethrough",
+            "type-strike",
+            resolved.strikethrough,
+        ),
     ]
     .into_iter()
     .enumerate()
-    .map(|(index, label)| {
-        Button::new(("design-char-toggle", index), t(label)).on_click(cx.listener(
-            move |ws, _, _, cx| {
+    .map(|(index, (label, icon, active))| {
+        IconButton::new(("design-char-toggle", index), icon)
+            .tooltip(t(label), None)
+            .active(active.unwrap_or(false))
+            .on_click(cx.listener(move |ws, _, _, cx| {
                 ws.commit_focused_field();
                 let Some(name) = style_name(ws, false) else {
                     return;
@@ -1192,8 +1209,7 @@ pub(super) fn character_panel(
                     },
                 );
                 cx.notify();
-            },
-        ))
+            }))
     })
     .collect::<Vec<_>>();
     Some(

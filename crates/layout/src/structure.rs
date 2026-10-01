@@ -265,6 +265,19 @@ pub fn edit_layers(
     let before = Layers::of(doc);
     let mut after = before.clone();
     edit(&mut after);
+    if before.order != after.order {
+        // Old documents may omit membership for objects on the first layer.
+        // Reordering/adding layers must not silently move those objects.
+        for object in doc.objects.iter().chain(
+            doc.parents
+                .iter()
+                .flat_map(|parent| parent.objects.iter().map(|entry| &entry.object)),
+        ) {
+            if !after.objects.iter().any(|(id, _)| *id == object.id) {
+                after.objects.push((object.id, doc.object_layer(object.id)));
+            }
+        }
+    }
     if before == after || after.order.is_empty() {
         return false;
     }
@@ -340,7 +353,33 @@ pub fn move_layer(
     else {
         return false;
     };
-    edit_layers(doc, history, |layers| layers.order.swap(index, to))
+    edit_layers(doc, history, |layers| {
+        let layer = layers.order.remove(index);
+        layers.order.insert(to, layer);
+    })
+}
+
+/// Insert a layer before another layer, or at the bottom for `None`.
+/// A drag preserves the relative order of all other layers and undoes once.
+pub fn place_layer(
+    doc: &mut LayoutDocument,
+    history: &mut History,
+    id: LayerId,
+    before: Option<LayerId>,
+) -> bool {
+    if !doc.layers.contains(&id)
+        || before == Some(id)
+        || before.is_some_and(|target| !doc.layers.contains(&target))
+    {
+        return false;
+    }
+    edit_layers(doc, history, |layers| {
+        layers.order.retain(|layer| *layer != id);
+        let index = before
+            .and_then(|target| layers.order.iter().position(|layer| *layer == target))
+            .unwrap_or(layers.order.len());
+        layers.order.insert(index, id);
+    })
 }
 
 pub fn move_objects_to_layer(
@@ -356,8 +395,13 @@ pub fn move_objects_to_layer(
     {
         return false;
     }
+    let moved: Vec<_> = ids
+        .iter()
+        .copied()
+        .filter(|id| doc.object_layer(*id) != target)
+        .collect();
     edit_layers(doc, history, |layers| {
-        for id in ids {
+        for id in &moved {
             match layers.objects.iter_mut().find(|(object, _)| object == id) {
                 Some((_, layer)) => *layer = target,
                 None => layers.objects.push((*id, target)),
