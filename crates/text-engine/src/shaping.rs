@@ -269,7 +269,8 @@ fn shape_plain(
 }
 
 /// Tabs separate shaping fields but retain paragraph bidi context and source
-/// byte positions. Leading stops progress from the paragraph's inline start.
+/// byte positions. Each tab anchors the following shaped field, so font/style
+/// runs, ligatures and vertical metrics also determine aligned tab positions.
 fn shape(
     spec: &TextSpec,
     faces: &Faces,
@@ -307,22 +308,44 @@ fn shape(
             spec
         };
         let field = shape_plain(field_spec, faces, bidi, paragraph_start, from, at);
-        let next_pen = pen + field.width;
-        fields.push((pen, field));
-        pen = next_pen;
-        if at < range.end {
-            let Some(next) = tabs.next(pen, start) else {
+        if from > range.start {
+            let Some(next) = tabs.next_aligned(pen, start, |alignment| match alignment {
+                TabAlignment::Leading => 0.0,
+                TabAlignment::Trailing => field.width,
+                TabAlignment::Center => field.width / 2.0,
+                TabAlignment::Character(character) => {
+                    // Anchor the first matching source character at its
+                    // grapheme caret, including a character inside a ligature.
+                    // If absent, Schist uses the field end (native behavior is
+                    // unverified). Never synthesize a source byte position.
+                    spec.text[from..at]
+                        .find(character)
+                        .and_then(|byte| {
+                            field
+                                .chars
+                                .iter()
+                                .filter(|c| c.byte <= from + byte)
+                                .max_by_key(|c| c.byte)
+                        })
+                        .map_or(field.width, |c| c.x)
+                }
+            }) else {
                 return Shaped {
                     width: f32::INFINITY,
                     ..Default::default()
                 };
             };
             tab_positions.push(CharPos {
-                byte: at,
+                byte: from - 1,
                 x: pen,
                 end_x: next,
             });
             pen = next;
+        }
+        let next_pen = pen + field.width;
+        fields.push((pen, field));
+        pen = next_pen;
+        if at < range.end {
             from = at + 1;
         }
     }

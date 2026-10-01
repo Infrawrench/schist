@@ -6,15 +6,25 @@ use schist_layout::{
     WritingMode,
 };
 
-const FIELDS: [&str; 3] = ["A", "H", "é"];
 pub fn document(reference: bool) -> LayoutDocument {
-    let mut doc = LayoutDocument::new(vec![Page::new("proof", 200.0, 200.0); 12]);
-    for case in 0..12 {
+    let mut doc = LayoutDocument::new(vec![Page::new("proof", 200.0, 200.0); 48]);
+    for case in 0..48 {
+        let alignment = ["LeftAlign", "RightAlign", "CenterAlign", "CharacterAlign"][case / 12];
+        let fields = if case < 12 {
+            ["A", "H", "é"]
+        } else {
+            ["A", "12.34", "é,15"]
+        };
         let mode = [
             WritingMode::Horizontal,
             WritingMode::VerticalLeftToRight,
             WritingMode::VerticalRightToLeft,
-        ][case / 4];
+        ][case % 12 / 4];
+        let stops = if case < 12 {
+            [48.0, 96.0]
+        } else {
+            [48.0, 108.0]
+        };
         let indent = if case.is_multiple_of(2) { 0.0 } else { 12.0 };
         let size = if case % 4 < 2 { 12.0 } else { 18.0 };
         let name = format!("Tabs {case}");
@@ -27,14 +37,59 @@ pub fn document(reference: bool) -> LayoutDocument {
             first_line_indent: Some(if reference { 0.0 } else { indent }),
             list: ListStyle {
                 tabs: (!reference).then(|| {
-                    [48.0, 96.0]
-                        .map(|position| ListTab {
-                            position,
-                            alignment: "LeftAlign".into(),
-                            alignment_character: ".".into(),
-                            leader: String::new(),
+                    stops
+                        .into_iter()
+                        .enumerate()
+                        .map(|(index, offset)| {
+                            // Independently shape ordinary text, then choose
+                            // a ruler stop whose anchor lands at a fixed frame.
+                            // No tab geometry is used to construct the control.
+                            let character = ['.', ','][index];
+                            let text = fields[index + 1];
+                            let spec = schist_text_engine::TextSpec {
+                                text: text.into(),
+                                family: "IBM Plex Sans".into(),
+                                size,
+                                direction: schist_text_engine::ParagraphDirection::LeftToRight,
+                                writing_mode: match mode {
+                                    WritingMode::Horizontal => {
+                                        schist_text_engine::WritingMode::Horizontal
+                                    }
+                                    WritingMode::VerticalLeftToRight => {
+                                        schist_text_engine::WritingMode::VerticalLr
+                                    }
+                                    WritingMode::VerticalRightToLeft => {
+                                        schist_text_engine::WritingMode::VerticalRl
+                                    }
+                                },
+                                ..Default::default()
+                            };
+                            let width = schist_text_engine::measure(&spec).unwrap().width;
+                            let anchor = match alignment {
+                                "RightAlign" => width,
+                                "CenterAlign" => width / 2.0,
+                                "CharacterAlign" => {
+                                    let caret = schist_text_engine::caret_at(
+                                        &spec,
+                                        text.find(character).unwrap(),
+                                    )
+                                    .unwrap();
+                                    if mode == WritingMode::Horizontal {
+                                        caret.x
+                                    } else {
+                                        caret.top
+                                    }
+                                }
+                                _ => 0.0,
+                            };
+                            ListTab {
+                                position: offset + anchor,
+                                alignment: alignment.into(),
+                                alignment_character: character.into(),
+                                leader: String::new(),
+                            }
                         })
-                        .into()
+                        .collect()
                 }),
                 ..Default::default()
             },
@@ -59,8 +114,8 @@ pub fn document(reference: bool) -> LayoutDocument {
             });
         }
         if reference {
-            for (field, text) in FIELDS.iter().enumerate() {
-                let offset = [indent, 48.0, 96.0][field];
+            for (field, text) in fields.iter().enumerate() {
+                let offset = [indent, stops[0], stops[1]][field];
                 let bounds = if mode == WritingMode::Horizontal {
                     Rect::new(20.0 + offset, 20.0, 160.0 - offset, 160.0)
                 } else {
@@ -84,9 +139,9 @@ pub fn document(reference: bool) -> LayoutDocument {
                 Rect::new(20.0, 20.0, 160.0, 160.0),
             )
             .unwrap();
-            let mut story = Story::from_text(FIELDS.join("\t"), &name);
+            let mut story = Story::from_text(fields.join("\t"), &name);
             let mut from = 0;
-            for (field, text) in FIELDS.iter().enumerate() {
+            for (field, text) in fields.iter().enumerate() {
                 story.ranges.push(StyleRange::new(
                     from,
                     from + text.len(),

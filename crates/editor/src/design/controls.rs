@@ -11,6 +11,7 @@ pub struct Controls {
     pub character: Option<String>,
     pub object_style: Option<String>,
     pub field: Option<Target>,
+    pub tab: usize,
     /// Disclosure state is chrome, not a document edit or an undo step.
     pub expanded: std::collections::HashSet<&'static str>,
     pub collapsed_layers: std::collections::HashSet<schist_layout::LayerId>,
@@ -23,6 +24,13 @@ pub enum Target {
     Section(usize),
     Objects(Vec<ObjectId>),
     Paragraph(String),
+    /// A tab edit captures both its style and record. If another operation
+    /// replaces that record before commit, it must not edit its new occupant.
+    Tab {
+        paragraph: String,
+        index: usize,
+        original: schist_layout::lists::ListTab,
+    },
     Character(String),
     ObjectStyle(String),
 }
@@ -642,6 +650,135 @@ pub fn list_tab_value(list: &schist_layout::lists::ListStyle) -> String {
         .unwrap_or_default()
 }
 
+pub fn edit_tab(
+    state: &mut DesignState,
+    target: &Target,
+    edit: impl FnOnce(&mut Vec<schist_layout::lists::ListTab>, usize),
+) -> bool {
+    let Target::Tab {
+        paragraph,
+        index,
+        original,
+    } = target
+    else {
+        return false;
+    };
+    let mut tabs = state
+        .document
+        .styles
+        .resolve_paragraph(paragraph)
+        .list
+        .tabs
+        .unwrap_or_default();
+    if tabs.get(*index) != Some(original) {
+        return false;
+    }
+    let before = tabs.clone();
+    edit(&mut tabs, *index);
+    if tabs == before {
+        return false;
+    }
+    edit_list(state, &Target::Paragraph(paragraph.clone()), |list| {
+        list.tabs = Some(tabs)
+    })
+}
+
+pub fn tab_target(state: &DesignState, paragraph: &str, index: usize) -> Option<Target> {
+    let original = state
+        .document
+        .styles
+        .resolve_paragraph(paragraph)
+        .list
+        .tabs?
+        .get(index)?
+        .clone();
+    Some(Target::Tab {
+        paragraph: paragraph.into(),
+        index,
+        original,
+    })
+}
+
+pub fn add_tab(state: &mut DesignState, target: &Target) -> bool {
+    let Target::Paragraph(name) = target else {
+        return false;
+    };
+    let mut tabs = state
+        .document
+        .styles
+        .resolve_paragraph(name)
+        .list
+        .tabs
+        .unwrap_or_default();
+    if tabs.iter().any(|tab| !tab.position.is_finite()) {
+        return false;
+    }
+    let last = tabs.iter().fold(0.0_f32, |p, tab| p.max(tab.position));
+    let position = last + 36.0;
+    if !position.is_finite() || position <= last {
+        return false;
+    }
+    tabs.push(schist_layout::lists::ListTab {
+        position,
+        alignment: "LeftAlign".into(),
+        alignment_character: ".".into(),
+        leader: String::new(),
+    });
+    edit_list(state, target, |list| list.tabs = Some(tabs))
+}
+
+pub fn set_tab_alignment(
+    state: &mut DesignState,
+    target: &Target,
+    alignment: &'static str,
+) -> bool {
+    if !matches!(
+        alignment,
+        "LeftAlign" | "CenterAlign" | "RightAlign" | "CharacterAlign"
+    ) {
+        return false;
+    }
+    edit_tab(state, target, |tabs, index| {
+        let tab = &mut tabs[index];
+        tab.alignment = alignment.into();
+        if alignment == "CharacterAlign" && tab.text_alignment().is_none() {
+            tab.alignment_character = ".".into();
+        }
+    })
+}
+
+fn commit_tab(state: &mut DesignState, target: &Target, id: &str, text: &str) -> bool {
+    match id {
+        "design-prop-tab-position" => {
+            let Some(position) = text
+                .trim()
+                .parse::<f32>()
+                .ok()
+                .filter(|v| v.is_finite() && *v >= 0.0)
+            else {
+                return false;
+            };
+            edit_tab(state, target, |tabs, index| tabs[index].position = position)
+        }
+        "design-prop-tab-character" => {
+            let mut chars = text.chars();
+            let Some(character) = chars
+                .next()
+                .filter(|c| !c.is_control() && !matches!(c, '\u{2028}' | '\u{2029}'))
+            else {
+                return false;
+            };
+            if chars.next().is_some() {
+                return false;
+            }
+            edit_tab(state, target, |tabs, index| {
+                tabs[index].alignment_character = character.into()
+            })
+        }
+        _ => false,
+    }
+}
+
 pub fn set_list_kind(
     state: &mut DesignState,
     target: &Target,
@@ -777,14 +914,25 @@ fn commit_list(state: &mut DesignState, target: &Target, id: &str, text: &str) -
                 else {
                     return false;
                 };
+                let existing = state
+                    .document
+                    .styles
+                    .resolve_paragraph(name)
+                    .list
+                    .tabs
+                    .unwrap_or_default();
                 Some(
                     values
                         .into_iter()
-                        .map(|position| ListTab {
+                        .enumerate()
+                        .map(|(index, position)| ListTab {
                             position,
-                            alignment: "LeftAlign".into(),
-                            alignment_character: ".".into(),
-                            leader: String::new(),
+                            ..existing.get(index).cloned().unwrap_or_else(|| ListTab {
+                                position: 0.0,
+                                alignment: "LeftAlign".into(),
+                                alignment_character: ".".into(),
+                                leader: String::new(),
+                            })
                         })
                         .collect(),
                 )
@@ -819,6 +967,9 @@ pub fn commit(state: &mut DesignState, id: &str, text: &str) -> bool {
     let Some(target) = state.controls.field.take() else {
         return false;
     };
+    if matches!(target, Target::Tab { .. }) {
+        return commit_tab(state, &target, id, text);
+    }
     if id.starts_with("design-prop-list-") {
         return commit_list(state, &target, id, text);
     }
@@ -1338,6 +1489,7 @@ pub fn commit(state: &mut DesignState, id: &str, text: &str) -> bool {
                 }
             })
         }
+        Target::Tab { .. } => false,
         Target::Character(name) => {
             let tint_base = state
                 .document
@@ -1442,6 +1594,159 @@ pub fn all_text_frames(state: &DesignState) -> bool {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    fn tab_state() -> DesignState {
+        let mut state = DesignState::new();
+        state
+            .document
+            .styles
+            .add_paragraph(schist_layout::ParagraphStyle {
+                name: "Tab base".into(),
+                list: schist_layout::lists::ListStyle {
+                    tabs: Some(vec![schist_layout::lists::ListTab {
+                        position: 72.12345,
+                        alignment: "CharacterAlign".into(),
+                        alignment_character: ",".into(),
+                        leader: ". ".into(),
+                    }]),
+                    ..Default::default()
+                },
+                ..Default::default()
+            });
+        state
+            .document
+            .styles
+            .add_paragraph(schist_layout::ParagraphStyle {
+                name: "Tab child".into(),
+                based_on: Some("Tab base".into()),
+                ..Default::default()
+            });
+        state
+    }
+
+    #[test]
+    fn tab_edits_capture_inherited_records_preserve_other_settings_and_undo_once() {
+        for (id, value) in [
+            ("design-prop-tab-position", "90.12345"),
+            ("design-prop-tab-character", "€"),
+            ("design-prop-tab-character", " "),
+        ] {
+            let mut state = tab_state();
+            let before = state.document.clone();
+            state.controls.field = tab_target(&state, "Tab child", 0);
+            state.controls.paragraph = Some("Body".into());
+            assert!(commit(&mut state, id, value));
+            assert_eq!(state.history.undo_depth(), 1);
+            let tab = &state
+                .document
+                .styles
+                .paragraph("Tab child")
+                .unwrap()
+                .list
+                .tabs
+                .as_ref()
+                .unwrap()[0];
+            let original = &before
+                .styles
+                .paragraph("Tab base")
+                .unwrap()
+                .list
+                .tabs
+                .as_ref()
+                .unwrap()[0];
+            assert_eq!(tab.alignment, original.alignment);
+            assert_eq!(tab.leader, original.leader);
+            if id.ends_with("position") {
+                assert_eq!(tab.alignment_character, original.alignment_character);
+            } else {
+                assert_eq!(tab.position, original.position);
+            }
+            assert_eq!(
+                state.document.styles.paragraph("Tab base"),
+                before.styles.paragraph("Tab base")
+            );
+            state.controls.field = tab_target(&state, "Tab child", 0);
+            assert!(!commit(&mut state, id, value));
+            assert_eq!(state.history.undo_depth(), 1);
+            assert!(state.history.undo(&mut state.document));
+            assert_eq!(state.document, before);
+        }
+    }
+
+    #[test]
+    fn tab_actions_are_single_edits_and_clearing_does_not_restore_inherited_stops() {
+        for action in ["add", "remove", "LeftAlign", "RightAlign", "CenterAlign"] {
+            let mut state = tab_state();
+            let before = state.document.clone();
+            let target = tab_target(&state, "Tab child", 0).unwrap();
+            assert!(match action {
+                "add" => add_tab(&mut state, &Target::Paragraph("Tab child".into())),
+                "remove" => edit_tab(&mut state, &target, |tabs, index| {
+                    tabs.remove(index);
+                }),
+                _ => set_tab_alignment(&mut state, &target, action),
+            });
+            let tabs = state
+                .document
+                .styles
+                .resolve_paragraph("Tab child")
+                .list
+                .tabs
+                .unwrap();
+            if action == "remove" {
+                assert!(tabs.is_empty());
+            } else {
+                assert_eq!(tabs[0].leader, ". ");
+                assert_eq!(tabs[0].alignment_character, ",");
+                assert_eq!(tabs[0].position, 72.12345);
+            }
+            assert_eq!(state.history.undo_depth(), 1);
+            assert!(state.history.undo(&mut state.document));
+            assert_eq!(state.document, before);
+        }
+        let mut state = tab_state();
+        let target = Target::Paragraph("Tab child".into());
+        assert!(edit_list(&mut state, &target, |list| list.tabs = Some(Vec::new())));
+        let cleared = state.document.clone();
+        assert!(edit_list(&mut state, &target, |list| list.tabs = None));
+        assert!(tab_target(&state, "Tab child", 0).is_some());
+        assert!(!edit_list(&mut state, &target, |list| list.tabs = None));
+        assert_eq!(state.history.undo_depth(), 2);
+        assert!(state.history.undo(&mut state.document));
+        assert_eq!(state.document, cleared);
+    }
+
+    #[test]
+    fn invalid_or_stale_tab_fields_never_modify_another_stop() {
+        for (id, value) in [
+            ("design-prop-tab-position", ""),
+            ("design-prop-tab-position", "-1"),
+            ("design-prop-tab-position", "NaN"),
+            ("design-prop-tab-position", "inf"),
+            ("design-prop-tab-character", ""),
+            ("design-prop-tab-character", "ab"),
+            ("design-prop-tab-character", "\t"),
+            ("design-prop-tab-character", "\u{2028}"),
+        ] {
+            let mut state = tab_state();
+            let before = state.document.clone();
+            state.controls.field = tab_target(&state, "Tab child", 0);
+            assert!(!commit(&mut state, id, value));
+            assert_eq!(state.document, before);
+            assert_eq!(state.history.undo_depth(), 0);
+        }
+        let mut state = tab_state();
+        state.controls.field = tab_target(&state, "Tab child", 0);
+        assert!(edit_list(
+            &mut state,
+            &Target::Paragraph("Tab base".into()),
+            |list| list.tabs.as_mut().unwrap()[0].position = 150.0
+        ));
+        let before = state.document.clone();
+        assert!(!commit(&mut state, "design-prop-tab-character", "."));
+        assert_eq!(state.document, before);
+        assert_eq!(state.history.undo_depth(), 1);
+    }
 
     #[test]
     fn list_format_choices_preserve_native_names_and_change_the_captured_style_once() {

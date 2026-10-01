@@ -49,13 +49,37 @@ pub struct NumberingList {
     pub labels: Vec<(String, String)>,
 }
 
-/// Native paragraph tab records used to position list text after its marker.
+/// Native paragraph tab records, shared by source tabs and list-marker spacing.
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct ListTab {
     pub position: f32,
     pub alignment: String,
     pub alignment_character: String,
     pub leader: String,
+}
+
+impl ListTab {
+    /// Supported source-tab anchors. Retain unknown native strings in the
+    /// record and diagnose them instead of silently normalizing imported data.
+    pub fn text_alignment(&self) -> Option<schist_text_engine::TabAlignment> {
+        use schist_text_engine::TabAlignment;
+        Some(match self.alignment.as_str() {
+            "LeftAlign" => TabAlignment::Leading,
+            "RightAlign" => TabAlignment::Trailing,
+            "CenterAlign" => TabAlignment::Center,
+            "CharacterAlign" => {
+                let mut chars = self.alignment_character.chars();
+                let character = chars
+                    .next()
+                    .filter(|c| !c.is_control() && !matches!(c, '\u{2028}' | '\u{2029}'))?;
+                if chars.next().is_some() {
+                    return None;
+                }
+                TabAlignment::Character(character)
+            }
+            _ => return None,
+        })
+    }
 }
 
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]

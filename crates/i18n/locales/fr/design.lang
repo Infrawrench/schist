@@ -493,3 +493,10 @@ design.appearance = Appearance
 design.advanced_type = Advanced typography
 design.decorations = Underlines and strikethroughs
 design.style_options = Style options
+
+# Aligned paragraph tabs — English placeholders pending translation
+design.tab_character = Align on character
+design.tab_position = Position (pt)
+design.tab_add = Add tab stop
+design.tab_remove = Remove tab stop
+design.tab_inherit = Inherit tab stops
