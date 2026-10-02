@@ -24,6 +24,36 @@ pub struct DesignDock {
     pub active: String,
     pub collapsed: bool,
 }
+
+#[derive(Debug, Clone, Copy, Default, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum PhotoInspector {
+    Library,
+    Info,
+    #[default]
+    #[serde(other)]
+    Adjustments,
+}
+
+#[derive(Debug, Clone, Copy, Default, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum PhotoDisplay {
+    Browser,
+    Viewer,
+    #[default]
+    #[serde(other)]
+    Split,
+}
+
+/// Photo Development's inspector and browser belong to the workspace,
+/// so saved layouts restore them without changing the application theme.
+#[derive(Debug, Clone, Default, PartialEq, Serialize, Deserialize)]
+#[serde(default)]
+pub struct PhotoLayout {
+    pub enabled: bool,
+    pub inspector: PhotoInspector,
+    pub display: PhotoDisplay,
+}
 impl Default for DesignDock {
     fn default() -> Self {
         Self {
@@ -46,6 +76,7 @@ pub struct Layout {
     pub ai: bool,
     pub history_height: f32,
     pub design_dock: DesignDock,
+    pub photo: PhotoLayout,
 }
 impl Default for Layout {
     fn default() -> Self {
@@ -63,6 +94,7 @@ impl Layout {
             ai: v.ai_panel,
             history_height: v.history_h,
             design_dock: v.design_dock.clone(),
+            photo: v.photo_layout.clone(),
         }
         .sanitized()
     }
@@ -106,6 +138,7 @@ impl Layout {
         v.ai_panel = s.ai;
         v.history_h = s.history_height;
         v.design_dock = s.design_dock;
+        v.photo_layout = s.photo;
     }
 }
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -217,6 +250,10 @@ pub fn starter(index: usize) -> Layout {
     };
     Layout {
         order: order.into_iter().map(str::to_owned).collect(),
+        photo: PhotoLayout {
+            enabled: index == 1,
+            ..Default::default()
+        },
         hidden: vec!["notes".into()],
         width: Some(if index == 1 { 300.0 } else { 260.0 }),
         heights: [(if index == 0 { "color" } else { "history" }.into(), 240.0)].into(),
@@ -280,6 +317,55 @@ pub fn deserialize_presets<'de, D: serde::Deserializer<'de>>(
 #[cfg(test)]
 mod tests {
     use super::*;
+    #[test]
+    fn photo_layout_round_trips_and_other_starters_restore_standard_editor() {
+        let mut view = ViewOptions::default();
+        starter(1).apply(&mut view);
+        assert!(view.photo_layout.enabled);
+        assert_eq!(view.photo_layout.display, PhotoDisplay::Split);
+        for display in [
+            PhotoDisplay::Browser,
+            PhotoDisplay::Split,
+            PhotoDisplay::Viewer,
+        ] {
+            for inspector in [
+                PhotoInspector::Library,
+                PhotoInspector::Info,
+                PhotoInspector::Adjustments,
+            ] {
+                view.photo_layout.display = display;
+                view.photo_layout.inspector = inspector;
+                let snapshot = Layout::capture(&view);
+                let restored: Layout =
+                    serde_json::from_str(&serde_json::to_string(&snapshot).unwrap()).unwrap();
+                let mut fresh = ViewOptions::default();
+                restored.apply(&mut fresh);
+                assert_eq!(fresh.photo_layout, view.photo_layout);
+            }
+        }
+        for layout in [starter(0), starter(2), design_starter(), Layout::default()] {
+            layout.apply(&mut view);
+            assert!(!view.photo_layout.enabled);
+        }
+    }
+
+    #[test]
+    fn legacy_photo_preferences_preserve_existing_layout_and_unknown_views_fall_back() {
+        let mut json = serde_json::to_value(ViewOptions::default()).unwrap();
+        json.as_object_mut().unwrap().remove("photo_layout");
+        json["panel_width"] = 350.into();
+        let legacy: ViewOptions = serde_json::from_value(json).unwrap();
+        assert!(!legacy.photo_layout.enabled);
+        assert_eq!(legacy.panel_width, Some(350.0));
+        let layout: Layout = serde_json::from_value(serde_json::json!({
+            "photo": { "enabled": true, "display": "future", "inspector": "future" }
+        }))
+        .unwrap();
+        assert_eq!(layout.photo.display, PhotoDisplay::Split);
+        assert_eq!(layout.photo.inspector, PhotoInspector::Adjustments);
+        assert!(!serde_json::from_str::<Layout>("{}").unwrap().photo.enabled);
+    }
+
     #[test]
     fn every_design_panel_survives_saving_restoring_and_sanitizing_a_workspace() {
         for (i, panel) in DESIGN_PANELS.into_iter().enumerate() {

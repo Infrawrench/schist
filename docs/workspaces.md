@@ -6,11 +6,20 @@ Retouching, to Design, or to a layout you saved. These entries also appear in Sp
 The submenu also offers Save As, Update, Rename, Delete and Reset commands;
 each opens the manager with that operation as its Enter action, so its target
 and effect can be reviewed first.
-The starter layouts emphasize color, navigator/history, and layers/history.
+Painting emphasizes color, and Retouching emphasizes layers and history.
+Photo Development uses an Aperture-inspired layout: a left inspector with
+Photos, Info and Adjustments tabs, a charcoal viewer, and a bottom filmstrip
+of open documents. Grid, Photos + Preview and Preview buttons switch between
+the browser, split view and viewer layouts.
+Click a thumbnail to edit that document; double-click a browser thumbnail to
+return to the split view. Middle-click closes it through the normal save prompt.
+The inspector provides an RGB thumbnail histogram, adjustment-layer commands,
+the existing layers/history controls, and photo metadata. Adjustments open
+the existing parameter dialogs. The Photos tab also links to the gallery.
 The Design starter is listed only when the `design-mode` feature is on, and
 choosing it switches the mode as well as the dock, because a layout with a
 Pages panel in a photo editor is a blank dock section.
-respectively; they do not select tools or modify image processing settings.
+The starters do not select tools or modify image processing settings.
 
 Open **Manage Workspaces…** to edit the current dock and save it:
 
@@ -27,8 +36,10 @@ Open **Manage Workspaces…** to edit the current dock and save it:
   Reapply a saved preset to discard unsaved changes to that layout.
 
 The manager also controls dock visibility, individual panels and dock width.
-Reorder panels using their headers and resize them using their lower edges in
-the editor, then save or update a preset. The color panel can show Info or
+Photo Development keeps its inspector tabs fixed; its Layers and History
+sections can be hidden in the manager. In Painting and Retouching, reorder
+panels using their headers and resize them using their lower edges, then save
+or update a preset. The color panel can show Info or
 Character depending on the document/tool; that contextual tab choice is not
 part of a preset. The Notes panel still needs notes in the current document.
 
@@ -39,7 +50,8 @@ Keyboard controls in the manager: **Alt+Up/Down** selects a saved layout;
 Layout changes are immediate, including when the dialog is closed with Escape.
 
 A preset contains panel order, individual visibility, saved heights, optional
-width, dock visibility and editor AI sidebar visibility. It does not capture
+width, dock visibility, editor AI sidebar visibility, and the photo workspace's
+inspector tab and browser/split/viewer choice. It does not capture
 theme, telemetry, update preferences, author information, AI credentials or
 models, gallery settings, canvas overlays, documents, or undo history.
 On compact windows the existing panel/canvas page toggle remains in charge;

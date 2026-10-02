@@ -149,6 +149,8 @@ pub(super) fn dialog(
     );
     let panels = if ws.design_mode() {
         schist_app_settings::workspaces::DESIGN_PANELS.as_slice()
+    } else if ws.photo_workspace() {
+        &["layers", "history"]
     } else {
         PANELS.as_slice()
     };

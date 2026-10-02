@@ -152,6 +152,7 @@ mod tethered_cloud;
 #[cfg(not(target_arch = "wasm32"))]
 pub(crate) mod versions;
 // The software keyboard's way in, on the platforms that have one.
+pub(crate) mod photo_view;
 #[cfg(any(target_os = "ios", target_os = "android"))]
 mod text_input;
 mod tiles;
@@ -273,6 +274,7 @@ pub struct Workspace {
     smart_edit_sessions: FxHashMap<schist_core::DocumentId, smart_objects::SourceEdit>,
     /// Position of the active document in the tab strip.
     active_tab: usize,
+    pub(crate) photo_view: photo_view::PhotoView,
     cache: TileCache,
     /// Composited tiles after colour management, ready to sample.
     display_tiles: FxHashMap<TileCoord, Arc<Vec<u8>>>,
@@ -1610,6 +1612,7 @@ impl Workspace {
             background_tabs: Vec::new(),
             smart_edit_sessions: FxHashMap::default(),
             active_tab: 0,
+            photo_view: Default::default(),
             cache: TileCache::new(),
             display_tiles: FxHashMap::default(),
             viewport_image: None,

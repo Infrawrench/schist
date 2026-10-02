@@ -130,6 +130,8 @@ pub struct ViewOptions {
     /// Design's tabbed dock is independent of the raster panel stack.
     #[serde(default)]
     pub design_dock: workspaces::DesignDock,
+    #[serde(default)]
+    pub photo_layout: workspaces::PhotoLayout,
     #[serde(default, deserialize_with = "workspaces::deserialize_presets")]
     pub workspaces: workspaces::WorkspacePresets,
     /// User-chosen heights for docked panels. Missing entries retain their
@@ -244,6 +246,7 @@ impl Default for ViewOptions {
             hidden_panels: Vec::new(),
             panel_width: None,
             design_dock: Default::default(),
+            photo_layout: Default::default(),
             workspaces: Default::default(),
             side_panel_heights: Default::default(),
             note_author: default_note_author(),
