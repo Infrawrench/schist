@@ -352,11 +352,14 @@ pub struct ParagraphStyle {
     pub first_line_indent: Option<f32>,
     pub space_before: Option<f32>,
     pub space_after: Option<f32>,
-    /// Keep this paragraph with the next paragraph's first placed line.
+    /// Legacy toggle: keep the final line with the next paragraph's first line.
     pub keep_with_next: Option<bool>,
     /// Minimum lines left at the bottom of a column before the
     /// paragraph moves to the next. Orphans and widows in one setting.
     pub keep_lines: Option<usize>,
+    /// Native keep options override the legacy toggle and symmetric count.
+    #[serde(default)]
+    pub keeps: crate::paragraph_keeps::ParagraphKeeps,
     /// Number of body lines spanned by opening characters; zero or one disables it.
     pub drop_caps_lines: Option<usize>,
     /// Opening graphemes to enlarge. Unset means one; zero disables drop caps.
@@ -665,6 +668,7 @@ pub struct ResolvedParagraph {
     pub space_after: Option<f32>,
     pub keep_with_next: Option<bool>,
     pub keep_lines: Option<usize>,
+    pub keeps: crate::paragraph_keeps::ParagraphKeeps,
     pub drop_caps_lines: Option<usize>,
     pub drop_caps_characters: Option<usize>,
     pub bullet: Option<Bullet>,
@@ -791,6 +795,12 @@ impl ResolvedParagraph {
             out.space_after = out.space_after.or(style.space_after);
             out.keep_with_next = out.keep_with_next.or(style.keep_with_next);
             out.keep_lines = out.keep_lines.or(style.keep_lines);
+            out.keeps = out.keeps.over(&style.keeps.over(
+                &crate::paragraph_keeps::ParagraphKeeps::from_legacy(
+                    style.keep_with_next,
+                    style.keep_lines,
+                ),
+            ));
             out.drop_caps_lines = out.drop_caps_lines.or(style.drop_caps_lines);
             out.drop_caps_characters = out.drop_caps_characters.or(style.drop_caps_characters);
             out.bullet = out.bullet.or(style.bullet);

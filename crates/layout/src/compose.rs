@@ -34,6 +34,7 @@ use crate::styles::{
     Align, ParagraphDirection, ResolvedCharacter, ResolvedParagraph, StyleSet, WritingMode,
 };
 mod footnote_flow;
+mod keep_flow;
 
 /// One laid-out line, positioned in page space.
 #[derive(Debug, Clone, PartialEq)]
@@ -910,13 +911,9 @@ fn compose_thread_plain(
         let note_options = crate::footnotes::frame_options(doc, *object);
         let mut lines = Vec::new();
         let mut footnotes = Vec::new();
-        let mut pending_keep = None;
+        let frame_start = cursor;
         while cursor < total {
             if available.width <= 0.0 || available.height <= 0.0 {
-                if let Some((count, start)) = pending_keep {
-                    lines.truncate(count);
-                    cursor = start;
-                }
                 break;
             }
             let section_start = cursor;
@@ -1032,10 +1029,6 @@ fn compose_thread_plain(
             let mut placed = flow.lines;
             footnotes.extend(flow.footnotes);
             if placed.is_empty() {
-                if let Some((count, start)) = pending_keep {
-                    lines.truncate(count);
-                    cursor = start;
-                }
                 break;
             }
             axes.place_lines(&mut placed);
@@ -1044,17 +1037,14 @@ fn compose_thread_plain(
             if cursor < section_end || stop_frame {
                 break;
             }
-            // A keep chain can cross an orientation boundary. If the next
-            // region cannot place a line, roll the chain back as one unit.
-            pending_keep = kept_tail(story, cursor, doc).and_then(|start| {
-                let start = start.max(lines.first()?.start);
-                let index = lines.iter().position(|line| line.start >= start)?;
-                Some((index, start))
-            });
             if cursor <= section_start {
                 break;
             }
         }
+
+        // Column flow enforces its own keeps. This also checks a binding that
+        // crosses writing-mode regions within the same frame.
+        cursor = keep_flow::enforce(&source, frame_start, total, &mut lines, cursor);
 
         let consumed_to = cursor.min(text_end);
         // Empty list paragraphs still have a generated marker to place.
@@ -1206,33 +1196,6 @@ fn compose_path(
         consumed += 1;
     }
     (vec![line], consumed)
-}
-
-/// First paragraph in the final keep-with-next chain, if there is one.
-fn kept_tail(story: &Story, end: usize, doc: &LayoutDocument) -> Option<usize> {
-    let offsets = story.point_offsets();
-    let mut start = None;
-    for (point, at) in story
-        .points
-        .iter()
-        .zip(offsets)
-        .rev()
-        .filter(|(_, at)| *at < end)
-    {
-        let Point::Paragraph { style, .. } = point else {
-            break;
-        };
-        if !doc
-            .styles
-            .resolve_paragraph(style)
-            .keep_with_next
-            .unwrap_or(false)
-        {
-            break;
-        }
-        start = Some(at);
-    }
-    start
 }
 
 /// The paragraph's writing mode, falling back to native story orientation.
@@ -1552,12 +1515,8 @@ fn fill_column_with_rules(
     let mut lines: Vec<ComposedLine> = Vec::new();
     let mut cursor = start;
     let mut used = 0.0;
-    // A chain of keep-with-next paragraphs is provisional until a following
-    // paragraph actually places a line. Looking only at its font size guesses
-    // incorrectly when spacing, a different size, or another keep follows.
-    let mut pending_keep = None;
     let blocks = blocks(story, start, end);
-    for (index, block) in blocks.iter().enumerate() {
+    for block in &blocks {
         let paragraph = doc.styles.resolve_paragraph(if block.style.is_empty() {
             &doc.default_paragraph_style
         } else {
@@ -1569,7 +1528,6 @@ fn fill_column_with_rules(
             paragraph.space_before.unwrap_or(0.0).max(0.0)
         };
         used += gap;
-        let before = lines.len();
         let placed = if block.is_paragraph {
             place_block(
                 source,
@@ -1645,22 +1603,13 @@ fn fill_column_with_rules(
         if cursor < block.end {
             // A partial paragraph owns the rest of this column. Never skip
             // ahead to a smaller paragraph just because it could fit the gap.
-            pending_keep = None;
             break;
-        }
-        if paragraph.keep_with_next.unwrap_or(false) && index + 1 < blocks.len() {
-            pending_keep.get_or_insert((before, block.start));
-        } else {
-            pending_keep = None;
         }
         if cursor < end {
             used += paragraph.space_after.unwrap_or(0.0).max(0.0);
         }
     }
-    if let Some((before, offset)) = pending_keep {
-        lines.truncate(before);
-        cursor = offset;
-    }
+    cursor = keep_flow::enforce(source, start, end, &mut lines, cursor);
     (lines, cursor.max(start))
 }
 
@@ -1932,16 +1881,7 @@ fn place_block(
         });
         top = placed_top + span.height;
     }
-    let mut count = positions.len();
-    if count < all.len() {
-        let keep = paragraph.keep_lines.unwrap_or(1).max(1);
-        if all.len() - count < keep {
-            count = all.len().saturating_sub(keep);
-        }
-        if count < keep {
-            count = 0;
-        }
-    }
+    let mut count = paragraph.keeps.fitting_lines(positions.len(), all.len());
     if cap.as_ref().is_some_and(|cap| {
         count < cap.lines.min(all.len()) || cap.bounds.bottom() > space.top + space.height
     }) {

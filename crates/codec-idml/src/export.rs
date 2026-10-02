@@ -986,6 +986,7 @@ fn styles_xml(
         crate::style_codec::warn_stroke(style.stroke_weight, style.stroke_miter_limit, warnings);
         crate::decoration_codec::warn([&style.underline_style, &style.strike_style], warnings);
         crate::style_codec::warn_leading(style.leading, style.auto_leading, warnings);
+        crate::keep_codec::warn(style, warnings);
         let mut native = style.clone();
         native.language = languages.native(&style.language);
         let resolved = document.styles.resolve_paragraph(&style.name);

@@ -1851,3 +1851,39 @@ warning remains enabled. Balancing support does not imply support for all of its
 other properties or native defaults.
 Legacy Schist snapshots retain their balancing preference. Newly authored
 frames copy the document's explicit creation default (initially false).
+
+
+### Native paragraph keeps
+
+ParagraphStyle and local ParagraphStyleRange properties retain KeepLinesTogether,
+KeepAllLinesTogether, KeepFirstLines, KeepLastLines, numeric KeepWithNext and
+KeepWithPrevious independently. The public corpus includes disabled keeps with
+first/last counts of two and academic body styles using keep-with-previous.
+Absence inherits; explicit false/zero overrides; disabling line keeps retains
+its inactive counts and whole-paragraph choice.
+
+The [public ParagraphStyle DOM](https://developer.adobe.com/indesign/uxp/dom/api/p/paragraph-style/)
+and [public reference manual, Keep Options](https://helpx.adobe.com/pdf/cs6/indesign_reference.pdf)
+describe these policies. The [public ChangeTextPreference DOM](https://developer.adobe.com/indesign/uxp/dom/api/c/change-text-preference/)
+specifies first/last counts of 1–50 and next-line counts of 0–5.
+The composer binds the preceding final line to the requested following lines,
+or the entire following paragraph when shorter. A failed binding moves the
+smallest complete suffix allowed by that paragraph's own widow/whole policy;
+heading chains propagate backwards. Explicit column/frame/page breaks take
+precedence. The pass also covers orientation changes and preserves opening
+initials with their inset body lines. Full native application placement agreement,
+including short following paragraphs, remains unverified. StartParagraph's native
+start-location choices are a separate unsupported attribute.
+
+Older Schist keep_lines/keep_with_next fields remain readable and resolve into
+the typed policy. A Schist.ParagraphKeeps.v1 label retains their exact authored
+representation, only while every emitted native keep property still agrees.
+Malformed or changed native values invalidate the label. Out-of-range authored
+counts produce the existing localized invalid-preference warning, omit that
+native count and retain its original value in the guarded label. Native import
+reports invalid attributes rather than coercing them into valid settings.
+
+Regression coverage checks every available split, independent inheritance and
+explicit resets, disabled/whole/asymmetric policies, next-line counts and previous
+bindings, chains in balanced LTR/RTL columns, mixed orientations, forced breaks,
+opening initials, repeated native saves and stale-label invalidation.

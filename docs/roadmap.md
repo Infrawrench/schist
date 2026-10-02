@@ -28,8 +28,8 @@ The layout engine and IDML open/save work. Design Mode ships dark behind
 with override tracking, layers, frames, links, an ink model, named
 paragraph and character styles, grids and snapping, per-paragraph
 direction and writing mode, and operation-based undo. Composition handles
-justification, column balancing, paragraph spacing, `keep_lines`,
-`keep_with_next`, indents and forced breaks. Integration review found that drop-cap geometry never reached glyph rendering
+justification, column balancing, paragraph spacing, independently inherited
+paragraph keep policies, indents and forced breaks. Integration review found that drop-cap geometry never reached glyph rendering
 and grid leading alone did not align baselines to page guides. Horizontal
 initials now paint their enlarged glyphs once, and measured baselines snap to
 the correct page grid. Vertical composition, native story orientation and paragraph direction now
@@ -310,6 +310,54 @@ are marked.
 
 ## Handoff
 
+Native paragraph keeps, 2026-10-02:
+Spanning whole notes are pushed as `87a34b2f` in draft PR #195. Three regression
+properties first reproduced disabled keeps blocking a single line, native flags
+vanishing on save, and keep-with-previous leaving the preceding line stranded.
+ParagraphKeeps now retains independent enable/all/first/last/next/previous options,
+including inactive values and explicit resets. Legacy symmetric counts/toggles
+remain readable and use guarded native metadata for exact authored round trips.
+Malformed native changes invalidate that metadata; invalid authored counts are
+reported, omitted from native attributes and retained in the guarded label.
+
+Column flow moves the smallest legal complete-line suffix when an adjacent keep
+cannot be met. Backwards validation carries heading chains, and frame validation
+also handles writing-mode changes. The same pass respects whole-paragraph and
+independent widow/orphan limits, opening initials and explicit destination breaks.
+A following paragraph shorter than the requested count is kept in full; native
+application comparison of this edge case remains needed. No source bytes are
+clipped or generated, and layout does not mutate document/history.
+
+The focused tests pass, including all possible split positions, repeated native
+saves, independent inheritance, older snapshots and malformed edits. Added
+balanced-column/RTL/drop-cap checks also pass in the layout suite. The drop-cap
+fixture initially allowed the following line to fit inside its chosen height;
+explicit paragraph spacing now isolates the intended rollback case. All 16 roadmap targets pass with **1,813 distinct Rust tests** (layout 415, IDML
+269), four browser and eight Python audit checks. Workspace clippy, native/app,
+browser/headless, localization, formatting and whitespace checks pass. Full sweep
+logs use `/tmp/schist-keeps-sweep-*`. Shared UI adds five passing tests (one
+existing documentation example ignored), for **1,818 distinct passing Rust tests**.
+The native build passed; `/tmp/schist-keeps-app-build.log` records it.
+The previous isolated development build visibly reproduces all three fixture
+failures: a disabled keep leaves its first frame empty, a whole paragraph splits,
+and numeric keep-with-next moves the whole paragraph and causes terminal overset.
+The QA document was closed unchanged and the app quit before rebuilding.
+The rebuilt bundle was hash checked and signature verified with Design enabled.
+All three cases now paint correctly, and the avoidable terminal overset is gone.
+Native 150 dpi PDF export produces a 578 × 758 pt page with complete text and marks;
+Poppler visual inspection confirms the corrected flow without clipping or overlap.
+Native packaging preserves all six stories and the exact native keep attributes.
+Its manifest records Arial Regular, excludes font files and retains font/style
+warnings. Packaged IDML reopens with the same corrected flow. Both layouts close
+without a save prompt after output/reopen; the QA app was quit. Disposable fixtures,
+PDF/package and render images were removed after verification. Evidence is
+`/tmp/schist-keeps-native-qa.json`. The installed app and public fixtures were untouched.
+
+Next composition work remains split-note continuation: independent note-body
+cursors, continued rules, pending-note overset and trial state through frames,
+columns and balancing, including after main-story EOF. Native StartParagraph
+choices and external application placement agreement remain separate gaps.
+
 Spanning whole footnotes, 2026-10-02:
 Story Editor checkpoint `362c598b` is pushed to draft PR #195. Item 9 now has a
 shared footer for explicitly spanning notes, using the full frame width after
@@ -356,15 +404,15 @@ the QA app was quit. Disposable fixtures, package, PDF and render images were
 removed after verification. Evidence is `/tmp/schist-spanning-native-qa.json`,
 and the build log is `/tmp/schist-spanning-app-build.log`.
 
-Next composition prerequisite: native paragraph keeps. The importer currently
-reduces numeric KeepWithNext to a boolean and applies KeepFirstLines symmetrically,
-without honoring KeepLinesTogether, KeepAllLinesTogether, KeepLastLines or
-KeepWithPrevious. The public corpus has 20 base styles with keeps disabled but
+The next prerequisite identified at the spanning checkpoint was native paragraph
+keeps. At that checkpoint, import reduced numeric KeepWithNext to a boolean and
+applied KeepFirstLines symmetrically, without honoring KeepLinesTogether,
+KeepAllLinesTogether, KeepLastLines or KeepWithPrevious. The public corpus has 20 base styles with keeps disabled but
 first/last counts of two, and the academic body style uses KeepWithPrevious=true.
 The [public ParagraphStyle DOM](https://developer.adobe.com/indesign/uxp/dom/api/p/paragraph-style/)
-and reference manual describe these independent policies. Correct their model,
-inheritance, flow and interchange before extending note splitting; current
-Schist keep-rule tests are not evidence of full native keep-option fidelity.
+and reference manual describe these independent policies. Their model, inheritance,
+flow and interchange are addressed in the new handoff entry above. Earlier Schist
+keep-rule tests alone did not establish native keep-option fidelity.
 
 Story Editor native window QA, 2026-10-02:
 Paragraph balancing is pushed as `e4115390` in draft PR #195. Opening the separate

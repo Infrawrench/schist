@@ -35,6 +35,7 @@ pub mod export;
 mod footnote_codec;
 mod footnote_writer;
 pub mod import;
+mod keep_codec;
 mod language_codec;
 mod list_codec;
 pub mod plugin;

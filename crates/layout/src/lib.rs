@@ -40,6 +40,7 @@ pub mod lists;
 pub mod model;
 pub mod numbering;
 pub mod object_styles;
+pub mod paragraph_keeps;
 pub mod parents;
 pub mod pasteboard;
 pub mod properties;

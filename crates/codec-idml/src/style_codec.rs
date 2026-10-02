@@ -114,6 +114,8 @@ pub(crate) fn paragraph_properties(
     let character = character_properties(element, colors, refs, report);
     let (list, bullet) =
         crate::list_codec::restore(element, crate::list_codec::read(element, refs, report));
+    let (keeps, keep_lines, keep_with_next) =
+        crate::keep_codec::restore(element, crate::keep_codec::read(element, report));
     ParagraphStyle {
         family: character.family,
         font_style: character.font_style,
@@ -150,10 +152,9 @@ pub(crate) fn paragraph_properties(
         first_line_indent: element.number("FirstLineIndent"),
         space_before: element.number("SpaceBefore"),
         space_after: element.number("SpaceAfter"),
-        keep_with_next: element.number("KeepWithNext").map(|v| v > 0.0),
-        keep_lines: element
-            .number("KeepFirstLines")
-            .map(|v| v.max(0.0) as usize),
+        keep_with_next,
+        keep_lines,
+        keeps,
         drop_caps_lines: element.number("DropCapLines").map(|v| v.max(0.0) as usize),
         drop_caps_characters: element
             .number("DropCapCharacters")
@@ -742,8 +743,7 @@ pub fn paragraph_resolved(style: &ParagraphStyle, resolved: (bool, bool)) -> Str
             Align::JustifyAll => "FullyJustified",
         }),
     );
-    optional(&mut out, "KeepWithNext", style.keep_with_next.map(u8::from));
-    optional(&mut out, "KeepFirstLines", style.keep_lines);
+    crate::keep_codec::attributes(&mut out, &crate::keep_codec::native(style));
     optional(&mut out, "DropCapLines", style.drop_caps_lines);
     optional(&mut out, "DropCapCharacters", style.drop_caps_characters);
     optional(
@@ -781,6 +781,7 @@ pub fn paragraph_resolved(style: &ParagraphStyle, resolved: (bool, bool)) -> Str
     writing_mode_label(&mut out, style.writing_mode);
     crate::list_codec::properties(&mut out, &crate::list_codec::native(style));
     crate::list_codec::label(&mut out, style);
+    crate::keep_codec::label(&mut out, style);
     crate::decoration_codec::properties(&mut out, [&style.underline_style, &style.strike_style]);
     crate::opentype_codec::directional_label(&mut out, style.directional_features, &style.features);
     crate::capitalization_codec::label(&mut out, style.all_caps, style.small_caps);
