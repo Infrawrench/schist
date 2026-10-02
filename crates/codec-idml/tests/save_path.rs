@@ -152,6 +152,7 @@ fn a_saved_document_keeps_its_pages_and_its_frames() {
         ranges: Vec::new(),
     });
     let id = document.add_object(schist_layout::PlacedObject {
+        hidden: false,
         appearance: Default::default(),
         id: schist_layout::ObjectId::next(),
         page: 0,
@@ -195,6 +196,7 @@ fn the_codec_reports_what_a_save_could_not_carry() {
     // aid.
     let mut document = schist_layout::blank_a4();
     document.add_object(schist_layout::PlacedObject {
+        hidden: false,
         appearance: Default::default(),
         id: schist_layout::ObjectId::next(),
         page: 0,

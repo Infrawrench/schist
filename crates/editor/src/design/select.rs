@@ -359,6 +359,7 @@ mod tests {
         let story = doc.add_story(Story::from_text("hello", "Body"));
         let id = ObjectId::next();
         doc.add_object(PlacedObject {
+            hidden: false,
             appearance: Default::default(),
             id,
             page: 0,
@@ -458,6 +459,7 @@ mod tests {
         let story = doc.add_story(Story::from_text("front", "Body"));
         let front = ObjectId::next();
         doc.add_object(PlacedObject {
+            hidden: false,
             appearance: Default::default(),
             id: front,
             page: 0,
@@ -536,6 +538,7 @@ mod tests {
         let story = doc.add_story(Story::from_text("", "Body"));
         let id = ObjectId::next();
         doc.add_object(PlacedObject {
+            hidden: false,
             appearance: Default::default(),
             id,
             page: 0,
@@ -573,6 +576,7 @@ mod tests {
         let story = doc.add_story(Story::from_text("far", "Body"));
         let far = ObjectId::next();
         doc.add_object(PlacedObject {
+            hidden: false,
             appearance: Default::default(),
             id: far,
             page: 0,

@@ -310,6 +310,33 @@ are marked.
 
 ## Handoff
 
+Native footnote export and hidden group artwork, 2026-10-02:
+Native-window access recovered on the previous build. The public academic IDML
+now visibly has the correct red title and concise Layers excerpts. Its black
+corner squares exposed group flattening dropping layer membership and visibility.
+Children now inherit the nearest explicit layer and cumulative hidden state;
+object visibility is separate from opacity, preserved in snapshots/native saves,
+and available through compact object eye controls. The academic file retains all
+24 hidden parent shapes without sending them to page artwork.
+
+Text-only typed footnotes now export native containers and ACE 4 body markers.
+Their original XML remains recoverable. UTF-8 anchors, coincident notes, empty
+paragraphs, automatic-direction guards, note-only font combinations and native
+text/style edits are covered. A guard flag reads older retention-only saves while
+allowing native deletion from newer exports to win. Numbering, note-area
+reservation, overflow/splitting and Schist painting remain open. All 16 make targets pass with **1,768 distinct Rust tests** (layout 386, text
+engine 115, editor 419, IDML 259, separation 188), four browser and eight Python
+audit checks. Workspace clippy, app/browser/headless checks, PDF proofs, formatting
+and whitespace pass. Logs/counts are `/tmp/schist-visibility-notes-sweep-*`. The
+native debug build passes (`/tmp/schist-visibility-notes-app-build.log`). The
+isolated Design-enabled Roadmap QA bundle was refreshed, hash checked and signature
+verified. Its academic fixture visibly has the correct red title and no stray
+corner artwork. The new object eye hides the title and one undo restores it to
+the unmodified state. The installed app remains untouched. Stale release `.rlib`, `.rmeta`,
+object and dependency intermediates were removed to reclaim 4.51 GiB; runnable
+release/development apps and source evidence remain intact.
+
+
 Design preview corrections, 2026-10-02:
 The native academic PDF comparison exposed red/blue reversal in Design preview.
 The pinned GPUI RenderImage contract requires BGRA; Design supplied RGBA for

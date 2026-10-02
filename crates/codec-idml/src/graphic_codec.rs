@@ -378,9 +378,10 @@ pub(crate) fn write(
     let paint = crate::object_style_codec::object_attributes(object);
     let state = if *embedded { "Embedded" } else { "Normal" };
     Some(format!(
-        r#"<Rectangle Self="{id}" Name="{name}" ItemLayer="SchistLayer{}" ContentType="GraphicType" Locked="{}" ItemTransform="{}"{paint}><Properties>{geometry}<Label><KeyValuePair Key="{LABEL}" Value="{metadata}" /></Label></Properties><Image Self="{id}image" ActualPpi="{dpi} {dpi}" ItemTransform="{inner}"><Properties><GraphicBounds Left="0" Top="0" Right="{}" Bottom="{}" />{contents}</Properties><Link Self="{id}link" LinkResourceURI="{}" StoredState="{state}" /></Image>{opacity}</Rectangle>"#,
+        r#"<Rectangle Self="{id}" Name="{name}" ItemLayer="SchistLayer{}" ContentType="GraphicType" Locked="{}" Visible="{}" ItemTransform="{}"{paint}><Properties>{geometry}<Label><KeyValuePair Key="{LABEL}" Value="{metadata}" /></Label></Properties><Image Self="{id}image" ActualPpi="{dpi} {dpi}" ItemTransform="{inner}"><Properties><GraphicBounds Left="0" Top="0" Right="{}" Bottom="{}" />{contents}</Properties><Link Self="{id}link" LinkResourceURI="{}" StoredState="{state}" /></Image>{opacity}</Rectangle>"#,
         layer.0,
         object.locked,
+        !object.hidden,
         crate::export::item_transform(object),
         number(source_width),
         number(source_height),

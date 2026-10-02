@@ -169,8 +169,18 @@ fn published_note_body_and_only_note_style_changes_keep_the_retention_guard_hone
         });
         let read = import::read(&bytes).unwrap();
         assert_eq!(read.document.stories[0].text(), "AéB");
-        assert_eq!(read.document.stories[0].structures[0].at, None);
-        assert_eq!(read.document.stories[0].structures[0].payload, payload);
+        let structures = &read.document.stories[0].structures;
+        let native = structures.iter().find(|s| s.at == Some(3)).unwrap();
+        let note = native.footnote.as_ref().unwrap();
+        if paragraph {
+            assert!(note.story.points.iter().any(|p| matches!(p,
+                schist_layout::StoryPoint::Paragraph { style, .. } if style == "External name")));
+        } else {
+            assert_eq!(note.markers[0].character_style, "External name");
+        }
+        assert!(structures
+            .iter()
+            .any(|s| s.at.is_none() && s.payload == payload));
         assert!(read
             .report
             .skipped
@@ -197,6 +207,214 @@ fn rewrite(bytes: &[u8], mut edit: impl FnMut(&str, String) -> String) -> Vec<u8
             })
             .collect::<Vec<_>>(),
     )
+}
+
+fn without_retention(bytes: &[u8]) -> Vec<u8> {
+    rewrite(bytes, |_, mut xml| {
+        while let Some(key) = xml.find("Key=\"Schist.StructuredStory.v1\"") {
+            let start = xml[..key].rfind("<KeyValuePair").unwrap();
+            let end = key + xml[key..].find("/>").unwrap() + 2;
+            xml.replace_range(start..end, "");
+        }
+        xml
+    })
+}
+
+#[test]
+fn native_note_export_needs_no_private_record_at_any_utf8_or_paragraph_boundary() {
+    use schist_layout::{Story, StyleRange};
+    let payload = r#"<Footnote><ParagraphStyleRange AppliedParagraphStyle="ParagraphStyle/$ID/Note body"><CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/Note marker"><Content><?ACE 4?>é &amp; 中</Content><Br/><Content>5 literal</Content></CharacterStyleRange></ParagraphStyleRange></Footnote>"#;
+    let base = import::read(&native_note(payload)).unwrap().document;
+    for main in ["", "Aé中", "A\n\n中", "a\tb\nc"] {
+        for at in main.char_indices().map(|(i, _)| i).chain([main.len()]) {
+            let mut doc = base.clone();
+            let mut story = Story::from_text(main, "Body");
+            story.ranges = main
+                .char_indices()
+                .map(|(start, c)| StyleRange::new(start, start + c.len_utf8(), "Note marker"))
+                .collect();
+            let mut structure = base.stories[0].structures[0].clone();
+            structure.at = Some(at);
+            // Two notes at the same insertion point retain their source order.
+            for suffix in ["first", "second"] {
+                let mut s = structure.clone();
+                s.footnote
+                    .as_mut()
+                    .unwrap()
+                    .story
+                    .push_paragraph(suffix, "Note body");
+                story.structures.push(s);
+            }
+            doc.stories[0] = story;
+            let expected = doc.stories[0].clone();
+            let style_count = (doc.styles.paragraphs.len(), doc.styles.characters.len());
+            for _ in 0..4 {
+                let saved = export::write(&doc);
+                let package = container::read(&saved.bytes).unwrap();
+                let root = xml::parse(
+                    package
+                        .names()
+                        .into_iter()
+                        .find_map(|name| {
+                            name.starts_with("Stories/")
+                                .then(|| package.text(name).unwrap())
+                        })
+                        .unwrap(),
+                )
+                .unwrap();
+                assert_eq!(root.find_all("Footnote").len(), 2);
+                let native = import::read(&without_retention(&saved.bytes))
+                    .unwrap()
+                    .document;
+                assert_eq!(native.stories[0].text(), main);
+                assert_eq!(native.stories[0].structures.len(), 2);
+                for (actual, expected) in native.stories[0]
+                    .structures
+                    .iter()
+                    .zip(&expected.structures)
+                {
+                    assert_eq!(actual.at, Some(at));
+                    let actual = actual.footnote.as_ref().unwrap();
+                    let expected = expected.footnote.as_ref().unwrap();
+                    assert_eq!(actual.story, expected.story);
+                    assert_eq!(actual.markers, expected.markers);
+                    assert_eq!(
+                        actual.reference_character_style,
+                        expected.reference_character_style
+                    );
+                }
+                doc = import::read(&saved.bytes).unwrap().document;
+                assert_eq!(doc.stories[0], expected);
+                assert_eq!(
+                    (doc.styles.paragraphs.len(), doc.styles.characters.len()),
+                    style_count
+                );
+            }
+        }
+    }
+}
+
+#[test]
+fn native_note_edits_supersede_stale_retention_and_unknown_anchors_are_never_guessed() {
+    let payload = r#"<Footnote><ParagraphStyleRange AppliedParagraphStyle="ParagraphStyle/$ID/Note body"><CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/Note marker"><Content><?ACE 4?>original note</Content></CharacterStyleRange></ParagraphStyleRange></Footnote>"#;
+    let doc = import::read(&native_note(payload)).unwrap().document;
+    let saved = export::write(&doc).bytes;
+    let edited = rewrite(&saved, |name, xml| {
+        if name.starts_with("Stories/") {
+            xml.replace(
+                "<Content>original note</Content>",
+                "<Content>changed native note</Content>",
+            )
+        } else {
+            xml
+        }
+    });
+    let read = import::read(&edited).unwrap();
+    let notes = &read.document.stories[0].structures;
+    let current = notes.iter().find(|s| s.at == Some(3)).unwrap();
+    assert_eq!(
+        current.footnote.as_ref().unwrap().story.text(),
+        "changed native note"
+    );
+    assert!(notes.iter().any(|s| s.at.is_none() && s.payload == payload));
+    for at in [None, Some(2), Some(999)] {
+        let mut doc = doc.clone();
+        doc.stories[0].structures[0].at = at;
+        let bytes = export::write(&doc).bytes;
+        let package = container::read(&bytes).unwrap();
+        for name in package
+            .names()
+            .into_iter()
+            .filter(|n| n.starts_with("Stories/"))
+        {
+            assert!(!package.text(name).unwrap().contains("<Footnote>"));
+        }
+    }
+}
+
+#[test]
+fn note_only_inherited_font_faces_join_native_resources_and_package_inventory() {
+    let payload = r#"<Footnote><ParagraphStyleRange AppliedParagraphStyle="ParagraphStyle/$ID/Note body"><CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/Note marker"><Content><?ACE 4?>body</Content></CharacterStyleRange></ParagraphStyleRange></Footnote>"#;
+    let mut doc = import::read(&native_note(payload)).unwrap().document;
+    doc.styles
+        .paragraphs
+        .iter_mut()
+        .find(|s| s.name == "Note body")
+        .unwrap()
+        .family = Some("Note only font".into());
+    let character = doc
+        .styles
+        .characters
+        .iter_mut()
+        .find(|s| s.name == "Note marker")
+        .unwrap();
+    character.family = None;
+    character.font_style = Some("Light".into());
+    let saved = export::write(&doc);
+    let package = container::read(&saved.bytes).unwrap();
+    let fonts = xml::parse(package.text("Resources/Fonts.xml").unwrap()).unwrap();
+    assert!(fonts
+        .find_all("Font")
+        .iter()
+        .any(|f| f.attr("FontFamily") == Some("Note only font")
+            && f.attr("FontStyleName") == Some("Light")));
+}
+
+#[test]
+fn legacy_retention_loads_but_native_note_deletion_never_resurrects_an_anchor() {
+    let payload = r#"<Footnote><ParagraphStyleRange AppliedParagraphStyle="ParagraphStyle/$ID/Note body"><CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/Note marker"><Content><?ACE 4?>body</Content></CharacterStyleRange></ParagraphStyleRange></Footnote>"#;
+    let doc = import::read(&native_note(payload)).unwrap().document;
+    let mut legacy = doc.clone();
+    legacy.stories[0].structures[0].footnote = None;
+    let old = rewrite(&export::write(&legacy).bytes, |name, xml| {
+        if !name.starts_with("Stories/") {
+            return xml;
+        }
+        let tree = xml::parse(&xml).unwrap();
+        let json = tree
+            .find_all("KeyValuePair")
+            .into_iter()
+            .find(|e| e.attr("Key") == Some("Schist.StructuredStory.v1"))
+            .unwrap()
+            .attr("Value")
+            .unwrap();
+        let mut record: serde_json::Value = serde_json::from_str(json).unwrap();
+        record.as_object_mut().unwrap().remove("native_footnotes");
+        record["story"] = serde_json::to_value(&doc.stories[0]).unwrap();
+        let escaped = |text: &str| {
+            text.replace('&', "&amp;")
+                .replace('<', "&lt;")
+                .replace('>', "&gt;")
+                .replace('"', "&quot;")
+                .replace('\'', "&apos;")
+        };
+        xml.replace(&escaped(json), &escaped(&record.to_string()))
+    });
+    let read = import::read(&old).unwrap();
+    assert_eq!(read.document.stories, doc.stories);
+    assert!(!read
+        .report
+        .skipped
+        .contains(&schist_i18n::t("design.idml_structure_location").to_string()));
+
+    let deleted = rewrite(&export::write(&doc).bytes, |name, mut xml| {
+        if name.starts_with("Stories/") {
+            let start = xml.find("<Footnote>").unwrap();
+            let end = xml.find("</Footnote>").unwrap() + "</Footnote>".len();
+            xml.replace_range(start..end, "");
+        }
+        xml
+    });
+    let mut deleted = import::read(&deleted).unwrap().document;
+    for _ in 0..4 {
+        assert_eq!(deleted.stories[0].text(), "AéB");
+        assert_eq!(deleted.stories[0].structures.len(), 1);
+        assert_eq!(deleted.stories[0].structures[0].at, None);
+        assert_eq!(deleted.stories[0].structures[0].payload, payload);
+        deleted = import::read(&export::write(&deleted).bytes)
+            .unwrap()
+            .document;
+    }
 }
 fn preferences(fragment: &str) -> Vec<u8> {
     rewrite(&export::write(&blank_a4()).bytes, |name, xml| {

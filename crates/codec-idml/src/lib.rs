@@ -33,6 +33,7 @@ pub mod designmap;
 pub mod error;
 pub mod export;
 mod footnote_codec;
+mod footnote_writer;
 pub mod import;
 mod language_codec;
 mod list_codec;

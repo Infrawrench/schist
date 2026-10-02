@@ -699,6 +699,7 @@ mod tests {
             .document
             .add_story(schist_layout::Story::from_text("hi", "Body"));
         let id = state.document.add_object(schist_layout::PlacedObject {
+            hidden: false,
             appearance: Default::default(),
             id: ObjectId::next(),
             page: 0,
@@ -721,6 +722,7 @@ mod tests {
         // A text frame has a story and a shape does not.
         assert!(state.story_of(id).is_some());
         let shape = state.document.add_object(schist_layout::PlacedObject {
+            hidden: false,
             appearance: Default::default(),
             id: ObjectId::next(),
             page: 0,
@@ -747,6 +749,7 @@ mod tests {
             .document
             .add_story(schist_layout::Story::from_text("hi", "Body"));
         state.document.add_object(schist_layout::PlacedObject {
+            hidden: false,
             appearance: Default::default(),
             id: ObjectId::next(),
             page: 0,

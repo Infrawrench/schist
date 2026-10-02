@@ -273,6 +273,10 @@ impl LayoutObject {
 /// same object without duplicating its position.
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct PlacedObject {
+    /// Object visibility is independent of its layer and opacity. Hidden
+    /// frames still participate in their story's thread, but paint no artwork.
+    #[serde(default)]
+    pub hidden: bool,
     #[serde(default)]
     pub appearance: crate::object_styles::ObjectAppearance,
     pub id: ObjectId,
@@ -716,7 +720,7 @@ impl LayoutDocument {
                 .filter(|o| o.page == page)
                 .map(std::borrow::Cow::Borrowed),
         );
-        out.retain(|o| self.layer_visible(self.object_layer(o.id)));
+        out.retain(|o| !o.hidden && self.layer_visible(self.object_layer(o.id)));
         // Stable sorting preserves each layer's own object order.
         let order = self.paint_order();
         out.sort_by_key(|o| order[&o.id]);
@@ -1094,6 +1098,7 @@ mod tests {
 
     fn text_frame(page: usize, rect: Rect) -> PlacedObject {
         PlacedObject {
+            hidden: false,
             appearance: Default::default(),
             id: ObjectId::next(),
             page,

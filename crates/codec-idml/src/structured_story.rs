@@ -17,6 +17,10 @@ const LABEL: &str = "Schist.StructuredStory.v1";
 struct Record {
     native: String,
     story: Story,
+    /// Older v1 records emitted only main-story text. Keep their guard exact
+    /// without resurrecting a footnote deleted from a newer native export.
+    #[serde(default)]
+    native_footnotes: bool,
 }
 
 pub(crate) fn retain(
@@ -35,6 +39,7 @@ pub(crate) fn retain(
     let record = Record {
         native: id.into(),
         story: story.clone(),
+        native_footnotes: true,
     };
     let value = export::escape(&serde_json::to_string(&record).expect("story metadata"));
     let entry = format!(r#"<KeyValuePair Key="{LABEL}" Value="{value}"/>"#);
@@ -164,7 +169,18 @@ fn agrees(native: &Element, record: &Record, styles: &StyleSet, refs: &Reference
             return false;
         }
     }
-    let expected = export::story_native_xml(&record.native, &record.story, styles, &mut Vec::new());
+    let mut legacy;
+    let expected_story = if record.native_footnotes {
+        &record.story
+    } else {
+        legacy = record.story.clone();
+        for structure in &mut legacy.structures {
+            structure.footnote = None;
+        }
+        &legacy
+    };
+    let expected =
+        export::story_native_xml(&record.native, expected_story, styles, &mut Vec::new());
     let Ok(root) = xml::parse(&expected) else {
         return false;
     };

@@ -466,9 +466,10 @@ fn object_native_xml(
     let id = object_id(object.id);
     let rect = object.bounds;
     let transform = format!(
-        r#"ItemLayer="SchistLayer{}" ItemTransform="{}""#,
+        r#"ItemLayer="SchistLayer{}" ItemTransform="{}" Visible="{}""#,
         layer.0,
-        item_transform(object)
+        item_transform(object),
+        !object.hidden
     );
     let geometry = object
         .appearance
@@ -815,6 +816,20 @@ pub(crate) fn story_native_xml(
         r#"<StoryPreference OpticalMarginAlignment="false" OpticalMarginSize="0" FrameType="TextFrameType" StoryOrientation="{orientation}" StoryDirection="{direction}" />"#,
     ));
 
+    out.push_str(&story_native_body(story, &[], styles, warnings));
+    out.push_str("</Story></idPkg:Story>");
+    out
+}
+
+pub(crate) fn story_native_body(
+    story: &Story,
+    markers: &[schist_layout::footnotes::FootnoteMarker],
+    styles: &schist_layout::StyleSet,
+    warnings: &mut Vec<String>,
+) -> String {
+    let mut out = String::new();
+    let automatic = crate::auto_direction::lower(story, styles);
+    let mut inline = crate::footnote_writer::events(story, markers, styles, warnings);
     let offsets = story.point_offsets();
     let mut range_index = 0;
     for (index, point) in story.points.iter().enumerate() {
@@ -834,24 +849,14 @@ pub(crate) fn story_native_xml(
                     story.points.get(index + 1),
                     Some(StoryPoint::Paragraph { .. } | StoryPoint::LineBreak)
                 );
-                for (run_index, (start, end, style)) in runs.iter().enumerate() {
-                    out.push_str(&format!(
-                        r#"<CharacterStyleRange AppliedCharacterStyle="{}">"#,
-                        character_reference(style)
-                    ));
-                    if start < end {
-                        // LF inside Content is a soft break; Br outside it
-                        // is a paragraph break. Never interchange the two.
-                        out.push_str(&format!(
-                            "<Content>{}</Content>",
-                            escape(&text[*start..*end]).replace('\n', "&#10;")
-                        ));
-                    }
-                    if paragraph_end && run_index + 1 == runs.len() {
-                        out.push_str("<Br/>");
-                    }
-                    out.push_str("</CharacterStyleRange>");
-                }
+                crate::footnote_writer::paragraph_runs(
+                    &mut out,
+                    &runs,
+                    text,
+                    offset,
+                    &mut inline,
+                    paragraph_end,
+                );
                 out.push_str("</ParagraphStyleRange>");
             }
             StoryPoint::ColumnBreak | StoryPoint::PageBreak | StoryPoint::FrameBreak => {
@@ -872,7 +877,6 @@ pub(crate) fn story_native_xml(
             range_index += 1;
         }
     }
-    out.push_str("</Story></idPkg:Story>");
     out
 }
 
@@ -1068,7 +1072,14 @@ pub(crate) fn font_inventory(
         let r = document.styles.resolve_character(&style.name);
         add(r.family, r.font_style, r.bold, r.italic);
     }
-    for story in &document.stories {
+    for story in document.stories.iter().flat_map(|story| {
+        std::iter::once(story).chain(
+            story
+                .structures
+                .iter()
+                .filter_map(|s| s.footnote.as_ref().map(|note| &note.story)),
+        )
+    }) {
         let markers = schist_layout::list_composition::MarkerPlans::new(document, story);
         for (point, start) in story.points.iter().zip(story.point_offsets()) {
             let schist_layout::StoryPoint::Paragraph { text, style } = point else {
@@ -1158,7 +1169,7 @@ fn paragraph_reference(name: &str) -> String {
     format!("ParagraphStyle/$ID/{}", escape(name))
 }
 
-fn character_reference(name: &str) -> String {
+pub(crate) fn character_reference(name: &str) -> String {
     format!("CharacterStyle/$ID/{}", escape(name))
 }
 

@@ -327,16 +327,20 @@ fn read_spread(
     }
 
     // Items hang off the spread, after the pages.
-    for (child, parent, locked, opacity) in
-        page_items(spread, Transform::default(), false, 1.0, report)
-    {
-        let Some(mut placed) =
-            placed_object(child, stories, parent, colors, report, &mut document.assets)
-        else {
+    for (child, context) in page_items(spread, ItemContext::default(), report) {
+        let Some(mut placed) = placed_object(
+            child,
+            stories,
+            context.transform,
+            colors,
+            report,
+            &mut document.assets,
+        ) else {
             continue;
         };
-        placed.locked |= locked;
-        placed.transparency *= opacity;
+        placed.locked |= context.locked;
+        placed.hidden |= context.hidden;
+        placed.transparency *= context.opacity;
         let center = Coordinate::new(
             placed.visual_bounds().x + placed.visual_bounds().width / 2.0,
             placed.visual_bounds().y + placed.visual_bounds().height / 2.0,
@@ -368,7 +372,12 @@ fn read_spread(
                 object: id,
             });
         }
-        on_layer(document, id, child.attr("ItemLayer"), layers);
+        on_layer(
+            document,
+            id,
+            child.attr("ItemLayer").or(context.layer),
+            layers,
+        );
     }
 
     // Native page elements follow reading order. The pasteboard stores
@@ -581,6 +590,7 @@ fn placed_object(
     bounds.x = origin.x;
     bounds.y = origin.y;
     let mut placed = PlacedObject {
+        hidden: element.attr("Visible") == Some("false"),
         appearance: Default::default(),
         id: ObjectId::next(),
         page: 0,
@@ -718,31 +728,55 @@ fn bounds_of(element: &Element, transform: Transform) -> Option<Rect> {
     }))
 }
 
-/// Groups are flattened explicitly; child geometry, locking and opacity
-/// survive. Group editing semantics are reported as unsupported.
+#[derive(Clone, Copy)]
+struct ItemContext<'a> {
+    transform: Transform,
+    locked: bool,
+    hidden: bool,
+    opacity: f32,
+    layer: Option<&'a str>,
+}
+
+impl Default for ItemContext<'_> {
+    fn default() -> Self {
+        Self {
+            transform: Transform::default(),
+            locked: false,
+            hidden: false,
+            opacity: 1.0,
+            layer: None,
+        }
+    }
+}
+
+/// Groups are flattened explicitly. Children retain the nearest explicit
+/// layer and the cumulative geometry, visibility, locking and opacity.
+/// Group editing semantics are still reported as unsupported.
 fn page_items<'a>(
     root: &'a Element,
-    parent: Transform,
-    locked: bool,
-    opacity: f32,
+    context: ItemContext<'a>,
     report: &mut Report,
-) -> Vec<(&'a Element, Transform, bool, f32)> {
+) -> Vec<(&'a Element, ItemContext<'a>)> {
     let mut out = Vec::new();
     for child in &root.children {
         if child.name == "Group" {
             report.skip(schist_i18n::t("design.idml_group_flattened"));
             out.extend(page_items(
                 child,
-                transform(child.attr("ItemTransform")).then(parent),
-                locked || child.attr("Locked") == Some("true"),
-                opacity * crate::color_codec::opacity(child),
+                ItemContext {
+                    transform: transform(child.attr("ItemTransform")).then(context.transform),
+                    locked: context.locked || child.attr("Locked") == Some("true"),
+                    hidden: context.hidden || child.attr("Visible") == Some("false"),
+                    opacity: context.opacity * crate::color_codec::opacity(child),
+                    layer: child.attr("ItemLayer").or(context.layer),
+                },
                 report,
             ));
         } else if !matches!(
             child.name.as_str(),
             "Page" | "Properties" | "TransparencySetting" | "FlattenerPreference"
         ) {
-            out.push((child, parent, locked, opacity));
+            out.push((child, context));
         }
     }
     out
@@ -815,14 +849,18 @@ fn read_master_spreads(
         let mut object_refs = Vec::new();
         let mut frames = Vec::new();
         let mut objects = Vec::new();
-        for (child, parent, locked, opacity) in
-            page_items(master, Transform::default(), false, 1.0, report)
-        {
-            if let Some(mut placed) =
-                placed_object(child, stories, parent, colors, report, &mut document.assets)
-            {
-                placed.locked |= locked;
-                placed.transparency *= opacity;
+        for (child, context) in page_items(master, ItemContext::default(), report) {
+            if let Some(mut placed) = placed_object(
+                child,
+                stories,
+                context.transform,
+                colors,
+                report,
+                &mut document.assets,
+            ) {
+                placed.locked |= context.locked;
+                placed.hidden |= context.hidden;
+                placed.transparency *= context.opacity;
                 let id = placed.id;
                 let owner = nearest_sheet(&sheets, placed.visual_bounds().center());
                 let origin = sheets.get(owner).map(|s| s.origin).unwrap_or_default();
@@ -848,7 +886,12 @@ fn read_master_spreads(
                     object: placed,
                     overridden_on: Vec::new(),
                 });
-                on_layer(document, id, child.attr("ItemLayer"), layers);
+                on_layer(
+                    document,
+                    id,
+                    child.attr("ItemLayer").or(context.layer),
+                    layers,
+                );
             }
         }
         ids.push(MasterReference {

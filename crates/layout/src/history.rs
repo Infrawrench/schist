@@ -171,6 +171,8 @@ pub struct SpreadSnapshot {
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct ObjectSnapshot {
     #[serde(default)]
+    pub hidden: bool,
+    #[serde(default)]
     pub appearance: Box<crate::object_styles::ObjectAppearance>,
     pub id: u32,
     pub page: usize,
@@ -401,6 +403,7 @@ mod tests {
 
     fn object(id: u32, name: &str) -> ObjectSnapshot {
         ObjectSnapshot {
+            hidden: false,
             appearance: Default::default(),
             id,
             page: 0,

@@ -888,6 +888,7 @@ mod tests {
     fn an_empty_frame_coverage_matches_the_frame() {
         let page = schist_layout::Page::a4();
         let placed = PlacedObject {
+            hidden: false,
             appearance: Default::default(),
             id: ObjectId::next(),
             page: 0,

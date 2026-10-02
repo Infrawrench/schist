@@ -54,6 +54,7 @@ pub fn text_frame(
     let story = StoryId(document.stories.len() as u32);
     let id = ObjectId::next();
     let placed = PlacedObject {
+        hidden: false,
         appearance: Default::default(),
         id,
         page,
@@ -189,6 +190,7 @@ pub fn path_shape(
         schist_i18n::t("common.path")
     };
     let placed = PlacedObject {
+        hidden: false,
         appearance: Default::default(),
         id: ObjectId::next(),
         page,
@@ -286,6 +288,7 @@ pub fn shape(
     let (width, height) = (bounds.width, bounds.height);
     let path = path_for(kind, width, height);
     let placed = PlacedObject {
+        hidden: false,
         appearance: Default::default(),
         id: ObjectId::next(),
         page,
@@ -395,6 +398,7 @@ pub fn graphic_frame_with_link(
     embedded: bool,
 ) -> Option<ObjectId> {
     let placed = PlacedObject {
+        hidden: false,
         appearance: Default::default(),
         id: ObjectId::next(),
         page,
@@ -502,6 +506,7 @@ pub fn duplicate(
     };
 
     let placed = PlacedObject {
+        hidden: false,
         appearance: original.appearance.clone(),
         id: ObjectId::next(),
         page: original.page,

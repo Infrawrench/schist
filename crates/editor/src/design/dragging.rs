@@ -306,6 +306,7 @@ mod tests {
         let story = doc.add_story(Story::from_text("hello", "Body"));
         let id = ObjectId::next();
         doc.add_object(PlacedObject {
+            hidden: false,
             appearance: Default::default(),
             id,
             page: 0,

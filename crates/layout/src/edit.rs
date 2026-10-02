@@ -609,6 +609,7 @@ fn object_from(snapshot: &ObjectSnapshot, doc: &LayoutDocument) -> Option<Placed
     let object: LayoutObject = serde_json::from_value(snapshot.payload.clone()).ok()?;
     let _ = doc;
     Some(PlacedObject {
+        hidden: snapshot.hidden,
         appearance: snapshot.appearance.as_ref().clone(),
         id: ObjectId(snapshot.id),
         page: snapshot.page,
@@ -631,6 +632,7 @@ fn object_from(snapshot: &ObjectSnapshot, doc: &LayoutDocument) -> Option<Placed
 /// Snapshot an object.
 pub fn snapshot_object(object: &PlacedObject) -> ObjectSnapshot {
     ObjectSnapshot {
+        hidden: object.hidden,
         appearance: Box::new(object.appearance.clone()),
         id: object.id.0,
         page: object.page,

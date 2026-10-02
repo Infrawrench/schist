@@ -1697,8 +1697,8 @@ placement instead of silently restoring the old style name.
 Properties cover every UTF-8 marker boundary, entity decoding, paragraph offsets,
 literal number text, local styles without repeated-save growth, native-only style
 changes, opaque fallbacks, the public two-paragraph note and one-step undo across
-multiple notes. This is source lowering and Schist interchange, not native note
-export or composition. Marker numbering/paint, note-area reservation, overflow,
+multiple notes. Native text-only note export is described below. Marker
+numbering/paint, note-area reservation, overflow,
 splitting and external application agreement remain open.
 
 
@@ -1710,3 +1710,39 @@ source structure; it does not establish full font/layout parity. PDF SHA-256 is
 `b55beedb63512910077d37a46bfaa015f0c4801265701ad73aaa7bbdac43a58e`.
 Observation metadata and extracted coordinates are in
 `/tmp/schist-psu-footnote-reference.json`; no proprietary binary was read.
+
+
+### Native text-only footnote export and hidden group artwork
+
+Text-only typed bodies now write native `Footnote` containers inside their own
+`CharacterStyleRange`, with `ParagraphStyleRange` bodies and zero-width
+`<?ACE 4?>` instructions. This follows public schema example 85 / IDML example
+54 and the public academic fixture; original raw XML is retained separately,
+never copied into a package with stale resource references. Export splits source
+runs at UTF-8 anchors, including empty paragraphs, terminal markers and multiple
+notes at one position. Literal digits remain literal text. Unsupported bodies
+and unknown or invalid anchor positions remain retention-only and diagnosed.
+
+Automatic paragraph-direction guards exclude the independent text and breaks
+inside structured containers; notes carry their own standard direction Labels.
+Native notes remain readable after the Schist structure record is removed. Used
+note-body font/face combinations join the shared native/package font inventory.
+Repeated saves preserve exact original payloads without style growth. External
+note text/style changes take precedence; old payloads remain recoverable with
+unknown locations. A versioned guard flag recognizes earlier records that wrote
+no native note body, without reviving a note deleted from a newer native export.
+This establishes public-XML interchange, not native application or layout parity.
+Schist note numbering, reserved areas, splitting and paint remain outstanding.
+
+Native visual inspection of the academic fixture also found black corner squares
+that are absent from its supplied PDF. The XML places those rectangles inside
+visible groups on hidden Layer 3; magenta rectangles belong to hidden groups on
+visible Layer 1. Flattening previously discarded the group layer and visibility.
+Children now retain the nearest explicit layer and cumulative hidden state, along
+with the already supported affine, locking and opacity. All 24 parent shapes
+remain recoverable; none reaches page artwork while hidden. An object's hidden
+flag is independent of opacity and layer visibility, survives snapshots and native
+`Visible` attributes, and does not remove a hidden text frame from its story flow.
+The compact Layers tree exposes an eye control with one-step undo. Nested-group,
+ordinary/parent, repeated-save and legacy-serialization properties cover the rule.
+Group editing semantics remain unsupported and explicitly reported.

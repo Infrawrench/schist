@@ -1236,6 +1236,7 @@ mod tests {
             "Body",
         ));
         doc.add_object(PlacedObject {
+            hidden: false,
             appearance: Default::default(),
             id: ObjectId::next(),
             page: 0,
@@ -1280,6 +1281,7 @@ mod tests {
         let mut doc = blank_a4();
         let story = doc.add_story(Story::from_text("", "Body"));
         doc.add_object(PlacedObject {
+            hidden: false,
             appearance: Default::default(),
             id: ObjectId::next(),
             page: 0,
@@ -1312,6 +1314,7 @@ mod tests {
         let mut link = Link::new("/photos/wedding/portrait.psd");
         link.present = false;
         doc.add_object(PlacedObject {
+            hidden: false,
             appearance: Default::default(),
             id: ObjectId::next(),
             page: 0,
@@ -1422,6 +1425,7 @@ mod tests {
             closed: true,
         });
         doc.add_object(PlacedObject {
+            hidden: false,
             appearance: Default::default(),
             id: ObjectId::next(),
             page: 0,
@@ -1462,6 +1466,7 @@ mod tests {
     fn a_parent_page_contributes_a_dashed_frame() {
         let mut doc = blank_a4();
         doc.add_object(PlacedObject {
+            hidden: false,
             appearance: Default::default(),
             id: ObjectId::next(),
             page: 0,
@@ -1489,6 +1494,7 @@ mod tests {
             based_on: None,
             objects: vec![crate::model::ParentObject {
                 object: PlacedObject {
+                    hidden: false,
                     appearance: Default::default(),
                     id: ObjectId::next(),
                     page: 0,

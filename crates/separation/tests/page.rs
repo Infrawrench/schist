@@ -127,6 +127,7 @@ fn square(size: f32) -> schist_layout::ShapePath {
 
 fn shape_at(page: usize, bounds: Rect, fill: Option<Ink>, overprint: bool) -> PlacedObject {
     PlacedObject {
+        hidden: false,
         appearance: Default::default(),
         id: ObjectId::next(),
         page,
@@ -349,6 +350,7 @@ fn text_puts_ink_where_the_glyphs_are() {
         "Body",
     ));
     doc.add_object(PlacedObject {
+        hidden: false,
         appearance: Default::default(),
         id: ObjectId::next(),
         page: 0,
@@ -388,6 +390,7 @@ fn a_fully_knocked_out_frame_leaves_no_ink() {
     let mut doc = doc_with(vec![Ink::black()], Page::a4());
     let story = doc.add_story(Story::from_text("Invisible.", "Body"));
     let mut placed = PlacedObject {
+        hidden: false,
         appearance: Default::default(),
         id: ObjectId::next(),
         page: 0,
@@ -420,6 +423,7 @@ fn a_fully_knocked_out_frame_leaves_no_ink() {
 fn a_placed_graphic_separates_onto_its_own_channels() {
     let mut doc = doc_with(vec![Ink::black()], Page::a4());
     doc.add_object(PlacedObject {
+        hidden: false,
         appearance: Default::default(),
         id: ObjectId::next(),
         page: 0,
@@ -457,6 +461,7 @@ fn a_missing_link_is_reported_rather_than_silently_dropped() {
     let mut link = Link::new("/nonexistent/photo.psd");
     link.present = false;
     doc.add_object(PlacedObject {
+        hidden: false,
         appearance: Default::default(),
         id: ObjectId::next(),
         page: 0,
@@ -494,6 +499,7 @@ fn an_embedded_link_is_not_treated_as_missing() {
     let mut link = Link::new("/nonexistent/photo.psd");
     link.present = false;
     doc.add_object(PlacedObject {
+        hidden: false,
         appearance: Default::default(),
         id: ObjectId::next(),
         page: 0,
@@ -532,6 +538,7 @@ fn unresolved_graphics_never_pass_preflight_in_either_separation_path() {
             let mut link = Link::new("unavailable.psd");
             link.present = present;
             doc.add_object(PlacedObject {
+                hidden: false,
                 appearance: Default::default(),
                 id: ObjectId::next(),
                 page: 0,
@@ -782,6 +789,7 @@ fn composition_and_separation_agree_on_where_the_text_is() {
     ));
     let bounds = Rect::new(mm(20.0), mm(20.0), mm(170.0), mm(100.0));
     doc.add_object(PlacedObject {
+        hidden: false,
         appearance: Default::default(),
         id: ObjectId::next(),
         page: 0,

@@ -34,6 +34,7 @@ fn visit(
             if name != "Footnote" || !text_only_footnote(element) {
                 return;
             }
+            crate::auto_direction::restore(element, styles, refs);
         }
         "ParagraphStyleRange" => {
             let base = refs.paragraph(element.attr("AppliedParagraphStyle").unwrap_or_default());

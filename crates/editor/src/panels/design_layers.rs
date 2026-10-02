@@ -285,6 +285,7 @@ pub(super) fn design_layers_panel(
             let label = object_label(document, object);
             let selected = ws.design.selection.contains(&object_id);
             let object_locked = object.locked;
+            let hidden = object.hidden;
             let icon = match object.object {
                 LayoutObject::TextFrame { .. } => "type",
                 LayoutObject::GraphicFrame { .. } => "frame",
@@ -305,7 +306,6 @@ pub(super) fn design_layers_panel(
                     .items_center()
                     .h(px(25.0))
                     .min_w_0()
-                    .pl(px(22.0))
                     .pr_2()
                     .gap_1()
                     .when(selected, |s| s.bg(gpui::rgb(palette().selection_bg)))
@@ -316,6 +316,40 @@ pub(super) fn design_layers_panel(
                             s.bg(gpui::rgb(palette().hover))
                         }
                     })
+                    .child(
+                        IconButton::new(
+                            ("layout-object-visible", object_id.0),
+                            if hidden { "eye-off" } else { "eye" },
+                        )
+                        .size(22.0)
+                        .icon_size(12.0)
+                        .consume_press()
+                        .disabled(object_locked || locked)
+                        .color(if hidden || !visible {
+                            palette().text_faint
+                        } else {
+                            palette().text_dim
+                        })
+                        .tooltip(t(if hidden { "design.show" } else { "design.hide" }), None)
+                        .on_click(cx.listener(move |ws, _, _, cx| {
+                            cx.stop_propagation();
+                            prepare(ws);
+                            let Some(object) = ws.design.document.object(object_id) else {
+                                return;
+                            };
+                            let hidden = !object.hidden;
+                            if structure::set_object_hidden(
+                                &mut ws.design.document,
+                                &mut ws.design.history,
+                                object_id,
+                                hidden,
+                            ) && hidden
+                            {
+                                ws.design.selection.retain(|id| *id != object_id);
+                            }
+                            cx.notify();
+                        })),
+                    )
                     .child(
                         IconButton::new(
                             ("layout-object-lock", object_id.0),
