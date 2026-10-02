@@ -97,6 +97,7 @@ pub(crate) fn restore(
                         at: None,
                         kind,
                         payload,
+                        footnote: None,
                     })
                 } else {
                     None
@@ -111,6 +112,7 @@ pub(crate) fn restore(
                 at: None,
                 kind: LABEL.into(),
                 payload: entry.attr("Value").unwrap_or_default().into(),
+                footnote: None,
             }));
     }
     notice(&mut report.skipped, "design.idml_structure_location");
@@ -130,6 +132,37 @@ fn agrees(native: &Element, record: &Record, styles: &StyleSet, refs: &Reference
         .any(|at| at > text.len() || !text.is_char_boundary(at))
     {
         return false;
+    }
+    for note in record
+        .story
+        .structures
+        .iter()
+        .filter_map(|s| s.footnote.as_ref())
+    {
+        if !note.valid() {
+            return false;
+        }
+        let paragraph_agrees =
+            |name: &str| refs.paragraph(&format!("ParagraphStyle/$ID/{name}")) == name;
+        let character_agrees =
+            |name: &str| refs.character(&format!("CharacterStyle/$ID/{name}")) == name;
+        if !paragraph_agrees(&note.reference_paragraph_style)
+            || !character_agrees(&note.reference_character_style)
+            || note.story.points.iter().any(
+                |p| matches!(p, StoryPoint::Paragraph { style, .. } if !paragraph_agrees(style)),
+            )
+            || note
+                .story
+                .ranges
+                .iter()
+                .any(|r| !character_agrees(&r.style))
+            || note
+                .markers
+                .iter()
+                .any(|m| !character_agrees(&m.character_style))
+        {
+            return false;
+        }
     }
     let expected = export::story_native_xml(&record.native, &record.story, styles, &mut Vec::new());
     let Ok(root) = xml::parse(&expected) else {

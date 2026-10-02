@@ -479,8 +479,12 @@ are not reconstructed by this preservation step.
 Document footnote preferences now retain numbering, restarts, affixes, paragraph
 and marker styles, spacing, baseline policy, splitting, column spanning and both
 separator rules through native IDML Preferences parts. Unknown references stay
-explicit and are reported. This retains formatting intent; footnote bodies and
-markers still require composition and reserved space before they can print.
+explicit and are reported. Text-only note bodies now have their own typed stories,
+styles and zero-width marker coordinates, separate from main-story characters.
+The original XML remains exact; notes with nested objects, tables or unknown
+instructions stay opaque. Style renames update typed note references in the same
+undo step. Bodies and markers still require composition and reserved space before
+they can print.
 
 Text threads have explicit order independent of page and layer order. Click
 an output port, then an empty frame to link; the Stories panel also offers

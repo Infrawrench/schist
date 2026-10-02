@@ -3,6 +3,113 @@ use schist_layout::{
 };
 
 #[test]
+fn typed_note_bodies_survive_parent_edits_style_renames_and_one_step_undo() {
+    for count in [1, 3, 9] {
+        for paragraph in [true, false] {
+            let mut doc = blank_a4();
+            doc.styles.paragraphs.push(schist_layout::ParagraphStyle {
+                name: "Notes".into(),
+                ..Default::default()
+            });
+            doc.styles.characters.push(schist_layout::CharacterStyle {
+                name: "Notes".into(),
+                ..Default::default()
+            });
+            let mut story = schist_layout::Story::from_text("AéB", "Body");
+            let mut body = schist_layout::Story::from_text("é note", "Notes");
+            body.ranges
+                .push(schist_layout::StyleRange::new(0, 2, "Notes"));
+            story.structures = (0..count)
+                .map(|_| schist_layout::StoryStructure {
+                    at: Some(3),
+                    kind: "Footnote".into(),
+                    payload: "exact native XML".into(),
+                    footnote: Some(FootnoteBody {
+                        story: body.clone(),
+                        markers: vec![FootnoteMarker {
+                            at: 0,
+                            character_style: "Notes".into(),
+                        }],
+                        reference_paragraph_style: "Notes".into(),
+                        reference_character_style: "Notes".into(),
+                    }),
+                })
+                .collect();
+            let original = story.clone();
+            for insert in ["", "空", "new\nline"] {
+                let changed = story.replace_text(0..0, insert, "Body").unwrap();
+                for (before, after) in story.structures.iter().zip(&changed.structures) {
+                    assert_eq!(after.at, Some(3 + insert.len()));
+                    assert_eq!(before.footnote, after.footnote);
+                    assert_eq!(before.payload, after.payload);
+                }
+            }
+            doc.stories.push(story);
+            let before = doc.clone();
+            let mut history = History::default();
+            assert!(schist_layout::properties::rename_style(
+                &mut doc,
+                &mut history,
+                paragraph,
+                "Notes",
+                "Renamed"
+            ));
+            assert_eq!(history.undo_depth(), 1);
+            for structure in &doc.stories[0].structures {
+                let note = structure.footnote.as_ref().unwrap();
+                assert_eq!(
+                    note.reference_paragraph_style,
+                    if paragraph { "Renamed" } else { "Notes" }
+                );
+                assert_eq!(
+                    note.reference_character_style,
+                    if paragraph { "Notes" } else { "Renamed" }
+                );
+                let schist_layout::StoryPoint::Paragraph { style, .. } = &note.story.points[0]
+                else {
+                    panic!()
+                };
+                assert_eq!(style, &note.reference_paragraph_style);
+                assert_eq!(
+                    note.markers[0].character_style,
+                    note.reference_character_style
+                );
+                assert_eq!(note.story.ranges[0].style, note.reference_character_style);
+                assert_eq!(structure.payload, "exact native XML");
+            }
+            let after = doc.clone();
+            for _ in 0..4 {
+                assert!(history.undo(&mut doc));
+                assert_eq!(doc, before);
+                assert!(history.redo(&mut doc));
+                assert_eq!(doc, after);
+            }
+            assert_eq!(before.stories[0], original);
+        }
+    }
+}
+
+#[test]
+fn note_marker_coordinates_validate_every_byte_boundary_and_old_payloads_remain_opaque() {
+    let text = "Aé中";
+    for at in (0..=text.len() + 1).chain([usize::MAX]) {
+        let note = FootnoteBody {
+            story: schist_layout::Story::from_text(text, "Body"),
+            markers: vec![FootnoteMarker {
+                at,
+                character_style: String::new(),
+            }],
+            reference_paragraph_style: String::new(),
+            reference_character_style: String::new(),
+        };
+        assert_eq!(note.valid(), text.is_char_boundary(at));
+    }
+    let old: schist_layout::StoryStructure =
+        serde_json::from_str(r#"{"at":3,"kind":"Footnote","payload":"<Footnote/>"}"#).unwrap();
+    assert!(old.footnote.is_none());
+}
+
+#[test]
 fn footnote_settings_commit_as_one_step_and_invalid_drafts_leave_history_untouched() {
     for count in [0, 1, 20] {
         let mut doc = blank_a4();

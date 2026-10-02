@@ -90,14 +90,18 @@ impl StyleRange {
     }
 }
 
-/// An unsupported inline structure retained without adding characters to the body.
-/// Its XML is opaque data, never interpreted as ordinary paragraph text.
+/// An inline structure retained without adding characters to the main body.
+/// Exact XML remains recoverable even when typed lowering is unavailable.
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct StoryStructure {
     /// UTF-8 byte boundary in the story, or unknown after an external edit.
     pub at: Option<usize>,
     pub kind: String,
     pub payload: String,
+    /// Lowered text-only footnotes retain a separate flow and zero-width markers.
+    /// Their original XML is still retained; composition is not implemented yet.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub footnote: Option<crate::footnotes::FootnoteBody>,
 }
 
 /// A linear flow of text, shared by one or more frames.

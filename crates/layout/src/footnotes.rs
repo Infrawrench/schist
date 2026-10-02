@@ -1,9 +1,72 @@
-//! Document footnote preferences, independent of frame and raster documents.
+//! Document footnote preferences and source text, separate from raster documents.
 //!
 //! Absent values retain native inheritance/default intent. These are stored
-//! settings, not a claim that footnote bodies or markers are composed yet.
+//! settings and source data; footnote bodies and markers are not composed yet.
 use crate::{decorations::DecorationStroke, History, Ink, LayoutDocument, LayoutEdit};
 use serde::{Deserialize, Serialize};
+
+/// A footnote's own text flow. It never contributes bytes to its owner's story.
+/// Native marker instructions have their own UTF-8 coordinates, not substitute
+/// characters, so literal digits and edits around the main reference stay exact.
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+pub struct FootnoteBody {
+    pub story: crate::Story,
+    pub markers: Vec<FootnoteMarker>,
+    /// Styles in effect at the reference in the owning story, including local
+    /// overrides lowered to named styles by the codec.
+    pub reference_paragraph_style: String,
+    pub reference_character_style: String,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+pub struct FootnoteMarker {
+    /// Byte boundary in the note's own story, with right affinity.
+    pub at: usize,
+    pub character_style: String,
+}
+
+impl FootnoteBody {
+    /// This lowering supports text-only notes. Nested structures and explicit
+    /// frame/page/column breaks remain opaque until their flow is implemented.
+    pub fn valid(&self) -> bool {
+        let text = self.story.text();
+        self.story.structures.is_empty()
+            && self
+                .story
+                .points
+                .iter()
+                .all(|p| matches!(p, crate::StoryPoint::Paragraph { .. }))
+            && self.markers.iter().all(|m| text.is_char_boundary(m.at))
+            && self.markers.windows(2).all(|m| m[0].at <= m[1].at)
+            && self.story.ranges.iter().all(|r| {
+                r.start <= r.end && text.is_char_boundary(r.start) && text.is_char_boundary(r.end)
+            })
+    }
+
+    pub(crate) fn rename_style(&mut self, paragraph: bool, old: &str, new: &str) {
+        let rename = |name: &mut String| {
+            if name == old {
+                *name = new.into();
+            }
+        };
+        if paragraph {
+            rename(&mut self.reference_paragraph_style);
+            for point in &mut self.story.points {
+                if let crate::StoryPoint::Paragraph { style, .. } = point {
+                    rename(style);
+                }
+            }
+        } else {
+            rename(&mut self.reference_character_style);
+            for range in &mut self.story.ranges {
+                rename(&mut range.style);
+            }
+            for marker in &mut self.markers {
+                rename(&mut marker.character_style);
+            }
+        }
+    }
+}
 
 /// A resolved resource travels with its definition (ink/stroke) or Schist style
 /// name. Unresolved native identities remain explicit, never guessed from names.

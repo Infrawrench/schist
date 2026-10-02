@@ -25,6 +25,7 @@ fn document(legacy: bool) -> LayoutDocument {
             at: Some(1),
             kind: "Footnote".into(),
             payload: payload.into(),
+            footnote: None,
         });
     }
     doc.stories[frame.story.0 as usize] = story;
@@ -86,14 +87,11 @@ fn raw_outer_structures_preserve_mixed_content_pis_entities_and_exact_source_anc
             let imported = import::read(&bytes).unwrap();
             let story = &imported.document.stories[0];
             assert_eq!(story.text(), "AéB");
-            assert_eq!(
-                story.structures,
-                vec![StoryStructure {
-                    at: Some(3),
-                    kind: kind.into(),
-                    payload: payload.clone()
-                }]
-            );
+            assert_eq!(story.structures.len(), 1);
+            let structure = &story.structures[0];
+            assert_eq!(structure.at, Some(3));
+            assert_eq!(structure.kind, kind);
+            assert_eq!(structure.payload, payload);
             let tree = xml::parse(&payload).unwrap();
             assert_eq!(tree.raw.as_deref(), Some(payload.as_str()));
             assert!(tree.find_all("Table").iter().all(|t| t.raw.is_none()));
@@ -222,7 +220,8 @@ fn native_edits_win_while_stale_opaque_payloads_keep_unknown_locations() {
                 vec![StoryStructure {
                     at: None,
                     kind: "Footnote".into(),
-                    payload: original
+                    payload: original,
+                    footnote: None,
                 }]
             );
             if change == "text" {

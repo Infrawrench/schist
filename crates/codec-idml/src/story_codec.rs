@@ -31,7 +31,9 @@ fn visit(
             if !report.skipped.contains(&message) {
                 report.skip(message);
             }
-            return;
+            if name != "Footnote" || !text_only_footnote(element) {
+                return;
+            }
         }
         "ParagraphStyleRange" => {
             let base = refs.paragraph(element.attr("AppliedParagraphStyle").unwrap_or_default());
@@ -88,6 +90,10 @@ fn visit(
 /// See the public specification, examples 48–50. Style offsets are derived
 /// from the finished Story so its inter-paragraph separators count once.
 pub(crate) fn decode(story: &Element) -> Story {
+    decode_with_markers(story).0
+}
+
+fn decode_with_markers(story: &Element) -> (Story, Vec<schist_layout::footnotes::FootnoteMarker>) {
     let mut builder = StoryBuilder::default();
     if let Some(preference) = story.child("StoryPreference") {
         builder.out.prefs.direction = match preference.attr("StoryDirection") {
@@ -107,6 +113,10 @@ pub(crate) fn decode(story: &Element) -> Story {
             .structures
             .last()
             .is_some_and(|(point, _)| *point == builder.out.points.len())
+        || builder
+            .markers
+            .last()
+            .is_some_and(|(point, _)| *point == builder.out.points.len())
     {
         builder.flush();
     }
@@ -120,7 +130,68 @@ pub(crate) fn decode(story: &Element) -> Story {
         structure.at = structure.at.map(|at| offsets[point] + at);
         builder.out.structures.push(structure);
     }
-    builder.out
+    let markers = builder
+        .markers
+        .into_iter()
+        .map(|(point, mut marker)| {
+            marker.at += offsets[point];
+            marker
+        })
+        .collect();
+    (builder.out, markers)
+}
+
+// The native XML remains the fallback for tables, embedded objects, variables,
+// unknown ACE instructions and mixed content. Lowering must not silently flatten
+// those into a text-only note. IDML example 54 supplies the ACE 4 marker form.
+fn text_only_footnote(element: &Element) -> bool {
+    if element.name == "Properties" {
+        return true;
+    }
+    if !matches!(
+        element.name.as_str(),
+        "Footnote"
+            | "ParagraphStyleRange"
+            | "CharacterStyleRange"
+            | "Content"
+            | "Tab"
+            | "Br"
+            | "br"
+    ) {
+        return false;
+    }
+    if element.name != "Content" && !element.text.trim().is_empty() {
+        return false;
+    }
+    if element.name == "Content" && !element.children.is_empty() {
+        return false;
+    }
+    element.instructions.iter().all(|(_, instruction)| {
+        element.name == "Content" && instruction.split_whitespace().eq(["ACE", "4"])
+    }) && element
+        .children
+        .iter()
+        .all(|child| child.name != "Footnote" && text_only_footnote(child))
+}
+
+fn footnote(
+    element: &Element,
+    paragraph: &str,
+    character: &str,
+) -> Option<schist_layout::footnotes::FootnoteBody> {
+    if element.name != "Footnote" || !text_only_footnote(element) {
+        return None;
+    }
+    let mut body = element.clone();
+    body.name = "Story".into();
+    let (story, markers) = decode_with_markers(&body);
+    let note = schist_layout::footnotes::FootnoteBody {
+        story,
+        markers,
+        reference_paragraph_style: paragraph.into(),
+        reference_character_style: character.into(),
+    };
+    note.valid().then_some(note)
 }
 
 #[derive(Default)]
@@ -132,6 +203,7 @@ struct StoryBuilder {
     ranges: Vec<(usize, StyleRange)>,
     trailing_paragraph: bool,
     structures: Vec<(usize, schist_layout::StoryStructure)>,
+    markers: Vec<(usize, schist_layout::footnotes::FootnoteMarker)>,
 }
 
 impl StoryBuilder {
@@ -192,6 +264,17 @@ impl StoryBuilder {
                     .unwrap_or(next);
             }
             "Content" => {
+                for (at, instruction) in &element.instructions {
+                    if instruction.split_whitespace().eq(["ACE", "4"]) {
+                        self.markers.push((
+                            self.out.points.len(),
+                            schist_layout::footnotes::FootnoteMarker {
+                                at: self.text.len() + at,
+                                character_style: character.into(),
+                            },
+                        ));
+                    }
+                }
                 self.append(&element.text, paragraph, character);
                 return;
             }
@@ -229,6 +312,7 @@ impl StoryBuilder {
                             at: Some(self.text.len()),
                             kind: name.into(),
                             payload: raw.to_string(),
+                            footnote: footnote(element, paragraph, character),
                         },
                     ));
                 }

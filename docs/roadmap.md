@@ -310,6 +310,29 @@ are marked.
 
 ## Handoff
 
+Typed footnote bodies, 2026-10-02:
+`c131cf14` was pushed to draft PR #195 with preferences and canvas reuse. The
+next item 9 step now lowers text-only native notes to independent typed stories
+with paragraph/character styles, local overrides and zero-width ACE 4 marker
+coordinates. Main-story source bytes and original note XML stay exact. Nested
+objects/tables/notes, unknown instructions, mixed content and forced frame breaks
+remain opaque. Style renames update note references in one undo transaction;
+native style changes used only by a note invalidate stale retention metadata.
+Five new properties cover source coordinates, repeated saves, fallbacks, the public
+academic body, renaming, parent edits and undo. All 16 make targets pass with
+**1,758 distinct Rust tests** (layout 384, text engine 115, editor 417, IDML 253,
+separation 188), four browser and eight Python audit checks. Workspace clippy,
+app/browser/headless checks, PDF proofs, formatting and whitespace pass. Logs and
+counts are `/tmp/schist-footnote-bodies-sweep-*`.
+Footnote numbering/marker paint, reserved note areas, overflow and splitting remain
+next; typed source data does not yet make notes visible or printable. Native-window access recovered: the `c131cf14` QA build opens the seven-page
+academic fixture, switches to compact Layers, selects a frame and shows contextual
+Character controls. The first complete post-open screenshot arrived within 46
+seconds while the test sweep was running; this is an observation, not a benchmark.
+Initial composition remains slow, and imported unnamed objects display `$ID/`.
+An idle main-thread sample is `/tmp/schist-academic-cached-ui-sample.txt`. The QA
+process was closed after inspection; the installed app was untouched.
+
 Footnote preferences and canvas composition, 2026-10-02:
 the prior 1,741-test checkpoint was committed as `39fb6180`, pushed to
 `design-tab-leaders` and opened as [draft PR #195](https://github.com/Infrawrench/schist/pull/195).

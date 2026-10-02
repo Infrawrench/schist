@@ -1633,7 +1633,7 @@ requirements evidence, not a claim that structured composition is implemented.
 
 ### Document footnote preferences
 
-Footnote options now use typed layout data separate from the opaque note bodies.
+Footnote options use typed layout data separate from each note’s own body.
 The codec reads and writes `FootnoteOption` in the listed Preferences resource,
 following public specification section 6.3.19, its enum tables and the Penn State
 academic XML. The public [FootnoteOption reference](https://developer.adobe.com/indesign/uxp/omv/f/FootnoteOption/)
@@ -1666,5 +1666,47 @@ saves, while its opaque note payload stays exact. Further properties exercise ev
 published numbering enum, all baseline/restart/affix/marker modes, independent
 resources, opaque style IDs, later native changes, absent settings and invalid
 ranges. These checks establish preference interchange, not native footnote layout.
-Footnote body/resource lowering, reference-marker composition and space reservation
-are still required; preflight continues to flag unrendered structures.
+Text-only body lowering follows below. Reference-marker composition and space
+reservation are still required; preflight continues to flag unrendered structures.
+
+
+### Footnote body lowering
+
+Public specification schema example 85 and IDML example 54 distinguish the note’s
+text flow from its reference in the main story. The example and the Penn State
+academic fixture use `<?ACE 4?>` for the note-body marker. The XML tree now retains
+processing instructions at byte boundaries in decoded direct text, after entities
+have been resolved. The marker is a typed coordinate in the note’s own story; it
+adds no substitute character, changes no main-story byte offsets and does not
+reinterpret literal digits as numbering.
+
+Text-only footnotes lower paragraph/character ranges and local overrides through
+the existing style reader. Reference styles in effect at the main-story anchor
+are retained separately. The original outer XML remains exact. Notes with tables,
+inline objects, nested notes, unknown instructions, mixed content or explicit
+column/frame/page breaks keep only their opaque representation. This step does
+not invent rendering for unsupported content.
+
+Typed bodies travel through the existing snapshots and guarded Story Label.
+Parent text edits retain note text and marker coordinates while moving the main
+anchor; paragraph and character renames update the appropriate typed references
+inside the same undo transaction. Native resource renames that affect only a note
+also invalidate stale retention metadata, preserving its payload with unknown
+placement instead of silently restoring the old style name.
+
+Properties cover every UTF-8 marker boundary, entity decoding, paragraph offsets,
+literal number text, local styles without repeated-save growth, native-only style
+changes, opaque fallbacks, the public two-paragraph note and one-step undo across
+multiple notes. This is source lowering and Schist interchange, not native note
+export or composition. Marker numbering/paint, note-area reservation, overflow,
+splitting and external application agreement remain open.
+
+
+The matching public academic PDF (InDesign 20.2, Windows; CC0 at the same
+[Zenodo record](https://zenodo.org/records/15800442)) was inspected on page 1.
+It shows automatic marker 4, followed by literal 5 in the second paragraph of the
+same note, below the right-hand text column and a separator. This corroborates
+source structure; it does not establish full font/layout parity. PDF SHA-256 is
+`b55beedb63512910077d37a46bfaa015f0c4801265701ad73aaa7bbdac43a58e`.
+Observation metadata and extracted coordinates are in
+`/tmp/schist-psu-footnote-reference.json`; no proprietary binary was read.

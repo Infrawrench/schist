@@ -4,6 +4,180 @@ use schist_layout::{
     ParagraphStyle,
 };
 
+fn native_note(payload: &str) -> Vec<u8> {
+    let mut doc = blank_a4();
+    let frame = schist_layout::authoring::text_frame(
+        &mut doc,
+        &mut schist_layout::History::default(),
+        0,
+        schist_layout::Rect::new(0.0, 0.0, 200.0, 100.0),
+    )
+    .unwrap();
+    doc.stories[frame.story.0 as usize] = schist_layout::Story::from_text("AéB", "Body");
+    doc.styles.paragraphs.push(ParagraphStyle {
+        name: "Note body".into(),
+        point_size: Some(9.0),
+        ..Default::default()
+    });
+    doc.styles.characters.push(CharacterStyle {
+        name: "Note marker".into(),
+        point_size: Some(7.0),
+        ..Default::default()
+    });
+    rewrite(&export::write(&doc).bytes, |name, xml| {
+        if name.starts_with("Stories/") {
+            xml.replace(
+                "<Content>AéB</Content>",
+                &format!("<Content>Aé</Content>{payload}<Content>B</Content>"),
+            )
+        } else {
+            xml
+        }
+    })
+}
+
+#[test]
+fn note_markers_keep_their_own_utf8_coordinates_styles_and_source_bytes_through_saves() {
+    let text = "é&中 4";
+    for at in text.char_indices().map(|(i, _)| i).chain([text.len()]) {
+        let escape = |s: &str| s.replace('&', "&amp;");
+        let payload = format!(
+            r#"<Footnote><ParagraphStyleRange AppliedParagraphStyle="ParagraphStyle/$ID/Note body" PointSize="10"><CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/Note marker"><Content>{}<?ACE 4?>{}</Content><Br/><Content>5 literal second paragraph</Content></CharacterStyleRange></ParagraphStyleRange></Footnote>"#,
+            escape(&text[..at]),
+            escape(&text[at..])
+        );
+        let mut doc = import::read(&native_note(&payload)).unwrap().document;
+        let source = &doc.stories[0];
+        assert_eq!(source.text(), "AéB");
+        let structure = &source.structures[0];
+        assert_eq!(structure.at, Some(3));
+        assert_eq!(structure.payload, payload);
+        let note = structure.footnote.as_ref().unwrap();
+        assert!(note.valid());
+        assert_eq!(
+            note.story.text(),
+            format!("{text}\n5 literal second paragraph")
+        );
+        assert_eq!(
+            note.markers,
+            vec![FootnoteMarker {
+                at,
+                character_style: "Note marker".into()
+            }]
+        );
+        assert_eq!(note.story.ranges[0].start, 0);
+        assert_eq!(note.story.ranges[0].end, text.len());
+        for point in &note.story.points {
+            let schist_layout::StoryPoint::Paragraph { style, .. } = point else {
+                panic!()
+            };
+            assert_eq!(doc.styles.resolve_paragraph(style).point_size, Some(10.0));
+        }
+        let expected = doc.stories.clone();
+        let styles = doc.styles.clone();
+        for _ in 0..4 {
+            let written = export::write(&doc);
+            assert!(written
+                .warnings
+                .contains(&schist_i18n::t("design.idml_story_structure").to_string()));
+            let read = import::read(&written.bytes).unwrap();
+            assert!(!read
+                .report
+                .skipped
+                .contains(&schist_i18n::t("design.idml_structure_location").to_string()));
+            doc = read.document;
+            assert_eq!(doc.stories, expected);
+            assert_eq!(doc.styles, styles);
+        }
+    }
+}
+
+#[test]
+fn unsupported_note_content_stays_exact_and_cannot_be_mistaken_for_text_only_lowering() {
+    for body in [
+        "<Table><Content>nested</Content></Table>",
+        "<Rectangle/>", "<Footnote><Content>nested</Content></Footnote>",
+        "<Content>é<?ACE 999?>tail</Content>", "<?ACE 4?><Content>outside</Content>",
+        "<Content>mixed<Tab/>content</Content>", "direct text<Content>tail</Content>",
+        "<TextVariableInstance/>",
+        "<CharacterStyleRange ParagraphBreakType=\"NextFrame\"><Content>body</Content><Br/></CharacterStyleRange>",
+    ] {
+        let payload = format!("<Footnote>{body}</Footnote>");
+        let mut doc = import::read(&native_note(&payload)).unwrap().document;
+        assert_eq!(doc.stories[0].text(), "AéB");
+        let expected = doc.stories.clone();
+        for _ in 0..4 {
+            let structure = &doc.stories[0].structures[0];
+            assert_eq!(structure.payload, payload);
+            assert!(structure.footnote.is_none(), "{body}");
+            doc = import::read(&export::write(&doc).bytes).unwrap().document;
+            assert_eq!(doc.stories, expected);
+        }
+    }
+}
+
+#[test]
+fn published_note_body_and_only_note_style_changes_keep_the_retention_guard_honest() {
+    let doc = import::read(include_bytes!(
+        "../../../fixtures/indd/psu-academic-2/psu-academic-2.idml"
+    ))
+    .unwrap()
+    .document;
+    let note = doc
+        .stories
+        .iter()
+        .flat_map(|s| &s.structures)
+        .find_map(|s| s.footnote.as_ref())
+        .unwrap();
+    assert_eq!(
+        note.story.text(),
+        " This is a footnote.\n5 This is a footnote."
+    );
+    assert_eq!(note.markers.len(), 1);
+    assert_eq!(note.markers[0].at, 0);
+    for paragraph in [true, false] {
+        let payload = r#"<Footnote><ParagraphStyleRange AppliedParagraphStyle="ParagraphStyle/$ID/Note body"><CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/Note marker"><Content><?ACE 4?>é note</Content></CharacterStyleRange></ParagraphStyleRange></Footnote>"#;
+        let doc = import::read(&native_note(payload)).unwrap().document;
+        let name = if paragraph {
+            "Note body"
+        } else {
+            "Note marker"
+        };
+        let mut renamed = doc.clone();
+        let mut history = schist_layout::History::default();
+        assert!(schist_layout::properties::rename_style(
+            &mut renamed,
+            &mut history,
+            paragraph,
+            name,
+            "Renamed in Schist"
+        ));
+        assert_eq!(history.undo_depth(), 1);
+        let expected = renamed.stories.clone();
+        for _ in 0..4 {
+            renamed = import::read(&export::write(&renamed).bytes)
+                .unwrap()
+                .document;
+            assert_eq!(renamed.stories, expected);
+        }
+        let bytes = rewrite(&export::write(&doc).bytes, |part, xml| {
+            if part == "Resources/Styles.xml" {
+                xml.replace(&format!("Name=\"{name}\""), "Name=\"External name\"")
+            } else {
+                xml
+            }
+        });
+        let read = import::read(&bytes).unwrap();
+        assert_eq!(read.document.stories[0].text(), "AéB");
+        assert_eq!(read.document.stories[0].structures[0].at, None);
+        assert_eq!(read.document.stories[0].structures[0].payload, payload);
+        assert!(read
+            .report
+            .skipped
+            .contains(&schist_i18n::t("design.idml_structure_location").to_string()));
+    }
+}
+
 fn rewrite(bytes: &[u8], mut edit: impl FnMut(&str, String) -> String) -> Vec<u8> {
     let package = container::read(bytes).unwrap();
     container::write(

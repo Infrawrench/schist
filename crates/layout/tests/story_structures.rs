@@ -7,6 +7,7 @@ fn structure(at: Option<usize>) -> StoryStructure {
         at,
         kind: "Footnote".into(),
         payload: "<Footnote>é<?ACE 4?></Footnote>".into(),
+        footnote: None,
     }
 }
 

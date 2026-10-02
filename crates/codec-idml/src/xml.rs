@@ -32,9 +32,12 @@ pub struct Element {
     /// Character data directly inside this element, concatenated.
     pub text: String,
     pub children: Vec<Element>,
-    /// Exact XML for an outer unsupported story structure. The tree alone loses
-    /// mixed-content order and ACE processing instructions, so it cannot be used
-    /// to reconstruct footnotes or tables. Nested structures share this payload.
+    /// Processing instructions and their byte offsets in this element's direct
+    /// decoded text. In particular, ACE 4 is a footnote marker, not a character.
+    pub instructions: Vec<(usize, String)>,
+    /// Exact XML for an outer unsupported story structure. The tree does not
+    /// retain arbitrary mixed-content order, so it cannot reconstruct every
+    /// native structure. Nested structures share this original payload.
     pub raw: Option<std::sync::Arc<str>>,
 }
 
@@ -198,6 +201,14 @@ pub fn parse_all(text: &str) -> Result<Vec<Element>, String> {
             Ok(Event::CData(value)) => {
                 if let Some(top) = stack.last_mut() {
                     top.text.push_str(&String::from_utf8_lossy(value.as_ref()));
+                }
+            }
+            Ok(Event::PI(value)) => {
+                if let Some(top) = stack.last_mut() {
+                    top.instructions.push((
+                        top.text.len(),
+                        String::from_utf8_lossy(value.as_ref()).into_owned(),
+                    ));
                 }
             }
             Ok(Event::Eof) => break,

@@ -425,6 +425,11 @@ pub fn rename_style(
                 rename(style);
             }
         }
+        for structure in &mut after.structures {
+            if let Some(note) = &mut structure.footnote {
+                note.rename_style(paragraph, old, new);
+            }
+        }
         if before != after {
             edits.push(LayoutEdit::StoryChanged {
                 id: id as u32,
