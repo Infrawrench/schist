@@ -28,6 +28,7 @@ pub mod guides;
 pub mod lifecycle;
 pub mod paint;
 pub mod pen;
+mod plan_cache;
 pub mod preflight;
 pub mod rulers;
 pub mod select;
@@ -311,6 +312,7 @@ pub struct DesignState {
     /// Set when the pasteboard has to be fitted again, which is after a
     /// mode change: the two modes need different zooms.
     pub needs_refit: bool,
+    plan_cache: std::cell::RefCell<plan_cache::PlanCache>,
 }
 
 /// An in-progress drag on the pasteboard.
@@ -361,6 +363,7 @@ impl Default for DesignState {
             anchor: None,
             pen: None,
             needs_refit: true,
+            plan_cache: Default::default(),
             controls: controls::Controls::default(),
             session: std::sync::Arc::new(()),
             graphics: Default::default(),
@@ -465,6 +468,7 @@ impl DesignState {
     /// show" rather than as an error.
     pub fn plan(&self) -> Option<schist_layout::pasteboard::Pasteboard> {
         if !self.ready() {
+            self.plan_cache.borrow_mut().clear();
             return None;
         }
         let mut preview = composition::preview(self);
@@ -480,9 +484,10 @@ impl DesignState {
                 }
             }
         }
-        let mut plan = schist_layout::pasteboard::pasteboard(
+        let mut plan = self.plan_cache.borrow_mut().get(
             preview.as_ref().unwrap_or(&self.document),
             &self.view_for_mode(),
+            schist_text_engine::font_revision(),
         )?;
         if !self.show_guides {
             for page in &mut plan.pages {

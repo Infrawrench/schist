@@ -310,6 +310,48 @@ are marked.
 
 ## Handoff
 
+Footnote preferences and canvas composition, 2026-10-02:
+the prior 1,741-test checkpoint was committed as `39fb6180`, pushed to
+`design-tab-leaders` and opened as [draft PR #195](https://github.com/Infrawrench/schist/pull/195).
+Further work on this branch adds typed document footnote options with native
+Preferences-part interchange: numbering/restarts, affixes, style references,
+spacing, baseline policy, splitting/straddling and independent separator rules.
+Absent values remain absent; unresolved identities remain explicit. Rule inks and
+strokes join exported resources. Settings commits, style renames and swatch edits
+retain these references in one undo step. Repeated saves of the public academic
+specimen preserve both its preferences and its opaque note payload.
+Bodies and reference markers are still opaque and unrendered; space reservation
+and typed body/resource lowering remain the next footnote work.
+
+Native-window access worked in this session. The isolated Design-enabled Roadmap
+QA app was relaunched and the public academic IDML opened; gallery and the compact
+Pages/pasteboard UI were visually inspected. Opening took minutes. A main-thread
+sample identifies repeated text composition during canvas planning: the main story
+has 13 frames, and each frame recomposed its whole thread. The new kernel pass
+reuses ordinary threads and keeps parent results separate by destination page.
+The editor retains one complete document/view/font snapshot so unchanged paints
+reuse the plan, including correct invalidation for IME drafts and undo. Kernel
+cache properties and editor checks pass. The native debug build also passes and
+the isolated QA bundle was refreshed, hash checked and its signature verified.
+It retains the Design flag and separate config/state directories. The new process
+launches, but native automation returns `cgWindowNotFound`; its main thread is
+idle in the event loop. Updated visual/performance verification remains open.
+The older QA process was closed. Samples: `/tmp/schist-academic-ui-sample.txt`
+and `/tmp/schist-roadmap-launch-sample.txt`.
+
+All 16 make targets pass with **1,753 distinct Rust tests** (layout 382, text
+engine 115, editor 417, IDML 250, separation 188), four browser checks and eight
+Python i18n-audit checks. The 12 new properties cover preferences/interchange,
+style renaming, immutable thread reuse and complete canvas-cache invalidation;
+the existing swatch property also exercises both footnote rules. Workspace clippy,
+native/browser/headless checks, PDF proofs, formatting and whitespace checks pass.
+Results/counts/logs are `/tmp/schist-footnotes-canvas-sweep-*`; the native build log
+is `/tmp/schist-footnotes-canvas-app-build.log`. This follow-up is part of draft
+PR #195. All five remote checks, including Windows, passed on the earlier
+`39fb6180` checkpoint; the follow-up must receive its own CI result.
+Unused incremental build cache was removed after checking that no incremental
+compiler was using it. Design Mode remains disabled by default.
+
 Structured-story retention, 2026-10-02: imported tables, footnotes and inline
 page items now retain exact outer XML rather than disappearing after a warning.
 UTF-8 anchors survive nearby edits; crossing edits are refused. Snapshots and

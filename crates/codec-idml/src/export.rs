@@ -1131,9 +1131,10 @@ fn fonts_xml(document: &LayoutDocument, warnings: &mut Vec<String>) -> String {
 
 /// The document's settings a package records outside the pages.
 fn preferences_xml(document: &LayoutDocument, warnings: &mut Vec<String>) -> String {
+    let preferences = crate::preferences_codec::preferences(document, warnings);
+    let footnotes = crate::footnote_codec::write(document, warnings);
     format!(
-        r#"{DECLARATION}<idPkg:Preferences xmlns:idPkg="{NS_PACKAGING}" DOMVersion="{DOM_VERSION}">{}</idPkg:Preferences>"#,
-        crate::preferences_codec::preferences(document, warnings)
+        r#"{DECLARATION}<idPkg:Preferences xmlns:idPkg="{NS_PACKAGING}" DOMVersion="{DOM_VERSION}">{preferences}{footnotes}</idPkg:Preferences>"#
     )
 }
 

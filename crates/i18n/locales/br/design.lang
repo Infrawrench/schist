@@ -514,3 +514,4 @@ design.list_across_stories = Continue across stories
 design.idml_structure_location = Retained structure location unknown
 design.preflight_story_structure = {name}: {count} unrendered story structures
 design.story_structure_count = {count} unrendered structures retained
+design.idml_footnote_unsupported = Unresolved footnote setting {property}: {value}

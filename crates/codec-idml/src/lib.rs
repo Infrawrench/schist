@@ -32,6 +32,7 @@ mod creation_codec;
 pub mod designmap;
 pub mod error;
 pub mod export;
+mod footnote_codec;
 pub mod import;
 mod language_codec;
 mod list_codec;

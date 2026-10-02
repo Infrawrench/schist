@@ -779,6 +779,7 @@ fn ink_from(snapshot: &InkSnapshot) -> crate::ink::Ink {
 }
 
 fn apply_settings(doc: &mut LayoutDocument, snapshot: &SettingsSnapshot) {
+    doc.footnotes = snapshot.footnotes.clone();
     doc.facing_pages = snapshot.facing_pages;
     doc.page_binding = snapshot.page_binding;
     doc.default_paragraph_style = snapshot.default_paragraph_style.clone();
@@ -794,6 +795,7 @@ fn apply_settings(doc: &mut LayoutDocument, snapshot: &SettingsSnapshot) {
 /// Snapshot the document-wide settings.
 pub fn snapshot_settings(doc: &LayoutDocument) -> SettingsSnapshot {
     SettingsSnapshot {
+        footnotes: doc.footnotes.clone(),
         facing_pages: doc.facing_pages,
         page_binding: doc.page_binding,
         default_paragraph_style: doc.default_paragraph_style.clone(),

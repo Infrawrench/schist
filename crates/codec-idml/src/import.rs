@@ -176,7 +176,7 @@ pub fn read_package(opened: &DesignPackage<'_>) -> Result<Imported, Error> {
         &mut report,
     );
     crate::object_style_codec::resolve_references(&mut document, &style_refs, &mut report);
-    crate::preferences_codec::read(opened, &mut document, &mut report)?;
+    crate::preferences_codec::read(opened, &mut document, &mut report, &colors, &style_refs)?;
     // Parsing XML visits items in paint order. Only guarded chronology labels
     // can establish their creation order; never certify the incidental walk.
     document.creation_order = spread_state.creation.finish(&mut report);

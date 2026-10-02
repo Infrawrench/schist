@@ -987,6 +987,23 @@ pub fn refresh() {
     if let Ok(mut names) = family_name_cache().write() {
         *names = leak_family_names();
     }
+    FONT_REVISION.fetch_add(1, std::sync::atomic::Ordering::Release);
+}
+
+#[cfg(not(schist_library))]
+static FONT_REVISION: std::sync::atomic::AtomicUsize = std::sync::atomic::AtomicUsize::new(0);
+
+/// Changes when process fonts are refreshed, so cached layout can be invalidated.
+/// Headless library calls use their own fixed font resources and return zero.
+pub fn font_revision() -> usize {
+    #[cfg(not(schist_library))]
+    {
+        FONT_REVISION.load(std::sync::atomic::Ordering::Acquire)
+    }
+    #[cfg(schist_library)]
+    {
+        0
+    }
 }
 
 /// Fonts supplied in memory, without installing files in the user's font

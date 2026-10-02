@@ -476,12 +476,19 @@ to the native story take precedence; retained payloads then have unknown locatio
 and remain diagnosed. Referenced native resources and full structured composition
 are not reconstructed by this preservation step.
 
+Document footnote preferences now retain numbering, restarts, affixes, paragraph
+and marker styles, spacing, baseline policy, splitting, column spanning and both
+separator rules through native IDML Preferences parts. Unknown references stay
+explicit and are reported. This retains formatting intent; footnote bodies and
+markers still require composition and reserved space before they can print.
+
 Text threads have explicit order independent of page and layer order. Click
 an output port, then an empty frame to link; the Stories panel also offers
 link and detach controls. Detaching leaves the original text in its original
 story. Linking refuses to overwrite another nonempty story. Locked threads
 refuse edits. Native IDML PreviousTextFrame/NextTextFrame references preserve
-flow across spreads. Parent-page multi-frame threads still need coverage.
+flow across spreads. Parent-page threads have kernel and repeated-save coverage;
+their native application behavior still needs validation.
 
 Hand (H), Zoom (Z; Alt to zoom out, double click to fit), and Eyedropper (I)
 are Design tools. Space or the middle button temporarily pans. Eyedropper

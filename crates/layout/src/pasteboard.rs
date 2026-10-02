@@ -10,7 +10,7 @@
 //! baseline grid drawn from the wrong margin, is very hard to see in a
 //! screenshot and very easy to assert on.
 
-use crate::compose::compose_object;
+use crate::compose::CompositionCache;
 use crate::geometry::{Insets, Page, Point, Pt, Rect, Spread};
 use crate::grid::GridSettings;
 use crate::model::{FrameOverflow, GraphicFit, LayoutDocument, LayoutObject};
@@ -373,6 +373,7 @@ pub fn pasteboard(doc: &LayoutDocument, view: &PasteboardView) -> Option<Pastebo
     // Spreads are placed by the document rather than by their own stored
     // origins, so two spreads can never land on top of each other.
     let origins = doc.spread_origins();
+    let mut composition = CompositionCache::new(doc);
     for (index, spread) in doc.spreads.iter().enumerate() {
         if !spread_is_visible(spread, index, view) {
             continue;
@@ -431,7 +432,7 @@ pub fn pasteboard(doc: &LayoutDocument, view: &PasteboardView) -> Option<Pastebo
                     active: view.page == Some(*page),
                 },
                 guides: guides_for(doc, definition, view, top_left),
-                objects: objects_for(doc, *page, view, top_left),
+                objects: objects_for(doc, *page, view, top_left, &mut composition),
             };
             placed = placed.union(plan.page.media);
             pasteboard.pages.push(plan);
@@ -564,6 +565,7 @@ fn objects_for(
     page: usize,
     view: &PasteboardView,
     offset: Point,
+    composition: &mut CompositionCache<'_>,
 ) -> Vec<Display> {
     let mut out = Vec::new();
     let objects = if view.page.is_some() {
@@ -602,7 +604,7 @@ fn objects_for(
                     });
                     continue;
                 };
-                let composed = compose_object(doc, &object);
+                let composed = composition.frame(&object);
                 let mut drew = false;
                 let mut has_text = false;
                 let mut interaction = rect;

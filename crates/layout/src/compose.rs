@@ -2242,6 +2242,13 @@ fn frame_input(
 /// A frame's portion of the whole story, never a fresh start at byte zero.
 /// Parent-page content composes separately from ordinary document frames.
 pub fn compose_object(doc: &LayoutDocument, placed: &PlacedObject) -> Option<ComposedFrame> {
+    object_thread(doc, placed)?
+        .frames
+        .into_iter()
+        .find(|frame| frame.object == placed.id)
+}
+
+fn object_thread(doc: &LayoutDocument, placed: &PlacedObject) -> Option<ComposedThread> {
     let crate::LayoutObject::TextFrame { story, .. } = placed.object else {
         return None;
     };
@@ -2258,10 +2265,52 @@ pub fn compose_object(doc: &LayoutDocument, placed: &PlacedObject) -> Option<Com
         }
         compose_thread_on_page(doc, story, &frames, Some(placed.page))
     };
-    thread
-        .frames
-        .into_iter()
-        .find(|frame| frame.object == placed.id)
+    Some(thread)
+}
+
+/// A single immutable document pass composes each ordinary story once. Parent
+/// instances additionally depend on their destination page's baseline grid.
+/// The borrow prevents edits while entries are live; no revision guess can
+/// leave stale text after an edit. Unknown standalone frames are not cached.
+pub(crate) struct CompositionCache<'a> {
+    doc: &'a LayoutDocument,
+    threads: std::collections::HashMap<(crate::StoryId, Option<usize>), ComposedThread>,
+}
+impl<'a> CompositionCache<'a> {
+    pub fn new(doc: &'a LayoutDocument) -> Self {
+        Self {
+            doc,
+            threads: Default::default(),
+        }
+    }
+    pub fn frame(&mut self, placed: &PlacedObject) -> Option<ComposedFrame> {
+        let crate::LayoutObject::TextFrame { story, .. } = placed.object else {
+            return None;
+        };
+        let page = if self.doc.object(placed.id).is_some() {
+            None
+        } else {
+            if !self.doc.parents.iter().any(|parent| {
+                parent
+                    .objects
+                    .iter()
+                    .any(|entry| entry.object.id == placed.id)
+            }) {
+                return compose_object(self.doc, placed);
+            }
+            Some(placed.page)
+        };
+        let key = (story, page);
+        if let std::collections::hash_map::Entry::Vacant(entry) = self.threads.entry(key) {
+            entry.insert(object_thread(self.doc, placed)?);
+        }
+        self.threads
+            .get(&key)?
+            .frames
+            .iter()
+            .find(|frame| frame.object == placed.id)
+            .cloned()
+    }
 }
 
 // Enlarge the font and spacing, retaining authored offsets in absolute points.
@@ -2348,6 +2397,89 @@ mod tests {
     use crate::model::{blank_a4, StoryId};
     use crate::story::Story;
     use crate::styles::{CharacterStyle, ParagraphStyle};
+
+    #[test]
+    fn a_document_pass_composes_each_thread_once_without_changing_frame_results() {
+        for count in [1, 2, 7] {
+            let mut doc = blank_a4();
+            let mut frames = Vec::new();
+            for _ in 0..count {
+                frames.push(
+                    crate::authoring::text_frame(
+                        &mut doc,
+                        &mut crate::History::default(),
+                        0,
+                        Rect::new(20.0, 20.0, 120.0, 45.0),
+                    )
+                    .unwrap(),
+                );
+            }
+            let story = frames[0].story;
+            doc.stories[story.0 as usize] =
+                Story::from_text("Aé body with words. ".repeat(20), "Body");
+            for frame in &mut doc.objects {
+                if let crate::LayoutObject::TextFrame {
+                    story: id,
+                    overflow,
+                    ..
+                } = &mut frame.object
+                {
+                    *id = story;
+                    *overflow = FrameOverflow::Thread;
+                }
+            }
+            let mut cache = CompositionCache::new(&doc);
+            for _ in 0..3 {
+                for frame in doc.objects.iter().rev() {
+                    assert_eq!(cache.frame(frame), compose_object(&doc, frame));
+                    assert_eq!(cache.threads.len(), 1);
+                }
+            }
+        }
+    }
+
+    #[test]
+    fn cached_parent_threads_keep_destination_page_grids_separate() {
+        let mut doc = blank_a4();
+        doc.pages.push(doc.pages[0].clone());
+        doc.pages[0].margins.top = 3.0;
+        doc.pages[1].margins.top = 9.0;
+        doc.grids.document.mode = crate::GridMode::SnapToGrid;
+        doc.grids.document.baseline_count = 72.0 / 14.0;
+        let frame = crate::authoring::text_frame(
+            &mut doc,
+            &mut crate::History::default(),
+            0,
+            Rect::new(30.0, 40.0, 130.0, 100.0),
+        )
+        .unwrap();
+        doc.stories[frame.story.0 as usize] =
+            Story::from_text("Parent text on each destination grid.", "Body");
+        let object = doc.objects.remove(0);
+        doc.parents.push(crate::ParentPage {
+            name: "A".into(),
+            applied_to: vec![0, 1],
+            based_on: None,
+            hidden: false,
+            sheets: Vec::new(),
+            placements: Vec::new(),
+            objects: vec![crate::ParentObject {
+                object,
+                overridden_on: Vec::new(),
+            }],
+        });
+        let mut cache = CompositionCache::new(&doc);
+        let mut baselines = Vec::new();
+        for page in [0, 1, 0, 1] {
+            let object = doc.page_objects(page).remove(0);
+            let cached = cache.frame(&object).unwrap();
+            assert_eq!(Some(cached.clone()), compose_object(&doc, &object));
+            baselines.push(cached.lines[0].baseline);
+        }
+        assert_ne!(baselines[0], baselines[1]);
+        assert_eq!(baselines[..2], baselines[2..]);
+        assert_eq!(cache.threads.len(), 2);
+    }
 
     fn doc_with(story_text: &str) -> (LayoutDocument, StoryId) {
         let mut doc = blank_a4();

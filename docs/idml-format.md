@@ -1630,3 +1630,41 @@ also distinguishes a note's anchor from its own text. Composition must
 reserve space in the containing column and handle overflow explicitly; simply
 painting a note at the frame bottom can overlap the body. These references are
 requirements evidence, not a claim that structured composition is implemented.
+
+### Document footnote preferences
+
+Footnote options now use typed layout data separate from the opaque note bodies.
+The codec reads and writes `FootnoteOption` in the listed Preferences resource,
+following public specification section 6.3.19, its enum tables and the Penn State
+academic XML. The public [FootnoteOption reference](https://developer.adobe.com/indesign/uxp/omv/f/FootnoteOption/)
+also documents the newer column-spanning option found as `EnableStraddling` in
+that native specimen. No implementation code or proprietary headers were used.
+
+Stored options cover start/numbering/restart policy, affixes and their placement,
+paragraph and character styles, marker positioning, separator text, body/note
+spacing, first-baseline settings, end-of-story placement, splitting and spanning.
+Initial and continuing rules independently retain enabled state, geometry, stroke
+resources, inks, gap inks, direct tints and overprint. Style references resolve
+through the resources' actual Self values; they are not inferred from path-like
+IDs. Resolved rule resources are exported even when used nowhere else.
+
+Absence remains absence, without inventing a native default. Unsupported enum
+strings and unresolved resource identities remain explicit and generate a notice.
+Malformed numeric/boolean values are rejected individually with a property-specific
+warning; they cannot overwrite neighboring valid settings. Prefix, suffix and
+separator limits count Unicode characters. Native attribute whitespace uses
+numeric references so tabs, CR and LF survive XML attribute normalization.
+Settings transactions retain the options through one undo step and reject invalid
+or unchanged drafts. Paragraph/character renames update the corresponding resolved
+footnote style; swatch and base-colour edits update both rules and their gap inks
+in the existing shared undo transaction. Unresolved identities are not guessed or
+rewritten just because their strings resemble a renamed resource.
+
+The public academic fixture retains its start at four, note style, tab separator,
+7.2-point spacer, 0.72-point note spacing and 72/288-point rules through four Schist
+saves, while its opaque note payload stays exact. Further properties exercise every
+published numbering enum, all baseline/restart/affix/marker modes, independent
+resources, opaque style IDs, later native changes, absent settings and invalid
+ranges. These checks establish preference interchange, not native footnote layout.
+Footnote body/resource lowering, reference-marker composition and space reservation
+are still required; preflight continues to flag unrendered structures.

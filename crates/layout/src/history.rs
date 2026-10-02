@@ -238,6 +238,8 @@ pub struct InkSnapshot {
 /// The document-wide settings an edit can change.
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct SettingsSnapshot {
+    #[serde(default)]
+    pub footnotes: crate::footnotes::FootnoteOptions,
     pub facing_pages: bool,
     #[serde(default)]
     pub page_binding: crate::PageBinding,

@@ -42,6 +42,8 @@ pub fn read(
     opened: &DesignPackage<'_>,
     document: &mut LayoutDocument,
     report: &mut Report,
+    colors: &crate::color_codec::Colors,
+    refs: &crate::style_codec::References,
 ) -> Result<(), Error> {
     let mut offsets = None;
     for part in opened.listed.iter().filter(|p| p.role == "Preferences") {
@@ -49,6 +51,9 @@ pub fn read(
             part: part.name.clone(),
             message,
         })?;
+        if let Some(prefs) = root.find("FootnoteOption") {
+            document.footnotes = crate::footnote_codec::read(prefs, colors, refs, report);
+        }
         if let Some(prefs) = root.find("TextPreference") {
             let text = &mut document.styles.text_preferences;
             for (key, target, range) in [

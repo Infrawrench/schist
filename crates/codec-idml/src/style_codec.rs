@@ -54,6 +54,12 @@ pub(crate) struct References {
     objects: std::collections::BTreeMap<String, String>,
 }
 impl References {
+    pub(crate) fn known_paragraph(&self, reference: &str) -> Option<&str> {
+        self.paragraphs.get(reference).map(String::as_str)
+    }
+    pub(crate) fn known_character(&self, reference: &str) -> Option<&str> {
+        self.characters.get(reference).map(String::as_str)
+    }
     pub(crate) fn new(roots: &[Element]) -> Self {
         let mut out = Self::default();
         for (kind, names) in [

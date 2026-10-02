@@ -398,6 +398,11 @@ pub struct LayoutDocument {
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
     pub creation_order: Vec<ObjectId>,
     pub stories: Vec<Story>,
+    #[serde(
+        default,
+        skip_serializing_if = "crate::footnotes::FootnoteOptions::is_empty"
+    )]
+    pub footnotes: crate::footnotes::FootnoteOptions,
     /// Explicit text flow order, independent of page and layer stacking.
     /// Missing entries use object insertion order for older documents.
     #[serde(default)]
@@ -442,6 +447,17 @@ impl LayoutDocument {
                 strokes.push(stroke.clone());
             }
         }
+        for rule in [&self.footnotes.rule, &self.footnotes.continuing_rule] {
+            if let Some(stroke) = rule
+                .stroke
+                .as_ref()
+                .and_then(crate::footnotes::FootnoteReference::resolved)
+            {
+                if !strokes.contains(stroke) {
+                    strokes.push(stroke.clone());
+                }
+            }
+        }
         for style in self
             .styles
             .paragraphs
@@ -474,6 +490,14 @@ impl LayoutDocument {
                 }
             }
         };
+        for rule in [&self.footnotes.rule, &self.footnotes.continuing_rule] {
+            for paint in [&rule.paint, &rule.gap_paint] {
+                add(&paint
+                    .as_ref()
+                    .and_then(crate::footnotes::FootnoteReference::resolved)
+                    .cloned());
+            }
+        }
         for style in &self.styles.paragraphs {
             add(&style.fill);
             add(&style.stroke);
@@ -557,6 +581,7 @@ impl LayoutDocument {
             objects: Vec::new(),
             creation_order: Vec::new(),
             stories: Vec::new(),
+            footnotes: Default::default(),
             thread_order: Vec::new(),
             assets: Default::default(),
             styles: StyleSet::with_defaults(),

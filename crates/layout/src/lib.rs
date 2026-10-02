@@ -23,6 +23,7 @@ mod curves;
 pub mod decorations;
 pub mod directional_features;
 pub mod edit;
+pub mod footnotes;
 pub mod geometry;
 pub mod graphics;
 pub mod grid;
