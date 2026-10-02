@@ -26,7 +26,7 @@ fn visit(
     report: &mut Report,
 ) {
     match element.name.as_str() {
-        "Table" | "Footnote" | "TextFrame" | "Rectangle" | "Polygon" => {
+        name if crate::xml::story_structure(name) => {
             let message = schist_i18n::t("design.idml_story_structure").to_string();
             if !report.skipped.contains(&message) {
                 report.skip(message);
@@ -100,7 +100,14 @@ pub(crate) fn decode(story: &Element) -> Story {
         };
     }
     builder.walk(story, "", "", "Anywhere");
-    if !builder.text.is_empty() || builder.out.points.is_empty() || builder.trailing_paragraph {
+    if !builder.text.is_empty()
+        || builder.out.points.is_empty()
+        || builder.trailing_paragraph
+        || builder
+            .structures
+            .last()
+            .is_some_and(|(point, _)| *point == builder.out.points.len())
+    {
         builder.flush();
     }
     let offsets = builder.out.point_offsets();
@@ -108,6 +115,10 @@ pub(crate) fn decode(story: &Element) -> Story {
         range.start += offsets[point];
         range.end += offsets[point];
         builder.out.ranges.push(range);
+    }
+    for (point, mut structure) in builder.structures {
+        structure.at = structure.at.map(|at| offsets[point] + at);
+        builder.out.structures.push(structure);
     }
     builder.out
 }
@@ -120,6 +131,7 @@ struct StoryBuilder {
     local: Vec<StyleRange>,
     ranges: Vec<(usize, StyleRange)>,
     trailing_paragraph: bool,
+    structures: Vec<(usize, schist_layout::StoryStructure)>,
 }
 
 impl StoryBuilder {
@@ -194,7 +206,13 @@ impl StoryBuilder {
                     "NextPage" | "NextOddPage" | "NextEvenPage" => Some(StoryPoint::PageBreak),
                     _ => None,
                 };
-                if forced.is_none() || !self.text.is_empty() {
+                if forced.is_none()
+                    || !self.text.is_empty()
+                    || self
+                        .structures
+                        .last()
+                        .is_some_and(|(point, _)| *point == self.out.points.len())
+                {
                     self.flush();
                 }
                 self.trailing_paragraph = forced.is_none();
@@ -203,7 +221,20 @@ impl StoryBuilder {
                 }
                 return;
             }
-            "Table" | "Footnote" | "TextFrame" | "Rectangle" | "Polygon" | "Properties" => return,
+            name if crate::xml::story_structure(name) => {
+                if let Some(raw) = &element.raw {
+                    self.structures.push((
+                        self.out.points.len(),
+                        schist_layout::StoryStructure {
+                            at: Some(self.text.len()),
+                            kind: name.into(),
+                            payload: raw.to_string(),
+                        },
+                    ));
+                }
+                return;
+            }
+            "Properties" => return,
             _ => {}
         }
         for child in &element.children {

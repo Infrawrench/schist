@@ -390,6 +390,13 @@ pub struct LayoutDocument {
     /// Objects, keyed by id. Their page is in [`PlacedObject`] via
     /// [`LayoutDocument::object_page`].
     pub objects: Vec<PlacedObject>,
+    /// Known object creation order, independent of stacking and story indices.
+    /// Absence is unknown, never inferred from an imported object's numeric id.
+    /// Deleted ids remain so undo can restore their original position; codecs
+    /// may omit those absent objects. New authoring records changes in its same
+    /// undo transaction. Native imports need explicit ordering evidence.
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub creation_order: Vec<ObjectId>,
     pub stories: Vec<Story>,
     /// Explicit text flow order, independent of page and layer stacking.
     /// Missing entries use object insertion order for older documents.
@@ -548,6 +555,7 @@ impl LayoutDocument {
             spreads,
             parents: Vec::new(),
             objects: Vec::new(),
+            creation_order: Vec::new(),
             stories: Vec::new(),
             thread_order: Vec::new(),
             assets: Default::default(),
@@ -597,10 +605,55 @@ impl LayoutDocument {
 
     pub fn add_object(&mut self, placed: PlacedObject) -> ObjectId {
         let id = placed.id;
+        self.creation_order.push(id);
         let layer = self.layers.first().copied().unwrap_or(LayerId(0));
         self.object_layers.push((id, layer));
         self.objects.push(placed);
         id
+    }
+
+    /// A known, unambiguous creation position. Missing/duplicate identities
+    /// fail rather than guessing chronology from current paint order.
+    pub fn creation_rank(&self, id: ObjectId) -> Option<usize> {
+        if self.objects.iter().filter(|object| object.id == id).count() != 1 {
+            return None;
+        }
+        let mut positions = self
+            .creation_order
+            .iter()
+            .enumerate()
+            .filter_map(|(position, known)| (*known == id).then_some(position));
+        let position = positions.next()?;
+        positions.next().is_none().then_some(position)
+    }
+
+    /// Batch chronology query with the same ambiguity rules as creation_rank.
+    /// Composition and export build this call-local index once rather than
+    /// scanning every object and chronology entry for each frame.
+    pub fn creation_ranks(&self) -> std::collections::BTreeMap<ObjectId, usize> {
+        use std::collections::BTreeMap;
+        let mut live = BTreeMap::new();
+        for object in &self.objects {
+            live.entry(object.id)
+                .and_modify(|unique| *unique = false)
+                .or_insert(true);
+        }
+        let mut known = BTreeMap::new();
+        for (rank, id) in self.creation_order.iter().enumerate() {
+            known
+                .entry(*id)
+                .and_modify(|position| *position = None)
+                .or_insert(Some(rank));
+        }
+        known
+            .into_iter()
+            .filter_map(|(id, rank)| {
+                (live.get(&id) == Some(&true))
+                    .then_some(rank)
+                    .flatten()
+                    .map(|rank| (id, rank))
+            })
+            .collect()
     }
 
     /// The page an object sits on, following parent page membership when

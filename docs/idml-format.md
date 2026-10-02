@@ -1212,7 +1212,7 @@ diagnostics batch their queries by story. No global document cache is introduced
 Specific-level/range restart-policy encoding is not established by the acquired
 fixtures. Those policies remain retained and diagnosed when enabled. Missing or
 stale parent references are also diagnosed; the renderer does not guess a zero
-or reuse a parent from an earlier branch. Cross-story numbering remains open.
+or reuse a parent from an earlier branch. Same-page cross-story support is described below.
 The new hierarchy tests and proof cases are synthetic, and do not establish
 native application rendering agreement.
 
@@ -1229,7 +1229,7 @@ The public IDML `TabList` record applies to ordinary paragraphs as well as list
 markers. The [public tab guide](https://helpx.adobe.com/ca/indesign/desktop/format-and-style-text/tabs-indents-and-spacing/set-and-repeat-tabs.html)
 describes frame-relative positions, explicit stops replacing preceding defaults,
 and left/right/center/decimal alignment. Explicit source tabs now support all
-four alignments. Leader painting remains retained and diagnosed.
+four alignments. Literal leader painting is implemented as described below.
 `Leader` and `AlignmentCharacter` are literal strings: import preserves their
 whitespace. Missing, inherited, replaced and explicitly empty tab lists remain
 distinct through repeated native saves. Source tabs retain their UTF-8 offsets.
@@ -1246,8 +1246,8 @@ is not mistaken for a tab inside its paragraph's enlarged initial.
 Legacy raster text specifications default to no tab-stop model. PSD and Affinity
 editable writers use their existing private/pixel or reported raster fallback
 when this new setting is present. These properties and the new synthetic proof
-verify Schist integration; no acquired native fixture establishes tab rendering
-agreement with InDesign.
+verify Schist integration. No native reference was acquired at that checkpoint;
+the later native collision observations are recorded below.
 
 The paragraph-tab sweep and subsequent unrestricted publication rerun pass
 1,666 distinct Rust tests plus four browser checks. All 408 editor tests now pass,
@@ -1266,11 +1266,10 @@ anchor uses actual styled glyph metrics, including vertical writing and caret
 positions within ligatures. Source strings and UTF-8 offsets remain unchanged.
 Missing alignment metadata in older TextSpec records still means leading stops.
 
-The public guidance does not establish collision or missing-character behavior.
-Schist skips stops that would overlap preceding text and resumes its implicit
-leading grid after the final explicit stop. A character absent from a field
-anchors its end. These are explicit Schist policies pending native reference
-fixtures, not claims of InDesign rendering agreement. Empty fields still advance
+The public guidance does not establish missing-character behavior. A character
+absent from a field anchors its end; that fallback remains a Schist policy pending
+native reference fixtures. The collision rule was corrected from a public native
+PDF as described below. Empty fields still advance
 to the next stop. Unknown alignment names, invalid character strings and leaders
 remain intact and diagnosed. Generated list-marker spacing still diagnoses
 non-leading stops; source-tab support does not implement marker alignment.
@@ -1278,7 +1277,7 @@ non-leading stops; source-tab support does not implement marker alignment.
 Justified paragraphs with non-leading tabs retain natural spacing and report
 `Justification + TabList`: expanding the field could otherwise move its anchor
 behind preceding text or jump to another stop. Existing RTL, paragraph
-center/right alignment, path and initial-tab diagnostics remain.
+center/right alignment, vertical-path and initial-tab diagnostics remain.
 
 The Paragraph panel has a collapsed Tabs section with one selected stop,
 alignment icons, a position field and a character field only when relevant.
@@ -1305,3 +1304,329 @@ and page renders; contact-sheet inspection covers all 48 actual cases. Native
 Schist Dev window checks cover alignment, position/character edits, add/remove,
 inheritance, single-step undo and saving the selected native tab record. This
 is Schist integration verification, not external InDesign rendering agreement.
+
+
+### Source tab leaders
+
+The public [TabStop leader property](https://developer.adobe.com/indesign/uxp/dom/api/t/tab-stop/)
+and [tab guide](https://helpx.adobe.com/th_th/indesign/using/tabs-indents.html)
+define a literal pattern of up to eight characters, formatted by the source tab.
+Schist retains Unicode and whitespace exactly through native IDML saves. Inline
+controls, line separators and patterns exceeding eight Unicode scalars remain
+retained and diagnosed when used. Empty strings remove leader ink.
+
+A selected explicit stop now paints complete independently shaped units, using
+the source tab's resolved character style and paragraph direction. Unit caches
+include direction; ligatures, synthetic capitals and font variants resolve with
+the source face map. No source bytes, carets, original glyphs or wrap measures are
+added or changed. Passed stops and implicit stops do not reuse a prior leader.
+An ahead-of-pen stop whose field clamps to the pen has zero leader advance.
+Schist fits whole units against the following field edge, with spare advance beside
+the preceding text. This is a stated repetition policy, pending native reference
+rendering. Nonpositive-width units generate no repeated ink. Enumeration happens
+only during paint, with a finite glyph budget; rendering failure is reported in
+both preflight separation paths.
+
+The independent proof now compares 72 cases (144 paired PDF pages), including 24
+new leaders across every stop alignment, writing mode and two sizes. Reference
+leaders are ordinary repeated text in separate frames, with independently measured
+periods and fixed field edges. Exact plates match at three resolutions, and all new
+actual pages passed visual inspection. The complete leader sweep passes 1,696
+distinct Rust tests, workspace clippy, app/native/browser/headless checks and i18n.
+Native Schist Dev leader-field inspection remains pending because its running
+window could not be located by the computer-use API. Native InDesign comparison
+remains unverified.
+
+
+### RTL source-tab rulers
+
+The public [paragraph indent guide](https://helpx.adobe.com/indesign/desktop/format-and-style-text/tabs-indents-and-spacing/set-indents.html)
+describes first-line right indents for RTL paragraphs, while the
+[TabStopAlignment reference](https://developer.adobe.com/indesign/uxp/dom/api/t/tab-stop-alignment/)
+names physical left/right/center edges and a character anchor. Schist maps those
+physical names to the engine's logical ruler only after resolving paragraph bidi
+from the complete source paragraph. Horizontal RTL rulers measure from the right
+column edge; vertical inline progression remains downward. Applying the same
+first-line indent from the leading edge is an inference from that public guidance;
+no acquired native RTL tab fixture establishes rendering agreement yet.
+
+Horizontal RTL source tabs now compose with right paragraph alignment. Vertical
+RTL paragraphs retain a top-origin ruler with ordinary left/top alignment. Line
+starts, first-line and hanging indents, wrapping, enlarged-initial reservations,
+columns, threading, preview and paint share the resolved origin. Decimal anchors
+use the shaped character's physical caret before converting to ruler distance.
+Native stop names and paragraph/Story axes survive four repeated IDML saves.
+Other paragraph alignment and justified non-leading combinations remain diagnosed.
+
+A new print comparison found catastrophic cancellation while mirroring a final
+field: two separate subtractions placed its glyph origin just below zero and
+shifted its mask by a pixel. Mirroring now uses the stored field end. An exact
+mask property covers seven sizes, five scales and four alignments. The expanded
+proof compares 120 cases (240 paired pages), including 48 explicit/automatic RTL
+cases with Hebrew and independently styled numeric fields, leaders, native stop
+names, indents and all writing modes. Controls use ordinary tracked zero-width
+padding rather than any tab implementation. Every control must fit on one line;
+exact plates match at 72/144/216 dpi. All 48 new actual cases passed visual review.
+
+Generated list-marker placement remains a separate gap: its left-origin spacing
+does not implement RTL markers. These combinations are retained and diagnosed in
+IDML and both preflight separation paths; they no longer paint a generated marker
+at an incorrect column edge. Diagnostics resolve direction from the whole
+paragraph, including continued lines beginning with RTL text.
+
+
+### Native source-tab collision and edge observations
+
+The public [tab-breaks PDF](https://github.com/paged-media/core/blob/2e3c998ea09101e028c626f5908a4db77a945b40/corpus/generated/tab-breaks.pdf),
+[export metadata](https://github.com/paged-media/core/blob/2e3c998ea09101e028c626f5908a4db77a945b40/corpus/generated/tab-breaks.export.meta.json)
+and [fixture inputs](https://github.com/paged-media/core/blob/2e3c998ea09101e028c626f5908a4db77a945b40/crates/paged-gen/src/samples/tab_breaks.rs)
+provide an observable native reference: InDesign 20.0.1.32, horizontal LTR,
+Inter 10/12, 200 pt frames with zero insets. Only fixture definitions and output
+were consulted; no external importer, composer, renderer or Adobe header was read.
+The PDF SHA-256 is `d99e6f4a27a07d2f0aadbb810f1700c26021a0429521914275338210334d6c46`.
+
+Poppler word coordinates on page 2 show that ahead-of-pen right, center and
+decimal stops clamp a colliding field to the pen. They do not skip to another
+stop. Passed stops resume the implicit 36 pt grid. Page 1's beyond-frame stop
+breaks after the preceding text; its following field starts on the next line.
+The left-stop justified examples expand spaces only after the final tab. These
+observations do not establish justified aligned tabs or other paragraph alignments.
+
+Schist now selects stops by their ruler position before clamping the shaped
+field. Zero-advance tabs keep their source bytes, carets and selected stop, with
+no generated leader ink. The numeric test records all 52 sweep observations,
+allowing 0.04 pt for glyph bearings and PDF advance rounding; it does not compare
+font shaping or rasters. A wider property checks widths, ruler order and origins.
+The same logical rule applies to other writing modes, without claiming native
+RTL/vertical agreement.
+
+A terminal tab after source text can end at the inline measure when its stop
+is beyond it, allowing the following field to wrap. `TabStops.line_width`
+carries that measure into standalone line paint, caret placement and zoom;
+wrapping supplies its own per-line measure. Unbounded specs retain unbounded
+geometry. A leading tab alone cannot create a blank line that consumes overset.
+The property checks source coverage and standalone measurements in all three
+axes, both explicit directions, several widths and first-line indents.
+
+The independent print proof adds 18 touching-field cases across non-leading
+alignments, axes and sizes, with spot/process paints, strokes and zero-gap
+leaders. Controls place ordinary fields at the prefix's measured end. This
+checks Schist's output integration separately from the native numeric evidence.
+
+### Horizontal path/tab integration
+
+Source tab stops use the start/end bracket's logical arc-distance ruler. Physical
+LeftAlign/RightAlign names retain the horizontal direction mapping documented
+above; indents do not move the ruler. Four native saves preserve cubic handles,
+brackets, inherited stops, literal leaders, text, glyph masks and carets. Tight
+cubic bounds are not translation-idempotent at f32 precision. A standard parent
+Label (`Schist.TextPath.LocalBounds.v1`) retains authored local bounds only while
+the native path geometry agrees; external geometry edits supersede it. External
+item transforms still apply normally. No native curve semantics are invented by
+this authoring-precision metadata.
+
+The independently positioned ordinary-field/leader proof adds 64 path cases to
+202 total cases (404 paired pages), with RTL, all stop alignments, two sizes,
+first-line indents, three cardinal baselines and a cubic baseline. Exact plates
+agree at 72/144/216 dpi. Glyph fill/stroke share a 1/64-pixel inline sampling grid;
+carets and model geometry are unsnapped. This is a Schist raster sampling policy,
+not a claim about native rasterization. Public native IDML establishes TextPath
+structure, but native path/tab application agreement remains unverified.
+
+### Initial tabs and generated marker leaders
+
+A source tab included in DropCapCharacters remains an unsupported native setting.
+Composition now falls back to ordinary source flow, preserving text, carets and
+wrapping rather than enlarging the tab gap. The official [drop-cap guide](https://helpx.adobe.com/indesign/desktop/format-and-style-text/character-formatting/apply-drop-caps-text-positioning.html)
+and [Paragraph DOM](https://developer.adobe.com/indesign/uxp/dom/api/p/paragraph/)
+define counts and height but do not establish this combination's reservation or
+ruler scaling. The retained native setting remains diagnosed; fallback is not a
+claim of native drop-cap/tab agreement.
+
+Horizontal LTR generated bullet/number tabs now paint literal leaders from the
+selected explicit leading stop. Marker style, counter text, original marker masks
+and source carets remain unchanged. A separate generated leader fragment uses the
+column ruler; sharing a fractionally positioned marker frame shifted ink in the
+independent proof. Passed/implicit stops and legacy fixed gaps cannot borrow a
+leader. Four native saves retain valid literal strings, counter text and all
+paint fragments. Non-leading marker tabs, RTL/vertical/path/initial marker
+combinations remain retained and diagnosed. The 36-case list proof (72 paired
+pages) includes 12 leader cases with independent ordinary-text placements. Native
+leader phase agreement remains unverified.
+
+### Native hanging-indent tab observations
+
+The public [list-markers PDF](https://github.com/paged-media/core/blob/2e3c998ea09101e028c626f5908a4db77a945b40/corpus/generated/list-markers.pdf),
+[export metadata](https://github.com/paged-media/core/blob/2e3c998ea09101e028c626f5908a4db77a945b40/corpus/generated/list-markers.export.meta.json)
+and [fixture inputs](https://github.com/paged-media/core/blob/2e3c998ea09101e028c626f5908a4db77a945b40/crates/paged-gen/src/samples/list_markers.rs)
+establish horizontal LTR placement in InDesign 20.0.1.32, Inter 10/12,
+zero-inset 200 pt frames. Only the input definitions and published output were
+consulted. No external importer, composer, renderer or Adobe header was read.
+PDF SHA-256: `ed70b6d6232d2cfc8d2474dd1b507bb1589afe1bb5c6a019a7ca8119c7cd0141`.
+Input SHA-256: `c0228d1e8272457c4c3689b2e01168b30d753aa1323eda369db3d474921fef44`.
+
+Poppler word starts have a common 0.125 pt glyph bearing. Removing that bearing
+gives these body starts relative to their frame:
+
+| Cases | Input | Body start (pt) |
+| --- | --- | --- |
+| c00, c01, c08 | Hanging indent 18, tab after marker, no explicit stop | 18 |
+| c03 | Bullet tab, no indent or explicit stop | 36 |
+| c04 | Marker starts at left indent 18, no hanging indent | 36 |
+| c05 | Left indent 50, first-line indent -20 | 50 |
+| c06 | Left indent 50, first-line indent -50, explicit stop 30 | 30 |
+| c07 | Left indent 30, first-line indent -30, explicit stop 60 | 30 |
+| c10 | Number tab, left indent 50, first-line indent -50, explicit stop 10 | 10 |
+| c11 | Number tab, hanging indent 6 lies behind marker | 36 |
+| c12 | Ordinary `Tab\tc12 one`, hanging indent 40, no explicit stop | 40 |
+| c13 | Bullet tab, hanging indent 18, passed explicit stop 2 | 18 |
+
+An ahead-of-pen hanging indent is a virtual leading stop: an earlier explicit
+stop wins, but a later one cannot suppress the indent. Schist previously placed
+c07 at 60 and the ordinary c12 field at 36. Both now use the observed indent.
+The numerical regression covers the 11 marker/tab cases; the ordinary-tab
+regression checks c12. Neither claims font shaping or raster agreement.
+Space-only marker cases c02/c09 are excluded from these numerical assertions.
+
+The shared tab geometry keeps the virtual stop column-relative through wrapping,
+standalone painting, carets and zoom. Properties cover origins, scales, ruler
+order, passed stops and colliding explicit fields. A virtual stop has no leader;
+an explicit stop at the same position retains its alignment and leader as Schist
+policy, without native leader-phase evidence. Four repeated native saves retain
+the indents, source bytes, masks and carets in both directions and all three axes.
+Those additional axes are integration checks, not native placement validation.
+The implicit-ruler notice now describes the hanging-indent/36-point fallback.
+
+### Paragraph-local writing modes
+
+Schist's paragraph styles can override the story's writing mode. Public IDML
+`StoryOrientation` describes the story-wide axis; no native paragraph-local
+counterpart has been established. Export previously omitted this model property,
+changing saved vertical paragraphs to horizontal on reopening. Standard Label
+metadata (`Schist.ParagraphWritingMode.v1`) now retains the explicit Horizontal,
+VerticalRightToLeft and VerticalLeftToRight overrides. Missing or unrecognized
+values do not introduce an override. Inheritance remains absent when unset.
+
+Import and export report that paragraph orientation is retained in Schist only.
+No native attribute is fabricated, and native application rendering of mixed axes
+is not claimed. The hanging-indent property checks exact style overrides,
+source text, masks and carets through four native saves in all three modes and
+both directions. Native story orientation continues to use its ordinary field.
+
+### Cross-story numbering: evidenced chronology and remaining limits
+
+The public [numbering inputs](https://github.com/paged-media/core/blob/2e3c998ea09101e028c626f5908a4db77a945b40/crates/paged-gen/src/samples/numbering.rs)
+declare one shared continuation resource for both pages, despite the second
+page's restart label. The published [InDesign PDF](https://github.com/paged-media/core/blob/2e3c998ea09101e028c626f5908a4db77a945b40/corpus/generated/numbering.pdf)
+shows 1/2 in story A and 1 in story B on both pages; its pages are pixel-identical.
+PDF SHA-256: `5c96d7ceb03a1ec2e98a61b3bd54c1509fa62b591a4033356c26694e6b0be3a0`.
+This discrepancy does not establish continuation or reset semantics. Fixture
+comments about another renderer's expected order are not native evidence.
+
+Adobe's public [list-options guide](https://helpx.adobe.com/indesign/desktop/format-and-style-text/lists-and-numbering/define-and-manage-list-options.html)
+states that unthreaded frames on one page are numbered in frame-creation order.
+Document story-vector order and paint order therefore cannot safely stand in for
+that order. Schist now records object creation independently of stacking and
+story storage. The creation transaction includes chronology in its single undo
+step. Deleting an object keeps a chronology tombstone for undo; stories with no
+ordinary frame do not contribute to the live list.
+
+For one ordinary unthreaded frame per used story, all on one page and with known
+creation order, a shared resource composes through those stories in frame order.
+All source paragraphs participate, including overset. Ancestor restart events use
+a monotonic paragraph ordinal across story boundaries, never a byte offset which
+restarts at zero. Explicit restarts and independent resource identities remain
+unchanged. The Paragraph panel's existing list disclosure now selects the sequence
+and toggles continuation across stories. The resource setting is shared by its
+referencing styles; changing it is one undo step.
+
+Standard object Label metadata `Schist.ObjectCreationOrder.v1` retains Schist's
+chronology through IDML saves, bound to the item's native Self and element kind.
+An unlabelled import has unknown chronology; no order is inferred from the XML
+walk or numeric IDs. Duplicate ordinals, native identity aliases, changed Self or
+kind, malformed or repeated entries are rejected with a notice. Ordinals only
+sort known entries and never control allocation. Deleted entries are omitted on
+save, so relative order survives while ordinals may compress. External application
+retention of this metadata is unverified, and identity guards do not prove that
+an external edit retained original creation semantics.
+
+Supported continuation reports a Schist-order warning on import/export and in
+preflight. Unknown chronology, detached target stories, ambiguous resources,
+multiple/threaded frames, parent instances, multiple pages and book continuation
+remain explicit diagnostics without guessed markers. Properties cover storage
+and paint permutations, multilevel events across offset resets, deletion/undo,
+four native saves, identity invalidation, exact print plates at three resolutions
+and both preflight paths. These tests establish Schist's behavior, not native
+rendering equivalence. A controlled native continuation/reset fixture and broader
+page/thread/template ordering evidence are still needed. No external importer,
+composer or renderer implementation was consulted.
+
+
+### Unsupported story structures: retention before composition
+
+The public specification, section 6.4.1 and example 54, places inline tables,
+footnotes and page items among CharacterStyleRange children, alongside Content.
+The public Penn State academic fixture
+`fixtures/indd/psu-academic-2/psu-academic-2.idml` supplies a Table in
+`Stories/Story_u129a6.xml`, plus a Footnote and an inline Rectangle/MathObject in
+`Stories/Story_u12666.xml`. Only its published XML was used for this change.
+Previously those nodes generated an import warning and were then discarded.
+
+The XML reader now retains the exact outer container bytes, including mixed
+content, entities, whitespace and ACE processing instructions. Nested containers
+stay inside that payload rather than becoming duplicate body text. Tables,
+footnotes, TextFrame, Rectangle, Polygon, Oval, GraphicLine and Group containers
+are stored as opaque story structures with UTF-8 byte anchors. A structure does
+not insert source characters. Text edits retain anchors with right affinity for
+insertions, refuse replacements crossing them, and reject invalid coordinates.
+Story snapshots, styling, undo and redo retain the whole payload. Threading treats
+opaque-only stories as occupied instead of orphaning their content.
+
+The standard Story Label `Schist.StructuredStory.v1` retains the original Story
+model whenever it contains these structures or legacy Other points. The writer
+still emits only supported native body content. On read, it regenerates that
+native representation and compares it to the actual story, ignoring XML attribute
+order and insignificant whitespace. Native identity and resolved style names must
+also agree. It does not trust a saved checksum or overwrite a native edit from a
+stale Label. Changed body text, formatting, story identity or renamed resources
+leave native text authoritative and retain the opaque data with unknown locations.
+Malformed/duplicate Label values remain inert, unplaced recovery data. Subsequent
+saves preserve that state without repeatedly nesting metadata.
+
+Both import and export warn about unrendered retained content; unknown locations
+have an additional notice. Both separation paths report missing structure paint
+as an error even when ordinary body text fits. Story Editor shows its retained
+count. All four warning/count keys, including the corrected existing omission
+warning, are present in all 150 catalogs.
+
+Tests hold the published table, footnote and math payloads byte-for-byte through
+four saves; exercise every UTF-8 edit range, forced preservation through styling
+and undo, legacy opaque points, external native changes and metadata corruption.
+This establishes Schist data retention only. It does not reconstruct native style,
+link or object resource graphs referenced inside opaque XML, compose tables or
+footnotes, or establish native application/rendering parity. Those remain item 9
+work; the feature flag stays disabled by default.
+
+
+The next composition pass has public reference evidence: the `paged-media/core`
+`footnotes` input fixture and its InDesign 20.0.1.32 PDF, pinned at
+`2e3c998ea09101e028c626f5908a4db77a945b40`, were inspected without reading its
+importer/composer/renderer. The one-page PDF visibly includes the first two notes
+and only three lines of the third in a 120-point frame. Its reference digits are
+on the body baseline and its note bodies have no printed number labels. The
+fixture's stated 8-point default and requested rule settings must not be treated
+as observed output. Native Penn State XML places FootnoteOption in
+`Resources/Preferences.xml`; the input fixture requests one through designmap.
+That placement difference needs testing before calibrating any numerical rule.
+Source hashes, full-page render and word boxes are under
+`/tmp/schist-native-footnote-reference/`; PDF SHA-256 is
+`d3a62e560a4aa53e586e241f8003f8c8660b4f73aee9fc9ec3fc3690824ab89b`.
+
+[Adobe's public footnote options guide](https://helpx.adobe.com/indesign/desktop/indexes-and-references/footnotes-and-endnotes/change-footnote-numbering-and-layout-options.html)
+and [FootnoteOption DOM reference](https://developer.adobe.com/indesign/uxp/omv/f/FootnoteOption/)
+separate numbering, marker styling, space reservation, rule geometry and splitting.
+The [Footnote DOM reference](https://developer.adobe.com/indesign/uxp/dom/api/f/footnote/)
+also distinguishes a note's anchor from its own text. Composition must
+reserve space in the containing column and handle overflow explicitly; simply
+painting a note at the frame bottom can overlap the body. These references are
+requirements evidence, not a claim that structured composition is implemented.

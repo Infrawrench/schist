@@ -18,6 +18,121 @@ fn path(doc: &mut schist_layout::LayoutDocument, width: f32) -> authoring::TextF
 }
 
 #[test]
+fn path_tab_rulers_keep_their_bracket_origin_across_indents_and_directions() {
+    use schist_layout::{
+        lists::{ListStyle, ListTab},
+        styles::{Align, ParagraphDirection},
+    };
+    schist_text_engine::add_font_data(
+        include_bytes!("../../../web/fonts/IBMPlexSans-Regular.ttf").to_vec(),
+    );
+    for direction in [
+        ParagraphDirection::LeftToRight,
+        ParagraphDirection::RightToLeft,
+    ] {
+        for alignment in ["LeftAlign", "RightAlign", "CenterAlign", "CharacterAlign"] {
+            for indent in [0.0, 9.0, 15.0] {
+                for first in [-6.0, 0.0, 4.0] {
+                    let mut doc = blank_a4();
+                    let style = &mut doc.styles.paragraphs[0];
+                    style.family = Some("IBM Plex Sans".into());
+                    style.point_size = Some(12.0);
+                    style.direction = Some(direction);
+                    style.align = Some(if direction == ParagraphDirection::RightToLeft {
+                        Align::Right
+                    } else {
+                        Align::Left
+                    });
+                    style.left_indent = Some(indent);
+                    style.right_indent = Some(7.0);
+                    style.first_line_indent = Some(first);
+                    style.list = ListStyle {
+                        tabs: Some(
+                            [70.0, 110.0]
+                                .map(|position| ListTab {
+                                    position,
+                                    alignment: alignment.into(),
+                                    alignment_character: ".".into(),
+                                    leader: String::new(),
+                                })
+                                .into(),
+                        ),
+                        ..Default::default()
+                    };
+                    let frame = path(&mut doc, 240.0);
+                    doc.stories[frame.story.0 as usize] =
+                        Story::from_text("A\t12.34\t56.7", "Default");
+                    for bracket in [
+                        text_path::Bracket::Start(20.0),
+                        text_path::Bracket::End(Some(180.0)),
+                    ] {
+                        assert!(text_path::set_bracket(
+                            &mut doc,
+                            &mut History::default(),
+                            &[frame.object],
+                            bracket
+                        ));
+                    }
+                    let flow = compose::compose_story(&doc, frame.story);
+                    assert!(
+                        !flow.has_overflow(),
+                        "{direction:?}/{alignment}/{indent}/{first}"
+                    );
+                    assert_eq!(flow.lines().count(), 1);
+                    let line = flow.lines().next().unwrap();
+                    let spec = compose::line_spec(line, doc.story(frame.story).unwrap(), &doc);
+                    assert!(schist_layout::tabs::unsupported_in_mode(
+                        &line.paragraph,
+                        &spec.text,
+                        true,
+                        spec.writing_mode
+                    )
+                    .is_empty());
+                    let mut straight = spec.clone();
+                    straight.path = None;
+                    assert!(
+                        (schist_text_engine::measure(&straight).unwrap().width
+                            - line.natural_width)
+                            .abs()
+                            < 0.001
+                    );
+                    for (start, end, stop) in [(2, 7, 70.0), (8, 12, 110.0)] {
+                        let mut field = straight.clone();
+                        field.text = spec.text[start..end].into();
+                        field.tabs = None;
+                        let width = schist_text_engine::measure(&field).unwrap().width;
+                        let left = schist_text_engine::caret_at(&spec, start).unwrap().x
+                            - schist_text_engine::caret_at(&field, 0).unwrap().x;
+                        let actual = match alignment {
+                            "LeftAlign" => left,
+                            "RightAlign" => left + width,
+                            "CenterAlign" => left + width / 2.0,
+                            _ => {
+                                schist_text_engine::caret_at(
+                                    &spec,
+                                    start + field.text.find('.').unwrap(),
+                                )
+                                .unwrap()
+                                .x
+                            }
+                        };
+                        let expected = if direction == ParagraphDirection::RightToLeft {
+                            180.0 - stop
+                        } else {
+                            20.0 + stop
+                        };
+                        assert!(
+                            (actual - expected).abs() < 0.002,
+                            "{direction:?}/{alignment}/{indent}/{first}: {actual} != {expected}"
+                        );
+                    }
+                }
+            }
+        }
+    }
+}
+
+#[test]
 fn conversion_brackets_and_curve_edits_are_exactly_reversible_without_losing_frame_paint() {
     for closed in [false, true] {
         let mut doc = blank_a4();

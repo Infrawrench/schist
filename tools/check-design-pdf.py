@@ -645,8 +645,8 @@ if len(sys.argv) > 25:
             result = subprocess.run(args + [sys.argv[25], str(Path(temporary)/prefix)], capture_output=True, text=True)
             assert result.returncode == 0 and not result.stderr.strip(), result.stderr
             files = sorted(Path(temporary).glob(prefix + "-*.png"))
-            assert len(files) == 48, (prefix, len(files))
-            for index in range(0,48,2):
+            assert len(files) == 72, (prefix, len(files))
+            for index in range(0,len(files),2):
                 actual = Image.open(files[index]).convert("RGB")
                 expected = Image.open(files[index+1]).convert("RGB")
                 assert actual.size == expected.size == (400,400), (prefix,index,actual.size)
@@ -660,11 +660,11 @@ if len(sys.argv) > 26:
             result = subprocess.run(args + [sys.argv[26], str(Path(temporary)/prefix)], capture_output=True, text=True)
             assert result.returncode == 0 and not result.stderr.strip(), result.stderr
             files = sorted(Path(temporary).glob(prefix + "-*.png"))
-            assert len(files) == 96, (prefix, len(files))
-            for index in range(0,96,2):
+            assert len(files) == 404, (prefix, len(files))
+            for index in range(0,404,2):
                 actual = Image.open(files[index]).convert("RGB")
                 expected = Image.open(files[index+1]).convert("RGB")
                 assert actual.size == expected.size == (400,400), (prefix,index,actual.size)
                 assert actual.tobytes() == expected.tobytes(), (prefix,index,"tabbed fields differ from independently positioned frames")
                 assert min(v[0] for v in actual.getextrema()) < 150, (prefix,index,"empty tab proof")
-    print("Design PDF: leading/right/center/character tab fields match independently positioned frames across writing modes, font sizes, initial indents, spot/process paint, strokes and opacity; native application agreement remains unverified.")
+    print("Design PDF: leading/right/center/character tab fields match independently positioned frames across writing modes, font sizes, initial indents, touching fields, spot/process paint, strokes and opacity; full native application agreement remains unverified.")

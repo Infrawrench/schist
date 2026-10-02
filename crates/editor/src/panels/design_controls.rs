@@ -1518,6 +1518,9 @@ fn list_fields(
         },
         cx,
     ));
+    if list.kind == Some(ListKind::Numbered) {
+        rows.extend(list_sequence_fields(ws, list, target.clone(), cx));
+    }
     for (id, label, value) in [
         (
             "design-prop-list-level",
@@ -1576,6 +1579,90 @@ fn list_fields(
             .child(t("design.list_hint"))
             .into_any_element(),
     );
+    rows
+}
+
+fn list_sequence_fields(
+    ws: &mut Workspace,
+    list: &schist_layout::lists::ListStyle,
+    target: Target,
+    cx: &mut Context<Workspace>,
+) -> Vec<gpui::AnyElement> {
+    let default = "NumberingList/$ID/[Default]";
+    let mut choices = vec![None, Some(default.to_owned())];
+    let mut labels = vec![
+        t("design.inherited").to_owned(),
+        t("design.list_default").to_owned(),
+    ];
+    for resource in &ws.design.document.styles.numbering_lists {
+        if resource.id != default {
+            choices.push(Some(resource.id.clone()));
+            labels.push(resource.name.clone());
+        }
+    }
+    // Retain an unresolved imported identity until explicitly replaced.
+    if let Some(id) = &list.list {
+        if !choices.iter().any(|choice| choice.as_ref() == Some(id)) {
+            choices.push(Some(id.clone()));
+            labels.push(id.clone());
+        }
+    }
+    let selected = choices
+        .iter()
+        .position(|choice| *choice == list.list)
+        .unwrap_or(0);
+    let captured = target.clone();
+    let mut rows = vec![
+        div()
+            .text_xs()
+            .child(t("design.list_sequence"))
+            .into_any_element(),
+        super::object_styles::picker(
+            ws,
+            "design-list-sequence",
+            labels,
+            selected,
+            move |ws, index, _| {
+                if let Some(value) = choices.get(index) {
+                    controls::edit_list(&mut ws.design, &captured, |list| {
+                        list.list = value.clone()
+                    });
+                }
+            },
+            cx,
+        ),
+    ];
+    let Target::Paragraph(name) = &target else {
+        return rows;
+    };
+    let resolved = ws.design.document.styles.resolve_paragraph(name).list;
+    let id = schist_layout::list_counters::sequence_id(&resolved);
+    let enabled = ws
+        .design
+        .document
+        .styles
+        .numbering_lists
+        .iter()
+        .find(|r| r.id == id)
+        .is_some_and(|r| r.across_stories);
+    rows.push(
+        div()
+            .text_xs()
+            .child(t("design.list_across_stories"))
+            .into_any_element(),
+    );
+    rows.push(super::object_styles::picker(
+        ws,
+        "design-list-across-stories",
+        vec![t("common.off").into(), t("common.on").into()],
+        usize::from(enabled),
+        move |ws, index, _| {
+            if index < 2 {
+                controls::set_list_across_stories(&mut ws.design, &target, index == 1);
+            }
+        },
+        cx,
+    ));
     rows
 }
 

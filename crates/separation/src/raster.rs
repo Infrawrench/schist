@@ -373,15 +373,17 @@ pub struct TextPaint {
 /// A composed line split into its actual ink paints without reshaping each
 /// substring. Ink IDs travel through the text rasterizer as opaque colors,
 /// preserving spot identity even when two inks have the same RGB preview.
+/// None means the complete text raster failed; callers must report it rather
+/// than treating failed paint as an ordinary empty line.
 pub fn line_paints(
     line: &ComposedLine,
     story: &schist_layout::Story,
     doc: &LayoutDocument,
     settings: OutputSettings,
     page: &schist_layout::Page,
-) -> Vec<TextPaint> {
+) -> Option<Vec<TextPaint>> {
     if line.forced_break || (line.end <= line.start && line.generated.is_none()) {
-        return Vec::new();
+        return Some(Vec::new());
     }
     let base = line
         .paragraph
@@ -450,11 +452,7 @@ pub fn line_paints(
     spec.wrap_width = None;
     let align = spec.align;
     let writing = spec.writing_mode;
-    let Some(raster) =
-        schist_text_engine::rasterize_with_paints(&scale_spec(spec, settings.scale()))
-    else {
-        return Vec::new();
-    };
+    let raster = schist_text_engine::rasterize_with_paints(&scale_spec(spec, settings.scale()))?;
     let frame = PagePixel::rect(settings, page, line.bounds);
     let offset = schist_layout::compose::aligned_origin(
         Rect::new(
@@ -475,24 +473,26 @@ pub fn line_paints(
         frame.left + dx + raster.bounds.right,
         frame.top + dy + raster.bounds.bottom,
     );
-    raster
-        .paints
-        .into_iter()
-        .map(|paint| {
-            let index = paint.color.map(u32::from_le_bytes).unwrap_or(0) as usize;
-            let (ink, opacity, overprint, tint) = &inks[index];
-            TextPaint {
-                coverage: Coverage {
-                    rect,
-                    data: paint.coverage,
-                },
-                ink: ink.clone(),
-                opacity: *opacity,
-                overprint: *overprint,
-                tint: *tint,
-            }
-        })
-        .collect()
+    Some(
+        raster
+            .paints
+            .into_iter()
+            .map(|paint| {
+                let index = paint.color.map(u32::from_le_bytes).unwrap_or(0) as usize;
+                let (ink, opacity, overprint, tint) = &inks[index];
+                TextPaint {
+                    coverage: Coverage {
+                        rect,
+                        data: paint.coverage,
+                    },
+                    ink: ink.clone(),
+                    opacity: *opacity,
+                    overprint: *overprint,
+                    tint: *tint,
+                }
+            })
+            .collect(),
+    )
 }
 
 /// The coverage of a placed graphic, if its source can be resolved.

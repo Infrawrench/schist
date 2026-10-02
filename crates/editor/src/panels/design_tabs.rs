@@ -130,10 +130,18 @@ pub(super) fn rows(
                 "design-prop-tab-character",
                 "design.tab_character",
                 tab.alignment_character.clone(),
-                target,
+                target.clone(),
                 cx,
             ));
         }
+        rows.push(super::design_controls::field(
+            ws,
+            "design-prop-tab-leader",
+            "design.tab_leader",
+            tab.leader.clone(),
+            target,
+            cx,
+        ));
     } else {
         rows.push(
             div()

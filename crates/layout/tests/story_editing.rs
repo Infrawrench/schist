@@ -40,6 +40,7 @@ fn every_utf8_selection_can_be_replaced_deleted_or_split_without_corrupting_rang
 fn typing_keeps_unedited_paragraph_styles_and_structural_points() {
     let story = Story {
         prefs: Default::default(),
+        structures: Vec::new(),
         points: vec![
             StoryPoint::Paragraph {
                 text: "Title".into(),

@@ -144,6 +144,7 @@ fn a_saved_document_keeps_its_pages_and_its_frames() {
     let mut document = schist_layout::blank_a4();
     document.stories.push(schist_layout::Story {
         prefs: Default::default(),
+        structures: Vec::new(),
         points: vec![schist_layout::StoryPoint::Paragraph {
             text: "Headline".into(),
             style: "Body".into(),

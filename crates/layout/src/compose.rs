@@ -42,12 +42,16 @@ pub struct ComposedLine {
     /// A baseline relative to `bounds.origin()`. Its offset already includes
     /// paragraph alignment; line_spec disables a second rectangular alignment.
     pub text_path: Option<schist_text_engine::TextPath>,
+    /// Logical inline start relative to a path's bracket ruler. Arc distances
+    /// are distinct from page x coordinates. None for rectangular lines.
+    pub path_inline_start: Option<Pt>,
     /// Byte range within the story's concatenated text.
     pub start: usize,
     pub end: usize,
     /// Where the line's box sits, in page space.
     pub bounds: Rect,
-    /// Start of this column along the inline axis, before paragraph indents.
+    /// Leading edge of this column along the inline axis, before paragraph
+    /// indents: right for horizontal RTL and left/top otherwise.
     pub inline_origin: Pt,
     /// Baseline in the same local page coordinates as the line box.
     pub baseline: Pt,
@@ -261,7 +265,11 @@ pub(crate) fn spec_with_character(
                 crate::StoryOrientation::Horizontal => schist_text_engine::WritingMode::Horizontal,
                 crate::StoryOrientation::Vertical => schist_text_engine::WritingMode::VerticalRl,
             });
-    let tabs = text.contains('\t').then(|| crate::tabs::stops(paragraph));
+    let reverse = direction == schist_text_engine::ParagraphDirection::RightToLeft
+        && !writing_mode.is_vertical();
+    let tabs = text
+        .contains('\t')
+        .then(|| crate::tabs::stops(paragraph, reverse));
     let mut spec = TextSpec {
         language: character
             .language
@@ -908,16 +916,7 @@ fn compose_path(
         block.style.clone_from(&doc.default_paragraph_style);
     }
     let paragraph = doc.styles.resolve_paragraph(&block.style);
-    let measure = line_measure(
-        &paragraph,
-        Rect::new(0.0, 0.0, guide.span.unwrap_or(0.0), 0.0),
-        block.paragraph_start == Some(block.start),
-        None,
-    );
-    if measure.width <= 0.0 {
-        return empty();
-    }
-    let spec = spec_for(
+    let mut spec = spec_for(
         story,
         block.start,
         if block.is_paragraph {
@@ -928,10 +927,31 @@ fn compose_path(
         &doc.styles,
         &block.style,
         &doc.default_character_style,
-        measure.width,
+        0.0,
     );
     if spec.writing_mode.is_vertical() {
         return empty();
+    }
+    let interval = guide.span.unwrap_or(0.0);
+    let reverse = reverse_ruler(&spec);
+    let measure = line_measure(
+        &paragraph,
+        Rect::new(0.0, 0.0, interval, 0.0),
+        block.paragraph_start == Some(block.start),
+        None,
+        reverse,
+    );
+    if measure.width <= 0.0 {
+        return empty();
+    }
+    let inline_start = if reverse {
+        interval - measure.right()
+    } else {
+        measure.x
+    };
+    spec.wrap_width = Some(measure.width);
+    if let Some(tabs) = &mut spec.tabs {
+        tabs.origin = inline_start;
     }
     let spans = line_spans(&spec);
     let Some(span) = spans.first() else {
@@ -977,6 +997,7 @@ fn compose_path(
         };
     guide.span = Some(measure.width);
     line.text_path = Some(guide);
+    line.path_inline_start = Some(inline_start);
     let mut consumed = spans
         .get(1)
         .map_or(block.end, |next| block.start + next.start);
@@ -1263,19 +1284,31 @@ fn break_line(
         &block.style
     };
     let paragraph = doc.styles.resolve_paragraph(style);
+    let spec = spec_for(
+        story,
+        block.start,
+        block.start,
+        &doc.styles,
+        style,
+        &doc.default_character_style,
+        column.width,
+    );
+    let reverse = reverse_ruler(&spec);
     let measure = line_measure(
         &paragraph,
         *column,
         block.paragraph_start == Some(block.start),
         None,
+        reverse,
     );
     ComposedLine {
         generated: None,
         text_path: None,
+        path_inline_start: None,
         start: block.start,
         end: block.end.min(story.text_len()),
         bounds: Rect::new(measure.x, top, measure.width, metrics.height),
-        inline_origin: column.x,
+        inline_origin: ruler_origin(*column, reverse),
         baseline: top + metrics.ascent,
         advance: metrics.advance,
         paragraph,
@@ -1566,8 +1599,21 @@ fn place_block(
     let doc = source.doc;
     let paragraph = doc.styles.resolve_paragraph(&block.style);
     let first = block.paragraph_start == Some(block.start);
-    let normal = line_measure(&paragraph, column, false, None);
-    let mut initial = line_measure(&paragraph, column, first, None);
+    // Resolve direction from the complete paragraph before assigning physical
+    // first-line indents or taking a slice that starts with neutral text.
+    let mut full_spec = spec_for(
+        story,
+        block.start,
+        block.end,
+        &doc.styles,
+        &block.style,
+        &doc.default_character_style,
+        column.width,
+    );
+    let reverse = reverse_ruler(&full_spec);
+    let normal = line_measure(&paragraph, column, false, None, reverse);
+    let mut initial = line_measure(&paragraph, column, first, None, reverse);
+    full_spec.wrap_width = Some(normal.width);
     let marker = (first && paragraph.list.active())
         .then(|| source.markers.get(block.start))
         .flatten();
@@ -1582,15 +1628,6 @@ fn place_block(
             };
         }
     }
-    let full_spec = spec_for(
-        story,
-        block.start,
-        block.end,
-        &doc.styles,
-        &block.style,
-        &doc.default_character_style,
-        normal.width,
-    );
     let opening = if first && marker.is_none() {
         opening(&full_spec, &paragraph)
     } else {
@@ -1605,8 +1642,8 @@ fn place_block(
     let mut all = schist_text_engine::line_spans_with_measures(
         &spec,
         &[
-            inline_measure(initial, column),
-            inline_measure(normal, column),
+            inline_measure(initial, column, reverse),
+            inline_measure(normal, column, reverse),
         ],
     );
     let mut cap = None;
@@ -1647,8 +1684,10 @@ fn place_block(
                             column,
                             first && i == 0,
                             (i < opening.lines).then_some(planned.area),
+                            reverse,
                         ),
                         column,
+                        reverse,
                     )
                 })
                 .collect();
@@ -1670,7 +1709,7 @@ fn place_block(
                 .as_ref()
                 .filter(|cap| index < cap.lines)
                 .map(|cap| cap.area);
-            line_measure(&paragraph, column, first && index == 0, area)
+            line_measure(&paragraph, column, first && index == 0, area, reverse)
         }
     };
     let mut top = space.top;
@@ -1732,7 +1771,7 @@ fn place_block(
                 LinePlacement {
                     bounds: Rect::new(measure.x, top, measure.width, span.height),
                     advance,
-                    inline_origin: column.x,
+                    inline_origin: ruler_origin(column, reverse),
                     is_paragraph_end: i + 1 == all.len(),
                     drop_cap: area.is_some(),
                 },
@@ -1745,10 +1784,11 @@ fn place_block(
             ComposedLine {
                 generated: None,
                 text_path: None,
+                path_inline_start: None,
                 start: block.start,
                 end: body.start,
                 bounds: cap.bounds,
-                inline_origin: column.x,
+                inline_origin: ruler_origin(column, reverse),
                 baseline: cap.baseline,
                 advance: cap.bounds.height,
                 paragraph: paragraph.clone(),
@@ -1827,6 +1867,13 @@ fn opening(spec: &TextSpec, paragraph: &ResolvedParagraph) -> Option<Opening> {
     let bytes = schist_text_engine::grapheme_boundaries(&spec.text)
         .nth(characters)
         .unwrap_or(spec.text.len());
+    // An initial containing a source tab is retained and diagnosed, but its
+    // native reservation/scaling semantics are not established. Fall back to
+    // ordinary source flow; enlarging its ruler gap would invent geometry and
+    // could push otherwise fitting text into overset.
+    if spec.text[..bytes].contains('\t') {
+        return None;
+    }
     let mut initial = slice_spec(spec, 0, bytes);
     initial.wrap_width = None;
     initial.align = schist_text_engine::Align::Left;
@@ -1946,10 +1993,27 @@ fn plan_initial(
     }
 }
 
-fn inline_measure(rect: Rect, column: Rect) -> schist_text_engine::InlineMeasure {
+fn reverse_ruler(spec: &TextSpec) -> bool {
+    !spec.writing_mode.is_vertical()
+        && spec.direction == schist_text_engine::ParagraphDirection::RightToLeft
+}
+
+fn ruler_origin(column: Rect, reverse: bool) -> Pt {
+    if reverse {
+        column.right()
+    } else {
+        column.x
+    }
+}
+
+fn inline_measure(rect: Rect, column: Rect, reverse: bool) -> schist_text_engine::InlineMeasure {
     schist_text_engine::InlineMeasure {
         width: rect.width,
-        start: rect.x - column.x,
+        start: if reverse {
+            column.right() - rect.right()
+        } else {
+            rect.x - column.x
+        },
     }
 }
 
@@ -1959,6 +2023,7 @@ fn line_measure(
     column: Rect,
     first: bool,
     drop_cap: Option<CapArea>,
+    reverse: bool,
 ) -> Rect {
     let indent = paragraph.left_indent.unwrap_or(0.0);
     let right_indent = paragraph.right_indent.unwrap_or(0.0);
@@ -1967,8 +2032,8 @@ fn line_measure(
     } else {
         0.0
     };
-    let mut left = column.x + indent + first_indent;
-    let mut right = column.right() - right_indent;
+    let mut left = column.x + indent + if reverse { 0.0 } else { first_indent };
+    let mut right = column.right() - right_indent - if reverse { first_indent } else { 0.0 };
     if let Some(cap) = drop_cap {
         if cap.right {
             right = right.min(cap.bounds.x);
@@ -2011,6 +2076,7 @@ fn line_at(
     ComposedLine {
         generated: None,
         text_path: None,
+        path_inline_start: None,
         start,
         end,
         bounds: placement.bounds,
@@ -2236,12 +2302,23 @@ pub fn line_spec(line: &ComposedLine, story: &Story, doc: &LayoutDocument) -> Te
     }
     spec = with_leading(spec, line.advance);
     spec.word_spacing = line.word_space.unwrap_or(0.0);
+    let reverse = reverse_ruler(&spec);
     if let Some(tabs) = &mut spec.tabs {
-        tabs.origin = if spec.writing_mode.is_vertical() {
-            line.bounds.y
+        let width = if spec.writing_mode.is_vertical() {
+            line.bounds.height
         } else {
-            line.bounds.x
-        } - line.inline_origin;
+            line.bounds.width
+        };
+        tabs.line_width = (width > 0.0).then_some(width);
+        tabs.origin = line.path_inline_start.unwrap_or_else(|| {
+            if reverse {
+                line.inline_origin - line.bounds.right()
+            } else if spec.writing_mode.is_vertical() {
+                line.bounds.y - line.inline_origin
+            } else {
+                line.bounds.x - line.inline_origin
+            }
+        });
     }
     if let Some(path) = &line.text_path {
         spec.path = Some(path.clone());

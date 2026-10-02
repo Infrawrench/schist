@@ -359,7 +359,12 @@ pub(crate) fn diagnostics(doc: &schist_layout::LayoutDocument) -> Vec<String> {
             let paragraph = doc.styles.resolve_paragraph(style);
             let list = &paragraph.list;
 
-            for property in schist_layout::tabs::unsupported(&paragraph, text, has_text_path) {
+            for property in schist_layout::tabs::unsupported_in_mode(
+                &paragraph,
+                text,
+                has_text_path,
+                schist_layout::compose::writing_mode_at(story, at, doc),
+            ) {
                 let message = schist_i18n::tf!("design.idml_tabs_unsupported", value = property);
                 if !report.skipped.contains(&message) {
                     report.skip(message);
@@ -379,6 +384,10 @@ pub(crate) fn diagnostics(doc: &schist_layout::LayoutDocument) -> Vec<String> {
                 warn(&mut report, "Schist.List.legacy_gap");
             }
             for property in schist_layout::list_composition::unsupported(list) {
+                warn(&mut report, property);
+            }
+            for property in schist_layout::list_composition::unsupported_paragraph(&paragraph, text)
+            {
                 warn(&mut report, property);
             }
             if let Some(property) = counters.issue(at) {
@@ -408,8 +417,11 @@ pub(crate) fn diagnostics(doc: &schist_layout::LayoutDocument) -> Vec<String> {
                 list.kind == Some(ListKind::Numbered)
                     && r.id == schist_layout::list_counters::sequence_id(list)
             }) {
-                if resource.across_stories {
-                    warn(&mut report, "ContinueNumbersAcrossStories");
+                if resource.across_stories && counters.issue(at).is_none() {
+                    let message = schist_i18n::t("design.idml_cross_story_order").to_string();
+                    if !report.skipped.contains(&message) {
+                        report.skip(message);
+                    }
                 }
                 if resource.across_documents {
                     warn(&mut report, "ContinueNumbersAcrossDocuments");

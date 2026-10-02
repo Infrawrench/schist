@@ -747,6 +747,7 @@ pub fn set_paragraph_style(
                 ranges: existing.ranges.clone(),
                 points,
                 prefs: existing.prefs,
+                structures: existing.structures.clone(),
             }),
         ));
     }
@@ -825,6 +826,7 @@ pub fn set_character_style(
         points: existing.points.clone(),
         ranges,
         prefs: existing.prefs,
+        structures: existing.structures.clone(),
     });
     let edit = LayoutEdit::StoryChanged {
         id: story.0,
@@ -924,7 +926,7 @@ pub fn path_can_be_filled(path: &ShapePath) -> bool {
     path.subpaths.iter().any(|sub| sub.closed)
 }
 
-/// Which edge or middle a set of objects is lined up on./// Which edge or middle a set of objects is lined up on.
+/// Which edge or middle a set of objects is lined up on.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum Align {
     Left,
@@ -937,10 +939,9 @@ pub enum Align {
 
 /// Line several objects up, as the Align commands do.
 ///
-/// **One edit for all of them.** Aligning four frames is one gesture, so
-/// undoing it should be one press; four separate edits would leave the
-/// other three where they were, which is a state the user never asked for
-/// and cannot easily get back out of.
+/// **One edit per changed object.** This is the documented exception shared
+/// with distribute and fill: individual object changes can be undone separately.
+/// Aligning several frames can therefore require several undo steps.
 ///
 /// Aligned to the *selection's* extent rather than the page, because that
 /// is what a user who has selected a row of frames means: they share an
@@ -961,10 +962,7 @@ pub fn align(
         // step on the stack which undoes nothing.
         return false;
     }
-    // Each object is a separate edit on purpose: they are independent
-    // objects, and one undo entry per object is what a user who aligned
-    // two of five frames would expect. The whole operation is still one
-    // call, so the caller has one thing to undo rather than five.
+    // A single call still records one undo entry per changed object.
     record_moves(document, history, moved)
 }
 
@@ -1048,6 +1046,7 @@ fn aligned_positions(
 /// and the last one's trailing edge; the two ends keep their positions.
 /// The *gaps* are made even, not the centres: for objects of different
 /// sizes, equal gaps is what reads as even.
+/// Each changed object records its own undo entry, as documented for align.
 pub fn distribute(
     document: &mut LayoutDocument,
     history: &mut History,
@@ -1160,7 +1159,7 @@ fn record_moves(
     any
 }
 
-/// Delete several objects as one undo step./// Delete several objects as one undo step./// Delete several objects as one undo step.
+/// Delete several objects as one undo step.
 ///
 /// **One edit, however many objects.** Deleting four frames as four edits
 /// would make the user press Z four times to get back to where they
@@ -1238,6 +1237,8 @@ fn object_creation_edit(document: &LayoutDocument, placed: &PlacedObject) -> Opt
     let before = crate::structure::Layers::of(document);
     let mut after = before.clone();
     after.objects.push((placed.id, layer));
+    let mut created = document.creation_order.clone();
+    created.push(placed.id);
     Some(LayoutEdit::Batch {
         edits: vec![
             LayoutEdit::AddedObject {
@@ -1247,6 +1248,10 @@ fn object_creation_edit(document: &LayoutDocument, placed: &PlacedObject) -> Opt
             LayoutEdit::LayersChanged {
                 before: Box::new(before),
                 after: Box::new(after),
+            },
+            LayoutEdit::CreationOrderChanged {
+                before: document.creation_order.clone(),
+                after: created,
             },
         ],
     })

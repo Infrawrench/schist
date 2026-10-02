@@ -26,6 +26,10 @@ struct Shaped {
     glyphs: Vec<PlacedGlyph>,
     chars: Vec<CharPos>,
     width: f32,
+    // Accumulate advances before rounding glyph coordinates. A distant styled
+    // prefix must not change the spacing inside a following shaping item.
+    precise_width: f64,
+    tab_stops: Vec<(usize, usize)>,
 }
 
 fn features(style: &CharStyle) -> Vec<rustybuzz::Feature> {
@@ -183,7 +187,7 @@ fn shape_item(
             .grapheme_indices(true)
             .map(|(k, _)| start + cluster + k)
             .collect();
-        let x = out.width;
+        let x = out.precise_width;
         for j in i..next {
             let pos = positions[j];
             out.glyphs.push(PlacedGlyph {
@@ -191,12 +195,12 @@ fn shape_item(
                 byte: start + cluster,
                 // During shaping, x is the inline position and baseline is
                 // the cross-axis offset. layout converts them to canvas axes.
-                x: out.width
-                    + if ttb {
+                x: (out.precise_width
+                    + f64::from(if ttb {
                         -pos.y_offset as f32 * scale
                     } else {
                         pos.x_offset as f32 * scale
-                    },
+                    })) as f32,
                 baseline: if ttb {
                     pos.x_offset as f32 * scale
                 } else {
@@ -205,33 +209,35 @@ fn shape_item(
                 face: ix,
                 sideways: spec.writing_mode.is_vertical() && !ttb,
             });
-            out.width += if ttb {
+            out.precise_width += f64::from(if ttb {
                 -pos.y_advance as f32 * scale
             } else {
                 pos.x_advance as f32 * scale
-            };
+            });
         }
-        out.width += spec.style_at(start + cluster).tracking * char_bytes.len() as f32;
-        out.width += spec.word_spacing
+        out.precise_width +=
+            f64::from(spec.style_at(start + cluster).tracking) * char_bytes.len() as f64;
+        out.precise_width += f64::from(spec.word_spacing)
             * text[cluster..cluster_end]
                 .chars()
                 .filter(|ch| *ch == ' ')
-                .count() as f32;
-        let count = char_bytes.len().max(1) as f32;
+                .count() as f64;
+        let count = char_bytes.len().max(1) as f64;
         for (k, byte) in char_bytes.into_iter().enumerate() {
             let (a, b) = if rtl && !ttb {
-                (count - k as f32, count - k as f32 - 1.0)
+                (count - k as f64, count - k as f64 - 1.0)
             } else {
-                (k as f32, k as f32 + 1.0)
+                (k as f64, k as f64 + 1.0)
             };
             out.chars.push(CharPos {
                 byte,
-                x: x + (out.width - x) * a / count,
-                end_x: x + (out.width - x) * b / count,
+                x: (x + (out.precise_width - x) * a / count) as f32,
+                end_x: (x + (out.precise_width - x) * b / count) as f32,
             });
         }
         i = next;
     }
+    out.width = out.precise_width as f32;
 }
 
 fn shape_plain(
@@ -268,6 +274,21 @@ fn shape_plain(
     out
 }
 
+/// A single leader unit is shaped independently with the tab's resolved style.
+/// Its glyphs stay in inline/cross coordinates until their eventual line paint.
+pub(super) fn leader_pattern(spec: &TextSpec, faces: &Faces) -> (Vec<PlacedGlyph>, f32) {
+    let bidi = BidiInfo::new(
+        &spec.text,
+        Some(if spec.direction == ParagraphDirection::RightToLeft {
+            Level::rtl()
+        } else {
+            Level::ltr()
+        }),
+    );
+    let shaped = shape_plain(spec, faces, &bidi, 0, 0, spec.text.len());
+    (shaped.glyphs, shaped.width)
+}
+
 /// Tabs separate shaping fields but retain paragraph bidi context and source
 /// byte positions. Each tab anchors the following shaped field, so font/style
 /// runs, ligatures and vertical metrics also determine aligned tab positions.
@@ -278,6 +299,7 @@ fn shape(
     paragraph_start: usize,
     range: std::ops::Range<usize>,
     start: f32,
+    limit: Option<f32>,
 ) -> Shaped {
     let Some(tabs) = spec
         .tabs
@@ -295,8 +317,12 @@ fn shape(
     });
     let mut fields = Vec::new();
     let mut tab_positions = Vec::new();
+    let mut selected_stops = Vec::new();
     let mut from = range.start;
     let mut pen = 0.0;
+    // Bidi changes field order across a horizontal ruler. Vertical inline
+    // progression remains downward, independently of paragraph direction.
+    let reverse_fields = !spec.writing_mode.is_vertical() && bidi.paragraphs[0].level.is_rtl();
     for at in spec.text[range.clone()]
         .char_indices()
         .filter_map(|(i, c)| (c == '\t').then_some(range.start + i))
@@ -309,7 +335,7 @@ fn shape(
         };
         let field = shape_plain(field_spec, faces, bidi, paragraph_start, from, at);
         if from > range.start {
-            let Some(next) = tabs.next_aligned(pen, start, |alignment| match alignment {
+            let Some((mut next, stop)) = tabs.next_stop(pen, start, |alignment| match alignment {
                 TabAlignment::Leading => 0.0,
                 TabAlignment::Trailing => field.width,
                 TabAlignment::Center => field.width / 2.0,
@@ -327,7 +353,13 @@ fn shape(
                                 .filter(|c| c.byte <= from + byte)
                                 .max_by_key(|c| c.byte)
                         })
-                        .map_or(field.width, |c| c.x)
+                        .map_or(field.width, |c| {
+                            if reverse_fields {
+                                field.width - c.x
+                            } else {
+                                c.x
+                            }
+                        })
                 }
             }) else {
                 return Shaped {
@@ -335,28 +367,49 @@ fn shape(
                     ..Default::default()
                 };
             };
+            // A terminal tab is a break opportunity even when its stop is
+            // beyond the line edge. Keep its source/caret and bound its gap;
+            // the following field can then start on the next line. A leading
+            // tab alone cannot manufacture a blank line to consume overset.
+            if from == range.end
+                && spec.text[range.start..from - 1]
+                    .chars()
+                    .any(|c| !c.is_whitespace())
+            {
+                if let Some(width) = limit.or(tabs.line_width) {
+                    if pen <= width && next > width {
+                        next = width;
+                    }
+                }
+            }
             tab_positions.push(CharPos {
                 byte: from - 1,
                 x: pen,
                 end_x: next,
             });
+            if let Some(stop) = stop {
+                selected_stops.push((from - 1, stop));
+            }
             pen = next;
         }
         let next_pen = pen + field.width;
-        fields.push((pen, field));
+        fields.push((pen, next_pen, field));
         pen = next_pen;
         if at < range.end {
             from = at + 1;
         }
     }
-    let rtl = bidi.paragraphs[0].level.is_rtl();
     let mut out = Shaped {
         width: pen,
+        tab_stops: selected_stops,
         ..Default::default()
     };
-    for (offset, mut field) in fields {
-        let offset = if rtl {
-            pen - offset - field.width
+    for (offset, end, mut field) in fields {
+        let offset = if reverse_fields {
+            // Use the stored edge, avoiding a second subtraction of the
+            // field width. Cancellation near zero can otherwise floor an
+            // entire glyph mask into the preceding pixel.
+            pen - end
         } else {
             offset
         };
@@ -370,7 +423,7 @@ fn shape(
         out.glyphs.extend(field.glyphs);
         out.chars.extend(field.chars);
     }
-    if rtl {
+    if reverse_fields {
         for character in &mut tab_positions {
             character.x = pen - character.x;
             character.end_x = pen - character.end_x;
@@ -451,6 +504,7 @@ pub(super) fn layout(spec: &TextSpec, base: &LoadedFace, measures: &[InlineMeasu
                     start,
                     line_start..at,
                     inline_start(lines.len()),
+                    wrap_width_at(spec, &widths, lines.len()),
                 );
                 let limit = wrap_width_at(spec, &widths, lines.len()).unwrap();
                 if previous > line_start && candidate.width > limit {
@@ -464,6 +518,7 @@ pub(super) fn layout(spec: &TextSpec, base: &LoadedFace, measures: &[InlineMeasu
                             start,
                             line_start..previous,
                             inline_start(lines.len()),
+                            wrap_width_at(spec, &widths, lines.len()),
                         ),
                     ));
                     line_start = previous;
@@ -481,6 +536,7 @@ pub(super) fn layout(spec: &TextSpec, base: &LoadedFace, measures: &[InlineMeasu
                 start,
                 line_start..end,
                 inline_start(lines.len()),
+                wrap_width_at(spec, &widths, lines.len()),
             ),
         ));
     }
@@ -495,6 +551,7 @@ pub(super) fn layout(spec: &TextSpec, base: &LoadedFace, measures: &[InlineMeasu
         first_baseline: 0.0,
         line_advance: 0.0,
         layout_width: max_width,
+        tab_stops: Vec::new(),
     };
     let absolute = spec.has_absolute_leading();
     let mut geometry = Vec::with_capacity(lines.len());
@@ -567,6 +624,7 @@ pub(super) fn layout(spec: &TextSpec, base: &LoadedFace, measures: &[InlineMeasu
         }
         out.glyphs.extend(line.glyphs);
         out.chars.extend(line.chars);
+        out.tab_stops.extend(line.tab_stops);
         out.lines.push(LineSpan {
             start,
             end,

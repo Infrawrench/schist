@@ -72,7 +72,7 @@ pub(super) fn raster(
     );
     let along = guide.map(|guide| {
         let center = font.font.metrics_indexed(glyph.glyph, size).advance_width / 2.0;
-        let (x, y, angle) = guide.at(glyph.x + center, glyph.baseline - baseline);
+        let (x, y, angle) = guide.at_glyph(glyph.x, center, glyph.baseline - baseline);
         (x, y, angle.sin_cos(), center)
     });
     for point in path

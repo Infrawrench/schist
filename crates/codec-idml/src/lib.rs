@@ -28,6 +28,7 @@
 mod auto_direction;
 mod capitalization_codec;
 pub mod container;
+mod creation_codec;
 pub mod designmap;
 pub mod error;
 pub mod export;
@@ -37,6 +38,7 @@ mod list_codec;
 pub mod plugin;
 mod story_codec;
 mod stroke_style_codec;
+mod structured_story;
 mod style_codec;
 pub mod xml;
 

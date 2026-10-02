@@ -627,6 +627,50 @@ pub fn edit_list(
     })
 }
 
+/// A named list's continuation setting is shared by every referencing style.
+/// Creating the default resource and toggling it is one reversible gesture.
+pub fn set_list_across_stories(state: &mut DesignState, target: &Target, enabled: bool) -> bool {
+    let Target::Paragraph(name) = target else {
+        return false;
+    };
+    if state.document.styles.paragraph(name).is_none() {
+        return false;
+    }
+    let id = schist_layout::list_counters::sequence_id(
+        &state.document.styles.resolve_paragraph(name).list,
+    )
+    .to_owned();
+    let matches = state
+        .document
+        .styles
+        .numbering_lists
+        .iter()
+        .filter(|r| r.id == id)
+        .count();
+    if matches > 1 {
+        return false;
+    }
+    properties::edit_styles(&mut state.document, &mut state.history, |styles| {
+        if let Some(resource) = styles.numbering_lists.iter_mut().find(|r| r.id == id) {
+            resource.across_stories = enabled;
+        } else if enabled {
+            let name = if id == "NumberingList/$ID/[Default]" {
+                schist_i18n::t("design.list_default").into()
+            } else {
+                id.clone()
+            };
+            styles
+                .numbering_lists
+                .push(schist_layout::lists::NumberingList {
+                    id,
+                    name,
+                    across_stories: true,
+                    ..Default::default()
+                });
+        }
+    })
+}
+
 pub fn list_bullet_value(list: &schist_layout::lists::ListStyle) -> String {
     list.bullet
         .as_ref()
@@ -749,6 +793,14 @@ pub fn set_tab_alignment(
 
 fn commit_tab(state: &mut DesignState, target: &Target, id: &str, text: &str) -> bool {
     match id {
+        "design-prop-tab-leader" => {
+            if !schist_text_engine::valid_tab_leader(text) {
+                return false;
+            }
+            edit_tab(state, target, |tabs, index| {
+                tabs[index].leader = text.into()
+            })
+        }
         "design-prop-tab-position" => {
             let Some(position) = text
                 .trim()
@@ -1727,6 +1779,10 @@ mod tests {
             ("design-prop-tab-character", "ab"),
             ("design-prop-tab-character", "\t"),
             ("design-prop-tab-character", "\u{2028}"),
+            ("design-prop-tab-leader", "123456789"),
+            ("design-prop-tab-leader", "\t"),
+            ("design-prop-tab-leader", "\n"),
+            ("design-prop-tab-leader", "\u{2028}"),
         ] {
             let mut state = tab_state();
             let before = state.document.clone();
@@ -1744,6 +1800,42 @@ mod tests {
         ));
         let before = state.document.clone();
         assert!(!commit(&mut state, "design-prop-tab-character", "."));
+        assert_eq!(state.document, before);
+        assert_eq!(state.history.undo_depth(), 1);
+    }
+
+    #[test]
+    fn leader_edits_preserve_literal_whitespace_native_metadata_and_one_step_undo() {
+        for value in ["", " ", ".  ", "_", "é— ", "abcdefgh", "éééééééé"] {
+            let mut state = tab_state();
+            let before = state.document.clone();
+            state.controls.field = tab_target(&state, "Tab child", 0);
+            assert!(commit(&mut state, "design-prop-tab-leader", value));
+            let tab = tab_target(&state, "Tab child", 0).unwrap();
+            let Target::Tab { original, .. } = &tab else {
+                unreachable!()
+            };
+            assert_eq!(original.leader, value);
+            assert_eq!(original.position, 72.12345);
+            assert_eq!(original.alignment, "CharacterAlign");
+            assert_eq!(original.alignment_character, ",");
+            state.controls.field = Some(tab);
+            assert!(!commit(&mut state, "design-prop-tab-leader", value));
+            assert_eq!(state.history.undo_depth(), 1);
+            assert!(state.history.undo(&mut state.document));
+            assert_eq!(state.document, before);
+        }
+        let mut state = tab_state();
+        state.controls.field = tab_target(&state, "Tab child", 0);
+        assert!(edit_list(
+            &mut state,
+            &Target::Paragraph("Tab base".into()),
+            |list| {
+                list.tabs.as_mut().unwrap()[0].leader = "_".into();
+            }
+        ));
+        let before = state.document.clone();
+        assert!(!commit(&mut state, "design-prop-tab-leader", "."));
         assert_eq!(state.document, before);
         assert_eq!(state.history.undo_depth(), 1);
     }
@@ -3283,6 +3375,87 @@ mod tests {
             state.controls.field = Some(target);
             assert!(commit(&mut state, id, ""));
             assert_eq!(state.document, before);
+        }
+    }
+
+    #[test]
+    fn shared_list_scope_changes_every_reference_in_one_exact_reversible_gesture() {
+        for count in [1, 3, 8] {
+            for native in [false, true] {
+                let mut state = DesignState::new();
+                let id = if native {
+                    "opaque shared"
+                } else {
+                    "NumberingList/$ID/[Default]"
+                };
+                if native {
+                    state.document.styles.numbering_lists.push(
+                        schist_layout::lists::NumberingList {
+                            id: id.into(),
+                            name: "Shared".into(),
+                            labels: vec![("kept".into(), "value".into())],
+                            ..Default::default()
+                        },
+                    );
+                }
+                for index in 0..count {
+                    state
+                        .document
+                        .styles
+                        .add_paragraph(schist_layout::ParagraphStyle {
+                            name: format!("Shared {index}"),
+                            based_on: Some("Body".into()),
+                            list: schist_layout::lists::ListStyle {
+                                list: native.then(|| id.to_owned()),
+                                ..Default::default()
+                            },
+                            ..Default::default()
+                        });
+                }
+                let target = Target::Paragraph("Shared 0".into());
+                let before = state.document.clone();
+                assert!(set_list_across_stories(&mut state, &target, true));
+                assert_eq!(state.history.undo_depth(), 1);
+                assert!(!set_list_across_stories(&mut state, &target, true));
+                let after = state.document.clone();
+                for index in 0..count {
+                    let list = state
+                        .document
+                        .styles
+                        .resolve_paragraph(&format!("Shared {index}"))
+                        .list;
+                    let identity = schist_layout::list_counters::sequence_id(&list);
+                    assert!(
+                        state
+                            .document
+                            .styles
+                            .numbering_lists
+                            .iter()
+                            .find(|r| r.id == identity)
+                            .unwrap()
+                            .across_stories
+                    );
+                }
+                if native {
+                    assert_eq!(
+                        state.document.styles.numbering_lists[0].labels,
+                        vec![("kept".into(), "value".into())]
+                    );
+                }
+                assert!(state.history.undo(&mut state.document));
+                assert_eq!(state.document, before);
+                assert!(state.history.redo(&mut state.document));
+                assert_eq!(state.document, after);
+                assert!(set_list_across_stories(&mut state, &target, false));
+                assert_eq!(state.history.undo_depth(), 2);
+                assert!(!set_list_across_stories(
+                    &mut state,
+                    &Target::Paragraph("missing".into()),
+                    true
+                ));
+                assert!(state.history.undo(&mut state.document));
+                assert_eq!(state.document, after);
+            }
         }
     }
 }

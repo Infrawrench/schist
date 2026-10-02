@@ -8,8 +8,15 @@ use crate::{
 };
 use schist_text_engine::{TextSpec, WritingMode};
 
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum GeneratedRole {
+    Marker,
+    Leader,
+}
+
 #[derive(Debug, Clone, PartialEq)]
 pub struct GeneratedText {
+    pub role: GeneratedRole,
     pub spec: TextSpec,
     pub character: ResolvedCharacter,
 }
@@ -23,6 +30,25 @@ pub(crate) struct MarkerPlan {
     list: ListStyle,
 }
 impl MarkerPlan {
+    fn explicit_stop(
+        &self,
+        column: f32,
+        paragraph: &ResolvedParagraph,
+    ) -> Option<&crate::lists::ListTab> {
+        let end = self.left(column, paragraph) + self.width;
+        let stop = self
+            .list
+            .tabs
+            .iter()
+            .flatten()
+            .filter(|t| t.position.is_finite() && column + t.position > end + 0.001)
+            .min_by(|a, b| a.position.total_cmp(&b.position))?;
+        // A native hanging indent acts as an earlier marker/body stop. An
+        // equal explicit stop still owns its configured leader; a later one
+        // cannot borrow the virtual stop's gap.
+        let indent = column + paragraph.left_indent.unwrap_or(0.0);
+        (indent <= end + 0.001 || column + stop.position <= indent).then_some(stop)
+    }
     fn left(&self, column: f32, paragraph: &ResolvedParagraph) -> f32 {
         let anchor = column
             + paragraph.left_indent.unwrap_or(0.0)
@@ -47,14 +73,7 @@ impl MarkerPlan {
         if !self.tab {
             return end;
         }
-        if let Some(stop) = self
-            .list
-            .tabs
-            .iter()
-            .flatten()
-            .filter(|t| t.position.is_finite() && column + t.position > end + 0.001)
-            .min_by(|a, b| a.position.total_cmp(&b.position))
-        {
+        if let Some(stop) = self.explicit_stop(column, paragraph) {
             return column + stop.position;
         }
         let indent = column + paragraph.left_indent.unwrap_or(0.0);
@@ -108,7 +127,16 @@ fn plan(
 ) -> Option<MarkerPlan> {
     let mut paragraph = doc.styles.resolve_paragraph(style);
     let list = paragraph.list.clone();
-    if !unsupported(&list).is_empty() || paragraph.drop_caps_lines.unwrap_or(0) > 1 {
+    let context = story
+        .points
+        .iter()
+        .zip(story.point_offsets())
+        .find_map(|(point, offset)| (offset == at).then_some(point.text()))
+        .unwrap_or_default();
+    if !unsupported(&list).is_empty()
+        || !unsupported_paragraph(&paragraph, context).is_empty()
+        || paragraph.drop_caps_lines.unwrap_or(0) > 1
+    {
         return None;
     }
     if list.kind == Some(ListKind::Numbered)
@@ -116,7 +144,7 @@ fn plan(
             .styles
             .numbering_lists
             .iter()
-            .any(|r| r.id == sequence_id(&list) && (r.across_stories || r.across_documents))
+            .any(|r| r.id == sequence_id(&list) && r.across_documents)
     {
         return None;
     }
@@ -189,7 +217,11 @@ fn plan(
     spec.wrap_width = None;
     let metrics = schist_text_engine::measure(&spec)?;
     Some(MarkerPlan {
-        generated: GeneratedText { spec, character },
+        generated: GeneratedText {
+            role: GeneratedRole::Marker,
+            spec,
+            character,
+        },
         width: metrics.width,
         height: metrics.height,
         ascent: metrics.first_baseline,
@@ -218,7 +250,42 @@ pub(crate) fn insert_markers(plans: &MarkerPlans, thread: &mut ComposedThread) {
                     generated.drop_cap = false;
                     generated.characters = vec![marker.generated.character.clone()];
                     generated.generated = Some(marker.generated.clone());
+                    let mut leader_line = None;
+                    if marker.tab && marker.list.legacy_gap.is_none() {
+                        if let Some(stop) = marker
+                            .explicit_stop(line.inline_origin, &line.paragraph)
+                            .filter(|stop| !stop.leader.is_empty())
+                        {
+                            let mut leader = generated.clone();
+                            let paint = leader.generated.as_mut().unwrap();
+                            paint.role = GeneratedRole::Leader;
+                            let spec = &mut paint.spec;
+                            let offset = generated.bounds.x + marker.width - line.inline_origin;
+                            spec.text = "\u{200b}\t".into();
+                            let mut tab_style = spec.runs.first().cloned().unwrap_or_default();
+                            tab_style.start = 3;
+                            tab_style.end = 4;
+                            let mut padding = tab_style.clone();
+                            padding.start = 0;
+                            padding.end = 3;
+                            padding.tracking = Some(offset);
+                            spec.runs = vec![padding, tab_style];
+                            // One counter has separate marker/leader paint.
+                            // Keep the original marker's glyph placement and
+                            // source positions unchanged when adding leaders.
+                            spec.tabs = Some(schist_text_engine::TabStops {
+                                positions: vec![stop.position],
+                                leaders: vec![stop.leader.clone()],
+                                ..Default::default()
+                            });
+                            leader.bounds.x = line.inline_origin;
+                            leader.bounds.width = stop.position;
+                            leader.natural_width = stop.position;
+                            leader_line = Some(leader);
+                        }
+                    }
                     lines.push(generated);
+                    lines.extend(leader_line);
                 }
             }
             lines.push(line);
@@ -228,6 +295,29 @@ pub(crate) fn insert_markers(plans: &MarkerPlans, thread: &mut ComposedThread) {
 }
 
 /// Native list settings retained by the model but not composed yet.
+pub fn unsupported_paragraph(paragraph: &ResolvedParagraph, text: &str) -> Vec<&'static str> {
+    if !paragraph.list.active() {
+        return Vec::new();
+    }
+    let rtl = match paragraph
+        .direction
+        .unwrap_or(crate::styles::ParagraphDirection::Auto)
+    {
+        crate::styles::ParagraphDirection::RightToLeft => true,
+        crate::styles::ParagraphDirection::LeftToRight => false,
+        crate::styles::ParagraphDirection::Auto => {
+            schist_text_engine::base_direction(text)
+                == schist_text_engine::ParagraphDirection::RightToLeft
+        }
+    };
+    if rtl {
+        vec!["ParagraphDirection + BulletsAndNumberingListType"]
+    } else {
+        Vec::new()
+    }
+}
+
+/// Unsupported options within the list record, independently of paragraph flow.
 pub fn unsupported(list: &ListStyle) -> Vec<&'static str> {
     let mut out = Vec::new();
     if !matches!(list.kind, Some(ListKind::Bullet | ListKind::Numbered)) {
@@ -236,12 +326,11 @@ pub fn unsupported(list: &ListStyle) -> Vec<&'static str> {
     if list.kind == Some(ListKind::Numbered) && !(1..=9).contains(&list.level.unwrap_or(1)) {
         out.push("NumberingLevel");
     }
-    if list
-        .tabs
-        .iter()
-        .flatten()
-        .any(|t| !t.position.is_finite() || t.alignment != "LeftAlign" || !t.leader.is_empty())
-    {
+    if list.tabs.iter().flatten().any(|t| {
+        !t.position.is_finite()
+            || t.alignment != "LeftAlign"
+            || !schist_text_engine::valid_tab_leader(&t.leader)
+    }) {
         out.push("TabList");
     }
     if list.kind == Some(ListKind::Bullet) {

@@ -26,9 +26,10 @@ pub use decoration_pattern::{DecorationCap, DecorationDashes, TextDecorationPatt
 mod directions_tests;
 pub use capitalization::Capitalization;
 mod shaping;
+mod tab_leaders;
 mod tabs;
 mod text_path;
-pub use tabs::{InlineMeasure, TabAlignment, TabStops};
+pub use tabs::{valid_tab_leader, InlineMeasure, TabAlignment, TabStops};
 mod text_stroke;
 pub use text_path::TextPath;
 
@@ -139,7 +140,7 @@ pub struct TextSpec {
     pub word_spacing: f32,
     /// Inline wrap length in pixels (column length in vertical writing); `None` means never wrap.
     pub wrap_width: Option<f32>,
-    /// Optional leading tab stops. None retains legacy text-layer behavior.
+    /// Optional aligned tab stops and leaders. None retains legacy behavior.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub tabs: Option<TabStops>,
     /// Stretches of `text` set differently from the rest, by byte range.
@@ -1534,7 +1535,7 @@ impl<'a> GposKern<'a> {
 }
 
 /// One laid-out glyph, positioned relative to the layout origin.
-#[derive(Debug, Clone, Copy)]
+#[derive(Debug, Clone, Copy, PartialEq)]
 struct PlacedGlyph {
     glyph: u16,
     byte: usize,
@@ -1565,6 +1566,9 @@ struct Layout {
     layout_width: f32,
     lines: Vec<LineSpan>,
     chars: Vec<CharPos>,
+    /// Selected explicit stop for each source tab. Paint is generated later,
+    /// so line measurement and wrapping do not enumerate repeated glyphs.
+    tab_stops: Vec<(usize, usize)>,
 }
 
 /// The faces a spec sets its text in, one per distinct family, style
@@ -1575,6 +1579,7 @@ struct Faces {
     by_byte: Vec<usize>,
     uppercase: Vec<bool>,
     synthetic_caps: Vec<bool>,
+    leaders: Vec<tab_leaders::Pattern>,
 }
 
 impl Faces {
@@ -1670,12 +1675,15 @@ impl Faces {
                 }
             }
         }
-        Faces {
+        let mut resolved = Faces {
             faces,
             by_byte,
             uppercase,
             synthetic_caps,
-        }
+            leaders: Vec::new(),
+        };
+        tab_leaders::resolve(spec, base, &mut resolved);
+        resolved
     }
 
     fn at(&self, byte: usize) -> usize {
@@ -2055,6 +2063,7 @@ fn layout_with_measures(spec: &TextSpec, base: &LoadedFace, measures: &[InlineMe
         layout_width: max_width,
         lines: spans,
         chars,
+        tab_stops: Vec::new(),
     }
 }
 
@@ -2597,7 +2606,7 @@ pub fn measure(spec: &TextSpec) -> Option<TextMetrics> {
                     if let Some(guide) = &guide {
                         let center = metrics.advance_width / 2.0;
                         let (x, y, angle) =
-                            guide.at(glyph.x + center, glyph.baseline - laid.first_baseline);
+                            guide.at_glyph(glyph.x, center, glyph.baseline - laid.first_baseline);
                         let (sin, cos) = angle.sin_cos();
                         [
                             (b.xmin - center, -b.ymin - b.height),
@@ -3027,7 +3036,23 @@ fn rasterize_impl(spec: &TextSpec, retain_paints: bool) -> Option<TextRaster> {
         });
     }
     let faces = Faces::resolve(spec, &face);
-    let laid = layout(spec, &face);
+    let mut laid = layout(spec, &face);
+    laid.glyphs
+        .extend(tab_leaders::glyphs(spec, &faces, &laid)?);
+    // Coverage rectangles use signed 32-bit coordinates. Reject distant inline
+    // geometry before saturated float casts overflow rectangle arithmetic.
+    let coordinate_limit = (i32::MAX / 2) as f32;
+    if !laid.layout_width.is_finite()
+        || laid.layout_width > coordinate_limit
+        || laid.glyphs.iter().any(|g| {
+            !g.x.is_finite()
+                || !g.baseline.is_finite()
+                || g.x.abs() > coordinate_limit
+                || g.baseline.abs() > coordinate_limit
+        })
+    {
+        return None;
+    }
     let guide = path_guide(spec, &laid);
     let mut decorations = decoration_rasters(spec, &faces, &laid);
     // Associate decorations with the same consecutive visual paint as their
@@ -3181,8 +3206,13 @@ fn rasterize_impl(spec: &TextSpec, retain_paints: bool) -> Option<TextRaster> {
     }
 
     // ...then blit them into one mask, taking the max where glyphs overlap.
-    let w = bounds.width() as usize;
-    let h = bounds.height() as usize;
+    let w = usize::try_from(i64::from(bounds.right) - i64::from(bounds.left)).ok()?;
+    let h = usize::try_from(i64::from(bounds.bottom) - i64::from(bounds.top)).ok()?;
+    // A distant finite tab must not request an effectively unbounded bitmap.
+    // Separation exposes raster failure as an explicit preflight error.
+    if w > i32::MAX as usize || h > i32::MAX as usize || w.checked_mul(h)? > 256_000_000 {
+        return None;
+    }
     let mut coverage = vec![0u8; w * h];
     let mut colors = if spec.runs.iter().any(|r| r.color.is_some()) {
         vec![None; w * h]

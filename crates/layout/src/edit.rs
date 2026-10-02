@@ -83,6 +83,10 @@ pub fn forward(doc: &mut LayoutDocument, edit: &LayoutEdit) -> bool {
             doc.thread_order.clone_from(after);
             true
         }
+        LayoutEdit::CreationOrderChanged { after, .. } => {
+            doc.creation_order.clone_from(after);
+            true
+        }
         LayoutEdit::StylesChanged { after, .. } => {
             doc.styles = *after.clone();
             true
@@ -260,6 +264,10 @@ pub fn reverse(doc: &mut LayoutDocument, edit: &LayoutEdit) -> bool {
         }
         LayoutEdit::ThreadsChanged { before, .. } => {
             doc.thread_order.clone_from(before);
+            true
+        }
+        LayoutEdit::CreationOrderChanged { before, .. } => {
+            doc.creation_order.clone_from(before);
             true
         }
         LayoutEdit::StylesChanged { before, .. } => {
@@ -645,6 +653,7 @@ pub fn snapshot_object(object: &PlacedObject) -> ObjectSnapshot {
 fn story_from(snapshot: &StorySnapshot) -> crate::story::Story {
     crate::story::Story {
         prefs: snapshot.prefs,
+        structures: snapshot.structures.clone(),
         points: snapshot
             .points
             .iter()
@@ -679,6 +688,7 @@ fn story_from(snapshot: &StorySnapshot) -> crate::story::Story {
 pub fn snapshot_story(story: &crate::story::Story) -> StorySnapshot {
     StorySnapshot {
         prefs: story.prefs,
+        structures: story.structures.clone(),
         points: story
             .points
             .iter()

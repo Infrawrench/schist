@@ -153,6 +153,7 @@ pub(crate) fn paragraph_properties(
             .number("DropCapCharacters")
             .map(|v| v.max(0.0) as usize),
         direction: crate::auto_direction::style_direction(element),
+        writing_mode: paragraph_writing_mode(element, report),
         list,
         bullet,
         hyphenate: boolean(element, "Hyphenation"),
@@ -452,6 +453,52 @@ fn props(
 
 const FONT_CHOICE_LABEL: &str = "schist.font-choice";
 
+// IDML StoryOrientation is story-wide. Schist also permits a paragraph-local
+// override; preserve it in standard application metadata without inventing a
+// native paragraph attribute or claiming another application will render it.
+const WRITING_MODE_LABEL: &str = "Schist.ParagraphWritingMode.v1";
+
+fn paragraph_writing_mode(
+    element: &Element,
+    report: &mut crate::import::Report,
+) -> Option<schist_layout::WritingMode> {
+    let value = element
+        .child("Properties")?
+        .child("Label")?
+        .children
+        .iter()
+        .find(|entry| entry.attr("Key") == Some(WRITING_MODE_LABEL))?
+        .attr("Value")?;
+    let mode = match value {
+        "Horizontal" => schist_layout::WritingMode::Horizontal,
+        "VerticalRightToLeft" => schist_layout::WritingMode::VerticalRightToLeft,
+        "VerticalLeftToRight" => schist_layout::WritingMode::VerticalLeftToRight,
+        _ => return None,
+    };
+    let message = schist_i18n::t("design.idml_paragraph_orientation").to_string();
+    if !report.skipped.contains(&message) {
+        report.skip(message);
+    }
+    Some(mode)
+}
+
+fn writing_mode_label(out: &mut String, mode: Option<schist_layout::WritingMode>) {
+    let Some(mode) = mode else {
+        return;
+    };
+    let value = match mode {
+        schist_layout::WritingMode::Horizontal => "Horizontal",
+        schist_layout::WritingMode::VerticalRightToLeft => "VerticalRightToLeft",
+        schist_layout::WritingMode::VerticalLeftToRight => "VerticalLeftToRight",
+    };
+    let pair = format!(r#"<KeyValuePair Key="{WRITING_MODE_LABEL}" Value="{value}"/>"#);
+    if let Some(at) = out.find("</Label>") {
+        out.insert_str(at, &pair);
+    } else if let Some(at) = out.find("</Properties>") {
+        out.insert_str(at, &format!("<Label>{pair}</Label>"));
+    }
+}
+
 #[derive(serde::Serialize, serde::Deserialize)]
 struct FontChoice {
     native: String,
@@ -725,6 +772,7 @@ pub fn paragraph_resolved(style: &ParagraphStyle, resolved: (bool, bool)) -> Str
         &style.features,
     );
     font_choice_label(&mut out, choice.as_ref());
+    writing_mode_label(&mut out, style.writing_mode);
     crate::list_codec::properties(&mut out, &crate::list_codec::native(style));
     crate::list_codec::label(&mut out, style);
     crate::decoration_codec::properties(&mut out, [&style.underline_style, &style.strike_style]);

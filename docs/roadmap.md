@@ -280,7 +280,7 @@ Phase 0 justifies it.
 marker. The 19 new Preflight/ruler keys use English placeholders in every
 non-English locale. Keys are added to all 150 catalogs at once, in English, and translation is a
 separate pass — a new feature must not block on 149 translators. The strict
-audit normally fails English-identical prose of seven or more words. Three
+audit normally fails English-identical prose of seven or more words. Four
 list/tab messages have exact, reasoned deferrals in
 `crates/i18n/deferred-english.json`. The audit reports these untranslated
 values and permits them only while Design Mode is disabled by default.
@@ -310,6 +310,305 @@ are marked.
 
 ## Handoff
 
+Structured-story retention, 2026-10-02: imported tables, footnotes and inline
+page items now retain exact outer XML rather than disappearing after a warning.
+UTF-8 anchors survive nearby edits; crossing edits are refused. Snapshots and
+paragraph/character styling preserve data through one undo step. Threading refuses
+to replace opaque-only stories. Guarded standard Story Labels retain Schist data
+through saves; native body/format/style-name edits win and leave retained payloads
+with unknown locations. Malformed or duplicate metadata stays recoverable.
+
+The public PSU table, footnote and inline math payloads survive four saves exactly.
+Story Editor shows a compact retained count; both preflight paths flag missing
+structure paint even for empty/fitting body text. Three new keys and the corrected
+existing warning are in all 150 catalogs. This is preservation, not native
+structured composition or reconstruction of referenced resource graphs.
+
+The full sweep passes all 16 make targets with **1,741 distinct Rust tests**
+(layout 377, text engine 115, editor 415, IDML 245, separation 188), four browser
+checks and eight Python i18n-audit checks. The 12 new properties cover preservation,
+UTF-8 edits, styling/undo, external changes and both print paths. Workspace clippy,
+native/browser/headless checks, existing PDF proofs, formatting and whitespace
+checks pass. Logs/results/counts are `/tmp/schist-story-structures-sweep-*`.
+The native debug build passes; its log is
+`/tmp/schist-story-structures-app-build.log`. The isolated Roadmap QA app bundle
+has been refreshed from this executable and its signature verified, retaining the
+Design flag and separate config/state directories. It has not been relaunched or
+visually inspected; an already-running QA process still uses its previous binary.
+Unused incremental cache and superseded scratch output were removed; current
+verification logs and public reference evidence remain.
+
+Public footnote input/PDF evidence is saved at
+`/tmp/schist-native-footnote-reference/` and described in `docs/idml-format.md`.
+Its visible output differs from several fixture comments, so those comments are
+not accepted as native placement/default evidence. Typed footnote preferences,
+body/marker composition and space reservation remain the next structured-story
+work. Item 9 remains active; native-window QA and production INDD remain gated.
+This checkpoint is prepared for draft review on `design-tab-leaders`, with
+Design Mode disabled by default.
+
+Same-page cross-story numbering, 2026-10-02: authored object chronology is now
+independent of paint order and story indices, recorded in the creation gesture's
+undo transaction, and retained in guarded standard object Labels. Unlabelled native
+imports remain unknown; ambiguous or changed metadata is rejected rather than
+manufacturing evidence. Deletion retains chronology for undo and excludes unplaced
+story tombstones from the live list.
+
+One ordinary unthreaded frame per used story on one page now composes a shared
+sequence in known creation order. Multilevel ancestor events remain monotonic across
+story byte-offset resets. Independent lists, explicit restarts and source bytes
+are preserved. The existing Paragraph list disclosure selects a sequence and
+changes its shared continuation setting in one undo step. Supported continuation
+has a Schist-order notice; unknown chronology, threaded/parent/multiple-page/book
+sequences are still diagnosed without guessed markers. All new keys are in the
+150 catalogs. Native rendering parity is not claimed.
+
+The full sweep passes all 16 make targets with **1,729 distinct Rust tests**
+(layout 372, text engine 115, editor 415, IDML 239, separation 187), four browser
+checks and eight Python i18n-audit checks. Workspace clippy, native/browser/headless
+checks and output proofs pass. Print plates match independent per-story references
+exactly at 72/144/216 dpi; both preflight paths expose unknown order. Frame,
+thread and chronology indexes are call-local so each participant does not rescan
+the whole document. Logs/results/counts are `/tmp/schist-cross-story-sweep-*`.
+The new English notice has an exact deferral under the existing disabled-feature
+translation rule. Evidence and limits are in `docs/idml-format.md`.
+The native debug build passes (`/tmp/schist-cross-story-app-build.log`). Obsolete
+incremental cache and superseded app/editor build files were removed after it
+nearly exhausted disk space. Item 9 and native-window/INDD validation remain open. At this checkpoint, review
+found table/footnote nodes were omitted despite the model's preservation comment.
+The later structured-story checkpoint above fixes that data loss.
+
+
+Native hanging-indent tab integration, 2026-10-02: public InDesign output now
+pins 11 marker/tab placements and an ordinary source-tab placement. A virtual
+hanging-indent stop precedes a later explicit stop or the implicit grid. The
+previous c07 marker body landed at 60 instead of 30; ordinary c12 landed at 36
+instead of 40. Regressions are retained in
+`/tmp/schist-native-marker-tabs-before.log` and
+`/tmp/schist-native-source-indent-before.log`. Geometry and leader ownership now
+agree with those observations. Native font/raster or other-axis agreement is
+not claimed; provenance and limits are in `docs/idml-format.md`.
+
+The shared source-tab geometry keeps the indent column-relative through wrapping,
+paint, carets and scaling. A virtual stop cannot borrow an explicit leader.
+Properties cover passed stops, explicit collisions, ruler order and inherited
+indents; four native saves retain masks, source bytes and carets in both directions
+and all three axes. The source-tab fallback notice is corrected in all 150
+catalogs and its explicit English deferral. The 202-case tab proof and 36-case list
+proof still pass exact plates at three resolutions and every paired PDF sample.
+
+The save property exposed another real loss: paragraph-local writing modes were
+omitted from IDML. Standard Label metadata now retains explicit Horizontal,
+VerticalRightToLeft and VerticalLeftToRight overrides, preserving inheritance
+when unset. Import/export report that this is Schist-only orientation metadata;
+no native paragraph attribute or mixed-axis rendering agreement is invented.
+A new notice is present in all 150 catalogs. Misleading align documentation now
+states its deliberate per-object undo exception, and duplicated comment text is
+removed. Undo behavior is unchanged.
+
+All 16 make targets pass with **1,716 distinct Rust tests** (layout 366, text engine
+115, editor 414, IDML 234, separation 186), four browser checks and eight Python
+i18n-audit tests. Workspace clippy, native/browser/headless checks, output proofs,
+formatting and whitespace pass. Logs/results/counts use
+`/tmp/schist-native-marker-tabs-sweep-*`. The native debug build passes; its
+log is `/tmp/schist-native-marker-tabs-app-build.log`. An isolated Roadmap QA
+bundle was prepared from this binary with the Design flag enabled; existing dev
+and installed app bundles are untouched.
+
+The public cross-story numbering PDF was inspected completely: both pages have
+1/2 in story A and 1 in story B, despite a shared continuation input. The pages
+are pixel-identical, so their labels do not establish restart semantics. Adobe's
+public guide specifies frame-creation order for unthreaded frames on one page;
+story-vector and paint order are not safe substitutes. Item 9 continues with the
+ordering model and remaining advanced text/interchange work. Production INDD
+remains spike-gated; native-window QA is still unavailable. Work is uncommitted
+on `design-tab-leaders`, and the feature default remains false.
+
+
+Initial-tab fallback and horizontal marker leaders, 2026-10-02: diagnosed source
+tabs inside an enlarged initial now preserve ordinary source flow, wrapping,
+pixels and carets. The prior composition still enlarged that unsupported tab gap;
+the regression is `/tmp/schist-initial-tabs-before.log`. Native reservation and
+scaling behavior remains unverified, so the retained setting stays diagnosed.
+
+Generated bullet/number tabs can paint literal leaders from their selected
+explicit leading stop. Passed/implicit stops and legacy fixed gaps cannot borrow
+one. A counter has separate marker/leader paint fragments, preserving original
+marker pixels, counter strings and all source carets. The independent proof
+exposed fractional marker-frame rounding; the leader fragment now uses the column
+ruler independently of marker placement. Non-leading, RTL/vertical/path/initial
+marker combinations remain open and diagnosed. Four native saves retain strings,
+styles, counters and paint. No native leader phase agreement is claimed.
+
+The list proof now has **36 cases / 72 paired pages**, including 12 new leader
+cases. Exact plates agree at three resolutions, and Poppler compares every paired
+page/sample. Every new actual case passed visual review; evidence is
+`/tmp/schist-leaders-visual/marker-contact.png`. All 16 make targets pass with
+**1,712 distinct Rust tests** (layout 364, text engine 114, editor 414, IDML 233,
+separation 186), four browser checks and eight Python i18n-audit tests. Workspace
+clippy, native/browser/headless checks, PDF output, formatting and whitespace pass.
+Logs/results/counts use `/tmp/schist-marker-leaders-sweep-*`. Native debug build
+passes (`/tmp/schist-marker-leaders-app-build.log`); the open isolated dev bundle
+has not been replaced, and native window QA remains unavailable.
+
+New public native list-marker PDFs and fixture inputs, pinned to the same paged-media
+revision as the source-tab reference, are in `/tmp/schist-native-list-reference/`.
+Only fixture definitions and public PDF output were consulted. `list-markers.pdf`
+shows a virtual hanging-indent stop before a later explicit stop (case c07:
+left indent 30, explicit stop 60, body at 30). Marker composition at that checkpoint instead
+chose 60; the later native hanging-indent checkpoint above corrects this geometry
+and leader ownership. Remaining item 9 work continues. The public cross-story numbering fixture is
+also available; its page label says restart, but the fixture defines continuation
+for both pages, so the label is not evidence of reset behavior.
+
+Production INDD remains spike-gated. Changes are uncommitted on
+`design-tab-leaders`, and Design Mode remains disabled by default.
+
+
+Horizontal path/tab integration, 2026-10-02: source tabs now use the path
+bracket's logical arc-distance ruler, independently of page coordinates and
+first-line/hanging indents. The general anchor property covers both directions,
+all four alignments and multiple indents; it failed before the origin fix.
+Straight, rotated and cubic baselines paint ordinary fields and literal leaders.
+Vertical path tabs and the other unimplemented paragraph/initial combinations
+remain diagnosed.
+
+The independent proof has **202 cases / 404 paired pages**, including 64 path
+cases. Exact plates agree at 72/144/216 dpi; Poppler comparisons pass and all
+64 actual cases passed visual review. The center-aligned group's 16 PNG pages
+are pixel-identical to the already reviewed leading-aligned group. Evidence is
+`/tmp/schist-leaders-visual/path-contact-*` and `path-page-*`. This validates
+Schist integration, not native curved-tab rendering agreement.
+
+Curves exposed accumulated shaping error and differing glyph fill/stroke
+projections. Advances now accumulate before f32 coordinate rounding. Both paints
+share a 1/64-pixel inline sampling grid, with unsnapped document geometry and
+carets. Four native saves retain source text, rulers, cubic handles, brackets,
+pixels and carets. Recomputed cubic bounds also shifted the local origin;
+standard guarded Label metadata now retains authored local bounds only while
+native geometry agrees. External curve edits supersede it, and native transforms
+continue to apply. No native geometry or rendering semantics are inferred from
+this precision metadata. Properties verify the guard, continuous carets and
+bounded sampling separately from the output proof.
+
+All 16 make targets pass with **1,710 distinct Rust tests** (layout 362, text
+engine 114, editor 414, IDML 233, separation 186), four browser checks and eight
+Python i18n-audit tests. Workspace clippy, native/browser/headless app checks,
+PDF output, formatting and whitespace checks pass. Logs/results/counts use
+`/tmp/schist-path-tabs-sweep-*`. The native debug build passes; its log is
+`/tmp/schist-path-tabs-app-build.log`. Native window QA still returns
+`cgWindowNotFound` for `com.infrawrench.schist.dev`; no claim is made that the
+open isolated dev bundle contains this checkpoint's binary.
+
+Next item 9 work is initial/source-tab behavior and generated marker tabs, then
+cross-story/further-format lists, dictionary hyphenation, vertical initials,
+structured stories, alternate layouts, advanced objects and further native
+validation. Production INDD remains spike-gated. Changes are uncommitted on
+`design-tab-leaders`, and the feature default remains false.
+
+
+Native source-tab collision/edge integration, 2026-10-02: a public InDesign
+20.0.1.32 PDF and its fixture inputs establish horizontal LTR collision and
+beyond-frame wrapping behavior. Ahead-of-pen aligned stops clamp a field to the
+pen; only passed stops are skipped. The old collision-skip policy was incorrect.
+All 52 native sweep observations now match the numeric geometry within PDF
+bearing/advance tolerance. Provenance, the pinned revision and PDF hash are in
+`docs/idml-format.md`; only public fixture definitions and output were consulted.
+The failing original rule is recorded in `/tmp/schist-native-tab-collision-before.log`.
+
+Zero-advance tabs retain source bytes, caret positions and their selected stop,
+with no leader ink. A terminal tab after text can end at the line's inline edge,
+letting its following field wrap. The same measure reaches standalone paint,
+carets and zoom through `TabStops.line_width`. Leading-tab overset still resumes
+unchanged in a wider frame. Properties cover all axes, explicit directions,
+origins, widths, first-line indents and source coverage. Implicit intervals that
+cannot advance at f32 precision fail rather than pretending to be zero-gap tabs.
+
+The independent print proof has **138 cases / 276 paired pages**, with 18 new
+touching-field cases. Exact plates pass at 72/144/216 dpi, and all new actual pages
+passed visual review. Evidence is `/tmp/schist-leaders-visual/collision-contact-*.png`.
+All 16 make targets pass with **1,706 distinct Rust tests** (layout 361, text engine
+112, editor 414, IDML 232, separation 186), four browser checks and eight Python
+i18n-audit tests. Workspace clippy, app/native/browser/headless, output, formatting
+and whitespace checks pass; logs/results/counts use `/tmp/schist-native-tabs-sweep-*`.
+
+Native Schist window QA still returns `cgWindowNotFound`. The new native debug
+build passes (`/tmp/schist-native-tabs-app-build.log`); it does not replace the
+open isolated dev bundle. Other
+paragraph alignment, justified aligned tabs, path/initial-tab combinations,
+generated marker tabs and the subsequent item 9 gaps remain open. The native PDF
+settles the observed LTR geometry only, not full native font/raster agreement or
+RTL/vertical behavior. Work remains uncommitted on `design-tab-leaders`; the
+feature default remains false. Nine superseded task temporary files were removed.
+
+RTL source-tab integration, 2026-10-02: right-aligned horizontal RTL paragraphs
+now use a right-edge column ruler and first-line/hanging indent; vertical RTL
+keeps downward inline progression. Native LeftAlign/RightAlign stop names map to
+physical field edges after resolving the complete paragraph's direction. Character
+anchors convert their physical caret to ruler distance. Column starts, wrapping,
+threading and standalone line rendering share that origin, including automatic
+direction and story-inherited vertical axes. Four repeated native saves preserve
+stop names, styles, text, raster masks and carets.
+
+The independent print proof now has 120 cases (240 paired pages), including 48
+explicit/automatic RTL cases with real Hebrew glyphs and separately styled numeric
+fields. All cases fit one line, exact plates match at three resolutions, and all
+48 new actual cases passed visual review. It found a real mirroring cancellation
+bug at zero; using the stored field end fixes the shifted glyph mask. The regression
+is `/tmp/schist-rtl-before-paint-fix.log`; the earlier character-anchor failure is
+`/tmp/schist-rtl-before-fix.log`. Exact final-field masks are also checked over seven
+sizes, five scales and every stop alignment.
+
+Generated RTL list markers still require their own placement/composition. They now
+remain unpainted with an explicit diagnostic in IDML and both preflight paths,
+instead of using the wrong column edge. Continued-line diagnostics retain the whole
+paragraph's direction. No native RTL reference fixture establishes InDesign
+agreement; ruler interpretation is recorded with public sources and identified
+inferences in `docs/idml-format.md`. Other paragraph alignment, justified aligned
+source tabs, path/initial-tab combinations and generated marker tabs remain next.
+All 16 verification targets pass: **1,703 distinct Rust tests** (layout 360,
+text engine 110, editor 414, IDML 232, separation 186), four browser checks and
+eight Python i18n-audit tests. Workspace clippy, app/native/browser/headless,
+i18n, output proofs, formatting and whitespace checks pass. Logs/results/counts
+are under `/tmp/schist-rtl-sweep-*`. Native window QA remains unavailable because
+computer-use cannot locate the isolated development window.
+
+Tab leaders, 2026-10-02: Phase 3 item 9 now paints literal leader units for
+ordinary source tabs in all four stop alignments and three writing modes. The
+selected explicit stop owns its leader; skipped and implicit stops cannot borrow
+one. Repeated units inherit the source tab's resolved font, ligatures, capitalization,
+paint and baseline offset without adding story bytes or caret positions. The
+folded Tabs section edits the selected stop's literal leader in one undo step,
+including inherited records, clearing and stale-target rejection. Two short
+labels are present in all 150 catalogs.
+
+The repetition policy fits complete shaped units against the following field's
+edge, leaving spare advance beside preceding text. Native repetition phase remains
+unverified. A property over 1–128 units found a lost final unit from f32 scaling;
+the quotient now snaps within arithmetic precision while real partial units remain
+partial. The failing evidence is `/tmp/schist-leaders-rounding-regression.log`.
+Leader enumeration is bounded at paint time and never performed during wrapping.
+Empty/nonpositive-width units produce no repeated ink. Extreme finite coordinates
+and oversized text bitmaps fail rendering safely; both separation paths now report
+failed text as an error rather than silently omitting it.
+
+All 16 verification targets pass with **1,696 distinct Rust tests** (layout 357,
+text engine 108, editor 414, IDML 231 and separation 185), four browser checks and
+eight Python i18n-audit tests. Workspace clippy, native/browser/headless app checks,
+formatting and whitespace checks pass. The tab proof now has 72 cases and 144 paired
+pages, compared at 72/144/216 dpi; all 24 new actual leader cases passed contact-sheet
+review. Its independent ordinary-text reference uses zero-width-space tracking for
+fractional placement within an integer-positioned frame. Logs/results/counts use
+`/tmp/schist-leaders-sweep-*`; visual evidence is `/tmp/schist-leaders-visual/`.
+`CARGO_INCREMENTAL=0 make build PROFILE=debug` passes. Native window QA of this
+leader field remains pending: the computer-use API currently returns
+`cgWindowNotFound` for the running isolated Schist Dev app.
+
+Work continues with RTL/paragraph alignment, justified aligned tabs, path/initial-tab
+cases and generated list-marker tabs, then the remaining item 9 fidelity gaps below.
+Native InDesign agreement remains unverified and the feature default remains false.
+The leader changes are uncommitted on `design-tab-leaders`, based on merged PR #194.
+
 Aligned paragraph tabs, 2026-10-01: Phase 3 item 9 now composes right, center
 and character/decimal source tabs using the following field's shaped metrics.
 Caret positions, mixed styles, ligatures, all three writing modes, column origins,
@@ -323,8 +622,10 @@ single undo operations, and stale field targets cannot overwrite changed records
 Five new short labels are in all 150 catalogs.
 
 The 48-case print proof compares tabbed text with independent frame placements
-at three output resolutions. It found a reference case with overlapping fields
-(the engine correctly skipped the colliding stop), then a separate integer pixel
+at three output resolutions. An overlapping reference case was moved to avoid
+collision; later native evidence showed that the engine's collision-skip rule
+was wrong, and the subsequent native-tab checkpoint corrects it. The proof also
+found a separate integer pixel
 rounding defect. Glyph fill and stroke placement now ignore f32 round-off near
 integer boundaries without changing document coordinates. The corrected proof
 fails without that fix and passes with it; see `/tmp/schist-aligned-tabs-rounding-regression.log`.
@@ -343,7 +644,7 @@ compact Tabs section visible; its native XML contains the selected character
 alignment, literal period and 220 pt position. App/build logs use the same
 `/tmp/schist-aligned-tabs-*` prefix.
 
-Next item 9 work is tab leaders, followed by native RTL/paragraph-alignment,
+At the aligned-tab checkpoint, next item 9 work was tab leaders, then native RTL/paragraph-alignment,
 justified aligned tabs, path/initial-tab cases and generated list-marker tabs.
 Cross-story/further-format lists, dictionary hyphenation, vertical initials,
 structured stories, alternate layouts and advanced object behavior remain open.
@@ -355,8 +656,9 @@ feature default remains false.
 The compact UI changes were merged in
 [PR #193](https://github.com/Infrawrench/schist/pull/193) as `ebe9e82c`. All its
 hosted checks passed, including Windows, macOS, Linux, web and headless builds.
-The aligned-tab follow-up is on `design-aligned-tabs`, based on the merged UI
-changes; it is separate from that UI PR.
+The aligned-tab follow-up merged in [PR #194](https://github.com/Infrawrench/schist/pull/194)
+as `edfbebcd`; all five hosted checks passed, including Windows, macOS, Linux,
+web and headless builds.
 
 Compact Design panel contents, 2026-10-01: Layers now has a collapsible tree,
 visibility/lock columns, object-type icons and full-name tooltips. Dragging layer

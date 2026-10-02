@@ -21,11 +21,11 @@
 //!   spreads and master spreads are promoted to a file each, so those are
 //!   the only ids that resolve to a part.
 //!
-//! ## What is not read
+//! ## What is not composed
 //!
-//! Tables, footnotes and anchored objects. Those go into the [`Report`] rather than being dropped
-//! silently, because a reader that quietly discards part of a document is
-//! worse than one that says which part.
+//! Tables, footnotes and anchored objects retain their outer XML and source
+//! anchors as opaque story structures. They are not laid out or painted; the
+//! [`Report`] and print preflight disclose that missing output.
 
 use schist_layout::{
     Insets, LayoutDocument, LayoutObject, ObjectId, Orientation, Page, ParentObject, ParentPage,
@@ -144,12 +144,12 @@ pub fn read_package(opened: &DesignPackage<'_>) -> Result<Imported, Error> {
     // A page names its master by an InDesign id, and a master part
     // carries that same id. The two are joined after both are read, so
     // the claims are collected on the way through the spreads.
-    let mut master_claims = Vec::new();
+    let mut spread_state = SpreadState::default();
     let mut frames = read_spreads(
         opened,
         &stories,
         &mut document,
-        &mut master_claims,
+        &mut spread_state,
         &layers,
         &colors,
         &mut report,
@@ -169,9 +169,17 @@ pub fn read_package(opened: &DesignPackage<'_>) -> Result<Imported, Error> {
     );
     crate::thread_codec::resolve(&mut document, &frames, &mut report);
     resolve_master_sources(&mut document, &masters, &mut report);
-    apply_masters(&mut document, &masters, &master_claims, &mut report);
+    apply_masters(
+        &mut document,
+        &masters,
+        &spread_state.master_claims,
+        &mut report,
+    );
     crate::object_style_codec::resolve_references(&mut document, &style_refs, &mut report);
     crate::preferences_codec::read(opened, &mut document, &mut report)?;
+    // Parsing XML visits items in paint order. Only guarded chronology labels
+    // can establish their creation order; never certify the incidental walk.
+    document.creation_order = spread_state.creation.finish(&mut report);
 
     report
         .skipped
@@ -216,11 +224,12 @@ fn read_stories(
             ));
             continue;
         };
+        let decoded = flatten_story(&crate::story_codec::normalize(
+            story, styles, colors, refs, report,
+        ));
         stories.push((
             story.attr("Self").unwrap_or_default().to_owned(),
-            flatten_story(&crate::story_codec::normalize(
-                story, styles, colors, refs, report,
-            )),
+            crate::structured_story::restore(story, decoded, styles, refs, report),
         ));
     }
     stories
@@ -238,7 +247,7 @@ fn read_spreads(
     opened: &DesignPackage<'_>,
     stories: &[(String, Story)],
     document: &mut LayoutDocument,
-    master_claims: &mut Vec<MasterClaim>,
+    state: &mut SpreadState,
     layers: &[(String, schist_layout::LayerId)],
     colors: &crate::color_codec::Colors,
     report: &mut Report,
@@ -259,13 +268,7 @@ fn read_spreads(
             continue;
         };
         references.extend(read_spread(
-            spread,
-            stories,
-            document,
-            master_claims,
-            layers,
-            colors,
-            report,
+            spread, stories, document, state, layers, colors, report,
         ));
     }
     Ok(references)
@@ -281,7 +284,7 @@ fn read_spread(
     spread: &Element,
     stories: &[(String, Story)],
     document: &mut LayoutDocument,
-    master_claims: &mut Vec<MasterClaim>,
+    state: &mut SpreadState,
     layers: &[(String, schist_layout::LayerId)],
     colors: &crate::color_codec::Colors,
     report: &mut Report,
@@ -304,7 +307,7 @@ fn read_spread(
             .attr("AppliedMaster")
             .filter(|m| !m.is_empty() && *m != "n")
         {
-            master_claims.push(MasterClaim {
+            state.master_claims.push(MasterClaim {
                 page: index,
                 reference: master.to_owned(),
                 bounds: *boxes.last().unwrap(),
@@ -354,6 +357,7 @@ fn read_spread(
         placed.bounds.x -= boxes[owner].x;
         placed.bounds.y -= boxes[owner].y;
         let id = document.add_object(placed);
+        state.creation.collect(child, id);
         if let Some(child) = crate::text_path_codec::reference(child) {
             references.push(crate::thread_codec::FrameReference {
                 external: child.attr("Self").unwrap_or_default().to_string(),
@@ -538,7 +542,18 @@ fn placed_object(
         }
     };
 
-    let local = bounds_of(element, Transform::default());
+    let local = if matches!(
+        object,
+        LayoutObject::TextFrame {
+            text_path: Some(_),
+            ..
+        }
+    ) {
+        crate::text_path_codec::retained_bounds(element)
+            .or_else(|| bounds_of(element, Transform::default()))
+    } else {
+        bounds_of(element, Transform::default())
+    };
     let Some(mut bounds) = local else {
         report.skip(schist_i18n::tf!(
             "design.idml_frame_geometry",
@@ -854,6 +869,12 @@ fn read_master_spreads(
         });
     }
     Ok(ids)
+}
+
+#[derive(Default)]
+struct SpreadState {
+    master_claims: Vec<MasterClaim>,
+    creation: crate::creation_codec::Reader,
 }
 
 struct MasterClaim {
@@ -1316,7 +1337,7 @@ mod tests {
                     &spread,
                     &[],
                     &mut doc,
-                    &mut Vec::new(),
+                    &mut SpreadState::default(),
                     &[],
                     &Default::default(),
                     &mut Report::default(),

@@ -90,11 +90,23 @@ impl StyleRange {
     }
 }
 
+/// An unsupported inline structure retained without adding characters to the body.
+/// Its XML is opaque data, never interpreted as ordinary paragraph text.
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+pub struct StoryStructure {
+    /// UTF-8 byte boundary in the story, or unknown after an external edit.
+    pub at: Option<usize>,
+    pub kind: String,
+    pub payload: String,
+}
+
 /// A linear flow of text, shared by one or more frames.
 #[derive(Debug, Clone, Default, PartialEq, Serialize, Deserialize)]
 pub struct Story {
     pub points: Vec<Point>,
     pub ranges: Vec<StyleRange>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub structures: Vec<StoryStructure>,
     #[serde(default)]
     pub prefs: StoryPreferences,
 }
@@ -136,9 +148,36 @@ impl Story {
         let text = self.text();
         let start = floor_char_boundary(&text, range.start.min(text.len()));
         let end = ceil_char_boundary(&text, range.end.max(start).min(text.len()));
+        // Insertion at an anchor goes before the structure (right affinity).
+        // A replacement may touch either side, but cannot erase its interior.
+        // Invalid anchors must not be silently moved to an unrelated character.
+        if self
+            .structures
+            .iter()
+            .filter_map(|s| s.at)
+            .any(|at| at > text.len() || !text.is_char_boundary(at) || (start < at && at < end))
+        {
+            return None;
+        }
+        let structures = self
+            .structures
+            .iter()
+            .cloned()
+            .map(|mut structure| {
+                structure.at = structure.at.map(|at| {
+                    if at >= end {
+                        at - end + start + insert.len()
+                    } else {
+                        at
+                    }
+                });
+                structure
+            })
+            .collect();
         if self.points.is_empty() {
             return Some(Self {
                 prefs: self.prefs,
+                structures,
                 points: insert
                     .split('\n')
                     .map(|text| Point::Paragraph {
@@ -239,8 +278,19 @@ impl Story {
         Some(Self {
             points,
             ranges: compact,
+            structures,
             prefs: self.prefs,
         })
+    }
+
+    /// Count retained structures which composition cannot paint.
+    pub fn unrendered_structures(&self) -> usize {
+        self.structures.len()
+            + self
+                .points
+                .iter()
+                .filter(|p| matches!(p, Point::Other { .. }))
+                .count()
     }
 
     pub fn new() -> Story {
@@ -251,6 +301,7 @@ impl Story {
     pub fn from_text(text: impl Into<String>, style: impl Into<String>) -> Story {
         Story {
             prefs: StoryPreferences::default(),
+            structures: Vec::new(),
             points: vec![Point::Paragraph {
                 text: text.into(),
                 style: style.into(),
@@ -502,6 +553,7 @@ mod tests {
     fn a_break_point_contributes_no_separator_byte() {
         let story = Story {
             prefs: StoryPreferences::default(),
+            structures: Vec::new(),
             points: vec![
                 Point::Paragraph {
                     text: "A".into(),
@@ -582,6 +634,7 @@ mod tests {
     fn break_points_contribute_no_characters() {
         let story = Story {
             prefs: StoryPreferences::default(),
+            structures: Vec::new(),
             points: vec![
                 Point::Paragraph {
                     text: "A".into(),
@@ -610,6 +663,7 @@ mod tests {
         // dropped on save.
         let story = Story {
             prefs: StoryPreferences::default(),
+            structures: Vec::new(),
             points: vec![Point::Other {
                 kind: "TableAnchor".into(),
                 payload: "<table/>".into(),

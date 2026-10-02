@@ -1,8 +1,13 @@
 //! Paragraph tabs use the same native TabList record as list-marker spacing.
 use crate::styles::{Align, ParagraphDirection, ResolvedParagraph};
 
-pub(crate) fn stops(paragraph: &ResolvedParagraph) -> schist_text_engine::TabStops {
+pub(crate) fn stops(paragraph: &ResolvedParagraph, reverse: bool) -> schist_text_engine::TabStops {
     schist_text_engine::TabStops {
+        hanging_indent: if reverse {
+            paragraph.right_indent
+        } else {
+            paragraph.left_indent
+        },
         positions: paragraph
             .list
             .tabs
@@ -15,7 +20,23 @@ pub(crate) fn stops(paragraph: &ResolvedParagraph) -> schist_text_engine::TabSto
             .tabs
             .iter()
             .flatten()
-            .map(|tab| tab.text_alignment().unwrap_or_default())
+            .map(|tab| {
+                use schist_text_engine::TabAlignment;
+                // Native names describe physical left/right field edges. The
+                // engine anchors along the paragraph's logical inline ruler.
+                match (tab.text_alignment().unwrap_or_default(), reverse) {
+                    (TabAlignment::Leading, true) => TabAlignment::Trailing,
+                    (TabAlignment::Trailing, true) => TabAlignment::Leading,
+                    (alignment, _) => alignment,
+                }
+            })
+            .collect(),
+        leaders: paragraph
+            .list
+            .tabs
+            .iter()
+            .flatten()
+            .map(|tab| tab.leader.clone())
             .collect(),
         ..Default::default()
     }
@@ -33,12 +54,33 @@ pub(crate) fn has_aligned_stops(paragraph: &ResolvedParagraph) -> bool {
 /// Retained options whose native layout is not implemented. Diagnose only
 /// paragraphs containing actual source tabs, independently of their list kind.
 pub fn unsupported(paragraph: &ResolvedParagraph, text: &str, path: bool) -> Vec<&'static str> {
+    unsupported_in_mode(
+        paragraph,
+        text,
+        path,
+        paragraph
+            .writing_mode
+            .map(crate::compose::engine_writing_mode)
+            .unwrap_or_default(),
+    )
+}
+
+/// Story orientation can supply the axis when the paragraph inherits it.
+/// Diagnostics use that same resolved axis as composition and paint.
+pub fn unsupported_in_mode(
+    paragraph: &ResolvedParagraph,
+    text: &str,
+    path: bool,
+    mode: schist_text_engine::WritingMode,
+) -> Vec<&'static str> {
     if !text.contains('\t') {
         return Vec::new();
     }
     let mut out = Vec::new();
     if paragraph.list.tabs.iter().flatten().any(|tab| {
-        !tab.position.is_finite() || tab.text_alignment().is_none() || !tab.leader.is_empty()
+        !tab.position.is_finite()
+            || tab.text_alignment().is_none()
+            || !schist_text_engine::valid_tab_leader(&tab.leader)
     }) {
         out.push("TabList");
     }
@@ -50,15 +92,17 @@ pub fn unsupported(paragraph: &ResolvedParagraph, text: &str, path: bool) -> Vec
                 == schist_text_engine::ParagraphDirection::RightToLeft
         }
     };
-    if rtl {
+    let reverse = rtl && !mode.is_vertical();
+    if reverse && paragraph.align != Some(Align::Right) {
         out.push("ParagraphDirection + TabList");
     }
-    if matches!(paragraph.align, Some(Align::Center | Align::Right))
+    if paragraph.align == Some(Align::Center)
+        || paragraph.align == Some(Align::Right) && !reverse
         || paragraph.align.is_some_and(|align| align.is_justified()) && has_aligned_stops(paragraph)
     {
         out.push("Justification + TabList");
     }
-    if path {
+    if path && mode.is_vertical() {
         out.push("TextPath + TabList");
     }
     if paragraph.drop_caps_lines.unwrap_or(0) > 1 {

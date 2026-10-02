@@ -17,12 +17,11 @@
 //!
 //! ## What is not written
 //!
-//! Styles' *definitions* are written, but only the properties this
-//! document model carries. Tables, footnotes, anchored objects, text on a
-//! path and ink trapping are not, and a document that
-//! uses them loses them. What was dropped is reported in
-//! [`Written::warnings`], because a writer that loses a document's
-//! contents without saying so is the worst kind.
+//! Styles' definitions include only the properties this document model carries.
+//! Opaque tables, footnotes and anchored objects survive in guarded standard
+//! Story Labels, not as active native structures. Supported text paths are
+//! written natively. Unsupported output and Schist-only retention are disclosed
+//! in [`Written::warnings`]; retaining data does not establish native rendering.
 
 use schist_layout::{
     FrameOverflow, Insets, LayoutDocument, LayoutObject, Page, Rect, Story, StoryId, StoryPoint,
@@ -41,7 +40,7 @@ const DOM_VERSION: &str = "15.0";
 /// What a write produced, and what it could not carry.
 pub struct Written {
     pub bytes: Vec<u8>,
-    /// One note per thing the document uses that this writer drops.
+    /// Notices for unsupported native output and Schist-only retention.
     pub warnings: Vec<String>,
 }
 
@@ -387,17 +386,20 @@ fn spread_xml(
 
     // Items are spread siblings. Grouping them by owning page changes stacking
     // whenever artwork crosses the gutter, even though its geometry survives.
+    let creation = document.creation_ranks();
     for object in &document.objects {
         if let Some((_, page_x)) = positions.iter().find(|(index, _)| *index == object.page) {
             let mut positioned = object.clone();
             positioned.bounds.x += *page_x;
-            out.push_str(&object_xml(
+            let mut xml = object_native_xml(
                 &positioned,
                 document,
                 document.object_layer(object.id),
                 stories,
                 warnings,
-            ));
+            );
+            crate::creation_codec::label(&mut xml, creation.get(&object.id).copied());
+            out.push_str(&xml);
         }
     }
     out.push_str("</Spread></idPkg:Spread>");
@@ -454,7 +456,7 @@ fn page_xml(
 }
 
 /// A frame, as one of the elements that can hold one.
-fn object_xml(
+fn object_native_xml(
     object: &schist_layout::PlacedObject,
     document: &LayoutDocument,
     layer: schist_layout::LayerId,
@@ -524,11 +526,12 @@ fn object_xml(
                     warnings.push(schist_i18n::tf!("design.idml_even_odd", name = object.name));
                 }
                 let geometry = path_geometry(&path.path);
+                let bounds_label = crate::text_path_codec::bounds_label(path, rect);
                 let child =
                     crate::text_path_codec::write(path, &id, &story_id, &previous, &next, warnings);
                 let opacity = crate::color_codec::transparency(object.transparency);
                 return format!(
-                    r#"<Polygon Self="{id}" Name="{name}" {transform} Locked="{locked}"{paint} ContentType="Unassigned"><Properties>{geometry}</Properties>{child}{opacity}</Polygon>"#
+                    r#"<Polygon Self="{id}" Name="{name}" {transform} Locked="{locked}"{paint} ContentType="Unassigned"><Properties>{geometry}{bounds_label}</Properties>{child}{opacity}</Polygon>"#
                 );
             }
             let mut out = format!(
@@ -761,7 +764,7 @@ fn master_xml(
             .unwrap_or_default();
         object.bounds.x += origin.x;
         object.bounds.y += origin.y;
-        out.push_str(&object_xml(
+        out.push_str(&object_native_xml(
             &object,
             document,
             document.object_layer(object.id),
@@ -775,6 +778,16 @@ fn master_xml(
 
 /// A story, as its points and ranges.
 fn story_xml(
+    id: &str,
+    story: &Story,
+    styles: &schist_layout::StyleSet,
+    warnings: &mut Vec<String>,
+) -> String {
+    let native = story_native_xml(id, story, styles, warnings);
+    crate::structured_story::retain(native, id, story, warnings)
+}
+
+pub(crate) fn story_native_xml(
     id: &str,
     story: &Story,
     styles: &schist_layout::StyleSet,
@@ -853,9 +866,7 @@ fn story_xml(
                 warnings.push(schist_i18n::t("design.idml_structural_line_break").to_string());
                 out.push_str(r#"<ParagraphStyleRange AppliedParagraphStyle="ParagraphStyle/$ID/[No paragraph style]"><CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]"><Br/></CharacterStyleRange></ParagraphStyleRange>"#);
             }
-            StoryPoint::Other { .. } => {
-                warnings.push(schist_i18n::t("design.idml_story_structure").to_string())
-            }
+            StoryPoint::Other { .. } => {} // Retained by the wrapper's guarded Label.
         }
         if !matches!(point, StoryPoint::Other { .. }) {
             range_index += 1;
@@ -952,6 +963,12 @@ fn styles_xml(
     ));
     out.push_str(r#"<RootParagraphStyleGroup Self="SchistParagraphStyles">"#);
     for style in &document.styles.paragraphs {
+        if style.writing_mode.is_some() {
+            let message = schist_i18n::t("design.idml_paragraph_orientation").to_string();
+            if !warnings.contains(&message) {
+                warnings.push(message);
+            }
+        }
         crate::capitalization_codec::warn(style.all_caps, style.small_caps, warnings);
         crate::opentype_codec::warn(&style.features, warnings);
         crate::style_codec::warn_stroke(style.stroke_weight, style.stroke_miter_limit, warnings);

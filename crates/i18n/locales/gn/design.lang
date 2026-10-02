@@ -261,7 +261,7 @@ design.imported_style = Imported style
 
 design.idml_local_styles = Local formatting becomes named styles
 
-design.idml_story_structure = Unsupported story structure omitted
+design.idml_story_structure = Unrendered story structure retained in Schist
 
 design.idml_structural_line_break = Standalone line break becomes empty paragraph
 
@@ -482,7 +482,7 @@ design.list_restart_higher = Restart after higher levels
 design.list_keep_level = Continue this level
 
 design.idml_tabs_unsupported = Unsupported paragraph tab setting: {value}
-design.idml_tabs_implicit = Implicit tabs use Schist’s 36-point interval.
+design.idml_tabs_implicit = Implicit tabs use the hanging indent, then Schist’s 36-point interval.
 design.paragraph_tabs = Paragraph tabs (pt)
 
 # Design workspace controls (English placeholders pending translation)
@@ -501,3 +501,17 @@ design.tab_position = Position (pt)
 design.tab_add = Add tab stop
 design.tab_remove = Remove tab stop
 design.tab_inherit = Inherit tab stops
+
+# Paragraph tab leaders
+design.tab_leader = Leader
+design.preflight_unavailable_text = Text could not be rendered
+design.idml_paragraph_orientation = Paragraph orientation retained in Schist only
+design.idml_creation_order = Unverified object creation order
+design.idml_cross_story_order = Cross-story numbering uses Schist creation order
+design.list_sequence = Sequence
+design.list_default = Default list
+design.list_across_stories = Continue across stories
+
+design.idml_structure_location = Retained structure location unknown
+design.preflight_story_structure = {name}: {count} unrendered story structures
+design.story_structure_count = {count} unrendered structures retained

@@ -251,6 +251,12 @@ impl Render for StoryEditor {
                             .flex_col()
                             .gap_2()
                             .children(markers)
+                            .when(valid && self.base.unrendered_structures() > 0, |body| {
+                                body.child(div().text_sm().child(schist_i18n::tf!(
+                                    "design.story_structure_count",
+                                    count = self.base.unrendered_structures()
+                                )))
+                            })
                             .child(if valid {
                                 self.notice.clone()
                             } else {

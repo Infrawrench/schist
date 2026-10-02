@@ -71,7 +71,8 @@ pub use numbering::Section;
 pub use object_styles::{ObjectAppearance, ObjectPaint, ObjectStyle, Paint};
 pub use pasteboard::{pasteboard, Display, Guide, PageBox, PagePlan, Pasteboard, PasteboardView};
 pub use story::{
-    Point as StoryPoint, Story, StoryDirection, StoryOrientation, StoryPreferences, StyleRange,
+    Point as StoryPoint, Story, StoryDirection, StoryOrientation, StoryPreferences, StoryStructure,
+    StyleRange,
 };
 pub use styles::{
     CharacterStyle, ParagraphDirection, ParagraphStyle, ResolvedCharacter, ResolvedParagraph,

@@ -463,6 +463,19 @@ text clicks and drags use the shared shaping engine for caret hit tests and
 selection rectangles. Selection replacement and clipboard insertion are one
 edit per call. IME composition is a draft until committed, then one edit.
 
+Unsupported imported tables, footnotes and inline page items retain their raw XML
+and source anchors. Story Editor shows a compact count, and preflight treats their
+missing appearance as an error. They do not contribute body characters or paint.
+Typing at an anchor inserts before it; a replacement crossing an anchor is refused.
+Text and style edits preserve the data through one undo step. Opaque-only stories
+are occupied thread targets, even when they have no ordinary text.
+
+IDML saves retain this data in a guarded Schist Label, not as working native tables
+or footnotes. Reopening an unchanged save preserves its anchors. External changes
+to the native story take precedence; retained payloads then have unknown locations
+and remain diagnosed. Referenced native resources and full structured composition
+are not reconstructed by this preservation step.
+
 Text threads have explicit order independent of page and layer order. Click
 an output port, then an empty frame to link; the Stories panel also offers
 link and detach controls. Detaching leaves the original text in its original
@@ -880,7 +893,13 @@ follows paragraph order and named sequence identity, independently of frame
 wrapping; explicit restarts take precedence. Markers inherit the first character
 before their own character style is applied. The initial support is horizontal
 Unicode bullets and decimal, Roman, alphabetic and padded sequences at levels 1–9
-within a story. A hidden-number format retains any expression literals and tabs.
+within a story or across known same-page unthreaded frames. The list disclosure
+selects a numbering sequence and continuation across stories; this setting belongs
+to the shared resource, so every referencing style observes the change. Creation
+order is independent of stacking and survives undo and IDML saves. Unknown imported
+chronology and threaded, parent, multiple-page or book sequences are diagnosed.
+Preflight warns that supported cross-story ordering uses Schist chronology; native
+rendering equivalence is unverified. A hidden-number format retains any expression literals and tabs.
 Unchanged format choices retain imported native names and types. Roman values
 outside 1–3999 are preserved and diagnosed. Unsupported
 native list options are preserved and diagnosed by IDML import/export. Empty items reserve their marker and caret, including overset when a frame is
@@ -910,12 +929,29 @@ when their displayed positions are committed unchanged.
 
 Leading stops are measured from the column origin, independently of first-line
 indents, list markers and enlarged initials. Wrapping, painting and caret placement
-share that origin in horizontal and vertical flow. A tab which cannot fit remains
-overset and can resume in a wider threaded frame. Justification expands ordinary
+share that origin in horizontal and vertical flow. A leading tab which cannot fit
+remains overset and can resume in a wider threaded frame. A terminal tab after
+text can end at the frame edge, letting its following field wrap without losing
+the source tab. An ahead-of-pen aligned stop clamps a colliding field to the pen;
+only passed stops are skipped. This collision rule follows a public native PDF,
+documented in `docs/idml-format.md`. Justification expands ordinary
 spaces after the final tab; earlier fields retain their stop positions.
 
-Explicit left stops compose. Missing/empty stops use Schist's 36-point grid,
-with an IDML notice. Right, centered and decimal tabs, leaders, RTL native tab
-semantics, centered/right paragraph alignment, path tabs and tabs inside an
-enlarged initial remain unsupported and are diagnosed. Their native records are
-retained. Native application rendering agreement is not established.
+Left, right, centered and character/decimal stops compose using the following
+field's shaped metrics. The selected stop can have a literal Leader pattern of up
+to eight characters, including spaces. Complete shaped units fill the gap against
+the following field's edge and inherit the source tab character's formatting.
+Leaders add paint without changing source text, wrapping or caret positions.
+Their exact native repetition phase remains unverified.
+
+An ahead-of-pen hanging indent supplies a virtual leading stop before a later
+explicit stop or Schist's 36-point grid. It carries no leader; an explicit stop
+at the same position retains its own alignment and leader. The public native
+reference establishes horizontal LTR indent placement. The same logical geometry
+is used for other directions and axes without claiming native agreement there.
+Missing/empty stops report this indent/grid fallback in IDML. Horizontal
+RTL tabs use a right-edge ruler with right paragraph alignment; vertical RTL tabs
+keep downward flow. Other centered/right paragraph-alignment cases, justified
+non-leading stops, vertical path tabs and tabs inside an enlarged initial remain diagnosed. Those initials use ordinary
+source flow rather than scaling an unsupported tab gap. Their native
+records are retained. Native application rendering agreement is not established.

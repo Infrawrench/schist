@@ -95,6 +95,7 @@ fn document() -> LayoutDocument {
     // of it -- every shape of story the writer has to survive.
     document.stories = vec![Story {
         prefs: Default::default(),
+        structures: Vec::new(),
         points: vec![StoryPoint::Paragraph {
             text: "First line\nsecond line".into(),
             style: "Body".into(),
