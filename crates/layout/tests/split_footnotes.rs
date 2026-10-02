@@ -365,3 +365,29 @@ fn a_wrapped_generated_reference_stays_whole_with_the_start_of_its_note() {
         }
     }
 }
+
+#[test]
+fn omitted_no_splitting_uses_the_published_default_without_mutating_authored_preferences() {
+    for spanning in [false, true] {
+        for columns in [1, 2, 3] {
+            let mut explicit = document(false);
+            explicit.footnotes.straddle = Some(spanning);
+            let mut omitted = explicit.clone();
+            omitted.footnotes.no_splitting = None;
+            let source = omitted.clone();
+            let mut input = frames(&[65.0; 24]);
+            for (_, bounds, _, count, gutter, _) in &mut input {
+                bounds.width = 270.0;
+                *count = columns;
+                *gutter = 12.0;
+            }
+            let expected = compose_thread(&explicit, StoryId(0), &input);
+            assert!(!expected.has_overflow());
+            assert!(
+                compose_thread(&omitted, StoryId(0), &input) == expected,
+                "default differs for spanning={spanning}, columns={columns}"
+            );
+            assert_eq!(omitted, source);
+        }
+    }
+}

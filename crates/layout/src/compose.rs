@@ -804,7 +804,9 @@ fn compose_thread_plain(
         notes,
     };
     let mut split_notes = notes
-        .filter(|_| doc.footnotes.no_splitting == Some(false))
+        // IDML Appendix C: absent NoSplitting defaults to false. Preserve the
+        // authored Option; only composition resolves that native default.
+        .filter(|_| doc.footnotes.no_splitting != Some(true))
         .map(|notes| split_footnotes::Flow::new(doc, notes));
     let text_end = story.text_len();
     // An automatic marker is printable content even when its paragraph has no

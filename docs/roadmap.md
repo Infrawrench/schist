@@ -310,6 +310,28 @@ are marked.
 
 ## Handoff
 
+Native split-note default, 2026-10-02:
+Split continuation is pushed as `a0301ac5` in draft PR #195. The public IDML
+specification's Appendix C defaults NoSplitting to false, but Schist still rejected
+an absent value as unsupported. A new property reproduced that discrepancy.
+Composition now resolves absence to the documented split policy while leaving the
+authored Option untouched. Explicit true retains the whole-note path. Two new
+properties cover exact composition equality across 1–3 independent/spanning
+columns and continued native notes through repeated saves with NoSplitting still
+absent. Focused tests and layout/IDML lints pass. The full 16-target sweep passes,
+with **1,829 distinct passing Rust tests** (layout 422, IDML 271, five shared UI
+checks included; one pre-existing UI documentation example ignored), four browser
+and eight Python audit checks. Workspace clippy, native/browser/headless checks,
+localization, formatting and whitespace pass. The 24-page PDF remains byte-identical
+to the visually reviewed continuation proof. The development build passes in
+2m 00s, and its isolated Design-enabled bundle was hash checked and signature
+verified. The app remains quit. Logs use `/tmp/schist-note-default-*`; bundle
+verification is `/tmp/schist-note-default-native-qa.json`. No new UI strings.
+Native inspection is still
+pending the window-automation issue recorded below. Explicit and omitted-policy
+variants of the disposable fixture remain in `target/design-ui/split-notes-qa/`.
+
+
 Split-footnote continuation, 2026-10-02:
 Ruler synchronization is pushed as `21f98d43` in draft PR #195. The next item 9
 regressions reproduced long notes being unrendered under NoSplitting=false and

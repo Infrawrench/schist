@@ -1071,3 +1071,52 @@ fn native_split_notes_retain_continuation_and_source_through_repeated_saves() {
         }
     }
 }
+
+#[test]
+fn native_absent_no_splitting_uses_its_default_and_remains_absent_after_saves() {
+    use schist_layout::{compose::compose_story, FrameOverflow, LayoutObject, ObjectId, StoryId};
+    let body = " A long note with enough text to continue into later frames.".repeat(25);
+    let payload = format!(
+        r#"<Footnote><ParagraphStyleRange AppliedParagraphStyle="ParagraphStyle/$ID/Note body"><CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/Note marker"><Content><?ACE 4?>{body}</Content></CharacterStyleRange></ParagraphStyleRange></Footnote>"#
+    );
+    let mut doc = import::read(&native_note(&payload)).unwrap().document;
+    doc.footnotes.no_splitting = None;
+    let mut frame = doc.objects[0].clone();
+    frame.bounds.height = 60.0;
+    if let LayoutObject::TextFrame { overflow, .. } = &mut frame.object {
+        *overflow = FrameOverflow::Thread;
+    }
+    doc.objects = (0..20)
+        .map(|_| {
+            let mut frame = frame.clone();
+            frame.id = ObjectId::next();
+            frame
+        })
+        .collect();
+    for _ in 0..3 {
+        let source = doc.clone();
+        let composed = compose_story(&doc, StoryId(0));
+        let mut explicit = doc.clone();
+        explicit.footnotes.no_splitting = Some(false);
+        assert!(
+            composed == compose_story(&explicit, StoryId(0)),
+            "omitted split policy differs from its native default"
+        );
+        assert!(!composed.has_overflow());
+        assert!(
+            composed
+                .frames
+                .iter()
+                .flat_map(|frame| &frame.footnotes)
+                .count()
+                > 1
+        );
+        assert_eq!(doc, source);
+        let bytes = export::write(&doc).bytes;
+        let package = container::read(&bytes).unwrap();
+        let preferences = package.text("Resources/Preferences.xml").unwrap();
+        assert!(!preferences.contains("NoSplitting="));
+        doc = import::read(&bytes).unwrap().document;
+        assert_eq!(doc.footnotes.no_splitting, None);
+    }
+}

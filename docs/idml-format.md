@@ -1839,8 +1839,10 @@ roadmap handoff.
 
 ### Split text-only footnote continuation
 
-Explicit NoSplitting=false uses an independent cursor for each projected note
-body. Main-story EOF does not finish a thread while a referenced note has text
+NoSplitting=false uses an independent cursor for each projected note body.
+An omitted NoSplitting has the same false default under Appendix C of the public
+IDML specification. The model retains absence; composition resolves the default
+without authoring an explicit value or changing native saves. Main-story EOF does not finish a thread while a referenced note has text
 left. Pending notes can occupy later columns or note-only frames; clipping or the
 last frame reports ordinary terminal overset even when all main bytes were placed.
 Reference/marker projection and native source retention are unchanged.

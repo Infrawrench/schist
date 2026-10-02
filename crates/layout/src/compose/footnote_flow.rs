@@ -26,14 +26,13 @@ pub(super) fn supported(
                 _ => true,
             })
     };
-    // Explicit native policies gate this first placement path. Unsupported
-    // preferences remain retained and reported, never silently approximated.
-    options.no_splitting.is_some()
-        && matches!(
-            options.first_baseline,
-            None | Some(FootnoteFirstBaseline::Ascent | FootnoteFirstBaseline::Leading)
-        )
-        && rule_supported(&options.rule)
+    // Public IDML defaults resolve absent first-baseline/rule preferences.
+    // Unknown spanning defaults remain gated below; other unsupported settings
+    // stay retained and reported instead of being silently approximated.
+    matches!(
+        options.first_baseline,
+        None | Some(FootnoteFirstBaseline::Ascent | FootnoteFirstBaseline::Leading)
+    ) && rule_supported(&options.rule)
         && (options.no_splitting == Some(true) || rule_supported(&options.continuing_rule))
         && horizontal(story)
         && story
