@@ -645,6 +645,81 @@ struct FlowSource<'a> {
     notes: Option<&'a crate::footnote_composition::PreparedStory>,
 }
 
+#[derive(Clone, Copy)]
+struct FlowCursor {
+    offset: usize,
+    break_index: usize,
+}
+
+struct ColumnFlow {
+    lines: Vec<ComposedLine>,
+    footnotes: Vec<crate::footnote_composition::NoteArea>,
+    next: FlowCursor,
+    stop_frame: bool,
+    stop_page: bool,
+}
+
+/// Trial layouts own their break cursor. Reserving a shared note area must not
+/// consume a forced break before the final body layout has been chosen.
+fn fill_columns(
+    story: &Story,
+    start: FlowCursor,
+    end: usize,
+    columns: &[Rect],
+    breaks: &[(&Point, usize)],
+    mut fill: impl FnMut(
+        usize,
+        usize,
+        Rect,
+    ) -> (
+        Vec<ComposedLine>,
+        usize,
+        Vec<crate::footnote_composition::NoteArea>,
+    ),
+) -> ColumnFlow {
+    let mut out = ColumnFlow {
+        lines: Vec::new(),
+        footnotes: Vec::new(),
+        next: start,
+        stop_frame: false,
+        stop_page: false,
+    };
+    for column in columns {
+        if out.next.offset >= end {
+            break;
+        }
+        let stop = breaks
+            .get(out.next.break_index)
+            .map_or(end, |(_, at)| *at)
+            .min(end);
+        if out.next.offset < stop {
+            let (part, consumed, notes) = fill(out.next.offset, stop, *column);
+            out.lines.extend(part);
+            out.footnotes.extend(notes);
+            let previous = out.next.offset;
+            out.next.offset = consumed;
+            if consumed + 1 == stop && story.slice(consumed, stop) == "\n" {
+                out.next.offset = stop;
+            }
+            if out.next.offset <= previous {
+                break;
+            }
+        }
+        if let Some((kind, _)) = breaks
+            .get(out.next.break_index)
+            .filter(|(_, at)| *at == out.next.offset)
+        {
+            out.next.break_index += 1;
+            out.stop_page = matches!(kind, Point::PageBreak);
+            out.stop_frame = out.stop_page || matches!(kind, Point::FrameBreak);
+            if out.stop_frame {
+                break;
+            }
+        }
+    }
+    out
+}
+
 fn compose_thread_on_page(
     doc: &LayoutDocument,
     story_id: crate::model::StoryId,
@@ -878,12 +953,15 @@ fn compose_thread_plain(
             if story.prefs.direction == crate::StoryDirection::RightToLeft {
                 columns.reverse();
             }
+            let spanning =
+                source.notes.is_some() && columns.len() > 1 && note_options.straddle == Some(true);
             // Only enabled frames balance, and only when all remaining text fits.
-            if crate::frame_text::balanced(doc, *object)
+            // Shared footers reserve space before balancing the body.
+            let balance = crate::frame_text::balanced(doc, *object)
                 && columns.len() > 1
                 && section_end == total
-                && break_index == breaks.len()
-            {
+                && break_index == breaks.len();
+            if balance && !spanning {
                 let (mut balanced, consumed, balanced_notes) =
                     balance_columns(&source, cursor, total, &columns, grid, &note_options);
                 if consumed >= total {
@@ -894,54 +972,65 @@ fn compose_thread_plain(
                     break;
                 }
             }
-            let mut placed = Vec::new();
-            let mut stop_frame = false;
-            for column in &columns {
-                if cursor >= section_end {
-                    break;
-                }
-                let stop = breaks
-                    .get(break_index)
-                    .map(|(_, at)| *at)
-                    .unwrap_or(section_end)
-                    .min(section_end);
-                if cursor < stop {
-                    let (part, consumed, note_areas) = footnote_flow::fill(
-                        &source,
-                        cursor,
-                        stop,
-                        *column,
-                        grid,
-                        &note_options,
-                        footnote_flow::FillPolicy::default(),
-                    );
-                    placed.extend(part);
-                    footnotes.extend(note_areas);
-                    let previous = cursor;
-                    cursor = consumed;
-                    if cursor + 1 == stop && story.slice(cursor, stop) == "\n" {
-                        cursor = stop;
-                    }
-                    if cursor <= previous {
-                        break;
-                    }
-                }
-                if let Some((kind, _)) = breaks.get(break_index).filter(|(_, at)| *at == cursor) {
-                    break_index += 1;
-                    match kind {
-                        Point::FrameBreak => {
-                            stop_frame = true;
-                            break;
-                        }
-                        Point::PageBreak => {
-                            skip_page = Some(page_key);
-                            stop_frame = true;
-                            break;
-                        }
-                        _ => {}
-                    }
-                }
+            let start = FlowCursor {
+                offset: cursor,
+                break_index,
+            };
+            let flow = if spanning {
+                footnote_flow::fill_spanning(
+                    &source,
+                    cursor,
+                    available,
+                    &note_options,
+                    balance,
+                    |height| {
+                        fill_columns(
+                            story,
+                            start,
+                            section_end,
+                            &columns,
+                            &breaks,
+                            |from, to, column| {
+                                let (lines, next) = fill_column_with_rules(
+                                    &source,
+                                    from,
+                                    to,
+                                    Rect { height, ..column },
+                                    grid,
+                                );
+                                (lines, next, Vec::new())
+                            },
+                        )
+                    },
+                )
+            } else {
+                fill_columns(
+                    story,
+                    start,
+                    section_end,
+                    &columns,
+                    &breaks,
+                    |from, to, column| {
+                        footnote_flow::fill(
+                            &source,
+                            from,
+                            to,
+                            column,
+                            grid,
+                            &note_options,
+                            footnote_flow::FillPolicy::default(),
+                        )
+                    },
+                )
+            };
+            cursor = flow.next.offset;
+            break_index = flow.next.break_index;
+            if flow.stop_page {
+                skip_page = Some(page_key);
             }
+            let stop_frame = flow.stop_frame;
+            let mut placed = flow.lines;
+            footnotes.extend(flow.footnotes);
             if placed.is_empty() {
                 if let Some((count, start)) = pending_keep {
                     lines.truncate(count);

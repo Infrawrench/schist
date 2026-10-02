@@ -310,6 +310,62 @@ are marked.
 
 ## Handoff
 
+Spanning whole footnotes, 2026-10-02:
+Story Editor checkpoint `362c598b` is pushed to draft PR #195. Item 9 now has a
+shared footer for explicitly spanning notes, using the full frame width after
+insets and reserving room under every column. Height trials use ordinary body
+flow and independent break cursors; only the selected layout consumes forced
+column/frame/page breaks. Notes are measured once per frame search. Balancing
+then minimizes the body height while retaining the reserved footer. Per-frame
+and style policies continue to select spanning or independent column areas.
+Unknown spanning defaults, split notes, layout-dependent numbering restarts,
+vertical/path notes and structured note bodies remain explicit gaps.
+
+Layout regressions cover 2–4 columns, LTR/RTL flow, balanced/unbalanced frames,
+terminal and bottom placement, overflow, whole multi-paragraph notes, mixed
+frame policies, forced breaks, asymmetric insets, page-relative grids and
+impossible fits without orphan references. These tests and layout lint pass.
+The independent separation/PDF proof also includes wrapped spanning text crossing
+the gutter, with spot/process paints, tint, opacity and affine placement. It
+matches independent text/shape frames in every plate at three resolutions and
+pixel-for-pixel in Poppler; the 16-page PDF was also visually inspected. Repeated
+native IDML saves preserve full-width notes and UTF-8 anchors through document
+and frame overrides. The full 16-target sweep passes with **1,803 distinct Rust
+tests** (layout 409, IDML 265, separation 192), four browser and eight Python
+audit checks. Workspace clippy, native/browser/headless and localization pass.
+Logs use `/tmp/schist-spanning-sweep-*`.
+
+The previous native build opens a disposable two-story fixture: independent
+column notes paint, while the explicitly spanning notes remain absent. An initial
+handwritten fixture omitted its package index; adding that index made it readable.
+The installed app and public fixtures remain untouched. Review also found the
+layout-open failure branch passing `name` to the existing `{error}` placeholder;
+it now uses the correct argument. The affected editor/lint/app/browser checks
+and formatting pass again. All five shared UI tests pass (one existing
+documentation example is ignored), giving **1,808 distinct passing Rust tests**
+with the main sweep. The native debug build passes, and the isolated bundle was
+hash checked and signature verified with Design enabled. Its spanning footer now
+paints both complete notes across the frame, while the comparison frame retains
+independent column notes. Native 150 dpi PDF export produces a 558 × 798 pt page;
+Poppler inspection confirms both arrangements, references, rules and printer
+marks. Native packaging preserves both source stories, all four note bodies and
+their UTF-8 anchors exactly, without persisting generated styles. Its explicit
+structured-content/font/style warnings remain visible. Packaged IDML reopens with
+the same two arrangements. Both layouts close without a save prompt after output;
+the QA app was quit. Disposable fixtures, package, PDF and render images were
+removed after verification. Evidence is `/tmp/schist-spanning-native-qa.json`,
+and the build log is `/tmp/schist-spanning-app-build.log`.
+
+Next composition prerequisite: native paragraph keeps. The importer currently
+reduces numeric KeepWithNext to a boolean and applies KeepFirstLines symmetrically,
+without honoring KeepLinesTogether, KeepAllLinesTogether, KeepLastLines or
+KeepWithPrevious. The public corpus has 20 base styles with keeps disabled but
+first/last counts of two, and the academic body style uses KeepWithPrevious=true.
+The [public ParagraphStyle DOM](https://developer.adobe.com/indesign/uxp/dom/api/p/paragraph-style/)
+and reference manual describe these independent policies. Correct their model,
+inheritance, flow and interchange before extending note splitting; current
+Schist keep-rule tests are not evidence of full native keep-option fidelity.
+
 Story Editor native window QA, 2026-10-02:
 Paragraph balancing is pushed as `e4115390` in draft PR #195. Opening the separate
 Story Editor from the Stories panel then reproducibly aborted the native app.

@@ -206,6 +206,15 @@ fn frame_settings_are_atomic_for_any_selection_and_survive_duplicate_and_style_d
 
 #[test]
 fn column_flow_and_balancing_keep_each_whole_note_with_its_reference_in_reading_order() {
+    column_flow(false);
+}
+
+#[test]
+fn spanning_notes_reserve_every_column_and_keep_references_through_flow_and_balancing() {
+    column_flow(true);
+}
+
+fn column_flow(spanning: bool) {
     use schist_layout::{FrameOverflow, Insets, StoryDirection, StoryId, StoryPoint};
     for columns in [2, 3] {
         for reverse in [false, true] {
@@ -222,7 +231,7 @@ fn column_flow_and_balancing_keep_each_whole_note_with_its_reference_in_reading_
                         {
                             *balance_columns = Some(balanced);
                         }
-                        doc.footnotes.straddle = Some(false);
+                        doc.footnotes.straddle = Some(spanning);
                         doc.footnotes.end_of_story = Some(below_text);
                         let mut story = Story::new();
                         for i in 0..columns * 2 {
@@ -304,6 +313,11 @@ fn column_flow_and_balancing_keep_each_whole_note_with_its_reference_in_reading_
                                     .unwrap();
                                 assert!(reference.bounds.x + 0.001 >= note.bounds.x);
                                 assert!(reference.bounds.right() <= note.bounds.right() + 0.001);
+                                if spanning {
+                                    assert_eq!(note.bounds.x, bounds.x);
+                                    assert_eq!(note.bounds.width, bounds.width);
+                                    assert_eq!(note.rule.is_some(), previous_x.is_none());
+                                }
                                 let bottom = frame
                                     .lines
                                     .iter()
@@ -338,6 +352,136 @@ fn column_flow_and_balancing_keep_each_whole_note_with_its_reference_in_reading_
                     }
                 }
             }
+        }
+    }
+}
+
+#[test]
+fn shared_footer_trials_preserve_frame_and_page_breaks_insets_and_page_grids() {
+    use schist_layout::{FrameOverflow, GridMode, Insets, StoryDirection, StoryId, StoryPoint};
+    for page_break in [false, true] {
+        for first_spans in [false, true] {
+            for direction in [StoryDirection::LeftToRight, StoryDirection::RightToLeft] {
+                let mut doc = document(3);
+                doc.pages.push(doc.pages[0].clone());
+                doc.pages[0].margins.top = 3.0;
+                doc.pages[1].margins.top = 9.0;
+                doc.grids.document.mode = GridMode::SnapToGrid;
+                doc.grids.document.baseline_count = 72.0 / 14.0;
+                doc.objects[2].page = 1;
+                let inset = Insets::new(5.0, 7.0, 9.0, 11.0);
+                for (index, object) in doc.objects.iter_mut().enumerate() {
+                    if let LayoutObject::TextFrame {
+                        story,
+                        columns,
+                        gutter,
+                        insets,
+                        footnotes,
+                        overflow,
+                        ..
+                    } = &mut object.object
+                    {
+                        *story = StoryId(0);
+                        *columns = 2;
+                        *gutter = 10.0;
+                        *insets = inset;
+                        *overflow = FrameOverflow::Thread;
+                        *footnotes = FrameFootnotes {
+                            enabled: Some(true),
+                            straddle: Some(index != 0 || first_spans),
+                            ..Default::default()
+                        };
+                    }
+                }
+                let mut story = Story::from_text("First café.", "Body");
+                story.points.push(if page_break {
+                    StoryPoint::PageBreak
+                } else {
+                    StoryPoint::FrameBreak
+                });
+                story.push_paragraph("Second café.", "Body");
+                story.prefs.direction = direction;
+                for (point, at) in story.points.iter().zip(story.point_offsets()) {
+                    if matches!(point, StoryPoint::Paragraph { .. }) {
+                        story.structures.push(StoryStructure {
+                            at: Some(at + 5),
+                            kind: "Footnote".into(),
+                            payload: "source".into(),
+                            footnote: Some(FootnoteBody {
+                                story: Story::from_text("Whole note text.", "Body"),
+                                markers: vec![],
+                                reference_paragraph_style: "Body".into(),
+                                reference_character_style: String::new(),
+                            }),
+                        });
+                    }
+                }
+                doc.stories[0] = story;
+                let before = doc.clone();
+                let flow = compose_story(&doc, StoryId(0));
+                assert!(!flow.has_overflow());
+                let second = if page_break { 2 } else { 1 };
+                for (index, frame) in flow.frames.iter().enumerate() {
+                    if index != 0 && index != second {
+                        assert!(frame.lines.is_empty() && frame.footnotes.is_empty());
+                        continue;
+                    }
+                    assert_eq!(frame.footnotes.len(), 1);
+                    assert_eq!(frame.footnotes[0].structure, usize::from(index == second));
+                    let object = &doc.objects[index];
+                    let area = object.bounds.inset(inset);
+                    let note = &frame.footnotes[0];
+                    if index != 0 || first_spans {
+                        assert_eq!(note.bounds.x, area.x);
+                        assert_eq!(note.bounds.width, area.width);
+                    }
+                    assert!(note.bounds.bottom() <= area.bottom() + 0.001);
+                    for line in &frame.lines {
+                        let steps = (line.baseline - doc.pages[object.page].margins.top) / 14.0;
+                        assert!((steps - steps.round()).abs() < 0.001);
+                        assert!(line.bounds.y >= area.y);
+                        assert!(line.bounds.bottom() + 3.0 <= note.bounds.y + 0.001);
+                    }
+                }
+                assert_eq!(flow.frames[second].consumed_to, doc.stories[0].text_len());
+                assert_eq!(doc, before);
+            }
+        }
+    }
+}
+
+#[test]
+fn impossible_shared_footers_never_leave_orphan_references_or_partial_notes() {
+    use schist_layout::{compose_thread, FrameOverflow, Insets, StoryId};
+    let mut doc = document(1);
+    doc.footnotes.straddle = Some(true);
+    let before = doc.clone();
+    for columns in [2, 3, 4] {
+        for height in [0.1, 1.0, 8.0] {
+            let frames = [
+                (
+                    doc.objects[0].id,
+                    Rect::new(20.0, 40.0, 180.0, height),
+                    FrameOverflow::Thread,
+                    columns,
+                    10.0,
+                    Insets::ZERO.into(),
+                ),
+                (
+                    ObjectId(u32::MAX),
+                    Rect::new(20.0, 40.0, 180.0, height),
+                    FrameOverflow::Thread,
+                    columns,
+                    10.0,
+                    Insets::ZERO.into(),
+                ),
+            ];
+            let flow = compose_thread(&doc, StoryId(0), &frames);
+            assert!(flow.frames.last().unwrap().lost);
+            assert!(flow.frames.iter().all(|frame| frame.consumed_to == 0
+                && frame.lines.is_empty()
+                && frame.footnotes.is_empty()));
+            assert_eq!(doc, before);
         }
     }
 }

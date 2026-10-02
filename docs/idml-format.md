@@ -342,7 +342,7 @@ reference PDFs were inspected, but no matching native application comparison has
 been performed. Missing evidence includes real overridden parent items,
 alternate-layout sections, RTL/foldout spreads and overprint. Whole text-only
 footnotes compose in the supported horizontal column policies described below;
-spanning, splitting and layout-dependent numbering remain explicit gaps. Table,
+splitting and layout-dependent numbering remain explicit gaps. Table,
 math and anchored-content composition remain unsupported even though the
 academic template contains examples.
 
@@ -1763,7 +1763,7 @@ numbers in horizontal single-column threads with explicit NoSplitting=true,
 whole text-only notes, first-baseline leading/ascent and minimum offsets, solid
 rules and end-of-story placement. It moves an unfit reference and note together;
 an impossible fit stays overset. Independent multi-column areas are described
-below. Straddled areas, splitting,
+below. Splitting,
 page/spread/section restarts, additional numbering/baseline/rule policies,
 vertical/path text and structured note content remain unsupported and reported.
 Full native application placement agreement remains a validation task.
@@ -1814,9 +1814,29 @@ With spanning explicitly disabled, whole notes use the column containing their
 reference. Balancing trials shorten only the body region; a bottom-aligned note
 still belongs at the actual column bottom. End-of-story placement follows the
 body text when requested. LTR/RTL column order and forced column breaks share the
-ordinary story flow. Spanning, splitting and layout-dependent restarts remain
+ordinary story flow. Splitting and layout-dependent restarts remain
 explicit unsupported policies. Pixel/plate reference proofs validate Schist's
 internal placement and paints; full native application agreement is still pending.
+
+With spanning explicitly enabled, a shared note area uses the frame's full inset
+width and reserves space below every body column. A bounded height search keeps
+complete notes with their references, including when adding the next reference
+would require more footer space than the frame can provide. It shapes ordinary
+paragraphs under the same widow, keep and grid rules; it never clips a source
+prefix to manufacture a fit. Each trial owns its break cursor, so only the chosen
+layout advances column/frame/page breaks. A note is measured once per frame
+search. Balancing then minimizes the body height with the shared footer reserved.
+Bottom and end-of-story placement use the same positioning and rule painter as
+independent column notes. An absent spanning preference in a multi-column frame
+remains unsupported rather than guessing a version-dependent native default.
+
+The [public TextFramePreference DOM](https://developer.adobe.com/indesign/uxp/dom/api/t/text-frame-preference/)
+documents frame spanning overrides; the public span-footnote help linked above
+describes spanning all columns within a frame. This extends the existing whole,
+horizontal, continuous-numbering, explicit no-splitting subset. It does not enable
+split notes, spanning paragraphs, other structured note bodies or native rendering
+parity. Regression and independent text/shape proof results are recorded in the
+roadmap handoff.
 
 ### Native column balancing
 

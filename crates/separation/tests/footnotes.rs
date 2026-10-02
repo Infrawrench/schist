@@ -3,6 +3,15 @@ mod proof;
 
 #[test]
 fn footnotes_match_independent_frames_and_rules_in_every_plate_at_multiple_resolutions() {
+    match_independent_frames(false);
+}
+
+#[test]
+fn spanning_notes_match_full_width_independent_text_and_rules_in_every_plate() {
+    match_independent_frames(true);
+}
+
+fn match_independent_frames(spanning: bool) {
     schist_text_engine::add_font_data(
         include_bytes!("../../../web/fonts/IBMPlexSans-Regular.ttf").to_vec(),
     );
@@ -10,8 +19,13 @@ fn footnotes_match_independent_frames_and_rules_in_every_plate_at_multiple_resol
         .into_iter()
         .flat_map(|columns| [false, true].map(|balanced| (columns, balanced)))
     {
-        let mut actual = proof::document(false);
-        actual.footnotes.straddle = Some(false);
+        let document = if spanning {
+            proof::spanning_document
+        } else {
+            proof::document
+        };
+        let mut actual = document(false);
+        actual.footnotes.straddle = Some(spanning);
         for object in &mut actual.objects {
             if let schist_layout::LayoutObject::TextFrame {
                 columns: count,
@@ -25,7 +39,7 @@ fn footnotes_match_independent_frames_and_rules_in_every_plate_at_multiple_resol
                 *gutter = 5.0;
             }
         }
-        let expected = proof::document(true);
+        let expected = document(true);
         for dpi in [72.0, 144.0, 216.0] {
             for page in 0..actual.pages.len() {
                 let settings = schist_separation::OutputSettings::at(dpi);

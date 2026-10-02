@@ -8,6 +8,30 @@ use schist_layout::{
 };
 
 pub fn document(reference: bool) -> LayoutDocument {
+    document_with_note(reference, " Note")
+}
+
+pub fn spanning_document(reference: bool) -> LayoutDocument {
+    let mut doc = document_with_note(
+        reference,
+        " Note text spans the gutter and wraps at the frame width.",
+    );
+    doc.footnotes.straddle = Some(true);
+    if !reference {
+        for object in &mut doc.objects {
+            if let schist_layout::LayoutObject::TextFrame {
+                columns, gutter, ..
+            } = &mut object.object
+            {
+                *columns = 2;
+                *gutter = 10.0;
+            }
+        }
+    }
+    doc
+}
+
+fn document_with_note(reference: bool, note_text: &str) -> LayoutDocument {
     let mut doc = LayoutDocument::new(vec![Page::new("proof", 200.0, 200.0); 4]);
     doc.styles.add_paragraph(ParagraphStyle {
         name: "Main".into(),
@@ -64,9 +88,9 @@ pub fn document(reference: bool) -> LayoutDocument {
             let mut main = Story::from_text("Body7", "Main");
             main.ranges.push(StyleRange::new(4, 5, "Reference"));
             doc.stories[frame.story.0 as usize] = main;
-            // A single explicit note line uses the independent text engine's
-            // cell height, with no footnote plan or reserved-area code involved.
-            let mut note = Story::from_text("7 Note", "Note");
+            // Explicit note text uses the independent text engine's height,
+            // with no footnote plan or reserved-area code involved.
+            let mut note = Story::from_text(format!("7{note_text}"), "Note");
             note.ranges.push(StyleRange::new(0, 1, "Note marker"));
             let spec = schist_layout::compose::spec_for(
                 &note,
@@ -75,7 +99,7 @@ pub fn document(reference: bool) -> LayoutDocument {
                 &doc.styles,
                 "Note",
                 &doc.default_character_style,
-                0.0,
+                bounds.width,
             );
             let height = schist_text_engine::measure(&spec).unwrap().height;
             let top = bounds.bottom() - height;
@@ -121,7 +145,7 @@ pub fn document(reference: bool) -> LayoutDocument {
                 kind: "Footnote".into(),
                 payload: "source".into(),
                 footnote: Some(FootnoteBody {
-                    story: Story::from_text(" Note", "Note"),
+                    story: Story::from_text(note_text, "Note"),
                     markers: vec![FootnoteMarker {
                         at: 0,
                         character_style: "Note marker".into(),

@@ -949,3 +949,54 @@ fn native_frame_and_object_style_footnote_overrides_survive_repeated_saves() {
         assert!(footnotes.is_empty());
     }
 }
+
+#[test]
+fn native_spanning_notes_keep_full_width_and_source_anchors_through_repeated_saves() {
+    use schist_layout::{compose::compose_story, compose::line_spec, LayoutObject, StoryId};
+    let body = " Note text crosses the gutter and wraps at the full frame width. ".repeat(4);
+    let payload = format!(
+        r#"<Footnote><ParagraphStyleRange AppliedParagraphStyle="ParagraphStyle/$ID/Note body"><CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/Note marker"><Content><?ACE 4?>{body}</Content></CharacterStyleRange></ParagraphStyleRange></Footnote>"#
+    );
+    for local in [false, true] {
+        let mut doc = import::read(&native_note(&payload)).unwrap().document;
+        doc.objects[0].bounds.width = 320.0;
+        doc.objects[0].bounds.height = 400.0;
+        if let LayoutObject::TextFrame {
+            columns,
+            gutter,
+            footnotes,
+            ..
+        } = &mut doc.objects[0].object
+        {
+            *columns = 2;
+            *gutter = 20.0;
+            *footnotes = FrameFootnotes {
+                enabled: Some(local),
+                straddle: Some(true),
+                ..Default::default()
+            };
+        }
+        doc.footnotes.no_splitting = Some(true);
+        doc.footnotes.straddle = Some(!local);
+        doc.footnotes.first_baseline = Some(FootnoteFirstBaseline::Ascent);
+        let original = doc.stories[0].clone();
+        for _ in 0..3 {
+            let frame = compose_story(&doc, StoryId(0)).frames.remove(0);
+            assert!(!frame.lost);
+            assert_eq!(frame.unrendered_structures, 0);
+            assert_eq!(frame.footnotes.len(), 1);
+            let note = &frame.footnotes[0];
+            assert_eq!(note.bounds.width, 320.0);
+            assert_eq!(note.anchor, 3);
+            let text = note
+                .lines
+                .iter()
+                .map(|line| line_spec(line, &doc.stories[0], &doc).text)
+                .collect::<String>();
+            let normalize = |text: &str| text.split_whitespace().collect::<String>();
+            assert_eq!(normalize(&text), normalize(&format!("1{body}")));
+            assert_eq!(doc.stories[0], original);
+            doc = import::read(&export::write(&doc).bytes).unwrap().document;
+        }
+    }
+}

@@ -291,6 +291,15 @@ fn balancing_can_split_paragraphs_without_changing_lines_or_violating_widows() {
 
 #[test]
 fn balancing_a_single_paragraph_keeps_complete_notes_with_their_reference_columns() {
+    balance_with_notes(false);
+}
+
+#[test]
+fn balancing_a_single_paragraph_reserves_a_shared_footer_without_changing_note_text() {
+    balance_with_notes(true);
+}
+
+fn balance_with_notes(spanning: bool) {
     use schist_layout::{compose::line_spec, footnotes::*, StoryId, StoryStructure};
     for columns in [2, 3] {
         for direction in [StoryDirection::LeftToRight, StoryDirection::RightToLeft] {
@@ -310,7 +319,7 @@ fn balancing_a_single_paragraph_keeps_complete_notes_with_their_reference_column
             *balance_columns = Some(true);
             doc.footnotes = FootnoteOptions {
                 no_splitting: Some(true),
-                straddle: Some(false),
+                straddle: Some(spanning),
                 first_baseline: Some(FootnoteFirstBaseline::Ascent),
                 spacer: Some(8.0),
                 ..Default::default()
@@ -360,11 +369,16 @@ fn balancing_a_single_paragraph_keeps_complete_notes_with_their_reference_column
                             .contains(&(note.structure + 1).to_string())
                     })
                     .unwrap();
-                assert!((reference.inline_origin - note.bounds.x).abs() < 0.001);
+                if spanning {
+                    assert!((doc.objects[0].bounds.x - note.bounds.x).abs() < 0.001);
+                    assert_eq!(note.bounds.width, doc.objects[0].bounds.width);
+                } else {
+                    assert!((reference.inline_origin - note.bounds.x).abs() < 0.001);
+                }
                 assert!(frame
                     .lines
                     .iter()
-                    .filter(|line| (line.inline_origin - note.bounds.x).abs() < 0.001)
+                    .filter(|line| spanning || (line.inline_origin - note.bounds.x).abs() < 0.001)
                     .all(|line| line.bounds.bottom() <= note.bounds.y - 8.0 + 0.001));
                 let actual = note
                     .lines

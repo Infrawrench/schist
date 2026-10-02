@@ -541,7 +541,7 @@ impl Workspace {
                     }
                     Err(error) => {
                         ws.status =
-                            tf!("workspace.docs.open_failed", name = error.to_string()).into();
+                            tf!("workspace.docs.open_failed", error = error.to_string()).into();
                         cx.notify();
                     }
                 }
