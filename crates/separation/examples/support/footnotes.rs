@@ -167,3 +167,132 @@ fn document_with_note(reference: bool, note_text: &str) -> LayoutDocument {
     }
     doc
 }
+
+/// Twelve fixed soft lines continue as 2/4/4/2 across four 50pt frames.
+/// The reference uses those explicit slices in ordinary frames; it never asks
+/// the footnote composer where to break or position a fragment.
+pub fn continuing_document(reference: bool) -> LayoutDocument {
+    let mut doc = document(false);
+    doc.footnotes.no_splitting = Some(false);
+    doc.footnotes.continuing_rule = FootnoteRule {
+        on: Some(true),
+        width: Some(100.0),
+        weight: Some(2.0),
+        paint: Some(FootnoteReference::Resolved(Ink::spot(
+            "Continued rule",
+            [60.0, -10.0, 40.0],
+        ))),
+        tint: Some(0.5),
+        overprint: Some(true),
+        ..Default::default()
+    };
+    let texts: Vec<_> = (0..12).map(|index| format!("Note {index}")).collect();
+    if !reference {
+        doc.stories[0].structures[0]
+            .footnote
+            .as_mut()
+            .unwrap()
+            .story = Story::from_text(format!(" {}", texts.join("\n")), "Note");
+        for object in &mut doc.objects {
+            object.bounds.height = 50.0;
+            if let schist_layout::LayoutObject::TextFrame {
+                story, overflow, ..
+            } = &mut object.object
+            {
+                *story = schist_layout::StoryId(0);
+                *overflow = schist_layout::FrameOverflow::Thread;
+            }
+        }
+        return doc;
+    }
+    doc.objects.clear();
+    doc.stories.clear();
+    let mut start = 0;
+    for (page, count) in [2, 4, 4, 2].into_iter().enumerate() {
+        let bounds = Rect::new(25.0, 20.0, 130.0, 50.0);
+        if page == 0 {
+            let frame =
+                authoring::text_frame(&mut doc, &mut History::default(), page, bounds).unwrap();
+            let mut main = Story::from_text("Body7", "Main");
+            main.ranges.push(StyleRange::new(4, 5, "Reference"));
+            doc.stories[frame.story.0 as usize] = main;
+        }
+        let mut text = texts[start..start + count].join("\n");
+        if page == 0 {
+            text.insert_str(0, "7 ");
+        }
+        let mut note = Story::from_text(text, "Note");
+        if page == 0 {
+            note.ranges.push(StyleRange::new(0, 1, "Note marker"));
+        }
+        let spec = schist_layout::compose::spec_for(
+            &note,
+            0,
+            note.text_len(),
+            &doc.styles,
+            "Note",
+            &doc.default_character_style,
+            bounds.width,
+        );
+        let height = schist_text_engine::measure(&spec).unwrap().height;
+        let top = bounds.bottom() - height;
+        let frame = authoring::text_frame(
+            &mut doc,
+            &mut History::default(),
+            page,
+            Rect::new(bounds.x, top, bounds.width, height + 0.01),
+        )
+        .unwrap();
+        doc.stories[frame.story.0 as usize] = note;
+        let rule = if page == 0 {
+            &doc.footnotes.rule
+        } else {
+            &doc.footnotes.continuing_rule
+        }
+        .clone();
+        let weight = rule.weight.unwrap();
+        let id = authoring::rectangle(
+            &mut doc,
+            &mut History::default(),
+            page,
+            Rect::new(bounds.x, top - weight / 2.0, rule.width.unwrap(), weight),
+            authoring::Paint::default(),
+        )
+        .unwrap();
+        let object = doc
+            .objects
+            .iter_mut()
+            .find(|object| object.id == id)
+            .unwrap();
+        let scale = weight / object.bounds.height;
+        object.bounds.height = weight;
+        if let schist_layout::LayoutObject::Shape {
+            path,
+            fill,
+            stroke,
+            tints,
+            ..
+        } = &mut object.object
+        {
+            path.map_points(|point| schist_layout::Point::new(point.x, point.y * scale));
+            *fill = rule
+                .paint
+                .as_ref()
+                .and_then(FootnoteReference::resolved)
+                .cloned();
+            *stroke = None;
+            tints.fill = rule.tint.unwrap();
+        }
+        object.overprint = true;
+        start += count;
+    }
+    for object in &mut doc.objects {
+        object.transparency = 0.75;
+        if object.page >= 2 {
+            object.transform = schist_core::Affine::rotate(0.09)
+                .around(90.0, 90.0)
+                .around(-object.bounds.x, -object.bounds.y);
+        }
+    }
+    doc
+}

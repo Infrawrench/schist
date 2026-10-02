@@ -28,22 +28,13 @@ pub(super) fn supported(
     };
     // Explicit native policies gate this first placement path. Unsupported
     // preferences remain retained and reported, never silently approximated.
-    options.no_splitting == Some(true)
+    options.no_splitting.is_some()
         && matches!(
             options.first_baseline,
             None | Some(FootnoteFirstBaseline::Ascent | FootnoteFirstBaseline::Leading)
         )
-        && (!options.rule.on.unwrap_or(true)
-            || (!matches!(options.rule.paint, Some(FootnoteReference::Unresolved(_)))
-                && match &options.rule.stroke {
-                    None => true,
-                    Some(FootnoteReference::None) => false,
-                    Some(FootnoteReference::Resolved(stroke)) => matches!(
-                        stroke.pattern,
-                        schist_text_engine::TextDecorationPattern::Solid
-                    ),
-                    Some(FootnoteReference::Unresolved(_)) => false,
-                }))
+        && rule_supported(&options.rule)
+        && (options.no_splitting == Some(true) || rule_supported(&options.continuing_rule))
         && horizontal(story)
         && story
             .structures
@@ -73,6 +64,20 @@ pub(super) fn supported(
                         )
                     })
         })
+}
+
+fn rule_supported(rule: &crate::footnotes::FootnoteRule) -> bool {
+    !rule.on.unwrap_or(true)
+        || (!matches!(rule.paint, Some(FootnoteReference::Unresolved(_)))
+            && match &rule.stroke {
+                None => true,
+                Some(FootnoteReference::None) => false,
+                Some(FootnoteReference::Resolved(stroke)) => matches!(
+                    stroke.pattern,
+                    schist_text_engine::TextDecorationPattern::Solid
+                ),
+                Some(FootnoteReference::Unresolved(_)) => false,
+            })
 }
 
 pub(super) struct ProjectionContext {
@@ -179,7 +184,7 @@ fn measure_note(
     })
 }
 
-fn translate_line(line: &mut ComposedLine, by: crate::Point) {
+pub(super) fn translate_line(line: &mut ComposedLine, by: crate::Point) {
     line.bounds = line.bounds.translated(by);
     line.inline_origin += by.x;
     line.baseline += by.y;
@@ -200,7 +205,10 @@ fn references(
         .collect()
 }
 
-fn reference_line<'a>(lines: &'a [ComposedLine], note: &PreparedNote) -> Option<&'a ComposedLine> {
+pub(super) fn reference_line<'a>(
+    lines: &'a [ComposedLine],
+    note: &PreparedNote,
+) -> Option<&'a ComposedLine> {
     lines
         .iter()
         .find(|l| l.start <= note.reference.start && note.reference.start < l.end)
@@ -400,7 +408,7 @@ fn area_height(areas: &[NoteArea], options: &crate::footnotes::FootnoteOptions) 
         + options.space_between.unwrap_or(0.0) * areas.len().saturating_sub(1) as Pt
 }
 
-fn place_areas(
+pub(super) fn place_areas(
     source: &FlowSource<'_>,
     body: &[ComposedLine],
     consumed: usize,

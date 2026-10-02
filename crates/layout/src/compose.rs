@@ -35,6 +35,7 @@ use crate::styles::{
 };
 mod footnote_flow;
 mod keep_flow;
+mod split_footnotes;
 
 /// One laid-out line, positioned in page space.
 #[derive(Debug, Clone, PartialEq)]
@@ -140,13 +141,13 @@ pub struct ComposedFrame {
     /// Glyph extent of the first opening initial in this frame. Every initial
     /// is also retained on its own line, including later paragraphs.
     pub drop_cap: Option<Rect>,
-    /// Bytes of the story that fit, for a chained frame to resume from.
+    /// Main-story bytes that fit. Footnote bodies have independent cursors.
     pub consumed_to: usize,
-    /// This frame ran out of room and passed the remainder to the next
+    /// This frame ran out of room and passed remaining main or note text to the next
     /// frame of the thread. False when the frame is the thread's last,
     /// because there is nowhere to pass it to.
     pub passed_on: bool,
-    /// Text of this story did not fit anywhere and is not displayed.
+    /// Main or footnote text did not fit anywhere and is not displayed.
     ///
     /// This is what preflight reports. It is distinct from
     /// [`ComposedFrame::passed_on`]: a long article threaded across
@@ -175,7 +176,7 @@ impl ComposedThread {
         self.frames.iter().flat_map(|f| f.lines.iter())
     }
 
-    /// Whether any text of this story failed to fit.
+    /// Whether main or footnote text failed to fit.
     pub fn has_overflow(&self) -> bool {
         self.frames.iter().any(|f| f.lost)
     }
@@ -642,7 +643,7 @@ pub fn compose_thread(
 struct FlowSource<'a> {
     doc: &'a LayoutDocument,
     story: &'a Story,
-    markers: crate::list_composition::MarkerPlans,
+    markers: &'a crate::list_composition::MarkerPlans,
     notes: Option<&'a crate::footnote_composition::PreparedStory>,
 }
 
@@ -795,12 +796,16 @@ fn compose_thread_plain(
             .collect();
         return out;
     };
+    let markers = crate::list_composition::MarkerPlans::new(doc, story);
     let source = FlowSource {
         doc,
         story,
-        markers: crate::list_composition::MarkerPlans::new(doc, story),
+        markers: &markers,
         notes,
     };
+    let mut split_notes = notes
+        .filter(|_| doc.footnotes.no_splitting == Some(false))
+        .map(|notes| split_footnotes::Flow::new(doc, notes));
     let text_end = story.text_len();
     // An automatic marker is printable content even when its paragraph has no
     // source bytes. Ordinary untouched blank stories retain an insertion point
@@ -861,8 +866,16 @@ fn compose_thread_plain(
                 unrendered_structures: story.retained_structures(),
                 drop_cap: None,
                 consumed_to: cursor.min(text_end),
-                passed_on: has_content && cursor < total && !is_last,
-                lost: has_content && cursor < total && is_last,
+                passed_on: (has_content && cursor < total
+                    || split_notes
+                        .as_ref()
+                        .is_some_and(|notes| notes.pending(cursor)))
+                    && !is_last,
+                lost: (has_content && cursor < total
+                    || split_notes
+                        .as_ref()
+                        .is_some_and(|notes| notes.pending(cursor)))
+                    && is_last,
             });
             continue;
         }
@@ -890,7 +903,10 @@ fn compose_thread_plain(
                     skip_page = Some(page_key);
                 }
             }
-            let overflowed = has_content && cursor < total;
+            let overflowed = has_content && cursor < total
+                || split_notes
+                    .as_ref()
+                    .is_some_and(|notes| notes.pending(cursor));
             let threads = *overflow == FrameOverflow::Thread;
             out.frames.push(ComposedFrame {
                 object: *object,
@@ -912,7 +928,11 @@ fn compose_thread_plain(
         let mut lines = Vec::new();
         let mut footnotes = Vec::new();
         let frame_start = cursor;
-        while cursor < total {
+        while cursor < total
+            || split_notes
+                .as_ref()
+                .is_some_and(|notes| notes.pending(cursor))
+        {
             if available.width <= 0.0 || available.height <= 0.0 {
                 break;
             }
@@ -958,7 +978,7 @@ fn compose_thread_plain(
                 && columns.len() > 1
                 && section_end == total
                 && break_index == breaks.len();
-            if balance && !spanning {
+            if balance && !spanning && split_notes.is_none() {
                 let (mut balanced, consumed, balanced_notes) =
                     balance_columns(&source, cursor, total, &columns, grid, &note_options);
                 if consumed >= total {
@@ -973,7 +993,22 @@ fn compose_thread_plain(
                 offset: cursor,
                 break_index,
             };
-            let flow = if spanning {
+            let flow = if let Some(notes) = &mut split_notes {
+                notes.fill_frame(
+                    &source,
+                    start,
+                    split_footnotes::Frame {
+                        area: available,
+                        columns: &columns,
+                        end: section_end,
+                        breaks: &breaks,
+                        grid,
+                        options: &note_options,
+                        spanning,
+                        balance,
+                    },
+                )
+            } else if spanning {
                 footnote_flow::fill_spanning(
                     &source,
                     cursor,
@@ -1034,7 +1069,10 @@ fn compose_thread_plain(
             axes.place_lines(&mut placed);
             available = axes.remaining(&placed, before_next);
             lines.extend(placed);
-            if cursor < section_end || stop_frame {
+            // Split-note flow already owns every horizontal column and its
+            // footer. Pending note text resumes in the next frame, never a
+            // second region overlapping the footer just placed here.
+            if split_notes.is_some() || cursor < section_end || stop_frame {
                 break;
             }
             if cursor <= section_start {
@@ -1048,9 +1086,12 @@ fn compose_thread_plain(
 
         let consumed_to = cursor.min(text_end);
         // Empty list paragraphs still have a generated marker to place.
-        let overflowed = has_content && cursor < total;
-        // Text is only genuinely lost when there is no next frame to take
-        // it, or when the frame is told to clip rather than thread.
+        let overflowed = has_content && cursor < total
+            || split_notes
+                .as_ref()
+                .is_some_and(|notes| notes.pending(cursor));
+        // Main text or a pending note is lost when there is no next frame
+        // to take it, or when the frame clips rather than threads.
         let threads = *overflow == FrameOverflow::Thread;
         out.frames.push(ComposedFrame {
             object: *object,
@@ -1079,7 +1120,7 @@ fn compose_thread_plain(
             lost: false,
         });
     }
-    crate::list_composition::insert_markers(&source.markers, &mut out);
+    crate::list_composition::insert_markers(source.markers, &mut out);
     out
 }
 

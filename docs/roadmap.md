@@ -310,6 +310,50 @@ are marked.
 
 ## Handoff
 
+Split-footnote continuation, 2026-10-02:
+Ruler synchronization is pushed as `21f98d43` in draft PR #195. The next item 9
+regressions reproduced long notes being unrendered under NoSplitting=false and
+whole-note paragraph keeps losing their reference. An independent cursor per note
+now lets main text and note bodies finish separately, including note-only tail
+frames. Final overset includes pending note text after main-story EOF. Trial fills
+retain their own note and break cursors. First and continued rules, frame policies,
+column direction, spanning and final balancing use the same source-safe projection.
+
+Six focused properties pass across Unicode, multiple references, 1–3 columns,
+both reading directions, balanced/unbalanced flow, clipping, whole-paragraph keeps,
+separator geometry, end placement and explicit main-story frame breaks. The
+column property found a second footer being placed in the same frame after main
+EOF; the outer loop now advances to the next frame after the split-note pass.
+A frame-break assertion incorrectly required text in an already full destination;
+it now checks the earliest allowed destination and exactly-once text, accounting
+for pending notes. The first complete 16-target sweep passed, including repeated native IDML saves,
+both preflight paths and independent plate/PDF controls. All 24 proof pages were
+visually inspected. Review then reproduced an affixed reference splitting across
+frames while its note had already started. The fit search now evicts an incomplete
+generated reference as a unit; the new width/height regression and lint pass.
+The repeated full 16-target sweep passes with **1,827 distinct passing Rust tests**
+(layout 421, IDML 270, separation 194, plus the unchanged other suites and five
+shared UI tests; one existing UI documentation example ignored), four browser and
+eight Python audit checks. Workspace clippy, native/browser/headless checks,
+localization, formatting and whitespace pass. The final 24-page PDF is byte-identical
+to the visually reviewed proof. Final logs and counts use
+`/tmp/schist-split-notes-final-*`. The development app build passes in 3m 26s;
+its isolated Design-enabled bundle was hash checked and signature verified.
+The rebuilt bundle still returns the same `cgWindowNotFound` error, so there is
+no native visual result for this checkpoint. Its newly launched QA process was
+terminated without opening a document. The small disposable continuation fixture
+is retained for resuming that check. Three superseded scratch files and 532 MiB
+of unused incremental cache were removed; regression evidence and proof logs remain.
+
+Native QA could not obtain a window from the isolated development app: CUA returned
+`cgWindowNotFound` by path and bundle ID, though its inventory showed the process
+running. A process sample showed the main thread in its normal AppKit event loop.
+No document was opened. Only the newly launched, path-verified QA process was
+terminated. This checkpoint has no native visual result yet; the installed app and
+public fixtures were untouched. Evidence is `/tmp/schist-split-notes-native-qa.json`.
+Current logs use `/tmp/schist-split-notes-*`. No new UI fields or translation keys.
+
+
 First-paint ruler synchronization, 2026-10-02:
 Native paragraph keeps are pushed as `51fd3de3` in draft PR #195. Fresh-launch QA
 then reproduced blank Design rulers and a stale 100% zoom label despite a fitted

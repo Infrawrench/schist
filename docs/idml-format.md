@@ -1733,8 +1733,7 @@ note text/style changes take precedence; old payloads remain recoverable with
 unknown locations. A versioned guard flag recognizes earlier records that wrote
 no native note body, without reviving a note deleted from a newer native export.
 This establishes public-XML interchange, not native application or layout parity.
-Schist numbering, reserved areas and painting are described below; splitting
-remains outstanding.
+Schist numbering, reserved areas, continuation and painting are described below.
 
 Native visual inspection of the academic fixture also found black corner squares
 that are absent from its supplied PDF. The XML places those rectangles inside
@@ -1763,8 +1762,8 @@ numbers in horizontal single-column threads with explicit NoSplitting=true,
 whole text-only notes, first-baseline leading/ascent and minimum offsets, solid
 rules and end-of-story placement. It moves an unfit reference and note together;
 an impossible fit stays overset. Independent multi-column areas are described
-below. Splitting,
-page/spread/section restarts, additional numbering/baseline/rule policies,
+below, followed by explicit splitting support.
+Page/spread/section restarts, additional numbering/baseline/rule policies,
 vertical/path text and structured note content remain unsupported and reported.
 Full native application placement agreement remains a validation task.
 
@@ -1814,8 +1813,8 @@ With spanning explicitly disabled, whole notes use the column containing their
 reference. Balancing trials shorten only the body region; a bottom-aligned note
 still belongs at the actual column bottom. End-of-story placement follows the
 body text when requested. LTR/RTL column order and forced column breaks share the
-ordinary story flow. Splitting and layout-dependent restarts remain
-explicit unsupported policies. Pixel/plate reference proofs validate Schist's
+ordinary story flow. Layout-dependent restarts remain
+an explicit unsupported policy; split-note continuation is described below. Pixel/plate reference proofs validate Schist's
 internal placement and paints; full native application agreement is still pending.
 
 With spanning explicitly enabled, a shared note area uses the frame's full inset
@@ -1833,10 +1832,49 @@ remains unsupported rather than guessing a version-dependent native default.
 The [public TextFramePreference DOM](https://developer.adobe.com/indesign/uxp/dom/api/t/text-frame-preference/)
 documents frame spanning overrides; the public span-footnote help linked above
 describes spanning all columns within a frame. This extends the existing whole,
-horizontal, continuous-numbering, explicit no-splitting subset. It does not enable
-split notes, spanning paragraphs, other structured note bodies or native rendering
-parity. Regression and independent text/shape proof results are recorded in the
+horizontal, continuous-numbering, explicit no-splitting subset. The separate
+continuation path below supports split notes. Spanning paragraphs, other structured
+note bodies and native rendering parity remain outside this subset. Regression and independent text/shape proof results are recorded in the
 roadmap handoff.
+
+### Split text-only footnote continuation
+
+Explicit NoSplitting=false uses an independent cursor for each projected note
+body. Main-story EOF does not finish a thread while a referenced note has text
+left. Pending notes can occupy later columns or note-only frames; clipping or the
+last frame reports ordinary terminal overset even when all main bytes were placed.
+Reference/marker projection and native source retention are unchanged.
+
+Each area reserves legal note prefixes before distributing remaining room in
+source order. It first reduces the body to the height required by its references;
+whole notes remain whole when they fit there. Multiple references on one line can
+start multiple continued notes. Paragraph keeps still constrain every fragment,
+including whole paragraphs and adjacent bindings. If a new note cannot start,
+its reference line moves forward. Trials copy both the main break cursor and all
+note offsets, committing only the chosen result. Independent columns follow the
+story's reading direction; spanning areas use the full inset width. Final-frame
+balancing requires both main text and every note to fit.
+
+A continued area's first rule comes from ContinuingRule properties, independently
+of the first-note rule. The published
+[IDML specification, Appendix C](https://raw.githubusercontent.com/jorisros/IDMLlib/master/docs/idml-specification.pdf)
+defaults the continued rule to 288pt and the initial rule to 72pt; the public
+IDML corpus also has ten explicit 288pt values.
+Solid rules retain tint, spot/process paint and overprint. End-of-story placement
+waits until pending notes finish; a note-only final area starts at the frame top
+when that preference is enabled. No source, style definition or history is mutated.
+
+The [public FootnoteOption DOM](https://developer.adobe.com/indesign/uxp/dom/api/f/footnote-option/)
+describes flow to succeeding columns when the area reaches a reference and the
+separate continued-rule properties. The reference manual linked above describes
+paragraph keeps preventing individual notes from splitting. These public semantics
+and independent text/shape controls guide this implementation; its numerical area
+allocation policy has not been compared with native application rendering. The
+public academic fixture uses no-splitting, while the nine acquired IDML packages
+with NoSplitting=false have no actual footnote bodies. They establish preference
+encoding, not continuation geometry. Explicit breaks inside notes, nested note
+structures, vertical/path notes, unknown spanning defaults and layout-dependent
+number restarts remain unsupported and diagnosed.
 
 ### Native column balancing
 

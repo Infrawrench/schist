@@ -10,7 +10,11 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let settings = OutputSettings::at(144.0);
     let mut pdf = Pdf::new();
     let mut pages = Vec::new();
-    for document in [footnotes::document, footnotes::spanning_document] {
+    for document in [
+        footnotes::document,
+        footnotes::spanning_document,
+        footnotes::continuing_document,
+    ] {
         let actual = document(false);
         let expected = document(true);
         for page in 0..actual.pages.len() {

@@ -1000,3 +1000,74 @@ fn native_spanning_notes_keep_full_width_and_source_anchors_through_repeated_sav
         }
     }
 }
+
+#[test]
+fn native_split_notes_retain_continuation_and_source_through_repeated_saves() {
+    use schist_layout::{
+        compose::{compose_story, line_spec},
+        FrameOverflow, LayoutObject, ObjectId, StoryId,
+    };
+    let body = " café 0123 retained text for a continuing footnote".repeat(20);
+    let payload = format!(
+        r#"<Footnote><ParagraphStyleRange AppliedParagraphStyle="ParagraphStyle/$ID/Note body"><CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/Note marker"><Content><?ACE 4?>{body}</Content></CharacterStyleRange></ParagraphStyleRange></Footnote>"#
+    );
+    for spanning in [false, true] {
+        let mut doc = import::read(&native_note(&payload)).unwrap().document;
+        doc.footnotes.no_splitting = Some(false);
+        doc.footnotes.straddle = Some(spanning);
+        doc.footnotes.first_baseline = Some(FootnoteFirstBaseline::Ascent);
+        doc.footnotes.rule.on = Some(false);
+        doc.footnotes.continuing_rule.on = Some(true);
+        doc.footnotes.continuing_rule.width = Some(51.0);
+        let mut frame = doc.objects[0].clone();
+        frame.bounds.width = 260.0;
+        frame.bounds.height = 75.0;
+        if let LayoutObject::TextFrame {
+            overflow,
+            columns,
+            gutter,
+            balance_columns,
+            ..
+        } = &mut frame.object
+        {
+            *overflow = FrameOverflow::Thread;
+            *columns = 2;
+            *gutter = 10.0;
+            *balance_columns = Some(false);
+        }
+        doc.objects = (0..16)
+            .map(|index| {
+                let mut frame = frame.clone();
+                frame.id = ObjectId::next();
+                frame.bounds.y = index as f32 * 80.0;
+                frame
+            })
+            .collect();
+        let original = doc.stories[0].clone();
+        for _ in 0..3 {
+            let before = doc.clone();
+            let thread = compose_story(&doc, StoryId(0));
+            assert!(!thread.has_overflow());
+            let areas: Vec<_> = thread
+                .frames
+                .iter()
+                .flat_map(|frame| &frame.footnotes)
+                .collect();
+            assert!(areas.len() > 1);
+            assert!(areas[0].rule.is_none());
+            assert!(areas[1..]
+                .iter()
+                .all(|area| area.rule.as_ref().unwrap().bounds.width == 51.0));
+            let text: String = areas
+                .iter()
+                .flat_map(|area| &area.lines)
+                .map(|line| line_spec(line, &doc.stories[0], &doc).text)
+                .collect();
+            let normalize = |text: &str| text.split_whitespace().collect::<String>();
+            assert_eq!(normalize(&text), normalize(&format!("1{body}")));
+            assert_eq!(doc, before);
+            assert_eq!(doc.stories[0], original);
+            doc = import::read(&export::write(&doc).bytes).unwrap().document;
+        }
+    }
+}

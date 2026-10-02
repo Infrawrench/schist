@@ -3,15 +3,23 @@ mod proof;
 
 #[test]
 fn footnotes_match_independent_frames_and_rules_in_every_plate_at_multiple_resolutions() {
-    match_independent_frames(false);
+    match_independent_frames(proof::document);
 }
 
 #[test]
 fn spanning_notes_match_full_width_independent_text_and_rules_in_every_plate() {
-    match_independent_frames(true);
+    match_independent_frames(proof::spanning_document);
 }
 
-fn match_independent_frames(spanning: bool) {
+#[test]
+fn continued_notes_match_independent_fragments_and_rules_in_every_plate() {
+    compare_plates(
+        &proof::continuing_document(false),
+        &proof::continuing_document(true),
+    );
+}
+
+fn match_independent_frames(document: fn(bool) -> schist_layout::LayoutDocument) {
     schist_text_engine::add_font_data(
         include_bytes!("../../../web/fonts/IBMPlexSans-Regular.ttf").to_vec(),
     );
@@ -19,13 +27,8 @@ fn match_independent_frames(spanning: bool) {
         .into_iter()
         .flat_map(|columns| [false, true].map(|balanced| (columns, balanced)))
     {
-        let document = if spanning {
-            proof::spanning_document
-        } else {
-            proof::document
-        };
         let mut actual = document(false);
-        actual.footnotes.straddle = Some(spanning);
+        actual.footnotes.straddle.get_or_insert(false);
         for object in &mut actual.objects {
             if let schist_layout::LayoutObject::TextFrame {
                 columns: count,
@@ -40,41 +43,50 @@ fn match_independent_frames(spanning: bool) {
             }
         }
         let expected = document(true);
-        for dpi in [72.0, 144.0, 216.0] {
-            for page in 0..actual.pages.len() {
-                let settings = schist_separation::OutputSettings::at(dpi);
-                let a = schist_separation::separate_page_without_graphics(&actual, page, settings)
-                    .unwrap();
-                let b =
-                    schist_separation::separate_page_without_graphics(&expected, page, settings)
-                        .unwrap();
-                assert!(
-                    !a.report
-                        .findings
-                        .iter()
-                        .any(|f| f.severity == schist_separation::Severity::Error),
-                    "{:?}",
-                    a.report
-                );
-                assert_eq!(a.separation.plates().len(), b.separation.plates().len());
-                for (index, (plate, other)) in a
-                    .separation
-                    .plates()
+        compare_plates(&actual, &expected);
+    }
+}
+
+fn compare_plates(
+    actual: &schist_layout::LayoutDocument,
+    expected: &schist_layout::LayoutDocument,
+) {
+    schist_text_engine::add_font_data(
+        include_bytes!("../../../web/fonts/IBMPlexSans-Regular.ttf").to_vec(),
+    );
+    for dpi in [72.0, 144.0, 216.0] {
+        for page in 0..actual.pages.len() {
+            let settings = schist_separation::OutputSettings::at(dpi);
+            let a =
+                schist_separation::separate_page_without_graphics(actual, page, settings).unwrap();
+            let b = schist_separation::separate_page_without_graphics(expected, page, settings)
+                .unwrap();
+            assert!(
+                !a.report
+                    .findings
                     .iter()
-                    .zip(b.separation.plates())
+                    .any(|f| f.severity == schist_separation::Severity::Error),
+                "{:?}",
+                a.report
+            );
+            assert_eq!(a.separation.plates().len(), b.separation.plates().len());
+            for (index, (plate, other)) in a
+                .separation
+                .plates()
+                .iter()
+                .zip(b.separation.plates())
+                .enumerate()
+            {
+                let first = plate
+                    .data
+                    .iter()
+                    .zip(&other.data)
                     .enumerate()
-                {
-                    let first = plate
-                        .data
-                        .iter()
-                        .zip(&other.data)
-                        .enumerate()
-                        .find(|(_, (a, b))| a != b);
-                    assert!(
+                    .find(|(_, (a, b))| a != b);
+                assert!(
                     first.is_none(),
-                    "columns={columns}, page={page}, dpi={dpi}, plate={index}, difference={first:?}"
+                    "page={page}, dpi={dpi}, plate={index}, difference={first:?}"
                 );
-                }
             }
         }
     }
@@ -88,7 +100,8 @@ fn unsupported_note_policies_and_overset_notes_remain_preflight_errors() {
     for unsupported in [false, true] {
         let mut doc = proof::document(false);
         if unsupported {
-            doc.footnotes.no_splitting = Some(false);
+            doc.footnotes.first_baseline =
+                Some(schist_layout::footnotes::FootnoteFirstBaseline::CapHeight);
         } else {
             doc.objects[0].bounds.height = 10.0;
         }
@@ -209,5 +222,32 @@ fn note_preflight_uses_its_own_paragraph_context_and_numbering_sequence() {
                 "{case}: {report:?}"
             );
         }
+    }
+}
+
+#[test]
+fn unfinished_note_after_main_eof_is_overset_in_both_preflight_paths() {
+    use schist_layout::{compose::compose_story, StoryId};
+    use schist_separation::{
+        separate_page, separate_page_built, NaiveBuild, NoGraphics, OutputSettings, Severity,
+    };
+    let mut doc = proof::continuing_document(false);
+    doc.objects.truncate(1);
+    let frame = compose_story(&doc, StoryId(0)).frames.remove(0);
+    assert_eq!(frame.consumed_to, doc.stories[0].text_len());
+    assert!(!frame.footnotes.is_empty());
+    assert_eq!(frame.unrendered_structures, 0);
+    assert!(frame.lost);
+    let expected = schist_i18n::tf!("design.preflight_overset", name = doc.objects[0].name);
+    for result in [
+        separate_page(&doc, 0, OutputSettings::at(72.0), &NoGraphics),
+        separate_page_built(&doc, 0, OutputSettings::at(72.0), &NoGraphics, &NaiveBuild),
+    ] {
+        assert!(result
+            .unwrap()
+            .report
+            .findings
+            .iter()
+            .any(|finding| finding.severity == Severity::Error && finding.message == expected));
     }
 }

@@ -675,11 +675,11 @@ if len(sys.argv) > 27:
             result = subprocess.run(args + [sys.argv[27], str(Path(temporary)/prefix)], capture_output=True, text=True)
             assert result.returncode == 0 and not result.stderr.strip(), result.stderr
             files = sorted(Path(temporary).glob(prefix + "-*.png"))
-            assert len(files) == 16, (prefix, len(files))
+            assert len(files) == 24, (prefix, len(files))
             for index in range(0, len(files), 2):
                 actual = Image.open(files[index]).convert("RGB")
                 expected = Image.open(files[index+1]).convert("RGB")
                 assert actual.size == expected.size == (400, 400), (prefix, index, actual.size)
                 assert actual.tobytes() == expected.tobytes(), (prefix, index, "footnotes differ from independent text/shape frames")
                 assert min(v[0] for v in actual.getextrema()) < 150, (prefix, index, "empty footnote proof")
-    print("Design PDF: inline references, single-column and spanning note bodies, and solid separator rules match independent text/shape frames with spot inks, tint, opacity and affine placement.")
+    print("Design PDF: inline references, single-column, spanning and continued note bodies, and first/continued solid separator rules match independent text/shape frames with spot inks, tint, opacity and affine placement.")
