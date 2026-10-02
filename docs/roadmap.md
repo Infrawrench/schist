@@ -310,6 +310,29 @@ are marked.
 
 ## Handoff
 
+First-paint ruler synchronization, 2026-10-02:
+Native paragraph keeps are pushed as `51fd3de3` in draft PR #195. Fresh-launch QA
+then reproduced blank Design rulers and a stale 100% zoom label despite a fitted
+page. A second observation without input remained stale; clicking the already
+active Stories tab restored ticks and the correct 135% zoom. The sample was
+closed without changes and the isolated QA app quit.
+
+The pinned GPUI implementation ignores immediate redraw requests during prepaint.
+Design canvas preparation now defers the workspace notification until the current
+draw finishes after fitting or a bounds change. An initial next-frame callback
+attempt compiled but still failed the same native first-open check. This updates ruler extents and zoom chrome
+without requiring another gesture or repeatedly repainting an unchanged viewport.
+The revised native build passes and its isolated bundle hash/signature were verified.
+Fresh-process QA now shows ticks and 135% zoom without another gesture. Native
+window zoom and restore update ruler coverage to each canvas extent while retaining
+the document zoom. The sample closes without a save prompt; the app was quit.
+Evidence is `/tmp/schist-ruler-native-qa.json`. All 16 roadmap targets pass,
+with **1,818 distinct passing Rust tests**, including the five shared UI tests
+(one existing UI documentation example ignored), four browser and eight Python
+audit checks. Workspace clippy, native/app, browser/headless, localization,
+formatting, whitespace and independent PDF proofs pass. Logs use
+`/tmp/schist-ruler-*`. This adds no user-facing fields or controls.
+
 Native paragraph keeps, 2026-10-02:
 Spanning whole notes are pushed as `87a34b2f` in draft PR #195. Three regression
 properties first reproduced disabled keeps blocking a single line, native flags

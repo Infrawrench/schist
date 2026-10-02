@@ -515,7 +515,9 @@ impl Workspace {
                 canvas(
                     move |bounds, window, cx| {
                         let scale = window.scale_factor();
-                        entity.update(cx, |ws, cx| ws.prepare_canvas_paint(bounds, scale, cx))
+                        entity.update(cx, |ws, cx| {
+                            ws.prepare_canvas_paint(bounds, scale, window, cx)
+                        })
                     },
                     move |_bounds, job: PaintJob, window, cx| {
                         // Design Mode has no filtered canvas to capture,
