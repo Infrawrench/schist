@@ -161,8 +161,9 @@ impl Render for StoryEditor {
                     stories.push(
                         ui::Button::new(
                             ("story", index),
-                            schist_i18n::tn!("design.story_number", (index + 1) as u64),
+                            schist_i18n::tf!("design.story_number", number = index + 1),
                         )
+                        .active(self.story == story)
                         .on_click(cx.listener(move |editor, _, _, cx| {
                             editor.story = story;
                             editor.base = Story::default();
@@ -257,14 +258,20 @@ impl Render for StoryEditor {
                                     count = self.base.retained_structures()
                                 )))
                             })
-                            .child(if valid {
-                                self.notice.clone()
-                            } else {
-                                schist_i18n::t("design.story_session_closed").to_string()
+                            .when(!valid || !self.notice.is_empty(), |body| {
+                                body.child(if valid {
+                                    self.notice.clone()
+                                } else {
+                                    schist_i18n::t("design.story_session_closed").to_string()
+                                })
                             })
                             .when(valid, |body| {
                                 body.child(
                                     ui::TextInput::edit("story-text", &self.edit)
+                                        .w_full()
+                                        .min_h(px(240.0))
+                                        .flex_none()
+                                        .text_size(px(14.0))
                                         .on_focus(cx.listener(|editor, press, window, cx| {
                                             editor.edit.press(press);
                                             window.focus(&editor.focus);
@@ -289,25 +296,44 @@ impl Workspace {
         }
         self.commit_focused_field();
         self.design.cancel_gesture();
-        let workspace = cx.entity();
-        let bounds = Bounds::centered(None, size(px(820.0), px(600.0)), cx);
-        if let Err(error) = cx.open_window(
-            WindowOptions {
-                window_bounds: Some(WindowBounds::Windowed(bounds)),
-                titlebar: Some(TitlebarOptions {
-                    title: Some(schist_i18n::t("design.story_editor").into()),
+        let workspace = cx.entity().downgrade();
+        let session = self.design.session.clone();
+        // Both construction and the first synchronous window draw read the
+        // workspace. Defer the entire open until this update has released it.
+        // Deferring only StoryEditor::new would still panic in render/sync.
+        cx.defer(move |cx| {
+            let Some(workspace) = workspace.upgrade() else {
+                return;
+            };
+            if !Arc::ptr_eq(&session, &workspace.read(cx).design.session)
+                || workspace.read(cx).design.document.story(story).is_none()
+            {
+                return;
+            }
+            let editor_workspace = workspace.clone();
+            let bounds = Bounds::centered(None, size(px(820.0), px(600.0)), cx);
+            if let Err(error) = cx.open_window(
+                WindowOptions {
+                    window_bounds: Some(WindowBounds::Windowed(bounds)),
+                    titlebar: Some(TitlebarOptions {
+                        title: Some(schist_i18n::t("design.story_editor").into()),
+                        ..Default::default()
+                    }),
                     ..Default::default()
-                }),
-                ..Default::default()
-            },
-            move |window, cx| {
-                let editor = cx.new(|cx| StoryEditor::new(workspace, story, cx));
-                window.focus(&editor.read(cx).focus);
-                editor
-            },
-        ) {
-            self.status = schist_i18n::tf!("design.story_window_failed", error = error).into();
-        }
+                },
+                move |window, cx| {
+                    let editor = cx.new(|cx| StoryEditor::new(editor_workspace, story, cx));
+                    window.focus(&editor.read(cx).focus);
+                    editor
+                },
+            ) {
+                workspace.update(cx, |workspace, cx| {
+                    workspace.status =
+                        schist_i18n::tf!("design.story_window_failed", error = error).into();
+                    cx.notify();
+                });
+            }
+        });
         cx.notify();
     }
 }

@@ -340,8 +340,10 @@ page geometry, parent artwork and text survive repeated saves. OAC's independent
 published v19.5 templates add Japanese prose and populated facing masters. The
 reference PDFs were inspected, but no matching native application comparison has
 been performed. Missing evidence includes real overridden parent items,
-alternate-layout sections, RTL/foldout spreads and overprint. Table, footnote,
-math and anchored-content composition remain unsupported even though the new
+alternate-layout sections, RTL/foldout spreads and overprint. Whole text-only
+footnotes compose in the supported horizontal column policies described below;
+spanning, splitting and layout-dependent numbering remain explicit gaps. Table,
+math and anchored-content composition remain unsupported even though the
 academic template contains examples.
 
 File open/save is wired. Remaining fidelity gaps must be resolved or clearly
@@ -1666,8 +1668,8 @@ saves, while its opaque note payload stays exact. Further properties exercise ev
 published numbering enum, all baseline/restart/affix/marker modes, independent
 resources, opaque style IDs, later native changes, absent settings and invalid
 ranges. These checks establish preference interchange, not native footnote layout.
-Text-only body lowering follows below. Reference-marker composition and space
-reservation are still required; preflight continues to flag unrendered structures.
+Text-only body lowering and the supported reference-marker/space-reservation
+path follow below; preflight continues to flag unrendered structures.
 
 
 ### Footnote body lowering
@@ -1697,9 +1699,8 @@ placement instead of silently restoring the old style name.
 Properties cover every UTF-8 marker boundary, entity decoding, paragraph offsets,
 literal number text, local styles without repeated-save growth, native-only style
 changes, opaque fallbacks, the public two-paragraph note and one-step undo across
-multiple notes. Native text-only note export is described below. Marker
-numbering/paint, note-area reservation, overflow,
-splitting and external application agreement remain open.
+multiple notes. Native text-only note export and whole-note composition are
+described below. Splitting and full external application agreement remain open.
 
 
 The matching public academic PDF (InDesign 20.2, Windows; CC0 at the same
@@ -1732,7 +1733,8 @@ note text/style changes take precedence; old payloads remain recoverable with
 unknown locations. A versioned guard flag recognizes earlier records that wrote
 no native note body, without reviving a note deleted from a newer native export.
 This establishes public-XML interchange, not native application or layout parity.
-Schist note numbering, reserved areas, splitting and paint remain outstanding.
+Schist numbering, reserved areas and painting are described below; splitting
+remains outstanding.
 
 Native visual inspection of the academic fixture also found black corner squares
 that are absent from its supplied PDF. The XML places those rectangles inside
@@ -1760,7 +1762,8 @@ This path supports continuous Arabic, Roman, alphabetic, padded and full-width
 numbers in horizontal single-column threads with explicit NoSplitting=true,
 whole text-only notes, first-baseline leading/ascent and minimum offsets, solid
 rules and end-of-story placement. It moves an unfit reference and note together;
-an impossible fit stays overset. Multi-column/straddled areas, splitting,
+an impossible fit stays overset. Independent multi-column areas are described
+below. Straddled areas, splitting,
 page/spread/section restarts, additional numbering/baseline/rule policies,
 vertical/path text and structured note content remain unsupported and reported.
 Full native application placement agreement remains a validation task.

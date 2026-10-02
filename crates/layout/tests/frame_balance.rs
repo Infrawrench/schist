@@ -269,10 +269,14 @@ fn balancing_can_split_paragraphs_without_changing_lines_or_violating_widows() {
                         columns as usize,
                         "a splittable paragraph left columns empty"
                     );
+                    // Balancing minimizes the common column height. Greedy
+                    // flow can leave a shorter last column even at that
+                    // optimum; equal line counts are not the invariant.
+                    let minimum_height = expected.len().div_ceil(columns as usize);
                     assert!(
-                        per_column.values().max().unwrap() - per_column.values().min().unwrap()
-                            <= keep,
-                        "lopsided columns: {per_column:?}"
+                        *per_column.values().max().unwrap() < minimum_height + keep,
+                        "excess column height: {per_column:?}, columns={columns}, keep={keep}, \
+                         paragraphs={paragraphs}, direction={direction:?}"
                     );
                     assert!(
                         segments.values().all(|lines| *lines >= keep),

@@ -310,6 +310,46 @@ are marked.
 
 ## Handoff
 
+Story Editor native window QA, 2026-10-02:
+Paragraph balancing is pushed as `e4115390` in draft PR #195. Opening the separate
+Story Editor from the Stories panel then reproducibly aborted the native app.
+Its constructor and initial synchronous window draw read the workspace while
+the originating click still held that entity for an update. The entire window
+open is now deferred until the update finishes, with a document-session guard.
+The first repaired native build opens successfully; replacing all story text
+with one character and undoing once restores the original 425-character story.
+Closing the editor leaves the layout open, and closing that layout after undo
+does not request saving. This QA also exposed a plural-format call on the
+non-plural story-number key and multiline text clipped to one line. The label
+now uses its named placeholder, and multiline input measures within its width.
+The final native build and isolated bundle hash/signature verification pass.
+Two-story native QA confirms wrapped text, active story labels, paragraph breaks,
+Unicode, switching without changing the other story, and one-step replacement
+undo. PDF export correctly refuses a missing font without leaving a partial
+file. An installed-font variant exports both pages as one 876 × 378 pt sheet
+at 150 dpi; Poppler renders both balanced pages in order. The native package
+contains exact text from both stories, its manifest lists Arial and explicitly
+omits font files, and its font/style warnings appear in the window. Its IDML
+reopens in Design Mode. All disposable layouts close without a save prompt after
+undo/export, and the QA app was quit. The full 16-target sweep passes with
+**1,797 distinct Rust tests**, four browser checks and eight Python audit checks.
+Workspace clippy, app/browser/headless, localization, formatting and whitespace
+checks pass. The shared UI crate also passes all five tests (one pre-existing
+documentation example is ignored), for **1,802 distinct passing Rust tests**
+across the sweep and that additional crate. Logs use
+`/tmp/schist-story-window-sweep-*` and `/tmp/schist-story-window-ui-tests.log`.
+Removed 2.3 GB of unused
+incremental cache after the drive reached 3.4 GB free; these builds all disable
+incremental compilation.
+Linux CI on `e4115390` then exposed an incorrect assertion in the paragraph
+balancing property: 28 lines across three columns can use the minimum common
+height with counts 10/10/8. Minimizing that height does not require equal counts.
+The property now checks the maximum column height against the ceiling average
+and widow allowance, retaining exact shaped lines, complete consumption, occupied
+columns, valid paragraph splits and unchanged source. The affected layout/editor
+tests and lints, workspace clippy and formatting pass again; no production layout
+code changed for this correction. Remote CI will rerun on the published fix.
+
 Balancing within paragraphs, 2026-10-02:
 Checkpoint `f073cc9a` is pushed in draft PR #195. The next regression reproduced
 a composition defect: enabling balance on one long, splittable paragraph left
@@ -331,8 +371,8 @@ balance icon is active, but the single paragraph remains entirely in the left
 column. The corrected native build passes, as do the isolated QA bundle's binary
 hash and signature checks. At 188%, the same fixture now splits into two columns
 with its initial indent preserved. One balance-icon click returns it to sequential
-flow and one undo restores the balanced layout. The fixture remains open for the
-next Story Editor/output window checks; it has not been saved.
+flow and one undo restores the balanced layout. The fixture was then used for
+Story Editor checks and closed without saving.
 
 
 Native column balancing, 2026-10-02:
@@ -1082,7 +1122,8 @@ remaining order is now explicit:
    Implemented; curve bounds, gestures and repeated native IDML saves verified.
 7. Story Editor, text selection, thread controls and in/out markers — implemented.
    IME drafts commit once; text replacements preserve unaffected styles and
-   refuse edits across protected structure. Native windows still need visual QA.
+   refuse edits across protected structure. Native Story Editor opening,
+   switching, wrapped text, paragraph breaks and one-step undo are verified.
 8. Complete the design tool palette, Hand/Zoom/Eyedropper and layout guides —
    implemented. Selection drags move the whole selection
    in one step, band selection is connected, and line directions are preserved.
