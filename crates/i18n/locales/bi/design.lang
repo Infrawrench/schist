@@ -513,3 +513,12 @@ design.story_structure_count = {count} structures retained outside this view
 design.idml_footnote_unsupported = Unresolved footnote setting {property}: {value}
 
 design.balance_columns = Balance columns
+
+design.keep_options = Keep options
+design.keep_lines = Keep lines together
+design.keep_all = Keep all lines
+design.keep_previous = Keep with previous
+design.keep_inherit = Inherit keep options
+design.keep_first = First lines
+design.keep_last = Last lines
+design.keep_next = Next lines

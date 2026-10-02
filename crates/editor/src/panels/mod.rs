@@ -44,6 +44,7 @@ mod navigator;
 mod notes;
 mod object_styles;
 mod pages;
+mod paragraph_keeps;
 mod preflight;
 mod rulers;
 mod sliders;

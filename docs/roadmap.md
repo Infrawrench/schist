@@ -310,6 +310,31 @@ are marked.
 
 ## Handoff
 
+
+Paragraph keep authoring, 2026-10-02:
+The Paragraph panel now exposes native keep policies in a collapsed Keep options
+section. Three compact icons toggle line keeps, all lines and keep-with-previous;
+first/last counts appear only when relevant. Next-line counts and a single inherit
+reset complete the group. Imported or inherited dormant values stay intact.
+Eight short keys are present in all 150 existing locale catalogs.
+
+Captured style edits migrate legacy symmetric aliases only when a value actually
+changes. Clearing one count then inherits from the base instead of revealing an
+old local alias, while unrelated policies remain unchanged. The baseline property
+failed before the edit route existed. Four properties now pass across native and
+legacy styles, independent flag inheritance, dormant counts, stale targets,
+invalid bounds, no-op edits and exact single-step undo/redo. All 16 roadmap targets pass, including workspace clippy and native/browser/headless
+checks, with **1,833 distinct passing Rust tests** (425 editor, five shared UI
+checks included; one existing UI documentation example ignored), four browser
+and eight Python audit checks. Localization, formatting and whitespace pass.
+The native development build passes in 2m 41s. Its isolated Design-enabled bundle
+was hash checked and signature verified, but CUA still returns cgWindowNotFound;
+no document was opened, and only the newly launched QA process was terminated.
+Browser QA is available on an isolated localhost origin using the PR's CI artifact;
+review of these controls is pending this commit's artifact. Logs, counts and QA
+records use `/tmp/schist-keep-controls-*`. No new composition or codec behavior
+is claimed by this authoring checkpoint.
+
 Native split-note default, 2026-10-02:
 Split continuation is pushed as `a0301ac5` in draft PR #195. The public IDML
 specification's Appendix C defaults NoSplitting to false, but Schist still rejected
