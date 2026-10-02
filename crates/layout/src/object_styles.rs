@@ -96,6 +96,8 @@ pub struct ObjectStyle {
     pub enable_stroke: Option<bool>,
     pub enable_stroke_options: Option<bool>,
     pub enable_footnotes: Option<bool>,
+    pub enable_text_frame_general: Option<bool>,
+    pub balance_columns: Option<bool>,
     pub footnotes: crate::footnotes::FrameFootnotes,
     pub paint: ObjectPaint,
 }
@@ -139,10 +141,34 @@ impl StyleSet {
             resolved.enable_stroke_options = style
                 .enable_stroke_options
                 .or(resolved.enable_stroke_options);
+            resolved.enable_text_frame_general = style
+                .enable_text_frame_general
+                .or(resolved.enable_text_frame_general);
+            resolved.balance_columns = style.balance_columns.or(resolved.balance_columns);
             resolved.enable_footnotes = style.enable_footnotes.or(resolved.enable_footnotes);
             resolved.footnotes = style.footnotes.over(&resolved.footnotes);
         }
         resolved
+    }
+
+    pub fn frame_balance(&self, object: &PlacedObject) -> bool {
+        let LayoutObject::TextFrame {
+            balance_columns, ..
+        } = &object.object
+        else {
+            return false;
+        };
+        balance_columns
+            .or_else(|| {
+                object
+                    .appearance
+                    .style
+                    .as_deref()
+                    .map(|name| self.resolve_object(name))
+                    .filter(|style| style.enable_text_frame_general == Some(true))
+                    .and_then(|style| style.balance_columns)
+            })
+            .unwrap_or(false)
     }
 
     pub fn frame_footnotes(&self, object: &PlacedObject) -> crate::footnotes::FrameFootnotes {
@@ -314,7 +340,20 @@ pub fn apply_style(
         };
         let mut after = object.clone();
         let mut paint = doc.styles.object_paint(object);
-        if let LayoutObject::TextFrame { footnotes, .. } = &mut after.object {
+        if let LayoutObject::TextFrame {
+            footnotes,
+            balance_columns,
+            ..
+        } = &mut after.object
+        {
+            *balance_columns = if resolved
+                .as_ref()
+                .is_some_and(|s| s.enable_text_frame_general == Some(true))
+            {
+                None
+            } else {
+                Some(doc.styles.frame_balance(object))
+            };
             *footnotes = if resolved
                 .as_ref()
                 .is_some_and(|s| s.enable_footnotes == Some(true))

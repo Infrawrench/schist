@@ -705,6 +705,7 @@ mod tests {
             page: 0,
             bounds: schist_layout::Rect::new(0.0, 0.0, 100.0, 50.0),
             object: schist_layout::LayoutObject::TextFrame {
+                balance_columns: Some(false),
                 footnotes: Default::default(),
                 text_path: None,
                 story,
@@ -756,6 +757,7 @@ mod tests {
             page: 0,
             bounds: schist_layout::Rect::new(0.0, 0.0, 100.0, 50.0),
             object: schist_layout::LayoutObject::TextFrame {
+                balance_columns: Some(false),
                 footnotes: Default::default(),
                 text_path: None,
                 story,

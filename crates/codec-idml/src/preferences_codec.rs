@@ -9,6 +9,32 @@ use crate::{
 };
 use schist_layout::{Insets, LayoutDocument, NumberStyle, Section};
 
+/// Read only this supported general-frame property; other category properties
+/// retain their existing unsupported-feature diagnostics.
+pub(crate) fn frame_balance(parent: &Element, report: &mut Report) -> Option<bool> {
+    let raw = parent
+        .child("TextFramePreference")?
+        .attr("VerticalBalanceColumns")?;
+    match raw {
+        "true" => Some(true),
+        "false" => Some(false),
+        _ => {
+            report.skip(schist_i18n::tf!(
+                "design.idml_text_preference_invalid",
+                property = "VerticalBalanceColumns",
+                value = raw
+            ));
+            None
+        }
+    }
+}
+
+pub(crate) fn balance_attribute(value: Option<bool>) -> String {
+    value
+        .map(|v| format!(" VerticalBalanceColumns=\"{v}\""))
+        .unwrap_or_default()
+}
+
 const BLEED: [&str; 4] = [
     "DocumentBleedTopOffset",
     "DocumentBleedBottomOffset",
@@ -51,6 +77,7 @@ pub fn read(
             part: part.name.clone(),
             message,
         })?;
+        document.balance_columns_default = frame_balance(&root, report).unwrap_or(false);
         if let Some(prefs) = root.find("FootnoteOption") {
             document.footnotes = crate::footnote_codec::read(prefs, colors, refs, report);
         }
@@ -253,7 +280,10 @@ pub fn preferences(document: &LayoutDocument, warnings: &mut Vec<String>) -> Str
             out.push_str(&format!(r#" {key}="{}""#, number(value)));
         }
     }
-    out.push_str(" /><TextPreference");
+    out.push_str(&format!(
+        " /><TextFramePreference VerticalBalanceColumns=\"{}\" /><TextPreference",
+        document.balance_columns_default
+    ));
     let text = document.styles.text_preferences;
     let default = schist_layout::styles::TextPreferences::default();
     for (key, value, fallback, range) in [

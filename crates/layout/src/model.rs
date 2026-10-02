@@ -169,6 +169,9 @@ pub enum LayoutObject {
             skip_serializing_if = "crate::footnotes::FrameFootnotes::is_empty"
         )]
         footnotes: crate::footnotes::FrameFootnotes,
+        /// None inherits the enabled object-style category; native default is false.
+        #[serde(default = "crate::frame_text::legacy_balance")]
+        balance_columns: Option<bool>,
         /// A single path container shares the story/thread model with boxes.
         /// Columns, gutters and insets apply only to rectangular frames.
         #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -418,6 +421,9 @@ pub struct LayoutDocument {
         skip_serializing_if = "crate::footnotes::FrameFootnotes::is_empty"
     )]
     pub frame_footnote_defaults: crate::footnotes::FrameFootnotes,
+    /// Copied into new rectangular frames, never applied retroactively.
+    #[serde(default)]
+    pub balance_columns_default: bool,
     /// Explicit text flow order, independent of page and layer stacking.
     /// Missing entries use object insertion order for older documents.
     #[serde(default)]
@@ -598,6 +604,7 @@ impl LayoutDocument {
             stories: Vec::new(),
             footnotes: Default::default(),
             frame_footnote_defaults: Default::default(),
+            balance_columns_default: false,
             thread_order: Vec::new(),
             assets: Default::default(),
             styles: StyleSet::with_defaults(),
@@ -1127,6 +1134,7 @@ mod tests {
             page,
             bounds: rect,
             object: LayoutObject::TextFrame {
+                balance_columns: Some(false),
                 footnotes: Default::default(),
                 text_path: None,
                 story: StoryId(0),
@@ -1197,6 +1205,7 @@ mod tests {
     #[test]
     fn text_frame_insets_shrink_only_the_content_area() {
         let frame = LayoutObject::TextFrame {
+            balance_columns: Some(false),
             footnotes: Default::default(),
             text_path: None,
             story: StoryId(0),

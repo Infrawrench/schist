@@ -68,6 +68,8 @@ pub(crate) fn read_styles(
             enable_stroke: boolean(element, "EnableStroke"),
             enable_stroke_options: boolean(element, "EnableStrokeAndCornerOptions"),
             enable_footnotes: boolean(element, "EnableTextFrameFootnoteOptions"),
+            enable_text_frame_general: boolean(element, "EnableTextFrameGeneralOptions"),
+            balance_columns: crate::preferences_codec::frame_balance(element, report),
             footnotes: crate::footnote_codec::read_frame(element, report),
             paint: read_paint(element, colors, report),
         };
@@ -230,6 +232,10 @@ pub(crate) fn styles_xml(doc: &LayoutDocument, warnings: &mut Vec<String>) -> St
             ("EnableStroke", style.enable_stroke),
             ("EnableStrokeAndCornerOptions", style.enable_stroke_options),
             ("EnableTextFrameFootnoteOptions", style.enable_footnotes),
+            (
+                "EnableTextFrameGeneralOptions",
+                style.enable_text_frame_general,
+            ),
         ] {
             if let Some(value) = value {
                 attr(&mut out, key, value);
@@ -248,6 +254,12 @@ pub(crate) fn styles_xml(doc: &LayoutDocument, warnings: &mut Vec<String>) -> St
             &style.footnotes,
             warnings,
         ));
+        if style.balance_columns.is_some() {
+            out.push_str(&format!(
+                "<TextFramePreference{} />",
+                crate::preferences_codec::balance_attribute(style.balance_columns)
+            ));
+        }
         out.push_str("</ObjectStyle>");
     }
     out.push_str("</RootObjectStyleGroup>");

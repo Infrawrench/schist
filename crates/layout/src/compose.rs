@@ -628,7 +628,8 @@ pub fn measure_slice(
 ///
 /// `frame_bounds` gives each frame's page-space box in thread order. The
 /// first frame that clips does so at the point its text runs out of
-/// height; the next frame resumes at that byte offset.
+/// height; the next frame resumes at that byte offset. Stored frames resolve
+/// their own balancing policy; geometry-only IDs retain legacy balancing.
 pub fn compose_thread(
     doc: &LayoutDocument,
     story_id: crate::model::StoryId,
@@ -877,8 +878,12 @@ fn compose_thread_plain(
             if story.prefs.direction == crate::StoryDirection::RightToLeft {
                 columns.reverse();
             }
-            // Balance the last region only when all remaining text fits.
-            if columns.len() > 1 && section_end == total && break_index == breaks.len() {
+            // Only enabled frames balance, and only when all remaining text fits.
+            if crate::frame_text::balanced(doc, *object)
+                && columns.len() > 1
+                && section_end == total
+                && break_index == breaks.len()
+            {
                 let (mut balanced, consumed, balanced_notes) =
                     balance_columns(&source, cursor, total, &columns, grid, &note_options);
                 if consumed >= total {

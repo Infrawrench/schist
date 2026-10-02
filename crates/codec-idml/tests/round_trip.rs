@@ -111,6 +111,7 @@ fn document() -> LayoutDocument {
         page: 0,
         bounds: Rect::new(-260.0, 181.97, 720.0, 47.0),
         object: LayoutObject::TextFrame {
+            balance_columns: Some(false),
             footnotes: Default::default(),
             text_path: None,
             story: StoryId(0),

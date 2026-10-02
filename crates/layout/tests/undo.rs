@@ -37,6 +37,7 @@ fn text_object(page: usize, name: &str) -> PlacedObject {
         page,
         bounds: Rect::new(mm(20.0), mm(20.0), mm(50.0), mm(30.0)),
         object: LayoutObject::TextFrame {
+            balance_columns: Some(false),
             footnotes: Default::default(),
             text_path: None,
             story: StoryId(0),

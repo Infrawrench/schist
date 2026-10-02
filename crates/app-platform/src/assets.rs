@@ -36,6 +36,7 @@ icons!(
     "unlink",
     "refresh",
     "type-align-justify",
+    "type-balance-columns",
     "type-bold",
     "type-italic",
     "type-underline",

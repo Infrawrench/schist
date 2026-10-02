@@ -6,17 +6,22 @@ fn footnotes_match_independent_frames_and_rules_in_every_plate_at_multiple_resol
     schist_text_engine::add_font_data(
         include_bytes!("../../../web/fonts/IBMPlexSans-Regular.ttf").to_vec(),
     );
-    for columns in [1, 2, 3] {
+    for (columns, balanced) in [1, 2, 3]
+        .into_iter()
+        .flat_map(|columns| [false, true].map(|balanced| (columns, balanced)))
+    {
         let mut actual = proof::document(false);
         actual.footnotes.straddle = Some(false);
         for object in &mut actual.objects {
             if let schist_layout::LayoutObject::TextFrame {
                 columns: count,
+                balance_columns,
                 gutter,
                 ..
             } = &mut object.object
             {
                 *count = columns;
+                *balance_columns = Some(balanced);
                 *gutter = 5.0;
             }
         }

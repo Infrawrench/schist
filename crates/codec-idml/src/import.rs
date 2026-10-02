@@ -24,8 +24,9 @@
 //! ## What is not composed
 //!
 //! Tables, footnotes and anchored objects retain their outer XML and source
-//! anchors as opaque story structures. They are not laid out or painted; the
-//! [`Report`] and print preflight disclose that missing output.
+//! anchors. Supported text-only footnotes also carry an editable note story
+//! and compose under the documented flow policies. Other retained structures
+//! remain unrendered; import notices and print preflight disclose those limits.
 
 use schist_layout::{
     Insets, LayoutDocument, LayoutObject, ObjectId, Orientation, Page, ParentObject, ParentPage,
@@ -503,6 +504,7 @@ fn placed_object(
             LayoutObject::TextFrame {
                 text_path: baseline,
                 footnotes: crate::footnote_codec::read_frame(element, report),
+                balance_columns: crate::preferences_codec::frame_balance(element, report),
                 story: StoryId(story as u32),
                 columns: element
                     .find("TextFramePreference")

@@ -356,6 +356,7 @@ fn text_puts_ink_where_the_glyphs_are() {
         page: 0,
         bounds: Rect::new(mm(20.0), mm(20.0), mm(170.0), mm(100.0)),
         object: LayoutObject::TextFrame {
+            balance_columns: Some(false),
             footnotes: Default::default(),
             text_path: None,
             story,
@@ -397,6 +398,7 @@ fn a_fully_knocked_out_frame_leaves_no_ink() {
         page: 0,
         bounds: Rect::new(mm(20.0), mm(20.0), mm(100.0), mm(50.0)),
         object: LayoutObject::TextFrame {
+            balance_columns: Some(false),
             footnotes: Default::default(),
             text_path: None,
             story,
@@ -797,6 +799,7 @@ fn composition_and_separation_agree_on_where_the_text_is() {
         page: 0,
         bounds,
         object: LayoutObject::TextFrame {
+            balance_columns: Some(false),
             footnotes: Default::default(),
             text_path: None,
             story,

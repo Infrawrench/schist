@@ -61,6 +61,7 @@ pub fn text_frame(
         bounds,
         object: LayoutObject::TextFrame {
             footnotes: document.frame_footnote_defaults.clone(),
+            balance_columns: Some(document.balance_columns_default),
             text_path: None,
             story,
             columns: 1,
@@ -483,6 +484,7 @@ pub fn duplicate(
         LayoutObject::TextFrame {
             story,
             footnotes,
+            balance_columns,
             text_path,
             columns,
             gutter,
@@ -497,6 +499,7 @@ pub fn duplicate(
             });
             LayoutObject::TextFrame {
                 footnotes: footnotes.clone(),
+                balance_columns: *balance_columns,
                 text_path: text_path.clone(),
                 story: new_story,
                 columns: *columns,

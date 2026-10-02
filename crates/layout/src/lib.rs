@@ -25,6 +25,7 @@ pub mod directional_features;
 pub mod edit;
 pub mod footnote_composition;
 pub mod footnotes;
+pub mod frame_text;
 pub mod geometry;
 pub mod graphics;
 pub mod grid;

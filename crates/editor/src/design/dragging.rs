@@ -312,6 +312,7 @@ mod tests {
             page: 0,
             bounds: Rect::new(100.0, 100.0, 200.0, 40.0),
             object: LayoutObject::TextFrame {
+                balance_columns: Some(false),
                 footnotes: Default::default(),
                 text_path: None,
                 story,

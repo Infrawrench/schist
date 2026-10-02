@@ -209,10 +209,19 @@ fn column_flow_and_balancing_keep_each_whole_note_with_its_reference_in_reading_
     use schist_layout::{FrameOverflow, Insets, StoryDirection, StoryId, StoryPoint};
     for columns in [2, 3] {
         for reverse in [false, true] {
-            for height in [55.0, 160.0, 400.0] {
+            for (height, balanced) in [55.0, 160.0, 400.0]
+                .into_iter()
+                .flat_map(|height| [false, true].map(|balanced| (height, balanced)))
+            {
                 for forced in [false, true] {
                     for below_text in [false, true] {
                         let mut doc = document(1);
+                        if let LayoutObject::TextFrame {
+                            balance_columns, ..
+                        } = &mut doc.objects[0].object
+                        {
+                            *balance_columns = Some(balanced);
+                        }
                         doc.footnotes.straddle = Some(false);
                         doc.footnotes.end_of_story = Some(below_text);
                         let mut story = Story::new();

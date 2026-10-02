@@ -1814,3 +1814,17 @@ body text when requested. LTR/RTL column order and forced column breaks share th
 ordinary story flow. Spanning, splitting and layout-dependent restarts remain
 explicit unsupported policies. Pixel/plate reference proofs validate Schist's
 internal placement and paints; full native application agreement is still pending.
+
+### Native column balancing
+
+TextFramePreference.VerticalBalanceColumns is retained independently on frames,
+object styles and document creation defaults. The public literary fixture has
+an explicitly balanced two-column frame and false style/document defaults.
+The [public TextFramePreference DOM](https://developer.adobe.com/indesign/uxp/dom/api/t/text-frame-preference/)
+identifies this optional policy. Absent local values inherit enabled
+EnableTextFrameGeneralOptions styles; false values remain explicit overrides.
+The general-frame category remains partially supported, so its existing category
+warning remains enabled. Balancing support does not imply support for all of its
+other properties or native defaults.
+Legacy Schist snapshots retain their former balancing behavior. Newly authored
+frames copy the document's explicit creation default (initially false).

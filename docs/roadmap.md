@@ -310,6 +310,30 @@ are marked.
 
 ## Handoff
 
+Native column balancing, 2026-10-02:
+Frame-footnote checkpoint `27168ad2` is pushed in draft PR #195. Composition
+now honors native VerticalBalanceColumns instead of balancing every final
+multi-column region. Local true/false values and absence are distinct; enabled
+object-style general-frame categories inherit the setting, while disabled
+categories do not. Applying or detaching a style preserves the effective policy.
+Document creation defaults affect future rectangular frames only. Legacy Schist
+snapshots without the field retain their previous automatic balancing; raw
+geometry-only composition calls also retain their documented legacy behavior.
+The Control panel adds one localized icon beside the column field, with a
+selection-wide undo step and predictable mixed-selection behavior. Public
+literary XML supplies true frame values and false style/document defaults.
+All 16 make targets pass with **1,795 distinct Rust tests**, four browser checks
+and eight Python checks. Workspace clippy, localization, native/browser checks,
+PDF proofs, formatting and whitespace checks pass. Logs and counts are under
+`/tmp/schist-balance-sweep-*`. The native debug build and isolated flagged bundle
+hash/signature verification pass. At 188%, one click on the compact Columns
+icon switches the handwritten fixture to sequential flow, moving both notes
+into the first column. One undo restores the original two columns, references,
+note bodies and separate rules. The disposable file was closed without saving;
+the installed app and public specimens were untouched.
+The existing balancing algorithm still moves whole paragraphs; balancing within
+a splittable paragraph is the next composition check after this policy checkpoint.
+
 Frame footnote policies and column flow, 2026-10-02:
 Whole-note checkpoint `bb793232` is pushed in draft PR #195. This follow-up
 models local frame footnote overrides, their object-style category and inheritance,
@@ -331,10 +355,12 @@ All 16 make targets pass with **1,788 distinct Rust tests**, plus four browser
 and eight Python checks. Workspace clippy, formatting, application checks and the
 native debug build pass; logs are under `/tmp/schist-frame-notes-sweep-*`. The
 isolated feature-enabled QA bundle matches the built binary before signing and
-passes signature verification. Native visual inspection of the new two-column
-fixture is pending: the app runs, but computer-use reports `cgWindowNotFound`
-and exposes no windows. The earlier single-column native check remains valid
-for that checkpoint only. The first property-test failure was a fixture error: a tall single-column fallback cannot consume multiple
+passes signature verification. Native window access subsequently recovered.
+At 100% the actual QA app shows references 7/8 in their respective columns,
+with separate rules and note bodies at the physical frame bottom; the local
+no-spanning override wins over the document spanning setting. The fixture is
+handwritten public-format XML. No external application agreement is claimed.
+The first property-test failure was a fixture error: a tall single-column fallback cannot consume multiple
 forced column breaks. It now provides real fallback columns instead of weakening
 the source-flow rule. External native rendering agreement remains unverified.
 Next: preserve the native optional Balance Columns policy; current composition

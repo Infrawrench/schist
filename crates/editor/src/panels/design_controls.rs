@@ -327,7 +327,34 @@ pub(super) fn control_panel(
     let target = Target::Objects(ws.design.selection.clone());
     let mut rows = fields
         .into_iter()
-        .map(|(id, label)| object_field(ws, id, label, cx))
+        .map(|(id, label)| {
+            let field = object_field(ws, id, label, cx);
+            if id != "design-prop-columns" {
+                return field;
+            }
+            let active = ws.design.selection.iter().all(|id| {
+                ws.design
+                    .document
+                    .object(*id)
+                    .is_some_and(|object| ws.design.document.styles.frame_balance(object))
+            });
+            div()
+                .flex()
+                .items_center()
+                .gap_1()
+                .child(div().flex_1().min_w_0().child(field))
+                .child(
+                    IconButton::new("design-balance-columns", "type-balance-columns")
+                        .tooltip(t("design.balance_columns"), None)
+                        .active(active)
+                        .on_click(cx.listener(|ws, _, _, cx| {
+                            ws.commit_focused_field();
+                            controls::toggle_frame_balance(&mut ws.design);
+                            cx.notify();
+                        })),
+                )
+                .into_any_element()
+        })
         .collect::<Vec<_>>();
     let paths: Vec<_> = ws
         .design

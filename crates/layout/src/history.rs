@@ -244,6 +244,8 @@ pub struct SettingsSnapshot {
     pub footnotes: crate::footnotes::FootnoteOptions,
     #[serde(default)]
     pub frame_footnote_defaults: crate::footnotes::FrameFootnotes,
+    #[serde(default)]
+    pub balance_columns_default: bool,
     pub facing_pages: bool,
     #[serde(default)]
     pub page_binding: crate::PageBinding,

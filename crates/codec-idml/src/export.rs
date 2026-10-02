@@ -493,6 +493,7 @@ fn object_native_xml(
         LayoutObject::TextFrame {
             story,
             footnotes,
+            balance_columns,
             text_path,
             columns,
             gutter,
@@ -545,8 +546,9 @@ fn object_native_xml(
             );
             out.push_str(&format!("<Properties>{geometry}</Properties>"));
             out.push_str(&format!(
-                r#"<TextFramePreference TextColumnCount="{columns}" TextColumnGutter="{}" TextColumnMaxWidth="0">"#,
-                number(*gutter)
+                r#"<TextFramePreference TextColumnCount="{columns}" TextColumnGutter="{}" TextColumnMaxWidth="0"{}>"#,
+                number(*gutter),
+                crate::preferences_codec::balance_attribute(*balance_columns)
             ));
             out.push_str(&format!(
                 "<Properties><InsetSpacing type=\"list\">{}</InsetSpacing></Properties>",

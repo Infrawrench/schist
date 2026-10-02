@@ -235,7 +235,10 @@ under Appearance. Character formatting and paragraph alignment use icon buttons
 which display the resolved style's active settings.
 
 **Control** edits selection geometry and text-frame columns,
-gutter and inset. **Character** and **Paragraph** edit named styles, with
+gutter and inset. The icon beside Columns toggles balancing for the selection
+in one undo step; a mixed selection becomes balanced. Disabled balancing fills
+columns in reading order. Native frame values, object-style inheritance and
+document creation defaults retain the policy through IDML saves. **Character** and **Paragraph** edit named styles, with
 new/rename/apply controls in **Styles**. An input captures its edit target on
 focus and commits one edit, so a later selection cannot redirect it.
 
@@ -470,8 +473,9 @@ Typing at an anchor inserts before it; a replacement crossing an anchor is refus
 Text and style edits preserve the data through one undo step. Opaque-only stories
 are occupied thread targets, even when they have no ordinary text.
 
-IDML saves retain this data in a guarded Schist Label, not as working native tables
-or footnotes. Reopening an unchanged save preserves its anchors. External changes
+IDML saves retain opaque unsupported structures in a guarded Schist Label.
+Text-only footnotes also write native containers, styles, fonts and generated
+reference markers; native text edits or note deletion take precedence on reopen. Reopening an unchanged save preserves its anchors. External changes
 to the native story take precedence; retained payloads then have unknown locations
 and remain diagnosed. Referenced native resources and full structured composition
 are not reconstructed by this preservation step.
@@ -483,8 +487,15 @@ explicit and are reported. Text-only note bodies now have their own typed storie
 styles and zero-width marker coordinates, separate from main-story characters.
 The original XML remains exact; notes with nested objects, tables or unknown
 instructions stay opaque. Style renames update typed note references in the same
-undo step. Bodies and markers still require composition and reserved space before
-they can print.
+undo step. Continuous text-only notes compose in horizontal rectangular threads
+when no-splitting is explicitly enabled. References occupy real typographic space
+without adding source characters, and whole notes follow their references into
+subsequent frames. Multiple columns work when spanning is explicitly disabled;
+each note stays in its reference's column. Rules, note styles and typed inks reach
+preview and PDF. Frame overrides inherit through object styles; document frame
+defaults affect newly authored frames only. Spanning areas, splitting, restarts
+and other unsupported policies retain explicit diagnostics. Story Editor's count
+describes content outside its text view, independently of rendering support.
 
 Text threads have explicit order independent of page and layer order. Click
 an output port, then an empty frame to link; the Stories panel also offers

@@ -58,6 +58,23 @@ pub fn page_property(id: &str) -> Option<properties::PageProperty> {
     })
 }
 
+/// Mixed selections become balanced; an all-balanced selection becomes sequential.
+pub fn toggle_frame_balance(state: &mut DesignState) -> bool {
+    let active = !state.selection.is_empty()
+        && state.selection.iter().all(|id| {
+            state
+                .document
+                .object(*id)
+                .is_some_and(|o| state.document.styles.frame_balance(o))
+        });
+    schist_layout::frame_text::set_balance(
+        &mut state.document,
+        &mut state.history,
+        &state.selection,
+        Some(!active),
+    )
+}
+
 pub fn object_property(id: &str) -> Option<ObjectProperty> {
     Some(match id {
         "design-prop-x" => ObjectProperty::X,
@@ -1646,6 +1663,53 @@ pub fn all_text_frames(state: &DesignState) -> bool {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn frame_balance_toggle_normalizes_mixed_selection_and_undoes_once() {
+        for count in [1, 3, 7] {
+            let mut state = DesignState::new();
+            for i in 0..count {
+                let frame = schist_layout::authoring::text_frame(
+                    &mut state.document,
+                    &mut schist_layout::History::default(),
+                    0,
+                    schist_layout::Rect::new(0.0, 0.0, 100.0, 100.0),
+                )
+                .unwrap();
+                if let LayoutObject::TextFrame {
+                    balance_columns, ..
+                } = &mut state
+                    .document
+                    .objects
+                    .iter_mut()
+                    .find(|o| o.id == frame.object)
+                    .unwrap()
+                    .object
+                {
+                    *balance_columns = Some(i % 2 != 0);
+                }
+                state.selection.push(frame.object);
+            }
+            let before = state.document.clone();
+            assert!(toggle_frame_balance(&mut state));
+            assert_eq!(state.history.undo_depth(), 1);
+            assert!(state
+                .document
+                .objects
+                .iter()
+                .all(|o| state.document.styles.frame_balance(o)));
+            assert!(toggle_frame_balance(&mut state));
+            assert_eq!(state.history.undo_depth(), 2);
+            assert!(state
+                .document
+                .objects
+                .iter()
+                .all(|o| !state.document.styles.frame_balance(o)));
+            assert!(state.history.undo(&mut state.document));
+            assert!(state.history.undo(&mut state.document));
+            assert_eq!(state.document, before);
+        }
+    }
 
     fn tab_state() -> DesignState {
         let mut state = DesignState::new();
