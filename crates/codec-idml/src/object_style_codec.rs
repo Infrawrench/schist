@@ -67,13 +67,18 @@ pub(crate) fn read_styles(
             enable_fill: boolean(element, "EnableFill"),
             enable_stroke: boolean(element, "EnableStroke"),
             enable_stroke_options: boolean(element, "EnableStrokeAndCornerOptions"),
+            enable_footnotes: boolean(element, "EnableTextFrameFootnoteOptions"),
+            footnotes: crate::footnote_codec::read_frame(element, report),
             paint: read_paint(element, colors, report),
         };
         if element.attributes.iter().any(|(key, value)| {
             key.starts_with("Enable")
                 && !matches!(
                     key.as_str(),
-                    "EnableFill" | "EnableStroke" | "EnableStrokeAndCornerOptions"
+                    "EnableFill"
+                        | "EnableStroke"
+                        | "EnableStrokeAndCornerOptions"
+                        | "EnableTextFrameFootnoteOptions"
                 )
                 && value == "true"
         }) || [
@@ -214,7 +219,7 @@ pub(crate) fn object_attributes(object: &PlacedObject) -> String {
     out
 }
 
-pub(crate) fn styles_xml(doc: &LayoutDocument) -> String {
+pub(crate) fn styles_xml(doc: &LayoutDocument, warnings: &mut Vec<String>) -> String {
     let mut out = String::from("<RootObjectStyleGroup Self=\"SchistObjectStyles\">");
     for style in &doc.styles.objects {
         out.push_str("<ObjectStyle");
@@ -224,6 +229,7 @@ pub(crate) fn styles_xml(doc: &LayoutDocument) -> String {
             ("EnableFill", style.enable_fill),
             ("EnableStroke", style.enable_stroke),
             ("EnableStrokeAndCornerOptions", style.enable_stroke_options),
+            ("EnableTextFrameFootnoteOptions", style.enable_footnotes),
         ] {
             if let Some(value) = value {
                 attr(&mut out, key, value);
@@ -237,7 +243,12 @@ pub(crate) fn styles_xml(doc: &LayoutDocument) -> String {
                 escape(base)
             ));
         }
-        out.push_str("</Properties></ObjectStyle>");
+        out.push_str("</Properties>");
+        out.push_str(&crate::footnote_codec::write_frame(
+            &style.footnotes,
+            warnings,
+        ));
+        out.push_str("</ObjectStyle>");
     }
     out.push_str("</RootObjectStyleGroup>");
     out

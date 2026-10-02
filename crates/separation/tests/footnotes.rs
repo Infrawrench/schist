@@ -6,41 +6,56 @@ fn footnotes_match_independent_frames_and_rules_in_every_plate_at_multiple_resol
     schist_text_engine::add_font_data(
         include_bytes!("../../../web/fonts/IBMPlexSans-Regular.ttf").to_vec(),
     );
-    let actual = proof::document(false);
-    let expected = proof::document(true);
-    for dpi in [72.0, 144.0, 216.0] {
-        for page in 0..actual.pages.len() {
-            let settings = schist_separation::OutputSettings::at(dpi);
-            let a =
-                schist_separation::separate_page_without_graphics(&actual, page, settings).unwrap();
-            let b = schist_separation::separate_page_without_graphics(&expected, page, settings)
-                .unwrap();
-            assert!(
-                !a.report
-                    .findings
-                    .iter()
-                    .any(|f| f.severity == schist_separation::Severity::Error),
-                "{:?}",
-                a.report
-            );
-            assert_eq!(a.separation.plates().len(), b.separation.plates().len());
-            for (index, (plate, other)) in a
-                .separation
-                .plates()
-                .iter()
-                .zip(b.separation.plates())
-                .enumerate()
+    for columns in [1, 2, 3] {
+        let mut actual = proof::document(false);
+        actual.footnotes.straddle = Some(false);
+        for object in &mut actual.objects {
+            if let schist_layout::LayoutObject::TextFrame {
+                columns: count,
+                gutter,
+                ..
+            } = &mut object.object
             {
-                let first = plate
-                    .data
-                    .iter()
-                    .zip(&other.data)
-                    .enumerate()
-                    .find(|(_, (a, b))| a != b);
+                *count = columns;
+                *gutter = 5.0;
+            }
+        }
+        let expected = proof::document(true);
+        for dpi in [72.0, 144.0, 216.0] {
+            for page in 0..actual.pages.len() {
+                let settings = schist_separation::OutputSettings::at(dpi);
+                let a = schist_separation::separate_page_without_graphics(&actual, page, settings)
+                    .unwrap();
+                let b =
+                    schist_separation::separate_page_without_graphics(&expected, page, settings)
+                        .unwrap();
                 assert!(
-                    first.is_none(),
-                    "page={page}, dpi={dpi}, plate={index}, difference={first:?}"
+                    !a.report
+                        .findings
+                        .iter()
+                        .any(|f| f.severity == schist_separation::Severity::Error),
+                    "{:?}",
+                    a.report
                 );
+                assert_eq!(a.separation.plates().len(), b.separation.plates().len());
+                for (index, (plate, other)) in a
+                    .separation
+                    .plates()
+                    .iter()
+                    .zip(b.separation.plates())
+                    .enumerate()
+                {
+                    let first = plate
+                        .data
+                        .iter()
+                        .zip(&other.data)
+                        .enumerate()
+                        .find(|(_, (a, b))| a != b);
+                    assert!(
+                    first.is_none(),
+                    "columns={columns}, page={page}, dpi={dpi}, plate={index}, difference={first:?}"
+                );
+                }
             }
         }
     }

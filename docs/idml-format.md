@@ -1792,3 +1792,25 @@ valid local note lists, unsupported tabs and unsupported cross-story note lists.
 The independent rotated-rule proof caught a separate edge blur: separator vector
 geometry now receives the frame affine before antialiasing, just like ordinary
 shapes, instead of resampling an already rasterized line.
+
+### Frame footnote policies and column areas
+
+Public PSU academic/literary packages contain TextFrameFootnoteOptionsObject on
+the Document and on ObjectStyle definitions. Their native properties are
+EnableOverrides, SpanFootnotesAcross, MinimumSpacingOption and
+SpaceBetweenFootnotes. Object styles gate this category with
+EnableTextFrameFootnoteOptions. Disabled overrides still retain their spacing
+and spanning choices; an explicit false is different from an inherited value.
+The model preserves document creation defaults separately, copies them into new
+rectangular frames, and retains local/style settings through snapshots, duplicate,
+style detach and native saves. The [public span-footnote help](https://helpx.adobe.com/indesign/desktop/indexes-and-references/footnotes-and-endnotes/span-footnotes.html)
+describes per-frame enable-overrides and spanning controls independently of the
+document footnote policy. No proprietary header or executable was used.
+
+With spanning explicitly disabled, whole notes use the column containing their
+reference. Balancing trials shorten only the body region; a bottom-aligned note
+still belongs at the actual column bottom. End-of-story placement follows the
+body text when requested. LTR/RTL column order and forced column breaks share the
+ordinary story flow. Spanning, splitting and layout-dependent restarts remain
+explicit unsupported policies. Pixel/plate reference proofs validate Schist's
+internal placement and paints; full native application agreement is still pending.

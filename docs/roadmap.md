@@ -310,6 +310,36 @@ are marked.
 
 ## Handoff
 
+Frame footnote policies and column flow, 2026-10-02:
+Whole-note checkpoint `bb793232` is pushed in draft PR #195. This follow-up
+models local frame footnote overrides, their object-style category and inheritance,
+and document defaults copied into newly created rectangular frames. Native
+TextFrameFootnoteOptionsObject values retain explicit false and dormant spacing.
+Applying/removing a style, duplicating a frame and settings edits keep the correct
+policy and undo behavior. Existing frames are not rewritten when creation defaults
+change. The public academic/literary files provide native document/style records;
+active frame policy is covered with explicit native XML and repeated saves.
+
+Whole notes now compose in multiple columns when spanning is explicitly disabled.
+Reading direction and forced column breaks select the owning column. Balancing
+limits main text height while bottom-aligned notes stay at the physical column
+bottom. Spanning areas, split notes and layout-dependent restarts remain pending.
+Property tests cover note/reference ownership, source preservation, no overlap,
+column order and physical bottom placement. Independent plate comparisons now
+exercise one, two and three columns at three resolutions and with rotation.
+All 16 make targets pass with **1,788 distinct Rust tests**, plus four browser
+and eight Python checks. Workspace clippy, formatting, application checks and the
+native debug build pass; logs are under `/tmp/schist-frame-notes-sweep-*`. The
+isolated feature-enabled QA bundle matches the built binary before signing and
+passes signature verification. Native visual inspection of the new two-column
+fixture is pending: the app runs, but computer-use reports `cgWindowNotFound`
+and exposes no windows. The earlier single-column native check remains valid
+for that checkpoint only. The first property-test failure was a fixture error: a tall single-column fallback cannot consume multiple
+forced column breaks. It now provides real fallback columns instead of weakening
+the source-flow rule. External native rendering agreement remains unverified.
+Next: preserve the native optional Balance Columns policy; current composition
+still balances every final multi-column region automatically.
+
 Whole-note composition, 2026-10-02:
 Commit `6c762cfd` is pushed in draft PR #195. All five CI jobs
 passed, including Windows, before this follow-up checkpoint.

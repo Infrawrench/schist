@@ -1,4 +1,4 @@
-//! Whole text-only notes in horizontal single-column threads. The shrinking
+//! Whole text-only notes in horizontal column areas. The shrinking
 //! body ceiling makes reference eviction monotonic, avoiding fit/evict loops.
 use super::*;
 use crate::{
@@ -51,7 +51,9 @@ pub(super) fn supported(
             .filter_map(|s| s.footnote.as_ref())
             .all(|n| horizontal(&n.story))
         && frames.iter().all(|(id, _, _, count, _, _)| {
-            *count <= 1
+            let options = crate::footnotes::frame_options(doc, *id);
+            (*count <= 1 || options.straddle == Some(false))
+                && options.valid()
                 && doc
                     .object(*id)
                     .or_else(|| {
@@ -112,7 +114,12 @@ pub(super) fn capture(
     });
 }
 
-fn measure_note(source: &FlowSource<'_>, note: &PreparedNote, column: Rect) -> Option<NoteArea> {
+fn measure_note(
+    source: &FlowSource<'_>,
+    note: &PreparedNote,
+    column: Rect,
+    options: &crate::footnotes::FootnoteOptions,
+) -> Option<NoteArea> {
     let mut scratch = LayoutDocument::new(Vec::new());
     scratch.styles = source.doc.styles.clone();
     scratch
@@ -136,7 +143,6 @@ fn measure_note(source: &FlowSource<'_>, note: &PreparedNote, column: Rect) -> O
         return None;
     }
     let first = frame.lines.first()?;
-    let options = &source.doc.footnotes;
     let offset = match options.first_baseline {
         None | Some(FootnoteFirstBaseline::Leading) => first.advance,
         _ => first.baseline,
@@ -200,25 +206,41 @@ fn reference_line<'a>(lines: &'a [ComposedLine], note: &PreparedNote) -> Option<
         .find(|l| l.start <= note.reference.start && note.reference.start < l.end)
 }
 
+#[derive(Default)]
+pub(super) struct FillPolicy {
+    pub whole_paragraphs: bool,
+    /// Balancing limits body flow without moving bottom-aligned note areas.
+    pub body_height: Option<Pt>,
+}
+
 pub(super) fn fill(
     source: &FlowSource<'_>,
     start: usize,
     end: usize,
     column: Rect,
     grid: Option<BaselineGrid>,
+    options: &crate::footnotes::FootnoteOptions,
+    policy: FillPolicy,
 ) -> (Vec<ComposedLine>, usize, Vec<NoteArea>) {
+    let body_fill =
+        |bounds| fill_column_with_rules(source, start, end, bounds, grid, policy.whole_paragraphs);
+    let mut ceiling = policy
+        .body_height
+        .unwrap_or(column.height)
+        .min(column.height);
     let Some(prepared) = source.notes else {
-        let (lines, next) = fill_column_gridded(source, start, end, column, grid);
+        let (lines, next) = body_fill(Rect {
+            height: ceiling,
+            ..column
+        });
         return (lines, next, Vec::new());
     };
-    let options = &source.doc.footnotes;
-    let mut ceiling = column.height;
     for _ in 0..prepared.notes.len() + 2 {
         let room = Rect {
             height: ceiling,
             ..column
         };
-        let (lines, next) = fill_column_gridded(source, start, end, room, grid);
+        let (lines, next) = body_fill(room);
         let refs = references(prepared, start, next);
         if refs.is_empty() {
             return (lines, next, Vec::new());
@@ -228,7 +250,7 @@ pub(super) fn fill(
         for note in &refs {
             let area = reference_line(&lines, note)
                 .filter(|l| note.reference.end <= l.end)
-                .and_then(|_| measure_note(source, note, column));
+                .and_then(|_| measure_note(source, note, column, options));
             if let Some(area) = area {
                 areas.push(area);
             } else {
@@ -248,16 +270,10 @@ pub(super) fn fill(
             areas.iter().map(|a| a.bounds.height).sum::<f32>() + between * (areas.len() - 1) as f32;
         let gap = options.spacer.unwrap_or(0.0);
         let body_height = ceiling.min((column.height - height - gap).max(0.0));
-        let (body, consumed) = fill_column_gridded(
-            source,
-            start,
-            end,
-            Rect {
-                height: body_height,
-                ..column
-            },
-            grid,
-        );
+        let (body, consumed) = body_fill(Rect {
+            height: body_height,
+            ..column
+        });
         let kept = references(prepared, start, consumed);
         if kept.len() != refs.len()
             || refs

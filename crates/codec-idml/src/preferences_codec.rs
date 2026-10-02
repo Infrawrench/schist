@@ -99,6 +99,7 @@ pub fn read(
         part: opened.root.clone(),
         message,
     })?;
+    document.frame_footnote_defaults = crate::footnote_codec::read_frame(&root, report);
     // Match the same valid pages and XML reading order as read_spreads. Spread
     // slots may be sorted physically (including RTL); Section.PageStart is an
     // object reference, never a display label or a position in designmap.xml.

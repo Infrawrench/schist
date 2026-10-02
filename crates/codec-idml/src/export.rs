@@ -18,9 +18,9 @@
 //! ## What is not written
 //!
 //! Styles' definitions include only the properties this document model carries.
-//! Opaque tables, footnotes and anchored objects survive in guarded standard
-//! Story Labels, not as active native structures. Supported text paths are
-//! written natively. Unsupported output and Schist-only retention are disclosed
+//! Unsupported tables, footnotes and anchored objects survive in guarded standard
+//! Story Labels. Supported text-only footnotes and text paths are written
+//! natively. Unsupported output and Schist-only retention are disclosed
 //! in [`Written::warnings`]; retaining data does not establish native rendering.
 
 use schist_layout::{
@@ -193,6 +193,10 @@ pub fn write(document: &LayoutDocument) -> Written {
         r#"<Document xmlns:idPkg="{NS_PACKAGING}" DOMVersion="{DOM_VERSION}" Self="d" Name="Schist" ZeroPoint="0 0">"#
     ));
     root.push_str(&crate::language_codec::resources(&languages.resources));
+    root.push_str(&crate::footnote_codec::write_frame(
+        &document.frame_footnote_defaults,
+        &mut out.warnings,
+    ));
     root.push_str(&crate::list_codec::resources(
         &document.styles.numbering_lists,
     ));
@@ -488,6 +492,7 @@ fn object_native_xml(
     match &object.object {
         LayoutObject::TextFrame {
             story,
+            footnotes,
             text_path,
             columns,
             gutter,
@@ -548,6 +553,7 @@ fn object_native_xml(
                 inset_list(insets)
             ));
             out.push_str("</TextFramePreference>");
+            out.push_str(&crate::footnote_codec::write_frame(footnotes, warnings));
             out.push_str(&crate::color_codec::transparency(object.transparency));
             out.push_str("</TextFrame>");
             out
@@ -1024,7 +1030,7 @@ fn styles_xml(
         warnings.push(schist_i18n::t("design.idml_style_limits").to_string());
     }
     out.push_str("</RootCharacterStyleGroup>");
-    out.push_str(&crate::object_style_codec::styles_xml(document));
+    out.push_str(&crate::object_style_codec::styles_xml(document, warnings));
     out.push_str("</idPkg:Styles>");
     out
 }

@@ -164,6 +164,11 @@ pub enum LayoutObject {
     /// A box of flowing text, or one bounded baseline when `text_path` is set.
     TextFrame {
         story: StoryId,
+        #[serde(
+            default,
+            skip_serializing_if = "crate::footnotes::FrameFootnotes::is_empty"
+        )]
+        footnotes: crate::footnotes::FrameFootnotes,
         /// A single path container shares the story/thread model with boxes.
         /// Columns, gutters and insets apply only to rectangular frames.
         #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -407,6 +412,12 @@ pub struct LayoutDocument {
         skip_serializing_if = "crate::footnotes::FootnoteOptions::is_empty"
     )]
     pub footnotes: crate::footnotes::FootnoteOptions,
+    /// Initial local options copied into newly authored rectangular text frames.
+    #[serde(
+        default,
+        skip_serializing_if = "crate::footnotes::FrameFootnotes::is_empty"
+    )]
+    pub frame_footnote_defaults: crate::footnotes::FrameFootnotes,
     /// Explicit text flow order, independent of page and layer stacking.
     /// Missing entries use object insertion order for older documents.
     #[serde(default)]
@@ -586,6 +597,7 @@ impl LayoutDocument {
             creation_order: Vec::new(),
             stories: Vec::new(),
             footnotes: Default::default(),
+            frame_footnote_defaults: Default::default(),
             thread_order: Vec::new(),
             assets: Default::default(),
             styles: StyleSet::with_defaults(),
@@ -1115,6 +1127,7 @@ mod tests {
             page,
             bounds: rect,
             object: LayoutObject::TextFrame {
+                footnotes: Default::default(),
                 text_path: None,
                 story: StoryId(0),
                 columns: 1,
@@ -1184,6 +1197,7 @@ mod tests {
     #[test]
     fn text_frame_insets_shrink_only_the_content_area() {
         let frame = LayoutObject::TextFrame {
+            footnotes: Default::default(),
             text_path: None,
             story: StoryId(0),
             columns: 1,

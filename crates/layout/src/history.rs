@@ -242,6 +242,8 @@ pub struct InkSnapshot {
 pub struct SettingsSnapshot {
     #[serde(default)]
     pub footnotes: crate::footnotes::FootnoteOptions,
+    #[serde(default)]
+    pub frame_footnote_defaults: crate::footnotes::FrameFootnotes,
     pub facing_pages: bool,
     #[serde(default)]
     pub page_binding: crate::PageBinding,

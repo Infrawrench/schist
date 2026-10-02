@@ -79,6 +79,41 @@ fn boolean(element: &Element, key: &str, report: &mut Report) -> Option<bool> {
         }
     }
 }
+
+pub(crate) fn read_frame(parent: &Element, report: &mut Report) -> FrameFootnotes {
+    let Some(element) = parent.child("TextFrameFootnoteOptionsObject") else {
+        return FrameFootnotes::default();
+    };
+    FrameFootnotes {
+        enabled: boolean(element, "EnableOverrides", report),
+        straddle: boolean(element, "SpanFootnotesAcross", report),
+        spacer: measure(element, "MinimumSpacingOption", 0.0, 864.0, report),
+        space_between: measure(element, "SpaceBetweenFootnotes", 0.0, 864.0, report),
+    }
+}
+
+pub(crate) fn write_frame(options: &FrameFootnotes, warnings: &mut Vec<String>) -> String {
+    if options.is_empty() {
+        return String::new();
+    }
+    let mut out = String::from("<TextFrameFootnoteOptionsObject");
+    for (key, value) in [
+        ("EnableOverrides", options.enabled),
+        ("SpanFootnotesAcross", options.straddle),
+    ] {
+        if let Some(value) = value {
+            attr(&mut out, key, value);
+        }
+    }
+    for (key, value) in [
+        ("MinimumSpacingOption", options.spacer),
+        ("SpaceBetweenFootnotes", options.space_between),
+    ] {
+        write_measure(&mut out, key, value, 0.0..=864.0, warnings);
+    }
+    out.push_str("/>");
+    out
+}
 fn text(element: &Element, key: &str, report: &mut Report) -> Option<String> {
     let raw = element.attr(key)?;
     if valid_text(raw) {

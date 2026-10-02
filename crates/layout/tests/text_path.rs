@@ -345,6 +345,7 @@ fn path_alignment_is_applied_once_and_legacy_boxes_remain_boxes() {
         }
     }
     let mut json = serde_json::to_value(LayoutObject::TextFrame {
+        footnotes: Default::default(),
         story: schist_layout::StoryId(0),
         text_path: None,
         columns: 1,

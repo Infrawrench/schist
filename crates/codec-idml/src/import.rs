@@ -502,6 +502,7 @@ fn placed_object(
             };
             LayoutObject::TextFrame {
                 text_path: baseline,
+                footnotes: crate::footnote_codec::read_frame(element, report),
                 story: StoryId(story as u32),
                 columns: element
                     .find("TextFramePreference")

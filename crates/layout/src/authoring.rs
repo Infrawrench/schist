@@ -60,6 +60,7 @@ pub fn text_frame(
         page,
         bounds,
         object: LayoutObject::TextFrame {
+            footnotes: document.frame_footnote_defaults.clone(),
             text_path: None,
             story,
             columns: 1,
@@ -481,6 +482,7 @@ pub fn duplicate(
     let object = match &original.object {
         LayoutObject::TextFrame {
             story,
+            footnotes,
             text_path,
             columns,
             gutter,
@@ -494,6 +496,7 @@ pub fn duplicate(
                 story: snapshot_story(&copy),
             });
             LayoutObject::TextFrame {
+                footnotes: footnotes.clone(),
                 text_path: text_path.clone(),
                 story: new_story,
                 columns: *columns,

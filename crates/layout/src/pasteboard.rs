@@ -1270,6 +1270,7 @@ mod tests {
             page: 0,
             bounds: Rect::new(mm(20.0), mm(20.0), mm(60.0), mm(60.0)),
             object: LayoutObject::TextFrame {
+                footnotes: Default::default(),
                 text_path: None,
                 story,
                 columns: 1,
@@ -1315,6 +1316,7 @@ mod tests {
             page: 0,
             bounds: Rect::new(mm(20.0), mm(20.0), mm(60.0), mm(30.0)),
             object: LayoutObject::TextFrame {
+                footnotes: Default::default(),
                 text_path: None,
                 story,
                 columns: 1,
@@ -1500,6 +1502,7 @@ mod tests {
             page: 0,
             bounds: Rect::new(0.0, 0.0, mm(50.0), mm(10.0)),
             object: LayoutObject::TextFrame {
+                footnotes: Default::default(),
                 text_path: None,
                 story: StoryId(0),
                 columns: 1,
@@ -1528,6 +1531,7 @@ mod tests {
                     page: 0,
                     bounds: Rect::new(0.0, 0.0, mm(170.0), mm(15.0)),
                     object: LayoutObject::TextFrame {
+                        footnotes: Default::default(),
                         text_path: None,
                         story: StoryId(0),
                         columns: 1,

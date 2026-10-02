@@ -158,6 +158,7 @@ fn a_saved_document_keeps_its_pages_and_its_frames() {
         page: 0,
         bounds: schist_layout::Rect::new(10.0, 20.0, 300.0, 40.0),
         object: schist_layout::LayoutObject::TextFrame {
+            footnotes: Default::default(),
             text_path: None,
             story: schist_layout::StoryId(0),
             columns: 1,

@@ -86,6 +86,7 @@ pub fn attach(
     changed.appearance.paint = original.appearance.paint.over(&original.legacy_paint());
     changed.appearance.outline = None;
     changed.object = crate::LayoutObject::TextFrame {
+        footnotes: Default::default(),
         story,
         text_path: Some(path),
         columns: 1,

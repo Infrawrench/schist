@@ -831,6 +831,7 @@ fn compose_thread_plain(
             continue;
         }
         let mut available = bounds.inset(insets.resolve());
+        let note_options = crate::footnotes::frame_options(doc, *object);
         let mut lines = Vec::new();
         let mut footnotes = Vec::new();
         let mut pending_keep = None;
@@ -878,12 +879,13 @@ fn compose_thread_plain(
             }
             // Balance the last region only when all remaining text fits.
             if columns.len() > 1 && section_end == total && break_index == breaks.len() {
-                let (mut balanced, consumed) =
-                    balance_columns(&source, cursor, total, &columns, grid);
+                let (mut balanced, consumed, balanced_notes) =
+                    balance_columns(&source, cursor, total, &columns, grid, &note_options);
                 if consumed >= total {
                     cursor = consumed;
                     axes.place_lines(&mut balanced);
                     lines.extend(balanced);
+                    footnotes.extend(balanced_notes);
                     break;
                 }
             }
@@ -899,8 +901,15 @@ fn compose_thread_plain(
                     .unwrap_or(section_end)
                     .min(section_end);
                 if cursor < stop {
-                    let (part, consumed, note_areas) =
-                        footnote_flow::fill(&source, cursor, stop, *column, grid);
+                    let (part, consumed, note_areas) = footnote_flow::fill(
+                        &source,
+                        cursor,
+                        stop,
+                        *column,
+                        grid,
+                        &note_options,
+                        footnote_flow::FillPolicy::default(),
+                    );
                     placed.extend(part);
                     footnotes.extend(note_areas);
                     let previous = cursor;
@@ -1314,24 +1323,35 @@ fn balance_columns(
     end: usize,
     columns: &[Rect],
     grid: Option<BaselineGrid>,
-) -> (Vec<ComposedLine>, usize) {
+    options: &crate::footnotes::FootnoteOptions,
+) -> (
+    Vec<ComposedLine>,
+    usize,
+    Vec<crate::footnote_composition::NoteArea>,
+) {
     let story = source.story;
     let Some(first) = columns.first() else {
-        return (Vec::new(), start);
+        return (Vec::new(), start, Vec::new());
     };
     let fill = |height: f32| {
         let mut out = Vec::new();
+        let mut notes = Vec::new();
         let mut cursor = start;
         for column in columns {
-            let (lines, next) = fill_column_with_rules(
+            let (lines, next, areas) = footnote_flow::fill(
                 source,
                 cursor,
                 end,
-                Rect::new(column.x, column.y, column.width, height),
+                *column,
                 grid,
-                true,
+                options,
+                footnote_flow::FillPolicy {
+                    whole_paragraphs: true,
+                    body_height: Some(height),
+                },
             );
             out.extend(lines);
+            notes.extend(areas);
             cursor = next;
             if cursor + 1 == end && story.slice(cursor, end) == "\n" {
                 cursor = end;
@@ -1340,12 +1360,12 @@ fn balance_columns(
                 break;
             }
         }
-        (out, cursor)
+        (out, cursor, notes)
     };
     let mut high = first.height;
     let mut best = fill(high);
     if best.1 < end {
-        return (Vec::new(), start);
+        return (Vec::new(), start, Vec::new());
     }
     let mut low = 0.0;
     // Bounded work and sub-point precision; retain a proven fitting layout.
@@ -1427,16 +1447,6 @@ fn break_line(
 /// line without adding a line. A line index cannot express "this starts
 /// 18pt lower because the paragraph above it has space after it", and
 /// every one of those features needs to.
-fn fill_column_gridded(
-    source: &FlowSource<'_>,
-    start: usize,
-    end: usize,
-    column: Rect,
-    grid: Option<BaselineGrid>,
-) -> (Vec<ComposedLine>, usize) {
-    fill_column_with_rules(source, start, end, column, grid, false)
-}
-
 fn fill_column_with_rules(
     source: &FlowSource<'_>,
     start: usize,

@@ -861,3 +861,91 @@ fn invalid_preference_values_are_rejected_independently_at_both_codec_boundaries
         .footnotes
         .is_empty());
 }
+
+#[test]
+fn native_frame_and_object_style_footnote_overrides_survive_repeated_saves() {
+    use schist_layout::{authoring, History, LayoutObject, ObjectStyle, Rect};
+    for enabled in [false, true] {
+        let mut doc = blank_a4();
+        authoring::text_frame(
+            &mut doc,
+            &mut History::default(),
+            0,
+            Rect::new(20.0, 20.0, 180.0, 200.0),
+        )
+        .unwrap();
+        doc.frame_footnote_defaults = FrameFootnotes {
+            enabled: Some(false),
+            straddle: Some(true),
+            spacer: Some(12.0),
+            space_between: Some(6.0),
+        };
+        let defaults = doc.frame_footnote_defaults.clone();
+        let native = export::write(&doc).bytes;
+        let native = rewrite(&native, |name, xml| {
+            if name.starts_with("Spreads/") {
+                xml.replace("</TextFramePreference>", &format!(
+                    "</TextFramePreference><TextFrameFootnoteOptionsObject EnableOverrides=\"{enabled}\" SpanFootnotesAcross=\"false\" MinimumSpacingOption=\"17.25\" SpaceBetweenFootnotes=\"8.5\"/>"
+                ))
+            } else {
+                xml
+            }
+        });
+        doc = import::read(&native).unwrap().document;
+        let expected = FrameFootnotes {
+            enabled: Some(enabled),
+            straddle: Some(false),
+            spacer: Some(17.25),
+            space_between: Some(8.5),
+        };
+        doc.styles.objects.push(ObjectStyle {
+            name: "Note frame / 空".into(),
+            enable_footnotes: Some(true),
+            footnotes: FrameFootnotes {
+                enabled: Some(true),
+                straddle: Some(true),
+                spacer: Some(27.0),
+                space_between: Some(11.0),
+            },
+            ..Default::default()
+        });
+        doc.objects[0].appearance.style = Some("Note frame / 空".into());
+        let styles = doc.styles.objects.clone();
+        for _ in 0..3 {
+            let LayoutObject::TextFrame { footnotes, .. } = &doc.objects[0].object else {
+                panic!()
+            };
+            assert_eq!(footnotes, &expected);
+            assert_eq!(doc.styles.frame_footnotes(&doc.objects[0]), expected);
+            assert_eq!(doc.styles.objects, styles);
+            assert_eq!(doc.frame_footnote_defaults, defaults);
+            let written = export::write(&doc);
+            let package = container::read(&written.bytes).unwrap();
+            let spread = package
+                .names()
+                .into_iter()
+                .find(|n| n.starts_with("Spreads/"))
+                .unwrap();
+            let spread = xml::parse(package.text(spread).unwrap()).unwrap();
+            let prefs = spread.find("TextFrameFootnoteOptionsObject").unwrap();
+            assert_eq!(
+                prefs.attr("EnableOverrides"),
+                Some(if enabled { "true" } else { "false" })
+            );
+            assert_eq!(prefs.number("MinimumSpacingOption"), Some(17.25));
+            assert_eq!(prefs.number("SpaceBetweenFootnotes"), Some(8.5));
+            doc = import::read(&written.bytes).unwrap().document;
+        }
+        // New-model snapshots remain compatible with frames saved before this field existed.
+        let mut value = serde_json::to_value(&doc.objects[0].object).unwrap();
+        value["TextFrame"]
+            .as_object_mut()
+            .unwrap()
+            .remove("footnotes");
+        let old: LayoutObject = serde_json::from_value(value).unwrap();
+        let LayoutObject::TextFrame { footnotes, .. } = old else {
+            panic!()
+        };
+        assert!(footnotes.is_empty());
+    }
+}

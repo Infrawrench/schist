@@ -220,6 +220,121 @@ impl FootnoteOptions {
     }
 }
 
+/// Native text-frame overrides. Absent fields inherit an object style; disabled
+/// overrides retain their values but use the document's footnote area settings.
+#[derive(Debug, Clone, Default, PartialEq, Serialize, Deserialize)]
+#[serde(default)]
+pub struct FrameFootnotes {
+    pub enabled: Option<bool>,
+    pub straddle: Option<bool>,
+    pub spacer: Option<f32>,
+    pub space_between: Option<f32>,
+}
+
+impl FrameFootnotes {
+    pub fn is_empty(&self) -> bool {
+        self == &Self::default()
+    }
+
+    pub fn valid(&self) -> bool {
+        finite_range(self.spacer, 0.0, 864.0) && finite_range(self.space_between, 0.0, 864.0)
+    }
+
+    pub fn over(&self, base: &Self) -> Self {
+        Self {
+            enabled: self.enabled.or(base.enabled),
+            straddle: self.straddle.or(base.straddle),
+            spacer: self.spacer.or(base.spacer),
+            space_between: self.space_between.or(base.space_between),
+        }
+    }
+
+    pub fn apply(&self, options: &mut FootnoteOptions) {
+        if self.enabled == Some(true) {
+            options.straddle = self.straddle.or(options.straddle);
+            options.spacer = self.spacer.or(options.spacer);
+            options.space_between = self.space_between.or(options.space_between);
+        }
+    }
+}
+
+pub(crate) fn frame_options(doc: &LayoutDocument, id: crate::ObjectId) -> FootnoteOptions {
+    let object = doc.object(id).or_else(|| {
+        doc.parents
+            .iter()
+            .flat_map(|p| &p.objects)
+            .find(|p| p.object.id == id)
+            .map(|p| &p.object)
+    });
+    let mut options = doc.footnotes.clone();
+    if let Some(object) = object {
+        doc.styles.frame_footnotes(object).apply(&mut options);
+    }
+    options
+}
+
+/// Change creation defaults without rewriting existing frames or styles.
+pub fn set_frame_defaults(
+    doc: &mut LayoutDocument,
+    history: &mut History,
+    options: FrameFootnotes,
+) -> bool {
+    if !options.valid() || doc.frame_footnote_defaults == options {
+        return false;
+    }
+    let before = crate::snapshot_settings(doc);
+    let mut after = before.clone();
+    after.frame_footnote_defaults = options;
+    history.apply(
+        doc,
+        LayoutEdit::DocumentChanged {
+            before: Box::new(before),
+            after: Box::new(after),
+        },
+    )
+}
+
+/// One selection-wide commit is one undo step. A missing, locked or non-box
+/// target rejects the whole edit; disabled override values remain editable.
+pub fn set_frame_options(
+    doc: &mut LayoutDocument,
+    history: &mut History,
+    ids: &[crate::ObjectId],
+    options: FrameFootnotes,
+) -> bool {
+    if !options.valid() {
+        return false;
+    }
+    let mut seen = std::collections::BTreeSet::new();
+    let mut edits = Vec::new();
+    for id in ids {
+        if !seen.insert(*id) {
+            continue;
+        }
+        let Some(object) = doc.object(*id).filter(|_| !doc.object_locked(*id)) else {
+            return false;
+        };
+        let mut after = object.clone();
+        let crate::LayoutObject::TextFrame {
+            footnotes,
+            text_path: None,
+            ..
+        } = &mut after.object
+        else {
+            return false;
+        };
+        *footnotes = options.clone();
+        if after != *object {
+            edits.push(LayoutEdit::ObjectChanged {
+                id: id.0,
+                before: crate::snapshot_object(object),
+                after: crate::snapshot_object(&after),
+            });
+        }
+    }
+    !edits.is_empty() && history.apply(doc, LayoutEdit::Batch { edits })
+}
+
 fn finite_range(value: Option<f32>, min: f32, max: f32) -> bool {
     value.is_none_or(|v| v.is_finite() && (min..=max).contains(&v))
 }
