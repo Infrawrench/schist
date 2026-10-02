@@ -13,7 +13,6 @@
 use std::sync::Arc;
 
 use gpui::{rgb, Background, Bounds, Corners, PathBuilder, Pixels, Point as GpuiPoint, Window};
-use image::Frame;
 use schist_layout::affine::{self, Affine};
 use schist_layout::pasteboard::{Display, Guide, GuideKind, PagePlan, Pasteboard};
 use schist_layout::{Point, Pt, Rect};
@@ -490,7 +489,7 @@ fn paint_shape(
             if let Some(image) =
                 image::RgbaImage::from_raw(rect.width() as u32, rect.height() as u32, pixels)
             {
-                let image = Arc::new(gpui::RenderImage::new(vec![Frame::new(image)]));
+                let image = super::graphics::render_image(image);
                 let target = Bounds::new(
                     gpoint(&bounds, Point::new(rect.left as f32, rect.top as f32)),
                     gpui::size(px(rect.width() as f32), px(rect.height() as f32)),
@@ -702,7 +701,12 @@ fn paint_marks(window: &mut Window, bounds: Bounds<Pixels>, trim: &Rect) {
                 Point::new(corner.x, corner.y + direction * (gap + length))
             };
             let mut builder = PathBuilder::stroke(px(HAIRLINE));
-            builder.move_to(gpoint(&bounds, corner));
+            let start = if horizontal {
+                Point::new(corner.x + direction * gap, corner.y)
+            } else {
+                Point::new(corner.x, corner.y + direction * gap)
+            };
+            builder.move_to(gpoint(&bounds, start));
             builder.line_to(gpoint(&bounds, end));
             if let Ok(path) = builder.build() {
                 window.paint_path(path, rgb(TEXT));
@@ -868,9 +872,7 @@ fn blit_transformed(
     let _ = window.paint_image(
         target,
         Corners::default(),
-        Arc::new(gpui::RenderImage::new(smallvec::smallvec![Frame::new(
-            image
-        )])),
+        super::graphics::render_image(image),
         0,
         false,
     );
@@ -938,7 +940,7 @@ fn paint_warped_image(
         ),
         gpui::size(px(warp.rect.width() as f32), px(warp.rect.height() as f32)),
     );
-    let image = Arc::new(gpui::RenderImage::new(vec![Frame::new(out)]));
+    let image = super::graphics::render_image(out);
     let _ = window.paint_image(target, Corners::default(), image, 0, false);
 }
 

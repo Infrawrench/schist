@@ -310,6 +310,33 @@ are marked.
 
 ## Handoff
 
+Design preview corrections, 2026-10-02:
+The native academic PDF comparison exposed red/blue reversal in Design preview.
+The pinned GPUI RenderImage contract requires BGRA; Design supplied RGBA for
+text rasters, shape fills and placed/warped images. A single upload helper now
+converts owned preview pixels at that boundary, leaving source RGBA and native
+CMYK used by transforms and separation intact. Opacity variants use the same
+helper. A regression covers every alpha value, channel order, source immutability
+and the bounded opacity cache.
+
+The compact Layers tree now gives unnamed native `$ID/` objects bounded Unicode
+text excerpts or localized kind labels, including parent objects and drag previews.
+Saved names remain unchanged. Canvas crop marks now begin after the documented gap.
+All 16 make targets pass with **1,760 distinct Rust tests** (layout 384, text
+engine 115, editor 419, IDML 253, separation 188), four browser and eight Python
+audit checks. Workspace clippy, app/browser/headless compilation, PDF proofs,
+formatting and whitespace pass. Evidence is `/tmp/schist-design-preview-sweep-*`.
+The native debug build passes; its log is `/tmp/schist-design-preview-app-build.log`.
+The isolated Roadmap QA bundle was refreshed, hash checked and signature verified,
+retaining the Design flag and separate config/state directories. It launched to
+the gallery and opened the native file picker. Final color/label inspection is
+pending: automation then returned `cgWindowNotFound` for both QA and Finder.
+The QA process remains idle; no new Schist crash report was present. Diagnostic:
+`/tmp/schist-final-preview-window-sample.txt`. The installed app was untouched. The preceding typed-body work
+is committed as `a4b7e462`; these follow-ups are included in draft PR #195.
+Footnote marker composition, note-area reservation,
+overflow/splitting and broader native rendering agreement remain open.
+
 Typed footnote bodies, 2026-10-02:
 `c131cf14` was pushed to draft PR #195 with preferences and canvas reuse. The
 next item 9 step now lowers text-only native notes to independent typed stories

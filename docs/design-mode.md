@@ -966,3 +966,9 @@ keep downward flow. Other centered/right paragraph-alignment cases, justified
 non-leading stops, vertical path tabs and tabs inside an enlarged initial remain diagnosed. Those initials use ordinary
 source flow rather than scaling an unsupported tab gap. Their native
 records are retained. Native application rendering agreement is not established.
+
+
+Design preview uploads use GPUI's BGRA byte order for text, fills and artwork.
+Decoded RGBA and native CMYK remain the print/transform sources. The Layers tree
+uses text excerpts or translated object kinds for unnamed native objects; these
+are display labels and do not rename the IDML objects.
