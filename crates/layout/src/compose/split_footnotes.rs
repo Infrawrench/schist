@@ -21,7 +21,8 @@ pub(super) struct Frame<'a> {
     pub area: Rect,
     pub columns: &'a [Rect],
     pub end: usize,
-    pub breaks: &'a [(&'a Point, usize)],
+    pub breaks: &'a [(break_flow::Event, usize)],
+    pub location: break_flow::Location,
     pub grid: Option<BaselineGrid>,
     pub options: &'a FootnoteOptions,
     pub spanning: bool,
@@ -72,7 +73,7 @@ impl<'a> Flow<'a> {
             } else {
                 frame.columns.to_vec()
             };
-            for area in areas {
+            for (area_index, area) in areas.into_iter().enumerate() {
                 let columns = if frame.spanning {
                     frame.columns
                 } else {
@@ -86,6 +87,10 @@ impl<'a> Flow<'a> {
                         frame.end,
                         columns,
                         frame.breaks,
+                        break_flow::Location {
+                            column: area_index,
+                            ..frame.location
+                        },
                         |from, to, column| {
                             let (lines, next) = fill_column_with_rules(
                                 source,

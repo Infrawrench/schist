@@ -522,3 +522,11 @@ design.keep_inherit = Inherit keep options
 design.keep_first = First lines
 design.keep_last = Last lines
 design.keep_next = Next lines
+
+design.keep_start = Start paragraph
+design.start_anywhere = Anywhere
+design.start_column = Next column
+design.start_frame = Next frame
+design.start_page = Next page
+design.start_odd = Next odd page
+design.start_even = Next even page

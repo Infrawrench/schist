@@ -33,6 +33,7 @@ use crate::story::{Point, Story};
 use crate::styles::{
     Align, ParagraphDirection, ResolvedCharacter, ResolvedParagraph, StyleSet, WritingMode,
 };
+mod break_flow;
 mod footnote_flow;
 mod keep_flow;
 mod split_footnotes;
@@ -651,6 +652,7 @@ struct FlowSource<'a> {
 struct FlowCursor {
     offset: usize,
     break_index: usize,
+    last: Option<break_flow::Location>,
 }
 
 struct ColumnFlow {
@@ -668,7 +670,8 @@ fn fill_columns(
     start: FlowCursor,
     end: usize,
     columns: &[Rect],
-    breaks: &[(&Point, usize)],
+    breaks: &[(break_flow::Event, usize)],
+    location: break_flow::Location,
     mut fill: impl FnMut(
         usize,
         usize,
@@ -686,15 +689,41 @@ fn fill_columns(
         stop_frame: false,
         stop_page: false,
     };
-    for column in columns {
-        if out.next.offset >= end {
-            break;
-        }
-        let stop = breaks
-            .get(out.next.break_index)
-            .map_or(end, |(_, at)| *at)
-            .min(end);
-        if out.next.offset < stop {
+    for (column_index, column) in columns.iter().enumerate() {
+        let here = break_flow::Location {
+            column: location.column + column_index,
+            ..location
+        };
+        loop {
+            if out.next.offset >= end {
+                return out;
+            }
+            if let Some((event, _)) = breaks
+                .get(out.next.break_index)
+                .filter(|(_, at)| *at == out.next.offset)
+            {
+                let advance = event.advance(out.next.last, here);
+                if event.explicit() {
+                    // A leading explicit break also leaves the initial
+                    // container, even before the first source character.
+                    out.next.last.get_or_insert(here);
+                }
+                if event.explicit() || advance.is_none() {
+                    out.next.break_index += 1;
+                }
+                if let Some(boundary) = advance {
+                    out.stop_page = boundary == break_flow::Boundary::Page;
+                    out.stop_frame = boundary != break_flow::Boundary::Column;
+                    break;
+                }
+                // A satisfied paragraph constraint consumes no space. Its
+                // first line still belongs at the top of this very column.
+                continue;
+            }
+            let stop = breaks
+                .get(out.next.break_index)
+                .map_or(end, |(_, at)| *at)
+                .min(end);
             let (part, consumed, notes) = fill(out.next.offset, stop, *column);
             out.lines.extend(part);
             out.footnotes.extend(notes);
@@ -704,19 +733,15 @@ fn fill_columns(
                 out.next.offset = stop;
             }
             if out.next.offset <= previous {
+                return out;
+            }
+            out.next.last = Some(here);
+            if out.next.offset < stop {
                 break;
             }
         }
-        if let Some((kind, _)) = breaks
-            .get(out.next.break_index)
-            .filter(|(_, at)| *at == out.next.offset)
-        {
-            out.next.break_index += 1;
-            out.stop_page = matches!(kind, Point::PageBreak);
-            out.stop_frame = out.stop_page || matches!(kind, Point::FrameBreak);
-            if out.stop_frame {
-                break;
-            }
+        if out.stop_frame {
+            break;
         }
     }
     out
@@ -809,12 +834,19 @@ fn compose_thread_plain(
         .filter(|_| doc.footnotes.no_splitting != Some(true))
         .map(|notes| split_footnotes::Flow::new(doc, notes));
     let text_end = story.text_len();
-    // An automatic marker is printable content even when its paragraph has no
-    // source bytes. Ordinary untouched blank stories retain an insertion point
-    // without reporting overset text.
+    // Markers and constrained blank paragraphs still need a destination even
+    // without source bytes. Ordinary untouched blank stories retain an
+    // insertion point without reporting overset text.
     let has_content = text_end > 0
         || story.points.iter().any(|point| match point {
-            Point::Paragraph { style, .. } => doc.styles.resolve_paragraph(style).list.active(),
+            Point::Paragraph { style, .. } => {
+                let style = doc.styles.resolve_paragraph(style);
+                style.list.active()
+                    || !matches!(
+                        style.start_paragraph,
+                        None | Some(crate::styles::ParagraphStart::Anywhere)
+                    )
+            }
             _ => false,
         });
     // A terminal empty paragraph has no source bytes, but still owns a line.
@@ -826,19 +858,9 @@ fn compose_thread_plain(
     let mut cursor = 0usize;
     // Breaks have zero width in Story's text coordinate system. Track the
     // event index separately so a break never consumes the next character.
-    let offsets = story.point_offsets();
-    let breaks: Vec<_> = story
-        .points
-        .iter()
-        .zip(offsets)
-        .filter(|(point, _)| {
-            matches!(
-                point,
-                Point::ColumnBreak | Point::FrameBreak | Point::PageBreak
-            )
-        })
-        .collect();
+    let breaks = break_flow::events(doc, story);
     let mut break_index = 0;
+    let mut last_location = None;
     let mut skip_page = None;
 
     for (index, (object, bounds, overflow, column_count, gutter, insets)) in
@@ -859,6 +881,12 @@ fn compose_thread_plain(
             })
             .unwrap_or((0, 0));
         let page = parent_page.unwrap_or(page_key.1);
+        let location = break_flow::Location {
+            frame: index,
+            column: 0,
+            page: page_key,
+            number: doc.page_number_value(page),
+        };
         let grid = BaselineGrid::for_frame(doc, *object, page);
         if skip_page == Some(page_key) {
             out.frames.push(ComposedFrame {
@@ -896,15 +924,29 @@ fn compose_thread_plain(
                 _ => None,
             });
         if let Some(path) = text_path {
-            let stop = breaks.get(break_index).map_or(total, |(_, at)| *at);
-            let (lines, next) = compose_path(story, cursor, stop, *bounds, path, doc);
-            cursor = next;
-            if let Some((kind, _)) = breaks.get(break_index).filter(|(_, at)| *at == cursor) {
-                break_index += 1;
-                if matches!(kind, Point::PageBreak) {
-                    skip_page = Some(page_key);
-                }
+            let flow = fill_columns(
+                story,
+                FlowCursor {
+                    offset: cursor,
+                    break_index,
+                    last: last_location,
+                },
+                total,
+                std::slice::from_ref(bounds),
+                &breaks,
+                location,
+                |from, to, _| {
+                    let (lines, next) = compose_path(story, from, to, *bounds, path, doc);
+                    (lines, next, Vec::new())
+                },
+            );
+            cursor = flow.next.offset;
+            break_index = flow.next.break_index;
+            last_location = flow.next.last;
+            if flow.stop_page {
+                skip_page = Some(page_key);
             }
+            let lines = flow.lines;
             let overflowed = has_content && cursor < total
                 || split_notes
                     .as_ref()
@@ -972,6 +1014,15 @@ fn compose_thread_plain(
             if story.prefs.direction == crate::StoryDirection::RightToLeft {
                 columns.reverse();
             }
+            // A newly reached frame can already satisfy its opening start
+            // constraint. Resolve it before deciding whether the remaining
+            // text can balance; the policy must not disable final balancing.
+            while let Some((event, _)) = breaks.get(break_index).filter(|(_, at)| *at == cursor) {
+                if event.explicit() || event.advance(last_location, location).is_some() {
+                    break;
+                }
+                break_index += 1;
+            }
             let spanning =
                 source.notes.is_some() && columns.len() > 1 && note_options.straddle == Some(true);
             // Only enabled frames balance, and only when all remaining text fits.
@@ -994,6 +1045,7 @@ fn compose_thread_plain(
             let start = FlowCursor {
                 offset: cursor,
                 break_index,
+                last: last_location,
             };
             let flow = if let Some(notes) = &mut split_notes {
                 notes.fill_frame(
@@ -1004,6 +1056,7 @@ fn compose_thread_plain(
                         columns: &columns,
                         end: section_end,
                         breaks: &breaks,
+                        location,
                         grid,
                         options: &note_options,
                         spanning,
@@ -1024,6 +1077,7 @@ fn compose_thread_plain(
                             section_end,
                             &columns,
                             &breaks,
+                            location,
                             |from, to, column| {
                                 let (lines, next) = fill_column_with_rules(
                                     &source,
@@ -1044,6 +1098,7 @@ fn compose_thread_plain(
                     section_end,
                     &columns,
                     &breaks,
+                    location,
                     |from, to, column| {
                         footnote_flow::fill(
                             &source,
@@ -1059,6 +1114,7 @@ fn compose_thread_plain(
             };
             cursor = flow.next.offset;
             break_index = flow.next.break_index;
+            last_location = flow.next.last;
             if flow.stop_page {
                 skip_page = Some(page_key);
             }

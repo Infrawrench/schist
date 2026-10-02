@@ -39,7 +39,18 @@ pub(super) fn supported(
             .structures
             .iter()
             .filter_map(|s| s.footnote.as_ref())
-            .all(|n| horizontal(&n.story))
+            .all(|n| {
+                horizontal(&n.story)
+                    && n.story.points.iter().all(|point| match point {
+                        // Note areas do not yet route paragraph-start constraints;
+                        // retain and report these notes like explicit note breaks.
+                        Point::Paragraph { style, .. } => matches!(
+                            doc.styles.resolve_paragraph(style).start_paragraph,
+                            None | Some(crate::styles::ParagraphStart::Anywhere)
+                        ),
+                        _ => true,
+                    })
+            })
         && frames.iter().all(|(id, _, _, count, _, _)| {
             let options = crate::footnotes::frame_options(doc, *id);
             (*count <= 1 || options.straddle.is_some())

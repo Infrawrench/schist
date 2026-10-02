@@ -251,3 +251,55 @@ fn unfinished_note_after_main_eof_is_overset_in_both_preflight_paths() {
             .any(|finding| finding.severity == Severity::Error && finding.message == expected));
     }
 }
+
+#[test]
+fn note_body_start_constraints_remain_retained_and_preflighted() {
+    use schist_layout::styles::ParagraphStart;
+    use schist_separation::{
+        separate_page, separate_page_built, NaiveBuild, NoGraphics, OutputSettings, Severity,
+    };
+    for policy in [
+        ParagraphStart::Anywhere,
+        ParagraphStart::NextColumn,
+        ParagraphStart::NextFrame,
+        ParagraphStart::NextPage,
+        ParagraphStart::NextOddPage,
+        ParagraphStart::NextEvenPage,
+    ] {
+        for splitting in [false, true] {
+            let mut doc = proof::document(false);
+            doc.footnotes.no_splitting = Some(!splitting);
+            doc.styles
+                .paragraphs
+                .iter_mut()
+                .find(|s| s.name == "Note")
+                .unwrap()
+                .start_paragraph = Some(policy);
+            let original = doc.clone();
+            let frame = schist_layout::compose::compose_object(&doc, &doc.objects[0]).unwrap();
+            let unsupported = policy != ParagraphStart::Anywhere;
+            assert_eq!(frame.unrendered_structures, usize::from(unsupported));
+            assert_eq!(frame.footnotes.is_empty(), unsupported);
+            let expected = schist_i18n::tf!(
+                "design.preflight_story_structure",
+                name = doc.objects[0].name,
+                count = 1
+            );
+            for result in [
+                separate_page(&doc, 0, OutputSettings::at(72.0), &NoGraphics),
+                separate_page_built(&doc, 0, OutputSettings::at(72.0), &NoGraphics, &NaiveBuild),
+            ] {
+                assert_eq!(
+                    result
+                        .unwrap()
+                        .report
+                        .findings
+                        .iter()
+                        .any(|f| f.severity == Severity::Error && f.message == expected),
+                    unsupported
+                );
+            }
+            assert_eq!(doc, original);
+        }
+    }
+}

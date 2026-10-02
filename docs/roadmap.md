@@ -311,6 +311,50 @@ are marked.
 ## Handoff
 
 
+Native paragraph starts, 2026-10-03:
+Item 9 now retains all six native StartParagraph choices through inheritance,
+local overrides and repeated IDML saves. The compact Keep options group exposes
+one destination picker; captured edits preserve unrelated keep policies and undo
+once. Its inherit action clears starts and keeps together. Seven short keys are
+present in all 150 existing locale catalogs.
+
+Composition separates zero-width start constraints from unconditional breaks.
+Already-reached boundaries do not add blank containers. Odd/even choices follow
+numbering sections and skip all frames on unsuitable pages. Empty constrained
+paragraphs still seek their destination, unavailable destinations retain overset
+text, and a satisfied start does not disable final column balancing. Main starts
+retain whole/split footnotes, including continuation after main-story EOF; path
+threads and mixed writing modes use the same boundary state. Note-body starts
+remain retained and preflighted as unsupported. Explicit Br odd/even variants
+are still a separate diagnosed gap.
+
+The initial regression failed before native start retention and flow existed.
+Boundary tests subsequently found empty paragraphs stopping too early and an
+unconsumed, satisfied constraint disabling balancing; both were corrected. One
+clipping assertion was wrong because unused tail frames remain addressable, so
+it now checks the actual clipping frame. Nine layout, four codec and five captured
+keep-control properties pass, as do focused lints and locale checks. Separation
+checks cover note-body diagnostics and independently positioned text controls.
+All plates agree exactly at 72/144/216 dpi. All 24 PDF pages pass Poppler sample
+and rendered-pair equality and visual inspection. This validates shared-renderer
+integration, not external native application agreement. All 16 roadmap targets pass, with **1,849 distinct passing Rust tests**
+(layout 431, IDML 275, separation 196, editor 426, five shared UI checks included;
+one existing UI documentation example ignored). Workspace clippy, native/browser/
+headless checks, four browser tests, eight Python audits, localization, formatting
+and whitespace pass. The full-sweep PDF is byte-identical to the visually reviewed
+artifact. The development build passes in 2m 49s. Its isolated Design-enabled bundle was
+hash checked and signature verified, but CUA still returns cgWindowNotFound.
+No document was opened, and only the newly launched QA process was terminated.
+Browser control review is pending. Five superseded development logs and the
+review PNGs were removed; baseline failures, full results and the reviewed PDF
+remain. Logs and QA records use `/tmp/schist-paragraph-starts-*`.
+
+The next related interchange gap is explicit odd/even page breaks. Their native
+attributes currently collapse to PageBreak with an explicit warning. Further
+structured stories, typography, object behavior and external application QA remain
+open. Production INDD stays Phase-0-gated and Design Mode disabled by default.
+
+
 Paragraph keep authoring, 2026-10-02:
 The Paragraph panel now exposes native keep policies in a collapsed Keep options
 section. Three compact icons toggle line keeps, all lines and keep-with-previous;
@@ -330,9 +374,13 @@ and eight Python audit checks. Localization, formatting and whitespace pass.
 The native development build passes in 2m 41s. Its isolated Design-enabled bundle
 was hash checked and signature verified, but CUA still returns cgWindowNotFound;
 no document was opened, and only the newly launched QA process was terminated.
-Browser QA is available on an isolated localhost origin using the PR's CI artifact;
-review of these controls is pending this commit's artifact. Logs, counts and QA
-records use `/tmp/schist-keep-controls-*`. No new composition or codec behavior
+Browser QA passes against commit `751d6640`'s CI artifact on an isolated localhost
+origin with Design enabled. The group starts collapsed; toggles show conditional
+fields, counts commit correctly and survive dormant states, and one undo restores
+all reset policies. Invalid next-line input preserves both the prior value and
+redo. The panel has no clipping at the tested 1690×897 viewport. This verifies the
+actual browser build, not native window access. Logs, counts and QA records use
+`/tmp/schist-keep-controls-*`. No new composition or codec behavior
 is claimed by this authoring checkpoint.
 
 Native split-note default, 2026-10-02:

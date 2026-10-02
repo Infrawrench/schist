@@ -1,6 +1,8 @@
 //! Captured paragraph keep edits, including older symmetric keep settings.
 use super::{DesignState, Target};
-use schist_layout::{paragraph_keeps::ParagraphKeeps, properties, ParagraphStyle};
+use schist_layout::{
+    paragraph_keeps::ParagraphKeeps, properties, styles::ParagraphStart, ParagraphStyle,
+};
 
 pub fn local(style: &ParagraphStyle) -> ParagraphKeeps {
     style.keeps.over(&ParagraphKeeps::from_legacy(
@@ -9,10 +11,10 @@ pub fn local(style: &ParagraphStyle) -> ParagraphKeeps {
     ))
 }
 
-fn edit(
+fn edit_style(
     state: &mut DesignState,
     target: &Target,
-    change: impl FnOnce(&mut ParagraphKeeps),
+    change: impl FnOnce(&mut ParagraphStyle),
 ) -> bool {
     let Target::Paragraph(name) = target else {
         return false;
@@ -21,6 +23,16 @@ fn edit(
         let Some(style) = styles.paragraphs.iter_mut().find(|s| s.name == *name) else {
             return;
         };
+        change(style);
+    })
+}
+
+fn edit(
+    state: &mut DesignState,
+    target: &Target,
+    change: impl FnOnce(&mut ParagraphKeeps),
+) -> bool {
+    edit_style(state, target, |style| {
         let before = local(style);
         let mut after = before.clone();
         change(&mut after);
@@ -51,7 +63,16 @@ pub fn set_flag(state: &mut DesignState, target: &Target, flag: Flag, value: Opt
 }
 
 pub fn inherit(state: &mut DesignState, target: &Target) -> bool {
-    edit(state, target, |keeps| *keeps = ParagraphKeeps::default())
+    edit_style(state, target, |style| {
+        style.keeps = ParagraphKeeps::default();
+        style.keep_lines = None;
+        style.keep_with_next = None;
+        style.start_paragraph = None;
+    })
+}
+
+pub fn set_start(state: &mut DesignState, target: &Target, value: Option<ParagraphStart>) -> bool {
+    edit_style(state, target, |style| style.start_paragraph = value)
 }
 
 pub(super) fn commit(state: &mut DesignState, target: &Target, id: &str, text: &str) -> bool {
@@ -82,12 +103,13 @@ pub(super) fn commit(state: &mut DesignState, target: &Target, id: &str, text: &
 #[cfg(test)]
 mod tests {
     use super::super::{commit, DesignState, Target};
-    use schist_layout::{paragraph_keeps::ParagraphKeeps, ParagraphStyle};
+    use schist_layout::{paragraph_keeps::ParagraphKeeps, styles::ParagraphStart, ParagraphStyle};
 
     fn state(legacy: bool) -> DesignState {
         let mut state = DesignState::new();
         state.document.styles.add_paragraph(ParagraphStyle {
             name: "Keep base".into(),
+            start_paragraph: Some(ParagraphStart::NextPage),
             keeps: ParagraphKeeps {
                 enabled: Some(true),
                 all: Some(false),
@@ -101,6 +123,7 @@ mod tests {
         state.document.styles.add_paragraph(ParagraphStyle {
             name: "Keep target".into(),
             based_on: Some("Keep base".into()),
+            start_paragraph: Some(ParagraphStart::NextColumn),
             keep_lines: legacy.then_some(2),
             keep_with_next: legacy.then_some(true),
             keeps: if legacy {
@@ -263,6 +286,14 @@ mod tests {
             assert_eq!(style.keeps, ParagraphKeeps::default());
             assert_eq!(style.keep_lines, None);
             assert_eq!(style.keep_with_next, None);
+            assert_eq!(style.start_paragraph, None);
+            assert_eq!(
+                edited
+                    .styles
+                    .resolve_paragraph("Keep target")
+                    .start_paragraph,
+                Some(ParagraphStart::NextPage)
+            );
             assert_eq!(
                 edited.styles.paragraph("Keep base"),
                 original.styles.paragraph("Keep base")
@@ -277,6 +308,44 @@ mod tests {
             assert_eq!(state.document, original);
             assert!(state.history.redo(&mut state.document));
             assert_eq!(state.document, edited);
+        }
+    }
+
+    #[test]
+    fn start_edits_capture_the_style_without_rewriting_legacy_keeps() {
+        for legacy in [false, true] {
+            for value in [
+                None,
+                Some(ParagraphStart::Anywhere),
+                Some(ParagraphStart::NextColumn),
+                Some(ParagraphStart::NextFrame),
+                Some(ParagraphStart::NextPage),
+                Some(ParagraphStart::NextOddPage),
+                Some(ParagraphStart::NextEvenPage),
+            ] {
+                let mut state = state(legacy);
+                let original = state.document.clone();
+                let mut expected = original.clone();
+                expected
+                    .styles
+                    .paragraphs
+                    .iter_mut()
+                    .find(|s| s.name == "Keep target")
+                    .unwrap()
+                    .start_paragraph = value;
+                let changed = expected != original;
+                let target = Target::Paragraph("Keep target".into());
+                assert_eq!(super::set_start(&mut state, &target, value), changed);
+                assert_eq!(state.document, expected);
+                assert_eq!(state.history.undo_depth(), usize::from(changed));
+                assert!(!super::set_start(&mut state, &target, value));
+                if changed {
+                    assert!(state.history.undo(&mut state.document));
+                    assert_eq!(state.document, original);
+                    assert!(state.history.redo(&mut state.document));
+                    assert_eq!(state.document, expected);
+                }
+            }
         }
     }
 }

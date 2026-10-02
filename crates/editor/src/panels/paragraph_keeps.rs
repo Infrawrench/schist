@@ -11,6 +11,7 @@ pub(super) fn rows(
         return Vec::new();
     };
     let local = keeps::local(style);
+    let start = style.start_paragraph;
     let resolved = ws.design.document.styles.resolve_paragraph(name).keeps;
     let enabled = resolved.enabled == Some(true);
     let mut actions = div().flex().items_center().gap_1();
@@ -63,7 +64,7 @@ pub(super) fn rows(
     actions = actions.child(div().flex_1()).child(
         IconButton::new("design-keep-inherit", "undo")
             .tooltip(t("design.keep_inherit"), None)
-            .disabled(local == Default::default())
+            .disabled(local == Default::default() && start.is_none())
             .on_click(cx.listener(move |ws, _, _, cx| {
                 ws.commit_focused_field();
                 keeps::inherit(&mut ws.design, &target);
@@ -94,5 +95,40 @@ pub(super) fn rows(
         Target::Paragraph(name.to_owned()),
         cx,
     ));
+    use schist_layout::styles::ParagraphStart;
+    let choices = [
+        (None, "design.inherited"),
+        (Some(ParagraphStart::Anywhere), "design.start_anywhere"),
+        (Some(ParagraphStart::NextColumn), "design.start_column"),
+        (Some(ParagraphStart::NextFrame), "design.start_frame"),
+        (Some(ParagraphStart::NextPage), "design.start_page"),
+        (Some(ParagraphStart::NextOddPage), "design.start_odd"),
+        (Some(ParagraphStart::NextEvenPage), "design.start_even"),
+    ];
+    let current = choices
+        .iter()
+        .position(|(value, _)| *value == start)
+        .unwrap_or(0);
+    let target = Target::Paragraph(name.to_owned());
+    rows.push(
+        div()
+            .flex()
+            .flex_col()
+            .gap_1()
+            .child(div().text_xs().child(t("design.keep_start")))
+            .child(super::object_styles::picker(
+                ws,
+                "design-keep-start",
+                choices.iter().map(|(_, label)| t(label).into()).collect(),
+                current,
+                move |ws, index, _| {
+                    if let Some((value, _)) = choices.get(index) {
+                        keeps::set_start(&mut ws.design, &target, *value);
+                    }
+                },
+                cx,
+            ))
+            .into_any_element(),
+    );
     rows
 }

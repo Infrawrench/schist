@@ -155,6 +155,16 @@ pub(crate) fn paragraph_properties(
         keep_with_next,
         keep_lines,
         keeps,
+        start_paragraph: element.attr("StartParagraph").and_then(|value| {
+            schist_layout::styles::ParagraphStart::from_native(value).or_else(|| {
+                report.skip(schist_i18n::tf!(
+                    "design.idml_text_preference_invalid",
+                    property = "StartParagraph",
+                    value = value
+                ));
+                None
+            })
+        }),
         drop_caps_lines: element.number("DropCapLines").map(|v| v.max(0.0) as usize),
         drop_caps_characters: element
             .number("DropCapCharacters")
@@ -744,6 +754,11 @@ pub fn paragraph_resolved(style: &ParagraphStyle, resolved: (bool, bool)) -> Str
         }),
     );
     crate::keep_codec::attributes(&mut out, &crate::keep_codec::native(style));
+    optional(
+        &mut out,
+        "StartParagraph",
+        style.start_paragraph.map(|value| value.native_name()),
+    );
     optional(&mut out, "DropCapLines", style.drop_caps_lines);
     optional(&mut out, "DropCapCharacters", style.drop_caps_characters);
     optional(

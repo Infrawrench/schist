@@ -1912,8 +1912,8 @@ smallest complete suffix allowed by that paragraph's own widow/whole policy;
 heading chains propagate backwards. Explicit column/frame/page breaks take
 precedence. The pass also covers orientation changes and preserves opening
 initials with their inset body lines. Full native application placement agreement,
-including short following paragraphs, remains unverified. StartParagraph's native
-start-location choices are a separate unsupported attribute.
+including short following paragraphs, remains unverified. Native paragraph-start
+constraints take precedence over bindings to adjacent paragraphs.
 
 Older Schist keep_lines/keep_with_next fields remain readable and resolve into
 the typed policy. A Schist.ParagraphKeeps.v1 label retains their exact authored
@@ -1927,3 +1927,46 @@ Regression coverage checks every available split, independent inheritance and
 explicit resets, disabled/whole/asymmetric policies, next-line counts and previous
 bindings, chains in balanced LTR/RTL columns, mixed orientations, forced breaks,
 opening initials, repeated native saves and stale-label invalidation.
+
+
+### Native paragraph starts
+
+ParagraphStyle and local ParagraphStyleRange StartParagraph retain Anywhere,
+NextColumn, NextFrame, NextPage, NextOddPage and NextEvenPage. Absence inherits;
+explicit Anywhere resets the inherited constraint. Unknown native values are
+reported rather than coerced. Local overrides are interned without growing the
+style table through repeated saves. Existing Schist snapshots deserialize the
+new optional property as absent.
+
+The [public StartParagraph DOM](https://developer.adobe.com/indesign/uxp/dom/api/s/start-paragraph/)
+describes the six destinations. Composition treats them as zero-width constraints,
+separate from unconditional StoryPoint breaks. A prior explicit break or natural
+flow can already satisfy the destination. The initial paragraph accepts its first
+container except when its numbered page has the wrong parity. Odd/even choices
+use section numbering, including restarts, and skip every remaining frame on an
+unsuitable page. This initial-container interpretation and precise placement have
+not been checked against an external native application; the public corpus only
+contains explicit Anywhere values.
+
+Empty paragraphs still seek their required destination; unavailable destinations
+leave source text overset. Satisfied constraints do not disable column balancing.
+Logical column order follows the story direction. Path threads and mixed writing
+regions use the same boundary state. Main-story constraints also retain whole and
+continued footnotes, with trial cursors isolated during fitting. Note-body start
+constraints remain retained and preflighted as unsupported structured content;
+they are not silently treated as Anywhere. Explicit native Br odd/even variants
+remain a separate diagnosed limitation.
+
+Paragraph exposes the choices in its collapsed Keep options group. Edits capture
+the named style, preserve unrelated native/legacy keep settings and undo once.
+The group inherit action clears both starts and keeps together. Seven short keys
+are present in every existing locale catalog. Tests cover inheritance/local resets,
+malformed native values, source-safe destinations, section parity, empty/overset
+paragraphs, explicit breaks, balancing, path text, notes and exact undo/redo.
+
+An independent output proof enumerates ordinary text-frame destinations for all
+six policies, one/two columns, both story directions and numbering starting at
+one/two. Process and spot plates match exactly at 72/144/216 dpi. The 24-page PDF
+matches its controls in both Poppler image samples and rendered pages, and every
+page has been visually inspected. This does not establish native application
+agreement. The proof runs as part of `make check-design-output`.

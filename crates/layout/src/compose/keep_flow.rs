@@ -35,7 +35,14 @@ pub(super) fn enforce(
             continue;
         }
         let previous = source.doc.styles.resolve_paragraph(&before.style).keeps;
-        let following = source.doc.styles.resolve_paragraph(&after.style).keeps;
+        let after_style = source.doc.styles.resolve_paragraph(&after.style);
+        if !matches!(
+            after_style.start_paragraph,
+            None | Some(crate::styles::ParagraphStart::Anywhere)
+        ) {
+            continue;
+        }
+        let following = after_style.keeps;
         let required = previous
             .next
             .unwrap_or(0)

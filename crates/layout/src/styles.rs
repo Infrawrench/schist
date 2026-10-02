@@ -109,6 +109,43 @@ pub enum Bullet {
     },
 }
 
+/// Where a paragraph may begin in its text thread. IDML StartParagraph values
+/// are independent of line keeps and do not insert characters into the story.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
+pub enum ParagraphStart {
+    Anywhere,
+    NextColumn,
+    NextFrame,
+    NextPage,
+    NextOddPage,
+    NextEvenPage,
+}
+
+impl ParagraphStart {
+    pub fn native_name(self) -> &'static str {
+        match self {
+            Self::Anywhere => "Anywhere",
+            Self::NextColumn => "NextColumn",
+            Self::NextFrame => "NextFrame",
+            Self::NextPage => "NextPage",
+            Self::NextOddPage => "NextOddPage",
+            Self::NextEvenPage => "NextEvenPage",
+        }
+    }
+
+    pub fn from_native(value: &str) -> Option<Self> {
+        Some(match value {
+            "Anywhere" => Self::Anywhere,
+            "NextColumn" => Self::NextColumn,
+            "NextFrame" => Self::NextFrame,
+            "NextPage" => Self::NextPage,
+            "NextOddPage" => Self::NextOddPage,
+            "NextEvenPage" => Self::NextEvenPage,
+            _ => return None,
+        })
+    }
+}
+
 /// Base direction of a paragraph.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Default, Serialize, Deserialize)]
 pub enum ParagraphDirection {
@@ -360,6 +397,9 @@ pub struct ParagraphStyle {
     /// Native keep options override the legacy toggle and symmetric count.
     #[serde(default)]
     pub keeps: crate::paragraph_keeps::ParagraphKeeps,
+    /// Required container boundary for this paragraph's first line. None
+    /// inherits, while Anywhere explicitly removes a base style's constraint.
+    pub start_paragraph: Option<ParagraphStart>,
     /// Number of body lines spanned by opening characters; zero or one disables it.
     pub drop_caps_lines: Option<usize>,
     /// Opening graphemes to enlarge. Unset means one; zero disables drop caps.
@@ -669,6 +709,7 @@ pub struct ResolvedParagraph {
     pub keep_with_next: Option<bool>,
     pub keep_lines: Option<usize>,
     pub keeps: crate::paragraph_keeps::ParagraphKeeps,
+    pub start_paragraph: Option<ParagraphStart>,
     pub drop_caps_lines: Option<usize>,
     pub drop_caps_characters: Option<usize>,
     pub bullet: Option<Bullet>,
@@ -801,6 +842,7 @@ impl ResolvedParagraph {
                     style.keep_lines,
                 ),
             ));
+            out.start_paragraph = out.start_paragraph.or(style.start_paragraph);
             out.drop_caps_lines = out.drop_caps_lines.or(style.drop_caps_lines);
             out.drop_caps_characters = out.drop_caps_characters.or(style.drop_caps_characters);
             out.bullet = out.bullet.or(style.bullet);
