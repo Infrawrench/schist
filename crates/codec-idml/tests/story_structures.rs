@@ -107,7 +107,7 @@ fn published_tables_footnotes_and_inline_math_survive_repeated_saves_as_inert_da
     let expected: Vec<_> = doc
         .stories
         .iter()
-        .filter(|s| s.unrendered_structures() > 0)
+        .filter(|s| s.retained_structures() > 0)
         .cloned()
         .collect();
     let structures: Vec<_> = expected.iter().flat_map(|s| &s.structures).collect();
@@ -142,7 +142,7 @@ fn published_tables_footnotes_and_inline_math_survive_repeated_saves_as_inert_da
         assert_eq!(
             doc.stories
                 .iter()
-                .filter(|s| s.unrendered_structures() > 0)
+                .filter(|s| s.retained_structures() > 0)
                 .cloned()
                 .collect::<Vec<_>>(),
             expected

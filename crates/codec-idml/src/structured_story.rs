@@ -29,7 +29,7 @@ pub(crate) fn retain(
     story: &Story,
     warnings: &mut Vec<String>,
 ) -> String {
-    if story.unrendered_structures() == 0 {
+    if story.retained_structures() == 0 {
         return native;
     }
     notice(warnings, "design.idml_story_structure");

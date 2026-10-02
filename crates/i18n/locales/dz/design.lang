@@ -253,7 +253,7 @@ design.imported_style = Imported style
 
 design.idml_local_styles = Local formatting becomes named styles
 
-design.idml_story_structure = Unrendered story structure retained in Schist
+design.idml_story_structure = Structured story content retained in Schist
 
 design.idml_structural_line_break = Standalone line break becomes empty paragraph
 
@@ -506,5 +506,5 @@ design.list_across_stories = Continue across stories
 
 design.idml_structure_location = Retained structure location unknown
 design.preflight_story_structure = {name}: {count} unrendered story structures
-design.story_structure_count = {count} unrendered structures retained
+design.story_structure_count = {count} structures retained outside this view
 design.idml_footnote_unsupported = Unresolved footnote setting {property}: {value}

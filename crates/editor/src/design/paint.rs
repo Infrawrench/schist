@@ -178,6 +178,7 @@ fn paint_object(window: &mut Window, frame: &PasteboardFrame, object: &Display) 
         }
         Display::Text {
             generated,
+            positions,
             object,
             story,
             start,
@@ -188,12 +189,17 @@ fn paint_object(window: &mut Window, frame: &PasteboardFrame, object: &Display) 
             ..
         } => {
             let typing = frame.typing.filter(|t| !*generated && t.story == *story);
+            let visual = |source: usize| {
+                positions
+                    .as_ref()
+                    .map_or(source.saturating_sub(*start), |p| p.visual(source))
+            };
             let origin = super::text::line_origin(spec, *rect);
             if let Some(typing) = typing {
                 let from = typing.anchor.min(typing.at).max(*start);
                 let to = typing.anchor.max(typing.at).min(*end);
                 if from < to {
-                    for rect in schist_text_engine::selection_rects(spec, from - start..to - start)
+                    for rect in schist_text_engine::selection_rects(spec, visual(from)..visual(to))
                     {
                         affine_fill(
                             window,
@@ -214,13 +220,14 @@ fn paint_object(window: &mut Window, frame: &PasteboardFrame, object: &Display) 
             if let Some(typing) = typing.filter(|t| {
                 !*generated && super::text::caret_line(&frame.plan, *t) == Some((*object, *start))
             }) {
-                let caret = schist_text_engine::caret_at(spec, typing.at.saturating_sub(*start))
-                    .unwrap_or(schist_text_engine::Caret {
+                let caret = schist_text_engine::caret_at(spec, visual(typing.at)).unwrap_or(
+                    schist_text_engine::Caret {
                         x: 0.0,
                         top: 0.0,
                         height: spec.size,
                         angle: 0.0,
-                    });
+                    },
+                );
                 let mut line = PathBuilder::stroke(px(1.0));
                 let a = Point::new(origin.x + caret.x, origin.y + caret.top);
                 line.move_to(gpoint(&frame.bounds, affine::point(*transform, a)));

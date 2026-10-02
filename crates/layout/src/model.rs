@@ -819,7 +819,10 @@ impl LayoutDocument {
                                 )
                             })
                         });
-                        if text_path.is_some() || has_lists {
+                        let has_notes = self
+                            .story(*story)
+                            .is_some_and(|s| s.structures.iter().any(|s| s.footnote.is_some()));
+                        if text_path.is_some() || has_lists || has_notes {
                             let path_padding = padding;
                             // A baseline has no ascent/descent box. Include the
                             // actually rotated glyph outlines before the object
@@ -828,8 +831,16 @@ impl LayoutDocument {
                                 crate::compose::compose_object(self, &object),
                                 self.story(*story),
                             ) {
-                                for line in &flow.lines {
-                                    if text_path.is_none() && line.generated.is_none() {
+                                for area in &flow.footnotes {
+                                    if let Some(rule) = &area.rule {
+                                        r = r.union(rule.bounds);
+                                    }
+                                }
+                                for line in flow.all_lines() {
+                                    if text_path.is_none()
+                                        && !line.is_generated()
+                                        && line.projected.is_none()
+                                    {
                                         continue;
                                     }
                                     let metrics = schist_text_engine::measure(

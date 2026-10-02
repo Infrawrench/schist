@@ -856,6 +856,48 @@ pub struct ResolvedCharacter {
 }
 
 impl ResolvedCharacter {
+    /// Materialize a resolved composition style in a temporary style set.
+    /// All paint and font properties remain typed, including spot ink identity.
+    pub fn into_style(self, name: impl Into<String>) -> CharacterStyle {
+        CharacterStyle {
+            name: name.into(),
+            based_on: None,
+            family: self.family,
+            font_style: self.font_style,
+            point_size: self.point_size,
+            leading: self.leading,
+            tracking: self.tracking,
+            kerning: self.kerning,
+            bold: self.bold,
+            italic: self.italic,
+            underline: self.underline,
+            strikethrough: self.strikethrough,
+            underline_style: self.underline_style,
+            strike_style: self.strike_style,
+            baseline_shift: self.baseline_shift,
+            position: self.position,
+            all_caps: self.all_caps,
+            small_caps: self.small_caps,
+            fill_tint: self.fill_tint,
+            stroke_tint: self.stroke_tint,
+            fill: self.fill,
+            stroke: self.stroke,
+            fill_disabled: self.fill_disabled,
+            stroke_disabled: self.stroke_disabled,
+            stroke_weight: self.stroke_weight,
+            stroke_outside: self.stroke_outside,
+            stroke_join: self.stroke_join,
+            stroke_miter_limit: self.stroke_miter_limit,
+            opacity: self.opacity,
+            overprint_fill: self.overprint_fill,
+            overprint_stroke: self.overprint_stroke,
+            optical_margin: self.optical_margin,
+            features: self.features,
+            directional_features: self.directional_features,
+            language: self.language,
+        }
+    }
+
     /// Merge all character properties with a lower-precedence resolved style.
     /// Used by generated markers: an explicit marker style overrides the first
     /// character, which in turn overrides the paragraph and document defaults.

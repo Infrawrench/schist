@@ -1072,6 +1072,51 @@ pub(crate) fn font_inventory(
         let r = document.styles.resolve_character(&style.name);
         add(r.family, r.font_style, r.bold, r.italic);
     }
+    for story in &document.stories {
+        for structure in &story.structures {
+            let Some(note) = &structure.footnote else {
+                continue;
+            };
+            if let Some(r) = structure.at.and_then(|at| {
+                schist_layout::footnote_composition::reference_character(
+                    document,
+                    story,
+                    at,
+                    &note.reference_character_style,
+                )
+            }) {
+                add(r.family, r.font_style, r.bold, r.italic);
+            }
+            for marker in &note.markers {
+                let Some(style) = note
+                    .story
+                    .points
+                    .iter()
+                    .zip(note.story.point_offsets())
+                    .find_map(|(point, start)| match point {
+                        schist_layout::StoryPoint::Paragraph { text, style }
+                            if start <= marker.at && marker.at <= start + text.len() =>
+                        {
+                            Some(style)
+                        }
+                        _ => None,
+                    })
+                else {
+                    continue;
+                };
+                let base = document.styles.resolve_paragraph(style).character(
+                    document
+                        .styles
+                        .resolve_character(&document.default_character_style),
+                );
+                let r = document
+                    .styles
+                    .resolve_character(&marker.character_style)
+                    .over(&base);
+                add(r.family, r.font_style, r.bold, r.italic);
+            }
+        }
+    }
     for story in document.stories.iter().flat_map(|story| {
         std::iter::once(story).chain(
             story

@@ -310,6 +310,53 @@ are marked.
 
 ## Handoff
 
+Whole-note composition, 2026-10-02:
+Commit `6c762cfd` is pushed in draft PR #195. All five CI jobs
+passed, including Windows, before this follow-up checkpoint.
+The next item 9 work composes continuous text-only footnotes in horizontal,
+single-column threads with explicit no-splitting enabled. Disposable inline
+projections give reference numbers real advances without adding source bytes.
+Canvas hits, caret placement and vertical navigation map back to original UTF-8
+positions. Note bodies keep independent styles, typed ink paints and markers;
+solid separator rules reach preview and print. A monotonically shrinking body
+ceiling keeps a reference with its whole note when a frame cannot fit both.
+Notes honor inter-note spacing, internal paragraph spacing, first-baseline
+leading/ascent and minimum offsets, plus end-of-story placement. Explicit marker
+character styles override the document positioning choice. Unknown coordinates,
+other numbering/restart policies, multiple columns, splitting, vertical/path
+text and unsupported rule/baseline policies still retain explicit diagnostics.
+Resource inventories include marker-only inherited font/face combinations.
+Projected paragraph text and list-counter outcomes also stay attached to their
+lines for preflight; unsupported note tabs and cross-story numbering cannot
+silently pass against the main paragraph. Valid local note lists still compose.
+Rotated separator rules transform their vectors before antialiasing, matching
+independently authored shape output exactly.
+
+The source structure count is now distinct from the composed frame's unsupported
+count. Story Editor explains retained content outside its text view; the IDML
+retention notice no longer calls every retained item unrendered. Both messages
+were updated in all 150 catalogs. All 16 make targets pass with **1,783 distinct
+Rust tests** (layout 395, text engine 115, editor 420, IDML 261, separation 191),
+four browser checks and eight Python audit checks. Workspace clippy and app,
+browser and headless checks pass, as do formatting and whitespace. The independent
+text/shape PDF proof passes both plate and Poppler pixel comparisons; upright and
+rotated proof pages were also visually inspected. Logs and counts are under
+`/tmp/schist-note-flow-sweep-*`. The native debug build passes
+(`/tmp/schist-note-flow-app-build.log`). The isolated Design-enabled QA bundle was
+refreshed, hash checked and signature verified. Native inspection at 189% confirms
+the academic page's superscript reference 4, separator and both note lines,
+including the source's literal 5. Subsequent coordinate actions intermittently
+returned `noWindowsAvailable` despite a live app and working AX/raised screenshots,
+so the extra native typing/undo check was not completed; the editor's source-hit
+and navigation property tests pass. The fixture remains unmodified. Design Mode
+remains disabled by default.
+
+Next footnote integration work: preserve/apply native per-frame footnote
+spacing and spanning overrides, then compose notes with column flow and
+balancing. The public PSU files contain TextFrameFootnoteOptionsObject records
+with EnableOverrides=false; active overrides are not yet modeled. The document
+preferences alone must not be presented as complete native frame-policy support.
+
 Native footnote export and hidden group artwork, 2026-10-02:
 Native-window access recovered on the previous build. The public academic IDML
 now visibly has the correct red title and concise Layers excerpts. Its black

@@ -33,10 +33,12 @@ use crate::story::{Point, Story};
 use crate::styles::{
     Align, ParagraphDirection, ResolvedCharacter, ResolvedParagraph, StyleSet, WritingMode,
 };
+mod footnote_flow;
 
 /// One laid-out line, positioned in page space.
 #[derive(Debug, Clone, PartialEq)]
 pub struct ComposedLine {
+    pub projected: Option<crate::inline_text::RenderedLine>,
     /// Generated list ink owns no story bytes and no editable caret positions.
     pub generated: Option<crate::list_composition::GeneratedText>,
     /// A baseline relative to `bounds.origin()`. Its offset already includes
@@ -95,6 +97,30 @@ pub struct ComposedLine {
     pub initial: Option<Initial>,
 }
 
+impl ComposedLine {
+    pub fn is_generated(&self) -> bool {
+        self.generated.is_some()
+            || self
+                .projected
+                .as_ref()
+                .is_some_and(|p| p.positions.is_none())
+    }
+
+    pub fn source_byte(&self, visual: usize) -> usize {
+        self.projected
+            .as_ref()
+            .and_then(|p| p.positions.as_ref())
+            .map_or(self.start + visual, |p| p.source(visual))
+    }
+
+    pub fn visual_byte(&self, source: usize) -> usize {
+        self.projected
+            .as_ref()
+            .and_then(|p| p.positions.as_ref())
+            .map_or(source.saturating_sub(self.start), |p| p.visual(source))
+    }
+}
+
 /// A shaped opening initial and its actual page-local glyph extent.
 #[derive(Debug, Clone, Copy, PartialEq)]
 pub struct Initial {
@@ -107,6 +133,9 @@ pub struct Initial {
 pub struct ComposedFrame {
     pub object: ObjectId,
     pub lines: Vec<ComposedLine>,
+    pub footnotes: Vec<crate::footnote_composition::NoteArea>,
+    /// Retained source structures unsupported by this composition path.
+    pub unrendered_structures: usize,
     /// Glyph extent of the first opening initial in this frame. Every initial
     /// is also retained on its own line, including later paragraphs.
     pub drop_cap: Option<Rect>,
@@ -122,6 +151,14 @@ pub struct ComposedFrame {
     /// [`ComposedFrame::passed_on`]: a long article threaded across
     /// three frames overflows twice and loses nothing.
     pub lost: bool,
+}
+
+impl ComposedFrame {
+    pub fn all_lines(&self) -> impl Iterator<Item = &ComposedLine> {
+        self.lines
+            .iter()
+            .chain(self.footnotes.iter().flat_map(|n| &n.lines))
+    }
 }
 
 /// A thread of frames holding one story.
@@ -604,6 +641,7 @@ struct FlowSource<'a> {
     doc: &'a LayoutDocument,
     story: &'a Story,
     markers: crate::list_composition::MarkerPlans,
+    notes: Option<&'a crate::footnote_composition::PreparedStory>,
 }
 
 fn compose_thread_on_page(
@@ -611,6 +649,51 @@ fn compose_thread_on_page(
     story_id: crate::model::StoryId,
     frames: &[(ObjectId, Rect, FrameOverflow, u16, Pt, InsetsLike)],
     parent_page: Option<usize>,
+) -> ComposedThread {
+    if footnote_flow::supported(doc, story_id, frames) {
+        if let Some(prepared) = crate::footnote_composition::prepare(doc, story_id) {
+            // Assets are Arc-backed. The temporary model is scoped to this one
+            // thread pass; no projected bytes or generated styles enter history.
+            let mut projected = doc.clone();
+            projected.styles = prepared.styles.clone();
+            projected.stories[story_id.0 as usize] = prepared.main.story.clone();
+            let mut out =
+                compose_thread_plain(&projected, story_id, frames, parent_page, Some(&prepared));
+            let text = prepared.main.story.text();
+            let projected_story = &projected.stories[story_id.0 as usize];
+            let context = footnote_flow::ProjectionContext::new(&projected, projected_story);
+            for frame in &mut out.frames {
+                frame.unrendered_structures = frame
+                    .unrendered_structures
+                    .saturating_sub(prepared.notes.len());
+                frame.consumed_to = prepared.main.positions.source(frame.consumed_to);
+                for line in &mut frame.lines {
+                    let positions = prepared.main.positions.line(&text, line.start, line.end);
+                    if line.generated.is_none() {
+                        footnote_flow::capture(
+                            line,
+                            projected_story,
+                            &projected,
+                            positions,
+                            &context,
+                        );
+                    }
+                    line.start = prepared.main.positions.source(line.start);
+                    line.end = prepared.main.positions.source(line.end);
+                }
+            }
+            return out;
+        }
+    }
+    compose_thread_plain(doc, story_id, frames, parent_page, None)
+}
+
+fn compose_thread_plain(
+    doc: &LayoutDocument,
+    story_id: crate::model::StoryId,
+    frames: &[(ObjectId, Rect, FrameOverflow, u16, Pt, InsetsLike)],
+    parent_page: Option<usize>,
+    notes: Option<&crate::footnote_composition::PreparedStory>,
 ) -> ComposedThread {
     let mut out = ComposedThread {
         story: story_id,
@@ -625,6 +708,8 @@ fn compose_thread_on_page(
             .map(|(object, _, _, _, _, _)| ComposedFrame {
                 object: *object,
                 lines: Vec::new(),
+                footnotes: Vec::new(),
+                unrendered_structures: 0,
                 drop_cap: None,
                 consumed_to: 0,
                 passed_on: false,
@@ -637,6 +722,7 @@ fn compose_thread_on_page(
         doc,
         story,
         markers: crate::list_composition::MarkerPlans::new(doc, story),
+        notes,
     };
     let text_end = story.text_len();
     // An automatic marker is printable content even when its paragraph has no
@@ -694,6 +780,8 @@ fn compose_thread_on_page(
             out.frames.push(ComposedFrame {
                 object: *object,
                 lines: Vec::new(),
+                footnotes: Vec::new(),
+                unrendered_structures: story.retained_structures(),
                 drop_cap: None,
                 consumed_to: cursor.min(text_end),
                 passed_on: has_content && cursor < total && !is_last,
@@ -730,6 +818,8 @@ fn compose_thread_on_page(
             out.frames.push(ComposedFrame {
                 object: *object,
                 lines,
+                footnotes: Vec::new(),
+                unrendered_structures: story.retained_structures(),
                 drop_cap: None,
                 consumed_to: cursor.min(text_end),
                 passed_on: overflowed && !is_last && threads,
@@ -742,6 +832,7 @@ fn compose_thread_on_page(
         }
         let mut available = bounds.inset(insets.resolve());
         let mut lines = Vec::new();
+        let mut footnotes = Vec::new();
         let mut pending_keep = None;
         while cursor < total {
             if available.width <= 0.0 || available.height <= 0.0 {
@@ -808,9 +899,10 @@ fn compose_thread_on_page(
                     .unwrap_or(section_end)
                     .min(section_end);
                 if cursor < stop {
-                    let (part, consumed) =
-                        fill_column_gridded(&source, cursor, stop, *column, grid);
+                    let (part, consumed, note_areas) =
+                        footnote_flow::fill(&source, cursor, stop, *column, grid);
                     placed.extend(part);
+                    footnotes.extend(note_areas);
                     let previous = cursor;
                     cursor = consumed;
                     if cursor + 1 == stop && story.slice(cursor, stop) == "\n" {
@@ -871,6 +963,8 @@ fn compose_thread_on_page(
             object: *object,
             drop_cap: first_drop_cap(&lines),
             lines,
+            footnotes,
+            unrendered_structures: story.retained_structures(),
             consumed_to,
             passed_on: overflowed && !is_last && threads,
             lost: overflowed && (is_last || !threads),
@@ -884,6 +978,8 @@ fn compose_thread_on_page(
         out.frames.push(ComposedFrame {
             object: *object,
             lines: Vec::new(),
+            footnotes: Vec::new(),
+            unrendered_structures: story.retained_structures(),
             drop_cap: None,
             consumed_to: cursor.min(text_end),
             passed_on: false,
@@ -1302,6 +1398,7 @@ fn break_line(
         reverse,
     );
     ComposedLine {
+        projected: None,
         generated: None,
         text_path: None,
         path_inline_start: None,
@@ -1782,6 +1879,7 @@ fn place_block(
         lines.insert(
             0,
             ComposedLine {
+                projected: None,
                 generated: None,
                 text_path: None,
                 path_inline_start: None,
@@ -2074,6 +2172,7 @@ fn line_at(
         is_paragraph_end,
     );
     ComposedLine {
+        projected: None,
         generated: None,
         text_path: None,
         path_inline_start: None,
@@ -2334,6 +2433,9 @@ fn scale_initial_spec(mut spec: TextSpec, scale: Pt) -> TextSpec {
 /// Render/edit one composed line without wrapping it again. A reserved blank
 /// line carries an empty spec for its caret, never a newline creating two rows.
 pub fn line_spec(line: &ComposedLine, story: &Story, doc: &LayoutDocument) -> TextSpec {
+    if let Some(projected) = &line.projected {
+        return projected.spec.clone();
+    }
     if let Some(generated) = &line.generated {
         return generated.spec.clone();
     }
@@ -2378,6 +2480,44 @@ pub fn line_spec(line: &ComposedLine, story: &Story, doc: &LayoutDocument) -> Te
         spec.runs.clear();
     }
     spec
+}
+
+/// Character paint for each engine run, in exactly the same precedence order
+/// as line_spec. Shared by ordinary and projected text and native separation.
+pub fn line_paint_styles(
+    line: &ComposedLine,
+    story: &Story,
+    doc: &LayoutDocument,
+) -> Vec<ResolvedCharacter> {
+    if let Some(projected) = &line.projected {
+        return projected.paints.clone();
+    }
+    let spec = line_spec(line, story, doc);
+    let base = line
+        .paragraph
+        .character(doc.styles.resolve_character(&doc.default_character_style));
+    let ranges: Vec<_> = story
+        .ranges
+        .iter()
+        .filter(|r| r.start < line.end && r.end > line.start)
+        .collect();
+    (0..spec.runs.len())
+        .map(|index| {
+            line.generated
+                .as_ref()
+                .map(|g| g.character.clone())
+                .unwrap_or_else(|| {
+                    ranges.get(index).map_or_else(
+                        || base.clone(),
+                        |range| {
+                            doc.styles
+                                .resolve_character(&range.style)
+                                .with_paint_defaults(&base)
+                        },
+                    )
+                })
+        })
+        .collect()
 }
 
 /// The ink a composed line's text prints in, defaulting to the document

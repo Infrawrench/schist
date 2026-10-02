@@ -196,6 +196,7 @@ pub enum Display {
     Text {
         /// Automatic list markers paint normally but have no editable source range.
         generated: bool,
+        positions: Option<crate::inline_text::LinePositions>,
         object: ObjectId,
         story: StoryId,
         start: usize,
@@ -608,7 +609,32 @@ fn objects_for(
                 let mut drew = false;
                 let mut has_text = false;
                 let mut interaction = rect;
-                for line in composed.iter().flat_map(|frame| &frame.lines) {
+                for area in composed.iter().flat_map(|frame| &frame.footnotes) {
+                    if let Some(rule) = &area.rule {
+                        let mut path = rule.path();
+                        path.map_points(|p| {
+                            let p = crate::affine::point(
+                                object.content_transform(),
+                                Point::new(rule.bounds.x + p.x, rule.bounds.y + p.y),
+                            );
+                            view.to_pasteboard(Point::new(p.x + offset.x, p.y + offset.y))
+                        });
+                        let rgb = rule.ink.preview_at_tint(rule.tint);
+                        out.push(Display::Shape {
+                            path_editable: false,
+                            object: object.id,
+                            transform,
+                            rect: move_to(rule.bounds, view, offset),
+                            path,
+                            inherited,
+                            locked: object.locked || doc.layer_locked(doc.object_layer(object.id)),
+                            fill: Some([rgb[0], rgb[1], rgb[2], object.transparency]),
+                            stroke: None,
+                            overprint: rule.overprint,
+                        });
+                    }
+                }
+                for line in composed.iter().flat_map(|frame| frame.all_lines()) {
                     drew = true;
                     let bounds = move_to(line.bounds, view, offset);
                     let mut spec = crate::compose::line_spec(line, definition, doc);
@@ -644,12 +670,13 @@ fn objects_for(
                         run.tracking = run.tracking.map(|v| v * view.scale);
                         run.leading = run.leading.map(|v| v * view.scale);
                     }
-                    if spec.path.is_some() || line.generated.is_some() {
+                    if spec.path.is_some() || line.is_generated() {
                         interaction =
                             interaction.union(path_text_bounds(&spec).translated(bounds.origin()));
                     }
                     out.push(Display::Text {
-                        generated: line.generated.is_some(),
+                        generated: line.is_generated(),
+                        positions: line.projected.as_ref().and_then(|p| p.positions.clone()),
                         object: object.id,
                         transform,
                         story: *story,
@@ -702,6 +729,7 @@ fn objects_for(
                     }
                     out.push(Display::Text {
                         generated: false,
+                        positions: None,
                         object: object.id,
                         transform,
                         story: *story,

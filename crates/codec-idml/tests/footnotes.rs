@@ -37,6 +37,74 @@ fn native_note(payload: &str) -> Vec<u8> {
 }
 
 #[test]
+fn public_academic_notes_compose_without_persisting_generated_bytes_or_styles() {
+    let mut doc = import::read(include_bytes!(
+        "../../../fixtures/indd/psu-academic-2/psu-academic-2.idml"
+    ))
+    .unwrap()
+    .document;
+    let (index, original) = doc
+        .stories
+        .iter()
+        .enumerate()
+        .find(|(_, s)| s.structures.iter().any(|s| s.footnote.is_some()))
+        .map(|(i, s)| (i, s.clone()))
+        .unwrap();
+    let styles = doc.styles.clone();
+    for _ in 0..3 {
+        let thread =
+            schist_layout::compose::compose_story(&doc, schist_layout::StoryId(index as u32));
+        let notes: Vec<_> = thread.frames.iter().flat_map(|f| &f.footnotes).collect();
+        assert_eq!(notes.len(), 1);
+        let text: String = notes[0]
+            .lines
+            .iter()
+            .map(|l| schist_layout::compose::line_spec(l, &doc.stories[index], &doc).text)
+            .collect();
+        assert_eq!(text, "4 This is a footnote.5 This is a footnote.");
+        assert!(notes[0].rule.is_some());
+        assert_eq!(doc.stories[index], original);
+        assert_eq!(doc.styles, styles);
+        doc = import::read(&export::write(&doc).bytes).unwrap().document;
+    }
+}
+
+#[test]
+fn fonts_used_only_by_generated_note_numbers_enter_native_and_package_inventories() {
+    let payload = r#"<Footnote><ParagraphStyleRange AppliedParagraphStyle="ParagraphStyle/$ID/Note body"><CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/Note marker"><Content><?ACE 4?></Content></CharacterStyleRange></ParagraphStyleRange></Footnote>"#;
+    let mut doc = import::read(&native_note(payload)).unwrap().document;
+    doc.styles
+        .paragraphs
+        .iter_mut()
+        .find(|p| p.name == "Note body")
+        .unwrap()
+        .family = Some("Note-only family".into());
+    doc.styles
+        .characters
+        .iter_mut()
+        .find(|c| c.name == "Note marker")
+        .unwrap()
+        .font_style = Some("Light".into());
+    doc.styles
+        .paragraphs
+        .iter_mut()
+        .find(|p| p.name == "Body")
+        .unwrap()
+        .family = Some("Main-only family".into());
+    doc.styles.characters.push(CharacterStyle {
+        name: "Reference only".into(),
+        font_style: Some("Semibold".into()),
+        ..Default::default()
+    });
+    doc.footnotes.marker_style = Some(FootnoteReference::Resolved("Reference only".into()));
+    let output = export::write(&doc);
+    let parts = container::read(&output.bytes).unwrap();
+    let fonts = parts.text("Resources/Fonts.xml").unwrap();
+    assert!(fonts.contains("FontFamily=\"Note-only family\" Name=\"Note-only family Light\""));
+    assert!(fonts.contains("FontFamily=\"Main-only family\" Name=\"Main-only family Semibold\""));
+}
+
+#[test]
 fn note_markers_keep_their_own_utf8_coordinates_styles_and_source_bytes_through_saves() {
     let text = "é&中 4";
     for at in text.char_indices().map(|(i, _)| i).chain([text.len()]) {

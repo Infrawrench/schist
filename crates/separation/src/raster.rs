@@ -230,6 +230,24 @@ pub fn placed_shape_coverage(
     )
 }
 
+/// Separator rules use the frame affine on their vector geometry before
+/// rasterization, like ordinary shapes. Warping a rasterized rule blurs edges.
+pub(crate) fn footnote_rule_coverage(
+    rule: &schist_layout::footnote_composition::Rule,
+    placed: &PlacedObject,
+    settings: OutputSettings,
+    page: &schist_layout::Page,
+) -> Coverage {
+    shape_mask(
+        &rule.path(),
+        (rule.bounds, placed.content_transform()),
+        settings,
+        page,
+        0.0,
+        true,
+    )
+}
+
 fn shape_mask(
     shape: &schist_layout::ShapePath,
     placement: (Rect, schist_core::Affine),
@@ -325,7 +343,7 @@ pub fn line_coverage(
     }
     // A break line stands for a point with no glyphs, and an empty line
     // is not worth rasterising.
-    if line.end <= line.start && line.generated.is_none() {
+    if line.end <= line.start && !line.is_generated() && line.projected.is_none() {
         return None;
     }
     let spec = line_spec(line, story, doc);
@@ -382,35 +400,16 @@ pub fn line_paints(
     settings: OutputSettings,
     page: &schist_layout::Page,
 ) -> Option<Vec<TextPaint>> {
-    if line.forced_break || (line.end <= line.start && line.generated.is_none()) {
+    if line.forced_break
+        || (line.end <= line.start && !line.is_generated() && line.projected.is_none())
+    {
         return Some(Vec::new());
     }
-    let base = line
-        .paragraph
-        .character(doc.styles.resolve_character(&doc.default_character_style));
     let mut inks = Vec::new();
     let mut spec = line_spec(line, story, doc);
-    let ranges: Vec<_> = story
-        .ranges
-        .iter()
-        .filter(|r| r.start < line.end && r.end > line.start)
-        .collect();
-    // Composition appends its paragraph fallback after the local style ranges.
+    let paints = schist_layout::compose::line_paint_styles(line, story, doc);
     for (index, run) in spec.runs.iter_mut().enumerate() {
-        let style = line
-            .generated
-            .as_ref()
-            .map(|g| g.character.clone())
-            .unwrap_or_else(|| {
-                ranges.get(index).map_or_else(
-                    || base.clone(),
-                    |range| {
-                        doc.styles
-                            .resolve_character(&range.style)
-                            .with_paint_defaults(&base)
-                    },
-                )
-            });
+        let style = &paints[index];
         let mut paint_id = |ink: Ink, overprint: bool, tint: f32| {
             let paint = (ink, style.opacity.unwrap_or(1.0), overprint, tint);
             let index = inks
@@ -439,10 +438,10 @@ pub fn line_paints(
             (&mut run.strike_style, &style.strike_style),
         ] {
             if let Some(rendered) = rendered {
-                if let Some((ink, tint, overprint)) = definition.paint(&style) {
+                if let Some((ink, tint, overprint)) = definition.paint(style) {
                     rendered.color = paint_id(ink, overprint, tint);
                 }
-                if let Some((ink, tint, overprint)) = definition.gap_paint(&style) {
+                if let Some((ink, tint, overprint)) = definition.gap_paint(style) {
                     rendered.gap_color = paint_id(ink, overprint, tint);
                 }
             }

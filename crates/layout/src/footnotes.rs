@@ -1,7 +1,7 @@
 //! Document footnote preferences and source text, separate from raster documents.
 //!
 //! Absent values retain native inheritance/default intent. These are stored
-//! settings and source data; footnote bodies and markers are not composed yet.
+//! settings and source data; supported flows compose through footnote_composition.
 use crate::{decorations::DecorationStroke, History, Ink, LayoutDocument, LayoutEdit};
 use serde::{Deserialize, Serialize};
 
@@ -30,7 +30,8 @@ impl FootnoteBody {
     /// frame/page/column breaks remain opaque until their flow is implemented.
     pub fn valid(&self) -> bool {
         let text = self.story.text();
-        self.story.structures.is_empty()
+        !self.story.points.is_empty()
+            && self.story.structures.is_empty()
             && self
                 .story
                 .points

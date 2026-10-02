@@ -99,7 +99,7 @@ pub struct StoryStructure {
     pub kind: String,
     pub payload: String,
     /// Lowered text-only footnotes retain a separate flow and zero-width markers.
-    /// Their original XML is still retained; composition is not implemented yet.
+    /// Their original XML is still retained alongside supported note composition.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub footnote: Option<crate::footnotes::FootnoteBody>,
 }
@@ -287,8 +287,9 @@ impl Story {
         })
     }
 
-    /// Count retained structures which composition cannot paint.
-    pub fn unrendered_structures(&self) -> usize {
+    /// Count structures retained separately from the editable main text.
+    /// A composed frame reports which of these its layout path cannot paint.
+    pub fn retained_structures(&self) -> usize {
         self.structures.len()
             + self
                 .points

@@ -213,13 +213,13 @@ fn layout_report(
             let Some(story) = doc.stories.get(story.0 as usize) else {
                 continue;
             };
-            if story.unrendered_structures() > 0 {
+            if frame.unrendered_structures > 0 {
                 report.add(
                     crate::report::Severity::Error,
                     schist_i18n::tf!(
                         "design.preflight_story_structure",
                         name = object.name,
-                        count = story.unrendered_structures()
+                        count = frame.unrendered_structures
                     ),
                 );
             }
@@ -239,13 +239,18 @@ fn layout_report(
                         .collect::<std::collections::BTreeMap<_, _>>(),
                 )
             });
-            for line in frame.lines {
-                let spec = schist_layout::compose::line_spec(&line, story, doc);
+            for line in frame.all_lines() {
+                let spec = schist_layout::compose::line_spec(line, story, doc);
+                let paragraph = paragraphs.range(..=line.start).next_back();
+                let context = line.projected.as_ref().map_or_else(
+                    || paragraph.map_or(spec.text.as_str(), |(_, text)| *text),
+                    |projection| projection.context.as_ref(),
+                );
+                let counter_issue = line.projected.as_ref().map_or_else(
+                    || paragraph.and_then(|(at, _)| counters.issue(*at)),
+                    |projection| projection.counter_issue,
+                );
                 if spec.text.contains('\t') {
-                    let context = paragraphs
-                        .range(..=line.start)
-                        .next_back()
-                        .map_or(spec.text.as_str(), |(_, text)| *text);
                     tab_issues.extend(schist_layout::tabs::unsupported_in_mode(
                         &line.paragraph,
                         context,
@@ -257,15 +262,11 @@ fn layout_report(
                 let list = &line.paragraph.list;
                 if matches!(list.kind, Some(ListKind::Bullet | ListKind::Numbered)) {
                     list_issues.extend(schist_layout::list_composition::unsupported(list));
-                    let context = paragraphs
-                        .range(..=line.start)
-                        .next_back()
-                        .map_or(spec.text.as_str(), |(_, text)| *text);
                     list_issues.extend(schist_layout::list_composition::unsupported_paragraph(
                         &line.paragraph,
                         context,
                     ));
-                    if let Some(issue) = counters.issue(line.start) {
+                    if let Some(issue) = counter_issue {
                         list_issues.insert(issue);
                     }
                     if line.paragraph.drop_caps_lines.unwrap_or(0) > 1 {
@@ -281,7 +282,7 @@ fn layout_report(
                         list.kind == Some(ListKind::Numbered)
                             && r.id == schist_layout::list_counters::sequence_id(list)
                     }) {
-                        if resource.across_stories && counters.issue(line.start).is_none() {
+                        if resource.across_stories && counter_issue.is_none() {
                             cross_story_order = true;
                         }
                         if resource.across_documents {
@@ -554,7 +555,21 @@ fn paint_object_content<'a>(
         LayoutObject::TextFrame { story, .. } => {
             let composed = compose_object(doc, placed)?;
             let story_def = doc.story(*story)?;
-            for line in &composed.lines {
+            for area in &composed.footnotes {
+                if let Some(rule) = &area.rule {
+                    let coverage =
+                        crate::raster::footnote_rule_coverage(rule, placed, settings, page);
+                    let mode = if rule.overprint {
+                        InkMode::Overprint
+                    } else {
+                        mode
+                    };
+                    let (coats, build) = tinted_coats_for(plan, &rule.ink, rule.tint);
+                    separation.paint(&coverage, &coats, mode, opacity);
+                    separation.paint_composite(&coverage, &coats, &build, mode, opacity);
+                }
+            }
+            for line in composed.all_lines() {
                 let Some(paints) = crate::raster::line_paints(line, story_def, doc, settings, page)
                 else {
                     return Some(PaintFailure::Text);
