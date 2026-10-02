@@ -1,8 +1,8 @@
 //! Rectangular text-frame flow policy, independent of story paragraph styles.
 use crate::{History, LayoutDocument, LayoutEdit, LayoutObject, ObjectId};
 
-/// Older Schist snapshots always balanced columns. Preserve their appearance;
-/// new authoring and native imports explicitly use their own creation policy.
+/// Older Schist snapshots always enabled balancing. Retain that preference;
+/// new authoring and native imports use explicit values and native defaults.
 pub(crate) fn legacy_balance() -> Option<bool> {
     Some(true)
 }

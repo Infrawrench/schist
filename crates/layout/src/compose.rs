@@ -1319,9 +1319,9 @@ fn first_drop_cap(lines: &[ComposedLine]) -> Option<Rect> {
 /// purpose; rebalancing that would leave a gap mid-article and read as a
 /// mistake.
 ///
-/// Find the smallest column height that fits every whole paragraph using the
-/// same spacing, keep and grid rules as ordinary flow. Paragraphs are not split
-/// just to balance a frame; an oversized paragraph falls back to ordinary flow.
+/// Find the smallest column height that fits the remaining text using the same
+/// paragraph splitting, widow, keep-with-next and grid rules as ordinary flow.
+/// Balancing must not impose an extra keep-together rule on every paragraph.
 fn balance_columns(
     source: &FlowSource<'_>,
     start: usize,
@@ -1351,7 +1351,6 @@ fn balance_columns(
                 grid,
                 options,
                 footnote_flow::FillPolicy {
-                    whole_paragraphs: true,
                     body_height: Some(height),
                 },
             );
@@ -1458,7 +1457,6 @@ fn fill_column_with_rules(
     end: usize,
     column: Rect,
     grid: Option<BaselineGrid>,
-    whole_paragraphs: bool,
 ) -> (Vec<ComposedLine>, usize) {
     let story = source.story;
     let doc = source.doc;
@@ -1491,7 +1489,6 @@ fn fill_column_with_rules(
                 PlacementSpace {
                     top: column.y + used,
                     height: column.height - used,
-                    whole: whole_paragraphs,
                     previous: lines.last().map(PreviousLine::from_line),
                 },
                 grid,
@@ -1694,7 +1691,6 @@ impl PreviousLine {
 struct PlacementSpace {
     top: Pt,
     height: Pt,
-    whole: bool,
     previous: Option<PreviousLine>,
 }
 
@@ -1853,7 +1849,7 @@ fn place_block(
         if all.len() - count < keep {
             count = all.len().saturating_sub(keep);
         }
-        if count < keep || space.whole {
+        if count < keep {
             count = 0;
         }
     }

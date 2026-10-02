@@ -1826,5 +1826,5 @@ EnableTextFrameGeneralOptions styles; false values remain explicit overrides.
 The general-frame category remains partially supported, so its existing category
 warning remains enabled. Balancing support does not imply support for all of its
 other properties or native defaults.
-Legacy Schist snapshots retain their former balancing behavior. Newly authored
+Legacy Schist snapshots retain their balancing preference. Newly authored
 frames copy the document's explicit creation default (initially false).

@@ -310,6 +310,31 @@ are marked.
 
 ## Handoff
 
+Balancing within paragraphs, 2026-10-02:
+Checkpoint `f073cc9a` is pushed in draft PR #195. The next regression reproduced
+a composition defect: enabling balance on one long, splittable paragraph left
+columns empty. Balancing imposed an extra whole-paragraph restriction beyond
+the paragraph's own widow and keep settings. Removing that restriction shares
+the ordinary paragraph splitting rules, keeping heading chains and grids intact.
+A property test covers 2–4 columns, both reading directions, 1–3 widow lines,
+one or several paragraphs, first-line indents, unchanged shaped line boundaries
+and source preservation. It failed before the fix and passes after it. The full
+layout/text suite and the full 16-target sweep pass. A follow-up property also
+checks that each complete two-paragraph footnote remains with its reference
+when the main paragraph splits across columns. It passes for both reading
+directions and preserves all source data. The affected tests/lint also pass after
+that addition: **1,797 distinct Rust tests**, four browser checks and eight Python
+audit checks. All 16 make targets, formatting and whitespace checks pass; logs
+are under `/tmp/schist-paragraph-sweep-*`.
+The previous native build also reproduces it at 188%: Columns is 2 and the
+balance icon is active, but the single paragraph remains entirely in the left
+column. The corrected native build passes, as do the isolated QA bundle's binary
+hash and signature checks. At 188%, the same fixture now splits into two columns
+with its initial indent preserved. One balance-icon click returns it to sequential
+flow and one undo restores the balanced layout. The fixture remains open for the
+next Story Editor/output window checks; it has not been saved.
+
+
 Native column balancing, 2026-10-02:
 Frame-footnote checkpoint `27168ad2` is pushed in draft PR #195. Composition
 now honors native VerticalBalanceColumns instead of balancing every final

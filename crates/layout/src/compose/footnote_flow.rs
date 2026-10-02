@@ -208,7 +208,6 @@ fn reference_line<'a>(lines: &'a [ComposedLine], note: &PreparedNote) -> Option<
 
 #[derive(Default)]
 pub(super) struct FillPolicy {
-    pub whole_paragraphs: bool,
     /// Balancing limits body flow without moving bottom-aligned note areas.
     pub body_height: Option<Pt>,
 }
@@ -222,8 +221,7 @@ pub(super) fn fill(
     options: &crate::footnotes::FootnoteOptions,
     policy: FillPolicy,
 ) -> (Vec<ComposedLine>, usize, Vec<NoteArea>) {
-    let body_fill =
-        |bounds| fill_column_with_rules(source, start, end, bounds, grid, policy.whole_paragraphs);
+    let body_fill = |bounds| fill_column_with_rules(source, start, end, bounds, grid);
     let mut ceiling = policy
         .body_height
         .unwrap_or(column.height)
