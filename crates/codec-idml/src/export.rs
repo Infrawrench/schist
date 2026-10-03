@@ -1000,13 +1000,7 @@ fn styles_xml(
         let resolved = document.styles.resolve_paragraph(&style.name);
         crate::drop_cap_codec::warn_composition(&resolved, warnings);
         crate::nested_style_codec::warn(&resolved, warnings);
-        if (resolved.drop_caps_lines.is_some_and(|lines| lines > 1)
-            || schist_layout::nested_styles::initial_style(&resolved).is_some())
-            && resolved.drop_caps_characters.is_none()
-        {
-            // Schist's legacy unset count means one, while a native consumer
-            // defaults to zero. Named one-line initials need the same explicit
-            // count as enlarged initials to preserve their visible formatting.
+        if crate::drop_cap_codec::needs_native_default(&document.styles, style, &resolved) {
             native.drop_caps_characters = Some(1);
         }
         let mut xml = crate::style_codec::paragraph_resolved(

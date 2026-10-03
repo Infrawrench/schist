@@ -310,6 +310,26 @@ are marked.
 
 ## Handoff
 
+Native initial-count inheritance, 2026-10-03:
+A regression reproduced the writer materializing the legacy one-character
+initial count on every child of an active style. Reopening then broke future
+parent-count edits. The native default now belongs only at the first active
+style whose valid ancestor chain cannot supply it. Inactive ancestors and
+explicit counts remain unchanged; broken/cyclic chains retain the explicit
+fallback. Three properties cover arbitrary-depth/reversed style order, repeated
+saves and subsequent parent edits, dormant activation boundaries, explicit zero
+resets, and malformed chains. All five focused named-initial tests pass.
+All 16 roadmap targets, shared UI, formatting and whitespace checks pass:
+1,992 distinct Rust tests, four browser checks and eight Python audit tests;
+one existing shared UI documentation example remains ignored. All 37 previous
+PDF proofs are byte-identical. Native debug build passes in 2m 46s; the isolated
+Design-enabled QA bundle is refreshed and hash/signature verified. No external
+application agreement is claimed by these XML/property checks. The prior
+`ea5278f5` UI checkpoint is pushed to draft PR #195 and visually verified below.
+The `f595465d` desktop run passed Windows/macOS; Ubuntu failed while downloading
+the backer catalog with a connection reset, before clippy ran. That failed job
+has been retried. The earlier `942a8137` desktop run passed all three platforms.
+
 Initial character-style authoring, 2026-10-03:
 The closed Paragraph / Drop caps disclosure now includes one compact character
 style dropdown. Explicit None and named choices preserve other ordered rules;
@@ -328,8 +348,12 @@ All 16 roadmap targets, shared UI, formatting and whitespace checks pass:
 One existing shared UI documentation example remains ignored. All 37 previous
 PDF proofs remain byte-identical. The native debug build passes in 3m 54s;
 the isolated Design-enabled QA bundle is refreshed and hash/signature verified.
-Actual UI review of this dropdown is pending an exact-commit browser artifact;
-native capture remains unavailable. The feature flag stays disabled by default.
+Actual UI review passes on the exact `ea5278f5` CI browser artifact (Web run
+37115933543), with Design enabled. The closed default, compact dropdown, reachable
+bottom-edge menu, initial-only paint, one-step style/reset undo and redo, None,
+inheritance, dormant zero counts and normal-size one-line formatting were checked.
+The owned tab, server and downloaded build were removed. Native capture remains
+unavailable; the installed app was untouched. The feature flag stays disabled by default.
 List-marker/path-initial fixes are published as `f595465d` to draft PR #195,
 with their full verification recorded below.
 

@@ -544,6 +544,16 @@ without truncating or clamping them. Authored invalid counts are reported and
 omitted from native attributes. Schist's legacy implicit one-character count is
 made explicit on native export.
 
+The legacy one-character default is materialized only where no valid native
+ancestor already supplies it. Descendants keep their absent count, so changing
+the parent after reopening still changes them. Dormant ancestors and explicit
+zero/count overrides are not rewritten. Broken or cyclic chains retain the
+explicit fallback rather than relying on another member to supply a default.
+Properties vary hierarchy depth and storage order, save repeatedly, then edit
+the parent; they also cover activation boundaries and malformed chains. This
+avoids unnecessary overrides, but cannot preserve every legacy unset intent:
+a first active child of an inactive native-zero ancestor still needs an explicit one.
+
 `DropcapDetail` retains the full native signed 32-bit flag value, independently of
 counts, through inheritance, explicit zero resets, local formatting and repeated
 saves. Unknown bits and inactive values are not discarded. The public
