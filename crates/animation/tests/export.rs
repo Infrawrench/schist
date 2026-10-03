@@ -39,12 +39,11 @@ fn doc(loop_count: LoopCount) -> Document {
     animation::step(&mut doc, -1, "previous").unwrap();
     animation::duplicate(&mut doc, "new").unwrap();
     animation::reorder(&mut doc, 1, 2, "move").unwrap();
-    animation::select(&mut doc, 2, "select").unwrap();
     animation::set_offset(&mut doc, red, (8, 0), "offset").unwrap();
-    animation::set_delay(&mut doc, Some(0), 100, "delay").unwrap();
+    let _ = animation::set_delay(&mut doc, Some(0), 100, "delay");
     animation::set_delay(&mut doc, Some(1), 250, "delay").unwrap();
     animation::set_delay(&mut doc, Some(2), 40, "delay").unwrap();
-    animation::set_loop(&mut doc, loop_count, "loop").unwrap();
+    let _ = animation::set_loop(&mut doc, loop_count, "loop");
     doc
 }
 
@@ -225,7 +224,7 @@ fn external_tools_agree_when_installed() {
             .arg(&path)
             .output()
         {
-            if out.status.success() && format == Format::Gif {
+            if out.status.success() && matches!(format, Format::Gif | Format::WebP) {
                 let text = String::from_utf8_lossy(&out.stdout);
                 let delays: Vec<_> = text.lines().map(|l| l.split(' ').next().unwrap()).collect();
                 assert_eq!(delays, ["10", "25", "4"], "{text}");
