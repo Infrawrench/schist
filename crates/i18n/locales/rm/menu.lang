@@ -132,6 +132,7 @@ menu.gallery = Gallaria
 menu.gallery.edit_selected = Modifitgar la selecziun
 menu.gallery.refresh = Actualisar
 menu.gallery.map_filter = Filter da charta…
+menu.gallery.find_duplicates = Chattar dublettas…
 menu.gallery.back_to_editor = Enavos a l'editur
 
 # Schist Cloud

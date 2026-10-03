@@ -130,6 +130,7 @@ menu.gallery = ပုံပြခန်း
 menu.gallery.edit_selected = ရွေးထားသည်ကို တည်းဖြတ်ရန်
 menu.gallery.refresh = ပြန်လည်စတင်ရန်
 menu.gallery.map_filter = မြေပုံ အရောင်စစ်…
+menu.gallery.find_duplicates = ထပ်နေသောဖိုင်များ ရှာရန်…
 menu.gallery.back_to_editor = တည်းဖြတ်ကိရိယာသို့ ပြန်သွားရန်
 
 # Schist Cloud

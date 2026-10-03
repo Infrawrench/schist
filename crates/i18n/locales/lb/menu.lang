@@ -124,6 +124,7 @@ menu.gallery = Galerie
 menu.gallery.edit_selected = Ausgewieltes änneren
 menu.gallery.refresh = Nei lueden
 menu.gallery.map_filter = Kaartfilter…
+menu.gallery.find_duplicates = Duplikater sichen…
 menu.gallery.back_to_editor = Zeréck an den Editeur
 
 menu.cloud.browse = Schist Cloud duerchsichen

@@ -305,3 +305,43 @@ library.similar.keep = Kenbe
 library.similar.reject = Rejte
 library.similar.help = Se mak revizyon sèlman; fichye yo pa efase.
 library.similar.stale = Fichye yo chanje. Rafrechi pou kontinye.
+
+# Find Duplicates
+library.duplicates.title = Kopi
+library.duplicates.help = Fichye ki idantik ak kopi ki prèske menm nan chak dosye yo siveye. Deplase nan fatra mande konfimasyon de fwa; fichye ki nan fatra yo ka restore nan fatra sistèm lan.
+library.duplicates.exact = Fichye idantik
+library.duplicates.near = Kopi ki prèske menm
+library.duplicates.identical = idantik (SHA-256)
+library.duplicates.suggested = Sa nou sijere pou kenbe
+library.duplicates.make_keeper = Kenbe Sa a
+library.duplicates.compare = Konpare
+library.duplicates.keep_all = Kenbe Tout
+library.duplicates.reject_others = Rejte Lòt yo
+library.duplicates.trash_others.other = Deplase {n} lòt nan fatra
+library.duplicates.confirm_trash.other = Konfime: deplase {n} nan fatra
+library.duplicates.n_trashed.other = {n} fichye deplase nan fatra
+library.duplicates.n_rejected.other = {n} foto make kòm rejte
+library.duplicates.refused_edited = li gen modifikasyon oswa yon fichye sidecar, kidonk rejte li olye de sa
+library.duplicates.trash_failed = fatra sistèm lan pa disponib
+library.duplicates.near_limit = Rechèch kopi ki prèske menm kouvri sèlman 10,000 premye foto yo.
+
+# Geotagging from GPX tracks
+library.geotag.menu = Make kote ak yon tras GPX…
+library.geotag.title = Make kote ak yon tras GPX
+library.geotag.add_files = Ajoute fichye GPX…
+library.geotag.n_track_points.other = {n} pwen tras ki gen lè
+library.geotag.max_gap = Ekart maksimòm (minit)
+library.geotag.clock_offset = Koreksyon revèy kamera a
+library.geotag.time_zone = Fizo orè foto yo (desaj UTC)
+library.geotag.zone_help = Fizo orè a aplike sèlman sou lè pran foto ki anrejistre san li. Koreksyon an, an segonn oswa ±h:mm:ss, ajoute sou chak lè pran foto.
+library.geotag.skip_existing = Sote foto ki deja gen yon kote
+library.geotag.n_will_tag.other = Y ap make {n} foto
+library.geotag.n_has_gps.other = {n} foto deja gen yon kote
+library.geotag.n_no_time.other = {n} foto pa gen lè pran foto
+library.geotag.n_gap.other = {n} foto tonbe nan yon twou nan tras la
+library.geotag.n_outside.other = {n} foto deyò entèval tan tras la
+library.geotag.apply = Ekri kote yo
+library.geotag.invalid = Antre ekart la an minit, yon koreksyon tankou -1:30 ak yon fizo orè tankou +02:00.
+library.geotag.no_points = Fichye GPX yo pa gen pwen ki gen lè.
+library.geotag.select_photos = Chwazi foto pou make kote yo anvan.
+library.geotag.read_failed = Pa t ka li fichye GPX yo: {error}

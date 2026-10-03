@@ -130,6 +130,7 @@ menu.gallery = Galerio
 menu.gallery.edit_selected = Redakti elektitaĵojn
 menu.gallery.refresh = Aktualigi
 menu.gallery.map_filter = Mapa filtrilo…
+menu.gallery.find_duplicates = Trovi duoblaĵojn…
 menu.gallery.back_to_editor = Reen al redaktilo
 
 # Schist Cloud

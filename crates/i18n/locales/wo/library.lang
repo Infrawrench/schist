@@ -299,3 +299,43 @@ library.similar.keep = Denc
 library.similar.reject = Bañ
 library.similar.help = Mandarga yu seetlu rekk; dencukaay yi deesu leen far.
 library.similar.stale = Dencukaay yi soppeeku nañu. Yeesal ngir wéyal.
+
+# Find Duplicates
+library.duplicates.title = Ñaareel yi
+library.duplicates.help = Dencukaay yu melokaan ak kopi yu jege ci wayndare yépp yuy topp. Yóbbu ci mbalit mi dafay laaj ñaari yoon; dencukaay yi ñu yóbbu mën nañu delloo ci mbalit mu sistem bi.
+library.duplicates.exact = Dencukaay yu melokaan
+library.duplicates.near = Ñaareel yu jege
+library.duplicates.identical = melokaan (SHA-256)
+library.duplicates.suggested = Li ñu digal nga denc
+library.duplicates.make_keeper = Denc Bii
+library.duplicates.compare = Natt
+library.duplicates.keep_all = Denc Lépp
+library.duplicates.reject_others = Bañ Yeneen yi
+library.duplicates.trash_others.other = Yóbbu {n} yeneen ci mbalit mi
+library.duplicates.confirm_trash.other = Dëggal: yóbbu {n} ci mbalit mi
+library.duplicates.n_trashed.other = {n} dencukaay yóbbu nañu ko ci mbalit mi
+library.duplicates.n_rejected.other = {n} nataal bañ nañu ko
+library.duplicates.refused_edited = am na coppite walla dencukaay bu ko ànd, kon bañal ko
+library.duplicates.trash_failed = mbalit mu sistem bi amul
+library.duplicates.near_limit = Seetlu ñaareel yu jege dafay ayu 10,000 nataal yu njëkk yi.
+
+# Geotagging from GPX tracks
+library.geotag.menu = Teg bérab ci kanamu GPX…
+library.geotag.title = Teg bérab ci kanamu GPX
+library.geotag.add_files = Yokk dencukaay GPX yi…
+library.geotag.n_track_points.other = {n} bët ci kanam bu am waxtu
+library.geotag.max_gap = Pàcc bi gëna mag (miniit)
+library.geotag.clock_offset = Defar waxtu kamera bi
+library.geotag.time_zone = Waxtu bu gox bi ci nataal yi (sott ak UTC)
+library.geotag.zone_help = Waxtu bu gox bi dafay jëfandikoo rekk ci waxtu yi ñu bind te amul gox. Defar bi, ci sekond walla ±h:mm:ss, dañu koy yokk ci waxtu bu nekk.
+library.geotag.skip_existing = Weddi nataal yi am bérab ba noppi
+library.geotag.n_will_tag.other = {n} nataal dina am bérab
+library.geotag.n_has_gps.other = {n} nataal am nañu bérab ba noppi
+library.geotag.n_no_time.other = {n} nataal amul waxtu wu ñu ko jël
+library.geotag.n_gap.other = {n} nataal tëdd nañu ci pàcc ci kanam bi
+library.geotag.n_outside.other = {n} nataal féete nañu ci biti waxtu wi kanam bi
+library.geotag.apply = Bind bérab yi
+library.geotag.invalid = Dugalal pàcc bi ci miniit, ab defar ni -1:30 ak gox ni +02:00.
+library.geotag.no_points = Dencukaay GPX yi amuñu bët yu am waxtu.
+library.geotag.select_photos = Tànnal nataal yi ngay teg bérab njëkk.
+library.geotag.read_failed = Mënuñu jàng dencukaay GPX yi: {error}

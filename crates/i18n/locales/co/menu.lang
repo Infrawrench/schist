@@ -124,6 +124,7 @@ menu.gallery = Galleria
 menu.gallery.edit_selected = Mudificà l'elementi selezziunati
 menu.gallery.refresh = Rinfrescà
 menu.gallery.map_filter = Filtru di carta…
+menu.gallery.find_duplicates = Truvà i duppioni…
 menu.gallery.back_to_editor = Riturnà à l'editore
 
 menu.cloud.browse = Sfuglià Schist Cloud

@@ -131,6 +131,7 @@ menu.gallery = ഗാലറി
 menu.gallery.edit_selected = തിരഞ്ഞെടുത്തവ തിരുത്തുക
 menu.gallery.refresh = റിഫ്രഷ് ചെയ്യുക
 menu.gallery.map_filter = മാപ്പ് ഫിൽട്ടർ…
+menu.gallery.find_duplicates = ഡുപ്ലിക്കേറ്റുകൾ കണ്ടെത്തുക…
 menu.gallery.back_to_editor = എഡിറ്ററിലേക്കു മടങ്ങുക
 
 # Schist Cloud

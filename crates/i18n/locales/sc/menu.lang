@@ -131,6 +131,7 @@ menu.gallery = Galleria
 menu.gallery.edit_selected = Modìfica is elementos seletzionados
 menu.gallery.refresh = Atualiza
 menu.gallery.map_filter = Filtru de sa mapa…
+menu.gallery.find_duplicates = Agata duplicados…
 menu.gallery.back_to_editor = Torra a s'editore
 
 # Schist Cloud

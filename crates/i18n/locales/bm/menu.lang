@@ -130,6 +130,7 @@ menu.gallery = Galeri
 menu.gallery.edit_selected = Sugandilen labɛn
 menu.gallery.refresh = Lakura
 menu.gallery.map_filter = Karti sɛgɛsɛgɛlan…
+menu.gallery.find_duplicates = Kopi sɛgɛsɛgɛ…
 menu.gallery.back_to_editor = Segin labɛnnikɛlan na
 
 # Schist Cloud

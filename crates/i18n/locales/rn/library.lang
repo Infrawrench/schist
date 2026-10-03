@@ -324,3 +324,43 @@ library.similar.keep = Bika
 library.similar.reject = Hakana
 library.similar.help = Ibimenyetso vyo gusuzuma gusa; amadosiye ntasibwa.
 library.similar.stale = Amadosiye yarahindutse. Subiramwo kugira ubandanye.
+
+# Find Duplicates
+library.duplicates.title = Ibisa
+library.duplicates.help = Amadosiye asa neza n'ibikoporwa bisa cane mu bubiko bwose burikurikiranwa. Kubijugunya mu gisimbo birabaza kabiri; amadosiye yajugunywe mu gisimbo ashobora gusubizwaho avuye mu gisimbo c'ikoranabuhanga.
+library.duplicates.exact = Amadosiye asa neza
+library.duplicates.near = Ibisa cane
+library.duplicates.identical = asa neza (SHA-256)
+library.duplicates.suggested = Igitegerezwa kubikwa
+library.duplicates.make_keeper = Bika Iki
+library.duplicates.compare = Gereranya
+library.duplicates.keep_all = Bika Vyose
+library.duplicates.reject_others = Hakana Ibindi
+library.duplicates.trash_others.other = Jugunya Ibindi {n} mu Gisimbo
+library.duplicates.confirm_trash.other = Emeza: Jugunya {n} mu Gisimbo
+library.duplicates.n_trashed.other = Amadosiye {n} yajugunywe mu gisimbo
+library.duplicates.n_rejected.other = Amafoto {n} yashizweho ikimenyetso c'ayahakanywe
+library.duplicates.refused_edited = ifise ivyahinduwe canke idosiye yiyongereye, ni vyiza kuyihakana aho
+library.duplicates.trash_failed = igisimbo c'ikoranabuhanga ntikiboneka
+library.duplicates.near_limit = Ugereranya ibisa cane bifata amafoto 10,000 ya mbere.
+
+# Geotagging from GPX tracks
+library.geotag.menu = Shiraho Ahantu uvuye ku Nzira ya GPX…
+library.geotag.title = Shiraho Ahantu uvuye ku Nzira ya GPX
+library.geotag.add_files = Ongeraho Amadosiye ya GPX…
+library.geotag.n_track_points.other = Utuntu tw'inzira {n} dufise igihe
+library.geotag.max_gap = Icuho kinini cane (iminota)
+library.geotag.clock_offset = Gutunganya isaha ya kamera
+library.geotag.time_zone = Akarere k'igihe c'amafoto (itandukaniro rya UTC)
+library.geotag.zone_help = Akarere k'igihe gakoreshwa gusa ku gihe c'ifotora cashizweho kidafise akarere k'igihe. Ugutunganya, mu masegonda canke ±h:mm:ss, kongerwa ku gihe cose c'ifotora.
+library.geotag.skip_existing = Surira amafoto asanzwe afise ahantu
+library.geotag.n_will_tag.other = Amafoto {n} azashirwaho ikimenyetso
+library.geotag.n_has_gps.other = Amafoto {n} asanzwe afise ahantu
+library.geotag.n_no_time.other = Amafoto {n} nta gihe c'ifotora afise
+library.geotag.n_gap.other = Amafoto {n} aguye mu cuho c'inzira
+library.geotag.n_outside.other = Amafoto {n} ari inyuma y'igihe c'inzira
+library.geotag.apply = Andika Ahantu
+library.geotag.invalid = Andika icuho mu minota, ugutunganya nka -1:30 n'akarere k'igihe nka +02:00.
+library.geotag.no_points = Amadosiye ya GPX nta tuntu dufise igihe arimwo.
+library.geotag.select_photos = Banza uhitemwo amafoto yo gushirwaho ahantu.
+library.geotag.read_failed = Ntivyashobotse gusoma amadosiye ya GPX: {error}

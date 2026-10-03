@@ -133,6 +133,7 @@ menu.gallery = Myndasavn
 menu.gallery.edit_selected = Rætta valdu myndina
 menu.gallery.refresh = Dagfør aftur
 menu.gallery.map_filter = Kortsía…
+menu.gallery.find_duplicates = Finn tvíritanir…
 menu.gallery.back_to_editor = Aftur til ritilin
 
 # Schist Cloud submenu

@@ -320,3 +320,43 @@ library.similar.keep = Һаҡлау
 library.similar.reject = Кире ҡағыу
 library.similar.help = Ҡарау билдәләре генә; файлдар юйылмай.
 library.similar.stale = Файлдар үҙгәрҙе. Дауам итеү өсөн яңыртығыҙ.
+
+# Find Duplicates
+library.duplicates.title = Дубликаттар
+library.duplicates.help = Күҙәтелгән бөтә папкалағы бер үк файлдар һәм бик оҡшаш күсермәләр. Сүп һауытына күсереү ике тапҡыр раҫлауҙы һорай; сүп һауытына күсерелгән файлдарҙы система сүп һауытынан кире ҡайтарырға мөмкин.
+library.duplicates.exact = Бер үк файлдар
+library.duplicates.near = Яҡын дубликаттар
+library.duplicates.identical = бер үк (SHA-256)
+library.duplicates.suggested = Һаҡлау өсөн тәҡдим ителгәне
+library.duplicates.make_keeper = Быны һаҡлау
+library.duplicates.compare = Сағыштырыу
+library.duplicates.keep_all = Бөтәһен дә һаҡлау
+library.duplicates.reject_others = Ҡалғандарын кире ҡағыу
+library.duplicates.trash_others.other = Ҡалған {n} файлды сүп һауытына күсереү
+library.duplicates.confirm_trash.other = Раҫлау: {n} файлды сүп һауытына күсереү
+library.duplicates.n_trashed.other = {n} файл сүп һауытына күсерелде
+library.duplicates.n_rejected.other = {n} фото кире ҡағылған тип билдәләнде
+library.duplicates.refused_edited = уның үҙгәртеүҙәре йәки ярҙамсы файлы бар, шуға күрә уны кире ҡағығыҙ
+library.duplicates.trash_failed = система сүп һауыты ҡулланыуға асыҡ түгел
+library.duplicates.near_limit = Яҡын дубликаттарҙы эҙләү беренсе 10,000 фотоны үҙ эсенә ала.
+
+# Geotagging from GPX tracks
+library.geotag.menu = GPX трегынан геотег ҡуйыу…
+library.geotag.title = GPX трегынан геотег ҡуйыу
+library.geotag.add_files = GPX файлдары өҫтәү…
+library.geotag.n_track_points.other = Ваҡытлы трек нөктәләре: {n}
+library.geotag.max_gap = Иң ҙур өҙөклөк (минутта)
+library.geotag.clock_offset = Камера сәғәтен төҙәтеү
+library.geotag.time_zone = Фотоның ваҡыт бүлкәте (UTC күсеше)
+library.geotag.zone_help = Ваҡыт бүлкәте ваҡыт бүлкәтһеҙ яҙылған төшөрөү ваҡыттарына ғына ҡулланыла. Секундтарҙа йәки ±h:mm:ss форматында төҙәтмә һәр төшөрөү ваҡытына өҫтәлә.
+library.geotag.skip_existing = Урыны булған фотоларҙы үткәреп ебәреү
+library.geotag.n_will_tag.other = {n} фотоға тег ҡуйыласаҡ
+library.geotag.n_has_gps.other = {n} фотоның урыны инде бар
+library.geotag.n_no_time.other = {n} фотоның төшөрөү ваҡыты юҡ
+library.geotag.n_gap.other = {n} фото трекның өҙөк урынына тура килә
+library.geotag.n_outside.other = {n} фото трекның ваҡыт диапазонынан тыш
+library.geotag.apply = Урындарҙы яҙыу
+library.geotag.invalid = Өҙөклөктө минутта, -1:30 кеүек төҙәтмәне һәм +02:00 кеүек ваҡыт бүлкәтен индерегеҙ.
+library.geotag.no_points = GPX файлдарында ваҡытлы нөктәләр юҡ.
+library.geotag.select_photos = Алдан геотег ҡуйыласаҡ фотоларҙы һайлағыҙ.
+library.geotag.read_failed = GPX файлдарын уҡып булманы: {error}

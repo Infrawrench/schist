@@ -299,3 +299,43 @@ library.similar.keep = Conservar
 library.similar.reject = Regetar
 library.similar.help = Sonque de marcas de revision ; cap de fichièr es pas suprimit.
 library.similar.stale = Los fichièrs an cambiat. Actualizatz per contunhar.
+
+# Find Duplicates
+library.duplicates.title = Doblons
+library.duplicates.help = Fichièrs identics e còpias gaireben identicas dins totes los dossièrs seguits. Desplaçar cap a la banasta demanda una confirmacion dobla ; los fichièrs desplaçats se pòdon restaurar dempuèi la banasta del sistèma.
+library.duplicates.exact = Fichièrs identics
+library.duplicates.near = Doblons aprochants
+library.duplicates.identical = identic (SHA-256)
+library.duplicates.suggested = Suggerit per conservar
+library.duplicates.make_keeper = Conservar aquela
+library.duplicates.compare = Comparar
+library.duplicates.keep_all = Conservar tot
+library.duplicates.reject_others = Regetar las autras
+library.duplicates.trash_others.other = Desplaçar cap a la banasta las autras fòtos : {n}
+library.duplicates.confirm_trash.other = Confirmar : desplaçar cap a la banasta · {n}
+library.duplicates.n_trashed.other = Nombre de fichièrs desplaçats cap a la banasta : {n}
+library.duplicates.n_rejected.other = Nombre de fòtos marcadas coma regetadas : {n}
+library.duplicates.refused_edited = a de modificacions o un fichièr annèx, regetatz-la a la plaça
+library.duplicates.trash_failed = la banasta del sistèma es pas disponibla
+library.duplicates.near_limit = La cerca de doblons aprochants cobrís las primièras 10,000 fòtos.
+
+# Geotagging from GPX tracks
+library.geotag.menu = Geoetiquetar amb una traça GPX…
+library.geotag.title = Geoetiquetar amb una traça GPX
+library.geotag.add_files = Apondre de fichièrs GPX…
+library.geotag.n_track_points.other = Nombre de punts de traça oraris : {n}
+library.geotag.max_gap = Interval maximal (minutas)
+library.geotag.clock_offset = Correccion del relòtge de la camèra
+library.geotag.time_zone = Fus orari de las fòtos (decalatge UTC)
+library.geotag.zone_help = Lo fus orari s'aplica pas qu'a las oras de captura enregistradas sens fus. La correccion, en segondas o en ±h:mm:ss, s'apond a cada ora de captura.
+library.geotag.skip_existing = Daissar las fòtos que an ja una posicion
+library.geotag.n_will_tag.other = Nombre de fòtos que seràn etiquetadas : {n}
+library.geotag.n_has_gps.other = Nombre de fòtos qu'an ja una posicion : {n}
+library.geotag.n_no_time.other = Nombre de fòtos sens ora de captura : {n}
+library.geotag.n_gap.other = Nombre de fòtos dins un trauc de la traça : {n}
+library.geotag.n_outside.other = Nombre de fòtos defòra de l'interval de temps de la traça : {n}
+library.geotag.apply = Escriure las posicions
+library.geotag.invalid = Picatz l'interval en minutas, una correccion coma -1:30 e un fus orari coma +02:00.
+library.geotag.no_points = Los fichièrs GPX contenon pas cap de punt orari.
+library.geotag.select_photos = Seleccionatz d'en primièr las fòtos de geoetiquetar.
+library.geotag.read_failed = Impossible de legir los fichièrs GPX : {error}

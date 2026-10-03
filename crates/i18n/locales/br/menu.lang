@@ -121,6 +121,7 @@ menu.gallery = Skeudennaoueg
 menu.gallery.edit_selected = Embann an diuzadenn
 menu.gallery.refresh = Freskaat
 menu.gallery.map_filter = Sil ar gartenn…
+menu.gallery.find_duplicates = Kavout an doubladurioù…
 menu.gallery.back_to_editor = Distreiñ d'ar c'hemmerezh
 
 menu.cloud.browse = Furchal Schist Cloud

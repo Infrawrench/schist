@@ -124,6 +124,7 @@ menu.gallery = Galerie
 menu.gallery.edit_selected = Selectie bewerken
 menu.gallery.refresh = Vernieuwen
 menu.gallery.map_filter = Kaartfilter…
+menu.gallery.find_duplicates = Duplicaten zoeken…
 menu.gallery.back_to_editor = Terug naar editor
 
 menu.cloud.browse = Door Schist Cloud bladeren

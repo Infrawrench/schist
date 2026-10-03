@@ -122,6 +122,7 @@ menu.gallery = Galery
 menu.gallery.edit_selected = Wysig geselekteerde
 menu.gallery.refresh = Verfris
 menu.gallery.map_filter = Kaartfilter…
+menu.gallery.find_duplicates = Soek duplikate…
 menu.gallery.back_to_editor = Terug na redigeerder
 
 menu.cloud.browse = Blaai deur Schist Cloud

@@ -322,3 +322,43 @@ library.similar.keep = Mara
 library.similar.reject = Banna
 library.similar.help = Sɛgɛsɛgɛli taamasiɲɛw dɔrɔn; filenw tɛ bɔ yen.
 library.similar.stale = Filenw yɛlɛmana. Kuraya walasa ka taa ɲɛ.
+
+# Find Duplicates
+library.duplicates.title = Kopiw
+library.duplicates.help = Filewu ye kelen ye ni kopi minnu bɛ ɲɔgɔn jigi kosɛbɛ, dosiye bɛɛ la minnu bɛ lajɛ. Ka olu ci nɔgɔbilayɔrɔ la, a bɛ ɲininka siɲɛ fila; filewu minnu cira nɔgɔbilayɔrɔ la, olu bɛ se ka segin ka bɔ sisitɛmu nɔgɔbilayɔrɔ la.
+library.duplicates.exact = Filewu ye kelen ye
+library.duplicates.near = Kopi minnu bɛ ɲɔgɔn jigi
+library.duplicates.identical = ye kelen ye (SHA-256)
+library.duplicates.suggested = Mara min bɛ yamaruya
+library.duplicates.make_keeper = Nin mara
+library.duplicates.compare = Suganda
+library.duplicates.keep_all = Bɛɛ mara
+library.duplicates.reject_others = Gɛrɛw ban
+library.duplicates.trash_others.other = {n} gɛrɛ ci nɔgɔbilayɔrɔ la
+library.duplicates.confirm_trash.other = Sigasiga: {n} ci nɔgɔbilayɔrɔ la
+library.duplicates.n_trashed.other = Fileba {n} cira nɔgɔbilayɔrɔ la
+library.duplicates.n_rejected.other = Ja {n} taamasyɛnna ko banna
+library.duplicates.refused_edited = yɛlɛmali bɛ a la walima sidecar, o la a ban a nɔ na
+library.duplicates.trash_failed = sisitɛmu nɔgɔbilayɔrɔ tɛ yen
+library.duplicates.near_limit = Kopi minnu bɛ ɲɔgɔn jigi sɛgɛsɛgɛli bɛ ja 10,000 fɔlɔw dɛmɛ.
+
+# Geotagging from GPX tracks
+library.geotag.menu = Yɔrɔ sigi GPX ɲɛfɔli la…
+library.geotag.title = Yɔrɔ sigi GPX ɲɛfɔli la
+library.geotag.add_files = GPX filewu fara a kan…
+library.geotag.n_track_points.other = Ɲɛfɔli yɔrɔ {n} min bɛ waati la
+library.geotag.max_gap = Sanga min ka bon ni bɛɛ ye (miniti)
+library.geotag.clock_offset = Kamera wagati yɛlɛma
+library.geotag.time_zone = Jaw waati sigiyɔrɔ (UTC offset)
+library.geotag.zone_help = Waati sigiyɔrɔ bɛ baara kɛ dɔrɔn ja ta waatiw la minnu ma sɛbɛn a fɛ. Yɛlɛma, sekɔndi la walima ±h:mm:ss, bɛ fara ja ta waati bɛɛ kan.
+library.geotag.skip_existing = Ja minnu yɔrɔ bɛ a la, olu bila
+library.geotag.n_will_tag.other = Ja {n} bɛna taamasyɛn
+library.geotag.n_has_gps.other = Ja {n} yɔrɔ bɛ a la sisan
+library.geotag.n_no_time.other = Ja {n} ta waati tɛ yen
+library.geotag.n_gap.other = Ja {n} bɛ ɲɛfɔli sanga la
+library.geotag.n_outside.other = Ja {n} bɛ ɲɛfɔli waati kɔfɛ
+library.geotag.apply = Yɔrɔw sɛbɛn
+library.geotag.invalid = Sanga sɛbɛn miniti la, yɛlɛma i n’a fɔ -1:30 ani waati sigiyɔrɔ i n’a fɔ +02:00.
+library.geotag.no_points = GPX filewu la, waati dɔ tɛ yɔrɔ si la.
+library.geotag.select_photos = Ja sugandi fɔlɔ yɔrɔ sigili kama.
+library.geotag.read_failed = GPX filewu kalan ma ɲɛ: {error}

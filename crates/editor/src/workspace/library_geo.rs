@@ -8,6 +8,7 @@ impl Workspace {
             MapSlot::Gallery => &mut self.library.map,
             MapSlot::World => &mut self.library.world_map,
             MapSlot::Info => &mut self.info_map,
+            MapSlot::Geotag => &mut self.library.geotag.map,
         }
     }
     pub(super) fn prepare_map_paint(

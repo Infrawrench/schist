@@ -121,6 +121,7 @@ impl Workspace {
             schist_gallery::thumb_source(path, edited)
         });
         self.close_similar_review();
+        self.library.similar.resume = false;
         self.library.viewer = None;
         self.library.map_view = false;
         self.library.search.active = false;
@@ -197,6 +198,12 @@ impl Workspace {
 
     pub(super) fn close_culling_compare(&mut self, cx: &mut Context<Self>) {
         self.library.comparison = None;
+        // A comparison opened from the duplicate review returns to it.
+        if std::mem::take(&mut self.library.similar.resume) {
+            self.library.selected.clear();
+            self.show_review(cx);
+            return;
+        }
         self.culling_filter_changed(cx);
     }
 

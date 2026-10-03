@@ -258,6 +258,10 @@ pub enum AppItem {
     GalleryEditSelected,
     #[cfg_attr(target_arch = "wasm32", allow(dead_code))]
     GalleryMapFilter,
+    #[cfg_attr(target_arch = "wasm32", allow(dead_code))]
+    GalleryFindDuplicates,
+    #[cfg_attr(target_arch = "wasm32", allow(dead_code))]
+    GalleryGeotag,
     /// Open the n-th recently opened file. Desktop only — browser paths
     /// are invented per session, so there is nothing to come back to.
     #[cfg_attr(target_arch = "wasm32", allow(dead_code))]

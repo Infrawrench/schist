@@ -299,3 +299,43 @@ library.similar.keep = ཉར་ཚགས།
 library.similar.reject = དང་ལེན་མི་བྱེད།
 library.similar.help = ཞིབ་བཤེར་རྟགས་ཙམ་ཡིན། ཡིག་ཆ་སུབ་མི་བྱེད།
 library.similar.stale = ཡིག་ཆ་འགྱུར་ཟིན། མུ་མཐུད་པར་བསྐྱར་གསོ་བྱོས།
+
+# Find Duplicates
+library.duplicates.title = བསྐྱར་ཟློས།
+library.duplicates.help = ལྟ་རྟོག་བྱེད་བཞིན་པའི་ཡིག་སྣོད་ཚང་མའི་ནང་གི་ཡིག་ཆ་གཅིག་མཚུངས་དང་ཟིན་བྲིས་ཧ་ཅང་འདྲ་བ། སྙིགས་ཐོགས་སུ་སྤོར་བའི་སྔོན་དུ་ཐེངས་གཉིས་དྲིས་པ་ཡིན། སྙིགས་ཐོགས་སུ་སྤོར་བའི་ཡིག་ཆ་རྣམས་མ་ལག་གི་སྙིགས་ཐོགས་ནས་སླར་གསོ་བྱེད་ཆོག
+library.duplicates.exact = ཡིག་ཆ་གཅིག་མཚུངས།
+library.duplicates.near = ཧ་ཅང་འདྲ་བའི་བསྐྱར་ཟློས།
+library.duplicates.identical = གཅིག་མཚུངས། (SHA-256)
+library.duplicates.suggested = ཉར་འོས་པའི་བསམ་འཆར།
+library.duplicates.make_keeper = འདི་ཉར་ཚགས།
+library.duplicates.compare = བསྡུར།
+library.duplicates.keep_all = ཚང་མ་ཉར་ཚགས།
+library.duplicates.reject_others = གཞན་རྣམས་དང་ལེན་མི་བྱེད།
+library.duplicates.trash_others.other = གཞན་ {n} སྙིགས་ཐོགས་སུ་སྤོར།
+library.duplicates.confirm_trash.other = གཏན་འཁེལ། {n} སྙིགས་ཐོགས་སུ་སྤོར།
+library.duplicates.n_trashed.other = ཡིག་ཆ་ {n} སྙིགས་ཐོགས་སུ་སྤོར་ཡོད།
+library.duplicates.n_rejected.other = པར་རིས་ {n} དང་ལེན་མི་བྱེད་པར་རྟགས་བཀོད་ཡོད།
+library.duplicates.refused_edited = འདིར་བཟོ་བཅོས་འམ་ཡན་ལག་ཡིག་ཆ་ཡོད་པས། དེའི་ཚབ་ཏུ་དང་ལེན་མི་བྱེད།
+library.duplicates.trash_failed = མ་ལག་གི་སྙིགས་ཐོགས་བེད་སྤྱོད་བྱེད་མི་ཐུབ།
+library.duplicates.near_limit = ཧ་ཅང་འདྲ་བའི་བསྐྱར་ཟློས་འཚོལ་བ་དེས་པར་རིས་དང་པོ་ 10,000 ཁོ་ན་ཁྱབ་ཡོད།
+
+# Geotagging from GPX tracks
+library.geotag.menu = GPX ཐིག་ལམ་ནས་ས་གནས་རྟགས་འཇུག…
+library.geotag.title = GPX ཐིག་ལམ་ནས་ས་གནས་རྟགས་འཇུག
+library.geotag.add_files = GPX ཡིག་ཆ་སྣོན…
+library.geotag.n_track_points.other = དུས་ཚོད་ཡོད་པའི་ཐིག་ལམ་གྱི་ཚེག་ {n}
+library.geotag.max_gap = ཆེས་ཆེ་བའི་བར་ཐག (སྐར་མ།)
+library.geotag.clock_offset = པར་ཆས་ཀྱི་ཆུ་ཚོད་ཚད་བཟོ།
+library.geotag.time_zone = པར་རིས་ཀྱི་དུས་ཁུལ། (UTC offset)
+library.geotag.zone_help = དུས་ཁུལ་མེད་པར་ཟིན་བྲིས་བྱས་པའི་པར་བརྒྱབ་དུས་ཚོད་ལ་ཁོ་ན་སྤྱོད། ཚད་བཟོ་དེ་སྐར་ཆ་འམ་ ±h:mm:ss ཡིས་པར་བརྒྱབ་དུས་ཚོད་ཚང་མར་སྣོན་པ་ཡིན།
+library.geotag.skip_existing = ས་གནས་ཡོད་པའི་པར་རིས་མཆོང་།
+library.geotag.n_will_tag.other = པར་རིས་ {n} ལ་རྟགས་འཇུག་འགྱུར།
+library.geotag.n_has_gps.other = པར་རིས་ {n} ལ་ས་གནས་ཡོད་ཟིན།
+library.geotag.n_no_time.other = པར་རིས་ {n} ལ་པར་བརྒྱབ་དུས་ཚོད་མེད།
+library.geotag.n_gap.other = པར་རིས་ {n} ཐིག་ལམ་གྱི་བར་སྟོང་དུ་ཡོད།
+library.geotag.n_outside.other = པར་རིས་ {n} ཐིག་ལམ་གྱི་དུས་ཚོད་ཀྱི་ཁྱབ་ཁོངས་ཕྱི་རུ་ཡོད།
+library.geotag.apply = ས་གནས་འབྲི།
+library.geotag.invalid = བར་ཐག་སྐར་མའི་ཐོག་དང་། -1:30 ལྟ་བུའི་ཚད་བཟོ། +02:00 ལྟ་བུའི་དུས་ཁུལ་ཞིག་འཇུག་རོགས།
+library.geotag.no_points = GPX ཡིག་ཆའི་ནང་དུས་ཚོད་ཡོད་པའི་ཚེག་མེད།
+library.geotag.select_photos = སྔོན་དུ་ས་གནས་རྟགས་འཇུག་རྒྱུའི་པར་རིས་འདེམས།
+library.geotag.read_failed = GPX ཡིག་ཆ་ཀློག་མ་ཐུབ། {error}

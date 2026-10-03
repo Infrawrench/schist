@@ -122,6 +122,7 @@ menu.gallery = Галерея
 menu.gallery.edit_selected = Таңдалғанды өңдеу
 menu.gallery.refresh = Жаңарту
 menu.gallery.map_filter = Карта сүзгісі…
+menu.gallery.find_duplicates = Телнұсқаларды табу…
 menu.gallery.back_to_editor = Редакторға оралу
 
 menu.cloud.browse = Schist Cloud шолу

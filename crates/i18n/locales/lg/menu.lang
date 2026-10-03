@@ -130,6 +130,7 @@ menu.gallery = Ekkuŋŋaaniro
 menu.gallery.edit_selected = Kyusa ebirondeddwa
 menu.gallery.refresh = Zza buggya
 menu.gallery.map_filter = Akasengejja ka maapu…
+menu.gallery.find_duplicates = Noonya Ebikoppebwa…
 menu.gallery.back_to_editor = Ddayo mu mukwanaganya
 
 # Schist Cloud

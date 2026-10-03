@@ -299,3 +299,43 @@ library.similar.keep = Debe
 library.similar.reject = Jụ
 library.similar.help = Naanị akara nyocha; anaghị ehichapụ faịlụ.
 library.similar.stale = Faịlụ agbanweela. Mee ka ọ dị ọhụrụ iji gaa n’ihu.
+
+# Find Duplicates
+library.duplicates.title = Ihe e megharịrị emegharị
+library.duplicates.help = Faịlụ yiri otu na ndebanye yiri nke ahụ n’ime ndekọ niile a na-elekọta. A na-ajụ ugboro abụọ tupu ibugharị ha n’ebe a na-atụba ihe; enwere ike iweghachite faịlụ ndị e bugharịrị site n’ebe a na-atụba ihe nke sistem.
+library.duplicates.exact = Faịlụ yiri otu
+library.duplicates.near = Nke fọrọ nke nta ka ọ bụrụ otu
+library.duplicates.identical = yiri otu (SHA-256)
+library.duplicates.suggested = Nke a na-atụ aro idebe
+library.duplicates.make_keeper = Debe nke a
+library.duplicates.compare = Tụnyere
+library.duplicates.keep_all = Debe Ha Niile
+library.duplicates.reject_others = Jụ ndị ọzọ
+library.duplicates.trash_others.other = Bugharịa {n} ndị ọzọ gaa n’ebe a na-atụba ihe
+library.duplicates.confirm_trash.other = Kwenye: Bugharịa {n} gaa n’ebe a na-atụba ihe
+library.duplicates.n_trashed.other = E bugharịrị faịlụ {n} gaa n’ebe a na-atụba ihe
+library.duplicates.n_rejected.other = E machiri foto {n} dị ka ndị a jụrụ
+library.duplicates.refused_edited = o nwere mgbanwe ma ọ bụ faịlụ sidecar, ya mere jụọ ya kama
+library.duplicates.trash_failed = ebe a na-atụba ihe nke sistem adịghị
+library.duplicates.near_limit = Nchọta ihe fọrọ nke nta ka ha bụrụ otu na-ekpuchi foto 10,000 mbụ.
+
+# Geotagging from GPX tracks
+library.geotag.menu = Tinye ebe site na GPX…
+library.geotag.title = Tinye ebe site na GPX
+library.geotag.add_files = Tinye faịlụ GPX…
+library.geotag.n_track_points.other = Isi ụzọ {n} nwere oge
+library.geotag.max_gap = Oke oghere kacha ukwuu (nkeji)
+library.geotag.clock_offset = Mmezi elekere igwefoto
+library.geotag.time_zone = Mpaghara oge foto (UTC offset)
+library.geotag.zone_help = Mpaghara oge na-emetụta naanị oge ejiri see foto edekọrọ na-enweghị mpaghara oge. A na-agbakwunye mmezi ahụ, n’ime sekọnd ma ọ bụ ±h:mm:ss, n’oge foto ọ bụla.
+library.geotag.skip_existing = Gafere foto ndị nwere ebe ugbu a
+library.geotag.n_will_tag.other = A ga-etinye ebe na foto {n}
+library.geotag.n_has_gps.other = Foto {n} nwere ebe ugbu a
+library.geotag.n_no_time.other = Foto {n} enweghị oge e sere ya
+library.geotag.n_gap.other = Foto {n} dara n’oghere dị n’ụzọ
+library.geotag.n_outside.other = Foto {n} dị na mpụga oge ụzọ ahụ
+library.geotag.apply = Dee ebe
+library.geotag.invalid = Tinye oghere n’ime nkeji, mmezi dị ka -1:30 na mpaghara oge dị ka +02:00.
+library.geotag.no_points = Faịlụ GPX enweghị isi ọ bụla nwere oge.
+library.geotag.select_photos = Buru ụzọ họrọ foto ị ga-etinye ebe.
+library.geotag.read_failed = Enweghị ike ịgụ faịlụ GPX: {error}

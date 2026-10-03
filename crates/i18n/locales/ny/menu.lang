@@ -122,6 +122,7 @@ menu.gallery = Nyumba ya zithunzi
 menu.gallery.edit_selected = Sinthani Zosankhidwa
 menu.gallery.refresh = Tsitsimutsani
 menu.gallery.map_filter = Sefa ya Mapu…
+menu.gallery.find_duplicates = Pezani zobwereza…
 menu.gallery.back_to_editor = Bwererani ku Editor
 
 menu.cloud.browse = Sakatulani Schist Cloud

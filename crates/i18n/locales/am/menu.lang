@@ -133,6 +133,7 @@ menu.gallery = ማዕከለ-ስዕላት
 menu.gallery.edit_selected = የተመረጠውን አርትዕ
 menu.gallery.refresh = አድስ
 menu.gallery.map_filter = የካርታ ማጣሪያ…
+menu.gallery.find_duplicates = ተባዛዎችን ፈልግ…
 menu.gallery.back_to_editor = ወደ አርታዒው ተመለስ
 
 # Schist Cloud

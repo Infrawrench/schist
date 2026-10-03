@@ -503,6 +503,12 @@ fn gallery_menus(ws: &Workspace) -> Vec<(&'static str, Vec<MenuEntry>)> {
                 App(t("menu.gallery.edit_selected"), GalleryEditSelected, None),
                 App(t("menu.gallery.refresh"), GalleryRefresh, None),
                 App(t("menu.gallery.map_filter"), GalleryMapFilter, None),
+                App(
+                    t("menu.gallery.find_duplicates"),
+                    GalleryFindDuplicates,
+                    None,
+                ),
+                App(t("library.geotag.menu"), GalleryGeotag, None),
                 Sep,
                 // The content filter's model downloads live here too, so
                 // turning the filter on never requires leaving the room.

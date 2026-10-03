@@ -131,6 +131,7 @@ menu.gallery = Galleriija
 menu.gallery.edit_selected = Doaimmat válljejuvvon
 menu.gallery.refresh = Ođasmahte
 menu.gallery.map_filter = Kártasilli…
+menu.gallery.find_duplicates = Gávdnat duplikáhtaid…
 menu.gallery.back_to_editor = Ruovttoluotta doaimmaheaddjái
 
 # Schist Cloud

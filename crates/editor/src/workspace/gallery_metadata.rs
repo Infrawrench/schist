@@ -119,7 +119,7 @@ pub(super) fn dialog(
     crate::ui::modal_frame(t("metadata.title"), 620.0, body, actions).into_any_element()
 }
 
-fn field(
+pub(super) fn field(
     id: &'static str,
     value: String,
     placeholder: String,

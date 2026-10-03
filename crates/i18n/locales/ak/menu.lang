@@ -130,6 +130,7 @@ menu.gallery = Gallery
 menu.gallery.edit_selected = Siesie Nea Woapaw
 menu.gallery.refresh = Yɛ No Foforo
 menu.gallery.map_filter = Map Filter…
+menu.gallery.find_duplicates = Hwehwɛ Nea Wɔaso…
 menu.gallery.back_to_editor = San Kɔ Editor No Mu
 
 # Schist Cloud

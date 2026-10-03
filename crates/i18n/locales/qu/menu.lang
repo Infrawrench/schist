@@ -131,6 +131,7 @@ menu.gallery = Galería
 menu.gallery.edit_selected = Akllasqata allichay
 menu.gallery.refresh = Wakmanta apamuy
 menu.gallery.map_filter = Mapa suysuna…
+menu.gallery.find_duplicates = Kikinllapa tarikuy…
 menu.gallery.back_to_editor = Allichaqman kutiy
 
 # Schist Cloud

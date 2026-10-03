@@ -130,6 +130,7 @@ menu.gallery = Saṅgaho
 menu.gallery.edit_selected = Gahitaṃ sampādetha
 menu.gallery.refresh = Puna tājaṃ karotha
 menu.gallery.map_filter = Bhūmicittasodhakaṃ…
+menu.gallery.find_duplicates = Dvikopiyo Gavesatha…
 menu.gallery.back_to_editor = Sampādakaṃ paccāgacchatha
 
 # Cloud

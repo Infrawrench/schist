@@ -130,6 +130,7 @@ menu.gallery = Galerija
 menu.gallery.edit_selected = Rediģēt atlasītos
 menu.gallery.refresh = Atsvaidzināt
 menu.gallery.map_filter = Kartes filtrs…
+menu.gallery.find_duplicates = Atrast dublikātus…
 menu.gallery.back_to_editor = Atpakaļ uz redaktoru
 
 # Schist Cloud

@@ -122,6 +122,7 @@ menu.gallery = Galleri
 menu.gallery.edit_selected = Rediger valde
 menu.gallery.refresh = Oppdater
 menu.gallery.map_filter = Kartfilter …
+menu.gallery.find_duplicates = Finn duplikat …
 menu.gallery.back_to_editor = Tilbake til redigeringa
 
 menu.cloud.browse = Bla gjennom Schist Cloud

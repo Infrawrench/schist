@@ -130,6 +130,7 @@ menu.gallery = Галерэя
 menu.gallery.edit_selected = Рэдагаваць выбранае
 menu.gallery.refresh = Аднавіць
 menu.gallery.map_filter = Фільтр карты…
+menu.gallery.find_duplicates = Знайсці дублікаты…
 menu.gallery.back_to_editor = Назад у рэдактар
 
 # Schist Cloud

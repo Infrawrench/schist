@@ -130,6 +130,7 @@ menu.gallery = ગૅલેરી
 menu.gallery.edit_selected = પસંદ કરેલું સંપાદિત કરો
 menu.gallery.refresh = રિફ્રેશ કરો
 menu.gallery.map_filter = નકશો ફિલ્ટર…
+menu.gallery.find_duplicates = ડુપ્લિકેટ શોધો…
 menu.gallery.back_to_editor = એડિટર પર પાછા જાઓ
 
 # Schist Cloud submenu

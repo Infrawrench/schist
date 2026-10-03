@@ -138,6 +138,7 @@ menu.gallery = গেলেৰী
 menu.gallery.edit_selected = নিৰ্বাচিতবোৰ সম্পাদনা কৰক
 menu.gallery.refresh = সতেজ কৰক
 menu.gallery.map_filter = মানচিত্ৰ ফিল্টাৰ…
+menu.gallery.find_duplicates = ডুপ্লিকেট বিচাৰক…
 menu.gallery.back_to_editor = সম্পাদকলৈ ঘূৰি যাওক
 
 # Schist Cloud submenu

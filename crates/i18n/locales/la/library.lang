@@ -299,3 +299,43 @@ library.similar.keep = Serva
 library.similar.reject = Reice
 library.similar.help = Notae inspectionis tantum; fasciculi non delentur.
 library.similar.stale = Fasciculi mutati sunt. Renova ut pergas.
+
+# Find Duplicates
+library.duplicates.title = Duplicata
+library.duplicates.help = Fasciculi identici et exemplaria prope similia in omnibus directoriis observatis. Ad purgamenta movere bis confirmationem petit; fasciculi eiecti ex purgamentis systematis restitui possunt.
+library.duplicates.exact = Fasciculi identici
+library.duplicates.near = Duplicata prope similia
+library.duplicates.identical = identici (SHA-256)
+library.duplicates.suggested = Servandum suasum
+library.duplicates.make_keeper = Hoc Serva
+library.duplicates.compare = Compara
+library.duplicates.keep_all = Omnia Serva
+library.duplicates.reject_others = Alia Reice
+library.duplicates.trash_others.other = Ad purgamenta move alia quorum numerus est {n}
+library.duplicates.confirm_trash.other = Confirma: ad purgamenta move numerum {n}
+library.duplicates.n_trashed.other = Fasciculi ad purgamenta moti: {n}
+library.duplicates.n_rejected.other = Photographemata ut reiecta notata: {n}
+library.duplicates.refused_edited = emendationes vel fasciculum adiunctum habet, itaque potius reice
+library.duplicates.trash_failed = purgamenta systematis praesto non sunt
+library.duplicates.near_limit = Quaestio duplicatorum prope similium primas 10,000 photographemata comprehendit.
+
+# Geotagging from GPX tracks
+library.geotag.menu = Locum ex Itinere GPX Adscribere…
+library.geotag.title = Locum ex Itinere GPX Adscribere
+library.geotag.add_files = Fasciculos GPX Addere…
+library.geotag.n_track_points.other = Puncta itineris cum tempore: {n}
+library.geotag.max_gap = Intervallum maximum (minuta)
+library.geotag.clock_offset = Correctio horologii photographicae machinae
+library.geotag.time_zone = Zona horaria photographematum (differentia UTC)
+library.geotag.zone_help = Zona horaria solum ad tempora captionis sine zona notata valet. Correctio, in secundis vel ±h:mm:ss, ad omne tempus captionis additur.
+library.geotag.skip_existing = Photographemata iam locum habentia praetermitte
+library.geotag.n_will_tag.other = Photographemata quibus locus adscribetur: {n}
+library.geotag.n_has_gps.other = Photographemata quae iam locum habent: {n}
+library.geotag.n_no_time.other = Photographemata sine tempore captionis: {n}
+library.geotag.n_gap.other = Photographemata in intervallo itineris cadentia: {n}
+library.geotag.n_outside.other = Photographemata extra tempus itineris: {n}
+library.geotag.apply = Locos Scribere
+library.geotag.invalid = Intervallum in minutis, correctionem ut -1:30 et zonam horariam ut +02:00 inscribe.
+library.geotag.no_points = Fasciculi GPX nulla puncta cum tempore continent.
+library.geotag.select_photos = Prius photographemata ad locum adscribendum elige.
+library.geotag.read_failed = Fasciculos GPX legere non potuit: {error}

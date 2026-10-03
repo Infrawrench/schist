@@ -299,3 +299,43 @@ library.similar.keep = Нигоҳ доштан
 library.similar.reject = Рад кардан
 library.similar.help = Танҳо аломатҳои баррасӣ; файлҳо нест намешаванд.
 library.similar.stale = Файлҳо тағйир ёфтанд. Барои идома навсозӣ кунед.
+
+# Find Duplicates
+library.duplicates.title = Нусхаҳои такрорӣ
+library.duplicates.help = Файлҳои айнан якхела ва нусхаҳои қариб монанд дар ҳамаи ҷузвдонҳои назоратшаванда. Ба сабад интиқол додан ду маротиба тасдиқро талаб мекунад; файлҳои партофташударо аз сабади система барқарор кардан мумкин аст.
+library.duplicates.exact = Файлҳои якхела
+library.duplicates.near = Нусхаҳои қариб такрорӣ
+library.duplicates.identical = айнан якхела (SHA-256)
+library.duplicates.suggested = Барои нигоҳ доштан пешниҳод шудааст
+library.duplicates.make_keeper = Инро нигоҳ доштан
+library.duplicates.compare = Муқоиса кардан
+library.duplicates.keep_all = Ҳамаро нигоҳ доштан
+library.duplicates.reject_others = Боқимондаро рад кардан
+library.duplicates.trash_others.other = Ба сабад интиқол додани боқимонда: {n}
+library.duplicates.confirm_trash.other = Тасдиқ: ба сабад интиқол додани {n}
+library.duplicates.n_trashed.other = Ба сабад интиқол дода шуд: {n} файл
+library.duplicates.n_rejected.other = Ҳамчун рад шуда нишон дода шуд: {n} акс
+library.duplicates.refused_edited = он таҳрирҳо ё файли ёвар дорад, пас онро рад кунед
+library.duplicates.trash_failed = сабади система дастрас нест
+library.duplicates.near_limit = Ҷустуҷӯи нусхаҳои қариб такрорӣ 10,000 акси аввалро фаро мегирад.
+
+# Geotagging from GPX tracks
+library.geotag.menu = Ҷойгиркунии ҷо аз треки GPX…
+library.geotag.title = Ҷойгиркунии ҷо аз треки GPX
+library.geotag.add_files = Илова кардани файлҳои GPX…
+library.geotag.n_track_points.other = {n} нуқтаи трек бо вақт
+library.geotag.max_gap = Фосилаи ҳадди аксар (дақиқа)
+library.geotag.clock_offset = Ислоҳи соати камера
+library.geotag.time_zone = Минтақаи вақти аксҳо (фарқият бо UTC)
+library.geotag.zone_help = Минтақаи вақт танҳо ба вақтҳои гирифтани акс, ки бидуни он сабт шудаанд, татбиқ мешавад. Ислоҳ, бо сония ё ±h:mm:ss, ба ҳар вақти гирифтан илова карда мешавад.
+library.geotag.skip_existing = Гузаштани аксҳое, ки аллакай ҷой доранд
+library.geotag.n_will_tag.other = Ба {n} акс ҷой гузошта мешавад
+library.geotag.n_has_gps.other = {n} акс аллакай ҷой дорад
+library.geotag.n_no_time.other = {n} акс вақти гирифтан надорад
+library.geotag.n_gap.other = {n} акс ба фосилаи трек меафтад
+library.geotag.n_outside.other = {n} акс берун аз доираи вақти трек аст
+library.geotag.apply = Сабти ҷойҳо
+library.geotag.invalid = Фосиларо бо дақиқа, ислоҳро монанди -1:30 ва минтақаи вақтро монанди +02:00 ворид кунед.
+library.geotag.no_points = Файлҳои GPX нуқтаҳои бо вақт надоранд.
+library.geotag.select_photos = Аввал аксҳоро барои ҷойгиркунӣ интихоб кунед.
+library.geotag.read_failed = Хондани файлҳои GPX муяссар нашуд: {error}
