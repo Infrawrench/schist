@@ -33,14 +33,46 @@ pub(super) fn supported(index: usize, rule: &NestedStyle) -> bool {
             || (rule.repetition > 0 && kind(&rule.delimiter).is_some()))
 }
 
-/// Unknown bounds stop the sequence, including no-style rules: guessing their
-/// extent would start a later named style at the wrong source character.
+/// A valid Repeat loops only the preceding ordinary rules; later records stay
+/// retained but never participate. Unknown bounds stop the supported prefix.
+pub(super) struct Plan {
+    pub prefix: usize,
+    pub repeat_from: Option<usize>,
+    pub complete: bool,
+}
+
+pub(super) fn plan(rules: &[NestedStyle]) -> Plan {
+    for (index, rule) in rules.iter().enumerate() {
+        if matches!(&rule.delimiter, Delimiter::Enumeration(value) if value == "Repeat") {
+            let count = usize::try_from(rule.repetition).ok().filter(|n| *n > 0);
+            let repeat_from = count.and_then(|n| index.checked_sub(n)).filter(|start| {
+                matches!(rule.character_style, CharacterStyle::None)
+                    && !rules[*start..index].iter().any(NestedStyle::is_initial)
+            });
+            return Plan {
+                prefix: index,
+                complete: repeat_from.is_some(),
+                repeat_from,
+            };
+        }
+        if !supported(index, rule) {
+            return Plan {
+                prefix: index,
+                repeat_from: None,
+                complete: false,
+            };
+        }
+    }
+    Plan {
+        prefix: rules.len(),
+        repeat_from: None,
+        complete: true,
+    }
+}
+
+// Only ordinary rules produce source spans; Repeat is a terminal control.
 pub(super) fn prefix(rules: &[NestedStyle]) -> usize {
-    rules
-        .iter()
-        .enumerate()
-        .take_while(|(index, rule)| supported(*index, rule))
-        .count()
+    plan(rules).prefix
 }
 
 /// Through includes the final delimiter; up-to leaves it to the next rule.

@@ -310,6 +310,41 @@ are marked.
 
 ## Handoff
 
+Repeated nested sequences, 2026-10-03:
+A bounded no-style Repeat control now loops the requested suffix of supported
+ordinary rules. Preceding rules run once; later records stay preserved but inactive.
+Cycles restart per source paragraph and stop when a complete cycle cannot advance;
+a zero-width member can still be followed by an advancing member. Canonical
+initials remain outside the loop. Invalid counts, other control references and
+unknown prior bounds produce the existing diagnostics, including after main/note
+projection. Public manual/DOM references and a native screenshot establish behavior;
+a native Repeat XML record and external placement agreement remain unverified.
+
+Eight new properties verify suffix widths/offsets, skipped spans, every source
+continuation slice, Unicode graphemes, no-progress cycles, invalid/ignored records,
+initial boundaries, inherited paragraph restarts and edits with exact undo/redo.
+Repeated saves preserve source, records, rendered specifications and typed paint.
+Every process/spot plate matches explicit ranges at three resolutions in both
+separation paths, including generated labels with spaces and actual split notes.
+All eight pairs in the 16-page proof match extracted samples and Poppler renders;
+every page passes visual review and final renders match the reviewed pixels.
+All 39 recorded prior PDF proofs remain byte-identical.
+
+All 16 roadmap targets, shared UI, formatting and whitespace checks pass:
+**2,017 distinct Rust tests**, four browser checks and eight Python audit tests;
+one existing shared UI documentation example remains ignored. Native debug build
+passes in 4m 15s; the isolated Design-enabled QA bundle is refreshed and
+hash/signature verified. No UI or locale keys change. Evidence is under
+`/tmp/schist-nested-repeat-*`; seven applied temporary Rust drafts were removed.
+Prepared for draft PR #195. Word rules are published as `30918024` below.
+
+Item 9 continues with sentence/letter boundaries and the other documented
+structured-story/object integration gaps. A further public resource sample adds
+literal-space, digit and combined Dropcap/AnyWord records, but no sentence/letter
+records. Unicode category support is already a transitive dependency and is being
+reviewed for explicit letter classification. INDD remains spike-gated. Validate
+locally and continue without waiting for CI, per the user's instruction.
+
 Word-based nested styles, 2026-10-03:
 AnyWord now consumes nonempty source words, with through/up-to bounds, ordered
 no-style spans, per-paragraph restarts and grapheme-safe continuation slices.

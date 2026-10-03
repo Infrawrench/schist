@@ -2333,8 +2333,9 @@ cluster behavior. Rules restart at each source paragraph, never at a wrapped
 line or inserted reference. A leading canonical Dropcap can precede the other
 supported rules. Source character overrides retain precedence.
 
-Unknown or invalid bounds stop the supported prefix. Sentence/letter rules,
-Repeat and structural delimiters remain unsupported. A no-style unknown rule can affect other named rules and remains
+Unknown or invalid active bounds stop the supported prefix. Sentence/letter rules,
+unverified Repeat forms and structural delimiters remain unsupported. A no-style
+unknown rule can affect other named rules and remains
 diagnosed; entirely no-style lists cannot change formatting. Source diagnostics
 travel with temporary footnote projections, so suppressing materialized styles
 cannot suppress their original error. Empty source spans are consumed too: they
@@ -2389,5 +2390,41 @@ the same source-derived formatting. Independent explicit ranges cover Unicode,
 nonbreaking spaces, excluded delimiters, long counts, vertical writing and affine
 placement in all process/spot plates at 72/144/216 dpi. The 16-page PDF proof is
 part of `make check-design-output`; local visual verification is recorded in
-Roadmap / Handoff. Sentence, Letters, Repeat and structural delimiters remain
-retained and unsupported; the existing diagnostics still apply.
+Roadmap / Handoff. Sentence, Letters and structural delimiters remain retained and unsupported;
+the supported Repeat subset is described below.
+
+
+### Repeated nested sequences
+
+The public [user manual](https://helpx.adobe.com/content/dam/help/en/pdf/indesign_reference.pdf),
+printed page 325, defines Repeat as looping the last requested number of nested
+styles and ignoring any later records. The [public DOM enum](https://developer.adobe.com/indesign/uxp/dom/api/n/nested-style-delimiters/)
+and IDML schema name the control `Repeat`. andrejK's [native settings screenshot](https://forum.rudtp.ru/attachments/upload_2018-5-18_12-24-47-png.107233/)
+shows a three-rule loop: regular word, bold word, then an unstyled span ending
+at a period. This corroborates the behavior, not its XML record representation.
+A populated native Repeat XML specimen and external application agreement remain
+validation gaps. The existing public downloaded word specimen has no Repeat.
+
+Schist supports a no-character-style Repeat control with a positive count of
+preceding supported ordinary rules. The control produces no character span, so
+its inclusive flag has no effect. A leading canonical Dropcap may precede the
+loop; it cannot itself be repeated as an ordinary rule. Other control references,
+invalid counts, loops reaching the initial and unknown preceding bounds remain
+diagnosed. Ignored trailing records stay intact through native saves.
+
+Each source paragraph starts a fresh sequence. One-time prefix rules run once;
+the selected suffix then repeats while consuming source graphemes. A zero-length
+member does not prevent another member from advancing. A full cycle with no
+source progress terminates without inventing a styled range or discarding text.
+Generated reference labels never participate in the cycle. Main/whole/split note
+projection suppresses already materialized source rules while retaining original
+unsupported-setting diagnostics; temporary ranges and aliases remain unsaved.
+
+Properties cover cycle widths and offsets, no-style spans, all continuation
+slices, Unicode graphemes, invalid/ignored records, initial boundaries, inherited
+paragraph restarts and source edits with exact undo/redo. Independent explicit
+ranges compare every process/spot plate at three resolutions in both separation
+paths, including actual split notes. Repeated saves preserve source, ordered
+records, rendered specifications and typed paint. The new 16-page proof is part
+of `make check-design-output`; visual review and full local checks are recorded
+in Roadmap / Handoff.

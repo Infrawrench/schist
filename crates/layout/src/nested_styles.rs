@@ -43,6 +43,7 @@ impl NestedStyle {
 
 /// A supported prefix composes in order. Unknown rules remain unsupported,
 /// including bounds that would change the start of subsequent named rules.
+/// A valid Repeat loops the requested suffix and makes later records inert.
 /// Empty lists and sequences made entirely of no-style rules cannot change
 /// appearance, including when they reset an inherited formatted sequence.
 pub fn unsupported(paragraph: &crate::ResolvedParagraph) -> Option<&'static str> {
@@ -53,7 +54,7 @@ pub fn unsupported(paragraph: &crate::ResolvedParagraph) -> Option<&'static str>
             rules
                 .iter()
                 .any(|rule| !matches!(rule.character_style, CharacterStyle::None))
-                && boundaries::prefix(rules) != rules.len()
+                && !boundaries::plan(rules).complete
         })
         .map(|_| "AllNestedStyles")
 }

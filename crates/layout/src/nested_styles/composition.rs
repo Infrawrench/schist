@@ -41,13 +41,23 @@ fn derived_runs(
     styles: &StyleSet,
 ) -> Vec<Run> {
     let rules = paragraph.nested_styles.as_deref().unwrap_or_default();
+    let plan = super::boundaries::plan(rules);
+    let rules = &rules[..plan.prefix];
     let mut out = Vec::new();
-    let mut cursor = 0;
-    for (index, rule) in rules
+    if !rules
         .iter()
-        .take(super::boundaries::prefix(rules))
-        .enumerate()
+        .any(|rule| matches!(rule.character_style, CharacterStyle::Named(_)))
     {
+        return out;
+    }
+    let mut cursor = 0;
+    let mut index = 0;
+    let mut cycle_cursor = 0;
+    while index < rules.len() {
+        if plan.repeat_from == Some(index) {
+            cycle_cursor = cursor;
+        }
+        let rule = &rules[index];
         let end = if index == 0 && rule.is_initial() {
             if paragraph.drop_caps_lines.unwrap_or(0) == 0 {
                 0
@@ -69,6 +79,17 @@ fn derived_runs(
             }
         }
         cursor = end;
+        index += 1;
+        if index == rules.len() {
+            if let Some(repeat_from) = plan.repeat_from {
+                // Individual excluded delimiters may be zero-width. Only a
+                // whole cycle without source progress terminates the loop.
+                if cursor == cycle_cursor || cursor == text.len() {
+                    break;
+                }
+                index = repeat_from;
+            }
+        }
     }
     out
 }
