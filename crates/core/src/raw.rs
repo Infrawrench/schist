@@ -84,6 +84,8 @@ impl RawSettings {
 pub struct RawDevelopment {
     pub source: Arc<[u8]>,
     pub settings: RawSettings,
+    /// Local adjustments, applied in order over the global development.
+    pub masks: Vec<crate::raw_masks::LocalMask>,
 }
 
 impl PartialEq for RawDevelopment {
@@ -92,6 +94,7 @@ impl PartialEq for RawDevelopment {
         // before considering a potentially enormous byte slice. History
         // snapshots normally share the Arc and take the pointer-fast path.
         self.settings == other.settings
+            && self.masks == other.masks
             && (Arc::ptr_eq(&self.source, &other.source) || self.source == other.source)
     }
 }

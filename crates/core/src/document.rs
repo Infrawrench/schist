@@ -2164,10 +2164,14 @@ mod tests {
         let original = crate::RawDevelopment {
             source: std::sync::Arc::from(&b"original capture"[..]),
             settings: crate::RawSettings::default(),
+            masks: Vec::new(),
         };
         doc.tree.find_mut(id).unwrap().raw = Some(Box::new(original.clone()));
         let mut changed = original.clone();
         changed.settings.exposure = 1.25;
+        let mut mask = crate::LocalMask::new(crate::MaskShape::default_radial());
+        mask.adjustments.exposure = -1.0;
+        changed.masks.push(mask);
 
         let mut edit = doc.begin_edit("Camera Raw Development");
         edit.set_raw_development(id, Some(Box::new(changed.clone())));
