@@ -1049,7 +1049,14 @@ impl Render for Workspace {
             // Other platforms retain their native window decorations.
             .children((chrome && cfg!(target_os = "macos")).then(|| panels::title_bar(self)))
             .children(in_window_menus.then(|| panels::menu_bar(self, window, cx)))
-            .children(editor_chrome.then(|| panels::tool_options_bar(self, window, cx)))
+            .children(
+                (editor_chrome
+                    && (!photo
+                        || (self.photo_view.tool_options
+                            && self.view.photo_layout.display
+                                != schist_app_settings::workspaces::PhotoDisplay::Browser)))
+                    .then(|| panels::tool_options_bar(self, window, cx)),
+            )
             .children((editor_chrome && !photo).then(|| panels::tab_bar(self, cx)))
             .child(body)
             .children(editor_chrome.then(|| panels::status_bar(self, cx)))

@@ -14,3 +14,4 @@ workspaces.invalid_name = Boshqaruv belgilarisiz 1–80 ta belgidan iborat nom k
 workspaces.duplicate = Bu nomli ish maydoni allaqachon mavjud.
 workspaces.limit = Ko‘pi bilan 64 ta ish maydonini saqlashingiz mumkin.
 workspaces.keyboard = Klaviatura: Alt+↑/↓ joylashuvni tanlaydi. Ctrl/Cmd+N uning nomini tahrirlaydi; +S nusxasini saqlaydi; +Enter qo‘llaydi; +U yangilaydi; +R nomini o‘zgartiradi; +D o‘chiradi; +0 tiklaydi.
+workspaces.open_documents = Ochiq hujjatlar

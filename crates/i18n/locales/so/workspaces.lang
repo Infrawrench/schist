@@ -14,3 +14,4 @@ workspaces.invalid_name = Geli magac ka kooban 1–80 xaraf oo aan lahayn xarfo 
 workspaces.duplicate = Goob shaqo oo magacan leh ayaa hore u jirta.
 workspaces.limit = Waxaad kaydin kartaa ilaa 64 goobood oo shaqo.
 workspaces.keyboard = Kiiboodhka: Alt+↑/↓ wuxuu doortaa qaab. Ctrl/Cmd+N wuxuu tafatiraa magaciisa; +S wuxuu kaydiyaa nuqul; +Enter wuu dabaqaa; +U wuu cusboonaysiiyaa; +R magaciisa ayuu beddelaa; +D wuu tirtiraa; +0 dib ayuu u celiyaa.
+workspaces.open_documents = Dukumentiyada furan

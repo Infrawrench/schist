@@ -14,3 +14,4 @@ workspaces.invalid_name = Tusi se igoa e 1–80 mataitusi, e aunoa ma mataitusi 
 workspaces.duplicate = Ua iai se avanoa faigaluega i lenei igoa.
 workspaces.limit = E mafai ona sefe seʻia oo i le 64 avanoa faigaluega.
 workspaces.keyboard = Piano: Alt+↑/↓ e filifili ai se faatulagaga. Ctrl/Cmd+N e faasaʻo ai lona igoa; +S e sefe ai se kopi; +Enter e faaaoga ai; +U e faafou ai; +R e toe faaigoa ai; +D e tape ai; +0 e toe seti ai.
+workspaces.open_documents = Pepa o loo tatala

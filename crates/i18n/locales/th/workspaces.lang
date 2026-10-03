@@ -14,3 +14,4 @@ workspaces.invalid_name = ป้อนชื่อที่มี 1–80 อั�
 workspaces.duplicate = มีพื้นที่ทำงานชื่อนี้อยู่แล้ว
 workspaces.limit = คุณสามารถบันทึกพื้นที่ทำงานได้สูงสุด 64 รายการ
 workspaces.keyboard = แป้นพิมพ์: Alt+↑/↓ เลือกเค้าโครง Ctrl/Cmd+N แก้ไขชื่อ; +S บันทึกสำเนา; +Enter นำไปใช้; +U อัปเดต; +R เปลี่ยนชื่อ; +D ลบ; +0 รีเซ็ต
+workspaces.open_documents = เอกสารที่เปิดอยู่

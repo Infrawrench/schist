@@ -14,3 +14,4 @@ workspaces.invalid_name = Intra un nómine de 1–80 caracteres sin control-cara
 workspaces.duplicate = Un labor-spacie con ti nómine ja existe.
 workspaces.limit = Vu posse gardar til 64 labor-spacies.
 workspaces.keyboard = Claviatura: Alt+↑/↓ selecte un aranjament. Ctrl/Cmd+N redacter su nómine; +S garda un copie; +Enter aplica it; +U actualisa it; +R renomina it; +D delete it; +0 reinitialisa it.
+workspaces.open_documents = Apert documentes

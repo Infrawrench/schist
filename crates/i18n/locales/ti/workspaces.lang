@@ -14,3 +14,4 @@ workspaces.invalid_name = ናይ ቁጽጽር ፊደላት ዘይብሉ 1–80 �
 workspaces.duplicate = በዚ ስም ዝፍለጥ መስርሒ ቦታ ድሮ ኣሎ።
 workspaces.limit = ክሳብ 64 መስርሒ ቦታታት ክትቕምጥ ትኽእል።
 workspaces.keyboard = ቁልፊ ሰሌዳ: Alt+↑/↓ ኣቀማምጣ ይመርጽ። Ctrl/Cmd+N ስሙ የዐርይ፤ +S ቅዳሕ ይቕምጥ፤ +Enter ይትግብር፤ +U የሐድስ፤ +R ስሙ ይቕይር፤ +D ይድምስስ፤ +0 ዳግማይ የተዓራሪ።
+workspaces.open_documents = ክፉታት ሰነዳት

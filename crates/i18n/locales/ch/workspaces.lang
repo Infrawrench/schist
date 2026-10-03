@@ -14,3 +14,4 @@ workspaces.invalid_name = Na’halom na’an ni gai 1–80 karakter sin karakter
 workspaces.duplicate = Guaha esta lugåt gi cho’cho’ ni parehu na’ån-ña.
 workspaces.limit = Siña un såtba asta 64 lugåt siha gi cho’cho’.
 workspaces.keyboard = Teklådu: Alt+↑/↓ ha ayek i disposision. Ctrl/Cmd+N ha tulaika i na’ån-ña; +S ha såtba unu kopia; +Enter ha aplika; +U ha na’hånom; +R ha tulaika i na’ån-ña; +D ha na’suha; +0 ha reset.
+workspaces.open_documents = Dokumentu siha ni manmaabri

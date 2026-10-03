@@ -14,3 +14,4 @@ workspaces.invalid_name = Vnesite ime z 1–80 znaki brez kontrolnih znakov.
 workspaces.duplicate = Delovni prostor s tem imenom že obstaja.
 workspaces.limit = Shranite lahko največ 64 delovnih prostorov.
 workspaces.keyboard = Tipkovnica: Alt+↑/↓ izbere razporeditev. Ctrl/Cmd+N uredi njeno ime; +S shrani kopijo; +Enter jo uporabi; +U jo posodobi; +R jo preimenuje; +D jo izbriše; +0 jo ponastavi.
+workspaces.open_documents = Odprti dokumenti

@@ -14,3 +14,4 @@ workspaces.invalid_name = Masukkan nama sepanjang 1–80 aksara tanpa aksara kaw
 workspaces.duplicate = Ruang kerja dengan nama ini sudah wujud.
 workspaces.limit = Anda boleh menyimpan sehingga 64 ruang kerja.
 workspaces.keyboard = Papan kekunci: Alt+↑/↓ memilih susun atur. Ctrl/Cmd+N mengedit namanya; +S menyimpan salinan; +Enter menggunakannya; +U mengemas kini; +R menamakan semula; +D memadam; +0 menetapkan semula.
+workspaces.open_documents = Dokumen terbuka

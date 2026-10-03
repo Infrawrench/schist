@@ -14,3 +14,4 @@ workspaces.invalid_name = Niyāmakakkharāni vinā 1–80 akkharānaṃ nāmaṃ
 workspaces.duplicate = Iminā nāmena kammokāso pubbeva atthi.
 workspaces.limit = Yāva 64 kammokāse rakkhituṃ sakkā.
 workspaces.keyboard = Akkharaphalakaṃ: Alt+↑/↓ racanaṃ gaṇhāti. Ctrl/Cmd+N tassā nāmaṃ parivatteti; +S paṭirūpaṃ rakkhati; +Enter payojeti; +U navīkaroti; +R nāmaṃ puna parivatteti; +D nāseti; +0 puna patiṭṭhāpeti.
+workspaces.open_documents = Vivaṭapaṇṇāni

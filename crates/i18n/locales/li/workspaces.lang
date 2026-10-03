@@ -14,3 +14,4 @@ workspaces.invalid_name = Veur 'ne naam van 1–80 teikes in zónger sjtuurteike
 workspaces.duplicate = D'r besjteit al 'n wèrkplek mit deze naam.
 workspaces.limit = Geer kènt tot 64 wèrkplekke opslaon.
 workspaces.keyboard = Toetsenbord: Alt+↑/↓ kies 'n indeling. Ctrl/Cmd+N bewèrk de naam; +S sjleit 'n kopie op; +Enter pas toe; +U wèrk bie; +R neum euver; +D verwiedert; +0 zèt trök.
+workspaces.open_documents = Aope dokuminte

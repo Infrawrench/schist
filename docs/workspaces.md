@@ -15,7 +15,21 @@ Click a thumbnail to edit that document; double-click a browser thumbnail to
 return to the split view. Middle-click closes it through the normal save prompt.
 The inspector provides an RGB thumbnail histogram, adjustment-layer commands,
 the existing layers/history controls, and photo metadata. Adjustments open
-the existing parameter dialogs. The Photos tab also links to the gallery.
+the existing parameter dialogs. The tool-options bar starts hidden in Photo
+Development. Choosing an editing tool reveals its controls; Hand and Zoom
+hide them again, and Grid keeps them hidden.
+
+In Photos, **Buckets** lists the gallery's existing local and Schist Cloud
+buckets. Smart buckets keep their rules and star marker. Clicking a bucket
+opens that bucket in the gallery, where its membership and rules are managed;
+opening a photo for editing returns to the photo workspace.
+**Open Documents** lists the same open editor tabs as the filmstrip, in the
+same order. Each entry is one editable document with its own layers, history
+and unsaved state. Opening a bucket does not open all its photos as documents.
+Closing a document does not remove its photo from a bucket. Gallery photos
+retain their original-file association and save edits to their existing
+sidecar; ordinary opened files retain the normal save behavior.
+
 The Design starter is listed only when the `design-mode` feature is on, and
 choosing it switches the mode as well as the dock, because a layout with a
 Pages panel in a photo editor is a blank dock section.
@@ -76,3 +90,21 @@ Workspace strings are available in all 150 supported locales, with English
 source and AI translations for the other 149 locales; human review is pending.
 Norwegian and Serbo-Croatian follow the shared Bokmål and Croatian catalogs.
 Existing common button/panel labels stay localized.
+
+## Photo Development screenshots
+
+The Photos inspector separates Buckets from Open Documents. The tool-options bar starts hidden:
+
+![Photo Development showing Buckets and Open Documents](https://agent-assets.infrawrench.com/schist/photo-workspace/buckets-20261003-ee3fa102/photos.png)
+
+The light theme with the Adjustments inspector, charcoal viewer and document filmstrip:
+
+![Photo Development with the Adjustments inspector and filmstrip](https://agent-assets.infrawrench.com/schist/photo-workspace/albums-20261003-b62fe5e3/split-view.png)
+
+The Info inspector shows the document preview, zoom and image dimensions:
+
+![Photo Development with the Info inspector](https://agent-assets.infrawrench.com/schist/photo-workspace/albums-20261003-b62fe5e3/info-inspector.png)
+
+Choosing Exposure opens the existing adjustment controls:
+
+![Exposure adjustment controls in Photo Development](https://agent-assets.infrawrench.com/schist/photo-workspace/albums-20261003-b62fe5e3/exposure-controls.png)

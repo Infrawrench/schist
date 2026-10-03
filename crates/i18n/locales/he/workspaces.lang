@@ -14,3 +14,4 @@ workspaces.invalid_name = יש להזין שם באורך 1–80 תווים לל
 workspaces.duplicate = כבר קיימת סביבת עבודה בשם הזה.
 workspaces.limit = ניתן לשמור עד 64 סביבות עבודה.
 workspaces.keyboard = מקלדת: Alt+↑/↓ בוחר פריסה. Ctrl/Cmd+N עורך את שמה; +S שומר עותק; +Enter מחיל; +U מעדכן; +R משנה שם; +D מוחק; +0 מאפס.
+workspaces.open_documents = מסמכים פתוחים

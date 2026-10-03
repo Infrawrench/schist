@@ -14,3 +14,4 @@ workspaces.invalid_name = Anna 1–80 merkin pituinen nimi, jossa ei ole ohjausm
 workspaces.duplicate = Samanniminen työtila on jo olemassa.
 workspaces.limit = Voit tallentaa enintään 64 työtilaa.
 workspaces.keyboard = Näppäimistö: Alt+↑/↓ valitsee asettelun. Ctrl/Cmd+N muokkaa sen nimeä; +S tallentaa kopion; +Enter ottaa käyttöön; +U päivittää; +R nimeää uudelleen; +D poistaa; +0 palauttaa.
+workspaces.open_documents = Avoimet asiakirjat

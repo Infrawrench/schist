@@ -14,3 +14,4 @@ workspaces.invalid_name = Ampidiro anarana misy tarehintsoratra 1–80 tsy misy 
 workspaces.duplicate = Efa misy sehatra fiasana mitondra io anarana io.
 workspaces.limit = Afaka mitahiry sehatra fiasana hatramin'ny 64 ianao.
 workspaces.keyboard = Kitendry: Alt+↑/↓ misafidy fandaharana. Ctrl/Cmd+N manitsy ny anarany; +S mitahiry kopia; +Enter mampihatra; +U manavao; +R manova anarana; +D mamafa; +0 mamerina.
+workspaces.open_documents = Antontan-taratasy misokatra

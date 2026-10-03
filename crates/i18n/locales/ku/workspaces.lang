@@ -14,3 +14,4 @@ workspaces.invalid_name = Navekî ji 1–80 tîpan bêyî tîpên kontrolê bini
 workspaces.duplicate = Cihekî xebatê bi vî navî jixwe heye.
 workspaces.limit = Tu dikarî heta 64 cihên xebatê tomar bikî.
 workspaces.keyboard = Klavye: Alt+↑/↓ rêzkirinekê hilbijêre. Ctrl/Cmd+N navê wê biguherîne; +S kopiyek tomar dike; +Enter bi kar tîne; +U nû dike; +R navê diguherîne; +D jê dibe; +0 vedigerîne destpêkê.
+workspaces.open_documents = Belgeyên vekirî

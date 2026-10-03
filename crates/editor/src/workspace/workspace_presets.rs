@@ -111,6 +111,9 @@ impl Workspace {
     ) -> bool {
         match schist_app_settings::try_save_view_options(&next) {
             Ok(()) => {
+                if !self.view.photo_layout.enabled && next.photo_layout.enabled {
+                    self.photo_view.tool_options = false;
+                }
                 let photo_changed = self.view.photo_layout.enabled != next.photo_layout.enabled
                     || self.view.photo_layout.display != next.photo_layout.display;
                 self.view = next;
@@ -143,6 +146,7 @@ impl Workspace {
         let mut next = self.view.clone();
         layout.apply(&mut next);
         if self.commit_workspace_view(next, cx) && photo {
+            self.photo_view.tool_options = false;
             self.set_mode(crate::design::WorkspaceMode::Photo, cx);
             if self.gallery_open() {
                 self.gallery_back_to_editor(cx);

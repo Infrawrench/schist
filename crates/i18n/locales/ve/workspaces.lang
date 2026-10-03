@@ -14,3 +14,4 @@ workspaces.invalid_name = Dzhenisani dzina ḽi re na zwiga zwa 1–80 ḽi si n
 workspaces.duplicate = Hu na tshivhumbelo tsha mushumo tshi re na ḽeneḽi dzina.
 workspaces.limit = Ni nga vhulunga zwivhumbelo zwa mushumo zwi swikaho 64.
 workspaces.keyboard = Kiibodo: Alt+↑/↓ i nanga nzudzanyo. Ctrl/Cmd+N i dzudzanya dzina ḽayo; +S i vhulunga khophi; +Enter i shumisa; +U i khwinisa; +R i ira dzina hafhu; +D i thutha; +0 i vhuedzedza.
+workspaces.open_documents = Maṅwalwa o vuleaho

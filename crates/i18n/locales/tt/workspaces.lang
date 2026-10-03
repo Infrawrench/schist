@@ -14,3 +14,4 @@ workspaces.invalid_name = Идарә символлары булмаган 1–8
 workspaces.duplicate = Мондый исемле эш киңлеге инде бар.
 workspaces.limit = 64 кә кадәр эш киңлеге саклый аласыз.
 workspaces.keyboard = Клавиатура: Alt+↑/↓ урнашуны сайлый. Ctrl/Cmd+N аның исемен үзгәртү өчен ача; +S күчермәсен саклый; +Enter куллана; +U яңарта; +R исемен үзгәртә; +D бетерә; +0 башлангыч хәлгә кайтара.
+workspaces.open_documents = Ачык документлар

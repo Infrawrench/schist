@@ -14,3 +14,4 @@ workspaces.invalid_name = नियन्त्रण वर्णहरू न�
 workspaces.duplicate = यो नामको कार्यस्थान पहिले नै छ।
 workspaces.limit = तपाईंले बढीमा 64 कार्यस्थान बचत गर्न सक्नुहुन्छ।
 workspaces.keyboard = किबोर्ड: Alt+↑/↓ ले सजावट चयन गर्छ। Ctrl/Cmd+N ले यसको नाम सम्पादन गर्छ; +S ले प्रतिलिपि बचत गर्छ; +Enter ले लागू गर्छ; +U ले अद्यावधिक गर्छ; +R ले नाम फेर्छ; +D ले मेटाउँछ; +0 ले रिसेट गर्छ।
+workspaces.open_documents = खुला कागजातहरू

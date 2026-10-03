@@ -249,7 +249,7 @@ fn section(label: &'static str) -> gpui::Div {
         .child(label)
 }
 
-fn library(ws: &Workspace, cx: &mut Context<Workspace>) -> gpui::AnyElement {
+fn library(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::AnyElement {
     div()
         .flex()
         .flex_col()
@@ -269,7 +269,9 @@ fn library(ws: &Workspace, cx: &mut Context<Workspace>) -> gpui::AnyElement {
                 },
             )),
         ))
-        .child(section(t("common.documents")))
+        .child(section(t("library.sidebar.buckets")))
+        .children(bucket_rows(ws, cx))
+        .child(section(t("workspaces.open_documents")))
         .children(
             ws.tab_strip()
                 .into_iter()
@@ -288,7 +290,7 @@ fn library(ws: &Workspace, cx: &mut Context<Workspace>) -> gpui::AnyElement {
                             d.bg(gpui::rgb(palette().selection_bg))
                         })
                         .hover(|d| d.bg(gpui::rgb(palette().hover)))
-                        .child(icon("folder", 14.0, palette().text_dim))
+                        .child(icon("navigator", 14.0, palette().text_dim))
                         .child(div().min_w_0().truncate().child(if dirty {
                             tf!("panel.tabs.dirty", title = title)
                         } else {
@@ -298,6 +300,47 @@ fn library(ws: &Workspace, cx: &mut Context<Workspace>) -> gpui::AnyElement {
                 }),
         )
         .into_any_element()
+}
+
+fn bucket_rows(ws: &mut Workspace, cx: &mut Context<Workspace>) -> Vec<gpui::AnyElement> {
+    let mut rows = Vec::new();
+    #[cfg(not(target_arch = "wasm32"))]
+    for (index, bucket) in ws.library.buckets.iter().enumerate() {
+        let count = bucket
+            .contents(|path| ws.library.is_flagged(path))
+            .iter()
+            .filter(|path| !(ws.view.gallery_hide_nsfw && ws.library.is_flagged(path)))
+            .count();
+        let name = if bucket.is_smart() {
+            format!("\u{2726} {}", bucket.name)
+        } else {
+            bucket.name.clone()
+        };
+        rows.push(
+            div()
+                .id(("photo-bucket", index))
+                .flex()
+                .items_center()
+                .gap_2()
+                .px_3()
+                .py_2()
+                .text_size(px(12.0))
+                .cursor_pointer()
+                .hover(|d| d.bg(gpui::rgb(palette().hover)))
+                .child(icon("folder", 14.0, palette().text_dim))
+                .child(div().flex_1().min_w_0().truncate().child(name))
+                .child(
+                    div()
+                        .text_color(gpui::rgb(palette().text_dim))
+                        .child(count.to_string()),
+                )
+                .on_click(cx.listener(move |ws, _, _, cx| ws.open_photo_bucket(index, cx)))
+                .into_any_element(),
+        );
+    }
+    // Cloud rows already implement bucket browsing, pagination and smart markers.
+    rows.extend(crate::workspace::cloud_view::bucket_rows(ws, cx));
+    rows
 }
 
 fn metadata(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::AnyElement {
@@ -561,7 +604,7 @@ fn browser(ws: &mut Workspace, grid: bool, cx: &mut Context<Workspace>) -> gpui:
                 .flex_none()
                 .bg(gpui::rgb(palette().control_bg))
                 .text_size(px(11.0))
-                .child(t("common.documents"))
+                .child(t("workspaces.open_documents"))
                 .child(count),
         )
         .child(content)

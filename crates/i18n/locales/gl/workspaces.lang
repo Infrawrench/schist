@@ -14,3 +14,4 @@ workspaces.invalid_name = Introduce un nome de 1–80 caracteres sen caracteres 
 workspaces.duplicate = Xa existe un espazo de traballo con este nome.
 workspaces.limit = Podes gardar ata 64 espazos de traballo.
 workspaces.keyboard = Teclado: Alt+↑/↓ selecciona unha disposición. Ctrl/Cmd+N edita o seu nome; +S garda unha copia; +Enter aplícaa; +U actualízaa; +R renoméaa; +D elimínaa; +0 restablécea.
+workspaces.open_documents = Documentos abertos

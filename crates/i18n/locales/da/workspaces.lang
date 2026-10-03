@@ -14,3 +14,4 @@ workspaces.invalid_name = Indtast et navn på 1–80 tegn uden kontroltegn.
 workspaces.duplicate = Der findes allerede et arbejdsområde med dette navn.
 workspaces.limit = Du kan gemme op til 64 arbejdsområder.
 workspaces.keyboard = Tastatur: Alt+↑/↓ vælger et layout. Ctrl/Cmd+N redigerer dets navn; +S gemmer en kopi; +Enter anvender det; +U opdaterer; +R omdøber; +D sletter; +0 nulstiller.
+workspaces.open_documents = Åbne dokumenter

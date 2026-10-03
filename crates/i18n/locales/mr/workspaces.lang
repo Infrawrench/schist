@@ -14,3 +14,4 @@ workspaces.invalid_name = नियंत्रण वर्ण नसलेल�
 workspaces.duplicate = या नावाचे कार्यस्थान आधीच अस्तित्वात आहे.
 workspaces.limit = तुम्ही जास्तीत जास्त 64 कार्यस्थाने जतन करू शकता.
 workspaces.keyboard = कीबोर्ड: Alt+↑/↓ मांडणी निवडते. Ctrl/Cmd+N तिचे नाव संपादित करते; +S प्रत जतन करते; +Enter लागू करते; +U अद्ययावत करते; +R नाव बदलते; +D हटवते; +0 रीसेट करते.
+workspaces.open_documents = उघडलेले दस्तऐवज

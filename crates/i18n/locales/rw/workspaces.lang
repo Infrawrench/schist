@@ -14,3 +14,4 @@ workspaces.invalid_name = Andika izina rifite inyuguti 1–80 ridafite inyuguti 
 workspaces.duplicate = Hari indi miterere y'aho gukorera ifite iri zina.
 workspaces.limit = Ushobora kubika imiterere y'aho gukorera igera kuri 64.
 workspaces.keyboard = Mwandikisho: Alt+↑/↓ ihitamo imiterere. Ctrl/Cmd+N ihindura izina ryayo; +S ibika kopi; +Enter irayikoresha; +U irayivugurura; +R iyihindura izina; +D irayisiba; +0 igarura imiterere isanzwe.
+workspaces.open_documents = Inyandiko zifunguye

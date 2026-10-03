@@ -14,3 +14,4 @@ workspaces.invalid_name = Басқару таңбалары жоқ, ұзынды
 workspaces.duplicate = Осындай атауы бар жұмыс кеңістігі бұрыннан бар.
 workspaces.limit = Ең көбі 64 жұмыс кеңістігін сақтай аласыз.
 workspaces.keyboard = Пернетақта: Alt+↑/↓ орналасуды таңдайды. Ctrl/Cmd+N оның атын өңдейді; +S көшірмесін сақтайды; +Enter қолданады; +U жаңартады; +R атын өзгертеді; +D жояды; +0 ысырады.
+workspaces.open_documents = Ашық құжаттар

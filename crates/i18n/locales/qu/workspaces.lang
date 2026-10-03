@@ -14,3 +14,4 @@ workspaces.invalid_name = Kamachiq sanampakunata mana hap'ichispa 1–80 sanampa
 workspaces.duplicate = Kay sutiyuq llank'ana k'itiqa ñam kanña.
 workspaces.limit = 64 llank'ana k'itikunakama waqaychayta atinki.
 workspaces.keyboard = Ñit'ina tabla: Alt+↑/↓ churayta akllan. Ctrl/Cmd+N sutinta allichan; +S kikinchasqanta waqaychan; +Enter churan; +U musuqchan; +R sutinta tikran; +D qullun; +0 qallariyman kutichin.
+workspaces.open_documents = Kichasqa qillqakuna

@@ -14,3 +14,4 @@ workspaces.invalid_name = İdarəetmə simvolları olmayan 1–80 simvolluq ad d
 workspaces.duplicate = Bu adda iş sahəsi artıq mövcuddur.
 workspaces.limit = Ən çox 64 iş sahəsi saxlaya bilərsiniz.
 workspaces.keyboard = Klaviatura: Alt+↑/↓ düzülüş seçir. Ctrl/Cmd+N adını redaktə edir; +S surətini saxlayır; +Enter tətbiq edir; +U yeniləyir; +R adını dəyişir; +D silir; +0 sıfırlayır.
+workspaces.open_documents = Açıq sənədlər

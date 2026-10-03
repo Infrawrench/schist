@@ -14,3 +14,4 @@ workspaces.invalid_name = Maqaa arfiilee 1–80 qabu, arfiilee to'annoo hin qabn
 workspaces.duplicate = Iddoon hojii maqaa kana qabu duraan jira.
 workspaces.limit = Iddoowwan hojii hanga 64 olkaa'uu dandeessa.
 workspaces.keyboard = Gabatee cuqoo: Alt+↑/↓ qindaa'ina filata. Ctrl/Cmd+N maqaa isaa gulaala; +S garagalcha olkaa'a; +Enter hojiirra oolcha; +U haaromsa; +R maqaa jijjiira; +D haqa; +0 deebisa.
+workspaces.open_documents = Galmeewwan banaman

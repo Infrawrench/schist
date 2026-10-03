@@ -14,3 +14,4 @@ workspaces.invalid_name = Fier in namme fan 1–80 tekens yn sûnder bestjoering
 workspaces.duplicate = Der bestiet al in wurkromte mei dizze namme.
 workspaces.limit = Do kinst maksimaal 64 wurkromten bewarje.
 workspaces.keyboard = Toetseboerd: Alt+↑/↓ selektearret in yndieling. Ctrl/Cmd+N bewurket de namme; +S bewarret in kopy; +Enter past ta; +U wurket by; +R neamt om; +D wisket; +0 set werom.
+workspaces.open_documents = Iepen dokuminten

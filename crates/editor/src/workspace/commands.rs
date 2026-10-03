@@ -197,6 +197,9 @@ impl Workspace {
             let group = tool.group();
             self.group_active.insert(group, id);
             self.editor.active_tool = id;
+            if self.photo_workspace() {
+                self.photo_view.tool_options = !matches!(id, "hand" | "zoom");
+            }
             self.status = tf!("workspace.commands.tool", name = name).into();
             if let (Some(doc), Some(tool)) = (self.doc.as_mut(), self.registry.tool_mut(id)) {
                 let mut ctx = ToolCtx {

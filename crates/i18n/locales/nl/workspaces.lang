@@ -14,3 +14,4 @@ workspaces.invalid_name = Voer een naam van 1–80 tekens in zonder besturingste
 workspaces.duplicate = Er bestaat al een werkruimte met deze naam.
 workspaces.limit = U kunt maximaal 64 werkruimten opslaan.
 workspaces.keyboard = Toetsenbord: Alt+↑/↓ selecteert een indeling. Ctrl/Cmd+N bewerkt de naam; +S slaat een kopie op; +Enter past toe; +U werkt bij; +R wijzigt de naam; +D verwijdert; +0 herstelt de standaardindeling.
+workspaces.open_documents = Geopende documenten
