@@ -310,6 +310,45 @@ are marked.
 
 ## Handoff
 
+Source-derived nested delimiters, 2026-10-03:
+Ordered rules compose a supported prefix using AnyCharacter, literal character
+sets, ASCII Digits, Tabs, ForcedLineBreak, EmSpace, EnSpace and NonbreakingSpace.
+The public user manual defines literal sets as any matching member and digits as
+0–9. Through/up-to boundaries, positive repeat counts, no-style spans and a leading
+canonical Dropcap share source-derived runs across geometry, typed paint,
+dictionary language/No Break and list-marker context. Unknown/invalid bounds
+stop the prefix instead of guessing where later rules begin. Original diagnostics
+survive main, whole-note and split-note projection, including an unsupported
+Repeat whose own style is None after earlier named formatting. Entirely no-style
+lists still avoid false errors. Generated labels/aliases never enter saved source.
+
+A regression reproduced an empty source span enlarging and restyling an inserted
+footnote number. Consumed rules are now suppressed even when they produce no source
+ranges, preserving original direct formatting. Eight layout properties cover
+continuation slices, Unicode/grapheme cuts, literal-set order/duplicate invariance,
+ASCII versus Unicode digits, missing delimiters and large counts, ordered rules,
+paragraph restarts, source edits and exact undo/redo. Two output properties cover
+all plates at three resolutions in both paths and retained source diagnostics.
+Repeated native saves preserve source, rules, rendered specifications and paint.
+
+All 16 roadmap targets, shared UI, formatting and whitespace checks pass:
+2,003 distinct Rust tests, four browser checks and eight Python audit tests;
+one existing shared UI documentation example remains ignored. The 24-page proof
+matches independently authored ranges in Poppler and every page was visually
+reviewed, including vertical text, direct overrides, affine placement, literal
+sets/digits, generated labels and actual split notes. Final renders match the
+reviewed pixels; all 37 previous PDF proofs remain byte-identical. Native debug
+build passes in 4m 17s; the isolated Design-enabled QA bundle is refreshed and
+hash/signature verified. Prepared for publication to draft PR #195.
+
+Word/sentence/letter delimiters, Repeat and structural delimiters remain retained
+and unsupported. General nested-rule editing is not exposed. Grapheme-safe cuts
+follow Schist's Unicode policy; native placement agreement remains unverified.
+The next pass has a public native AnyWord example, source hashes and author-posted
+screenshots in `/tmp/schist-nested-native-fixtures/`; originals remain outside the
+repository. The compact initial-style UI and native count-inheritance fixes are
+published as `ea5278f5` and `20f38d17`; their verification is below.
+
 Native initial-count inheritance, 2026-10-03:
 A regression reproduced the writer materializing the legacy one-character
 initial count on every child of an active style. Reopening then broke future
@@ -328,7 +367,7 @@ application agreement is claimed by these XML/property checks. The prior
 `ea5278f5` UI checkpoint is pushed to draft PR #195 and visually verified below.
 The `f595465d` desktop run passed Windows/macOS; Ubuntu failed while downloading
 the backer catalog with a connection reset, before clippy ran. That failed job
-has been retried. The earlier `942a8137` desktop run passed all three platforms.
+passed on retry. The earlier `942a8137` desktop run passed all three platforms.
 
 Initial character-style authoring, 2026-10-03:
 The closed Paragraph / Drop caps disclosure now includes one compact character

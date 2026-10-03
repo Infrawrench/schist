@@ -49,7 +49,7 @@ impl<'a> Flow<'a> {
             NoteFlow {
                 plan: note.hyphenation.clone(),
                 markers: note.markers.clone(),
-                context: footnote_flow::ProjectionContext::new(&scratch, story),
+                context: footnote_flow::ProjectionContext::new(&scratch, story, &note.nested_issues),
                 doc: scratch,
                 end,
             }

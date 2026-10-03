@@ -354,7 +354,8 @@ View → Rulers shows rulers measured from the active page's trim. Click the
 corner to cycle millimetres, points and inches. Major ticks adapt to zoom,
 with four minor ticks between them and fractional labels at close zoom.
 Negative values measure the pasteboard outside the page. Rulers are view
-state and do not create undo entries; dragging layout guides is still pending.
+state and do not create undo entries. Guide creation, movement and removal use
+the reversible ruler/guide gestures described below.
 
 Scroll pan, wheel/pinch zoom, Fit and Actual Size act on the Design
 viewport. The raster document keeps its own pan and zoom. Fit includes the
@@ -999,6 +1000,15 @@ it preserves the chosen character style. Dormant choices remain editable when
 counts are zero. Missing imported styles remain visible until replaced.
 
 Explicit source character formatting keeps precedence over the initial style.
-Other nested rules and native placement flags remain retained and reported when
+Unsupported nested rules and native placement flags remain retained and reported when
 unsupported. Enlarged initials on a text path produce a Preflight error because
 the path has only one baseline; one-line formatting remains supported.
+
+Imported nested styles can also format source character counts or stop at a
+character from a literal set, ASCII digit, tab, forced line break, em/en space or
+nonbreaking space. A set such as `-:?` matches any member; digit rules count `0–9`.
+Supported rules run in order and restart for each paragraph. Through includes
+the final delimiter; up-to leaves it for the following rule. A no-style rule
+advances without applying formatting. General rule editing is not exposed yet.
+Unknown boundaries stop composition of later rules and remain visible in
+Preflight. Word/sentence rules, Repeat and structural delimiters remain unsupported.

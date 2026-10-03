@@ -15,6 +15,8 @@ pub struct RenderedLine {
     pub context: std::sync::Arc<str>,
     /// Numbering diagnostics belong to this projection, not its source anchor.
     pub counter_issue: Option<&'static str>,
+    /// Original rule diagnostics, before temporary runs suppress consumed rules.
+    pub nested_issue: Option<&'static str>,
     /// None identifies generated content outside the editable main story.
     pub positions: Option<LinePositions>,
 }

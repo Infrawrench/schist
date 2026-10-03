@@ -811,7 +811,11 @@ fn compose_thread_on_page(
             );
             let text = prepared.main.story.text();
             let projected_story = &projected.stories[story_id.0 as usize];
-            let context = footnote_flow::ProjectionContext::new(&projected, projected_story);
+            let context = footnote_flow::ProjectionContext::new(
+                &projected,
+                projected_story,
+                &prepared.nested_issues,
+            );
             for frame in &mut out.frames {
                 frame.unrendered_structures = frame
                     .unrendered_structures

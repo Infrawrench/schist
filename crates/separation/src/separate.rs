@@ -251,7 +251,10 @@ fn layout_report(
                 {
                     initial_issues.insert("TextPath + DropCapLines");
                 }
-                nested_issues.extend(schist_layout::nested_styles::unsupported(&line.paragraph));
+                nested_issues.extend(line.projected.as_ref().map_or_else(
+                    || schist_layout::nested_styles::unsupported(&line.paragraph),
+                    |projection| projection.nested_issue,
+                ));
                 let spec = schist_layout::compose::line_spec(line, story, doc);
                 let paragraph = paragraphs.range(..=line.start).next_back();
                 let context = line.projected.as_ref().map_or_else(

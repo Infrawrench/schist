@@ -1,5 +1,6 @@
 //! Ordered native paragraph rules, independent of authored character ranges.
 use serde::{Deserialize, Serialize};
+mod boundaries;
 mod composition;
 pub use composition::initial_style;
 pub(crate) use composition::{materialize, runs};
@@ -40,8 +41,8 @@ impl NestedStyle {
     }
 }
 
-/// Only the canonical leading Dropcap rule composes so far. Other rules
-/// requesting a character style remain explicitly unsupported.
+/// A supported prefix composes in order. Unknown rules remain unsupported,
+/// including bounds that would change the start of subsequent named rules.
 /// Empty lists and sequences made entirely of no-style rules cannot change
 /// appearance, including when they reset an inherited formatted sequence.
 pub fn unsupported(paragraph: &crate::ResolvedParagraph) -> Option<&'static str> {
@@ -49,10 +50,10 @@ pub fn unsupported(paragraph: &crate::ResolvedParagraph) -> Option<&'static str>
         .nested_styles
         .as_ref()
         .filter(|rules| {
-            rules.iter().enumerate().any(|(index, rule)| {
-                !matches!(rule.character_style, CharacterStyle::None)
-                    && !(index == 0 && composition::canonical_initial(rule))
-            })
+            rules
+                .iter()
+                .any(|rule| !matches!(rule.character_style, CharacterStyle::None))
+                && boundaries::prefix(rules) != rules.len()
         })
         .map(|_| "AllNestedStyles")
 }

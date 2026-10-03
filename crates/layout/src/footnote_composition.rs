@@ -55,6 +55,7 @@ pub struct PreparedNote {
     pub body: Projection,
     pub hyphenation: crate::hyphenation::BreakPlan,
     pub(crate) markers: crate::list_composition::MarkerPlans,
+    pub(crate) nested_issues: std::collections::BTreeMap<usize, Option<&'static str>>,
 }
 
 #[derive(Debug, Clone, PartialEq)]
@@ -62,8 +63,30 @@ pub struct PreparedStory {
     pub main: Projection,
     pub hyphenation: crate::hyphenation::BreakPlan,
     pub(crate) markers: crate::list_composition::MarkerPlans,
+    pub(crate) nested_issues: std::collections::BTreeMap<usize, Option<&'static str>>,
     pub styles: StyleSet,
     pub notes: Vec<PreparedNote>,
+}
+
+fn nested_issues(
+    doc: &LayoutDocument,
+    story: &crate::Story,
+    positions: &crate::inline_text::SourceMap,
+) -> std::collections::BTreeMap<usize, Option<&'static str>> {
+    story
+        .points
+        .iter()
+        .zip(story.point_offsets())
+        .filter_map(|(point, at)| {
+            let StoryPoint::Paragraph { style, .. } = point else {
+                return None;
+            };
+            Some((
+                positions.before(at),
+                crate::nested_styles::unsupported(&doc.styles.resolve_paragraph(style)),
+            ))
+        })
+        .collect()
 }
 
 /// Prepare continuous, text-only notes in source order. Layout-dependent
@@ -181,6 +204,7 @@ pub fn prepare(doc: &LayoutDocument, id: StoryId) -> Option<PreparedStory> {
             *style = alias.clone();
         }
         notes.push(PreparedNote {
+            nested_issues: nested_issues(doc, &note.story, &body.positions),
             structure,
             anchor: at,
             reference: 0..0,
@@ -205,6 +229,7 @@ pub fn prepare(doc: &LayoutDocument, id: StoryId) -> Option<PreparedStory> {
         note.reference = span.start..span.end;
     }
     Some(PreparedStory {
+        nested_issues: nested_issues(doc, source, &main.positions),
         markers: crate::list_composition::MarkerPlans::new(doc, source).projected(&main.positions),
         hyphenation: crate::hyphenation::BreakPlan::projected(
             &main_source,

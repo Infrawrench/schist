@@ -134,7 +134,7 @@ fn unsupported_rules_do_not_hide_behind_a_supported_initial() {
     use schist_layout::nested_styles::unsupported;
     let mut paragraph = schist_layout::ResolvedParagraph::default();
     for delimiter in [
-        Delimiter::Text("Dropcap".into()),
+        Delimiter::Text(String::new()),
         Delimiter::Enumeration("AnyWord".into()),
         Delimiter::Enumeration("Future".into()),
     ] {

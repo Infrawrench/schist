@@ -2285,7 +2285,7 @@ one-character policy now emits an explicit native one for active one-line named
 initials as well as enlarged initials; IDML Appendix C defaults that field to
 zero. Explicit zero and dormant settings remain unchanged. This follows the public
 [drop-cap guide](https://helpx.adobe.com/indesign/desktop/format-and-style-text/character-formatting/apply-drop-caps-text-positioning.html).
-Other rules, later Dropcap records and unresolved references remain reported on
+Unsupported rules, later Dropcap records and unresolved references remain reported on
 import/export and for used paragraphs in Preflight. Entirely no-style lists do
 not produce false errors. Unsupported native placement flags remain separate.
 
@@ -2309,3 +2309,49 @@ the records, and the native fixtures cover empty flags through repeated saves.
 Separate regressions first reproduced the complete list disappearing and native
 reset flags incorrectly inheriting a parent list. No Adobe headers, proprietary
 executables or INDD entries were read for this change.
+
+### Source-derived nested delimiters
+
+The supported ordered prefix also composes `AnyCharacter`, literal character
+sets, ASCII `Digits`, `Tabs`, `ForcedLineBreak`, `EmSpace`, `EnSpace` and
+`NonbreakingSpace`. The public [delimiter reference](https://developer.adobe.com/indesign/uxp/dom/api/n/nested-style-delimiters/)
+identifies the explicit-character delimiters; [NestedStyle](https://developer.adobe.com/indesign/uxp/dom/api/n/nested-style/)
+defines repetition and inclusive versus exclusive bounds. The [authoring guide](https://helpx.adobe.com/indesign/desktop/format-and-style-text/text-styles/created-nested-styles.html)
+describes applying the rules in order. Missing delimiters consume the remaining
+paragraph. An excluded delimiter remains available to the next rule. No-style
+rules advance the same source cursor without applying character properties.
+The public [InDesign user manual](https://helpx.adobe.com/content/dam/help/en/pdf/indesign_reference.pdf),
+printed page 326, defines multiple literal characters as alternative terminators:
+`-:?` ends at any of those characters, not that substring. Their order and duplicate
+entries do not affect matching. Its digit definition is explicitly `0` through
+`9`; other Unicode numeric characters are not counted.
+
+Character counts use source graphemes. Literal matches count scalar occurrences,
+but their boundaries expand to the containing grapheme, preserving combining
+marks and joined emoji. This is Schist's Unicode policy, not verified native
+cluster behavior. Rules restart at each source paragraph, never at a wrapped
+line or inserted reference. A leading canonical Dropcap can precede the other
+supported rules. Source character overrides retain precedence.
+
+Unknown or invalid bounds stop the supported prefix. Word/sentence/letter rules,
+Repeat and structural delimiters remain unsupported. A no-style unknown rule can affect other named rules and remains
+diagnosed; entirely no-style lists cannot change formatting. Source diagnostics
+travel with temporary footnote projections, so suppressing materialized styles
+cannot suppress their original error. Empty source spans are consumed too: they
+must not acquire generated references or note markers after projection. A regression
+first reproduced an excluded leading delimiter's zero-length span enlarging a
+footnote number and changing its tracking and No Break. No temporary ranges or
+aliases are saved.
+
+Properties compare every continuation slice with authored ranges, retain source
+through edit/undo and repeated IDML saves, and compare every process/spot plate
+in both separation paths at 72/144/216 dpi. A 24-page independently controlled
+proof covers vertical text, direct overrides, affine placement, character sets,
+digits and generated labels in whole and actual split notes. Every Poppler pair
+is pixel-identical and every page has passed visual review. All 16 roadmap targets,
+shared UI, formatting and whitespace checks pass. Native examples of this composed delimiter
+subset and external-application agreement remain validation gaps. A separate public
+[word-rule example](https://forum.rudtp.ru/resources/nested-styles.2151/) supplies
+two populated `AnyWord` records for the next integration pass. Its original IDML,
+source hashes and author-posted screenshots are retained outside the repository;
+no redistribution permission is assumed.

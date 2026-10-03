@@ -34,30 +34,47 @@ pub fn initial_style(paragraph: &ResolvedParagraph) -> Option<&str> {
     Some(name)
 }
 
-fn initial(
+fn derived_runs(
     text: &str,
     start: usize,
     paragraph: &ResolvedParagraph,
     styles: &StyleSet,
-) -> Option<Run> {
-    let name = initial_style(paragraph)?;
-    styles.character(name)?;
-    if text.is_empty() {
-        return None;
+) -> Vec<Run> {
+    let rules = paragraph.nested_styles.as_deref().unwrap_or_default();
+    let mut out = Vec::new();
+    let mut cursor = 0;
+    for (index, rule) in rules
+        .iter()
+        .take(super::boundaries::prefix(rules))
+        .enumerate()
+    {
+        let end = if index == 0 && rule.is_initial() {
+            if paragraph.drop_caps_lines.unwrap_or(0) == 0 {
+                0
+            } else {
+                schist_text_engine::grapheme_boundaries(text)
+                    .nth(paragraph.drop_caps_characters.unwrap_or(1))
+                    .unwrap_or(text.len())
+            }
+        } else {
+            cursor + super::boundaries::end(&text[cursor..], rule)
+        };
+        if let CharacterStyle::Named(name) = &rule.character_style {
+            if cursor < end && styles.character(name).is_some() {
+                out.push(Run {
+                    start: start + cursor,
+                    end: start + end,
+                    character: styles.resolve_character(name),
+                });
+            }
+        }
+        cursor = end;
     }
-    let end = start
-        + schist_text_engine::grapheme_boundaries(text)
-            .nth(paragraph.drop_caps_characters.unwrap_or(1))
-            .unwrap_or(text.len());
-    Some(Run {
-        start,
-        end,
-        character: styles.resolve_character(name),
-    })
+    out
 }
 
 /// Keep authored range precedence. Within a derived prefix, explicit character
-/// properties override the paragraph's initial style. Outside it, resolution is
+/// properties override the paragraph's nested style. Outside it, resolution is
 /// unchanged. Derived runs fill only source bytes without an authored range.
 fn merge(story: &Story, styles: &StyleSet, query: Range<usize>, derived: &[Run]) -> Vec<Run> {
     if derived.is_empty() {
@@ -136,14 +153,14 @@ fn merge(story: &Story, styles: &StyleSet, query: Range<usize>, derived: &[Run])
 }
 
 /// Effective runs for one paragraph slice. Derive boundaries from the complete
-/// paragraph so a continuation never acquires a new initial.
+/// paragraph so a continuation never restarts the rule sequence.
 pub(crate) fn runs(
     story: &Story,
     styles: &StyleSet,
     query: Range<usize>,
     paragraph: &ResolvedParagraph,
 ) -> Vec<Run> {
-    if initial_style(paragraph).is_none() {
+    if paragraph.nested_styles.as_ref().is_none_or(Vec::is_empty) {
         return merge(story, styles, query, &[]);
     }
     let derived = story
@@ -155,20 +172,15 @@ pub(crate) fn runs(
                 return None;
             };
             (query.start >= start && query.start <= start + text.len())
-                .then(|| initial(text, start, paragraph, styles))
+                .then(|| derived_runs(text, start, paragraph, styles))
         })
-        .flatten();
-    merge(
-        story,
-        styles,
-        query,
-        &derived.into_iter().collect::<Vec<_>>(),
-    )
+        .unwrap_or_default();
+    merge(story, styles, query, &derived)
 }
 
 /// Resolve source prefixes before generated references enter the text. Only the
 /// cloned story/style set receives these ranges and aliases. Suppress the
-/// consumed first rule there; retain later rules for unsupported diagnostics.
+/// consumed prefix there; source diagnostics travel separately from projection.
 pub(crate) fn materialize<'a>(
     source: &'a Story,
     styles: &mut StyleSet,
@@ -177,19 +189,36 @@ pub(crate) fn materialize<'a>(
         .points
         .iter()
         .zip(source.point_offsets())
-        .filter_map(|(point, start)| {
+        .flat_map(|(point, start)| {
             let StoryPoint::Paragraph { text, style } = point else {
-                return None;
+                return Vec::new();
             };
-            initial(text, start, &styles.resolve_paragraph(style), styles)
+            derived_runs(text, start, &styles.resolve_paragraph(style), styles)
         })
         .collect();
-    if derived.is_empty() {
+    // An empty source span is still consumed: generated labels must not make
+    // that rule acquire characters after projection.
+    if derived.is_empty()
+        && !source.points.iter().any(|point| {
+            let StoryPoint::Paragraph { style, .. } = point else {
+                return false;
+            };
+            let paragraph = styles.resolve_paragraph(style);
+            let rules = paragraph.nested_styles.as_deref().unwrap_or_default();
+            rules[..super::boundaries::prefix(rules)]
+                .iter()
+                .any(|rule| matches!(rule.character_style, CharacterStyle::Named(_)))
+        })
+    {
         return std::borrow::Cow::Borrowed(source);
     }
     let mut story = source.clone();
-    let runs = merge(source, styles, 0..source.text_len(), &derived);
-    story.ranges.clear();
+    let runs = if derived.is_empty() {
+        Vec::new()
+    } else {
+        story.ranges.clear();
+        merge(source, styles, 0..source.text_len(), &derived)
+    };
     for run in runs {
         let mut index = styles.characters.len();
         let name = loop {
@@ -210,10 +239,13 @@ pub(crate) fn materialize<'a>(
         let Some(mut rules) = paragraph.nested_styles else {
             continue;
         };
-        if !rules.first().is_some_and(canonical_initial) {
+        let count = super::boundaries::prefix(&rules);
+        if count == 0 {
             continue;
         }
-        rules[0].character_style = CharacterStyle::None;
+        for rule in &mut rules[..count] {
+            rule.character_style = CharacterStyle::None;
+        }
         let mut index = styles.paragraphs.len();
         let name = loop {
             let name = format!("Schist generated initial paragraph {index}");

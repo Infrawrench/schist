@@ -93,11 +93,17 @@ fn rule_supported(rule: &crate::footnotes::FootnoteRule) -> bool {
 pub(super) struct ProjectionContext {
     paragraphs: std::collections::BTreeMap<usize, std::sync::Arc<str>>,
     counters: crate::list_counters::StoryCounters,
+    nested_issues: std::collections::BTreeMap<usize, Option<&'static str>>,
 }
 
 impl ProjectionContext {
-    pub(super) fn new(doc: &LayoutDocument, story: &Story) -> Self {
+    pub(super) fn new(
+        doc: &LayoutDocument,
+        story: &Story,
+        nested_issues: &std::collections::BTreeMap<usize, Option<&'static str>>,
+    ) -> Self {
         Self {
+            nested_issues: nested_issues.clone(),
             paragraphs: story
                 .points
                 .iter()
@@ -126,6 +132,11 @@ pub(super) fn capture(
         positions,
         context: paragraph.map_or_else(|| "".into(), |(_, text)| text.clone()),
         counter_issue: paragraph.and_then(|(at, _)| context.counters.issue(*at)),
+        nested_issue: context
+            .nested_issues
+            .range(..=line.start)
+            .next_back()
+            .and_then(|(_, issue)| *issue),
     });
 }
 
@@ -186,7 +197,7 @@ fn measure_note(
     if height > column.height {
         return None;
     }
-    let context = ProjectionContext::new(&scratch, &scratch.stories[0]);
+    let context = ProjectionContext::new(&scratch, &scratch.stories[0], &note.nested_issues);
     for line in &mut frame.lines {
         capture(line, &scratch.stories[0], &scratch, None, &context);
         translate_line(line, crate::Point::new(0.0, delta));
