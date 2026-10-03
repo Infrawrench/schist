@@ -145,7 +145,7 @@ pub fn prepare(doc: &LayoutDocument, id: StoryId) -> Option<PreparedStory> {
                 })
                 .collect(),
         )?;
-        project_initials(&note.story, &mut body, &mut styles);
+        project_paragraphs(&note.story, &mut body, &mut styles);
         // Existing note source already owns its separator characters. Only
         // ACE 4's zero-width instruction becomes a number, never literal digits.
         // Area spacing replaces the first paragraph's space-before and the
@@ -191,7 +191,7 @@ pub fn prepare(doc: &LayoutDocument, id: StoryId) -> Option<PreparedStory> {
         });
     }
     let mut main = Projection::new(source, insertions)?;
-    project_initials(source, &mut main, &mut styles);
+    project_paragraphs(source, &mut main, &mut styles);
     for (note, span) in notes.iter_mut().zip(&main.positions.generated) {
         note.reference = span.start..span.end;
     }
@@ -209,11 +209,10 @@ pub fn prepare(doc: &LayoutDocument, id: StoryId) -> Option<PreparedStory> {
     })
 }
 
-/// Initial counts belong to authored graphemes, like dictionary boundaries
-/// belong to authored words. A generated number before or within that prefix
-/// must not replace its source letters. Only this disposable style set receives
-/// the display count; the document's count and story remain unchanged.
-fn project_initials(source: &crate::Story, projection: &mut Projection, styles: &mut StyleSet) {
+/// Generated text must not choose the source paragraph's automatic direction
+/// or replace its opening graphemes. Only disposable aliases receive display
+/// counts and resolved directions; saved styles and story text stay untouched.
+fn project_paragraphs(source: &crate::Story, projection: &mut Projection, styles: &mut StyleSet) {
     let display_offsets = projection.story.point_offsets();
     for (((original, start), displayed), display_start) in source
         .points
@@ -233,37 +232,69 @@ fn project_initials(source: &crate::Story, projection: &mut Projection, styles: 
             continue;
         };
         let paragraph = styles.resolve_paragraph(style);
-        let characters = paragraph.drop_caps_characters.unwrap_or(1);
-        if paragraph.drop_caps_lines.unwrap_or(0) < 2 || characters == 0 {
+        let count = initial_count(
+            (text, start),
+            (displayed, display_start),
+            &projection.positions,
+            &paragraph,
+        );
+        let source_direction = schist_text_engine::base_direction(text);
+        let direction = (matches!(
+            paragraph.direction,
+            None | Some(crate::ParagraphDirection::Auto)
+        ) && source_direction != schist_text_engine::base_direction(displayed))
+        .then_some(
+            if source_direction == schist_text_engine::ParagraphDirection::RightToLeft {
+                crate::ParagraphDirection::RightToLeft
+            } else {
+                crate::ParagraphDirection::LeftToRight
+            },
+        );
+        if count.is_none() && direction.is_none() {
             continue;
         }
-        let end = start
-            + schist_text_engine::grapheme_boundaries(text)
-                .nth(characters)
-                .unwrap_or(text.len());
-        if !projection
-            .positions
-            .generated
-            .iter()
-            .any(|span| span.source >= start && span.source < end && span.start < span.end)
-        {
-            continue;
-        }
-        // A reference at the trailing boundary belongs to the following body,
-        // matching the projection's right-affinity insertion policy.
-        let display_end = projection.positions.before(end) - display_start;
-        let count = schist_text_engine::grapheme_boundaries(&displayed[..display_end])
-            .count()
-            .saturating_sub(1);
         let name = unique_paragraph(styles, styles.paragraphs.len());
         styles.paragraphs.push(ParagraphStyle {
             name: name.clone(),
             based_on: Some(style.clone()),
-            drop_caps_characters: Some(count),
+            drop_caps_characters: count,
+            direction,
             ..Default::default()
         });
         *display_style = name;
     }
+}
+
+/// Count the displayed prefix ending at the original source-grapheme boundary.
+/// A reference at its trailing edge belongs to the following body, matching
+/// the projection's right-affinity insertion policy.
+fn initial_count(
+    (text, start): (&str, usize),
+    (displayed, display_start): (&str, usize),
+    positions: &crate::inline_text::SourceMap,
+    paragraph: &crate::ResolvedParagraph,
+) -> Option<usize> {
+    let characters = paragraph.drop_caps_characters.unwrap_or(1);
+    if paragraph.drop_caps_lines.unwrap_or(0) < 2 || characters == 0 {
+        return None;
+    }
+    let end = start
+        + schist_text_engine::grapheme_boundaries(text)
+            .nth(characters)
+            .unwrap_or(text.len());
+    if !positions
+        .generated
+        .iter()
+        .any(|span| span.source >= start && span.source < end && span.start < span.end)
+    {
+        return None;
+    }
+    let display_end = positions.before(end) - display_start;
+    Some(
+        schist_text_engine::grapheme_boundaries(&displayed[..display_end])
+            .count()
+            .saturating_sub(1),
+    )
 }
 
 /// The native reference's actual character context, also used for resource

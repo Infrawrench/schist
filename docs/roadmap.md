@@ -310,6 +310,32 @@ are marked.
 
 ## Handoff
 
+Source direction around generated references, 2026-10-03:
+A regression reproduced a generated Latin reference prefix changing a Hebrew
+paragraph's automatic base to left-to-right. Main and note projection now derive
+automatic direction from the complete authored paragraph; explicit directions
+remain authoritative. Only temporary aliases receive resolved directions, keeping
+source text and the saved automatic policy unchanged.
+
+Three focused properties pass: source versus generated direction across scripts,
+neutral/empty text and explicit overrides; process/spot plate agreement with
+explicit source direction at 72/144/216 dpi in both separation paths; and repeated
+native saves without leaked aliases. The eight-page PDF matches explicit-direction
+controls exactly in Poppler and every page passes visual review. An initial proof
+font lacked decimal digits; its reference style now uses a bundled font covering
+both the script and number. All 16 targets, shared UI, formatting and whitespace
+pass with **1,973 distinct Rust tests**, four browser and eight Python audit tests.
+One existing UI documentation example remains ignored. The 34 existing PDF files
+are byte-identical. The native development build passes in 1m 36s. The isolated
+Design-enabled QA bundle is refreshed and hash/signature verified; it remains quit.
+No new locale keys or default feature-flag changes are introduced. Logs/counts use
+`/tmp/schist-projected-direction-*`. Named initial-style composition remains next;
+production INDD is still Phase-0-gated.
+
+Source initial counts are published as `fc8c5117` to draft PR #195. Web and
+headless CI pass; desktop CI is still running. The preceding compact-control
+checkpoint `cb443b27` passes desktop CI on Windows, macOS and Linux.
+
 Source initial counts around generated references, 2026-10-03:
 A new regression reproduced a leading footnote number being enlarged while the
 first authored grapheme remained body text. Main and note projections now map the
