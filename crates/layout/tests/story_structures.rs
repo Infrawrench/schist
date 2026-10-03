@@ -4,6 +4,7 @@ use schist_layout::{
 
 fn structure(at: Option<usize>) -> StoryStructure {
     StoryStructure {
+        control: None,
         at,
         kind: "Footnote".into(),
         payload: "<Footnote>é<?ACE 4?></Footnote>".into(),

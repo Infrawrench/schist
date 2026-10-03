@@ -19,6 +19,7 @@ fn generated_inline_text_preserves_every_source_boundary_and_style() {
             let mut story = original.clone();
             story.ranges = vec![StyleRange::new(0, source.len(), "Local")];
             story.structures.push(StoryStructure {
+                control: None,
                 at: Some(*at),
                 kind: "Footnote".into(),
                 payload: "raw".into(),

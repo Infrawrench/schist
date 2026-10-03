@@ -79,6 +79,7 @@ pub fn document(reference: bool, rtl: bool, initial: bool) -> LayoutDocument {
     };
     let mut main = Story::from_text(text, "Source");
     main.structures.push(StoryStructure {
+        control: None,
         at: Some(0),
         kind: "Footnote".into(),
         payload: "source".into(),

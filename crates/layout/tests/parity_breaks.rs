@@ -335,6 +335,7 @@ fn numbered_break_trials_preserve_balanced_main_text_and_whole_or_continued_note
                     story.push_paragraph("café\na\nb\nc\nd\ne\nf\ng\nh", "Body");
                     let anchor = story.text_len();
                     story.structures.push(StoryStructure {
+                        control: None,
                         at: Some(anchor),
                         kind: "Footnote".into(),
                         payload: "retained source".into(),

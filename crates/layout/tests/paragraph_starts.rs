@@ -555,6 +555,7 @@ fn main_paragraph_starts_preserve_whole_and_split_notes_in_independent_or_spanni
                 let (start, _) = story.push_paragraph("café", "Starts");
                 let anchor = story.text_len();
                 story.structures.push(schist_layout::StoryStructure {
+                    control: None,
                     at: Some(anchor),
                     kind: "Footnote".into(),
                     payload: "retained source".into(),

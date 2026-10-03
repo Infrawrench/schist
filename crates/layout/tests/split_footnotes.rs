@@ -33,6 +33,7 @@ fn document(whole: bool) -> LayoutDocument {
         .join("\n");
     let mut story = Story::from_text("éA", "Body");
     story.structures.push(StoryStructure {
+        control: None,
         at: Some(story.text_len()),
         kind: "Footnote".into(),
         payload: "retained source XML".into(),

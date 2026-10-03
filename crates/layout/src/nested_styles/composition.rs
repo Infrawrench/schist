@@ -35,6 +35,7 @@ pub fn initial_style(paragraph: &ResolvedParagraph) -> Option<&str> {
 }
 
 fn derived_runs(
+    story: &Story,
     text: &str,
     start: usize,
     paragraph: &ResolvedParagraph,
@@ -51,11 +52,13 @@ fn derived_runs(
         return out;
     }
     let mut cursor = 0;
+    let markers = crate::inline_controls::end_markers(story, start, text, paragraph);
+    let mut marker = 0;
     let mut index = 0;
-    let mut cycle_cursor = 0;
+    let mut cycle_cursor = (0, 0);
     while index < rules.len() {
         if plan.repeat_from == Some(index) {
-            cycle_cursor = cursor;
+            cycle_cursor = (cursor, marker);
         }
         let rule = &rules[index];
         let end = if index == 0 && rule.is_initial() {
@@ -67,7 +70,20 @@ fn derived_runs(
                     .unwrap_or(text.len())
             }
         } else {
-            cursor + super::boundaries::end(&text[cursor..], rule)
+            let boundary = super::boundaries::end(&text[cursor..], rule);
+            let end = cursor + boundary.at;
+            if let Some(at) = markers
+                .get(marker)
+                .copied()
+                .filter(|at| *at < end || (*at == end && (!boundary.found || !rule.inclusive)))
+            {
+                // Both through/up-to consume the invisible control. Its own
+                // formatting has no painted bytes; following rules move on.
+                marker += 1;
+                at
+            } else {
+                end
+            }
         };
         if let CharacterStyle::Named(name) = &rule.character_style {
             if cursor < end && styles.character(name).is_some() {
@@ -83,8 +99,8 @@ fn derived_runs(
         if index == rules.len() {
             if let Some(repeat_from) = plan.repeat_from {
                 // Individual excluded delimiters may be zero-width. Only a
-                // whole cycle without source progress terminates the loop.
-                if cursor == cycle_cursor || cursor == text.len() {
+                // whole cycle without text or control progress stops the loop.
+                if (cursor, marker) == cycle_cursor || cursor == text.len() {
                     break;
                 }
                 index = repeat_from;
@@ -193,7 +209,7 @@ pub(crate) fn runs(
                 return None;
             };
             (query.start >= start && query.start <= start + text.len())
-                .then(|| derived_runs(text, start, paragraph, styles))
+                .then(|| derived_runs(story, text, start, paragraph, styles))
         })
         .unwrap_or_default();
     merge(story, styles, query, &derived)
@@ -214,7 +230,13 @@ pub(crate) fn materialize<'a>(
             let StoryPoint::Paragraph { text, style } = point else {
                 return Vec::new();
             };
-            derived_runs(text, start, &styles.resolve_paragraph(style), styles)
+            derived_runs(
+                source,
+                text,
+                start,
+                &styles.resolve_paragraph(style),
+                styles,
+            )
         })
         .collect();
     // An empty source span is still consumed: generated labels must not make

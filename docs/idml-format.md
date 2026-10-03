@@ -339,9 +339,9 @@ page geometry, parent artwork and text survive repeated saves. OAC's independent
 published v19.5 templates add Japanese prose and populated facing masters. The
 reference PDFs were inspected, but no matching native application comparison has
 been performed. Missing evidence includes real overridden parent items,
-alternate-layout sections, RTL/foldout spreads and overprint. Whole text-only
+alternate-layout sections, RTL/foldout spreads and overprint. Whole and split text-only
 footnotes compose in the supported horizontal column policies described below;
-splitting and layout-dependent numbering remain explicit gaps. Table,
+layout-dependent numbering and unsupported note structures remain explicit gaps. Table,
 math and anchored-content composition remain unsupported even though the
 academic template contains examples.
 
@@ -384,7 +384,7 @@ Named styles, inheritance, font resources, layer membership/properties and
 embedded images are now read and written. The earlier statements that
 Styles.xml and object mapping were unimplemented were stale.
 
-INDD has seven acquired public pairs, with three redistributable pairs in the repository, recorded separately in
+INDD has eleven acquired public pairs, with three redistributable pairs in the repository, recorded separately in
 [indd-format.md](indd-format.md). It does not validate INDD object semantics.
 
 ## Writing
@@ -2415,7 +2415,7 @@ diagnosed. Ignored trailing records stay intact through native saves.
 Each source paragraph starts a fresh sequence. One-time prefix rules run once;
 the selected suffix then repeats while consuming source graphemes. A zero-length
 member does not prevent another member from advancing. A full cycle with no
-source progress terminates without inventing a styled range or discarding text.
+source text or supported control progress terminates without inventing a styled range or discarding text.
 Generated reference labels never participate in the cycle. Main/whole/split note
 projection suppresses already materialized source rules while retaining original
 unsupported-setting diagnostics; temporary ranges and aliases remain unsaved.
@@ -2480,7 +2480,8 @@ meaning.
 The XML parser already kept these instructions and their offsets in decoded
 Content. Story decoding discarded every instruction except note-body markers,
 and then discarded even those when encountered outside a supported note. Main
-Content instructions now become anchored, unrendered story structures instead.
+Content instructions now become anchored story structures instead; the supported
+end-style control below has typed composition data, while other codes stay inert.
 Their order and UTF-8 positions survive entities, CDATA, multiple Content chunks,
 paragraph breaks and empty marker-only stories, without inserting source bytes.
 
@@ -2497,8 +2498,8 @@ that original XML, without duplicate extraction. Supported note-body ACE 4 marke
 continue through the existing typed note path.
 
 The existing import/export notice, retained count and missing-structure preflight
-error disclose the unrendered content. No native page-number, section, indent or
-end-nested-style composition/export is claimed yet. Five new properties cover
+error disclose the unrendered content. No native page-number, section or indent composition/export is claimed yet.
+The end-nested-style subset is described below. Five new properties cover
 source boundaries, order, formatting context, page-number modes, marker-only
 stories, exact undo/redo, repeated saves, external edits and the four actual page
 markers in the public templates. Existing outer-container byte comparisons still
@@ -2546,3 +2547,46 @@ identifies ResultText as replacement text. Future composition needs typed variab
 data, source-position mapping and atomic line fitting, not ordinary text insertion
 or interpretation of opaque recovery XML in the kernel. No Adobe headers,
 proprietary executables or INDD bytes were read for this change.
+
+
+### End Nested Style controls
+
+The public [manual](https://helpx.adobe.com/content/dam/help/en/pdf/indesign_reference.pdf),
+printed page 326, and [current authoring guide](https://helpx.adobe.com/indesign/desktop/format-and-style-text/text-styles/end-or-remove-a-nested-style.html)
+describe an inserted End Nested Style character ending a rule before its normal
+condition is met. The manual also lists an explicit end-character delimiter.
+Marc Autret's [firsthand IDML report](https://indiscripts.com/post/2025/12/indexmatic3-xml-idml-bug-fixes)
+identifies its XML instruction as `<?ACE 3?>`. No populated native specimen or
+external application rendering has yet been verified for this control.
+
+Main-story ACE 3 now carries a typed zero-width control, separate from its exact
+recovery XML. Supported ordinary nested rules stop at that source grapheme
+boundary; an explicit EndNestedStyle delimiter supports repetition one. Through
+and up-to consume the invisible marker without adding source characters. Ordered
+no-style rules and Repeat advance over coincident markers. At a tied boundary, a
+through-rule that has already consumed its text delimiter leaves the following
+marker to the next rule; an excluded text delimiter follows the marker. These
+ordering details are a bounded Schist policy pending native validation.
+
+Rules derive from original paragraph coordinates before generated footnote
+references are inserted. Paragraphs restart independently; authored character
+overrides retain precedence. Marker anchors follow source edits and exact undo.
+Renaming a character style updates the marker's formatting reference in the same
+operation. Composition never parses recovery XML. Active initial geometry,
+interior-grapheme or unknown anchors and controls inside note bodies remain
+explicitly unsupported; end-delimiter counts above one remain diagnosed.
+
+Native saves emit supported controls once at their saved UTF-8 positions with
+their character-style references, even without Schist metadata. The guarded
+record still preserves original contextual XML. Older inert ACE 3 records upgrade
+only after the old native body agrees with their saved model. Native deletion or
+movement invalidates stale coordinates instead of resurrecting the old marker.
+Unknown instructions and containers keep their existing recovery path.
+
+Properties cover every source grapheme, ordered/coincident markers, repeated
+sequences, continuation slices, paragraph restarts, edits, style renames, legacy
+records, repeated saves and native deletion. Independent explicit ranges check
+all process/spot plates at three resolutions through both separation paths,
+including horizontal/vertical text, affine placement and generated references
+with whole/split notes. The paired 16-page proof is part of check-design-output.
+Local verification and its limitations are recorded in Roadmap / Handoff.

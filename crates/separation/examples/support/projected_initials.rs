@@ -117,6 +117,7 @@ pub fn document(reference: bool, spot: bool, middle: bool) -> LayoutDocument {
     } else {
         let mut main = Story::from_text(text, "Main");
         main.structures.push(StoryStructure {
+            control: None,
             at: Some(anchor),
             kind: "Footnote".into(),
             payload: "source".into(),

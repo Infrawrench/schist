@@ -311,6 +311,44 @@ are marked.
 ## Handoff
 
 
+End Nested Style controls, 2026-10-03:
+Main-story ACE 3 markers now stop ordinary nested formatting without adding source
+bytes. Explicit single EndNestedStyle bounds, ordered no-style spans and Repeat
+consume controls at source grapheme boundaries. Source edits and marker style
+renames undo once. Native saves emit markers with their effective formatting;
+older recovery-only records upgrade after their native guard agrees, while native
+deletions leave archived markers unplaced. The layout kernel consumes typed data.
+
+Nine IDML properties pass, including continuation slices, coincident markers,
+paragraph restarts, exact undo/redo, repeated saves and stripped private metadata.
+The process/spot proof matches independent explicit ranges through both separation
+paths at 72/144/216 dpi. Its split-note case was lengthened after a regression
+showed that the first fixture fitted on one frame; it now asserts real continuation.
+The new 16-page PDF is integrated into check-design-output. Active initials,
+note-body controls and explicit end-marker counts above one remain diagnosed;
+native-application agreement is still unverified. None of the ten checked-in IDML
+packages contains ACE 3; encoding evidence is the cited firsthand public report.
+No UI or locale keys change.
+
+All 16 roadmap targets, shared UI, formatting and whitespace checks pass:
+**2,043 distinct Rust tests**, four browser checks and eight Python audit tests;
+one existing shared UI documentation example remains ignored. The new eight PDF
+pairs are pixel-identical in extracted samples and Poppler renders; all 16 pages
+pass visual inspection. All 41 previous proofs are byte-identical. Native debug
+build passes in 2m 22s; the isolated Design-enabled QA bundle is refreshed and
+hash/signature verified. Sixteen redundant page renders were removed after their
+hashes and inspected contact sheets were retained. Evidence is under
+`/tmp/schist-end-nested-*`. The original two regressions fail on the preceding
+implementation; all nine IDML properties and the new plate property now pass.
+Text-variable recovery is published as `0f77ff41` to draft PR #195; this checkpoint
+is prepared for the same PR. Continue locally without waiting for CI. The next
+investigation is export-wide IDML identity collisions; the public specification
+requires unique Self values, whereas the current allocator merely reduces their
+likelihood. A regression is prepared outside the source tree but not yet run.
+Other structured stories, variables and object integration gaps remain open;
+INDD production is still spike-gated.
+
+
 Text-variable recovery, 2026-10-03:
 Seven new properties now preserve native variable instances and their shared
 document definitions. The public proof fixture previously lost all three output
@@ -331,7 +369,7 @@ The focused regression failed before the production change and all seven new
 properties now pass. Initial test API typos were corrected before those assertions
 ran. Evidence is under `/tmp/schist-text-variables-*`; four superseded drafts and
 inventories were removed. Instruction retention is published as `57680ad9` to
-draft PR #195. This checkpoint is prepared for the same PR. Continue locally
+draft PR #195. Text-variable recovery is published as `0f77ff41` to the same PR. Continue locally
 without waiting for CI, per the user's instruction. Text-variable composition,
 other structured stories and the documented object integration gaps remain open;
 INDD production is still spike-gated.

@@ -333,6 +333,7 @@ fn balance_with_notes(spanning: bool) {
                 body.push_paragraph("First note paragraph.", "Body");
                 body.push_paragraph("Second note paragraph.", "Body");
                 story.structures.push(StoryStructure {
+                    control: None,
                     at: Some(unit.len() * index),
                     kind: "Footnote".into(),
                     payload: "source".into(),

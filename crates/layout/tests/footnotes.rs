@@ -21,6 +21,7 @@ fn typed_note_bodies_survive_parent_edits_style_renames_and_one_step_undo() {
                 .push(schist_layout::StyleRange::new(0, 2, "Notes"));
             story.structures = (0..count)
                 .map(|_| schist_layout::StoryStructure {
+                    control: None,
                     at: Some(3),
                     kind: "Footnote".into(),
                     payload: "exact native XML".into(),

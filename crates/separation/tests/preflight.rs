@@ -389,6 +389,7 @@ fn unrendered_structures_fail_both_preflight_paths_even_when_the_body_fits() {
                 } else {
                     doc.stories[frame.story.0 as usize].structures.push(
                         schist_layout::StoryStructure {
+                            control: None,
                             at,
                             kind: "Footnote".into(),
                             payload: "raw".into(),

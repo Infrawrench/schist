@@ -124,6 +124,7 @@ pub fn document(reference: bool, case: usize) -> LayoutDocument {
             text.into()
         };
         main.structures.push(StoryStructure {
+            control: None,
             at: Some(if case == 5 { 3 } else { 0 }),
             kind: "Footnote".into(),
             payload: "source".into(),

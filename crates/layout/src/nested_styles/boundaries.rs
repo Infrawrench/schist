@@ -9,6 +9,7 @@ enum Kind<'a> {
     Character(char),
     AnyCharacter,
     Word,
+    EndMarker,
 }
 
 fn kind(delimiter: &Delimiter) -> Option<Kind<'_>> {
@@ -18,6 +19,7 @@ fn kind(delimiter: &Delimiter) -> Option<Kind<'_>> {
         Delimiter::Enumeration(value) => Some(match value.as_str() {
             "AnyCharacter" => Kind::AnyCharacter,
             "AnyWord" => Kind::Word,
+            "EndNestedStyle" => Kind::EndMarker,
             "Digits" => Kind::Digits,
             "Letters" => Kind::Letters,
             "Tabs" => Kind::Character('\t'),
@@ -33,7 +35,10 @@ fn kind(delimiter: &Delimiter) -> Option<Kind<'_>> {
 pub(super) fn supported(index: usize, rule: &NestedStyle) -> bool {
     !matches!(rule.character_style, CharacterStyle::Unresolved(_))
         && ((index == 0 && rule.is_initial())
-            || (rule.repetition > 0 && kind(&rule.delimiter).is_some()))
+            || (rule.repetition > 0
+                && kind(&rule.delimiter).is_some()
+                && (!matches!(kind(&rule.delimiter), Some(Kind::EndMarker))
+                    || rule.repetition == 1)))
 }
 
 /// A valid Repeat loops only the preceding ordinary rules; later records stay
@@ -81,9 +86,19 @@ pub(super) fn prefix(rules: &[NestedStyle]) -> usize {
 /// Through includes the final delimiter; up-to leaves it to the next rule.
 /// Missing delimiters extend to paragraph end. All cuts stay on graphemes,
 /// including a literal base character followed by combining marks.
-pub(super) fn end(text: &str, rule: &NestedStyle) -> usize {
+pub(super) struct Boundary {
+    pub at: usize,
+    /// A through-bound ends before a zero-width control at its next boundary;
+    /// an excluded delimiter or missing condition has not consumed that point.
+    pub found: bool,
+}
+
+pub(super) fn end(text: &str, rule: &NestedStyle) -> Boundary {
     let Some(kind) = kind(&rule.delimiter) else {
-        return text.len();
+        return Boundary {
+            at: text.len(),
+            found: false,
+        };
     };
     let mut remaining = rule.repetition as usize;
     let mut boundaries = schist_text_engine::grapheme_boundaries(text);
@@ -91,6 +106,7 @@ pub(super) fn end(text: &str, rule: &NestedStyle) -> usize {
     let mut word_content = false;
     for end in boundaries {
         let instances = match kind {
+            Kind::EndMarker => 0,
             Kind::AnyCharacter => 1,
             Kind::Word => {
                 let separator = text[start..end].chars().any(word_separator);
@@ -115,12 +131,18 @@ pub(super) fn end(text: &str, rule: &NestedStyle) -> usize {
             Kind::Character(value) => text[start..end].chars().filter(|c| *c == value).count(),
         };
         if instances >= remaining {
-            return if rule.inclusive { end } else { start };
+            return Boundary {
+                at: if rule.inclusive { end } else { start },
+                found: true,
+            };
         }
         remaining -= instances;
         start = end;
     }
-    text.len()
+    Boundary {
+        at: text.len(),
+        found: false,
+    }
 }
 
 // Whitespace terminates a nonempty word. Nonbreaking spaces join terms;

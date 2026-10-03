@@ -99,14 +99,23 @@ impl StyleRange {
     }
 }
 
-/// An inline structure retained without adding characters to the main body.
-/// Exact XML remains recoverable even when typed lowering is unavailable.
+/// Supported source controls which occupy no main-story bytes. Their original
+/// XML remains recoverable in the containing StoryStructure.
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+pub enum InlineControl {
+    /// Ends an ordinary nested character-style rule at this source boundary.
+    EndNestedStyle { character_style: String },
+}
+
+/// An anchored native structure, with optional typed composition data.
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct StoryStructure {
     /// UTF-8 byte boundary in the story, or unknown after an external edit.
     pub at: Option<usize>,
     pub kind: String,
     pub payload: String,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub control: Option<InlineControl>,
     /// Lowered text-only footnotes retain a separate flow and zero-width markers.
     /// Their original XML is still retained alongside supported note composition.
     #[serde(default, skip_serializing_if = "Option::is_none")]

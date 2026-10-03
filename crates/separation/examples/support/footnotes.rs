@@ -141,6 +141,7 @@ fn document_with_note(reference: bool, note_text: &str) -> LayoutDocument {
         } else {
             let mut main = Story::from_text("Body", "Main");
             main.structures.push(StoryStructure {
+                control: None,
                 at: Some(4),
                 kind: "Footnote".into(),
                 payload: "source".into(),

@@ -432,6 +432,13 @@ pub fn rename_style(
             }
         }
         for structure in &mut after.structures {
+            if !paragraph {
+                if let Some(crate::story::InlineControl::EndNestedStyle { character_style }) =
+                    &mut structure.control
+                {
+                    rename(character_style);
+                }
+            }
             if let Some(note) = &mut structure.footnote {
                 note.rename_style(paragraph, old, new);
             }

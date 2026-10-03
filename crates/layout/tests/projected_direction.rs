@@ -32,6 +32,7 @@ fn generated_reference_text_cannot_choose_the_base_direction_of_an_authored_para
                     doc.footnotes.affixes = Some(FootnoteAffixes::Both);
                     let mut story = Story::from_text(text, "Source");
                     story.structures.push(StoryStructure {
+                        control: None,
                         at: Some(anchor),
                         kind: "Footnote".into(),
                         payload: "source".into(),

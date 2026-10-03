@@ -26,8 +26,8 @@ fn visit(
     report: &mut Report,
 ) {
     // Content PIs may carry document characters; do not ignore them as metadata.
-    // Typed note markers are already covered by the Footnote notice; other
-    // instructions remain anchored recovery data until composition is supported.
+    // Typed note/end-style controls also keep their original recovery data;
+    // unknown instructions remain inert and are reported as unrendered.
     if element.name == "Content" && !element.instructions.is_empty() {
         let message = schist_i18n::t("design.idml_story_structure").to_string();
         if !report.skipped.contains(&message) {
@@ -90,6 +90,46 @@ fn visit(
 /// from the finished Story so its inter-paragraph separators count once.
 pub(crate) fn decode(story: &Element) -> Story {
     decode_with_markers(story, false).0
+}
+
+/// Older guarded records retained ACE 3 only as contextual recovery XML.
+/// Upgrade after native agreement, never by parsing XML in the layout kernel.
+pub(crate) fn upgrade_controls(story: &mut Story, refs: &style_codec::References) {
+    for structure in &mut story.structures {
+        if structure.kind != "ProcessingInstruction"
+            || structure.control.is_some()
+            || structure.footnote.is_some()
+        {
+            continue;
+        }
+        let Ok(root) = crate::xml::parse(&structure.payload) else {
+            continue;
+        };
+        if root.name != "ParagraphStyleRange" || root.children.len() != 1 {
+            continue;
+        }
+        let character = &root.children[0];
+        if character.name != "CharacterStyleRange" || character.children.len() != 1 {
+            continue;
+        }
+        let content = &character.children[0];
+        if content.name != "Content"
+            || !content.text.is_empty()
+            || !content.children.is_empty()
+            || content.instructions.len() != 1
+            || content.instructions[0].0 != 0
+            || !content.instructions[0]
+                .1
+                .split_whitespace()
+                .eq(["ACE", "3"])
+        {
+            continue;
+        }
+        let name = refs.character(character.attr("AppliedCharacterStyle").unwrap_or_default());
+        structure.control = Some(schist_layout::story::InlineControl::EndNestedStyle {
+            character_style: name,
+        });
+    }
 }
 
 fn decode_with_markers(
@@ -292,6 +332,11 @@ impl StoryBuilder {
                         self.structures.push((
                             self.out.points.len(),
                             schist_layout::StoryStructure {
+                                control: instruction.split_whitespace().eq(["ACE", "3"]).then(
+                                    || schist_layout::story::InlineControl::EndNestedStyle {
+                                        character_style: character.into(),
+                                    },
+                                ),
                                 at: Some(self.text.len() + at),
                                 kind: "ProcessingInstruction".into(),
                                 payload: inline_payload(
@@ -341,6 +386,7 @@ impl StoryBuilder {
                     self.structures.push((
                         self.out.points.len(),
                         schist_layout::StoryStructure {
+                            control: None,
                             at: Some(self.text.len()),
                             kind: name.into(),
                             payload: if name == "TextVariableInstance" {

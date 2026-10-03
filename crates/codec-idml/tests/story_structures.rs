@@ -22,6 +22,7 @@ fn document(legacy: bool) -> LayoutDocument {
         story.push_paragraph("tail", "Body");
     } else {
         story.structures.push(StoryStructure {
+            control: None,
             at: Some(1),
             kind: "Footnote".into(),
             payload: payload.into(),
@@ -228,6 +229,7 @@ fn native_edits_win_while_stale_opaque_payloads_keep_unknown_locations() {
             assert_eq!(
                 story.structures,
                 vec![StoryStructure {
+                    control: None,
                     at: None,
                     kind: "Footnote".into(),
                     payload: original,

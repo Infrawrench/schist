@@ -24,6 +24,7 @@ fn document(count: usize) -> LayoutDocument {
         let mut story = Story::from_text("Body", "Body");
         for at in [0, 4] {
             story.structures.push(StoryStructure {
+                control: None,
                 at: Some(at),
                 kind: "Footnote".into(),
                 payload: "source".into(),
@@ -246,6 +247,7 @@ fn column_flow(spanning: bool) {
                         for (point, at) in story.points.iter().zip(story.point_offsets()) {
                             if matches!(point, StoryPoint::Paragraph { .. }) {
                                 story.structures.push(StoryStructure {
+                                    control: None,
                                     at: Some(at + 5),
                                     kind: "Footnote".into(),
                                     payload: "source".into(),
@@ -404,6 +406,7 @@ fn shared_footer_trials_preserve_frame_and_page_breaks_insets_and_page_grids() {
                 for (point, at) in story.points.iter().zip(story.point_offsets()) {
                     if matches!(point, StoryPoint::Paragraph { .. }) {
                         story.structures.push(StoryStructure {
+                            control: None,
                             at: Some(at + 5),
                             kind: "Footnote".into(),
                             payload: "source".into(),

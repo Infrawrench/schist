@@ -111,7 +111,7 @@ fn content_instructions_keep_order_context_and_every_utf8_anchor_without_source_
             assert_eq!(
                 compose::compose_story(&imported.document, StoryId(0)).frames[0]
                     .unrendered_structures,
-                instructions.len()
+                instructions.len() - 1
             );
         }
     }
@@ -140,7 +140,7 @@ fn instruction_only_and_split_content_paragraphs_keep_global_anchors_through_sav
             let package=container::read(&saved.bytes).unwrap();
             for name in package.names().into_iter().filter(|n|n.starts_with("Stories/")) {
                 let root=xml::parse(package.text(name).unwrap()).unwrap();
-                assert!(root.find_all("Content").iter().all(|e|e.instructions.is_empty()),"Retention does not claim native marker composition/export");
+                assert!(root.find_all("Content").iter().all(|e|e.instructions.iter().all(|(_, pi)| pi.split_whitespace().eq(["ACE", "3"]))),"Only the supported end-nested-style control has native output");
             }
             doc=import::read(&saved.bytes).unwrap().document;
             assert_eq!(doc.stories[0],edited.stories[0]);

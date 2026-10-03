@@ -251,6 +251,7 @@ mod tests {
                     state.document.footnotes.start_at = Some(12);
                     let mut story = Story::from_text(content, "Body");
                     story.structures.push(StoryStructure {
+                        control: None,
                         at: Some(anchor),
                         kind: "Footnote".into(),
                         payload: "retained".into(),

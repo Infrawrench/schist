@@ -112,6 +112,9 @@ pub fn prepare(doc: &LayoutDocument, id: StoryId) -> Option<PreparedStory> {
         if structure.kind != "Footnote" {
             continue;
         }
+        if structure.control.is_some() {
+            return None;
+        }
         let at = structure.at?;
         let body = structure.footnote.as_ref()?;
         if !text.is_char_boundary(at) || !body.valid() {

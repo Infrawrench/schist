@@ -270,6 +270,7 @@ fn empty_source_nested_spans_stay_empty_after_reference_and_note_marker_insertio
                 });
                 let mut story = Story::from_text(text, "Source");
                 story.structures.push(StoryStructure {
+                    control: None,
                     at: Some(0),
                     kind: "Footnote".into(),
                     payload: "test source".into(),

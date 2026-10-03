@@ -307,6 +307,7 @@ fn split_note_trials_preserve_each_notes_hyphen_history_and_column_policy() {
                     .across_columns = Some(across);
                 for anchor in [9, 21] {
                     doc.stories[0].structures.push(StoryStructure {
+control: None,
                         at: Some(anchor), kind: "Footnote".into(), payload: String::new(),
                         footnote: Some(FootnoteBody {
                             story: Story::from_text(" extensive probability extensive probability extensive probability", "P"),
@@ -377,6 +378,7 @@ fn an_inline_reference_does_not_disable_its_original_words_dictionary_breaks() {
         doc.footnotes.rule.on = Some(false);
         doc.footnotes.continuing_rule.on = Some(false);
         doc.stories[0].structures.push(StoryStructure {
+            control: None,
             at: Some(9),
             kind: "Footnote".into(),
             payload: String::new(),

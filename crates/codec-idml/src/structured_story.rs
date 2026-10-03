@@ -81,11 +81,12 @@ pub(crate) fn restore(
         .then(|| entries[0].attr("Value"))
         .flatten()
         .and_then(|json| serde_json::from_str::<Record>(json).ok());
-    if let Some(record) = record {
+    if let Some(mut record) = record {
         if agrees(native, &record, styles, refs) {
             if record.story.structures.iter().any(|s| s.at.is_none()) {
                 notice(&mut report.skipped, "design.idml_structure_location");
             }
+            crate::story_codec::upgrade_controls(&mut record.story, refs);
             return record.story;
         }
         decoded
@@ -99,6 +100,7 @@ pub(crate) fn restore(
             .extend(record.story.points.into_iter().filter_map(|p| {
                 if let StoryPoint::Other { kind, payload } = p {
                     Some(StoryStructure {
+                        control: None,
                         at: None,
                         kind,
                         payload,
@@ -114,6 +116,7 @@ pub(crate) fn restore(
         decoded
             .structures
             .extend(entries.iter().map(|entry| StoryStructure {
+                control: None,
                 at: None,
                 kind: LABEL.into(),
                 payload: entry.attr("Value").unwrap_or_default().into(),

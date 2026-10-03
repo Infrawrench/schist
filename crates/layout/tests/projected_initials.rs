@@ -43,6 +43,7 @@ fn generated_references_never_replace_source_graphemes_in_an_opening_initial() {
                     for anchor in [0, first, end, text.len()] {
                         let mut story = Story::from_text(&text, "Initial");
                         story.structures.push(StoryStructure {
+                            control: None,
                             at: Some(anchor),
                             kind: "Footnote".into(),
                             payload: "retained native source".into(),

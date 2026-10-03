@@ -33,6 +33,7 @@ pub mod grid;
 pub mod history;
 pub mod hyphenation;
 pub mod ink;
+mod inline_controls;
 pub mod inline_text;
 pub mod language;
 pub mod list_composition;

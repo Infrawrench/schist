@@ -27,6 +27,7 @@ fn document(text: &str, anchors: &[usize]) -> LayoutDocument {
         let mut note_story = Story::from_text(" é note", "Note");
         note_story.push_paragraph("5 literal", "Note");
         story.structures.push(StoryStructure {
+            control: None,
             at: Some(*at),
             kind: "Footnote".into(),
             payload: "original native XML".into(),

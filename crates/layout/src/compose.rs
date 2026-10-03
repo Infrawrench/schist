@@ -817,9 +817,11 @@ fn compose_thread_on_page(
                 &prepared.nested_issues,
             );
             for frame in &mut out.frames {
-                frame.unrendered_structures = frame
-                    .unrendered_structures
-                    .saturating_sub(prepared.notes.len());
+                frame.unrendered_structures = crate::inline_controls::unrendered(
+                    &doc.stories[story_id.0 as usize],
+                    &doc.styles,
+                )
+                .saturating_sub(prepared.notes.len());
                 frame.consumed_to = prepared.main.positions.source(frame.consumed_to);
                 for line in &mut frame.lines {
                     let positions = prepared.main.positions.line(&text, line.start, line.end);
@@ -910,6 +912,7 @@ fn compose_thread_plain(
         .filter(|_| doc.footnotes.no_splitting != Some(true))
         .map(|notes| split_footnotes::Flow::new(doc, notes));
     let text_end = story.text_len();
+    let unrendered_structures = crate::inline_controls::unrendered(story, &doc.styles);
     // Markers, explicit destination breaks and constrained blank paragraphs
     // still need a destination without source bytes. Ordinary untouched blank
     // stories retain an insertion point without reporting overset text.
@@ -981,7 +984,7 @@ fn compose_thread_plain(
                 object: *object,
                 lines: Vec::new(),
                 footnotes: Vec::new(),
-                unrendered_structures: story.retained_structures(),
+                unrendered_structures,
                 drop_cap: None,
                 consumed_to: cursor.min(text_end),
                 passed_on: pending && !is_last && threads,
@@ -1046,7 +1049,7 @@ fn compose_thread_plain(
                 object: *object,
                 lines,
                 footnotes: Vec::new(),
-                unrendered_structures: story.retained_structures(),
+                unrendered_structures,
                 drop_cap: None,
                 consumed_to: cursor.min(text_end),
                 passed_on: overflowed && !is_last && threads,
@@ -1310,7 +1313,7 @@ fn compose_thread_plain(
             drop_cap: first_drop_cap(&lines),
             lines,
             footnotes,
-            unrendered_structures: story.retained_structures(),
+            unrendered_structures,
             consumed_to,
             passed_on: overflowed && !is_last && threads,
             lost: overflowed && (is_last || !threads),
@@ -1325,7 +1328,7 @@ fn compose_thread_plain(
             object: *object,
             lines: Vec::new(),
             footnotes: Vec::new(),
-            unrendered_structures: story.retained_structures(),
+            unrendered_structures,
             drop_cap: None,
             consumed_to: cursor.min(text_end),
             passed_on: false,

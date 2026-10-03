@@ -1,4 +1,5 @@
-//! Native text-only Footnote containers. Original XML remains in the guarded
+//! Native text-only Footnote containers and supported zero-width controls.
+//! Original XML remains in the guarded
 //! retention record; it is never spliced into a new package with stale IDs.
 use crate::export::{self, character_reference};
 use schist_layout::{footnotes::FootnoteMarker, Story, StyleSet};
@@ -28,6 +29,22 @@ pub(crate) fn events(
         })
         .collect();
     for structure in &story.structures {
+        if let Some((at, schist_layout::story::InlineControl::EndNestedStyle { character_style })) =
+            structure.at.zip(structure.control.as_ref())
+        {
+            if structure.kind == "ProcessingInstruction"
+                && structure.footnote.is_none()
+                && text.is_char_boundary(at)
+            {
+                out.push(InlineEvent {
+                    at,
+                    style: character_style.clone(),
+                    xml: "<Content><?ACE 3?></Content>".into(),
+                    emitted: false,
+                });
+            }
+            continue;
+        }
         let Some((at, note)) = structure.at.zip(structure.footnote.as_ref()) else {
             continue;
         };
