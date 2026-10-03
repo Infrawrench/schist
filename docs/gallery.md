@@ -301,9 +301,11 @@ user; photos are named by path throughout.
 A bucket can also fill itself. The New/Edit Bucket dialog (right-click
 ▸ Edit bucket…) takes an optional **rule**: a search query ("dog on a
 beach" — same engine and same 0.15 floor as the search box, place
-names understood the same fuzzy way), an **area** drawn on the same
-navigable map the import filter uses, or both — both means both must
-hold. A smart bucket (marked ✦ in the sidebar) re-scores whenever the
+names understood the same fuzzy way), a **Hide** query whose matches
+are subtracted ("dog on a beach, but not screenshots"), an **area** drawn on the same
+navigable map the import filter uses, or any combination of these. Every
+inclusive condition must hold and no Hide condition may match. A smart bucket
+(marked ✦ in the sidebar) re-scores whenever the
 index moves, so it keeps itself current as photos are imported, edited
 and indexed; its header says what the rule is, and its contents are
 the hand-added photos in drop order followed by the matches, best
@@ -314,6 +316,12 @@ offers it for hand-added ones, and why "Clear" on a smart bucket is
 models aren't installed — it matches nothing rather than everything —
 while an area rule works standalone from EXIF alone. Rules persist;
 the matches are recomputed each session.
+
+Negative smart-bucket matching was inspired by
+[Rachel (@chaotictransfem)](https://x.com/chaotictransfem/status/2102145408944263393)'s
+one-off positive/negative image classifier idea. If the Search models are not
+installed and neither metadata nor a place can answer a negative query, the
+smart portion stays empty rather than admitting photos it was meant to hide.
 
 The grid drives from the keyboard too: arrow keys move the selection —
 left/right by one photo, up/down by a visual row, worked out from the

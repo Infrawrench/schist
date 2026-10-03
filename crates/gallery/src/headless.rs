@@ -136,7 +136,8 @@ impl Gallery {
             "buckets": self.file.buckets.iter().enumerate().map(|(i, b)| json!({
                 "index": i, "name": b.name(), "photos": b.photos().iter().filter(|p| !b.exclude_nsfw() || self.verdict(p) != "flagged").count(),
                 "exclude_nsfw": b.exclude_nsfw(),
-                "query": b.query(), "area": b.area().map(|(_, name)| name.clone()),
+                "query": b.query(), "exclude_query": b.exclude_query(),
+                "area": b.area().map(|(_, name)| name.clone()),
             })).collect::<Vec<_>>(),
             "index": {
                 "embedded": embedded, "total": all.len(),
@@ -298,12 +299,14 @@ impl Gallery {
         &mut self,
         name: &str,
         query: Option<&str>,
+        exclude_query: Option<&str>,
         photos: Vec<PathBuf>,
     ) -> anyhow::Result<usize> {
         self.file.buckets.push(BucketFile::Rich {
             name: name.to_string(),
             photos,
             query: query.map(str::to_string),
+            exclude_query: exclude_query.map(str::to_string),
             area: None,
             exclude_nsfw: false,
         });
@@ -324,6 +327,7 @@ impl Gallery {
                 name: std::mem::take(n),
                 photos: std::mem::take(p),
                 query: None,
+                exclude_query: None,
                 area: None,
                 exclude_nsfw: false,
             };

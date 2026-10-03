@@ -456,6 +456,7 @@ impl Workspace {
             || id == "bucket-name"
             || id == "bucket-query"
             || id == "variant-name"
+            || id == "bucket-exclude-query"
             || id == "face-name"
             || id == "person-name"
             || id == file_picker::NAME_FIELD
@@ -807,13 +808,21 @@ impl Workspace {
             });
             return;
         }
-        if id == "bucket-name" || id == "bucket-query" {
+        if id == "bucket-name" || id == "bucket-query" || id == "bucket-exclude-query" {
             self.update_modal(|m| {
-                if let Modal::BucketName { name, query, .. } = m {
+                if let Modal::BucketName {
+                    name,
+                    query,
+                    exclude_query,
+                    ..
+                } = m
+                {
                     if id == "bucket-name" {
                         *name = buffer;
-                    } else {
+                    } else if id == "bucket-query" {
                         *query = buffer;
+                    } else {
+                        *exclude_query = buffer;
                     }
                 }
             });

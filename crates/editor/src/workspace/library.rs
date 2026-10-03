@@ -94,6 +94,9 @@ pub struct Bucket {
     /// set makes the bucket fill itself from the index — both set
     /// means both must hold. Persisted.
     pub query: Option<String>,
+    /// Matches of this content/place query are removed from the derived
+    /// matches. Hand-added photos remain explicit overrides. Persisted.
+    pub exclude_query: Option<String>,
     pub area: Option<(GeoBounds, String)>,
     /// What the rule currently matches, best first. Derived — rebuilt
     /// whenever the index moves — so never persisted.
@@ -102,7 +105,7 @@ pub struct Bucket {
 
 impl Bucket {
     pub fn is_smart(&self) -> bool {
-        self.query.is_some() || self.area.is_some()
+        self.query.is_some() || self.exclude_query.is_some() || self.area.is_some()
     }
 
     /// Everything in the bucket: the hand-picked photos in the order
@@ -126,6 +129,12 @@ impl Bucket {
         let mut parts = Vec::new();
         if let Some(query) = &self.query {
             parts.push(tf!("library.bucket.rule_matches", query = query));
+        }
+        if let Some(query) = &self.exclude_query {
+            parts.push(format!(
+                "− {}",
+                tf!("library.bucket.rule_matches", query = query)
+            ));
         }
         if let Some((_, name)) = &self.area {
             parts.push(tf!("library.bucket.rule_taken_in", name = name));
@@ -255,9 +264,58 @@ struct CachedQuery {
 /// keystroke used to clone every path and vector in the library.
 #[derive(Clone)]
 struct SearchSnapshot {
+    /// Every photo whose metadata/index probe has completed. This is the
+    /// candidate set for a rule made solely from a negative query.
+    paths: Arc<Vec<PathBuf>>,
     metadata_text: Arc<Vec<(PathBuf, String)>>,
     vectors: Arc<Vec<(PathBuf, Arc<Vec<f32>>)>>,
     positions: Arc<Vec<(PathBuf, (f64, f64))>>,
+}
+
+/// The paths a smart-bucket query considers a match. Negative rules use the
+/// same embedding, place boost, threshold and metadata fallback as positive
+/// rules, so “match this, not that” has one meaning on both sides.
+fn smart_query_paths(
+    snapshot: &SearchSnapshot,
+    query: &str,
+    answer: &CachedQuery,
+) -> Option<FxHashSet<PathBuf>> {
+    let mut scored: FxHashMap<&PathBuf, f32> = FxHashMap::default();
+    if let Some(text) = &answer.text {
+        for (path, vector) in snapshot.vectors.iter() {
+            let score = vector
+                .iter()
+                .zip(text.iter())
+                .map(|(a, b)| a * b)
+                .sum::<f32>();
+            scored.insert(path, score);
+        }
+    }
+    if let Some(place) = &answer.place {
+        for (path, (lat, lon)) in snapshot.positions.iter() {
+            let affinity = library_geo::geo_affinity(place, *lat, *lon);
+            if affinity > 0.0 {
+                *scored.entry(path).or_insert(0.0) += GEO_BOOST * affinity;
+            }
+        }
+    }
+    let floor = if answer.text.is_some() {
+        SEARCH_FLOOR
+    } else {
+        GEO_BOOST * 0.3
+    };
+    let mut matched: FxHashSet<PathBuf> = scored
+        .into_iter()
+        .filter(|(_, score)| *score >= floor)
+        .map(|(path, _)| path.clone())
+        .collect();
+    let words: Vec<_> = query.split_whitespace().map(str::to_lowercase).collect();
+    for (path, text) in snapshot.metadata_text.iter() {
+        if !words.is_empty() && words.iter().all(|word| text.contains(word.as_str())) {
+            matched.insert(path.clone());
+        }
+    }
+    (answer.text.is_some() || answer.place.is_some() || !matched.is_empty()).then_some(matched)
 }
 
 pub struct Library {
@@ -542,12 +600,14 @@ impl Library {
                         name,
                         photos,
                         query,
+                        exclude_query,
                         area,
                         exclude_nsfw,
                     } => Bucket {
                         name,
                         photos,
                         query,
+                        exclude_query,
                         area,
                         exclude_nsfw,
                         matches: Vec::new(),
@@ -556,6 +616,7 @@ impl Library {
                         name,
                         photos,
                         query: None,
+                        exclude_query: None,
                         area: None,
                         exclude_nsfw: false,
                         matches: Vec::new(),
@@ -667,6 +728,7 @@ impl Library {
                     name: b.name.clone(),
                     photos: b.photos.clone(),
                     query: b.query.clone(),
+                    exclude_query: b.exclude_query.clone(),
                     area: b.area.clone(),
                     exclude_nsfw: b.exclude_nsfw,
                 })
@@ -1330,6 +1392,7 @@ impl Library {
             name,
             photos: Vec::new(),
             query: None,
+            exclude_query: None,
             area: None,
             exclude_nsfw: false,
             matches: Vec::new(),
@@ -1345,6 +1408,7 @@ impl Library {
         index: usize,
         name: String,
         query: Option<String>,
+        exclude_query: Option<String>,
         area: Option<(GeoBounds, String)>,
         exclude_nsfw: bool,
     ) {
@@ -1360,8 +1424,9 @@ impl Library {
         if !name.trim().is_empty() {
             bucket.name = name.trim().to_string();
         }
-        if bucket.query != query || bucket.area != area {
+        if bucket.query != query || bucket.exclude_query != exclude_query || bucket.area != area {
             bucket.query = query;
+            bucket.exclude_query = exclude_query;
             bucket.area = area;
             bucket.matches.clear();
             self.rule_rev += 1;
@@ -1431,7 +1496,15 @@ impl Library {
                 return snapshot.clone();
             }
         }
+        let paths: FxHashSet<PathBuf> = self
+            .metadata_ready
+            .iter()
+            .chain(self.positions.keys())
+            .chain(self.embeddings.keys())
+            .cloned()
+            .collect();
         let snapshot = SearchSnapshot {
+            paths: Arc::new(paths.into_iter().collect()),
             metadata_text: Arc::new(
                 self.metadata_text
                     .iter()
@@ -3077,6 +3150,7 @@ impl Workspace {
             Modal::BucketName {
                 name: String::new(),
                 query: String::new(),
+                exclude_query: String::new(),
                 photos,
                 editing: None,
                 cloud: false,
@@ -3096,12 +3170,14 @@ impl Workspace {
         };
         let name = bucket.name.clone();
         let query = bucket.query.clone().unwrap_or_default();
+        let exclude_query = bucket.exclude_query.clone().unwrap_or_default();
         let area = bucket.area.clone();
         let exclude_nsfw = bucket.exclude_nsfw;
         self.open_modal(
             Modal::BucketName {
                 name,
                 query,
+                exclude_query,
                 photos: Vec::new(),
                 editing: Some(index),
                 cloud: false,
@@ -3142,6 +3218,8 @@ impl Workspace {
             index: usize,
             query: Option<String>,
             cached: Option<CachedQuery>,
+            exclude_query: Option<String>,
+            cached_exclude: Option<CachedQuery>,
             area: Option<GeoBounds>,
         }
         let rules: Vec<SmartRule> = self
@@ -3160,10 +3238,21 @@ impl Workspace {
                 let cached = query
                     .as_ref()
                     .and_then(|q| self.library.query_cache.get(q).cloned());
+                let exclude_query = b
+                    .exclude_query
+                    .as_deref()
+                    .map(str::trim)
+                    .filter(|q| !q.is_empty())
+                    .map(str::to_string);
+                let cached_exclude = exclude_query
+                    .as_ref()
+                    .and_then(|q| self.library.query_cache.get(q).cloned());
                 SmartRule {
                     index,
                     query,
                     cached,
+                    exclude_query,
+                    cached_exclude,
                     area: b.area.as_ref().map(|(bounds, _)| *bounds),
                 }
             })
@@ -3179,6 +3268,8 @@ impl Workspace {
                         index,
                         query,
                         cached,
+                        exclude_query,
+                        cached_exclude,
                         area,
                     } in rules
                     {
@@ -3186,6 +3277,17 @@ impl Workspace {
                             (Some(q), None) => {
                                 // Same engine as the search box, cached
                                 // in the same place.
+                                let answer = CachedQuery {
+                                    text: schist_neural::embed::embed_text(q).map(Arc::new),
+                                    place: library_geo::find_place(q),
+                                };
+                                fresh.push((q.clone(), answer.clone()));
+                                Some(answer)
+                            }
+                            (_, cached) => cached,
+                        };
+                        let exclude_answer = match (&exclude_query, cached_exclude) {
+                            (Some(q), None) => {
                                 let answer = CachedQuery {
                                     text: schist_neural::embed::embed_text(q).map(Arc::new),
                                     place: library_geo::find_place(q),
@@ -3235,16 +3337,9 @@ impl Workspace {
                             // place. Match nothing, not everything.
                             (Vec::new(), false)
                         } else {
-                            // Area-only: every positioned photo is a
-                            // candidate; the clip below is the rule.
-                            (
-                                snapshot
-                                    .positions
-                                    .iter()
-                                    .map(|(p, _)| p.clone())
-                                    .collect::<Vec<_>>(),
-                                false,
-                            )
+                            // With no positive query, every indexed photo is a
+                            // candidate. An area or negative query clips this set below.
+                            (snapshot.paths.as_ref().clone(), false)
                         };
                         if let Some(query) = &query {
                             let words: Vec<_> =
@@ -3268,6 +3363,19 @@ impl Workspace {
                                 at.get(p)
                                     .is_some_and(|(lat, lon)| area.contains(*lat, *lon))
                             });
+                        }
+                        if let (Some(exclude_query), Some(answer)) =
+                            (&exclude_query, exclude_answer.as_ref())
+                        {
+                            if let Some(excluded) =
+                                smart_query_paths(&snapshot, exclude_query, answer)
+                            {
+                                matched.retain(|path| !excluded.contains(path));
+                            } else {
+                                // A negative rule that cannot be evaluated must not leak the
+                                // very photos it was created to withhold.
+                                matched.clear();
+                            }
                         }
                         out.push((index, matched, by_score));
                     }
@@ -4793,6 +4901,7 @@ mod tests {
             name: "Trip".into(),
             photos: vec![PathBuf::from("/p/b.jpg")],
             query: None,
+            exclude_query: None,
             area: None,
             exclude_nsfw: false,
             matches: Vec::new(),
@@ -4881,6 +4990,7 @@ mod tests {
             name: "Trip".into(),
             photos: vec![PathBuf::from("/p/a.jpg")],
             query: Some("beach".into()),
+            exclude_query: None,
             area: None,
             exclude_nsfw: false,
             matches: vec![PathBuf::from("/p/b.jpg"), PathBuf::from("/p/a.jpg")],
@@ -5010,16 +5120,53 @@ mod tests {
             if name == "Trip" && photos == &[PathBuf::from("/a.jpg")]));
         let rich: Vec<BucketFile> = serde_json::from_str(
             r#"[{"name": "NYC dogs", "query": "dog",
+                 "exclude_query": "screenshot",
                  "area": [{"south": 40.0, "west": -75.0, "north": 41.0, "east": -73.0}, "New York City"]}]"#,
         )
         .expect("rich shape");
         assert!(
-            matches!(&rich[0], BucketFile::Rich { name, photos, query, area, .. }
+            matches!(&rich[0], BucketFile::Rich { name, photos, query, exclude_query, area, .. }
             if name == "NYC dogs"
                 && photos.is_empty()
                 && query.as_deref() == Some("dog")
+                && exclude_query.as_deref() == Some("screenshot")
                 && area.as_ref().is_some_and(|(b, place)| place == "New York City" && b.contains(40.7, -74.0)))
         );
+    }
+
+    #[test]
+    fn negative_bucket_queries_use_content_scores_and_metadata_fallbacks() {
+        let screenshot = PathBuf::from("/p/screenshot.jpg");
+        let photo = PathBuf::from("/p/photo.jpg");
+        let snapshot = SearchSnapshot {
+            paths: Arc::new(vec![screenshot.clone(), photo.clone()]),
+            metadata_text: Arc::new(vec![
+                (screenshot.clone(), "phone screenshot png".into()),
+                (photo.clone(), "camera vacation jpeg".into()),
+            ]),
+            vectors: Arc::new(vec![
+                (screenshot.clone(), Arc::new(vec![1.0, 0.0])),
+                (photo, Arc::new(vec![0.0, 1.0])),
+            ]),
+            positions: Arc::new(Vec::new()),
+        };
+        let visual = CachedQuery {
+            text: Some(Arc::new(vec![1.0, 0.0])),
+            place: None,
+        };
+        assert_eq!(
+            smart_query_paths(&snapshot, "screen", &visual).unwrap(),
+            [screenshot.clone()].into_iter().collect()
+        );
+        let metadata_only = CachedQuery {
+            text: None,
+            place: None,
+        };
+        assert_eq!(
+            smart_query_paths(&snapshot, "screenshot", &metadata_only).unwrap(),
+            [screenshot].into_iter().collect()
+        );
+        assert!(smart_query_paths(&snapshot, "unknown", &metadata_only).is_none());
     }
 
     #[test]
@@ -5040,7 +5187,14 @@ mod tests {
                 "/p/unscored.jpg".into(),
             ],
         );
-        lib.configure_bucket(index, "Family".into(), Some("trip".into()), None, true);
+        lib.configure_bucket(
+            index,
+            "Family".into(),
+            Some("trip".into()),
+            None,
+            None,
+            true,
+        );
         lib.buckets[index].matches = vec!["/p/match.jpg".into(), "/p/safe.jpg".into()];
         lib.flagged.insert("/p/manual.jpg".into(), true);
         lib.flagged.insert("/p/match.jpg".into(), true);
@@ -5076,12 +5230,19 @@ mod tests {
         lib.flagged.insert("/p/unscored.jpg".into(), true);
         assert_eq!(lib.search_scope().unwrap().len(), 1);
         // Turning the option off restores references, including smart matches.
-        lib.configure_bucket(index, "Family".into(), Some("trip".into()), None, false);
+        lib.configure_bucket(
+            index,
+            "Family".into(),
+            Some("trip".into()),
+            None,
+            None,
+            false,
+        );
         assert_eq!(lib.buckets[index].contents(|p| lib.is_flagged(p)).len(), 4);
         assert_eq!(lib.buckets[index].photos.len(), 3);
         assert_eq!(lib.photo_count(), 5);
         // An ordinary bucket remains manually filled when only exclusion is enabled.
-        lib.configure_bucket(index, "Family".into(), None, None, true);
+        lib.configure_bucket(index, "Family".into(), None, None, None, true);
         assert!(!lib.buckets[index].is_smart());
         assert_eq!(
             lib.buckets[index].contents(|p| lib.is_flagged(p)),
@@ -5095,6 +5256,7 @@ mod tests {
             name: "b".into(),
             photos: vec![PathBuf::from("/hand.jpg"), PathBuf::from("/both.jpg")],
             query: Some("dog".into()),
+            exclude_query: None,
             area: None,
             exclude_nsfw: false,
             matches: vec![PathBuf::from("/both.jpg"), PathBuf::from("/matched.jpg")],
@@ -5109,6 +5271,21 @@ mod tests {
             ]
         );
         assert!(bucket.is_smart());
+
+        let negative_only = Bucket {
+            name: "not screenshots".into(),
+            photos: vec![PathBuf::from("/hand.jpg")],
+            query: None,
+            exclude_query: Some("screenshot".into()),
+            area: None,
+            exclude_nsfw: false,
+            matches: vec![PathBuf::from("/photo.jpg")],
+        };
+        assert!(negative_only.is_smart());
+        assert_eq!(
+            negative_only.contents(|_| false),
+            vec![PathBuf::from("/hand.jpg"), PathBuf::from("/photo.jpg")]
+        );
     }
 
     #[test]
