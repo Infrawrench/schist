@@ -311,6 +311,34 @@ are marked.
 ## Handoff
 
 
+Clipped destination threads and rebuilt popup QA, 2026-10-03:
+The explicit-break checkpoint is pushed as `7ec07cf0`. Its exact CI browser
+artifact now passes the window-edge review with Design enabled: all seven start
+choices fit with the conditional keep counts shown, the bottom even-page choice
+commits, one undo/redo restores the previous/new destination, and the combined
+inherit reset undoes once. A short style menu and the shared searchable filter
+picker also retain their placement and interaction. The disposable browser tab
+and server are closed; the downloaded build was removed after recording hashes.
+Native CGWindow capture and external native application agreement remain separate
+unverified limits.
+
+The next item 9 property reproduced pending page destinations bypassing an
+intermediate Clip frame. Skipped frames now honor their terminal overflow policy:
+the clipping frame owns the overset text, and its unvisited tail ports remain
+empty and addressable. A kernel matrix covers paragraph constraints and explicit
+page/odd/even breaks, same-page and later wrong-parity clips, empty/Unicode text,
+and source immutability. Both separation paths identify the clipping frame in
+Preflight. All 16 roadmap targets pass, with **1,857 distinct passing Rust
+tests** (layout 436, separation 198, five shared UI checks included; one existing
+UI documentation example ignored), four browser and eight Python audit checks.
+Workspace clippy, native/browser/headless checks, localization, formatting and
+whitespace pass. The 48-page destination proof is byte-identical to the visually
+reviewed artifact. The development build passes in 1m 58s; its isolated
+Design-enabled bundle is hash checked and signature verified. Logs use
+`/tmp/schist-clipped-destinations-*`; browser evidence uses
+`/tmp/schist-parity-breaks-browser-*`. No new user-facing strings.
+
+
 Explicit numbered breaks and dropdown placement, 2026-10-03:
 Native paragraph starts are pushed as `9acfea7e` in draft PR #195. Browser QA of
 that exact commit verifies destination edits, one-step undo/redo and the combined

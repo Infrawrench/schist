@@ -904,6 +904,11 @@ fn compose_thread_plain(
         };
         let grid = BaselineGrid::for_frame(doc, *object, page);
         if skip_page == Some(page_key) {
+            let pending = has_content && cursor < total
+                || split_notes
+                    .as_ref()
+                    .is_some_and(|notes| notes.pending(cursor));
+            let threads = *overflow == FrameOverflow::Thread;
             out.frames.push(ComposedFrame {
                 object: *object,
                 lines: Vec::new(),
@@ -911,17 +916,14 @@ fn compose_thread_plain(
                 unrendered_structures: story.retained_structures(),
                 drop_cap: None,
                 consumed_to: cursor.min(text_end),
-                passed_on: (has_content && cursor < total
-                    || split_notes
-                        .as_ref()
-                        .is_some_and(|notes| notes.pending(cursor)))
-                    && !is_last,
-                lost: (has_content && cursor < total
-                    || split_notes
-                        .as_ref()
-                        .is_some_and(|notes| notes.pending(cursor)))
-                    && is_last,
+                passed_on: pending && !is_last && threads,
+                lost: pending && (is_last || !threads),
             });
+            // A destination request cannot bypass a frame that terminates the
+            // thread. Its empty tail ports stay addressable below as usual.
+            if !pending || !threads {
+                break;
+            }
             continue;
         }
         skip_page = None;

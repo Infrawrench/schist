@@ -187,6 +187,62 @@ fn unavailable_numbered_destinations_leave_text_and_blank_paragraphs_overset() {
 }
 
 #[test]
+fn a_clipped_intermediate_frame_stops_pending_page_destinations() {
+    use schist_layout::{styles::ParagraphStart, ParagraphStyle};
+    for start in [
+        ParagraphStart::NextPage,
+        ParagraphStart::NextOddPage,
+        ParagraphStart::NextEvenPage,
+    ] {
+        for explicit in [false, true] {
+            for clip_index in if start == ParagraphStart::NextOddPage {
+                vec![1, 3]
+            } else {
+                vec![1]
+            } {
+                for text in ["", "é中😀"] {
+                    let mut doc = document(false, 1, None);
+                    if let LayoutObject::TextFrame { overflow, .. } =
+                        &mut doc.objects[clip_index].object
+                    {
+                        *overflow = FrameOverflow::Clip;
+                    }
+                    let mut story = Story::from_text("Before", "Body");
+                    if explicit {
+                        story.points.push(match start {
+                            ParagraphStart::NextOddPage => StoryPoint::OddPageBreak,
+                            ParagraphStart::NextEvenPage => StoryPoint::EvenPageBreak,
+                            _ => StoryPoint::PageBreak,
+                        });
+                    }
+                    doc.styles.add_paragraph(ParagraphStyle {
+                        name: "Starts".into(),
+                        based_on: Some("Body".into()),
+                        start_paragraph: (!explicit).then_some(start),
+                        ..Default::default()
+                    });
+                    let (at, _) = story.push_paragraph(text, "Starts");
+                    doc.stories[0] = story;
+                    let original = doc.clone();
+                    let flow = compose::compose_story(&doc, StoryId(0));
+                    assert!(
+                        flow.frames[clip_index].lost,
+                        "{start:?}, explicit={explicit}"
+                    );
+                    assert!(!flow.frames[clip_index].passed_on);
+                    assert_eq!(flow.frames[clip_index].consumed_to, at);
+                    assert!(flow.frames[clip_index + 1..]
+                        .iter()
+                        .all(|f| f.lines.is_empty() && !f.lost && !f.passed_on));
+                    assert_eq!(flow.lines().count(), 1);
+                    assert_eq!(doc, original);
+                }
+            }
+        }
+    }
+}
+
+#[test]
 fn text_edits_snapshots_and_single_step_undo_preserve_numbered_break_identity() {
     for kind in [StoryPoint::OddPageBreak, StoryPoint::EvenPageBreak] {
         let mut doc = document(false, 1, None);

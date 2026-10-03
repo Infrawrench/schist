@@ -11,6 +11,45 @@ fn explicit_break_destinations_match_independent_frames_in_every_plate() {
     compare(proof::forced_document);
 }
 
+#[test]
+fn skipped_clipping_frames_own_the_overset_error_in_both_preflight_paths() {
+    use schist_layout::{FrameOverflow, LayoutObject, StoryPoint};
+    use schist_separation::{
+        separate_page, separate_page_built, NaiveBuild, NoGraphics, OutputSettings, Severity,
+    };
+    schist_text_engine::add_font_data(
+        include_bytes!("../../../web/fonts/IBMPlexSans-Regular.ttf").to_vec(),
+    );
+    for document in [proof::document, proof::forced_document] {
+        let mut doc = document(false, 1, false);
+        let story = doc.stories.iter().position(|s| s.points.iter().any(|point| matches!(point, StoryPoint::Paragraph { style, .. } if style == "NextOddPage"))).unwrap();
+        let frames = doc
+            .thread_order
+            .iter()
+            .find(|(id, _)| id.0 as usize == story)
+            .unwrap()
+            .1
+            .clone();
+        let clipped = doc.objects.iter_mut().find(|o| o.id == frames[1]).unwrap();
+        clipped.name = "Terminal clip".into();
+        if let LayoutObject::TextFrame { overflow, .. } = &mut clipped.object {
+            *overflow = FrameOverflow::Clip;
+        }
+        let expected = schist_i18n::tf!("design.preflight_overset", name = "Terminal clip");
+        for output in [
+            separate_page(&doc, 0, OutputSettings::at(72.0), &NoGraphics),
+            separate_page_built(&doc, 0, OutputSettings::at(72.0), &NoGraphics, &NaiveBuild),
+        ] {
+            assert!(output
+                .unwrap()
+                .report
+                .findings
+                .iter()
+                .any(|f| f.severity == Severity::Error && f.message == expected));
+        }
+    }
+}
+
 fn compare(document: fn(bool, u16, bool) -> schist_layout::LayoutDocument) {
     schist_text_engine::add_font_data(
         include_bytes!("../../../web/fonts/IBMPlexSans-Regular.ttf").to_vec(),

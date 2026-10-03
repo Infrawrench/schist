@@ -1986,7 +1986,9 @@ explicit break remembers its own originating page until that destination is
 reached, independently of source offsets and the prior painted text. Consecutive
 breaks therefore each advance, including before the first character or an empty
 paragraph. Section restarts select parity. Unavailable destinations leave source
-or the terminal empty paragraph overset. Text edits, snapshot serialization and
+or the terminal empty paragraph overset. An intervening Clip frame terminates
+the thread even when a page destination would otherwise skip that frame; it owns
+the overset finding in both preflight paths. Text edits, snapshot serialization and
 undo retain break identity and refuse replacements across protected breaks.
 
 That origin travels with each trial cursor through balanced columns and whole or
