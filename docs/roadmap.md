@@ -311,6 +311,39 @@ are marked.
 ## Handoff
 
 
+IDML resource identities, 2026-10-03:
+A regression reproduced a retained language resource sharing its Self ID with a
+generated character style. The exporter now separates part/page-item identity
+domains, detects opaque resource collisions against all emitted IDs and remaps
+language/list references on a temporary copy. Guarded metadata restores authored
+IDs without overwriting native edits or retargeting newly added references. New
+language IDs also reserve existing list IDs and unresolved references. No UI or
+locale keys change.
+
+Ten properties pass, including three saves of all ten checked-in public IDML
+fixtures, referenced object types, source preservation, metadata-free native
+references, external edits, malformed/duplicate metadata, unresolved aliases and
+page-item IDs near the numeric limit. A failing regression also showed that changing
+a resource's native class could restore the wrong saved identity; mandatory resource
+class metadata now prevents that restoration. A test type annotation and its expectation
+of normalized language-tag casing were corrected; neither required weakening a
+production rule. Existing language, list, creation, structured-story and mixed
+path-thread checks pass.
+
+All 16 roadmap targets, shared UI, formatting and whitespace checks pass:
+**2,053 distinct Rust tests**, four browser checks and eight Python audit tests;
+one existing shared UI documentation example remains ignored. All 42 previous
+PDF proofs are byte-identical. Native debug build passes in 2m 56s; the isolated
+Design-enabled QA bundle is refreshed and hash/signature verified. Evidence is
+under `/tmp/schist-idml-identities-*`, including both failing regressions and the
+initial successful sweep before the class guard was added. This checkpoint is
+prepared for draft PR #195. Continue locally without waiting for CI. Text-variable
+evaluation requires typed definitions, generated-text position mapping and atomic
+line fitting; cached ResultText must not become editable source. Other structured
+stories and object integration gaps remain open; INDD production is spike-gated.
+
+
+
 End Nested Style controls, 2026-10-03:
 Main-story ACE 3 markers now stop ordinary nested formatting without adding source
 bytes. Explicit single EndNestedStyle bounds, ordered no-style spans and Repeat
@@ -340,11 +373,9 @@ hash/signature verified. Sixteen redundant page renders were removed after their
 hashes and inspected contact sheets were retained. Evidence is under
 `/tmp/schist-end-nested-*`. The original two regressions fail on the preceding
 implementation; all nine IDML properties and the new plate property now pass.
-Text-variable recovery is published as `0f77ff41` to draft PR #195; this checkpoint
-is prepared for the same PR. Continue locally without waiting for CI. The next
-investigation is export-wide IDML identity collisions; the public specification
-requires unique Self values, whereas the current allocator merely reduces their
-likelihood. A regression is prepared outside the source tree but not yet run.
+Text-variable recovery is published as `0f77ff41` and End Nested Style controls as
+`a7c73545` to draft PR #195. Continue locally without waiting for CI. The subsequent
+identifier regression and fix are recorded above.
 Other structured stories, variables and object integration gaps remain open;
 INDD production is still spike-gated.
 

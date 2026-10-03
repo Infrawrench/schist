@@ -10,10 +10,9 @@
 //! first and stored, then `META-INF/container.xml`, then the root part,
 //! then the object parts it lists.
 //!
-//! The root part lists parts by path, and an object's id is a `u` and a
-//! hexadecimal number, with the *file name* carrying the type. This writes
-//! exactly that, because a reader that can open its own output is not
-//! evidence that it can open anyone else's.
+//! The root part lists parts by path. Native object IDs often use a `u` and
+//! hexadecimal number; the specification requires package-wide uniqueness,
+//! not that spelling. Parts and page items use separate generated domains.
 //!
 //! ## What is not written
 //!
@@ -46,6 +45,10 @@ pub struct Written {
 
 /// Write a document as an IDML package.
 pub fn write(document: &LayoutDocument) -> Written {
+    write_inner(document, true)
+}
+
+fn write_inner(document: &LayoutDocument, check_identities: bool) -> Written {
     let mut ids = Ids::default();
     let mut out = Written {
         bytes: Vec::new(),
@@ -235,22 +238,24 @@ pub fn write(document: &LayoutDocument) -> Written {
     root.push_str("</Document>");
     parts.push(("designmap.xml".into(), root.into_bytes()));
 
+    if check_identities {
+        if let Some(remapped) = crate::resource_identity::prepare(document, &parts) {
+            return write_inner(&remapped, false);
+        }
+    }
     out.bytes = container::write(&parts);
     out
 }
 
-/// Hand out object ids in the shape InDesign writes them: a `u` and a
-/// hexadecimal number, with the type carried by the file name instead.
+/// Part identities occupy a separate domain from page-item identities.
+/// Imported resource collisions are resolved after collecting all emitted IDs.
 #[derive(Default)]
 struct Ids {
-    next: u32,
+    next: u64,
 }
 
 impl Ids {
     fn next(&mut self) -> String {
-        // Starting above 0x100 keeps the ids from looking like the small
-        // numbers a hand-written fixture would use, which makes an
-        // accidental collision with a real file's namespace less likely.
         self.next += 1;
         format!("u{:x}", 0x100 + self.next)
     }
@@ -670,8 +675,8 @@ fn inset_list(insets: &Insets) -> String {
         .collect()
 }
 
-fn object_id(id: schist_layout::ObjectId) -> String {
-    format!("u{:x}", 0x8000 + id.0)
+pub(crate) fn object_id(id: schist_layout::ObjectId) -> String {
+    format!("SchistObject{}", id.0)
 }
 
 fn master_sheets<'a>(

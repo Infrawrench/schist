@@ -182,6 +182,7 @@ pub fn read_package(opened: &DesignPackage<'_>) -> Result<Imported, Error> {
     // Parsing XML visits items in paint order. Only guarded chronology labels
     // can establish their creation order; never certify the incidental walk.
     document.creation_order = spread_state.creation.finish(&mut report);
+    crate::resource_identity::restore(&mut document);
 
     report
         .skipped

@@ -364,8 +364,8 @@ reported before the feature is enabled:
   based on the original style, with a conversion notice. Opaque resource IDs
   and duplicate names in style groups resolve through an explicit map. Paragraph
   font/paint defaults inherit per property; character overrides win. Advanced
-  properties (including patterned decorations) still need
-  representation and validation. Tracking uses native
+  properties remain partial; supported patterned/path decorations and their limits
+  are documented below. Tracking uses native
   thousandths of an em, converted per effective run size during composition.
   IDML combines bold/italic into FontStyle; export writes the resolved face
   and retains independent Schist inheritance in a guarded extension label.
@@ -421,6 +421,43 @@ Three things writing got wrong, all found by those tests:
    every text frame. Fixed in the reader, which is where the mistake was:
    most files have one of these on most frames, so the range list was
    mostly noise.
+
+### Package-wide resource identities
+
+The public [IDML specification](https://raw.githubusercontent.com/jorisros/IDMLlib/master/docs/idml-specification.pdf),
+section 9.5.4 / printed page 33, requires each Self value to be unique across the
+package and every reference to follow an identity change. Its spelling is not
+prescribed. The exporter previously generated part IDs from u101 and page-item
+IDs from 0x8000 plus their numeric model IDs. Those domains could overlap; the
+addition could also overflow. Opaque imported language or numbering-list IDs could
+collide with generated styles, colors, pages, fonts or the document itself.
+
+Page items now have a separate generated identity domain shared by ordinary and
+path-frame references. After generating parts, the codec collects their actual
+Self values. Conflicting opaque resource IDs are assigned deterministic unused
+identities on a temporary document copy, and typed language/list references follow
+the remap before parts are regenerated. Newly generated language resources also
+reserve numbering-list IDs and authored unresolved references. Minted resource IDs
+cannot intercept an existing name alias or unresolved language/list reference.
+Source documents and opaque recovery XML are unchanged.
+
+A standard per-resource Schist.ResourceIdentity.v1 label preserves the authored
+identity, resource class and supported native definition. After reading all native resources
+and styles, Schist restores an original ID only while that definition still agrees
+and the original spelling would not collide with another resource or retarget an
+externally added reference. Native class/definition/reference edits stay authoritative.
+Removing the label leaves a valid native graph; malformed or duplicate records
+stay inert and stable through later saves. This preserves model identity without
+requiring private metadata to resolve native references. It does not resolve IDs
+inside unsupported table, variable or other recovery payloads as live content.
+
+Ten properties compare IDs across all parts and verify referenced object types,
+Unicode/escaped identities, separate resource kinds with equal source IDs, native
+changes, missing/malformed/duplicate labels, unresolved aliases, source immutability
+and repeated saves. Every checked-in public IDML fixture also saves three times
+with unique native identities. Numeric-limit cases exercise page-item IDs without
+arithmetic overflow. Existing mixed ordinary/path threads and creation-order guards
+remain covered. Full local verification is recorded in Roadmap / Handoff.
 
 ### Native preferences and style resources
 

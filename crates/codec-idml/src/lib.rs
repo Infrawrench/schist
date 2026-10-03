@@ -42,6 +42,7 @@ mod language_codec;
 mod list_codec;
 mod nested_style_codec;
 pub mod plugin;
+mod resource_identity;
 mod story_codec;
 mod stroke_style_codec;
 mod structured_story;

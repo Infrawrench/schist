@@ -105,7 +105,15 @@ fn renamed_native_identity_invalidates_only_its_retained_creation_entry() {
         .find(|(name, _)| name.starts_with("Spreads/"))
         .unwrap();
     let xml = String::from_utf8(bytes.clone()).unwrap();
-    let source = format!("Self=\"u{:x}\"", 0x8000 + doc.objects[1].id.0);
+    let tree = schist_codec_idml::xml::parse(&xml).unwrap();
+    let id = tree
+        .find_all("TextFrame")
+        .into_iter()
+        .find(|frame| frame.attr("Name") == Some("Created 1"))
+        .unwrap()
+        .attr("Self")
+        .unwrap();
+    let source = format!("Self=\"{id}\"");
     assert_eq!(xml.matches(&source).count(), 1);
     *bytes = xml
         .replace(&source, "Self=\"external_recreated_frame\"")

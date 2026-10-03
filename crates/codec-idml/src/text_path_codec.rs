@@ -115,7 +115,7 @@ pub(crate) fn read(element: &Element, report: &mut Report) -> Option<PathText> {
 }
 
 pub(crate) fn frame_id(frame: &PlacedObject) -> String {
-    let id = format!("u{:x}", 0x8000 + frame.id.0);
+    let id = crate::export::object_id(frame.id);
     if matches!(
         frame.object,
         LayoutObject::TextFrame {
