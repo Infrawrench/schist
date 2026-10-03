@@ -37,6 +37,7 @@ mod design_tabs;
 mod history;
 mod hyphenation;
 mod info;
+mod initials;
 mod layers;
 mod links;
 mod menu_bar;

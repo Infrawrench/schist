@@ -550,3 +550,8 @@ design.hyphen_zone = Ragged zone (pt)
 design.hyphen_languages = US English, French, reformed German
 
 design.idml_drop_cap_unsupported = Unsupported drop-cap setting: {value}
+
+design.initials = Drop caps
+design.initial_lines = Lines
+design.initial_characters = Characters
+design.initial_inherit = Inherit drop-cap settings

@@ -180,10 +180,9 @@ impl Workspace {
 
     /// Handle a keystroke in Design Mode. Returns whether it was claimed.
     ///
-    /// Two things live here, and they are the whole of Design Mode's
-    /// keyboard: a tool shortcut, and typing into the frame being edited.
-    /// Everything else belongs to the menus, which is why this runs after
-    /// the modal and field handlers and claims only what is left.
+    /// Typed command bindings are registered by app-actions. This handler
+    /// owns the remaining canvas/tool keys and text editing, after modal
+    /// and inspector field handlers have had the chance to consume them.
     pub(super) fn design_key_down(&mut self, ev: &KeyDownEvent, cx: &mut Context<Self>) -> bool {
         if self.design.composition.is_some() {
             if ev.keystroke.key == "escape" {

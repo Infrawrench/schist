@@ -310,6 +310,25 @@ are marked.
 
 ## Handoff
 
+Compact drop-cap authoring, 2026-10-03:
+Paragraph now exposes line/character counts under a closed Drop caps disclosure
+with one inheritance-reset icon. Fields capture the original style, validate
+integer ranges, and preserve dormant counts, native flags and source text. Blank
+restores that count's inheritance; reset clears all three local initial settings
+in one edit. Four short keys are in all 150 catalogs. The default Design flag
+remains false. Both new count/reset properties and the focused Design target
+pass. All 16 targets, shared UI, formatting and whitespace pass with **1,955
+distinct Rust tests**, four browser and eight Python audit tests. One existing
+UI documentation example remains ignored. All 33 existing PDF proofs are
+byte-identical. Logs/counts use `/tmp/schist-initial-controls-*`. The native
+development build passes in 2m 28s. The isolated Design-enabled QA bundle is
+refreshed and hash/signature verified; it remains quit. Live control review is
+pending the new exact-commit Web artifact.
+
+The preceding vertical-initial and command-isolation checkpoint is published as
+`f1da870c` to draft PR #195. Its full sweep and native build are recorded below.
+
+
 Vertical initials and Design command isolation, 2026-10-03:
 Physical ink bounds now include upright and sideways vertical glyphs. Initials
 compose in both column directions, keep their covered columns together, preserve
@@ -339,9 +358,16 @@ ink movement to match the already-verified glyph/caret/selection movement in all
 modes. Logs and counts use `/tmp/schist-vertical-initials-*`; earlier failing
 checks are retained. The native development rebuild passes in 2m 02s.
 The isolated Design-enabled QA bundle is refreshed and hash/signature verified;
-it remains quit. Live UI review of the new command changes is pending.
+it remains quit. Exact `f1da870c` Web artifact 11266834751 passes live command
+review with Design enabled and no raster document: localized menus, enabled
+search actions, duplicate/delete, selection, alignment and undo/redo. Raster
+commands are filtered out; focused numeric input retains Select All, and one
+undo restores its committed position. One undo restores a three-object delete.
+The disposable tab/server and downloaded build were removed; provenance and
+results are in `/tmp/schist-command-browser-{source,qa}.json`. Web and headless CI
+pass; desktop CI remains in progress.
 
-Native flag rendering, compact initial controls and the recorded structured-story,
+Native flag rendering, named initial styles and the recorded structured-story,
 object and external-fixture work remain. Production INDD is still Phase-0-gated.
 
 
