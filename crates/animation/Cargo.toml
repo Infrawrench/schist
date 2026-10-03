@@ -1,0 +1,21 @@
+[package]
+name = "schist-animation"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "Frame animation rendering and animated GIF, APNG and WebP export"
+
+[dependencies]
+schist-core.workspace = true
+schist-compositor.workspace = true
+schist-color.workspace = true
+anyhow.workspace = true
+gif.workspace = true
+png.workspace = true
+image-webp.workspace = true
+color_quant.workspace = true
+
+[dev-dependencies]
+gif.workspace = true
+png.workspace = true
+image-webp.workspace = true

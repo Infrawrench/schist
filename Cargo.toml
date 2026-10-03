@@ -20,6 +20,7 @@ members = [
     "crates/app-actions",
     "crates/app-platform",
     "crates/core",
+    "crates/animation",
     "crates/document",
     "crates/library",
     "crates/layer-fx",
@@ -87,6 +88,7 @@ schist-app-fonts = { path = "crates/app-fonts" }
 schist-app-actions = { path = "crates/app-actions" }
 schist-app-platform = { path = "crates/app-platform" }
 schist-core = { path = "crates/core" }
+schist-animation = { path = "crates/animation" }
 schist-document = { path = "crates/document" }
 schist-plugin-api = { path = "crates/plugin-api" }
 schist-pixel-ops = { path = "crates/pixel-ops" }
@@ -164,6 +166,13 @@ rayon = "1.10"
 smallvec = "1.13"
 rustc-hash = "2"
 image = { version = "0.25", default-features = false, features = ["png", "jpeg", "webp", "tiff"] }
+# Animated GIF/APNG/WebP export (schist-animation). Already in the
+# dependency graph through `image`; pure Rust, MIT OR Apache-2.0 (gif, png,
+# image-webp) and MIT (color_quant), and they build for wasm.
+gif = { version = "0.14", default-features = false, features = ["std"] }
+png = "0.18"
+image-webp = "0.2"
+color_quant = "1.1"
 # Runtime dlopen of libheif for HEIC import — the system's copy, or a
 # user-consented download of IAmJSD/libheif-prebuilt. Keeps the build
 # free of C dependencies (no pure-Rust HEVC decoder exists) and avoids
