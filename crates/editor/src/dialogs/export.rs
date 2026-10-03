@@ -105,7 +105,8 @@ pub(super) fn export_dialog(
             cx,
         ));
     }
-    if bit_depths.len() > 1 {
+    // OpenEXR names its depths half and float in its own rows.
+    if bit_depths.len() > 1 && codec_id != "codec.exr" {
         let label = |bits: u8| SharedString::from(tf!("common.bits_per_channel", n = bits));
         body = body.child(ui::field_row(
             t("common.bit_depth"),
@@ -129,6 +130,9 @@ pub(super) fn export_dialog(
                 cx,
             ),
         ));
+    }
+    if codec_id == "codec.exr" {
+        body = exr_export_rows(ws, state, options, body, cx);
     }
     body = body.child(ui::field_row(
         t("dialog.export.dither"),

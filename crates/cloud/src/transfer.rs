@@ -68,6 +68,7 @@ impl DownloadedAsset {
             "image/avif" => Some("avif"),
             "image/openraster" => Some("ora"),
             "application/x-krita" => Some("kra"),
+            "image/x-exr" | "image/aces" => Some("exr"),
             _ => self.format.as_deref().filter(|f| *f != "original"),
         };
         match extension {

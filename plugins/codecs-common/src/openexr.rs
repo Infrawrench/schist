@@ -69,6 +69,11 @@ impl CodecPlugin for ExrCodec {
     fn can_export(&self) -> bool {
         true
     }
+    /// Half and float. Declared so switching the export dialog to OpenEXR
+    /// keeps a 32-bit choice; the dialog offers them in its own rows.
+    fn bit_depths(&self) -> &'static [u8] {
+        &[16, 32]
+    }
     fn export(&self, doc: &Document) -> Result<Vec<u8>> {
         // Half float unless asked otherwise: what compositing packages
         // write by default, and plenty for colour.
