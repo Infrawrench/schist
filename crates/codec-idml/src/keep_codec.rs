@@ -14,14 +14,15 @@ fn invalid(report: &mut Report, property: &str, value: &str) {
 
 pub(crate) fn read(element: &Element, report: &mut Report) -> ParagraphKeeps {
     let mut boolean = |key| {
-        element.attr(key).and_then(|value| match value {
-            "true" | "1" => Some(true),
-            "false" | "0" => Some(false),
-            _ => {
-                invalid(report, key, value);
-                None
-            }
-        })
+        element
+            .attr(key)
+            .and_then(|value| match crate::xml::parse_boolean(value) {
+                Some(value) => Some(value),
+                None => {
+                    invalid(report, key, value);
+                    None
+                }
+            })
     };
     let enabled = boolean("KeepLinesTogether");
     let all = boolean("KeepAllLinesTogether");

@@ -1,14 +1,11 @@
 //! Native object-style paint categories and page-item local overrides.
-use crate::{color_codec, import::Report, style_codec::References, xml::Element};
+use crate::{
+    color_codec,
+    import::Report,
+    style_codec::References,
+    xml::{self, Element},
+};
 use schist_layout::{LayoutDocument, LayoutObject, ObjectPaint, ObjectStyle, Paint, PlacedObject};
-
-fn boolean(element: &Element, key: &str) -> Option<bool> {
-    match element.attr(key)? {
-        "true" => Some(true),
-        "false" => Some(false),
-        _ => None,
-    }
-}
 
 pub(crate) fn read_paint(
     element: &Element,
@@ -38,8 +35,8 @@ pub(crate) fn read_paint(
             .filter(|v| v.is_finite() && *v >= 0.0),
         fill_tint: color_codec::tint(element, "FillTint", report),
         stroke_tint: color_codec::tint(element, "StrokeTint", report),
-        overprint_fill: boolean(element, "OverprintFill"),
-        overprint_stroke: boolean(element, "OverprintStroke"),
+        overprint_fill: element.boolean("OverprintFill"),
+        overprint_stroke: element.boolean("OverprintStroke"),
     }
 }
 
@@ -64,11 +61,11 @@ pub(crate) fn read_styles(
         let style = ObjectStyle {
             name: refs.object(id),
             based_on,
-            enable_fill: boolean(element, "EnableFill"),
-            enable_stroke: boolean(element, "EnableStroke"),
-            enable_stroke_options: boolean(element, "EnableStrokeAndCornerOptions"),
-            enable_footnotes: boolean(element, "EnableTextFrameFootnoteOptions"),
-            enable_text_frame_general: boolean(element, "EnableTextFrameGeneralOptions"),
+            enable_fill: element.boolean("EnableFill"),
+            enable_stroke: element.boolean("EnableStroke"),
+            enable_stroke_options: element.boolean("EnableStrokeAndCornerOptions"),
+            enable_footnotes: element.boolean("EnableTextFrameFootnoteOptions"),
+            enable_text_frame_general: element.boolean("EnableTextFrameGeneralOptions"),
             balance_columns: crate::preferences_codec::frame_balance(element, report),
             footnotes: crate::footnote_codec::read_frame(element, report),
             paint: read_paint(element, colors, report),
@@ -82,7 +79,7 @@ pub(crate) fn read_styles(
                         | "EnableStrokeAndCornerOptions"
                         | "EnableTextFrameFootnoteOptions"
                 )
-                && value == "true"
+                && xml::parse_boolean(value) == Some(true)
         }) || [
             "ObjectStyleObjectEffectsCategorySettings",
             "ObjectStyleFillEffectsCategorySettings",
@@ -94,7 +91,7 @@ pub(crate) fn read_styles(
         .any(|e| {
             e.attributes
                 .iter()
-                .any(|(k, v)| k.starts_with("Enable") && v == "true")
+                .any(|(k, v)| k.starts_with("Enable") && xml::parse_boolean(v) == Some(true))
         }) || (style.enable_stroke_options != Some(false) && unsupported_outline(element))
         {
             report.skip(schist_i18n::tf!(

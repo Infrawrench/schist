@@ -34,10 +34,9 @@ fn measure(
 }
 fn boolean(element: &Element, key: &str, report: &mut Report) -> Option<bool> {
     let raw = element.attr(key)?;
-    match raw {
-        "true" | "1" => Some(true),
-        "false" | "0" => Some(false),
-        _ => {
+    match crate::xml::parse_boolean(raw) {
+        Some(value) => Some(value),
+        None => {
             invalid(report, key, raw);
             None
         }

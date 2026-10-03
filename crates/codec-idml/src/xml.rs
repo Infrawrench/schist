@@ -58,6 +58,11 @@ impl Element {
         self.attr(name).and_then(parse_number)
     }
 
+    /// An xsd:boolean attribute, retaining absent/invalid values as None.
+    pub fn boolean(&self, name: &str) -> Option<bool> {
+        self.attr(name).and_then(parse_boolean)
+    }
+
     /// An attribute's value, or the empty string.
     pub fn attr_or_empty(&self, name: &str) -> String {
         self.attr(name).unwrap_or_default().to_owned()
@@ -284,6 +289,17 @@ fn decode(value: &quick_xml::events::BytesText<'_>) -> String {
         .xml10_content()
         .map(|value| value.into_owned())
         .unwrap_or_else(|_| String::from_utf8_lossy(value.as_ref()).into_owned())
+}
+
+/// The public IDML schema uses xsd:boolean. Its whitespace facet collapses
+/// XML whitespace and accepts exactly four case-sensitive lexical forms.
+/// Do not use Unicode trim here: NBSP is not XML whitespace.
+pub fn parse_boolean(value: &str) -> Option<bool> {
+    match value.trim_matches([' ', '\t', '\r', '\n']) {
+        "true" | "1" => Some(true),
+        "false" | "0" => Some(false),
+        _ => None,
+    }
 }
 
 /// Parse a number the way IDML writes them.

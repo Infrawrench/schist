@@ -18,10 +18,9 @@ fn warn(report: &mut Report, property: &str) {
     }
 }
 fn boolean(element: &Element, key: &str, report: &mut Report) -> Option<bool> {
-    match element.attr(key)? {
-        "true" => Some(true),
-        "false" => Some(false),
-        _ => {
+    match xml::parse_boolean(element.attr(key)?) {
+        Some(value) => Some(value),
+        None => {
             warn(report, key);
             None
         }

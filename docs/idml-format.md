@@ -2089,3 +2089,22 @@ horizontal/vertical flow, reading direction, process and spot inks, and threaded
 frames. The output target includes a paired 24-page proof. Dictionary-based
 hyphenation, language-specific spelling substitutions/hyphen forms and external
 native application placement agreement are not claimed by this change.
+
+### XML boolean spellings
+
+The public RNC declares the supported document, layer, geometry, text and style
+switches as xsd:boolean. [XML Schema Datatypes §3.2.2](https://www.w3.org/TR/xmlschema-2/#boolean)
+permits `true`, `false`, `1` and `0`; its fixed whitespace facet accepts surrounding
+XML space/tab/CR/LF. A package-level property reproduced numeric values becoming
+absent style options, with similar direct-string checks in facing pages, locks,
+visibility, paths, balancing and object-style category diagnostics.
+
+All typed boolean readers now share the same strict parser. Existing absence,
+invalid-value defaults and diagnostic routes remain; non-XML whitespace, uppercase
+spellings and other numbers are rejected. Export still writes canonical true/false.
+The parser is called only for typed settings, not to normalize arbitrary text,
+string attributes or retained opaque XML. Properties compare named styles,
+preferences, numbering resources, footnotes, page/parent visibility, guide/layer/
+group locks and native geometry through repeated saves in both polarities.
+Literal names and story text remain strings. No new UI strings, Adobe headers,
+proprietary executables or INDD bytes are involved.

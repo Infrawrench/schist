@@ -313,7 +313,7 @@ fn read_spread(
                 reference: master.to_owned(),
                 bounds: *boxes.last().unwrap(),
                 transform: transform(element.attr("MasterPageTransform")),
-                visible: spread.attr("ShowMasterItems") != Some("false"),
+                visible: spread.boolean("ShowMasterItems") != Some(false),
                 overrides: element
                     .attr("OverrideList")
                     .unwrap_or_default()
@@ -466,7 +466,7 @@ pub(crate) fn page_of(element: &Element) -> Option<Page> {
                 Some(schist_layout::geometry::RulerGuide {
                     horizontal,
                     position,
-                    locked: guide.attr("Locked") == Some("true"),
+                    locked: guide.boolean("Locked") == Some(true),
                 })
             })
             .collect(),
@@ -593,7 +593,7 @@ fn placed_object(
     bounds.x = origin.x;
     bounds.y = origin.y;
     let mut placed = PlacedObject {
-        hidden: element.attr("Visible") == Some("false"),
+        hidden: element.boolean("Visible") == Some(false),
         appearance: Default::default(),
         id: ObjectId::next(),
         page: 0,
@@ -602,9 +602,7 @@ fn placed_object(
         rotation: 0.0,
         transform: matrix,
         name: element.attr("Name").unwrap_or_default().to_owned(),
-        locked: element
-            .attr("Locked")
-            .is_some_and(|locked| locked == "true"),
+        locked: element.boolean("Locked") == Some(true),
         overprint: false,
         transparency: crate::color_codec::opacity(element),
     };
@@ -696,14 +694,12 @@ pub(crate) fn path_of(element: &Element) -> Option<ShapePath> {
             points,
             // `PathOpen="false"` is a closed path, which is a rectangle
             // for the four-point outline a frame carries.
-            closed: !path.attr("PathOpen").is_some_and(|open| open == "true"),
+            closed: path.boolean("PathOpen") != Some(true),
         });
     }
     (!subpaths.is_empty()).then_some(ShapePath {
         subpaths,
-        even_odd: geometry
-            .attr("EvenOdd")
-            .is_some_and(|rule| rule.eq_ignore_ascii_case("true")),
+        even_odd: geometry.boolean("EvenOdd") == Some(true),
     })
 }
 
@@ -768,8 +764,8 @@ fn page_items<'a>(
                 child,
                 ItemContext {
                     transform: transform(child.attr("ItemTransform")).then(context.transform),
-                    locked: context.locked || child.attr("Locked") == Some("true"),
-                    hidden: context.hidden || child.attr("Visible") == Some("false"),
+                    locked: context.locked || child.boolean("Locked") == Some(true),
+                    hidden: context.hidden || child.boolean("Visible") == Some(false),
                     opacity: context.opacity * crate::color_codec::opacity(child),
                     layer: child.attr("ItemLayer").or(context.layer),
                 },
@@ -834,7 +830,7 @@ fn read_master_spreads(
                     reference: reference.to_owned(),
                     bounds,
                     transform: transform(element.attr("MasterPageTransform")),
-                    visible: master.attr("ShowMasterItems") != Some("false"),
+                    visible: master.boolean("ShowMasterItems") != Some(false),
                     overrides: element
                         .attr("OverrideList")
                         .unwrap_or_default()
@@ -1160,8 +1156,8 @@ fn read_layers(
         }
         refs.push((reference.to_owned(), id));
         let name = element.attr("Name").unwrap_or_default().to_owned();
-        let visible = element.attr("Visible") != Some("false");
-        let locked = element.attr("Locked") == Some("true");
+        let visible = element.boolean("Visible") != Some(false);
+        let locked = element.boolean("Locked") == Some(true);
         if !name.is_empty() || !visible || locked {
             properties.push(schist_layout::LayoutLayer {
                 id,

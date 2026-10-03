@@ -15,10 +15,9 @@ pub(crate) fn frame_balance(parent: &Element, report: &mut Report) -> Option<boo
     let raw = parent
         .child("TextFramePreference")?
         .attr("VerticalBalanceColumns")?;
-    match raw {
-        "true" => Some(true),
-        "false" => Some(false),
-        _ => {
+    match xml::parse_boolean(raw) {
+        Some(value) => Some(value),
+        None => {
             report.skip(schist_i18n::tf!(
                 "design.idml_text_preference_invalid",
                 property = "VerticalBalanceColumns",
@@ -58,7 +57,7 @@ fn offset(element: &Element, keys: &[&str; 4], uniform: &str, report: &mut Repor
         report.skip(schist_i18n::t("design.idml_invalid_page_offsets"));
     }
     let values = values.map(|v| if v.is_finite() { v.max(0.0) } else { 0.0 });
-    if matches!(element.attr(uniform), Some("true" | "1")) {
+    if element.boolean(uniform) == Some(true) {
         return values[0].into();
     }
     Insets::new(values[0], values[3], values[1], values[2])
@@ -111,7 +110,7 @@ pub fn read(
             }
         }
         if let Some(prefs) = root.find("DocumentPreference") {
-            document.facing_pages = prefs.attr("FacingPages") == Some("true");
+            document.facing_pages = prefs.boolean("FacingPages") == Some(true);
             document.page_binding = if prefs.attr("PageBinding") == Some("RightToLeft") {
                 schist_layout::PageBinding::RightToLeft
             } else {
@@ -181,8 +180,8 @@ pub fn read(
         }
         let section = Section {
             start: start.filter(|v| (1..=999999).contains(v)).unwrap_or(1),
-            continue_numbering: !matches!(element.attr("ContinueNumbering"), Some("false" | "0")),
-            include_prefix: matches!(element.attr("IncludeSectionPrefix"), Some("true" | "1")),
+            continue_numbering: element.boolean("ContinueNumbering") != Some(false),
+            include_prefix: element.boolean("IncludeSectionPrefix") == Some(true),
             prefix: element.attr("SectionPrefix").unwrap_or_default().into(),
             name: element.attr("Name").unwrap_or_default().into(),
             marker: element.attr("Marker").unwrap_or_default().into(),

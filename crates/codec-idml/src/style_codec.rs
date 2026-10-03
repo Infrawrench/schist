@@ -20,13 +20,6 @@ pub(crate) fn property<'a>(element: &'a Element, key: &str) -> Option<&'a str> {
         .map(Element::trimmed)
         .or_else(|| element.attr(key))
 }
-fn boolean(element: &Element, key: &str) -> Option<bool> {
-    match element.attr(key)? {
-        "true" => Some(true),
-        "false" => Some(false),
-        _ => None,
-    }
-}
 fn base(element: &Element) -> Option<String> {
     property(element, "BasedOn")
         .filter(|v| !v.is_empty() && *v != "n")
@@ -174,7 +167,7 @@ pub(crate) fn paragraph_properties(
         writing_mode: paragraph_writing_mode(element, report),
         list,
         bullet,
-        hyphenate: boolean(element, "Hyphenation"),
+        hyphenate: element.boolean("Hyphenation"),
         language: character.language,
         features: character.features,
         directional_features: character.directional_features,
@@ -278,8 +271,8 @@ pub(crate) fn character_properties(
                 None
             }
         }),
-        overprint_fill: boolean(element, "OverprintFill"),
-        overprint_stroke: boolean(element, "OverprintStroke"),
+        overprint_fill: element.boolean("OverprintFill"),
+        overprint_stroke: element.boolean("OverprintStroke"),
         point_size: element.number("PointSize"),
         leading: leading(element, report),
         tracking: element.number("Tracking"),
@@ -289,11 +282,11 @@ pub(crate) fn character_properties(
         italic,
         // RNC uses xsd:boolean: numeric literals and surrounding XML whitespace
         // are legal; export emits the canonical true/false spelling.
-        no_break: element.attr("NoBreak").and_then(|value| {
-            match value.trim_matches([' ', '\t', '\r', '\n']) {
-                "true" | "1" => Some(true),
-                "false" | "0" => Some(false),
-                _ => {
+        no_break: element
+            .attr("NoBreak")
+            .and_then(|value| match xml::parse_boolean(value) {
+                Some(value) => Some(value),
+                None => {
                     report.skip(schist_i18n::tf!(
                         "design.idml_text_preference_invalid",
                         property = "NoBreak",
@@ -301,10 +294,9 @@ pub(crate) fn character_properties(
                     ));
                     None
                 }
-            }
-        }),
-        underline: boolean(element, "Underline"),
-        strikethrough: boolean(element, "StrikeThru"),
+            }),
+        underline: element.boolean("Underline"),
+        strikethrough: element.boolean("StrikeThru"),
         underline_style: crate::decoration_codec::read(
             element,
             "Underline",

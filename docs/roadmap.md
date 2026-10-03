@@ -311,6 +311,31 @@ are marked.
 ## Handoff
 
 
+Native XML boolean equivalence, 2026-10-03:
+Discretionary hyphens are pushed as `403b44b5` to draft PR #195, with all 16
+targets, 1,877 Rust tests, PDF visual review and the development rebuild passing.
+The next item 9 package property reproduced numeric booleans dropping explicit
+style values. A shared strict xsd:boolean parser now handles all four legal
+spellings and XML whitespace across typed document/layer/geometry/style readers.
+Existing invalid-value defaults and diagnostics remain; export is canonical and
+literal strings/opaque XML are not globally normalized. The new regression covers
+both polarities, parent visibility, group/layer/guide locks, frame preferences,
+styles, numbering and footnotes through repeated saves. A fixture initially put
+its guide beside the page; the coverage assertion caught it, and the fixture now
+uses the native page-child location. All 16 targets pass with **1,880 distinct
+Rust tests**, including five shared UI checks (one existing documentation example
+ignored), four browser checks and eight Python audit tests. Workspace clippy,
+native/browser/headless checks, localization, formatting and whitespace pass.
+All 31 existing PDF proofs are byte-identical to their prior reviewed versions.
+The native development rebuild passes in 1m 25s; the isolated Design-enabled
+bundle is refreshed and hash/signature verified, and remains quit. No new native
+visual review is claimed. The superseded test draft is removed; logs and research
+use `/tmp/schist-xml-booleans-*`. Next is automatic hyphenation: the native policy
+is only partly retained, and the existing Hyphenation switch does not yet select
+dictionary break opportunities. Language coverage and pattern licenses must be
+explicit before adding a dictionary dependency.
+
+
 Discretionary hyphens, 2026-10-03:
 No Break is pushed as `5619c2b9`; its exact Web artifact passes the compact
 Paragraph/Character controls review below. The next item 9 property reproduced
