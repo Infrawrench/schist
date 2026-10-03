@@ -742,6 +742,12 @@ position, so differently sized photos stay comparable. Decode failures are
 shown in the affected pane. The two decodes run off the UI thread, sequentially
 to bound temporary memory, and closing comparison releases its image handles.
 
+**View ▸ Clipping Warnings** (⌥J) and **View ▸ Focus Peaking** (⌥⇧J) draw over
+the photo in the viewer, both comparison panes and the Similar photos review,
+as they do on the editor canvas. Each overlay is computed from the decoded
+preview at about the displayed size and cached per image. See
+[viewer overlays](viewer-overlays.md).
+
 ## Tethered capture
 
 On Linux, macOS, Windows, iOS and Android, **Tethered capture** in the local gallery triggers a

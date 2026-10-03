@@ -325,6 +325,9 @@ impl Workspace {
     }
 }
 
+/// How tall each photo of the pair under review is shown.
+const PREVIEW_HEIGHT: f32 = 360.0;
+
 fn control_group() -> gpui::Div {
     div()
         .flex()
@@ -337,6 +340,14 @@ fn control_group() -> gpui::Div {
 
 pub(super) fn render(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::AnyElement {
     let p = super::gallery_chrome::pal();
+    // Clipping and focus-peaking layers for the two previews, which are
+    // PREVIEW_HEIGHT tall and as wide as their aspect allows.
+    let overlays = ws.library.similar.images.clone().map(|image| {
+        let image = image?;
+        let size = image.size(0);
+        let aspect = size.width.0 as f32 / size.height.0.max(1) as f32;
+        ws.gallery_overlay(&image, PREVIEW_HEIGHT * aspect.max(1.0))
+    });
     let state = &ws.library.similar;
     let running = state.running;
     let mut modes = control_group();
@@ -657,7 +668,8 @@ pub(super) fn render(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::A
             .flex()
             .items_center()
             .justify_center()
-            .h(px(360.0))
+            .relative()
+            .h(px(PREVIEW_HEIGHT))
             .overflow_hidden()
             .bg(gpui::rgb(p.grid_bg));
         if let Some(image) = &state.images[pane] {
@@ -666,6 +678,17 @@ pub(super) fn render(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::A
                     .size_full()
                     .object_fit(gpui::ObjectFit::Contain),
             );
+            // Same box and fit, so it lands exactly over the photo.
+            if let Some(layer) = &overlays[pane] {
+                preview = preview.child(
+                    img(layer.clone())
+                        .absolute()
+                        .top_0()
+                        .left_0()
+                        .size_full()
+                        .object_fit(gpui::ObjectFit::Contain),
+                );
+            }
         } else {
             preview = preview.child(div().text_color(gpui::rgb(p.text_dim)).child(t(
                 if state.loading {

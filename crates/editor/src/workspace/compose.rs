@@ -81,6 +81,7 @@ impl Workspace {
             rotation: self.rotation.to_bits(),
             surround: crate::ui::palette().canvas_bg,
             seamless: self.editor.seamless_painting,
+            overlays: self.overlays().key(),
         })
     }
 
@@ -188,13 +189,14 @@ impl Workspace {
             grid_rows: rows,
             surround: key.surround,
         };
-        let bgra = if key.seamless {
+        let mut bgra = if key.seamless {
             schist_compositor::viewport::render_viewport_periodic_cpu(&params, &grid)
         } else {
             schist_compositor::backend()
                 .viewport(&params, &grid)
                 .unwrap_or_else(|| schist_compositor::viewport::render_viewport_cpu(&params, &grid))
         };
+        paint_overlays(&mut bgra, &params, key.seamless, &self.overlays());
 
         let buffer = image::RgbaImage::from_raw(width as u32, height as u32, bgra)?;
         let img = Arc::new(RenderImage::new(smallvec![image::Frame::new(buffer)]));
@@ -354,4 +356,32 @@ impl Workspace {
         }
         Some(img)
     }
+}
+
+/// Paint the clipping and focus-peaking overlays into a finished viewport
+/// frame. They work on the frame itself — at most the window's size,
+/// whatever the document's — and only on pixels the canvas covers, so
+/// the surround and the canvas edge are never marked. A repeated
+/// (seamless) view is canvas everywhere.
+pub(super) fn paint_overlays(
+    bgra: &mut [u8],
+    params: &schist_compositor::viewport::ViewportParams,
+    periodic: bool,
+    overlays: &schist_compositor::overlay::Overlays,
+) {
+    if overlays.is_empty() {
+        return;
+    }
+    let canvas = params.canvas;
+    let inside = move |x: usize, y: usize| {
+        let (fx, fy) = params.doc_at(x as f32 + 0.5, y as f32 + 0.5);
+        periodic || canvas.contains(fx.floor() as i32, fy.floor() as i32)
+    };
+    schist_compositor::overlay::apply_bgra(
+        bgra,
+        params.width,
+        params.height,
+        overlays,
+        Some(&inside),
+    );
 }

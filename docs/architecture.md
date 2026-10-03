@@ -23,7 +23,7 @@ crates/app              entry points, plugin assembly, application/window startu
 ├── crates/core         kernel: document, COW tiles, layers, history, selection
 ├── crates/color        pixel/colour primitives, depth conversion
 ├── crates/pixel-ops    CPU reference blend modes (the semantic contract)
-├── crates/compositor   tile compositor, viewport resampling, damage cache
+├── crates/compositor   tile compositor, viewport resampling, viewer overlays, damage cache
 ├── crates/compositor-gpu  wgpu compute backend, parity-tested against the CPU
 ├── crates/fx           blur/warp/carve kernels, same CPU-reference seam
 ├── crates/adjustments  adjustment parameters, PSD payloads, LUT compilation
@@ -33,7 +33,7 @@ crates/app              entry points, plugin assembly, application/window startu
 │                     plus `pasteboard`, the pure display plan Design Mode paints
 ├── crates/codec-idml  IDML interchange: the OPC/UCF package and its part index
 ├── crates/separation  print separation, prepress PDF, halftoning, trapping
-├── crates/colormgmt    ICC profiles, display transforms, dithering
+├── crates/colormgmt    ICC profiles, display transforms, colour-vision simulation, dithering
 ├── crates/codec-psd    PSD/PSB reader and writer
 ├── crates/codec-raw    camera raw decoding and development, clean-room pure Rust
 ├── crates/plugin-host-wasm  sandboxed third-party plugins

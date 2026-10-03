@@ -992,6 +992,9 @@ impl Render for Workspace {
                 }
             }))
             .on_action(cx.listener(|ws, _: &ToggleRulers, _w, cx| ws.toggle_rulers(cx)))
+            .on_action(cx.listener(|ws, action: &ViewOverlay, window, cx| {
+                ws.run_view_overlay(&action.id.clone(), window, cx);
+            }))
             .on_action(cx.listener(|ws, _: &ToggleGrid, _w, cx| ws.toggle_grid(cx)))
             .on_action(cx.listener(|ws, _: &ToggleGuides, _w, cx| ws.toggle_guides(cx)))
             .on_action(cx.listener(|ws, _: &ToggleNotes, _w, cx| ws.toggle_notes(cx)))

@@ -158,8 +158,12 @@ mod tiles;
 mod toolbar;
 mod typography;
 mod view_options;
+mod view_overlays;
 mod viewport;
 mod workspace_presets;
+pub(crate) use view_overlays::{
+    vision_label, PEAKING_COLORS, PEAKING_SENSITIVITY, VISION_SEVERITY,
+};
 pub use workspace_presets::WorkspaceEdit;
 
 #[cfg(not(target_arch = "wasm32"))]
@@ -523,6 +527,12 @@ pub struct Workspace {
     pub palette_search: String,
     display_transform: Option<Arc<schist_colormgmt::ColorTransform>>,
     proof_transform: Option<Arc<schist_colormgmt::ColorTransform>>,
+    /// Clipping warnings and focus peaking: session-only switches, with
+    /// their colour and sensitivity kept in `view`.
+    pub(crate) overlays: view_overlays::OverlaySwitches,
+    /// Overlay layers drawn over the gallery's photos, by source image.
+    #[cfg(not(target_arch = "wasm32"))]
+    gallery_overlays: view_overlays::GalleryOverlays,
     /// The AI sidebar: transcript, conversation worker, MCP queues.
     pub ai: crate::ai::AiState,
     /// The photo gallery: watched folders, thumbnails, edit sidecars.
@@ -1715,6 +1725,9 @@ impl Workspace {
             palette_search: String::new(),
             display_transform: None,
             proof_transform: None,
+            overlays: Default::default(),
+            #[cfg(not(target_arch = "wasm32"))]
+            gallery_overlays: Default::default(),
             #[cfg(not(sandboxed))]
             ai: crate::ai::AiState::new(crate::ai::Backend::Claude),
             #[cfg(sandboxed)]

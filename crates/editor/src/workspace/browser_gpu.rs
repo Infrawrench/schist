@@ -545,6 +545,8 @@ impl Workspace {
         let mode = doc.mode;
         let display = self.display_transform.clone();
         let proof = self.proof_transform.clone();
+        let vision = self.color.vision;
+        let overlays = self.overlays();
         let epoch = self.browser_gpu.epoch;
         self.browser_gpu.pending = true;
         self.browser_gpu.pending_tiles.begin(&missing);
@@ -599,13 +601,18 @@ impl Workspace {
                         }
                         BatchOut::F32(_) => return None,
                     };
-                    if (proof.is_some() || display.is_some()) && !tiles.is_empty() {
+                    if (proof.is_some() || display.is_some() || vision.is_some())
+                        && !tiles.is_empty()
+                    {
                         let mut pixels: Vec<f32> =
                             tiles.iter().flatten().map(|&v| v as f32 / 255.0).collect();
                         let transforms = proof.iter().chain(display.iter()).collect::<Vec<_>>();
+                        // Colour-vision simulation joins the same GPU
+                        // sequence, after the display hop.
                         let operations = transforms
                             .iter()
                             .map(|t| t.gpu_operation())
+                            .chain(vision.iter().map(|v| v.gpu_operation()))
                             .collect::<Option<Vec<_>>>();
                         let accelerated = if let Some(operations) = operations {
                             let operation = schist_fx::FilterOperation::Sequence(operations);
@@ -620,6 +627,9 @@ impl Workspace {
                         } else {
                             for transform in transforms {
                                 transform.apply(&mut pixels);
+                            }
+                            if let Some(vision) = &vision {
+                                vision.apply(&mut pixels);
                             }
                         }
                         let mut start = 0;
@@ -643,12 +653,13 @@ impl Workspace {
                         completed.push((coord, tile));
                     }
                 }
-                let pixels = context
+                let mut pixels = context
                     .render_viewport_async(&params, &grid)
                     .await
                     .unwrap_or_else(|| {
                         schist_compositor::viewport::render_viewport_cpu(&params, &grid)
                     });
+                super::compose::paint_overlays(&mut pixels, &params, false, &overlays);
                 let buffer = image::RgbaImage::from_raw(key.size.0, key.size.1, pixels)?;
                 let image = Arc::new(RenderImage::new(smallvec![image::Frame::new(buffer)]));
                 Some((completed, image))

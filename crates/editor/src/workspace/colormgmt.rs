@@ -41,7 +41,9 @@ impl Workspace {
         self.color_epoch += 1;
     }
 
-    /// Run composited pixels through the proof and display transforms.
+    /// Run composited pixels through the proof and display transforms,
+    /// then any colour-vision simulation (which models the viewer, so it
+    /// comes last, on what the screen shows).
     pub(super) fn to_display(&self, pixels: &mut [f32]) {
         if let Some(proof) = &self.proof_transform {
             proof.apply(pixels);
@@ -49,10 +51,15 @@ impl Workspace {
         if let Some(display) = &self.display_transform {
             display.apply(pixels);
         }
+        if let Some(vision) = &self.color.vision {
+            vision.apply(pixels);
+        }
     }
 
     pub(super) fn color_managed(&self) -> bool {
-        self.display_transform.is_some() || self.proof_transform.is_some()
+        self.display_transform.is_some()
+            || self.proof_transform.is_some()
+            || self.color.vision.is_some()
     }
 
     /// Which built-in the document's profile matches, for the Assign /

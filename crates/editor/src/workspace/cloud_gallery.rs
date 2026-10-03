@@ -1387,6 +1387,7 @@ pub(super) fn view(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::Any
                 }),
                 culling: pair.get(slot).map(culling_value),
                 overlay,
+                image_overlay: None,
             },
             ComparisonActions::<Workspace> {
                 select: |ws, slot, position, cx| {

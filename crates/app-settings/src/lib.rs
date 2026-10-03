@@ -177,6 +177,17 @@ pub struct ViewOptions {
     /// stored with the other docked panel heights above.
     #[serde(default = "default_history_h")]
     pub history_h: f32,
+    /// Focus peaking's colour, an index into the View menu's choices.
+    #[serde(default = "default_peaking_color")]
+    pub peaking_color: u8,
+    /// Focus peaking's sensitivity: 0 low, 1 medium, 2 high.
+    #[serde(default = "default_one")]
+    pub peaking_sensitivity: u8,
+    /// How strong the simulated anomalous colour vision is: 0 mild,
+    /// 1 moderate, 2 strong. The simulation itself is session-only, like
+    /// Proof Colors.
+    #[serde(default = "default_one")]
+    pub vision_severity: u8,
     /// The camera-roll backup to Schist Cloud: whether it runs, from
     /// where, into which folder. Asked about once after the first
     /// sign-in on a phone. Desktop keeps the preference but does not
@@ -212,6 +223,15 @@ fn default_note_author() -> String {
 fn default_note_color() -> u32 {
     let [r, g, b, _] = schist_core::DEFAULT_NOTE_COLOR.to_u8();
     ((r as u32) << 16) | ((g as u32) << 8) | b as u32
+}
+
+/// Yellow: clear of the clipping warnings' red and blue.
+fn default_peaking_color() -> u8 {
+    1
+}
+
+fn default_one() -> u8 {
+    1
 }
 
 fn default_true() -> bool {
@@ -255,6 +275,9 @@ impl Default for ViewOptions {
             ai_model_claude: String::new(),
             ai_model_codex: String::new(),
             history_h: default_history_h(),
+            peaking_color: default_peaking_color(),
+            peaking_sensitivity: default_one(),
+            vision_severity: default_one(),
             #[cfg(not(target_arch = "wasm32"))]
             camera_sync: Default::default(),
         }
