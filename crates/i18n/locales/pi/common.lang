@@ -236,6 +236,7 @@ common.filetype.jpeg = JPEG-chāyārūpaṃ
 common.filetype.webp = WebP-chāyārūpaṃ
 common.filetype.tiff = TIFF-chāyārūpaṃ
 common.filetype.heic = HEIC-chāyārūpaṃ
+common.filetype.exr = OpenEXR-chāyārūpaṃ
 common.filetype.raw = Camera Raw-chāyārūpaṃ
 common.filetype.affinity = Affinity-potthako
 common.filetype.image = Chāyārūpaṃ

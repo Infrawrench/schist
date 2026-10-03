@@ -236,6 +236,7 @@ common.filetype.jpeg = JPEG ပုံ
 common.filetype.webp = WebP ပုံ
 common.filetype.tiff = TIFF ပုံ
 common.filetype.heic = HEIC ပုံ
+common.filetype.exr = OpenEXR ပုံ
 common.filetype.raw = ကင်မရာ မူရင်းဒေတာပုံ
 common.filetype.affinity = Affinity စာတမ်း
 common.filetype.image = ပုံ

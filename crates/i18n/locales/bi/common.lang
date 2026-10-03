@@ -232,6 +232,7 @@ common.filetype.jpeg = JPEG foto
 common.filetype.webp = WebP foto
 common.filetype.tiff = TIFF foto
 common.filetype.heic = HEIC foto
+common.filetype.exr = OpenEXR pija
 common.filetype.raw = Camera Raw foto
 common.filetype.affinity = Affinity Dokumen
 common.filetype.image = Foto

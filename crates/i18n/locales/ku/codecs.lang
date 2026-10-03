@@ -39,6 +39,7 @@ codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
 codec.ora.name = OpenRaster
 codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = Pelê wêneya bi layeran xera an ne temam e.
 codec.layered.too_large = Wêneya bi layeran ji mezinahî an hejmara layeran a ku tê piştgirîkirin derbas dibe.
 codec.layered.unsupported = Ev pel taybetmendiyeke bê piştgirî bi kar tîne: {feature}.
@@ -64,3 +65,8 @@ codec.xcf.feature.floating_selection = Hilbijartina herikbar a XCF
 codec.xcf.feature.layer_effects = Efektên layerê yên XCF
 codec.xcf.feature.precision = Hûrbîniya XCF
 codec.xcf.feature.version = Guhertoya XCF
+
+codec.exr.feature.deep = daneyên kûr ên EXR
+codec.exr.feature.subsampled = kanalên binenimûne yên EXR
+codec.exr.msg.no_channels = Pelê OpenEXR tu kanalên wêneyê tê de nîne.
+codec.exr.msg.write_failed = Pelê OpenEXR nehat nivîsandin: {error}

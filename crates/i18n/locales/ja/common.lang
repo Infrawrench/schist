@@ -241,6 +241,7 @@ common.filetype.jpeg = JPEG 画像
 common.filetype.webp = WebP 画像
 common.filetype.tiff = TIFF 画像
 common.filetype.heic = HEIC 画像
+common.filetype.exr = OpenEXR 画像
 common.filetype.raw = Camera Raw 画像
 common.filetype.affinity = Affinity ドキュメント
 common.filetype.image = 画像

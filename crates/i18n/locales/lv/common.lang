@@ -246,6 +246,7 @@ common.filetype.jpeg = JPEG attēls
 common.filetype.webp = WebP attēls
 common.filetype.tiff = TIFF attēls
 common.filetype.heic = HEIC attēls
+common.filetype.exr = OpenEXR attēls
 common.filetype.raw = Camera Raw attēls
 common.filetype.affinity = Affinity dokuments
 common.filetype.image = Attēls

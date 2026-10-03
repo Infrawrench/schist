@@ -239,6 +239,7 @@ common.filetype.jpeg = Imagine JPEG
 common.filetype.webp = Imagine WebP
 common.filetype.tiff = Imagine TIFF
 common.filetype.heic = Imagine HEIC
+common.filetype.exr = Imagine OpenEXR
 common.filetype.raw = Imagine raw de camera
 common.filetype.affinity = Documento Affinity
 common.filetype.image = Imagine

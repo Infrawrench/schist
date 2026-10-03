@@ -39,6 +39,7 @@ codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
 codec.ora.name = OpenRaster
 codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = स्तरित प्रतिमेची फाइल खराब किंवा अपूर्ण आहे.
 codec.layered.too_large = स्तरित प्रतिमेचा आकार किंवा स्तरांची संख्या समर्थित मर्यादेपेक्षा जास्त आहे.
 codec.layered.unsupported = ही फाइल असमर्थित वैशिष्ट्य वापरते: {feature}.
@@ -64,3 +65,8 @@ codec.xcf.feature.floating_selection = XCF तरंगती निवड
 codec.xcf.feature.layer_effects = XCF स्तर प्रभाव
 codec.xcf.feature.precision = XCF अचूकता
 codec.xcf.feature.version = XCF आवृत्ती
+
+codec.exr.feature.deep = EXR डीप डेटा
+codec.exr.feature.subsampled = EXR सबसॅम्पल केलेले चॅनेल
+codec.exr.msg.no_channels = OpenEXR फाइलमध्ये कोणतेही प्रतिमा चॅनेल नाहीत.
+codec.exr.msg.write_failed = OpenEXR फाइल लिहिता आली नाही: {error}

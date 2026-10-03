@@ -238,6 +238,7 @@ common.filetype.jpeg = JPEG-imajo
 common.filetype.webp = WebP-imajo
 common.filetype.tiff = TIFF-imajo
 common.filetype.heic = HEIC-imajo
+common.filetype.exr = OpenEXR-imajo
 common.filetype.raw = Kruda kamero-imajo
 common.filetype.affinity = Affinity-dokumento
 common.filetype.image = Imajo

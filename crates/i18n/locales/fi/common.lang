@@ -246,6 +246,7 @@ common.filetype.jpeg = JPEG-kuva
 common.filetype.webp = WebP-kuva
 common.filetype.tiff = TIFF-kuva
 common.filetype.heic = HEIC-kuva
+common.filetype.exr = OpenEXR-kuva
 common.filetype.raw = Camera Raw -kuva
 common.filetype.affinity = Affinity-dokumentti
 common.filetype.image = Kuva

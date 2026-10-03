@@ -234,6 +234,7 @@ common.filetype.jpeg = Setshwantsho sa JPEG
 common.filetype.webp = Setshwantsho sa WebP
 common.filetype.tiff = Setshwantsho sa TIFF
 common.filetype.heic = Setshwantsho sa HEIC
+common.filetype.exr = Setshwantsho sa OpenEXR
 common.filetype.raw = Setshwantsho sa RAW
 common.filetype.affinity = Tokomane ya Affinity
 common.filetype.image = Setshwantsho

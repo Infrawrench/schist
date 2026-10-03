@@ -239,6 +239,7 @@ common.filetype.jpeg = Setšoantšo sa JPEG
 common.filetype.webp = Setšoantšo sa WebP
 common.filetype.tiff = Setšoantšo sa TIFF
 common.filetype.heic = Setšoantšo sa HEIC
+common.filetype.exr = Setšoantšo sa OpenEXR
 common.filetype.raw = Setšoantšo sa Faele e Tala ea Khamera
 common.filetype.affinity = Tokomane ea Affinity
 common.filetype.image = Setšoantšo

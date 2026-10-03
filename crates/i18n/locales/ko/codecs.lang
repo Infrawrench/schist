@@ -51,6 +51,7 @@ codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
 codec.ora.name = OpenRaster
 codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = 레이어가 있는 이미지 파일이 손상되었거나 불완전합니다.
 codec.layered.too_large = 레이어가 있는 이미지의 크기 또는 레이어 수가 지원 범위를 초과합니다.
 codec.layered.unsupported = 이 파일은 지원되지 않는 기능을 사용합니다: {feature}.
@@ -74,3 +75,8 @@ codec.xcf.feature.floating_selection = XCF 떠 있는 선택 영역
 codec.xcf.feature.layer_effects = XCF 레이어 효과
 codec.xcf.feature.precision = XCF 정밀도
 codec.xcf.feature.version = XCF 버전
+
+codec.exr.feature.deep = EXR 딥 데이터
+codec.exr.feature.subsampled = EXR 서브샘플링 채널
+codec.exr.msg.no_channels = OpenEXR 파일에 이미지 채널이 없습니다.
+codec.exr.msg.write_failed = OpenEXR 파일을 쓸 수 없습니다: {error}

@@ -40,6 +40,7 @@ codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
 codec.ora.name = OpenRaster
 codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = Katmanlı görüntü dosyası hasarlı veya eksik.
 codec.layered.too_large = Katmanlı görüntü, desteklenen boyutu veya katman sayısını aşıyor.
 codec.layered.unsupported = Bu dosya desteklenmeyen bir özellik kullanıyor: {feature}.
@@ -65,3 +66,8 @@ codec.xcf.feature.floating_selection = XCF yüzen seçim
 codec.xcf.feature.layer_effects = XCF katman efektleri
 codec.xcf.feature.precision = XCF hassasiyeti
 codec.xcf.feature.version = XCF sürümü
+
+codec.exr.feature.deep = EXR derin verisi
+codec.exr.feature.subsampled = EXR alt örneklemeli kanalları
+codec.exr.msg.no_channels = OpenEXR dosyası hiç görüntü kanalı içermiyor.
+codec.exr.msg.write_failed = OpenEXR dosyası yazılamadı: {error}

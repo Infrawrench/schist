@@ -45,6 +45,7 @@ codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
 codec.ora.name = OpenRaster
 codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = U schedariu di maghjina à strati hè dannighjatu o incompletu.
 codec.layered.too_large = A maghjina à strati supera a dimensione o u numeru di strati suppurtatu.
 codec.layered.unsupported = Stu schedariu adopra una funziunalità micca suppurtata: {feature}.
@@ -70,3 +71,8 @@ codec.xcf.feature.floating_selection = Selezzione flottante XCF
 codec.xcf.feature.layer_effects = Effetti di stratu XCF
 codec.xcf.feature.precision = Precisione XCF
 codec.xcf.feature.version = Versione XCF
+
+codec.exr.feature.deep = dati prufondi EXR
+codec.exr.feature.subsampled = canali EXR sottocampiunati
+codec.exr.msg.no_channels = U schedariu OpenEXR ùn cuntene nisunu canale d'imagine.
+codec.exr.msg.write_failed = Impussibule scrive u schedariu OpenEXR: {error}

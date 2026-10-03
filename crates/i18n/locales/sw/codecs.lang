@@ -40,6 +40,7 @@ codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
 codec.ora.name = OpenRaster
 codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = Faili ya picha yenye safu imeharibika au haijakamilika.
 codec.layered.too_large = Picha yenye safu inazidi ukubwa au idadi ya safu inayokubaliwa.
 codec.layered.unsupported = Faili hii inatumia kipengele kisichokubaliwa: {feature}.
@@ -63,3 +64,8 @@ codec.xcf.feature.floating_selection = uteuzi unaoelea wa XCF
 codec.xcf.feature.layer_effects = athari za safu za XCF
 codec.xcf.feature.precision = usahihi wa XCF
 codec.xcf.feature.version = toleo la XCF
+
+codec.exr.feature.deep = data ya kina ya EXR
+codec.exr.feature.subsampled = chaneli za EXR zenye sampuli ndogo
+codec.exr.msg.no_channels = Faili ya OpenEXR haina chaneli yoyote ya picha.
+codec.exr.msg.write_failed = Imeshindikana kuandika faili ya OpenEXR: {error}

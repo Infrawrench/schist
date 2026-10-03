@@ -45,6 +45,7 @@ codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
 codec.ora.name = OpenRaster
 codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = ფენებიანი გამოსახულების ფაილი დაზიანებულია ან არასრულია.
 codec.layered.too_large = ფენებიანი გამოსახულება აღემატება მხარდაჭერილ ზომას ან ფენების რაოდენობას.
 codec.layered.unsupported = ეს ფაილი იყენებს მხარდაუჭერელ ფუნქციას: {feature}.
@@ -68,3 +69,8 @@ codec.xcf.feature.floating_selection = XCF მცურავი მონიშ
 codec.xcf.feature.layer_effects = XCF ფენის ეფექტები
 codec.xcf.feature.precision = XCF სიზუსტე
 codec.xcf.feature.version = XCF ვერსია
+
+codec.exr.feature.deep = EXR ღრმა მონაცემები
+codec.exr.feature.subsampled = EXR ქვენიმუშებული არხები
+codec.exr.msg.no_channels = OpenEXR ფაილი არ შეიცავს გამოსახულების არხებს.
+codec.exr.msg.write_failed = OpenEXR ფაილის ჩაწერა ვერ მოხერხდა: {error}

@@ -229,6 +229,7 @@ common.filetype.jpeg = Pija JPEG
 common.filetype.webp = Pija WebP
 common.filetype.tiff = Pija TIFF
 common.filetype.heic = Pija HEIC
+common.filetype.exr = Pija OpenEXR
 common.filetype.raw = Pija raw in camera
 common.filetype.affinity = Document in Affinity
 common.filetype.image = Pija

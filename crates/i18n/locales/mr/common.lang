@@ -234,6 +234,7 @@ common.filetype.jpeg = JPEG प्रतिमा
 common.filetype.webp = WebP प्रतिमा
 common.filetype.tiff = TIFF प्रतिमा
 common.filetype.heic = HEIC प्रतिमा
+common.filetype.exr = OpenEXR प्रतिमा
 common.filetype.raw = कॅमेरा रॉ प्रतिमा
 common.filetype.affinity = Affinity दस्तऐवज
 common.filetype.image = प्रतिमा

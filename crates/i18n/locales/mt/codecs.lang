@@ -40,6 +40,7 @@ codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
 codec.ora.name = OpenRaster
 codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = Il-fajl tal-immaġni bis-saffi huwa bil-ħsara jew mhux komplut.
 codec.layered.too_large = L-immaġni bis-saffi taqbeż id-daqs jew in-numru ta' saffi appoġġjati.
 codec.layered.unsupported = Dan il-fajl juża karatteristika mhux appoġġjata: {feature}.
@@ -63,3 +64,8 @@ codec.xcf.feature.floating_selection = għażla f'wiċċ l-ilma XCF
 codec.xcf.feature.layer_effects = effetti tas-saff XCF
 codec.xcf.feature.precision = preċiżjoni XCF
 codec.xcf.feature.version = verżjoni XCF
+
+codec.exr.feature.deep = dejta profonda EXR
+codec.exr.feature.subsampled = kanali subsampled EXR
+codec.exr.msg.no_channels = Il-fajl OpenEXR ma fih l-ebda kanal tal-immaġni.
+codec.exr.msg.write_failed = Ma setax jinkiteb il-fajl OpenEXR: {error}

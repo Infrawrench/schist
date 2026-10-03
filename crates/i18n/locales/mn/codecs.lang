@@ -39,6 +39,7 @@ codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
 codec.ora.name = OpenRaster
 codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = Давхаргат зургийн файл гэмтсэн эсвэл дутуу байна.
 codec.layered.too_large = Давхаргат зургийн хэмжээ эсвэл давхаргын тоо дэмжигдэх хязгаараас хэтэрсэн байна.
 codec.layered.unsupported = Энэ файл дэмжигдэхгүй боломж ашиглаж байна: {feature}.
@@ -64,3 +65,8 @@ codec.xcf.feature.floating_selection = XCF хөвөгч сонголт
 codec.xcf.feature.layer_effects = XCF давхаргын эффектүүд
 codec.xcf.feature.precision = XCF нарийвчлал
 codec.xcf.feature.version = XCF хувилбар
+
+codec.exr.feature.deep = EXR гүн өгөгдөл
+codec.exr.feature.subsampled = EXR сэлгэн түүвэрлэсэн сувгууд
+codec.exr.msg.no_channels = OpenEXR файл зургийн суваг агуулаагүй байна.
+codec.exr.msg.write_failed = OpenEXR файлыг бичиж чадсангүй: {error}

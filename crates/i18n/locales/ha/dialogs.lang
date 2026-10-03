@@ -10,6 +10,23 @@ dialog.export.dither = Warwatsa Launi
 dialog.export.dither_note = Warwatsa launi lokacin ragewa zuwa bit 8
 dialog.export.effort = Ƙoƙari
 dialog.export.export_ellipsis = Fitar da…
+dialog.export.exr_samples = Samfura
+dialog.export.exr_half = Rabin float (16-bit)
+dialog.export.exr_float = Float (32-bit)
+dialog.export.exr_compression = Matsewa
+dialog.export.exr_compression.none = Babu
+dialog.export.exr_compression.rle = RLE
+dialog.export.exr_compression.zips = ZIP, layin bincike ɗaya
+dialog.export.exr_compression.zip = ZIP, layukan bincike 16
+dialog.export.exr_compression.piz = PIZ (wavelet)
+dialog.export.exr_compression.pxr24 = PXR24 (da asara ga float)
+dialog.export.exr_compression.b44 = B44 (da asara)
+dialog.export.exr_compression.b44a = B44A (da asara)
+dialog.export.exr_layers = Shimfiɗu
+dialog.export.exr_layers_note = Rubuta kowace shimfiɗa mai ganuwa a matsayin shimfiɗar EXR kuma
+dialog.export.exr_alpha = Alfa
+dialog.export.exr_alpha_note = Rubuta tashar alfa
+dialog.export.exr_linear_note = EXR yana adana haske madaidaici. Ana fassara wannan takarda ta 8- ko 16-bit ta cikin bayanin launinta zuwa float madaidaici lokacin fitarwa.
 
 # Sarrafa Hotuna
 dialog.batch.title = Sarrafa Hotuna

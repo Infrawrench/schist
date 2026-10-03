@@ -237,6 +237,7 @@ common.filetype.jpeg = JPEG تصوير
 common.filetype.webp = WebP تصوير
 common.filetype.tiff = TIFF تصوير
 common.filetype.heic = HEIC تصوير
+common.filetype.exr = OpenEXR تصوير
 common.filetype.raw = ڪيمرا جي خام تصوير
 common.filetype.affinity = Affinity دستاويز
 common.filetype.image = تصوير

@@ -18,6 +18,23 @@ dialog.export.dither = Gitter
 dialog.export.dither_note = Använd gitter vid reducering till 8 bitar
 dialog.export.effort = Ansträngning
 dialog.export.export_ellipsis = Exportera…
+dialog.export.exr_samples = Samplingar
+dialog.export.exr_half = Halv flyttal (16 bitar)
+dialog.export.exr_float = Flyttal (32 bitar)
+dialog.export.exr_compression = Komprimering
+dialog.export.exr_compression.none = Ingen
+dialog.export.exr_compression.rle = RLE
+dialog.export.exr_compression.zips = ZIP, en skanlinje
+dialog.export.exr_compression.zip = ZIP, 16 skanlinjer
+dialog.export.exr_compression.piz = PIZ (wavelet)
+dialog.export.exr_compression.pxr24 = PXR24 (förlustbringande för flyttal)
+dialog.export.exr_compression.b44 = B44 (förlustbringande)
+dialog.export.exr_compression.b44a = B44A (förlustbringande)
+dialog.export.exr_layers = Lager
+dialog.export.exr_layers_note = Skriv även varje synligt lager som ett EXR-lager
+dialog.export.exr_alpha = Alfa
+dialog.export.exr_alpha_note = Skriv en alfakanal
+dialog.export.exr_linear_note = EXR lagrar linjärt ljus. Det här 8- eller 16-bitarsdokumentet avkodas via sin färgprofil till linjärt flyttal vid export.
 
 # Bearbeta foton (galleriets batchdialog)
 dialog.batch.title = Bearbeta foton

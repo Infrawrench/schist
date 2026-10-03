@@ -19,6 +19,7 @@ codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
 codec.ora.name = OpenRaster
 codec.kra.name = Krita
+codec.exr.name = OpenEXR
 
 # Native layered raster files
 codec.layered.invalid = The layered image file is damaged or incomplete.
@@ -84,3 +85,9 @@ codec.heif.msg.imageio_cannot_decode = ImageIO could not decode the primary imag
 
 # AVIF in the browser build, which has no AV1 decoder (it still exports AVIF).
 codec.avif.msg.no_decoder = The browser version of Schist cannot open AVIF images. Open the file in the desktop app, or convert it to PNG first.
+# OpenEXR. Feature labels go into codec.layered.unsupported; {error} is
+# the encoder's own (English) message.
+codec.exr.feature.deep = EXR deep data
+codec.exr.feature.subsampled = EXR subsampled channels
+codec.exr.msg.no_channels = The OpenEXR file contains no image channels.
+codec.exr.msg.write_failed = Could not write the OpenEXR file: {error}

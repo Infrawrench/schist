@@ -236,6 +236,7 @@ common.filetype.jpeg = JPEG ja
 common.filetype.webp = WebP ja
 common.filetype.tiff = TIFF ja
 common.filetype.heic = HEIC ja
+common.filetype.exr = OpenEXR ja
 common.filetype.raw = Kamera raw ja
 common.filetype.affinity = Affinity sɛbɛn
 common.filetype.image = Ja

@@ -229,6 +229,7 @@ common.filetype.jpeg = JPEG ta'anga
 common.filetype.webp = WebP ta'anga
 common.filetype.tiff = TIFF ta'anga
 common.filetype.heic = HEIC ta'anga
+common.filetype.exr = OpenEXR ta'anga
 common.filetype.raw = Kámara ta'anga hi'ypýva
 common.filetype.affinity = Affinity kuatia
 common.filetype.image = Ta'anga

@@ -234,6 +234,7 @@ common.filetype.jpeg = JPEG රූපය
 common.filetype.webp = WebP රූපය
 common.filetype.tiff = TIFF රූපය
 common.filetype.heic = HEIC රූපය
+common.filetype.exr = OpenEXR රූපය
 common.filetype.raw = කැමරා අමු රූපය
 common.filetype.affinity = Affinity ලේඛනය
 common.filetype.image = රූපය

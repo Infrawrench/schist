@@ -40,6 +40,7 @@ codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
 codec.ora.name = OpenRaster
 codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = རིམ་པ་ཅན་གྱི་པར་རིས་ཡིག་ཆ་སྐྱོན་ཤོར་བའམ་ཆ་མི་ཚང་བ་ཡིན།
 codec.layered.too_large = རིམ་པ་ཅན་གྱི་པར་རིས་ཀྱི་ཆེ་ཆུང་ངམ་རིམ་པའི་གྲངས་ཀས་རྒྱབ་སྐྱོར་ཡོད་པའི་ཚད་བརྒལ་འདུག
 codec.layered.unsupported = ཡིག་ཆ་འདིས་རྒྱབ་སྐྱོར་མེད་པའི་ཁྱད་ཆོས་ཤིག་སྤྱོད་འདུག: {feature}།
@@ -63,3 +64,8 @@ codec.xcf.feature.floating_selection = XCF ལྡིང་འགུལ་གྱ�
 codec.xcf.feature.layer_effects = XCF རིམ་པའི་ཕན་འབྲས།
 codec.xcf.feature.precision = XCF ཞིབ་ཚད།
 codec.xcf.feature.version = XCF པར་གཞི།
+
+codec.exr.feature.deep = EXR གཏིང་ཟབ་གཞི་གྲངས།
+codec.exr.feature.subsampled = EXR ཆེད་ལམ་ཆུང་སྒྱུར།
+codec.exr.msg.no_channels = OpenEXR ཡིག་ཆའི་ནང་པར་རིས་ཀྱི་ལམ་ཅི་ཡང་མེད།
+codec.exr.msg.write_failed = OpenEXR ཡིག་ཆ་འབྲི་མ་ཐུབ། {error}

@@ -241,6 +241,7 @@ common.filetype.jpeg = JPEG Mfonini
 common.filetype.webp = WebP Mfonini
 common.filetype.tiff = TIFF Mfonini
 common.filetype.heic = HEIC Mfonini
+common.filetype.exr = OpenEXR Mfonini
 common.filetype.raw = Camera Raw Mfonini
 common.filetype.affinity = Affinity Document
 common.filetype.image = Mfonini

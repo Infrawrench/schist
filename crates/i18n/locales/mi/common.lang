@@ -229,6 +229,7 @@ common.filetype.jpeg = Atahanga JPEG
 common.filetype.webp = Atahanga WebP
 common.filetype.tiff = Atahanga TIFF
 common.filetype.heic = Atahanga HEIC
+common.filetype.exr = Atahanga OpenEXR
 common.filetype.raw = Atahanga Mata a te Kāmera
 common.filetype.affinity = Tuhinga Affinity
 common.filetype.image = Atahanga

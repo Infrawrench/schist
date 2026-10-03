@@ -245,6 +245,7 @@ common.filetype.jpeg = Зображення JPEG
 common.filetype.webp = Зображення WebP
 common.filetype.tiff = Зображення TIFF
 common.filetype.heic = Зображення HEIC
+common.filetype.exr = Зображення OpenEXR
 common.filetype.raw = Зображення у форматі RAW
 common.filetype.affinity = Документ Affinity
 common.filetype.image = Зображення

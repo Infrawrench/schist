@@ -14,6 +14,23 @@ dialog.export.dither = Дитер
 dialog.export.dither_note = 8 бит болгон бууруулахдаа дитер хэрэглэх
 dialog.export.effort = Хүчин чармайлт
 dialog.export.export_ellipsis = Экспортлох…
+dialog.export.exr_samples = Дээж
+dialog.export.exr_half = Хагас хөвөгч таслалт (16 бит)
+dialog.export.exr_float = Хөвөгч таслалт (32 бит)
+dialog.export.exr_compression = Шахалт
+dialog.export.exr_compression.none = Байхгүй
+dialog.export.exr_compression.rle = RLE
+dialog.export.exr_compression.zips = ZIP, нэг скан мөр
+dialog.export.exr_compression.zip = ZIP, 16 скан мөр
+dialog.export.exr_compression.piz = PIZ (вэйвлет)
+dialog.export.exr_compression.pxr24 = PXR24 (float-д алдагдалтай)
+dialog.export.exr_compression.b44 = B44 (алдагдалтай)
+dialog.export.exr_compression.b44a = B44A (алдагдалтай)
+dialog.export.exr_layers = Давхаргууд
+dialog.export.exr_layers_note = Харагдаж буй давхарга бүрийг EXR давхарга болгон бичих
+dialog.export.exr_alpha = Альфа
+dialog.export.exr_alpha_note = Альфа суваг бичих
+dialog.export.exr_linear_note = EXR шугаман гэрлийг хадгалдаг. Энэ 8 эсвэл 16 битийн баримтыг экспортлохдоо өнгөний профайлаар нь шугаман float болгон тайлна.
 
 # Фото зураг боловсруулах
 dialog.batch.title = Фото зургууд боловсруулах

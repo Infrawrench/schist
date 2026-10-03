@@ -44,6 +44,7 @@ codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
 codec.ora.name = OpenRaster
 codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = De Bildfichier mat Ebenen ass beschiedegt oder onvollstänneg.
 codec.layered.too_large = D'Bild mat Ebenen iwwerschreit déi ënnerstëtzt Gréisst oder Unzuel vun Ebenen.
 codec.layered.unsupported = Dëse Fichier benotzt eng net ënnerstëtzt Funktioun: {feature}.
@@ -69,3 +70,8 @@ codec.xcf.feature.floating_selection = Schwiewend XCF-Auswiel
 codec.xcf.feature.layer_effects = XCF-Ebeneneffekter
 codec.xcf.feature.precision = XCF-Präzisioun
 codec.xcf.feature.version = XCF-Versioun
+
+codec.exr.feature.deep = EXR-Deep-Donnéeën
+codec.exr.feature.subsampled = EXR-Kanäl mat reduzéierter Ofdeckung
+codec.exr.msg.no_channels = D'OpenEXR-Datei enthält keng Bildkanäl.
+codec.exr.msg.write_failed = D'OpenEXR-Datei konnt net geschriwwe ginn: {error}

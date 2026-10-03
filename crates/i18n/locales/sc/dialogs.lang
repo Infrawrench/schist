@@ -13,6 +13,23 @@ dialog.export.dither = Tramadura
 dialog.export.dither_note = Àplica sa tramadura cando redutzis a 8 bit
 dialog.export.effort = Isfortzu
 dialog.export.export_ellipsis = Esporta…
+dialog.export.exr_samples = Campionaduras
+dialog.export.exr_half = Mesu float (16-bit)
+dialog.export.exr_float = Float (32-bit)
+dialog.export.exr_compression = Cumpressione
+dialog.export.exr_compression.none = Perunu
+dialog.export.exr_compression.rle = RLE
+dialog.export.exr_compression.zips = ZIP, una lìnia de scansione
+dialog.export.exr_compression.zip = ZIP, 16 lìnias de scansione
+dialog.export.exr_compression.piz = PIZ (wavelet)
+dialog.export.exr_compression.pxr24 = PXR24 (cun perdida pro float)
+dialog.export.exr_compression.b44 = B44 (cun perdida)
+dialog.export.exr_compression.b44a = B44A (cun perdida)
+dialog.export.exr_layers = Istratos
+dialog.export.exr_layers_note = Iscrie puru cada istratu visìbile comente istratu EXR
+dialog.export.exr_alpha = Alfa
+dialog.export.exr_alpha_note = Iscrie unu canale alfa
+dialog.export.exr_linear_note = EXR sarvat sa lughe lineare. Custu documentu a 8 o 16-bit benit decodificadu pro mesu de su profilu de colore a float lineare cando esportas.
 
 # Elàbora fotografias
 dialog.batch.title = Elàbora fotografias

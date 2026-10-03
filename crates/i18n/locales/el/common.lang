@@ -234,6 +234,7 @@ common.filetype.jpeg = Εικόνα JPEG
 common.filetype.webp = Εικόνα WebP
 common.filetype.tiff = Εικόνα TIFF
 common.filetype.heic = Εικόνα HEIC
+common.filetype.exr = Εικόνα OpenEXR
 common.filetype.raw = Ακατέργαστη εικόνα κάμερας
 common.filetype.affinity = Έγγραφο Affinity
 common.filetype.image = Εικόνα

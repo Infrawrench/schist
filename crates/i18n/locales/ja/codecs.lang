@@ -59,6 +59,7 @@ codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
 codec.ora.name = OpenRaster
 codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = レイヤーを含む画像ファイルが破損しているか、不完全です。
 codec.layered.too_large = 画像のサイズまたはレイヤー数が対応する上限を超えています。
 codec.layered.unsupported = このファイルでは未対応の機能が使われています: {feature}。
@@ -84,3 +85,8 @@ codec.xcf.feature.floating_selection = XCF のフローティング選択範囲
 codec.xcf.feature.layer_effects = XCF のレイヤー効果
 codec.xcf.feature.precision = XCF の精度
 codec.xcf.feature.version = XCF のバージョン
+
+codec.exr.feature.deep = EXR のディープデータ
+codec.exr.feature.subsampled = EXR のサブサンプリングされたチャンネル
+codec.exr.msg.no_channels = この OpenEXR ファイルには画像チャンネルが含まれていません。
+codec.exr.msg.write_failed = OpenEXR ファイルを書き込めませんでした: {error}

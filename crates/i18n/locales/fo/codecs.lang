@@ -40,6 +40,7 @@ codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
 codec.ora.name = OpenRaster
 codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = Myndafílan við løgum er skadd ella ófullfíggjað.
 codec.layered.too_large = Myndin við løgum fer upp um stuðlaða stødd ella tal av løgum.
 codec.layered.unsupported = Henda fílan brúkar ein eginleika, sum ikki er stuðlaður: {feature}.
@@ -63,3 +64,8 @@ codec.xcf.feature.floating_selection = flótandi XCF-úrval
 codec.xcf.feature.layer_effects = XCF-lagávirkanir
 codec.xcf.feature.precision = XCF-neyvleiki
 codec.xcf.feature.version = XCF-útgáva
+
+codec.exr.feature.deep = EXR djúpar dátur
+codec.exr.feature.subsampled = EXR undirsamplaðar rásir
+codec.exr.msg.no_channels = OpenEXR-fílan inniheldur ongar myndarásir.
+codec.exr.msg.write_failed = Ikki bar til at skriva OpenEXR-fílu: {error}

@@ -234,6 +234,7 @@ common.filetype.jpeg = JPEG зураг
 common.filetype.webp = WebP зураг
 common.filetype.tiff = TIFF зураг
 common.filetype.heic = HEIC зураг
+common.filetype.exr = OpenEXR зураг
 common.filetype.raw = Камерын түүхий зураг
 common.filetype.affinity = Affinity баримт
 common.filetype.image = Зураг

@@ -242,6 +242,7 @@ common.filetype.jpeg = Obrázok JPEG
 common.filetype.webp = Obrázok WebP
 common.filetype.tiff = Obrázok TIFF
 common.filetype.heic = Obrázok HEIC
+common.filetype.exr = Obrázok OpenEXR
 common.filetype.raw = Surový obrázok fotoaparátu
 common.filetype.affinity = Dokument Affinity
 common.filetype.image = Obrázok

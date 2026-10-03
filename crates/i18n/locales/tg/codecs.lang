@@ -40,6 +40,7 @@ codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
 codec.ora.name = OpenRaster
 codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = Файли тасвири қабатдор вайрон ё нопурра аст.
 codec.layered.too_large = Андозаи тасвири қабатдор ё шумораи қабатҳои он аз ҳадди дастгиришаванда зиёд аст.
 codec.layered.unsupported = Ин файл имконияти дастгиринашавандаро истифода мебарад: {feature}.
@@ -63,3 +64,8 @@ codec.xcf.feature.floating_selection = интихоби шинокунандаи
 codec.xcf.feature.layer_effects = таъсирҳои қабати XCF
 codec.xcf.feature.precision = дақиқии XCF
 codec.xcf.feature.version = версияи XCF
+
+codec.exr.feature.deep = маълумоти амиқи EXR
+codec.exr.feature.subsampled = қанолҳои зернамунагирифтаи EXR
+codec.exr.msg.no_channels = Файли OpenEXR ягон канали тасвир надорад.
+codec.exr.msg.write_failed = Файли OpenEXR навишта нашуд: {error}

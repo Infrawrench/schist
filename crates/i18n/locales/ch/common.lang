@@ -236,6 +236,7 @@ common.filetype.jpeg = JPEG na imåhen
 common.filetype.webp = WebP na imåhen
 common.filetype.tiff = TIFF na imåhen
 common.filetype.heic = HEIC na imåhen
+common.filetype.exr = OpenEXR na imåhen
 common.filetype.raw = RAW na imåhen
 common.filetype.affinity = Affinity na dokumentu
 common.filetype.image = Imåhen

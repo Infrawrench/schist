@@ -44,6 +44,7 @@ codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
 codec.ora.name = OpenRaster
 codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = Gearddálaš govvafiila lea vahágahtton dahje váilevaš.
 codec.layered.too_large = Gearddálaš govva lea stuorát dahje das leat eambbo gearddit go doarjju siskkilda.
 codec.layered.unsupported = Dát fiila geavaha doaimma man prográmma ii doarjjo: {feature}.
@@ -69,3 +70,8 @@ codec.xcf.feature.floating_selection = XCF-govdi válljen
 codec.xcf.feature.layer_effects = XCF-geardeéifeavttat
 codec.xcf.feature.precision = XCF-dárkilvuohta
 codec.xcf.feature.version = XCF-veršuvdna
+
+codec.exr.feature.deep = EXR čiekŋalis dieđut
+codec.exr.feature.subsampled = EXR vuolleguorahuvvon kanálat
+codec.exr.msg.no_channels = OpenEXR-fiillas eai leat govvakanálat.
+codec.exr.msg.write_failed = Ii lihkostuvvan čállit OpenEXR-fiilla: {error}

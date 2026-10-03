@@ -251,6 +251,7 @@ common.filetype.jpeg = Відарыс JPEG
 common.filetype.webp = Відарыс WebP
 common.filetype.tiff = Відарыс TIFF
 common.filetype.heic = Відарыс HEIC
+common.filetype.exr = Відарыс OpenEXR
 common.filetype.raw = Відарыс Camera Raw
 common.filetype.affinity = Дакумент Affinity
 common.filetype.image = Відарыс

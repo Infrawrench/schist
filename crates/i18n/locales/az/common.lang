@@ -241,6 +241,7 @@ common.filetype.jpeg = JPEG şəkli
 common.filetype.webp = WebP şəkli
 common.filetype.tiff = TIFF şəkli
 common.filetype.heic = HEIC şəkli
+common.filetype.exr = OpenEXR şəkli
 common.filetype.raw = Camera Raw şəkli
 common.filetype.affinity = Affinity sənədi
 common.filetype.image = Şəkil

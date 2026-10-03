@@ -234,6 +234,7 @@ common.filetype.jpeg = JPEG Görüntüsü
 common.filetype.webp = WebP Görüntüsü
 common.filetype.tiff = TIFF Görüntüsü
 common.filetype.heic = HEIC Görüntüsü
+common.filetype.exr = OpenEXR Görüntüsü
 common.filetype.raw = Camera Raw Görüntüsü
 common.filetype.affinity = Affinity Belgesi
 common.filetype.image = Görüntü

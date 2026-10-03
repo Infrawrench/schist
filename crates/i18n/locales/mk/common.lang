@@ -237,6 +237,7 @@ common.filetype.jpeg = JPEG-слика
 common.filetype.webp = WebP-слика
 common.filetype.tiff = TIFF-слика
 common.filetype.heic = HEIC-слика
+common.filetype.exr = OpenEXR-слика
 common.filetype.raw = Необработена слика од камера
 common.filetype.affinity = Документ на Affinity
 common.filetype.image = Слика

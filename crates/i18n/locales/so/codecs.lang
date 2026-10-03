@@ -40,6 +40,7 @@ codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
 codec.ora.name = OpenRaster
 codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = Faylka sawirka lakabyada leh wuu dhaawacmay ama ma dhammaystirna.
 codec.layered.too_large = Sawirka lakabyada leh wuxuu dhaafayaa cabbirka ama tirada lakabyada la taageero.
 codec.layered.unsupported = Faylkani wuxuu adeegsadaa sifo aan la taageerin: {feature}.
@@ -63,3 +64,8 @@ codec.xcf.feature.floating_selection = xulashada sabbaysa ee XCF
 codec.xcf.feature.layer_effects = saamaynta lakabka XCF
 codec.xcf.feature.precision = saxnaanta XCF
 codec.xcf.feature.version = nooca XCF
+
+codec.exr.feature.deep = xogta qoto dheer ee EXR
+codec.exr.feature.subsampled = kanaalada EXR ee hoos-u-qaadashada
+codec.exr.msg.no_channels = Faylka OpenEXR kuma jiraan kanaalo sawir.
+codec.exr.msg.write_failed = Lama qori karo faylka OpenEXR: {error}

@@ -40,6 +40,7 @@ codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
 codec.ora.name = OpenRaster
 codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = ឯកសាររូបភាពដែលមានស្រទាប់ខូច ឬមិនពេញលេញ។
 codec.layered.too_large = ទំហំរូបភាព ឬចំនួនស្រទាប់លើសពីកម្រិតដែលបានគាំទ្រ។
 codec.layered.unsupported = ឯកសារនេះប្រើមុខងារដែលមិនបានគាំទ្រ៖ {feature}។
@@ -65,3 +66,8 @@ codec.xcf.feature.floating_selection = ជម្រើសអណ្ដែត XCF
 codec.xcf.feature.layer_effects = បែបផែនស្រទាប់ XCF
 codec.xcf.feature.precision = ភាពជាក់លាក់ XCF
 codec.xcf.feature.version = កំណែ XCF
+
+codec.exr.feature.deep = ទិន្នន័យជម្រៅ EXR
+codec.exr.feature.subsampled = ឆានែលរងគំរូ EXR
+codec.exr.msg.no_channels = ឯកសារ OpenEXR មិនមានឆានែលរូបភាពទេ។
+codec.exr.msg.write_failed = មិនអាចសរសេរឯកសារ OpenEXR បានទេ៖ {error}

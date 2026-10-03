@@ -14,6 +14,23 @@ dialog.export.dither = ডিথার
 dialog.export.dither_note = ৮-বিটে নামানোর সময় ডিথার করুন
 dialog.export.effort = প্রচেষ্টা
 dialog.export.export_ellipsis = রপ্তানি করুন…
+dialog.export.exr_samples = স্যাম্পল
+dialog.export.exr_half = হাফ ফ্লোট (১৬-বিট)
+dialog.export.exr_float = ফ্লোট (৩২-বিট)
+dialog.export.exr_compression = সংকোচন
+dialog.export.exr_compression.none = কোনোটি নয়
+dialog.export.exr_compression.rle = RLE
+dialog.export.exr_compression.zips = ZIP, একটি স্ক্যানলাইন
+dialog.export.exr_compression.zip = ZIP, ১৬টি স্ক্যানলাইন
+dialog.export.exr_compression.piz = PIZ (ওয়েভলেট)
+dialog.export.exr_compression.pxr24 = PXR24 (ফ্লোটের জন্য লসি)
+dialog.export.exr_compression.b44 = B44 (লসি)
+dialog.export.exr_compression.b44a = B44A (লসি)
+dialog.export.exr_layers = লেয়ারসমূহ
+dialog.export.exr_layers_note = প্রতিটি দৃশ্যমান লেয়ারকেও EXR লেয়ার হিসেবে লিখুন
+dialog.export.exr_alpha = আলফা
+dialog.export.exr_alpha_note = আলফা চ্যানেল লিখুন
+dialog.export.exr_linear_note = EXR রৈখিক আলো সংরক্ষণ করে। এই ৮- বা ১৬-বিট নথিটি এক্সপোর্টের সময় তার রঙ প্রোফাইলের মাধ্যমে রৈখিক ফ্লোটে ডিকোড করা হয়।
 
 # ছবি প্রক্রিয়াকরণ
 dialog.batch.title = ছবি প্রক্রিয়া করুন

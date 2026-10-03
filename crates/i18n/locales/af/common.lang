@@ -237,6 +237,7 @@ common.filetype.jpeg = JPEG-beeld
 common.filetype.webp = WebP-beeld
 common.filetype.tiff = TIFF-beeld
 common.filetype.heic = HEIC-beeld
+common.filetype.exr = OpenEXR-beeld
 common.filetype.raw = Camera Raw-beeld
 common.filetype.affinity = Affinity-dokument
 common.filetype.image = Beeld

@@ -234,6 +234,7 @@ common.filetype.jpeg = Suuraa JPEG
 common.filetype.webp = Suuraa WebP
 common.filetype.tiff = Suuraa TIFF
 common.filetype.heic = Suuraa HEIC
+common.filetype.exr = Suuraa OpenEXR
 common.filetype.raw = Suuraa Raw Kaameraa
 common.filetype.affinity = Galmee Affinity
 common.filetype.image = Suuraa

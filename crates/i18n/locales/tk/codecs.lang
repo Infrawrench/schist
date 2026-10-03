@@ -40,6 +40,7 @@ codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
 codec.ora.name = OpenRaster
 codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = Gatlakly surat faýly zaýalanan ýa-da doly däl.
 codec.layered.too_large = Gatlakly suratyň ölçegi ýa-da gatlaklarynyň sany goldanylýan çäkden geçýär.
 codec.layered.unsupported = Bu faýl goldanylmaýan aýratynlygy ulanýar: {feature}.
@@ -65,3 +66,8 @@ codec.xcf.feature.floating_selection = XCF ýüzýän saýlawy
 codec.xcf.feature.layer_effects = XCF gatlak effektleri
 codec.xcf.feature.precision = XCF takyklygy
 codec.xcf.feature.version = XCF wersiýasy
+
+codec.exr.feature.deep = EXR çuň maglumatlary
+codec.exr.feature.subsampled = EXR pes nusga alnan kanallar
+codec.exr.msg.no_channels = OpenEXR faýlynda hiç hili surat kanaly ýok.
+codec.exr.msg.write_failed = OpenEXR faýlyny ýazyp bolmady: {error}

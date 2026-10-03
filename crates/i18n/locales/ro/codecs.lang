@@ -39,6 +39,7 @@ codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
 codec.ora.name = OpenRaster
 codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = Fișierul imaginii cu straturi este deteriorat sau incomplet.
 codec.layered.too_large = Imaginea cu straturi depășește dimensiunea sau numărul de straturi acceptat.
 codec.layered.unsupported = Acest fișier folosește o funcționalitate neacceptată: {feature}.
@@ -64,3 +65,8 @@ codec.xcf.feature.floating_selection = selecție flotantă XCF
 codec.xcf.feature.layer_effects = efecte de strat XCF
 codec.xcf.feature.precision = precizie XCF
 codec.xcf.feature.version = versiune XCF
+
+codec.exr.feature.deep = date profunde EXR
+codec.exr.feature.subsampled = canale subeșantionate EXR
+codec.exr.msg.no_channels = Fișierul OpenEXR nu conține canale de imagine.
+codec.exr.msg.write_failed = Fișierul OpenEXR nu a putut fi scris: {error}

@@ -237,6 +237,7 @@ common.filetype.jpeg = JPEG-bilete
 common.filetype.webp = WebP-bilete
 common.filetype.tiff = TIFF-bilete
 common.filetype.heic = HEIC-bilete
+common.filetype.exr = OpenEXR-bilete
 common.filetype.raw = Råbilete frå kamera
 common.filetype.affinity = Affinity-dokument
 common.filetype.image = Bilete

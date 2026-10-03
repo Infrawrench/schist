@@ -19,6 +19,23 @@ dialog.export.dither_note = Dither when reducing to 8-bit
 # How hard a JPEG XL or AVIF encoder works: higher is slower and smaller.
 dialog.export.effort = Effort
 dialog.export.export_ellipsis = Export…
+dialog.export.exr_samples = Samples
+dialog.export.exr_half = Half float (16-bit)
+dialog.export.exr_float = Float (32-bit)
+dialog.export.exr_compression = Compression
+dialog.export.exr_compression.none = None
+dialog.export.exr_compression.rle = RLE
+dialog.export.exr_compression.zips = ZIP, one scanline
+dialog.export.exr_compression.zip = ZIP, 16 scanlines
+dialog.export.exr_compression.piz = PIZ (wavelet)
+dialog.export.exr_compression.pxr24 = PXR24 (lossy for float)
+dialog.export.exr_compression.b44 = B44 (lossy)
+dialog.export.exr_compression.b44a = B44A (lossy)
+dialog.export.exr_layers = Layers
+dialog.export.exr_layers_note = Also write each visible layer as an EXR layer
+dialog.export.exr_alpha = Alpha
+dialog.export.exr_alpha_note = Write an alpha channel
+dialog.export.exr_linear_note = EXR stores linear light. This 8- or 16-bit document is decoded through its colour profile to linear float on export.
 
 # Process Photos (the gallery's batch dialog)
 dialog.batch.title = Process Photos
