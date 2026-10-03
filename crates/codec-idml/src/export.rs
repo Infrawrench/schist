@@ -867,10 +867,16 @@ pub(crate) fn story_native_body(
                 );
                 out.push_str("</ParagraphStyleRange>");
             }
-            StoryPoint::ColumnBreak | StoryPoint::PageBreak | StoryPoint::FrameBreak => {
+            StoryPoint::ColumnBreak
+            | StoryPoint::PageBreak
+            | StoryPoint::FrameBreak
+            | StoryPoint::OddPageBreak
+            | StoryPoint::EvenPageBreak => {
                 let kind = match point {
                     StoryPoint::ColumnBreak => "NextColumn",
                     StoryPoint::FrameBreak => "NextFrame",
+                    StoryPoint::OddPageBreak => "NextOddPage",
+                    StoryPoint::EvenPageBreak => "NextEvenPage",
                     _ => "NextPage",
                 };
                 out.push_str(&format!(r#"<ParagraphStyleRange AppliedParagraphStyle="ParagraphStyle/$ID/[No paragraph style]"><CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" ParagraphBreakType="{kind}"><Br/></CharacterStyleRange></ParagraphStyleRange>"#));

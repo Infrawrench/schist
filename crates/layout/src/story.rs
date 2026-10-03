@@ -28,6 +28,10 @@ pub enum Point {
     ColumnBreak,
     /// A page break, which forces a new page when the story spans one.
     PageBreak,
+    /// A forced break to a later odd-numbered page in the thread.
+    OddPageBreak,
+    /// A forced break to a later even-numbered page in the thread.
+    EvenPageBreak,
     /// A linked-frame break: everything after this starts in the next
     /// frame of the thread. This is what a story editor inserts when the
     /// user says "put the rest over there".
@@ -50,7 +54,12 @@ impl Point {
     pub fn is_forced_break(&self) -> bool {
         matches!(
             self,
-            Point::LineBreak | Point::ColumnBreak | Point::PageBreak | Point::FrameBreak
+            Point::LineBreak
+                | Point::ColumnBreak
+                | Point::PageBreak
+                | Point::OddPageBreak
+                | Point::EvenPageBreak
+                | Point::FrameBreak
         )
     }
 }

@@ -653,6 +653,9 @@ struct FlowCursor {
     offset: usize,
     break_index: usize,
     last: Option<break_flow::Location>,
+    /// Page on which the pending explicit numbered-page break was encountered.
+    /// Each consecutive zero-width break starts its own transition.
+    break_origin: Option<break_flow::Location>,
 }
 
 struct ColumnFlow {
@@ -702,14 +705,20 @@ fn fill_columns(
                 .get(out.next.break_index)
                 .filter(|(_, at)| *at == out.next.offset)
             {
-                let advance = event.advance(out.next.last, here);
+                let previous = if event.numbered_page() {
+                    Some(*out.next.break_origin.get_or_insert(here))
+                } else {
+                    out.next.last
+                };
+                let advance = event.advance(previous, here);
                 if event.explicit() {
                     // A leading explicit break also leaves the initial
                     // container, even before the first source character.
                     out.next.last.get_or_insert(here);
                 }
-                if event.explicit() || advance.is_none() {
+                if event.unconditional() || advance.is_none() {
                     out.next.break_index += 1;
+                    out.next.break_origin = None;
                 }
                 if let Some(boundary) = advance {
                     out.stop_page = boundary == break_flow::Boundary::Page;
@@ -834,9 +843,9 @@ fn compose_thread_plain(
         .filter(|_| doc.footnotes.no_splitting != Some(true))
         .map(|notes| split_footnotes::Flow::new(doc, notes));
     let text_end = story.text_len();
-    // Markers and constrained blank paragraphs still need a destination even
-    // without source bytes. Ordinary untouched blank stories retain an
-    // insertion point without reporting overset text.
+    // Markers, explicit destination breaks and constrained blank paragraphs
+    // still need a destination without source bytes. Ordinary untouched blank
+    // stories retain an insertion point without reporting overset text.
     let has_content = text_end > 0
         || story.points.iter().any(|point| match point {
             Point::Paragraph { style, .. } => {
@@ -847,6 +856,11 @@ fn compose_thread_plain(
                         None | Some(crate::styles::ParagraphStart::Anywhere)
                     )
             }
+            Point::ColumnBreak
+            | Point::FrameBreak
+            | Point::PageBreak
+            | Point::OddPageBreak
+            | Point::EvenPageBreak => true,
             _ => false,
         });
     // A terminal empty paragraph has no source bytes, but still owns a line.
@@ -860,6 +874,7 @@ fn compose_thread_plain(
     // event index separately so a break never consumes the next character.
     let breaks = break_flow::events(doc, story);
     let mut break_index = 0;
+    let mut break_origin = None;
     let mut last_location = None;
     let mut skip_page = None;
 
@@ -930,6 +945,7 @@ fn compose_thread_plain(
                     offset: cursor,
                     break_index,
                     last: last_location,
+                    break_origin,
                 },
                 total,
                 std::slice::from_ref(bounds),
@@ -942,6 +958,7 @@ fn compose_thread_plain(
             );
             cursor = flow.next.offset;
             break_index = flow.next.break_index;
+            break_origin = flow.next.break_origin;
             last_location = flow.next.last;
             if flow.stop_page {
                 skip_page = Some(page_key);
@@ -1014,14 +1031,23 @@ fn compose_thread_plain(
             if story.prefs.direction == crate::StoryDirection::RightToLeft {
                 columns.reverse();
             }
-            // A newly reached frame can already satisfy its opening start
-            // constraint. Resolve it before deciding whether the remaining
+            // A newly reached frame can already satisfy its pending numbered
+            // break or opening start constraint. Resolve it before deciding whether the remaining
             // text can balance; the policy must not disable final balancing.
             while let Some((event, _)) = breaks.get(break_index).filter(|(_, at)| *at == cursor) {
-                if event.explicit() || event.advance(last_location, location).is_some() {
+                let previous = if event.numbered_page() {
+                    if break_origin.is_none() {
+                        break;
+                    }
+                    break_origin
+                } else {
+                    last_location
+                };
+                if event.unconditional() || event.advance(previous, location).is_some() {
                     break;
                 }
                 break_index += 1;
+                break_origin = None;
             }
             let spanning =
                 source.notes.is_some() && columns.len() > 1 && note_options.straddle == Some(true);
@@ -1046,6 +1072,7 @@ fn compose_thread_plain(
                 offset: cursor,
                 break_index,
                 last: last_location,
+                break_origin,
             };
             let flow = if let Some(notes) = &mut split_notes {
                 notes.fill_frame(
@@ -1114,6 +1141,7 @@ fn compose_thread_plain(
             };
             cursor = flow.next.offset;
             break_index = flow.next.break_index;
+            break_origin = flow.next.break_origin;
             last_location = flow.next.last;
             if flow.stop_page {
                 skip_page = Some(page_key);

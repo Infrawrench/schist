@@ -18,7 +18,11 @@ pub(super) fn enforce(
         .filter_map(|(point, at)| {
             matches!(
                 point,
-                Point::ColumnBreak | Point::FrameBreak | Point::PageBreak
+                Point::ColumnBreak
+                    | Point::FrameBreak
+                    | Point::PageBreak
+                    | Point::OddPageBreak
+                    | Point::EvenPageBreak
             )
             .then_some(at)
         })

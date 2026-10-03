@@ -53,17 +53,6 @@ fn visit(
             );
         }
         "CharacterStyleRange" => {
-            if matches!(
-                element
-                    .attr("ParagraphBreakType")
-                    .or_else(|| element.attr("GoToNextX")),
-                Some("NextOddPage" | "NextEvenPage")
-            ) {
-                let message = schist_i18n::t("design.idml_page_parity").to_string();
-                if !report.skipped.contains(&message) {
-                    report.skip(message);
-                }
-            }
             let base = refs.character(element.attr("AppliedCharacterStyle").unwrap_or_default());
             let mut local = style_codec::character_properties(element, colors, refs, report);
             let name = if local == CharacterStyle::default() {
@@ -287,7 +276,9 @@ impl StoryBuilder {
                 let forced = match next {
                     "NextColumn" => Some(StoryPoint::ColumnBreak),
                     "NextFrame" => Some(StoryPoint::FrameBreak),
-                    "NextPage" | "NextOddPage" | "NextEvenPage" => Some(StoryPoint::PageBreak),
+                    "NextPage" => Some(StoryPoint::PageBreak),
+                    "NextOddPage" => Some(StoryPoint::OddPageBreak),
+                    "NextEvenPage" => Some(StoryPoint::EvenPageBreak),
                     _ => None,
                 };
                 if forced.is_none()

@@ -217,8 +217,7 @@ column/frame/page destinations. The public specification's examples 48–50
 make these distinctions explicit; earlier code and tests incorrectly treated
 Br as a soft break. The writer now emits native paragraph delimiters and
 uses character references for soft line feeds. Structural breaks retain their
-kind through repeated saves. Odd/even page parity currently degrades to an
-ordinary page break with a warning.
+kind through repeated saves, including odd/even numbered page destinations.
 
 **A text frame** names its story and threads to the next one:
 
@@ -1954,8 +1953,8 @@ Logical column order follows the story direction. Path threads and mixed writing
 regions use the same boundary state. Main-story constraints also retain whole and
 continued footnotes, with trial cursors isolated during fitting. Note-body start
 constraints remain retained and preflighted as unsupported structured content;
-they are not silently treated as Anywhere. Explicit native Br odd/even variants
-remain a separate diagnosed limitation.
+they are not silently treated as Anywhere. Explicit native Br odd/even variants are retained and composed as separate
+forced-break points, as described below.
 
 Paragraph exposes the choices in its collapsed Keep options group. Edits capture
 the named style, preserve unrelated native/legacy keep settings and undo once.
@@ -1970,3 +1969,34 @@ one/two. Process and spot plates match exactly at 72/144/216 dpi. The 24-page PD
 matches its controls in both Poppler image samples and rendered pages, and every
 page has been visually inspected. This does not establish native application
 agreement. The proof runs as part of `make check-design-output`.
+
+
+### Explicit numbered page breaks
+
+ParagraphBreakType and GoToNextX values NextOddPage/NextEvenPage now retain
+separate zero-width OddPageBreak/EvenPageBreak story points and history snapshots.
+Native export writes their exact ParagraphBreakType destination. The obsolete
+ordinary-page approximation warning is no longer emitted. Public corpus evidence
+currently includes one NextPage break; the odd/even cases use specification-based
+fixtures, not external application renders.
+
+The [public break-character reference](https://helpx.adobe.com/indesign/desktop/format-and-style-text/composition-and-text-wrapping/paragraph-break-options-in-indesign.html)
+specifies a later numbered page of matching parity with a threaded frame. Each
+explicit break remembers its own originating page until that destination is
+reached, independently of source offsets and the prior painted text. Consecutive
+breaks therefore each advance, including before the first character or an empty
+paragraph. Section restarts select parity. Unavailable destinations leave source
+or the terminal empty paragraph overset. Text edits, snapshot serialization and
+undo retain break identity and refuse replacements across protected breaks.
+
+That origin travels with each trial cursor through balanced columns and whole or
+split notes. Path containers use the same transition. Focused properties cover
+these rules and repeated native saves; independent plate controls cover every
+destination, one/two columns, both story directions and numbered sections.
+Full native application placement agreement remains unverified.
+
+The combined paragraph-start/explicit-break proof now contains 48 pages. Native
+and independent control plates match at three resolutions; both Poppler extracted
+samples and rendered pairs agree exactly. The 24 new pages pass visual inspection,
+and the first 24 match the previously visually reviewed proof pixel-for-pixel.
+The full roadmap sweep passes; current counts and GUI limitations are in Handoff.

@@ -8,6 +8,14 @@ use schist_layout::{
 };
 
 pub fn document(reference: bool, columns: u16, reverse: bool) -> LayoutDocument {
+    document_for(false, reference, columns, reverse)
+}
+
+pub fn forced_document(reference: bool, columns: u16, reverse: bool) -> LayoutDocument {
+    document_for(true, reference, columns, reverse)
+}
+
+fn document_for(forced: bool, reference: bool, columns: u16, reverse: bool) -> LayoutDocument {
     let mut doc = LayoutDocument::new(vec![Page::new("proof", 200.0, 200.0); 3]);
     doc.pages[0].section = Some(Section {
         start: if reverse { 2 } else { 1 },
@@ -59,7 +67,7 @@ pub fn document(reference: bool, columns: u16, reverse: bool) -> LayoutDocument 
         doc.styles.add_paragraph(ParagraphStyle {
             name: name.into(),
             based_on: Some("Main".into()),
-            start_paragraph: (!reference).then_some(policy),
+            start_paragraph: (!reference && !forced).then_some(policy),
             fill: Some(after_ink.clone()),
             fill_tint: Some(0.7),
             ..Default::default()
@@ -144,6 +152,19 @@ pub fn document(reference: bool, columns: u16, reverse: bool) -> LayoutDocument 
             }
             let id = story_id.unwrap();
             let mut story = Story::from_text("pre", "Main");
+            if forced {
+                use schist_layout::StoryPoint;
+                if let Some(point) = match policy {
+                    ParagraphStart::Anywhere => None,
+                    ParagraphStart::NextColumn => Some(StoryPoint::ColumnBreak),
+                    ParagraphStart::NextFrame => Some(StoryPoint::FrameBreak),
+                    ParagraphStart::NextPage => Some(StoryPoint::PageBreak),
+                    ParagraphStart::NextOddPage => Some(StoryPoint::OddPageBreak),
+                    ParagraphStart::NextEvenPage => Some(StoryPoint::EvenPageBreak),
+                } {
+                    story.points.push(point);
+                }
+            }
             story.push_paragraph("café", name);
             story.prefs.direction = if reverse {
                 StoryDirection::RightToLeft

@@ -207,6 +207,8 @@ pub enum StoryPointSnapshot {
     LineBreak,
     ColumnBreak,
     PageBreak,
+    OddPageBreak,
+    EvenPageBreak,
     FrameBreak,
     Other { kind: String, payload: String },
 }

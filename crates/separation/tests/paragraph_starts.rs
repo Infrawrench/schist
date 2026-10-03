@@ -3,13 +3,22 @@ mod proof;
 
 #[test]
 fn paragraph_destinations_match_independent_frames_in_every_plate() {
+    compare(proof::document);
+}
+
+#[test]
+fn explicit_break_destinations_match_independent_frames_in_every_plate() {
+    compare(proof::forced_document);
+}
+
+fn compare(document: fn(bool, u16, bool) -> schist_layout::LayoutDocument) {
     schist_text_engine::add_font_data(
         include_bytes!("../../../web/fonts/IBMPlexSans-Regular.ttf").to_vec(),
     );
     for columns in [1, 2] {
         for reverse in [false, true] {
-            let actual = proof::document(false, columns, reverse);
-            let expected = proof::document(true, columns, reverse);
+            let actual = document(false, columns, reverse);
+            let expected = document(true, columns, reverse);
             for dpi in [72.0, 144.0, 216.0] {
                 for page in 0..3 {
                     let settings = schist_separation::OutputSettings::at(dpi);

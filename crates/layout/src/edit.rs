@@ -669,6 +669,12 @@ fn story_from(snapshot: &StorySnapshot) -> crate::story::Story {
                 crate::history::StoryPointSnapshot::LineBreak => crate::story::Point::LineBreak,
                 crate::history::StoryPointSnapshot::ColumnBreak => crate::story::Point::ColumnBreak,
                 crate::history::StoryPointSnapshot::PageBreak => crate::story::Point::PageBreak,
+                crate::history::StoryPointSnapshot::OddPageBreak => {
+                    crate::story::Point::OddPageBreak
+                }
+                crate::history::StoryPointSnapshot::EvenPageBreak => {
+                    crate::story::Point::EvenPageBreak
+                }
                 crate::history::StoryPointSnapshot::FrameBreak => crate::story::Point::FrameBreak,
                 crate::history::StoryPointSnapshot::Other { kind, payload } => {
                     crate::story::Point::Other {
@@ -704,6 +710,12 @@ pub fn snapshot_story(story: &crate::story::Story) -> StorySnapshot {
                 crate::story::Point::LineBreak => crate::history::StoryPointSnapshot::LineBreak,
                 crate::story::Point::ColumnBreak => crate::history::StoryPointSnapshot::ColumnBreak,
                 crate::story::Point::PageBreak => crate::history::StoryPointSnapshot::PageBreak,
+                crate::story::Point::OddPageBreak => {
+                    crate::history::StoryPointSnapshot::OddPageBreak
+                }
+                crate::story::Point::EvenPageBreak => {
+                    crate::history::StoryPointSnapshot::EvenPageBreak
+                }
                 crate::story::Point::FrameBreak => crate::history::StoryPointSnapshot::FrameBreak,
                 crate::story::Point::Other { kind, payload } => {
                     crate::history::StoryPointSnapshot::Other {

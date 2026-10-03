@@ -311,6 +311,42 @@ are marked.
 ## Handoff
 
 
+Explicit numbered breaks and dropdown placement, 2026-10-03:
+Native paragraph starts are pushed as `9acfea7e` in draft PR #195. Browser QA of
+that exact commit verifies destination edits, one-step undo/redo and the combined
+inherit reset, but reproduces clipped last choices when the conditional line
+counts push the picker near the window bottom. All editor dropdowns now use
+window-constrained anchored popovers, including short inspector menus; the fix
+compiles but still needs the rebuilt browser review.
+
+The next item 9 regression reproduces NextOddPage losing its destination during
+native import. OddPageBreak/EvenPageBreak now remain distinct in story points,
+undo snapshots and native saves. Each pending explicit break records its own
+originating page, so consecutive zero-width breaks each advance independently.
+Section restarts control odd/even selection. An additional regression exposed
+ordinary consecutive column/frame/page breaks before an empty paragraph stopping
+in the first frame. Destination instructions now keep that terminal insertion
+line flowing even without source bytes; unavailable destinations remain overset.
+
+Four kernel properties and one native repeated-save property pass, covering
+leading/consecutive breaks, empty/Unicode text, section restarts, box/path threads,
+clipping, protected edits, serialized snapshots, exact undo and balanced whole/
+continued footnotes. Independent process/spot plates match ordinary text-frame
+controls at three resolutions. Focused layout/IDML/editor lints pass. All 16 roadmap targets pass, with **1,855 distinct passing Rust tests**
+(layout 435, IDML 276, separation 197, editor 426, five shared UI checks included;
+one existing UI documentation example ignored), four browser and eight Python
+audit tests. Workspace clippy, native/browser/headless checks, localization,
+formatting and whitespace pass. All 48 proof pages match their controls in Poppler;
+the 24 new pages were visually inspected and the unchanged 24 match the previously
+reviewed proof pixel-for-pixel. The development build passes in 2m 07s; its isolated Design-enabled bundle was
+hash checked and signature verified. CUA still returns cgWindowNotFound. No
+document was opened and only the newly launched QA process was terminated.
+Rebuilt browser popup verification is pending. Four superseded logs and review
+PNGs were removed; regression baselines and reviewed PDFs remain. Logs and QA
+records use `/tmp/schist-parity-breaks-*`. No new user-facing strings. External native application
+placement agreement remains unverified, and the feature stays disabled by default.
+
+
 Native paragraph starts, 2026-10-03:
 Item 9 now retains all six native StartParagraph choices through inheritance,
 local overrides and repeated IDML saves. The compact Keep options group exposes
@@ -345,7 +381,11 @@ and whitespace pass. The full-sweep PDF is byte-identical to the visually review
 artifact. The development build passes in 2m 49s. Its isolated Design-enabled bundle was
 hash checked and signature verified, but CUA still returns cgWindowNotFound.
 No document was opened, and only the newly launched QA process was terminated.
-Browser control review is pending. Five superseded development logs and the
+Browser QA against commit `9acfea7e`'s CI artifact verifies collapsed defaults,
+start-choice commits, undo/redo and the single-step combined inherit reset. It
+also finds a real dropdown defect: with line counts visible, the menu extends
+below the 1690×897 window and clips its final choices. A shared popup placement
+fix is required before this control review passes. Five superseded development logs and the
 review PNGs were removed; baseline failures, full results and the reviewed PDF
 remain. Logs and QA records use `/tmp/schist-paragraph-starts-*`.
 
