@@ -310,6 +310,42 @@ are marked.
 
 ## Handoff
 
+
+Letter-count nested rules, 2026-10-03:
+Letters now counts Unicode Letter scalars and keeps cuts on whole graphemes.
+Numbers, combining marks, punctuation and symbols cannot consume the count.
+Ordered no-style spans and repeated sequences share the source cursor. The two
+new source-range properties fail on the previous implementation and pass with
+the fix. Explicit Unicode examples include Roman numerals, standalone marks,
+emoji and a Hangul grapheme containing multiple letters, across every source
+continuation slice. Category support reuses an existing transitive dependency.
+The policy is documented; complete native Unicode agreement remains unverified.
+
+Four new properties cover source spans, both separation paths and repeated native
+saves without generated aliases. All process/spot plates match independent explicit
+ranges at three resolutions, including empty spans and actual split notes whose
+generated labels contain letters. All eight pairs in the 16-page proof match
+extracted samples and Poppler renders, pass visual review, and match final renders.
+All 40 recorded prior PDF proofs remain byte-identical.
+
+All 16 roadmap targets, shared UI, formatting and whitespace checks pass:
+**2,021 distinct Rust tests**, four browser checks and eight Python audit tests;
+one existing shared UI documentation example remains ignored. Native debug build
+passes in 5m 08s; the isolated Design-enabled QA bundle is refreshed and
+hash/signature verified. No UI or locale keys change. Evidence is under
+`/tmp/schist-nested-letters-*`; the two applied temporary Rust drafts and
+357 superseded test executables were removed. Old proof-generator executables
+were also removed; source, current artifacts, PDFs and verification logs remain.
+Prepared for draft PR #195. Repeated sequences are published as `ebcd2d48` below.
+
+Sentence boundaries still need more evidence: native numbering examples contradict
+counting every period. Review of the next structural-marker gap found that Content
+processing instructions other than typed note markers are lost during decoding.
+The existing public PSU fixtures contain four auto-page-number instructions. The
+next regression will cover instruction retention, formatting context, source
+anchors and existing diagnostics before typed composition is added. INDD remains
+spike-gated. Continue locally without waiting for CI, per the user's instruction.
+
 Repeated nested sequences, 2026-10-03:
 A bounded no-style Repeat control now loops the requested suffix of supported
 ordinary rules. Preceding rules run once; later records stay preserved but inactive.

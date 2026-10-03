@@ -18,6 +18,7 @@ hypher = { version = "=0.1.8", default-features = false, features = ["alloc", "e
 unicode-normalization = "0.1.25"
 unicode-segmentation = "1.12"
 unicode-script = "0.5"
+unicode-properties = { version = "0.1.4", default-features = false, features = ["general-category"] }
 
 [dev-dependencies]
 

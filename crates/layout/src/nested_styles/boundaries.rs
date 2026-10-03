@@ -1,9 +1,11 @@
 //! Source boundaries for the supported ordered native rules.
 use super::{CharacterStyle, Delimiter, NestedStyle};
+use unicode_properties::{GeneralCategoryGroup, UnicodeGeneralCategory};
 
 enum Kind<'a> {
     Characters(&'a str),
     Digits,
+    Letters,
     Character(char),
     AnyCharacter,
     Word,
@@ -17,6 +19,7 @@ fn kind(delimiter: &Delimiter) -> Option<Kind<'_>> {
             "AnyCharacter" => Kind::AnyCharacter,
             "AnyWord" => Kind::Word,
             "Digits" => Kind::Digits,
+            "Letters" => Kind::Letters,
             "Tabs" => Kind::Character('\t'),
             "ForcedLineBreak" => Kind::Character('\u{2028}'),
             "EmSpace" => Kind::Character('\u{2003}'),
@@ -102,6 +105,12 @@ pub(super) fn end(text: &str, rule: &NestedStyle) -> usize {
             Kind::Digits => text[start..end]
                 .chars()
                 .filter(char::is_ascii_digit)
+                .count(),
+            // Count Letter scalars, excluding NumberLetter and combining marks.
+            // The enclosing grapheme still determines the only legal cut.
+            Kind::Letters => text[start..end]
+                .chars()
+                .filter(|c| c.general_category_group() == GeneralCategoryGroup::Letter)
                 .count(),
             Kind::Character(value) => text[start..end].chars().filter(|c| *c == value).count(),
         };

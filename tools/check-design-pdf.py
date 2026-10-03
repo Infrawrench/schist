@@ -863,3 +863,18 @@ if len(sys.argv) > 39:
                 assert actual.tobytes() == expected.tobytes(), (prefix, index, "repeated nested differs from explicit source character ranges")
                 assert min(v[0] for v in actual.getextrema()) < 150, (prefix, index, "empty repeated nested proof")
     print("Design PDF: repeated nested styles match explicit source ranges across writing modes, overrides, whole/split notes, affine placement and process/spot inks.")
+
+if len(sys.argv) > 40:
+    with tempfile.TemporaryDirectory(prefix="schist-nested-letters-check-") as temporary:
+        for prefix, args in [("samples", ["pdfimages", "-png"]), ("pages", ["pdftoppm", "-r", "144", "-png"])]:
+            result = subprocess.run(args + [sys.argv[40], str(Path(temporary)/prefix)], capture_output=True, text=True)
+            assert result.returncode == 0 and not result.stderr.strip(), result.stderr
+            files = sorted(Path(temporary).glob(prefix + "-*.png"))
+            assert len(files) == 16, (prefix, len(files))
+            for index in range(0, len(files), 2):
+                actual = Image.open(files[index]).convert("RGB")
+                expected = Image.open(files[index+1]).convert("RGB")
+                assert actual.size == expected.size == (840, 640), (prefix, index, actual.size)
+                assert actual.tobytes() == expected.tobytes(), (prefix, index, "nested letter differs from explicit source character ranges")
+                assert min(v[0] for v in actual.getextrema()) < 150, (prefix, index, "empty nested letter proof")
+    print("Design PDF: nested letter styles match explicit source ranges across writing modes, overrides, whole/split notes, affine placement and process/spot inks.")

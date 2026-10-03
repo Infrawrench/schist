@@ -2333,7 +2333,7 @@ cluster behavior. Rules restart at each source paragraph, never at a wrapped
 line or inserted reference. A leading canonical Dropcap can precede the other
 supported rules. Source character overrides retain precedence.
 
-Unknown or invalid active bounds stop the supported prefix. Sentence/letter rules,
+Unknown or invalid active bounds stop the supported prefix. Sentence rules,
 unverified Repeat forms and structural delimiters remain unsupported. A no-style
 unknown rule can affect other named rules and remains
 diagnosed; entirely no-style lists cannot change formatting. Source diagnostics
@@ -2390,7 +2390,7 @@ the same source-derived formatting. Independent explicit ranges cover Unicode,
 nonbreaking spaces, excluded delimiters, long counts, vertical writing and affine
 placement in all process/spot plates at 72/144/216 dpi. The 16-page PDF proof is
 part of `make check-design-output`; local visual verification is recorded in
-Roadmap / Handoff. Sentence, Letters and structural delimiters remain retained and unsupported;
+Roadmap / Handoff. Sentence and structural delimiters remain retained and unsupported;
 the supported Repeat subset is described below.
 
 
@@ -2428,3 +2428,39 @@ paths, including actual split notes. Repeated saves preserve source, ordered
 records, rendered specifications and typed paint. The new 16-page proof is part
 of `make check-design-output`; visual review and full local checks are recorded
 in Roadmap / Handoff.
+
+
+### Letter-count nested rules
+
+The public [user manual](https://helpx.adobe.com/content/dam/help/en/pdf/indesign_reference.pdf),
+printed page 326, describes Letters by excluding punctuation, whitespace, digits
+and symbols. The published IDML schema names the enumeration `Letters`. Its full
+Unicode policy is not specified, and no populated native Letters record or
+external composer agreement has been verified.
+
+Schist counts Unicode Letter scalars (Lu/Ll/Lt/Lm/Lo), using the
+[general-category API](https://docs.rs/unicode-properties/0.1.4/unicode_properties/trait.UnicodeGeneralCategory.html)
+of the already-transitive `unicode-properties` dependency. NumberLetter and
+NumberOther, combining marks, punctuation, whitespace and symbols do not count.
+This explicit policy is narrower than Rust's Alphabetic property: a Roman numeral
+or standalone vowel mark is not a letter here. A through/up-to cut includes or
+excludes the whole grapheme containing the requested letter. Multiple letter
+scalars in one grapheme count separately but share the same legal cut boundaries.
+A missing requested letter consumes the paragraph remainder.
+
+These rules share the ordered source cursor with no-style spans and Repeat.
+Generated footnote labels never consume letters, including when the source span
+is empty; an initial or authored character range retains its existing precedence.
+Unicode properties compare independent byte endpoints through every continuation
+slice. Independent source/control documents cover vertical writing, affine
+placement, canonical initials, missing bounds, empty spans and whole/split notes.
+Repeated native saves preserve rules, editable source, rendered specifications
+and typed paint without exporting temporary aliases. The 16-page letter proof
+and local verification are recorded in Roadmap / Handoff.
+
+Sentence rules remain diagnosed. In a [first-person native test](https://community.adobe.com/questions-671/heading-and-text-in-same-line-868756),
+internal periods in a numbered heading form one sentence boundary. A second
+[native report](https://community.adobe.com/questions-671/nested-styles-help-902306)
+shows an abbreviation ending a first-sentence rule early. These observations do
+not establish exact quote, punctuation-run or through/up-to endpoints. Counting
+every period as a separate sentence would contradict the heading evidence.

@@ -7013,6 +7013,7 @@ dependencies = [
  "serde",
  "serde_json",
  "unicode-normalization",
+ "unicode-properties",
  "unicode-script",
  "unicode-segmentation",
 ]

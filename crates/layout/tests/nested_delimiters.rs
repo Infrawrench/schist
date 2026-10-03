@@ -521,3 +521,81 @@ fn ordered_word_rules_advance_past_excluded_and_repeated_leading_separators() {
         );
     }
 }
+
+#[test]
+fn letter_rules_count_unicode_letters_and_keep_whole_graphemes() {
+    // Independent Unicode examples: NumberLetter/NumberOther are not letters;
+    // neither are standalone/attached marks, punctuation or emoji. A grapheme
+    // with two Hangul letter scalars still has only two legal cut boundaries.
+    for (text, letters) in [
+        (
+            "7- E\u{301}ß中 tail",
+            vec![
+                (3, 6),
+                (6, 8),
+                (8, 11),
+                (12, 13),
+                (13, 14),
+                (14, 15),
+                (15, 16),
+            ],
+        ),
+        ("Ⅰ²⅓_שָ🙂A", vec![(9, 13), (17, 18)]),
+        ("\u{301}אָB", vec![(2, 6), (6, 7)]),
+        ("\u{1100}\u{1161}z", vec![(0, 6), (0, 6), (6, 7)]),
+        ("123?!🙂", Vec::new()),
+    ] {
+        for count in [1, 2, 3, 5, i32::MAX] {
+            for inclusive in [false, true] {
+                let end = letters
+                    .get(count as usize - 1)
+                    .map_or(
+                        text.len(),
+                        |(up, through)| if inclusive { *through } else { *up },
+                    );
+                let styles = styles(vec![rule(
+                    Delimiter::Enumeration("Letters".into()),
+                    count,
+                    inclusive,
+                )]);
+                matches_explicit_slices(text, &styles, vec![StyleRange::new(0, end, "Nested")]);
+                assert_eq!(
+                    schist_layout::nested_styles::unsupported(&styles.resolve_paragraph("Source")),
+                    None
+                );
+            }
+        }
+    }
+}
+#[test]
+fn skipped_and_repeated_letter_rules_share_the_source_cursor_without_counting_symbols() {
+    let text = "1-É 2-ß 3-中 4-A tail";
+    // Each two-letter cycle consumes through the first letter without a style,
+    // then styles through the next letter, including intervening nonletters.
+    let mut skip = rule(Delimiter::Enumeration("Letters".into()), 1, true);
+    skip.character_style = NestedCharacter::None;
+    let mut repeat = skip.clone();
+    repeat.delimiter = Delimiter::Enumeration("Repeat".into());
+    repeat.repetition = 2;
+    let styles = styles(vec![
+        skip,
+        rule(Delimiter::Enumeration("Letters".into()), 1, true),
+        repeat,
+    ]);
+    // Construct the independently known selected spans from literal endpoints.
+    let first = text.find('É').unwrap() + 'É'.len_utf8();
+    let second = text.find('ß').unwrap() + 'ß'.len_utf8();
+    let third = text.find('中').unwrap() + '中'.len_utf8();
+    let fourth = text.find('A').unwrap() + 1;
+    let tail = text.find("tail").unwrap();
+    matches_explicit_slices(
+        text,
+        &styles,
+        vec![
+            StyleRange::new(first, second, "Nested"),
+            StyleRange::new(third, fourth, "Nested"),
+            StyleRange::new(tail + 1, tail + 2, "Nested"),
+            StyleRange::new(tail + 3, tail + 4, "Nested"),
+        ],
+    );
+}
