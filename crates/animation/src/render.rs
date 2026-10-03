@@ -111,10 +111,8 @@ pub fn downscale(rgba: &[u8], width: u32, height: u32, max: u32) -> (Vec<u8>, u3
                 }
             }
             let o = ((y * w + x) * 4) as usize;
-            if acc[3] > 0 {
-                for c in 0..3 {
-                    out[o + c] = (acc[c] / acc[3]) as u8;
-                }
+            for c in 0..3 {
+                out[o + c] = acc[c].checked_div(acc[3]).unwrap_or(0) as u8;
             }
             out[o + 3] = (acc[3] / n.max(1)) as u8;
         }
@@ -126,7 +124,7 @@ pub fn downscale(rgba: &[u8], width: u32, height: u32, max: u32) -> (Vec<u8>, u3
 /// by `opacity`.
 pub fn tint(rgba: &[u8], color: [u8; 3], opacity: f32) -> Vec<u8> {
     let opacity = opacity.clamp(0.0, 1.0);
-    rgba.chunks_exact(4)
+    rgba.as_chunks::<4>().0.iter()
         .flat_map(|p| {
             [
                 ((p[0] as u16 + color[0] as u16) / 2) as u8,
@@ -140,7 +138,7 @@ pub fn tint(rgba: &[u8], color: [u8; 3], opacity: f32) -> Vec<u8> {
 
 /// Flatten straight-alpha RGBA8 onto an opaque colour.
 pub(crate) fn over_matte(rgba: &[u8], matte: [u8; 3]) -> Vec<u8> {
-    rgba.chunks_exact(4)
+    rgba.as_chunks::<4>().0.iter()
         .flat_map(|p| {
             let a = p[3] as u32;
             let mix = |c: u8, m: u8| ((c as u32 * a + m as u32 * (255 - a) + 127) / 255) as u8;

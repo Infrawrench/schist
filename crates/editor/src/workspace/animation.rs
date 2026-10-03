@@ -88,8 +88,8 @@ pub(crate) struct AnimationView {
 fn checker_bgra(rgba: &[u8], w: u32) -> Vec<u8> {
     let mut out = vec![0u8; rgba.len()];
     for (i, (p, o)) in rgba
-        .chunks_exact(4)
-        .zip(out.chunks_exact_mut(4))
+        .as_chunks::<4>().0.iter()
+        .zip(out.as_chunks_mut::<4>().0.iter_mut())
         .enumerate()
     {
         let (x, y) = (i as u32 % w.max(1), i as u32 / w.max(1));
@@ -106,7 +106,7 @@ fn checker_bgra(rgba: &[u8], w: u32) -> Vec<u8> {
 }
 
 fn straight_bgra(rgba: &[u8]) -> Vec<u8> {
-    rgba.chunks_exact(4)
+    rgba.as_chunks::<4>().0.iter()
         .flat_map(|p| [p[2], p[1], p[0], p[3]])
         .collect()
 }

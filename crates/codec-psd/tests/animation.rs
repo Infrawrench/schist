@@ -53,7 +53,9 @@ fn animated() -> Document {
 
 /// Each frame's (name, visible, opacity, offset), so two documents with
 /// different layer ids can be compared.
-fn summary(doc: &Document) -> Vec<(u32, Vec<(String, bool, u32, (i32, i32))>)> {
+type LayerSummary = (String, bool, u32, (i32, i32));
+
+fn summary(doc: &Document) -> Vec<(u32, Vec<LayerSummary>)> {
     let t = doc.timeline.as_ref().unwrap();
     (0..t.frames.len())
         .map(|i| {

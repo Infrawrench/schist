@@ -71,7 +71,7 @@ pub fn encode_webp(
     let mut body = Vec::new();
     let alpha = frames
         .iter()
-        .any(|f| f.rgba.chunks_exact(4).any(|p| p[3] != 255));
+        .any(|f| f.rgba.as_chunks::<4>().0.iter().any(|p| p[3] != 255));
     let mut vp8x = vec![ANIMATION | if alpha { ALPHA } else { 0 }, 0, 0, 0];
     vp8x.extend_from_slice(&u24(width - 1));
     vp8x.extend_from_slice(&u24(height - 1));
