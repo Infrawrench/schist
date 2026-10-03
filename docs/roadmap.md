@@ -311,6 +311,47 @@ are marked.
 ## Handoff
 
 
+Native custom text variables, 2026-10-03:
+Literal custom definitions now have shared typed data and main-story references.
+IDML saves emit native definitions/instances with empty caches and generated IDs;
+source text remains unchanged. Guarded document identities and per-story bindings
+survive resource reordering and yield to native edits, deletion and class changes.
+Unsupported definitions remain exact shared recovery data, and instances remain
+unrendered in Schist until composition is connected. No UI or locale keys change.
+
+Thirteen new properties and seven existing variable properties pass. Two failing
+regressions reproduced generated IDs activating unrelated unresolved references,
+including after an external definition edit. The importer now reserves archived
+reference identities by their actual native bindings; missing definitions keep
+separate unresolved identities. Legacy recovery IDs keep their original identity.
+The suite also covers metadata stripping/corruption, same-name resources, all
+source boundaries, inline order, package-wide collisions, source preservation and
+one-step edits. A deletion test was corrected to account for the original native
+instance remaining present after only its definition was deleted.
+IDML clippy passes after correcting a test-only redundant clone. All 16 roadmap
+targets, shared UI, formatting and whitespace checks pass: **2,071 distinct Rust
+tests**, four browser checks and eight Python audit tests; one existing shared UI
+documentation example remains ignored. The source-boundary property covers all
+four combinations of story/identity
+metadata removal. Both reproduced identity regressions and the deleted-binding
+property pass, including legacy recovery instances and three repeated saves.
+All 42 PDF proofs remain
+byte-identical. Native debug build passes in 20m 23s; the isolated Design-enabled
+QA bundle is refreshed and hash/signature verified. Evidence is under
+`/tmp/schist-custom-variables-*`; prepared for draft PR #195. Cleanup reclaimed
+2.3 GiB of superseded test executables, but initially removed a queued executable.
+That interrupted run is retained; the complete rerun rebuilt missing artifacts.
+A later target-boundary cleanup recovered 2.35 GiB of unused incremental caches,
+with no active compiler; builds continue with incremental compilation disabled.
+Source code and tests were unchanged during the rerun.
+
+Next is custom-variable projection, atomic fitting and source mapping through
+main/footnote flows. Native custom output does not establish application rendering
+agreement. Other item 9 gaps and the INDD gate remain. Continue locally without
+waiting for CI.
+
+
+
 Atomic inline wrapping, 2026-10-03:
 TextSpec now accepts transient grapheme-bounded spans which must remain whole
 during wrapping. Adjacent spans remain independent, while ordinary boundary rules
@@ -327,8 +368,8 @@ checks pass: **2,058 distinct Rust tests**, four browser checks and eight Python
 audit tests; one existing shared UI documentation example remains ignored. All
 42 PDF proofs remain byte-identical. Native debug build passes in 7m 34s; the
 isolated Design-enabled QA bundle is refreshed and hash/signature verified.
-Evidence is under `/tmp/schist-atomic-spans-*`. This checkpoint is prepared for
-draft PR #195. Continue locally without waiting for CI.
+Evidence is under `/tmp/schist-atomic-spans-*`. Published as `63e3c7d5` to draft
+PR #195; head, description and draft status were verified without querying CI.
 
 This is wrapping infrastructure for text-variable composition, not live variable
 evaluation or native variable output. Those still need typed shared definitions,

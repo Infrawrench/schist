@@ -95,7 +95,10 @@ pub fn read_package(opened: &DesignPackage<'_>) -> Result<Imported, Error> {
     }
     document.inks = colors.values().cloned().collect();
     document.styles.languages = crate::language_codec::read(opened, &mut report)?;
-    document.retained_text_variables = crate::text_variable_codec::read(opened, &mut report)?;
+    let variables = crate::custom_text_codec::read_package(opened)?;
+    document.retained_text_variables =
+        crate::text_variable_codec::read(opened, &variables, &mut report)?;
+    document.text_variables = variables.definitions;
     document.styles.numbering_lists = crate::list_codec::read_resources(opened, &mut report)?;
     let layers = read_layers(opened, &mut document)?;
     let mut style_roots = Vec::new();
@@ -107,6 +110,7 @@ pub fn read_package(opened: &DesignPackage<'_>) -> Result<Imported, Error> {
         style_roots.push(root);
     }
     let mut style_refs = crate::style_codec::References::new(&style_roots);
+    style_refs.text_variables = variables.references;
     style_refs.languages = document.styles.languages.clone();
     style_refs.strokes = crate::stroke_style_codec::read(opened, &mut report);
     document.styles.strokes = style_refs
@@ -237,9 +241,10 @@ fn read_stories(
             ));
             continue;
         };
-        let decoded = flatten_story(&crate::story_codec::normalize(
+        let mut decoded = flatten_story(&crate::story_codec::normalize(
             story, styles, colors, refs, report,
         ));
+        crate::custom_text_codec::remap(&mut decoded, &refs.text_variables);
         stories.push((
             story.attr("Self").unwrap_or_default().to_owned(),
             crate::structured_story::restore(story, decoded, styles, refs, report),

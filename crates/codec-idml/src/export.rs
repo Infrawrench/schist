@@ -93,6 +93,8 @@ fn write_inner(document: &LayoutDocument, check_identities: bool) -> Written {
 
     out.warnings
         .extend(crate::list_codec::diagnostics(document));
+    let variables =
+        crate::custom_text_codec::Exported::new(&document.text_variables, &mut out.warnings);
     let languages =
         crate::language_codec::ExportLanguages::new(&document.styles, &mut out.warnings);
 
@@ -163,7 +165,14 @@ fn write_inner(document: &LayoutDocument, check_identities: bool) -> Written {
     for ((_, id, path), story) in story_parts.iter().zip(document.stories.iter()) {
         parts.push((
             path.clone(),
-            story_xml(id, story, &document.styles, &mut out.warnings).into_bytes(),
+            story_xml(
+                id,
+                story,
+                &document.styles,
+                &variables.bindings,
+                &mut out.warnings,
+            )
+            .into_bytes(),
         ));
     }
 
@@ -197,8 +206,10 @@ fn write_inner(document: &LayoutDocument, check_identities: bool) -> Written {
     ));
     root.push_str(&crate::text_variable_codec::retain(
         &document.retained_text_variables,
+        &variables.label(),
         &mut out.warnings,
     ));
+    root.push_str(&variables.resources());
     root.push_str(&crate::language_codec::resources(&languages.resources));
     root.push_str(&crate::footnote_codec::write_frame(
         &document.frame_footnote_defaults,
@@ -799,16 +810,18 @@ fn story_xml(
     id: &str,
     story: &Story,
     styles: &schist_layout::StyleSet,
+    variables: &std::collections::BTreeMap<String, String>,
     warnings: &mut Vec<String>,
 ) -> String {
-    let native = story_native_xml(id, story, styles, warnings);
-    crate::structured_story::retain(native, id, story, warnings)
+    let native = story_native_xml(id, story, styles, variables, warnings);
+    crate::structured_story::retain(native, id, story, variables, warnings)
 }
 
 pub(crate) fn story_native_xml(
     id: &str,
     story: &Story,
     styles: &schist_layout::StyleSet,
+    variables: &std::collections::BTreeMap<String, String>,
     warnings: &mut Vec<String>,
 ) -> String {
     let mut out = String::new();
@@ -833,7 +846,14 @@ pub(crate) fn story_native_xml(
         r#"<StoryPreference OpticalMarginAlignment="false" OpticalMarginSize="0" FrameType="TextFrameType" StoryOrientation="{orientation}" StoryDirection="{direction}" />"#,
     ));
 
-    out.push_str(&story_native_body(story, &[], styles, warnings));
+    out.push_str(&story_native_body(
+        story,
+        &[],
+        styles,
+        variables,
+        id,
+        warnings,
+    ));
     out.push_str("</Story></idPkg:Story>");
     out
 }
@@ -842,11 +862,14 @@ pub(crate) fn story_native_body(
     story: &Story,
     markers: &[schist_layout::footnotes::FootnoteMarker],
     styles: &schist_layout::StyleSet,
+    variables: &std::collections::BTreeMap<String, String>,
+    owner: &str,
     warnings: &mut Vec<String>,
 ) -> String {
     let mut out = String::new();
     let automatic = crate::auto_direction::lower(story, styles);
-    let mut inline = crate::footnote_writer::events(story, markers, styles, warnings);
+    let mut inline =
+        crate::footnote_writer::events(story, markers, styles, variables, owner, warnings);
     let offsets = story.point_offsets();
     let mut range_index = 0;
     for (index, point) in story.points.iter().enumerate() {

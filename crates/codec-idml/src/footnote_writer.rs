@@ -9,12 +9,15 @@ pub(crate) struct InlineEvent {
     style: String,
     xml: String,
     emitted: bool,
+    variable: bool,
 }
 
 pub(crate) fn events(
     story: &Story,
     markers: &[FootnoteMarker],
     styles: &StyleSet,
+    variables: &std::collections::BTreeMap<String, String>,
+    owner: &str,
     warnings: &mut Vec<String>,
 ) -> Vec<InlineEvent> {
     let text = story.text();
@@ -26,9 +29,36 @@ pub(crate) fn events(
             style: marker.character_style.clone(),
             xml: "<Content><?ACE 4?></Content>".into(),
             emitted: false,
+            variable: false,
         })
         .collect();
-    for structure in &story.structures {
+    for (index, structure) in story.structures.iter().enumerate() {
+        if let Some((
+            at,
+            schist_layout::story::InlineControl::TextVariable {
+                variable,
+                character_style,
+                name,
+            },
+        )) = structure.at.zip(structure.control.as_ref())
+        {
+            if structure.kind == "TextVariableInstance"
+                && structure.footnote.is_none()
+                && text.is_char_boundary(at)
+            {
+                if let Some(id) = variables.get(variable) {
+                    out.push(InlineEvent {
+                        at,
+                        style: character_style.clone(),
+                        xml: format!(r#"<TextVariableInstance Self="SchistVariableInstance{}_{}" Name="{}" AssociatedTextVariable="{}" ResultText=""/>"#, export::escape(owner), index, export::escape(name), export::escape(id)),
+                        emitted: false,
+                        variable: true,
+                    });
+                }
+            }
+            continue;
+        }
+
         if let Some((at, schist_layout::story::InlineControl::EndNestedStyle { character_style })) =
             structure.at.zip(structure.control.as_ref())
         {
@@ -41,6 +71,7 @@ pub(crate) fn events(
                     style: character_style.clone(),
                     xml: "<Content><?ACE 3?></Content>".into(),
                     emitted: false,
+                    variable: false,
                 });
             }
             continue;
@@ -59,13 +90,21 @@ pub(crate) fn events(
         let xml = format!(
             "<Footnote>{}{}</Footnote>",
             crate::auto_direction::properties(&automatic),
-            export::story_native_body(&note.story, &note.markers, styles, warnings)
+            export::story_native_body(
+                &note.story,
+                &note.markers,
+                styles,
+                variables,
+                &format!("{owner}_note{index}"),
+                warnings
+            )
         );
         out.push(InlineEvent {
             at,
             style: note.reference_character_style.clone(),
             xml,
             emitted: false,
+            variable: false,
         });
     }
     // Stable order matters when several notes or markers share one byte anchor.
@@ -96,8 +135,13 @@ pub(crate) fn paragraph_runs(
                 content(out, &text[cursor..at], style, false);
             }
             out.push_str(&format!(
-                r#"<CharacterStyleRange AppliedCharacterStyle="{}">{}</CharacterStyleRange>"#,
+                r#"<CharacterStyleRange AppliedCharacterStyle="{}"{}>{}</CharacterStyleRange>"#,
                 character_reference(&event.style),
+                if event.variable {
+                    r#" PageNumberType="TextVariable""#
+                } else {
+                    ""
+                },
                 event.xml
             ));
             event.emitted = true;

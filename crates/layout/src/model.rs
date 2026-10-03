@@ -410,6 +410,9 @@ pub struct LayoutDocument {
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
     pub creation_order: Vec<ObjectId>,
     pub stories: Vec<Story>,
+    /// Shared custom text definitions. Names and vector order are not identities.
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub text_variables: Vec<crate::text_variables::TextVariable>,
     /// Opaque native text-variable definitions retained for recovery. Instances
     /// live at source anchors in Story::structures; shared definitions belong
     /// here once per document, never copied into every instance. The layout
@@ -610,6 +613,7 @@ impl LayoutDocument {
             creation_order: Vec::new(),
             stories: Vec::new(),
             retained_text_variables: Vec::new(),
+            text_variables: Vec::new(),
             footnotes: Default::default(),
             frame_footnote_defaults: Default::default(),
             balance_columns_default: false,

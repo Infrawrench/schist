@@ -105,6 +105,13 @@ impl StyleRange {
 pub enum InlineControl {
     /// Ends an ordinary nested character-style rule at this source boundary.
     EndNestedStyle { character_style: String },
+    /// A reference to a shared document definition. Its display value owns no
+    /// editable source bytes. Missing/unsupported definitions remain unresolved.
+    TextVariable {
+        variable: String,
+        character_style: String,
+        name: String,
+    },
 }
 
 /// An anchored native structure, with optional typed composition data.

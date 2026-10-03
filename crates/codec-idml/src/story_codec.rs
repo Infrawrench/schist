@@ -386,7 +386,7 @@ impl StoryBuilder {
                     self.structures.push((
                         self.out.points.len(),
                         schist_layout::StoryStructure {
-                            control: None,
+                            control: crate::custom_text_codec::instance(element, character),
                             at: Some(self.text.len()),
                             kind: name.into(),
                             payload: if name == "TextVariableInstance" {

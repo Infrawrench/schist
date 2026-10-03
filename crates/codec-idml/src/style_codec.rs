@@ -39,6 +39,7 @@ fn align(value: &str) -> Option<Align> {
 /// IDs are opaque; display names need not match Self or be unique across groups.
 #[derive(Default)]
 pub(crate) struct References {
+    pub(crate) text_variables: std::collections::BTreeMap<String, String>,
     pub(crate) languages: Vec<schist_layout::language::LanguageResource>,
     pub(crate) strokes:
         std::collections::BTreeMap<String, schist_layout::decorations::DecorationStroke>,

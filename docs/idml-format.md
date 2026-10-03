@@ -2543,7 +2543,7 @@ markers in the public templates. Existing outer-container byte comparisons still
 apply; contextual instruction records compare their exact inner PI bytes. Full
 local verification is recorded in Roadmap / Handoff.
 
-### Text-variable recovery
+### Text variables: native custom text and recovery
 
 The public specification's designmap TextVariable section (printed pages 60–62)
 separates shared document definitions from formatted Story instances. Example 60
@@ -2566,7 +2566,7 @@ Definitions live once in LayoutDocument.retained_text_variables, separately from
 instances. Exact native XML preserves unknown preferences, mixed content and
 resource identities. The kernel does not parse it. The standard document Label
 Schist.TextVariables.v1 carries this shared archive through saves; definitions
-and instances are not emitted as resolved native variables. Newly imported native
+and unsupported instances remain recovery-only. Newly imported native
 definitions replace archived entries with the same nonempty Self, while equal
 display names do not merge identities. Malformed/duplicate metadata stays inert
 and survives subsequent saves without repeated nesting. Older Schist documents
@@ -2587,9 +2587,41 @@ proprietary executables or INDD bytes were read for this change.
 
 The text engine now has transient grapheme-bounded atomic spans for that fitting
 step. They suppress internal wrapping and hyphenation without merging adjacent
-spans or changing unwrapped shaping/caret geometry. Native variable evaluation and
-instance output are not connected to those spans yet; the recovery-only behavior
-above remains in effect.
+spans or changing unwrapped shaping/caret geometry. Variable composition is not
+connected to those spans yet; preview/print still diagnose unrendered instances.
+
+Literal CustomTextType definitions now also populate LayoutDocument.text_variables.
+Typed main-story controls reference their opaque identities, independently of names
+or resource-vector order. Only the published CustomTextVariablePreference / Properties /
+Contents type=string subset is lowered. Other preferences, mixed/unknown children,
+ambiguous identities and unresolved references retain recovery data and diagnostics.
+
+The writer emits native shared definitions and TextVariableInstance elements, with
+PageNumberType=TextVariable and empty ResultText. Source bytes and effective character
+styles remain separate. Generated identities avoid other package domains; existing
+opaque language/list collisions use the package-wide remapper. The standard document
+Label Schist.CustomTextVariables.v1 guards authored identities against native edits,
+class changes, ambiguous metadata and new unresolved references. TextVariable itself
+has no per-resource Label in the published schema, so none is invented.
+
+Structured-story records carry the exact native bindings used at export. Restoring
+those records uses actual native references rather than current resource order.
+Unresolved archived IDs are never translated through generated native names: a
+regression caught that silently activating an unrelated definition. Legacy instance
+payloads can gain typed controls after the story guard agrees. Archived reference
+identities are reserved by actual native binding, so externally edited definitions
+cannot capture unresolved references even when saved resource identities no longer
+agree. Deleted bindings keep their original missing identities. Archived definition
+XML never creates a live definition after native deletion. Unknown locations stay
+unplaced. Native output remains valid when private story/identity metadata is removed;
+this does not establish rendering agreement with another application.
+
+Thirteen additional properties cover shared values, empty/stale caches, same-name
+resources, reordered definitions, metadata stripping/corruption, external deletion
+and edits, every source boundary, stable inline order, native ID collisions and
+one-step source/style edits. Full checkpoint verification is recorded in Handoff.
+Evaluation, composition, variable authoring controls and non-custom variable types
+remain integration work.
 
 Further public evidence is available in paged-media/core commit
 `ffb7c8713125dc77403ec0983099f74ac2558517`: its

@@ -433,8 +433,12 @@ pub fn rename_style(
         }
         for structure in &mut after.structures {
             if !paragraph {
-                if let Some(crate::story::InlineControl::EndNestedStyle { character_style }) =
-                    &mut structure.control
+                if let Some(
+                    crate::story::InlineControl::EndNestedStyle { character_style }
+                    | crate::story::InlineControl::TextVariable {
+                        character_style, ..
+                    },
+                ) = &mut structure.control
                 {
                     rename(character_style);
                 }

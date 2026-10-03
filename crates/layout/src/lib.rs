@@ -9,8 +9,8 @@
 //!
 //! Like the rest of the kernel, this crate holds no user-facing features
 //! and no UI types. Tools live in `crates/editor/src/design/`; the editor
-//! renders it; the codecs in `schist-codec-idml` and `schist-codec-indd`
-//! read and write it.
+//! renders it, and `schist-codec-idml` reads and writes it. Production INDD
+//! support remains gated on the separate format research spike.
 //!
 //! # Units
 //!
@@ -54,6 +54,7 @@ pub mod styles;
 pub mod swatches;
 pub mod tabs;
 pub mod text_path;
+pub mod text_variables;
 pub mod threading;
 
 pub use compose::{compose_object, compose_thread, ComposedFrame, ComposedLine, ComposedThread};

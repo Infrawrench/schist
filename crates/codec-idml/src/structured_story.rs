@@ -10,8 +10,41 @@ use crate::{
 };
 use schist_layout::{Story, StoryPoint, StoryStructure, StyleSet};
 use serde::{Deserialize, Serialize};
+use std::collections::{BTreeMap, BTreeSet};
 
 const LABEL: &str = "Schist.StructuredStory.v1";
+
+/// Saved model identities and the native resources they actually referred to.
+/// None denotes an unresolved or legacy recovery-only reference. Reserving even
+/// stale records is conservative: it changes identities, never native contents.
+pub(crate) type VariableReferences = BTreeMap<String, BTreeSet<Option<String>>>;
+
+pub(crate) fn variable_references(native: &Element, references: &mut VariableReferences) {
+    for record in native
+        .children_named("Properties")
+        .flat_map(|p| p.children_named("Label"))
+        .flat_map(|label| label.children_named("KeyValuePair"))
+        .filter(|entry| entry.attr("Key") == Some(LABEL))
+        .filter_map(|entry| serde_json::from_str::<Record>(entry.attr("Value")?).ok())
+    {
+        for structure in &record.story.structures {
+            let control = structure
+                .control
+                .clone()
+                .or_else(|| crate::custom_text_codec::legacy_instance(structure));
+            if let Some(schist_layout::story::InlineControl::TextVariable { variable, .. }) =
+                control
+            {
+                let native = structure
+                    .control
+                    .as_ref()
+                    .and_then(|_| record.variable_bindings.get(&variable))
+                    .cloned();
+                references.entry(variable).or_default().insert(native);
+            }
+        }
+    }
+}
 
 #[derive(Serialize, Deserialize)]
 struct Record {
@@ -21,12 +54,17 @@ struct Record {
     /// without resurrecting a footnote deleted from a newer native export.
     #[serde(default)]
     native_footnotes: bool,
+    /// Bindings used for this saved native body. Reordering the live resource
+    /// list must never retarget a restored instance's model reference.
+    #[serde(default)]
+    variable_bindings: std::collections::BTreeMap<String, String>,
 }
 
 pub(crate) fn retain(
     native: String,
     id: &str,
     story: &Story,
+    variables: &std::collections::BTreeMap<String, String>,
     warnings: &mut Vec<String>,
 ) -> String {
     if story.retained_structures() == 0 {
@@ -40,6 +78,20 @@ pub(crate) fn retain(
         native: id.into(),
         story: story.clone(),
         native_footnotes: true,
+        variable_bindings: story
+            .structures
+            .iter()
+            .filter_map(|s| {
+                let Some(schist_layout::story::InlineControl::TextVariable { variable, .. }) =
+                    &s.control
+                else {
+                    return None;
+                };
+                variables
+                    .get(variable)
+                    .map(|native| (variable.clone(), native.clone()))
+            })
+            .collect(),
     };
     let value = export::escape(&serde_json::to_string(&record).expect("story metadata"));
     let entry = format!(r#"<KeyValuePair Key="{LABEL}" Value="{value}"/>"#);
@@ -86,6 +138,21 @@ pub(crate) fn restore(
             if record.story.structures.iter().any(|s| s.at.is_none()) {
                 notice(&mut report.skipped, "design.idml_structure_location");
             }
+            // Only references to emitted definitions have native bindings, including
+            // unplaced instances. An unresolved archived ID may spell a generated
+            // native ID; resolving it here would silently activate it.
+            let bindings = record
+                .variable_bindings
+                .iter()
+                .map(|(model, native)| {
+                    (
+                        model.clone(),
+                        refs.text_variables.get(native).unwrap_or(model).clone(),
+                    )
+                })
+                .collect();
+            crate::custom_text_codec::remap(&mut record.story, &bindings);
+            crate::custom_text_codec::upgrade(&mut record.story, refs);
             crate::story_codec::upgrade_controls(&mut record.story, refs);
             return record.story;
         }
@@ -182,8 +249,13 @@ fn agrees(native: &Element, record: &Record, styles: &StyleSet, refs: &Reference
         }
         &legacy
     };
-    let expected =
-        export::story_native_xml(&record.native, expected_story, styles, &mut Vec::new());
+    let expected = export::story_native_xml(
+        &record.native,
+        expected_story,
+        styles,
+        &record.variable_bindings,
+        &mut Vec::new(),
+    );
     let Ok(root) = xml::parse(&expected) else {
         return false;
     };
