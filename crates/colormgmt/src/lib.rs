@@ -17,8 +17,13 @@
 
 mod gpu;
 mod gpu_lut;
+mod linear;
 mod vision;
 
+pub use linear::{
+    linear_profile, profile_chromaticities, to_scene_linear, tone_map_linear_to_srgb,
+    Chromaticities,
+};
 pub use vision::{VisionDeficiency, VisionSimulation};
 
 use anyhow::{anyhow, Result};
@@ -390,8 +395,6 @@ impl ColorSettings {
 /// the SDR rendition cameras bake for HDR captures.
 pub fn bake_hdr_to_srgb(pixels: &mut [f32], primaries: u8, transfer: u8) -> Result<()> {
     const REF_WHITE_NITS: f32 = 203.0;
-    /// Where the shoulder starts, in diffuse-white-relative linear light.
-    const KNEE: f32 = 0.9;
 
     let signal_to_nits: fn(f32) -> f32 = match transfer {
         16 => |v: f32| pq_eotf(v) * 10_000.0,
@@ -416,15 +419,24 @@ pub fn bake_hdr_to_srgb(pixels: &mut [f32], primaries: u8, transfer: u8) -> Resu
     for px in pixels.as_chunks_mut::<4>().0 {
         for c in px.iter_mut().take(3) {
             let s = signal_to_nits(c.clamp(0.0, 1.0)) / REF_WHITE_NITS;
-            *c = if s <= KNEE {
-                s
-            } else {
-                KNEE + (1.0 - KNEE) * (1.0 - (-(s - KNEE) / (1.0 - KNEE)).exp())
-            };
+            *c = highlight_shoulder(s);
         }
     }
     ColorTransform::new(&source, &Profile::srgb(), Intent::RelativeColorimetric)?.apply(pixels);
     Ok(())
+}
+
+/// Roll diffuse-white-relative linear light above a knee off towards
+/// 1.0 through an exponential shoulder, so highlights compress instead of
+/// clipping. Values at or below the knee pass through.
+pub fn highlight_shoulder(s: f32) -> f32 {
+    /// Where the shoulder starts, in diffuse-white-relative linear light.
+    const KNEE: f32 = 0.9;
+    if s <= KNEE {
+        s
+    } else {
+        KNEE + (1.0 - KNEE) * (1.0 - (-(s - KNEE) / (1.0 - KNEE)).exp())
+    }
 }
 
 /// BT.2100 PQ EOTF: signal 0..1 to display light as a fraction of the
