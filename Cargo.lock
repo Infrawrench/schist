@@ -6684,6 +6684,7 @@ dependencies = [
  "gif",
  "image-webp",
  "png 0.18.1",
+ "schist-codec-psd",
  "schist-color",
  "schist-compositor",
  "schist-core",
