@@ -554,10 +554,16 @@ describes their purpose, including vertical initials, without specifying exact
 numerical placement. Twenty observed public-corpus values are `1` with inactive
 counts; they establish retention evidence, not active native geometry.
 
-Horizontal initials use Schist's existing outline bounding-box reservation.
+Horizontal and vertical initials use Schist's outline bounding-box reservation.
+Vertical glyphs retain their upright or sideways placement; the opening outline
+extends from the body's capital edge to the last reserved column center. The
+body clears its inline ink and follows the paragraph's column progression.
+Scale is calculated in paragraph-local coordinates so moving a frame cannot
+change the initial's font size. This is Schist's geometry policy, not evidence
+of native application agreement.
 Active explicit native flags therefore produce an import/export diagnostic and a
-Preflight error when composed. Dormant values do not. Native flag rendering,
-vertical initials and named initial character-style rules remain gaps. A named
+Preflight error when composed. Dormant values do not. Native flag rendering and
+named initial character-style rules remain gaps. A named
 initial style belongs to typed `AllNestedStyles` records; no invented native
 `DropCapStyle` attribute is emitted.
 
@@ -582,7 +588,8 @@ check style stability and changed text, styles and directions; removing every
 private label still preserves the original visible bidi result. The published
 [IDML specification](https://raw.githubusercontent.com/jorisros/IDMLlib/master/docs/idml-specification.pdf)
 includes Labels in the Story and ParagraphStyle property schemas.
-Paragraph-specific writing-mode interchange and vertical initials remain gaps.
+Paragraph-specific writing-mode interchange remains a gap; Schist vertical
+initial composition is described above.
 No Adobe headers or executable code were consulted for this evidence.
 
 

@@ -346,22 +346,36 @@ impl Workspace {
     /// Registry commands are raster-bound. This dispatch owns every Design
     /// command so an unhandled menu entry cannot edit a hidden photograph.
     pub(super) fn run_design_command(&mut self, id: &str, cx: &mut Context<Self>) {
+        let Some(command) = crate::actions::DesignCommand::from_id(id) else {
+            self.status = schist_i18n::t("design.command_unavailable").into();
+            cx.notify();
+            return;
+        };
+        self.run_layout_command(command, cx);
+    }
+
+    pub(super) fn run_layout_command(
+        &mut self,
+        command: crate::actions::DesignCommand,
+        cx: &mut Context<Self>,
+    ) {
+        if !self.design_mode() {
+            return;
+        }
         self.commit_focused_field();
-        match id {
-            "edit.undo" | "edit.redo" => {
-                self.design.undo_or_redo(id == "edit.redo");
+        use crate::actions::DesignCommand as Command;
+        match command {
+            Command::Undo | Command::Redo => {
+                self.design.undo_or_redo(command == Command::Redo);
             }
-            "edit.delete" | "edit.clear" => {
+            Command::Delete => {
                 delete_selection(&mut self.design);
             }
-            "edit.duplicate" => {
+            Command::Duplicate => {
                 duplicate_selection(&mut self.design);
             }
-            "select.all" => crate::design::dragging::select_all(&mut self.design),
-            "select.deselect" => self.design.selection.clear(),
-            _ => {
-                self.status = schist_i18n::t("design.command_unavailable").into();
-            }
+            Command::SelectAll => crate::design::dragging::select_all(&mut self.design),
+            Command::Deselect => self.design.selection.clear(),
         }
         self.after_design_change(cx);
     }

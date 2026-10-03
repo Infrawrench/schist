@@ -30,7 +30,7 @@ paragraph and character styles, grids and snapping, per-paragraph
 direction and writing mode, and operation-based undo. Composition handles
 justification, column balancing, paragraph spacing, independently inherited
 paragraph keep policies, indents and forced breaks. Integration review found that drop-cap geometry never reached glyph rendering
-and grid leading alone did not align baselines to page guides. Horizontal
+and grid leading alone did not align baselines to page guides. Horizontal and vertical
 initials now paint their enlarged glyphs once, and measured baselines snap to
 the correct page grid. Vertical composition, native story orientation and paragraph direction now
 have integration coverage. Advanced typography and interchange still have
@@ -309,6 +309,41 @@ key means adding it to all 150 catalogs. See
 are marked.
 
 ## Handoff
+
+Vertical initials and Design command isolation, 2026-10-03:
+Physical ink bounds now include upright and sideways vertical glyphs. Initials
+compose in both column directions, keep their covered columns together, preserve
+source graphemes and retain caret/one-step text undo behavior. This extends
+Schist's outline policy; retained native flags remain explicitly unsupported.
+An independent plate comparison exposed initial font size changing with frame
+position. Paragraph-local scale calculation fixes this for all writing modes;
+the translation regression reproduces the defect before the fix.
+
+Design command identity, labels and shortcuts are independent of raster plugins.
+Menus and search use the same localized labels; search no longer requires a
+hidden raster document for Design actions or offers raster-only actions there.
+Raster shortcuts yield to Design alignment and command dispatch. The keymap
+property is included in `make check-design` through `schist-app-actions` tests.
+No new locale keys or default feature-flag changes are introduced.
+
+The full 16-target sweep, shared UI, formatting and whitespace pass with
+**1,953 distinct Rust tests**, including 12 app-actions and five shared UI tests
+(one existing UI documentation example ignored). Eight new regression properties
+are included; the rest of the count increase brings 11 existing app-actions tests
+into the standard sweep. Four browser and eight Python audit checks pass.
+The new 16-page proof matches independent ordinary frames exactly in process/spot
+plates at 72/144/216 dpi and in Poppler; all pages were visually reviewed. All 32
+previous PDF proofs are byte-identical. The first sweep exposed an old test that
+assumed horizontal ink offsets even for vertical modes; it now requires physical
+ink movement to match the already-verified glyph/caret/selection movement in all
+modes. Logs and counts use `/tmp/schist-vertical-initials-*`; earlier failing
+checks are retained. The native development rebuild passes in 2m 02s.
+The isolated Design-enabled QA bundle is refreshed and hash/signature verified;
+it remains quit. Live UI review of the new command changes is pending.
+
+Native flag rendering, compact initial controls and the recorded structured-story,
+object and external-fixture work remain. Production INDD is still Phase-0-gated.
+
 
 Native drop-cap policy retention, 2026-10-03:
 `DropcapDetail` now survives inheritance, explicit zero resets, inactive counts,

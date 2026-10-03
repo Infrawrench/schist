@@ -743,3 +743,18 @@ if len(sys.argv) > 31:
                 assert actual.tobytes() == expected.tobytes(), (prefix, index, "dictionary-selected glyphs differ from independent visible source")
                 assert min(v[0] for v in actual.getextrema()) < 150, (prefix, index, "empty dictionary hyphen proof")
     print("Design PDF: dictionary-selected and unused automatic hyphens match independent visible source across threaded frames, writing axes, reading directions, tracking and process/spot inks.")
+
+if len(sys.argv) > 32:
+    with tempfile.TemporaryDirectory(prefix="schist-vertical-initials-check-") as temporary:
+        for prefix, args in [("samples", ["pdfimages", "-png"]), ("pages", ["pdftoppm", "-r", "144", "-png"])]:
+            result = subprocess.run(args + [sys.argv[32], str(Path(temporary)/prefix)], capture_output=True, text=True)
+            assert result.returncode == 0 and not result.stderr.strip(), result.stderr
+            files = sorted(Path(temporary).glob(prefix + "-*.png"))
+            assert len(files) == 16, (prefix, len(files))
+            for index in range(0, len(files), 2):
+                actual = Image.open(files[index]).convert("RGB")
+                expected = Image.open(files[index+1]).convert("RGB")
+                assert actual.size == expected.size == (720, 520), (prefix, index, actual.size)
+                assert actual.tobytes() == expected.tobytes(), (prefix, index, "vertical initials differ from independent ordinary frames")
+                assert min(v[0] for v in actual.getextrema()) < 150, (prefix, index, "empty vertical initial proof")
+    print("Design PDF: vertical initials match independent ordinary frames across upright/sideways glyphs, both column directions, affine placement and process/spot inks.")

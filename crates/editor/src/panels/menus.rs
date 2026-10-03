@@ -5,7 +5,7 @@ use super::*;
 use schist_i18n::{t, t_in, tf, Locale};
 
 pub(crate) enum MenuEntry {
-    /// A registered plugin command (label + keybind resolved from registry).
+    /// An editor command; Design owns its metadata, Photo uses the registry.
     Cmd(&'static str),
     /// An app-level item handled by the shell.
     App(&'static str, AppItem, Option<&'static str>),
@@ -19,6 +19,22 @@ pub(crate) enum MenuEntry {
     /// of layer comps, for instance.
     Dynamic(String, AppItem),
     Sep,
+}
+
+/// Keep native menus, in-window menus and search on the active editor's
+/// command catalog. A layout command need not exist in the raster registry.
+pub(crate) fn command_presentation(
+    ws: &Workspace,
+    id: &str,
+) -> Option<(&'static str, Option<&'static str>)> {
+    if ws.design_mode() {
+        crate::actions::DesignCommand::from_id(id)
+            .map(|command| (t(command.label_key()), command.keybind()))
+    } else {
+        ws.registry
+            .command(id)
+            .map(|command| (command.title, command.keybind))
+    }
 }
 
 /// A RAW-backed layer uses Camera Raw as a non-destructive development

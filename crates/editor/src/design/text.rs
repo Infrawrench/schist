@@ -682,50 +682,63 @@ mod tests {
 
     #[test]
     fn enlarged_initials_keep_grapheme_hit_testing_and_one_step_text_undo() {
-        for prefix in ["A", "E\u{301}", "Éc"] {
-            let mut state = DesignState::new();
-            state
-                .document
-                .styles
-                .add_paragraph(schist_layout::ParagraphStyle {
-                    name: "Initial".into(),
-                    point_size: Some(11.0),
-                    leading: Some(schist_layout::styles::Leading::Points(14.0)),
-                    drop_caps_lines: Some(3),
-                    drop_caps_characters: Some(
-                        schist_text_engine::grapheme_boundaries(prefix).count() - 1,
-                    ),
-                    ..Default::default()
-                });
-            let frame = authoring::text_frame(
-                &mut state.document,
-                &mut state.history,
-                0,
-                Rect::new(40.0, 50.0, 200.0, 300.0),
-            )
-            .unwrap();
-            let text = format!(
-                "{prefix} few words to make an initial wrap with three lines of body text. "
-            )
-            .repeat(3);
-            *state.document.story_mut(frame.story) =
-                schist_layout::Story::from_text(&text, "Initial");
-            let composed = schist_layout::compose::compose_story(&state.document, frame.story);
-            let line = composed.lines().next().unwrap();
-            let ink = line.initial.unwrap().ink;
-            for zoom in [0.5, 1.0, 3.0] {
-                state.view.scale = zoom;
-                for fraction in [0.1, 0.5, 0.9] {
-                    let at = Point::new(ink.x + ink.width * fraction, ink.y + ink.height * 0.5);
-                    let (_, offset) = hit(&state, at, Some(frame.object)).unwrap();
-                    assert!(schist_text_engine::grapheme_boundaries(prefix).any(|b| b == offset));
-                    assert!(tools::begin_typing(&mut state, frame.object, offset));
-                    let before = state.document.clone();
-                    let depth = state.history.undo_depth();
-                    assert!(tools::type_text(&mut state, "字"));
-                    assert_eq!(state.history.undo_depth(), depth + 1);
-                    assert!(state.history.undo(&mut state.document));
-                    assert_eq!(state.document, before);
+        for writing in [
+            schist_layout::WritingMode::Horizontal,
+            schist_layout::WritingMode::VerticalLeftToRight,
+            schist_layout::WritingMode::VerticalRightToLeft,
+        ] {
+            for prefix in ["A", "E\u{301}", "Éc"] {
+                let mut state = DesignState::new();
+                state
+                    .document
+                    .styles
+                    .add_paragraph(schist_layout::ParagraphStyle {
+                        name: "Initial".into(),
+                        writing_mode: Some(writing),
+                        point_size: Some(11.0),
+                        leading: Some(schist_layout::styles::Leading::Points(14.0)),
+                        drop_caps_lines: Some(3),
+                        drop_caps_characters: Some(
+                            schist_text_engine::grapheme_boundaries(prefix).count() - 1,
+                        ),
+                        ..Default::default()
+                    });
+                let frame = authoring::text_frame(
+                    &mut state.document,
+                    &mut state.history,
+                    0,
+                    Rect::new(40.0, 50.0, 200.0, 300.0),
+                )
+                .unwrap();
+                let text = format!(
+                    "{prefix} few words to make an initial wrap with three lines of body text. "
+                )
+                .repeat(3);
+                *state.document.story_mut(frame.story) =
+                    schist_layout::Story::from_text(&text, "Initial");
+                let composed = schist_layout::compose::compose_story(&state.document, frame.story);
+                let line = composed.lines().next().unwrap();
+                let ink = line.initial.unwrap().ink;
+                for zoom in [0.5, 1.0, 3.0] {
+                    state.view.scale = zoom;
+                    for fraction in [0.1, 0.5, 0.9] {
+                        let at = if writing == schist_layout::WritingMode::Horizontal {
+                            Point::new(ink.x + ink.width * fraction, ink.y + ink.height * 0.5)
+                        } else {
+                            Point::new(ink.x + ink.width * 0.5, ink.y + ink.height * fraction)
+                        };
+                        let (_, offset) = hit(&state, at, Some(frame.object)).unwrap();
+                        assert!(
+                            schist_text_engine::grapheme_boundaries(prefix).any(|b| b == offset)
+                        );
+                        assert!(tools::begin_typing(&mut state, frame.object, offset));
+                        let before = state.document.clone();
+                        let depth = state.history.undo_depth();
+                        assert!(tools::type_text(&mut state, "字"));
+                        assert_eq!(state.history.undo_depth(), depth + 1);
+                        assert!(state.history.undo(&mut state.document));
+                        assert_eq!(state.document, before);
+                    }
                 }
             }
         }

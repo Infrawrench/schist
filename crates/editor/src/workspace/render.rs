@@ -832,6 +832,9 @@ impl Render for Workspace {
             .on_action(cx.listener(|ws, action: &RunCommand, _w, cx| {
                 ws.run_command(&action.id.clone(), cx);
             }))
+            .on_action(cx.listener(|ws, action: &RunDesignCommand, _w, cx| {
+                ws.run_layout_command(action.command, cx);
+            }))
             .on_action(cx.listener(|ws, action: &ActivateTool, _w, cx| {
                 ws.activate_tool(&action.id.clone(), cx);
             }))

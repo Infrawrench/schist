@@ -1541,15 +1541,21 @@ impl FlowAxes {
             return;
         }
         for line in lines {
-            let logical = line.bounds;
-            let x = if self.writing == schist_text_engine::WritingMode::VerticalRl {
-                self.bounds.right() - (logical.y - self.bounds.x) - logical.height
-            } else {
-                logical.y
-            };
-            line.bounds = Rect::new(x, logical.x, logical.height, logical.width);
-            line.baseline = x + logical.height * 0.5;
+            line.bounds = self.physical_rect(line.bounds);
+            line.baseline = line.bounds.x + line.bounds.width * 0.5;
+            if let Some(initial) = &mut line.initial {
+                initial.ink = self.physical_rect(initial.ink);
+            }
         }
+    }
+
+    fn physical_rect(&self, logical: Rect) -> Rect {
+        let x = if self.writing == schist_text_engine::WritingMode::VerticalRl {
+            self.bounds.right() - (logical.y - self.bounds.x) - logical.height
+        } else {
+            logical.y
+        };
+        Rect::new(x, logical.x, logical.height, logical.width)
     }
 }
 
@@ -2292,10 +2298,7 @@ fn slice_spec(spec: &TextSpec, start: usize, end: usize) -> TextSpec {
 fn opening(spec: &TextSpec, paragraph: &ResolvedParagraph) -> Option<Opening> {
     let lines = paragraph.drop_caps_lines?;
     let characters = paragraph.drop_caps_characters.unwrap_or(1);
-    if lines < 2
-        || characters == 0
-        || spec.writing_mode != schist_text_engine::WritingMode::Horizontal
-    {
+    if lines < 2 || characters == 0 {
         return None;
     }
     let bytes = schist_text_engine::grapheme_boundaries(&spec.text)
@@ -2321,9 +2324,26 @@ fn opening(spec: &TextSpec, paragraph: &ResolvedParagraph) -> Option<Opening> {
         spec: painted,
         bytes,
         lines,
-        ink: metrics.ink_bounds?,
+        ink: logical_initial_ink(metrics, spec.writing_mode)?,
         metrics,
-        right: spec.direction == schist_text_engine::ParagraphDirection::RightToLeft,
+        right: reverse_ruler(spec),
+    })
+}
+
+/// The engine reports physical glyph outlines; reservation works in the
+/// paragraph's inline/block axes. Right-to-left columns mirror the block axis
+/// around the glyph cell, retaining the engine's upright and sideways glyphs.
+fn logical_initial_ink(
+    metrics: schist_text_engine::TextMetrics,
+    writing: schist_text_engine::WritingMode,
+) -> Option<[f32; 4]> {
+    let [left, top, right, bottom] = metrics.ink_bounds?;
+    Some(match writing {
+        schist_text_engine::WritingMode::Horizontal => [left, top, right, bottom],
+        schist_text_engine::WritingMode::VerticalLr => [top, left, bottom, right],
+        schist_text_engine::WritingMode::VerticalRl => {
+            [top, metrics.height - right, bottom, metrics.height - left]
+        }
     })
 }
 
@@ -2335,8 +2355,9 @@ fn plan_initial(
     space: &PlacementSpace,
     grid: Option<BaselineGrid>,
 ) -> InitialPlan {
-    // A capital H measures the body font's actual capital height without a
-    // bitmap or a guessed width-to-height ratio.
+    // A capital H measures the body font's actual capital extent without a
+    // bitmap or a guessed aspect ratio. Vertical flow uses the rotated extent
+    // and column centers; this extends Schist's outline reservation policy.
     let mut probe = slice_spec(body, 0, body.text.chars().next().map_or(0, char::len_utf8));
     probe.text = "H".into();
     probe.hyphenation_breaks.clear();
@@ -2347,20 +2368,38 @@ fn plan_initial(
     }
     probe.wrap_width = None;
     let body_metrics = schist_text_engine::measure(&probe).unwrap();
-    let cap_height = body_metrics
-        .ink_bounds
-        .map_or(body_metrics.first_baseline, |ink| {
-            body_metrics.first_baseline - ink[1]
-        });
-    let mut top = space.top;
-    let mut previous = space.previous;
+    let body_baseline = if body.writing_mode.is_vertical() {
+        body_metrics.height / 2.0
+    } else {
+        body_metrics.first_baseline
+    };
+    let cap_height = logical_initial_ink(body_metrics, body.writing_mode)
+        .map_or(body_baseline, |ink| body_baseline - ink[1]);
+    // Measure the initial in paragraph-local coordinates. Subtracting two
+    // page positions to recover its extent makes font size depend on where
+    // the frame sits (and changes raster coverage after a simple translation).
+    let origin = space.top;
+    let grid = grid.map(|grid| BaselineGrid {
+        first: grid.first - origin,
+        ..grid
+    });
+    let mut top = 0.0;
+    let mut previous = space.previous.map(|previous| PreviousLine {
+        baseline: previous.baseline - origin,
+        bottom: previous.bottom - origin,
+        ..previous
+    });
     let mut first_ink_top = top;
     let mut baseline = top;
     for i in 0..opening.lines {
         let span = spans.get(i).or_else(|| spans.last());
-        let ascent = span.map_or(body_metrics.first_baseline, |s| s.baseline - s.top);
         let advance = span.map_or(body_metrics.line_advance, |s| s.advance);
         let height = span.map_or(body_metrics.height, |s| s.height);
+        let ascent = if body.writing_mode.is_vertical() {
+            height / 2.0
+        } else {
+            span.map_or(body_metrics.first_baseline, |s| s.baseline - s.top)
+        };
         let flow = LineFlow {
             ascent,
             height,
@@ -2389,7 +2428,7 @@ fn plan_initial(
         } else {
             measure.x
         },
-        first_ink_top,
+        origin + first_ink_top,
         width,
         baseline - first_ink_top,
     );
@@ -2404,7 +2443,7 @@ fn plan_initial(
     let mut painted = scale_initial_spec(opening.spec.clone(), scale);
     painted.wrap_width = None;
     let painted_ink = schist_text_engine::measure(&painted)
-        .and_then(|m| m.ink_bounds)
+        .and_then(|m| logical_initial_ink(m, body.writing_mode))
         .map_or(ink, |b| {
             Rect::new(bounds.x + b[0], bounds.y + b[1], b[2] - b[0], b[3] - b[1])
         });

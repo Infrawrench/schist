@@ -383,7 +383,7 @@ check-layout-wasm:
 .PHONY: check-design lint-design
 check-design:
 	CARGO_INCREMENTAL=0 $(CARGO) test -p schist-editor --lib -- $(DESIGN_TEST_ARGS)
-	CARGO_INCREMENTAL=0 $(CARGO) test -p schist-layout -p schist-i18n -p schist-app-settings
+	CARGO_INCREMENTAL=0 $(CARGO) test -p schist-layout -p schist-i18n -p schist-app-settings -p schist-app-actions
 lint-design:
 	CARGO_INCREMENTAL=0 $(CARGO) clippy -p schist-editor -p schist-layout -p schist-text-engine -p schist-app-settings -p schist-ui -p schist-separation --all-targets -- -D warnings
 
@@ -1099,7 +1099,8 @@ check-design-output: design-pdf-proof
 	$(CARGO) run -p schist-separation --example no_break_proof -- /tmp/schist-no-break-proof.pdf
 	$(CARGO) run -p schist-separation --example soft_hyphen_proof -- /tmp/schist-soft-hyphen-proof.pdf
 	$(CARGO) run -p schist-separation --example automatic_hyphenation_proof -- /tmp/schist-automatic-hyphenation-proof.pdf
-	python3 tools/check-design-pdf.py $(or $(DESIGN_PDF_PROOF),/tmp/schist-pdf-proof.pdf) /tmp /tmp/schist-text-proof.pdf /tmp/schist-offsets-proof.pdf /tmp/schist-crossover-proof.pdf /tmp/schist-tint-proof.pdf /tmp/schist-decoration-proof.pdf /tmp/schist-baseline-proof.pdf /tmp/schist-script-proof.pdf /tmp/schist-opentype-proof.pdf /tmp/schist-leading-proof.pdf /tmp/schist-font-style-proof.pdf /tmp/schist-object-style-proof.pdf /tmp/schist-text-stroke-proof.pdf /tmp/schist-custom-decoration-proof.pdf /tmp/schist-cjk-feature-proof.pdf /tmp/schist-capitalization-proof.pdf /tmp/schist-striped-decoration-proof.pdf /tmp/schist-dashed-decoration-proof.pdf /tmp/schist-capped-decoration-proof.pdf /tmp/schist-dotted-decoration-proof.pdf /tmp/schist-fitted-decoration-proof.pdf /tmp/schist-language-proof.pdf /tmp/schist-text-path-proof.pdf /tmp/schist-lists-proof.pdf /tmp/schist-tabs-proof.pdf /tmp/schist-footnotes-proof.pdf /tmp/schist-paragraph-starts-proof.pdf /tmp/schist-no-break-proof.pdf /tmp/schist-soft-hyphen-proof.pdf /tmp/schist-automatic-hyphenation-proof.pdf
+	$(CARGO) run -p schist-separation --example vertical_initials_proof -- /tmp/schist-vertical-initials-proof.pdf
+	python3 tools/check-design-pdf.py $(or $(DESIGN_PDF_PROOF),/tmp/schist-pdf-proof.pdf) /tmp /tmp/schist-text-proof.pdf /tmp/schist-offsets-proof.pdf /tmp/schist-crossover-proof.pdf /tmp/schist-tint-proof.pdf /tmp/schist-decoration-proof.pdf /tmp/schist-baseline-proof.pdf /tmp/schist-script-proof.pdf /tmp/schist-opentype-proof.pdf /tmp/schist-leading-proof.pdf /tmp/schist-font-style-proof.pdf /tmp/schist-object-style-proof.pdf /tmp/schist-text-stroke-proof.pdf /tmp/schist-custom-decoration-proof.pdf /tmp/schist-cjk-feature-proof.pdf /tmp/schist-capitalization-proof.pdf /tmp/schist-striped-decoration-proof.pdf /tmp/schist-dashed-decoration-proof.pdf /tmp/schist-capped-decoration-proof.pdf /tmp/schist-dotted-decoration-proof.pdf /tmp/schist-fitted-decoration-proof.pdf /tmp/schist-language-proof.pdf /tmp/schist-text-path-proof.pdf /tmp/schist-lists-proof.pdf /tmp/schist-tabs-proof.pdf /tmp/schist-footnotes-proof.pdf /tmp/schist-paragraph-starts-proof.pdf /tmp/schist-no-break-proof.pdf /tmp/schist-soft-hyphen-proof.pdf /tmp/schist-automatic-hyphenation-proof.pdf /tmp/schist-vertical-initials-proof.pdf
 
 .PHONY: design-lists-proof
 design-lists-proof:

@@ -16,6 +16,9 @@ use std::path::PathBuf;
 /// bound keystroke never reaches the text-entry code at all. Excluding the
 /// binding is the only way to let the keystroke through.
 const CONTEXT: Option<&str> = Some("Workspace && !text_entry && !modal");
+/// Pixel commands and overrides yield to the layout editor's own bindings.
+const RASTER: Option<&str> = Some("Workspace && !design && !text_entry && !modal");
+const DESIGN: Option<&str> = Some("Workspace && design && !text_entry && !modal");
 /// Context for bindings without modifiers, i.e. the single-letter tool
 /// shortcuts. `editable` is present only in the ordinary state.
 const TYPING_SAFE: Option<&str> = Some("Workspace && editable");
@@ -45,6 +48,15 @@ pub fn build_bindings(registry: &PluginRegistry) -> Vec<KeyBinding> {
                     id: command.id.to_string(),
                 },
                 override_context(kb),
+            ));
+        }
+    }
+    for command in DesignCommand::ALL {
+        if let Some(binding) = command.keybind() {
+            bindings.push(KeyBinding::new(
+                &translate(binding),
+                RunDesignCommand { command },
+                DESIGN,
             ));
         }
     }
@@ -113,13 +125,13 @@ pub fn build_bindings(registry: &PluginRegistry) -> Vec<KeyBinding> {
             ActivateTool {
                 id: "transform".into(),
             },
-            CONTEXT,
+            RASTER,
         ),
         KeyBinding::new(&translate("cmd-q"), Quit, CONTEXT),
         KeyBinding::new(&translate("cmd-alt-i"), ShowImageSize, CONTEXT),
         KeyBinding::new(&translate("cmd-alt-c"), ShowCanvasSize, CONTEXT),
         KeyBinding::new(&translate("cmd-k"), ShowPreferences, CONTEXT),
-        KeyBinding::new(&translate("cmd-r"), ToggleRulers, CONTEXT),
+        KeyBinding::new(&translate("cmd-r"), ToggleRulers, RASTER),
         KeyBinding::new(&translate("cmd-'"), ToggleGrid, CONTEXT),
         KeyBinding::new(&translate("cmd-;"), ToggleGuides, CONTEXT),
         KeyBinding::new(&translate("cmd-h"), ToggleExtras, CONTEXT),
@@ -135,28 +147,28 @@ pub fn build_bindings(registry: &PluginRegistry) -> Vec<KeyBinding> {
             AddAdjustment {
                 kind: "levels".into(),
             },
-            CONTEXT,
+            RASTER,
         ),
         KeyBinding::new(
             &translate("cmd-m"),
             AddAdjustment {
                 kind: "curves".into(),
             },
-            CONTEXT,
+            RASTER,
         ),
         KeyBinding::new(
             &translate("cmd-u"),
             AddAdjustment {
                 kind: "hue_saturation".into(),
             },
-            CONTEXT,
+            RASTER,
         ),
         KeyBinding::new(
             &translate("cmd-i"),
             AddAdjustment {
                 kind: "invert".into(),
             },
-            CONTEXT,
+            RASTER,
         ),
     ]);
     // Digit keys -> tool opacity (1 = 10% … 0 = 100%).
@@ -215,7 +227,7 @@ pub fn build_bindings(registry: &PluginRegistry) -> Vec<KeyBinding> {
 /// restored without deleting the entry.
 fn override_context(keystroke: &str) -> Option<&'static str> {
     if keystroke.contains('-') {
-        CONTEXT
+        RASTER
     } else {
         TYPING_SAFE
     }
@@ -273,7 +285,9 @@ mod tests {
     use super::{
         build_bindings, override_context, try_binding, ALWAYS, CONTEXT, SEARCH, TYPING_SAFE,
     };
-    use crate::{ActivateTool, RunCommand};
+    use crate::{
+        ActivateTool, AddAdjustment, DesignCommand, RunCommand, RunDesignCommand, ToggleRulers,
+    };
     use gpui::{KeyBindingContextPredicate, KeyContext, Keystroke};
     use schist_plugin_api::{Command, CommandPlugin, PluginRegistry};
 
@@ -344,6 +358,73 @@ mod tests {
                     None
                 );
             }
+        }
+    }
+
+    #[test]
+    fn layout_command_bindings_are_independent_of_raster_plugins_and_yield_to_text_entry() {
+        struct ConflictingCommands;
+        impl CommandPlugin for ConflictingCommands {
+            fn commands(&self) -> Vec<Command> {
+                ["cmd-z", "cmd-shift-z", "cmd-d", "cmd-a", "cmd-r", "cmd-l"]
+                    .into_iter()
+                    .map(|binding| Command {
+                        id: "raster.fake",
+                        title: "Raster action",
+                        description: "Raster action",
+                        keybind: Some(binding),
+                        run: Box::new(|_| {}),
+                    })
+                    .collect()
+            }
+        }
+        let mut registry = PluginRegistry::new();
+        registry.register_commands(&ConflictingCommands);
+        let bindings = build_bindings(&registry);
+        for binding in &bindings {
+            let action = binding.action();
+            if let Some(action) = action.as_any().downcast_ref::<RunDesignCommand>() {
+                for (state, expected) in [
+                    ("Workspace design", true),
+                    (ORDINARY, false),
+                    (TYPING, false),
+                    (MODAL, false),
+                    ("Workspace design text_entry", false),
+                    ("Workspace design modal", false),
+                    ("Workspace spotlight text_entry", false),
+                ] {
+                    let context = [KeyContext::parse(state).unwrap()];
+                    assert_eq!(
+                        binding.predicate().unwrap().eval_inner(&context, &context),
+                        expected,
+                        "{:?} in {state}",
+                        action.command
+                    );
+                }
+            } else if action.as_any().is::<RunCommand>()
+                || action.as_any().is::<ActivateTool>()
+                || action.as_any().is::<AddAdjustment>()
+                || action.as_any().is::<ToggleRulers>()
+            {
+                let context = [KeyContext::parse("Workspace design").unwrap()];
+                assert!(
+                    !binding.predicate().unwrap().eval_inner(&context, &context),
+                    "raster action intercepted a Design key"
+                );
+            }
+        }
+        for command in DesignCommand::ALL {
+            let count = bindings
+                .iter()
+                .filter(|binding| {
+                    binding
+                        .action()
+                        .as_any()
+                        .downcast_ref::<RunDesignCommand>()
+                        .is_some_and(|action| action.command == command)
+                })
+                .count();
+            assert_eq!(count, usize::from(command.keybind().is_some()));
         }
     }
 
@@ -456,7 +537,16 @@ mod tests {
     fn unmodified_overrides_yield_to_typing() {
         assert_eq!(override_context("e"), TYPING_SAFE);
         assert_eq!(override_context("5"), TYPING_SAFE);
-        assert_eq!(override_context("ctrl-e"), CONTEXT);
-        assert_eq!(override_context("cmd-shift-s"), CONTEXT);
+        for key in ["ctrl-e", "cmd-shift-s"] {
+            assert!(fires(override_context(key), ORDINARY));
+            for state in [
+                TYPING,
+                MODAL,
+                "Workspace design",
+                "Workspace design text_entry",
+            ] {
+                assert!(!fires(override_context(key), state), "{key} in {state}");
+            }
+        }
     }
 }

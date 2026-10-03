@@ -2754,9 +2754,10 @@ pub struct TextMetrics {
     pub line_advance: f32,
     pub width: f32,
     pub height: f32,
-    /// Union of horizontal glyph outlines [left, top, right, bottom], in
-    /// layout coordinates. Excludes decorations; absent for empty text,
-    /// vertical writing. Path glyphs use their individual baseline rotations.
+    /// Union of glyph outlines [left, top, right, bottom], in physical
+    /// layout coordinates for every writing mode. Excludes strokes,
+    /// decorations and tab leaders; absent when no glyph has ink. Vertical
+    /// glyphs retain upright/sideways placement; path glyphs follow the baseline.
     /// No coverage bitmap is allocated.
     pub ink_bounds: Option<[f32; 4]>,
 }
@@ -2769,7 +2770,7 @@ pub fn measure(spec: &TextSpec) -> Option<TextMetrics> {
         spec.italic,
     )?;
     let laid = layout(spec, &face);
-    let ink_bounds = if spec.writing_mode == WritingMode::Horizontal {
+    let ink_bounds = {
         let faces = Faces::resolve(spec, &face);
         let guide = path_guide(spec, &laid);
         laid.glyphs
@@ -2804,6 +2805,16 @@ pub fn measure(spec: &TextSpec) -> Option<TextMetrics> {
                             ]
                         })
                         .unwrap()
+                    } else if glyph.sideways {
+                        // The shaper has already placed this vertical glyph;
+                        // rotate its horizontal outline clockwise around that
+                        // origin, matching fill and stroke placement.
+                        [
+                            glyph.x + b.ymin,
+                            glyph.baseline + b.xmin,
+                            glyph.x + b.ymin + b.height,
+                            glyph.baseline + b.xmin + b.width,
+                        ]
                     } else {
                         [
                             glyph.x + b.xmin,
@@ -2822,8 +2833,6 @@ pub fn measure(spec: &TextSpec) -> Option<TextMetrics> {
                     a[3].max(b[3]),
                 ]
             })
-    } else {
-        None
     };
     Some(TextMetrics {
         ink_bounds,
@@ -4168,10 +4177,10 @@ mod tests {
                                 measured.line_advance
                             )
                         );
-                        if let (Some(a), Some(b)) = (measured.ink_bounds, after.ink_bounds) {
-                            for (i, delta) in [0.0, -shift, 0.0, -shift].into_iter().enumerate() {
-                                assert!((b[i] - a[i] - delta).abs() < 0.001);
-                            }
+                        let a = measured.ink_bounds.unwrap();
+                        let b = after.ink_bounds.unwrap();
+                        for (i, delta) in [dx, dy, dx, dy].into_iter().enumerate() {
+                            assert!((b[i] - a[i] - delta as f32).abs() < 0.001);
                         }
                         for ((byte, before), (after_byte, after)) in
                             carets_before.iter().zip(carets(&spec))
