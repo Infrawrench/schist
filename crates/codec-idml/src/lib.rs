@@ -53,6 +53,7 @@ pub use plugin::IdmlCodec;
 
 mod graphic_codec;
 mod text_path_codec;
+mod text_variable_codec;
 mod thread_codec;
 
 mod color_codec;

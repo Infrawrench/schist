@@ -311,6 +311,31 @@ are marked.
 ## Handoff
 
 
+Text-variable recovery, 2026-10-03:
+Seven new properties now preserve native variable instances and their shared
+document definitions. The public proof fixture previously lost all three output
+date occurrences; the regressions reproduce that loss and now pass. Each instance
+retains exact XML, UTF-8 position and effective formatting; eleven native resource
+definitions survive byte-for-byte. Shared definitions are stored once per document.
+Unknown preferences, malformed metadata and stale native edits remain recoverable,
+and live definitions take precedence by opaque identity rather than display name.
+Variable content remains explicitly unrendered; evaluation and native output are
+still integration work. No UI or locale keys change.
+
+All 16 roadmap targets, shared UI, formatting and whitespace checks pass:
+**2,033 distinct Rust tests**, four browser checks and eight Python audit tests;
+one existing shared UI documentation example remains ignored. All 41 recorded
+prior PDF proofs remain byte-identical. Native debug build passes in 4m 08s;
+the isolated Design-enabled QA bundle is refreshed and hash/signature verified.
+The focused regression failed before the production change and all seven new
+properties now pass. Initial test API typos were corrected before those assertions
+ran. Evidence is under `/tmp/schist-text-variables-*`; four superseded drafts and
+inventories were removed. Instruction retention is published as `57680ad9` to
+draft PR #195. This checkpoint is prepared for the same PR. Continue locally
+without waiting for CI, per the user's instruction. Text-variable composition,
+other structured stories and the documented object integration gaps remain open;
+INDD production is still spike-gated.
+
 Content instruction retention, 2026-10-03:
 A regression against the public PSU templates reproduced four page-number
 instructions silently disappearing during story decoding. Main Content

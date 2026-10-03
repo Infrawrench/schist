@@ -410,6 +410,13 @@ pub struct LayoutDocument {
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
     pub creation_order: Vec<ObjectId>,
     pub stories: Vec<Story>,
+    /// Opaque native text-variable definitions retained for recovery. Instances
+    /// live at source anchors in Story::structures; shared definitions belong
+    /// here once per document, never copied into every instance. The layout
+    /// kernel does not parse or evaluate this XML. Codecs also retain malformed
+    /// variable metadata as inert XML wrappers rather than silently dropping it.
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub retained_text_variables: Vec<String>,
     #[serde(
         default,
         skip_serializing_if = "crate::footnotes::FootnoteOptions::is_empty"
@@ -602,6 +609,7 @@ impl LayoutDocument {
             objects: Vec::new(),
             creation_order: Vec::new(),
             stories: Vec::new(),
+            retained_text_variables: Vec::new(),
             footnotes: Default::default(),
             frame_footnote_defaults: Default::default(),
             balance_columns_default: false,

@@ -35,8 +35,9 @@ pub struct Element {
     /// Processing instructions and their byte offsets in this element's direct
     /// decoded text. In particular, ACE 4 is a footnote marker, not a character.
     pub instructions: Vec<(usize, String)>,
-    /// Exact XML for an outer unsupported story structure. The tree does not
-    /// retain arbitrary mixed-content order, so it cannot reconstruct every
+    /// Exact XML for an outer unsupported story structure or text-variable
+    /// definition. The tree does not retain arbitrary mixed-content order, so
+    /// it cannot reconstruct every
     /// native structure. Nested structures share this original payload.
     pub raw: Option<std::sync::Arc<str>>,
 }
@@ -135,6 +136,7 @@ pub(crate) fn story_structure(name: &str) -> bool {
     matches!(
         name,
         "Table"
+            | "TextVariableInstance"
             | "Footnote"
             | "TextFrame"
             | "Rectangle"
@@ -161,9 +163,11 @@ pub fn parse_all(text: &str) -> Result<Vec<Element>, String> {
             Ok(Event::Start(start) | Event::Empty(start)) => {
                 let name = String::from_utf8_lossy(start.name().as_ref()).into_owned();
                 let to = reader.buffer_position() as usize;
-                let capture = story_structure(&name)
-                    && starts.iter().all(Option::is_none)
-                    && (stack.is_empty() || stack.iter().any(|e| e.name == "Story"));
+                let capture = starts.iter().all(Option::is_none)
+                    && ((story_structure(&name)
+                        && (stack.is_empty() || stack.iter().any(|e| e.name == "Story")))
+                        || (name == "TextVariable"
+                            && stack.last().is_some_and(|e| e.name == "Document")));
                 let mut element = Element {
                     name,
                     attributes: attributes(&start),

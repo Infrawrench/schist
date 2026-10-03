@@ -95,6 +95,7 @@ pub fn read_package(opened: &DesignPackage<'_>) -> Result<Imported, Error> {
     }
     document.inks = colors.values().cloned().collect();
     document.styles.languages = crate::language_codec::read(opened, &mut report)?;
+    document.retained_text_variables = crate::text_variable_codec::read(opened, &mut report)?;
     document.styles.numbering_lists = crate::list_codec::read_resources(opened, &mut report)?;
     let layers = read_layers(opened, &mut document)?;
     let mut style_roots = Vec::new();

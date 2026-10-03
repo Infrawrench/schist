@@ -2504,3 +2504,45 @@ stories, exact undo/redo, repeated saves, external edits and the four actual pag
 markers in the public templates. Existing outer-container byte comparisons still
 apply; contextual instruction records compare their exact inner PI bytes. Full
 local verification is recorded in Roadmap / Handoff.
+
+### Text-variable recovery
+
+The public specification's designmap TextVariable section (printed pages 60–62)
+separates shared document definitions from formatted Story instances. Example 60
+also shows an instance inside a cross-reference. The public proof fixture
+`fixtures/indd/proof/proof.idml` contains eleven definitions and three instances
+of `Output Date and Time`, in Story_u6ef, Story_u68a and Story_u623. Their native
+cached ResultText is `2015-02-19 @ 11:14PM`. These empty inline elements previously
+fell through the story walker and vanished without a diagnostic.
+
+TextVariableInstance now retains its exact XML at the source UTF-8 anchor, with
+the same constructed formatting/page-number context wrappers as Content
+instructions. Cached values are recovery data, not inserted literal source text.
+Multiple instances at one position retain their order. Instances inside opaque
+tables, notes or inline frames stay in that outer payload without double counting.
+The existing retained-content notice, Story Editor count and missing-structure
+preflight error identify the unrendered instances. Native story edits invalidate
+old coordinates while preserving both the new occurrence and archived payload.
+
+Definitions live once in LayoutDocument.retained_text_variables, separately from
+instances. Exact native XML preserves unknown preferences, mixed content and
+resource identities. The kernel does not parse it. The standard document Label
+Schist.TextVariables.v1 carries this shared archive through saves; definitions
+and instances are not emitted as resolved native variables. Newly imported native
+definitions replace archived entries with the same nonempty Self, while equal
+display names do not merge identities. Malformed/duplicate metadata stays inert
+and survives subsequent saves without repeated nesting. Older Schist documents
+default to an empty archive.
+
+Seven properties cover every UTF-8 boundary, formatting, variable-only stories,
+exact one-step undo/redo, native fixture occurrences and definitions, large shared
+definitions, unknown preferences, nested opaque content, repeated saves, external
+edits and malformed/legacy metadata. The fixture inventory is independently
+checked with Python's XML parser. This is loss prevention, not variable evaluation
+or rendering. Style/link dependencies inside archived definitions are not yet
+resolved. Adobe's [variable guide](https://helpx.adobe.com/indesign/desktop/add-and-manage-text/conditional-and-variable-text/create-manage-text-variables.html)
+specifies that variable content stays on one line; the [instance reference](https://developer.adobe.com/indesign/uxp/dom/api/t/text-variable-instance/)
+identifies ResultText as replacement text. Future composition needs typed variable
+data, source-position mapping and atomic line fitting, not ordinary text insertion
+or interpretation of opaque recovery XML in the kernel. No Adobe headers,
+proprietary executables or INDD bytes were read for this change.

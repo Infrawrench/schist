@@ -294,8 +294,8 @@ impl StoryBuilder {
                             schist_layout::StoryStructure {
                                 at: Some(self.text.len() + at),
                                 kind: "ProcessingInstruction".into(),
-                                payload: instruction_payload(
-                                    instruction,
+                                payload: inline_payload(
+                                    &format!("<Content><?{instruction}?></Content>"),
                                     paragraph,
                                     character,
                                     page_number_type,
@@ -343,7 +343,11 @@ impl StoryBuilder {
                         schist_layout::StoryStructure {
                             at: Some(self.text.len()),
                             kind: name.into(),
-                            payload: raw.to_string(),
+                            payload: if name == "TextVariableInstance" {
+                                inline_payload(raw, paragraph, character, page_number_type)
+                            } else {
+                                raw.to_string()
+                            },
                             footnote: footnote(element, paragraph, character),
                         },
                     ));
@@ -359,11 +363,11 @@ impl StoryBuilder {
     }
 }
 
-// Recovery XML retains the exact PI plus the effective named formatting and
+// Recovery XML retains the exact inline XML plus effective named formatting and
 // native page-number mode. The wrappers describe its context; they are not a
 // claim that the unsupported marker has been emitted as native story content.
-fn instruction_payload(
-    instruction: &str,
+fn inline_payload(
+    content: &str,
     paragraph: &str,
     character: &str,
     page_number_type: Option<&str>,
@@ -372,11 +376,11 @@ fn instruction_payload(
         .map(|value| format!(r#" PageNumberType="{}""#, crate::export::escape(value)))
         .unwrap_or_default();
     format!(
-        r#"<ParagraphStyleRange AppliedParagraphStyle="ParagraphStyle/$ID/{}"><CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/{}"{}><Content><?{}?></Content></CharacterStyleRange></ParagraphStyleRange>"#,
+        r#"<ParagraphStyleRange AppliedParagraphStyle="ParagraphStyle/$ID/{}"><CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/{}"{}>{}</CharacterStyleRange></ParagraphStyleRange>"#,
         crate::export::escape(paragraph),
         crate::export::escape(character),
         page_number_type,
-        instruction
+        content
     )
 }
 

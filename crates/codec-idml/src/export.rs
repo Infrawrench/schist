@@ -192,6 +192,10 @@ pub fn write(document: &LayoutDocument) -> Written {
     root.push_str(&format!(
         r#"<Document xmlns:idPkg="{NS_PACKAGING}" DOMVersion="{DOM_VERSION}" Self="d" Name="Schist" ZeroPoint="0 0">"#
     ));
+    root.push_str(&crate::text_variable_codec::retain(
+        &document.retained_text_variables,
+        &mut out.warnings,
+    ));
     root.push_str(&crate::language_codec::resources(&languages.resources));
     root.push_str(&crate::footnote_codec::write_frame(
         &document.frame_footnote_defaults,
