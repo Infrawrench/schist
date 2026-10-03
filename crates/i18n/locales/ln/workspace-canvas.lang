@@ -36,3 +36,7 @@ workspace.history.move_layers = Kotambolisa ba kalke
 workspace.history.layer_opacity = Bokasi ya kozipa ya kalke
 workspace.history.delete_note = Kolongola note
 workspace.history.edit_note = Kobongisa note
+workspace.canvas.clipping_on = Bokebisi ya clipping efungwami
+workspace.canvas.clipping_off = Bokebisi ya clipping ekangami
+workspace.canvas.peaking_on = Komonisa focus efungwami
+workspace.canvas.peaking_off = Komonisa focus ekangami

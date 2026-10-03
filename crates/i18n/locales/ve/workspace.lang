@@ -102,3 +102,5 @@ workspace.file_picker.permission_denied = Schist a i na thendelo ya u vhala fo�
 workspace.recovery.recovered_title = {title} (ḽo vhuedzedzwa)
 workspace.recovery.recovered.one = Ho vhuedzedzwa mushumo u songo vhulungwaho wa sesheni yo fhiraho
 workspace.recovery.recovered.other = Ho vhuedzedzwa maṅwalo {n} a sesheni yo fhiraho
+workspace.colormgmt.vision_on = U fanyisa: {name}
+workspace.colormgmt.vision_off = Kuvhona hu elanaho

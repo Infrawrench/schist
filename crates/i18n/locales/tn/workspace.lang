@@ -89,3 +89,5 @@ workspace.file_picker.permission_denied = Schist ga e na tetlelelo ya go bala se
 workspace.recovery.recovered_title = {title} (e buseditswe)
 workspace.recovery.recovered.one = E buseditse tiro e e sa bolokwang go tswa mo session e e fetileng
 workspace.recovery.recovered.other = E buseditse ditokomane di le {n} go tswa mo session e e fetileng
+workspace.colormgmt.vision_on = Go etsisa: {name}
+workspace.colormgmt.vision_off = Pono e e tlwaelegileng

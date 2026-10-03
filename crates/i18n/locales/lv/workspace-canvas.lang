@@ -38,3 +38,7 @@ workspace.history.move_layers = Pārvietot slāņus
 workspace.history.layer_opacity = Slāņa necaurredzamība
 workspace.history.delete_note = Dzēst piezīmi
 workspace.history.edit_note = Rediģēt piezīmi
+workspace.canvas.clipping_on = Apgriezuma brīdinājumi ieslēgti
+workspace.canvas.clipping_off = Apgriezuma brīdinājumi izslēgti
+workspace.canvas.peaking_on = Fokusa izcelšana ieslēgta
+workspace.canvas.peaking_off = Fokusa izcelšana izslēgta

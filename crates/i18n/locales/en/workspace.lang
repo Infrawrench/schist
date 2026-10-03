@@ -130,3 +130,5 @@ workspace.file_picker.permission_denied = Schist does not have permission to rea
 workspace.recovery.recovered_title = {title} (recovered)
 workspace.recovery.recovered.one = Recovered unsaved work from a previous session
 workspace.recovery.recovered.other = Recovered {n} documents from a previous session
+workspace.colormgmt.vision_on = Simulating {name}
+workspace.colormgmt.vision_off = Normal vision

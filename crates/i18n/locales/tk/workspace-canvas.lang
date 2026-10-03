@@ -35,3 +35,7 @@ workspace.history.move_layers = Gatlaklary süýşürmek
 workspace.history.layer_opacity = Gatlagyň örtüjilik derejesi
 workspace.history.delete_note = Belligi pozmak
 workspace.history.edit_note = Belligi redaktirlemek
+workspace.canvas.clipping_on = Kesme duýduryşlary açyk
+workspace.canvas.clipping_off = Kesme duýduryşlary öçük
+workspace.canvas.peaking_on = Fokus bellemesi açyk
+workspace.canvas.peaking_off = Fokus bellemesi öçük

@@ -98,3 +98,5 @@ workspace.file_picker.permission_denied = ʻOku ʻikai maʻu ʻe Schist ha ngofu
 
 workspace.recovery.recovered_title = {title} (kuo toe fakafoki)
 workspace.recovery.recovered.other = Kuo toe fakafoki ʻa e ngāue naʻe teʻeki seivi mei he session kimuʻá; fika ʻo e fakamatala: {n}
+workspace.colormgmt.vision_on = Fakatataaʻi: {name}
+workspace.colormgmt.vision_off = Sio angamaheni

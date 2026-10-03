@@ -35,3 +35,7 @@ workspace.history.move_layers = Давхаргууд зөөх
 workspace.history.layer_opacity = Давхаргын тунгалаг бус байдал
 workspace.history.delete_note = Тэмдэглэл устгах
 workspace.history.edit_note = Тэмдэглэл засах
+workspace.canvas.clipping_on = Тайрагдлын сэрэмжлүүлэг асаалттай
+workspace.canvas.clipping_off = Тайрагдлын сэрэмжлүүлэг унтраалттай
+workspace.canvas.peaking_on = Фокусын ирмэг тодруулалт асаалттай
+workspace.canvas.peaking_off = Фокусын ирмэг тодруулалт унтраалттай

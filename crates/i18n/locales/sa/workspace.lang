@@ -87,3 +87,5 @@ workspace.file_picker.downloads = अवतारणानि
 workspace.file_picker.permission_denied = अस्य सञ्चयस्य पठनाय Schist इत्यस्य अनुमतिः नास्ति
 workspace.recovery.recovered_title = {title} (पुनर्प्राप्तम्)
 workspace.recovery.recovered.other = पूर्वसत्रात् पुनर्प्राप्तारक्षितप्रलेखसंख्या: {n}
+workspace.colormgmt.vision_on = अनुकरणम्: {name}
+workspace.colormgmt.vision_off = सामान्यदृष्टिः

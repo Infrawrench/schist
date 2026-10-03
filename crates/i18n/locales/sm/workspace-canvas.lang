@@ -35,3 +35,7 @@ workspace.history.move_layers = Faaseʻe Vaega
 workspace.history.layer_opacity = Lē Manino o le Vaega
 workspace.history.delete_note = Tape le Faamatalaga
 workspace.history.edit_note = Faasaʻo le Faamatalaga
+workspace.canvas.clipping_on = Ua ola lapataiga o le tipiina
+workspace.canvas.clipping_off = Ua pe lapataiga o le tipiina
+workspace.canvas.peaking_on = Ua ola faaaliga o le taulaiga
+workspace.canvas.peaking_off = Ua pe faaaliga o le taulaiga

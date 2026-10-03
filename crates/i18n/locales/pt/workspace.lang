@@ -91,3 +91,5 @@ workspace.recovery.recovered_title = {title} (recuperado)
 workspace.recovery.recovered.one = {n} documento não guardado de uma sessão anterior recuperado
 workspace.recovery.recovered.many = {n} documentos de uma sessão anterior recuperados
 workspace.recovery.recovered.other = {n} documentos de uma sessão anterior recuperados
+workspace.colormgmt.vision_on = Simulação: {name}
+workspace.colormgmt.vision_off = Visão normal

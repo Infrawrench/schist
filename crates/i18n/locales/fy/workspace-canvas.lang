@@ -38,3 +38,7 @@ workspace.history.move_layers = Lagen ferpleatse
 workspace.history.layer_opacity = Laachdekking
 workspace.history.delete_note = Notysje wiskje
 workspace.history.edit_note = Notysje bewurkje
+workspace.canvas.clipping_on = Klipwarskôgings oan
+workspace.canvas.clipping_off = Klipwarskôgings út
+workspace.canvas.peaking_on = Fokusmarkearring oan
+workspace.canvas.peaking_off = Fokusmarkearring út

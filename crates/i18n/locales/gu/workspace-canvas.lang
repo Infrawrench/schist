@@ -38,3 +38,7 @@ workspace.history.move_layers = લેયરો ખસેડ્યાં
 workspace.history.layer_opacity = લેયરની અપારદર્શકતા
 workspace.history.delete_note = નોંધ કાઢી
 workspace.history.edit_note = નોંધ સંપાદિત કરી
+workspace.canvas.clipping_on = ક્લિપિંગ ચેતવણીઓ ચાલુ
+workspace.canvas.clipping_off = ક્લિપિંગ ચેતવણીઓ બંધ
+workspace.canvas.peaking_on = ફોકસ પીકિંગ ચાલુ
+workspace.canvas.peaking_off = ફોકસ પીકિંગ બંધ

@@ -89,3 +89,5 @@ workspace.file_picker.permission_denied = Schist'тин бул папканы о
 workspace.recovery.recovered_title = {title} (калыбына келтирилди)
 workspace.recovery.recovered.one = Мурунку сеанстагы сакталбаган иш калыбына келтирилди
 workspace.recovery.recovered.other = Мурунку сеанстагы {n} документ калыбына келтирилди
+workspace.colormgmt.vision_on = Симуляция: {name}
+workspace.colormgmt.vision_off = Кадимки көрүү

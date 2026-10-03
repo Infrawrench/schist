@@ -89,3 +89,5 @@ workspace.file_picker.permission_denied = ଏହି ଫୋଲ୍ଡର୍ ପଢ
 workspace.recovery.recovered_title = {title} (ପୁନରୁଦ୍ଧାର ହୋଇଛି)
 workspace.recovery.recovered.one = ପୂର୍ବ ସେସନ୍‌ରୁ ସଞ୍ଚୟ ହୋଇନଥିବା କାମ ପୁନରୁଦ୍ଧାର ହୋଇଛି
 workspace.recovery.recovered.other = ପୂର୍ବ ସେସନ୍‌ରୁ {n}ଟି ଡକ୍ୟୁମେଣ୍ଟ ପୁନରୁଦ୍ଧାର ହୋଇଛି
+workspace.colormgmt.vision_on = ସିମୁଲେସନ୍: {name}
+workspace.colormgmt.vision_off = ସାଧାରଣ ଦୃଷ୍ଟି

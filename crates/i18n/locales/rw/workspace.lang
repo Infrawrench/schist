@@ -96,3 +96,5 @@ workspace.file_picker.permission_denied = Schist nta ruhushya rwo gusoma ubu bub
 
 workspace.recovery.recovered_title = {title} (byagaruwe)
 workspace.recovery.recovered.other = Imirimo itabitswe y'igihe cyashize yaragaruwe; inyandiko: {n}
+workspace.colormgmt.vision_on = Kwigana: {name}
+workspace.colormgmt.vision_off = Kubona bisanzwe

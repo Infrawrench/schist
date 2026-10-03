@@ -35,3 +35,7 @@ workspace.history.move_layers = Kōṃakūt Layer ko
 workspace.history.layer_opacity = Opacity in Layer
 workspace.history.delete_note = Jolọk meļeļe
 workspace.history.edit_note = Ukot meļeļe
+workspace.canvas.clipping_on = Kakkije ko ñan kōn rej on
+workspace.canvas.clipping_off = Kakkije ko ñan kōn rej off
+workspace.canvas.peaking_on = Kwaļọk focus ej on
+workspace.canvas.peaking_off = Kwaļọk focus ej off

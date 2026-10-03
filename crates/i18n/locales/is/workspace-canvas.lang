@@ -35,3 +35,7 @@ workspace.history.move_layers = Færa lög
 workspace.history.layer_opacity = Ógagnsæi lags
 workspace.history.delete_note = Eyða athugasemd
 workspace.history.edit_note = Breyta athugasemd
+workspace.canvas.clipping_on = Kveikt á klippiviðvörunum
+workspace.canvas.clipping_off = Slökkt á klippiviðvörunum
+workspace.canvas.peaking_on = Kveikt á fókusmerkingu
+workspace.canvas.peaking_off = Slökkt á fókusmerkingu

@@ -91,3 +91,5 @@ workspace.recovery.recovered_title = {title} (שוחזר)
 workspace.recovery.recovered.one = שוחזר מסמך אחד ({n}) שלא נשמר מההפעלה הקודמת
 workspace.recovery.recovered.two = שוחזרו {n} מסמכים מההפעלה הקודמת
 workspace.recovery.recovered.other = שוחזרו {n} מסמכים מההפעלה הקודמת
+workspace.colormgmt.vision_on = הדמיה: {name}
+workspace.colormgmt.vision_off = ראייה רגילה

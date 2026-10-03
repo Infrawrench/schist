@@ -37,3 +37,7 @@ workspace.history.move_layers = ფენების გადაადგი�
 workspace.history.layer_opacity = ფენის გაუმჭვირვალობა
 workspace.history.delete_note = შენიშვნის წაშლა
 workspace.history.edit_note = შენიშვნის შეცვლა
+workspace.canvas.clipping_on = ამოჭრის გაფრთხილებები ჩართულია
+workspace.canvas.clipping_off = ამოჭრის გაფრთხილებები გამორთულია
+workspace.canvas.peaking_on = ფოკუსის გამოყოფა ჩართულია
+workspace.canvas.peaking_off = ფოკუსის გამოყოფა გამორთულია

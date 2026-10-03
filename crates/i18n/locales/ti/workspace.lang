@@ -102,3 +102,5 @@ workspace.file_picker.permission_denied = Schist ነዚ ኣቃፊ ንምንባ�
 workspace.recovery.recovered_title = {title} (ዝተመልሰ)
 workspace.recovery.recovered.one = ካብ ዝሓለፈ ክፍለ ግዜ {n} ዘይተቐመጠ ስራሕ ተመሊሱ
 workspace.recovery.recovered.other = ካብ ዝሓለፈ ክፍለ ግዜ {n} ሰነዳት ተመሊሶም
+workspace.colormgmt.vision_on = ተመሳሳሊ: {name}
+workspace.colormgmt.vision_off = ንቡር ርእይቶ

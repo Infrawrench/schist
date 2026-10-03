@@ -35,3 +35,7 @@ workspace.history.move_layers = Pindahkeun Lapisan
 workspace.history.layer_opacity = Opasitas Lapisan
 workspace.history.delete_note = Pupus Catetan
 workspace.history.edit_note = Édit Catetan
+workspace.canvas.clipping_on = Peringatan clipping hurung
+workspace.canvas.clipping_off = Peringatan clipping pareum
+workspace.canvas.peaking_on = Sorot fokus hurung
+workspace.canvas.peaking_off = Sorot fokus pareum

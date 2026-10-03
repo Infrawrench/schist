@@ -87,3 +87,5 @@ workspace.file_picker.downloads = ការទាញយក
 workspace.file_picker.permission_denied = Schist មិនមានសិទ្ធិអានថតនេះ
 workspace.recovery.recovered_title = {title} (បានស្តារ)
 workspace.recovery.recovered.other = បានស្តារឯកសារចំនួន {n} ពីការងារដែលមិនទាន់រក្សាទុកក្នុងសម័យមុន
+workspace.colormgmt.vision_on = ការក្លែងធ្វើ៖ {name}
+workspace.colormgmt.vision_off = ការមើលឃើញធម្មតា

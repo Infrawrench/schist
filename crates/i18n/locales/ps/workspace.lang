@@ -89,3 +89,5 @@ workspace.file_picker.permission_denied = Schist د دې پوښۍ د لوستل�
 workspace.recovery.recovered_title = {title} (رغول شوی)
 workspace.recovery.recovered.one = د تېرې ناستې نه ساتل شوی کار ورغول شو
 workspace.recovery.recovered.other = د تېرې ناستې {n} سندونه ورغول شول
+workspace.colormgmt.vision_on = انځورګري: {name}
+workspace.colormgmt.vision_off = عادي لید

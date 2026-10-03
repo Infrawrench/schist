@@ -37,3 +37,7 @@ workspace.history.move_layers = Kalikiw lamaga
 workspace.history.layer_opacity = Kaliki transparanbaliya
 workspace.history.delete_note = Kunkan bɔ
 workspace.history.edit_note = Kunkan labɛn
+workspace.canvas.clipping_on = Tigɛ lasiriw dalen
+workspace.canvas.clipping_off = Tigɛ lasiriw datugulen
+workspace.canvas.peaking_on = Foku jirali dalen
+workspace.canvas.peaking_off = Foku jirali datugulen

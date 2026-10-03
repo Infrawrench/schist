@@ -35,3 +35,7 @@ workspace.history.move_layers = Fambisa Zvikamu
 workspace.history.layer_opacity = Mwero wekusajeka-pachena kweChikamu
 workspace.history.delete_note = Dzima Chinyorwa
 workspace.history.edit_note = Gadzirisa Chinyorwa
+workspace.canvas.clipping_on = Yambiro dzekucheka dzabatidzwa
+workspace.canvas.clipping_off = Yambiro dzekucheka dzadzimwa
+workspace.canvas.peaking_on = Kusimbisa focus kwabatidzwa
+workspace.canvas.peaking_off = Kusimbisa focus kwadzimwa

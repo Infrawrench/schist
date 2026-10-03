@@ -89,3 +89,5 @@ workspace.file_picker.permission_denied = Schist bu jildni o‘qishga ruxsat olm
 workspace.recovery.recovered_title = {title} (tiklangan)
 workspace.recovery.recovered.one = Oldingi seansdagi saqlanmagan ish tiklandi
 workspace.recovery.recovered.other = Oldingi seansdagi {n} ta hujjat tiklandi
+workspace.colormgmt.vision_on = Simulyatsiya: {name}
+workspace.colormgmt.vision_off = Oddiy ko‘rish

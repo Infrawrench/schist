@@ -35,3 +35,7 @@ workspace.history.move_layers = அடுக்குகளை நகர்த�
 workspace.history.layer_opacity = அடுக்கு ஒளிபுகாமை
 workspace.history.delete_note = குறிப்பை நீக்கு
 workspace.history.edit_note = குறிப்பைத் திருத்து
+workspace.canvas.clipping_on = கிளிப்பிங் எச்சரிக்கைகள் இயக்கப்பட்டன
+workspace.canvas.clipping_off = கிளிப்பிங் எச்சரிக்கைகள் முடக்கப்பட்டன
+workspace.canvas.peaking_on = ஃபோகஸ் பீக்கிங் இயக்கப்பட்டது
+workspace.canvas.peaking_off = ஃபோகஸ் பீக்கிங் முடக்கப்பட்டது

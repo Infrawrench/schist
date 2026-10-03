@@ -128,3 +128,5 @@ workspace.file_picker.permission_denied = Schist tidak mempunyai kebenaran untuk
 # Crash recovery (recovery.rs)
 workspace.recovery.recovered_title = {title} (dipulihkan)
 workspace.recovery.recovered.other = {n} dokumen daripada sesi sebelumnya dipulihkan
+workspace.colormgmt.vision_on = Simulasi: {name}
+workspace.colormgmt.vision_off = Penglihatan normal

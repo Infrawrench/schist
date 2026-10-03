@@ -94,3 +94,5 @@ workspace.file_picker.downloads = ဒေါင်းလုဒ်များ
 workspace.file_picker.permission_denied = Schist တွင် ဤဖိုင်တွဲကို ဖတ်ရန် ခွင့်ပြုချက်မရှိပါ
 workspace.recovery.recovered_title = {title} (ပြန်လည်ရယူထားသည်)
 workspace.recovery.recovered.other = ယခင်အသုံးပြုမှုမှ မသိမ်းရသေးသော စာတမ်း {n} ခုကို ပြန်လည်ရယူပြီးပါပြီ
+workspace.colormgmt.vision_on = ပုံစံတူဖန်တီးခြင်း- {name}
+workspace.colormgmt.vision_off = ပုံမှန်မြင်ကွင်း

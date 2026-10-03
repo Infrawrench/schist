@@ -89,3 +89,5 @@ workspace.file_picker.permission_denied = Schist اجازهٔ خواندن ای�
 workspace.recovery.recovered_title = {title} (بازیابی‌شده)
 workspace.recovery.recovered.one = {n} سند ذخیره‌نشده از نشست پیشین بازیابی شد
 workspace.recovery.recovered.other = {n} سند از نشست پیشین بازیابی شد
+workspace.colormgmt.vision_on = شبیه‌سازی: {name}
+workspace.colormgmt.vision_off = بینایی عادی

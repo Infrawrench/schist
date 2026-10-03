@@ -90,3 +90,5 @@ workspace.file_picker.permission_denied = Schist ይህን አቃፊ ለማን�
 workspace.recovery.recovered_title = {title} (የተመለሰ)
 workspace.recovery.recovered.one = ካለፈው ክፍለ ጊዜ {n} ያልተቀመጠ ሰነድ ተመልሷል
 workspace.recovery.recovered.other = ካለፈው ክፍለ ጊዜ {n} ሰነዶች ተመልሰዋል
+workspace.colormgmt.vision_on = ማስመሰል፦ {name}
+workspace.colormgmt.vision_off = መደበኛ እይታ

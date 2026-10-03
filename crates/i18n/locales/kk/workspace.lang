@@ -101,3 +101,5 @@ workspace.file_picker.permission_denied = Schist қолданбасында бұ
 workspace.recovery.recovered_title = {title} (қалпына келтірілген)
 workspace.recovery.recovered.one = Алдыңғы сеанстағы сақталмаған жұмыс қалпына келтірілді
 workspace.recovery.recovered.other = Алдыңғы сеанстағы {n} құжат қалпына келтірілді
+workspace.colormgmt.vision_on = Симуляция: {name}
+workspace.colormgmt.vision_off = Қалыпты көру

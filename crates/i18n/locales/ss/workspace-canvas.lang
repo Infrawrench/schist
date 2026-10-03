@@ -36,3 +36,7 @@ workspace.history.move_layers = Hambisa Tinhlaka
 workspace.history.layer_opacity = Kungabonakali Ngale Kweluhlaka
 workspace.history.delete_note = Susa Inothi
 workspace.history.edit_note = Hlela Inothi
+workspace.canvas.clipping_on = Tixwayiso te-clipping tivuliwe
+workspace.canvas.clipping_off = Tixwayiso te-clipping tivaliwe
+workspace.canvas.peaking_on = Focus peaking ivuliwe
+workspace.canvas.peaking_off = Focus peaking ivaliwe

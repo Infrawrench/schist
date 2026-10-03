@@ -36,3 +36,7 @@ workspace.history.move_layers = Spustar las stresas
 workspace.history.layer_opacity = Opacitad da la stresa
 workspace.history.delete_note = Stizzar la notizia
 workspace.history.edit_note = Modifitgar la notizia
+workspace.canvas.clipping_on = Avertiments da clipping activads
+workspace.canvas.clipping_off = Avertiments da clipping deactivads
+workspace.canvas.peaking_on = Accentuaziun dal focus activada
+workspace.canvas.peaking_off = Accentuaziun dal focus deactivada

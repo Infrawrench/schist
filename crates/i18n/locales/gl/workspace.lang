@@ -89,3 +89,5 @@ workspace.file_picker.permission_denied = Schist non ten permiso para ler este c
 workspace.recovery.recovered_title = {title} (recuperado)
 workspace.recovery.recovered.one = Recuperouse traballo sen gardar dunha sesión anterior
 workspace.recovery.recovered.other = Recuperáronse {n} documentos dunha sesión anterior
+workspace.colormgmt.vision_on = Simulación: {name}
+workspace.colormgmt.vision_off = Visión normal

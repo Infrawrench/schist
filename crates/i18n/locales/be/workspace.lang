@@ -93,3 +93,5 @@ workspace.recovery.recovered.one = Адноўлены {n} дакумент з н
 workspace.recovery.recovered.few = Адноўлены {n} дакументы з незахаванай працай з папярэдняга сеанса
 workspace.recovery.recovered.many = Адноўлена {n} дакументаў з незахаванай працай з папярэдняга сеанса
 workspace.recovery.recovered.other = Адноўлена {n} дакумента з незахаванай працай з папярэдняга сеанса
+workspace.colormgmt.vision_on = Мадэляванне: {name}
+workspace.colormgmt.vision_off = Нармальны зрок

@@ -35,3 +35,7 @@ workspace.history.move_layers = Neke Ngā Apa
 workspace.history.layer_opacity = Pūatakoretanga Apa
 workspace.history.delete_note = Muku Tuhipoka
 workspace.history.edit_note = Whakatika Tuhipoka
+workspace.canvas.clipping_on = Kua kā ngā whakatūpato tapahi
+workspace.canvas.clipping_off = Kua weto ngā whakatūpato tapahi
+workspace.canvas.peaking_on = Kua kā te tihi aronga
+workspace.canvas.peaking_off = Kua weto te tihi aronga

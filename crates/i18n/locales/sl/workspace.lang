@@ -93,3 +93,5 @@ workspace.recovery.recovered.one = Iz prejšnje seje je obnovljen {n} neshranjen
 workspace.recovery.recovered.two = Iz prejšnje seje sta obnovljena {n} neshranjena dokumenta
 workspace.recovery.recovered.few = Iz prejšnje seje so obnovljeni {n} neshranjeni dokumenti
 workspace.recovery.recovered.other = Iz prejšnje seje je obnovljenih {n} neshranjenih dokumentov
+workspace.colormgmt.vision_on = Simulacija: {name}
+workspace.colormgmt.vision_off = Običajen vid

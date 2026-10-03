@@ -89,3 +89,5 @@ workspace.file_picker.permission_denied = Schistillä ei ole oikeutta lukea tät
 workspace.recovery.recovered_title = {title} (palautettu)
 workspace.recovery.recovered.one = Edellisen istunnon tallentamaton työ palautettiin
 workspace.recovery.recovered.other = Edellisestä istunnosta palautettiin {n} dokumenttia
+workspace.colormgmt.vision_on = Simulaatio: {name}
+workspace.colormgmt.vision_off = Normaali näkö

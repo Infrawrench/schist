@@ -89,3 +89,5 @@ workspace.file_picker.permission_denied = Schist destûra xwendina vê peldankê
 workspace.recovery.recovered_title = {title} (hat vegerandin)
 workspace.recovery.recovered.one = Karê netomarkirî ji danişîna berê hat vegerandin
 workspace.recovery.recovered.other = {n} belge ji danişîna berê hatin vegerandin
+workspace.colormgmt.vision_on = Simulasyon: {name}
+workspace.colormgmt.vision_off = Dîtina normal

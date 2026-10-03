@@ -35,3 +35,7 @@ workspace.history.move_layers = Gwaya Gwiskow
 workspace.history.layer_opacity = Opasedh Gwisk
 workspace.history.delete_note = Dilea Noten
 workspace.history.edit_note = Golygi Noten
+workspace.canvas.clipping_on = Gwarnyansow tryghans byw
+workspace.canvas.clipping_off = Gwarnyansow tryghans marow
+workspace.canvas.peaking_on = Pwyntya fog byw
+workspace.canvas.peaking_off = Pwyntya fog marow

@@ -87,3 +87,5 @@ workspace.file_picker.downloads = Àwọn ohun tí a gbà sílẹ̀
 workspace.file_picker.permission_denied = Schist kò ní àṣẹ láti ka fódà yìí
 workspace.recovery.recovered_title = {title} (a ti mú padà)
 workspace.recovery.recovered.other = Iṣẹ́ tí a kò fipamọ́ tí a mú padà láti sáà ṣáájú; iye ìwé: {n}
+workspace.colormgmt.vision_on = Ìṣàfarawé: {name}
+workspace.colormgmt.vision_off = Ìríran déédé

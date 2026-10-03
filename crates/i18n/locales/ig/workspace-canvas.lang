@@ -35,3 +35,7 @@ workspace.history.move_layers = Bugharịa leya
 workspace.history.layer_opacity = Oke mkpuchi leya
 workspace.history.delete_note = Hichapụ ndetu
 workspace.history.edit_note = Dezie ndetu
+workspace.canvas.clipping_on = Ndọ aka na ntị maka ịkpụcha agbanyere
+workspace.canvas.clipping_off = Ndọ aka na ntị maka ịkpụcha agbanyụrụ
+workspace.canvas.peaking_on = Nkọwa ebe lekwasịrị anya agbanyere
+workspace.canvas.peaking_off = Nkọwa ebe lekwasịrị anya agbanyụrụ

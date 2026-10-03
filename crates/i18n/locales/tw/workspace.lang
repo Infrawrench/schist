@@ -87,3 +87,5 @@ workspace.file_picker.downloads = Nneɛma a Wɔatwe
 workspace.file_picker.permission_denied = Schist nni kwan sɛ ɛkenkan folda yi
 workspace.recovery.recovered_title = {title} (wɔasan anya)
 workspace.recovery.recovered.other = Wɔasan anya adwuma a wɔankora wɔ session a etwaam no mu; document dodow: {n}
+workspace.colormgmt.vision_on = Nhwɛsoɔ: {name}
+workspace.colormgmt.vision_off = Hwɛ pa

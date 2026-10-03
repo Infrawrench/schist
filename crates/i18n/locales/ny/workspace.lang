@@ -98,3 +98,5 @@ workspace.file_picker.permission_denied = Schist ilibe chilolezo chowerenga foda
 workspace.recovery.recovered_title = {title} (yabwezeretsedwa)
 workspace.recovery.recovered.one = Yabwezeretsa ntchito yosasungidwa ya session yapita
 workspace.recovery.recovered.other = Yabwezeretsa zikalata {n} za session yapita
+workspace.colormgmt.vision_on = Kuyerekeza: {name}
+workspace.colormgmt.vision_off = Kuona bwino

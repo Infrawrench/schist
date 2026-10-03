@@ -42,3 +42,7 @@ workspace.history.move_layers = Flytta lager
 workspace.history.layer_opacity = Lageropacitet
 workspace.history.delete_note = Ta bort anteckning
 workspace.history.edit_note = Redigera anteckning
+workspace.canvas.clipping_on = Varning för klippning på
+workspace.canvas.clipping_off = Varning för klippning av
+workspace.canvas.peaking_on = Fokuskantmarkering på
+workspace.canvas.peaking_off = Fokuskantmarkering av

@@ -35,3 +35,7 @@ workspace.history.move_layers = Katmanları Taşı
 workspace.history.layer_opacity = Katman Opaklığı
 workspace.history.delete_note = Notu Sil
 workspace.history.edit_note = Notu Düzenle
+workspace.canvas.clipping_on = Kırpma uyarıları açık
+workspace.canvas.clipping_off = Kırpma uyarıları kapalı
+workspace.canvas.peaking_on = Odak vurgulama açık
+workspace.canvas.peaking_off = Odak vurgulama kapalı

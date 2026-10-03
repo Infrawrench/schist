@@ -102,3 +102,5 @@ workspace.file_picker.permission_denied = Schist heeft geen toestemming om deze 
 workspace.recovery.recovered_title = {title} (hersteld)
 workspace.recovery.recovered.one = Niet-opgeslagen werk uit een vorige sessie hersteld
 workspace.recovery.recovered.other = {n} documenten uit een vorige sessie hersteld
+workspace.colormgmt.vision_on = Simulatie: {name}
+workspace.colormgmt.vision_off = Normaal zien

@@ -94,3 +94,5 @@ workspace.recovery.recovered.one = Восстановлен {n} документ
 workspace.recovery.recovered.few = Восстановлено {n} документа из предыдущего сеанса
 workspace.recovery.recovered.many = Восстановлено {n} документов из предыдущего сеанса
 workspace.recovery.recovered.other = Восстановлено {n} документа из предыдущего сеанса
+workspace.colormgmt.vision_on = Имитация: {name}
+workspace.colormgmt.vision_off = Нормальное зрение

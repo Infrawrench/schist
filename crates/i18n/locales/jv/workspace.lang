@@ -88,3 +88,5 @@ workspace.file_picker.downloads = Undhuhan
 workspace.file_picker.permission_denied = Schist ora nduwèni idin kanggo maca folder iki
 workspace.recovery.recovered_title = {title} (dipulihaké)
 workspace.recovery.recovered.other = {n} dokumèn saka sesi sadurungé wis dipulihaké
+workspace.colormgmt.vision_on = Simulasi: {name}
+workspace.colormgmt.vision_off = Pandeleng normal

@@ -37,3 +37,7 @@ workspace.history.move_layers = Movi tavolojn
 workspace.history.layer_opacity = Tavola opakeco
 workspace.history.delete_note = Forigi noton
 workspace.history.edit_note = Redakti noton
+workspace.canvas.clipping_on = Tondaj avertoj ŝaltitaj
+workspace.canvas.clipping_off = Tondaj avertoj malŝaltitaj
+workspace.canvas.peaking_on = Fokusa konturo ŝaltita
+workspace.canvas.peaking_off = Fokusa konturo malŝaltita

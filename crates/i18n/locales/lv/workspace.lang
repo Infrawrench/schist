@@ -104,3 +104,5 @@ workspace.recovery.recovered_title = {title} (atkopts)
 workspace.recovery.recovered.zero = Atkopti {n} nesaglabātu dokumentu no iepriekšējās sesijas
 workspace.recovery.recovered.one = Atkopts {n} nesaglabāts dokuments no iepriekšējās sesijas
 workspace.recovery.recovered.other = Atkopti {n} dokumenti no iepriekšējās sesijas
+workspace.colormgmt.vision_on = Simulācija: {name}
+workspace.colormgmt.vision_off = Normāla redze

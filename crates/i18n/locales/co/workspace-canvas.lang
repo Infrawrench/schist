@@ -38,3 +38,7 @@ workspace.history.move_layers = Spustà i strati
 workspace.history.layer_opacity = Opacità di u stratu
 workspace.history.delete_note = Sguassà a nota
 workspace.history.edit_note = Mudificà a nota
+workspace.canvas.clipping_on = Avvisi di tagliu attivati
+workspace.canvas.clipping_off = Avvisi di tagliu disattivati
+workspace.canvas.peaking_on = Focus peaking attivatu
+workspace.canvas.peaking_off = Focus peaking disattivatu

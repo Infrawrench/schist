@@ -89,3 +89,5 @@ workspace.file_picker.permission_denied = A Schistnek nincs engedélye a mappa o
 workspace.recovery.recovered_title = {title} (helyreállítva)
 workspace.recovery.recovered.one = Az előző munkamenet nem mentett munkája helyreállítva
 workspace.recovery.recovered.other = {n} dokumentum helyreállítva az előző munkamenetből
+workspace.colormgmt.vision_on = Szimuláció: {name}
+workspace.colormgmt.vision_off = Normál látás

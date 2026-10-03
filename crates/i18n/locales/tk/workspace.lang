@@ -102,3 +102,5 @@ workspace.file_picker.permission_denied = Schist bu bukjany okamaga rugsatly dä
 workspace.recovery.recovered_title = {title} (dikeldildi)
 workspace.recovery.recovered.one = Öňki sessiýadan ýazdyrylmadyk iş dikeldildi
 workspace.recovery.recovered.other = Öňki sessiýadan {n} resminama dikeldildi
+workspace.colormgmt.vision_on = Simulýasiýa: {name}
+workspace.colormgmt.vision_off = Adaty görüş

@@ -90,3 +90,5 @@ workspace.file_picker.permission_denied = ಈ ಫೋಲ್ಡರ್ ಓದಲು
 workspace.recovery.recovered_title = {title} (ಮರುಪಡೆಯಲಾಗಿದೆ)
 workspace.recovery.recovered.one = ಹಿಂದಿನ ಸೆಷನ್‌ನ ಉಳಿಸದ {n} ಡಾಕ್ಯುಮೆಂಟ್ ಅನ್ನು ಮರುಪಡೆಯಲಾಗಿದೆ
 workspace.recovery.recovered.other = ಹಿಂದಿನ ಸೆಷನ್‌ನ {n} ಡಾಕ್ಯುಮೆಂಟ್‌ಗಳನ್ನು ಮರುಪಡೆಯಲಾಗಿದೆ
+workspace.colormgmt.vision_on = ಸಿಮ್ಯುಲೇಶನ್: {name}
+workspace.colormgmt.vision_off = ಸಾಮಾನ್ಯ ದೃಷ್ಟಿ

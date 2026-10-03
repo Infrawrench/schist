@@ -36,3 +36,7 @@ workspace.history.move_layers = Flyt løg
 workspace.history.layer_opacity = Ógjøgnumskygni á lagi
 workspace.history.delete_note = Strika viðmerking
 workspace.history.edit_note = Rætta viðmerking
+workspace.canvas.clipping_on = Klippiávaringar tendraðar
+workspace.canvas.clipping_off = Klippiávaringar sløktar
+workspace.canvas.peaking_on = Fokusmarkering tendrað
+workspace.canvas.peaking_off = Fokusmarkering sløkt

@@ -37,3 +37,7 @@ workspace.history.move_layers = Ho Tsamaisa Mekhahlelo
 workspace.history.layer_opacity = Ho se Bonaletse ha Mokhahlelo
 workspace.history.delete_note = Ho Hlakola Ntlha
 workspace.history.edit_note = Ho Hlophisa Ntlha
+workspace.canvas.clipping_on = Litemoso tsa ho khaola li buletsoe
+workspace.canvas.clipping_off = Litemoso tsa ho khaola li koetsoe
+workspace.canvas.peaking_on = Ho totobatsa fokase ho buletsoe
+workspace.canvas.peaking_off = Ho totobatsa fokase ho koetsoe

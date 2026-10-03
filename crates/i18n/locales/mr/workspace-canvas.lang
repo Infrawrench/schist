@@ -35,3 +35,7 @@ workspace.history.move_layers = स्तर हलवा
 workspace.history.layer_opacity = स्तर अपारदर्शकता
 workspace.history.delete_note = नोंद हटवा
 workspace.history.edit_note = नोंद संपादित करा
+workspace.canvas.clipping_on = क्लिपिंग इशारे सुरू
+workspace.canvas.clipping_off = क्लिपिंग इशारे बंद
+workspace.canvas.peaking_on = फोकस पीकिंग सुरू
+workspace.canvas.peaking_off = फोकस पीकिंग बंद

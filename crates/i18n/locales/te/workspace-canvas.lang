@@ -35,3 +35,7 @@ workspace.history.move_layers = లేయర్‌లను తరలించ�
 workspace.history.layer_opacity = లేయర్ అపారదర్శకత
 workspace.history.delete_note = గమనికను తొలగించడం
 workspace.history.edit_note = గమనికను సవరించడం
+workspace.canvas.clipping_on = క్లిప్పింగ్ హెచ్చరికలు ఆన్
+workspace.canvas.clipping_off = క్లిప్పింగ్ హెచ్చరికలు ఆఫ్
+workspace.canvas.peaking_on = ఫోకస్ పీకింగ్ ఆన్
+workspace.canvas.peaking_off = ఫోకస్ పీకింగ్ ఆఫ్

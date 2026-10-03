@@ -87,3 +87,5 @@ workspace.file_picker.downloads = Download siha
 workspace.file_picker.permission_denied = Tåya' petmisun i Schist para u basa este na folder
 workspace.recovery.recovered_title = {title} (marikupera)
 workspace.recovery.recovered.other = Marikupera i ti masåtba na cho'cho' ginen un mampos na session; kuantidåt dokumentu: {n}
+workspace.colormgmt.vision_on = Simulasión: {name}
+workspace.colormgmt.vision_off = Normal na bisión

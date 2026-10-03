@@ -35,3 +35,7 @@ workspace.history.move_layers = ස්තර ගෙනයන්න
 workspace.history.layer_opacity = ස්තර පාරාන්ධතාව
 workspace.history.delete_note = සටහන මකන්න
 workspace.history.edit_note = සටහන සංස්කරණය කරන්න
+workspace.canvas.clipping_on = ක්ලිපින් අනතුරු ඇඟවීම් සක්‍රියයි
+workspace.canvas.clipping_off = ක්ලිපින් අනතුරු ඇඟවීම් අක්‍රියයි
+workspace.canvas.peaking_on = නාභි උච්චතම අවධාරණය සක්‍රියයි
+workspace.canvas.peaking_off = නාභි උච්චතම අවධාරණය අක්‍රියයි

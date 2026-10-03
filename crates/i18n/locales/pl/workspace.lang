@@ -93,3 +93,5 @@ workspace.recovery.recovered.one = Odzyskano niezapisaną pracę z poprzedniej s
 workspace.recovery.recovered.few = Odzyskano {n} dokumenty z poprzedniej sesji
 workspace.recovery.recovered.many = Odzyskano {n} dokumentów z poprzedniej sesji
 workspace.recovery.recovered.other = Odzyskano {n} dokumentu z poprzedniej sesji
+workspace.colormgmt.vision_on = Symulacja: {name}
+workspace.colormgmt.vision_off = Widzenie prawidłowe

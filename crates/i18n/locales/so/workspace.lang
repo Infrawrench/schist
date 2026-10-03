@@ -89,3 +89,5 @@ workspace.file_picker.permission_denied = Schist oggolaansho uma haysto inuu akh
 workspace.recovery.recovered_title = {title} (la soo celiyey)
 workspace.recovery.recovered.one = Waxaa la soo celiyey shaqo aan la kaydin oo ka timid fadhi hore
 workspace.recovery.recovered.other = Waxaa la soo celiyey {n} dukumenti oo ka timid fadhi hore
+workspace.colormgmt.vision_on = Jilid: {name}
+workspace.colormgmt.vision_off = Aragga caadiga ah

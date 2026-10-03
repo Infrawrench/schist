@@ -102,3 +102,5 @@ workspace.file_picker.permission_denied = Schist a yi na mpfumelelo wo hlaya fol
 workspace.recovery.recovered_title = {title} (yi vuyiseriwile)
 workspace.recovery.recovered.one = Ku vuyiseriwe mintirho leyi nga hlayisiwangiki eka session leyi hundzeke ({n})
 workspace.recovery.recovered.other = Ku vuyiseriwe tidokhumente ta {n} eka session leyi hundzeke
+workspace.colormgmt.vision_on = Ku tekelela: {name}
+workspace.colormgmt.vision_off = Ku vona loku tolovelekeke

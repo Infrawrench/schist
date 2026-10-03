@@ -35,3 +35,7 @@ workspace.history.move_layers = तहहरू सार्नुहोस्
 workspace.history.layer_opacity = तहको अपारदर्शिता
 workspace.history.delete_note = टिप्पणी मेटाउनुहोस्
 workspace.history.edit_note = टिप्पणी सम्पादन गर्नुहोस्
+workspace.canvas.clipping_on = क्लिपिङ चेतावनीहरू चालु
+workspace.canvas.clipping_off = क्लिपिङ चेतावनीहरू बन्द
+workspace.canvas.peaking_on = फोकस पिकिङ चालु
+workspace.canvas.peaking_off = फोकस पिकिङ बन्द

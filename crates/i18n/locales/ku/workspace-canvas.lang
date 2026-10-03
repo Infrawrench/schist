@@ -35,3 +35,7 @@ workspace.history.move_layers = Layeran Veguhêze
 workspace.history.layer_opacity = Nezelalbûna Layerê
 workspace.history.delete_note = Notê Jê Bibe
 workspace.history.edit_note = Notê Sererast Bike
+workspace.canvas.clipping_on = Hişyariyên birînê vekirî ne
+workspace.canvas.clipping_off = Hişyariyên birînê girtî ne
+workspace.canvas.peaking_on = Xuyakirina fokusê vekirî ye
+workspace.canvas.peaking_off = Xuyakirina fokusê girtî ye

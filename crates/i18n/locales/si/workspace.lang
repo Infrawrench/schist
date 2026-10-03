@@ -89,3 +89,5 @@ workspace.file_picker.permission_denied = මෙම ෆෝල්ඩරය කි
 workspace.recovery.recovered_title = {title} (ප්‍රතිසාධිත)
 workspace.recovery.recovered.one = පෙර සැසියකින් නොසුරැකි ලේඛන {n}ක් ප්‍රතිසාධනය කරන ලදී
 workspace.recovery.recovered.other = පෙර සැසියකින් ලේඛන {n}ක් ප්‍රතිසාධනය කරන ලදී
+workspace.colormgmt.vision_on = අනුකරණය: {name}
+workspace.colormgmt.vision_off = සාමාන්‍ය දැක්ම

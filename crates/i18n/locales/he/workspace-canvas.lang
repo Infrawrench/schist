@@ -35,3 +35,7 @@ workspace.history.move_layers = הזזת שכבות
 workspace.history.layer_opacity = אטימות שכבה
 workspace.history.delete_note = מחיקת הערה
 workspace.history.edit_note = עריכת הערה
+workspace.canvas.clipping_on = אזהרות החיתוך הופעלו
+workspace.canvas.clipping_off = אזהרות החיתוך כובו
+workspace.canvas.peaking_on = הדגשת המיקוד הופעלה
+workspace.canvas.peaking_off = הדגשת המיקוד כובתה

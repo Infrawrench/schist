@@ -97,3 +97,5 @@ workspace.recovery.recovered.two = تم استرداد مستندين غير م�
 workspace.recovery.recovered.few = تم استرداد {n} مستندات غير محفوظة من جلسة سابقة
 workspace.recovery.recovered.many = تم استرداد {n} مستندًا غير محفوظ من جلسة سابقة
 workspace.recovery.recovered.other = تم استرداد {n} مستند غير محفوظ من جلسة سابقة
+workspace.colormgmt.vision_on = المحاكاة: {name}
+workspace.colormgmt.vision_off = الرؤية الطبيعية

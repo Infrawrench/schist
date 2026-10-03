@@ -95,3 +95,5 @@ workspace.recovery.recovered.two = Aisghabhadh {n} cháipéis ó sheisiún roimh
 workspace.recovery.recovered.few = Aisghabhadh {n} cháipéis ó sheisiún roimhe seo
 workspace.recovery.recovered.many = Aisghabhadh {n} gcáipéis ó sheisiún roimhe seo
 workspace.recovery.recovered.other = Aisghabhadh {n} cáipéis ó sheisiún roimhe seo
+workspace.colormgmt.vision_on = Insamhladh: {name}
+workspace.colormgmt.vision_off = Gnáthradharc

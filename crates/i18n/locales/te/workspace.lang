@@ -89,3 +89,5 @@ workspace.file_picker.permission_denied = ఈ ఫోల్డర్‌ను చ
 workspace.recovery.recovered_title = {title} (పునరుద్ధరించబడింది)
 workspace.recovery.recovered.one = మునుపటి సెషన్‌లో సేవ్ కాని పని పునరుద్ధరించబడింది
 workspace.recovery.recovered.other = మునుపటి సెషన్ నుండి {n} పత్రాలు పునరుద్ధరించబడ్డాయి
+workspace.colormgmt.vision_on = సిమ్యులేషన్: {name}
+workspace.colormgmt.vision_off = సాధారణ దృష్టి

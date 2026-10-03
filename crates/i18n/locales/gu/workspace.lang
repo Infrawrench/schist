@@ -111,3 +111,5 @@ workspace.file_picker.permission_denied = Schistને આ ફોલ્ડર �
 workspace.recovery.recovered_title = {title} (પુનઃપ્રાપ્ત)
 workspace.recovery.recovered.one = અગાઉના સત્રમાંથી ન સાચવેલા {n} દસ્તાવેજનું કામ પુનઃપ્રાપ્ત કર્યું
 workspace.recovery.recovered.other = અગાઉના સત્રમાંથી {n} દસ્તાવેજો પુનઃપ્રાપ્ત કર્યા
+workspace.colormgmt.vision_on = સિમ્યુલેશન: {name}
+workspace.colormgmt.vision_off = સામાન્ય દ્રષ્ટિ

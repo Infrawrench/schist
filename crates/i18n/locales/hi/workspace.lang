@@ -89,3 +89,5 @@ workspace.file_picker.permission_denied = Schist को यह फ़ोल्�
 workspace.recovery.recovered_title = {title} (पुनर्प्राप्त)
 workspace.recovery.recovered.one = पिछले सत्र का {n} बिना सहेजा हुआ दस्तावेज़ पुनर्प्राप्त किया गया
 workspace.recovery.recovered.other = पिछले सत्र के {n} दस्तावेज़ पुनर्प्राप्त किए गए
+workspace.colormgmt.vision_on = अनुकरण: {name}
+workspace.colormgmt.vision_off = सामान्य दृष्टि

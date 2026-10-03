@@ -35,3 +35,7 @@ workspace.history.move_layers = Di chuyển các lớp
 workspace.history.layer_opacity = Độ mờ đục của lớp
 workspace.history.delete_note = Xóa ghi chú
 workspace.history.edit_note = Chỉnh sửa ghi chú
+workspace.canvas.clipping_on = Cảnh báo cắt xén bật
+workspace.canvas.clipping_off = Cảnh báo cắt xén tắt
+workspace.canvas.peaking_on = Làm nổi nét lấy nét bật
+workspace.canvas.peaking_off = Làm nổi nét lấy nét tắt

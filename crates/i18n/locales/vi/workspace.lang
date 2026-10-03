@@ -87,3 +87,5 @@ workspace.file_picker.downloads = Tệp tải xuống
 workspace.file_picker.permission_denied = Schist không có quyền đọc thư mục này
 workspace.recovery.recovered_title = {title} (đã khôi phục)
 workspace.recovery.recovered.other = Đã khôi phục {n} tài liệu chưa lưu từ phiên trước
+workspace.colormgmt.vision_on = Mô phỏng: {name}
+workspace.colormgmt.vision_off = Thị giác bình thường

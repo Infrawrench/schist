@@ -35,3 +35,7 @@ workspace.history.move_layers = লেয়ারগুলো সরানো
 workspace.history.layer_opacity = লেয়ারের অস্বচ্ছতা
 workspace.history.delete_note = নোট মুছে ফেলা
 workspace.history.edit_note = নোট সম্পাদনা
+workspace.canvas.clipping_on = ক্লিপিং সতর্কতা চালু
+workspace.canvas.clipping_off = ক্লিপিং সতর্কতা বন্ধ
+workspace.canvas.peaking_on = ফোকাস পিকিং চালু
+workspace.canvas.peaking_off = ফোকাস পিকিং বন্ধ

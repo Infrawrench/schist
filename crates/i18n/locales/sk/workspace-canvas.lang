@@ -36,3 +36,7 @@ workspace.history.move_layers = Presunúť vrstvy
 workspace.history.layer_opacity = Krytie vrstvy
 workspace.history.delete_note = Odstrániť poznámku
 workspace.history.edit_note = Upraviť poznámku
+workspace.canvas.clipping_on = Upozornenia na orezanie zapnuté
+workspace.canvas.clipping_off = Upozornenia na orezanie vypnuté
+workspace.canvas.peaking_on = Zvýraznenie ostrosti zapnuté
+workspace.canvas.peaking_off = Zvýraznenie ostrosti vypnuté

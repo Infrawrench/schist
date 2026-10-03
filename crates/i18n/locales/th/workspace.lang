@@ -87,3 +87,5 @@ workspace.file_picker.downloads = ดาวน์โหลด
 workspace.file_picker.permission_denied = Schist ไม่มีสิทธิ์อ่านโฟลเดอร์นี้
 workspace.recovery.recovered_title = {title} (กู้คืนแล้ว)
 workspace.recovery.recovered.other = กู้คืนงานที่ยังไม่ได้บันทึก {n} เอกสารจากเซสชันก่อนหน้าแล้ว
+workspace.colormgmt.vision_on = จำลอง: {name}
+workspace.colormgmt.vision_off = การมองเห็นปกติ

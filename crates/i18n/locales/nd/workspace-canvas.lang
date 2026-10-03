@@ -36,3 +36,7 @@ workspace.history.move_layers = Hambisa Izendlalelo
 workspace.history.layer_opacity = Ukungabonakalisi Ngale Kwesendlalelo
 workspace.history.delete_note = Susa Inothi
 workspace.history.edit_note = Hlela Inothi
+workspace.canvas.clipping_on = Izixwayiso zokusika zivuliwe
+workspace.canvas.clipping_off = Izixwayiso zokusika zivaliwe
+workspace.canvas.peaking_on = Ukugqamisa ugxila kuvuliwe
+workspace.canvas.peaking_off = Ukugqamisa ugxila kuvaliwe

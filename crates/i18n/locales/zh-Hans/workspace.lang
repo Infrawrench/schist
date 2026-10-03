@@ -122,3 +122,5 @@ workspace.file_picker.permission_denied = Schist 没有读取此文件夹的权�
 # 崩溃恢复（recovery.rs）
 workspace.recovery.recovered_title = {title}（已恢复）
 workspace.recovery.recovered.other = 已从上次会话恢复 {n} 个文档
+workspace.colormgmt.vision_on = 正在模拟：{name}
+workspace.colormgmt.vision_off = 正常视觉

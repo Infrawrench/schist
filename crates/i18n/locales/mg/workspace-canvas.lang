@@ -35,3 +35,7 @@ workspace.history.move_layers = Mamindra sosona maro
 workspace.history.layer_opacity = Hamaroan'ny fanaronan'ny sosona
 workspace.history.delete_note = Mamafa fanamarihana
 workspace.history.edit_note = Manitsy fanamarihana
+workspace.canvas.clipping_on = Mandeha ny fampitandremana fanapoahana
+workspace.canvas.clipping_off = Maty ny fampitandremana fanapoahana
+workspace.canvas.peaking_on = Mandeha ny fanamafisana ny fifantohana
+workspace.canvas.peaking_off = Maty ny fanamafisana ny fifantohana

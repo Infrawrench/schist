@@ -98,3 +98,5 @@ workspace.file_picker.permission_denied = Schist mexɔ mɔ be wòaxlẽ agbalẽ
 workspace.recovery.recovered_title = {title} (wogbugbɔe)
 workspace.recovery.recovered.one = Wogbugbɔ dɔ si womadzra ɖo o tso session si va yi me
 workspace.recovery.recovered.other = Wogbugbɔ agbalẽ {n} tso session si va yi me
+workspace.colormgmt.vision_on = Nuɖeɖe: {name}
+workspace.colormgmt.vision_off = Kpɔkpɔ si le eteƒe

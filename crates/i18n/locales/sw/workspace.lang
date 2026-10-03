@@ -89,3 +89,5 @@ workspace.file_picker.permission_denied = Schist haina ruhusa ya kusoma folda hi
 workspace.recovery.recovered_title = {title} (imerejeshwa)
 workspace.recovery.recovered.one = Imerejesha kazi ambayo haijahifadhiwa kutoka kipindi kilichopita
 workspace.recovery.recovered.other = Imerejesha nyaraka {n} kutoka kipindi kilichopita
+workspace.colormgmt.vision_on = Uigaji: {name}
+workspace.colormgmt.vision_off = Uoni wa kawaida

@@ -102,3 +102,5 @@ workspace.file_picker.permission_denied = Schist ezali na ndingisa ya kotánga d
 workspace.recovery.recovered_title = {title} (ezongisami)
 workspace.recovery.recovered.one = Dokima {n} ya mosala oyo ebombamaki te na session oyo eleki ezongisami
 workspace.recovery.recovered.other = Badokima {n} uta na session oyo eleki ezongisami
+workspace.colormgmt.vision_on = Simulation: {name}
+workspace.colormgmt.vision_off = Komona malamu

@@ -89,3 +89,5 @@ workspace.file_picker.permission_denied = Το Schist δεν έχει άδεια
 workspace.recovery.recovered_title = {title} (ανακτήθηκε)
 workspace.recovery.recovered.one = Ανακτήθηκε μη αποθηκευμένη εργασία από προηγούμενη συνεδρία
 workspace.recovery.recovered.other = Ανακτήθηκαν {n} έγγραφα από προηγούμενη συνεδρία
+workspace.colormgmt.vision_on = Προσομοίωση: {name}
+workspace.colormgmt.vision_off = Φυσιολογική όραση

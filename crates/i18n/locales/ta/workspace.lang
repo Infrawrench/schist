@@ -89,3 +89,5 @@ workspace.file_picker.permission_denied = இந்தக் கோப்பு�
 workspace.recovery.recovered_title = {title} (மீட்கப்பட்டது)
 workspace.recovery.recovered.one = முந்தைய அமர்விலிருந்து சேமிக்காத பணி மீட்கப்பட்டது
 workspace.recovery.recovered.other = முந்தைய அமர்விலிருந்து {n} ஆவணங்கள் மீட்கப்பட்டன
+workspace.colormgmt.vision_on = உருவகப்படுத்துதல்: {name}
+workspace.colormgmt.vision_off = இயல்பான பார்வை

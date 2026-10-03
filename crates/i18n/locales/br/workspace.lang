@@ -108,3 +108,5 @@ workspace.recovery.recovered.two = Assavet eo bet {n} deul eus un estez kent
 workspace.recovery.recovered.few = Assavet eo bet {n} zeul eus un estez kent
 workspace.recovery.recovered.many = Assavet eo bet {n} a deulioù eus un estez kent
 workspace.recovery.recovered.other = Assavet eo bet {n} teul eus un estez kent
+workspace.colormgmt.vision_on = Simulad: {name}
+workspace.colormgmt.vision_off = Gwelet normal

@@ -116,3 +116,5 @@ workspace.file_picker.permission_denied = Schist ba shi da izinin karanta wannan
 workspace.recovery.recovered_title = {title} (an dawo da shi)
 workspace.recovery.recovered.one = An dawo da aikin da ba a ajiye ba daga zaman baya
 workspace.recovery.recovered.other = An dawo da takardu {n} daga zaman baya
+workspace.colormgmt.vision_on = Kwaikwayo: {name}
+workspace.colormgmt.vision_off = Ganin al'ada

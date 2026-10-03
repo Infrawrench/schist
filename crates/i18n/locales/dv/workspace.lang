@@ -89,3 +89,5 @@ workspace.file_picker.permission_denied = Schist އަށް މި ފޯލްޑަރ ކ
 workspace.recovery.recovered_title = {title} (ރިކަވަރ ކުރި)
 workspace.recovery.recovered.one = ކުރީގެ ސެޝަނަކުން ސޭވް ނުކުރި މަސައްކަތް ރިކަވަރ ކުރެވިއްޖެ
 workspace.recovery.recovered.other = ކުރީގެ ސެޝަނަކުން ޑޮކިއުމަންޓް {n} ރިކަވަރ ކުރެވިއްޖެ
+workspace.colormgmt.vision_on = ސިމިއުލޭޝަން: {name}
+workspace.colormgmt.vision_off = ނޯމަލް ފެނުން

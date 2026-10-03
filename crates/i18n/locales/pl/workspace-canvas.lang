@@ -35,3 +35,7 @@ workspace.history.move_layers = Przesunięcie warstw
 workspace.history.layer_opacity = Krycie warstwy
 workspace.history.delete_note = Usunięcie notatki
 workspace.history.edit_note = Edycja notatki
+workspace.canvas.clipping_on = Ostrzeżenia o przycięciu włączone
+workspace.canvas.clipping_off = Ostrzeżenia o przycięciu wyłączone
+workspace.canvas.peaking_on = Focus peaking włączony
+workspace.canvas.peaking_off = Focus peaking wyłączony

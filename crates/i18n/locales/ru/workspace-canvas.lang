@@ -36,3 +36,7 @@ workspace.history.move_layers = Перемещение слоёв
 workspace.history.layer_opacity = Непрозрачность слоя
 workspace.history.delete_note = Удаление заметки
 workspace.history.edit_note = Изменение заметки
+workspace.canvas.clipping_on = Предупреждения об обрезке включены
+workspace.canvas.clipping_off = Предупреждения об обрезке выключены
+workspace.canvas.peaking_on = Подсветка фокуса включена
+workspace.canvas.peaking_off = Подсветка фокуса выключена

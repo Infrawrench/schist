@@ -91,3 +91,5 @@ workspace.recovery.recovered_title = {title} (oporavljeno)
 workspace.recovery.recovered.one = Oporavljen je {n} nesačuvani dokument iz prethodne sesije
 workspace.recovery.recovered.few = Oporavljena su {n} nesačuvana dokumenta iz prethodne sesije
 workspace.recovery.recovered.other = Oporavljeno je {n} nesačuvanih dokumenata iz prethodne sesije
+workspace.colormgmt.vision_on = Simulacija: {name}
+workspace.colormgmt.vision_off = Normalan vid

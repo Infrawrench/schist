@@ -35,3 +35,7 @@ workspace.history.move_layers = ਲੇਅਰਾਂ ਹਿਲਾਓ
 workspace.history.layer_opacity = ਲੇਅਰ ਧੁੰਦਲਾਪਨ
 workspace.history.delete_note = ਨੋਟ ਮਿਟਾਓ
 workspace.history.edit_note = ਨੋਟ ਸੋਧੋ
+workspace.canvas.clipping_on = ਕਲਿਪਿੰਗ ਚੇਤਾਵਨੀਆਂ ਚਾਲੂ
+workspace.canvas.clipping_off = ਕਲਿਪਿੰਗ ਚੇਤਾਵਨੀਆਂ ਬੰਦ
+workspace.canvas.peaking_on = ਫੋਕਸ ਪੀਕਿੰਗ ਚਾਲੂ
+workspace.canvas.peaking_off = ਫੋਕਸ ਪੀਕਿੰਗ ਬੰਦ

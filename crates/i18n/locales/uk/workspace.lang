@@ -93,3 +93,5 @@ workspace.recovery.recovered.one = Відновлено {n} незбережен
 workspace.recovery.recovered.few = Відновлено {n} незбережені документи з попереднього сеансу
 workspace.recovery.recovered.many = Відновлено {n} незбережених документів із попереднього сеансу
 workspace.recovery.recovered.other = Відновлено {n} незбереженого документа з попереднього сеансу
+workspace.colormgmt.vision_on = Симуляція: {name}
+workspace.colormgmt.vision_off = Нормальний зір

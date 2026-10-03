@@ -90,3 +90,5 @@ workspace.file_picker.permission_denied = Schist har ikke tilladelse til at læs
 workspace.recovery.recovered_title = {title} (gendannet)
 workspace.recovery.recovered.one = Gendannede ikke-gemt arbejde fra en tidligere session
 workspace.recovery.recovered.other = Gendannede {n} dokumenter fra en tidligere session
+workspace.colormgmt.vision_on = Simulerer {name}
+workspace.colormgmt.vision_off = Normalt syn

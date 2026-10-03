@@ -35,3 +35,7 @@ workspace.history.move_layers = Rétegek mozgatása
 workspace.history.layer_opacity = Réteg fedettsége
 workspace.history.delete_note = Megjegyzés törlése
 workspace.history.edit_note = Megjegyzés szerkesztése
+workspace.canvas.clipping_on = Vágási figyelmeztetések bekapcsolva
+workspace.canvas.clipping_off = Vágási figyelmeztetések kikapcsolva
+workspace.canvas.peaking_on = Fókuszkiemelés bekapcsolva
+workspace.canvas.peaking_off = Fókuszkiemelés kikapcsolva

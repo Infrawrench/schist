@@ -36,3 +36,7 @@ workspace.history.move_layers = Fambisa maleyara
 workspace.history.layer_opacity = Ku pfaleka ka leyara
 workspace.history.delete_note = Susa noti
 workspace.history.edit_note = Hlela noti
+workspace.canvas.clipping_on = Switsundzuxo swa ku tsema swi pfuriwile
+workspace.canvas.clipping_off = Switsundzuxo swa ku tsema swi pfariwile
+workspace.canvas.peaking_on = Ku kombisa ku kongomisa ku pfuriwile
+workspace.canvas.peaking_off = Ku kombisa ku kongomisa ku pfariwile

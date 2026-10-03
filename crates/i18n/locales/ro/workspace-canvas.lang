@@ -35,3 +35,7 @@ workspace.history.move_layers = Mutare straturi
 workspace.history.layer_opacity = Opacitate strat
 workspace.history.delete_note = Ștergere notă
 workspace.history.edit_note = Editare notă
+workspace.canvas.clipping_on = Avertizări de tăiere activate
+workspace.canvas.clipping_off = Avertizări de tăiere dezactivate
+workspace.canvas.peaking_on = Evidențierea focalizării activată
+workspace.canvas.peaking_off = Evidențierea focalizării dezactivată

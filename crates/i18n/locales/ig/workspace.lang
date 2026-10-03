@@ -87,3 +87,5 @@ workspace.file_picker.downloads = Nbudata
 workspace.file_picker.permission_denied = Schist enweghị ikike ịgụ folda a
 workspace.recovery.recovered_title = {title} (e weghachitere)
 workspace.recovery.recovered.other = E weghachitere ọrụ a na-echekwaghị site na session gara aga: dọkụmentị {n}
+workspace.colormgmt.vision_on = Ịkọ ihe: {name}
+workspace.colormgmt.vision_off = Ọhụhụ nkịtị

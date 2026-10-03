@@ -35,3 +35,7 @@ workspace.history.move_layers = Pindahkan Lapisan
 workspace.history.layer_opacity = Opasitas Lapisan
 workspace.history.delete_note = Hapus Catatan
 workspace.history.edit_note = Edit Catatan
+workspace.canvas.clipping_on = Peringatan clipping aktif
+workspace.canvas.clipping_off = Peringatan clipping nonaktif
+workspace.canvas.peaking_on = Focus peaking aktif
+workspace.canvas.peaking_off = Focus peaking nonaktif

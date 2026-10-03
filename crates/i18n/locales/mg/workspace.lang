@@ -89,3 +89,5 @@ workspace.file_picker.permission_denied = Tsy mahazo mamaky ity lahatahiry ity i
 workspace.recovery.recovered_title = {title} (naverina)
 workspace.recovery.recovered.one = Rakitra {n} misy asa tsy voatahiry tamin'ny session teo aloha no naverina
 workspace.recovery.recovered.other = Rakitra {n} tamin'ny session teo aloha no naverina
+workspace.colormgmt.vision_on = Fanahafana: {name}
+workspace.colormgmt.vision_off = Fahitana ara-dalàna

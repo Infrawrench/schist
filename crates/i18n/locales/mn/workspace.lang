@@ -89,3 +89,5 @@ workspace.file_picker.permission_denied = Schist энэ хавтсыг унши�
 workspace.recovery.recovered_title = {title} (сэргээсэн)
 workspace.recovery.recovered.one = Өмнөх сешний хадгалаагүй ажлыг сэргээв
 workspace.recovery.recovered.other = Өмнөх сешнээс {n} баримтыг сэргээв
+workspace.colormgmt.vision_on = Дуураймал: {name}
+workspace.colormgmt.vision_off = Хэвийн хараа

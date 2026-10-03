@@ -89,3 +89,5 @@ workspace.file_picker.permission_denied = Schist نىڭ بۇ قىسقۇچنى ئ
 workspace.recovery.recovered_title = {title} (ئەسلىگە كەلتۈرۈلگەن)
 workspace.recovery.recovered.one = ئالدىنقى سېيىستىكى ساقلانمىغان خىزمەت ئەسلىگە كەلتۈرۈلدى
 workspace.recovery.recovered.other = ئالدىنقى سېيىستىن {n} ھۆججەت ئەسلىگە كەلتۈرۈلدى
+workspace.colormgmt.vision_on = تەقلىد: {name}
+workspace.colormgmt.vision_off = نورمال كۆرۈش

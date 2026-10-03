@@ -89,3 +89,5 @@ workspace.file_picker.permission_denied = Schist n' a nén l' permission di lér
 workspace.recovery.recovered_title = {title} (rapexhî)
 workspace.recovery.recovered.one = {n} documint nén schapé rapexhî d' ene session di dvant
 workspace.recovery.recovered.other = {n} documints rapexhîs d' ene session di dvant
+workspace.colormgmt.vision_on = Simulåcion: {name}
+workspace.colormgmt.vision_off = Vuwe normåle

@@ -87,3 +87,5 @@ workspace.file_picker.downloads = Unduhan
 workspace.file_picker.permission_denied = Schist teu boga idin pikeun maca folder ieu
 workspace.recovery.recovered_title = {title} (dipulihkeun)
 workspace.recovery.recovered.other = {n} dokumén dipulihkeun tina sési saméméhna
+workspace.colormgmt.vision_on = Simulasi: {name}
+workspace.colormgmt.vision_off = Paningal normal

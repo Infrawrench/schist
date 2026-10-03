@@ -87,3 +87,5 @@ workspace.file_picker.downloads = Āharaṇāni
 workspace.file_picker.permission_denied = Imaṃ sañcikādhārakaṃ paṭhituṃ Schist anuññaṃ na labhati
 workspace.recovery.recovered_title = {title} (puna laddhaṃ)
 workspace.recovery.recovered.other = Pubba-session-to arakkhitakammassa puna lābho; potthakagaṇanā: {n}
+workspace.colormgmt.vision_on = Anukaraṇaṃ: {name}
+workspace.colormgmt.vision_off = Sāmaññadassanaṃ

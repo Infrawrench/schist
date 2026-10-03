@@ -87,3 +87,5 @@ workspace.file_picker.downloads = Telechajman
 workspace.file_picker.permission_denied = Schist pa gen pèmisyon pou li dosye sa a
 workspace.recovery.recovered_title = {title} (retabli)
 workspace.recovery.recovered.other = Travay ki pa t anrejistre nan yon sesyon anvan retabli pou {n} dokiman
+workspace.colormgmt.vision_on = Simulasyon: {name}
+workspace.colormgmt.vision_off = Vizyon nòmal

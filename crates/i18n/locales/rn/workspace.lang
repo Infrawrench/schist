@@ -101,3 +101,5 @@ workspace.file_picker.permission_denied = Schist nta ruhusha ifise rwo gusoma ub
 
 workspace.recovery.recovered_title = {title} (vyagarukanywe)
 workspace.recovery.recovered.other = Inyandiko zagarukanywe zivuye mu kiringo ca mbere: {n}
+workspace.colormgmt.vision_on = Kwigana: {name}
+workspace.colormgmt.vision_off = Kubona bisanzwe

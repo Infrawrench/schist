@@ -37,3 +37,7 @@ workspace.history.move_layers = Ebene verréckelen
 workspace.history.layer_opacity = Ebenendeckkraaft
 workspace.history.delete_note = Notiz läschen
 workspace.history.edit_note = Notiz änneren
+workspace.canvas.clipping_on = Clipping-Warnungen un
+workspace.canvas.clipping_off = Clipping-Warnungen aus
+workspace.canvas.peaking_on = Fokus-Peaking un
+workspace.canvas.peaking_off = Fokus-Peaking aus

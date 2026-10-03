@@ -89,3 +89,5 @@ workspace.file_picker.permission_denied = Schist нема дозвола да ј
 workspace.recovery.recovered_title = {title} (обновено)
 workspace.recovery.recovered.one = Обновена е незачуваната работа за {n} документ од претходна сесија
 workspace.recovery.recovered.other = Обновени се {n} документи од претходна сесија
+workspace.colormgmt.vision_on = Симулација: {name}
+workspace.colormgmt.vision_off = Нормален вид

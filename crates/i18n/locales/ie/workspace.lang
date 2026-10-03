@@ -90,3 +90,5 @@ workspace.file_picker.permission_denied = Schist ne have permission por leer ti 
 workspace.recovery.recovered_title = {title} (recuperat)
 workspace.recovery.recovered.one = Recuperat negardat labor ex un anterior session
 workspace.recovery.recovered.other = Recuperat {n} documentes ex un anterior session
+workspace.colormgmt.vision_on = Simulation: {name}
+workspace.colormgmt.vision_off = Vision normal

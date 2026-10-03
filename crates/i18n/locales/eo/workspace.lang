@@ -89,3 +89,5 @@ workspace.file_picker.permission_denied = Schist ne havas permeson legi ĉi tiun
 workspace.recovery.recovered_title = {title} (restarigita)
 workspace.recovery.recovered.one = Restarigita nekonservita laboro el antaŭa seanco
 workspace.recovery.recovered.other = Restarigitaj {n} dokumentoj el antaŭa seanco
+workspace.colormgmt.vision_on = Simulado: {name}
+workspace.colormgmt.vision_off = Normala vidado

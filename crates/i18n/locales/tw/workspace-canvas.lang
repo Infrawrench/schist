@@ -35,3 +35,7 @@ workspace.history.move_layers = Tu Layer Ahodoɔ
 workspace.history.layer_opacity = Sɛnea Layer Etumi Kata Ase
 workspace.history.delete_note = Popa Kyerɛwtohɔ
 workspace.history.edit_note = Siesie Kyerɛwtohɔ
+workspace.canvas.clipping_on = Atwa kɔkɔbɔ ayɛ adwuma
+workspace.canvas.clipping_off = Atwa kɔkɔbɔ agyae adwuma
+workspace.canvas.peaking_on = Fokus nkyerɛ ayɛ adwuma
+workspace.canvas.peaking_off = Fokus nkyerɛ agyae adwuma

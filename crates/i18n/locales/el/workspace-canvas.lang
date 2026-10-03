@@ -35,3 +35,7 @@ workspace.history.move_layers = Μετακίνηση επιπέδων
 workspace.history.layer_opacity = Αδιαφάνεια επιπέδου
 workspace.history.delete_note = Διαγραφή σημείωσης
 workspace.history.edit_note = Επεξεργασία σημείωσης
+workspace.canvas.clipping_on = Προειδοποιήσεις αποκοπής ενεργές
+workspace.canvas.clipping_off = Προειδοποιήσεις αποκοπής ανενεργές
+workspace.canvas.peaking_on = Επισήμανση εστίασης ενεργή
+workspace.canvas.peaking_off = Επισήμανση εστίασης ανενεργή

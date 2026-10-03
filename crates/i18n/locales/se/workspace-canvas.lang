@@ -36,3 +36,7 @@ workspace.history.move_layers = Sirdde gearddiid
 workspace.history.layer_opacity = Gearddi govččadeapmi
 workspace.history.delete_note = Sihko mearkkašumi
 workspace.history.edit_note = Doaimmat mearkkašumi
+workspace.canvas.clipping_on = Čuohppanvarrehusat alde
+workspace.canvas.clipping_off = Čuohppanvarrehusat erret
+workspace.canvas.peaking_on = Fokusa ceahkit alde
+workspace.canvas.peaking_off = Fokusa ceahkit erret

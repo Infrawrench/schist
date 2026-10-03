@@ -35,3 +35,7 @@ workspace.history.move_layers = Strata Mota
 workspace.history.layer_opacity = Opacitas Strati
 workspace.history.delete_note = Nota Deleta
 workspace.history.edit_note = Nota Emendata
+workspace.canvas.clipping_on = Monita abscissionis activa
+workspace.canvas.clipping_off = Monita abscissionis inactiva
+workspace.canvas.peaking_on = Culmen foci activum
+workspace.canvas.peaking_off = Culmen foci inactivum
