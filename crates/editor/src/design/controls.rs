@@ -92,6 +92,28 @@ pub fn object_property(id: &str) -> Option<ObjectProperty> {
     })
 }
 
+/// Edit a captured named style; None restores inheritance in one undo step.
+pub fn set_no_break(state: &mut DesignState, target: &Target, value: Option<bool>) -> bool {
+    properties::edit_styles(&mut state.document, &mut state.history, |styles| {
+        let field = match target {
+            Target::Paragraph(name) => styles
+                .paragraphs
+                .iter_mut()
+                .find(|s| s.name == *name)
+                .map(|s| &mut s.no_break),
+            Target::Character(name) => styles
+                .characters
+                .iter_mut()
+                .find(|s| s.name == *name)
+                .map(|s| &mut s.no_break),
+            _ => None,
+        };
+        if let Some(field) = field {
+            *field = value;
+        }
+    })
+}
+
 /// Paint selection is one style edit. None inherits; Paint::None explicitly
 /// suppresses inherited ink, and choosing a color re-enables that paint.
 pub fn set_text_paint(
@@ -2236,6 +2258,38 @@ mod tests {
                 assert!(state.history.undo(&mut state.document));
                 assert_eq!(state.document, before);
                 assert!(!state.history.undo(&mut state.document));
+            }
+        }
+    }
+
+    #[test]
+    fn no_break_edits_capture_the_style_and_undo_once_without_touching_source() {
+        for paragraph in [false, true] {
+            for old in [None, Some(false), Some(true)] {
+                for new in [None, Some(false), Some(true)] {
+                    let mut state = DesignState::new();
+                    let target = if paragraph {
+                        state.document.styles.paragraphs[0].no_break = old;
+                        Target::Paragraph(state.document.styles.paragraphs[0].name.clone())
+                    } else {
+                        state.document.styles.characters[0].no_break = old;
+                        Target::Character(state.document.styles.characters[0].name.clone())
+                    };
+                    let before = state.document.clone();
+                    state.controls.character = Some("unrelated selection".into());
+                    state.controls.paragraph = Some("unrelated selection".into());
+                    assert_eq!(set_no_break(&mut state, &target, new), old != new);
+                    assert_eq!(state.history.undo_depth(), usize::from(old != new));
+                    assert!(!set_no_break(&mut state, &target, new));
+                    assert_eq!(state.document.stories, before.stories);
+                    if old != new {
+                        let after = state.document.clone();
+                        assert!(state.history.undo(&mut state.document));
+                        assert_eq!(state.document, before);
+                        assert!(state.history.redo(&mut state.document));
+                        assert_eq!(state.document, after);
+                    }
+                }
             }
         }
     }

@@ -763,6 +763,7 @@ pub(super) fn paragraph_panel(
         ));
     }
     rows.group(InspectorSection::Typography);
+    rows.push(no_break_row(ws, &target, style.no_break, cx));
     rows.push(capitalization_row(
         ws,
         &target,
@@ -1036,6 +1037,7 @@ pub(super) fn character_panel(
         ));
     }
     rows.group(InspectorSection::Typography);
+    rows.push(no_break_row(ws, &target, style.no_break, cx));
     rows.push(capitalization_row(
         ws,
         &target,
@@ -1447,6 +1449,63 @@ fn directional_feature_rows(
             .into_any_element()
     })
     .collect()
+}
+
+fn no_break_row(
+    ws: &Workspace,
+    target: &Target,
+    own: Option<bool>,
+    cx: &mut Context<Workspace>,
+) -> gpui::AnyElement {
+    let resolved = match target {
+        Target::Paragraph(name) => {
+            ws.design
+                .document
+                .styles
+                .resolve_paragraph(name)
+                .character(
+                    ws.design
+                        .document
+                        .styles
+                        .resolve_character(&ws.design.document.default_character_style),
+                )
+                .no_break
+        }
+        Target::Character(name) => ws.design.document.styles.resolve_character(name).no_break,
+        _ => None,
+    };
+    let active = resolved == Some(true);
+    let toggle = target.clone();
+    let reset = target.clone();
+    div()
+        .flex()
+        .items_center()
+        .gap_1()
+        .child(
+            IconButton::new("design-no-break", "link")
+                .active(active)
+                .tooltip(
+                    t("design.no_break"),
+                    own.is_none().then(|| t("design.inherited").into()),
+                )
+                .on_click(cx.listener(move |ws, _, _, cx| {
+                    ws.commit_focused_field();
+                    controls::set_no_break(&mut ws.design, &toggle, Some(!active));
+                    cx.notify();
+                })),
+        )
+        .child(div().text_xs().flex_1().child(t("design.no_break")))
+        .child(
+            IconButton::new("design-no-break-inherit", "undo")
+                .disabled(own.is_none())
+                .tooltip(t("design.inherited"), None)
+                .on_click(cx.listener(move |ws, _, _, cx| {
+                    ws.commit_focused_field();
+                    controls::set_no_break(&mut ws.design, &reset, None);
+                    cx.notify();
+                })),
+        )
+        .into_any_element()
 }
 
 fn capitalization_row(

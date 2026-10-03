@@ -385,6 +385,7 @@ pub(crate) fn spec_with_character(
                         .map(|v| styles.resolve_language(v).unwrap_or_default()),
                     start: range.start.max(start) - start,
                     end: range.end.min(end) - start,
+                    no_break: style.no_break.or(character.no_break),
                     fill_disabled: Some(style.fill_disabled),
                     stroke: style.preview_stroke(),
                     underline_style: Some(style.underline_style.preview(&style)),
@@ -468,6 +469,7 @@ pub(crate) fn spec_with_character(
     spec.runs.push(schist_text_engine::StyleRun {
         start: 0,
         end: spec.text.len(),
+        no_break: character.no_break,
         fill_disabled: Some(character.fill_disabled),
         stroke,
         underline_style,
@@ -1991,8 +1993,11 @@ fn place_block(
     let mut previous = space.previous;
     let mut positions = Vec::new();
     for (index, span) in all.iter().enumerate() {
-        if spec.text[span.start..span.end].contains('\t')
-            && span.width > measure_at(index).width + 0.001
+        if span.width > measure_at(index).width + 0.001
+            && (spec.text[span.start..span.end].contains('\t')
+                || spec.text[span.start..span.end]
+                    .char_indices()
+                    .any(|(at, _)| spec.no_break_at(span.start + at)))
         {
             break;
         }

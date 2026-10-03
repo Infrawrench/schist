@@ -527,3 +527,4 @@ design.start_frame = Next frame
 design.start_page = Next page
 design.start_odd = Next odd page
 design.start_even = Next even page
+design.no_break = No line breaks

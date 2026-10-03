@@ -311,6 +311,37 @@ are marked.
 ## Handoff
 
 
+Native No Break, 2026-10-03:
+The clipped-destination checkpoint is pushed as `4640c269`; its Web and headless
+CI pass, with desktop CI still running. The next item 9 regression reproduces
+NoBreak booleans disappearing during native import/save. Named/local paragraph
+and character values now retain inheritance and explicit false resets without
+changing source or growing styles on repeated saves. Invalid values are reported;
+older snapshots inherit. Enabled cases use the public schema and official
+reference; the seven public IDML fixtures contain only explicit false defaults.
+
+Both wrapping paths keep protected ranges together without changing shaping or
+caret geometry. A focused property found the whole-story style fast path dropping
+the new setting; that path now retains it. Protected lines seek fitting frames or
+remain overset, including vertical text. Both separation paths match independent
+process/spot frame controls at three resolutions and diagnose terminal overset.
+A compact icon toggle and inheritance reset sit in Advanced Typography. Captured
+edits undo once. One short key is in all 150 existing catalogs. Unsupported PSD/
+Affinity native text export retains its existing private/pixel or reported raster
+fallback. Focused engine/layout/IDML/output checks and editor/IDML lints pass.
+The final 16-target sweep passes with 1,867 distinct Rust tests, five shared UI
+checks included, plus browser/Python audits, formatting and whitespace. All 24 new
+PDF pages pass Poppler pair/sample equality and visual review. A spec review
+corrected the prototype’s rejection of numeric XML booleans: NoBreak accepts all
+four legal literals and surrounding XML whitespace, saving canonically. The
+complete sweep includes that correction; its proof PDF is byte-identical to the
+visually reviewed artifact. The native development rebuild passes in 2m 09s;
+its isolated Design-enabled bundle is hash/signature verified. Native capture
+still returns `cgWindowNotFound`; rebuilt browser control review remains pending.
+Logs use `/tmp/schist-no-break-*`. Dictionary hyphenation, discretionary-hyphen
+rendering and external native application placement agreement remain open.
+
+
 Clipped destination threads and rebuilt popup QA, 2026-10-03:
 The explicit-break checkpoint is pushed as `7ec07cf0`. Its exact CI browser
 artifact now passes the window-edge review with Design enabled: all seven start

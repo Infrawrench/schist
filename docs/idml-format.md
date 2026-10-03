@@ -2002,3 +2002,44 @@ and independent control plates match at three resolutions; both Poppler extracte
 samples and rendered pairs agree exactly. The 24 new pages pass visual inspection,
 and the first 24 match the previously visually reviewed proof pixel-for-pixel.
 The full roadmap sweep passes; current counts and GUI limitations are in Handoff.
+
+
+### Native No Break ranges
+
+The public IDML schema defines NoBreak as an optional boolean on paragraph and
+character styles/ranges. The [public CharacterStyle DOM](https://developer.adobe.com/indesign/uxp/dom/api/c/character-style/)
+and [word-break guide](https://helpx.adobe.com/ca/indesign/desktop/format-and-style-text/composition-and-text-wrapping/control-hyphenation-and-word-breaks.html)
+define its purpose: selected text stays on the same line. The seven public
+Customer’s Canvas packages and ten public OAC/Penn State packages contain only
+explicit false defaults; enabled cases are
+specification-based fixtures, without an external application placement claim.
+
+Named and local NoBreak values now retain independent inheritance and explicit
+false resets through repeated native saves. Local formatting is lowered once;
+styles and source text stay stable. NoBreak accepts the XML Schema boolean
+literals true/false/1/0 and surrounding XML whitespace, then writes canonical
+true/false. See [XML Schema boolean](https://www.w3.org/TR/xmlschema-2/#boolean).
+Invalid booleans use the existing localized
+invalid-preference warning. Older snapshots omit the optional property and inherit.
+
+Both text-engine wrapping paths suppress automatic breaks inside continuous
+enabled ranges, including across independently styled runs. The property does not
+split shaping items, change glyph metrics or insert replacement source characters.
+Explicit line/paragraph/container breaks remain effective. Layout threads seek a
+frame with room for an unbreakable line; unavailable destinations remain overset
+and are reported by both preflight paths. Tests cover varying measures, writing
+axes, reading directions, UTF-8 carets, complete-story edits and false resets.
+Dictionary hyphenation and discretionary-hyphen rendering remain separate work.
+
+Character and Paragraph expose a compact toggle and inherit reset under Advanced
+Typography. Captured edits undo once; no-ops leave history unchanged. The short
+label is present in all 150 catalogs. PSD’s private editable representation retains
+the engine setting; its unsupported native subset and Affinity’s unsupported native
+subset use their existing pixel/reported raster fallback instead of emitting plain
+native text that would wrap differently.
+
+An independent 24-page output proof places ordinary text frames at the protected
+thread’s destination. Process/spot plates agree at 72/144/216 dpi across paragraph
+and character settings, reading directions and horizontal/vertical writing.
+The proof is included in `make check-design-output`; current PDF/UI review and
+full-sweep status are in Handoff.

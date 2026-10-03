@@ -497,6 +497,9 @@ pub(super) fn layout(spec: &TextSpec, base: &LoadedFace, measures: &[InlineMeasu
             let mut previous = start;
             for (boundary, _) in unicode_linebreak::linebreaks(paragraph) {
                 let at = start + boundary;
+                if at < end && !spec.allows_wrap_at(at) {
+                    continue;
+                }
                 let candidate = shape(
                     spec,
                     &faces,

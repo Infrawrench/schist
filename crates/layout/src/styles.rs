@@ -381,6 +381,8 @@ pub struct ParagraphStyle {
     pub tracking: Option<f32>,
     /// Kerning applies when the font's own table asks for it.
     pub kerning: Option<bool>,
+    /// Prevent automatic line breaks within this text; None inherits.
+    pub no_break: Option<bool>,
 
     pub align: Option<Align>,
     /// Distance in points from the column's left edge to the text measure.
@@ -442,6 +444,8 @@ pub struct CharacterStyle {
     /// Letter spacing in thousandths of an em.
     pub tracking: Option<f32>,
     pub kerning: Option<bool>,
+    /// Prevent automatic line breaks within this text; None inherits.
+    pub no_break: Option<bool>,
 
     pub bold: Option<bool>,
     pub italic: Option<bool>,
@@ -700,6 +704,8 @@ pub struct ResolvedParagraph {
     pub auto_leading: Option<f32>,
     pub tracking: Option<f32>,
     pub kerning: Option<bool>,
+    /// Prevent automatic line breaks within this text; None inherits.
+    pub no_break: Option<bool>,
     pub align: Option<Align>,
     pub left_indent: Option<f32>,
     pub right_indent: Option<f32>,
@@ -736,6 +742,7 @@ impl ResolvedParagraph {
         }
         fallback.bold = self.bold.or(fallback.bold);
         fallback.italic = self.italic.or(fallback.italic);
+        fallback.no_break = self.no_break.or(fallback.no_break);
         fallback.underline = self.underline.or(fallback.underline);
         fallback.strikethrough = self.strikethrough.or(fallback.strikethrough);
         fallback.underline_style = self.underline_style.over(&fallback.underline_style);
@@ -828,6 +835,7 @@ impl ResolvedParagraph {
             out.auto_leading = out.auto_leading.or(style.auto_leading);
             out.tracking = out.tracking.or(style.tracking);
             out.kerning = out.kerning.or(style.kerning);
+            out.no_break = out.no_break.or(style.no_break);
             out.align = out.align.or(style.align);
             out.left_indent = out.left_indent.or(style.left_indent);
             out.right_indent = out.right_indent.or(style.right_indent);
@@ -871,6 +879,8 @@ pub struct ResolvedCharacter {
     pub leading: Option<Leading>,
     pub tracking: Option<f32>,
     pub kerning: Option<bool>,
+    /// Prevent automatic line breaks within this text; None inherits.
+    pub no_break: Option<bool>,
     pub bold: Option<bool>,
     pub italic: Option<bool>,
     pub underline: Option<bool>,
@@ -920,6 +930,7 @@ impl ResolvedCharacter {
             leading: self.leading,
             tracking: self.tracking,
             kerning: self.kerning,
+            no_break: self.no_break,
             bold: self.bold,
             italic: self.italic,
             underline: self.underline,
@@ -974,6 +985,7 @@ impl ResolvedCharacter {
             leading,
             tracking,
             kerning,
+            no_break,
             bold,
             italic,
             underline,
@@ -1063,6 +1075,7 @@ impl ResolvedCharacter {
             out.leading = out.leading.or(style.leading);
             out.tracking = out.tracking.or(style.tracking);
             out.kerning = out.kerning.or(style.kerning);
+            out.no_break = out.no_break.or(style.no_break);
             let hints = style
                 .font_style
                 .as_deref()

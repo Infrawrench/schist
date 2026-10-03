@@ -698,3 +698,18 @@ if len(sys.argv) > 28:
                 assert actual.tobytes() == expected.tobytes(), (prefix, index, "paragraph starts differ from independent frame destinations")
                 assert min(v[0] for v in actual.getextrema()) < 150, (prefix, index, "empty paragraph start proof")
     print("Design PDF: paragraph starts and explicit breaks match independently positioned frames across column/frame/page destinations, numbered odd/even pages and LTR/RTL columns.")
+
+if len(sys.argv) > 29:
+    with tempfile.TemporaryDirectory(prefix="schist-no-break-check-") as temporary:
+        for prefix, args in [("samples", ["pdfimages", "-png"]), ("pages", ["pdftoppm", "-r", "144", "-png"])]:
+            result = subprocess.run(args + [sys.argv[29], str(Path(temporary)/prefix)], capture_output=True, text=True)
+            assert result.returncode == 0 and not result.stderr.strip(), result.stderr
+            files = sorted(Path(temporary).glob(prefix + "-*.png"))
+            assert len(files) == 24, (prefix, len(files))
+            for index in range(0, len(files), 2):
+                actual = Image.open(files[index]).convert("RGB")
+                expected = Image.open(files[index+1]).convert("RGB")
+                assert actual.size == expected.size == (400, 400), (prefix, index, actual.size)
+                assert actual.tobytes() == expected.tobytes(), (prefix, index, "No Break differs from independent frame destinations")
+                assert min(v[0] for v in actual.getextrema()) < 150, (prefix, index, "empty No Break proof")
+    print("Design PDF: No Break destinations match independent frames across paragraph/run settings, writing axes, reading directions and process/spot inks.")

@@ -146,6 +146,7 @@ pub(crate) fn paragraph_properties(
         auto_leading: auto_leading(element, report),
         tracking: character.tracking,
         kerning: character.kerning,
+        no_break: character.no_break,
         align: element.attr("Justification").and_then(align),
         left_indent: element.number("LeftIndent"),
         right_indent: element.number("RightIndent"),
@@ -286,6 +287,22 @@ pub(crate) fn character_properties(
         font_style,
         bold,
         italic,
+        // RNC uses xsd:boolean: numeric literals and surrounding XML whitespace
+        // are legal; export emits the canonical true/false spelling.
+        no_break: element.attr("NoBreak").and_then(|value| {
+            match value.trim_matches([' ', '\t', '\r', '\n']) {
+                "true" | "1" => Some(true),
+                "false" | "0" => Some(false),
+                _ => {
+                    report.skip(schist_i18n::tf!(
+                        "design.idml_text_preference_invalid",
+                        property = "NoBreak",
+                        value = value
+                    ));
+                    None
+                }
+            }
+        }),
         underline: boolean(element, "Underline"),
         strikethrough: boolean(element, "StrikeThru"),
         underline_style: crate::decoration_codec::read(
@@ -651,6 +668,7 @@ pub fn paragraph_resolved(style: &ParagraphStyle, resolved: (bool, bool)) -> Str
     );
     attr(&mut out, "Name", &style.name);
     optional(&mut out, "FontStyle", choice.as_ref().map(|c| &c.native));
+    optional(&mut out, "NoBreak", style.no_break);
     optional(&mut out, "Underline", style.underline);
     optional(&mut out, "StrikeThru", style.strikethrough);
     position(&mut out, style.position, style.baseline_shift);
@@ -886,6 +904,7 @@ pub fn character_resolved(style: &CharacterStyle, resolved: (bool, bool)) -> Str
     optional(&mut out, "PointSize", style.point_size);
     optional(&mut out, "Tracking", style.tracking);
     optional(&mut out, "FontStyle", choice.as_ref().map(|c| &c.native));
+    optional(&mut out, "NoBreak", style.no_break);
     optional(&mut out, "Underline", style.underline);
     optional(&mut out, "StrikeThru", style.strikethrough);
     position(&mut out, style.position, style.baseline_shift);

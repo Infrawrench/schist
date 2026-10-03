@@ -261,6 +261,10 @@ impl TextDecoration {
 /// inherit. Byte offsets into `TextSpec::text`.
 #[derive(Debug, Clone, PartialEq, Default, serde::Serialize, serde::Deserialize)]
 pub struct StyleRun {
+    /// Suppress automatic wrapping inside a continuous enabled range. Explicit
+    /// line/paragraph breaks still apply. None uses the unprotected default.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub no_break: Option<bool>,
     /// None inherits; an empty string explicitly restores default language behavior.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub language: Option<String>,
@@ -321,7 +325,8 @@ pub struct StyleRun {
 impl StyleRun {
     /// True when this run changes nothing, so it can be dropped.
     pub fn is_plain(&self) -> bool {
-        self.language.is_none()
+        self.no_break.is_none()
+            && self.language.is_none()
             && self.capitalization.is_none()
             && self.small_cap_scale.is_none()
             && self.font_style.is_none()
@@ -354,6 +359,9 @@ impl StyleRun {
 
     /// Lay `over`'s overrides on top of this run's.
     pub fn merge(&mut self, over: &StyleRun) {
+        if over.no_break.is_some() {
+            self.no_break = over.no_break;
+        }
         if over.language.is_some() {
             self.language = over.language.clone();
         }
@@ -424,7 +432,8 @@ impl StyleRun {
 
     /// Whether the two runs would set a character the same way.
     fn same_style(&self, other: &StyleRun) -> bool {
-        self.language == other.language
+        self.no_break == other.no_break
+            && self.language == other.language
             && self.capitalization == other.capitalization
             && self.small_cap_scale == other.small_cap_scale
             && self.font_style == other.font_style
@@ -452,6 +461,7 @@ impl StyleRun {
 #[derive(Debug, Clone, PartialEq)]
 // Language is independent of face selection, but splits shaping runs.
 pub struct CharStyle {
+    pub no_break: bool,
     pub language: String,
     pub capitalization: Capitalization,
     pub small_cap_scale: f32,
@@ -506,6 +516,7 @@ impl CharStyle {
     /// The style as an override that would reproduce it in full.
     pub fn as_run(&self) -> StyleRun {
         StyleRun {
+            no_break: Some(self.no_break),
             language: Some(self.language.clone()),
             capitalization: Some(self.capitalization),
             small_cap_scale: Some(self.small_cap_scale),
@@ -533,6 +544,20 @@ impl CharStyle {
 }
 
 impl TextSpec {
+    /// First matching run wins, as with the other run properties. This affects
+    /// wrapping alone: it must not split shaping items or rewrite source text.
+    pub fn no_break_at(&self, byte: usize) -> bool {
+        self.runs
+            .iter()
+            .find(|run| run.start <= byte && byte < run.end)
+            .and_then(|run| run.no_break)
+            .unwrap_or(false)
+    }
+
+    fn allows_wrap_at(&self, at: usize) -> bool {
+        at == 0 || at >= self.text.len() || !self.no_break_at(at - 1) || !self.no_break_at(at)
+    }
+
     /// Explicit leading measures baseline/column-center distances, independent
     /// of font ascent. Legacy relative line-height keeps its original box flow.
     pub fn has_absolute_leading(&self) -> bool {
@@ -560,6 +585,7 @@ impl TextSpec {
     /// The layer's own font, which uncovered text is set in.
     pub fn base_style(&self) -> CharStyle {
         CharStyle {
+            no_break: false,
             language: language::effective(&self.language),
             capitalization: Capitalization::Normal,
             small_cap_scale: 0.7,
@@ -596,6 +622,7 @@ impl TextSpec {
             if let Some(language) = &run.language {
                 style.language = language::effective(language);
             }
+            style.no_break = run.no_break.unwrap_or(false);
             style.capitalization = run.capitalization.unwrap_or_default();
             style.small_cap_scale = run
                 .small_cap_scale
@@ -672,6 +699,7 @@ impl TextSpec {
         }
         if range.start == 0
             && range.end == len
+            && over.no_break.is_none()
             && over.capitalization.is_none()
             && over.small_cap_scale.is_none()
             && over.color.is_none()
@@ -1968,7 +1996,19 @@ fn layout_with_measures(spec: &TextSpec, base: &LoadedFace, measures: &[InlineMe
         let mut at = line_start;
         // Wrap on word boundaries; a single over-long word is left to
         // overflow rather than being broken mid-word.
-        for word in raw_line.split_inclusive(' ') {
+        let boundaries = raw_line
+            .char_indices()
+            .filter_map(|(i, ch)| {
+                (ch == ' ' && spec.allows_wrap_at(line_start + i + 1)).then_some(i + 1)
+            })
+            .chain(std::iter::once(raw_line.len()));
+        let mut from = 0;
+        for to in boundaries {
+            if to == from {
+                continue;
+            }
+            let word = &raw_line[from..to];
+            from = to;
             let mut word_width = measure_word(word, at, prev);
             let wraps = wrap_width_at(spec, &widths, lines.len()).is_some_and(|w| {
                 spec.path.is_none() && !current.is_empty() && width + word_width > w
