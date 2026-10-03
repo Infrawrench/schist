@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = Mola wa Nako
+animation.menu = Pupetso
+animation.play_pause = Bapala/Emisa Pupetso
+animation.frame_layer_name = Foreimi {n}
+animation.delay_seconds = {seconds} mtsw.
+animation.delay.label = Tieho
+animation.delay.apply_all = Sebelisa ho Diforeimi Tsohle
+animation.loop.label = Ho Pheta
+animation.loop.once = Hang
+animation.loop.forever = Ka Mehla
+animation.onion.label = Letlalo la Eiee
+animation.onion.before = Pele
+animation.onion.after = Kamora
+animation.offset.label = Sutho ea mokhahlelo foreiming ena
+animation.new_layers_visible = Mekhahlelo e mecha e bonahala diforeiming tsohle
+animation.history.select_frame = Kgetha Foreimi
+animation.history.move_frame = Tsamaisa Foreimi
+animation.history.frame_delay = Tieho ea Foreimi
+animation.history.loop = Palo ea ho Pheta
+animation.history.offset = Sutho ea Foreimi
+animation.history.new_layers = Ho Bonahala ha Mekhahlelo e Mecha
+animation.refuse.no_animation = Tokomane ena ha e na pupetso ea diforeimi. Sebelisa Mokhahlelo ▸ Pupetso ▸ Etsa Pupetso ea Diforeimi.
+animation.refuse.already_animated = Tokomane ena e se e ntse e na le pupetso ea diforeimi.
+animation.refuse.last_frame = Pupetso e hloka bonyane foreimi e le nngwe. Ho e na le hoo hlakola pupetso.
+animation.refuse.too_many_frames = Mola wa nako o ke ke oa tšoara diforeimi tse ling.
+animation.refuse.no_layers = Ha ho na mekhahlelo eo diforeimi di ka etsoang ho eona.
+animation.export.menu = Pupetso…
+animation.export.title = Romela Pupetso
+animation.export.palette = Phalete
+animation.export.palette_per_frame = Foreiming ka nngwe
+animation.export.palette_global = Ya Kakaretso
+animation.export.disposal = Ho Lahla
+animation.export.disposal_auto = Ka Boiketsetso
+animation.export.disposal_keep = Boloka foreimi e fetileng
+animation.export.disposal_background = Kgutlisetsa bokamorao
+animation.export.disposal_previous = Kgutlisetsa ho e fetileng
+animation.export.dither_note = Hasanya diphoso tsa mebala ha foreimi e na le mebala e fetang 256
+animation.export.transparency = Ho Bonaletsa
+animation.export.transparency_note = Boloka dibaka tse bonaletsang di ntse di bonaletsa
+animation.export.gif_note = GIF e boloka ditieho ka dikarolo tsa lekgolo tsa motsotsoana mme ha e na ho bonaletsa ho itseng.
+animation.export.apng_note = APNG e boloka foreimi ka nngwe ntle le tahlehelo le ho bonaletsa ho feletseng.
+animation.export.webp_note = WebP e pupetsoang e ngolwa ntle le tahlehelo; WebP e nang le tahlehelo ha e fumanehe.

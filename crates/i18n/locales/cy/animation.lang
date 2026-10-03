@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = Llinell Amser
+animation.menu = Animeiddio
+animation.play_pause = Chwarae/Oedi Animeiddiad
+animation.frame_layer_name = Ffrâm {n}
+animation.delay_seconds = {seconds} e
+animation.delay.label = Oediad
+animation.delay.apply_all = Rhoi ar Bob Ffrâm
+animation.loop.label = Dolen
+animation.loop.once = Unwaith
+animation.loop.forever = Am Byth
+animation.onion.label = Croen nionyn
+animation.onion.before = Cyn
+animation.onion.after = Ar ôl
+animation.offset.label = Gwrthbwyso'r haen yn y ffrâm hon
+animation.new_layers_visible = Haenau newydd yn weladwy ym mhob ffrâm
+animation.history.select_frame = Dewis Ffrâm
+animation.history.move_frame = Symud Ffrâm
+animation.history.frame_delay = Oediad Ffrâm
+animation.history.loop = Nifer y Dolenni
+animation.history.offset = Gwrthbwyso Ffrâm
+animation.history.new_layers = Gwelededd Haenau Newydd
+animation.refuse.no_animation = Nid oes gan y ddogfen hon animeiddiad fframiau. Defnyddiwch Haen ▸ Animeiddio ▸ Creu Animeiddiad Fframiau.
+animation.refuse.already_animated = Mae gan y ddogfen hon animeiddiad fframiau eisoes.
+animation.refuse.last_frame = Mae angen o leiaf un ffrâm ar animeiddiad. Dilëwch yr animeiddiad yn lle hynny.
+animation.refuse.too_many_frames = Ni all y llinell amser ddal rhagor o fframiau.
+animation.refuse.no_layers = Nid oes haenau i greu fframiau ohonynt.
+animation.export.menu = Animeiddiad…
+animation.export.title = Allforio Animeiddiad
+animation.export.palette = Palet
+animation.export.palette_per_frame = Fesul ffrâm
+animation.export.palette_global = Byd-eang
+animation.export.disposal = Gwaredu
+animation.export.disposal_auto = Awtomatig
+animation.export.disposal_keep = Cadw'r ffrâm flaenorol
+animation.export.disposal_background = Adfer i'r cefndir
+animation.export.disposal_previous = Adfer i'r blaenorol
+animation.export.dither_note = Gwasgaru gwallau lliw pan fo gan ffrâm fwy na 256 o liwiau
+animation.export.transparency = Tryloywder
+animation.export.transparency_note = Cadw ardaloedd tryloyw yn dryloyw
+animation.export.gif_note = Mae GIF yn storio oediadau mewn canfedau o eiliad ac nid oes ganddo dryloywder rhannol.
+animation.export.apng_note = Mae APNG yn cadw pob ffrâm yn ddi-golled gyda thryloywder llawn.
+animation.export.webp_note = Caiff WebP animeiddiedig ei ysgrifennu'n ddi-golled; nid yw WebP colledus ar gael.

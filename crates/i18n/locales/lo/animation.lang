@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = ເສັ້ນເວລາ
+animation.menu = ອະນິເມຊັນ
+animation.play_pause = ຫຼິ້ນ/ຢຸດອະນິເມຊັນຊົ່ວຄາວ
+animation.frame_layer_name = ເຟຣມ {n}
+animation.delay_seconds = {seconds} ວິ
+animation.delay.label = ໄລຍະໜ່ວງ
+animation.delay.apply_all = ນຳໃຊ້ກັບທຸກເຟຣມ
+animation.loop.label = ວົນຊ້ຳ
+animation.loop.once = ເທື່ອດຽວ
+animation.loop.forever = ຕະຫຼອດໄປ
+animation.onion.label = ເປືອກຫົວຜັກບົ່ວ
+animation.onion.before = ກ່ອນໜ້າ
+animation.onion.after = ຫຼັງຈາກ
+animation.offset.label = ການເລື່ອນເລເຢີໃນເຟຣມນີ້
+animation.new_layers_visible = ເລເຢີໃໝ່ສະແດງໃນທຸກເຟຣມ
+animation.history.select_frame = ເລືອກເຟຣມ
+animation.history.move_frame = ຍ້າຍເຟຣມ
+animation.history.frame_delay = ໄລຍະໜ່ວງເຟຣມ
+animation.history.loop = ຈຳນວນຮອບວົນຊ້ຳ
+animation.history.offset = ການເລື່ອນເຟຣມ
+animation.history.new_layers = ການສະແດງເລເຢີໃໝ່
+animation.refuse.no_animation = ເອກະສານນີ້ບໍ່ມີອະນິເມຊັນແບບເຟຣມ. ໃຊ້ ເລເຢີ ▸ ອະນິເມຊັນ ▸ ສ້າງອະນິເມຊັນແບບເຟຣມ.
+animation.refuse.already_animated = ເອກະສານນີ້ມີອະນິເມຊັນແບບເຟຣມຢູ່ແລ້ວ.
+animation.refuse.last_frame = ອະນິເມຊັນຕ້ອງມີຢ່າງໜ້ອຍໜຶ່ງເຟຣມ. ໃຫ້ລຶບອະນິເມຊັນແທນ.
+animation.refuse.too_many_frames = ເສັ້ນເວລາບໍ່ສາມາດຮອງຮັບເຟຣມເພີ່ມໄດ້ອີກ.
+animation.refuse.no_layers = ບໍ່ມີເລເຢີທີ່ຈະນຳມາສ້າງເປັນເຟຣມ.
+animation.export.menu = ອະນິເມຊັນ…
+animation.export.title = ສົ່ງອອກອະນິເມຊັນ
+animation.export.palette = ຊຸດສີ
+animation.export.palette_per_frame = ແຕ່ລະເຟຣມ
+animation.export.palette_global = ລວມທັງໝົດ
+animation.export.disposal = ການຈັດການເຟຣມ
+animation.export.disposal_auto = ອັດຕະໂນມັດ
+animation.export.disposal_keep = ຮັກສາເຟຣມກ່ອນໜ້າໄວ້
+animation.export.disposal_background = ຄືນສູ່ພື້ນຫຼັງ
+animation.export.disposal_previous = ຄືນສູ່ເຟຣມກ່ອນໜ້າ
+animation.export.dither_note = ກະຈາຍຄວາມຜິດພາດຂອງສີເມື່ອເຟຣມມີຫຼາຍກວ່າ 256 ສີ
+animation.export.transparency = ຄວາມໂປ່ງໃສ
+animation.export.transparency_note = ຮັກສາພື້ນທີ່ໂປ່ງໃສໃຫ້ໂປ່ງໃສຕໍ່ໄປ
+animation.export.gif_note = GIF ເກັບໄລຍະໜ່ວງເປັນໜ່ວຍຮ້ອຍສ່ວນຂອງວິນາທີ ແລະ ບໍ່ຮອງຮັບຄວາມໂປ່ງໃສບາງສ່ວນ.
+animation.export.apng_note = APNG ຮັກສາທຸກເຟຣມແບບບໍ່ສູນເສຍຄຸນນະພາບ ພ້ອມຄວາມໂປ່ງໃສເຕັມຮູບແບບ.
+animation.export.webp_note = WebP ແບບເຄື່ອນໄຫວຖືກຂຽນແບບບໍ່ສູນເສຍຄຸນນະພາບ; WebP ແບບສູນເສຍຄຸນນະພາບບໍ່ມີໃຫ້ໃຊ້.

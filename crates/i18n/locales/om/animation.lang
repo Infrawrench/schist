@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = Sarara Yeroo
+animation.menu = Sochiinsa
+animation.play_pause = Sochiinsa Taphachiisi/Dhaabi
+animation.frame_layer_name = Fireemii {n}
+animation.delay_seconds = {seconds} s
+animation.delay.label = Turtii
+animation.delay.apply_all = Fireemota Hunda Irratti Hojiirra Oolchi
+animation.loop.label = Irra Deebii
+animation.loop.once = Al Tokko
+animation.loop.forever = Yeroo Hunda
+animation.onion.label = Gogaa Qullubbii
+animation.onion.before = Dura
+animation.onion.after = Booda
+animation.offset.label = Socho'iinsa laayaraa fireemii kana keessatti
+animation.new_layers_visible = Laayaroonni haaraan fireemota hunda keessatti ni mul'atu
+animation.history.select_frame = Fireemii Fili
+animation.history.move_frame = Fireemii Socho'i
+animation.history.frame_delay = Turtii Fireemii
+animation.history.loop = Lakkoofsa Irra Deebii
+animation.history.offset = Socho'iinsa Fireemii
+animation.history.new_layers = Mul'achuu Laayarota Haaraa
+animation.refuse.no_animation = Sanadni kun sochiinsa fireemii hin qabu. Laayara ▸ Sochiinsa ▸ Sochiinsa Fireemii Uumi fayyadamaa.
+animation.refuse.already_animated = Sanadni kun duraanuu sochiinsa fireemii qaba.
+animation.refuse.last_frame = Sochiinsi tokko yoo xiqqaate fireemii tokko barbaada. Kanaa mannaa sochiinsa haqaa.
+animation.refuse.too_many_frames = Sararri yeroo fireemota dabalataa qabachuu hin danda'u.
+animation.refuse.no_layers = Laayaroonni fireemii irraa uumamu hin jiran.
+animation.export.menu = Sochiinsa…
+animation.export.title = Sochiinsa Al-ergi
+animation.export.palette = Paaleettii
+animation.export.palette_per_frame = Fireemii tokkoon tokkoon
+animation.export.palette_global = Waliigalaa
+animation.export.disposal = Gatuu
+animation.export.disposal_auto = Ofumaan
+animation.export.disposal_keep = Fireemii duraa eegi
+animation.export.disposal_background = Gara duubbeetti deebisi
+animation.export.disposal_previous = Gara isa duraatti deebisi
+animation.export.dither_note = Yeroo fireemiin halluu 256 ol qabu dogoggora halluu bittinneessi
+animation.export.transparency = Iftoomina
+animation.export.transparency_note = Bakkeewwan ifaa akka ifaa ta'anitti eegi
+animation.export.gif_note = GIF turtii harka dhibba keessaa tokko sekondiitiin kuusa, iftoomina gartokkees hin qabu.
+animation.export.apng_note = APNG fireemii hunda osoo hin hir'isin iftoomina guutuudhaan eega.
+animation.export.webp_note = WebP sochiisame osoo hin hir'isin barreeffama; WebP hir'isu hin argamu.

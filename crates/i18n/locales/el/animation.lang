@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = Λωρίδα χρόνου
+animation.menu = Κίνηση
+animation.play_pause = Αναπαραγωγή/Παύση κίνησης
+animation.frame_layer_name = Καρέ {n}
+animation.delay_seconds = {seconds} δ
+animation.delay.label = Καθυστέρηση
+animation.delay.apply_all = Εφαρμογή σε όλα τα καρέ
+animation.loop.label = Επανάληψη
+animation.loop.once = Μία φορά
+animation.loop.forever = Για πάντα
+animation.onion.label = Φλούδα κρεμμυδιού
+animation.onion.before = Πριν
+animation.onion.after = Μετά
+animation.offset.label = Μετατόπιση επιπέδου σε αυτό το καρέ
+animation.new_layers_visible = Τα νέα επίπεδα είναι ορατά σε όλα τα καρέ
+animation.history.select_frame = Επιλογή καρέ
+animation.history.move_frame = Μετακίνηση καρέ
+animation.history.frame_delay = Καθυστέρηση καρέ
+animation.history.loop = Αριθμός επαναλήψεων
+animation.history.offset = Μετατόπιση καρέ
+animation.history.new_layers = Ορατότητα νέων επιπέδων
+animation.refuse.no_animation = Αυτό το έγγραφο δεν έχει κίνηση καρέ. Χρησιμοποιήστε Επίπεδο ▸ Κίνηση ▸ Δημιουργία κίνησης καρέ.
+animation.refuse.already_animated = Αυτό το έγγραφο έχει ήδη κίνηση καρέ.
+animation.refuse.last_frame = Μια κίνηση χρειάζεται τουλάχιστον ένα καρέ. Διαγράψτε την κίνηση αντί γι' αυτό.
+animation.refuse.too_many_frames = Η λωρίδα χρόνου δεν χωράει άλλα καρέ.
+animation.refuse.no_layers = Δεν υπάρχουν επίπεδα από τα οποία να δημιουργηθούν καρέ.
+animation.export.menu = Κίνηση…
+animation.export.title = Εξαγωγή κίνησης
+animation.export.palette = Παλέτα
+animation.export.palette_per_frame = Ανά καρέ
+animation.export.palette_global = Καθολική
+animation.export.disposal = Διάθεση
+animation.export.disposal_auto = Αυτόματη
+animation.export.disposal_keep = Διατήρηση προηγούμενου καρέ
+animation.export.disposal_background = Επαναφορά στο φόντο
+animation.export.disposal_previous = Επαναφορά στο προηγούμενο
+animation.export.dither_note = Διάχυση των σφαλμάτων χρώματος όταν ένα καρέ έχει περισσότερα από 256 χρώματα
+animation.export.transparency = Διαφάνεια
+animation.export.transparency_note = Οι διαφανείς περιοχές παραμένουν διαφανείς
+animation.export.gif_note = Το GIF αποθηκεύει τις καθυστερήσεις σε εκατοστά του δευτερολέπτου και δεν υποστηρίζει μερική διαφάνεια.
+animation.export.apng_note = Το APNG διατηρεί κάθε καρέ χωρίς απώλειες με πλήρη διαφάνεια.
+animation.export.webp_note = Το κινούμενο WebP γράφεται χωρίς απώλειες· το WebP με απώλειες δεν είναι διαθέσιμο.

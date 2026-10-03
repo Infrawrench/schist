@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = Linea temporis
+animation.menu = Animatio
+animation.play_pause = Animationem agere/sistere
+animation.frame_layer_name = Imago {n}
+animation.delay_seconds = {seconds} s
+animation.delay.label = Mora
+animation.delay.apply_all = Omnibus imaginibus adhibe
+animation.loop.label = Iteratio
+animation.loop.once = Semel
+animation.loop.forever = Semper
+animation.onion.label = Pellis caepae
+animation.onion.before = Ante
+animation.onion.after = Post
+animation.offset.label = Translatio strati in hac imagine
+animation.new_layers_visible = Nova strata in omnibus imaginibus visibilia
+animation.history.select_frame = Imaginem elige
+animation.history.move_frame = Imaginem move
+animation.history.frame_delay = Mora imaginis
+animation.history.loop = Numerus iterationum
+animation.history.offset = Translatio imaginis
+animation.history.new_layers = Visibilitas novorum stratorum
+animation.refuse.no_animation = Hoc documentum animationem imaginum non habet. Utere Stratum ▸ Animatio ▸ Animationem imaginum crea.
+animation.refuse.already_animated = Hoc documentum iam animationem imaginum habet.
+animation.refuse.last_frame = Animatio saltem unam imaginem requirit. Dele potius animationem.
+animation.refuse.too_many_frames = Linea temporis plures imagines capere non potest.
+animation.refuse.no_layers = Nulla strata sunt ex quibus imagines fiant.
+animation.export.menu = Animatio…
+animation.export.title = Animationem exporta
+animation.export.palette = Tabula colorum
+animation.export.palette_per_frame = Pro singulis imaginibus
+animation.export.palette_global = Universalis
+animation.export.disposal = Abiectio
+animation.export.disposal_auto = Automatica
+animation.export.disposal_keep = Imaginem priorem serva
+animation.export.disposal_background = Ad fundum restitue
+animation.export.disposal_previous = Ad priorem restitue
+animation.export.dither_note = Errores colorum diffunde cum imago plus quam 256 colores habet
+animation.export.transparency = Perspicuitas
+animation.export.transparency_note = Areas perspicuas perspicuas serva
+animation.export.gif_note = GIF moras centesimis partibus secundae servat nec perspicuitatem partialem habet.
+animation.export.apng_note = APNG omnem imaginem sine damno cum plena perspicuitate servat.
+animation.export.webp_note = WebP animatum sine damno scribitur; WebP cum damno praesto non est.

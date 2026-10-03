@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = Amlíne
+animation.menu = Beochan
+animation.play_pause = Seinn/Cuir Beochan ar Sos
+animation.frame_layer_name = Fráma {n}
+animation.delay_seconds = {seconds} s
+animation.delay.label = Moill
+animation.delay.apply_all = Cuir i bhFeidhm ar Gach Fráma
+animation.loop.label = Lúb
+animation.loop.once = Uair amháin
+animation.loop.forever = Go deo
+animation.onion.label = Craiceann oinniúin
+animation.onion.before = Roimh
+animation.onion.after = Tar éis
+animation.offset.label = Fritháireamh sraithe sa fhráma seo
+animation.new_layers_visible = Sraitheanna nua infheicthe i ngach fráma
+animation.history.select_frame = Roghnaigh Fráma
+animation.history.move_frame = Bog Fráma
+animation.history.frame_delay = Moill Fráma
+animation.history.loop = Líon Lúb
+animation.history.offset = Fritháireamh Fráma
+animation.history.new_layers = Infheictheacht Sraitheanna Nua
+animation.refuse.no_animation = Níl beochan frámaí sa doiciméad seo. Úsáid Sraith ▸ Beochan ▸ Cruthaigh Beochan Frámaí.
+animation.refuse.already_animated = Tá beochan frámaí sa doiciméad seo cheana féin.
+animation.refuse.last_frame = Teastaíonn fráma amháin ar a laghad ó bheochan. Scrios an bheochan ina ionad sin.
+animation.refuse.too_many_frames = Ní féidir níos mó frámaí a choinneáil san amlíne.
+animation.refuse.no_layers = Níl aon sraitheanna ann chun frámaí a dhéanamh astu.
+animation.export.menu = Beochan…
+animation.export.title = Easpórtáil Beochan
+animation.export.palette = Pailéad
+animation.export.palette_per_frame = In aghaidh an fhráma
+animation.export.palette_global = Domhanda
+animation.export.disposal = Diúscairt
+animation.export.disposal_auto = Uathoibríoch
+animation.export.disposal_keep = Coinnigh an fráma roimhe
+animation.export.disposal_background = Athchóirigh go dtí an cúlra
+animation.export.disposal_previous = Athchóirigh go dtí an ceann roimhe
+animation.export.dither_note = Scaip earráidí datha nuair atá níos mó ná 256 dath i bhfráma
+animation.export.transparency = Trédhearcacht
+animation.export.transparency_note = Coinnigh limistéir thrédhearcacha trédhearcach
+animation.export.gif_note = Stórálann GIF moilleanna i gcéadaí de shoicind agus níl trédhearcacht pháirteach aige.
+animation.export.apng_note = Coinníonn APNG gach fráma gan chailliúint le trédhearcacht iomlán.
+animation.export.webp_note = Scríobhtar WebP beochana gan chailliúint; níl WebP caillteach ar fáil.

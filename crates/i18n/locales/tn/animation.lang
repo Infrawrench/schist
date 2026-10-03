@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = Mola wa Nako
+animation.menu = Animeishene
+animation.play_pause = Tshameka/Emisa Animeishene
+animation.frame_layer_name = Foreime {n}
+animation.delay_seconds = {seconds} s
+animation.delay.label = Tiego
+animation.delay.apply_all = Dirisa mo Diforeimeng Tsotlhe
+animation.loop.label = Go Boeletsa
+animation.loop.once = Gangwe
+animation.loop.forever = Ka Bosakhutleng
+animation.onion.label = Letlalo la Eiye
+animation.onion.before = Pele
+animation.onion.after = Morago
+animation.offset.label = Tshutiso ya llaga mo foreimeng e
+animation.new_layers_visible = Dillaga tse dintšha di bonala mo diforeimeng tsotlhe
+animation.history.select_frame = Tlhopha Foreime
+animation.history.move_frame = Sutisa Foreime
+animation.history.frame_delay = Tiego ya Foreime
+animation.history.loop = Palo ya Go Boeletsa
+animation.history.offset = Tshutiso ya Foreime
+animation.history.new_layers = Ponalo ya Dillaga tse Dintšha
+animation.refuse.no_animation = Tokomane e ga e na animeishene ya diforeime. Dirisa Llaga ▸ Animeishene ▸ Tlhama Animeishene ya Foreime.
+animation.refuse.already_animated = Tokomane e setse e na le animeishene ya diforeime.
+animation.refuse.last_frame = Animeishene e tlhoka bonnye foreime e le nngwe. Go na le moo, phimola animeishene.
+animation.refuse.too_many_frames = Mola wa nako ga o kgone go tshola diforeime di feta tse.
+animation.refuse.no_layers = Ga go na dillaga tse go ka dirwang diforeime ka tsone.
+animation.export.menu = Animeishene…
+animation.export.title = Romela Animeishene
+animation.export.palette = Phalete
+animation.export.palette_per_frame = Ka foreime nngwe le nngwe
+animation.export.palette_global = Ka kakaretso
+animation.export.disposal = Go Latlha
+animation.export.disposal_auto = Ka Itiriso
+animation.export.disposal_keep = Boloka foreime e e fetileng
+animation.export.disposal_background = Busetsa mo bokamorago
+animation.export.disposal_previous = Busetsa mo go e e fetileng
+animation.export.dither_note = Phatlalatsa diphoso tsa mebala fa foreime e na le mebala e e fetang 256
+animation.export.transparency = Ponaletso
+animation.export.transparency_note = Boloka mafelo a a ponaletso a le ponaletso
+animation.export.gif_note = GIF e boloka ditiego ka dikarolo tsa lekgolo tsa motsotswana mme ga e na ponaletso e e sa feleletsang.
+animation.export.apng_note = APNG e boloka foreime nngwe le nngwe kwa ntle ga go latlhegelwa ke boleng, ka ponaletso e e feletseng.
+animation.export.webp_note = WebP e e tshikinyegang e kwalwa kwa ntle ga go latlhegelwa ke boleng; WebP e e latlhegelwang ke boleng ga e yo.

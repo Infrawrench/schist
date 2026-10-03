@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = Vremenska crta
+animation.menu = Animacija
+animation.play_pause = Reproduciraj/pauziraj animaciju
+animation.frame_layer_name = Okvir {n}
+animation.delay_seconds = {seconds} s
+animation.delay.label = Odgoda
+animation.delay.apply_all = Primijeni na sve okvire
+animation.loop.label = Ponavljanje
+animation.loop.once = Jednom
+animation.loop.forever = Zauvijek
+animation.onion.label = Lukovičasta koža
+animation.onion.before = Prije
+animation.onion.after = Poslije
+animation.offset.label = Pomak sloja u ovom okviru
+animation.new_layers_visible = Novi slojevi vidljivi u svim okvirima
+animation.history.select_frame = Odaberi okvir
+animation.history.move_frame = Premjesti okvir
+animation.history.frame_delay = Odgoda okvira
+animation.history.loop = Broj ponavljanja
+animation.history.offset = Pomak okvira
+animation.history.new_layers = Vidljivost novih slojeva
+animation.refuse.no_animation = Ovaj dokument nema animaciju okvira. Upotrijebite Sloj ▸ Animacija ▸ Stvori animaciju okvira.
+animation.refuse.already_animated = Ovaj dokument već ima animaciju okvira.
+animation.refuse.last_frame = Animacija treba barem jedan okvir. Umjesto toga izbrišite animaciju.
+animation.refuse.too_many_frames = Vremenska crta ne može primiti više okvira.
+animation.refuse.no_layers = Nema slojeva od kojih bi se mogli napraviti okviri.
+animation.export.menu = Animacija…
+animation.export.title = Izvezi animaciju
+animation.export.palette = Paleta
+animation.export.palette_per_frame = Po okviru
+animation.export.palette_global = Globalna
+animation.export.disposal = Uklanjanje okvira
+animation.export.disposal_auto = Automatski
+animation.export.disposal_keep = Zadrži prethodni okvir
+animation.export.disposal_background = Vrati na pozadinu
+animation.export.disposal_previous = Vrati na prethodno
+animation.export.dither_note = Raspršuj pogreške boja kada okvir ima više od 256 boja
+animation.export.transparency = Prozirnost
+animation.export.transparency_note = Zadrži prozirna područja prozirnima
+animation.export.gif_note = GIF sprema odgode u stotinkama sekunde i nema djelomičnu prozirnost.
+animation.export.apng_note = APNG čuva svaki okvir bez gubitaka s punom prozirnošću.
+animation.export.webp_note = Animirani WebP zapisuje se bez gubitaka; WebP s gubicima nije dostupan.

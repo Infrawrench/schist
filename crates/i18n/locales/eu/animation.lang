@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = Denbora-lerroa
+animation.menu = Animazioa
+animation.play_pause = Erreproduzitu/Pausatu animazioa
+animation.frame_layer_name = {n}. fotograma
+animation.delay_seconds = {seconds} s
+animation.delay.label = Atzerapena
+animation.delay.apply_all = Aplikatu fotograma guztiei
+animation.loop.label = Begizta
+animation.loop.once = Behin
+animation.loop.forever = Betiko
+animation.onion.label = Tipula-azala
+animation.onion.before = Aurretik
+animation.onion.after = Ondoren
+animation.offset.label = Geruzaren desplazamendua fotograma honetan
+animation.new_layers_visible = Geruza berriak ikusgai fotograma guztietan
+animation.history.select_frame = Hautatu fotograma
+animation.history.move_frame = Mugitu fotograma
+animation.history.frame_delay = Fotogramaren atzerapena
+animation.history.loop = Begizta kopurua
+animation.history.offset = Fotogramaren desplazamendua
+animation.history.new_layers = Geruza berrien ikusgaitasuna
+animation.refuse.no_animation = Dokumentu honek ez du fotograma-animaziorik. Erabili Geruza ▸ Animazioa ▸ Sortu fotograma-animazioa.
+animation.refuse.already_animated = Dokumentu honek badu dagoeneko fotograma-animazio bat.
+animation.refuse.last_frame = Animazio batek fotograma bat behar du gutxienez. Ezabatu animazioa horren ordez.
+animation.refuse.too_many_frames = Denbora-lerroak ezin du fotograma gehiago hartu.
+animation.refuse.no_layers = Ez dago fotogramak sortzeko geruzarik.
+animation.export.menu = Animazioa…
+animation.export.title = Esportatu animazioa
+animation.export.palette = Paleta
+animation.export.palette_per_frame = Fotograma bakoitzeko
+animation.export.palette_global = Orokorra
+animation.export.disposal = Fotograma-kentzea
+animation.export.disposal_auto = Automatikoa
+animation.export.disposal_keep = Mantendu aurreko fotograma
+animation.export.disposal_background = Leheneratu atzeko planora
+animation.export.disposal_previous = Leheneratu aurrekora
+animation.export.dither_note = Barreiatu kolore-erroreak fotograma batek 256 kolore baino gehiago dituenean
+animation.export.transparency = Gardentasuna
+animation.export.transparency_note = Mantendu eremu gardenak garden
+animation.export.gif_note = GIFek segundo-ehunenetan gordetzen ditu atzerapenak eta ez du gardentasun partzialik.
+animation.export.apng_note = APNGk fotograma guztiak galerarik gabe gordetzen ditu, gardentasun osoarekin.
+animation.export.webp_note = WebP animatua galerarik gabe idazten da; galeradun WebP ez dago erabilgarri.

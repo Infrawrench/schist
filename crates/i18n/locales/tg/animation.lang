@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = Хати замон
+animation.menu = Аниматсия
+animation.play_pause = Пахш/таваққуфи аниматсия
+animation.frame_layer_name = Кадри {n}
+animation.delay_seconds = {seconds} с
+animation.delay.label = Таъхир
+animation.delay.apply_all = Ба ҳамаи кадрҳо татбиқ кардан
+animation.loop.label = Такрор
+animation.loop.once = Як бор
+animation.loop.forever = Беохир
+animation.onion.label = Пӯсти пиёз
+animation.onion.before = Пеш аз
+animation.onion.after = Пас аз
+animation.offset.label = Ҷойивазкунии қабат дар ин кадр
+animation.new_layers_visible = Қабатҳои нав дар ҳамаи кадрҳо намоёнанд
+animation.history.select_frame = Интихоби кадр
+animation.history.move_frame = Ҷойивазкунии кадр
+animation.history.frame_delay = Таъхири кадр
+animation.history.loop = Шумораи такрорҳо
+animation.history.offset = Ҷойивазкунии кадр
+animation.history.new_layers = Намоёнии қабатҳои нав
+animation.refuse.no_animation = Ин ҳуҷҷат аниматсияи кадрӣ надорад. Аз Қабат ▸ Аниматсия ▸ Эҷоди аниматсияи кадрӣ истифода баред.
+animation.refuse.already_animated = Ин ҳуҷҷат аллакай аниматсияи кадрӣ дорад.
+animation.refuse.last_frame = Аниматсия ақаллан як кадр лозим дорад. Ба ҷои ин аниматсияро нест кунед.
+animation.refuse.too_many_frames = Хати замон кадрҳои бештарро гунҷонида наметавонад.
+animation.refuse.no_layers = Қабатҳое нестанд, ки аз онҳо кадр сохтан мумкин бошад.
+animation.export.menu = Аниматсия…
+animation.export.title = Содир кардани аниматсия
+animation.export.palette = Палитра
+animation.export.palette_per_frame = Барои ҳар кадр
+animation.export.palette_global = Умумӣ
+animation.export.disposal = Тарзи тоза кардан
+animation.export.disposal_auto = Худкор
+animation.export.disposal_keep = Нигоҳ доштани кадри қаблӣ
+animation.export.disposal_background = Барқарор кардан ба пасзамина
+animation.export.disposal_previous = Барқарор кардан ба қаблӣ
+animation.export.dither_note = Пароканда кардани хатоҳои ранг, вақте ки кадр зиёда аз 256 ранг дорад
+animation.export.transparency = Шаффофият
+animation.export.transparency_note = Минтақаҳои шаффофро шаффоф нигоҳ доштан
+animation.export.gif_note = GIF таъхирҳоро бо садяки сония нигоҳ медорад ва шаффофияти қисман надорад.
+animation.export.apng_note = APNG ҳар кадрро бе талафот бо шаффофияти пурра нигоҳ медорад.
+animation.export.webp_note = WebP-и аниматсионӣ бе талафот навишта мешавад; WebP бо талафот дастрас нест.

@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = መስመር ግዜ
+animation.menu = ኣኒሜሽን
+animation.play_pause = ኣኒሜሽን ምጽዋት/ምቁራጽ
+animation.frame_layer_name = ፍሬም {n}
+animation.delay_seconds = {seconds} s
+animation.delay.label = ምድንጓይ
+animation.delay.apply_all = ኣብ ኩሎም ፍሬማት ምትግባር
+animation.loop.label = ድግግም
+animation.loop.once = ሓንሳእ
+animation.loop.forever = ንዘለኣለም
+animation.onion.label = ቆርበት ሽጉርቲ
+animation.onion.before = ቅድሚ
+animation.onion.after = ድሕሪ
+animation.offset.label = ምድፋእ ንጣፍ ኣብዚ ፍሬም
+animation.new_layers_visible = ሓደስቲ ንጣፋት ኣብ ኩሎም ፍሬማት ይርኣዩ
+animation.history.select_frame = ፍሬም ምምራጽ
+animation.history.move_frame = ፍሬም ምንቅስቓስ
+animation.history.frame_delay = ምድንጓይ ፍሬም
+animation.history.loop = ቁጽሪ ድግግም
+animation.history.offset = ምድፋእ ፍሬም
+animation.history.new_layers = ተራእዮ ሓደስቲ ንጣፋት
+animation.refuse.no_animation = እዚ ሰነድ ኣኒሜሽን ፍሬም የብሉን። ንጣፍ ▸ ኣኒሜሽን ▸ ኣኒሜሽን ፍሬም ምፍጣር ተጠቐም።
+animation.refuse.already_animated = እዚ ሰነድ ድሮ ኣኒሜሽን ፍሬም ኣለዎ።
+animation.refuse.last_frame = ኣኒሜሽን እንተወሓደ ሓደ ፍሬም የድልዮ። ኣብ ክንዳኡ ነቲ ኣኒሜሽን ደምስሶ።
+animation.refuse.too_many_frames = እቲ መስመር ግዜ ካብዚ ዝበዝሑ ፍሬማት ክሕዝ ኣይክእልን።
+animation.refuse.no_layers = ፍሬማት ዝስርሑሉ ንጣፋት የለዉን።
+animation.export.menu = ኣኒሜሽን…
+animation.export.title = ኣኒሜሽን ምውጻእ
+animation.export.palette = ሰሌዳ ሕብሪ
+animation.export.palette_per_frame = ንነፍሲ ወከፍ ፍሬም
+animation.export.palette_global = ሓፈሻዊ
+animation.export.disposal = ምውጋድ
+animation.export.disposal_auto = ኣውቶማቲክ
+animation.export.disposal_keep = ዝሓለፈ ፍሬም ምዕቃብ
+animation.export.disposal_background = ናብ ድሕሪት ምምላስ
+animation.export.disposal_previous = ናብ ዝሓለፈ ምምላስ
+animation.export.dither_note = ሓደ ፍሬም ካብ 256 ዝበዝሑ ሕብርታት ምስ ዝህልዎ ጌጋታት ሕብሪ ምዝርጋሕ
+animation.export.transparency = ግሉጽነት
+animation.export.transparency_note = ግሉጻት ቦታታት ግሉጻት ኮይኖም ይጸንሑ
+animation.export.gif_note = GIF ምድንጓያት ብሚእታዊ ካልኢት ይዕቅብ፣ ከፊላዊ ግሉጽነት ድማ የብሉን።
+animation.export.apng_note = APNG ነፍሲ ወከፍ ፍሬም ብዘይ ክሳራ ምስ ምሉእ ግሉጽነት ይዕቅብ።
+animation.export.webp_note = ዝንቀሳቐስ WebP ብዘይ ክሳራ ይጽሓፍ፤ ክሳራ ዘለዎ WebP ኣይርከብን።

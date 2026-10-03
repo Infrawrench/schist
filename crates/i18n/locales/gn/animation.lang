@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = Ára rysýi
+animation.menu = Animasión
+animation.play_pause = Mboguata/Mbopyta animasión
+animation.frame_layer_name = Kuadro {n}
+animation.delay_seconds = {seconds} s
+animation.delay.label = Ñembotarda
+animation.delay.apply_all = Moĩ opaite kuadrope
+animation.loop.label = Jejapojey
+animation.loop.once = Peteĩ jey
+animation.loop.forever = Opa'ỹme
+animation.onion.label = Sevói pire
+animation.onion.before = Mboyve
+animation.onion.after = Rire
+animation.offset.label = Capa ñemomýi ko kuadrope
+animation.new_layers_visible = Capa pyahu ojehecha opaite kuadrope
+animation.history.select_frame = Poravo kuadro
+animation.history.move_frame = Mova kuadro
+animation.history.frame_delay = Kuadro ñembotarda
+animation.history.loop = Mboy jey
+animation.history.offset = Kuadro ñemomýi
+animation.history.new_layers = Capa pyahu jehecha
+animation.refuse.no_animation = Ko kuatia ndorekói animasión kuadrogua. Eiporu Capa ▸ Animasión ▸ Japo animasión kuadrogua.
+animation.refuse.already_animated = Ko kuatia oguereko voi animasión kuadrogua.
+animation.refuse.last_frame = Peteĩ animasión oikotevẽ michĩvépe peteĩ kuadro. Embogue hendaguépe animasión.
+animation.refuse.too_many_frames = Ára rysýi ndaikatúi oguereko hetave kuadro.
+animation.refuse.no_layers = Ndaipóri capa ojejapo hag̃ua chuguikuéra kuadro.
+animation.export.menu = Animasión…
+animation.export.title = Gueraha animasión
+animation.export.palette = Sa'y paleta
+animation.export.palette_per_frame = Peteĩteĩ kuadro
+animation.export.palette_global = Opavavegua
+animation.export.disposal = Ñemboyke
+animation.export.disposal_auto = Ijeheguíva
+animation.export.disposal_keep = Ñongatu kuadro mboyvegua
+animation.export.disposal_background = Mbojevy tapykuegua peve
+animation.export.disposal_previous = Mbojevy mboyvegua peve
+animation.export.dither_note = Mosarambi sa'y jejavy peteĩ kuadro oguerekóramo 256 sa'y ári
+animation.export.transparency = Hesakãngue
+animation.export.transparency_note = Ñongatu umi tenda hesakãva hesakãvaramo
+animation.export.gif_note = GIF oñongatu ñembotarda segundo pehẽngue sapy'ánte ha ndorekói hesakãngue pehẽngue.
+animation.export.apng_note = APNG oñongatu opaite kuadro operde'ỹre hesakãngue tuichakue reheve.
+animation.export.webp_note = WebP omýiva ojehai operde'ỹre; WebP operdéva ndaipóri.

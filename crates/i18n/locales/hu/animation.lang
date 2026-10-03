@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = Idővonal
+animation.menu = Animáció
+animation.play_pause = Animáció lejátszása/szüneteltetése
+animation.frame_layer_name = {n}. képkocka
+animation.delay_seconds = {seconds} mp
+animation.delay.label = Késleltetés
+animation.delay.apply_all = Alkalmazás minden képkockára
+animation.loop.label = Ismétlés
+animation.loop.once = Egyszer
+animation.loop.forever = Folyamatosan
+animation.onion.label = Hagymahéj
+animation.onion.before = Előtte
+animation.onion.after = Utána
+animation.offset.label = Réteg eltolása ebben a képkockában
+animation.new_layers_visible = Az új rétegek minden képkockában láthatók
+animation.history.select_frame = Képkocka kijelölése
+animation.history.move_frame = Képkocka áthelyezése
+animation.history.frame_delay = Képkocka késleltetése
+animation.history.loop = Ismétlések száma
+animation.history.offset = Képkocka eltolása
+animation.history.new_layers = Új rétegek láthatósága
+animation.refuse.no_animation = Ebben a dokumentumban nincs képkocka-animáció. Használja a Réteg ▸ Animáció ▸ Képkocka-animáció létrehozása parancsot.
+animation.refuse.already_animated = Ebben a dokumentumban már van képkocka-animáció.
+animation.refuse.last_frame = Egy animációhoz legalább egy képkocka szükséges. Inkább törölje az animációt.
+animation.refuse.too_many_frames = Az idővonal nem tud több képkockát tárolni.
+animation.refuse.no_layers = Nincsenek rétegek, amelyekből képkockákat lehetne készíteni.
+animation.export.menu = Animáció…
+animation.export.title = Animáció exportálása
+animation.export.palette = Paletta
+animation.export.palette_per_frame = Képkockánként
+animation.export.palette_global = Globális
+animation.export.disposal = Eldobás
+animation.export.disposal_auto = Automatikus
+animation.export.disposal_keep = Előző képkocka megtartása
+animation.export.disposal_background = Visszaállítás a háttérre
+animation.export.disposal_previous = Visszaállítás az előzőre
+animation.export.dither_note = A színhibák szórása, ha egy képkocka több mint 256 színt tartalmaz
+animation.export.transparency = Átlátszóság
+animation.export.transparency_note = Az átlátszó területek átlátszók maradnak
+animation.export.gif_note = A GIF a késleltetéseket századmásodpercben tárolja, és nem támogatja a részleges átlátszóságot.
+animation.export.apng_note = Az APNG minden képkockát veszteségmentesen, teljes átlátszósággal őriz meg.
+animation.export.webp_note = Az animált WebP veszteségmentesen íródik; a veszteséges WebP nem érhető el.

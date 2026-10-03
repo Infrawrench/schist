@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = කාලරේඛාව
+animation.menu = සජීවිකරණය
+animation.play_pause = සජීවිකරණය ධාවනය/විරාම කරන්න
+animation.frame_layer_name = රාමුව {n}
+animation.delay_seconds = {seconds} තත්.
+animation.delay.label = ප්‍රමාදය
+animation.delay.apply_all = සියලු රාමුවලට යොදන්න
+animation.loop.label = ලූපය
+animation.loop.once = එක් වරක්
+animation.loop.forever = සදහටම
+animation.onion.label = ළූණු සිවිය
+animation.onion.before = පෙර
+animation.onion.after = පසු
+animation.offset.label = මෙම රාමුවේ ස්තර විස්ථාපනය
+animation.new_layers_visible = නව ස්තර සියලු රාමුවල දෘශ්‍යමාන වේ
+animation.history.select_frame = රාමුව තෝරන්න
+animation.history.move_frame = රාමුව ගෙන යන්න
+animation.history.frame_delay = රාමු ප්‍රමාදය
+animation.history.loop = ලූප ගණන
+animation.history.offset = රාමු විස්ථාපනය
+animation.history.new_layers = නව ස්තර දෘශ්‍යතාව
+animation.refuse.no_animation = මෙම ලේඛනයේ රාමු සජීවිකරණයක් නැත. ස්තරය ▸ සජීවිකරණය ▸ රාමු සජීවිකරණයක් සාදන්න භාවිත කරන්න.
+animation.refuse.already_animated = මෙම ලේඛනයේ දැනටමත් රාමු සජීවිකරණයක් ඇත.
+animation.refuse.last_frame = සජීවිකරණයකට අවම වශයෙන් එක් රාමුවක් අවශ්‍ය වේ. ඒ වෙනුවට සජීවිකරණය මකන්න.
+animation.refuse.too_many_frames = කාලරේඛාවට තවත් රාමු දැරිය නොහැක.
+animation.refuse.no_layers = රාමු සෑදීමට ස්තර කිසිවක් නැත.
+animation.export.menu = සජීවිකරණය…
+animation.export.title = සජීවිකරණය අපනයනය කරන්න
+animation.export.palette = වර්ණ තලය
+animation.export.palette_per_frame = එක් එක් රාමුවට
+animation.export.palette_global = ගෝලීය
+animation.export.disposal = බැහැර කිරීම
+animation.export.disposal_auto = ස්වයංක්‍රීය
+animation.export.disposal_keep = පෙර රාමුව තබා ගන්න
+animation.export.disposal_background = පසුබිමට ප්‍රතිසාධනය කරන්න
+animation.export.disposal_previous = පෙර තත්ත්වයට ප්‍රතිසාධනය කරන්න
+animation.export.dither_note = රාමුවක වර්ණ 256කට වඩා ඇති විට වර්ණ දෝෂ විසරණය කරන්න
+animation.export.transparency = පාරදෘශ්‍යතාව
+animation.export.transparency_note = පාරදෘශ්‍ය ප්‍රදේශ පාරදෘශ්‍යව තබා ගන්න
+animation.export.gif_note = GIF ප්‍රමාදයන් තත්පරයෙන් සියයෙන් පංගු ලෙස ගබඩා කරන අතර අර්ධ පාරදෘශ්‍යතාවයක් නැත.
+animation.export.apng_note = APNG සෑම රාමුවක්ම පූර්ණ පාරදෘශ්‍යතාව සමඟ හානියකින් තොරව තබා ගනී.
+animation.export.webp_note = සජීවිකරණ WebP හානියකින් තොරව ලියනු ලැබේ; හානිදායක WebP ලබා ගත නොහැක.

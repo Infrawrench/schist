@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = Tempolineo
+animation.menu = Animaco
+animation.play_pause = Pleagar/Pauzigar animaco
+animation.frame_layer_name = Kadro {n}
+animation.delay_seconds = {seconds} s
+animation.delay.label = Tardeso
+animation.delay.apply_all = Aplikar a omna kadri
+animation.loop.label = Ripeto
+animation.loop.once = Unfoye
+animation.loop.forever = Senfine
+animation.onion.label = Onionoshelo
+animation.onion.before = Ante
+animation.onion.after = Pos
+animation.offset.label = Deplaso di strato en ica kadro
+animation.new_layers_visible = Nova strati esas videbla en omna kadri
+animation.history.select_frame = Selektar kadro
+animation.history.move_frame = Movar kadro
+animation.history.frame_delay = Tardeso di kadro
+animation.history.loop = Nombro di ripeti
+animation.history.offset = Deplaso di kadro
+animation.history.new_layers = Videbleso di nova strati
+animation.refuse.no_animation = Ica dokumento ne havas kadro-animaco. Uzez Strato ▸ Animaco ▸ Krear kadro-animaco.
+animation.refuse.already_animated = Ica dokumento ja havas kadro-animaco.
+animation.refuse.last_frame = Animaco bezonas adminime un kadro. Efacez vice la animaco.
+animation.refuse.too_many_frames = La tempolineo ne povas kontenar plusa kadri.
+animation.refuse.no_layers = Ne existas strati de qui on povas krear kadri.
+animation.export.menu = Animaco…
+animation.export.title = Exportar animaco
+animation.export.palette = Paleto
+animation.export.palette_per_frame = Po kadro
+animation.export.palette_global = Globala
+animation.export.disposal = Dispozo
+animation.export.disposal_auto = Automata
+animation.export.disposal_keep = Konservar la antea kadro
+animation.export.disposal_background = Restaurar a la dopplano
+animation.export.disposal_previous = Restaurar a la antea
+animation.export.dither_note = Difuzar kolor-erori kande kadro havas plu kam 256 kolori
+animation.export.transparency = Transparenteso
+animation.export.transparency_note = Konservar transparanta areali transparanta
+animation.export.gif_note = GIF konservas tardesi en centimi di sekundo e ne havas parta transparenteso.
+animation.export.apng_note = APNG konservas omna kadro senperde kun plena transparenteso.
+animation.export.webp_note = Animacita WebP skribesas senperde; perdoza WebP ne esas disponebla.

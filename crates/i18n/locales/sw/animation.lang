@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = Mstari wa Muda
+animation.menu = Uhuishaji
+animation.play_pause = Cheza/Sitisha Uhuishaji
+animation.frame_layer_name = Fremu {n}
+animation.delay_seconds = {seconds} sek
+animation.delay.label = Ucheleweshaji
+animation.delay.apply_all = Tekeleza kwa Fremu Zote
+animation.loop.label = Kurudia
+animation.loop.once = Mara moja
+animation.loop.forever = Daima
+animation.onion.label = Ganda la kitunguu
+animation.onion.before = Kabla
+animation.onion.after = Baada
+animation.offset.label = Mkao wa safu katika fremu hii
+animation.new_layers_visible = Safu mpya zinaonekana katika fremu zote
+animation.history.select_frame = Chagua Fremu
+animation.history.move_frame = Hamisha Fremu
+animation.history.frame_delay = Ucheleweshaji wa Fremu
+animation.history.loop = Idadi ya Marudio
+animation.history.offset = Mkao wa Fremu
+animation.history.new_layers = Mwonekano wa Safu Mpya
+animation.refuse.no_animation = Hati hii haina uhuishaji wa fremu. Tumia Safu ▸ Uhuishaji ▸ Unda Uhuishaji wa Fremu.
+animation.refuse.already_animated = Hati hii tayari ina uhuishaji wa fremu.
+animation.refuse.last_frame = Uhuishaji unahitaji angalau fremu moja. Badala yake futa uhuishaji wote.
+animation.refuse.too_many_frames = Mstari wa muda hauwezi kubeba fremu zaidi.
+animation.refuse.no_layers = Hakuna safu za kutengeneza fremu kutoka kwazo.
+animation.export.menu = Uhuishaji…
+animation.export.title = Hamisha Uhuishaji
+animation.export.palette = Paleti
+animation.export.palette_per_frame = Kwa kila fremu
+animation.export.palette_global = Ya jumla
+animation.export.disposal = Utupaji
+animation.export.disposal_auto = Kiotomatiki
+animation.export.disposal_keep = Hifadhi fremu iliyotangulia
+animation.export.disposal_background = Rejesha kwenye mandharinyuma
+animation.export.disposal_previous = Rejesha kwenye iliyotangulia
+animation.export.dither_note = Sambaza makosa ya rangi wakati fremu ina rangi zaidi ya 256
+animation.export.transparency = Uwazi
+animation.export.transparency_note = Weka maeneo yenye uwazi yabaki na uwazi
+animation.export.gif_note = GIF huhifadhi ucheleweshaji kwa mia moja ya sekunde na haina uwazi wa sehemu.
+animation.export.apng_note = APNG huhifadhi kila fremu bila kupoteza ubora pamoja na uwazi kamili.
+animation.export.webp_note = WebP iliyohuishwa huandikwa bila kupoteza ubora; WebP yenye kupoteza ubora haipatikani.

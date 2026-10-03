@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = បន្ទាត់ពេលវេលា
+animation.menu = ចលនា
+animation.play_pause = ចាក់/ផ្អាកចលនា
+animation.frame_layer_name = ស៊ុម {n}
+animation.delay_seconds = {seconds} វិ.
+animation.delay.label = ការពន្យារ
+animation.delay.apply_all = អនុវត្តចំពោះស៊ុមទាំងអស់
+animation.loop.label = រង្វិលជុំ
+animation.loop.once = ម្តង
+animation.loop.forever = ជារៀងរហូត
+animation.onion.label = ស្បែកខ្ទឹម
+animation.onion.before = មុន
+animation.onion.after = ក្រោយ
+animation.offset.label = ការរំកិលស្រទាប់ក្នុងស៊ុមនេះ
+animation.new_layers_visible = ស្រទាប់ថ្មីមើលឃើញនៅក្នុងស៊ុមទាំងអស់
+animation.history.select_frame = ជ្រើសស៊ុម
+animation.history.move_frame = ផ្លាស់ទីស៊ុម
+animation.history.frame_delay = ការពន្យារស៊ុម
+animation.history.loop = ចំនួនរង្វិលជុំ
+animation.history.offset = ការរំកិលស៊ុម
+animation.history.new_layers = ភាពមើលឃើញនៃស្រទាប់ថ្មី
+animation.refuse.no_animation = ឯកសារនេះមិនមានចលនាស៊ុមទេ។ សូមប្រើ ស្រទាប់ ▸ ចលនា ▸ បង្កើតចលនាស៊ុម។
+animation.refuse.already_animated = ឯកសារនេះមានចលនាស៊ុមរួចហើយ។
+animation.refuse.last_frame = ចលនាមួយត្រូវការយ៉ាងហោចណាស់ស៊ុមមួយ។ សូមលុបចលនាជំនួសវិញ។
+animation.refuse.too_many_frames = បន្ទាត់ពេលវេលាមិនអាចផ្ទុកស៊ុមបន្ថែមទៀតបានទេ។
+animation.refuse.no_layers = មិនមានស្រទាប់សម្រាប់បង្កើតស៊ុមទេ។
+animation.export.menu = ចលនា…
+animation.export.title = នាំចេញចលនា
+animation.export.palette = ក្ដារពណ៌
+animation.export.palette_per_frame = តាមស៊ុមនីមួយៗ
+animation.export.palette_global = សកល
+animation.export.disposal = ការបោះចោលស៊ុម
+animation.export.disposal_auto = ស្វ័យប្រវត្តិ
+animation.export.disposal_keep = រក្សាស៊ុមមុន
+animation.export.disposal_background = ស្ដារទៅផ្ទៃខាងក្រោយ
+animation.export.disposal_previous = ស្ដារទៅស្ថានភាពមុន
+animation.export.dither_note = ពង្រាយកំហុសពណ៌ នៅពេលស៊ុមមួយមានពណ៌ច្រើនជាង 256
+animation.export.transparency = ភាពថ្លា
+animation.export.transparency_note = រក្សាតំបន់ថ្លាឲ្យនៅតែថ្លា
+animation.export.gif_note = GIF រក្សាទុកការពន្យារជាភាគរយនៃវិនាទី ហើយមិនមានភាពថ្លាដោយផ្នែកទេ។
+animation.export.apng_note = APNG រក្សាស៊ុមនីមួយៗដោយមិនបាត់បង់គុណភាព និងមានភាពថ្លាពេញលេញ។
+animation.export.webp_note = WebP មានចលនាត្រូវបានសរសេរដោយមិនបាត់បង់គុណភាព; WebP ដែលបាត់បង់គុណភាពមិនមានទេ។

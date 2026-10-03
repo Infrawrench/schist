@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = Laika skala
+animation.menu = Animācija
+animation.play_pause = Atskaņot/pauzēt animāciju
+animation.frame_layer_name = Kadrs {n}
+animation.delay_seconds = {seconds} s
+animation.delay.label = Aizture
+animation.delay.apply_all = Lietot visiem kadriem
+animation.loop.label = Cilpa
+animation.loop.once = Vienreiz
+animation.loop.forever = Bezgalīgi
+animation.onion.label = Sīpola āda
+animation.onion.before = Pirms
+animation.onion.after = Pēc
+animation.offset.label = Slāņa nobīde šajā kadrā
+animation.new_layers_visible = Jauni slāņi redzami visos kadros
+animation.history.select_frame = Atlasīt kadru
+animation.history.move_frame = Pārvietot kadru
+animation.history.frame_delay = Kadra aizture
+animation.history.loop = Atkārtojumu skaits
+animation.history.offset = Kadra nobīde
+animation.history.new_layers = Jauno slāņu redzamība
+animation.refuse.no_animation = Šim dokumentam nav kadru animācijas. Izmantojiet Slānis ▸ Animācija ▸ Izveidot kadru animāciju.
+animation.refuse.already_animated = Šim dokumentam jau ir kadru animācija.
+animation.refuse.last_frame = Animācijai nepieciešams vismaz viens kadrs. Tā vietā izdzēsiet animāciju.
+animation.refuse.too_many_frames = Laika skalā nevar ietilpt vairāk kadru.
+animation.refuse.no_layers = Nav slāņu, no kuriem veidot kadrus.
+animation.export.menu = Animācija…
+animation.export.title = Eksportēt animāciju
+animation.export.palette = Palete
+animation.export.palette_per_frame = Katram kadram
+animation.export.palette_global = Globāla
+animation.export.disposal = Atbrīvošana
+animation.export.disposal_auto = Automātiski
+animation.export.disposal_keep = Saglabāt iepriekšējo kadru
+animation.export.disposal_background = Atjaunot uz fonu
+animation.export.disposal_previous = Atjaunot uz iepriekšējo
+animation.export.dither_note = Izkliedēt krāsu kļūdas, ja kadrā ir vairāk nekā 256 krāsas
+animation.export.transparency = Caurspīdīgums
+animation.export.transparency_note = Saglabāt caurspīdīgos apgabalus caurspīdīgus
+animation.export.gif_note = GIF saglabā aiztures sekundes simtdaļās, un tam nav daļēja caurspīdīguma.
+animation.export.apng_note = APNG saglabā katru kadru bez zudumiem ar pilnu caurspīdīgumu.
+animation.export.webp_note = Animēts WebP tiek rakstīts bez zudumiem; WebP ar zudumiem nav pieejams.

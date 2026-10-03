@@ -1,0 +1,45 @@
+# Покадровая анимация: панель «Шкала времени», режим кальки и экспорт
+# анимации (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Названия команд находятся в commands.lang.
+animation.panel.title = Шкала времени
+animation.menu = Анимация
+animation.play_pause = Воспроизвести/приостановить анимацию
+animation.frame_layer_name = Кадр {n}
+animation.delay_seconds = {seconds} с
+animation.delay.label = Задержка
+animation.delay.apply_all = Применить ко всем кадрам
+animation.loop.label = Повтор
+animation.loop.once = Однократно
+animation.loop.forever = Постоянно
+animation.onion.label = Калька
+animation.onion.before = До
+animation.onion.after = После
+animation.offset.label = Смещение слоя в этом кадре
+animation.new_layers_visible = Новые слои видны во всех кадрах
+animation.history.select_frame = Выбор кадра
+animation.history.move_frame = Перемещение кадра
+animation.history.frame_delay = Задержка кадра
+animation.history.loop = Число повторов
+animation.history.offset = Смещение кадра
+animation.history.new_layers = Видимость новых слоёв
+animation.refuse.no_animation = В этом документе нет покадровой анимации. Выберите Слои ▸ Анимация ▸ Создать покадровую анимацию.
+animation.refuse.already_animated = В этом документе уже есть покадровая анимация.
+animation.refuse.last_frame = Анимации нужен хотя бы один кадр. Вместо этого удалите анимацию.
+animation.refuse.too_many_frames = Шкала времени не может вместить больше кадров.
+animation.refuse.no_layers = Нет слоёв, из которых можно создать кадры.
+animation.export.menu = Анимация…
+animation.export.title = Экспорт анимации
+animation.export.palette = Палитра
+animation.export.palette_per_frame = Для каждого кадра
+animation.export.palette_global = Общая
+animation.export.disposal = Метод удаления
+animation.export.disposal_auto = Автоматически
+animation.export.disposal_keep = Сохранить предыдущий кадр
+animation.export.disposal_background = Восстановить фон
+animation.export.disposal_previous = Восстановить предыдущий
+animation.export.dither_note = Рассеивать цветовые ошибки, если в кадре больше 256 цветов
+animation.export.transparency = Прозрачность
+animation.export.transparency_note = Сохранять прозрачные области прозрачными
+animation.export.gif_note = GIF хранит задержки в сотых долях секунды и не поддерживает частичную прозрачность.
+animation.export.apng_note = APNG сохраняет каждый кадр без потерь и с полной прозрачностью.
+animation.export.webp_note = Анимированный WebP записывается без потерь; WebP с потерями недоступен.

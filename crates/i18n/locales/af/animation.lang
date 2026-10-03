@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = Tydlyn
+animation.menu = Animasie
+animation.play_pause = Speel/pouseer animasie
+animation.frame_layer_name = Raam {n}
+animation.delay_seconds = {seconds} s
+animation.delay.label = Vertraging
+animation.delay.apply_all = Pas toe op alle rame
+animation.loop.label = Herhaling
+animation.loop.once = Een keer
+animation.loop.forever = Altyd
+animation.onion.label = Uievel
+animation.onion.before = Voor
+animation.onion.after = Na
+animation.offset.label = Laagverskuiwing in hierdie raam
+animation.new_layers_visible = Nuwe lae sigbaar in alle rame
+animation.history.select_frame = Kies raam
+animation.history.move_frame = Skuif raam
+animation.history.frame_delay = Raamvertraging
+animation.history.loop = Aantal herhalings
+animation.history.offset = Raamverskuiwing
+animation.history.new_layers = Sigbaarheid van nuwe lae
+animation.refuse.no_animation = Hierdie dokument het geen raamanimasie nie. Gebruik Laag ▸ Animasie ▸ Skep raamanimasie.
+animation.refuse.already_animated = Hierdie dokument het reeds 'n raamanimasie.
+animation.refuse.last_frame = 'n Animasie het ten minste een raam nodig. Skrap eerder die animasie.
+animation.refuse.too_many_frames = Die tydlyn kan nie meer rame hou nie.
+animation.refuse.no_layers = Daar is geen lae om rame van te maak nie.
+animation.export.menu = Animasie…
+animation.export.title = Voer animasie uit
+animation.export.palette = Palet
+animation.export.palette_per_frame = Per raam
+animation.export.palette_global = Globaal
+animation.export.disposal = Raamverwydering
+animation.export.disposal_auto = Outomaties
+animation.export.disposal_keep = Behou vorige raam
+animation.export.disposal_background = Herstel na agtergrond
+animation.export.disposal_previous = Herstel na vorige
+animation.export.dither_note = Versprei kleurfoute wanneer 'n raam meer as 256 kleure het
+animation.export.transparency = Deursigtigheid
+animation.export.transparency_note = Hou deursigtige areas deursigtig
+animation.export.gif_note = GIF stoor vertragings in honderdstes van 'n sekonde en het geen gedeeltelike deursigtigheid nie.
+animation.export.apng_note = APNG hou elke raam verliesloos met volle deursigtigheid.
+animation.export.webp_note = Geanimeerde WebP word verliesloos geskryf; WebP met verlies is nie beskikbaar nie.

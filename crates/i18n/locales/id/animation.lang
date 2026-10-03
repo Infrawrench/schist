@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = Linimasa
+animation.menu = Animasi
+animation.play_pause = Putar/Jeda Animasi
+animation.frame_layer_name = Bingkai {n}
+animation.delay_seconds = {seconds} dtk
+animation.delay.label = Jeda
+animation.delay.apply_all = Terapkan ke Semua Bingkai
+animation.loop.label = Perulangan
+animation.loop.once = Sekali
+animation.loop.forever = Selamanya
+animation.onion.label = Kulit bawang
+animation.onion.before = Sebelum
+animation.onion.after = Sesudah
+animation.offset.label = Offset lapisan di bingkai ini
+animation.new_layers_visible = Lapisan baru terlihat di semua bingkai
+animation.history.select_frame = Pilih Bingkai
+animation.history.move_frame = Pindahkan Bingkai
+animation.history.frame_delay = Jeda Bingkai
+animation.history.loop = Jumlah Perulangan
+animation.history.offset = Offset Bingkai
+animation.history.new_layers = Visibilitas Lapisan Baru
+animation.refuse.no_animation = Dokumen ini tidak memiliki animasi bingkai. Gunakan Lapisan ▸ Animasi ▸ Buat Animasi Bingkai.
+animation.refuse.already_animated = Dokumen ini sudah memiliki animasi bingkai.
+animation.refuse.last_frame = Animasi memerlukan setidaknya satu bingkai. Hapus animasinya saja.
+animation.refuse.too_many_frames = Linimasa tidak dapat menampung bingkai lagi.
+animation.refuse.no_layers = Tidak ada lapisan yang dapat dijadikan bingkai.
+animation.export.menu = Animasi…
+animation.export.title = Ekspor Animasi
+animation.export.palette = Palet
+animation.export.palette_per_frame = Per bingkai
+animation.export.palette_global = Global
+animation.export.disposal = Pembuangan
+animation.export.disposal_auto = Otomatis
+animation.export.disposal_keep = Pertahankan bingkai sebelumnya
+animation.export.disposal_background = Pulihkan ke latar belakang
+animation.export.disposal_previous = Pulihkan ke sebelumnya
+animation.export.dither_note = Sebarkan galat warna saat sebuah bingkai memiliki lebih dari 256 warna
+animation.export.transparency = Transparansi
+animation.export.transparency_note = Biarkan area transparan tetap transparan
+animation.export.gif_note = GIF menyimpan jeda dalam perseratus detik dan tidak mendukung transparansi parsial.
+animation.export.apng_note = APNG menjaga setiap bingkai tanpa kehilangan kualitas dengan transparansi penuh.
+animation.export.webp_note = WebP animasi ditulis tanpa kehilangan kualitas; WebP lossy tidak tersedia.

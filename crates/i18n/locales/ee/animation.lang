@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = Ɣeyiɣi Ƒe Fliƒe
+animation.menu = Ʋuʋu
+animation.play_pause = Ɖe Ʋuʋu Fia/Te Ɖe Eŋu
+animation.frame_layer_name = Nɔnɔmetata {n}
+animation.delay_seconds = {seconds} s
+animation.delay.label = Hehe ɖe megbe
+animation.delay.apply_all = Zãe na Nɔnɔmetatawo Katã
+animation.loop.label = Gbugbɔgawɔ
+animation.loop.once = Zi ɖeka
+animation.loop.forever = Tegbee
+animation.onion.label = Sabala ƒe ŋutigbalẽ
+animation.onion.before = Do ŋgɔ
+animation.onion.after = Le megbe
+animation.offset.label = Akpa ƒe ʋuʋu le nɔnɔmetata sia me
+animation.new_layers_visible = Akpa yeyewo dzena le nɔnɔmetatawo katã me
+animation.history.select_frame = Tia Nɔnɔmetata
+animation.history.move_frame = Ʋu Nɔnɔmetata
+animation.history.frame_delay = Nɔnɔmetata ƒe Hehe ɖe megbe
+animation.history.loop = Gbugbɔgawɔ ƒe Xexlẽme
+animation.history.offset = Nɔnɔmetata ƒe Ʋuʋu
+animation.history.new_layers = Akpa Yeyewo ƒe Dzedze
+animation.refuse.no_animation = Nɔnɔmetatawo ƒe ʋuʋu aɖeke mele nuŋlɔɖi sia me o. Zã Akpa ▸ Ʋuʋu ▸ Wɔ Nɔnɔmetatawo ƒe Ʋuʋu.
+animation.refuse.already_animated = Nɔnɔmetatawo ƒe ʋuʋu le nuŋlɔɖi sia me xoxo.
+animation.refuse.last_frame = Ʋuʋu hiã nɔnɔmetata ɖeka ya teti. Tutu ʋuʋu la boŋ.
+animation.refuse.too_many_frames = Ɣeyiɣi ƒe fliƒe la mate ŋu alé nɔnɔmetata bubuwo o.
+animation.refuse.no_layers = Akpa aɖeke meli si me woate ŋu awɔ nɔnɔmetatawo tso o.
+animation.export.menu = Ʋuʋu…
+animation.export.title = Ɖe Ʋuʋu ɖe Go
+animation.export.palette = Amawo ƒe ƒuƒoƒo
+animation.export.palette_per_frame = Ɖe nɔnɔmetata ɖesiaɖe nu
+animation.export.palette_global = Katã ƒe
+animation.export.disposal = Ɖeɖeɖa
+animation.export.disposal_auto = Le eɖokui si
+animation.export.disposal_keep = Lé nɔnɔmetata si do ŋgɔ ɖe asi
+animation.export.disposal_background = Gbugbɔe ɖo megbe
+animation.export.disposal_previous = Gbugbɔe ɖo esi do ŋgɔ
+animation.export.dither_note = Kaka ama ƒe vodadawo ne amawo wu 256 le nɔnɔmetata aɖe me
+animation.export.transparency = Nu si me woate ŋu akpɔ to
+animation.export.transparency_note = Na teƒe siwo me wokpɔa to la nanɔ alea ke
+animation.export.gif_note = GIF dzraa hehe ɖe megbe ɖo le sekend ƒe akpa alafa ɖeka me eye mete ŋu ɖea akpa aɖe ko fiana to me o.
+animation.export.apng_note = APNG léa nɔnɔmetata ɖesiaɖe ɖe asi bliboe kple to me kpɔkpɔ blibo.
+animation.export.webp_note = Woŋlɔa WebP si ʋãna bliboe; WebP si bua nu aɖewo mele anyi o.

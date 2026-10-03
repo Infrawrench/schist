@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = ટાઇમલાઇન
+animation.menu = એનિમેશન
+animation.play_pause = એનિમેશન ચલાવો/થોભાવો
+animation.frame_layer_name = ફ્રેમ {n}
+animation.delay_seconds = {seconds} સે
+animation.delay.label = વિલંબ
+animation.delay.apply_all = બધી ફ્રેમ પર લાગુ કરો
+animation.loop.label = પુનરાવર્તન
+animation.loop.once = એક વાર
+animation.loop.forever = હંમેશા
+animation.onion.label = ઓનિયન સ્કિન
+animation.onion.before = પહેલાં
+animation.onion.after = પછી
+animation.offset.label = આ ફ્રેમમાં લેયરનું ઑફસેટ
+animation.new_layers_visible = નવા લેયર બધી ફ્રેમમાં દેખાય છે
+animation.history.select_frame = ફ્રેમ પસંદ કરો
+animation.history.move_frame = ફ્રેમ ખસેડો
+animation.history.frame_delay = ફ્રેમ વિલંબ
+animation.history.loop = પુનરાવર્તન સંખ્યા
+animation.history.offset = ફ્રેમ ઑફસેટ
+animation.history.new_layers = નવા લેયરની દૃશ્યતા
+animation.refuse.no_animation = આ દસ્તાવેજમાં કોઈ ફ્રેમ એનિમેશન નથી. લેયર ▸ એનિમેશન ▸ ફ્રેમ એનિમેશન બનાવો નો ઉપયોગ કરો.
+animation.refuse.already_animated = આ દસ્તાવેજમાં પહેલેથી જ ફ્રેમ એનિમેશન છે.
+animation.refuse.last_frame = એનિમેશનમાં ઓછામાં ઓછી એક ફ્રેમ હોવી જરૂરી છે. તેના બદલે આખું એનિમેશન કાઢી નાખો.
+animation.refuse.too_many_frames = ટાઇમલાઇનમાં વધુ ફ્રેમ સમાવી શકાતી નથી.
+animation.refuse.no_layers = ફ્રેમ બનાવવા માટે કોઈ લેયર નથી.
+animation.export.menu = એનિમેશન…
+animation.export.title = એનિમેશન નિકાસ કરો
+animation.export.palette = પૅલેટ
+animation.export.palette_per_frame = દરેક ફ્રેમ માટે
+animation.export.palette_global = વૈશ્વિક
+animation.export.disposal = ફ્રેમ નિકાલ
+animation.export.disposal_auto = સ્વચાલિત
+animation.export.disposal_keep = પાછલી ફ્રેમ રાખો
+animation.export.disposal_background = પૃષ્ઠભૂમિ પર પુનઃસ્થાપિત કરો
+animation.export.disposal_previous = પાછલી પર પુનઃસ્થાપિત કરો
+animation.export.dither_note = જ્યારે ફ્રેમમાં 256 થી વધુ રંગો હોય ત્યારે રંગની ભૂલો ફેલાવો
+animation.export.transparency = પારદર્શકતા
+animation.export.transparency_note = પારદર્શક વિસ્તારોને પારદર્શક જ રાખો
+animation.export.gif_note = GIF વિલંબને સેકન્ડના સોમા ભાગમાં સંગ્રહે છે અને તેમાં આંશિક પારદર્શકતા નથી.
+animation.export.apng_note = APNG દરેક ફ્રેમને સંપૂર્ણ પારદર્શકતા સાથે ગુણવત્તા ગુમાવ્યા વિના રાખે છે.
+animation.export.webp_note = એનિમેટેડ WebP ગુણવત્તા ગુમાવ્યા વિના લખાય છે; લૉસી WebP ઉપલબ્ધ નથી.

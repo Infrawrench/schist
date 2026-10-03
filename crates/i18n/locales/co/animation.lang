@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = Linea di u tempu
+animation.menu = Animazione
+animation.play_pause = Leghje/Mette in pausa l'animazione
+animation.frame_layer_name = Quadru {n}
+animation.delay_seconds = {seconds} s
+animation.delay.label = Ritardu
+animation.delay.apply_all = Applicà à tutti i quadri
+animation.loop.label = Ciclu
+animation.loop.once = Una volta
+animation.loop.forever = Sempre
+animation.onion.label = Pelle di cipolla
+animation.onion.before = Prima
+animation.onion.after = Dopu
+animation.offset.label = Spustamentu di u stratu in stu quadru
+animation.new_layers_visible = Strati novi visibili in tutti i quadri
+animation.history.select_frame = Selezziunà un quadru
+animation.history.move_frame = Spustà u quadru
+animation.history.frame_delay = Ritardu di u quadru
+animation.history.loop = Numaru di cicli
+animation.history.offset = Spustamentu di u quadru
+animation.history.new_layers = Visibilità di i strati novi
+animation.refuse.no_animation = Stu documentu ùn hà micca animazione di quadri. Aduprate Stratu ▸ Animazione ▸ Creà un'animazione di quadri.
+animation.refuse.already_animated = Stu documentu hà digià un'animazione di quadri.
+animation.refuse.last_frame = Un'animazione hà bisognu d'almenu un quadru. Sguassate piuttostu l'animazione.
+animation.refuse.too_many_frames = A linea di u tempu ùn pò cuntene più quadri.
+animation.refuse.no_layers = Ùn ci hè micca strati da fanne quadri.
+animation.export.menu = Animazione…
+animation.export.title = Esportà l'animazione
+animation.export.palette = Paletta
+animation.export.palette_per_frame = Per quadru
+animation.export.palette_global = Glubale
+animation.export.disposal = Eliminazione
+animation.export.disposal_auto = Autumaticu
+animation.export.disposal_keep = Mantene u quadru precedente
+animation.export.disposal_background = Ristabilisce u fondu
+animation.export.disposal_previous = Ristabilisce u precedente
+animation.export.dither_note = Sparghje l'errori di culore quandu un quadru hà più di 256 culori
+animation.export.transparency = Trasparenza
+animation.export.transparency_note = Mantene trasparenti e zone trasparenti
+animation.export.gif_note = GIF guarda i ritardi in centesimi di siconda è ùn hà micca trasparenza parziale.
+animation.export.apng_note = APNG mantene ogni quadru senza perdita cù trasparenza cumpleta.
+animation.export.webp_note = U WebP animatu hè scrittu senza perdita; u WebP cù perdita ùn hè micca dispunibule.

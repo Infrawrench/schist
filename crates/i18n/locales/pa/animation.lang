@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = ਟਾਈਮਲਾਈਨ
+animation.menu = ਐਨੀਮੇਸ਼ਨ
+animation.play_pause = ਐਨੀਮੇਸ਼ਨ ਚਲਾਓ/ਰੋਕੋ
+animation.frame_layer_name = ਫ੍ਰੇਮ {n}
+animation.delay_seconds = {seconds} ਸਕਿੰਟ
+animation.delay.label = ਦੇਰੀ
+animation.delay.apply_all = ਸਾਰੇ ਫ੍ਰੇਮਾਂ 'ਤੇ ਲਾਗੂ ਕਰੋ
+animation.loop.label = ਦੁਹਰਾਓ
+animation.loop.once = ਇੱਕ ਵਾਰ
+animation.loop.forever = ਹਮੇਸ਼ਾ
+animation.onion.label = ਓਨੀਅਨ ਸਕਿਨ
+animation.onion.before = ਪਹਿਲਾਂ
+animation.onion.after = ਬਾਅਦ
+animation.offset.label = ਇਸ ਫ੍ਰੇਮ ਵਿੱਚ ਪਰਤ ਦਾ ਆਫ਼ਸੈੱਟ
+animation.new_layers_visible = ਨਵੀਆਂ ਪਰਤਾਂ ਸਾਰੇ ਫ੍ਰੇਮਾਂ ਵਿੱਚ ਦਿਖਾਈ ਦੇਣ
+animation.history.select_frame = ਫ੍ਰੇਮ ਚੁਣੋ
+animation.history.move_frame = ਫ੍ਰੇਮ ਹਿਲਾਓ
+animation.history.frame_delay = ਫ੍ਰੇਮ ਦੇਰੀ
+animation.history.loop = ਦੁਹਰਾਓ ਗਿਣਤੀ
+animation.history.offset = ਫ੍ਰੇਮ ਆਫ਼ਸੈੱਟ
+animation.history.new_layers = ਨਵੀਆਂ ਪਰਤਾਂ ਦੀ ਦਿੱਖ
+animation.refuse.no_animation = ਇਸ ਦਸਤਾਵੇਜ਼ ਵਿੱਚ ਕੋਈ ਫ੍ਰੇਮ ਐਨੀਮੇਸ਼ਨ ਨਹੀਂ ਹੈ। ਲੇਅਰ ▸ ਐਨੀਮੇਸ਼ਨ ▸ ਫ੍ਰੇਮ ਐਨੀਮੇਸ਼ਨ ਬਣਾਓ ਵਰਤੋ।
+animation.refuse.already_animated = ਇਸ ਦਸਤਾਵੇਜ਼ ਵਿੱਚ ਪਹਿਲਾਂ ਹੀ ਇੱਕ ਫ੍ਰੇਮ ਐਨੀਮੇਸ਼ਨ ਹੈ।
+animation.refuse.last_frame = ਐਨੀਮੇਸ਼ਨ ਵਿੱਚ ਘੱਟੋ-ਘੱਟ ਇੱਕ ਫ੍ਰੇਮ ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ। ਇਸਦੀ ਥਾਂ ਐਨੀਮੇਸ਼ਨ ਹੀ ਮਿਟਾ ਦਿਓ।
+animation.refuse.too_many_frames = ਟਾਈਮਲਾਈਨ ਵਿੱਚ ਹੋਰ ਫ੍ਰੇਮ ਨਹੀਂ ਸਮਾ ਸਕਦੇ।
+animation.refuse.no_layers = ਫ੍ਰੇਮ ਬਣਾਉਣ ਲਈ ਕੋਈ ਪਰਤ ਨਹੀਂ ਹੈ।
+animation.export.menu = ਐਨੀਮੇਸ਼ਨ…
+animation.export.title = ਐਨੀਮੇਸ਼ਨ ਨਿਰਯਾਤ ਕਰੋ
+animation.export.palette = ਪੈਲੇਟ
+animation.export.palette_per_frame = ਹਰ ਫ੍ਰੇਮ ਲਈ
+animation.export.palette_global = ਸਾਂਝਾ
+animation.export.disposal = ਹਟਾਉਣ ਦਾ ਢੰਗ
+animation.export.disposal_auto = ਆਟੋਮੈਟਿਕ
+animation.export.disposal_keep = ਪਿਛਲਾ ਫ੍ਰੇਮ ਰੱਖੋ
+animation.export.disposal_background = ਬੈਕਗ੍ਰਾਊਂਡ 'ਤੇ ਬਹਾਲ ਕਰੋ
+animation.export.disposal_previous = ਪਿਛਲੇ 'ਤੇ ਬਹਾਲ ਕਰੋ
+animation.export.dither_note = ਜਦੋਂ ਕਿਸੇ ਫ੍ਰੇਮ ਵਿੱਚ 256 ਤੋਂ ਵੱਧ ਰੰਗ ਹੋਣ ਤਾਂ ਰੰਗ ਦੀਆਂ ਗਲਤੀਆਂ ਫੈਲਾਓ
+animation.export.transparency = ਪਾਰਦਰਸ਼ਤਾ
+animation.export.transparency_note = ਪਾਰਦਰਸ਼ੀ ਖੇਤਰਾਂ ਨੂੰ ਪਾਰਦਰਸ਼ੀ ਹੀ ਰੱਖੋ
+animation.export.gif_note = GIF ਦੇਰੀਆਂ ਨੂੰ ਸਕਿੰਟ ਦੇ ਸੌਵੇਂ ਹਿੱਸਿਆਂ ਵਿੱਚ ਸਟੋਰ ਕਰਦਾ ਹੈ ਅਤੇ ਅੰਸ਼ਕ ਪਾਰਦਰਸ਼ਤਾ ਦਾ ਸਮਰਥਨ ਨਹੀਂ ਕਰਦਾ।
+animation.export.apng_note = APNG ਹਰ ਫ੍ਰੇਮ ਨੂੰ ਪੂਰੀ ਪਾਰਦਰਸ਼ਤਾ ਨਾਲ ਗੁਣਵੱਤਾ ਗੁਆਏ ਬਿਨਾਂ ਰੱਖਦਾ ਹੈ।
+animation.export.webp_note = ਐਨੀਮੇਟਡ WebP ਗੁਣਵੱਤਾ ਗੁਆਏ ਬਿਨਾਂ ਲਿਖਿਆ ਜਾਂਦਾ ਹੈ; ਗੁਣਵੱਤਾ ਗੁਆਉਣ ਵਾਲਾ WebP ਉਪਲਬਧ ਨਹੀਂ ਹੈ।

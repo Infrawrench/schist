@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = ไทม์ไลน์
+animation.menu = แอนิเมชัน
+animation.play_pause = เล่น/หยุดแอนิเมชันชั่วคราว
+animation.frame_layer_name = เฟรม {n}
+animation.delay_seconds = {seconds} วินาที
+animation.delay.label = หน่วงเวลา
+animation.delay.apply_all = ใช้กับทุกเฟรม
+animation.loop.label = วนซ้ำ
+animation.loop.once = ครั้งเดียว
+animation.loop.forever = ตลอดไป
+animation.onion.label = ออเนียนสกิน
+animation.onion.before = ก่อน
+animation.onion.after = หลัง
+animation.offset.label = ระยะเลื่อนของเลเยอร์ในเฟรมนี้
+animation.new_layers_visible = เลเยอร์ใหม่มองเห็นได้ในทุกเฟรม
+animation.history.select_frame = เลือกเฟรม
+animation.history.move_frame = ย้ายเฟรม
+animation.history.frame_delay = การหน่วงเวลาเฟรม
+animation.history.loop = จำนวนรอบการวนซ้ำ
+animation.history.offset = ระยะเลื่อนเฟรม
+animation.history.new_layers = การมองเห็นเลเยอร์ใหม่
+animation.refuse.no_animation = เอกสารนี้ไม่มีแอนิเมชันแบบเฟรม ให้ใช้ เลเยอร์ ▸ แอนิเมชัน ▸ สร้างแอนิเมชันแบบเฟรม
+animation.refuse.already_animated = เอกสารนี้มีแอนิเมชันแบบเฟรมอยู่แล้ว
+animation.refuse.last_frame = แอนิเมชันต้องมีอย่างน้อยหนึ่งเฟรม ให้ลบแอนิเมชันแทน
+animation.refuse.too_many_frames = ไทม์ไลน์ไม่สามารถรองรับเฟรมเพิ่มได้อีก
+animation.refuse.no_layers = ไม่มีเลเยอร์ที่จะใช้สร้างเฟรม
+animation.export.menu = แอนิเมชัน…
+animation.export.title = ส่งออกแอนิเมชัน
+animation.export.palette = จานสี
+animation.export.palette_per_frame = แยกตามเฟรม
+animation.export.palette_global = ใช้ร่วมกัน
+animation.export.disposal = การกำจัดเฟรม
+animation.export.disposal_auto = อัตโนมัติ
+animation.export.disposal_keep = คงเฟรมก่อนหน้าไว้
+animation.export.disposal_background = คืนค่าเป็นพื้นหลัง
+animation.export.disposal_previous = คืนค่าเป็นเฟรมก่อนหน้า
+animation.export.dither_note = กระจายค่าความคลาดเคลื่อนของสีเมื่อเฟรมมีสีมากกว่า 256 สี
+animation.export.transparency = ความโปร่งใส
+animation.export.transparency_note = คงพื้นที่โปร่งใสให้โปร่งใสต่อไป
+animation.export.gif_note = GIF เก็บค่าหน่วงเวลาเป็นหน่วยหนึ่งในร้อยวินาทีและไม่รองรับความโปร่งใสบางส่วน
+animation.export.apng_note = APNG เก็บทุกเฟรมแบบไม่สูญเสียคุณภาพพร้อมความโปร่งใสเต็มรูปแบบ
+animation.export.webp_note = WebP แบบเคลื่อนไหวจะถูกเขียนแบบไม่สูญเสียคุณภาพ ไม่รองรับ WebP แบบสูญเสียคุณภาพ

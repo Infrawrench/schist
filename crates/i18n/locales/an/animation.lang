@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = Linia de tiempo
+animation.menu = Animación
+animation.play_pause = Reproducir/Pausar l'animación
+animation.frame_layer_name = Cuadro {n}
+animation.delay_seconds = {seconds} s
+animation.delay.label = Retardo
+animation.delay.apply_all = Aplicar a totz os cuadros
+animation.loop.label = Bucle
+animation.loop.once = Una vegada
+animation.loop.forever = Siempre
+animation.onion.label = Pelleta de cebolla
+animation.onion.before = Antes
+animation.onion.after = Dimpués
+animation.offset.label = Desplazamiento d'a capa en iste cuadro
+animation.new_layers_visible = Capas nuevas visibles en totz os cuadros
+animation.history.select_frame = Seleccionar cuadro
+animation.history.move_frame = Mover cuadro
+animation.history.frame_delay = Retardo d'o cuadro
+animation.history.loop = Numero de bucles
+animation.history.offset = Desplazamiento d'o cuadro
+animation.history.new_layers = Visibilidat d'as capas nuevas
+animation.refuse.no_animation = Iste documento no tiene garra animación de cuadros. Fe servir Capa ▸ Animación ▸ Creyar animación de cuadros.
+animation.refuse.already_animated = Iste documento ya tiene una animación de cuadros.
+animation.refuse.last_frame = Una animación amenista a lo menos un cuadro. Borra l'animación en cuenta d'ixo.
+animation.refuse.too_many_frames = A linia de tiempo no puede contener mas cuadros.
+animation.refuse.no_layers = No i hai capas dende las quals fer cuadros.
+animation.export.menu = Animación…
+animation.export.title = Exportar animación
+animation.export.palette = Paleta
+animation.export.palette_per_frame = Per cuadro
+animation.export.palette_global = Global
+animation.export.disposal = Eliminación
+animation.export.disposal_auto = Automatico
+animation.export.disposal_keep = Mantener o cuadro anterior
+animation.export.disposal_background = Restaurar o fondo
+animation.export.disposal_previous = Restaurar l'anterior
+animation.export.dither_note = Difundir as errors de color quan un cuadro tiene mas de 256 colors
+animation.export.transparency = Transparencia
+animation.export.transparency_note = Mantener transparents as arias transparents
+animation.export.gif_note = GIF alza os retardos en centesimas de segundo y no tiene transparencia parcial.
+animation.export.apng_note = APNG mantiene cada cuadro sin perdida con transparencia completa.
+animation.export.webp_note = O WebP animau s'escribe sin perdida; o WebP con perdida no ye disponible.

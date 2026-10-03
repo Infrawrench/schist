@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = Linenn-amzer
+animation.menu = Bevadur
+animation.play_pause = Lenn/ehanañ ar bevadur
+animation.frame_layer_name = Framm {n}
+animation.delay_seconds = {seconds} s
+animation.delay.label = Dale
+animation.delay.apply_all = Arloañ d'an holl frammoù
+animation.loop.label = Kelc'h
+animation.loop.once = Ur wech
+animation.loop.forever = Da viken
+animation.onion.label = Kroc'hen ognon
+animation.onion.before = A-raok
+animation.onion.after = Goude
+animation.offset.label = Linkadur ar gwiskad er framm-mañ
+animation.new_layers_visible = Gwiskadoù nevez gwelus en holl frammoù
+animation.history.select_frame = Diuzañ ur framm
+animation.history.move_frame = Dilec'hiañ ur framm
+animation.history.frame_delay = Dale ar framm
+animation.history.loop = Niver a gelc'hioù
+animation.history.offset = Linkadur ar framm
+animation.history.new_layers = Gwelusted ar gwiskadoù nevez
+animation.refuse.no_animation = N'eus bevadur frammoù ebet en teul-mañ. Implijit Gwiskad ▸ Bevadur ▸ Krouiñ ur bevadur frammoù.
+animation.refuse.already_animated = Ur bevadur frammoù a zo en teul-mañ dija.
+animation.refuse.last_frame = Ezhomm en deus ur bevadur eus ur framm d'an nebeutañ. Dilamit ar bevadur kentoc'h.
+animation.refuse.too_many_frames = N'hall ket al linenn-amzer degemer muioc'h a frammoù.
+animation.refuse.no_layers = N'eus gwiskad ebet evit sevel frammoù diwarno.
+animation.export.menu = Bevadur…
+animation.export.title = Ezporzhiañ ar bevadur
+animation.export.palette = Livaoueg
+animation.export.palette_per_frame = Dre framm
+animation.export.palette_global = Hollek
+animation.export.disposal = Distaoliñ
+animation.export.disposal_auto = Emgefreek
+animation.export.disposal_keep = Mirout ar framm kent
+animation.export.disposal_background = Adlakaat an drekleur
+animation.export.disposal_previous = Adlakaat ar framm kent
+animation.export.dither_note = Skignañ ar fazioù liv pa vez muioc'h eget 256 liv en ur framm
+animation.export.transparency = Treuzwelusted
+animation.export.transparency_note = Mirout treuzwelus an takadoù treuzwelus
+animation.export.gif_note = GIF a enroll an daleoù e kantvedennoù eilenn ha n'en deus treuzwelusted darnel ebet.
+animation.export.apng_note = APNG a vir pep framm hep koll ha gant un treuzwelusted klok.
+animation.export.webp_note = WebP bevaet a vez skrivet hep koll; n'eus ket eus WebP gant koll.

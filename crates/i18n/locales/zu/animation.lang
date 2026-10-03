@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = Umugqa Wesikhathi
+animation.menu = Opopayi
+animation.play_pause = Dlala/Misa Opopayi
+animation.frame_layer_name = Ifreyimu {n}
+animation.delay_seconds = {seconds} s
+animation.delay.label = Ukubambezeleka
+animation.delay.apply_all = Sebenzisa Kuwo Wonke Amafreyimu
+animation.loop.label = Ukuphinda
+animation.loop.once = Kanye
+animation.loop.forever = Phakade
+animation.onion.label = Isikhumba sika-anyanisi
+animation.onion.before = Ngaphambili
+animation.onion.after = Ngemuva
+animation.offset.label = Ukususwa kwesendlalelo kule freyimu
+animation.new_layers_visible = Izendlalelo ezintsha ziyabonakala kuwo wonke amafreyimu
+animation.history.select_frame = Khetha Ifreyimu
+animation.history.move_frame = Hambisa Ifreyimu
+animation.history.frame_delay = Ukubambezeleka Kwefreyimu
+animation.history.loop = Inani Lokuphinda
+animation.history.offset = Ukususwa Kwefreyimu
+animation.history.new_layers = Ukubonakala Kwezendlalelo Ezintsha
+animation.refuse.no_animation = Lo mbhalo awunawo opopayi wamafreyimu. Sebenzisa Ungqimba ▸ Opopayi ▸ Dala Opopayi Wamafreyimu.
+animation.refuse.already_animated = Lo mbhalo usunaye kakade opopayi wamafreyimu.
+animation.refuse.last_frame = Opopayi udinga okungenani ifreyimu eyodwa. Kunalokho susa opopayi.
+animation.refuse.too_many_frames = Umugqa wesikhathi awukwazi ukuthwala amafreyimu engeziwe.
+animation.refuse.no_layers = Azikho izendlalelo zokwenza amafreyimu ngazo.
+animation.export.menu = Opopayi…
+animation.export.title = Thumela Opopayi Ngaphandle
+animation.export.palette = Iphalethi
+animation.export.palette_per_frame = Ngefreyimu ngayinye
+animation.export.palette_global = Okwejikelele
+animation.export.disposal = Ukulahla
+animation.export.disposal_auto = Okuzenzakalelayo
+animation.export.disposal_keep = Gcina ifreyimu yangaphambilini
+animation.export.disposal_background = Buyisela engemuva
+animation.export.disposal_previous = Buyisela kweyangaphambilini
+animation.export.dither_note = Sabalalisa amaphutha ombala uma ifreyimu inemibala engaphezu kwengu-256
+animation.export.transparency = Ukubonakala Ngale
+animation.export.transparency_note = Gcina izindawo ezibonakala ngale zibonakala ngale
+animation.export.gif_note = I-GIF igcina ukubambezeleka ngezingxenye eziyikhulu zesekhondi futhi ayinakho ukubonakala ngale okuyingxenye.
+animation.export.apng_note = I-APNG igcina yonke ifreyimu ingalahlekelwa yikhwalithi, ngokubonakala ngale okuphelele.
+animation.export.webp_note = I-WebP enopopayi ibhalwa ingalahlekelwa yikhwalithi; i-WebP elahlekelwa yikhwalithi ayitholakali.

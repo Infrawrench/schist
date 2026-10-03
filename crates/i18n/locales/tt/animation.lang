@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = Вакыт шкаласы
+animation.menu = Анимация
+animation.play_pause = Анимацияне уйнату/туктатып тору
+animation.frame_layer_name = Кадр {n}
+animation.delay_seconds = {seconds} с
+animation.delay.label = Тоткарлык
+animation.delay.apply_all = Барлык кадрларга куллану
+animation.loop.label = Кабатлау
+animation.loop.once = Бер тапкыр
+animation.loop.forever = Даими
+animation.onion.label = Суган кабыгы
+animation.onion.before = Элек
+animation.onion.after = Соң
+animation.offset.label = Бу кадрда катламның күчерелеше
+animation.new_layers_visible = Яңа катламнар барлык кадрларда күренә
+animation.history.select_frame = Кадрны сайлау
+animation.history.move_frame = Кадрны күчерү
+animation.history.frame_delay = Кадр тоткарлыгы
+animation.history.loop = Кабатлаулар саны
+animation.history.offset = Кадр күчерелеше
+animation.history.new_layers = Яңа катламнарның күренүчәнлеге
+animation.refuse.no_animation = Бу документта кадрлы анимация юк. Катлам ▸ Анимация ▸ Кадрлы анимация ясау боерыгын кулланыгыз.
+animation.refuse.already_animated = Бу документта инде кадрлы анимация бар.
+animation.refuse.last_frame = Анимациягә ким дигәндә бер кадр кирәк. Аның урынына анимацияне бетерегез.
+animation.refuse.too_many_frames = Вакыт шкаласына моннан күбрәк кадр сыймый.
+animation.refuse.no_layers = Кадрлар ясарлык катламнар юк.
+animation.export.menu = Анимация…
+animation.export.title = Анимацияне экспортлау
+animation.export.palette = Палитра
+animation.export.palette_per_frame = Һәр кадр өчен
+animation.export.palette_global = Гомуми
+animation.export.disposal = Кадрны чистарту
+animation.export.disposal_auto = Автоматик
+animation.export.disposal_keep = Алдагы кадрны калдыру
+animation.export.disposal_background = Фонга кайтару
+animation.export.disposal_previous = Алдагы халәткә кайтару
+animation.export.dither_note = Кадрда 256 дан артык төс булганда төс хаталарын тарату
+animation.export.transparency = Үтә күренмәлелек
+animation.export.transparency_note = Үтә күренмәле өлкәләрне үтә күренмәле килеш калдыру
+animation.export.gif_note = GIF тоткарлыкларны секундның йөздән бер өлешләрендә саклый һәм өлешчә үтә күренмәлелеккә ия түгел.
+animation.export.apng_note = APNG һәр кадрны тулы үтә күренмәлелек белән югалтуларсыз саклый.
+animation.export.webp_note = Анимацияле WebP югалтуларсыз языла; югалтулы WebP мөмкин түгел.

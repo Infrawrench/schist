@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = Mutalo wa Tshifhinga
+animation.menu = Animesheni
+animation.play_pause = Tamba/Imisa Animesheni
+animation.frame_layer_name = Freme {n}
+animation.delay_seconds = {seconds} s
+animation.delay.label = U Lenga
+animation.delay.apply_all = Shumisa kha Dzifreme Dzoṱhe
+animation.loop.label = Luphiṱa
+animation.loop.once = Luthihi
+animation.loop.forever = Tshifhinga Tshoṱhe
+animation.onion.label = Lukanda lwa Hanyanisi
+animation.onion.before = Phanḓa
+animation.onion.after = Murahu
+animation.offset.label = U sudzuluswa ha ḽeyara kha ino freme
+animation.new_layers_visible = Dziḽeyara ntswa dzi vhonala kha dzifreme dzoṱhe
+animation.history.select_frame = Nanga Freme
+animation.history.move_frame = Sudzulusa Freme
+animation.history.frame_delay = U Lenga ha Freme
+animation.history.loop = Tshivhalo tsha Luphiṱa
+animation.history.offset = U Sudzuluswa ha Freme
+animation.history.new_layers = U Vhonala ha Dziḽeyara Ntswa
+animation.refuse.no_animation = Ili ḽiṅwalwa a ḽi na animesheni ya dzifreme. Shumisani Ḽeyara ▸ Animesheni ▸ Sika Animesheni ya Dzifreme.
+animation.refuse.already_animated = Ili ḽiṅwalwa ḽo no vha na animesheni ya dzifreme.
+animation.refuse.last_frame = Animesheni i ṱoḓa freme nthihi nga u ṱuku. Nga nnḓa ha zwenezwo thuthani animesheni.
+animation.refuse.too_many_frames = Mutalo wa tshifhinga a u koni u fara dzifreme dziṅwe.
+animation.refuse.no_layers = A hu na dziḽeyara dza u ita dzifreme ngadzo.
+animation.export.menu = Animesheni…
+animation.export.title = Bvisela Animesheni Nnḓa
+animation.export.palette = Phaleṱe
+animation.export.palette_per_frame = Nga freme iṅwe na iṅwe
+animation.export.palette_global = Ya Dzoṱhe
+animation.export.disposal = U Laṱa
+animation.export.disposal_auto = Nga Iyo Yoṱhe
+animation.export.disposal_keep = Vhulungani freme yo fhiraho
+animation.export.disposal_background = Vhuedzedzani kha murahu
+animation.export.disposal_previous = Vhuedzedzani kha yo fhiraho
+animation.export.dither_note = Phaḓaladzani vhukhakhi ha mivhala musi freme i na mivhala i fhiraho 256
+animation.export.transparency = U Vhonala Ngeno
+animation.export.transparency_note = Vhulungani fhethu hu vhonalaho ngeno hu tshi ḓi vhonala ngeno
+animation.export.gif_note = GIF i vhulunga u lenga nga zwipiḓa zwa ḓana zwa sekondo nahone a i na u vhonala ngeno ha tshipiḓa.
+animation.export.apng_note = APNG i vhulunga freme iṅwe na iṅwe hu si na u xelelwa na u vhonala ngeno hoṱhe.
+animation.export.webp_note = WebP ya animesheni i ṅwalwa hu si na u xelelwa; WebP i xelelaho a i wanali.

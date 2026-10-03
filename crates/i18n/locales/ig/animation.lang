@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = Usoro oge
+animation.menu = Animeshọn
+animation.play_pause = Kpọọ/Kwụsịtụ Animeshọn
+animation.frame_layer_name = Freem {n}
+animation.delay_seconds = {seconds} s
+animation.delay.label = Oge nchere
+animation.delay.apply_all = Tinye na Freem Niile
+animation.loop.label = Okirikiri
+animation.loop.once = Otu ugboro
+animation.loop.forever = Ruo mgbe ebighị ebi
+animation.onion.label = Akpụkpọ yabasị
+animation.onion.before = Tupu
+animation.onion.after = Mgbe e mesịrị
+animation.offset.label = Mbugharị leya na freem a
+animation.new_layers_visible = Leya ọhụrụ na-apụta na freem niile
+animation.history.select_frame = Họrọ Freem
+animation.history.move_frame = Bugharịa Freem
+animation.history.frame_delay = Oge Nchere Freem
+animation.history.loop = Ọnụ Ọgụgụ Okirikiri
+animation.history.offset = Mbugharị Freem
+animation.history.new_layers = Ngosipụta Leya Ọhụrụ
+animation.refuse.no_animation = Akwụkwọ a enweghị animeshọn freem. Jiri Leya ▸ Animeshọn ▸ Mepụta Animeshọn Freem.
+animation.refuse.already_animated = Akwụkwọ a enweelarị animeshọn freem.
+animation.refuse.last_frame = Animeshọn chọrọ opekata mpe otu freem. Kama nke ahụ, hichapụ animeshọn ahụ.
+animation.refuse.too_many_frames = Usoro oge enweghị ike ijide freem ndị ọzọ.
+animation.refuse.no_layers = Enweghị leya ọ bụla e nwere ike iji mee freem.
+animation.export.menu = Animeshọn…
+animation.export.title = Bupụ Animeshọn
+animation.export.palette = Paletị agba
+animation.export.palette_per_frame = Kwa freem
+animation.export.palette_global = N'ozuzu
+animation.export.disposal = Mkpofu
+animation.export.disposal_auto = Akpaghị aka
+animation.export.disposal_keep = Debe freem gara aga
+animation.export.disposal_background = Weghachi azụ
+animation.export.disposal_previous = Weghachi nke gara aga
+animation.export.dither_note = Gbasaa njehie agba mgbe freem nwere ihe karịrị agba 256
+animation.export.transparency = Enweghị mkpuchi
+animation.export.transparency_note = Mee ka ebe ndị enweghị mkpuchi nọgide na-enweghị mkpuchi
+animation.export.gif_note = GIF na-echekwa oge nchere n'otu ụzọ n'ụzọ narị nke sekọnd, ọ naghịkwa akwado enweghị mkpuchi nke ọkara.
+animation.export.apng_note = APNG na-edobe freem ọ bụla n'enweghị mfu, ya na enweghị mkpuchi zuru ezu.
+animation.export.webp_note = A na-ede WebP nwere animeshọn n'enweghị mfu; WebP nwere mfu adịghị.

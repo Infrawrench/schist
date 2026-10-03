@@ -1,0 +1,45 @@
+# الرسوم المتحركة للإطارات: لوحة المخطط الزمني وقشرة البصل وتصدير الرسوم المتحركة
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). عناوين الأوامر موجودة في commands.lang.
+animation.panel.title = المخطط الزمني
+animation.menu = الرسوم المتحركة
+animation.play_pause = تشغيل/إيقاف الرسوم المتحركة مؤقتًا
+animation.frame_layer_name = الإطار {n}
+animation.delay_seconds = {seconds} ث
+animation.delay.label = التأخير
+animation.delay.apply_all = تطبيق على كل الإطارات
+animation.loop.label = التكرار
+animation.loop.once = مرة واحدة
+animation.loop.forever = إلى الأبد
+animation.onion.label = قشرة البصل
+animation.onion.before = قبل
+animation.onion.after = بعد
+animation.offset.label = إزاحة الطبقة في هذا الإطار
+animation.new_layers_visible = الطبقات الجديدة مرئية في كل الإطارات
+animation.history.select_frame = تحديد إطار
+animation.history.move_frame = نقل إطار
+animation.history.frame_delay = تأخير الإطار
+animation.history.loop = عدد مرات التكرار
+animation.history.offset = إزاحة الإطار
+animation.history.new_layers = ظهور الطبقات الجديدة
+animation.refuse.no_animation = لا يحتوي هذا المستند على رسوم متحركة للإطارات. استخدم طبقة ▸ الرسوم المتحركة ▸ إنشاء رسوم متحركة للإطارات.
+animation.refuse.already_animated = يحتوي هذا المستند بالفعل على رسوم متحركة للإطارات.
+animation.refuse.last_frame = تحتاج الرسوم المتحركة إلى إطار واحد على الأقل. احذف الرسوم المتحركة بدلًا من ذلك.
+animation.refuse.too_many_frames = لا يتسع المخطط الزمني لمزيد من الإطارات.
+animation.refuse.no_layers = لا توجد طبقات لإنشاء إطارات منها.
+animation.export.menu = رسوم متحركة…
+animation.export.title = تصدير الرسوم المتحركة
+animation.export.palette = لوحة الألوان
+animation.export.palette_per_frame = لكل إطار
+animation.export.palette_global = عامة
+animation.export.disposal = طريقة التخلص
+animation.export.disposal_auto = تلقائي
+animation.export.disposal_keep = الإبقاء على الإطار السابق
+animation.export.disposal_background = الاستعادة إلى الخلفية
+animation.export.disposal_previous = الاستعادة إلى السابق
+animation.export.dither_note = نشر أخطاء الألوان عندما يحتوي الإطار على أكثر من 256 لونًا
+animation.export.transparency = الشفافية
+animation.export.transparency_note = إبقاء المناطق الشفافة شفافة
+animation.export.gif_note = يخزّن GIF التأخيرات بأجزاء من مئة من الثانية ولا يدعم الشفافية الجزئية.
+animation.export.apng_note = يحتفظ APNG بكل إطار دون فقدان مع شفافية كاملة.
+animation.export.webp_note = يُكتب WebP المتحرك دون فقدان؛ WebP مع الفقدان غير متاح.
