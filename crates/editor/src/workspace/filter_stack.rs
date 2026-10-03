@@ -107,6 +107,7 @@ fn committed_snapshot(doc: &Document, original: &Layer) -> Document {
     saved.notes = doc.notes.clone();
     saved.counts = doc.counts.clone();
     saved.layer_comps = doc.layer_comps.clone();
+    saved.timeline = doc.timeline.clone();
     saved.paths = doc.paths.clone();
     saved.active_path = doc.active_path;
     saved.dirty = doc.dirty;

@@ -217,6 +217,12 @@ fn external_tools_agree_when_installed() {
         .unwrap_or_else(|| std::env::temp_dir().join("schist-animation-export"));
     std::fs::create_dir_all(&dir).unwrap();
     let doc = doc(LoopCount::Times(3));
+    // The source document too, for opening the timeline in the app.
+    std::fs::write(
+        dir.join("anim.psd"),
+        schist_codec_psd::write_psd(&doc).unwrap(),
+    )
+    .unwrap();
     let frames = render_frames(&doc).unwrap();
     for format in Format::ALL {
         let options = ExportOptions {

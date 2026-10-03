@@ -109,7 +109,9 @@ impl Palette {
             (unique.concat(), Quantizer::Exact(map))
         } else {
             let opaque: Vec<u8> = pixels
-                .as_chunks::<4>().0.iter()
+                .as_chunks::<4>()
+                .0
+                .iter()
                 .filter(|p| !transparent(p))
                 .flat_map(|p| [p[0], p[1], p[2], 255])
                 .collect();

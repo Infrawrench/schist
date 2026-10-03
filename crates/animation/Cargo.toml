@@ -19,3 +19,4 @@ color_quant.workspace = true
 gif.workspace = true
 png.workspace = true
 image-webp.workspace = true
+schist-codec-psd.workspace = true
