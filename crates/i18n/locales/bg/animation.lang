@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = Времева линия
+animation.menu = Анимация
+animation.play_pause = Възпроизвеждане/пауза на анимацията
+animation.frame_layer_name = Кадър {n}
+animation.delay_seconds = {seconds} сек.
+animation.delay.label = Забавяне
+animation.delay.apply_all = Прилагане към всички кадри
+animation.loop.label = Повторение
+animation.loop.once = Веднъж
+animation.loop.forever = Безкрайно
+animation.onion.label = Луковична обвивка
+animation.onion.before = Преди
+animation.onion.after = След
+animation.offset.label = Отместване на слоя в този кадър
+animation.new_layers_visible = Новите слоеве са видими във всички кадри
+animation.history.select_frame = Избиране на кадър
+animation.history.move_frame = Преместване на кадър
+animation.history.frame_delay = Забавяне на кадър
+animation.history.loop = Брой повторения
+animation.history.offset = Отместване в кадъра
+animation.history.new_layers = Видимост на нови слоеве
+animation.refuse.no_animation = Този документ няма кадрова анимация. Използвайте Слой ▸ Анимация ▸ Създаване на кадрова анимация.
+animation.refuse.already_animated = Този документ вече има кадрова анимация.
+animation.refuse.last_frame = Анимацията трябва да има поне един кадър. Вместо това изтрийте анимацията.
+animation.refuse.too_many_frames = Времевата линия не може да побере повече кадри.
+animation.refuse.no_layers = Няма слоеве, от които да се създадат кадри.
+animation.export.menu = Анимация…
+animation.export.title = Експортиране на анимация
+animation.export.palette = Палитра
+animation.export.palette_per_frame = За всеки кадър
+animation.export.palette_global = Обща
+animation.export.disposal = Изхвърляне
+animation.export.disposal_auto = Автоматично
+animation.export.disposal_keep = Запазване на предишния кадър
+animation.export.disposal_background = Възстановяване до фона
+animation.export.disposal_previous = Възстановяване до предишния
+animation.export.dither_note = Разсейване на цветовите грешки, когато кадърът има повече от 256 цвята
+animation.export.transparency = Прозрачност
+animation.export.transparency_note = Запазване на прозрачните области прозрачни
+animation.export.gif_note = GIF съхранява забавянията в стотни от секундата и не поддържа частична прозрачност.
+animation.export.apng_note = APNG запазва всеки кадър без загуби и с пълна прозрачност.
+animation.export.webp_note = Анимираният WebP се записва без загуби; WebP със загуби не е наличен.

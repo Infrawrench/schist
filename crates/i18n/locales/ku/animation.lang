@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = Xeta Demê
+animation.menu = Anîmasyon
+animation.play_pause = Anîmasyonê Bilîze/Rawestîne
+animation.frame_layer_name = Çarçove {n}
+animation.delay_seconds = {seconds} s
+animation.delay.label = Derengî
+animation.delay.apply_all = Li Hemû Çarçoveyan Bicîh Bîne
+animation.loop.label = Dubarekirin
+animation.loop.once = Carekê
+animation.loop.forever = Her Dem
+animation.onion.label = Qalika Pîvazê
+animation.onion.before = Berê
+animation.onion.after = Piştî
+animation.offset.label = Guheztina qatê di vê çarçoveyê de
+animation.new_layers_visible = Qatên nû di hemû çarçoveyan de xuya dibin
+animation.history.select_frame = Çarçoveyê Hilbijêre
+animation.history.move_frame = Çarçoveyê Bilivîne
+animation.history.frame_delay = Derengiya Çarçoveyê
+animation.history.loop = Hejmara Dubarekirinê
+animation.history.offset = Guheztina Çarçoveyê
+animation.history.new_layers = Xuyabûna Qata Nû
+animation.refuse.no_animation = Di vê belgeyê de anîmasyona çarçoveyan tune ye. Qat ▸ Anîmasyon ▸ Anîmasyona Çarçoveyan Biafirîne bi kar bîne.
+animation.refuse.already_animated = Di vê belgeyê de jixwe anîmasyoneke çarçoveyan heye.
+animation.refuse.last_frame = Anîmasyonek herî kêm yek çarçoveyê hewce dike. Li şûna wê anîmasyonê jê bibe.
+animation.refuse.too_many_frames = Xeta demê nikare çarçoveyên din bigire.
+animation.refuse.no_layers = Ti qat tune ne ku çarçove ji wan werin çêkirin.
+animation.export.menu = Anîmasyon…
+animation.export.title = Anîmasyonê Derxe
+animation.export.palette = Paleta Rengan
+animation.export.palette_per_frame = Ji bo her çarçoveyê
+animation.export.palette_global = Giştî
+animation.export.disposal = Rakirina Çarçoveyê
+animation.export.disposal_auto = Xweber
+animation.export.disposal_keep = Çarçoveya berê biparêze
+animation.export.disposal_background = Vegerîne paşxanê
+animation.export.disposal_previous = Vegerîne rewşa berê
+animation.export.dither_note = Dema ku çarçoveyek ji 256 rengan zêdetir hebe, xeletiyên rengan belav bike
+animation.export.transparency = Zelalî
+animation.export.transparency_note = Deverên zelal zelal bihêle
+animation.export.gif_note = GIF derengiyan bi sedan yekên saniyeyê tomar dike û zelaliya qismî tune ye.
+animation.export.apng_note = APNG her çarçoveyê bê windakirin û bi zelaliya tevahî diparêze.
+animation.export.webp_note = WebP-ya anîmasyonî bê windakirin tê nivîsandin; WebP-ya bi windakirin berdest nîne.

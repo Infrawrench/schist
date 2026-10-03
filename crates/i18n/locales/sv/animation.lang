@@ -1,0 +1,45 @@
+# Bildruteanimering: tidslinjepanelen, lökskal och animeringsexport
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Kommandotitlarna finns i commands.lang.
+animation.panel.title = Tidslinje
+animation.menu = Animering
+animation.play_pause = Spela upp/pausa animering
+animation.frame_layer_name = Bildruta {n}
+animation.delay_seconds = {seconds} s
+animation.delay.label = Fördröjning
+animation.delay.apply_all = Använd för alla bildrutor
+animation.loop.label = Slinga
+animation.loop.once = En gång
+animation.loop.forever = För alltid
+animation.onion.label = Lökskal
+animation.onion.before = Före
+animation.onion.after = Efter
+animation.offset.label = Lagerförskjutning i den här bildrutan
+animation.new_layers_visible = Nya lager synliga i alla bildrutor
+animation.history.select_frame = Välj bildruta
+animation.history.move_frame = Flytta bildruta
+animation.history.frame_delay = Bildrutefördröjning
+animation.history.loop = Antal upprepningar
+animation.history.offset = Bildruteförskjutning
+animation.history.new_layers = Synlighet för nya lager
+animation.refuse.no_animation = Det här dokumentet har ingen bildruteanimering. Använd Lager ▸ Animering ▸ Skapa bildruteanimering.
+animation.refuse.already_animated = Det här dokumentet har redan en bildruteanimering.
+animation.refuse.last_frame = En animering behöver minst en bildruta. Ta bort animeringen i stället.
+animation.refuse.too_many_frames = Tidslinjen kan inte rymma fler bildrutor.
+animation.refuse.no_layers = Det finns inga lager att skapa bildrutor från.
+animation.export.menu = Animering…
+animation.export.title = Exportera animering
+animation.export.palette = Palett
+animation.export.palette_per_frame = Per bildruta
+animation.export.palette_global = Global
+animation.export.disposal = Kassering
+animation.export.disposal_auto = Automatisk
+animation.export.disposal_keep = Behåll föregående bildruta
+animation.export.disposal_background = Återställ till bakgrund
+animation.export.disposal_previous = Återställ till föregående
+animation.export.dither_note = Sprid färgfel när en bildruta har fler än 256 färger
+animation.export.transparency = Genomskinlighet
+animation.export.transparency_note = Behåll genomskinliga områden genomskinliga
+animation.export.gif_note = GIF lagrar fördröjningar i hundradels sekunder och saknar stöd för delvis genomskinlighet.
+animation.export.apng_note = APNG behåller varje bildruta förlustfritt med full genomskinlighet.
+animation.export.webp_note = Animerad WebP skrivs förlustfritt; WebP med förlust är inte tillgängligt.

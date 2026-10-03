@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = Wagt çyzgysy
+animation.menu = Animasiýa
+animation.play_pause = Animasiýany oýnatmak/saklamak
+animation.frame_layer_name = Kadr {n}
+animation.delay_seconds = {seconds} sek
+animation.delay.label = Gijikdirme
+animation.delay.apply_all = Ähli kadrlara ulanmak
+animation.loop.label = Gaýtalama
+animation.loop.once = Bir gezek
+animation.loop.forever = Hemişe
+animation.onion.label = Sogan gabygy
+animation.onion.before = Öňki
+animation.onion.after = Soňky
+animation.offset.label = Bu kadrda gatlagyň süýşmesi
+animation.new_layers_visible = Täze gatlaklar ähli kadrlarda görünýär
+animation.history.select_frame = Kadry saýlamak
+animation.history.move_frame = Kadry süýşürmek
+animation.history.frame_delay = Kadr gijikdirmesi
+animation.history.loop = Gaýtalama sany
+animation.history.offset = Kadr süýşmesi
+animation.history.new_layers = Täze gatlaklaryň görünmegi
+animation.refuse.no_animation = Bu resminamada kadr animasiýasy ýok. Gatlak ▸ Animasiýa ▸ Kadr animasiýasyny döretmek buýrugyny ulanyň.
+animation.refuse.already_animated = Bu resminamada eýýäm kadr animasiýasy bar.
+animation.refuse.last_frame = Animasiýa azyndan bir kadr gerek. Onuň ýerine animasiýany pozuň.
+animation.refuse.too_many_frames = Wagt çyzgysy mundan artyk kadr sygdyryp bilmeýär.
+animation.refuse.no_layers = Kadr döretmek üçin hiç hili gatlak ýok.
+animation.export.menu = Animasiýa…
+animation.export.title = Animasiýany eksport etmek
+animation.export.palette = Palitra
+animation.export.palette_per_frame = Her kadr üçin
+animation.export.palette_global = Umumy
+animation.export.disposal = Aýyrma usuly
+animation.export.disposal_auto = Awtomatik
+animation.export.disposal_keep = Öňki kadry saklamak
+animation.export.disposal_background = Yzky plana dikeltmek
+animation.export.disposal_previous = Öňkä dikeltmek
+animation.export.dither_note = Kadrda 256-dan köp reňk bolanda reňk ýalňyşlyklaryny ýaýratmak
+animation.export.transparency = Durulyk
+animation.export.transparency_note = Dury meýdanlary dury saklamak
+animation.export.gif_note = GIF gijikdirmeleri sekundyň ýüzden bir böleklerinde saklaýar we onda bölekleýin durulyk ýok.
+animation.export.apng_note = APNG her kadry doly durulyk bilen ýitgisiz saklaýar.
+animation.export.webp_note = Animasiýaly WebP ýitgisiz ýazylýar; ýitgili WebP elýeterli däl.

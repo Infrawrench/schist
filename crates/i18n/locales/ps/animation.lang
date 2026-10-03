@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = مهال کرښه
+animation.menu = انیمیشن
+animation.play_pause = انیمیشن چلول/درول
+animation.frame_layer_name = چوکاټ {n}
+animation.delay_seconds = {seconds} ث
+animation.delay.label = ځنډ
+animation.delay.apply_all = په ټولو چوکاټونو یې پلی کړئ
+animation.loop.label = تکرار
+animation.loop.once = یو ځل
+animation.loop.forever = تل
+animation.onion.label = د پیاز پوستکی
+animation.onion.before = مخکې
+animation.onion.after = وروسته
+animation.offset.label = په دې چوکاټ کې د طبقې بې ځایه کېدل
+animation.new_layers_visible = نوې طبقې په ټولو چوکاټونو کې ښکاري
+animation.history.select_frame = چوکاټ ټاکل
+animation.history.move_frame = چوکاټ لېږدول
+animation.history.frame_delay = د چوکاټ ځنډ
+animation.history.loop = د تکرار شمېر
+animation.history.offset = د چوکاټ بې ځایه کېدل
+animation.history.new_layers = د نویو طبقو ښکاره کېدل
+animation.refuse.no_animation = دا سند د چوکاټونو انیمیشن نه لري. طبقه ▸ انیمیشن ▸ د چوکاټونو انیمیشن جوړول وکاروئ.
+animation.refuse.already_animated = دا سند دمخه د چوکاټونو انیمیشن لري.
+animation.refuse.last_frame = انیمیشن لږ تر لږه یو چوکاټ ته اړتیا لري. پر ځای یې ټول انیمیشن ړنګ کړئ.
+animation.refuse.too_many_frames = مهال کرښه نور چوکاټونه نشي ساتلی.
+animation.refuse.no_layers = هېڅ طبقه نشته چې چوکاټونه ترې جوړ شي.
+animation.export.menu = انیمیشن…
+animation.export.title = انیمیشن صادرول
+animation.export.palette = رنګ تخته
+animation.export.palette_per_frame = د هر چوکاټ لپاره
+animation.export.palette_global = عمومي
+animation.export.disposal = د چوکاټ لرې کول
+animation.export.disposal_auto = خپلکاره
+animation.export.disposal_keep = مخکینی چوکاټ وساتئ
+animation.export.disposal_background = شالید ته بېرته راګرځول
+animation.export.disposal_previous = مخکیني ته بېرته راګرځول
+animation.export.dither_note = کله چې یو چوکاټ له 256 څخه ډېر رنګونه ولري، د رنګ تېروتنې خپرې کړئ
+animation.export.transparency = روڼتیا
+animation.export.transparency_note = روڼې سیمې روڼې وساتئ
+animation.export.gif_note = GIF ځنډونه د ثانیې په سلمه برخو کې ساتي او نیمګړې روڼتیا نه لري.
+animation.export.apng_note = APNG هر چوکاټ له بشپړې روڼتیا سره پرته له زیان ساتي.
+animation.export.webp_note = متحرک WebP پرته له زیان لیکل کېږي؛ زیان لرونکی WebP شتون نه لري.

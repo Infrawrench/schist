@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = Tíðarlinja
+animation.menu = Animatión
+animation.play_pause = Spæl/steðga animatión
+animation.frame_layer_name = Ramma {n}
+animation.delay_seconds = {seconds} s
+animation.delay.label = Seinking
+animation.delay.apply_all = Nýt á allar rammur
+animation.loop.label = Endurtøka
+animation.loop.once = Eina ferð
+animation.loop.forever = Óendaliga
+animation.onion.label = Leykhýði
+animation.onion.before = Áðrenn
+animation.onion.after = Eftir
+animation.offset.label = Flyting av laginum í hesi rammuni
+animation.new_layers_visible = Nýggj løg eru sjónlig í øllum rammum
+animation.history.select_frame = Vel rammu
+animation.history.move_frame = Flyt rammu
+animation.history.frame_delay = Rammuseinking
+animation.history.loop = Tal av endurtøkum
+animation.history.offset = Rammuflyting
+animation.history.new_layers = Sjónligleiki hjá nýggjum løgum
+animation.refuse.no_animation = Hetta skjalið hevur onga rammuanimatión. Nýt Lag ▸ Animatión ▸ Ger rammuanimatión.
+animation.refuse.already_animated = Hetta skjalið hevur longu eina rammuanimatión.
+animation.refuse.last_frame = Ein animatión krevur í minsta lagi eina rammu. Strika heldur animatiónina.
+animation.refuse.too_many_frames = Tíðarlinjan kann ikki rúma fleiri rammum.
+animation.refuse.no_layers = Tað eru eingi løg at gera rammur úr.
+animation.export.menu = Animatión…
+animation.export.title = Útflyt animatión
+animation.export.palette = Littavali
+animation.export.palette_per_frame = Fyri hvørja rammu
+animation.export.palette_global = Felags
+animation.export.disposal = Burturbeining
+animation.export.disposal_auto = Sjálvvirkandi
+animation.export.disposal_keep = Varðveit undanfarnu rammuna
+animation.export.disposal_background = Set aftur til bakgrund
+animation.export.disposal_previous = Set aftur til undanfarnu
+animation.export.dither_note = Spjað litfeilir, tá ið ein ramma hevur fleiri enn 256 litir
+animation.export.transparency = Gjøgnumskygni
+animation.export.transparency_note = Lat gjøgnumskygd øki vera gjøgnumskygd
+animation.export.gif_note = GIF goymir seinkingar í hundraðpørtum av sekund og hevur onga lutvísa gjøgnumskygni.
+animation.export.apng_note = APNG varðveitir hvørja rammu tapsfrítt við fullum gjøgnumskygni.
+animation.export.webp_note = Livandi WebP verður skrivað tapsfrítt; WebP við tapi er ikki tøkt.

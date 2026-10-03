@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = Linea de témpor
+animation.menu = Animation
+animation.play_pause = Reproducter/Pausar animation
+animation.frame_layer_name = Quadre {n}
+animation.delay_seconds = {seconds} s
+animation.delay.label = Retarda
+animation.delay.apply_all = Aplicar a omni quadres
+animation.loop.label = Repetition
+animation.loop.once = Un vez
+animation.loop.forever = Sin fine
+animation.onion.label = Pelle de cepolle
+animation.onion.before = Ante
+animation.onion.after = Pos
+animation.offset.label = Deplazament del strate in ti-ci quadre
+animation.new_layers_visible = Nov strates es visibil in omni quadres
+animation.history.select_frame = Selecter quadre
+animation.history.move_frame = Mover quadre
+animation.history.frame_delay = Retarda de quadre
+animation.history.loop = Númere de repetitiones
+animation.history.offset = Deplazament de quadre
+animation.history.new_layers = Visibilitá de nov strates
+animation.refuse.no_animation = Ti-ci document ne have un animation de quadres. Usa Strate ▸ Animation ▸ Crear animation de quadres.
+animation.refuse.already_animated = Ti-ci document ja have un animation de quadres.
+animation.refuse.last_frame = Un animation besona adminim un quadre. Deleter in vice li animation.
+animation.refuse.too_many_frames = Li linea de témpor ne posse contener plu quadres.
+animation.refuse.no_layers = Ne existe strates ex queles on posse crear quadres.
+animation.export.menu = Animation…
+animation.export.title = Exportar animation
+animation.export.palette = Paletta
+animation.export.palette_per_frame = Por quadre
+animation.export.palette_global = Global
+animation.export.disposal = Disposition
+animation.export.disposal_auto = Automatic
+animation.export.disposal_keep = Conservar li precedent quadre
+animation.export.disposal_background = Restaurar al fund
+animation.export.disposal_previous = Restaurar al precedent
+animation.export.dither_note = Diffuser errores de color quande un quadre have plu quam 256 colores
+animation.export.transparency = Transparentie
+animation.export.transparency_note = Conservar transparent areas transparent
+animation.export.gif_note = GIF inregistra retardas in centesimes de second e ne supporta partial transparentie.
+animation.export.apng_note = APNG conserva chascun quadre sin perde e con plen transparentie.
+animation.export.webp_note = Animat WebP es scrit sin perde; WebP con perde ne es disponibil.

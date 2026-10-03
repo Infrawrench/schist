@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = Umurongo w'igihe
+animation.menu = Animasiyo
+animation.play_pause = Gukina/Guhagarika animasiyo
+animation.frame_layer_name = Ikadiri {n}
+animation.delay_seconds = {seconds} s
+animation.delay.label = Gutinda
+animation.delay.apply_all = Gushyira ku makadiri yose
+animation.loop.label = Gusubiramo
+animation.loop.once = Rimwe
+animation.loop.forever = Iteka ryose
+animation.onion.label = Igishishwa cy'igitunguru
+animation.onion.before = Mbere
+animation.onion.after = Nyuma
+animation.offset.label = Kwimura urwego muri iyi kadiri
+animation.new_layers_visible = Inzego nshya zigaragara mu makadiri yose
+animation.history.select_frame = Guhitamo ikadiri
+animation.history.move_frame = Kwimura ikadiri
+animation.history.frame_delay = Gutinda kw'ikadiri
+animation.history.loop = Inshuro zo gusubiramo
+animation.history.offset = Kwimurwa kw'ikadiri
+animation.history.new_layers = Kugaragara kw'inzego nshya
+animation.refuse.no_animation = Iyi nyandiko nta animasiyo y'amakadiri ifite. Koresha Urwego ▸ Animasiyo ▸ Gukora animasiyo y'amakadiri.
+animation.refuse.already_animated = Iyi nyandiko isanzwe ifite animasiyo y'amakadiri.
+animation.refuse.last_frame = Animasiyo ikenera nibura ikadiri imwe. Ahubwo siba animasiyo yose.
+animation.refuse.too_many_frames = Umurongo w'igihe ntushobora kwakira andi makadiri.
+animation.refuse.no_layers = Nta nzego zihari zo gukoramo amakadiri.
+animation.export.menu = Animasiyo…
+animation.export.title = Kubika animasiyo hanze
+animation.export.palette = Paleti
+animation.export.palette_per_frame = Kuri buri kadiri
+animation.export.palette_global = Rusange
+animation.export.disposal = Uburyo bwo gukuraho
+animation.export.disposal_auto = Byikoresha
+animation.export.disposal_keep = Kugumana ikadiri ibanza
+animation.export.disposal_background = Gusubiza ku nyuma
+animation.export.disposal_previous = Gusubiza ku ibanza
+animation.export.dither_note = Gukwirakwiza amakosa y'amabara iyo ikadiri ifite amabara arenze 256
+animation.export.transparency = Ububonerane
+animation.export.transparency_note = Kugumana ahabonerana habonerana
+animation.export.gif_note = GIF ibika igihe cyo gutinda mu bice by'ijana by'isegonda kandi nta bubonerane bw'igice ifite.
+animation.export.apng_note = APNG igumana buri kadiri nta gutakaza ubuziranenge, ifite ububonerane bwuzuye.
+animation.export.webp_note = WebP ifite animasiyo yandikwa nta gutakaza ubuziranenge; WebP itakaza ubuziranenge ntiboneka.

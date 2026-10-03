@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = Garis Wektu
+animation.menu = Animasi
+animation.play_pause = Puter/Ngaso Animasi
+animation.frame_layer_name = Bingkai {n}
+animation.delay_seconds = {seconds} dt
+animation.delay.label = Tundha
+animation.delay.apply_all = Trapake ing Kabèh Bingkai
+animation.loop.label = Baleni
+animation.loop.once = Sapisan
+animation.loop.forever = Terus-terusan
+animation.onion.label = Kulit bawang
+animation.onion.before = Sadurungé
+animation.onion.after = Sawisé
+animation.offset.label = Geseran lapisan ing bingkai iki
+animation.new_layers_visible = Lapisan anyar katon ing kabèh bingkai
+animation.history.select_frame = Pilih Bingkai
+animation.history.move_frame = Pindhah Bingkai
+animation.history.frame_delay = Tundha Bingkai
+animation.history.loop = Cacahé Baleni
+animation.history.offset = Geseran Bingkai
+animation.history.new_layers = Katoné Lapisan Anyar
+animation.refuse.no_animation = Dokumen iki ora duwé animasi bingkai. Gunakaké Lapisan ▸ Animasi ▸ Gawé Animasi Bingkai.
+animation.refuse.already_animated = Dokumen iki wis duwé animasi bingkai.
+animation.refuse.last_frame = Animasi butuh paling ora siji bingkai. Busak animasiné waé.
+animation.refuse.too_many_frames = Garis wektu ora bisa nampung bingkai luwih akèh manèh.
+animation.refuse.no_layers = Ora ana lapisan kanggo digawé bingkai.
+animation.export.menu = Animasi…
+animation.export.title = Ekspor Animasi
+animation.export.palette = Palet
+animation.export.palette_per_frame = Saben bingkai
+animation.export.palette_global = Global
+animation.export.disposal = Pambuangan
+animation.export.disposal_auto = Otomatis
+animation.export.disposal_keep = Tetepaké bingkai sadurungé
+animation.export.disposal_background = Balèkaké menyang latar
+animation.export.disposal_previous = Balèkaké menyang sadurungé
+animation.export.dither_note = Sebaraké kesalahan warna yèn bingkai duwé luwih saka 256 warna
+animation.export.transparency = Transparansi
+animation.export.transparency_note = Tetepaké wilayah transparan tetep transparan
+animation.export.gif_note = GIF nyimpen tundha ing satus-satusan detik lan ora nduwé transparansi sebagéyan.
+animation.export.apng_note = APNG njaga saben bingkai tanpa ilang kualitas kanthi transparansi jangkep.
+animation.export.webp_note = WebP animasi ditulis tanpa ilang kualitas; WebP sing ilang kualitas ora kasedhiya.

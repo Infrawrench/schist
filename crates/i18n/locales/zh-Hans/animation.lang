@@ -1,0 +1,45 @@
+# 帧动画：时间轴面板、洋葱皮和动画导出
+# (crates/editor/src/panels/timeline.rs、workspace/animation.rs、
+# dialogs/export_animation.rs)。命令标题位于 commands.lang。
+animation.panel.title = 时间轴
+animation.menu = 动画
+animation.play_pause = 播放/暂停动画
+animation.frame_layer_name = 帧 {n}
+animation.delay_seconds = {seconds} 秒
+animation.delay.label = 延迟
+animation.delay.apply_all = 应用到所有帧
+animation.loop.label = 循环
+animation.loop.once = 一次
+animation.loop.forever = 永远
+animation.onion.label = 洋葱皮
+animation.onion.before = 之前
+animation.onion.after = 之后
+animation.offset.label = 此帧中的图层位移
+animation.new_layers_visible = 新图层在所有帧中可见
+animation.history.select_frame = 选择帧
+animation.history.move_frame = 移动帧
+animation.history.frame_delay = 帧延迟
+animation.history.loop = 循环次数
+animation.history.offset = 帧位移
+animation.history.new_layers = 新图层可见性
+animation.refuse.no_animation = 此文档没有帧动画。请使用 图层 ▸ 动画 ▸ 创建帧动画。
+animation.refuse.already_animated = 此文档已经有帧动画。
+animation.refuse.last_frame = 动画至少需要一帧。请改为删除动画。
+animation.refuse.too_many_frames = 时间轴无法容纳更多帧。
+animation.refuse.no_layers = 没有可用于建立帧的图层。
+animation.export.menu = 动画…
+animation.export.title = 导出动画
+animation.export.palette = 调色板
+animation.export.palette_per_frame = 逐帧
+animation.export.palette_global = 全局
+animation.export.disposal = 处理方法
+animation.export.disposal_auto = 自动
+animation.export.disposal_keep = 保留上一帧
+animation.export.disposal_background = 恢复到背景
+animation.export.disposal_previous = 恢复到上一状态
+animation.export.dither_note = 当一帧的颜色超过 256 种时扩散颜色误差
+animation.export.transparency = 透明度
+animation.export.transparency_note = 保持透明区域透明
+animation.export.gif_note = GIF 以百分之一秒为单位存储延迟，并且不支持部分透明。
+animation.export.apng_note = APNG 以无损方式保存每一帧，并支持完全透明。
+animation.export.webp_note = 动画 WebP 以无损方式写入；不支持有损 WebP。

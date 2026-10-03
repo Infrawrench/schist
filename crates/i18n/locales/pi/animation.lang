@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = Kālarekhā
+animation.menu = Calacittaṃ
+animation.play_pause = Calacittaṃ pavattetha/viramatha
+animation.frame_layer_name = Frame {n}
+animation.delay_seconds = {seconds} s
+animation.delay.label = Vilambo
+animation.delay.apply_all = Sabbesu frame-esu yojetha
+animation.loop.label = Punarāvatti
+animation.loop.once = Sakiṃ
+animation.loop.forever = Niccaṃ
+animation.onion.label = Palaṇḍutaco
+animation.onion.before = Pubbe
+animation.onion.after = Pacchā
+animation.offset.label = Imasmiṃ frame-mhi santharassa apasaraṇaṃ
+animation.new_layers_visible = Navasantharā sabbesu frame-esu dissanti
+animation.history.select_frame = Frame gaṇhatha
+animation.history.move_frame = Frame cāletha
+animation.history.frame_delay = Frame-vilambo
+animation.history.loop = Punarāvattisaṅkhyā
+animation.history.offset = Frame-apasaraṇaṃ
+animation.history.new_layers = Navasantharānaṃ dassanīyatā
+animation.refuse.no_animation = Imasmiṃ lekhane frame-calacittaṃ natthi. Santharo ▸ Calacittaṃ ▸ Frame-calacittaṃ karotha upayuñjatha.
+animation.refuse.already_animated = Imasmiṃ lekhane frame-calacittaṃ pageva atthi.
+animation.refuse.last_frame = Calacittassa antamaso ekaṃ frame icchitabbaṃ. Tassa ṭhāne calacittaṃ nāsetha.
+animation.refuse.too_many_frames = Kālarekhā adhikāni frame-āni dhāretuṃ na sakkoti.
+animation.refuse.no_layers = Frame-āni kātuṃ santharā natthi.
+animation.export.menu = Calacittaṃ…
+animation.export.title = Calacittaṃ nīharatha
+animation.export.palette = Vaṇṇaphalakaṃ
+animation.export.palette_per_frame = Paccekaṃ frame
+animation.export.palette_global = Sabbasādhāraṇaṃ
+animation.export.disposal = Apanayanavidhi
+animation.export.disposal_auto = Sayaṃkārī
+animation.export.disposal_keep = Purima-frame ṭhapetha
+animation.export.disposal_background = Pacchimabhāgaṃ paṭipākatikaṃ karotha
+animation.export.disposal_previous = Purimaṃ paṭipākatikaṃ karotha
+animation.export.dither_note = Yadā frame 256 vaṇṇehi adhikavaṇṇaṃ hoti, tadā vaṇṇadose vikiratha
+animation.export.transparency = Vinivijjhadassitā
+animation.export.transparency_note = Vinivijjhadassike padese vinivijjhadassike yeva ṭhapetha
+animation.export.gif_note = GIF vilambe vināḍikāya satabhāgehi ṭhapeti, padesikā vinivijjhadassitā ca tassa natthi.
+animation.export.apng_note = APNG sabbāni frame-āni ahāniyā paripuṇṇāya vinivijjhadassitāya saddhiṃ ṭhapeti.
+animation.export.webp_note = Calacitta-WebP ahāniyā likhīyati; hāniyutto WebP na labbhati.

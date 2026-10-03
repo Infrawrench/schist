@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = Layin Lokaci
+animation.menu = Rayarwa
+animation.play_pause = Kunna/Dakatar da Rayarwa
+animation.frame_layer_name = Firam {n}
+animation.delay_seconds = {seconds} daƙ.
+animation.delay.label = Jinkiri
+animation.delay.apply_all = Yi Amfani a Duk Firam
+animation.loop.label = Maimaitawa
+animation.loop.once = Sau ɗaya
+animation.loop.forever = Har abada
+animation.onion.label = Fatar albasa
+animation.onion.before = Kafin
+animation.onion.after = Bayan
+animation.offset.label = Matsawar shimfiɗa a wannan firam
+animation.new_layers_visible = Sababbin shimfiɗu suna bayyana a duk firam
+animation.history.select_frame = Zaɓi Firam
+animation.history.move_frame = Matsar da Firam
+animation.history.frame_delay = Jinkirin Firam
+animation.history.loop = Adadin Maimaitawa
+animation.history.offset = Matsawar Firam
+animation.history.new_layers = Bayyanar Sababbin Shimfiɗu
+animation.refuse.no_animation = Wannan takarda ba ta da rayarwar firam. Yi amfani da Shimfiɗa ▸ Rayarwa ▸ Ƙirƙiri Rayarwar Firam.
+animation.refuse.already_animated = Wannan takarda ta riga ta da rayarwar firam.
+animation.refuse.last_frame = Rayarwa tana buƙatar aƙalla firam ɗaya. A maimakon haka, share rayarwar.
+animation.refuse.too_many_frames = Layin lokaci ba zai iya ɗaukar ƙarin firam ba.
+animation.refuse.no_layers = Babu shimfiɗu da za a yi firam daga gare su.
+animation.export.menu = Rayarwa…
+animation.export.title = Fitar da Rayarwa
+animation.export.palette = Allon Launuka
+animation.export.palette_per_frame = Kowane firam
+animation.export.palette_global = Na gaba ɗaya
+animation.export.disposal = Zubar da Firam
+animation.export.disposal_auto = Na Kai Tsaye
+animation.export.disposal_keep = Ajiye firam na baya
+animation.export.disposal_background = Mayar zuwa bango
+animation.export.disposal_previous = Mayar zuwa na baya
+animation.export.dither_note = Watsa kurakuran launi idan firam yana da launuka fiye da 256
+animation.export.transparency = Bayyanannu
+animation.export.transparency_note = Bar wuraren da ke bayyane a bayyane
+animation.export.gif_note = GIF yana adana jinkiri a cikin kashi ɗari na daƙiƙa kuma ba shi da bayyananniya ta wani ɓangare.
+animation.export.apng_note = APNG yana ajiye kowane firam ba tare da asara ba tare da cikakkiyar bayyananniya.
+animation.export.webp_note = Ana rubuta WebP mai rayarwa ba tare da asara ba; WebP mai asara ba ya samuwa.

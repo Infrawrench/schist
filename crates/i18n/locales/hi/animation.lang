@@ -1,0 +1,45 @@
+# फ़्रेम ऐनिमेशन: टाइमलाइन पैनल, ओनियन स्किन और ऐनिमेशन एक्सपोर्ट
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs)। कमांड शीर्षक commands.lang में हैं।
+animation.panel.title = टाइमलाइन
+animation.menu = ऐनिमेशन
+animation.play_pause = ऐनिमेशन चलाएँ/रोकें
+animation.frame_layer_name = फ़्रेम {n}
+animation.delay_seconds = {seconds} सेकंड
+animation.delay.label = विलंब
+animation.delay.apply_all = सभी फ़्रेम पर लागू करें
+animation.loop.label = लूप
+animation.loop.once = एक बार
+animation.loop.forever = हमेशा
+animation.onion.label = ओनियन स्किन
+animation.onion.before = पहले
+animation.onion.after = बाद में
+animation.offset.label = इस फ़्रेम में लेयर का ऑफ़सेट
+animation.new_layers_visible = नई लेयर सभी फ़्रेम में दिखें
+animation.history.select_frame = फ़्रेम चुनें
+animation.history.move_frame = फ़्रेम खिसकाएँ
+animation.history.frame_delay = फ़्रेम विलंब
+animation.history.loop = लूप की संख्या
+animation.history.offset = फ़्रेम ऑफ़सेट
+animation.history.new_layers = नई लेयर की दृश्यता
+animation.refuse.no_animation = इस दस्तावेज़ में कोई फ़्रेम ऐनिमेशन नहीं है। लेयर ▸ ऐनिमेशन ▸ फ़्रेम ऐनिमेशन बनाएँ का उपयोग करें।
+animation.refuse.already_animated = इस दस्तावेज़ में पहले से एक फ़्रेम ऐनिमेशन है।
+animation.refuse.last_frame = ऐनिमेशन में कम से कम एक फ़्रेम होना चाहिए। इसके बजाय ऐनिमेशन हटाएँ।
+animation.refuse.too_many_frames = टाइमलाइन में और फ़्रेम नहीं समा सकते।
+animation.refuse.no_layers = फ़्रेम बनाने के लिए कोई लेयर नहीं है।
+animation.export.menu = ऐनिमेशन…
+animation.export.title = ऐनिमेशन एक्सपोर्ट करें
+animation.export.palette = पैलेट
+animation.export.palette_per_frame = हर फ़्रेम के लिए
+animation.export.palette_global = वैश्विक
+animation.export.disposal = निपटान
+animation.export.disposal_auto = स्वचालित
+animation.export.disposal_keep = पिछला फ़्रेम रखें
+animation.export.disposal_background = बैकग्राउंड पर लौटाएँ
+animation.export.disposal_previous = पिछले पर लौटाएँ
+animation.export.dither_note = जब किसी फ़्रेम में 256 से अधिक रंग हों तो रंग त्रुटियों को फैलाएँ
+animation.export.transparency = पारदर्शिता
+animation.export.transparency_note = पारदर्शी क्षेत्रों को पारदर्शी रखें
+animation.export.gif_note = GIF विलंब को सेकंड के सौवें हिस्से में सहेजता है और आंशिक पारदर्शिता का समर्थन नहीं करता।
+animation.export.apng_note = APNG हर फ़्रेम को पूरी पारदर्शिता के साथ बिना गुणवत्ता खोए सहेजता है।
+animation.export.webp_note = ऐनिमेटेड WebP बिना गुणवत्ता खोए लिखा जाता है; लॉसी WebP उपलब्ध नहीं है।

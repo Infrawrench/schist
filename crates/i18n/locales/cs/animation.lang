@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = Časová osa
+animation.menu = Animace
+animation.play_pause = Přehrát/pozastavit animaci
+animation.frame_layer_name = Snímek {n}
+animation.delay_seconds = {seconds} s
+animation.delay.label = Prodleva
+animation.delay.apply_all = Použít na všechny snímky
+animation.loop.label = Opakování
+animation.loop.once = Jednou
+animation.loop.forever = Stále
+animation.onion.label = Cibulová slupka
+animation.onion.before = Před
+animation.onion.after = Po
+animation.offset.label = Posun vrstvy v tomto snímku
+animation.new_layers_visible = Nové vrstvy viditelné ve všech snímcích
+animation.history.select_frame = Vybrat snímek
+animation.history.move_frame = Přesunout snímek
+animation.history.frame_delay = Prodleva snímku
+animation.history.loop = Počet opakování
+animation.history.offset = Posun snímku
+animation.history.new_layers = Viditelnost nových vrstev
+animation.refuse.no_animation = Tento dokument nemá snímkovou animaci. Použijte Vrstva ▸ Animace ▸ Vytvořit snímkovou animaci.
+animation.refuse.already_animated = Tento dokument už snímkovou animaci má.
+animation.refuse.last_frame = Animace potřebuje alespoň jeden snímek. Místo toho odstraňte celou animaci.
+animation.refuse.too_many_frames = Časová osa už nemůže pojmout další snímky.
+animation.refuse.no_layers = Nejsou k dispozici žádné vrstvy, ze kterých by šlo vytvořit snímky.
+animation.export.menu = Animace…
+animation.export.title = Exportovat animaci
+animation.export.palette = Paleta
+animation.export.palette_per_frame = Pro každý snímek
+animation.export.palette_global = Globální
+animation.export.disposal = Likvidace
+animation.export.disposal_auto = Automaticky
+animation.export.disposal_keep = Ponechat předchozí snímek
+animation.export.disposal_background = Obnovit na pozadí
+animation.export.disposal_previous = Obnovit na předchozí
+animation.export.dither_note = Rozptýlit barevné chyby, když má snímek více než 256 barev
+animation.export.transparency = Průhlednost
+animation.export.transparency_note = Zachovat průhledné oblasti průhledné
+animation.export.gif_note = GIF ukládá prodlevy v setinách sekundy a nepodporuje částečnou průhlednost.
+animation.export.apng_note = APNG uchovává každý snímek bezeztrátově a s plnou průhledností.
+animation.export.webp_note = Animovaný WebP se zapisuje bezeztrátově; ztrátový WebP není k dispozici.

@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = Mzere wa Nthawi
+animation.menu = Makanema
+animation.play_pause = Sewerani/Imitsani Makanema
+animation.frame_layer_name = Chithunzi {n}
+animation.delay_seconds = {seconds} s
+animation.delay.label = Kuchedwa
+animation.delay.apply_all = Gwiritsani Ntchito pa Zithunzi Zonse
+animation.loop.label = Kubwereza
+animation.loop.once = Kamodzi
+animation.loop.forever = Nthawi Zonse
+animation.onion.label = Khungu la Anyezi
+animation.onion.before = Kale
+animation.onion.after = Pambuyo
+animation.offset.label = Kusuntha kwa wosanjikiza pa chithunzi ichi
+animation.new_layers_visible = Ma layer atsopano amawoneka pa zithunzi zonse
+animation.history.select_frame = Sankhani Chithunzi
+animation.history.move_frame = Sunthani Chithunzi
+animation.history.frame_delay = Kuchedwa kwa Chithunzi
+animation.history.loop = Chiwerengero cha Kubwereza
+animation.history.offset = Kusuntha kwa Chithunzi
+animation.history.new_layers = Kuwonekera kwa Ma Layer Atsopano
+animation.refuse.no_animation = Chikalatachi chilibe makanema a zithunzi. Gwiritsani ntchito Wosanjikiza ▸ Makanema ▸ Pangani Makanema a Zithunzi.
+animation.refuse.already_animated = Chikalatachi chili kale ndi makanema a zithunzi.
+animation.refuse.last_frame = Makanema amafunika chithunzi chimodzi pafupifupi. M'malo mwake chotsani makanemawo.
+animation.refuse.too_many_frames = Mzere wa nthawi sungathe kusunga zithunzi zina.
+animation.refuse.no_layers = Palibe ma layer opangira zithunzi.
+animation.export.menu = Makanema…
+animation.export.title = Tumizani Makanema
+animation.export.palette = Phaleti ya Mitundu
+animation.export.palette_per_frame = Pa chithunzi chilichonse
+animation.export.palette_global = Ya Zonse
+animation.export.disposal = Kuchotsa
+animation.export.disposal_auto = Zokha
+animation.export.disposal_keep = Sungani chithunzi cham'mbuyo
+animation.export.disposal_background = Bwezerani kumbuyo
+animation.export.disposal_previous = Bwezerani ku cham'mbuyo
+animation.export.dither_note = Falitsani zolakwika za mitundu pamene chithunzi chili ndi mitundu yoposa 256
+animation.export.transparency = Kuwonekera Kupyolera
+animation.export.transparency_note = Sungani malo owonekera kupyolera kuti akhalebe choncho
+animation.export.gif_note = GIF imasunga kuchedwa m'magawo a zana a sekondi ndipo ilibe kuwonekera kwapang'ono.
+animation.export.apng_note = APNG imasunga chithunzi chilichonse popanda kutaya chilichonse ndi kuwonekera kwathunthu.
+animation.export.webp_note = WebP ya makanema imalembedwa popanda kutaya; WebP yotaya sipezeka.

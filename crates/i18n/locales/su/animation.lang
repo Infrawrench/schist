@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = Garis Waktu
+animation.menu = Animasi
+animation.play_pause = Puter/Reureuhkeun Animasi
+animation.frame_layer_name = Pigura {n}
+animation.delay_seconds = {seconds} s
+animation.delay.label = Reureuh
+animation.delay.apply_all = Larapkeun ka Sadaya Pigura
+animation.loop.label = Ulang
+animation.loop.once = Sakali
+animation.loop.forever = Salawasna
+animation.onion.label = Kulit bawang
+animation.onion.before = Saméméh
+animation.onion.after = Sanggeus
+animation.offset.label = Géséran lapisan dina pigura ieu
+animation.new_layers_visible = Lapisan anyar katingali dina sadaya pigura
+animation.history.select_frame = Pilih Pigura
+animation.history.move_frame = Pindahkeun Pigura
+animation.history.frame_delay = Reureuh Pigura
+animation.history.loop = Jumlah Ulangan
+animation.history.offset = Géséran Pigura
+animation.history.new_layers = Katingalina Lapisan Anyar
+animation.refuse.no_animation = Dokumén ieu teu boga animasi pigura. Paké Lapisan ▸ Animasi ▸ Jieun Animasi Pigura.
+animation.refuse.already_animated = Dokumén ieu geus boga animasi pigura.
+animation.refuse.last_frame = Animasi butuh sahenteuna hiji pigura. Pupus waé animasina.
+animation.refuse.too_many_frames = Garis waktu teu bisa nampung pigura deui.
+animation.refuse.no_layers = Teu aya lapisan pikeun dijieun pigura.
+animation.export.menu = Animasi…
+animation.export.title = Ékspor Animasi
+animation.export.palette = Palét
+animation.export.palette_per_frame = Per pigura
+animation.export.palette_global = Global
+animation.export.disposal = Pembuangan
+animation.export.disposal_auto = Otomatis
+animation.export.disposal_keep = Tetepkeun pigura saméméhna
+animation.export.disposal_background = Balikkeun ka latar tukang
+animation.export.disposal_previous = Balikkeun ka saméméhna
+animation.export.dither_note = Sebarkeun kasalahan warna lamun hiji pigura boga leuwih ti 256 warna
+animation.export.transparency = Transparansi
+animation.export.transparency_note = Tetepkeun wewengkon transparan tetep transparan
+animation.export.gif_note = GIF nyimpen reureuh dina saperatus detik sarta teu boga transparansi parsial.
+animation.export.apng_note = APNG ngajaga unggal pigura tanpa leungitna kualitas kalayan transparansi pinuh.
+animation.export.webp_note = WebP animasi ditulis tanpa leungitna kualitas; WebP lossy teu sayogi.

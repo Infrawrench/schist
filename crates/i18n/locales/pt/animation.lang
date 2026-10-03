@@ -1,0 +1,46 @@
+# Animação de fotogramas: o painel Linha cronológica, a casca de cebola e a
+# exportação de animações (crates/editor/src/panels/timeline.rs,
+# workspace/animation.rs, dialogs/export_animation.rs). Os títulos dos
+# comandos estão em commands.lang.
+animation.panel.title = Linha cronológica
+animation.menu = Animação
+animation.play_pause = Reproduzir/pausar animação
+animation.frame_layer_name = Fotograma {n}
+animation.delay_seconds = {seconds} s
+animation.delay.label = Atraso
+animation.delay.apply_all = Aplicar a todos os fotogramas
+animation.loop.label = Repetição
+animation.loop.once = Uma vez
+animation.loop.forever = Sempre
+animation.onion.label = Casca de cebola
+animation.onion.before = Antes
+animation.onion.after = Depois
+animation.offset.label = Deslocamento da camada neste fotograma
+animation.new_layers_visible = Novas camadas visíveis em todos os fotogramas
+animation.history.select_frame = Selecionar fotograma
+animation.history.move_frame = Mover fotograma
+animation.history.frame_delay = Atraso do fotograma
+animation.history.loop = Número de repetições
+animation.history.offset = Deslocamento do fotograma
+animation.history.new_layers = Visibilidade de novas camadas
+animation.refuse.no_animation = Este documento não tem animação de fotogramas. Utilize Camada ▸ Animação ▸ Criar animação de fotogramas.
+animation.refuse.already_animated = Este documento já tem uma animação de fotogramas.
+animation.refuse.last_frame = Uma animação precisa de pelo menos um fotograma. Em vez disso, elimine a animação.
+animation.refuse.too_many_frames = A linha cronológica não comporta mais fotogramas.
+animation.refuse.no_layers = Não existem camadas a partir das quais criar fotogramas.
+animation.export.menu = Animação…
+animation.export.title = Exportar animação
+animation.export.palette = Paleta
+animation.export.palette_per_frame = Por fotograma
+animation.export.palette_global = Global
+animation.export.disposal = Método de descarte
+animation.export.disposal_auto = Automático
+animation.export.disposal_keep = Manter o fotograma anterior
+animation.export.disposal_background = Restaurar para o fundo
+animation.export.disposal_previous = Restaurar para o anterior
+animation.export.dither_note = Difundir os erros de cor quando um fotograma tem mais de 256 cores
+animation.export.transparency = Transparência
+animation.export.transparency_note = Manter transparentes as áreas transparentes
+animation.export.gif_note = O GIF guarda os atrasos em centésimos de segundo e não suporta transparência parcial.
+animation.export.apng_note = O APNG mantém cada fotograma sem perdas e com transparência total.
+animation.export.webp_note = O WebP animado é gravado sem perdas; o WebP com perdas não está disponível.

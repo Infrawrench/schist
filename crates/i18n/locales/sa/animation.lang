@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = कालरेखा
+animation.menu = सजीवनम्
+animation.play_pause = सजीवनस्य चालनम्/विरामः
+animation.frame_layer_name = चित्रकम् {n}
+animation.delay_seconds = {seconds} क्ष.
+animation.delay.label = विलम्बः
+animation.delay.apply_all = सर्वेषु चित्रकेषु प्रयुज्यताम्
+animation.loop.label = आवर्तनम्
+animation.loop.once = एकवारम्
+animation.loop.forever = सर्वदा
+animation.onion.label = पलाण्डुत्वक्
+animation.onion.before = पूर्वम्
+animation.onion.after = पश्चात्
+animation.offset.label = अस्मिन् चित्रके स्तरस्य विस्थापनम्
+animation.new_layers_visible = नूतनस्तराः सर्वेषु चित्रकेषु दृश्याः
+animation.history.select_frame = चित्रकचयनम्
+animation.history.move_frame = चित्रकचालनम्
+animation.history.frame_delay = चित्रकविलम्बः
+animation.history.loop = आवर्तनसङ्ख्या
+animation.history.offset = चित्रकविस्थापनम्
+animation.history.new_layers = नूतनस्तरदृश्यता
+animation.refuse.no_animation = अस्मिन् प्रलेखे चित्रकसजीवनं नास्ति। स्तरः ▸ सजीवनम् ▸ चित्रकसजीवनं रच्यताम् इति उपयुज्यताम्।
+animation.refuse.already_animated = अस्मिन् प्रलेखे पूर्वमेव चित्रकसजीवनम् अस्ति।
+animation.refuse.last_frame = सजीवनाय न्यूनातिन्यूनम् एकं चित्रकम् आवश्यकम्। तस्य स्थाने सजीवनमेव विलोप्यताम्।
+animation.refuse.too_many_frames = कालरेखा अधिकानि चित्रकाणि धारयितुं न शक्नोति।
+animation.refuse.no_layers = चित्रकाणि रचयितुं स्तराः न सन्ति।
+animation.export.menu = सजीवनम्…
+animation.export.title = सजीवननिर्यातः
+animation.export.palette = वर्णपटलम्
+animation.export.palette_per_frame = प्रतिचित्रकम्
+animation.export.palette_global = सार्वत्रिकम्
+animation.export.disposal = निपटानम्
+animation.export.disposal_auto = स्वचालितम्
+animation.export.disposal_keep = पूर्वचित्रकं रक्ष्यताम्
+animation.export.disposal_background = पृष्ठभूमिं प्रति पुनःस्थापनम्
+animation.export.disposal_previous = पूर्वावस्थां प्रति पुनःस्थापनम्
+animation.export.dither_note = यदा चित्रके २५६ अधिकाः वर्णाः सन्ति तदा वर्णदोषाः विकीर्यन्ताम्
+animation.export.transparency = पारदर्शिता
+animation.export.transparency_note = पारदर्शिभागाः पारदर्शिनः एव रक्ष्यन्ताम्
+animation.export.gif_note = GIF विलम्बान् क्षणस्य शततमभागेषु रक्षति, आंशिकपारदर्शितां च न धारयति।
+animation.export.apng_note = APNG प्रत्येकं चित्रकं पूर्णपारदर्शितया सह हानिरहितं रक्षति।
+animation.export.webp_note = सजीवं WebP हानिरहितं लिख्यते; हानियुक्तं WebP न उपलभ्यते।

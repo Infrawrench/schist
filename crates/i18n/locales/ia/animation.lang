@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = Linea de tempore
+animation.menu = Animation
+animation.play_pause = Reproducer/pausar animation
+animation.frame_layer_name = Photogramma {n}
+animation.delay_seconds = {seconds} s
+animation.delay.label = Retardo
+animation.delay.apply_all = Applicar a tote le photogrammas
+animation.loop.label = Repetition
+animation.loop.once = Un vice
+animation.loop.forever = Pro semper
+animation.onion.label = Pelle de cipolla
+animation.onion.before = Ante
+animation.onion.after = Post
+animation.offset.label = Displaciamento del strato in iste photogramma
+animation.new_layers_visible = Nove stratos visibile in tote le photogrammas
+animation.history.select_frame = Seliger photogramma
+animation.history.move_frame = Mover photogramma
+animation.history.frame_delay = Retardo de photogramma
+animation.history.loop = Numero de repetitiones
+animation.history.offset = Displaciamento de photogramma
+animation.history.new_layers = Visibilitate de nove stratos
+animation.refuse.no_animation = Iste documento non ha un animation per photogrammas. Usa Strato ▸ Animation ▸ Crear animation per photogrammas.
+animation.refuse.already_animated = Iste documento jam ha un animation per photogrammas.
+animation.refuse.last_frame = Un animation require al minus un photogramma. Dele le animation in loco de isto.
+animation.refuse.too_many_frames = Le linea de tempore non pote continer plus photogrammas.
+animation.refuse.no_layers = Il non ha stratos ex le quales facer photogrammas.
+animation.export.menu = Animation…
+animation.export.title = Exportar animation
+animation.export.palette = Paletta
+animation.export.palette_per_frame = Per photogramma
+animation.export.palette_global = Global
+animation.export.disposal = Disposition
+animation.export.disposal_auto = Automatic
+animation.export.disposal_keep = Mantener le photogramma precedente
+animation.export.disposal_background = Restaurar al fundo
+animation.export.disposal_previous = Restaurar al precedente
+animation.export.dither_note = Diffunder le errores de color quando un photogramma ha plus de 256 colores
+animation.export.transparency = Transparentia
+animation.export.transparency_note = Mantener transparente le areas transparente
+animation.export.gif_note = GIF immagazina le retardos in centesimos de secunda e non ha transparentia partial.
+animation.export.apng_note = APNG mantene cata photogramma sin perdita con transparentia complete.
+animation.export.webp_note = WebP animate es scribite sin perdita; WebP con perdita non es disponibile.

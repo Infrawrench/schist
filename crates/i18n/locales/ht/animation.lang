@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = Liy tan
+animation.menu = Animasyon
+animation.play_pause = Jwe/Poz animasyon
+animation.frame_layer_name = Ankadreman {n}
+animation.delay_seconds = {seconds} s
+animation.delay.label = Reta
+animation.delay.apply_all = Aplike sou tout ankadreman yo
+animation.loop.label = Bouk
+animation.loop.once = Yon fwa
+animation.loop.forever = Toutan
+animation.onion.label = Po zonyon
+animation.onion.before = Anvan
+animation.onion.after = Apre
+animation.offset.label = Dekalaj kouch nan ankadreman sa a
+animation.new_layers_visible = Nouvo kouch yo vizib nan tout ankadreman yo
+animation.history.select_frame = Seleksyone ankadreman
+animation.history.move_frame = Deplase ankadreman
+animation.history.frame_delay = Reta ankadreman
+animation.history.loop = Kantite bouk
+animation.history.offset = Dekalaj ankadreman
+animation.history.new_layers = Vizibilite nouvo kouch
+animation.refuse.no_animation = Dokiman sa a pa gen okenn animasyon ak ankadreman. Sèvi ak Kouch ▸ Animasyon ▸ Kreye animasyon ak ankadreman.
+animation.refuse.already_animated = Dokiman sa a deja gen yon animasyon ak ankadreman.
+animation.refuse.last_frame = Yon animasyon bezwen omwen yon ankadreman. Efase animasyon an pito.
+animation.refuse.too_many_frames = Liy tan an pa ka kenbe plis ankadreman.
+animation.refuse.no_layers = Pa gen okenn kouch pou fè ankadreman ak yo.
+animation.export.menu = Animasyon…
+animation.export.title = Ekspòte animasyon
+animation.export.palette = Palèt
+animation.export.palette_per_frame = Pa ankadreman
+animation.export.palette_global = Global
+animation.export.disposal = Elimine ankadreman
+animation.export.disposal_auto = Otomatik
+animation.export.disposal_keep = Kenbe ankadreman anvan an
+animation.export.disposal_background = Retounen nan aryèplan
+animation.export.disposal_previous = Retounen nan sa ki te anvan an
+animation.export.dither_note = Gaye erè koulè yo lè yon ankadreman gen plis pase 256 koulè
+animation.export.transparency = Transparans
+animation.export.transparency_note = Kenbe zòn transparan yo transparan
+animation.export.gif_note = GIF anrejistre reta yo an santyèm segonn epi li pa gen transparans pasyèl.
+animation.export.apng_note = APNG kenbe chak ankadreman san pèt ak tout transparans li.
+animation.export.webp_note = WebP anime yo ekri san pèt; WebP ak pèt pa disponib.

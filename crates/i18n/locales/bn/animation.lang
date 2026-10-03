@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = টাইমলাইন
+animation.menu = অ্যানিমেশন
+animation.play_pause = অ্যানিমেশন চালান/বিরতি দিন
+animation.frame_layer_name = ফ্রেম {n}
+animation.delay_seconds = {seconds} সে.
+animation.delay.label = বিলম্ব
+animation.delay.apply_all = সব ফ্রেমে প্রয়োগ করুন
+animation.loop.label = পুনরাবৃত্তি
+animation.loop.once = একবার
+animation.loop.forever = চিরকাল
+animation.onion.label = অনিয়ন স্কিন
+animation.onion.before = আগে
+animation.onion.after = পরে
+animation.offset.label = এই ফ্রেমে লেয়ারের অফসেট
+animation.new_layers_visible = নতুন লেয়ার সব ফ্রেমে দৃশ্যমান
+animation.history.select_frame = ফ্রেম নির্বাচন
+animation.history.move_frame = ফ্রেম সরানো
+animation.history.frame_delay = ফ্রেম বিলম্ব
+animation.history.loop = পুনরাবৃত্তির সংখ্যা
+animation.history.offset = ফ্রেম অফসেট
+animation.history.new_layers = নতুন লেয়ারের দৃশ্যমানতা
+animation.refuse.no_animation = এই ডকুমেন্টে কোনো ফ্রেম অ্যানিমেশন নেই। লেয়ার ▸ অ্যানিমেশন ▸ ফ্রেম অ্যানিমেশন তৈরি করুন ব্যবহার করুন।
+animation.refuse.already_animated = এই ডকুমেন্টে ইতিমধ্যে একটি ফ্রেম অ্যানিমেশন আছে।
+animation.refuse.last_frame = একটি অ্যানিমেশনে অন্তত একটি ফ্রেম থাকতে হবে। তার বদলে অ্যানিমেশনটি মুছে ফেলুন।
+animation.refuse.too_many_frames = টাইমলাইনে আর কোনো ফ্রেম রাখা যাবে না।
+animation.refuse.no_layers = ফ্রেম তৈরি করার মতো কোনো লেয়ার নেই।
+animation.export.menu = অ্যানিমেশন…
+animation.export.title = অ্যানিমেশন রপ্তানি করুন
+animation.export.palette = প্যালেট
+animation.export.palette_per_frame = প্রতি ফ্রেমে
+animation.export.palette_global = সার্বজনীন
+animation.export.disposal = অপসারণ পদ্ধতি
+animation.export.disposal_auto = স্বয়ংক্রিয়
+animation.export.disposal_keep = আগের ফ্রেম রাখুন
+animation.export.disposal_background = পটভূমিতে পুনরুদ্ধার করুন
+animation.export.disposal_previous = আগের অবস্থায় পুনরুদ্ধার করুন
+animation.export.dither_note = কোনো ফ্রেমে ২৫৬টির বেশি রং থাকলে রঙের ত্রুটি ছড়িয়ে দিন
+animation.export.transparency = স্বচ্ছতা
+animation.export.transparency_note = স্বচ্ছ এলাকাগুলো স্বচ্ছই রাখুন
+animation.export.gif_note = GIF বিলম্বগুলো সেকেন্ডের শতভাগে সংরক্ষণ করে এবং আংশিক স্বচ্ছতা সমর্থন করে না।
+animation.export.apng_note = APNG প্রতিটি ফ্রেম পূর্ণ স্বচ্ছতাসহ মান না হারিয়ে রাখে।
+animation.export.webp_note = অ্যানিমেটেড WebP মান না হারিয়ে লেখা হয়; মান হারানো WebP উপলব্ধ নয়।

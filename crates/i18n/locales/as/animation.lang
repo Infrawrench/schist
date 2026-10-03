@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = টাইমলাইন
+animation.menu = এনিমেচন
+animation.play_pause = এনিমেচন চলাওক/ৰখাওক
+animation.frame_layer_name = ফ্ৰেম {n}
+animation.delay_seconds = {seconds} ছে.
+animation.delay.label = বিলম্ব
+animation.delay.apply_all = সকলো ফ্ৰেমত প্ৰয়োগ কৰক
+animation.loop.label = লুপ
+animation.loop.once = এবাৰ
+animation.loop.forever = সদায়
+animation.onion.label = অনিয়ন স্কিন
+animation.onion.before = আগৰ
+animation.onion.after = পিছৰ
+animation.offset.label = এই ফ্ৰেমত স্তৰৰ অফছেট
+animation.new_layers_visible = নতুন স্তৰসমূহ সকলো ফ্ৰেমত দৃশ্যমান
+animation.history.select_frame = ফ্ৰেম বাছনি কৰক
+animation.history.move_frame = ফ্ৰেম স্থানান্তৰ
+animation.history.frame_delay = ফ্ৰেমৰ বিলম্ব
+animation.history.loop = লুপৰ সংখ্যা
+animation.history.offset = ফ্ৰেমৰ অফছেট
+animation.history.new_layers = নতুন স্তৰৰ দৃশ্যমানতা
+animation.refuse.no_animation = এই নথিখনত কোনো ফ্ৰেম এনিমেচন নাই। স্তৰ ▸ এনিমেচন ▸ ফ্ৰেম এনিমেচন সৃষ্টি কৰক ব্যৱহাৰ কৰক।
+animation.refuse.already_animated = এই নথিখনত ইতিমধ্যে এটা ফ্ৰেম এনিমেচন আছে।
+animation.refuse.last_frame = এটা এনিমেচনৰ বাবে অন্ততঃ এটা ফ্ৰেম লাগে। তাৰ সলনি এনিমেচনটো মচি পেলাওক।
+animation.refuse.too_many_frames = টাইমলাইনত আৰু অধিক ফ্ৰেম ৰাখিব নোৱাৰি।
+animation.refuse.no_layers = ফ্ৰেম বনাবলৈ কোনো স্তৰ নাই।
+animation.export.menu = এনিমেচন…
+animation.export.title = এনিমেচন ৰপ্তানি কৰক
+animation.export.palette = পেলেট
+animation.export.palette_per_frame = প্ৰতি ফ্ৰেমত
+animation.export.palette_global = গোলকীয়
+animation.export.disposal = নিষ্পত্তি
+animation.export.disposal_auto = স্বয়ংক্ৰিয়
+animation.export.disposal_keep = আগৰ ফ্ৰেম ৰাখক
+animation.export.disposal_background = পটভূমিলৈ পুনৰুদ্ধাৰ
+animation.export.disposal_previous = আগৰটোলৈ পুনৰুদ্ধাৰ
+animation.export.dither_note = কোনো ফ্ৰেমত ২৫৬ টাতকৈ অধিক ৰং থাকিলে ৰঙৰ ত্ৰুটি বিয়পাই দিয়ক
+animation.export.transparency = স্বচ্ছতা
+animation.export.transparency_note = স্বচ্ছ অংশসমূহ স্বচ্ছ কৰি ৰাখক
+animation.export.gif_note = GIF-এ বিলম্ব ছেকেণ্ডৰ এশ ভাগৰ এক ভাগত সংৰক্ষণ কৰে আৰু ইয়াত আংশিক স্বচ্ছতা নাই।
+animation.export.apng_note = APNG-এ প্ৰতিটো ফ্ৰেম সম্পূৰ্ণ স্বচ্ছতাৰে ক্ষতিহীনভাৱে ৰাখে।
+animation.export.webp_note = এনিমেটেড WebP ক্ষতিহীনভাৱে লিখা হয়; ক্ষতিযুক্ত WebP উপলব্ধ নহয়।

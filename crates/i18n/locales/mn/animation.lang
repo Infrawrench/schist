@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = Цагийн шугам
+animation.menu = Хөдөлгөөнт дүрс
+animation.play_pause = Хөдөлгөөнт дүрсийг тоглуулах/түр зогсоох
+animation.frame_layer_name = Кадр {n}
+animation.delay_seconds = {seconds} с
+animation.delay.label = Саатал
+animation.delay.apply_all = Бүх кадрт хэрэглэх
+animation.loop.label = Давталт
+animation.loop.once = Нэг удаа
+animation.loop.forever = Үргэлж
+animation.onion.label = Сонгины хальс
+animation.onion.before = Өмнө
+animation.onion.after = Дараа
+animation.offset.label = Энэ кадр дахь давхаргын шилжилт
+animation.new_layers_visible = Шинэ давхаргууд бүх кадрт харагдана
+animation.history.select_frame = Кадр сонгох
+animation.history.move_frame = Кадр зөөх
+animation.history.frame_delay = Кадрын саатал
+animation.history.loop = Давталтын тоо
+animation.history.offset = Кадрын шилжилт
+animation.history.new_layers = Шинэ давхаргын харагдах байдал
+animation.refuse.no_animation = Энэ баримтад кадрын хөдөлгөөнт дүрс байхгүй байна. Давхарга ▸ Хөдөлгөөнт дүрс ▸ Кадрын хөдөлгөөнт дүрс үүсгэх командыг ашиглана уу.
+animation.refuse.already_animated = Энэ баримтад кадрын хөдөлгөөнт дүрс аль хэдийн байна.
+animation.refuse.last_frame = Хөдөлгөөнт дүрсэд дор хаяж нэг кадр шаардлагатай. Оронд нь хөдөлгөөнт дүрсийг бүхэлд нь устгана уу.
+animation.refuse.too_many_frames = Цагийн шугамд дахин кадр багтахгүй.
+animation.refuse.no_layers = Кадр үүсгэх давхарга алга байна.
+animation.export.menu = Хөдөлгөөнт дүрс…
+animation.export.title = Хөдөлгөөнт дүрс экспортлох
+animation.export.palette = Палитр
+animation.export.palette_per_frame = Кадр бүрт
+animation.export.palette_global = Нийтлэг
+animation.export.disposal = Кадр цэвэрлэх
+animation.export.disposal_auto = Автомат
+animation.export.disposal_keep = Өмнөх кадрыг хадгалах
+animation.export.disposal_background = Дэвсгэр рүү сэргээх
+animation.export.disposal_previous = Өмнөх рүү сэргээх
+animation.export.dither_note = Кадр 256-аас олон өнгөтэй үед өнгөний алдааг тараах
+animation.export.transparency = Тунгалаг байдал
+animation.export.transparency_note = Тунгалаг хэсгүүдийг тунгалаг хэвээр үлдээх
+animation.export.gif_note = GIF нь саатлыг секундын зууны нэгээр хадгалдаг бөгөөд хэсэгчилсэн тунгалаг байдалгүй.
+animation.export.apng_note = APNG нь кадр бүрийг алдагдалгүй, бүрэн тунгалаг байдалтайгаар хадгална.
+animation.export.webp_note = Хөдөлгөөнт WebP алдагдалгүй бичигдэнэ; алдагдалтай WebP боломжгүй.

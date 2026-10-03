@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = Umgca Wexesha
+animation.menu = Upopayi
+animation.play_pause = Dlala/Nqumamisa Upopayi
+animation.frame_layer_name = Isakhelo {n}
+animation.delay_seconds = {seconds} s
+animation.delay.label = Ukulibazisa
+animation.delay.apply_all = Sebenzisa Kuzo Zonke Izakhelo
+animation.loop.label = Ukuphinda
+animation.loop.once = Kanye
+animation.loop.forever = Ngonaphakade
+animation.onion.label = Ixolo letswele
+animation.onion.before = Ngaphambili
+animation.onion.after = Emva
+animation.offset.label = Ukutyibilika komaleko kwesi sakhelo
+animation.new_layers_visible = Imaleko emitsha iyabonakala kuzo zonke izakhelo
+animation.history.select_frame = Khetha Isakhelo
+animation.history.move_frame = Shenxisa Isakhelo
+animation.history.frame_delay = Ukulibazisa Kwesakhelo
+animation.history.loop = Inani Lokuphinda
+animation.history.offset = Ukutyibilika Kwesakhelo
+animation.history.new_layers = Ukubonakala Kwemaleko Emitsha
+animation.refuse.no_animation = Olu xwebhu alunawo upopayi wezakhelo. Sebenzisa Umaleko ▸ Upopayi ▸ Yenza Upopayi Wezakhelo.
+animation.refuse.already_animated = Olu xwebhu sele lunopopayi wezakhelo.
+animation.refuse.last_frame = Upopayi udinga ubuncinane isakhelo esinye. Kunoko cima upopayi.
+animation.refuse.too_many_frames = Umgca wexesha awunakuphatha izakhelo ezingaphezulu.
+animation.refuse.no_layers = Akukho maleko onokwenza izakhelo kuwo.
+animation.export.menu = Upopayi…
+animation.export.title = Thumela Upopayi Ngaphandle
+animation.export.palette = Iphalethi
+animation.export.palette_per_frame = Ngesakhelo ngasinye
+animation.export.palette_global = Jikelele
+animation.export.disposal = Ukulahlwa
+animation.export.disposal_auto = Ngokuzenzekelayo
+animation.export.disposal_keep = Gcina isakhelo sangaphambili
+animation.export.disposal_background = Buyisela kwimvelaphi
+animation.export.disposal_previous = Buyisela kwesangaphambili
+animation.export.dither_note = Saza iimpazamo zemibala xa isakhelo sinemibala engaphezu kwama-256
+animation.export.transparency = Ukubonakala Ngaphaya
+animation.export.transparency_note = Gcina iindawo ezibonisa ngaphaya zibonisa ngaphaya
+animation.export.gif_note = I-GIF igcina ukulibazisa ngamakhulu omzuzwana kwaye ayinakho ukubonakala ngaphaya okuyinxalenye.
+animation.export.apng_note = I-APNG igcina isakhelo ngasinye ngaphandle kokulahleka kunye nokubonakala ngaphaya okupheleleyo.
+animation.export.webp_note = I-WebP yopopayi ibhalwa ngaphandle kokulahleka; i-WebP elahlekelayo ayifumaneki.

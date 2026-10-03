@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = Vaqt shkalasi
+animation.menu = Animatsiya
+animation.play_pause = Animatsiyani ijro etish/to‘xtatish
+animation.frame_layer_name = Kadr {n}
+animation.delay_seconds = {seconds} s
+animation.delay.label = Kechikish
+animation.delay.apply_all = Barcha kadrlarga qo‘llash
+animation.loop.label = Takrorlash
+animation.loop.once = Bir marta
+animation.loop.forever = Doimiy
+animation.onion.label = Piyoz po‘chog‘i
+animation.onion.before = Oldin
+animation.onion.after = Keyin
+animation.offset.label = Ushbu kadrdagi qatlam siljishi
+animation.new_layers_visible = Yangi qatlamlar barcha kadrlarda ko‘rinadi
+animation.history.select_frame = Kadrni tanlash
+animation.history.move_frame = Kadrni ko‘chirish
+animation.history.frame_delay = Kadr kechikishi
+animation.history.loop = Takrorlar soni
+animation.history.offset = Kadr siljishi
+animation.history.new_layers = Yangi qatlamlar ko‘rinishi
+animation.refuse.no_animation = Bu hujjatda kadrli animatsiya yo‘q. Qatlam ▸ Animatsiya ▸ Kadrli animatsiya yaratish buyrug‘idan foydalaning.
+animation.refuse.already_animated = Bu hujjatda allaqachon kadrli animatsiya bor.
+animation.refuse.last_frame = Animatsiyada kamida bitta kadr bo‘lishi kerak. Buning o‘rniga animatsiyani o‘chiring.
+animation.refuse.too_many_frames = Vaqt shkalasiga boshqa kadr sig‘maydi.
+animation.refuse.no_layers = Kadr yaratish uchun hech qanday qatlam yo‘q.
+animation.export.menu = Animatsiya…
+animation.export.title = Animatsiyani eksport qilish
+animation.export.palette = Palitra
+animation.export.palette_per_frame = Har bir kadr uchun
+animation.export.palette_global = Umumiy
+animation.export.disposal = Kadrni tashlash
+animation.export.disposal_auto = Avtomatik
+animation.export.disposal_keep = Oldingi kadrni saqlash
+animation.export.disposal_background = Fonga tiklash
+animation.export.disposal_previous = Oldingisiga tiklash
+animation.export.dither_note = Kadrda 256 tadan ortiq rang bo‘lsa, rang xatolarini tarqatish
+animation.export.transparency = Shaffoflik
+animation.export.transparency_note = Shaffof joylarni shaffof holda saqlash
+animation.export.gif_note = GIF kechikishlarni soniyaning yuzdan bir ulushlarida saqlaydi va qisman shaffoflikni qo‘llamaydi.
+animation.export.apng_note = APNG har bir kadrni yo‘qotishsiz va to‘liq shaffoflik bilan saqlaydi.
+animation.export.webp_note = Animatsiyali WebP yo‘qotishsiz yoziladi; yo‘qotishli WebP mavjud emas.

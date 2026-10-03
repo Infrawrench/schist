@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = အချိန်လိုင်း
+animation.menu = ကာတွန်းလှုပ်ရှားမှု
+animation.play_pause = ကာတွန်းလှုပ်ရှားမှု ဖွင့်ရန်/ခေတ္တရပ်ရန်
+animation.frame_layer_name = ဘောင်ကွက် {n}
+animation.delay_seconds = {seconds} စက္ကန့်
+animation.delay.label = နှောင့်နှေးချိန်
+animation.delay.apply_all = ဘောင်ကွက်အားလုံးတွင် အသုံးချရန်
+animation.loop.label = ထပ်ကျော့
+animation.loop.once = တစ်ကြိမ်
+animation.loop.forever = အမြဲတမ်း
+animation.onion.label = ကြက်သွန်အခွံ
+animation.onion.before = ရှေ့
+animation.onion.after = နောက်
+animation.offset.label = ဤဘောင်ကွက်ရှိ အလွှာ ရွှေ့ပြောင်းမှု
+animation.new_layers_visible = အလွှာအသစ်များကို ဘောင်ကွက်အားလုံးတွင် မြင်ရသည်
+animation.history.select_frame = ဘောင်ကွက် ရွေးရန်
+animation.history.move_frame = ဘောင်ကွက် ရွှေ့ရန်
+animation.history.frame_delay = ဘောင်ကွက် နှောင့်နှေးချိန်
+animation.history.loop = ထပ်ကျော့ အကြိမ်ရေ
+animation.history.offset = ဘောင်ကွက် ရွှေ့ပြောင်းမှု
+animation.history.new_layers = အလွှာအသစ် မြင်နိုင်မှု
+animation.refuse.no_animation = ဤစာတမ်းတွင် ဘောင်ကွက် ကာတွန်းလှုပ်ရှားမှု မရှိပါ။ အလွှာ ▸ ကာတွန်းလှုပ်ရှားမှု ▸ ဘောင်ကွက် ကာတွန်းလှုပ်ရှားမှု ဖန်တီးရန် ကို အသုံးပြုပါ။
+animation.refuse.already_animated = ဤစာတမ်းတွင် ဘောင်ကွက် ကာတွန်းလှုပ်ရှားမှု ရှိပြီးသားဖြစ်သည်။
+animation.refuse.last_frame = ကာတွန်းလှုပ်ရှားမှုတစ်ခုတွင် အနည်းဆုံး ဘောင်ကွက်တစ်ခု လိုအပ်သည်။ ယင်းအစား ကာတွန်းလှုပ်ရှားမှုကို ဖျက်ပါ။
+animation.refuse.too_many_frames = အချိန်လိုင်းတွင် ဘောင်ကွက်များ ထပ်မံ မထည့်နိုင်တော့ပါ။
+animation.refuse.no_layers = ဘောင်ကွက်များ ပြုလုပ်ရန် အလွှာများ မရှိပါ။
+animation.export.menu = ကာတွန်းလှုပ်ရှားမှု…
+animation.export.title = ကာတွန်းလှုပ်ရှားမှု ထုတ်ယူရန်
+animation.export.palette = အရောင်စုံပြား
+animation.export.palette_per_frame = ဘောင်ကွက်တစ်ခုစီအတွက်
+animation.export.palette_global = အလုံးစုံ
+animation.export.disposal = ဘောင်ကွက် စွန့်ပစ်ပုံ
+animation.export.disposal_auto = အလိုအလျောက်
+animation.export.disposal_keep = ယခင်ဘောင်ကွက်ကို ထားရှိရန်
+animation.export.disposal_background = နောက်ခံသို့ ပြန်ထားရန်
+animation.export.disposal_previous = ယခင်အခြေအနေသို့ ပြန်ထားရန်
+animation.export.dither_note = ဘောင်ကွက်တစ်ခုတွင် အရောင် 256 ထက်ပိုရှိသောအခါ အရောင်အမှားများကို ပျံ့နှံ့စေရန်
+animation.export.transparency = ဖောက်ထွင်းမြင်နိုင်မှု
+animation.export.transparency_note = ဖောက်ထွင်းမြင်ရသော နေရာများကို ဖောက်ထွင်းမြင်ရအောင် ထားရှိရန်
+animation.export.gif_note = GIF သည် နှောင့်နှေးချိန်များကို စက္ကန့်၏ ရာပုံတစ်ပုံဖြင့် သိမ်းဆည်းပြီး တစ်စိတ်တစ်ပိုင်း ဖောက်ထွင်းမြင်နိုင်မှု မရှိပါ။
+animation.export.apng_note = APNG သည် ဘောင်ကွက်တိုင်းကို အပြည့်အဝ ဖောက်ထွင်းမြင်နိုင်မှုဖြင့် အရည်အသွေး မဆုံးရှုံးဘဲ ထားရှိသည်။
+animation.export.webp_note = ကာတွန်း WebP ကို အရည်အသွေး မဆုံးရှုံးဘဲ ရေးသားသည်; အရည်အသွေး ဆုံးရှုံးသော WebP ကို မရရှိနိုင်ပါ။

@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = Ժամանակագիծ
+animation.menu = Անիմացիա
+animation.play_pause = Նվագարկել/դադարեցնել անիմացիան
+animation.frame_layer_name = Կադր {n}
+animation.delay_seconds = {seconds} վ
+animation.delay.label = Ուշացում
+animation.delay.apply_all = Կիրառել բոլոր կադրերին
+animation.loop.label = Կրկնում
+animation.loop.once = Մեկ անգամ
+animation.loop.forever = Անվերջ
+animation.onion.label = Սոխի կեղև
+animation.onion.before = Առաջ
+animation.onion.after = Հետո
+animation.offset.label = Շերտի շեղումն այս կադրում
+animation.new_layers_visible = Նոր շերտերը տեսանելի են բոլոր կադրերում
+animation.history.select_frame = Ընտրել կադրը
+animation.history.move_frame = Տեղափոխել կադրը
+animation.history.frame_delay = Կադրի ուշացում
+animation.history.loop = Կրկնումների քանակ
+animation.history.offset = Կադրի շեղում
+animation.history.new_layers = Նոր շերտերի տեսանելիություն
+animation.refuse.no_animation = Այս փաստաթուղթը կադրային անիմացիա չունի։ Օգտագործեք Շերտ ▸ Անիմացիա ▸ Ստեղծել կադրային անիմացիա։
+animation.refuse.already_animated = Այս փաստաթուղթն արդեն ունի կադրային անիմացիա։
+animation.refuse.last_frame = Անիմացիային անհրաժեշտ է առնվազն մեկ կադր։ Փոխարենը ջնջեք ամբողջ անիմացիան։
+animation.refuse.too_many_frames = Ժամանակագիծը չի կարող ավելի շատ կադրեր պահել։
+animation.refuse.no_layers = Չկան շերտեր, որոնցից կարելի է կադրեր ստեղծել։
+animation.export.menu = Անիմացիա…
+animation.export.title = Արտահանել անիմացիան
+animation.export.palette = Ներկապնակ
+animation.export.palette_per_frame = Ըստ կադրի
+animation.export.palette_global = Ընդհանուր
+animation.export.disposal = Կադրի հեռացում
+animation.export.disposal_auto = Ավտոմատ
+animation.export.disposal_keep = Պահել նախորդ կադրը
+animation.export.disposal_background = Վերականգնել ֆոնին
+animation.export.disposal_previous = Վերականգնել նախորդին
+animation.export.dither_note = Ցրել գունային սխալները, երբ կադրն ունի 256-ից ավելի գույն
+animation.export.transparency = Թափանցիկություն
+animation.export.transparency_note = Թափանցիկ տարածքները պահել թափանցիկ
+animation.export.gif_note = GIF-ը պահում է ուշացումները վայրկյանի հարյուրերորդականներով և մասնակի թափանցիկություն չունի։
+animation.export.apng_note = APNG-ն յուրաքանչյուր կադր պահում է առանց կորուստների՝ լիարժեք թափանցիկությամբ։
+animation.export.webp_note = Անիմացիոն WebP-ն գրվում է առանց կորուստների. կորուստներով WebP-ն հասանելի չէ։

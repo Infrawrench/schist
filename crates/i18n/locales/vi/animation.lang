@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = Dòng thời gian
+animation.menu = Hoạt ảnh
+animation.play_pause = Phát/Tạm dừng hoạt ảnh
+animation.frame_layer_name = Khung hình {n}
+animation.delay_seconds = {seconds} giây
+animation.delay.label = Độ trễ
+animation.delay.apply_all = Áp dụng cho tất cả khung hình
+animation.loop.label = Lặp lại
+animation.loop.once = Một lần
+animation.loop.forever = Mãi mãi
+animation.onion.label = Lớp vỏ hành
+animation.onion.before = Trước
+animation.onion.after = Sau
+animation.offset.label = Độ lệch của lớp trong khung hình này
+animation.new_layers_visible = Lớp mới hiển thị trong mọi khung hình
+animation.history.select_frame = Chọn khung hình
+animation.history.move_frame = Di chuyển khung hình
+animation.history.frame_delay = Độ trễ khung hình
+animation.history.loop = Số lần lặp
+animation.history.offset = Độ lệch khung hình
+animation.history.new_layers = Hiển thị lớp mới
+animation.refuse.no_animation = Tài liệu này không có hoạt ảnh khung hình. Hãy dùng Lớp ▸ Hoạt ảnh ▸ Tạo hoạt ảnh khung hình.
+animation.refuse.already_animated = Tài liệu này đã có hoạt ảnh khung hình.
+animation.refuse.last_frame = Hoạt ảnh cần ít nhất một khung hình. Hãy xóa hoạt ảnh thay vào đó.
+animation.refuse.too_many_frames = Dòng thời gian không thể chứa thêm khung hình.
+animation.refuse.no_layers = Không có lớp nào để tạo khung hình.
+animation.export.menu = Hoạt ảnh…
+animation.export.title = Xuất hoạt ảnh
+animation.export.palette = Bảng màu
+animation.export.palette_per_frame = Theo từng khung hình
+animation.export.palette_global = Chung
+animation.export.disposal = Cách loại bỏ
+animation.export.disposal_auto = Tự động
+animation.export.disposal_keep = Giữ khung hình trước
+animation.export.disposal_background = Khôi phục về nền
+animation.export.disposal_previous = Khôi phục về trước đó
+animation.export.dither_note = Khuếch tán sai số màu khi một khung hình có hơn 256 màu
+animation.export.transparency = Độ trong suốt
+animation.export.transparency_note = Giữ các vùng trong suốt luôn trong suốt
+animation.export.gif_note = GIF lưu độ trễ theo phần trăm giây và không hỗ trợ trong suốt một phần.
+animation.export.apng_note = APNG giữ mọi khung hình không mất dữ liệu với độ trong suốt đầy đủ.
+animation.export.webp_note = WebP động được ghi không mất dữ liệu; WebP có mất dữ liệu không khả dụng.

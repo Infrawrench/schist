@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = Layini ya nkarhi
+animation.menu = Animexini
+animation.play_pause = Tlanga/Yimisa animexini
+animation.frame_layer_name = Furemu {n}
+animation.delay_seconds = {seconds} s
+animation.delay.label = Ku hlwela
+animation.delay.apply_all = Tirhisa eka tifuremu hinkwato
+animation.loop.label = Ku phindha
+animation.loop.once = Kan'we
+animation.loop.forever = Hilaha ku nga heriki
+animation.onion.label = Khwiri ra anyanisi
+animation.onion.before = Emahlweni
+animation.onion.after = Endzhaku
+animation.offset.label = Ku susumetiwa ka leyara eka furemu leyi
+animation.new_layers_visible = Maleyara lamantshwa ma vonaka eka tifuremu hinkwato
+animation.history.select_frame = Hlawula furemu
+animation.history.move_frame = Rhurhela furemu
+animation.history.frame_delay = Ku hlwela ka furemu
+animation.history.loop = Nhlayo ya ku phindha
+animation.history.offset = Ku susumetiwa ka furemu
+animation.history.new_layers = Ku vonaka ka leyara leyintshwa
+animation.refuse.no_animation = Dokumente leyi a yi na animexini ya tifuremu. Tirhisa Leyara ▸ Animexini ▸ Endla animexini ya tifuremu.
+animation.refuse.already_animated = Dokumente leyi se yi na animexini ya tifuremu.
+animation.refuse.last_frame = Animexini yi lava furemu yin'we hi ku tsongo. Ematshan'weni ya sweswo susa animexini.
+animation.refuse.too_many_frames = Layini ya nkarhi a yi swi koti ku khoma tifuremu tin'wana.
+animation.refuse.no_layers = A ku na maleyara yo endla tifuremu ha wona.
+animation.export.menu = Animexini…
+animation.export.title = Rhumela animexini
+animation.export.palette = Phalete
+animation.export.palette_per_frame = Hi furemu yin'wana ni yin'wana
+animation.export.palette_global = Hinkwaswo
+animation.export.disposal = Ku lahliwa ka furemu
+animation.export.disposal_auto = Hi xoxe
+animation.export.disposal_keep = Hlayisa furemu leyi hundzeke
+animation.export.disposal_background = Vuyisela eka le ndzhaku
+animation.export.disposal_previous = Vuyisela eka leswi hundzeke
+animation.export.dither_note = Hangalasa swihoxo swa mihlovo loko furemu yi ri na mihlovo yo tlula 256
+animation.export.transparency = Ku voninga
+animation.export.transparency_note = Hlayisa tindhawu leti vonakaka ti ri leti vonakaka
+animation.export.gif_note = GIF yi hlayisa ku hlwela hi swiphemu swa dzana swa sekoni naswona a yi na ku voninga ka xiphemu.
+animation.export.apng_note = APNG yi hlayisa furemu yin'wana ni yin'wana handle ko lahlekeriwa hi ku voninga loku heleleke.
+animation.export.webp_note = WebP leyi famba yi tsariwa handle ko lahlekeriwa; WebP leyi lahlekeriwaka a yi kumeki.

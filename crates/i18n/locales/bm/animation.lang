@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = Waati sira
+animation.menu = Animasiyɔn
+animation.play_pause = Animasiyɔn daminɛ/a lajɔ
+animation.frame_layer_name = Frame {n}
+animation.delay_seconds = {seconds} s
+animation.delay.label = Mɔnɛ
+animation.delay.apply_all = A kɛ framew bɛɛ la
+animation.loop.label = Seginni
+animation.loop.once = Siɲɛ kelen
+animation.loop.forever = Fo abada
+animation.onion.label = Jaba fara
+animation.onion.before = Ka kɔn
+animation.onion.after = O kɔfɛ
+animation.offset.label = Kaliki yɔrɔ yɛlɛmali nin frame in na
+animation.new_layers_visible = Kaliki kuraw bɛ ye framew bɛɛ la
+animation.history.select_frame = Frame sugandi
+animation.history.move_frame = Frame yɛlɛma
+animation.history.frame_delay = Frame mɔnɛ
+animation.history.loop = Seginni hakɛ
+animation.history.offset = Frame yɔrɔ yɛlɛmali
+animation.history.new_layers = Kaliki kuraw yeli
+animation.refuse.no_animation = Nin sɛbɛn in ma frame animasiyɔn sɔrɔ. Kaliki ▸ Animasiyɔn ▸ Frame animasiyɔn dilan kɛ.
+animation.refuse.already_animated = Frame animasiyɔn bɛ nin sɛbɛn in na kaban.
+animation.refuse.last_frame = Animasiyɔn ka kan ka frame kelen sɔrɔ a dɔgɔya la. O nɔ na, animasiyɔn bɔ.
+animation.refuse.too_many_frames = Waati sira tɛ se ka frame wɛrɛw ta tugun.
+animation.refuse.no_layers = Kaliki si tɛ yen framew dilan ka bɔ min na.
+animation.export.menu = Animasiyɔn…
+animation.export.title = Animasiyɔn bɔ
+animation.export.palette = Kulɛri paleti
+animation.export.palette_per_frame = Frame kelen-kelen
+animation.export.palette_global = Bɛɛ ɲɔgɔn
+animation.export.disposal = Frame bɔcogo
+animation.export.disposal_auto = Yɛrɛma
+animation.export.disposal_keep = Frame tɛmɛnen mara
+animation.export.disposal_background = A segin kɔfɛ la
+animation.export.disposal_previous = A segin tɛmɛnen ma
+animation.export.dither_note = Kulɛri filiw jɛnsɛn ni frame dɔ ka kulɛriw ka ca ni 256 ye
+animation.export.transparency = Transparanya
+animation.export.transparency_note = Yɔrɔ transparanw to transparan
+animation.export.gif_note = GIF bɛ mɔnɛw mara sekondi kɛmɛsigiyɔrɔ la, wa transparanya tilayɔrɔ tɛ a la.
+animation.export.apng_note = APNG bɛ frame bɛɛ mara k'a sɔrɔ foyi ma tunun, ni transparanya dafalen ye.
+animation.export.webp_note = WebP lamagalen bɛ sɛbɛn k'a sɔrɔ foyi ma tunun; WebP min bɛ dɔ tunun, o tɛ sɔrɔ.

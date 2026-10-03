@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = Vija kohore
+animation.menu = Animacioni
+animation.play_pause = Luaj/ndalo animacionin
+animation.frame_layer_name = Kuadri {n}
+animation.delay_seconds = {seconds} s
+animation.delay.label = Vonesa
+animation.delay.apply_all = Zbato në të gjithë kuadrot
+animation.loop.label = Përsëritja
+animation.loop.once = Një herë
+animation.loop.forever = Pafundësisht
+animation.onion.label = Lëkurë qepe
+animation.onion.before = Përpara
+animation.onion.after = Pas
+animation.offset.label = Zhvendosja e shtresës në këtë kuadër
+animation.new_layers_visible = Shtresat e reja të dukshme në të gjithë kuadrot
+animation.history.select_frame = Përzgjidh kuadrin
+animation.history.move_frame = Zhvendos kuadrin
+animation.history.frame_delay = Vonesa e kuadrit
+animation.history.loop = Numri i përsëritjeve
+animation.history.offset = Zhvendosja e kuadrit
+animation.history.new_layers = Dukshmëria e shtresave të reja
+animation.refuse.no_animation = Ky dokument nuk ka animacion me kuadro. Përdorni Shtresa ▸ Animacioni ▸ Krijo animacion me kuadro.
+animation.refuse.already_animated = Ky dokument ka tashmë një animacion me kuadro.
+animation.refuse.last_frame = Një animacion ka nevojë për të paktën një kuadër. Fshini animacionin në vend të kësaj.
+animation.refuse.too_many_frames = Vija kohore nuk mund të mbajë më shumë kuadro.
+animation.refuse.no_layers = Nuk ka shtresa nga të cilat të krijohen kuadro.
+animation.export.menu = Animacion…
+animation.export.title = Eksporto animacionin
+animation.export.palette = Paleta
+animation.export.palette_per_frame = Për çdo kuadër
+animation.export.palette_global = Globale
+animation.export.disposal = Hedhja e kuadrit
+animation.export.disposal_auto = Automatike
+animation.export.disposal_keep = Mbaj kuadrin e mëparshëm
+animation.export.disposal_background = Rikthe në sfond
+animation.export.disposal_previous = Rikthe në të mëparshmin
+animation.export.dither_note = Shpërndaj gabimet e ngjyrave kur një kuadër ka më shumë se 256 ngjyra
+animation.export.transparency = Tejdukshmëria
+animation.export.transparency_note = Mbaj zonat e tejdukshme të tejdukshme
+animation.export.gif_note = GIF i ruan vonesat në të qindtat e sekondës dhe nuk ka tejdukshmëri të pjesshme.
+animation.export.apng_note = APNG e ruan çdo kuadër pa humbje me tejdukshmëri të plotë.
+animation.export.webp_note = WebP i animuar shkruhet pa humbje; WebP me humbje nuk është i disponueshëm.

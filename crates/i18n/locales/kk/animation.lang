@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = Уақыт шкаласы
+animation.menu = Анимация
+animation.play_pause = Анимацияны ойнату/кідірту
+animation.frame_layer_name = Кадр {n}
+animation.delay_seconds = {seconds} с
+animation.delay.label = Кідіріс
+animation.delay.apply_all = Барлық кадрларға қолдану
+animation.loop.label = Қайталау
+animation.loop.once = Бір рет
+animation.loop.forever = Шексіз
+animation.onion.label = Калька
+animation.onion.before = Бұрын
+animation.onion.after = Кейін
+animation.offset.label = Осы кадрдағы қабат ығысуы
+animation.new_layers_visible = Жаңа қабаттар барлық кадрларда көрінеді
+animation.history.select_frame = Кадрды таңдау
+animation.history.move_frame = Кадрды жылжыту
+animation.history.frame_delay = Кадр кідірісі
+animation.history.loop = Қайталау саны
+animation.history.offset = Кадр ығысуы
+animation.history.new_layers = Жаңа қабаттардың көрінуі
+animation.refuse.no_animation = Бұл құжатта кадрлық анимация жоқ. Қабат ▸ Анимация ▸ Кадрлық анимация жасау пәрменін пайдаланыңыз.
+animation.refuse.already_animated = Бұл құжатта кадрлық анимация бұрыннан бар.
+animation.refuse.last_frame = Анимацияда кемінде бір кадр болуы керек. Оның орнына анимацияны жойыңыз.
+animation.refuse.too_many_frames = Уақыт шкаласына бұдан артық кадр сыймайды.
+animation.refuse.no_layers = Кадр жасауға болатын қабаттар жоқ.
+animation.export.menu = Анимация…
+animation.export.title = Анимацияны экспорттау
+animation.export.palette = Палитра
+animation.export.palette_per_frame = Әр кадрға жеке
+animation.export.palette_global = Ортақ
+animation.export.disposal = Тастау тәсілі
+animation.export.disposal_auto = Автоматты
+animation.export.disposal_keep = Алдыңғы кадрды сақтау
+animation.export.disposal_background = Фонға қалпына келтіру
+animation.export.disposal_previous = Алдыңғысына қалпына келтіру
+animation.export.dither_note = Кадрда 256-дан көп түс болғанда түс қателерін шашырату
+animation.export.transparency = Мөлдірлік
+animation.export.transparency_note = Мөлдір аймақтарды мөлдір күйінде сақтау
+animation.export.gif_note = GIF кідірістерді секундтың жүзден бір бөлігімен сақтайды және ішінара мөлдірлікті қолдамайды.
+animation.export.apng_note = APNG әр кадрды толық мөлдірлікпен шығынсыз сақтайды.
+animation.export.webp_note = Анимацияланған WebP шығынсыз жазылады; шығынды WebP қолжетімсіз.

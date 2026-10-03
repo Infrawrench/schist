@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = Laina o le Taimi
+animation.menu = Ata Gaoioi
+animation.play_pause = Taʻalo/Taofi le Ata Gaoioi
+animation.frame_layer_name = Faavaa {n}
+animation.delay_seconds = {seconds} s
+animation.delay.label = Faatuai
+animation.delay.apply_all = Faaaoga i Faavaa Uma
+animation.loop.label = Toe Faasolo
+animation.loop.once = Faatasi
+animation.loop.forever = E Faavavau
+animation.onion.label = Paʻu Aniani
+animation.onion.before = Muamua
+animation.onion.after = Mulimuli
+animation.offset.label = Siitaga o le vaega i lenei faavaa
+animation.new_layers_visible = E vaaia vaega fou i faavaa uma
+animation.history.select_frame = Filifili le Faavaa
+animation.history.move_frame = Sii le Faavaa
+animation.history.frame_delay = Faatuai o le Faavaa
+animation.history.loop = Numera o Toe Faasologa
+animation.history.offset = Siitaga o le Faavaa
+animation.history.new_layers = Vaaia o Vaega Fou
+animation.refuse.no_animation = E leai se ata gaoioi faavaa i lenei pepa. Faaaoga le Vaega ▸ Ata Gaoioi ▸ Fausia se Ata Gaoioi Faavaa.
+animation.refuse.already_animated = Ua uma ona i ai se ata gaoioi faavaa i lenei pepa.
+animation.refuse.last_frame = E manaʻomia e se ata gaoioi le itiiti ifo ma le tasi le faavaa. Nai lo lena, tape le ata gaoioi.
+animation.refuse.too_many_frames = E le mafai e le laina o le taimi ona taofi nisi faavaa.
+animation.refuse.no_layers = E leai ni vaega e fai ai ni faavaa.
+animation.export.menu = Ata Gaoioi…
+animation.export.title = Auina Ese le Ata Gaoioi
+animation.export.palette = Paleta
+animation.export.palette_per_frame = Taʻitasi Faavaa
+animation.export.palette_global = Lautele
+animation.export.disposal = Lafoaiga o Faavaa
+animation.export.disposal_auto = Otometi
+animation.export.disposal_keep = Taofi le faavaa muamua
+animation.export.disposal_background = Toe faafoi i le pito i tua
+animation.export.disposal_previous = Toe faafoi i le tulaga muamua
+animation.export.dither_note = Faasalalau sese o lanu pe a sili atu i le 256 lanu i se faavaa
+animation.export.transparency = Manino
+animation.export.transparency_note = Ia tumau ona manino nofoaga manino
+animation.export.gif_note = E teu e le GIF faatuai i vaega selau o le sekone ma e leai sona manino vaega.
+animation.export.apng_note = E teu e le APNG faavaa taʻitasi e aunoa ma se leiloa ma le manino atoa.
+animation.export.webp_note = E tusia le WebP gaoioi e aunoa ma se leiloa; e le o avanoa le WebP e leiloa ai le lelei.

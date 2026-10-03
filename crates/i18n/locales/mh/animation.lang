@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = Lain in iien
+animation.menu = Ṃakūtkūt
+animation.play_pause = Kōjerbal/Kōbōjrak Ṃakūtkūt
+animation.frame_layer_name = Pija {n}
+animation.delay_seconds = {seconds} s
+animation.delay.label = Kōttar
+animation.delay.apply_all = Kōjerbale ñan aolep pija ko
+animation.loop.label = Kōjeblak
+animation.loop.once = Juon alen
+animation.loop.forever = Indeeo
+animation.onion.label = Kil in anien
+animation.onion.before = Mokta
+animation.onion.after = Ālikin
+animation.offset.label = Ṃakūt in layer eo ilo pija in
+animation.new_layers_visible = Layer ko rekāāl rej waļok ilo aolep pija ko
+animation.history.select_frame = Kālet Pija
+animation.history.move_frame = Ṃakūtkūt Pija
+animation.history.frame_delay = Kōttar in Pija
+animation.history.loop = Oran Kōjeblak
+animation.history.offset = Ṃakūt in Pija
+animation.history.new_layers = Waļok in Layer ko Rekāāl
+animation.refuse.no_animation = Ejjeļọk ṃakūtkūt in pija ilo document in. Kōjerbal Layer ▸ Ṃakūtkūt ▸ Kōṃṃan Ṃakūtkūt in Pija.
+animation.refuse.already_animated = Document in ewōr ṃakūtkūt in pija ie kiiō.
+animation.refuse.last_frame = Juon ṃakūtkūt ej aikuj bōtab juon pija. Jolọk ṃakūtkūt eo jen men in.
+animation.refuse.too_many_frames = Lain in iien eo ejjab maroñ dāpij bar pija ko.
+animation.refuse.no_layers = Ejjeļọk layer ko kwōmaroñ kōṃṃan pija ko jāne.
+animation.export.menu = Ṃakūtkūt…
+animation.export.title = Jilkinļọk Ṃakūtkūt
+animation.export.palette = Kōļar ko an pija
+animation.export.palette_per_frame = Kajjojo pija
+animation.export.palette_global = Ñan aolep
+animation.export.disposal = Jolọk
+animation.export.disposal_auto = Ej jerbal make
+animation.export.disposal_keep = Dāpij pija eo mokta
+animation.export.disposal_background = Kōjeblak ñan turin lik
+animation.export.disposal_previous = Kōjeblak ñan eo mokta
+animation.export.dither_note = Kajeplọklọk bōd in kōļar ne ewōr ļọñ jen 256 kōļar ilo juon pija
+animation.export.transparency = Maroñ loe iloan
+animation.export.transparency_note = Kōlap jikin ko kwōmaroñ loe iloan bwe ren pād āinwōt
+animation.export.gif_note = GIF ej kōnono kōttar ko ilo jibukwi kōṃwe in juon jekōn im ejjeļọk an maroñ loe iloan jidik.
+animation.export.apng_note = APNG ej dāpij kajjojo pija ejjeļọk jorrāān im ewōr an maroñ loe iloan aolepen.
+animation.export.webp_note = WebP eo ej ṃakūtkūt ej jeje ejjeļọk jorrāān; WebP eo ej jorrāān ejjeļọk.

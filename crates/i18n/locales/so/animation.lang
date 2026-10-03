@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = Jadwalka waqtiga
+animation.menu = Animeyshan
+animation.play_pause = Ciyaar/Hakad Animeyshanka
+animation.frame_layer_name = Fareym {n}
+animation.delay_seconds = {seconds} ilb
+animation.delay.label = Dib-u-dhac
+animation.delay.apply_all = Ku Dabaq Dhammaan Fareymyada
+animation.loop.label = Wareeg
+animation.loop.once = Hal mar
+animation.loop.forever = Weligeed
+animation.onion.label = Maqaarka basasha
+animation.onion.before = Ka hor
+animation.onion.after = Ka dib
+animation.offset.label = Barokaca lakabka ee fareymkan
+animation.new_layers_visible = Lakabyada cusub waxay ka muuqdaan dhammaan fareymyada
+animation.history.select_frame = Dooro Fareym
+animation.history.move_frame = Dhaqaaji Fareym
+animation.history.frame_delay = Dib-u-dhaca Fareymka
+animation.history.loop = Tirada Wareegyada
+animation.history.offset = Barokaca Fareymka
+animation.history.new_layers = Muuqashada Lakabyada Cusub
+animation.refuse.no_animation = Dukumeentigan ma laha animeyshan fareym. Isticmaal Lakab ▸ Animeyshan ▸ Samee Animeyshan Fareym.
+animation.refuse.already_animated = Dukumeentigan horay wuxuu u leeyahay animeyshan fareym.
+animation.refuse.last_frame = Animeyshanku wuxuu u baahan yahay ugu yaraan hal fareym. Taa beddelkeeda tirtir animeyshanka.
+animation.refuse.too_many_frames = Jadwalka waqtigu ma qaadi karo fareymyo kale.
+animation.refuse.no_layers = Ma jiraan lakabyo laga samayn karo fareymyo.
+animation.export.menu = Animeyshan…
+animation.export.title = Dhoofi Animeyshanka
+animation.export.palette = Paleetka midabada
+animation.export.palette_per_frame = Fareym kasta
+animation.export.palette_global = Guud
+animation.export.disposal = Tuurid
+animation.export.disposal_auto = Toos ah
+animation.export.disposal_keep = Hay fareymkii hore
+animation.export.disposal_background = Ku celi gadaasha
+animation.export.disposal_previous = Ku celi kii hore
+animation.export.dither_note = Kala firdhi khaladaadka midabka marka fareym leeyahay in ka badan 256 midab
+animation.export.transparency = Hufnaan
+animation.export.transparency_note = Meelaha hufan ka dhig kuwo hufan
+animation.export.gif_note = GIF wuxuu u kaydiyaa dib-u-dhacyada boqolaadyo ilbiriqsi mana laha hufnaan qayb ah.
+animation.export.apng_note = APNG wuxuu fareym kasta ku hayaa khasaare la'aan iyo hufnaan buuxda.
+animation.export.webp_note = WebP-ga animeyshanka leh waxaa loo qoraa khasaare la'aan; WebP khasaare leh lama heli karo.

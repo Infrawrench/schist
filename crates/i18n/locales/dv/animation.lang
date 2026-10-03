@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = ޓައިމްލައިން
+animation.menu = އެނިމޭޝަން
+animation.play_pause = އެނިމޭޝަން ޕްލޭ/ޕޯޒް ކުރުން
+animation.frame_layer_name = ފްރޭމް {n}
+animation.delay_seconds = {seconds} ސިކުންތު
+animation.delay.label = ލަސްކުރުން
+animation.delay.apply_all = ހުރިހާ ފްރޭމްތަކަށް ލާގޫކުރުން
+animation.loop.label = ލޫޕް
+animation.loop.once = އެއްފަހަރު
+animation.loop.forever = އަބަދުވެސް
+animation.onion.label = އޮނިއަން ސްކިން
+animation.onion.before = ކުރިން
+animation.onion.after = ފަހުން
+animation.offset.label = މި ފްރޭމްގައި ލޭޔަރގެ ޖާގަ ބަދަލުވުން
+animation.new_layers_visible = އާ ލޭޔަރތައް ހުރިހާ ފްރޭމްތަކެއްގައި ފެންނާނެ
+animation.history.select_frame = ފްރޭމް ހޮވުން
+animation.history.move_frame = ފްރޭމް ހިއްލުން
+animation.history.frame_delay = ފްރޭމްގެ ލަސްވުން
+animation.history.loop = ލޫޕްގެ އަދަދު
+animation.history.offset = ފްރޭމްގެ ޖާގަ ބަދަލުވުން
+animation.history.new_layers = އާ ލޭޔަރތައް ފެނުން
+animation.refuse.no_animation = މި ޑޮކިއުމަންޓްގައި ފްރޭމް އެނިމޭޝަނެއް ނެތް. ލޭޔަރ ▸ އެނިމޭޝަން ▸ ފްރޭމް އެނިމޭޝަނެއް ހެދުން ބޭނުންކުރައްވާ.
+animation.refuse.already_animated = މި ޑޮކިއުމަންޓްގައި ފްރޭމް އެނިމޭޝަނެއް ވަނީ ކުރިން ހުރެއެވެ.
+animation.refuse.last_frame = އެނިމޭޝަނެއްގައި މަދުވެގެން އެއް ފްރޭމް ހުންނަން ޖެހޭ. އޭގެ ބަދަލުގައި އެނިމޭޝަން ފޮހެލައްވާ.
+animation.refuse.too_many_frames = ޓައިމްލައިނަށް އިތުރު ފްރޭމްތައް ނުލެވޭނެ.
+animation.refuse.no_layers = ފްރޭމްތައް ހެދޭނެ ލޭޔަރެއް ނެތް.
+animation.export.menu = އެނިމޭޝަން…
+animation.export.title = އެނިމޭޝަން އެކްސްޕޯޓް ކުރުން
+animation.export.palette = ޕެލެޓް
+animation.export.palette_per_frame = ކޮންމެ ފްރޭމަކަށް
+animation.export.palette_global = ހުރިހާ ފްރޭމަކަށް އެއް
+animation.export.disposal = ފްރޭމް ނައްތާލުން
+animation.export.disposal_auto = އޮޓޮމެޓިކް
+animation.export.disposal_keep = ކުރީގެ ފްރޭމް ބަހައްޓާ
+animation.export.disposal_background = ފަހަތަށް އަނބުރާ ގެންދާ
+animation.export.disposal_previous = ކުރީގެ ހާލަތަށް އަނބުރާ ގެންދާ
+animation.export.dither_note = ފްރޭމެއްގައި 256 އަށްވުރެ ގިނަ ކުލަ ހުރިނަމަ ކުލައިގެ ކުށްތައް ފަތުރާލާ
+animation.export.transparency = ފެންނަ ފަދަކަން
+animation.export.transparency_note = ފެންނަ ސަރަހައްދުތައް ފެންނަ ގޮތަށް ބަހައްޓާ
+animation.export.gif_note = GIF ގައި ލަސްވުން ރައްކާކުރަނީ ސިކުންތުގެ ސަތޭކަ ބައިކުޅަ ބައިންނެވެ، އަދި އޭގައި ބައިވަރުގެ ފެންނަ ފަދަކަމެއް ނެތެވެ.
+animation.export.apng_note = APNG ގައި ކޮންމެ ފްރޭމެއް ގެއްލުމެއް ނެތި، ފުރިހަމަ ފެންނަ ފަދަކަމާއެކު ރައްކާކުރެއެވެ.
+animation.export.webp_note = އެނިމޭޓް ކުރެވިފައިވާ WebP ލިޔަނީ ގެއްލުމެއް ނެތި؛ ގެއްލުން ހުންނަ WebP ލިބެން ނެތް.
