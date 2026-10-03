@@ -55,7 +55,8 @@ sections can be hidden in the manager. In Painting and Retouching, reorder
 panels using their headers and resize them using their lower edges, then save
 or update a preset. The color panel can show Info or
 Character depending on the document/tool; that contextual tab choice is not
-part of a preset. The Notes panel still needs notes in the current document.
+part of a preset. The Notes panel still needs notes in the current document, and
+the Timeline panel a [frame animation](frame-animation.md).
 
 Keyboard controls in the manager: **Alt+Up/Down** selects a saved layout;
 **Ctrl/Cmd+N** focuses the name field; **Ctrl/Cmd+S** saves a new copy;

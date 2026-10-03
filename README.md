@@ -182,6 +182,12 @@ builds. [Recorded actions](docs/actions.md) replay editing steps, and
 [export recipes](docs/export-recipes.md) save reusable sets of outputs for
 documents and gallery selections.
 
+**Frame animation.** A Photoshop-style [Timeline panel](docs/frame-animation.md)
+turns one layer stack into frames that each record layer visibility, opacity and
+position: make frames from layers, reorder, time and loop them, play them back
+with onion skins, and export animated GIF, APNG or lossless animated WebP. The
+timeline is saved in PSD/PSB files.
+
 **Video frames.** The native [video viewer](docs/gallery.md#video) provides silent
 playback, frame stepping, nearby sharper-frame search, and capture into an image
 document. Codec availability depends on the platform; Linux uses system
@@ -221,6 +227,7 @@ boundaries.
 | AVIF `.avif` | Import 8/10/12-bit files with alpha, grids, transforms, ICC and nclx colour (HDR baked to sRGB); export 8/10/12-bit with quality, effort, alpha and ICC. Pure Rust; the browser build can export but not open AVIF. See [JPEG XL and AVIF](docs/jxl-avif.md). |
 | OpenEXR `.exr` | Import scanline, tiled and multi-part files (half/float/uint; every compression including DWAA/DWAB) as 32-bit linear documents, render passes as layers; export flat or layered, half or float. See [OpenEXR](docs/openexr.md). |
 | HEIC / HEIF | Native import through a supported runtime libheif decoder; Schist can offer a download when needed. |
+| Animated GIF / APNG / WebP | Export a document's frame animation (File ▸ Export ▸ Animation…) with per-frame delays, loop count and transparency; GIF palettes per frame or global, with optional dithering. WebP is lossless only. Animated files are not imported as timelines. See [frame animation](docs/frame-animation.md). |
 | Camera RAW | Import through Schist's pure-Rust decoder and develop in Camera Raw, with [local adjustment masks](docs/camera-raw-masks.md). The original capture, development settings and masks can survive PSD/PSB save and reopen. See [camera and codec coverage](crates/codec-raw/README.md). |
 
 Format support is not a guarantee of identical rendering or complete feature
@@ -349,6 +356,7 @@ Edit that source and run `make logos` (requires Pillow) to regenerate them.
   [smart objects](docs/smart-objects.md), [filter stacks](docs/filter-stacks.md),
   [filter canvas controls](docs/filter-canvas.md),
   [native colour](docs/native-colour-editing.md), [spot ink](docs/spot-ink.md),
+  [frame animation](docs/frame-animation.md),
   [page layout](docs/layout.md), [Design Mode](docs/design-mode.md),
   [IDML](docs/idml-format.md),
   [print separation](docs/separation.md). See the [roadmap](docs/roadmap.md)
