@@ -10,12 +10,16 @@
 //!   numbers, converting rewrites the pixels to preserve appearance. They
 //!   are different operations and the UI keeps them separate.
 //! * **Soft proof** — preview how the document will look on some other
-//!   device by routing document→proof→display.
+//!   device by routing document→proof→display, and how it looks to
+//!   someone with a colour vision deficiency (`vision`).
 //!
 //! Profiles are parsed by `moxcms` (pure Rust, no C toolchain).
 
 mod gpu;
 mod gpu_lut;
+mod vision;
+
+pub use vision::{VisionDeficiency, VisionSimulation};
 
 use anyhow::{anyhow, Result};
 use moxcms::{
@@ -310,6 +314,9 @@ pub struct ColorSettings {
     pub intent: Intent,
     /// When set, preview through this device before hitting the display.
     pub proof: Option<Profile>,
+    /// When set, simulate this colour vision after the display hop.
+    /// Display-only, like `proof`.
+    pub vision: Option<VisionSimulation>,
 }
 
 impl Default for ColorSettings {
@@ -319,6 +326,7 @@ impl Default for ColorSettings {
             display: Profile::srgb(),
             intent: Intent::Perceptual,
             proof: None,
+            vision: None,
         }
     }
 }
@@ -751,6 +759,7 @@ mod tests {
             display: Profile::display_p3(),
             intent: Intent::Perceptual,
             proof: Some(Profile::display_p3()),
+            vision: None,
         };
         proofing.proof_transform(None).unwrap().apply(&mut proofed);
         proofing.transform_for(None).apply(&mut proofed);
@@ -790,6 +799,7 @@ mod tests {
             display: Profile::display_p3(),
             intent: Intent::Perceptual,
             proof: None,
+            vision: None,
         };
         let mut pixels = [0.8f32, 0.2, 0.1, 1.0];
         settings.transform_for(None).apply(&mut pixels);
