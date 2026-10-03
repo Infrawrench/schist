@@ -122,6 +122,7 @@ menu.gallery = Galéri
 menu.gallery.edit_selected = Édit anu Dipilih
 menu.gallery.refresh = Anyarkeun
 menu.gallery.map_filter = Saringan Peta…
+menu.gallery.find_duplicates = Teangan Duplikat…
 menu.gallery.back_to_editor = Balik ka Éditor
 
 menu.cloud.browse = Kotéktak Schist Cloud

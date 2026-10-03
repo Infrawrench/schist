@@ -130,6 +130,7 @@ menu.gallery = گیلری
 menu.gallery.edit_selected = منتخب اشیا میں ترمیم کریں
 menu.gallery.refresh = تازہ کریں
 menu.gallery.map_filter = نقشے کا فلٹر…
+menu.gallery.find_duplicates = ڈپلیکیٹس تلاش کریں…
 menu.gallery.back_to_editor = مدیر پر واپس جائیں
 
 # Schist Cloud

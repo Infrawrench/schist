@@ -122,6 +122,7 @@ menu.gallery = Галерија
 menu.gallery.edit_selected = Уреди ги избраните
 menu.gallery.refresh = Освежи
 menu.gallery.map_filter = Филтер на мапа…
+menu.gallery.find_duplicates = Најди дупликати…
 menu.gallery.back_to_editor = Назад кон уредувачот
 
 menu.cloud.browse = Прегледај го Schist Cloud

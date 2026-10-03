@@ -130,6 +130,7 @@ menu.gallery = Galerija
 menu.gallery.edit_selected = Redaguoti pažymėtas
 menu.gallery.refresh = Atnaujinti
 menu.gallery.map_filter = Žemėlapio filtras…
+menu.gallery.find_duplicates = Rasti dublikatus…
 menu.gallery.back_to_editor = Grįžti į redaktorių
 
 # Schist Cloud

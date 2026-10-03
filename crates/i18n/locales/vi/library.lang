@@ -299,3 +299,43 @@ library.similar.keep = Giữ
 library.similar.reject = Loại
 library.similar.help = Chỉ đánh dấu xem xét; không xóa tệp.
 library.similar.stale = Tệp đã thay đổi. Làm mới để tiếp tục.
+
+# Find Duplicates
+library.duplicates.title = Bản trùng lặp
+library.duplicates.help = Các tệp giống hệt và bản sao gần giống trong mọi thư mục được theo dõi. Chuyển vào thùng rác sẽ hỏi xác nhận hai lần; các tệp đã bỏ vào thùng rác có thể khôi phục từ thùng rác của hệ thống.
+library.duplicates.exact = Tệp giống hệt
+library.duplicates.near = Bản gần trùng lặp
+library.duplicates.identical = giống hệt (SHA-256)
+library.duplicates.suggested = Đề xuất giữ
+library.duplicates.make_keeper = Giữ ảnh này
+library.duplicates.compare = So sánh
+library.duplicates.keep_all = Giữ tất cả
+library.duplicates.reject_others = Loại các ảnh còn lại
+library.duplicates.trash_others.other = Chuyển {n} ảnh còn lại vào thùng rác
+library.duplicates.confirm_trash.other = Xác nhận: chuyển {n} vào thùng rác
+library.duplicates.n_trashed.other = Đã chuyển {n} tệp vào thùng rác
+library.duplicates.n_rejected.other = Đã đánh dấu loại {n} ảnh
+library.duplicates.refused_edited = ảnh có chỉnh sửa hoặc tệp sidecar, hãy loại ảnh thay vì xóa
+library.duplicates.trash_failed = thùng rác của hệ thống không khả dụng
+library.duplicates.near_limit = Việc đối chiếu bản gần trùng lặp chỉ bao gồm 10,000 ảnh đầu tiên.
+
+# Geotagging from GPX tracks
+library.geotag.menu = Gắn thẻ vị trí từ đường đi GPX…
+library.geotag.title = Gắn thẻ vị trí từ đường đi GPX
+library.geotag.add_files = Thêm tệp GPX…
+library.geotag.n_track_points.other = {n} điểm trên đường đi có thời gian
+library.geotag.max_gap = Khoảng trống tối đa (phút)
+library.geotag.clock_offset = Hiệu chỉnh đồng hồ máy ảnh
+library.geotag.time_zone = Múi giờ của ảnh (lệch UTC)
+library.geotag.zone_help = Múi giờ chỉ áp dụng cho thời điểm chụp được ghi không kèm múi giờ. Giá trị hiệu chỉnh, tính bằng giây hoặc ±h:mm:ss, được cộng vào mọi thời điểm chụp.
+library.geotag.skip_existing = Bỏ qua ảnh đã có vị trí
+library.geotag.n_will_tag.other = Sẽ gắn thẻ cho {n} ảnh
+library.geotag.n_has_gps.other = {n} ảnh đã có vị trí
+library.geotag.n_no_time.other = {n} ảnh không có thời điểm chụp
+library.geotag.n_gap.other = {n} ảnh rơi vào khoảng trống của đường đi
+library.geotag.n_outside.other = {n} ảnh nằm ngoài khoảng thời gian của đường đi
+library.geotag.apply = Ghi vị trí
+library.geotag.invalid = Nhập khoảng trống theo phút, giá trị hiệu chỉnh như -1:30 và múi giờ như +02:00.
+library.geotag.no_points = Các tệp GPX không chứa điểm nào có thời gian.
+library.geotag.select_photos = Hãy chọn ảnh cần gắn thẻ vị trí trước.
+library.geotag.read_failed = Không thể đọc các tệp GPX: {error}

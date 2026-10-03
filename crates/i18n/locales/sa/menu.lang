@@ -122,6 +122,7 @@ menu.gallery = वीथिका
 menu.gallery.edit_selected = चयनितं सम्पादयतु
 menu.gallery.refresh = नवीकरोतु
 menu.gallery.map_filter = मानचित्रशोधकम्…
+menu.gallery.find_duplicates = प्रतिलिपीन् अन्विष्यतु…
 menu.gallery.back_to_editor = सम्पादकं प्रत्यागच्छतु
 
 menu.cloud.browse = Schist Cloud अन्विष्यतु

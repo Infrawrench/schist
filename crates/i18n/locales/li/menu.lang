@@ -124,6 +124,7 @@ menu.gallery = Galerie
 menu.gallery.edit_selected = Selectie bewèrke
 menu.gallery.refresh = Vernuuj
 menu.gallery.map_filter = Kaartfilter…
+menu.gallery.find_duplicates = Dubbele zeuke…
 menu.gallery.back_to_editor = Trök nao bewèrker
 
 menu.cloud.browse = Door Schist Cloud blajere

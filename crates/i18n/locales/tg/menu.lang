@@ -122,6 +122,7 @@ menu.gallery = Нигористон
 menu.gallery.edit_selected = Таҳрири интихобшуда
 menu.gallery.refresh = Нав кардан
 menu.gallery.map_filter = Филтри харита…
+menu.gallery.find_duplicates = Ёфтани нусхаҳои такрорӣ…
 menu.gallery.back_to_editor = Бозгашт ба муҳаррир
 
 menu.cloud.browse = Дидани Schist Cloud

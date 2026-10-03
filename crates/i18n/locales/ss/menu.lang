@@ -122,6 +122,7 @@ menu.gallery = Igalari
 menu.gallery.edit_selected = Hlela Lokukhetsiwe
 menu.gallery.refresh = Vuselela
 menu.gallery.map_filter = Sihlungi Selibalave…
+menu.gallery.find_duplicates = Hlola Tiphindvo…
 menu.gallery.back_to_editor = Buyela Kumhleli
 
 menu.cloud.browse = Phequlula Schist Cloud

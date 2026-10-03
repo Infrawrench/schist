@@ -347,3 +347,43 @@ library.similar.keep = रक्षतु
 library.similar.reject = निराकरोतु
 library.similar.help = केवलं समीक्षाचिह्नानि; सञ्चिकाः न विलोप्यन्ते।
 library.similar.stale = सञ्चिकाः परिवर्तिताः। अग्रे गन्तुं नवीकरोतु।
+
+# Find Duplicates
+library.duplicates.title = प्रतिलिपयः
+library.duplicates.help = सर्वासु निरीक्षितासु सञ्चिकाधानीषु समानाः सञ्चिकाः सन्निहितप्रतिलिपयश्च। कचरापेटिकां प्रति नयनं द्विः पृच्छति; कचरापेटिकां नीताः सञ्चिकाः तन्त्रस्य कचरापेटिकातः पुनःस्थापयितुं शक्यन्ते।
+library.duplicates.exact = समानाः सञ्चिकाः
+library.duplicates.near = सन्निहितप्रतिलिपयः
+library.duplicates.identical = समानम् (SHA-256)
+library.duplicates.suggested = सुझावितं रक्षणीयम्
+library.duplicates.make_keeper = इदं रक्षतु
+library.duplicates.compare = तुलयतु
+library.duplicates.keep_all = सर्वाणि रक्षतु
+library.duplicates.reject_others = अन्यानि निराकरोतु
+library.duplicates.trash_others.other = कचरापेटिकां नेतव्यानाम् अन्येषां संख्या: {n}
+library.duplicates.confirm_trash.other = पुष्टिः: कचरापेटिकां नेतव्यानां संख्या: {n}
+library.duplicates.n_trashed.other = कचरापेटिकां नीतानां सञ्चिकानां संख्या: {n}
+library.duplicates.n_rejected.other = निराकृतम् इति चिह्नितानां चित्राणां संख्या: {n}
+library.duplicates.refused_edited = अस्मिन् सम्पादनानि सहचरसञ्चिका वा सन्ति, अतः तस्य स्थाने निराकरोतु
+library.duplicates.trash_failed = तन्त्रस्य कचरापेटिका उपलब्धा नास्ति
+library.duplicates.near_limit = सन्निहितप्रतिलिपिमेलनं प्रथमानि 10,000 चित्राणि व्याप्नोति।
+
+# Geotagging from GPX tracks
+library.geotag.menu = GPX-मार्गात् भूचिह्नं योजयतु…
+library.geotag.title = GPX-मार्गात् भूचिह्नयोजनम्
+library.geotag.add_files = GPX-सञ्चिकाः योजयतु…
+library.geotag.n_track_points.other = समययुक्तानां मार्गबिन्दूनां संख्या: {n}
+library.geotag.max_gap = अधिकतमम् अन्तरम् (निमेषाः)
+library.geotag.clock_offset = चित्रग्राहकघटिकासंशोधनम्
+library.geotag.time_zone = चित्राणां समयक्षेत्रम् (UTC-अन्तरम्)
+library.geotag.zone_help = समयक्षेत्रं केवलं समयक्षेत्रं विना अभिलिखितेषु ग्रहणसमयेषु प्रयुज्यते। संशोधनं सेकण्डेषु ±h:mm:ss रूपेण वा प्रत्येकस्मिन् ग्रहणसमये योज्यते।
+library.geotag.skip_existing = यानि चित्राणि पूर्वमेव स्थानयुक्तानि तानि त्यजतु
+library.geotag.n_will_tag.other = भूचिह्नं प्राप्स्यतां चित्राणां संख्या: {n}
+library.geotag.n_has_gps.other = पूर्वमेव स्थानयुक्तानां चित्राणां संख्या: {n}
+library.geotag.n_no_time.other = ग्रहणसमयरहितानां चित्राणां संख्या: {n}
+library.geotag.n_gap.other = मार्गस्य अन्तरे पतितानां चित्राणां संख्या: {n}
+library.geotag.n_outside.other = मार्गस्य समयसीमायाः बहिः स्थितानां चित्राणां संख्या: {n}
+library.geotag.apply = स्थानानि लिखतु
+library.geotag.invalid = अन्तरं निमेषेषु, -1:30 इत्यादि संशोधनं, +02:00 इत्यादि समयक्षेत्रं च लिखतु।
+library.geotag.no_points = GPX-सञ्चिकासु समययुक्ताः बिन्दवः न सन्ति।
+library.geotag.select_photos = प्रथमं भूचिह्नार्थं चित्राणि चिनोतु।
+library.geotag.read_failed = GPX-सञ्चिकाः पठितुं न शक्यन्ते: {error}

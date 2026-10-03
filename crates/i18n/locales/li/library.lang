@@ -322,3 +322,43 @@ library.similar.keep = Beware
 library.similar.reject = Aafwieze
 library.similar.help = Allein beoordelingsmerke; bestanje waere neet gewis.
 library.similar.stale = Bestanje zeen verangerd. Vernuuj om door te gaon.
+
+# Find Duplicates
+library.duplicates.title = Dubbele
+library.duplicates.help = Identieke bestenj en bijna-kopieë in alle bewaakde mappe. Noe de prullebak verplaatse vraog twee kier um bevestiging; bestenj in de prullebak kinne uit de systeemprullebak herstèld waere.
+library.duplicates.exact = Identieke bestenj
+library.duplicates.near = Bijna-dubbele
+library.duplicates.identical = identiek (SHA-256)
+library.duplicates.suggested = Veurgesteld um te beware
+library.duplicates.make_keeper = Dit beware
+library.duplicates.compare = Vergelieke
+library.duplicates.keep_all = Alles beware
+library.duplicates.reject_others = Angere aafwieze
+library.duplicates.trash_others.other = Angere verplaatse nao de prullebak: {n}
+library.duplicates.confirm_trash.other = Bevestig: verplaats nao de prullebak: {n}
+library.duplicates.n_trashed.other = Bestenj nao de prullebak verplaatst: {n}
+library.duplicates.n_rejected.other = Foto's es aafgewezen gemarkeerd: {n}
+library.duplicates.refused_edited = dit heet bewerkinge of ein sidecar, dus wies et leever aaf
+library.duplicates.trash_failed = de systeemprullebak is neet besjikbaar
+library.duplicates.near_limit = Bijna-dubbele zeuke geit euver de eerste 10,000 foto's.
+
+# Geotagging from GPX tracks
+library.geotag.menu = Geotagge mit GPX-spoor…
+library.geotag.title = Geotagge mit GPX-spoor
+library.geotag.add_files = GPX-bestenj toevoge…
+library.geotag.n_track_points.other = Spoorpunte mit tied: {n}
+library.geotag.max_gap = Maximaal gaatje (minute)
+library.geotag.clock_offset = Correctie van de camerakloek
+library.geotag.time_zone = Tiedzone van de foto's (UTC-verschil)
+library.geotag.zone_help = De tiedzone geldt allein veur opnametiede die zonder tiedzone zeen opgeslage. De correctie, in seconde of ±h:mm:ss, weurt bij elke opnametied opgeteld.
+library.geotag.skip_existing = Foto's euverslaon die al ein locatie höbbe
+library.geotag.n_will_tag.other = Foto's die getagd waere: {n}
+library.geotag.n_has_gps.other = Foto's die al ein locatie höbbe: {n}
+library.geotag.n_no_time.other = Foto's zonder opnametied: {n}
+library.geotag.n_gap.other = Foto's die in e gaatje in 't spoor valle: {n}
+library.geotag.n_outside.other = Foto's boete 't tiedbereik van 't spoor: {n}
+library.geotag.apply = Locaties sjrieve
+library.geotag.invalid = Gaef 't gaatje in minute op, ein correctie wie -1:30 en ein tiedzone wie +02:00.
+library.geotag.no_points = De GPX-bestenj bevatte gein punte mit tied.
+library.geotag.select_photos = Selecteer eerst foto's um te geotagge.
+library.geotag.read_failed = De GPX-bestenj koste neet gelaeze waere: {error}

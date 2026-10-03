@@ -131,6 +131,7 @@ menu.gallery = Ububiko bw'amashusho
 menu.gallery.edit_selected = Guhindura ibyatoranyijwe
 menu.gallery.refresh = Kuvugurura
 menu.gallery.map_filter = Akayunguruzo k'ikarita…
+menu.gallery.find_duplicates = Shakisha ibyisubiyemo…
 menu.gallery.back_to_editor = Gusubira mu gihindura
 
 # Cloud

@@ -122,6 +122,7 @@ menu.gallery = گيلري
 menu.gallery.edit_selected = چونڊيل سنواريو
 menu.gallery.refresh = تازو ڪريو
 menu.gallery.map_filter = نقشي جو فلٽر…
+menu.gallery.find_duplicates = ڊپليڪيٽ ڳوليو…
 menu.gallery.back_to_editor = ايڊيٽر ڏانهن واپس
 
 menu.cloud.browse = Schist Cloud ڳوليو

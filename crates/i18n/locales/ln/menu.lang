@@ -122,6 +122,7 @@ menu.gallery = Galerie
 menu.gallery.edit_selected = Kobongisa oyo eponami
 menu.gallery.refresh = Kozongisa sika
 menu.gallery.map_filter = Filtre ya karte…
+menu.gallery.find_duplicates = Luka bafɔtɔ ya ndenge moko…
 menu.gallery.back_to_editor = Kozonga na editɛrɛ
 
 menu.cloud.browse = Kotala Schist Cloud

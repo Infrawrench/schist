@@ -131,6 +131,7 @@ menu.gallery = Galariá
 menu.gallery.edit_selected = Modificar la seleccion
 menu.gallery.refresh = Actualizar
 menu.gallery.map_filter = Filtre de mapa…
+menu.gallery.find_duplicates = Cercar los doblons…
 menu.gallery.back_to_editor = Tornar a l'editor
 
 # Schist Cloud

@@ -134,6 +134,7 @@ menu.gallery = Gallerija
 menu.gallery.edit_selected = Editja l-Magħżulin
 menu.gallery.refresh = Aġġorna
 menu.gallery.map_filter = Filtru tal-Mappa…
+menu.gallery.find_duplicates = Sib id-duplikati…
 menu.gallery.back_to_editor = Lura għall-Editur
 
 # Submenù ta' Schist Cloud

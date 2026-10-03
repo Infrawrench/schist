@@ -122,6 +122,7 @@ menu.gallery = Pinacotheca
 menu.gallery.edit_selected = Electa Emenda
 menu.gallery.refresh = Refice
 menu.gallery.map_filter = Filtrum Tabulae Geographicae…
+menu.gallery.find_duplicates = Duplicata Quaerere…
 menu.gallery.back_to_editor = Ad Editorem Redi
 
 menu.cloud.browse = Schist Cloud Explora

@@ -123,6 +123,7 @@ menu.gallery = Галерия
 menu.gallery.edit_selected = Редактиране на избраните
 menu.gallery.refresh = Опресняване
 menu.gallery.map_filter = Филтър на картата…
+menu.gallery.find_duplicates = Намиране на дубликати…
 menu.gallery.back_to_editor = Назад към редактора
 
 menu.cloud.browse = Преглед на Schist Cloud

@@ -299,3 +299,43 @@ library.similar.keep = 유지
 library.similar.reject = 거부
 library.similar.help = 검토 표시만 저장하며 파일은 삭제하지 않습니다.
 library.similar.stale = 파일이 변경되었습니다. 새로 고침하여 계속하세요.
+
+# Find Duplicates
+library.duplicates.title = 중복 항목
+library.duplicates.help = 감시 중인 모든 폴더에서 동일한 파일과 거의 같은 사본을 찾습니다. 휴지통으로 이동할 때는 두 번 확인하며, 휴지통으로 옮긴 파일은 시스템 휴지통에서 복원할 수 있습니다.
+library.duplicates.exact = 동일한 파일
+library.duplicates.near = 거의 같은 중복
+library.duplicates.identical = 동일함 (SHA-256)
+library.duplicates.suggested = 권장 유지본
+library.duplicates.make_keeper = 이 항목 유지
+library.duplicates.compare = 비교
+library.duplicates.keep_all = 모두 유지
+library.duplicates.reject_others = 나머지 거부
+library.duplicates.trash_others.other = 나머지 {n}개를 휴지통으로 이동
+library.duplicates.confirm_trash.other = 확인: {n}개를 휴지통으로 이동
+library.duplicates.n_trashed.other = 파일 {n}개를 휴지통으로 이동했습니다
+library.duplicates.n_rejected.other = 사진 {n}장을 거부로 표시했습니다
+library.duplicates.refused_edited = 편집 내용이나 사이드카 파일이 있으므로 대신 거부하세요
+library.duplicates.trash_failed = 시스템 휴지통을 사용할 수 없습니다
+library.duplicates.near_limit = 유사 중복 검색은 처음 10,000장의 사진만 대상으로 합니다.
+
+# Geotagging from GPX tracks
+library.geotag.menu = GPX 트랙으로 위치 태그 지정…
+library.geotag.title = GPX 트랙으로 위치 태그 지정
+library.geotag.add_files = GPX 파일 추가…
+library.geotag.n_track_points.other = 시간 정보가 있는 트랙 포인트 {n}개
+library.geotag.max_gap = 최대 간격(분)
+library.geotag.clock_offset = 카메라 시계 보정
+library.geotag.time_zone = 사진 시간대(UTC 오프셋)
+library.geotag.zone_help = 시간대는 시간대 정보 없이 기록된 촬영 시각에만 적용됩니다. 초 단위 또는 ±h:mm:ss 형식의 보정값이 모든 촬영 시각에 더해집니다.
+library.geotag.skip_existing = 이미 위치가 있는 사진 건너뛰기
+library.geotag.n_will_tag.other = 사진 {n}장에 태그가 지정됩니다
+library.geotag.n_has_gps.other = 사진 {n}장에 이미 위치가 있습니다
+library.geotag.n_no_time.other = 사진 {n}장에 촬영 시각이 없습니다
+library.geotag.n_gap.other = 사진 {n}장이 트랙의 공백 구간에 해당합니다
+library.geotag.n_outside.other = 사진 {n}장이 트랙의 시간 범위를 벗어났습니다
+library.geotag.apply = 위치 기록
+library.geotag.invalid = 간격은 분 단위로, 보정값은 -1:30 같은 형식으로, 시간대는 +02:00 같은 형식으로 입력하세요.
+library.geotag.no_points = GPX 파일에 시간 정보가 있는 포인트가 없습니다.
+library.geotag.select_photos = 먼저 위치 태그를 지정할 사진을 선택하세요.
+library.geotag.read_failed = GPX 파일을 읽을 수 없습니다: {error}

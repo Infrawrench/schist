@@ -299,3 +299,43 @@ library.similar.keep = រក្សាទុក
 library.similar.reject = បដិសេធ
 library.similar.help = សញ្ញាពិនិត្យប៉ុណ្ណោះ ឯកសារមិនត្រូវបានលុបទេ។
 library.similar.stale = ឯកសារបានផ្លាស់ប្តូរ។ ផ្ទុកឡើងវិញដើម្បីបន្ត។
+
+# Find Duplicates
+library.duplicates.title = ស្ទួន
+library.duplicates.help = ឯកសារដូចគ្នាបេះបិទ និងច្បាប់ចម្លងស្រដៀងគ្នាខ្លាំងនៅក្នុងថតទាំងអស់ដែលត្រូវបានតាមដាន។ ការផ្លាស់ទីទៅធុងសំរាមនឹងសួរពីរដង ហើយឯកសារក្នុងធុងសំរាមអាចស្ដារឡើងវិញពីធុងសំរាមប្រព័ន្ធ។
+library.duplicates.exact = ឯកសារដូចគ្នាបេះបិទ
+library.duplicates.near = ស្ទួនស្ទើរតែដូចគ្នា
+library.duplicates.identical = ដូចគ្នាបេះបិទ (SHA-256)
+library.duplicates.suggested = ណែនាំឱ្យរក្សាទុក
+library.duplicates.make_keeper = រក្សាទុកមួយនេះ
+library.duplicates.compare = ប្រៀបធៀប
+library.duplicates.keep_all = រក្សាទុកទាំងអស់
+library.duplicates.reject_others = បដិសេធផ្សេងទៀត
+library.duplicates.trash_others.other = ផ្លាស់ទីផ្សេងទៀត {n} ទៅធុងសំរាម
+library.duplicates.confirm_trash.other = បញ្ជាក់៖ ផ្លាស់ទី {n} ទៅធុងសំរាម
+library.duplicates.n_trashed.other = បានផ្លាស់ទីឯកសារ {n} ទៅធុងសំរាម
+library.duplicates.n_rejected.other = បានដាក់សញ្ញារូបថត {n} ថាត្រូវបានបដិសេធ
+library.duplicates.refused_edited = វាមានការកែសម្រួល ឬឯកសារ sidecar ដូច្នេះសូមបដិសេធវាជំនួសវិញ
+library.duplicates.trash_failed = មិនមានធុងសំរាមប្រព័ន្ធទេ
+library.duplicates.near_limit = ការផ្គូផ្គងស្ទួនស្ទើរតែដូចគ្នាគ្របដណ្ដប់លើរូបថត 10,000 ដំបូង។
+
+# Geotagging from GPX tracks
+library.geotag.menu = បន្ថែមទីតាំងពីផ្លូវ GPX…
+library.geotag.title = បន្ថែមទីតាំងពីផ្លូវ GPX
+library.geotag.add_files = បន្ថែមឯកសារ GPX…
+library.geotag.n_track_points.other = ចំណុចផ្លូវដែលមានពេលវេលា {n}
+library.geotag.max_gap = គម្លាតអតិបរមា (នាទី)
+library.geotag.clock_offset = ការកែតម្រូវនាឡិការបស់កាមេរ៉ា
+library.geotag.time_zone = ល្វែងម៉ោងរូបថត (ចម្ងាយពី UTC)
+library.geotag.zone_help = ល្វែងម៉ោងអនុវត្តតែចំពោះពេលថតដែលបានកត់ត្រាដោយគ្មានល្វែងម៉ោងប៉ុណ្ណោះ។ ការកែតម្រូវជាវិនាទី ឬ ±h:mm:ss ត្រូវបានបូកបន្ថែមទៅលើពេលថតនីមួយៗ។
+library.geotag.skip_existing = រំលងរូបថតដែលមានទីតាំងរួចហើយ
+library.geotag.n_will_tag.other = រូបថត {n} នឹងត្រូវបានដាក់ស្លាកទីតាំង
+library.geotag.n_has_gps.other = រូបថត {n} មានទីតាំងរួចហើយ
+library.geotag.n_no_time.other = រូបថត {n} គ្មានពេលថត
+library.geotag.n_gap.other = រូបថត {n} ស្ថិតក្នុងគម្លាតនៃផ្លូវ
+library.geotag.n_outside.other = រូបថត {n} ស្ថិតនៅក្រៅចន្លោះពេលនៃផ្លូវ
+library.geotag.apply = សរសេរទីតាំង
+library.geotag.invalid = បញ្ចូលគម្លាតជានាទី ការកែតម្រូវដូចជា -1:30 និងល្វែងម៉ោងដូចជា +02:00។
+library.geotag.no_points = ឯកសារ GPX មិនមានចំណុចដែលមានពេលវេលាទេ។
+library.geotag.select_photos = សូមជ្រើសរើសរូបថតដែលត្រូវបន្ថែមទីតាំងជាមុនសិន។
+library.geotag.read_failed = មិនអាចអានឯកសារ GPX បានទេ៖ {error}

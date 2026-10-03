@@ -122,6 +122,7 @@ menu.gallery = Galri
 menu.gallery.edit_selected = Modifye sa ki seleksyone yo
 menu.gallery.refresh = Rafrechi
 menu.gallery.map_filter = Filtè kat…
+menu.gallery.find_duplicates = Chèche kopi…
 menu.gallery.back_to_editor = Retounen nan editè a
 
 menu.cloud.browse = Parcouri Schist Cloud

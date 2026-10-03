@@ -132,6 +132,7 @@ menu.gallery = المعرض
 menu.gallery.edit_selected = تحرير المحدد
 menu.gallery.refresh = تحديث
 menu.gallery.map_filter = مرشح الخريطة…
+menu.gallery.find_duplicates = البحث عن التكرارات…
 menu.gallery.back_to_editor = الرجوع إلى المحرر
 
 # قائمة Schist Cloud الفرعية

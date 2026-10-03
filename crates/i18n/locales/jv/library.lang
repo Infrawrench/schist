@@ -300,3 +300,43 @@ library.similar.keep = Simpen
 library.similar.reject = Tolak
 library.similar.help = Mung tandha pamriksan; berkas ora dibusak.
 library.similar.stale = Berkas wis owah. Segerake kanggo nerusake.
+
+# Find Duplicates
+library.duplicates.title = Duplikat
+library.duplicates.help = Berkas sing padha persis lan salinan sing meh padha ing kabeh folder sing dipantau. Mindhah menyang tempat sampah ditakoni kaping pindho; berkas sing wis ana ing tempat sampah bisa dibalèkaké saka tempat sampah sistem.
+library.duplicates.exact = Berkas identik
+library.duplicates.near = Duplikat meh padha
+library.duplicates.identical = identik (SHA-256)
+library.duplicates.suggested = Saran sing disimpen
+library.duplicates.make_keeper = Simpen Iki
+library.duplicates.compare = Bandhingake
+library.duplicates.keep_all = Simpen Kabèh
+library.duplicates.reject_others = Tolak Liyané
+library.duplicates.trash_others.other = Pindhah {n} Liyané menyang Tempat Sampah
+library.duplicates.confirm_trash.other = Konfirmasi: Pindhah {n} menyang Tempat Sampah
+library.duplicates.n_trashed.other = {n} berkas dipindhah menyang tempat sampah
+library.duplicates.n_rejected.other = {n} foto ditandhani ditolak
+library.duplicates.refused_edited = isiné wis diowahi utawa duwé sidecar, dadi tolaken waé
+library.duplicates.trash_failed = tempat sampah sistem ora kasedhiya
+library.duplicates.near_limit = Pencocokan duplikat meh padha mung nyakup 10,000 foto kapisan.
+
+# Geotagging from GPX tracks
+library.geotag.menu = Geotag saka Trek GPX…
+library.geotag.title = Geotag saka Trek GPX
+library.geotag.add_files = Tambah Berkas GPX…
+library.geotag.n_track_points.other = {n} titik trek kanthi wektu
+library.geotag.max_gap = Jarak maksimum (menit)
+library.geotag.clock_offset = Koreksi jam kamera
+library.geotag.time_zone = Zona wektu foto (offset UTC)
+library.geotag.zone_help = Zona wektu mung ditrapaké ing wektu pangambilan sing direkam tanpa zona wektu. Koreksi, ing detik utawa ±h:mm:ss, ditambahaké menyang saben wektu pangambilan.
+library.geotag.skip_existing = Lewati foto sing wis duwé lokasi
+library.geotag.n_will_tag.other = {n} foto bakal ditandhani
+library.geotag.n_has_gps.other = {n} foto wis duwé lokasi
+library.geotag.n_no_time.other = {n} foto ora duwé wektu pangambilan
+library.geotag.n_gap.other = {n} foto tiba ing celah trek
+library.geotag.n_outside.other = {n} foto ana ing njaba rentang wektu trek
+library.geotag.apply = Tulis Lokasi
+library.geotag.invalid = Lebokna jarak ing menit, koreksi kayata -1:30 lan zona wektu kayata +02:00.
+library.geotag.no_points = Berkas GPX ora ngemot titik kanthi wektu.
+library.geotag.select_photos = Pilih foto sing arep di-geotag dhisik.
+library.geotag.read_failed = Berkas GPX ora bisa diwaca: {error}

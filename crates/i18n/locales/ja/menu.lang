@@ -140,6 +140,7 @@ menu.gallery = ギャラリー
 menu.gallery.edit_selected = 選択した項目を編集
 menu.gallery.refresh = 更新
 menu.gallery.map_filter = 地図で絞り込み…
+menu.gallery.find_duplicates = 重複を検索…
 menu.gallery.back_to_editor = エディターに戻る
 
 # Schist Cloud のサブメニュー

@@ -133,6 +133,7 @@ menu.gallery = Oriel
 menu.gallery.edit_selected = Golygu'r Rhai a Ddewiswyd
 menu.gallery.refresh = Adnewyddu
 menu.gallery.map_filter = Hidlydd Map…
+menu.gallery.find_duplicates = Dod o Hyd i Ddyblygion…
 menu.gallery.back_to_editor = Yn ôl i'r Golygydd
 
 # Is-ddewislen Schist Cloud

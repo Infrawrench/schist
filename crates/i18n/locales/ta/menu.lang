@@ -122,6 +122,7 @@ menu.gallery = படத்தொகுப்பு
 menu.gallery.edit_selected = தேர்ந்தெடுத்ததைத் திருத்து
 menu.gallery.refresh = புதுப்பித்துக் காட்டு
 menu.gallery.map_filter = வரைபட வடிகட்டி…
+menu.gallery.find_duplicates = நகல்களைக் கண்டுபிடி…
 menu.gallery.back_to_editor = தொகுப்பிக்குத் திரும்பு
 
 menu.cloud.browse = Schist Cloud ஐ உலாவு

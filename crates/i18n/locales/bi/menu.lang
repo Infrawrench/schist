@@ -122,6 +122,7 @@ menu.gallery = Gallery
 menu.gallery.edit_selected = Editim Samting we Yu Jusum
 menu.gallery.refresh = Refreshem
 menu.gallery.map_filter = Map Filta…
+menu.gallery.find_duplicates = Faenem Ol Kopi…
 menu.gallery.back_to_editor = Gobak long Editor
 
 menu.cloud.browse = Lukaot long Schist Cloud

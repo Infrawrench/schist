@@ -299,3 +299,43 @@ library.similar.keep = Taofi
 library.similar.reject = Teena
 library.similar.help = Na o faailoga e toe iloilo ai; e lē tapeina faila.
 library.similar.stale = Ua suia faila. Toe faafou e faaauau ai.
+
+# Find Duplicates
+library.duplicates.title = Kopi Tutusa
+library.duplicates.help = Faila tutusa ma kopi e toeitiiti tutusa i faila teu uma o loo mataʻituina. E lua le fesiligia pe a tuu i le pusa lapisi; e mafai ona toe maua faila ua tuu i le pusa lapisi mai le pusa lapisi a le faiga.
+library.duplicates.exact = Faila tutusa
+library.duplicates.near = Kopi e toeitiiti tutusa
+library.duplicates.identical = tutusa (SHA-256)
+library.duplicates.suggested = Fautuaina e teu
+library.duplicates.make_keeper = Teu Lenei
+library.duplicates.compare = Faʻatusatusa
+library.duplicates.keep_all = Teu Uma
+library.duplicates.reject_others = Teena Isi
+library.duplicates.trash_others.other = Tuu isi e {n} i le pusa lapisi
+library.duplicates.confirm_trash.other = Faʻamaonia: tuu e {n} i le pusa lapisi
+library.duplicates.n_trashed.other = E {n} faila ua tuu i le pusa lapisi
+library.duplicates.n_rejected.other = E {n} ata pue ua faailogaina e teena
+library.duplicates.refused_edited = ua iai ni suiga po o se faila faʻaopoopo, ia teena nei
+library.duplicates.trash_failed = e leai se pusa lapisi a le faiga
+library.duplicates.near_limit = O le faʻatusatusaga o kopi e toeitiiti tutusa e aofia ai ata pue muamua e 10,000.
+
+# Geotagging from GPX tracks
+library.geotag.menu = Faʻailogaina Nofoaga mai se Ala GPX…
+library.geotag.title = Faʻailogaina Nofoaga mai se Ala GPX
+library.geotag.add_files = Faaopoopo Faila GPX…
+library.geotag.n_track_points.other = E {n} nofoaga o le ala e iai le taimi
+library.geotag.max_gap = Avanoa pito sili (minute)
+library.geotag.clock_offset = Faʻatonuga o le uati a le kamera
+library.geotag.time_zone = Lotoifale taimi o ata pue (UTC offset)
+library.geotag.zone_help = E faʻaaoga le lotoifale taimi mo taimi pue e leʻi tusia ma se lotoifale taimi. O le faʻatonuga, i sekone po o le ±h:mm:ss, e faʻaopoopo i taimi pue uma.
+library.geotag.skip_existing = Tuʻua ata pue ua iai se nofoaga
+library.geotag.n_will_tag.other = O le a faʻailogaina ata pue e {n}
+library.geotag.n_has_gps.other = E {n} ata pue ua iai se nofoaga
+library.geotag.n_no_time.other = E {n} ata pue e leai se taimi pue
+library.geotag.n_gap.other = E {n} ata pue e pa'ū i se avanoa o le ala
+library.geotag.n_outside.other = E {n} ata pue o loo i fafo atu o le vaitaimi o le ala
+library.geotag.apply = Tusi Nofoaga
+library.geotag.invalid = Tusi le avanoa i minute, se faʻatonuga e pei o -1:30 ma se lotoifale taimi e pei o +02:00.
+library.geotag.no_points = E leai ni nofoaga e iai le taimi i faila GPX.
+library.geotag.select_photos = Filifili muamua ni ata pue e faʻailogaina.
+library.geotag.read_failed = Na le mafai ona faitau faila GPX: {error}

@@ -134,6 +134,7 @@ menu.gallery = Galerie
 menu.gallery.edit_selected = Auswahl bearbeiten
 menu.gallery.refresh = Aktualisieren
 menu.gallery.map_filter = Kartenfilter…
+menu.gallery.find_duplicates = Duplikate suchen…
 menu.gallery.back_to_editor = Zurück zum Editor
 
 # Schist Cloud

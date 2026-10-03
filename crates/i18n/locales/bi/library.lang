@@ -299,3 +299,43 @@ library.similar.keep = Kipim
 library.similar.reject = No akseptem
 library.similar.help = Ol mak blong jekem nomo; i no dilitim ol fael.
 library.similar.stale = Ol fael oli jenis. Rifres blong gohed.
+
+# Find Duplicates
+library.duplicates.title = Ol Kopi
+library.duplicates.help = Ol fael we oli semmak mo ol kopi we i klosap semmak long evri folda we i stap lukaotem. I askem tu taem bifo yu muvum i go long trash; ol fael long trash yu save tekem bak long trash blong sistem.
+library.duplicates.exact = Ol fael we oli semmak
+library.duplicates.near = Ol kopi we oli klosap semmak
+library.duplicates.identical = semmak (SHA-256)
+library.duplicates.suggested = Wan we i gud blong kipim
+library.duplicates.make_keeper = Kipim Wan Ia
+library.duplicates.compare = Kompea
+library.duplicates.keep_all = Kipim Olgeta
+library.duplicates.reject_others = No Akseptem Ol Narafala
+library.duplicates.trash_others.other = Muvum ol narafala i go long trash: {n}
+library.duplicates.confirm_trash.other = Konfirmem: muvum i go long trash: {n}
+library.duplicates.n_trashed.other = Namba blong fael we oli muv i go long trash: {n}
+library.duplicates.n_rejected.other = Namba blong foto we oli mekem mak se oli no akseptem: {n}
+library.duplicates.refused_edited = i gat ol jenis o wan sidecar fael, so no akseptem nomo
+library.duplicates.trash_failed = trash blong sistem i no stap
+library.duplicates.near_limit = Matching blong ol kopi we i klosap semmak i kavremap fas 10,000 foto nomo.
+
+# Geotagging from GPX tracks
+library.geotag.menu = Geotagem Long GPX Trak…
+library.geotag.title = Geotagem Long GPX Trak
+library.geotag.add_files = Putum Ol GPX Fael…
+library.geotag.n_track_points.other = Namba blong trak pointi we i gat taem: {n}
+library.geotag.max_gap = Bigfala spes antap (minit)
+library.geotag.clock_offset = Stretem klok blong kamera
+library.geotag.time_zone = Taemzon blong ol foto (UTC ofset)
+library.geotag.zone_help = Taemzon i wok nomo long ol taem blong tekem foto we oli no raetem wan taemzon. Stretem ya, long sekan o ±h:mm:ss, i joen long evri taem blong tekem foto.
+library.geotag.skip_existing = Skipim ol foto we oli gat ples finis
+library.geotag.n_will_tag.other = Namba blong foto we bae oli geotag: {n}
+library.geotag.n_has_gps.other = Namba blong foto we oli gat ples finis: {n}
+library.geotag.n_no_time.other = Namba blong foto we i no gat taem blong tekem: {n}
+library.geotag.n_gap.other = Namba blong foto we oli foldaon long wan spes long trak: {n}
+library.geotag.n_outside.other = Namba blong foto we oli stap aotsaed long taem blong trak: {n}
+library.geotag.apply = Raetem Ol Ples
+library.geotag.invalid = Putum spes long minit, wan stretem olsem -1:30 mo wan taemzon olsem +02:00.
+library.geotag.no_points = Ol GPX fael oli no gat eni pointi we i gat taem.
+library.geotag.select_photos = Jusum ol foto blong geotag fastaem.
+library.geotag.read_failed = I no inap ridim ol GPX fael: {error}

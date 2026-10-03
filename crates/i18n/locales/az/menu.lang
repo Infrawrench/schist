@@ -131,6 +131,7 @@ menu.gallery = Qalereya
 menu.gallery.edit_selected = Seçilənləri redaktə et
 menu.gallery.refresh = Təzələ
 menu.gallery.map_filter = Xəritə filtri…
+menu.gallery.find_duplicates = Dublikatları tap…
 menu.gallery.back_to_editor = Redaktora qayıt
 
 # Schist Cloud alt menyusu

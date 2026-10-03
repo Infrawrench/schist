@@ -131,6 +131,7 @@ menu.gallery = Gallery
 menu.gallery.edit_selected = Edita i ma'ayek
 menu.gallery.refresh = Rifreska
 menu.gallery.map_filter = Fitron måpa…
+menu.gallery.find_duplicates = Sodda' Kopia siha…
 menu.gallery.back_to_editor = Tåtte para i editor
 
 # Schist Cloud

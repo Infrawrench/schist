@@ -299,3 +299,43 @@ library.similar.keep = Puritia
 library.similar.reject = Whakakāhore
 library.similar.help = He tohu arotake anake; kāore ngā kōnae e mukua.
 library.similar.stale = Kua panoni ngā kōnae. Tāmata kia haere tonu.
+
+# Find Duplicates
+library.duplicates.title = Ngā Pūrua
+library.duplicates.help = Ngā kōnaeōrite me ngā kape tata ōrite puta noa i ngā kōpaki e aroturukitia ana. E rua ngā pātai i mua i te nuku ki te ipu para; ka taea te whakahoki mai i ngā kōnae kua nukuhia mai i te ipu para pūnaha.
+library.duplicates.exact = Ngā kōnae ōrite
+library.duplicates.near = Ngā pūrua tata
+library.duplicates.identical = ōrite (SHA-256)
+library.duplicates.suggested = Te mea e tūtohua ana kia purihia
+library.duplicates.make_keeper = Puritia Tēnei
+library.duplicates.compare = Whakatairite
+library.duplicates.keep_all = Puritia Katoa
+library.duplicates.reject_others = Whakakāhore i ērā Atu
+library.duplicates.trash_others.other = Nukuhia ētahi atu {n} ki te ipu para
+library.duplicates.confirm_trash.other = Whakaūngia: nukuhia {n} ki te ipu para
+library.duplicates.n_trashed.other = {n} ngā kōnae kua nukuhia ki te ipu para
+library.duplicates.n_rejected.other = {n} ngā whakaahua kua tohua hei whakakāhoretanga
+library.duplicates.refused_edited = he whakatika, he kōnae taha rānei tōna, nō reira whakakāhoretia kētia
+library.duplicates.trash_failed = kāore te ipu para pūnaha e wātea
+library.duplicates.near_limit = E kapi ana te whakaritenga pūrua tata i ngā whakaahua tuatahi 10,000.
+
+# Geotagging from GPX tracks
+library.geotag.menu = Tohu Wāhi mai i te Ara GPX…
+library.geotag.title = Tohu Wāhi mai i te Ara GPX
+library.geotag.add_files = Tāpiri Kōnae GPX…
+library.geotag.n_track_points.other = {n} ngā tūnga ara whai wā
+library.geotag.max_gap = Te āputa nui rawa (meneti)
+library.geotag.clock_offset = Whakatikatika i te karaka kamera
+library.geotag.time_zone = Rohe wā o ngā whakaahua (UTC offset)
+library.geotag.zone_help = Ka whakamahia te rohe wā ki ngā wā tango kāore i tuhia me te rohe wā anake. Ko te whakatikatika, i ngā hēkona, i te ±h:mm:ss rānei, ka tāpiria ki ia wā tango.
+library.geotag.skip_existing = Tukuna ngā whakaahua kua whai wāhi kē
+library.geotag.n_will_tag.other = {n} ngā whakaahua ka tohua
+library.geotag.n_has_gps.other = {n} ngā whakaahua kua whai wāhi kē
+library.geotag.n_no_time.other = {n} ngā whakaahua kāore he wā tango
+library.geotag.n_gap.other = {n} ngā whakaahua e taka ana ki tētahi āputa i te ara
+library.geotag.n_outside.other = {n} ngā whakaahua kei waho i te whānuitanga wā o te ara
+library.geotag.apply = Tuhia ngā Wāhi
+library.geotag.invalid = Whakaurua te āputa ki ngā meneti, he whakatikatika pērā i te -1:30 me tētahi rohe wā pērā i te +02:00.
+library.geotag.no_points = Kāore he tūnga whai wā i ngā kōnae GPX.
+library.geotag.select_photos = Kōwhiria ngā whakaahua hei tohu wāhi i te tuatahi.
+library.geotag.read_failed = Kāore i taea te pānui i ngā kōnae GPX: {error}
