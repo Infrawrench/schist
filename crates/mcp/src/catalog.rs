@@ -667,6 +667,7 @@ fn builtins(registry: &PluginRegistry) -> Vec<(String, Value, Action)> {
                 "quality": {"type": "integer", "description": "1..100 for lossy formats (default 90)"},
                 "bit_depth": {"type": "integer", "description": "Bits per channel where the format supports a choice (default 8)"},
                 "dither": {"type": "boolean", "description": "Dither when reducing depth (default true)"},
+                "effort": {"type": "integer", "description": "1..10 encoder effort for JPEG XL and AVIF: higher is slower and smaller (default 7)"},
             }),
             &["session", "path"],
         ),

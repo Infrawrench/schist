@@ -514,12 +514,19 @@ fn export_document(
                     &flat,
                     &schist_plugin_api::ExportOptions {
                         quality: output.quality,
-                        bit_depth: if matches!(output.codec.as_str(), "codec.png" | "codec.tiff")
-                            && flat.depth != Depth::Eight
-                        {
-                            16
-                        } else {
+                        // A deep document keeps up to 16 bits wherever the
+                        // format can hold more than 8 (PNG, TIFF and JPEG
+                        // XL 16, AVIF 12).
+                        bit_depth: if flat.depth == Depth::Eight {
                             8
+                        } else {
+                            codec
+                                .bit_depths()
+                                .iter()
+                                .copied()
+                                .filter(|&bits| bits <= 16)
+                                .max()
+                                .unwrap_or(8)
                         },
                         ..Default::default()
                     },
