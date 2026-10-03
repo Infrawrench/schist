@@ -164,6 +164,10 @@ rayon = "1.10"
 smallvec = "1.13"
 rustc-hash = "2"
 image = { version = "0.25", default-features = false, features = ["png", "jpeg", "webp", "tiff"] }
+# OpenEXR import/export. Pure Rust (BSD-3-Clause) and already linked into
+# the desktop app through gpui's `image`; rayon stays off so the codec
+# also builds for wasm and mobile without threads.
+exr = { version = "1.74", default-features = false }
 # Runtime dlopen of libheif for HEIC import — the system's copy, or a
 # user-consented download of IAmJSD/libheif-prebuilt. Keeps the build
 # free of C dependencies (no pure-Rust HEVC decoder exists) and avoids
