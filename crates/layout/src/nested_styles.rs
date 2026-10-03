@@ -1,5 +1,8 @@
 //! Ordered native paragraph rules, independent of authored character ranges.
 use serde::{Deserialize, Serialize};
+mod composition;
+pub use composition::initial_style;
+pub(crate) use composition::{materialize, runs};
 
 /// Native string and enumeration delimiters have different semantics, even
 /// when their text is identical. Literal strings keep their whitespace.
@@ -27,7 +30,8 @@ pub struct NestedStyle {
     pub inclusive: bool,
 }
 
-/// Rules requesting a character style are retained but not yet composed.
+/// Only the canonical leading Dropcap rule composes so far. Other rules
+/// requesting a character style remain explicitly unsupported.
 /// Empty lists and sequences made entirely of no-style rules cannot change
 /// appearance, including when they reset an inherited formatted sequence.
 pub fn unsupported(paragraph: &crate::ResolvedParagraph) -> Option<&'static str> {
@@ -35,9 +39,10 @@ pub fn unsupported(paragraph: &crate::ResolvedParagraph) -> Option<&'static str>
         .nested_styles
         .as_ref()
         .filter(|rules| {
-            rules
-                .iter()
-                .any(|rule| !matches!(rule.character_style, CharacterStyle::None))
+            rules.iter().enumerate().any(|(index, rule)| {
+                !matches!(rule.character_style, CharacterStyle::None)
+                    && !(index == 0 && composition::canonical_initial(rule))
+            })
         })
         .map(|_| "AllNestedStyles")
 }

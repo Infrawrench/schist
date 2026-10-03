@@ -99,6 +99,7 @@ pub fn prepare(doc: &LayoutDocument, id: StoryId) -> Option<PreparedStory> {
     }
     entries.sort_by_key(|(at, _, _)| *at);
     let mut styles = doc.styles.clone();
+    let main_source = crate::nested_styles::materialize(source, &mut styles);
     let mut insertions = Vec::new();
     let mut notes = Vec::new();
     for (offset, (at, structure, note)) in entries.into_iter().enumerate() {
@@ -134,8 +135,9 @@ pub fn prepare(doc: &LayoutDocument, id: StoryId) -> Option<PreparedStory> {
             text: reference.clone(),
             style: name,
         });
+        let note_source = crate::nested_styles::materialize(&note.story, &mut styles);
         let mut body = Projection::new(
-            &note.story,
+            &note_source,
             note.markers
                 .iter()
                 .map(|m| Insertion {
@@ -145,7 +147,7 @@ pub fn prepare(doc: &LayoutDocument, id: StoryId) -> Option<PreparedStory> {
                 })
                 .collect(),
         )?;
-        project_paragraphs(&note.story, &mut body, &mut styles);
+        project_paragraphs(&note_source, &mut body, &mut styles);
         // Existing note source already owns its separator characters. Only
         // ACE 4's zero-width instruction becomes a number, never literal digits.
         // Area spacing replaces the first paragraph's space-before and the
@@ -181,7 +183,7 @@ pub fn prepare(doc: &LayoutDocument, id: StoryId) -> Option<PreparedStory> {
             anchor: at,
             reference: 0..0,
             hyphenation: crate::hyphenation::BreakPlan::projected(
-                &note.story,
+                &note_source,
                 &body,
                 &styles,
                 &doc.default_paragraph_style,
@@ -190,14 +192,14 @@ pub fn prepare(doc: &LayoutDocument, id: StoryId) -> Option<PreparedStory> {
             body,
         });
     }
-    let mut main = Projection::new(source, insertions)?;
-    project_paragraphs(source, &mut main, &mut styles);
+    let mut main = Projection::new(&main_source, insertions)?;
+    project_paragraphs(&main_source, &mut main, &mut styles);
     for (note, span) in notes.iter_mut().zip(&main.positions.generated) {
         note.reference = span.start..span.end;
     }
     Some(PreparedStory {
         hyphenation: crate::hyphenation::BreakPlan::projected(
-            source,
+            &main_source,
             &main,
             &styles,
             &doc.default_paragraph_style,

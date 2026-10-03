@@ -562,9 +562,9 @@ Scale is calculated in paragraph-local coordinates so moving a frame cannot
 change the initial's font size. This is Schist's geometry policy, not evidence
 of native application agreement.
 Active explicit native flags therefore produce an import/export diagnostic and a
-Preflight error when composed. Dormant values do not. Native flag rendering and
-named initial character-style rules remain gaps. A named
-initial style belongs to typed `AllNestedStyles` records; no invented native
+Preflight error when composed. Dormant values do not. Native flag rendering
+remains a gap. Named initial styles now compose from a leading canonical
+`AllNestedStyles` Dropcap record, as described below; no invented native
 `DropCapStyle` attribute is emitted.
 
 Direction evidence: the published IDML specification
@@ -2255,10 +2255,34 @@ flag takes precedence over a populated list and is diagnosed. Invalid flags are
 reported; without a valid list they produce an empty override, preventing an
 accidental inherited rule. With a valid list, its records remain recoverable.
 
-Composition of rules requesting a character style is still unsupported and is
-reported on import/export and for used paragraphs in Preflight. Entirely no-style
-lists cannot change appearance and do not produce false errors. This is a retention
-prerequisite, not a native rendering claim. The seven Customer's Canvas fixtures
+The leading canonical `Dropcap` record now applies its named character style to
+the requested source graphemes. This subset requires an enumeration delimiter,
+repetition one and inclusive true. Positive line/character counts enable the
+formatting; the existing enlarged geometry starts at two lines. Zero in either
+count disables the initial. When the character count is unset, Schist's legacy
+one-character policy now emits an explicit native one for active one-line named
+initials as well as enlarged initials; IDML Appendix C defaults that field to
+zero. Explicit zero and dormant settings remain unchanged. This follows the public
+[drop-cap guide](https://helpx.adobe.com/indesign/desktop/format-and-style-text/character-formatting/apply-drop-caps-text-positioning.html).
+Other rules, later Dropcap records and unresolved references remain reported on
+import/export and for used paragraphs in Preflight. Entirely no-style lists do
+not produce false errors. Unsupported native placement flags remain separate.
+
+Geometry and typed paint consume the same derived character runs. Explicit source
+character properties override the initial style, inferred from the documented
+[formatting hierarchy](https://helpx.adobe.com/indesign/desktop/format-and-style-text/composition-and-text-wrapping/apply-and-manage-text-formatting.html).
+Original first-matching range precedence is retained. Dictionary language/No Break,
+ordinary generated-list context, used-font preflight and package/native inventories
+receive these effective styles too. Footnotes materialize source prefixes before
+inserting reference labels; temporary ranges and aliases never enter the saved
+story. Whole/split notes retain source editing and undo behavior.
+
+Independent explicitly styled source controls match every process/spot plate at
+72/144/216 dpi and all 16 Poppler proof pages. Tests cover inherited rules, Unicode
+boundaries, continuation slices, zero/one/multiple line counts, explicit overrides,
+writing modes, whole/split notes, source edits/undo and repeated native saves.
+This verifies Schist's shared-renderer integration; native application geometry
+and formatting precedence agreement remain unverified. The seven Customer's Canvas fixtures
 contain no populated `AllNestedStyles`; schema-derived regression packages cover
 the records, and the native fixtures cover empty flags through repeated saves.
 Separate regressions first reproduced the complete list disappearing and native

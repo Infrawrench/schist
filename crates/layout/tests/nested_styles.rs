@@ -53,7 +53,7 @@ fn nested_lists_inherit_as_whole_ordered_values_and_empty_resets_undo_once() {
         assert_eq!(doc, before);
         assert_eq!(
             nested_styles::unsupported(&doc.styles.resolve_paragraph("Leaf")).is_some(),
-            !expected.unwrap().is_empty()
+            expected.unwrap().len() > 1
         );
     }
 }
@@ -145,7 +145,10 @@ fn no_style_rules_reset_inherited_paint_without_reporting_uncomposed_formatting(
             let mut doc = schist_layout::blank_a4();
             doc.styles.add_paragraph(ParagraphStyle {
                 name: "Base".into(),
-                nested_styles: Some(vec![rule()]),
+                nested_styles: Some(vec![NestedStyle {
+                    delimiter: Delimiter::Enumeration("AnyWord".into()),
+                    ..rule()
+                }]),
                 ..Default::default()
             });
             doc.styles.add_paragraph(ParagraphStyle {

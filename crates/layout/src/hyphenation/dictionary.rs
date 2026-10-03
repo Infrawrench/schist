@@ -124,22 +124,31 @@ pub fn opportunities(
     if paragraph.hyphenate == Some(false) || range.start >= range.end {
         return Vec::new();
     }
-    let runs = story
-        .ranges
+    // Inspect the complete owning paragraph, even for a continuation slice.
+    let context = story
+        .points
         .iter()
-        .map(|r| (r, styles.resolve_character(&r.style)))
-        .collect::<Vec<_>>();
+        .zip(story.point_offsets())
+        .find_map(|(point, start)| {
+            let crate::StoryPoint::Paragraph { text, .. } = point else {
+                return None;
+            };
+            (start <= range.start && range.start <= start + text.len())
+                .then_some(start..start + text.len())
+        })
+        .unwrap_or_else(|| range.clone());
+    let runs = crate::nested_styles::runs(story, styles, context, paragraph);
     let language_at = |byte| {
         runs.iter()
-            .find(|(r, _)| r.start <= byte && byte < r.end)
-            .and_then(|(_, style)| style.language.as_ref())
+            .find(|r| r.start <= byte && byte < r.end)
+            .and_then(|r| r.character.language.as_ref())
             .or(character.language.as_ref())
             .and_then(|language| Dictionary::resolve(styles, language))
     };
     let no_break_at = |byte| {
         runs.iter()
-            .find(|(r, _)| r.start <= byte && byte < r.end)
-            .and_then(|(_, style)| style.no_break)
+            .find(|r| r.start <= byte && byte < r.end)
+            .and_then(|r| r.character.no_break)
             .or(character.no_break)
             .unwrap_or(false)
     };

@@ -167,14 +167,11 @@ fn plan(
     base.point_size = paragraph.point_size.or(base.point_size);
     base.leading = paragraph.leading.or(base.leading);
     base.tracking = paragraph.tracking.or(base.tracking);
-    let mut character = story
-        .ranges
-        .iter()
-        .find(|r| r.start <= at && r.end > at)
-        .map_or_else(
-            || base.clone(),
-            |r| doc.styles.resolve_character(&r.style).over(&base),
-        );
+    let mut character =
+        crate::nested_styles::runs(story, &doc.styles, at..at.saturating_add(1), &paragraph)
+            .into_iter()
+            .next()
+            .map_or_else(|| base.clone(), |r| r.character.over(&base));
     if let Some(explicit) = explicit {
         character = doc.styles.resolve_character(explicit).over(&character);
     }
@@ -201,6 +198,8 @@ fn plan(
     paragraph.leading = character.leading;
     paragraph.tracking = character.tracking;
     paragraph.align = Some(crate::styles::Align::Left);
+    // The marker inherits the source context above, never its own new prefix.
+    paragraph.nested_styles = None;
     let mut generated_story = Story::from_text(&text, style);
     generated_story.prefs = story.prefs;
     let mut spec = crate::compose::spec_with_character(

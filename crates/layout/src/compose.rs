@@ -352,14 +352,10 @@ pub(crate) fn spec_with_character(
         word_spacing: 0.0,
         wrap_width: (width > 0.0).then_some(width),
         tabs,
-        runs: story
-            .ranges
-            .iter()
-            .filter(|range| range.start < end && range.end > start)
+        runs: crate::nested_styles::runs(story, styles, start..end, paragraph)
+            .into_iter()
             .map(|range| {
-                let style = styles
-                    .resolve_character(&range.style)
-                    .with_paint_defaults(&character);
+                let style = range.character.with_paint_defaults(&character);
                 let shift = style.baseline_shift.or(character.baseline_shift);
                 let position = crate::styles::TextPosition::resolved(
                     style.position.or(character.position),
@@ -2224,7 +2220,7 @@ fn place_block(
                 advance: cap.bounds.height,
                 paragraph: paragraph.clone(),
                 paragraph_style: block.style.clone(),
-                characters: character_styles(story, doc, block.start, body.start),
+                characters: character_styles(story, doc, block.start, body.start, &paragraph),
                 is_paragraph_end: body.start == block.end,
                 discretionary_hyphen: false,
                 generated_hyphen: false,
@@ -2558,9 +2554,9 @@ fn line_at(
         inline_origin: placement.inline_origin,
         baseline: placement.bounds.y + span.baseline - span.top,
         advance: placement.advance,
+        characters: character_styles(story, doc, start, end, &paragraph),
         paragraph,
         paragraph_style: block.style.clone(),
-        characters: character_styles(story, doc, start, end),
         is_paragraph_end,
         natural_width: span.width,
         discretionary_hyphen: span.discretionary_hyphen,
@@ -2628,19 +2624,18 @@ pub fn count_spaces(story: &Story, start: usize, end: usize) -> usize {
         .count()
 }
 
-/// The resolved character styles covering a byte range, nearest the start
-/// of the line first so a renderer applies them left to right.
+/// Resolved character styles in the engine's first-match precedence order,
+/// including paragraph-derived initials beneath explicit source properties.
 fn character_styles(
     story: &Story,
     doc: &LayoutDocument,
     start: usize,
     end: usize,
+    paragraph: &ResolvedParagraph,
 ) -> Vec<ResolvedCharacter> {
-    story
-        .ranges
-        .iter()
-        .filter(|r| r.start < end && r.end > start)
-        .map(|r| doc.styles.resolve_character(&r.style))
+    crate::nested_styles::runs(story, &doc.styles, start..end, paragraph)
+        .into_iter()
+        .map(|run| run.character)
         .collect()
 }
 
@@ -2877,11 +2872,8 @@ pub fn line_paint_styles(
     let base = line
         .paragraph
         .character(doc.styles.resolve_character(&doc.default_character_style));
-    let ranges: Vec<_> = story
-        .ranges
-        .iter()
-        .filter(|r| r.start < line.end && r.end > line.start)
-        .collect();
+    let ranges =
+        crate::nested_styles::runs(story, &doc.styles, line.start..line.end, &line.paragraph);
     (0..spec.runs.len())
         .map(|index| {
             line.generated
@@ -2890,11 +2882,7 @@ pub fn line_paint_styles(
                 .unwrap_or_else(|| {
                     ranges.get(index).map_or_else(
                         || base.clone(),
-                        |range| {
-                            doc.styles
-                                .resolve_character(&range.style)
-                                .with_paint_defaults(&base)
-                        },
+                        |range| range.character.clone().with_paint_defaults(&base),
                     )
                 })
         })

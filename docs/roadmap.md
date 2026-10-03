@@ -310,6 +310,50 @@ are marked.
 
 ## Handoff
 
+Named initial-style composition, 2026-10-03:
+A new regression reproduced retained Dropcap rules leaving the source letters
+unstyled. A leading canonical native rule now derives character formatting from
+the complete source prefix. Font, size, typed paint, dictionary language/No Break,
+ordinary list-marker context and font inventories share that resolution. Explicit
+source character properties keep precedence. Zero counts disable formatting;
+one line applies nominal formatting, while existing enlargement starts at two.
+Other nested rules, unresolved references and native placement flags remain
+diagnosed. Native application geometry/precedence agreement remains unverified.
+
+Main and note text resolve prefixes before reference projection, using disposable
+ranges/aliases only. Nine new properties cover source graphemes, continuation
+slices, overrides, writing modes, unknown-rule reporting, dictionary context,
+marker context, source edits/one-step undo, native saves and used missing faces.
+The 16-page proof matches explicitly authored character ranges exactly in both
+separation paths at 72/144/216 dpi and in Poppler; every page passes visual review.
+The proof includes affine placement, process/spot inks and actual split notes.
+The first sweep was stopped after public-default review identified one-line
+named initials exporting no character count. A failing regression confirms the
+omission; the writer now emits one for this active legacy-default case, just as
+it already did for enlarged initials. Explicit zero and dormant counts remain
+unchanged. All 16 roadmap targets, shared UI tests, formatting and whitespace
+checks pass: **1,982 distinct Rust tests**, four browser checks and eight Python
+audit tests. One existing shared UI documentation example remains ignored. The
+native development build passes in 2m 39s; the isolated Design-enabled QA bundle
+is hash/signature verified. Logs, counts and exit codes are under
+`/tmp/schist-named-initial-*`. Final proof renders match all 16 reviewed pages;
+all 35 existing PDF proof files remain byte-identical. Three applied temporary
+drafts were removed. No new locale keys or default feature-flag changes are
+introduced. The supported subset is documented in
+[IDML evidence and limits](idml-format.md#ordered-nested-character-style-rules).
+
+Item 9 continues with list-marker context around generated references: inspection
+suggests a leading reference can supply formatting meant to come from authored
+text. A regression is drafted but this suspected defect is not yet verified.
+Other nested styles, named-initial controls, advanced object/structured-story
+behavior, curved frame flow and external application agreement remain open.
+Production INDD remains Phase-0-gated.
+
+Source direction is published as `3f1d1ea7` to draft PR #195. Its complete local
+verification is below. Three superseded temporary PR descriptions were removed.
+Before the new build, 1.86 GiB of closed incremental caches were removed after
+checking for active compilers and open files; source and both dev bundles remain.
+
 Source direction around generated references, 2026-10-03:
 A regression reproduced a generated Latin reference prefix changing a Hebrew
 paragraph's automatic base to left-to-right. Main and note projection now derive
