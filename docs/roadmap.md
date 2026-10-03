@@ -8,8 +8,8 @@ integration still has composition and interchange fidelity gaps to close.
 
 ## The one-line version
 
-The layout engine and IDML open/save work. Design Mode ships dark behind
-`design-mode` while the remaining Phase 3 authoring UI is completed.
+The layout engine, IDML open/save and main authoring UI work. Design Mode ships
+dark behind `design-mode` while Phase 3 integration and output fidelity are completed.
 
 ## Status
 
@@ -84,7 +84,7 @@ Phase 0 (INDD spike, eleven paired samples) ──go/no-go──► Phase 5 (IND
 ```
 
 - **Phase 2 is complete for the supported IDML subset.** Layout documents
-  open and save. The remaining Phase 3 authoring UI keeps the feature dark.
+  open and save. Remaining integration and fidelity work keeps the feature dark.
 - **Phase 0 gates Phase 5 only.** IDML does not depend on the INDD spike,
   and no INDD work should start before the spike's go/no-go. If the spike
   fails, INDD stays a reader-only link-extraction feature and IDML remains
@@ -212,7 +212,7 @@ Also, and independently of specimens:
 
 This is now the work between Design Mode and the planned layout editor.
 Documents can be opened, authored with text and shape frames, and saved;
-the remaining tools and controls below are still needed.
+items 1–8 below are implemented, with integration and output work continuing in item 9.
 
 Layers, Control, Character and Paragraph panels now exist, alongside Pages,
 Stories, Links, Swatches, Styles and Preflight. Page add/remove/reorder,
@@ -309,6 +309,38 @@ key means adding it to all 150 catalogs. See
 are marked.
 
 ## Handoff
+
+Source list-marker context and path-initial reporting, 2026-10-03:
+A regression reproduced a leading footnote reference changing an ordinary black
+bullet into cyan superscript. Main/note marker plans now resolve authored context
+before reference projection, then map paragraph anchors without changing the
+measured marker or source-order counters. Four new properties cover both list
+kinds, empty/multiple paragraphs, explicit overrides, named initials, main and
+whole/split notes, cross-story chronology, every process/spot plate at three
+resolutions and source preservation. The eight-page proof matches independent
+explicit marker styling exactly; every page passes visual review. A test fixture
+initially used literal newlines instead of paragraph points; the corrected fixture
+now exercises distinct paragraph anchors and counters. The split proof was
+lengthened after removing enlargement let its shorter note fit without splitting.
+
+A separate regression reproduced Preflight silently accepting enlarged initials
+on a text path. Used active multi-line initials now produce the existing localized
+unsupported-setting error; zero counts and one-line settings do not. Counts and
+source text remain retained. All 16 roadmap targets, shared UI, formatting and
+whitespace checks pass: **1,986 distinct Rust tests**, four browser checks and
+eight Python audit tests. One existing shared UI documentation example remains
+ignored. A fixture-only clippy warning was corrected before the remaining checks
+resumed; production code stayed unchanged. The native development build passes in
+3m 13s, and the isolated Design-enabled QA bundle is hash/signature verified.
+All 36 earlier PDF files remain byte-identical, and final renders match the eight
+reviewed pages. Logs, counts and exit codes are under `/tmp/schist-projected-markers-*`.
+Three applied/superseded temporary drafts and the older PR input were removed.
+No locale keys or default feature flags change.
+
+Named initials are published as `942a8137` to draft PR #195, whose description now
+summarizes the accumulated implementation and explicit remaining limits. Its full
+local verification is recorded below. Item 9 continues after this checkpoint;
+named-initial authoring controls and the other listed integration gaps remain.
 
 Named initial-style composition, 2026-10-03:
 A new regression reproduced retained Dropcap rules leaving the source letters

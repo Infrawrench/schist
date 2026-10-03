@@ -54,12 +54,14 @@ pub struct PreparedNote {
     pub reference: std::ops::Range<usize>,
     pub body: Projection,
     pub hyphenation: crate::hyphenation::BreakPlan,
+    pub(crate) markers: crate::list_composition::MarkerPlans,
 }
 
 #[derive(Debug, Clone, PartialEq)]
 pub struct PreparedStory {
     pub main: Projection,
     pub hyphenation: crate::hyphenation::BreakPlan,
+    pub(crate) markers: crate::list_composition::MarkerPlans,
     pub styles: StyleSet,
     pub notes: Vec<PreparedNote>,
 }
@@ -182,6 +184,11 @@ pub fn prepare(doc: &LayoutDocument, id: StoryId) -> Option<PreparedStory> {
             structure,
             anchor: at,
             reference: 0..0,
+            // Note bodies are detached source stories. Cross-story numbering
+            // still requires document frame chronology and remains unsupported
+            // inside notes; ordinary note-local counters use authored text.
+            markers: crate::list_composition::MarkerPlans::new(doc, &note.story)
+                .projected(&body.positions),
             hyphenation: crate::hyphenation::BreakPlan::projected(
                 &note_source,
                 &body,
@@ -198,6 +205,7 @@ pub fn prepare(doc: &LayoutDocument, id: StoryId) -> Option<PreparedStory> {
         note.reference = span.start..span.end;
     }
     Some(PreparedStory {
+        markers: crate::list_composition::MarkerPlans::new(doc, source).projected(&main.positions),
         hyphenation: crate::hyphenation::BreakPlan::projected(
             &main_source,
             &main,

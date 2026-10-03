@@ -803,3 +803,18 @@ if len(sys.argv) > 35:
                 assert actual.tobytes() == expected.tobytes(), (prefix, index, "named initial differs from explicit source character ranges")
                 assert min(v[0] for v in actual.getextrema()) < 150, (prefix, index, "empty named initial proof")
     print("Design PDF: named initial styles match explicit source ranges across writing modes, overrides, whole/split notes, affine placement and process/spot inks.")
+
+if len(sys.argv) > 36:
+    with tempfile.TemporaryDirectory(prefix="schist-projected-markers-check-") as temporary:
+        for prefix, args in [("samples", ["pdfimages", "-png"]), ("pages", ["pdftoppm", "-r", "144", "-png"])]:
+            result = subprocess.run(args + [sys.argv[36], str(Path(temporary)/prefix)], capture_output=True, text=True)
+            assert result.returncode == 0 and not result.stderr.strip(), result.stderr
+            files = sorted(Path(temporary).glob(prefix + "-*.png"))
+            assert len(files) == 8, (prefix, len(files))
+            for index in range(0, len(files), 2):
+                actual = Image.open(files[index]).convert("RGB")
+                expected = Image.open(files[index+1]).convert("RGB")
+                assert actual.size == expected.size == (840, 640), (prefix, index, actual.size)
+                assert actual.tobytes() == expected.tobytes(), (prefix, index, "projected list marker differs from explicit source style")
+                assert min(v[0] for v in actual.getextrema()) < 150, (prefix, index, "empty projected marker proof")
+    print("Design PDF: generated references preserve source list-marker formatting in whole/split notes and every process/spot ink.")

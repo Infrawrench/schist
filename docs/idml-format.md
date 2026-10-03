@@ -563,7 +563,9 @@ change the initial's font size. This is Schist's geometry policy, not evidence
 of native application agreement.
 Active explicit native flags therefore produce an import/export diagnostic and a
 Preflight error when composed. Dormant values do not. Native flag rendering
-remains a gap. Named initial styles now compose from a leading canonical
+remains a gap. A used text path also reports active enlarged initials because
+its single baseline cannot reserve additional rows; zero counts and one-line
+formatting do not raise this error. Named initial styles now compose from a leading canonical
 `AllNestedStyles` Dropcap record, as described below; no invented native
 `DropCapStyle` attribute is emitted.
 
@@ -1820,6 +1822,15 @@ reference anchor: otherwise a tab or cross-story list inside a note could be
 checked against an unrelated parent paragraph. Paragraph strings are shared
 between their lines. Regression coverage exercises both separation paths,
 valid local note lists, unsupported tabs and unsupported cross-story note lists.
+List markers are measured from the authored main/note paragraph before inline
+reference insertion, then their anchors are mapped before generated text at the
+same boundary. References cannot replace the source font, paint or script
+position used by a bullet/number. Explicit marker styles still override the
+source context, and main-story counters retain document frame chronology.
+An eight-page proof compares ordinary source-context markers with explicitly
+styled markers through whole/split notes in every process/spot plate and Poppler.
+This preserves Schist's source-context policy; it does not establish native
+application agreement for these combined settings.
 The independent rotated-rule proof caught a separate edge blur: separator vector
 geometry now receives the frame affine before antialiasing, just like ordinary
 shapes, instead of resampling an already rasterized line.

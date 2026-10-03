@@ -245,6 +245,12 @@ fn layout_report(
                 initial_issues.extend(schist_layout::drop_caps::unsupported_detail(
                     &line.paragraph,
                 ));
+                if line.text_path.is_some()
+                    && line.paragraph.drop_caps_lines.unwrap_or(0) > 1
+                    && line.paragraph.drop_caps_characters.unwrap_or(1) > 0
+                {
+                    initial_issues.insert("TextPath + DropCapLines");
+                }
                 nested_issues.extend(schist_layout::nested_styles::unsupported(&line.paragraph));
                 let spec = schist_layout::compose::line_spec(line, story, doc);
                 let paragraph = paragraphs.range(..=line.start).next_back();

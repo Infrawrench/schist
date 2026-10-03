@@ -159,6 +159,7 @@ fn measure_note(
         None,
         None,
         Some(&note.hyphenation),
+        Some(&note.markers),
     );
     let frame = composed.frames.first_mut()?;
     if frame.lost {

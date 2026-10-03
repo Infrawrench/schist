@@ -807,6 +807,7 @@ fn compose_thread_on_page(
                 parent_page,
                 Some(&prepared),
                 Some(&prepared.hyphenation),
+                Some(&prepared.markers),
             );
             let text = prepared.main.story.text();
             let projected_story = &projected.stories[story_id.0 as usize];
@@ -834,7 +835,7 @@ fn compose_thread_on_page(
             return out;
         }
     }
-    compose_thread_plain(doc, story_id, frames, parent_page, None, None)
+    compose_thread_plain(doc, story_id, frames, parent_page, None, None, None)
 }
 
 fn compose_thread_plain(
@@ -844,6 +845,7 @@ fn compose_thread_plain(
     parent_page: Option<usize>,
     notes: Option<&crate::footnote_composition::PreparedStory>,
     plan: Option<&crate::hyphenation::BreakPlan>,
+    markers: Option<&crate::list_composition::MarkerPlans>,
 ) -> ComposedThread {
     let mut out = ComposedThread {
         story: story_id,
@@ -881,11 +883,18 @@ fn compose_thread_plain(
             &owned_plan
         }
     };
-    let markers = crate::list_composition::MarkerPlans::new(doc, story);
+    let owned_markers;
+    let markers = match markers {
+        Some(markers) => markers,
+        None => {
+            owned_markers = crate::list_composition::MarkerPlans::new(doc, story);
+            &owned_markers
+        }
+    };
     let source = FlowSource {
         doc,
         story,
-        markers: &markers,
+        markers,
         notes,
         plan,
         hyphens: Default::default(),

@@ -21,6 +21,7 @@ pub struct GeneratedText {
     pub character: ResolvedCharacter,
 }
 
+#[derive(Debug, Clone, PartialEq)]
 pub(crate) struct MarkerPlan {
     generated: GeneratedText,
     width: f32,
@@ -89,7 +90,7 @@ impl MarkerPlan {
 /// Measured marker plans shared by all columns and balance trials for one flow.
 /// No document-global cache: changing text, styles or font availability requires
 /// a fresh value, which each composition and resource-inventory call constructs.
-#[derive(Default)]
+#[derive(Debug, Clone, Default, PartialEq)]
 pub struct MarkerPlans {
     plans: std::collections::BTreeMap<usize, MarkerPlan>,
 }
@@ -106,6 +107,19 @@ impl MarkerPlans {
             }
         }
         out
+    }
+
+    /// Inline references move paragraph anchors, but do not supply the source
+    /// character context or alter source-order list counters. Keep the measured
+    /// marker and place it before any generated text at the paragraph start.
+    pub(crate) fn projected(self, positions: &crate::inline_text::SourceMap) -> Self {
+        Self {
+            plans: self
+                .plans
+                .into_iter()
+                .map(|(at, plan)| (positions.before(at), plan))
+                .collect(),
+        }
     }
 
     pub(crate) fn get(&self, at: usize) -> Option<&MarkerPlan> {

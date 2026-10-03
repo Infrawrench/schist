@@ -48,7 +48,7 @@ impl<'a> Flow<'a> {
             let end = story.text_len() + usize::from(matches!(story.points.last(), Some(Point::Paragraph { text, .. }) if text.is_empty()));
             NoteFlow {
                 plan: note.hyphenation.clone(),
-                markers: crate::list_composition::MarkerPlans::new(&scratch, story),
+                markers: note.markers.clone(),
                 context: footnote_flow::ProjectionContext::new(&scratch, story),
                 doc: scratch,
                 end,
