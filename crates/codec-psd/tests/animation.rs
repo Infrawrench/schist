@@ -8,9 +8,7 @@ use schist_core::{blit_rgba8, Document, IntRect, Layer, LayerPath, PreservedReso
 fn solid(name: &str, rect: IntRect, color: Rgba) -> Layer {
     let mut layer = Layer::new_raster(name);
     let px = color.to_u8();
-    let rgba: Vec<u8> = (0..rect.width() * rect.height())
-        .flat_map(|_| px)
-        .collect();
+    let rgba: Vec<u8> = (0..rect.width() * rect.height()).flat_map(|_| px).collect();
     blit_rgba8(
         &mut layer.as_raster_mut().unwrap().tiles,
         Depth::Eight,
@@ -27,8 +25,10 @@ fn animated() -> Document {
     doc.push_layer(solid("Background", IntRect::from_size(40, 30), Rgba::WHITE));
     let mut group = Layer::new_group("Sprites");
     if let schist_core::LayerKind::Group(g) = &mut group.kind {
-        g.children.push(solid("Red", IntRect::from_xywh(0, 0, 8, 8), red));
-        g.children.push(solid("Blue", IntRect::from_xywh(10, 10, 8, 8), blue));
+        g.children
+            .push(solid("Red", IntRect::from_xywh(0, 0, 8, 8), red));
+        g.children
+            .push(solid("Blue", IntRect::from_xywh(10, 10, 8, 8), blue));
     }
     doc.push_layer(group);
     animation::make_frames_from_layers(&mut doc, "make").unwrap();
@@ -39,7 +39,13 @@ fn animated() -> Document {
     animation::set_loop(&mut doc, LoopCount::Times(3), "loop").unwrap();
     animation::set_new_layers_visible(&mut doc, false, "rule").unwrap();
     let mut edit = doc.begin_edit("hide blue");
-    let blue_id = edit.doc().tree.iter().find(|l| l.name == "Blue").unwrap().id;
+    let blue_id = edit
+        .doc()
+        .tree
+        .iter()
+        .find(|l| l.name == "Blue")
+        .unwrap()
+        .id;
     edit.change_props(blue_id, |l| l.opacity = 0.5);
     edit.commit();
     doc
@@ -145,6 +151,10 @@ fn unknown_versions_and_photoshop_animation_resources_are_preserved_verbatim() {
     let back = read_psd(&write_psd_with(&doc, false).unwrap()).unwrap();
     assert!(back.timeline.is_none());
     assert!(back.preserved_layer_info.contains(&future));
-    let kept = back.preserved_resources.iter().find(|r| r.id == 4000).unwrap();
+    let kept = back
+        .preserved_resources
+        .iter()
+        .find(|r| r.id == 4000)
+        .unwrap();
     assert_eq!(kept.data, resource.data);
 }

@@ -327,6 +327,8 @@ pub(crate) fn run_app_item(
         AppItem::ApplyLayerComp(i) => ws.apply_layer_comp(i, cx),
         AppItem::DeleteLayerComp(i) => ws.delete_layer_comp(i, cx),
         AppItem::ExportArtboards => ws.export_regions(false, window, cx),
+        AppItem::ExportAnimation => ws.open_export_animation(cx),
+        AppItem::ToggleAnimationPlayback => ws.toggle_playback(cx),
         AppItem::ExportSlices => ws.export_regions(true, window, cx),
         #[cfg(target_os = "ios")]
         AppItem::SaveToPhotos => ws.save_to_photos(cx),

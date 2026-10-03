@@ -192,7 +192,8 @@ impl Timeline {
     pub fn synced(&self, tree: &LayerTree) -> Timeline {
         let mut out = self.clone();
         if out.frames.is_empty() {
-            out.frames.push(Frame::capture(tree, DEFAULT_DELAY_MS, None));
+            out.frames
+                .push(Frame::capture(tree, DEFAULT_DELAY_MS, None));
         }
         out.current = out.current.min(out.frames.len() - 1);
         let current = out.current;
@@ -508,12 +509,15 @@ pub fn set_new_layers_visible(doc: &mut Document, visible: bool, name: &str) -> 
 }
 
 /// Set `layer`'s offset in the selected frame.
-pub fn set_offset(doc: &mut Document, layer: LayerId, offset: (i32, i32), name: &str) -> FrameResult {
+pub fn set_offset(
+    doc: &mut Document,
+    layer: LayerId,
+    offset: (i32, i32),
+    name: &str,
+) -> FrameResult {
     let mut t = synced(doc)?;
     let current = t.current;
-    let state = t.frames[current]
-        .state_mut(layer)
-        .ok_or(Refusal::Nothing)?;
+    let state = t.frames[current].state_mut(layer).ok_or(Refusal::Nothing)?;
     state.offset = offset;
     commit(doc, name, Some(t))
 }
@@ -682,10 +686,7 @@ mod tests {
         delete(&mut doc, 0, "delete").unwrap();
         assert_eq!(delete(&mut doc, 0, "delete"), Err(Refusal::LastFrame));
         set_loop(&mut doc, LoopCount::Times(3), "loop").unwrap();
-        assert_eq!(
-            doc.timeline.as_ref().unwrap().loop_count.plays(),
-            Some(3)
-        );
+        assert_eq!(doc.timeline.as_ref().unwrap().loop_count.plays(), Some(3));
     }
 
     #[test]
@@ -719,10 +720,7 @@ mod tests {
             let _ = set_new_layers_visible(&mut doc, all, "rule");
             duplicate(&mut doc, "new").unwrap();
             let mut edit = doc.begin_edit("layer");
-            let id = edit.insert_layer(
-                crate::layer::LayerPath(vec![3]),
-                Layer::new_raster("new"),
-            );
+            let id = edit.insert_layer(crate::layer::LayerPath(vec![3]), Layer::new_raster("new"));
             edit.commit();
             select(&mut doc, 0, "select").unwrap();
             assert_eq!(visible(&doc, id), all, "rule {all}");

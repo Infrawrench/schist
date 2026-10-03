@@ -11,6 +11,8 @@ use schist_plugin_api::{
 };
 use std::sync::Arc;
 
+pub mod animation;
+
 fn cmd(
     id: &'static str,
     title: &'static str,
@@ -1218,6 +1220,7 @@ impl PluginManifest for CoreCommandsPlugin {
 
     fn register(&self, registry: &mut PluginRegistry) {
         registry.register_commands(self);
+        registry.register_commands(&animation::AnimationCommands);
     }
 }
 

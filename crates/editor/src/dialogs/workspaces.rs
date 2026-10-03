@@ -160,6 +160,7 @@ pub(super) fn dialog(
             "color" => "common.color",
             "layers" => "common.layers",
             "notes" => "menu.view.notes",
+            "timeline" => "animation.panel.title",
             "pages" => "design.pages",
             "design_layers" => "design.layers",
             "design_control" => "design.properties",

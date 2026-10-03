@@ -144,7 +144,12 @@ pub(crate) fn over_matte(rgba: &[u8], matte: [u8; 3]) -> Vec<u8> {
         .flat_map(|p| {
             let a = p[3] as u32;
             let mix = |c: u8, m: u8| ((c as u32 * a + m as u32 * (255 - a) + 127) / 255) as u8;
-            [mix(p[0], matte[0]), mix(p[1], matte[1]), mix(p[2], matte[2]), 255]
+            [
+                mix(p[0], matte[0]),
+                mix(p[1], matte[1]),
+                mix(p[2], matte[2]),
+                255,
+            ]
         })
         .collect()
 }
@@ -170,8 +175,14 @@ mod tests {
 
     #[test]
     fn matte_and_tint() {
-        assert_eq!(over_matte(&[0, 0, 0, 0], [255, 255, 255]), [255, 255, 255, 255]);
-        assert_eq!(over_matte(&[10, 20, 30, 255], [255, 0, 0]), [10, 20, 30, 255]);
+        assert_eq!(
+            over_matte(&[0, 0, 0, 0], [255, 255, 255]),
+            [255, 255, 255, 255]
+        );
+        assert_eq!(
+            over_matte(&[10, 20, 30, 255], [255, 0, 0]),
+            [10, 20, 30, 255]
+        );
         assert_eq!(tint(&[0, 0, 0, 200], [200, 100, 0], 0.5), [100, 50, 0, 100]);
     }
 }

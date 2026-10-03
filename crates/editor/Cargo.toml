@@ -33,6 +33,7 @@ smallvec.workspace = true
 rustc-hash.workspace = true
 schist-ui.workspace = true
 schist-core.workspace = true
+schist-animation.workspace = true
 schist-layout.workspace = true
 schist-codec-idml.workspace = true
 schist-separation.workspace = true

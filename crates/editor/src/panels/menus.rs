@@ -138,6 +138,7 @@ fn editor_menus(ws: &Workspace) -> Vec<(&'static str, Vec<MenuEntry>)> {
                     vec![
                         App(t("menu.file.export_artboards"), ExportArtboards, None),
                         App(t("menu.file.export_slices"), ExportSlices, None),
+                        App(t("animation.export.menu"), ExportAnimation, None),
                     ],
                 ),
                 Sep,
@@ -287,6 +288,24 @@ fn editor_menus(ws: &Workspace) -> Vec<(&'static str, Vec<MenuEntry>)> {
                 App(t("menu.layer.layer_style"), LayerStyleItem, None),
                 Sep,
                 Sub(t("menu.layer.layer_comps"), layer_comp_entries(ws)),
+                Sub(
+                    t("animation.menu"),
+                    vec![
+                        Cmd("animation.create"),
+                        Cmd("animation.make_frames_from_layers"),
+                        Cmd("animation.flatten_frames_into_layers"),
+                        Sep,
+                        Cmd("animation.new_frame"),
+                        Cmd("animation.delete_frame"),
+                        Cmd("animation.reverse_frames"),
+                        Sep,
+                        App(t("animation.play_pause"), ToggleAnimationPlayback, None),
+                        Cmd("animation.previous_frame"),
+                        Cmd("animation.next_frame"),
+                        Sep,
+                        Cmd("animation.delete_animation"),
+                    ],
+                ),
                 Sep,
                 Sub(
                     "Path",

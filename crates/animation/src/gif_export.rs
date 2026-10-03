@@ -252,7 +252,9 @@ pub fn encode_gif(
         match loop_count.plays() {
             None => encoder.set_repeat(gif::Repeat::Infinite)?,
             Some(1) => {}
-            Some(n) => encoder.set_repeat(gif::Repeat::Finite((n - 1).min(u16::MAX as u32) as u16))?,
+            Some(n) => {
+                encoder.set_repeat(gif::Repeat::Finite((n - 1).min(u16::MAX as u32) as u16))?
+            }
         }
         for frame in frames {
             anyhow::ensure!(
