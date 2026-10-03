@@ -41,12 +41,16 @@ codec.avif.msg.no_decoder = Naršyklinė „Schist“ versija negali atverti AVI
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
 codec.layered.invalid = Vaizdo su sluoksniais failas yra sugadintas arba nepilnas.
 codec.layered.too_large = Vaizdo dydis arba sluoksnių skaičius viršija palaikomą ribą.
 codec.layered.unsupported = Šiame faile naudojama nepalaikoma funkcija: {feature}.
 codec.layered.export_layer = Sluoksnyje „{name}“ yra funkcijų, kurių šis formatas negali išsaugoti. Rastrizuokite jį arba įrašykite dokumentą kaip PSD.
 codec.layered.export_depth = Eksportui į Paint.NET reikia 8 bitų RGB dokumento. Pirmiausia konvertuokite dokumentą į 8 bitų RGB.
 codec.layered.export_mode = Eksportui reikia RGB dokumento. Pirmiausia konvertuokite dokumentą į RGB.
+codec.layered.merged_layer = Sujungtas vaizdas (kai kurių {format} sluoksnių nepavyko importuoti)
+codec.kra.merged_color_space = Sujungtas vaizdas (Krita {color_space} dokumentas rodomas kaip RGB)
 
 # Unsupported layered-format features.
 codec.pdn.feature.blend_mode = PDN maišymo režimas

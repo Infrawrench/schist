@@ -38,12 +38,16 @@ codec.avif.msg.no_decoder = Schist'in tarayıcı sürümü AVIF görüntülerini
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
 codec.layered.invalid = Katmanlı görüntü dosyası hasarlı veya eksik.
 codec.layered.too_large = Katmanlı görüntü, desteklenen boyutu veya katman sayısını aşıyor.
 codec.layered.unsupported = Bu dosya desteklenmeyen bir özellik kullanıyor: {feature}.
 codec.layered.export_layer = “{name}” katmanı, bu biçimin koruyamadığı özellikler içeriyor. Katmanı rasterleştirin veya PSD olarak kaydedin.
 codec.layered.export_depth = Paint.NET olarak dışa aktarma, 8 bit RGB belge gerektirir. Önce belgeyi 8 bit RGB'ye dönüştürün.
 codec.layered.export_mode = Dışa aktarma, RGB belge gerektirir. Önce belgeyi RGB'ye dönüştürün.
+codec.layered.merged_layer = Birleştirilmiş görüntü (bazı {format} katmanları içe aktarılamadı)
+codec.kra.merged_color_space = Birleştirilmiş görüntü (Krita {color_space} belgesi RGB olarak gösteriliyor)
 
 # Unsupported layered format features
 codec.pdn.feature.blend_mode = PDN karışım modu

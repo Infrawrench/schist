@@ -38,12 +38,16 @@ codec.avif.msg.no_decoder = Il-verżjoni tal-brawżer ta' Schist ma tistax tifta
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
 codec.layered.invalid = Il-fajl tal-immaġni bis-saffi huwa bil-ħsara jew mhux komplut.
 codec.layered.too_large = L-immaġni bis-saffi taqbeż id-daqs jew in-numru ta' saffi appoġġjati.
 codec.layered.unsupported = Dan il-fajl juża karatteristika mhux appoġġjata: {feature}.
 codec.layered.export_layer = Is-saff “{name}” fih karatteristiċi li dan il-format ma jistax iżomm. Irrasterizzah jew issejvja bħala PSD.
 codec.layered.export_depth = L-esportazzjoni għal Paint.NET teħtieġ dokument RGB ta' 8 bits. L-ewwel ikkonverti d-dokument għal RGB ta' 8 bits.
 codec.layered.export_mode = L-esportazzjoni teħtieġ dokument RGB. L-ewwel ikkonverti d-dokument għal RGB.
+codec.layered.merged_layer = Immaġni magħquda (xi saffi {format} ma setgħux jiġu importati)
+codec.kra.merged_color_space = Immaġni magħquda (dokument ta' Krita f'{color_space} muri bħala RGB)
 codec.pdn.feature.blend_mode = mod ta' taħlit PDN
 codec.pdn.feature.compression = kompressjoni PDN
 codec.pdn.feature.container_version = verżjoni tal-kontenitur PDN

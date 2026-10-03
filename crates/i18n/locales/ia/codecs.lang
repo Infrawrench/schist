@@ -44,12 +44,16 @@ codec.avif.msg.no_decoder = Le version pro navigator de Schist non pote aperir i
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
 codec.layered.invalid = Le file de imagine con stratos es damnificate o incomplete.
 codec.layered.too_large = Le imagine con stratos excede le dimension o le numero de stratos supportate.
 codec.layered.unsupported = Iste file usa un functionalitate non supportate: {feature}.
 codec.layered.export_layer = Le strato «{name}» contine functionalitates que iste formato non pote preservar. Rasterisa lo o salva como PSD.
 codec.layered.export_depth = Le exportation a Paint.NET require un documento RGB de 8 bits. Primo converte le documento a RGB de 8 bits.
 codec.layered.export_mode = Le exportation require un documento RGB. Primo converte le documento a RGB.
+codec.layered.merged_layer = Imagine fusionate (alcun stratos de {format} non poteva esser importate)
+codec.kra.merged_color_space = Imagine fusionate (documento Krita {color_space} monstrate como RGB)
 
 # Unsupported layered format features
 codec.pdn.feature.blend_mode = Modo de fusion PDN

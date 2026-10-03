@@ -42,12 +42,16 @@ codec.avif.msg.no_decoder = Schist ၏ ဘရောက်ဇာဗားရှ�
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
 codec.layered.invalid = အလွှာပါ ပုံဖိုင်သည် ပျက်စီးနေသည် သို့မဟုတ် မပြည့်စုံပါ။
 codec.layered.too_large = အလွှာပါပုံ၏ အရွယ်အစား သို့မဟုတ် အလွှာအရေအတွက်သည် ပံ့ပိုးထားသည့် ကန့်သတ်ချက်ကို ကျော်လွန်နေသည်။
 codec.layered.unsupported = ဤဖိုင်သည် မပံ့ပိုးထားသည့် လုပ်ဆောင်ချက်ကို အသုံးပြုထားသည်- {feature}။
 codec.layered.export_layer = “{name}” အလွှာတွင် ဤဖော်မတ်က မထိန်းသိမ်းနိုင်သည့် လုပ်ဆောင်ချက်များ ပါဝင်သည်။ ၎င်းကို ပစ်ဇယ်ပုံသို့ ပြောင်းပါ သို့မဟုတ် PSD အဖြစ် သိမ်းပါ။
 codec.layered.export_depth = Paint.NET သို့ တင်ပို့ရန် 8-bit RGB စာတမ်း လိုအပ်သည်။ စာတမ်းကို 8-bit RGB သို့ ဦးစွာ ပြောင်းပါ။
 codec.layered.export_mode = တင်ပို့ရန် RGB စာတမ်း လိုအပ်သည်။ စာတမ်းကို RGB သို့ ဦးစွာ ပြောင်းပါ။
+codec.layered.merged_layer = ပေါင်းစည်းထားသော ပုံ ({format} အလွှာအချို့ကို တင်သွင်း၍ မရခဲ့ပါ)
+codec.kra.merged_color_space = ပေါင်းစည်းထားသော ပုံ (Krita {color_space} စာတမ်းကို RGB အဖြစ် ပြထားသည်)
 
 # Unsupported layered-format features.
 codec.pdn.feature.blend_mode = PDN ရောစပ်စနစ်

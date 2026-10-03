@@ -43,12 +43,16 @@ codec.avif.msg.no_decoder = A versione di navigatore di Schist ùn pò micca apr
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
 codec.layered.invalid = U schedariu di maghjina à strati hè dannighjatu o incompletu.
 codec.layered.too_large = A maghjina à strati supera a dimensione o u numeru di strati suppurtatu.
 codec.layered.unsupported = Stu schedariu adopra una funziunalità micca suppurtata: {feature}.
 codec.layered.export_layer = U stratu «{name}» cuntene funziunalità chì stu furmatu ùn pò micca priservà. Rasterizatelu o arregistrate cum'è PSD.
 codec.layered.export_depth = A spurtazione in Paint.NET richiede un ducumentu RGB à 8 bit. Cunvertite prima u ducumentu in RGB à 8 bit.
 codec.layered.export_mode = A spurtazione richiede un ducumentu RGB. Cunvertite prima u ducumentu in RGB.
+codec.layered.merged_layer = Maghjina unita (alcuni strati {format} ùn anu pussutu esse impurtati)
+codec.kra.merged_color_space = Maghjina unita (ducumentu Krita {color_space} mostru cum'è RGB)
 
 # Unsupported layered format features
 codec.pdn.feature.blend_mode = Modu di mischju PDN

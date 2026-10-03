@@ -38,12 +38,16 @@ codec.avif.msg.no_decoder = Schist బ్రౌజర్ వెర్షన్ A
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
 codec.layered.invalid = లేయర్‌లున్న చిత్ర ఫైల్ దెబ్బతిన్నది లేదా అసంపూర్ణంగా ఉంది.
 codec.layered.too_large = లేయర్‌లున్న చిత్రం మద్దతు ఉన్న పరిమాణాన్ని లేదా లేయర్‌ల సంఖ్యను మించిపోయింది.
 codec.layered.unsupported = ఈ ఫైల్ మద్దతు లేని లక్షణాన్ని ఉపయోగిస్తోంది: {feature}.
 codec.layered.export_layer = “{name}” లేయర్‌లో ఈ ఫార్మాట్ నిలుపుకోలేని లక్షణాలు ఉన్నాయి. దానిని రాస్టరైజ్ చేయండి లేదా PSDగా సేవ్ చేయండి.
 codec.layered.export_depth = Paint.NETకు ఎగుమతి చేయడానికి 8-బిట్ RGB పత్రం అవసరం. ముందుగా పత్రాన్ని 8-బిట్ RGBగా మార్చండి.
 codec.layered.export_mode = ఎగుమతి చేయడానికి RGB పత్రం అవసరం. ముందుగా పత్రాన్ని RGBగా మార్చండి.
+codec.layered.merged_layer = విలీనం చేసిన చిత్రం (కొన్ని {format} లేయర్లను దిగుమతి చేయలేకపోయాం)
+codec.kra.merged_color_space = విలీనం చేసిన చిత్రం (Krita {color_space} పత్రం RGBగా చూపబడింది)
 
 # Unsupported layered format features
 codec.pdn.feature.blend_mode = PDN మేళవింపు మోడ్

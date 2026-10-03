@@ -37,12 +37,16 @@ codec.avif.msg.no_decoder = Versio Schist in navigatro imagines AVIF aperire non
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
 codec.layered.invalid = Fasciculus imaginis stratificatae corruptus vel incompletus est.
 codec.layered.too_large = Imago stratificata magnitudinem vel numerum stratorum admissum excedit.
 codec.layered.unsupported = Hic fasciculus proprietate non admissa utitur: {feature}.
 codec.layered.export_layer = Stratum «{name}» proprietates continet quas haec forma servare non potest. Illud rasteriza vel documentum ut PSD serva.
 codec.layered.export_depth = Exportatio in Paint.NET documentum RGB octo bitorum requirit. Primum documentum in RGB octo bitorum converte.
 codec.layered.export_mode = Exportatio documentum RGB requirit. Primum documentum in RGB converte.
+codec.layered.merged_layer = Imago composita (quaedam strata {format} importari non potuerunt)
+codec.kra.merged_color_space = Imago composita (documentum Krita {color_space} ut RGB ostenditur)
 
 # Unsupported layered-format features.
 codec.pdn.feature.blend_mode = modus mixturae PDN

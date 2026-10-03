@@ -37,12 +37,16 @@ codec.avif.msg.no_decoder = Version eo an Schist ilo browser ejjab maroñ kōpel
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
 codec.layered.invalid = File in pija eo ewōr layer ie ejorrāān ak ejjab dedelọk.
 codec.layered.too_large = Pija eo ewōr layer ie elap jān joñan ak oran layer ko program eo emaroñ jerbal kōn.
 codec.layered.unsupported = File in ej kōjerbal men eo program eo ejjab maroñ jerbal kōn: {feature}.
 codec.layered.export_layer = Layer “{name}” ewōr men ko format in ejjab maroñ kōjparoki. Ukot layer eo ñan pixel ko wōt ak kōjparoke āinwōt PSD.
 codec.layered.export_depth = Ñan jilkinļọk ñan Paint.NET, kwōj aikuj document in RGB 8-bit. Jinoin ukot document eo ñan RGB 8-bit.
 codec.layered.export_mode = Ñan jilkinļọk, kwōj aikuj document in RGB. Jinoin ukot document eo ñan RGB.
+codec.layered.merged_layer = Pija eo ekoba (jet layer ko an {format} rejjab maroñ in kōmmaanjuonļọk)
+codec.kra.merged_color_space = Pija eo ekoba (document Krita {color_space} ekwalok āinwōt RGB)
 
 # Unsupported layered format features
 codec.pdn.feature.blend_mode = Mode in koba an PDN

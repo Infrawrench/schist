@@ -38,12 +38,16 @@ codec.avif.msg.no_decoder = די בלעטערער־ווערסיע פֿון Schis
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
 codec.layered.invalid = די בילדטעקע מיט שיכטן איז געשעדיקט אָדער אומפֿולשטענדיק.
 codec.layered.too_large = דאָס בילד מיט שיכטן גייט איבער דער געשטיצטער גרייס אָדער צאָל שיכטן.
 codec.layered.unsupported = די טעקע ניצט אַ פֿונקציע וואָס ווערט נישט געשטיצט: {feature}.
 codec.layered.export_layer = די שיכט „{name}“ אַנטהאַלט פֿונקציעס וואָס דער פֿאָרמאַט קען נישט אָפּהיטן. ראַסטעריזיר זי אָדער היט ווי PSD.
 codec.layered.export_depth = עקספּאָרט קיין Paint.NET פֿאָדערט אַן 8־ביט RGB־דאָקומענט. פֿאַרוואַנדל קודם דעם דאָקומענט אין 8־ביט RGB.
 codec.layered.export_mode = עקספּאָרט פֿאָדערט אַ RGB־דאָקומענט. פֿאַרוואַנדל קודם דעם דאָקומענט אין RGB.
+codec.layered.merged_layer = צונויפֿגעגאָסענער בילד (עטלעכע {format}־שיכטן האָבן נישט געקענט ווערן אימפּאָרטירט)
+codec.kra.merged_color_space = צונויפֿגעגאָסענער בילד (Krita {color_space}־דאָקומענט ווערט געוויזן ווי RGB)
 
 # Unsupported layered-format features.
 codec.pdn.feature.blend_mode = PDN מיש־מאָדוס

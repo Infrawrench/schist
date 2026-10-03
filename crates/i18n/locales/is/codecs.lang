@@ -38,12 +38,16 @@ codec.avif.msg.no_decoder = Vafraútgáfa Schist getur ekki opnað AVIF-myndir. 
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
 codec.layered.invalid = Myndskráin með lögunum er skemmd eða ófullgerð.
 codec.layered.too_large = Myndin fer yfir studd mörk fyrir stærð eða fjölda laga.
 codec.layered.unsupported = Þessi skrá notar eiginleika sem er ekki studdur: {feature}.
 codec.layered.export_layer = Lagið „{name}“ inniheldur eiginleika sem þetta snið getur ekki varðveitt. Rastaraðu lagið eða vistaðu sem PSD.
 codec.layered.export_depth = Útflutningur í Paint.NET krefst 8 bita RGB-skjals. Breyttu skjalinu fyrst í 8 bita RGB.
 codec.layered.export_mode = Útflutningur krefst RGB-skjals. Breyttu skjalinu fyrst í RGB.
+codec.layered.merged_layer = Sameinuð mynd (ekki var hægt að flytja inn sum {format}-lög)
+codec.kra.merged_color_space = Sameinuð mynd (Krita {color_space}-skjal sýnt sem RGB)
 
 # Unsupported layered-format features.
 codec.pdn.feature.blend_mode = blöndunarhamur PDN

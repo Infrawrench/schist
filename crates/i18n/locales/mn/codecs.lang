@@ -37,12 +37,16 @@ codec.avif.msg.no_decoder = Schist-ийн хөтчийн хувилбар AVIF �
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
 codec.layered.invalid = Давхаргат зургийн файл гэмтсэн эсвэл дутуу байна.
 codec.layered.too_large = Давхаргат зургийн хэмжээ эсвэл давхаргын тоо дэмжигдэх хязгаараас хэтэрсэн байна.
 codec.layered.unsupported = Энэ файл дэмжигдэхгүй боломж ашиглаж байна: {feature}.
 codec.layered.export_layer = “{name}” давхаргад энэ форматаар хадгалах боломжгүй шинжүүд байна. Давхаргыг растер болгох эсвэл PSD хэлбэрээр хадгална уу.
 codec.layered.export_depth = Paint.NET хэлбэрээр экспортлоход 8 битийн RGB баримт шаардлагатай. Эхлээд баримтыг 8 битийн RGB болгон хөрвүүлнэ үү.
 codec.layered.export_mode = Экспортлоход RGB баримт шаардлагатай. Эхлээд баримтыг RGB болгон хөрвүүлнэ үү.
+codec.layered.merged_layer = Нэгтгэсэн зураг ({format} форматын зарим давхаргыг импортлож чадсангүй)
+codec.kra.merged_color_space = Нэгтгэсэн зураг ({color_space} өнгөний орон зайтай Krita баримтыг RGB хэлбэрээр харуулж байна)
 
 # Unsupported layered format features
 codec.pdn.feature.blend_mode = PDN холих горим

@@ -6979,6 +6979,7 @@ dependencies = [
  "log",
  "miniz_oxide",
  "moxcms",
+ "quick-xml",
  "rav1d",
  "rav1e",
  "schist-app-settings",

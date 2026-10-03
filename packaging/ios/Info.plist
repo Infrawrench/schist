@@ -227,6 +227,26 @@
     <key>UTImportedTypeDeclarations</key>
     <array>
         <dict>
+            <key>UTTypeIdentifier</key><string>org.openraster.ora</string>
+            <key>UTTypeDescription</key><string>OpenRaster Image</string>
+            <key>UTTypeConformsTo</key><array><string>public.image</string><string>public.zip-archive</string></array>
+            <key>UTTypeTagSpecification</key>
+            <dict>
+                <key>public.filename-extension</key><array><string>ora</string></array>
+                <key>public.mime-type</key><array><string>image/openraster</string></array>
+            </dict>
+        </dict>
+        <dict>
+            <key>UTTypeIdentifier</key><string>org.krita.kra</string>
+            <key>UTTypeDescription</key><string>Krita Document</string>
+            <key>UTTypeConformsTo</key><array><string>public.image</string><string>public.zip-archive</string></array>
+            <key>UTTypeTagSpecification</key>
+            <dict>
+                <key>public.filename-extension</key><array><string>kra</string><string>krz</string></array>
+                <key>public.mime-type</key><array><string>application/x-krita</string></array>
+            </dict>
+        </dict>
+        <dict>
             <key>UTTypeIdentifier</key><string>org.gimp.xcf</string>
             <key>UTTypeDescription</key><string>GIMP XCF Document</string>
             <key>UTTypeConformsTo</key><array><string>public.image</string></array>
@@ -350,6 +370,8 @@
             <array>
                 <string>org.gimp.xcf</string>
                 <string>com.infrawrench.schist.pdn</string>
+                <string>org.openraster.ora</string>
+                <string>org.krita.kra</string>
                 <string>public.png</string>
                 <string>public.jpeg</string>
                 <string>public.tiff</string>

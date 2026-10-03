@@ -39,12 +39,16 @@ codec.avif.msg.no_decoder = የSchist የአሳሽ ስሪት AVIF ምስሎች�
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
 codec.layered.invalid = ባለንብርብሩ የምስል ፋይል ተበላሽቷል ወይም ያልተሟላ ነው።
 codec.layered.too_large = ባለንብርብሩ ምስል የሚደገፈውን መጠን ወይም የንብርብር ብዛት አልፏል።
 codec.layered.unsupported = ይህ ፋይል የማይደገፍ ባህሪ ይጠቀማል፦ {feature}።
 codec.layered.export_layer = “{name}” ንብርብር ይህ ቅርጸት ሊጠብቃቸው የማይችላቸው ባህሪያት አሉት። ወደ ራስተር ይቀይሩት ወይም በPSD ቅርጸት ያስቀምጡ።
 codec.layered.export_depth = ወደ Paint.NET ለመላክ 8-ቢት RGB ሰነድ ያስፈልጋል። መጀመሪያ ሰነዱን ወደ 8-ቢት RGB ይቀይሩ።
 codec.layered.export_mode = ለመላክ RGB ሰነድ ያስፈልጋል። መጀመሪያ ሰነዱን ወደ RGB ይቀይሩ።
+codec.layered.merged_layer = የተዋሃደ ምስል (አንዳንድ የ{format} ንብርብሮች ማስመጣት አልተቻለም)
+codec.kra.merged_color_space = የተዋሃደ ምስል (በ{color_space} የሆነ የKrita ሰነድ እንደ RGB ታይቷል)
 
 # Unsupported layered format features
 codec.pdn.feature.blend_mode = የPDN ማዋሃድ ሁነታ

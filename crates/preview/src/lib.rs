@@ -107,6 +107,18 @@ pub fn render(bytes: &[u8], max_edge: u32) -> Result<Preview> {
         composite_preview(schist_codecs_common::PdnCodec.import(bytes)?, max_edge)
     } else if schist_codecs_common::XcfCodec.probe(bytes) {
         composite_preview(schist_codecs_common::XcfCodec.import(bytes)?, max_edge)
+    } else if schist_codecs_common::OraCodec.probe(bytes) {
+        package_preview(
+            schist_codecs_common::ora::merged_png(bytes),
+            || schist_codecs_common::OraCodec.import(bytes),
+            max_edge,
+        )
+    } else if schist_codecs_common::KraCodec.probe(bytes) {
+        package_preview(
+            schist_codecs_common::kra::merged_png(bytes),
+            || schist_codecs_common::KraCodec.import(bytes),
+            max_edge,
+        )
     } else {
         // HEIC before the generic decoder: the `image` crate does not
         // read it, and an iPhone's camera roll is mostly HEIC — a
@@ -183,6 +195,22 @@ fn decode_psd_thumbnail(thumb: schist_codec_psd::Thumbnail<'_>) -> Option<RgbaIm
         }
     }
     Some(img)
+}
+
+/// OpenRaster and Krita: the package's flattened render, which both
+/// formats carry beside the layers, else the imported document.
+fn package_preview(
+    merged: Option<Vec<u8>>,
+    import: impl FnOnce() -> Result<Document>,
+    max_edge: u32,
+) -> Result<Preview> {
+    if let Some(img) = merged.and_then(|png| image::load_from_memory(&png).ok()) {
+        return Ok(Preview::from_image(
+            fit(img.into_rgba8(), max_edge),
+            Source::Embedded,
+        ));
+    }
+    composite_preview(import()?, max_edge)
 }
 
 /// Affinity: the container's own PNG preview, else the imported document.

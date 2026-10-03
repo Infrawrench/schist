@@ -39,12 +39,16 @@ codec.avif.msg.no_decoder = Versioni i Schist për shfletues nuk mund të hapë 
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
 codec.layered.invalid = Skedari i figurës me shtresa është i dëmtuar ose i paplotë.
 codec.layered.too_large = Figura me shtresa tejkalon madhësinë ose numrin e shtresave që mbështetet.
 codec.layered.unsupported = Ky skedar përdor një veçori që nuk mbështetet: {feature}.
 codec.layered.export_layer = Shtresa “{name}” përmban veçori që ky format nuk mund t’i ruajë. Rasterizojeni ose ruajeni si PSD.
 codec.layered.export_depth = Eksportimi në Paint.NET kërkon një dokument RGB 8-bitësh. Fillimisht kthejeni dokumentin në RGB 8-bitësh.
 codec.layered.export_mode = Eksportimi kërkon një dokument RGB. Fillimisht kthejeni dokumentin në RGB.
+codec.layered.merged_layer = Imazh i bashkuar (disa shtresa {format} nuk u importuan dot)
+codec.kra.merged_color_space = Imazh i bashkuar (dokumenti Krita {color_space} shfaqet si RGB)
 
 # Unsupported layered format features
 codec.pdn.feature.blend_mode = Modaliteti i përzierjes PDN

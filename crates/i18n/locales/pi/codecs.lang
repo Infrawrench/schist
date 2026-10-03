@@ -37,12 +37,16 @@ codec.avif.msg.no_decoder = Schist-assa jāladassaka-saṃskaraṇaṃ AVIF-chā
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
 codec.layered.invalid = Santharayuttachāyārūpassa sañcikā duṭṭhā vā aparipuṇṇā vā hoti.
 codec.layered.too_large = Santharayuttachāyārūpassa pamāṇaṃ vā santharasaṅkhyā vā upatthambhitaṃ sīmaṃ atikkamati.
 codec.layered.unsupported = Ayaṃ sañcikā anupatthambhitaṃ visesaṃ upayuñjati: {feature}.
 codec.layered.export_layer = “{name}” santhare imasmiṃ saṇṭhāne rakkhituṃ asakkuṇeyyā visesā santi. Taṃ pikselīkarotha atha vā PSD-rūpena rakkhatha.
 codec.layered.export_depth = Paint.NET-nīharaṇatthāya 8-bit RGB-potthako āvassako. Paṭhamaṃ potthakaṃ 8-bit RGB-rūpena pariṇāmetha.
 codec.layered.export_mode = Nīharaṇatthāya RGB-potthako āvassako. Paṭhamaṃ potthakaṃ RGB-rūpena pariṇāmetha.
+codec.layered.merged_layer = Missitaṃ chāyārūpaṃ (ekacce {format}-santharā āharituṃ na sakkhiṃsu)
+codec.kra.merged_color_space = Missitaṃ chāyārūpaṃ (Krita {color_space}-potthako RGB-rūpena dassito)
 codec.pdn.feature.blend_mode = PDN-missanavidhi
 codec.pdn.feature.compression = PDN-saṅkocanaṃ
 codec.pdn.feature.container_version = PDN-bhājanasaṃskaraṇaṃ

@@ -38,12 +38,16 @@ codec.avif.msg.no_decoder = Browserversionen af Schist kan ikke åbne AVIF-bille
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
 codec.layered.invalid = Billedfilen med lag er beskadiget eller ufuldstændig.
 codec.layered.too_large = Billedet med lag overskrider den understøttede størrelse eller det understøttede antal lag.
 codec.layered.unsupported = Denne fil bruger en funktion, der ikke understøttes: {feature}.
 codec.layered.export_layer = Laget »{name}« indeholder funktioner, som dette format ikke kan bevare. Rasteriser det, eller gem som PSD.
 codec.layered.export_depth = Eksport til Paint.NET kræver et 8-bit RGB-dokument. Konverter først dokumentet til 8-bit RGB.
 codec.layered.export_mode = Eksport kræver et RGB-dokument. Konverter først dokumentet til RGB.
+codec.layered.merged_layer = Sammenlagt billede (nogle {format}-lag kunne ikke importeres)
+codec.kra.merged_color_space = Sammenlagt billede (Krita-dokument i {color_space} vist som RGB)
 codec.pdn.feature.blend_mode = PDN-blandingstilstand
 codec.pdn.feature.compression = PDN-komprimering
 codec.pdn.feature.container_version = PDN-containerversion

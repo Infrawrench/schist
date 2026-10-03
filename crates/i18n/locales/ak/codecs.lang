@@ -43,12 +43,16 @@ codec.avif.msg.no_decoder = Schist a ɛwɔ browser mu no ntumi mmue AVIF mfonini
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
 codec.layered.invalid = Mfonini fael a ɛwɔ layers no asɛe anaa ɛnwie pɛyɛ.
 codec.layered.too_large = Mfonini a ɛwɔ layers no kɛse anaa layers dodow no aboro nea wɔboa no so.
 codec.layered.unsupported = Fael yi de dwumadi bi a wɔmmoa no di dwuma: {feature}.
 codec.layered.export_layer = Layer “{name}” no wɔ dwumadi ahorow a format yi ntumi nkora so. Dan no kɔ raster anaa kora so sɛ PSD.
 codec.layered.export_depth = Paint.NET a wobɛyi akɔ mu no hia RGB document a ɛyɛ bit 8. Di kan dan document no kɔ RGB a ɛyɛ bit 8.
 codec.layered.export_mode = Nea wobɛyi akɔ abɔnten no hia RGB document. Di kan dan document no kɔ RGB.
+codec.layered.merged_layer = Mfonini a wɔaka abom (layers bi a ɛwɔ {format} mu no wɔantumi ankɔ mu)
+codec.kra.merged_color_space = Mfonini a wɔaka abom (Krita document a ɛwɔ {color_space} mu no, wɔakyerɛ no sɛ RGB)
 
 # Unsupported layered-format features.
 codec.pdn.feature.blend_mode = PDN fra ɔkwan

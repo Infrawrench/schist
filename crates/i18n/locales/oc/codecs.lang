@@ -46,12 +46,16 @@ codec.avif.msg.no_decoder = La version navigador de Schist pòt pas dobrir los i
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
 codec.layered.invalid = Lo fichièr d'imatge amb calques es damatjat o incomplet.
 codec.layered.too_large = L'imatge amb calques depassa la talha o lo nombre de calques preses en carga.
 codec.layered.unsupported = Aqueste fichièr utiliza una foncionalitat pas presa en carga : {feature}.
 codec.layered.export_layer = Lo calc « {name} » conten de foncionalitats qu'aqueste format pòt pas conservar. Rasterizatz-lo o enregistratz en PSD.
 codec.layered.export_depth = L'exportacion cap a Paint.NET necessita un document RVB de 8 bits. Convertissètz d'en primièr lo document en RVB de 8 bits.
 codec.layered.export_mode = L'exportacion necessita un document RVB. Convertissètz d'en primièr lo document en RVB.
+codec.layered.merged_layer = Imatge fusionada (de calques {format} an pas pogut èsser importats)
+codec.kra.merged_color_space = Imatge fusionada (document Krita en {color_space} afichat en RVB)
 codec.pdn.feature.blend_mode = mòde de fusion PDN
 codec.pdn.feature.compression = compression PDN
 codec.pdn.feature.container_version = version del contenidor PDN

@@ -37,12 +37,16 @@ codec.avif.msg.no_decoder = Schist-en arakatzaile-bertsioak ezin ditu AVIF irudi
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
 codec.layered.invalid = Geruzadun irudiaren fitxategia hondatuta edo osatu gabe dago.
 codec.layered.too_large = Geruzadun irudiak onartutako tamaina edo geruza kopurua gainditzen du.
 codec.layered.unsupported = Fitxategi honek onartzen ez den eginbide bat erabiltzen du: {feature}.
 codec.layered.export_layer = “{name}” geruzak formatu honek gorde ezin dituen eginbideak ditu. Rasterizatu geruza edo gorde PSD gisa.
 codec.layered.export_depth = Paint.NET formatura esportatzeko, 8 biteko RGB dokumentua behar da. Bihurtu dokumentua 8 biteko RGBra lehenik.
 codec.layered.export_mode = Esportatzeko, RGB dokumentua behar da. Bihurtu dokumentua RGBra lehenik.
+codec.layered.merged_layer = Bateratutako irudia ({format} formatuko geruza batzuk ezin izan dira inportatu)
+codec.kra.merged_color_space = Bateratutako irudia (Krita {color_space} dokumentua RGB gisa erakusten da)
 
 # Unsupported layered format features
 codec.pdn.feature.blend_mode = PDN nahaste-modua

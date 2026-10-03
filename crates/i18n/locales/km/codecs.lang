@@ -38,12 +38,16 @@ codec.avif.msg.no_decoder = កំណែកម្មវិធីរុករក�
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
 codec.layered.invalid = ឯកសាររូបភាពដែលមានស្រទាប់ខូច ឬមិនពេញលេញ។
 codec.layered.too_large = ទំហំរូបភាព ឬចំនួនស្រទាប់លើសពីកម្រិតដែលបានគាំទ្រ។
 codec.layered.unsupported = ឯកសារនេះប្រើមុខងារដែលមិនបានគាំទ្រ៖ {feature}។
 codec.layered.export_layer = ស្រទាប់ “{name}” មានមុខងារដែលទ្រង់ទ្រាយនេះមិនអាចរក្សាទុកបាន។ សូមបម្លែងវាទៅជាភីកសែល ឬរក្សាទុកជា PSD។
 codec.layered.export_depth = ការនាំចេញទៅ Paint.NET តម្រូវឱ្យមានឯកសារ RGB 8 ប៊ីត។ សូមបម្លែងឯកសារទៅជា RGB 8 ប៊ីតជាមុនសិន។
 codec.layered.export_mode = ការនាំចេញតម្រូវឱ្យមានឯកសារ RGB។ សូមបម្លែងឯកសារទៅជា RGB ជាមុនសិន។
+codec.layered.merged_layer = រូបភាពបញ្ចូលគ្នា (ស្រទាប់ {format} មួយចំនួនមិនអាចនាំចូលបាន)
+codec.kra.merged_color_space = រូបភាពបញ្ចូលគ្នា (ឯកសារ Krita {color_space} បង្ហាញជា RGB)
 
 # Unsupported layered-format features.
 codec.pdn.feature.blend_mode = របៀបលាយ PDN

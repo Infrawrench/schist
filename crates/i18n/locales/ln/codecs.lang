@@ -41,12 +41,16 @@ codec.avif.msg.no_decoder = Versio ya navigatɛrɛ ya Schist ekoki kofungola bil
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
 codec.layered.invalid = Fisye ya elilingi oyo ezali na ba kalke ebebi to ezali mobimba te.
 codec.layered.too_large = Bonene ya elilingi to motángo ya ba kalke na yango eleki ndelo oyo endimami.
 codec.layered.unsupported = Fisye oyo esalelaka likoki oyo endimami te: {feature}.
 codec.layered.export_layer = Kalke “{name}” ezali na makoki oyo formá oyo ekoki kobatela te. Bongolá yango na bapiksele to bombá lokola PSD.
 codec.layered.export_depth = Kobimisa na Paint.NET esɛngaka dokima RGB ya bit 8. Liboso, bongolá dokima na RGB ya bit 8.
 codec.layered.export_mode = Kobimisa esɛngaka dokima RGB. Liboso, bongolá dokima na RGB.
+codec.layered.merged_layer = Elilingi esangisami (kalke mosusu ya {format} ezwamaki te)
+codec.kra.merged_color_space = Elilingi esangisami (dokima ya Krita {color_space} emonisami lokola RGB)
 codec.pdn.feature.blend_mode = mode ya kosangisa ya PDN
 codec.pdn.feature.compression = kofina ba données ya PDN
 codec.pdn.feature.container_version = versio ya eloko oyo esimbi PDN

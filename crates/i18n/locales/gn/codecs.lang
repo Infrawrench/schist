@@ -37,12 +37,16 @@ codec.avif.msg.no_decoder = Schist kundahára pegua ndaikatúi oipe'a ta'anga AV
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
 codec.layered.invalid = Ta'ãnga vore oguerekóva capa oñembyai térã noĩmbái.
 codec.layered.too_large = Ta'ãnga tuichakue térã capa hetakue ohasa oñemoneĩva.
 codec.layered.unsupported = Ko vore oiporu peteĩ tembiapo noñemoneĩriva: {feature}.
 codec.layered.export_layer = Capa “{name}” oguereko tembiapo ko formato ndaikatúiva oñongatu. Emoambue raster-pe térã eñongatu PSD ramo.
 codec.layered.export_depth = Egueraha hag̃ua Paint.NET-pe oñeikotevẽ kuatia RGB 8 bit rehe. Emoambue raẽ kuatia RGB 8 bit-pe.
 codec.layered.export_mode = Egueraha hag̃ua oñeikotevẽ kuatia RGB rehe. Emoambue raẽ kuatia RGB-pe.
+codec.layered.merged_layer = Ta'ãnga oñembojoajúva (oĩ capa {format} ndaikatúiva oñemoinge)
+codec.kra.merged_color_space = Ta'ãnga oñembojoajúva (kuatia Krita {color_space} ojehechauka RGB ramo)
 
 # Unsupported layered-format features.
 codec.pdn.feature.blend_mode = PDN mbojehe'a reko

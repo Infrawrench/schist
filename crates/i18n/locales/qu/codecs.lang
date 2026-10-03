@@ -46,12 +46,16 @@ codec.avif.msg.no_decoder = Schistpa maskaqpaq versionnin AVIF rikch'aykunata ma
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
 codec.layered.invalid = Patayuq rikch'aypa archivonqa waqllisqam utaq mana hunt'asqachu.
 codec.layered.too_large = Patayuq rikch'ayqa saqisqa sayayninta utaq patakuna yupayninta yallin.
 codec.layered.unsupported = Kay archivoqa mana yanapasqa ruwayta llamk'achin: {feature}.
 codec.layered.export_layer = “{name}” pataqa kay formato waqaychayta mana atinchu chay ruwaykunayuqmi. Patata rasterizay utaq PSD hina waqaychay.
 codec.layered.export_depth = Paint.NETman lluqsichinapaq 8-bit RGB qillqa khipum kanan. Ñawpaqta qillqa khiputa 8-bit RGBman tikray.
 codec.layered.export_mode = Lluqsichinapaq RGB qillqa khipum kanan. Ñawpaqta qillqa khiputa RGBman tikray.
+codec.layered.merged_layer = Huñusqa rikch'ay (wakin {format} patakunaqa mana haykuchiy atisqachu)
+codec.kra.merged_color_space = Huñusqa rikch'ay (Krita {color_space} qillqa khipu RGB hina qhawachisqa)
 
 # Unsupported layered format features
 codec.pdn.feature.blend_mode = PDN chaqruna imayna kasqan

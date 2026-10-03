@@ -41,12 +41,16 @@ codec.avif.msg.no_decoder = Mtundu wa Schist wa mu msakatuli sungathe kutsegula 
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
 codec.layered.invalid = Fayilo ya chithunzi chokhala ndi ma layer yawonongeka kapena si yokwanira.
 codec.layered.too_large = Kukula kwa chithunzi kapena kuchuluka kwa ma layer kwadutsa malire othandizidwa.
 codec.layered.unsupported = Fayiloyi ikugwiritsa ntchito chinthu chosathandizidwa: {feature}.
 codec.layered.export_layer = Layer “{name}” ili ndi zinthu zomwe mtundu wa fayilowu sungasunge. Sinthani layer kukhala raster kapena sungani ngati PSD.
 codec.layered.export_depth = Kutumiza ku Paint.NET kumafuna chikalata cha RGB cha ma biti 8. Choyamba sinthani chikalatacho kukhala RGB ya ma biti 8.
 codec.layered.export_mode = Kutumiza kumafuna chikalata cha RGB. Choyamba sinthani chikalatacho kukhala RGB.
+codec.layered.merged_layer = Chithunzi chophatikizidwa (ma layer ena a {format} sanathe kulowetsedwa)
+codec.kra.merged_color_space = Chithunzi chophatikizidwa (chikalata cha Krita {color_space} chikuwonetsedwa ngati RGB)
 
 # Unsupported layered-format features.
 codec.pdn.feature.blend_mode = njira yosakanizira ya PDN

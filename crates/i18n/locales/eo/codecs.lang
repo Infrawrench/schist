@@ -42,12 +42,16 @@ codec.avif.msg.no_decoder = La retumila versio de Schist ne povas malfermi AVIF-
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
 codec.layered.invalid = La tavolhava bilddosiero estas difektita aŭ nekompleta.
 codec.layered.too_large = La tavolhava bildo superas la subtenatan grandon aŭ nombron de tavoloj.
 codec.layered.unsupported = Ĉi tiu dosiero uzas nesubtenatan funkcion: {feature}.
 codec.layered.export_layer = La tavolo «{name}» enhavas funkciojn, kiujn ĉi tiu dosierformo ne povas konservi. Rastrumu ĝin aŭ konservu kiel PSD.
 codec.layered.export_depth = Eksporto al Paint.NET postulas 8-bitan RGB-dokumenton. Unue konvertu la dokumenton al 8-bita RGB.
 codec.layered.export_mode = Eksporto postulas RGB-dokumenton. Unue konvertu la dokumenton al RGB.
+codec.layered.merged_layer = Kunfandita bildo (iuj tavoloj de {format} ne povis esti importitaj)
+codec.kra.merged_color_space = Kunfandita bildo (Krita dokumento {color_space} montrata kiel RGB)
 
 # Unsupported layered-format features.
 codec.pdn.feature.blend_mode = kunfanda reĝimo de PDN

@@ -37,12 +37,16 @@ codec.avif.msg.no_decoder = Верзијата на Schist за прелисту
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
 codec.layered.invalid = Датотеката со слоевита слика е оштетена или нецелосна.
 codec.layered.too_large = Слоевитата слика ја надминува поддржаната големина или бројот на слоеви.
 codec.layered.unsupported = Оваа датотека користи неподдржана можност: {feature}.
 codec.layered.export_layer = Слојот „{name}“ содржи можности што овој формат не може да ги зачува. Растеризирајте го или зачувајте како PSD.
 codec.layered.export_depth = Извозот во Paint.NET бара 8-битен RGB документ. Прво претворете го документот во 8-битен RGB.
 codec.layered.export_mode = Извозот бара RGB документ. Прво претворете го документот во RGB.
+codec.layered.merged_layer = Спојена слика (некои слоеви од {format} не можеа да се увезат)
+codec.kra.merged_color_space = Спојена слика (документот на Krita {color_space} е прикажан како RGB)
 
 # Unsupported layered format features
 codec.pdn.feature.blend_mode = Режим на мешање во PDN

@@ -39,12 +39,16 @@ codec.avif.msg.no_decoder = Браузерна версія Schist не може
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
 codec.layered.invalid = Файл зображення з шарами пошкоджений або неповний.
 codec.layered.too_large = Розмір зображення з шарами або кількість шарів перевищує підтримуване обмеження.
 codec.layered.unsupported = Цей файл використовує непідтримувану можливість: {feature}.
 codec.layered.export_layer = Шар «{name}» містить можливості, які цей формат не може зберегти. Растеризуйте його або збережіть як PSD.
 codec.layered.export_depth = Для експорту в Paint.NET потрібен 8-бітний документ RGB. Спочатку перетворіть документ на 8-бітний RGB.
 codec.layered.export_mode = Для експорту потрібен документ RGB. Спочатку перетворіть документ на RGB.
+codec.layered.merged_layer = Зведене зображення (деякі шари {format} не вдалося імпортувати)
+codec.kra.merged_color_space = Зведене зображення (документ Krita {color_space} показано як RGB)
 codec.pdn.feature.blend_mode = режим накладання PDN
 codec.pdn.feature.compression = стиснення PDN
 codec.pdn.feature.container_version = версія контейнера PDN

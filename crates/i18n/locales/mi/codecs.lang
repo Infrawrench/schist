@@ -37,12 +37,16 @@ codec.avif.msg.no_decoder = Kāore e taea e te putanga pūtirotiro o Schist te h
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
 codec.layered.invalid = Kua kino, kāore rānei i oti te kōnae atahanga whai apa.
 codec.layered.too_large = Kua hipa te rahi o te atahanga whai apa, te maha rānei o ngā apa, i te tepe e tautokona ana.
 codec.layered.unsupported = Ka whakamahia e tēnei kōnae tētahi āhuatanga kāore e tautokona ana: {feature}.
 codec.layered.export_layer = Kei te apa “{name}” ētahi āhuatanga kāore e taea e tēnei hōputu te pupuri. Whakapikatia, tiakina rānei hei PSD.
 codec.layered.export_depth = Me whai tuhinga RGB 8-bit hei kaweake ki Paint.NET. Hurihia te tuhinga hei RGB 8-bit i te tuatahi.
 codec.layered.export_mode = Me whai tuhinga RGB hei kaweake. Hurihia te tuhinga hei RGB i te tuatahi.
+codec.layered.merged_layer = Atahanga whakakotahi (kāore i taea te kawe mai ētahi apa {format})
+codec.kra.merged_color_space = Atahanga whakakotahi (kua whakaatuhia te tuhinga Krita {color_space} hei RGB)
 codec.pdn.feature.blend_mode = aratau whakaranu PDN
 codec.pdn.feature.compression = kōpeketanga PDN
 codec.pdn.feature.container_version = putanga ipu PDN

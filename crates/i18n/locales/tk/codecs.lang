@@ -38,12 +38,16 @@ codec.avif.msg.no_decoder = Schist-iň brauzer wersiýasy AVIF suratlaryny açyp
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
 codec.layered.invalid = Gatlakly surat faýly zaýalanan ýa-da doly däl.
 codec.layered.too_large = Gatlakly suratyň ölçegi ýa-da gatlaklarynyň sany goldanylýan çäkden geçýär.
 codec.layered.unsupported = Bu faýl goldanylmaýan aýratynlygy ulanýar: {feature}.
 codec.layered.export_layer = “{name}” gatlagynda bu formatyň saklap bilmeýän aýratynlyklary bar. Gatlagy rasterleşdiriň ýa-da PSD görnüşinde saklaň.
 codec.layered.export_depth = Paint.NET görnüşine eksport etmek üçin 8 bitli RGB resminama gerek. Ilki resminamany 8 bitli RGB görnüşine öwüriň.
 codec.layered.export_mode = Eksport etmek üçin RGB resminama gerek. Ilki resminamany RGB görnüşine öwüriň.
+codec.layered.merged_layer = Birleşdirilen surat ({format} gatlaklarynyň käbirini import etmek mümkin bolmady)
+codec.kra.merged_color_space = Birleşdirilen surat (Krita {color_space} resminama RGB görnüşinde görkezildi)
 
 # Unsupported layered format features
 codec.pdn.feature.blend_mode = PDN garyşdyrma režimi

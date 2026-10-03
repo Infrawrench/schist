@@ -42,12 +42,16 @@ codec.avif.msg.no_decoder = Vhexini ya browser ya Schist a yi koti ku pfula swif
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
 codec.layered.invalid = Fayili ya xifaniso lexi nga ni maleyara yi onhakile kumbe a yi helelanga.
 codec.layered.too_large = Xifaniso lexi nga ni maleyara xi hundza sayizi kumbe nhlayo ya maleyara leyi seketeriwaka.
 codec.layered.unsupported = Fayili leyi yi tirhisa xivumbeko lexi nga seketeriwiki: {feature}.
 codec.layered.export_layer = Leyara ya “{name}” yi ni swivumbeko leswi fomati leyi yi nga kotiki ku swi hlayisa. Endla leyara yi va raster kumbe u hlayisa yi ri PSD.
 codec.layered.export_depth = Ku rhumela hi fomati ya Paint.NET swi lava dokhumente ya RGB ya 8-bit. Sungula hi ku hundzuluxa dokhumente yi va RGB ya 8-bit.
 codec.layered.export_mode = Ku rhumela swi lava dokhumente ya RGB. Sungula hi ku hundzuluxa dokhumente yi va RGB.
+codec.layered.merged_layer = Xifaniso lexi hlanganisiweke (maleyara van'wana ya {format} a ma nga nghenisiwanga)
+codec.kra.merged_color_space = Xifaniso lexi hlanganisiweke (dokhumente ya Krita {color_space} yi kombisiwa tanihi RGB)
 
 # Unsupported layered format features
 codec.pdn.feature.blend_mode = Mode yo hlanganisa ya PDN

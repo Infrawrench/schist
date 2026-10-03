@@ -37,12 +37,16 @@ codec.avif.msg.no_decoder = Guhertoya gerokê ya Schist nikare wêneyên AVIF ve
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
 codec.layered.invalid = Pelê wêneya bi layeran xera an ne temam e.
 codec.layered.too_large = Wêneya bi layeran ji mezinahî an hejmara layeran a ku tê piştgirîkirin derbas dibe.
 codec.layered.unsupported = Ev pel taybetmendiyeke bê piştgirî bi kar tîne: {feature}.
 codec.layered.export_layer = Di layera “{name}” de taybetmendî hene ku ev format nikare biparêze. Layerê raster bike an wek PSD tomar bike.
 codec.layered.export_depth = Ji bo derxistina wek Paint.NET belgeyeke RGB ya 8-bît pêwîst e. Pêşî belgeyê veguherîne RGB ya 8-bît.
 codec.layered.export_mode = Ji bo derxistinê belgeyeke RGB pêwîst e. Pêşî belgeyê veguherîne RGB.
+codec.layered.merged_layer = Wêneyê yekgirtî (hin layerên {format} nehatin importkirin)
+codec.kra.merged_color_space = Wêneyê yekgirtî (belgeya Krita {color_space} wek RGB tê nîşandan)
 
 # Unsupported layered format features
 codec.pdn.feature.blend_mode = Moda tevlihevkirinê ya PDN

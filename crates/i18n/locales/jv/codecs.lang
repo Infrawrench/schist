@@ -39,12 +39,16 @@ codec.avif.msg.no_decoder = Versi browser Schist ora bisa mbukak gambar AVIF. Bu
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
 codec.layered.invalid = Berkas gambar mawa lapisan rusak utawa durung pepak.
 codec.layered.too_large = Ukuran utawa cacah lapisan gambar iki ngluwihi wates sing didhukung.
 codec.layered.unsupported = Berkas iki nganggo fitur sing ora didhukung: {feature}.
 codec.layered.export_layer = Lapisan “{name}” ngemot fitur sing ora bisa disimpen ing format iki. Rasteraké lapisan kasebut utawa simpen minangka PSD.
 codec.layered.export_depth = Ekspor menyang Paint.NET mbutuhaké dokumèn RGB 8-bit. Owahi dhisik dokumèn dadi RGB 8-bit.
 codec.layered.export_mode = Ekspor mbutuhaké dokumèn RGB. Owahi dhisik dokumèn dadi RGB.
+codec.layered.merged_layer = Gambar gabungan (sawetara lapisan {format} ora bisa diimpor)
+codec.kra.merged_color_space = Gambar gabungan (dokumèn Krita {color_space} dituduhaké minangka RGB)
 codec.pdn.feature.blend_mode = modus campuran PDN
 codec.pdn.feature.compression = komprèsi PDN
 codec.pdn.feature.container_version = vèrsi wadhah PDN

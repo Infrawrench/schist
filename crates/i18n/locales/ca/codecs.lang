@@ -37,12 +37,16 @@ codec.avif.msg.no_decoder = La versió de navegador de Schist no pot obrir imatg
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
 codec.layered.invalid = El fitxer d'imatge amb capes està malmès o és incomplet.
 codec.layered.too_large = La imatge amb capes supera la mida o el nombre de capes admesos.
 codec.layered.unsupported = Aquest fitxer utilitza una funció no admesa: {feature}.
 codec.layered.export_layer = La capa «{name}» conté funcions que aquest format no pot conservar. Rasteritzeu-la o deseu el document com a PSD.
 codec.layered.export_depth = L'exportació a Paint.NET requereix un document RGB de 8 bits. Primer convertiu el document a RGB de 8 bits.
 codec.layered.export_mode = L'exportació requereix un document RGB. Primer convertiu el document a RGB.
+codec.layered.merged_layer = Imatge combinada (algunes capes {format} no s'han pogut importar)
+codec.kra.merged_color_space = Imatge combinada (document de Krita en {color_space} mostrat com a RGB)
 
 # Unsupported layered-format features.
 codec.pdn.feature.blend_mode = mode de fusió PDN

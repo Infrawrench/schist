@@ -38,12 +38,16 @@ codec.avif.msg.no_decoder = Vesheni ya browser ya Schist a i koni u vula zwifany
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
 codec.layered.invalid = Faela ya tshifanyiso tshi re na dziḽeyara yo tshinyala kana a yo ngo fhelela.
 codec.layered.too_large = Vhuhulwane ha tshifanyiso kana tshivhalo tsha dziḽeyara zwi fhira zwine zwa tikedzwa.
 codec.layered.unsupported = Faela iyi i shumisa tshiteṅwa tshi sa tikedzwi: {feature}.
 codec.layered.export_layer = Ḽeyara “{name}” i na zwiteṅwa zwine fomathi iyi ya sa kone u zwi vhulunga. I shandukiseleni kha dzipixel kana ni i vhulunge sa PSD.
 codec.layered.export_depth = U rumela kha Paint.NET zwi ṱoḓa ḽiṅwalo ḽa RGB ḽa biti dza 8. Thomani nga u shandukisela ḽiṅwalo kha RGB ya biti dza 8.
 codec.layered.export_mode = U rumela zwi ṱoḓa ḽiṅwalo ḽa RGB. Thomani nga u shandukisela ḽiṅwalo kha RGB.
+codec.layered.merged_layer = Tshifanyiso tsho ṱanganyiswaho (dziḽeyara dzińwe dza {format} a dzo ngo kona u dzheniswa)
+codec.kra.merged_color_space = Tshifanyiso tsho ṱanganyiswaho (ḽiṅwalo ḽa Krita {color_space} ḽo vhonadzwa sa RGB)
 
 # Unsupported layered-format features.
 codec.pdn.feature.blend_mode = moudu wa u ṱanganya wa PDN
