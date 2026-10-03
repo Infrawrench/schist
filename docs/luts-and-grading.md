@@ -84,7 +84,8 @@ layer's Camera Raw color settings** runs its per-pixel Camera Raw controls
 over the lattice first (contrast, highlights, shadows, whites, blacks,
 vibrance, saturation and colour grading). Temperature, tint and exposure act
 on sensor data before the picture exists, and clarity, dehaze, sharpening,
-noise reduction and vignetting are spatial, so all of those are left out.
+noise reduction, vignetting and local adjustment masks are spatial, so all
+of those are left out.
 
 ## Colour grading in Camera Raw
 
