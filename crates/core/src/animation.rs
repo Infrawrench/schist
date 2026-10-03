@@ -291,7 +291,7 @@ impl Timeline {
 /// replacing the timeline, so the canvas always shows the current frame.
 ///
 /// [`EditOp::TimelineSet`]: crate::history::EditOp::TimelineSet
-pub(crate) fn apply_offsets(doc: &mut Document) -> bool {
+pub fn apply_offsets(doc: &mut Document) -> bool {
     let mut changed = false;
     let timeline = doc.timeline.take();
     fn walk(timeline: Option<&Timeline>, layers: &mut [Layer], changed: &mut bool) {
