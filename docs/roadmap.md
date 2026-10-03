@@ -310,6 +310,29 @@ are marked.
 
 ## Handoff
 
+Initial character-style authoring, 2026-10-03:
+The closed Paragraph / Drop caps disclosure now includes one compact character
+style dropdown. Explicit None and named choices preserve other ordered rules;
+the separately named Inherit nested styles option restores the complete inherited
+list. Count reset retains rules and is now labelled Inherit counts and placement.
+Dormant choices stay visible, and missing native references can be replaced
+without silently discarding unrelated records. A shared native-record predicate
+keeps authoring and composition in agreement while unresolved styles remain
+diagnosed. Three short keys and the clarified reset label are in all 150 catalogs.
+
+Three new properties verify captured targets, inherited versus explicit choices,
+ordered unknown-rule retention, missing/dormant settings, stale references and
+exact undo/redo. All five focused initial-control properties and check-i18n pass.
+All 16 roadmap targets, shared UI, formatting and whitespace checks pass:
+1,989 distinct Rust tests, four browser checks and eight Python audit tests.
+One existing shared UI documentation example remains ignored. All 37 previous
+PDF proofs remain byte-identical. The native debug build passes in 3m 54s;
+the isolated Design-enabled QA bundle is refreshed and hash/signature verified.
+Actual UI review of this dropdown is pending an exact-commit browser artifact;
+native capture remains unavailable. The feature flag stays disabled by default.
+List-marker/path-initial fixes are published as `f595465d` to draft PR #195,
+with their full verification recorded below.
+
 Source list-marker context and path-initial reporting, 2026-10-03:
 A regression reproduced a leading footnote reference changing an ordinary black
 bullet into cyan superscript. Main/note marker plans now resolve authored context

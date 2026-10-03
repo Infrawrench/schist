@@ -30,6 +30,16 @@ pub struct NestedStyle {
     pub inclusive: bool,
 }
 
+impl NestedStyle {
+    /// The native initial record's shape, independently of its character-style
+    /// reference or the paragraph counts that activate its formatting.
+    pub fn is_initial(&self) -> bool {
+        matches!(&self.delimiter, Delimiter::Enumeration(value) if value == "Dropcap")
+            && self.repetition == 1
+            && self.inclusive
+    }
+}
+
 /// Only the canonical leading Dropcap rule composes so far. Other rules
 /// requesting a character style remain explicitly unsupported.
 /// Empty lists and sequences made entirely of no-style rules cannot change

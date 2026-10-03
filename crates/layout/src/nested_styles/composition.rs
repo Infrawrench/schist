@@ -1,12 +1,10 @@
 //! Source-derived character formatting, shared by geometry and typed paint.
-use super::{CharacterStyle, Delimiter, NestedStyle};
+use super::{CharacterStyle, NestedStyle};
 use crate::{ResolvedCharacter, ResolvedParagraph, Story, StoryPoint, StyleRange, StyleSet};
 use std::ops::Range;
 
 pub(super) fn canonical_initial(rule: &NestedStyle) -> bool {
-    matches!(&rule.delimiter, Delimiter::Enumeration(value) if value == "Dropcap")
-        && rule.repetition == 1
-        && rule.inclusive
+    rule.is_initial()
         && matches!(
             rule.character_style,
             CharacterStyle::Named(_) | CharacterStyle::None

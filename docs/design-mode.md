@@ -983,3 +983,22 @@ Design preview uploads use GPUI's BGRA byte order for text, fills and artwork.
 Decoded RGBA and native CMYK remain the print/transform sources. The Layers tree
 uses text excerpts or translated object kinds for unnamed native objects; these
 are display labels and do not rename the IDML objects.
+
+### Drop caps and initial character styles
+
+Open **Drop caps** in Paragraph to set the line and character counts and choose
+a character style. Zero in either count disables the initial. One line applies
+the chosen formatting at its normal size; larger line counts enlarge the initial.
+The section starts closed, and each committed change has one undo step.
+
+**None** removes the initial's named formatting while retaining other nested
+rules. Choosing a style preserves those other rules too. **Inherit nested styles**
+restores the paragraph's complete inherited rule list, as IDML inherits these
+rules together. The count-reset icon restores only counts and placement settings;
+it preserves the chosen character style. Dormant choices remain editable when
+counts are zero. Missing imported styles remain visible until replaced.
+
+Explicit source character formatting keeps precedence over the initial style.
+Other nested rules and native placement flags remain retained and reported when
+unsupported. Enlarged initials on a text path produce a Preflight error because
+the path has only one baseline; one-line formatting remains supported.
