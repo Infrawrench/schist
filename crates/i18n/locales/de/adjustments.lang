@@ -17,4 +17,5 @@ adjustment.photo_filter.name = Fotofilter
 adjustment.gradient_map.name = Verlaufsumsetzung
 adjustment.selective_color.name = Selektive Farbkorrektur
 adjustment.channel_mixer.name = Kanalmixer
+adjustment.color_lookup.name = Color Lookup
 adjustment.other.name = Korrektur

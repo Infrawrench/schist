@@ -255,3 +255,19 @@ dialog.new_doc.from_image_url = Bho URL deilbh
 # Backers
 dialog.support.title = Cuir taic ri Schist
 dialog.support.thanks = Taing dha na daoine agus na suaicheantasan a tha a’ toirt taic do Schist.
+
+# Color Lookup adjustment layers, and File > Export > Color Lookup Table
+dialog.color_lookup.table = Clàr
+dialog.color_lookup.load = Luchdaich LUT…
+dialog.color_lookup.none = Chan eil clàr air a luchdadh
+dialog.color_lookup.input = Cur-a-steach
+dialog.color_lookup.input_document = Luachan na sgrìobhainn
+dialog.color_lookup.input_linear = Solas sreathach
+dialog.color_lookup.note = Leughaidh e faidhlichean .cube (1D no 3D) agus .3dl. Tha an clàr air a shàbhaladh am broinn na sgrìobhainn, mar sin chan eil feum air am faidhle a-rithist.
+dialog.color_lookup.invalid = Chan e clàr .cube no .3dl a th’ ann an {name} as urrainn do Schist a leughadh.
+dialog.export_lut.title = Às-phortaich clàr lorg dhathan
+dialog.export_lut.size = Meud a’ ghriod
+dialog.export_lut.camera_raw = Cuir a-steach roghainnean dath Camera Raw an t-sreath ghnìomhach
+dialog.export_lut.note = Chan urrainn do LUT ach atharrachaidhean dath a chumail a tha co-ionann airson gach pixel. Chan eil masgaichean sreatha, atharrachaidhean air an gearradh, buidhnean iomallaichte, sreathan pixel, soilleireachd, geurachadh, vignette is buaidhean spàsail eile air an gabhail a-steach.
+dialog.export_lut.saved = Chaidh {name} às-phortadh
+dialog.export_lut.saved_skipped = Chaidh {name} às-phortadh. Sreathan atharrachaidh spàsail air am fàgail às: {count}

@@ -17,5 +17,6 @@ adjustment.photo_filter.name = د انځور چاڼګر
 adjustment.gradient_map.name = تدریجي نقشه
 adjustment.selective_color.name = ټاکنیز رنګ
 adjustment.channel_mixer.name = د کانال ګډوونکی
+adjustment.color_lookup.name = رنګ لټون
 # د PSD یو ډول چې Schist یې د سمون وسیله نه لري.
 adjustment.other.name = سمون

@@ -17,4 +17,5 @@ adjustment.photo_filter.name = པར་གྱི་ཚགས་མ།
 adjustment.gradient_map.name = ཚོས་རིམ་ས་ཁྲ།
 adjustment.selective_color.name = སེལ་འཐུའི་ཚོས་གཞི།
 adjustment.channel_mixer.name = རྒྱུ་ལམ་སྲེ་སྦྱོར།
+adjustment.color_lookup.name = ཚོས་འཚོལ་ཐིག་ཁྲམ
 adjustment.other.name = བཟོ་བཅོས།

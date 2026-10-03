@@ -262,3 +262,19 @@ dialog.new_doc.from_image_url = ካብ URL ምስሊ
 # Backers
 dialog.support.title = Schist ደግፉ
 dialog.support.thanks = ንSchist ዝድግፉ ሰባትን ትካላትን ነመስግን።
+
+# Color Lookup adjustment layers, and File > Export > Color Lookup Table
+dialog.color_lookup.table = ሰለዳ
+dialog.color_lookup.load = LUT ጸዓን…
+dialog.color_lookup.none = ዝተጻዕነ ሰለዳ የለን
+dialog.color_lookup.input = ኣእታዊ
+dialog.color_lookup.input_document = ዋጋታት ሰነድ
+dialog.color_lookup.input_linear = መስመራዊ ብርሃን
+dialog.color_lookup.note = ፋይላት .cube (1D ወይ 3D) ከምኡውን .3dl የንብብ። እቲ ሰለዳ ኣብ ውሽጢ ሰነድ ይእከብ፣ ስለዚ እቲ ፋይል ዳግመ ኣየድልን።
+dialog.color_lookup.invalid = {name} Schist ዘንብቦ .cube ወይ .3dl ሰለዳ ኣይኮነን።
+dialog.export_lut.title = ሰለዳ ምርካብ ሕብሪ ምውጻእ
+dialog.export_lut.size = ዓቐን ግሪድ
+dialog.export_lut.camera_raw = ሕብሪ Camera Raw ናይቲ ንጡፍ ደረጃ ኣእትው
+dialog.export_lut.note = LUT ንነፍሲ ወከፍ ፒክሴል ሓደ ዝዀነ ለውጥታት ሕብሪ ጥራይ ክሕዝ ይኽእል። ጭምብል ደረጃ፣ ዝተቖረጸ ምምዕያሻት፣ ዝተነጸሉ ጉጅለታት፣ ደረጃታት ፒክሴል፣ ግሉጽነት፣ ምዕዋይ፣ ጽልመት ወሰንን ካልኦት ቦታዊ ተጽዕኖታትን ይሕለፉ።
+dialog.export_lut.saved = {name} ወጺኡ
+dialog.export_lut.saved_skipped = {name} ወጺኡ። ዝተሓለፉ ቦታዊ ደረጃታት ምምዕያሽ: {count}

@@ -262,3 +262,19 @@ dialog.new_doc.from_image_url = Kutoka URL ya picha
 # Backers
 dialog.support.title = Saidia Schist
 dialog.support.thanks = Asante kwa watu na chapa zinazosaidia Schist.
+
+# Color Lookup adjustment layers, and File > Export > Color Lookup Table
+dialog.color_lookup.table = Jedwali
+dialog.color_lookup.load = Pakia LUT…
+dialog.color_lookup.none = Hakuna jedwali lililopakiwa
+dialog.color_lookup.input = Ingizo
+dialog.color_lookup.input_document = Thamani za hati
+dialog.color_lookup.input_linear = Mwanga wa mstari
+dialog.color_lookup.note = Husoma faili za .cube (1D au 3D) na .3dl. Jedwali huhifadhiwa ndani ya hati, kwa hivyo faili halihitajiki tena.
+dialog.color_lookup.invalid = {name} si jedwali la .cube au .3dl ambalo Schist inaweza kusoma.
+dialog.export_lut.title = Hamisha Jedwali la Utafutaji wa Rangi
+dialog.export_lut.size = Ukubwa wa gridi
+dialog.export_lut.camera_raw = Jumuisha mipangilio ya rangi ya Camera Raw ya safu inayotumika
+dialog.export_lut.note = LUT inaweza kuhifadhi mabadiliko ya rangi yanayofanana kwa kila pikseli pekee. Barakoa za safu, marekebisho yaliyobanwa, vikundi vilivyotengwa, safu za pikseli, uwazi, ukali, vigneti na athari nyingine za nafasi huachwa nje.
+dialog.export_lut.saved = {name} imehamishwa
+dialog.export_lut.saved_skipped = {name} imehamishwa. Safu za marekebisho ya nafasi zilizoachwa: {count}

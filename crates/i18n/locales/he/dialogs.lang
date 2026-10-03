@@ -247,3 +247,19 @@ dialog.new_doc.from_image_url = מכתובת URL של תמונה
 # Backers
 dialog.support.title = תמיכה ב־Schist
 dialog.support.thanks = תודה לאנשים ולמותגים התומכים ב־Schist.
+
+# Color Lookup adjustment layers, and File > Export > Color Lookup Table
+dialog.color_lookup.table = טבלה
+dialog.color_lookup.load = טעינת LUT…
+dialog.color_lookup.none = לא נטענה טבלה
+dialog.color_lookup.input = קלט
+dialog.color_lookup.input_document = ערכי המסמך
+dialog.color_lookup.input_linear = אור לינארי
+dialog.color_lookup.note = קורא קובצי .cube (1D או 3D) ו־.3dl. הטבלה נשמרת בתוך המסמך, כך שהקובץ אינו נחוץ שוב.
+dialog.color_lookup.invalid = {name} אינו טבלת .cube או .3dl ש־Schist יכול לקרוא.
+dialog.export_lut.title = ייצוא טבלת חיפוש צבע
+dialog.export_lut.size = גודל רשת
+dialog.export_lut.camera_raw = לכלול את הגדרות הצבע של Camera Raw בשכבה הפעילה
+dialog.export_lut.note = LUT יכולה להכיל רק שינויי צבע זהים לכל הפיקסלים. מסכות שכבה, התאמות חתוכות, קבוצות מבודדות, שכבות פיקסלים, בהירות מקומית, חידוד, החשכת שוליים ואפקטים מרחביים אחרים אינם נכללים.
+dialog.export_lut.saved = {name} יוצא
+dialog.export_lut.saved_skipped = {name} יוצא. שכבות התאמה מרחביות שהושמטו: {count}

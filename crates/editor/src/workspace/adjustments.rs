@@ -83,8 +83,11 @@ impl Workspace {
         )
         .into();
         self.after_change(cx);
-        // Anything with controls opens its dialog straight away.
-        if !params.param_specs().is_empty() {
+        // Anything with controls opens its dialog straight away; a Color
+        // Lookup layer has a table to load.
+        if !params.param_specs().is_empty()
+            || matches!(params, schist_adjustments::Params::ColorLookup(_))
+        {
             let original = (serde_json::to_string(&params).ok(), Vec::new());
             self.open_modal(
                 Modal::Adjustment {
@@ -183,7 +186,9 @@ impl Workspace {
             .as_deref()
             .and_then(|j| serde_json::from_str(j).ok())
             .unwrap_or_else(|| schist_adjustments::parse_psd(data.kind, &data.raw));
-        if params.param_specs().is_empty() {
+        if params.param_specs().is_empty()
+            && !matches!(params, schist_adjustments::Params::ColorLookup(_))
+        {
             self.status = tf!(
                 "workspace.adjustment.no_settings",
                 name = crate::ui::adjustment_name(params.kind())

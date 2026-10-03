@@ -33,6 +33,25 @@ filter.camera_raw.param.vibrance = 自然な彩度
 filter.camera_raw.param.sharpening = シャープ
 filter.camera_raw.param.noise = ノイズ軽減
 filter.camera_raw.param.vignette = 周辺光量
+filter.camera_raw.grading_title = カラーグレーディング
+filter.camera_raw.grading_shadows = シャドウ
+filter.camera_raw.grading_midtones = ミッドトーン
+filter.camera_raw.grading_highlights = ハイライト
+filter.camera_raw.grading_global = 全体
+filter.camera_raw.param.grade_shadows_hue = シャドウの色相
+filter.camera_raw.param.grade_shadows_sat = シャドウの彩度
+filter.camera_raw.param.grade_shadows_lum = シャドウの輝度
+filter.camera_raw.param.grade_midtones_hue = ミッドトーンの色相
+filter.camera_raw.param.grade_midtones_sat = ミッドトーンの彩度
+filter.camera_raw.param.grade_midtones_lum = ミッドトーンの輝度
+filter.camera_raw.param.grade_highlights_hue = ハイライトの色相
+filter.camera_raw.param.grade_highlights_sat = ハイライトの彩度
+filter.camera_raw.param.grade_highlights_lum = ハイライトの輝度
+filter.camera_raw.param.grade_global_hue = 全体の色相
+filter.camera_raw.param.grade_global_sat = 全体の彩度
+filter.camera_raw.param.grade_global_lum = 全体の輝度
+filter.camera_raw.param.grade_blending = ブレンド
+filter.camera_raw.param.grade_balance = バランス
 
 # レンズ補正
 filter.lens_correction.name = レンズ補正

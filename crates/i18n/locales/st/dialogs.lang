@@ -255,3 +255,19 @@ dialog.new_doc.from_image_url = Ho tsoa ho URL ea setšoantšo
 # Backers
 dialog.support.title = Tshehetsa Schist
 dialog.support.thanks = Re leboha batho le dikgwebo tse tshehetsang Schist.
+
+# Color Lookup adjustment layers, and File > Export > Color Lookup Table
+dialog.color_lookup.table = Tafole
+dialog.color_lookup.load = Kenya LUT…
+dialog.color_lookup.none = Ha ho tafole e kentsoeng
+dialog.color_lookup.input = Kenyelletso
+dialog.color_lookup.input_document = Boleng ba tokomane
+dialog.color_lookup.input_linear = Khanya ea mola
+dialog.color_lookup.note = E bala lifaele tsa .cube (1D kapa 3D) le .3dl. Tafole e bolokiloe ka hare ho tokomane, kahoo faele ha e hlokahale hape.
+dialog.color_lookup.invalid = {name} ha se tafole ea .cube kapa .3dl eo Schist e ka e balang.
+dialog.export_lut.title = Romela Tafole ea Phuputso ea 'Mala
+dialog.export_lut.size = Boholo ba grid
+dialog.export_lut.camera_raw = Kenyelletsa lisetting tsa 'mala tsa Camera Raw tsa lera le sebetsang
+dialog.export_lut.note = LUT e ka boloka feela liphetoho tsa 'mala tse tšoanang bakeng sa pixel e 'ngoe le e 'ngoe. Limaske tsa lera, liphetoho tse sehiloeng, lihlopha tse arohaneng, lera tsa pixel, ho hlaka, ho leleka, vignette le liphello tse ling tsa sebaka lia siuoa.
+dialog.export_lut.saved = {name} e rometsoe
+dialog.export_lut.saved_skipped = {name} e rometsoe. Lera tsa phetoho tsa sebaka tse siiloeng: {count}

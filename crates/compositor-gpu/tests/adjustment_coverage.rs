@@ -111,6 +111,43 @@ fn every_direct_adjustment_runs_on_gpu_with_variable_records() {
     ] {
         cases.push(Params::WhiteBalance { warmth, tint });
     }
+    // Color Lookup: a 3D table alone, and a 1D shaper in front of one,
+    // each in document values and in linear light.
+    let mut graded = String::from("LUT_3D_SIZE 17\n");
+    let mut shaped = String::from("LUT_1D_SIZE 5\nLUT_3D_SIZE 9\n");
+    for i in 0..5 {
+        let v = (i as f32 / 4.0).powf(0.7);
+        shaped.push_str(&format!("{v} {} {v}\n", v * 0.9));
+    }
+    for (text, n) in [(&mut graded, 17), (&mut shaped, 9)] {
+        for b in 0..n {
+            for g in 0..n {
+                for r in 0..n {
+                    let [r, g, b] = [r, g, b].map(|c| c as f32 / (n - 1) as f32);
+                    text.push_str(&format!(
+                        "{} {} {}\n",
+                        (r * 0.8 + b * 0.2).powf(1.3),
+                        g * g,
+                        (1.0 - r) * 0.5 + b * 0.5
+                    ));
+                }
+            }
+        }
+    }
+    for text in [graded, shaped] {
+        let table = schist_adjustments::LutTable::load(
+            schist_adjustments::LutFormat::Cube,
+            text.into_bytes(),
+        )
+        .unwrap();
+        for input in schist_adjustments::LutInput::ALL {
+            cases.push(Params::ColorLookup(schist_adjustments::ColorLookup {
+                name: "test".into(),
+                input,
+                table: Some(table.clone()),
+            }));
+        }
+    }
     let coord = TileCoord { tx: 0, ty: 0 };
     for params in cases {
         let mut doc = Document::new("adjustments", 37, 29, Depth::ThirtyTwo);

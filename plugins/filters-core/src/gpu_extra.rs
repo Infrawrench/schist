@@ -222,6 +222,15 @@ pub fn operation(
                             vec![2.0, v.get("vibrance") / 100.0, v.get("saturation") / 100.0],
                         );
                     }
+                    let grading = crate::color_grading::Grading::from_values(v);
+                    if !grading.is_identity() {
+                        result = g.stage(
+                            &crate::color_grading::GRADING,
+                            result,
+                            result,
+                            grading.coeffs(),
+                        );
+                    }
                     let noise = v.get("noise") / 100.0;
                     if noise > 0.0 {
                         let low = g.effect(

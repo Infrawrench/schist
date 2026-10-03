@@ -16,4 +16,5 @@ adjustment.photo_filter.name = Filter ng Larawan
 adjustment.gradient_map.name = Mapa ng Gradient
 adjustment.selective_color.name = Piling Kulay
 adjustment.channel_mixer.name = Panghalo ng Channel
+adjustment.color_lookup.name = Color Lookup
 adjustment.other.name = Pagsasaayos

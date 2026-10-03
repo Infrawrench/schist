@@ -231,3 +231,19 @@ dialog.new_doc.from_image_url = Cittassa URL to
 # Backers
 dialog.support.title = Schist upatthambhetha
 dialog.support.thanks = Schist upatthambhentānaṃ janānañca vāṇijasaṅghānañca añjali.
+
+# Color Lookup adjustment layers, and File > Export > Color Lookup Table
+dialog.color_lookup.table = Sāraṇī
+dialog.color_lookup.load = LUT āropetha…
+dialog.color_lookup.none = Sāraṇī na āropitā
+dialog.color_lookup.input = Nivesanaṃ
+dialog.color_lookup.input_document = Lekhassa mūlāni
+dialog.color_lookup.input_linear = Rekhīyālokā
+dialog.color_lookup.note = .cube (1D vā 3D) ca .3dl cāpi patthāni vāceti. Sāraṇī lekhassa anto rakkhitā, tasmā patthaṃ puna na icchitabbaṃ.
+dialog.color_lookup.invalid = {name} Schist-ena vācetuṃ sakkuṇeyyā .cube vā .3dl sāraṇī na hoti.
+dialog.export_lut.title = Vaṇṇagavesanāsāraṇiṃ niyyātetha
+dialog.export_lut.size = Jālakappamāṇaṃ
+dialog.export_lut.camera_raw = Sakkiriyatalassa Camera Raw vaṇṇasaṃvidhānāni saṅgaṇhātha
+dialog.export_lut.note = LUT ekekassa cittabindunā samānāni vaṇṇaparivattanāni eva dhāretuṃ sakkoti. Talamukhāvaraṇāni, chinnāni samāyojanāni, visuṃ katā samūhā, cittabindutalāni, vissadatā, tikhiṇīkaraṇaṃ, pariyantandhakāro aññāni ca okāsikāni phalāni pariccattāni.
+dialog.export_lut.saved = {name} niyyātitaṃ
+dialog.export_lut.saved_skipped = {name} niyyātitaṃ. Pariccattāni okāsikasamāyojanatalāni: {count}

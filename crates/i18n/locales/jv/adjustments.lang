@@ -17,4 +17,5 @@ adjustment.photo_filter.name = Filter Foto
 adjustment.gradient_map.name = Peta Gradien
 adjustment.selective_color.name = Werna Selektif
 adjustment.channel_mixer.name = Pangaduk Kanal
+adjustment.color_lookup.name = Panelusuran Warna
 adjustment.other.name = Pangaturan

@@ -95,6 +95,12 @@ not a general fidelity guarantee. `make check-psd-light` covers native fixtures,
 editing/saving, legacy fallback, curve invariants and CPU/GPU agreement. The two
 352-byte `.cged` fixtures contain only adjustment settings, no artwork.
 
+## Color Lookup
+
+Color Lookup layers read and write `clrL` with the LUT file embedded; see
+[colour lookup tables](luts-and-grading.md#psd-and-psb) for what renders,
+what is preserved verbatim, and how the Schist-only linear input is baked.
+
 ## Filters
 
 See [native-smart-filters.md](native-smart-filters.md) for the supported Gaussian

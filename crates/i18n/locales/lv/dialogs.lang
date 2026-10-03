@@ -269,3 +269,19 @@ dialog.new_doc.from_image_url = No attēla URL
 # Backers
 dialog.support.title = Atbalstīt Schist
 dialog.support.thanks = Paldies cilvēkiem un zīmoliem, kas atbalsta Schist.
+
+# Color Lookup adjustment layers, and File > Export > Color Lookup Table
+dialog.color_lookup.table = Tabula
+dialog.color_lookup.load = Ielādēt LUT…
+dialog.color_lookup.none = Tabula nav ielādēta
+dialog.color_lookup.input = Ievade
+dialog.color_lookup.input_document = Dokumenta vērtības
+dialog.color_lookup.input_linear = Lineārā gaisma
+dialog.color_lookup.note = Nolasa .cube (1D vai 3D) un .3dl failus. Tabula tiek saglabāta dokumentā, tāpēc fails vairs nav vajadzīgs.
+dialog.color_lookup.invalid = {name} nav .cube vai .3dl tabula, ko Schist var nolasīt.
+dialog.export_lut.title = Eksportēt krāsu uzmeklēšanas tabulu
+dialog.export_lut.size = Režģa izmērs
+dialog.export_lut.camera_raw = Iekļaut aktīvā slāņa Camera Raw krāsu iestatījumus
+dialog.export_lut.note = LUT var saturēt tikai tādas krāsu izmaiņas, kas ir vienādas katram pikselim. Slāņu maskas, apgrieztie pielāgojumi, izolētās grupas, pikseļu slāņi, skaidrība, asināšana, vinjete un citi telpiskie efekti tiek izlaisti.
+dialog.export_lut.saved = Eksportēts: {name}
+dialog.export_lut.saved_skipped = Eksportēts: {name}. Izlaisto telpisko korekcijas slāņu skaits: {count}

@@ -957,6 +957,7 @@ impl Workspace {
             | Modal::ColorPicker { .. }
             | Modal::PluginManager
             | Modal::Support
+            | Modal::ExportLut { .. }
             | Modal::Preferences
             | Modal::Export { .. }
             | Modal::Printing { .. }

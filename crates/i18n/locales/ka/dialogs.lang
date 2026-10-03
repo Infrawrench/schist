@@ -256,3 +256,19 @@ dialog.new_doc.from_image_url = სურათის URL-დან
 # Backers
 dialog.support.title = მხარი დაუჭირეთ Schist-ს
 dialog.support.thanks = მადლობა ადამიანებსა და ბრენდებს, რომლებიც მხარს უჭერენ Schist-ს.
+
+# Color Lookup adjustment layers, and File ▸ Export ▸ Color Lookup Table
+dialog.color_lookup.table = ცხრილი
+dialog.color_lookup.load = LUT-ის ჩატვირთვა…
+dialog.color_lookup.none = ცხრილი ჩატვირთული არ არის
+dialog.color_lookup.input = შეყვანა
+dialog.color_lookup.input_document = დოკუმენტის მნიშვნელობები
+dialog.color_lookup.input_linear = წრფივი სინათლე
+dialog.color_lookup.note = კითხულობს .cube (1D ან 3D) და .3dl ფაილებს. ცხრილი ინახება დოკუმენტის შიგნით, ამიტომ ფაილი მეორედ აღარ დაგჭირდებათ.
+dialog.color_lookup.invalid = {name} არ არის .cube ან .3dl ცხრილი, რომლის წაკითხვაც Schist-ს შეუძლია.
+dialog.export_lut.title = ფერის მოძიების ცხრილის ექსპორტი
+dialog.export_lut.size = ბადის ზომა
+dialog.export_lut.camera_raw = აქტიური ფენის Camera Raw-ის ფერის პარამეტრების ჩართვა
+dialog.export_lut.note = LUT-ს შეუძლია შეინახოს მხოლოდ ისეთი ფერის ცვლილებები, რომლებიც ყველა პიქსელისთვის ერთნაირია. ფენის ნიღბები, მოჭრილი კორექციები, იზოლირებული ჯგუფები, პიქსელური ფენები, სიცხადე, გამკვეთრება, ვინეტირება და სხვა სივრცითი ეფექტები არ შედის.
+dialog.export_lut.saved = ექსპორტირებულია {name}
+dialog.export_lut.saved_skipped = ექსპორტირებულია {name}. გამოტოვებული სივრცითი კორექციის ფენები: {count}

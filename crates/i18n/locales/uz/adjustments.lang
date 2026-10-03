@@ -17,4 +17,5 @@ adjustment.photo_filter.name = Fotofiltr
 adjustment.gradient_map.name = Gradient xaritasi
 adjustment.selective_color.name = Tanlab rang berish
 adjustment.channel_mixer.name = Kanallar mikseri
+adjustment.color_lookup.name = Rang qidiruvi
 adjustment.other.name = Sozlash

@@ -6,8 +6,8 @@
 //!
 //! The order matters and is the same one Adobe uses: white balance, then
 //! exposure and the tone controls, then presence (clarity, vibrance,
-//! saturation), then detail (sharpening, noise reduction), then the
-//! vignette last so it darkens the finished image.
+//! saturation), then colour grading, then detail (sharpening, noise
+//! reduction), then the vignette last so it darkens the finished image.
 
 use crate::util::{at, gaussian_rgba, luma, put};
 use crate::{param, simple_filter};
@@ -130,6 +130,120 @@ simple_filter!(
             0.0,
             ""
         ),
+        // Color grading. The dialog draws the hue and saturation of each
+        // region as a wheel rather than as these sliders.
+        param(
+            "grade_shadows_hue",
+            t("filter.camera_raw.param.grade_shadows_hue"),
+            0.0,
+            360.0,
+            0.0,
+            "°"
+        ),
+        param(
+            "grade_shadows_sat",
+            t("filter.camera_raw.param.grade_shadows_sat"),
+            0.0,
+            100.0,
+            0.0,
+            ""
+        ),
+        param(
+            "grade_shadows_lum",
+            t("filter.camera_raw.param.grade_shadows_lum"),
+            -100.0,
+            100.0,
+            0.0,
+            ""
+        ),
+        param(
+            "grade_midtones_hue",
+            t("filter.camera_raw.param.grade_midtones_hue"),
+            0.0,
+            360.0,
+            0.0,
+            "°"
+        ),
+        param(
+            "grade_midtones_sat",
+            t("filter.camera_raw.param.grade_midtones_sat"),
+            0.0,
+            100.0,
+            0.0,
+            ""
+        ),
+        param(
+            "grade_midtones_lum",
+            t("filter.camera_raw.param.grade_midtones_lum"),
+            -100.0,
+            100.0,
+            0.0,
+            ""
+        ),
+        param(
+            "grade_highlights_hue",
+            t("filter.camera_raw.param.grade_highlights_hue"),
+            0.0,
+            360.0,
+            0.0,
+            "°"
+        ),
+        param(
+            "grade_highlights_sat",
+            t("filter.camera_raw.param.grade_highlights_sat"),
+            0.0,
+            100.0,
+            0.0,
+            ""
+        ),
+        param(
+            "grade_highlights_lum",
+            t("filter.camera_raw.param.grade_highlights_lum"),
+            -100.0,
+            100.0,
+            0.0,
+            ""
+        ),
+        param(
+            "grade_global_hue",
+            t("filter.camera_raw.param.grade_global_hue"),
+            0.0,
+            360.0,
+            0.0,
+            "°"
+        ),
+        param(
+            "grade_global_sat",
+            t("filter.camera_raw.param.grade_global_sat"),
+            0.0,
+            100.0,
+            0.0,
+            ""
+        ),
+        param(
+            "grade_global_lum",
+            t("filter.camera_raw.param.grade_global_lum"),
+            -100.0,
+            100.0,
+            0.0,
+            ""
+        ),
+        param(
+            "grade_blending",
+            t("filter.camera_raw.param.grade_blending"),
+            0.0,
+            100.0,
+            50.0,
+            ""
+        ),
+        param(
+            "grade_balance",
+            t("filter.camera_raw.param.grade_balance"),
+            -100.0,
+            100.0,
+            0.0,
+            ""
+        ),
     ],
     develop
 );
@@ -234,6 +348,9 @@ fn develop(px: &mut [f32], w: usize, h: usize, v: &FilterValues) {
             }
         }
     }
+
+    // ---- colour grading, last of the colour controls ----
+    crate::color_grading::Grading::from_values(v).apply_rgba(px);
 
     // ---- detail ----
     let noise = v.get("noise") / 100.0;

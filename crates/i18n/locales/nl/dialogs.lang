@@ -263,3 +263,19 @@ dialog.new_doc.from_image_url = Van afbeeldings-URL
 # Backers
 dialog.support.title = Steun Schist
 dialog.support.thanks = Dank aan de mensen en merken die Schist steunen.
+
+# Color Lookup adjustment layers, and File > Export > Color Lookup Table
+dialog.color_lookup.table = Tabel
+dialog.color_lookup.load = LUT laden…
+dialog.color_lookup.none = Geen tabel geladen
+dialog.color_lookup.input = Invoer
+dialog.color_lookup.input_document = Documentwaarden
+dialog.color_lookup.input_linear = Lineair licht
+dialog.color_lookup.note = Leest .cube-bestanden (1D of 3D) en .3dl-bestanden. De tabel wordt in het document opgeslagen, dus het bestand is daarna niet meer nodig.
+dialog.color_lookup.invalid = {name} is geen .cube- of .3dl-tabel die Schist kan lezen.
+dialog.export_lut.title = Kleuropzoektabel exporteren
+dialog.export_lut.size = Rastergrootte
+dialog.export_lut.camera_raw = Camera Raw-kleurinstellingen van de actieve laag opnemen
+dialog.export_lut.note = Een LUT kan alleen kleurwijzigingen bevatten die voor elke pixel hetzelfde zijn. Laagmaskers, bijgesneden aanpassingen, geïsoleerde groepen, pixellagen, helderheid, verscherping, vignettering en andere ruimtelijke effecten worden weggelaten.
+dialog.export_lut.saved = {name} geëxporteerd
+dialog.export_lut.saved_skipped = {name} geëxporteerd. Weggelaten ruimtelijke aanpassingslagen: {count}

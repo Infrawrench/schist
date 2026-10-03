@@ -251,3 +251,19 @@ dialog.new_doc.from_image_url = Mei he URL ʻo e ʻīmisi
 # Backers
 dialog.support.title = Poupouʻi ʻa Schist
 dialog.support.thanks = Mālō ki he kakai mo e ngaahi kautaha ʻoku nau poupouʻi ʻa Schist.
+
+# Color Lookup adjustment layers, and File > Export > Color Lookup Table
+dialog.color_lookup.table = Tēpile
+dialog.color_lookup.load = Fakaʻuta ha LUT…
+dialog.color_lookup.none = Ko e tēpile ʻoku ʻikai fakaʻuta
+dialog.color_lookup.input = Fakahū
+dialog.color_lookup.input_document = Ngaahi value ʻo e tohi
+dialog.color_lookup.input_linear = Maama laine
+dialog.color_lookup.note = ʻOku lau ʻa e ngaahi faile .cube (1D pe 3D) mo e .3dl. ʻOku sivi ʻa e tēpile ʻi loto he tohi, ko ia ʻoku ʻikai toe fiemaʻu ʻa e faile.
+dialog.color_lookup.invalid = Ko e {name} ʻoku ʻikai ko ha tēpile .cube pe .3dl ʻe lava ke lau ʻe Schist.
+dialog.export_lut.title = ʻAve ʻa e Tēpile Sivi Lanu
+dialog.export_lut.size = Lahi ʻo e grid
+dialog.export_lut.camera_raw = Fakakau ʻa e ngaahi seti lanu Camera Raw ʻo e laʻē ʻoku ngāue
+dialog.export_lut.note = ʻE lava ʻe he LUT ke ʻomi pē ʻa e ngaahi liliu lanu ʻoku tatau ki he pikisela kotoa. ʻOku tuku ʻa e ngaahi makasi laʻē, ngaahi fakatonutonu kuopi, ngaahi kulupu vahe, laʻē pikisela, clarity, sharpening, vignetting mo e ngaahi ola kehe ʻo e feituʻu.
+dialog.export_lut.saved = Kuo ʻave ʻa e {name}
+dialog.export_lut.saved_skipped = Kuo ʻave ʻa e {name}. Ngaahi laʻē fakatonutonu feituʻu kuo tuku: {count}

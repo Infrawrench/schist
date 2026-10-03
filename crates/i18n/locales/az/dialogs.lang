@@ -239,3 +239,19 @@ dialog.new_doc.from_image_url = Şəkil URL-indən
 # Backers
 dialog.support.title = Schist-i dəstəkləyin
 dialog.support.thanks = Schist-i dəstəkləyən insanlara və brendlərə təşəkkür edirik.
+
+# Color Lookup adjustment layers, and File ▸ Export ▸ Color Lookup Table
+dialog.color_lookup.table = Cədvəl
+dialog.color_lookup.load = LUT yüklə…
+dialog.color_lookup.none = Heç bir cədvəl yüklənməyib
+dialog.color_lookup.input = Giriş
+dialog.color_lookup.input_document = Sənəd dəyərləri
+dialog.color_lookup.input_linear = Xətti işıq
+dialog.color_lookup.note = .cube (1D və ya 3D) və .3dl fayllarını oxuyur. Cədvəl sənədin içində saxlanılır, ona görə fayl bir daha lazım olmur.
+dialog.color_lookup.invalid = {name} Schist-in oxuya biləcəyi .cube və ya .3dl cədvəli deyil.
+dialog.export_lut.title = Rəng axtarış cədvəlini ixrac et
+dialog.export_lut.size = Şəbəkə ölçüsü
+dialog.export_lut.camera_raw = Aktiv layın Camera Raw rəng parametrlərini daxil et
+dialog.export_lut.note = LUT yalnız hər piksel üçün eyni olan rəng dəyişikliklərini saxlaya bilər. Lay maskaları, kəsilmiş düzəlişlər, izolə edilmiş qruplar, piksel layları, aydınlıq, kəskinləşdirmə, vinyetka və digər məkan effektləri daxil edilmir.
+dialog.export_lut.saved = {name} ixrac edildi
+dialog.export_lut.saved_skipped = {name} ixrac edildi. Kənarda qalan məkan düzəliş layları: {count}

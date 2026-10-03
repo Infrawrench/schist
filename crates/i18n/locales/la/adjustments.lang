@@ -16,4 +16,5 @@ adjustment.photo_filter.name = Filtrum Photographicum
 adjustment.gradient_map.name = Tabula Colorum Gradatim Mutatorum
 adjustment.selective_color.name = Color Selectivus
 adjustment.channel_mixer.name = Mixtor Canalium
+adjustment.color_lookup.name = Inquisitio colorum
 adjustment.other.name = Accommodatio

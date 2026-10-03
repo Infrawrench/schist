@@ -262,3 +262,19 @@ dialog.new_doc.from_image_url = Uta na URL ya elilingi
 # Backers
 dialog.support.title = Sunga Schist
 dialog.support.thanks = Matɔndi na bato mpe bakompanyi oyo basungaka Schist.
+
+# Color Lookup adjustment layers, and File > Export > Color Lookup Table
+dialog.color_lookup.table = Mesa
+dialog.color_lookup.load = Kotia LUT…
+dialog.color_lookup.none = Mesa moko te etiami
+dialog.color_lookup.input = Kokotisa
+dialog.color_lookup.input_document = Ba valɛrɛ ya dokiments
+dialog.color_lookup.input_linear = Mwinda ya molongo
+dialog.color_lookup.note = Elobaka bafisyɛ .cube (1D to 3D) mpe .3dl. Mesa ebombami kati na dokiments, boye fisyɛ esengeli lisusu te.
+dialog.color_lookup.invalid = {name} ezali mesa ya .cube to .3dl te oyo Schist ekoki kotánga.
+dialog.export_lut.title = Kobimisa mesa ya koluka langi
+dialog.export_lut.size = Monene ya grid
+dialog.export_lut.camera_raw = Kotya ba réglages ya langi ya Camera Raw ya layer ezali na mosala
+dialog.export_lut.note = LUT ekoki kobomba kaka bobongoli ya langi oyo ezali ndenge moko mpo na pixel nyonso. Ba masque ya layer, ba ajustement oyo ekatami, ba groupe oyo eyokani te, ba layer ya pixel, clarté, bosembo, vignettage mpe ba effets mosusu ya esika etiami te.
+dialog.export_lut.saved = {name} ebimisami
+dialog.export_lut.saved_skipped = {name} ebimisami. Ba layer ya ajustement ya esika oyo etiami te: {count}

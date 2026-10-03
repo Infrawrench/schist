@@ -255,3 +255,19 @@ dialog.new_doc.from_image_url = Bivuye kuri URL y’ishusho
 # Backers
 dialog.support.title = Shigikira Schist
 dialog.support.thanks = Turashimira abantu n’amashirahamwe bashigikira Schist.
+
+# Color Lookup adjustment layers, and File > Export > Color Lookup Table
+dialog.color_lookup.table = Imbonerahamwe
+dialog.color_lookup.load = Shiramwo LUT…
+dialog.color_lookup.none = Nta mbonerahamwe yashizwemwo
+dialog.color_lookup.input = Ibyinjizwa
+dialog.color_lookup.input_document = Agaciro k'inyandiko
+dialog.color_lookup.input_linear = Umucyo ugororotse
+dialog.color_lookup.note = Isoma dosiye .cube (1D canke 3D) na .3dl. Imbonerahamwe ibikwa mu nyandiko, ku rero dosiye ntikenewe kandi.
+dialog.color_lookup.invalid = {name} si imbonerahamwe .cube canke .3dl Schist ishobora gusoma.
+dialog.export_lut.title = Kuvoma Imbonerahamwe yo Kureba Ibara
+dialog.export_lut.size = Ingene urubuga rungana
+dialog.export_lut.camera_raw = Shiramwo amahitamwo y'ibara ya Camera Raw y'urwego rukora
+dialog.export_lut.note = LUT irashobora gufata gusa ivyahindutse mu bara bimwe kuri buri pikseli. Amamasike y'urwego, ivyahinduwe vyaciwe, amatsinda yihariye, inzego za pikseli, clarity, sharpening, vignetting n'ibindi bikorwa vy'ahantu birasigwa.
+dialog.export_lut.saved = Havuye {name}
+dialog.export_lut.saved_skipped = Havuye {name}. Inzego z'ivyahinduwe vy'ahantu zasizwe: {count}

@@ -240,3 +240,19 @@ dialog.new_doc.from_image_url = ከምስል URL
 # Backers
 dialog.support.title = Schist ይደግፉ
 dialog.support.thanks = Schist የሚደግፉ ሰዎችን እና ድርጅቶችን እናመሰግናለን።
+
+# Color Lookup adjustment layers, and File > Export > Color Lookup Table
+dialog.color_lookup.table = ሠንጠረዥ
+dialog.color_lookup.load = LUT ጫን…
+dialog.color_lookup.none = ምንም ሠንጠረዥ አልተጫነም
+dialog.color_lookup.input = ግብዓት
+dialog.color_lookup.input_document = የሰነድ እሴቶች
+dialog.color_lookup.input_linear = ቀጥተኛ ብርሃን
+dialog.color_lookup.note = .cube (1D ወይም 3D) እና .3dl ፋይሎችን ያነባል። ሠንጠረዡ በሰነዱ ውስጥ ይቀመጣል፣ ስለዚህ ፋይሉ ዳግም አያስፈልግም።
+dialog.color_lookup.invalid = {name} Schist ሊያነበው የሚችል .cube ወይም .3dl ሠንጠረዥ አይደለም።
+dialog.export_lut.title = የቀለም ፍለጋ ሠንጠረዥ ላክ
+dialog.export_lut.size = የፍርግርግ መጠን
+dialog.export_lut.camera_raw = የገባሪውን ንብርብር የ Camera Raw ቀለም ቅንብሮች አካትት
+dialog.export_lut.note = LUT መያዝ የሚችለው ለእያንዳንዱ ፒክሰል ተመሳሳይ የሆኑ የቀለም ለውጦችን ብቻ ነው። የንብርብር ማስኮች፣ የተቆራረጡ ማስተካከያዎች፣ የተነጠሉ ቡድኖች፣ የፒክሰል ንብርብሮች፣ ግልጽነት፣ ማሳላት፣ የጠርዝ ጥላ እና ሌሎች የቦታ ውጤቶች አይካተቱም።
+dialog.export_lut.saved = {name} ተልኳል
+dialog.export_lut.saved_skipped = {name} ተልኳል። የተዘለሉ የቦታ ማስተካከያ ንብርብሮች፦ {count}

@@ -271,3 +271,19 @@ dialog.new_doc.from_image_url = Dhyworth URL imach
 # Backers
 dialog.support.title = Skoodhyewgh Schist
 dialog.support.thanks = Meur ras dhe'n dus ha dhe'n markow a skoodh Schist.
+
+# Color Lookup adjustment layers, and File > Export > Color Lookup Table
+dialog.color_lookup.table = Tabel
+dialog.color_lookup.load = Karga LUT…
+dialog.color_lookup.none = Tabel vyth kargys
+dialog.color_lookup.input = Entra
+dialog.color_lookup.input_document = Talvosow an displegyans
+dialog.color_lookup.input_linear = Golow linyel
+dialog.color_lookup.note = Redya a ra restrennow .cube (1D po 3D) ha .3dl. An tabel yw gwithys y'n displegyans, ytho nyns yw res an restren arta.
+dialog.color_lookup.invalid = Nyns yw {name} tabel .cube po .3dl a yll Schist y redya.
+dialog.export_lut.title = Esperthi Tabel Hwithrans Liw
+dialog.export_lut.size = Mens grynn
+dialog.export_lut.camera_raw = Yskynna settyansow liw Camera Raw an gwiskas whekys
+dialog.export_lut.note = Nyns yll LUT sensi marnas chanjyow liw yw an keth tra rag kenyver pixel. Maskys gwiskas, ewnansow trehys, bagasow dydhesys, gwiskasow pixel, klerder, kleshyans, vignetyans ha kefyow esoghel erel yw gesys a-ves.
+dialog.export_lut.saved = Esperthys {name}
+dialog.export_lut.saved_skipped = Esperthys {name}. Gwiskasow ewnans esoghel gesys a-ves: {count}

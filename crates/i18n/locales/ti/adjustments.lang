@@ -16,4 +16,5 @@ adjustment.photo_filter.name = ፊልተር ስእሊ
 adjustment.gradient_map.name = ካርታ ቅልመት
 adjustment.selective_color.name = ዝተመርጸ ሕብሪ
 adjustment.channel_mixer.name = መሕወሲ ቻነል
+adjustment.color_lookup.name = ምርካብ ሕብሪ
 adjustment.other.name = ምትዕርራይ

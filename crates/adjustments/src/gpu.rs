@@ -13,6 +13,7 @@ pub const D_GRADIENT_MAP: u32 = 8;
 pub const D_SELECTIVE_COLOR: u32 = 9;
 pub const D_CHANNEL_MIXER: u32 = 10;
 pub const D_WHITE_BALANCE: u32 = 11;
+pub const D_COLOR_LOOKUP: u32 = 19;
 
 /// Variable records preserve arbitrary imported hue ranges and gradient stops.
 /// Coefficients use the CPU's operand order, rather than resampling a 3D LUT.
@@ -204,6 +205,9 @@ pub fn direct_coeffs(params: &Params) -> Option<(u32, Vec<f32>)> {
                 -light.blacks.clamp(-100.0, 100.0) / 100.0 * 0.4,
             ],
         ),
+        // The table itself rides in the record, so the shader interpolates
+        // the very lattice the CPU does.
+        Params::ColorLookup(lookup) => (D_COLOR_LOOKUP, lookup.coeffs()),
         Params::Unsupported => return None,
     })
 }

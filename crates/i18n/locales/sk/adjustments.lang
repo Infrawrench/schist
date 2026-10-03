@@ -16,4 +16,5 @@ adjustment.photo_filter.name = Fotografický filter
 adjustment.gradient_map.name = Mapa prechodu
 adjustment.selective_color.name = Selektívna farba
 adjustment.channel_mixer.name = Zmiešavač kanálov
+adjustment.color_lookup.name = Vyhľadávanie farieb
 adjustment.other.name = Úprava

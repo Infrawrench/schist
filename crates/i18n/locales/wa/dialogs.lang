@@ -239,3 +239,19 @@ dialog.new_doc.from_image_url = D’ ene URL d’ imådje
 # Backers
 dialog.support.title = Sopoirtez Schist
 dialog.support.thanks = Mèrci ås djins et ås markes ki sopoirtnut Schist.
+
+# Color Lookup adjustment layers, and File > Export > Color Lookup Table
+dialog.color_lookup.table = Tåve
+dialog.color_lookup.load = Tcherdjî on LUT…
+dialog.color_lookup.none = Nole tåve tcherdjeye
+dialog.color_lookup.input = Intrêye
+dialog.color_lookup.input_document = Valixheurs do documint
+dialog.color_lookup.input_linear = Loumire linéyaire
+dialog.color_lookup.note = Il lét les fitchîs .cube (1D ou 3D) et .3dl. Li tåve est conserveye dins l' documint, ås çu k' on n' a pus mezåjhe do fitchî.
+dialog.color_lookup.invalid = {name} n' est nén ene tåve .cube ou .3dl ki Schist pout lére.
+dialog.export_lut.title = Ebaguer ene tåve di ricwerea di coleur
+dialog.export_lut.size = Grandeu del grile
+dialog.export_lut.camera_raw = Mete les apontiaedjes di coleur Camera Raw do coetch activ
+dialog.export_lut.note = Èn LUT n' pout wårder ki des candjmints di coleur ki sont l' minme po tchaeke pixel. Les masses di coetch, les ajustaedjes talhîs, les groupes izolés, les coetchs di pixel, li netteté, l' aveuzaedje, li vignete et d' ôtes efets spåciåls sont léyîs di costé.
+dialog.export_lut.saved = {name} ebagué
+dialog.export_lut.saved_skipped = {name} ebagué. Coetchs d' ajustaedje spåciåls léyîs di costé: {count}

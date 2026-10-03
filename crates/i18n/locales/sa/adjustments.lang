@@ -16,4 +16,5 @@ adjustment.photo_filter.name = छायाचित्रशोधकम्
 adjustment.gradient_map.name = क्रमवर्णमानचित्रम्
 adjustment.selective_color.name = चयनितवर्णः
 adjustment.channel_mixer.name = प्रणालिकामिश्रकम्
+adjustment.color_lookup.name = वर्णान्वेषणम्
 adjustment.other.name = समायोजनम्

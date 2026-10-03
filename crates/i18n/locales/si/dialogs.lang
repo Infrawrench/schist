@@ -288,3 +288,19 @@ dialog.new_doc.from_image_url = රූප URL එකකින්
 # Backers
 dialog.support.title = Schist වෙත සහාය දෙන්න
 dialog.support.thanks = Schist වෙත සහාය දෙන පුද්ගලයන්ට සහ සන්නාමවලට ස්තූතියි.
+
+# Color Lookup adjustment layers, and File > Export > Color Lookup Table
+dialog.color_lookup.table = වගුව
+dialog.color_lookup.load = LUT පූරණය…
+dialog.color_lookup.none = කිසිදු වගුවක් පූරණය කර නැත
+dialog.color_lookup.input = ආදානය
+dialog.color_lookup.input_document = ලේඛන අගයන්
+dialog.color_lookup.input_linear = රේඛීය ආලෝකය
+dialog.color_lookup.note = .cube (1D හෝ 3D) සහ .3dl ගොනු කියවයි. වගුව ලේඛනය තුළම සුරැකෙන බැවින් ගොනුව නැවත අවශ්‍ය නොවේ.
+dialog.color_lookup.invalid = {name} යනු Schist හට කියවිය හැකි .cube හෝ .3dl වගුවක් නොවේ.
+dialog.export_lut.title = වර්ණ සෙවුම් වගුව අපනයනය
+dialog.export_lut.size = ජාල ප්‍රමාණය
+dialog.export_lut.camera_raw = සක්‍රිය ස්තරයේ Camera Raw වර්ණ සැකසුම් ඇතුළත් කරන්න
+dialog.export_lut.note = LUT එකකට රඳවා ගත හැක්කේ සියලු පික්සල සඳහා එක සමාන වර්ණ වෙනස්කම් පමණි. ස්තර වෙස් මුහුණු, කප්පාදු කළ සීරුමාරු, වෙන් කළ කණ්ඩායම්, පික්සල ස්තර, පැහැදිලිභාවය, තියුණු කිරීම, කෙළවර අඳුරු කිරීම සහ වෙනත් අවකාශීය ආචරණ ඇතුළත් නොවේ.
+dialog.export_lut.saved = {name} අපනයනය කරන ලදී
+dialog.export_lut.saved_skipped = {name} අපනයනය කරන ලදී. ඉවත් කළ අවකාශීය සීරුමාරු ස්තර: {count}

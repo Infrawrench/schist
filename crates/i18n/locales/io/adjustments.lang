@@ -17,4 +17,5 @@ adjustment.photo_filter.name = Fotofiltrilo
 adjustment.gradient_map.name = Gradienta mapo
 adjustment.selective_color.name = Selektiva koloro
 adjustment.channel_mixer.name = Kanalmixilo
+adjustment.color_lookup.name = Konsulto di koloro
 adjustment.other.name = Ajusto

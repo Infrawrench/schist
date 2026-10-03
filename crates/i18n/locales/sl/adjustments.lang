@@ -17,4 +17,5 @@ adjustment.photo_filter.name = Fotografski filter
 adjustment.gradient_map.name = Preslikava preliva
 adjustment.selective_color.name = Selektivna barva
 adjustment.channel_mixer.name = Mešalnik kanalov
+adjustment.color_lookup.name = Iskanje barv
 adjustment.other.name = Prilagoditev

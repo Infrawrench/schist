@@ -17,4 +17,5 @@ adjustment.photo_filter.name = فیلتر عکس
 adjustment.gradient_map.name = نگاشت گرادیان
 adjustment.selective_color.name = رنگ انتخابی
 adjustment.channel_mixer.name = میکسر کانال
+adjustment.color_lookup.name = جستجوی رنگ
 adjustment.other.name = تنظیم

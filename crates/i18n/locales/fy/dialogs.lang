@@ -278,3 +278,19 @@ dialog.new_doc.from_image_url = Fan ôfbyldings-URL
 # Backers
 dialog.support.title = Stypje Schist
 dialog.support.thanks = Tank oan de minsken en merken dy't Schist stypje.
+
+# Color Lookup adjustment layers, and File > Export > Color Lookup Table
+dialog.color_lookup.table = Tabel
+dialog.color_lookup.load = LUT lade…
+dialog.color_lookup.none = Gjin tabel laden
+dialog.color_lookup.input = Ynfier
+dialog.color_lookup.input_document = Dokumintwearden
+dialog.color_lookup.input_linear = Lineêr ljocht
+dialog.color_lookup.note = Lêst .cube-bestannen (1D of 3D) en .3dl-bestannen. De tabel wurdt yn it dokumint bewarre, sadat it bestân net wer nedich is.
+dialog.color_lookup.invalid = {name} is gjin .cube- of .3dl-tabel dy't Schist lêze kin.
+dialog.export_lut.title = Kleuropsykjentabel eksportearje
+dialog.export_lut.size = Rastergrutte
+dialog.export_lut.camera_raw = De Camera Raw-kleurynstellings fan de aktive laach opnimme
+dialog.export_lut.note = In LUT kin allinnich kleurwizigingen befetsje dy't foar elke piksel gelyk binne. Laachmaskers, beheinde oanpassingen, isolearre groepen, pikselaachen, dúdlikens, skerpjen, vignettearring en oare romtlike effekten wurde weilitten.
+dialog.export_lut.saved = {name} eksportearre
+dialog.export_lut.saved_skipped = {name} eksportearre. Weilitten romtlike oanpassingslaach: {count}

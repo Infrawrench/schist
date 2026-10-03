@@ -480,6 +480,19 @@ fn gallery_families_and_complete_blurs_match_cpu() {
                             ("noise", 63.0),
                             ("sharpening", 54.0),
                             ("vignette", -35.0),
+                            ("grade_shadows_hue", 215.0),
+                            ("grade_shadows_sat", 40.0),
+                            ("grade_shadows_lum", -18.0),
+                            ("grade_midtones_hue", 95.0),
+                            ("grade_midtones_sat", 22.0),
+                            ("grade_highlights_hue", 38.0),
+                            ("grade_highlights_sat", 55.0),
+                            ("grade_highlights_lum", 24.0),
+                            ("grade_global_hue", 300.0),
+                            ("grade_global_sat", 9.0),
+                            ("grade_global_lum", 6.0),
+                            ("grade_blending", 20.0 + 40.0 * variant as f32),
+                            ("grade_balance", 30.0 - 45.0 * variant as f32),
                         ] {
                             values.set(key, value);
                         }

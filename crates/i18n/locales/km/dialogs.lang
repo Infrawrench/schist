@@ -231,3 +231,19 @@ dialog.new_doc.from_image_url = ពី URL រូបភាព
 # Backers
 dialog.support.title = គាំទ្រ Schist
 dialog.support.thanks = សូមអរគុណដល់បុគ្គល និងម៉ាកយីហោដែលគាំទ្រ Schist។
+
+# Color Lookup adjustment layers, and File > Export > Color Lookup Table
+dialog.color_lookup.table = តារាង
+dialog.color_lookup.load = ផ្ទុក LUT…
+dialog.color_lookup.none = មិនបានផ្ទុកតារាងទេ
+dialog.color_lookup.input = ធាតុចូល
+dialog.color_lookup.input_document = តម្លៃឯកសារ
+dialog.color_lookup.input_linear = ពន្លឺលីនេអ៊ែរ
+dialog.color_lookup.note = អាចអានឯកសារ .cube (1D ឬ 3D) និង .3dl។ តារាងត្រូវបានរក្សាទុកក្នុងឯកសារ ដូច្នេះមិនចាំបាច់ប្រើឯកសារនេះម្ដងទៀតទេ។
+dialog.color_lookup.invalid = {name} មិនមែនជាតារាង .cube ឬ .3dl ដែល Schist អាចអានបានទេ។
+dialog.export_lut.title = នាំចេញតារាងស្វែងរកពណ៌
+dialog.export_lut.size = ទំហំក្រឡា
+dialog.export_lut.camera_raw = រួមបញ្ចូលការកំណត់ពណ៌ Camera Raw របស់ស្រទាប់សកម្ម
+dialog.export_lut.note = LUT អាចផ្ទុកបានតែការផ្លាស់ប្ដូរពណ៌ដែលដូចគ្នាសម្រាប់ភីកសែលទាំងអស់ប៉ុណ្ណោះ។ របាំងស្រទាប់ ការកែតម្រូវដែលកាត់ក្ដោប ក្រុមដាច់ដោយឡែក ស្រទាប់ភីកសែល ភាពច្បាស់ ការធ្វើឱ្យមុត គែមងងឹត និងឥទ្ធិពលលំហផ្សេងទៀត ត្រូវបានលើកចេញ។
+dialog.export_lut.saved = បាននាំចេញ {name}
+dialog.export_lut.saved_skipped = បាននាំចេញ {name}។ ស្រទាប់កែតម្រូវលំហដែលបានលើកចេញ៖ {count}

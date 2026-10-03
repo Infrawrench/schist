@@ -262,3 +262,19 @@ dialog.new_doc.from_image_url = Ku suka eka URL ya xifaniso
 # Backers
 dialog.support.title = Seketela Schist
 dialog.support.thanks = Ha nkhensa vanhu ni mabindzu lama seketelaka Schist.
+
+# Color Lookup adjustment layers, and File > Export > Color Lookup Table
+dialog.color_lookup.table = Tafula
+dialog.color_lookup.load = Layicha LUT…
+dialog.color_lookup.none = A ku na tafula leri layichiweke
+dialog.color_lookup.input = Leswi nghenisiwaka
+dialog.color_lookup.input_document = Switshembiso swa tsalwa
+dialog.color_lookup.input_linear = Ku vonakala ka layini
+dialog.color_lookup.note = Ri hlaya mafayili ya .cube (1D kumbe 3D) na .3dl. Tafula ri hlayisiwa endzeni ka tsalwa, hikwalaho fayili a ri he laveki.
+dialog.color_lookup.invalid = {name} a hi tafula ra .cube kumbe .3dl leri Schist yi nga ri hlayaka.
+dialog.export_lut.title = Rhumela tafula ra ku lava muhlovo
+dialog.export_lut.size = Ntshamiso wa grid
+dialog.export_lut.camera_raw = Katsa swihlawulekisi swa muhlovo wa Camera Raw swa layera leri tirhaka
+dialog.export_lut.note = LUT yi nga hlayisa ntsena ku cinca ka muhlovo loku fanaka eka pikisele rin'wana na rin'wana. Switsama swa layera, ku lulamisa loku tsemiweke, mintlawa leyi hambanisiweke, tilayera ta pikisele, ku tlhariheka, ku vangamisa, ku nyamisa makumu na swin'wana swa ndhawu swi tshikiwa.
+dialog.export_lut.saved = {name} yi rhumeriwile
+dialog.export_lut.saved_skipped = {name} yi rhumeriwile. Tilayera ta ku lulamisa ta ndhawu leti tshikiweke: {count}

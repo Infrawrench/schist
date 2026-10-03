@@ -231,3 +231,19 @@ dialog.new_doc.from_image_url = Ta’ãnga URL-gui
 # Backers
 dialog.support.title = Eipytyvõ Schist-pe
 dialog.support.thanks = Aguyje tapicha ha empresa oipytyvõvape Schist-pe.
+
+# Color Lookup adjustment layers, and File > Export > Color Lookup Table
+dialog.color_lookup.table = Tabla
+dialog.color_lookup.load = Emoĩ LUT…
+dialog.color_lookup.none = Ndojehechaukái tabla
+dialog.color_lookup.input = Oike
+dialog.color_lookup.input_document = Kuatiaañe papapy
+dialog.color_lookup.input_linear = Tesape lineal
+dialog.color_lookup.note = Omoñe'ẽ marandu .cube (1D térã 3D) ha .3dl. Tabla ojeguarda kuatiaañe ryepýpe, upévare ndojehekaivéi pe marandu.
+dialog.color_lookup.invalid = {name} ha'e'ỹ .cube térã .3dl tabla Schist ikatúva omoñe'ẽ.
+dialog.export_lut.title = Eguerahá Sa'y jeheka tabla
+dialog.export_lut.size = Rejilla tuichakue
+dialog.export_lut.camera_raw = Emoĩ pe tapo jepurúva Camera Raw sa'y ñemboheko
+dialog.export_lut.note = Peteĩ LUT ikatu oĩ añoite sa'y jejapo ojoja opaite pixel-pe. Kapa kamuflaje, ñemoĩporã ñemboyke, atrupa mbojoja'ỹ, pixel kapa, clarity, ñemoĩ mbojaguy, viñeta ha ambue efecto espacial ojehejáta.
+dialog.export_lut.saved = Oguerahapa {name}
+dialog.export_lut.saved_skipped = Oguerahapa {name}. Ñemoĩporã espacial kapa ojehejáva: {count}

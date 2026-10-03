@@ -278,3 +278,19 @@ dialog.new_doc.from_image_url = चित्रस्य URL तः
 # Backers
 dialog.support.title = Schist समर्थयतु
 dialog.support.thanks = Schist समर्थयद्भ्यः जनेभ्यः संस्थाभ्यश्च धन्यवादाः।
+
+# Color Lookup adjustment layers, and File > Export > Color Lookup Table
+dialog.color_lookup.table = सारणी
+dialog.color_lookup.load = LUT आरोपयतु…
+dialog.color_lookup.none = काऽपि सारणी न आरोपिता
+dialog.color_lookup.input = निवेशः
+dialog.color_lookup.input_document = प्रलेखमानानि
+dialog.color_lookup.input_linear = रैखिकप्रकाशः
+dialog.color_lookup.note = .cube (1D अथवा 3D) तथा .3dl सञ्चिकाः पठति। सारणी प्रलेखस्य अन्तः एव रक्ष्यते, अतः सञ्चिका पुनः नापेक्ष्यते।
+dialog.color_lookup.invalid = {name} Schist द्वारा पठनीया .cube अथवा .3dl सारणी नास्ति।
+dialog.export_lut.title = वर्णान्वेषणसारणीं निर्यातयतु
+dialog.export_lut.size = जालकमापः
+dialog.export_lut.camera_raw = सक्रियस्तरस्य Camera Raw वर्णविन्यासान् अन्तर्भावयतु
+dialog.export_lut.note = LUT केवलं सर्वेषां चित्रबिन्दूनां कृते समानान् वर्णपरिवर्तनान् धारयितुं शक्नोति। स्तरावरणानि, कर्तिताः समायोजनाः, पृथक्कृताः समूहाः, चित्रबिन्दुस्तराः, स्पष्टता, तीक्ष्णीकरणम्, सीमाच्छाया अन्ये च स्थानिकप्रभावाः त्यज्यन्ते।
+dialog.export_lut.saved = {name} निर्यातितम्
+dialog.export_lut.saved_skipped = {name} निर्यातितम्। त्यक्ताः स्थानिकसमायोजनस्तराः: {count}

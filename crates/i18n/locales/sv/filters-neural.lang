@@ -30,6 +30,25 @@ filter.camera_raw.param.vibrance = Lyster
 filter.camera_raw.param.sharpening = Skärpa
 filter.camera_raw.param.noise = Brusreducering
 filter.camera_raw.param.vignette = Vinjettering
+filter.camera_raw.grading_title = Färggradering
+filter.camera_raw.grading_shadows = Skuggor
+filter.camera_raw.grading_midtones = Mellantoner
+filter.camera_raw.grading_highlights = Högdagrar
+filter.camera_raw.grading_global = Globalt
+filter.camera_raw.param.grade_shadows_hue = Skuggor – Nyans
+filter.camera_raw.param.grade_shadows_sat = Skuggor – Mättnad
+filter.camera_raw.param.grade_shadows_lum = Skuggor – Luminans
+filter.camera_raw.param.grade_midtones_hue = Mellantoner – Nyans
+filter.camera_raw.param.grade_midtones_sat = Mellantoner – Mättnad
+filter.camera_raw.param.grade_midtones_lum = Mellantoner – Luminans
+filter.camera_raw.param.grade_highlights_hue = Högdagrar – Nyans
+filter.camera_raw.param.grade_highlights_sat = Högdagrar – Mättnad
+filter.camera_raw.param.grade_highlights_lum = Högdagrar – Luminans
+filter.camera_raw.param.grade_global_hue = Globalt – Nyans
+filter.camera_raw.param.grade_global_sat = Globalt – Mättnad
+filter.camera_raw.param.grade_global_lum = Globalt – Luminans
+filter.camera_raw.param.grade_blending = Blandning
+filter.camera_raw.param.grade_balance = Balans
 
 # Linskorrigering
 filter.lens_correction.name = Linskorrigering

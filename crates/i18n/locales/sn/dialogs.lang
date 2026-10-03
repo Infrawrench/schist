@@ -239,3 +239,19 @@ dialog.new_doc.from_image_url = Kubva paURL yemufananidzo
 # Backers
 dialog.support.title = Tsigira Schist
 dialog.support.thanks = Tinotenda vanhu nemakambani anotsigira Schist.
+
+# Color Lookup adjustment layers, and File > Export > Color Lookup Table
+dialog.color_lookup.table = Tafura
+dialog.color_lookup.load = Isa LUT…
+dialog.color_lookup.none = Hapana tafura yaiswa
+dialog.color_lookup.input = Chekupinza
+dialog.color_lookup.input_document = Kukosha kwedokumendi
+dialog.color_lookup.input_linear = Chiedza chakatwasuka
+dialog.color_lookup.note = Inverenga mafaira .cube (1D kana 3D) ne .3dl. Tafura inochengetwa mukati medokumendi, saka faira haridzve kudiwa.
+dialog.color_lookup.invalid = {name} haisi tafura ye-.cube kana .3dl yaunogona kuverengwa neSchist.
+dialog.export_lut.title = Budisa Tafura Yekutsvaga Ruvara
+dialog.export_lut.size = Kukura kwegiridhi
+dialog.export_lut.camera_raw = Pamwe nemisiyano yeruvara yeCamera Raw yedanho rinoshanda
+dialog.export_lut.note = LUT inogona kubata chete shanduko dzeruvara dzakafanana kupixel yega yega. Masiki edanho, kugadzirisa kwakachekwa, mapoka akasiyaniswa, madanho emapixel, kujeka, kunyatsoita, kusviba kwemipendero nezvimwe zvinhu zvenzvimbo hazvisanganisirwi.
+dialog.export_lut.saved = Yabudiswa {name}
+dialog.export_lut.saved_skipped = Yabudiswa {name}. Madanho ekugadzirisa enzvimbo akasiiwa: {count}

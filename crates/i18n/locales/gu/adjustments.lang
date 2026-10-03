@@ -17,4 +17,5 @@ adjustment.photo_filter.name = ફોટો ફિલ્ટર
 adjustment.gradient_map.name = ગ્રેડિયન્ટ મેપ
 adjustment.selective_color.name = પસંદગીનો રંગ
 adjustment.channel_mixer.name = ચેનલ મિક્સર
+adjustment.color_lookup.name = કલર લુકઅપ
 adjustment.other.name = ગોઠવણ

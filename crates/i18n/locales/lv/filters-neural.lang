@@ -23,6 +23,25 @@ filter.camera_raw.param.vibrance = Dzīvīgums
 filter.camera_raw.param.sharpening = Asināšana
 filter.camera_raw.param.noise = Trokšņa samazināšana
 filter.camera_raw.param.vignette = Vinjete
+filter.camera_raw.grading_title = Krāsu gradācija
+filter.camera_raw.grading_shadows = Ēnas
+filter.camera_raw.grading_midtones = Vidējie toņi
+filter.camera_raw.grading_highlights = Gaišie apgabali
+filter.camera_raw.grading_global = Vispārīgi
+filter.camera_raw.param.grade_shadows_hue = Ēnas: nokrāsa
+filter.camera_raw.param.grade_shadows_sat = Ēnas: piesātinājums
+filter.camera_raw.param.grade_shadows_lum = Ēnas: gaišums
+filter.camera_raw.param.grade_midtones_hue = Vidējie toņi: nokrāsa
+filter.camera_raw.param.grade_midtones_sat = Vidējie toņi: piesātinājums
+filter.camera_raw.param.grade_midtones_lum = Vidējie toņi: gaišums
+filter.camera_raw.param.grade_highlights_hue = Gaišie apgabali: nokrāsa
+filter.camera_raw.param.grade_highlights_sat = Gaišie apgabali: piesātinājums
+filter.camera_raw.param.grade_highlights_lum = Gaišie apgabali: gaišums
+filter.camera_raw.param.grade_global_hue = Vispārīgi: nokrāsa
+filter.camera_raw.param.grade_global_sat = Vispārīgi: piesātinājums
+filter.camera_raw.param.grade_global_lum = Vispārīgi: gaišums
+filter.camera_raw.param.grade_blending = Sajaukšana
+filter.camera_raw.param.grade_balance = Līdzsvars
 
 # Objektīva korekcija
 filter.lens_correction.name = Objektīva korekcija

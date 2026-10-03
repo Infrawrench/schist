@@ -17,4 +17,5 @@ adjustment.photo_filter.name = 照片滤镜
 adjustment.gradient_map.name = 渐变映射
 adjustment.selective_color.name = 可选颜色
 adjustment.channel_mixer.name = 通道混合器
+adjustment.color_lookup.name = 颜色查找
 adjustment.other.name = 调整

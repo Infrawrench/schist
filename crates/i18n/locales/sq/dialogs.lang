@@ -240,3 +240,19 @@ dialog.new_doc.from_image_url = Nga URL-ja e figurës
 # Backers
 dialog.support.title = Mbështetni Schist
 dialog.support.thanks = Faleminderit njerëzve dhe markave që mbështesin Schist.
+
+# Color Lookup adjustment layers, and File > Export > Color Lookup Table
+dialog.color_lookup.table = Tabela
+dialog.color_lookup.load = Ngarko LUT…
+dialog.color_lookup.none = Asnjë tabelë e ngarkuar
+dialog.color_lookup.input = Hyrja
+dialog.color_lookup.input_document = Vlerat e dokumentit
+dialog.color_lookup.input_linear = Drita lineare
+dialog.color_lookup.note = Lexon skedarë .cube (1D ose 3D) dhe .3dl. Tabela ruhet brenda dokumentit, kështu që skedari nuk nevojitet më.
+dialog.color_lookup.invalid = {name} nuk është tabelë .cube ose .3dl që Schist mund ta lexojë.
+dialog.export_lut.title = Eksporto tabelën e kërkimit të ngjyrave
+dialog.export_lut.size = Madhësia e rrjetës
+dialog.export_lut.camera_raw = Përfshi cilësimet e ngjyrave Camera Raw të shtresës aktive
+dialog.export_lut.note = Një LUT mund të mbajë vetëm ndryshime ngjyrash që janë të njëjta për çdo piksel. Maskat e shtresave, rregullimet e prera, grupet e izoluara, shtresat me piksele, qartësia, mprehja, vinjetimi dhe efekte të tjera hapësinore lihen jashtë.
+dialog.export_lut.saved = U eksportua {name}
+dialog.export_lut.saved_skipped = U eksportua {name}. Shtresa rregullimi hapësinore të lëna jashtë: {count}

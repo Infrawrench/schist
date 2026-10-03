@@ -239,3 +239,19 @@ dialog.new_doc.from_image_url = Kuvan URL-osoitteesta
 # Backers
 dialog.support.title = Tue Schistiä
 dialog.support.thanks = Kiitos Schistiä tukeville ihmisille ja yrityksille.
+
+# Color Lookup adjustment layers, and File > Export > Color Lookup Table
+dialog.color_lookup.table = Taulukko
+dialog.color_lookup.load = Lataa LUT…
+dialog.color_lookup.none = Taulukkoa ei ole ladattu
+dialog.color_lookup.input = Syöte
+dialog.color_lookup.input_document = Dokumentin arvot
+dialog.color_lookup.input_linear = Lineaarinen valo
+dialog.color_lookup.note = Lukee .cube- (1D tai 3D) ja .3dl-tiedostoja. Taulukko tallennetaan dokumenttiin, joten tiedostoa ei tarvita enää.
+dialog.color_lookup.invalid = {name} ei ole .cube- tai .3dl-taulukko, jonka Schist osaa lukea.
+dialog.export_lut.title = Vie värihakutaulukko
+dialog.export_lut.size = Ruudukon koko
+dialog.export_lut.camera_raw = Sisällytä aktiivisen tason Camera Raw -värin asetukset
+dialog.export_lut.note = LUT voi sisältää vain värimuutokset, jotka ovat samat jokaiselle pikselille. Tasomaskit, rajatut säädöt, eristetyt ryhmät, pikselitasot, selkeys, terävöinti, vinjetointi ja muut tilalliset tehosteet jätetään pois.
+dialog.export_lut.saved = {name} viety
+dialog.export_lut.saved_skipped = {name} viety. Pois jätetyt tilalliset säätötasot: {count}

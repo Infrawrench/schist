@@ -239,3 +239,19 @@ dialog.new_doc.from_image_url = URL suuraa irraa
 # Backers
 dialog.support.title = Schist deeggaraa
 dialog.support.thanks = Namootaa fi dhaabbilee Schist deeggaran galateeffanna.
+
+# Color Lookup adjustment layers, and File > Export > Color Lookup Table
+dialog.color_lookup.table = Gabatee
+dialog.color_lookup.load = LUT fe'i…
+dialog.color_lookup.none = Gabateen hin fe'amne
+dialog.color_lookup.input = Galtee
+dialog.color_lookup.input_document = Gatii sanadaa
+dialog.color_lookup.input_linear = Ifa sararaa
+dialog.color_lookup.note = Faayiloota .cube (1D yookaan 3D) fi .3dl ni dubbisa. Gabateen sanada keessatti ni olkaa'ama, kanaaf faayilichi deebi'ee hin barbaachisu.
+dialog.color_lookup.invalid = {name} gabatee .cube yookaan .3dl kan Schist dubbisuu danda'u miti.
+dialog.export_lut.title = Gabatee Barbaacha Halluu Ergi
+dialog.export_lut.size = Hamma gridii
+dialog.export_lut.camera_raw = Qindaa'ina halluu Camera Raw kan layer hojii irra jiru dabali
+dialog.export_lut.note = LUT jijjiirama halluu piksela hundaaf wal fakkaatu qofa qabachuu danda'a. Maaskiiwwan layer, sirreeffamoonni muramanii, garee adda baafaman, layer piksela, calaqqisiisa, qara baasuu, vinyetii fi miidhaawwan bakkaa kan biroo ni hafu.
+dialog.export_lut.saved = {name} ergameera
+dialog.export_lut.saved_skipped = {name} ergameera. Layer sirreeffama bakkaa kan hafan: {count}

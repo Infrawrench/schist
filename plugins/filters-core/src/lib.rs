@@ -21,6 +21,7 @@ pub mod bump;
 pub mod camera_raw;
 #[doc(hidden)]
 pub mod canvas_controls;
+pub mod color_grading;
 pub mod distort;
 pub mod gpu;
 mod gpu_extra;

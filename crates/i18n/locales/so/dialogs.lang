@@ -239,3 +239,19 @@ dialog.new_doc.from_image_url = Ka soo qaad URL-ka sawirka
 # Backers
 dialog.support.title = Taageer Schist
 dialog.support.thanks = Waad ku mahadsan tihiin dadka iyo shirkadaha taageera Schist.
+
+# Color Lookup adjustment layers, and File > Export > Color Lookup Table
+dialog.color_lookup.table = Shaxda
+dialog.color_lookup.load = Soo rar LUT…
+dialog.color_lookup.none = Shax lama soo rarin
+dialog.color_lookup.input = Gelinta
+dialog.color_lookup.input_document = Qiimaha dukumeentiga
+dialog.color_lookup.input_linear = Iftiin toosan
+dialog.color_lookup.note = Waxay akhrisaa faylasha .cube (1D ama 3D) iyo .3dl. Shaxda waxaa lagu kaydiyaa dukumeentiga gudihiisa, sidaa darteed fayl dambe looma baahna.
+dialog.color_lookup.invalid = {name} maaha shax .cube ama .3dl ah oo Schist akhriyi karo.
+dialog.export_lut.title = Dhoofi Shaxda Raadinta Midabka
+dialog.export_lut.size = Cabbirka shabakadda
+dialog.export_lut.camera_raw = Ku dar dejinta midabka Camera Raw ee lakabka firfircoon
+dialog.export_lut.note = LUT waxay haysan kartaa oo keliya isbeddelada midabka ee isku mid ah pikseel kasta. Maskhyada lakabka, hagaajinta la gooyay, kooxaha go'doonsan, lakabyada pikseelka, cadaynta, fiiqidda, madoobaynta geesaha iyo saamaynta kale ee goobta waa laga reebay.
+dialog.export_lut.saved = La dhoofiyay {name}
+dialog.export_lut.saved_skipped = La dhoofiyay {name}. Lakabyada hagaajinta goobta ee la reebay: {count}

@@ -231,3 +231,19 @@ dialog.new_doc.from_image_url = จาก URL รูปภาพ
 # Backers
 dialog.support.title = สนับสนุน Schist
 dialog.support.thanks = ขอบคุณทุกคนและทุกแบรนด์ที่สนับสนุน Schist
+
+# Color Lookup adjustment layers, and File > Export > Color Lookup Table
+dialog.color_lookup.table = ตาราง
+dialog.color_lookup.load = โหลด LUT…
+dialog.color_lookup.none = ยังไม่ได้โหลดตาราง
+dialog.color_lookup.input = อินพุต
+dialog.color_lookup.input_document = ค่าของเอกสาร
+dialog.color_lookup.input_linear = แสงเชิงเส้น
+dialog.color_lookup.note = อ่านไฟล์ .cube (1D หรือ 3D) และ .3dl ตารางจะถูกบันทึกไว้ในเอกสาร จึงไม่ต้องใช้ไฟล์นั้นอีก
+dialog.color_lookup.invalid = {name} ไม่ใช่ตาราง .cube หรือ .3dl ที่ Schist อ่านได้
+dialog.export_lut.title = ส่งออกตารางค้นหาสี
+dialog.export_lut.size = ขนาดกริด
+dialog.export_lut.camera_raw = รวมการตั้งค่าสีของ Camera Raw ของเลเยอร์ที่ใช้งานอยู่
+dialog.export_lut.note = LUT เก็บได้เฉพาะการเปลี่ยนสีที่เหมือนกันทุกพิกเซล มาสก์เลเยอร์ การปรับแต่งที่ถูกตัดคลิป กลุ่มแบบแยก เลเยอร์พิกเซล ความชัด การเพิ่มความคมชัด ขอบมืด และเอฟเฟกต์เชิงพื้นที่อื่นๆ จะไม่ถูกรวมไว้
+dialog.export_lut.saved = ส่งออก {name} แล้ว
+dialog.export_lut.saved_skipped = ส่งออก {name} แล้ว เลเยอร์ปรับแต่งเชิงพื้นที่ที่ถูกข้าม: {count}

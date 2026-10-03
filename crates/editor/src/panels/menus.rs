@@ -138,6 +138,7 @@ fn editor_menus(ws: &Workspace) -> Vec<(&'static str, Vec<MenuEntry>)> {
                     vec![
                         App(t("menu.file.export_artboards"), ExportArtboards, None),
                         App(t("menu.file.export_slices"), ExportSlices, None),
+                        App(t("menu.file.export_lut"), ExportLut, None),
                     ],
                 ),
                 Sep,
@@ -684,7 +685,14 @@ pub(super) fn layer_comp_entries(ws: &Workspace) -> Vec<MenuEntry> {
 pub(super) fn destructive_adjustment_entries() -> Vec<MenuEntry> {
     schist_adjustments::Params::creatable()
         .iter()
-        .filter(|k| !matches!(k, schist_core::AdjustmentKind::SolidColor))
+        // A fill has nothing to apply to, and a lookup table needs a file
+        // chosen first, which only the layer's dialog offers.
+        .filter(|k| {
+            !matches!(
+                k,
+                schist_core::AdjustmentKind::SolidColor | schist_core::AdjustmentKind::ColorLookup
+            )
+        })
         .map(|&k| {
             MenuEntry::App(
                 crate::ui::adjustment_name(k),

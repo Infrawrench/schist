@@ -25,6 +25,7 @@ mod export_recipes;
 mod file_picker;
 mod filters;
 mod fonts;
+mod grading;
 mod layer_props;
 mod mask_refine;
 mod models;
@@ -119,6 +120,9 @@ pub fn render(ws: &mut Workspace, cx: &mut Context<Workspace>) -> Option<gpui::A
     ui::reset_default_action();
     let body = match modal {
         Modal::Support => support::dialog(cx).into_any_element(),
+        Modal::ExportLut { size, camera_raw } => {
+            adjust::export_lut_dialog(ws, size, camera_raw, cx).into_any_element()
+        }
         Modal::Workspaces {
             primary,
             selected,

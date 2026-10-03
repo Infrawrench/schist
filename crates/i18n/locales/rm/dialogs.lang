@@ -240,3 +240,19 @@ dialog.new_doc.from_image_url = Da l’URL d’in maletg
 # Backers
 dialog.support.title = Sustegnair Schist
 dialog.support.thanks = Grazia a las persunas ed a las marcas che sustegnan Schist.
+
+# Color Lookup adjustment layers, and File > Export > Color Lookup Table
+dialog.color_lookup.table = Tabella
+dialog.color_lookup.load = Chargiar LUT…
+dialog.color_lookup.none = Nagina tabella chargiada
+dialog.color_lookup.input = Entrada
+dialog.color_lookup.input_document = Valurs dal document
+dialog.color_lookup.input_linear = Glisch lineara
+dialog.color_lookup.note = Legia datotecas .cube (1D u 3D) e .3dl. La tabella vegn memorisada en il document, uschia che la datoteca n'è betg pli necessaria.
+dialog.color_lookup.invalid = {name} n'è nagina tabella .cube u .3dl che Schist po leger.
+dialog.export_lut.title = Exportar la tabella da tschertga da colurs
+dialog.export_lut.size = Grondezza da la grilla
+dialog.export_lut.camera_raw = Includer ils parameters da colur Camera Raw dal nivel activ
+dialog.export_lut.note = Ina LUT po mo cuntegnair midadas da colur che èn las medemas per mintga pixel. Maschas da nivels, correcturas retaglias, gruppas isoladas, nivels da pixels, claritad, mussadad, vignettas ed auters effects spaziaus vegnan laschads davent.
+dialog.export_lut.saved = Exportà: {name}
+dialog.export_lut.saved_skipped = Exportà: {name}. Nivels da correctura spaziaus laschads davent: {count}

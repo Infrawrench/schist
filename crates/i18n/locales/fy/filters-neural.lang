@@ -23,6 +23,25 @@ filter.camera_raw.param.vibrance = Libbenens
 filter.camera_raw.param.sharpening = Skerper meitsje
 filter.camera_raw.param.noise = Rûsûnderdrukking
 filter.camera_raw.param.vignette = Vignet
+filter.camera_raw.grading_title = Kleurgradaasje
+filter.camera_raw.grading_shadows = Skaadpartijen
+filter.camera_raw.grading_midtones = Midtoanen
+filter.camera_raw.grading_highlights = Hege ljochten
+filter.camera_raw.grading_global = Globaal
+filter.camera_raw.param.grade_shadows_hue = Skaadpartijen: Tint
+filter.camera_raw.param.grade_shadows_sat = Skaadpartijen: Fersêding
+filter.camera_raw.param.grade_shadows_lum = Skaadpartijen: Ljochtsterkte
+filter.camera_raw.param.grade_midtones_hue = Midtoanen: Tint
+filter.camera_raw.param.grade_midtones_sat = Midtoanen: Fersêding
+filter.camera_raw.param.grade_midtones_lum = Midtoanen: Ljochtsterkte
+filter.camera_raw.param.grade_highlights_hue = Hege ljochten: Tint
+filter.camera_raw.param.grade_highlights_sat = Hege ljochten: Fersêding
+filter.camera_raw.param.grade_highlights_lum = Hege ljochten: Ljochtsterkte
+filter.camera_raw.param.grade_global_hue = Globaal: Tint
+filter.camera_raw.param.grade_global_sat = Globaal: Fersêding
+filter.camera_raw.param.grade_global_lum = Globaal: Ljochtsterkte
+filter.camera_raw.param.grade_blending = Miksjen
+filter.camera_raw.param.grade_balance = Balâns
 
 # Linskorreksje
 filter.lens_correction.name = Linskorreksje

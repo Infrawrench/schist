@@ -17,5 +17,6 @@ adjustment.photo_filter.name = Filtro fotografico
 adjustment.gradient_map.name = Mappa sfumatura
 adjustment.selective_color.name = Correzione colore selettiva
 adjustment.channel_mixer.name = Miscelatore canale
+adjustment.color_lookup.name = Consultazione colori
 # Un tipo letto da un PSD per il quale Schist non dispone di un editor.
 adjustment.other.name = Regolazione

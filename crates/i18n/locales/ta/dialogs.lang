@@ -239,3 +239,19 @@ dialog.new_doc.from_image_url = பட URL இலிருந்து
 # Backers
 dialog.support.title = Schist-ஐ ஆதரிக்கவும்
 dialog.support.thanks = Schist-ஐ ஆதரிக்கும் நபர்களுக்கும் நிறுவனங்களுக்கும் நன்றி.
+
+# Color Lookup adjustment layers, and File ▸ Export ▸ Color Lookup Table
+dialog.color_lookup.table = அட்டவணை
+dialog.color_lookup.load = LUT ஏற்று…
+dialog.color_lookup.none = அட்டவணை ஏற்றப்படவில்லை
+dialog.color_lookup.input = உள்ளீடு
+dialog.color_lookup.input_document = ஆவண மதிப்புகள்
+dialog.color_lookup.input_linear = நேரியல் ஒளி
+dialog.color_lookup.note = .cube (1D அல்லது 3D) மற்றும் .3dl கோப்புகளைப் படிக்கும். அட்டவணை ஆவணத்துக்குள்ளேயே சேமிக்கப்படுவதால், கோப்பு மீண்டும் தேவையில்லை.
+dialog.color_lookup.invalid = {name} என்பது Schist படிக்கக்கூடிய .cube அல்லது .3dl அட்டவணை அல்ல.
+dialog.export_lut.title = வண்ணத் தேடல் அட்டவணையை ஏற்றுமதி செய்
+dialog.export_lut.size = கட்டப் பரிமாணம்
+dialog.export_lut.camera_raw = செயலில் உள்ள அடுக்கின் Camera Raw வண்ண அமைப்புகளைச் சேர்
+dialog.export_lut.note = LUT ஒவ்வொரு பிக்சலுக்கும் ஒரே மாதிரியான வண்ண மாற்றங்களை மட்டுமே கொண்டிருக்க முடியும். அடுக்கு மறைப்புகள், கிளிப் செய்யப்பட்ட சரிசெய்தல்கள், தனிமைப்படுத்தப்பட்ட குழுக்கள், பிக்சல் அடுக்குகள், தெளிவு, கூர்மையாக்கல், விளிம்பு நிழல் மற்றும் பிற இடஞ்சார்ந்த விளைவுகள் சேர்க்கப்படாது.
+dialog.export_lut.saved = {name} ஏற்றுமதி செய்யப்பட்டது
+dialog.export_lut.saved_skipped = {name} ஏற்றுமதி செய்யப்பட்டது. விடப்பட்ட இடஞ்சார்ந்த சரிசெய்தல் அடுக்குகள்: {count}

@@ -239,3 +239,19 @@ dialog.new_doc.from_image_url = از نشانی تصویر
 # Backers
 dialog.support.title = حمایت از Schist
 dialog.support.thanks = از افراد و برندهایی که از Schist حمایت می‌کنند سپاسگزاریم.
+
+# Color Lookup adjustment layers, and File > Export > Color Lookup Table
+dialog.color_lookup.table = جدول
+dialog.color_lookup.load = بارگذاری LUT…
+dialog.color_lookup.none = هیچ جدولی بارگذاری نشده
+dialog.color_lookup.input = ورودی
+dialog.color_lookup.input_document = مقادیر سند
+dialog.color_lookup.input_linear = نور خطی
+dialog.color_lookup.note = فایل‌های .cube (‏1D یا 3D) و .3dl را می‌خواند. جدول داخل سند ذخیره می‌شود، پس دیگر به فایل نیازی نیست.
+dialog.color_lookup.invalid = {name} جدول .cube یا .3dl قابل‌خواندن برای Schist نیست.
+dialog.export_lut.title = صادرکردن جدول جستجوی رنگ
+dialog.export_lut.size = اندازهٔ شبکه
+dialog.export_lut.camera_raw = شامل تنظیمات رنگ Camera Raw لایهٔ فعال
+dialog.export_lut.note = یک LUT فقط می‌تواند تغییرات رنگی را در خود نگه دارد که برای همهٔ پیکسل‌ها یکسان‌اند. ماسک‌های لایه، تنظیمات بریده‌شده، گروه‌های ایزوله، لایه‌های پیکسلی، وضوح، تیزکردن، وینیت و سایر جلوه‌های مکانی کنار گذاشته می‌شوند.
+dialog.export_lut.saved = {name} صادر شد
+dialog.export_lut.saved_skipped = {name} صادر شد. لایه‌های تنظیم مکانیِ کنار گذاشته‌شده: {count}

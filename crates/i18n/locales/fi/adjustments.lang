@@ -17,4 +17,5 @@ adjustment.photo_filter.name = Valokuvasuodin
 adjustment.gradient_map.name = Liukuvärikartta
 adjustment.selective_color.name = Valikoiva väri
 adjustment.channel_mixer.name = Kanavasekoitin
+adjustment.color_lookup.name = Värihaku
 adjustment.other.name = Säätö
