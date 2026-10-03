@@ -758,3 +758,18 @@ if len(sys.argv) > 32:
                 assert actual.tobytes() == expected.tobytes(), (prefix, index, "vertical initials differ from independent ordinary frames")
                 assert min(v[0] for v in actual.getextrema()) < 150, (prefix, index, "empty vertical initial proof")
     print("Design PDF: vertical initials match independent ordinary frames across upright/sideways glyphs, both column directions, affine placement and process/spot inks.")
+
+if len(sys.argv) > 33:
+    with tempfile.TemporaryDirectory(prefix="schist-projected-initials-check-") as temporary:
+        for prefix, args in [("samples", ["pdfimages", "-png"]), ("pages", ["pdftoppm", "-r", "144", "-png"])]:
+            result = subprocess.run(args + [sys.argv[33], str(Path(temporary)/prefix)], capture_output=True, text=True)
+            assert result.returncode == 0 and not result.stderr.strip(), result.stderr
+            files = sorted(Path(temporary).glob(prefix + "-*.png"))
+            assert len(files) == 8, (prefix, len(files))
+            for index in range(0, len(files), 2):
+                actual = Image.open(files[index]).convert("RGB")
+                expected = Image.open(files[index+1]).convert("RGB")
+                assert actual.size == expected.size == (720, 560), (prefix, index, actual.size)
+                assert actual.tobytes() == expected.tobytes(), (prefix, index, "projected initial differs from independent authored prefix")
+                assert min(v[0] for v in actual.getextrema()) < 150, (prefix, index, "empty projected initial proof")
+    print("Design PDF: generated references preserve source initial counts in main and note text, matching independently authored prefixes in process/spot inks.")

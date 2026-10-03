@@ -145,6 +145,7 @@ pub fn prepare(doc: &LayoutDocument, id: StoryId) -> Option<PreparedStory> {
                 })
                 .collect(),
         )?;
+        project_initials(&note.story, &mut body, &mut styles);
         // Existing note source already owns its separator characters. Only
         // ACE 4's zero-width instruction becomes a number, never literal digits.
         // Area spacing replaces the first paragraph's space-before and the
@@ -189,7 +190,8 @@ pub fn prepare(doc: &LayoutDocument, id: StoryId) -> Option<PreparedStory> {
             body,
         });
     }
-    let main = Projection::new(source, insertions)?;
+    let mut main = Projection::new(source, insertions)?;
+    project_initials(source, &mut main, &mut styles);
     for (note, span) in notes.iter_mut().zip(&main.positions.generated) {
         note.reference = span.start..span.end;
     }
@@ -205,6 +207,63 @@ pub fn prepare(doc: &LayoutDocument, id: StoryId) -> Option<PreparedStory> {
         styles,
         notes,
     })
+}
+
+/// Initial counts belong to authored graphemes, like dictionary boundaries
+/// belong to authored words. A generated number before or within that prefix
+/// must not replace its source letters. Only this disposable style set receives
+/// the display count; the document's count and story remain unchanged.
+fn project_initials(source: &crate::Story, projection: &mut Projection, styles: &mut StyleSet) {
+    let display_offsets = projection.story.point_offsets();
+    for (((original, start), displayed), display_start) in source
+        .points
+        .iter()
+        .zip(source.point_offsets())
+        .zip(&mut projection.story.points)
+        .zip(display_offsets)
+    {
+        let (
+            StoryPoint::Paragraph { text, style },
+            StoryPoint::Paragraph {
+                text: displayed,
+                style: display_style,
+            },
+        ) = (original, displayed)
+        else {
+            continue;
+        };
+        let paragraph = styles.resolve_paragraph(style);
+        let characters = paragraph.drop_caps_characters.unwrap_or(1);
+        if paragraph.drop_caps_lines.unwrap_or(0) < 2 || characters == 0 {
+            continue;
+        }
+        let end = start
+            + schist_text_engine::grapheme_boundaries(text)
+                .nth(characters)
+                .unwrap_or(text.len());
+        if !projection
+            .positions
+            .generated
+            .iter()
+            .any(|span| span.source >= start && span.source < end && span.start < span.end)
+        {
+            continue;
+        }
+        // A reference at the trailing boundary belongs to the following body,
+        // matching the projection's right-affinity insertion policy.
+        let display_end = projection.positions.before(end) - display_start;
+        let count = schist_text_engine::grapheme_boundaries(&displayed[..display_end])
+            .count()
+            .saturating_sub(1);
+        let name = unique_paragraph(styles, styles.paragraphs.len());
+        styles.paragraphs.push(ParagraphStyle {
+            name: name.clone(),
+            based_on: Some(style.clone()),
+            drop_caps_characters: Some(count),
+            ..Default::default()
+        });
+        *display_style = name;
+    }
 }
 
 /// The native reference's actual character context, also used for resource

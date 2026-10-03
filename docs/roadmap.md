@@ -310,6 +310,32 @@ are marked.
 
 ## Handoff
 
+Source initial counts around generated references, 2026-10-03:
+A new regression reproduced a leading footnote number being enlarged while the
+first authored grapheme remained body text. Main and note projections now map the
+original grapheme prefix into display coordinates. References before or inside
+that prefix no longer consume the source count; a reference at its trailing edge
+belongs to the body. Only disposable paragraph aliases receive adjusted counts.
+Source text, saved styles and native counts remain unchanged.
+
+Three focused properties pass: source ranges/caret boundaries through whole and
+split notes, independent process/spot plate agreement at 72/144/216 dpi, and
+repeated IDML saves without leaked aliases or counts. The eight-page PDF matches
+independently authored prefixes exactly in Poppler; every page was reviewed.
+This extends Schist's existing enlarged-prefix policy to generated references;
+native flag placement agreement remains unverified and explicitly diagnosed.
+All 16 targets, shared UI, formatting and whitespace pass with **1,970 distinct
+Rust tests**, four browser and eight Python audit tests. One existing UI
+documentation example remains ignored. The 33 existing PDF files are byte-identical.
+The native development rebuild passes in 1m 35s. The isolated Design-enabled QA
+bundle is refreshed and hash/signature verified; it remains quit. No new locale
+keys or default feature-flag changes are introduced. Logs/counts use
+`/tmp/schist-projected-initials-*`.
+
+Nested-style retention and native resets are pushed as `ab4022c2` to draft PR
+#195. Web and headless CI pass; desktop CI is still running. Its complete local
+verification is recorded below.
+
 Ordered native nested-style retention, 2026-10-03:
 Public-schema regressions reproduced complete `AllNestedStyles` lists disappearing
 and native `EmptyNestedStyles` resets incorrectly inheriting parent rules. The
