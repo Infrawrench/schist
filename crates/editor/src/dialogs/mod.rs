@@ -21,6 +21,7 @@ mod batch;
 mod close;
 mod edit;
 mod export;
+mod export_animation;
 mod export_recipes;
 mod file_picker;
 mod filters;
@@ -269,6 +270,9 @@ pub fn render(ws: &mut Workspace, cx: &mut Context<Workspace>) -> Option<gpui::A
         }
         Modal::Export { codec, options } => {
             export_dialog(ws, &state, codec, options, cx).into_any_element()
+        }
+        Modal::ExportAnimation { options } => {
+            export_animation::export_animation_dialog(ws, &state, options, cx).into_any_element()
         }
         Modal::Printing { editor } => {
             printing::printing_dialog(ws, &state, editor, cx).into_any_element()

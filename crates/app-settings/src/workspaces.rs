@@ -4,7 +4,14 @@ use schist_i18n::t;
 use serde::{Deserialize, Serialize};
 use std::collections::BTreeMap;
 
-pub const PANELS: [&str; 5] = ["navigator", "color", "layers", "notes", "history"];
+pub const PANELS: [&str; 6] = [
+    "navigator",
+    "color",
+    "layers",
+    "notes",
+    "history",
+    "timeline",
+];
 pub const DESIGN_PANELS: [&str; 10] = [
     "pages",
     "design_layers",

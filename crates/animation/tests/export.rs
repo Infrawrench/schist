@@ -15,7 +15,12 @@ fn square(name: &str, rect: IntRect, color: Rgba) -> Layer {
     let mut layer = Layer::new_raster(name);
     let px = color.to_u8();
     let rgba: Vec<u8> = (0..rect.width() * rect.height()).flat_map(|_| px).collect();
-    blit_rgba8(&mut layer.as_raster_mut().unwrap().tiles, Depth::Eight, rect, &rgba);
+    blit_rgba8(
+        &mut layer.as_raster_mut().unwrap().tiles,
+        Depth::Eight,
+        rect,
+        &rgba,
+    );
     layer
 }
 
@@ -61,7 +66,11 @@ fn rendered_frames_follow_visibility_and_offsets() {
         [100, 250, 40]
     );
     assert_eq!(pixel(&frames[0].rgba, 4, 4), [255, 0, 0, 255]);
-    assert_eq!(pixel(&frames[0].rgba, 12, 6)[3], 0, "green hidden in frame 1");
+    assert_eq!(
+        pixel(&frames[0].rgba, 12, 6)[3],
+        0,
+        "green hidden in frame 1"
+    );
     assert_eq!(pixel(&frames[1].rgba, 12, 6), [0, 255, 0, 255]);
     assert_eq!(pixel(&frames[1].rgba, 4, 4)[3], 0);
     // Frame 3 is frame 1 with the red square offset by 8 px.
@@ -69,7 +78,14 @@ fn rendered_frames_follow_visibility_and_offsets() {
     assert_eq!(pixel(&frames[2].rgba, 12, 4), [255, 0, 0, 255]);
 }
 
-fn gif_decode(bytes: &[u8]) -> (Vec<Vec<u8>>, Vec<u16>, gif::Repeat, Vec<gif::DisposalMethod>) {
+fn gif_decode(
+    bytes: &[u8],
+) -> (
+    Vec<Vec<u8>>,
+    Vec<u16>,
+    gif::Repeat,
+    Vec<gif::DisposalMethod>,
+) {
     let mut options = gif::DecodeOptions::new();
     options.set_color_output(gif::ColorOutput::RGBA);
     let mut decoder = options.read_info(bytes).unwrap();
@@ -151,7 +167,11 @@ fn apng_round_trip() {
                 (fc.delay_num as u32 * 1000) / fc.delay_den as u32,
                 want.delay_ms
             );
-            assert_eq!(buf[..want.rgba.len()], want.rgba[..], "frame {i} is lossless");
+            assert_eq!(
+                buf[..want.rgba.len()],
+                want.rgba[..],
+                "frame {i} is lossless"
+            );
         }
     }
 }

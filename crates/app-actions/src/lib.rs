@@ -226,6 +226,10 @@ pub enum AppItem {
     ManageFonts,
     NewLayerComp,
     ExportArtboards,
+    /// File ▸ Export ▸ Animation: the frame animation as GIF/APNG/WebP.
+    ExportAnimation,
+    /// Play or pause the frame animation.
+    ToggleAnimationPlayback,
     ExportSlices,
     /// The flattened document into the camera roll (iOS only).
     SaveToPhotos,

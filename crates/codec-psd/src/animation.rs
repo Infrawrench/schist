@@ -46,11 +46,7 @@ struct StoredFrame {
 /// The block for `doc`'s timeline, or `None` without one.
 pub fn block(doc: &Document) -> Option<RawBlock> {
     let timeline = doc.timeline.as_ref()?.synced(&doc.tree);
-    let layers: Vec<(LayerId, String)> = doc
-        .tree
-        .iter()
-        .map(|l| (l.id, l.name.clone()))
-        .collect();
+    let layers: Vec<(LayerId, String)> = doc.tree.iter().map(|l| (l.id, l.name.clone())).collect();
     let index = |id: LayerId| layers.iter().position(|(l, _)| *l == id);
     let stored = Stored {
         version: VERSION,
@@ -67,7 +63,13 @@ pub fn block(doc: &Document) -> Option<RawBlock> {
                     .states
                     .iter()
                     .filter_map(|s| {
-                        Some((index(s.layer)?, s.visible, s.opacity, s.offset.0, s.offset.1))
+                        Some((
+                            index(s.layer)?,
+                            s.visible,
+                            s.opacity,
+                            s.offset.0,
+                            s.offset.1,
+                        ))
                     })
                     .collect(),
             })
@@ -100,11 +102,7 @@ fn parse(doc: &Document, data: &[u8]) -> Option<Timeline> {
     if stored.version != VERSION || stored.frames.is_empty() {
         return None;
     }
-    let layers: Vec<(LayerId, &str)> = doc
-        .tree
-        .iter()
-        .map(|l| (l.id, l.name.as_str()))
-        .collect();
+    let layers: Vec<(LayerId, &str)> = doc.tree.iter().map(|l| (l.id, l.name.as_str())).collect();
     // Index → live layer, checked by name, falling back to a unique name.
     let resolve = |index: usize| -> Option<LayerId> {
         let name = stored.layers.get(index)?;

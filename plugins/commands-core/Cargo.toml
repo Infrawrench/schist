@@ -10,4 +10,5 @@ schist-core.workspace = true
 schist-plugin-api.workspace = true
 anyhow.workspace = true
 schist-compositor.workspace = true
+schist-animation.workspace = true
 schist-color.workspace = true
