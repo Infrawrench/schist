@@ -26,6 +26,8 @@ pub use decoration_pattern::{DecorationCap, DecorationDashes, TextDecorationPatt
 mod directions_tests;
 pub use capitalization::Capitalization;
 mod generated_hyphen;
+mod hyphenation;
+pub use hyphenation::HyphenationPolicy;
 mod shaping;
 mod soft_hyphen;
 mod tab_leaders;
@@ -151,6 +153,9 @@ pub struct TextSpec {
     /// Transient composition data; generated characters never enter saved text.
     #[serde(skip)]
     pub hyphenation_breaks: Vec<usize>,
+    /// Transient single-line policy for generated opportunities only.
+    #[serde(skip)]
+    pub hyphenation_policy: HyphenationPolicy,
     /// Paint the generated hyphen selected when this isolated line was measured.
     #[serde(skip)]
     pub show_final_generated_hyphen: bool,
@@ -191,6 +196,7 @@ impl Default for TextSpec {
             wrap_width: None,
             show_final_soft_hyphen: false,
             hyphenation_breaks: Vec::new(),
+            hyphenation_policy: HyphenationPolicy::default(),
             show_final_generated_hyphen: false,
             tabs: None,
             runs: Vec::new(),
@@ -1960,10 +1966,29 @@ fn layout_with_measures(spec: &TextSpec, base: &LoadedFace, measures: &[InlineMe
     let wrapping = (spec.wrap_width.is_some() || !measures.is_empty())
         && (spec.path.is_none() || spec.writing_mode.is_vertical());
     if let Some(projected) = generated_hyphen::Projection::new(spec, wrapping) {
-        return projected.restore(layout_with_measures(&projected.spec, base, measures));
+        let positions = projected.break_ends();
+        let policy = hyphenation::BreakPolicy {
+            generated: &positions,
+            settings: spec.hyphenation_policy,
+        };
+        return projected.restore(layout_with_hyphenation(
+            &projected.spec,
+            base,
+            measures,
+            &policy,
+        ));
     }
+    layout_with_hyphenation(spec, base, measures, &hyphenation::BreakPolicy::default())
+}
+
+fn layout_with_hyphenation(
+    spec: &TextSpec,
+    base: &LoadedFace,
+    measures: &[InlineMeasure],
+    policy: &hyphenation::BreakPolicy<'_>,
+) -> Layout {
     if shaping::required(spec) {
-        return shaping::layout(spec, base, measures);
+        return shaping::layout(spec, base, measures, policy);
     }
     let widths = measures.iter().map(|m| m.width).collect::<Vec<_>>();
     let faces = Faces::resolve(spec, base);
@@ -2055,6 +2080,7 @@ fn layout_with_measures(spec: &TextSpec, base: &LoadedFace, measures: &[InlineMe
                         .flatten()
                 },
                 measure,
+                policy,
             ) {
                 let hyphen = selected.hyphen
                     || (spec.show_final_soft_hyphen

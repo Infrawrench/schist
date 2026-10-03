@@ -318,6 +318,7 @@ pub(crate) fn spec_with_character(
     let mut spec = TextSpec {
         show_final_soft_hyphen: false,
         hyphenation_breaks: Vec::new(),
+        hyphenation_policy: Default::default(),
         show_final_generated_hyphen: false,
         language: character
             .language

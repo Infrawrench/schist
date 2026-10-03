@@ -550,7 +550,12 @@ pub(super) fn paragraph_is_rtl(spec: &TextSpec, byte: usize) -> bool {
         .is_some_and(|p| p.level.is_rtl())
 }
 
-pub(super) fn layout(spec: &TextSpec, base: &LoadedFace, measures: &[InlineMeasure]) -> Layout {
+pub(super) fn layout(
+    spec: &TextSpec,
+    base: &LoadedFace,
+    measures: &[InlineMeasure],
+    policy: &super::hyphenation::BreakPolicy<'_>,
+) -> Layout {
     let widths = measures.iter().map(|m| m.width).collect::<Vec<_>>();
     let inline_start = |index| {
         measures
@@ -599,6 +604,7 @@ pub(super) fn layout(spec: &TextSpec, base: &LoadedFace, measures: &[InlineMeasu
                         .flatten()
                 },
                 |range, hyphen, i| shaped(range, hyphen, i).width,
+                policy,
             );
             for (i, line) in selected.into_iter().enumerate() {
                 lines.push((

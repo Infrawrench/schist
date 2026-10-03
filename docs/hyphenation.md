@@ -60,8 +60,20 @@ are not implemented.
 ## Integration status
 
 The word selector and generated-glyph renderer are independently tested. The
-selector is not yet enabled in ordinary composition: line preference/zone,
-consecutive-line limits across threads and column-end restrictions must be wired
+engine also enforces transient generated-hyphen line policy. Zero consecutive
+limit means unlimited; a caller can carry preceding hyphenated lines into a
+continuation. Explicit newlines reset that history. Manual source SHY remains an
+explicit request and is not disabled by automatic limits. The non-justified zone
+counts trailing separators as whitespace, measuring from the preceding word.
+For weight, the single-line composer compares squared unused measure, adding
+`weight / 100 * measure²` to generated-hyphen candidates. Larger weights prefer
+whole-word breaks; a necessary hyphen can still fit a word longer than the line.
+This is Schist's documented greedy preference, not an Adobe paragraph-composer
+algorithm or placement-parity claim. Every candidate still needs room for its
+visible glyph. The policy and generated positions are excluded from serialization.
+
+The selector is not yet enabled in ordinary composition: consecutive-line
+history across frame/column/note trials and column-end restrictions must be wired
 before the native automatic-hyphenation switch can honestly claim those policies.
 There is no new control or change to the default feature flag in this checkpoint.
 External application placement agreement remains unverified.

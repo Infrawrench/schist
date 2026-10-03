@@ -47,9 +47,15 @@ pub(super) fn lines(
     boundaries: &[usize],
     width: impl Fn(usize) -> Option<f32>,
     measure: impl Fn(Range<usize>, bool, usize) -> f32,
+    policy: &super::hyphenation::BreakPolicy<'_>,
 ) -> Vec<Line> {
     let mut result = Vec::new();
     let mut start = range.start;
+    let mut consecutive = if range.start == 0 {
+        policy.settings.preceding_hyphens
+    } else {
+        0
+    };
     loop {
         let index = result.len();
         let Some(limit) = width(index) else {
@@ -61,6 +67,7 @@ pub(super) fn lines(
         };
         let mut fitted = None;
         let mut selected = None;
+        let mut plain_width = None;
         for &end in boundaries.iter().filter(|end| **end > start) {
             let hyphen = end < range.end && text[start..end].ends_with('\u{ad}');
             // A leading discretionary character is not a line of its own.
@@ -87,17 +94,40 @@ pub(super) fn lines(
                     });
                     break;
                 }
-            } else if !hyphen || measure(start..end, true, index) <= limit {
-                fitted = Some(Line {
-                    range: start..end,
-                    hyphen,
-                });
+            } else {
+                let visible = if hyphen {
+                    measure(start..end, true, index)
+                } else {
+                    natural
+                };
+                if !hyphen {
+                    // Trailing separators are whitespace too: the ragged edge
+                    // is the last word's advance, not the next word's start.
+                    let trimmed = start + text[start..end].trim_end().len();
+                    plain_width = Some(measure(start..trimmed, false, index));
+                }
+                if visible <= limit
+                    && (!hyphen || policy.permits(end, consecutive, limit, visible, plain_width))
+                {
+                    fitted = Some(Line {
+                        range: start..end,
+                        hyphen,
+                    });
+                }
             }
         }
         let line = selected.or(fitted).unwrap_or(Line {
             range: start..range.end,
             hyphen: false,
         });
+        let literal = text[line.range.clone()]
+            .trim_end()
+            .ends_with(['-', '\u{2010}']);
+        consecutive = if line.hyphen || literal {
+            consecutive.saturating_add(1)
+        } else {
+            0
+        };
         start = line.range.end;
         result.push(line);
         if start == range.end {

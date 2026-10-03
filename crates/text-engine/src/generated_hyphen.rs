@@ -15,6 +15,13 @@ pub(super) struct Projection {
 }
 
 impl Projection {
+    pub fn break_ends(&self) -> Vec<usize> {
+        self.insertions
+            .iter()
+            .map(|insertion| insertion.visual + '\u{ad}'.len_utf8())
+            .collect()
+    }
+
     pub fn new(spec: &TextSpec, wrapping: bool) -> Option<Self> {
         if spec.hyphenation_breaks.is_empty() && !spec.show_final_generated_hyphen {
             return None;

@@ -310,6 +310,43 @@ are marked.
 
 ## Handoff
 
+Single-line generated-hyphen policy, 2026-10-03:
+Dictionary word selection is pushed as `b4abae77` to draft PR #195 with all 16
+targets, 1,903 Rust tests and the development build passing. The isolated bundle's
+first deep-sign attempt hit a macOS internal error. Signing the flat QA bundle
+without `--deep`, then verifying with `--deep --strict`, succeeded; exact notice
+bytes and Design flag were also checked. The bundle remains quit.
+
+The text engine now accepts transient generated-hyphen line policy: a consecutive
+limit, carried preceding count, non-justified whitespace zone and spacing-versus-
+hyphens weight. Manual source SHY retains priority. The zone measures from the
+last word, counting trailing separators as whitespace. A documented single-line
+raggedness penalty implements weight; no native paragraph-composer equivalence
+is claimed. Seven properties pass across all writing axes and paragraph directions,
+including monotonic first-line preference, explicit-line reset, source serialization
+and variable measures versus correctly carried continuations. Existing generated
+and source discretionary tests also pass. All 16 targets pass with **1,910 distinct
+Rust tests**, including five shared UI checks (one existing documentation example
+ignored), four browser checks and eight Python audit tests. Workspace clippy,
+native/browser/headless checks, localization, formatting and whitespace pass.
+All 31 PDF proofs remain byte-identical. The native development rebuild passes in
+2m 04s; the isolated Design-enabled bundle is refreshed and hash/signature verified,
+and remains quit. Logs use `/tmp/schist-line-policy-*`. Ordinary dictionary
+composition remains off until frame/column/note trial histories and column-end
+restrictions are connected. Review also identified generated footnote digits
+changing word segmentation: opportunities must be derived from original source
+words before mapping into inline projections. Draft integration notes/code in
+`/tmp/schist-line-policy-review.md` and `schist-compose-hyphenation-draft.py` are
+unapplied and explicitly incomplete. The dictionary checkpoint's Web/headless
+CI pass, and its actual Web artifact contains exact pattern notice bytes; the
+61 MB download was removed after comparison.
+
+Disk cleanup removed 655 obsolete test executables and changed-crate library
+outputs predating the new dictionary dependency (5.83 GiB logical size). Current
+binaries, source, fixtures and PDF proofs were kept; records are in the same log
+prefix. Builds still use `CARGO_INCREMENTAL=0`.
+
+
 Dictionary word selection, 2026-10-03:
 Generated hyphen source mapping is pushed as `139e6f03` to draft PR #195, with
 all 16 targets, 1,894 Rust tests and the native rebuild passing. Its Web and
