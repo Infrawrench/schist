@@ -54,6 +54,8 @@ pub struct Patch {
     pub taken: Option<String>,
     pub offset_seconds: Option<i64>,
     pub gps: Option<Option<(f64, f64)>>,
+    /// Metres above sea level (negative below), written with GPS positions.
+    pub altitude: Option<Option<f64>>,
 }
 
 impl Patch {
@@ -64,6 +66,7 @@ impl Patch {
             && self.taken.is_none()
             && self.offset_seconds.is_none()
             && self.gps.is_none()
+            && self.altitude.is_none()
     }
 
     pub fn validate(&self) -> Result<()> {
@@ -82,6 +85,11 @@ impl Patch {
                 || !(-180.0..=180.0).contains(&lon)
             {
                 bail!("invalid GPS coordinates");
+            }
+        }
+        if let Some(Some(altitude)) = self.altitude {
+            if !altitude.is_finite() || altitude.abs() > 100_000.0 {
+                bail!("invalid GPS altitude");
             }
         }
         for s in self
@@ -562,6 +570,18 @@ pub fn patch_packet(text: &str, patch: &Patch, fallback_time: Option<&str>) -> R
             )?;
         }
     }
+    if let Some(altitude) = patch.altitude {
+        // EXIF: an unsigned rational in metres and a reference byte, 1 = below sea level.
+        let (value, reference) = match altitude {
+            Some(a) => (
+                format!("{}/100", (a.abs() * 100.0).round() as u64),
+                if a < 0.0 { "1" } else { "0" }.to_string(),
+            ),
+            None => (String::new(), String::new()),
+        };
+        result = patch_property(&result, EXIF, "GPSAltitude", &value, false)?;
+        result = patch_property(&result, EXIF, "GPSAltitudeRef", &reference, false)?;
+    }
     parse(&result)?;
     if result.len() as u64 > MAX_PACKET {
         bail!("resulting XMP packet is too large");
@@ -703,6 +723,33 @@ mod tests {
     use super::*;
     fn packet(body: &str) -> String {
         format!("<x:xmpmeta xmlns:x='adobe:ns:meta/'><r:RDF xmlns:r='{RDF}'><r:Description r:about='' xmlns:d='{DC}' xmlns:e='{EXIF}' xmlns:custom='urn:vendor'>{body}</r:Description></r:RDF></x:xmpmeta>")
+    }
+    #[test]
+    fn geotag_altitude_replaces_and_clears_the_old_value() {
+        let source =
+            packet("<e:GPSAltitude>12/1</e:GPSAltitude><e:GPSAltitudeRef>0</e:GPSAltitudeRef>");
+        let patch = Patch {
+            gps: Some(Some((51.5, -0.1))),
+            altitude: Some(Some(-3.456)),
+            ..Default::default()
+        };
+        let result = patch_packet(&source, &patch, None).unwrap();
+        assert!(result.contains("GPSAltitude>346/100<"), "{result}");
+        assert!(result.contains("GPSAltitudeRef>1<"), "{result}");
+        assert!(!result.contains("12/1"));
+        assert_eq!(parse(&result).unwrap().gps, Some(Some((51.5, -0.1))));
+        let cleared = Patch {
+            altitude: Some(None),
+            ..Default::default()
+        };
+        let result = patch_packet(&result, &cleared, None).unwrap();
+        assert!(!result.contains("346/100"));
+        assert!(Patch {
+            altitude: Some(Some(f64::NAN)),
+            ..Default::default()
+        }
+        .validate()
+        .is_err());
     }
     #[test]
     fn xmp_roundtrip_preserves_unrelated_bytes_and_translated_alternatives() {

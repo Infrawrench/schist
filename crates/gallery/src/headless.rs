@@ -57,6 +57,7 @@ impl Gallery {
                 place: None,
                 flagged: None,
                 faces: None,
+                digest: None,
             });
             row.gps = Some(effective.gps);
             row.taken = effective.taken;

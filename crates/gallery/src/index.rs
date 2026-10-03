@@ -24,6 +24,24 @@ pub struct IndexRow {
     /// looked at and found none in — each with the recogniser's
     /// vector when that model was installed at the time.
     pub faces: Option<Vec<DetectedFace>>,
+    /// The duplicate finder's content hash, with the file revision it is for.
+    pub digest: Option<FileDigest>,
+}
+
+/// A cached SHA-256 of a photo's bytes and the revision (length and
+/// nanosecond modification time) of the file it describes.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub struct FileDigest {
+    pub bytes: u64,
+    pub seconds: u64,
+    pub nanos: u32,
+    pub sha256: [u8; 32],
+}
+
+impl FileDigest {
+    pub fn matches(&self, stamp: &crate::similar::Stamp) -> bool {
+        self.bytes == stamp.bytes && self.seconds == stamp.seconds && self.nanos == stamp.nanos
+    }
 }
 
 impl IndexRow {
@@ -35,6 +53,7 @@ impl IndexRow {
             && self.place.is_none()
             && self.flagged.is_none()
             && self.faces.is_none()
+            && self.digest.is_none()
     }
 }
 
@@ -102,6 +121,9 @@ pub fn write_index_snapshot_to(path: &Path, rows: &[IndexRow]) -> anyhow::Result
         if row.faces.is_some() {
             flags2 |= 1;
         }
+        if row.digest.is_some() {
+            flags2 |= 2;
+        }
         out.push(flags2);
         if let Some(embed) = &row.embed {
             out.extend_from_slice(&(embed.len() as u16).to_le_bytes());
@@ -121,6 +143,12 @@ pub fn write_index_snapshot_to(path: &Path, rows: &[IndexRow]) -> anyhow::Result
         }
         if let Some(faces) = &row.faces {
             out.extend_from_slice(&encode_faces_body(faces));
+        }
+        if let Some(digest) = &row.digest {
+            out.extend_from_slice(&digest.bytes.to_le_bytes());
+            out.extend_from_slice(&digest.seconds.to_le_bytes());
+            out.extend_from_slice(&digest.nanos.to_le_bytes());
+            out.extend_from_slice(&digest.sha256);
         }
     }
     // Atomically: a crash mid-write must not leave a torn file.
@@ -211,6 +239,16 @@ pub fn parse_index_snapshot(bytes: &[u8]) -> Option<Vec<IndexRow>> {
         } else {
             None
         };
+        let digest = if flags2 & 2 != 0 {
+            Some(FileDigest {
+                bytes: u64::from_le_bytes(take(&mut at, 8)?.try_into().ok()?),
+                seconds: u64::from_le_bytes(take(&mut at, 8)?.try_into().ok()?),
+                nanos: u32::from_le_bytes(take(&mut at, 4)?.try_into().ok()?),
+                sha256: take(&mut at, 32)?.try_into().ok()?,
+            })
+        } else {
+            None
+        };
         rows.push(IndexRow {
             path,
             mtime,
@@ -220,6 +258,7 @@ pub fn parse_index_snapshot(bytes: &[u8]) -> Option<Vec<IndexRow>> {
             place,
             flagged,
             faces,
+            digest,
         });
     }
     Some(rows)
@@ -260,6 +299,12 @@ mod tests {
                         embed: None,
                     },
                 ]),
+                digest: Some(FileDigest {
+                    bytes: 1234,
+                    seconds: 7,
+                    nanos: 99,
+                    sha256: [7; 32],
+                }),
             },
             IndexRow {
                 path: PathBuf::from("/p/bare.jpg"),
@@ -270,6 +315,7 @@ mod tests {
                 place: Some(None),
                 flagged: Some(false),
                 faces: Some(Vec::new()),
+                digest: None,
             },
             IndexRow {
                 path: PathBuf::from("/p/unlooked.jpg"),
@@ -280,6 +326,7 @@ mod tests {
                 place: None,
                 flagged: None,
                 faces: None,
+                digest: None,
             },
             IndexRow {
                 path: PathBuf::from("/p/zero.jpg"),
@@ -290,6 +337,7 @@ mod tests {
                 place: Some(None),
                 flagged: Some(false),
                 faces: None,
+                digest: None,
             },
         ];
         let dir = std::env::temp_dir().join(format!("schist-idx-test-{}", std::process::id()));
@@ -318,6 +366,8 @@ mod tests {
         assert_eq!(back[1].faces, Some(Vec::new()));
         assert_eq!(back[2].faces, None);
         assert_eq!(back[3].faces, None);
+        assert_eq!(back[0].digest, rows[0].digest);
+        assert_eq!(back[1].digest, None);
         assert!(parse_index_snapshot(&bytes[..bytes.len() - 3]).is_none());
         assert!(parse_index_snapshot(b"not an index").is_none());
     }
