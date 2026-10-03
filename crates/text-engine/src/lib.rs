@@ -25,6 +25,7 @@ pub use decoration_pattern::{DecorationCap, DecorationDashes, TextDecorationPatt
 #[cfg(test)]
 mod directions_tests;
 pub use capitalization::Capitalization;
+mod generated_hyphen;
 mod shaping;
 mod soft_hyphen;
 mod tab_leaders;
@@ -146,6 +147,13 @@ pub struct TextSpec {
     /// automatic wrapping selects discretionary hyphens independently.
     #[serde(skip)]
     pub show_final_soft_hyphen: bool,
+    /// Optional generated hyphen breaks at source UTF-8 grapheme boundaries.
+    /// Transient composition data; generated characters never enter saved text.
+    #[serde(skip)]
+    pub hyphenation_breaks: Vec<usize>,
+    /// Paint the generated hyphen selected when this isolated line was measured.
+    #[serde(skip)]
+    pub show_final_generated_hyphen: bool,
     /// Optional aligned tab stops and leaders. None retains legacy behavior.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub tabs: Option<TabStops>,
@@ -182,6 +190,8 @@ impl Default for TextSpec {
             word_spacing: 0.0,
             wrap_width: None,
             show_final_soft_hyphen: false,
+            hyphenation_breaks: Vec::new(),
+            show_final_generated_hyphen: false,
             tabs: None,
             runs: Vec::new(),
             features: Vec::new(),
@@ -1816,6 +1826,8 @@ pub struct LineSpan {
     /// The final source U+00AD was selected as a visible discretionary break.
     /// Explicit line separators and unused trailing hyphens leave this false.
     pub discretionary_hyphen: bool,
+    /// A generated glyph was selected at this source boundary; it owns no bytes.
+    pub generated_hyphen: bool,
     /// x of the line's first glyph, after alignment.
     pub x: f32,
     /// Advance width of the line.
@@ -1944,6 +1956,11 @@ fn layout_with_widths(spec: &TextSpec, base: &LoadedFace, widths: &[f32]) -> Lay
 fn layout_with_measures(spec: &TextSpec, base: &LoadedFace, measures: &[InlineMeasure]) -> Layout {
     if spec.tabs.as_ref().is_some_and(|tabs| !tabs.valid()) {
         return Layout::default();
+    }
+    let wrapping = (spec.wrap_width.is_some() || !measures.is_empty())
+        && (spec.path.is_none() || spec.writing_mode.is_vertical());
+    if let Some(projected) = generated_hyphen::Projection::new(spec, wrapping) {
+        return projected.restore(layout_with_measures(&projected.spec, base, measures));
     }
     if shaping::required(spec) {
         return shaping::layout(spec, base, measures);
@@ -2150,6 +2167,7 @@ fn layout_with_measures(spec: &TextSpec, base: &LoadedFace, measures: &[InlineMe
             start: line.start,
             end: line.end,
             discretionary_hyphen: line.hyphen,
+            generated_hyphen: false,
             x: start_x,
             width: line.width,
             top,
@@ -2342,6 +2360,7 @@ fn caret_in_layout_affinity(spec: &TextSpec, laid: &Layout, position: CaretPosit
             start: 0,
             end: 0,
             discretionary_hyphen: false,
+            generated_hyphen: false,
             x: 0.0,
             width: 0.0,
             top: 0.0,

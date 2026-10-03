@@ -2143,3 +2143,33 @@ composition or external-application placement claims. Automatic dictionary
 selection, paragraph-wide hyphen preference, ladder and column-end constraints
 remain composition work. No Adobe headers, proprietary executables or INDD bytes
 were read for this change.
+
+### Generated break glyphs versus source soft hyphens
+
+The shared text engine accepts transient caller-supplied UTF-8 grapheme break
+opportunities. A disposable projection uses the existing discretionary shaping
+path and restores original line ranges, paint ownership, caret positions and tab
+anchors before returning. Generated glyphs have their own selected-line flag;
+they do not create authored U+00AD, style ranges or undo operations. Their
+opportunities and isolated-line display flag are excluded from serialization.
+The layout line painter carries the selected decision without inserting text.
+This is the rendering/source-mapping prerequisite for automatic dictionaries;
+it does not by itself enable dictionary composition or claim native placement
+agreement.
+
+Six properties compare generated breaks with independent visible glyphs and real
+line edges across axes, word directions, styles, caps and combining marks. A
+seventh covers the existing source-hyphen bug revealed by that work: an invisible
+hyphen must not interrupt a synthetic-small-cap font run and its kerning. Hidden
+hyphens are skipped when choosing shaping items; selected display glyphs retain
+their own face. The regression compares exact ink against text with no soft
+hyphens. No external format assets or proprietary code were used for this fix.
+
+An eighth property covers Hebrew source breaks and blocking controls. The new
+RTL generated-break test exposed Unicode 15 LB21a in `unicode-linebreak` 0.1.5
+suppressing Hebrew–SHY–Hebrew. A narrow addition permits that intraword case,
+including preceding combining marks, while leaving following joiners, marks,
+punctuation and explicit No Break protected. It is consistent with the Hebrew
+continuation case in [UAX #14 revision 55](https://www.unicode.org/reports/tr14/tr14-55.html#LB21a),
+not a claim that the entire line-break engine implements Unicode 17. The failed
+first sweep is retained in `/tmp/schist-generated-hyphen-hebrew-before.log`.

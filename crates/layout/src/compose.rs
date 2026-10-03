@@ -81,6 +81,8 @@ pub struct ComposedLine {
     /// The measuring engine selected the final source U+00AD for display.
     /// This is independent of paragraph ends: explicit newlines never select it.
     pub discretionary_hyphen: bool,
+    /// A selected generated break glyph; it owns no editable source bytes.
+    pub generated_hyphen: bool,
     /// The line's width before justification, in points.
     pub natural_width: Pt,
     /// Extra points to add to each word space to bring this line flush to
@@ -315,6 +317,8 @@ pub(crate) fn spec_with_character(
         .then(|| crate::tabs::stops(paragraph, reverse));
     let mut spec = TextSpec {
         show_final_soft_hyphen: false,
+        hyphenation_breaks: Vec::new(),
+        show_final_generated_hyphen: false,
         language: character
             .language
             .as_ref()
@@ -1624,6 +1628,7 @@ fn break_line(
         characters: Vec::new(),
         is_paragraph_end: true,
         discretionary_hyphen: false,
+        generated_hyphen: false,
         forced_break: true,
         natural_width: 0.0,
         word_space: None,
@@ -2073,6 +2078,7 @@ fn place_block(
                 characters: character_styles(story, doc, block.start, body.start),
                 is_paragraph_end: body.start == block.end,
                 discretionary_hyphen: false,
+                generated_hyphen: false,
                 natural_width: cap.bounds.width,
                 word_space: None,
                 forced_break: false,
@@ -2368,6 +2374,7 @@ fn line_at(
         is_paragraph_end,
         natural_width: span.width,
         discretionary_hyphen: span.discretionary_hyphen,
+        generated_hyphen: span.generated_hyphen,
         word_space,
         forced_break: false,
         drop_cap: placement.drop_cap,
@@ -2634,6 +2641,7 @@ pub fn line_spec(line: &ComposedLine, story: &Story, doc: &LayoutDocument) -> Te
     }
     spec = with_leading(spec, line.advance);
     spec.show_final_soft_hyphen = line.discretionary_hyphen;
+    spec.show_final_generated_hyphen = line.generated_hyphen;
     spec.word_spacing = line.word_space.unwrap_or(0.0);
     let reverse = reverse_ruler(&spec);
     if let Some(tabs) = &mut spec.tabs {

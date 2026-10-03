@@ -225,3 +225,86 @@ fn hidden_hyphens_preserve_complex_script_shaping() {
         }
     }
 }
+
+#[test]
+fn hidden_hyphens_do_not_interrupt_synthetic_small_caps_or_their_kerning() {
+    for direction in [
+        ParagraphDirection::Auto,
+        ParagraphDirection::LeftToRight,
+        ParagraphDirection::RightToLeft,
+    ] {
+        for axis in [
+            WritingMode::Horizontal,
+            WritingMode::VerticalLr,
+            WritingMode::VerticalRl,
+        ] {
+            for text in [
+                "\u{ad}ava\u{ad}tar",
+                "a ca\u{ad}fé tab\tvalue",
+                "a\u{ad}b\u{ad}c\u{ad}",
+            ] {
+                let mut actual = spec(text, direction, axis);
+                actual.apply_style(
+                    0..text.len(),
+                    &StyleRun {
+                        capitalization: Some(schist_text_engine::Capitalization::SmallCaps),
+                        tracking: Some(0.75),
+                        ..Default::default()
+                    },
+                );
+                let mut expected = actual.clone();
+                expected.text = text.replace('\u{ad}', "");
+                expected.runs[0].end = expected.text.len();
+                let a = rasterize(&actual).unwrap();
+                let b = rasterize(&expected).unwrap();
+                assert_eq!(a.bounds, b.bounds, "{text}/{direction:?}/{axis:?}");
+                assert_eq!(a.coverage, b.coverage, "{text}/{direction:?}/{axis:?}");
+                assert!((a.layout_width - b.layout_width).abs() < 0.001);
+            }
+        }
+    }
+}
+
+#[test]
+fn hebrew_discretionary_breaks_retain_no_break_and_joiner_constraints() {
+    schist_text_engine::add_font_data(
+        include_bytes!("../../../web/fonts/NotoSansHebrew-Regular.ttf").to_vec(),
+    );
+    for prefix in ["אבג", "א\u{5b7}בג\u{5b8}"] {
+        for suffix in ["דהוז", "\u{2060}דהוז", "\u{5b7}דהוז"] {
+            for protected in [false, true] {
+                let mut actual = spec(
+                    &format!("{prefix}\u{ad}{suffix}"),
+                    ParagraphDirection::LeftToRight,
+                    WritingMode::Horizontal,
+                );
+                actual.family = "Noto Sans Hebrew".into();
+                actual.apply_style(
+                    0..actual.text.len(),
+                    &StyleRun {
+                        no_break: Some(protected),
+                        ..Default::default()
+                    },
+                );
+                let mut reference = actual.clone();
+                reference.text = format!("{prefix}-");
+                reference.direction = ParagraphDirection::RightToLeft;
+                actual.wrap_width = Some(line_spans(&reference)[0].width + 0.1);
+                let lines = line_spans(&actual);
+                assert_eq!(
+                    lines.len(),
+                    if suffix == "דהוז" && !protected {
+                        2
+                    } else {
+                        1
+                    },
+                    "{prefix}/{suffix}/{protected}"
+                );
+                if lines.len() == 2 {
+                    assert!(lines[0].discretionary_hyphen && !lines[0].generated_hyphen);
+                    assert_eq!(lines[0].end, prefix.len() + 2);
+                }
+            }
+        }
+    }
+}

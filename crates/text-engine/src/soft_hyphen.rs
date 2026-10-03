@@ -1,6 +1,32 @@
 //! Select optional source breaks using the width of the visible hyphen.
 use std::ops::Range;
 
+/// unicode-linebreak 0.1.5 uses Unicode 15, whose LB21a suppresses even an
+/// intraword Hebrew soft hyphen. Keep this narrow case consistent with newer
+/// UAX #14: a Hebrew continuation can break here. Do not override joiners,
+/// punctuation or combining marks following the soft hyphen.
+pub(super) fn hebrew_breaks(text: &str) -> Vec<usize> {
+    use unicode_linebreak::{break_property, BreakClass};
+    let mut previous = None;
+    let mut result = Vec::new();
+    for (at, c) in text.char_indices() {
+        let class = break_property(c as u32);
+        if c == '\u{ad}'
+            && previous == Some(BreakClass::HebrewLetter)
+            && text[at + c.len_utf8()..]
+                .chars()
+                .next()
+                .is_some_and(|next| break_property(next as u32) == BreakClass::HebrewLetter)
+        {
+            result.push(at + c.len_utf8());
+        }
+        if class != BreakClass::CombiningMark {
+            previous = Some(class);
+        }
+    }
+    result
+}
+
 pub(super) struct Line {
     pub range: Range<usize>,
     pub hyphen: bool,

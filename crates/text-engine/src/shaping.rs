@@ -58,8 +58,15 @@ fn items(
     faces: &Faces,
     start: usize,
     end: usize,
+    hyphen: Option<usize>,
 ) -> Vec<(usize, usize, Orientation)> {
-    let chars: Vec<_> = spec.text[start..end].char_indices().collect();
+    // Hidden soft hyphens must not split a shaping item. In particular, an
+    // unscaled invisible glyph between synthetic small caps must not interrupt
+    // their font run and kerning. A selected visible hyphen retains its own face.
+    let chars: Vec<_> = spec.text[start..end]
+        .char_indices()
+        .filter(|(offset, c)| *c != '\u{ad}' || hyphen == Some(start + offset))
+        .collect();
     let mut script = chars
         .iter()
         .map(|(_, c)| c.script())
@@ -67,7 +74,8 @@ fn items(
         .unwrap_or(Script::Common);
     let mut out = Vec::new();
     let mut begin = start;
-    let mut face = faces.at(start);
+    let mut style_start = chars.first().map_or(start, |(offset, _)| start + offset);
+    let mut face = faces.at(style_start);
     let mut vertical = chars
         .first()
         .map_or(Orientation::Upright, |(_, c)| char_orientation(*c));
@@ -84,7 +92,7 @@ fn items(
         };
         if at > begin
             && (face != faces.at(at)
-                || !spec.style_at(begin).shapes_like(&spec.style_at(at))
+                || !spec.style_at(style_start).shapes_like(&spec.style_at(at))
                 || next_script != script
                 || (spec.writing_mode.is_vertical()
                     && (next_vertical != vertical
@@ -92,6 +100,7 @@ fn items(
         {
             out.push((begin, at, vertical));
             begin = at;
+            style_start = at;
         }
         face = faces.at(at);
         script = next_script;
@@ -113,7 +122,11 @@ fn shape_item(
     out: &mut Shaped,
 ) {
     let (start, end) = (range.start, range.end);
-    let ix = faces.at(start);
+    let visible_start = spec.text[start..end]
+        .char_indices()
+        .find(|(offset, c)| *c != '\u{ad}' || hyphen == Some(start + offset))
+        .map_or(start, |(offset, _)| start + offset);
+    let ix = faces.at(visible_start);
     let (loaded, size) = &faces.faces[ix];
     let Some(face) = rustybuzz::Face::from_slice(&loaded.data, loaded.index) else {
         return;
@@ -121,7 +134,7 @@ fn shape_item(
     let scale = size / face.units_per_em() as f32;
     let text = &spec.text[start..end];
     let ttb = spec.writing_mode.is_vertical() && vertical != Orientation::Rotated;
-    let style = spec.style_at(start);
+    let style = spec.style_at(visible_start);
     let mut buffer = rustybuzz::UnicodeBuffer::new();
     for (offset, c) in text.char_indices() {
         if hyphen == Some(start + offset) {
@@ -313,6 +326,7 @@ fn shape_plain(
             faces,
             paragraph_start + run.start,
             paragraph_start + run.end,
+            hyphen,
         );
         if rtl {
             items.reverse();
@@ -556,10 +570,14 @@ pub(super) fn layout(spec: &TextSpec, base: &LoadedFace, measures: &[InlineMeasu
         let bidi = BidiInfo::new(paragraph, level);
         if paragraph.contains('\u{ad}') {
             let first = lines.len();
-            let boundaries = unicode_linebreak::linebreaks(paragraph)
-                .map(|(at, _)| start + at)
+            let mut boundaries = unicode_linebreak::linebreaks(paragraph)
+                .map(|(at, _)| at)
+                .chain(soft_hyphen::hebrew_breaks(paragraph))
+                .map(|at| start + at)
                 .filter(|at| *at == end || spec.allows_wrap_at(*at))
                 .collect::<Vec<_>>();
+            boundaries.sort_unstable();
+            boundaries.dedup();
             let shaped = |range, hyphen, i| {
                 shape(
                     spec,
@@ -680,6 +698,7 @@ pub(super) fn layout(spec: &TextSpec, base: &LoadedFace, measures: &[InlineMeasu
             start: *start,
             end: *end,
             discretionary_hyphen: line.discretionary_hyphen,
+            generated_hyphen: false,
             x: 0.0,
             width: line.width,
             top,
@@ -734,6 +753,7 @@ pub(super) fn layout(spec: &TextSpec, base: &LoadedFace, measures: &[InlineMeasu
             start,
             end,
             discretionary_hyphen: line.discretionary_hyphen,
+            generated_hyphen: false,
             x,
             width: line.width,
             top,

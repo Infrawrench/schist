@@ -311,6 +311,38 @@ are marked.
 ## Handoff
 
 
+Generated hyphen source mapping, 2026-10-03:
+Native policy retention is pushed as `dee3f6f8` to draft PR #195 with all 16
+targets, 1,886 Rust tests and the development rebuild passing. Web and headless
+CI pass; desktop CI remains in progress. The next dictionary prerequisite is an
+engine path for caller-supplied break opportunities that own no source bytes.
+Transient UTF-8 boundaries now produce disposable discretionary glyphs; line
+spans, paint ownership, selected tab positions and both caret affinities map back
+to the authored text. Selected generated glyphs remain distinct from source
+U+00AD and are carried through the layout line painter. Invalid, duplicate,
+No Break, whitespace and interior-grapheme positions cannot create extra breaks.
+Unwrapped text bypasses the projection. Generated data is not serialized.
+
+Independent visible-glyph and caret-edge properties cover repeated breaks,
+Latin/Hebrew word direction, all writing axes, Unicode combining marks and
+normal/styled/small-cap/all-cap runs. Review found a real existing defect:
+hidden U+00AD split synthetic-small-cap font runs and changed kerning. Invisible
+characters now leave itemization intact; selected hyphens keep their own face.
+Exact pixel/caret comparisons pass, with a 0.0001 pt tolerance for the existing
+legacy-versus-discretionary f32 width accumulation. The first sweep then caught the older Unicode
+line-break dependency suppressing Hebrew–SHY–Hebrew. A narrow correction now
+permits that intraword case and keeps following joiners/marks and No Break
+protected. All 16 targets pass with **1,894 distinct Rust tests**, including five
+shared UI checks (one existing documentation example ignored), four browser
+checks and eight Python audit tests. Workspace clippy, native/browser/headless
+checks, localization, formatting and whitespace pass. All 31 PDF proofs remain
+byte-identical. The native development rebuild passes in 1m 57s; the isolated
+Design-enabled bundle is refreshed and hash/signature verified, and remains quit.
+No new native visual review is claimed. Logs use `/tmp/schist-generated-hyphen-*`.
+Dictionary opportunities, policy constraints and authoring controls are not yet
+connected, and no dictionary dependency or new UI has been added by this prerequisite.
+
+
 Native hyphenation policy, 2026-10-03:
 XML booleans are pushed as `1a574ac7` to draft PR #195 with all 16 targets,
 1,880 Rust tests and the development rebuild passing. The next item 9 regression
