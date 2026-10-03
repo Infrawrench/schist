@@ -7,6 +7,7 @@ dialog.layer_props.title = Властивості шару
 dialog.export.format = Формат
 dialog.export.dither = Дизеринг
 dialog.export.dither_note = Застосувати дизеринг під час зменшення до 8 біт
+dialog.export.effort = Зусилля
 dialog.export.export_ellipsis = Експортувати…
 dialog.batch.title = Обробити фото
 dialog.batch.note_edit.one = {n} фото — зберігається як зміна в галереї; оригінал ніколи не змінюється.

@@ -7,6 +7,7 @@ dialog.layer_props.title = లేయర్ లక్షణాలు
 dialog.export.format = ఫార్మాట్
 dialog.export.dither = డిథర్
 dialog.export.dither_note = 8-బిట్‌కు తగ్గించేటప్పుడు డిథర్ చేయి
+dialog.export.effort = ప్రయత్నం
 dialog.export.export_ellipsis = ఎగుమతి చేయి…
 dialog.batch.title = ఫోటోలను ప్రాసెస్ చేయి
 dialog.batch.note_edit.one = {n} ఫోటో — గ్యాలరీ సవరణగా సేవ్ అవుతుంది; అసలు ఫోటో ఎప్పటికీ మారదు.

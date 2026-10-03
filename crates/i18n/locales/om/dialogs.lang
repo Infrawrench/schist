@@ -7,6 +7,7 @@ dialog.layer_props.title = Amaloota Laayaraa
 dialog.export.format = Akkaataa
 dialog.export.dither = Halluu tuqaan makuu
 dialog.export.dither_note = Yeroo gara biitii 8tti hir'istu Dither godhi
+dialog.export.effort = Carraaqqii
 dialog.export.export_ellipsis = Al-ergi…
 dialog.batch.title = Suuraawwan Adeemsisi
 dialog.batch.note_edit.one = Suuraa {n} — akka gulaala kuusaa suuraatti olkaa'ama; suuraan jalqabaa gonkumaa hin tuqamu.

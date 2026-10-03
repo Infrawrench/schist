@@ -12,6 +12,7 @@ dialog.layer_props.title = Давхаргын шинж чанар
 dialog.export.format = Формат
 dialog.export.dither = Дитер
 dialog.export.dither_note = 8 бит болгон бууруулахдаа дитер хэрэглэх
+dialog.export.effort = Хүчин чармайлт
 dialog.export.export_ellipsis = Экспортлох…
 
 # Фото зураг боловсруулах

@@ -8,6 +8,7 @@ dialog.layer_props.title = لیئر کی خصوصیات
 dialog.export.format = فارمیٹ
 dialog.export.dither = رنگ منتشر کریں
 dialog.export.dither_note = 8-bit میں گھٹاتے وقت رنگ منتشر کریں
+dialog.export.effort = کوشش
 dialog.export.export_ellipsis = برآمد کریں…
 dialog.batch.title = تصاویر پر عمل کریں
 dialog.batch.note_edit.one = {n} تصویر — گیلری ترمیم کے طور پر محفوظ؛ اصل کو کبھی نہیں چھیڑا جاتا۔

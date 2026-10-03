@@ -52,7 +52,7 @@ plugins/                first-party features, each optional at compile time
 ├── tools-vector        shapes, pen
 ├── tools-type          text layers
 ├── filters-core        blur, sharpen, noise
-├── codecs-common       PNG/JPEG/WebP/TIFF/HEIC/camera raw, layered PDN/XCF
+├── codecs-common       PNG/JPEG/WebP/TIFF/JPEG XL/AVIF/HEIC/camera raw, layered PDN/XCF
 └── commands-core       menu commands and their keybindings
 ```
 

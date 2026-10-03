@@ -4,6 +4,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -34,6 +36,8 @@ codec.heif.msg.checksum_mismatch = Kontrolsumo de {name} ne kongruas: atendita {
 codec.heif.msg.imageio_cannot_read = ImageIO ne povis legi la HEIF-ujon
 codec.heif.msg.container_empty = la HEIF-ujo enhavas neniun bildon
 codec.heif.msg.imageio_cannot_decode = ImageIO ne povis malkodi la ĉefan bildon
+
+codec.avif.msg.no_decoder = La retumila versio de Schist ne povas malfermi AVIF-bildojn. Malfermu la dosieron en la labortabla aplikaĵo, aŭ unue konvertu ĝin al PNG.
 
 # Native layered formats.
 codec.pdn.name = Paint.NET

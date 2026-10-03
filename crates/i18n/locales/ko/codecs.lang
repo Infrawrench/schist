@@ -6,6 +6,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -41,6 +43,8 @@ codec.heif.msg.checksum_mismatch = {name}의 체크섬이 일치하지 않습니
 codec.heif.msg.imageio_cannot_read = ImageIO가 HEIF 컨테이너를 읽지 못했습니다
 codec.heif.msg.container_empty = HEIF 컨테이너에 이미지가 없습니다
 codec.heif.msg.imageio_cannot_decode = ImageIO가 기본 이미지를 디코딩하지 못했습니다
+
+codec.avif.msg.no_decoder = 브라우저 버전의 Schist에서는 AVIF 이미지를 열 수 없습니다. 데스크톱 앱에서 파일을 열거나 먼저 PNG로 변환하세요.
 
 # Native layered formats.
 codec.pdn.name = Paint.NET

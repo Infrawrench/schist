@@ -3,6 +3,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Kameranyň çig suraty
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -29,6 +31,9 @@ codec.heif.msg.checksum_mismatch = {name} üçin barlag jemi gabat gelmeýär: g
 codec.heif.msg.imageio_cannot_read = ImageIO HEIF konteýnerini okap bilmedi
 codec.heif.msg.container_empty = HEIF konteýnerinde surat ýok
 codec.heif.msg.imageio_cannot_decode = ImageIO esasy suraty dekodlap bilmedi
+
+# AVIF in the browser build, which has no AV1 decoder (it still exports AVIF).
+codec.avif.msg.no_decoder = Schist-iň brauzer wersiýasy AVIF suratlaryny açyp bilmeýär. Faýly desktop programmasynda açyň ýa-da ilki ony PNG görnüşine öwüriň.
 
 # Native layered formats.
 codec.pdn.name = Paint.NET

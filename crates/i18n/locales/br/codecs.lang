@@ -3,6 +3,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -33,6 +35,9 @@ codec.heif.msg.checksum_mismatch = N'eo ket mat sammad gwiriañ {name}: gortozet
 codec.heif.msg.imageio_cannot_read = N'hall ket ImageIO lenn ar c'hronnad HEIF
 codec.heif.msg.container_empty = n'eus skeudenn ebet er c'hronnad HEIF
 codec.heif.msg.imageio_cannot_decode = N'hall ket ImageIO digodiñ ar skeudenn bennañ
+
+# AVIF in the browser build, which has no AV1 decoder (it still exports AVIF).
+codec.avif.msg.no_decoder = N'hall ket stumm merdeer Schist digeriñ skeudennoù AVIF. Digorit ar restr en arload burev, pe amdroit anezhañ da PNG da gentañ.
 
 # Native layered formats.
 codec.pdn.name = Paint.NET

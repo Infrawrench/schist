@@ -7,6 +7,7 @@ dialog.layer_props.title = அடுக்குப் பண்புகள்
 dialog.export.format = வடிவம்
 dialog.export.dither = வண்ணப் புள்ளிக் கலப்பு
 dialog.export.dither_note = 8-பிட்டாகக் குறைக்கும்போது வண்ணப் புள்ளிகளைக் கலந்து அமை
+dialog.export.effort = முயற்சி
 dialog.export.export_ellipsis = ஏற்றுமதி செய்…
 dialog.batch.title = புகைப்படங்களைச் செயலாக்கு
 dialog.batch.note_edit.one = {n} புகைப்படம் — படத்தொகுப்புத் திருத்தமாகச் சேமிக்கப்படும்; மூலத்தை ஒருபோதும் மாற்றாது.

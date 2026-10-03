@@ -5,6 +5,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -35,6 +37,8 @@ codec.heif.msg.checksum_mismatch = د {name} د پلټ‌مجموعې توپیر
 codec.heif.msg.imageio_cannot_read = ImageIO د HEIF لوښی نشي لوستلی
 codec.heif.msg.container_empty = د HEIF لوښی هېڅ انځور نه لري
 codec.heif.msg.imageio_cannot_decode = ImageIO اصلي انځور نشي کوډسپړلی
+
+codec.avif.msg.no_decoder = د Schist لټونګر نسخه AVIF انځورونه نشي پرانیستلی. دوتنه په ډېسکټاپ کاریال کې پرانیزئ، یا یې لومړی PNG ته واړوئ.
 
 # Native layered formats.
 codec.pdn.name = Paint.NET

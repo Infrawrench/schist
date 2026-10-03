@@ -10,6 +10,7 @@ dialog.layer_props.title = Laageigenschappen
 dialog.export.format = Indeling
 dialog.export.dither = Dithering
 dialog.export.dither_note = Dithering gebruiken bij omzetting naar 8-bits
+dialog.export.effort = Inspanning
 dialog.export.export_ellipsis = Exporteren…
 
 dialog.batch.title = Foto's verwerken

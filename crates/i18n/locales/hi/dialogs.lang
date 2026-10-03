@@ -7,6 +7,7 @@ dialog.layer_props.title = लेयर गुण
 dialog.export.format = प्रारूप
 dialog.export.dither = डिथर
 dialog.export.dither_note = 8-बिट में घटाते समय डिथर करें
+dialog.export.effort = प्रयास
 dialog.export.export_ellipsis = निर्यात करें…
 dialog.batch.title = फ़ोटो संसाधित करें
 dialog.batch.note_edit.one = फ़ोटो: {n}—गैलरी संपादन के रूप में सहेजी जाएगी; मूल फ़ाइल को कभी नहीं बदला जाएगा।

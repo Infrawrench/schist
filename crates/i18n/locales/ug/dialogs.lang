@@ -7,6 +7,7 @@ dialog.layer_props.title = قەۋەت خاسلىقلىرى
 dialog.export.format = فورمات
 dialog.export.dither = رەڭ چېچىش
 dialog.export.dither_note = 8 بىتكە ئازايتقاندا رەڭ چېچىش
+dialog.export.effort = تىرىشچانلىق
 dialog.export.export_ellipsis = ئېكسپورت قىلىش…
 dialog.batch.title = فوتو سۈرەتلەرنى بىر تەرەپ قىلىش
 dialog.batch.note_edit.one = {n} فوتو سۈرەت — سۈرەت ئامبىرى تەھرىرى قىلىپ ساقلىنىدۇ؛ ئەسلىگە ھەرگىز تېگىلمەيدۇ.

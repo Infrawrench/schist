@@ -5,6 +5,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = RAW di camera
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -35,6 +37,8 @@ codec.heif.msg.checksum_mismatch = A somma di cuntrollu di {name} ùn currispond
 codec.heif.msg.imageio_cannot_read = ImageIO ùn hà pussutu leghje u cuntainer HEIF
 codec.heif.msg.container_empty = u cuntainer HEIF ùn cuntene nisuna maghjina
 codec.heif.msg.imageio_cannot_decode = ImageIO ùn hà pussutu decudificà a maghjina principale
+
+codec.avif.msg.no_decoder = A versione di navigatore di Schist ùn pò micca apre e maghjine AVIF. Aprite u schedariu in l'applicazione di scrivania, o cunvertitelu prima in PNG.
 
 # Native layered formats.
 codec.pdn.name = Paint.NET

@@ -7,6 +7,7 @@ dialog.layer_props.title = Sluoksnio savybės
 dialog.export.format = Formatas
 dialog.export.dither = Spalvų sklaida
 dialog.export.dither_note = Taikyti spalvų sklaidą mažinant iki 8 bitų
+dialog.export.effort = Pastangos
 dialog.export.export_ellipsis = Eksportuoti…
 dialog.batch.title = Apdoroti nuotraukas
 dialog.batch.note_edit.one = {n} nuotrauka – įrašoma kaip galerijos pakeitimas; originalas niekada neliečiamas.

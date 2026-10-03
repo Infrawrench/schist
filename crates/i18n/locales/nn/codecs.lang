@@ -3,6 +3,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Kamera-råformat
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -33,6 +35,8 @@ codec.heif.msg.checksum_mismatch = Kontrollsummen for {name} stemmer ikkje: vent
 codec.heif.msg.imageio_cannot_read = ImageIO klarte ikkje å lesa HEIF-behaldaren
 codec.heif.msg.container_empty = HEIF-behaldaren inneheld ikkje noko bilete
 codec.heif.msg.imageio_cannot_decode = ImageIO klarte ikkje å dekoda hovudbiletet
+
+codec.avif.msg.no_decoder = Nettlesarutgåva av Schist kan ikkje opna AVIF-bilete. Opna fila i skrivebordsappen, eller konverter ho til PNG først.
 
 # Native layered formats.
 codec.pdn.name = Paint.NET

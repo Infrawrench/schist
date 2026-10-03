@@ -4,6 +4,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -38,6 +40,8 @@ codec.heif.msg.checksum_mismatch = I-checksum ye-{name} ayifani: bekulindelwe {e
 codec.heif.msg.imageio_cannot_read = I-ImageIO ayikghoni ukufunda isitja se-HEIF
 codec.heif.msg.container_empty = isitja se-HEIF asinasithombe
 codec.heif.msg.imageio_cannot_decode = I-ImageIO ayikghoni ukukhipha ikhodi yesithombe esikhulu
+
+codec.avif.msg.no_decoder = Inguqulo yesiphequluli ye-Schist ayikghoni ukuvula iinthombe ze-AVIF. Vula ifayela ehlelweni ledeskithophu, namkha uqale ulitjhugululele ku-PNG.
 
 # Native layered formats.
 codec.pdn.name = Paint.NET

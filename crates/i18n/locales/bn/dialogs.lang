@@ -12,6 +12,7 @@ dialog.layer_props.title = লেয়ারের বৈশিষ্ট্য
 dialog.export.format = ফরম্যাট
 dialog.export.dither = ডিথার
 dialog.export.dither_note = ৮-বিটে নামানোর সময় ডিথার করুন
+dialog.export.effort = প্রচেষ্টা
 dialog.export.export_ellipsis = রপ্তানি করুন…
 
 # ছবি প্রক্রিয়াকরণ

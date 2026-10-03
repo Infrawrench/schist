@@ -3,6 +3,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -33,6 +35,9 @@ codec.heif.msg.checksum_mismatch = Checksum ya {name} a yi fambisani: a ku langu
 codec.heif.msg.imageio_cannot_read = ImageIO a yi kotanga ku hlaya container ya HEIF
 codec.heif.msg.container_empty = container ya HEIF a yi na xifaniso
 codec.heif.msg.imageio_cannot_decode = ImageIO a yi kotanga ku dekoda xifaniso lexikulu
+
+# AVIF in the browser build, which has no AV1 decoder (it still exports AVIF).
+codec.avif.msg.no_decoder = Vhexini ya browser ya Schist a yi koti ku pfula swifaniso swa AVIF. Pfula fayili eka app ya desktop, kumbe u yi hundzuluxa yi va PNG ku sungula.
 
 # Native layered formats.
 codec.pdn.name = Paint.NET

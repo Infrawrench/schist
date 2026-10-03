@@ -7,6 +7,7 @@ dialog.layer_props.title = ຄຸນສົມບັດເລເຢີ
 dialog.export.format = ຮູບແບບ
 dialog.export.dither = ກະຈາຍຈຸດສີ
 dialog.export.dither_note = ກະຈາຍຈຸດສີເມື່ອຫຼຸດເປັນ 8 ບິດ
+dialog.export.effort = ລະດັບຄວາມພະຍາຍາມ
 dialog.export.export_ellipsis = ສົ່ງອອກ…
 dialog.batch.title = ປະມວນຜົນຮູບຖ່າຍ
 dialog.batch.note_edit.other = {n} ຮູບຖ່າຍ — ບັນທຶກເປັນການແກ້ໄຂໃນແກເລີຣີ; ບໍ່ມີການແຕະຕ້ອງຕົ້ນສະບັບ.

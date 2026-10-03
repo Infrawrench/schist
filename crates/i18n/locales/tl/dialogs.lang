@@ -7,6 +7,7 @@ dialog.layer_props.title = Mga Property ng Layer
 dialog.export.format = Format
 dialog.export.dither = Paghalo ng mga Pixel
 dialog.export.dither_note = Mag-dither kapag binabawasan sa 8-bit
+dialog.export.effort = Pagsisikap
 dialog.export.export_ellipsis = I-export…
 dialog.batch.title = Iproseso ang Mga Larawan
 dialog.batch.note_edit.one = {n} larawan — ise-save sa gallery ang edit ng bawat larawan; hindi kailanman gagalawin ang orihinal nito.

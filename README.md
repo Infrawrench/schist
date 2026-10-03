@@ -210,6 +210,8 @@ boundaries.
 | Affinity `.af`, `.afphoto`, `.afdesign`, `.afpub` | Import layered documents; export layered `.af` files, including supported native text and curves. Unsupported content may use preserved native data or raster previews. See [Affinity support and limits](docs/affinity-format.md). |
 | Paint.NET `.pdn` / GIMP `.xcf` | Read/write supported layered content; see [format limits](docs/layered-formats.md). |
 | PNG, JPEG, WebP, TIFF | Import and export raster images. |
+| JPEG XL `.jxl` | Import lossy and lossless files (8/16-bit and float, alpha, ICC, HDR baked to sRGB) in pure Rust. Export is lossless everywhere; lossy export, effort and float samples need a system libjxl (0.7 or later), which desktop builds load when present. Also decodes DNG 1.7 JPEG XL tiles. See [JPEG XL and AVIF](docs/jxl-avif.md). |
+| AVIF `.avif` | Import 8/10/12-bit files with alpha, grids, transforms, ICC and nclx colour (HDR baked to sRGB); export 8/10/12-bit with quality, effort, alpha and ICC. Pure Rust; the browser build can export but not open AVIF. See [JPEG XL and AVIF](docs/jxl-avif.md). |
 | HEIC / HEIF | Native import through a supported runtime libheif decoder; Schist can offer a download when needed. |
 | Camera RAW | Import through Schist's pure-Rust decoder and develop in Camera Raw, with [local adjustment masks](docs/camera-raw-masks.md). The original capture, development settings and masks can survive PSD/PSB save and reopen. See [camera and codec coverage](crates/codec-raw/README.md). |
 

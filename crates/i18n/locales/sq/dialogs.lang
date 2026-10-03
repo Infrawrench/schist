@@ -8,6 +8,7 @@ dialog.layer_props.title = Vetitë e shtresës
 dialog.export.format = Formati
 dialog.export.dither = Zbutje me pikëzim
 dialog.export.dither_note = Përdor pikëzim gjatë zvogëlimit në 8 bit
+dialog.export.effort = Përpjekja
 dialog.export.export_ellipsis = Eksporto…
 dialog.batch.title = Përpuno fotot
 dialog.batch.note_edit.one = {n} foto — ruhet si redaktim galerie; origjinali nuk preket kurrë.

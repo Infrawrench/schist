@@ -4,6 +4,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -38,6 +40,8 @@ codec.heif.msg.checksum_mismatch = Faila {name} kontrolsumma neatbilst: gaidīta
 codec.heif.msg.imageio_cannot_read = ImageIO nevarēja nolasīt HEIF konteineru
 codec.heif.msg.container_empty = HEIF konteinerā nav attēla
 codec.heif.msg.imageio_cannot_decode = ImageIO nevarēja dekodēt primāro attēlu
+
+codec.avif.msg.no_decoder = Schist pārlūka versija nevar atvērt AVIF attēlus. Atveriet failu darbvirsmas lietotnē vai vispirms pārveidojiet to par PNG.
 
 # Native layered formats.
 codec.pdn.name = Paint.NET

@@ -4,6 +4,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -30,6 +32,8 @@ codec.heif.msg.checksum_mismatch = Iċ-checksum ta' {name} ma taqbilx: mistenni 
 codec.heif.msg.imageio_cannot_read = ImageIO ma setax jaqra l-kontenitur HEIF
 codec.heif.msg.container_empty = il-kontenitur HEIF ma fih ebda immaġni
 codec.heif.msg.imageio_cannot_decode = ImageIO ma setax jiddekodifika l-immaġni ewlenija
+
+codec.avif.msg.no_decoder = Il-verżjoni tal-brawżer ta' Schist ma tistax tiftaħ immaġnijiet AVIF. Iftaħ il-fajl fl-app tad-desktop, jew ikkonvertih għal PNG l-ewwel.
 
 # Native layered formats.
 codec.pdn.name = Paint.NET

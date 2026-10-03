@@ -8,6 +8,7 @@ dialog.layer_props.title = Lagegenskaber
 dialog.export.format = Format
 dialog.export.dither = Simulering
 dialog.export.dither_note = Simuler ved reduktion til 8 bit
+dialog.export.effort = Indsats
 dialog.export.export_ellipsis = Eksporter…
 dialog.batch.title = Behandl fotos
 dialog.batch.note_edit.one = {n} foto — gemmes som galleriredigering; originalen ændres aldrig.

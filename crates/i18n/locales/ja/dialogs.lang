@@ -18,6 +18,7 @@ dialog.layer_props.title = レイヤープロパティ
 dialog.export.format = 形式
 dialog.export.dither = ディザ
 dialog.export.dither_note = 8 bit に減色するときにディザを使用
+dialog.export.effort = エフォート
 dialog.export.export_ellipsis = 書き出し…
 
 # 写真を処理（ギャラリーのバッチ処理ダイアログ）

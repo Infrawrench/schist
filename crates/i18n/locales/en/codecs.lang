@@ -10,6 +10,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -75,3 +77,6 @@ codec.heif.msg.checksum_mismatch = Checksum mismatch for {name}: expected {expec
 codec.heif.msg.imageio_cannot_read = ImageIO could not read the HEIF container
 codec.heif.msg.container_empty = the HEIF container holds no image
 codec.heif.msg.imageio_cannot_decode = ImageIO could not decode the primary image
+
+# AVIF in the browser build, which has no AV1 decoder (it still exports AVIF).
+codec.avif.msg.no_decoder = The browser version of Schist cannot open AVIF images. Open the file in the desktop app, or convert it to PNG first.

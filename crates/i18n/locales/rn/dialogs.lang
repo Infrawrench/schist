@@ -10,6 +10,7 @@ dialog.layer_props.title = Ibiranga urwego
 dialog.export.format = Ubwoko
 dialog.export.dither = Kuvanga utudomo
 dialog.export.dither_note = Gukoresha dither igihe ugabanya ukaja kuri bit 8
+dialog.export.effort = Imbaraga
 dialog.export.export_ellipsis = Kuvoma…
 
 dialog.batch.title = Gutunganya amafoto

@@ -7,6 +7,7 @@ dialog.layer_props.title = Ngā Āhuatanga Apa
 dialog.export.format = Hōputu
 dialog.export.dither = Dither
 dialog.export.dither_note = Dither ina whakaiti ki te moka-8
+dialog.export.effort = Kaha
 dialog.export.export_ellipsis = Kaweake…
 dialog.batch.title = Tukatuka Whakaahua
 dialog.batch.note_edit.other = {n} whakaahua — ka tiakina ia whakaahua hei whakatikanga taiwhanga; kāore rawa te mea taketake o ia whakaahua e raweketia.

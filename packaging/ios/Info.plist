@@ -354,6 +354,8 @@
                 <string>public.jpeg</string>
                 <string>public.tiff</string>
                 <string>org.webmproject.webp</string>
+                <string>public.jpeg-xl</string>
+                <string>public.avif</string>
                 <string>public.heic</string>
                 <string>public.heif</string>
                 <string>public.camera-raw-image</string>

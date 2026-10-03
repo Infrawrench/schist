@@ -4,6 +4,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -30,6 +32,8 @@ codec.heif.msg.checksum_mismatch = Jumlah semak tidak sepadan untuk {name}: dija
 codec.heif.msg.imageio_cannot_read = ImageIO tidak dapat membaca bekas HEIF
 codec.heif.msg.container_empty = bekas HEIF tidak mengandungi imej
 codec.heif.msg.imageio_cannot_decode = ImageIO tidak dapat menyahkod imej utama
+
+codec.avif.msg.no_decoder = Versi pelayar Schist tidak dapat membuka imej AVIF. Buka fail dalam aplikasi desktop, atau tukarkannya kepada PNG terlebih dahulu.
 
 # Native layered formats.
 codec.pdn.name = Paint.NET

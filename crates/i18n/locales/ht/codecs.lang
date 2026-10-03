@@ -3,6 +3,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -33,6 +35,9 @@ codec.heif.msg.checksum_mismatch = Sòm kontwòl pou {name} pa koresponn: yo te 
 codec.heif.msg.imageio_cannot_read = ImageIO pa t kapab li kontenè HEIF la
 codec.heif.msg.container_empty = kontenè HEIF la pa gen imaj
 codec.heif.msg.imageio_cannot_decode = ImageIO pa t kapab dekode imaj prensipal la
+
+# AVIF
+codec.avif.msg.no_decoder = Vèsyon navigatè Schist la pa ka louvri imaj AVIF. Louvri fichye a nan aplikasyon òdinatè a, oswa konvèti l an PNG anvan.
 
 # Native layered formats.
 codec.pdn.name = Paint.NET

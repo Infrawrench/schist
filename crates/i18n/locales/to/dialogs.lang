@@ -10,6 +10,7 @@ dialog.layer_props.title = Ngaahi Koloa ʻo e Layer
 dialog.export.format = Faʻunga
 dialog.export.dither = Dither
 dialog.export.dither_note = Dither ʻi hono fakasiʻisiʻi ki he 8-bit
+dialog.export.effort = Feinga
 dialog.export.export_ellipsis = ʻAve Ki Tuʻa…
 
 dialog.batch.title = Ngāue ki he Ngaahi Tā

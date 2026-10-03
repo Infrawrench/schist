@@ -1,10 +1,13 @@
 //! Common raster format codecs (PNG, JPEG, WebP, TIFF) via the `image`
-//! crate, HEIC/HEIF via the system's libheif, camera raws via the
+//! crate, JPEG XL and AVIF via their own pure-Rust codecs (see `jxl` and
+//! `avif`), HEIC/HEIF via the system's libheif, camera raws via the
 //! pure-Rust `schist-codec-raw` crate, wrapped as `CodecPlugin`s, plus layered
 //! Affinity, Paint.NET PDN, and GIMP XCF import/export. For the simple formats, import produces a single
 //! "Background" layer and export flattens through the compositor.
 
 pub use affinity::AffinityCodec;
+pub use avif::AvifCodec;
+pub use jxl::JxlCodec;
 mod layered;
 mod pdn;
 mod xcf;
@@ -23,10 +26,12 @@ use schist_i18n::{t, tf};
 use schist_plugin_api::{CodecPlugin, ExportOptions, PluginManifest, PluginRegistry};
 
 mod affinity;
+pub mod avif;
 #[cfg(not(target_arch = "wasm32"))]
 pub mod heif;
 #[cfg(target_os = "ios")]
 mod heif_imageio;
+pub mod jxl;
 pub mod raw;
 
 /// A single-"Background"-layer document from decoded RGBA8 pixels.
@@ -370,6 +375,13 @@ macro_rules! simple_codec {
             fn supports_quality(&self) -> bool {
                 matches!($format, ImageFormat::Jpeg)
             }
+            fn bit_depths(&self) -> &'static [u8] {
+                if matches!($format, ImageFormat::Png | ImageFormat::Tiff) {
+                    &[8, 16]
+                } else {
+                    &[8]
+                }
+            }
         }
     };
 }
@@ -433,6 +445,12 @@ impl PluginManifest for CommonCodecsPlugin {
         // TIFF still falls through to its own codec.
         registry.register_codec(Box::new(RawCodec));
         registry.register_codec(Box::new(TiffCodec));
+        registry.register_codec(Box::new(JxlCodec));
+        // Before HEIF: AVIF shares its container, and a file whose major
+        // brand is the generic "mif1" (which the HEIF probe claims) is
+        // still AVIF when "avif" is among its compatible brands. The
+        // browser build registers it too, for export.
+        registry.register_codec(Box::new(AvifCodec));
         #[cfg(not(target_arch = "wasm32"))]
         registry.register_codec(Box::new(HeifCodec));
         registry.register_codec(Box::new(AffinityCodec));
@@ -667,10 +685,32 @@ mod tests {
             "codec.raw"
         );
         assert_eq!(reg.codec_for(b"", Some("NEF")).unwrap().id(), "codec.raw");
-        // AVIF shares the container but is not claimed.
-        assert!(reg
-            .codec_for(b"\x00\x00\x00\x18ftypavif....", None)
-            .is_none());
+        // AVIF shares the container, and goes to its own codec even
+        // under HEIF's generic major brand.
+        assert_eq!(
+            reg.codec_for(b"\x00\x00\x00\x14ftypavif\0\0\0\0mif1", None)
+                .unwrap()
+                .id(),
+            "codec.avif"
+        );
+        assert_eq!(
+            reg.codec_for(b"\x00\x00\x00\x18ftypmif1\0\0\0\0miafavif", None)
+                .unwrap()
+                .id(),
+            "codec.avif"
+        );
+        assert_eq!(
+            reg.codec_for(b"\x00\x00\x00\x18ftypmif1\0\0\0\0mif1heic", None)
+                .unwrap()
+                .id(),
+            "codec.heif"
+        );
+        assert_eq!(reg.codec_for(b"", Some("avif")).unwrap().id(), "codec.avif");
+        assert_eq!(
+            reg.codec_for(b"\xFF\x0A\xFA\x7F", None).unwrap().id(),
+            "codec.jxl"
+        );
+        assert_eq!(reg.codec_for(b"", Some("jxl")).unwrap().id(), "codec.jxl");
         assert_eq!(
             reg.codec_for(b"\x00\xFFKA....", None).unwrap().id(),
             "codec.affinity"

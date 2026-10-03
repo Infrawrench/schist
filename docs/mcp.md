@@ -44,7 +44,7 @@ claude mcp add schist -- /usr/local/bin/schist-mcp
 ## Sessions
 
 Everything starts with `create_session` — open a file (PSD/PSB, PNG,
-JPEG, WebP, TIFF, or Affinity `.af`/`.afphoto`/`.afdesign`/`.afpub`) or
+JPEG, WebP, TIFF, JPEG XL, AVIF, or Affinity `.af`/`.afphoto`/`.afdesign`/`.afpub`) or
 create a blank document — and every other call takes the returned
 session id. Sessions are independent documents with their own tool
 state, selection and history, like the app's tabs.

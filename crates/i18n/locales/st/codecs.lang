@@ -4,6 +4,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Faele e Tala ea Khamera
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -34,6 +36,9 @@ codec.heif.msg.checksum_mismatch = Checksum ea {name} ha e lumellane: ho ne ho l
 codec.heif.msg.imageio_cannot_read = ImageIO ha ea khona ho bala setshelo sa HEIF
 codec.heif.msg.container_empty = setshelo sa HEIF ha se na setšoantšo
 codec.heif.msg.imageio_cannot_decode = ImageIO ha ea khona ho manolla setšoantšo se seholo
+
+# AVIF in the browser build, which has no AV1 decoder (it still exports AVIF).
+codec.avif.msg.no_decoder = Mofuta oa sebatli oa Schist o ke ke oa bula litšoantšo tsa AVIF. Bula faele ho app ya komporo, kapa o e fetolele ho PNG pele.
 
 # Native layered formats.
 codec.pdn.name = Paint.NET

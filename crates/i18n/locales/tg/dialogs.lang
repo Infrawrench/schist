@@ -7,6 +7,7 @@ dialog.layer_props.title = Хусусиятҳои қабат
 dialog.export.format = Қолаб
 dialog.export.dither = Дизеринг
 dialog.export.dither_note = Ҳангоми кам кардан то 8 бит дизеринг татбиқ шавад
+dialog.export.effort = Кӯшиш
 dialog.export.export_ellipsis = Содир кардан…
 dialog.batch.title = Коркарди аксҳо
 dialog.batch.note_edit.other = {n} акс — ҳамчун таҳрирҳои нигористон захира мешаванд; ба аслҳо ҳеҷ гоҳ даст намерасад.

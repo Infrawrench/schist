@@ -7,6 +7,7 @@ dialog.layer_props.title = Taybetmendiyên Layerê
 dialog.export.format = Format
 dialog.export.dither = Dîther
 dialog.export.dither_note = Dema kêmkirina bo 8-bîtî dîther bike
+dialog.export.effort = Hewldan
 dialog.export.export_ellipsis = Derxe…
 dialog.batch.title = Fotografan Bipêvajîne
 dialog.batch.note_edit.one = {n} fotograf — wek sererastkirina galeriyê hat tomarkirin; dest nadin orîjînalê.

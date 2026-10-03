@@ -7,6 +7,7 @@ dialog.layer_props.title = Prôpietés del coûtche
 dialog.export.format = Cogne
 dialog.export.dither = Tramaedje
 dialog.export.dither_note = Tramer cwand on discrêt a 8 bites
+dialog.export.effort = Efoirt
 dialog.export.export_ellipsis = Ebaguer…
 dialog.batch.title = Processer les fotos
 dialog.batch.note_edit.one = {n} foto — schapêye come candjmint del galreye; l' originå n' est måy candjî.

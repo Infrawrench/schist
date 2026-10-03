@@ -3,6 +3,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -29,6 +31,9 @@ codec.heif.msg.checksum_mismatch = តម្លៃផ្ទៀងផ្ទាត
 codec.heif.msg.imageio_cannot_read = ImageIO មិនអាចអានកុងតឺន័រ HEIF
 codec.heif.msg.container_empty = កុងតឺន័រ HEIF គ្មានរូបភាព
 codec.heif.msg.imageio_cannot_decode = ImageIO មិនអាចឌិកូដរូបភាពចម្បង
+
+# AVIF
+codec.avif.msg.no_decoder = កំណែកម្មវិធីរុករករបស់ Schist មិនអាចបើករូបភាព AVIF បានទេ។ សូមបើកឯកសារនៅក្នុងកម្មវិធីកុំព្យូទ័រ ឬបំប្លែងវាទៅជា PNG ជាមុនសិន។
 
 # Native layered formats.
 codec.pdn.name = Paint.NET

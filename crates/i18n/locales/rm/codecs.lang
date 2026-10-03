@@ -4,6 +4,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -30,6 +32,8 @@ codec.heif.msg.checksum_mismatch = La summa da controlla da {name} na correspund
 codec.heif.msg.imageio_cannot_read = ImageIO n'ha betg pudì leger il container HEIF
 codec.heif.msg.container_empty = il container HEIF na cuntegna nagin maletg
 codec.heif.msg.imageio_cannot_decode = ImageIO n'ha betg pudì decodar il maletg principal
+
+codec.avif.msg.no_decoder = La versiun da navigatur da Schist na po betg avrir maletgs AVIF. Avra la datoteca en l'applicaziun da desktop u la converta l'emprim en PNG.
 
 # Native layered formats.
 codec.pdn.name = Paint.NET

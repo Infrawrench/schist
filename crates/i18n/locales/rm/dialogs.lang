@@ -8,6 +8,7 @@ dialog.layer_props.title = Caracteristicas da la stresa
 dialog.export.format = Format
 dialog.export.dither = Tramaischar
 dialog.export.dither_note = Tramaischar cun reducir sin 8 bits
+dialog.export.effort = Sforz
 dialog.export.export_ellipsis = Exportar…
 dialog.batch.title = Elavurar fotografias
 dialog.batch.note_edit.one = {n} fotografia — memorisada sco modificaziun da gallaria; l'original na vegn mai midà.

@@ -7,6 +7,7 @@ dialog.layer_props.title = བང་རིམ་རྒྱུ་དངོས།
 dialog.export.format = རྣམ་བཞག
 dialog.export.dither = ཚག་སྲེས།
 dialog.export.dither_note = 8-bit ལུ་མར་ཕབ་འབདཝ་ད་ཚག་སྲེས་འབད།
+dialog.export.effort = འབད་བརྩོན
 dialog.export.export_ellipsis = ཕྱིར་འདྲེན་…
 dialog.batch.title = པར་ཚུ་བཟོ་སྦྱོར།
 dialog.batch.note_edit.other = པར་གྱི་གྱངས་ཁ་ {n} — སྟོན་ཁང་ཞུན་དག་སྦེ་སྲུངམ་ཨིན། ངོ་མ་ཚུ་ལུ་ནམ་ཡང་མི་རེག

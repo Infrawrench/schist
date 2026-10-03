@@ -7,6 +7,7 @@ dialog.layer_props.title = Qat xüsusiyyətləri
 dialog.export.format = Format
 dialog.export.dither = Dizering
 dialog.export.dither_note = 8 bitə azaldarkən dizering tətbiq et
+dialog.export.effort = Səy
 dialog.export.export_ellipsis = İxrac et…
 dialog.batch.title = Fotoları emal et
 dialog.batch.note_edit.one = {n} foto — qalereya redaktəsi kimi saxlanılır; orijinallara toxunulmur.

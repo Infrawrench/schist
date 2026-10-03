@@ -7,6 +7,7 @@ dialog.layer_props.title = Свойства на слоя
 dialog.export.format = Формат
 dialog.export.dither = Разсейване
 dialog.export.dither_note = Разсейване при намаляване до 8 бита
+dialog.export.effort = Усилие
 dialog.export.export_ellipsis = Експортиране…
 dialog.batch.title = Обработване на снимки
 dialog.batch.note_edit.one = {n} снимка — запазва се като редакция в галерията; оригиналът никога не се променя.

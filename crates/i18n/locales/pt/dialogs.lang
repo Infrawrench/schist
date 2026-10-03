@@ -7,6 +7,7 @@ dialog.layer_props.title = Propriedades da camada
 dialog.export.format = Formato
 dialog.export.dither = Pontilhamento
 dialog.export.dither_note = Aplicar pontilhamento ao reduzir para 8 bits
+dialog.export.effort = Esforço
 dialog.export.export_ellipsis = Exportar…
 dialog.batch.title = Processar fotografias
 dialog.batch.note_edit.one = {n} fotografia — guardada como edição da galeria; o original nunca é alterado.

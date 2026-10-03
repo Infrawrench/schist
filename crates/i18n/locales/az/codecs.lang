@@ -4,6 +4,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -30,6 +32,9 @@ codec.heif.msg.checksum_mismatch = {name} üçün yoxlama cəmi uyğun gəlmir: 
 codec.heif.msg.imageio_cannot_read = ImageIO HEIF konteynerini oxuya bilmədi
 codec.heif.msg.container_empty = HEIF konteynerində şəkil yoxdur
 codec.heif.msg.imageio_cannot_decode = ImageIO əsas şəkli dekodlaya bilmədi
+
+# AVIF in the browser build, which has no AV1 decoder (it still exports AVIF).
+codec.avif.msg.no_decoder = Schist-in brauzer versiyası AVIF şəkillərini aça bilmir. Faylı masaüstü tətbiqində açın və ya əvvəlcə PNG-yə çevirin.
 
 # Native layered formats.
 codec.pdn.name = Paint.NET

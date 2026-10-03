@@ -3,6 +3,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -29,6 +31,9 @@ codec.heif.msg.checksum_mismatch = {name} இன் சரிபார்ப்�
 codec.heif.msg.imageio_cannot_read = ImageIO ஆல் HEIF கொள்கலனைப் படிக்க முடியவில்லை
 codec.heif.msg.container_empty = HEIF கொள்கலனில் படம் இல்லை
 codec.heif.msg.imageio_cannot_decode = ImageIO ஆல் முதன்மைப் படத்தின் குறியீட்டை நீக்க முடியவில்லை
+
+# AVIF in the browser build, which has no AV1 decoder (it still exports AVIF).
+codec.avif.msg.no_decoder = Schist இன் உலாவிப் பதிப்பால் AVIF படங்களைத் திறக்க முடியாது. கோப்பை டெஸ்க்டாப் பயன்பாட்டில் திறக்கவும், அல்லது முதலில் அதை PNG ஆக மாற்றவும்.
 
 # Native layered formats.
 codec.pdn.name = Paint.NET

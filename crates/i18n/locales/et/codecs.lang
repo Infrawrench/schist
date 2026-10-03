@@ -3,6 +3,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -29,6 +31,8 @@ codec.heif.msg.checksum_mismatch = Faili {name} kontrollsumma ei ühti: oodati {
 codec.heif.msg.imageio_cannot_read = ImageIO ei suutnud HEIF-konteinerit lugeda
 codec.heif.msg.container_empty = HEIF-konteineris pole pilti
 codec.heif.msg.imageio_cannot_decode = ImageIO ei suutnud põhipilti dekodeerida
+
+codec.avif.msg.no_decoder = Schisti brauseriversioon ei saa AVIF-pilte avada. Avage fail töölauarakenduses või teisendage see esmalt PNG-vormingusse.
 
 # Native layered formats.
 codec.pdn.name = Paint.NET

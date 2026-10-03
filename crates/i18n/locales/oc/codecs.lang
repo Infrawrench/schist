@@ -4,6 +4,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -38,6 +40,8 @@ codec.heif.msg.checksum_mismatch = La soma de contraròtle de {name} correspond 
 codec.heif.msg.imageio_cannot_read = ImageIO a pas pogut legir lo contenidor HEIF
 codec.heif.msg.container_empty = lo contenidor HEIF conten pas cap d'imatge
 codec.heif.msg.imageio_cannot_decode = ImageIO a pas pogut descodar l'imatge principal
+
+codec.avif.msg.no_decoder = La version navigador de Schist pòt pas dobrir los imatges AVIF. Dobrir lo fichièr dins l'aplicacion de burèu, o lo convertir en PNG d'en primièr.
 
 # Native layered formats.
 codec.pdn.name = Paint.NET

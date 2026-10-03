@@ -8,6 +8,7 @@ dialog.layer_props.title = Proprietás del strate
 dialog.export.format = Formate
 dialog.export.dither = Tramage
 dialog.export.dither_note = Aplicar tramage quande reductente a 8 bits
+dialog.export.effort = Effortie
 dialog.export.export_ellipsis = Exportar…
 dialog.batch.title = Processar fotos
 dialog.batch.note_edit.one = {n} foto — gardat quam redaction del galerie; li originale ne es jammais alterat.

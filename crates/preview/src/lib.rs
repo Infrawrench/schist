@@ -119,6 +119,17 @@ pub fn render(bytes: &[u8], max_edge: u32) -> Result<Preview> {
             let doc = schist_codecs_common::HeifCodec.import(bytes)?;
             return composite_preview(doc, max_edge);
         }
+        // Nor does it read JPEG XL, or AVIF without a C decoder; both
+        // have pure-Rust codecs of their own. (The browser build has no
+        // AV1 decoder, and its error says so.)
+        if schist_codecs_common::JxlCodec.probe(bytes) {
+            use schist_plugin_api::CodecPlugin as _;
+            return composite_preview(schist_codecs_common::JxlCodec.import(bytes)?, max_edge);
+        }
+        if schist_codecs_common::AvifCodec.probe(bytes) {
+            use schist_plugin_api::CodecPlugin as _;
+            return composite_preview(schist_codecs_common::AvifCodec.import(bytes)?, max_edge);
+        }
         // Camera raws likewise, and before the generic decoder for a
         // second reason: most of them are TIFF containers, which it
         // would open and hand back the thumbnail IFD of.

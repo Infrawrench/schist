@@ -7,6 +7,7 @@ dialog.layer_props.title = Tason ominaisuudet
 dialog.export.format = Muoto
 dialog.export.dither = Rasterointi
 dialog.export.dither_note = Rasteroi 8-bittiseksi muunnettaessa
+dialog.export.effort = Pakkausteho
 dialog.export.export_ellipsis = Vie…
 dialog.batch.title = Käsittele kuvia
 dialog.batch.note_edit.one = {n} kuva — tallennetaan galleriamuokkauksena; alkuperäiseen ei koskaan kosketa.

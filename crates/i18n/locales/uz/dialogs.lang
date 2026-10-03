@@ -7,6 +7,7 @@ dialog.layer_props.title = Qatlam xususiyatlari
 dialog.export.format = Format
 dialog.export.dither = Diterlash
 dialog.export.dither_note = 8 bitgacha kamaytirishda diterlash
+dialog.export.effort = Siqish kuchi
 dialog.export.export_ellipsis = Eksport qilish…
 dialog.batch.title = Suratlarni qayta ishlash
 dialog.batch.note_edit.one = {n} ta surat — galereya tahriri sifatida saqlanadi; asl nusxaga tegilmaydi.

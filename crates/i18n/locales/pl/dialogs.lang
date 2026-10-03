@@ -7,6 +7,7 @@ dialog.layer_props.title = Właściwości warstwy
 dialog.export.format = Format
 dialog.export.dither = Roztrząsanie
 dialog.export.dither_note = Zastosuj roztrząsanie przy redukcji do 8 bitów
+dialog.export.effort = Wysiłek
 dialog.export.export_ellipsis = Eksportuj…
 dialog.batch.title = Przetwarzanie zdjęć
 dialog.batch.note_edit.one = {n} zdjęcie — zapisane jako zmiany w galerii; oryginał nigdy nie zostanie naruszony.

@@ -11,6 +11,7 @@ dialog.layer_props.title = Proprietà livello
 dialog.export.format = Formato
 dialog.export.dither = Dithering
 dialog.export.dither_note = Applica il dithering durante la riduzione a 8 bit
+dialog.export.effort = Sforzo
 dialog.export.export_ellipsis = Esporta…
 
 # Elaborazione foto

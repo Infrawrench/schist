@@ -7,6 +7,7 @@ dialog.layer_props.title = Ιδιότητες επιπέδου
 dialog.export.format = Μορφή
 dialog.export.dither = Πρόσμειξη
 dialog.export.dither_note = Πρόσμειξη κατά τη μείωση σε 8 bit
+dialog.export.effort = Προσπάθεια
 dialog.export.export_ellipsis = Εξαγωγή…
 dialog.batch.title = Επεξεργασία φωτογραφιών
 dialog.batch.note_edit.one = {n} φωτογραφία — αποθηκεύεται ως επεξεργασία συλλογής· το πρωτότυπο δεν αλλάζει ποτέ.

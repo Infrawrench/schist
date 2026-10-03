@@ -7,6 +7,7 @@ dialog.layer_props.title = ସ୍ତର ଗୁଣଧର୍ମ
 dialog.export.format = ଫର୍ମାଟ୍
 dialog.export.dither = ଡିଦର୍
 dialog.export.dither_note = 8-ବିଟ୍‌କୁ ହ୍ରାସ କରିବାବେଳେ ଡିଦର୍ କରନ୍ତୁ
+dialog.export.effort = ପ୍ରୟାସ
 dialog.export.export_ellipsis = ରପ୍ତାନି କରନ୍ତୁ…
 dialog.batch.title = ଫଟୋ ପ୍ରକ୍ରିୟାକରଣ
 dialog.batch.note_edit.one = {n}ଟି ଫଟୋ — ଗ୍ୟାଲେରୀ ସମ୍ପାଦନ ଭାବେ ସଞ୍ଚୟ ହେବ; ମୂଳ ଫଟୋ କେବେ ସ୍ପର୍ଶ ହେବ ନାହିଁ।

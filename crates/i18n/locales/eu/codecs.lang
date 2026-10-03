@@ -3,6 +3,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -29,6 +31,8 @@ codec.heif.msg.checksum_mismatch = {name} fitxategiaren egiaztapen-batura ez dat
 codec.heif.msg.imageio_cannot_read = ImageIOk ezin izan du HEIF edukiontzia irakurri
 codec.heif.msg.container_empty = HEIF edukiontziak ez du irudirik
 codec.heif.msg.imageio_cannot_decode = ImageIOk ezin izan du irudi nagusia deskodetu
+
+codec.avif.msg.no_decoder = Schist-en arakatzaile-bertsioak ezin ditu AVIF irudiak ireki. Ireki fitxategia mahaigaineko aplikazioan, edo bihurtu lehenik PNG formatura.
 
 # Native layered formats.
 codec.pdn.name = Paint.NET

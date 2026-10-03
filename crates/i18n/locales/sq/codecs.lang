@@ -4,6 +4,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -30,6 +32,9 @@ codec.heif.msg.checksum_mismatch = Shuma e kontrollit për {name} nuk përputhet
 codec.heif.msg.imageio_cannot_read = ImageIO nuk mund ta lexonte kontejnerin HEIF
 codec.heif.msg.container_empty = kontejneri HEIF nuk përmban imazh
 codec.heif.msg.imageio_cannot_decode = ImageIO nuk mund ta dekodonte imazhin kryesor
+
+# AVIF in the browser build, which has no AV1 decoder (it still exports AVIF).
+codec.avif.msg.no_decoder = Versioni i Schist për shfletues nuk mund të hapë imazhe AVIF. Hape skedarin në aplikacionin për desktop ose shndërroje fillimisht në PNG.
 
 # Native layered formats.
 codec.pdn.name = Paint.NET

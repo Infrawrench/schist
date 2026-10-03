@@ -3,6 +3,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -33,6 +35,9 @@ codec.heif.msg.checksum_mismatch = {name} өчен тикшерү суммасы
 codec.heif.msg.imageio_cannot_read = ImageIO HEIF контейнерын укый алмады
 codec.heif.msg.container_empty = HEIF контейнерында рәсем юк
 codec.heif.msg.imageio_cannot_decode = ImageIO төп рәсемне декодлый алмады
+
+# AVIF in the browser build, which has no AV1 decoder (it still exports AVIF).
+codec.avif.msg.no_decoder = Schist'ның браузер версиясе AVIF рәсемнәрен ача алмый. Файлны компьютер кушымтасында ачыгыз яки башта аны PNG форматына әйләндерегез.
 
 # Native layered formats.
 codec.pdn.name = Paint.NET

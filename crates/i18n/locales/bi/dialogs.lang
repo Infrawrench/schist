@@ -7,6 +7,7 @@ dialog.layer_props.title = Ol Property blong Layer
 dialog.export.format = Kaen blong fael
 dialog.export.dither = Miksim ol smol kala
 dialog.export.dither_note = Dither taem yu daonem i go long 8-bit
+dialog.export.effort = Traehad
 dialog.export.export_ellipsis = Eksportem…
 dialog.batch.title = Prosesem Ol Foto
 dialog.batch.note_edit.other = Namba blong foto: {n}—sevem olsem ol edit long gallery; i neva tajem ol original.

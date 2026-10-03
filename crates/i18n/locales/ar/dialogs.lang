@@ -7,6 +7,7 @@ dialog.layer_props.title = خصائص الطبقة
 dialog.export.format = التنسيق
 dialog.export.dither = مزج عشوائي
 dialog.export.dither_note = تطبيق المزج العشوائي عند التخفيض إلى 8 بت
+dialog.export.effort = الجهد
 dialog.export.export_ellipsis = تصدير…
 dialog.batch.title = معالجة الصور
 dialog.batch.note_edit.zero = {n} صورة — ستُحفظ كتعديلات في المعرض؛ ولن تُمس الملفات الأصلية.

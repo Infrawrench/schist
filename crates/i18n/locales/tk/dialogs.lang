@@ -9,6 +9,7 @@ dialog.layer_props.title = Gatlagyň häsiýetleri
 dialog.export.format = Format
 dialog.export.dither = Diter
 dialog.export.dither_note = 8 bite peseldilende diter ulanmak
+dialog.export.effort = Tagalla
 dialog.export.export_ellipsis = Eksport etmek…
 
 dialog.batch.title = Suratlary işlemek

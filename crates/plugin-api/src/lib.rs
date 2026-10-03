@@ -498,6 +498,9 @@ pub struct ExportOptions {
     pub bit_depth: u8,
     /// Dither when reducing depth, to avoid banding.
     pub dither: bool,
+    /// 1..=10: how hard the encoder works for a smaller file, for
+    /// formats where that is a choice (JPEG XL, AVIF). Higher is slower.
+    pub effort: u8,
 }
 
 impl Default for ExportOptions {
@@ -506,6 +509,7 @@ impl Default for ExportOptions {
             quality: 90,
             bit_depth: 8,
             dither: true,
+            effort: 7,
         }
     }
 }
@@ -533,6 +537,15 @@ pub trait CodecPlugin: Send + Sync {
     /// Whether the export dialog should offer a quality slider.
     fn supports_quality(&self) -> bool {
         false
+    }
+    /// Whether the export dialog should offer an effort slider.
+    fn supports_effort(&self) -> bool {
+        false
+    }
+    /// The bits per channel `export_with` can write, ascending. The
+    /// export dialog offers a choice when there is more than one.
+    fn bit_depths(&self) -> &'static [u8] {
+        &[8]
     }
 }
 

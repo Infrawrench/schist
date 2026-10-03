@@ -16,6 +16,8 @@ dialog.layer_props.title = Layer Properties
 dialog.export.format = Format
 dialog.export.dither = Dither
 dialog.export.dither_note = Dither when reducing to 8-bit
+# How hard a JPEG XL or AVIF encoder works: higher is slower and smaller.
+dialog.export.effort = Effort
 dialog.export.export_ellipsis = Export…
 
 # Process Photos (the gallery's batch dialog)

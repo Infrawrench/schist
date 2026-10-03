@@ -7,6 +7,7 @@ dialog.layer_props.title = מאפייני שכבה
 dialog.export.format = תבנית
 dialog.export.dither = ריעוד
 dialog.export.dither_note = ריעוד בעת הפחתה ל־8 סיביות
+dialog.export.effort = מאמץ
 dialog.export.export_ellipsis = ייצוא…
 dialog.batch.title = עיבוד תמונות
 dialog.batch.note_edit.one = תמונה {n} — נשמרת כעריכת גלריה; המקור אינו משתנה לעולם.

@@ -4,6 +4,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -34,6 +36,9 @@ codec.heif.msg.checksum_mismatch = Контролната сума на {name} �
 codec.heif.msg.imageio_cannot_read = ImageIO не можа да прочете контейнера HEIF
 codec.heif.msg.container_empty = контейнерът HEIF не съдържа изображение
 codec.heif.msg.imageio_cannot_decode = ImageIO не можа да декодира основното изображение
+
+# AVIF in the browser build, which has no AV1 decoder (it still exports AVIF).
+codec.avif.msg.no_decoder = Версията на Schist за браузър не може да отваря изображения AVIF. Отворете файла в настолното приложение или първо го конвертирайте в PNG.
 
 # Native layered formats.
 codec.pdn.name = Paint.NET

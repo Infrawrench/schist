@@ -3,6 +3,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -29,6 +31,9 @@ codec.heif.msg.checksum_mismatch = Li somme di verifiaedje di {name} ni corespon
 codec.heif.msg.imageio_cannot_read = ImageIO n' a nén savou lére li contneu HEIF
 codec.heif.msg.container_empty = li contneu HEIF ni contént nole imådje
 codec.heif.msg.imageio_cannot_decode = ImageIO n' a nén savou discoder l' imådje mwaisse
+
+# AVIF in the browser build, which has no AV1 decoder (it still exports AVIF).
+codec.avif.msg.no_decoder = Li modêye betchteu di Schist ni pout nén drovi des imådjes AVIF. Drovoz l' fitchî dins l' programe di scribanne, oudonbén coviersez-l' e PNG d' avance.
 
 # Native layered formats.
 codec.pdn.name = Paint.NET

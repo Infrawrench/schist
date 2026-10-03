@@ -7,6 +7,7 @@ dialog.layer_props.title = Thuộc tính lớp
 dialog.export.format = Định dạng
 dialog.export.dither = Phối màu
 dialog.export.dither_note = Phối màu khi giảm xuống 8 bit
+dialog.export.effort = Mức nỗ lực
 dialog.export.export_ellipsis = Xuất…
 dialog.batch.title = Xử lý ảnh
 dialog.batch.note_edit.other = {n} ảnh — lưu dưới dạng chỉnh sửa trong thư viện; bản gốc không bao giờ bị thay đổi.

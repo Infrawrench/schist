@@ -8,6 +8,7 @@ dialog.layer_props.title = Properti Lapisan
 dialog.export.format = Format
 dialog.export.dither = Diter
 dialog.export.dither_note = Dither nalika ngurangi dadi 8-bit
+dialog.export.effort = Upaya
 dialog.export.export_ellipsis = Ekspor…
 dialog.batch.title = Prosès Foto
 dialog.batch.note_edit.other = {n} foto — disimpen minangka suntingan galèri; berkas asli ora tau diowahi.

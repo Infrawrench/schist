@@ -7,6 +7,7 @@ dialog.layer_props.title = Màndargay couche
 dialog.export.format = Formaa
 dialog.export.dither = Jaxase pixels yu ndaw
 dialog.export.dither_note = Jaxase pixels yi bu ñuy wàcce ci 8-bit
+dialog.export.effort = Coono
 dialog.export.export_ellipsis = Génne…
 dialog.batch.title = Liggéeyal foto yi
 dialog.batch.note_edit.other = {n} foto — denc ni coppite galeri; nataalu cosaan bu foto bi nekk duñu ko laal mukk.

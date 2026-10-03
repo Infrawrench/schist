@@ -7,6 +7,7 @@ dialog.layer_props.title = Proprietats del calc
 dialog.export.format = Format
 dialog.export.dither = Tramatge
 dialog.export.dither_note = Aplicar un tramatge en redusent a 8 bits
+dialog.export.effort = Esfòrç
 dialog.export.export_ellipsis = Exportar…
 dialog.batch.title = Tractar las fòtos
 dialog.batch.note_edit.other = Nombre de fòtos : {n} — enregistradas coma modificacions de galariá ; los originals son pas jamai tocats.

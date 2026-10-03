@@ -3,6 +3,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Sary manta avy amin'ny fakantsary
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -29,6 +31,8 @@ codec.heif.msg.checksum_mismatch = Tsy mifanaraka ny checksum an'i {name}: {expe
 codec.heif.msg.imageio_cannot_read = Tsy afaka namaky ny fitoeran'ny HEIF ny ImageIO
 codec.heif.msg.container_empty = tsy misy sary ao amin'ny fitoeran'ny HEIF
 codec.heif.msg.imageio_cannot_decode = Tsy afaka namadika ny sary fototra ny ImageIO
+
+codec.avif.msg.no_decoder = Tsy afaka manokatra sary AVIF ny dikan'ny Schist ao amin'ny mpitety. Sokafy ao amin'ny rindranasa birao ilay rakitra, na avadiho ho PNG aloha.
 
 # Native layered formats.
 codec.pdn.name = Paint.NET

@@ -7,6 +7,7 @@ dialog.layer_props.title = Iimpawu Zomaleko
 dialog.export.format = Ifomathi
 dialog.export.dither = Xuba Amaqondo Ombala
 dialog.export.dither_note = Xuba amaqondo ombala xa unciphisa ukuya kwi-8-bit
+dialog.export.effort = Umzamo
 dialog.export.export_ellipsis = Thumela Ngaphandle…
 dialog.batch.title = Lungisa Iifoto
 dialog.batch.note_edit.one = Ifoto eyi-{n} — igcinwa njengohlelo lwegalari; eyokuqala ayichukunyiswa.

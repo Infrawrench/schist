@@ -7,6 +7,7 @@ dialog.layer_props.title = Airíonna Sraithe
 dialog.export.format = Formáid
 dialog.export.dither = Dither
 dialog.export.dither_note = Cuir dither i bhfeidhm nuair a laghdaítear go 8 ngiotán
+dialog.export.effort = Iarracht
 dialog.export.export_ellipsis = Easpórtáil…
 dialog.batch.title = Próiseáil Grianghraf
 dialog.batch.note_edit.one = {n} ghrianghraf — sábháiltear mar eagarthóireacht ghailearaí é; ní bhaintear do na bunchóipeanna riamh.

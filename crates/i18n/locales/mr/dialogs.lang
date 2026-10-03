@@ -7,6 +7,7 @@ dialog.layer_props.title = स्तर गुणधर्म
 dialog.export.format = स्वरूप
 dialog.export.dither = डिथर
 dialog.export.dither_note = 8-बिटमध्ये कमी करताना डिथर करा
+dialog.export.effort = प्रयत्न
 dialog.export.export_ellipsis = निर्यात करा…
 dialog.batch.title = फोटो प्रक्रिया
 dialog.batch.note_edit.one = {n} फोटो — गॅलरी संपादन म्हणून जतन; मूळ फोटोला कधीही स्पर्श होत नाही.

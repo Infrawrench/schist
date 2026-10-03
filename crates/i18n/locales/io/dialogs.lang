@@ -8,6 +8,7 @@ dialog.layer_props.title = Stratoproprieti
 dialog.export.format = Formato
 dialog.export.dither = Difuza bruido
 dialog.export.dither_note = Difuza bruido dum redukto a 8 biti
+dialog.export.effort = Esforco
 dialog.export.export_ellipsis = Exportar…
 dialog.batch.title = Procesar fotografuri
 dialog.batch.note_edit.one = {n} fotografuro — konservita kom galerioredakto; la originalo nultempe tuchesas.

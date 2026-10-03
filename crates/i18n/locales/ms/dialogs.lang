@@ -16,6 +16,7 @@ dialog.layer_props.title = Sifat Lapisan
 dialog.export.format = Format
 dialog.export.dither = Penditeran
 dialog.export.dither_note = Diter apabila mengurangkan kepada 8 bit
+dialog.export.effort = Usaha
 dialog.export.export_ellipsis = Eksport…
 
 # Proses Foto (dialog kelompok galeri)

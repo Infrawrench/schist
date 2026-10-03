@@ -4,6 +4,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -38,6 +40,9 @@ codec.heif.msg.checksum_mismatch = Sa suma de controllu de {name} no currisponde
 codec.heif.msg.imageio_cannot_read = ImageIO no at pòdidu lèghere su cuntènnidore HEIF
 codec.heif.msg.container_empty = su cuntènnidore HEIF no tenet peruna immàgine
 codec.heif.msg.imageio_cannot_decode = ImageIO no at pòdidu decodificare s'immàgine printzipale
+
+# AVIF in the browser build, which has no AV1 decoder (it still exports AVIF).
+codec.avif.msg.no_decoder = Sa versione de Schist pro su navigadore no podet abèrrere immàgines AVIF. Aberi s'archìviu in s'aplicatzione de iscrivania, o cunverti·lu in PNG in antis.
 
 # Native layered formats.
 codec.pdn.name = Paint.NET

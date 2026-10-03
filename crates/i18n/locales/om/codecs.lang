@@ -3,6 +3,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -29,6 +31,8 @@ codec.heif.msg.checksum_mismatch = Cheeksamiin {name} wal hin gitu: {expected} e
 codec.heif.msg.imageio_cannot_read = ImageIO qabduu HEIF dubbisuu hin dandeenye
 codec.heif.msg.container_empty = qabduun HEIF suuraa hin qabu
 codec.heif.msg.imageio_cannot_decode = ImageIO suuraa ijoo hiikuu hin dandeenye
+
+codec.avif.msg.no_decoder = Gosti biraawzarii Schist suuraa AVIF banuu hin danda'u. Faayilicha appii deeskitooppii keessatti bani, yookaan dura gara PNG tti jijjiiri.
 
 # Native layered formats.
 codec.pdn.name = Paint.NET

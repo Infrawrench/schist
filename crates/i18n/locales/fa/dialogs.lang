@@ -7,6 +7,7 @@ dialog.layer_props.title = ویژگی‌های لایه
 dialog.export.format = قالب
 dialog.export.dither = دیتر
 dialog.export.dither_note = هنگام کاهش به ۸ بیت دیتر شود
+dialog.export.effort = میزان تلاش
 dialog.export.export_ellipsis = صادرکردن…
 dialog.batch.title = پردازش عکس‌ها
 dialog.batch.note_edit.one = {n} عکس — به‌صورت ویرایش گالری ذخیره می‌شود؛ فایل اصلی هرگز تغییر نمی‌کند.

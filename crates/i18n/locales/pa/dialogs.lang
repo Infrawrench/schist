@@ -7,6 +7,7 @@ dialog.layer_props.title = ਪਰਤ ਵਿਸ਼ੇਸ਼ਤਾਵਾਂ
 dialog.export.format = ਫਾਰਮੈਟ
 dialog.export.dither = ਡਿਥਰ
 dialog.export.dither_note = 8-ਬਿੱਟ ਤੱਕ ਘਟਾਉਂਦੇ ਸਮੇਂ ਡਿਥਰ ਕਰੋ
+dialog.export.effort = ਯਤਨ
 dialog.export.export_ellipsis = ਨਿਰਯਾਤ ਕਰੋ…
 dialog.batch.title = ਫ਼ੋਟੋਆਂ ਉੱਤੇ ਕਾਰਵਾਈ
 dialog.batch.note_edit.one = {n} ਫ਼ੋਟੋ — ਗੈਲਰੀ ਸੰਪਾਦਨ ਵਜੋਂ ਸੰਭਾਲੀ; ਮੂਲ ਨੂੰ ਕਦੇ ਨਹੀਂ ਛੋਹਿਆ ਜਾਂਦਾ।

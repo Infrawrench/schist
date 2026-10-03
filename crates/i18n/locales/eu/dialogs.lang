@@ -11,6 +11,7 @@ dialog.layer_props.title = Geruzaren propietateak
 dialog.export.format = Formatua
 dialog.export.dither = Bilbea
 dialog.export.dither_note = Aplikatu bilbea 8 bitera murriztean
+dialog.export.effort = Ahalegina
 dialog.export.export_ellipsis = Esportatu…
 
 # Argazkiak prozesatu

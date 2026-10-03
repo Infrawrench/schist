@@ -8,6 +8,7 @@ dialog.layer_props.title = ಲೇಯರ್ ಗುಣಲಕ್ಷಣಗಳು
 dialog.export.format = ಸ್ವರೂಪ
 dialog.export.dither = ಡಿದರ್
 dialog.export.dither_note = 8-ಬಿಟ್‌ಗೆ ಕಡಿಮೆಮಾಡುವಾಗ ಡಿದರ್ ಮಾಡಿ
+dialog.export.effort = ಪ್ರಯತ್ನ
 dialog.export.export_ellipsis = ರಫ್ತುಮಾಡಿ…
 dialog.batch.title = ಫೋಟೋಗಳನ್ನು ಸಂಸ್ಕರಿಸಿ
 dialog.batch.note_edit.one = {n} ಫೋಟೋ—ಗ್ಯಾಲರಿ ಸಂಪಾದನೆಯಾಗಿ ಉಳಿಸಲಾಗಿದೆ; ಮೂಲವನ್ನು ಎಂದಿಗೂ ಬದಲಿಸುವುದಿಲ್ಲ.

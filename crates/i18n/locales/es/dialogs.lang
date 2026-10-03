@@ -8,6 +8,7 @@ dialog.layer_props.title = Propiedades de capa
 dialog.export.format = Formato
 dialog.export.dither = Tramado
 dialog.export.dither_note = Aplicar tramado al reducir a 8 bits
+dialog.export.effort = Esfuerzo
 dialog.export.export_ellipsis = Exportar…
 dialog.batch.title = Procesar fotos
 dialog.batch.note_edit.one = {n} foto — se guarda como edición de la galería; el original nunca se modifica.

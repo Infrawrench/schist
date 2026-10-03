@@ -3,6 +3,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -29,6 +31,9 @@ codec.heif.msg.checksum_mismatch = {name} සඳහා පිරික්සු�
 codec.heif.msg.imageio_cannot_read = ImageIO හට HEIF බහාලුම කියවිය නොහැකි විය
 codec.heif.msg.container_empty = HEIF බහාලුමේ රූපයක් නැත
 codec.heif.msg.imageio_cannot_decode = ImageIO හට ප්‍රධාන රූපය විකේතනය කළ නොහැකි විය
+
+# AVIF in the browser build, which has no AV1 decoder (it still exports AVIF).
+codec.avif.msg.no_decoder = Schist හි බ්‍රවුසර අනුවාදයට AVIF රූප විවෘත කළ නොහැක. ගොනුව ඩෙස්ක්ටොප් යෙදුමේ විවෘත කරන්න, නැතහොත් පළමුව එය PNG බවට පරිවර්තනය කරන්න.
 
 # Native layered formats.
 codec.pdn.name = Paint.NET
