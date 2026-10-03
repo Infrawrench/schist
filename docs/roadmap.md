@@ -311,6 +311,36 @@ are marked.
 ## Handoff
 
 
+Content instruction retention, 2026-10-03:
+A regression against the public PSU templates reproduced four page-number
+instructions silently disappearing during story decoding. Main Content
+instructions now retain their exact bytes, UTF-8 positions, effective named
+formatting and native page-number mode as diagnosed recovery data. They add no
+source characters. Existing typed footnote markers keep their separate path;
+unknown instructions inside opaque containers remain in the original outer XML.
+Native marker composition/export remains an explicit gap.
+
+Five new properties and existing footnote/structure checks pass, including
+marker-only stories, ordered instructions at every UTF-8 boundary, entities/CDATA,
+paragraph breaks, one-step undo, repeated saves and external native edits that
+invalidate stale coordinates. Initial synthetic inputs accidentally carried seed
+metadata and were corrected to use native story XML; the original fixture failure
+and corrected failing-before log remain. The outer-container test distinguishes
+exact container bytes from exact PI bytes in constructed context wrappers. Its
+original byte comparisons remain in force for whole native containers.
+
+All 16 roadmap targets, shared UI, formatting and whitespace checks pass:
+**2,026 distinct Rust tests**, four browser checks and eight Python audit tests;
+one existing shared UI documentation example remains ignored. All 41 recorded
+prior PDF proofs remain byte-identical. Native debug build passes in 3m 28s;
+the isolated Design-enabled QA bundle is refreshed and hash/signature verified.
+No UI or locale keys change. Evidence is under `/tmp/schist-story-instructions-*`;
+four applied temporary drafts were removed. Prepared for draft PR #195.
+Letter-count rules are published as `bc2a19f2` below. Continue the documented
+structured-story and object integration gaps locally without waiting for CI.
+Sentence segmentation and native control composition still need further evidence;
+INDD remains spike-gated.
+
 Letter-count nested rules, 2026-10-03:
 Letters now counts Unicode Letter scalars and keeps cuts on whole graphemes.
 Numbers, combining marks, punctuation and symbols cannot consume the count.

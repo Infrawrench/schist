@@ -116,13 +116,23 @@ fn published_tables_footnotes_and_inline_math_survive_repeated_saves_as_inert_da
     }
     assert!(structures.iter().any(|s| s.payload.contains("MathObject")));
     for s in &structures {
+        // Outer containers retain their exact native bytes. A Content PI keeps
+        // those bytes inside recovery wrappers recording its effective styles.
+        let original = if s.kind == "ProcessingInstruction" {
+            let tree = xml::parse(&s.payload).unwrap();
+            let content = tree.find("Content").unwrap();
+            assert_eq!(content.instructions.len(), 1);
+            format!("<?{}?>", content.instructions[0].1)
+        } else {
+            s.payload.clone()
+        };
         assert!(package
             .names()
             .iter()
             .filter(|n| n.starts_with("Stories/"))
             .any(|name| std::str::from_utf8(package.get(name).unwrap())
                 .unwrap()
-                .contains(&s.payload)));
+                .contains(&original)));
     }
     for _ in 0..4 {
         let saved = export::write(&doc);

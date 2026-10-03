@@ -2464,3 +2464,43 @@ internal periods in a numbered heading form one sentence boundary. A second
 shows an abbreviation ending a first-sentence rule early. These observations do
 not establish exact quote, punctuation-run or through/up-to endpoints. Counting
 every period as a separate sentence would contradict the heading evidence.
+
+
+### Content processing instructions
+
+The public Penn State academic and literary templates each contain two automatic
+page-number instructions (`<?ACE 18?>`) in parent-page stories
+`Stories/Story_u120fb.xml` and `Stories/Story_u120cd.xml`. The existing typed note
+uses `<?ACE 4?>`. The [public behavioral report by Marc Autret](https://indiscripts.com/post/2025/12/indexmatic3-xml-idml-bug-fixes)
+identifies other native control instructions, including end-nested-style, indent,
+right-indent and section markers. No proprietary implementation or SDK header is
+used. General instruction retention does not depend on guessing an unknown code's
+meaning.
+
+The XML parser already kept these instructions and their offsets in decoded
+Content. Story decoding discarded every instruction except note-body markers,
+and then discarded even those when encountered outside a supported note. Main
+Content instructions now become anchored, unrendered story structures instead.
+Their order and UTF-8 positions survive entities, CDATA, multiple Content chunks,
+paragraph breaks and empty marker-only stories, without inserting source bytes.
+
+Each recovery payload contains the exact instruction inside constructed XML
+wrappers recording its effective paragraph/character style names and the native
+PageNumberType value. These wrappers are recovery context, not original outer
+container bytes or native marker output. They distinguish current/next/previous
+page-number settings and keep local formatting lowered to named styles. Existing
+Schist.StructuredStory.v1 retention preserves this data through edits, undo and
+repeated saves. Native instruction changes invalidate stale saved coordinates;
+new native markers keep their source positions while old payloads survive with
+unknown locations. Instructions inside unsupported outer containers stay inside
+that original XML, without duplicate extraction. Supported note-body ACE 4 markers
+continue through the existing typed note path.
+
+The existing import/export notice, retained count and missing-structure preflight
+error disclose the unrendered content. No native page-number, section, indent or
+end-nested-style composition/export is claimed yet. Five new properties cover
+source boundaries, order, formatting context, page-number modes, marker-only
+stories, exact undo/redo, repeated saves, external edits and the four actual page
+markers in the public templates. Existing outer-container byte comparisons still
+apply; contextual instruction records compare their exact inner PI bytes. Full
+local verification is recorded in Roadmap / Handoff.

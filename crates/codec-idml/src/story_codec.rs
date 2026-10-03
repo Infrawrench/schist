@@ -25,6 +25,15 @@ fn visit(
     refs: &style_codec::References,
     report: &mut Report,
 ) {
+    // Content PIs may carry document characters; do not ignore them as metadata.
+    // Typed note markers are already covered by the Footnote notice; other
+    // instructions remain anchored recovery data until composition is supported.
+    if element.name == "Content" && !element.instructions.is_empty() {
+        let message = schist_i18n::t("design.idml_story_structure").to_string();
+        if !report.skipped.contains(&message) {
+            report.skip(message);
+        }
+    }
     match element.name.as_str() {
         name if crate::xml::story_structure(name) => {
             let message = schist_i18n::t("design.idml_story_structure").to_string();
@@ -80,11 +89,17 @@ fn visit(
 /// See the public specification, examples 48–50. Style offsets are derived
 /// from the finished Story so its inter-paragraph separators count once.
 pub(crate) fn decode(story: &Element) -> Story {
-    decode_with_markers(story).0
+    decode_with_markers(story, false).0
 }
 
-fn decode_with_markers(story: &Element) -> (Story, Vec<schist_layout::footnotes::FootnoteMarker>) {
-    let mut builder = StoryBuilder::default();
+fn decode_with_markers(
+    story: &Element,
+    footnote_markers: bool,
+) -> (Story, Vec<schist_layout::footnotes::FootnoteMarker>) {
+    let mut builder = StoryBuilder {
+        footnote_markers,
+        ..Default::default()
+    };
     if let Some(preference) = story.child("StoryPreference") {
         builder.out.prefs.direction = match preference.attr("StoryDirection") {
             Some("RightToLeftDirection") => schist_layout::StoryDirection::RightToLeft,
@@ -95,7 +110,7 @@ fn decode_with_markers(story: &Element) -> (Story, Vec<schist_layout::footnotes:
             _ => schist_layout::StoryOrientation::Horizontal,
         };
     }
-    builder.walk(story, "", "", "Anywhere");
+    builder.walk(story, "", "", "Anywhere", None);
     if !builder.text.is_empty()
         || builder.out.points.is_empty()
         || builder.trailing_paragraph
@@ -174,7 +189,7 @@ fn footnote(
     }
     let mut body = element.clone();
     body.name = "Story".into();
-    let (story, markers) = decode_with_markers(&body);
+    let (story, markers) = decode_with_markers(&body, true);
     let note = schist_layout::footnotes::FootnoteBody {
         story,
         markers,
@@ -194,6 +209,7 @@ struct StoryBuilder {
     trailing_paragraph: bool,
     structures: Vec<(usize, schist_layout::StoryStructure)>,
     markers: Vec<(usize, schist_layout::footnotes::FootnoteMarker)>,
+    footnote_markers: bool,
 }
 
 impl StoryBuilder {
@@ -229,12 +245,20 @@ impl StoryBuilder {
         }
     }
 
-    fn walk(&mut self, element: &Element, paragraph: &str, character: &str, next: &str) {
+    fn walk(
+        &mut self,
+        element: &Element,
+        paragraph: &str,
+        character: &str,
+        next: &str,
+        page_number_type: Option<&str>,
+    ) {
         let paragraph_name;
         let character_name;
         let mut paragraph = paragraph;
         let mut character = character;
         let mut next = next;
+        let mut page_number_type = page_number_type;
         match element.name.as_str() {
             "ParagraphStyleRange" => {
                 paragraph_name =
@@ -248,6 +272,7 @@ impl StoryBuilder {
                 character_name =
                     style_codec::name(element.attr("AppliedCharacterStyle").unwrap_or_default());
                 character = &character_name;
+                page_number_type = element.attr("PageNumberType").or(page_number_type);
                 next = element
                     .attr("ParagraphBreakType")
                     .or_else(|| element.attr("GoToNextX"))
@@ -255,12 +280,27 @@ impl StoryBuilder {
             }
             "Content" => {
                 for (at, instruction) in &element.instructions {
-                    if instruction.split_whitespace().eq(["ACE", "4"]) {
+                    if self.footnote_markers && instruction.split_whitespace().eq(["ACE", "4"]) {
                         self.markers.push((
                             self.out.points.len(),
                             schist_layout::footnotes::FootnoteMarker {
                                 at: self.text.len() + at,
                                 character_style: character.into(),
+                            },
+                        ));
+                    } else {
+                        self.structures.push((
+                            self.out.points.len(),
+                            schist_layout::StoryStructure {
+                                at: Some(self.text.len() + at),
+                                kind: "ProcessingInstruction".into(),
+                                payload: instruction_payload(
+                                    instruction,
+                                    paragraph,
+                                    character,
+                                    page_number_type,
+                                ),
+                                footnote: None,
                             },
                         ));
                     }
@@ -314,9 +354,30 @@ impl StoryBuilder {
             _ => {}
         }
         for child in &element.children {
-            self.walk(child, paragraph, character, next);
+            self.walk(child, paragraph, character, next, page_number_type);
         }
     }
+}
+
+// Recovery XML retains the exact PI plus the effective named formatting and
+// native page-number mode. The wrappers describe its context; they are not a
+// claim that the unsupported marker has been emitted as native story content.
+fn instruction_payload(
+    instruction: &str,
+    paragraph: &str,
+    character: &str,
+    page_number_type: Option<&str>,
+) -> String {
+    let page_number_type = page_number_type
+        .map(|value| format!(r#" PageNumberType="{}""#, crate::export::escape(value)))
+        .unwrap_or_default();
+    format!(
+        r#"<ParagraphStyleRange AppliedParagraphStyle="ParagraphStyle/$ID/{}"><CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/{}"{}><Content><?{}?></Content></CharacterStyleRange></ParagraphStyleRange>"#,
+        crate::export::escape(paragraph),
+        crate::export::escape(character),
+        page_number_type,
+        instruction
+    )
 }
 
 fn present(name: &str) -> bool {
