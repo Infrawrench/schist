@@ -310,6 +310,60 @@ are marked.
 
 ## Handoff
 
+Automatic dictionary hyphenation, 2026-10-03:
+Dictionary opportunities now reach ordinary Design composition through balanced
+columns, variable-width frame threads, paths and whole/split footnotes. Complete
+source words determine language, protected ranges and word policies before any
+inline reference numbers are projected. References never invent dictionary words;
+candidates at a coincident reference anchor are deliberately withheld. Trial-owned
+histories carry line limits only from accepted lines. Column/frame restrictions
+recompose complete words after keeps, with independent note cursors restored when
+a frame attempt is rejected. Manual discretionary requests remain independent.
+
+A new regression reproduced an unbreakable suffix painting beyond a narrower
+continuation frame after its final dictionary candidate. Word ownership now
+survives that last candidate, keeping the suffix overset until it fits. The failing
+regression and passing rerun are retained. Initial test failures separately exposed
+undersized test frames and incorrect vertical-column detection; those test fixtures
+were corrected without weakening the text/history rules.
+
+Paragraph now has a closed Hyphenation disclosure with four icon toggles, numeric
+policy shown only while enabled, and a single inheritance reset. Captured edits
+undo once, disabling retains dormant settings, and unchanged displayed zones retain
+imported precision. Twelve keys are present in all 150 catalogs. The default Design
+flag remains false. Pattern coverage and the single-line policy remain explicit in
+[Dictionary hyphenation](hyphenation.md); native paragraph-composer equivalence is
+not claimed.
+
+All 16 targets, shared UI, formatting and whitespace pass with **1,925 distinct
+Rust tests**, including five shared UI tests (one existing documentation example
+ignored), four browser checks and eight Python audit tests. Workspace clippy and
+native/browser/headless checks pass. All 31 existing PDF proofs are byte-identical.
+The new 24-page automatic-hyphen proof matches independently split literal text in
+process/spot plates at 72/144/216 dpi and in Poppler; every page was visually
+reviewed. Logs use `/tmp/schist-auto-hyphen-*`; the superseded partial sweep is in
+`schist-auto-hyphen-initial-sweep`. The native development rebuild passes in
+2m 10s. The isolated Design-enabled bundle is hash/signature verified; native
+capture still returns `cgWindowNotFound`, so no new control screenshot review is
+claimed. The owned QA process was quit, and the installed app remains untouched.
+This checkpoint is prepared for publication to draft PR #195.
+Five superseded integration draft files/directories were removed; source, evidence
+and current proof renders remain.
+
+Next is drop-cap native policy and vertical initials, an existing item 9 gap.
+Read-only public XML inventory found 20 `DropcapDetail="1"` settings currently
+lost by the codec, all with inactive counts. The public specification also bounds
+line/character counts that the current reader silently truncates from floats.
+No active native drop-cap geometry specimen has been established. Vertical initials
+require engine ink geometry: `measure` currently returns no vertical ink bounds,
+and the composer explicitly excludes that writing mode. Public source links and
+observations are in `/tmp/schist-dropcap-research.json` and
+`/tmp/schist-dropcap-next.md`; no drop-cap source edits are applied yet. Other
+structured-story composition, advanced object styles, curved frame flow, broader
+fixtures and external application agreement remain open. Production INDD remains
+Phase-0-gated; no INDD bytes or Adobe headers were read in this checkpoint.
+
+
 Single-line generated-hyphen policy, 2026-10-03:
 Dictionary word selection is pushed as `b4abae77` to draft PR #195 with all 16
 targets, 1,903 Rust tests and the development build passing. The isolated bundle's

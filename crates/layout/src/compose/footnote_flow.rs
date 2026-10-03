@@ -152,7 +152,14 @@ fn measure_note(
         0.0,
         crate::Insets::default().into(),
     )];
-    let mut composed = compose_thread_plain(&scratch, crate::StoryId(0), &frames, None, None);
+    let mut composed = compose_thread_plain(
+        &scratch,
+        crate::StoryId(0),
+        &frames,
+        None,
+        None,
+        Some(&note.hyphenation),
+    );
     let frame = composed.frames.first_mut()?;
     if frame.lost {
         return None;

@@ -53,11 +53,13 @@ pub struct PreparedNote {
     /// Projected main-story range occupied by the reference number.
     pub reference: std::ops::Range<usize>,
     pub body: Projection,
+    pub hyphenation: crate::hyphenation::BreakPlan,
 }
 
 #[derive(Debug, Clone, PartialEq)]
 pub struct PreparedStory {
     pub main: Projection,
+    pub hyphenation: crate::hyphenation::BreakPlan,
     pub styles: StyleSet,
     pub notes: Vec<PreparedNote>,
 }
@@ -177,6 +179,13 @@ pub fn prepare(doc: &LayoutDocument, id: StoryId) -> Option<PreparedStory> {
             structure,
             anchor: at,
             reference: 0..0,
+            hyphenation: crate::hyphenation::BreakPlan::projected(
+                &note.story,
+                &body,
+                &styles,
+                &doc.default_paragraph_style,
+                &doc.default_character_style,
+            )?,
             body,
         });
     }
@@ -185,6 +194,13 @@ pub fn prepare(doc: &LayoutDocument, id: StoryId) -> Option<PreparedStory> {
         note.reference = span.start..span.end;
     }
     Some(PreparedStory {
+        hyphenation: crate::hyphenation::BreakPlan::projected(
+            source,
+            &main,
+            &styles,
+            &doc.default_paragraph_style,
+            &doc.default_character_style,
+        )?,
         main,
         styles,
         notes,

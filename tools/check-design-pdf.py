@@ -728,3 +728,18 @@ if len(sys.argv) > 30:
                 assert actual.tobytes() == expected.tobytes(), (prefix, index, "discretionary glyphs differ from independent visible source")
                 assert min(v[0] for v in actual.getextrema()) < 150, (prefix, index, "empty discretionary hyphen proof")
     print("Design PDF: selected and unused discretionary hyphens match independent visible source across threaded frames, writing axes, reading directions, tracking and process/spot inks.")
+
+if len(sys.argv) > 31:
+    with tempfile.TemporaryDirectory(prefix="schist-automatic-hyphenation-check-") as temporary:
+        for prefix, args in [("samples", ["pdfimages", "-png"]), ("pages", ["pdftoppm", "-r", "144", "-png"])]:
+            result = subprocess.run(args + [sys.argv[31], str(Path(temporary)/prefix)], capture_output=True, text=True)
+            assert result.returncode == 0 and not result.stderr.strip(), result.stderr
+            files = sorted(Path(temporary).glob(prefix + "-*.png"))
+            assert len(files) == 24, (prefix, len(files))
+            for index in range(0, len(files), 2):
+                actual = Image.open(files[index]).convert("RGB")
+                expected = Image.open(files[index+1]).convert("RGB")
+                assert actual.size == expected.size == (480, 480), (prefix, index, actual.size)
+                assert actual.tobytes() == expected.tobytes(), (prefix, index, "dictionary-selected glyphs differ from independent visible source")
+                assert min(v[0] for v in actual.getextrema()) < 150, (prefix, index, "empty dictionary hyphen proof")
+    print("Design PDF: dictionary-selected and unused automatic hyphens match independent visible source across threaded frames, writing axes, reading directions, tracking and process/spot inks.")

@@ -72,8 +72,29 @@ This is Schist's documented greedy preference, not an Adobe paragraph-composer
 algorithm or placement-parity claim. Every candidate still needs room for its
 visible glyph. The policy and generated positions are excluded from serialization.
 
-The selector is not yet enabled in ordinary composition: consecutive-line
-history across frame/column/note trials and column-end restrictions must be wired
-before the native automatic-hyphenation switch can honestly claim those policies.
-There is no new control or change to the default feature flag in this checkpoint.
-External application placement agreement remains unverified.
+Ordinary Design composition now selects dictionary opportunities once per source
+story, then maps them into disposable inline-reference projections. Generated
+footnote digits, affixes and styles cannot change source-word length, language,
+No Break or final-word eligibility. A candidate coinciding exactly with a reference
+anchor is withheld until reference/hyphen glyph ownership has an explicit policy.
+Neither reference numbers nor selected hyphens enter editable source or undo data.
+
+Every frame, column, balance search and footer trial owns its consecutive-line
+history. Only accepted lines advance it; split notes carry independent histories.
+Missing options resolve to a three-line limit, a 36 pt ragged zone and weight 5;
+justified paragraphs use zero zone. Unset native values remain unset on save.
+When across-column breaks are prohibited, a column or final frame tail is checked
+after paragraph keeps. The complete offending word is excluded from that trial's
+automatic candidates and the container is recomposed. Each retry excludes a new
+word. Word ownership survives even beyond the last dictionary candidate, so an
+unfit continuation suffix also stays overset in a narrower frame. A selected hyphen is
+never merely hidden. Bounded path frames apply the same policy to their one line.
+Manual source discretionary breaks remain independent explicit requests.
+
+Paragraph has a closed Hyphenation section with icon toggles for automatic
+hyphenation, capitalized words, final words and column boundaries. Numeric fields
+appear only inside that section while enabled. Blank values inherit; reset restores
+inheritance in one undo step. Disabling retains the dormant settings. Edits capture
+the named paragraph style, and unchanged formatted zones retain imported precision.
+The available pattern languages are shown beside these controls. Design Mode stays
+disabled by default; external application placement agreement remains unverified.

@@ -37,6 +37,7 @@ icons!(
     "refresh",
     "type-align-justify",
     "type-balance-columns",
+    "type-hyphenate",
     "type-keep-lines",
     "type-keep-all",
     "type-keep-previous",

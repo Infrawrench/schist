@@ -2182,5 +2182,12 @@ public pattern sets. Dictionary identities are stricter than shaping tags:
 US-English and reformed-German patterns cannot silently replace another region
 or spelling system. Full words, per-run language, No Break, normalization and
 word policies have property coverage. [Dictionary hyphenation](hyphenation.md)
-records sources, licenses, accepted identities and limits. Line/column policy
-integration remains open; ordinary composition is not switched over yet.
+records sources, licenses, accepted identities and limits. Ordinary composition now
+uses the selector through frame, column, path and note flows. Trial-owned histories
+carry consecutive limits without consuming rejected trials. Complete-word retries
+apply column-end restrictions after keeps; unfit text stays overset. Original
+source words determine projected footnote opportunities, excluding candidates that
+coincide exactly with generated-reference anchors. No source text is rewritten.
+Native policy defaults are resolved only for composition, leaving absent attributes
+absent on save. The documented greedy zone/weight policy is Schist's own behavior;
+InDesign paragraph-composer placement equivalence remains unverified.

@@ -35,6 +35,7 @@ use crate::styles::{
 };
 mod break_flow;
 mod footnote_flow;
+mod hyphenation_flow;
 mod keep_flow;
 mod split_footnotes;
 
@@ -318,7 +319,16 @@ pub(crate) fn spec_with_character(
     let mut spec = TextSpec {
         show_final_soft_hyphen: false,
         hyphenation_breaks: Vec::new(),
-        hyphenation_policy: Default::default(),
+        hyphenation_policy: schist_text_engine::HyphenationPolicy {
+            consecutive_limit: usize::from(paragraph.hyphenation.ladder_limit.unwrap_or(3)),
+            preceding_hyphens: 0,
+            zone: if matches!(paragraph.align, Some(Align::Justify | Align::JustifyAll)) {
+                0.0
+            } else {
+                paragraph.hyphenation.zone.unwrap_or(36.0)
+            },
+            weight: paragraph.hyphenation.weight.unwrap_or(5),
+        },
         show_final_generated_hyphen: false,
         language: character
             .language
@@ -652,11 +662,21 @@ pub fn compose_thread(
     compose_thread_on_page(doc, story_id, frames, None)
 }
 
+#[derive(Clone, Copy)]
 struct FlowSource<'a> {
     doc: &'a LayoutDocument,
     story: &'a Story,
     markers: &'a crate::list_composition::MarkerPlans,
     notes: Option<&'a crate::footnote_composition::PreparedStory>,
+    plan: &'a crate::hyphenation::BreakPlan,
+    hyphens: hyphenation_flow::History,
+    denied_hyphen_words: &'a [std::ops::Range<usize>],
+}
+
+impl FlowSource<'_> {
+    fn with_hyphens(&self, hyphens: hyphenation_flow::History) -> Self {
+        Self { hyphens, ..*self }
+    }
 }
 
 #[derive(Clone, Copy)]
@@ -667,6 +687,7 @@ struct FlowCursor {
     /// Page on which the pending explicit numbered-page break was encountered.
     /// Each consecutive zero-width break starts its own transition.
     break_origin: Option<break_flow::Location>,
+    hyphens: hyphenation_flow::History,
 }
 
 struct ColumnFlow {
@@ -690,6 +711,7 @@ fn fill_columns(
         usize,
         usize,
         Rect,
+        hyphenation_flow::History,
     ) -> (
         Vec<ComposedLine>,
         usize,
@@ -744,11 +766,13 @@ fn fill_columns(
                 .get(out.next.break_index)
                 .map_or(end, |(_, at)| *at)
                 .min(end);
-            let (part, consumed, notes) = fill(out.next.offset, stop, *column);
+            let (part, consumed, notes) = fill(out.next.offset, stop, *column, out.next.hyphens);
+            let next_hyphens = out.next.hyphens.advance(story, &part, consumed);
             out.lines.extend(part);
             out.footnotes.extend(notes);
             let previous = out.next.offset;
             out.next.offset = consumed;
+            out.next.hyphens = next_hyphens;
             if consumed + 1 == stop && story.slice(consumed, stop) == "\n" {
                 out.next.offset = stop;
             }
@@ -780,8 +804,14 @@ fn compose_thread_on_page(
             let mut projected = doc.clone();
             projected.styles = prepared.styles.clone();
             projected.stories[story_id.0 as usize] = prepared.main.story.clone();
-            let mut out =
-                compose_thread_plain(&projected, story_id, frames, parent_page, Some(&prepared));
+            let mut out = compose_thread_plain(
+                &projected,
+                story_id,
+                frames,
+                parent_page,
+                Some(&prepared),
+                Some(&prepared.hyphenation),
+            );
             let text = prepared.main.story.text();
             let projected_story = &projected.stories[story_id.0 as usize];
             let context = footnote_flow::ProjectionContext::new(&projected, projected_story);
@@ -808,7 +838,7 @@ fn compose_thread_on_page(
             return out;
         }
     }
-    compose_thread_plain(doc, story_id, frames, parent_page, None)
+    compose_thread_plain(doc, story_id, frames, parent_page, None, None)
 }
 
 fn compose_thread_plain(
@@ -817,6 +847,7 @@ fn compose_thread_plain(
     frames: &[(ObjectId, Rect, FrameOverflow, u16, Pt, InsetsLike)],
     parent_page: Option<usize>,
     notes: Option<&crate::footnote_composition::PreparedStory>,
+    plan: Option<&crate::hyphenation::BreakPlan>,
 ) -> ComposedThread {
     let mut out = ComposedThread {
         story: story_id,
@@ -841,12 +872,28 @@ fn compose_thread_plain(
             .collect();
         return out;
     };
+    let owned_plan;
+    let plan = match plan {
+        Some(plan) => plan,
+        None => {
+            owned_plan = crate::hyphenation::BreakPlan::new(
+                story,
+                &doc.styles,
+                &doc.default_paragraph_style,
+                &doc.default_character_style,
+            );
+            &owned_plan
+        }
+    };
     let markers = crate::list_composition::MarkerPlans::new(doc, story);
     let source = FlowSource {
         doc,
         story,
         markers: &markers,
         notes,
+        plan,
+        hyphens: Default::default(),
+        denied_hyphen_words: &[],
     };
     let mut split_notes = notes
         // IDML Appendix C: absent NoSplitting defaults to false. Preserve the
@@ -888,6 +935,7 @@ fn compose_thread_plain(
     let mut break_origin = None;
     let mut last_location = None;
     let mut skip_page = None;
+    let mut hyphens = hyphenation_flow::History::default();
 
     for (index, (object, bounds, overflow, column_count, gutter, insets)) in
         frames.iter().enumerate()
@@ -959,17 +1007,20 @@ fn compose_thread_plain(
                     break_index,
                     last: last_location,
                     break_origin,
+                    hyphens,
                 },
                 total,
                 std::slice::from_ref(bounds),
                 &breaks,
                 location,
-                |from, to, _| {
-                    let (lines, next) = compose_path(story, from, to, *bounds, path, doc);
+                |from, to, _, history| {
+                    let (lines, next) =
+                        compose_path(&source.with_hyphens(history), from, to, *bounds, path);
                     (lines, next, Vec::new())
                 },
             );
             cursor = flow.next.offset;
+            hyphens = flow.next.hyphens;
             break_index = flow.next.break_index;
             break_origin = flow.next.break_origin;
             last_location = flow.next.last;
@@ -997,191 +1048,244 @@ fn compose_thread_plain(
             }
             continue;
         }
-        let mut available = bounds.inset(insets.resolve());
-        let note_options = crate::footnotes::frame_options(doc, *object);
-        let mut lines = Vec::new();
-        let mut footnotes = Vec::new();
-        let frame_start = cursor;
-        while cursor < total
-            || split_notes
-                .as_ref()
-                .is_some_and(|notes| notes.pending(cursor))
-        {
-            if available.width <= 0.0 || available.height <= 0.0 {
-                break;
+        let checkpoint = (
+            cursor,
+            break_index,
+            break_origin,
+            last_location,
+            skip_page,
+            hyphens,
+        );
+        let note_checkpoint = split_notes.as_ref().map(|notes| notes.checkpoint());
+        let mut denied = Vec::new();
+        let (lines, footnotes) = loop {
+            (
+                cursor,
+                break_index,
+                break_origin,
+                last_location,
+                skip_page,
+                hyphens,
+            ) = checkpoint;
+            if let (Some(notes), Some(saved)) = (&mut split_notes, &note_checkpoint) {
+                notes.restore(saved);
             }
-            let section_start = cursor;
-            let axes = FlowAxes {
-                bounds: available,
-                writing: writing_mode_at(story, cursor, doc),
+            let source = FlowSource {
+                denied_hyphen_words: &denied,
+                hyphens,
+                ..source
             };
-            // A writing-mode change starts a new region in the room left by
-            // the preceding region. Never shape with one orientation and
-            // position its glyphs using another paragraph's axes.
-            let (section_end, before_next) = story
-                .points
-                .iter()
-                .zip(story.point_offsets())
-                .find_map(|(point, offset)| {
-                    let Point::Paragraph { style, .. } = point else {
-                        return None;
+            let mut available = bounds.inset(insets.resolve());
+            let note_options = crate::footnotes::frame_options(doc, *object);
+            let mut lines = Vec::new();
+            let mut footnotes = Vec::new();
+            let frame_start = cursor;
+            while cursor < total
+                || split_notes
+                    .as_ref()
+                    .is_some_and(|notes| notes.pending(cursor))
+            {
+                if available.width <= 0.0 || available.height <= 0.0 {
+                    break;
+                }
+                let section_start = cursor;
+                let axes = FlowAxes {
+                    bounds: available,
+                    writing: writing_mode_at(story, cursor, doc),
+                };
+                // A writing-mode change starts a new region in the room left by
+                // the preceding region. Never shape with one orientation and
+                // position its glyphs using another paragraph's axes.
+                let (section_end, before_next) = story
+                    .points
+                    .iter()
+                    .zip(story.point_offsets())
+                    .find_map(|(point, offset)| {
+                        let Point::Paragraph { style, .. } = point else {
+                            return None;
+                        };
+                        (offset > cursor && writing_mode_at(story, offset, doc) != axes.writing)
+                            .then(|| {
+                                (
+                                    offset,
+                                    doc.styles
+                                        .resolve_paragraph(style)
+                                        .space_before
+                                        .unwrap_or(0.0)
+                                        .max(0.0),
+                                )
+                            })
+                    })
+                    .unwrap_or((total, 0.0));
+                let mut columns = columns(axes.logical_bounds(), *column_count, *gutter);
+                if story.prefs.direction == crate::StoryDirection::RightToLeft {
+                    columns.reverse();
+                }
+                // A newly reached frame can already satisfy its pending numbered
+                // break or opening start constraint. Resolve it before deciding whether the remaining
+                // text can balance; the policy must not disable final balancing.
+                while let Some((event, _)) = breaks.get(break_index).filter(|(_, at)| *at == cursor)
+                {
+                    let previous = if event.numbered_page() {
+                        if break_origin.is_none() {
+                            break;
+                        }
+                        break_origin
+                    } else {
+                        last_location
                     };
-                    (offset > cursor && writing_mode_at(story, offset, doc) != axes.writing).then(
-                        || {
-                            (
-                                offset,
-                                doc.styles
-                                    .resolve_paragraph(style)
-                                    .space_before
-                                    .unwrap_or(0.0)
-                                    .max(0.0),
+                    if event.unconditional() || event.advance(previous, location).is_some() {
+                        break;
+                    }
+                    break_index += 1;
+                    break_origin = None;
+                }
+                let spanning = source.notes.is_some()
+                    && columns.len() > 1
+                    && note_options.straddle == Some(true);
+                // Only enabled frames balance, and only when all remaining text fits.
+                // Shared footers reserve space before balancing the body.
+                let balance = crate::frame_text::balanced(doc, *object)
+                    && columns.len() > 1
+                    && section_end == total
+                    && break_index == breaks.len();
+                if balance && !spanning && split_notes.is_none() {
+                    let (mut balanced, consumed, balanced_notes) = balance_columns(
+                        &source.with_hyphens(hyphens),
+                        cursor,
+                        total,
+                        &columns,
+                        grid,
+                        &note_options,
+                    );
+                    if consumed >= total {
+                        cursor = consumed;
+                        axes.place_lines(&mut balanced);
+                        lines.extend(balanced);
+                        footnotes.extend(balanced_notes);
+                        break;
+                    }
+                }
+                let start = FlowCursor {
+                    offset: cursor,
+                    break_index,
+                    last: last_location,
+                    break_origin,
+                    hyphens,
+                };
+                let flow = if let Some(notes) = &mut split_notes {
+                    notes.fill_frame(
+                        &source,
+                        start,
+                        split_footnotes::Frame {
+                            area: available,
+                            columns: &columns,
+                            end: section_end,
+                            breaks: &breaks,
+                            location,
+                            grid,
+                            options: &note_options,
+                            spanning,
+                            balance,
+                        },
+                    )
+                } else if spanning {
+                    footnote_flow::fill_spanning(
+                        &source,
+                        cursor,
+                        available,
+                        &note_options,
+                        balance,
+                        |height| {
+                            fill_columns(
+                                story,
+                                start,
+                                section_end,
+                                &columns,
+                                &breaks,
+                                location,
+                                |from, to, column, history| {
+                                    let (lines, next) = fill_column_with_rules(
+                                        &source.with_hyphens(history),
+                                        from,
+                                        to,
+                                        Rect { height, ..column },
+                                        grid,
+                                    );
+                                    (lines, next, Vec::new())
+                                },
                             )
                         },
                     )
-                })
-                .unwrap_or((total, 0.0));
-            let mut columns = columns(axes.logical_bounds(), *column_count, *gutter);
-            if story.prefs.direction == crate::StoryDirection::RightToLeft {
-                columns.reverse();
-            }
-            // A newly reached frame can already satisfy its pending numbered
-            // break or opening start constraint. Resolve it before deciding whether the remaining
-            // text can balance; the policy must not disable final balancing.
-            while let Some((event, _)) = breaks.get(break_index).filter(|(_, at)| *at == cursor) {
-                let previous = if event.numbered_page() {
-                    if break_origin.is_none() {
-                        break;
-                    }
-                    break_origin
                 } else {
-                    last_location
-                };
-                if event.unconditional() || event.advance(previous, location).is_some() {
-                    break;
-                }
-                break_index += 1;
-                break_origin = None;
-            }
-            let spanning =
-                source.notes.is_some() && columns.len() > 1 && note_options.straddle == Some(true);
-            // Only enabled frames balance, and only when all remaining text fits.
-            // Shared footers reserve space before balancing the body.
-            let balance = crate::frame_text::balanced(doc, *object)
-                && columns.len() > 1
-                && section_end == total
-                && break_index == breaks.len();
-            if balance && !spanning && split_notes.is_none() {
-                let (mut balanced, consumed, balanced_notes) =
-                    balance_columns(&source, cursor, total, &columns, grid, &note_options);
-                if consumed >= total {
-                    cursor = consumed;
-                    axes.place_lines(&mut balanced);
-                    lines.extend(balanced);
-                    footnotes.extend(balanced_notes);
-                    break;
-                }
-            }
-            let start = FlowCursor {
-                offset: cursor,
-                break_index,
-                last: last_location,
-                break_origin,
-            };
-            let flow = if let Some(notes) = &mut split_notes {
-                notes.fill_frame(
-                    &source,
-                    start,
-                    split_footnotes::Frame {
-                        area: available,
-                        columns: &columns,
-                        end: section_end,
-                        breaks: &breaks,
+                    fill_columns(
+                        story,
+                        start,
+                        section_end,
+                        &columns,
+                        &breaks,
                         location,
-                        grid,
-                        options: &note_options,
-                        spanning,
-                        balance,
-                    },
-                )
-            } else if spanning {
-                footnote_flow::fill_spanning(
-                    &source,
-                    cursor,
-                    available,
-                    &note_options,
-                    balance,
-                    |height| {
-                        fill_columns(
-                            story,
-                            start,
-                            section_end,
-                            &columns,
-                            &breaks,
-                            location,
-                            |from, to, column| {
-                                let (lines, next) = fill_column_with_rules(
-                                    &source,
-                                    from,
-                                    to,
-                                    Rect { height, ..column },
-                                    grid,
-                                );
-                                (lines, next, Vec::new())
-                            },
-                        )
-                    },
-                )
-            } else {
-                fill_columns(
-                    story,
-                    start,
-                    section_end,
-                    &columns,
-                    &breaks,
-                    location,
-                    |from, to, column| {
-                        footnote_flow::fill(
-                            &source,
-                            from,
-                            to,
-                            column,
-                            grid,
-                            &note_options,
-                            footnote_flow::FillPolicy::default(),
-                        )
-                    },
-                )
-            };
-            cursor = flow.next.offset;
-            break_index = flow.next.break_index;
-            break_origin = flow.next.break_origin;
-            last_location = flow.next.last;
-            if flow.stop_page {
-                skip_page = Some(page_key);
+                        |from, to, column, history| {
+                            footnote_flow::fill(
+                                &source.with_hyphens(history),
+                                from,
+                                to,
+                                column,
+                                grid,
+                                &note_options,
+                                footnote_flow::FillPolicy::default(),
+                            )
+                        },
+                    )
+                };
+                cursor = flow.next.offset;
+                hyphens = flow.next.hyphens;
+                break_index = flow.next.break_index;
+                break_origin = flow.next.break_origin;
+                last_location = flow.next.last;
+                if flow.stop_page {
+                    skip_page = Some(page_key);
+                }
+                let stop_frame = flow.stop_frame;
+                let mut placed = flow.lines;
+                footnotes.extend(flow.footnotes);
+                if placed.is_empty() {
+                    break;
+                }
+                axes.place_lines(&mut placed);
+                available = axes.remaining(&placed, before_next);
+                lines.extend(placed);
+                // Split-note flow already owns every horizontal column and its
+                // footer. Pending note text resumes in the next frame, never a
+                // second region overlapping the footer just placed here.
+                if split_notes.is_some() || cursor < section_end || stop_frame {
+                    break;
+                }
+                if cursor <= section_start {
+                    break;
+                }
             }
-            let stop_frame = flow.stop_frame;
-            let mut placed = flow.lines;
-            footnotes.extend(flow.footnotes);
-            if placed.is_empty() {
-                break;
-            }
-            axes.place_lines(&mut placed);
-            available = axes.remaining(&placed, before_next);
-            lines.extend(placed);
-            // Split-note flow already owns every horizontal column and its
-            // footer. Pending note text resumes in the next frame, never a
-            // second region overlapping the footer just placed here.
-            if split_notes.is_some() || cursor < section_end || stop_frame {
-                break;
-            }
-            if cursor <= section_start {
-                break;
-            }
-        }
 
-        // Column flow enforces its own keeps. This also checks a binding that
-        // crosses writing-mode regions within the same frame.
-        cursor = keep_flow::enforce(&source, frame_start, total, &mut lines, cursor);
+            // Column flow enforces its own keeps. This also checks a binding that
+            // crosses writing-mode regions within the same frame.
+            cursor = keep_flow::enforce(&source, frame_start, total, &mut lines, cursor);
+            if let Some(word) = hyphenation_flow::forbidden_word(&source, &lines) {
+                if denied.contains(&word) {
+                    log::error!("generated hyphen escaped frame word exclusion");
+                    cursor = frame_start;
+                    lines.clear();
+                    footnotes.clear();
+                    if let (Some(notes), Some(saved)) = (&mut split_notes, &note_checkpoint) {
+                        notes.restore(saved);
+                    }
+                } else {
+                    denied.push(word);
+                    continue;
+                }
+            }
+            hyphens = checkpoint.5.advance(story, &lines, cursor);
+            break (lines, footnotes);
+        };
 
         let consumed_to = cursor.min(text_end);
         // Empty list paragraphs still have a generated marker to place.
@@ -1227,13 +1331,15 @@ fn compose_thread_plain(
 /// next container. Box-only vertical spacing, grids, multi-line keeps and
 /// enlarged initials cannot reserve additional rows on a path.
 fn compose_path(
-    story: &Story,
+    source: &FlowSource<'_>,
     start: usize,
     end: usize,
     bounds: Rect,
     path: &crate::text_path::PathText,
-    doc: &LayoutDocument,
 ) -> (Vec<ComposedLine>, usize) {
+    let story = source.story;
+    let doc = source.doc;
+    let hyphens = source.hyphens;
     let empty = || (Vec::new(), start);
     let Some(mut guide) = path.engine_path() else {
         return empty();
@@ -1260,6 +1366,16 @@ fn compose_path(
     );
     if spec.writing_mode.is_vertical() {
         return empty();
+    }
+    spec.hyphenation_breaks = source.plan.slice(block.start..block.end);
+    spec.hyphenation_policy.preceding_hyphens =
+        if block.paragraph_start != Some(block.start) && hyphens.at == block.start {
+            hyphens.consecutive
+        } else {
+            0
+        };
+    if paragraph.hyphenation.across_columns == Some(false) {
+        spec.hyphenation_breaks.clear();
     }
     let interval = guide.span.unwrap_or(0.0);
     let reverse = reverse_ruler(&spec);
@@ -1534,9 +1650,10 @@ fn balance_columns(
         let mut out = Vec::new();
         let mut notes = Vec::new();
         let mut cursor = start;
+        let mut hyphens = source.hyphens;
         for column in columns {
             let (lines, next, areas) = footnote_flow::fill(
-                source,
+                &source.with_hyphens(hyphens),
                 cursor,
                 end,
                 *column,
@@ -1546,6 +1663,7 @@ fn balance_columns(
                     body_height: Some(height),
                 },
             );
+            hyphens = hyphens.advance(story, &lines, next);
             out.extend(lines);
             notes.extend(areas);
             cursor = next;
@@ -1646,6 +1764,16 @@ fn break_line(
 /// 18pt lower because the paragraph above it has space after it", and
 /// every one of those features needs to.
 fn fill_column_with_rules(
+    source: &FlowSource<'_>,
+    start: usize,
+    end: usize,
+    column: Rect,
+    grid: Option<BaselineGrid>,
+) -> (Vec<ComposedLine>, usize) {
+    hyphenation_flow::column(source, start, end, column, grid)
+}
+
+fn fill_column(
     source: &FlowSource<'_>,
     start: usize,
     end: usize,
@@ -1898,6 +2026,19 @@ fn place_block(
         &doc.default_character_style,
         column.width,
     );
+    full_spec.hyphenation_breaks = source.plan.slice(block.start..block.end);
+    let automatic_word = source.plan.overlaps_word(block.start..block.end);
+    full_spec.hyphenation_policy.preceding_hyphens = if !first && source.hyphens.at == block.start {
+        source.hyphens.consecutive
+    } else {
+        0
+    };
+    full_spec.hyphenation_breaks.retain(|at| {
+        !source
+            .denied_hyphen_words
+            .iter()
+            .any(|word| word.contains(&(block.start + *at)))
+    });
     let reverse = reverse_ruler(&full_spec);
     let normal = line_measure(&paragraph, column, false, None, reverse);
     let mut initial = line_measure(&paragraph, column, first, None, reverse);
@@ -2005,7 +2146,8 @@ fn place_block(
     let mut positions = Vec::new();
     for (index, span) in all.iter().enumerate() {
         if span.width > measure_at(index).width + 0.001
-            && (spec.text[span.start..span.end].contains('\t')
+            && (automatic_word
+                || spec.text[span.start..span.end].contains('\t')
                 || spec.text[span.start..span.end]
                     .char_indices()
                     .any(|(at, _)| spec.no_break_at(span.start + at)))
@@ -2126,6 +2268,13 @@ struct InitialPlan {
 fn slice_spec(spec: &TextSpec, start: usize, end: usize) -> TextSpec {
     let mut out = spec.clone();
     out.text = spec.text[start..end].into();
+    out.hyphenation_breaks = spec
+        .hyphenation_breaks
+        .iter()
+        .copied()
+        .filter(|at| *at > start && *at < end)
+        .map(|at| at - start)
+        .collect();
     out.runs = spec
         .runs
         .iter()
@@ -2190,6 +2339,7 @@ fn plan_initial(
     // bitmap or a guessed width-to-height ratio.
     let mut probe = slice_spec(body, 0, body.text.chars().next().map_or(0, char::len_utf8));
     probe.text = "H".into();
+    probe.hyphenation_breaks.clear();
     for run in &mut probe.runs {
         run.start = 0;
         run.end = 1;
@@ -2643,6 +2793,7 @@ pub fn line_spec(line: &ComposedLine, story: &Story, doc: &LayoutDocument) -> Te
     spec = with_leading(spec, line.advance);
     spec.show_final_soft_hyphen = line.discretionary_hyphen;
     spec.show_final_generated_hyphen = line.generated_hyphen;
+    spec.hyphenation_breaks.clear();
     spec.word_spacing = line.word_space.unwrap_or(0.0);
     let reverse = reverse_ruler(&spec);
     if let Some(tabs) = &mut spec.tabs {

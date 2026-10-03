@@ -68,6 +68,11 @@ impl LinePositions {
 }
 
 impl SourceMap {
+    /// Immutable source behind the disposable display projection.
+    pub fn original_text(&self) -> &str {
+        &self.source
+    }
+
     pub fn source(&self, visual: usize) -> usize {
         let mut added = 0;
         for span in &self.generated {

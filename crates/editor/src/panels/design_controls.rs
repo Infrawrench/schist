@@ -14,6 +14,7 @@ enum InspectorSection {
     Tabs,
     Lists,
     Keeps,
+    Hyphenation,
     Style,
     Preferences,
 }
@@ -75,6 +76,9 @@ impl Inspector {
                 }
                 InspectorSection::Lists => ("char-lists", "para-lists", "design.list_type"),
                 InspectorSection::Tabs => ("char-tabs", "para-tabs", "design.paragraph_tabs"),
+                InspectorSection::Hyphenation => {
+                    ("char-hyphen", "para-hyphen", "design.hyphenation")
+                }
                 InspectorSection::Keeps => ("char-keeps", "para-keeps", "design.keep_options"),
                 InspectorSection::Style => ("char-style", "para-style", "design.style_options"),
                 InspectorSection::Preferences => (
@@ -890,6 +894,8 @@ pub(super) fn paragraph_panel(
     rows.extend(super::design_tabs::rows(ws, &name, cx));
     rows.group(InspectorSection::Keeps);
     rows.extend(super::paragraph_keeps::rows(ws, &name, cx));
+    rows.group(InspectorSection::Hyphenation);
+    rows.extend(super::hyphenation::rows(ws, &name, cx));
     rows.group(InspectorSection::Lists);
     rows.extend(list_fields(
         ws,

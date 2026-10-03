@@ -1,6 +1,7 @@
 //! Field targets are captured on focus. Typing edits a buffer; committing
 //! applies one reversible operation to the original selection or style.
 use super::DesignState;
+pub mod hyphenation;
 pub mod keeps;
 use properties::ObjectProperty;
 use schist_layout::{properties, LayoutObject, ObjectId};
@@ -1064,6 +1065,9 @@ pub fn commit(state: &mut DesignState, id: &str, text: &str) -> bool {
     }
     if id.starts_with("design-prop-list-") {
         return commit_list(state, &target, id, text);
+    }
+    if id.starts_with("design-prop-hyphen-") {
+        return hyphenation::commit(state, &target, id, text);
     }
     if id.starts_with("design-prop-keep-") {
         return keeps::commit(state, &target, id, text);

@@ -5,6 +5,8 @@
 //! opportunities; line and column constraints still belong to composition.
 mod dictionary;
 pub use dictionary::{opportunities, Dictionary};
+mod plan;
+pub use plan::BreakPlan;
 
 use serde::{Deserialize, Serialize};
 

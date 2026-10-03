@@ -533,3 +533,17 @@ design.start_page = Next page
 design.start_odd = Next odd page
 design.start_even = Next even page
 design.no_break = No line breaks
+
+# English placeholders for automatic hyphenation controls.
+design.hyphenation = Hyphenation
+design.hyphen_capitals = Hyphenate capitalized words
+design.hyphen_last = Hyphenate last word
+design.hyphen_columns = Hyphenate across columns
+design.hyphen_inherit = Inherit hyphenation options
+design.hyphen_word = Minimum word length
+design.hyphen_after = Letters before break
+design.hyphen_before = Letters after break
+design.hyphen_limit = Consecutive limit (0: unlimited)
+design.hyphen_weight = Fewer hyphens (0–100)
+design.hyphen_zone = Ragged zone (pt)
+design.hyphen_languages = US English, French, reformed German

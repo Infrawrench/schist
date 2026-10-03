@@ -7,10 +7,17 @@ use crate::footnotes::{FootnoteFirstBaseline, FootnoteOptions};
 pub(super) struct Flow<'a> {
     prepared: &'a PreparedStory,
     notes: Vec<NoteFlow>,
-    offsets: Vec<usize>,
+    offsets: Vec<NoteCursor>,
+}
+
+#[derive(Clone, Copy, Default)]
+pub(super) struct NoteCursor {
+    offset: usize,
+    hyphens: hyphenation_flow::History,
 }
 
 struct NoteFlow {
+    plan: crate::hyphenation::BreakPlan,
     doc: LayoutDocument,
     markers: crate::list_composition::MarkerPlans,
     context: footnote_flow::ProjectionContext,
@@ -40,6 +47,7 @@ impl<'a> Flow<'a> {
             let story = &scratch.stories[0];
             let end = story.text_len() + usize::from(matches!(story.points.last(), Some(Point::Paragraph { text, .. }) if text.is_empty()));
             NoteFlow {
+                plan: note.hyphenation.clone(),
                 markers: crate::list_composition::MarkerPlans::new(&scratch, story),
                 context: footnote_flow::ProjectionContext::new(&scratch, story),
                 doc: scratch,
@@ -49,13 +57,20 @@ impl<'a> Flow<'a> {
         Self {
             prepared,
             notes,
-            offsets: vec![0; prepared.notes.len()],
+            offsets: vec![NoteCursor::default(); prepared.notes.len()],
         }
+    }
+
+    pub(super) fn checkpoint(&self) -> Vec<NoteCursor> {
+        self.offsets.clone()
+    }
+    pub(super) fn restore(&mut self, saved: &[NoteCursor]) {
+        self.offsets.copy_from_slice(saved);
     }
 
     pub(super) fn pending(&self, main: usize) -> bool {
         self.prepared.notes.iter().enumerate().any(|(index, note)| {
-            note.reference.start < main && self.offsets[index] < self.notes[index].end
+            note.reference.start < main && self.offsets[index].offset < self.notes[index].end
         })
     }
 
@@ -91,9 +106,9 @@ impl<'a> Flow<'a> {
                             column: area_index,
                             ..frame.location
                         },
-                        |from, to, column| {
+                        |from, to, column, history| {
                             let (lines, next) = fill_column_with_rules(
-                                source,
+                                &source.with_hyphens(history),
                                 from,
                                 to,
                                 Rect {
@@ -119,13 +134,13 @@ impl<'a> Flow<'a> {
         };
         let mut high = frame.area.height;
         let mut best = run(high);
-        let complete = |result: &(ColumnFlow, Vec<usize>)| {
+        let complete = |result: &(ColumnFlow, Vec<NoteCursor>)| {
             result.0.next.offset >= frame.end
                 && result
                     .1
                     .iter()
                     .zip(&self.notes)
-                    .all(|(offset, note)| *offset >= note.end)
+                    .all(|(offset, note)| offset.offset >= note.end)
         };
         if frame.balance && complete(&best) {
             let mut low = 0.0;
@@ -154,7 +169,7 @@ impl<'a> Flow<'a> {
     fn fill_area(
         &self,
         source: &FlowSource<'_>,
-        offsets: &mut [usize],
+        offsets: &mut [NoteCursor],
         area: Rect,
         options: &FootnoteOptions,
         fill_body: impl Fn(Pt) -> ColumnFlow,
@@ -170,7 +185,7 @@ impl<'a> Flow<'a> {
                 .enumerate()
                 .filter(|(index, note)| {
                     note.reference.start < body.next.offset
-                        && offsets[*index] < self.notes[*index].end
+                        && offsets[*index].offset < self.notes[*index].end
                 })
                 .map(|(index, _)| index)
                 .collect();
@@ -193,7 +208,7 @@ impl<'a> Flow<'a> {
             }
             let required = selected
                 .iter()
-                .filter(|index| offsets[**index] == 0)
+                .filter(|index| offsets[**index].offset == 0)
                 .map(|index| self.prepared.notes[*index].reference.end)
                 .max();
             // The minimum body height retaining these references. Full paragraph
@@ -245,7 +260,10 @@ impl<'a> Flow<'a> {
             if !fits {
                 // Evict the last new reference line, preserving every earlier
                 // trial cursor. If none can start, a later larger frame may fit.
-                let last = selected.iter().rev().find(|index| offsets[**index] == 0);
+                let last = selected
+                    .iter()
+                    .rev()
+                    .find(|index| offsets[**index].offset == 0);
                 if let Some(last) = last {
                     if let Some(line) =
                         footnote_flow::reference_line(&minimum.lines, &self.prepared.notes[*last])
@@ -288,13 +306,13 @@ impl<'a> Flow<'a> {
                 body = minimum;
             }
             let mut placement = options.clone();
-            if offsets[selected[0]] > 0 {
+            if offsets[selected[0]].offset > 0 {
                 placement.rule = options.continuing_rule.clone();
                 placement.rule.width.get_or_insert(288.0);
             }
             if selected
                 .iter()
-                .any(|index| next[*index] < self.notes[*index].end)
+                .any(|index| next[*index].offset < self.notes[*index].end)
             {
                 placement.end_of_story = Some(false);
             }
@@ -320,7 +338,7 @@ impl<'a> Flow<'a> {
 impl NoteFlow {
     fn lines(
         &self,
-        start: usize,
+        start: NoteCursor,
         area: Rect,
         options: &FootnoteOptions,
     ) -> Option<(Vec<ComposedLine>, usize, Pt)> {
@@ -329,9 +347,13 @@ impl NoteFlow {
             story: &self.doc.stories[0],
             markers: &self.markers,
             notes: None,
+            plan: &self.plan,
+            hyphens: start.hyphens,
+            denied_hyphen_words: &[],
         };
         let bounds = Rect::new(0.0, 0.0, area.width, area.height);
-        let (mut lines, mut next) = fill_column_with_rules(&source, start, self.end, bounds, None);
+        let (mut lines, mut next) =
+            fill_column_with_rules(&source, start.offset, self.end, bounds, None);
         let first = lines.first()?;
         let offset = match options.first_baseline {
             None | Some(FootnoteFirstBaseline::Leading) => first.advance,
@@ -345,7 +367,7 @@ impl NoteFlow {
         if delta > 0.0 {
             (lines, next) = fill_column_with_rules(
                 &source,
-                start,
+                start.offset,
                 self.end,
                 Rect {
                     height: (area.height - delta).max(0.0),
@@ -354,7 +376,7 @@ impl NoteFlow {
                 None,
             );
         }
-        if lines.is_empty() || next <= start {
+        if lines.is_empty() || next <= start.offset {
             return None;
         }
         if next + 1 == self.end && source.story.slice(next, self.end) == "\n" {
@@ -370,7 +392,7 @@ impl NoteFlow {
         Some((lines, next, height))
     }
 
-    fn minimum(&self, start: usize, area: Rect, options: &FootnoteOptions) -> Option<Pt> {
+    fn minimum(&self, start: NoteCursor, area: Rect, options: &FootnoteOptions) -> Option<Pt> {
         let mut high = area.height;
         self.lines(start, area, options)?;
         let mut low = 0.0;
@@ -401,11 +423,17 @@ impl NoteFlow {
     fn fragment(
         &self,
         note: &PreparedNote,
-        start: usize,
+        start: NoteCursor,
         area: Rect,
         options: &FootnoteOptions,
-    ) -> Option<(NoteArea, usize)> {
+    ) -> Option<(NoteArea, NoteCursor)> {
         let (lines, consumed, height) = self.lines(start, area, options)?;
+        let cursor = NoteCursor {
+            offset: consumed,
+            hyphens: start
+                .hyphens
+                .advance(&self.doc.stories[0], &lines, consumed),
+        };
         let mut thread = ComposedThread {
             story: crate::StoryId(0),
             frames: vec![ComposedFrame {
@@ -434,7 +462,7 @@ impl NoteFlow {
                 lines,
                 rule: None,
             },
-            consumed,
+            cursor,
         ))
     }
 }

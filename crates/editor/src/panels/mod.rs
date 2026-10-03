@@ -35,6 +35,7 @@ mod design_dock;
 mod design_layers;
 mod design_tabs;
 mod history;
+mod hyphenation;
 mod info;
 mod layers;
 mod links;

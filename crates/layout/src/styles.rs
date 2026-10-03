@@ -415,7 +415,7 @@ pub struct ParagraphStyle {
     #[serde(default)]
     pub hyphenation: crate::hyphenation::HyphenationOptions,
     /// A BCP 47 tag or a declared native language resource. Used by shaping and
-    /// display casing; hyphenation dictionaries and proofing remain separate work.
+    /// display casing and supported hyphenation dictionaries. Proofing is separate.
     pub language: Option<crate::language::TextLanguage>,
     /// Base paragraph direction. `None` means auto, where the first
     /// strong character decides.
