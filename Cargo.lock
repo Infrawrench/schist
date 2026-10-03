@@ -6942,6 +6942,7 @@ dependencies = [
  "schist-i18n",
  "schist-psd-descriptor",
  "schist-text-engine",
+ "serde",
  "serde_json",
  "thiserror 2.0.20",
 ]
