@@ -74,6 +74,9 @@ workspace.filters.raw_too_tall = RAW өңдеуінің биіктігі тым 
 workspace.filters.raw_size_changed = RAW өңдеуінің өлшемі {w} × {h} болып өзгерді; ағымдағы қабат сақталады
 workspace.filters.raw_history = Camera Raw өңдеуі
 workspace.filters.raw_applied = Camera Raw өңдеуі қолданылды (ең сапалы демозаика)
+workspace.raw_masks.no_model = {model} орнатылмаған, сондықтан бұл масканы анықтау мүмкін емес.
+workspace.raw_masks.no_sky = Бұл суреттен аспан табылмады.
+workspace.raw_masks.detect_failed = Масканы анықтау сәтсіз аяқталды: {error}
 
 workspace.image_size.done = Кескін өлшемі: {w} × {h}
 workspace.image_size.bicubic_fallback = Кескін өлшемі: {w} × {h} — {name} моделі жүктелмегендіктен, бикубтық әдіс қолданылды

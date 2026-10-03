@@ -56,6 +56,25 @@ dialog.filter.camera_raw_development = Обработка Camera Raw
 dialog.filter.reset_as_shot = Сбросить до параметров съёмки
 dialog.filter.raw_note = Заново обрабатывает активный слой из исходных данных сенсора.
 dialog.filter.note = Применяется к активному слою внутри выделенной области.
+
+# Локальные коррекции Camera Raw
+dialog.raw_masks.title = Маски
+dialog.raw_masks.new_mask = Новая маска:
+dialog.raw_masks.add_to_mask = Добавить к маске:
+dialog.raw_masks.linear = Линейный градиент
+dialog.raw_masks.subject = Выбрать объект
+dialog.raw_masks.sky = Выбрать небо
+dialog.raw_masks.background = Выбрать фон
+dialog.raw_masks.mask_n = Маска {n}
+dialog.raw_masks.invert_mask = Инвертировать маску
+dialog.raw_masks.overlay = Показать наложение маски
+dialog.raw_masks.erase = Стереть
+dialog.raw_masks.local = Коррекции в этой маске
+dialog.raw_masks.delete_mask = Удалить маску
+dialog.raw_masks.detecting = Обнаружение…
+dialog.raw_masks.hint_empty = Добавьте маску, чтобы скорректировать часть изображения. У каждой маски свои ползунки.
+dialog.raw_masks.hint_brush = Рисуйте на холсте, чтобы добавить к кисти; включите «Стереть», чтобы убрать.
+dialog.raw_masks.hint_gradient = Перетаскивайте маркеры, чтобы сдвинуть градиент, или проведите по холсту, чтобы нарисовать новый.
 dialog.fonts.title = Отсутствующие шрифты
 dialog.fonts.install_named = Установить {name}
 dialog.fonts.no_document = Нет открытого документа, поэтому проверять нечего.

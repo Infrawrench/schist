@@ -60,6 +60,25 @@ dialog.filter.reset_as_shot = Weromsette nei As makke
 dialog.filter.raw_note = Untwikkelet de aktive laach opnij út de orizjinele sensorgegevens.
 dialog.filter.note = Wurdt binnen de seleksje op de aktive laach tapast.
 
+# Camera Raw lokale oanpassingen
+dialog.raw_masks.title = Maskers
+dialog.raw_masks.new_mask = Nij masker:
+dialog.raw_masks.add_to_mask = Oan masker tafoegje:
+dialog.raw_masks.linear = Lineêr ferrin
+dialog.raw_masks.subject = Underwerp selektearje
+dialog.raw_masks.sky = Loft selektearje
+dialog.raw_masks.background = Eftergrûn selektearje
+dialog.raw_masks.mask_n = Masker {n}
+dialog.raw_masks.invert_mask = Masker omkeare
+dialog.raw_masks.overlay = Maskeroverlay sjen litte
+dialog.raw_masks.erase = Wiskje
+dialog.raw_masks.local = Oanpassingen yn dit masker
+dialog.raw_masks.delete_mask = Masker wiskje
+dialog.raw_masks.detecting = Wurdt detektearre…
+dialog.raw_masks.hint_empty = Foegje in masker ta om in diel fan de ôfbylding oan te passen. Elk masker hat syn eigen skuifbalken.
+dialog.raw_masks.hint_brush = Ferve op it doek om oan de kwast ta te foegjen; set Wiskje oan om it wer fuort te heljen.
+dialog.raw_masks.hint_gradient = Sleep de grepen om it ferrin te ferpleatsen, of sleep op it doek om in nij ferrin te tekenjen.
+
 # Untbrekkende lettertypen
 dialog.fonts.title = Untbrekkende lettertypen
 dialog.fonts.install_named = {name} ynstallearje

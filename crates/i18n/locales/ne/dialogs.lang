@@ -47,6 +47,25 @@ dialog.filter.camera_raw_development = Camera Raw विकास
 dialog.filter.reset_as_shot = खिचिएकै अवस्थामा रिसेट गर्नुहोस्
 dialog.filter.raw_note = सक्रिय तहलाई यसको मूल सेन्सर डेटाबाट पुनः विकास गर्छ।
 dialog.filter.note = चयनभित्र सक्रिय तहमा लागू हुन्छ।
+
+# Camera Raw स्थानीय समायोजनहरू
+dialog.raw_masks.title = मास्कहरू
+dialog.raw_masks.new_mask = नयाँ मास्क:
+dialog.raw_masks.add_to_mask = मास्कमा थप्नुहोस्:
+dialog.raw_masks.linear = रेखीय ग्रेडियन्ट
+dialog.raw_masks.subject = विषय चयन गर्नुहोस्
+dialog.raw_masks.sky = आकाश चयन गर्नुहोस्
+dialog.raw_masks.background = पृष्ठभूमि चयन गर्नुहोस्
+dialog.raw_masks.mask_n = मास्क {n}
+dialog.raw_masks.invert_mask = मास्क उल्टाउनुहोस्
+dialog.raw_masks.overlay = मास्क ओभरले देखाउनुहोस्
+dialog.raw_masks.erase = मेटाउने
+dialog.raw_masks.local = यो मास्कका समायोजनहरू
+dialog.raw_masks.delete_mask = मास्क मेटाउनुहोस्
+dialog.raw_masks.detecting = पत्ता लगाउँदै…
+dialog.raw_masks.hint_empty = तस्बिरको एक भाग समायोजन गर्न मास्क थप्नुहोस्। प्रत्येक मास्कका आफ्नै स्लाइडरहरू हुन्छन्।
+dialog.raw_masks.hint_brush = ब्रसमा थप्न क्यानभासमा रङ लगाउनुहोस्; हटाउन "मेटाउने" खोल्नुहोस्।
+dialog.raw_masks.hint_gradient = ग्रेडियन्ट सार्न ह्यान्डलहरू तान्नुहोस्, वा नयाँ बनाउन क्यानभासमा तान्नुहोस्।
 dialog.fonts.title = हराएका फन्टहरू
 dialog.fonts.install_named = {name} स्थापना गर्नुहोस्
 dialog.fonts.no_document = कुनै कागजात खुलेको छैन, त्यसैले जाँच्न केही छैन।

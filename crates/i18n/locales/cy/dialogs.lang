@@ -69,6 +69,25 @@ dialog.filter.reset_as_shot = Ailosod i Fel y Tynnwyd
 dialog.filter.raw_note = Mae'n ailddatblygu'r haen weithredol o'i data synhwyrydd gwreiddiol.
 dialog.filter.note = Caiff ei roi ar yr haen weithredol, y tu mewn i'r detholiad.
 
+# Addasiadau lleol Camera Raw
+dialog.raw_masks.title = Masgiau
+dialog.raw_masks.new_mask = Masg newydd:
+dialog.raw_masks.add_to_mask = Ychwanegu at y masg:
+dialog.raw_masks.linear = Graddiant Llinol
+dialog.raw_masks.subject = Dewis Gwrthrych
+dialog.raw_masks.sky = Dewis Awyr
+dialog.raw_masks.background = Dewis Cefndir
+dialog.raw_masks.mask_n = Masg {n}
+dialog.raw_masks.invert_mask = Gwrthdroi'r masg
+dialog.raw_masks.overlay = Dangos troshaen y masg
+dialog.raw_masks.erase = Rhwbio
+dialog.raw_masks.local = Addasiadau yn y masg hwn
+dialog.raw_masks.delete_mask = Dileu Masg
+dialog.raw_masks.detecting = Wrthi'n canfod…
+dialog.raw_masks.hint_empty = Ychwanegwch fasg i addasu rhan o'r llun. Mae gan bob masg ei lithryddion ei hun.
+dialog.raw_masks.hint_brush = Peintiwch ar y cynfas i ychwanegu at y brwsh; trowch Rhwbio ymlaen i'w dynnu i ffwrdd.
+dialog.raw_masks.hint_gradient = Llusgwch y dolenni i symud y graddiant, neu llusgwch ar y cynfas i dynnu un newydd.
+
 dialog.fonts.title = Ffontiau Coll
 dialog.fonts.install_named = Gosod {name}
 dialog.fonts.no_document = Nid oes dogfen ar agor, felly nid oes dim i'w wirio.

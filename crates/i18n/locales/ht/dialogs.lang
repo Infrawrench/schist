@@ -47,6 +47,25 @@ dialog.filter.reset_as_shot = Retounen jan foto a te pran
 dialog.filter.raw_note = Devlope kouch aktif la ankò apati done orijinal kaptè li.
 dialog.filter.note = Aplike sou kouch aktif la, anndan seleksyon an.
 
+# Ajisteman lokal Camera Raw
+dialog.raw_masks.title = Mask yo
+dialog.raw_masks.new_mask = Nouvo mask:
+dialog.raw_masks.add_to_mask = Ajoute nan mask:
+dialog.raw_masks.linear = Gradyan lineyè
+dialog.raw_masks.subject = Chwazi sijè a
+dialog.raw_masks.sky = Chwazi syèl la
+dialog.raw_masks.background = Chwazi fon an
+dialog.raw_masks.mask_n = Mask {n}
+dialog.raw_masks.invert_mask = Envèse mask la
+dialog.raw_masks.overlay = Montre kouvèti mask la
+dialog.raw_masks.erase = Efase
+dialog.raw_masks.local = Ajisteman nan mask sa a
+dialog.raw_masks.delete_mask = Siprime mask la
+dialog.raw_masks.detecting = N ap detekte…
+dialog.raw_masks.hint_empty = Ajoute yon mask pou ajiste yon pati nan foto a. Chak mask gen pwòp glisyè pa li.
+dialog.raw_masks.hint_brush = Pentire sou twal la pou ajoute nan bwòs la; aktive Efase pou retire l.
+dialog.raw_masks.hint_gradient = Rale manch yo pou deplase gradyan an, oswa rale sou twal la pou desinen yon nouvo.
+
 dialog.fonts.title = Polis ki manke
 dialog.fonts.install_named = Enstale {name}
 dialog.fonts.no_document = Pa gen dokiman ki louvri, kidonk pa gen anyen pou tcheke.

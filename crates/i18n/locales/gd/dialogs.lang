@@ -55,6 +55,25 @@ dialog.filter.camera_raw_development = Leasachadh Camera Raw
 dialog.filter.reset_as_shot = Ath-shuidhich mar a chaidh a thogail
 dialog.filter.raw_note = Leasaichidh seo a’ bhreath ghnìomhach às ùr o dhàta tùsail a’ mhothaicheir.
 dialog.filter.note = Cuiridh seo ris a’ bhreath ghnìomhach taobh a-staigh an taghaidh.
+
+# Atharrachaidhean ionadail Camera Raw
+dialog.raw_masks.title = Masgaichean
+dialog.raw_masks.new_mask = Masg ùr:
+dialog.raw_masks.add_to_mask = Cuir ris a’ mhasg:
+dialog.raw_masks.linear = Caisead loidhneach
+dialog.raw_masks.subject = Tagh an cuspair
+dialog.raw_masks.sky = Tagh an speur
+dialog.raw_masks.background = Tagh an cùlaibh
+dialog.raw_masks.mask_n = Masg {n}
+dialog.raw_masks.invert_mask = Ais-thionndaidh am masg
+dialog.raw_masks.overlay = Seall tar-chòmhdachadh a’ mhasg
+dialog.raw_masks.erase = Suath às
+dialog.raw_masks.local = Atharrachaidhean sa mhasg seo
+dialog.raw_masks.delete_mask = Sguab às am masg
+dialog.raw_masks.detecting = A’ lorg…
+dialog.raw_masks.hint_empty = Cuir masg ris gus pàirt dhen dealbh atharrachadh. Tha a sleamhnachain fhèin aig gach masg.
+dialog.raw_masks.hint_brush = Peant air a’ chanabhas gus cur ris a’ bhruis; cuir “Suath às” air gus a thoirt air falbh.
+dialog.raw_masks.hint_gradient = Slaod na greimeannan gus an caisead a ghluasad, no slaod air a’ chanabhas gus fear ùr a tharraing.
 dialog.fonts.title = Cruthan-clò a dhìth
 dialog.fonts.install_named = Stàlaich {name}
 dialog.fonts.no_document = Chan eil sgrìobhainn fosgailte agus mar sin chan eil dad ri sgrùdadh.

@@ -47,6 +47,25 @@ dialog.filter.camera_raw_development = Camera Raw డెవలప్‌మెం
 dialog.filter.reset_as_shot = చిత్రీకరించిన స్థితికి తిరిగి అమర్చు
 dialog.filter.raw_note = సక్రియ లేయర్‌ను దాని అసలు సెన్సర్ డేటా నుండి మళ్లీ డెవలప్ చేస్తుంది.
 dialog.filter.note = ఎంపిక లోపల, సక్రియ లేయర్‌కు వర్తిస్తుంది.
+
+# Camera Raw స్థానిక సర్దుబాట్లు
+dialog.raw_masks.title = మాస్క్‌లు
+dialog.raw_masks.new_mask = కొత్త మాస్క్:
+dialog.raw_masks.add_to_mask = మాస్క్‌కు జోడించు:
+dialog.raw_masks.linear = రేఖీయ గ్రేడియంట్
+dialog.raw_masks.subject = విషయాన్ని ఎంచుకో
+dialog.raw_masks.sky = ఆకాశాన్ని ఎంచుకో
+dialog.raw_masks.background = నేపథ్యాన్ని ఎంచుకో
+dialog.raw_masks.mask_n = మాస్క్ {n}
+dialog.raw_masks.invert_mask = మాస్క్‌ను విలోమం చేయి
+dialog.raw_masks.overlay = మాస్క్ ఓవర్‌లేను చూపు
+dialog.raw_masks.erase = చెరిపివేయి
+dialog.raw_masks.local = ఈ మాస్క్‌లోని సర్దుబాట్లు
+dialog.raw_masks.delete_mask = మాస్క్‌ను తొలగించు
+dialog.raw_masks.detecting = గుర్తిస్తోంది…
+dialog.raw_masks.hint_empty = చిత్రంలోని కొంత భాగాన్ని సర్దుబాటు చేయడానికి మాస్క్‌ను జోడించండి. ప్రతి మాస్క్‌కు దాని స్వంత స్లయిడర్‌లు ఉంటాయి.
+dialog.raw_masks.hint_brush = బ్రష్‌కు జోడించడానికి కాన్వాస్‌పై పెయింట్ చేయండి; తీసివేయడానికి చెరిపివేయి ఆన్ చేయండి.
+dialog.raw_masks.hint_gradient = గ్రేడియంట్‌ను కదిలించడానికి హ్యాండిల్‌లను లాగండి, లేదా కొత్తది గీయడానికి కాన్వాస్‌పై లాగండి.
 dialog.fonts.title = లేని ఫాంట్లు
 dialog.fonts.install_named = {name}ను ఇన్‌స్టాల్ చేయి
 dialog.fonts.no_document = ఏ పత్రమూ తెరిచి లేదు, కాబట్టి తనిఖీ చేయడానికి ఏదీ లేదు.

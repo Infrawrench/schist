@@ -48,6 +48,25 @@ dialog.filter.camera_raw_development = Svilup Camera Raw
 dialog.filter.reset_as_shot = Redefinir sin la registraziun originala
 dialog.filter.raw_note = Sviluppa la stresa activa danovamain a partir da las datas originalas dal sensor.
 dialog.filter.note = Vegn applitgà a la stresa activa entaifer la selecziun.
+
+# Adattaziuns localas da Camera Raw
+dialog.raw_masks.title = Mascras
+dialog.raw_masks.new_mask = Nova mascra:
+dialog.raw_masks.add_to_mask = Agiuntar a la mascra:
+dialog.raw_masks.linear = Gradient linear
+dialog.raw_masks.subject = Tscherner il motiv
+dialog.raw_masks.sky = Tscherner il tschiel
+dialog.raw_masks.background = Tscherner il fund
+dialog.raw_masks.mask_n = Mascra {n}
+dialog.raw_masks.invert_mask = Inverter la mascra
+dialog.raw_masks.overlay = Mussar la surposiziun da la mascra
+dialog.raw_masks.erase = Gummar
+dialog.raw_masks.local = Adattaziuns en questa mascra
+dialog.raw_masks.delete_mask = Stizzar la mascra
+dialog.raw_masks.detecting = Identifitgar…
+dialog.raw_masks.hint_empty = Agiunta ina mascra per adattar ina part dal maletg. Mintga mascra ha ses agens cursurs.
+dialog.raw_masks.hint_brush = Pitura sin la taila per agiuntar al penel; activescha «Gummar» per l'allontanar.
+dialog.raw_masks.hint_gradient = Tira ils puncts da controlla per spustar il gradient, u tira sin la taila per dissegnar in nov.
 dialog.fonts.title = Scrittiras mancantas
 dialog.fonts.install_named = Installar {name}
 dialog.fonts.no_document = Nagin document è avert; i na dat pia nagut da controllar.

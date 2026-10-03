@@ -57,6 +57,25 @@ dialog.filter.reset_as_shot = Түсірілген күйге ысыру
 dialog.filter.raw_note = Белсенді қабатты бастапқы сенсор деректерінен қайта өңдейді.
 dialog.filter.note = Белсенді қабатқа, таңдалған аймақтың ішінде қолданылады.
 
+# Camera Raw жергілікті түзетулері
+dialog.raw_masks.title = Маскалар
+dialog.raw_masks.new_mask = Жаңа маска:
+dialog.raw_masks.add_to_mask = Маскаға қосу:
+dialog.raw_masks.linear = Сызықтық градиент
+dialog.raw_masks.subject = Нысанды таңдау
+dialog.raw_masks.sky = Аспанды таңдау
+dialog.raw_masks.background = Артқы фонды таңдау
+dialog.raw_masks.mask_n = Маска {n}
+dialog.raw_masks.invert_mask = Масканы терістеу
+dialog.raw_masks.overlay = Маска қабаттамасын көрсету
+dialog.raw_masks.erase = Өшіру
+dialog.raw_masks.local = Осы маскадағы түзетулер
+dialog.raw_masks.delete_mask = Масканы жою
+dialog.raw_masks.detecting = Анықталуда…
+dialog.raw_masks.hint_empty = Суреттің бір бөлігін түзету үшін маска қосыңыз. Әр масканың өз жүгірткілері бар.
+dialog.raw_masks.hint_brush = Қылқаламға қосу үшін кенепке бояңыз; алып тастау үшін «Өшіру» параметрін қосыңыз.
+dialog.raw_masks.hint_gradient = Градиентті жылжыту үшін тұтқаларды сүйреңіз немесе жаңасын салу үшін кенепте сүйреңіз.
+
 dialog.fonts.title = Жоқ қаріптер
 dialog.fonts.install_named = {name} орнату
 dialog.fonts.no_document = Ашық құжат жоқ, сондықтан тексеретін ештеңе жоқ.

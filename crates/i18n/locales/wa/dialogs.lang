@@ -47,6 +47,25 @@ dialog.filter.camera_raw_development = Diswalpaedje Camera Raw
 dialog.filter.reset_as_shot = Rimete come al prijhe
 dialog.filter.raw_note = Ridiswalpe li coûtche en alaedje a pårti des dnêyes originåles do capteu.
 dialog.filter.note = Si mete sol coûtche en alaedje, å dvins do tchoezixhaedje.
+
+# Ahessaedjes locås di Camera Raw
+dialog.raw_masks.title = Måsses
+dialog.raw_masks.new_mask = Novea måsse:
+dialog.raw_masks.add_to_mask = Radjouter å måsse:
+dialog.raw_masks.linear = Fondou lineaire
+dialog.raw_masks.subject = Tchoezi l' sudjet
+dialog.raw_masks.sky = Tchoezi l' cir
+dialog.raw_masks.background = Tchoezi l' fond
+dialog.raw_masks.mask_n = Måsse {n}
+dialog.raw_masks.invert_mask = Inviertixh li måsse
+dialog.raw_masks.overlay = Mostrer l' måsse pa dzeu
+dialog.raw_masks.erase = Efacer
+dialog.raw_masks.local = Ahessaedjes dins ç' måsse ci
+dialog.raw_masks.delete_mask = Disfacer l' måsse
+dialog.raw_masks.detecting = Detectaedje…
+dialog.raw_masks.hint_empty = Radjoutez on måsse po candjî ene pårt do portrait. Tchaeke måsse a ses prôpes glissetes.
+dialog.raw_masks.hint_brush = Pindez sol tåvlea po radjouter å pincea; metoz Efacer en alaedje po l' rissaetchî.
+dialog.raw_masks.hint_gradient = Saetchîz les pougnes po bodjî l' fondou, ou saetchîz sol tåvlea po-z e fé on novea.
 dialog.fonts.title = Fontes ki mankèt
 dialog.fonts.install_named = Astaler {name}
 dialog.fonts.no_document = Nou documint n' est drovou, don i gn a rén a verifyî.

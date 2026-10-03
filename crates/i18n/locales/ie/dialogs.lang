@@ -48,6 +48,25 @@ dialog.filter.camera_raw_development = Developament Camera Raw
 dialog.filter.reset_as_shot = Reinitialisar quam capturat
 dialog.filter.raw_note = Developa denov li activ strate ex su original data del sensor.
 dialog.filter.note = Aplica al activ strate, intra li selection.
+
+# Camera Raw: local ajustamentes
+dialog.raw_masks.title = Mascas
+dialog.raw_masks.new_mask = Nov masca:
+dialog.raw_masks.add_to_mask = Adjunter al masca:
+dialog.raw_masks.linear = Lineari gradiente
+dialog.raw_masks.subject = Selecter li subjecte
+dialog.raw_masks.sky = Selecter li cele
+dialog.raw_masks.background = Selecter li funde
+dialog.raw_masks.mask_n = Masca {n}
+dialog.raw_masks.invert_mask = Inverter li masca
+dialog.raw_masks.overlay = Monstrar li superposition del masca
+dialog.raw_masks.erase = Gommar
+dialog.raw_masks.local = Ajustamentes in ti-ci masca
+dialog.raw_masks.delete_mask = Deleter li masca
+dialog.raw_masks.detecting = Detectente…
+dialog.raw_masks.hint_empty = Adjunte un masca por ajustar un parte del image. Chascun masca have su propri cursores.
+dialog.raw_masks.hint_brush = Pinge sur li canevas por adjunter al pincel; activa Gommar por remover it.
+dialog.raw_masks.hint_gradient = Trena li manuples por mover li gradiente, o trena sur li canevas por designar un nov.
 dialog.fonts.title = Mancant fontes
 dialog.fonts.install_named = Installar {name}
 dialog.fonts.no_document = Null document es apert, do ne existe alquó a verificar.

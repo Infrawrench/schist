@@ -48,6 +48,25 @@ dialog.filter.camera_raw_development = Camera Raw-fremkalling
 dialog.filter.reset_as_shot = Tilbakestill til som fotografert
 dialog.filter.raw_note = Fremkaller det aktive laget på nytt fra de opprinnelige sensordataene.
 dialog.filter.note = Brukes på det aktive laget, innenfor markeringen.
+
+# Lokale justeringer i Camera Raw
+dialog.raw_masks.title = Masker
+dialog.raw_masks.new_mask = Ny maske:
+dialog.raw_masks.add_to_mask = Legg til i maske:
+dialog.raw_masks.linear = Lineær forløpning
+dialog.raw_masks.subject = Velg motiv
+dialog.raw_masks.sky = Velg himmel
+dialog.raw_masks.background = Velg bakgrunn
+dialog.raw_masks.mask_n = Maske {n}
+dialog.raw_masks.invert_mask = Inverter maske
+dialog.raw_masks.overlay = Vis maskeoverlegg
+dialog.raw_masks.erase = Visk ut
+dialog.raw_masks.local = Justeringer i denne masken
+dialog.raw_masks.delete_mask = Slett maske
+dialog.raw_masks.detecting = Gjenkjenner…
+dialog.raw_masks.hint_empty = Legg til en maske for å justere en del av bildet. Hver maske har sine egne glidebrytere.
+dialog.raw_masks.hint_brush = Mal på lerretet for å legge til i penselen; slå på Visk ut for å fjerne.
+dialog.raw_masks.hint_gradient = Dra i håndtakene for å flytte forløpningen, eller dra på lerretet for å tegne en ny.
 dialog.fonts.title = Manglende skrifter
 dialog.fonts.install_named = Installer {name}
 dialog.fonts.no_document = Ingen dokumenter er åpne, så det finnes ingenting å kontrollere.

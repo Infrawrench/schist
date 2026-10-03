@@ -73,6 +73,9 @@ workspace.filters.raw_too_tall = Le developpamento RAW es troppo alte
 workspace.filters.raw_size_changed = Le dimension del developpamento RAW cambiava a {w} × {h}; le strato actual es conservate
 workspace.filters.raw_history = Developpamento Camera Raw
 workspace.filters.raw_applied = Developpamento Camera Raw applicate (melior demosaicage)
+workspace.raw_masks.no_model = {model} non es installate, dunque iste masca non pote esser detegite.
+workspace.raw_masks.no_sky = Nulle celo esseva trovate in iste imagine.
+workspace.raw_masks.detect_failed = Le detection del masca falleva: {error}
 
 workspace.image_size.done = Dimension del imagine: {w} × {h}
 workspace.image_size.bicubic_fallback = Dimension del imagine: {w} × {h} — le modello {name} non poteva esser cargate, dunque le interpolation bicubic lo substitueva

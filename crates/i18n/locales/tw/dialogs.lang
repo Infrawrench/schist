@@ -43,6 +43,25 @@ dialog.filter.camera_raw_development = Camera Raw Nsiesie
 dialog.filter.reset_as_shot = San Yɛ Sɛnea Wɔtwee No
 dialog.filter.raw_note = Ɛsan siesie layer a ɛreyɛ adwuma no fi sensor data a edi kan no mu.
 dialog.filter.note = Ɛyɛ layer a ɛreyɛ adwuma no so adwuma wɔ nea woapaw no mu.
+
+# Camera Raw mpɔtam nsiesie
+dialog.raw_masks.title = Kataanim ahorow
+dialog.raw_masks.new_mask = Kataanim foforo:
+dialog.raw_masks.add_to_mask = Fa ka kataanim no ho:
+dialog.raw_masks.linear = Tẽẽ Gradient
+dialog.raw_masks.subject = Paw Adeɛ Titiriw
+dialog.raw_masks.sky = Paw Ewiem
+dialog.raw_masks.background = Paw Akyi
+dialog.raw_masks.mask_n = Kataanim {n}
+dialog.raw_masks.invert_mask = Dane kataanim no
+dialog.raw_masks.overlay = Kyerɛ kataanim no nkataso
+dialog.raw_masks.erase = Pepa
+dialog.raw_masks.local = Nsiesie wɔ kataanim yi mu
+dialog.raw_masks.delete_mask = Popa Kataanim
+dialog.raw_masks.detecting = Ɛrehwehwɛ…
+dialog.raw_masks.hint_empty = Fa kataanim ka ho na woasiesie mfonini no fã bi. Kataanim biara wɔ ne nsiesie nnwinnade ankasa.
+dialog.raw_masks.hint_brush = Hyɛ kɔla wɔ mfonini pon no so de ka pɛnse no ho; bue Pepa na woayi afi so.
+dialog.raw_masks.hint_gradient = Twe nsa no de tu gradient no, anaa twe wɔ mfonini pon no so na woaturu foforo.
 dialog.fonts.title = Nkyerɛwee Sɛso a Ɛnni Hɔ
 dialog.fonts.install_named = Fa {name} Gu So
 dialog.fonts.no_document = Wɔmmuee document biara, enti biribiara nni hɔ a wɔbɛhwɛ.

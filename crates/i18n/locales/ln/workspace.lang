@@ -75,6 +75,9 @@ workspace.filters.raw_too_tall = Elilingi ya RAW ezali molai koleka
 workspace.filters.raw_size_changed = Bonene ya RAW ebongwani na {w} × {h}; kalke ya sikoyo ekotikala
 workspace.filters.raw_history = Kobongisa Camera Raw
 workspace.filters.raw_applied = Mbongwana ya Camera Raw esalelami (demosaic oyo eleki malamu)
+workspace.raw_masks.no_model = {model} etyami te, yango wana maske oyo ekoki komonana te.
+workspace.raw_masks.no_sky = Likoló ezwami te na elilingi oyo.
+workspace.raw_masks.detect_failed = Koluka maske ekweyi: {error}
 
 workspace.image_size.done = Bonene ya elilingi: {w} × {h}
 workspace.image_size.bicubic_fallback = Bonene ya elilingi: {w} × {h} — modɛlɛ {name} ekokaki kokɔta te, yango wana bicubique ezwi esika na yango

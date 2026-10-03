@@ -70,6 +70,9 @@ workspace.filters.raw_too_tall = RAW ပုံဖော်မှုသည် အ
 workspace.filters.raw_size_changed = RAW ပုံဖော်မှုအရွယ်အစား {w} × {h} သို့ ပြောင်းသွားသည်၊ လက်ရှိအလွှာကို ဆက်ထားမည်
 workspace.filters.raw_history = Camera Raw ဖြင့် ပုံဖော်မှု
 workspace.filters.raw_applied = Camera Raw ပုံဖော်မှုကို အသုံးချပြီးပါပြီ (အကောင်းဆုံး demosaic)
+workspace.raw_masks.no_model = {model} ကို ထည့်သွင်းမထားသောကြောင့် ဤဖုံးကွယ်လွှာကို ရှာဖွေ၍ မရပါ။
+workspace.raw_masks.no_sky = ဤပုံတွင် ကောင်းကင် မတွေ့ပါ။
+workspace.raw_masks.detect_failed = ဖုံးကွယ်လွှာ ရှာဖွေမှု မအောင်မြင်ပါ: {error}
 
 workspace.image_size.done = ပုံအရွယ်အစား: {w} × {h}
 workspace.image_size.bicubic_fallback = ပုံအရွယ်အစား: {w} × {h} — {name} မော်ဒယ်ကို ဖွင့်၍မရသဖြင့် ကုဗနှစ်ထပ်နည်းဖြင့် အစားထိုးခဲ့သည်

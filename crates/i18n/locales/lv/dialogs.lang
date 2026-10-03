@@ -60,6 +60,25 @@ dialog.filter.reset_as_shot = Atiestatīt uz uzņemšanas iestatījumiem
 dialog.filter.raw_note = Atkārtoti attīsta aktīvo slāni no tā sākotnējiem sensora datiem.
 dialog.filter.note = Lieto aktīvajam slānim atlases robežās.
 
+# Camera Raw lokālās korekcijas
+dialog.raw_masks.title = Maskas
+dialog.raw_masks.new_mask = Jauna maska:
+dialog.raw_masks.add_to_mask = Pievienot maskai:
+dialog.raw_masks.linear = Lineārs gradients
+dialog.raw_masks.subject = Atlasīt objektu
+dialog.raw_masks.sky = Atlasīt debesis
+dialog.raw_masks.background = Atlasīt fonu
+dialog.raw_masks.mask_n = Maska {n}
+dialog.raw_masks.invert_mask = Invertēt masku
+dialog.raw_masks.overlay = Rādīt maskas pārklājumu
+dialog.raw_masks.erase = Dzēšana
+dialog.raw_masks.local = Korekcijas šajā maskā
+dialog.raw_masks.delete_mask = Dzēst masku
+dialog.raw_masks.detecting = Nosaka…
+dialog.raw_masks.hint_empty = Pievienojiet masku, lai koriģētu attēla daļu. Katrai maskai ir savi slīdņi.
+dialog.raw_masks.hint_brush = Krāsojiet uz audekla, lai pievienotu otai; ieslēdziet „Dzēšana”, lai to noņemtu.
+dialog.raw_masks.hint_gradient = Velciet turus, lai pārvietotu gradientu, vai velciet uz audekla, lai uzzīmētu jaunu.
+
 dialog.fonts.title = Trūkstošie fonti
 dialog.fonts.install_named = Instalēt {name}
 dialog.fonts.no_document = Nav atvērts neviens dokuments, tāpēc nav ko pārbaudīt.

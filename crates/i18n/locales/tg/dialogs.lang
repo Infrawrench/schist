@@ -43,6 +43,25 @@ dialog.filter.camera_raw_development = Коркарди Camera Raw
 dialog.filter.reset_as_shot = Баргардондан ба ҳолати аксбардорӣ
 dialog.filter.raw_note = Қабати фаъолро аз маълумоти аслии ҳассосгар дубора коркард мекунад.
 dialog.filter.note = Ба қабати фаъол дар дохили интихоб татбиқ мешавад.
+
+# Танзимоти маҳаллии Camera Raw
+dialog.raw_masks.title = Ниқобҳо
+dialog.raw_masks.new_mask = Ниқоби нав:
+dialog.raw_masks.add_to_mask = Ба ниқоб илова кардан:
+dialog.raw_masks.linear = Градиенти хаттӣ
+dialog.raw_masks.subject = Интихоби объект
+dialog.raw_masks.sky = Интихоби осмон
+dialog.raw_masks.background = Интихоби пасзамина
+dialog.raw_masks.mask_n = Ниқоби {n}
+dialog.raw_masks.invert_mask = Баръакс кардани ниқоб
+dialog.raw_masks.overlay = Нишон додани рӯпӯши ниқоб
+dialog.raw_masks.erase = Пок кардан
+dialog.raw_masks.local = Танзимот дар ин ниқоб
+dialog.raw_masks.delete_mask = Нест кардани ниқоб
+dialog.raw_masks.detecting = Муайян карда мешавад…
+dialog.raw_masks.hint_empty = Барои танзими қисми тасвир ниқоб илова кунед. Ҳар як ниқоб лағжандаҳои худро дорад.
+dialog.raw_masks.hint_brush = Барои илова ба мӯқалам дар рони тасвир ранг кашед; барои тоза кардани он «Пок кардан»-ро фаъол кунед.
+dialog.raw_masks.hint_gradient = Барои ҷойиваз кардани градиент дастакҳоро кашед ё барои кашидани градиенти нав дар рони тасвир кашед.
 dialog.fonts.title = Ҳуруфҳои гумшуда
 dialog.fonts.install_named = Насби {name}
 dialog.fonts.no_document = Ҳуҷҷате кушода нест, бинобар ин чизе барои санҷидан нест.

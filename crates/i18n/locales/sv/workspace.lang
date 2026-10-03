@@ -94,6 +94,9 @@ workspace.filters.raw_too_tall = RAW-framkallningen är för hög
 workspace.filters.raw_size_changed = RAW-framkallningens storlek ändrades till {w} × {h}; det nuvarande lagret behålls
 workspace.filters.raw_history = Camera Raw-framkallning
 workspace.filters.raw_applied = Camera Raw-framkallning tillämpad (bästa demosaicing)
+workspace.raw_masks.no_model = {model} är inte installerad, så den här masken kan inte identifieras.
+workspace.raw_masks.no_sky = Ingen himmel hittades i den här bilden.
+workspace.raw_masks.detect_failed = Maskidentifieringen misslyckades: {error}
 
 # Bildstorlek via neural uppskalning (filters.rs); {name} är modellen
 workspace.image_size.done = Bildstorlek: {w} × {h}

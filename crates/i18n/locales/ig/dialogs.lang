@@ -43,6 +43,25 @@ dialog.filter.camera_raw_development = Nhazi Camera Raw
 dialog.filter.reset_as_shot = Tọgharịa dịka e siri see ya
 dialog.filter.raw_note = Ọ na-eji data sensor mbụ hazie leya nọ n'ọrụ ọzọ.
 dialog.filter.note = Ọ na-emetụta leya nọ n'ọrụ n'ime nhọrọ.
+
+# Mgbanwe mpaghara Camera Raw
+dialog.raw_masks.title = Nkpuchi
+dialog.raw_masks.new_mask = Nkpuchi ọhụrụ:
+dialog.raw_masks.add_to_mask = Tinye na nkpuchi:
+dialog.raw_masks.linear = Ngwakọta ụcha ahịrị
+dialog.raw_masks.subject = Họrọ ihe bụ isi
+dialog.raw_masks.sky = Họrọ mbara igwe
+dialog.raw_masks.background = Họrọ ndabere
+dialog.raw_masks.mask_n = Nkpuchi {n}
+dialog.raw_masks.invert_mask = Tụgharịa nkpuchi
+dialog.raw_masks.overlay = Gosi nkpuchi n'elu foto
+dialog.raw_masks.erase = Hicha
+dialog.raw_masks.local = Mgbanwe n'ime nkpuchi a
+dialog.raw_masks.delete_mask = Hichapụ nkpuchi
+dialog.raw_masks.detecting = Na-achọpụta…
+dialog.raw_masks.hint_empty = Tinye nkpuchi iji gbanwee otu akụkụ nke foto ahụ. Nkpuchi ọ bụla nwere ihe ndọkpụ nke ya.
+dialog.raw_masks.hint_brush = See na kanvas iji tinye na brọsh; gbanye Hicha iji wepụ ya.
+dialog.raw_masks.hint_gradient = Dọrọ njide iji bugharịa ngwakọta ụcha, ma ọ bụ dọrọ na kanvas iji see nke ọhụrụ.
 dialog.fonts.title = Fọnt ndị na-efu
 dialog.fonts.install_named = Wụnye {name}
 dialog.fonts.no_document = Ọ dịghị dọkụmentị mepere emepe, ya mere ọ dịghị ihe a ga-enyocha.

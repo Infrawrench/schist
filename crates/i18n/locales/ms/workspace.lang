@@ -98,6 +98,9 @@ workspace.filters.raw_too_tall = Hasil pemprosesan RAW terlalu tinggi
 workspace.filters.raw_size_changed = Saiz hasil pemprosesan RAW berubah kepada {w} × {h}; lapisan semasa dikekalkan
 workspace.filters.raw_history = Pemprosesan Camera Raw
 workspace.filters.raw_applied = Pemprosesan Camera Raw diterapkan (penyahmozekan terbaik)
+workspace.raw_masks.no_model = {model} tidak dipasang, jadi topeng ini tidak dapat dikesan.
+workspace.raw_masks.no_sky = Tiada langit ditemui dalam gambar ini.
+workspace.raw_masks.detect_failed = Pengesanan topeng gagal: {error}
 
 # Image Size through a neural upscaler (filters.rs); {name} is the model
 workspace.image_size.done = Saiz imej: {w} × {h}

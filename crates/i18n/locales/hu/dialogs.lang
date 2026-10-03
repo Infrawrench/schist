@@ -47,6 +47,25 @@ dialog.filter.camera_raw_development = Camera Raw-kidolgozás
 dialog.filter.reset_as_shot = Visszaállítás felvétel szerint
 dialog.filter.raw_note = Újra kidolgozza az aktív réteget az eredeti érzékelőadatokból.
 dialog.filter.note = Az aktív rétegre, a kijelölésen belül alkalmazza.
+
+# Camera Raw helyi korrekciók
+dialog.raw_masks.title = Maszkok
+dialog.raw_masks.new_mask = Új maszk:
+dialog.raw_masks.add_to_mask = Hozzáadás a maszkhoz:
+dialog.raw_masks.linear = Lineáris színátmenet
+dialog.raw_masks.subject = Téma kijelölése
+dialog.raw_masks.sky = Égbolt kijelölése
+dialog.raw_masks.background = Háttér kijelölése
+dialog.raw_masks.mask_n = {n}. maszk
+dialog.raw_masks.invert_mask = Maszk megfordítása
+dialog.raw_masks.overlay = Maszkátfedés megjelenítése
+dialog.raw_masks.erase = Radírozás
+dialog.raw_masks.local = Korrekciók ebben a maszkban
+dialog.raw_masks.delete_mask = Maszk törlése
+dialog.raw_masks.detecting = Felismerés…
+dialog.raw_masks.hint_empty = Adjon hozzá egy maszkot a kép egy részének módosításához. Minden maszknak saját csúszkái vannak.
+dialog.raw_masks.hint_brush = Fessen a vásznon az ecsethez való hozzáadáshoz; az eltávolításhoz kapcsolja be a Radírozás lehetőséget.
+dialog.raw_masks.hint_gradient = Húzza a fogópontokat a színátmenet mozgatásához, vagy húzzon a vásznon egy új rajzolásához.
 dialog.fonts.title = Hiányzó betűtípusok
 dialog.fonts.install_named = {name} telepítése
 dialog.fonts.no_document = Nincs megnyitott dokumentum, ezért nincs mit ellenőrizni.

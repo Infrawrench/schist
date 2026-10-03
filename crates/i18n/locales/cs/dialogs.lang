@@ -51,6 +51,25 @@ dialog.filter.camera_raw_development = Vyvolání Camera Raw
 dialog.filter.reset_as_shot = Obnovit nastavení při pořízení
 dialog.filter.raw_note = Znovu vyvolá aktivní vrstvu z původních dat snímače.
 dialog.filter.note = Použije se na aktivní vrstvu uvnitř výběru.
+
+# Místní úpravy Camera Raw
+dialog.raw_masks.title = Masky
+dialog.raw_masks.new_mask = Nová maska:
+dialog.raw_masks.add_to_mask = Přidat do masky:
+dialog.raw_masks.linear = Lineární přechod
+dialog.raw_masks.subject = Vybrat objekt
+dialog.raw_masks.sky = Vybrat oblohu
+dialog.raw_masks.background = Vybrat pozadí
+dialog.raw_masks.mask_n = Maska {n}
+dialog.raw_masks.invert_mask = Invertovat masku
+dialog.raw_masks.overlay = Zobrazit překryv masky
+dialog.raw_masks.erase = Mazat
+dialog.raw_masks.local = Úpravy v této masce
+dialog.raw_masks.delete_mask = Odstranit masku
+dialog.raw_masks.detecting = Rozpoznávání…
+dialog.raw_masks.hint_empty = Přidejte masku, chcete-li upravit část obrázku. Každá maska má vlastní posuvníky.
+dialog.raw_masks.hint_brush = Malováním na plátno přidáváte ke štětci; zapněte Mazat, chcete-li malbu odebrat.
+dialog.raw_masks.hint_gradient = Přetažením úchytů přesunete přechod, přetažením na plátně nakreslíte nový.
 dialog.fonts.title = Chybějící písma
 dialog.fonts.install_named = Nainstalovat {name}
 dialog.fonts.no_document = Není otevřen žádný dokument, takže není co kontrolovat.

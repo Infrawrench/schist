@@ -52,6 +52,25 @@ dialog.filter.camera_raw_development = Revelado de Camera Raw
 dialog.filter.reset_as_shot = Restablecer a valores de captura
 dialog.filter.raw_note = Vuelve a revelar la capa activa a partir de los datos originales del sensor.
 dialog.filter.note = Se aplica a la capa activa, dentro de la selección.
+
+# Ajustes locales de Camera Raw
+dialog.raw_masks.title = Máscaras
+dialog.raw_masks.new_mask = Nueva máscara:
+dialog.raw_masks.add_to_mask = Añadir a la máscara:
+dialog.raw_masks.linear = Degradado lineal
+dialog.raw_masks.subject = Seleccionar sujeto
+dialog.raw_masks.sky = Seleccionar cielo
+dialog.raw_masks.background = Seleccionar fondo
+dialog.raw_masks.mask_n = Máscara {n}
+dialog.raw_masks.invert_mask = Invertir máscara
+dialog.raw_masks.overlay = Mostrar superposición de máscara
+dialog.raw_masks.erase = Borrar
+dialog.raw_masks.local = Ajustes en esta máscara
+dialog.raw_masks.delete_mask = Eliminar máscara
+dialog.raw_masks.detecting = Detectando…
+dialog.raw_masks.hint_empty = Añade una máscara para ajustar parte de la imagen. Cada máscara tiene sus propios reguladores.
+dialog.raw_masks.hint_brush = Pinta sobre el lienzo para añadir al pincel; activa Borrar para quitarlo.
+dialog.raw_masks.hint_gradient = Arrastra los controles para mover el degradado o arrastra sobre el lienzo para dibujar uno nuevo.
 dialog.fonts.title = Fuentes que faltan
 dialog.fonts.install_named = Instalar {name}
 dialog.fonts.no_document = No hay ningún documento abierto, así que no hay nada que comprobar.

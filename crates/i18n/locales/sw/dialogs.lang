@@ -57,6 +57,25 @@ dialog.filter.reset_as_shot = Rejesha Hali ya Upigaji
 dialog.filter.raw_note = Hutengeneza upya safu inayotumika kutoka kwenye data asili ya sensa.
 dialog.filter.note = Hutumika kwenye safu inayotumika, ndani ya uteuzi.
 
+# Marekebisho ya ndani ya Camera Raw
+dialog.raw_masks.title = Barakoa
+dialog.raw_masks.new_mask = Barakoa mpya:
+dialog.raw_masks.add_to_mask = Ongeza kwenye barakoa:
+dialog.raw_masks.linear = Mpito wa Rangi wa Mstari
+dialog.raw_masks.subject = Chagua Mhusika
+dialog.raw_masks.sky = Chagua Anga
+dialog.raw_masks.background = Chagua Mandharinyuma
+dialog.raw_masks.mask_n = Barakoa {n}
+dialog.raw_masks.invert_mask = Geuza barakoa
+dialog.raw_masks.overlay = Onyesha kifuniko cha barakoa
+dialog.raw_masks.erase = Futa
+dialog.raw_masks.local = Marekebisho katika barakoa hii
+dialog.raw_masks.delete_mask = Futa Barakoa
+dialog.raw_masks.detecting = Inatambua…
+dialog.raw_masks.hint_empty = Ongeza barakoa ili kurekebisha sehemu ya picha. Kila barakoa ina vitelezi vyake.
+dialog.raw_masks.hint_brush = Paka rangi kwenye turubai ili kuongeza kwenye brashi; washa Futa ili kuiondoa.
+dialog.raw_masks.hint_gradient = Buruta vishikio ili kusogeza mpito wa rangi, au buruta kwenye turubai ili kuchora mpya.
+
 dialog.fonts.title = Fonti Zinazokosekana
 dialog.fonts.install_named = Sakinisha {name}
 dialog.fonts.no_document = Hakuna hati iliyofunguliwa, kwa hivyo hakuna cha kukagua.

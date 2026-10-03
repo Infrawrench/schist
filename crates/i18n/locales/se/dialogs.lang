@@ -54,6 +54,25 @@ dialog.filter.camera_raw_development = Camera Raw-ovdánahttin
 dialog.filter.reset_as_shot = Máhcat govvenáiggi ásahusaide
 dialog.filter.raw_note = Ovdánahttá aktiivvalaš gearddi ođđasit dan originála dovdandáhtuin.
 dialog.filter.note = Heivehuvvo aktiivvalaš geardái válljema siskkobealde.
+
+# Camera Raw báikkálaš heivehusat
+dialog.raw_masks.title = Máskkat
+dialog.raw_masks.new_mask = Ođđa máska:
+dialog.raw_masks.add_to_mask = Lasit máskii:
+dialog.raw_masks.linear = Linjáivdnerievdan
+dialog.raw_masks.subject = Vállje fáttá
+dialog.raw_masks.sky = Vállje albmi
+dialog.raw_masks.background = Vállje duogáža
+dialog.raw_masks.mask_n = Máska {n}
+dialog.raw_masks.invert_mask = Jorggihit máskka
+dialog.raw_masks.overlay = Čájet máskka badjegova
+dialog.raw_masks.erase = Sihku
+dialog.raw_masks.local = Heivehusat dán máskkas
+dialog.raw_masks.delete_mask = Váldde eret máskka
+dialog.raw_masks.detecting = Dovddasteamen…
+dialog.raw_masks.hint_empty = Lasit máskka vai heivehit oasi govas. Juohke máskkas leat iežas njuolahusat.
+dialog.raw_masks.hint_brush = Málle govvaduolbbai vai lasihat peansalii; álggat Sihku vai váldit dan eret.
+dialog.raw_masks.hint_gradient = Gease giehtagiid vai sirdát ivdnerievdama, dahje gease govvaduolbbas vai sárgut ođđa.
 dialog.fonts.title = Váilot fonttat
 dialog.fonts.install_named = Sajáiduhte {name}
 dialog.fonts.no_document = Ii oktage dokumeanta leat rabas, nu ahte ii leat maid dárkkistit.

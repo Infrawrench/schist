@@ -57,6 +57,25 @@ dialog.filter.reset_as_shot = Surata düşürilişi ýaly täzeden düzmek
 dialog.filter.raw_note = Işjeň gatlagy asyl sensor maglumatlaryndan täzeden işleýär.
 dialog.filter.note = Saýlawyň içinde, işjeň gatlaga ulanylýar.
 
+# Camera Raw ýerli sazlamalary
+dialog.raw_masks.title = Maskalar
+dialog.raw_masks.new_mask = Täze maska:
+dialog.raw_masks.add_to_mask = Maska goş:
+dialog.raw_masks.linear = Çyzykly gradiýent
+dialog.raw_masks.subject = Obýekti saýla
+dialog.raw_masks.sky = Asmany saýla
+dialog.raw_masks.background = Fony saýla
+dialog.raw_masks.mask_n = Maska {n}
+dialog.raw_masks.invert_mask = Maskany tersine öwür
+dialog.raw_masks.overlay = Maskanyň örtügini görkez
+dialog.raw_masks.erase = Pozmak
+dialog.raw_masks.local = Bu maskadaky sazlamalar
+dialog.raw_masks.delete_mask = Maskany poz
+dialog.raw_masks.detecting = Kesgitlenýär…
+dialog.raw_masks.hint_empty = Suratyň bir bölegini sazlamak üçin maska goşuň. Her maskanyň öz süýşgüçleri bar.
+dialog.raw_masks.hint_brush = Çotga goşmak üçin kanwada çekiň; aýyrmak üçin «Pozmak» funksiýasyny açyň.
+dialog.raw_masks.hint_gradient = Gradiýenti süýşürmek üçin tutawaçlary süýräň ýa-da täzesini çekmek üçin kanwada süýräň.
+
 dialog.fonts.title = Ýetmeýän şriftler
 dialog.fonts.install_named = {name} gurmak
 dialog.fonts.no_document = Açyk resminama ýok, şonuň üçin barlamaly zat ýok.

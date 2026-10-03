@@ -43,6 +43,25 @@ dialog.filter.camera_raw_development = Camera Raw-vaḍḍhanaṃ
 dialog.filter.reset_as_shot = Yathāgahitaṃ puna patiṭṭhāpetha
 dialog.filter.raw_note = Kammakārakasantharaṃ tassa mūla-indriyadattato puna vaḍḍheti.
 dialog.filter.note = Kammakārakasanthare gahaṇassa anto payujjati.
+
+# Camera Raw-padesikasampādanāni
+dialog.raw_masks.title = Paṭicchādakāni
+dialog.raw_masks.new_mask = Navaṃ paṭicchādakaṃ:
+dialog.raw_masks.add_to_mask = Paṭicchādake pakkhipatha:
+dialog.raw_masks.linear = Ujurekhā-anukkamavaṇṇo
+dialog.raw_masks.subject = Visayaṃ gaṇhatha
+dialog.raw_masks.sky = Ākāsaṃ gaṇhatha
+dialog.raw_masks.background = Pacchābhūmiṃ gaṇhatha
+dialog.raw_masks.mask_n = Paṭicchādakaṃ {n}
+dialog.raw_masks.invert_mask = Paṭicchādakaṃ viparivattetha
+dialog.raw_masks.overlay = Paṭicchādaka-ottharaṇaṃ dassetha
+dialog.raw_masks.erase = Apamajjanaṃ
+dialog.raw_masks.local = Imasmiṃ paṭicchādake sampādanāni
+dialog.raw_masks.delete_mask = Paṭicchādakaṃ nāsetha
+dialog.raw_masks.detecting = Gavesīyati…
+dialog.raw_masks.hint_empty = Chāyārūpassa ekadesaṃ sampādetuṃ paṭicchādakaṃ pakkhipatha. Ekekassa paṭicchādakassa attano cālakāni honti.
+dialog.raw_masks.hint_brush = Tūlikāya pakkhipituṃ phalake likhatha; apanetuṃ Apamajjanaṃ vivaratha.
+dialog.raw_masks.hint_gradient = Anukkamavaṇṇaṃ cāletuṃ phusitabbāni ākaḍḍhatha, navaṃ vā likhituṃ phalake ākaḍḍhatha.
 dialog.fonts.title = Aladdha-akkharākārā
 dialog.fonts.install_named = {name} patiṭṭhāpetha
 dialog.fonts.no_document = Koci potthako na vivaṭo; tasmā upaparikkhitabbaṃ natthi.

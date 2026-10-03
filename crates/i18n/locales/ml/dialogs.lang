@@ -47,6 +47,25 @@ dialog.filter.camera_raw_development = Camera Raw ഡെവലപ്മെന്
 dialog.filter.reset_as_shot = ക്യാമറ പകർത്തിയ നിലയിലേക്കു പുനഃസജ്ജമാക്കുക
 dialog.filter.raw_note = സജീവ ലെയറിനെ അതിന്റെ അസ്സൽ സെൻസർ ഡാറ്റയിൽനിന്ന് വീണ്ടും ഡെവലപ്പ് ചെയ്യുന്നു.
 dialog.filter.note = തിരഞ്ഞെടുപ്പിനുള്ളിൽ സജീവ ലെയറിൽ പ്രയോഗിക്കുന്നു.
+
+# Camera Raw പ്രാദേശിക ക്രമീകരണങ്ങൾ
+dialog.raw_masks.title = മാസ്കുകൾ
+dialog.raw_masks.new_mask = പുതിയ മാസ്ക്:
+dialog.raw_masks.add_to_mask = മാസ്കിലേക്ക് ചേർക്കുക:
+dialog.raw_masks.linear = ലീനിയർ ഗ്രേഡിയന്റ്
+dialog.raw_masks.subject = വിഷയം തിരഞ്ഞെടുക്കുക
+dialog.raw_masks.sky = ആകാശം തിരഞ്ഞെടുക്കുക
+dialog.raw_masks.background = പശ്ചാത്തലം തിരഞ്ഞെടുക്കുക
+dialog.raw_masks.mask_n = മാസ്ക് {n}
+dialog.raw_masks.invert_mask = മാസ്ക് വിപരീതമാക്കുക
+dialog.raw_masks.overlay = മാസ്ക് ഓവർലേ കാണിക്കുക
+dialog.raw_masks.erase = മായ്ക്കുക
+dialog.raw_masks.local = ഈ മാസ്കിലെ ക്രമീകരണങ്ങൾ
+dialog.raw_masks.delete_mask = മാസ്ക് ഇല്ലാതാക്കുക
+dialog.raw_masks.detecting = കണ്ടെത്തുന്നു…
+dialog.raw_masks.hint_empty = ചിത്രത്തിന്റെ ഒരു ഭാഗം ക്രമീകരിക്കാൻ ഒരു മാസ്ക് ചേർക്കുക. ഓരോ മാസ്കിനും അതിന്റേതായ സ്ലൈഡറുകൾ ഉണ്ട്.
+dialog.raw_masks.hint_brush = ബ്രഷിലേക്ക് ചേർക്കാൻ ക്യാൻവാസിൽ വരയ്ക്കുക; നീക്കം ചെയ്യാൻ മായ്ക്കുക ഓണാക്കുക.
+dialog.raw_masks.hint_gradient = ഗ്രേഡിയന്റ് നീക്കാൻ ഹാൻഡിലുകൾ വലിക്കുക, അല്ലെങ്കിൽ പുതിയൊന്ന് വരയ്ക്കാൻ ക്യാൻവാസിൽ വലിക്കുക.
 dialog.fonts.title = ലഭ്യമല്ലാത്ത ഫോണ്ടുകൾ
 dialog.fonts.install_named = {name} ഇൻസ്റ്റാൾ ചെയ്യുക
 dialog.fonts.no_document = ഡോക്യുമെന്റ് തുറന്നിട്ടില്ല, അതിനാൽ പരിശോധിക്കാൻ ഒന്നുമില്ല.

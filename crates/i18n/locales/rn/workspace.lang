@@ -76,6 +76,9 @@ workspace.filters.raw_too_tall = Gutunganya RAW birebire birenze
 workspace.filters.raw_size_changed = Ingano ya RAW yahindutse iba {w} × {h}; urwego rw'ubu ruragumijwe
 workspace.filters.raw_history = Gutunganya Camera Raw
 workspace.filters.raw_applied = Gutunganya Camera Raw kwakoreshejwe (demosaic nziza kuruta)
+workspace.raw_masks.no_model = {model} ntiyashizwemwo, ni co gituma iyi masike idashobora kuboneka.
+workspace.raw_masks.no_sky = Nta juru ryabonetse muri iyi shusho.
+workspace.raw_masks.detect_failed = Kuronka masike vyanse: {error}
 
 workspace.image_size.done = Ingano y'ishusho: {w} × {h}
 workspace.image_size.bicubic_fallback = Ingano y'ishusho: {w} × {h} — moderi {name} ntiyashoboye gushirwa, rero hakoreshejwe bicubic

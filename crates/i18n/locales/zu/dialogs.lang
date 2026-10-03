@@ -47,6 +47,25 @@ dialog.filter.camera_raw_development = Ukucutshungulwa kwe-Camera Raw
 dialog.filter.reset_as_shot = Buyisela Kwendlela Esathathwa Ngayo
 dialog.filter.raw_note = Kucutshungulwa kabusha isendlalelo esisebenzayo kusukela kudatha yoqobo yesinzwa.
 dialog.filter.note = Kusebenza esendlalelweni esisebenzayo, ngaphakathi kokukhethiwe.
+
+# Ukulungiswa kwendawo ethile ku-Camera Raw
+dialog.raw_masks.title = Amamaski
+dialog.raw_masks.new_mask = Imaski entsha:
+dialog.raw_masks.add_to_mask = Engeza kumaski:
+dialog.raw_masks.linear = Ushintsho Lombala Oluqondile
+dialog.raw_masks.subject = Khetha Isihloko
+dialog.raw_masks.sky = Khetha Isibhakabhaka
+dialog.raw_masks.background = Khetha Ingemuva
+dialog.raw_masks.mask_n = Imaski {n}
+dialog.raw_masks.invert_mask = Guqula imaski
+dialog.raw_masks.overlay = Bonisa imaski ngombala
+dialog.raw_masks.erase = Sula
+dialog.raw_masks.local = Ukulungiswa kule maski
+dialog.raw_masks.delete_mask = Susa Imaski
+dialog.raw_masks.detecting = Kuyatholwa…
+dialog.raw_masks.hint_empty = Engeza imaski ukuze ulungise ingxenye yesithombe. Imaski ngayinye inezilayida zayo.
+dialog.raw_masks.hint_brush = Penda kukhanvasi ukuze wandise indawo yebhulashi; vula u-Sula ukuze uyinciphise.
+dialog.raw_masks.hint_gradient = Hudula izibambo ukuze uhambise ushintsho lombala, noma uhudule kukhanvasi ukuze udwebe olusha.
 dialog.fonts.title = Amafonti Angekho
 dialog.fonts.install_named = Faka i-{name}
 dialog.fonts.no_document = Awukho umbhalo ovuliwe, ngakho akukho okungahlolwa.

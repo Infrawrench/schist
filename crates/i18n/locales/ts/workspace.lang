@@ -75,6 +75,9 @@ workspace.filters.raw_too_tall = RAW leyi antswisiwaka yi lehile ngopfu
 workspace.filters.raw_size_changed = Sayizi ya RAW leyi antswisiwaka yi cince yi va {w} × {h}; ku hlayisiwa leyara ya sweswi
 workspace.filters.raw_history = Ku antswisa Camera Raw
 workspace.filters.raw_applied = Ku antswisa Camera Raw ku tirhisiwile (demosaic leyinene ngopfu)
+workspace.raw_masks.no_model = {model} a yi nghenisiwangi, hikwalaho maski leyi a yi koti ku kumisisiwa.
+workspace.raw_masks.no_sky = Ku hava tilo leri kumekeke eka xifaniso lexi.
+workspace.raw_masks.detect_failed = Ku kumisisa maski ku tsandzekile: {error}
 
 workspace.image_size.done = Sayizi ya xifaniso: {w} × {h}
 workspace.image_size.bicubic_fallback = Sayizi ya xifaniso: {w} × {h} — modele wa {name} a wu layichanga, kutani ku tirhisiwe bicubic

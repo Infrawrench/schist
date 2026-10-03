@@ -43,6 +43,25 @@ dialog.filter.camera_raw_development = Camera Raw Development
 dialog.filter.reset_as_shot = Bar kōṃṃan ñan wāween an capture
 dialog.filter.raw_note = Ej bar develop layer eo ej jerbal jen data in sensor original eo an.
 dialog.filter.note = Ej jerbal ioon layer eo ej jerbal, iloan selection eo.
+
+# Oktak ko ilo jet jikin ilo Camera Raw
+dialog.raw_masks.title = Mask ko
+dialog.raw_masks.new_mask = Mask eo ekāāl:
+dialog.raw_masks.add_to_mask = Kobaik ñan mask eo:
+dialog.raw_masks.linear = Gradient linear
+dialog.raw_masks.subject = Kālet Men eo Eaorōk
+dialog.raw_masks.sky = Kālet Lañ
+dialog.raw_masks.background = Kālet Turin Lik
+dialog.raw_masks.mask_n = Mask {n}
+dialog.raw_masks.invert_mask = Ukote mask eo
+dialog.raw_masks.overlay = Kwaļọk kōļar in mask eo ioon
+dialog.raw_masks.erase = Joļọk kōļar
+dialog.raw_masks.local = Oktak ko ilo mask in
+dialog.raw_masks.delete_mask = Jolọk Mask
+dialog.raw_masks.detecting = Ej pukot…
+dialog.raw_masks.hint_empty = Kobaik juon mask ñan kōṃṃan oktak ilo juon kōtan pija eo. Kajjojo mask ewōr an make slider ko.
+dialog.raw_masks.hint_brush = Pein ioon canvas eo ñan kobaik ñan brush eo; kōjerbal Joļọk kōļar ñan bōk e.
+dialog.raw_masks.hint_gradient = Idōk handle ko ñan kōṃakūt gradient eo, ak idōk ioon canvas eo ñan kōṃṃan juon ekāāl.
 dialog.fonts.title = Font ko rejako
 dialog.fonts.install_named = Install {name}
 dialog.fonts.no_document = Ejelọk document ej bellọk, kōn menin ejelọk men ñan etale.

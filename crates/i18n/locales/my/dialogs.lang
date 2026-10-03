@@ -49,6 +49,25 @@ dialog.filter.reset_as_shot = ရိုက်ကူးစဉ်အတိုင�
 dialog.filter.raw_note = အသုံးပြုနေသော အလွှာကို ၎င်း၏ မူရင်းအာရုံခံကိရိယာဒေတာမှ ပြန်လည်ပုံဖော်သည်။
 dialog.filter.note = ရွေးချယ်မှုအတွင်းရှိ အသုံးပြုနေသော အလွှာတွင် သက်ရောက်သည်။
 
+# Camera Raw ဒေသတွင်း ချိန်ညှိမှုများ
+dialog.raw_masks.title = ဖုံးကွယ်လွှာများ
+dialog.raw_masks.new_mask = ဖုံးကွယ်လွှာအသစ်:
+dialog.raw_masks.add_to_mask = ဖုံးကွယ်လွှာသို့ ထည့်ရန်:
+dialog.raw_masks.linear = မျဉ်းဖြောင့် အရောင်ပြေး
+dialog.raw_masks.subject = အဓိကအရာကို ရွေးရန်
+dialog.raw_masks.sky = ကောင်းကင်ကို ရွေးရန်
+dialog.raw_masks.background = နောက်ခံကို ရွေးရန်
+dialog.raw_masks.mask_n = ဖုံးကွယ်လွှာ {n}
+dialog.raw_masks.invert_mask = ဖုံးကွယ်လွှာကို ပြောင်းပြန်လှန်ရန်
+dialog.raw_masks.overlay = ဖုံးကွယ်လွှာ ထပ်အုပ်ပြသမှုကို ပြရန်
+dialog.raw_masks.erase = သုတ်ဖျက်ရန်
+dialog.raw_masks.local = ဤဖုံးကွယ်လွှာရှိ ချိန်ညှိမှုများ
+dialog.raw_masks.delete_mask = ဖုံးကွယ်လွှာကို ဖျက်ရန်
+dialog.raw_masks.detecting = ရှာဖွေနေသည်…
+dialog.raw_masks.hint_empty = ပုံ၏ အစိတ်အပိုင်းတစ်ခုကို ချိန်ညှိရန် ဖုံးကွယ်လွှာတစ်ခု ထည့်ပါ။ ဖုံးကွယ်လွှာတိုင်းတွင် ကိုယ်ပိုင် ဆလိုက်ဒါများ ရှိသည်။
+dialog.raw_masks.hint_brush = စုတ်တံသို့ ထည့်ရန် ပုံဖော်ဧရိယာပေါ်တွင် ဆေးခြယ်ပါ။ ပြန်ဖယ်ရန် "သုတ်ဖျက်ရန်" ကို ဖွင့်ပါ။
+dialog.raw_masks.hint_gradient = အရောင်ပြေးကို ရွှေ့ရန် လက်ကိုင်များကို ဆွဲပါ၊ သို့မဟုတ် အသစ်တစ်ခု ဆွဲရန် ပုံဖော်ဧရိယာပေါ်တွင် ဆွဲပါ။
+
 dialog.fonts.title = ပျောက်နေသော ဖောင့်များ
 dialog.fonts.install_named = {name} ကို ထည့်သွင်းရန်
 dialog.fonts.no_document = မည်သည့်စာတမ်းမျှ ဖွင့်မထားသဖြင့် စစ်ဆေးစရာမရှိပါ။

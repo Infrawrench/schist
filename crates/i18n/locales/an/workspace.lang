@@ -91,6 +91,9 @@ workspace.filters.raw_too_tall = O revelau RAW ye mas alto d'o permitiu
 workspace.filters.raw_size_changed = A grandaria d'o revelau RAW ha cambiau a {w} × {h}; se conserva a capa actual
 workspace.filters.raw_history = Revelau de Camera Raw
 workspace.filters.raw_applied = S'ha aplicau o revelau de Camera Raw (o millor desmosaicau)
+workspace.raw_masks.no_model = {model} no ye instalau, asinas que no se puede detectar esta mascara.
+workspace.raw_masks.no_sky = No s'ha trobau garra cielo en esta imachen.
+workspace.raw_masks.detect_failed = A detección d'a mascara ha fallau: {error}
 
 # Grandaria d'a imachen con un escalador neuronal
 workspace.image_size.done = Grandaria d'a imachen: {w} × {h}

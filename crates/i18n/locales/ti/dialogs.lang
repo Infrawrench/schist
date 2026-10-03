@@ -57,6 +57,25 @@ dialog.filter.reset_as_shot = ናብቲ ከም ዝተሳእለ መልስ
 dialog.filter.raw_note = ነቲ ንጡፍ ንጣፍ ካብ መበቆላዊ ዳታ ሰንሰር እንደገና የማዕብሎ።
 dialog.filter.note = ኣብ ውሽጢ እቲ ምርጫ፣ ኣብቲ ንጡፍ ንጣፍ ይትግበር።
 
+# ከባቢያዊ ምትዕርራያት Camera Raw
+dialog.raw_masks.title = መሸፈንያታት
+dialog.raw_masks.new_mask = ሓድሽ መሸፈኒ:
+dialog.raw_masks.add_to_mask = ናብ መሸፈኒ ወስኽ:
+dialog.raw_masks.linear = መስመራዊ ቅልመት
+dialog.raw_masks.subject = ቀንዲ ኣካል ምረጽ
+dialog.raw_masks.sky = ሰማይ ምረጽ
+dialog.raw_masks.background = ድሕሪት ምረጽ
+dialog.raw_masks.mask_n = መሸፈኒ {n}
+dialog.raw_masks.invert_mask = መሸፈኒ ገልብጥ
+dialog.raw_masks.overlay = ልባስ መሸፈኒ ኣርኢ
+dialog.raw_masks.erase = ደምስስ
+dialog.raw_masks.local = ምትዕርራያት ኣብዚ መሸፈኒ
+dialog.raw_masks.delete_mask = መሸፈኒ ሰርዝ
+dialog.raw_masks.detecting = ይፍለጥ ኣሎ…
+dialog.raw_masks.hint_empty = ክፋል ናይቲ ስእሊ ንምትዕርራይ መሸፈኒ ወስኽ። ነፍሲ ወከፍ መሸፈኒ ናቱ ተንሸራተትቲ ኣለዎ።
+dialog.raw_masks.hint_brush = ናብቲ ብሩሽ ንምውሳኽ ኣብቲ ሸራ ሕብሪ ኣልክይ፤ ንምእላዩ ደምስስ ኣብርህ።
+dialog.raw_masks.hint_gradient = ነቲ ቅልመት ንምንቅሳቕ መትሓዝታት ስሓብ፣ ወይ ሓድሽ ንምስኣል ኣብቲ ሸራ ስሓብ።
+
 dialog.fonts.title = ዝጎደሉ ቅርጽታት ፊደል
 dialog.fonts.install_named = {name} ተኸል
 dialog.fonts.no_document = ክፉት ሰነድ የለን፣ ስለዚ ዝምርመር የለን።

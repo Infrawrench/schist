@@ -47,6 +47,25 @@ dialog.filter.camera_raw_development = Camera Raw ޑިވެލޮޕްމަންޓް
 dialog.filter.reset_as_shot = ނެގި ގޮތަށް ރީސެޓް
 dialog.filter.raw_note = އެކްޓިވް ލޭޔަރ އޭގެ އަސްލު ސެންސަރ ޑޭޓާއިން އަލުން ޑިވެލޮޕް ކުރެއެވެ.
 dialog.filter.note = ހޮވުމުގެ ތެރޭގައި އެކްޓިވް ލޭޔަރަށް ތަތުބީޤުވެއެވެ.
+
+# Camera Raw ގެ ލޯކަލް އެޑްޖަސްޓްމަންޓްތައް
+dialog.raw_masks.title = މާސްކްތައް
+dialog.raw_masks.new_mask = އައު މާސްކް:
+dialog.raw_masks.add_to_mask = މާސްކަށް އިތުރުކުރުން:
+dialog.raw_masks.linear = ލިނިއަރ ގްރޭޑިއަންޓް
+dialog.raw_masks.subject = ސަބްޖެކްޓް ހޮވާ
+dialog.raw_masks.sky = އުޑު ހޮވާ
+dialog.raw_masks.background = ފަހަތް ހޮވާ
+dialog.raw_masks.mask_n = މާސްކް {n}
+dialog.raw_masks.invert_mask = މާސްކް އުލަނބޮށި ކުރުން
+dialog.raw_masks.overlay = މާސްކްގެ އޯވަރލޭ ދައްކާ
+dialog.raw_masks.erase = ފުހެލުން
+dialog.raw_masks.local = މި މާސްކްގެ އެޑްޖަސްޓްމަންޓްތައް
+dialog.raw_masks.delete_mask = މާސްކް ފޮހެލުން
+dialog.raw_masks.detecting = ހޯދަނީ…
+dialog.raw_masks.hint_empty = ތަސްވީރުގެ ބައެއް ބަދަލުކުރުމަށް މާސްކެއް އިތުރުކުރޭ. ކޮންމެ މާސްކަކަށް ވަކި ސްލައިޑަރުތައް ހުރެއެވެ.
+dialog.raw_masks.hint_brush = ބުރުހަށް އިތުރުކުރުމަށް ކެންވަސްގައި ކުލަޖަހާ؛ ނައްތާލުމަށް "ފުހެލުން" ހުޅުވާލާ.
+dialog.raw_masks.hint_gradient = ގްރޭޑިއަންޓް ހިއްލުމަށް ހޭންޑަލްތައް ދަމާ، ނުވަތަ އައު އެއްޗެއް ކުރަހާލުމަށް ކެންވަސްގައި ދަމާ.
 dialog.fonts.title = ނެތް ފޮންޓްތައް
 dialog.fonts.install_named = {name} އިންސްޓޯލް ކުރުން
 dialog.fonts.no_document = ޑޮކިއުމަންޓެއް ހުޅުވިފައި ނެތީމާ ޗެކްކުރާނެ އެއްޗެއް ނެތެވެ.

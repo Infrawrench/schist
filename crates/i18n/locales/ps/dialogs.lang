@@ -47,6 +47,25 @@ dialog.filter.camera_raw_development = د Camera Raw پراختیا
 dialog.filter.reset_as_shot = د اخیستلو حالت ته بیا ټاکل
 dialog.filter.raw_note = فعاله طبقه د هغې له اصلي حسګر مالوماتو بیا پراخوي.
 dialog.filter.note = د ټاکنې دننه پر فعاله طبقه پلي کېږي.
+
+# د Camera Raw ځایي سمونې
+dialog.raw_masks.title = ماسکونه
+dialog.raw_masks.new_mask = نوی ماسک:
+dialog.raw_masks.add_to_mask = ماسک ته ورزیاتول:
+dialog.raw_masks.linear = کرښه‌ییز تدریج
+dialog.raw_masks.subject = موضوع وټاکئ
+dialog.raw_masks.sky = اسمان وټاکئ
+dialog.raw_masks.background = شالید وټاکئ
+dialog.raw_masks.mask_n = ماسک {n}
+dialog.raw_masks.invert_mask = ماسک سرچپه کول
+dialog.raw_masks.overlay = د ماسک پوښ ښودل
+dialog.raw_masks.erase = پاکول
+dialog.raw_masks.local = په دې ماسک کې سمونې
+dialog.raw_masks.delete_mask = ماسک ړنګول
+dialog.raw_masks.detecting = د موندلو په حال کې…
+dialog.raw_masks.hint_empty = د انځور د یوې برخې د سمولو لپاره یو ماسک ورزیات کړئ. هر ماسک خپل ښوییدونکي لري.
+dialog.raw_masks.hint_brush = پر انځورپاڼه رنګ کړئ چې برس ته ورزیات شي؛ د لرې کولو لپاره «پاکول» چالان کړئ.
+dialog.raw_masks.hint_gradient = د تدریج د خوځولو لپاره لاستي کش کړئ، یا پر انځورپاڼه کش کړئ چې نوی یې رسم کړئ.
 dialog.fonts.title = ورکې لیکبڼې
 dialog.fonts.install_named = {name} لګول
 dialog.fonts.no_document = هېڅ سند پرانیستی نه دی، نو د کتلو لپاره څه نشته.

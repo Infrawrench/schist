@@ -47,6 +47,25 @@ dialog.filter.camera_raw_development = Horumarinta Camera Raw
 dialog.filter.reset_as_shot = Ku Celi Sidii Loo Qaaday
 dialog.filter.raw_note = Lakabka firfircoon dib ayay uga horumarisaa xogtii dareemaha ee asalka ahayd.
 dialog.filter.note = Waxay ku dhacdaa lakabka firfircoon, gudaha xulashada.
+
+# Hagaajinta gudaha ee Camera Raw
+dialog.raw_masks.title = Maaskarooyin
+dialog.raw_masks.new_mask = Maaskaro cusub:
+dialog.raw_masks.add_to_mask = Ku dar maaskarada:
+dialog.raw_masks.linear = Kala-guur Toos ah
+dialog.raw_masks.subject = Dooro Mawduuca
+dialog.raw_masks.sky = Dooro Cirka
+dialog.raw_masks.background = Dooro Asalka
+dialog.raw_masks.mask_n = Maaskaro {n}
+dialog.raw_masks.invert_mask = Rog maaskarada
+dialog.raw_masks.overlay = Muuji daboolka maaskarada
+dialog.raw_masks.erase = Masax
+dialog.raw_masks.local = Hagaajinta maaskaradan
+dialog.raw_masks.delete_mask = Tirtir Maaskarada
+dialog.raw_masks.detecting = Waa la ogaanayaa…
+dialog.raw_masks.hint_empty = Ku dar maaskaro si aad u hagaajiso qayb ka mid ah sawirka. Maaskaro kastaa waxay leedahay dhaqaajiyeyaal u gaar ah.
+dialog.raw_masks.hint_brush = Ku rinji shiraaca si aad ugu darto buraashka; shid Masax si aad uga saarto.
+dialog.raw_masks.hint_gradient = Jiid gacan-qabadyada si aad u dhaqaajiso kala-guurka, ama ku jiid shiraaca si aad u sawirto mid cusub.
 dialog.fonts.title = Faraha Maqan
 dialog.fonts.install_named = Rakib {name}
 dialog.fonts.no_document = Dukumenti furan ma jiro, sidaas darteed wax la hubiyo ma jiraan.

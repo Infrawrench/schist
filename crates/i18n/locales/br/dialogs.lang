@@ -69,6 +69,25 @@ dialog.filter.reset_as_shot = Adderaouekaat evel ma voe tennet
 dialog.filter.raw_note = Ad-diorren a ra ar gwiskad oberiant diwar roadennoù orin e zinoer.
 dialog.filter.note = Arloet e vez d'ar gwiskad oberiant, en diuzadenn.
 
+# Kempennoù lec'hel Camera Raw
+dialog.raw_masks.title = Maskloù
+dialog.raw_masks.new_mask = Maskl nevez:
+dialog.raw_masks.add_to_mask = Ouzhpennañ d'ar maskl:
+dialog.raw_masks.linear = Ilrezenn linennek
+dialog.raw_masks.subject = Diuzañ ar sujed
+dialog.raw_masks.sky = Diuzañ an oabl
+dialog.raw_masks.background = Diuzañ an drekva
+dialog.raw_masks.mask_n = Maskl {n}
+dialog.raw_masks.invert_mask = Eilpennañ ar maskl
+dialog.raw_masks.overlay = Diskouez gourlec'hiadur ar maskl
+dialog.raw_masks.erase = Diverkañ
+dialog.raw_masks.local = Kempennoù er maskl-mañ
+dialog.raw_masks.delete_mask = Dilemel ar maskl
+dialog.raw_masks.detecting = O tinoiñ…
+dialog.raw_masks.hint_empty = Ouzhpennit ur maskl evit kempenn ul lodenn eus ar skeudenn. Pep maskl en deus e riklerioù dezhañ e-unan.
+dialog.raw_masks.hint_brush = Livit war ar steuñvenn evit ouzhpennañ d'ar broust; enaouit Diverkañ evit e lemel kuit.
+dialog.raw_masks.hint_gradient = Riklait an dornelloù evit dilec'hiañ an ilrezenn, pe riklait war ar steuñvenn evit tresañ unan nevez.
+
 dialog.fonts.title = Nodrezhioù diank
 dialog.fonts.install_named = Staliañ {name}
 dialog.fonts.no_document = N'eus teul digor ebet, neuze n'eus netra da wiriañ.

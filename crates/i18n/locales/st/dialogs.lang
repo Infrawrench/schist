@@ -52,6 +52,25 @@ dialog.filter.reset_as_shot = Khutlisetsa Kamoo e Nkuoeng
 dialog.filter.raw_note = E lokisa mokhahlelo o sebetsang bocha ho tsoa boitsebisong ba sensor ba pele.
 dialog.filter.note = E sebetsa mokhahlelong o sebetsang, ka har'a khetho.
 
+# Liphetoho tsa sebaka sa Camera Raw
+dialog.raw_masks.title = Limaske
+dialog.raw_masks.new_mask = Maske e ncha:
+dialog.raw_masks.add_to_mask = Kenya ho maske:
+dialog.raw_masks.linear = Phetoho ea Mebala e Otlolohileng
+dialog.raw_masks.subject = Khetha Sehlooho
+dialog.raw_masks.sky = Khetha Leholimo
+dialog.raw_masks.background = Khetha Bokamorao
+dialog.raw_masks.mask_n = Maske {n}
+dialog.raw_masks.invert_mask = Fetola maske
+dialog.raw_masks.overlay = Bontša sekoahelo sa maske
+dialog.raw_masks.erase = Phumola
+dialog.raw_masks.local = Liphetoho ka har'a maske ena
+dialog.raw_masks.delete_mask = Hlakola Maske
+dialog.raw_masks.detecting = E ntse e fumana…
+dialog.raw_masks.hint_empty = Kenya maske ho fetola karolo ea setšoantšo. Maske ka 'ngoe e na le lisebelisoa tsa eona tsa ho hula.
+dialog.raw_masks.hint_brush = Penta holim'a seile ho eketsa borasheng; bulela Phumola ho e tlosa.
+dialog.raw_masks.hint_gradient = Hula lintlha tsa ho tšoara ho tsamaisa phetoho ea mebala, kapa hula holim'a seile ho taka e ncha.
+
 dialog.fonts.title = Lifonte tse Sieo
 dialog.fonts.install_named = Kenya {name}
 dialog.fonts.no_document = Ha ho tokomane e butsoeng, kahoo ha ho letho le ka hlahlojoang.

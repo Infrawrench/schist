@@ -57,6 +57,25 @@ dialog.filter.reset_as_shot = Tlherisela eka ndlela leyi xi tekiweke ha yona
 dialog.filter.raw_note = Yi tlhela yi antswisa leyara leyi tirhaka hi data ya sensara yo sungula.
 dialog.filter.note = Yi tirha eka leyara leyi tirhaka, endzeni ka nhlawulo.
 
+# Ku lulamisa ka ndhawu ka Camera Raw
+dialog.raw_masks.title = Timaski
+dialog.raw_masks.new_mask = Maski leyintshwa:
+dialog.raw_masks.add_to_mask = Engetela eka maski:
+dialog.raw_masks.linear = Ku cincana ka mihlovo hi layini
+dialog.raw_masks.subject = Hlawula Nchumu-nkulu
+dialog.raw_masks.sky = Hlawula Tilo
+dialog.raw_masks.background = Hlawula Ndzhaku
+dialog.raw_masks.mask_n = Maski {n}
+dialog.raw_masks.invert_mask = Hundzuluxa maski
+dialog.raw_masks.overlay = Kombisa maski ehenhla
+dialog.raw_masks.erase = Sula
+dialog.raw_masks.local = Ku lulamisa eka maski leyi
+dialog.raw_masks.delete_mask = Susa Maski
+dialog.raw_masks.detecting = Ku kumisisa…
+dialog.raw_masks.hint_empty = Engetela maski leswaku u lulamisa xiphemu xa xifaniso. Maski yin'wana na yin'wana yi na swilayidi swa yona.
+dialog.raw_masks.hint_brush = Penda ehenhla ka khanivhasi ku engetela eka burachi; pfula Sula ku swi susa.
+dialog.raw_masks.hint_gradient = Koka swikhomo ku tsheta ku cincana ka mihlovo, kumbe u koka ehenhla ka khanivhasi ku dirowa lexintshwa.
+
 dialog.fonts.title = Tifonto leti kayivelaka
 dialog.fonts.install_named = Nghenisa {name}
 dialog.fonts.no_document = Ku hava dokhumente leyi pfuriweke, kutani ku hava xo kambela.

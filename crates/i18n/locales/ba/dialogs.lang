@@ -50,6 +50,25 @@ dialog.filter.reset_as_shot = Төшөрөлгәндәгегә ҡайтарыу
 dialog.filter.raw_note = Әүҙем ҡатламды сенсорҙың төп мәғлүмәтенән яңынан эшкәртә.
 dialog.filter.note = Әүҙем ҡатламға, һайланған өлкә эсендә ҡулланыла.
 
+# Camera Raw урындағы көйләүҙәр
+dialog.raw_masks.title = Битлектәр
+dialog.raw_masks.new_mask = Яңы битлек:
+dialog.raw_masks.add_to_mask = Битлеккә өҫтәү:
+dialog.raw_masks.linear = Һыҙыҡлы градиент
+dialog.raw_masks.subject = Объектты һайлау
+dialog.raw_masks.sky = Күкте һайлау
+dialog.raw_masks.background = Фонды һайлау
+dialog.raw_masks.mask_n = Битлек {n}
+dialog.raw_masks.invert_mask = Битлекте киреһенә әйләндереү
+dialog.raw_masks.overlay = Битлек өҫлөгөн күрһәтеү
+dialog.raw_masks.erase = Юйыу
+dialog.raw_masks.local = Был битлектәге көйләүҙәр
+dialog.raw_masks.delete_mask = Битлекте юйыу
+dialog.raw_masks.detecting = Табыла…
+dialog.raw_masks.hint_empty = Һүрәттең бер өлөшөн көйләү өсөн битлек өҫтәгеҙ. Һәр битлектең үҙ шыуғыстары бар.
+dialog.raw_masks.hint_brush = Бумалаға өҫтәү өсөн киндергә буяғыҙ; уны алып ташлау өсөн Юйыуҙы ҡабыҙығыҙ.
+dialog.raw_masks.hint_gradient = Градиентты күсереү өсөн тотҡаларҙы тартығыҙ, йәки яңыһын һыҙыу өсөн киндерҙә тартығыҙ.
+
 dialog.fonts.title = Етмәгән шрифттар
 dialog.fonts.install_named = {name} урынлаштырыу
 dialog.fonts.no_document = Бер документ та асылмаған, шуға тикшерерлек нәмә юҡ.

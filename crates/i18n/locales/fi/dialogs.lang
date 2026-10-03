@@ -47,6 +47,25 @@ dialog.filter.camera_raw_development = Camera Raw -kehitys
 dialog.filter.reset_as_shot = Palauta kuvausasetuksiin
 dialog.filter.raw_note = Kehittää aktiivisen tason uudelleen alkuperäisistä kennotiedoista.
 dialog.filter.note = Käytetään aktiiviseen tasoon valinnan sisällä.
+
+# Camera Raw -paikallissäädöt
+dialog.raw_masks.title = Maskit
+dialog.raw_masks.new_mask = Uusi maski:
+dialog.raw_masks.add_to_mask = Lisää maskiin:
+dialog.raw_masks.linear = Lineaarinen liukuväri
+dialog.raw_masks.subject = Valitse kohde
+dialog.raw_masks.sky = Valitse taivas
+dialog.raw_masks.background = Valitse tausta
+dialog.raw_masks.mask_n = Maski {n}
+dialog.raw_masks.invert_mask = Käännä maski
+dialog.raw_masks.overlay = Näytä maskin peittokuva
+dialog.raw_masks.erase = Pyyhi
+dialog.raw_masks.local = Tämän maskin säädöt
+dialog.raw_masks.delete_mask = Poista maski
+dialog.raw_masks.detecting = Tunnistetaan…
+dialog.raw_masks.hint_empty = Lisää maski säätääksesi osaa kuvasta. Jokaisella maskilla on omat liukusäätimensä.
+dialog.raw_masks.hint_brush = Maalaa piirtoalueelle lisätäksesi siveltimeen; ota Pyyhi käyttöön poistaaksesi sitä.
+dialog.raw_masks.hint_gradient = Siirrä liukuväriä vetämällä kahvoja tai piirrä uusi vetämällä piirtoalueella.
 dialog.fonts.title = Puuttuvat fontit
 dialog.fonts.install_named = Asenna {name}
 dialog.fonts.no_document = Yhtään dokumenttia ei ole avoinna, joten tarkistettavaa ei ole.

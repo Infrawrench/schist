@@ -51,6 +51,25 @@ dialog.filter.camera_raw_development = Camera Raw apdorojimas
 dialog.filter.reset_as_shot = Atkurti fotografavimo nustatymus
 dialog.filter.raw_note = Iš naujo apdoroja aktyvų sluoksnį iš originalių jutiklio duomenų.
 dialog.filter.note = Taikoma aktyviam sluoksniui pažymėtos srities viduje.
+
+# Camera Raw vietiniai koregavimai
+dialog.raw_masks.title = Kaukės
+dialog.raw_masks.new_mask = Nauja kaukė:
+dialog.raw_masks.add_to_mask = Pridėti prie kaukės:
+dialog.raw_masks.linear = Tiesinis gradientas
+dialog.raw_masks.subject = Pasirinkti objektą
+dialog.raw_masks.sky = Pasirinkti dangų
+dialog.raw_masks.background = Pasirinkti foną
+dialog.raw_masks.mask_n = Kaukė {n}
+dialog.raw_masks.invert_mask = Invertuoti kaukę
+dialog.raw_masks.overlay = Rodyti kaukės perdangą
+dialog.raw_masks.erase = Trinti
+dialog.raw_masks.local = Šios kaukės koregavimai
+dialog.raw_masks.delete_mask = Ištrinti kaukę
+dialog.raw_masks.detecting = Aptinkama…
+dialog.raw_masks.hint_empty = Pridėkite kaukę, kad koreguotumėte dalį vaizdo. Kiekviena kaukė turi savo slankiklius.
+dialog.raw_masks.hint_brush = Pieškite ant drobės, kad pridėtumėte prie teptuko; įjunkite „Trinti“, kad pašalintumėte.
+dialog.raw_masks.hint_gradient = Vilkite rankenėles, kad perkeltumėte gradientą, arba vilkite ant drobės, kad nubrėžtumėte naują.
 dialog.fonts.title = Trūkstami šriftai
 dialog.fonts.install_named = Įdiegti {name}
 dialog.fonts.no_document = Neatvertas joks dokumentas, todėl nėra ko tikrinti.

@@ -48,6 +48,25 @@ dialog.filter.camera_raw_development = Camera Raw մշակում
 dialog.filter.reset_as_shot = Վերակայել նկարահանված վիճակին
 dialog.filter.raw_note = Ակտիվ շերտը կրկին մշակում է սկզբնական տվիչի տվյալներից։
 dialog.filter.note = Կիրառվում է ակտիվ շերտի վրա՝ ընտրության ներսում։
+
+# Camera Raw-ի տեղային կարգավորումներ
+dialog.raw_masks.title = Դիմակներ
+dialog.raw_masks.new_mask = Նոր դիմակ՝
+dialog.raw_masks.add_to_mask = Ավելացնել դիմակին՝
+dialog.raw_masks.linear = Գծային գրադիենտ
+dialog.raw_masks.subject = Ընտրել առարկան
+dialog.raw_masks.sky = Ընտրել երկինքը
+dialog.raw_masks.background = Ընտրել ֆոնը
+dialog.raw_masks.mask_n = Դիմակ {n}
+dialog.raw_masks.invert_mask = Հակադարձել դիմակը
+dialog.raw_masks.overlay = Ցույց տալ դիմակի ծածկույթը
+dialog.raw_masks.erase = Ջնջում
+dialog.raw_masks.local = Կարգավորումներ այս դիմակում
+dialog.raw_masks.delete_mask = Ջնջել դիմակը
+dialog.raw_masks.detecting = Հայտնաբերվում է…
+dialog.raw_masks.hint_empty = Ավելացրեք դիմակ՝ պատկերի մի մասը կարգավորելու համար։ Յուրաքանչյուր դիմակ ունի իր սահիչները։
+dialog.raw_masks.hint_brush = Նկարեք կտավի վրա՝ վրձինին ավելացնելու համար, միացրեք Ջնջումը՝ այն հեռացնելու համար։
+dialog.raw_masks.hint_gradient = Քաշեք բռնակները՝ գրադիենտը տեղափոխելու համար, կամ քաշեք կտավի վրա՝ նորը գծելու համար։
 dialog.fonts.title = Բացակայող տառատեսակներ
 dialog.fonts.install_named = Տեղադրել {name}
 dialog.fonts.no_document = Ոչ մի փաստաթուղթ բաց չէ, ուստի ստուգելու բան չկա։

@@ -51,6 +51,25 @@ dialog.filter.camera_raw_development = Developare Camera Raw
 dialog.filter.reset_as_shot = Resetare la starea fotografiată
 dialog.filter.raw_note = Developează din nou stratul activ din datele originale ale senzorului.
 dialog.filter.note = Se aplică stratului activ, în interiorul selecției.
+
+# Ajustări locale Camera Raw
+dialog.raw_masks.title = Măști
+dialog.raw_masks.new_mask = Mască nouă:
+dialog.raw_masks.add_to_mask = Adăugare la mască:
+dialog.raw_masks.linear = Gradient liniar
+dialog.raw_masks.subject = Selectare subiect
+dialog.raw_masks.sky = Selectare cer
+dialog.raw_masks.background = Selectare fundal
+dialog.raw_masks.mask_n = Masca {n}
+dialog.raw_masks.invert_mask = Inversare mască
+dialog.raw_masks.overlay = Afișare suprapunere mască
+dialog.raw_masks.erase = Radiere
+dialog.raw_masks.local = Ajustări în această mască
+dialog.raw_masks.delete_mask = Ștergere mască
+dialog.raw_masks.detecting = Se detectează…
+dialog.raw_masks.hint_empty = Adăugați o mască pentru a ajusta o parte a imaginii. Fiecare mască are propriile glisoare.
+dialog.raw_masks.hint_brush = Pictați pe pânză pentru a adăuga la pensulă; activați Radiere pentru a elimina.
+dialog.raw_masks.hint_gradient = Trageți de mânere pentru a muta gradientul sau trageți pe pânză pentru a desena unul nou.
 dialog.fonts.title = Fonturi lipsă
 dialog.fonts.install_named = Instalare {name}
 dialog.fonts.no_document = Nu este deschis niciun document, deci nu există nimic de verificat.

@@ -75,6 +75,9 @@ workspace.filters.raw_too_tall = RAW-framkallinga er for høg
 workspace.filters.raw_size_changed = RAW-framkallinga endra storleiken til {w} × {h}; held på det gjeldande laget
 workspace.filters.raw_history = Camera Raw-framkalling
 workspace.filters.raw_applied = Camera Raw-framkalling er brukt (beste demosaikkering)
+workspace.raw_masks.no_model = {model} er ikkje installert, så denne maska kan ikkje finnast.
+workspace.raw_masks.no_sky = Fann ingen himmel i dette biletet.
+workspace.raw_masks.detect_failed = Maskeoppdaginga mislukkast: {error}
 
 workspace.image_size.done = Biletstorleik: {w} × {h}
 workspace.image_size.bicubic_fallback = Biletstorleik: {w} × {h} – modellen {name} kunne ikkje lastast, så bikubisk skalering vart brukt i staden

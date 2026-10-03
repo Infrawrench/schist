@@ -51,6 +51,25 @@ dialog.filter.reset_as_shot = Op Wéi opgeholl zerécksetzen
 dialog.filter.raw_note = Entwéckelt déi aktiv Eben nach eng Kéier aus hiren originale Sensordaten.
 dialog.filter.note = Gëtt bannent der Auswiel op déi aktiv Eben ugewannt.
 
+# Camera Raw lokal Upassungen
+dialog.raw_masks.title = Masken
+dialog.raw_masks.new_mask = Nei Mask:
+dialog.raw_masks.add_to_mask = Zur Mask dobäisetzen:
+dialog.raw_masks.linear = Lineare Verlaf
+dialog.raw_masks.subject = Motiv auswielen
+dialog.raw_masks.sky = Himmel auswielen
+dialog.raw_masks.background = Hannergrond auswielen
+dialog.raw_masks.mask_n = Mask {n}
+dialog.raw_masks.invert_mask = Mask ëmdréinen
+dialog.raw_masks.overlay = Maskeniwwerlagerung weisen
+dialog.raw_masks.erase = Radéieren
+dialog.raw_masks.local = Upassungen an dëser Mask
+dialog.raw_masks.delete_mask = Mask läschen
+dialog.raw_masks.detecting = Gëtt erkannt…
+dialog.raw_masks.hint_empty = Setzt eng Mask dobäi, fir en Deel vum Bild unzepassen. All Mask huet hir eege Reegler.
+dialog.raw_masks.hint_brush = Mol op de Canvas, fir zum Pinsel dobäizesetzen; schalt Radéieren an, fir et ewechzehuelen.
+dialog.raw_masks.hint_gradient = Zitt d'Grëffer, fir de Verlaf ze verréckelen, oder zitt op dem Canvas, fir en neien ze zeechnen.
+
 dialog.fonts.title = Feelend Schrëften
 dialog.fonts.install_named = {name} installéieren
 dialog.fonts.no_document = Keen Dokument ass op, dofir gëtt et näischt ze kontrolléieren.

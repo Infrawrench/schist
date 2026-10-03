@@ -55,6 +55,25 @@ dialog.filter.camera_raw_development = Wywoływanie Camera Raw
 dialog.filter.reset_as_shot = Przywróć ustawienia zdjęcia
 dialog.filter.raw_note = Ponownie wywołuje aktywną warstwę z oryginalnych danych matrycy.
 dialog.filter.note = Stosuje się do aktywnej warstwy wewnątrz zaznaczenia.
+
+# Lokalne korekty Camera Raw
+dialog.raw_masks.title = Maski
+dialog.raw_masks.new_mask = Nowa maska:
+dialog.raw_masks.add_to_mask = Dodaj do maski:
+dialog.raw_masks.linear = Gradient liniowy
+dialog.raw_masks.subject = Zaznacz obiekt
+dialog.raw_masks.sky = Zaznacz niebo
+dialog.raw_masks.background = Zaznacz tło
+dialog.raw_masks.mask_n = Maska {n}
+dialog.raw_masks.invert_mask = Odwróć maskę
+dialog.raw_masks.overlay = Pokaż nakładkę maski
+dialog.raw_masks.erase = Wymaż
+dialog.raw_masks.local = Korekty w tej masce
+dialog.raw_masks.delete_mask = Usuń maskę
+dialog.raw_masks.detecting = Wykrywanie…
+dialog.raw_masks.hint_empty = Dodaj maskę, aby skorygować część zdjęcia. Każda maska ma własne suwaki.
+dialog.raw_masks.hint_brush = Maluj na płótnie, aby rozszerzyć obszar pędzla; włącz Wymaż, aby go zmniejszyć.
+dialog.raw_masks.hint_gradient = Przeciągnij uchwyty, aby przesunąć gradient, lub przeciągnij po płótnie, aby narysować nowy.
 dialog.fonts.title = Brakujące czcionki
 dialog.fonts.install_named = Zainstaluj {name}
 dialog.fonts.no_document = Żaden dokument nie jest otwarty, więc nie ma czego sprawdzić.

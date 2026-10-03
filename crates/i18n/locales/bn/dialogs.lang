@@ -67,6 +67,25 @@ dialog.filter.reset_as_shot = তোলার সময়কার অবস্
 dialog.filter.raw_note = মূল সেন্সর ডেটা থেকে সক্রিয় লেয়ারটি আবার ডেভেলপ করে।
 dialog.filter.note = নির্বাচিত অংশের ভিতরে সক্রিয় লেয়ারে প্রয়োগ করে।
 
+# Camera Raw স্থানীয় সমন্বয়
+dialog.raw_masks.title = মাস্ক
+dialog.raw_masks.new_mask = নতুন মাস্ক:
+dialog.raw_masks.add_to_mask = মাস্কে যোগ করুন:
+dialog.raw_masks.linear = লিনিয়ার গ্রেডিয়েন্ট
+dialog.raw_masks.subject = বিষয় নির্বাচন করুন
+dialog.raw_masks.sky = আকাশ নির্বাচন করুন
+dialog.raw_masks.background = পটভূমি নির্বাচন করুন
+dialog.raw_masks.mask_n = মাস্ক {n}
+dialog.raw_masks.invert_mask = মাস্ক উল্টান
+dialog.raw_masks.overlay = মাস্ক ওভারলে দেখান
+dialog.raw_masks.erase = মুছুন
+dialog.raw_masks.local = এই মাস্কের সমন্বয়
+dialog.raw_masks.delete_mask = মাস্ক মুছে ফেলুন
+dialog.raw_masks.detecting = শনাক্ত করা হচ্ছে…
+dialog.raw_masks.hint_empty = ছবির একটি অংশ সমন্বয় করতে একটি মাস্ক যোগ করুন। প্রতিটি মাস্কের নিজস্ব স্লাইডার আছে।
+dialog.raw_masks.hint_brush = ব্রাশে যোগ করতে ক্যানভাসে আঁকুন; সরিয়ে ফেলতে ‘মুছুন’ চালু করুন।
+dialog.raw_masks.hint_gradient = গ্রেডিয়েন্ট সরাতে হ্যান্ডেলগুলো টানুন, অথবা নতুন একটি আঁকতে ক্যানভাসে টানুন।
+
 # অনুপস্থিত ফন্ট
 dialog.fonts.title = অনুপস্থিত ফন্ট
 dialog.fonts.install_named = {name} ইনস্টল করুন

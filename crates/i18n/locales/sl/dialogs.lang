@@ -59,6 +59,25 @@ dialog.filter.reset_as_shot = Ponastavi na posneto
 dialog.filter.raw_note = Dejavna plast se znova razvije iz izvirnih podatkov tipala.
 dialog.filter.note = Uveljavi se na dejavni plasti znotraj izbora.
 
+# Lokalne prilagoditve Camera Raw
+dialog.raw_masks.title = Maske
+dialog.raw_masks.new_mask = Nova maska:
+dialog.raw_masks.add_to_mask = Dodaj v masko:
+dialog.raw_masks.linear = Linearni preliv
+dialog.raw_masks.subject = Izberi motiv
+dialog.raw_masks.sky = Izberi nebo
+dialog.raw_masks.background = Izberi ozadje
+dialog.raw_masks.mask_n = Maska {n}
+dialog.raw_masks.invert_mask = Obrni masko
+dialog.raw_masks.overlay = Pokaži prekrivanje maske
+dialog.raw_masks.erase = Briši
+dialog.raw_masks.local = Prilagoditve v tej maski
+dialog.raw_masks.delete_mask = Izbriši masko
+dialog.raw_masks.detecting = Zaznavanje…
+dialog.raw_masks.hint_empty = Dodajte masko, da prilagodite del slike. Vsaka maska ima svoje drsnike.
+dialog.raw_masks.hint_brush = Slikajte po platnu, da razširite območje čopiča; vklopite Briši, da ga zmanjšate.
+dialog.raw_masks.hint_gradient = Povlecite ročice, da premaknete preliv, ali povlecite po platnu, da narišete novega.
+
 dialog.fonts.title = Manjkajoče pisave
 dialog.fonts.install_named = Namesti {name}
 dialog.fonts.no_document = Noben dokument ni odprt, zato ni mogoče ničesar preveriti.

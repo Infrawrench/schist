@@ -57,6 +57,25 @@ dialog.filter.reset_as_shot = Kozongisa ndenge ezwamaki
 dialog.filter.raw_note = Ebongisaka lisusu kalke oyo ezali kosalelama uta na badone originale ya capteur.
 dialog.filter.note = Esalelamaka na kalke oyo ezali kosalelama, na kati ya eteni eponami.
 
+# Mbongwana ya esika moko na Camera Raw
+dialog.raw_masks.title = Bamaske
+dialog.raw_masks.new_mask = Maske ya sika:
+dialog.raw_masks.add_to_mask = Kobakisa na maske:
+dialog.raw_masks.linear = Degrade ya molɔngɔ
+dialog.raw_masks.subject = Kopona eloko ya ntina
+dialog.raw_masks.sky = Kopona likoló
+dialog.raw_masks.background = Kopona esika ya nsima
+dialog.raw_masks.mask_n = Maske {n}
+dialog.raw_masks.invert_mask = Kozongisa maske
+dialog.raw_masks.overlay = Kolakisa maske likoló ya elilingi
+dialog.raw_masks.erase = Kopangusa
+dialog.raw_masks.local = Mbongwana na maske oyo
+dialog.raw_masks.delete_mask = Kolongola maske
+dialog.raw_masks.detecting = Ezali koluka…
+dialog.raw_masks.hint_empty = Bakisá maske mpo na kobongola eteni ya elilingi. Maske moko na moko ezali na ba-slider na yango moko.
+dialog.raw_masks.hint_brush = Bɛtá langi na canvas mpo na kobakisa na brɔsi; fungolá Kopangusa mpo na kolongola.
+dialog.raw_masks.hint_gradient = Bendá ba-poigné mpo na koningisa degrade, to bendá na canvas mpo na kosala oyo ya sika.
+
 dialog.fonts.title = Mitindo ya bilembo oyo ezangi
 dialog.fonts.install_named = Kotya {name}
 dialog.fonts.no_document = Dokima moko te efungwami, yango wana eloko ya kotala ezali te.

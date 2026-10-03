@@ -71,6 +71,25 @@ dialog.filter.reset_as_shot = Auf „Wie aufgenommen“ zurücksetzen
 dialog.filter.raw_note = Entwickelt die aktive Ebene aus ihren ursprünglichen Sensordaten neu.
 dialog.filter.note = Wirkt auf die aktive Ebene, innerhalb der Auswahl.
 
+# Camera Raw: lokale Anpassungen
+dialog.raw_masks.title = Masken
+dialog.raw_masks.new_mask = Neue Maske:
+dialog.raw_masks.add_to_mask = Zur Maske hinzufügen:
+dialog.raw_masks.linear = Linearer Verlauf
+dialog.raw_masks.subject = Motiv auswählen
+dialog.raw_masks.sky = Himmel auswählen
+dialog.raw_masks.background = Hintergrund auswählen
+dialog.raw_masks.mask_n = Maske {n}
+dialog.raw_masks.invert_mask = Maske umkehren
+dialog.raw_masks.overlay = Maskenüberlagerung anzeigen
+dialog.raw_masks.erase = Radieren
+dialog.raw_masks.local = Anpassungen in dieser Maske
+dialog.raw_masks.delete_mask = Maske löschen
+dialog.raw_masks.detecting = Wird erkannt…
+dialog.raw_masks.hint_empty = Füge eine Maske hinzu, um einen Teil des Bildes anzupassen. Jede Maske hat eigene Regler.
+dialog.raw_masks.hint_brush = Male auf der Arbeitsfläche, um den Pinselbereich zu erweitern; aktiviere „Radieren“, um ihn wieder zu entfernen.
+dialog.raw_masks.hint_gradient = Ziehe an den Griffen, um den Verlauf zu verschieben, oder ziehe auf der Arbeitsfläche, um einen neuen zu zeichnen.
+
 # Fehlende Schriften
 dialog.fonts.title = Fehlende Schriften
 dialog.fonts.install_named = {name} installieren

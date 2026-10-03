@@ -47,6 +47,25 @@ dialog.filter.camera_raw_development = Camera Raw نى راۋاجلاندۇرۇ�
 dialog.filter.reset_as_shot = تارتىلغان ھالەتكە قايتۇرۇش
 dialog.filter.raw_note = ئاكتىپ قەۋەتنى ئەسلى سېنزور سانلىق مەلۇماتىدىن قايتا راۋاجلاندۇرىدۇ.
 dialog.filter.note = ئاكتىپ قەۋەتنىڭ تاللانما ئىچىدىكى قىسمىغا قوللىنىدۇ.
+
+# Camera Raw يەرلىك تەڭشەشلىرى
+dialog.raw_masks.title = ماسكىلار
+dialog.raw_masks.new_mask = يېڭى ماسكا:
+dialog.raw_masks.add_to_mask = ماسكىغا قوشۇش:
+dialog.raw_masks.linear = سىزىقلىق تەدرىجىي رەڭ
+dialog.raw_masks.subject = تېمىنى تاللاش
+dialog.raw_masks.sky = ئاسماننى تاللاش
+dialog.raw_masks.background = تەگلىكنى تاللاش
+dialog.raw_masks.mask_n = ماسكا {n}
+dialog.raw_masks.invert_mask = ماسكىنى تەتۈرلەش
+dialog.raw_masks.overlay = ماسكا قاپلىمىسىنى كۆرسىتىش
+dialog.raw_masks.erase = ئۆچۈرۈش
+dialog.raw_masks.local = بۇ ماسكىدىكى تەڭشەشلەر
+dialog.raw_masks.delete_mask = ماسكىنى ئۆچۈرۈش
+dialog.raw_masks.detecting = بايقاۋاتىدۇ…
+dialog.raw_masks.hint_empty = رەسىمنىڭ بىر قىسمىنى تەڭشەش ئۈچۈن ماسكا قوشۇڭ. ھەر بىر ماسكىنىڭ ئۆز سىيرىلغۇچلىرى بار.
+dialog.raw_masks.hint_brush = چوتكىغا قوشۇش ئۈچۈن كاناي ئۈستىدە سىزىڭ؛ ئۇنى ئېلىۋېتىش ئۈچۈن ئۆچۈرۈشنى ئېچىڭ.
+dialog.raw_masks.hint_gradient = تەدرىجىي رەڭنى يۆتكەش ئۈچۈن تۇتقۇچلارنى سۆرەڭ، ياكى يېڭىسىنى سىزىش ئۈچۈن كاناي ئۈستىدە سۆرەڭ.
 dialog.fonts.title = كەم خەت نۇسخىلىرى
 dialog.fonts.install_named = {name} نى ئورنىتىش
 dialog.fonts.no_document = ھېچقانداق ھۆججەت ئېچىلمىغان، شۇڭا تەكشۈرىدىغان نەرسە يوق.

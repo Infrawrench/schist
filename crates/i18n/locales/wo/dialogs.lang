@@ -43,6 +43,25 @@ dialog.filter.camera_raw_development = Camera Raw Development
 dialog.filter.reset_as_shot = Delloo ni ñu ko nataale woon
 dialog.filter.raw_note = Defaraat couche biy dox, dale ci done yu cosaan yu capteeru kamera bi.
 dialog.filter.note = Jëfe ci couche biy dox, ci biir tànneef bi.
+
+# Coppite yu bérébu Camera Raw
+dialog.raw_masks.title = Maske yi
+dialog.raw_masks.new_mask = Maske bu bees:
+dialog.raw_masks.add_to_mask = Yokk ci maske:
+dialog.raw_masks.linear = Jàllug melo ci rëdd
+dialog.raw_masks.subject = Tànn li ëpp solo
+dialog.raw_masks.sky = Tànn asamaan
+dialog.raw_masks.background = Tànn ginaaw
+dialog.raw_masks.mask_n = Maske {n}
+dialog.raw_masks.invert_mask = Wëlbati maske
+dialog.raw_masks.overlay = Wane maske bi ci kaw
+dialog.raw_masks.erase = Fomp
+dialog.raw_masks.local = Coppite yi ci maske bii
+dialog.raw_masks.delete_mask = Far maske
+dialog.raw_masks.detecting = Mi ngi koy seet…
+dialog.raw_masks.hint_empty = Yokkal benn maske ngir soppi benn pàcc ci nataal bi. Bépp maske am na ay curseur yu ko moom.
+dialog.raw_masks.hint_brush = Pentar ci kaw kanvas bi ngir yokk ci pinceau bi; taalal Fomp ngir far ko.
+dialog.raw_masks.hint_gradient = Riyal jàppukaay yi ngir randal jàllug melo bi, walla riyal ci kanvas bi ngir rëdd bu bees.
 dialog.fonts.title = Font yi ñàkk
 dialog.fonts.install_named = Samp {name}
 dialog.fonts.no_document = Benn jukki ubbeeku fi, kon amul lu ñuy seet.

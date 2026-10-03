@@ -69,6 +69,25 @@ dialog.filter.reset_as_shot = ගත් අවස්ථාවේ අගයන්
 dialog.filter.raw_note = මුල් සංවේදක දත්තවලින් සක්‍රිය ස්තරය නැවත සංවර්ධනය කරයි.
 dialog.filter.note = තේරීම ඇතුළත සක්‍රිය ස්තරයට යොදයි.
 
+# Camera Raw ස්ථානීය සීරුමාරු
+dialog.raw_masks.title = ආවරණ
+dialog.raw_masks.new_mask = නව ආවරණය:
+dialog.raw_masks.add_to_mask = ආවරණයට එක් කරන්න:
+dialog.raw_masks.linear = රේඛීය අනුක්‍රමණය
+dialog.raw_masks.subject = විෂය තෝරන්න
+dialog.raw_masks.sky = අහස තෝරන්න
+dialog.raw_masks.background = පසුබිම තෝරන්න
+dialog.raw_masks.mask_n = ආවරණය {n}
+dialog.raw_masks.invert_mask = ආවරණය ප්‍රතිලෝම කරන්න
+dialog.raw_masks.overlay = ආවරණ උඩැතිරිය පෙන්වන්න
+dialog.raw_masks.erase = මැකීම
+dialog.raw_masks.local = මෙම ආවරණයේ සීරුමාරු
+dialog.raw_masks.delete_mask = ආවරණය මකන්න
+dialog.raw_masks.detecting = හඳුනාගනිමින්…
+dialog.raw_masks.hint_empty = පින්තූරයේ කොටසක් සීරුමාරු කිරීමට ආවරණයක් එක් කරන්න. සෑම ආවරණයකටම තමන්ගේම ස්ලයිඩර ඇත.
+dialog.raw_masks.hint_brush = බුරුසුවට එක් කිරීමට කැන්වසය මත පින්තාරු කරන්න; එය ඉවත් කිරීමට මැකීම සක්‍රිය කරන්න.
+dialog.raw_masks.hint_gradient = අනුක්‍රමණය ගෙන යාමට හසුරු ඇදගෙන යන්න, නැතහොත් නව එකක් ඇඳීමට කැන්වසය මත ඇදගෙන යන්න.
+
 # අස්ථානගත අකුරු මුහුණු
 dialog.fonts.title = අස්ථානගත අකුරු මුහුණු
 dialog.fonts.install_named = {name} ස්ථාපනය කරන්න

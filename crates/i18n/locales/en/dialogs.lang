@@ -71,6 +71,25 @@ dialog.filter.reset_as_shot = Reset to As Shot
 dialog.filter.raw_note = Re-develops the active layer from its original sensor data.
 dialog.filter.note = Applies to the active layer, inside the selection.
 
+# Camera Raw local adjustments (dialogs/raw_masks.rs)
+dialog.raw_masks.title = Masks
+dialog.raw_masks.new_mask = New mask:
+dialog.raw_masks.add_to_mask = Add to mask:
+dialog.raw_masks.linear = Linear Gradient
+dialog.raw_masks.subject = Select Subject
+dialog.raw_masks.sky = Select Sky
+dialog.raw_masks.background = Select Background
+dialog.raw_masks.mask_n = Mask {n}
+dialog.raw_masks.invert_mask = Invert mask
+dialog.raw_masks.overlay = Show mask overlay
+dialog.raw_masks.erase = Erase
+dialog.raw_masks.local = Adjustments in this mask
+dialog.raw_masks.delete_mask = Delete Mask
+dialog.raw_masks.detecting = Detecting…
+dialog.raw_masks.hint_empty = Add a mask to adjust part of the picture. Each mask has its own sliders.
+dialog.raw_masks.hint_brush = Paint on the canvas to add to the brush; turn on Erase to take it away.
+dialog.raw_masks.hint_gradient = Drag the handles to move the gradient, or drag on the canvas to draw a new one.
+
 # Missing Fonts
 dialog.fonts.title = Missing Fonts
 dialog.fonts.install_named = Install {name}

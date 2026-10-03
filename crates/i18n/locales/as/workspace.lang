@@ -98,6 +98,9 @@ workspace.filters.raw_too_tall = RAW বিকাশ অত্যধিক ও�
 workspace.filters.raw_size_changed = RAW বিকাশৰ আকাৰ {w} × {h}-লৈ সলনি হ'ল; বৰ্তমানৰ স্তৰটো ৰখা হৈছে
 workspace.filters.raw_history = Camera Raw বিকাশ
 workspace.filters.raw_applied = Camera Raw বিকাশ প্ৰয়োগ কৰা হ'ল (সৰ্বোত্তম ডিম'জেইক)
+workspace.raw_masks.no_model = {model} ইনষ্টল কৰা নাই, সেয়ে এই মাস্কটো চিনাক্ত কৰিব নোৱাৰি।
+workspace.raw_masks.no_sky = এই ছবিখনত কোনো আকাশ পোৱা নগ'ল।
+workspace.raw_masks.detect_failed = মাস্ক চিনাক্তকৰণ বিফল হ'ল: {error}
 
 # Image Size through a neural upscaler (filters.rs); {name} is the model
 workspace.image_size.done = ছবিৰ আকাৰ: {w} × {h}

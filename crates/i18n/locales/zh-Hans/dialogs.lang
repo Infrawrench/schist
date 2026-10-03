@@ -66,6 +66,25 @@ dialog.filter.reset_as_shot = 重置为拍摄设置
 dialog.filter.raw_note = 从原始传感器数据重新显影当前图层。
 dialog.filter.note = 应用于当前图层的选区内。
 
+# Camera Raw 局部调整
+dialog.raw_masks.title = 蒙版
+dialog.raw_masks.new_mask = 新建蒙版：
+dialog.raw_masks.add_to_mask = 添加到蒙版：
+dialog.raw_masks.linear = 线性渐变
+dialog.raw_masks.subject = 选择主体
+dialog.raw_masks.sky = 选择天空
+dialog.raw_masks.background = 选择背景
+dialog.raw_masks.mask_n = 蒙版 {n}
+dialog.raw_masks.invert_mask = 反相蒙版
+dialog.raw_masks.overlay = 显示蒙版叠加
+dialog.raw_masks.erase = 擦除
+dialog.raw_masks.local = 此蒙版中的调整
+dialog.raw_masks.delete_mask = 删除蒙版
+dialog.raw_masks.detecting = 正在检测…
+dialog.raw_masks.hint_empty = 添加蒙版以调整图片的局部。每个蒙版都有自己的滑块。
+dialog.raw_masks.hint_brush = 在画布上绘画以添加到画笔区域；打开“擦除”可将其移除。
+dialog.raw_masks.hint_gradient = 拖动控制柄以移动渐变，或在画布上拖动以绘制新的渐变。
+
 # 缺失字体
 dialog.fonts.title = 缺失字体
 dialog.fonts.install_named = 安装 {name}

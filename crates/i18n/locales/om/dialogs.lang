@@ -47,6 +47,25 @@ dialog.filter.camera_raw_development = Misooma Camera Raw
 dialog.filter.reset_as_shot = Gara Akka Kaafametti Deebisi
 dialog.filter.raw_note = Laayara ka'aa deetaa sensaraa jalqabaa irraa deebisee misoomsa.
 dialog.filter.note = Laayara ka'aa irratti, filannoo keessa hojii irra oola.
+
+# Camera Raw: sirreeffama naannoo
+dialog.raw_masks.title = Maaskiiwwan
+dialog.raw_masks.new_mask = Maaskii haaraa:
+dialog.raw_masks.add_to_mask = Maaskiitti dabali:
+dialog.raw_masks.linear = Giraadiyeentii Sarara
+dialog.raw_masks.subject = Wanta Ijoo Fili
+dialog.raw_masks.sky = Samii Fili
+dialog.raw_masks.background = Duuba Fili
+dialog.raw_masks.mask_n = Maaskii {n}
+dialog.raw_masks.invert_mask = Maaskii faallessi
+dialog.raw_masks.overlay = Maaskii fakkii irratti agarsiisi
+dialog.raw_masks.erase = Haquu
+dialog.raw_masks.local = Sirreeffamoota maaskii kana keessaa
+dialog.raw_masks.delete_mask = Maaskii Haqi
+dialog.raw_masks.detecting = Barbaadaa jira…
+dialog.raw_masks.hint_empty = Kutaa fakkii sirreessuuf maaskii dabali. Maaskiin hundi siliidarii mataa isaa qaba.
+dialog.raw_masks.hint_brush = Burushiitti dabaluuf kanvaasii irratti halluu dibi; balleessuuf Haquu banii.
+dialog.raw_masks.hint_gradient = Giraadiyeentii socho'suuf qabattoota harkisi, ykn haaraa kaasuuf kanvaasii irratti harkisi.
 dialog.fonts.title = Foontiiwwan Badan
 dialog.fonts.install_named = {name} Fe'i
 dialog.fonts.no_document = Galmeen banaa hin jiru; kanaaf wanti sakatta'amu hin jiru.

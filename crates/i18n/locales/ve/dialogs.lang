@@ -57,6 +57,25 @@ dialog.filter.reset_as_shot = Vhuedzedza kha Zwo Farwaho
 dialog.filter.raw_note = I dovha ya bveledza ḽeyara i shumaho u bva kha data ya sensara ya u thoma.
 dialog.filter.note = I shuma kha ḽeyara i shumaho, ngomu ha zwo nangiwaho.
 
+# Khwinifhadzo dza fhethu dza Camera Raw
+dialog.raw_masks.title = Masiki
+dialog.raw_masks.new_mask = Masiki ntswa:
+dialog.raw_masks.add_to_mask = Engedza kha masiki:
+dialog.raw_masks.linear = Tshanduko ya mivhala ya mutalo
+dialog.raw_masks.subject = Nanga Tshipiḓa Tshihulwane
+dialog.raw_masks.sky = Nanga Ḽiṱaḓulu
+dialog.raw_masks.background = Nanga Murahu
+dialog.raw_masks.mask_n = Masiki {n}
+dialog.raw_masks.invert_mask = Shandukisa masiki
+dialog.raw_masks.overlay = Sumbedza tshiṱavhelo tsha masiki
+dialog.raw_masks.erase = Phumula
+dialog.raw_masks.local = Khwinifhadzo kha masiki iyi
+dialog.raw_masks.delete_mask = Thutha Masiki
+dialog.raw_masks.detecting = Ri khou wanulusa…
+dialog.raw_masks.hint_empty = Engedza masiki u khwinifhadza tshipiḓa tsha tshifanyiso. Masiki iṅwe na iṅwe i na zwitshelo zwayo.
+dialog.raw_masks.hint_brush = Pennda kha kanvasi u engedza kha bulatsho; vula Phumula u zwi bvisa.
+dialog.raw_masks.hint_gradient = Kokodza zwifaro u tshimbidza tshanduko ya mivhala, kana u kokodza kha kanvasi u ola ntswa.
+
 dialog.fonts.title = Dzifonto dzi Siho
 dialog.fonts.install_named = Dzhenisa {name}
 dialog.fonts.no_document = A hu na ḽiṅwalo ḽo vulwaho, ngauralo a hu na tshine tsha nga ṱoliwa.

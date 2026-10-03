@@ -51,6 +51,25 @@ dialog.filter.camera_raw_development = Développement Camera Raw
 dialog.filter.reset_as_shot = Rétablir les paramètres de prise de vue
 dialog.filter.raw_note = Développe de nouveau le calque actif à partir des données brutes du capteur.
 dialog.filter.note = S’applique au calque actif, à l’intérieur de la sélection.
+
+# Réglages locaux Camera Raw
+dialog.raw_masks.title = Masques
+dialog.raw_masks.new_mask = Nouveau masque :
+dialog.raw_masks.add_to_mask = Ajouter au masque :
+dialog.raw_masks.linear = Dégradé linéaire
+dialog.raw_masks.subject = Sélectionner le sujet
+dialog.raw_masks.sky = Sélectionner le ciel
+dialog.raw_masks.background = Sélectionner l’arrière-plan
+dialog.raw_masks.mask_n = Masque {n}
+dialog.raw_masks.invert_mask = Inverser le masque
+dialog.raw_masks.overlay = Afficher la superposition du masque
+dialog.raw_masks.erase = Effacer
+dialog.raw_masks.local = Réglages de ce masque
+dialog.raw_masks.delete_mask = Supprimer le masque
+dialog.raw_masks.detecting = Détection…
+dialog.raw_masks.hint_empty = Ajoutez un masque pour régler une partie de l’image. Chaque masque possède ses propres curseurs.
+dialog.raw_masks.hint_brush = Peignez sur la zone de travail pour étendre le pinceau ; activez Effacer pour en retirer.
+dialog.raw_masks.hint_gradient = Faites glisser les poignées pour déplacer le dégradé, ou faites glisser sur la zone de travail pour en tracer un nouveau.
 dialog.fonts.title = Polices manquantes
 dialog.fonts.install_named = Installer {name}
 dialog.fonts.no_document = Aucun document n’est ouvert ; il n’y a donc rien à vérifier.

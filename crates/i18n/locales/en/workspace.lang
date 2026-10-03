@@ -98,6 +98,9 @@ workspace.filters.raw_too_tall = RAW development is too tall
 workspace.filters.raw_size_changed = RAW development size changed to {w} × {h}; keeping the current layer
 workspace.filters.raw_history = Camera Raw Development
 workspace.filters.raw_applied = Camera Raw development applied (best demosaic)
+workspace.raw_masks.no_model = {model} is not installed, so this mask cannot be detected.
+workspace.raw_masks.no_sky = No sky was found in this picture.
+workspace.raw_masks.detect_failed = Mask detection failed: {error}
 
 # Image Size through a neural upscaler (filters.rs); {name} is the model
 workspace.image_size.done = Image size: {w} × {h}

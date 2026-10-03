@@ -65,6 +65,25 @@ dialog.filter.reset_as_shot = Riprìstina a comente est iscattadu
 dialog.filter.raw_note = Isvilupat torra s'istratu ativu dae is datos originales de su sensore.
 dialog.filter.note = S'aplicat a s'istratu ativu, a intro de sa seletzione.
 
+# Regulatziones locales de Camera Raw
+dialog.raw_masks.title = Màscheras
+dialog.raw_masks.new_mask = Màschera noa:
+dialog.raw_masks.add_to_mask = Annanghe a sa màschera:
+dialog.raw_masks.linear = Gradiente lineare
+dialog.raw_masks.subject = Seletziona su sugetu
+dialog.raw_masks.sky = Seletziona su chelu
+dialog.raw_masks.background = Seletziona su fundale
+dialog.raw_masks.mask_n = Màschera {n}
+dialog.raw_masks.invert_mask = Inverte sa màschera
+dialog.raw_masks.overlay = Mustra sa sobrapositzione de sa màschera
+dialog.raw_masks.erase = Iscantzella
+dialog.raw_masks.local = Regulatziones in custa màschera
+dialog.raw_masks.delete_mask = Elìmina sa màschera
+dialog.raw_masks.detecting = Rilevamentu in cursu…
+dialog.raw_masks.hint_empty = Annanghe una màschera pro regulare una parte de s'immàgine. Onni màschera tenet is cursores suos.
+dialog.raw_masks.hint_brush = Pìntura in sa tela pro annànghere a su pinnellu; ativa Iscantzella pro ddu bogare.
+dialog.raw_masks.hint_gradient = Traga is manigas pro mòere su gradiente, o traga in sa tela pro nde disegnare unu nou.
+
 # Caràteres chi mancant
 dialog.fonts.title = Caràteres chi mancant
 dialog.fonts.install_named = Installa {name}

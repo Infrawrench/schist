@@ -47,6 +47,25 @@ dialog.filter.camera_raw_development = Camera Raw emalı
 dialog.filter.reset_as_shot = Çəkiliş vəziyyətinə sıfırla
 dialog.filter.raw_note = Aktiv qatı orijinal sensor məlumatından yenidən emal edir.
 dialog.filter.note = Aktiv qata, seçimin daxilində tətbiq olunur.
+
+# Camera Raw lokal düzəlişləri
+dialog.raw_masks.title = Maskalar
+dialog.raw_masks.new_mask = Yeni maska:
+dialog.raw_masks.add_to_mask = Maskaya əlavə et:
+dialog.raw_masks.linear = Xətti qradient
+dialog.raw_masks.subject = Obyekti seç
+dialog.raw_masks.sky = Səmanı seç
+dialog.raw_masks.background = Arxa planı seç
+dialog.raw_masks.mask_n = Maska {n}
+dialog.raw_masks.invert_mask = Maskanı inversiya et
+dialog.raw_masks.overlay = Maska örtüyünü göstər
+dialog.raw_masks.erase = Poz
+dialog.raw_masks.local = Bu maskadakı düzəlişlər
+dialog.raw_masks.delete_mask = Maskanı sil
+dialog.raw_masks.detecting = Aşkarlanır…
+dialog.raw_masks.hint_empty = Şəklin bir hissəsini düzəltmək üçün maska əlavə edin. Hər maskanın öz sürgüləri var.
+dialog.raw_masks.hint_brush = Fırçaya əlavə etmək üçün kətan üzərində çəkin; onu silmək üçün Poz seçimini aktivləşdirin.
+dialog.raw_masks.hint_gradient = Qradienti hərəkət etdirmək üçün tutacaqları sürükləyin və ya yenisini çəkmək üçün kətan üzərində sürükləyin.
 dialog.fonts.title = Çatışmayan şriftlər
 dialog.fonts.install_named = {name} quraşdır
 dialog.fonts.no_document = Açıq sənəd yoxdur, buna görə yoxlanacaq heç nə yoxdur.

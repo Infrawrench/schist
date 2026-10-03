@@ -51,6 +51,25 @@ dialog.filter.reset_as_shot = Bwezeretsani Monga Chojambulidwa
 dialog.filter.raw_note = Imakonzanso layer yogwira ntchito kuchokera ku deta yake yoyambirira ya sensor.
 dialog.filter.note = Imagwira ntchito pa layer yogwira ntchito, mkati mwa malo osankhidwa.
 
+# Kusintha kwa malo ena mu Camera Raw
+dialog.raw_masks.title = Zophimba
+dialog.raw_masks.new_mask = Chophimba chatsopano:
+dialog.raw_masks.add_to_mask = Onjezani ku chophimba:
+dialog.raw_masks.linear = Mitundu Yosakanikirana Yowongoka
+dialog.raw_masks.subject = Sankhani Chinthu Chachikulu
+dialog.raw_masks.sky = Sankhani Thambo
+dialog.raw_masks.background = Sankhani Kumbuyo
+dialog.raw_masks.mask_n = Chophimba {n}
+dialog.raw_masks.invert_mask = Sinthani chophimba mosiyana
+dialog.raw_masks.overlay = Onetsani chophimba pamwamba
+dialog.raw_masks.erase = Fufutani
+dialog.raw_masks.local = Zosintha mu chophimba ichi
+dialog.raw_masks.delete_mask = Chotsani Chophimba
+dialog.raw_masks.detecting = Ikuzindikira…
+dialog.raw_masks.hint_empty = Onjezani chophimba kuti musinthe gawo la chithunzi. Chophimba chilichonse chili ndi zotsetsereka zake.
+dialog.raw_masks.hint_brush = Pentani pa canvas kuti muwonjezere ku burashi; yatsani Fufutani kuti muchotse.
+dialog.raw_masks.hint_gradient = Kokani zogwirira kuti musunthe mitundu yosakanikirana, kapena kokani pa canvas kuti mujambule yatsopano.
+
 dialog.fonts.title = Ma Font Osowa
 dialog.fonts.install_named = Ikani {name}
 dialog.fonts.no_document = Palibe chikalata chotseguka, choncho palibe chofufuza.

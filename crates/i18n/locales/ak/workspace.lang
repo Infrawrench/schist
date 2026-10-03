@@ -71,6 +71,9 @@ workspace.filters.raw_too_tall = RAW nsiesiei no ware dodo
 workspace.filters.raw_size_changed = RAW nsiesiei kɛse asesa ayɛ {w} × {h}; wɔrekora layer a ɛwɔ hɔ no
 workspace.filters.raw_history = Camera Raw Development
 workspace.filters.raw_applied = Wɔde Camera Raw nsiesiei adi dwuma (demosaic a eye sen biara)
+workspace.raw_masks.no_model = Wɔnhyɛɛ {model} ase, enti wɔntumi nhu kataanim yi.
+workspace.raw_masks.no_sky = Wɔanhu wim biara wɔ mfonini yi mu.
+workspace.raw_masks.detect_failed = Kataanim no hwehwɛ anyɛ yie: {error}
 
 workspace.image_size.done = Mfonini kɛse: {w} × {h}
 workspace.image_size.bicubic_fallback = Mfonini kɛse: {w} × {h} — {name} model no antumi anboaboa ano, enti bicubic sii ananmu

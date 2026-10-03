@@ -73,6 +73,9 @@ workspace.filters.raw_too_tall = ʻOku fuʻu māʻolunga ʻa e fakatupulekina RA
 workspace.filters.raw_size_changed = Kuo liliu ʻa e lahi ʻo e fakatupulekina RAW ki he {w} × {h}; ʻoku tauhi ʻa e Layer lolotongá
 workspace.filters.raw_history = Fakatupulekina ʻo e Camera Raw
 workspace.filters.raw_applied = Kuo ngāueʻaki ʻa e fakatupulekina Camera Raw (demosaic lelei taha)
+workspace.raw_masks.no_model = ʻOku ʻikai fokotuʻu ʻa e {model}, ko ia ʻe ʻikai lava ke ʻiloʻi ʻa e ʻufiʻufi ko ʻeni.
+workspace.raw_masks.no_sky = Naʻe ʻikai maʻu ha langi ʻi he ʻīmisi ko ʻeni.
+workspace.raw_masks.detect_failed = Naʻe ʻikai lava ke ʻiloʻi ʻa e ʻufiʻufi: {error}
 
 workspace.image_size.done = Lahi ʻo e ʻīmisi: {w} × {h}
 workspace.image_size.bicubic_fallback = Lahi ʻo e ʻīmisi: {w} × {h} — naʻe ʻikai load ʻa e mōtolo {name}, ko ia naʻe fetongi ia ʻe he bicubic

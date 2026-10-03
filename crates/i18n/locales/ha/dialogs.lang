@@ -53,6 +53,25 @@ dialog.filter.reset_as_shot = Sake Saita Kamar Yadda Aka Ɗauka
 dialog.filter.raw_note = Yana sake sarrafa shimfiɗa mai aiki daga bayanan asalin firikwensarta.
 dialog.filter.note = Yana aiki a kan shimfiɗa mai aiki, cikin zaɓin.
 
+# Gyare-gyaren wuri na Camera Raw
+dialog.raw_masks.title = Abubuwan Rufe
+dialog.raw_masks.new_mask = Sabon abin rufe:
+dialog.raw_masks.add_to_mask = Ƙara zuwa abin rufe:
+dialog.raw_masks.linear = Sauyin Launi na Layi
+dialog.raw_masks.subject = Zaɓi Babban Abu
+dialog.raw_masks.sky = Zaɓi Sama
+dialog.raw_masks.background = Zaɓi Baya
+dialog.raw_masks.mask_n = Abin Rufe {n}
+dialog.raw_masks.invert_mask = Juya abin rufe
+dialog.raw_masks.overlay = Nuna lulluɓin abin rufe
+dialog.raw_masks.erase = Goge
+dialog.raw_masks.local = Gyare-gyare a cikin wannan abin rufe
+dialog.raw_masks.delete_mask = Share Abin Rufe
+dialog.raw_masks.detecting = Ana ganowa…
+dialog.raw_masks.hint_empty = Ƙara abin rufe don gyara wani ɓangare na hoton. Kowane abin rufe yana da nasa masu zamiya.
+dialog.raw_masks.hint_brush = Yi fenti a wurin zane don ƙara wa buroshi; kunna Goge don cire shi.
+dialog.raw_masks.hint_gradient = Ja maƙallan don motsa sauyin launi, ko ja a wurin zane don zana sabo.
+
 # Nau'ikan rubutu da suka ɓace
 dialog.fonts.title = Nau'ikan Rubutu da Suka Ɓace
 dialog.fonts.install_named = Girka {name}
