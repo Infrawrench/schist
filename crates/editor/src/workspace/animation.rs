@@ -113,9 +113,9 @@ fn straight_bgra(rgba: &[u8]) -> Vec<u8> {
 
 pub(crate) fn delay_label(ms: u32) -> String {
     let seconds = ms as f32 / 1000.0;
-    let text = if ms % 1000 == 0 {
+    let text = if ms.is_multiple_of(1000) {
         format!("{}", ms / 1000)
-    } else if ms % 100 == 0 {
+    } else if ms.is_multiple_of(100) {
         format!("{seconds:.1}")
     } else {
         format!("{seconds:.2}")
@@ -362,13 +362,13 @@ impl Workspace {
         }
         let rgba = schist_animation::render_frame(doc, index)?;
         let (mut rgba, w, h) = schist_animation::downscale(&rgba, doc.width, doc.height, edge);
-        if variant != Variant::Checker || edge > THUMB_EDGE {
-            if self.color_managed() {
-                let mut managed: Vec<f32> = rgba.iter().map(|&v| v as f32 / 255.0).collect();
-                self.to_display(&mut managed);
-                for (out, value) in rgba.iter_mut().zip(managed) {
-                    *out = schist_color::f32_to_u8(value);
-                }
+        // Canvas images go through the display transform like the canvas;
+        // panel thumbnails, like the layer thumbnails, do not.
+        if (variant != Variant::Checker || edge > THUMB_EDGE) && self.color_managed() {
+            let mut managed: Vec<f32> = rgba.iter().map(|&v| v as f32 / 255.0).collect();
+            self.to_display(&mut managed);
+            for (out, value) in rgba.iter_mut().zip(managed) {
+                *out = schist_color::f32_to_u8(value);
             }
         }
         let bgra = match variant {
