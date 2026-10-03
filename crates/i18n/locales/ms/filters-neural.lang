@@ -32,6 +32,25 @@ filter.camera_raw.param.vibrance = Kerancakan
 filter.camera_raw.param.sharpening = Penajaman
 filter.camera_raw.param.noise = Pengurangan Hingar
 filter.camera_raw.param.vignette = Vignet
+filter.camera_raw.grading_title = Penggredan Warna
+filter.camera_raw.grading_shadows = Bayang
+filter.camera_raw.grading_midtones = Ton Pertengahan
+filter.camera_raw.grading_highlights = Sorotan
+filter.camera_raw.grading_global = Global
+filter.camera_raw.param.grade_shadows_hue = Bayang – Rona
+filter.camera_raw.param.grade_shadows_sat = Bayang – Ketepuan
+filter.camera_raw.param.grade_shadows_lum = Bayang – Luminans
+filter.camera_raw.param.grade_midtones_hue = Ton Pertengahan – Rona
+filter.camera_raw.param.grade_midtones_sat = Ton Pertengahan – Ketepuan
+filter.camera_raw.param.grade_midtones_lum = Ton Pertengahan – Luminans
+filter.camera_raw.param.grade_highlights_hue = Sorotan – Rona
+filter.camera_raw.param.grade_highlights_sat = Sorotan – Ketepuan
+filter.camera_raw.param.grade_highlights_lum = Sorotan – Luminans
+filter.camera_raw.param.grade_global_hue = Global – Rona
+filter.camera_raw.param.grade_global_sat = Global – Ketepuan
+filter.camera_raw.param.grade_global_lum = Global – Luminans
+filter.camera_raw.param.grade_blending = Pencampuran
+filter.camera_raw.param.grade_balance = Imbangan
 
 # Pembetulan Kanta
 filter.lens_correction.name = Pembetulan Kanta

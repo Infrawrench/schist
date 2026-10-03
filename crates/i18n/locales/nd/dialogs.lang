@@ -279,3 +279,19 @@ dialog.new_doc.from_image_url = Ku-URL yomfanekiso
 # Backers
 dialog.support.title = Sekela i-Schist
 dialog.support.thanks = Siyabonga abantu lamabhizimusi asekela i-Schist.
+
+# Color Lookup adjustment layers, and File > Export > Color Lookup Table
+dialog.color_lookup.table = Ithebula
+dialog.color_lookup.load = Layisha i-LUT…
+dialog.color_lookup.none = Alikho ithebula elilayishiwe
+dialog.color_lookup.input = Okufakwayo
+dialog.color_lookup.input_document = Amanani Edokhumenti
+dialog.color_lookup.input_linear = Ukukhanya okuqondile
+dialog.color_lookup.note = Ifunda amafayela e-.cube (1D noma 3D) kanye le-.3dl. Ithebula ligcinwa ngaphakathi kwedokhumenti, ngakho ifayela alisadingeki.
+dialog.color_lookup.invalid = {name} akusilo ithebula le-.cube noma le-.3dl elingafundwa yi-Schist.
+dialog.export_lut.title = Thumela Ithebula Lokuthola Umbala
+dialog.export_lut.size = Ubungako begridi
+dialog.export_lut.camera_raw = Faka izilungiselelo zombala we-Camera Raw welayeli elisebenzayo
+dialog.export_lut.note = I-LUT ingagcina kuphela izinguquko zombala ezifanayo kuphikseli ngalinye. Izimaski zamalayeli, ukulungisa okunqunyiweyo, amaqembu ahlukanisiweyo, amalayeli ephikseli, ukucaca, ukubukhali, ukufiphala kwemiphetho lezinye izinto zesikhala kuyashiywa.
+dialog.export_lut.saved = Kuthunyelwe {name}
+dialog.export_lut.saved_skipped = Kuthunyelwe {name}. Amalayeli okulungisa esikhala ashiyiweyo: {count}

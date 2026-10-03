@@ -271,3 +271,19 @@ dialog.new_doc.from_image_url = Tso nɔnɔmetata ƒe URL me
 # Backers
 dialog.support.title = Kpe ɖe Schist ŋu
 dialog.support.thanks = Akpe na amewo kple dɔwɔƒewo siwo le kpekpem ɖe Schist ŋu.
+
+# Color Lookup adjustment layers, and File > Export > Color Lookup Table
+dialog.color_lookup.table = Tebl
+dialog.color_lookup.load = Ɖe LUT ɖe eme…
+dialog.color_lookup.none = Tebl aɖeke meɖe ɖe eme o
+dialog.color_lookup.input = Emeɖeɖe
+dialog.color_lookup.input_document = Agbalẽa ƒe asrafɔwo
+dialog.color_lookup.input_linear = Kekeli tsitsi
+dialog.color_lookup.note = Exlẽa .cube (1D alo 3D) kple .3dl fiawo. Wotsɔa teblea ɖoa agbalẽa me, eya ta mehiã be woatsɔ fiaa ake o.
+dialog.color_lookup.invalid = {name} menye .cube alo .3dl tebl si Schist ate ŋu axlẽ o.
+dialog.export_lut.title = Ɖe Amadzedze ƒe Kpɔkpɔ Tebl ɖe go
+dialog.export_lut.size = Ʋlaƒoƒo ƒe lolome
+dialog.export_lut.camera_raw = Tsɔ ƒuƒoƒo si le dɔwɔm ƒe Camera Raw amadzedze ɖoɖowo ka ɖe eŋu
+dialog.export_lut.note = LUT ate ŋu axɔ amadzedze ƒe tɔtrɔ siwo sɔ na pixel sia pixel koe. Wona ɖe go: ƒuƒoƒo ƒe mask, tɔtrɔ siwo wotso, ƒuƒoƒo siwo wotsɔ ɖe aga, pixel ƒuƒoƒowo, clarity, nɔnɔme ɖeɖe, vignette kple teƒea ƒe nɔnɔme bubuwo.
+dialog.export_lut.saved = Wɔ {name} ɖe go
+dialog.export_lut.saved_skipped = Wɔ {name} ɖe go. Teƒea ƒe tɔtrɔ ƒuƒoƒo siwo wotsɔ ɖe aga: {count}

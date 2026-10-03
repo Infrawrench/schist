@@ -23,6 +23,25 @@ filter.camera_raw.param.vibrance = Ubukomezi bw’amabara
 filter.camera_raw.param.sharpening = Gukarisha
 filter.camera_raw.param.noise = Kugabanya urwamo
 filter.camera_raw.param.vignette = Umwiza wo ku mpande
+filter.camera_raw.grading_title = Ugutunganya Ibara
+filter.camera_raw.grading_shadows = Ibitutu
+filter.camera_raw.grading_midtones = Hagati
+filter.camera_raw.grading_highlights = Ahaka cane
+filter.camera_raw.grading_global = Hose
+filter.camera_raw.param.grade_shadows_hue = Ibitutu: Ibara
+filter.camera_raw.param.grade_shadows_sat = Ibitutu: Ubukomezi
+filter.camera_raw.param.grade_shadows_lum = Ibitutu: Umucyo
+filter.camera_raw.param.grade_midtones_hue = Hagati: Ibara
+filter.camera_raw.param.grade_midtones_sat = Hagati: Ubukomezi
+filter.camera_raw.param.grade_midtones_lum = Hagati: Umucyo
+filter.camera_raw.param.grade_highlights_hue = Ahaka cane: Ibara
+filter.camera_raw.param.grade_highlights_sat = Ahaka cane: Ubukomezi
+filter.camera_raw.param.grade_highlights_lum = Ahaka cane: Umucyo
+filter.camera_raw.param.grade_global_hue = Hose: Ibara
+filter.camera_raw.param.grade_global_sat = Hose: Ubukomezi
+filter.camera_raw.param.grade_global_lum = Hose: Umucyo
+filter.camera_raw.param.grade_blending = Ukuvanga
+filter.camera_raw.param.grade_balance = Uburingane
 
 # Lens Correction
 filter.lens_correction.name = Gukosora lentille

@@ -256,3 +256,19 @@ dialog.new_doc.from_image_url = פֿון אַ בילד־URL
 # Backers
 dialog.support.title = שטיצט Schist
 dialog.support.thanks = אַ דאַנק די מענטשן און פֿירמעס וואָס שטיצן Schist.
+
+# Color Lookup adjustment layers, and File > Export > Color Lookup Table
+dialog.color_lookup.table = טאַבעלע
+dialog.color_lookup.load = לאָדן אַ LUT…
+dialog.color_lookup.none = קיין טאַבעלע איז נישט געלאָדן
+dialog.color_lookup.input = אַרײַנגאַנג
+dialog.color_lookup.input_document = ווערטן פֿון דאָקומענט
+dialog.color_lookup.input_linear = לינעאַרס ליכט
+dialog.color_lookup.note = לייענט .cube (1D אָדער 3D) און .3dl טעקעס. די טאַבעלע ווערט געהיטן אינעם דאָקומענט, אַזוי אַז מען דאַרף נישט נאָך אַ מאָל די טעקע.
+dialog.color_lookup.invalid = {name} איז נישט קיין .cube אָדער .3dl טאַבעלע וואָס Schist קען לייענען.
+dialog.export_lut.title = עקספּאָרט פֿון קאָליר־טאַבעלע
+dialog.export_lut.size = גרייס פֿון נעץ
+dialog.export_lut.camera_raw = אַרײַננעמען די Camera Raw קאָלירן־סעטינגס פֿון דער אַקטיווער שיכט
+dialog.export_lut.note = אַ LUT קען האַלטן נאָר קאָליר־ענדערונגען וואָס זענען די זעלבע פֿאַר יעדן פּיקסעל. שיכט־מאַסקעס, באַשניטענע אַדזשאַסטמענטס, אפּגעזונדערטע גרופּעס, פּיקסעל־שיכטן, קלאַריטי, שאַרפֿן, וויניעטע און אַנדערע פּלאַץ־עפֿעקטן ווערן אויסגעלאָזט.
+dialog.export_lut.saved = עקספּאָרטירט {name}
+dialog.export_lut.saved_skipped = עקספּאָרטירט {name}. אויסגעלאָזטע פּלאַץ־אַדזשאַסטמענט־שיכטן: {count}

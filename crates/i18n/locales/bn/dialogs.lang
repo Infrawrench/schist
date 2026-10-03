@@ -303,3 +303,19 @@ dialog.new_doc.from_image_url = ছবির URL থেকে
 # Backers
 dialog.support.title = Schist-কে সমর্থন করুন
 dialog.support.thanks = Schist-কে সমর্থনকারী ব্যক্তি ও ব্র্যান্ডগুলিকে ধন্যবাদ।
+
+# Color Lookup adjustment layers, and File > Export > Color Lookup Table
+dialog.color_lookup.table = টেবিল
+dialog.color_lookup.load = LUT লোড করুন…
+dialog.color_lookup.none = কোনো টেবিল লোড করা হয়নি
+dialog.color_lookup.input = ইনপুট
+dialog.color_lookup.input_document = ডকুমেন্টের মান
+dialog.color_lookup.input_linear = রৈখিক আলো
+dialog.color_lookup.note = .cube (1D বা 3D) ও .3dl ফাইল পড়ে। টেবিলটি ডকুমেন্টের ভেতরেই সংরক্ষিত হয়, তাই ফাইলটি আর লাগে না।
+dialog.color_lookup.invalid = {name} এমন কোনো .cube বা .3dl টেবিল নয় যা Schist পড়তে পারে।
+dialog.export_lut.title = কালার লুকআপ টেবিল এক্সপোর্ট করুন
+dialog.export_lut.size = গ্রিডের আকার
+dialog.export_lut.camera_raw = সক্রিয় লেয়ারের Camera Raw রঙের সেটিংস অন্তর্ভুক্ত করুন
+dialog.export_lut.note = LUT কেবল এমন রঙের পরিবর্তন ধারণ করতে পারে যা প্রতিটি পিক্সেলের জন্য একই। লেয়ার মাস্ক, ক্লিপ করা অ্যাডজাস্টমেন্ট, আলাদা গ্রুপ, পিক্সেল লেয়ার, ক্ল্যারিটি, শার্পনিং, ভিনিয়েট এবং অন্যান্য স্থানিক ইফেক্ট বাদ দেওয়া হয়।
+dialog.export_lut.saved = {name} এক্সপোর্ট করা হয়েছে
+dialog.export_lut.saved_skipped = {name} এক্সপোর্ট করা হয়েছে। বাদ দেওয়া স্থানিক অ্যাডজাস্টমেন্ট লেয়ার: {count}

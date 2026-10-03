@@ -17,5 +17,6 @@ adjustment.photo_filter.name = ფოტოფილტრი
 adjustment.gradient_map.name = გრადიენტის რუკა
 adjustment.selective_color.name = შერჩევითი ფერი
 adjustment.channel_mixer.name = არხების მიქსერი
+adjustment.color_lookup.name = ფერის მოძიება
 # PSD-დან წაკითხული ტიპი, რომლის რედაქტორიც Schist-ს არ აქვს.
 adjustment.other.name = კორექცია

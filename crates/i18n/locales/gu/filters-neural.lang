@@ -22,6 +22,25 @@ filter.camera_raw.param.vibrance = વાઇબ્રન્સ
 filter.camera_raw.param.sharpening = તીક્ષ્ણતા
 filter.camera_raw.param.noise = નૉઇઝ ઘટાડો
 filter.camera_raw.param.vignette = વિગ્નેટ
+filter.camera_raw.grading_title = કલર ગ્રેડિંગ
+filter.camera_raw.grading_shadows = શેડો
+filter.camera_raw.grading_midtones = મિડટોન
+filter.camera_raw.grading_highlights = હાઇલાઇટ
+filter.camera_raw.grading_global = ગ્લોબલ
+filter.camera_raw.param.grade_shadows_hue = શેડો હ્યુ
+filter.camera_raw.param.grade_shadows_sat = શેડો સંતૃપ્તિ
+filter.camera_raw.param.grade_shadows_lum = શેડો લ્યુમિનન્સ
+filter.camera_raw.param.grade_midtones_hue = મિડટોન હ્યુ
+filter.camera_raw.param.grade_midtones_sat = મિડટોન સંતૃપ્તિ
+filter.camera_raw.param.grade_midtones_lum = મિડટોન લ્યુમિનન્સ
+filter.camera_raw.param.grade_highlights_hue = હાઇલાઇટ હ્યુ
+filter.camera_raw.param.grade_highlights_sat = હાઇલાઇટ સંતૃપ્તિ
+filter.camera_raw.param.grade_highlights_lum = હાઇલાઇટ લ્યુમિનન્સ
+filter.camera_raw.param.grade_global_hue = ગ્લોબલ હ્યુ
+filter.camera_raw.param.grade_global_sat = ગ્લોબલ સંતૃપ્તિ
+filter.camera_raw.param.grade_global_lum = ગ્લોબલ લ્યુમિનન્સ
+filter.camera_raw.param.grade_blending = બ્લેન્ડિંગ
+filter.camera_raw.param.grade_balance = સંતુલન
 
 # Lens Correction
 filter.lens_correction.name = લેન્સ સુધારણા

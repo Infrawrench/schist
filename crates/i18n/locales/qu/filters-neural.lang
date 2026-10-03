@@ -23,6 +23,25 @@ filter.camera_raw.param.vibrance = Kawsay llimp'i
 filter.camera_raw.param.sharpening = Nitidezta yapay
 filter.camera_raw.param.noise = Ch'aqwa pisiyachiy
 filter.camera_raw.param.vignette = Viñeta
+filter.camera_raw.grading_title = Llimp'i allichay
+filter.camera_raw.grading_shadows = Llanthukuna
+filter.camera_raw.grading_midtones = Chawpi
+filter.camera_raw.grading_highlights = Aswan k'anchaqkuna
+filter.camera_raw.grading_global = Llapan
+filter.camera_raw.param.grade_shadows_hue = Llanthukuna: Llimp'i
+filter.camera_raw.param.grade_shadows_sat = Llanthukuna: Llimp'i saksaynin
+filter.camera_raw.param.grade_shadows_lum = Llanthukuna: K'anchay
+filter.camera_raw.param.grade_midtones_hue = Chawpi: Llimp'i
+filter.camera_raw.param.grade_midtones_sat = Chawpi: Llimp'i saksaynin
+filter.camera_raw.param.grade_midtones_lum = Chawpi: K'anchay
+filter.camera_raw.param.grade_highlights_hue = Aswan k'anchaqkuna: Llimp'i
+filter.camera_raw.param.grade_highlights_sat = Aswan k'anchaqkuna: Llimp'i saksaynin
+filter.camera_raw.param.grade_highlights_lum = Aswan k'anchaqkuna: K'anchay
+filter.camera_raw.param.grade_global_hue = Llapan: Llimp'i
+filter.camera_raw.param.grade_global_sat = Llapan: Llimp'i saksaynin
+filter.camera_raw.param.grade_global_lum = Llapan: K'anchay
+filter.camera_raw.param.grade_blending = Chaqruy
+filter.camera_raw.param.grade_balance = Kaqlla churay
 
 # Lente allichay
 filter.lens_correction.name = Lente allichay

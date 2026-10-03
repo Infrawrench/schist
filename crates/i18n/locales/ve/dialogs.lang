@@ -279,3 +279,19 @@ dialog.new_doc.from_image_url = U bva kha URL ya tshifanyiso
 # Backers
 dialog.support.title = Tikedzani Schist
 dialog.support.thanks = Ri livhuwa vhathu na mabindu ane a tikedza Schist.
+
+# Color Lookup adjustment layers, and File > Export > Color Lookup Table
+dialog.color_lookup.table = Tafula
+dialog.color_lookup.load = Ḓisa LUT…
+dialog.color_lookup.none = A hu na tafula yo ḓisiwaho
+dialog.color_lookup.input = U dzhenisa
+dialog.color_lookup.input_document = Mitengo ya dokumente
+dialog.color_lookup.input_linear = Khanya ya mutsetse
+dialog.color_lookup.note = I vhala dzifaela dza .cube (1D kana 3D) na .3dl. Tafula i vhulungwa ngomu ha dokumente, nga maanda faela a i tsha ṱoḓea hafhu.
+dialog.color_lookup.invalid = {name} a si tafula ya .cube kana .3dl ine Schist ya nga i vhala.
+dialog.export_lut.title = Rumela Tafula ya u Wana Muvhala
+dialog.export_lut.size = Saizi ya gridi
+dialog.export_lut.camera_raw = Katela mavhekanyele a muvhala a Camera Raw a layere ine ya shuma
+dialog.export_lut.note = LUT i nga vhulunga fhedzi u shanduka ha muvhala hune ha fana kha pixel yoṱhe. Dzimaski dza layere, dzi adjasimende dzo tsengiwaho, dzikhundu dzo fhandekanywaho, dzilayere dza pixel, u vhonala zwavhuḓi, u sedza, vignette na zwiṅwe zwiitisi zwa sipeisi a zwi katelwi.
+dialog.export_lut.saved = Zwo rumelwa {name}
+dialog.export_lut.saved_skipped = Zwo rumelwa {name}. Dzilayere dza adjasimende dza sipeisi dzo salwaho: {count}

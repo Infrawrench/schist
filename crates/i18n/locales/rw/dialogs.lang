@@ -264,3 +264,19 @@ dialog.new_doc.from_image_url = Bivuye kuri URL y’ishusho
 # Backers
 dialog.support.title = Shyigikira Schist
 dialog.support.thanks = Turashimira abantu n’ibigo bishyigikira Schist.
+
+# Color Lookup adjustment layers, and File > Export > Color Lookup Table
+dialog.color_lookup.table = Ameza
+dialog.color_lookup.load = Shyiramo LUT…
+dialog.color_lookup.none = Nta meza yashyizwemo
+dialog.color_lookup.input = Ibyinjizwa
+dialog.color_lookup.input_document = Agaciro k'inyandiko
+dialog.color_lookup.input_linear = Urumuri rugororotse
+dialog.color_lookup.note = Isoma amadosiye .cube (1D cyangwa 3D) na .3dl. Ameza abikwa mu nyandiko, bityo ntibikenewe ko idosiye yongera gukoreshwa.
+dialog.color_lookup.invalid = {name} si ameza .cube cyangwa .3dl Schist ishobora gusoma.
+dialog.export_lut.title = Kubika ameza yo gushakisha ibara
+dialog.export_lut.size = Ingano y'akanama
+dialog.export_lut.camera_raw = Shyiramo imiterere y'ibara ya Camera Raw y'urwego rukora
+dialog.export_lut.note = LUT ishobora kubika gusa impinduka z'ibara zimeze kimwe kuri buri pikiseli. Ibikingira by'urwego, impinduka zakaswe, amatsinda yihariye, inzego za pikiseli, ubusobanuro, gukarisha, umwijima w'inkengero n'ibindi bigira ingaruka ku hantu ntibishyirwamo.
+dialog.export_lut.saved = {name} yabitswe
+dialog.export_lut.saved_skipped = {name} yabitswe. Inzego z'impinduka zigira ingaruka ku hantu zasibwe: {count}

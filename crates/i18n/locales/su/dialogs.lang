@@ -248,3 +248,19 @@ dialog.new_doc.from_image_url = Tina URL gambar
 # Backers
 dialog.support.title = Dukung Schist
 dialog.support.thanks = Hatur nuhun ka jalma jeung mérek anu ngarojong Schist.
+
+# Color Lookup adjustment layers, and File > Export > Color Lookup Table
+dialog.color_lookup.table = Tabél
+dialog.color_lookup.load = Muat LUT…
+dialog.color_lookup.none = Euweuh tabél anu dimuat
+dialog.color_lookup.input = Input
+dialog.color_lookup.input_document = Nilai dokumén
+dialog.color_lookup.input_linear = Cahaya linier
+dialog.color_lookup.note = Maca berkas .cube (1D atawa 3D) sarta .3dl. Tabélna disimpen di jero dokumén, jadi berkasna teu diperlukeun deui.
+dialog.color_lookup.invalid = {name} lain tabél .cube atawa .3dl anu bisa dibaca ku Schist.
+dialog.export_lut.title = Ékspor Tabél Panéangan Warna
+dialog.export_lut.size = Ukuran grid
+dialog.export_lut.camera_raw = Sertakeun setélan warna Camera Raw tina lapisan aktif
+dialog.export_lut.note = LUT ngan bisa nyimpen parobahan warna anu sarua pikeun unggal piksel. Topéng lapisan, pangaluyuan anu dipotong, grup anu diisolasi, lapisan piksel, kajelasan, penajaman, vinyét jeung éfék spasial séjénna dikaluarkeun.
+dialog.export_lut.saved = {name} geus diékspor
+dialog.export_lut.saved_skipped = {name} geus diékspor. Lapisan pangaluyuan spasial anu dikaluarkeun: {count}

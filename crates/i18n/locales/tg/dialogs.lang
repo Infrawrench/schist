@@ -248,3 +248,19 @@ dialog.new_doc.from_image_url = Аз URL-и тасвир
 # Backers
 dialog.support.title = Дастгирии Schist
 dialog.support.thanks = Ташаккур ба одамон ва брендҳое, ки Schist-ро дастгирӣ мекунанд.
+
+# Color Lookup adjustment layers, and File > Export > Color Lookup Table
+dialog.color_lookup.table = Ҷадвал
+dialog.color_lookup.load = Бор кардани LUT…
+dialog.color_lookup.none = Ягон ҷадвал бор нашудааст
+dialog.color_lookup.input = Вуруд
+dialog.color_lookup.input_document = Қиматҳои ҳуҷҷат
+dialog.color_lookup.input_linear = Нури хаттӣ
+dialog.color_lookup.note = Файлҳои .cube (1D ё 3D) ва .3dl-ро мехонад. Ҷадвал дар дохили ҳуҷҷат нигоҳ дошта мешавад, бинобар ин файл дигар лозим нест.
+dialog.color_lookup.invalid = {name} ҷадвали .cube ё .3dl нест, ки Schist онро хонда тавонад.
+dialog.export_lut.title = Содир кардани ҷадвали ҷустуҷӯи ранг
+dialog.export_lut.size = Андозаи тӯр
+dialog.export_lut.camera_raw = Танзимоти ранги Camera Raw-и қабати фаъолро дохил кардан
+dialog.export_lut.note = LUT танҳо тағйироти рангро нигоҳ дошта метавонад, ки барои ҳар як пиксел якхелаанд. Ниқобҳои қабат, танзимоти бурида, гурӯҳҳои ҷудо, қабатҳои пиксел, возеҳӣ, тезкунӣ, винйетка ва дигар эффектҳои фазоӣ партофта мешаванд.
+dialog.export_lut.saved = {name} содир шуд
+dialog.export_lut.saved_skipped = {name} содир шуд. Қабатҳои танзимии фазоии партофташуда: {count}

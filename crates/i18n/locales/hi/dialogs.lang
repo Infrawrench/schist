@@ -256,3 +256,19 @@ dialog.new_doc.from_image_url = छवि URL से
 # Backers
 dialog.support.title = Schist का समर्थन करें
 dialog.support.thanks = Schist का समर्थन करने वाले लोगों और ब्रांडों का धन्यवाद।
+
+# Color Lookup adjustment layers, and File > Export > Color Lookup Table
+dialog.color_lookup.table = तालिका
+dialog.color_lookup.load = LUT लोड करें…
+dialog.color_lookup.none = कोई तालिका लोड नहीं है
+dialog.color_lookup.input = इनपुट
+dialog.color_lookup.input_document = दस्तावेज़ के मान
+dialog.color_lookup.input_linear = रैखिक प्रकाश
+dialog.color_lookup.note = .cube (1D या 3D) और .3dl फ़ाइलें पढ़ता है। तालिका दस्तावेज़ के अंदर सहेजी जाती है, इसलिए फ़ाइल की दोबारा ज़रूरत नहीं पड़ती।
+dialog.color_lookup.invalid = {name} ऐसी .cube या .3dl तालिका नहीं है जिसे Schist पढ़ सके।
+dialog.export_lut.title = कलर लुकअप टेबल निर्यात करें
+dialog.export_lut.size = ग्रिड आकार
+dialog.export_lut.camera_raw = सक्रिय परत की Camera Raw रंग सेटिंग शामिल करें
+dialog.export_lut.note = LUT में केवल वही रंग परिवर्तन आ सकते हैं जो हर पिक्सल के लिए समान हों। परत मास्क, क्लिप किए गए समायोजन, अलग किए गए समूह, पिक्सल परतें, स्पष्टता, शार्पनिंग, विग्नेटिंग और अन्य स्थानिक प्रभाव शामिल नहीं किए जाते।
+dialog.export_lut.saved = {name} निर्यात किया गया
+dialog.export_lut.saved_skipped = {name} निर्यात किया गया। छोड़ी गई स्थानिक समायोजन परतें: {count}

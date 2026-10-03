@@ -256,3 +256,19 @@ dialog.new_doc.from_image_url = Από URL εικόνας
 # Backers
 dialog.support.title = Υποστηρίξτε το Schist
 dialog.support.thanks = Ευχαριστούμε τους ανθρώπους και τις εταιρείες που υποστηρίζουν το Schist.
+
+# Color Lookup adjustment layers, and File > Export > Color Lookup Table
+dialog.color_lookup.table = Πίνακας
+dialog.color_lookup.load = Φόρτωση LUT…
+dialog.color_lookup.none = Δεν έχει φορτωθεί πίνακας
+dialog.color_lookup.input = Είσοδος
+dialog.color_lookup.input_document = Τιμές εγγράφου
+dialog.color_lookup.input_linear = Γραμμικό φως
+dialog.color_lookup.note = Διαβάζει αρχεία .cube (1D ή 3D) και .3dl. Ο πίνακας αποθηκεύεται μέσα στο έγγραφο, οπότε το αρχείο δεν χρειάζεται ξανά.
+dialog.color_lookup.invalid = Το {name} δεν είναι πίνακας .cube ή .3dl που μπορεί να διαβάσει το Schist.
+dialog.export_lut.title = Εξαγωγή πίνακα αναζήτησης χρώματος
+dialog.export_lut.size = Μέγεθος πλέγματος
+dialog.export_lut.camera_raw = Συμπερίληψη των ρυθμίσεων χρώματος Camera Raw του ενεργού επιπέδου
+dialog.export_lut.note = Ένα LUT μπορεί να περιέχει μόνο αλλαγές χρώματος που είναι ίδιες για κάθε pixel. Οι μάσκες επιπέδων, οι περικομμένες προσαρμογές, οι απομονωμένες ομάδες, τα επίπεδα pixel, η διαύγεια, η όξυνση, η βινιέτα και άλλα χωρικά εφέ παραλείπονται.
+dialog.export_lut.saved = Έγινε εξαγωγή του {name}
+dialog.export_lut.saved_skipped = Έγινε εξαγωγή του {name}. Χωρικά επίπεδα προσαρμογής που παραλείφθηκαν: {count}

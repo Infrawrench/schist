@@ -304,3 +304,19 @@ dialog.new_doc.from_image_url = O URL delwedd
 # Backers
 dialog.support.title = Cefnogwch Schist
 dialog.support.thanks = Diolch i'r bobl a'r brandiau sy'n cefnogi Schist.
+
+# Color Lookup adjustment layers, and File > Export > Color Lookup Table
+dialog.color_lookup.table = Tabl
+dialog.color_lookup.load = Llwytho LUT…
+dialog.color_lookup.none = Dim tabl wedi'i lwytho
+dialog.color_lookup.input = Mewnbwn
+dialog.color_lookup.input_document = Gwerthoedd y ddogfen
+dialog.color_lookup.input_linear = Golau llinol
+dialog.color_lookup.note = Yn darllen ffeiliau .cube (1D neu 3D) a .3dl. Mae'r tabl yn cael ei gadw y tu mewn i'r ddogfen, felly nid oes angen y ffeil eto.
+dialog.color_lookup.invalid = Nid yw {name} yn dabl .cube na .3dl y gall Schist ei ddarllen.
+dialog.export_lut.title = Allforio Tabl Chwilio Lliw
+dialog.export_lut.size = Maint y grid
+dialog.export_lut.camera_raw = Cynnwys gosodiadau lliw Camera Raw yr haen weithredol
+dialog.export_lut.note = Dim ond newidiadau lliw sy'n union yr un fath ar gyfer pob picsel y gall LUT eu dal. Mae masgiau haen, addasiadau wedi'u clipio, grwpiau ynysig, haenau picsel, eglurder, hogi, amlinellu tywyll ac effeithiau gofodol eraill yn cael eu gadael allan.
+dialog.export_lut.saved = Wedi allforio {name}
+dialog.export_lut.saved_skipped = Wedi allforio {name}. Haenau addasu gofodol a adawyd allan: {count}

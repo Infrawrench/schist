@@ -24,6 +24,25 @@ filter.camera_raw.param.vibrance = Vivacidade
 filter.camera_raw.param.sharpening = Afiladura
 filter.camera_raw.param.noise = Redutzione de su rumore
 filter.camera_raw.param.vignette = Vinetadura
+filter.camera_raw.grading_title = Gradatzione de colores
+filter.camera_raw.grading_shadows = Umbras
+filter.camera_raw.grading_midtones = Tonos mèdios
+filter.camera_raw.grading_highlights = Lughes artas
+filter.camera_raw.grading_global = Globale
+filter.camera_raw.param.grade_shadows_hue = Umbras: Tonalidade
+filter.camera_raw.param.grade_shadows_sat = Umbras: Saturatzione
+filter.camera_raw.param.grade_shadows_lum = Umbras: Luminosidade
+filter.camera_raw.param.grade_midtones_hue = Tonos mèdios: Tonalidade
+filter.camera_raw.param.grade_midtones_sat = Tonos mèdios: Saturatzione
+filter.camera_raw.param.grade_midtones_lum = Tonos mèdios: Luminosidade
+filter.camera_raw.param.grade_highlights_hue = Lughes artas: Tonalidade
+filter.camera_raw.param.grade_highlights_sat = Lughes artas: Saturatzione
+filter.camera_raw.param.grade_highlights_lum = Lughes artas: Luminosidade
+filter.camera_raw.param.grade_global_hue = Globale: Tonalidade
+filter.camera_raw.param.grade_global_sat = Globale: Saturatzione
+filter.camera_raw.param.grade_global_lum = Globale: Luminosidade
+filter.camera_raw.param.grade_blending = Mistura
+filter.camera_raw.param.grade_balance = Echilibriu
 
 # Curretzione de s'obietivu
 filter.lens_correction.name = Curretzione de s'obietivu

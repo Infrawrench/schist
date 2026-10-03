@@ -16,4 +16,5 @@ adjustment.photo_filter.name = តម្រងរូបថត
 adjustment.gradient_map.name = ផែនទីជម្រាលពណ៌
 adjustment.selective_color.name = ពណ៌ជ្រើសរើស
 adjustment.channel_mixer.name = ឧបករណ៍លាយឆានែល
+adjustment.color_lookup.name = ការស្វែងរកពណ៌
 adjustment.other.name = ការកែតម្រូវ

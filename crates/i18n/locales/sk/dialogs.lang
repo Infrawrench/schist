@@ -279,3 +279,19 @@ dialog.new_doc.from_image_url = Z URL obrázka
 # Backers
 dialog.support.title = Podporte Schist
 dialog.support.thanks = Ďakujeme ľuďom a značkám, ktoré podporujú Schist.
+
+# Color Lookup adjustment layers, and File > Export > Color Lookup Table
+dialog.color_lookup.table = Tabuľka
+dialog.color_lookup.load = Načítať LUT…
+dialog.color_lookup.none = Nie je načítaná žiadna tabuľka
+dialog.color_lookup.input = Vstup
+dialog.color_lookup.input_document = Hodnoty dokumentu
+dialog.color_lookup.input_linear = Lineárne svetlo
+dialog.color_lookup.note = Číta súbory .cube (1D alebo 3D) a .3dl. Tabuľka sa uloží do dokumentu, takže súbor už nebude potrebný.
+dialog.color_lookup.invalid = {name} nie je tabuľka .cube ani .3dl, ktorú Schist dokáže prečítať.
+dialog.export_lut.title = Exportovať tabuľku vyhľadávania farieb
+dialog.export_lut.size = Veľkosť mriežky
+dialog.export_lut.camera_raw = Zahrnúť nastavenia farieb Camera Raw aktívnej vrstvy
+dialog.export_lut.note = LUT môže obsahovať iba zmeny farieb, ktoré sú rovnaké pre každý pixel. Masky vrstiev, orezané úpravy, izolované skupiny, pixelové vrstvy, zreteľnosť, doostrenie, vinetácia a ďalšie priestorové efekty sa vynechajú.
+dialog.export_lut.saved = Exportované: {name}
+dialog.export_lut.saved_skipped = Exportované: {name}. Vynechané priestorové úpravové vrstvy: {count}

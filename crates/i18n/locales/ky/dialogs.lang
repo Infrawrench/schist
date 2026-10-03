@@ -269,3 +269,19 @@ dialog.new_doc.from_image_url = Сүрөттүн URL дарегинен
 # Backers
 dialog.support.title = Schist долбоорун колдоо
 dialog.support.thanks = Schist долбоорун колдогон адамдарга жана бренддерге рахмат.
+
+# Color Lookup adjustment layers, and File > Export > Color Lookup Table
+dialog.color_lookup.table = Таблица
+dialog.color_lookup.load = LUT жүктөө…
+dialog.color_lookup.none = Таблица жүктөлгөн жок
+dialog.color_lookup.input = Кириш
+dialog.color_lookup.input_document = Документтин маанилери
+dialog.color_lookup.input_linear = Сызыктуу жарык
+dialog.color_lookup.note = .cube (1D же 3D) жана .3dl файлдарын окуйт. Таблица документтин ичинде сакталат, андыктан файл экинчи керек болбойт.
+dialog.color_lookup.invalid = {name} Schist окуй алган .cube же .3dl таблицасы эмес.
+dialog.export_lut.title = Түстөрдү издөө таблицасын экспорттоо
+dialog.export_lut.size = Тордун өлчөмү
+dialog.export_lut.camera_raw = Активдүү катмардын Camera Raw түс жөндөөлөрүн кошуу
+dialog.export_lut.note = LUT бардык пикселдер үчүн бирдей болгон түс өзгөрүүлөрүн гана камтый алат. Катмар маскалары, кесилген тууралоолор, обочолонгон топтор, пиксел катмарлары, тактык, курчутуу, виньеткалоо жана башка мейкиндик эффекттери кошулбайт.
+dialog.export_lut.saved = {name} экспортталды
+dialog.export_lut.saved_skipped = {name} экспортталды. Калтырылган мейкиндик тууралоо катмарлары: {count}

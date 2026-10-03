@@ -257,3 +257,19 @@ dialog.new_doc.from_image_url = Fra billed-URL
 # Backers
 dialog.support.title = Støt Schist
 dialog.support.thanks = Tak til de personer og brands, der støtter Schist.
+
+# Color Lookup adjustment layers, and File > Export > Color Lookup Table
+dialog.color_lookup.table = Tabel
+dialog.color_lookup.load = Indlæs LUT…
+dialog.color_lookup.none = Ingen tabel indlæst
+dialog.color_lookup.input = Input
+dialog.color_lookup.input_document = Dokumentets værdier
+dialog.color_lookup.input_linear = Lineært lys
+dialog.color_lookup.note = Læser .cube-filer (1D eller 3D) og .3dl-filer. Tabellen gemmes i dokumentet, så filen ikke skal bruges igen.
+dialog.color_lookup.invalid = {name} er ikke en .cube- eller .3dl-tabel, som Schist kan læse.
+dialog.export_lut.title = Eksportér farveopslagstabel
+dialog.export_lut.size = Gitterstørrelse
+dialog.export_lut.camera_raw = Medtag det aktive lags Camera Raw-farveindstillinger
+dialog.export_lut.note = En LUT kan kun rumme farveændringer, der er ens for hver pixel. Lagmasker, beskårne justeringer, isolerede grupper, pixellag, klarhed, skærpning, vignettering og andre rumlige effekter udelades.
+dialog.export_lut.saved = {name} eksporteret
+dialog.export_lut.saved_skipped = {name} eksporteret. Rumlige justeringslag udeladt: {count}

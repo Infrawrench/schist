@@ -16,4 +16,5 @@ adjustment.photo_filter.name = Fotofilter
 adjustment.gradient_map.name = Üleminekukaart
 adjustment.selective_color.name = Valikvärv
 adjustment.channel_mixer.name = Kanalimikser
+adjustment.color_lookup.name = Värviotsing
 adjustment.other.name = Kohandus

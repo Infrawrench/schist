@@ -17,5 +17,6 @@ adjustment.photo_filter.name = ඡායාරූප පෙරහන
 adjustment.gradient_map.name = අනුක්‍රමණ සිතියම
 adjustment.selective_color.name = තෝරාගත් වර්ණය
 adjustment.channel_mixer.name = නාලිකා මිශ්‍රකය
+adjustment.color_lookup.name = වර්ණ සෙවුම
 # Schist හි සංස්කාරකයක් නොමැති PSD ගොනුවකින් කියවන ගැළපුම් වර්ගයකි.
 adjustment.other.name = ගැළපුම

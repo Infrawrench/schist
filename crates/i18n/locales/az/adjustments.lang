@@ -17,4 +17,5 @@ adjustment.photo_filter.name = Foto filtri
 adjustment.gradient_map.name = Qradient xəritəsi
 adjustment.selective_color.name = Seçimli rəng
 adjustment.channel_mixer.name = Kanal qarışdırıcısı
+adjustment.color_lookup.name = Rəng axtarışı
 adjustment.other.name = Tənzimləmə

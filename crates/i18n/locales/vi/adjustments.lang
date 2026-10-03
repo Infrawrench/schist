@@ -16,4 +16,5 @@ adjustment.photo_filter.name = Bộ lọc ảnh
 adjustment.gradient_map.name = Ánh xạ chuyển sắc
 adjustment.selective_color.name = Màu chọn lọc
 adjustment.channel_mixer.name = Trộn kênh
+adjustment.color_lookup.name = Tra cứu màu
 adjustment.other.name = Điều chỉnh

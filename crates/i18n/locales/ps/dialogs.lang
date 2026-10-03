@@ -256,3 +256,19 @@ dialog.new_doc.from_image_url = د انځور له URL څخه
 # Backers
 dialog.support.title = د Schist ملاتړ وکړئ
 dialog.support.thanks = د هغو خلکو او نښو مننه چې د Schist ملاتړ کوي.
+
+# Color Lookup adjustment layers, and File ▸ Export ▸ Color Lookup Table
+dialog.color_lookup.table = جدول
+dialog.color_lookup.load = LUT پورته کړئ…
+dialog.color_lookup.none = هېڅ جدول نه دی پورته شوی
+dialog.color_lookup.input = ان‌پټ
+dialog.color_lookup.input_document = د سند ارزښتونه
+dialog.color_lookup.input_linear = خطي رڼا
+dialog.color_lookup.note = د .cube (1D یا 3D) او .3dl فایلونه لولي. جدول په سند کې خوندي کېږي، نو فایل بیا نه ارتیا کېږي.
+dialog.color_lookup.invalid = {name} داسې .cube یا .3dl جدول نه دی چې Schist یې ولولي.
+dialog.export_lut.title = د رنګ لټون جدول صادر کړئ
+dialog.export_lut.size = د جال کچه
+dialog.export_lut.camera_raw = د فعالې طبقې د Camera Raw رنګ تنظیمات شامل کړئ
+dialog.export_lut.note = LUT یوازې هغه رنګي بدلونونه ساتلی شي چې د هر پکسل لپاره یو شان وي. د طبقې ماسکونه، پرې شوي تنظیمات، جلا شوي ګروپونه، د پکسل طبقې، وضاحت، تیزول، څنډه‌تیاروالی او نور فضايي اغېزې پرېښودل کېږي.
+dialog.export_lut.saved = {name} صادر شو
+dialog.export_lut.saved_skipped = {name} صادر شو. پرېښودل شوې فضايي تنظیمي طبقې: {count}

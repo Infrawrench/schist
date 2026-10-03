@@ -256,3 +256,19 @@ dialog.new_doc.from_image_url = Rasm URL manzilidan
 # Backers
 dialog.support.title = Schist’ni qo‘llab-quvvatlang
 dialog.support.thanks = Schist’ni qo‘llab-quvvatlayotgan insonlar va brendlarga rahmat.
+
+# Color Lookup adjustment layers, and File ▸ Export ▸ Color Lookup Table
+dialog.color_lookup.table = Jadval
+dialog.color_lookup.load = LUT yuklash…
+dialog.color_lookup.none = Hech qanday jadval yuklanmagan
+dialog.color_lookup.input = Kirish
+dialog.color_lookup.input_document = Hujjat qiymatlari
+dialog.color_lookup.input_linear = Chiziqli yorug‘lik
+dialog.color_lookup.note = .cube (1D yoki 3D) va .3dl fayllarini o‘qiydi. Jadval hujjat ichida saqlanadi, shuning uchun fayl qayta kerak bo‘lmaydi.
+dialog.color_lookup.invalid = {name} Schist o‘qiy oladigan .cube yoki .3dl jadvali emas.
+dialog.export_lut.title = Rang qidiruv jadvalini eksport qilish
+dialog.export_lut.size = Panjara o‘lchami
+dialog.export_lut.camera_raw = Faol qatlamning Camera Raw rang sozlamalarini kiritish
+dialog.export_lut.note = LUT faqat har bir piksel uchun bir xil bo‘lgan rang o‘zgarishlarini saqlay oladi. Qatlam maskalari, kesilgan tuzatishlar, ajratilgan guruhlar, piksel qatlamlari, aniqlik, keskinlashtirish, vinyetka va boshqa fazoviy effektlar kiritilmaydi.
+dialog.export_lut.saved = {name} eksport qilindi
+dialog.export_lut.saved_skipped = {name} eksport qilindi. Qoldirilgan fazoviy tuzatish qatlamlari: {count}

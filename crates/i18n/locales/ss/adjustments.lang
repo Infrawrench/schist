@@ -16,4 +16,5 @@ adjustment.photo_filter.name = Sihlungi Sesitfombe
 adjustment.gradient_map.name = Libalave Lelushintjombala
 adjustment.selective_color.name = Umbala Lokhetsiwe
 adjustment.channel_mixer.name = Sihlanganisi Semashaneli
+adjustment.color_lookup.name = Kufuna Umbala
 adjustment.other.name = Kulungisa

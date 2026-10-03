@@ -22,6 +22,25 @@ filter.camera_raw.param.vibrance = Vividezza
 filter.camera_raw.param.sharpening = Nitidezza
 filter.camera_raw.param.noise = Riduzione disturbo
 filter.camera_raw.param.vignette = Vignettatura
+filter.camera_raw.grading_title = Color grading
+filter.camera_raw.grading_shadows = Ombre
+filter.camera_raw.grading_midtones = Mezzitoni
+filter.camera_raw.grading_highlights = Luci
+filter.camera_raw.grading_global = Globale
+filter.camera_raw.param.grade_shadows_hue = Ombre tonalità
+filter.camera_raw.param.grade_shadows_sat = Ombre saturazione
+filter.camera_raw.param.grade_shadows_lum = Ombre luminanza
+filter.camera_raw.param.grade_midtones_hue = Mezzitoni tonalità
+filter.camera_raw.param.grade_midtones_sat = Mezzitoni saturazione
+filter.camera_raw.param.grade_midtones_lum = Mezzitoni luminanza
+filter.camera_raw.param.grade_highlights_hue = Luci tonalità
+filter.camera_raw.param.grade_highlights_sat = Luci saturazione
+filter.camera_raw.param.grade_highlights_lum = Luci luminanza
+filter.camera_raw.param.grade_global_hue = Globale tonalità
+filter.camera_raw.param.grade_global_sat = Globale saturazione
+filter.camera_raw.param.grade_global_lum = Globale luminanza
+filter.camera_raw.param.grade_blending = Fusione
+filter.camera_raw.param.grade_balance = Bilanciamento
 
 # Correzione lente
 filter.lens_correction.name = Correzione lente

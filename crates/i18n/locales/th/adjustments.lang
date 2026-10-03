@@ -19,5 +19,6 @@ adjustment.photo_filter.name = ฟิลเตอร์ภาพถ่าย
 adjustment.gradient_map.name = แมปการไล่ระดับสี
 adjustment.selective_color.name = เลือกปรับสี
 adjustment.channel_mixer.name = ตัวผสมช่องสี
+adjustment.color_lookup.name = ค้นหาสี
 # A kind read from a PSD that Schist has no editor for.
 adjustment.other.name = การปรับแต่ง

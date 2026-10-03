@@ -256,3 +256,19 @@ dialog.new_doc.from_image_url = ਚਿੱਤਰ URL ਤੋਂ
 # Backers
 dialog.support.title = Schist ਦਾ ਸਮਰਥਨ ਕਰੋ
 dialog.support.thanks = Schist ਦਾ ਸਮਰਥਨ ਕਰਨ ਵਾਲੇ ਲੋਕਾਂ ਅਤੇ ਬ੍ਰਾਂਡਾਂ ਦਾ ਧੰਨਵਾਦ।
+
+# Color Lookup adjustment layers, and File > Export > Color Lookup Table
+dialog.color_lookup.table = ਸਾਰਣੀ
+dialog.color_lookup.load = LUT ਲੋਡ ਕਰੋ…
+dialog.color_lookup.none = ਕੋਈ ਸਾਰਣੀ ਲੋਡ ਨਹੀਂ ਕੀਤੀ ਗਈ
+dialog.color_lookup.input = ਇਨਪੁੱਟ
+dialog.color_lookup.input_document = ਦਸਤਾਵੇਜ਼ ਦੇ ਮੁੱਲ
+dialog.color_lookup.input_linear = ਰੇਖਿਕ ਰੌਸ਼ਨੀ
+dialog.color_lookup.note = .cube (1D ਜਾਂ 3D) ਅਤੇ .3dl ਫ਼ਾਈਲਾਂ ਪੜ੍ਹਦਾ ਹੈ। ਸਾਰਣੀ ਦਸਤਾਵੇਜ਼ ਦੇ ਅੰਦਰ ਹੀ ਸੰਭਾਲੀ ਜਾਂਦੀ ਹੈ, ਇਸ ਲਈ ਫ਼ਾਈਲ ਦੁਬਾਰਾ ਲੋੜੀਂਦੀ ਨਹੀਂ।
+dialog.color_lookup.invalid = {name} ਅਜਿਹੀ .cube ਜਾਂ .3dl ਸਾਰਣੀ ਨਹੀਂ ਹੈ ਜਿਸਨੂੰ Schist ਪੜ੍ਹ ਸਕੇ।
+dialog.export_lut.title = ਰੰਗ ਲੁੱਕਅੱਪ ਸਾਰਣੀ ਐਕਸਪੋਰਟ ਕਰੋ
+dialog.export_lut.size = ਗਰਿੱਡ ਦਾ ਆਕਾਰ
+dialog.export_lut.camera_raw = ਸਰਗਰਮ ਲੇਅਰ ਦੀਆਂ Camera Raw ਰੰਗ ਸੈਟਿੰਗਾਂ ਸ਼ਾਮਲ ਕਰੋ
+dialog.export_lut.note = LUT ਸਿਰਫ਼ ਉਹੀ ਰੰਗ ਬਦਲਾਅ ਰੱਖ ਸਕਦੀ ਹੈ ਜੋ ਹਰ ਪਿਕਸਲ ਲਈ ਇੱਕੋ ਜਿਹੇ ਹੋਣ। ਲੇਅਰ ਮਾਸਕ, ਕਲਿੱਪ ਕੀਤੀਆਂ ਵਿਵਸਥਾਵਾਂ, ਵੱਖਰੇ ਸਮੂਹ, ਪਿਕਸਲ ਲੇਅਰਾਂ, ਸਪਸ਼ਟਤਾ, ਸ਼ਾਰਪਨਿੰਗ, ਵਿਗਨੇਟ ਅਤੇ ਹੋਰ ਸਥਾਨਕ ਪ੍ਰਭਾਵ ਛੱਡ ਦਿੱਤੇ ਜਾਂਦੇ ਹਨ।
+dialog.export_lut.saved = {name} ਐਕਸਪੋਰਟ ਕੀਤੀ ਗਈ
+dialog.export_lut.saved_skipped = {name} ਐਕਸਪੋਰਟ ਕੀਤੀ ਗਈ। ਛੱਡੀਆਂ ਗਈਆਂ ਸਥਾਨਕ ਵਿਵਸਥਾ ਲੇਅਰਾਂ: {count}

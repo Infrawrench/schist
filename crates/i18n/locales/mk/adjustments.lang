@@ -16,4 +16,5 @@ adjustment.photo_filter.name = Фотографски филтер
 adjustment.gradient_map.name = Градиентна мапа
 adjustment.selective_color.name = Селективна боја
 adjustment.channel_mixer.name = Миксер на канали
+adjustment.color_lookup.name = Пребарување бои
 adjustment.other.name = Приспособување

@@ -16,4 +16,5 @@ adjustment.photo_filter.name = Filtè foto
 adjustment.gradient_map.name = Kat gradyan
 adjustment.selective_color.name = Koulè selektif
 adjustment.channel_mixer.name = Melanjè kanal
+adjustment.color_lookup.name = Rechèch koulè
 adjustment.other.name = Ajisteman

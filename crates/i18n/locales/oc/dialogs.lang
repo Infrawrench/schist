@@ -248,3 +248,19 @@ dialog.new_doc.from_image_url = Dempuèi una URL d’imatge
 # Backers
 dialog.support.title = Sostenètz Schist
 dialog.support.thanks = Mercés a las personas e a las marcas que sostenon Schist.
+
+# Color Lookup adjustment layers, and File > Export > Color Lookup Table
+dialog.color_lookup.table = Taula
+dialog.color_lookup.load = Cargar un LUT…
+dialog.color_lookup.none = Cap de taula pas cargada
+dialog.color_lookup.input = Entrada
+dialog.color_lookup.input_document = Valors del document
+dialog.color_lookup.input_linear = Lum lineara
+dialog.color_lookup.note = Legís los fichièrs .cube (1D o 3D) e .3dl. La taula es enregistrada dins lo document, doncas lo fichièr servís pas mai.
+dialog.color_lookup.invalid = {name} es pas una taula .cube o .3dl que Schist pòsca legir.
+dialog.export_lut.title = Exportar la taula de cèrca de colors
+dialog.export_lut.size = Talha de la grasilha
+dialog.export_lut.camera_raw = Includre los paramètres de color Camera Raw de la calc activa
+dialog.export_lut.note = Un LUT pòt pas contenir que de cambiaments de color identics per cada pixèl. Las mascas de calc, los reglatges limitats, los gropes isolats, las calcs de pixèls, la netetat, l'afinament, la vinheta e los autres efièches espacials son daissats de costat.
+dialog.export_lut.saved = {name} exportat
+dialog.export_lut.saved_skipped = {name} exportat. Calcs de reglatge espacials daissadas de costat : {count}

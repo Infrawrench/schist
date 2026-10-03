@@ -17,5 +17,6 @@ adjustment.photo_filter.name = مرشح الصور
 adjustment.gradient_map.name = خريطة التدرج
 adjustment.selective_color.name = لون انتقائي
 adjustment.channel_mixer.name = مازج القنوات
+adjustment.color_lookup.name = بحث الألوان
 # نوع مقروء من ملف PSD لا يوفر Schist محررًا له.
 adjustment.other.name = ضبط

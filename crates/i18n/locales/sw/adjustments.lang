@@ -16,4 +16,5 @@ adjustment.photo_filter.name = Kichujio cha Picha
 adjustment.gradient_map.name = Ramani ya Mpito wa Rangi
 adjustment.selective_color.name = Rangi Teule
 adjustment.channel_mixer.name = Kichanganya Chaneli
+adjustment.color_lookup.name = Utafutaji wa Rangi
 adjustment.other.name = Marekebisho

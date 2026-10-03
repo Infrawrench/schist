@@ -257,3 +257,19 @@ dialog.new_doc.from_image_url = ಚಿತ್ರದ URL ನಿಂದ
 # Backers
 dialog.support.title = Schist ಅನ್ನು ಬೆಂಬಲಿಸಿ
 dialog.support.thanks = Schist ಅನ್ನು ಬೆಂಬಲಿಸುವ ಜನರು ಮತ್ತು ಬ್ರ್ಯಾಂಡ್‌ಗಳಿಗೆ ಧನ್ಯವಾದಗಳು.
+
+# Color Lookup adjustment layers, and File > Export > Color Lookup Table
+dialog.color_lookup.table = ಕೋಷ್ಟಕ
+dialog.color_lookup.load = LUT ಲೋಡ್ ಮಾಡಿ…
+dialog.color_lookup.none = ಯಾವುದೇ ಕೋಷ್ಟಕ ಲೋಡ್ ಆಗಿಲ್ಲ
+dialog.color_lookup.input = ಇನ್‌ಪುಟ್
+dialog.color_lookup.input_document = ಡಾಕ್ಯುಮೆಂಟ್ ಮೌಲ್ಯಗಳು
+dialog.color_lookup.input_linear = ರೇಖೀಯ ಬೆಳಕು
+dialog.color_lookup.note = .cube (1D ಅಥವಾ 3D) ಮತ್ತು .3dl ಫೈಲ್‌ಗಳನ್ನು ಓದುತ್ತದೆ. ಕೋಷ್ಟಕವನ್ನು ಡಾಕ್ಯುಮೆಂಟ್‌ನೊಳಗೇ ಉಳಿಸಲಾಗುತ್ತದೆ, ಆದ್ದರಿಂದ ಫೈಲ್ ಮತ್ತೆ ಬೇಕಾಗುವುದಿಲ್ಲ.
+dialog.color_lookup.invalid = {name} Schist ಓದಬಹುದಾದ .cube ಅಥವಾ .3dl ಕೋಷ್ಟಕವಲ್ಲ.
+dialog.export_lut.title = ಬಣ್ಣ ಹುಡುಕಾಟ ಕೋಷ್ಟಕವನ್ನು ರಫ್ತು ಮಾಡಿ
+dialog.export_lut.size = ಗ್ರಿಡ್ ಗಾತ್ರ
+dialog.export_lut.camera_raw = ಸಕ್ರಿಯ ಲೇಯರ್‌ನ Camera Raw ಬಣ್ಣ ಸೆಟ್ಟಿಂಗ್‌ಗಳನ್ನು ಸೇರಿಸಿ
+dialog.export_lut.note = LUT ಎಲ್ಲಾ ಪಿಕ್ಸೆಲ್‌ಗಳಿಗೂ ಒಂದೇ ಆಗಿರುವ ಬಣ್ಣ ಬದಲಾವಣೆಗಳನ್ನು ಮಾತ್ರ ಹೊಂದಬಲ್ಲದು. ಲೇಯರ್ ಮಾಸ್ಕ್‌ಗಳು, ಕ್ಲಿಪ್ ಮಾಡಿದ ಹೊಂದಾಣಿಕೆಗಳು, ಪ್ರತ್ಯೇಕಿಸಿದ ಗುಂಪುಗಳು, ಪಿಕ್ಸೆಲ್ ಲೇಯರ್‌ಗಳು, ಸ್ಪಷ್ಟತೆ, ತೀಕ್ಷ್ಣಗೊಳಿಸುವಿಕೆ, ವಿಗ್ನೆಟಿಂಗ್ ಮತ್ತು ಇತರ ಸ್ಥಾನಿಕ ಪರಿಣಾಮಗಳನ್ನು ಬಿಡಲಾಗುತ್ತದೆ.
+dialog.export_lut.saved = {name} ರಫ್ತು ಮಾಡಲಾಗಿದೆ
+dialog.export_lut.saved_skipped = {name} ರಫ್ತು ಮಾಡಲಾಗಿದೆ. ಬಿಟ್ಟುಬಿಟ್ಟ ಸ್ಥಾನಿಕ ಹೊಂದಾಣಿಕೆ ಲೇಯರ್‌ಗಳು: {count}

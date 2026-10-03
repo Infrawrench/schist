@@ -262,3 +262,19 @@ dialog.new_doc.from_image_url = Soti nan URL imaj
 # Backers
 dialog.support.title = Sipòte Schist
 dialog.support.thanks = Mèsi ak moun ak mak ki sipòte Schist.
+
+# Color Lookup adjustment layers, and File > Export > Color Lookup Table
+dialog.color_lookup.table = Tablo
+dialog.color_lookup.load = Chaje yon LUT…
+dialog.color_lookup.none = Pa gen tablo ki chaje
+dialog.color_lookup.input = Antre
+dialog.color_lookup.input_document = Valè dokiman an
+dialog.color_lookup.input_linear = Limyè lineyè
+dialog.color_lookup.note = Li fichye .cube (1D oswa 3D) ak .3dl. Tablo a anrejistre andedan dokiman an, kidonk pa bezwen fichye a ankò.
+dialog.color_lookup.invalid = {name} pa yon tablo .cube oswa .3dl Schist ka li.
+dialog.export_lut.title = Ekspòte tablo rechèch koulè
+dialog.export_lut.size = Gwosè griy
+dialog.export_lut.camera_raw = Mete paramèt koulè Camera Raw kouch aktif la ladan
+dialog.export_lut.note = Yon LUT ka kenbe sèlman chanjman koulè ki menm pou chak piksèl. Mas kouch, ajisteman bloke, gwoup izole, kouch piksèl, klète, nette, viyèt ak lòt efè espasyal pa enkli.
+dialog.export_lut.saved = {name} ekspòte
+dialog.export_lut.saved_skipped = {name} ekspòte. Kouch ajisteman espasyal ki kite deyò: {count}

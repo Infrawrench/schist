@@ -256,3 +256,19 @@ dialog.new_doc.from_image_url = చిత్ర URL నుండి
 # Backers
 dialog.support.title = Schist కు మద్దతు ఇవ్వండి
 dialog.support.thanks = Schist కు మద్దతు ఇస్తున్న వ్యక్తులకు మరియు బ్రాండ్లకు ధన్యవాదాలు.
+
+# Color Lookup adjustment layers, and File > Export > Color Lookup Table
+dialog.color_lookup.table = పట్టిక
+dialog.color_lookup.load = LUT లోడ్ చేయండి…
+dialog.color_lookup.none = ఏ పట్టికా లోడ్ కాలేదు
+dialog.color_lookup.input = ఇన్‌పుట్
+dialog.color_lookup.input_document = డాక్యుమెంట్ విలువలు
+dialog.color_lookup.input_linear = సరళ కాంతి
+dialog.color_lookup.note = .cube (1D లేదా 3D) మరియు .3dl ఫైళ్లను చదువుతుంది. పట్టిక డాక్యుమెంట్ లోపలే సేవ్ అవుతుంది, కాబట్టి ఫైల్ మళ్లీ అవసరం లేదు.
+dialog.color_lookup.invalid = {name} అనేది Schist చదవగలిగే .cube లేదా .3dl పట్టిక కాదు.
+dialog.export_lut.title = రంగు శోధన పట్టికను ఎగుమతి చేయండి
+dialog.export_lut.size = గ్రిడ్ పరిమాణం
+dialog.export_lut.camera_raw = యాక్టివ్ లేయర్ యొక్క Camera Raw రంగు సెట్టింగ్‌లను చేర్చండి
+dialog.export_lut.note = LUT ప్రతి పిక్సెల్‌కూ ఒకేలా ఉండే రంగు మార్పులను మాత్రమే కలిగి ఉండగలదు. లేయర్ మాస్క్‌లు, క్లిప్ చేసిన సర్దుబాట్లు, వేరు చేసిన గ్రూప్‌లు, పిక్సెల్ లేయర్‌లు, స్పష్టత, షార్పెనింగ్, విగ్నెటింగ్ మరియు ఇతర స్థానిక ప్రభావాలు చేర్చబడవు.
+dialog.export_lut.saved = {name} ఎగుమతి చేయబడింది
+dialog.export_lut.saved_skipped = {name} ఎగుమతి చేయబడింది. వదిలివేసిన స్థానిక సర్దుబాటు లేయర్‌లు: {count}

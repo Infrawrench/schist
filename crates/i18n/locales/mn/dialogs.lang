@@ -303,3 +303,19 @@ dialog.new_doc.from_image_url = Зургийн URL-аас
 # Backers
 dialog.support.title = Schist-ийг дэмжих
 dialog.support.thanks = Schist-ийг дэмжиж буй хүмүүс болон брэндүүдэд баярлалаа.
+
+# Color Lookup adjustment layers, and File ▸ Export ▸ Color Lookup Table
+dialog.color_lookup.table = Хүснэгт
+dialog.color_lookup.load = LUT ачаалах…
+dialog.color_lookup.none = Хүснэгт ачаалаагүй
+dialog.color_lookup.input = Оролт
+dialog.color_lookup.input_document = Баримтын утгууд
+dialog.color_lookup.input_linear = Шугаман гэрэл
+dialog.color_lookup.note = .cube (1D эсвэл 3D) болон .3dl файлыг уншина. Хүснэгт баримт дотор хадгалагддаг тул файл дахин хэрэггүй.
+dialog.color_lookup.invalid = {name} нь Schist-ийн уншиж чадах .cube эсвэл .3dl хүснэгт биш байна.
+dialog.export_lut.title = Өнгөний хайлтын хүснэгт экспортлох
+dialog.export_lut.size = Торны хэмжээ
+dialog.export_lut.camera_raw = Идэвхтэй давхаргын Camera Raw өнгөний тохиргоог оруулах
+dialog.export_lut.note = LUT нь зөвхөн пиксел бүрт адил байх өнгөний өөрчлөлтийг агуулж чадна. Давхаргын маск, тайрсан тохиргоо, тусгаарлагдсан бүлэг, пикселийн давхарга, тод байдал, хурцлал, виньет болон бусад орон зайн эффектийг оруулахгүй.
+dialog.export_lut.saved = {name} экспортлогдлоо
+dialog.export_lut.saved_skipped = {name} экспортлогдлоо. Орон зайн тохируулгын давхарга алгассан: {count}

@@ -299,3 +299,19 @@ dialog.new_doc.from_image_url = Daripada URL imej
 # Backers
 dialog.support.title = Sokong Schist
 dialog.support.thanks = Terima kasih kepada individu dan jenama yang menyokong Schist.
+
+# Color Lookup adjustment layers, and File > Export > Color Lookup Table
+dialog.color_lookup.table = Jadual
+dialog.color_lookup.load = Muat LUT…
+dialog.color_lookup.none = Tiada jadual dimuatkan
+dialog.color_lookup.input = Input
+dialog.color_lookup.input_document = Nilai dokumen
+dialog.color_lookup.input_linear = Cahaya linear
+dialog.color_lookup.note = Membaca fail .cube (1D atau 3D) dan .3dl. Jadual disimpan di dalam dokumen, jadi fail tidak diperlukan lagi.
+dialog.color_lookup.invalid = {name} bukan jadual .cube atau .3dl yang boleh dibaca oleh Schist.
+dialog.export_lut.title = Eksport Jadual Carian Warna
+dialog.export_lut.size = Saiz grid
+dialog.export_lut.camera_raw = Sertakan tetapan warna Camera Raw bagi lapisan aktif
+dialog.export_lut.note = LUT hanya boleh menyimpan perubahan warna yang sama untuk setiap piksel. Topeng lapisan, pelarasan yang dipotong, kumpulan terpencil, lapisan piksel, kejelasan, penajaman, vignet dan kesan ruang yang lain tidak disertakan.
+dialog.export_lut.saved = {name} telah dieksport
+dialog.export_lut.saved_skipped = {name} telah dieksport. Lapisan pelarasan ruang yang ditinggalkan: {count}
