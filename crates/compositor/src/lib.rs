@@ -13,6 +13,7 @@
 //! clipping layers are confined to their base layer's alpha, and adjustment
 //! layers re-colour the backdrop beneath them (mask- and clip-aware).
 
+pub mod overlay;
 mod shifted;
 pub mod viewport;
 
