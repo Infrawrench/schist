@@ -36,6 +36,7 @@ pub fn parse_psd(kind: AdjustmentKind, raw: &[u8]) -> Params {
         AdjustmentKind::Curves => parse_curves(raw),
         AdjustmentKind::BlackWhite => parse_black_white(raw),
         AdjustmentKind::SolidColor => parse_solid_color(raw),
+        AdjustmentKind::ColorLookup => color_lookup::parse_clrl(raw),
         _ => Params::Unsupported,
     }
 }
@@ -53,6 +54,9 @@ pub fn parse_psd(kind: AdjustmentKind, raw: &[u8]) -> Params {
 pub fn encode_psd(kind: AdjustmentKind, params: &Params) -> Option<Vec<u8>> {
     match (kind, params) {
         (AdjustmentKind::Light, Params::Light(light)) => Some(light.encode()),
+        (AdjustmentKind::ColorLookup, Params::ColorLookup(lookup)) => {
+            color_lookup::encode_clrl(lookup)
+        }
         (AdjustmentKind::Invert, Params::Invert) => Some(Vec::new()),
         (AdjustmentKind::Posterize, Params::Posterize { levels }) => {
             Some((*levels as u16).to_be_bytes().to_vec())

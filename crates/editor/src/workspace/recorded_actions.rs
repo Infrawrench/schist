@@ -585,6 +585,9 @@ fn validate_adjustment(params: &schist_adjustments::Params) -> anyhow::Result<()
         | Params::Exposure { .. }
         | Params::SelectiveColor { .. }
         | Params::WhiteBalance { .. } => true,
+        // The table was validated when it was parsed; an empty layer is
+        // a valid, inert one.
+        Params::ColorLookup(_) => true,
     };
     anyhow::ensure!(valid, "{}", t("actions.invalid_parameters"));
     Ok(())
@@ -603,17 +606,27 @@ fn resolve_values(
         tf!("actions.unsupported", name = filter.id())
     );
     let specs = filter.params();
+    // Camera Raw's colour grading arrived after actions could record it;
+    // older steps simply lack those values and mean the neutral wheels.
+    let optional = |p: &schist_plugin_api::FilterParam| {
+        filter.id() == "filter.camera_raw"
+            && schist_filters_core::color_grading::is_grading_key(p.key)
+    };
     anyhow::ensure!(
-        values.len() == specs.len(),
+        values.keys().all(|k| specs.iter().any(|p| p.key == k))
+            && specs
+                .iter()
+                .all(|p| values.contains_key(p.key) || optional(p)),
         "{}",
         t("actions.invalid_parameters")
     );
     let mut result = FilterValues::default();
     for p in specs {
-        let value = values
-            .get(p.key)
-            .copied()
-            .ok_or_else(|| anyhow::anyhow!("{}", t("actions.invalid_parameters")))?;
+        let value = match values.get(p.key) {
+            Some(value) => *value,
+            None if optional(&p) => p.default,
+            None => anyhow::bail!("{}", t("actions.invalid_parameters")),
+        };
         anyhow::ensure!(
             value.is_finite() && (p.min..=p.max).contains(&value),
             "{}",
@@ -2535,6 +2548,29 @@ mod tests {
                 masks: None,
             },
         )
+    }
+
+    #[test]
+    fn camera_raw_steps_from_before_grading_still_resolve() {
+        let filter = schist_filters_core::camera_raw::CameraRaw;
+        let mut values: BTreeMap<String, f32> = filter
+            .params()
+            .iter()
+            .filter(|p| !p.key.starts_with("grade_"))
+            .map(|p| (p.key.to_string(), p.default))
+            .collect();
+        values.insert("exposure".into(), 0.5);
+        let resolved = resolve_values(&filter, &values).unwrap();
+        assert_eq!(resolved.get("exposure"), 0.5);
+        assert_eq!(resolved.get("grade_blending"), 50.0);
+        assert_eq!(resolved.get("grade_shadows_sat"), 0.0);
+        // Other missing or unknown values are still refused.
+        let mut missing = values.clone();
+        missing.remove("contrast");
+        assert!(resolve_values(&filter, &missing).is_err());
+        let mut unknown = values;
+        unknown.insert("grade_bogus".into(), 1.0);
+        assert!(resolve_values(&filter, &unknown).is_err());
     }
 
     #[test]

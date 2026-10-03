@@ -32,6 +32,9 @@ Supported recording operations are:
 - Gaussian Blur, Box Blur, Motion Blur, Sharpen, Unsharp Mask and Median.
 - Add adjustment layers, commit settings on the active adjustment layer, and
   apply destructive adjustments to RGB/grayscale pixels.
+  A Color Lookup step carries its whole table (compressed), so a 65³ table
+  can approach the 4 MiB library limit on its own. Camera Raw steps recorded
+  before colour grading existed replay with neutral grading wheels.
 - Free Transform and Transform Selection, committed with Enter or by changing
   tools. Scale and rotation are relative to the target content/selection centre;
   X/Y translation is a percentage of the target canvas width/height. The manager

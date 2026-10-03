@@ -1,6 +1,7 @@
 //! Filter parameter dialogs and destructive adjustments.
 
 use super::*;
+use schist_filters_core::color_grading::WHEEL_KEYS;
 use schist_i18n::{t, tf};
 
 #[allow(clippy::too_many_arguments)]
@@ -41,6 +42,14 @@ pub(super) fn filter_dialog(
     }
     for spec in specs {
         if id == "filter.lens_correction" && spec.key.starts_with("lp_") {
+            continue;
+        }
+        // Colour grading's hues and saturations are drawn as wheels, in
+        // place of the first of their sliders.
+        if id == "filter.camera_raw" && grading::is_wheel_key(spec.key) {
+            if spec.key == WHEEL_KEYS[0][0] {
+                body = body.child(grading::wheels(ws, id, &values, cx));
+            }
             continue;
         }
         let key = spec.key;

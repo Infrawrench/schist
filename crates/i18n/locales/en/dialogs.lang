@@ -291,3 +291,19 @@ dialog.new_doc.from_image_url = From Image URL
 # Backers
 dialog.support.title = Support Schist
 dialog.support.thanks = Thanks to the people and brands supporting Schist.
+
+# Color Lookup adjustment layers, and File ▸ Export ▸ Color Lookup Table
+dialog.color_lookup.table = Table
+dialog.color_lookup.load = Load LUT…
+dialog.color_lookup.none = No table loaded
+dialog.color_lookup.input = Input
+dialog.color_lookup.input_document = Document values
+dialog.color_lookup.input_linear = Linear light
+dialog.color_lookup.note = Reads .cube (1D or 3D) and .3dl files. The table is saved inside the document, so the file is not needed again.
+dialog.color_lookup.invalid = {name} is not a .cube or .3dl table that Schist can read.
+dialog.export_lut.title = Export Color Lookup Table
+dialog.export_lut.size = Grid size
+dialog.export_lut.camera_raw = Include the active layer's Camera Raw color settings
+dialog.export_lut.note = A LUT can only hold color changes that are the same for every pixel. Layer masks, clipped adjustments, isolated groups, pixel layers, clarity, sharpening, vignetting and other spatial effects are left out.
+dialog.export_lut.saved = Exported {name}
+dialog.export_lut.saved_skipped = Exported {name}. Spatial adjustment layers left out: {count}

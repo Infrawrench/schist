@@ -31,6 +31,8 @@ pub struct RawSettings {
     pub sharpening: f32,
     pub noise: f32,
     pub vignette: f32,
+    /// Shadows/midtones/highlights/global colour wheels.
+    pub grading: ColorGrading,
 }
 
 impl RawSettings {
@@ -72,6 +74,85 @@ impl RawSettings {
             sharpening: unsigned(self.sharpening, 150.0),
             noise: unsigned(self.noise, 100.0),
             vignette: signed(self.vignette),
+            grading: self.grading.sanitized(),
+        }
+    }
+}
+
+/// One colour wheel of [`ColorGrading`]: a tint (hue in degrees, strength
+/// 0..=100) and a luminance shift (-100..=100) for one tonal region.
+#[derive(Debug, Clone, Copy, Default, PartialEq)]
+pub struct GradeWheel {
+    pub hue: f32,
+    pub saturation: f32,
+    pub luminance: f32,
+}
+
+impl GradeWheel {
+    pub fn is_neutral(&self) -> bool {
+        self.saturation == 0.0 && self.luminance == 0.0
+    }
+
+    fn sanitized(self) -> GradeWheel {
+        let finite = |v: f32| if v.is_finite() { v } else { 0.0 };
+        GradeWheel {
+            hue: finite(self.hue).rem_euclid(360.0),
+            saturation: finite(self.saturation).clamp(0.0, 100.0),
+            luminance: finite(self.luminance).clamp(-100.0, 100.0),
+        }
+    }
+}
+
+/// Colour grading in the manner of Lightroom's Color Grading panel: a
+/// wheel each for the shadows, midtones and highlights, one for the whole
+/// image, how much the three regions overlap (`blending`, 0..=100) and
+/// where the split between shadows and highlights falls (`balance`,
+/// -100..=100). The rendering lives with the Camera Raw filter; the
+/// kernel only carries the settings.
+#[derive(Debug, Clone, Copy, PartialEq)]
+pub struct ColorGrading {
+    pub shadows: GradeWheel,
+    pub midtones: GradeWheel,
+    pub highlights: GradeWheel,
+    pub global: GradeWheel,
+    pub blending: f32,
+    pub balance: f32,
+}
+
+impl Default for ColorGrading {
+    fn default() -> Self {
+        ColorGrading {
+            shadows: GradeWheel::default(),
+            midtones: GradeWheel::default(),
+            highlights: GradeWheel::default(),
+            global: GradeWheel::default(),
+            blending: 50.0,
+            balance: 0.0,
+        }
+    }
+}
+
+impl ColorGrading {
+    /// True when no wheel tints or shifts anything; blending and balance
+    /// only shape the regions, so they cannot change a pixel on their own.
+    pub fn is_identity(&self) -> bool {
+        self.wheels().iter().all(GradeWheel::is_neutral)
+    }
+
+    /// Shadows, midtones, highlights, global.
+    pub fn wheels(&self) -> [GradeWheel; 4] {
+        [self.shadows, self.midtones, self.highlights, self.global]
+    }
+
+    pub fn sanitized(self) -> ColorGrading {
+        let finite = |v: f32, fallback: f32| if v.is_finite() { v } else { fallback };
+        ColorGrading {
+            shadows: self.shadows.sanitized(),
+            midtones: self.midtones.sanitized(),
+            highlights: self.highlights.sanitized(),
+            global: self.global.sanitized(),
+            blending: finite(self.blending, 50.0).clamp(0.0, 100.0),
+            balance: finite(self.balance, 0.0).clamp(-100.0, 100.0),
         }
     }
 }
@@ -119,5 +200,24 @@ mod tests {
         assert_eq!(settings.contrast, -100.0);
         assert_eq!(settings.sharpening, 150.0);
         assert_eq!(settings.noise, 0.0);
+    }
+
+    #[test]
+    fn grading_is_sanitized_with_the_rest() {
+        let mut settings = RawSettings::default();
+        assert!(settings.grading.is_identity());
+        assert_eq!(settings.grading.blending, 50.0);
+        settings.grading.shadows = GradeWheel {
+            hue: -30.0,
+            saturation: 400.0,
+            luminance: f32::INFINITY,
+        };
+        settings.grading.blending = f32::NAN;
+        let clean = settings.sanitized().grading;
+        assert_eq!(clean.shadows.hue, 330.0);
+        assert_eq!(clean.shadows.saturation, 100.0);
+        assert_eq!(clean.shadows.luminance, 0.0);
+        assert_eq!(clean.blending, 50.0);
+        assert!(!clean.is_identity());
     }
 }
