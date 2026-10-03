@@ -311,6 +311,45 @@ are marked.
 ## Handoff
 
 
+Discretionary hyphens, 2026-10-03:
+No Break is pushed as `5619c2b9`; its exact Web artifact passes the compact
+Paragraph/Character controls review below. The next item 9 property reproduced
+invisible U+00AD adding tracking. An initial routing approach also changed legacy
+Latin kerning, so the final fix keeps each existing shaper and shares only break
+selection. Unused hyphens are invisible and zero-width. Selected hyphens must fit,
+paint in their source style and retain UTF-8 caret ranges; No Break and explicit
+line ends keep their existing semantics. Box and bounded-path continuations carry
+the selected glyph into line painting without editing the source story.
+Native literal/numeric XML characters survive repeated saves. Both separation
+paths match independent visible/unhyphenated frames in all writing modes and both
+reading directions, at three resolutions with process/spot paint. A 24-page paired
+PDF proof is wired into the output check. Visual review caught a bad reference:
+the terminal literal hyphen and prototype both preceded Latin text in RTL context.
+The display glyph now follows the word's resolved direction, with independent
+Latin/Hebrew direction controls and hidden Arabic/Devanagari shaping properties.
+This is documented typography policy, not a native-application parity claim.
+A second regression reproduced source newlines acquiring a hyphen during isolated
+line paint. The measuring engine now carries its actual discretionary-break
+decision through line spans/composition instead of inferring it from paragraph
+position. The corrected full 16-target sweep passes with **1,877 distinct Rust
+tests**, including five shared UI checks (one existing UI documentation example
+ignored), four browser checks and eight Python audit tests. Workspace clippy,
+native/browser/headless checks, localization, formatting and whitespace pass.
+All 24 revised PDF pages match independent process/spot controls and pass visual
+review, including explicit newlines and both reading directions. The native
+development rebuild passes in 2m 08s; the isolated Design-enabled bundle is
+refreshed and hash/signature verified. It remains quit, with no new native-window
+visual claim. Obsolete test executables reclaimed 903 MB;
+current binaries, regression baselines and verification evidence are retained.
+Logs use `/tmp/schist-soft-hyphen-*`. Dictionary hyphenation, language-specific
+hyphen forms/spelling substitutions and external application placement remain open.
+The preceding `5619c2b9` checkpoint now passes Windows/macOS/Linux, Web and headless
+CI. Next is the inconsistent handling of numeric/whitespace XML booleans across
+native document preferences, layers, geometry and style categories. Public RNC
+declares xsd:boolean; the regression will compare complete supported settings
+through repeated saves, leaving literal strings and opaque XML untouched.
+
+
 Native No Break, 2026-10-03:
 The clipped-destination checkpoint is pushed as `4640c269`; its Web and headless
 CI pass, with desktop CI still running. The next item 9 regression reproduces
@@ -337,7 +376,12 @@ four legal literals and surrounding XML whitespace, saving canonically. The
 complete sweep includes that correction; its proof PDF is byte-identical to the
 visually reviewed artifact. The native development rebuild passes in 2m 09s;
 its isolated Design-enabled bundle is hash/signature verified. Native capture
-still returns `cgWindowNotFound`; rebuilt browser control review remains pending.
+still returns `cgWindowNotFound`. Exact Web CI artifact 11260193813 for `5619c2b9`
+passes browser control review with Design enabled: Paragraph and Character both
+start collapsed, expansion leaves the document clean, each toggle updates its
+active/dirty state, undo/redo restores it, and inheritance reset undoes once.
+The disposable tab and server are closed and the downloaded artifact removed;
+the installed app was untouched.
 Logs use `/tmp/schist-no-break-*`. Dictionary hyphenation, discretionary-hyphen
 rendering and external native application placement agreement remain open.
 

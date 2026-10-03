@@ -26,6 +26,7 @@ pub use decoration_pattern::{DecorationCap, DecorationDashes, TextDecorationPatt
 mod directions_tests;
 pub use capitalization::Capitalization;
 mod shaping;
+mod soft_hyphen;
 mod tab_leaders;
 mod tabs;
 mod text_path;
@@ -140,6 +141,11 @@ pub struct TextSpec {
     pub word_spacing: f32,
     /// Inline wrap length in pixels (column length in vertical writing); `None` means never wrap.
     pub wrap_width: Option<f32>,
+    /// Transient composition state for painting a separately measured line:
+    /// render its final U+00AD as a hyphen. Source specs leave this false;
+    /// automatic wrapping selects discretionary hyphens independently.
+    #[serde(skip)]
+    pub show_final_soft_hyphen: bool,
     /// Optional aligned tab stops and leaders. None retains legacy behavior.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub tabs: Option<TabStops>,
@@ -175,6 +181,7 @@ impl Default for TextSpec {
             tracking: 0.0,
             word_spacing: 0.0,
             wrap_width: None,
+            show_final_soft_hyphen: false,
             tabs: None,
             runs: Vec::new(),
             features: Vec::new(),
@@ -1806,6 +1813,9 @@ pub struct LineSpan {
     pub start: usize,
     /// Byte offset one past the line's last character.
     pub end: usize,
+    /// The final source U+00AD was selected as a visible discretionary break.
+    /// Explicit line separators and unused trailing hyphens leave this false.
+    pub discretionary_hyphen: bool,
     /// x of the line's first glyph, after alignment.
     pub x: f32,
     /// Advance width of the line.
@@ -1969,6 +1979,9 @@ fn layout_with_measures(spec: &TextSpec, base: &LoadedFace, measures: &[InlineMe
     let measure_word = |word: &str, from: usize, mut prev: Option<(char, usize)>| -> f32 {
         let mut width = 0.0;
         for (i, ch) in word.char_indices() {
+            if ch == '\u{ad}' {
+                continue;
+            }
             let ix = faces.at(from + i);
             width += advance(ch, prev, ix, from + i);
             prev = Some((ch, ix));
@@ -1985,10 +1998,62 @@ fn layout_with_measures(spec: &TextSpec, base: &LoadedFace, measures: &[InlineMe
         width: f32,
         start: usize,
         end: usize,
+        hyphen: bool,
     }
     let mut lines: Vec<Line> = Vec::new();
     let mut line_start = 0usize;
     for raw_line in spec.text.split('\n') {
+        if raw_line.contains('\u{ad}') {
+            let end = line_start + raw_line.len();
+            let boundaries = raw_line
+                .char_indices()
+                .filter_map(|(i, ch)| {
+                    let at = line_start + i + ch.len_utf8();
+                    (matches!(ch, ' ' | '\u{ad}') && spec.allows_wrap_at(at)).then_some(at)
+                })
+                .chain(std::iter::once(end))
+                .collect::<Vec<_>>();
+            let measure = |range: std::ops::Range<usize>, hyphen: bool, _: usize| {
+                let mut width = measure_word(&spec.text[range.clone()], range.start, None);
+                if hyphen {
+                    let at = range.end - '\u{ad}'.len_utf8();
+                    let previous = spec.text[range.start..at]
+                        .char_indices()
+                        .rev()
+                        .find(|(_, c)| *c != '\u{ad}')
+                        .map(|(i, c)| (c, faces.at(range.start + i)));
+                    width += advance('-', previous, faces.at(at), at);
+                }
+                width
+            };
+            let first = lines.len();
+            for selected in soft_hyphen::lines(
+                &spec.text,
+                line_start..end,
+                &boundaries,
+                |i| {
+                    spec.path
+                        .is_none()
+                        .then(|| wrap_width_at(spec, &widths, first + i))
+                        .flatten()
+                },
+                measure,
+            ) {
+                let hyphen = selected.hyphen
+                    || (spec.show_final_soft_hyphen
+                        && selected.range.end == spec.text.len()
+                        && raw_line.ends_with('\u{ad}'));
+                lines.push(Line {
+                    text: spec.text[selected.range.clone()].to_owned(),
+                    width: measure(selected.range.clone(), hyphen, 0),
+                    start: selected.range.start,
+                    end: selected.range.end,
+                    hyphen,
+                });
+            }
+            line_start = end + 1;
+            continue;
+        }
         let mut current = String::new();
         let mut width = 0.0f32;
         let mut prev: Option<(char, usize)> = None;
@@ -2019,6 +2084,7 @@ fn layout_with_measures(spec: &TextSpec, base: &LoadedFace, measures: &[InlineMe
                     width,
                     start,
                     end: at,
+                    hyphen: false,
                 });
                 start = at;
                 width = 0.0;
@@ -2039,6 +2105,7 @@ fn layout_with_measures(spec: &TextSpec, base: &LoadedFace, measures: &[InlineMe
             width,
             start,
             end: at,
+            hyphen: false,
         });
         // Step past this source line and the newline that ended it.
         line_start = at + 1;
@@ -2082,6 +2149,7 @@ fn layout_with_measures(spec: &TextSpec, base: &LoadedFace, measures: &[InlineMe
         spans.push(LineSpan {
             start: line.start,
             end: line.end,
+            discretionary_hyphen: line.hyphen,
             x: start_x,
             width: line.width,
             top,
@@ -2094,6 +2162,11 @@ fn layout_with_measures(spec: &TextSpec, base: &LoadedFace, measures: &[InlineMe
         for (k, ch) in line.text.char_indices() {
             let byte = line.start + k;
             let ix = faces.at(byte);
+            if ch == '\u{ad}' && !(line.hyphen && byte + ch.len_utf8() == line.end) {
+                chars.push(CharPos { byte, x, end_x: x });
+                continue;
+            }
+            let ch = if ch == '\u{ad}' { '-' } else { ch };
             chars.push(CharPos {
                 byte,
                 x,
@@ -2268,6 +2341,7 @@ fn caret_in_layout_affinity(spec: &TextSpec, laid: &Layout, position: CaretPosit
         .unwrap_or(LineSpan {
             start: 0,
             end: 0,
+            discretionary_hyphen: false,
             x: 0.0,
             width: 0.0,
             top: 0.0,

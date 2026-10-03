@@ -2029,7 +2029,8 @@ Explicit line/paragraph/container breaks remain effective. Layout threads seek a
 frame with room for an unbreakable line; unavailable destinations remain overset
 and are reported by both preflight paths. Tests cover varying measures, writing
 axes, reading directions, UTF-8 carets, complete-story edits and false resets.
-Dictionary hyphenation and discretionary-hyphen rendering remain separate work.
+Dictionary hyphenation remains separate work. Discretionary-character rendering
+is implemented in the following checkpoint.
 
 Character and Paragraph expose a compact toggle and inherit reset under Advanced
 Typography. Captured edits undo once; no-ops leave history unchanged. The short
@@ -2043,3 +2044,48 @@ thread’s destination. Process/spot plates agree at 72/144/216 dpi across parag
 and character settings, reading directions and horizontal/vertical writing.
 The proof is included in `make check-design-output`; current PDF/UI review and
 full-sweep status are in Handoff.
+
+### Discretionary hyphens
+
+Public references: [Unicode UAX #14, section 5.4](https://www.unicode.org/reports/tr14/#SoftHyphen)
+identifies U+00AD as an invisible discretionary break and describes language-dependent
+visible forms. The [InDesign user guide](https://helpx.adobe.com/ca/indesign/desktop/format-and-style-text/composition-and-text-wrapping/control-hyphenation-and-word-breaks.html)
+describes manual discretionary hyphens appearing at selected line ends. No Adobe
+headers, binaries or INDD specimens were read for this change. None of the seven
+repository IDML fixtures or ten previously downloaded public IDML templates
+contains U+00AD, so enabling examples remain specification-based fixtures.
+
+Both engine paths now hide unused U+00AD without adding tracking or interrupting
+legacy Latin kerning. A selected break measures and paints a hyphen-minus using
+the discretionary character's font/style and original cluster. Break selection
+includes that glyph's width: a hyphen that cannot fit cannot manufacture a shorter
+overflow line. Leading discretionary characters create no standalone line, explicit
+line ends leave them hidden, and No Break suppresses optional breaks. The existing
+ordinary overlong-word behavior remains unchanged.
+
+The selected glyph follows the preceding word's resolved bidi level, including
+Latin inside RTL paragraphs and Hebrew inside LTR paragraphs. Visual proof review
+found that comparing with a bare terminal hyphen in the same paragraph direction
+was an inadequate reference: both moved the Latin hyphen before its word. The
+corrected independent control uses the word's own direction. This is Schist's
+typographic policy, not a Unicode conformance claim or verified InDesign behavior:
+the [Unicode discussion](https://www.unicode.org/mail-arch/unicode-ml/y2014-m04/0010.html)
+describes the word-direction placement expectation, while
+[another reply](https://www.unicode.org/mail-arch/unicode-ml/y2014-m04/0007.html)
+explicitly notes that placement is not prescribed by the bidi algorithm.
+Hidden-hyphen properties also cover Arabic joining and Devanagari shaping.
+
+Composition retains source byte ranges across boxes and bounded paths. Measured
+line spans carry the explicit discretionary-break decision into composed lines;
+paragraph-final status cannot substitute for this state, since an explicit newline
+inside a paragraph must leave U+00AD hidden. A transient, nonserialized TextSpec
+flag carries the decision into isolated line painting, including projected footnote
+lines, so preview and separation measure the same glyphs. Carets remain source UTF-8 boundaries; story text is never replaced
+with visible hyphens. Native literal and decimal/hexadecimal XML character references
+retain styled ranges through four repeated saves.
+
+Independent source-frame controls cover selected and unused hyphens, tracking,
+horizontal/vertical flow, reading direction, process and spot inks, and threaded
+frames. The output target includes a paired 24-page proof. Dictionary-based
+hyphenation, language-specific spelling substitutions/hyphen forms and external
+native application placement agreement are not claimed by this change.

@@ -162,6 +162,7 @@ impl Walker<'_> {
         }
 
         let mut spec = schist_text_engine::TextSpec {
+            show_final_soft_hyphen: false,
             language: String::new(),
             text,
             family,

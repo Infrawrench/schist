@@ -26,6 +26,7 @@ struct Shaped {
     glyphs: Vec<PlacedGlyph>,
     chars: Vec<CharPos>,
     width: f32,
+    discretionary_hyphen: bool,
     // Accumulate advances before rounding glyph coordinates. A distant styled
     // prefix must not change the spacing inside a following shaping item.
     precise_width: f64,
@@ -105,12 +106,13 @@ fn items(
 fn shape_item(
     spec: &TextSpec,
     faces: &Faces,
-    start: usize,
-    end: usize,
+    range: std::ops::Range<usize>,
     rtl: bool,
     vertical: Orientation,
+    hyphen: Option<usize>,
     out: &mut Shaped,
 ) {
+    let (start, end) = (range.start, range.end);
     let ix = faces.at(start);
     let (loaded, size) = &faces.faces[ix];
     let Some(face) = rustybuzz::Face::from_slice(&loaded.data, loaded.index) else {
@@ -122,7 +124,11 @@ fn shape_item(
     let style = spec.style_at(start);
     let mut buffer = rustybuzz::UnicodeBuffer::new();
     for (offset, c) in text.char_indices() {
-        if faces
+        if hyphen == Some(start + offset) {
+            // Keep the source cluster (and its two-byte caret range), while
+            // choosing the visible glyph in the same font and shaping run.
+            buffer.add('-', offset as u32);
+        } else if faces
             .uppercase
             .get(start + offset)
             .copied()
@@ -162,7 +168,15 @@ fn shape_item(
                 .is_some_and(|id| id.0 as u32 == g.glyph_id)
         })
     {
-        return shape_item(spec, faces, start, end, rtl, Orientation::Rotated, out);
+        return shape_item(
+            spec,
+            faces,
+            start..end,
+            rtl,
+            Orientation::Rotated,
+            hyphen,
+            out,
+        );
     }
     let infos = shaped.glyph_infos();
     let positions = shaped.glyph_positions();
@@ -187,8 +201,14 @@ fn shape_item(
             .grapheme_indices(true)
             .map(|(k, _)| start + cluster + k)
             .collect();
+        let visible =
+            |byte: usize| !spec.text[byte..].starts_with('\u{ad}') || hyphen == Some(byte);
+        let visible_count = char_bytes.iter().filter(|byte| visible(**byte)).count();
         let x = out.precise_width;
         for j in i..next {
+            if visible_count == 0 {
+                continue;
+            }
             let pos = positions[j];
             out.glyphs.push(PlacedGlyph {
                 glyph: infos[j].glyph_id as u16,
@@ -216,24 +236,27 @@ fn shape_item(
             });
         }
         out.precise_width +=
-            f64::from(spec.style_at(start + cluster).tracking) * char_bytes.len() as f64;
+            f64::from(spec.style_at(start + cluster).tracking) * visible_count as f64;
         out.precise_width += f64::from(spec.word_spacing)
             * text[cluster..cluster_end]
                 .chars()
                 .filter(|ch| *ch == ' ')
                 .count() as f64;
-        let count = char_bytes.len().max(1) as f64;
-        for (k, byte) in char_bytes.into_iter().enumerate() {
+        let count = visible_count.max(1) as f64;
+        let mut k = 0;
+        for byte in char_bytes {
+            let next = k + usize::from(visible(byte));
             let (a, b) = if rtl && !ttb {
-                (count - k as f64, count - k as f64 - 1.0)
+                (count - k as f64, count - next as f64)
             } else {
-                (k as f64, k as f64 + 1.0)
+                (k as f64, next as f64)
             };
             out.chars.push(CharPos {
                 byte,
                 x: (x + (out.precise_width - x) * a / count) as f32,
                 end_x: (x + (out.precise_width - x) * b / count) as f32,
             });
+            k = next;
         }
         i = next;
     }
@@ -247,11 +270,38 @@ fn shape_plain(
     paragraph_start: usize,
     start: usize,
     end: usize,
+    hyphen: Option<usize>,
 ) -> Shaped {
-    let mut out = Shaped::default();
+    let mut out = Shaped {
+        discretionary_hyphen: hyphen.is_some_and(|at| (start..end).contains(&at)),
+        ..Default::default()
+    };
     if start == end {
         return out;
     }
+    // A chosen discretionary glyph belongs to the preceding word's resolved
+    // direction. Leaving it as BN lets UAX #9 L1 reset it to the paragraph
+    // direction, moving a Latin word's hyphen to its left in an RTL paragraph.
+    // This is a typography policy, not an alteration of the source bidi text:
+    // only the display glyph's class/level changes, at its original byte range.
+    let display_bidi = hyphen.filter(|at| *at > start && *at < end).map(|at| {
+        let at = at - paragraph_start;
+        let level = bidi.levels[at - 1];
+        let mut display = BidiInfo {
+            text: bidi.text,
+            original_classes: bidi.original_classes.clone(),
+            levels: bidi.levels.clone(),
+            paragraphs: bidi.paragraphs.clone(),
+        };
+        display.levels[at..at + '\u{ad}'.len_utf8()].fill(level);
+        display.original_classes[at..at + '\u{ad}'.len_utf8()].fill(if level.is_rtl() {
+            unicode_bidi::BidiClass::R
+        } else {
+            unicode_bidi::BidiClass::L
+        });
+        display
+    });
+    let bidi = display_bidi.as_ref().unwrap_or(bidi);
     let (levels, runs) = bidi.visual_runs(
         &bidi.paragraphs[0],
         start - paragraph_start..end - paragraph_start,
@@ -268,7 +318,7 @@ fn shape_plain(
             items.reverse();
         }
         for (start, end, vertical) in items {
-            shape_item(spec, faces, start, end, rtl, vertical, &mut out);
+            shape_item(spec, faces, start..end, rtl, vertical, hyphen, &mut out);
         }
     }
     out
@@ -285,7 +335,7 @@ pub(super) fn leader_pattern(spec: &TextSpec, faces: &Faces) -> (Vec<PlacedGlyph
             Level::ltr()
         }),
     );
-    let shaped = shape_plain(spec, faces, &bidi, 0, 0, spec.text.len());
+    let shaped = shape_plain(spec, faces, &bidi, 0, 0, spec.text.len(), None);
     (shaped.glyphs, shaped.width)
 }
 
@@ -297,16 +347,29 @@ fn shape(
     faces: &Faces,
     bidi: &BidiInfo<'_>,
     paragraph_start: usize,
-    range: std::ops::Range<usize>,
+    line: impl Into<soft_hyphen::Line>,
     start: f32,
     limit: Option<f32>,
 ) -> Shaped {
+    let line = line.into();
+    let range = line.range;
+    let hyphen = (spec.text[range.clone()].ends_with('\u{ad}')
+        && (line.hyphen || (range.end == spec.text.len() && spec.show_final_soft_hyphen)))
+        .then_some(range.end.saturating_sub('\u{ad}'.len_utf8()));
     let Some(tabs) = spec
         .tabs
         .as_ref()
         .filter(|_| spec.text[range.clone()].contains('\t'))
     else {
-        return shape_plain(spec, faces, bidi, paragraph_start, range.start, range.end);
+        return shape_plain(
+            spec,
+            faces,
+            bidi,
+            paragraph_start,
+            range.start,
+            range.end,
+            hyphen,
+        );
     };
     // Justification expands only the final field. Earlier fields must not grow
     // past their tab stops and jump to a different stop during painting.
@@ -333,7 +396,7 @@ fn shape(
         } else {
             spec
         };
-        let field = shape_plain(field_spec, faces, bidi, paragraph_start, from, at);
+        let field = shape_plain(field_spec, faces, bidi, paragraph_start, from, at, hyphen);
         if from > range.start {
             let Some((mut next, stop)) = tabs.next_stop(pen, start, |alignment| match alignment {
                 TabAlignment::Leading => 0.0,
@@ -401,6 +464,7 @@ fn shape(
     }
     let mut out = Shaped {
         width: pen,
+        discretionary_hyphen: hyphen.is_some(),
         tab_stops: selected_stops,
         ..Default::default()
     };
@@ -490,6 +554,43 @@ pub(super) fn layout(spec: &TextSpec, base: &LoadedFace, measures: &[InlineMeasu
     for (start, end) in paragraphs(&spec.text) {
         let paragraph = &spec.text[start..end];
         let bidi = BidiInfo::new(paragraph, level);
+        if paragraph.contains('\u{ad}') {
+            let first = lines.len();
+            let boundaries = unicode_linebreak::linebreaks(paragraph)
+                .map(|(at, _)| start + at)
+                .filter(|at| *at == end || spec.allows_wrap_at(*at))
+                .collect::<Vec<_>>();
+            let shaped = |range, hyphen, i| {
+                shape(
+                    spec,
+                    &faces,
+                    &bidi,
+                    start,
+                    soft_hyphen::Line { range, hyphen },
+                    inline_start(first + i),
+                    wrap_width_at(spec, &widths, first + i),
+                )
+            };
+            let selected = soft_hyphen::lines(
+                &spec.text,
+                start..end,
+                &boundaries,
+                |i| {
+                    (spec.path.is_none() || spec.writing_mode.is_vertical())
+                        .then(|| wrap_width_at(spec, &widths, first + i))
+                        .flatten()
+                },
+                |range, hyphen, i| shaped(range, hyphen, i).width,
+            );
+            for (i, line) in selected.into_iter().enumerate() {
+                lines.push((
+                    line.range.start,
+                    line.range.end,
+                    shaped(line.range, line.hyphen, i),
+                ));
+            }
+            continue;
+        }
         let mut line_start = start;
         if (spec.path.is_none() || spec.writing_mode.is_vertical())
             && wrap_width_at(spec, &widths, lines.len()).is_some()
@@ -578,6 +679,7 @@ pub(super) fn layout(spec: &TextSpec, base: &LoadedFace, measures: &[InlineMeasu
         geometry.push(LineSpan {
             start: *start,
             end: *end,
+            discretionary_hyphen: line.discretionary_hyphen,
             x: 0.0,
             width: line.width,
             top,
@@ -631,6 +733,7 @@ pub(super) fn layout(spec: &TextSpec, base: &LoadedFace, measures: &[InlineMeasu
         out.lines.push(LineSpan {
             start,
             end,
+            discretionary_hyphen: line.discretionary_hyphen,
             x,
             width: line.width,
             top,

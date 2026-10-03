@@ -78,6 +78,9 @@ pub struct ComposedLine {
     /// in this column. A paragraph split across two columns is justified
     /// right up to the break, because more text follows it.
     pub is_paragraph_end: bool,
+    /// The measuring engine selected the final source U+00AD for display.
+    /// This is independent of paragraph ends: explicit newlines never select it.
+    pub discretionary_hyphen: bool,
     /// The line's width before justification, in points.
     pub natural_width: Pt,
     /// Extra points to add to each word space to bring this line flush to
@@ -311,6 +314,7 @@ pub(crate) fn spec_with_character(
         .contains('\t')
         .then(|| crate::tabs::stops(paragraph, reverse));
     let mut spec = TextSpec {
+        show_final_soft_hyphen: false,
         language: character
             .language
             .as_ref()
@@ -1277,8 +1281,8 @@ fn compose_path(
     let Some(span) = spans.first() else {
         return empty();
     };
-    // The shared engine emergency-wraps an oversized grapheme. A bounded path
-    // must keep that grapheme overset instead of extrapolating past its bracket.
+    // The shared engine can return an overlong word or protected range. A
+    // bounded path keeps it overset instead of painting past its bracket.
     if span.width > measure.width + 0.0001 {
         return empty();
     }
@@ -1619,6 +1623,7 @@ fn break_line(
         paragraph_style: style.clone(),
         characters: Vec::new(),
         is_paragraph_end: true,
+        discretionary_hyphen: false,
         forced_break: true,
         natural_width: 0.0,
         word_space: None,
@@ -2067,6 +2072,7 @@ fn place_block(
                 paragraph_style: block.style.clone(),
                 characters: character_styles(story, doc, block.start, body.start),
                 is_paragraph_end: body.start == block.end,
+                discretionary_hyphen: false,
                 natural_width: cap.bounds.width,
                 word_space: None,
                 forced_break: false,
@@ -2361,6 +2367,7 @@ fn line_at(
         characters: character_styles(story, doc, start, end),
         is_paragraph_end,
         natural_width: span.width,
+        discretionary_hyphen: span.discretionary_hyphen,
         word_space,
         forced_break: false,
         drop_cap: placement.drop_cap,
@@ -2626,6 +2633,7 @@ pub fn line_spec(line: &ComposedLine, story: &Story, doc: &LayoutDocument) -> Te
         spec = scale_initial_spec(spec, initial.scale);
     }
     spec = with_leading(spec, line.advance);
+    spec.show_final_soft_hyphen = line.discretionary_hyphen;
     spec.word_spacing = line.word_space.unwrap_or(0.0);
     let reverse = reverse_ruler(&spec);
     if let Some(tabs) = &mut spec.tabs {
