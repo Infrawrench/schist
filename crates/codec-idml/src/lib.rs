@@ -30,6 +30,7 @@ mod capitalization_codec;
 pub mod container;
 mod creation_codec;
 pub mod designmap;
+mod drop_cap_codec;
 pub mod error;
 pub mod export;
 mod footnote_codec;

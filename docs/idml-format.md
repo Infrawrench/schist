@@ -536,7 +536,30 @@ Spreads chapter lists this encoding; `tests/guides.rs` covers its synthetic
 round trip, including negative locations. No supplied vendor specimen has
 Guide elements, so external coordinate agreement is not yet fixture-verified.
 
-Drop-cap character and line counts are read/written as native `DropCapCharacters` and `DropCapLines`, including style inheritance and local overrides. The published [ParagraphStyle property reference](https://developer.adobe.com/indesign/uxp/dom/api/p/paragraph-style/) documents both counts. Schist's legacy implicit one-character count is made explicit on native export. Horizontal initials now render from their actual glyph outlines; vertical initials remain a composition gap.
+Drop-cap counts retain native `DropCapCharacters` and `DropCapLines`, including
+style inheritance and local overrides. The public schema bounds their integer
+values to 0–150 and 0–25 respectively. Signed zero, leading signs/zeros and XML
+whitespace are accepted; fractional, negative and out-of-range values are reported
+without truncating or clamping them. Authored invalid counts are reported and
+omitted from native attributes. Schist's legacy implicit one-character count is
+made explicit on native export.
+
+`DropcapDetail` retains the full native signed 32-bit flag value, independently of
+counts, through inheritance, explicit zero resets, local formatting and repeated
+saves. Unknown bits and inactive values are not discarded. The public
+[ParagraphStyle reference](https://developer.adobe.com/indesign/uxp/dom/api/p/paragraph-style/)
+describes side-bearing, descender and Japanese grid flags; the
+[drop-cap guide](https://helpx.adobe.com/ae_en/incopy/desktop/format-text/paragraph-formatting/drop-caps-nested-styles.html)
+describes their purpose, including vertical initials, without specifying exact
+numerical placement. Twenty observed public-corpus values are `1` with inactive
+counts; they establish retention evidence, not active native geometry.
+
+Horizontal initials use Schist's existing outline bounding-box reservation.
+Active explicit native flags therefore produce an import/export diagnostic and a
+Preflight error when composed. Dormant values do not. Native flag rendering,
+vertical initials and named initial character-style rules remain gaps. A named
+initial style belongs to typed `AllNestedStyles` records; no invented native
+`DropCapStyle` attribute is emitted.
 
 Direction evidence: the published IDML specification
 (Stories paragraph properties and StoryPreference properties) distinguishes

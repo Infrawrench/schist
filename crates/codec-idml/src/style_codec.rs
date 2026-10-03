@@ -159,10 +159,14 @@ pub(crate) fn paragraph_properties(
                 None
             })
         }),
-        drop_caps_lines: element.number("DropCapLines").map(|v| v.max(0.0) as usize),
-        drop_caps_characters: element
-            .number("DropCapCharacters")
-            .map(|v| v.max(0.0) as usize),
+        drop_caps_lines: crate::drop_cap_codec::count(element, "DropCapLines", 25, report),
+        drop_caps_characters: crate::drop_cap_codec::count(
+            element,
+            "DropCapCharacters",
+            150,
+            report,
+        ),
+        drop_caps_detail: crate::drop_cap_codec::detail(element, report),
         direction: crate::auto_direction::style_direction(element),
         writing_mode: paragraph_writing_mode(element, report),
         list,
@@ -770,8 +774,7 @@ pub fn paragraph_resolved(style: &ParagraphStyle, resolved: (bool, bool)) -> Str
         "StartParagraph",
         style.start_paragraph.map(|value| value.native_name()),
     );
-    optional(&mut out, "DropCapLines", style.drop_caps_lines);
-    optional(&mut out, "DropCapCharacters", style.drop_caps_characters);
+    crate::drop_cap_codec::attributes(&mut out, style);
     optional(
         &mut out,
         "ParagraphDirection",

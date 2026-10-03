@@ -189,6 +189,7 @@ fn layout_report(
     let mut list_issues = std::collections::BTreeSet::new();
     let mut cross_story_order = false;
     let mut tab_issues = std::collections::BTreeSet::new();
+    let mut initial_issues = std::collections::BTreeSet::new();
     let mut counters = std::collections::BTreeMap::new();
     for object in doc.page_artwork(page, settings.output_box(&doc.pages[page])) {
         if !schist_layout::affine::finite(object.content_transform())
@@ -240,6 +241,9 @@ fn layout_report(
                 )
             });
             for line in frame.all_lines() {
+                initial_issues.extend(schist_layout::drop_caps::unsupported_detail(
+                    &line.paragraph,
+                ));
                 let spec = schist_layout::compose::line_spec(line, story, doc);
                 let paragraph = paragraphs.range(..=line.start).next_back();
                 let context = line.projected.as_ref().map_or_else(
@@ -353,6 +357,12 @@ fn layout_report(
         );
     }
     let mut missing_families = std::collections::BTreeSet::new();
+    for property in initial_issues {
+        report.add(
+            crate::report::Severity::Error,
+            schist_i18n::tf!("design.idml_drop_cap_unsupported", value = property),
+        );
+    }
     for property in tab_issues {
         report.add(
             crate::report::Severity::Error,

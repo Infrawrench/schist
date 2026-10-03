@@ -310,6 +310,40 @@ are marked.
 
 ## Handoff
 
+Native drop-cap policy retention, 2026-10-03:
+`DropcapDetail` now survives inheritance, explicit zero resets, inactive counts,
+local formatting and repeated native saves. Full signed 32-bit values retain
+unknown flags without masking. Native count parsing honors the public 0–25 line
+and 0–150 character integer ranges; invalid lexical forms and authored counts
+are diagnosed rather than truncated or clamped. Public IDML fixtures and legacy
+snapshots have coverage alongside local-override and source-preservation rules.
+The original horizontal ink/keep regressions remain in place.
+
+This is retention, not native placement. Active explicit flags are reported on
+import/export and in Preflight when used; dormant values do not warn. The existing
+horizontal outline reservation is unchanged. One short diagnostic key is in all
+150 catalogs. All 16 targets, shared UI, formatting and whitespace pass with
+**1,934 distinct Rust tests**, including five shared UI checks (one existing
+UI documentation example ignored), four browser checks and eight Python audit
+tests. Workspace clippy and native/browser/headless checks pass. All 32 PDF
+proofs are byte-identical to the preceding reviewed checkpoint. Logs use
+`/tmp/schist-dropcap-*`; the native development rebuild passes in 2m 02s.
+The isolated Design-enabled QA bundle is hash/signature verified and remains
+quit. The checkpoint is prepared for draft PR #195.
+Exact `ef572101` Web artifact 11265703900 passes live Hyphenation review with
+Design enabled: closed default, clean disclosure expansion, conditional numeric
+fields, toggles, reset, numeric editing and one-step undo/redo. All six numeric
+fields remain reachable by scrolling. The disposable tab/server and downloaded
+artifact were removed. Review exposed raw `edit.delete`/`edit.duplicate` labels
+in the Design Edit menu; their actions are routed independently but their labels
+incorrectly depend on absent raster registry entries. That UI fix follows this
+source-frozen sweep.
+
+Native flag rendering and vertical initials remain the next item 9 work, followed
+by the recorded structured-story/object/fixture gaps. Production INDD remains
+Phase-0-gated; no INDD bytes or Adobe headers were read.
+
+
 Automatic dictionary hyphenation, 2026-10-03:
 Dictionary opportunities now reach ordinary Design composition through balanced
 columns, variable-width frame threads, paths and whole/split footnotes. Complete
@@ -346,7 +380,7 @@ reviewed. Logs use `/tmp/schist-auto-hyphen-*`; the superseded partial sweep is 
 2m 10s. The isolated Design-enabled bundle is hash/signature verified; native
 capture still returns `cgWindowNotFound`, so no new control screenshot review is
 claimed. The owned QA process was quit, and the installed app remains untouched.
-This checkpoint is prepared for publication to draft PR #195.
+This checkpoint is published as `ef572101` to draft PR #195.
 Five superseded integration draft files/directories were removed; source, evidence
 and current proof renders remain.
 
@@ -358,7 +392,7 @@ No active native drop-cap geometry specimen has been established. Vertical initi
 require engine ink geometry: `measure` currently returns no vertical ink bounds,
 and the composer explicitly excludes that writing mode. Public source links and
 observations are in `/tmp/schist-dropcap-research.json` and
-`/tmp/schist-dropcap-next.md`; no drop-cap source edits are applied yet. Other
+`/tmp/schist-dropcap-next.md`; this was read-only research at that checkpoint. Other
 structured-story composition, advanced object styles, curved frame flow, broader
 fixtures and external application agreement remain open. Production INDD remains
 Phase-0-gated; no INDD bytes or Adobe headers were read in this checkpoint.

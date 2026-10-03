@@ -406,6 +406,8 @@ pub struct ParagraphStyle {
     pub drop_caps_lines: Option<usize>,
     /// Opening graphemes to enlarge. Unset means one; zero disables drop caps.
     pub drop_caps_characters: Option<usize>,
+    /// Native outline/grid flags. Unset inherits; zero explicitly clears them.
+    pub drop_caps_detail: Option<i32>,
 
     pub bullet: Option<Bullet>,
     #[serde(default)]
@@ -720,6 +722,8 @@ pub struct ResolvedParagraph {
     pub start_paragraph: Option<ParagraphStart>,
     pub drop_caps_lines: Option<usize>,
     pub drop_caps_characters: Option<usize>,
+    /// Native outline/grid flags. Unset inherits; zero explicitly clears them.
+    pub drop_caps_detail: Option<i32>,
     pub bullet: Option<Bullet>,
     pub list: crate::lists::ListStyle,
     pub hyphenate: Option<bool>,
@@ -856,6 +860,7 @@ impl ResolvedParagraph {
             out.start_paragraph = out.start_paragraph.or(style.start_paragraph);
             out.drop_caps_lines = out.drop_caps_lines.or(style.drop_caps_lines);
             out.drop_caps_characters = out.drop_caps_characters.or(style.drop_caps_characters);
+            out.drop_caps_detail = out.drop_caps_detail.or(style.drop_caps_detail);
             out.bullet = out.bullet.or(style.bullet);
             out.list = out.list.over(
                 &style

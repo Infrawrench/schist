@@ -185,6 +185,12 @@ pub fn read_package(opened: &DesignPackage<'_>) -> Result<Imported, Error> {
     report
         .skipped
         .extend(crate::list_codec::diagnostics(&document));
+    for style in &document.styles.paragraphs {
+        crate::drop_cap_codec::warn_composition(
+            &document.styles.resolve_paragraph(&style.name),
+            &mut report.skipped,
+        );
+    }
     if !opened.unlisted.is_empty() {
         report.skip(schist_i18n::tf!(
             "design.idml_unlisted_parts",

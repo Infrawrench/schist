@@ -994,9 +994,11 @@ fn styles_xml(
         crate::style_codec::warn_leading(style.leading, style.auto_leading, warnings);
         crate::keep_codec::warn(style, warnings);
         crate::hyphenation_codec::warn(&style.hyphenation, warnings);
+        crate::drop_cap_codec::warn(style, warnings);
         let mut native = style.clone();
         native.language = languages.native(&style.language);
         let resolved = document.styles.resolve_paragraph(&style.name);
+        crate::drop_cap_codec::warn_composition(&resolved, warnings);
         if resolved.drop_caps_lines.is_some_and(|lines| lines > 1)
             && resolved.drop_caps_characters.is_none()
         {
