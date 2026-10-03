@@ -190,6 +190,10 @@ pub fn read_package(opened: &DesignPackage<'_>) -> Result<Imported, Error> {
             &document.styles.resolve_paragraph(&style.name),
             &mut report.skipped,
         );
+        crate::nested_style_codec::warn(
+            &document.styles.resolve_paragraph(&style.name),
+            &mut report.skipped,
+        );
     }
     if !opened.unlisted.is_empty() {
         report.skip(schist_i18n::tf!(

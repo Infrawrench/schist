@@ -310,6 +310,41 @@ are marked.
 
 ## Handoff
 
+Ordered native nested-style retention, 2026-10-03:
+Public-schema regressions reproduced complete `AllNestedStyles` lists disappearing
+and native `EmptyNestedStyles` resets incorrectly inheriting parent rules. The
+model and codec now retain ordered typed records, literal versus enumerated
+boundaries, signed counts, explicit no-style rules and opaque missing references.
+Absent lists inherit; native clear flags and explicit empty lists reset. Local
+formatting lowers without changing story bytes. Character-style rename updates
+all typed references in one undo step. Malformed/conflicting resets are diagnosed.
+The seven Customer's Canvas fixtures verify native clear flags through repeated
+saves; populated lists still have only schema-derived coverage.
+
+Rendering of rules requesting character styles remains unsupported and is reported
+on import/export and for used paragraphs in Preflight. Entirely no-style lists do
+not raise false errors. One short key is present in all 150 catalogs. Twelve new
+properties cover retention, resets, Unicode source, rename/undo and used-rule
+reporting. All 16 targets, shared UI, formatting and whitespace pass with **1,967
+distinct Rust tests**, four browser and eight Python audit tests. One existing UI
+documentation example remains ignored. All 33 existing PDF files are byte-identical.
+The native development build passes in 1m 21s. The isolated Design-enabled QA
+bundle is refreshed and hash/signature verified; it remains quit. The default
+Design flag remains false. Logs/counts use `/tmp/schist-nested-*`.
+
+The first native link exhausted disk space; 2.44 GiB of closed incremental caches
+were removed, retaining source and both dev bundles. Earlier sweep logs and the
+reproduced failures are retained. A subsequent public XML review identified the
+native reset flag before publication. Five applied temporary draft files were
+removed. Eighteen further public IDML samples contained no active initial/nested
+rules; no packages were retained. Research metadata is in
+`/tmp/schist-nested-native-research/`. No Adobe headers or INDD entries were read.
+
+Compact initial controls are pushed as `cb443b27` to draft PR #195. The complete
+verification and native build are recorded below; exact Web control review passes
+in artifact 11267181935 from run 37104336519. The default Design flag remains false.
+
+
 Compact drop-cap authoring, 2026-10-03:
 Paragraph now exposes line/character counts under a closed Drop caps disclosure
 with one inheritance-reset icon. Fields capture the original style, validate
@@ -322,8 +357,10 @@ distinct Rust tests**, four browser and eight Python audit tests. One existing
 UI documentation example remains ignored. All 33 existing PDF proofs are
 byte-identical. Logs/counts use `/tmp/schist-initial-controls-*`. The native
 development build passes in 2m 28s. The isolated Design-enabled QA bundle is
-refreshed and hash/signature verified; it remains quit. Live control review is
-pending the new exact-commit Web artifact.
+refreshed and hash/signature verified; it remains quit. Exact `cb443b27` Web artifact 11267181935 passes live Drop caps review:
+closed default, compact expansion, both counts, canvas initials, blank-to-inherit,
+combined reset and one-step undo/redo. The disposable browser/server and downloaded
+build are removed; hashes and results are in `/tmp/schist-initial-browser-*`.
 
 The preceding vertical-initial and command-isolation checkpoint is published as
 `f1da870c` to draft PR #195. Its full sweep and native build are recorded below.

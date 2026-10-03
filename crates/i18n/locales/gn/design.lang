@@ -557,3 +557,5 @@ design.initials = Drop caps
 design.initial_lines = Lines
 design.initial_characters = Characters
 design.initial_inherit = Inherit drop-cap settings
+
+design.idml_nested_style_unsupported = Nested style not composed: {value}

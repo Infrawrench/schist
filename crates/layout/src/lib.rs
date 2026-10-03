@@ -40,6 +40,7 @@ pub mod list_counters;
 pub mod list_numbering;
 pub mod lists;
 pub mod model;
+pub mod nested_styles;
 pub mod numbering;
 pub mod object_styles;
 pub mod paragraph_keeps;

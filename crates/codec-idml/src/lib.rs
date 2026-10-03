@@ -40,6 +40,7 @@ pub mod import;
 mod keep_codec;
 mod language_codec;
 mod list_codec;
+mod nested_style_codec;
 pub mod plugin;
 mod story_codec;
 mod stroke_style_codec;

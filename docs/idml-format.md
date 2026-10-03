@@ -2221,3 +2221,46 @@ coincide exactly with generated-reference anchors. No source text is rewritten.
 Native policy defaults are resolved only for composition, leaving absent attributes
 absent on save. The documented greedy zone/weight policy is Schist's own behavior;
 InDesign paragraph-composer placement equivalence remains unverified.
+
+
+### Ordered nested character-style rules
+
+The public IDML specification, schema 152, table 174 and example 92, stores
+`AllNestedStyles` under `Properties` as an ordered list of records. Each record
+has an `AppliedCharacterStyle` object reference, a `Delimiter` whose type is
+string or enumeration, a signed 32-bit `Repetition`, and an `Inclusive` XML
+boolean. `Dropcap` is a delimiter enumeration, not a separate `DropCapStyle`
+attribute. The public [NestedStyle](https://developer.adobe.com/indesign/uxp/dom/api/n/nested-style/)
+and [NestedStyleDelimiters](https://developer.adobe.com/indesign/uxp/dom/api/n/nested-style-delimiters/)
+references agree with that distinction.
+
+The typed model retains record order, unknown enumeration names, literal string
+whitespace, explicit no-style rules and unresolved opaque references. Missing
+lists inherit as a whole unless `EmptyNestedStyles` explicitly clears them;
+explicit empty lists also reset inheritance. Character
+style renames update every typed reference in the same undo operation, leaving
+unresolved identifiers unchanged. Paragraph-local lists use the existing reusable
+style lowering and do not become authored character ranges or rewritten source
+text. Malformed lists are diagnosed and rejected as a whole, with an explicit
+empty override preventing accidental fallback to inherited rules.
+
+All seven Customer's Canvas fixtures carry `EmptyNestedStyles="true"` without
+an `AllNestedStyles` element. The public [native export and inheritance
+report](https://community.adobe.com/questions-671/cs6-styles-mapping-895785)
+also demonstrates this representation on a child whose parent has nested rules.
+The reader accepts all four XML boolean spellings on both named styles and local
+paragraph ranges. The writer emits the native empty flag for an explicit reset,
+false with a populated list, and neither for inheritance. A conflicting clear
+flag takes precedence over a populated list and is diagnosed. Invalid flags are
+reported; without a valid list they produce an empty override, preventing an
+accidental inherited rule. With a valid list, its records remain recoverable.
+
+Composition of rules requesting a character style is still unsupported and is
+reported on import/export and for used paragraphs in Preflight. Entirely no-style
+lists cannot change appearance and do not produce false errors. This is a retention
+prerequisite, not a native rendering claim. The seven Customer's Canvas fixtures
+contain no populated `AllNestedStyles`; schema-derived regression packages cover
+the records, and the native fixtures cover empty flags through repeated saves.
+Separate regressions first reproduced the complete list disappearing and native
+reset flags incorrectly inheriting a parent list. No Adobe headers, proprietary
+executables or INDD entries were read for this change.

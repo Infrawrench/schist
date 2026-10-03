@@ -999,6 +999,7 @@ fn styles_xml(
         native.language = languages.native(&style.language);
         let resolved = document.styles.resolve_paragraph(&style.name);
         crate::drop_cap_codec::warn_composition(&resolved, warnings);
+        crate::nested_style_codec::warn(&resolved, warnings);
         if resolved.drop_caps_lines.is_some_and(|lines| lines > 1)
             && resolved.drop_caps_characters.is_none()
         {

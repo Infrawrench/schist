@@ -390,6 +390,12 @@ pub fn rename_style(
         }
     } else {
         for style in &mut after.paragraphs {
+            for rule in style.nested_styles.iter_mut().flatten() {
+                if let crate::nested_styles::CharacterStyle::Named(name) = &mut rule.character_style
+                {
+                    rename(name);
+                }
+            }
             for marker in [
                 &mut style.list.bullet_character_style,
                 &mut style.list.numbering_character_style,

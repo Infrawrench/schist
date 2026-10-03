@@ -167,6 +167,7 @@ pub(crate) fn paragraph_properties(
             report,
         ),
         drop_caps_detail: crate::drop_cap_codec::detail(element, report),
+        nested_styles: crate::nested_style_codec::read(element, refs, report),
         direction: crate::auto_direction::style_direction(element),
         writing_mode: paragraph_writing_mode(element, report),
         list,
@@ -646,6 +647,7 @@ pub fn paragraph_resolved(style: &ParagraphStyle, resolved: (bool, bool)) -> Str
         resolved,
     );
     let mut out = String::from("<ParagraphStyle");
+    crate::nested_style_codec::attributes(&mut out, &style.nested_styles);
     crate::list_codec::attributes(&mut out, &crate::list_codec::native(style));
     crate::capitalization_codec::attributes(&mut out, style.all_caps, style.small_caps);
     crate::opentype_codec::attributes(&mut out, &style.features);
@@ -810,6 +812,7 @@ pub fn paragraph_resolved(style: &ParagraphStyle, resolved: (bool, bool)) -> Str
     font_choice_label(&mut out, choice.as_ref());
     writing_mode_label(&mut out, style.writing_mode);
     crate::list_codec::properties(&mut out, &crate::list_codec::native(style));
+    crate::nested_style_codec::properties(&mut out, &style.nested_styles);
     crate::list_codec::label(&mut out, style);
     crate::keep_codec::label(&mut out, style);
     crate::decoration_codec::properties(&mut out, [&style.underline_style, &style.strike_style]);

@@ -408,6 +408,8 @@ pub struct ParagraphStyle {
     pub drop_caps_characters: Option<usize>,
     /// Native outline/grid flags. Unset inherits; zero explicitly clears them.
     pub drop_caps_detail: Option<i32>,
+    /// Ordered native rules. None inherits; an empty list explicitly resets.
+    pub nested_styles: Option<Vec<crate::nested_styles::NestedStyle>>,
 
     pub bullet: Option<Bullet>,
     #[serde(default)]
@@ -724,6 +726,8 @@ pub struct ResolvedParagraph {
     pub drop_caps_characters: Option<usize>,
     /// Native outline/grid flags. Unset inherits; zero explicitly clears them.
     pub drop_caps_detail: Option<i32>,
+    /// Ordered native rules. None inherits; an empty list explicitly resets.
+    pub nested_styles: Option<Vec<crate::nested_styles::NestedStyle>>,
     pub bullet: Option<Bullet>,
     pub list: crate::lists::ListStyle,
     pub hyphenate: Option<bool>,
@@ -861,6 +865,7 @@ impl ResolvedParagraph {
             out.drop_caps_lines = out.drop_caps_lines.or(style.drop_caps_lines);
             out.drop_caps_characters = out.drop_caps_characters.or(style.drop_caps_characters);
             out.drop_caps_detail = out.drop_caps_detail.or(style.drop_caps_detail);
+            out.nested_styles = out.nested_styles.or_else(|| style.nested_styles.clone());
             out.bullet = out.bullet.or(style.bullet);
             out.list = out.list.over(
                 &style
