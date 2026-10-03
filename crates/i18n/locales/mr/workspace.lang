@@ -92,3 +92,5 @@ workspace.file_picker.permission_denied = Schist ला हा फोल्ड�
 workspace.recovery.recovered_title = {title} (पुनर्प्राप्त)
 workspace.recovery.recovered.one = मागील सत्रातील जतन न केलेले काम पुनर्प्राप्त केले
 workspace.recovery.recovered.other = मागील सत्रातील {n} दस्तऐवज पुनर्प्राप्त केले
+workspace.colormgmt.vision_on = सिम्युलेशन: {name}
+workspace.colormgmt.vision_off = सामान्य दृष्टी

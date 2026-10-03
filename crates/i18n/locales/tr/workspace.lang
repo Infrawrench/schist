@@ -92,3 +92,5 @@ workspace.file_picker.permission_denied = Schist'in bu klasörü okuma izni yok
 workspace.recovery.recovered_title = {title} (kurtarıldı)
 workspace.recovery.recovered.one = Önceki oturumdan kaydedilmemiş çalışma kurtarıldı
 workspace.recovery.recovered.other = Önceki oturumdan {n} belge kurtarıldı
+workspace.colormgmt.vision_on = Simülasyon: {name}
+workspace.colormgmt.vision_off = Normal görüş

@@ -43,3 +43,7 @@ workspace.history.move_layers = Move Layers
 workspace.history.layer_opacity = Layer Opacity
 workspace.history.delete_note = Delete Note
 workspace.history.edit_note = Edit Note
+workspace.canvas.clipping_on = Clipping warnings on
+workspace.canvas.clipping_off = Clipping warnings off
+workspace.canvas.peaking_on = Focus peaking on
+workspace.canvas.peaking_off = Focus peaking off

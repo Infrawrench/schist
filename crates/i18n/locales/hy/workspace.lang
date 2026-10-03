@@ -93,3 +93,5 @@ workspace.file_picker.permission_denied = Schist-ը չունի այս պանակ
 workspace.recovery.recovered_title = {title} (վերականգնված)
 workspace.recovery.recovered.one = Նախորդ աշխատաշրջանից վերականգնվել է {n} չպահված փաստաթուղթ
 workspace.recovery.recovered.other = Նախորդ աշխատաշրջանից վերականգնվել է {n} փաստաթուղթ
+workspace.colormgmt.vision_on = Նմանակում՝ {name}
+workspace.colormgmt.vision_off = Նորմալ տեսողություն

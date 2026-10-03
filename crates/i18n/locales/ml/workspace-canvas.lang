@@ -38,3 +38,7 @@ workspace.history.move_layers = ലെയറുകൾ നീക്കുക
 workspace.history.layer_opacity = ലെയർ അതാര്യത
 workspace.history.delete_note = കുറിപ്പ് ഇല്ലാതാക്കുക
 workspace.history.edit_note = കുറിപ്പ് തിരുത്തുക
+workspace.canvas.clipping_on = ക്ലിപ്പിംഗ് മുന്നറിയിപ്പുകൾ ഓൺ
+workspace.canvas.clipping_off = ക്ലിപ്പിംഗ് മുന്നറിയിപ്പുകൾ ഓഫ്
+workspace.canvas.peaking_on = ഫോക്കസ് പീക്കിംഗ് ഓൺ
+workspace.canvas.peaking_off = ഫോക്കസ് പീക്കിംഗ് ഓഫ്

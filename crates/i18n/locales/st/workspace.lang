@@ -102,3 +102,5 @@ workspace.file_picker.permission_denied = Schist ha e na tumello ea ho bala fold
 workspace.recovery.recovered_title = {title} (e hlaphohetsoe)
 workspace.recovery.recovered.one = Mosebetsi o sa bolokoang oa lenaneo le fetileng o hlaphohetsoe
 workspace.recovery.recovered.other = Palo ea litokomane tse hlaphohileng lenaneong le fetileng: {n}
+workspace.colormgmt.vision_on = Ho etsisa: {name}
+workspace.colormgmt.vision_off = Pono e tloaelehileng

@@ -92,3 +92,5 @@ workspace.file_picker.permission_denied = Schist האָט נישט קיין דע
 workspace.recovery.recovered_title = {title} (צוריקגעשטעלט)
 workspace.recovery.recovered.one = אומגעהיטע אַרבעט פֿון אַ פֿריִערדיקער סעסיע צוריקגעשטעלט
 workspace.recovery.recovered.other = {n} דאָקומענטן פֿון אַ פֿריִערדיקער סעסיע צוריקגעשטעלט
+workspace.colormgmt.vision_on = סימולאַציע: {name}
+workspace.colormgmt.vision_off = נאָרמאַלע זעונג

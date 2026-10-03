@@ -87,6 +87,12 @@ impl Target {
                         | ToggleExtras
                         | ToggleSnap
                         | ToggleAi
+                        | ToggleClipping
+                        | ToggleFocusPeaking
+                        | PeakingColor(_)
+                        | PeakingSensitivity(_)
+                        | VisionSimulation(_)
+                        | VisionSeverity(_)
                         | ScreenModeItem
                         | OpenGallery
                         | GalleryAddFolder

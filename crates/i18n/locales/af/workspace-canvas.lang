@@ -36,3 +36,7 @@ workspace.history.move_layers = Skuif lae
 workspace.history.layer_opacity = Laagondeursigtigheid
 workspace.history.delete_note = Skrap nota
 workspace.history.edit_note = Wysig nota
+workspace.canvas.clipping_on = Knipwaarskuwings aan
+workspace.canvas.clipping_off = Knipwaarskuwings af
+workspace.canvas.peaking_on = Fokuspiekering aan
+workspace.canvas.peaking_off = Fokuspiekering af

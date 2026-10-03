@@ -35,3 +35,7 @@ workspace.history.move_layers = پرتون منتقل ڪريو
 workspace.history.layer_opacity = پرت جي اڻ شفافيت
 workspace.history.delete_note = نوٽ ڊاهيو
 workspace.history.edit_note = نوٽ سنواريو
+workspace.canvas.clipping_on = ڪلپنگ ڊيڄاريندڙ هلندڙ
+workspace.canvas.clipping_off = ڪلپنگ ڊيڄاريندڙ بند
+workspace.canvas.peaking_on = فوڪس پيڪنگ هلندڙ
+workspace.canvas.peaking_off = فوڪس پيڪنگ بند

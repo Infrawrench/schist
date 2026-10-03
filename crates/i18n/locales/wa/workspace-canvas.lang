@@ -35,3 +35,7 @@ workspace.history.move_layers = Bodjî les coûtches
 workspace.history.layer_opacity = Opacité del coûtche
 workspace.history.delete_note = Disfacer l' note
 workspace.history.edit_note = Candjî l' note
+workspace.canvas.clipping_on = Avertixhmints di clipping metous
+workspace.canvas.clipping_off = Avertixhmints di clipping dismetous
+workspace.canvas.peaking_on = Mete en valeur do focus metou
+workspace.canvas.peaking_off = Mete en valeur do focus dismetou

@@ -92,3 +92,5 @@ workspace.file_picker.permission_denied = Schist کي هي فولڊر پڙهڻ �
 workspace.recovery.recovered_title = {title} (بحال ٿيل)
 workspace.recovery.recovered.one = اڳئين سيشن مان غير محفوظ ڪم بحال ٿيو
 workspace.recovery.recovered.other = اڳئين سيشن مان {n} دستاويز بحال ٿيا
+workspace.colormgmt.vision_on = نقل: {name}
+workspace.colormgmt.vision_off = عام نظر

@@ -102,3 +102,5 @@ workspace.file_picker.permission_denied = I-Schist ayinayo imvumo yokufunda ifol
 workspace.recovery.recovered_title = {title} (kubuyiselwe)
 workspace.recovery.recovered.one = Kubuyiselwe umsebenzi ongakabulungwa kusuka eseshini edlulileko
 workspace.recovery.recovered.other = Kubuyiselwe amadokhumenti angu-{n} kusuka eseshini edlulileko
+workspace.colormgmt.vision_on = Ukulinganisa: {name}
+workspace.colormgmt.vision_off = Ukubona okujayelekileko

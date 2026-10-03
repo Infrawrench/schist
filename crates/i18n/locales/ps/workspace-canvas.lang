@@ -38,3 +38,7 @@ workspace.history.move_layers = طبقې لېږدول
 workspace.history.layer_opacity = د طبقې ناتېرېدنه
 workspace.history.delete_note = یادښت ړنګول
 workspace.history.edit_note = یادښت سمول
+workspace.canvas.clipping_on = د پرې کېدو خبرداریونه چالان دي
+workspace.canvas.clipping_off = د پرې کېدو خبرداریونه بند دي
+workspace.canvas.peaking_on = د فوکس روښانه کول چالان دی
+workspace.canvas.peaking_off = د فوکس روښانه کول بند دی

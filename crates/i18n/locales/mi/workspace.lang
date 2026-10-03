@@ -90,3 +90,5 @@ workspace.file_picker.downloads = Ngā Tikiake
 workspace.file_picker.permission_denied = Kāore a Schist i whakaaetia kia pānui i tēnei kōpaki
 workspace.recovery.recovered_title = {title} (kua whakaorangia)
 workspace.recovery.recovered.other = Kua whakaorangia: {n} tuhinga nō tētahi wātū o mua
+workspace.colormgmt.vision_on = Whakatauira: {name}
+workspace.colormgmt.vision_off = Tirohanga whaitikanga

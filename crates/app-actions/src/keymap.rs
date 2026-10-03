@@ -23,6 +23,18 @@ const TYPING_SAFE: Option<&str> = Some("Workspace && editable");
 /// text session or a dialog, so it cannot be suppressed by either.
 const ALWAYS: Option<&str> = Some("Workspace");
 const SEARCH: Option<&str> = Some("Workspace && !modal");
+/// An unmodified user override for a viewer overlay: live on the canvas
+/// and in the gallery's viewers alike, yielding to typing like the
+/// single-letter tool shortcuts.
+const VIEW_SAFE: Option<&str> = Some("Workspace && (editable || gallery)");
+
+/// Default overlay keys. Lightroom toggles its clipping warnings with J,
+/// but here, as in Photoshop, J is the spot healing brush and Shift+J
+/// cycles its group, so the overlays take Alt+J and Alt+Shift+J. With a
+/// modifier they cannot collide with a tool letter, and the gallery's
+/// culling keys ignore Alt.
+pub const DEFAULT_VIEW_OVERLAY_KEYS: &[(&str, &str)] =
+    &[("alt-j", "clipping"), ("alt-shift-j", "focus_peaking")];
 
 fn translate(binding: &str) -> String {
     // Apple keyboards, on the desktop and on an iPad, have Command.
@@ -159,6 +171,15 @@ pub fn build_bindings(registry: &PluginRegistry) -> Vec<KeyBinding> {
             CONTEXT,
         ),
     ]);
+    // Modified keys: live on the canvas and in the gallery, suppressed
+    // while typing and under a dialog.
+    for (key, id) in DEFAULT_VIEW_OVERLAY_KEYS {
+        bindings.push(KeyBinding::new(
+            key,
+            ViewOverlay { id: id.to_string() },
+            CONTEXT,
+        ));
+    }
     // Digit keys -> tool opacity (1 = 10% … 0 = 100%).
     for digit in 0..=9u32 {
         let percent = if digit == 0 { 100 } else { digit * 10 };
@@ -170,13 +191,15 @@ pub fn build_bindings(registry: &PluginRegistry) -> Vec<KeyBinding> {
     }
 
     // User overrides: ~/.config/schist/keymap.json
-    // Format: { "<keystroke>": "command:<id>" | "tool:<id>" }
+    // Format: { "<keystroke>": "command:<id>" | "tool:<id>" | "view:<id>" }
     if let Some(user) = load_user_keymap() {
         for (keystroke, target) in user {
             let action: Box<dyn Action> = if let Some(id) = target.strip_prefix("command:") {
                 Box::new(RunCommand { id: id.to_string() })
             } else if let Some(id) = target.strip_prefix("tool:") {
                 Box::new(ActivateTool { id: id.to_string() })
+            } else if let Some(id) = target.strip_prefix("view:") {
+                Box::new(ViewOverlay { id: id.to_string() })
             } else {
                 log::warn!("keymap: unknown target {target:?} for {keystroke:?}");
                 continue;
@@ -187,7 +210,11 @@ pub fn build_bindings(registry: &PluginRegistry) -> Vec<KeyBinding> {
             // made the letter "e" unreachable inside a text layer, and
             // since user bindings are appended last they win the tie-break
             // against the built-in binding they were meant to replace.
-            let context = override_context(&keystroke);
+            let context = if target.starts_with("view:") {
+                view_override_context(&keystroke)
+            } else {
+                override_context(&keystroke)
+            };
             match try_binding(&keystroke, action, context) {
                 Some(kb) => bindings.push(kb),
                 // `KeyBinding::new` panics on a keystroke gpui cannot
@@ -218,6 +245,16 @@ fn override_context(keystroke: &str) -> Option<&'static str> {
         CONTEXT
     } else {
         TYPING_SAFE
+    }
+}
+
+/// An overlay override works wherever the default overlay keys do; an
+/// unmodified one still yields to typing.
+fn view_override_context(keystroke: &str) -> Option<&'static str> {
+    if keystroke.contains('-') && !keystroke.starts_with("shift-") {
+        CONTEXT
+    } else {
+        VIEW_SAFE
     }
 }
 
@@ -271,9 +308,10 @@ fn dirs_config() -> Option<PathBuf> {
 #[cfg(test)]
 mod tests {
     use super::{
-        build_bindings, override_context, try_binding, ALWAYS, CONTEXT, SEARCH, TYPING_SAFE,
+        build_bindings, override_context, try_binding, view_override_context, ALWAYS, CONTEXT,
+        DEFAULT_VIEW_OVERLAY_KEYS, SEARCH, TYPING_SAFE, VIEW_SAFE,
     };
-    use crate::{ActivateTool, RunCommand};
+    use crate::{ActivateTool, RunCommand, ViewOverlay};
     use gpui::{KeyBindingContextPredicate, KeyContext, Keystroke};
     use schist_plugin_api::{Command, CommandPlugin, PluginRegistry};
 
@@ -458,5 +496,45 @@ mod tests {
         assert_eq!(override_context("5"), TYPING_SAFE);
         assert_eq!(override_context("ctrl-e"), CONTEXT);
         assert_eq!(override_context("cmd-shift-s"), CONTEXT);
+    }
+
+    #[test]
+    fn overlay_keys_work_on_canvas_and_gallery_but_yield_to_typing() {
+        assert!(fires(VIEW_SAFE, ORDINARY));
+        assert!(fires(VIEW_SAFE, "Workspace gallery"));
+        assert!(!fires(VIEW_SAFE, TYPING));
+        assert!(!fires(VIEW_SAFE, MODAL));
+        assert!(!fires(VIEW_SAFE, "Workspace spotlight text_entry"));
+        assert!(!fires(VIEW_SAFE, "Workspace design"));
+        assert_eq!(view_override_context("k"), VIEW_SAFE);
+        assert_eq!(view_override_context("shift-k"), VIEW_SAFE);
+        assert_eq!(view_override_context("ctrl-k"), CONTEXT);
+    }
+
+    #[test]
+    fn overlay_defaults_do_not_shadow_other_defaults() {
+        // No other built-in binding answers the same keystroke. Tool
+        // letters (and Shift+letter group cycling) come from plugins at
+        // runtime, and gallery culling reads raw unmodified keys: an Alt
+        // chord can collide with neither.
+        let bindings = build_bindings(&PluginRegistry::new());
+        for (key, id) in DEFAULT_VIEW_OVERLAY_KEYS {
+            assert!(key.starts_with("alt-"), "{key} could shadow a tool key");
+            assert!(fires(CONTEXT, "Workspace gallery") && fires(CONTEXT, ORDINARY));
+            let keystroke = Keystroke::parse(key).unwrap();
+            let matching: Vec<_> = bindings
+                .iter()
+                .filter(|b| b.match_keystrokes(std::slice::from_ref(&keystroke)) == Some(false))
+                .collect();
+            assert_eq!(matching.len(), 1, "{key} is bound more than once");
+            assert_eq!(
+                matching[0]
+                    .action()
+                    .as_any()
+                    .downcast_ref::<ViewOverlay>()
+                    .map(|a| a.id.as_str()),
+                Some(*id)
+            );
+        }
     }
 }

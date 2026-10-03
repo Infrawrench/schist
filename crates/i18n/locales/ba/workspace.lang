@@ -100,3 +100,5 @@ workspace.file_picker.permission_denied = Schist-тың был папканы у
 
 workspace.recovery.recovered_title = {title} (тергеҙелгән)
 workspace.recovery.recovered.other = Алдағы сеанстан һаҡланмаған эш тергеҙелде; документтар һаны: {n}
+workspace.colormgmt.vision_on = Оҡшатыу: {name}
+workspace.colormgmt.vision_off = Нормаль күреү

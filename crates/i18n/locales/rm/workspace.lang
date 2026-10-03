@@ -93,3 +93,5 @@ workspace.file_picker.permission_denied = Schist n'ha betg la permissiun da lege
 workspace.recovery.recovered_title = {title} (recuperà)
 workspace.recovery.recovered.one = Lavur betg memorisada recuperada d'ina sessiun precedenta
 workspace.recovery.recovered.other = {n} documents recuperads d'ina sessiun precedenta
+workspace.colormgmt.vision_on = Simulaziun: {name}
+workspace.colormgmt.vision_off = Vesida normala

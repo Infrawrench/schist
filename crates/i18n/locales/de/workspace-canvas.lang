@@ -42,3 +42,7 @@ workspace.history.move_layers = Ebenen verschieben
 workspace.history.layer_opacity = Ebenendeckkraft
 workspace.history.delete_note = Notiz löschen
 workspace.history.edit_note = Notiz bearbeiten
+workspace.canvas.clipping_on = Beschneidungswarnungen ein
+workspace.canvas.clipping_off = Beschneidungswarnungen aus
+workspace.canvas.peaking_on = Focus Peaking ein
+workspace.canvas.peaking_off = Focus Peaking aus

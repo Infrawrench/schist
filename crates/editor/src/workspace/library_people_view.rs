@@ -388,8 +388,9 @@ pub(super) fn viewer(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::A
                 let scale = ((aw - 16.0) / width as f32).min((ah - 16.0) / height as f32);
                 let scale = scale.clamp(0.01, 1.0);
                 let (fw, fh) = (width as f32 * scale, height as f32 * scale);
+                let overlay = ws.gallery_overlay(&render, fw.max(fh));
                 picture = picture.child(picture_element(
-                    fw, fh, render, &faces, &names, pick, drawing, cx,
+                    fw, fh, render, overlay, &faces, &names, pick, drawing, cx,
                 ));
             }
         }
@@ -434,6 +435,7 @@ fn picture_element(
     fw: f32,
     fh: f32,
     render: Arc<RenderImage>,
+    overlay: Option<Arc<RenderImage>>,
     faces: &[FaceView],
     names: &[String],
     pick: Option<FaceRect>,
@@ -448,6 +450,8 @@ fn picture_element(
         .flex_none()
         .cursor(gpui::CursorStyle::Crosshair)
         .child(img(render).w(px(fw)).h(px(fh)))
+        // Clipping and focus peaking, stretched over the photo exactly.
+        .children(overlay.map(|layer| img(layer).absolute().top_0().left_0().w(px(fw)).h(px(fh))))
         .child(
             canvas(
                 move |bounds, _window, cx| {

@@ -90,3 +90,5 @@ workspace.file_picker.downloads = Yeb yi
 workspace.file_picker.permission_denied = Schist amul sañ-sañu jàng wayndare bii
 workspace.recovery.recovered_title = {title} (delloosi na)
 workspace.recovery.recovered.other = Delloosi nañu liggéey bu dencuwul ci sesioŋ bu weesu, ci limu {n} jukki
+workspace.colormgmt.vision_on = Wone: {name}
+workspace.colormgmt.vision_off = Gis-gis bu baax

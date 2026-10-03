@@ -38,3 +38,7 @@ workspace.history.move_layers = Desplaçar los calques
 workspace.history.layer_opacity = Opacitat del calc
 workspace.history.delete_note = Suprimir la nòta
 workspace.history.edit_note = Modificar la nòta
+workspace.canvas.clipping_on = Avertiments d'escrèstament activats
+workspace.canvas.clipping_off = Avertiments d'escrèstament desactivats
+workspace.canvas.peaking_on = Messa en evidéncia de la netetat activada
+workspace.canvas.peaking_off = Messa en evidéncia de la netetat desactivada

@@ -92,3 +92,5 @@ workspace.file_picker.permission_denied = Walang pahintulot ang Schist na basahi
 workspace.recovery.recovered_title = {title} (na-recover)
 workspace.recovery.recovered.one = Na-recover ang {n} hindi na-save na gawa mula sa nakaraang session
 workspace.recovery.recovered.other = Na-recover ang {n} dokumento mula sa nakaraang session
+workspace.colormgmt.vision_on = Simulation: {name}
+workspace.colormgmt.vision_off = Normal na paningin

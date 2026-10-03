@@ -94,3 +94,5 @@ workspace.recovery.recovered_title = {title} (máhcahuvvon)
 workspace.recovery.recovered.one = Ovddit bargovuoru vurkeahttes bargu máhcahuvvui
 workspace.recovery.recovered.two = Ovddit bargovuorus máhcahuvvojedje {n} dokumeantta
 workspace.recovery.recovered.other = Ovddit bargovuorus máhcahuvvojedje {n} dokumeantta
+workspace.colormgmt.vision_on = Simuleren: {name}
+workspace.colormgmt.vision_off = Dábálaš oaidnu

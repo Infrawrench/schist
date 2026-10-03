@@ -37,3 +37,7 @@ workspace.history.move_layers = لیئرز منتقل کریں
 workspace.history.layer_opacity = لیئر کی عدم شفافیت
 workspace.history.delete_note = نوٹ حذف کریں
 workspace.history.edit_note = نوٹ میں ترمیم کریں
+workspace.canvas.clipping_on = کلپنگ انتباہات فعال
+workspace.canvas.clipping_off = کلپنگ انتباہات غیر فعال
+workspace.canvas.peaking_on = فوکس پیکنگ فعال
+workspace.canvas.peaking_off = فوکس پیکنگ غیر فعال

@@ -103,3 +103,5 @@ workspace.file_picker.permission_denied = Yamaruya tɛ Schist bolo ka nin fɔld�
 
 workspace.recovery.recovered_title = {title} (lasɔrɔlen)
 workspace.recovery.recovered.other = Sɛbɛn hakɛ {n} min ma tun mara session kɔrɔlen na, olu lasɔrɔla
+workspace.colormgmt.vision_on = {name} misɛnni
+workspace.colormgmt.vision_off = Yeli cogo ɲuman

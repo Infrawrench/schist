@@ -96,3 +96,5 @@ workspace.recovery.recovered.one = Chaidh obair gun sàbhaladh o sheisean roimhe
 workspace.recovery.recovered.two = Chaidh {n} sgrìobhainn o sheisean roimhe aiseag
 workspace.recovery.recovered.few = Chaidh {n} sgrìobhainnean o sheisean roimhe aiseag
 workspace.recovery.recovered.other = Chaidh {n} sgrìobhainn o sheisean roimhe aiseag
+workspace.colormgmt.vision_on = Samhlachadh: {name}
+workspace.colormgmt.vision_off = Lèirsinn àbhaisteach

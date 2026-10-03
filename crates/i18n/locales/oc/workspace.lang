@@ -90,3 +90,5 @@ workspace.file_picker.downloads = Telecargaments
 workspace.file_picker.permission_denied = Schist a pas la permission de legir aqueste dorsièr
 workspace.recovery.recovered_title = {title} (recuperat)
 workspace.recovery.recovered.other = Documents recuperats d'una session precedenta : {n}
+workspace.colormgmt.vision_on = Simulacion : {name}
+workspace.colormgmt.vision_off = Vision normala

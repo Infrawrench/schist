@@ -94,3 +94,5 @@ workspace.recovery.recovered_title = {title} (atkurta)
 workspace.recovery.recovered.one = Atkurtas {n} ankstesnio seanso neįrašytas dokumentas
 workspace.recovery.recovered.few = Atkurti {n} ankstesnio seanso neįrašyti dokumentai
 workspace.recovery.recovered.other = Atkurta {n} ankstesnio seanso neįrašytų dokumentų
+workspace.colormgmt.vision_on = Imitacija: {name}
+workspace.colormgmt.vision_off = Normalus regėjimas

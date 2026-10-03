@@ -90,3 +90,5 @@ workspace.file_picker.downloads = ཕབ་ལེན་ཚུ།
 workspace.file_picker.permission_denied = Schist ལུ་སྣོད་འཛིན་འདི་ལྷག་ནིའི་གནང་བ་མེད།
 workspace.recovery.recovered_title = {title} (སླར་གསོ་འབད་ཡོད།)
 workspace.recovery.recovered.other = ཧེ་མའི་ལཱ་ཐུན་ལས་མ་སྲུངས་པའི་ཡིག་ཆ་གྱངས་ཁ་ {n} སླར་གསོ་འབད་ཡི།
+workspace.colormgmt.vision_on = དཔེ་ལྟ: {name}
+workspace.colormgmt.vision_off = སྤྱིར་བཏང་མཐོང་སྣང་།

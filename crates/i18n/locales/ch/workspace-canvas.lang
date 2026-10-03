@@ -35,3 +35,7 @@ workspace.history.move_layers = Na'kalamten layer siha
 workspace.history.layer_opacity = Opasidåt layer
 workspace.history.delete_note = Na'suha nota
 workspace.history.edit_note = Edita nota
+workspace.canvas.clipping_on = Aktibu i abisu pot klipping
+workspace.canvas.clipping_off = Ti aktibu i abisu pot klipping
+workspace.canvas.peaking_on = Aktibu i pikon fokus
+workspace.canvas.peaking_off = Ti aktibu i pikon fokus

@@ -90,3 +90,5 @@ workspace.file_picker.downloads = 다운로드
 workspace.file_picker.permission_denied = Schist에 이 폴더를 읽을 권한이 없습니다
 workspace.recovery.recovered_title = {title}(복구됨)
 workspace.recovery.recovered.other = 이전 세션에서 저장되지 않은 문서 {n}개를 복구했습니다
+workspace.colormgmt.vision_on = {name} 시뮬레이션 중
+workspace.colormgmt.vision_off = 정상 시각

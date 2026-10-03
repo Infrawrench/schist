@@ -36,3 +36,7 @@ workspace.history.move_layers = Perkelti sluoksnius
 workspace.history.layer_opacity = Sluoksnio nepermatomumas
 workspace.history.delete_note = Ištrinti pastabą
 workspace.history.edit_note = Redaguoti pastabą
+workspace.canvas.clipping_on = Apkirpimo įspėjimai įjungti
+workspace.canvas.clipping_off = Apkirpimo įspėjimai išjungti
+workspace.canvas.peaking_on = Fokusavimo paryškinimas įjungtas
+workspace.canvas.peaking_off = Fokusavimo paryškinimas išjungtas

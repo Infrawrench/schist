@@ -101,3 +101,5 @@ workspace.file_picker.permission_denied = Schist ਕੋਲ ਇਹ ਫੋਲਡ�
 workspace.recovery.recovered_title = {title} (ਬਹਾਲ ਕੀਤਾ)
 workspace.recovery.recovered.one = ਪਿਛਲੇ ਸੈਸ਼ਨ ਦਾ {n} ਨਾ ਸੰਭਾਲਿਆ ਦਸਤਾਵੇਜ਼ ਬਹਾਲ ਕੀਤਾ
 workspace.recovery.recovered.other = ਪਿਛਲੇ ਸੈਸ਼ਨ ਦੇ {n} ਦਸਤਾਵੇਜ਼ ਬਹਾਲ ਕੀਤੇ
+workspace.colormgmt.vision_on = ਸਿਮੂਲੇਸ਼ਨ: {name}
+workspace.colormgmt.vision_off = ਆਮ ਨਜ਼ਰ

@@ -40,3 +40,7 @@ workspace.history.move_layers = Matsar da Shimfiɗu
 workspace.history.layer_opacity = Rashin Bayyanar Shimfiɗa
 workspace.history.delete_note = Share Bayani
 workspace.history.edit_note = Gyara Bayani
+workspace.canvas.clipping_on = An kunna gargaɗin yankewa
+workspace.canvas.clipping_off = An kashe gargaɗin yankewa
+workspace.canvas.peaking_on = An kunna mayar da hankali mai kaifi
+workspace.canvas.peaking_off = An kashe mayar da hankali mai kaifi

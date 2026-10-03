@@ -92,3 +92,5 @@ workspace.file_picker.permission_denied = Schist ukaankaa kana dubbisuuf hayyama
 workspace.recovery.recovered_title = {title} (deebifame)
 workspace.recovery.recovered.one = Hojii hin olkaa'amne seshinii darbe irraa deebiseera
 workspace.recovery.recovered.other = Galmeewwan {n} seshinii darbe irraa deebiseera
+workspace.colormgmt.vision_on = Fakkeessuu: {name}
+workspace.colormgmt.vision_off = Argiinsa idilee

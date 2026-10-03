@@ -93,3 +93,5 @@ workspace.file_picker.permission_denied = Schist کو یہ فولڈر پڑھنے
 workspace.recovery.recovered_title = {title} (بحال شدہ)
 workspace.recovery.recovered.one = گزشتہ نشست کا غیر محفوظ کام بحال کیا گیا
 workspace.recovery.recovered.other = گزشتہ نشست کی {n} دستاویزات بحال کی گئیں
+workspace.colormgmt.vision_on = نقالی: {name}
+workspace.colormgmt.vision_off = عام بصارت

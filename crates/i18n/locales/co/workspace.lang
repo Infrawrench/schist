@@ -90,3 +90,5 @@ workspace.file_picker.downloads = Scaricamenti
 workspace.file_picker.permission_denied = Schist ùn hà micca u permessu di leghje stu cartulare
 workspace.recovery.recovered_title = {title} (ricuperatu)
 workspace.recovery.recovered.other = Travagliu micca arregistratu ricuperatu da una sessione precedente; ducumenti: {n}
+workspace.colormgmt.vision_on = Simulazione: {name}
+workspace.colormgmt.vision_off = Visione nurmale

@@ -36,3 +36,7 @@ workspace.history.move_layers = Qatları köçür
 workspace.history.layer_opacity = Qatın qeyri-şəffaflığı
 workspace.history.delete_note = Qeydi sil
 workspace.history.edit_note = Qeydi redaktə et
+workspace.canvas.clipping_on = Kəsilmə xəbərdarlıqları aktivdir
+workspace.canvas.clipping_off = Kəsilmə xəbərdarlıqları deaktivdir
+workspace.canvas.peaking_on = Fokus vurğusu aktivdir
+workspace.canvas.peaking_off = Fokus vurğusu deaktivdir

@@ -133,3 +133,5 @@ workspace.file_picker.permission_denied = এই ফ'ল্ডাৰ পঢ়�
 workspace.recovery.recovered_title = {title} (পুনৰুদ্ধাৰ কৰা)
 workspace.recovery.recovered.one = আগৰ ছেশ্যনৰ {n}টা অসংৰক্ষিত দস্তাবেজ পুনৰুদ্ধাৰ কৰা হ'ল
 workspace.recovery.recovered.other = আগৰ ছেশ্যনৰ {n}টা দস্তাবেজ পুনৰুদ্ধাৰ কৰা হ'ল
+workspace.colormgmt.vision_on = অনুকৰণ: {name}
+workspace.colormgmt.vision_off = সাধাৰণ দৃষ্টি

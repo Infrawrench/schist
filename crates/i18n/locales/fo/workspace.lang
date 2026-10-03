@@ -92,3 +92,5 @@ workspace.file_picker.permission_denied = Schist hevur ikki loyvi at lesa hesa m
 workspace.recovery.recovered_title = {title} (endurstovnað)
 workspace.recovery.recovered.one = Endurstovnaði ógoymt arbeiði úr einari eldri setu
 workspace.recovery.recovered.other = Endurstovnaði {n} skjøl úr einari eldri setu
+workspace.colormgmt.vision_on = Eftirlíking: {name}
+workspace.colormgmt.vision_off = Vanlig sjón

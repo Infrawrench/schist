@@ -90,3 +90,5 @@ workspace.file_picker.downloads = Йөкләмәләр
 workspace.file_picker.permission_denied = Schist-ның бу папканы укырга рөхсәте юк
 workspace.recovery.recovered_title = {title} (торгызылган)
 workspace.recovery.recovered.other = Алдагы сеанстан {n} сакланмаган документ торгызылды
+workspace.colormgmt.vision_on = Симуляция: {name}
+workspace.colormgmt.vision_off = Гадәти күрү

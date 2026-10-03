@@ -105,3 +105,5 @@ workspace.file_picker.permission_denied = I-Schist kayilamvumo yokubala ifolda l
 workspace.recovery.recovered_title = {title} (kubuyiselwe)
 workspace.recovery.recovered.one = Kubuyiselwe umsebenzi ongagcinwanga kuseshini edlulileyo
 workspace.recovery.recovered.other = Kubuyiselwe amadokhumenti angu-{n} kuseshini edlulileyo
+workspace.colormgmt.vision_on = Ukulingisa: {name}
+workspace.colormgmt.vision_off = Ukubona okujwayelekileyo

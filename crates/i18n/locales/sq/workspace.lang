@@ -93,3 +93,5 @@ workspace.file_picker.permission_denied = Schist nuk ka leje ta lexojë këtë d
 workspace.recovery.recovered_title = {title} (i rikuperuar)
 workspace.recovery.recovered.one = U rikuperua puna e paruajtur nga një sesion i mëparshëm
 workspace.recovery.recovered.other = U rikuperuan {n} dokumente nga një sesion i mëparshëm
+workspace.colormgmt.vision_on = Simulim: {name}
+workspace.colormgmt.vision_off = Shikim normal

@@ -37,3 +37,7 @@ workspace.history.move_layers = Ҡатламдарҙы күсереү
 workspace.history.layer_opacity = Ҡатламдың үтә күренмәүсәнлеге
 workspace.history.delete_note = Иҫкәрмәне юйыу
 workspace.history.edit_note = Иҫкәрмәне үҙгәртеү
+workspace.canvas.clipping_on = Киҫелеү иҫкәртеүҙәре ҡабыҙылды
+workspace.canvas.clipping_off = Киҫелеү иҫкәртеүҙәре һүндерелде
+workspace.canvas.peaking_on = Фокус контуры ҡабыҙылды
+workspace.canvas.peaking_off = Фокус контуры һүндерелде

@@ -99,3 +99,5 @@ workspace.file_picker.permission_denied = Schistqa kay karpetata ñawinchanapaq 
 
 workspace.recovery.recovered_title = {title} (kutichisqa)
 workspace.recovery.recovered.other = Ñawpaq sesiónmanta mana waqaychasqa {n} qillqa khipu kutichisqa
+workspace.colormgmt.vision_on = Rikch'anachiy: {name}
+workspace.colormgmt.vision_off = Kikin rikuy

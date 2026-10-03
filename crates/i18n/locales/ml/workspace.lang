@@ -92,3 +92,5 @@ workspace.file_picker.permission_denied = ഈ ഫോൾഡർ വായിക്
 workspace.recovery.recovered_title = {title} (വീണ്ടെടുത്തത്)
 workspace.recovery.recovered.one = മുൻ സെഷനിൽ സംരക്ഷിക്കാത്ത പ്രവർത്തനം വീണ്ടെടുത്തു
 workspace.recovery.recovered.other = മുൻ സെഷനിൽനിന്ന് {n} ഡോക്യുമെന്റുകൾ വീണ്ടെടുത്തു
+workspace.colormgmt.vision_on = സിമുലേഷൻ: {name}
+workspace.colormgmt.vision_off = സാധാരണ കാഴ്ച

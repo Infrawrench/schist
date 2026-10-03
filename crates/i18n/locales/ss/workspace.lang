@@ -92,3 +92,5 @@ workspace.file_picker.permission_denied = Schist ayinayo imvume yekufundza lefol
 workspace.recovery.recovered_title = {title} (kubuyiselwe)
 workspace.recovery.recovered.one = Kubuyiselwe umsebenti longakagcinwa kuseshini leyendlulile
 workspace.recovery.recovered.other = Kubuyiselwe emadokhumenti langu-{n} kuseshini leyendlulile
+workspace.colormgmt.vision_on = Kulinganisa: {name}
+workspace.colormgmt.vision_off = Kubona kwekujwayelekile

@@ -92,3 +92,5 @@ workspace.file_picker.permission_denied = Schist haina mvumo yekuverenga forodha
 workspace.recovery.recovered_title = {title} (radzorerwa)
 workspace.recovery.recovered.one = Basa risina kuchengetwa remusesheni yapfuura radzorerwa
 workspace.recovery.recovered.other = Magwaro {n} emusesheni yapfuura adzorerwa
+workspace.colormgmt.vision_on = Kuedzesera: {name}
+workspace.colormgmt.vision_off = Kuona kwakajairika

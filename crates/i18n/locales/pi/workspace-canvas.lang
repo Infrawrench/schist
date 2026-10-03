@@ -35,3 +35,7 @@ workspace.history.move_layers = Santharānaṃ cālanaṃ
 workspace.history.layer_opacity = Santharassa avinivijjhadassitā
 workspace.history.delete_note = Satiyā lekhanāsanaṃ
 workspace.history.edit_note = Satiyā lekhasampādanaṃ
+workspace.canvas.clipping_on = Chinnabhāga-ñāpanāni pavattāni
+workspace.canvas.clipping_off = Chinnabhāga-ñāpanāni nivattāni
+workspace.canvas.peaking_on = Pamukhabindu-nidassanaṃ pavattaṃ
+workspace.canvas.peaking_off = Pamukhabindu-nidassanaṃ nivattaṃ

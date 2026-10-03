@@ -92,3 +92,5 @@ workspace.file_picker.permission_denied = Schist няма разрешение �
 workspace.recovery.recovered_title = {title} (възстановен)
 workspace.recovery.recovered.one = Възстановена е незапазена работа от предишна сесия
 workspace.recovery.recovered.other = Възстановени са {n} документа от предишна сесия
+workspace.colormgmt.vision_on = Симулация: {name}
+workspace.colormgmt.vision_off = Нормално зрение

@@ -99,3 +99,5 @@ workspace.recovery.recovered.two = Ġew irkuprati {n} dokumenti minn sessjoni pr
 workspace.recovery.recovered.few = Ġew irkuprati {n} dokumenti minn sessjoni preċedenti
 workspace.recovery.recovered.many = Ġew irkuprati {n}-il dokument minn sessjoni preċedenti
 workspace.recovery.recovered.other = Ġie rkuprat {n} dokument minn sessjoni preċedenti
+workspace.colormgmt.vision_on = Simulazzjoni: {name}
+workspace.colormgmt.vision_off = Vista normali

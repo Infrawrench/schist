@@ -35,3 +35,7 @@ workspace.history.move_layers = Ilipat ang mga Layer
 workspace.history.layer_opacity = Opacity ng Layer
 workspace.history.delete_note = Burahin ang Tala
 workspace.history.edit_note = I-edit ang Tala
+workspace.canvas.clipping_on = Naka-on ang mga babala sa clipping
+workspace.canvas.clipping_off = Naka-off ang mga babala sa clipping
+workspace.canvas.peaking_on = Naka-on ang focus peaking
+workspace.canvas.peaking_off = Naka-off ang focus peaking

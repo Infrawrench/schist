@@ -90,3 +90,5 @@ workspace.file_picker.downloads = ດາວໂຫຼດ
 workspace.file_picker.permission_denied = Schist ບໍ່ມີສິດອ່ານໂຟນເດີນີ້
 workspace.recovery.recovered_title = {title} (ກູ້ຄືນແລ້ວ)
 workspace.recovery.recovered.other = ກູ້ຄືນວຽກທີ່ຍັງບໍ່ໄດ້ບັນທຶກຈາກເຊສຊັນກ່ອນໄດ້ {n} ເອກະສານ
+workspace.colormgmt.vision_on = ກຳລັງຈຳລອງ: {name}
+workspace.colormgmt.vision_off = ການເບິ່ງເຫັນປົກກະຕິ

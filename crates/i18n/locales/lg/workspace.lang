@@ -92,3 +92,5 @@ workspace.file_picker.permission_denied = Schist terina lukusa kusoma folda eno
 workspace.recovery.recovered_title = {title} (eziddwawo)
 workspace.recovery.recovered.one = Omulimu ogutaterekeddwa okuva mu session eyayita guzziddwawo
 workspace.recovery.recovered.other = Ebiwandiiko {n} okuva mu session eyayita bizziddwawo
+workspace.colormgmt.vision_on = Okukoppa: {name}
+workspace.colormgmt.vision_off = Okulaba okwa bulijjo

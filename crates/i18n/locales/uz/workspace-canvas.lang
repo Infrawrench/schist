@@ -36,3 +36,7 @@ workspace.history.move_layers = Qatlamlarni ko‘chirish
 workspace.history.layer_opacity = Qatlam xiraligi
 workspace.history.delete_note = Qaydni o‘chirish
 workspace.history.edit_note = Qaydni tahrirlash
+workspace.canvas.clipping_on = Kesilish ogohlantirishlari yoqildi
+workspace.canvas.clipping_off = Kesilish ogohlantirishlari o‘chirildi
+workspace.canvas.peaking_on = Fokusni ajratib ko‘rsatish yoqildi
+workspace.canvas.peaking_off = Fokusni ajratib ko‘rsatish o‘chirildi

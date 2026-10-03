@@ -105,3 +105,5 @@ workspace.file_picker.permission_denied = Schist hat gjin tastimming om dizze ma
 workspace.recovery.recovered_title = {title} (weromhelle)
 workspace.recovery.recovered.one = Net bewarre wurk út in eardere sesje weromhelle
 workspace.recovery.recovered.other = {n} dokuminten út in eardere sesje weromhelle
+workspace.colormgmt.vision_on = Simulaasje: {name}
+workspace.colormgmt.vision_off = Normale fisy

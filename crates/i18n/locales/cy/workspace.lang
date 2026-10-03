@@ -102,3 +102,5 @@ workspace.recovery.recovered.two = Wedi adfer {n} ddogfen o sesiwn flaenorol
 workspace.recovery.recovered.few = Wedi adfer {n} dogfen o sesiwn flaenorol
 workspace.recovery.recovered.many = Wedi adfer {n} dogfen o sesiwn flaenorol
 workspace.recovery.recovered.other = Wedi adfer {n} dogfen o sesiwn flaenorol
+workspace.colormgmt.vision_on = Efelychu: {name}
+workspace.colormgmt.vision_off = Golwg normal

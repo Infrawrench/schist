@@ -128,3 +128,5 @@ workspace.file_picker.permission_denied = Schist にはこのフォルダーを�
 # クラッシュからの復元（recovery.rs）
 workspace.recovery.recovered_title = {title}（復元）
 workspace.recovery.recovered.other = 前回のセッションから {n} 個のドキュメントを復元しました
+workspace.colormgmt.vision_on = シミュレーション中：{name}
+workspace.colormgmt.vision_off = 一般色覚

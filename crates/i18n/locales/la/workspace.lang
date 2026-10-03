@@ -90,3 +90,5 @@ workspace.file_picker.downloads = Res Descensae
 workspace.file_picker.permission_denied = Schist permissionem hanc thecam legendi non habet
 workspace.recovery.recovered_title = {title} (recuperatum)
 workspace.recovery.recovered.other = Opera non servata ex sessione priore recuperata; documentorum numerus: {n}
+workspace.colormgmt.vision_on = Simulatio: {name}
+workspace.colormgmt.vision_off = Visio normalis

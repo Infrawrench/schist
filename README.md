@@ -144,7 +144,11 @@ process channels through supported edits and saves. Import `.aco`, `.ase` and
 `.acb` palettes in the Color panel, including user-supplied colour books; no
 Pantone libraries are bundled. [Spot ink channels](docs/spot-ink.md) provide
 editable separations and an overprint display simulation, with PSD/PSB
-interchange and documented proofing limits.
+interchange and documented proofing limits. **View ▸ Color Vision** simulates
+protanopia, deuteranopia, tritanopia, their anomalous forms at three severities,
+and achromatopsia on screen only; **Clipping Warnings** and **Focus Peaking**
+overlay the canvas and the gallery's viewers (see
+[viewer overlays](docs/viewer-overlays.md)).
 
 **Design Mode.** A page layout editor alongside the photo editor, sharing
 the window and the panels: pages and spreads, a fitted pasteboard with
@@ -231,7 +235,7 @@ Photoshop's defaults (⌘ on macOS, Ctrl elsewhere):
 | Layers | ⌘⇧N new · ⌘J duplicate · ⌘⇧J via cut · ⌘G group · ⌘E/⌘⇧E merge · ⌘[ ⌘] reorder · ⌘⌥G clipping mask |
 | Adjust | ⌘L levels · ⌘M curves · ⌘U hue/sat · ⌘I invert |
 | Fill | ⇧F5 Fill… · ⌥⌫ / ⌃⌫ fill with fore/background |
-| View | ⌘0 fit · ⌘1 100% · ⌘R rulers · ⌘' grid · ⌘; guides · ⌘H extras · Tab/F screen modes · ⌘K preferences |
+| View | ⌘0 fit · ⌘1 100% · ⌘R rulers · ⌘' grid · ⌘; guides · ⌘H extras · Tab/F screen modes · ⌘K preferences · ⌥J clipping warnings · ⌥⇧J focus peaking |
 | Painting | `[`/`]` brush size · digits set opacity · `D`/`X` default・swap colours |
 
 ## Mouse and touchpad
@@ -245,8 +249,13 @@ Remap shortcuts in `~/.config/schist/keymap.json` (or under
 `$XDG_CONFIG_HOME/schist/`):
 
 ```json
-{ "ctrl-shift-x": "command:edit.fill_foreground", "f1": "tool:brush" }
+{ "ctrl-shift-x": "command:edit.fill_foreground", "f1": "tool:brush", "q": "view:clipping" }
 ```
+
+`view:` targets are the viewer overlays and colour-vision proofs: `clipping`,
+`focus_peaking`, `vision.normal`, and `vision.protanopia` (likewise
+`deuteranopia`, `tritanopia`, `protanomaly`, `deuteranomaly`, `tritanomaly`,
+`achromatopsia`). They work in the gallery as well as the editor.
 
 ## Plugins and automation
 

@@ -117,3 +117,5 @@ workspace.file_picker.permission_denied = Schistek ez du karpeta hau irakurtzeko
 workspace.recovery.recovered_title = {title} (berreskuratua)
 workspace.recovery.recovered.one = Aurreko saioko gorde gabeko lana berreskuratu da
 workspace.recovery.recovered.other = Aurreko saioko {n} dokumentu berreskuratu dira
+workspace.colormgmt.vision_on = Simulazioa: {name}
+workspace.colormgmt.vision_off = Ikusmen normala

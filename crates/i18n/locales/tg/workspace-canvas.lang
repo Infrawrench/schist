@@ -35,3 +35,7 @@ workspace.history.move_layers = Ҷойивазкунии қабатҳо
 workspace.history.layer_opacity = Ношаффофии қабат
 workspace.history.delete_note = Нест кардани ёддошт
 workspace.history.edit_note = Таҳрири ёддошт
+workspace.canvas.clipping_on = Огоҳиҳои буридашавӣ фаъоланд
+workspace.canvas.clipping_off = Огоҳиҳои буридашавӣ ғайрифаъоланд
+workspace.canvas.peaking_on = Таъкиди фокус фаъол аст
+workspace.canvas.peaking_off = Таъкиди фокус ғайрифаъол аст

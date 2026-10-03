@@ -90,3 +90,5 @@ workspace.file_picker.downloads = Ol Download
 workspace.file_picker.permission_denied = Schist i no gat raet blong ridim folda ya
 workspace.recovery.recovered_title = {title} (karem bakegen)
 workspace.recovery.recovered.other = Karem bakegen wok we i no sev long wan session bifo; namba blong dokumen: {n}
+workspace.colormgmt.vision_on = Simulesen: {name}
+workspace.colormgmt.vision_off = Normal luk

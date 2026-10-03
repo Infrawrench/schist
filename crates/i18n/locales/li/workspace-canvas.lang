@@ -36,3 +36,7 @@ workspace.history.move_layers = Laoge verplaatse
 workspace.history.layer_opacity = Laogdèkking
 workspace.history.delete_note = Notitie verwiedere
 workspace.history.edit_note = Notitie bewèrke
+workspace.canvas.clipping_on = Clippingwaorsjuwwinge aan
+workspace.canvas.clipping_off = Clippingwaorsjuwwinge oet
+workspace.canvas.peaking_on = Focuspeaking aan
+workspace.canvas.peaking_off = Focuspeaking oet

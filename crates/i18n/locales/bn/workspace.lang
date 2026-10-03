@@ -92,3 +92,5 @@ workspace.file_picker.permission_denied = এই ফোল্ডার পড়
 workspace.recovery.recovered_title = {title} (পুনরুদ্ধার করা)
 workspace.recovery.recovered.one = আগের সেশন থেকে {n}টি অসংরক্ষিত নথি পুনরুদ্ধার হয়েছে
 workspace.recovery.recovered.other = আগের সেশন থেকে {n}টি নথি পুনরুদ্ধার হয়েছে
+workspace.colormgmt.vision_on = সিমুলেশন: {name}
+workspace.colormgmt.vision_off = স্বাভাবিক দৃষ্টি

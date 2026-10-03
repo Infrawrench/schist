@@ -90,3 +90,5 @@ workspace.file_picker.downloads = Download ko
 workspace.file_picker.permission_denied = Schist ejjab melim ñan riit folder in
 workspace.recovery.recovered_title = {title} (eṃōj kōjparok)
 workspace.recovery.recovered.other = Eṃōj bar bōktok jerbal ko rejjañin kōjparok jen session eo mokta, document {n}
+workspace.colormgmt.vision_on = Kōmmaanļọk: {name}
+workspace.colormgmt.vision_off = Lale eṃṃan

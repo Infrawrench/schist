@@ -36,3 +36,7 @@ workspace.history.move_layers = Ɖe Layerwo
 workspace.history.layer_opacity = Layer ƒe Opacity
 workspace.history.delete_note = Tutui Nuŋlɔɖi
 workspace.history.edit_note = Trɔ Nuŋlɔɖi
+workspace.canvas.clipping_on = Nuɖoɖo ƒe xlãdzesiwo le dɔ wɔm
+workspace.canvas.clipping_off = Nuɖoɖo ƒe xlãdzesiwo mele dɔ wɔm o
+workspace.canvas.peaking_on = Focus ƒe nyanyɔ le dɔ wɔm
+workspace.canvas.peaking_off = Focus ƒe nyanyɔ mele dɔ wɔm o

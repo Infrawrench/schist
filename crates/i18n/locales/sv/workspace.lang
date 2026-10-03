@@ -128,3 +128,5 @@ workspace.file_picker.permission_denied = Schist har inte behörighet att läsa 
 workspace.recovery.recovered_title = {title} (återställd)
 workspace.recovery.recovered.one = Återställde osparat arbete från en tidigare session
 workspace.recovery.recovered.other = Återställde {n} dokument från en tidigare session
+workspace.colormgmt.vision_on = Simulerar {name}
+workspace.colormgmt.vision_off = Normalt seende

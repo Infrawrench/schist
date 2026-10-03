@@ -37,3 +37,7 @@ workspace.history.move_layers = အလွှာများကို ရွှ�
 workspace.history.layer_opacity = အလွှာ အလင်းပိတ်မှု
 workspace.history.delete_note = မှတ်စု ဖျက်ရန်
 workspace.history.edit_note = မှတ်စု တည်းဖြတ်ရန်
+workspace.canvas.clipping_on = ကလစ်ပင် သတိပေးချက်များ ဖွင့်ထားသည်
+workspace.canvas.clipping_off = ကလစ်ပင် သတိပေးချက်များ ပိတ်ထားသည်
+workspace.canvas.peaking_on = ဖိုကပ်စ် ပီးကင်း ဖွင့်ထားသည်
+workspace.canvas.peaking_off = ဖိုကပ်စ် ပီးကင်း ပိတ်ထားသည်

@@ -92,3 +92,5 @@ workspace.file_picker.permission_denied = Schist-in bu qovluğu oxumaq icazəsi 
 workspace.recovery.recovered_title = {title} (bərpa edilib)
 workspace.recovery.recovered.one = Əvvəlki sessiyadan saxlanmamış iş bərpa edildi
 workspace.recovery.recovered.other = Əvvəlki sessiyadan {n} sənəd bərpa edildi
+workspace.colormgmt.vision_on = Simulyasiya: {name}
+workspace.colormgmt.vision_off = Normal görmə

@@ -105,3 +105,5 @@ workspace.file_picker.permission_denied = Schist har ikkje løyve til å lesa de
 workspace.recovery.recovered_title = {title} (gjenoppretta)
 workspace.recovery.recovered.one = Gjenoppretta ulagret arbeid frå ei tidlegare økt
 workspace.recovery.recovered.other = Gjenoppretta {n} dokument frå ei tidlegare økt
+workspace.colormgmt.vision_on = Simulerer: {name}
+workspace.colormgmt.vision_off = Normalt syn

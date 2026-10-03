@@ -90,3 +90,5 @@ workspace.file_picker.downloads = Ñemboguejy
 workspace.file_picker.permission_denied = Schist ndoguerekói ñemoneĩ omoñe'ẽ hag̃ua ko ñongatuha
 workspace.recovery.recovered_title = {title} (oñeguerujeypyre)
 workspace.recovery.recovered.other = Oñegueru jey {n} kuatia ñeñongatu'ỹva tembiapo ohasava'ekuégui
+workspace.colormgmt.vision_on = Mba'e'oka: {name}
+workspace.colormgmt.vision_off = Jehecha tee

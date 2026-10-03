@@ -92,3 +92,5 @@ workspace.file_picker.permission_denied = Schistil pole õigust seda kausta luge
 workspace.recovery.recovered_title = {title} (taastatud)
 workspace.recovery.recovered.one = Eelmise seansi salvestamata töö taastati
 workspace.recovery.recovered.other = Eelmisest seansist taastati {n} dokumenti
+workspace.colormgmt.vision_on = Simulatsioon: {name}
+workspace.colormgmt.vision_off = Normaalne nägemine

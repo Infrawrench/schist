@@ -38,3 +38,7 @@ workspace.history.move_layers = Tramuda is istratos
 workspace.history.layer_opacity = Opacidade de s'istratu
 workspace.history.delete_note = Cantzella sa nota
 workspace.history.edit_note = Modìfica sa nota
+workspace.canvas.clipping_on = Avisos de clipping ativos
+workspace.canvas.clipping_off = Avisos de clipping disativados
+workspace.canvas.peaking_on = Evidentziadura de su focu ativa
+workspace.canvas.peaking_off = Evidentziadura de su focu disativada

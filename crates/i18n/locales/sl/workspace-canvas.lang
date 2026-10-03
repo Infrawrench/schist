@@ -36,3 +36,7 @@ workspace.history.move_layers = Premakni plasti
 workspace.history.layer_opacity = Prekrivnost plasti
 workspace.history.delete_note = Izbriši opombo
 workspace.history.edit_note = Uredi opombo
+workspace.canvas.clipping_on = Opozorila o porezanosti so vključena
+workspace.canvas.clipping_off = Opozorila o porezanosti so izključena
+workspace.canvas.peaking_on = Poudarjanje ostrine je vključeno
+workspace.canvas.peaking_off = Poudarjanje ostrine je izključeno

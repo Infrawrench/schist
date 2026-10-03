@@ -36,3 +36,7 @@ workspace.history.move_layers = Катмарларды жылдыруу
 workspace.history.layer_opacity = Катмардын тунуктугу
 workspace.history.delete_note = Эскертмени өчүрүү
 workspace.history.edit_note = Эскертмени түзөтүү
+workspace.canvas.clipping_on = Кыркылуу эскертүүлөрү көрсөтүлдү
+workspace.canvas.clipping_off = Кыркылуу эскертүүлөрү жашырылды
+workspace.canvas.peaking_on = Фокусту белгилөө көрсөтүлдү
+workspace.canvas.peaking_off = Фокусту белгилөө жашырылды

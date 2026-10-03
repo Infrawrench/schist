@@ -35,3 +35,7 @@ workspace.history.move_layers = Bog Sraitheanna
 workspace.history.layer_opacity = Teimhneacht Sraithe
 workspace.history.delete_note = Scrios Nóta
 workspace.history.edit_note = Cuir Nóta in Eagar
+workspace.canvas.clipping_on = Rabhaidh bearrtha ann
+workspace.canvas.clipping_off = Rabhaidh bearrtha as
+workspace.canvas.peaking_on = Aibhsiú fócais ann
+workspace.canvas.peaking_off = Aibhsiú fócais as

@@ -94,3 +94,5 @@ workspace.recovery.recovered_title = {title} (obnoveno)
 workspace.recovery.recovered.one = Obnovena neuložená práce z předchozího sezení
 workspace.recovery.recovered.few = Obnoveny {n} dokumenty z předchozího sezení
 workspace.recovery.recovered.other = Obnoveno {n} dokumentů z předchozího sezení
+workspace.colormgmt.vision_on = Simulace: {name}
+workspace.colormgmt.vision_off = Normální vidění

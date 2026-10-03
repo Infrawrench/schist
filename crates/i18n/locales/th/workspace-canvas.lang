@@ -35,3 +35,7 @@ workspace.history.move_layers = ย้ายเลเยอร์
 workspace.history.layer_opacity = ความทึบของเลเยอร์
 workspace.history.delete_note = ลบบันทึกย่อ
 workspace.history.edit_note = แก้ไขบันทึกย่อ
+workspace.canvas.clipping_on = เปิดคำเตือนคลิปปิ้ง
+workspace.canvas.clipping_off = ปิดคำเตือนคลิปปิ้ง
+workspace.canvas.peaking_on = เปิดโฟกัสพีคกิ้ง
+workspace.canvas.peaking_off = ปิดโฟกัสพีคกิ้ง

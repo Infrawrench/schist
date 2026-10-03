@@ -90,3 +90,5 @@ workspace.file_picker.downloads = Боргириҳо
 workspace.file_picker.permission_denied = Schist иҷозаи хондани ин ҷузвдонро надорад
 workspace.recovery.recovered_title = {title} (барқароршуда)
 workspace.recovery.recovered.other = Кори захиранашуда аз ҷаласаи пешина барқарор шуд: {n} ҳуҷҷат
+workspace.colormgmt.vision_on = Шабеҳсозӣ: {name}
+workspace.colormgmt.vision_off = Биниши муқаррарӣ

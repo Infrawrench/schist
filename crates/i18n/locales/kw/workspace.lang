@@ -100,3 +100,5 @@ workspace.recovery.recovered.two = {n} skrifen daskavys dhyworth esedh kyns
 workspace.recovery.recovered.few = {n} skrifen daskavys dhyworth esedh kyns
 workspace.recovery.recovered.many = {n} skrifen daskavys dhyworth esedh kyns
 workspace.recovery.recovered.other = {n} skrifen daskavys dhyworth esedh kyns
+workspace.colormgmt.vision_on = Hevelepheans: {name}
+workspace.colormgmt.vision_off = Gwel kynsa

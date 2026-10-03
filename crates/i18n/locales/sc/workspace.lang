@@ -117,3 +117,5 @@ workspace.file_picker.permission_denied = Schist no tenet su permissu de lègher
 workspace.recovery.recovered_title = {title} (recuperadu)
 workspace.recovery.recovered.one = Recuperadu su traballu non sarvadu dae una sessione pretzedente
 workspace.recovery.recovered.other = Recuperados {n} documentos dae una sessione pretzedente
+workspace.colormgmt.vision_on = Simulatzione: {name}
+workspace.colormgmt.vision_off = Visione normale

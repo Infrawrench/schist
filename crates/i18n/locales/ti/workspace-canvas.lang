@@ -35,3 +35,7 @@ workspace.history.move_layers = ንጣፋት ምንቅስቓስ
 workspace.history.layer_opacity = መጠን ምሽፋን ንጣፍ
 workspace.history.delete_note = መዘኻኸሪ ምድምሳስ
 workspace.history.edit_note = መዘኻኸሪ ምምሕያሽ
+workspace.canvas.clipping_on = ኣጠንቀቕታታት ምቑራጽ ክፉት
+workspace.canvas.clipping_off = ኣጠንቀቕታታት ምቑራጽ ዕጹው
+workspace.canvas.peaking_on = ምጉላሕ ትኹረት ክፉት
+workspace.canvas.peaking_off = ምጉላሕ ትኹረት ዕጹው

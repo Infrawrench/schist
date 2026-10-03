@@ -35,3 +35,7 @@ workspace.history.move_layers = Muvum Ol Layer
 workspace.history.layer_opacity = Amaon we Layer i Kavrem Samting
 workspace.history.delete_note = Deletem Not
 workspace.history.edit_note = Editim Not
+workspace.canvas.clipping_on = Woning blong Clipping i on
+workspace.canvas.clipping_off = Woning blong Clipping i off
+workspace.canvas.peaking_on = Focus Peaking i on
+workspace.canvas.peaking_off = Focus Peaking i off

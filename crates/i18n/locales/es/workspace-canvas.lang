@@ -36,3 +36,7 @@ workspace.history.move_layers = Mover capas
 workspace.history.layer_opacity = Opacidad de capa
 workspace.history.delete_note = Eliminar nota
 workspace.history.edit_note = Editar nota
+workspace.canvas.clipping_on = Avisos de recorte activados
+workspace.canvas.clipping_off = Avisos de recorte desactivados
+workspace.canvas.peaking_on = Focus peaking activado
+workspace.canvas.peaking_off = Focus peaking desactivado

@@ -101,3 +101,5 @@ workspace.file_picker.permission_denied = Schist huet keng Berechtegung, dësen 
 workspace.recovery.recovered_title = {title} (erëm hiergestallt)
 workspace.recovery.recovered.one = Net gespäichert Aarbecht aus enger viregter Sessioun erëm hiergestallt
 workspace.recovery.recovered.other = {n} Dokumenter aus enger viregter Sessioun erëm hiergestallt
+workspace.colormgmt.vision_on = Simulatioun: {name}
+workspace.colormgmt.vision_off = Normal Siicht

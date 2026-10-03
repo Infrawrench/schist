@@ -352,9 +352,14 @@ fn editor_menus(ws: &Workspace) -> Vec<(&'static str, Vec<MenuEntry>)> {
                 Sep,
                 App(t("menu.view.screen_mode"), ScreenModeItem, Some("f")),
                 App(t("menu.view.proof_colors"), ProofColors, None),
+                Sub(t("menu.view.color_vision"), color_vision_entries()),
+                Sep,
+            ];
+            view_menu.extend(overlay_entries());
+            view_menu.extend([
                 Sep,
                 App(t("common.preferences"), Preferences, Some("cmd-k")),
-            ];
+            ]);
             // The pasteboard's two layouts. Only meaningful in Design
             // Mode, so they are left out of the photo editor's View
             // menu rather than shown permanently disabled.
@@ -517,9 +522,70 @@ fn gallery_menus(ws: &Workspace) -> Vec<(&'static str, Vec<MenuEntry>)> {
                 Sub(t("workspaces.title"), workspace_entries(ws)),
                 App(t("menu.view.ai_panel"), ToggleAi, Some("cmd-shift-a")),
                 Sep,
+            ]
+            .into_iter()
+            .chain(overlay_entries())
+            .chain([
+                Sep,
                 App(t("common.preferences"), Preferences, Some("cmd-k")),
-            ],
+            ])
+            .collect(),
         ),
+    ]
+}
+
+/// View ▸ Color Vision: normal vision, each simulated deficiency, and the
+/// anomalous kinds' severity.
+fn color_vision_entries() -> Vec<MenuEntry> {
+    use AppItem::*;
+    use MenuEntry::*;
+    let kinds = schist_colormgmt::VisionDeficiency::ALL.len() as u8;
+    let mut entries: Vec<MenuEntry> = (0..=kinds)
+        .map(|i| App(crate::workspace::vision_label(i), VisionSimulation(i), None))
+        .collect();
+    entries.insert(1, Sep);
+    entries.push(Sep);
+    entries.extend(
+        crate::workspace::VISION_SEVERITY
+            .iter()
+            .enumerate()
+            .map(|(i, (key, _))| App(t(key), VisionSeverity(i as u8), None)),
+    );
+    entries
+}
+
+/// The clipping and focus-peaking overlays, in the editor's View menu and
+/// the gallery's. The shortcuts shown are the defaults; keymap.json can
+/// rebind them as "view:clipping" and "view:focus_peaking".
+fn overlay_entries() -> Vec<MenuEntry> {
+    use AppItem::*;
+    use MenuEntry::*;
+    let key = |id: &str| {
+        schist_app_actions::keymap::DEFAULT_VIEW_OVERLAY_KEYS
+            .iter()
+            .find(|(_, overlay)| *overlay == id)
+            .map(|(key, _)| *key)
+    };
+    let mut options: Vec<MenuEntry> = crate::workspace::PEAKING_COLORS
+        .iter()
+        .enumerate()
+        .map(|(i, (label, _))| App(t(label), PeakingColor(i as u8), None))
+        .collect();
+    options.push(Sep);
+    options.extend(
+        crate::workspace::PEAKING_SENSITIVITY
+            .iter()
+            .enumerate()
+            .map(|(i, label)| App(t(label), PeakingSensitivity(i as u8), None)),
+    );
+    vec![
+        App(t("menu.view.clipping"), ToggleClipping, key("clipping")),
+        App(
+            t("menu.view.focus_peaking"),
+            ToggleFocusPeaking,
+            key("focus_peaking"),
+        ),
+        Sub(t("menu.view.peaking_options"), options),
     ]
 }
 

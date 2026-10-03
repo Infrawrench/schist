@@ -90,3 +90,5 @@ workspace.file_picker.downloads = Unduhan
 workspace.file_picker.permission_denied = Schist tidak memiliki izin untuk membaca folder ini
 workspace.recovery.recovered_title = {title} (dipulihkan)
 workspace.recovery.recovered.other = Memulihkan {n} dokumen yang belum disimpan dari sesi sebelumnya
+workspace.colormgmt.vision_on = Simulasi {name}
+workspace.colormgmt.vision_off = Penglihatan normal

@@ -90,3 +90,5 @@ workspace.file_picker.downloads = Faila ua Laʻu Mai
 workspace.file_picker.permission_denied = E leai se faatagaga a Schist e faitau ai lenei faila teu
 workspace.recovery.recovered_title = {title} (toe faafoʻi)
 workspace.recovery.recovered.other = Ua toe faafoʻi galuega e leʻi sefeina mai le sauniga talu ai: {n} le aofaʻi o pepa
+workspace.colormgmt.vision_on = Faataitaiga: {name}
+workspace.colormgmt.vision_off = Vaaiga masani

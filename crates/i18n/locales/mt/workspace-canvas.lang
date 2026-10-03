@@ -36,3 +36,7 @@ workspace.history.move_layers = Ċaqlaq is-Saffi
 workspace.history.layer_opacity = Opaċità tas-Saff
 workspace.history.delete_note = Ħassar in-Nota
 workspace.history.edit_note = Editja n-Nota
+workspace.canvas.clipping_on = It-twissijiet ta' clipping mixgħulin
+workspace.canvas.clipping_off = It-twissijiet ta' clipping mitfijin
+workspace.canvas.peaking_on = Il-focus peaking mixgħul
+workspace.canvas.peaking_off = Il-focus peaking mitfi

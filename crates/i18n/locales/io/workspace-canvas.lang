@@ -36,3 +36,7 @@ workspace.history.move_layers = Movar strati
 workspace.history.layer_opacity = Stratopakeso
 workspace.history.delete_note = Efacar noto
 workspace.history.edit_note = Redaktar noto
+workspace.canvas.clipping_on = Averti pri tranchado aktivigita
+workspace.canvas.clipping_off = Averti pri tranchado desaktivigita
+workspace.canvas.peaking_on = Fokusrelievo aktivigita
+workspace.canvas.peaking_off = Fokusrelievo desaktivigita

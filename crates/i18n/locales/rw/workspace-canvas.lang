@@ -36,3 +36,7 @@ workspace.history.move_layers = Kwimura inzego
 workspace.history.layer_opacity = Kutabonerana k'urwego
 workspace.history.delete_note = Gusiba akandiko
 workspace.history.edit_note = Guhindura akandiko
+workspace.canvas.clipping_on = Imburira z'ibyacagaguwe zirafunguye
+workspace.canvas.clipping_off = Imburira z'ibyacagaguwe zirafunze
+workspace.canvas.peaking_on = Aho ifoto yibanze harerekanwa
+workspace.canvas.peaking_off = Aho ifoto yibanze ntiharerekanwa

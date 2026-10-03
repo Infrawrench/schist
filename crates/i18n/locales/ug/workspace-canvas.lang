@@ -35,3 +35,7 @@ workspace.history.move_layers = قەۋەتلەرنى يۆتكەش
 workspace.history.layer_opacity = قەۋەت تۇتۇقلۇقى
 workspace.history.delete_note = ئىزاھنى ئۆچۈرۈش
 workspace.history.edit_note = ئىزاھنى تەھرىرلەش
+workspace.canvas.clipping_on = كېسىلىش ئاگاھلاندۇرۇشى ئوچۇق
+workspace.canvas.clipping_off = كېسىلىش ئاگاھلاندۇرۇشى تاقاق
+workspace.canvas.peaking_on = فوكۇس لېۋى ئوچۇق
+workspace.canvas.peaking_off = فوكۇس لېۋى تاقاق

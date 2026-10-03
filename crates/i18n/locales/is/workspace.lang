@@ -92,3 +92,5 @@ workspace.file_picker.permission_denied = Schist hefur ekki heimild til að lesa
 workspace.recovery.recovered_title = {title} (endurheimt)
 workspace.recovery.recovered.one = Endurheimti {n} óvistað skjal úr fyrri setu
 workspace.recovery.recovered.other = Endurheimti {n} skjöl úr fyrri setu
+workspace.colormgmt.vision_on = Hermun: {name}
+workspace.colormgmt.vision_off = Eðlileg litasjón

@@ -94,3 +94,5 @@ workspace.recovery.recovered_title = {title} (recuperat)
 workspace.recovery.recovered.one = S'ha recuperat feina no desada d'una sessió anterior
 workspace.recovery.recovered.many = S'han recuperat {n} documents d'una sessió anterior
 workspace.recovery.recovered.other = S'han recuperat {n} documents d'una sessió anterior
+workspace.colormgmt.vision_on = Simulació: {name}
+workspace.colormgmt.vision_off = Visió normal

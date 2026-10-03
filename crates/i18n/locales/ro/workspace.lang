@@ -94,3 +94,5 @@ workspace.recovery.recovered_title = {title} (recuperat)
 workspace.recovery.recovered.one = S-a recuperat munca nesalvată dintr-o sesiune anterioară
 workspace.recovery.recovered.few = S-au recuperat {n} documente dintr-o sesiune anterioară
 workspace.recovery.recovered.other = S-au recuperat {n} de documente dintr-o sesiune anterioară
+workspace.colormgmt.vision_on = Simulare: {name}
+workspace.colormgmt.vision_off = Vedere normală

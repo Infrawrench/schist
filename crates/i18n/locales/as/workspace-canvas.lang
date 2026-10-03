@@ -43,3 +43,7 @@ workspace.history.move_layers = স্তৰসমূহ স্থানান�
 workspace.history.layer_opacity = স্তৰৰ অস্বচ্ছতা
 workspace.history.delete_note = টোকা মচক
 workspace.history.edit_note = টোকা সম্পাদনা কৰক
+workspace.canvas.clipping_on = ক্লিপিং সতৰ্কবাণী চালু
+workspace.canvas.clipping_off = ক্লিপিং সতৰ্কবাণী বন্ধ
+workspace.canvas.peaking_on = ফোকাছ পিকিং চালু
+workspace.canvas.peaking_off = ফোকাছ পিকিং বন্ধ

@@ -35,3 +35,7 @@ workspace.history.move_layers = Mugitu geruzak
 workspace.history.layer_opacity = Geruzaren opakutasuna
 workspace.history.delete_note = Ezabatu oharra
 workspace.history.edit_note = Editatu oharra
+workspace.canvas.clipping_on = Ebakitze-abisuak aktibatuta
+workspace.canvas.clipping_off = Ebakitze-abisuak desaktibatuta
+workspace.canvas.peaking_on = Fokuaren nabarmentzea aktibatuta
+workspace.canvas.peaking_off = Fokuaren nabarmentzea desaktibatuta
