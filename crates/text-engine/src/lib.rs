@@ -159,6 +159,13 @@ pub struct TextSpec {
     /// Paint the generated hyphen selected when this isolated line was measured.
     #[serde(skip)]
     pub show_final_generated_hyphen: bool,
+    /// Transient UTF-8 spans that must stay whole during wrapping, such as a
+    /// generated variable's display text. Adjacent spans remain independent;
+    /// their edges still obey ordinary break opportunities and authored No Break.
+    /// Spans use grapheme boundaries and cannot contain forced breaks.
+    /// Invalid spans reject layout. Rebuild them after editing source text.
+    #[serde(skip)]
+    pub atomic_spans: Vec<std::ops::Range<usize>>,
     /// Optional aligned tab stops and leaders. None retains legacy behavior.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub tabs: Option<TabStops>,
@@ -198,6 +205,7 @@ impl Default for TextSpec {
             hyphenation_breaks: Vec::new(),
             hyphenation_policy: HyphenationPolicy::default(),
             show_final_generated_hyphen: false,
+            atomic_spans: Vec::new(),
             tabs: None,
             runs: Vec::new(),
             features: Vec::new(),
@@ -578,7 +586,29 @@ impl TextSpec {
     }
 
     fn allows_wrap_at(&self, at: usize) -> bool {
-        at == 0 || at >= self.text.len() || !self.no_break_at(at - 1) || !self.no_break_at(at)
+        !self
+            .atomic_spans
+            .iter()
+            .any(|span| span.start < at && at < span.end)
+            && (at == 0
+                || at >= self.text.len()
+                || !self.no_break_at(at - 1)
+                || !self.no_break_at(at))
+    }
+
+    fn valid_atomic_spans(&self) -> bool {
+        if self.atomic_spans.is_empty() {
+            return true;
+        }
+        let boundaries = grapheme_boundaries(&self.text).collect::<Vec<_>>();
+        self.atomic_spans.iter().all(|span| {
+            span.start <= span.end
+                && boundaries.binary_search(&span.start).is_ok()
+                && boundaries.binary_search(&span.end).is_ok()
+                && self.text[span.clone()].chars().all(|c| {
+                    unicode_bidi::bidi_class(c) != unicode_bidi::BidiClass::B && c != '\u{2028}'
+                })
+        })
     }
 
     /// Explicit leading measures baseline/column-center distances, independent
@@ -844,6 +874,8 @@ impl TextSpec {
     /// bold; text put down at a run's start goes before it; text
     /// replacing a selection takes the style of what it replaced.
     pub fn splice_runs(&mut self, range: std::ops::Range<usize>, inserted: usize) {
+        // These describe disposable generated content, not editable formatting.
+        self.atomic_spans.clear();
         let removed = range.end.saturating_sub(range.start);
         let map = |at: usize| -> usize {
             if at < range.start {
@@ -1960,7 +1992,7 @@ fn layout_with_widths(spec: &TextSpec, base: &LoadedFace, widths: &[f32]) -> Lay
 }
 
 fn layout_with_measures(spec: &TextSpec, base: &LoadedFace, measures: &[InlineMeasure]) -> Layout {
-    if spec.tabs.as_ref().is_some_and(|tabs| !tabs.valid()) {
+    if spec.tabs.as_ref().is_some_and(|tabs| !tabs.valid()) || !spec.valid_atomic_spans() {
         return Layout::default();
     }
     let wrapping = (spec.wrap_width.is_some() || !measures.is_empty())
@@ -2244,7 +2276,7 @@ fn layout_with_hyphenation(
 /// The laid-out lines of `spec`, with the byte range of `spec.text` each
 /// one covers.
 ///
-/// Returns an empty vec when no font can be loaded.
+/// Returns an empty vec when no font can be loaded or composition spans are invalid.
 pub fn line_spans(spec: &TextSpec) -> Vec<LineSpan> {
     line_spans_with_widths(spec, &[])
 }

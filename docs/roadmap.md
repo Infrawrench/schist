@@ -311,6 +311,33 @@ are marked.
 ## Handoff
 
 
+Atomic inline wrapping, 2026-10-03:
+TextSpec now accepts transient grapheme-bounded spans which must remain whole
+during wrapping. Adjacent spans remain independent, while ordinary boundary rules
+and authored No Break still apply. Both shaping paths and discretionary/generated
+hyphenation honor the spans; generated hyphen projection remaps their coordinates.
+Invalid boundaries or spans containing forced breaks reject composition. Source
+edits discard stale spans and serialization does not persist them.
+
+Five properties pass across axes, directions, Unicode boundaries, adjacent spans,
+style overrides, generated hyphens and source preservation. Unwrapped ink, bounds
+and carets match the ordinary-text controls. Existing No Break and hyphenation
+properties pass. All 16 roadmap targets, shared UI, formatting and whitespace
+checks pass: **2,058 distinct Rust tests**, four browser checks and eight Python
+audit tests; one existing shared UI documentation example remains ignored. All
+42 PDF proofs remain byte-identical. Native debug build passes in 7m 34s; the
+isolated Design-enabled QA bundle is refreshed and hash/signature verified.
+Evidence is under `/tmp/schist-atomic-spans-*`. This checkpoint is prepared for
+draft PR #195. Continue locally without waiting for CI.
+
+This is wrapping infrastructure for text-variable composition, not live variable
+evaluation or native variable output. Those still need typed shared definitions,
+instance resolution and integration with the source projection, diagnostics, saves
+and note flows. Cached ResultText must not become editable source. No UI or locale
+keys change. Other item 9 integration gaps remain; INDD production is spike-gated.
+
+
+
 IDML resource identities, 2026-10-03:
 A regression reproduced a retained language resource sharing its Self ID with a
 generated character style. The exporter now separates part/page-item identity
@@ -336,8 +363,8 @@ one existing shared UI documentation example remains ignored. All 42 previous
 PDF proofs are byte-identical. Native debug build passes in 2m 56s; the isolated
 Design-enabled QA bundle is refreshed and hash/signature verified. Evidence is
 under `/tmp/schist-idml-identities-*`, including both failing regressions and the
-initial successful sweep before the class guard was added. This checkpoint is
-prepared for draft PR #195. Continue locally without waiting for CI. Text-variable
+initial successful sweep before the class guard was added. Published as `4cfcac97`
+to draft PR #195; head, body and draft status were verified without querying CI. Text-variable
 evaluation requires typed definitions, generated-text position mapping and atomic
 line fitting; cached ResultText must not become editable source. Other structured
 stories and object integration gaps remain open; INDD production is spike-gated.

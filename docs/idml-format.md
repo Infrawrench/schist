@@ -2585,6 +2585,25 @@ data, source-position mapping and atomic line fitting, not ordinary text inserti
 or interpretation of opaque recovery XML in the kernel. No Adobe headers,
 proprietary executables or INDD bytes were read for this change.
 
+The text engine now has transient grapheme-bounded atomic spans for that fitting
+step. They suppress internal wrapping and hyphenation without merging adjacent
+spans or changing unwrapped shaping/caret geometry. Native variable evaluation and
+instance output are not connected to those spans yet; the recovery-only behavior
+above remains in effect.
+
+Further public evidence is available in paged-media/core commit
+`ffb7c8713125dc77403ec0983099f74ac2558517`: its
+[fixture inputs](https://github.com/paged-media/core/blob/ffb7c8713125dc77403ec0983099f74ac2558517/crates/paged-gen/src/samples/variables.rs)
+define a custom Edition variable but leave its instance's cached value empty.
+The [five-page native PDF](https://github.com/paged-media/core/blob/ffb7c8713125dc77403ec0983099f74ac2558517/corpus/generated/variables.pdf)
+shows the defined value in every footer; the export metadata identifies InDesign
+20.0.1.32. The same document has five body pages, with a numbering restart, and
+its document-scoped last-page variable renders the final label 3. These observations
+support definition evaluation and label semantics, but do not establish narrow-frame
+wrapping or interactions with initials/nested styles. Inputs, provenance and the
+reference PDF are retained under `/tmp/schist-variable-native-reference/`; no
+third-party implementation was copied into Schist.
+
 
 ### End Nested Style controls
 

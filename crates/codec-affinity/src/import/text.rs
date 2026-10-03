@@ -164,6 +164,7 @@ impl Walker<'_> {
         let mut spec = schist_text_engine::TextSpec {
             show_final_soft_hyphen: false,
             hyphenation_breaks: Vec::new(),
+            atomic_spans: Vec::new(),
             hyphenation_policy: Default::default(),
             show_final_generated_hyphen: false,
             language: String::new(),

@@ -319,6 +319,7 @@ pub(crate) fn spec_with_character(
     let mut spec = TextSpec {
         show_final_soft_hyphen: false,
         hyphenation_breaks: Vec::new(),
+        atomic_spans: Vec::new(),
         hyphenation_policy: schist_text_engine::HyphenationPolicy {
             consecutive_limit: usize::from(paragraph.hyphenation.ladder_limit.unwrap_or(3)),
             preceding_hyphens: 0,

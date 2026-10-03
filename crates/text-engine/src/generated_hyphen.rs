@@ -93,6 +93,13 @@ impl Projection {
             run.start = after(run.start.min(text.len()));
             run.end = after(run.end.min(text.len()));
         }
+        // Hyphens at an object's edges belong outside that object. Interior
+        // opportunities were excluded before projecting any coordinates.
+        projected.atomic_spans.retain(|span| !span.is_empty());
+        for span in &mut projected.atomic_spans {
+            span.start = after(span.start);
+            span.end += points.partition_point(|at| *at < span.end) * '\u{ad}'.len_utf8();
+        }
         Some(Self {
             spec: projected,
             insertions,
