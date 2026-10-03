@@ -29,6 +29,24 @@ schist-compositor.workspace = true
 # Camera raws are pure Rust and use the same implementation on desktop
 # and wasm.
 schist-codec-raw.workspace = true
+# JPEG XL and AVIF (see src/jxl.rs, src/avif.rs). moxcms renders an
+# XYB-coded JPEG XL into its ICC profile, and builds profiles for AVIF's
+# nclx colour spaces.
+jxl-oxide = { workspace = true, features = ["moxcms"] }
+zune-jpegxl.workspace = true
+zune-core.workspace = true
+rav1e.workspace = true
+moxcms = "0.8"
+
+# Threads where there are threads: the browser build has none to give.
+[target.'cfg(not(target_arch = "wasm32"))'.dependencies]
+jxl-oxide = { workspace = true, features = ["rayon"] }
+zune-jpegxl = { workspace = true, features = ["threads"] }
+rav1e = { workspace = true, features = ["threading"] }
+# rav1d leans on C integer types the libc crate does not define for
+# wasm32, so the browser build exports AVIF but cannot open it.
+rav1d.workspace = true
+libc = "0.2"
 
 # HEIC rides on a dlopen'd libheif; a browser has neither dlopen nor a
 # libheif to open, so the codec (and its loader) stay off the wasm build.
@@ -44,7 +62,6 @@ foreign-types = "0.5"
 
 [dev-dependencies]
 crc32fast.workspace = true
-moxcms = "0.8"
 
 [lints.rust]
 unexpected_cfgs = { level = "warn", check-cfg = ["cfg(schist_library)"] }

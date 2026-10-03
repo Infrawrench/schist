@@ -115,6 +115,17 @@ miniz_oxide = "0.8"
 ruzstd = "0.9"
 # SIMD CRC-32 (pure Rust with std-detected SSE4.2/PCLMUL paths).
 crc32fast = "1.5"
+# JPEG XL: jxl-oxide decodes everything (MIT/Apache-2.0); zune-jpegxl is
+# the lossless encoder every build has (MIT/Apache-2.0/Zlib). Lossy
+# encoding uses the system's libjxl through libloading when present.
+jxl-oxide = { version = "0.12", default-features = false }
+zune-jpegxl = { version = "0.5", default-features = false, features = ["std"] }
+zune-core = "0.5"
+# AVIF: rav1e encodes (BSD-2-Clause), rav1d decodes (BSD-2-Clause, the
+# Rust port of dav1d). Both without their assembly, which would need
+# nasm in every build; rav1d does not build for wasm32 at all.
+rav1e = { version = "0.8", default-features = false }
+rav1d = { version = "1.1", default-features = false, features = ["bitdepth_8", "bitdepth_16"] }
 schist-text-engine = { path = "crates/text-engine" }
 schist-adjustments = { path = "crates/adjustments" }
 schist-plugin-host-8bf = { path = "crates/plugin-host-8bf" }
@@ -253,6 +264,17 @@ opt-level = 3
 [profile.release.package.schist-tools-warp]
 opt-level = 3
 [profile.release.package.moxcms]
+opt-level = 3
+# The JPEG XL and AV1 codecs, which run without their assembly.
+[profile.release.package.jxl-render]
+opt-level = 3
+[profile.release.package.jxl-vardct]
+opt-level = 3
+[profile.release.package.jxl-modular]
+opt-level = 3
+[profile.release.package.rav1d]
+opt-level = 3
+[profile.release.package.rav1e]
 opt-level = 3
 [profile.release.package.rustfft]
 opt-level = 3
