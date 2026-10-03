@@ -310,6 +310,46 @@ are marked.
 
 ## Handoff
 
+Custom-variable authoring, 2026-10-03 (validation stopped for machine handoff):
+The Type menu and Stories toolbar open a compact variable manager. New/Edit reveal
+two draft fields; Save updates a shared definition once. Insertion and explicit
+per-instance removal use a captured Unicode text cursor and preserve coincident
+structure order. Pending edits reject stale definitions, stories and document
+sessions. Unused definitions can be deleted; referenced definitions require
+explicit instance removal first. Typed references in unplaced stories and note
+bodies reserve identities. Opaque legacy references remain the codec's concern,
+with collision/deletion properties covering repeated native saves. Eleven keys
+are in all 150 catalogs. No locale was added.
+
+This entire model/history/UI/interchange batch was implemented before compiling.
+The user explicitly stopped validation to move work to another machine. Twelve
+make targets passed: `check-layout`, `check-idml`, `check-design`, `check-i18n`,
+`lint-layout`, `lint-text-directions`, `lint-idml`, `lint-design`, `lint-all`,
+`check-layered-codecs-app`, `check-app-web` and `check-separation`. Completed logs
+cover **1,863 distinct Rust tests**, four browser checks and eight Python audits;
+this is a partial count, not a completed roadmap sweep. Nine new properties pass
+(six layout, three IDML). The first editor compile found a missing closing
+delimiter; it was fixed, formatted, and the complete Design rerun passed all 436
+editor tests. Workspace clippy and the native app compile check passed.
+
+`check-design-output` was interrupted and must be rerun. Editable-interchange
+checks/lint, headless library WASM, shared UI tests, final formatting/whitespace
+checks, aggregate proof comparison and the native debug build/window review remain
+pending. A formatter run and whitespace check passed before the main rerun; no
+further validation ran after the user's stop. The new variable window has not
+been reviewed in the native app. The previous full checkpoint (2,086 Rust tests
+and native build) belongs to `b0cdef3c`, not this authoring batch.
+
+See [the portable agent handoff](design-handoff.md) for exact resume commands,
+current limitations and the copyable prompt. Task temporary logs, proof renders,
+research downloads and the isolated Roadmap QA bundle are removed for handoff;
+historical `/tmp/schist-*` references below are no longer local artifacts.
+Tracked fixtures and the user's development app/configuration are preserved.
+Resume the pending checks and UI review, then continue item 9. Non-custom
+variables, active initial/nested counts, note-body variables and the other item 9
+integration gaps remain; production INDD is still research-gated.
+
+
 
 Custom-variable display integration, 2026-10-03:
 Main-story literal custom values now use disposable display objects, with source
@@ -343,8 +383,8 @@ Failure logs remain. Only two explanatory comments changed after the main sweep.
 Native debug build passes in 5m 38s; the isolated Design-enabled QA bundle is
 refreshed and hash/signature verified. Evidence is `/tmp/schist-variable-display-*`.
 Five superseded drafts and twelve redundant page renders were removed, retaining
-hash audits, the proof PDF/contact sheet and verification evidence. Prepared for
-draft PR #195; do not wait for CI.
+hash audits, the proof PDF/contact sheet and verification evidence. Published as `b0cdef3c` to
+draft PR #195; the head, body and draft status were verified without querying CI.
 
 Variable authoring and non-custom evaluation/output remain. Active initial/nested
 rules need logical-object counts; those combinations, note-body variables, invalid

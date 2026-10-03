@@ -338,7 +338,7 @@ impl Workspace {
     }
 }
 
-fn byte(text: &str, utf16: usize) -> usize {
+pub(super) fn byte(text: &str, utf16: usize) -> usize {
     let mut units = 0;
     for (at, ch) in text.char_indices() {
         if units + ch.len_utf16() > utf16 {
@@ -348,7 +348,7 @@ fn byte(text: &str, utf16: usize) -> usize {
     }
     text.len()
 }
-fn units(text: &str, at: usize) -> usize {
+pub(super) fn units(text: &str, at: usize) -> usize {
     text[..at].encode_utf16().count()
 }
 

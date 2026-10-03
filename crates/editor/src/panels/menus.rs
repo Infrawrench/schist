@@ -115,6 +115,10 @@ fn editor_menus(ws: &Workspace) -> Vec<(&'static str, Vec<MenuEntry>)> {
                 ],
             ),
             (
+                t("common.type"),
+                vec![App(t("design.text_variables"), DesignTextVariables, None)],
+            ),
+            (
                 t("menu.view"),
                 vec![
                     Sub(t("workspaces.title"), workspace_entries(ws)),

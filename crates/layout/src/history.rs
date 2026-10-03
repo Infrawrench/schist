@@ -29,6 +29,10 @@ pub enum LayoutEdit {
         before: Box<crate::StyleSet>,
         after: Box<crate::StyleSet>,
     },
+    TextVariablesChanged {
+        before: Vec<crate::text_variables::TextVariable>,
+        after: Vec<crate::text_variables::TextVariable>,
+    },
     SwatchesChanged {
         before: Vec<crate::Ink>,
         after: Vec<crate::Ink>,
@@ -360,6 +364,7 @@ impl History {
             | LayoutEdit::TopologyChanged { .. }
             | LayoutEdit::LayersChanged { .. }
             | LayoutEdit::SwatchesChanged { .. }
+            | LayoutEdit::TextVariablesChanged { .. }
             | LayoutEdit::StylesChanged { .. } => true,
             LayoutEdit::AddedPage { .. }
             | LayoutEdit::RemovedPage { .. }

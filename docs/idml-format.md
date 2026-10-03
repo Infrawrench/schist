@@ -2636,10 +2636,20 @@ Active initial/nested-style combinations still need logical-object rule counting
 They remain unrendered, as do note-body variables, missing/ambiguous definitions,
 invalid anchors and values containing tabs, forced breaks or directional controls.
 Empty literal values resolve normally. Existing retained-structure diagnostics
-cover unsupported instances. Authoring controls and non-custom variable evaluation
-remain integration work. The new plate/PDF comparisons use independently authored
+cover unsupported instances. Non-custom variable evaluation remains integration
+work. The Type menu and Stories toolbar open a compact custom-variable manager.
+New/Edit expose a name and literal value only while authoring; Save updates the
+shared definition in one undo step. Insert and explicit per-instance removal use
+a captured, grapheme-bounded canvas source cursor and reject stale stories.
+Story Editor and note-body cursor integration remain open. Definitions
+with typed references, including note bodies, cannot be deleted until those
+references are removed. Opaque recovery XML remains untouched; it cannot restore
+a deleted live custom definition on a later import. Pending drafts are tied to
+the document session and original definition, not a display name or list index.
+The new plate/PDF comparisons use independently authored
 ordinary text through Schist's shared renderer; native application placement
-agreement is not claimed. Full verification remains recorded in Handoff.
+agreement is not claimed. Completed and pending validation is recorded in Handoff;
+the authoring window still needs native application review.
 
 Further public evidence is available in paged-media/core commit
 `ffb7c8713125dc77403ec0983099f74ac2558517`: its
@@ -2651,8 +2661,9 @@ shows the defined value in every footer; the export metadata identifies InDesign
 its document-scoped last-page variable renders the final label 3. These observations
 support definition evaluation and label semantics, but do not establish narrow-frame
 wrapping or interactions with initials/nested styles. Inputs, provenance and the
-reference PDF are retained under `/tmp/schist-variable-native-reference/`; no
-third-party implementation was copied into Schist.
+reference PDF were inspected under `/tmp/schist-variable-native-reference/`,
+then removed during the requested machine-handoff cleanup. Reacquire them from
+the pinned links above; no third-party implementation was copied into Schist.
 
 
 ### End Nested Style controls

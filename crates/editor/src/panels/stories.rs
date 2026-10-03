@@ -77,6 +77,11 @@ pub(super) fn stories_panel(
                     .items_center()
                     .gap_1()
                     .child(
+                        IconButton::new("story-variables", "type")
+                            .tooltip(t("design.text_variables"), None)
+                            .on_click(cx.listener(|ws, _, _, cx| ws.open_text_variables(cx))),
+                    )
+                    .child(
                         IconButton::new("story-editor-open", "note")
                             .tooltip(t("design.story_editor"), None)
                             .on_click(cx.listener(|ws, _, _, cx| {

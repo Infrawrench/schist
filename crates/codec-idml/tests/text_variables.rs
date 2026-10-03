@@ -38,6 +38,105 @@ fn instance(id: &str, definition: &str, result: &str) -> String {
     )
 }
 
+#[test]
+fn authored_variables_keep_literal_values_source_styles_and_order_through_native_saves() {
+    use schist_layout::text_variables::{self as variables, Cursor};
+    let mut doc = import::read(&native("<Content>Aé中🙂Z</Content>", ""))
+        .unwrap()
+        .document;
+    let mut history = History::default();
+    for at in [0, 1, 3, 6, 10, 11] {
+        let id =
+            variables::create(&mut doc, &mut history, "Same name", "  édition & <7>  ").unwrap();
+        let definition = doc
+            .text_variables
+            .iter()
+            .find(|d| d.id == id)
+            .unwrap()
+            .clone();
+        let cursor = Cursor::capture(&doc, StoryId(0), at).unwrap();
+        assert!(cursor.insert(&mut doc, &mut history, &definition));
+    }
+    let expected = doc.clone();
+    for _ in 0..3 {
+        let written = export::write(&doc);
+        let package = container::read(&written.bytes).unwrap();
+        let root = xml::parse(package.text("designmap.xml").unwrap()).unwrap();
+        assert_eq!(root.children_named("TextVariable").count(), 6);
+        doc = import::read(&written.bytes).unwrap().document;
+        assert_eq!(doc.text_variables, expected.text_variables);
+        assert_eq!(doc.stories, expected.stories);
+    }
+}
+
+#[test]
+fn removing_imported_instances_and_definition_does_not_resurrect_recovery_xml() {
+    use schist_layout::text_variables::{self as variables, Cursor};
+    for count in [0, 1, 8] {
+        let body = "<Content>source</Content>".to_owned()
+            + &(0..count)
+                .map(|i| instance(&format!("i{i}"), "d", "cache"))
+                .collect::<String>();
+        let mut doc = import::read(&native(&body, &custom("d", "Edition", "original")))
+            .unwrap()
+            .document;
+        assert!(!doc.retained_text_variables.is_empty());
+        let original = doc.clone();
+        let definition = doc.text_variables[0].clone();
+        let mut history = History::default();
+        for _ in 0..count {
+            let cursor = Cursor::capture(&doc, StoryId(0), 6).unwrap();
+            assert!(cursor.remove_instance(&mut doc, &mut history, 0));
+        }
+        assert!(variables::remove(&mut doc, &mut history, &definition));
+        assert_eq!(
+            doc.retained_text_variables,
+            original.retained_text_variables
+        );
+        let mut saved = doc.clone();
+        for _ in 0..3 {
+            saved = import::read(&export::write(&saved).bytes).unwrap().document;
+            assert!(saved.text_variables.is_empty());
+            assert!(saved.stories[0].structures.is_empty());
+            assert_eq!(
+                saved.retained_text_variables,
+                original.retained_text_variables
+            );
+        }
+        for _ in 0..count + 1 {
+            assert!(history.undo(&mut doc));
+        }
+        assert_eq!(doc, original);
+    }
+}
+
+#[test]
+fn authored_identity_cannot_activate_an_unresolved_legacy_recovery_reference() {
+    use schist_layout::text_variables;
+    let mut doc = import::read(&native(&instance("i", "SchistCustom0", "cache"), ""))
+        .unwrap()
+        .document;
+    let original = doc.stories[0].structures[0].clone();
+    doc.stories[0].structures[0].control = None;
+    let mut history = History::default();
+    text_variables::create(&mut doc, &mut history, "New", "literal").unwrap();
+    assert_eq!(doc.text_variables[0].id, "SchistCustom0");
+    for _ in 0..3 {
+        doc = import::read(&export::write(&doc).bytes).unwrap().document;
+        assert_eq!(doc.stories[0].structures[0].payload, original.payload);
+        let schist_layout::story::InlineControl::TextVariable { variable, .. } =
+            doc.stories[0].structures[0].control.as_ref().unwrap()
+        else {
+            panic!("variable")
+        };
+        assert_ne!(variable, &doc.text_variables[0].id);
+        assert_eq!(
+            compose::compose_story(&doc, StoryId(0)).frames[0].unrendered_structures,
+            1
+        );
+    }
+}
+
 fn retained(doc: &LayoutDocument) -> Vec<schist_layout::StoryStructure> {
     doc.stories
         .iter()

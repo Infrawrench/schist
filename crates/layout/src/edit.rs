@@ -60,6 +60,13 @@ impl History {
 /// Apply an edit.
 pub fn forward(doc: &mut LayoutDocument, edit: &LayoutEdit) -> bool {
     match edit {
+        LayoutEdit::TextVariablesChanged { before, after } => {
+            if doc.text_variables != *before {
+                return false;
+            }
+            doc.text_variables.clone_from(after);
+            true
+        }
         LayoutEdit::SwatchesChanged { after, .. } => {
             doc.inks.clone_from(after);
             true
@@ -243,6 +250,13 @@ pub fn forward(doc: &mut LayoutDocument, edit: &LayoutEdit) -> bool {
 /// Reverse an edit.
 pub fn reverse(doc: &mut LayoutDocument, edit: &LayoutEdit) -> bool {
     match edit {
+        LayoutEdit::TextVariablesChanged { before, after } => {
+            if doc.text_variables != *after {
+                return false;
+            }
+            doc.text_variables.clone_from(before);
+            true
+        }
         LayoutEdit::SwatchesChanged { before, .. } => {
             doc.inks.clone_from(before);
             true

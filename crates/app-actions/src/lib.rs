@@ -167,6 +167,7 @@ pub enum AppItem {
     DesignImportPages,
     DesignRefreshLinks,
     DesignOutput,
+    DesignTextVariables,
     ToggleSnap,
     ToggleAi,
     ClearGuides,

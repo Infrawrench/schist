@@ -560,3 +560,16 @@ design.idml_nested_style_unsupported = Nested style not composed: {value}
 design.initial_style = Character style
 design.initial_style_inherit = Inherit nested styles
 design.initial_style_missing = Missing: {name}
+
+# UNTRANSLATED PLACEHOLDER
+design.text_variables = Text Variables
+design.variable_new = New custom variable
+design.variable_insert = Insert at cursor
+design.variable_remove_instance = Remove this instance
+design.variable_in_use = Remove instances before deleting
+design.variable_at_cursor = At captured text cursor
+design.variable_cursor_required = Place a text cursor first
+design.variable_capture_cursor = Use current text cursor
+design.variable_edit_refused = Changed elsewhere; reopen and try again.
+design.variable_invalid = Name required; remove breaks and controls.
+design.variable_window_failed = Cannot open Text Variables: {error}

@@ -1097,6 +1097,7 @@ mod tests {
             for target in [
                 Target::App(AppItem::Save),
                 Target::App(AppItem::DesignOutput),
+                Target::App(AppItem::DesignTextVariables),
             ] {
                 assert!(!target.unavailable(WorkspaceMode::Design, has_raster));
             }

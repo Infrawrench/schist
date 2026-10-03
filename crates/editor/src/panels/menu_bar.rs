@@ -45,6 +45,7 @@ pub(crate) fn app_item_available_in_design(item: AppItem) -> bool {
             | AppItem::DesignImportPages
             | AppItem::DesignRefreshLinks
             | AppItem::DesignOutput
+            | AppItem::DesignTextVariables
             | AppItem::PasteboardSpread
             | AppItem::PasteboardSinglePage
             | AppItem::OpenGallery
@@ -259,6 +260,7 @@ pub(crate) fn run_app_item(
         }
         AppItem::DesignRefreshLinks => ws.refresh_design_graphics(cx),
         AppItem::DesignOutput => ws.open_design_output(cx),
+        AppItem::DesignTextVariables => ws.open_text_variables(cx),
         AppItem::ToggleExtras => ws.toggle_extras(cx),
         AppItem::ToggleSnap => ws.toggle_snap(cx),
         AppItem::ClearGuides => ws.clear_guides(cx),

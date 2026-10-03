@@ -34,6 +34,7 @@ pub mod rulers;
 pub mod select;
 pub mod story_editor;
 pub mod text;
+mod text_variables;
 pub mod tools;
 mod view;
 
