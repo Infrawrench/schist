@@ -276,6 +276,7 @@ mod native {
             layer.raw = Some(Box::new(RawDevelopment {
                 source: Arc::from(bytes),
                 settings: RawSettings::default(),
+                masks: Vec::new(),
             }));
         }
         Ok(doc)
