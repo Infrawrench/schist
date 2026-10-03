@@ -311,6 +311,30 @@ are marked.
 ## Handoff
 
 
+Native hyphenation policy, 2026-10-03:
+XML booleans are pushed as `1a574ac7` to draft PR #195 with all 16 targets,
+1,880 Rust tests and the development rebuild passing. The next item 9 regression
+confirmed native hyphenation options disappeared on save. The model now retains
+all nine independent options, resolves each through style inheritance and keeps
+explicit false/zero settings when hyphenation is disabled. Native local overrides
+lower once, preserve source text and survive repeated saves. Missing old snapshot
+fields inherit; invalid native/authored values are diagnosed. The public weight
+range conflict is recorded in `docs/idml-format.md`; 0–100 values retain their
+meaning without rescaling. Four codec and two model properties pass. All 16 targets pass with
+**1,886 distinct Rust tests**, including five shared UI checks (one existing
+documentation example ignored), four browser checks and eight Python audit tests.
+Workspace clippy, native/browser/headless checks, localization, formatting and
+whitespace pass. All 31 PDF proofs remain byte-identical. The native development
+rebuild passes in 2m 02s; the isolated Design-enabled bundle is refreshed and
+hash/signature verified, and remains quit. Affinity window inspection also fails
+with `cgWindowNotFound`; no test document was opened, and external application
+placement remains unverified. Logs use `/tmp/schist-hyphenation-policy-*`.
+Dictionary selection and generated-hyphen source/caret mapping remain next.
+Public dictionary research records separate language, script and pattern-license
+limits in `/tmp/schist-hyphenation-dictionary-research.json`; no new dependency has
+been added.
+
+
 Native XML boolean equivalence, 2026-10-03:
 Discretionary hyphens are pushed as `403b44b5` to draft PR #195, with all 16
 targets, 1,877 Rust tests, PDF visual review and the development rebuild passing.

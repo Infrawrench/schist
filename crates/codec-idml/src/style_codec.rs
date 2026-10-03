@@ -167,7 +167,8 @@ pub(crate) fn paragraph_properties(
         writing_mode: paragraph_writing_mode(element, report),
         list,
         bullet,
-        hyphenate: element.boolean("Hyphenation"),
+        hyphenate: crate::hyphenation_codec::boolean(element, "Hyphenation", report),
+        hyphenation: crate::hyphenation_codec::read(element, report),
         language: character.language,
         features: character.features,
         directional_features: character.directional_features,
@@ -781,6 +782,7 @@ pub fn paragraph_resolved(style: &ParagraphStyle, resolved: (bool, bool)) -> Str
         }),
     );
     optional(&mut out, "Hyphenation", style.hyphenate);
+    crate::hyphenation_codec::attributes(&mut out, &style.hyphenation);
     optional(&mut out, "AppliedLanguage", style.language.as_ref());
     optional(
         &mut out,

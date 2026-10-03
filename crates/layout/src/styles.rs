@@ -412,6 +412,8 @@ pub struct ParagraphStyle {
     pub list: crate::lists::ListStyle,
     /// Whether hyphenation is allowed in this paragraph.
     pub hyphenate: Option<bool>,
+    #[serde(default)]
+    pub hyphenation: crate::hyphenation::HyphenationOptions,
     /// A BCP 47 tag or a declared native language resource. Used by shaping and
     /// display casing; hyphenation dictionaries and proofing remain separate work.
     pub language: Option<crate::language::TextLanguage>,
@@ -721,6 +723,7 @@ pub struct ResolvedParagraph {
     pub bullet: Option<Bullet>,
     pub list: crate::lists::ListStyle,
     pub hyphenate: Option<bool>,
+    pub hyphenation: crate::hyphenation::HyphenationOptions,
     pub language: Option<crate::language::TextLanguage>,
     pub direction: Option<ParagraphDirection>,
     pub writing_mode: Option<WritingMode>,
@@ -860,6 +863,7 @@ impl ResolvedParagraph {
                     .over(&crate::lists::ListStyle::from_legacy(style.bullet)),
             );
             out.hyphenate = out.hyphenate.or(style.hyphenate);
+            out.hyphenation = out.hyphenation.over(&style.hyphenation);
             out.language = out.language.clone().or_else(|| style.language.clone());
             out.direction = out.direction.or(style.direction);
             out.writing_mode = out.writing_mode.or(style.writing_mode);

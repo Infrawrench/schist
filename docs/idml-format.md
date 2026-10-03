@@ -2108,3 +2108,38 @@ preferences, numbering resources, footnotes, page/parent visibility, guide/layer
 group locks and native geometry through repeated saves in both polarities.
 Literal names and story text remain strings. No new UI strings, Adobe headers,
 proprietary executables or INDD bytes are involved.
+
+### Native automatic-hyphenation policy
+
+The public IDML text-attribute tables and RNC describe independent minimum word
+length, letters before/after a break, capitalized/last/column-end word permissions,
+consecutive-line limit, zone and weight. See the
+[public ParagraphStyle DOM](https://developer.adobe.com/indesign/uxp/dom/api/p/paragraph-style/)
+and [composition guide](https://helpx.adobe.com/ca/indesign/desktop/format-and-style-text/composition-and-text-wrapping/control-hyphenation-and-word-breaks.html).
+The minimum word length is inclusive despite the native name
+`HyphenateWordsLongerThan`; zero ladder limit means unlimited.
+
+`ParagraphStyle.hyphenation` retains these nine optional settings independently
+of the existing `hyphenate` enable switch. Missing settings inherit without
+inventing native defaults. A disabled paragraph still retains its policy. Native
+paragraph-local overrides lower to reusable styles; save emits the corresponding
+standard attributes without private labels. Older Schist snapshots deserialize
+with an empty policy. Invalid values receive the existing localized preference
+diagnostic; invalid authored values are diagnosed and omitted from native output.
+
+There is a published contradiction: the IDML prose and current DOM document
+`HyphenWeight` as 0–100, while the older RNC says 0–10. The codec preserves
+0–100 unchanged, following the two descriptive sources. It does not silently
+rescale values or claim validation against the contradictory old restriction.
+The other integer ranges follow the RNC: before/after 1–15, minimum word 3–25,
+ladder 0–25. Zone is a finite nonnegative distance in points. Numeric readers
+accept XML whitespace and signed/zero-padded integers, including negative zero.
+
+Four native package properties cover boundaries, absence, independent overrides,
+explicit resets, invalid input/output and repeated saves without style growth or
+source changes. Two model properties cover independent multilevel inheritance
+and older snapshots. These are retention/inheritance checks, not dictionary
+composition or external-application placement claims. Automatic dictionary
+selection, paragraph-wide hyphen preference, ladder and column-end constraints
+remain composition work. No Adobe headers, proprietary executables or INDD bytes
+were read for this change.

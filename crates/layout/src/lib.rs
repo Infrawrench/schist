@@ -30,6 +30,7 @@ pub mod geometry;
 pub mod graphics;
 pub mod grid;
 pub mod history;
+pub mod hyphenation;
 pub mod ink;
 pub mod inline_text;
 pub mod language;
