@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = Časovnica
+animation.menu = Animacija
+animation.play_pause = Predvajaj/Začasno ustavi animacijo
+animation.frame_layer_name = Sličica {n}
+animation.delay_seconds = {seconds} s
+animation.delay.label = Zakasnitev
+animation.delay.apply_all = Uporabi za vse sličice
+animation.loop.label = Ponavljanje
+animation.loop.once = Enkrat
+animation.loop.forever = Neprestano
+animation.onion.label = Čebulna lupina
+animation.onion.before = Pred
+animation.onion.after = Po
+animation.offset.label = Zamik plasti v tej sličici
+animation.new_layers_visible = Nove plasti so vidne v vseh sličicah
+animation.history.select_frame = Izberi sličico
+animation.history.move_frame = Premakni sličico
+animation.history.frame_delay = Zakasnitev sličice
+animation.history.loop = Število ponovitev
+animation.history.offset = Zamik sličice
+animation.history.new_layers = Vidnost novih plasti
+animation.refuse.no_animation = Ta dokument nima animacije sličic. Uporabite Plast ▸ Animacija ▸ Ustvari animacijo sličic.
+animation.refuse.already_animated = Ta dokument že ima animacijo sličic.
+animation.refuse.last_frame = Animacija potrebuje vsaj eno sličico. Namesto tega izbrišite animacijo.
+animation.refuse.too_many_frames = Časovnica ne more sprejeti več sličic.
+animation.refuse.no_layers = Ni plasti, iz katerih bi lahko ustvarili sličice.
+animation.export.menu = Animacija …
+animation.export.title = Izvozi animacijo
+animation.export.palette = Paleta
+animation.export.palette_per_frame = Za vsako sličico
+animation.export.palette_global = Globalna
+animation.export.disposal = Odstranjevanje sličic
+animation.export.disposal_auto = Samodejno
+animation.export.disposal_keep = Ohrani prejšnjo sličico
+animation.export.disposal_background = Obnovi v ozadje
+animation.export.disposal_previous = Obnovi v prejšnje stanje
+animation.export.dither_note = Razprši barvne napake, kadar ima sličica več kot 256 barv
+animation.export.transparency = Prosojnost
+animation.export.transparency_note = Ohrani prosojna območja prosojna
+animation.export.gif_note = GIF shranjuje zakasnitve v stotinkah sekunde in ne podpira delne prosojnosti.
+animation.export.apng_note = APNG ohrani vsako sličico brez izgub s polno prosojnostjo.
+animation.export.webp_note = Animirani WebP se zapiše brez izgub; WebP z izgubami ni na voljo.

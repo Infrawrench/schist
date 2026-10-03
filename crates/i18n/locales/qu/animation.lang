@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = Pacha siqi
+animation.menu = Kuyuchiy
+animation.play_pause = Kuyuchiyta purichiy/sayachiy
+animation.frame_layer_name = Rikch'a {n}
+animation.delay_seconds = {seconds} s
+animation.delay.label = Unayay
+animation.delay.apply_all = Llapan rikch'akunaman churay
+animation.loop.label = Kutipay
+animation.loop.once = Huk kuti
+animation.loop.forever = Wiñaypaq
+animation.onion.label = Siwulla qara
+animation.onion.before = Ñawpaqta
+animation.onion.after = Qhipata
+animation.offset.label = Kay rikch'apa patanpa kuyuynin
+animation.new_layers_visible = Musuq patakuna llapan rikch'akunapi rikukun
+animation.history.select_frame = Rikch'ata akllay
+animation.history.move_frame = Rikch'ata kuyuchiy
+animation.history.frame_delay = Rikch'apa unayaynin
+animation.history.loop = Kutipaykuna yupay
+animation.history.offset = Rikch'apa kuyuynin
+animation.history.new_layers = Musuq patakunapa rikukuynin
+animation.refuse.no_animation = Kay qillqa khipuqa mana rikch'akunapa kuyuchiyninta kapuchinchu. Pata ▸ Kuyuchiy ▸ Rikch'akunapa kuyuchiyninta ruway nisqata llamk'achiy.
+animation.refuse.already_animated = Kay qillqa khipuqa ñam rikch'akunapa kuyuchiyninta kapuchin.
+animation.refuse.last_frame = Huk kuyuchiyqa ichaqa huk rikch'atam munan. Aswanpas kuyuchiyta qulluy.
+animation.refuse.too_many_frames = Pacha siqiqa manam astawan rikch'akunata hap'iyta atinchu.
+animation.refuse.no_layers = Manam kanchu patakuna, chaykunamanta rikch'akunata ruwanapaq.
+animation.export.menu = Kuyuchiy…
+animation.export.title = Kuyuchiyta lluqsichiy
+animation.export.palette = Llimp'i tabla
+animation.export.palette_per_frame = Sapa rikch'apaq
+animation.export.palette_global = Llapanpaq
+animation.export.disposal = Wikch'uy
+animation.export.disposal_auto = Kikinmanta ruwakuq
+animation.export.disposal_keep = Ñawpaq rikch'ata waqaychay
+animation.export.disposal_background = Qhipaman kutichiy
+animation.export.disposal_previous = Ñawpaqman kutichiy
+animation.export.dither_note = Llimp'i pantaykunata ch'iqichiy huk rikch'a 256 llimp'imanta aswan kaptin
+animation.export.transparency = Ch'uya kay
+animation.export.transparency_note = Ch'uya k'itikunata ch'uyallataq waqaychay
+animation.export.gif_note = GIF nisqaqa unayaykunata segundoq pachak t'aqanpi waqaychan, manataq kuskan ch'uya kayta kapuchinchu.
+animation.export.apng_note = APNG nisqaqa sapa rikch'ata mana chinkachispa hunt'a ch'uya kaywan waqaychan.
+animation.export.webp_note = Kuyuq WebP nisqaqa mana chinkachispa qillqakun; chinkachiq WebP nisqaqa manam kanchu.

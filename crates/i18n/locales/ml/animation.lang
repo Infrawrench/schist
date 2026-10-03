@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = ടൈംലൈൻ
+animation.menu = ആനിമേഷൻ
+animation.play_pause = ആനിമേഷൻ പ്ലേ/താൽക്കാലികമായി നിർത്തുക
+animation.frame_layer_name = ഫ്രെയിം {n}
+animation.delay_seconds = {seconds} സെ
+animation.delay.label = കാലതാമസം
+animation.delay.apply_all = എല്ലാ ഫ്രെയിമുകൾക്കും പ്രയോഗിക്കുക
+animation.loop.label = ലൂപ്പ്
+animation.loop.once = ഒരിക്കൽ
+animation.loop.forever = എന്നേക്കും
+animation.onion.label = ഒനിയൻ സ്കിൻ
+animation.onion.before = മുമ്പ്
+animation.onion.after = ശേഷം
+animation.offset.label = ഈ ഫ്രെയിമിലെ ലെയർ ഓഫ്സെറ്റ്
+animation.new_layers_visible = പുതിയ ലെയറുകൾ എല്ലാ ഫ്രെയിമുകളിലും ദൃശ്യമാണ്
+animation.history.select_frame = ഫ്രെയിം തിരഞ്ഞെടുക്കുക
+animation.history.move_frame = ഫ്രെയിം നീക്കുക
+animation.history.frame_delay = ഫ്രെയിം കാലതാമസം
+animation.history.loop = ലൂപ്പ് എണ്ണം
+animation.history.offset = ഫ്രെയിം ഓഫ്സെറ്റ്
+animation.history.new_layers = പുതിയ ലെയറുകളുടെ ദൃശ്യത
+animation.refuse.no_animation = ഈ ഡോക്യുമെന്റിന് ഫ്രെയിം ആനിമേഷൻ ഇല്ല. ലെയർ ▸ ആനിമേഷൻ ▸ ഫ്രെയിം ആനിമേഷൻ സൃഷ്ടിക്കുക ഉപയോഗിക്കുക.
+animation.refuse.already_animated = ഈ ഡോക്യുമെന്റിന് ഇതിനകം ഒരു ഫ്രെയിം ആനിമേഷൻ ഉണ്ട്.
+animation.refuse.last_frame = ഒരു ആനിമേഷന് കുറഞ്ഞത് ഒരു ഫ്രെയിം വേണം. പകരം ആനിമേഷൻ ഇല്ലാതാക്കുക.
+animation.refuse.too_many_frames = ടൈംലൈനിൽ കൂടുതൽ ഫ്രെയിമുകൾ ഉൾക്കൊള്ളാനാവില്ല.
+animation.refuse.no_layers = ഫ്രെയിമുകൾ നിർമ്മിക്കാൻ ലെയറുകളൊന്നുമില്ല.
+animation.export.menu = ആനിമേഷൻ…
+animation.export.title = ആനിമേഷൻ കയറ്റുമതി ചെയ്യുക
+animation.export.palette = പാലറ്റ്
+animation.export.palette_per_frame = ഓരോ ഫ്രെയിമിനും
+animation.export.palette_global = ആഗോളം
+animation.export.disposal = നീക്കംചെയ്യൽ രീതി
+animation.export.disposal_auto = സ്വയമേവ
+animation.export.disposal_keep = മുമ്പത്തെ ഫ്രെയിം നിലനിർത്തുക
+animation.export.disposal_background = പശ്ചാത്തലത്തിലേക്ക് പുനഃസ്ഥാപിക്കുക
+animation.export.disposal_previous = മുമ്പത്തേതിലേക്ക് പുനഃസ്ഥാപിക്കുക
+animation.export.dither_note = ഒരു ഫ്രെയിമിൽ 256-ൽ കൂടുതൽ നിറങ്ങളുള്ളപ്പോൾ നിറപ്പിശകുകൾ വ്യാപിപ്പിക്കുക
+animation.export.transparency = സുതാര്യത
+animation.export.transparency_note = സുതാര്യമായ ഭാഗങ്ങൾ സുതാര്യമായി നിലനിർത്തുക
+animation.export.gif_note = GIF കാലതാമസങ്ങൾ ഒരു സെക്കൻഡിന്റെ നൂറിലൊന്ന് ഭാഗങ്ങളായി സംഭരിക്കുന്നു, അതിന് ഭാഗിക സുതാര്യതയില്ല.
+animation.export.apng_note = APNG എല്ലാ ഫ്രെയിമുകളും പൂർണ്ണ സുതാര്യതയോടെ നഷ്ടരഹിതമായി സൂക്ഷിക്കുന്നു.
+animation.export.webp_note = ആനിമേറ്റഡ് WebP നഷ്ടരഹിതമായാണ് എഴുതുന്നത്; നഷ്ടമുള്ള WebP ലഭ്യമല്ല.

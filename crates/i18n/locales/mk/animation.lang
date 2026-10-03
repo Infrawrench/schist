@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = Временска линија
+animation.menu = Анимација
+animation.play_pause = Пушти/паузирај ја анимацијата
+animation.frame_layer_name = Кадар {n}
+animation.delay_seconds = {seconds} сек.
+animation.delay.label = Задоцнување
+animation.delay.apply_all = Примени на сите кадри
+animation.loop.label = Повторување
+animation.loop.once = Еднаш
+animation.loop.forever = Постојано
+animation.onion.label = Кожа од кромид
+animation.onion.before = Пред
+animation.onion.after = По
+animation.offset.label = Поместување на слојот во овој кадар
+animation.new_layers_visible = Новите слоеви се видливи во сите кадри
+animation.history.select_frame = Избери кадар
+animation.history.move_frame = Премести кадар
+animation.history.frame_delay = Задоцнување на кадар
+animation.history.loop = Број на повторувања
+animation.history.offset = Поместување во кадарот
+animation.history.new_layers = Видливост на нови слоеви
+animation.refuse.no_animation = Овој документ нема кадровска анимација. Користете Слој ▸ Анимација ▸ Создај кадровска анимација.
+animation.refuse.already_animated = Овој документ веќе има кадровска анимација.
+animation.refuse.last_frame = Анимацијата мора да има барем еден кадар. Наместо тоа, избришете ја анимацијата.
+animation.refuse.too_many_frames = Временската линија не може да собере повеќе кадри.
+animation.refuse.no_layers = Нема слоеви од кои би се направиле кадри.
+animation.export.menu = Анимација…
+animation.export.title = Извези анимација
+animation.export.palette = Палета
+animation.export.palette_per_frame = За секој кадар
+animation.export.palette_global = Глобална
+animation.export.disposal = Отстранување
+animation.export.disposal_auto = Автоматско
+animation.export.disposal_keep = Задржи го претходниот кадар
+animation.export.disposal_background = Врати на позадината
+animation.export.disposal_previous = Врати на претходниот
+animation.export.dither_note = Распрсни ги грешките во бојата кога кадарот има повеќе од 256 бои
+animation.export.transparency = Проѕирност
+animation.export.transparency_note = Проѕирните области да останат проѕирни
+animation.export.gif_note = GIF ги чува задоцнувањата во стотинки од секундата и нема делумна проѕирност.
+animation.export.apng_note = APNG го чува секој кадар без загуба и со целосна проѕирност.
+animation.export.webp_note = Анимираниот WebP се запишува без загуба; WebP со загуба не е достапен.

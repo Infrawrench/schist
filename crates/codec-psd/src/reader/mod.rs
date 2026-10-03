@@ -111,6 +111,7 @@ fn read_psd_inner(bytes: &[u8], native_filters: bool) -> Result<Document, PsdErr
     doc.ink_channels_loaded = !extras.is_empty();
     crate::ink::read(&mut doc, &extras);
     doc.tree.layers = tree_layers;
+    crate::animation::read(&mut doc);
     if native_filters {
         crate::smart_filters::import_document(&mut doc);
     }

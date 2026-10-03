@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = टाइमलाइन
+animation.menu = एनिमेसन
+animation.play_pause = एनिमेसन प्ले/पज गर्नुहोस्
+animation.frame_layer_name = फ्रेम {n}
+animation.delay_seconds = {seconds} से.
+animation.delay.label = ढिलाइ
+animation.delay.apply_all = सबै फ्रेमहरूमा लागू गर्नुहोस्
+animation.loop.label = दोहोर्याइ
+animation.loop.once = एक पटक
+animation.loop.forever = सधैँ
+animation.onion.label = अनियन स्किन
+animation.onion.before = अघि
+animation.onion.after = पछि
+animation.offset.label = यस फ्रेममा तहको अफसेट
+animation.new_layers_visible = नयाँ तहहरू सबै फ्रेमहरूमा देखिने
+animation.history.select_frame = फ्रेम चयन
+animation.history.move_frame = फ्रेम सार्नुहोस्
+animation.history.frame_delay = फ्रेम ढिलाइ
+animation.history.loop = दोहोर्याइ सङ्ख्या
+animation.history.offset = फ्रेम अफसेट
+animation.history.new_layers = नयाँ तहको दृश्यता
+animation.refuse.no_animation = यो कागजातमा फ्रेम एनिमेसन छैन। तह ▸ एनिमेसन ▸ फ्रेम एनिमेसन बनाउनुहोस् प्रयोग गर्नुहोस्।
+animation.refuse.already_animated = यो कागजातमा पहिल्यै फ्रेम एनिमेसन छ।
+animation.refuse.last_frame = एनिमेसनमा कम्तीमा एउटा फ्रेम चाहिन्छ। बरु एनिमेसन नै मेटाउनुहोस्।
+animation.refuse.too_many_frames = टाइमलाइनमा थप फ्रेमहरू अटाउन सक्दैनन्।
+animation.refuse.no_layers = फ्रेम बनाउन कुनै तह छैन।
+animation.export.menu = एनिमेसन…
+animation.export.title = एनिमेसन निर्यात गर्नुहोस्
+animation.export.palette = प्यालेट
+animation.export.palette_per_frame = प्रत्येक फ्रेमको छुट्टै
+animation.export.palette_global = साझा
+animation.export.disposal = हटाउने तरिका
+animation.export.disposal_auto = स्वचालित
+animation.export.disposal_keep = अघिल्लो फ्रेम राख्नुहोस्
+animation.export.disposal_background = पृष्ठभूमिमा पुनर्स्थापना
+animation.export.disposal_previous = अघिल्लोमा पुनर्स्थापना
+animation.export.dither_note = फ्रेममा २५६ भन्दा बढी रङ हुँदा रङ त्रुटिहरू फैलाउनुहोस्
+animation.export.transparency = पारदर्शिता
+animation.export.transparency_note = पारदर्शी क्षेत्रहरूलाई पारदर्शी नै राख्नुहोस्
+animation.export.gif_note = GIF ले ढिलाइलाई सेकेन्डको सयौँ भागमा भण्डारण गर्छ र आंशिक पारदर्शितालाई समर्थन गर्दैन।
+animation.export.apng_note = APNG ले हरेक फ्रेमलाई पूर्ण पारदर्शितासहित गुणस्तर नगुमाई राख्छ।
+animation.export.webp_note = एनिमेटेड WebP गुणस्तर नगुमाई लेखिन्छ; गुणस्तर गुमाउने WebP उपलब्ध छैन।

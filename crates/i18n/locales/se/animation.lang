@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = Áigelinjá
+animation.menu = Animašuvdna
+animation.play_pause = Čuojat/bisset animašuvnna
+animation.frame_layer_name = Rámma {n}
+animation.delay_seconds = {seconds} s
+animation.delay.label = Ádjáneapmi
+animation.delay.apply_all = Heivet buot rámmaide
+animation.loop.label = Geardduheapmi
+animation.loop.once = Oktii
+animation.loop.forever = Agibeaivái
+animation.onion.label = Šipuladuolji
+animation.onion.before = Ovdal
+animation.onion.after = Maŋŋil
+animation.offset.label = Gearddi sirdin dán rámmas
+animation.new_layers_visible = Ođđa gearddit oidnojit buot rámmain
+animation.history.select_frame = Vállje rámma
+animation.history.move_frame = Sirdde rámma
+animation.history.frame_delay = Rámma ádjáneapmi
+animation.history.loop = Geardduhemiid lohku
+animation.history.offset = Rámma sirdin
+animation.history.new_layers = Ođđa gearddiid oidnosis
+animation.refuse.no_animation = Dán dokumeanttas ii leat rámmaanimašuvdna. Geavat Geardi ▸ Animašuvdna ▸ Ráhkat rámmaanimašuvnna.
+animation.refuse.already_animated = Dán dokumeanttas lea juo rámmaanimašuvdna.
+animation.refuse.last_frame = Animašuvdna dárbbaša unnimusat ovtta rámma. Sihko baicca animašuvnna.
+animation.refuse.too_many_frames = Áigelinjá ii sáhte doallat eanet rámmaid.
+animation.refuse.no_layers = Eai leat gearddit main sáhtášii ráhkadit rámmaid.
+animation.export.menu = Animašuvdna…
+animation.export.title = Olggosfievrrit animašuvnna
+animation.export.palette = Palehtta
+animation.export.palette_per_frame = Juohke rámmas
+animation.export.palette_global = Oppalaš
+animation.export.disposal = Eretbidjan
+animation.export.disposal_auto = Automáhtalaš
+animation.export.disposal_keep = Bisut ovddit rámma
+animation.export.disposal_background = Máhcat duogážii
+animation.export.disposal_previous = Máhcat ovddit dillái
+animation.export.dither_note = Leavat ivdnemeattáhusaid go rámmas leat eanet go 256 ivnni
+animation.export.transparency = Čađačuovgivuohta
+animation.export.transparency_note = Bisut čađačuovgi guovlluid čađačuovgin
+animation.export.gif_note = GIF vurke ádjánemiid sekundda čuođisoassin, ja das ii leat oasálaš čađačuovgivuohta.
+animation.export.apng_note = APNG vurke juohke rámma massimeahttá ollislaš čađačuovgivuođain.
+animation.export.webp_note = Animerejuvvon WebP čállojuvvo massimeahttá; massilaš WebP ii leat olámuttus.

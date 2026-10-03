@@ -95,6 +95,9 @@ pub struct Document {
     pub counts: Vec<crate::annotate::CountGroup>,
     /// Named snapshots of layer visibility and appearance.
     pub layer_comps: Vec<crate::annotate::LayerComp>,
+    /// The frame animation, when the document has one. See
+    /// [`crate::animation`] for how it relates to the live layers.
+    pub timeline: Option<crate::animation::Timeline>,
     /// Stored vector paths, as in Photoshop's Paths panel.
     pub paths: Vec<crate::path::VectorPath>,
     /// Index into `paths` of the one being edited.
@@ -159,6 +162,7 @@ impl Document {
             notes: Vec::new(),
             counts: Vec::new(),
             layer_comps: Vec::new(),
+            timeline: None,
             active_path: None,
             damage: Vec::new(),
             dirty: false,
@@ -568,6 +572,18 @@ impl Document {
                 // furniture, so nothing composited depends on them and
                 // invalidating caches here would be pure waste.
                 self.notes = target.clone();
+            }
+            EditOp::TimelineSet { before, after } => {
+                let target = if dir == Direction::Undo {
+                    before
+                } else {
+                    after
+                };
+                self.timeline = target.as_deref().cloned();
+                if crate::animation::apply_offsets(self) {
+                    self.damage_all();
+                }
+                self.structure_changed();
             }
         }
     }
@@ -1393,6 +1409,20 @@ impl<'a> EditBuilder<'a> {
         let after = Box::new(self.doc.selection.clone());
         self.ops.push(EditOp::SelectionSet { before, after });
         self.damage = self.damage.union(&canvas);
+    }
+
+    /// Replace the frame animation, capturing before/after, and move the
+    /// layers' render offsets to the new current frame's.
+    pub fn set_timeline(&mut self, after: Option<crate::animation::Timeline>) {
+        let before = self.doc.timeline.take().map(Box::new);
+        self.doc.timeline = after.clone();
+        if crate::animation::apply_offsets(self.doc) {
+            self.damage = self.damage.union(&self.doc.canvas_rect());
+        }
+        self.ops.push(EditOp::TimelineSet {
+            before,
+            after: after.map(Box::new),
+        });
     }
 
     /// Replace the document's notes, capturing before/after.

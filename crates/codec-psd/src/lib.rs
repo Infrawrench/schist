@@ -14,6 +14,7 @@
 //! Indexed imports use the existing grayscale fallback. Bitmap, Duotone
 //! and Multichannel are not supported.
 
+mod animation;
 pub mod effects;
 pub mod error;
 mod ink;

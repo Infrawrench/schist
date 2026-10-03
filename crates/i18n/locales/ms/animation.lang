@@ -1,0 +1,45 @@
+# Animasi bingkai: panel Garis Masa, kulit bawang dan eksport animasi
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Tajuk arahan terdapat dalam commands.lang.
+animation.panel.title = Garis Masa
+animation.menu = Animasi
+animation.play_pause = Main/Jeda Animasi
+animation.frame_layer_name = Bingkai {n}
+animation.delay_seconds = {seconds} s
+animation.delay.label = Lengahan
+animation.delay.apply_all = Guna pada Semua Bingkai
+animation.loop.label = Gelung
+animation.loop.once = Sekali
+animation.loop.forever = Selamanya
+animation.onion.label = Kulit bawang
+animation.onion.before = Sebelum
+animation.onion.after = Selepas
+animation.offset.label = Ofset lapisan dalam bingkai ini
+animation.new_layers_visible = Lapisan baharu kelihatan dalam semua bingkai
+animation.history.select_frame = Pilih Bingkai
+animation.history.move_frame = Alih Bingkai
+animation.history.frame_delay = Lengahan Bingkai
+animation.history.loop = Bilangan Gelung
+animation.history.offset = Ofset Bingkai
+animation.history.new_layers = Keterlihatan Lapisan Baharu
+animation.refuse.no_animation = Dokumen ini tiada animasi bingkai. Gunakan Lapisan ▸ Animasi ▸ Cipta Animasi Bingkai.
+animation.refuse.already_animated = Dokumen ini sudah mempunyai animasi bingkai.
+animation.refuse.last_frame = Animasi memerlukan sekurang-kurangnya satu bingkai. Padam animasi itu sebaliknya.
+animation.refuse.too_many_frames = Garis masa tidak boleh memuatkan lebih banyak bingkai.
+animation.refuse.no_layers = Tiada lapisan untuk dijadikan bingkai.
+animation.export.menu = Animasi…
+animation.export.title = Eksport Animasi
+animation.export.palette = Palet
+animation.export.palette_per_frame = Setiap bingkai
+animation.export.palette_global = Global
+animation.export.disposal = Pelupusan
+animation.export.disposal_auto = Automatik
+animation.export.disposal_keep = Kekalkan bingkai sebelumnya
+animation.export.disposal_background = Pulihkan kepada latar belakang
+animation.export.disposal_previous = Pulihkan kepada sebelumnya
+animation.export.dither_note = Sebarkan ralat warna apabila bingkai mempunyai lebih daripada 256 warna
+animation.export.transparency = Ketelusan
+animation.export.transparency_note = Kekalkan kawasan lutsinar sebagai lutsinar
+animation.export.gif_note = GIF menyimpan lengahan dalam perseratus saat dan tidak menyokong ketelusan separa.
+animation.export.apng_note = APNG mengekalkan setiap bingkai tanpa kehilangan dengan ketelusan penuh.
+animation.export.webp_note = WebP beranimasi ditulis tanpa kehilangan; WebP dengan kehilangan tidak tersedia.

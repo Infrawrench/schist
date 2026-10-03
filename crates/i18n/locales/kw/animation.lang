@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = Linenn amser
+animation.menu = Bewheans
+animation.play_pause = Gwari/Powes Bewheans
+animation.frame_layer_name = Fram {n}
+animation.delay_seconds = {seconds} s
+animation.delay.label = Strech
+animation.delay.apply_all = Gorra dhe bub Fram
+animation.loop.label = Dasgweyth
+animation.loop.once = Unwyth
+animation.loop.forever = Bys vykken
+animation.onion.label = Kroghen onyon
+animation.onion.before = Kyns
+animation.onion.after = Wosa
+animation.offset.label = Dileans an gwisk y'n fram ma
+animation.new_layers_visible = Gwiskow nowydh yw gweladow yn pub fram
+animation.history.select_frame = Dewis Fram
+animation.history.move_frame = Gwaya Fram
+animation.history.frame_delay = Strech Fram
+animation.history.loop = Niver Dasgweythyow
+animation.history.offset = Dileans Fram
+animation.history.new_layers = Gweladewder Gwiskow Nowydh
+animation.refuse.no_animation = Nyns eus bewheans framyow y'n skrifen ma. Usyewgh Gwisk ▸ Bewheans ▸ Gul Bewheans Framyow.
+animation.refuse.already_animated = Yma bewheans framyow y'n skrifen ma seulabrys.
+animation.refuse.last_frame = Res yw dhe vewheans kavoes unn fram dhe'n lyha. Dileewgh an bewheans yn le.
+animation.refuse.too_many_frames = Ny yll an linenn amser synsi moy a framyow.
+animation.refuse.no_layers = Nyns eus gwiskow vydh mayth yllir gul framyow anedha.
+animation.export.menu = Bewheans…
+animation.export.title = Esperthi Bewheans
+animation.export.palette = Paleth
+animation.export.palette_per_frame = Pub fram
+animation.export.palette_global = Ollvysel
+animation.export.disposal = Dyghtyans
+animation.export.disposal_auto = Awtomatek
+animation.export.disposal_keep = Gwitha an fram kyns
+animation.export.disposal_background = Daskor dhe'n kilndir
+animation.export.disposal_previous = Daskor dhe'n studh kyns
+animation.export.dither_note = Lesa kammwriansow liw pan eus dhe fram moy ages 256 liw
+animation.export.transparency = Treusweladowder
+animation.export.transparency_note = Gwitha tylleryow boll yn boll
+animation.export.gif_note = GIF a synsi strechyow yn kansves rannow a eylenn ha nyns eus dhodho treusweladowder rannek.
+animation.export.apng_note = APNG a with pub fram heb kelli gans treusweladowder leun.
+animation.export.webp_note = WebP bewhes a vydh skrifys heb kelli; nyns yw WebP gans kelli kavadow.

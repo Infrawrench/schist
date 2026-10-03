@@ -1,0 +1,45 @@
+# پویانمایی فریمی: پنل خط زمانی، پوست پیاز و برون‌بری پویانمایی
+# (crates/editor/src/panels/timeline.rs، workspace/animation.rs،
+# dialogs/export_animation.rs). عنوان فرمان‌ها در commands.lang است.
+animation.panel.title = خط زمانی
+animation.menu = پویانمایی
+animation.play_pause = پخش/توقف پویانمایی
+animation.frame_layer_name = فریم {n}
+animation.delay_seconds = {seconds} ثانیه
+animation.delay.label = تأخیر
+animation.delay.apply_all = اعمال روی همهٔ فریم‌ها
+animation.loop.label = تکرار
+animation.loop.once = یک بار
+animation.loop.forever = همیشه
+animation.onion.label = پوست پیاز
+animation.onion.before = قبل
+animation.onion.after = بعد
+animation.offset.label = جابه‌جایی لایه در این فریم
+animation.new_layers_visible = لایه‌های جدید در همهٔ فریم‌ها نمایان باشند
+animation.history.select_frame = انتخاب فریم
+animation.history.move_frame = جابه‌جایی فریم
+animation.history.frame_delay = تأخیر فریم
+animation.history.loop = تعداد تکرار
+animation.history.offset = جابه‌جایی فریم‌ها
+animation.history.new_layers = نمایانی لایه‌های جدید
+animation.refuse.no_animation = این سند پویانمایی فریمی ندارد. از لایه ▸ پویانمایی ▸ ایجاد پویانمایی فریمی استفاده کنید.
+animation.refuse.already_animated = این سند از قبل یک پویانمایی فریمی دارد.
+animation.refuse.last_frame = پویانمایی دست‌کم به یک فریم نیاز دارد. به‌جای آن، پویانمایی را حذف کنید.
+animation.refuse.too_many_frames = خط زمانی گنجایش فریم‌های بیشتری ندارد.
+animation.refuse.no_layers = هیچ لایه‌ای برای ساختن فریم وجود ندارد.
+animation.export.menu = پویانمایی…
+animation.export.title = برون‌بری پویانمایی
+animation.export.palette = پالت
+animation.export.palette_per_frame = برای هر فریم
+animation.export.palette_global = سراسری
+animation.export.disposal = روش دورریزی
+animation.export.disposal_auto = خودکار
+animation.export.disposal_keep = نگه‌داشتن فریم قبلی
+animation.export.disposal_background = بازگشت به پس‌زمینه
+animation.export.disposal_previous = بازگشت به حالت قبلی
+animation.export.dither_note = وقتی فریمی بیش از ۲۵۶ رنگ دارد، خطاهای رنگ را پخش کن
+animation.export.transparency = شفافیت
+animation.export.transparency_note = نواحی شفاف را شفاف نگه دار
+animation.export.gif_note = GIF تأخیرها را بر حسب صدم ثانیه ذخیره می‌کند و از شفافیت جزئی پشتیبانی نمی‌کند.
+animation.export.apng_note = APNG همهٔ فریم‌ها را بدون افت کیفیت و با شفافیت کامل نگه می‌دارد.
+animation.export.webp_note = WebP متحرک بدون افت کیفیت نوشته می‌شود؛ WebP با افت کیفیت در دسترس نیست.

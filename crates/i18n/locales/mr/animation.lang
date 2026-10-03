@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = टाइमलाइन
+animation.menu = अ‍ॅनिमेशन
+animation.play_pause = अ‍ॅनिमेशन प्ले/थांबवा
+animation.frame_layer_name = फ्रेम {n}
+animation.delay_seconds = {seconds} से.
+animation.delay.label = विलंब
+animation.delay.apply_all = सर्व फ्रेमवर लागू करा
+animation.loop.label = पुनरावृत्ती
+animation.loop.once = एकदा
+animation.loop.forever = कायम
+animation.onion.label = ओनियन स्किन
+animation.onion.before = आधी
+animation.onion.after = नंतर
+animation.offset.label = या फ्रेममधील स्तराचे ऑफसेट
+animation.new_layers_visible = नवीन स्तर सर्व फ्रेममध्ये दृश्यमान
+animation.history.select_frame = फ्रेम निवडणे
+animation.history.move_frame = फ्रेम हलवणे
+animation.history.frame_delay = फ्रेम विलंब
+animation.history.loop = पुनरावृत्ती संख्या
+animation.history.offset = फ्रेम ऑफसेट
+animation.history.new_layers = नवीन स्तरांची दृश्यमानता
+animation.refuse.no_animation = या दस्तऐवजात फ्रेम अ‍ॅनिमेशन नाही. स्तर ▸ अ‍ॅनिमेशन ▸ फ्रेम अ‍ॅनिमेशन तयार करा वापरा.
+animation.refuse.already_animated = या दस्तऐवजात आधीपासूनच फ्रेम अ‍ॅनिमेशन आहे.
+animation.refuse.last_frame = अ‍ॅनिमेशनमध्ये किमान एक फ्रेम असणे आवश्यक आहे. त्याऐवजी अ‍ॅनिमेशनच हटवा.
+animation.refuse.too_many_frames = टाइमलाइनमध्ये आणखी फ्रेम मावू शकत नाहीत.
+animation.refuse.no_layers = फ्रेम तयार करण्यासाठी कोणतेही स्तर नाहीत.
+animation.export.menu = अ‍ॅनिमेशन…
+animation.export.title = अ‍ॅनिमेशन निर्यात करा
+animation.export.palette = पॅलेट
+animation.export.palette_per_frame = प्रत्येक फ्रेमसाठी
+animation.export.palette_global = सामायिक
+animation.export.disposal = काढून टाकण्याची पद्धत
+animation.export.disposal_auto = स्वयंचलित
+animation.export.disposal_keep = मागील फ्रेम ठेवा
+animation.export.disposal_background = पार्श्वभूमीवर पुनर्संचयित करा
+animation.export.disposal_previous = मागील स्थितीत पुनर्संचयित करा
+animation.export.dither_note = फ्रेममध्ये 256 पेक्षा जास्त रंग असल्यास रंगातील त्रुटी पसरवा
+animation.export.transparency = पारदर्शकता
+animation.export.transparency_note = पारदर्शक भाग पारदर्शकच ठेवा
+animation.export.gif_note = GIF विलंब सेकंदाच्या शतांश भागांत साठवते आणि आंशिक पारदर्शकतेला समर्थन देत नाही.
+animation.export.apng_note = APNG प्रत्येक फ्रेम पूर्ण पारदर्शकतेसह गुणवत्ता न गमावता ठेवते.
+animation.export.webp_note = अ‍ॅनिमेटेड WebP गुणवत्ता न गमावता लिहिले जाते; गुणवत्ता गमावणारे WebP उपलब्ध नाही.

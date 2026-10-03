@@ -112,6 +112,14 @@ Unicode alpha names, identifiers and native DisplayInfo mode 2. PSD and PSB keep
 original metadata preservation, shared recovery, independent parser checks and
 limits. This does not provide press-certified proofing.
 
+## Frame animation
+
+Schist's own frame animation is stored in the private document-level `ScAn`
+block; the selected frame is also written as the ordinary layer visibility and
+opacity, so other readers open the file showing it. Photoshop's animation
+resources are preserved verbatim but are not imported as a timeline. See
+[frame-animation.md](frame-animation.md).
+
 ## Independent validation and provenance
 
 Implementation references are the public, MIT-licensed

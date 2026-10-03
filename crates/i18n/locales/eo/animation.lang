@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = Tempolinio
+animation.menu = Animacio
+animation.play_pause = Ludi/paŭzigi animacion
+animation.frame_layer_name = Kadro {n}
+animation.delay_seconds = {seconds} s
+animation.delay.label = Prokrasto
+animation.delay.apply_all = Apliki al ĉiuj kadroj
+animation.loop.label = Ripetado
+animation.loop.once = Unufoje
+animation.loop.forever = Senfine
+animation.onion.label = Cepa haŭto
+animation.onion.before = Antaŭe
+animation.onion.after = Poste
+animation.offset.label = Tavola deŝovo en ĉi tiu kadro
+animation.new_layers_visible = Novaj tavoloj videblaj en ĉiuj kadroj
+animation.history.select_frame = Elekti kadron
+animation.history.move_frame = Movi kadron
+animation.history.frame_delay = Kadra prokrasto
+animation.history.loop = Nombro de ripetoj
+animation.history.offset = Kadra deŝovo
+animation.history.new_layers = Videbleco de novaj tavoloj
+animation.refuse.no_animation = Ĉi tiu dokumento ne havas kadran animacion. Uzu Tavolo ▸ Animacio ▸ Krei kadran animacion.
+animation.refuse.already_animated = Ĉi tiu dokumento jam havas kadran animacion.
+animation.refuse.last_frame = Animacio bezonas almenaŭ unu kadron. Anstataŭe forigu la animacion.
+animation.refuse.too_many_frames = La tempolinio ne povas enteni pliajn kadrojn.
+animation.refuse.no_layers = Ne estas tavoloj el kiuj fari kadrojn.
+animation.export.menu = Animacio…
+animation.export.title = Eksporti animacion
+animation.export.palette = Paletro
+animation.export.palette_per_frame = Po kadro
+animation.export.palette_global = Ĝenerala
+animation.export.disposal = Forigmaniero
+animation.export.disposal_auto = Aŭtomata
+animation.export.disposal_keep = Konservi antaŭan kadron
+animation.export.disposal_background = Restarigi al fono
+animation.export.disposal_previous = Restarigi al antaŭa
+animation.export.dither_note = Disvastigi kolorerarojn kiam kadro havas pli ol 256 kolorojn
+animation.export.transparency = Travidebleco
+animation.export.transparency_note = Teni travideblajn areojn travideblaj
+animation.export.gif_note = GIF konservas prokrastojn en centonoj de sekundo kaj ne havas partan travideblecon.
+animation.export.apng_note = APNG konservas ĉiun kadron senperde kun plena travidebleco.
+animation.export.webp_note = Animacia WebP estas skribata senperde; perda WebP ne disponeblas.

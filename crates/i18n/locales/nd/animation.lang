@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = Umugqa Wesikhathi
+animation.menu = Ukunyakazisa
+animation.play_pause = Dlala/Misa Okwesikhatshana Ukunyakazisa
+animation.frame_layer_name = Isakhelo {n}
+animation.delay_seconds = {seconds} s
+animation.delay.label = Ukulibala
+animation.delay.apply_all = Sebenzisa Kuzo Zonke Izakhelo
+animation.loop.label = Ukuphindaphinda
+animation.loop.once = Kanye
+animation.loop.forever = Kuze Kube Nini Lanini
+animation.onion.label = Ikhasi Lika-anyanisi
+animation.onion.before = Ngaphambili
+animation.onion.after = Ngemuva
+animation.offset.label = Ukususwa kwesendlalelo kulesi sakhelo
+animation.new_layers_visible = Izendlalelo ezintsha ziyabonakala kuzo zonke izakhelo
+animation.history.select_frame = Khetha Isakhelo
+animation.history.move_frame = Hambisa Isakhelo
+animation.history.frame_delay = Ukulibala Kwesakhelo
+animation.history.loop = Inani Lokuphindaphinda
+animation.history.offset = Ukususwa Kwesakhelo
+animation.history.new_layers = Ukubonakala Kwesendlalelo Esitsha
+animation.refuse.no_animation = Lumbhalo kawulakho ukunyakazisa kwezakhelo. Sebenzisa Isendlalelo ▸ Ukunyakazisa ▸ Dala Ukunyakazisa Kwezakhelo.
+animation.refuse.already_animated = Lumbhalo sewulakho ukunyakazisa kwezakhelo.
+animation.refuse.last_frame = Ukunyakazisa kudinga okungenani isakhelo esisodwa. Susa ukunyakazisa esikhundleni salokho.
+animation.refuse.too_many_frames = Umugqa wesikhathi awungeke uthwale ezinye izakhelo.
+animation.refuse.no_layers = Azikho izendlalelo ongenza ngazo izakhelo.
+animation.export.menu = Ukunyakazisa…
+animation.export.title = Thumela Ukunyakazisa Ngaphandle
+animation.export.palette = Iphalethi
+animation.export.palette_per_frame = Ngesakhelo ngasinye
+animation.export.palette_global = Jikelele
+animation.export.disposal = Ukulahlwa Kwesakhelo
+animation.export.disposal_auto = Ngokuzenzakalela
+animation.export.disposal_keep = Gcina isakhelo sangaphambili
+animation.export.disposal_background = Buyisela engemuva
+animation.export.disposal_previous = Buyisela kokwangaphambili
+animation.export.dither_note = Hlakaza amaphutha emibala nxa isakhelo silemibala edlula engu-256
+animation.export.transparency = Ukukhanyela
+animation.export.transparency_note = Gcina izindawo ezikhanyelayo zikhanyela
+animation.export.gif_note = GIF igcina ukulibala ngamakhulu omzuzwana futhi kayilakho ukukhanyela okuyingxenye.
+animation.export.apng_note = APNG igcina isakhelo ngasinye singalahlekelwa lutho lokukhanyela okupheleleyo.
+animation.export.webp_note = I-WebP enyakazayo ibhalwa ingalahlekelwa lutho; i-WebP elahlekelwa yikhwalithi kayitholakali.

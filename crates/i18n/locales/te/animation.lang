@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = టైమ్‌లైన్
+animation.menu = యానిమేషన్
+animation.play_pause = యానిమేషన్ ప్లే/పాజ్
+animation.frame_layer_name = ఫ్రేమ్ {n}
+animation.delay_seconds = {seconds} సె
+animation.delay.label = ఆలస్యం
+animation.delay.apply_all = అన్ని ఫ్రేమ్‌లకు వర్తింపజేయి
+animation.loop.label = లూప్
+animation.loop.once = ఒకసారి
+animation.loop.forever = ఎల్లప్పుడూ
+animation.onion.label = ఉల్లిపొర
+animation.onion.before = ముందు
+animation.onion.after = తర్వాత
+animation.offset.label = ఈ ఫ్రేమ్‌లో లేయర్ ఆఫ్‌సెట్
+animation.new_layers_visible = కొత్త లేయర్లు అన్ని ఫ్రేమ్‌లలో కనిపిస్తాయి
+animation.history.select_frame = ఫ్రేమ్ ఎంపిక
+animation.history.move_frame = ఫ్రేమ్ తరలింపు
+animation.history.frame_delay = ఫ్రేమ్ ఆలస్యం
+animation.history.loop = లూప్ సంఖ్య
+animation.history.offset = ఫ్రేమ్ ఆఫ్‌సెట్
+animation.history.new_layers = కొత్త లేయర్ దృశ్యత
+animation.refuse.no_animation = ఈ పత్రంలో ఫ్రేమ్ యానిమేషన్ లేదు. లేయర్ ▸ యానిమేషన్ ▸ ఫ్రేమ్ యానిమేషన్ సృష్టించు ఉపయోగించండి.
+animation.refuse.already_animated = ఈ పత్రంలో ఇప్పటికే ఫ్రేమ్ యానిమేషన్ ఉంది.
+animation.refuse.last_frame = యానిమేషన్‌కు కనీసం ఒక ఫ్రేమ్ అవసరం. బదులుగా యానిమేషన్‌ను తొలగించండి.
+animation.refuse.too_many_frames = టైమ్‌లైన్ మరిన్ని ఫ్రేమ్‌లను ఉంచలేదు.
+animation.refuse.no_layers = ఫ్రేమ్‌లు చేయడానికి లేయర్లు ఏవీ లేవు.
+animation.export.menu = యానిమేషన్…
+animation.export.title = యానిమేషన్‌ను ఎగుమతి చేయి
+animation.export.palette = పాలెట్
+animation.export.palette_per_frame = ప్రతి ఫ్రేమ్‌కు
+animation.export.palette_global = గ్లోబల్
+animation.export.disposal = విసర్జన
+animation.export.disposal_auto = స్వయంచాలకం
+animation.export.disposal_keep = మునుపటి ఫ్రేమ్‌ను ఉంచు
+animation.export.disposal_background = నేపథ్యానికి పునరుద్ధరించు
+animation.export.disposal_previous = మునుపటిదానికి పునరుద్ధరించు
+animation.export.dither_note = ఫ్రేమ్‌లో 256 కంటే ఎక్కువ రంగులు ఉన్నప్పుడు రంగు లోపాలను వ్యాపింపజేయి
+animation.export.transparency = పారదర్శకత
+animation.export.transparency_note = పారదర్శక ప్రాంతాలను పారదర్శకంగానే ఉంచు
+animation.export.gif_note = GIF ఆలస్యాలను సెకనులో వందో వంతులలో నిల్వ చేస్తుంది మరియు పాక్షిక పారదర్శకత దీనికి లేదు.
+animation.export.apng_note = APNG ప్రతి ఫ్రేమ్‌ను పూర్తి పారదర్శకతతో నష్టరహితంగా ఉంచుతుంది.
+animation.export.webp_note = యానిమేటెడ్ WebP నష్టరహితంగా వ్రాయబడుతుంది; నష్టయుత WebP అందుబాటులో లేదు.

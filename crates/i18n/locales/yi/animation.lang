@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = צײַטליניע
+animation.menu = אַנימאַציע
+animation.play_pause = שפּילן/פּויזירן אַנימאַציע
+animation.frame_layer_name = ראַם {n}
+animation.delay_seconds = {seconds} סעק.
+animation.delay.label = פֿאַרהאַלטונג
+animation.delay.apply_all = אָנווענדן אויף אַלע ראַמען
+animation.loop.label = שלייף
+animation.loop.once = איין מאָל
+animation.loop.forever = אייביק
+animation.onion.label = ציבעלע־הויט
+animation.onion.before = פֿריִער
+animation.onion.after = שפּעטער
+animation.offset.label = שיכט־פֿאַררוקונג אין דעם ראַם
+animation.new_layers_visible = נײַע שיכטן זעיק אין אַלע ראַמען
+animation.history.select_frame = אויסקלײַבן ראַם
+animation.history.move_frame = רוקן ראַם
+animation.history.frame_delay = ראַם־פֿאַרהאַלטונג
+animation.history.loop = צאָל שלייפֿן
+animation.history.offset = ראַם־פֿאַררוקונג
+animation.history.new_layers = זעיקייט פֿון נײַע שיכטן
+animation.refuse.no_animation = דער דאָקומענט האָט נישט קיין ראַם־אַנימאַציע. ניצט שיכט ▸ אַנימאַציע ▸ שאַפֿן ראַם־אַנימאַציע.
+animation.refuse.already_animated = דער דאָקומענט האָט שוין אַ ראַם־אַנימאַציע.
+animation.refuse.last_frame = אַן אַנימאַציע דאַרף האָבן כאָטש איין ראַם. מעקט אויס די אַנימאַציע אַנשטאָט דעם.
+animation.refuse.too_many_frames = די צײַטליניע קען נישט האַלטן מער ראַמען.
+animation.refuse.no_layers = עס זײַנען נישטאָ קיין שיכטן פֿון וועלכע מע קען מאַכן ראַמען.
+animation.export.menu = אַנימאַציע…
+animation.export.title = עקספּאָרטירן אַנימאַציע
+animation.export.palette = פּאַליטרע
+animation.export.palette_per_frame = פּער ראַם
+animation.export.palette_global = גלאָבאַל
+animation.export.disposal = באַזײַטיקונג
+animation.export.disposal_auto = אויטאָמאַטיש
+animation.export.disposal_keep = האַלטן דעם פֿריִערדיקן ראַם
+animation.export.disposal_background = צוריקשטעלן צום הינטערגרונט
+animation.export.disposal_previous = צוריקשטעלן צום פֿריִערדיקן
+animation.export.dither_note = צעשפּרייטן קאָליר־טעותים ווען אַ ראַם האָט מער ווי 256 קאָלירן
+animation.export.transparency = דורכזעיקייט
+animation.export.transparency_note = האַלטן דורכזעיקע געגנטן דורכזעיק
+animation.export.gif_note = GIF היט אָפּ פֿאַרהאַלטונגען אין הונדערטסטלעך פֿון אַ סעקונדע און האָט נישט קיין טיילווײַזע דורכזעיקייט.
+animation.export.apng_note = APNG האַלט יעדן ראַם אָן פֿאַרלוסט מיט פֿולער דורכזעיקייט.
+animation.export.webp_note = אַנימירטער WebP ווערט געשריבן אָן פֿאַרלוסט; WebP מיט פֿאַרלוסט איז נישט פֿאַראַן.

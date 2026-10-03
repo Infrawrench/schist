@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = Timeline
+animation.menu = Animation
+animation.play_pause = Play/Pause Animation
+animation.frame_layer_name = Frame {n}
+animation.delay_seconds = {seconds} s
+animation.delay.label = Delay
+animation.delay.apply_all = Apply to All Frames
+animation.loop.label = Loop
+animation.loop.once = Once
+animation.loop.forever = Forever
+animation.onion.label = Onion skin
+animation.onion.before = Before
+animation.onion.after = After
+animation.offset.label = Layer offset in this frame
+animation.new_layers_visible = New layers visible in all frames
+animation.history.select_frame = Select Frame
+animation.history.move_frame = Move Frame
+animation.history.frame_delay = Frame Delay
+animation.history.loop = Loop Count
+animation.history.offset = Frame Offset
+animation.history.new_layers = New Layer Visibility
+animation.refuse.no_animation = This document has no frame animation. Use Layer ▸ Animation ▸ Create Frame Animation.
+animation.refuse.already_animated = This document already has a frame animation.
+animation.refuse.last_frame = An animation needs at least one frame. Delete the animation instead.
+animation.refuse.too_many_frames = The timeline cannot hold more frames.
+animation.refuse.no_layers = There are no layers to make frames from.
+animation.export.menu = Animation…
+animation.export.title = Export Animation
+animation.export.palette = Palette
+animation.export.palette_per_frame = Per frame
+animation.export.palette_global = Global
+animation.export.disposal = Disposal
+animation.export.disposal_auto = Automatic
+animation.export.disposal_keep = Keep previous frame
+animation.export.disposal_background = Restore to background
+animation.export.disposal_previous = Restore to previous
+animation.export.dither_note = Diffuse colour errors when a frame has more than 256 colours
+animation.export.transparency = Transparency
+animation.export.transparency_note = Keep transparent areas transparent
+animation.export.gif_note = GIF stores delays in hundredths of a second and has no partial transparency.
+animation.export.apng_note = APNG keeps every frame lossless with full transparency.
+animation.export.webp_note = Animated WebP is written lossless; lossy WebP is not available.

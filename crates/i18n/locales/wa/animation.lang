@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = Roye do tins
+animation.menu = Animåcion
+animation.play_pause = Djouwer/Mete e pause l' animåcion
+animation.frame_layer_name = Imådje {n}
+animation.delay_seconds = {seconds} s
+animation.delay.label = Tårdjaedje
+animation.delay.apply_all = Mete po totes les imådjes
+animation.loop.label = Boucle
+animation.loop.once = Ene feye
+animation.loop.forever = Todi
+animation.onion.label = Pea d' ugnon
+animation.onion.before = Divant
+animation.onion.after = Après
+animation.offset.label = Displaeçmint del coûtche dins cisse imådje ci
+animation.new_layers_visible = Les noveles coûtches sont veyåves dins totes les imådjes
+animation.history.select_frame = Tchoezi l' imådje
+animation.history.move_frame = Bodjî l' imådje
+animation.history.frame_delay = Tårdjaedje di l' imådje
+animation.history.loop = Nombe di boucles
+animation.history.offset = Displaeçmint di l' imådje
+animation.history.new_layers = Veyåvisté des noveles coûtches
+animation.refuse.no_animation = Ci documint ci n' a nole animåcion d' imådjes. Eployîz Coûtche ▸ Animåcion ▸ Ahiver ene animåcion d' imådjes.
+animation.refuse.already_animated = Ci documint ci a ddja ene animåcion d' imådjes.
+animation.refuse.last_frame = Ene animåcion a mezåjhe d' omwints ene imådje. Disfaijhoz l' animåcion purade.
+animation.refuse.too_many_frames = Li roye do tins ni pout pus wårder d' ôtes imådjes.
+animation.refuse.no_layers = I n' a nole coûtche po fé des imådjes avou.
+animation.export.menu = Animåcion…
+animation.export.title = Ebaguer l' animåcion
+animation.export.palette = Palete
+animation.export.palette_per_frame = Po tchaeke imådje
+animation.export.palette_global = Globåle
+animation.export.disposal = Disfoûmaedje
+animation.export.disposal_auto = Otomatike
+animation.export.disposal_keep = Wårder l' imådje d' divant
+animation.export.disposal_background = Rimete come li drî
+animation.export.disposal_previous = Rimete come divant
+animation.export.dither_note = Spaitchî les fåtes di coleurs cwand ene imådje a pus di 256 coleurs
+animation.export.transparency = Transparince
+animation.export.transparency_note = Wårder transparintès les redjons transparintès
+animation.export.gif_note = GIF wåde les tårdjaedjes e centinmes di segonde et n' a nole transparince pa pårteye.
+animation.export.apng_note = APNG wåde tchaeke imådje sins piede et avou ene plinne transparince.
+animation.export.webp_note = Li WebP animé est scrît sins piede; li WebP avou piede n' est nén disponibe.

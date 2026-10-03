@@ -12,20 +12,22 @@ const SCHEMA: u32 = 2;
 
 /// Audited commands whose mutations are entirely represented in undo history.
 pub fn command_supported(id: &str) -> bool {
-    matches!(
-        id,
-        "select.all"
-            | "select.deselect"
-            | "select.inverse"
-            | "edit.fill_foreground"
-            | "edit.fill_background"
-            | "layer.new"
-            | "layer.duplicate"
-            | "layer.flatten"
-            | "layer.merge_down"
-            | "layer.merge_visible"
-            | "layer.rasterize"
-    )
+    // Frame operations are each one undoable edit of document state.
+    schist_commands_core::animation::IDS.contains(&id)
+        || matches!(
+            id,
+            "select.all"
+                | "select.deselect"
+                | "select.inverse"
+                | "edit.fill_foreground"
+                | "edit.fill_background"
+                | "layer.new"
+                | "layer.duplicate"
+                | "layer.flatten"
+                | "layer.merge_down"
+                | "layer.merge_visible"
+                | "layer.rasterize"
+        )
 }
 
 /// Deterministic, self-contained built-in filters. Resource-dependent and

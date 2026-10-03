@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = Oś czasu
+animation.menu = Animacja
+animation.play_pause = Odtwórz/wstrzymaj animację
+animation.frame_layer_name = Klatka {n}
+animation.delay_seconds = {seconds} s
+animation.delay.label = Opóźnienie
+animation.delay.apply_all = Zastosuj do wszystkich klatek
+animation.loop.label = Zapętlenie
+animation.loop.once = Raz
+animation.loop.forever = Bez końca
+animation.onion.label = Skórka cebuli
+animation.onion.before = Przed
+animation.onion.after = Po
+animation.offset.label = Przesunięcie warstwy w tej klatce
+animation.new_layers_visible = Nowe warstwy widoczne we wszystkich klatkach
+animation.history.select_frame = Wybierz klatkę
+animation.history.move_frame = Przenieś klatkę
+animation.history.frame_delay = Opóźnienie klatki
+animation.history.loop = Liczba powtórzeń
+animation.history.offset = Przesunięcie klatki
+animation.history.new_layers = Widoczność nowych warstw
+animation.refuse.no_animation = Ten dokument nie ma animacji klatkowej. Użyj polecenia Warstwa ▸ Animacja ▸ Utwórz animację klatkową.
+animation.refuse.already_animated = Ten dokument ma już animację klatkową.
+animation.refuse.last_frame = Animacja musi mieć co najmniej jedną klatkę. Zamiast tego usuń animację.
+animation.refuse.too_many_frames = Oś czasu nie może pomieścić więcej klatek.
+animation.refuse.no_layers = Nie ma warstw, z których można utworzyć klatki.
+animation.export.menu = Animacja…
+animation.export.title = Eksportuj animację
+animation.export.palette = Paleta
+animation.export.palette_per_frame = Dla każdej klatki
+animation.export.palette_global = Globalna
+animation.export.disposal = Usuwanie
+animation.export.disposal_auto = Automatyczne
+animation.export.disposal_keep = Zachowaj poprzednią klatkę
+animation.export.disposal_background = Przywróć do tła
+animation.export.disposal_previous = Przywróć do poprzedniej
+animation.export.dither_note = Rozpraszaj błędy kolorów, gdy klatka ma więcej niż 256 kolorów
+animation.export.transparency = Przezroczystość
+animation.export.transparency_note = Zachowaj przezroczystość obszarów przezroczystych
+animation.export.gif_note = GIF zapisuje opóźnienia w setnych częściach sekundy i nie obsługuje częściowej przezroczystości.
+animation.export.apng_note = APNG zachowuje każdą klatkę bezstratnie z pełną przezroczystością.
+animation.export.webp_note = Animowany WebP jest zapisywany bezstratnie; stratny WebP nie jest dostępny.

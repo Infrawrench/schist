@@ -6676,6 +6676,21 @@ dependencies = [
 ]
 
 [[package]]
+name = "schist-animation"
+version = "0.15.0"
+dependencies = [
+ "anyhow",
+ "color_quant",
+ "gif",
+ "image-webp",
+ "png 0.18.1",
+ "schist-codec-psd",
+ "schist-color",
+ "schist-compositor",
+ "schist-core",
+]
+
+[[package]]
 name = "schist-app"
 version = "0.15.0"
 dependencies = [
@@ -6942,6 +6957,7 @@ dependencies = [
  "schist-i18n",
  "schist-psd-descriptor",
  "schist-text-engine",
+ "serde",
  "serde_json",
  "thiserror 2.0.20",
 ]
@@ -7022,6 +7038,7 @@ name = "schist-commands-core"
 version = "0.15.0"
 dependencies = [
  "anyhow",
+ "schist-animation",
  "schist-color",
  "schist-compositor",
  "schist-core",
@@ -7140,6 +7157,7 @@ dependencies = [
  "objc2-foundation",
  "rustc-hash 2.1.3",
  "schist-adjustments",
+ "schist-animation",
  "schist-app-actions",
  "schist-app-ai",
  "schist-app-fonts",

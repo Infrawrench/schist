@@ -1,0 +1,45 @@
+# Animation d’images : le panneau Montage, les pelures d’oignon et l’export
+# d’animation (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Les titres des commandes sont dans commands.lang.
+animation.panel.title = Montage
+animation.menu = Animation
+animation.play_pause = Lire/mettre en pause l’animation
+animation.frame_layer_name = Image {n}
+animation.delay_seconds = {seconds} s
+animation.delay.label = Délai
+animation.delay.apply_all = Appliquer à toutes les images
+animation.loop.label = Boucle
+animation.loop.once = Une fois
+animation.loop.forever = Toujours
+animation.onion.label = Pelure d’oignon
+animation.onion.before = Avant
+animation.onion.after = Après
+animation.offset.label = Décalage du calque dans cette image
+animation.new_layers_visible = Nouveaux calques visibles dans toutes les images
+animation.history.select_frame = Sélectionner l’image
+animation.history.move_frame = Déplacer l’image
+animation.history.frame_delay = Délai de l’image
+animation.history.loop = Nombre de boucles
+animation.history.offset = Décalage de l’image
+animation.history.new_layers = Visibilité des nouveaux calques
+animation.refuse.no_animation = Ce document n’a pas d’animation d’images. Utilisez Calque ▸ Animation ▸ Créer une animation d’images.
+animation.refuse.already_animated = Ce document a déjà une animation d’images.
+animation.refuse.last_frame = Une animation doit comporter au moins une image. Supprimez plutôt l’animation.
+animation.refuse.too_many_frames = Le montage ne peut pas contenir davantage d’images.
+animation.refuse.no_layers = Il n’y a aucun calque à partir duquel créer des images.
+animation.export.menu = Animation…
+animation.export.title = Exporter l’animation
+animation.export.palette = Palette
+animation.export.palette_per_frame = Par image
+animation.export.palette_global = Globale
+animation.export.disposal = Méthode de suppression
+animation.export.disposal_auto = Automatique
+animation.export.disposal_keep = Conserver l’image précédente
+animation.export.disposal_background = Restaurer l’arrière-plan
+animation.export.disposal_previous = Restaurer l’image précédente
+animation.export.dither_note = Diffuser les erreurs de couleur lorsqu’une image comporte plus de 256 couleurs
+animation.export.transparency = Transparence
+animation.export.transparency_note = Conserver la transparence des zones transparentes
+animation.export.gif_note = Le GIF enregistre les délais en centièmes de seconde et ne gère pas la transparence partielle.
+animation.export.apng_note = L’APNG conserve chaque image sans perte avec une transparence complète.
+animation.export.webp_note = Le WebP animé est enregistré sans perte ; le WebP avec perte n’est pas disponible.

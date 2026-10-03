@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = ٽائيم لائن
+animation.menu = اينيميشن
+animation.play_pause = اينيميشن هلايو/روڪيو
+animation.frame_layer_name = فريم {n}
+animation.delay_seconds = {seconds} سيڪنڊ
+animation.delay.label = دير
+animation.delay.apply_all = سڀني فريمن تي لاڳو ڪريو
+animation.loop.label = لوپ
+animation.loop.once = هڪ ڀيرو
+animation.loop.forever = هميشه
+animation.onion.label = پياز جي کل
+animation.onion.before = اڳ
+animation.onion.after = پوءِ
+animation.offset.label = هن فريم ۾ پرت جي سرڪ
+animation.new_layers_visible = نيون پرتون سڀني فريمن ۾ ظاهر
+animation.history.select_frame = فريم چونڊيو
+animation.history.move_frame = فريم سرڪايو
+animation.history.frame_delay = فريم جي دير
+animation.history.loop = لوپ جو تعداد
+animation.history.offset = فريم جي سرڪ
+animation.history.new_layers = نين پرتن جي ظاهري
+animation.refuse.no_animation = هن دستاويز ۾ فريم اينيميشن ناهي. پرت ▸ اينيميشن ▸ فريم اينيميشن ٺاهيو استعمال ڪريو.
+animation.refuse.already_animated = هن دستاويز ۾ اڳ ئي فريم اينيميشن آهي.
+animation.refuse.last_frame = اينيميشن کي گهٽ ۾ گهٽ هڪ فريم گهرجي. ان جي بدران اينيميشن ڊاهيو.
+animation.refuse.too_many_frames = ٽائيم لائن ۾ وڌيڪ فريم نٿا سمائجي سگهن.
+animation.refuse.no_layers = فريم ٺاهڻ لاءِ ڪي به پرتون ناهن.
+animation.export.menu = اينيميشن…
+animation.export.title = اينيميشن برآمد ڪريو
+animation.export.palette = پيليٽ
+animation.export.palette_per_frame = هر فريم لاءِ
+animation.export.palette_global = عالمي
+animation.export.disposal = نيڪال
+animation.export.disposal_auto = خودڪار
+animation.export.disposal_keep = پوئين فريم کي رکو
+animation.export.disposal_background = پس منظر ڏانهن بحال ڪريو
+animation.export.disposal_previous = پوئين ڏانهن بحال ڪريو
+animation.export.dither_note = جڏهن ڪنهن فريم ۾ 256 کان وڌيڪ رنگ هجن ته رنگن جون غلطيون ورهايو
+animation.export.transparency = شفافيت
+animation.export.transparency_note = شفاف حصن کي شفاف رکو
+animation.export.gif_note = GIF دير کي سيڪنڊ جي سوين حصن ۾ محفوظ ڪري ٿو ۽ ان ۾ جزوي شفافيت ناهي.
+animation.export.apng_note = APNG هر فريم کي مڪمل شفافيت سان بنا نقصان جي رکي ٿو.
+animation.export.webp_note = اينيميٽڊ WebP بنا نقصان جي لکيو وڃي ٿو؛ نقصان واري WebP دستياب ناهي.

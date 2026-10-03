@@ -163,6 +163,14 @@ pub enum EditOp {
         before: schist_color::ColorMode,
         after: schist_color::ColorMode,
     },
+    /// The frame animation changed: a frame added, removed, moved,
+    /// selected or retimed. A snapshot, like notes: a timeline is a few
+    /// bytes per layer per frame. Selecting a frame also changes layer
+    /// properties, which ride in the same edit as `LayerProps` ops.
+    TimelineSet {
+        before: Option<Box<crate::animation::Timeline>>,
+        after: Option<Box<crate::animation::Timeline>>,
+    },
 }
 
 fn tile_map_bytes(tiles: &TileMap) -> usize {

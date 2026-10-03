@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = Ajatelg
+animation.menu = Animatsioon
+animation.play_pause = Esita/peata animatsioon
+animation.frame_layer_name = Kaader {n}
+animation.delay_seconds = {seconds} s
+animation.delay.label = Viivitus
+animation.delay.apply_all = Rakenda kõigile kaadritele
+animation.loop.label = Kordus
+animation.loop.once = Üks kord
+animation.loop.forever = Lõputult
+animation.onion.label = Sibulakoor
+animation.onion.before = Enne
+animation.onion.after = Pärast
+animation.offset.label = Kihi nihe selles kaadris
+animation.new_layers_visible = Uued kihid on nähtavad kõigis kaadrites
+animation.history.select_frame = Vali kaader
+animation.history.move_frame = Teisalda kaader
+animation.history.frame_delay = Kaadri viivitus
+animation.history.loop = Korduste arv
+animation.history.offset = Kaadri nihe
+animation.history.new_layers = Uute kihtide nähtavus
+animation.refuse.no_animation = Selles dokumendis pole kaadrianimatsiooni. Kasuta käsku Kiht ▸ Animatsioon ▸ Loo kaadrianimatsioon.
+animation.refuse.already_animated = Selles dokumendis on juba kaadrianimatsioon.
+animation.refuse.last_frame = Animatsioonil peab olema vähemalt üks kaader. Kustuta selle asemel animatsioon.
+animation.refuse.too_many_frames = Ajatelg ei mahuta rohkem kaadreid.
+animation.refuse.no_layers = Pole kihte, millest kaadreid luua.
+animation.export.menu = Animatsioon…
+animation.export.title = Ekspordi animatsioon
+animation.export.palette = Palett
+animation.export.palette_per_frame = Kaadri kaupa
+animation.export.palette_global = Üldine
+animation.export.disposal = Kõrvaldamine
+animation.export.disposal_auto = Automaatne
+animation.export.disposal_keep = Säilita eelmine kaader
+animation.export.disposal_background = Taasta taustaks
+animation.export.disposal_previous = Taasta eelmiseks
+animation.export.dither_note = Haju värvivead, kui kaadris on üle 256 värvi
+animation.export.transparency = Läbipaistvus
+animation.export.transparency_note = Hoia läbipaistvad alad läbipaistvana
+animation.export.gif_note = GIF salvestab viivitused sajandiksekundites ega toeta osalist läbipaistvust.
+animation.export.apng_note = APNG säilitab iga kaadri kadudeta ja täieliku läbipaistvusega.
+animation.export.webp_note = Animeeritud WebP kirjutatakse kadudeta; kadudega WebP pole saadaval.

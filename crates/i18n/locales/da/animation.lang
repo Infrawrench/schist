@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = Tidslinje
+animation.menu = Animation
+animation.play_pause = Afspil/sæt animation på pause
+animation.frame_layer_name = Ramme {n}
+animation.delay_seconds = {seconds} s
+animation.delay.label = Forsinkelse
+animation.delay.apply_all = Anvend på alle rammer
+animation.loop.label = Gentagelse
+animation.loop.once = Én gang
+animation.loop.forever = Uendeligt
+animation.onion.label = Løgskind
+animation.onion.before = Før
+animation.onion.after = Efter
+animation.offset.label = Lagforskydning i denne ramme
+animation.new_layers_visible = Nye lag synlige i alle rammer
+animation.history.select_frame = Vælg ramme
+animation.history.move_frame = Flyt ramme
+animation.history.frame_delay = Rammeforsinkelse
+animation.history.loop = Antal gentagelser
+animation.history.offset = Rammeforskydning
+animation.history.new_layers = Synlighed for nye lag
+animation.refuse.no_animation = Dette dokument har ingen rammeanimation. Brug Lag ▸ Animation ▸ Opret rammeanimation.
+animation.refuse.already_animated = Dette dokument har allerede en rammeanimation.
+animation.refuse.last_frame = En animation skal have mindst én ramme. Slet animationen i stedet.
+animation.refuse.too_many_frames = Tidslinjen kan ikke rumme flere rammer.
+animation.refuse.no_layers = Der er ingen lag at lave rammer ud fra.
+animation.export.menu = Animation…
+animation.export.title = Eksportér animation
+animation.export.palette = Palet
+animation.export.palette_per_frame = Pr. ramme
+animation.export.palette_global = Global
+animation.export.disposal = Bortskaffelse
+animation.export.disposal_auto = Automatisk
+animation.export.disposal_keep = Behold forrige ramme
+animation.export.disposal_background = Gendan til baggrund
+animation.export.disposal_previous = Gendan til forrige
+animation.export.dither_note = Spred farvefejl, når en ramme har mere end 256 farver
+animation.export.transparency = Gennemsigtighed
+animation.export.transparency_note = Bevar gennemsigtige områder gennemsigtige
+animation.export.gif_note = GIF gemmer forsinkelser i hundrededele sekunder og understøtter ikke delvis gennemsigtighed.
+animation.export.apng_note = APNG bevarer hver ramme tabsfrit med fuld gennemsigtighed.
+animation.export.webp_note = Animeret WebP skrives tabsfrit; WebP med tab er ikke tilgængeligt.

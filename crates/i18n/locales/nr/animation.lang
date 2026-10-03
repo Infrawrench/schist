@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = Umugqa wesikhathi
+animation.menu = I-animeyitjhini
+animation.play_pause = Dlala/Misa I-animeyitjhini
+animation.frame_layer_name = Ifremu {n}
+animation.delay_seconds = {seconds} s
+animation.delay.label = Ukulibala
+animation.delay.apply_all = Sebenzisa kuwo woke amaFremu
+animation.loop.label = Ukuphinda
+animation.loop.once = Kanye
+animation.loop.forever = Ngaphandle kokuphela
+animation.onion.label = Isikhumba sekhanyanisi
+animation.onion.before = Ngaphambili
+animation.onion.after = Ngemva
+animation.offset.label = Ukususwa kweleya kifremu le
+animation.new_layers_visible = Amaleya amatjha abonakala kiwo woke amafremu
+animation.history.select_frame = Khetha Ifremu
+animation.history.move_frame = Hambisa Ifremu
+animation.history.frame_delay = Ukulibala kweFremu
+animation.history.loop = Inani Lokuphinda
+animation.history.offset = Ukususwa kweFremu
+animation.history.new_layers = Ukubonakala kwaMaleya Amatjha
+animation.refuse.no_animation = Idokhumende le ayinayo i-animeyitjhini yamafremu. Sebenzisa Ileya ▸ I-animeyitjhini ▸ Yenza I-animeyitjhini Yamafremu.
+animation.refuse.already_animated = Idokhumende le sele inayo i-animeyitjhini yamafremu.
+animation.refuse.last_frame = I-animeyitjhini itlhoga okungenani ifremu yinye. Kunalokho, sula i-animeyitjhini.
+animation.refuse.too_many_frames = Umugqa wesikhathi awukghoni ukuthwala amafremu amanye.
+animation.refuse.no_layers = Awekho amaleya angenziwa amafremu.
+animation.export.menu = I-animeyitjhini…
+animation.export.title = Thumela ngaphandle I-animeyitjhini
+animation.export.palette = Iphalethi
+animation.export.palette_per_frame = Ifremu ngayinye
+animation.export.palette_global = Koke
+animation.export.disposal = Ukulahla
+animation.export.disposal_auto = Okuzenzakalelako
+animation.export.disposal_keep = Gcina ifremu yangaphambili
+animation.export.disposal_background = Buyisela ingemuva
+animation.export.disposal_previous = Buyisela eyangaphambili
+animation.export.dither_note = Hlakaza amaphutha wemibala nangabe ifremu inemibala engaphezu kwe-256
+animation.export.transparency = Ukubonakala Ngale
+animation.export.transparency_note = Gcina iindawo ezibonakala ngale zibonakala ngale
+animation.export.gif_note = I-GIF igcina ukulibala ngamakhulu wesekhondi begodu ayinakho ukubonakala ngale okuyingcenye.
+animation.export.apng_note = I-APNG igcina ifremu ngayinye ingalahlekelwa nokubonakala ngale okupheleleko.
+animation.export.webp_note = I-WebP egwedlako itlolwa ingalahlekelwa; i-WebP elahlekelwako ayitholakali.

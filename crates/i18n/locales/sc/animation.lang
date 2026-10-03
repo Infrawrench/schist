@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = Lìnia de tempus
+animation.menu = Animatzione
+animation.play_pause = Reprodui/Pàusa s'animatzione
+animation.frame_layer_name = Fotograma {n}
+animation.delay_seconds = {seconds} s
+animation.delay.label = Ritardu
+animation.delay.apply_all = Àplica a totu sos fotogramas
+animation.loop.label = Ripetitzione
+animation.loop.once = Una borta
+animation.loop.forever = Semper
+animation.onion.label = Pedde de chibudda
+animation.onion.before = In antis
+animation.onion.after = A pustis
+animation.offset.label = Tràmuda de s'istratu in custu fotograma
+animation.new_layers_visible = Istratos noos visìbiles in totu sos fotogramas
+animation.history.select_frame = Seletziona fotograma
+animation.history.move_frame = Mòvete fotograma
+animation.history.frame_delay = Ritardu de su fotograma
+animation.history.loop = Nùmeru de ripetitziones
+animation.history.offset = Tràmuda de su fotograma
+animation.history.new_layers = Visibilidade de sos istratos noos
+animation.refuse.no_animation = Custu documentu no tenet un'animatzione a fotogramas. Imprea Istratu ▸ Animatzione ▸ Crea un'animatzione a fotogramas.
+animation.refuse.already_animated = Custu documentu tenet giai un'animatzione a fotogramas.
+animation.refuse.last_frame = Un'animatzione tenet bisòngiu de a su mancu unu fotograma. Cantzella s'animatzione imbetzes.
+animation.refuse.too_many_frames = Sa lìnia de tempus no podet cuntènnere àteros fotogramas.
+animation.refuse.no_layers = Non b'at istratos dae ue fàghere fotogramas.
+animation.export.menu = Animatzione…
+animation.export.title = Esporta s'animatzione
+animation.export.palette = Paleta
+animation.export.palette_per_frame = Pro cada fotograma
+animation.export.palette_global = Globale
+animation.export.disposal = Eliminatzione
+animation.export.disposal_auto = Automàticu
+animation.export.disposal_keep = Mantene su fotograma de in antis
+animation.export.disposal_background = Torra a su fundu
+animation.export.disposal_previous = Torra a su de in antis
+animation.export.dither_note = Ispàrghe sos errores de colore cando unu fotograma tenet prus de 256 colores
+animation.export.transparency = Trasparèntzia
+animation.export.transparency_note = Mantene trasparentes sas àreas trasparentes
+animation.export.gif_note = GIF sarvat sos ritardos in tzentèsimos de segundu e no tenet trasparèntzia partziale.
+animation.export.apng_note = APNG mantenet cada fotograma chene pèrdida cun trasparèntzia cumpleta.
+animation.export.webp_note = WebP animadu est iscritu chene pèrdida; WebP cun pèrdida no est a disponimentu.

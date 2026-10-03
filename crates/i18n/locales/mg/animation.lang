@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = Tsipika fotoana
+animation.menu = Sarimihetsika
+animation.play_pause = Alefa/Ajanony ny sarimihetsika
+animation.frame_layer_name = Frame {n}
+animation.delay_seconds = {seconds} s
+animation.delay.label = Fahatarana
+animation.delay.apply_all = Ampiharo amin'ny frame rehetra
+animation.loop.label = Famerenana
+animation.loop.once = Indray mandeha
+animation.loop.forever = Mandrakizay
+animation.onion.label = Hoditr'onjona
+animation.onion.before = Alohan'ny
+animation.onion.after = Aorian'ny
+animation.offset.label = Fifindran'ny sosona amin'ity frame ity
+animation.new_layers_visible = Hita amin'ny frame rehetra ny sosona vaovao
+animation.history.select_frame = Misafidy frame
+animation.history.move_frame = Mamindra frame
+animation.history.frame_delay = Fahataran'ny frame
+animation.history.loop = Isan'ny famerenana
+animation.history.offset = Fifindran'ny frame
+animation.history.new_layers = Fahitana ny sosona vaovao
+animation.refuse.no_animation = Tsy manana sarimihetsika frame ity antontan-taratasy ity. Ampiasao ny Sosona ▸ Sarimihetsika ▸ Mamorona sarimihetsika frame.
+animation.refuse.already_animated = Efa manana sarimihetsika frame ity antontan-taratasy ity.
+animation.refuse.last_frame = Mila frame iray farafahakeliny ny sarimihetsika. Fafao kosa ny sarimihetsika.
+animation.refuse.too_many_frames = Tsy afaka mitazona frame bebe kokoa ny tsipika fotoana.
+animation.refuse.no_layers = Tsy misy sosona azo hanaovana frame.
+animation.export.menu = Sarimihetsika…
+animation.export.title = Aondrano ny sarimihetsika
+animation.export.palette = Lokon-tsary
+animation.export.palette_per_frame = Isaky ny frame
+animation.export.palette_global = Ankapobeny
+animation.export.disposal = Fanariana
+animation.export.disposal_auto = Mandeha ho azy
+animation.export.disposal_keep = Tehirizo ny frame teo aloha
+animation.export.disposal_background = Avereno amin'ny afara
+animation.export.disposal_previous = Avereno amin'ny teo aloha
+animation.export.dither_note = Aparitaho ny hadisoan'ny loko rehefa mihoatra ny 256 ny loko ao anaty frame iray
+animation.export.transparency = Fangarahana
+animation.export.transparency_note = Avelao ho mangarahara ireo faritra mangarahara
+animation.export.gif_note = Mitahiry ny fahatarana amin'ny ampahazaton'ny segondra ny GIF ary tsy manana fangarahana ampahany.
+animation.export.apng_note = Mitahiry ny frame tsirairay tsy misy very ny APNG miaraka amin'ny fangarahana feno.
+animation.export.webp_note = Soratana tsy misy very ny WebP mihetsika; tsy misy ny WebP misy very.

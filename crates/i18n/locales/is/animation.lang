@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = Tímalína
+animation.menu = Hreyfimynd
+animation.play_pause = Spila/gera hlé á hreyfimynd
+animation.frame_layer_name = Rammi {n}
+animation.delay_seconds = {seconds} sek.
+animation.delay.label = Töf
+animation.delay.apply_all = Nota á alla ramma
+animation.loop.label = Endurtekning
+animation.loop.once = Einu sinni
+animation.loop.forever = Endalaust
+animation.onion.label = Laukhýði
+animation.onion.before = Á undan
+animation.onion.after = Á eftir
+animation.offset.label = Hliðrun lags í þessum ramma
+animation.new_layers_visible = Ný lög sýnileg í öllum römmum
+animation.history.select_frame = Velja ramma
+animation.history.move_frame = Færa ramma
+animation.history.frame_delay = Töf ramma
+animation.history.loop = Fjöldi endurtekninga
+animation.history.offset = Hliðrun ramma
+animation.history.new_layers = Sýnileiki nýrra laga
+animation.refuse.no_animation = Þetta skjal hefur enga rammahreyfimynd. Notaðu Lag ▸ Hreyfimynd ▸ Búa til rammahreyfimynd.
+animation.refuse.already_animated = Þetta skjal hefur nú þegar rammahreyfimynd.
+animation.refuse.last_frame = Hreyfimynd þarf að minnsta kosti einn ramma. Eyddu frekar hreyfimyndinni.
+animation.refuse.too_many_frames = Tímalínan getur ekki rúmað fleiri ramma.
+animation.refuse.no_layers = Það eru engin lög til að búa til ramma úr.
+animation.export.menu = Hreyfimynd…
+animation.export.title = Flytja út hreyfimynd
+animation.export.palette = Litaspjald
+animation.export.palette_per_frame = Fyrir hvern ramma
+animation.export.palette_global = Sameiginlegt
+animation.export.disposal = Förgun
+animation.export.disposal_auto = Sjálfvirkt
+animation.export.disposal_keep = Halda fyrri ramma
+animation.export.disposal_background = Endurheimta bakgrunn
+animation.export.disposal_previous = Endurheimta fyrra ástand
+animation.export.dither_note = Dreifa litavillum þegar rammi hefur fleiri en 256 liti
+animation.export.transparency = Gegnsæi
+animation.export.transparency_note = Halda gegnsæjum svæðum gegnsæjum
+animation.export.gif_note = GIF geymir tafir í hundraðshlutum úr sekúndu og styður ekki hlutagegnsæi.
+animation.export.apng_note = APNG heldur hverjum ramma taplausum með fullu gegnsæi.
+animation.export.webp_note = Hreyfanlegt WebP er skrifað taplaust; WebP með tapi er ekki í boði.

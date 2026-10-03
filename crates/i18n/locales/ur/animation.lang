@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = ٹائم لائن
+animation.menu = اینیمیشن
+animation.play_pause = اینیمیشن چلائیں/روکیں
+animation.frame_layer_name = فریم {n}
+animation.delay_seconds = {seconds} سیکنڈ
+animation.delay.label = تاخیر
+animation.delay.apply_all = تمام فریمز پر لاگو کریں
+animation.loop.label = تکرار
+animation.loop.once = ایک بار
+animation.loop.forever = ہمیشہ
+animation.onion.label = اونین اسکن
+animation.onion.before = پہلے
+animation.onion.after = بعد میں
+animation.offset.label = اس فریم میں لیئر کا آفسیٹ
+animation.new_layers_visible = نئی لیئرز تمام فریمز میں نظر آئیں
+animation.history.select_frame = فریم منتخب کریں
+animation.history.move_frame = فریم منتقل کریں
+animation.history.frame_delay = فریم کی تاخیر
+animation.history.loop = تکرار کی تعداد
+animation.history.offset = فریم آفسیٹ
+animation.history.new_layers = نئی لیئرز کی مرئیت
+animation.refuse.no_animation = اس دستاویز میں کوئی فریم اینیمیشن نہیں ہے۔ لیئر ▸ اینیمیشن ▸ فریم اینیمیشن بنائیں استعمال کریں۔
+animation.refuse.already_animated = اس دستاویز میں پہلے سے ایک فریم اینیمیشن موجود ہے۔
+animation.refuse.last_frame = اینیمیشن کے لیے کم از کم ایک فریم ضروری ہے۔ اس کے بجائے پوری اینیمیشن حذف کریں۔
+animation.refuse.too_many_frames = ٹائم لائن میں مزید فریمز کی گنجائش نہیں ہے۔
+animation.refuse.no_layers = فریمز بنانے کے لیے کوئی لیئر موجود نہیں ہے۔
+animation.export.menu = اینیمیشن…
+animation.export.title = اینیمیشن برآمد کریں
+animation.export.palette = پیلیٹ
+animation.export.palette_per_frame = ہر فریم کے لیے
+animation.export.palette_global = عمومی
+animation.export.disposal = فریم کا اخراج
+animation.export.disposal_auto = خودکار
+animation.export.disposal_keep = پچھلا فریم برقرار رکھیں
+animation.export.disposal_background = پس منظر پر بحال کریں
+animation.export.disposal_previous = پچھلے پر بحال کریں
+animation.export.dither_note = جب کسی فریم میں 256 سے زیادہ رنگ ہوں تو رنگوں کی غلطیاں پھیلائیں
+animation.export.transparency = شفافیت
+animation.export.transparency_note = شفاف حصوں کو شفاف ہی رہنے دیں
+animation.export.gif_note = GIF تاخیر کو سیکنڈ کے سوویں حصوں میں محفوظ کرتا ہے اور اس میں جزوی شفافیت نہیں ہوتی۔
+animation.export.apng_note = APNG ہر فریم کو مکمل شفافیت کے ساتھ بغیر کسی نقصان کے محفوظ رکھتا ہے۔
+animation.export.webp_note = متحرک WebP بغیر نقصان کے لکھا جاتا ہے؛ نقصان والا WebP دستیاب نہیں ہے۔

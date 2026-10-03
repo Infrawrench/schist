@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = Rëddu jamono
+animation.menu = Animaasioŋ
+animation.play_pause = Tàmbali/Taxawal animaasioŋ
+animation.frame_layer_name = Kadar {n}
+animation.delay_seconds = {seconds} s
+animation.delay.label = Yeex
+animation.delay.apply_all = Def ko ci kadar yépp
+animation.loop.label = Wuyyaate
+animation.loop.once = Benn yoon
+animation.loop.forever = Ba fàww
+animation.onion.label = Der soble
+animation.onion.before = Balaa
+animation.onion.after = Ginnaaw
+animation.offset.label = Jëlaay couche ci kadar bii
+animation.new_layers_visible = Couche yu bees yi dañuy feeñ ci kadar yépp
+animation.history.select_frame = Tànn kadar
+animation.history.move_frame = Toxal kadar
+animation.history.frame_delay = Yeexu kadar
+animation.history.loop = Limu wuyyaate
+animation.history.offset = Jëlaayu kadar
+animation.history.new_layers = Feeñu couche yu bees
+animation.refuse.no_animation = Kayit bii amul animaasioŋu kadar. Jëfandikoo Couche ▸ Animaasioŋ ▸ Sos animaasioŋu kadar.
+animation.refuse.already_animated = Kayit bii am na ba noppi animaasioŋu kadar.
+animation.refuse.last_frame = Animaasioŋ soxla na lu mu néew-néew benn kadar. Far animaasioŋ bi moo gën.
+animation.refuse.too_many_frames = Rëddu jamono bi mënul a yokk kadar yeneen.
+animation.refuse.no_layers = Amul benn couche bu ñu mëna defe ay kadar.
+animation.export.menu = Animaasioŋ…
+animation.export.title = Génne animaasioŋ
+animation.export.palette = Paletu melo
+animation.export.palette_per_frame = Ci kadar bu nekk
+animation.export.palette_global = Ci lépp
+animation.export.disposal = Anam bu ñuy dindee
+animation.export.disposal_auto = Ci boppam
+animation.export.disposal_keep = Denc kadar bi jiitu
+animation.export.disposal_background = Delloo ko ci gannaaw
+animation.export.disposal_previous = Delloo ko ci bi jiitu
+animation.export.dither_note = Tasaare njuumtey melo bu kadar amee lu ëpp 256 melo
+animation.export.transparency = Leeral
+animation.export.transparency_note = Bàyyi barab yu leer yi ñu des leer
+animation.export.gif_note = GIF dafay denc yeex yi ci téeméeri xaaju saa, te amul leeral bu xaaj.
+animation.export.apng_note = APNG dafay denc kadar yépp te dara du ñàkk, ak leeral bu mat.
+animation.export.webp_note = WebP bu dox dañu koy bind te dara du ñàkk; WebP buy ñàkk lenn amul.

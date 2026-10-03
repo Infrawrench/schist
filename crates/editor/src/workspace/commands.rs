@@ -64,6 +64,9 @@ impl Workspace {
             self.run_design_command(id, cx);
             return;
         }
+        // Playback shows rendered frames over the canvas; any command
+        // changes what it would show, so it stops first.
+        self.stop_playback();
         if recorded_actions::command_supported(id) {
             self.commit_recording_transform(cx);
         }

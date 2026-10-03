@@ -1,0 +1,45 @@
+# Kare animasyonu: Zaman Çizelgesi paneli, soğan kabuğu ve animasyon dışa
+# aktarımı (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Komut başlıkları commands.lang içindedir.
+animation.panel.title = Zaman Çizelgesi
+animation.menu = Animasyon
+animation.play_pause = Animasyonu Oynat/Duraklat
+animation.frame_layer_name = Kare {n}
+animation.delay_seconds = {seconds} sn
+animation.delay.label = Gecikme
+animation.delay.apply_all = Tüm Karelere Uygula
+animation.loop.label = Döngü
+animation.loop.once = Bir kez
+animation.loop.forever = Sonsuz
+animation.onion.label = Soğan kabuğu
+animation.onion.before = Önce
+animation.onion.after = Sonra
+animation.offset.label = Bu karedeki katman kaydırması
+animation.new_layers_visible = Yeni katmanlar tüm karelerde görünür
+animation.history.select_frame = Kare Seç
+animation.history.move_frame = Kareyi Taşı
+animation.history.frame_delay = Kare Gecikmesi
+animation.history.loop = Döngü Sayısı
+animation.history.offset = Kare Kaydırması
+animation.history.new_layers = Yeni Katman Görünürlüğü
+animation.refuse.no_animation = Bu belgede kare animasyonu yok. Katman ▸ Animasyon ▸ Kare Animasyonu Oluştur komutunu kullanın.
+animation.refuse.already_animated = Bu belgede zaten bir kare animasyonu var.
+animation.refuse.last_frame = Bir animasyonun en az bir karesi olmalıdır. Bunun yerine animasyonu silin.
+animation.refuse.too_many_frames = Zaman çizelgesi daha fazla kare alamaz.
+animation.refuse.no_layers = Kare oluşturulabilecek hiçbir katman yok.
+animation.export.menu = Animasyon…
+animation.export.title = Animasyonu Dışa Aktar
+animation.export.palette = Palet
+animation.export.palette_per_frame = Kare başına
+animation.export.palette_global = Genel
+animation.export.disposal = Atma yöntemi
+animation.export.disposal_auto = Otomatik
+animation.export.disposal_keep = Önceki kareyi koru
+animation.export.disposal_background = Arka plana geri yükle
+animation.export.disposal_previous = Öncekine geri yükle
+animation.export.dither_note = Bir karede 256'dan fazla renk olduğunda renk hatalarını dağıt
+animation.export.transparency = Saydamlık
+animation.export.transparency_note = Saydam alanları saydam tut
+animation.export.gif_note = GIF gecikmeleri saniyenin yüzde biri cinsinden saklar ve kısmi saydamlığı desteklemez.
+animation.export.apng_note = APNG her kareyi tam saydamlıkla kayıpsız olarak korur.
+animation.export.webp_note = Animasyonlu WebP kayıpsız yazılır; kayıplı WebP kullanılamaz.

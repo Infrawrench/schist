@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = Aikajana
+animation.menu = Animaatio
+animation.play_pause = Toista/keskeytä animaatio
+animation.frame_layer_name = Ruutu {n}
+animation.delay_seconds = {seconds} s
+animation.delay.label = Viive
+animation.delay.apply_all = Käytä kaikkiin ruutuihin
+animation.loop.label = Toisto
+animation.loop.once = Kerran
+animation.loop.forever = Jatkuvasti
+animation.onion.label = Sipulinahka
+animation.onion.before = Ennen
+animation.onion.after = Jälkeen
+animation.offset.label = Tason siirtymä tässä ruudussa
+animation.new_layers_visible = Uudet tasot näkyvät kaikissa ruuduissa
+animation.history.select_frame = Valitse ruutu
+animation.history.move_frame = Siirrä ruutua
+animation.history.frame_delay = Ruudun viive
+animation.history.loop = Toistokerrat
+animation.history.offset = Ruudun siirtymä
+animation.history.new_layers = Uusien tasojen näkyvyys
+animation.refuse.no_animation = Tässä asiakirjassa ei ole ruutuanimaatiota. Valitse Taso ▸ Animaatio ▸ Luo ruutuanimaatio.
+animation.refuse.already_animated = Tässä asiakirjassa on jo ruutuanimaatio.
+animation.refuse.last_frame = Animaatiossa on oltava vähintään yksi ruutu. Poista sen sijaan koko animaatio.
+animation.refuse.too_many_frames = Aikajanalle ei mahdu enempää ruutuja.
+animation.refuse.no_layers = Ei ole tasoja, joista ruutuja voisi tehdä.
+animation.export.menu = Animaatio…
+animation.export.title = Vie animaatio
+animation.export.palette = Paletti
+animation.export.palette_per_frame = Ruutukohtainen
+animation.export.palette_global = Yhteinen
+animation.export.disposal = Hävitys
+animation.export.disposal_auto = Automaattinen
+animation.export.disposal_keep = Säilytä edellinen ruutu
+animation.export.disposal_background = Palauta taustaan
+animation.export.disposal_previous = Palauta edelliseen
+animation.export.dither_note = Levitä värivirheet, kun ruudussa on yli 256 väriä
+animation.export.transparency = Läpinäkyvyys
+animation.export.transparency_note = Pidä läpinäkyvät alueet läpinäkyvinä
+animation.export.gif_note = GIF tallentaa viiveet sekunnin sadasosina eikä tue osittaista läpinäkyvyyttä.
+animation.export.apng_note = APNG säilyttää jokaisen ruudun häviöttömänä täydellä läpinäkyvyydellä.
+animation.export.webp_note = Animoitu WebP tallennetaan häviöttömästi; häviöllinen WebP ei ole käytettävissä.

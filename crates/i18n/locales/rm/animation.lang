@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = Lingia dal temp
+animation.menu = Animaziun
+animation.play_pause = Reproducir/Pausar l'animaziun
+animation.frame_layer_name = Maletg {n}
+animation.delay_seconds = {seconds} s
+animation.delay.label = Retard
+animation.delay.apply_all = Applitgar a tut ils maletgs
+animation.loop.label = Repetiziun
+animation.loop.once = Ina giada
+animation.loop.forever = Per adina
+animation.onion.label = Pel da tschagula
+animation.onion.before = Avant
+animation.onion.after = Suenter
+animation.offset.label = Spustament da la stresa en quest maletg
+animation.new_layers_visible = Novas stresas visiblas en tut ils maletgs
+animation.history.select_frame = Tscherner in maletg
+animation.history.move_frame = Spustar il maletg
+animation.history.frame_delay = Retard dal maletg
+animation.history.loop = Dumber da repetiziuns
+animation.history.offset = Spustament dal maletg
+animation.history.new_layers = Visibladad da novas stresas
+animation.refuse.no_animation = Quest document n'ha nagina animaziun da maletgs. Utilisescha Stresa ▸ Animaziun ▸ Crear in'animaziun da maletgs.
+animation.refuse.already_animated = Quest document ha gia in'animaziun da maletgs.
+animation.refuse.last_frame = In'animaziun dovra almain in maletg. Stizza empè l'animaziun.
+animation.refuse.too_many_frames = La lingia dal temp na po betg cuntegnair dapli maletgs.
+animation.refuse.no_layers = I na dat naginas stresas per crear maletgs.
+animation.export.menu = Animaziun…
+animation.export.title = Exportar l'animaziun
+animation.export.palette = Paletta
+animation.export.palette_per_frame = Per maletg
+animation.export.palette_global = Global
+animation.export.disposal = Eliminaziun
+animation.export.disposal_auto = Automatic
+animation.export.disposal_keep = Mantegnair il maletg precedent
+animation.export.disposal_background = Restaurar il fund
+animation.export.disposal_previous = Restaurar il precedent
+animation.export.dither_note = Distribuir errurs da colur sch'in maletg ha dapli che 256 colurs
+animation.export.transparency = Transparenza
+animation.export.transparency_note = Mantegnair transparentas las zonas transparentas
+animation.export.gif_note = GIF memorisescha ils retards en tschientavels d'ina secunda e n'ha nagina transparenza parziala.
+animation.export.apng_note = APNG mantegna mintga maletg senza perdita cun transparenza cumpletta.
+animation.export.webp_note = WebP animà vegn scrit senza perdita; WebP cun perdita n'è betg disponibel.

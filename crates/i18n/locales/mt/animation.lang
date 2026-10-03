@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = Kronoloġija
+animation.menu = Animazzjoni
+animation.play_pause = Ħaddem/Waqqaf l-animazzjoni
+animation.frame_layer_name = Qafas {n}
+animation.delay_seconds = {seconds} s
+animation.delay.label = Dewmien
+animation.delay.apply_all = Applika għall-Oqfsa Kollha
+animation.loop.label = Ripetizzjoni
+animation.loop.once = Darba
+animation.loop.forever = Għal dejjem
+animation.onion.label = Qoxra tal-basla
+animation.onion.before = Qabel
+animation.onion.after = Wara
+animation.offset.label = Spostament tas-saff f'dan il-qafas
+animation.new_layers_visible = Saffi ġodda viżibbli fl-oqfsa kollha
+animation.history.select_frame = Agħżel Qafas
+animation.history.move_frame = Ċaqlaq Qafas
+animation.history.frame_delay = Dewmien tal-Qafas
+animation.history.loop = Għadd ta' Ripetizzjonijiet
+animation.history.offset = Spostament tal-Qafas
+animation.history.new_layers = Viżibbiltà tas-Saffi Ġodda
+animation.refuse.no_animation = Dan id-dokument m'għandux animazzjoni b'oqfsa. Uża Saff ▸ Animazzjoni ▸ Oħloq Animazzjoni b'Oqfsa.
+animation.refuse.already_animated = Dan id-dokument diġà għandu animazzjoni b'oqfsa.
+animation.refuse.last_frame = Animazzjoni teħtieġ mill-inqas qafas wieħed. Minflok, ħassar l-animazzjoni kollha.
+animation.refuse.too_many_frames = Il-kronoloġija ma tistax iżżomm aktar oqfsa.
+animation.refuse.no_layers = M'hemmx saffi biex jinħolqu oqfsa minnhom.
+animation.export.menu = Animazzjoni…
+animation.export.title = Esporta l-Animazzjoni
+animation.export.palette = Paletta
+animation.export.palette_per_frame = Għal kull qafas
+animation.export.palette_global = Globali
+animation.export.disposal = Rimi
+animation.export.disposal_auto = Awtomatiku
+animation.export.disposal_keep = Żomm il-qafas ta' qabel
+animation.export.disposal_background = Erġa' lura għall-isfond
+animation.export.disposal_previous = Erġa' lura għal ta' qabel
+animation.export.dither_note = Xerred l-iżbalji tal-kulur meta qafas ikollu aktar minn 256 kulur
+animation.export.transparency = Trasparenza
+animation.export.transparency_note = Żomm iż-żoni trasparenti trasparenti
+animation.export.gif_note = GIF jaħżen id-dewmien f'mitt parti ta' sekonda u m'għandux trasparenza parzjali.
+animation.export.apng_note = APNG iżomm kull qafas mingħajr telf, bi trasparenza sħiħa.
+animation.export.webp_note = WebP animat jinkiteb mingħajr telf; WebP b'telf mhuwiex disponibbli.

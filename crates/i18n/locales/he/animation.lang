@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = ציר זמן
+animation.menu = הנפשה
+animation.play_pause = הפעלה/השהיה של ההנפשה
+animation.frame_layer_name = פריים {n}
+animation.delay_seconds = {seconds} שנ׳
+animation.delay.label = השהיה
+animation.delay.apply_all = החלה על כל הפריימים
+animation.loop.label = לולאה
+animation.loop.once = פעם אחת
+animation.loop.forever = לתמיד
+animation.onion.label = קליפת בצל
+animation.onion.before = לפני
+animation.onion.after = אחרי
+animation.offset.label = היסט השכבה בפריים הזה
+animation.new_layers_visible = שכבות חדשות גלויות בכל הפריימים
+animation.history.select_frame = בחירת פריים
+animation.history.move_frame = הזזת פריים
+animation.history.frame_delay = השהיית פריים
+animation.history.loop = מספר חזרות
+animation.history.offset = היסט פריים
+animation.history.new_layers = נראות שכבות חדשות
+animation.refuse.no_animation = למסמך זה אין הנפשת פריימים. יש להשתמש בפקודה שכבה ▸ הנפשה ▸ יצירת הנפשת פריימים.
+animation.refuse.already_animated = למסמך זה כבר יש הנפשת פריימים.
+animation.refuse.last_frame = הנפשה צריכה לפחות פריים אחד. במקום זאת יש למחוק את ההנפשה.
+animation.refuse.too_many_frames = ציר הזמן לא יכול להכיל פריימים נוספים.
+animation.refuse.no_layers = אין שכבות שמהן אפשר ליצור פריימים.
+animation.export.menu = הנפשה…
+animation.export.title = ייצוא הנפשה
+animation.export.palette = לוח צבעים
+animation.export.palette_per_frame = לכל פריים
+animation.export.palette_global = גלובלי
+animation.export.disposal = סילוק
+animation.export.disposal_auto = אוטומטי
+animation.export.disposal_keep = שמירת הפריים הקודם
+animation.export.disposal_background = שחזור לרקע
+animation.export.disposal_previous = שחזור לקודם
+animation.export.dither_note = פיזור שגיאות צבע כשבפריים יש יותר מ־256 צבעים
+animation.export.transparency = שקיפות
+animation.export.transparency_note = השארת אזורים שקופים שקופים
+animation.export.gif_note = GIF שומר השהיות במאיות שנייה ואינו תומך בשקיפות חלקית.
+animation.export.apng_note = APNG שומר כל פריים ללא אובדן עם שקיפות מלאה.
+animation.export.webp_note = WebP מונפש נכתב ללא אובדן; WebP עם אובדן אינו זמין.

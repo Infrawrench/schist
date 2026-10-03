@@ -1,0 +1,45 @@
+# Frame animation: the Timeline panel, onion skins and animation export
+# (crates/editor/src/panels/timeline.rs, workspace/animation.rs,
+# dialogs/export_animation.rs). Command titles are in commands.lang.
+animation.panel.title = Linha temporala
+animation.menu = Animacion
+animation.play_pause = Legir/Pausar l'animacion
+animation.frame_layer_name = Imatge {n}
+animation.delay_seconds = {seconds} s
+animation.delay.label = Relambi
+animation.delay.apply_all = Aplicar a totes los imatges
+animation.loop.label = Bocla
+animation.loop.once = Un còp
+animation.loop.forever = Totjorn
+animation.onion.label = Pelas de seba
+animation.onion.before = Abans
+animation.onion.after = Aprèp
+animation.offset.label = Descalatge del calc dins aqueste imatge
+animation.new_layers_visible = Calques novèls visibles dins totes los imatges
+animation.history.select_frame = Seleccionar l'imatge
+animation.history.move_frame = Desplaçar l'imatge
+animation.history.frame_delay = Relambi de l'imatge
+animation.history.loop = Nombre de boclas
+animation.history.offset = Descalatge de l'imatge
+animation.history.new_layers = Visibilitat dels calques novèls
+animation.refuse.no_animation = Aqueste document a pas cap d'animacion d'imatges. Utilizatz Calc ▸ Animacion ▸ Crear una animacion d'imatges.
+animation.refuse.already_animated = Aqueste document a ja una animacion d'imatges.
+animation.refuse.last_frame = Una animacion a besonh d'almens un imatge. Suprimissètz puslèu l'animacion.
+animation.refuse.too_many_frames = La linha temporala pòt pas conténer mai d'imatges.
+animation.refuse.no_layers = I a pas cap de calc per ne far d'imatges.
+animation.export.menu = Animacion…
+animation.export.title = Exportar l'animacion
+animation.export.palette = Paleta
+animation.export.palette_per_frame = Per imatge
+animation.export.palette_global = Globala
+animation.export.disposal = Eliminacion
+animation.export.disposal_auto = Automatica
+animation.export.disposal_keep = Gardar l'imatge precedent
+animation.export.disposal_background = Restablir lo rèireplan
+animation.export.disposal_previous = Restablir l'estat precedent
+animation.export.dither_note = Difusar las errors de color quand un imatge a mai de 256 colors
+animation.export.transparency = Transparéncia
+animation.export.transparency_note = Gardar transparentas las zònas transparentas
+animation.export.gif_note = GIF enregistra los relambis en centens de segonda e a pas de transparéncia parciala.
+animation.export.apng_note = APNG garda cada imatge sens pèrda amb una transparéncia completa.
+animation.export.webp_note = Lo WebP animat es escrich sens pèrda; lo WebP amb pèrda es pas disponible.
