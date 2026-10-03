@@ -100,6 +100,8 @@ impl Target {
                         | GalleryRefresh
                         | GalleryEditSelected
                         | GalleryMapFilter
+                        | GalleryFindDuplicates
+                        | GalleryGeotag
                         | OpenRecent(_)
                 )
             }

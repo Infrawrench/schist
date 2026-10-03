@@ -107,7 +107,11 @@ mod library;
 #[cfg(not(target_arch = "wasm32"))]
 mod library_culling;
 #[cfg(not(target_arch = "wasm32"))]
+mod library_duplicates;
+#[cfg(not(target_arch = "wasm32"))]
 mod library_geo;
+#[cfg(not(target_arch = "wasm32"))]
+pub(crate) mod library_geotag;
 // iPhones and PTP cameras never mount as filesystems on macOS;
 // ImageCaptureCore is the door Image Capture and Photos use, and this
 // module knocks on it the same way.
@@ -1438,6 +1442,18 @@ pub enum Modal {
         target: BatchTarget,
         codec: &'static str,
         options: schist_plugin_api::ExportOptions,
+    },
+    /// Geotag the session's photos from GPX tracks (`library.geotag`): the
+    /// match settings as typed, and whether a load or write is running.
+    Geotag {
+        id: u64,
+        gap: String,
+        offset: String,
+        zone: String,
+        skip_existing: bool,
+        loading: bool,
+        error: String,
+        busy: bool,
     },
     /// Checked fields replace portable metadata for the captured selection.
     MetadataEdit {
