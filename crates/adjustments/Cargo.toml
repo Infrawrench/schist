@@ -13,3 +13,5 @@ schist-core.workspace = true
 serde.workspace = true
 serde_json.workspace = true
 log.workspace = true
+base64 = "0.22"
+miniz_oxide.workspace = true

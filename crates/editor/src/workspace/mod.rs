@@ -56,6 +56,7 @@ pub use schist_camera_sync::ios as camera_sync_ios;
 mod browser_gpu;
 mod chrome;
 mod clipboard;
+pub(crate) mod color_lookup;
 pub use clipboard::NewFileClipboard;
 pub(crate) mod cloud;
 mod cloud_batch;
@@ -1166,6 +1167,12 @@ pub enum UpdateProgress {
 #[cfg_attr(target_arch = "wasm32", allow(dead_code))]
 pub enum Modal {
     Support,
+    /// File ▸ Export ▸ Color Lookup Table: lattice size and whether to
+    /// fold in the active RAW layer's Camera Raw colour.
+    ExportLut {
+        size: usize,
+        camera_raw: bool,
+    },
     Workspaces {
         primary: Option<WorkspaceEdit>,
         selected: Option<usize>,
@@ -1617,6 +1624,9 @@ pub enum PickerDrag {
     Hue,
     /// The Color panel's spectrum bar.
     Ramp,
+    /// One of Camera Raw's colour grading wheels (shadows, midtones,
+    /// highlights, global).
+    GradeWheel(usize),
 }
 
 #[derive(Default)]

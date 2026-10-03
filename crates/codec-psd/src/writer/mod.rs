@@ -554,6 +554,10 @@ fn build_extras(layer: &Layer, doc: &Document) -> Vec<([u8; 4], Vec<u8>)> {
         if &block.key == b"lfx2" || &block.key == b"lrFX" {
             continue;
         }
+        // Regenerated from the development's grading below.
+        if block.key == crate::raw::GRADING_BLOCK_KEY && layer.raw.is_some() {
+            continue;
+        }
         // Regenerated from `Layer::smart` below.
         if block.key == crate::smart::SMART_BLOCK_KEY {
             continue;
@@ -625,6 +629,10 @@ fn build_extras(layer: &Layer, doc: &Document) -> Vec<([u8; 4], Vec<u8>)> {
     if fill != 255 {
         out.push((*b"iOpa", vec![fill, 0, 0, 0]));
     }
+    // Camera Raw colour grading, beside `ScRw` (see `crate::raw`).
+    if let Some(payload) = crate::raw::write_grading(layer) {
+        out.push((crate::raw::GRADING_BLOCK_KEY, payload));
+    }
     out.extend(shape_blocks(layer, doc));
     out
 }
@@ -655,6 +663,22 @@ fn encode_adjustment(
                 .map(|b| b.data.as_slice()),
         ) {
             if schist_adjustments::Light::parse(raw).as_ref() == Some(light) {
+                return Some((data.kind.psd_key(), raw.to_vec()));
+            }
+        }
+    }
+    // Likewise a Color Lookup block keeps the file's own descriptor (its
+    // name, dither flag and any fields we do not model) while the table
+    // and settings it describes are unchanged.
+    if data.kind == schist_core::AdjustmentKind::ColorLookup {
+        for raw in std::iter::once(data.raw.as_slice()).chain(
+            extras
+                .iter()
+                .rev()
+                .filter(|b| b.key == *b"clrL")
+                .map(|b| b.data.as_slice()),
+        ) {
+            if !raw.is_empty() && schist_adjustments::parse_psd(data.kind, raw) == params {
                 return Some((data.kind.psd_key(), raw.to_vec()));
             }
         }

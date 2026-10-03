@@ -19,5 +19,6 @@ adjustment.photo_filter.name = Photo Filter
 adjustment.gradient_map.name = Gradient Map
 adjustment.selective_color.name = Selective Color
 adjustment.channel_mixer.name = Channel Mixer
+adjustment.color_lookup.name = Color Lookup
 # A kind read from a PSD that Schist has no editor for.
 adjustment.other.name = Adjustment

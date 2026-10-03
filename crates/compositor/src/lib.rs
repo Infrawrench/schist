@@ -13,6 +13,7 @@
 //! clipping layers are confined to their base layer's alpha, and adjustment
 //! layers re-colour the backdrop beneath them (mask- and clip-aware).
 
+pub mod lut_bake;
 pub mod overlay;
 mod shifted;
 pub mod viewport;
@@ -584,15 +585,11 @@ fn composite_layers(
 }
 
 /// Resolve an adjustment layer's parameters: our canonical JSON when the
-/// user has edited it, otherwise the preserved PSD payload.
+/// user has edited it, otherwise the preserved PSD payload. Large payloads
+/// (a Color Lookup's table) are parsed once and remembered, since this
+/// runs for every tile.
 fn resolve_params(data: &AdjustmentData) -> Params {
-    if let Some(json) = &data.params_json {
-        match serde_json::from_str::<Params>(json) {
-            Ok(p) => return p,
-            Err(err) => log::warn!("adjustment params unreadable: {err}"),
-        }
-    }
-    schist_adjustments::parse_psd(data.kind, &data.raw)
+    schist_adjustments::resolve(data)
 }
 
 /// Apply an adjustment layer to the backdrop already accumulated in `dst`.

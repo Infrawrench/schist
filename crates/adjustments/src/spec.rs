@@ -175,7 +175,11 @@ impl Params {
                 spec("b_g", "Green \u{2192} Blue", -200.0, 200.0, blue[1], "%"),
                 spec("b_b", "Blue \u{2192} Blue", -200.0, 200.0, blue[2], "%"),
             ],
-            Params::Curves(_) | Params::Invert | Params::Unsupported => Vec::new(),
+            // Curves and Color Lookup have dialogs of their own: a graph,
+            // and a file to load.
+            Params::Curves(_) | Params::ColorLookup(_) | Params::Invert | Params::Unsupported => {
+                Vec::new()
+            }
         }
     }
 
@@ -330,6 +334,7 @@ impl Params {
             }
             Params::GradientMap { .. }
             | Params::Curves(_)
+            | Params::ColorLookup(_)
             | Params::Invert
             | Params::Unsupported => {}
         }
@@ -355,6 +360,7 @@ impl Params {
             AdjustmentKind::GradientMap,
             AdjustmentKind::SelectiveColor,
             AdjustmentKind::ChannelMixer,
+            AdjustmentKind::ColorLookup,
             AdjustmentKind::SolidColor,
         ]
     }

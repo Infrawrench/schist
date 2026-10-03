@@ -725,6 +725,8 @@ fn make_layer(
         rec.extras
     };
     crate::text::import_type(&mut extras);
+    // Colour grading rides beside `ScRw` in a block of its own.
+    let raw = crate::raw::attach_grading(raw, &mut extras);
 
     Layer {
         id: LayerId::next(),

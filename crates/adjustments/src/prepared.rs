@@ -45,7 +45,8 @@ impl Params {
             | Params::GradientMap { .. }
             | Params::SelectiveColor { .. }
             | Params::ChannelMixer { .. }
-            | Params::WhiteBalance { .. } => Prepared::Direct(self.clone()),
+            | Params::WhiteBalance { .. }
+            | Params::ColorLookup(_) => Prepared::Direct(self.clone()),
             _ => {
                 let mut lut = Box::new([[0.0f32; LUT_SIZE]; 3]);
                 for i in 0..LUT_SIZE {

@@ -98,6 +98,8 @@ pub enum AdjustmentKind {
     GradientMap,
     SelectiveColor,
     ChannelMixer,
+    /// A 3D (or 1D) lookup table, Photoshop's Color Lookup (`clrL`).
+    ColorLookup,
     Other([u8; 4]),
 }
 
@@ -123,6 +125,7 @@ impl AdjustmentKind {
             b"grdm" => GradientMap,
             b"selc" => SelectiveColor,
             b"mixr" => ChannelMixer,
+            b"clrL" => ColorLookup,
             _ => return None,
         })
     }
@@ -152,6 +155,7 @@ impl AdjustmentKind {
             GradientMap => *b"grdm",
             SelectiveColor => *b"selc",
             ChannelMixer => *b"mixr",
+            ColorLookup => *b"clrL",
             // A kind we do not model, carrying the key it arrived with.
             Other(key) => *key,
         }
@@ -179,6 +183,7 @@ impl AdjustmentKind {
             GradientMap => "Gradient Map",
             SelectiveColor => "Selective Color",
             ChannelMixer => "Channel Mixer",
+            ColorLookup => "Color Lookup",
             Other(_) => "Adjustment",
         }
     }

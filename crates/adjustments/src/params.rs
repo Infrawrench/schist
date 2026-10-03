@@ -128,6 +128,8 @@ pub enum Params {
         warmth: f32,
         tint: f32,
     },
+    /// A loaded 3D or 1D lookup table (Photoshop's Color Lookup).
+    ColorLookup(ColorLookup),
 }
 
 impl Params {
@@ -202,6 +204,7 @@ impl Params {
                 constant: [0.0; 3],
                 monochrome: false,
             },
+            AdjustmentKind::ColorLookup => Params::ColorLookup(ColorLookup::default()),
             _ => Params::Unsupported,
         }
     }
@@ -226,6 +229,7 @@ impl Params {
             Params::SelectiveColor { .. } => AdjustmentKind::SelectiveColor,
             Params::ChannelMixer { .. } => AdjustmentKind::ChannelMixer,
             Params::WhiteBalance { .. } => AdjustmentKind::Other(*b"WhBl"),
+            Params::ColorLookup(_) => AdjustmentKind::ColorLookup,
             Params::Unsupported => AdjustmentKind::Other(*b"____"),
         }
     }
@@ -543,6 +547,7 @@ impl Params {
             }
             Params::SelectiveColor { ranges, relative } => selective_color(px, ranges, *relative),
             Params::WhiteBalance { warmth, tint } => white_balance(px, *warmth, *tint),
+            Params::ColorLookup(lookup) => lookup.apply(px),
             Params::ChannelMixer {
                 red,
                 green,

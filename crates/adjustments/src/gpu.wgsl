@@ -5,6 +5,7 @@ const D_GRADIENT_MAP: u32 = 8u;
 const D_SELECTIVE_COLOR: u32 = 9u;
 const D_CHANNEL_MIXER: u32 = 10u;
 const D_WHITE_BALANCE: u32 = 11u;
+const D_COLOR_LOOKUP: u32 = 19u;
 // Full-colour adjustment kinds (plan::D_*).
 const D_NONE: u32 = 0u;
 const D_HUE_SATURATION: u32 = 1u;
@@ -319,6 +320,9 @@ fn apply_direct(kind: u32, base: u32, c: vec3<f32>) -> vec3<f32> {
             }
             return out;
         }
+        case D_COLOR_LOOKUP: {
+            return adj_color_lookup(base, c);
+        }
         case D_WHITE_BALANCE: {
             let lin = vec3(adj_decode(c.r), adj_decode(c.g), adj_decode(c.b));
             let lms = adj_matvec(base, lin) * adj_vec3(base + 18u);
@@ -329,6 +333,98 @@ fn apply_direct(kind: u32, base: u32, c: vec3<f32>) -> vec3<f32> {
             return c;
         }
     }
+}
+
+// ---- Color Lookup ----
+//
+// Mirrors `ColorLookup::apply`: an optional 1D shaper, then tetrahedral
+// interpolation through the lattice, both read straight from the record
+// (header of 15 floats, then the shaper's and the lattice's RGB triples).
+
+fn adj_lut_t(v: f32, lo: f32, hi: f32) -> f32 {
+    let t = clamp((v - lo) / (hi - lo), 0.0, 1.0);
+    // NaN compares unequal to itself; the CPU sends it to the low end.
+    return select(0.0, t, t == t);
+}
+
+fn adj_lut_node(table: u32, n: u32, r: u32, g: u32, b: u32) -> vec3<f32> {
+    return adj_vec3(table + (r + n * (g + n * b)) * 3u);
+}
+
+fn adj_color_lookup(base: u32, input: vec3<f32>) -> vec3<f32> {
+    let n1 = u32(adj_arg(base + 1u));
+    let n3 = u32(adj_arg(base + 8u));
+    if n1 < 2u && n3 < 2u {
+        return input;
+    }
+    let linear = adj_arg(base) != 0.0;
+    var v = input;
+    if linear {
+        v = vec3(adj_decode(v.r), adj_decode(v.g), adj_decode(v.b));
+    }
+    let tables = base + 15u;
+    if n1 >= 2u {
+        var shaped = v;
+        for (var c = 0u; c < 3u; c++) {
+            let x = adj_lut_t(v[c], adj_arg(base + 2u + c), adj_arg(base + 5u + c)) * f32(n1 - 1u);
+            let i = min(u32(x), n1 - 2u);
+            let f = x - f32(i);
+            let lo = adj_arg(tables + i * 3u + c);
+            let hi = adj_arg(tables + (i + 1u) * 3u + c);
+            shaped[c] = lo + (hi - lo) * f;
+        }
+        v = shaped;
+    }
+    if n3 >= 2u {
+        let table = tables + n1 * 3u;
+        var cell = vec3<u32>(0u);
+        var f = vec3<f32>(0.0);
+        for (var c = 0u; c < 3u; c++) {
+            let x = adj_lut_t(v[c], adj_arg(base + 9u + c), adj_arg(base + 12u + c)) * f32(n3 - 1u);
+            cell[c] = min(u32(x), n3 - 2u);
+            f[c] = x - f32(cell[c]);
+        }
+        let r = cell.x;
+        let g = cell.y;
+        let b = cell.z;
+        let c000 = adj_lut_node(table, n3, r, g, b);
+        let c111 = adj_lut_node(table, n3, r + 1u, g + 1u, b + 1u);
+        var w: vec3<f32>;
+        var p1: vec3<f32>;
+        var p2: vec3<f32>;
+        if f.x > f.y {
+            if f.y > f.z {
+                w = vec3(f.x, f.y, f.z);
+                p1 = adj_lut_node(table, n3, r + 1u, g, b);
+                p2 = adj_lut_node(table, n3, r + 1u, g + 1u, b);
+            } else if f.x > f.z {
+                w = vec3(f.x, f.z, f.y);
+                p1 = adj_lut_node(table, n3, r + 1u, g, b);
+                p2 = adj_lut_node(table, n3, r + 1u, g, b + 1u);
+            } else {
+                w = vec3(f.z, f.x, f.y);
+                p1 = adj_lut_node(table, n3, r, g, b + 1u);
+                p2 = adj_lut_node(table, n3, r + 1u, g, b + 1u);
+            }
+        } else if f.z > f.y {
+            w = vec3(f.z, f.y, f.x);
+            p1 = adj_lut_node(table, n3, r, g, b + 1u);
+            p2 = adj_lut_node(table, n3, r, g + 1u, b + 1u);
+        } else if f.z > f.x {
+            w = vec3(f.y, f.z, f.x);
+            p1 = adj_lut_node(table, n3, r, g + 1u, b);
+            p2 = adj_lut_node(table, n3, r, g + 1u, b + 1u);
+        } else {
+            w = vec3(f.y, f.x, f.z);
+            p1 = adj_lut_node(table, n3, r, g + 1u, b);
+            p2 = adj_lut_node(table, n3, r + 1u, g + 1u, b);
+        }
+        v = c000 + w.x * (p1 - c000) + w.y * (p2 - p1) + w.z * (c111 - p2);
+    }
+    if linear {
+        v = vec3(adj_encode(v.r), adj_encode(v.g), adj_encode(v.b));
+    }
+    return clamp(v, vec3(0.0), vec3(1.0));
 }
 
 fn adj_vec3(base: u32) -> vec3<f32> {
