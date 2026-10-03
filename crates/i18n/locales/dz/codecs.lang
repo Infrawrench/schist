@@ -37,12 +37,16 @@ codec.avif.msg.no_decoder = Schist གི་བརའུ་ཟར་ཐོན་
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
 codec.layered.invalid = བང་རིམ་ཡོད་པའི་པར་གྱི་ཡིག་སྣོད་དེ་མེདཔ་ཐལ་ནུག་ ཡང་ན་ཆ་ཚང་མིན་འདུག།
 codec.layered.too_large = བང་རིམ་ཡོད་པའི་པར་དེ་གི་ཚད་ ཡང་ན་བང་རིམ་གྱི་གྱངས་ཁ་དེ་རྒྱབ་སྐྱོར་ཡོད་པའི་ཚད་ལས་བརྒལ་ནུག།
 codec.layered.unsupported = ཡིག་སྣོད་འདི་གིས་རྒྱབ་སྐྱོར་མེད་པའི་ཁྱད་རྣམ་ཅིག་ལག་ལེན་འཐབ་ཨིན་: {feature}།
 codec.layered.export_layer = བང་རིམ་ “{name}” ནང་རྣམ་བཞག་འདི་གིས་ཉམས་སྲུང་འབད་མ་ཚུགས་པའི་ཁྱད་རྣམ་ཚུ་ཡོད། བང་རིམ་དེ་པིག་སེལ་ལུ་སྒྱུར་ ཡང་ན་ PSD སྦེ་སྲུང་།
 codec.layered.export_depth = Paint.NET སྦེ་ཕྱིར་འདྲེན་འབད་ནི་ལུ་ 8-བིཊ་ RGB ཡིག་ཆ་དགོ། ཧེ་མ་ཡིག་ཆ་དེ་ 8-བིཊ་ RGB ལུ་སྒྱུར།
 codec.layered.export_mode = ཕྱིར་འདྲེན་འབད་ནི་ལུ་ RGB ཡིག་ཆ་དགོ། ཧེ་མ་ཡིག་ཆ་དེ་ RGB ལུ་སྒྱུར།
+codec.layered.merged_layer = མཉམ་བསྡོམས་ཡིག་ཆ་ (བང་རིམ་ {format} ལ་ལུ་ནང་འདྲེན་འབད་མ་ཚུགས།)
+codec.kra.merged_color_space = མཉམ་བསྡོམས་པར་ (Krita {color_space} ཡིག་ཆ་འདི་ RGB སྦེ་སྟོན་ཡོད།)
 
 # Unsupported layered format features
 codec.pdn.feature.blend_mode = PDN སྲེ་སྦྱོར་ཐབས་ལམ།

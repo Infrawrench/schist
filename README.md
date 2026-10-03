@@ -208,7 +208,8 @@ boundaries.
 | --- | --- |
 | PSD / PSB | Layered 8/16/32-bit read/write with groups, masks, blend modes, adjustments, effects, native colour channels and spot separations. Supported text and smart filters remain editable in other readers; see [PSD interchange](docs/psd-interchange.md) and [native smart filters](docs/native-smart-filters.md). |
 | Affinity `.af`, `.afphoto`, `.afdesign`, `.afpub` | Import layered documents; export layered `.af` files, including supported native text and curves. Unsupported content may use preserved native data or raster previews. See [Affinity support and limits](docs/affinity-format.md). |
-| Paint.NET `.pdn` / GIMP `.xcf` | Read/write supported layered content; see [format limits](docs/layered-formats.md). |
+| Paint.NET `.pdn` / GIMP `.xcf` / OpenRaster `.ora` | Read/write supported layered content; see [format limits](docs/layered-formats.md). |
+| Krita `.kra` / `.krz` | Import paint and group layers at 8/16-bit integer or 16/32-bit float RGBA; other layer types and colour models fall back to Krita's merged image. See [format limits](docs/layered-formats.md#krita). |
 | PNG, JPEG, WebP, TIFF | Import and export raster images. |
 | JPEG XL `.jxl` | Import lossy and lossless files (8/16-bit and float, alpha, ICC, HDR baked to sRGB) in pure Rust. Export is lossless everywhere; lossy export, effort and float samples need a system libjxl (0.7 or later), which desktop builds load when present. Also decodes DNG 1.7 JPEG XL tiles. See [JPEG XL and AVIF](docs/jxl-avif.md). |
 | AVIF `.avif` | Import 8/10/12-bit files with alpha, grids, transforms, ICC and nclx colour (HDR baked to sRGB); export 8/10/12-bit with quality, effort, alpha and ICC. Pure Rust; the browser build can export but not open AVIF. See [JPEG XL and AVIF](docs/jxl-avif.md). |

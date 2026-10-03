@@ -43,12 +43,16 @@ codec.avif.msg.no_decoder = Schist-ის ბრაუზერის ვერ�
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
 codec.layered.invalid = ფენებიანი გამოსახულების ფაილი დაზიანებულია ან არასრულია.
 codec.layered.too_large = ფენებიანი გამოსახულება აღემატება მხარდაჭერილ ზომას ან ფენების რაოდენობას.
 codec.layered.unsupported = ეს ფაილი იყენებს მხარდაუჭერელ ფუნქციას: {feature}.
 codec.layered.export_layer = ფენა „{name}“ შეიცავს ფუნქციებს, რომელთა შენარჩუნებაც ამ ფორმატს არ შეუძლია. მოახდინეთ მისი რასტერიზაცია ან შეინახეთ PSD ფორმატში.
 codec.layered.export_depth = Paint.NET ფორმატში ექსპორტისთვის საჭიროა 8-ბიტიანი RGB დოკუმენტი. ჯერ გადაიყვანეთ დოკუმენტი 8-ბიტიან RGB-ში.
 codec.layered.export_mode = ექსპორტისთვის საჭიროა RGB დოკუმენტი. ჯერ გადაიყვანეთ დოკუმენტი RGB-ში.
+codec.layered.merged_layer = გაერთიანებული გამოსახულება ({format}-ის ზოგიერთი ფენის იმპორტი ვერ მოხერხდა)
+codec.kra.merged_color_space = გაერთიანებული გამოსახულება (Krita-ის {color_space} დოკუმენტი ნაჩვენებია RGB-ის სახით)
 codec.pdn.feature.blend_mode = PDN შერევის რეჟიმი
 codec.pdn.feature.compression = PDN შეკუმშვა
 codec.pdn.feature.container_version = PDN კონტეინერის ვერსია

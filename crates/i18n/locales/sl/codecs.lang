@@ -42,12 +42,16 @@ codec.avif.msg.no_decoder = Brskalniška različica programa Schist ne more odpr
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
 codec.layered.invalid = Datoteka slike s plastmi je poškodovana ali nepopolna.
 codec.layered.too_large = Slika s plastmi presega podprto velikost ali število plasti.
 codec.layered.unsupported = Ta datoteka uporablja nepodprto funkcijo: {feature}.
 codec.layered.export_layer = Plast »{name}« vsebuje funkcije, ki jih ta oblika zapisa ne more ohraniti. Rastrirajte jo ali shranite kot PSD.
 codec.layered.export_depth = Izvoz v Paint.NET zahteva 8-bitni dokument RGB. Najprej pretvorite dokument v 8-bitni RGB.
 codec.layered.export_mode = Izvoz zahteva dokument RGB. Najprej pretvorite dokument v RGB.
+codec.layered.merged_layer = Združena slika (nekaterih plasti {format} ni bilo mogoče uvoziti)
+codec.kra.merged_color_space = Združena slika (dokument Krita {color_space} je prikazan kot RGB)
 codec.pdn.feature.blend_mode = način mešanja PDN
 codec.pdn.feature.compression = stiskanje PDN
 codec.pdn.feature.container_version = različica vsebnika PDN

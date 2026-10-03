@@ -38,12 +38,16 @@ codec.avif.msg.no_decoder = Schist හි බ්‍රවුසර අනුව�
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
 codec.layered.invalid = ස්තර සහිත රූප ගොනුව හානි වී හෝ අසම්පූර්ණ වී ඇත.
 codec.layered.too_large = ස්තර සහිත රූපය සහාය දක්වන ප්‍රමාණය හෝ ස්තර ගණන ඉක්මවයි.
 codec.layered.unsupported = මෙම ගොනුව සහාය නොදක්වන විශේෂාංගයක් භාවිත කරයි: {feature}.
 codec.layered.export_layer = “{name}” ස්තරයේ මෙම ආකෘතියට රැකගත නොහැකි විශේෂාංග ඇත. එය රාස්ටර් කරන්න හෝ PSD ලෙස සුරකින්න.
 codec.layered.export_depth = Paint.NET වෙත නිර්යාත කිරීමට බිට් 8 RGB ලේඛනයක් අවශ්‍ය වේ. පළමුව ලේඛනය බිට් 8 RGB බවට පරිවර්තනය කරන්න.
 codec.layered.export_mode = නිර්යාත කිරීමට RGB ලේඛනයක් අවශ්‍ය වේ. පළමුව ලේඛනය RGB බවට පරිවර්තනය කරන්න.
+codec.layered.merged_layer = ඒකාබද්ධ රූපය ({format} ස්තර කිහිපයක් ආයාත කළ නොහැකි විය)
+codec.kra.merged_color_space = ඒකාබද්ධ රූපය (Krita {color_space} ලේඛනය RGB ලෙස පෙන්වා ඇත)
 codec.pdn.feature.blend_mode = PDN මිශ්‍රණ ආකාරය
 codec.pdn.feature.compression = PDN සම්පීඩනය
 codec.pdn.feature.container_version = PDN බහාලුම් අනුවාදය

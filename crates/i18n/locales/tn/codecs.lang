@@ -38,12 +38,16 @@ codec.avif.msg.no_decoder = Mofuta wa browser wa Schist ga o kgone go bula ditsh
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
 codec.layered.invalid = Faele ya setshwantsho se se nang le dillaga e senyegile kgotsa ga e a felela.
 codec.layered.too_large = Setshwantsho se se nang le dillaga se feta bogolo kgotsa palo ya dillaga e e tshegediwang.
 codec.layered.unsupported = Faele eno e dirisa karolo e e sa tshegediwang: {feature}.
 codec.layered.export_layer = Llaga “{name}” e na le dikarolo tse popego eno e sa kgoneng go di boloka. E fetolele go dipiksele kgotsa o boloke jaaka PSD.
 codec.layered.export_depth = Go romela kwa Paint.NET go tlhoka tokomane ya RGB ya 8-bit. Fetolela tokomane go RGB ya 8-bit pele.
 codec.layered.export_mode = Go romela go tlhoka tokomane ya RGB. Fetolela tokomane go RGB pele.
+codec.layered.merged_layer = Setshwantsho se se kopantsweng (dillaga dingwe tsa {format} ga di a kgona go tsenngwa)
+codec.kra.merged_color_space = Setshwantsho se se kopantsweng (tokomane ya Krita {color_space} e bontshiwa jaaka RGB)
 codec.pdn.feature.blend_mode = mokgwa wa go kopanya wa PDN
 codec.pdn.feature.compression = go pitlaganya data ga PDN
 codec.pdn.feature.container_version = mofuta wa setshelo sa PDN

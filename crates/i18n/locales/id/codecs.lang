@@ -38,12 +38,16 @@ codec.avif.msg.no_decoder = Versi peramban Schist tidak dapat membuka gambar AVI
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
 codec.layered.invalid = Berkas gambar berlapis rusak atau tidak lengkap.
 codec.layered.too_large = Gambar berlapis melebihi ukuran atau jumlah lapisan yang didukung.
 codec.layered.unsupported = Berkas ini menggunakan fitur yang tidak didukung: {feature}.
 codec.layered.export_layer = Lapisan “{name}” berisi fitur yang tidak dapat dipertahankan oleh format ini. Rasterisasi lapisan tersebut atau simpan sebagai PSD.
 codec.layered.export_depth = Ekspor Paint.NET memerlukan dokumen RGB 8-bit. Ubah dokumen ke RGB 8-bit terlebih dahulu.
 codec.layered.export_mode = Ekspor memerlukan dokumen RGB. Ubah dokumen ke RGB terlebih dahulu.
+codec.layered.merged_layer = Gambar gabungan (beberapa lapisan {format} tidak dapat diimpor)
+codec.kra.merged_color_space = Gambar gabungan (dokumen Krita {color_space} ditampilkan sebagai RGB)
 
 # Unsupported layered-format features.
 codec.pdn.feature.blend_mode = mode pencampuran PDN

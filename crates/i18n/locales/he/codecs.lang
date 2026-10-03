@@ -37,12 +37,16 @@ codec.avif.msg.no_decoder = גרסת הדפדפן של Schist אינה יכול�
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
 codec.layered.invalid = קובץ התמונה עם השכבות פגום או לא שלם.
 codec.layered.too_large = גודל התמונה עם השכבות או מספר השכבות חורג מהמגבלה הנתמכת.
 codec.layered.unsupported = הקובץ משתמש בתכונה שאינה נתמכת: {feature}.
 codec.layered.export_layer = השכבה „{name}” מכילה תכונות שתבנית זו אינה יכולה לשמר. יש להמיר אותה לפיקסלים או לשמור בתור PSD.
 codec.layered.export_depth = ייצוא ל־Paint.NET דורש מסמך RGB בעומק 8 סיביות. יש להמיר תחילה את המסמך ל־RGB בעומק 8 סיביות.
 codec.layered.export_mode = ייצוא דורש מסמך RGB. יש להמיר תחילה את המסמך ל־RGB.
+codec.layered.merged_layer = תמונה ממוזגת (לא ניתן היה לייבא חלק משכבות ה־{format})
+codec.kra.merged_color_space = תמונה ממוזגת (מסמך Krita ב־{color_space} מוצג כ־RGB)
 codec.pdn.feature.blend_mode = מצב שילוב PDN
 codec.pdn.feature.compression = דחיסת PDN
 codec.pdn.feature.container_version = גרסת המכל של PDN

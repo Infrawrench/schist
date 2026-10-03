@@ -38,12 +38,16 @@ codec.avif.msg.no_decoder = Phiên bản trình duyệt của Schist không th�
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
 codec.layered.invalid = Tệp ảnh có lớp bị hỏng hoặc không đầy đủ.
 codec.layered.too_large = Ảnh có lớp vượt quá kích thước hoặc số lớp được hỗ trợ.
 codec.layered.unsupported = Tệp này sử dụng một tính năng không được hỗ trợ: {feature}.
 codec.layered.export_layer = Lớp “{name}” chứa những tính năng mà định dạng này không thể giữ lại. Hãy raster hóa lớp hoặc lưu dưới dạng PSD.
 codec.layered.export_depth = Xuất sang Paint.NET cần tài liệu RGB 8 bit. Trước tiên, hãy chuyển tài liệu sang RGB 8 bit.
 codec.layered.export_mode = Xuất cần tài liệu RGB. Trước tiên, hãy chuyển tài liệu sang RGB.
+codec.layered.merged_layer = Ảnh đã gộp (không thể nhập một số lớp {format})
+codec.kra.merged_color_space = Ảnh đã gộp (tài liệu Krita {color_space} được hiển thị ở dạng RGB)
 
 # Unsupported layered format features
 codec.pdn.feature.blend_mode = Chế độ hòa trộn PDN

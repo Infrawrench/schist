@@ -37,12 +37,16 @@ codec.avif.msg.no_decoder = Η έκδοση του Schist για πρόγραμ�
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
 codec.layered.invalid = Το αρχείο εικόνας με επίπεδα είναι κατεστραμμένο ή ελλιπές.
 codec.layered.too_large = Το μέγεθος της εικόνας ή ο αριθμός των επιπέδων υπερβαίνει το υποστηριζόμενο όριο.
 codec.layered.unsupported = Αυτό το αρχείο χρησιμοποιεί μια μη υποστηριζόμενη δυνατότητα: {feature}.
 codec.layered.export_layer = Το επίπεδο «{name}» περιέχει δυνατότητες που αυτή η μορφή δεν μπορεί να διατηρήσει. Ραστεροποιήστε το ή αποθηκεύστε ως PSD.
 codec.layered.export_depth = Η εξαγωγή σε Paint.NET απαιτεί έγγραφο RGB 8 bit. Μετατρέψτε πρώτα το έγγραφο σε RGB 8 bit.
 codec.layered.export_mode = Η εξαγωγή απαιτεί έγγραφο RGB. Μετατρέψτε πρώτα το έγγραφο σε RGB.
+codec.layered.merged_layer = Συγχωνευμένη εικόνα (ορισμένα επίπεδα {format} δεν ήταν δυνατό να εισαχθούν)
+codec.kra.merged_color_space = Συγχωνευμένη εικόνα (έγγραφο Krita {color_space} εμφανίζεται ως RGB)
 
 # Unsupported layered-format features.
 codec.pdn.feature.blend_mode = λειτουργία ανάμειξης PDN

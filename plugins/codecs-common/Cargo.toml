@@ -20,6 +20,8 @@ anyhow.workspace = true
 log.workspace = true
 image.workspace = true
 miniz_oxide.workspace = true
+# Nesting check on OpenRaster and Krita layer trees before they are built.
+quick-xml = "0.41"
 flate2 = { version = "1", default-features = false, features = ["rust_backend"] }
 half = "2"
 sha2 = "0.10"

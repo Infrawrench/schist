@@ -38,12 +38,16 @@ codec.avif.msg.no_decoder = لا يمكن لإصدار المتصفح من Schis
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
 codec.layered.invalid = ملف الصورة ذات الطبقات تالف أو غير مكتمل.
 codec.layered.too_large = تتجاوز الصورة ذات الطبقات الحجم أو عدد الطبقات المدعوم.
 codec.layered.unsupported = يستخدم هذا الملف ميزة غير مدعومة: {feature}.
 codec.layered.export_layer = تحتوي الطبقة «{name}» على ميزات لا يمكن لهذا التنسيق الحفاظ عليها. نقّط الطبقة أو احفظ بصيغة PSD.
 codec.layered.export_depth = يتطلب التصدير بصيغة Paint.NET مستند RGB بعمق 8 بت. حوّل المستند أولًا إلى RGB بعمق 8 بت.
 codec.layered.export_mode = يتطلب التصدير مستند RGB. حوّل المستند أولًا إلى RGB.
+codec.layered.merged_layer = صورة مدمجة (تعذّر استيراد بعض طبقات {format})
+codec.kra.merged_color_space = صورة مدمجة (يظهر مستند Krita بنمط {color_space} كصورة RGB)
 
 # Unsupported layered format features
 codec.pdn.feature.blend_mode = وضع مزج PDN

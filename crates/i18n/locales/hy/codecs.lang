@@ -39,12 +39,16 @@ codec.avif.msg.no_decoder = Schist-ի դիտարկիչային տարբերակ�
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
 codec.layered.invalid = Շերտավոր պատկերի ֆայլը վնասված է կամ թերի։
 codec.layered.too_large = Շերտավոր պատկերի չափը կամ շերտերի քանակը գերազանցում է աջակցվող սահմանը։
 codec.layered.unsupported = Այս ֆայլն օգտագործում է չաջակցվող գործառույթ՝ {feature}։
 codec.layered.export_layer = «{name}» շերտը պարունակում է գործառույթներ, որոնք այս ձևաչափը չի կարող պահպանել։ Ռաստերացրեք շերտը կամ պահեք PSD ձևաչափով։
 codec.layered.export_depth = Paint.NET ձևաչափով արտահանելու համար անհրաժեշտ է 8-բիթանոց RGB փաստաթուղթ։ Նախ փաստաթուղթը փոխարկեք 8-բիթանոց RGB-ի։
 codec.layered.export_mode = Արտահանելու համար անհրաժեշտ է RGB փաստաթուղթ։ Նախ փաստաթուղթը փոխարկեք RGB-ի։
+codec.layered.merged_layer = Միաձուլված պատկեր (որոշ {format} շերտեր չհաջողվեց ներմուծել)
+codec.kra.merged_color_space = Միաձուլված պատկեր (Krita {color_space} փաստաթուղթը ցուցադրվում է որպես RGB)
 
 # Unsupported layered format features
 codec.pdn.feature.blend_mode = PDN խառնման ռեժիմ

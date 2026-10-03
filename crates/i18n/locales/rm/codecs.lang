@@ -38,12 +38,16 @@ codec.avif.msg.no_decoder = La versiun da navigatur da Schist na po betg avrir m
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
 codec.layered.invalid = La datoteca da maletg cun stresas è donnegiada u incumpletta.
 codec.layered.too_large = Il maletg cun stresas surpassa la grondezza u il dumber da stresas sustegnids.
 codec.layered.unsupported = Questa datoteca utilisescha ina funcziun betg sustegnida: {feature}.
 codec.layered.export_layer = La stresa «{name}» cuntegna funcziuns che quest format na po betg mantegnair. Rasterisai ella u memorisai sco PSD.
 codec.layered.export_depth = L'export en Paint.NET pretenda in document RGB dad 8 bits. Converti l'emprim il document en RGB dad 8 bits.
 codec.layered.export_mode = L'export pretenda in document RGB. Converti l'emprim il document en RGB.
+codec.layered.merged_layer = Maletg unì (intgins fugliaders {format} n'han betg pudì vegnir importads)
+codec.kra.merged_color_space = Maletg unì (document Krita {color_space} mussà sco RGB)
 codec.pdn.feature.blend_mode = modus da maschadaziun PDN
 codec.pdn.feature.compression = cumpressiun PDN
 codec.pdn.feature.container_version = versiun dal cuntegnider PDN

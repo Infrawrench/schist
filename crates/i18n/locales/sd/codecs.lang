@@ -38,12 +38,16 @@ codec.avif.msg.no_decoder = Schist جو برائوزر ورزن AVIF تصوير�
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
 codec.layered.invalid = پرتن واري تصوير جو فائيل خراب يا اڻپورو آهي.
 codec.layered.too_large = پرتن واري تصوير جي ماپ يا پرتن جو تعداد سهائتا ڪيل حد کان وڌيڪ آهي.
 codec.layered.unsupported = هي فائيل هڪ اهڙي خصوصيت استعمال ڪري ٿو جنهن جي سهائتا ناهي: {feature}.
 codec.layered.export_layer = پرت “{name}” ۾ اهڙيون خصوصيتون آهن جيڪي هي فارميٽ محفوظ نٿو رکي سگهي. ان کي راسٽر ڪريو يا PSD طور محفوظ ڪريو.
 codec.layered.export_depth = Paint.NET ڏانهن برآمد ڪرڻ لاءِ 8-بٽ RGB دستاويز گهربل آهي. پهريان دستاويز کي 8-بٽ RGB ۾ تبديل ڪريو.
 codec.layered.export_mode = برآمد ڪرڻ لاءِ RGB دستاويز گهربل آهي. پهريان دستاويز کي RGB ۾ تبديل ڪريو.
+codec.layered.merged_layer = ضم ڪيل تصوير (ڪي {format} پرتون درآمد نه ٿي سگهيون)
+codec.kra.merged_color_space = ضم ڪيل تصوير (Krita {color_space} دستاويز RGB طور ڏيکاريل آهي)
 
 # Unsupported layered-format features.
 codec.pdn.feature.blend_mode = PDN ملاوٽ جو موڊ

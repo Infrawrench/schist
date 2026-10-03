@@ -52,6 +52,8 @@ pub enum ContainerError {
     BadChecksum { name: String },
     #[error("package is encrypted, which an IDML package must not be")]
     Encrypted,
+    #[error("package exceeds the size or entry limit for this reader")]
+    TooLarge,
 }
 
 /// One entry, as the central directory describes it.
@@ -142,6 +144,35 @@ pub fn read(bytes: &[u8]) -> Result<Package, ContainerError> {
     let entries = read_directory(bytes)?;
     let mut parts = Vec::with_capacity(entries.len());
     for entry in entries {
+        parts.push((entry.name.clone(), read_part(bytes, &entry)?));
+    }
+    Ok(Package { parts })
+}
+
+/// Read a package whose entries are untrusted, decompressing no more than
+/// `max_bytes` in total and accepting at most `max_entries` entries.
+///
+/// The other zip-based codecs (OpenRaster, Krita) carry megapixels of
+/// pixel data rather than kilobytes of XML, so a hostile archive that
+/// declares, or inflates to, more than the caller's budget is refused
+/// before it is allocated rather than discovered afterwards. Each entry's
+/// inflater is capped at its declared size, so a lying central directory
+/// cannot inflate past the budget either.
+pub fn read_bounded(
+    bytes: &[u8],
+    max_bytes: u64,
+    max_entries: usize,
+) -> Result<Package, ContainerError> {
+    let entries = read_directory(bytes)?;
+    if entries.len() > max_entries {
+        return Err(ContainerError::TooLarge);
+    }
+    let mut remaining = max_bytes;
+    let mut parts = Vec::with_capacity(entries.len());
+    for entry in entries {
+        remaining = remaining
+            .checked_sub(entry.size)
+            .ok_or(ContainerError::TooLarge)?;
         parts.push((entry.name.clone(), read_part(bytes, &entry)?));
     }
     Ok(Package { parts })
@@ -323,10 +354,18 @@ fn read_part(bytes: &[u8], entry: &Entry) -> Result<Vec<u8>, ContainerError> {
     let out = match entry.method {
         METHOD_STORE => data.to_vec(),
         METHOD_DEFLATE => {
-            let mut out = Vec::with_capacity(entry.size as usize);
+            // Capacity is a hint from the file, so it is capped; the
+            // inflater is limited to one byte past the declared size, which
+            // is enough for the CRC check below to reject a longer stream
+            // without inflating all of it.
+            let mut out = Vec::with_capacity(entry.size.min(1 << 24) as usize);
             flate2::read::DeflateDecoder::new(data)
+                .take(entry.size.saturating_add(1))
                 .read_to_end(&mut out)
                 .map_err(|_| ContainerError::Truncated("deflate stream"))?;
+            if out.len() as u64 != entry.size {
+                return Err(ContainerError::Truncated("deflate stream"));
+            }
             out
         }
         method => {
@@ -696,6 +735,35 @@ mod tests {
         assert!(package.remove("a"));
         assert!(!package.remove("a"));
         assert!(package.get("a").is_none());
+    }
+
+    #[test]
+    fn a_bounded_read_refuses_oversized_or_crowded_packages() {
+        let written = write(&parts());
+        assert_eq!(read_bounded(&written, 1 << 20, 3).unwrap().len(), 3);
+        assert!(matches!(
+            read_bounded(&written, 1 << 20, 2),
+            Err(ContainerError::TooLarge)
+        ));
+        assert!(matches!(
+            read_bounded(&written, 10, 3),
+            Err(ContainerError::TooLarge)
+        ));
+    }
+
+    #[test]
+    fn a_deflated_entry_cannot_inflate_past_its_declared_size() {
+        // Shrink the declared size of a deflated entry: the inflater stops
+        // one byte past it rather than trusting the stream.
+        let big = vec![(String::from("big.bin"), vec![7u8; 100_000])];
+        let mut written = write(&big);
+        let dir = find_eocd(&written).unwrap();
+        let offset = u32le(&written, dir + 16).unwrap() as usize;
+        written[offset + 24..offset + 28].copy_from_slice(&10u32.to_le_bytes());
+        assert!(matches!(
+            read(&written),
+            Err(ContainerError::Truncated("deflate stream"))
+        ));
     }
 
     #[test]

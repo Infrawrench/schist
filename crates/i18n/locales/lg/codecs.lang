@@ -38,12 +38,16 @@ codec.avif.msg.no_decoder = Schist ey'omu browser tesobola kuggulawo bifaananyi 
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
 codec.layered.invalid = Fayiro y'ekifaananyi ekirina layers eyonoonese oba si njjuvu.
 codec.layered.too_large = Obunene bw'ekifaananyi ekirina layers oba omuwendo gwa layers gusinga ekkomo erikkirizibwa.
 codec.layered.unsupported = Fayiro eno ekozesa ekintu ekitawagirwa: {feature}.
 codec.layered.export_layer = Layer “{name}” erimu ebintu enkola eno by'etasobola kukuuma. Gifuule pixels eza bulijjo oba otereke nga PSD.
 codec.layered.export_depth = Okufulumya mu Paint.NET kyetaaga ekiwandiiko kya RGB ekya bit 8. Sooka ofuule ekiwandiiko RGB eya bit 8.
 codec.layered.export_mode = Okufulumya kyetaaga ekiwandiiko kya RGB. Sooka ofuule ekiwandiiko RGB.
+codec.layered.merged_layer = Ekifaananyi ekigatiddwa (layers ezimu eza {format} tezisobodde kuyingizibwa)
+codec.kra.merged_color_space = Ekifaananyi ekigatiddwa (ekiwandiiko kya Krita {color_space} kiragiddwa nga RGB)
 codec.pdn.feature.blend_mode = engeri y'okutabula ya PDN
 codec.pdn.feature.compression = okunyiga data kwa PDN
 codec.pdn.feature.container_version = ekika ky'ekibya kya PDN

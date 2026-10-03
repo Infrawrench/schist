@@ -38,12 +38,16 @@ codec.avif.msg.no_decoder = La versión de Schist para navegador no puede abrir 
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
 codec.layered.invalid = El archivo de imagen con capas está dañado o incompleto.
 codec.layered.too_large = La imagen con capas supera el tamaño o el número de capas admitidos.
 codec.layered.unsupported = Este archivo utiliza una función no compatible: {feature}.
 codec.layered.export_layer = La capa «{name}» contiene características que este formato no puede conservar. Rasterícela o guarde como PSD.
 codec.layered.export_depth = La exportación a Paint.NET requiere un documento RGB de 8 bits. Convierta primero el documento a RGB de 8 bits.
 codec.layered.export_mode = La exportación requiere un documento RGB. Convierta primero el documento a RGB.
+codec.layered.merged_layer = Imagen combinada (no se pudieron importar algunas capas de {format})
+codec.kra.merged_color_space = Imagen combinada (documento de Krita {color_space} mostrado como RGB)
 codec.pdn.feature.blend_mode = modo de fusión PDN
 codec.pdn.feature.compression = compresión PDN
 codec.pdn.feature.container_version = versión del contenedor PDN

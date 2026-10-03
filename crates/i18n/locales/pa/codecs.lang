@@ -37,12 +37,16 @@ codec.avif.msg.no_decoder = Schist ਦਾ ਬ੍ਰਾਊਜ਼ਰ ਵਰਜਨ 
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
 codec.layered.invalid = ਲੇਅਰਾਂ ਵਾਲੀ ਚਿੱਤਰ ਫ਼ਾਈਲ ਖ਼ਰਾਬ ਜਾਂ ਅਧੂਰੀ ਹੈ।
 codec.layered.too_large = ਲੇਅਰਾਂ ਵਾਲੇ ਚਿੱਤਰ ਦਾ ਆਕਾਰ ਜਾਂ ਲੇਅਰਾਂ ਦੀ ਗਿਣਤੀ ਸਮਰਥਿਤ ਹੱਦ ਤੋਂ ਵੱਧ ਹੈ।
 codec.layered.unsupported = ਇਹ ਫ਼ਾਈਲ ਇੱਕ ਅਸਮਰਥਿਤ ਵਿਸ਼ੇਸ਼ਤਾ ਵਰਤਦੀ ਹੈ: {feature}।
 codec.layered.export_layer = “{name}” ਲੇਅਰ ਵਿੱਚ ਅਜਿਹੀਆਂ ਵਿਸ਼ੇਸ਼ਤਾਵਾਂ ਹਨ ਜਿਨ੍ਹਾਂ ਨੂੰ ਇਹ ਫ਼ਾਰਮੈਟ ਸੁਰੱਖਿਅਤ ਨਹੀਂ ਰੱਖ ਸਕਦਾ। ਇਸਨੂੰ ਰਾਸਟਰਾਈਜ਼ ਕਰੋ ਜਾਂ PSD ਵਜੋਂ ਸੰਭਾਲੋ।
 codec.layered.export_depth = Paint.NET ਵਜੋਂ ਨਿਰਯਾਤ ਕਰਨ ਲਈ 8-ਬਿੱਟ RGB ਦਸਤਾਵੇਜ਼ ਲੋੜੀਂਦਾ ਹੈ। ਪਹਿਲਾਂ ਦਸਤਾਵੇਜ਼ ਨੂੰ 8-ਬਿੱਟ RGB ਵਿੱਚ ਬਦਲੋ।
 codec.layered.export_mode = ਨਿਰਯਾਤ ਕਰਨ ਲਈ RGB ਦਸਤਾਵੇਜ਼ ਲੋੜੀਂਦਾ ਹੈ। ਪਹਿਲਾਂ ਦਸਤਾਵੇਜ਼ ਨੂੰ RGB ਵਿੱਚ ਬਦਲੋ।
+codec.layered.merged_layer = ਮਿਲਾਇਆ ਗਿਆ ਚਿੱਤਰ (ਕੁਝ {format} ਲੇਅਰਾਂ ਨੂੰ ਇੰਪੋਰਟ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਿਆ)
+codec.kra.merged_color_space = ਮਿਲਾਇਆ ਗਿਆ ਚਿੱਤਰ (Krita {color_space} ਦਸਤਾਵੇਜ਼ RGB ਵਜੋਂ ਦਿਖਾਇਆ ਗਿਆ)
 
 # Unsupported layered format features
 codec.pdn.feature.blend_mode = PDN ਮਿਸ਼ਰਣ ਮੋਡ

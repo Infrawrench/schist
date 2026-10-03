@@ -44,12 +44,16 @@ codec.avif.msg.no_decoder = ʻOku ʻikai lava ʻe he Schist ʻi he polokalama va
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
 codec.layered.invalid = ʻOku maumau pe ʻikai kakato ʻa e faile ʻo e ʻīmisi ʻoku ʻi ai ha ngaahi Layer.
 codec.layered.too_large = ʻOku laka ʻa e lahi ʻo e ʻīmisi pe ko e fika ʻo hono ngaahi Layer ʻi he ngataʻanga ʻoku poupouʻí.
 codec.layered.unsupported = ʻOku fakaʻaongaʻi ʻe he faile ko ʻení ha tafaʻaki ʻoku ʻikai poupouʻi: {feature}.
 codec.layered.export_layer = ʻOku ʻi he Layer “{name}” ha ngaahi tafaʻaki ʻoku ʻikai lava ʻe he faʻunga ko ʻení ʻo tauhi. Liliu ia ki he ngaahi pikisi pe seivi ko e PSD.
 codec.layered.export_depth = ʻOku fiemaʻu ha fakamatala RGB 8-bit ke ʻave ki he Paint.NET. Liliu muʻa ʻa e fakamatala ki he RGB 8-bit.
 codec.layered.export_mode = ʻOku fiemaʻu ha fakamatala RGB ke ʻave ki tuʻa. Liliu muʻa ʻa e fakamatala ki he RGB.
+codec.layered.merged_layer = ʻĪmisi fakataha (ʻikai lava ke ʻomi ha ngaahi Layer {format} ʻe niʻihi)
+codec.kra.merged_color_space = ʻĪmisi fakataha (fakamatala Krita {color_space} ʻoku fakaʻasi ko e RGB)
 codec.pdn.feature.blend_mode = founga tuifio ʻo e PDN
 codec.pdn.feature.compression = fakamālohiʻi ʻo e ngaahi fakamatala PDN
 codec.pdn.feature.container_version = pulusinga ʻo e meʻa tauhi PDN

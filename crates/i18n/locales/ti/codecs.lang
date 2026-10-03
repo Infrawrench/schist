@@ -38,12 +38,16 @@ codec.avif.msg.no_decoder = ናይ መርበብ ሓሳስ ስሪት Schist ና�
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
 codec.layered.invalid = እቲ ንጣፋት ዘለዎ ፋይል ምስሊ ተበላሽዩ ወይ ዘይምሉእ እዩ።
 codec.layered.too_large = ዓቐን እቲ ምስሊ ወይ ብዝሒ ንጣፋቱ ነቲ ዝድገፍ ደረት ሓሊፉ።
 codec.layered.unsupported = እዚ ፋይል ዘይድገፍ ባህሪ ይጥቀም፦ {feature}።
 codec.layered.export_layer = ንጣፍ “{name}” እዚ ቅርጺ ክዕቅቦም ዘይክእል ባህርያት ኣለዉዎ። ራስተር ግበሮ ወይ ከም PSD ኣቐምጦ።
 codec.layered.export_depth = ናብ Paint.NET ምውጻእ ናይ 8 ቢት RGB ሰነድ ይሓትት። መጀመርታ ነቲ ሰነድ ናብ 8 ቢት RGB ቀይሮ።
 codec.layered.export_mode = ምውጻእ RGB ሰነድ ይሓትት። መጀመርታ ነቲ ሰነድ ናብ RGB ቀይሮ።
+codec.layered.merged_layer = ዝተጠማመረ ምስሊ (ገለ ናይ {format} ንጣፋት ከይምጽኡ ኣይተኻእለን)
+codec.kra.merged_color_space = ዝተጠማመረ ምስሊ (ናይ Krita {color_space} ሰነድ ከም RGB ተራእዩ)
 
 # Unsupported layered-format features.
 codec.pdn.feature.blend_mode = ሁነታ ምውህሃድ PDN

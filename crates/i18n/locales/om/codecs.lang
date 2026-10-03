@@ -37,12 +37,16 @@ codec.avif.msg.no_decoder = Gosti biraawzarii Schist suuraa AVIF banuu hin danda
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
 codec.layered.invalid = Faayilli suuraa laayaroota qabu miidhameera yookaan guutuu miti.
 codec.layered.too_large = Guddinni suuraa laayaroota qabuu yookaan baay'inni laayaroota isaa daangaa deeggaramu caala.
 codec.layered.unsupported = Faayilli kun amala hin deeggaramne fayyadama: {feature}.
 codec.layered.export_layer = Laayarri “{name}” amaloota akkaataan kun eeguu hin dandeenye qaba. Gara pikselootaatti jijjiiri yookaan akka PSDtti olkaa'i.
 codec.layered.export_depth = Gara Paint.NET al-erguun galmee RGB 8-bit barbaada. Dura galmee gara RGB 8-bit jijjiiri.
 codec.layered.export_mode = Al-erguun galmee RGB barbaada. Dura galmee gara RGB jijjiiri.
+codec.layered.merged_layer = Suuraa walitti makame (laayaroonni {format} tokko tokko galchuun hin danda'amne)
+codec.kra.merged_color_space = Suuraa walitti makame (galmee Krita {color_space} akka RGBtti agarsiifameera)
 codec.pdn.feature.blend_mode = haala makaa PDN
 codec.pdn.feature.compression = cuunfaa PDN
 codec.pdn.feature.container_version = gosa kuusaa PDN

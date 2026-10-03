@@ -38,12 +38,16 @@ codec.avif.msg.no_decoder = Inguqulo yesiphequluli ye-Schist ayikwazi ukuvula iz
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
 codec.layered.invalid = Ifayela lesithombe esinezingqimba lonakele noma aliphelele.
 codec.layered.too_large = Isithombe esinezingqimba sidlula usayizi noma inani lezingqimba elisekelwayo.
 codec.layered.unsupported = Leli fayela lisebenzisa isici esingasekelwa: {feature}.
 codec.layered.export_layer = Ungqimba oluthi “{name}” luqukethe izici le fomethi engakwazi ukuzigcina. Luguqule lube amaphikseli noma ulondoloze njenge-PSD.
 codec.layered.export_depth = Ukuthumela ngaphandle ngefomethi ye-Paint.NET kudinga idokhumenti ye-RGB engu-8-bit. Qala ngokuguqula idokhumenti ibe yi-RGB engu-8-bit.
 codec.layered.export_mode = Ukuthumela ngaphandle kudinga idokhumenti ye-RGB. Qala ngokuguqula idokhumenti ibe yi-RGB.
+codec.layered.merged_layer = Isithombe esihlanganisiwe (ezinye izingqimba ze-{format} azikwazanga ukungeniswa)
+codec.kra.merged_color_space = Isithombe esihlanganisiwe (idokhumenti ye-Krita {color_space} ikhonjiswa njenge-RGB)
 
 # Unsupported layered format features
 codec.pdn.feature.blend_mode = Imodi yokuxuba ye-PDN

@@ -47,12 +47,16 @@ codec.avif.msg.no_decoder = Sa versione de Schist pro su navigadore no podet ab�
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
 codec.layered.invalid = S'archìviu de s'immàgine a istratos est dannigiadu o incompletu.
 codec.layered.too_large = S'immàgine a istratos superat sa mannària o su nùmeru de istratos suportados.
 codec.layered.unsupported = Custu archìviu impreat una funtzionalidade non suportada: {feature}.
 codec.layered.export_layer = S'istratu «{name}» cuntenet funtzionalidades chi custu formadu non podet cunservare. Rasteriza·ddu o sarva comente PSD.
 codec.layered.export_depth = S'esportatzione in Paint.NET rechedet unu documentu RGB a 8 bit. Cunverti prima su documentu in RGB a 8 bit.
 codec.layered.export_mode = S'esportatzione rechedet unu documentu RGB. Cunverti prima su documentu in RGB.
+codec.layered.merged_layer = Immàgine unida (carchi istratu {format} no sunt istados importados)
+codec.kra.merged_color_space = Immàgine unida (documentu Krita {color_space} ammustradu comente RGB)
 codec.pdn.feature.blend_mode = modalidade de mistura PDN
 codec.pdn.feature.compression = cumpressione PDN
 codec.pdn.feature.container_version = versione de su cuntènnidore PDN

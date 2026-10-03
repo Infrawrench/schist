@@ -66,6 +66,8 @@ impl DownloadedAsset {
             "image/heif" => Some("heif"),
             "image/jxl" => Some("jxl"),
             "image/avif" => Some("avif"),
+            "image/openraster" => Some("ora"),
+            "application/x-krita" => Some("kra"),
             _ => self.format.as_deref().filter(|f| *f != "original"),
         };
         match extension {

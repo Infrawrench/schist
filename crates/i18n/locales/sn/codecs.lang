@@ -38,12 +38,16 @@ codec.avif.msg.no_decoder = Shanduro yebhurawuza yeSchist haikwanise kuvhura mif
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
 codec.layered.invalid = Faira remufananidzo une zvikamu rakanganisika kana kuti harina kukwana.
 codec.layered.too_large = Saizi yemufananidzo une zvikamu kana huwandu hwezvikamu zvawo hunodarika muganhu unotsigirwa.
 codec.layered.unsupported = Faira iri rinoshandisa chinhu chisingatsigirwi: {feature}.
 codec.layered.export_layer = Chikamu “{name}” chine zvinhu zvisingagoni kuchengetwa nefomati iyi. Chishandure kuva mapikiseri kana kuchengetedza sePSD.
 codec.layered.export_depth = Kutumira kuPaint.NET kunoda gwaro reRGB re8-bit. Tanga washandura gwaro kuva RGB ye8-bit.
 codec.layered.export_mode = Kutumira kunoda gwaro reRGB. Tanga washandura gwaro kuva RGB.
+codec.layered.merged_layer = Mufananidzo wakabatanidzwa (zvimwe zvikamu zve-{format} hazvina kukwanisa kuiswa)
+codec.kra.merged_color_space = Mufananidzo wakabatanidzwa (gwaro reKrita {color_space} rinoratidzwa seRGB)
 codec.pdn.feature.blend_mode = maitiro ekusanganisa ePDN
 codec.pdn.feature.compression = kudzvanywa kwedata rePDN
 codec.pdn.feature.container_version = vhezheni yechigadziko chePDN

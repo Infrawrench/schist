@@ -37,12 +37,16 @@ codec.avif.msg.no_decoder = Schisti brauseriversioon ei saa AVIF-pilte avada. Av
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
 codec.layered.invalid = Kihtidega pildifail on kahjustatud või puudulik.
 codec.layered.too_large = Kihtidega pildi suurus või kihtide arv ületab toetatud piiri.
 codec.layered.unsupported = See fail kasutab toetamata võimalust: {feature}.
 codec.layered.export_layer = Kiht „{name}“ sisaldab omadusi, mida see vorming ei saa säilitada. Rasterda see või salvesta PSD-vormingus.
 codec.layered.export_depth = Paint.NET-vormingusse eksportimiseks on vaja 8-bitist RGB-dokumenti. Teisenda dokument esmalt 8-bitiseks RGB-ks.
 codec.layered.export_mode = Eksportimiseks on vaja RGB-dokumenti. Teisenda dokument esmalt RGB-ks.
+codec.layered.merged_layer = Ühendatud pilt (mõnda {format} kihti ei saanud importida)
+codec.kra.merged_color_space = Ühendatud pilt (Krita {color_space} dokument kuvatakse RGB-na)
 codec.pdn.feature.blend_mode = PDN segamisrežiim
 codec.pdn.feature.compression = PDN tihendus
 codec.pdn.feature.container_version = PDN konteineri versioon

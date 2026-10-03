@@ -38,12 +38,16 @@ codec.avif.msg.no_decoder = Sumb nawigatër bu Schist mënul ubbi nataal yu AVIF
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
 codec.layered.invalid = Dencukaayu nataal bi am ay couche dafa yàqu walla matul.
 codec.layered.too_large = Dayob nataal bi walla limu couche yi ci nekk ëpp na kem-kàttan gi ñu nangu.
 codec.layered.unsupported = Dencukaay bii dafay jëfandikoo man-man gu ñu nangulul: {feature}.
 codec.layered.export_layer = Couche “{name}” bi am na ay man-man yu formaa bii mënul denc. Soppi ko mu doon ay pixel walla nga denc ko ci PSD.
 codec.layered.export_depth = Ngir génne ci Paint.NET, dafa soxla jukki RGB bu 8 bit. Jëkka soppi jukki bi ci RGB bu 8 bit.
 codec.layered.export_mode = Ngir génne, dafa soxla jukki RGB. Jëkka soppi jukki bi ci RGB.
+codec.layered.merged_layer = Nataal bu ñu boole (ay couche yu {format} mënuñu ko import)
+codec.kra.merged_color_space = Nataal bu ñu boole (jukki Krita {color_space} gis nañu ko niki RGB)
 codec.pdn.feature.blend_mode = anamu jaxase PDN
 codec.pdn.feature.compression = waññi dayob rootaanu PDN
 codec.pdn.feature.container_version = sumbub mbalkam PDN

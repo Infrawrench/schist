@@ -37,12 +37,16 @@ codec.avif.msg.no_decoder = Ny yll versyon peureller Schist ygeri delwennow AVIF
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
 codec.layered.invalid = Legrys po anleunn yw restren an delwenn gans gwiskow.
 codec.layered.too_large = Bras yw an delwenn gans gwiskow dres an vent po niver a wiskow skoodhys.
 codec.layered.unsupported = An restren ma a dhevnydh nas na veu skoodhys: {feature}.
 codec.layered.export_layer = Yma yn gwisk “{name}” nasow na yll an furvas ma aga gwitha. Rasterhewgh an gwisk po sawyewgh avel PSD.
 codec.layered.export_depth = Res yw skrifen RGB 8-bit rag esperthi dhe Paint.NET. Treuswrewgh an skrifen dhe RGB 8-bit yn kynsa.
 codec.layered.export_mode = Res yw skrifen RGB rag esperthi. Treuswrewgh an skrifen dhe RGB yn kynsa.
+codec.layered.merged_layer = Delwenn junyes (ny yllir kemmeres nebes gwiskow {format})
+codec.kra.merged_color_space = Delwenn junyes (skrifen Krita yn {color_space} diskwedhys avel RGB)
 codec.pdn.feature.blend_mode = fordh kemyska PDN
 codec.pdn.feature.compression = gwaskans PDN
 codec.pdn.feature.container_version = versyon lestryn PDN

@@ -46,12 +46,16 @@ codec.avif.msg.no_decoder = Schist pārlūka versija nevar atvērt AVIF attēlus
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
 codec.layered.invalid = Attēla fails ar slāņiem ir bojāts vai nepilnīgs.
 codec.layered.too_large = Attēls ar slāņiem pārsniedz atbalstīto izmēru vai slāņu skaitu.
 codec.layered.unsupported = Šajā failā tiek izmantota neatbalstīta iespēja: {feature}.
 codec.layered.export_layer = Slānis “{name}” satur iespējas, ko šis formāts nevar saglabāt. Rastrējiet to vai saglabājiet kā PSD.
 codec.layered.export_depth = Eksportēšanai uz Paint.NET nepieciešams 8 bitu RGB dokuments. Vispirms pārveidojiet dokumentu par 8 bitu RGB.
 codec.layered.export_mode = Eksportēšanai nepieciešams RGB dokuments. Vispirms pārveidojiet dokumentu par RGB.
+codec.layered.merged_layer = Apvienotais attēls (dažus {format} slāņus nevarēja importēt)
+codec.kra.merged_color_space = Apvienotais attēls (Krita {color_space} dokuments parādīts kā RGB)
 codec.pdn.feature.blend_mode = PDN sajaukšanas režīms
 codec.pdn.feature.compression = PDN saspiešana
 codec.pdn.feature.container_version = PDN konteinera versija

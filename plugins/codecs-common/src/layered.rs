@@ -5,6 +5,10 @@ use schist_i18n::{t, tf};
 
 pub const MAX_BYTES: usize = 256 * 1024 * 1024;
 pub const MAX_LAYERS: usize = 4096;
+/// Schist's private block for interchange attributes it keeps but does
+/// not interpret (unknown OpenRaster attributes, say). Carrying one does
+/// not stop a layer being written to the other layered formats.
+pub const PRESERVED_ATTRIBUTES: [u8; 4] = *b"ScOr";
 
 pub fn invalid() -> anyhow::Error {
     anyhow::anyhow!("{}", t("codec.layered.invalid"))
@@ -101,7 +105,10 @@ pub fn check_layer(layer: &Layer, groups: bool, masks: bool) -> Result<()> {
             && layer.shape.is_none()
             && layer.smart.is_none()
             && layer.raw.is_none()
-            && layer.extras.is_empty(),
+            && layer
+                .extras
+                .iter()
+                .all(|block| block.key == PRESERVED_ATTRIBUTES),
         "{}",
         tf!("codec.layered.export_layer", name = layer.name)
     );

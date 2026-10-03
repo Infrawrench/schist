@@ -38,12 +38,16 @@ codec.avif.msg.no_decoder = Браўзерная версія Schist не мож
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
 codec.layered.invalid = Файл відарыса з пластамі пашкоджаны або няпоўны.
 codec.layered.too_large = Памер відарыса або колькасць пластоў перавышае падтрымліваемую мяжу.
 codec.layered.unsupported = У гэтым файле выкарыстоўваецца функцыя, якая не падтрымліваецца: {feature}.
 codec.layered.export_layer = Пласт «{name}» змяшчае функцыі, якія гэты фармат не можа захаваць. Растэрызуйце яго або захавайце дакумент як PSD.
 codec.layered.export_depth = Для экспарту ў Paint.NET патрэбны 8-бітны дакумент RGB. Спачатку пераўтварыце дакумент у 8-бітны RGB.
 codec.layered.export_mode = Для экспарту патрэбны дакумент RGB. Спачатку пераўтварыце дакумент у RGB.
+codec.layered.merged_layer = Аб'яднаны відарыс (некаторыя пласты {format} не ўдалося імпартаваць)
+codec.kra.merged_color_space = Аб'яднаны відарыс (дакумент Krita ў {color_space} паказаны як RGB)
 
 # Unsupported layered-format features.
 codec.pdn.feature.blend_mode = рэжым змешвання PDN

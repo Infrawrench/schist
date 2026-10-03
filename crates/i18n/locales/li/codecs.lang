@@ -41,12 +41,16 @@ codec.avif.msg.no_decoder = De browserversie van Schist kan gein AVIF-aafbiljing
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
 codec.layered.invalid = 't Aafbiljingsbesjtandj mit laoge is besjaedig of ónvolledig.
 codec.layered.too_large = De aafbiljing mit laoge is te groet of haet mier laoge es óngersteund waere.
 codec.layered.unsupported = Dit besjtandj gebruuk 'n functie die neet óngersteund weurt: {feature}.
 codec.layered.export_layer = Laog “{name}” haet functies die dit formaat neet kin bewaere. Rasteriseer de laog of slaon op es PSD.
 codec.layered.export_depth = Export nao Paint.NET vereis 'n 8-bits RGB-document. Zèt 't document eers óm nao 8-bits RGB.
 codec.layered.export_mode = Export vereis 'n RGB-document. Zèt 't document eers óm nao RGB.
+codec.layered.merged_layer = Samegevoogd aafbiljing (sommige {format}-laoge koste neet geïmporteerd waere)
+codec.kra.merged_color_space = Samegevoogd aafbiljing (Krita-document {color_space} weurt es RGB getoend)
 codec.pdn.feature.blend_mode = mengmodus van PDN
 codec.pdn.feature.compression = compressie van PDN
 codec.pdn.feature.container_version = containervèrsie van PDN

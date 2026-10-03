@@ -37,12 +37,16 @@ codec.avif.msg.no_decoder = I browser version Schist ti siña ha baba AVIF na im
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
 codec.layered.invalid = Madåñu pat ti kompletu i file nu i imåhen ni gai layer siha.
 codec.layered.too_large = Mas dångkolo i imåhen pat mas meggai i layer siha ki i siña masuporta.
 codec.layered.unsupported = Ha usa este na file un kualidåt ni ti masuporta: {feature}.
 codec.layered.export_layer = Guaha gi layer “{name}” kualidåt siha ni ti siña ha såtba este na format. Konbiette i layer para pixel siha pat såtba komu PSD.
 codec.layered.export_depth = Nisisåriu un dokumentu RGB 8-bit para un eksporta para Paint.NET. Konbiette i dokumentu para RGB 8-bit fine'na.
 codec.layered.export_mode = Nisisåriu un dokumentu RGB para un eksporta. Konbiette i dokumentu para RGB fine'na.
+codec.layered.merged_layer = Imagen ni mapegga (guaha {format} layer siha ni ti siña ma impotta)
+codec.kra.merged_color_space = Imagen ni mapegga (dokumentu Krita {color_space} ma na'ayek komu RGB)
 codec.pdn.feature.blend_mode = modon meskla nu i PDN
 codec.pdn.feature.compression = mapi'ot na data nu i PDN
 codec.pdn.feature.container_version = betsion nu i kahan PDN

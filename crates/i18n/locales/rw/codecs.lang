@@ -41,12 +41,16 @@ codec.avif.msg.no_decoder = Verisiyo ya Schist ikoresha mushakisha ntishobora gu
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
 codec.layered.invalid = Idosiye y'ishusho ifite inzego yangiritse cyangwa ntiyuzuye.
 codec.layered.too_large = Ishusho ifite inzego irengeje ingano cyangwa umubare w'inzego ushyigikiwe.
 codec.layered.unsupported = Iyi dosiye ikoresha ikiranga kidashyigikiwe: {feature}.
 codec.layered.export_layer = Urwego “{name}” rurimo ibiranga iyi miterere idashobora kubika. Ruhindure pikisele cyangwa ubike nka PSD.
 codec.layered.export_depth = Kohereza muri Paint.NET bisaba inyandiko ya RGB ya biti 8. Banza uhindure inyandiko RGB ya biti 8.
 codec.layered.export_mode = Kohereza bisaba inyandiko ya RGB. Banza uhindure inyandiko RGB.
+codec.layered.merged_layer = Ishusho yahujwe (inzego zimwe za {format} ntizashoboye gutumizwa)
+codec.kra.merged_color_space = Ishusho yahujwe (inyandiko ya Krita {color_space} yerekanywe nka RGB)
 codec.pdn.feature.blend_mode = uburyo bwo kuvanga bwa PDN
 codec.pdn.feature.compression = gukanda amakuru bya PDN
 codec.pdn.feature.container_version = verisiyo ya kontineri ya PDN

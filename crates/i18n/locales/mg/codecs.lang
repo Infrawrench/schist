@@ -37,12 +37,16 @@ codec.avif.msg.no_decoder = Tsy afaka manokatra sary AVIF ny dikan'ny Schist ao 
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
 codec.layered.invalid = Simba na tsy feno ny raki-daza misy sary misy sosona.
 codec.layered.too_large = Mihoatra ny habe na ny isan’ny sosona tohanana ny sary misy sosona.
 codec.layered.unsupported = Mampiasa fiasa tsy tohanana ity raki-daza ity: {feature}.
 codec.layered.export_layer = Misy fiasa tsy azon’ity endrika ity tehirizina ny sosona “{name}”. Avadiho ho piksel ilay sosona na tehirizo ho PSD.
 codec.layered.export_depth = Mitaky rakitra RGB 8-bit ny fanondranana ho Paint.NET. Avadiho ho RGB 8-bit aloha ny rakitra.
 codec.layered.export_mode = Mitaky rakitra RGB ny fanondranana. Avadiho ho RGB aloha ny rakitra.
+codec.layered.merged_layer = Sary natambatra (tsy afaka nampidirina ny sosona {format} sasany)
+codec.kra.merged_color_space = Sary natambatra (rakitra Krita {color_space} aseho ho RGB)
 
 # Unsupported layered format features
 codec.pdn.feature.blend_mode = Fomba fampifangaroana PDN

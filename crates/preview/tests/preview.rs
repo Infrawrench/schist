@@ -32,6 +32,19 @@ fn native_paintnet_and_gimp_documents_have_layered_previews() {
     }
 }
 
+#[test]
+fn openraster_previews_from_its_merged_image() {
+    use schist_plugin_api::CodecPlugin as _;
+    let doc = schist_codecs_common::XcfCodec
+        .import(include_bytes!("../../../fixtures/layered/gimp-rle.xcf"))
+        .unwrap();
+    let ora = schist_codecs_common::OraCodec.export(&doc).unwrap();
+    let preview = render(&ora, 32).unwrap();
+    assert_eq!(preview.source, Source::Embedded);
+    assert_eq!(preview.width.max(preview.height), 32);
+    assert!(has_content(&preview.rgba));
+}
+
 /// Not all zero, not all one colour: a real picture came out.
 fn has_content(rgba: &[u8]) -> bool {
     let pixels = rgba.as_chunks::<4>().0;

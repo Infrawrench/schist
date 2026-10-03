@@ -37,12 +37,16 @@ codec.avif.msg.no_decoder = Schist ລຸ້ນບຣາວເຊີບໍ່ສ
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
 codec.layered.invalid = ໄຟລ໌ຮູບພາບທີ່ມີເລເຢີເສຍຫາຍ ຫຼື ບໍ່ຄົບຖ້ວນ.
 codec.layered.too_large = ຂະໜາດຮູບພາບ ຫຼື ຈຳນວນເລເຢີເກີນຂີດຈຳກັດທີ່ຮອງຮັບ.
 codec.layered.unsupported = ໄຟລ໌ນີ້ໃຊ້ຄຸນສົມບັດທີ່ບໍ່ຮອງຮັບ: {feature}.
 codec.layered.export_layer = ເລເຢີ “{name}” ມີຄຸນສົມບັດທີ່ຮູບແບບນີ້ບໍ່ສາມາດຮັກສາໄວ້ໄດ້. ໃຫ້ແປງເລເຢີເປັນຣາສເຕີ ຫຼື ບັນທຶກເປັນ PSD.
 codec.layered.export_depth = ການສົ່ງອອກໄປ Paint.NET ຕ້ອງການເອກະສານ RGB 8 ບິດ. ໃຫ້ແປງເອກະສານເປັນ RGB 8 ບິດກ່ອນ.
 codec.layered.export_mode = ການສົ່ງອອກຕ້ອງການເອກະສານ RGB. ໃຫ້ແປງເອກະສານເປັນ RGB ກ່ອນ.
+codec.layered.merged_layer = ຮູບພາບທີ່ລວມແລ້ວ (ບາງເລເຢີ {format} ນຳເຂົ້າບໍ່ໄດ້)
+codec.kra.merged_color_space = ຮູບພາບທີ່ລວມແລ້ວ (ເອກະສານ Krita ໃນ {color_space} ສະແດງເປັນ RGB)
 
 # Unsupported layered-format features.
 codec.pdn.feature.blend_mode = ໂໝດປະສົມ PDN

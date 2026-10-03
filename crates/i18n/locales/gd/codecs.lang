@@ -37,12 +37,16 @@ codec.avif.msg.no_decoder = Chan urrainn do thionndadh brabhsair Schist ìomhaig
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
 codec.layered.invalid = Tha am faidhle deilbh le breathan millte no neo-choileanta.
 codec.layered.too_large = Tha an dealbh a’ dol thairis air a’ mheud no an àireamh de bhreathan ris a bheil taic.
 codec.layered.unsupported = Tha am faidhle seo a’ cleachdadh feart ris nach eil taic: {feature}.
 codec.layered.export_layer = Tha feartan sa bhreath “{name}” nach urrainn dhan fhòrmat seo a ghlèidheadh. Rasteraich i no sàbhail mar PSD.
 codec.layered.export_depth = Feumaidh às-phortadh gu Paint.NET sgrìobhainn RGB 8-bìot. Iompaich an sgrìobhainn gu RGB 8-bìot an toiseach.
 codec.layered.export_mode = Feumaidh às-phortadh sgrìobhainn RGB. Iompaich an sgrìobhainn gu RGB an toiseach.
+codec.layered.merged_layer = Dealbh aonaichte (cha deach cuid de bhreathan {format} a thoirt a-steach)
+codec.kra.merged_color_space = Dealbh aonaichte (sgrìobhainn Krita {color_space} air a shealltainn mar RGB)
 
 # Unsupported layered-format features.
 codec.pdn.feature.blend_mode = modh measgachaidh PDN

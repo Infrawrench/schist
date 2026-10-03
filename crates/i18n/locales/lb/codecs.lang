@@ -42,12 +42,16 @@ codec.avif.msg.no_decoder = D'Browserversioun vu Schist kann keng AVIF-Biller op
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
 codec.layered.invalid = De Bildfichier mat Ebenen ass beschiedegt oder onvollstänneg.
 codec.layered.too_large = D'Bild mat Ebenen iwwerschreit déi ënnerstëtzt Gréisst oder Unzuel vun Ebenen.
 codec.layered.unsupported = Dëse Fichier benotzt eng net ënnerstëtzt Funktioun: {feature}.
 codec.layered.export_layer = D'Eben „{name}“ enthält Funktiounen, déi dëst Format net erhale kann. Rasteriséiert d'Eben oder späichert als PSD.
 codec.layered.export_depth = Den Export als Paint.NET erfuerdert en RGB-Dokument mat 8 Bit. Konvertéiert d'Dokument fir d'éischt op RGB mat 8 Bit.
 codec.layered.export_mode = Den Export erfuerdert en RGB-Dokument. Konvertéiert d'Dokument fir d'éischt op RGB.
+codec.layered.merged_layer = Zesummegefouert Bild (e puer {format}-Ebenen konnten net importéiert ginn)
+codec.kra.merged_color_space = Zesummegefouert Bild (Krita-Dokument {color_space} als RGB ugewisen)
 
 # Unsupported layered format features
 codec.pdn.feature.blend_mode = PDN-Mëschmodus

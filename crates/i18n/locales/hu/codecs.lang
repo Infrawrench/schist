@@ -38,12 +38,16 @@ codec.avif.msg.no_decoder = A Schist böngészős változata nem tudja megnyitni
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
 codec.layered.invalid = A réteges képfájl sérült vagy hiányos.
 codec.layered.too_large = A kép mérete vagy a rétegek száma meghaladja a támogatott határértéket.
 codec.layered.unsupported = Ez a fájl nem támogatott funkciót használ: {feature}.
 codec.layered.export_layer = A(z) „{name}” réteg olyan funkciókat tartalmaz, amelyeket ez a formátum nem tud megőrizni. Raszterizálja a réteget, vagy mentse PSD-ként.
 codec.layered.export_depth = A Paint.NET-exportáláshoz 8 bites RGB-dokumentum szükséges. Először alakítsa át a dokumentumot 8 bites RGB-re.
 codec.layered.export_mode = Az exportáláshoz RGB-dokumentum szükséges. Először alakítsa át a dokumentumot RGB-re.
+codec.layered.merged_layer = Egyesített kép (néhány {format} réteg nem importálható)
+codec.kra.merged_color_space = Egyesített kép (a Krita {color_space} dokumentum RGB-ként látható)
 
 # Unsupported layered-format features.
 codec.pdn.feature.blend_mode = PDN keverési mód

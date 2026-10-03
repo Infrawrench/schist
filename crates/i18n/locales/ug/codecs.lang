@@ -38,12 +38,16 @@ codec.avif.msg.no_decoder = Schist نىڭ توركۆرگۈ نەشرى AVIF سۈ�
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
 codec.layered.invalid = قەۋەتلىك رەسىم ھۆججىتى بۇزۇلغان ياكى تولۇق ئەمەس.
 codec.layered.too_large = قەۋەتلىك رەسىمنىڭ چوڭلۇقى ياكى قەۋەت سانى قوللايدىغان چەكتىن ئېشىپ كەتتى.
 codec.layered.unsupported = بۇ ھۆججەت قوللىمايدىغان ئىقتىدارنى ئىشلىتىدۇ: {feature}.
 codec.layered.export_layer = «{name}» قەۋىتىدە بۇ فورمات ساقلاپ قالالمايدىغان ئىقتىدارلار بار. ئۇنى raster قىلىڭ ياكى PSD قىلىپ ساقلاڭ.
 codec.layered.export_depth = Paint.NET قا ئېكسپورت قىلىش ئۈچۈن 8 بىتلىق RGB ھۆججىتى كېرەك. ئاۋۋال ھۆججەتنى 8 بىتلىق RGB غا ئايلاندۇرۇڭ.
 codec.layered.export_mode = ئېكسپورت قىلىش ئۈچۈن RGB ھۆججىتى كېرەك. ئاۋۋال ھۆججەتنى RGB غا ئايلاندۇرۇڭ.
+codec.layered.merged_layer = بىرلەشتۈرۈلگەن رەسىم (بەزى {format} قەۋەتلىرىنى ئىمپورت قىلغىلى بولمىدى)
+codec.kra.merged_color_space = بىرلەشتۈرۈلگەن رەسىم (Krita {color_space} ھۆججىتى RGB سۈپىتىدە كۆرسىتىلدى)
 
 # Unsupported layered-format features.
 codec.pdn.feature.blend_mode = PDN ئارىلاشتۇرۇش ھالىتى

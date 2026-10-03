@@ -57,12 +57,16 @@ codec.avif.msg.no_decoder = ブラウザー版の Schist では AVIF 画像を�
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
 codec.layered.invalid = レイヤーを含む画像ファイルが破損しているか、不完全です。
 codec.layered.too_large = 画像のサイズまたはレイヤー数が対応する上限を超えています。
 codec.layered.unsupported = このファイルでは未対応の機能が使われています: {feature}。
 codec.layered.export_layer = レイヤー「{name}」には、この形式で保持できない機能が含まれています。ラスタライズするか、PSD として保存してください。
 codec.layered.export_depth = Paint.NET への書き出しには 8 ビット RGB ドキュメントが必要です。先にドキュメントを 8 ビット RGB に変換してください。
 codec.layered.export_mode = 書き出しには RGB ドキュメントが必要です。先にドキュメントを RGB に変換してください。
+codec.layered.merged_layer = 統合画像（一部の {format} レイヤーを読み込めませんでした）
+codec.kra.merged_color_space = 統合画像（Krita の {color_space} ドキュメントを RGB で表示しています）
 
 # Unsupported layered-format features.
 codec.pdn.feature.blend_mode = PDN の描画モード

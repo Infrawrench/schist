@@ -41,12 +41,16 @@ codec.avif.msg.no_decoder = Preglednička inačica Schista ne može otvoriti AVI
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
 codec.layered.invalid = Datoteka slike sa slojevima oštećena je ili nepotpuna.
 codec.layered.too_large = Slika sa slojevima premašuje podržanu veličinu ili broj slojeva.
 codec.layered.unsupported = Ova datoteka upotrebljava nepodržanu značajku: {feature}.
 codec.layered.export_layer = Sloj „{name}” sadrži značajke koje ovaj format ne može sačuvati. Rasterizirajte ga ili spremite kao PSD.
 codec.layered.export_depth = Izvoz u Paint.NET zahtijeva 8-bitni RGB dokument. Najprije pretvorite dokument u 8-bitni RGB.
 codec.layered.export_mode = Izvoz zahtijeva RGB dokument. Najprije pretvorite dokument u RGB.
+codec.layered.merged_layer = Spojena slika (neki {format} slojevi nisu se mogli uvesti)
+codec.kra.merged_color_space = Spojena slika (Krita {color_space} dokument prikazan je kao RGB)
 
 # Unsupported layered-format features.
 codec.pdn.feature.blend_mode = način stapanja PDN

@@ -37,12 +37,16 @@ codec.avif.msg.no_decoder = Ní féidir le leagan brabhsálaí Schist íomhánna
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
 codec.layered.invalid = Tá an comhad íomhá le sraitheanna damáistithe nó neamhiomlán.
 codec.layered.too_large = Sáraíonn an íomhá le sraitheanna an méid nó líon na sraitheanna a dtacaítear leis.
 codec.layered.unsupported = Úsáideann an comhad seo gné nach dtacaítear léi: {feature}.
 codec.layered.export_layer = Tá gnéithe sa tsraith “{name}” nach féidir leis an bhformáid seo a chaomhnú. Rastaraigh í nó sábháil mar PSD.
 codec.layered.export_depth = Teastaíonn cáipéis RGB 8 ngiotán le heaspórtáil go Paint.NET. Tiontaigh an cháipéis go RGB 8 ngiotán ar dtús.
 codec.layered.export_mode = Teastaíonn cáipéis RGB le heaspórtáil. Tiontaigh an cháipéis go RGB ar dtús.
+codec.layered.merged_layer = Íomhá chumasctha (níorbh fhéidir roinnt sraitheanna {format} a iompórtáil)
+codec.kra.merged_color_space = Íomhá chumasctha (cáipéis Krita {color_space} léirithe mar RGB)
 
 # Unsupported layered-format features.
 codec.pdn.feature.blend_mode = mód cumaisc PDN

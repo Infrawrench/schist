@@ -37,12 +37,16 @@ codec.avif.msg.no_decoder = Schist को ब्राउजर संस्क�
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
 codec.layered.invalid = तहयुक्त छवि फाइल बिग्रिएको वा अपूर्ण छ।
 codec.layered.too_large = तहयुक्त छविको आकार वा तहको सङ्ख्या समर्थित सीमाभन्दा बढी छ।
 codec.layered.unsupported = यो फाइलले समर्थन नगरिएको सुविधा प्रयोग गर्छ: {feature}।
 codec.layered.export_layer = “{name}” तहमा यस ढाँचाले जोगाउन नसक्ने सुविधाहरू छन्। यसलाई रास्टराइज गर्नुहोस् वा PSD का रूपमा बचत गर्नुहोस्।
 codec.layered.export_depth = Paint.NET मा निर्यात गर्न 8-बिट RGB कागजात चाहिन्छ। पहिले कागजातलाई 8-बिट RGB मा बदल्नुहोस्।
 codec.layered.export_mode = निर्यात गर्न RGB कागजात चाहिन्छ। पहिले कागजातलाई RGB मा बदल्नुहोस्।
+codec.layered.merged_layer = मिलाइएको छवि ({format} का केही तह आयात गर्न सकिएन)
+codec.kra.merged_color_space = मिलाइएको छवि (Krita {color_space} कागजात RGB का रूपमा देखाइएको)
 
 # Unsupported layered format features
 codec.pdn.feature.blend_mode = PDN मिश्रण मोड
