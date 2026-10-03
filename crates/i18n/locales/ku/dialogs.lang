@@ -47,6 +47,25 @@ dialog.filter.camera_raw_development = Pêşxistina Camera Raw
 dialog.filter.reset_as_shot = Vegerîne Rewşa Kişandinê
 dialog.filter.raw_note = Layera çalak ji daneyên orîjînal ên sensorê dîsa pêş dixe.
 dialog.filter.note = Di nav hilbijartinê de li layera çalak tê sepandin.
+
+# Sererastkirinên herêmî yên Camera Raw
+dialog.raw_masks.title = Mask
+dialog.raw_masks.new_mask = Maska nû:
+dialog.raw_masks.add_to_mask = Li maskê zêde bike:
+dialog.raw_masks.linear = Gradienta Xêzikî
+dialog.raw_masks.subject = Mijarê Hilbijêre
+dialog.raw_masks.sky = Ezmên Hilbijêre
+dialog.raw_masks.background = Paşperdeyê Hilbijêre
+dialog.raw_masks.mask_n = Maska {n}
+dialog.raw_masks.invert_mask = Maskê berevajî bike
+dialog.raw_masks.overlay = Serdana maskê nîşan bide
+dialog.raw_masks.erase = Jêbirin
+dialog.raw_masks.local = Sererastkirinên di vê maskê de
+dialog.raw_masks.delete_mask = Maskê Jê Bibe
+dialog.raw_masks.detecting = Tê dîtin…
+dialog.raw_masks.hint_empty = Maskekê zêde bike da ku beşek ji wêneyê sererast bikî. Her maskek şemitokên xwe hene.
+dialog.raw_masks.hint_brush = Li ser kanavayê boyax bike da ku li firçeyê zêde bikî; ji bo rakirinê Jêbirinê veke.
+dialog.raw_masks.hint_gradient = Destikan bikişîne da ku gradientê bilivînî, an jî li ser kanavayê bikişîne da ku yekî nû xêz bikî.
 dialog.fonts.title = Tîpên Winda
 dialog.fonts.install_named = {name} Saz Bike
 dialog.fonts.no_document = Tu belge vekirî tune, ji ber vê yekê tiştekî kontrolkirinê tune.

@@ -57,6 +57,25 @@ dialog.filter.reset_as_shot = કૅમેરાથી લીધેલી સ્
 dialog.filter.raw_note = સક્રિય લેયરને તેના મૂળ સેન્સર ડેટામાંથી ફરી ડેવલપ કરે છે.
 dialog.filter.note = પસંદગીની અંદર સક્રિય લેયર પર લાગુ થાય છે.
 
+# Camera Raw સ્થાનિક ગોઠવણો
+dialog.raw_masks.title = માસ્ક
+dialog.raw_masks.new_mask = નવો માસ્ક:
+dialog.raw_masks.add_to_mask = માસ્કમાં ઉમેરો:
+dialog.raw_masks.linear = રેખીય ગ્રેડિયન્ટ
+dialog.raw_masks.subject = વિષય પસંદ કરો
+dialog.raw_masks.sky = આકાશ પસંદ કરો
+dialog.raw_masks.background = પૃષ્ઠભૂમિ પસંદ કરો
+dialog.raw_masks.mask_n = માસ્ક {n}
+dialog.raw_masks.invert_mask = માસ્ક ઉલટાવો
+dialog.raw_masks.overlay = માસ્ક ઓવરલે બતાવો
+dialog.raw_masks.erase = ભૂંસો
+dialog.raw_masks.local = આ માસ્કમાંની ગોઠવણો
+dialog.raw_masks.delete_mask = માસ્ક કાઢી નાખો
+dialog.raw_masks.detecting = શોધી રહ્યું છે…
+dialog.raw_masks.hint_empty = ચિત્રના કોઈ ભાગને ગોઠવવા માટે માસ્ક ઉમેરો. દરેક માસ્કના પોતાના સ્લાઇડર હોય છે.
+dialog.raw_masks.hint_brush = બ્રશમાં ઉમેરવા માટે કૅનવાસ પર રંગો; તેને દૂર કરવા માટે ભૂંસો ચાલુ કરો.
+dialog.raw_masks.hint_gradient = ગ્રેડિયન્ટ ખસેડવા માટે હૅન્ડલ ખેંચો, અથવા નવો દોરવા માટે કૅનવાસ પર ખેંચો.
+
 # Fonts
 dialog.fonts.title = ખૂટતા ફોન્ટ
 dialog.fonts.install_named = {name} ઇન્સ્ટૉલ કરો

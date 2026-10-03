@@ -43,6 +43,25 @@ dialog.filter.camera_raw_development = ការអភិវឌ្ឍ Camera Raw
 dialog.filter.reset_as_shot = កំណត់ឡើងវិញតាមពេលថត
 dialog.filter.raw_note = អភិវឌ្ឍស្រទាប់សកម្មឡើងវិញពីទិន្នន័យឧបករណ៍ចាប់រូបដើម។
 dialog.filter.note = អនុវត្តលើស្រទាប់សកម្មនៅក្នុងតំបន់ជ្រើស។
+
+# ការកែសម្រួលតាមតំបន់ Camera Raw
+dialog.raw_masks.title = របាំង
+dialog.raw_masks.new_mask = របាំងថ្មី៖
+dialog.raw_masks.add_to_mask = បន្ថែមទៅរបាំង៖
+dialog.raw_masks.linear = ជម្រាលពណ៌បន្ទាត់
+dialog.raw_masks.subject = ជ្រើសប្រធានបទ
+dialog.raw_masks.sky = ជ្រើសមេឃ
+dialog.raw_masks.background = ជ្រើសផ្ទៃខាងក្រោយ
+dialog.raw_masks.mask_n = របាំង {n}
+dialog.raw_masks.invert_mask = បញ្ច្រាសរបាំង
+dialog.raw_masks.overlay = បង្ហាញស្រទាប់គ្របរបាំង
+dialog.raw_masks.erase = ជូត
+dialog.raw_masks.local = ការកែសម្រួលក្នុងរបាំងនេះ
+dialog.raw_masks.delete_mask = លុបរបាំង
+dialog.raw_masks.detecting = កំពុងស្វែងរក…
+dialog.raw_masks.hint_empty = បន្ថែមរបាំងដើម្បីកែសម្រួលផ្នែកមួយនៃរូបភាព។ របាំងនីមួយៗមានគ្រាប់រំកិលផ្ទាល់ខ្លួន។
+dialog.raw_masks.hint_brush = គូរលើផ្ទាំងក្រណាត់ដើម្បីបន្ថែមទៅជក់; បើក «ជូត» ដើម្បីដកវាចេញ។
+dialog.raw_masks.hint_gradient = អូសចំណុចទាញដើម្បីផ្លាស់ទីជម្រាលពណ៌ ឬអូសលើផ្ទាំងក្រណាត់ដើម្បីគូរថ្មីមួយ។
 dialog.fonts.title = ពុម្ពអក្សរដែលបាត់
 dialog.fonts.install_named = ដំឡើង {name}
 dialog.fonts.no_document = គ្មានឯកសារណាមួយបើកទេ ដូច្នេះគ្មានអ្វីសម្រាប់ពិនិត្យ។

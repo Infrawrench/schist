@@ -75,6 +75,9 @@ workspace.filters.raw_too_tall = Rezultat obrade RAW datoteke previsok je
 workspace.filters.raw_size_changed = Veličina obrađene RAW datoteke promijenila se na {w} × {h}; trenutačni sloj ostaje
 workspace.filters.raw_history = Obrada u Camera Raw
 workspace.filters.raw_applied = Primijenjena obrada u Camera Raw (najbolje uklanjanje mozaika)
+workspace.raw_masks.no_model = {model} nije instaliran pa se ova maska ne može otkriti.
+workspace.raw_masks.no_sky = Na ovoj slici nije pronađeno nebo.
+workspace.raw_masks.detect_failed = Otkrivanje maske nije uspjelo: {error}
 
 workspace.image_size.done = Veličina slike: {w} × {h}
 workspace.image_size.bicubic_fallback = Veličina slike: {w} × {h} — model {name} nije se mogao učitati pa je upotrijebljena bikubična interpolacija

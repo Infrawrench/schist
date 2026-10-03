@@ -71,6 +71,25 @@ dialog.filter.reset_as_shot = Återställ till Som fotograferat
 dialog.filter.raw_note = Framkallar det aktiva lagret på nytt från dess ursprungliga sensordata.
 dialog.filter.note = Tillämpas på det aktiva lagret, inom markeringen.
 
+# Camera Raw: lokala justeringar
+dialog.raw_masks.title = Masker
+dialog.raw_masks.new_mask = Ny mask:
+dialog.raw_masks.add_to_mask = Lägg till i mask:
+dialog.raw_masks.linear = Linjär övertoning
+dialog.raw_masks.subject = Markera motiv
+dialog.raw_masks.sky = Markera himmel
+dialog.raw_masks.background = Markera bakgrund
+dialog.raw_masks.mask_n = Mask {n}
+dialog.raw_masks.invert_mask = Invertera mask
+dialog.raw_masks.overlay = Visa maskövertäckning
+dialog.raw_masks.erase = Radera
+dialog.raw_masks.local = Justeringar i den här masken
+dialog.raw_masks.delete_mask = Ta bort mask
+dialog.raw_masks.detecting = Identifierar…
+dialog.raw_masks.hint_empty = Lägg till en mask för att justera en del av bilden. Varje mask har sina egna reglage.
+dialog.raw_masks.hint_brush = Måla på arbetsytan för att lägga till i penseln; aktivera Radera för att ta bort.
+dialog.raw_masks.hint_gradient = Dra i handtagen för att flytta övertoningen, eller dra på arbetsytan för att rita en ny.
+
 # Saknade teckensnitt
 dialog.fonts.title = Saknade teckensnitt
 dialog.fonts.install_named = Installera {name}

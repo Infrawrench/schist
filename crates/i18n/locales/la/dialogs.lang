@@ -43,6 +43,25 @@ dialog.filter.camera_raw_development = Evolutio Camera Raw
 dialog.filter.reset_as_shot = Ad Capturam Restitue
 dialog.filter.raw_note = Stratum activum ex datis sensorii originalibus iterum evolvit.
 dialog.filter.note = Strato activo intra selectionem applicatur.
+
+# Accommodationes locales Camera Raw
+dialog.raw_masks.title = Personae
+dialog.raw_masks.new_mask = Nova persona:
+dialog.raw_masks.add_to_mask = Personae adde:
+dialog.raw_masks.linear = Gradatio Linearis
+dialog.raw_masks.subject = Subiectum Selige
+dialog.raw_masks.sky = Caelum Selige
+dialog.raw_masks.background = Fundum Selige
+dialog.raw_masks.mask_n = Persona {n}
+dialog.raw_masks.invert_mask = Personam inverte
+dialog.raw_masks.overlay = Superpositionem personae ostende
+dialog.raw_masks.erase = Erade
+dialog.raw_masks.local = Accommodationes in hac persona
+dialog.raw_masks.delete_mask = Personam Dele
+dialog.raw_masks.detecting = Detegitur…
+dialog.raw_masks.hint_empty = Personam adde ut partem imaginis accommodes. Quaeque persona suos cursores habet.
+dialog.raw_masks.hint_brush = In tela pinge ut penicillo addas; Erade accende ut id auferas.
+dialog.raw_masks.hint_gradient = Ansas trahe ut gradationem moveas, vel in tela trahe ut novam delinees.
 dialog.fonts.title = Formae Litterarum Absentes
 dialog.fonts.install_named = Installa {name}
 dialog.fonts.no_document = Nullum documentum apertum est, ergo nihil examinandum.

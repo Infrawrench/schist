@@ -4,12 +4,19 @@
 //! `ScRw` keeps the original file and Schist's development settings beside
 //! the rendered layer pixels. Other PSD readers ignore the private block;
 //! Schist can reopen it and render from the sensor data again.
+//!
+//! Local adjustments live in a second block, `ScRm`, beside it. Keeping
+//! them separate leaves `ScRw` readable by versions that predate masks,
+//! which keep the unknown block verbatim and so do not lose them.
 
-use schist_core::{Layer, RawDevelopment, RawSettings};
+use schist_core::{Layer, LocalMask, MaskRaster, MaskShape, RawDevelopment, RawSettings};
 use std::sync::Arc;
 
 /// Private block key: "Sc" for Schist, "Rw" for camera raw.
 pub const RAW_BLOCK_KEY: [u8; 4] = *b"ScRw";
+/// Private block key for a development's local adjustment masks.
+pub const MASKS_BLOCK_KEY: [u8; 4] = *b"ScRm";
+const MASKS_VERSION: u32 = 1;
 
 const VERSION: u32 = 1;
 const SETTINGS_LEN: usize = 15;
@@ -59,7 +66,103 @@ pub fn read_raw(data: &[u8]) -> Option<RawDevelopment> {
     Some(RawDevelopment {
         source: Arc::from(source),
         settings: settings_from_values(values).sanitized(),
+        masks: Vec::new(),
     })
+}
+
+/// Serialize a development's masks, or `None` when it has none.
+///
+/// The recipe is JSON. Each detected component's raster follows it, in
+/// the order the components appear, as its size and zlib-compressed
+/// bytes; a component not yet detected is a zero width.
+pub fn write_masks(layer: &Layer) -> Option<Vec<u8>> {
+    let raw = layer.raw.as_deref()?;
+    if raw.masks.is_empty() {
+        return None;
+    }
+    let json = serde_json::to_vec(&raw.masks).ok()?;
+    let mut out = Vec::with_capacity(8 + json.len());
+    out.extend_from_slice(&MASKS_VERSION.to_be_bytes());
+    out.extend_from_slice(&u32::try_from(json.len()).ok()?.to_be_bytes());
+    out.extend_from_slice(&json);
+    for shape in detected(&raw.masks) {
+        let MaskShape::Detected { raster, .. } = shape else {
+            continue;
+        };
+        match raster.as_deref().filter(|r| r.is_valid()) {
+            Some(raster) => {
+                let packed = miniz_oxide::deflate::compress_to_vec_zlib(&raster.data, 6);
+                out.extend_from_slice(&raster.width.to_be_bytes());
+                out.extend_from_slice(&raster.height.to_be_bytes());
+                out.extend_from_slice(&u32::try_from(packed.len()).ok()?.to_be_bytes());
+                out.extend_from_slice(&packed);
+            }
+            None => out.extend_from_slice(&0u32.to_be_bytes()),
+        }
+    }
+    Some(out)
+}
+
+/// Parse a masks block. Malformed input is ignored, like `ScRw`: the
+/// rendered pixels are still in the file.
+pub fn read_masks(data: &[u8]) -> Option<Vec<LocalMask>> {
+    let mut cursor = Cursor { data, at: 0 };
+    if cursor.u32()? != MASKS_VERSION {
+        return None;
+    }
+    let json_len = cursor.u32()? as usize;
+    let mut masks: Vec<LocalMask> = serde_json::from_slice(cursor.take(json_len)?).ok()?;
+    if masks.len() > schist_core::raw_masks::MAX_MASKS {
+        return None;
+    }
+    for shape in detected_mut(&mut masks) {
+        let MaskShape::Detected { raster, .. } = shape else {
+            continue;
+        };
+        let width = cursor.u32()?;
+        if width == 0 {
+            continue;
+        }
+        let height = cursor.u32()?;
+        let packed_len = cursor.u32()? as usize;
+        let packed = cursor.take(packed_len)?;
+        if width > schist_core::raw_masks::MAX_RASTER_SIDE
+            || height > schist_core::raw_masks::MAX_RASTER_SIDE
+        {
+            return None;
+        }
+        let expected = width as usize * height as usize;
+        let bytes =
+            miniz_oxide::inflate::decompress_to_vec_zlib_with_limit(packed, expected.max(1))
+                .ok()?;
+        let decoded = MaskRaster {
+            width,
+            height,
+            data: bytes,
+        };
+        if !decoded.is_valid() {
+            return None;
+        }
+        *raster = Some(Arc::new(decoded));
+    }
+    if cursor.at != data.len() {
+        return None;
+    }
+    Some(schist_core::raw_masks::sanitize_masks(masks))
+}
+
+fn detected(masks: &[LocalMask]) -> impl Iterator<Item = &MaskShape> {
+    masks
+        .iter()
+        .flat_map(|m| m.components.iter().map(|c| &c.shape))
+        .filter(|s| matches!(s, MaskShape::Detected { .. }))
+}
+
+fn detected_mut(masks: &mut [LocalMask]) -> impl Iterator<Item = &mut MaskShape> {
+    masks
+        .iter_mut()
+        .flat_map(|m| m.components.iter_mut().map(|c| &mut c.shape))
+        .filter(|s| matches!(s, MaskShape::Detected { .. }))
 }
 
 fn settings_values(s: RawSettings) -> [f32; SETTINGS_LEN] {
@@ -143,6 +246,7 @@ mod tests {
         layer.raw = Some(Box::new(RawDevelopment {
             source: Arc::from(&b"raw camera bytes"[..]),
             settings,
+            masks: Vec::new(),
         }));
 
         let payload = write_raw(&layer).expect("RAW payload");
@@ -157,6 +261,7 @@ mod tests {
         layer.raw = Some(Box::new(RawDevelopment {
             source: Arc::from(&b"source"[..]),
             settings: RawSettings::default(),
+            masks: Vec::new(),
         }));
         let payload = write_raw(&layer).unwrap();
 
@@ -167,5 +272,70 @@ mod tests {
         let mut nan = payload;
         nan[8..12].copy_from_slice(&f32::NAN.to_be_bytes());
         assert!(read_raw(&nan).is_none());
+    }
+
+    fn masked_layer() -> Layer {
+        use schist_core::{BrushStroke, DetectedKind, MaskCombine, MaskComponent};
+        let mut layer = Layer::new_raster("capture");
+        let mut sky = LocalMask::new(MaskShape::Detected {
+            kind: DetectedKind::Sky,
+            raster: Some(Arc::new(
+                MaskRaster::from_coverage(3, 2, &[1.0, 0.5, 0.0, 0.25, 0.75, 1.0]).unwrap(),
+            )),
+        });
+        sky.adjustments.exposure = -0.75;
+        sky.adjustments.dehaze = 30.0;
+        sky.components.push(MaskComponent {
+            shape: MaskShape::default_linear(),
+            combine: MaskCombine::Intersect,
+            invert: false,
+        });
+        let mut brushed = LocalMask::new(MaskShape::Brush {
+            strokes: vec![BrushStroke {
+                erase: false,
+                size: 0.05,
+                feather: 40.0,
+                flow: 60.0,
+                points: vec![[0.1, 0.2], [0.4, 0.45]],
+            }],
+        });
+        brushed.invert = true;
+        brushed.adjustments.saturation = -20.0;
+        // Not yet detected: saved as a recipe and detected again later.
+        brushed.components.push(MaskComponent {
+            shape: MaskShape::Detected {
+                kind: DetectedKind::Subject,
+                raster: None,
+            },
+            combine: MaskCombine::Subtract,
+            invert: true,
+        });
+        layer.raw = Some(Box::new(RawDevelopment {
+            source: Arc::from(&b"raw camera bytes"[..]),
+            settings: RawSettings::default(),
+            masks: vec![sky, brushed],
+        }));
+        layer
+    }
+
+    #[test]
+    fn masks_round_trip_with_their_detections() {
+        let layer = masked_layer();
+        let payload = write_masks(&layer).expect("masks payload");
+        let decoded = read_masks(&payload).expect("valid masks payload");
+        assert_eq!(decoded, layer.raw.as_ref().unwrap().masks);
+        assert!(write_masks(&Layer::new_raster("plain")).is_none());
+    }
+
+    #[test]
+    fn malformed_masks_payload_is_ignored() {
+        let payload = write_masks(&masked_layer()).unwrap();
+        assert!(read_masks(&payload[..payload.len() - 1]).is_none());
+        let mut trailing = payload.clone();
+        trailing.push(0);
+        assert!(read_masks(&trailing).is_none());
+        let mut version = payload;
+        version[3] = 9;
+        assert!(read_masks(&version).is_none());
     }
 }

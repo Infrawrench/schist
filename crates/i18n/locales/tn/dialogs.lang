@@ -47,6 +47,25 @@ dialog.filter.camera_raw_development = Camera Raw Development
 dialog.filter.reset_as_shot = Reset go As Shot
 dialog.filter.raw_note = E develop-a gape llaga e e dirang go tswa mo data ya sensor ya ntlhantlha.
 dialog.filter.note = E dirisiwa mo llageng e e dirang, ka fa teng ga tlhopho.
+
+# Diphetogo tsa lefelo tsa Camera Raw
+dialog.raw_masks.title = Disekhurumelo
+dialog.raw_masks.new_mask = Sekhurumelo se sesha:
+dialog.raw_masks.add_to_mask = Tsenya mo sekhurumelong:
+dialog.raw_masks.linear = Linear Gradient
+dialog.raw_masks.subject = Tlhopha Sediriswa se Segolo
+dialog.raw_masks.sky = Tlhopha Legodimo
+dialog.raw_masks.background = Tlhopha Bokamorago
+dialog.raw_masks.mask_n = Sekhurumelo {n}
+dialog.raw_masks.invert_mask = Phethola sekhurumelo
+dialog.raw_masks.overlay = Bontsha sekhurumelo se se fa godimo
+dialog.raw_masks.erase = Phimola
+dialog.raw_masks.local = Diphetogo mo sekhurumelong se
+dialog.raw_masks.delete_mask = Phimola Sekhurumelo
+dialog.raw_masks.detecting = Go a batliwa…
+dialog.raw_masks.hint_empty = Tsenya sekhurumelo go fetola karolo ya setshwantsho. Sekhurumelo sengwe le sengwe se na le di-slider tsa sone.
+dialog.raw_masks.hint_brush = Penta mo khanvaseng go oketsa mo borasheng; bulela Phimola go se tlosa.
+dialog.raw_masks.hint_gradient = Gogela dithaelo go tsamaisa gradient, kgotsa o gogele mo khanvaseng go tshwantsha e ntšha.
 dialog.fonts.title = Difont tse di Tlhokegang
 dialog.fonts.install_named = Tsenya {name}
 dialog.fonts.no_document = Ga go na tokomane e e butsweng, ka jalo ga go na se se ka tlhatlhobiwang.

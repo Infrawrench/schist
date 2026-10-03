@@ -48,6 +48,25 @@ dialog.filter.camera_raw_development = የCamera Raw ማበልጸጊያ
 dialog.filter.reset_as_shot = ወደ እንደተነሳው መልስ
 dialog.filter.raw_note = ነቃውን ንብርብር ከዋናው የዳሳሽ መረጃ እንደገና ያበለጽጋል።
 dialog.filter.note = በምርጫው ውስጥ በነቃው ንብርብር ላይ ይተገበራል።
+
+# Camera Raw: የአካባቢ ማስተካከያዎች
+dialog.raw_masks.title = ጭንብሎች
+dialog.raw_masks.new_mask = አዲስ ጭንብል:
+dialog.raw_masks.add_to_mask = ወደ ጭንብል አክል:
+dialog.raw_masks.linear = ቀጥተኛ የቀለም ሽግግር
+dialog.raw_masks.subject = ዋናውን ነገር ምረጥ
+dialog.raw_masks.sky = ሰማዩን ምረጥ
+dialog.raw_masks.background = ዳራውን ምረጥ
+dialog.raw_masks.mask_n = ጭንብል {n}
+dialog.raw_masks.invert_mask = ጭንብሉን ገልብጥ
+dialog.raw_masks.overlay = የጭንብል መደራረቢያን አሳይ
+dialog.raw_masks.erase = አጥፋ
+dialog.raw_masks.local = በዚህ ጭንብል ውስጥ ያሉ ማስተካከያዎች
+dialog.raw_masks.delete_mask = ጭንብል ሰርዝ
+dialog.raw_masks.detecting = በማግኘት ላይ…
+dialog.raw_masks.hint_empty = የምስሉን ክፍል ለማስተካከል ጭንብል ያክሉ። እያንዳንዱ ጭንብል የራሱ ተንሸራታቾች አሉት።
+dialog.raw_masks.hint_brush = ወደ ብሩሹ ለመጨመር በሸራው ላይ ይቀቡ፤ ለማስወገድ «አጥፋ»ን ያብሩ።
+dialog.raw_masks.hint_gradient = የቀለም ሽግግሩን ለማንቀሳቀስ መያዣዎቹን ይጎትቱ፣ ወይም አዲስ ለመሳል በሸራው ላይ ይጎትቱ።
 dialog.fonts.title = የጎደሉ ቅርጸ-ቁምፊዎች
 dialog.fonts.install_named = {name}ን ጫን
 dialog.fonts.no_document = ምንም ሰነድ አልተከፈተም፣ ስለዚህ የሚመረመር ነገር የለም።

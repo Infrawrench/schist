@@ -54,6 +54,25 @@ dialog.filter.reset_as_shot = Lasegin a tacogo la
 dialog.filter.raw_note = A bɛ kaliki min bɛ baara la o labɛn kokura ka bɔ a sensɛri bɔyɔrɔla kunnafoni na.
 dialog.filter.note = A bɛ kɛ kaliki min bɛ baara la o la, sugandili kɔnɔ.
 
+# Camera Raw yɔrɔ labɛnniw
+dialog.raw_masks.title = Masikiw
+dialog.raw_masks.new_mask = Masiki kura:
+dialog.raw_masks.add_to_mask = Fara masiki kan:
+dialog.raw_masks.linear = Kulɛri yɛlɛmali tilennen
+dialog.raw_masks.subject = Fɛn kunba sugandi
+dialog.raw_masks.sky = Sankolo sugandi
+dialog.raw_masks.background = Kɔfɛ sugandi
+dialog.raw_masks.mask_n = Masiki {n}
+dialog.raw_masks.invert_mask = Masiki yɛlɛma a kɔrɔcɛma
+dialog.raw_masks.overlay = Masiki jira ja kan
+dialog.raw_masks.erase = Ka jɔsi
+dialog.raw_masks.local = Labɛnniw nin masiki in kɔnɔ
+dialog.raw_masks.delete_mask = Masiki bɔ
+dialog.raw_masks.detecting = Ɲinini bɛ kɛ…
+dialog.raw_masks.hint_empty = Masiki fara walasa ka ja yɔrɔ dɔ labɛn. Masiki kelen kelen bɛɛ n'a yɛrɛ ka sɛrɛkiliw don.
+dialog.raw_masks.hint_brush = Kulɛri kɛ kanwasi kan ka fara bɔrɔsi kan; Ka jɔsi daminɛ walasa k'a bɔ.
+dialog.raw_masks.hint_gradient = Mininanw sama ka kulɛri yɛlɛmali lawuli, walima ka sama kanwasi kan ka kura dɔ ja.
+
 dialog.fonts.title = Sɛbɛnni-fɔnti tununnenw
 dialog.fonts.install_named = {name} sigindi
 dialog.fonts.no_document = Sɛbɛn si dayɛlɛlen tɛ, o la foyi tɛ yen ka lajɛ.

@@ -47,6 +47,25 @@ dialog.filter.camera_raw_development = Camera Raw Geliştirme
 dialog.filter.reset_as_shot = Çekildiği Hâle Sıfırla
 dialog.filter.raw_note = Etkin katmanı özgün sensör verilerinden yeniden geliştirir.
 dialog.filter.note = Etkin katmana, seçimin içinde uygulanır.
+
+# Camera Raw yerel ayarlamaları
+dialog.raw_masks.title = Maskeler
+dialog.raw_masks.new_mask = Yeni maske:
+dialog.raw_masks.add_to_mask = Maskeye ekle:
+dialog.raw_masks.linear = Doğrusal Degrade
+dialog.raw_masks.subject = Konu Seç
+dialog.raw_masks.sky = Gökyüzü Seç
+dialog.raw_masks.background = Arka Plan Seç
+dialog.raw_masks.mask_n = Maske {n}
+dialog.raw_masks.invert_mask = Maskeyi ters çevir
+dialog.raw_masks.overlay = Maske kaplamasını göster
+dialog.raw_masks.erase = Sil
+dialog.raw_masks.local = Bu maskedeki ayarlamalar
+dialog.raw_masks.delete_mask = Maskeyi Sil
+dialog.raw_masks.detecting = Algılanıyor…
+dialog.raw_masks.hint_empty = Resmin bir bölümünü ayarlamak için maske ekleyin. Her maskenin kendi kaydırıcıları vardır.
+dialog.raw_masks.hint_brush = Fırçaya eklemek için tuval üzerine boyayın; çıkarmak için Sil seçeneğini açın.
+dialog.raw_masks.hint_gradient = Degradeyi taşımak için tutamaçları sürükleyin ya da yenisini çizmek için tuval üzerinde sürükleyin.
 dialog.fonts.title = Eksik Yazı Tipleri
 dialog.fonts.install_named = {name} Yazı Tipini Yükle
 dialog.fonts.no_document = Açık belge olmadığından denetlenecek bir şey yok.

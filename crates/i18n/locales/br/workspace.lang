@@ -75,6 +75,9 @@ workspace.filters.raw_too_tall = Re uhel eo diorren ar RAW
 workspace.filters.raw_size_changed = Kemmet eo ment diorren ar RAW da {w} × {h}; miret e vo ar gwiskad vremanel
 workspace.filters.raw_history = Diorren Camera Raw
 workspace.filters.raw_applied = Diorren Camera Raw arloet (dizmozaikaat gwellañ)
+workspace.raw_masks.no_model = N'eo ket staliet {model}, setu ne c'haller ket dinoiñ ar maskl-mañ.
+workspace.raw_masks.no_sky = N'eus bet kavet oabl ebet er skeudenn-mañ.
+workspace.raw_masks.detect_failed = C'hwitet eo dinoadur ar maskl: {error}
 
 workspace.image_size.done = Ment ar skeudenn: {w} × {h}
 workspace.image_size.bicubic_fallback = Ment ar skeudenn: {w} × {h} — n'eo ket bet karget ar patrom {name}, neuze ez eo bet arveret an etrelotadur daouc'harrdi en e lec'h

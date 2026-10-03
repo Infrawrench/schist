@@ -71,6 +71,9 @@ workspace.filters.raw_too_tall = RAW ਤਿਆਰੀ ਬਹੁਤ ਉੱਚੀ �
 workspace.filters.raw_size_changed = RAW ਤਿਆਰੀ ਦਾ ਆਕਾਰ {w} × {h} ਹੋ ਗਿਆ; ਮੌਜੂਦਾ ਪਰਤ ਰੱਖੀ ਜਾ ਰਹੀ ਹੈ
 workspace.filters.raw_history = Camera Raw ਤਿਆਰੀ
 workspace.filters.raw_applied = Camera Raw ਤਿਆਰੀ ਲਾਗੂ ਕੀਤੀ (ਸਭ ਤੋਂ ਵਧੀਆ ਡੀਮੋਜ਼ੇਕ)
+workspace.raw_masks.no_model = {model} ਸਥਾਪਤ ਨਹੀਂ ਹੈ, ਇਸ ਲਈ ਇਹ ਮਾਸਕ ਪਛਾਣਿਆ ਨਹੀਂ ਜਾ ਸਕਦਾ।
+workspace.raw_masks.no_sky = ਇਸ ਤਸਵੀਰ ਵਿੱਚ ਕੋਈ ਅਸਮਾਨ ਨਹੀਂ ਮਿਲਿਆ।
+workspace.raw_masks.detect_failed = ਮਾਸਕ ਪਛਾਣ ਅਸਫਲ: {error}
 
 workspace.image_size.done = ਚਿੱਤਰ ਆਕਾਰ: {w} × {h}
 workspace.image_size.bicubic_fallback = ਚਿੱਤਰ ਆਕਾਰ: {w} × {h} — {name} ਮਾਡਲ ਲੋਡ ਨਾ ਹੋ ਸਕਿਆ, ਇਸ ਲਈ ਬਾਈਕਿਊਬਿਕ ਵਰਤਿਆ ਗਿਆ

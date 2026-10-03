@@ -75,6 +75,9 @@ workspace.filters.raw_too_tall = RAW attīstīšanas rezultāts ir pārāk augst
 workspace.filters.raw_size_changed = RAW attīstīšanas lielums mainījās uz {w} × {h}; pašreizējais slānis tiek paturēts
 workspace.filters.raw_history = Camera Raw attīstīšana
 workspace.filters.raw_applied = Camera Raw attīstīšana lietota (labākā demosaicēšana)
+workspace.raw_masks.no_model = {model} nav instalēts, tāpēc šo masku nevar noteikt.
+workspace.raw_masks.no_sky = Šajā attēlā debesis netika atrastas.
+workspace.raw_masks.detect_failed = Maskas noteikšana neizdevās: {error}
 
 workspace.image_size.done = Attēla lielums: {w} × {h}
 workspace.image_size.bicubic_fallback = Attēla lielums: {w} × {h} — modeli {name} neizdevās ielādēt, tāpēc tika izmantota bikubiska interpolācija

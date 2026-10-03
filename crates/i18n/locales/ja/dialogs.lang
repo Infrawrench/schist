@@ -69,6 +69,25 @@ dialog.filter.reset_as_shot = 撮影時の設定に戻す
 dialog.filter.raw_note = 作業レイヤーを元のセンサーデータから現像し直します。
 dialog.filter.note = 作業レイヤーの選択範囲内に適用されます。
 
+# Camera Raw のローカル補正
+dialog.raw_masks.title = マスク
+dialog.raw_masks.new_mask = 新規マスク:
+dialog.raw_masks.add_to_mask = マスクに追加:
+dialog.raw_masks.linear = 線形グラデーション
+dialog.raw_masks.subject = 被写体を選択
+dialog.raw_masks.sky = 空を選択
+dialog.raw_masks.background = 背景を選択
+dialog.raw_masks.mask_n = マスク {n}
+dialog.raw_masks.invert_mask = マスクを反転
+dialog.raw_masks.overlay = マスクオーバーレイを表示
+dialog.raw_masks.erase = 消去
+dialog.raw_masks.local = このマスクの補正
+dialog.raw_masks.delete_mask = マスクを削除
+dialog.raw_masks.detecting = 検出中…
+dialog.raw_masks.hint_empty = マスクを追加すると画像の一部だけを補正できます。マスクごとに専用のスライダーがあります。
+dialog.raw_masks.hint_brush = カンバス上をペイントしてブラシ範囲を追加します。消去をオンにすると範囲を削除できます。
+dialog.raw_masks.hint_gradient = ハンドルをドラッグしてグラデーションを移動するか、カンバス上をドラッグして新しいグラデーションを描きます。
+
 # 見つからないフォント
 dialog.fonts.title = 見つからないフォント
 dialog.fonts.install_named = {name} をインストール

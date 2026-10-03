@@ -130,7 +130,10 @@ on the destination format; see [file formats](#file-formats).
 filters, Camera Raw, [Lens Correction](docs/lens-profiles.md) and Filter Gallery.
 Lens Correction can match EXIF camera/lens metadata to installed or imported
 Lensfun calibration, with profile overrides and portable saved coefficients.
-Filters preview on the
+Camera Raw development has [local adjustments](docs/camera-raw-masks.md):
+brush, linear and radial gradient masks and Select Subject/Sky/Background,
+combined and inverted, each with its own exposure, tone, colour and detail
+sliders. Filters preview on the
 canvas, with [draggable controls](docs/filter-canvas.md) for supported blur and
 lighting effects. Free Transform, Liquify, Puppet Warp, Content-Aware Scale and
 Vanishing Point cover geometric edits.
@@ -204,7 +207,7 @@ boundaries.
 | Paint.NET `.pdn` / GIMP `.xcf` | Read/write supported layered content; see [format limits](docs/layered-formats.md). |
 | PNG, JPEG, WebP, TIFF | Import and export raster images. |
 | HEIC / HEIF | Native import through a supported runtime libheif decoder; Schist can offer a download when needed. |
-| Camera RAW | Import through Schist's pure-Rust decoder and develop in Camera Raw. The original capture and development settings can survive PSD/PSB save and reopen. See [camera and codec coverage](crates/codec-raw/README.md). |
+| Camera RAW | Import through Schist's pure-Rust decoder and develop in Camera Raw, with [local adjustment masks](docs/camera-raw-masks.md). The original capture, development settings and masks can survive PSD/PSB save and reopen. See [camera and codec coverage](crates/codec-raw/README.md). |
 
 Format support is not a guarantee of identical rendering or complete feature
 interchange. Schist preserves unrecognized PSD data where supported, and uses

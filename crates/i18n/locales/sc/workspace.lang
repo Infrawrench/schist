@@ -83,6 +83,9 @@ workspace.filters.raw_too_tall = S'isvilupu RAW est tropu artu
 workspace.filters.raw_size_changed = Sa mannària de s'isvilupu RAW est mudada a {w} × {h}; est mantènnidu s'istratu atuale
 workspace.filters.raw_history = Isvilupu Camera Raw
 workspace.filters.raw_applied = Isvilupu Camera Raw aplicadu (demosaicizatzione mègius)
+workspace.raw_masks.no_model = {model} no est installadu, duncas custa màschera non podet èssere rilevada.
+workspace.raw_masks.no_sky = Non s'est agatadu perunu chelu in custa immàgine.
+workspace.raw_masks.detect_failed = Rilevamentu de sa màschera faddidu: {error}
 
 # Mannària de s'immàgine cun ampliadore neurale
 workspace.image_size.done = Mannària de s'immàgine: {w} × {h}

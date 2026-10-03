@@ -69,6 +69,25 @@ dialog.filter.reset_as_shot = جيئن ورتل تي موٽايو
 dialog.filter.raw_note = فعال پرت کي ان جي اصل سينسر ڊيٽا مان ٻيهر تيار ڪري ٿو.
 dialog.filter.note = چونڊ جي اندر فعال پرت تي لاڳو ٿئي ٿو.
 
+# Camera Raw مقامي ترميمون
+dialog.raw_masks.title = ماسڪ
+dialog.raw_masks.new_mask = نئون ماسڪ:
+dialog.raw_masks.add_to_mask = ماسڪ ۾ شامل ڪريو:
+dialog.raw_masks.linear = لڪيري گريڊيئنٽ
+dialog.raw_masks.subject = موضوع چونڊيو
+dialog.raw_masks.sky = آسمان چونڊيو
+dialog.raw_masks.background = پويون پاسو چونڊيو
+dialog.raw_masks.mask_n = ماسڪ {n}
+dialog.raw_masks.invert_mask = ماسڪ ابتو ڪريو
+dialog.raw_masks.overlay = ماسڪ اوورلي ڏيکاريو
+dialog.raw_masks.erase = ميٽيو
+dialog.raw_masks.local = هن ماسڪ ۾ ترميمون
+dialog.raw_masks.delete_mask = ماسڪ ڊاهيو
+dialog.raw_masks.detecting = ڳولي رهيو آهي…
+dialog.raw_masks.hint_empty = تصوير جو ڪجهه حصو ترميم ڪرڻ لاءِ هڪ ماسڪ شامل ڪريو. هر ماسڪ جا پنهنجا سلائيڊر آهن.
+dialog.raw_masks.hint_brush = برش ۾ شامل ڪرڻ لاءِ ڪينواس تي رنگ ڪريو؛ هٽائڻ لاءِ ”ميٽيو“ چالو ڪريو.
+dialog.raw_masks.hint_gradient = گريڊيئنٽ کي هلائڻ لاءِ هينڊل ڇڪيو، يا نئون ٺاهڻ لاءِ ڪينواس تي ڇڪيو.
+
 # گم ٿيل فونٽ
 dialog.fonts.title = گم ٿيل فونٽ
 dialog.fonts.install_named = {name} انسٽال ڪريو

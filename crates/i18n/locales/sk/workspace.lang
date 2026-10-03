@@ -71,6 +71,9 @@ workspace.filters.raw_too_tall = Výsledok vyvolania RAW je príliš vysoký
 workspace.filters.raw_size_changed = Veľkosť vyvolaného RAW sa zmenila na {w} × {h}; aktuálna vrstva sa zachová
 workspace.filters.raw_history = Spracovanie v Camera Raw
 workspace.filters.raw_applied = Spracovanie v Camera Raw bolo použité (najkvalitnejšia demozaikácia)
+workspace.raw_masks.no_model = Model {model} nie je nainštalovaný, preto túto masku nie je možné rozpoznať.
+workspace.raw_masks.no_sky = Na tomto obrázku sa nenašla žiadna obloha.
+workspace.raw_masks.detect_failed = Rozpoznanie masky zlyhalo: {error}
 
 workspace.image_size.done = Veľkosť obrázka: {w} × {h}
 workspace.image_size.bicubic_fallback = Veľkosť obrázka: {w} × {h} — model {name} sa nepodarilo načítať, preto sa použila bikubická interpolácia

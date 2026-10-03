@@ -55,6 +55,25 @@ dialog.filter.camera_raw_development = Апрацоўка Camera Raw
 dialog.filter.reset_as_shot = Скінуць да параметраў здымка
 dialog.filter.raw_note = Паўторна апрацоўвае актыўны пласт з зыходных даных датчыка.
 dialog.filter.note = Ужываецца да актыўнага пласта ў межах вылучэння.
+
+# Camera Raw: лакальныя карэкцыі
+dialog.raw_masks.title = Маскі
+dialog.raw_masks.new_mask = Новая маска:
+dialog.raw_masks.add_to_mask = Дадаць да маскі:
+dialog.raw_masks.linear = Лінейны градыент
+dialog.raw_masks.subject = Вылучыць аб'ект
+dialog.raw_masks.sky = Вылучыць неба
+dialog.raw_masks.background = Вылучыць фон
+dialog.raw_masks.mask_n = Маска {n}
+dialog.raw_masks.invert_mask = Інвертаваць маску
+dialog.raw_masks.overlay = Паказваць накладанне маскі
+dialog.raw_masks.erase = Сціранне
+dialog.raw_masks.local = Карэкцыі ў гэтай масцы
+dialog.raw_masks.delete_mask = Выдаліць маску
+dialog.raw_masks.detecting = Выяўленне…
+dialog.raw_masks.hint_empty = Дадайце маску, каб карэктаваць частку выявы. У кожнай маскі свае паўзункі.
+dialog.raw_masks.hint_brush = Малюйце на палатне, каб дадаць да пэндзля; уключыце «Сціранне», каб прыбраць.
+dialog.raw_masks.hint_gradient = Перацягвайце маркеры, каб перамясціць градыент, або цягніце па палатне, каб намаляваць новы.
 dialog.fonts.title = Адсутныя шрыфты
 dialog.fonts.install_named = Усталяваць {name}
 dialog.fonts.no_document = Дакумент не адкрыты, таму няма чаго правяраць.

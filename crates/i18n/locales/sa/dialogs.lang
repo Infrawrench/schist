@@ -63,6 +63,25 @@ dialog.filter.reset_as_shot = चित्रग्रहणस्थिति�
 dialog.filter.raw_note = सक्रियस्तरं तस्य मूलसंवेदकदत्तांशात् पुनर्विकासयति।
 dialog.filter.note = चयनान्तर्गतसक्रियस्तरे प्रयुज्यते।
 
+# Camera Raw स्थानीयसमायोजनानि
+dialog.raw_masks.title = मुखावरणानि
+dialog.raw_masks.new_mask = नवं मुखावरणम्:
+dialog.raw_masks.add_to_mask = मुखावरणे योजयतु:
+dialog.raw_masks.linear = रैखिकक्रमवर्णः
+dialog.raw_masks.subject = विषयं चिनोतु
+dialog.raw_masks.sky = आकाशं चिनोतु
+dialog.raw_masks.background = पृष्ठभूमिं चिनोतु
+dialog.raw_masks.mask_n = मुखावरणम् {n}
+dialog.raw_masks.invert_mask = मुखावरणं विपर्यस्यतु
+dialog.raw_masks.overlay = मुखावरणाध्यारोपं दर्शयतु
+dialog.raw_masks.erase = मार्जयतु
+dialog.raw_masks.local = अस्मिन् मुखावरणे समायोजनानि
+dialog.raw_masks.delete_mask = मुखावरणं विलोपयतु
+dialog.raw_masks.detecting = अभिज्ञायते…
+dialog.raw_masks.hint_empty = चित्रस्य भागं समायोजयितुं मुखावरणं योजयतु। प्रत्येकस्य मुखावरणस्य स्वकीयाः सर्पकाः सन्ति।
+dialog.raw_masks.hint_brush = कूर्चे योजयितुं चित्रपटे चित्रयतु; अपनेतुं "मार्जयतु" इति सक्रियं करोतु।
+dialog.raw_masks.hint_gradient = क्रमवर्णं चालयितुं हस्तकान् कर्षयतु, अथवा नूतनं रचयितुं चित्रपटे कर्षयतु।
+
 # अनुपलब्धलिप्यः
 dialog.fonts.title = अनुपलब्धलिप्यः
 dialog.fonts.install_named = {name} संस्थापयतु

@@ -51,6 +51,25 @@ dialog.filter.camera_raw_development = פיתוח Camera Raw
 dialog.filter.reset_as_shot = איפוס למצב הצילום
 dialog.filter.raw_note = מפתח מחדש את השכבה הפעילה מנתוני החיישן המקוריים שלה.
 dialog.filter.note = חל על השכבה הפעילה בתוך הבחירה.
+
+# התאמות מקומיות ב-Camera Raw
+dialog.raw_masks.title = מסכות
+dialog.raw_masks.new_mask = מסכה חדשה:
+dialog.raw_masks.add_to_mask = הוספה למסכה:
+dialog.raw_masks.linear = מעבר צבע לינארי
+dialog.raw_masks.subject = בחירת נושא
+dialog.raw_masks.sky = בחירת שמיים
+dialog.raw_masks.background = בחירת רקע
+dialog.raw_masks.mask_n = מסכה {n}
+dialog.raw_masks.invert_mask = היפוך המסכה
+dialog.raw_masks.overlay = הצגת שכבת-על של המסכה
+dialog.raw_masks.erase = מחיקה
+dialog.raw_masks.local = התאמות במסכה זו
+dialog.raw_masks.delete_mask = מחיקת מסכה
+dialog.raw_masks.detecting = מזהה…
+dialog.raw_masks.hint_empty = הוסיפו מסכה כדי להתאים חלק מהתמונה. לכל מסכה יש מחוונים משלה.
+dialog.raw_masks.hint_brush = ציירו על משטח העבודה כדי להוסיף למברשת; הפעילו את מחיקה כדי להסיר ממנה.
+dialog.raw_masks.hint_gradient = גררו את הידיות כדי להזיז את מעבר הצבע, או גררו על משטח העבודה כדי לצייר מעבר חדש.
 dialog.fonts.title = גופנים חסרים
 dialog.fonts.install_named = התקנת {name}
 dialog.fonts.no_document = אין מסמך פתוח, ולכן אין מה לבדוק.

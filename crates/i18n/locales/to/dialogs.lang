@@ -51,6 +51,25 @@ dialog.filter.reset_as_shot = Toe Fokotuʻu ki he Taimi Naʻe Tā Aí
 dialog.filter.raw_note = Toe fakatupulekina ʻa e Layer lolotongá mei hono fakamatala sensor tupuʻangá.
 dialog.filter.note = Ngāue ki he Layer lolotongá, ʻi loto ʻi he feituʻu kuo filí.
 
+# Ngaahi liliu fakafeituʻu ʻa Camera Raw
+dialog.raw_masks.title = Ngaahi ʻUfiʻufi
+dialog.raw_masks.new_mask = ʻUfiʻufi foʻou:
+dialog.raw_masks.add_to_mask = Tānaki ki he ʻufiʻufi:
+dialog.raw_masks.linear = Fetongi Lanu Māmālie Laine
+dialog.raw_masks.subject = Fili ʻa e Kaveinga
+dialog.raw_masks.sky = Fili ʻa e Langi
+dialog.raw_masks.background = Fili ʻa e Puipuitu
+dialog.raw_masks.mask_n = ʻUfiʻufi {n}
+dialog.raw_masks.invert_mask = Fulihi ʻa e ʻufiʻufi
+dialog.raw_masks.overlay = Fakahā ʻa e ʻufiʻufi ʻi ʻolunga
+dialog.raw_masks.erase = Holoholo
+dialog.raw_masks.local = Ngaahi liliu ʻi he ʻufiʻufi ko ʻeni
+dialog.raw_masks.delete_mask = Tamateʻi ʻa e ʻUfiʻufi
+dialog.raw_masks.detecting = ʻOku kumi…
+dialog.raw_masks.hint_empty = Tānaki ha ʻufiʻufi ke liliu ha konga ʻo e ʻīmisí. ʻOku ʻi he ʻufiʻufi kotoa pē ʻene ngaahi meʻa fakatonutonu pē ʻaʻana.
+dialog.raw_masks.hint_brush = Valivali ʻi he kanivā ke tānaki ki he polosí; fakaava ʻa e Holoholo ke toʻo atu ia.
+dialog.raw_masks.hint_gradient = Toho ʻa e ngaahi meʻa puke ke ʻunuakiʻi ʻa e fetongi lanú, pe toho ʻi he kanivā ke tā ha foʻou.
+
 dialog.fonts.title = Ngaahi Mataʻitohi ʻOku Pulia
 dialog.fonts.install_named = Fokotuʻu ʻa e {name}
 dialog.fonts.no_document = ʻOku ʻikai fakaava ha fakamatala, ko ia ʻoku ʻikai ha meʻa ke vakaiʻi.

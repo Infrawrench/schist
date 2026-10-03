@@ -43,6 +43,25 @@ dialog.filter.camera_raw_development = ການລ້າງພາບ Camera Raw
 dialog.filter.reset_as_shot = ຣີເຊັດເປັນຄ່າຕອນຖ່າຍ
 dialog.filter.raw_note = ລ້າງຮູບໃນເລເຢີທີ່ເປີດໃຊ້ຄືນໃໝ່ຈາກຂໍ້ມູນເຊັນເຊີຕົ້ນສະບັບ.
 dialog.filter.note = ນຳໃຊ້ກັບເລເຢີທີ່ເປີດໃຊ້ ພາຍໃນສ່ວນທີ່ເລືອກ.
+
+# Camera Raw: ການປັບແຕ່ງສະເພາະຈຸດ
+dialog.raw_masks.title = ມາສກ໌
+dialog.raw_masks.new_mask = ມາສກ໌ໃໝ່:
+dialog.raw_masks.add_to_mask = ເພີ່ມໃສ່ມາສກ໌:
+dialog.raw_masks.linear = ສີໄລ່ລະດັບແບບເສັ້ນຊື່
+dialog.raw_masks.subject = ເລືອກວັດຖຸຫຼັກ
+dialog.raw_masks.sky = ເລືອກທ້ອງຟ້າ
+dialog.raw_masks.background = ເລືອກພື້ນຫຼັງ
+dialog.raw_masks.mask_n = ມາສກ໌ {n}
+dialog.raw_masks.invert_mask = ກັບຄ່າມາສກ໌
+dialog.raw_masks.overlay = ສະແດງມາສກ໌ທັບພາບ
+dialog.raw_masks.erase = ຖູອອກ
+dialog.raw_masks.local = ການປັບແຕ່ງໃນມາສກ໌ນີ້
+dialog.raw_masks.delete_mask = ລຶບມາສກ໌
+dialog.raw_masks.detecting = ກຳລັງກວດຫາ…
+dialog.raw_masks.hint_empty = ເພີ່ມມາສກ໌ເພື່ອປັບແຕ່ງບາງສ່ວນຂອງຮູບ. ແຕ່ລະມາສກ໌ມີແຖບເລື່ອນຂອງຕົນເອງ.
+dialog.raw_masks.hint_brush = ແຕ້ມໃສ່ຜືນພາບເພື່ອເພີ່ມໃສ່ແປງ; ເປີດ ຖູອອກ ເພື່ອເອົາອອກ.
+dialog.raw_masks.hint_gradient = ລາກຈຸດຈັບເພື່ອຍ້າຍສີໄລ່ລະດັບ, ຫຼື ລາກເທິງຜືນພາບເພື່ອແຕ້ມອັນໃໝ່.
 dialog.fonts.title = ຟອນທີ່ຂາດຫາຍ
 dialog.fonts.install_named = ຕິດຕັ້ງ {name}
 dialog.fonts.no_document = ບໍ່ມີເອກະສານເປີດຢູ່ ຈຶ່ງບໍ່ມີສິ່ງໃຫ້ກວດ.

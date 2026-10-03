@@ -63,6 +63,25 @@ dialog.filter.camera_raw_development = معالجة Camera Raw
 dialog.filter.reset_as_shot = إعادة الضبط حسب الالتقاط
 dialog.filter.raw_note = يعيد معالجة الطبقة النشطة من بيانات المستشعر الأصلية.
 dialog.filter.note = يُطبق على الطبقة النشطة داخل التحديد.
+
+# تعديلات Camera Raw المحلية
+dialog.raw_masks.title = الأقنعة
+dialog.raw_masks.new_mask = قناع جديد:
+dialog.raw_masks.add_to_mask = إضافة إلى القناع:
+dialog.raw_masks.linear = تدرج خطي
+dialog.raw_masks.subject = تحديد الموضوع
+dialog.raw_masks.sky = تحديد السماء
+dialog.raw_masks.background = تحديد الخلفية
+dialog.raw_masks.mask_n = القناع {n}
+dialog.raw_masks.invert_mask = عكس القناع
+dialog.raw_masks.overlay = إظهار تراكب القناع
+dialog.raw_masks.erase = مسح
+dialog.raw_masks.local = التعديلات في هذا القناع
+dialog.raw_masks.delete_mask = حذف القناع
+dialog.raw_masks.detecting = جارٍ الاكتشاف…
+dialog.raw_masks.hint_empty = أضف قناعًا لتعديل جزء من الصورة. لكل قناع أشرطة تمرير خاصة به.
+dialog.raw_masks.hint_brush = ارسم على اللوحة للإضافة إلى الفرشاة؛ وفعّل «مسح» لإزالة ما رسمته.
+dialog.raw_masks.hint_gradient = اسحب المقابض لتحريك التدرج، أو اسحب على اللوحة لرسم تدرج جديد.
 dialog.fonts.title = الخطوط المفقودة
 dialog.fonts.install_named = تثبيت {name}
 dialog.fonts.no_document = لا يوجد مستند مفتوح، ولذلك لا يوجد ما يمكن فحصه.

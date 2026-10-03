@@ -43,6 +43,25 @@ dialog.filter.camera_raw_development = Sviluppu Camera Raw
 dialog.filter.reset_as_shot = Rimette à Cum'è scattatu
 dialog.filter.raw_note = Sviluppa torna u stratu attivu da i dati uriginali di u sensore.
 dialog.filter.note = S'appieca à u stratu attivu, dentru à a selezzione.
+
+# Ritocchi lucali di Camera Raw
+dialog.raw_masks.title = Maschere
+dialog.raw_masks.new_mask = Nova maschera:
+dialog.raw_masks.add_to_mask = Aghjunghje à a maschera:
+dialog.raw_masks.linear = Degradatu lineare
+dialog.raw_masks.subject = Selezziunà u sughjettu
+dialog.raw_masks.sky = Selezziunà u celu
+dialog.raw_masks.background = Selezziunà u fondu
+dialog.raw_masks.mask_n = Maschera {n}
+dialog.raw_masks.invert_mask = Invertisce a maschera
+dialog.raw_masks.overlay = Mustrà a sovrapposizione di a maschera
+dialog.raw_masks.erase = Sguassà
+dialog.raw_masks.local = Ritocchi in sta maschera
+dialog.raw_masks.delete_mask = Caccià a maschera
+dialog.raw_masks.detecting = Rilevazione…
+dialog.raw_masks.hint_empty = Aghjunghjite una maschera per ritoccà una parte di a fiura. Ogni maschera hà i so cursori.
+dialog.raw_masks.hint_brush = Pinghjite nant'à a tela per aghjunghje à a spazzola; attivate Sguassà per caccialla.
+dialog.raw_masks.hint_gradient = Trascinate e maniglie per move u degradatu, o trascinate nant'à a tela per disegnà ne un novu.
 dialog.fonts.title = Caratteri mancanti
 dialog.fonts.install_named = Stallà {name}
 dialog.fonts.no_document = Nisun ducumentu hè apertu, dunque ùn ci hè nunda da verificà.

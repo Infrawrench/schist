@@ -47,6 +47,25 @@ dialog.filter.camera_raw_development = Fikarakarana Camera Raw
 dialog.filter.reset_as_shot = Avereno ho toy ny tamin'ny fakana
 dialog.filter.raw_note = Mamerina mikarakara ny sosona miasa avy amin'ny angon'ny mpandray sary tany am-boalohany.
 dialog.filter.note = Ampiharina amin'ny sosona miasa, ao anatin'ny fifantenana.
+
+# Fanitsiana eo an-toerana Camera Raw
+dialog.raw_masks.title = Sarontava
+dialog.raw_masks.new_mask = Sarontava vaovao:
+dialog.raw_masks.add_to_mask = Ampio amin'ny sarontava:
+dialog.raw_masks.linear = Loko mifandimby mahitsy
+dialog.raw_masks.subject = Safidio ny lohahevitra
+dialog.raw_masks.sky = Safidio ny lanitra
+dialog.raw_masks.background = Safidio ny ambadika
+dialog.raw_masks.mask_n = Sarontava {n}
+dialog.raw_masks.invert_mask = Avadiho ny sarontava
+dialog.raw_masks.overlay = Asehoy eo ambony ny sarontava
+dialog.raw_masks.erase = Fafao
+dialog.raw_masks.local = Fanitsiana amin'ity sarontava ity
+dialog.raw_masks.delete_mask = Esory ny sarontava
+dialog.raw_masks.detecting = Mitady…
+dialog.raw_masks.hint_empty = Manampia sarontava hanitsiana ampahany amin'ny sary. Samy manana ny slider-ny avy ny sarontava tsirairay.
+dialog.raw_masks.hint_brush = Manaova hosodoko eo amin'ny lamba mba hanampiana ny borosy; alefaso ny Fafao hanesorana.
+dialog.raw_masks.hint_gradient = Sintony ny tahony hanetsehana ny loko mifandimby, na sintony eo amin'ny lamba hanaovana vaovao.
 dialog.fonts.title = Endritsoratra tsy hita
 dialog.fonts.install_named = Apetraho {name}
 dialog.fonts.no_document = Tsy misy rakitra misokatra, ka tsy misy hojerena.

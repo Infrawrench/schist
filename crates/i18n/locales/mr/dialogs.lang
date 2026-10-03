@@ -47,6 +47,25 @@ dialog.filter.camera_raw_development = Camera Raw डेव्हलपमें
 dialog.filter.reset_as_shot = चित्रित केल्याप्रमाणे रीसेट करा
 dialog.filter.raw_note = सक्रिय स्तर त्याच्या मूळ संवेदक डेटामधून पुन्हा विकसित करते.
 dialog.filter.note = सक्रिय स्तरावर, निवडीच्या आत लागू होते.
+
+# Camera Raw स्थानिक समायोजने
+dialog.raw_masks.title = मुखवटे
+dialog.raw_masks.new_mask = नवीन मुखवटा:
+dialog.raw_masks.add_to_mask = मुखवट्यात जोडा:
+dialog.raw_masks.linear = रेषीय रंगसंक्रमण
+dialog.raw_masks.subject = विषय निवडा
+dialog.raw_masks.sky = आकाश निवडा
+dialog.raw_masks.background = पार्श्वभूमी निवडा
+dialog.raw_masks.mask_n = मुखवटा {n}
+dialog.raw_masks.invert_mask = मुखवटा उलट करा
+dialog.raw_masks.overlay = मुखवटा आच्छादन दाखवा
+dialog.raw_masks.erase = खोडा
+dialog.raw_masks.local = या मुखवट्यातील समायोजने
+dialog.raw_masks.delete_mask = मुखवटा हटवा
+dialog.raw_masks.detecting = शोधत आहे…
+dialog.raw_masks.hint_empty = चित्राचा काही भाग समायोजित करण्यासाठी मुखवटा जोडा. प्रत्येक मुखवट्याचे स्वतःचे स्लायडर असतात.
+dialog.raw_masks.hint_brush = ब्रशमध्ये भर घालण्यासाठी कॅनव्हासवर रंगवा; काढून टाकण्यासाठी खोडा चालू करा.
+dialog.raw_masks.hint_gradient = रंगसंक्रमण हलवण्यासाठी हँडल ओढा, किंवा नवीन रंगसंक्रमण काढण्यासाठी कॅनव्हासवर ओढा.
 dialog.fonts.title = गहाळ फॉन्ट
 dialog.fonts.install_named = {name} स्थापित करा
 dialog.fonts.no_document = कोणताही दस्तऐवज उघडा नाही, त्यामुळे तपासण्यासाठी काहीही नाही.

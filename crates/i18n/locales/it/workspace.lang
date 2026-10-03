@@ -82,6 +82,9 @@ workspace.filters.raw_too_tall = Lo sviluppo RAW è troppo alto
 workspace.filters.raw_size_changed = La dimensione dello sviluppo RAW è cambiata in {w} × {h}; il livello corrente viene mantenuto
 workspace.filters.raw_history = Sviluppo Camera Raw
 workspace.filters.raw_applied = Sviluppo Camera Raw applicato (migliore demosaicizzazione)
+workspace.raw_masks.no_model = {model} non è installato, quindi questa maschera non può essere rilevata.
+workspace.raw_masks.no_sky = Nessun cielo trovato in questa immagine.
+workspace.raw_masks.detect_failed = Rilevamento della maschera non riuscito: {error}
 
 # Dimensione immagine con upscaler neurale
 workspace.image_size.done = Dimensione immagine: {w} × {h}

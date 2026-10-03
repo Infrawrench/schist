@@ -75,6 +75,9 @@ workspace.filters.raw_too_tall = ምምዕባል RAW ኣዝዩ ነዊሕ እዩ
 workspace.filters.raw_size_changed = ዓቐን ምምዕባል RAW ናብ {w} × {h} ተቐይሩ፤ እቲ ሕጂ ዘሎ ንጣፍ ይዕቀብ
 workspace.filters.raw_history = ምምዕባል Camera Raw
 workspace.filters.raw_applied = ምምዕባል Camera Raw ተተግቢሩ (ዝበለጸ ዲሞዛይክ)
+workspace.raw_masks.no_model = {model} ኣይተተኸለን፣ ስለዚ እዚ መሸፈኒ ክፍለጥ ኣይክእልን።
+workspace.raw_masks.no_sky = ኣብዚ ስእሊ ሰማይ ኣይተረኽበን።
+workspace.raw_masks.detect_failed = ምፍላጥ መሸፈኒ ኣይተዓወተን: {error}
 
 workspace.image_size.done = ዓቐን ስእሊ፦ {w} × {h}
 workspace.image_size.bicubic_fallback = ዓቐን ስእሊ፦ {w} × {h} — ሞዴል {name} ክጽዕን ኣይከኣለን፣ ስለዚ ቢኩቢክ መተካእታ ኮይኑ

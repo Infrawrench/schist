@@ -43,6 +43,25 @@ dialog.filter.camera_raw_development = Ìmújáde Camera Raw
 dialog.filter.reset_as_shot = Dá padà sí bí a ṣe yà á
 dialog.filter.raw_note = Ó tún ń mú fẹ́lẹ́fẹ́lẹ́ tó ń ṣiṣẹ́ jáde láti inú dátà sensor àtilẹ̀wá rẹ̀.
 dialog.filter.note = Ó kan fẹ́lẹ́fẹ́lẹ́ tó ń ṣiṣẹ́, nínú àṣàyàn.
+
+# Àwọn àtúnṣe agbègbè Camera Raw
+dialog.raw_masks.title = Àwọn ìbòjú
+dialog.raw_masks.new_mask = Ìbòjú tuntun:
+dialog.raw_masks.add_to_mask = Fi kún ìbòjú:
+dialog.raw_masks.linear = Àwọ̀ yíyípadà onílà tààrà
+dialog.raw_masks.subject = Yan ohun pàtàkì
+dialog.raw_masks.sky = Yan ojú ọ̀run
+dialog.raw_masks.background = Yan ẹ̀yìn
+dialog.raw_masks.mask_n = Ìbòjú {n}
+dialog.raw_masks.invert_mask = Yí ìbòjú padà sí òdìkejì
+dialog.raw_masks.overlay = Fi ìbòjú hàn lórí àwòrán
+dialog.raw_masks.erase = Pa rẹ́
+dialog.raw_masks.local = Àwọn àtúnṣe nínú ìbòjú yìí
+dialog.raw_masks.delete_mask = Yọ ìbòjú kúrò
+dialog.raw_masks.detecting = Ń ṣàwárí…
+dialog.raw_masks.hint_empty = Fi ìbòjú kan kún un láti ṣàtúnṣe apá kan àwòrán náà. Ìbòjú kọ̀ọ̀kan ní àwọn ìfàsún tirẹ̀.
+dialog.raw_masks.hint_brush = Kun àwọ̀ sórí canvas láti fi kún bọ́ọ̀ṣì náà; tan Pa rẹ́ láti yọ ọ́ kúrò.
+dialog.raw_masks.hint_gradient = Fa àwọn ìdìmú láti gbé àwọ̀ yíyípadà náà, tàbí fa lórí canvas láti ya òmíràn tuntun.
 dialog.fonts.title = Àwọn fọ́ǹtì tí kò sí
 dialog.fonts.install_named = Fi {name} sí ẹ̀rọ
 dialog.fonts.no_document = Kò sí ìwé tó ṣí, nítorí náà kò sí ohun láti yẹ̀wò.

@@ -47,6 +47,25 @@ dialog.filter.camera_raw_development = Camera Raw ଡେଭଲପ୍‌ମେଣ
 dialog.filter.reset_as_shot = ଉତ୍ତୋଳିତ ଅବସ୍ଥାକୁ ପୁନଃସେଟ୍ କରନ୍ତୁ
 dialog.filter.raw_note = ସକ୍ରିୟ ସ୍ତରକୁ ତାହାର ମୂଳ ସେନ୍‌ସର୍ ତଥ୍ୟରୁ ପୁଣି ଡେଭଲପ୍ କରେ।
 dialog.filter.note = ଚୟନ ଭିତରେ ସକ୍ରିୟ ସ୍ତରରେ ପ୍ରୟୋଗ ହୁଏ।
+
+# Camera Raw ସ୍ଥାନୀୟ ସମାୟୋଜନ
+dialog.raw_masks.title = ମାସ୍କଗୁଡ଼ିକ
+dialog.raw_masks.new_mask = ନୂଆ ମାସ୍କ:
+dialog.raw_masks.add_to_mask = ମାସ୍କରେ ଯୋଡନ୍ତୁ:
+dialog.raw_masks.linear = ରୈଖିକ ଗ୍ରେଡିଏଣ୍ଟ
+dialog.raw_masks.subject = ବିଷୟ ଚୟନ କରନ୍ତୁ
+dialog.raw_masks.sky = ଆକାଶ ଚୟନ କରନ୍ତୁ
+dialog.raw_masks.background = ପୃଷ୍ଠଭୂମି ଚୟନ କରନ୍ତୁ
+dialog.raw_masks.mask_n = ମାସ୍କ {n}
+dialog.raw_masks.invert_mask = ମାସ୍କ ଓଲଟାନ୍ତୁ
+dialog.raw_masks.overlay = ମାସ୍କ ଓଭରଲେ ଦେଖାନ୍ତୁ
+dialog.raw_masks.erase = ଲିଭାନ୍ତୁ
+dialog.raw_masks.local = ଏହି ମାସ୍କରେ ସମାୟୋଜନ
+dialog.raw_masks.delete_mask = ମାସ୍କ ବିଲୋପ କରନ୍ତୁ
+dialog.raw_masks.detecting = ଚିହ୍ନଟ କରୁଛି…
+dialog.raw_masks.hint_empty = ଛବିର ଏକ ଅଂଶ ସମାୟୋଜନ କରିବାକୁ ଏକ ମାସ୍କ ଯୋଡନ୍ତୁ। ପ୍ରତ୍ୟେକ ମାସ୍କର ନିଜସ୍ୱ ସ୍ଲାଇଡର୍ ଅଛି।
+dialog.raw_masks.hint_brush = ବ୍ରଶ୍‌ରେ ଯୋଡିବା ପାଇଁ କ୍ୟାନଭାସ୍‌ରେ ରଙ୍ଗ କରନ୍ତୁ; ଏହାକୁ ହଟାଇବା ପାଇଁ ‘ଲିଭାନ୍ତୁ’ ଚାଲୁ କରନ୍ତୁ।
+dialog.raw_masks.hint_gradient = ଗ୍ରେଡିଏଣ୍ଟ ଘୁଞ୍ଚାଇବା ପାଇଁ ହ୍ୟାଣ୍ଡଲଗୁଡ଼ିକୁ ଟାଣନ୍ତୁ, କିମ୍ବା ନୂଆ ଗୋଟିଏ ଆଙ୍କିବା ପାଇଁ କ୍ୟାନଭାସ୍‌ରେ ଟାଣନ୍ତୁ।
 dialog.fonts.title = ନିଖୋଜ ଫଣ୍ଟଗୁଡ଼ିକ
 dialog.fonts.install_named = {name} ଇନ୍‌ଷ୍ଟଲ୍ କରନ୍ତୁ
 dialog.fonts.no_document = କୌଣସି ଡକ୍ୟୁମେଣ୍ଟ ଖୋଲା ନାହିଁ, ତେଣୁ ଯାଞ୍ଚ କରିବାକୁ କିଛି ନାହିଁ।

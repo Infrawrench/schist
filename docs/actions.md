@@ -42,6 +42,11 @@ Supported recording operations are:
   the Actions manager also commits a pending transform before capture/replay.
 - Camera Raw development of RAW-backed layers. All 15 numeric settings are
   editable, and each replay develops that target layer's own original capture.
+  The development's [local adjustment masks](camera-raw-masks.md) are recorded
+  as well and replace the target's; Select Subject/Sky/Background components
+  are detected again on each target, and replay fails when that needs a model
+  that is not installed. Steps recorded before masks existed keep the target's
+  masks.
   Layers without a retained RAW source, or whose developed dimensions no longer
   match the canvas, fail transactionally. The original capture stays embedded.
 - Editable filter-stack insertion and committed settings; enable/disable,

@@ -65,6 +65,25 @@ dialog.filter.reset_as_shot = Berrezarri argazkia atera zen bezala
 dialog.filter.raw_note = Geruza aktiboa jatorrizko sentsore-datuetatik garatzen du berriro.
 dialog.filter.note = Geruza aktiboari aplikatzen zaio, hautapenaren barruan.
 
+# Camera Raw doikuntza lokalak
+dialog.raw_masks.title = Maskarak
+dialog.raw_masks.new_mask = Maskara berria:
+dialog.raw_masks.add_to_mask = Gehitu maskarari:
+dialog.raw_masks.linear = Gradiente lineala
+dialog.raw_masks.subject = Hautatu gaia
+dialog.raw_masks.sky = Hautatu zerua
+dialog.raw_masks.background = Hautatu atzeko planoa
+dialog.raw_masks.mask_n = Maskara {n}
+dialog.raw_masks.invert_mask = Alderantzikatu maskara
+dialog.raw_masks.overlay = Erakutsi maskararen gainjarria
+dialog.raw_masks.erase = Borratu
+dialog.raw_masks.local = Maskara honetako doikuntzak
+dialog.raw_masks.delete_mask = Ezabatu maskara
+dialog.raw_masks.detecting = Hautematen…
+dialog.raw_masks.hint_empty = Gehitu maskara bat irudiaren zati bat doitzeko. Maskara bakoitzak bere graduatzaileak ditu.
+dialog.raw_masks.hint_brush = Margotu mihisean brotxari gehitzeko; aktibatu Borratu kentzeko.
+dialog.raw_masks.hint_gradient = Arrastatu heldulekuak gradientea mugitzeko, edo arrastatu mihisean berri bat marrazteko.
+
 # Falta diren letra-tipoak
 dialog.fonts.title = Falta diren letra-tipoak
 dialog.fonts.install_named = Instalatu {name}

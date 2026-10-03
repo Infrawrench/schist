@@ -43,6 +43,25 @@ dialog.filter.camera_raw_development = Camera Raw эшкәртүе
 dialog.filter.reset_as_shot = Төшерелгәндәге хәлгә кайтару
 dialog.filter.raw_note = Актив катламны камера сенсорының төп мәгълүматыннан яңадан эшкәртә.
 dialog.filter.note = Актив катламның сайланган өлкәсе эчендә кулланыла.
+
+# Camera Raw җирле көйләүләре
+dialog.raw_masks.title = Битлекләр
+dialog.raw_masks.new_mask = Яңа битлек:
+dialog.raw_masks.add_to_mask = Битлеккә өстәү:
+dialog.raw_masks.linear = Сызыклы градиент
+dialog.raw_masks.subject = Объектны сайлау
+dialog.raw_masks.sky = Күкне сайлау
+dialog.raw_masks.background = Фонны сайлау
+dialog.raw_masks.mask_n = Битлек {n}
+dialog.raw_masks.invert_mask = Битлекне әйләндерү
+dialog.raw_masks.overlay = Битлек өслеген күрсәтү
+dialog.raw_masks.erase = Бетерү
+dialog.raw_masks.local = Бу битлектәге көйләүләр
+dialog.raw_masks.delete_mask = Битлекне бетерү
+dialog.raw_masks.detecting = Табыла…
+dialog.raw_masks.hint_empty = Рәсемнең бер өлешен көйләү өчен битлек өстәгез. Һәр битлекнең үз шуышмалары бар.
+dialog.raw_masks.hint_brush = Пумалага өстәү өчен киндергә буягыз; аны алып ташлау өчен Бетерүне кабызыгыз.
+dialog.raw_masks.hint_gradient = Градиентны күчерү өчен тотканаларны тартыгыз, яки яңасын ясау өчен киндердә тартыгыз.
 dialog.fonts.title = Җитмәгән шрифтлар
 dialog.fonts.install_named = {name} урнаштыру
 dialog.fonts.no_document = Бер документ та ачык түгел, шуңа тикшерерлек берни юк.

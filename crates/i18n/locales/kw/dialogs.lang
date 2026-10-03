@@ -63,6 +63,25 @@ dialog.filter.camera_raw_development = Displegyans Camera Raw
 dialog.filter.reset_as_shot = Dasgorra Avel Kemerys
 dialog.filter.raw_note = Dasdisplegya an gwisk oberiethek dhyworth y kedhlow sensour gwredhek.
 dialog.filter.note = Gorra dhe'n gwisk oberiethek, yn-mes a'n dewis.
+
+# Camera Raw: desedhansow leel
+dialog.raw_masks.title = Maskow
+dialog.raw_masks.new_mask = Mask nowydh:
+dialog.raw_masks.add_to_mask = Keworra dhe'n mask:
+dialog.raw_masks.linear = Gradyent Linenek
+dialog.raw_masks.subject = Dewis an Testen
+dialog.raw_masks.sky = Dewis an Ebron
+dialog.raw_masks.background = Dewis an Kilva
+dialog.raw_masks.mask_n = Mask {n}
+dialog.raw_masks.invert_mask = Gorthdhreylya an mask
+dialog.raw_masks.overlay = Diskwedhes kudhlen an mask
+dialog.raw_masks.erase = Rutya
+dialog.raw_masks.local = Desedhansow y'n mask ma
+dialog.raw_masks.delete_mask = Dilea an Mask
+dialog.raw_masks.detecting = Ow tiskudha…
+dialog.raw_masks.hint_empty = Keworrewgh mask rag desedha rann a'n imaj. Pub mask a'n jeves y slidyansow y honan.
+dialog.raw_masks.hint_brush = Payntyewgh war an lien rag keworra dhe'n skubellik; trelyewgh Rutya war rag y dhilea.
+dialog.raw_masks.hint_gradient = Tennewgh an dornlennow rag gwaya an gradyent, po tennewgh war an lien rag delinya onan nowydh.
 dialog.fonts.title = Fontys Fyllys
 dialog.fonts.install_named = Lea {name}
 dialog.fonts.no_document = Nyns eus skrifen ygor, hag ytho nyns eus tra vyth dhe checkya.

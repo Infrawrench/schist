@@ -48,6 +48,25 @@ dialog.filter.camera_raw_development = Camera Raw ڈیولپمنٹ
 dialog.filter.reset_as_shot = عکس کی اصل حالت پر لوٹائیں
 dialog.filter.raw_note = فعال لیئر کو اس کے اصل حساسی ڈیٹا سے دوبارہ تیار کرتا ہے۔
 dialog.filter.note = فعال لیئر پر، انتخاب کے اندر لاگو ہوتا ہے۔
+
+# Camera Raw مقامی ایڈجسٹمنٹس
+dialog.raw_masks.title = ماسک
+dialog.raw_masks.new_mask = نیا ماسک:
+dialog.raw_masks.add_to_mask = ماسک میں شامل کریں:
+dialog.raw_masks.linear = خطی تدریج
+dialog.raw_masks.subject = موضوع منتخب کریں
+dialog.raw_masks.sky = آسمان منتخب کریں
+dialog.raw_masks.background = پس منظر منتخب کریں
+dialog.raw_masks.mask_n = ماسک {n}
+dialog.raw_masks.invert_mask = ماسک الٹائیں
+dialog.raw_masks.overlay = ماسک اوورلے دکھائیں
+dialog.raw_masks.erase = مٹائیں
+dialog.raw_masks.local = اس ماسک میں ایڈجسٹمنٹس
+dialog.raw_masks.delete_mask = ماسک حذف کریں
+dialog.raw_masks.detecting = شناخت ہو رہی ہے…
+dialog.raw_masks.hint_empty = تصویر کے کسی حصے کو ایڈجسٹ کرنے کے لیے ماسک شامل کریں۔ ہر ماسک کے اپنے سلائیڈرز ہوتے ہیں۔
+dialog.raw_masks.hint_brush = برش میں شامل کرنے کے لیے کینوس پر پینٹ کریں؛ اسے ہٹانے کے لیے مٹائیں آن کریں۔
+dialog.raw_masks.hint_gradient = تدریج کو منتقل کرنے کے لیے ہینڈلز گھسیٹیں، یا نئی تدریج بنانے کے لیے کینوس پر گھسیٹیں۔
 dialog.fonts.title = غائب فونٹس
 dialog.fonts.install_named = {name} نصب کریں
 dialog.fonts.no_document = کوئی دستاویز کھلی نہیں، اس لیے جانچنے کو کچھ نہیں۔

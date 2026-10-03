@@ -51,6 +51,25 @@ dialog.filter.camera_raw_development = Развијање Camera Raw датот�
 dialog.filter.reset_as_shot = Врати на снимљено
 dialog.filter.raw_note = Поново развија активни слој из оригиналних података сензора.
 dialog.filter.note = Примењује се на активни слој, унутар избора.
+
+# Camera Raw локална подешавања
+dialog.raw_masks.title = Маске
+dialog.raw_masks.new_mask = Нова маска:
+dialog.raw_masks.add_to_mask = Додај у маску:
+dialog.raw_masks.linear = Линеарни градијент
+dialog.raw_masks.subject = Изабери субјекат
+dialog.raw_masks.sky = Изабери небо
+dialog.raw_masks.background = Изабери позадину
+dialog.raw_masks.mask_n = Маска {n}
+dialog.raw_masks.invert_mask = Обрни маску
+dialog.raw_masks.overlay = Прикажи преклоп маске
+dialog.raw_masks.erase = Брисање
+dialog.raw_masks.local = Подешавања у овој маски
+dialog.raw_masks.delete_mask = Избриши маску
+dialog.raw_masks.detecting = Откривање…
+dialog.raw_masks.hint_empty = Додајте маску да бисте подесили део слике. Свака маска има сопствене клизаче.
+dialog.raw_masks.hint_brush = Сликајте по платну да бисте додали четкици; укључите „Брисање“ да бисте уклонили.
+dialog.raw_masks.hint_gradient = Превуците ручице да померите градијент или превуците по платну да нацртате нови.
 dialog.fonts.title = Недостајући фонтови
 dialog.fonts.install_named = Инсталирај {name}
 dialog.fonts.no_document = Ниједан документ није отворен, па нема шта да се провери.

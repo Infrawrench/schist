@@ -60,6 +60,25 @@ dialog.filter.camera_raw_development = Żvilupp ta' Camera Raw
 dialog.filter.reset_as_shot = Irrisettja għal Kif Ittieħed
 dialog.filter.raw_note = Jerġa' jiżviluppa s-saff attiv mid-data oriġinali tas-senser tiegħu.
 dialog.filter.note = Japplika għas-saff attiv, ġewwa l-għażla.
+
+# Camera Raw: aġġustamenti lokali
+dialog.raw_masks.title = Maskri
+dialog.raw_masks.new_mask = Maskra ġdida:
+dialog.raw_masks.add_to_mask = Żid mal-maskra:
+dialog.raw_masks.linear = Gradjent Lineari
+dialog.raw_masks.subject = Agħżel is-Suġġett
+dialog.raw_masks.sky = Agħżel is-Sema
+dialog.raw_masks.background = Agħżel l-Isfond
+dialog.raw_masks.mask_n = Maskra {n}
+dialog.raw_masks.invert_mask = Aqleb il-maskra
+dialog.raw_masks.overlay = Uri l-maskra fuq l-istampa
+dialog.raw_masks.erase = Ħassar
+dialog.raw_masks.local = Aġġustamenti f'din il-maskra
+dialog.raw_masks.delete_mask = Ħassar il-Maskra
+dialog.raw_masks.detecting = Qed isir is-sejbien…
+dialog.raw_masks.hint_empty = Żid maskra biex taġġusta parti mill-istampa. Kull maskra għandha s-slajders tagħha.
+dialog.raw_masks.hint_brush = Pinġi fuq il-kanvas biex iżżid mal-pinzell; ixgħel Ħassar biex tneħħih.
+dialog.raw_masks.hint_gradient = Kaxkar il-manki biex iċċaqlaq il-gradjent, jew kaxkar fuq il-kanvas biex tpinġi wieħed ġdid.
 dialog.fonts.title = Tipografiji Neqsin
 dialog.fonts.install_named = Installa {name}
 dialog.fonts.no_document = Ma hemm ebda dokument miftuħ, għalhekk ma hemm xejn x'jiġi ċċekkjat.

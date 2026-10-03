@@ -16,6 +16,7 @@ pub use ink::{InkChannel, InkChannelInfo, InkPreview, InkTiles};
 pub mod mask_refine;
 pub mod path;
 pub mod raw;
+pub mod raw_masks;
 pub mod resample;
 pub mod selection;
 pub mod smart;
@@ -39,6 +40,10 @@ pub use layer::{
 };
 pub use path::{Anchor, SubPath, VectorPath, VectorShape};
 pub use raw::{RawDevelopment, RawSettings};
+pub use raw_masks::{
+    BrushStroke, DetectedKind, LocalAdjustments, LocalMask, MaskCombine, MaskComponent, MaskRaster,
+    MaskShape,
+};
 pub use resample::{Affine, Filter};
 pub use selection::{SelectOp, Selection};
 pub use smart::SmartObject;

@@ -67,6 +67,25 @@ dialog.filter.reset_as_shot = Tetapkan Semula kepada Seperti Dirakam
 dialog.filter.raw_note = Membangunkan semula lapisan aktif daripada data penderia asalnya.
 dialog.filter.note = Digunakan pada lapisan aktif, di dalam pilihan.
 
+# Pelarasan setempat Camera Raw
+dialog.raw_masks.title = Topeng
+dialog.raw_masks.new_mask = Topeng baharu:
+dialog.raw_masks.add_to_mask = Tambah pada topeng:
+dialog.raw_masks.linear = Kecerunan Linear
+dialog.raw_masks.subject = Pilih Subjek
+dialog.raw_masks.sky = Pilih Langit
+dialog.raw_masks.background = Pilih Latar Belakang
+dialog.raw_masks.mask_n = Topeng {n}
+dialog.raw_masks.invert_mask = Songsangkan topeng
+dialog.raw_masks.overlay = Tunjukkan tindanan topeng
+dialog.raw_masks.erase = Padam
+dialog.raw_masks.local = Pelarasan dalam topeng ini
+dialog.raw_masks.delete_mask = Hapus Topeng
+dialog.raw_masks.detecting = Mengesan…
+dialog.raw_masks.hint_empty = Tambah topeng untuk melaraskan sebahagian gambar. Setiap topeng mempunyai peluncurnya sendiri.
+dialog.raw_masks.hint_brush = Cat pada kanvas untuk menambah pada berus; hidupkan Padam untuk membuangnya.
+dialog.raw_masks.hint_gradient = Seret pemegang untuk mengalihkan kecerunan, atau seret pada kanvas untuk melukis yang baharu.
+
 # Fon Hilang
 dialog.fonts.title = Fon Hilang
 dialog.fonts.install_named = Pasang {name}

@@ -43,6 +43,25 @@ dialog.filter.camera_raw_development = Desvolopament Camera Raw
 dialog.filter.reset_as_shot = Restablir coma a la presa
 dialog.filter.raw_note = Desvolopa tornarmai lo calc actiu a partir de las donadas originalas del captador.
 dialog.filter.note = S'aplica al calc actiu, dins la seleccion.
+
+# Camera Raw: ajustaments locals
+dialog.raw_masks.title = Masquetas
+dialog.raw_masks.new_mask = Masqueta novèla:
+dialog.raw_masks.add_to_mask = Apondre a la masqueta:
+dialog.raw_masks.linear = Degradat linear
+dialog.raw_masks.subject = Seleccionar lo subjècte
+dialog.raw_masks.sky = Seleccionar lo cèl
+dialog.raw_masks.background = Seleccionar lo fons
+dialog.raw_masks.mask_n = Masqueta {n}
+dialog.raw_masks.invert_mask = Inversar la masqueta
+dialog.raw_masks.overlay = Afichar la superposicion de la masqueta
+dialog.raw_masks.erase = Escafar
+dialog.raw_masks.local = Ajustaments dins aquesta masqueta
+dialog.raw_masks.delete_mask = Suprimir la masqueta
+dialog.raw_masks.detecting = Deteccion…
+dialog.raw_masks.hint_empty = Apondètz una masqueta per ajustar una part de l'imatge. Cada masqueta a sos pròpris cursors.
+dialog.raw_masks.hint_brush = Pintatz sus la tela per apondre a la bròssa; activatz Escafar per la levar.
+dialog.raw_masks.hint_gradient = Fasètz lisar las poignadas per desplaçar lo degradat, o fasètz lisar sus la tela per ne dessenhar un novèl.
 dialog.fonts.title = Poliças mancantas
 dialog.fonts.install_named = Installar {name}
 dialog.fonts.no_document = Cap de document es pas dobèrt, doncas i a pas res de verificar.

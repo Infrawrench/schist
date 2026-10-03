@@ -33,7 +33,8 @@ pub(super) fn filter_dialog(
         .flex()
         .flex_col()
         .gap_1()
-        .max_h(px(420.0))
+        // Camera Raw's masks add a second list of sliders under the first.
+        .max_h(px(if raw_development { 560.0 } else { 420.0 }))
         .overflow_y_scroll();
     if id == "filter.lens_correction" {
         body = lens_profile_controls(body, ws, state, &values, cx);
@@ -100,6 +101,7 @@ pub(super) fn filter_dialog(
             },
             cx,
         ));
+        body = raw_mask_controls(body, ws, cx);
     }
     // A filter that takes an image gets a row to choose one with. This
     // is Photoshop's "Choose a displacement map" dialog, except that it
@@ -198,7 +200,7 @@ pub(super) fn filter_dialog(
                 }),
         );
 
-    if canvas_controls {
+    if canvas_controls && !raw_development {
         body = body.child(
             div()
                 .text_size(px(11.0))
@@ -225,8 +227,10 @@ pub(super) fn filter_dialog(
                 // with a progress modal. Pixel filters can also submit
                 // asynchronously in the browser; preserve their Busy modal.
                 if ws.is_raw_redevelopment(id) {
+                    // Closing ends the mask session, so take its masks first.
+                    let masks = ws.take_raw_mask_edits();
                     ws.close_modal(cx);
-                    ws.apply_filter(id, &apply_values, cx);
+                    ws.apply_raw_filter(&apply_values, masks, cx);
                 } else {
                     ws.apply_filter(id, &apply_values, cx);
                     if matches!(ws.modal, Some(Modal::Filter { .. }))
@@ -241,7 +245,9 @@ pub(super) fn filter_dialog(
     schist_ui::Modal::new(name)
         .width(360.0)
         .dim_background(false)
-        .canvas_controls(canvas_controls)
+        // A RAW development's masks are painted and dragged on the
+        // canvas, so its card always stands aside.
+        .canvas_controls(canvas_controls || raw_development)
         .backdrop(
             div()
                 .on_mouse_down(

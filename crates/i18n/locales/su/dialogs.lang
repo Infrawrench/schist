@@ -43,6 +43,25 @@ dialog.filter.camera_raw_development = Pangembangan Camera Raw
 dialog.filter.reset_as_shot = Setél Deui kana Hasil Potrét Asli
 dialog.filter.raw_note = Ngolah deui lapisan aktif tina data sénsor aslina.
 dialog.filter.note = Diterapkeun kana lapisan aktif, di jero pilihan.
+
+# Panyaluyuan lokal Camera Raw
+dialog.raw_masks.title = Masker
+dialog.raw_masks.new_mask = Masker anyar:
+dialog.raw_masks.add_to_mask = Tambahkeun kana masker:
+dialog.raw_masks.linear = Gradién Liniér
+dialog.raw_masks.subject = Pilih Subjék
+dialog.raw_masks.sky = Pilih Langit
+dialog.raw_masks.background = Pilih Latar Tukang
+dialog.raw_masks.mask_n = Masker {n}
+dialog.raw_masks.invert_mask = Balikkeun masker
+dialog.raw_masks.overlay = Témbongkeun tumpangan masker
+dialog.raw_masks.erase = Pupus
+dialog.raw_masks.local = Panyaluyuan dina masker ieu
+dialog.raw_masks.delete_mask = Hapus Masker
+dialog.raw_masks.detecting = Nuju ngadéteksi…
+dialog.raw_masks.hint_empty = Tambahkeun masker pikeun nyaluyukeun sabagian gambar. Unggal masker boga panggeser sorangan.
+dialog.raw_masks.hint_brush = Cét dina kanvas pikeun nambahan kana kuas; hurungkeun Pupus pikeun ngaleungitkeunana.
+dialog.raw_masks.hint_gradient = Séred gagang pikeun mindahkeun gradién, atawa séred dina kanvas pikeun ngagambar nu anyar.
 dialog.fonts.title = Font anu Leungit
 dialog.fonts.install_named = Pasang {name}
 dialog.fonts.no_document = Euweuh dokumén anu muka, jadi euweuh anu bisa dipariksa.

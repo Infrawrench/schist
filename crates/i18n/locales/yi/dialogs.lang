@@ -47,6 +47,25 @@ dialog.filter.camera_raw_development = Camera Raw־אַנטוויקלונג
 dialog.filter.reset_as_shot = צוריקשטעלן ווי פֿאָטאָגראַפֿירט
 dialog.filter.raw_note = אַנטוויקלט די אַקטיווע שיכט ווידער פֿון אירע אָריגינעלע סענסאָר־דאַטן.
 dialog.filter.note = ווערט אָנגענומען אויף דער אַקטיווער שיכט, אינעם אויסוואַל.
+
+# Camera Raw לאָקאַלע צופּאַסונגען
+dialog.raw_masks.title = מאַסקעס
+dialog.raw_masks.new_mask = נײַע מאַסקע:
+dialog.raw_masks.add_to_mask = צולייגן צו דער מאַסקע:
+dialog.raw_masks.linear = לינעאַרער קאָליר־איבערגאַנג
+dialog.raw_masks.subject = אויסקלײַבן סוביעקט
+dialog.raw_masks.sky = אויסקלײַבן הימל
+dialog.raw_masks.background = אויסקלײַבן הינטערגרונט
+dialog.raw_masks.mask_n = מאַסקע {n}
+dialog.raw_masks.invert_mask = איבערקערן מאַסקע
+dialog.raw_masks.overlay = ווײַזן מאַסקע־איבערלייג
+dialog.raw_masks.erase = אויסראַדירן
+dialog.raw_masks.local = צופּאַסונגען אין דער מאַסקע
+dialog.raw_masks.delete_mask = אויסמעקן מאַסקע
+dialog.raw_masks.detecting = מע דערקענט…
+dialog.raw_masks.hint_empty = לייגט צו אַ מאַסקע כּדי צופּאַסן אַ טייל פֿונעם בילד. יעדע מאַסקע האָט אירע אייגענע רוקערס.
+dialog.raw_masks.hint_brush = מאָלט אויף דער לײַוונט כּדי צולייגן צום באַרשט; צינדט אָן „אויסראַדירן“ כּדי עס אַוועקצונעמען.
+dialog.raw_masks.hint_gradient = שלעפּט די הענטלעך כּדי צו רירן דעם קאָליר־איבערגאַנג, אָדער שלעפּט אויף דער לײַוונט כּדי צו צייכענען אַ נײַעם.
 dialog.fonts.title = פֿעלנדיקע שריפֿטן
 dialog.fonts.install_named = אינסטאַלירן {name}
 dialog.fonts.no_document = קיין דאָקומענט איז נישט אָפֿן, איז נישטאָ וואָס צו קאָנטראָלירן.

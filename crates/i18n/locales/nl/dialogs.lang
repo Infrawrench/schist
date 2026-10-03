@@ -58,6 +58,25 @@ dialog.filter.reset_as_shot = Opname-instellingen herstellen
 dialog.filter.raw_note = Ontwikkelt de actieve laag opnieuw vanuit de oorspronkelijke sensorgegevens.
 dialog.filter.note = Wordt binnen de selectie op de actieve laag toegepast.
 
+# Camera Raw: lokale aanpassingen
+dialog.raw_masks.title = Maskers
+dialog.raw_masks.new_mask = Nieuw masker:
+dialog.raw_masks.add_to_mask = Toevoegen aan masker:
+dialog.raw_masks.linear = Lineair verloop
+dialog.raw_masks.subject = Onderwerp selecteren
+dialog.raw_masks.sky = Lucht selecteren
+dialog.raw_masks.background = Achtergrond selecteren
+dialog.raw_masks.mask_n = Masker {n}
+dialog.raw_masks.invert_mask = Masker omkeren
+dialog.raw_masks.overlay = Maskeroverlay tonen
+dialog.raw_masks.erase = Gummen
+dialog.raw_masks.local = Aanpassingen in dit masker
+dialog.raw_masks.delete_mask = Masker verwijderen
+dialog.raw_masks.detecting = Detecteren…
+dialog.raw_masks.hint_empty = Voeg een masker toe om een deel van de afbeelding aan te passen. Elk masker heeft eigen schuifregelaars.
+dialog.raw_masks.hint_brush = Schilder op het canvas om aan het penseel toe te voegen; zet Gummen aan om het weer weg te halen.
+dialog.raw_masks.hint_gradient = Sleep de grepen om het verloop te verplaatsen, of sleep op het canvas om een nieuw verloop te tekenen.
+
 dialog.fonts.title = Ontbrekende lettertypen
 dialog.fonts.install_named = {name} installeren
 dialog.fonts.no_document = Er is geen document geopend, dus er valt niets te controleren.

@@ -75,6 +75,9 @@ workspace.filters.raw_too_tall = RAW-ûntwikkeling is te heech
 workspace.filters.raw_size_changed = Grutte troch RAW-ûntwikkeling feroare yn {w} × {h}; de hjoeddeiske laach wurdt behâlden
 workspace.filters.raw_history = Camera Raw-ûntwikkeling
 workspace.filters.raw_applied = Camera Raw-ûntwikkeling tapast (bêste demosaic)
+workspace.raw_masks.no_model = {model} is net ynstallearre, dus dit masker kin net detektearre wurde.
+workspace.raw_masks.no_sky = Der is gjin loft fûn yn dizze ôfbylding.
+workspace.raw_masks.detect_failed = Maskerdeteksje mislearre: {error}
 
 workspace.image_size.done = Ofbyldingsgrutte: {w} × {h}
 workspace.image_size.bicubic_fallback = Ofbyldingsgrutte: {w} × {h} — it model {name} koe net laden wurde, dat bikubyske ynterpolaasje is ynstee brûkt

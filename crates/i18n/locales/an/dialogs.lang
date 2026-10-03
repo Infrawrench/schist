@@ -69,6 +69,25 @@ dialog.filter.reset_as_shot = Restablir a Como se prenió
 dialog.filter.raw_note = Torna a revelar a capa activa dende os datos orichinals d'o sensor.
 dialog.filter.note = S'aplica a la capa activa, dentro d'a selección.
 
+# Achustes locals de Camera Raw
+dialog.raw_masks.title = Mascaras
+dialog.raw_masks.new_mask = Nueva mascara:
+dialog.raw_masks.add_to_mask = Anyadir t'a mascara:
+dialog.raw_masks.linear = Degradau lineal
+dialog.raw_masks.subject = Seleccionar suchecto
+dialog.raw_masks.sky = Seleccionar cielo
+dialog.raw_masks.background = Seleccionar fondo
+dialog.raw_masks.mask_n = Mascara {n}
+dialog.raw_masks.invert_mask = Invertir mascara
+dialog.raw_masks.overlay = Amostrar superposición d'a mascara
+dialog.raw_masks.erase = Borrar
+dialog.raw_masks.local = Achustes en esta mascara
+dialog.raw_masks.delete_mask = Eliminar mascara
+dialog.raw_masks.detecting = Detectando…
+dialog.raw_masks.hint_empty = Anyade una mascara ta achustar una parte d'a imachen. Cada mascara tiene as suyas propias barras d'achuste.
+dialog.raw_masks.hint_brush = Pinta en o lienzo ta anyadir t'o pinzell; activa Borrar ta sacar-ne.
+dialog.raw_masks.hint_gradient = Arrocega os tiradors ta mover o degradau, u arrocega en o lienzo ta dibuixar-ne un nuevo.
+
 # Fuents que faltan
 dialog.fonts.title = Fuents que faltan
 dialog.fonts.install_named = Instalar {name}

@@ -63,6 +63,25 @@ dialog.filter.reset_as_shot = Buyisela Kwendlela Esathathwa Ngayo
 dialog.filter.raw_note = Kulungiswa godu ileya esebenzako ngedatha yesensa yokuthoma.
 dialog.filter.note = Kusetjenziswa eleyeni esebenzako, ngaphakathi kokukhethiweko.
 
+# Ukulungiswa kwendawo kwe-Camera Raw
+dialog.raw_masks.title = Iimfihli
+dialog.raw_masks.new_mask = Isifihli esitjha:
+dialog.raw_masks.add_to_mask = Engeza esifihlini:
+dialog.raw_masks.linear = Ukutjhuguluka Kombala Okuqondileko
+dialog.raw_masks.subject = Khetha Isihloko
+dialog.raw_masks.sky = Khetha Isibhakabhaka
+dialog.raw_masks.background = Khetha Ingemuva
+dialog.raw_masks.mask_n = Isifihli {n}
+dialog.raw_masks.invert_mask = Phendula isifihli
+dialog.raw_masks.overlay = Tjengisa isifihli ngaphezulu
+dialog.raw_masks.erase = Sula
+dialog.raw_masks.local = Ukulungiswa kwesifihli lesi
+dialog.raw_masks.delete_mask = Susa Isifihli
+dialog.raw_masks.detecting = Kuyatholwa…
+dialog.raw_masks.hint_empty = Engeza isifihli ukulungisa ingcenye yesithombe. Isifihli ngasinye sinamaslayida waso.
+dialog.raw_masks.hint_brush = Pende ekhanvasini ukwengeza ebhratjhini; vula u-Sula ukukususa.
+dialog.raw_masks.hint_gradient = Donsa iimbambo ukususa ukutjhuguluka kombala, namkha udonse ekhanvasini ukudweba okutjha.
+
 # Missing fonts
 dialog.fonts.title = Amafonti Angekhoyo
 dialog.fonts.install_named = Faka {name}

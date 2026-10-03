@@ -48,6 +48,25 @@ dialog.filter.camera_raw_development = Developo Camera Raw
 dialog.filter.reset_as_shot = Ripozar a quale fotografita
 dialog.filter.raw_note = Ridevelopas la aktiva strato de lua originala sensordati.
 dialog.filter.note = Aplikas a la aktiva strato, interne la selekto.
+
+# Lokala ajusti di Camera Raw
+dialog.raw_masks.title = Maski
+dialog.raw_masks.new_mask = Nova masko:
+dialog.raw_masks.add_to_mask = Adjuntar a masko:
+dialog.raw_masks.linear = Lineara gradiento
+dialog.raw_masks.subject = Selektar subjekto
+dialog.raw_masks.sky = Selektar cielo
+dialog.raw_masks.background = Selektar fundo
+dialog.raw_masks.mask_n = Masko {n}
+dialog.raw_masks.invert_mask = Inversigar masko
+dialog.raw_masks.overlay = Montrar superpozo di masko
+dialog.raw_masks.erase = Gumizar
+dialog.raw_masks.local = Ajusti en ca masko
+dialog.raw_masks.delete_mask = Efacar masko
+dialog.raw_masks.detecting = Detektante…
+dialog.raw_masks.hint_empty = Adjuntez masko por ajustar parto di la imajo. Singla masko havas sua propra glitili.
+dialog.raw_masks.hint_brush = Piktez sur la kanvaso por adjuntar a la pinselo; aktivigez Gumizar por forigar ol.
+dialog.raw_masks.hint_gradient = Traninez la manili por movar la gradiento, o traninez sur la kanvaso por desegnar nova.
 dialog.fonts.title = Mankanta tipari
 dialog.fonts.install_named = Instalar {name}
 dialog.fonts.no_document = Nula dokumento esas apertita, do esas nulo kontrolebla.

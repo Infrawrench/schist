@@ -687,12 +687,22 @@ fn make_layer(
         .find(|b| b.key == crate::smart::SMART_BLOCK_KEY)
         .and_then(|b| crate::smart::read_smart(&b.data, header.depth))
         .map(Box::new);
-    let raw = rec
+    let mut raw = rec
         .extras
         .iter()
         .find(|b| b.key == crate::raw::RAW_BLOCK_KEY)
         .and_then(|b| crate::raw::read_raw(&b.data))
         .map(Box::new);
+    let masks = raw.as_ref().and_then(|_| {
+        rec.extras
+            .iter()
+            .find(|b| b.key == crate::raw::MASKS_BLOCK_KEY)
+            .and_then(|b| crate::raw::read_masks(&b.data))
+    });
+    let masks_read = masks.is_some();
+    if let (Some(raw), Some(masks)) = (raw.as_mut(), masks) {
+        raw.masks = masks;
+    }
     let style = rec
         .extras
         .iter()
@@ -706,7 +716,10 @@ fn make_layer(
     let mut extras = if raw.is_some() {
         rec.extras
             .into_iter()
-            .filter(|block| block.key != crate::raw::RAW_BLOCK_KEY)
+            .filter(|block| {
+                block.key != crate::raw::RAW_BLOCK_KEY
+                    && !(masks_read && block.key == crate::raw::MASKS_BLOCK_KEY)
+            })
             .collect()
     } else {
         rec.extras

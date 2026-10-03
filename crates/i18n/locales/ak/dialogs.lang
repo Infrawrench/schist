@@ -53,6 +53,25 @@ dialog.filter.reset_as_shot = San Yɛ Sɛnea Wɔtwee No
 dialog.filter.raw_note = Ɛsan siesie layer a ɛreyɛ adwuma no fi ne original sensor data mu.
 dialog.filter.note = Ɛyɛ layer a ɛreyɛ adwuma no so adwuma, wɔ nea woapaw no mu.
 
+# Camera Raw: nsiesiei a ɛfa baabi pɔtee
+dialog.raw_masks.title = Kataanim Ahorow
+dialog.raw_masks.new_mask = Kataanim foforo:
+dialog.raw_masks.add_to_mask = Fa ka kataanim no ho:
+dialog.raw_masks.linear = Tee Gradient
+dialog.raw_masks.subject = Paw Adeɛ Titiriw
+dialog.raw_masks.sky = Paw Wim
+dialog.raw_masks.background = Paw Akyi
+dialog.raw_masks.mask_n = Kataanim {n}
+dialog.raw_masks.invert_mask = Dan kataanim no
+dialog.raw_masks.overlay = Kyerɛ kataanim no wɔ mfonini no so
+dialog.raw_masks.erase = Pepa
+dialog.raw_masks.local = Nsiesiei wɔ kataanim yi mu
+dialog.raw_masks.delete_mask = Pepa Kataanim
+dialog.raw_masks.detecting = Ɛrehwehwɛ…
+dialog.raw_masks.hint_empty = Fa kataanim ka ho na woasiesie mfonini no fã bi. Kataanim biara wɔ ne slider ahorow.
+dialog.raw_masks.hint_brush = Kyerɛw wɔ canvas no so na fa ka brush no ho; sɔ Pepa na yi fi hɔ.
+dialog.raw_masks.hint_gradient = Twe nsɔano no na tu gradient no, anaa twe wɔ canvas no so na twa foforo.
+
 dialog.fonts.title = Font Ahorow a Wɔanhu
 dialog.fonts.install_named = Fa {name} Gu So
 dialog.fonts.no_document = Document biara mmue, enti biribiara nni hɔ a wɔbɛhwɛ.

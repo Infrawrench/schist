@@ -95,6 +95,9 @@ workspace.filters.raw_too_tall = RAW 現像の結果が縦に大きすぎます
 workspace.filters.raw_size_changed = RAW 現像のサイズが {w} × {h} に変わりました。現在のレイヤーを維持します
 workspace.filters.raw_history = Camera Raw 現像
 workspace.filters.raw_applied = Camera Raw 現像を適用しました（最良のデモザイク）
+workspace.raw_masks.no_model = {model} がインストールされていないため、このマスクを検出できません。
+workspace.raw_masks.no_sky = この画像では空が見つかりませんでした。
+workspace.raw_masks.detect_failed = マスクの検出に失敗しました: {error}
 
 # ニューラル拡大による画像解像度の変更（filters.rs）。{name} はモデル
 workspace.image_size.done = 画像解像度：{w} × {h}

@@ -51,6 +51,25 @@ dialog.filter.camera_raw_development = Revelatge Camera Raw
 dialog.filter.reset_as_shot = Restableix com a presa
 dialog.filter.raw_note = Torna a revelar la capa activa a partir de les dades originals del sensor.
 dialog.filter.note = S'aplica a la capa activa, dins de la selecció.
+
+# Camera Raw: ajustos locals
+dialog.raw_masks.title = Màscares
+dialog.raw_masks.new_mask = Màscara nova:
+dialog.raw_masks.add_to_mask = Afegeix a la màscara:
+dialog.raw_masks.linear = Degradat lineal
+dialog.raw_masks.subject = Selecciona el subjecte
+dialog.raw_masks.sky = Selecciona el cel
+dialog.raw_masks.background = Selecciona el fons
+dialog.raw_masks.mask_n = Màscara {n}
+dialog.raw_masks.invert_mask = Inverteix la màscara
+dialog.raw_masks.overlay = Mostra la superposició de la màscara
+dialog.raw_masks.erase = Esborra
+dialog.raw_masks.local = Ajustos d'aquesta màscara
+dialog.raw_masks.delete_mask = Suprimeix la màscara
+dialog.raw_masks.detecting = S'està detectant…
+dialog.raw_masks.hint_empty = Afegiu una màscara per ajustar una part de la imatge. Cada màscara té els seus propis controls lliscants.
+dialog.raw_masks.hint_brush = Pinteu al llenç per afegir al pinzell; activeu Esborra per treure'n.
+dialog.raw_masks.hint_gradient = Arrossegueu les nanses per moure el degradat, o arrossegueu al llenç per dibuixar-ne un de nou.
 dialog.fonts.title = Tipus de lletra que falten
 dialog.fonts.install_named = Instal·la {name}
 dialog.fonts.no_document = No hi ha cap document obert, per tant no hi ha res per comprovar.

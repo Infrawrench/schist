@@ -47,6 +47,25 @@ dialog.filter.camera_raw_development = Camera Raw-framkalling
 dialog.filter.reset_as_shot = Set aftur til sum tikið
 dialog.filter.raw_note = Framkallar virka lagið av nýggjum úr upprunaligu sensordátunum.
 dialog.filter.note = Verður nýtt á virka lagið innan valið.
+
+# Staðbundnar tillagingar í Camera Raw
+dialog.raw_masks.title = Maskur
+dialog.raw_masks.new_mask = Nýggj maska:
+dialog.raw_masks.add_to_mask = Legg afturat masku:
+dialog.raw_masks.linear = Linjuligur stigvísur litur
+dialog.raw_masks.subject = Vel evni
+dialog.raw_masks.sky = Vel himmal
+dialog.raw_masks.background = Vel bakgrund
+dialog.raw_masks.mask_n = Maska {n}
+dialog.raw_masks.invert_mask = Vend masku
+dialog.raw_masks.overlay = Vís maskuyvirlag
+dialog.raw_masks.erase = Viska
+dialog.raw_masks.local = Tillagingar í hesi masku
+dialog.raw_masks.delete_mask = Strika masku
+dialog.raw_masks.detecting = Kannar…
+dialog.raw_masks.hint_empty = Legg eina masku afturat fyri at tillaga ein part av myndini. Hvør maska hevur sínar egnu skjúvarar.
+dialog.raw_masks.hint_brush = Mála á lørifti fyri at leggja afturat penslinum; slá Viska til fyri at taka burtur.
+dialog.raw_masks.hint_gradient = Drag handfongini fyri at flyta stigvísa litin, ella drag á lørifti fyri at tekna ein nýggjan.
 dialog.fonts.title = Stavsnið, ið mangla
 dialog.fonts.install_named = Legg {name} inn
 dialog.fonts.no_document = Einki skjal er opið, so einki er at kanna.

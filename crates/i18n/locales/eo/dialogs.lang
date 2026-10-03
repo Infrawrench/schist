@@ -47,6 +47,25 @@ dialog.filter.camera_raw_development = Disvolvado per Camera Raw
 dialog.filter.reset_as_shot = Restarigi laŭ la kaptaĵo
 dialog.filter.raw_note = Redisvolvas la aktivan tavolon el ĝiaj originalaj sensildatumoj.
 dialog.filter.note = Aplikiĝas al la aktiva tavolo ene de la elekto.
+
+# Lokaj alĝustigoj de Camera Raw
+dialog.raw_masks.title = Maskoj
+dialog.raw_masks.new_mask = Nova masko:
+dialog.raw_masks.add_to_mask = Aldoni al masko:
+dialog.raw_masks.linear = Lineara gradiento
+dialog.raw_masks.subject = Elekti subjekton
+dialog.raw_masks.sky = Elekti ĉielon
+dialog.raw_masks.background = Elekti fonon
+dialog.raw_masks.mask_n = Masko {n}
+dialog.raw_masks.invert_mask = Inversigi maskon
+dialog.raw_masks.overlay = Montri maskan surmetaĵon
+dialog.raw_masks.erase = Viŝi
+dialog.raw_masks.local = Alĝustigoj en ĉi tiu masko
+dialog.raw_masks.delete_mask = Forigi maskon
+dialog.raw_masks.detecting = Detektante…
+dialog.raw_masks.hint_empty = Aldonu maskon por alĝustigi parton de la bildo. Ĉiu masko havas siajn proprajn ŝovilojn.
+dialog.raw_masks.hint_brush = Pentru sur la kanvaso por aldoni al la peniko; ŝaltu Viŝi por forpreni ĝin.
+dialog.raw_masks.hint_gradient = Trenu la tenilojn por movi la gradienton, aŭ trenu sur la kanvaso por desegni novan.
 dialog.fonts.title = Mankantaj tiparoj
 dialog.fonts.install_named = Instali {name}
 dialog.fonts.no_document = Neniu dokumento estas malfermita, do estas nenio kontrolebla.

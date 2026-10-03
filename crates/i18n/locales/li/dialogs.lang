@@ -53,6 +53,25 @@ dialog.filter.reset_as_shot = Trök nao Es genome
 dialog.filter.raw_note = Óntwikkelt de actieve laog opnuuj vanaaf de originele sensorgegaeves.
 dialog.filter.note = Weurt binne de selectie op de actieve laog toegepas.
 
+# Camera Raw lokaal aanpassinge
+dialog.raw_masks.title = Maskers
+dialog.raw_masks.new_mask = Nui masker:
+dialog.raw_masks.add_to_mask = Aan masker toeveuge:
+dialog.raw_masks.linear = Lineair kleurverlaop
+dialog.raw_masks.subject = Óngerwerp selectere
+dialog.raw_masks.sky = Lóch selectere
+dialog.raw_masks.background = Achtergrondj selectere
+dialog.raw_masks.mask_n = Masker {n}
+dialog.raw_masks.invert_mask = Masker invertere
+dialog.raw_masks.overlay = Maskeroverlay tuune
+dialog.raw_masks.erase = Gumme
+dialog.raw_masks.local = Aanpassinge in dit masker
+dialog.raw_masks.delete_mask = Masker wisse
+dialog.raw_masks.detecting = Detectere…
+dialog.raw_masks.hint_empty = Veug 'n masker toe om 'n deil vaan de foto aan te passe. Edder masker haet zien eige schuifkes.
+dialog.raw_masks.hint_brush = Sjilder op 't canvas om aan de kwas toe te veuge; zet Gumme aan om 't weg te haole.
+dialog.raw_masks.hint_gradient = Sleep de hendels om 't kleurverlaop te verplaatse, of sleep op 't canvas om e nuuj te teikene.
+
 dialog.fonts.title = Óntbraekende booksjrifte
 dialog.fonts.install_named = {name} installere
 dialog.fonts.no_document = D'r is gein document aope, dus d'r is niks om te controlere.

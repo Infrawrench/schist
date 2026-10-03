@@ -47,6 +47,25 @@ dialog.filter.camera_raw_development = Okukola ku Camera Raw
 dialog.filter.reset_as_shot = Zzaawo nga bwe kyakubibwa
 dialog.filter.raw_note = Eddamu okukola layer ekola okuva mu data ya sensa eyasooka.
 dialog.filter.note = Kikyusa layer ekola, munda mu kirondeddwa.
+
+# Enkyukakyuka ez'ekitundu mu Camera Raw
+dialog.raw_masks.title = Mask
+dialog.raw_masks.new_mask = Mask empya:
+dialog.raw_masks.add_to_mask = Gattako ku mask:
+dialog.raw_masks.linear = Enkyukakyuka ya langi eyeegolokofu
+dialog.raw_masks.subject = Londa ekintu ekikulu
+dialog.raw_masks.sky = Londa eggulu
+dialog.raw_masks.background = Londa emabega
+dialog.raw_masks.mask_n = Mask {n}
+dialog.raw_masks.invert_mask = Kyusa mask
+dialog.raw_masks.overlay = Laga ekibikka ku mask
+dialog.raw_masks.erase = Sangula
+dialog.raw_masks.local = Enkyukakyuka mu mask eno
+dialog.raw_masks.delete_mask = Sangula Mask
+dialog.raw_masks.detecting = Kinoonya…
+dialog.raw_masks.hint_empty = Gattako mask okukyusa ekitundu ky'ekifaananyi. Buli mask erina ebisiikirizo byayo.
+dialog.raw_masks.hint_brush = Siiga ku lupapula okugattako ku bbulashi; ggulawo Sangula okugiggyako.
+dialog.raw_masks.hint_gradient = Walula emikono okutambuza enkyukakyuka ya langi, oba walula ku lupapula okukuba empya.
 dialog.fonts.title = Empandiika ezibulamu
 dialog.fonts.install_named = Teekamu {name}
 dialog.fonts.no_document = Tewali kiwandiiko kiggule, kale tewali kya kukebera.

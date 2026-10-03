@@ -71,6 +71,9 @@ workspace.filters.raw_too_tall = RAW wiñachiyqa ancha sayayniyuq
 workspace.filters.raw_size_changed = RAW wiñachiypa sayaynin {w} × {h} nisqaman tikrakurqa; kunan patata waqaychachkan
 workspace.filters.raw_history = Camera Raw wiñachiy
 workspace.filters.raw_applied = Camera Raw wiñachiy churasqa (aswan allin demosaico)
+workspace.raw_masks.no_model = {model} mana churasqachu, chayrayku kay maskarata mana tariyta atikunchu.
+workspace.raw_masks.no_sky = Kay rikch'aypi mana hanaq pacha tarikunchu.
+workspace.raw_masks.detect_failed = Maskara tariy mana atikurqanchu: {error}
 
 workspace.image_size.done = Rikch'aypa sayaynin: {w} × {h}
 workspace.image_size.bicubic_fallback = Rikch'aypa sayaynin: {w} × {h} — {name} modelo mana apamuy atikurqachu, chayrayku bicúbica rantinman churakurqa

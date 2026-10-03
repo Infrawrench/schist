@@ -95,6 +95,9 @@ workspace.filters.raw_too_tall = Die RAW-Entwicklung ist zu hoch
 workspace.filters.raw_size_changed = Größe der RAW-Entwicklung hat sich auf {w} × {h} geändert; die aktuelle Ebene bleibt erhalten
 workspace.filters.raw_history = Camera-Raw-Entwicklung
 workspace.filters.raw_applied = Camera-Raw-Entwicklung angewendet (bestes Demosaicing)
+workspace.raw_masks.no_model = {model} ist nicht installiert, daher kann diese Maske nicht erkannt werden.
+workspace.raw_masks.no_sky = In diesem Bild wurde kein Himmel gefunden.
+workspace.raw_masks.detect_failed = Maskenerkennung fehlgeschlagen: {error}
 
 # Bildgröße über ein neuronales Modell (filters.rs); {name} ist das Modell
 workspace.image_size.done = Bildgröße: {w} × {h}

@@ -71,6 +71,9 @@ workspace.filters.raw_too_tall = Zotsatira za RAW ndi zazitali kwambiri
 workspace.filters.raw_size_changed = Kukula kwa zotsatira za RAW kwasintha kukhala {w} × {h}; layer yamakono ikusungidwa
 workspace.filters.raw_history = Kukonza ndi Camera Raw
 workspace.filters.raw_applied = Kukonza ndi Camera Raw kwagwiritsidwa ntchito (demosaic yabwino kwambiri)
+workspace.raw_masks.no_model = {model} sinayikidwe, choncho chophimba ichi sichingazindikiridwe.
+workspace.raw_masks.no_sky = Palibe thambo lomwe lapezeka pa chithunzi ichi.
+workspace.raw_masks.detect_failed = Kuzindikira chophimba kwalephera: {error}
 
 workspace.image_size.done = Kukula kwa chithunzi: {w} × {h}
 workspace.image_size.bicubic_fallback = Kukula kwa chithunzi: {w} × {h} — model ya {name} sinatseguke, choncho bicubic yalowa m'malo

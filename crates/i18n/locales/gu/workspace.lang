@@ -80,6 +80,9 @@ workspace.filters.raw_too_tall = RAW ડેવલપમેન્ટ ખૂબ �
 workspace.filters.raw_size_changed = RAW ડેવલપમેન્ટનું કદ {w} × {h} થયું; વર્તમાન લેયર જાળવવામાં આવ્યું
 workspace.filters.raw_history = Camera Raw ડેવલપમેન્ટ
 workspace.filters.raw_applied = Camera Raw ડેવલપમેન્ટ લાગુ થયું (શ્રેષ્ઠ ડીમોઝેઇક)
+workspace.raw_masks.no_model = {model} ઇન્સ્ટોલ કરેલ નથી, તેથી આ માસ્ક શોધી શકાતો નથી.
+workspace.raw_masks.no_sky = આ ચિત્રમાં કોઈ આકાશ મળ્યું નથી.
+workspace.raw_masks.detect_failed = માસ્ક શોધ નિષ્ફળ થઈ: {error}
 
 # Image Size
 workspace.image_size.done = છબીનું કદ: {w} × {h}

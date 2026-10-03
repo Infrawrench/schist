@@ -67,6 +67,25 @@ dialog.filter.reset_as_shot = Endurstilla eins og tekið
 dialog.filter.raw_note = Framkallar virka lagið aftur úr upprunalegum skynjaragögnum þess.
 dialog.filter.note = Beitir síunni á virka lagið innan valsins.
 
+# Staðbundnar Camera Raw-stillingar
+dialog.raw_masks.title = Grímur
+dialog.raw_masks.new_mask = Ný gríma:
+dialog.raw_masks.add_to_mask = Bæta við grímu:
+dialog.raw_masks.linear = Línulegur litstigull
+dialog.raw_masks.subject = Velja myndefni
+dialog.raw_masks.sky = Velja himin
+dialog.raw_masks.background = Velja bakgrunn
+dialog.raw_masks.mask_n = Gríma {n}
+dialog.raw_masks.invert_mask = Snúa grímu við
+dialog.raw_masks.overlay = Sýna grímuyfirlag
+dialog.raw_masks.erase = Stroka út
+dialog.raw_masks.local = Stillingar í þessari grímu
+dialog.raw_masks.delete_mask = Eyða grímu
+dialog.raw_masks.detecting = Greini…
+dialog.raw_masks.hint_empty = Bættu við grímu til að stilla hluta myndarinnar. Hver gríma hefur sína eigin sleða.
+dialog.raw_masks.hint_brush = Málaðu á strigann til að bæta við pensilinn; kveiktu á Stroka út til að fjarlægja.
+dialog.raw_masks.hint_gradient = Dragðu handföngin til að færa litstigulinn, eða dragðu á striganum til að teikna nýjan.
+
 # Leturgerðir vantar
 dialog.fonts.title = Leturgerðir vantar
 dialog.fonts.install_named = Setja upp {name}

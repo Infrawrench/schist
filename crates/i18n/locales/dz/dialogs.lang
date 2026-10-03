@@ -43,6 +43,25 @@ dialog.filter.camera_raw_development = Camera Raw བཟོ་སྦྱོར།
 dialog.filter.reset_as_shot = པར་བཏབ་དུས་ལྟར་སླར་སྒྲིག
 dialog.filter.raw_note = ད་ལྟོའི་བང་རིམ་དེ་ཁོ་རའི་ཚོར་ཆས་གནས་སྡུད་ངོ་མ་ལས་ལོག་བཟོ་སྦྱོར་འབདཝ་ཨིན།
 dialog.filter.note = སེལ་འཐུའི་ནང་འཁོད་ད་ལྟོའི་བང་རིམ་ལུ་འཇུགཔ་ཨིན།
+
+# Camera Raw ས་གནས་བདེ་སྒྲིག
+dialog.raw_masks.title = གདོང་ཁེབས་ཚུ།
+dialog.raw_masks.new_mask = གདོང་ཁེབས་གསརཔ་:
+dialog.raw_masks.add_to_mask = གདོང་ཁེབས་ནང་ཁ་སྐོང་:
+dialog.raw_masks.linear = ཐིག་ཕྲེང་ཚོས་རིམ།
+dialog.raw_masks.subject = གཙོ་བོ་སེལ་འཐུ།
+dialog.raw_masks.sky = ནམ་མཁའ་སེལ་འཐུ།
+dialog.raw_masks.background = རྒྱབ་ལྗོངས་སེལ་འཐུ།
+dialog.raw_masks.mask_n = གདོང་ཁེབས་ {n}
+dialog.raw_masks.invert_mask = གདོང་ཁེབས་ལོག་སྒྱུར།
+dialog.raw_masks.overlay = གདོང་ཁེབས་ཀྱི་ཁེབས་རིམ་སྟོན།
+dialog.raw_masks.erase = ཀྲེག
+dialog.raw_masks.local = གདོང་ཁེབས་འདི་ནང་གི་བདེ་སྒྲིག
+dialog.raw_masks.delete_mask = གདོང་ཁེབས་བཏོན་གཏང་།
+dialog.raw_masks.detecting = ཤེས་རྟོགས་འབད་དོ…
+dialog.raw_masks.hint_empty = པར་གྱི་ཆ་ཤས་ཅིག་བདེ་སྒྲིག་འབད་ནིའི་དོན་ལུ་ གདོང་ཁེབས་ཅིག་ཁ་སྐོང་འབད། གདོང་ཁེབས་རེ་རེ་ལུ་ རང་སོའི་འདྲེད་ཆས་ཡོདཔ་ཨིན།
+dialog.raw_masks.hint_brush = སྨྱུག་རྩེ་ལུ་ཁ་སྐོང་འབད་ནིའི་དོན་ལུ་ རས་གཞི་གུ་ཚོན་བྱུག། དེ་བཏོན་གཏང་ནིའི་དོན་ལུ་ ཀྲེག་ཁ་ཕྱེ།
+dialog.raw_masks.hint_gradient = ཚོས་རིམ་སྤོ་ནིའི་དོན་ལུ་ འཛིན་ཆས་ཚུ་འདྲུད། ཡང་ན་ ཚོས་རིམ་གསརཔ་ཅིག་འབྲི་ནིའི་དོན་ལུ་ རས་གཞི་གུ་འདྲུད།
 dialog.fonts.title = མ་ཚང་པའི་ཡིག་གཟུགས།
 dialog.fonts.install_named = {name} གཞི་བཙུགས།
 dialog.fonts.no_document = ཡིག་ཆ་ཁ་ཕྱེ་སྟེ་མེདཔ་ལས་ཞིབ་དཔྱད་འབད་ནི་ག་ནི་ཡང་མེད།

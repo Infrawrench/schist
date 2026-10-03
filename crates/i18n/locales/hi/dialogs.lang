@@ -47,6 +47,25 @@ dialog.filter.camera_raw_development = Camera Raw डेवलपमेंट
 dialog.filter.reset_as_shot = कैप्चर के समय की सेटिंग पर रीसेट करें
 dialog.filter.raw_note = सक्रिय लेयर को उसके मूल सेंसर डेटा से फिर डेवलप करता है।
 dialog.filter.note = सक्रिय लेयर पर, चयन होने पर उसके भीतर, लागू होता है।
+
+# Camera Raw स्थानीय समायोजन
+dialog.raw_masks.title = मास्क
+dialog.raw_masks.new_mask = नया मास्क:
+dialog.raw_masks.add_to_mask = मास्क में जोड़ें:
+dialog.raw_masks.linear = रैखिक ग्रेडिएंट
+dialog.raw_masks.subject = विषय चुनें
+dialog.raw_masks.sky = आकाश चुनें
+dialog.raw_masks.background = पृष्ठभूमि चुनें
+dialog.raw_masks.mask_n = मास्क {n}
+dialog.raw_masks.invert_mask = मास्क उलटें
+dialog.raw_masks.overlay = मास्क ओवरले दिखाएँ
+dialog.raw_masks.erase = मिटाएँ
+dialog.raw_masks.local = इस मास्क में समायोजन
+dialog.raw_masks.delete_mask = मास्क हटाएँ
+dialog.raw_masks.detecting = पहचाना जा रहा है…
+dialog.raw_masks.hint_empty = चित्र के किसी भाग को समायोजित करने के लिए एक मास्क जोड़ें। हर मास्क के अपने स्लाइडर होते हैं।
+dialog.raw_masks.hint_brush = ब्रश में जोड़ने के लिए कैनवास पर पेंट करें; उसे हटाने के लिए "मिटाएँ" चालू करें।
+dialog.raw_masks.hint_gradient = ग्रेडिएंट को खिसकाने के लिए हैंडल खींचें, या नया ग्रेडिएंट बनाने के लिए कैनवास पर खींचें।
 dialog.fonts.title = अनुपलब्ध फ़ॉन्ट
 dialog.fonts.install_named = {name} इंस्टॉल करें
 dialog.fonts.no_document = कोई दस्तावेज़ खुला नहीं है, इसलिए जाँचने के लिए कुछ नहीं है।

@@ -83,6 +83,9 @@ workspace.filters.raw_too_tall = RAW garapena altuegia da
 workspace.filters.raw_size_changed = RAW garapenaren tamaina {w} × {h} bihurtu da; uneko geruza mantenduko da
 workspace.filters.raw_history = Camera Raw garapena
 workspace.filters.raw_applied = Camera Raw garapena aplikatuta (demosaikorik onena)
+workspace.raw_masks.no_model = {model} ez dago instalatuta; beraz, ezin da maskara hau hauteman.
+workspace.raw_masks.no_sky = Ez da zerurik aurkitu irudi honetan.
+workspace.raw_masks.detect_failed = Maskara hautemateak huts egin du: {error}
 
 # Irudiaren tamaina eskalatzaile neuronal batekin
 workspace.image_size.done = Irudiaren tamaina: {w} × {h}

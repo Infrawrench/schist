@@ -47,6 +47,25 @@ dialog.filter.camera_raw_development = پردازش Camera Raw
 dialog.filter.reset_as_shot = بازنشانی به حالت ثبت‌شده
 dialog.filter.raw_note = لایهٔ فعال را دوباره از داده‌های اصلی حسگر پردازش می‌کند.
 dialog.filter.note = روی لایهٔ فعال و درون ناحیهٔ انتخاب اعمال می‌شود.
+
+# تنظیمات موضعی Camera Raw
+dialog.raw_masks.title = ماسک‌ها
+dialog.raw_masks.new_mask = ماسک جدید:
+dialog.raw_masks.add_to_mask = افزودن به ماسک:
+dialog.raw_masks.linear = گرادیان خطی
+dialog.raw_masks.subject = انتخاب سوژه
+dialog.raw_masks.sky = انتخاب آسمان
+dialog.raw_masks.background = انتخاب پس‌زمینه
+dialog.raw_masks.mask_n = ماسک {n}
+dialog.raw_masks.invert_mask = وارونه‌سازی ماسک
+dialog.raw_masks.overlay = نمایش پوشش ماسک
+dialog.raw_masks.erase = پاک کردن
+dialog.raw_masks.local = تنظیمات این ماسک
+dialog.raw_masks.delete_mask = حذف ماسک
+dialog.raw_masks.detecting = در حال تشخیص…
+dialog.raw_masks.hint_empty = برای تنظیم بخشی از تصویر یک ماسک اضافه کنید. هر ماسک لغزنده‌های مخصوص خود را دارد.
+dialog.raw_masks.hint_brush = روی بوم نقاشی کنید تا به قلم‌مو افزوده شود؛ برای برداشتن آن، «پاک کردن» را روشن کنید.
+dialog.raw_masks.hint_gradient = دستگیره‌ها را بکشید تا گرادیان جابه‌جا شود، یا روی بوم بکشید تا گرادیان تازه‌ای رسم کنید.
 dialog.fonts.title = قلم‌های موجود نیست
 dialog.fonts.install_named = نصب {name}
 dialog.fonts.no_document = سندی باز نیست، پس چیزی برای بررسی وجود ندارد.

@@ -53,6 +53,25 @@ dialog.filter.reset_as_shot = გადაღების პარამეტ�
 dialog.filter.raw_note = აქტიურ ფენას საწყისი სენსორის მონაცემებიდან ხელახლა ამუშავებს.
 dialog.filter.note = გამოიყენება აქტიურ ფენაზე, მონიშნული არის ფარგლებში.
 
+# Camera Raw-ის ლოკალური კორექციები
+dialog.raw_masks.title = ნიღბები
+dialog.raw_masks.new_mask = ახალი ნიღაბი:
+dialog.raw_masks.add_to_mask = ნიღბზე დამატება:
+dialog.raw_masks.linear = წრფივი გრადიენტი
+dialog.raw_masks.subject = ობიექტის არჩევა
+dialog.raw_masks.sky = ცის არჩევა
+dialog.raw_masks.background = ფონის არჩევა
+dialog.raw_masks.mask_n = ნიღაბი {n}
+dialog.raw_masks.invert_mask = ნიღბის ინვერსია
+dialog.raw_masks.overlay = ნიღბის გადაფარვის ჩვენება
+dialog.raw_masks.erase = საშლელი
+dialog.raw_masks.local = ამ ნიღბის კორექციები
+dialog.raw_masks.delete_mask = ნიღბის წაშლა
+dialog.raw_masks.detecting = ამოცნობა…
+dialog.raw_masks.hint_empty = დაამატეთ ნიღაბი სურათის ნაწილის დასარეგულირებლად. თითოეულ ნიღაბს საკუთარი სლაიდერები აქვს.
+dialog.raw_masks.hint_brush = ფუნჯზე დასამატებლად დახატეთ ტილოზე; მოსაშორებლად ჩართეთ „საშლელი“.
+dialog.raw_masks.hint_gradient = გრადიენტის გადასაადგილებლად გადაათრიეთ სახელურები, ან გადაათრიეთ ტილოზე ახლის დასახატად.
+
 dialog.fonts.title = ნაკლული შრიფტები
 dialog.fonts.install_named = {name}-ის დაყენება
 dialog.fonts.no_document = დოკუმენტი გახსნილი არ არის, ამიტომ შესამოწმებელიც არაფერია.

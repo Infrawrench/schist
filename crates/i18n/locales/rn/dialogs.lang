@@ -54,6 +54,25 @@ dialog.filter.reset_as_shot = Gusubiza ku vyafashwe
 dialog.filter.raw_note = Bisubira gutunganya urwego rukora bivanye n'amakuru y'inkomoko ya sensor.
 dialog.filter.note = Bikoreshwa ku rwego rukora, imbere mu vyatoranijwe.
 
+# Ihinduranya ry'ibice muri Camera Raw
+dialog.raw_masks.title = Amasike
+dialog.raw_masks.new_mask = Masike nshya:
+dialog.raw_masks.add_to_mask = Ongera kuri masike:
+dialog.raw_masks.linear = Urukurikirane rugororotse
+dialog.raw_masks.subject = Hitamwo ikintu nyamukuru
+dialog.raw_masks.sky = Hitamwo ijuru
+dialog.raw_masks.background = Hitamwo inyuma
+dialog.raw_masks.mask_n = Masike {n}
+dialog.raw_masks.invert_mask = Hindukiza masike
+dialog.raw_masks.overlay = Erekana igipfuko ca masike
+dialog.raw_masks.erase = Gufuta
+dialog.raw_masks.local = Ihinduranya muri iyi masike
+dialog.raw_masks.delete_mask = Futa masike
+dialog.raw_masks.detecting = Biriko birarondera…
+dialog.raw_masks.hint_empty = Ongerako masike kugira uhindure igice c'ishusho. Masike imwe yose ifise ivyo kunyerereza vyayo.
+dialog.raw_masks.hint_brush = Siga ku gitambara kugira wongere ku gisigisho; fungura Gufuta kugira ubikureho.
+dialog.raw_masks.hint_gradient = Kwegera ivyo gufatirako kugira wimure urukurikirane, canke ukwegere ku gitambara kugira ushushanye urushasha.
+
 dialog.fonts.title = Amafonti abuze
 dialog.fonts.install_named = Gushiramwo {name}
 dialog.fonts.no_document = Nta nyandiko yuguruye, rero nta co gusuzuma.

@@ -180,8 +180,10 @@ flow, file handling, and session lifetime.
 Camera raws open through the pure-Rust `schist-codec-raw` decoder, the
 same code the desktop runs; there is no library to load and nothing is
 refused on the web that the desktop would open. Camera Raw development is
-the same too: the original capture and its settings stay with the layer and
-round-trip through downloaded PSD/PSB files. Browser previews cannot leave
+the same too: the original capture, its settings and its
+[local adjustment masks](camera-raw-masks.md) stay with the layer and
+round-trip through downloaded PSD/PSB files. Like the previews, Select
+Subject and Select Sky can pause the interface on a large capture. Browser previews cannot leave
 the main thread, so they use the fast demosaic path but can still pause the
 interface longer than their desktop equivalents on a large capture.
 

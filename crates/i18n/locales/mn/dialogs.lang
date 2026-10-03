@@ -67,6 +67,25 @@ dialog.filter.reset_as_shot = Зураг авсан төлөвт нь буцаа
 dialog.filter.raw_note = Идэвхтэй давхаргыг мэдрэгчийн эх өгөгдлөөс нь дахин боловсруулна.
 dialog.filter.note = Сонголтын доторх идэвхтэй давхаргад хэрэглэнэ.
 
+# Camera Raw: хэсэгчилсэн тохируулга
+dialog.raw_masks.title = Маскууд
+dialog.raw_masks.new_mask = Шинэ маск:
+dialog.raw_masks.add_to_mask = Маскад нэмэх:
+dialog.raw_masks.linear = Шугаман градиент
+dialog.raw_masks.subject = Гол объект сонгох
+dialog.raw_masks.sky = Тэнгэр сонгох
+dialog.raw_masks.background = Арын дэвсгэр сонгох
+dialog.raw_masks.mask_n = Маск {n}
+dialog.raw_masks.invert_mask = Маскыг урвуулах
+dialog.raw_masks.overlay = Маскын бүрхүүлийг харуулах
+dialog.raw_masks.erase = Арилгах
+dialog.raw_masks.local = Энэ маск дахь тохируулгууд
+dialog.raw_masks.delete_mask = Маск устгах
+dialog.raw_masks.detecting = Илрүүлж байна…
+dialog.raw_masks.hint_empty = Зургийн тодорхой хэсгийг тохируулахын тулд маск нэмнэ үү. Маск бүр өөрийн гулсуургатай.
+dialog.raw_masks.hint_brush = Багсны хэсэгт нэмэхийн тулд канвас дээр будна уу; хасахын тулд «Арилгах»-ыг асаана уу.
+dialog.raw_masks.hint_gradient = Градиентыг зөөхийн тулд бариулуудыг чирнэ үү, эсвэл шинээр зурахын тулд канвас дээр чирнэ үү.
+
 # Дутуу фонтууд
 dialog.fonts.title = Дутуу фонтууд
 dialog.fonts.install_named = {name}-ийг суулгах

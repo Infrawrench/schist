@@ -9,6 +9,16 @@ fn effect(pos: vec2<i32>) -> vec4<f32> {
     let p = read_pixel(pos);
     let q = auxiliary_pixel(pos);
     var color = p.rgb;
+    // Local adjustments: 6 packs a mask's coverage from the auxiliary plane
+    // into alpha, which every other mode passes along untouched; 7 blends
+    // that result over the original (the auxiliary) by it and puts the
+    // original's alpha back.
+    if mode == 6u {
+        return vec4<f32>(color, q.r);
+    }
+    if mode == 7u {
+        return vec4<f32>(mix(q.rgb, color, clamp(p.a, 0.0, 1.0)), q.a);
+    }
     if mode == 0u {
         if args[1] != 0.0 || args[2] != 0.0 {
             color.r = clamp(color.r * (1.0 + args[1] * 0.35), 0.0, 1.0);

@@ -51,6 +51,25 @@ dialog.filter.reset_as_shot = Gbugbɔ ɖe Ale Si Wota La Dzi
 dialog.filter.raw_note = Egbugbɔa layer si le dɔ wɔm la wɔ tso sensor ƒe nyatakaka gbãtɔ me.
 dialog.filter.note = Ezãa ɖe layer si le dɔ wɔm la ŋu, le tiatia la me.
 
+# Camera Raw ƒe teƒeɖeka ɖɔɖɔɖowo
+dialog.raw_masks.title = Ŋkugbãwo
+dialog.raw_masks.new_mask = Ŋkugbã yeye:
+dialog.raw_masks.add_to_mask = Tsɔe kpe ɖe ŋkugbã ŋu:
+dialog.raw_masks.linear = Linear Gradient
+dialog.raw_masks.subject = Tia Nu Vevitɔ
+dialog.raw_masks.sky = Tia Dziŋgɔli
+dialog.raw_masks.background = Tia Megbedeƒe
+dialog.raw_masks.mask_n = Ŋkugbã {n}
+dialog.raw_masks.invert_mask = Trɔ ŋkugbã megbe
+dialog.raw_masks.overlay = Ɖe ŋkugbã ƒe tsyɔnu fia
+dialog.raw_masks.erase = Tutui
+dialog.raw_masks.local = Ɖɔɖɔɖowo le ŋkugbã sia me
+dialog.raw_masks.delete_mask = Tutu Ŋkugbã
+dialog.raw_masks.detecting = Ele didim…
+dialog.raw_masks.hint_empty = Tsɔ ŋkugbã kpee be nàɖɔ nɔnɔmetata la ƒe akpa aɖe ɖo. Ŋkugbã ɖesiaɖe kple eya ŋutɔ ƒe sliderwo le.
+dialog.raw_masks.hint_brush = Si nu ɖe canvas la dzi be nàtsɔe akpe ɖe brush la ŋu; ʋu Tutui be nàɖee ɖa.
+dialog.raw_masks.hint_gradient = He asitsɔƒewo be nàʋu gradient la, alo he nu ɖe canvas la dzi be nàŋlɔ yeye.
+
 dialog.fonts.title = Ŋɔŋlɔdzesi Siwo Bu
 dialog.fonts.install_named = Ɖo {name}
 dialog.fonts.no_document = Agbalẽ aɖeke meʋu o, eyata nu aɖeke mele afima be woakpɔ o.

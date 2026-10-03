@@ -43,6 +43,25 @@ dialog.filter.camera_raw_development = Phát triển Camera Raw
 dialog.filter.reset_as_shot = Đặt lại như khi chụp
 dialog.filter.raw_note = Phát triển lại lớp đang hoạt động từ dữ liệu cảm biến gốc.
 dialog.filter.note = Áp dụng cho lớp đang hoạt động, bên trong vùng chọn.
+
+# Điều chỉnh cục bộ Camera Raw
+dialog.raw_masks.title = Mặt nạ
+dialog.raw_masks.new_mask = Mặt nạ mới:
+dialog.raw_masks.add_to_mask = Thêm vào mặt nạ:
+dialog.raw_masks.linear = Chuyển sắc tuyến tính
+dialog.raw_masks.subject = Chọn chủ thể
+dialog.raw_masks.sky = Chọn bầu trời
+dialog.raw_masks.background = Chọn nền
+dialog.raw_masks.mask_n = Mặt nạ {n}
+dialog.raw_masks.invert_mask = Đảo ngược mặt nạ
+dialog.raw_masks.overlay = Hiện lớp phủ mặt nạ
+dialog.raw_masks.erase = Tẩy
+dialog.raw_masks.local = Điều chỉnh trong mặt nạ này
+dialog.raw_masks.delete_mask = Xóa mặt nạ
+dialog.raw_masks.detecting = Đang phát hiện…
+dialog.raw_masks.hint_empty = Thêm mặt nạ để điều chỉnh một phần của ảnh. Mỗi mặt nạ có các thanh trượt riêng.
+dialog.raw_masks.hint_brush = Tô lên khung vẽ để thêm vào vùng cọ; bật Tẩy để loại bỏ vùng đó.
+dialog.raw_masks.hint_gradient = Kéo các tay cầm để di chuyển chuyển sắc, hoặc kéo trên khung vẽ để vẽ chuyển sắc mới.
 dialog.fonts.title = Phông chữ bị thiếu
 dialog.fonts.install_named = Cài {name}
 dialog.fonts.no_document = Không có tài liệu nào đang mở nên không có gì để kiểm tra.

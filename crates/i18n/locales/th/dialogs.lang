@@ -43,6 +43,25 @@ dialog.filter.camera_raw_development = การพัฒนา Camera Raw
 dialog.filter.reset_as_shot = รีเซ็ตเป็นค่าขณะถ่าย
 dialog.filter.raw_note = พัฒนาเลเยอร์ที่กำลังใช้งานอีกครั้งจากข้อมูลเซนเซอร์ต้นฉบับ
 dialog.filter.note = ใช้กับเลเยอร์ที่กำลังใช้งานภายในส่วนที่เลือก
+
+# การปรับเฉพาะจุดของ Camera Raw
+dialog.raw_masks.title = มาสก์
+dialog.raw_masks.new_mask = มาสก์ใหม่:
+dialog.raw_masks.add_to_mask = เพิ่มลงในมาสก์:
+dialog.raw_masks.linear = การไล่ระดับสีแนวเส้นตรง
+dialog.raw_masks.subject = เลือกวัตถุหลัก
+dialog.raw_masks.sky = เลือกท้องฟ้า
+dialog.raw_masks.background = เลือกพื้นหลัง
+dialog.raw_masks.mask_n = มาสก์ {n}
+dialog.raw_masks.invert_mask = กลับด้านมาสก์
+dialog.raw_masks.overlay = แสดงภาพซ้อนทับของมาสก์
+dialog.raw_masks.erase = ลบ
+dialog.raw_masks.local = การปรับในมาสก์นี้
+dialog.raw_masks.delete_mask = ลบมาสก์
+dialog.raw_masks.detecting = กำลังตรวจหา…
+dialog.raw_masks.hint_empty = เพิ่มมาสก์เพื่อปรับบางส่วนของภาพ แต่ละมาสก์มีแถบเลื่อนของตัวเอง
+dialog.raw_masks.hint_brush = ระบายบนผืนผ้าใบเพื่อเพิ่มลงในแปรง เปิด ลบ เพื่อนำส่วนนั้นออก
+dialog.raw_masks.hint_gradient = ลากจุดจับเพื่อย้ายการไล่ระดับสี หรือลากบนผืนผ้าใบเพื่อวาดอันใหม่
 dialog.fonts.title = แบบอักษรที่ขาดหาย
 dialog.fonts.install_named = ติดตั้ง {name}
 dialog.fonts.no_document = ไม่มีเอกสารเปิดอยู่ จึงไม่มีสิ่งให้ตรวจสอบ

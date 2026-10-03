@@ -43,6 +43,25 @@ dialog.filter.camera_raw_development = Pengembangan Camera Raw
 dialog.filter.reset_as_shot = Atur Ulang ke Saat Dipotret
 dialog.filter.raw_note = Mengembangkan ulang lapisan aktif dari data sensor aslinya.
 dialog.filter.note = Diterapkan ke lapisan aktif di dalam pilihan.
+
+# Penyesuaian lokal Camera Raw
+dialog.raw_masks.title = Masker
+dialog.raw_masks.new_mask = Masker baru:
+dialog.raw_masks.add_to_mask = Tambahkan ke masker:
+dialog.raw_masks.linear = Gradien Linear
+dialog.raw_masks.subject = Pilih Subjek
+dialog.raw_masks.sky = Pilih Langit
+dialog.raw_masks.background = Pilih Latar Belakang
+dialog.raw_masks.mask_n = Masker {n}
+dialog.raw_masks.invert_mask = Balikkan masker
+dialog.raw_masks.overlay = Tampilkan hamparan masker
+dialog.raw_masks.erase = Penghapus
+dialog.raw_masks.local = Penyesuaian dalam masker ini
+dialog.raw_masks.delete_mask = Hapus Masker
+dialog.raw_masks.detecting = Mendeteksi…
+dialog.raw_masks.hint_empty = Tambahkan masker untuk menyesuaikan sebagian gambar. Setiap masker memiliki penggesernya sendiri.
+dialog.raw_masks.hint_brush = Lukis di kanvas untuk menambah area kuas; aktifkan Penghapus untuk menguranginya.
+dialog.raw_masks.hint_gradient = Seret pegangan untuk memindahkan gradien, atau seret di kanvas untuk menggambar gradien baru.
 dialog.fonts.title = Font yang Hilang
 dialog.fonts.install_named = Instal {name}
 dialog.fonts.no_document = Tidak ada dokumen yang terbuka, sehingga tidak ada yang dapat diperiksa.

@@ -43,6 +43,25 @@ dialog.filter.camera_raw_development = Atiaʻe Camera Raw
 dialog.filter.reset_as_shot = Toe Seti i le Taimi na Puʻe ai
 dialog.filter.raw_note = Toe atiaʻe le vaega galue mai faamatalaga muamua o le sensor.
 dialog.filter.note = Faaaogā i le vaega galue, i totonu o le filifiliga.
+
+# Fetuunaiga faalotoifale a Camera Raw
+dialog.raw_masks.title = Ufimata
+dialog.raw_masks.new_mask = Ufimata fou:
+dialog.raw_masks.add_to_mask = Faaopoopo i le ufimata:
+dialog.raw_masks.linear = Fesuiaʻiga Laina
+dialog.raw_masks.subject = Filifili le Autū
+dialog.raw_masks.sky = Filifili le Lagi
+dialog.raw_masks.background = Filifili le Pito i Tua
+dialog.raw_masks.mask_n = Ufimata {n}
+dialog.raw_masks.invert_mask = Fesuiaʻi le ufimata
+dialog.raw_masks.overlay = Faaali le ufiufi o le ufimata
+dialog.raw_masks.erase = Soloia
+dialog.raw_masks.local = Fetuunaiga i lenei ufimata
+dialog.raw_masks.delete_mask = Tape le Ufimata
+dialog.raw_masks.detecting = O loo suʻesuʻeina…
+dialog.raw_masks.hint_empty = Faaopoopo se ufimata e fetuunai ai se vaega o le ata. E iai i ufimata taʻitasi ana lava faaseʻe.
+dialog.raw_masks.hint_brush = Vali i luga o le tapoleni e faaopoopo i le pulumu; ki le Soloia e aveese ai.
+dialog.raw_masks.hint_gradient = Toso le ʻau e faagaoioi ai le fesuiaʻiga, pe toso i luga o le tapoleni e tusi ai se mea fou.
 dialog.fonts.title = Ituaiga Mataʻitusi ua Leiloa
 dialog.fonts.install_named = Faapipii {name}
 dialog.fonts.no_document = E leai se pepa o tatala, o lea e leai se mea e siaki.

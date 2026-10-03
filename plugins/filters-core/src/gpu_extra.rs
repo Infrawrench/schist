@@ -663,3 +663,63 @@ fn aperture(
     }
     args
 }
+
+/// Camera Raw's local adjustments as one resident graph: the same stages as
+/// the global filter run over the whole frame, the mask's coverage is then
+/// packed into the result's alpha, and that is blended back over the input.
+/// Packing last keeps the blurs' alpha weighting identical to the CPU's. `values` uses the keys [`crate::camera_raw::apply_local`]
+/// documents; `coverage` has one sample a pixel.
+pub(crate) fn camera_raw_local(values: &FilterValues, coverage: Arc<[f32]>) -> FilterOperation {
+    let v = values.clone();
+    FilterOperation::Captured {
+        work_per_pixel: 160,
+        build: Arc::new(move |w, h| {
+            if coverage.len() != w.checked_mul(h)? {
+                return None;
+            }
+            let mut g = Graph::new(w, h)?;
+            g.p.buffers
+                .push(coverage.iter().flat_map(|&c| [c, c, c, c]).collect());
+            let cover = Source::Input(g.p.buffers.len());
+            let mut result = g.stage(
+                &CAMERA,
+                INPUT,
+                INPUT,
+                vec![
+                    0.0,
+                    v.get("temperature") / 100.0,
+                    v.get("tint") / 100.0,
+                    2f32.powf(v.get("exposure")),
+                    v.get("contrast") / 100.0,
+                    v.get("highlights") / 100.0,
+                    v.get("shadows") / 100.0,
+                    0.0,
+                    0.0,
+                ],
+            );
+            for (key, radius) in [("clarity", 12.0), ("dehaze", 48.0)] {
+                let amount = v.get(key) / 100.0;
+                if amount != 0.0 {
+                    let low = g.blur(result, radius);
+                    result = g.stage(&CAMERA, result, low, vec![1.0, amount]);
+                }
+            }
+            if v.get("saturation") != 0.0 {
+                result = g.stage(
+                    &CAMERA,
+                    result,
+                    result,
+                    vec![2.0, 0.0, v.get("saturation") / 100.0],
+                );
+            }
+            let (radius, amount) = crate::camera_raw::local_sharpness(v.get("sharpness"));
+            if amount != 0.0 {
+                let low = g.blur(result, radius);
+                result = g.stage(&CAMERA, result, low, vec![4.0, amount]);
+            }
+            let packed = g.stage(&CAMERA, result, cover, vec![6.0]);
+            let result = g.stage(&CAMERA, packed, INPUT, vec![7.0]);
+            Some(g.finish(result, 160))
+        }),
+    }
+}

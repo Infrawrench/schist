@@ -48,6 +48,25 @@ dialog.filter.camera_raw_development = Camera Raw ವಿಕಸನ
 dialog.filter.reset_as_shot = ತೆಗೆದ ಸ್ಥಿತಿಗೆ ಮರುಹೊಂದಿಸಿ
 dialog.filter.raw_note = ಸಕ್ರಿಯ ಲೇಯರ್ ಅನ್ನು ಅದರ ಮೂಲ ಸಂವೇದಕದ ದತ್ತಾಂಶದಿಂದ ಮತ್ತೆ ವಿಕಸಿಸುತ್ತದೆ.
 dialog.filter.note = ಆಯ್ಕೆಯೊಳಗಿನ ಸಕ್ರಿಯ ಲೇಯರ್‌ಗೆ ಅನ್ವಯಿಸುತ್ತದೆ.
+
+# Camera Raw ಸ್ಥಳೀಯ ಹೊಂದಾಣಿಕೆಗಳು
+dialog.raw_masks.title = ಮಾಸ್ಕ್‌ಗಳು
+dialog.raw_masks.new_mask = ಹೊಸ ಮಾಸ್ಕ್:
+dialog.raw_masks.add_to_mask = ಮಾಸ್ಕ್‌ಗೆ ಸೇರಿಸಿ:
+dialog.raw_masks.linear = ರೇಖೀಯ ವರ್ಣಕ್ರಮ
+dialog.raw_masks.subject = ವಿಷಯವನ್ನು ಆಯ್ಕೆಮಾಡಿ
+dialog.raw_masks.sky = ಆಕಾಶವನ್ನು ಆಯ್ಕೆಮಾಡಿ
+dialog.raw_masks.background = ಹಿನ್ನೆಲೆಯನ್ನು ಆಯ್ಕೆಮಾಡಿ
+dialog.raw_masks.mask_n = ಮಾಸ್ಕ್ {n}
+dialog.raw_masks.invert_mask = ಮಾಸ್ಕ್ ವಿಲೋಮಗೊಳಿಸಿ
+dialog.raw_masks.overlay = ಮಾಸ್ಕ್ ಓವರ್‌ಲೇ ತೋರಿಸಿ
+dialog.raw_masks.erase = ಅಳಿಸು
+dialog.raw_masks.local = ಈ ಮಾಸ್ಕ್‌ನಲ್ಲಿನ ಹೊಂದಾಣಿಕೆಗಳು
+dialog.raw_masks.delete_mask = ಮಾಸ್ಕ್ ತೆಗೆದುಹಾಕಿ
+dialog.raw_masks.detecting = ಪತ್ತೆಹಚ್ಚಲಾಗುತ್ತಿದೆ…
+dialog.raw_masks.hint_empty = ಚಿತ್ರದ ಒಂದು ಭಾಗವನ್ನು ಹೊಂದಿಸಲು ಮಾಸ್ಕ್ ಸೇರಿಸಿ. ಪ್ರತಿಯೊಂದು ಮಾಸ್ಕ್‌ಗೂ ತನ್ನದೇ ಆದ ಸ್ಲೈಡರ್‌ಗಳಿವೆ.
+dialog.raw_masks.hint_brush = ಬ್ರಷ್‌ಗೆ ಸೇರಿಸಲು ಕ್ಯಾನ್ವಾಸ್ ಮೇಲೆ ಪೇಂಟ್ ಮಾಡಿ; ಅದನ್ನು ತೆಗೆದುಹಾಕಲು ಅಳಿಸು ಆನ್ ಮಾಡಿ.
+dialog.raw_masks.hint_gradient = ವರ್ಣಕ್ರಮವನ್ನು ಸರಿಸಲು ಹ್ಯಾಂಡಲ್‌ಗಳನ್ನು ಎಳೆಯಿರಿ, ಅಥವಾ ಹೊಸದನ್ನು ಬಿಡಿಸಲು ಕ್ಯಾನ್ವಾಸ್ ಮೇಲೆ ಎಳೆಯಿರಿ.
 dialog.fonts.title = ಕಾಣೆಯಾದ ಫಾಂಟ್‌ಗಳು
 dialog.fonts.install_named = {name} ಸ್ಥಾಪಿಸಿ
 dialog.fonts.no_document = ಯಾವುದೇ ಡಾಕ್ಯುಮೆಂಟ್ ತೆರೆದಿಲ್ಲ, ಆದ್ದರಿಂದ ಪರಿಶೀಲಿಸಲು ಏನೂ ಇಲ್ಲ.

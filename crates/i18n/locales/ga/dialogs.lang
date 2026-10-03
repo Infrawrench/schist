@@ -59,6 +59,25 @@ dialog.filter.camera_raw_development = Forbairt Camera Raw
 dialog.filter.reset_as_shot = Athshocraigh mar a Gabhadh
 dialog.filter.raw_note = Forbraíonn sé an tsraith ghníomhach arís óna bunsonraí braiteora.
 dialog.filter.note = Cuirtear i bhfeidhm ar an tsraith ghníomhach é, laistigh den roghnúchán.
+
+# Coigeartuithe áitiúla Camera Raw
+dialog.raw_masks.title = Maisc
+dialog.raw_masks.new_mask = Masc nua:
+dialog.raw_masks.add_to_mask = Cuir leis an masc:
+dialog.raw_masks.linear = Grádán Líneach
+dialog.raw_masks.subject = Roghnaigh Ábhar
+dialog.raw_masks.sky = Roghnaigh Spéir
+dialog.raw_masks.background = Roghnaigh Cúlra
+dialog.raw_masks.mask_n = Masc {n}
+dialog.raw_masks.invert_mask = Inbhéartaigh an masc
+dialog.raw_masks.overlay = Taispeáin forleagan an mhaisc
+dialog.raw_masks.erase = Glan
+dialog.raw_masks.local = Coigeartuithe sa mhasc seo
+dialog.raw_masks.delete_mask = Scrios an Masc
+dialog.raw_masks.detecting = Á bhrath…
+dialog.raw_masks.hint_empty = Cuir masc leis chun cuid den phictiúr a choigeartú. Tá a sleamhnáin féin ag gach masc.
+dialog.raw_masks.hint_brush = Péinteáil ar an gcanbhás chun cur leis an scuab; cas air Glan chun é a bhaint.
+dialog.raw_masks.hint_gradient = Tarraing na hanlaí chun an grádán a bhogadh, nó tarraing ar an gcanbhás chun ceann nua a dhéanamh.
 dialog.fonts.title = Clónna ar Iarraidh
 dialog.fonts.install_named = Suiteáil {name}
 dialog.fonts.no_document = Níl aon cháipéis oscailte, mar sin níl aon rud le seiceáil.

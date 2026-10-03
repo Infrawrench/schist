@@ -47,6 +47,25 @@ dialog.filter.camera_raw_development = Pagbuo ng Camera Raw
 dialog.filter.reset_as_shot = I-reset sa As Shot
 dialog.filter.raw_note = Muling dine-develop ang aktibong layer mula sa orihinal nitong sensor data.
 dialog.filter.note = Inilalapat sa aktibong layer, sa loob ng seleksiyon.
+
+# Camera Raw: mga lokal na pagsasaayos
+dialog.raw_masks.title = Mga Maskara
+dialog.raw_masks.new_mask = Bagong maskara:
+dialog.raw_masks.add_to_mask = Idagdag sa maskara:
+dialog.raw_masks.linear = Linear Gradient
+dialog.raw_masks.subject = Piliin ang Paksa
+dialog.raw_masks.sky = Piliin ang Langit
+dialog.raw_masks.background = Piliin ang Background
+dialog.raw_masks.mask_n = Maskara {n}
+dialog.raw_masks.invert_mask = Baligtarin ang maskara
+dialog.raw_masks.overlay = Ipakita ang overlay ng maskara
+dialog.raw_masks.erase = Magbura
+dialog.raw_masks.local = Mga pagsasaayos sa maskarang ito
+dialog.raw_masks.delete_mask = Burahin ang Maskara
+dialog.raw_masks.detecting = Hinahanap…
+dialog.raw_masks.hint_empty = Magdagdag ng maskara para isaayos ang bahagi ng larawan. Bawat maskara ay may sariling mga slider.
+dialog.raw_masks.hint_brush = Magpinta sa canvas para magdagdag sa brush; i-on ang Magbura para alisin ito.
+dialog.raw_masks.hint_gradient = I-drag ang mga handle para ilipat ang gradient, o mag-drag sa canvas para gumuhit ng bago.
 dialog.fonts.title = Mga Nawawalang Font
 dialog.fonts.install_named = I-install ang {name}
 dialog.fonts.no_document = Walang bukas na dokumento, kaya walang masusuri.

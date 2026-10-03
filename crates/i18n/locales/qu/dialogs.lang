@@ -50,6 +50,25 @@ dialog.filter.reset_as_shot = Hapisqa kasqanman kutichiy
 dialog.filter.raw_note = Llamk'achkan patata qallariq sensor willakuyninmanta wakmanta wiñachin.
 dialog.filter.note = Llamk'achkan pataman, akllasqa ukhupi churakun.
 
+# Camera Raw nisqapa sapan suyu allichaykuna
+dialog.raw_masks.title = Maskarakuna
+dialog.raw_masks.new_mask = Musuq maskara:
+dialog.raw_masks.add_to_mask = Maskaraman yapay:
+dialog.raw_masks.linear = Siqiq gradiente
+dialog.raw_masks.subject = Sujetota akllay
+dialog.raw_masks.sky = Hanaq pachata akllay
+dialog.raw_masks.background = Qhipata akllay
+dialog.raw_masks.mask_n = Maskara {n}
+dialog.raw_masks.invert_mask = Maskarata tikray
+dialog.raw_masks.overlay = Maskarap qatanta rikuchiy
+dialog.raw_masks.erase = Pichay
+dialog.raw_masks.local = Kay maskarapi allichaykuna
+dialog.raw_masks.delete_mask = Maskarata qulluy
+dialog.raw_masks.detecting = Tarichkan…
+dialog.raw_masks.hint_empty = Rikch'aypa huk partinta allichanaykipaq huk maskarata yapay. Sapa maskarap kikin kuyuchinankuna kan.
+dialog.raw_masks.hint_brush = Lienzopi llimpiy pincelman yapanaykipaq; Pichayta hap'ichiy chayta qichunaykipaq.
+dialog.raw_masks.hint_gradient = Hap'inakunata aysay gradienteta kuyuchinaykipaq, utaq lienzopi aysay musuqta siq'inaykipaq.
+
 dialog.fonts.title = Chinkaq sanampa rikch'aykuna
 dialog.fonts.install_named = {name} churay
 dialog.fonts.no_document = Manam qillqa khipu kichasqa kanchu, chayrayku manam qhawana kanchu.

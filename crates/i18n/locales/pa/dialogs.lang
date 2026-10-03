@@ -47,6 +47,25 @@ dialog.filter.camera_raw_development = Camera Raw ਵਿਕਾਸ
 dialog.filter.reset_as_shot = ਖਿੱਚੇ ਰੂਪ ਉੱਤੇ ਰੀਸੈੱਟ ਕਰੋ
 dialog.filter.raw_note = ਸਰਗਰਮ ਪਰਤ ਨੂੰ ਇਸਦੇ ਮੂਲ ਸੈਂਸਰ ਡਾਟੇ ਤੋਂ ਮੁੜ ਵਿਕਸਿਤ ਕਰਦਾ ਹੈ।
 dialog.filter.note = ਚੋਣ ਅੰਦਰ ਸਰਗਰਮ ਪਰਤ ਉੱਤੇ ਲਾਗੂ ਹੁੰਦਾ ਹੈ।
+
+# Camera Raw ਸਥਾਨਕ ਵਿਵਸਥਾਵਾਂ
+dialog.raw_masks.title = ਮਾਸਕ
+dialog.raw_masks.new_mask = ਨਵਾਂ ਮਾਸਕ:
+dialog.raw_masks.add_to_mask = ਮਾਸਕ ਵਿੱਚ ਜੋੜੋ:
+dialog.raw_masks.linear = ਰੇਖਿਕ ਗਰੇਡੀਐਂਟ
+dialog.raw_masks.subject = ਵਿਸ਼ਾ ਚੁਣੋ
+dialog.raw_masks.sky = ਅਸਮਾਨ ਚੁਣੋ
+dialog.raw_masks.background = ਪਿਛੋਕੜ ਚੁਣੋ
+dialog.raw_masks.mask_n = ਮਾਸਕ {n}
+dialog.raw_masks.invert_mask = ਮਾਸਕ ਉਲਟਾਓ
+dialog.raw_masks.overlay = ਮਾਸਕ ਓਵਰਲੇ ਵਿਖਾਓ
+dialog.raw_masks.erase = ਮਿਟਾਓ
+dialog.raw_masks.local = ਇਸ ਮਾਸਕ ਵਿੱਚ ਵਿਵਸਥਾਵਾਂ
+dialog.raw_masks.delete_mask = ਮਾਸਕ ਹਟਾਓ
+dialog.raw_masks.detecting = ਪਛਾਣ ਰਿਹਾ ਹੈ…
+dialog.raw_masks.hint_empty = ਤਸਵੀਰ ਦੇ ਕਿਸੇ ਹਿੱਸੇ ਨੂੰ ਵਿਵਸਥਿਤ ਕਰਨ ਲਈ ਮਾਸਕ ਜੋੜੋ। ਹਰ ਮਾਸਕ ਦੇ ਆਪਣੇ ਸਲਾਈਡਰ ਹੁੰਦੇ ਹਨ।
+dialog.raw_masks.hint_brush = ਬੁਰਸ਼ ਵਿੱਚ ਜੋੜਨ ਲਈ ਕੈਨਵਸ ਉੱਤੇ ਪੇਂਟ ਕਰੋ; ਹਟਾਉਣ ਲਈ ਮਿਟਾਓ ਚਾਲੂ ਕਰੋ।
+dialog.raw_masks.hint_gradient = ਗਰੇਡੀਐਂਟ ਨੂੰ ਹਿਲਾਉਣ ਲਈ ਹੈਂਡਲ ਖਿੱਚੋ, ਜਾਂ ਨਵਾਂ ਬਣਾਉਣ ਲਈ ਕੈਨਵਸ ਉੱਤੇ ਖਿੱਚੋ।
 dialog.fonts.title = ਗੁੰਮ ਫ਼ੌਂਟ
 dialog.fonts.install_named = {name} ਇੰਸਟਾਲ ਕਰੋ
 dialog.fonts.no_document = ਕੋਈ ਦਸਤਾਵੇਜ਼ ਖੁੱਲ੍ਹਾ ਨਹੀਂ, ਇਸ ਲਈ ਜਾਂਚਣ ਲਈ ਕੁਝ ਨਹੀਂ।

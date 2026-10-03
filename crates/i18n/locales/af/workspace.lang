@@ -71,6 +71,9 @@ workspace.filters.raw_too_tall = RAW-ontwikkeling is te hoog
 workspace.filters.raw_size_changed = RAW-ontwikkeling se grootte het na {w} × {h} verander; die huidige laag word behou
 workspace.filters.raw_history = Camera Raw-ontwikkeling
 workspace.filters.raw_applied = Camera Raw-ontwikkeling toegepas (beste demosaïek)
+workspace.raw_masks.no_model = {model} is nie geïnstalleer nie, dus kan hierdie masker nie bespeur word nie.
+workspace.raw_masks.no_sky = Geen lug is in hierdie prent gevind nie.
+workspace.raw_masks.detect_failed = Maskerbespeuring het misluk: {error}
 
 workspace.image_size.done = Beeldgrootte: {w} × {h}
 workspace.image_size.bicubic_fallback = Beeldgrootte: {w} × {h} — die {name}-model wou nie laai nie, dus is bikubiese skalering gebruik

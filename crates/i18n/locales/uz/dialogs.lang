@@ -47,6 +47,25 @@ dialog.filter.camera_raw_development = Camera Raw ishlovi
 dialog.filter.reset_as_shot = Suratga olingan holatga tiklash
 dialog.filter.raw_note = Faol qatlamga uning asl sensor ma’lumotlaridan qayta ishlov beradi.
 dialog.filter.note = Faol qatlamning tanlov ichidagi qismiga qo‘llanadi.
+
+# Camera Raw mahalliy sozlamalari
+dialog.raw_masks.title = Niqoblar
+dialog.raw_masks.new_mask = Yangi niqob:
+dialog.raw_masks.add_to_mask = Niqobga qo‘shish:
+dialog.raw_masks.linear = Chiziqli gradient
+dialog.raw_masks.subject = Asosiy obyektni tanlash
+dialog.raw_masks.sky = Osmonni tanlash
+dialog.raw_masks.background = Fonni tanlash
+dialog.raw_masks.mask_n = Niqob {n}
+dialog.raw_masks.invert_mask = Niqobni teskarilash
+dialog.raw_masks.overlay = Niqob qoplamasini ko‘rsatish
+dialog.raw_masks.erase = Artish
+dialog.raw_masks.local = Ushbu niqobdagi sozlamalar
+dialog.raw_masks.delete_mask = Niqobni o‘chirish
+dialog.raw_masks.detecting = Aniqlanmoqda…
+dialog.raw_masks.hint_empty = Rasmning bir qismini sozlash uchun niqob qo‘shing. Har bir niqobning o‘z slayderlari bor.
+dialog.raw_masks.hint_brush = Mo‘yqalamga qo‘shish uchun tuvalda chizing; olib tashlash uchun Artish rejimini yoqing.
+dialog.raw_masks.hint_gradient = Gradientni siljitish uchun tutqichlarni torting yoki yangisini chizish uchun tuvalda torting.
 dialog.fonts.title = Yetishmayotgan shriftlar
 dialog.fonts.install_named = {name} shriftini o‘rnatish
 dialog.fonts.no_document = Hech qanday hujjat ochilmagan, tekshiriladigan narsa yo‘q.

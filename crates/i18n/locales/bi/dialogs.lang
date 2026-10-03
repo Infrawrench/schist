@@ -43,6 +43,25 @@ dialog.filter.camera_raw_development = Camera Raw Development
 dialog.filter.reset_as_shot = Setem Bakegen Olsem Taem Oli Tekem
 dialog.filter.raw_note = I developem active layer bakegen long original data blong sensor.
 dialog.filter.note = I aplae long active layer, insaed long selection.
+
+# Ol lokol ajastmen blong Camera Raw
+dialog.raw_masks.title = Ol Mask
+dialog.raw_masks.new_mask = Niu mask:
+dialog.raw_masks.add_to_mask = Ademap long mask:
+dialog.raw_masks.linear = Linear Gradient
+dialog.raw_masks.subject = Jusum Sabjek
+dialog.raw_masks.sky = Jusum Skae
+dialog.raw_masks.background = Jusum Bakgraon
+dialog.raw_masks.mask_n = Mask {n}
+dialog.raw_masks.invert_mask = Jenisim mask i go long oposit
+dialog.raw_masks.overlay = Soemaot kala blong mask antap
+dialog.raw_masks.erase = Waepemaot
+dialog.raw_masks.local = Ol ajastmen long mask ia
+dialog.raw_masks.delete_mask = Deletem Mask
+dialog.raw_masks.detecting = I stap faenem…
+dialog.raw_masks.hint_empty = Ademap wan mask blong ajastem wan pat blong pikja. Evri mask i gat ol slaeda blong hem nomo.
+dialog.raw_masks.hint_brush = Pentem long kanvas blong ademap long brush; tanem Waepemaot i on blong tekemaot.
+dialog.raw_masks.hint_gradient = Pulum ol handel blong muvum gradient, o pulum long kanvas blong drowem wan niu.
 dialog.fonts.title = Ol Font we Oli Lus
 dialog.fonts.install_named = Instolem {name}
 dialog.fonts.no_document = No gat dokumen i open, taswe no gat samting blong jekem.

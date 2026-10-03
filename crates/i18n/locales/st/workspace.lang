@@ -72,6 +72,9 @@ workspace.filters.raw_too_tall = Setšoantšo se lokisoang sa RAW se phahame hah
 workspace.filters.raw_size_changed = Boholo ba setšoantšo se lokisoang sa RAW bo fetohile ho {w} × {h}; mokhahlelo oa hona joale oa bolokoa
 workspace.filters.raw_history = Ntlafatso ea Camera Raw
 workspace.filters.raw_applied = Ntlafatso ea Camera Raw e sebelisitsoe (demosaic e ntle ka ho fetisisa)
+workspace.raw_masks.no_model = {model} ha e so kenngoe, kahoo maske ena e ke ke ea fumanoa.
+workspace.raw_masks.no_sky = Ha ho leholimo le fumanoeng setšoantšong sena.
+workspace.raw_masks.detect_failed = Ho fumana maske ho hlolehile: {error}
 
 workspace.image_size.done = Boholo ba setšoantšo: {w} × {h}
 workspace.image_size.bicubic_fallback = Boholo ba setšoantšo: {w} × {h} — motlolo oa {name} ha oa ka oa laela, kahoo ha sebelisoa bicubic

@@ -47,6 +47,25 @@ dialog.filter.camera_raw_development = Camera Raw உருவாக்கம்
 dialog.filter.reset_as_shot = எடுத்தபடி மீட்டமை
 dialog.filter.raw_note = செயலில் உள்ள அடுக்கை அதன் மூல உணரித் தரவிலிருந்து மீண்டும் உருவாக்கும்.
 dialog.filter.note = தேர்வுக்குள் செயலில் உள்ள அடுக்கிற்குப் பயன்படுத்தும்.
+
+# Camera Raw உள்ளூர் சரிசெய்தல்கள்
+dialog.raw_masks.title = முகமூடிகள்
+dialog.raw_masks.new_mask = புதிய முகமூடி:
+dialog.raw_masks.add_to_mask = முகமூடியில் சேர்:
+dialog.raw_masks.linear = நேரியல் வண்ணச்சரிவு
+dialog.raw_masks.subject = முதன்மைப் பொருளைத் தேர்ந்தெடு
+dialog.raw_masks.sky = வானத்தைத் தேர்ந்தெடு
+dialog.raw_masks.background = பின்னணியைத் தேர்ந்தெடு
+dialog.raw_masks.mask_n = முகமூடி {n}
+dialog.raw_masks.invert_mask = முகமூடியை எதிர்மறையாக்கு
+dialog.raw_masks.overlay = முகமூடி மேலடுக்கைக் காட்டு
+dialog.raw_masks.erase = அழி
+dialog.raw_masks.local = இந்த முகமூடியில் உள்ள சரிசெய்தல்கள்
+dialog.raw_masks.delete_mask = முகமூடியை நீக்கு
+dialog.raw_masks.detecting = கண்டறிகிறது…
+dialog.raw_masks.hint_empty = படத்தின் ஒரு பகுதியைச் சரிசெய்ய ஒரு முகமூடியைச் சேர்க்கவும். ஒவ்வொரு முகமூடிக்கும் அதற்கெனத் தனி நகர்த்திகள் உள்ளன.
+dialog.raw_masks.hint_brush = தூரிகையில் சேர்க்கக் கேன்வாஸில் வரையவும்; அதை அகற்ற அழி என்பதை இயக்கவும்.
+dialog.raw_masks.hint_gradient = வண்ணச்சரிவை நகர்த்தக் கைப்பிடிகளை இழுக்கவும், அல்லது புதிய ஒன்றை வரையக் கேன்வாஸில் இழுக்கவும்.
 dialog.fonts.title = காணாத எழுத்துருக்கள்
 dialog.fonts.install_named = {name} ஐ நிறுவு
 dialog.fonts.no_document = எந்த ஆவணமும் திறந்திருக்கவில்லை; எனவே சரிபார்க்க எதுவுமில்லை.

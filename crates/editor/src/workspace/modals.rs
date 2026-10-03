@@ -195,6 +195,7 @@ impl Workspace {
         // filter clears the preview first, so this only fires on cancel.
         self.filter_canvas = Default::default();
         self.cancel_filter_preview(cx);
+        self.end_raw_mask_editing();
         // Same for a cancelled Layer Style session: OK clears the modal
         // itself before it gets here, so reaching this means Cancel.
         self.revert_layer_style();

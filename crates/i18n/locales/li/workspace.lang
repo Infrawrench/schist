@@ -71,6 +71,9 @@ workspace.filters.raw_too_tall = RAW-óntwikkeling is te hoeg
 workspace.filters.raw_size_changed = Groeëtte van RAW-óntwikkeling verangerd nao {w} × {h}; de hujige laog blief behawwe
 workspace.filters.raw_history = Camera Raw-óntwikkeling
 workspace.filters.raw_applied = Camera Raw-óntwikkeling toegepas (bèste demosaicing)
+workspace.raw_masks.no_model = {model} is neet geïnstalleerd, dus dit masker kan neet gedetecteerd weure.
+workspace.raw_masks.no_sky = D'r is gein lóch gevonje in dees foto.
+workspace.raw_masks.detect_failed = Maskerdetectie mislök: {error}
 
 workspace.image_size.done = Aafbiljingsgroeëtte: {w} × {h}
 workspace.image_size.bicubic_fallback = Aafbiljingsgroeëtte: {w} × {h} — 't model {name} wouw neet laje, dus is bicubische interpolatie gebroek
