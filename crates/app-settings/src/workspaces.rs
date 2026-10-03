@@ -440,7 +440,7 @@ mod tests {
             ..Default::default()
         };
         let layout = layout.sanitized();
-        assert_eq!(layout.order.len(), 5);
+        assert_eq!(layout.order.len(), PANELS.len());
         assert_eq!(layout.order[0], "layers");
         assert_eq!(layout.hidden, ["color"]);
         assert_eq!(layout.width, None);

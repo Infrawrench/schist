@@ -63,7 +63,7 @@ const SAMPLE_FACTOR: i32 = 10;
 /// Pixels fed to a global palette, at most. Sampled evenly across frames.
 const GLOBAL_SAMPLE: usize = 1 << 20;
 
-fn transparent(p: &[u8]) -> bool {
+fn transparent(p: &[u8; 4]) -> bool {
     p[3] < 128
 }
 
@@ -87,7 +87,7 @@ impl Palette {
         let slots = if needs_transparency { 255 } else { 256 };
         let mut unique: Vec<[u8; 3]> = Vec::new();
         let mut seen = std::collections::HashSet::new();
-        for p in pixels.chunks_exact(4) {
+        for p in pixels.as_chunks::<4>().0.iter() {
             if transparent(p) {
                 continue;
             }
@@ -109,7 +109,7 @@ impl Palette {
             (unique.concat(), Quantizer::Exact(map))
         } else {
             let opaque: Vec<u8> = pixels
-                .chunks_exact(4)
+                .as_chunks::<4>().0.iter()
                 .filter(|p| !transparent(p))
                 .flat_map(|p| [p[0], p[1], p[2], 255])
                 .collect();
@@ -162,7 +162,7 @@ impl Palette {
         let n = rgba.len() / 4;
         let mut out = vec![0u8; n];
         if !dither || self.is_exact() {
-            for (i, p) in rgba.chunks_exact(4).enumerate() {
+            for (i, p) in rgba.as_chunks::<4>().0.iter().enumerate() {
                 out[i] = match self.transparent.filter(|_| transparent(p)) {
                     Some(t) => t,
                     None => self.index([p[0], p[1], p[2]]),
@@ -178,7 +178,7 @@ impl Palette {
             next.iter_mut().for_each(|e| *e = [0.0; 3]);
             for x in 0..width {
                 let i = y * width + x;
-                let p = &rgba[i * 4..i * 4 + 4];
+                let p: &[u8; 4] = rgba[i * 4..i * 4 + 4].try_into().unwrap_or(&[0; 4]);
                 if let Some(t) = self.transparent.filter(|_| transparent(p)) {
                     out[i] = t;
                     continue;
@@ -225,7 +225,7 @@ pub fn encode_gif(
     );
     let has_transparency = frames
         .iter()
-        .any(|f| f.rgba.chunks_exact(4).any(transparent));
+        .any(|f| f.rgba.as_chunks::<4>().0.iter().any(transparent));
     let dispose = match options.disposal {
         Disposal::Auto if has_transparency => gif::DisposalMethod::Background,
         Disposal::Auto | Disposal::Keep => gif::DisposalMethod::Keep,
@@ -237,7 +237,7 @@ pub fn encode_gif(
         let step = total.div_ceil(GLOBAL_SAMPLE).max(1);
         let sample: Vec<u8> = frames
             .iter()
-            .flat_map(|f| f.rgba.chunks_exact(4).step_by(step))
+            .flat_map(|f| f.rgba.as_chunks::<4>().0.iter().step_by(step))
             .flatten()
             .copied()
             .collect();
