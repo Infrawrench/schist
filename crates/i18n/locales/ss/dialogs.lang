@@ -7,6 +7,7 @@ dialog.layer_props.title = Timphawu Teluhlaka
 dialog.export.format = Ifomethi
 dialog.export.dither = Hlanganisa Emachashati
 dialog.export.dither_note = Hlanganisa emachashati nawunciphisela ku-8-bit
+dialog.export.effort = Umzamo
 dialog.export.export_ellipsis = Tfumela…
 dialog.batch.title = Cubungula Titfombe
 dialog.batch.note_edit.one = {n} sitfombe — kugcinwa njengeluhlelo lwegalari; sitfombe sekucala asitsintfwa.

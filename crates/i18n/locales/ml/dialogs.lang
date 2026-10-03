@@ -7,6 +7,7 @@ dialog.layer_props.title = ലെയർ ഗുണവിശേഷങ്ങൾ
 dialog.export.format = ഫോർമാറ്റ്
 dialog.export.dither = ഡിതർ
 dialog.export.dither_note = 8-ബിറ്റിലേക്കു കുറയ്ക്കുമ്പോൾ ഡിതർ ചെയ്യുക
+dialog.export.effort = പ്രയത്നം
 dialog.export.export_ellipsis = കയറ്റുമതി ചെയ്യുക…
 dialog.batch.title = ഫോട്ടോകൾ പ്രോസസ് ചെയ്യുക
 dialog.batch.note_edit.one = {n} ഫോട്ടോ — ഗാലറി തിരുത്തലായി സംരക്ഷിക്കും; അസ്സൽ ഒരിക്കലും മാറ്റില്ല.

@@ -7,6 +7,7 @@ dialog.layer_props.title = លក្ខណសម្បត្តិស្រទ�
 dialog.export.format = ទ្រង់ទ្រាយ
 dialog.export.dither = រំលាយកម្រិតពណ៌
 dialog.export.dither_note = រំលាយកម្រិតពណ៌ពេលបន្ថយទៅ 8 ប៊ីត
+dialog.export.effort = ការខិតខំ
 dialog.export.export_ellipsis = នាំចេញ…
 dialog.batch.title = ដំណើរការរូបថត
 dialog.batch.note_edit.other = រូបថតចំនួន {n} — រក្សាទុកជាការកែវិចិត្រសាល ហើយឯកសារដើមមិនត្រូវបានប៉ះពាល់ទេ។

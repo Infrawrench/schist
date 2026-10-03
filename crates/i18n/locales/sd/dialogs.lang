@@ -14,6 +14,7 @@ dialog.layer_props.title = پرت جون خاصيتون
 dialog.export.format = فارميٽ
 dialog.export.dither = ڊِدر
 dialog.export.dither_note = 8-bit تائين گهٽائڻ وقت ڊِدر ڪريو
+dialog.export.effort = ڪوشش
 dialog.export.export_ellipsis = برآمد ڪريو…
 
 # تصويرن تي گڏيل عمل

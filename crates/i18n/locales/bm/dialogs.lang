@@ -10,6 +10,7 @@ dialog.layer_props.title = Kaliki kunnafoniyaw
 dialog.export.format = Cogoya
 dialog.export.dither = Dither
 dialog.export.dither_note = Dither kɛ ni a bɛ dɔgɔya ka kɛ bit 8 ye
+dialog.export.effort = Cɛsiri
 dialog.export.export_ellipsis = Bɔ…
 
 dialog.batch.title = Fotow labɛn

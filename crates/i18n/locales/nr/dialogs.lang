@@ -10,6 +10,7 @@ dialog.layer_props.title = Izakhiwo Zeleya
 dialog.export.format = Ifomethi
 dialog.export.dither = Hlanganisa Amachaphaza
 dialog.export.dither_note = Hlanganisa amachaphaza nakuncitjhiselwa kumabhithi abu-8
+dialog.export.effort = Umzamo
 dialog.export.export_ellipsis = Thumela ngaphandle…
 
 # Batch

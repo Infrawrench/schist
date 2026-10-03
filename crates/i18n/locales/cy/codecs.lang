@@ -6,6 +6,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Delwedd Grai
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -40,6 +42,8 @@ codec.heif.msg.checksum_mismatch = Nid yw swm gwirio {name} yn cyfateb: disgwylw
 codec.heif.msg.imageio_cannot_read = Nid oedd ImageIO yn gallu darllen y cynhwysydd HEIF
 codec.heif.msg.container_empty = nid oes delwedd yn y cynhwysydd HEIF
 codec.heif.msg.imageio_cannot_decode = Nid oedd ImageIO yn gallu dadgodio'r brif ddelwedd
+
+codec.avif.msg.no_decoder = Ni all fersiwn porwr Schist agor delweddau AVIF. Agorwch y ffeil yn yr ap bwrdd gwaith, neu ei throsi i PNG yn gyntaf.
 
 # Native layered formats.
 codec.pdn.name = Paint.NET

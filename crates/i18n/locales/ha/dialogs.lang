@@ -8,6 +8,7 @@ dialog.layer_props.title = Halayen Shimfiɗa
 dialog.export.format = Tsari
 dialog.export.dither = Warwatsa Launi
 dialog.export.dither_note = Warwatsa launi lokacin ragewa zuwa bit 8
+dialog.export.effort = Ƙoƙari
 dialog.export.export_ellipsis = Fitar da…
 
 # Sarrafa Hotuna

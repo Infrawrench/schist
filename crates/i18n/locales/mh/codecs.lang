@@ -3,6 +3,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -29,6 +31,8 @@ codec.heif.msg.checksum_mismatch = Checksum in {name} ejjab jejjet: ekar aikuj {
 codec.heif.msg.imageio_cannot_read = ImageIO ejjab maroñ riit container in HEIF
 codec.heif.msg.container_empty = ejelọk pija ilo container in HEIF
 codec.heif.msg.imageio_cannot_decode = ImageIO ejjab maroñ decode pija eo eļaptata
+
+codec.avif.msg.no_decoder = Version eo an Schist ilo browser ejjab maroñ kōpellọk pija ko an AVIF. Kōpellọk file eo ilo desktop app, ak kōmmeja ñan PNG mokta.
 
 # Native layered formats.
 codec.pdn.name = Paint.NET

@@ -3,6 +3,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -29,6 +31,9 @@ codec.heif.msg.checksum_mismatch = Checksum {name} tidak cocok: diharapkan {expe
 codec.heif.msg.imageio_cannot_read = ImageIO tidak dapat membaca kontainer HEIF
 codec.heif.msg.container_empty = kontainer HEIF tidak berisi gambar
 codec.heif.msg.imageio_cannot_decode = ImageIO tidak dapat mendekode gambar utama
+
+# AVIF
+codec.avif.msg.no_decoder = Versi peramban Schist tidak dapat membuka gambar AVIF. Buka berkas di aplikasi desktop, atau konversi ke PNG terlebih dahulu.
 
 # Native layered formats.
 codec.pdn.name = Paint.NET

@@ -9,6 +9,7 @@ dialog.layer_props.title = Swihlawulekisi swa leyara
 dialog.export.format = Fomati
 dialog.export.dither = Hlanganisa mihlovo
 dialog.export.dither_note = Hlanganisa mihlovo loko ku hungutiwa ku ya eka 8-bit
+dialog.export.effort = Matshalatshala
 dialog.export.export_ellipsis = Rhumela…
 
 dialog.batch.title = Endla swifaniso

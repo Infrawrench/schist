@@ -15,6 +15,7 @@ dialog.layer_props.title = 图层属性
 dialog.export.format = 格式
 dialog.export.dither = 仿色
 dialog.export.dither_note = 降为 8 位时使用仿色
+dialog.export.effort = 压缩力度
 dialog.export.export_ellipsis = 导出…
 
 # 处理照片（图库的批处理对话框）

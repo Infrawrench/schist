@@ -3,6 +3,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -29,6 +31,9 @@ codec.heif.msg.checksum_mismatch = {name} చెక్‌సమ్ సరిప�
 codec.heif.msg.imageio_cannot_read = ImageIO HEIF కంటైనర్‌ను చదవలేకపోయింది
 codec.heif.msg.container_empty = HEIF కంటైనర్‌లో చిత్రం లేదు
 codec.heif.msg.imageio_cannot_decode = ImageIO ప్రధాన చిత్రాన్ని డీకోడ్ చేయలేకపోయింది
+
+# AVIF in the browser build, which has no AV1 decoder (it still exports AVIF).
+codec.avif.msg.no_decoder = Schist బ్రౌజర్ వెర్షన్ AVIF చిత్రాలను తెరవలేదు. ఫైల్‌ను డెస్క్‌టాప్ యాప్‌లో తెరవండి, లేదా ముందుగా దాన్ని PNGగా మార్చండి.
 
 # Native layered formats.
 codec.pdn.name = Paint.NET

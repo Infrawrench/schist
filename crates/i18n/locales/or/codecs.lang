@@ -3,6 +3,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -29,6 +31,8 @@ codec.heif.msg.checksum_mismatch = {name} ପାଇଁ ଚେକ୍‌ସମ୍ 
 codec.heif.msg.imageio_cannot_read = ImageIO HEIF କଣ୍ଟେନର୍ ପଢ଼ିପାରିଲା ନାହିଁ
 codec.heif.msg.container_empty = HEIF କଣ୍ଟେନର୍‌ରେ କୌଣସି ଛବି ନାହିଁ
 codec.heif.msg.imageio_cannot_decode = ImageIO ମୁଖ୍ୟ ଛବିକୁ ଡିକୋଡ୍ କରିପାରିଲା ନାହିଁ
+
+codec.avif.msg.no_decoder = Schist ର ବ୍ରାଉଜର୍ ସଂସ୍କରଣ AVIF ଛବି ଖୋଲିପାରିବ ନାହିଁ। ଫାଇଲ୍‌ଟିକୁ ଡେସ୍କଟପ୍ ଆପ୍‌ରେ ଖୋଲନ୍ତୁ, କିମ୍ବା ପ୍ରଥମେ ଏହାକୁ PNG ରେ ରୂପାନ୍ତର କରନ୍ତୁ।
 
 # Native layered formats.
 codec.pdn.name = Paint.NET

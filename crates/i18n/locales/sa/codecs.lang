@@ -3,6 +3,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -29,6 +31,8 @@ codec.heif.msg.checksum_mismatch = {name} कृते परीक्षणय�
 codec.heif.msg.imageio_cannot_read = ImageIO HEIF पात्रं पठितुं न शक्तम्
 codec.heif.msg.container_empty = HEIF पात्रे चित्रं नास्ति
 codec.heif.msg.imageio_cannot_decode = ImageIO प्रधानचित्रं विसङ्केतयितुं न शक्तम्
+
+codec.avif.msg.no_decoder = Schist-इत्यस्य जालदर्शकसंस्करणं AVIF-चित्राणि उद्घाटयितुं न शक्नोति। सञ्चिकां पटलसङ्गणकानुप्रयोगे उद्घाटयतु, अथवा प्रथमं PNG-रूपेण परिवर्तयतु।
 
 # Native layered formats.
 codec.pdn.name = Paint.NET

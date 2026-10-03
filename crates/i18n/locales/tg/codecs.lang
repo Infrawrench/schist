@@ -3,6 +3,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Файли хоми камера
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -29,6 +31,9 @@ codec.heif.msg.checksum_mismatch = Маблағи санҷишии {name} мув
 codec.heif.msg.imageio_cannot_read = ImageIO контейнери HEIF-ро хонда натавонист
 codec.heif.msg.container_empty = контейнери HEIF тасвир надорад
 codec.heif.msg.imageio_cannot_decode = ImageIO тасвири асосиро рамзкушоӣ карда натавонист
+
+# AVIF in the browser build, which has no AV1 decoder (it still exports AVIF).
+codec.avif.msg.no_decoder = Версияи браузерии Schist тасвирҳои AVIF-ро кушода наметавонад. Файлро дар барномаи мизи корӣ кушоед ё аввал онро ба PNG табдил диҳед.
 
 # Native layered formats.
 codec.pdn.name = Paint.NET

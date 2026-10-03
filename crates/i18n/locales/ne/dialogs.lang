@@ -7,6 +7,7 @@ dialog.layer_props.title = तहका गुणहरू
 dialog.export.format = ढाँचा
 dialog.export.dither = डिथर
 dialog.export.dither_note = 8-बिटमा घटाउँदा डिथर गर्नुहोस्
+dialog.export.effort = प्रयास
 dialog.export.export_ellipsis = निर्यात गर्नुहोस्…
 dialog.batch.title = तस्बिरहरू प्रशोधन गर्नुहोस्
 dialog.batch.note_edit.one = {n} तस्बिर — ग्यालरी सम्पादनका रूपमा बचत हुन्छ; मूल फाइल कहिल्यै छोइँदैन।

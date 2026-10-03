@@ -3,6 +3,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -29,6 +31,9 @@ codec.heif.msg.checksum_mismatch = A(z) {name} ellenőrzőösszege eltér: a vá
 codec.heif.msg.imageio_cannot_read = Az ImageIO nem tudta olvasni a HEIF-konténert
 codec.heif.msg.container_empty = a HEIF-konténer nem tartalmaz képet
 codec.heif.msg.imageio_cannot_decode = Az ImageIO nem tudta dekódolni az elsődleges képet
+
+# AVIF
+codec.avif.msg.no_decoder = A Schist böngészős változata nem tudja megnyitni az AVIF-képeket. Nyissa meg a fájlt az asztali alkalmazásban, vagy előbb konvertálja PNG formátumba.
 
 # Native layered formats.
 codec.pdn.name = Paint.NET

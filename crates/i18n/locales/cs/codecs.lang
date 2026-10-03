@@ -3,6 +3,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -29,6 +31,8 @@ codec.heif.msg.checksum_mismatch = Kontrolní součet souboru {name} nesouhlasí
 codec.heif.msg.imageio_cannot_read = ImageIO nemůže přečíst kontejner HEIF
 codec.heif.msg.container_empty = kontejner HEIF neobsahuje žádný obrázek
 codec.heif.msg.imageio_cannot_decode = ImageIO nemůže dekódovat primární obrázek
+
+codec.avif.msg.no_decoder = Verze Schistu pro prohlížeč nedokáže otevřít obrázky AVIF. Otevřete soubor v desktopové aplikaci, nebo jej nejprve převeďte do PNG.
 
 # Native layered formats.
 codec.pdn.name = Paint.NET

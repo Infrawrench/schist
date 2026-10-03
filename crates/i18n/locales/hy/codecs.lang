@@ -4,6 +4,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -30,6 +32,9 @@ codec.heif.msg.checksum_mismatch = {name}-ի ստուգագումարը չի հ�
 codec.heif.msg.imageio_cannot_read = ImageIO-ն չկարողացավ կարդալ HEIF բեռնարկղը
 codec.heif.msg.container_empty = HEIF բեռնարկղը պատկեր չի պարունակում
 codec.heif.msg.imageio_cannot_decode = ImageIO-ն չկարողացավ ապակոդավորել հիմնական պատկերը
+
+# AVIF
+codec.avif.msg.no_decoder = Schist-ի դիտարկիչային տարբերակը չի կարող բացել AVIF պատկերներ։ Բացեք ֆայլը աշխատասեղանի հավելվածում կամ նախ փոխարկեք այն PNG-ի։
 
 # Native layered formats.
 codec.pdn.name = Paint.NET

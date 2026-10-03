@@ -7,6 +7,7 @@ dialog.layer_props.title = Lagseginleikar
 dialog.export.format = Snið
 dialog.export.dither = Litjavning
 dialog.export.dither_note = Javn litstig, tá minkað verður niður í 8 bit
+dialog.export.effort = Átak
 dialog.export.export_ellipsis = Flyt út…
 dialog.batch.title = Viðger fotomyndir
 dialog.batch.note_edit.one = {n} fotomynd — goymd sum broyting í myndasavninum; upprunamyndin verður ongantíð broytt.

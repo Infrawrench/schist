@@ -3,6 +3,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -29,6 +31,9 @@ codec.heif.msg.checksum_mismatch = Tổng kiểm tra của {name} không khớp:
 codec.heif.msg.imageio_cannot_read = ImageIO không thể đọc vùng chứa HEIF
 codec.heif.msg.container_empty = vùng chứa HEIF không có ảnh
 codec.heif.msg.imageio_cannot_decode = ImageIO không thể giải mã ảnh chính
+
+# AVIF in the browser build, which has no AV1 decoder (it still exports AVIF).
+codec.avif.msg.no_decoder = Phiên bản trình duyệt của Schist không thể mở ảnh AVIF. Hãy mở tệp trong ứng dụng máy tính hoặc chuyển đổi tệp sang PNG trước.
 
 # Native layered formats.
 codec.pdn.name = Paint.NET

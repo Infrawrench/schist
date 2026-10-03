@@ -3,6 +3,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = רויע קאַמעראַ־טעקע
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -29,6 +31,9 @@ codec.heif.msg.checksum_mismatch = קאָנטראָל־סומע שטימט ני�
 codec.heif.msg.imageio_cannot_read = ImageIO האָט נישט געקענט לייענען דעם HEIF־קאַנטיינער
 codec.heif.msg.container_empty = דער HEIF־קאַנטיינער האָט נישט קיין בילד
 codec.heif.msg.imageio_cannot_decode = ImageIO האָט נישט געקענט דעקאָדירן דאָס הויפּטבילד
+
+# AVIF in the browser build, which has no AV1 decoder (it still exports AVIF).
+codec.avif.msg.no_decoder = די בלעטערער־ווערסיע פֿון Schist קען נישט עפֿענען AVIF־בילדער. עפֿנט די טעקע אין דער קאָמפּיוטער־אַפּליקאַציע, אָדער קאָנווערטירט זי פֿריִער אויף PNG.
 
 # Native layered formats.
 codec.pdn.name = Paint.NET

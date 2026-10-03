@@ -3,6 +3,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -29,6 +31,8 @@ codec.heif.msg.checksum_mismatch = {name} को चेकसम मिलेन
 codec.heif.msg.imageio_cannot_read = ImageIO ले HEIF कन्टेनर पढ्न सकेन
 codec.heif.msg.container_empty = HEIF कन्टेनरमा कुनै छवि छैन
 codec.heif.msg.imageio_cannot_decode = ImageIO ले मुख्य छवि डिकोड गर्न सकेन
+
+codec.avif.msg.no_decoder = Schist को ब्राउजर संस्करणले AVIF छविहरू खोल्न सक्दैन। फाइललाई डेस्कटप एपमा खोल्नुहोस्, वा पहिले PNG मा रूपान्तरण गर्नुहोस्।
 
 # Native layered formats.
 codec.pdn.name = Paint.NET

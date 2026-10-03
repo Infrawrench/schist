@@ -7,6 +7,7 @@ dialog.layer_props.title = Santharaguṇā
 dialog.export.format = Saṇṭhānaṃ
 dialog.export.dither = Vaṇṇabandhabhedanaṃ
 dialog.export.dither_note = 8-bit pamāṇaṃ hāpentā vaṇṇabandhaṃ bhindatha
+dialog.export.effort = Vāyāmo
 dialog.export.export_ellipsis = Nīharatha…
 dialog.batch.title = Chāyācittāni karotha
 dialog.batch.note_edit.other = Chāyācittagaṇanā: {n} — saṅgahasampādanārūpena rakkhanaṃ hoti; mūlaṃ na kadāci phusīyati.

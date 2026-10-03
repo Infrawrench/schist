@@ -7,6 +7,7 @@ dialog.layer_props.title = Njirimara leya
 dialog.export.format = Usoro
 dialog.export.dither = Dither
 dialog.export.dither_note = Jiri dither mgbe a na-ebelata ya ruo bit 8
+dialog.export.effort = Mgbalị
 dialog.export.export_ellipsis = Bupụ…
 dialog.batch.title = Hazie foto
 dialog.batch.note_edit.other = Foto {n} — echekwara dịka ndezi ebe ngosi; a naghị emetụ faịlụ mbụ aka.

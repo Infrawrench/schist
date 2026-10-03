@@ -4,6 +4,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Cámara RAW
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -38,6 +40,8 @@ codec.heif.msg.checksum_mismatch = {name} nisqap checksum yupaynin mana tupanchu
 codec.heif.msg.imageio_cannot_read = ImageIOqa HEIF contenedorta mana ñawinchayta atirqanchu
 codec.heif.msg.container_empty = HEIF contenedorqa mana rikch'ayniyuqchu
 codec.heif.msg.imageio_cannot_decode = ImageIOqa hatun rikch'ayta mana decodificayta atirqanchu
+
+codec.avif.msg.no_decoder = Schistpa maskaqpaq versionnin AVIF rikch'aykunata mana kichayta atinchu. Khiputa hawa mesa apupi kichay, utaq ñawpaqta PNGman tikray.
 
 # Native layered formats.
 codec.pdn.name = Paint.NET

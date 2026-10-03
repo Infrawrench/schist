@@ -3,6 +3,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -29,6 +31,9 @@ codec.heif.msg.checksum_mismatch = Checksum {name} adabaghị: a tụrụ anya {
 codec.heif.msg.imageio_cannot_read = ImageIO enweghị ike ịgụ HEIF container
 codec.heif.msg.container_empty = HEIF container enweghị onyonyo
 codec.heif.msg.imageio_cannot_decode = ImageIO enweghị ike idekọ onyonyo bụ isi
+
+# AVIF
+codec.avif.msg.no_decoder = Ụdị ihe nchọgharị nke Schist enweghị ike imepe onyonyo AVIF. Mepee faịlụ ahụ na ngwa desktọpụ, ma ọ bụ buru ụzọ gbanwee ya ka ọ bụrụ PNG.
 
 # Native layered formats.
 codec.pdn.name = Paint.NET

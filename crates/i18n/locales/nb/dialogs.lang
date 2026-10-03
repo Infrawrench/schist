@@ -8,6 +8,7 @@ dialog.layer_props.title = Lagegenskaper
 dialog.export.format = Format
 dialog.export.dither = Rastrering
 dialog.export.dither_note = Rastrer ved reduksjon til 8-biters
+dialog.export.effort = Innsats
 dialog.export.export_ellipsis = Eksporter…
 dialog.batch.title = Behandle bilder
 dialog.batch.note_edit.one = {n} bilde – lagres som galleriredigering; originalen endres aldri.

@@ -7,6 +7,7 @@ dialog.layer_props.title = Capa mba'etee
 dialog.export.format = Formato
 dialog.export.dither = Sa'y ñemosarambi
 dialog.export.dither_note = Mosarambi sa'y oñemomichĩvo 8 bit-pe
+dialog.export.effort = Ñeha'ã
 dialog.export.export_ellipsis = Gueraha…
 dialog.batch.title = Procesa fotografía
 dialog.batch.note_edit.other = {n} fotografía — oñeñongatu ta'anga renda ñemyatyrõramo; umi ypy rehe araka'eve ndojepokói.

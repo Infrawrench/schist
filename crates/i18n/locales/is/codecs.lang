@@ -3,6 +3,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -29,6 +31,9 @@ codec.heif.msg.checksum_mismatch = Gátsumma {name} stemmir ekki: vænst var {ex
 codec.heif.msg.imageio_cannot_read = ImageIO gat ekki lesið HEIF-gáminn
 codec.heif.msg.container_empty = HEIF-gámurinn inniheldur enga mynd
 codec.heif.msg.imageio_cannot_decode = ImageIO gat ekki afkóðað aðalmyndina
+
+# AVIF
+codec.avif.msg.no_decoder = Vafraútgáfa Schist getur ekki opnað AVIF-myndir. Opnaðu skrána í skjáborðsforritinu eða umbreyttu henni fyrst í PNG.
 
 # Native layered formats.
 codec.pdn.name = Paint.NET

@@ -12,6 +12,7 @@ dialog.layer_props.title = Eiginleikar lags
 dialog.export.format = Snið
 dialog.export.dither = Litflökt
 dialog.export.dither_note = Nota litflökt þegar fækkað er í 8 bita
+dialog.export.effort = Þjöppunarátak
 dialog.export.export_ellipsis = Flytja út…
 
 # Vinna myndir

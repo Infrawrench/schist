@@ -3,6 +3,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -29,6 +31,8 @@ codec.heif.msg.checksum_mismatch = {name} གི་ཞིབ་རྩིས་�
 codec.heif.msg.imageio_cannot_read = ImageIO གིས་ HEIF སྣོད་ཆས་ལྷག་མ་ཚུགས།
 codec.heif.msg.container_empty = HEIF སྣོད་ཆས་ནང་པར་མེད།
 codec.heif.msg.imageio_cannot_decode = ImageIO གིས་པར་ངོ་མ་ཨང་བཤོལ་འབད་མ་ཚུགས།
+
+codec.avif.msg.no_decoder = Schist གི་བརའུ་ཟར་ཐོན་རིམ་གྱིས་ AVIF པར་ཚུ་ཁ་ཕྱེ་མི་ཚུགས། ཡིག་སྣོད་འདི་ཌེསིཀ་ཊོཔ་གློག་རིམ་ནང་ཁ་ཕྱེ་ ཡང་ན་ ཧེ་མ་ PNG ལུ་གཞི་བསྒྱུར་འབད།
 
 # Native layered formats.
 codec.pdn.name = Paint.NET

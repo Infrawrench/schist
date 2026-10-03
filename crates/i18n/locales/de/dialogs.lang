@@ -16,6 +16,7 @@ dialog.layer_props.title = Ebeneneigenschaften
 dialog.export.format = Format
 dialog.export.dither = Dithering
 dialog.export.dither_note = Beim Reduzieren auf 8 Bit dithern
+dialog.export.effort = Aufwand
 dialog.export.export_ellipsis = Exportieren…
 
 # Fotos verarbeiten (der Stapeldialog der Galerie)

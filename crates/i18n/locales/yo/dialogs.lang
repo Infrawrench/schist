@@ -7,6 +7,7 @@ dialog.layer_props.title = Àwọn àbùdá fẹ́lẹ́fẹ́lẹ́
 dialog.export.format = Irú fáìlì
 dialog.export.dither = Dither
 dialog.export.dither_note = Lo dither nígbà dídín kù sí 8-bit
+dialog.export.effort = Ìsapá
 dialog.export.export_ellipsis = Gbé jáde…
 dialog.batch.title = Ṣe àwọn fọ́tò
 dialog.batch.note_edit.other = Iye fọ́tò: {n} — a fipamọ́ àtúnṣe fọ́tò kọ̀ọ̀kan sínú ibi àkójọ; a kò fọwọ́ kan àtilẹ̀wá rẹ̀ láéláé.

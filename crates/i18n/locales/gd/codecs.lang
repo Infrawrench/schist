@@ -3,6 +3,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -29,6 +31,8 @@ codec.heif.msg.checksum_mismatch = Chan eil an t-suim-dearbhaidh aig {name} mar 
 codec.heif.msg.imageio_cannot_read = Cha b’ urrainn do ImageIO soitheach HEIF a leughadh
 codec.heif.msg.container_empty = chan eil dealbh sam bith ann an soitheach HEIF
 codec.heif.msg.imageio_cannot_decode = Cha b’ urrainn do ImageIO a’ phrìomh-dhealbh a dhì-chòdachadh
+
+codec.avif.msg.no_decoder = Chan urrainn do thionndadh brabhsair Schist ìomhaighean AVIF fhosgladh. Fosgail am faidhle san aplacaid deasga, no iompaich gu PNG e an toiseach.
 
 # Native layered formats.
 codec.pdn.name = Paint.NET

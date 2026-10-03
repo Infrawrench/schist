@@ -8,6 +8,7 @@ dialog.layer_props.title = Layer Su
 dialog.export.format = Format
 dialog.export.dither = Dither
 dialog.export.dither_note = Sɛ woretew akɔ 8-bit a, yɛ dither
+dialog.export.effort = Mmɔden
 dialog.export.export_ellipsis = Yi Kɔ Akyiri…
 
 dialog.batch.title = Yɛ Fotos Ho Adwuma

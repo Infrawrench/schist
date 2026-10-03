@@ -14,6 +14,7 @@ dialog.layer_props.title = ස්තර ගුණාංග
 dialog.export.format = ආකෘතිය
 dialog.export.dither = වර්ණ මිශ්‍ර අනුකරණය
 dialog.export.dither_note = බිට් 8ට අඩු කරන විට වර්ණ මිශ්‍ර අනුකරණය කරන්න
+dialog.export.effort = උත්සාහය
 dialog.export.export_ellipsis = අපනයනය කරන්න…
 
 # ඡායාරූප සමූහයක් සැකසීම

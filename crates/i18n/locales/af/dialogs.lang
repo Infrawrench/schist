@@ -7,6 +7,7 @@ dialog.layer_props.title = Laageienskappe
 dialog.export.format = Formaat
 dialog.export.dither = Versprei
 dialog.export.dither_note = Versprei wanneer na 8-bis verminder word
+dialog.export.effort = Inspanning
 dialog.export.export_ellipsis = Voer uit…
 
 dialog.batch.title = Verwerk foto's

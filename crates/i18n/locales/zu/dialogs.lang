@@ -7,6 +7,7 @@ dialog.layer_props.title = Izici Zesendlalelo
 dialog.export.format = Ifomethi
 dialog.export.dither = Xuba Amaphikseli
 dialog.export.dither_note = Xuba amaphikseli lapho unciphisela kumabhithi angu-8
+dialog.export.effort = Umzamo
 dialog.export.export_ellipsis = Thumela…
 dialog.batch.title = Cubungula Izithombe
 dialog.batch.note_edit.one = Isithombe esingu-{n} — silondolozwa njengokuhlelwa kwegalari; okwangempela akuthintwa nhlobo.

@@ -9,6 +9,7 @@ dialog.layer_props.title = Svojstva sloja
 dialog.export.format = Format
 dialog.export.dither = Ublažavanje prijelaza
 dialog.export.dither_note = Ublaži prijelaze pri smanjivanju na 8 bita
+dialog.export.effort = Napor
 dialog.export.export_ellipsis = Izvezi…
 
 dialog.batch.title = Obrada fotografija

@@ -7,6 +7,7 @@ dialog.layer_props.title = Tavolaj ecoj
 dialog.export.format = Dosierformo
 dialog.export.dither = Kolorpunktumo
 dialog.export.dither_note = Kolorpunktumi dum redukto al 8 bitoj
+dialog.export.effort = Peno
 dialog.export.export_ellipsis = Eksporti…
 dialog.batch.title = Prilabori fotojn
 dialog.batch.note_edit.one = {n} foto — konservata kiel galeria redakto; la originalo neniam estas tuŝata.

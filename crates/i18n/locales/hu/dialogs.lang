@@ -7,6 +7,7 @@ dialog.layer_props.title = Réteg tulajdonságai
 dialog.export.format = Formátum
 dialog.export.dither = Színzaj
 dialog.export.dither_note = Színzaj használata 8 bitesre csökkentéskor
+dialog.export.effort = Ráfordítás
 dialog.export.export_ellipsis = Exportálás…
 dialog.batch.title = Fényképek feldolgozása
 dialog.batch.note_edit.one = {n} fénykép — galériaszerkesztésként mentve; az eredeti soha nem módosul.

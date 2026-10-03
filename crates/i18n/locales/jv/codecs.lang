@@ -4,6 +4,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -30,6 +32,9 @@ codec.heif.msg.checksum_mismatch = Checksum {name} ora cocog: samesthiné {expec
 codec.heif.msg.imageio_cannot_read = ImageIO ora bisa maca wadhah HEIF
 codec.heif.msg.container_empty = wadhah HEIF ora ngemot gambar
 codec.heif.msg.imageio_cannot_decode = ImageIO ora bisa ndhékodhe gambar utama
+
+# AVIF
+codec.avif.msg.no_decoder = Versi browser Schist ora bisa mbukak gambar AVIF. Bukak berkas ing aplikasi desktop, utawa owahi dadi PNG dhisik.
 
 # Native layered formats.
 codec.pdn.name = Paint.NET

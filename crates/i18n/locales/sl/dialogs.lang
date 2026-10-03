@@ -7,6 +7,7 @@ dialog.layer_props.title = Lastnosti plasti
 dialog.export.format = Oblika
 dialog.export.dither = Stresanje
 dialog.export.dither_note = Uporabi stresanje pri zmanjšanju na 8 bitov
+dialog.export.effort = Napor
 dialog.export.export_ellipsis = Izvozi …
 
 dialog.batch.title = Obdelaj fotografije

@@ -8,6 +8,7 @@ dialog.layer_props.title = የንብርብር ባህሪያት
 dialog.export.format = ቅርጸት
 dialog.export.dither = ቀለም አበታትን
 dialog.export.dither_note = ወደ 8-ቢት ሲቀንስ ቀለም አበታትን
+dialog.export.effort = ጥረት
 dialog.export.export_ellipsis = ላክ…
 dialog.batch.title = ፎቶዎችን አስኬድ
 dialog.batch.note_edit.one = {n} ፎቶ — እንደ ማዕከለ-ስዕላት አርትዖት ይቀመጣል፤ ዋናው ፈጽሞ አይነካም።

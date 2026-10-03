@@ -8,6 +8,7 @@ dialog.layer_props.title = အလွှာ ဂုဏ်သတ္တိမျာ�
 dialog.export.format = ဖော်မတ်
 dialog.export.dither = အရောင်ဖြန့်ရောရန်
 dialog.export.dither_note = 8-bit သို့ လျှော့ချချိန်တွင် အရောင်ဖြန့်ရောပါ
+dialog.export.effort = ကြိုးပမ်းမှု
 dialog.export.export_ellipsis = တင်ပို့ရန်…
 
 dialog.batch.title = ဓာတ်ပုံများ စီမံရန်

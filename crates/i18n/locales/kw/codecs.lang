@@ -3,6 +3,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -29,6 +31,8 @@ codec.heif.msg.checksum_mismatch = Nyns yw an checksum rag {name} ewna: gortys {
 codec.heif.msg.imageio_cannot_read = ImageIO ny allas redya an lestryn HEIF
 codec.heif.msg.container_empty = nyns eus delwenn y'n lestryn HEIF
 codec.heif.msg.imageio_cannot_decode = ImageIO ny allas kodhalla an delwenn gynsa
+
+codec.avif.msg.no_decoder = Ny yll versyon peureller Schist ygeri delwennow AVIF. Ygor an restren y'n app desktop, po treylyewgh hi dhe PNG kyns.
 
 # Native layered formats.
 codec.pdn.name = Paint.NET

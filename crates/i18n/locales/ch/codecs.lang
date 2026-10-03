@@ -3,6 +3,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -29,6 +31,8 @@ codec.heif.msg.checksum_mismatch = Ti parehu i checksum para {name}: ekspekta {e
 codec.heif.msg.imageio_cannot_read = Ti siña ha basa i ImageIO i HEIF container
 codec.heif.msg.container_empty = Tåya' imåhen gi HEIF container
 codec.heif.msg.imageio_cannot_decode = Ti siña ha decode i ImageIO i primet na imåhen
+
+codec.avif.msg.no_decoder = I browser version Schist ti siña ha baba AVIF na imåhen. Baba i file gi desktop app, pat convert para PNG fine'nana.
 
 # Native layered formats.
 codec.pdn.name = Paint.NET

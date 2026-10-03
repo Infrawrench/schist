@@ -7,6 +7,7 @@ dialog.layer_props.title = שיכט־אייגנשאַפֿטן
 dialog.export.format = פֿאָרמאַט
 dialog.export.dither = דיטער
 dialog.export.dither_note = דיטערן בײַם רעדוצירן צו 8 ביט
+dialog.export.effort = מי
 dialog.export.export_ellipsis = עקספּאָרטירן…
 dialog.batch.title = באַאַרבעטן פֿאָטאָס
 dialog.batch.note_edit.one = {n} פֿאָטאָ — ווערט געהיט ווי גאַלעריע־ענדערונג; דער אָריגינאַל ווערט קיינמאָל נישט באַרירט.

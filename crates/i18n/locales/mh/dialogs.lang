@@ -7,6 +7,7 @@ dialog.layer_props.title = Meļeļe in Layer
 dialog.export.format = Format
 dialog.export.dither = Dither
 dialog.export.dither_note = Dither ñe ej kadikļọk ñan 8-bit
+dialog.export.effort = Kate
 dialog.export.export_ellipsis = Export…
 dialog.batch.title = Kōjerbal pija ko
 dialog.batch.note_edit.other = Pija {n} — kōjparok āinwōt ukot in gallery; original ko rejjab maroñ ukot.

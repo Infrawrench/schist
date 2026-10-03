@@ -8,6 +8,7 @@ dialog.layer_props.title = Litšobotsi tsa Mokhahlelo
 dialog.export.format = Sebopeho
 dialog.export.dither = Hasanya Liphetoho tsa 'Mala
 dialog.export.dither_note = Hasanya liphetoho tsa 'mala ha o fokotsa ho li-bit tse 8
+dialog.export.effort = Boiteko
 dialog.export.export_ellipsis = Romela…
 
 dialog.batch.title = Sebetsa Lifoto

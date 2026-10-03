@@ -7,6 +7,7 @@ dialog.layer_props.title = 레이어 속성
 dialog.export.format = 형식
 dialog.export.dither = 디더
 dialog.export.dither_note = 8비트로 줄일 때 디더 적용
+dialog.export.effort = 압축 강도
 dialog.export.export_ellipsis = 내보내기…
 dialog.batch.title = 사진 처리
 dialog.batch.note_edit.other = 사진 {n}장 — 갤러리 편집으로 저장되며 원본은 변경되지 않습니다.

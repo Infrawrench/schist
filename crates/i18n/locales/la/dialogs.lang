@@ -7,6 +7,7 @@ dialog.layer_props.title = Proprietates Strati
 dialog.export.format = Forma
 dialog.export.dither = Colores Punctis Disperge
 dialog.export.dither_note = Colores punctis disperge cum ad 8 bit reducuntur
+dialog.export.effort = Conatus
 dialog.export.export_ellipsis = Exporta…
 dialog.batch.title = Photographemata Processa
 dialog.batch.note_edit.other = Numerus photographematum: {n} — ut emendationes pinacothecae servantur; originalia numquam tanguntur.

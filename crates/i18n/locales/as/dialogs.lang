@@ -16,6 +16,7 @@ dialog.layer_props.title = স্তৰৰ বৈশিষ্ট্যসমূ�
 dialog.export.format = ফৰ্মেট
 dialog.export.dither = ডিথাৰ
 dialog.export.dither_note = 8-বিটলৈ হ্ৰাস কৰোঁতে ডিথাৰ কৰক
+dialog.export.effort = প্ৰচেষ্টা
 dialog.export.export_ellipsis = ৰপ্তানি কৰক…
 
 # Process Photos (the gallery's batch dialog)

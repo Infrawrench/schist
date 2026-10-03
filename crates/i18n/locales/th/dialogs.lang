@@ -7,6 +7,7 @@ dialog.layer_props.title = คุณสมบัติเลเยอร์
 dialog.export.format = รูปแบบ
 dialog.export.dither = ดิเทอร์
 dialog.export.dither_note = ดิเทอร์เมื่อลดเหลือ 8 บิต
+dialog.export.effort = ความพยายาม
 dialog.export.export_ellipsis = ส่งออก…
 dialog.batch.title = ประมวลผลรูปภาพ
 dialog.batch.note_edit.other = {n} รูป — บันทึกเป็นการแก้ไขในแกลเลอรี โดยไม่แตะต้องต้นฉบับ

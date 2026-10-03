@@ -7,6 +7,7 @@ dialog.layer_props.title = Уласцівасці пласта
 dialog.export.format = Фармат
 dialog.export.dither = Дызерынг
 dialog.export.dither_note = Ужываць дызерынг пры змяншэнні да 8 біт
+dialog.export.effort = Намаганні
 dialog.export.export_ellipsis = Экспартаваць…
 dialog.batch.title = Апрацоўка фота
 dialog.batch.note_edit.one = {n} фота — захоўваецца як праўка галерэі; арыгінал ніколі не змяняецца.

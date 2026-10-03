@@ -7,6 +7,7 @@ dialog.layer_props.title = Kihi omadused
 dialog.export.format = Vorming
 dialog.export.dither = Värvisäbrutus
 dialog.export.dither_note = Kasuta 8-bitisele vähendamisel värvisäbrutust
+dialog.export.effort = Pingutus
 dialog.export.export_ellipsis = Ekspordi…
 dialog.batch.title = Töötle fotosid
 dialog.batch.note_edit.one = {n} foto — salvestatakse galerii muudatusena; originaali ei muudeta kunagi.

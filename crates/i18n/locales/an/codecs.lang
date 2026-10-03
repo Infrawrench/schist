@@ -6,6 +6,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = RAW de camera
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -41,6 +43,9 @@ codec.heif.msg.checksum_mismatch = A suma de verificación de {name} no coincide
 codec.heif.msg.imageio_cannot_read = ImageIO no ha puesto leyer o contenedor HEIF
 codec.heif.msg.container_empty = o contenedor HEIF no contiene garra imachen
 codec.heif.msg.imageio_cannot_decode = ImageIO no ha puesto decodificar a imachen principal
+
+# AVIF in the browser build, which has no AV1 decoder (it still exports AVIF).
+codec.avif.msg.no_decoder = A versión de navegador de Schist no puede ubrir imachens AVIF. Ubre o fichero en l'aplicación d'escritorio, u convierte-lo a PNG antes.
 
 # Native layered formats.
 codec.pdn.name = Paint.NET

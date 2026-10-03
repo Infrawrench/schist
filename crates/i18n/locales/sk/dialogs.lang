@@ -7,6 +7,7 @@ dialog.layer_props.title = Vlastnosti vrstvy
 dialog.export.format = Formát
 dialog.export.dither = Rozklad
 dialog.export.dither_note = Použiť rozklad pri znížení na 8 bitov
+dialog.export.effort = Úsilie
 dialog.export.export_ellipsis = Exportovať…
 
 dialog.batch.title = Spracovať fotografie

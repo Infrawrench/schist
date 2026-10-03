@@ -7,6 +7,7 @@ dialog.layer_props.title = Sifooyinka Lakabka
 dialog.export.format = Qaab
 dialog.export.dither = Kala-firdhi Midabka
 dialog.export.dither_note = Kala-firdhi midabka marka loo yaraynayo 8-bit
+dialog.export.effort = Dadaal
 dialog.export.export_ellipsis = Dhoofi…
 dialog.batch.title = Habee Sawirrada
 dialog.batch.note_edit.one = {n} sawir — waxaa loo kaydiyaa tafatir maktabadeed; asalka marna lama taabto.

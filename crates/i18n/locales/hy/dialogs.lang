@@ -8,6 +8,7 @@ dialog.layer_props.title = Շերտի հատկություններ
 dialog.export.format = Ձևաչափ
 dialog.export.dither = Դիզերինգ
 dialog.export.dither_note = 8 բիթի նվազեցնելիս կիրառել դիզերինգ
+dialog.export.effort = Ջանք
 dialog.export.export_ellipsis = Արտահանել…
 dialog.batch.title = Մշակել լուսանկարները
 dialog.batch.note_edit.one = {n} լուսանկար․ պահվում է որպես պատկերասրահի խմբագրում, բնօրինակը երբեք չի փոխվում։

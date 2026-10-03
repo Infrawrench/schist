@@ -7,6 +7,7 @@ dialog.layer_props.title = Roghainnean a’ bhreatha
 dialog.export.format = Fòrmat
 dialog.export.dither = Crith-dhath
 dialog.export.dither_note = Cuir crith-dhath air nuair a lùghdaichear gu 8-bit
+dialog.export.effort = Oidhirp
 dialog.export.export_ellipsis = Às-phortaich…
 dialog.batch.title = Pròiseasaich dealbhan
 dialog.batch.note_edit.one = {n} dealbh — air a shàbhaladh mar dheasachadh gailearaidh; cha bhean sinn dhan tùs idir.

@@ -7,6 +7,7 @@ dialog.layer_props.title = Proprietăți strat
 dialog.export.format = Format
 dialog.export.dither = Tramare
 dialog.export.dither_note = Tramare la reducerea la 8 biți
+dialog.export.effort = Efort
 dialog.export.export_ellipsis = Export…
 dialog.batch.title = Procesare fotografii
 dialog.batch.note_edit.one = {n} fotografie — salvată ca editare în galerie; originalul nu este modificat niciodată.

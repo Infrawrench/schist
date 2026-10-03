@@ -3,6 +3,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -29,6 +31,8 @@ codec.heif.msg.checksum_mismatch = Контролната сума за {name} �
 codec.heif.msg.imageio_cannot_read = ImageIO не можеше да го прочита контејнерот HEIF
 codec.heif.msg.container_empty = контејнерот HEIF не содржи слика
 codec.heif.msg.imageio_cannot_decode = ImageIO не можеше да ја декодира главната слика
+
+codec.avif.msg.no_decoder = Верзијата на Schist за прелистувач не може да отвора AVIF-слики. Отворете ја датотеката во десктоп-апликацијата или прво претворете ја во PNG.
 
 # Native layered formats.
 codec.pdn.name = Paint.NET

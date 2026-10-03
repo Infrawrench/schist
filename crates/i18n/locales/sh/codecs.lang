@@ -3,6 +3,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -33,6 +35,8 @@ codec.heif.msg.checksum_mismatch = Kontrolni zbroj datoteke {name} ne podudara s
 codec.heif.msg.imageio_cannot_read = ImageIO nije mogao pročitati HEIF spremnik
 codec.heif.msg.container_empty = HEIF spremnik ne sadrži sliku
 codec.heif.msg.imageio_cannot_decode = ImageIO nije mogao dekodirati primarnu sliku
+
+codec.avif.msg.no_decoder = Preglednička inačica Schista ne može otvoriti AVIF slike. Otvorite datoteku u desktop aplikaciji ili je najprije pretvorite u PNG.
 
 # Native layered formats.
 codec.pdn.name = Paint.NET

@@ -6,6 +6,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -40,6 +42,8 @@ codec.heif.msg.checksum_mismatch = Jimillar dubawa ta {name} ba ta dace ba: ana 
 codec.heif.msg.imageio_cannot_read = ImageIO ya kasa karanta kwandon HEIF
 codec.heif.msg.container_empty = kwandon HEIF ba shi da hoto
 codec.heif.msg.imageio_cannot_decode = ImageIO ya kasa sauya lambar babban hoto
+
+codec.avif.msg.no_decoder = Sigar burauza ta Schist ba za ta iya buɗe hotunan AVIF ba. Buɗe fayil ɗin a manhajar kwamfuta, ko mayar da shi zuwa PNG tukuna.
 
 # Native layered formats.
 codec.pdn.name = Paint.NET

@@ -3,6 +3,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = ໄຟລ໌ດິບຈາກກ້ອງ
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -29,6 +31,8 @@ codec.heif.msg.checksum_mismatch = ຄ່າກວດສອບຂອງ {name} �
 codec.heif.msg.imageio_cannot_read = ImageIO ບໍ່ສາມາດອ່ານຄອນເທນເນີ HEIF
 codec.heif.msg.container_empty = ຄອນເທນເນີ HEIF ບໍ່ມີຮູບ
 codec.heif.msg.imageio_cannot_decode = ImageIO ບໍ່ສາມາດຖອດລະຫັດຮູບຫຼັກ
+
+codec.avif.msg.no_decoder = Schist ລຸ້ນບຣາວເຊີບໍ່ສາມາດເປີດຮູບ AVIF ໄດ້. ໃຫ້ເປີດໄຟລ໌ໃນແອັບເດສທັອບ, ຫຼື ແປງເປັນ PNG ກ່ອນ.
 
 # Native layered formats.
 codec.pdn.name = Paint.NET

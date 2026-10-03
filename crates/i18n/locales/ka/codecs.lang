@@ -4,6 +4,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -34,6 +36,9 @@ codec.heif.msg.checksum_mismatch = {name}-ის საკონტროლო 
 codec.heif.msg.imageio_cannot_read = ImageIO-მ HEIF კონტეინერი ვერ წაიკითხა
 codec.heif.msg.container_empty = HEIF კონტეინერი გამოსახულებას არ შეიცავს
 codec.heif.msg.imageio_cannot_decode = ImageIO-მ ძირითადი გამოსახულება ვერ დეკოდირა
+
+# AVIF
+codec.avif.msg.no_decoder = Schist-ის ბრაუზერის ვერსია ვერ ხსნის AVIF გამოსახულებებს. გახსენით ფაილი დესკტოპის აპში ან ჯერ გადაიყვანეთ PNG-ში.
 
 # Native layered formats.
 codec.pdn.name = Paint.NET

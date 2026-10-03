@@ -3,6 +3,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -29,6 +31,8 @@ codec.heif.msg.checksum_mismatch = Hevjimara kontrolê ya {name} li hev nayê: {
 codec.heif.msg.imageio_cannot_read = ImageIO nikarî konteynira HEIF bixwîne
 codec.heif.msg.container_empty = di konteynira HEIF de tu wêne tune
 codec.heif.msg.imageio_cannot_decode = ImageIO nikarî wêneya sereke kod veke
+
+codec.avif.msg.no_decoder = Guhertoya gerokê ya Schist nikare wêneyên AVIF veke. Pelê di sepana sermaseyê de veke, an jî pêşî wê biguherîne PNG.
 
 # Native layered formats.
 codec.pdn.name = Paint.NET

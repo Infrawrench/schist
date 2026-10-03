@@ -3,6 +3,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Idosiye mbisi ya kamera
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -33,6 +35,8 @@ codec.heif.msg.checksum_mismatch = Umubare w'igenzura wa {name} ntuhuye: wari ut
 codec.heif.msg.imageio_cannot_read = ImageIO ntiyashoboye gusoma kontineri y'idosiye ya HEIF
 codec.heif.msg.container_empty = kontineri y'idosiye ya HEIF nta shusho irimo
 codec.heif.msg.imageio_cannot_decode = ImageIO ntiyashoboye gusobanura ishusho y'ibanze
+
+codec.avif.msg.no_decoder = Verisiyo ya Schist ikoresha mushakisha ntishobora gufungura amashusho ya AVIF. Fungura dosiye muri porogaramu ya mudasobwa, cyangwa ubanze uyihindure PNG.
 
 # Native layered formats.
 codec.pdn.name = Paint.NET

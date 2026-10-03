@@ -7,6 +7,7 @@ dialog.layer_props.title = ލޭޔަރުގެ ޚާއްސައިތައް
 dialog.export.format = ފޯމެޓް
 dialog.export.dither = ޑިދަރ
 dialog.export.dither_note = 8-ބިޓަށް މަދުކުރާއިރު ޑިދަރ ކުރުން
+dialog.export.effort = މަސައްކަތް
 dialog.export.export_ellipsis = އެކްސްޕޯޓް…
 dialog.batch.title = ފޮޓޯތައް ޕްރޮސެސް ކުރުން
 dialog.batch.note_edit.one = ފޮޓޯ {n} — ގެލެރީ އެޑިޓެއްގެ ގޮތުގައި ސޭވްވާނެ؛ އަސްލަށް އެއްވެސް ބަދަލެއް ނުގެނެވޭނެ.

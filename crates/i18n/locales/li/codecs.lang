@@ -3,6 +3,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -33,6 +35,8 @@ codec.heif.msg.checksum_mismatch = Controlesom van {name} kump neet euverein: {e
 codec.heif.msg.imageio_cannot_read = ImageIO kós de HEIF-container neet laeze
 codec.heif.msg.container_empty = de HEIF-container bevat gein aafbiljing
 codec.heif.msg.imageio_cannot_decode = ImageIO kós de primaire aafbiljing neet decodere
+
+codec.avif.msg.no_decoder = De browserversie van Schist kan gein AVIF-aafbiljinge äöpene. Äöpen 't bestand in de desktop-app, of zèt 't ierst om nao PNG.
 
 # Native layered formats.
 codec.pdn.name = Paint.NET

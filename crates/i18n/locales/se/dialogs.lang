@@ -7,6 +7,7 @@ dialog.layer_props.title = Gearddi iešvuođat
 dialog.export.format = Formáhta
 dialog.export.dither = Dither
 dialog.export.dither_note = Dither go geahpeduvvo 8-bihttái
+dialog.export.effort = Rahčamuš
 dialog.export.export_ellipsis = Olggosfievrrit…
 
 dialog.batch.title = Gieđahala govaid

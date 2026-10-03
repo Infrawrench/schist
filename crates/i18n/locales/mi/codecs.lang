@@ -3,6 +3,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -29,6 +31,8 @@ codec.heif.msg.checksum_mismatch = Kāore te tapeke taki mō {name} i ōrite: i 
 codec.heif.msg.imageio_cannot_read = Kāore i taea e ImageIO te pānui i te ipu HEIF
 codec.heif.msg.container_empty = kāore he atahanga i te ipu HEIF
 codec.heif.msg.imageio_cannot_decode = Kāore i taea e ImageIO te wetewaehere i te atahanga matua
+
+codec.avif.msg.no_decoder = Kāore e taea e te putanga pūtirotiro o Schist te huaki i ngā atahanga AVIF. Huakina te kōnae ki te taupānga papamahi, me tahuri rānei ki PNG i te tuatahi.
 
 # Native layered formats.
 codec.pdn.name = Paint.NET

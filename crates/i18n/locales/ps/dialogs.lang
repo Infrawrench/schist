@@ -7,6 +7,7 @@ dialog.layer_props.title = د طبقې ځانګړنې
 dialog.export.format = بڼه
 dialog.export.dither = رنګ خورول
 dialog.export.dither_note = ۸-بټ ته د کمولو پر مهال رنګ خورول
+dialog.export.effort = هڅه
 dialog.export.export_ellipsis = صادرول…
 dialog.batch.title = انځورونه پروسس کول
 dialog.batch.note_edit.one = {n} انځور — د نندارتون د سمون په توګه ساتل کېږي؛ اصلي انځور نه بدلېږي.

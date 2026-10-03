@@ -7,6 +7,7 @@ dialog.layer_props.title = Својства слоја
 dialog.export.format = Формат
 dialog.export.dither = Дитеровање
 dialog.export.dither_note = Дитеруј при смањивању на 8 бита
+dialog.export.effort = Напор
 dialog.export.export_ellipsis = Извези…
 dialog.batch.title = Обради фотографије
 dialog.batch.note_edit.one = {n} фотографија — чува се као измена у галерији; оригинал се никада не мења.

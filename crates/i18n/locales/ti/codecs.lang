@@ -3,6 +3,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -29,6 +31,9 @@ codec.heif.msg.checksum_mismatch = Checksum ናይ {name} ኣይሰማማዕን�
 codec.heif.msg.imageio_cannot_read = ImageIO ንመትሓዚ HEIF ከንብብ ኣይከኣለን
 codec.heif.msg.container_empty = መትሓዚ HEIF ስእሊ የብሉን
 codec.heif.msg.imageio_cannot_decode = ImageIO ነቲ ቀንዲ ስእሊ ክፈትሕ ኣይከኣለን
+
+# AVIF in the browser build, which has no AV1 decoder (it still exports AVIF).
+codec.avif.msg.no_decoder = ናይ መርበብ ሓሳስ ስሪት Schist ናይ AVIF ስእልታት ክኸፍት ኣይክእልን። ነቲ ፋይል ኣብ ናይ ዴስክቶፕ ኣፕ ክፈቶ፣ ወይ መጀመርታ ናብ PNG ቀይሮ።
 
 # Native layered formats.
 codec.pdn.name = Paint.NET

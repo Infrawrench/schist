@@ -7,6 +7,7 @@ dialog.layer_props.title = Makhalidwe a Layer
 dialog.export.format = Mtundu wa Fayilo
 dialog.export.dither = Kusakaniza madontho
 dialog.export.dither_note = Gwiritsani ntchito dither pochepetsa kukhala 8-bit
+dialog.export.effort = Khama
 dialog.export.export_ellipsis = Tumizani…
 
 dialog.batch.title = Konzani Zithunzi za Kamera

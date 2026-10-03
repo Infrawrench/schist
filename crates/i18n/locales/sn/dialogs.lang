@@ -7,6 +7,7 @@ dialog.layer_props.title = Zvimiro zveChikamu
 dialog.export.format = Fomati
 dialog.export.dither = Sanganisa Mapatani
 dialog.export.dither_note = Sanganisa mapatani pakuderedza kuva mabhiti 8
+dialog.export.effort = Simba
 dialog.export.export_ellipsis = Budisa…
 dialog.batch.title = Gadzirisa Mapikicha
 dialog.batch.note_edit.one = pikicha {n} — yachengetwa sekugadziridzwa kwegarari; yepakutanga haibatwi.

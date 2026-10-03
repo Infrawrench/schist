@@ -7,6 +7,7 @@ dialog.layer_props.title = Dipharologantsho tsa Llaga
 dialog.export.format = Popego
 dialog.export.dither = Dither
 dialog.export.dither_note = Dither fa go fokodiwa go 8-bit
+dialog.export.effort = Maiteko
 dialog.export.export_ellipsis = Romela…
 dialog.batch.title = Dira Dinepe
 dialog.batch.note_edit.one = Senepe se le {n} — se bolokwa jaaka phetogo ya gallery; sa ntlhantlha ga se fetolwe.

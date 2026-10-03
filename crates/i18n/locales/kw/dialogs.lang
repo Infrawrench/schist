@@ -7,6 +7,7 @@ dialog.layer_props.title = Pythow Gwisk
 dialog.export.format = Furvas
 dialog.export.dither = Dither
 dialog.export.dither_note = Dither pan iselhir dhe 8-bitt
+dialog.export.effort = Assay
 dialog.export.export_ellipsis = Esperthi…
 dialog.batch.title = Argerdha Fotos
 dialog.batch.note_edit.zero = {n} foto — pub foto a vydh sawys avel golygyans galari; an gwredhek ny vydh tochys nevra.

@@ -4,6 +4,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -30,6 +32,9 @@ codec.heif.msg.checksum_mismatch = {name} uchun nazorat yig‘indisi mos emas: {
 codec.heif.msg.imageio_cannot_read = ImageIO HEIF konteynerini o‘qiy olmadi
 codec.heif.msg.container_empty = HEIF konteynerida tasvir yo‘q
 codec.heif.msg.imageio_cannot_decode = ImageIO asosiy tasvirni dekodlay olmadi
+
+# AVIF in the browser build, which has no AV1 decoder (it still exports AVIF).
+codec.avif.msg.no_decoder = Schistning brauzer versiyasi AVIF tasvirlarini ocha olmaydi. Faylni ish stoli ilovasida oching yoki avval uni PNG formatiga aylantiring.
 
 # Native layered formats.
 codec.pdn.name = Paint.NET

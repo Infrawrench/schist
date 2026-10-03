@@ -12,6 +12,7 @@ dialog.layer_props.title = स्तरगुणाः
 dialog.export.format = प्रारूपम्
 dialog.export.dither = वर्णमिश्रणम्
 dialog.export.dither_note = ८-बिट्-पर्यन्तं न्यूनीकरणे वर्णमिश्रणं करोतु
+dialog.export.effort = प्रयासः
 dialog.export.export_ellipsis = निर्यातयतु…
 
 # छायाचित्रप्रक्रिया

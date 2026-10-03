@@ -11,7 +11,14 @@ mod finishing;
 pub use finishing::{Finishing, Placement, TargetProfile};
 
 pub const MAX_OUTPUTS: usize = 16;
-pub const FLAT_CODECS: &[&str] = &["codec.png", "codec.jpeg", "codec.webp", "codec.tiff"];
+pub const FLAT_CODECS: &[&str] = &[
+    "codec.png",
+    "codec.jpeg",
+    "codec.webp",
+    "codec.tiff",
+    "codec.jxl",
+    "codec.avif",
+];
 
 #[derive(Clone, Copy, Debug, Default, PartialEq, Eq, Serialize, Deserialize)]
 pub enum Scope {

@@ -10,6 +10,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -48,6 +50,8 @@ codec.heif.msg.checksum_mismatch = Kohteen {name} tarkistussumma ei täsmää: o
 codec.heif.msg.imageio_cannot_read = ImageIO ei voinut lukea HEIF-säilöä
 codec.heif.msg.container_empty = HEIF-säilössä ei ole kuvaa
 codec.heif.msg.imageio_cannot_decode = ImageIO ei voinut dekoodata ensisijaista kuvaa
+
+codec.avif.msg.no_decoder = Schistin selainversio ei voi avata AVIF-kuvia. Avaa tiedosto työpöytäsovelluksessa tai muunna se ensin PNG-muotoon.
 
 # Native layered formats.
 codec.pdn.name = Paint.NET

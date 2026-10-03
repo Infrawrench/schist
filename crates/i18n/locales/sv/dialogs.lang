@@ -16,6 +16,7 @@ dialog.layer_props.title = Lageregenskaper
 dialog.export.format = Format
 dialog.export.dither = Gitter
 dialog.export.dither_note = Använd gitter vid reducering till 8 bitar
+dialog.export.effort = Ansträngning
 dialog.export.export_ellipsis = Exportera…
 
 # Bearbeta foton (galleriets batchdialog)

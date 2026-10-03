@@ -4,6 +4,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -30,6 +32,8 @@ codec.heif.msg.checksum_mismatch = Kontrolsummen for {name} stemmer ikke: forven
 codec.heif.msg.imageio_cannot_read = ImageIO kunne ikke læse HEIF-objektbeholderen
 codec.heif.msg.container_empty = HEIF-objektbeholderen indeholder intet billede
 codec.heif.msg.imageio_cannot_decode = ImageIO kunne ikke afkode det primære billede
+
+codec.avif.msg.no_decoder = Browserversionen af Schist kan ikke åbne AVIF-billeder. Åbn filen i skrivebordsappen, eller konverter den til PNG først.
 
 # Native layered formats.
 codec.pdn.name = Paint.NET

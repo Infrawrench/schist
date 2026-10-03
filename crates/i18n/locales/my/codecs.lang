@@ -4,6 +4,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -34,6 +36,8 @@ codec.heif.msg.checksum_mismatch = {name} အတွက် checksum မကို�
 codec.heif.msg.imageio_cannot_read = ImageIO သည် HEIF container ကို ဖတ်၍မရပါ
 codec.heif.msg.container_empty = HEIF container တွင် ပုံမပါပါ
 codec.heif.msg.imageio_cannot_decode = ImageIO သည် အဓိကပုံကို ဖော်ထုတ်၍မရပါ
+
+codec.avif.msg.no_decoder = Schist ၏ ဘရောက်ဇာဗားရှင်းသည် AVIF ပုံများကို ဖွင့်၍မရပါ။ ဖိုင်ကို ဒက်စ်တော့အက်ပ်တွင် ဖွင့်ပါ၊ သို့မဟုတ် ၎င်းကို PNG သို့ ဦးစွာ ပြောင်းပါ။
 
 # Native layered formats.
 codec.pdn.name = Paint.NET

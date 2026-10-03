@@ -6,6 +6,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -41,6 +43,9 @@ codec.heif.msg.checksum_mismatch = {name} 的校验和不匹配：应为 {expect
 codec.heif.msg.imageio_cannot_read = ImageIO 无法读取 HEIF 容器
 codec.heif.msg.container_empty = HEIF 容器中没有图像
 codec.heif.msg.imageio_cannot_decode = ImageIO 无法解码主图像
+
+# AVIF in the browser build, which has no AV1 decoder (it still exports AVIF).
+codec.avif.msg.no_decoder = 浏览器版 Schist 无法打开 AVIF 图像。请在桌面应用中打开该文件，或先将其转换为 PNG。
 
 # Native layered formats.
 codec.pdn.name = Paint.NET

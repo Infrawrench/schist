@@ -10,6 +10,7 @@ dialog.layer_props.title = Proprietates del strato
 dialog.export.format = Formato
 dialog.export.dither = Tramage
 dialog.export.dither_note = Applicar tramage al reduction a 8 bits
+dialog.export.effort = Effortio
 dialog.export.export_ellipsis = Exportar…
 
 dialog.batch.title = Processar photos

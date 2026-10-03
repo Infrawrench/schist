@@ -3,6 +3,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Hilaw na Larawan ng Kamera
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -29,6 +31,9 @@ codec.heif.msg.checksum_mismatch = Hindi tugma ang checksum para sa {name}: inaa
 codec.heif.msg.imageio_cannot_read = Hindi mabasa ng ImageIO ang HEIF container
 codec.heif.msg.container_empty = walang larawan ang HEIF container
 codec.heif.msg.imageio_cannot_decode = Hindi ma-decode ng ImageIO ang pangunahing larawan
+
+# AVIF in the browser build, which has no AV1 decoder (it still exports AVIF).
+codec.avif.msg.no_decoder = Hindi kayang buksan ng browser version ng Schist ang mga AVIF na larawan. Buksan ang file sa desktop app, o i-convert muna ito sa PNG.
 
 # Native layered formats.
 codec.pdn.name = Paint.NET

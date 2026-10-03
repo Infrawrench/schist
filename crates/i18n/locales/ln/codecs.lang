@@ -3,6 +3,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -33,6 +35,8 @@ codec.heif.msg.checksum_mismatch = Checksum ya {name} ekokani te: ezelaki {expec
 codec.heif.msg.imageio_cannot_read = ImageIO ekokaki kotánga container HEIF te
 codec.heif.msg.container_empty = container HEIF ezali na elilingi moko te
 codec.heif.msg.imageio_cannot_decode = ImageIO ekokaki kofungola kode ya elilingi ya liboso te
+
+codec.avif.msg.no_decoder = Versio ya navigatɛrɛ ya Schist ekoki kofungola bilili ya AVIF te. Fungolá fisyé na programɛ ya ordinatɛrɛ, to bongolá yango liboso na PNG.
 
 # Native layered formats.
 codec.pdn.name = Paint.NET

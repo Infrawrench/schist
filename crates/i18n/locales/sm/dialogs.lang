@@ -7,6 +7,7 @@ dialog.layer_props.title = Uiga o le Vaega
 dialog.export.format = Faatulagaga
 dialog.export.dither = Faafefiloi Pika
 dialog.export.dither_note = Faafefiloi pika pe a faaitiitia i le 8-piti
+dialog.export.effort = Taumafaiga
 dialog.export.export_ellipsis = Auina Ese…
 dialog.batch.title = Faagasolo Ata Pue
 dialog.batch.note_edit.other = {n} le aofaʻi o ata pue — e sefe o ni faasaʻoga o le faletusi; e lē suia lava faila muamua.

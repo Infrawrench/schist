@@ -5,6 +5,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -35,6 +37,9 @@ codec.heif.msg.checksum_mismatch = ʻOku ʻikai tatau ʻa e checksum ʻo e {name
 codec.heif.msg.imageio_cannot_read = Naʻe ʻikai lava ʻe ImageIO ʻo lau ʻa e container HEIF
 codec.heif.msg.container_empty = ʻoku ʻikai ha ʻīmisi ʻi he container HEIF
 codec.heif.msg.imageio_cannot_decode = Naʻe ʻikai lava ʻe ImageIO ʻo fakaʻuhingaʻi ʻa e ʻīmisi tefitó
+
+# AVIF in the browser build, which has no AV1 decoder (it still exports AVIF).
+codec.avif.msg.no_decoder = ʻOku ʻikai lava ʻe he Schist ʻi he polokalama vakaí ʻo fakaava ʻa e ngaahi ʻīmisi AVIF. Fakaava ʻa e faile ʻi he polokalama ʻi he komipiutá, pe liliu muʻa ia ki he PNG.
 
 # Native layered formats.
 codec.pdn.name = Paint.NET

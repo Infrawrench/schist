@@ -3,6 +3,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -29,6 +31,8 @@ codec.heif.msg.checksum_mismatch = {name} saṅkhyāparikkhā na sameti: {expect
 codec.heif.msg.imageio_cannot_read = ImageIO HEIF-bhājanaṃ paṭhituṃ nāsakkhi
 codec.heif.msg.container_empty = HEIF-bhājane chāyārūpaṃ natthi
 codec.heif.msg.imageio_cannot_decode = ImageIO mukhya-chāyārūpassa viggahaṃ kātuṃ nāsakkhi
+
+codec.avif.msg.no_decoder = Schist-assa jāladassaka-saṃskaraṇaṃ AVIF-chāyārūpāni vivarituṃ na sakkoti. Sañcikaṃ pīṭhānuyoge vivaratha, atha vā paṭhamaṃ PNG-rūpaṃ parivattetha.
 
 # Native layered formats.
 codec.pdn.name = Paint.NET

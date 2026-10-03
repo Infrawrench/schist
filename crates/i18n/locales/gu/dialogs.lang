@@ -10,6 +10,7 @@ dialog.layer_props.title = લેયરના ગુણધર્મો
 dialog.export.format = ફોર્મેટ
 dialog.export.dither = ડિધર
 dialog.export.dither_note = 8-બિટમાં ઘટાડતી વખતે ડિધર કરો
+dialog.export.effort = પ્રયાસ
 dialog.export.export_ellipsis = એક્સપોર્ટ કરો…
 
 # Process Photos
