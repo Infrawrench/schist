@@ -438,3 +438,86 @@ fn digit_rules_count_only_ascii_digits_and_keep_whole_graphemes() {
         }
     }
 }
+
+#[test]
+fn word_rules_count_nonempty_whitespace_delimited_units_and_preserve_graphemes() {
+    // Independently enumerated end delimiters. Leading and repeated whitespace
+    // belongs to the span but does not create empty words.
+    for (text, ends) in [
+        ("  Éab  second tail", vec![(6, 7), (14, 15)]),
+        ("E\u{301}x\tword\u{2028}last", vec![(4, 5), (9, 12)]),
+        ("alpha,beta gamma! tail", vec![(10, 11), (17, 18)]),
+        ("漢字\u{3000}次語 tail", vec![(6, 9), (15, 16)]),
+        ("a \u{301}b tail", vec![(1, 4), (5, 6)]),
+        ("   ", Vec::new()),
+    ] {
+        for count in [1, 2, 3, i32::MAX] {
+            for inclusive in [false, true] {
+                let end = ends
+                    .get(count as usize - 1)
+                    .map_or(
+                        text.len(),
+                        |(up, through)| {
+                            if inclusive {
+                                *through
+                            } else {
+                                *up
+                            }
+                        },
+                    );
+                let styles = styles(vec![rule(
+                    Delimiter::Enumeration("AnyWord".into()),
+                    count,
+                    inclusive,
+                )]);
+                matches_explicit_slices(text, &styles, vec![StyleRange::new(0, end, "Nested")]);
+                assert_eq!(
+                    schist_layout::nested_styles::unsupported(&styles.resolve_paragraph("Source")),
+                    None
+                );
+            }
+        }
+    }
+}
+
+#[test]
+fn nonbreaking_spaces_keep_multiple_terms_inside_one_nested_word() {
+    for separator in ['\u{a0}', '\u{2007}', '\u{202f}'] {
+        let prefix = format!("red{separator}green{separator}blue");
+        let text = format!("{prefix} next tail");
+        for inclusive in [false, true] {
+            let styles = styles(vec![rule(
+                Delimiter::Enumeration("AnyWord".into()),
+                1,
+                inclusive,
+            )]);
+            matches_explicit_slices(
+                &text,
+                &styles,
+                vec![StyleRange::new(
+                    0,
+                    prefix.len() + usize::from(inclusive),
+                    "Nested",
+                )],
+            );
+        }
+    }
+}
+
+#[test]
+fn ordered_word_rules_advance_past_excluded_and_repeated_leading_separators() {
+    for inclusive in [false, true] {
+        let mut skip = rule(Delimiter::Enumeration("AnyWord".into()), 1, inclusive);
+        skip.character_style = NestedCharacter::None;
+        let styles = styles(vec![
+            skip,
+            rule(Delimiter::Enumeration("AnyWord".into()), 1, true),
+        ]);
+        let start = if inclusive { 7 } else { 6 };
+        matches_explicit_slices(
+            "  Éab  second tail",
+            &styles,
+            vec![StyleRange::new(start, 15, "Nested")],
+        );
+    }
+}

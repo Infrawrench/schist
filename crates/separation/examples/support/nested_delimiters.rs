@@ -17,7 +17,7 @@ fn rule(delimiter: Delimiter, repetition: i32, inclusive: bool) -> NestedStyle {
         inclusive,
     }
 }
-fn explicit(story: &mut Story, spans: &[std::ops::Range<usize>]) {
+pub(super) fn explicit(story: &mut Story, spans: &[std::ops::Range<usize>]) {
     let text = story.text();
     let direct = story.ranges.clone();
     story.ranges.clear();
@@ -38,7 +38,7 @@ fn explicit(story: &mut Story, spans: &[std::ops::Range<usize>]) {
         }
     }
 }
-fn replace_first_line(story: &mut Story, text: &str) {
+pub(super) fn replace_first_line(story: &mut Story, text: &str) {
     if let Some(schist_layout::StoryPoint::Paragraph { text: source, .. }) =
         story.points.first_mut()
     {
@@ -47,6 +47,7 @@ fn replace_first_line(story: &mut Story, text: &str) {
     }
 }
 pub fn document(reference: bool, case: usize) -> LayoutDocument {
+    assert!(case < CASES);
     let base_case = match case {
         8 => 1,
         9 => 0,

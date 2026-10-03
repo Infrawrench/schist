@@ -6,6 +6,7 @@ enum Kind<'a> {
     Digits,
     Character(char),
     AnyCharacter,
+    Word,
 }
 
 fn kind(delimiter: &Delimiter) -> Option<Kind<'_>> {
@@ -14,6 +15,7 @@ fn kind(delimiter: &Delimiter) -> Option<Kind<'_>> {
         Delimiter::Text(value) => (!value.is_empty()).then_some(Kind::Characters(value)),
         Delimiter::Enumeration(value) => Some(match value.as_str() {
             "AnyCharacter" => Kind::AnyCharacter,
+            "AnyWord" => Kind::Word,
             "Digits" => Kind::Digits,
             "Tabs" => Kind::Character('\t'),
             "ForcedLineBreak" => Kind::Character('\u{2028}'),
@@ -51,9 +53,16 @@ pub(super) fn end(text: &str, rule: &NestedStyle) -> usize {
     let mut remaining = rule.repetition as usize;
     let mut boundaries = schist_text_engine::grapheme_boundaries(text);
     let mut start = boundaries.next().unwrap_or(0);
+    let mut word_content = false;
     for end in boundaries {
         let instances = match kind {
             Kind::AnyCharacter => 1,
+            Kind::Word => {
+                let separator = text[start..end].chars().any(word_separator);
+                let count = usize::from(separator && word_content);
+                word_content = !separator;
+                count
+            }
             Kind::Characters(values) => text[start..end]
                 .chars()
                 .filter(|c| values.contains(*c))
@@ -71,4 +80,11 @@ pub(super) fn end(text: &str, rule: &NestedStyle) -> usize {
         start = end;
     }
     text.len()
+}
+
+// Whitespace terminates a nonempty word. Nonbreaking spaces join terms;
+// punctuation and script changes alone do not introduce a word boundary.
+// This is a bounded Unicode policy, not language-dependent segmentation.
+fn word_separator(value: char) -> bool {
+    value.is_whitespace() && !matches!(value, '\u{a0}' | '\u{2007}' | '\u{202f}')
 }

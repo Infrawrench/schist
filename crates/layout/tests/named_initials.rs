@@ -135,7 +135,7 @@ fn unsupported_rules_do_not_hide_behind_a_supported_initial() {
     let mut paragraph = schist_layout::ResolvedParagraph::default();
     for delimiter in [
         Delimiter::Text(String::new()),
-        Delimiter::Enumeration("AnyWord".into()),
+        Delimiter::Enumeration("Sentence".into()),
         Delimiter::Enumeration("Future".into()),
     ] {
         for count in [i32::MIN, 0, 1, i32::MAX] {

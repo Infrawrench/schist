@@ -146,7 +146,7 @@ fn no_style_rules_reset_inherited_paint_without_reporting_uncomposed_formatting(
             doc.styles.add_paragraph(ParagraphStyle {
                 name: "Base".into(),
                 nested_styles: Some(vec![NestedStyle {
-                    delimiter: Delimiter::Enumeration("AnyWord".into()),
+                    delimiter: Delimiter::Enumeration("Sentence".into()),
                     ..rule()
                 }]),
                 ..Default::default()

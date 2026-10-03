@@ -2333,7 +2333,7 @@ cluster behavior. Rules restart at each source paragraph, never at a wrapped
 line or inserted reference. A leading canonical Dropcap can precede the other
 supported rules. Source character overrides retain precedence.
 
-Unknown or invalid bounds stop the supported prefix. Word/sentence/letter rules,
+Unknown or invalid bounds stop the supported prefix. Sentence/letter rules,
 Repeat and structural delimiters remain unsupported. A no-style unknown rule can affect other named rules and remains
 diagnosed; entirely no-style lists cannot change formatting. Source diagnostics
 travel with temporary footnote projections, so suppressing materialized styles
@@ -2352,6 +2352,42 @@ is pixel-identical and every page has passed visual review. All 16 roadmap targe
 shared UI, formatting and whitespace checks pass. Native examples of this composed delimiter
 subset and external-application agreement remain validation gaps. A separate public
 [word-rule example](https://forum.rudtp.ru/resources/nested-styles.2151/) supplies
-two populated `AnyWord` records for the next integration pass. Its original IDML,
+two populated `AnyWord` records, integrated below. Its original IDML,
 source hashes and author-posted screenshots are retained outside the repository;
 no redistribution permission is assumed.
+
+
+### Word-based nested rules
+
+`AnyWord` now composes ordered styles from authored paragraph text. Through
+includes the terminating whitespace grapheme; up-to leaves it for the following
+rule. Leading or repeated whitespace does not create an empty word. Punctuation
+and script changes alone do not split words. Unicode whitespace terminates words
+except nonbreaking U+00A0, U+2007 and U+202F; combining sequences remain intact.
+Missing delimiters consume the remaining paragraph. This is a bounded Schist
+segmentation policy, not language-dependent word breaking or a claim of complete
+native Unicode agreement. The public manual defines whitespace termination;
+[the author's nonbreaking-space example](https://www.creativetechs.com/2006/08/06/discover-nested-styles-in-adobe-indesign/)
+supports treating joined terms as one word. The exact Unicode exceptions and
+leading/repeated-space cases remain externally unverified.
+
+LeonidB's [public native example](https://forum.rudtp.ru/resources/nested-styles.2151/)
+(DOM 7.5, published 2018-05-18) has two ordered `AnyWord` records, both repetition
+one and inclusive true, referencing Regular then Bold. One paragraph-style range
+contains five Content elements separated by native Br elements. In the associated
+[thread](https://forum.rudtp.ru/threads/grep-om-prisvoit-bold-vtoromu-slovu-v-predlozhenii.70614/)
+andrejK’s screenshots show the native settings and second-word formatting. The downloaded IDML SHA-256
+is `89f7aaed23821a4c442b11d287c9479d8cf2658c459522c12ab178e951ac3cad`.
+Its original stays outside the repository; a synthetic regression uses the
+observed XML structure with our own text and metrics. It verifies per-paragraph
+restarts, every continuation slice, source preservation and repeated native saves.
+The original file is also imported locally through the real codec.
+
+Generated note/reference labels containing spaces do not consume source words.
+No-style rules, direct overrides, a preceding initial and whole/split notes use
+the same source-derived formatting. Independent explicit ranges cover Unicode,
+nonbreaking spaces, excluded delimiters, long counts, vertical writing and affine
+placement in all process/spot plates at 72/144/216 dpi. The 16-page PDF proof is
+part of `make check-design-output`; local visual verification is recorded in
+Roadmap / Handoff. Sentence, Letters, Repeat and structural delimiters remain
+retained and unsupported; the existing diagnostics still apply.

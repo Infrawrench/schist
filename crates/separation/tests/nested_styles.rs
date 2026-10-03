@@ -31,7 +31,7 @@ fn preflight_reports_only_used_inherited_nested_rules_in_both_separation_paths()
                     writing_mode: Some(writing),
                     nested_styles: Some(vec![NestedStyle {
                         character_style: CharacterStyle::Named("Initial".into()),
-                        delimiter: Delimiter::Enumeration("AnyWord".into()),
+                        delimiter: Delimiter::Enumeration("Sentence".into()),
                         repetition: 1,
                         inclusive: true,
                     }]),

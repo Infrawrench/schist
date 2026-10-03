@@ -310,6 +310,43 @@ are marked.
 
 ## Handoff
 
+Word-based nested styles, 2026-10-03:
+AnyWord now consumes nonempty source words, with through/up-to bounds, ordered
+no-style spans, per-paragraph restarts and grapheme-safe continuation slices.
+Nonbreaking spaces join terms under the documented bounded Unicode policy.
+Generated note labels containing spaces cannot consume source words. LeonidB's
+public native sample provides two populated word records; andrejK's screenshots
+show native settings in the associated thread. The original stays outside the
+repository, with synthetic XML regressions using our own text and metrics. The
+original file now imports without the nested-style warning. No external placement
+or complete Unicode agreement is claimed.
+
+Six new properties cover source ranges, paragraph breaks, repeated native saves
+and process/spot plates in both separation paths at three resolutions. All eight
+pairs in the 16-page PDF match extracted samples and Poppler renders; every page
+passes visual review and final renders match reviewed pixels. All 38 recorded
+prior PDF proofs remain byte-identical. New checks caught invalid fixture offsets
+at paragraph separators and stale multibyte endpoints after replacing text; those
+fixtures were corrected. Existing unsupported-rule tests now use Sentence because
+AnyWord is supported. Proof helper naming/bounds issues were fixed without allows.
+
+All 16 roadmap targets, shared UI, formatting and whitespace checks pass:
+**2,009 distinct Rust tests**, four browser checks and eight Python audit tests;
+one existing shared UI documentation example remains ignored. Native debug build
+passes in 3m 01s; the isolated Design-enabled QA bundle is refreshed and
+hash/signature verified. No UI or locale keys change. Local evidence is under
+`/tmp/schist-nested-words-*`; prepared for draft PR #195. The earlier delimiter
+checkpoint is published as `4c165708`.
+
+This continues Phase 3 item 9. Repeat is next; sentence/letter rules, structural
+delimiters, general nested-rule controls and the other documented integration
+gaps remain. Public manual/DOM references and a native screenshot establish repeat
+semantics, but a populated native Repeat XML record remains unverified. Additional
+public XML supplies literal and active initial rules; nine further IDML samples
+contain no populated nested lists and were not retained. Production INDD remains
+spike-gated. Per the user's instruction, validate locally and continue without
+waiting for CI; failures there can be handled later.
+
 Source-derived nested delimiters, 2026-10-03:
 Ordered rules compose a supported prefix using AnyCharacter, literal character
 sets, ASCII Digits, Tabs, ForcedLineBreak, EmSpace, EnSpace and NonbreakingSpace.
