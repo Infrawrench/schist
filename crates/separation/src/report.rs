@@ -118,7 +118,7 @@ impl PreflightReport {
     }
 
     /// Whether these checks found no errors. This report currently covers
-    /// graphic availability and total ink coverage, not every press rule.
+    /// layout content, graphic availability and total ink coverage, not every press rule.
     pub fn is_printable(&self) -> bool {
         self.errors() == 0
     }

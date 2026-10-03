@@ -109,6 +109,43 @@ pub enum Bullet {
     },
 }
 
+/// Where a paragraph may begin in its text thread. IDML StartParagraph values
+/// are independent of line keeps and do not insert characters into the story.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
+pub enum ParagraphStart {
+    Anywhere,
+    NextColumn,
+    NextFrame,
+    NextPage,
+    NextOddPage,
+    NextEvenPage,
+}
+
+impl ParagraphStart {
+    pub fn native_name(self) -> &'static str {
+        match self {
+            Self::Anywhere => "Anywhere",
+            Self::NextColumn => "NextColumn",
+            Self::NextFrame => "NextFrame",
+            Self::NextPage => "NextPage",
+            Self::NextOddPage => "NextOddPage",
+            Self::NextEvenPage => "NextEvenPage",
+        }
+    }
+
+    pub fn from_native(value: &str) -> Option<Self> {
+        Some(match value {
+            "Anywhere" => Self::Anywhere,
+            "NextColumn" => Self::NextColumn,
+            "NextFrame" => Self::NextFrame,
+            "NextPage" => Self::NextPage,
+            "NextOddPage" => Self::NextOddPage,
+            "NextEvenPage" => Self::NextEvenPage,
+            _ => return None,
+        })
+    }
+}
+
 /// Base direction of a paragraph.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Default, Serialize, Deserialize)]
 pub enum ParagraphDirection {
@@ -344,6 +381,8 @@ pub struct ParagraphStyle {
     pub tracking: Option<f32>,
     /// Kerning applies when the font's own table asks for it.
     pub kerning: Option<bool>,
+    /// Prevent automatic line breaks within this text; None inherits.
+    pub no_break: Option<bool>,
 
     pub align: Option<Align>,
     /// Distance in points from the column's left edge to the text measure.
@@ -352,23 +391,35 @@ pub struct ParagraphStyle {
     pub first_line_indent: Option<f32>,
     pub space_before: Option<f32>,
     pub space_after: Option<f32>,
-    /// Keep this paragraph with the next paragraph's first placed line.
+    /// Legacy toggle: keep the final line with the next paragraph's first line.
     pub keep_with_next: Option<bool>,
     /// Minimum lines left at the bottom of a column before the
     /// paragraph moves to the next. Orphans and widows in one setting.
     pub keep_lines: Option<usize>,
+    /// Native keep options override the legacy toggle and symmetric count.
+    #[serde(default)]
+    pub keeps: crate::paragraph_keeps::ParagraphKeeps,
+    /// Required container boundary for this paragraph's first line. None
+    /// inherits, while Anywhere explicitly removes a base style's constraint.
+    pub start_paragraph: Option<ParagraphStart>,
     /// Number of body lines spanned by opening characters; zero or one disables it.
     pub drop_caps_lines: Option<usize>,
     /// Opening graphemes to enlarge. Unset means one; zero disables drop caps.
     pub drop_caps_characters: Option<usize>,
+    /// Native outline/grid flags. Unset inherits; zero explicitly clears them.
+    pub drop_caps_detail: Option<i32>,
+    /// Ordered native rules. None inherits; an empty list explicitly resets.
+    pub nested_styles: Option<Vec<crate::nested_styles::NestedStyle>>,
 
     pub bullet: Option<Bullet>,
     #[serde(default)]
     pub list: crate::lists::ListStyle,
     /// Whether hyphenation is allowed in this paragraph.
     pub hyphenate: Option<bool>,
+    #[serde(default)]
+    pub hyphenation: crate::hyphenation::HyphenationOptions,
     /// A BCP 47 tag or a declared native language resource. Used by shaping and
-    /// display casing; hyphenation dictionaries and proofing remain separate work.
+    /// display casing and supported hyphenation dictionaries. Proofing is separate.
     pub language: Option<crate::language::TextLanguage>,
     /// Base paragraph direction. `None` means auto, where the first
     /// strong character decides.
@@ -399,6 +450,8 @@ pub struct CharacterStyle {
     /// Letter spacing in thousandths of an em.
     pub tracking: Option<f32>,
     pub kerning: Option<bool>,
+    /// Prevent automatic line breaks within this text; None inherits.
+    pub no_break: Option<bool>,
 
     pub bold: Option<bool>,
     pub italic: Option<bool>,
@@ -657,6 +710,8 @@ pub struct ResolvedParagraph {
     pub auto_leading: Option<f32>,
     pub tracking: Option<f32>,
     pub kerning: Option<bool>,
+    /// Prevent automatic line breaks within this text; None inherits.
+    pub no_break: Option<bool>,
     pub align: Option<Align>,
     pub left_indent: Option<f32>,
     pub right_indent: Option<f32>,
@@ -665,11 +720,18 @@ pub struct ResolvedParagraph {
     pub space_after: Option<f32>,
     pub keep_with_next: Option<bool>,
     pub keep_lines: Option<usize>,
+    pub keeps: crate::paragraph_keeps::ParagraphKeeps,
+    pub start_paragraph: Option<ParagraphStart>,
     pub drop_caps_lines: Option<usize>,
     pub drop_caps_characters: Option<usize>,
+    /// Native outline/grid flags. Unset inherits; zero explicitly clears them.
+    pub drop_caps_detail: Option<i32>,
+    /// Ordered native rules. None inherits; an empty list explicitly resets.
+    pub nested_styles: Option<Vec<crate::nested_styles::NestedStyle>>,
     pub bullet: Option<Bullet>,
     pub list: crate::lists::ListStyle,
     pub hyphenate: Option<bool>,
+    pub hyphenation: crate::hyphenation::HyphenationOptions,
     pub language: Option<crate::language::TextLanguage>,
     pub direction: Option<ParagraphDirection>,
     pub writing_mode: Option<WritingMode>,
@@ -691,6 +753,7 @@ impl ResolvedParagraph {
         }
         fallback.bold = self.bold.or(fallback.bold);
         fallback.italic = self.italic.or(fallback.italic);
+        fallback.no_break = self.no_break.or(fallback.no_break);
         fallback.underline = self.underline.or(fallback.underline);
         fallback.strikethrough = self.strikethrough.or(fallback.strikethrough);
         fallback.underline_style = self.underline_style.over(&fallback.underline_style);
@@ -783,6 +846,7 @@ impl ResolvedParagraph {
             out.auto_leading = out.auto_leading.or(style.auto_leading);
             out.tracking = out.tracking.or(style.tracking);
             out.kerning = out.kerning.or(style.kerning);
+            out.no_break = out.no_break.or(style.no_break);
             out.align = out.align.or(style.align);
             out.left_indent = out.left_indent.or(style.left_indent);
             out.right_indent = out.right_indent.or(style.right_indent);
@@ -791,8 +855,17 @@ impl ResolvedParagraph {
             out.space_after = out.space_after.or(style.space_after);
             out.keep_with_next = out.keep_with_next.or(style.keep_with_next);
             out.keep_lines = out.keep_lines.or(style.keep_lines);
+            out.keeps = out.keeps.over(&style.keeps.over(
+                &crate::paragraph_keeps::ParagraphKeeps::from_legacy(
+                    style.keep_with_next,
+                    style.keep_lines,
+                ),
+            ));
+            out.start_paragraph = out.start_paragraph.or(style.start_paragraph);
             out.drop_caps_lines = out.drop_caps_lines.or(style.drop_caps_lines);
             out.drop_caps_characters = out.drop_caps_characters.or(style.drop_caps_characters);
+            out.drop_caps_detail = out.drop_caps_detail.or(style.drop_caps_detail);
+            out.nested_styles = out.nested_styles.or_else(|| style.nested_styles.clone());
             out.bullet = out.bullet.or(style.bullet);
             out.list = out.list.over(
                 &style
@@ -800,6 +873,7 @@ impl ResolvedParagraph {
                     .over(&crate::lists::ListStyle::from_legacy(style.bullet)),
             );
             out.hyphenate = out.hyphenate.or(style.hyphenate);
+            out.hyphenation = out.hyphenation.over(&style.hyphenation);
             out.language = out.language.clone().or_else(|| style.language.clone());
             out.direction = out.direction.or(style.direction);
             out.writing_mode = out.writing_mode.or(style.writing_mode);
@@ -819,6 +893,8 @@ pub struct ResolvedCharacter {
     pub leading: Option<Leading>,
     pub tracking: Option<f32>,
     pub kerning: Option<bool>,
+    /// Prevent automatic line breaks within this text; None inherits.
+    pub no_break: Option<bool>,
     pub bold: Option<bool>,
     pub italic: Option<bool>,
     pub underline: Option<bool>,
@@ -856,6 +932,49 @@ pub struct ResolvedCharacter {
 }
 
 impl ResolvedCharacter {
+    /// Materialize a resolved composition style in a temporary style set.
+    /// All paint and font properties remain typed, including spot ink identity.
+    pub fn into_style(self, name: impl Into<String>) -> CharacterStyle {
+        CharacterStyle {
+            name: name.into(),
+            based_on: None,
+            family: self.family,
+            font_style: self.font_style,
+            point_size: self.point_size,
+            leading: self.leading,
+            tracking: self.tracking,
+            kerning: self.kerning,
+            no_break: self.no_break,
+            bold: self.bold,
+            italic: self.italic,
+            underline: self.underline,
+            strikethrough: self.strikethrough,
+            underline_style: self.underline_style,
+            strike_style: self.strike_style,
+            baseline_shift: self.baseline_shift,
+            position: self.position,
+            all_caps: self.all_caps,
+            small_caps: self.small_caps,
+            fill_tint: self.fill_tint,
+            stroke_tint: self.stroke_tint,
+            fill: self.fill,
+            stroke: self.stroke,
+            fill_disabled: self.fill_disabled,
+            stroke_disabled: self.stroke_disabled,
+            stroke_weight: self.stroke_weight,
+            stroke_outside: self.stroke_outside,
+            stroke_join: self.stroke_join,
+            stroke_miter_limit: self.stroke_miter_limit,
+            opacity: self.opacity,
+            overprint_fill: self.overprint_fill,
+            overprint_stroke: self.overprint_stroke,
+            optical_margin: self.optical_margin,
+            features: self.features,
+            directional_features: self.directional_features,
+            language: self.language,
+        }
+    }
+
     /// Merge all character properties with a lower-precedence resolved style.
     /// Used by generated markers: an explicit marker style overrides the first
     /// character, which in turn overrides the paragraph and document defaults.
@@ -880,6 +999,7 @@ impl ResolvedCharacter {
             leading,
             tracking,
             kerning,
+            no_break,
             bold,
             italic,
             underline,
@@ -969,6 +1089,7 @@ impl ResolvedCharacter {
             out.leading = out.leading.or(style.leading);
             out.tracking = out.tracking.or(style.tracking);
             out.kerning = out.kerning.or(style.kerning);
+            out.no_break = out.no_break.or(style.no_break);
             let hints = style
                 .font_style
                 .as_deref()

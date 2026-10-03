@@ -9,6 +9,31 @@ use crate::{
 };
 use schist_layout::{Insets, LayoutDocument, NumberStyle, Section};
 
+/// Read only this supported general-frame property; other category properties
+/// retain their existing unsupported-feature diagnostics.
+pub(crate) fn frame_balance(parent: &Element, report: &mut Report) -> Option<bool> {
+    let raw = parent
+        .child("TextFramePreference")?
+        .attr("VerticalBalanceColumns")?;
+    match xml::parse_boolean(raw) {
+        Some(value) => Some(value),
+        None => {
+            report.skip(schist_i18n::tf!(
+                "design.idml_text_preference_invalid",
+                property = "VerticalBalanceColumns",
+                value = raw
+            ));
+            None
+        }
+    }
+}
+
+pub(crate) fn balance_attribute(value: Option<bool>) -> String {
+    value
+        .map(|v| format!(" VerticalBalanceColumns=\"{v}\""))
+        .unwrap_or_default()
+}
+
 const BLEED: [&str; 4] = [
     "DocumentBleedTopOffset",
     "DocumentBleedBottomOffset",
@@ -32,7 +57,7 @@ fn offset(element: &Element, keys: &[&str; 4], uniform: &str, report: &mut Repor
         report.skip(schist_i18n::t("design.idml_invalid_page_offsets"));
     }
     let values = values.map(|v| if v.is_finite() { v.max(0.0) } else { 0.0 });
-    if matches!(element.attr(uniform), Some("true" | "1")) {
+    if element.boolean(uniform) == Some(true) {
         return values[0].into();
     }
     Insets::new(values[0], values[3], values[1], values[2])
@@ -42,6 +67,8 @@ pub fn read(
     opened: &DesignPackage<'_>,
     document: &mut LayoutDocument,
     report: &mut Report,
+    colors: &crate::color_codec::Colors,
+    refs: &crate::style_codec::References,
 ) -> Result<(), Error> {
     let mut offsets = None;
     for part in opened.listed.iter().filter(|p| p.role == "Preferences") {
@@ -49,6 +76,10 @@ pub fn read(
             part: part.name.clone(),
             message,
         })?;
+        document.balance_columns_default = frame_balance(&root, report).unwrap_or(false);
+        if let Some(prefs) = root.find("FootnoteOption") {
+            document.footnotes = crate::footnote_codec::read(prefs, colors, refs, report);
+        }
         if let Some(prefs) = root.find("TextPreference") {
             let text = &mut document.styles.text_preferences;
             for (key, target, range) in [
@@ -79,7 +110,7 @@ pub fn read(
             }
         }
         if let Some(prefs) = root.find("DocumentPreference") {
-            document.facing_pages = prefs.attr("FacingPages") == Some("true");
+            document.facing_pages = prefs.boolean("FacingPages") == Some(true);
             document.page_binding = if prefs.attr("PageBinding") == Some("RightToLeft") {
                 schist_layout::PageBinding::RightToLeft
             } else {
@@ -94,6 +125,7 @@ pub fn read(
         part: opened.root.clone(),
         message,
     })?;
+    document.frame_footnote_defaults = crate::footnote_codec::read_frame(&root, report);
     // Match the same valid pages and XML reading order as read_spreads. Spread
     // slots may be sorted physically (including RTL); Section.PageStart is an
     // object reference, never a display label or a position in designmap.xml.
@@ -148,8 +180,8 @@ pub fn read(
         }
         let section = Section {
             start: start.filter(|v| (1..=999999).contains(v)).unwrap_or(1),
-            continue_numbering: !matches!(element.attr("ContinueNumbering"), Some("false" | "0")),
-            include_prefix: matches!(element.attr("IncludeSectionPrefix"), Some("true" | "1")),
+            continue_numbering: element.boolean("ContinueNumbering") != Some(false),
+            include_prefix: element.boolean("IncludeSectionPrefix") == Some(true),
             prefix: element.attr("SectionPrefix").unwrap_or_default().into(),
             name: element.attr("Name").unwrap_or_default().into(),
             marker: element.attr("Marker").unwrap_or_default().into(),
@@ -247,7 +279,10 @@ pub fn preferences(document: &LayoutDocument, warnings: &mut Vec<String>) -> Str
             out.push_str(&format!(r#" {key}="{}""#, number(value)));
         }
     }
-    out.push_str(" /><TextPreference");
+    out.push_str(&format!(
+        " /><TextFramePreference VerticalBalanceColumns=\"{}\" /><TextPreference",
+        document.balance_columns_default
+    ));
     let text = document.styles.text_preferences;
     let default = schist_layout::styles::TextPreferences::default();
     for (key, value, fallback, range) in [

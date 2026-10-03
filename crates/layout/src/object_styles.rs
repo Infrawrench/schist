@@ -95,6 +95,10 @@ pub struct ObjectStyle {
     pub enable_fill: Option<bool>,
     pub enable_stroke: Option<bool>,
     pub enable_stroke_options: Option<bool>,
+    pub enable_footnotes: Option<bool>,
+    pub enable_text_frame_general: Option<bool>,
+    pub balance_columns: Option<bool>,
+    pub footnotes: crate::footnotes::FrameFootnotes,
     pub paint: ObjectPaint,
 }
 
@@ -137,8 +141,49 @@ impl StyleSet {
             resolved.enable_stroke_options = style
                 .enable_stroke_options
                 .or(resolved.enable_stroke_options);
+            resolved.enable_text_frame_general = style
+                .enable_text_frame_general
+                .or(resolved.enable_text_frame_general);
+            resolved.balance_columns = style.balance_columns.or(resolved.balance_columns);
+            resolved.enable_footnotes = style.enable_footnotes.or(resolved.enable_footnotes);
+            resolved.footnotes = style.footnotes.over(&resolved.footnotes);
         }
         resolved
+    }
+
+    pub fn frame_balance(&self, object: &PlacedObject) -> bool {
+        let LayoutObject::TextFrame {
+            balance_columns, ..
+        } = &object.object
+        else {
+            return false;
+        };
+        balance_columns
+            .or_else(|| {
+                object
+                    .appearance
+                    .style
+                    .as_deref()
+                    .map(|name| self.resolve_object(name))
+                    .filter(|style| style.enable_text_frame_general == Some(true))
+                    .and_then(|style| style.balance_columns)
+            })
+            .unwrap_or(false)
+    }
+
+    pub fn frame_footnotes(&self, object: &PlacedObject) -> crate::footnotes::FrameFootnotes {
+        let LayoutObject::TextFrame { footnotes, .. } = &object.object else {
+            return Default::default();
+        };
+        let inherited = object
+            .appearance
+            .style
+            .as_deref()
+            .map(|name| self.resolve_object(name))
+            .filter(|style| style.enable_footnotes == Some(true))
+            .map(|style| style.footnotes)
+            .unwrap_or_default();
+        footnotes.over(&inherited)
     }
 
     pub fn object_paint(&self, object: &PlacedObject) -> ObjectPaint {
@@ -273,7 +318,7 @@ impl PlacedObject {
 
 /// A selection-wide style change is one history entry, independent of its size.
 /// Applying clears overrides in enabled categories; disabled categories retain
-/// their current appearance. Detaching bakes the visible paint.
+/// their current appearance. Detaching bakes paint and frame footnote settings.
 pub fn apply_style(
     doc: &mut crate::LayoutDocument,
     history: &mut crate::History,
@@ -295,6 +340,29 @@ pub fn apply_style(
         };
         let mut after = object.clone();
         let mut paint = doc.styles.object_paint(object);
+        if let LayoutObject::TextFrame {
+            footnotes,
+            balance_columns,
+            ..
+        } = &mut after.object
+        {
+            *balance_columns = if resolved
+                .as_ref()
+                .is_some_and(|s| s.enable_text_frame_general == Some(true))
+            {
+                None
+            } else {
+                Some(doc.styles.frame_balance(object))
+            };
+            *footnotes = if resolved
+                .as_ref()
+                .is_some_and(|s| s.enable_footnotes == Some(true))
+            {
+                Default::default()
+            } else {
+                doc.styles.frame_footnotes(object)
+            };
+        }
         if let Some(style) = &resolved {
             if style.enable_fill == Some(true) {
                 paint.fill = None;

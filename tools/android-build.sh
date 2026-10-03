@@ -141,7 +141,8 @@ lib="target/$target/$profile/libschist_app.so"
 stage="target/$target/$profile/apk"
 apk=dist/android/Schist.apk
 rm -rf "$stage"
-mkdir -p "$stage/lib/$abi" dist/android
+mkdir -p "$stage/lib/$abi" "$stage/assets" dist/android
+cp THIRD-PARTY-NOTICES.txt "$stage/assets/"
 cp "$lib" "$stage/lib/$abi/"
 # Keep the APK's version in step with the workspace's. versionCode has
 # to be an integer that only ever grows: major, minor and patch, two
@@ -156,7 +157,7 @@ aapt2 link -o "$stage/unaligned.apk" \
   --version-name "$version" --version-code "$code" \
   -I "$platform_jar" "$stage/res.zip"
 compile_android_java "$stage"
-(cd "$stage" && zip -q -r unaligned.apk lib classes.dex)
+(cd "$stage" && zip -q -r unaligned.apk lib classes.dex assets)
 zipalign -f -p 4 "$stage/unaligned.apk" "$stage/aligned.apk"
 keystore="$HOME/.android/debug.keystore"
 if [ ! -f "$keystore" ]; then

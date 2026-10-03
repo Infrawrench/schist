@@ -74,7 +74,9 @@ pub fn link(
         return false;
     };
     if story != old_story
-        && (doc.story(old_story).is_none_or(|s| s.text_len() != 0)
+        && (doc
+            .story(old_story)
+            .is_none_or(|s| s.text_len() != 0 || s.retained_structures() > 0)
             || doc.story_frames(old_story).len() != 1)
     {
         return false;

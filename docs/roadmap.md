@@ -8,8 +8,8 @@ integration still has composition and interchange fidelity gaps to close.
 
 ## The one-line version
 
-The layout engine and IDML open/save work. Design Mode ships dark behind
-`design-mode` while the remaining Phase 3 authoring UI is completed.
+The layout engine, IDML open/save and main authoring UI work. Design Mode ships
+dark behind `design-mode` while Phase 3 integration and output fidelity are completed.
 
 ## Status
 
@@ -28,9 +28,9 @@ The layout engine and IDML open/save work. Design Mode ships dark behind
 with override tracking, layers, frames, links, an ink model, named
 paragraph and character styles, grids and snapping, per-paragraph
 direction and writing mode, and operation-based undo. Composition handles
-justification, column balancing, paragraph spacing, `keep_lines`,
-`keep_with_next`, indents and forced breaks. Integration review found that drop-cap geometry never reached glyph rendering
-and grid leading alone did not align baselines to page guides. Horizontal
+justification, column balancing, paragraph spacing, independently inherited
+paragraph keep policies, indents and forced breaks. Integration review found that drop-cap geometry never reached glyph rendering
+and grid leading alone did not align baselines to page guides. Horizontal and vertical
 initials now paint their enlarged glyphs once, and measured baselines snap to
 the correct page grid. Vertical composition, native story orientation and paragraph direction now
 have integration coverage. Advanced typography and interchange still have
@@ -84,7 +84,7 @@ Phase 0 (INDD spike, eleven paired samples) ──go/no-go──► Phase 5 (IND
 ```
 
 - **Phase 2 is complete for the supported IDML subset.** Layout documents
-  open and save. The remaining Phase 3 authoring UI keeps the feature dark.
+  open and save. Remaining integration and fidelity work keeps the feature dark.
 - **Phase 0 gates Phase 5 only.** IDML does not depend on the INDD spike,
   and no INDD work should start before the spike's go/no-go. If the spike
   fails, INDD stays a reader-only link-extraction feature and IDML remains
@@ -212,7 +212,7 @@ Also, and independently of specimens:
 
 This is now the work between Design Mode and the planned layout editor.
 Documents can be opened, authored with text and shape frames, and saved;
-the remaining tools and controls below are still needed.
+items 1–8 below are implemented, with integration and output work continuing in item 9.
 
 Layers, Control, Character and Paragraph panels now exist, alongside Pages,
 Stories, Links, Swatches, Styles and Preflight. Page add/remove/reorder,
@@ -280,7 +280,7 @@ Phase 0 justifies it.
 marker. The 19 new Preflight/ruler keys use English placeholders in every
 non-English locale. Keys are added to all 150 catalogs at once, in English, and translation is a
 separate pass — a new feature must not block on 149 translators. The strict
-audit normally fails English-identical prose of seven or more words. Three
+audit normally fails English-identical prose of seven or more words. Four
 list/tab messages have exact, reasoned deferrals in
 `crates/i18n/deferred-english.json`. The audit reports these untranslated
 values and permits them only while Design Mode is disabled by default.
@@ -310,6 +310,1898 @@ are marked.
 
 ## Handoff
 
+
+Custom-variable display integration, 2026-10-03:
+Main-story literal custom values now use disposable display objects, with source
+anchors and shared definitions unchanged. Values stay whole during wrapping,
+remain overset when they cannot fit and resume in a wider frame. Object boundaries
+isolate bidi/shaping context and source dictionary words; internal spaces do not
+expand during paragraph justification. Directional controls add no tracking width.
+Variable and note insertions keep source structure order, including coincident
+anchors. Unsupported note defaults do not disable independent variables. Effective
+paragraph/instance font combinations enter package inventories. No UI or keys change.
+
+Fifteen new properties pass. Six cover layout/source mapping, shared edits, whole
+note ordering, overset, empty values and unsupported input; seven cover directional
+controls and object semantics across axes, directions, glue, No Break and hyphens.
+The IDML property verifies rendering and inherited fonts after repeated saves.
+The separation property compares six independent ordinary-text controls in every
+process/spot plate through both separation paths at 72/144/216 DPI. All six pairs
+in the new 12-page PDF are pixel-identical in extracted samples and Poppler renders;
+every page passes visual review. This establishes shared-renderer integration,
+not native application placement agreement. All 42 previous PDFs are unchanged.
+
+All 16 roadmap checks, shared UI, formatting and whitespace checks pass:
+**2,086 distinct Rust tests**, four browser checks and eight Python audits; one
+existing shared UI documentation example remains ignored. The complete layout and
+text-engine rerun used the same package set with `--no-fail-fast` to collect errors
+in one batch. Initial compile failures identified omitted transient-field defaults.
+A mixed-note fixture inherited 13.5-point leading after choosing 14-point type;
+correcting its leading resolved the existing overset safeguard without changing
+production behavior. Test-only range initialization was corrected for clippy.
+Failure logs remain. Only two explanatory comments changed after the main sweep.
+Native debug build passes in 5m 38s; the isolated Design-enabled QA bundle is
+refreshed and hash/signature verified. Evidence is `/tmp/schist-variable-display-*`.
+Five superseded drafts and twelve redundant page renders were removed, retaining
+hash audits, the proof PDF/contact sheet and verification evidence. Prepared for
+draft PR #195; do not wait for CI.
+
+Variable authoring and non-custom evaluation/output remain. Active initial/nested
+rules need logical-object counts; those combinations, note-body variables, invalid
+anchors, ambiguous/missing definitions and tab/break/control-containing values stay
+retained and diagnosed. Other item 9 gaps and the INDD research gate remain. The
+next batch should integrate reversible custom-variable authoring using the compact
+Design UI patterns, before another compile/test pass.
+
+
+Native custom text variables, 2026-10-03:
+Literal custom definitions now have shared typed data and main-story references.
+IDML saves emit native definitions/instances with empty caches and generated IDs;
+source text remains unchanged. Guarded document identities and per-story bindings
+survive resource reordering and yield to native edits, deletion and class changes.
+Unsupported definitions remain exact shared recovery data, and instances remain
+unrendered in Schist until composition is connected. No UI or locale keys change.
+
+Thirteen new properties and seven existing variable properties pass. Two failing
+regressions reproduced generated IDs activating unrelated unresolved references,
+including after an external definition edit. The importer now reserves archived
+reference identities by their actual native bindings; missing definitions keep
+separate unresolved identities. Legacy recovery IDs keep their original identity.
+The suite also covers metadata stripping/corruption, same-name resources, all
+source boundaries, inline order, package-wide collisions, source preservation and
+one-step edits. A deletion test was corrected to account for the original native
+instance remaining present after only its definition was deleted.
+IDML clippy passes after correcting a test-only redundant clone. All 16 roadmap
+targets, shared UI, formatting and whitespace checks pass: **2,071 distinct Rust
+tests**, four browser checks and eight Python audit tests; one existing shared UI
+documentation example remains ignored. The source-boundary property covers all
+four combinations of story/identity
+metadata removal. Both reproduced identity regressions and the deleted-binding
+property pass, including legacy recovery instances and three repeated saves.
+All 42 PDF proofs remain
+byte-identical. Native debug build passes in 20m 23s; the isolated Design-enabled
+QA bundle is refreshed and hash/signature verified. Evidence is under
+`/tmp/schist-custom-variables-*`; published as `3891674f` to draft PR #195.
+The head, description and draft status were verified without querying CI. Cleanup reclaimed
+2.3 GiB of superseded test executables, but initially removed a queued executable.
+That interrupted run is retained; the complete rerun rebuilt missing artifacts.
+A later target-boundary cleanup recovered 2.35 GiB of unused incremental caches,
+with no active compiler; builds continue with incremental compilation disabled.
+Source code and tests were unchanged during the rerun.
+
+Next is custom-variable projection, atomic fitting and source mapping through
+main/footnote flows. Native custom output does not establish application rendering
+agreement. Other item 9 gaps and the INDD gate remain. Continue locally without
+waiting for CI.
+
+
+
+Atomic inline wrapping, 2026-10-03:
+TextSpec now accepts transient grapheme-bounded spans which must remain whole
+during wrapping. Adjacent spans remain independent, while ordinary boundary rules
+and authored No Break still apply. Both shaping paths and discretionary/generated
+hyphenation honor the spans; generated hyphen projection remaps their coordinates.
+Invalid boundaries or spans containing forced breaks reject composition. Source
+edits discard stale spans and serialization does not persist them.
+
+Five properties pass across axes, directions, Unicode boundaries, adjacent spans,
+style overrides, generated hyphens and source preservation. Unwrapped ink, bounds
+and carets match the ordinary-text controls. Existing No Break and hyphenation
+properties pass. All 16 roadmap targets, shared UI, formatting and whitespace
+checks pass: **2,058 distinct Rust tests**, four browser checks and eight Python
+audit tests; one existing shared UI documentation example remains ignored. All
+42 PDF proofs remain byte-identical. Native debug build passes in 7m 34s; the
+isolated Design-enabled QA bundle is refreshed and hash/signature verified.
+Evidence is under `/tmp/schist-atomic-spans-*`. Published as `63e3c7d5` to draft
+PR #195; head, description and draft status were verified without querying CI.
+
+This is wrapping infrastructure for text-variable composition, not live variable
+evaluation or native variable output. Those still need typed shared definitions,
+instance resolution and integration with the source projection, diagnostics, saves
+and note flows. Cached ResultText must not become editable source. No UI or locale
+keys change. Other item 9 integration gaps remain; INDD production is spike-gated.
+
+
+
+IDML resource identities, 2026-10-03:
+A regression reproduced a retained language resource sharing its Self ID with a
+generated character style. The exporter now separates part/page-item identity
+domains, detects opaque resource collisions against all emitted IDs and remaps
+language/list references on a temporary copy. Guarded metadata restores authored
+IDs without overwriting native edits or retargeting newly added references. New
+language IDs also reserve existing list IDs and unresolved references. No UI or
+locale keys change.
+
+Ten properties pass, including three saves of all ten checked-in public IDML
+fixtures, referenced object types, source preservation, metadata-free native
+references, external edits, malformed/duplicate metadata, unresolved aliases and
+page-item IDs near the numeric limit. A failing regression also showed that changing
+a resource's native class could restore the wrong saved identity; mandatory resource
+class metadata now prevents that restoration. A test type annotation and its expectation
+of normalized language-tag casing were corrected; neither required weakening a
+production rule. Existing language, list, creation, structured-story and mixed
+path-thread checks pass.
+
+All 16 roadmap targets, shared UI, formatting and whitespace checks pass:
+**2,053 distinct Rust tests**, four browser checks and eight Python audit tests;
+one existing shared UI documentation example remains ignored. All 42 previous
+PDF proofs are byte-identical. Native debug build passes in 2m 56s; the isolated
+Design-enabled QA bundle is refreshed and hash/signature verified. Evidence is
+under `/tmp/schist-idml-identities-*`, including both failing regressions and the
+initial successful sweep before the class guard was added. Published as `4cfcac97`
+to draft PR #195; head, body and draft status were verified without querying CI. Text-variable
+evaluation requires typed definitions, generated-text position mapping and atomic
+line fitting; cached ResultText must not become editable source. Other structured
+stories and object integration gaps remain open; INDD production is spike-gated.
+
+
+
+End Nested Style controls, 2026-10-03:
+Main-story ACE 3 markers now stop ordinary nested formatting without adding source
+bytes. Explicit single EndNestedStyle bounds, ordered no-style spans and Repeat
+consume controls at source grapheme boundaries. Source edits and marker style
+renames undo once. Native saves emit markers with their effective formatting;
+older recovery-only records upgrade after their native guard agrees, while native
+deletions leave archived markers unplaced. The layout kernel consumes typed data.
+
+Nine IDML properties pass, including continuation slices, coincident markers,
+paragraph restarts, exact undo/redo, repeated saves and stripped private metadata.
+The process/spot proof matches independent explicit ranges through both separation
+paths at 72/144/216 dpi. Its split-note case was lengthened after a regression
+showed that the first fixture fitted on one frame; it now asserts real continuation.
+The new 16-page PDF is integrated into check-design-output. Active initials,
+note-body controls and explicit end-marker counts above one remain diagnosed;
+native-application agreement is still unverified. None of the ten checked-in IDML
+packages contains ACE 3; encoding evidence is the cited firsthand public report.
+No UI or locale keys change.
+
+All 16 roadmap targets, shared UI, formatting and whitespace checks pass:
+**2,043 distinct Rust tests**, four browser checks and eight Python audit tests;
+one existing shared UI documentation example remains ignored. The new eight PDF
+pairs are pixel-identical in extracted samples and Poppler renders; all 16 pages
+pass visual inspection. All 41 previous proofs are byte-identical. Native debug
+build passes in 2m 22s; the isolated Design-enabled QA bundle is refreshed and
+hash/signature verified. Sixteen redundant page renders were removed after their
+hashes and inspected contact sheets were retained. Evidence is under
+`/tmp/schist-end-nested-*`. The original two regressions fail on the preceding
+implementation; all nine IDML properties and the new plate property now pass.
+Text-variable recovery is published as `0f77ff41` and End Nested Style controls as
+`a7c73545` to draft PR #195. Continue locally without waiting for CI. The subsequent
+identifier regression and fix are recorded above.
+Other structured stories, variables and object integration gaps remain open;
+INDD production is still spike-gated.
+
+
+Text-variable recovery, 2026-10-03:
+Seven new properties now preserve native variable instances and their shared
+document definitions. The public proof fixture previously lost all three output
+date occurrences; the regressions reproduce that loss and now pass. Each instance
+retains exact XML, UTF-8 position and effective formatting; eleven native resource
+definitions survive byte-for-byte. Shared definitions are stored once per document.
+Unknown preferences, malformed metadata and stale native edits remain recoverable,
+and live definitions take precedence by opaque identity rather than display name.
+Variable content remains explicitly unrendered; evaluation and native output are
+still integration work. No UI or locale keys change.
+
+All 16 roadmap targets, shared UI, formatting and whitespace checks pass:
+**2,033 distinct Rust tests**, four browser checks and eight Python audit tests;
+one existing shared UI documentation example remains ignored. All 41 recorded
+prior PDF proofs remain byte-identical. Native debug build passes in 4m 08s;
+the isolated Design-enabled QA bundle is refreshed and hash/signature verified.
+The focused regression failed before the production change and all seven new
+properties now pass. Initial test API typos were corrected before those assertions
+ran. Evidence is under `/tmp/schist-text-variables-*`; four superseded drafts and
+inventories were removed. Instruction retention is published as `57680ad9` to
+draft PR #195. Text-variable recovery is published as `0f77ff41` to the same PR. Continue locally
+without waiting for CI, per the user's instruction. Text-variable composition,
+other structured stories and the documented object integration gaps remain open;
+INDD production is still spike-gated.
+
+Content instruction retention, 2026-10-03:
+A regression against the public PSU templates reproduced four page-number
+instructions silently disappearing during story decoding. Main Content
+instructions now retain their exact bytes, UTF-8 positions, effective named
+formatting and native page-number mode as diagnosed recovery data. They add no
+source characters. Existing typed footnote markers keep their separate path;
+unknown instructions inside opaque containers remain in the original outer XML.
+Native marker composition/export remains an explicit gap.
+
+Five new properties and existing footnote/structure checks pass, including
+marker-only stories, ordered instructions at every UTF-8 boundary, entities/CDATA,
+paragraph breaks, one-step undo, repeated saves and external native edits that
+invalidate stale coordinates. Initial synthetic inputs accidentally carried seed
+metadata and were corrected to use native story XML; the original fixture failure
+and corrected failing-before log remain. The outer-container test distinguishes
+exact container bytes from exact PI bytes in constructed context wrappers. Its
+original byte comparisons remain in force for whole native containers.
+
+All 16 roadmap targets, shared UI, formatting and whitespace checks pass:
+**2,026 distinct Rust tests**, four browser checks and eight Python audit tests;
+one existing shared UI documentation example remains ignored. All 41 recorded
+prior PDF proofs remain byte-identical. Native debug build passes in 3m 28s;
+the isolated Design-enabled QA bundle is refreshed and hash/signature verified.
+No UI or locale keys change. Evidence is under `/tmp/schist-story-instructions-*`;
+four applied temporary drafts were removed. Prepared for draft PR #195.
+Letter-count rules are published as `bc2a19f2` below. Continue the documented
+structured-story and object integration gaps locally without waiting for CI.
+Sentence segmentation and native control composition still need further evidence;
+INDD remains spike-gated.
+
+Letter-count nested rules, 2026-10-03:
+Letters now counts Unicode Letter scalars and keeps cuts on whole graphemes.
+Numbers, combining marks, punctuation and symbols cannot consume the count.
+Ordered no-style spans and repeated sequences share the source cursor. The two
+new source-range properties fail on the previous implementation and pass with
+the fix. Explicit Unicode examples include Roman numerals, standalone marks,
+emoji and a Hangul grapheme containing multiple letters, across every source
+continuation slice. Category support reuses an existing transitive dependency.
+The policy is documented; complete native Unicode agreement remains unverified.
+
+Four new properties cover source spans, both separation paths and repeated native
+saves without generated aliases. All process/spot plates match independent explicit
+ranges at three resolutions, including empty spans and actual split notes whose
+generated labels contain letters. All eight pairs in the 16-page proof match
+extracted samples and Poppler renders, pass visual review, and match final renders.
+All 40 recorded prior PDF proofs remain byte-identical.
+
+All 16 roadmap targets, shared UI, formatting and whitespace checks pass:
+**2,021 distinct Rust tests**, four browser checks and eight Python audit tests;
+one existing shared UI documentation example remains ignored. Native debug build
+passes in 5m 08s; the isolated Design-enabled QA bundle is refreshed and
+hash/signature verified. No UI or locale keys change. Evidence is under
+`/tmp/schist-nested-letters-*`; the two applied temporary Rust drafts and
+357 superseded test executables were removed. Old proof-generator executables
+were also removed; source, current artifacts, PDFs and verification logs remain.
+Prepared for draft PR #195. Repeated sequences are published as `ebcd2d48` below.
+
+Sentence boundaries still need more evidence: native numbering examples contradict
+counting every period. Review of the next structural-marker gap found that Content
+processing instructions other than typed note markers are lost during decoding.
+The existing public PSU fixtures contain four auto-page-number instructions. The
+next regression will cover instruction retention, formatting context, source
+anchors and existing diagnostics before typed composition is added. INDD remains
+spike-gated. Continue locally without waiting for CI, per the user's instruction.
+
+Repeated nested sequences, 2026-10-03:
+A bounded no-style Repeat control now loops the requested suffix of supported
+ordinary rules. Preceding rules run once; later records stay preserved but inactive.
+Cycles restart per source paragraph and stop when a complete cycle cannot advance;
+a zero-width member can still be followed by an advancing member. Canonical
+initials remain outside the loop. Invalid counts, other control references and
+unknown prior bounds produce the existing diagnostics, including after main/note
+projection. Public manual/DOM references and a native screenshot establish behavior;
+a native Repeat XML record and external placement agreement remain unverified.
+
+Eight new properties verify suffix widths/offsets, skipped spans, every source
+continuation slice, Unicode graphemes, no-progress cycles, invalid/ignored records,
+initial boundaries, inherited paragraph restarts and edits with exact undo/redo.
+Repeated saves preserve source, records, rendered specifications and typed paint.
+Every process/spot plate matches explicit ranges at three resolutions in both
+separation paths, including generated labels with spaces and actual split notes.
+All eight pairs in the 16-page proof match extracted samples and Poppler renders;
+every page passes visual review and final renders match the reviewed pixels.
+All 39 recorded prior PDF proofs remain byte-identical.
+
+All 16 roadmap targets, shared UI, formatting and whitespace checks pass:
+**2,017 distinct Rust tests**, four browser checks and eight Python audit tests;
+one existing shared UI documentation example remains ignored. Native debug build
+passes in 4m 15s; the isolated Design-enabled QA bundle is refreshed and
+hash/signature verified. No UI or locale keys change. Evidence is under
+`/tmp/schist-nested-repeat-*`; seven applied temporary Rust drafts were removed.
+Prepared for draft PR #195. Word rules are published as `30918024` below.
+
+Item 9 continues with sentence/letter boundaries and the other documented
+structured-story/object integration gaps. A further public resource sample adds
+literal-space, digit and combined Dropcap/AnyWord records, but no sentence/letter
+records. Unicode category support is already a transitive dependency and is being
+reviewed for explicit letter classification. INDD remains spike-gated. Validate
+locally and continue without waiting for CI, per the user's instruction.
+
+Word-based nested styles, 2026-10-03:
+AnyWord now consumes nonempty source words, with through/up-to bounds, ordered
+no-style spans, per-paragraph restarts and grapheme-safe continuation slices.
+Nonbreaking spaces join terms under the documented bounded Unicode policy.
+Generated note labels containing spaces cannot consume source words. LeonidB's
+public native sample provides two populated word records; andrejK's screenshots
+show native settings in the associated thread. The original stays outside the
+repository, with synthetic XML regressions using our own text and metrics. The
+original file now imports without the nested-style warning. No external placement
+or complete Unicode agreement is claimed.
+
+Six new properties cover source ranges, paragraph breaks, repeated native saves
+and process/spot plates in both separation paths at three resolutions. All eight
+pairs in the 16-page PDF match extracted samples and Poppler renders; every page
+passes visual review and final renders match reviewed pixels. All 38 recorded
+prior PDF proofs remain byte-identical. New checks caught invalid fixture offsets
+at paragraph separators and stale multibyte endpoints after replacing text; those
+fixtures were corrected. Existing unsupported-rule tests now use Sentence because
+AnyWord is supported. Proof helper naming/bounds issues were fixed without allows.
+
+All 16 roadmap targets, shared UI, formatting and whitespace checks pass:
+**2,009 distinct Rust tests**, four browser checks and eight Python audit tests;
+one existing shared UI documentation example remains ignored. Native debug build
+passes in 3m 01s; the isolated Design-enabled QA bundle is refreshed and
+hash/signature verified. No UI or locale keys change. Local evidence is under
+`/tmp/schist-nested-words-*`; prepared for draft PR #195. The earlier delimiter
+checkpoint is published as `4c165708`.
+
+This continues Phase 3 item 9. Repeat is next; sentence/letter rules, structural
+delimiters, general nested-rule controls and the other documented integration
+gaps remain. Public manual/DOM references and a native screenshot establish repeat
+semantics, but a populated native Repeat XML record remains unverified. Additional
+public XML supplies literal and active initial rules; nine further IDML samples
+contain no populated nested lists and were not retained. Production INDD remains
+spike-gated. Per the user's instruction, validate locally and continue without
+waiting for CI; failures there can be handled later.
+
+Source-derived nested delimiters, 2026-10-03:
+Ordered rules compose a supported prefix using AnyCharacter, literal character
+sets, ASCII Digits, Tabs, ForcedLineBreak, EmSpace, EnSpace and NonbreakingSpace.
+The public user manual defines literal sets as any matching member and digits as
+0–9. Through/up-to boundaries, positive repeat counts, no-style spans and a leading
+canonical Dropcap share source-derived runs across geometry, typed paint,
+dictionary language/No Break and list-marker context. Unknown/invalid bounds
+stop the prefix instead of guessing where later rules begin. Original diagnostics
+survive main, whole-note and split-note projection, including an unsupported
+Repeat whose own style is None after earlier named formatting. Entirely no-style
+lists still avoid false errors. Generated labels/aliases never enter saved source.
+
+A regression reproduced an empty source span enlarging and restyling an inserted
+footnote number. Consumed rules are now suppressed even when they produce no source
+ranges, preserving original direct formatting. Eight layout properties cover
+continuation slices, Unicode/grapheme cuts, literal-set order/duplicate invariance,
+ASCII versus Unicode digits, missing delimiters and large counts, ordered rules,
+paragraph restarts, source edits and exact undo/redo. Two output properties cover
+all plates at three resolutions in both paths and retained source diagnostics.
+Repeated native saves preserve source, rules, rendered specifications and paint.
+
+All 16 roadmap targets, shared UI, formatting and whitespace checks pass:
+2,003 distinct Rust tests, four browser checks and eight Python audit tests;
+one existing shared UI documentation example remains ignored. The 24-page proof
+matches independently authored ranges in Poppler and every page was visually
+reviewed, including vertical text, direct overrides, affine placement, literal
+sets/digits, generated labels and actual split notes. Final renders match the
+reviewed pixels; all 37 previous PDF proofs remain byte-identical. Native debug
+build passes in 4m 17s; the isolated Design-enabled QA bundle is refreshed and
+hash/signature verified. Prepared for publication to draft PR #195.
+
+Word/sentence/letter delimiters, Repeat and structural delimiters remain retained
+and unsupported. General nested-rule editing is not exposed. Grapheme-safe cuts
+follow Schist's Unicode policy; native placement agreement remains unverified.
+The next pass has a public native AnyWord example, source hashes and author-posted
+screenshots in `/tmp/schist-nested-native-fixtures/`; originals remain outside the
+repository. The compact initial-style UI and native count-inheritance fixes are
+published as `ea5278f5` and `20f38d17`; their verification is below.
+
+Native initial-count inheritance, 2026-10-03:
+A regression reproduced the writer materializing the legacy one-character
+initial count on every child of an active style. Reopening then broke future
+parent-count edits. The native default now belongs only at the first active
+style whose valid ancestor chain cannot supply it. Inactive ancestors and
+explicit counts remain unchanged; broken/cyclic chains retain the explicit
+fallback. Three properties cover arbitrary-depth/reversed style order, repeated
+saves and subsequent parent edits, dormant activation boundaries, explicit zero
+resets, and malformed chains. All five focused named-initial tests pass.
+All 16 roadmap targets, shared UI, formatting and whitespace checks pass:
+1,992 distinct Rust tests, four browser checks and eight Python audit tests;
+one existing shared UI documentation example remains ignored. All 37 previous
+PDF proofs are byte-identical. Native debug build passes in 2m 46s; the isolated
+Design-enabled QA bundle is refreshed and hash/signature verified. No external
+application agreement is claimed by these XML/property checks. The prior
+`ea5278f5` UI checkpoint is pushed to draft PR #195 and visually verified below.
+The `f595465d` desktop run passed Windows/macOS; Ubuntu failed while downloading
+the backer catalog with a connection reset, before clippy ran. That failed job
+passed on retry. The earlier `942a8137` desktop run passed all three platforms.
+
+Initial character-style authoring, 2026-10-03:
+The closed Paragraph / Drop caps disclosure now includes one compact character
+style dropdown. Explicit None and named choices preserve other ordered rules;
+the separately named Inherit nested styles option restores the complete inherited
+list. Count reset retains rules and is now labelled Inherit counts and placement.
+Dormant choices stay visible, and missing native references can be replaced
+without silently discarding unrelated records. A shared native-record predicate
+keeps authoring and composition in agreement while unresolved styles remain
+diagnosed. Three short keys and the clarified reset label are in all 150 catalogs.
+
+Three new properties verify captured targets, inherited versus explicit choices,
+ordered unknown-rule retention, missing/dormant settings, stale references and
+exact undo/redo. All five focused initial-control properties and check-i18n pass.
+All 16 roadmap targets, shared UI, formatting and whitespace checks pass:
+1,989 distinct Rust tests, four browser checks and eight Python audit tests.
+One existing shared UI documentation example remains ignored. All 37 previous
+PDF proofs remain byte-identical. The native debug build passes in 3m 54s;
+the isolated Design-enabled QA bundle is refreshed and hash/signature verified.
+Actual UI review passes on the exact `ea5278f5` CI browser artifact (Web run
+37115933543), with Design enabled. The closed default, compact dropdown, reachable
+bottom-edge menu, initial-only paint, one-step style/reset undo and redo, None,
+inheritance, dormant zero counts and normal-size one-line formatting were checked.
+The owned tab, server and downloaded build were removed. Native capture remains
+unavailable; the installed app was untouched. The feature flag stays disabled by default.
+List-marker/path-initial fixes are published as `f595465d` to draft PR #195,
+with their full verification recorded below.
+
+Source list-marker context and path-initial reporting, 2026-10-03:
+A regression reproduced a leading footnote reference changing an ordinary black
+bullet into cyan superscript. Main/note marker plans now resolve authored context
+before reference projection, then map paragraph anchors without changing the
+measured marker or source-order counters. Four new properties cover both list
+kinds, empty/multiple paragraphs, explicit overrides, named initials, main and
+whole/split notes, cross-story chronology, every process/spot plate at three
+resolutions and source preservation. The eight-page proof matches independent
+explicit marker styling exactly; every page passes visual review. A test fixture
+initially used literal newlines instead of paragraph points; the corrected fixture
+now exercises distinct paragraph anchors and counters. The split proof was
+lengthened after removing enlargement let its shorter note fit without splitting.
+
+A separate regression reproduced Preflight silently accepting enlarged initials
+on a text path. Used active multi-line initials now produce the existing localized
+unsupported-setting error; zero counts and one-line settings do not. Counts and
+source text remain retained. All 16 roadmap targets, shared UI, formatting and
+whitespace checks pass: **1,986 distinct Rust tests**, four browser checks and
+eight Python audit tests. One existing shared UI documentation example remains
+ignored. A fixture-only clippy warning was corrected before the remaining checks
+resumed; production code stayed unchanged. The native development build passes in
+3m 13s, and the isolated Design-enabled QA bundle is hash/signature verified.
+All 36 earlier PDF files remain byte-identical, and final renders match the eight
+reviewed pages. Logs, counts and exit codes are under `/tmp/schist-projected-markers-*`.
+Three applied/superseded temporary drafts and the older PR input were removed.
+No locale keys or default feature flags change.
+
+Named initials are published as `942a8137` to draft PR #195, whose description now
+summarizes the accumulated implementation and explicit remaining limits. Its full
+local verification is recorded below. Item 9 continues after this checkpoint;
+named-initial authoring controls and the other listed integration gaps remain.
+
+Named initial-style composition, 2026-10-03:
+A new regression reproduced retained Dropcap rules leaving the source letters
+unstyled. A leading canonical native rule now derives character formatting from
+the complete source prefix. Font, size, typed paint, dictionary language/No Break,
+ordinary list-marker context and font inventories share that resolution. Explicit
+source character properties keep precedence. Zero counts disable formatting;
+one line applies nominal formatting, while existing enlargement starts at two.
+Other nested rules, unresolved references and native placement flags remain
+diagnosed. Native application geometry/precedence agreement remains unverified.
+
+Main and note text resolve prefixes before reference projection, using disposable
+ranges/aliases only. Nine new properties cover source graphemes, continuation
+slices, overrides, writing modes, unknown-rule reporting, dictionary context,
+marker context, source edits/one-step undo, native saves and used missing faces.
+The 16-page proof matches explicitly authored character ranges exactly in both
+separation paths at 72/144/216 dpi and in Poppler; every page passes visual review.
+The proof includes affine placement, process/spot inks and actual split notes.
+The first sweep was stopped after public-default review identified one-line
+named initials exporting no character count. A failing regression confirms the
+omission; the writer now emits one for this active legacy-default case, just as
+it already did for enlarged initials. Explicit zero and dormant counts remain
+unchanged. All 16 roadmap targets, shared UI tests, formatting and whitespace
+checks pass: **1,982 distinct Rust tests**, four browser checks and eight Python
+audit tests. One existing shared UI documentation example remains ignored. The
+native development build passes in 2m 39s; the isolated Design-enabled QA bundle
+is hash/signature verified. Logs, counts and exit codes are under
+`/tmp/schist-named-initial-*`. Final proof renders match all 16 reviewed pages;
+all 35 existing PDF proof files remain byte-identical. Three applied temporary
+drafts were removed. No new locale keys or default feature-flag changes are
+introduced. The supported subset is documented in
+[IDML evidence and limits](idml-format.md#ordered-nested-character-style-rules).
+
+Item 9 continues with list-marker context around generated references: inspection
+suggests a leading reference can supply formatting meant to come from authored
+text. A regression is drafted but this suspected defect is not yet verified.
+Other nested styles, named-initial controls, advanced object/structured-story
+behavior, curved frame flow and external application agreement remain open.
+Production INDD remains Phase-0-gated.
+
+Source direction is published as `3f1d1ea7` to draft PR #195. Its complete local
+verification is below. Three superseded temporary PR descriptions were removed.
+Before the new build, 1.86 GiB of closed incremental caches were removed after
+checking for active compilers and open files; source and both dev bundles remain.
+
+Source direction around generated references, 2026-10-03:
+A regression reproduced a generated Latin reference prefix changing a Hebrew
+paragraph's automatic base to left-to-right. Main and note projection now derive
+automatic direction from the complete authored paragraph; explicit directions
+remain authoritative. Only temporary aliases receive resolved directions, keeping
+source text and the saved automatic policy unchanged.
+
+Three focused properties pass: source versus generated direction across scripts,
+neutral/empty text and explicit overrides; process/spot plate agreement with
+explicit source direction at 72/144/216 dpi in both separation paths; and repeated
+native saves without leaked aliases. The eight-page PDF matches explicit-direction
+controls exactly in Poppler and every page passes visual review. An initial proof
+font lacked decimal digits; its reference style now uses a bundled font covering
+both the script and number. All 16 targets, shared UI, formatting and whitespace
+pass with **1,973 distinct Rust tests**, four browser and eight Python audit tests.
+One existing UI documentation example remains ignored. The 34 existing PDF files
+are byte-identical. The native development build passes in 1m 36s. The isolated
+Design-enabled QA bundle is refreshed and hash/signature verified; it remains quit.
+No new locale keys or default feature-flag changes are introduced. Logs/counts use
+`/tmp/schist-projected-direction-*`. Named initial-style composition remains next;
+production INDD is still Phase-0-gated.
+
+Source initial counts are published as `fc8c5117` to draft PR #195. Web and
+headless CI pass; desktop CI is still running. The preceding compact-control
+checkpoint `cb443b27` passes desktop CI on Windows, macOS and Linux.
+
+Source initial counts around generated references, 2026-10-03:
+A new regression reproduced a leading footnote number being enlarged while the
+first authored grapheme remained body text. Main and note projections now map the
+original grapheme prefix into display coordinates. References before or inside
+that prefix no longer consume the source count; a reference at its trailing edge
+belongs to the body. Only disposable paragraph aliases receive adjusted counts.
+Source text, saved styles and native counts remain unchanged.
+
+Three focused properties pass: source ranges/caret boundaries through whole and
+split notes, independent process/spot plate agreement at 72/144/216 dpi, and
+repeated IDML saves without leaked aliases or counts. The eight-page PDF matches
+independently authored prefixes exactly in Poppler; every page was reviewed.
+This extends Schist's existing enlarged-prefix policy to generated references;
+native flag placement agreement remains unverified and explicitly diagnosed.
+All 16 targets, shared UI, formatting and whitespace pass with **1,970 distinct
+Rust tests**, four browser and eight Python audit tests. One existing UI
+documentation example remains ignored. The 33 existing PDF files are byte-identical.
+The native development rebuild passes in 1m 35s. The isolated Design-enabled QA
+bundle is refreshed and hash/signature verified; it remains quit. No new locale
+keys or default feature-flag changes are introduced. Logs/counts use
+`/tmp/schist-projected-initials-*`.
+
+Nested-style retention and native resets are pushed as `ab4022c2` to draft PR
+#195. Web and headless CI pass; desktop CI is still running. Its complete local
+verification is recorded below.
+
+Ordered native nested-style retention, 2026-10-03:
+Public-schema regressions reproduced complete `AllNestedStyles` lists disappearing
+and native `EmptyNestedStyles` resets incorrectly inheriting parent rules. The
+model and codec now retain ordered typed records, literal versus enumerated
+boundaries, signed counts, explicit no-style rules and opaque missing references.
+Absent lists inherit; native clear flags and explicit empty lists reset. Local
+formatting lowers without changing story bytes. Character-style rename updates
+all typed references in one undo step. Malformed/conflicting resets are diagnosed.
+The seven Customer's Canvas fixtures verify native clear flags through repeated
+saves; populated lists still have only schema-derived coverage.
+
+Rendering of rules requesting character styles remains unsupported and is reported
+on import/export and for used paragraphs in Preflight. Entirely no-style lists do
+not raise false errors. One short key is present in all 150 catalogs. Twelve new
+properties cover retention, resets, Unicode source, rename/undo and used-rule
+reporting. All 16 targets, shared UI, formatting and whitespace pass with **1,967
+distinct Rust tests**, four browser and eight Python audit tests. One existing UI
+documentation example remains ignored. All 33 existing PDF files are byte-identical.
+The native development build passes in 1m 21s. The isolated Design-enabled QA
+bundle is refreshed and hash/signature verified; it remains quit. The default
+Design flag remains false. Logs/counts use `/tmp/schist-nested-*`.
+
+The first native link exhausted disk space; 2.44 GiB of closed incremental caches
+were removed, retaining source and both dev bundles. Earlier sweep logs and the
+reproduced failures are retained. A subsequent public XML review identified the
+native reset flag before publication. Five applied temporary draft files were
+removed. Eighteen further public IDML samples contained no active initial/nested
+rules; no packages were retained. Research metadata is in
+`/tmp/schist-nested-native-research/`. No Adobe headers or INDD entries were read.
+
+Compact initial controls are pushed as `cb443b27` to draft PR #195. The complete
+verification and native build are recorded below; exact Web control review passes
+in artifact 11267181935 from run 37104336519. The default Design flag remains false.
+
+
+Compact drop-cap authoring, 2026-10-03:
+Paragraph now exposes line/character counts under a closed Drop caps disclosure
+with one inheritance-reset icon. Fields capture the original style, validate
+integer ranges, and preserve dormant counts, native flags and source text. Blank
+restores that count's inheritance; reset clears all three local initial settings
+in one edit. Four short keys are in all 150 catalogs. The default Design flag
+remains false. Both new count/reset properties and the focused Design target
+pass. All 16 targets, shared UI, formatting and whitespace pass with **1,955
+distinct Rust tests**, four browser and eight Python audit tests. One existing
+UI documentation example remains ignored. All 33 existing PDF proofs are
+byte-identical. Logs/counts use `/tmp/schist-initial-controls-*`. The native
+development build passes in 2m 28s. The isolated Design-enabled QA bundle is
+refreshed and hash/signature verified; it remains quit. Exact `cb443b27` Web artifact 11267181935 passes live Drop caps review:
+closed default, compact expansion, both counts, canvas initials, blank-to-inherit,
+combined reset and one-step undo/redo. The disposable browser/server and downloaded
+build are removed; hashes and results are in `/tmp/schist-initial-browser-*`.
+
+The preceding vertical-initial and command-isolation checkpoint is published as
+`f1da870c` to draft PR #195. Its full sweep and native build are recorded below.
+
+
+Vertical initials and Design command isolation, 2026-10-03:
+Physical ink bounds now include upright and sideways vertical glyphs. Initials
+compose in both column directions, keep their covered columns together, preserve
+source graphemes and retain caret/one-step text undo behavior. This extends
+Schist's outline policy; retained native flags remain explicitly unsupported.
+An independent plate comparison exposed initial font size changing with frame
+position. Paragraph-local scale calculation fixes this for all writing modes;
+the translation regression reproduces the defect before the fix.
+
+Design command identity, labels and shortcuts are independent of raster plugins.
+Menus and search use the same localized labels; search no longer requires a
+hidden raster document for Design actions or offers raster-only actions there.
+Raster shortcuts yield to Design alignment and command dispatch. The keymap
+property is included in `make check-design` through `schist-app-actions` tests.
+No new locale keys or default feature-flag changes are introduced.
+
+The full 16-target sweep, shared UI, formatting and whitespace pass with
+**1,953 distinct Rust tests**, including 12 app-actions and five shared UI tests
+(one existing UI documentation example ignored). Eight new regression properties
+are included; the rest of the count increase brings 11 existing app-actions tests
+into the standard sweep. Four browser and eight Python audit checks pass.
+The new 16-page proof matches independent ordinary frames exactly in process/spot
+plates at 72/144/216 dpi and in Poppler; all pages were visually reviewed. All 32
+previous PDF proofs are byte-identical. The first sweep exposed an old test that
+assumed horizontal ink offsets even for vertical modes; it now requires physical
+ink movement to match the already-verified glyph/caret/selection movement in all
+modes. Logs and counts use `/tmp/schist-vertical-initials-*`; earlier failing
+checks are retained. The native development rebuild passes in 2m 02s.
+The isolated Design-enabled QA bundle is refreshed and hash/signature verified;
+it remains quit. Exact `f1da870c` Web artifact 11266834751 passes live command
+review with Design enabled and no raster document: localized menus, enabled
+search actions, duplicate/delete, selection, alignment and undo/redo. Raster
+commands are filtered out; focused numeric input retains Select All, and one
+undo restores its committed position. One undo restores a three-object delete.
+The disposable tab/server and downloaded build were removed; provenance and
+results are in `/tmp/schist-command-browser-{source,qa}.json`. Web and headless CI
+pass; desktop CI remains in progress.
+
+Native flag rendering, named initial styles and the recorded structured-story,
+object and external-fixture work remain. Production INDD is still Phase-0-gated.
+
+
+Native drop-cap policy retention, 2026-10-03:
+`DropcapDetail` now survives inheritance, explicit zero resets, inactive counts,
+local formatting and repeated native saves. Full signed 32-bit values retain
+unknown flags without masking. Native count parsing honors the public 0–25 line
+and 0–150 character integer ranges; invalid lexical forms and authored counts
+are diagnosed rather than truncated or clamped. Public IDML fixtures and legacy
+snapshots have coverage alongside local-override and source-preservation rules.
+The original horizontal ink/keep regressions remain in place.
+
+This is retention, not native placement. Active explicit flags are reported on
+import/export and in Preflight when used; dormant values do not warn. The existing
+horizontal outline reservation is unchanged. One short diagnostic key is in all
+150 catalogs. All 16 targets, shared UI, formatting and whitespace pass with
+**1,934 distinct Rust tests**, including five shared UI checks (one existing
+UI documentation example ignored), four browser checks and eight Python audit
+tests. Workspace clippy and native/browser/headless checks pass. All 32 PDF
+proofs are byte-identical to the preceding reviewed checkpoint. Logs use
+`/tmp/schist-dropcap-*`; the native development rebuild passes in 2m 02s.
+The isolated Design-enabled QA bundle is hash/signature verified and remains
+quit. The checkpoint is prepared for draft PR #195.
+Exact `ef572101` Web artifact 11265703900 passes live Hyphenation review with
+Design enabled: closed default, clean disclosure expansion, conditional numeric
+fields, toggles, reset, numeric editing and one-step undo/redo. All six numeric
+fields remain reachable by scrolling. The disposable tab/server and downloaded
+artifact were removed. Review exposed raw `edit.delete`/`edit.duplicate` labels
+in the Design Edit menu; their actions are routed independently but their labels
+incorrectly depend on absent raster registry entries. That UI fix follows this
+source-frozen sweep.
+
+Native flag rendering and vertical initials remain the next item 9 work, followed
+by the recorded structured-story/object/fixture gaps. Production INDD remains
+Phase-0-gated; no INDD bytes or Adobe headers were read.
+
+
+Automatic dictionary hyphenation, 2026-10-03:
+Dictionary opportunities now reach ordinary Design composition through balanced
+columns, variable-width frame threads, paths and whole/split footnotes. Complete
+source words determine language, protected ranges and word policies before any
+inline reference numbers are projected. References never invent dictionary words;
+candidates at a coincident reference anchor are deliberately withheld. Trial-owned
+histories carry line limits only from accepted lines. Column/frame restrictions
+recompose complete words after keeps, with independent note cursors restored when
+a frame attempt is rejected. Manual discretionary requests remain independent.
+
+A new regression reproduced an unbreakable suffix painting beyond a narrower
+continuation frame after its final dictionary candidate. Word ownership now
+survives that last candidate, keeping the suffix overset until it fits. The failing
+regression and passing rerun are retained. Initial test failures separately exposed
+undersized test frames and incorrect vertical-column detection; those test fixtures
+were corrected without weakening the text/history rules.
+
+Paragraph now has a closed Hyphenation disclosure with four icon toggles, numeric
+policy shown only while enabled, and a single inheritance reset. Captured edits
+undo once, disabling retains dormant settings, and unchanged displayed zones retain
+imported precision. Twelve keys are present in all 150 catalogs. The default Design
+flag remains false. Pattern coverage and the single-line policy remain explicit in
+[Dictionary hyphenation](hyphenation.md); native paragraph-composer equivalence is
+not claimed.
+
+All 16 targets, shared UI, formatting and whitespace pass with **1,925 distinct
+Rust tests**, including five shared UI tests (one existing documentation example
+ignored), four browser checks and eight Python audit tests. Workspace clippy and
+native/browser/headless checks pass. All 31 existing PDF proofs are byte-identical.
+The new 24-page automatic-hyphen proof matches independently split literal text in
+process/spot plates at 72/144/216 dpi and in Poppler; every page was visually
+reviewed. Logs use `/tmp/schist-auto-hyphen-*`; the superseded partial sweep is in
+`schist-auto-hyphen-initial-sweep`. The native development rebuild passes in
+2m 10s. The isolated Design-enabled bundle is hash/signature verified; native
+capture still returns `cgWindowNotFound`, so no new control screenshot review is
+claimed. The owned QA process was quit, and the installed app remains untouched.
+This checkpoint is published as `ef572101` to draft PR #195.
+Five superseded integration draft files/directories were removed; source, evidence
+and current proof renders remain.
+
+Next is drop-cap native policy and vertical initials, an existing item 9 gap.
+Read-only public XML inventory found 20 `DropcapDetail="1"` settings currently
+lost by the codec, all with inactive counts. The public specification also bounds
+line/character counts that the current reader silently truncates from floats.
+No active native drop-cap geometry specimen has been established. Vertical initials
+require engine ink geometry: `measure` currently returns no vertical ink bounds,
+and the composer explicitly excludes that writing mode. Public source links and
+observations are in `/tmp/schist-dropcap-research.json` and
+`/tmp/schist-dropcap-next.md`; this was read-only research at that checkpoint. Other
+structured-story composition, advanced object styles, curved frame flow, broader
+fixtures and external application agreement remain open. Production INDD remains
+Phase-0-gated; no INDD bytes or Adobe headers were read in this checkpoint.
+
+
+Single-line generated-hyphen policy, 2026-10-03:
+Dictionary word selection is pushed as `b4abae77` to draft PR #195 with all 16
+targets, 1,903 Rust tests and the development build passing. The isolated bundle's
+first deep-sign attempt hit a macOS internal error. Signing the flat QA bundle
+without `--deep`, then verifying with `--deep --strict`, succeeded; exact notice
+bytes and Design flag were also checked. The bundle remains quit.
+
+The text engine now accepts transient generated-hyphen line policy: a consecutive
+limit, carried preceding count, non-justified whitespace zone and spacing-versus-
+hyphens weight. Manual source SHY retains priority. The zone measures from the
+last word, counting trailing separators as whitespace. A documented single-line
+raggedness penalty implements weight; no native paragraph-composer equivalence
+is claimed. Seven properties pass across all writing axes and paragraph directions,
+including monotonic first-line preference, explicit-line reset, source serialization
+and variable measures versus correctly carried continuations. Existing generated
+and source discretionary tests also pass. All 16 targets pass with **1,910 distinct
+Rust tests**, including five shared UI checks (one existing documentation example
+ignored), four browser checks and eight Python audit tests. Workspace clippy,
+native/browser/headless checks, localization, formatting and whitespace pass.
+All 31 PDF proofs remain byte-identical. The native development rebuild passes in
+2m 04s; the isolated Design-enabled bundle is refreshed and hash/signature verified,
+and remains quit. Logs use `/tmp/schist-line-policy-*`. Ordinary dictionary
+composition remains off until frame/column/note trial histories and column-end
+restrictions are connected. Review also identified generated footnote digits
+changing word segmentation: opportunities must be derived from original source
+words before mapping into inline projections. Draft integration notes/code in
+`/tmp/schist-line-policy-review.md` and `schist-compose-hyphenation-draft.py` are
+unapplied and explicitly incomplete. The dictionary checkpoint's Web/headless
+CI pass, and its actual Web artifact contains exact pattern notice bytes; the
+61 MB download was removed after comparison.
+
+Disk cleanup removed 655 obsolete test executables and changed-crate library
+outputs predating the new dictionary dependency (5.83 GiB logical size). Current
+binaries, source, fixtures and PDF proofs were kept; records are in the same log
+prefix. Builds still use `CARGO_INCREMENTAL=0`.
+
+
+Dictionary word selection, 2026-10-03:
+Generated hyphen source mapping is pushed as `139e6f03` to draft PR #195, with
+all 16 targets, 1,894 Rust tests and the native rebuild passing. Its Web and
+headless CI pass; desktop CI remains in progress. The previous discretionary
+hyphen checkpoint now has all desktop platforms passing, including Windows.
+
+The next prerequisite selects dictionary opportunities from complete source
+words, preserving source coordinates through NFC and length-changing lowercase.
+Nine properties cover word limits, explicit language namespaces, mixed runs,
+No Break resets, manual hyphens, all source slices, unsupported scripts and long
+words. Hypher 0.1.8 is pinned with only reviewed US-English, French and reformed-
+German patterns. Unknown regions/orthographies do not fall back silently.
+A leading source SHY is also respected: Unicode segmentation drops it from the
+word token, which the new regression reproduced before the selector was fixed.
+Distribution paths now retain the code/pattern notices; see
+[Dictionary hyphenation](hyphenation.md). All 16 targets pass with **1,903 distinct
+Rust tests**, including five shared UI checks (one existing documentation example
+ignored), four browser checks and eight Python audit tests. Workspace clippy,
+native/browser/headless checks, localization, formatting and whitespace pass.
+All 31 PDF proofs remain byte-identical. The native development rebuild passes in
+1m 43s; the isolated Design-enabled bundle is refreshed with the notices and
+hash/signature verified, and remains quit. The macOS app and MCP ZIP paths retain
+exact notice bytes in a temporary packaging check using real `ditto` archives;
+build/DMG/signing were stubbed, so no release-package validation is claimed.
+Shell syntax checks pass. Logs use `/tmp/schist-dictionary-*`; the superseded
+partial sweep is retained under `schist-dictionary-initial-sweep`. The word
+selector is not wired into composition until ladder/zone/weight and column-end
+policies are applied. No new UI or default flag change is claimed.
+
+Disk space fell to about 200 MiB. With no cargo/rustc process running, the unused
+incremental cache and superseded release dependency outputs were removed; builds
+continue with `CARGO_INCREMENTAL=0`. The built release executable is preserved.
+Source files, current binaries, proofs and logs remain.
+
+
+
+Generated hyphen source mapping, 2026-10-03:
+Native policy retention is pushed as `dee3f6f8` to draft PR #195 with all 16
+targets, 1,886 Rust tests and the development rebuild passing. Web and headless
+CI pass; desktop CI remains in progress. The next dictionary prerequisite is an
+engine path for caller-supplied break opportunities that own no source bytes.
+Transient UTF-8 boundaries now produce disposable discretionary glyphs; line
+spans, paint ownership, selected tab positions and both caret affinities map back
+to the authored text. Selected generated glyphs remain distinct from source
+U+00AD and are carried through the layout line painter. Invalid, duplicate,
+No Break, whitespace and interior-grapheme positions cannot create extra breaks.
+Unwrapped text bypasses the projection. Generated data is not serialized.
+
+Independent visible-glyph and caret-edge properties cover repeated breaks,
+Latin/Hebrew word direction, all writing axes, Unicode combining marks and
+normal/styled/small-cap/all-cap runs. Review found a real existing defect:
+hidden U+00AD split synthetic-small-cap font runs and changed kerning. Invisible
+characters now leave itemization intact; selected hyphens keep their own face.
+Exact pixel/caret comparisons pass, with a 0.0001 pt tolerance for the existing
+legacy-versus-discretionary f32 width accumulation. The first sweep then caught the older Unicode
+line-break dependency suppressing Hebrew–SHY–Hebrew. A narrow correction now
+permits that intraword case and keeps following joiners/marks and No Break
+protected. All 16 targets pass with **1,894 distinct Rust tests**, including five
+shared UI checks (one existing documentation example ignored), four browser
+checks and eight Python audit tests. Workspace clippy, native/browser/headless
+checks, localization, formatting and whitespace pass. All 31 PDF proofs remain
+byte-identical. The native development rebuild passes in 1m 57s; the isolated
+Design-enabled bundle is refreshed and hash/signature verified, and remains quit.
+No new native visual review is claimed. Logs use `/tmp/schist-generated-hyphen-*`.
+Dictionary opportunities, policy constraints and authoring controls are not yet
+connected, and no dictionary dependency or new UI has been added by this prerequisite.
+
+
+Native hyphenation policy, 2026-10-03:
+XML booleans are pushed as `1a574ac7` to draft PR #195 with all 16 targets,
+1,880 Rust tests and the development rebuild passing. The next item 9 regression
+confirmed native hyphenation options disappeared on save. The model now retains
+all nine independent options, resolves each through style inheritance and keeps
+explicit false/zero settings when hyphenation is disabled. Native local overrides
+lower once, preserve source text and survive repeated saves. Missing old snapshot
+fields inherit; invalid native/authored values are diagnosed. The public weight
+range conflict is recorded in `docs/idml-format.md`; 0–100 values retain their
+meaning without rescaling. Four codec and two model properties pass. All 16 targets pass with
+**1,886 distinct Rust tests**, including five shared UI checks (one existing
+documentation example ignored), four browser checks and eight Python audit tests.
+Workspace clippy, native/browser/headless checks, localization, formatting and
+whitespace pass. All 31 PDF proofs remain byte-identical. The native development
+rebuild passes in 2m 02s; the isolated Design-enabled bundle is refreshed and
+hash/signature verified, and remains quit. Affinity window inspection also fails
+with `cgWindowNotFound`; no test document was opened, and external application
+placement remains unverified. Logs use `/tmp/schist-hyphenation-policy-*`.
+Dictionary selection and generated-hyphen source/caret mapping remain next.
+Public dictionary research records separate language, script and pattern-license
+limits in `/tmp/schist-hyphenation-dictionary-research.json`; no new dependency has
+been added.
+
+
+Native XML boolean equivalence, 2026-10-03:
+Discretionary hyphens are pushed as `403b44b5` to draft PR #195, with all 16
+targets, 1,877 Rust tests, PDF visual review and the development rebuild passing.
+The next item 9 package property reproduced numeric booleans dropping explicit
+style values. A shared strict xsd:boolean parser now handles all four legal
+spellings and XML whitespace across typed document/layer/geometry/style readers.
+Existing invalid-value defaults and diagnostics remain; export is canonical and
+literal strings/opaque XML are not globally normalized. The new regression covers
+both polarities, parent visibility, group/layer/guide locks, frame preferences,
+styles, numbering and footnotes through repeated saves. A fixture initially put
+its guide beside the page; the coverage assertion caught it, and the fixture now
+uses the native page-child location. All 16 targets pass with **1,880 distinct
+Rust tests**, including five shared UI checks (one existing documentation example
+ignored), four browser checks and eight Python audit tests. Workspace clippy,
+native/browser/headless checks, localization, formatting and whitespace pass.
+All 31 existing PDF proofs are byte-identical to their prior reviewed versions.
+The native development rebuild passes in 1m 25s; the isolated Design-enabled
+bundle is refreshed and hash/signature verified, and remains quit. No new native
+visual review is claimed. The superseded test draft is removed; logs and research
+use `/tmp/schist-xml-booleans-*`. Next is automatic hyphenation: the native policy
+is only partly retained, and the existing Hyphenation switch does not yet select
+dictionary break opportunities. Language coverage and pattern licenses must be
+explicit before adding a dictionary dependency.
+
+
+Discretionary hyphens, 2026-10-03:
+No Break is pushed as `5619c2b9`; its exact Web artifact passes the compact
+Paragraph/Character controls review below. The next item 9 property reproduced
+invisible U+00AD adding tracking. An initial routing approach also changed legacy
+Latin kerning, so the final fix keeps each existing shaper and shares only break
+selection. Unused hyphens are invisible and zero-width. Selected hyphens must fit,
+paint in their source style and retain UTF-8 caret ranges; No Break and explicit
+line ends keep their existing semantics. Box and bounded-path continuations carry
+the selected glyph into line painting without editing the source story.
+Native literal/numeric XML characters survive repeated saves. Both separation
+paths match independent visible/unhyphenated frames in all writing modes and both
+reading directions, at three resolutions with process/spot paint. A 24-page paired
+PDF proof is wired into the output check. Visual review caught a bad reference:
+the terminal literal hyphen and prototype both preceded Latin text in RTL context.
+The display glyph now follows the word's resolved direction, with independent
+Latin/Hebrew direction controls and hidden Arabic/Devanagari shaping properties.
+This is documented typography policy, not a native-application parity claim.
+A second regression reproduced source newlines acquiring a hyphen during isolated
+line paint. The measuring engine now carries its actual discretionary-break
+decision through line spans/composition instead of inferring it from paragraph
+position. The corrected full 16-target sweep passes with **1,877 distinct Rust
+tests**, including five shared UI checks (one existing UI documentation example
+ignored), four browser checks and eight Python audit tests. Workspace clippy,
+native/browser/headless checks, localization, formatting and whitespace pass.
+All 24 revised PDF pages match independent process/spot controls and pass visual
+review, including explicit newlines and both reading directions. The native
+development rebuild passes in 2m 08s; the isolated Design-enabled bundle is
+refreshed and hash/signature verified. It remains quit, with no new native-window
+visual claim. Obsolete test executables reclaimed 903 MB;
+current binaries, regression baselines and verification evidence are retained.
+Logs use `/tmp/schist-soft-hyphen-*`. Dictionary hyphenation, language-specific
+hyphen forms/spelling substitutions and external application placement remain open.
+The preceding `5619c2b9` checkpoint now passes Windows/macOS/Linux, Web and headless
+CI. Next is the inconsistent handling of numeric/whitespace XML booleans across
+native document preferences, layers, geometry and style categories. Public RNC
+declares xsd:boolean; the regression will compare complete supported settings
+through repeated saves, leaving literal strings and opaque XML untouched.
+
+
+Native No Break, 2026-10-03:
+The clipped-destination checkpoint is pushed as `4640c269`; its Web and headless
+CI pass, with desktop CI still running. The next item 9 regression reproduces
+NoBreak booleans disappearing during native import/save. Named/local paragraph
+and character values now retain inheritance and explicit false resets without
+changing source or growing styles on repeated saves. Invalid values are reported;
+older snapshots inherit. Enabled cases use the public schema and official
+reference; the seven public IDML fixtures contain only explicit false defaults.
+
+Both wrapping paths keep protected ranges together without changing shaping or
+caret geometry. A focused property found the whole-story style fast path dropping
+the new setting; that path now retains it. Protected lines seek fitting frames or
+remain overset, including vertical text. Both separation paths match independent
+process/spot frame controls at three resolutions and diagnose terminal overset.
+A compact icon toggle and inheritance reset sit in Advanced Typography. Captured
+edits undo once. One short key is in all 150 existing catalogs. Unsupported PSD/
+Affinity native text export retains its existing private/pixel or reported raster
+fallback. Focused engine/layout/IDML/output checks and editor/IDML lints pass.
+The final 16-target sweep passes with 1,867 distinct Rust tests, five shared UI
+checks included, plus browser/Python audits, formatting and whitespace. All 24 new
+PDF pages pass Poppler pair/sample equality and visual review. A spec review
+corrected the prototype’s rejection of numeric XML booleans: NoBreak accepts all
+four legal literals and surrounding XML whitespace, saving canonically. The
+complete sweep includes that correction; its proof PDF is byte-identical to the
+visually reviewed artifact. The native development rebuild passes in 2m 09s;
+its isolated Design-enabled bundle is hash/signature verified. Native capture
+still returns `cgWindowNotFound`. Exact Web CI artifact 11260193813 for `5619c2b9`
+passes browser control review with Design enabled: Paragraph and Character both
+start collapsed, expansion leaves the document clean, each toggle updates its
+active/dirty state, undo/redo restores it, and inheritance reset undoes once.
+The disposable tab and server are closed and the downloaded artifact removed;
+the installed app was untouched.
+Logs use `/tmp/schist-no-break-*`. Dictionary hyphenation, discretionary-hyphen
+rendering and external native application placement agreement remain open.
+
+
+Clipped destination threads and rebuilt popup QA, 2026-10-03:
+The explicit-break checkpoint is pushed as `7ec07cf0`. Its exact CI browser
+artifact now passes the window-edge review with Design enabled: all seven start
+choices fit with the conditional keep counts shown, the bottom even-page choice
+commits, one undo/redo restores the previous/new destination, and the combined
+inherit reset undoes once. A short style menu and the shared searchable filter
+picker also retain their placement and interaction. The disposable browser tab
+and server are closed; the downloaded build was removed after recording hashes.
+Native CGWindow capture and external native application agreement remain separate
+unverified limits.
+
+The next item 9 property reproduced pending page destinations bypassing an
+intermediate Clip frame. Skipped frames now honor their terminal overflow policy:
+the clipping frame owns the overset text, and its unvisited tail ports remain
+empty and addressable. A kernel matrix covers paragraph constraints and explicit
+page/odd/even breaks, same-page and later wrong-parity clips, empty/Unicode text,
+and source immutability. Both separation paths identify the clipping frame in
+Preflight. All 16 roadmap targets pass, with **1,857 distinct passing Rust
+tests** (layout 436, separation 198, five shared UI checks included; one existing
+UI documentation example ignored), four browser and eight Python audit checks.
+Workspace clippy, native/browser/headless checks, localization, formatting and
+whitespace pass. The 48-page destination proof is byte-identical to the visually
+reviewed artifact. The development build passes in 1m 58s; its isolated
+Design-enabled bundle is hash checked and signature verified. Logs use
+`/tmp/schist-clipped-destinations-*`; browser evidence uses
+`/tmp/schist-parity-breaks-browser-*`. No new user-facing strings.
+
+
+Explicit numbered breaks and dropdown placement, 2026-10-03:
+Native paragraph starts are pushed as `9acfea7e` in draft PR #195. Browser QA of
+that exact commit verifies destination edits, one-step undo/redo and the combined
+inherit reset, but reproduces clipped last choices when the conditional line
+counts push the picker near the window bottom. All editor dropdowns now use
+window-constrained anchored popovers, including short inspector menus; the fix
+compiles but still needs the rebuilt browser review.
+
+The next item 9 regression reproduces NextOddPage losing its destination during
+native import. OddPageBreak/EvenPageBreak now remain distinct in story points,
+undo snapshots and native saves. Each pending explicit break records its own
+originating page, so consecutive zero-width breaks each advance independently.
+Section restarts control odd/even selection. An additional regression exposed
+ordinary consecutive column/frame/page breaks before an empty paragraph stopping
+in the first frame. Destination instructions now keep that terminal insertion
+line flowing even without source bytes; unavailable destinations remain overset.
+
+Four kernel properties and one native repeated-save property pass, covering
+leading/consecutive breaks, empty/Unicode text, section restarts, box/path threads,
+clipping, protected edits, serialized snapshots, exact undo and balanced whole/
+continued footnotes. Independent process/spot plates match ordinary text-frame
+controls at three resolutions. Focused layout/IDML/editor lints pass. All 16 roadmap targets pass, with **1,855 distinct passing Rust tests**
+(layout 435, IDML 276, separation 197, editor 426, five shared UI checks included;
+one existing UI documentation example ignored), four browser and eight Python
+audit tests. Workspace clippy, native/browser/headless checks, localization,
+formatting and whitespace pass. All 48 proof pages match their controls in Poppler;
+the 24 new pages were visually inspected and the unchanged 24 match the previously
+reviewed proof pixel-for-pixel. The development build passes in 2m 07s; its isolated Design-enabled bundle was
+hash checked and signature verified. CUA still returns cgWindowNotFound. No
+document was opened and only the newly launched QA process was terminated.
+Rebuilt browser popup verification is pending. Four superseded logs and review
+PNGs were removed; regression baselines and reviewed PDFs remain. Logs and QA
+records use `/tmp/schist-parity-breaks-*`. No new user-facing strings. External native application
+placement agreement remains unverified, and the feature stays disabled by default.
+
+
+Native paragraph starts, 2026-10-03:
+Item 9 now retains all six native StartParagraph choices through inheritance,
+local overrides and repeated IDML saves. The compact Keep options group exposes
+one destination picker; captured edits preserve unrelated keep policies and undo
+once. Its inherit action clears starts and keeps together. Seven short keys are
+present in all 150 existing locale catalogs.
+
+Composition separates zero-width start constraints from unconditional breaks.
+Already-reached boundaries do not add blank containers. Odd/even choices follow
+numbering sections and skip all frames on unsuitable pages. Empty constrained
+paragraphs still seek their destination, unavailable destinations retain overset
+text, and a satisfied start does not disable final column balancing. Main starts
+retain whole/split footnotes, including continuation after main-story EOF; path
+threads and mixed writing modes use the same boundary state. Note-body starts
+remain retained and preflighted as unsupported. Explicit Br odd/even variants
+are still a separate diagnosed gap.
+
+The initial regression failed before native start retention and flow existed.
+Boundary tests subsequently found empty paragraphs stopping too early and an
+unconsumed, satisfied constraint disabling balancing; both were corrected. One
+clipping assertion was wrong because unused tail frames remain addressable, so
+it now checks the actual clipping frame. Nine layout, four codec and five captured
+keep-control properties pass, as do focused lints and locale checks. Separation
+checks cover note-body diagnostics and independently positioned text controls.
+All plates agree exactly at 72/144/216 dpi. All 24 PDF pages pass Poppler sample
+and rendered-pair equality and visual inspection. This validates shared-renderer
+integration, not external native application agreement. All 16 roadmap targets pass, with **1,849 distinct passing Rust tests**
+(layout 431, IDML 275, separation 196, editor 426, five shared UI checks included;
+one existing UI documentation example ignored). Workspace clippy, native/browser/
+headless checks, four browser tests, eight Python audits, localization, formatting
+and whitespace pass. The full-sweep PDF is byte-identical to the visually reviewed
+artifact. The development build passes in 2m 49s. Its isolated Design-enabled bundle was
+hash checked and signature verified, but CUA still returns cgWindowNotFound.
+No document was opened, and only the newly launched QA process was terminated.
+Browser QA against commit `9acfea7e`'s CI artifact verifies collapsed defaults,
+start-choice commits, undo/redo and the single-step combined inherit reset. It
+also finds a real dropdown defect: with line counts visible, the menu extends
+below the 1690×897 window and clips its final choices. A shared popup placement
+fix is required before this control review passes. Five superseded development logs and the
+review PNGs were removed; baseline failures, full results and the reviewed PDF
+remain. Logs and QA records use `/tmp/schist-paragraph-starts-*`.
+
+The next related interchange gap is explicit odd/even page breaks. Their native
+attributes currently collapse to PageBreak with an explicit warning. Further
+structured stories, typography, object behavior and external application QA remain
+open. Production INDD stays Phase-0-gated and Design Mode disabled by default.
+
+
+Paragraph keep authoring, 2026-10-02:
+The Paragraph panel now exposes native keep policies in a collapsed Keep options
+section. Three compact icons toggle line keeps, all lines and keep-with-previous;
+first/last counts appear only when relevant. Next-line counts and a single inherit
+reset complete the group. Imported or inherited dormant values stay intact.
+Eight short keys are present in all 150 existing locale catalogs.
+
+Captured style edits migrate legacy symmetric aliases only when a value actually
+changes. Clearing one count then inherits from the base instead of revealing an
+old local alias, while unrelated policies remain unchanged. The baseline property
+failed before the edit route existed. Four properties now pass across native and
+legacy styles, independent flag inheritance, dormant counts, stale targets,
+invalid bounds, no-op edits and exact single-step undo/redo. All 16 roadmap targets pass, including workspace clippy and native/browser/headless
+checks, with **1,833 distinct passing Rust tests** (425 editor, five shared UI
+checks included; one existing UI documentation example ignored), four browser
+and eight Python audit checks. Localization, formatting and whitespace pass.
+The native development build passes in 2m 41s. Its isolated Design-enabled bundle
+was hash checked and signature verified, but CUA still returns cgWindowNotFound;
+no document was opened, and only the newly launched QA process was terminated.
+Browser QA passes against commit `751d6640`'s CI artifact on an isolated localhost
+origin with Design enabled. The group starts collapsed; toggles show conditional
+fields, counts commit correctly and survive dormant states, and one undo restores
+all reset policies. Invalid next-line input preserves both the prior value and
+redo. The panel has no clipping at the tested 1690×897 viewport. This verifies the
+actual browser build, not native window access. Logs, counts and QA records use
+`/tmp/schist-keep-controls-*`. No new composition or codec behavior
+is claimed by this authoring checkpoint.
+
+Native split-note default, 2026-10-02:
+Split continuation is pushed as `a0301ac5` in draft PR #195. The public IDML
+specification's Appendix C defaults NoSplitting to false, but Schist still rejected
+an absent value as unsupported. A new property reproduced that discrepancy.
+Composition now resolves absence to the documented split policy while leaving the
+authored Option untouched. Explicit true retains the whole-note path. Two new
+properties cover exact composition equality across 1–3 independent/spanning
+columns and continued native notes through repeated saves with NoSplitting still
+absent. Focused tests and layout/IDML lints pass. The full 16-target sweep passes,
+with **1,829 distinct passing Rust tests** (layout 422, IDML 271, five shared UI
+checks included; one pre-existing UI documentation example ignored), four browser
+and eight Python audit checks. Workspace clippy, native/browser/headless checks,
+localization, formatting and whitespace pass. The 24-page PDF remains byte-identical
+to the visually reviewed continuation proof. The development build passes in
+2m 00s, and its isolated Design-enabled bundle was hash checked and signature
+verified. The app remains quit. Logs use `/tmp/schist-note-default-*`; bundle
+verification is `/tmp/schist-note-default-native-qa.json`. No new UI strings.
+Native inspection is still
+pending the window-automation issue recorded below. Explicit and omitted-policy
+variants of the disposable fixture remain in `target/design-ui/split-notes-qa/`.
+
+
+Split-footnote continuation, 2026-10-02:
+Ruler synchronization is pushed as `21f98d43` in draft PR #195. The next item 9
+regressions reproduced long notes being unrendered under NoSplitting=false and
+whole-note paragraph keeps losing their reference. An independent cursor per note
+now lets main text and note bodies finish separately, including note-only tail
+frames. Final overset includes pending note text after main-story EOF. Trial fills
+retain their own note and break cursors. First and continued rules, frame policies,
+column direction, spanning and final balancing use the same source-safe projection.
+
+Six focused properties pass across Unicode, multiple references, 1–3 columns,
+both reading directions, balanced/unbalanced flow, clipping, whole-paragraph keeps,
+separator geometry, end placement and explicit main-story frame breaks. The
+column property found a second footer being placed in the same frame after main
+EOF; the outer loop now advances to the next frame after the split-note pass.
+A frame-break assertion incorrectly required text in an already full destination;
+it now checks the earliest allowed destination and exactly-once text, accounting
+for pending notes. The first complete 16-target sweep passed, including repeated native IDML saves,
+both preflight paths and independent plate/PDF controls. All 24 proof pages were
+visually inspected. Review then reproduced an affixed reference splitting across
+frames while its note had already started. The fit search now evicts an incomplete
+generated reference as a unit; the new width/height regression and lint pass.
+The repeated full 16-target sweep passes with **1,827 distinct passing Rust tests**
+(layout 421, IDML 270, separation 194, plus the unchanged other suites and five
+shared UI tests; one existing UI documentation example ignored), four browser and
+eight Python audit checks. Workspace clippy, native/browser/headless checks,
+localization, formatting and whitespace pass. The final 24-page PDF is byte-identical
+to the visually reviewed proof. Final logs and counts use
+`/tmp/schist-split-notes-final-*`. The development app build passes in 3m 26s;
+its isolated Design-enabled bundle was hash checked and signature verified.
+The rebuilt bundle still returns the same `cgWindowNotFound` error, so there is
+no native visual result for this checkpoint. Its newly launched QA process was
+terminated without opening a document. The small disposable continuation fixture
+is retained for resuming that check. Three superseded scratch files and 532 MiB
+of unused incremental cache were removed; regression evidence and proof logs remain.
+
+Native QA could not obtain a window from the isolated development app: CUA returned
+`cgWindowNotFound` by path and bundle ID, though its inventory showed the process
+running. A process sample showed the main thread in its normal AppKit event loop.
+No document was opened. Only the newly launched, path-verified QA process was
+terminated. This checkpoint has no native visual result yet; the installed app and
+public fixtures were untouched. Evidence is `/tmp/schist-split-notes-native-qa.json`.
+Current logs use `/tmp/schist-split-notes-*`. No new UI fields or translation keys.
+
+
+First-paint ruler synchronization, 2026-10-02:
+Native paragraph keeps are pushed as `51fd3de3` in draft PR #195. Fresh-launch QA
+then reproduced blank Design rulers and a stale 100% zoom label despite a fitted
+page. A second observation without input remained stale; clicking the already
+active Stories tab restored ticks and the correct 135% zoom. The sample was
+closed without changes and the isolated QA app quit.
+
+The pinned GPUI implementation ignores immediate redraw requests during prepaint.
+Design canvas preparation now defers the workspace notification until the current
+draw finishes after fitting or a bounds change. An initial next-frame callback
+attempt compiled but still failed the same native first-open check. This updates ruler extents and zoom chrome
+without requiring another gesture or repeatedly repainting an unchanged viewport.
+The revised native build passes and its isolated bundle hash/signature were verified.
+Fresh-process QA now shows ticks and 135% zoom without another gesture. Native
+window zoom and restore update ruler coverage to each canvas extent while retaining
+the document zoom. The sample closes without a save prompt; the app was quit.
+Evidence is `/tmp/schist-ruler-native-qa.json`. All 16 roadmap targets pass,
+with **1,818 distinct passing Rust tests**, including the five shared UI tests
+(one existing UI documentation example ignored), four browser and eight Python
+audit checks. Workspace clippy, native/app, browser/headless, localization,
+formatting, whitespace and independent PDF proofs pass. Logs use
+`/tmp/schist-ruler-*`. This adds no user-facing fields or controls.
+
+Native paragraph keeps, 2026-10-02:
+Spanning whole notes are pushed as `87a34b2f` in draft PR #195. Three regression
+properties first reproduced disabled keeps blocking a single line, native flags
+vanishing on save, and keep-with-previous leaving the preceding line stranded.
+ParagraphKeeps now retains independent enable/all/first/last/next/previous options,
+including inactive values and explicit resets. Legacy symmetric counts/toggles
+remain readable and use guarded native metadata for exact authored round trips.
+Malformed native changes invalidate that metadata; invalid authored counts are
+reported, omitted from native attributes and retained in the guarded label.
+
+Column flow moves the smallest legal complete-line suffix when an adjacent keep
+cannot be met. Backwards validation carries heading chains, and frame validation
+also handles writing-mode changes. The same pass respects whole-paragraph and
+independent widow/orphan limits, opening initials and explicit destination breaks.
+A following paragraph shorter than the requested count is kept in full; native
+application comparison of this edge case remains needed. No source bytes are
+clipped or generated, and layout does not mutate document/history.
+
+The focused tests pass, including all possible split positions, repeated native
+saves, independent inheritance, older snapshots and malformed edits. Added
+balanced-column/RTL/drop-cap checks also pass in the layout suite. The drop-cap
+fixture initially allowed the following line to fit inside its chosen height;
+explicit paragraph spacing now isolates the intended rollback case. All 16 roadmap targets pass with **1,813 distinct Rust tests** (layout 415, IDML
+269), four browser and eight Python audit checks. Workspace clippy, native/app,
+browser/headless, localization, formatting and whitespace checks pass. Full sweep
+logs use `/tmp/schist-keeps-sweep-*`. Shared UI adds five passing tests (one
+existing documentation example ignored), for **1,818 distinct passing Rust tests**.
+The native build passed; `/tmp/schist-keeps-app-build.log` records it.
+The previous isolated development build visibly reproduces all three fixture
+failures: a disabled keep leaves its first frame empty, a whole paragraph splits,
+and numeric keep-with-next moves the whole paragraph and causes terminal overset.
+The QA document was closed unchanged and the app quit before rebuilding.
+The rebuilt bundle was hash checked and signature verified with Design enabled.
+All three cases now paint correctly, and the avoidable terminal overset is gone.
+Native 150 dpi PDF export produces a 578 × 758 pt page with complete text and marks;
+Poppler visual inspection confirms the corrected flow without clipping or overlap.
+Native packaging preserves all six stories and the exact native keep attributes.
+Its manifest records Arial Regular, excludes font files and retains font/style
+warnings. Packaged IDML reopens with the same corrected flow. Both layouts close
+without a save prompt after output/reopen; the QA app was quit. Disposable fixtures,
+PDF/package and render images were removed after verification. Evidence is
+`/tmp/schist-keeps-native-qa.json`. The installed app and public fixtures were untouched.
+
+Next composition work remains split-note continuation: independent note-body
+cursors, continued rules, pending-note overset and trial state through frames,
+columns and balancing, including after main-story EOF. Native StartParagraph
+choices and external application placement agreement remain separate gaps.
+
+Spanning whole footnotes, 2026-10-02:
+Story Editor checkpoint `362c598b` is pushed to draft PR #195. Item 9 now has a
+shared footer for explicitly spanning notes, using the full frame width after
+insets and reserving room under every column. Height trials use ordinary body
+flow and independent break cursors; only the selected layout consumes forced
+column/frame/page breaks. Notes are measured once per frame search. Balancing
+then minimizes the body height while retaining the reserved footer. Per-frame
+and style policies continue to select spanning or independent column areas.
+Unknown spanning defaults, split notes, layout-dependent numbering restarts,
+vertical/path notes and structured note bodies remain explicit gaps.
+
+Layout regressions cover 2–4 columns, LTR/RTL flow, balanced/unbalanced frames,
+terminal and bottom placement, overflow, whole multi-paragraph notes, mixed
+frame policies, forced breaks, asymmetric insets, page-relative grids and
+impossible fits without orphan references. These tests and layout lint pass.
+The independent separation/PDF proof also includes wrapped spanning text crossing
+the gutter, with spot/process paints, tint, opacity and affine placement. It
+matches independent text/shape frames in every plate at three resolutions and
+pixel-for-pixel in Poppler; the 16-page PDF was also visually inspected. Repeated
+native IDML saves preserve full-width notes and UTF-8 anchors through document
+and frame overrides. The full 16-target sweep passes with **1,803 distinct Rust
+tests** (layout 409, IDML 265, separation 192), four browser and eight Python
+audit checks. Workspace clippy, native/browser/headless and localization pass.
+Logs use `/tmp/schist-spanning-sweep-*`.
+
+The previous native build opens a disposable two-story fixture: independent
+column notes paint, while the explicitly spanning notes remain absent. An initial
+handwritten fixture omitted its package index; adding that index made it readable.
+The installed app and public fixtures remain untouched. Review also found the
+layout-open failure branch passing `name` to the existing `{error}` placeholder;
+it now uses the correct argument. The affected editor/lint/app/browser checks
+and formatting pass again. All five shared UI tests pass (one existing
+documentation example is ignored), giving **1,808 distinct passing Rust tests**
+with the main sweep. The native debug build passes, and the isolated bundle was
+hash checked and signature verified with Design enabled. Its spanning footer now
+paints both complete notes across the frame, while the comparison frame retains
+independent column notes. Native 150 dpi PDF export produces a 558 × 798 pt page;
+Poppler inspection confirms both arrangements, references, rules and printer
+marks. Native packaging preserves both source stories, all four note bodies and
+their UTF-8 anchors exactly, without persisting generated styles. Its explicit
+structured-content/font/style warnings remain visible. Packaged IDML reopens with
+the same two arrangements. Both layouts close without a save prompt after output;
+the QA app was quit. Disposable fixtures, package, PDF and render images were
+removed after verification. Evidence is `/tmp/schist-spanning-native-qa.json`,
+and the build log is `/tmp/schist-spanning-app-build.log`.
+
+The next prerequisite identified at the spanning checkpoint was native paragraph
+keeps. At that checkpoint, import reduced numeric KeepWithNext to a boolean and
+applied KeepFirstLines symmetrically, without honoring KeepLinesTogether,
+KeepAllLinesTogether, KeepLastLines or KeepWithPrevious. The public corpus has 20 base styles with keeps disabled but
+first/last counts of two, and the academic body style uses KeepWithPrevious=true.
+The [public ParagraphStyle DOM](https://developer.adobe.com/indesign/uxp/dom/api/p/paragraph-style/)
+and reference manual describe these independent policies. Their model, inheritance,
+flow and interchange are addressed in the new handoff entry above. Earlier Schist
+keep-rule tests alone did not establish native keep-option fidelity.
+
+Story Editor native window QA, 2026-10-02:
+Paragraph balancing is pushed as `e4115390` in draft PR #195. Opening the separate
+Story Editor from the Stories panel then reproducibly aborted the native app.
+Its constructor and initial synchronous window draw read the workspace while
+the originating click still held that entity for an update. The entire window
+open is now deferred until the update finishes, with a document-session guard.
+The first repaired native build opens successfully; replacing all story text
+with one character and undoing once restores the original 425-character story.
+Closing the editor leaves the layout open, and closing that layout after undo
+does not request saving. This QA also exposed a plural-format call on the
+non-plural story-number key and multiline text clipped to one line. The label
+now uses its named placeholder, and multiline input measures within its width.
+The final native build and isolated bundle hash/signature verification pass.
+Two-story native QA confirms wrapped text, active story labels, paragraph breaks,
+Unicode, switching without changing the other story, and one-step replacement
+undo. PDF export correctly refuses a missing font without leaving a partial
+file. An installed-font variant exports both pages as one 876 × 378 pt sheet
+at 150 dpi; Poppler renders both balanced pages in order. The native package
+contains exact text from both stories, its manifest lists Arial and explicitly
+omits font files, and its font/style warnings appear in the window. Its IDML
+reopens in Design Mode. All disposable layouts close without a save prompt after
+undo/export, and the QA app was quit. The full 16-target sweep passes with
+**1,797 distinct Rust tests**, four browser checks and eight Python audit checks.
+Workspace clippy, app/browser/headless, localization, formatting and whitespace
+checks pass. The shared UI crate also passes all five tests (one pre-existing
+documentation example is ignored), for **1,802 distinct passing Rust tests**
+across the sweep and that additional crate. Logs use
+`/tmp/schist-story-window-sweep-*` and `/tmp/schist-story-window-ui-tests.log`.
+Removed 2.3 GB of unused
+incremental cache after the drive reached 3.4 GB free; these builds all disable
+incremental compilation.
+Linux CI on `e4115390` then exposed an incorrect assertion in the paragraph
+balancing property: 28 lines across three columns can use the minimum common
+height with counts 10/10/8. Minimizing that height does not require equal counts.
+The property now checks the maximum column height against the ceiling average
+and widow allowance, retaining exact shaped lines, complete consumption, occupied
+columns, valid paragraph splits and unchanged source. The affected layout/editor
+tests and lints, workspace clippy and formatting pass again; no production layout
+code changed for this correction. Remote CI will rerun on the published fix.
+
+Balancing within paragraphs, 2026-10-02:
+Checkpoint `f073cc9a` is pushed in draft PR #195. The next regression reproduced
+a composition defect: enabling balance on one long, splittable paragraph left
+columns empty. Balancing imposed an extra whole-paragraph restriction beyond
+the paragraph's own widow and keep settings. Removing that restriction shares
+the ordinary paragraph splitting rules, keeping heading chains and grids intact.
+A property test covers 2–4 columns, both reading directions, 1–3 widow lines,
+one or several paragraphs, first-line indents, unchanged shaped line boundaries
+and source preservation. It failed before the fix and passes after it. The full
+layout/text suite and the full 16-target sweep pass. A follow-up property also
+checks that each complete two-paragraph footnote remains with its reference
+when the main paragraph splits across columns. It passes for both reading
+directions and preserves all source data. The affected tests/lint also pass after
+that addition: **1,797 distinct Rust tests**, four browser checks and eight Python
+audit checks. All 16 make targets, formatting and whitespace checks pass; logs
+are under `/tmp/schist-paragraph-sweep-*`.
+The previous native build also reproduces it at 188%: Columns is 2 and the
+balance icon is active, but the single paragraph remains entirely in the left
+column. The corrected native build passes, as do the isolated QA bundle's binary
+hash and signature checks. At 188%, the same fixture now splits into two columns
+with its initial indent preserved. One balance-icon click returns it to sequential
+flow and one undo restores the balanced layout. The fixture was then used for
+Story Editor checks and closed without saving.
+
+
+Native column balancing, 2026-10-02:
+Frame-footnote checkpoint `27168ad2` is pushed in draft PR #195. Composition
+now honors native VerticalBalanceColumns instead of balancing every final
+multi-column region. Local true/false values and absence are distinct; enabled
+object-style general-frame categories inherit the setting, while disabled
+categories do not. Applying or detaching a style preserves the effective policy.
+Document creation defaults affect future rectangular frames only. Legacy Schist
+snapshots without the field retain their previous automatic balancing; raw
+geometry-only composition calls also retain their documented legacy behavior.
+The Control panel adds one localized icon beside the column field, with a
+selection-wide undo step and predictable mixed-selection behavior. Public
+literary XML supplies true frame values and false style/document defaults.
+All 16 make targets pass with **1,795 distinct Rust tests**, four browser checks
+and eight Python checks. Workspace clippy, localization, native/browser checks,
+PDF proofs, formatting and whitespace checks pass. Logs and counts are under
+`/tmp/schist-balance-sweep-*`. The native debug build and isolated flagged bundle
+hash/signature verification pass. At 188%, one click on the compact Columns
+icon switches the handwritten fixture to sequential flow, moving both notes
+into the first column. One undo restores the original two columns, references,
+note bodies and separate rules. The disposable file was closed without saving;
+the installed app and public specimens were untouched.
+The existing balancing algorithm still moves whole paragraphs; balancing within
+a splittable paragraph is the next composition check after this policy checkpoint.
+
+Frame footnote policies and column flow, 2026-10-02:
+Whole-note checkpoint `bb793232` is pushed in draft PR #195. This follow-up
+models local frame footnote overrides, their object-style category and inheritance,
+and document defaults copied into newly created rectangular frames. Native
+TextFrameFootnoteOptionsObject values retain explicit false and dormant spacing.
+Applying/removing a style, duplicating a frame and settings edits keep the correct
+policy and undo behavior. Existing frames are not rewritten when creation defaults
+change. The public academic/literary files provide native document/style records;
+active frame policy is covered with explicit native XML and repeated saves.
+
+Whole notes now compose in multiple columns when spanning is explicitly disabled.
+Reading direction and forced column breaks select the owning column. Balancing
+limits main text height while bottom-aligned notes stay at the physical column
+bottom. Spanning areas, split notes and layout-dependent restarts remain pending.
+Property tests cover note/reference ownership, source preservation, no overlap,
+column order and physical bottom placement. Independent plate comparisons now
+exercise one, two and three columns at three resolutions and with rotation.
+All 16 make targets pass with **1,788 distinct Rust tests**, plus four browser
+and eight Python checks. Workspace clippy, formatting, application checks and the
+native debug build pass; logs are under `/tmp/schist-frame-notes-sweep-*`. The
+isolated feature-enabled QA bundle matches the built binary before signing and
+passes signature verification. Native window access subsequently recovered.
+At 100% the actual QA app shows references 7/8 in their respective columns,
+with separate rules and note bodies at the physical frame bottom; the local
+no-spanning override wins over the document spanning setting. The fixture is
+handwritten public-format XML. No external application agreement is claimed.
+The first property-test failure was a fixture error: a tall single-column fallback cannot consume multiple
+forced column breaks. It now provides real fallback columns instead of weakening
+the source-flow rule. External native rendering agreement remains unverified.
+Next: preserve the native optional Balance Columns policy; current composition
+still balances every final multi-column region automatically.
+
+Whole-note composition, 2026-10-02:
+Commit `6c762cfd` is pushed in draft PR #195. All five CI jobs
+passed, including Windows, before this follow-up checkpoint.
+The next item 9 work composes continuous text-only footnotes in horizontal,
+single-column threads with explicit no-splitting enabled. Disposable inline
+projections give reference numbers real advances without adding source bytes.
+Canvas hits, caret placement and vertical navigation map back to original UTF-8
+positions. Note bodies keep independent styles, typed ink paints and markers;
+solid separator rules reach preview and print. A monotonically shrinking body
+ceiling keeps a reference with its whole note when a frame cannot fit both.
+Notes honor inter-note spacing, internal paragraph spacing, first-baseline
+leading/ascent and minimum offsets, plus end-of-story placement. Explicit marker
+character styles override the document positioning choice. Unknown coordinates,
+other numbering/restart policies, multiple columns, splitting, vertical/path
+text and unsupported rule/baseline policies still retain explicit diagnostics.
+Resource inventories include marker-only inherited font/face combinations.
+Projected paragraph text and list-counter outcomes also stay attached to their
+lines for preflight; unsupported note tabs and cross-story numbering cannot
+silently pass against the main paragraph. Valid local note lists still compose.
+Rotated separator rules transform their vectors before antialiasing, matching
+independently authored shape output exactly.
+
+The source structure count is now distinct from the composed frame's unsupported
+count. Story Editor explains retained content outside its text view; the IDML
+retention notice no longer calls every retained item unrendered. Both messages
+were updated in all 150 catalogs. All 16 make targets pass with **1,783 distinct
+Rust tests** (layout 395, text engine 115, editor 420, IDML 261, separation 191),
+four browser checks and eight Python audit checks. Workspace clippy and app,
+browser and headless checks pass, as do formatting and whitespace. The independent
+text/shape PDF proof passes both plate and Poppler pixel comparisons; upright and
+rotated proof pages were also visually inspected. Logs and counts are under
+`/tmp/schist-note-flow-sweep-*`. The native debug build passes
+(`/tmp/schist-note-flow-app-build.log`). The isolated Design-enabled QA bundle was
+refreshed, hash checked and signature verified. Native inspection at 189% confirms
+the academic page's superscript reference 4, separator and both note lines,
+including the source's literal 5. Subsequent coordinate actions intermittently
+returned `noWindowsAvailable` despite a live app and working AX/raised screenshots,
+so the extra native typing/undo check was not completed; the editor's source-hit
+and navigation property tests pass. The fixture remains unmodified. Design Mode
+remains disabled by default.
+
+Next footnote integration work: preserve/apply native per-frame footnote
+spacing and spanning overrides, then compose notes with column flow and
+balancing. The public PSU files contain TextFrameFootnoteOptionsObject records
+with EnableOverrides=false; active overrides are not yet modeled. The document
+preferences alone must not be presented as complete native frame-policy support.
+
+Native footnote export and hidden group artwork, 2026-10-02:
+Native-window access recovered on the previous build. The public academic IDML
+now visibly has the correct red title and concise Layers excerpts. Its black
+corner squares exposed group flattening dropping layer membership and visibility.
+Children now inherit the nearest explicit layer and cumulative hidden state;
+object visibility is separate from opacity, preserved in snapshots/native saves,
+and available through compact object eye controls. The academic file retains all
+24 hidden parent shapes without sending them to page artwork.
+
+Text-only typed footnotes now export native containers and ACE 4 body markers.
+Their original XML remains recoverable. UTF-8 anchors, coincident notes, empty
+paragraphs, automatic-direction guards, note-only font combinations and native
+text/style edits are covered. A guard flag reads older retention-only saves while
+allowing native deletion from newer exports to win. Numbering, note-area
+reservation, overflow/splitting and Schist painting remain open. All 16 make targets pass with **1,768 distinct Rust tests** (layout 386, text
+engine 115, editor 419, IDML 259, separation 188), four browser and eight Python
+audit checks. Workspace clippy, app/browser/headless checks, PDF proofs, formatting
+and whitespace pass. Logs/counts are `/tmp/schist-visibility-notes-sweep-*`. The
+native debug build passes (`/tmp/schist-visibility-notes-app-build.log`). The
+isolated Design-enabled Roadmap QA bundle was refreshed, hash checked and signature
+verified. Its academic fixture visibly has the correct red title and no stray
+corner artwork. The new object eye hides the title and one undo restores it to
+the unmodified state. The installed app remains untouched. Stale release `.rlib`, `.rmeta`,
+object and dependency intermediates were removed to reclaim 4.51 GiB; runnable
+release/development apps and source evidence remain intact.
+
+
+Design preview corrections, 2026-10-02:
+The native academic PDF comparison exposed red/blue reversal in Design preview.
+The pinned GPUI RenderImage contract requires BGRA; Design supplied RGBA for
+text rasters, shape fills and placed/warped images. A single upload helper now
+converts owned preview pixels at that boundary, leaving source RGBA and native
+CMYK used by transforms and separation intact. Opacity variants use the same
+helper. A regression covers every alpha value, channel order, source immutability
+and the bounded opacity cache.
+
+The compact Layers tree now gives unnamed native `$ID/` objects bounded Unicode
+text excerpts or localized kind labels, including parent objects and drag previews.
+Saved names remain unchanged. Canvas crop marks now begin after the documented gap.
+All 16 make targets pass with **1,760 distinct Rust tests** (layout 384, text
+engine 115, editor 419, IDML 253, separation 188), four browser and eight Python
+audit checks. Workspace clippy, app/browser/headless compilation, PDF proofs,
+formatting and whitespace pass. Evidence is `/tmp/schist-design-preview-sweep-*`.
+The native debug build passes; its log is `/tmp/schist-design-preview-app-build.log`.
+The isolated Roadmap QA bundle was refreshed, hash checked and signature verified,
+retaining the Design flag and separate config/state directories. It launched to
+the gallery and opened the native file picker. Final color/label inspection is
+pending: automation then returned `cgWindowNotFound` for both QA and Finder.
+The QA process remains idle; no new Schist crash report was present. Diagnostic:
+`/tmp/schist-final-preview-window-sample.txt`. The installed app was untouched. The preceding typed-body work
+is committed as `a4b7e462`; these follow-ups are included in draft PR #195.
+Footnote marker composition, note-area reservation,
+overflow/splitting and broader native rendering agreement remain open.
+
+Typed footnote bodies, 2026-10-02:
+`c131cf14` was pushed to draft PR #195 with preferences and canvas reuse. The
+next item 9 step now lowers text-only native notes to independent typed stories
+with paragraph/character styles, local overrides and zero-width ACE 4 marker
+coordinates. Main-story source bytes and original note XML stay exact. Nested
+objects/tables/notes, unknown instructions, mixed content and forced frame breaks
+remain opaque. Style renames update note references in one undo transaction;
+native style changes used only by a note invalidate stale retention metadata.
+Five new properties cover source coordinates, repeated saves, fallbacks, the public
+academic body, renaming, parent edits and undo. All 16 make targets pass with
+**1,758 distinct Rust tests** (layout 384, text engine 115, editor 417, IDML 253,
+separation 188), four browser and eight Python audit checks. Workspace clippy,
+app/browser/headless checks, PDF proofs, formatting and whitespace pass. Logs and
+counts are `/tmp/schist-footnote-bodies-sweep-*`.
+Footnote numbering/marker paint, reserved note areas, overflow and splitting remain
+next; typed source data does not yet make notes visible or printable. Native-window access recovered: the `c131cf14` QA build opens the seven-page
+academic fixture, switches to compact Layers, selects a frame and shows contextual
+Character controls. The first complete post-open screenshot arrived within 46
+seconds while the test sweep was running; this is an observation, not a benchmark.
+Initial composition remains slow, and imported unnamed objects display `$ID/`.
+An idle main-thread sample is `/tmp/schist-academic-cached-ui-sample.txt`. The QA
+process was closed after inspection; the installed app was untouched.
+
+Footnote preferences and canvas composition, 2026-10-02:
+the prior 1,741-test checkpoint was committed as `39fb6180`, pushed to
+`design-tab-leaders` and opened as [draft PR #195](https://github.com/Infrawrench/schist/pull/195).
+Further work on this branch adds typed document footnote options with native
+Preferences-part interchange: numbering/restarts, affixes, style references,
+spacing, baseline policy, splitting/straddling and independent separator rules.
+Absent values remain absent; unresolved identities remain explicit. Rule inks and
+strokes join exported resources. Settings commits, style renames and swatch edits
+retain these references in one undo step. Repeated saves of the public academic
+specimen preserve both its preferences and its opaque note payload.
+Bodies and reference markers are still opaque and unrendered; space reservation
+and typed body/resource lowering remain the next footnote work.
+
+Native-window access worked in this session. The isolated Design-enabled Roadmap
+QA app was relaunched and the public academic IDML opened; gallery and the compact
+Pages/pasteboard UI were visually inspected. Opening took minutes. A main-thread
+sample identifies repeated text composition during canvas planning: the main story
+has 13 frames, and each frame recomposed its whole thread. The new kernel pass
+reuses ordinary threads and keeps parent results separate by destination page.
+The editor retains one complete document/view/font snapshot so unchanged paints
+reuse the plan, including correct invalidation for IME drafts and undo. Kernel
+cache properties and editor checks pass. The native debug build also passes and
+the isolated QA bundle was refreshed, hash checked and its signature verified.
+It retains the Design flag and separate config/state directories. The new process
+launches, but native automation returns `cgWindowNotFound`; its main thread is
+idle in the event loop. Updated visual/performance verification remains open.
+The older QA process was closed. Samples: `/tmp/schist-academic-ui-sample.txt`
+and `/tmp/schist-roadmap-launch-sample.txt`.
+
+All 16 make targets pass with **1,753 distinct Rust tests** (layout 382, text
+engine 115, editor 417, IDML 250, separation 188), four browser checks and eight
+Python i18n-audit checks. The 12 new properties cover preferences/interchange,
+style renaming, immutable thread reuse and complete canvas-cache invalidation;
+the existing swatch property also exercises both footnote rules. Workspace clippy,
+native/browser/headless checks, PDF proofs, formatting and whitespace checks pass.
+Results/counts/logs are `/tmp/schist-footnotes-canvas-sweep-*`; the native build log
+is `/tmp/schist-footnotes-canvas-app-build.log`. This follow-up is part of draft
+PR #195. All five remote checks, including Windows, passed on the earlier
+`39fb6180` checkpoint; the follow-up must receive its own CI result.
+Unused incremental build cache was removed after checking that no incremental
+compiler was using it. Design Mode remains disabled by default.
+
+Structured-story retention, 2026-10-02: imported tables, footnotes and inline
+page items now retain exact outer XML rather than disappearing after a warning.
+UTF-8 anchors survive nearby edits; crossing edits are refused. Snapshots and
+paragraph/character styling preserve data through one undo step. Threading refuses
+to replace opaque-only stories. Guarded standard Story Labels retain Schist data
+through saves; native body/format/style-name edits win and leave retained payloads
+with unknown locations. Malformed or duplicate metadata stays recoverable.
+
+The public PSU table, footnote and inline math payloads survive four saves exactly.
+Story Editor shows a compact retained count; both preflight paths flag missing
+structure paint even for empty/fitting body text. Three new keys and the corrected
+existing warning are in all 150 catalogs. This is preservation, not native
+structured composition or reconstruction of referenced resource graphs.
+
+The full sweep passes all 16 make targets with **1,741 distinct Rust tests**
+(layout 377, text engine 115, editor 415, IDML 245, separation 188), four browser
+checks and eight Python i18n-audit checks. The 12 new properties cover preservation,
+UTF-8 edits, styling/undo, external changes and both print paths. Workspace clippy,
+native/browser/headless checks, existing PDF proofs, formatting and whitespace
+checks pass. Logs/results/counts are `/tmp/schist-story-structures-sweep-*`.
+The native debug build passes; its log is
+`/tmp/schist-story-structures-app-build.log`. The isolated Roadmap QA app bundle
+has been refreshed from this executable and its signature verified, retaining the
+Design flag and separate config/state directories. It has not been relaunched or
+visually inspected; an already-running QA process still uses its previous binary.
+Unused incremental cache and superseded scratch output were removed; current
+verification logs and public reference evidence remain.
+
+Public footnote input/PDF evidence is saved at
+`/tmp/schist-native-footnote-reference/` and described in `docs/idml-format.md`.
+Its visible output differs from several fixture comments, so those comments are
+not accepted as native placement/default evidence. Typed footnote preferences,
+body/marker composition and space reservation remain the next structured-story
+work. Item 9 remains active; native-window QA and production INDD remain gated.
+This checkpoint is prepared for draft review on `design-tab-leaders`, with
+Design Mode disabled by default.
+
+Same-page cross-story numbering, 2026-10-02: authored object chronology is now
+independent of paint order and story indices, recorded in the creation gesture's
+undo transaction, and retained in guarded standard object Labels. Unlabelled native
+imports remain unknown; ambiguous or changed metadata is rejected rather than
+manufacturing evidence. Deletion retains chronology for undo and excludes unplaced
+story tombstones from the live list.
+
+One ordinary unthreaded frame per used story on one page now composes a shared
+sequence in known creation order. Multilevel ancestor events remain monotonic across
+story byte-offset resets. Independent lists, explicit restarts and source bytes
+are preserved. The existing Paragraph list disclosure selects a sequence and
+changes its shared continuation setting in one undo step. Supported continuation
+has a Schist-order notice; unknown chronology, threaded/parent/multiple-page/book
+sequences are still diagnosed without guessed markers. All new keys are in the
+150 catalogs. Native rendering parity is not claimed.
+
+The full sweep passes all 16 make targets with **1,729 distinct Rust tests**
+(layout 372, text engine 115, editor 415, IDML 239, separation 187), four browser
+checks and eight Python i18n-audit checks. Workspace clippy, native/browser/headless
+checks and output proofs pass. Print plates match independent per-story references
+exactly at 72/144/216 dpi; both preflight paths expose unknown order. Frame,
+thread and chronology indexes are call-local so each participant does not rescan
+the whole document. Logs/results/counts are `/tmp/schist-cross-story-sweep-*`.
+The new English notice has an exact deferral under the existing disabled-feature
+translation rule. Evidence and limits are in `docs/idml-format.md`.
+The native debug build passes (`/tmp/schist-cross-story-app-build.log`). Obsolete
+incremental cache and superseded app/editor build files were removed after it
+nearly exhausted disk space. Item 9 and native-window/INDD validation remain open. At this checkpoint, review
+found table/footnote nodes were omitted despite the model's preservation comment.
+The later structured-story checkpoint above fixes that data loss.
+
+
+Native hanging-indent tab integration, 2026-10-02: public InDesign output now
+pins 11 marker/tab placements and an ordinary source-tab placement. A virtual
+hanging-indent stop precedes a later explicit stop or the implicit grid. The
+previous c07 marker body landed at 60 instead of 30; ordinary c12 landed at 36
+instead of 40. Regressions are retained in
+`/tmp/schist-native-marker-tabs-before.log` and
+`/tmp/schist-native-source-indent-before.log`. Geometry and leader ownership now
+agree with those observations. Native font/raster or other-axis agreement is
+not claimed; provenance and limits are in `docs/idml-format.md`.
+
+The shared source-tab geometry keeps the indent column-relative through wrapping,
+paint, carets and scaling. A virtual stop cannot borrow an explicit leader.
+Properties cover passed stops, explicit collisions, ruler order and inherited
+indents; four native saves retain masks, source bytes and carets in both directions
+and all three axes. The source-tab fallback notice is corrected in all 150
+catalogs and its explicit English deferral. The 202-case tab proof and 36-case list
+proof still pass exact plates at three resolutions and every paired PDF sample.
+
+The save property exposed another real loss: paragraph-local writing modes were
+omitted from IDML. Standard Label metadata now retains explicit Horizontal,
+VerticalRightToLeft and VerticalLeftToRight overrides, preserving inheritance
+when unset. Import/export report that this is Schist-only orientation metadata;
+no native paragraph attribute or mixed-axis rendering agreement is invented.
+A new notice is present in all 150 catalogs. Misleading align documentation now
+states its deliberate per-object undo exception, and duplicated comment text is
+removed. Undo behavior is unchanged.
+
+All 16 make targets pass with **1,716 distinct Rust tests** (layout 366, text engine
+115, editor 414, IDML 234, separation 186), four browser checks and eight Python
+i18n-audit tests. Workspace clippy, native/browser/headless checks, output proofs,
+formatting and whitespace pass. Logs/results/counts use
+`/tmp/schist-native-marker-tabs-sweep-*`. The native debug build passes; its
+log is `/tmp/schist-native-marker-tabs-app-build.log`. An isolated Roadmap QA
+bundle was prepared from this binary with the Design flag enabled; existing dev
+and installed app bundles are untouched.
+
+The public cross-story numbering PDF was inspected completely: both pages have
+1/2 in story A and 1 in story B, despite a shared continuation input. The pages
+are pixel-identical, so their labels do not establish restart semantics. Adobe's
+public guide specifies frame-creation order for unthreaded frames on one page;
+story-vector and paint order are not safe substitutes. Item 9 continues with the
+ordering model and remaining advanced text/interchange work. Production INDD
+remains spike-gated; native-window QA is still unavailable. Work is uncommitted
+on `design-tab-leaders`, and the feature default remains false.
+
+
+Initial-tab fallback and horizontal marker leaders, 2026-10-02: diagnosed source
+tabs inside an enlarged initial now preserve ordinary source flow, wrapping,
+pixels and carets. The prior composition still enlarged that unsupported tab gap;
+the regression is `/tmp/schist-initial-tabs-before.log`. Native reservation and
+scaling behavior remains unverified, so the retained setting stays diagnosed.
+
+Generated bullet/number tabs can paint literal leaders from their selected
+explicit leading stop. Passed/implicit stops and legacy fixed gaps cannot borrow
+one. A counter has separate marker/leader paint fragments, preserving original
+marker pixels, counter strings and all source carets. The independent proof
+exposed fractional marker-frame rounding; the leader fragment now uses the column
+ruler independently of marker placement. Non-leading, RTL/vertical/path/initial
+marker combinations remain open and diagnosed. Four native saves retain strings,
+styles, counters and paint. No native leader phase agreement is claimed.
+
+The list proof now has **36 cases / 72 paired pages**, including 12 new leader
+cases. Exact plates agree at three resolutions, and Poppler compares every paired
+page/sample. Every new actual case passed visual review; evidence is
+`/tmp/schist-leaders-visual/marker-contact.png`. All 16 make targets pass with
+**1,712 distinct Rust tests** (layout 364, text engine 114, editor 414, IDML 233,
+separation 186), four browser checks and eight Python i18n-audit tests. Workspace
+clippy, native/browser/headless checks, PDF output, formatting and whitespace pass.
+Logs/results/counts use `/tmp/schist-marker-leaders-sweep-*`. Native debug build
+passes (`/tmp/schist-marker-leaders-app-build.log`); the open isolated dev bundle
+has not been replaced, and native window QA remains unavailable.
+
+New public native list-marker PDFs and fixture inputs, pinned to the same paged-media
+revision as the source-tab reference, are in `/tmp/schist-native-list-reference/`.
+Only fixture definitions and public PDF output were consulted. `list-markers.pdf`
+shows a virtual hanging-indent stop before a later explicit stop (case c07:
+left indent 30, explicit stop 60, body at 30). Marker composition at that checkpoint instead
+chose 60; the later native hanging-indent checkpoint above corrects this geometry
+and leader ownership. Remaining item 9 work continues. The public cross-story numbering fixture is
+also available; its page label says restart, but the fixture defines continuation
+for both pages, so the label is not evidence of reset behavior.
+
+Production INDD remains spike-gated. Changes are uncommitted on
+`design-tab-leaders`, and Design Mode remains disabled by default.
+
+
+Horizontal path/tab integration, 2026-10-02: source tabs now use the path
+bracket's logical arc-distance ruler, independently of page coordinates and
+first-line/hanging indents. The general anchor property covers both directions,
+all four alignments and multiple indents; it failed before the origin fix.
+Straight, rotated and cubic baselines paint ordinary fields and literal leaders.
+Vertical path tabs and the other unimplemented paragraph/initial combinations
+remain diagnosed.
+
+The independent proof has **202 cases / 404 paired pages**, including 64 path
+cases. Exact plates agree at 72/144/216 dpi; Poppler comparisons pass and all
+64 actual cases passed visual review. The center-aligned group's 16 PNG pages
+are pixel-identical to the already reviewed leading-aligned group. Evidence is
+`/tmp/schist-leaders-visual/path-contact-*` and `path-page-*`. This validates
+Schist integration, not native curved-tab rendering agreement.
+
+Curves exposed accumulated shaping error and differing glyph fill/stroke
+projections. Advances now accumulate before f32 coordinate rounding. Both paints
+share a 1/64-pixel inline sampling grid, with unsnapped document geometry and
+carets. Four native saves retain source text, rulers, cubic handles, brackets,
+pixels and carets. Recomputed cubic bounds also shifted the local origin;
+standard guarded Label metadata now retains authored local bounds only while
+native geometry agrees. External curve edits supersede it, and native transforms
+continue to apply. No native geometry or rendering semantics are inferred from
+this precision metadata. Properties verify the guard, continuous carets and
+bounded sampling separately from the output proof.
+
+All 16 make targets pass with **1,710 distinct Rust tests** (layout 362, text
+engine 114, editor 414, IDML 233, separation 186), four browser checks and eight
+Python i18n-audit tests. Workspace clippy, native/browser/headless app checks,
+PDF output, formatting and whitespace checks pass. Logs/results/counts use
+`/tmp/schist-path-tabs-sweep-*`. The native debug build passes; its log is
+`/tmp/schist-path-tabs-app-build.log`. Native window QA still returns
+`cgWindowNotFound` for `com.infrawrench.schist.dev`; no claim is made that the
+open isolated dev bundle contains this checkpoint's binary.
+
+Next item 9 work is initial/source-tab behavior and generated marker tabs, then
+cross-story/further-format lists, dictionary hyphenation, vertical initials,
+structured stories, alternate layouts, advanced objects and further native
+validation. Production INDD remains spike-gated. Changes are uncommitted on
+`design-tab-leaders`, and the feature default remains false.
+
+
+Native source-tab collision/edge integration, 2026-10-02: a public InDesign
+20.0.1.32 PDF and its fixture inputs establish horizontal LTR collision and
+beyond-frame wrapping behavior. Ahead-of-pen aligned stops clamp a field to the
+pen; only passed stops are skipped. The old collision-skip policy was incorrect.
+All 52 native sweep observations now match the numeric geometry within PDF
+bearing/advance tolerance. Provenance, the pinned revision and PDF hash are in
+`docs/idml-format.md`; only public fixture definitions and output were consulted.
+The failing original rule is recorded in `/tmp/schist-native-tab-collision-before.log`.
+
+Zero-advance tabs retain source bytes, caret positions and their selected stop,
+with no leader ink. A terminal tab after text can end at the line's inline edge,
+letting its following field wrap. The same measure reaches standalone paint,
+carets and zoom through `TabStops.line_width`. Leading-tab overset still resumes
+unchanged in a wider frame. Properties cover all axes, explicit directions,
+origins, widths, first-line indents and source coverage. Implicit intervals that
+cannot advance at f32 precision fail rather than pretending to be zero-gap tabs.
+
+The independent print proof has **138 cases / 276 paired pages**, with 18 new
+touching-field cases. Exact plates pass at 72/144/216 dpi, and all new actual pages
+passed visual review. Evidence is `/tmp/schist-leaders-visual/collision-contact-*.png`.
+All 16 make targets pass with **1,706 distinct Rust tests** (layout 361, text engine
+112, editor 414, IDML 232, separation 186), four browser checks and eight Python
+i18n-audit tests. Workspace clippy, app/native/browser/headless, output, formatting
+and whitespace checks pass; logs/results/counts use `/tmp/schist-native-tabs-sweep-*`.
+
+Native Schist window QA still returns `cgWindowNotFound`. The new native debug
+build passes (`/tmp/schist-native-tabs-app-build.log`); it does not replace the
+open isolated dev bundle. Other
+paragraph alignment, justified aligned tabs, path/initial-tab combinations,
+generated marker tabs and the subsequent item 9 gaps remain open. The native PDF
+settles the observed LTR geometry only, not full native font/raster agreement or
+RTL/vertical behavior. Work remains uncommitted on `design-tab-leaders`; the
+feature default remains false. Nine superseded task temporary files were removed.
+
+RTL source-tab integration, 2026-10-02: right-aligned horizontal RTL paragraphs
+now use a right-edge column ruler and first-line/hanging indent; vertical RTL
+keeps downward inline progression. Native LeftAlign/RightAlign stop names map to
+physical field edges after resolving the complete paragraph's direction. Character
+anchors convert their physical caret to ruler distance. Column starts, wrapping,
+threading and standalone line rendering share that origin, including automatic
+direction and story-inherited vertical axes. Four repeated native saves preserve
+stop names, styles, text, raster masks and carets.
+
+The independent print proof now has 120 cases (240 paired pages), including 48
+explicit/automatic RTL cases with real Hebrew glyphs and separately styled numeric
+fields. All cases fit one line, exact plates match at three resolutions, and all
+48 new actual cases passed visual review. It found a real mirroring cancellation
+bug at zero; using the stored field end fixes the shifted glyph mask. The regression
+is `/tmp/schist-rtl-before-paint-fix.log`; the earlier character-anchor failure is
+`/tmp/schist-rtl-before-fix.log`. Exact final-field masks are also checked over seven
+sizes, five scales and every stop alignment.
+
+Generated RTL list markers still require their own placement/composition. They now
+remain unpainted with an explicit diagnostic in IDML and both preflight paths,
+instead of using the wrong column edge. Continued-line diagnostics retain the whole
+paragraph's direction. No native RTL reference fixture establishes InDesign
+agreement; ruler interpretation is recorded with public sources and identified
+inferences in `docs/idml-format.md`. Other paragraph alignment, justified aligned
+source tabs, path/initial-tab combinations and generated marker tabs remain next.
+All 16 verification targets pass: **1,703 distinct Rust tests** (layout 360,
+text engine 110, editor 414, IDML 232, separation 186), four browser checks and
+eight Python i18n-audit tests. Workspace clippy, app/native/browser/headless,
+i18n, output proofs, formatting and whitespace checks pass. Logs/results/counts
+are under `/tmp/schist-rtl-sweep-*`. Native window QA remains unavailable because
+computer-use cannot locate the isolated development window.
+
+Tab leaders, 2026-10-02: Phase 3 item 9 now paints literal leader units for
+ordinary source tabs in all four stop alignments and three writing modes. The
+selected explicit stop owns its leader; skipped and implicit stops cannot borrow
+one. Repeated units inherit the source tab's resolved font, ligatures, capitalization,
+paint and baseline offset without adding story bytes or caret positions. The
+folded Tabs section edits the selected stop's literal leader in one undo step,
+including inherited records, clearing and stale-target rejection. Two short
+labels are present in all 150 catalogs.
+
+The repetition policy fits complete shaped units against the following field's
+edge, leaving spare advance beside preceding text. Native repetition phase remains
+unverified. A property over 1–128 units found a lost final unit from f32 scaling;
+the quotient now snaps within arithmetic precision while real partial units remain
+partial. The failing evidence is `/tmp/schist-leaders-rounding-regression.log`.
+Leader enumeration is bounded at paint time and never performed during wrapping.
+Empty/nonpositive-width units produce no repeated ink. Extreme finite coordinates
+and oversized text bitmaps fail rendering safely; both separation paths now report
+failed text as an error rather than silently omitting it.
+
+All 16 verification targets pass with **1,696 distinct Rust tests** (layout 357,
+text engine 108, editor 414, IDML 231 and separation 185), four browser checks and
+eight Python i18n-audit tests. Workspace clippy, native/browser/headless app checks,
+formatting and whitespace checks pass. The tab proof now has 72 cases and 144 paired
+pages, compared at 72/144/216 dpi; all 24 new actual leader cases passed contact-sheet
+review. Its independent ordinary-text reference uses zero-width-space tracking for
+fractional placement within an integer-positioned frame. Logs/results/counts use
+`/tmp/schist-leaders-sweep-*`; visual evidence is `/tmp/schist-leaders-visual/`.
+`CARGO_INCREMENTAL=0 make build PROFILE=debug` passes. Native window QA of this
+leader field remains pending: the computer-use API currently returns
+`cgWindowNotFound` for the running isolated Schist Dev app.
+
+Work continues with RTL/paragraph alignment, justified aligned tabs, path/initial-tab
+cases and generated list-marker tabs, then the remaining item 9 fidelity gaps below.
+Native InDesign agreement remains unverified and the feature default remains false.
+The leader changes are uncommitted on `design-tab-leaders`, based on merged PR #194.
+
 Aligned paragraph tabs, 2026-10-01: Phase 3 item 9 now composes right, center
 and character/decimal source tabs using the following field's shaped metrics.
 Caret positions, mixed styles, ligatures, all three writing modes, column origins,
@@ -323,8 +2215,10 @@ single undo operations, and stale field targets cannot overwrite changed records
 Five new short labels are in all 150 catalogs.
 
 The 48-case print proof compares tabbed text with independent frame placements
-at three output resolutions. It found a reference case with overlapping fields
-(the engine correctly skipped the colliding stop), then a separate integer pixel
+at three output resolutions. An overlapping reference case was moved to avoid
+collision; later native evidence showed that the engine's collision-skip rule
+was wrong, and the subsequent native-tab checkpoint corrects it. The proof also
+found a separate integer pixel
 rounding defect. Glyph fill and stroke placement now ignore f32 round-off near
 integer boundaries without changing document coordinates. The corrected proof
 fails without that fix and passes with it; see `/tmp/schist-aligned-tabs-rounding-regression.log`.
@@ -343,7 +2237,7 @@ compact Tabs section visible; its native XML contains the selected character
 alignment, literal period and 220 pt position. App/build logs use the same
 `/tmp/schist-aligned-tabs-*` prefix.
 
-Next item 9 work is tab leaders, followed by native RTL/paragraph-alignment,
+At the aligned-tab checkpoint, next item 9 work was tab leaders, then native RTL/paragraph-alignment,
 justified aligned tabs, path/initial-tab cases and generated list-marker tabs.
 Cross-story/further-format lists, dictionary hyphenation, vertical initials,
 structured stories, alternate layouts and advanced object behavior remain open.
@@ -355,8 +2249,9 @@ feature default remains false.
 The compact UI changes were merged in
 [PR #193](https://github.com/Infrawrench/schist/pull/193) as `ebe9e82c`. All its
 hosted checks passed, including Windows, macOS, Linux, web and headless builds.
-The aligned-tab follow-up is on `design-aligned-tabs`, based on the merged UI
-changes; it is separate from that UI PR.
+The aligned-tab follow-up merged in [PR #194](https://github.com/Infrawrench/schist/pull/194)
+as `edfbebcd`; all five hosted checks passed, including Windows, macOS, Linux,
+web and headless builds.
 
 Compact Design panel contents, 2026-10-01: Layers now has a collapsible tree,
 visibility/lock columns, object-type icons and full-name tooltips. Dragging layer
@@ -533,7 +2428,8 @@ remaining order is now explicit:
    Implemented; curve bounds, gestures and repeated native IDML saves verified.
 7. Story Editor, text selection, thread controls and in/out markers — implemented.
    IME drafts commit once; text replacements preserve unaffected styles and
-   refuse edits across protected structure. Native windows still need visual QA.
+   refuse edits across protected structure. Native Story Editor opening,
+   switching, wrapped text, paragraph breaks and one-step undo are verified.
 8. Complete the design tool palette, Hand/Zoom/Eyedropper and layout guides —
    implemented. Selection drags move the whole selection
    in one step, band selection is connected, and line directions are preserved.

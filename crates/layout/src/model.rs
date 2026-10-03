@@ -164,6 +164,14 @@ pub enum LayoutObject {
     /// A box of flowing text, or one bounded baseline when `text_path` is set.
     TextFrame {
         story: StoryId,
+        #[serde(
+            default,
+            skip_serializing_if = "crate::footnotes::FrameFootnotes::is_empty"
+        )]
+        footnotes: crate::footnotes::FrameFootnotes,
+        /// None inherits the enabled object-style category; native default is false.
+        #[serde(default = "crate::frame_text::legacy_balance")]
+        balance_columns: Option<bool>,
         /// A single path container shares the story/thread model with boxes.
         /// Columns, gutters and insets apply only to rectangular frames.
         #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -273,6 +281,10 @@ impl LayoutObject {
 /// same object without duplicating its position.
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct PlacedObject {
+    /// Object visibility is independent of its layer and opacity. Hidden
+    /// frames still participate in their story's thread, but paint no artwork.
+    #[serde(default)]
+    pub hidden: bool,
     #[serde(default)]
     pub appearance: crate::object_styles::ObjectAppearance,
     pub id: ObjectId,
@@ -390,7 +402,38 @@ pub struct LayoutDocument {
     /// Objects, keyed by id. Their page is in [`PlacedObject`] via
     /// [`LayoutDocument::object_page`].
     pub objects: Vec<PlacedObject>,
+    /// Known object creation order, independent of stacking and story indices.
+    /// Absence is unknown, never inferred from an imported object's numeric id.
+    /// Deleted ids remain so undo can restore their original position; codecs
+    /// may omit those absent objects. New authoring records changes in its same
+    /// undo transaction. Native imports need explicit ordering evidence.
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub creation_order: Vec<ObjectId>,
     pub stories: Vec<Story>,
+    /// Shared custom text definitions. Names and vector order are not identities.
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub text_variables: Vec<crate::text_variables::TextVariable>,
+    /// Opaque native text-variable definitions retained for recovery. Instances
+    /// live at source anchors in Story::structures; shared definitions belong
+    /// here once per document, never copied into every instance. The layout
+    /// kernel does not parse or evaluate this XML. Codecs also retain malformed
+    /// variable metadata as inert XML wrappers rather than silently dropping it.
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub retained_text_variables: Vec<String>,
+    #[serde(
+        default,
+        skip_serializing_if = "crate::footnotes::FootnoteOptions::is_empty"
+    )]
+    pub footnotes: crate::footnotes::FootnoteOptions,
+    /// Initial local options copied into newly authored rectangular text frames.
+    #[serde(
+        default,
+        skip_serializing_if = "crate::footnotes::FrameFootnotes::is_empty"
+    )]
+    pub frame_footnote_defaults: crate::footnotes::FrameFootnotes,
+    /// Copied into new rectangular frames, never applied retroactively.
+    #[serde(default)]
+    pub balance_columns_default: bool,
     /// Explicit text flow order, independent of page and layer stacking.
     /// Missing entries use object insertion order for older documents.
     #[serde(default)]
@@ -435,6 +478,17 @@ impl LayoutDocument {
                 strokes.push(stroke.clone());
             }
         }
+        for rule in [&self.footnotes.rule, &self.footnotes.continuing_rule] {
+            if let Some(stroke) = rule
+                .stroke
+                .as_ref()
+                .and_then(crate::footnotes::FootnoteReference::resolved)
+            {
+                if !strokes.contains(stroke) {
+                    strokes.push(stroke.clone());
+                }
+            }
+        }
         for style in self
             .styles
             .paragraphs
@@ -467,6 +521,14 @@ impl LayoutDocument {
                 }
             }
         };
+        for rule in [&self.footnotes.rule, &self.footnotes.continuing_rule] {
+            for paint in [&rule.paint, &rule.gap_paint] {
+                add(&paint
+                    .as_ref()
+                    .and_then(crate::footnotes::FootnoteReference::resolved)
+                    .cloned());
+            }
+        }
         for style in &self.styles.paragraphs {
             add(&style.fill);
             add(&style.stroke);
@@ -548,7 +610,13 @@ impl LayoutDocument {
             spreads,
             parents: Vec::new(),
             objects: Vec::new(),
+            creation_order: Vec::new(),
             stories: Vec::new(),
+            retained_text_variables: Vec::new(),
+            text_variables: Vec::new(),
+            footnotes: Default::default(),
+            frame_footnote_defaults: Default::default(),
+            balance_columns_default: false,
             thread_order: Vec::new(),
             assets: Default::default(),
             styles: StyleSet::with_defaults(),
@@ -597,10 +665,55 @@ impl LayoutDocument {
 
     pub fn add_object(&mut self, placed: PlacedObject) -> ObjectId {
         let id = placed.id;
+        self.creation_order.push(id);
         let layer = self.layers.first().copied().unwrap_or(LayerId(0));
         self.object_layers.push((id, layer));
         self.objects.push(placed);
         id
+    }
+
+    /// A known, unambiguous creation position. Missing/duplicate identities
+    /// fail rather than guessing chronology from current paint order.
+    pub fn creation_rank(&self, id: ObjectId) -> Option<usize> {
+        if self.objects.iter().filter(|object| object.id == id).count() != 1 {
+            return None;
+        }
+        let mut positions = self
+            .creation_order
+            .iter()
+            .enumerate()
+            .filter_map(|(position, known)| (*known == id).then_some(position));
+        let position = positions.next()?;
+        positions.next().is_none().then_some(position)
+    }
+
+    /// Batch chronology query with the same ambiguity rules as creation_rank.
+    /// Composition and export build this call-local index once rather than
+    /// scanning every object and chronology entry for each frame.
+    pub fn creation_ranks(&self) -> std::collections::BTreeMap<ObjectId, usize> {
+        use std::collections::BTreeMap;
+        let mut live = BTreeMap::new();
+        for object in &self.objects {
+            live.entry(object.id)
+                .and_modify(|unique| *unique = false)
+                .or_insert(true);
+        }
+        let mut known = BTreeMap::new();
+        for (rank, id) in self.creation_order.iter().enumerate() {
+            known
+                .entry(*id)
+                .and_modify(|position| *position = None)
+                .or_insert(Some(rank));
+        }
+        known
+            .into_iter()
+            .filter_map(|(id, rank)| {
+                (live.get(&id) == Some(&true))
+                    .then_some(rank)
+                    .flatten()
+                    .map(|rank| (id, rank))
+            })
+            .collect()
     }
 
     /// The page an object sits on, following parent page membership when
@@ -638,7 +751,7 @@ impl LayoutDocument {
                 .filter(|o| o.page == page)
                 .map(std::borrow::Cow::Borrowed),
         );
-        out.retain(|o| self.layer_visible(self.object_layer(o.id)));
+        out.retain(|o| !o.hidden && self.layer_visible(self.object_layer(o.id)));
         // Stable sorting preserves each layer's own object order.
         let order = self.paint_order();
         out.sort_by_key(|o| order[&o.id]);
@@ -737,7 +850,10 @@ impl LayoutDocument {
                                 )
                             })
                         });
-                        if text_path.is_some() || has_lists {
+                        let has_notes = self
+                            .story(*story)
+                            .is_some_and(|s| s.structures.iter().any(|s| s.footnote.is_some()));
+                        if text_path.is_some() || has_lists || has_notes {
                             let path_padding = padding;
                             // A baseline has no ascent/descent box. Include the
                             // actually rotated glyph outlines before the object
@@ -746,8 +862,16 @@ impl LayoutDocument {
                                 crate::compose::compose_object(self, &object),
                                 self.story(*story),
                             ) {
-                                for line in &flow.lines {
-                                    if text_path.is_none() && line.generated.is_none() {
+                                for area in &flow.footnotes {
+                                    if let Some(rule) = &area.rule {
+                                        r = r.union(rule.bounds);
+                                    }
+                                }
+                                for line in flow.all_lines() {
+                                    if text_path.is_none()
+                                        && !line.is_generated()
+                                        && line.projected.is_none()
+                                    {
                                         continue;
                                     }
                                     let metrics = schist_text_engine::measure(
@@ -1016,11 +1140,14 @@ mod tests {
 
     fn text_frame(page: usize, rect: Rect) -> PlacedObject {
         PlacedObject {
+            hidden: false,
             appearance: Default::default(),
             id: ObjectId::next(),
             page,
             bounds: rect,
             object: LayoutObject::TextFrame {
+                balance_columns: Some(false),
+                footnotes: Default::default(),
                 text_path: None,
                 story: StoryId(0),
                 columns: 1,
@@ -1090,6 +1217,8 @@ mod tests {
     #[test]
     fn text_frame_insets_shrink_only_the_content_area() {
         let frame = LayoutObject::TextFrame {
+            balance_columns: Some(false),
+            footnotes: Default::default(),
             text_path: None,
             story: StoryId(0),
             columns: 1,

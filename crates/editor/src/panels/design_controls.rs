@@ -13,6 +13,9 @@ enum InspectorSection {
     Decorations,
     Tabs,
     Lists,
+    Keeps,
+    Hyphenation,
+    Initials,
     Style,
     Preferences,
 }
@@ -74,6 +77,11 @@ impl Inspector {
                 }
                 InspectorSection::Lists => ("char-lists", "para-lists", "design.list_type"),
                 InspectorSection::Tabs => ("char-tabs", "para-tabs", "design.paragraph_tabs"),
+                InspectorSection::Hyphenation => {
+                    ("char-hyphen", "para-hyphen", "design.hyphenation")
+                }
+                InspectorSection::Initials => ("char-initials", "para-initials", "design.initials"),
+                InspectorSection::Keeps => ("char-keeps", "para-keeps", "design.keep_options"),
                 InspectorSection::Style => ("char-style", "para-style", "design.style_options"),
                 InspectorSection::Preferences => (
                     "char-preferences",
@@ -327,7 +335,34 @@ pub(super) fn control_panel(
     let target = Target::Objects(ws.design.selection.clone());
     let mut rows = fields
         .into_iter()
-        .map(|(id, label)| object_field(ws, id, label, cx))
+        .map(|(id, label)| {
+            let field = object_field(ws, id, label, cx);
+            if id != "design-prop-columns" {
+                return field;
+            }
+            let active = ws.design.selection.iter().all(|id| {
+                ws.design
+                    .document
+                    .object(*id)
+                    .is_some_and(|object| ws.design.document.styles.frame_balance(object))
+            });
+            div()
+                .flex()
+                .items_center()
+                .gap_1()
+                .child(div().flex_1().min_w_0().child(field))
+                .child(
+                    IconButton::new("design-balance-columns", "type-balance-columns")
+                        .tooltip(t("design.balance_columns"), None)
+                        .active(active)
+                        .on_click(cx.listener(|ws, _, _, cx| {
+                            ws.commit_focused_field();
+                            controls::toggle_frame_balance(&mut ws.design);
+                            cx.notify();
+                        })),
+                )
+                .into_any_element()
+        })
         .collect::<Vec<_>>();
     let paths: Vec<_> = ws
         .design
@@ -734,6 +769,7 @@ pub(super) fn paragraph_panel(
         ));
     }
     rows.group(InspectorSection::Typography);
+    rows.push(no_break_row(ws, &target, style.no_break, cx));
     rows.push(capitalization_row(
         ws,
         &target,
@@ -858,6 +894,12 @@ pub(super) fn paragraph_panel(
     ));
     rows.group(InspectorSection::Tabs);
     rows.extend(super::design_tabs::rows(ws, &name, cx));
+    rows.group(InspectorSection::Keeps);
+    rows.extend(super::paragraph_keeps::rows(ws, &name, cx));
+    rows.group(InspectorSection::Hyphenation);
+    rows.extend(super::hyphenation::rows(ws, &name, cx));
+    rows.group(InspectorSection::Initials);
+    rows.extend(super::initials::rows(ws, &name, cx));
     rows.group(InspectorSection::Lists);
     rows.extend(list_fields(
         ws,
@@ -1005,6 +1047,7 @@ pub(super) fn character_panel(
         ));
     }
     rows.group(InspectorSection::Typography);
+    rows.push(no_break_row(ws, &target, style.no_break, cx));
     rows.push(capitalization_row(
         ws,
         &target,
@@ -1418,6 +1461,63 @@ fn directional_feature_rows(
     .collect()
 }
 
+fn no_break_row(
+    ws: &Workspace,
+    target: &Target,
+    own: Option<bool>,
+    cx: &mut Context<Workspace>,
+) -> gpui::AnyElement {
+    let resolved = match target {
+        Target::Paragraph(name) => {
+            ws.design
+                .document
+                .styles
+                .resolve_paragraph(name)
+                .character(
+                    ws.design
+                        .document
+                        .styles
+                        .resolve_character(&ws.design.document.default_character_style),
+                )
+                .no_break
+        }
+        Target::Character(name) => ws.design.document.styles.resolve_character(name).no_break,
+        _ => None,
+    };
+    let active = resolved == Some(true);
+    let toggle = target.clone();
+    let reset = target.clone();
+    div()
+        .flex()
+        .items_center()
+        .gap_1()
+        .child(
+            IconButton::new("design-no-break", "link")
+                .active(active)
+                .tooltip(
+                    t("design.no_break"),
+                    own.is_none().then(|| t("design.inherited").into()),
+                )
+                .on_click(cx.listener(move |ws, _, _, cx| {
+                    ws.commit_focused_field();
+                    controls::set_no_break(&mut ws.design, &toggle, Some(!active));
+                    cx.notify();
+                })),
+        )
+        .child(div().text_xs().flex_1().child(t("design.no_break")))
+        .child(
+            IconButton::new("design-no-break-inherit", "undo")
+                .disabled(own.is_none())
+                .tooltip(t("design.inherited"), None)
+                .on_click(cx.listener(move |ws, _, _, cx| {
+                    ws.commit_focused_field();
+                    controls::set_no_break(&mut ws.design, &reset, None);
+                    cx.notify();
+                })),
+        )
+        .into_any_element()
+}
+
 fn capitalization_row(
     ws: &mut Workspace,
     target: &Target,
@@ -1518,6 +1618,9 @@ fn list_fields(
         },
         cx,
     ));
+    if list.kind == Some(ListKind::Numbered) {
+        rows.extend(list_sequence_fields(ws, list, target.clone(), cx));
+    }
     for (id, label, value) in [
         (
             "design-prop-list-level",
@@ -1576,6 +1679,90 @@ fn list_fields(
             .child(t("design.list_hint"))
             .into_any_element(),
     );
+    rows
+}
+
+fn list_sequence_fields(
+    ws: &mut Workspace,
+    list: &schist_layout::lists::ListStyle,
+    target: Target,
+    cx: &mut Context<Workspace>,
+) -> Vec<gpui::AnyElement> {
+    let default = "NumberingList/$ID/[Default]";
+    let mut choices = vec![None, Some(default.to_owned())];
+    let mut labels = vec![
+        t("design.inherited").to_owned(),
+        t("design.list_default").to_owned(),
+    ];
+    for resource in &ws.design.document.styles.numbering_lists {
+        if resource.id != default {
+            choices.push(Some(resource.id.clone()));
+            labels.push(resource.name.clone());
+        }
+    }
+    // Retain an unresolved imported identity until explicitly replaced.
+    if let Some(id) = &list.list {
+        if !choices.iter().any(|choice| choice.as_ref() == Some(id)) {
+            choices.push(Some(id.clone()));
+            labels.push(id.clone());
+        }
+    }
+    let selected = choices
+        .iter()
+        .position(|choice| *choice == list.list)
+        .unwrap_or(0);
+    let captured = target.clone();
+    let mut rows = vec![
+        div()
+            .text_xs()
+            .child(t("design.list_sequence"))
+            .into_any_element(),
+        super::object_styles::picker(
+            ws,
+            "design-list-sequence",
+            labels,
+            selected,
+            move |ws, index, _| {
+                if let Some(value) = choices.get(index) {
+                    controls::edit_list(&mut ws.design, &captured, |list| {
+                        list.list = value.clone()
+                    });
+                }
+            },
+            cx,
+        ),
+    ];
+    let Target::Paragraph(name) = &target else {
+        return rows;
+    };
+    let resolved = ws.design.document.styles.resolve_paragraph(name).list;
+    let id = schist_layout::list_counters::sequence_id(&resolved);
+    let enabled = ws
+        .design
+        .document
+        .styles
+        .numbering_lists
+        .iter()
+        .find(|r| r.id == id)
+        .is_some_and(|r| r.across_stories);
+    rows.push(
+        div()
+            .text_xs()
+            .child(t("design.list_across_stories"))
+            .into_any_element(),
+    );
+    rows.push(super::object_styles::picker(
+        ws,
+        "design-list-across-stories",
+        vec![t("common.off").into(), t("common.on").into()],
+        usize::from(enabled),
+        move |ws, index, _| {
+            if index < 2 {
+                controls::set_list_across_stories(&mut ws.design, &target, index == 1);
+            }
+        },
+        cx,
+    ));
     rows
 }
 

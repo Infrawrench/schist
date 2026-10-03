@@ -576,15 +576,17 @@ impl Workspace {
         &mut self,
         bounds: Bounds<Pixels>,
         scale_factor: f32,
+        window: &mut Window,
         cx: &mut Context<Self>,
     ) -> PaintJob {
         if self.design_mode() {
-            let refitting = self.refit_design;
+            let view_changed = self.refit_design || self.canvas_bounds != bounds;
             let job = self.prepare_design_paint(bounds);
-            if refitting {
-                // Ruler elements were laid out before the canvas acquired
-                // its bounds; redraw them with the fitted transform.
-                cx.notify();
+            if view_changed {
+                // Rulers and zoom chrome rendered before these bounds and
+                // the fitted transform were known. GPUI does not schedule a
+                // redraw for an immediate notification during prepaint.
+                cx.defer_in(window, |_, _, cx| cx.notify());
             }
             return job;
         }

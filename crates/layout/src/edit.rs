@@ -83,6 +83,10 @@ pub fn forward(doc: &mut LayoutDocument, edit: &LayoutEdit) -> bool {
             doc.thread_order.clone_from(after);
             true
         }
+        LayoutEdit::CreationOrderChanged { after, .. } => {
+            doc.creation_order.clone_from(after);
+            true
+        }
         LayoutEdit::StylesChanged { after, .. } => {
             doc.styles = *after.clone();
             true
@@ -260,6 +264,10 @@ pub fn reverse(doc: &mut LayoutDocument, edit: &LayoutEdit) -> bool {
         }
         LayoutEdit::ThreadsChanged { before, .. } => {
             doc.thread_order.clone_from(before);
+            true
+        }
+        LayoutEdit::CreationOrderChanged { before, .. } => {
+            doc.creation_order.clone_from(before);
             true
         }
         LayoutEdit::StylesChanged { before, .. } => {
@@ -601,6 +609,7 @@ fn object_from(snapshot: &ObjectSnapshot, doc: &LayoutDocument) -> Option<Placed
     let object: LayoutObject = serde_json::from_value(snapshot.payload.clone()).ok()?;
     let _ = doc;
     Some(PlacedObject {
+        hidden: snapshot.hidden,
         appearance: snapshot.appearance.as_ref().clone(),
         id: ObjectId(snapshot.id),
         page: snapshot.page,
@@ -623,6 +632,7 @@ fn object_from(snapshot: &ObjectSnapshot, doc: &LayoutDocument) -> Option<Placed
 /// Snapshot an object.
 pub fn snapshot_object(object: &PlacedObject) -> ObjectSnapshot {
     ObjectSnapshot {
+        hidden: object.hidden,
         appearance: Box::new(object.appearance.clone()),
         id: object.id.0,
         page: object.page,
@@ -645,6 +655,7 @@ pub fn snapshot_object(object: &PlacedObject) -> ObjectSnapshot {
 fn story_from(snapshot: &StorySnapshot) -> crate::story::Story {
     crate::story::Story {
         prefs: snapshot.prefs,
+        structures: snapshot.structures.clone(),
         points: snapshot
             .points
             .iter()
@@ -658,6 +669,12 @@ fn story_from(snapshot: &StorySnapshot) -> crate::story::Story {
                 crate::history::StoryPointSnapshot::LineBreak => crate::story::Point::LineBreak,
                 crate::history::StoryPointSnapshot::ColumnBreak => crate::story::Point::ColumnBreak,
                 crate::history::StoryPointSnapshot::PageBreak => crate::story::Point::PageBreak,
+                crate::history::StoryPointSnapshot::OddPageBreak => {
+                    crate::story::Point::OddPageBreak
+                }
+                crate::history::StoryPointSnapshot::EvenPageBreak => {
+                    crate::story::Point::EvenPageBreak
+                }
                 crate::history::StoryPointSnapshot::FrameBreak => crate::story::Point::FrameBreak,
                 crate::history::StoryPointSnapshot::Other { kind, payload } => {
                     crate::story::Point::Other {
@@ -679,6 +696,7 @@ fn story_from(snapshot: &StorySnapshot) -> crate::story::Story {
 pub fn snapshot_story(story: &crate::story::Story) -> StorySnapshot {
     StorySnapshot {
         prefs: story.prefs,
+        structures: story.structures.clone(),
         points: story
             .points
             .iter()
@@ -692,6 +710,12 @@ pub fn snapshot_story(story: &crate::story::Story) -> StorySnapshot {
                 crate::story::Point::LineBreak => crate::history::StoryPointSnapshot::LineBreak,
                 crate::story::Point::ColumnBreak => crate::history::StoryPointSnapshot::ColumnBreak,
                 crate::story::Point::PageBreak => crate::history::StoryPointSnapshot::PageBreak,
+                crate::story::Point::OddPageBreak => {
+                    crate::history::StoryPointSnapshot::OddPageBreak
+                }
+                crate::story::Point::EvenPageBreak => {
+                    crate::history::StoryPointSnapshot::EvenPageBreak
+                }
                 crate::story::Point::FrameBreak => crate::history::StoryPointSnapshot::FrameBreak,
                 crate::story::Point::Other { kind, payload } => {
                     crate::history::StoryPointSnapshot::Other {
@@ -769,6 +793,9 @@ fn ink_from(snapshot: &InkSnapshot) -> crate::ink::Ink {
 }
 
 fn apply_settings(doc: &mut LayoutDocument, snapshot: &SettingsSnapshot) {
+    doc.footnotes = snapshot.footnotes.clone();
+    doc.frame_footnote_defaults = snapshot.frame_footnote_defaults.clone();
+    doc.balance_columns_default = snapshot.balance_columns_default;
     doc.facing_pages = snapshot.facing_pages;
     doc.page_binding = snapshot.page_binding;
     doc.default_paragraph_style = snapshot.default_paragraph_style.clone();
@@ -784,6 +811,9 @@ fn apply_settings(doc: &mut LayoutDocument, snapshot: &SettingsSnapshot) {
 /// Snapshot the document-wide settings.
 pub fn snapshot_settings(doc: &LayoutDocument) -> SettingsSnapshot {
     SettingsSnapshot {
+        footnotes: doc.footnotes.clone(),
+        frame_footnote_defaults: doc.frame_footnote_defaults.clone(),
+        balance_columns_default: doc.balance_columns_default,
         facing_pages: doc.facing_pages,
         page_binding: doc.page_binding,
         default_paragraph_style: doc.default_paragraph_style.clone(),

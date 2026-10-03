@@ -1,14 +1,11 @@
 //! Native object-style paint categories and page-item local overrides.
-use crate::{color_codec, import::Report, style_codec::References, xml::Element};
+use crate::{
+    color_codec,
+    import::Report,
+    style_codec::References,
+    xml::{self, Element},
+};
 use schist_layout::{LayoutDocument, LayoutObject, ObjectPaint, ObjectStyle, Paint, PlacedObject};
-
-fn boolean(element: &Element, key: &str) -> Option<bool> {
-    match element.attr(key)? {
-        "true" => Some(true),
-        "false" => Some(false),
-        _ => None,
-    }
-}
 
 pub(crate) fn read_paint(
     element: &Element,
@@ -38,8 +35,8 @@ pub(crate) fn read_paint(
             .filter(|v| v.is_finite() && *v >= 0.0),
         fill_tint: color_codec::tint(element, "FillTint", report),
         stroke_tint: color_codec::tint(element, "StrokeTint", report),
-        overprint_fill: boolean(element, "OverprintFill"),
-        overprint_stroke: boolean(element, "OverprintStroke"),
+        overprint_fill: element.boolean("OverprintFill"),
+        overprint_stroke: element.boolean("OverprintStroke"),
     }
 }
 
@@ -64,18 +61,25 @@ pub(crate) fn read_styles(
         let style = ObjectStyle {
             name: refs.object(id),
             based_on,
-            enable_fill: boolean(element, "EnableFill"),
-            enable_stroke: boolean(element, "EnableStroke"),
-            enable_stroke_options: boolean(element, "EnableStrokeAndCornerOptions"),
+            enable_fill: element.boolean("EnableFill"),
+            enable_stroke: element.boolean("EnableStroke"),
+            enable_stroke_options: element.boolean("EnableStrokeAndCornerOptions"),
+            enable_footnotes: element.boolean("EnableTextFrameFootnoteOptions"),
+            enable_text_frame_general: element.boolean("EnableTextFrameGeneralOptions"),
+            balance_columns: crate::preferences_codec::frame_balance(element, report),
+            footnotes: crate::footnote_codec::read_frame(element, report),
             paint: read_paint(element, colors, report),
         };
         if element.attributes.iter().any(|(key, value)| {
             key.starts_with("Enable")
                 && !matches!(
                     key.as_str(),
-                    "EnableFill" | "EnableStroke" | "EnableStrokeAndCornerOptions"
+                    "EnableFill"
+                        | "EnableStroke"
+                        | "EnableStrokeAndCornerOptions"
+                        | "EnableTextFrameFootnoteOptions"
                 )
-                && value == "true"
+                && xml::parse_boolean(value) == Some(true)
         }) || [
             "ObjectStyleObjectEffectsCategorySettings",
             "ObjectStyleFillEffectsCategorySettings",
@@ -87,7 +91,7 @@ pub(crate) fn read_styles(
         .any(|e| {
             e.attributes
                 .iter()
-                .any(|(k, v)| k.starts_with("Enable") && v == "true")
+                .any(|(k, v)| k.starts_with("Enable") && xml::parse_boolean(v) == Some(true))
         }) || (style.enable_stroke_options != Some(false) && unsupported_outline(element))
         {
             report.skip(schist_i18n::tf!(
@@ -214,7 +218,7 @@ pub(crate) fn object_attributes(object: &PlacedObject) -> String {
     out
 }
 
-pub(crate) fn styles_xml(doc: &LayoutDocument) -> String {
+pub(crate) fn styles_xml(doc: &LayoutDocument, warnings: &mut Vec<String>) -> String {
     let mut out = String::from("<RootObjectStyleGroup Self=\"SchistObjectStyles\">");
     for style in &doc.styles.objects {
         out.push_str("<ObjectStyle");
@@ -224,6 +228,11 @@ pub(crate) fn styles_xml(doc: &LayoutDocument) -> String {
             ("EnableFill", style.enable_fill),
             ("EnableStroke", style.enable_stroke),
             ("EnableStrokeAndCornerOptions", style.enable_stroke_options),
+            ("EnableTextFrameFootnoteOptions", style.enable_footnotes),
+            (
+                "EnableTextFrameGeneralOptions",
+                style.enable_text_frame_general,
+            ),
         ] {
             if let Some(value) = value {
                 attr(&mut out, key, value);
@@ -237,7 +246,18 @@ pub(crate) fn styles_xml(doc: &LayoutDocument) -> String {
                 escape(base)
             ));
         }
-        out.push_str("</Properties></ObjectStyle>");
+        out.push_str("</Properties>");
+        out.push_str(&crate::footnote_codec::write_frame(
+            &style.footnotes,
+            warnings,
+        ));
+        if style.balance_columns.is_some() {
+            out.push_str(&format!(
+                "<TextFramePreference{} />",
+                crate::preferences_codec::balance_attribute(style.balance_columns)
+            ));
+        }
+        out.push_str("</ObjectStyle>");
     }
     out.push_str("</RootObjectStyleGroup>");
     out

@@ -9,8 +9,8 @@
 //!
 //! Like the rest of the kernel, this crate holds no user-facing features
 //! and no UI types. Tools live in `crates/editor/src/design/`; the editor
-//! renders it; the codecs in `schist-codec-idml` and `schist-codec-indd`
-//! read and write it.
+//! renders it, and `schist-codec-idml` reads and writes it. Production INDD
+//! support remains gated on the separate format research spike.
 //!
 //! # Units
 //!
@@ -22,20 +22,29 @@ pub mod compose;
 mod curves;
 pub mod decorations;
 pub mod directional_features;
+pub mod drop_caps;
 pub mod edit;
+pub mod footnote_composition;
+pub mod footnotes;
+pub mod frame_text;
 pub mod geometry;
 pub mod graphics;
 pub mod grid;
 pub mod history;
+pub mod hyphenation;
 pub mod ink;
+mod inline_controls;
+pub mod inline_text;
 pub mod language;
 pub mod list_composition;
 pub mod list_counters;
 pub mod list_numbering;
 pub mod lists;
 pub mod model;
+pub mod nested_styles;
 pub mod numbering;
 pub mod object_styles;
+pub mod paragraph_keeps;
 pub mod parents;
 pub mod pasteboard;
 pub mod properties;
@@ -45,6 +54,7 @@ pub mod styles;
 pub mod swatches;
 pub mod tabs;
 pub mod text_path;
+pub mod text_variables;
 pub mod threading;
 
 pub use compose::{compose_object, compose_thread, ComposedFrame, ComposedLine, ComposedThread};
@@ -71,7 +81,8 @@ pub use numbering::Section;
 pub use object_styles::{ObjectAppearance, ObjectPaint, ObjectStyle, Paint};
 pub use pasteboard::{pasteboard, Display, Guide, PageBox, PagePlan, Pasteboard, PasteboardView};
 pub use story::{
-    Point as StoryPoint, Story, StoryDirection, StoryOrientation, StoryPreferences, StyleRange,
+    Point as StoryPoint, Story, StoryDirection, StoryOrientation, StoryPreferences, StoryStructure,
+    StyleRange,
 };
 pub use styles::{
     CharacterStyle, ParagraphDirection, ParagraphStyle, ResolvedCharacter, ResolvedParagraph,

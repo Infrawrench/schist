@@ -21,11 +21,12 @@
 //!   spreads and master spreads are promoted to a file each, so those are
 //!   the only ids that resolve to a part.
 //!
-//! ## What is not read
+//! ## What is not composed
 //!
-//! Tables, footnotes and anchored objects. Those go into the [`Report`] rather than being dropped
-//! silently, because a reader that quietly discards part of a document is
-//! worse than one that says which part.
+//! Tables, footnotes and anchored objects retain their outer XML and source
+//! anchors. Supported text-only footnotes also carry an editable note story
+//! and compose under the documented flow policies. Other retained structures
+//! remain unrendered; import notices and print preflight disclose those limits.
 
 use schist_layout::{
     Insets, LayoutDocument, LayoutObject, ObjectId, Orientation, Page, ParentObject, ParentPage,
@@ -94,6 +95,10 @@ pub fn read_package(opened: &DesignPackage<'_>) -> Result<Imported, Error> {
     }
     document.inks = colors.values().cloned().collect();
     document.styles.languages = crate::language_codec::read(opened, &mut report)?;
+    let variables = crate::custom_text_codec::read_package(opened)?;
+    document.retained_text_variables =
+        crate::text_variable_codec::read(opened, &variables, &mut report)?;
+    document.text_variables = variables.definitions;
     document.styles.numbering_lists = crate::list_codec::read_resources(opened, &mut report)?;
     let layers = read_layers(opened, &mut document)?;
     let mut style_roots = Vec::new();
@@ -105,6 +110,7 @@ pub fn read_package(opened: &DesignPackage<'_>) -> Result<Imported, Error> {
         style_roots.push(root);
     }
     let mut style_refs = crate::style_codec::References::new(&style_roots);
+    style_refs.text_variables = variables.references;
     style_refs.languages = document.styles.languages.clone();
     style_refs.strokes = crate::stroke_style_codec::read(opened, &mut report);
     document.styles.strokes = style_refs
@@ -144,12 +150,12 @@ pub fn read_package(opened: &DesignPackage<'_>) -> Result<Imported, Error> {
     // A page names its master by an InDesign id, and a master part
     // carries that same id. The two are joined after both are read, so
     // the claims are collected on the way through the spreads.
-    let mut master_claims = Vec::new();
+    let mut spread_state = SpreadState::default();
     let mut frames = read_spreads(
         opened,
         &stories,
         &mut document,
-        &mut master_claims,
+        &mut spread_state,
         &layers,
         &colors,
         &mut report,
@@ -169,13 +175,32 @@ pub fn read_package(opened: &DesignPackage<'_>) -> Result<Imported, Error> {
     );
     crate::thread_codec::resolve(&mut document, &frames, &mut report);
     resolve_master_sources(&mut document, &masters, &mut report);
-    apply_masters(&mut document, &masters, &master_claims, &mut report);
+    apply_masters(
+        &mut document,
+        &masters,
+        &spread_state.master_claims,
+        &mut report,
+    );
     crate::object_style_codec::resolve_references(&mut document, &style_refs, &mut report);
-    crate::preferences_codec::read(opened, &mut document, &mut report)?;
+    crate::preferences_codec::read(opened, &mut document, &mut report, &colors, &style_refs)?;
+    // Parsing XML visits items in paint order. Only guarded chronology labels
+    // can establish their creation order; never certify the incidental walk.
+    document.creation_order = spread_state.creation.finish(&mut report);
+    crate::resource_identity::restore(&mut document);
 
     report
         .skipped
         .extend(crate::list_codec::diagnostics(&document));
+    for style in &document.styles.paragraphs {
+        crate::drop_cap_codec::warn_composition(
+            &document.styles.resolve_paragraph(&style.name),
+            &mut report.skipped,
+        );
+        crate::nested_style_codec::warn(
+            &document.styles.resolve_paragraph(&style.name),
+            &mut report.skipped,
+        );
+    }
     if !opened.unlisted.is_empty() {
         report.skip(schist_i18n::tf!(
             "design.idml_unlisted_parts",
@@ -216,11 +241,13 @@ fn read_stories(
             ));
             continue;
         };
+        let mut decoded = flatten_story(&crate::story_codec::normalize(
+            story, styles, colors, refs, report,
+        ));
+        crate::custom_text_codec::remap(&mut decoded, &refs.text_variables);
         stories.push((
             story.attr("Self").unwrap_or_default().to_owned(),
-            flatten_story(&crate::story_codec::normalize(
-                story, styles, colors, refs, report,
-            )),
+            crate::structured_story::restore(story, decoded, styles, refs, report),
         ));
     }
     stories
@@ -238,7 +265,7 @@ fn read_spreads(
     opened: &DesignPackage<'_>,
     stories: &[(String, Story)],
     document: &mut LayoutDocument,
-    master_claims: &mut Vec<MasterClaim>,
+    state: &mut SpreadState,
     layers: &[(String, schist_layout::LayerId)],
     colors: &crate::color_codec::Colors,
     report: &mut Report,
@@ -259,13 +286,7 @@ fn read_spreads(
             continue;
         };
         references.extend(read_spread(
-            spread,
-            stories,
-            document,
-            master_claims,
-            layers,
-            colors,
-            report,
+            spread, stories, document, state, layers, colors, report,
         ));
     }
     Ok(references)
@@ -281,7 +302,7 @@ fn read_spread(
     spread: &Element,
     stories: &[(String, Story)],
     document: &mut LayoutDocument,
-    master_claims: &mut Vec<MasterClaim>,
+    state: &mut SpreadState,
     layers: &[(String, schist_layout::LayerId)],
     colors: &crate::color_codec::Colors,
     report: &mut Report,
@@ -304,12 +325,12 @@ fn read_spread(
             .attr("AppliedMaster")
             .filter(|m| !m.is_empty() && *m != "n")
         {
-            master_claims.push(MasterClaim {
+            state.master_claims.push(MasterClaim {
                 page: index,
                 reference: master.to_owned(),
                 bounds: *boxes.last().unwrap(),
                 transform: transform(element.attr("MasterPageTransform")),
-                visible: spread.attr("ShowMasterItems") != Some("false"),
+                visible: spread.boolean("ShowMasterItems") != Some(false),
                 overrides: element
                     .attr("OverrideList")
                     .unwrap_or_default()
@@ -324,16 +345,20 @@ fn read_spread(
     }
 
     // Items hang off the spread, after the pages.
-    for (child, parent, locked, opacity) in
-        page_items(spread, Transform::default(), false, 1.0, report)
-    {
-        let Some(mut placed) =
-            placed_object(child, stories, parent, colors, report, &mut document.assets)
-        else {
+    for (child, context) in page_items(spread, ItemContext::default(), report) {
+        let Some(mut placed) = placed_object(
+            child,
+            stories,
+            context.transform,
+            colors,
+            report,
+            &mut document.assets,
+        ) else {
             continue;
         };
-        placed.locked |= locked;
-        placed.transparency *= opacity;
+        placed.locked |= context.locked;
+        placed.hidden |= context.hidden;
+        placed.transparency *= context.opacity;
         let center = Coordinate::new(
             placed.visual_bounds().x + placed.visual_bounds().width / 2.0,
             placed.visual_bounds().y + placed.visual_bounds().height / 2.0,
@@ -354,6 +379,7 @@ fn read_spread(
         placed.bounds.x -= boxes[owner].x;
         placed.bounds.y -= boxes[owner].y;
         let id = document.add_object(placed);
+        state.creation.collect(child, id);
         if let Some(child) = crate::text_path_codec::reference(child) {
             references.push(crate::thread_codec::FrameReference {
                 external: child.attr("Self").unwrap_or_default().to_string(),
@@ -364,7 +390,12 @@ fn read_spread(
                 object: id,
             });
         }
-        on_layer(document, id, child.attr("ItemLayer"), layers);
+        on_layer(
+            document,
+            id,
+            child.attr("ItemLayer").or(context.layer),
+            layers,
+        );
     }
 
     // Native page elements follow reading order. The pasteboard stores
@@ -452,7 +483,7 @@ pub(crate) fn page_of(element: &Element) -> Option<Page> {
                 Some(schist_layout::geometry::RulerGuide {
                     horizontal,
                     position,
-                    locked: guide.attr("Locked") == Some("true"),
+                    locked: guide.boolean("Locked") == Some(true),
                 })
             })
             .collect(),
@@ -489,6 +520,8 @@ fn placed_object(
             };
             LayoutObject::TextFrame {
                 text_path: baseline,
+                footnotes: crate::footnote_codec::read_frame(element, report),
+                balance_columns: crate::preferences_codec::frame_balance(element, report),
                 story: StoryId(story as u32),
                 columns: element
                     .find("TextFramePreference")
@@ -538,7 +571,18 @@ fn placed_object(
         }
     };
 
-    let local = bounds_of(element, Transform::default());
+    let local = if matches!(
+        object,
+        LayoutObject::TextFrame {
+            text_path: Some(_),
+            ..
+        }
+    ) {
+        crate::text_path_codec::retained_bounds(element)
+            .or_else(|| bounds_of(element, Transform::default()))
+    } else {
+        bounds_of(element, Transform::default())
+    };
     let Some(mut bounds) = local else {
         report.skip(schist_i18n::tf!(
             "design.idml_frame_geometry",
@@ -566,6 +610,7 @@ fn placed_object(
     bounds.x = origin.x;
     bounds.y = origin.y;
     let mut placed = PlacedObject {
+        hidden: element.boolean("Visible") == Some(false),
         appearance: Default::default(),
         id: ObjectId::next(),
         page: 0,
@@ -574,9 +619,7 @@ fn placed_object(
         rotation: 0.0,
         transform: matrix,
         name: element.attr("Name").unwrap_or_default().to_owned(),
-        locked: element
-            .attr("Locked")
-            .is_some_and(|locked| locked == "true"),
+        locked: element.boolean("Locked") == Some(true),
         overprint: false,
         transparency: crate::color_codec::opacity(element),
     };
@@ -668,14 +711,12 @@ pub(crate) fn path_of(element: &Element) -> Option<ShapePath> {
             points,
             // `PathOpen="false"` is a closed path, which is a rectangle
             // for the four-point outline a frame carries.
-            closed: !path.attr("PathOpen").is_some_and(|open| open == "true"),
+            closed: path.boolean("PathOpen") != Some(true),
         });
     }
     (!subpaths.is_empty()).then_some(ShapePath {
         subpaths,
-        even_odd: geometry
-            .attr("EvenOdd")
-            .is_some_and(|rule| rule.eq_ignore_ascii_case("true")),
+        even_odd: geometry.boolean("EvenOdd") == Some(true),
     })
 }
 
@@ -703,31 +744,55 @@ fn bounds_of(element: &Element, transform: Transform) -> Option<Rect> {
     }))
 }
 
-/// Groups are flattened explicitly; child geometry, locking and opacity
-/// survive. Group editing semantics are reported as unsupported.
+#[derive(Clone, Copy)]
+struct ItemContext<'a> {
+    transform: Transform,
+    locked: bool,
+    hidden: bool,
+    opacity: f32,
+    layer: Option<&'a str>,
+}
+
+impl Default for ItemContext<'_> {
+    fn default() -> Self {
+        Self {
+            transform: Transform::default(),
+            locked: false,
+            hidden: false,
+            opacity: 1.0,
+            layer: None,
+        }
+    }
+}
+
+/// Groups are flattened explicitly. Children retain the nearest explicit
+/// layer and the cumulative geometry, visibility, locking and opacity.
+/// Group editing semantics are still reported as unsupported.
 fn page_items<'a>(
     root: &'a Element,
-    parent: Transform,
-    locked: bool,
-    opacity: f32,
+    context: ItemContext<'a>,
     report: &mut Report,
-) -> Vec<(&'a Element, Transform, bool, f32)> {
+) -> Vec<(&'a Element, ItemContext<'a>)> {
     let mut out = Vec::new();
     for child in &root.children {
         if child.name == "Group" {
             report.skip(schist_i18n::t("design.idml_group_flattened"));
             out.extend(page_items(
                 child,
-                transform(child.attr("ItemTransform")).then(parent),
-                locked || child.attr("Locked") == Some("true"),
-                opacity * crate::color_codec::opacity(child),
+                ItemContext {
+                    transform: transform(child.attr("ItemTransform")).then(context.transform),
+                    locked: context.locked || child.boolean("Locked") == Some(true),
+                    hidden: context.hidden || child.boolean("Visible") == Some(false),
+                    opacity: context.opacity * crate::color_codec::opacity(child),
+                    layer: child.attr("ItemLayer").or(context.layer),
+                },
                 report,
             ));
         } else if !matches!(
             child.name.as_str(),
             "Page" | "Properties" | "TransparencySetting" | "FlattenerPreference"
         ) {
-            out.push((child, parent, locked, opacity));
+            out.push((child, context));
         }
     }
     out
@@ -782,7 +847,7 @@ fn read_master_spreads(
                     reference: reference.to_owned(),
                     bounds,
                     transform: transform(element.attr("MasterPageTransform")),
-                    visible: master.attr("ShowMasterItems") != Some("false"),
+                    visible: master.boolean("ShowMasterItems") != Some(false),
                     overrides: element
                         .attr("OverrideList")
                         .unwrap_or_default()
@@ -800,14 +865,18 @@ fn read_master_spreads(
         let mut object_refs = Vec::new();
         let mut frames = Vec::new();
         let mut objects = Vec::new();
-        for (child, parent, locked, opacity) in
-            page_items(master, Transform::default(), false, 1.0, report)
-        {
-            if let Some(mut placed) =
-                placed_object(child, stories, parent, colors, report, &mut document.assets)
-            {
-                placed.locked |= locked;
-                placed.transparency *= opacity;
+        for (child, context) in page_items(master, ItemContext::default(), report) {
+            if let Some(mut placed) = placed_object(
+                child,
+                stories,
+                context.transform,
+                colors,
+                report,
+                &mut document.assets,
+            ) {
+                placed.locked |= context.locked;
+                placed.hidden |= context.hidden;
+                placed.transparency *= context.opacity;
                 let id = placed.id;
                 let owner = nearest_sheet(&sheets, placed.visual_bounds().center());
                 let origin = sheets.get(owner).map(|s| s.origin).unwrap_or_default();
@@ -833,7 +902,12 @@ fn read_master_spreads(
                     object: placed,
                     overridden_on: Vec::new(),
                 });
-                on_layer(document, id, child.attr("ItemLayer"), layers);
+                on_layer(
+                    document,
+                    id,
+                    child.attr("ItemLayer").or(context.layer),
+                    layers,
+                );
             }
         }
         ids.push(MasterReference {
@@ -854,6 +928,12 @@ fn read_master_spreads(
         });
     }
     Ok(ids)
+}
+
+#[derive(Default)]
+struct SpreadState {
+    master_claims: Vec<MasterClaim>,
+    creation: crate::creation_codec::Reader,
 }
 
 struct MasterClaim {
@@ -1093,8 +1173,8 @@ fn read_layers(
         }
         refs.push((reference.to_owned(), id));
         let name = element.attr("Name").unwrap_or_default().to_owned();
-        let visible = element.attr("Visible") != Some("false");
-        let locked = element.attr("Locked") == Some("true");
+        let visible = element.boolean("Visible") != Some(false);
+        let locked = element.boolean("Locked") == Some(true);
         if !name.is_empty() || !visible || locked {
             properties.push(schist_layout::LayoutLayer {
                 id,
@@ -1316,7 +1396,7 @@ mod tests {
                     &spread,
                     &[],
                     &mut doc,
-                    &mut Vec::new(),
+                    &mut SpreadState::default(),
                     &[],
                     &Default::default(),
                     &mut Report::default(),

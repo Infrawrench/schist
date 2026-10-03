@@ -10,7 +10,7 @@
 //! baseline grid drawn from the wrong margin, is very hard to see in a
 //! screenshot and very easy to assert on.
 
-use crate::compose::compose_object;
+use crate::compose::CompositionCache;
 use crate::geometry::{Insets, Page, Point, Pt, Rect, Spread};
 use crate::grid::GridSettings;
 use crate::model::{FrameOverflow, GraphicFit, LayoutDocument, LayoutObject};
@@ -196,6 +196,7 @@ pub enum Display {
     Text {
         /// Automatic list markers paint normally but have no editable source range.
         generated: bool,
+        positions: Option<crate::inline_text::LinePositions>,
         object: ObjectId,
         story: StoryId,
         start: usize,
@@ -373,6 +374,7 @@ pub fn pasteboard(doc: &LayoutDocument, view: &PasteboardView) -> Option<Pastebo
     // Spreads are placed by the document rather than by their own stored
     // origins, so two spreads can never land on top of each other.
     let origins = doc.spread_origins();
+    let mut composition = CompositionCache::new(doc);
     for (index, spread) in doc.spreads.iter().enumerate() {
         if !spread_is_visible(spread, index, view) {
             continue;
@@ -431,7 +433,7 @@ pub fn pasteboard(doc: &LayoutDocument, view: &PasteboardView) -> Option<Pastebo
                     active: view.page == Some(*page),
                 },
                 guides: guides_for(doc, definition, view, top_left),
-                objects: objects_for(doc, *page, view, top_left),
+                objects: objects_for(doc, *page, view, top_left, &mut composition),
             };
             placed = placed.union(plan.page.media);
             pasteboard.pages.push(plan);
@@ -564,6 +566,7 @@ fn objects_for(
     page: usize,
     view: &PasteboardView,
     offset: Point,
+    composition: &mut CompositionCache<'_>,
 ) -> Vec<Display> {
     let mut out = Vec::new();
     let objects = if view.page.is_some() {
@@ -602,11 +605,36 @@ fn objects_for(
                     });
                     continue;
                 };
-                let composed = compose_object(doc, &object);
+                let composed = composition.frame(&object);
                 let mut drew = false;
                 let mut has_text = false;
                 let mut interaction = rect;
-                for line in composed.iter().flat_map(|frame| &frame.lines) {
+                for area in composed.iter().flat_map(|frame| &frame.footnotes) {
+                    if let Some(rule) = &area.rule {
+                        let mut path = rule.path();
+                        path.map_points(|p| {
+                            let p = crate::affine::point(
+                                object.content_transform(),
+                                Point::new(rule.bounds.x + p.x, rule.bounds.y + p.y),
+                            );
+                            view.to_pasteboard(Point::new(p.x + offset.x, p.y + offset.y))
+                        });
+                        let rgb = rule.ink.preview_at_tint(rule.tint);
+                        out.push(Display::Shape {
+                            path_editable: false,
+                            object: object.id,
+                            transform,
+                            rect: move_to(rule.bounds, view, offset),
+                            path,
+                            inherited,
+                            locked: object.locked || doc.layer_locked(doc.object_layer(object.id)),
+                            fill: Some([rgb[0], rgb[1], rgb[2], object.transparency]),
+                            stroke: None,
+                            overprint: rule.overprint,
+                        });
+                    }
+                }
+                for line in composed.iter().flat_map(|frame| frame.all_lines()) {
                     drew = true;
                     let bounds = move_to(line.bounds, view, offset);
                     let mut spec = crate::compose::line_spec(line, definition, doc);
@@ -642,12 +670,13 @@ fn objects_for(
                         run.tracking = run.tracking.map(|v| v * view.scale);
                         run.leading = run.leading.map(|v| v * view.scale);
                     }
-                    if spec.path.is_some() || line.generated.is_some() {
+                    if spec.path.is_some() || line.is_generated() {
                         interaction =
                             interaction.union(path_text_bounds(&spec).translated(bounds.origin()));
                     }
                     out.push(Display::Text {
-                        generated: line.generated.is_some(),
+                        generated: line.is_generated(),
+                        positions: line.projected.as_ref().and_then(|p| p.positions.clone()),
                         object: object.id,
                         transform,
                         story: *story,
@@ -700,6 +729,7 @@ fn objects_for(
                     }
                     out.push(Display::Text {
                         generated: false,
+                        positions: None,
                         object: object.id,
                         transform,
                         story: *story,
@@ -1234,11 +1264,14 @@ mod tests {
             "Body",
         ));
         doc.add_object(PlacedObject {
+            hidden: false,
             appearance: Default::default(),
             id: ObjectId::next(),
             page: 0,
             bounds: Rect::new(mm(20.0), mm(20.0), mm(60.0), mm(60.0)),
             object: LayoutObject::TextFrame {
+                balance_columns: Some(false),
+                footnotes: Default::default(),
                 text_path: None,
                 story,
                 columns: 1,
@@ -1278,11 +1311,14 @@ mod tests {
         let mut doc = blank_a4();
         let story = doc.add_story(Story::from_text("", "Body"));
         doc.add_object(PlacedObject {
+            hidden: false,
             appearance: Default::default(),
             id: ObjectId::next(),
             page: 0,
             bounds: Rect::new(mm(20.0), mm(20.0), mm(60.0), mm(30.0)),
             object: LayoutObject::TextFrame {
+                balance_columns: Some(false),
+                footnotes: Default::default(),
                 text_path: None,
                 story,
                 columns: 1,
@@ -1310,6 +1346,7 @@ mod tests {
         let mut link = Link::new("/photos/wedding/portrait.psd");
         link.present = false;
         doc.add_object(PlacedObject {
+            hidden: false,
             appearance: Default::default(),
             id: ObjectId::next(),
             page: 0,
@@ -1420,6 +1457,7 @@ mod tests {
             closed: true,
         });
         doc.add_object(PlacedObject {
+            hidden: false,
             appearance: Default::default(),
             id: ObjectId::next(),
             page: 0,
@@ -1460,11 +1498,14 @@ mod tests {
     fn a_parent_page_contributes_a_dashed_frame() {
         let mut doc = blank_a4();
         doc.add_object(PlacedObject {
+            hidden: false,
             appearance: Default::default(),
             id: ObjectId::next(),
             page: 0,
             bounds: Rect::new(0.0, 0.0, mm(50.0), mm(10.0)),
             object: LayoutObject::TextFrame {
+                balance_columns: Some(false),
+                footnotes: Default::default(),
                 text_path: None,
                 story: StoryId(0),
                 columns: 1,
@@ -1487,11 +1528,14 @@ mod tests {
             based_on: None,
             objects: vec![crate::model::ParentObject {
                 object: PlacedObject {
+                    hidden: false,
                     appearance: Default::default(),
                     id: ObjectId::next(),
                     page: 0,
                     bounds: Rect::new(0.0, 0.0, mm(170.0), mm(15.0)),
                     object: LayoutObject::TextFrame {
+                        balance_columns: Some(false),
+                        footnotes: Default::default(),
                         text_path: None,
                         story: StoryId(0),
                         columns: 1,

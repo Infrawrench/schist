@@ -144,6 +144,7 @@ fn a_saved_document_keeps_its_pages_and_its_frames() {
     let mut document = schist_layout::blank_a4();
     document.stories.push(schist_layout::Story {
         prefs: Default::default(),
+        structures: Vec::new(),
         points: vec![schist_layout::StoryPoint::Paragraph {
             text: "Headline".into(),
             style: "Body".into(),
@@ -151,11 +152,14 @@ fn a_saved_document_keeps_its_pages_and_its_frames() {
         ranges: Vec::new(),
     });
     let id = document.add_object(schist_layout::PlacedObject {
+        hidden: false,
         appearance: Default::default(),
         id: schist_layout::ObjectId::next(),
         page: 0,
         bounds: schist_layout::Rect::new(10.0, 20.0, 300.0, 40.0),
         object: schist_layout::LayoutObject::TextFrame {
+            balance_columns: Some(false),
+            footnotes: Default::default(),
             text_path: None,
             story: schist_layout::StoryId(0),
             columns: 1,
@@ -194,6 +198,7 @@ fn the_codec_reports_what_a_save_could_not_carry() {
     // aid.
     let mut document = schist_layout::blank_a4();
     document.add_object(schist_layout::PlacedObject {
+        hidden: false,
         appearance: Default::default(),
         id: schist_layout::ObjectId::next(),
         page: 0,

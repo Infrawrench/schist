@@ -34,4 +34,6 @@ stage_payload() {
         "$dest/usr/share/mime/packages/com.infrawrench.schist.xml"
     install -Dm644 "$payload_root/LICENSE" \
         "$dest/usr/share/licenses/schist/LICENSE"
+    install -Dm644 "$payload_root/THIRD-PARTY-NOTICES.txt" \
+        "$dest/usr/share/licenses/schist/THIRD-PARTY-NOTICES.txt"
 }

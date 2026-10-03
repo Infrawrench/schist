@@ -259,7 +259,7 @@ design.imported_style = Imported style
 
 design.idml_local_styles = Local formatting becomes named styles
 
-design.idml_story_structure = Unsupported story structure omitted
+design.idml_story_structure = Structured story content retained in Schist
 
 design.idml_structural_line_break = Standalone line break becomes empty paragraph
 
@@ -480,7 +480,7 @@ design.list_restart_higher = Restart after higher levels
 design.list_keep_level = Continue this level
 
 design.idml_tabs_unsupported = Unsupported paragraph tab setting: {value}
-design.idml_tabs_implicit = Implicit tabs use Schist’s 36-point interval.
+design.idml_tabs_implicit = Implicit tabs use the hanging indent, then Schist’s 36-point interval.
 design.paragraph_tabs = Paragraph tabs (pt)
 
 # Design workspace controls (English placeholders pending translation)
@@ -499,3 +499,65 @@ design.tab_position = Position (pt)
 design.tab_add = Add tab stop
 design.tab_remove = Remove tab stop
 design.tab_inherit = Inherit tab stops
+
+# Paragraph tab leaders
+design.tab_leader = Leader
+design.preflight_unavailable_text = Text could not be rendered
+design.idml_paragraph_orientation = Paragraph orientation retained in Schist only
+design.idml_creation_order = Unverified object creation order
+design.idml_cross_story_order = Cross-story numbering uses Schist creation order
+design.list_sequence = Sequence
+design.list_default = Default list
+design.list_across_stories = Continue across stories
+
+design.idml_structure_location = Retained structure location unknown
+design.preflight_story_structure = {name}: {count} unrendered story structures
+design.story_structure_count = {count} structures retained outside this view
+design.idml_footnote_unsupported = Unresolved footnote setting {property}: {value}
+
+design.balance_columns = Balance columns
+
+design.keep_options = Keep options
+design.keep_lines = Keep lines together
+design.keep_all = Keep all lines
+design.keep_previous = Keep with previous
+design.keep_inherit = Inherit keep options
+design.keep_first = First lines
+design.keep_last = Last lines
+design.keep_next = Next lines
+
+design.keep_start = Start paragraph
+design.start_anywhere = Anywhere
+design.start_column = Next column
+design.start_frame = Next frame
+design.start_page = Next page
+design.start_odd = Next odd page
+design.start_even = Next even page
+design.no_break = No line breaks
+
+# English placeholders for automatic hyphenation controls.
+design.hyphenation = Hyphenation
+design.hyphen_capitals = Hyphenate capitalized words
+design.hyphen_last = Hyphenate last word
+design.hyphen_columns = Hyphenate across columns
+design.hyphen_inherit = Inherit hyphenation options
+design.hyphen_word = Minimum word length
+design.hyphen_after = Letters before break
+design.hyphen_before = Letters after break
+design.hyphen_limit = Consecutive limit (0: unlimited)
+design.hyphen_weight = Fewer hyphens (0–100)
+design.hyphen_zone = Ragged zone (pt)
+design.hyphen_languages = US English, French, reformed German
+
+design.idml_drop_cap_unsupported = Unsupported drop-cap setting: {value}
+
+design.initials = Drop caps
+design.initial_lines = Lines
+design.initial_characters = Characters
+design.initial_inherit = Inherit counts and placement
+
+design.idml_nested_style_unsupported = Nested style not composed: {value}
+
+design.initial_style = Character style
+design.initial_style_inherit = Inherit nested styles
+design.initial_style_missing = Missing: {name}

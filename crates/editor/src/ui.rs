@@ -537,9 +537,7 @@ fn dropdown_impl<T: Clone + PartialEq + 'static>(
             })
             .collect();
         let mut popover = Popover::new("dropdown-items")
-            .when(searchable, Popover::in_flow)
-            .when(above && !searchable, |p| p.bottom(px(24.0)).right_0())
-            .when(!above && !searchable, |p| p.top(px(22.0)).left_0())
+            .in_flow()
             .w(px(width.max(if above { 260.0 } else { 140.0 })))
             .on_dismiss(cx.listener(|ws, _e, _w, cx| ws.close_popup(cx)));
         if let Some(search) = search {
@@ -590,18 +588,26 @@ fn dropdown_impl<T: Clone + PartialEq + 'static>(
                 .track_scroll(&scroll.handle)
                 .children(rows);
         }
-        if searchable {
-            root = root.child(gpui::deferred(
-                div().absolute().right_0().top(px(-4.0)).size_0().child(
+        // Every dropdown, including short inspector lists, must stay inside
+        // the window. Deferred absolute popovers alone can paint past its edge.
+        let opens_above = searchable || above;
+        root = root.child(gpui::deferred(
+            div()
+                .absolute()
+                .when(opens_above, |d| d.right_0().top(px(-4.0)))
+                .when(!opens_above, |d| d.left_0().top(px(22.0)))
+                .size_0()
+                .child(
                     gpui::anchored()
-                        .anchor(gpui::Corner::BottomRight)
+                        .anchor(if opens_above {
+                            gpui::Corner::BottomRight
+                        } else {
+                            gpui::Corner::TopLeft
+                        })
                         .snap_to_window_with_margin(px(8.0))
                         .child(popover),
                 ),
-            ));
-        } else {
-            root = root.child(gpui::deferred(popover));
-        }
+        ));
     }
     root
 }

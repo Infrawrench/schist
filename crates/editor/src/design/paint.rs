@@ -13,7 +13,6 @@
 use std::sync::Arc;
 
 use gpui::{rgb, Background, Bounds, Corners, PathBuilder, Pixels, Point as GpuiPoint, Window};
-use image::Frame;
 use schist_layout::affine::{self, Affine};
 use schist_layout::pasteboard::{Display, Guide, GuideKind, PagePlan, Pasteboard};
 use schist_layout::{Point, Pt, Rect};
@@ -179,6 +178,7 @@ fn paint_object(window: &mut Window, frame: &PasteboardFrame, object: &Display) 
         }
         Display::Text {
             generated,
+            positions,
             object,
             story,
             start,
@@ -189,12 +189,17 @@ fn paint_object(window: &mut Window, frame: &PasteboardFrame, object: &Display) 
             ..
         } => {
             let typing = frame.typing.filter(|t| !*generated && t.story == *story);
+            let visual = |source: usize| {
+                positions
+                    .as_ref()
+                    .map_or(source.saturating_sub(*start), |p| p.visual(source))
+            };
             let origin = super::text::line_origin(spec, *rect);
             if let Some(typing) = typing {
                 let from = typing.anchor.min(typing.at).max(*start);
                 let to = typing.anchor.max(typing.at).min(*end);
                 if from < to {
-                    for rect in schist_text_engine::selection_rects(spec, from - start..to - start)
+                    for rect in schist_text_engine::selection_rects(spec, visual(from)..visual(to))
                     {
                         affine_fill(
                             window,
@@ -215,13 +220,14 @@ fn paint_object(window: &mut Window, frame: &PasteboardFrame, object: &Display) 
             if let Some(typing) = typing.filter(|t| {
                 !*generated && super::text::caret_line(&frame.plan, *t) == Some((*object, *start))
             }) {
-                let caret = schist_text_engine::caret_at(spec, typing.at.saturating_sub(*start))
-                    .unwrap_or(schist_text_engine::Caret {
+                let caret = schist_text_engine::caret_at(spec, visual(typing.at)).unwrap_or(
+                    schist_text_engine::Caret {
                         x: 0.0,
                         top: 0.0,
                         height: spec.size,
                         angle: 0.0,
-                    });
+                    },
+                );
                 let mut line = PathBuilder::stroke(px(1.0));
                 let a = Point::new(origin.x + caret.x, origin.y + caret.top);
                 line.move_to(gpoint(&frame.bounds, affine::point(*transform, a)));
@@ -490,7 +496,7 @@ fn paint_shape(
             if let Some(image) =
                 image::RgbaImage::from_raw(rect.width() as u32, rect.height() as u32, pixels)
             {
-                let image = Arc::new(gpui::RenderImage::new(vec![Frame::new(image)]));
+                let image = super::graphics::render_image(image);
                 let target = Bounds::new(
                     gpoint(&bounds, Point::new(rect.left as f32, rect.top as f32)),
                     gpui::size(px(rect.width() as f32), px(rect.height() as f32)),
@@ -702,7 +708,12 @@ fn paint_marks(window: &mut Window, bounds: Bounds<Pixels>, trim: &Rect) {
                 Point::new(corner.x, corner.y + direction * (gap + length))
             };
             let mut builder = PathBuilder::stroke(px(HAIRLINE));
-            builder.move_to(gpoint(&bounds, corner));
+            let start = if horizontal {
+                Point::new(corner.x + direction * gap, corner.y)
+            } else {
+                Point::new(corner.x, corner.y + direction * gap)
+            };
+            builder.move_to(gpoint(&bounds, start));
             builder.line_to(gpoint(&bounds, end));
             if let Ok(path) = builder.build() {
                 window.paint_path(path, rgb(TEXT));
@@ -868,9 +879,7 @@ fn blit_transformed(
     let _ = window.paint_image(
         target,
         Corners::default(),
-        Arc::new(gpui::RenderImage::new(smallvec::smallvec![Frame::new(
-            image
-        )])),
+        super::graphics::render_image(image),
         0,
         false,
     );
@@ -938,7 +947,7 @@ fn paint_warped_image(
         ),
         gpui::size(px(warp.rect.width() as f32), px(warp.rect.height() as f32)),
     );
-    let image = Arc::new(gpui::RenderImage::new(vec![Frame::new(out)]));
+    let image = super::graphics::render_image(out);
     let _ = window.paint_image(target, Corners::default(), image, 0, false);
 }
 

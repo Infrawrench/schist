@@ -141,6 +141,7 @@ jobs:
           # The MCP server is headless and needs none of the AppImage's
           # runtime, so it ships as a plain binary rather than inside it.
           cp target/release/schist-mcp "dist/schist-mcp-linux-$(uname -m)"
+          cp THIRD-PARTY-NOTICES.txt dist/
           # payload.sh strips the packages; do the same for the loose binaries.
           # Keep the unstripped target/release copies for local debugging.
           strip --strip-unneeded "dist/schist-linux-$(uname -m)" \
@@ -238,6 +239,7 @@ jobs:
         run: |
           New-Item -ItemType Directory -Force -Path dist | Out-Null
           Copy-Item target/release/schist.exe dist/
+          Copy-Item THIRD-PARTY-NOTICES.txt dist/
           # Shipped loose as well as inside the installer, for anyone
           # registering the MCP server without installing the app.
           Copy-Item target/release/schist-mcp.exe dist/

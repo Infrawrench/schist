@@ -104,7 +104,7 @@ pub fn separate_page_built(
         if let Some(link) = missing_link(&placed) {
             report.missing_link(&link);
         }
-        if let Some(path) = paint_object(
+        if let Some(failure) = paint_object(
             &mut separation,
             &mut working,
             doc,
@@ -113,7 +113,7 @@ pub fn separate_page_built(
             page_def,
             source,
         ) {
-            report.unavailable_graphic(path);
+            failure.report(&mut report);
         }
     }
     finish(separation, &plan, &doc.ink_manager, false, report)
@@ -144,7 +144,7 @@ pub fn separate_page_with(
         if let Some(link) = missing_link(&placed) {
             report.missing_link(&link);
         }
-        if let Some(path) = paint_object(
+        if let Some(failure) = paint_object(
             &mut separation,
             &mut working,
             doc,
@@ -153,7 +153,7 @@ pub fn separate_page_with(
             page_def,
             source,
         ) {
-            report.unavailable_graphic(path);
+            failure.report(&mut report);
         }
     }
 
@@ -187,7 +187,10 @@ fn layout_report(
     }
     let mut families = std::collections::BTreeSet::new();
     let mut list_issues = std::collections::BTreeSet::new();
+    let mut cross_story_order = false;
     let mut tab_issues = std::collections::BTreeSet::new();
+    let mut nested_issues = std::collections::BTreeSet::new();
+    let mut initial_issues = std::collections::BTreeSet::new();
     let mut counters = std::collections::BTreeMap::new();
     for object in doc.page_artwork(page, settings.output_box(&doc.pages[page])) {
         if !schist_layout::affine::finite(object.content_transform())
@@ -212,6 +215,16 @@ fn layout_report(
             let Some(story) = doc.stories.get(story.0 as usize) else {
                 continue;
             };
+            if frame.unrendered_structures > 0 {
+                report.add(
+                    crate::report::Severity::Error,
+                    schist_i18n::tf!(
+                        "design.preflight_story_structure",
+                        name = object.name,
+                        count = frame.unrendered_structures
+                    ),
+                );
+            }
             let (counters, paragraphs) = counters.entry(story_id).or_insert_with(|| {
                 (
                     schist_layout::list_counters::StoryCounters::new(doc, story),
@@ -228,24 +241,47 @@ fn layout_report(
                         .collect::<std::collections::BTreeMap<_, _>>(),
                 )
             });
-            for line in frame.lines {
-                let spec = schist_layout::compose::line_spec(&line, story, doc);
+            for line in frame.all_lines() {
+                initial_issues.extend(schist_layout::drop_caps::unsupported_detail(
+                    &line.paragraph,
+                ));
+                if line.text_path.is_some()
+                    && line.paragraph.drop_caps_lines.unwrap_or(0) > 1
+                    && line.paragraph.drop_caps_characters.unwrap_or(1) > 0
+                {
+                    initial_issues.insert("TextPath + DropCapLines");
+                }
+                nested_issues.extend(line.projected.as_ref().map_or_else(
+                    || schist_layout::nested_styles::unsupported(&line.paragraph),
+                    |projection| projection.nested_issue,
+                ));
+                let spec = schist_layout::compose::line_spec(line, story, doc);
+                let paragraph = paragraphs.range(..=line.start).next_back();
+                let context = line.projected.as_ref().map_or_else(
+                    || paragraph.map_or(spec.text.as_str(), |(_, text)| *text),
+                    |projection| projection.context.as_ref(),
+                );
+                let counter_issue = line.projected.as_ref().map_or_else(
+                    || paragraph.and_then(|(at, _)| counters.issue(*at)),
+                    |projection| projection.counter_issue,
+                );
                 if spec.text.contains('\t') {
-                    let context = paragraphs
-                        .range(..=line.start)
-                        .next_back()
-                        .map_or(spec.text.as_str(), |(_, text)| *text);
-                    tab_issues.extend(schist_layout::tabs::unsupported(
+                    tab_issues.extend(schist_layout::tabs::unsupported_in_mode(
                         &line.paragraph,
                         context,
                         line.text_path.is_some(),
+                        spec.writing_mode,
                     ));
                 }
                 use schist_layout::lists::ListKind;
                 let list = &line.paragraph.list;
                 if matches!(list.kind, Some(ListKind::Bullet | ListKind::Numbered)) {
                     list_issues.extend(schist_layout::list_composition::unsupported(list));
-                    if let Some(issue) = counters.issue(line.start) {
+                    list_issues.extend(schist_layout::list_composition::unsupported_paragraph(
+                        &line.paragraph,
+                        context,
+                    ));
+                    if let Some(issue) = counter_issue {
                         list_issues.insert(issue);
                     }
                     if line.paragraph.drop_caps_lines.unwrap_or(0) > 1 {
@@ -261,8 +297,8 @@ fn layout_report(
                         list.kind == Some(ListKind::Numbered)
                             && r.id == schist_layout::list_counters::sequence_id(list)
                     }) {
-                        if resource.across_stories {
-                            list_issues.insert("ContinueNumbersAcrossStories");
+                        if resource.across_stories && counter_issue.is_none() {
+                            cross_story_order = true;
                         }
                         if resource.across_documents {
                             list_issues.insert("ContinueNumbersAcrossDocuments");
@@ -325,7 +361,25 @@ fn layout_report(
             }
         }
     }
+    if cross_story_order {
+        report.add(
+            crate::report::Severity::Warning,
+            schist_i18n::t("design.idml_cross_story_order"),
+        );
+    }
     let mut missing_families = std::collections::BTreeSet::new();
+    for property in nested_issues {
+        report.add(
+            crate::report::Severity::Error,
+            schist_i18n::tf!("design.idml_nested_style_unsupported", value = property),
+        );
+    }
+    for property in initial_issues {
+        report.add(
+            crate::report::Severity::Error,
+            schist_i18n::tf!("design.idml_drop_cap_unsupported", value = property),
+        );
+    }
     for property in tab_issues {
         report.add(
             crate::report::Severity::Error,
@@ -425,8 +479,25 @@ fn missing_link(placed: &PlacedObject) -> Option<String> {
     Some(link.path.clone())
 }
 
-/// Paint one object onto the plates, returning an unresolved graphic's
-/// path so neither separation entry point can silently omit its error.
+enum PaintFailure<'a> {
+    Graphic(&'a str),
+    Text,
+}
+
+impl PaintFailure<'_> {
+    fn report(self, report: &mut PreflightReport) {
+        match self {
+            Self::Graphic(path) => report.unavailable_graphic(path),
+            Self::Text => report.add(
+                crate::report::Severity::Error,
+                schist_i18n::t("design.preflight_unavailable_text").to_string(),
+            ),
+        }
+    }
+}
+
+/// Paint one object onto the plates, returning failed content so neither
+/// separation entry point can silently omit its error.
 fn paint_object<'a>(
     separation: &mut Separation,
     plan: &mut PlatePlan,
@@ -435,7 +506,7 @@ fn paint_object<'a>(
     settings: OutputSettings,
     page: &schist_layout::Page,
     source: &dyn GraphicSource,
-) -> Option<&'a str> {
+) -> Option<PaintFailure<'a>> {
     if let Some(fill) = placed.frame_paint(false) {
         paint_object_content(separation, plan, doc, &fill, settings, page, source);
     }
@@ -458,7 +529,7 @@ fn paint_object_content<'a>(
     settings: OutputSettings,
     page: &schist_layout::Page,
     source: &dyn GraphicSource,
-) -> Option<&'a str> {
+) -> Option<PaintFailure<'a>> {
     if !schist_layout::affine::finite(placed.content_transform())
         || placed.content_transform().invert().is_none()
     {
@@ -511,8 +582,26 @@ fn paint_object_content<'a>(
         LayoutObject::TextFrame { story, .. } => {
             let composed = compose_object(doc, placed)?;
             let story_def = doc.story(*story)?;
-            for line in &composed.lines {
-                for paint in crate::raster::line_paints(line, story_def, doc, settings, page) {
+            for area in &composed.footnotes {
+                if let Some(rule) = &area.rule {
+                    let coverage =
+                        crate::raster::footnote_rule_coverage(rule, placed, settings, page);
+                    let mode = if rule.overprint {
+                        InkMode::Overprint
+                    } else {
+                        mode
+                    };
+                    let (coats, build) = tinted_coats_for(plan, &rule.ink, rule.tint);
+                    separation.paint(&coverage, &coats, mode, opacity);
+                    separation.paint_composite(&coverage, &coats, &build, mode, opacity);
+                }
+            }
+            for line in composed.all_lines() {
+                let Some(paints) = crate::raster::line_paints(line, story_def, doc, settings, page)
+                else {
+                    return Some(PaintFailure::Text);
+                };
+                for paint in paints {
                     let coverage =
                         crate::raster::warp_coverage(paint.coverage, placed, settings, page);
                     let mode = if paint.overprint {
@@ -535,7 +624,7 @@ fn paint_object_content<'a>(
                 return None;
             }
             let Some(placed_graphic) = graphic_coverage(placed, settings, page, source) else {
-                return Some(&link.path);
+                return Some(PaintFailure::Graphic(&link.path));
             };
             let rect = placed_graphic.rect;
             if !separation.paint_process(
@@ -546,7 +635,7 @@ fn paint_object_content<'a>(
                 mode,
                 opacity,
             ) {
-                return Some(&link.path);
+                return Some(PaintFailure::Graphic(&link.path));
             }
         }
 

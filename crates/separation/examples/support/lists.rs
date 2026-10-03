@@ -7,6 +7,7 @@ use schist_layout::{
 };
 const TEXT: [&str; 4] = ["Café", "Second", "Third", "End"];
 fn marker(case: usize, row: usize) -> String {
+    let case = if case >= 24 { case - 24 } else { case };
     if case >= 20 {
         return [
             ["I.", "I.a.", "II.", "II.a."],
@@ -36,6 +37,7 @@ fn marker(case: usize, row: usize) -> String {
     }
 }
 fn size(case: usize) -> f32 {
+    let case = if case >= 24 { case - 24 } else { case };
     if !(6..12).contains(&case) {
         12.0
     } else {
@@ -43,6 +45,7 @@ fn size(case: usize) -> f32 {
     }
 }
 fn alignment(case: usize) -> MarkerAlignment {
+    let case = if case >= 24 { case - 24 } else { case };
     if case >= 12 {
         return MarkerAlignment::Right;
     }
@@ -63,14 +66,14 @@ fn spec(text: &str, size: f32) -> schist_text_engine::TextSpec {
     }
 }
 pub fn document(reference: bool) -> LayoutDocument {
-    let mut doc = LayoutDocument::new(vec![Page::new("proof", 200.0, 200.0); 24]);
-    for case in 0usize..24 {
+    let mut doc = LayoutDocument::new(vec![Page::new("proof", 200.0, 200.0); 36]);
+    for case in 0usize..36 {
         let body_name = format!("Body {case}");
         let marker_name = format!("Marker {case}");
         let fill = Ink::spot("Marker spot", [45.0, 60.0, 30.0]);
         let stroke = Ink::cmyk("Marker cyan", [1.0, 0.0, 0.0, 0.0]);
         let list = ListStyle {
-            kind: Some(if case < 12 && case.is_multiple_of(2) {
+            kind: Some(if !(12..24).contains(&case) && case.is_multiple_of(2) {
                 ListKind::Bullet
             } else {
                 ListKind::Numbered
@@ -106,7 +109,11 @@ pub fn document(reference: bool) -> LayoutDocument {
                 position: 60.0,
                 alignment: "LeftAlign".into(),
                 alignment_character: ".".into(),
-                leader: String::new(),
+                leader: if case >= 24 {
+                    ". ".into()
+                } else {
+                    String::new()
+                },
             }]),
             ..Default::default()
         };
@@ -139,7 +146,7 @@ pub fn document(reference: bool) -> LayoutDocument {
             ..Default::default()
         });
         if !reference {
-            if case >= 20 {
+            if (20..24).contains(&case) {
                 for level in [2, 3] {
                     doc.styles.add_paragraph(ParagraphStyle {
                         name: format!("{body_name} level {level}"),
@@ -181,7 +188,7 @@ pub fn document(reference: bool) -> LayoutDocument {
             for (row, text) in TEXT.iter().enumerate().skip(1) {
                 let style = if case == 22 && row >= 2 {
                     format!("{body_name} level 3")
-                } else if case >= 20 && row % 2 == 1 {
+                } else if (20..24).contains(&case) && row % 2 == 1 {
                     format!("{body_name} level 2")
                 } else {
                     body_name.clone()
@@ -226,6 +233,35 @@ pub fn document(reference: bool) -> LayoutDocument {
                 .ranges
                 .push(schist_layout::StyleRange::new(0, value.len(), &marker_name));
             doc.stories[marker_frame.story.0 as usize] = marker_story;
+            if case >= 24 {
+                let period = schist_text_engine::measure(&spec(". ", size(case)))
+                    .unwrap()
+                    .width;
+                let count = ((90.0 - x - metrics.width) / period).floor() as usize;
+                let offset = 90.0 - count as f32 * period;
+                let padding = format!("Leader offset {case}/{row}");
+                doc.styles.add_character(CharacterStyle {
+                    name: padding.clone(),
+                    tracking: Some(offset * 1000.0 / size(case)),
+                    ..Default::default()
+                });
+                let frame = authoring::text_frame(
+                    &mut doc,
+                    &mut History::default(),
+                    case,
+                    Rect::new(0.0, y + body_ascent - metrics.first_baseline, 200.0, 60.0),
+                )
+                .unwrap();
+                let text = format!("\u{200b}{}", ". ".repeat(count));
+                let mut story = Story::from_text(&text, &marker_paragraph);
+                story
+                    .ranges
+                    .push(schist_layout::StyleRange::new(0, 3, padding));
+                story
+                    .ranges
+                    .push(schist_layout::StyleRange::new(3, text.len(), &marker_name));
+                doc.stories[frame.story.0 as usize] = story;
+            }
             let body_frame = authoring::text_frame(
                 &mut doc,
                 &mut History::default(),

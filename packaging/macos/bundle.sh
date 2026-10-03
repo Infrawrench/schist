@@ -58,6 +58,7 @@ mkdir -p "$app/Contents/MacOS" "$app/Contents/Resources"
 cp "$root/packaging/macos/Info.plist" "$app/Contents/Info.plist"
 copy_executable "$root/target/$target/schist" "$app/Contents/MacOS/schist"
 cp "$root/packaging/macos/schist.icns" "$app/Contents/Resources/"
+cp "$root/THIRD-PARTY-NOTICES.txt" "$app/Contents/Resources/"
 
 # Quick Look ships as two app extensions around one executable: macOS
 # allows a bundle only one extension point, and thumbnails (Finder icons)
@@ -78,6 +79,7 @@ install_appex SchistQuickLookPreview preview-Info.plist
 rm -rf "$mcp_stage"
 mkdir -p "$mcp_stage"
 copy_executable "$root/target/$target/schist-mcp" "$mcp"
+cp "$root/THIRD-PARTY-NOTICES.txt" "$mcp_stage/"
 
 signed=false
 if [ -n "${MACOS_CERT_NAME:-}" ]; then
@@ -120,7 +122,7 @@ fi
 # unlike the bundle a flat binary gets no stapled ticket, so nothing is added
 # to it afterwards -- the submitted zip is the one that ships.
 rm -f "$mcp_zip"
-ditto -c -k "$mcp" "$mcp_zip"
+ditto -c -k "$mcp_stage" "$mcp_zip"
 
 notary=()
 if [ -n "${MACOS_NOTARY_PROFILE:-}" ]; then

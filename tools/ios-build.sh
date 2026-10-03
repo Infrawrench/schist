@@ -41,6 +41,7 @@ rm -rf "$app"
 mkdir -p "$app"
 cp "target/$target/$profile/schist" "$app/schist"
 cp packaging/ios/Info.plist "$app/Info.plist"
+cp THIRD-PARTY-NOTICES.txt "$app/"
 # Keep the bundle's version in step with the workspace's.
 version=$(awk -F '"' '/^version = / { print $2; exit }' Cargo.toml)
 : "${version:?missing workspace version}"

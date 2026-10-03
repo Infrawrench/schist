@@ -274,7 +274,8 @@ impl Exporter {
             || spec.runs.iter().any(|run| {
                 // This native subset cannot encode decorations, offsets,
                 // nominal metrics or per-run OpenType features.
-                run.language.as_deref().is_some_and(|v| !v.is_empty())
+                run.no_break == Some(true)
+                    || run.language.as_deref().is_some_and(|v| !v.is_empty())
                     || run.underline == Some(true)
                     || run.strikethrough == Some(true)
                     || run.baseline_shift.is_some_and(|v| v != 0.0)

@@ -13,6 +13,12 @@ schist-vector.workspace = true
 serde = { workspace = true, features = ["rc"] }
 serde_json.workspace = true
 log.workspace = true
+# Select only reviewed pattern sets; the default `full` set has other licenses.
+hypher = { version = "=0.1.8", default-features = false, features = ["alloc", "english", "french", "german"] }
+unicode-normalization = "0.1.25"
+unicode-segmentation = "1.12"
+unicode-script = "0.5"
+unicode-properties = { version = "0.1.4", default-features = false, features = ["general-category"] }
 
 [dev-dependencies]
 

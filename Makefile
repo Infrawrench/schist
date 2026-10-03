@@ -383,7 +383,7 @@ check-layout-wasm:
 .PHONY: check-design lint-design
 check-design:
 	CARGO_INCREMENTAL=0 $(CARGO) test -p schist-editor --lib -- $(DESIGN_TEST_ARGS)
-	CARGO_INCREMENTAL=0 $(CARGO) test -p schist-layout -p schist-i18n -p schist-app-settings
+	CARGO_INCREMENTAL=0 $(CARGO) test -p schist-layout -p schist-i18n -p schist-app-settings -p schist-app-actions
 lint-design:
 	CARGO_INCREMENTAL=0 $(CARGO) clippy -p schist-editor -p schist-layout -p schist-text-engine -p schist-app-settings -p schist-ui -p schist-separation --all-targets -- -D warnings
 
@@ -639,7 +639,7 @@ library: library-native library-wasm
 library-native:
 	CARGO='$(CARGO)' SCHIST_LIBRARY_TARGET_DIR='$(LIBRARY_TARGET_DIR)' ./tools/library-cargo.sh build $(PROFILE_FLAG) --lib
 	@mkdir -p dist/library
-	cp include/schist.h LICENSE web/fonts/LICENSE-IBMPlexSans.txt dist/library/
+	cp include/schist.h LICENSE THIRD-PARTY-NOTICES.txt web/fonts/LICENSE-IBMPlexSans.txt dist/library/
 ifeq ($(HOST),linux)
 	cp '$(LIBRARY_TARGET_DIR)/$(PROFILE)/libschist.so' dist/library/
 else ifeq ($(HOST),macos)
@@ -1094,7 +1094,23 @@ check-design-output: design-pdf-proof
 	$(CARGO) run -p schist-separation --example text_path_proof -- /tmp/schist-text-path-proof.pdf
 	$(CARGO) run -p schist-separation --example lists_proof -- /tmp/schist-lists-proof.pdf
 	$(CARGO) run -p schist-separation --example tabs_proof -- /tmp/schist-tabs-proof.pdf
-	python3 tools/check-design-pdf.py $(or $(DESIGN_PDF_PROOF),/tmp/schist-pdf-proof.pdf) /tmp /tmp/schist-text-proof.pdf /tmp/schist-offsets-proof.pdf /tmp/schist-crossover-proof.pdf /tmp/schist-tint-proof.pdf /tmp/schist-decoration-proof.pdf /tmp/schist-baseline-proof.pdf /tmp/schist-script-proof.pdf /tmp/schist-opentype-proof.pdf /tmp/schist-leading-proof.pdf /tmp/schist-font-style-proof.pdf /tmp/schist-object-style-proof.pdf /tmp/schist-text-stroke-proof.pdf /tmp/schist-custom-decoration-proof.pdf /tmp/schist-cjk-feature-proof.pdf /tmp/schist-capitalization-proof.pdf /tmp/schist-striped-decoration-proof.pdf /tmp/schist-dashed-decoration-proof.pdf /tmp/schist-capped-decoration-proof.pdf /tmp/schist-dotted-decoration-proof.pdf /tmp/schist-fitted-decoration-proof.pdf /tmp/schist-language-proof.pdf /tmp/schist-text-path-proof.pdf /tmp/schist-lists-proof.pdf /tmp/schist-tabs-proof.pdf
+	$(CARGO) run -p schist-separation --example footnotes_proof -- /tmp/schist-footnotes-proof.pdf
+	$(CARGO) run -p schist-separation --example paragraph_starts_proof -- /tmp/schist-paragraph-starts-proof.pdf
+	$(CARGO) run -p schist-separation --example no_break_proof -- /tmp/schist-no-break-proof.pdf
+	$(CARGO) run -p schist-separation --example soft_hyphen_proof -- /tmp/schist-soft-hyphen-proof.pdf
+	$(CARGO) run -p schist-separation --example automatic_hyphenation_proof -- /tmp/schist-automatic-hyphenation-proof.pdf
+	$(CARGO) run -p schist-separation --example vertical_initials_proof -- /tmp/schist-vertical-initials-proof.pdf
+	$(CARGO) run -p schist-separation --example projected_initials_proof -- /tmp/schist-projected-initials-proof.pdf
+	$(CARGO) run -p schist-separation --example projected_direction_proof -- /tmp/schist-projected-direction-proof.pdf
+	$(CARGO) run -p schist-separation --example named_initials_proof -- /tmp/schist-named-initial-proof.pdf
+	$(CARGO) run -p schist-separation --example projected_markers_proof -- /tmp/schist-projected-markers-proof.pdf
+	$(CARGO) run -p schist-separation --example nested_delimiters_proof -- /tmp/schist-nested-delimiters-proof.pdf
+	$(CARGO) run -p schist-separation --example nested_words_proof -- /tmp/schist-nested-words-proof.pdf
+	$(CARGO) run -p schist-separation --example nested_repeat_proof -- /tmp/schist-nested-repeat-proof.pdf
+	$(CARGO) run -p schist-separation --example nested_letters_proof -- /tmp/schist-nested-letters-proof.pdf
+	$(CARGO) run -p schist-separation --example end_nested_style_proof -- /tmp/schist-end-nested-style-proof.pdf
+	$(CARGO) run -p schist-separation --example text_variables_proof -- /tmp/schist-text-variables-proof.pdf
+	python3 tools/check-design-pdf.py $(or $(DESIGN_PDF_PROOF),/tmp/schist-pdf-proof.pdf) /tmp /tmp/schist-text-proof.pdf /tmp/schist-offsets-proof.pdf /tmp/schist-crossover-proof.pdf /tmp/schist-tint-proof.pdf /tmp/schist-decoration-proof.pdf /tmp/schist-baseline-proof.pdf /tmp/schist-script-proof.pdf /tmp/schist-opentype-proof.pdf /tmp/schist-leading-proof.pdf /tmp/schist-font-style-proof.pdf /tmp/schist-object-style-proof.pdf /tmp/schist-text-stroke-proof.pdf /tmp/schist-custom-decoration-proof.pdf /tmp/schist-cjk-feature-proof.pdf /tmp/schist-capitalization-proof.pdf /tmp/schist-striped-decoration-proof.pdf /tmp/schist-dashed-decoration-proof.pdf /tmp/schist-capped-decoration-proof.pdf /tmp/schist-dotted-decoration-proof.pdf /tmp/schist-fitted-decoration-proof.pdf /tmp/schist-language-proof.pdf /tmp/schist-text-path-proof.pdf /tmp/schist-lists-proof.pdf /tmp/schist-tabs-proof.pdf /tmp/schist-footnotes-proof.pdf /tmp/schist-paragraph-starts-proof.pdf /tmp/schist-no-break-proof.pdf /tmp/schist-soft-hyphen-proof.pdf /tmp/schist-automatic-hyphenation-proof.pdf /tmp/schist-vertical-initials-proof.pdf /tmp/schist-projected-initials-proof.pdf /tmp/schist-projected-direction-proof.pdf /tmp/schist-named-initial-proof.pdf /tmp/schist-projected-markers-proof.pdf /tmp/schist-nested-delimiters-proof.pdf /tmp/schist-nested-words-proof.pdf /tmp/schist-nested-repeat-proof.pdf /tmp/schist-nested-letters-proof.pdf /tmp/schist-end-nested-style-proof.pdf /tmp/schist-text-variables-proof.pdf
 
 .PHONY: design-lists-proof
 design-lists-proof:

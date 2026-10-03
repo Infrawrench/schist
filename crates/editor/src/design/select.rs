@@ -359,11 +359,14 @@ mod tests {
         let story = doc.add_story(Story::from_text("hello", "Body"));
         let id = ObjectId::next();
         doc.add_object(PlacedObject {
+            hidden: false,
             appearance: Default::default(),
             id,
             page: 0,
             bounds: Rect::new(100.0, 100.0, 200.0, 40.0),
             object: LayoutObject::TextFrame {
+                balance_columns: Some(false),
+                footnotes: Default::default(),
                 text_path: None,
                 story,
                 columns: 1,
@@ -458,11 +461,14 @@ mod tests {
         let story = doc.add_story(Story::from_text("front", "Body"));
         let front = ObjectId::next();
         doc.add_object(PlacedObject {
+            hidden: false,
             appearance: Default::default(),
             id: front,
             page: 0,
             bounds: Rect::new(120.0, 110.0, 200.0, 40.0),
             object: LayoutObject::TextFrame {
+                balance_columns: Some(false),
+                footnotes: Default::default(),
                 text_path: None,
                 story,
                 columns: 1,
@@ -536,11 +542,14 @@ mod tests {
         let story = doc.add_story(Story::from_text("", "Body"));
         let id = ObjectId::next();
         doc.add_object(PlacedObject {
+            hidden: false,
             appearance: Default::default(),
             id,
             page: 0,
             bounds: Rect::new(100.0, 100.0, 200.0, 40.0),
             object: LayoutObject::TextFrame {
+                balance_columns: Some(false),
+                footnotes: Default::default(),
                 text_path: None,
                 story,
                 columns: 1,
@@ -573,11 +582,14 @@ mod tests {
         let story = doc.add_story(Story::from_text("far", "Body"));
         let far = ObjectId::next();
         doc.add_object(PlacedObject {
+            hidden: false,
             appearance: Default::default(),
             id: far,
             page: 0,
             bounds: Rect::new(400.0, 400.0, 50.0, 50.0),
             object: LayoutObject::TextFrame {
+                balance_columns: Some(false),
+                footnotes: Default::default(),
                 text_path: None,
                 story,
                 columns: 1,

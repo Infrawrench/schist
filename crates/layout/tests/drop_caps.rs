@@ -162,3 +162,66 @@ fn a_drop_cap_and_its_covered_lines_move_together_or_remain_overset() {
         assert!(compose_thread(&doc, id, &frames[..1]).has_overflow());
     }
 }
+
+use schist_layout::drop_caps;
+
+#[test]
+fn native_initial_flags_inherit_independently_and_zero_clears_without_enabling_an_initial() {
+    for value in [
+        None,
+        Some(i32::MIN),
+        Some(0),
+        Some(1),
+        Some(2),
+        Some(3),
+        Some(256),
+        Some(i32::MAX),
+    ] {
+        let mut doc = schist_layout::blank_a4();
+        doc.styles.add_paragraph(ParagraphStyle {
+            name: "Base".into(),
+            drop_caps_lines: Some(3),
+            drop_caps_characters: Some(2),
+            drop_caps_detail: Some(3),
+            ..Default::default()
+        });
+        doc.styles.add_paragraph(ParagraphStyle {
+            name: "Child".into(),
+            based_on: Some("Base".into()),
+            drop_caps_lines: Some(0),
+            drop_caps_detail: value,
+            ..Default::default()
+        });
+        doc.styles.add_paragraph(ParagraphStyle {
+            name: "Leaf".into(),
+            based_on: Some("Child".into()),
+            ..Default::default()
+        });
+        let resolved = doc.styles.resolve_paragraph("Leaf");
+        assert_eq!(resolved.drop_caps_detail, value.or(Some(3)));
+        assert_eq!(resolved.drop_caps_lines, Some(0));
+        assert_eq!(resolved.drop_caps_characters, Some(2));
+        assert_eq!(drop_caps::unsupported_detail(&resolved), None);
+        assert_eq!(
+            doc.styles.resolve_paragraph("Base").drop_caps_detail,
+            Some(3)
+        );
+    }
+}
+
+#[test]
+fn old_snapshots_keep_legacy_initial_geometry_without_inventing_native_flags() {
+    let mut doc = schist_layout::blank_a4();
+    doc.styles.paragraphs[0].drop_caps_lines = Some(3);
+    let mut snapshot = serde_json::to_value(&doc).unwrap();
+    for style in snapshot["styles"]["paragraphs"].as_array_mut().unwrap() {
+        style.as_object_mut().unwrap().remove("drop_caps_detail");
+    }
+    let restored: schist_layout::LayoutDocument = serde_json::from_value(snapshot).unwrap();
+    assert_eq!(restored, doc);
+    let style = restored
+        .styles
+        .resolve_paragraph(&restored.styles.paragraphs[0].name);
+    assert_eq!(style.drop_caps_detail, None);
+    assert_eq!(drop_caps::unsupported_detail(&style), None);
+}

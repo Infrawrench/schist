@@ -32,6 +32,14 @@ pub struct Element {
     /// Character data directly inside this element, concatenated.
     pub text: String,
     pub children: Vec<Element>,
+    /// Processing instructions and their byte offsets in this element's direct
+    /// decoded text. In particular, ACE 4 is a footnote marker, not a character.
+    pub instructions: Vec<(usize, String)>,
+    /// Exact XML for an outer unsupported story structure or text-variable
+    /// definition. The tree does not retain arbitrary mixed-content order, so
+    /// it cannot reconstruct every
+    /// native structure. Nested structures share this original payload.
+    pub raw: Option<std::sync::Arc<str>>,
 }
 
 impl Element {
@@ -49,6 +57,11 @@ impl Element {
     /// An attribute parsed as a number.
     pub fn number(&self, name: &str) -> Option<f32> {
         self.attr(name).and_then(parse_number)
+    }
+
+    /// An xsd:boolean attribute, retaining absent/invalid values as None.
+    pub fn boolean(&self, name: &str) -> Option<bool> {
+        self.attr(name).and_then(parse_boolean)
     }
 
     /// An attribute's value, or the empty string.
@@ -110,118 +123,74 @@ pub fn local(name: &str) -> &str {
 /// silently-truncated one, because a part is one root by definition and
 /// two roots means the file is not the file it claims to be.
 pub fn parse(text: &str) -> Result<Element, String> {
-    let mut reader = Reader::from_str(text);
-    reader.config_mut().trim_text(false);
-    let mut buf = Vec::new();
-    let mut stack: Vec<Element> = Vec::new();
-    let mut roots: Vec<Element> = Vec::new();
-
-    loop {
-        match reader.read_event_into(&mut buf) {
-            Ok(Event::Start(start)) => stack.push(Element {
-                name: String::from_utf8_lossy(start.name().as_ref()).into_owned(),
-                attributes: attributes(&start),
-                ..Default::default()
-            }),
-            Ok(Event::Empty(start)) => {
-                let element = Element {
-                    name: String::from_utf8_lossy(start.name().as_ref()).into_owned(),
-                    attributes: attributes(&start),
-                    ..Default::default()
-                };
-                match stack.last_mut() {
-                    Some(parent) => parent.children.push(element),
-                    None => roots.push(element),
-                }
-            }
-            Ok(Event::End(_)) => {
-                if let Some(element) = stack.pop() {
-                    match stack.last_mut() {
-                        Some(parent) => parent.children.push(element),
-                        None => roots.push(element),
-                    }
-                }
-            }
-            Ok(Event::Text(value)) => {
-                let decoded = decode(&value);
-                if let Some(top) = stack.last_mut() {
-                    top.text.push_str(&decoded);
-                }
-            }
-            // An entity reference arrives as its own event, so a reader
-            // that only handles text silently drops every `&amp;` in the
-            // document -- invisible until a frame's name comes back with
-            // a hole in it.
-            Ok(Event::GeneralRef(reference)) => {
-                let decoded = resolve_reference(&reference);
-                if let Some(top) = stack.last_mut() {
-                    top.text.push_str(&decoded);
-                }
-            }
-            Ok(Event::CData(value)) => {
-                let decoded = String::from_utf8_lossy(value.as_ref()).into_owned();
-                if let Some(top) = stack.last_mut() {
-                    top.text.push_str(&decoded);
-                }
-            }
-            Ok(Event::Eof) => break,
-            Ok(_) => {}
-            Err(error) => return Err(error.to_string()),
-        }
-        buf.clear();
-    }
-
-    // An element left open at the end of the file is a truncated document.
-    // quick-xml is a streaming reader and does not report it, so a part
-    // that stops halfway would otherwise parse as a shorter one and the
-    // loss would not be noticed.
-    if !stack.is_empty() {
-        return Err(format!(
-            "{} element(s) left unclosed, the document is truncated",
-            stack.len()
-        ));
-    }
-
+    let mut roots = parse_all(text)?;
     match roots.len() {
         1 => Ok(roots.remove(0)),
-        // A part with no element at all: an empty file, which is a
-        // legitimate thing for a caller to have to answer for.
         0 => Ok(Element::default()),
         _ => Err(format!("{} root elements, expected one", roots.len())),
     }
 }
 
-/// Every element in a fragment, for when there is more than one root.
-///
-/// IDML parts have a single root, but `read_body` below is used on
-/// fragments where that is not guaranteed, and a caller wants the list
-/// rather than a decision about which one mattered.
+/// Native inline containers which this version retains without composing.
+pub(crate) fn story_structure(name: &str) -> bool {
+    matches!(
+        name,
+        "Table"
+            | "TextVariableInstance"
+            | "Footnote"
+            | "TextFrame"
+            | "Rectangle"
+            | "Polygon"
+            | "Oval"
+            | "GraphicLine"
+            | "Group"
+    )
+}
+
+/// Every element in a well-formed fragment, including exact opaque story data.
 pub fn parse_all(text: &str) -> Result<Vec<Element>, String> {
     let mut reader = Reader::from_str(text);
     reader.config_mut().trim_text(false);
     let mut buf = Vec::new();
     let mut stack: Vec<Element> = Vec::new();
-    let mut roots: Vec<Element> = Vec::new();
+    let mut starts: Vec<Option<usize>> = Vec::new();
+    let mut roots = Vec::new();
     loop {
-        match reader.read_event_into(&mut buf) {
-            Ok(Event::Start(start)) => stack.push(Element {
-                name: String::from_utf8_lossy(start.name().as_ref()).into_owned(),
-                attributes: attributes(&start),
-                ..Default::default()
-            }),
-            Ok(Event::Empty(start)) => {
-                let element = Element {
-                    name: String::from_utf8_lossy(start.name().as_ref()).into_owned(),
+        let from = reader.buffer_position() as usize;
+        let event = reader.read_event_into(&mut buf);
+        let empty = matches!(event, Ok(Event::Empty(_)));
+        match event {
+            Ok(Event::Start(start) | Event::Empty(start)) => {
+                let name = String::from_utf8_lossy(start.name().as_ref()).into_owned();
+                let to = reader.buffer_position() as usize;
+                let capture = starts.iter().all(Option::is_none)
+                    && ((story_structure(&name)
+                        && (stack.is_empty() || stack.iter().any(|e| e.name == "Story")))
+                        || (name == "TextVariable"
+                            && stack.last().is_some_and(|e| e.name == "Document")));
+                let mut element = Element {
+                    name,
                     attributes: attributes(&start),
                     ..Default::default()
                 };
-                match stack.last_mut() {
-                    Some(parent) => parent.children.push(element),
-                    None => roots.push(element),
+                if empty {
+                    if capture {
+                        element.raw = Some(text[from..to].into());
+                    }
+                    match stack.last_mut() {
+                        Some(parent) => parent.children.push(element),
+                        None => roots.push(element),
+                    }
+                } else {
+                    stack.push(element);
+                    starts.push(capture.then_some(from));
                 }
             }
             Ok(Event::End(_)) => {
-                if let Some(element) = stack.pop() {
+                if let Some(mut element) = stack.pop() {
+                    if let Some(from) = starts.pop().flatten() {
+                        element.raw = Some(text[from..reader.buffer_position() as usize].into());
+                    }
                     match stack.last_mut() {
                         Some(parent) => parent.children.push(element),
                         None => roots.push(element),
@@ -243,11 +212,25 @@ pub fn parse_all(text: &str) -> Result<Vec<Element>, String> {
                     top.text.push_str(&String::from_utf8_lossy(value.as_ref()));
                 }
             }
+            Ok(Event::PI(value)) => {
+                if let Some(top) = stack.last_mut() {
+                    top.instructions.push((
+                        top.text.len(),
+                        String::from_utf8_lossy(value.as_ref()).into_owned(),
+                    ));
+                }
+            }
             Ok(Event::Eof) => break,
             Ok(_) => {}
             Err(error) => return Err(error.to_string()),
         }
         buf.clear();
+    }
+    if !stack.is_empty() {
+        return Err(format!(
+            "{} element(s) left unclosed, the document is truncated",
+            stack.len()
+        ));
     }
     Ok(roots)
 }
@@ -310,6 +293,17 @@ fn decode(value: &quick_xml::events::BytesText<'_>) -> String {
         .xml10_content()
         .map(|value| value.into_owned())
         .unwrap_or_else(|_| String::from_utf8_lossy(value.as_ref()).into_owned())
+}
+
+/// The public IDML schema uses xsd:boolean. Its whitespace facet collapses
+/// XML whitespace and accepts exactly four case-sensitive lexical forms.
+/// Do not use Unicode trim here: NBSP is not XML whitespace.
+pub fn parse_boolean(value: &str) -> Option<bool> {
+    match value.trim_matches([' ', '\t', '\r', '\n']) {
+        "true" | "1" => Some(true),
+        "false" | "0" => Some(false),
+        _ => None,
+    }
 }
 
 /// Parse a number the way IDML writes them.

@@ -515,7 +515,9 @@ impl Workspace {
                 canvas(
                     move |bounds, window, cx| {
                         let scale = window.scale_factor();
-                        entity.update(cx, |ws, cx| ws.prepare_canvas_paint(bounds, scale, cx))
+                        entity.update(cx, |ws, cx| {
+                            ws.prepare_canvas_paint(bounds, scale, window, cx)
+                        })
                     },
                     move |_bounds, job: PaintJob, window, cx| {
                         // Design Mode has no filtered canvas to capture,
@@ -829,6 +831,9 @@ impl Render for Workspace {
             }))
             .on_action(cx.listener(|ws, action: &RunCommand, _w, cx| {
                 ws.run_command(&action.id.clone(), cx);
+            }))
+            .on_action(cx.listener(|ws, action: &RunDesignCommand, _w, cx| {
+                ws.run_layout_command(action.command, cx);
             }))
             .on_action(cx.listener(|ws, action: &ActivateTool, _w, cx| {
                 ws.activate_tool(&action.id.clone(), cx);

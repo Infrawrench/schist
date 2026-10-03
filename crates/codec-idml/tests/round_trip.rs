@@ -54,6 +54,7 @@ fn document() -> LayoutDocument {
         based_on: None,
         objects: vec![schist_layout::ParentObject {
             object: PlacedObject {
+                hidden: false,
                 appearance: Default::default(),
                 id: ObjectId::next(),
                 page: 0,
@@ -95,6 +96,7 @@ fn document() -> LayoutDocument {
     // of it -- every shape of story the writer has to survive.
     document.stories = vec![Story {
         prefs: Default::default(),
+        structures: Vec::new(),
         points: vec![StoryPoint::Paragraph {
             text: "First line\nsecond line".into(),
             style: "Body".into(),
@@ -103,11 +105,14 @@ fn document() -> LayoutDocument {
     }];
 
     let id = document.add_object(PlacedObject {
+        hidden: false,
         appearance: Default::default(),
         id: ObjectId::next(),
         page: 0,
         bounds: Rect::new(-260.0, 181.97, 720.0, 47.0),
         object: LayoutObject::TextFrame {
+            balance_columns: Some(false),
+            footnotes: Default::default(),
             text_path: None,
             story: StoryId(0),
             columns: 2,

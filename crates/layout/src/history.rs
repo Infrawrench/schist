@@ -41,6 +41,11 @@ pub enum LayoutEdit {
         before: Vec<(crate::StoryId, Vec<crate::ObjectId>)>,
         after: Vec<(crate::StoryId, Vec<crate::ObjectId>)>,
     },
+    /// Chronology accompanies the creation transaction, independently of z-order.
+    CreationOrderChanged {
+        before: Vec<crate::ObjectId>,
+        after: Vec<crate::ObjectId>,
+    },
     /// A page was added.
     ///
     /// The spread list is recorded *before* the change. A page edit can
@@ -166,6 +171,8 @@ pub struct SpreadSnapshot {
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct ObjectSnapshot {
     #[serde(default)]
+    pub hidden: bool,
+    #[serde(default)]
     pub appearance: Box<crate::object_styles::ObjectAppearance>,
     pub id: u32,
     pub page: usize,
@@ -185,6 +192,8 @@ pub struct ObjectSnapshot {
 /// A story, detached from the document.
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct StorySnapshot {
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub structures: Vec<crate::story::StoryStructure>,
     pub points: Vec<StoryPointSnapshot>,
     pub ranges: Vec<(usize, usize, String)>,
     #[serde(default)]
@@ -198,6 +207,8 @@ pub enum StoryPointSnapshot {
     LineBreak,
     ColumnBreak,
     PageBreak,
+    OddPageBreak,
+    EvenPageBreak,
     FrameBreak,
     Other { kind: String, payload: String },
 }
@@ -231,6 +242,12 @@ pub struct InkSnapshot {
 /// The document-wide settings an edit can change.
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct SettingsSnapshot {
+    #[serde(default)]
+    pub footnotes: crate::footnotes::FootnoteOptions,
+    #[serde(default)]
+    pub frame_footnote_defaults: crate::footnotes::FrameFootnotes,
+    #[serde(default)]
+    pub balance_columns_default: bool,
     pub facing_pages: bool,
     #[serde(default)]
     pub page_binding: crate::PageBinding,
@@ -339,6 +356,7 @@ impl History {
                 !edits.is_empty() && edits.iter().all(Self::is_reversible)
             }
             LayoutEdit::ThreadsChanged { .. }
+            | LayoutEdit::CreationOrderChanged { .. }
             | LayoutEdit::TopologyChanged { .. }
             | LayoutEdit::LayersChanged { .. }
             | LayoutEdit::SwatchesChanged { .. }
@@ -391,6 +409,7 @@ mod tests {
 
     fn object(id: u32, name: &str) -> ObjectSnapshot {
         ObjectSnapshot {
+            hidden: false,
             appearance: Default::default(),
             id,
             page: 0,

@@ -31,6 +31,69 @@ fn prepare(ws: &mut Workspace) {
     ws.design.typing = None;
 }
 
+/// Unnamed native objects often carry the IDML localization sentinel `$ID/`.
+/// Display text content or a translated kind without renaming the saved object.
+fn object_label(
+    document: &schist_layout::LayoutDocument,
+    object: &schist_layout::PlacedObject,
+) -> String {
+    if !object.name.trim().is_empty() && object.name != "$ID/" {
+        return object.name.clone();
+    }
+    let key = match &object.object {
+        LayoutObject::TextFrame { story, .. } => {
+            if let Some(story) = document.story(*story) {
+                let text = excerpt(
+                    story
+                        .points
+                        .iter()
+                        .flat_map(|p| p.text().chars().chain([' '])),
+                );
+                if !text.is_empty() {
+                    return text;
+                }
+            }
+            "design.text_frame"
+        }
+        LayoutObject::GraphicFrame { .. } => "design.graphic_frame",
+        LayoutObject::Shape { .. } => "common.shape",
+        LayoutObject::Group { .. } => "common.group",
+        LayoutObject::Note { text, .. } => {
+            let text = excerpt(text.chars());
+            if !text.is_empty() {
+                return text;
+            }
+            "tool.note.name"
+        }
+    };
+    t(key).into()
+}
+
+fn excerpt(chars: impl Iterator<Item = char>) -> String {
+    let mut out = String::new();
+    let mut count = 0;
+    for character in chars {
+        let c = if character.is_whitespace() {
+            ' '
+        } else {
+            character
+        };
+        if c.is_control() || (c == ' ' && (out.is_empty() || out.ends_with(' '))) {
+            continue;
+        }
+        if count == 80 {
+            if c != ' ' {
+                out.push('…');
+                break;
+            }
+            continue;
+        }
+        out.push(c);
+        count += 1;
+    }
+    out.trim_end().into()
+}
+
 pub(super) fn design_layers_panel(
     ws: &mut Workspace,
     cx: &mut Context<Workspace>,
@@ -219,8 +282,10 @@ pub(super) fn design_layers_panel(
             .filter(|object| object.page == page && document.object_layer(object.id) == id)
         {
             let object_id = object.id;
+            let label = object_label(document, object);
             let selected = ws.design.selection.contains(&object_id);
             let object_locked = object.locked;
+            let hidden = object.hidden;
             let icon = match object.object {
                 LayoutObject::TextFrame { .. } => "type",
                 LayoutObject::GraphicFrame { .. } => "frame",
@@ -241,7 +306,6 @@ pub(super) fn design_layers_panel(
                     .items_center()
                     .h(px(25.0))
                     .min_w_0()
-                    .pl(px(22.0))
                     .pr_2()
                     .gap_1()
                     .when(selected, |s| s.bg(gpui::rgb(palette().selection_bg)))
@@ -252,6 +316,40 @@ pub(super) fn design_layers_panel(
                             s.bg(gpui::rgb(palette().hover))
                         }
                     })
+                    .child(
+                        IconButton::new(
+                            ("layout-object-visible", object_id.0),
+                            if hidden { "eye-off" } else { "eye" },
+                        )
+                        .size(22.0)
+                        .icon_size(12.0)
+                        .consume_press()
+                        .disabled(object_locked || locked)
+                        .color(if hidden || !visible {
+                            palette().text_faint
+                        } else {
+                            palette().text_dim
+                        })
+                        .tooltip(t(if hidden { "design.show" } else { "design.hide" }), None)
+                        .on_click(cx.listener(move |ws, _, _, cx| {
+                            cx.stop_propagation();
+                            prepare(ws);
+                            let Some(object) = ws.design.document.object(object_id) else {
+                                return;
+                            };
+                            let hidden = !object.hidden;
+                            if structure::set_object_hidden(
+                                &mut ws.design.document,
+                                &mut ws.design.history,
+                                object_id,
+                                hidden,
+                            ) && hidden
+                            {
+                                ws.design.selection.retain(|id| *id != object_id);
+                            }
+                            cx.notify();
+                        })),
+                    )
                     .child(
                         IconButton::new(
                             ("layout-object-lock", object_id.0),
@@ -309,13 +407,13 @@ pub(super) fn design_layers_panel(
                             .min_w_0()
                             .text_xs()
                             .truncate()
-                            .tooltip(ui::tip(object.name.clone(), None))
-                            .child(object.name.clone())
+                            .tooltip(ui::tip(label.clone(), None))
+                            .child(label.clone())
                             .when(can_drag, |row| {
                                 row.on_drag(
                                     ObjectDrag {
                                         ids,
-                                        label: object.name.clone().into(),
+                                        label: label.into(),
                                     },
                                     |drag, _, _, cx| cx.new(|_| DragPreview(drag.label.clone())),
                                 )
@@ -382,7 +480,7 @@ pub(super) fn design_layers_panel(
                             div()
                                 .pl_2()
                                 .truncate()
-                                .child(format!("┄ {}", object.object.name))
+                                .child(format!("┄ {}", object_label(document, &object.object)))
                         }),
                 )
                 .into_any_element(),
@@ -429,4 +527,49 @@ pub(super) fn design_layers_panel(
             .children(rows)
             .into_any_element(),
     )
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn unnamed_objects_have_bounded_unicode_labels_without_changing_authored_names() {
+        for length in [79, 80, 81] {
+            let content = "中".repeat(length);
+            let label = excerpt(content.chars().chain([' ', '\n']));
+            assert_eq!(label.ends_with('…'), length > 80);
+            assert_eq!(
+                label.chars().count(),
+                length.min(80) + usize::from(length > 80)
+            );
+        }
+        let mut document = schist_layout::blank_a4();
+        let frame = schist_layout::authoring::text_frame(
+            &mut document,
+            &mut schist_layout::History::default(),
+            0,
+            schist_layout::Rect::new(0.0, 0.0, 100.0, 100.0),
+        )
+        .unwrap();
+        for count in [0, 1, 40, 200] {
+            document.stories[frame.story.0 as usize] =
+                schist_layout::Story::from_text("é中\n  ".repeat(count), "Body");
+            for name in ["", "$ID/", "  ", "Authored 空", "$ID/custom"] {
+                document.objects[0].name = name.into();
+                let original = document.clone();
+                let label = object_label(&document, &document.objects[0]);
+                if !name.trim().is_empty() && name != "$ID/" {
+                    assert_eq!(label, name);
+                } else if count == 0 {
+                    assert_eq!(label, t("design.text_frame"));
+                } else {
+                    assert!(label.starts_with("é中"));
+                    assert!(label.chars().count() <= 81);
+                    assert!(!label.contains('\n') && !label.contains("  "));
+                }
+                assert_eq!(document, original);
+            }
+        }
+    }
 }

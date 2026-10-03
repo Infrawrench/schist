@@ -25,46 +25,49 @@ pub(super) fn app_item_checked(ws: &Workspace, item: AppItem) -> Option<bool> {
     })
 }
 
+/// Shared by dispatch and search; raster-only actions cannot target a hidden photo.
+pub(crate) fn app_item_available_in_design(item: AppItem) -> bool {
+    matches!(
+        item,
+        AppItem::New
+            | AppItem::Close
+            | AppItem::Open
+            | AppItem::OpenRecent(_)
+            | AppItem::Save
+            | AppItem::SaveAs
+            | AppItem::Quit
+            | AppItem::Search
+            | AppItem::ZoomIn
+            | AppItem::ZoomOut
+            | AppItem::ZoomFit
+            | AppItem::ZoomActual
+            | AppItem::DesignPlace
+            | AppItem::DesignImportPages
+            | AppItem::DesignRefreshLinks
+            | AppItem::DesignOutput
+            | AppItem::PasteboardSpread
+            | AppItem::PasteboardSinglePage
+            | AppItem::OpenGallery
+            | AppItem::Workspaces
+            | AppItem::WorkspaceSave
+            | AppItem::WorkspaceUpdate
+            | AppItem::WorkspaceRename
+            | AppItem::WorkspaceDelete
+            | AppItem::WorkspaceReset
+            | AppItem::WorkspaceStarter(_)
+            | AppItem::WorkspaceSelect(_)
+            | AppItem::Preferences
+            | AppItem::ScreenModeItem
+    )
+}
+
 pub(crate) fn run_app_item(
     ws: &mut Workspace,
     item: AppItem,
     window: &mut Window,
     cx: &mut Context<Workspace>,
 ) {
-    if ws.design_mode()
-        && !matches!(
-            item,
-            AppItem::New
-                | AppItem::Close
-                | AppItem::Open
-                | AppItem::OpenRecent(_)
-                | AppItem::Save
-                | AppItem::SaveAs
-                | AppItem::Quit
-                | AppItem::Search
-                | AppItem::ZoomIn
-                | AppItem::ZoomOut
-                | AppItem::ZoomFit
-                | AppItem::ZoomActual
-                | AppItem::DesignPlace
-                | AppItem::DesignImportPages
-                | AppItem::DesignRefreshLinks
-                | AppItem::DesignOutput
-                | AppItem::PasteboardSpread
-                | AppItem::PasteboardSinglePage
-                | AppItem::OpenGallery
-                | AppItem::Workspaces
-                | AppItem::WorkspaceSave
-                | AppItem::WorkspaceUpdate
-                | AppItem::WorkspaceRename
-                | AppItem::WorkspaceDelete
-                | AppItem::WorkspaceReset
-                | AppItem::WorkspaceStarter(_)
-                | AppItem::WorkspaceSelect(_)
-                | AppItem::Preferences
-                | AppItem::ScreenModeItem
-        )
-    {
+    if ws.design_mode() && !app_item_available_in_design(item) {
         ws.status = t("design.command_unavailable").into();
         cx.notify();
         return;
@@ -617,10 +620,8 @@ pub(super) fn menu_entry_row(
     match entry {
         MenuEntry::Sep => menu_separator().into_any_element(),
         MenuEntry::Cmd(id) => {
-            let (label, hint) = ws
-                .registry
-                .command(id)
-                .map(|c| (c.title.to_string(), keybind_hint(c.keybind)))
+            let (label, hint) = command_presentation(ws, id)
+                .map(|(title, binding)| (title.to_string(), keybind_hint(binding)))
                 .unwrap_or_else(|| (id.to_string(), String::new()));
             menu_row(
                 label,

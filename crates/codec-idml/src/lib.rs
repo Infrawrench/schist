@@ -28,23 +28,34 @@
 mod auto_direction;
 mod capitalization_codec;
 pub mod container;
+mod creation_codec;
 pub mod designmap;
+mod drop_cap_codec;
 pub mod error;
 pub mod export;
+mod footnote_codec;
+mod footnote_writer;
+mod hyphenation_codec;
 pub mod import;
+mod keep_codec;
 mod language_codec;
 mod list_codec;
+mod nested_style_codec;
 pub mod plugin;
+mod resource_identity;
 mod story_codec;
 mod stroke_style_codec;
+mod structured_story;
 mod style_codec;
 pub mod xml;
 
 pub use error::Error;
 pub use plugin::IdmlCodec;
 
+mod custom_text_codec;
 mod graphic_codec;
 mod text_path_codec;
+mod text_variable_codec;
 mod thread_codec;
 
 mod color_codec;
