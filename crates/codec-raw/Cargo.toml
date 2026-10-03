@@ -19,8 +19,13 @@ image.workspace = true
 rayon.workspace = true
 thiserror.workspace = true
 log.workspace = true
+# DNG 1.7's JPEG XL tiles; pure Rust, like everything else here.
+jxl-oxide.workspace = true
 
 [dev-dependencies]
+# Encodes the JPEG XL tiles of the synthetic DNG 1.7 fixtures.
+zune-jpegxl.workspace = true
+zune-core.workspace = true
 
 [lints.rust]
 unexpected_cfgs = { level = "warn", check-cfg = ["cfg(schist_library)"] }
