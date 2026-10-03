@@ -239,3 +239,19 @@ dialog.new_doc.from_image_url = Kusuka ku-URL yesitfombe
 # Backers
 dialog.support.title = Sekela i-Schist
 dialog.support.thanks = Siyabonga kubantfu nasemabhizinisini lasekela i-Schist.
+
+# Color Lookup adjustment layers, and File > Export > Color Lookup Table
+dialog.color_lookup.table = Ithebula
+dialog.color_lookup.load = Layisha i-LUT…
+dialog.color_lookup.none = Alikho ithebula lelilayishiwe
+dialog.color_lookup.input = Okufakwako
+dialog.color_lookup.input_document = Emanani edokhumenti
+dialog.color_lookup.input_linear = Ukukhanya kwalayini
+dialog.color_lookup.note = Ifundza emafayela e-.cube (1D noma 3D) ne-.3dl. Ithebula litsatfwa ngekhatsi kwedokhumenti, ngako ifayela alisadzingeki kabusha.
+dialog.color_lookup.invalid = {name} akusilo ithebula le-.cube noma le-.3dl lelingafundzwa yi-Schist.
+dialog.export_lut.title = Tfumela Ithebula Lekufuna Umbala
+dialog.export_lut.size = Bukhulu begridi
+dialog.export_lut.camera_raw = Faka timiseto yemibala ye-Camera Raw yelileyara lelisebentako
+dialog.export_lut.note = I-LUT ingagcina kuphela tinguquko temibala letifana kuyo yonkhe i-pixel. Tifihlo telileyara, kulungisa lokunqunyiwe, emaqembu lahlukanisiwe, emalileyara e-pixel, kucaca, kubukhali, i-vignette netinye tingcamu tendzawo atifakiwe.
+dialog.export_lut.saved = Kutfunyelwe {name}
+dialog.export_lut.saved_skipped = Kutfunyelwe {name}. Emalileyara ekulungisa endzawo lashiywe: {count}

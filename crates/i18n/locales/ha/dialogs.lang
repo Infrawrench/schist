@@ -269,3 +269,19 @@ dialog.new_doc.from_image_url = Daga URL na hoto
 # Backers
 dialog.support.title = Tallafa wa Schist
 dialog.support.thanks = Godiya ga mutane da kamfanonin da ke tallafa wa Schist.
+
+# Color Lookup adjustment layers, and File > Export > Color Lookup Table
+dialog.color_lookup.table = Tebur
+dialog.color_lookup.load = Loda LUT…
+dialog.color_lookup.none = Ba a loda wani tebur ba
+dialog.color_lookup.input = Shigarwa
+dialog.color_lookup.input_document = Ƙimar daftari
+dialog.color_lookup.input_linear = Haske madaidaici
+dialog.color_lookup.note = Yana karanta fayilolin .cube (1D ko 3D) da .3dl. Ana adana teburin a cikin daftarin, don haka ba za a sake buƙatar fayil ɗin ba.
+dialog.color_lookup.invalid = {name} ba teburin .cube ko .3dl ba ne wanda Schist zai iya karantawa.
+dialog.export_lut.title = Fitar da Teburin Neman Launi
+dialog.export_lut.size = Girman grid
+dialog.export_lut.camera_raw = Haɗa saitunan launi na Camera Raw na layin da ke aiki
+dialog.export_lut.note = LUT na iya ɗaukar sauye-sauyen launi da suka yi daidai ga kowane pixel kawai. Ana barin abin rufe layi, gyare-gyaren da aka yanke, ƙungiyoyin da aka keɓe, layukan pixel, bayyanawa, kaifafawa, duhun gefe da sauran tasirin wuri.
+dialog.export_lut.saved = An fitar da {name}
+dialog.export_lut.saved_skipped = An fitar da {name}. Layukan gyaran wuri da aka bari: {count}

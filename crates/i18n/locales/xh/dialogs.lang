@@ -239,3 +239,19 @@ dialog.new_doc.from_image_url = Kwi-URL yomfanekiso
 # Backers
 dialog.support.title = Xhasa i-Schist
 dialog.support.thanks = Siyabulela kubantu nakwiinkampani ezixhasa i-Schist.
+
+# Color Lookup adjustment layers, and File > Export > Color Lookup Table
+dialog.color_lookup.table = Itheyibhile
+dialog.color_lookup.load = Layisha i-LUT…
+dialog.color_lookup.none = Akukho theyibhile ilayishiweyo
+dialog.color_lookup.input = Igalelo
+dialog.color_lookup.input_document = Amaxabiso omxholo
+dialog.color_lookup.input_linear = Ukukhanya okuthe tye
+dialog.color_lookup.note = Ifunda iifayile ze-.cube (1D okanye 3D) kunye ne-.3dl. Itheyibhile igcinwa ngaphakathi kumxholo, ngoko ifayile ayiphindi ifuneke.
+dialog.color_lookup.invalid = {name} ayiyo itheyibhile ye-.cube okanye ye-.3dl ekwaziyo ukufundwa yi-Schist.
+dialog.export_lut.title = Thumela Itheyibhile Yokujonga Umbala
+dialog.export_lut.size = Ubungakanani begridi
+dialog.export_lut.camera_raw = Dibanisa useto lombala lwe-Camera Raw lweleya esebenzayo
+dialog.export_lut.note = I-LUT inokubamba kuphela utshintsho lombala olufanayo kwiphikseli nganye. Iimaski zeleya, izilungiso ezinqunyuliweyo, amaqela ahlukanisiweyo, iileya zephikseli, ukucaca, ukubukhali, i-vignetting nezinye iziphumo zendawo ziyashiywa.
+dialog.export_lut.saved = {name} ithunyelwe
+dialog.export_lut.saved_skipped = {name} ithunyelwe. Iileya zezilungiso zendawo ezishiyiweyo: {count}

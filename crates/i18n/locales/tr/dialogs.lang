@@ -239,3 +239,19 @@ dialog.new_doc.from_image_url = Görsel URL’sinden
 # Backers
 dialog.support.title = Schist'i destekleyin
 dialog.support.thanks = Schist'i destekleyen kişilere ve markalara teşekkürler.
+
+# Color Lookup adjustment layers, and File > Export > Color Lookup Table
+dialog.color_lookup.table = Tablo
+dialog.color_lookup.load = LUT Yükle…
+dialog.color_lookup.none = Yüklü tablo yok
+dialog.color_lookup.input = Girdi
+dialog.color_lookup.input_document = Belge değerleri
+dialog.color_lookup.input_linear = Doğrusal ışık
+dialog.color_lookup.note = .cube (1D veya 3D) ve .3dl dosyalarını okur. Tablo belgenin içine kaydedilir, bu yüzden dosyaya bir daha ihtiyaç duyulmaz.
+dialog.color_lookup.invalid = {name}, Schist'in okuyabileceği bir .cube veya .3dl tablosu değil.
+dialog.export_lut.title = Renk Arama Tablosunu Dışa Aktar
+dialog.export_lut.size = Izgara boyutu
+dialog.export_lut.camera_raw = Etkin katmanın Camera Raw renk ayarlarını dahil et
+dialog.export_lut.note = Bir LUT yalnızca her piksel için aynı olan renk değişikliklerini tutabilir. Katman maskeleri, kırpılmış ayarlamalar, yalıtılmış gruplar, piksel katmanları, netlik, keskinleştirme, vinyet ve diğer uzamsal efektler dışarıda bırakılır.
+dialog.export_lut.saved = {name} dışa aktarıldı
+dialog.export_lut.saved_skipped = {name} dışa aktarıldı. Dışarıda bırakılan uzamsal ayarlama katmanları: {count}

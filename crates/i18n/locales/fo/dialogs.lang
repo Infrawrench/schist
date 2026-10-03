@@ -239,3 +239,19 @@ dialog.new_doc.from_image_url = Frá mynda-URL
 # Backers
 dialog.support.title = Stuðla Schist
 dialog.support.thanks = Takk til fólkini og fyritøkurnar, sum stuðla Schist.
+
+# Color Lookup adjustment layers, and File > Export > Color Lookup Table
+dialog.color_lookup.table = Tabell
+dialog.color_lookup.load = Les LUT inn…
+dialog.color_lookup.none = Eingin tabell innlisin
+dialog.color_lookup.input = Inntak
+dialog.color_lookup.input_document = Skjalvirði
+dialog.color_lookup.input_linear = Linjeert ljós
+dialog.color_lookup.note = Les .cube- (1D ella 3D) og .3dl-fílur. Tabellin verður goymd í skjalinum, so fílan er ikki neyðug aftur.
+dialog.color_lookup.invalid = {name} er ikki ein .cube- ella .3dl-tabell, sum Schist kann lesa.
+dialog.export_lut.title = Flyt litaleitingartabell út
+dialog.export_lut.size = Rútastødd
+dialog.export_lut.camera_raw = Tak virkna lagsins Camera Raw-litvirði við
+dialog.export_lut.note = Ein LUT kann bara halda litbroytingar, sum eru eins fyri hvønn pikil. Lagmaskur, avmarkaðar tillagingar, einangraðir bólkar, pikillag, klárleiki, skerping, vignett og aðrar rúmligar ávirkanir verða slepptar.
+dialog.export_lut.saved = Útflutt: {name}
+dialog.export_lut.saved_skipped = Útflutt: {name}. Rúmligar tillagingarlag slepp: {count}

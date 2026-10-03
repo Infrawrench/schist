@@ -231,3 +231,19 @@ dialog.new_doc.from_image_url = Mai le URL o le ata
 # Backers
 dialog.support.title = Lagolago Schist
 dialog.support.thanks = Faafetai i tagata ma kamupani o loo lagolagoina Schist.
+
+# Color Lookup adjustment layers, and File > Export > Color Lookup Table
+dialog.color_lookup.table = Laulau
+dialog.color_lookup.load = Utaina se LUT…
+dialog.color_lookup.none = Leai se laulau ua utaina
+dialog.color_lookup.input = Tuʻuina i totonu
+dialog.color_lookup.input_document = Tau o le pepa
+dialog.color_lookup.input_linear = Malamalama laina
+dialog.color_lookup.note = E faitau faila .cube (1D po o 3D) ma .3dl. E teu le laulau i totonu o le pepa, o lea e le toe manaʻomia le faila.
+dialog.color_lookup.invalid = E le o se laulau .cube po o .3dl ia {name} e mafai e Schist ona faitau.
+dialog.export_lut.title = Auina atu le Laulau o Su'esu'ega o Lanu
+dialog.export_lut.size = Lapopoa o le faatafa
+dialog.export_lut.camera_raw = Aofia ai tulaga o lanu Camera Raw o le vaega o loo galue
+dialog.export_lut.note = E mafai e se LUT ona teu naʻo suiga o lanu e tutusa mo pika taʻitasi. E le aofia ai ufiufi o vaega, fetuutuunaiga ua tipi, vaega ua vavaeese, vaega pika, manino, faamatala, faapouliuli pito ma isi aafiaga o le avanoa.
+dialog.export_lut.saved = Ua auina atu {name}
+dialog.export_lut.saved_skipped = Ua auina atu {name}. Vaega fetuutuunaiga o le avanoa ua tuua: {count}

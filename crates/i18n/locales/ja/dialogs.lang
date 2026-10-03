@@ -284,3 +284,19 @@ dialog.new_doc.from_image_url = 画像 URL から
 # Backers
 dialog.support.title = Schist を支援
 dialog.support.thanks = Schist を支援してくださる皆さまとブランドに感謝します。
+
+# Color Lookup adjustment layers, and File > Export > Color Lookup Table
+dialog.color_lookup.table = テーブル
+dialog.color_lookup.load = LUT を読み込み…
+dialog.color_lookup.none = テーブルが読み込まれていません
+dialog.color_lookup.input = 入力
+dialog.color_lookup.input_document = ドキュメントの値
+dialog.color_lookup.input_linear = リニアライト
+dialog.color_lookup.note = .cube（1D または 3D）と .3dl ファイルを読み込めます。テーブルはドキュメント内に保存されるため、ファイルは再度必要ありません。
+dialog.color_lookup.invalid = {name} は Schist が読み込める .cube または .3dl テーブルではありません。
+dialog.export_lut.title = カラールックアップテーブルを書き出し
+dialog.export_lut.size = グリッドサイズ
+dialog.export_lut.camera_raw = アクティブなレイヤーの Camera Raw カラー設定を含める
+dialog.export_lut.note = LUT に含められるのは、すべてのピクセルで同じになる色の変更のみです。レイヤーマスク、クリップされた調整、分離グループ、ピクセルレイヤー、明瞭度、シャープ、周辺光量などの空間的な効果は含まれません。
+dialog.export_lut.saved = {name} を書き出しました
+dialog.export_lut.saved_skipped = {name} を書き出しました。除外された空間的な調整レイヤー：{count}

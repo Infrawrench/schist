@@ -249,3 +249,19 @@ dialog.new_doc.from_image_url = ပုံ URL မှ
 # Backers
 dialog.support.title = Schist ကို ပံ့ပိုးပါ
 dialog.support.thanks = Schist ကို ပံ့ပိုးပေးသော လူပုဂ္ဂိုလ်များနှင့် အမှတ်တံဆိပ်များကို ကျေးဇူးတင်ပါသည်။
+
+# Color Lookup adjustment layers, and File > Export > Color Lookup Table
+dialog.color_lookup.table = ဇယား
+dialog.color_lookup.load = LUT တင်ရန်…
+dialog.color_lookup.none = ဇယား မတင်ရသေးပါ
+dialog.color_lookup.input = ထည့်သွင်းမှု
+dialog.color_lookup.input_document = စာရွက်စာတမ်း တန်ဖိုးများ
+dialog.color_lookup.input_linear = မျဉ်းဖြောင့်အလင်း
+dialog.color_lookup.note = .cube (1D သို့မဟုတ် 3D) နှင့် .3dl ဖိုင်များကို ဖတ်သည်။ ဇယားကို စာရွက်စာတမ်းအတွင်းတွင်ပင် သိမ်းဆည်းထားသောကြောင့် ဖိုင်ကို ထပ်မလိုတော့ပါ။
+dialog.color_lookup.invalid = {name} သည် Schist ဖတ်နိုင်သော .cube သို့မဟုတ် .3dl ဇယား မဟုတ်ပါ။
+dialog.export_lut.title = အရောင်ရှာဖွေမှု ဇယား ထုတ်ယူရန်
+dialog.export_lut.size = ဇယားကွက် အရွယ်အစား
+dialog.export_lut.camera_raw = လက်ရှိအလွှာ၏ Camera Raw အရောင်ဆက်တင်များကို ထည့်သွင်းရန်
+dialog.export_lut.note = LUT တွင် ပစ်ဆယ်အားလုံးအတွက် တူညီသော အရောင်ပြောင်းလဲမှုများကိုသာ ထည့်နိုင်သည်။ အလွှာမျက်နှာဖုံးများ၊ ဖြတ်တောက်ထားသော ချိန်ညှိမှုများ၊ သီးခြားအုပ်စုများ၊ ပစ်ဆယ်အလွှာများ၊ ပြတ်သားမှု၊ ချွန်ထက်စေမှု၊ ထောင့်မှောင်မှုနှင့် အခြားနေရာဆိုင်ရာ ဆန်းသစ်ပြုပြင်မှုများကို ချန်လှပ်ထားသည်။
+dialog.export_lut.saved = {name} ကို ထုတ်ယူပြီးပါပြီ
+dialog.export_lut.saved_skipped = {name} ကို ထုတ်ယူပြီးပါပြီ။ ချန်လှပ်ထားသော နေရာဆိုင်ရာ ချိန်ညှိအလွှာများ: {count}

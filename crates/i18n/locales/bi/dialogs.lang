@@ -231,3 +231,19 @@ dialog.new_doc.from_image_url = Long URL blong pikja
 # Backers
 dialog.support.title = Sapotenem Schist
 dialog.support.thanks = Tangkyu long ol man mo ol kampani we oli sapotenem Schist.
+
+# Color Lookup adjustment layers, and File > Export > Color Lookup Table
+dialog.color_lookup.table = Tebol
+dialog.color_lookup.load = Lodem LUT…
+dialog.color_lookup.none = No gat tebol we i lod
+dialog.color_lookup.input = Input
+dialog.color_lookup.input_document = Ol vaelu blong dokumen
+dialog.color_lookup.input_linear = Laet we i stret
+dialog.color_lookup.note = Hem i ridim ol fael .cube (1D o 3D) mo .3dl. Tebol i sev insaed long dokumen, mekem se bambae yu no nidim fael bakegen.
+dialog.color_lookup.invalid = {name} i no wan tebol .cube o .3dl we Schist i save ridim.
+dialog.export_lut.title = Eksportem Tebol blong Kala Lukap
+dialog.export_lut.size = Saes blong grid
+dialog.export_lut.camera_raw = Putum ol seting blong kala blong Camera Raw blong layer we i aktiv
+dialog.export_lut.note = Wan LUT i save holem ol jenis blong kala nomo we i sem long evri pikseol. Ol mask blong layer, ol adjastmen we i klip, ol grup we i aeslet, ol pikseol layer, klaeriti, sapenin, vinyet mo ol narafala efek blong ples i no stap insaed.
+dialog.export_lut.saved = I eksport finis {name}
+dialog.export_lut.saved_skipped = I eksport finis {name}. Ol adjastmen layer blong ples we oli lusum: {count}

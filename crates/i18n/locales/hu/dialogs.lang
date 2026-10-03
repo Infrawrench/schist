@@ -239,3 +239,19 @@ dialog.new_doc.from_image_url = Kép URL-címéről
 # Backers
 dialog.support.title = A Schist támogatása
 dialog.support.thanks = Köszönjük a Schist támogatóinak és a támogató márkáknak.
+
+# Color Lookup adjustment layers, and File > Export > Color Lookup Table
+dialog.color_lookup.table = Tábla
+dialog.color_lookup.load = LUT betöltése…
+dialog.color_lookup.none = Nincs betöltött tábla
+dialog.color_lookup.input = Bemenet
+dialog.color_lookup.input_document = Dokumentumértékek
+dialog.color_lookup.input_linear = Lineáris fény
+dialog.color_lookup.note = A .cube (1D vagy 3D) és .3dl fájlokat olvassa. A tábla a dokumentumba mentődik, így a fájlra később nincs szükség.
+dialog.color_lookup.invalid = A(z) {name} nem olyan .cube vagy .3dl tábla, amelyet a Schist be tud olvasni.
+dialog.export_lut.title = Színkeresési tábla exportálása
+dialog.export_lut.size = Rácsméret
+dialog.export_lut.camera_raw = Az aktív réteg Camera Raw színbeállításainak belefoglalása
+dialog.export_lut.note = A LUT csak olyan színváltoztatásokat tárolhat, amelyek minden képpontra azonosak. A rétegmaszkok, a vágott korrekciók, az izolált csoportok, a képpontrétegek, a tisztaság, az élesítés, a vignettálás és más térbeli effektusok kimaradnak.
+dialog.export_lut.saved = Exportálva: {name}
+dialog.export_lut.saved_skipped = Exportálva: {name}. Kihagyott térbeli korrekciós rétegek: {count}

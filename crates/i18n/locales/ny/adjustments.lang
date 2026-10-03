@@ -16,4 +16,5 @@ adjustment.photo_filter.name = Sefa ya Chithunzi
 adjustment.gradient_map.name = Mapu a Mitundu Yosakanikirana
 adjustment.selective_color.name = Kusankha Mtundu
 adjustment.channel_mixer.name = Chosakanizira Ma Channel
+adjustment.color_lookup.name = Kusaka Mtundu
 adjustment.other.name = Kusintha

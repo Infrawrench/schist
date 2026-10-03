@@ -241,3 +241,19 @@ dialog.new_doc.from_image_url = De URL di imajo
 # Backers
 dialog.support.title = Sustenez Schist
 dialog.support.thanks = Dankon a la personi e marko-nomi qui sustenas Schist.
+
+# Color Lookup adjustment layers, and File > Export > Color Lookup Table
+dialog.color_lookup.table = Tabelo
+dialog.color_lookup.load = Ukarigar LUT…
+dialog.color_lookup.none = Nula tabelo ukarigita
+dialog.color_lookup.input = Eniro
+dialog.color_lookup.input_document = Valori dil dokumento
+dialog.color_lookup.input_linear = Lineara lumo
+dialog.color_lookup.note = Lektas dosieri .cube (1D o 3D) e .3dl. La tabelo konservesas en la dokumento, do la dosiero ne bezonesas denove.
+dialog.color_lookup.invalid = {name} ne esas tabelo .cube o .3dl quan Schist povas lektar.
+dialog.export_lut.title = Exportar konsultotabelo di koloro
+dialog.export_lut.size = Grandeso di krado
+dialog.export_lut.camera_raw = Inkluzar la koloro-ajusti Camera Raw dil aktiva tavolo
+dialog.export_lut.note = LUT povas tenar nur koloro-chanji quo esas la sama por omna pikselo. Tavolomaski, tranchita ajusti, izolita grupi, pikseltavoli, klareso, akutigo, vinjetado e altra spaciala efekti esas omisita.
+dialog.export_lut.saved = Exportita {name}
+dialog.export_lut.saved_skipped = Exportita {name}. Spaciala ajustotavoli omisita: {count}

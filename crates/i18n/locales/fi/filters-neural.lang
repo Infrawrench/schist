@@ -27,6 +27,25 @@ filter.camera_raw.param.vibrance = Eloisuus
 filter.camera_raw.param.sharpening = Terävöitys
 filter.camera_raw.param.noise = Kohinan vähennys
 filter.camera_raw.param.vignette = Vinjetointi
+filter.camera_raw.grading_title = Värigradointi
+filter.camera_raw.grading_shadows = Varjot
+filter.camera_raw.grading_midtones = Keskisävyt
+filter.camera_raw.grading_highlights = Huippuvalot
+filter.camera_raw.grading_global = Yleinen
+filter.camera_raw.param.grade_shadows_hue = varjojen sävy
+filter.camera_raw.param.grade_shadows_sat = varjojen kylläisyys
+filter.camera_raw.param.grade_shadows_lum = varjojen luminanssi
+filter.camera_raw.param.grade_midtones_hue = keskisävyjen sävy
+filter.camera_raw.param.grade_midtones_sat = keskisävyjen kylläisyys
+filter.camera_raw.param.grade_midtones_lum = keskisävyjen luminanssi
+filter.camera_raw.param.grade_highlights_hue = huippuvalojen sävy
+filter.camera_raw.param.grade_highlights_sat = huippuvalojen kylläisyys
+filter.camera_raw.param.grade_highlights_lum = huippuvalojen luminanssi
+filter.camera_raw.param.grade_global_hue = yleinen sävy
+filter.camera_raw.param.grade_global_sat = yleinen kylläisyys
+filter.camera_raw.param.grade_global_lum = yleinen luminanssi
+filter.camera_raw.param.grade_blending = Sekoitus
+filter.camera_raw.param.grade_balance = Tasapaino
 
 # Linssikorjaus
 filter.lens_correction.name = Linssikorjaus

@@ -231,3 +231,19 @@ dialog.new_doc.from_image_url = Ginen i URL i litratu
 # Backers
 dialog.support.title = Sostieni Schist
 dialog.support.thanks = Si Yu’os ma’åse’ i taotao yan kompania siha ni sumosostieni Schist.
+
+# Color Lookup adjustment layers, and File > Export > Color Lookup Table
+dialog.color_lookup.table = Tabla
+dialog.color_lookup.load = Kånga LUT…
+dialog.color_lookup.none = Taya' tabla ni ma kånga
+dialog.color_lookup.input = Entrada
+dialog.color_lookup.input_document = Value siha gi dokumento
+dialog.color_lookup.input_linear = Linear na klaru
+dialog.color_lookup.note = Ma lie' .cube (1D pat 3D) yan .3dl na file siha. I tabla ma guaha gi halom i dokumento, ya ti ma nesesita ta'lo i file.
+dialog.color_lookup.invalid = Ti .cube pat .3dl na tabla i {name} ni siña Schist umali'e'.
+dialog.export_lut.title = Esporta i Tabla Kulot
+dialog.export_lut.size = Dångkolon i grid
+dialog.export_lut.camera_raw = Incluye i Camera Raw na kulot setting siha gi aktibu na layer
+dialog.export_lut.note = Un LUT siña ha' mantieni kambion kulot ni parehu para todu i pixel. I layer mask siha, adjustment ni ma kotta, grupo ni ma aislao, pixel layer siha, clarity, sharpening, vignetting yan otro na spatial effect siha ti kumohon.
+dialog.export_lut.saved = Ma esporta {name}
+dialog.export_lut.saved_skipped = Ma esporta {name}. Spatial adjustment layer siha ni ma åtsa: {count}

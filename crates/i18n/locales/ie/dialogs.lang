@@ -240,3 +240,19 @@ dialog.new_doc.from_image_url = Ex un URL de image
 # Backers
 dialog.support.title = Subtene Schist
 dialog.support.thanks = Mersí al persones e marcas quel subtene Schist.
+
+# Color Lookup adjustment layers, and File > Export > Color Lookup Table
+dialog.color_lookup.table = Tabelle
+dialog.color_lookup.load = Cargar LUT…
+dialog.color_lookup.none = Null tabelle cargat
+dialog.color_lookup.input = Intrada
+dialog.color_lookup.input_document = Valores del document
+dialog.color_lookup.input_linear = Lumine linear
+dialog.color_lookup.note = Lee files .cube (1D o 3D) e .3dl. Li tabelle es salvat in li document, dunc li file ne es necessari denov.
+dialog.color_lookup.invalid = {name} ne es un tabelle .cube o .3dl quel Schist posse leer.
+dialog.export_lut.title = Exportar tabelle de consulta de colores
+dialog.export_lut.size = Grandore de rete
+dialog.export_lut.camera_raw = Includer li parametres de color de Camera Raw del strate activ
+dialog.export_lut.note = Un LUT posse contener solmen changes de color queles es li sam por omni pixel. Masks de strate, ajustes tonde, gruppes isolat, strates de pixeles, claritá, acuitation, vignettation e altri efectes spatial es omisset.
+dialog.export_lut.saved = Exportat {name}
+dialog.export_lut.saved_skipped = Exportat {name}. Strates de ajustation spatial omisset: {count}

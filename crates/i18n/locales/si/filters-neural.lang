@@ -26,6 +26,25 @@ filter.camera_raw.param.vibrance = වර්ණ සජීවීතාව
 filter.camera_raw.param.sharpening = තියුණු කිරීම
 filter.camera_raw.param.noise = රූප ඝෝෂාව අඩු කිරීම
 filter.camera_raw.param.vignette = කෙළවර අඳුරු කිරීම
+filter.camera_raw.grading_title = වර්ණ ශ්‍රේණිගත කිරීම
+filter.camera_raw.grading_shadows = සෙවණැලි
+filter.camera_raw.grading_midtones = මධ්‍ය ටෝන
+filter.camera_raw.grading_highlights = දීප්ත කොටස්
+filter.camera_raw.grading_global = ගෝලීය
+filter.camera_raw.param.grade_shadows_hue = සෙවණැලි පැහැය
+filter.camera_raw.param.grade_shadows_sat = සෙවණැලි සන්තෘප්තිය
+filter.camera_raw.param.grade_shadows_lum = සෙවණැලි දීප්තිය
+filter.camera_raw.param.grade_midtones_hue = මධ්‍ය ටෝන පැහැය
+filter.camera_raw.param.grade_midtones_sat = මධ්‍ය ටෝන සන්තෘප්තිය
+filter.camera_raw.param.grade_midtones_lum = මධ්‍ය ටෝන දීප්තිය
+filter.camera_raw.param.grade_highlights_hue = දීප්ත කොටස් පැහැය
+filter.camera_raw.param.grade_highlights_sat = දීප්ත කොටස් සන්තෘප්තිය
+filter.camera_raw.param.grade_highlights_lum = දීප්ත කොටස් දීප්තිය
+filter.camera_raw.param.grade_global_hue = ගෝලීය පැහැය
+filter.camera_raw.param.grade_global_sat = ගෝලීය සන්තෘප්තිය
+filter.camera_raw.param.grade_global_lum = ගෝලීය දීප්තිය
+filter.camera_raw.param.grade_blending = මිශ්‍ර කිරීම
+filter.camera_raw.param.grade_balance = සමතුලිතතාව
 
 # කාච නිවැරදි කිරීම
 filter.lens_correction.name = කාච නිවැරදි කිරීම

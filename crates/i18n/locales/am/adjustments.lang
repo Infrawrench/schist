@@ -17,4 +17,5 @@ adjustment.photo_filter.name = የፎቶ ማጣሪያ
 adjustment.gradient_map.name = የቀለም ሽግግር ካርታ
 adjustment.selective_color.name = የተመረጠ ቀለም
 adjustment.channel_mixer.name = የሰርጥ ቀላቃይ
+adjustment.color_lookup.name = የቀለም ፍለጋ
 adjustment.other.name = ማስተካከያ

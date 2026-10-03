@@ -16,4 +16,5 @@ adjustment.photo_filter.name = Fotoğraf Filtresi
 adjustment.gradient_map.name = Degrade Haritası
 adjustment.selective_color.name = Seçmeli Renk
 adjustment.channel_mixer.name = Kanal Karıştırıcı
+adjustment.color_lookup.name = Renk Arama
 adjustment.other.name = Ayarlama

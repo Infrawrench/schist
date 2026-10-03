@@ -26,6 +26,25 @@ filter.camera_raw.param.vibrance = رنگن جي تازگي
 filter.camera_raw.param.sharpening = تيز ڪرڻ
 filter.camera_raw.param.noise = شور گهٽائڻ
 filter.camera_raw.param.vignette = ڪنارن جي اونداهپ
+filter.camera_raw.grading_title = رنگ گريڊنگ
+filter.camera_raw.grading_shadows = ڇانورا
+filter.camera_raw.grading_midtones = وچولا ٽون
+filter.camera_raw.grading_highlights = روشن حصا
+filter.camera_raw.grading_global = عالمي
+filter.camera_raw.param.grade_shadows_hue = ڇانورا رنگت
+filter.camera_raw.param.grade_shadows_sat = ڇانورا سيرشدگي
+filter.camera_raw.param.grade_shadows_lum = ڇانورا روشني
+filter.camera_raw.param.grade_midtones_hue = وچولا ٽون رنگت
+filter.camera_raw.param.grade_midtones_sat = وچولا ٽون سيرشدگي
+filter.camera_raw.param.grade_midtones_lum = وچولا ٽون روشني
+filter.camera_raw.param.grade_highlights_hue = روشن حصا رنگت
+filter.camera_raw.param.grade_highlights_sat = روشن حصا سيرشدگي
+filter.camera_raw.param.grade_highlights_lum = روشن حصا روشني
+filter.camera_raw.param.grade_global_hue = عالمي رنگت
+filter.camera_raw.param.grade_global_sat = عالمي سيرشدگي
+filter.camera_raw.param.grade_global_lum = عالمي روشني
+filter.camera_raw.param.grade_blending = ميلاپ
+filter.camera_raw.param.grade_balance = توازن
 
 # لينس جي درستي
 filter.lens_correction.name = لينس جي درستي

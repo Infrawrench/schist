@@ -17,4 +17,5 @@ adjustment.photo_filter.name = Լուսանկարչական զտիչ
 adjustment.gradient_map.name = Գրադիենտային քարտեզ
 adjustment.selective_color.name = Ընտրովի գույն
 adjustment.channel_mixer.name = Կապուղիների խառնիչ
+adjustment.color_lookup.name = Գույնի որոնում
 adjustment.other.name = Կարգավորում

@@ -17,5 +17,6 @@ adjustment.photo_filter.name = 포토 필터
 adjustment.gradient_map.name = 그레이디언트 맵
 adjustment.selective_color.name = 선택 색상
 adjustment.channel_mixer.name = 채널 혼합
+adjustment.color_lookup.name = 색상 룩업
 # Schist에서 편집할 수 없는 PSD 조정 유형입니다.
 adjustment.other.name = 조정

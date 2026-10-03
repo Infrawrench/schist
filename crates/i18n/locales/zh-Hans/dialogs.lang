@@ -281,3 +281,19 @@ dialog.new_doc.from_image_url = 从图像 URL
 # Backers
 dialog.support.title = 支持 Schist
 dialog.support.thanks = 感谢所有支持 Schist 的个人和品牌。
+
+# Color Lookup adjustment layers, and File > Export > Color Lookup Table
+dialog.color_lookup.table = 表格
+dialog.color_lookup.load = 载入 LUT…
+dialog.color_lookup.none = 未载入表格
+dialog.color_lookup.input = 输入
+dialog.color_lookup.input_document = 文档数值
+dialog.color_lookup.input_linear = 线性光
+dialog.color_lookup.note = 支持读取 .cube（1D 或 3D）和 .3dl 文件。表格会保存在文档内，因此之后不再需要原文件。
+dialog.color_lookup.invalid = {name} 不是 Schist 可以读取的 .cube 或 .3dl 表格。
+dialog.export_lut.title = 导出颜色查找表
+dialog.export_lut.size = 网格大小
+dialog.export_lut.camera_raw = 包含活动图层的 Camera Raw 颜色设置
+dialog.export_lut.note = LUT 只能包含对每个像素都相同的颜色变化。图层蒙版、剪贴的调整、隔离组、像素图层、清晰度、锐化、晕影以及其他空间效果都不会包含在内。
+dialog.export_lut.saved = 已导出 {name}
+dialog.export_lut.saved_skipped = 已导出 {name}。已略过的空间调整图层：{count}

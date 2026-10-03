@@ -250,3 +250,19 @@ dialog.new_doc.from_image_url = Rikch’aypa URL-ninmanta
 # Backers
 dialog.support.title = Schist yanapay
 dialog.support.thanks = Schist yanapaq runakunaman, empresakunamanpas añay.
+
+# Color Lookup adjustment layers, and File > Export > Color Lookup Table
+dialog.color_lookup.table = Tabla
+dialog.color_lookup.load = LUT churay…
+dialog.color_lookup.none = Mana tabla churasqachu
+dialog.color_lookup.input = Yaykuy
+dialog.color_lookup.input_document = Willañiqi chanikuna
+dialog.color_lookup.input_linear = Siqi k'anchay
+dialog.color_lookup.note = .cube (1D icha 3D) chaymanta .3dl willañiqikunata ñawinchan. Tablaqa willañiqi ukhupi waqaychasqa, chayrayku mana kutiqta willañiqi necesitakunchu.
+dialog.color_lookup.invalid = {name} mana .cube icha .3dl tablachu, Schist ñawinchayta atinman.
+dialog.export_lut.title = Llimp'i maskay tabla lluqsichiy
+dialog.export_lut.size = Sinchi tupuy
+dialog.export_lut.camera_raw = Llamkachkaq p'achap Camera Raw llimp'i churaykunata yapay
+dialog.export_lut.note = LUTqa llapa pixelpaq kaqlla llimp'i tikraykunallatam hap'in. P'acha mask, k'irisqa allichaykuna, sapaqchasqa huñukuna, pixel p'achakuna, clarity, sinchiyachiy, viñeta hinallataq huk espacial efectokunam saqisqa kanku.
+dialog.export_lut.saved = {name} lluqsichisqa
+dialog.export_lut.saved_skipped = {name} lluqsichisqa. Saqisqa espacial allichay p'achakuna: {count}

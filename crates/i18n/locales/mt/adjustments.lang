@@ -19,5 +19,6 @@ adjustment.photo_filter.name = Filtru Fotografiku
 adjustment.gradient_map.name = Mappa tal-Gradjent
 adjustment.selective_color.name = Kulur Selettiv
 adjustment.channel_mixer.name = Ħallat il-Kanali
+adjustment.color_lookup.name = Tfittxija tal-Kuluri
 # Tip li jinqara minn PSD u li Schist ma għandux editur għalih.
 adjustment.other.name = Aġġustament

@@ -231,3 +231,19 @@ dialog.new_doc.from_image_url = Jān URL in pija
 # Backers
 dialog.support.title = Jipan Schist
 dialog.support.thanks = Kommool ñan armej im peej kein rej jipañ Schist.
+
+# Color Lookup adjustment layers, and File > Export > Color Lookup Table
+dialog.color_lookup.table = Table
+dialog.color_lookup.load = Kaje LUT…
+dialog.color_lookup.none = Ejelok table ekaje
+dialog.color_lookup.input = Kōpooj
+dialog.color_lookup.input_document = Value ko an jeje
+dialog.color_lookup.input_linear = Ṃeram linear
+dialog.color_lookup.note = Ear .cube (1D ak 3D) im .3dl file ko. Table eo ej kaje ilo jeje eo, innām file eo ejjab aikuj wōt.
+dialog.color_lookup.invalid = {name} ejjab .cube ak .3dl table eo Schist emaroñ lale.
+dialog.export_lut.title = Export Table in Lale Kōļar
+dialog.export_lut.size = Jonan grid
+dialog.export_lut.camera_raw = Kobaik kōļar settings an Camera Raw an layer eo ekōmman jerbal
+dialog.export_lut.note = LUT emaroñ kajeik wōt oktak in kōļar ko rejañin jen ñan pixel otemjej. Layer mask, adjustment ko rejibwe, group ko rejañin, pixel layer, clarity, sharpening, vignetting im bar spatial effect ko renaj kōtļo.
+dialog.export_lut.saved = Export {name}
+dialog.export_lut.saved_skipped = Export {name}. Spatial adjustment layer ko rekōtļo: {count}

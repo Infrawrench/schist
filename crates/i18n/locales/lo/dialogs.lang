@@ -231,3 +231,19 @@ dialog.new_doc.from_image_url = ຈາກ URL ຮູບພາບ
 # Backers
 dialog.support.title = ສະໜັບສະໜູນ Schist
 dialog.support.thanks = ຂອບໃຈບຸກຄົນ ແລະ ຍີ່ຫໍ້ທີ່ສະໜັບສະໜູນ Schist.
+
+# Color Lookup adjustment layers, and File > Export > Color Lookup Table
+dialog.color_lookup.table = ຕາຕະລາງ
+dialog.color_lookup.load = ໂຫຼດ LUT…
+dialog.color_lookup.none = ບໍ່ໄດ້ໂຫຼດຕາຕະລາງ
+dialog.color_lookup.input = ຂໍ້ມູນເຂົ້າ
+dialog.color_lookup.input_document = ຄ່າຂອງເອກະສານ
+dialog.color_lookup.input_linear = ແສງເສັ້ນຊື່
+dialog.color_lookup.note = ອ່ານໄຟລ໌ .cube (1D ຫຼື 3D) ແລະ .3dl. ຕາຕະລາງຖືກບັນທຶກໄວ້ໃນເອກະສານ ດັ່ງນັ້ນຈຶ່ງບໍ່ຕ້ອງໃຊ້ໄຟລ໌ອີກ.
+dialog.color_lookup.invalid = {name} ບໍ່ແມ່ນຕາຕະລາງ .cube ຫຼື .3dl ທີ່ Schist ອ່ານໄດ້.
+dialog.export_lut.title = ສົ່ງອອກຕາຕະລາງຊອກຫາສີ
+dialog.export_lut.size = ຂະໜາດຕາຂ່າຍ
+dialog.export_lut.camera_raw = ລວມການຕັ້ງຄ່າສີ Camera Raw ຂອງຊັ້ນທີ່ໃຊ້ງານຢູ່
+dialog.export_lut.note = LUT ເກັບໄດ້ສະເພາະການປ່ຽນສີທີ່ຄືກັນສຳລັບທຸກພິກເຊວເທົ່ານັ້ນ. ໜ້າກາກຊັ້ນ, ການປັບທີ່ຖືກຕັດ, ກຸ່ມທີ່ແຍກຕ່າງຫາກ, ຊັ້ນພິກເຊວ, ຄວາມຄົມຊັດ, ການເຮັດໃຫ້ຄົມ, ຂອບມືດ ແລະ ເອັບເຟັກຕາມພື້ນທີ່ອື່ນໆ ຈະຖືກຍົກເວັ້ນ.
+dialog.export_lut.saved = ສົ່ງອອກ {name} ແລ້ວ
+dialog.export_lut.saved_skipped = ສົ່ງອອກ {name} ແລ້ວ. ຊັ້ນປັບຕາມພື້ນທີ່ທີ່ຖືກຍົກເວັ້ນ: {count}

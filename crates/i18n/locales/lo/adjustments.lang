@@ -16,4 +16,5 @@ adjustment.photo_filter.name = ຟິວເຕີຮູບພາບ
 adjustment.gradient_map.name = ແຜນຜັງສີໄລ່ລະດັບ
 adjustment.selective_color.name = ປັບສີແບບເລືອກ
 adjustment.channel_mixer.name = ຕົວປະສົມຊ່ອງສີ
+adjustment.color_lookup.name = ການຊອກຫາສີ
 adjustment.other.name = ການປັບແຕ່ງ

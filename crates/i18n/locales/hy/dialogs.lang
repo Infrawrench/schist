@@ -240,3 +240,19 @@ dialog.new_doc.from_image_url = Պատկերի URL-ից
 # Backers
 dialog.support.title = Աջակցել Schist-ին
 dialog.support.thanks = Շնորհակալություն Schist-ին աջակցող մարդկանց և ապրանքանիշերին։
+
+# Color Lookup adjustment layers, and File ▸ Export ▸ Color Lookup Table
+dialog.color_lookup.table = Աղյուսակ
+dialog.color_lookup.load = Բեռնել LUT…
+dialog.color_lookup.none = Աղյուսակ չի բեռնվել
+dialog.color_lookup.input = Մուտք
+dialog.color_lookup.input_document = Փաստաթղթի արժեքներ
+dialog.color_lookup.input_linear = Գծային լույս
+dialog.color_lookup.note = Կարդում է .cube (1D կամ 3D) և .3dl ֆայլեր։ Աղյուսակը պահվում է փաստաթղթի ներսում, ուստի ֆայլն այլևս պետք չէ։
+dialog.color_lookup.invalid = {name}-ը .cube կամ .3dl աղյուսակ չէ, որը Schist-ը կարող է կարդալ։
+dialog.export_lut.title = Արտահանել գույնի որոնման աղյուսակ
+dialog.export_lut.size = Ցանցի չափ
+dialog.export_lut.camera_raw = Ներառել ակտիվ շերտի Camera Raw գունային կարգավորումները
+dialog.export_lut.note = LUT-ը կարող է պահել միայն այն գունային փոփոխությունները, որոնք նույնն են յուրաքանչյուր պիքսելի համար։ Շերտի դիմակները, կտրված ճշգրտումները, մեկուսացված խմբերը, պիքսելային շերտերը, հստակությունը, սրումը, վինյետավորումը և այլ տարածական էֆեկտները բացառվում են։
+dialog.export_lut.saved = {name}-ը արտահանվեց
+dialog.export_lut.saved_skipped = {name}-ը արտահանվեց։ Բաց թողնված տարածական ճշգրտման շերտեր՝ {count}

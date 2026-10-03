@@ -254,3 +254,19 @@ dialog.new_doc.from_image_url = Kuchokera pa URL ya chithunzi
 # Backers
 dialog.support.title = Thandizani Schist
 dialog.support.thanks = Zikomo kwa anthu ndi makampani omwe amathandiza Schist.
+
+# Color Lookup adjustment layers, and File > Export > Color Lookup Table
+dialog.color_lookup.table = Tebulo
+dialog.color_lookup.load = Kwezani LUT…
+dialog.color_lookup.none = Palibe tebulo lokwezedwa
+dialog.color_lookup.input = Cholowetsa
+dialog.color_lookup.input_document = Mfundo za chikalata
+dialog.color_lookup.input_linear = Kuwala kolunjika
+dialog.color_lookup.note = Imawerenga mafayilo a .cube (1D kapena 3D) ndi .3dl. Tebulo limasungidwa mkati mwa chikalata, choncho fayilo siifunikanso.
+dialog.color_lookup.invalid = {name} si tebulo la .cube kapena .3dl lomwe Schist ingawerenge.
+dialog.export_lut.title = Tumizani Tebulo la Kusaka Mtundu
+dialog.export_lut.size = Kukula kwa gridi
+dialog.export_lut.camera_raw = Phatikizani makonda a mtundu a Camera Raw a gawo logwira ntchito
+dialog.export_lut.note = LUT imatha kusunga kusintha kwa mtundu komwe kuli kofanana pa pixel iliyonse. Zophimba za gawo, zosintha zodulidwa, magulu odzipatula, magawo a pixel, kumveka bwino, kunoleza, vignette ndi zotsatira zina zapamalo sizikuphatikizidwa.
+dialog.export_lut.saved = Yatumizidwa {name}
+dialog.export_lut.saved_skipped = Yatumizidwa {name}. Magawo osintha apamalo omwe asiyidwa: {count}

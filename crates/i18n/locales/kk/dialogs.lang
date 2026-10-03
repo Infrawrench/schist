@@ -262,3 +262,19 @@ dialog.new_doc.from_image_url = Сурет URL мекенжайынан
 # Backers
 dialog.support.title = Schist-ті қолдау
 dialog.support.thanks = Schist-ті қолдайтын адамдар мен брендтерге рақмет.
+
+# Color Lookup adjustment layers, and File > Export > Color Lookup Table
+dialog.color_lookup.table = Кесте
+dialog.color_lookup.load = LUT жүктеу…
+dialog.color_lookup.none = Кесте жүктелмеген
+dialog.color_lookup.input = Кіріс
+dialog.color_lookup.input_document = Құжат мәндері
+dialog.color_lookup.input_linear = Сызықтық жарық
+dialog.color_lookup.note = .cube (1D немесе 3D) және .3dl файлдарын оқиды. Кесте құжаттың ішінде сақталады, сондықтан файл қайта қажет емес.
+dialog.color_lookup.invalid = {name} — Schist оқи алатын .cube немесе .3dl кестесі емес.
+dialog.export_lut.title = Түсті іздеу кестесін экспорттау
+dialog.export_lut.size = Тор өлшемі
+dialog.export_lut.camera_raw = Белсенді қабаттың Camera Raw түс параметрлерін қосу
+dialog.export_lut.note = LUT тек әр пиксель үшін бірдей түс өзгерістерін сақтай алады. Қабат маскалары, қиылған түзетулер, оқшауланған топтар, пиксель қабаттары, анықтық, айқындау, виньеттеу және басқа кеңістіктік эффектілер қосылмайды.
+dialog.export_lut.saved = {name} экспортталды
+dialog.export_lut.saved_skipped = {name} экспортталды. Өткізілген кеңістіктік түзету қабаттары: {count}

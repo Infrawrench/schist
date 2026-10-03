@@ -17,4 +17,5 @@ adjustment.photo_filter.name = Фотафільтр
 adjustment.gradient_map.name = Карта градыента
 adjustment.selective_color.name = Выбарачная карэкцыя колеру
 adjustment.channel_mixer.name = Змешванне каналаў
+adjustment.color_lookup.name = Пошук колеру
 adjustment.other.name = Карэкцыя

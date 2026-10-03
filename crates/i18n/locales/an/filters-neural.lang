@@ -26,6 +26,25 @@ filter.camera_raw.param.vibrance = Vivacidat
 filter.camera_raw.param.sharpening = Enfoque
 filter.camera_raw.param.noise = Reducción de rudio
 filter.camera_raw.param.vignette = Vinyeta
+filter.camera_raw.grading_title = Gradación de color
+filter.camera_raw.grading_shadows = Uembras
+filter.camera_raw.grading_midtones = Tons meyanos
+filter.camera_raw.grading_highlights = Luces
+filter.camera_raw.grading_global = Global
+filter.camera_raw.param.grade_shadows_hue = Tonalidat d'as uembras
+filter.camera_raw.param.grade_shadows_sat = Saturación d'as uembras
+filter.camera_raw.param.grade_shadows_lum = Luminosidat d'as uembras
+filter.camera_raw.param.grade_midtones_hue = Tonalidat d'os tons meyanos
+filter.camera_raw.param.grade_midtones_sat = Saturación d'os tons meyanos
+filter.camera_raw.param.grade_midtones_lum = Luminosidat d'os tons meyanos
+filter.camera_raw.param.grade_highlights_hue = Tonalidat d'as luces
+filter.camera_raw.param.grade_highlights_sat = Saturación d'as luces
+filter.camera_raw.param.grade_highlights_lum = Luminosidat d'as luces
+filter.camera_raw.param.grade_global_hue = Tonalidat global
+filter.camera_raw.param.grade_global_sat = Saturación global
+filter.camera_raw.param.grade_global_lum = Luminosidat global
+filter.camera_raw.param.grade_blending = Fusión
+filter.camera_raw.param.grade_balance = Equilibrio
 
 # Corrección d'obchectivo
 filter.lens_correction.name = Corrección d'obchectivo

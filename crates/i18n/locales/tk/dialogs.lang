@@ -262,3 +262,19 @@ dialog.new_doc.from_image_url = Surat URL-den
 # Backers
 dialog.support.title = Schist-i goldaň
 dialog.support.thanks = Schist-i goldaýan adamlara we markalara sag bolsun aýdýarys.
+
+# Color Lookup adjustment layers, and File > Export > Color Lookup Table
+dialog.color_lookup.table = Tablisa
+dialog.color_lookup.load = LUT ýükle…
+dialog.color_lookup.none = Tablisa ýüklenmedi
+dialog.color_lookup.input = Giriş
+dialog.color_lookup.input_document = Resminama bahalary
+dialog.color_lookup.input_linear = Çyzykly ýagtylyk
+dialog.color_lookup.note = .cube (1D ýa-da 3D) we .3dl faýllaryny okaýar. Tablisa resminamanyň içinde saklanýar, şonuň üçin faýl ýene gerek däl.
+dialog.color_lookup.invalid = {name} Schist-iň okap bilýän .cube ýa-da .3dl tablisasy däl.
+dialog.export_lut.title = Reňk gözleg tablisasyny eksport etmek
+dialog.export_lut.size = Tor ölçegi
+dialog.export_lut.camera_raw = Işjeň gatlagyň Camera Raw reňk sazlamalaryny goş
+dialog.export_lut.note = LUT diňe her piksel üçin birmeňzeş bolan reňk üýtgeşmelerini saklap biler. Gatlak maskalary, kesilen sazlamalar, aýrylan toparlar, piksel gatlaklary, aýdyňlyk, ýiti etmek, winýetka we beýleki giňişlik effektleri goşulmaýar.
+dialog.export_lut.saved = {name} eksport edildi
+dialog.export_lut.saved_skipped = {name} eksport edildi. Giňişlik sazlama gatlaklary goşulmady: {count}

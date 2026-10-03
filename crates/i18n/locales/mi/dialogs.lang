@@ -231,3 +231,19 @@ dialog.new_doc.from_image_url = Mai i te URL atahanga
 # Backers
 dialog.support.title = Tautoko i a Schist
 dialog.support.thanks = Ngā mihi ki ngā tāngata me ngā pakihi e tautoko ana i a Schist.
+
+# Color Lookup adjustment layers, and File > Export > Color Lookup Table
+dialog.color_lookup.table = Tūtohi
+dialog.color_lookup.load = Uta LUT…
+dialog.color_lookup.none = Kāore he tūtohi i utaina
+dialog.color_lookup.input = Whakaurunga
+dialog.color_lookup.input_document = Ngā uara tuhinga
+dialog.color_lookup.input_linear = Marama rārangi
+dialog.color_lookup.note = Ka pānui i ngā kōnae .cube (1D, 3D rānei) me .3dl. Ka tiakina te tūtohi ki roto i te tuhinga, nō reira kāore e hiahiatia anō te kōnae.
+dialog.color_lookup.invalid = Ehara a {name} i te tūtohi .cube, .3dl rānei e taea e Schist te pānui.
+dialog.export_lut.title = Kaweake Tūtohi Rapu Tae
+dialog.export_lut.size = Rahi mahere
+dialog.export_lut.camera_raw = Whakauru i ngā tautuhinga tae Camera Raw o te paparanga hohe
+dialog.export_lut.note = Ka taea e te LUT te pupuri i ngā huringa tae e ōrite ana mō ia pika anake. Ka waihohia ngā kopare paparanga, ngā whakatikatika kua tapahia, ngā rōpū wehe, ngā paparanga pika, te pāthaka, te whakakoi, te tāpare ātauri me ētahi atu paanga mokowā.
+dialog.export_lut.saved = Kua kawea {name}
+dialog.export_lut.saved_skipped = Kua kawea {name}. Ngā paparanga whakatikatika mokowā i waihohia: {count}

@@ -258,3 +258,19 @@ dialog.new_doc.from_image_url = Gova URL-čujuhusas
 # Backers
 dialog.support.title = Doarjjo Schist
 dialog.support.thanks = Giitu olbmuide ja fitnodagaide mat dorjot Schist.
+
+# Color Lookup adjustment layers, and File > Export > Color Lookup Table
+dialog.color_lookup.table = Dábela
+dialog.color_lookup.load = Viečča LUT…
+dialog.color_lookup.none = Ii leat dábela viežžojuvvon
+dialog.color_lookup.input = Sisdoallu
+dialog.color_lookup.input_document = Dokumeantta árvvut
+dialog.color_lookup.input_linear = Linjeára čuovga
+dialog.color_lookup.note = Lohká .cube- (1D dahje 3D) ja .3dl-fiillaid. Dábela vurkejuvvo dokumeanttas, ja fiila ii dárbbaš eanet.
+dialog.color_lookup.invalid = {name} ii leat .cube- dahje .3dl-dábela maid Schist sáhttá lohkat.
+dialog.export_lut.title = Eksporte ivdneohcanteaballi
+dialog.export_lut.size = Ruktosturrodat
+dialog.export_lut.camera_raw = Váldde mielde aktiivvalaš dásesa Camera Raw-ivdnebuoremušaid
+dialog.export_lut.note = LUT sáhttá doallat dušše dakkár ivdnemuddemiid mat leat seammá juohke piksela ovddas. Dásemaskkat, čuhppojuvvon heivehusat, sirdojuvvon joavkkut, pikseladásit, čielggasvuohta, čuvgen, vignehtta ja eará báikkálaš effeavttat báhtarit.
+dialog.export_lut.saved = {name} eksporteaijuvvui
+dialog.export_lut.saved_skipped = {name} eksporteaijuvvui. Báikkálaš heivehusdásit mat báhte olggos: {count}

@@ -16,4 +16,5 @@ adjustment.photo_filter.name = புகைப்பட வடிகட்டி
 adjustment.gradient_map.name = வண்ணச்சரிவு வரைபடம்
 adjustment.selective_color.name = தேர்ந்தெடுத்த வண்ணம்
 adjustment.channel_mixer.name = தடக் கலப்பி
+adjustment.color_lookup.name = வண்ணத் தேடல்
 adjustment.other.name = சரிசெய்தல்

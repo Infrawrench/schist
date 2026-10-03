@@ -231,3 +231,19 @@ dialog.new_doc.from_image_url = Láti URL àwòrán
 # Backers
 dialog.support.title = Ṣe àtìlẹ́yìn fún Schist
 dialog.support.thanks = Ẹ ṣé fún àwọn ènìyàn àti ilé iṣẹ́ tí ń ṣe àtìlẹ́yìn fún Schist.
+
+# Color Lookup adjustment layers, and File > Export > Color Lookup Table
+dialog.color_lookup.table = Tábìlì
+dialog.color_lookup.load = Gbé LUT wọlé…
+dialog.color_lookup.none = A kò gbé tábìlì kankan wọlé
+dialog.color_lookup.input = Ìtẹ̀wọlé
+dialog.color_lookup.input_document = Àwọn iye ìwé
+dialog.color_lookup.input_linear = Ìmọ́lẹ̀ onílà
+dialog.color_lookup.note = Ó ń ka àwọn fáìlì .cube (1D tàbí 3D) àti .3dl. A fi tábìlì pamọ́ sínú ìwé náà, nítorí náà a kò nílò fáìlì náà mọ́.
+dialog.color_lookup.invalid = {name} kì í ṣe tábìlì .cube tàbí .3dl tí Schist lè kà.
+dialog.export_lut.title = Gbé tábìlì wíwá àwọ̀ jáde
+dialog.export_lut.size = Ìwọ̀n àwọn onígun
+dialog.export_lut.camera_raw = Fi àwọn ètò àwọ̀ Camera Raw ti ìpele tó ń ṣiṣẹ́ kún un
+dialog.export_lut.note = LUT lè mú àwọn ìyípadà àwọ̀ tó jọra fún piksẹli kọ̀ọ̀kan nìkan. A fi àwọn ìbòjú ìpele, àwọn àtúnṣe tí a gé, àwọn ẹgbẹ́ tí a yà sọ́tọ̀, àwọn ìpele piksẹli, clarity, ìmú mímúná, òjìji etí àti àwọn ipa ibùdó mìíràn sílẹ̀.
+dialog.export_lut.saved = A ti gbé {name} jáde
+dialog.export_lut.saved_skipped = A ti gbé {name} jáde. Àwọn ìpele àtúnṣe ibùdó tí a fi sílẹ̀: {count}

@@ -19,5 +19,6 @@ adjustment.photo_filter.name = फोटो फिल्टर
 adjustment.gradient_map.name = ग्रेडियन्ट नक्सा
 adjustment.selective_color.name = चयनात्मक रङ
 adjustment.channel_mixer.name = च्यानल मिश्रक
+adjustment.color_lookup.name = रङ लुकअप
 # A kind read from a PSD that Schist has no editor for.
 adjustment.other.name = समायोजन

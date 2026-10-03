@@ -286,3 +286,19 @@ dialog.new_doc.from_image_url = Diwar URL ur skeudenn
 # Backers
 dialog.support.title = Harpit Schist
 dialog.support.thanks = Trugarez d'an dud ha d'ar merkoù a harp Schist.
+
+# Color Lookup adjustment layers, and File > Export > Color Lookup Table
+dialog.color_lookup.table = Taolenn
+dialog.color_lookup.load = Karga LUT…
+dialog.color_lookup.none = Taolenn ebet karget
+dialog.color_lookup.input = Enmont
+dialog.color_lookup.input_document = Talvoudoù ar restr
+dialog.color_lookup.input_linear = Gouloù linennek
+dialog.color_lookup.note = Lenn a ra ar restroù .cube (1D pe 3D) ha .3dl. Miret eo an daolenn e-barzh an teul, setu n'eo ket ret ar restr ken.
+dialog.color_lookup.invalid = N'eo ket {name} un daolenn .cube pe .3dl a c'hall Schist lenn.
+dialog.export_lut.title = Ezporzhiañ un daolenn klask liv
+dialog.export_lut.size = Ment ar gael
+dialog.export_lut.camera_raw = Enlakaat arventennoù liv Camera Raw ar gwiskad oberiant
+dialog.export_lut.note = Ne c'hall ur LUT derc'hel nemet kemmoù liv a zo ar memes tra evit pep piksel. Maskloù gwiskad, reoliadurioù troc'het, strolladoù distag, gwiskadoù piksel, sklaerded, lemmaat, vignetenn hag efedoù egorel all a vez lezet er-maez.
+dialog.export_lut.saved = {name} ezporzhiet
+dialog.export_lut.saved_skipped = {name} ezporzhiet. Gwiskadoù reoliañ egorel lezet er-maez: {count}

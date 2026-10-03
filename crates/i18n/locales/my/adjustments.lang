@@ -17,4 +17,5 @@ adjustment.photo_filter.name = ဓာတ်ပုံ အရောင်စစ်
 adjustment.gradient_map.name = အရောင်ပြေး မြေပုံ
 adjustment.selective_color.name = ရွေးချယ်အရောင်
 adjustment.channel_mixer.name = ချန်နယ် ရောစပ်ကိရိယာ
+adjustment.color_lookup.name = အရောင်ရှာဖွေမှု
 adjustment.other.name = ချိန်ညှိမှု

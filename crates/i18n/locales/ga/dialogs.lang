@@ -263,3 +263,19 @@ dialog.new_doc.from_image_url = Ó URL íomhá
 # Backers
 dialog.support.title = Tacaigh le Schist
 dialog.support.thanks = Buíochas leis na daoine agus na brandaí a thacaíonn le Schist.
+
+# Color Lookup adjustment layers, and File > Export > Color Lookup Table
+dialog.color_lookup.table = Tábla
+dialog.color_lookup.load = Luchtaigh LUT…
+dialog.color_lookup.none = Níl aon tábla luchtaithe
+dialog.color_lookup.input = Ionchur
+dialog.color_lookup.input_document = Luachanna an doiciméid
+dialog.color_lookup.input_linear = Solas líneach
+dialog.color_lookup.note = Léann sé comhaid .cube (1D nó 3D) agus .3dl. Sábháiltear an tábla taobh istigh den doiciméad, mar sin níl an comhad ag teastáil arís.
+dialog.color_lookup.invalid = Ní tábla .cube ná .3dl é {name} atá inléite ag Schist.
+dialog.export_lut.title = Easpórtáil Tábla Cuardaigh Datha
+dialog.export_lut.size = Méid greille
+dialog.export_lut.camera_raw = Cuir socruithe datha Camera Raw an chiseal ghníomhaigh san áireamh
+dialog.export_lut.note = Ní féidir le LUT ach athruithe datha atá mar a chéile do gach picteilín a choinneáil. Fágtar ar lár maisc chisil, coigeartuithe gearrtha, grúpaí scoite, cisil phicteilíní, soiléireacht, géarú, fíniúid agus éifeachtaí spáis eile.
+dialog.export_lut.saved = Easpórtáilte: {name}
+dialog.export_lut.saved_skipped = Easpórtáilte: {name}. Cisil choigeartaithe spáis fágtha ar lár: {count}

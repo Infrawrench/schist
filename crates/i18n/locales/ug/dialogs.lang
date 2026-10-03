@@ -239,3 +239,19 @@ dialog.new_doc.from_image_url = رەسىم URL دىن
 # Backers
 dialog.support.title = Schist نى قوللاڭ
 dialog.support.thanks = Schist نى قوللىغان كىشىلەر ۋە ماركىلارغا رەھمەت.
+
+# Color Lookup adjustment layers, and File > Export > Color Lookup Table
+dialog.color_lookup.table = جەدۋەل
+dialog.color_lookup.load = LUT يۈكلەش…
+dialog.color_lookup.none = جەدۋەل يۈكلەنمىدى
+dialog.color_lookup.input = كىرگۈزۈش
+dialog.color_lookup.input_document = ھۆججەت قىممىتى
+dialog.color_lookup.input_linear = سىزىقلىق نۇر
+dialog.color_lookup.note = .cube (1D ياكى 3D) ۋە .3dl ھۆججەتلىرىنى ئوقۇيدۇ. جەدۋەل ھۆججەتنىڭ ئىچىگە ساقلىنىدۇ، شۇڭا ھۆججەت قايتا كېرەك بولمايدۇ.
+dialog.color_lookup.invalid = {name} Schist ئوقۇيالايدىغان .cube ياكى .3dl جەدۋىلى ئەمەس.
+dialog.export_lut.title = رەڭ ئىزدەش جەدۋىلىنى ئېكسپورت قىلىش
+dialog.export_lut.size = تور چوڭلۇقى
+dialog.export_lut.camera_raw = ئاكتىپ قەۋەتنىڭ Camera Raw رەڭ تەڭشەكلىرىنى ئۆز ئىچىگە ئالسۇن
+dialog.export_lut.note = LUT پەقەت ھەر بىر پىكسېل ئۈچۈن ئوخشاش بولغان رەڭ ئۆزگىرىشلىرىنىلا ساقلىيالايدۇ. قەۋەت نىقابى، كېسىلگەن تەڭشەشلەر، ئايرىم گۇرۇپپىلار، پىكسېل قەۋەتلىرى، ئېنىقلىق، ئۆتكۈرلەشتۈرۈش، گىرۋەك سايىسى ۋە باشقا بوشلۇق ئۈنۈملىرى كىرگۈزۈلمەيدۇ.
+dialog.export_lut.saved = {name} ئېكسپورت قىلىندى
+dialog.export_lut.saved_skipped = {name} ئېكسپورت قىلىندى. چىقىرىۋېتىلگەن بوشلۇق تەڭشەش قەۋەتلىرى: {count}

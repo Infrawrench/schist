@@ -17,4 +17,5 @@ adjustment.photo_filter.name = Fotografinis filtras
 adjustment.gradient_map.name = Gradiento žemėlapis
 adjustment.selective_color.name = Atrankinė spalva
 adjustment.channel_mixer.name = Kanalų maišytuvas
+adjustment.color_lookup.name = Spalvų paieška
 adjustment.other.name = Koregavimas

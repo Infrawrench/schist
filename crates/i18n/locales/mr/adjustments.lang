@@ -16,4 +16,5 @@ adjustment.photo_filter.name = फोटो फिल्टर
 adjustment.gradient_map.name = रंगसंक्रमण नकाशा
 adjustment.selective_color.name = निवडक रंग
 adjustment.channel_mixer.name = चॅनेल मिश्रक
+adjustment.color_lookup.name = रंग लुकअप
 adjustment.other.name = समायोजन

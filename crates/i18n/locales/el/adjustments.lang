@@ -16,4 +16,5 @@ adjustment.photo_filter.name = Φωτογραφικό φίλτρο
 adjustment.gradient_map.name = Χάρτης διαβάθμισης
 adjustment.selective_color.name = Επιλεκτικό χρώμα
 adjustment.channel_mixer.name = Μείκτης καναλιών
+adjustment.color_lookup.name = Αναζήτηση χρώματος
 adjustment.other.name = Προσαρμογή

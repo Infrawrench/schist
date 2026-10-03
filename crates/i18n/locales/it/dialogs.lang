@@ -291,3 +291,19 @@ dialog.new_doc.from_image_url = Da URL immagine
 # Backers
 dialog.support.title = Sostieni Schist
 dialog.support.thanks = Grazie alle persone e ai marchi che sostengono Schist.
+
+# Color Lookup adjustment layers, and File ▸ Export ▸ Color Lookup Table
+dialog.color_lookup.table = Tabella
+dialog.color_lookup.load = Carica LUT…
+dialog.color_lookup.none = Nessuna tabella caricata
+dialog.color_lookup.input = Input
+dialog.color_lookup.input_document = Valori del documento
+dialog.color_lookup.input_linear = Luce lineare
+dialog.color_lookup.note = Legge file .cube (1D o 3D) e .3dl. La tabella viene salvata nel documento, quindi il file non serve più.
+dialog.color_lookup.invalid = {name} non è una tabella .cube o .3dl che Schist possa leggere.
+dialog.export_lut.title = Esporta tabella di consultazione colori
+dialog.export_lut.size = Dimensione della griglia
+dialog.export_lut.camera_raw = Includi le impostazioni colore Camera Raw del livello attivo
+dialog.export_lut.note = Una LUT può contenere solo modifiche del colore uguali per ogni pixel. Maschere di livello, regolazioni con ritaglio, gruppi isolati, livelli pixel, nitidezza, contrasto locale, vignettatura e altri effetti spaziali vengono esclusi.
+dialog.export_lut.saved = Esportato {name}
+dialog.export_lut.saved_skipped = Esportato {name}. Livelli di regolazione spaziali esclusi: {count}

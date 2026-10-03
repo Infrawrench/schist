@@ -271,3 +271,19 @@ dialog.new_doc.from_image_url = من رابط صورة
 # Backers
 dialog.support.title = ادعم Schist
 dialog.support.thanks = شكرًا للأشخاص والعلامات التجارية التي تدعم Schist.
+
+# Color Lookup adjustment layers, and File > Export > Color Lookup Table
+dialog.color_lookup.table = الجدول
+dialog.color_lookup.load = تحميل LUT…
+dialog.color_lookup.none = لم يتم تحميل أي جدول
+dialog.color_lookup.input = الإدخال
+dialog.color_lookup.input_document = قيم المستند
+dialog.color_lookup.input_linear = ضوء خطي
+dialog.color_lookup.note = يقرأ ملفات .cube (‏1D أو 3D) و.3dl. يُحفظ الجدول داخل المستند، فلا حاجة إلى الملف مرة أخرى.
+dialog.color_lookup.invalid = {name} ليس جدول .cube أو .3dl يمكن لـ Schist قراءته.
+dialog.export_lut.title = تصدير جدول بحث الألوان
+dialog.export_lut.size = حجم الشبكة
+dialog.export_lut.camera_raw = تضمين إعدادات ألوان Camera Raw للطبقة النشطة
+dialog.export_lut.note = لا يمكن لـ LUT أن تحتوي إلا على تغييرات الألوان المتماثلة لكل البكسلات. تُستثنى أقنعة الطبقات والتعديلات المقصوصة والمجموعات المعزولة وطبقات البكسل والوضوح والتحديد والتظليل الطرفي وسائر المؤثرات المكانية.
+dialog.export_lut.saved = تم تصدير {name}
+dialog.export_lut.saved_skipped = تم تصدير {name}. طبقات التعديل المكانية المستثناة: {count}
