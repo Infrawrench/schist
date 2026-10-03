@@ -27,6 +27,7 @@ mod directions_tests;
 pub use capitalization::Capitalization;
 mod generated_hyphen;
 mod hyphenation;
+mod inline_objects;
 pub use hyphenation::HyphenationPolicy;
 mod shaping;
 mod soft_hyphen;
@@ -166,6 +167,12 @@ pub struct TextSpec {
     /// Invalid spans reject layout. Rebuild them after editing source text.
     #[serde(skip)]
     pub atomic_spans: Vec<std::ops::Range<usize>>,
+    /// Transient inline objects, each represented by FSI + display text + PDI.
+    /// Objects remain whole, break like U+FFFC, isolate shaping context and
+    /// exclude their internal spaces from paragraph justification. Ranges must
+    /// be ordered, disjoint and grapheme-bounded; invalid ranges reject layout.
+    #[serde(skip)]
+    pub inline_objects: Vec<std::ops::Range<usize>>,
     /// Optional aligned tab stops and leaders. None retains legacy behavior.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub tabs: Option<TabStops>,
@@ -206,6 +213,7 @@ impl Default for TextSpec {
             hyphenation_policy: HyphenationPolicy::default(),
             show_final_generated_hyphen: false,
             atomic_spans: Vec::new(),
+            inline_objects: Vec::new(),
             tabs: None,
             runs: Vec::new(),
             features: Vec::new(),
@@ -589,6 +597,7 @@ impl TextSpec {
         !self
             .atomic_spans
             .iter()
+            .chain(&self.inline_objects)
             .any(|span| span.start < at && at < span.end)
             && (at == 0
                 || at >= self.text.len()
@@ -876,6 +885,7 @@ impl TextSpec {
     pub fn splice_runs(&mut self, range: std::ops::Range<usize>, inserted: usize) {
         // These describe disposable generated content, not editable formatting.
         self.atomic_spans.clear();
+        self.inline_objects.clear();
         let removed = range.end.saturating_sub(range.start);
         let map = |at: usize| -> usize {
             if at < range.start {
@@ -1992,7 +2002,10 @@ fn layout_with_widths(spec: &TextSpec, base: &LoadedFace, widths: &[f32]) -> Lay
 }
 
 fn layout_with_measures(spec: &TextSpec, base: &LoadedFace, measures: &[InlineMeasure]) -> Layout {
-    if spec.tabs.as_ref().is_some_and(|tabs| !tabs.valid()) || !spec.valid_atomic_spans() {
+    if spec.tabs.as_ref().is_some_and(|tabs| !tabs.valid())
+        || !spec.valid_atomic_spans()
+        || !spec.valid_inline_objects()
+    {
         return Layout::default();
     }
     let wrapping = (spec.wrap_width.is_some() || !measures.is_empty())

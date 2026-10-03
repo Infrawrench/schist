@@ -165,6 +165,7 @@ impl Walker<'_> {
             show_final_soft_hyphen: false,
             hyphenation_breaks: Vec::new(),
             atomic_spans: Vec::new(),
+            inline_objects: Vec::new(),
             hyphenation_policy: Default::default(),
             show_final_generated_hyphen: false,
             language: String::new(),

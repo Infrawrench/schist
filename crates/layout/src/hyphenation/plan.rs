@@ -47,13 +47,62 @@ impl BreakPlan {
         {
             return None;
         }
-        let plan = Self::with_paragraphs(
-            source,
-            &projection.story,
-            styles,
-            default_paragraph,
-            default_character,
-        );
+        let plan = if projection.objects.is_empty() {
+            Self::with_paragraphs(
+                source,
+                &projection.story,
+                styles,
+                default_paragraph,
+                default_character,
+            )
+        } else {
+            // A variable separates source words even when its display contains
+            // letters. Notes retain their established source-word behavior.
+            let mut logical = Projection::new(
+                source,
+                projection
+                    .objects
+                    .iter()
+                    .map(|span| crate::inline_text::Insertion {
+                        at: projection.positions.source(span.start),
+                        text: "\u{fffc}".into(),
+                        style: String::new(),
+                    })
+                    .collect(),
+            )?;
+            for (point, displayed) in logical
+                .story
+                .points
+                .iter_mut()
+                .zip(&projection.story.points)
+            {
+                if let (
+                    StoryPoint::Paragraph { style, .. },
+                    StoryPoint::Paragraph {
+                        style: effective, ..
+                    },
+                ) = (point, displayed)
+                {
+                    style.clone_from(effective);
+                }
+            }
+            let logical_plan =
+                Self::new(&logical.story, styles, default_paragraph, default_character);
+            Self {
+                positions: logical_plan
+                    .positions
+                    .into_iter()
+                    .map(|at| logical.positions.source(at))
+                    .collect(),
+                words: logical_plan
+                    .words
+                    .into_iter()
+                    .map(|word| {
+                        logical.positions.source(word.start)..logical.positions.source(word.end)
+                    })
+                    .collect(),
+            }
+        };
         Some(Self {
             positions: plan
                 .positions

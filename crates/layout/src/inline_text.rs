@@ -1,6 +1,6 @@
 //! Compose generated inline text without inserting it into an editable story.
 //!
-//! A footnote number occupies real typographic space but owns no source bytes.
+//! A footnote number or variable occupies space but owns no source bytes.
 //! This projection keeps the two coordinate systems explicit. It is disposable
 //! composition data: neither the projected story nor its positions are saved.
 use crate::{Story, StoryPoint, StyleRange};
@@ -39,6 +39,8 @@ pub struct GeneratedSpan {
 pub struct Projection {
     pub story: Story,
     pub positions: SourceMap,
+    /// Projected inline objects, distinct from ordinary generated note markers.
+    pub objects: Vec<std::ops::Range<usize>>,
 }
 
 #[derive(Debug, Clone, PartialEq, Eq)]
@@ -216,6 +218,10 @@ impl Projection {
         for structure in &mut story.structures {
             structure.at = structure.at.map(|at| positions.after(at));
         }
-        Some(Self { story, positions })
+        Some(Self {
+            story,
+            positions,
+            objects: Vec::new(),
+        })
     }
 }

@@ -6,18 +6,35 @@ use unicode_script::{Script, UnicodeScript};
 use unicode_segmentation::UnicodeSegmentation;
 use unicode_vo::{char_orientation, Orientation};
 
+pub(super) fn bidi_control(c: char) -> bool {
+    matches!(c, '\u{061c}' | '\u{200e}'..='\u{200f}' | '\u{202a}'..='\u{202e}' | '\u{2066}'..='\u{2069}')
+}
+
 pub(super) fn required(spec: &TextSpec) -> bool {
-    (spec.tabs.is_some() && spec.text.contains('\t'))
+    !spec.inline_objects.is_empty()
+        || (spec.tabs.is_some() && spec.text.contains('\t'))
         || !super::language::effective(&spec.language).is_empty()
-        || spec.runs.iter().any(|r| r.language.as_deref().is_some_and(|v| !super::language::effective(v).is_empty()))
+        || spec.runs.iter().any(|r| {
+            r.language
+                .as_deref()
+                .is_some_and(|v| !super::language::effective(v).is_empty())
+        })
         || !spec.features.is_empty()
-        || spec.runs.iter().any(|run| !run.features.is_empty() || run.capitalization.is_some_and(|v| v != Capitalization::Normal))
+        || spec.runs.iter().any(|run| {
+            !run.features.is_empty()
+                || run
+                    .capitalization
+                    .is_some_and(|v| v != Capitalization::Normal)
+        })
         || spec.direction != ParagraphDirection::Auto
         || spec.writing_mode.is_vertical()
         || spec.text.chars().any(|c| {
-            !matches!(c.script(), Script::Latin | Script::Common | Script::Inherited)
-                || (c != '\n' && (unicode_bidi::bidi_class(c) == unicode_bidi::BidiClass::B || c == '\u{2028}'))
-                || matches!(c, '\u{061c}' | '\u{200e}'..='\u{200f}' | '\u{202a}'..='\u{202e}' | '\u{2066}'..='\u{2069}')
+            !matches!(
+                c.script(),
+                Script::Latin | Script::Common | Script::Inherited
+            ) || (c != '\n'
+                && (unicode_bidi::bidi_class(c) == unicode_bidi::BidiClass::B || c == '\u{2028}'))
+                || bidi_control(c)
         })
 }
 
@@ -91,7 +108,8 @@ fn items(
             char_orientation(c)
         };
         if at > begin
-            && (face != faces.at(at)
+            && (spec.shaping_context(begin) != spec.shaping_context(at)
+                || face != faces.at(at)
                 || !spec.style_at(style_start).shapes_like(&spec.style_at(at))
                 || next_script != script
                 || (spec.writing_mode.is_vertical()
@@ -147,15 +165,21 @@ fn shape_item(
             .copied()
             .unwrap_or(false)
         {
-            for upper in super::language::uppercase(&spec.text, start + offset, &style.language) {
+            let context = spec.shaping_context(start + offset);
+            for upper in super::language::uppercase(
+                &spec.text[context.clone()],
+                start + offset - context.start,
+                &style.language,
+            ) {
                 buffer.add(upper, offset as u32);
             }
         } else {
             buffer.add(c, offset as u32);
         }
     }
-    buffer.set_pre_context(&spec.text[..start]);
-    buffer.set_post_context(&spec.text[end..]);
+    let context = spec.shaping_context(start);
+    buffer.set_pre_context(&spec.text[context.start..start]);
+    buffer.set_post_context(&spec.text[end..context.end]);
     buffer.guess_segment_properties();
     if let Ok(language) = style.language.parse() {
         buffer.set_language(language);
@@ -214,8 +238,10 @@ fn shape_item(
             .grapheme_indices(true)
             .map(|(k, _)| start + cluster + k)
             .collect();
-        let visible =
-            |byte: usize| !spec.text[byte..].starts_with('\u{ad}') || hyphen == Some(byte);
+        let visible = |byte: usize| {
+            let c = spec.text[byte..].chars().next().unwrap();
+            !bidi_control(c) && (c != '\u{ad}' || hyphen == Some(byte))
+        };
         let visible_count = char_bytes.iter().filter(|byte| visible(**byte)).count();
         let x = out.precise_width;
         for j in i..next {
@@ -252,8 +278,8 @@ fn shape_item(
             f64::from(spec.style_at(start + cluster).tracking) * visible_count as f64;
         out.precise_width += f64::from(spec.word_spacing)
             * text[cluster..cluster_end]
-                .chars()
-                .filter(|ch| *ch == ' ')
+                .char_indices()
+                .filter(|(at, ch)| *ch == ' ' && !spec.in_object(start + cluster + at))
                 .count() as f64;
         let count = visible_count.max(1) as f64;
         let mut k = 0;
@@ -575,10 +601,14 @@ pub(super) fn layout(
         let bidi = BidiInfo::new(paragraph, level);
         if paragraph.contains('\u{ad}') {
             let first = lines.len();
-            let mut boundaries = unicode_linebreak::linebreaks(paragraph)
-                .map(|(at, _)| at)
-                .chain(soft_hyphen::hebrew_breaks(paragraph))
-                .map(|at| start + at)
+            let mut boundaries = spec
+                .object_breaks(start..end)
+                .into_iter()
+                .chain(
+                    soft_hyphen::hebrew_breaks(paragraph)
+                        .into_iter()
+                        .map(|at| start + at),
+                )
                 .filter(|at| *at == end || spec.allows_wrap_at(*at))
                 .collect::<Vec<_>>();
             boundaries.sort_unstable();
@@ -620,8 +650,7 @@ pub(super) fn layout(
             && wrap_width_at(spec, &widths, lines.len()).is_some()
         {
             let mut previous = start;
-            for (boundary, _) in unicode_linebreak::linebreaks(paragraph) {
-                let at = start + boundary;
+            for at in spec.object_breaks(start..end) {
                 if at < end && !spec.allows_wrap_at(at) {
                     continue;
                 }

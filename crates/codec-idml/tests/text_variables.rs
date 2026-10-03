@@ -440,6 +440,53 @@ fn custom_definitions_are_shared_and_native_references_do_not_use_cached_text() 
 }
 
 #[test]
+fn native_custom_values_render_after_repeated_saves_and_inventory_combined_instance_fonts() {
+    let body = instance("first", "edition", "stale cached value");
+    let mut doc = import::read(&native(&body, &custom("edition", "Edition", "Edition 7")))
+        .unwrap()
+        .document;
+    doc.styles
+        .paragraphs
+        .iter_mut()
+        .find(|p| p.name == "Body")
+        .unwrap()
+        .family = Some("IBM Plex Sans".into());
+    doc.styles.add_character(schist_layout::CharacterStyle {
+        name: "Instance face".into(),
+        font_style: Some("Light".into()),
+        ..Default::default()
+    });
+    if let Some(schist_layout::story::InlineControl::TextVariable {
+        character_style, ..
+    }) = &mut doc.stories[0].structures[0].control
+    {
+        *character_style = "Instance face".into();
+    }
+    schist_text_engine::add_font_data(
+        include_bytes!("../../../web/fonts/IBMPlexSans-Regular.ttf").to_vec(),
+    );
+    for _ in 0..3 {
+        let source = doc.stories[0].clone();
+        let composed = compose::compose_story(&doc, StoryId(0));
+        assert_eq!(doc.stories[0], source);
+        assert_eq!(composed.frames[0].unrendered_structures, 0);
+        assert!(composed.frames[0].lines.iter().any(|l| l
+            .projected
+            .as_ref()
+            .is_some_and(|p| p.spec.text.contains("Edition 7"))));
+        let saved = export::write(&doc);
+        let package = container::read(&saved.bytes).unwrap();
+        let fonts = xml::parse(package.text("Resources/Fonts.xml").unwrap()).unwrap();
+        assert!(fonts
+            .find_all("Font")
+            .iter()
+            .any(|f| f.attr("FontFamily") == Some("IBM Plex Sans")
+                && f.attr("FontStyleName") == Some("Light")));
+        doc = import::read(&saved.bytes).unwrap().document;
+    }
+}
+
+#[test]
 fn native_definition_reordering_and_metadata_removal_cannot_retarget_instances() {
     let body = instance("first", "alpha", "") + &instance("second", "beta", "cached");
     let doc = import::read(&native(

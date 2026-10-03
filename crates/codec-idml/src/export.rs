@@ -1121,6 +1121,21 @@ pub(crate) fn font_inventory(
     }
     for story in &document.stories {
         for structure in &story.structures {
+            if let Some(schist_layout::story::InlineControl::TextVariable {
+                character_style, ..
+            }) = &structure.control
+            {
+                if let Some(r) = structure.at.and_then(|at| {
+                    schist_layout::text_variables::instance_character(
+                        document,
+                        story,
+                        at,
+                        character_style,
+                    )
+                }) {
+                    add(r.family, r.font_style, r.bold, r.italic);
+                }
+            }
             let Some(note) = &structure.footnote else {
                 continue;
             };

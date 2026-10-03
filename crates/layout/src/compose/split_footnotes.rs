@@ -347,6 +347,7 @@ impl NoteFlow {
             story: &self.doc.stories[0],
             markers: &self.markers,
             notes: None,
+            objects: &[],
             plan: &self.plan,
             hyphens: start.hyphens,
             denied_hyphen_words: &[],

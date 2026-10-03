@@ -1,4 +1,4 @@
-//! Temporary footnote flows. Original source text, styles and marker anchors
+//! Temporary main-story and footnote flows. Source text, styles and anchors
 //! remain untouched; native interchange uses those originals, never these runs.
 use crate::{
     footnotes::{
@@ -66,6 +66,109 @@ pub struct PreparedStory {
     pub(crate) nested_issues: std::collections::BTreeMap<usize, Option<&'static str>>,
     pub styles: StyleSet,
     pub notes: Vec<PreparedNote>,
+    pub variables: usize,
+}
+
+/// Prepare main-story variables independently of note-area eligibility, then
+/// merge eligible note references in source structure order. Coincident anchors
+/// must not associate a note body with the next variable's generated span.
+pub(crate) fn prepare_for_flow(
+    doc: &LayoutDocument,
+    id: StoryId,
+    notes_supported: bool,
+) -> Option<PreparedStory> {
+    let source = doc.story(id)?;
+    let variables = crate::text_variables::instances(doc, source);
+    let notes = notes_supported.then(|| prepare(doc, id)).flatten();
+    if variables.is_empty() {
+        return notes;
+    }
+    let mut prepared = if let Some(notes) = notes {
+        notes
+    } else {
+        PreparedStory {
+            main: Projection::new(source, Vec::new())?,
+            hyphenation: Default::default(),
+            markers: crate::list_composition::MarkerPlans::new(doc, source),
+            nested_issues: Default::default(),
+            styles: doc.styles.clone(),
+            notes: Vec::new(),
+            variables: 0,
+        }
+    };
+    let mut insertions = Vec::new();
+    for note in &prepared.notes {
+        let style = prepared
+            .main
+            .story
+            .ranges
+            .iter()
+            .find(|r| r.start == note.reference.start && r.end == note.reference.end)?;
+        insertions.push((
+            note.anchor,
+            note.structure,
+            false,
+            Insertion {
+                at: note.anchor,
+                text: prepared
+                    .main
+                    .story
+                    .slice(note.reference.start, note.reference.end),
+                style: style.style.clone(),
+            },
+        ));
+    }
+    prepared.variables = variables.len();
+    for variable in variables {
+        let mut name = format!("Schist generated variable {}", variable.structure);
+        while prepared.styles.characters.iter().any(|s| s.name == name) {
+            name.push('_');
+        }
+        prepared
+            .styles
+            .characters
+            .push(variable.character.into_style(&name));
+        insertions.push((
+            variable.at,
+            variable.structure,
+            true,
+            Insertion {
+                at: variable.at,
+                text: variable.text,
+                style: name,
+            },
+        ));
+    }
+    insertions.sort_by_key(|(at, structure, _, _)| (*at, *structure));
+    let main_source = crate::nested_styles::materialize(source, &mut prepared.styles);
+    let mut main = Projection::new(
+        &main_source,
+        insertions.iter().map(|(_, _, _, i)| i.clone()).collect(),
+    )?;
+    project_paragraphs(&main_source, &mut main, &mut prepared.styles);
+    for ((_, structure, variable, _), span) in insertions.iter().zip(&main.positions.generated) {
+        if *variable {
+            main.objects.push(span.start..span.end);
+        } else {
+            prepared
+                .notes
+                .iter_mut()
+                .find(|n| n.structure == *structure)?
+                .reference = span.start..span.end;
+        }
+    }
+    prepared.nested_issues = nested_issues(doc, source, &main.positions);
+    prepared.markers =
+        crate::list_composition::MarkerPlans::new(doc, source).projected(&main.positions);
+    prepared.hyphenation = crate::hyphenation::BreakPlan::projected(
+        &main_source,
+        &main,
+        &prepared.styles,
+        &doc.default_paragraph_style,
+        &doc.default_character_style,
+    )?;
+    prepared.main = main;
+    Some(prepared)
 }
 
 fn nested_issues(
@@ -244,6 +347,7 @@ pub fn prepare(doc: &LayoutDocument, id: StoryId) -> Option<PreparedStory> {
         main,
         styles,
         notes,
+        variables: 0,
     })
 }
 

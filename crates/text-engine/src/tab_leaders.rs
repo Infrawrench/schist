@@ -51,8 +51,8 @@ pub(super) fn resolve(spec: &TextSpec, base: &LoadedFace, faces: &mut Faces) {
             };
             let resolved = Faces::resolve(&pattern, base);
             let (mut glyphs, width) = shaping::leader_pattern(&pattern, &resolved);
-            // Spaces and format characters contribute advance but no outline.
-            // Avoid enumerating invisible copies, including tiny space periods.
+            // Paint only glyphs with outlines. Spaces and directional controls
+            // need no copies, including when the leader period is tiny.
             glyphs.retain(|glyph| {
                 let (font, size) = &resolved.faces[glyph.face];
                 let bounds = font.font.metrics_indexed(glyph.glyph, *size).bounds;

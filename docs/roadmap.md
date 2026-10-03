@@ -311,6 +311,49 @@ are marked.
 ## Handoff
 
 
+Custom-variable display integration, 2026-10-03:
+Main-story literal custom values now use disposable display objects, with source
+anchors and shared definitions unchanged. Values stay whole during wrapping,
+remain overset when they cannot fit and resume in a wider frame. Object boundaries
+isolate bidi/shaping context and source dictionary words; internal spaces do not
+expand during paragraph justification. Directional controls add no tracking width.
+Variable and note insertions keep source structure order, including coincident
+anchors. Unsupported note defaults do not disable independent variables. Effective
+paragraph/instance font combinations enter package inventories. No UI or keys change.
+
+Fifteen new properties pass. Six cover layout/source mapping, shared edits, whole
+note ordering, overset, empty values and unsupported input; seven cover directional
+controls and object semantics across axes, directions, glue, No Break and hyphens.
+The IDML property verifies rendering and inherited fonts after repeated saves.
+The separation property compares six independent ordinary-text controls in every
+process/spot plate through both separation paths at 72/144/216 DPI. All six pairs
+in the new 12-page PDF are pixel-identical in extracted samples and Poppler renders;
+every page passes visual review. This establishes shared-renderer integration,
+not native application placement agreement. All 42 previous PDFs are unchanged.
+
+All 16 roadmap checks, shared UI, formatting and whitespace checks pass:
+**2,086 distinct Rust tests**, four browser checks and eight Python audits; one
+existing shared UI documentation example remains ignored. The complete layout and
+text-engine rerun used the same package set with `--no-fail-fast` to collect errors
+in one batch. Initial compile failures identified omitted transient-field defaults.
+A mixed-note fixture inherited 13.5-point leading after choosing 14-point type;
+correcting its leading resolved the existing overset safeguard without changing
+production behavior. Test-only range initialization was corrected for clippy.
+Failure logs remain. Only two explanatory comments changed after the main sweep.
+Native debug build passes in 5m 38s; the isolated Design-enabled QA bundle is
+refreshed and hash/signature verified. Evidence is `/tmp/schist-variable-display-*`.
+Five superseded drafts and twelve redundant page renders were removed, retaining
+hash audits, the proof PDF/contact sheet and verification evidence. Prepared for
+draft PR #195; do not wait for CI.
+
+Variable authoring and non-custom evaluation/output remain. Active initial/nested
+rules need logical-object counts; those combinations, note-body variables, invalid
+anchors, ambiguous/missing definitions and tab/break/control-containing values stay
+retained and diagnosed. Other item 9 gaps and the INDD research gate remain. The
+next batch should integrate reversible custom-variable authoring using the compact
+Design UI patterns, before another compile/test pass.
+
+
 Native custom text variables, 2026-10-03:
 Literal custom definitions now have shared typed data and main-story references.
 IDML saves emit native definitions/instances with empty caches and generated IDs;
@@ -338,7 +381,8 @@ property pass, including legacy recovery instances and three repeated saves.
 All 42 PDF proofs remain
 byte-identical. Native debug build passes in 20m 23s; the isolated Design-enabled
 QA bundle is refreshed and hash/signature verified. Evidence is under
-`/tmp/schist-custom-variables-*`; prepared for draft PR #195. Cleanup reclaimed
+`/tmp/schist-custom-variables-*`; published as `3891674f` to draft PR #195.
+The head, description and draft status were verified without querying CI. Cleanup reclaimed
 2.3 GiB of superseded test executables, but initially removed a queued executable.
 That interrupted run is retained; the complete rerun rebuilt missing artifacts.
 A later target-boundary cleanup recovered 2.35 GiB of unused incremental caches,

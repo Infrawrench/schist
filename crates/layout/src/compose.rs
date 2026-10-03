@@ -320,6 +320,7 @@ pub(crate) fn spec_with_character(
         show_final_soft_hyphen: false,
         hyphenation_breaks: Vec::new(),
         atomic_spans: Vec::new(),
+        inline_objects: Vec::new(),
         hyphenation_policy: schist_text_engine::HyphenationPolicy {
             consecutive_limit: usize::from(paragraph.hyphenation.ladder_limit.unwrap_or(3)),
             preceding_hyphens: 0,
@@ -665,6 +666,7 @@ struct FlowSource<'a> {
     story: &'a Story,
     markers: &'a crate::list_composition::MarkerPlans,
     notes: Option<&'a crate::footnote_composition::PreparedStory>,
+    objects: &'a [std::ops::Range<usize>],
     plan: &'a crate::hyphenation::BreakPlan,
     hyphens: hyphenation_flow::History,
     denied_hyphen_words: &'a [std::ops::Range<usize>],
@@ -794,8 +796,12 @@ fn compose_thread_on_page(
     frames: &[(ObjectId, Rect, FrameOverflow, u16, Pt, InsetsLike)],
     parent_page: Option<usize>,
 ) -> ComposedThread {
-    if footnote_flow::supported(doc, story_id, frames) {
-        if let Some(prepared) = crate::footnote_composition::prepare(doc, story_id) {
+    {
+        if let Some(prepared) = crate::footnote_composition::prepare_for_flow(
+            doc,
+            story_id,
+            footnote_flow::supported(doc, story_id, frames),
+        ) {
             // Assets are Arc-backed. The temporary model is scoped to this one
             // thread pass; no projected bytes or generated styles enter history.
             let mut projected = doc.clone();
@@ -822,7 +828,7 @@ fn compose_thread_on_page(
                     &doc.stories[story_id.0 as usize],
                     &doc.styles,
                 )
-                .saturating_sub(prepared.notes.len());
+                .saturating_sub(prepared.notes.len() + prepared.variables);
                 frame.consumed_to = prepared.main.positions.source(frame.consumed_to);
                 for line in &mut frame.lines {
                     let positions = prepared.main.positions.line(&text, line.start, line.end);
@@ -834,6 +840,12 @@ fn compose_thread_on_page(
                             positions,
                             &context,
                         );
+                        if let Some(projected) = &mut line.projected {
+                            projected.spec.inline_objects = crate::text_variables::slice_objects(
+                                &prepared.main.objects,
+                                line.start..line.end,
+                            );
+                        }
                     }
                     line.start = prepared.main.positions.source(line.start);
                     line.end = prepared.main.positions.source(line.end);
@@ -902,12 +914,14 @@ fn compose_thread_plain(
         doc,
         story,
         markers,
-        notes,
+        objects: notes.map_or(&[], |prepared| prepared.main.objects.as_slice()),
+        notes: notes.filter(|prepared| !prepared.notes.is_empty()),
         plan,
         hyphens: Default::default(),
         denied_hyphen_words: &[],
     };
-    let mut split_notes = notes
+    let mut split_notes = source
+        .notes
         // IDML Appendix C: absent NoSplitting defaults to false. Preserve the
         // authored Option; only composition resolves that native default.
         .filter(|_| doc.footnotes.no_splitting != Some(true))
@@ -1380,6 +1394,8 @@ fn compose_path(
     if spec.writing_mode.is_vertical() {
         return empty();
     }
+    spec.inline_objects =
+        crate::text_variables::slice_objects(source.objects, block.start..block.end);
     spec.hyphenation_breaks = source.plan.slice(block.start..block.end);
     spec.hyphenation_policy.preceding_hyphens =
         if block.paragraph_start != Some(block.start) && hyphens.at == block.start {
@@ -1423,8 +1439,7 @@ fn compose_path(
     let paragraph_end = spans.len() == 1;
     let mut line = if block.is_paragraph {
         line_at(
-            story,
-            doc,
+            source,
             &block,
             span,
             LinePlacement {
@@ -2045,6 +2060,8 @@ fn place_block(
         &doc.default_character_style,
         column.width,
     );
+    full_spec.inline_objects =
+        crate::text_variables::slice_objects(source.objects, block.start..block.end);
     full_spec.hyphenation_breaks = source.plan.slice(block.start..block.end);
     let automatic_word = source.plan.overlaps_word(block.start..block.end);
     full_spec.hyphenation_policy.preceding_hyphens = if !first && source.hyphens.at == block.start {
@@ -2165,7 +2182,11 @@ fn place_block(
     let mut positions = Vec::new();
     for (index, span) in all.iter().enumerate() {
         if span.width > measure_at(index).width + 0.001
-            && (automatic_word
+            && (spec
+                .inline_objects
+                .iter()
+                .any(|object| object.start < span.end && object.end > span.start)
+                || automatic_word
                 || spec.text[span.start..span.end].contains('\t')
                 || spec.text[span.start..span.end]
                     .char_indices()
@@ -2207,8 +2228,7 @@ fn place_block(
             let area = cap.as_ref().filter(|cap| i < cap.lines).map(|cap| cap.area);
             let measure = measure_at(i);
             line_at(
-                story,
-                doc,
+                source,
                 &body,
                 span,
                 LinePlacement {
@@ -2294,6 +2314,8 @@ fn slice_spec(spec: &TextSpec, start: usize, end: usize) -> TextSpec {
         .filter(|at| *at > start && *at < end)
         .map(|at| at - start)
         .collect();
+    out.atomic_spans = crate::text_variables::slice_objects(&spec.atomic_spans, start..end);
+    out.inline_objects = crate::text_variables::slice_objects(&spec.inline_objects, start..end);
     out.runs = spec
         .runs
         .iter()
@@ -2541,21 +2563,22 @@ struct LinePlacement {
 
 /// Build a composed line, carrying the character styles that cover it.
 fn line_at(
-    story: &Story,
-    doc: &LayoutDocument,
+    source: &FlowSource<'_>,
     block: &Block,
     span: &schist_text_engine::LineSpan,
     placement: LinePlacement,
 ) -> ComposedLine {
+    let story = source.story;
+    let doc = source.doc;
     let start = block.start + span.start;
     let end = block.start + span.end;
     let paragraph = doc.styles.resolve_paragraph(&block.style);
     let is_paragraph_end = placement.is_paragraph_end;
-    let word_space = word_space(
+    let word_space = word_space_with_objects(
         story,
+        source.objects,
         &paragraph,
-        start,
-        end,
+        start..end,
         span.width,
         placement.bounds.width,
         is_paragraph_end,
@@ -2601,6 +2624,27 @@ pub fn word_space(
     measure: Pt,
     is_paragraph_end: bool,
 ) -> Option<Pt> {
+    word_space_with_objects(
+        story,
+        &[],
+        paragraph,
+        start..end,
+        natural_width,
+        measure,
+        is_paragraph_end,
+    )
+}
+
+fn word_space_with_objects(
+    story: &Story,
+    objects: &[std::ops::Range<usize>],
+    paragraph: &ResolvedParagraph,
+    range: std::ops::Range<usize>,
+    natural_width: Pt,
+    measure: Pt,
+    is_paragraph_end: bool,
+) -> Option<Pt> {
+    let (start, end) = (range.start, range.end);
     let align = paragraph.align?;
     if !align.is_justified() {
         return None;
@@ -2614,7 +2658,16 @@ pub fn word_space(
     if is_paragraph_end && !matches!(align, Align::JustifyAll) {
         return None;
     }
-    let spaces = count_spaces(story, start, end);
+    let text = story.slice(start, end);
+    let last_field = text.rfind('\t').map_or(0, |at| at + 1);
+    let spaces = text
+        .char_indices()
+        .filter(|(at, c)| {
+            *at >= last_field
+                && *c == ' '
+                && !objects.iter().any(|span| span.contains(&(start + at)))
+        })
+        .count();
     if spaces == 0 {
         return None;
     }

@@ -2576,19 +2576,22 @@ Seven properties cover every UTF-8 boundary, formatting, variable-only stories,
 exact one-step undo/redo, native fixture occurrences and definitions, large shared
 definitions, unknown preferences, nested opaque content, repeated saves, external
 edits and malformed/legacy metadata. The fixture inventory is independently
-checked with Python's XML parser. This is loss prevention, not variable evaluation
-or rendering. Style/link dependencies inside archived definitions are not yet
-resolved. Adobe's [variable guide](https://helpx.adobe.com/indesign/desktop/add-and-manage-text/conditional-and-variable-text/create-manage-text-variables.html)
+checked with Python's XML parser. That initial recovery checkpoint prevented loss;
+only the typed custom subset below now composes. Style/link dependencies inside
+archived definitions are not yet resolved. Adobe's [variable guide](https://helpx.adobe.com/indesign/desktop/add-and-manage-text/conditional-and-variable-text/create-manage-text-variables.html)
 specifies that variable content stays on one line; the [instance reference](https://developer.adobe.com/indesign/uxp/dom/api/t/text-variable-instance/)
-identifies ResultText as replacement text. Future composition needs typed variable
-data, source-position mapping and atomic line fitting, not ordinary text insertion
-or interpretation of opaque recovery XML in the kernel. No Adobe headers,
-proprietary executables or INDD bytes were read for this change.
+identifies ResultText as replacement text. Composition uses typed definitions,
+source-position mapping and atomic fitting. Opaque recovery XML stays outside the
+kernel, and generated values never become editable source bytes. No Adobe headers,
+proprietary executables or INDD bytes were read for these variable changes.
 
 The text engine now has transient grapheme-bounded atomic spans for that fitting
 step. They suppress internal wrapping and hyphenation without merging adjacent
-spans or changing unwrapped shaping/caret geometry. Variable composition is not
-connected to those spans yet; preview/print still diagnose unrendered instances.
+spans or changing unwrapped shaping/caret geometry. A distinct transient
+inline-object range supplies the additional semantics needed by custom variables:
+FSI/PDI isolation, bounded shaping context, object-replacement line-break rules and
+exclusion of internal spaces from paragraph justification. Ordinary atomic spans
+keep their narrower wrapping-only contract.
 
 Literal CustomTextType definitions now also populate LayoutDocument.text_variables.
 Typed main-story controls reference their opaque identities, independently of names
@@ -2620,8 +2623,23 @@ Thirteen additional properties cover shared values, empty/stale caches, same-nam
 resources, reordered definitions, metadata stripping/corruption, external deletion
 and edits, every source boundary, stable inline order, native ID collisions and
 one-step source/style edits. Full checkpoint verification is recorded in Handoff.
-Evaluation, composition, variable authoring controls and non-custom variable types
-remain integration work.
+Main-story literal custom values now project into display runs while retaining
+original story bytes and source anchors. Coincident variable and note insertions
+keep source structure order. Shared definition edits refresh every instance;
+variable-only stories do not depend on footnote preferences. Values remain whole
+through wrapping and become overset when they cannot fit. Dictionary selection
+sees each object as a boundary between source words. Font inventories include the
+combined paragraph/instance request. Zero-width bidi controls no longer acquire
+tracking advance.
+
+Active initial/nested-style combinations still need logical-object rule counting.
+They remain unrendered, as do note-body variables, missing/ambiguous definitions,
+invalid anchors and values containing tabs, forced breaks or directional controls.
+Empty literal values resolve normally. Existing retained-structure diagnostics
+cover unsupported instances. Authoring controls and non-custom variable evaluation
+remain integration work. The new plate/PDF comparisons use independently authored
+ordinary text through Schist's shared renderer; native application placement
+agreement is not claimed. Full verification remains recorded in Handoff.
 
 Further public evidence is available in paged-media/core commit
 `ffb7c8713125dc77403ec0983099f74ac2558517`: its
