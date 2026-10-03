@@ -6676,6 +6676,20 @@ dependencies = [
 ]
 
 [[package]]
+name = "schist-animation"
+version = "0.15.0"
+dependencies = [
+ "anyhow",
+ "color_quant",
+ "gif",
+ "image-webp",
+ "png 0.18.1",
+ "schist-color",
+ "schist-compositor",
+ "schist-core",
+]
+
+[[package]]
 name = "schist-app"
 version = "0.15.0"
 dependencies = [
