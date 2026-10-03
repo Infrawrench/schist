@@ -14,3 +14,4 @@ workspaces.invalid_name = Antre yon non ki gen 1–80 karaktè san karaktè kont
 workspaces.duplicate = Gen yon espas travay ki deja gen non sa a.
 workspaces.limit = Ou ka anrejistre jiska 64 espas travay.
 workspaces.keyboard = Klavye: Alt+↑/↓ chwazi yon dispozisyon. Ctrl/Cmd+N modifye non li; +S anrejistre yon kopi; +Enter aplike li; +U mete l ajou; +R chanje non li; +D efase li; +0 reyinisyalize li.
+workspaces.open_documents = Dokiman ouvè

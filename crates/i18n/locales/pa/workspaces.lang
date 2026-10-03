@@ -14,3 +14,4 @@ workspaces.invalid_name = ਕੰਟਰੋਲ ਅੱਖਰਾਂ ਤੋਂ ਬਿ
 workspaces.duplicate = ਇਸ ਨਾਮ ਦੀ ਕਾਰਜ-ਥਾਂ ਪਹਿਲਾਂ ਹੀ ਮੌਜੂਦ ਹੈ।
 workspaces.limit = ਤੁਸੀਂ ਵੱਧ ਤੋਂ ਵੱਧ 64 ਕਾਰਜ-ਥਾਵਾਂ ਸੰਭਾਲ ਸਕਦੇ ਹੋ।
 workspaces.keyboard = ਕੀਬੋਰਡ: Alt+↑/↓ ਖਾਕਾ ਚੁਣਦਾ ਹੈ। Ctrl/Cmd+N ਇਸ ਦਾ ਨਾਮ ਸੋਧਦਾ ਹੈ; +S ਕਾਪੀ ਸੰਭਾਲਦਾ ਹੈ; +Enter ਲਾਗੂ ਕਰਦਾ ਹੈ; +U ਅੱਪਡੇਟ ਕਰਦਾ ਹੈ; +R ਨਾਮ ਬਦਲਦਾ ਹੈ; +D ਮਿਟਾਉਂਦਾ ਹੈ; +0 ਰੀਸੈੱਟ ਕਰਦਾ ਹੈ।
+workspaces.open_documents = ਖੁੱਲ੍ਹੇ ਦਸਤਾਵੇਜ਼

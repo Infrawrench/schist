@@ -14,3 +14,4 @@ workspaces.invalid_name = Sisesta 1–80 märgi pikkune nimi, mis ei sisalda juh
 workspaces.duplicate = Selle nimega tööruum on juba olemas.
 workspaces.limit = Saad salvestada kuni 64 tööruumi.
 workspaces.keyboard = Klaviatuur: Alt+↑/↓ valib paigutuse. Ctrl/Cmd+N muudab selle nime; +S salvestab koopia; +Enter rakendab; +U uuendab; +R nimetab ümber; +D kustutab; +0 lähtestab.
+workspaces.open_documents = Avatud dokumendid

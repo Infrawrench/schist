@@ -14,3 +14,4 @@ workspaces.invalid_name = Injiza izina rifise inyuguti 1–80 ridafise inyuguti 
 workspaces.duplicate = Ikibanza c'akazi gifise iri zina kiramaze kubaho.
 workspaces.limit = Ushobora kubika ibibanza vy'akazi gushika kuri 64.
 workspaces.keyboard = Mwandiko: Alt+↑/↓ ihitamwo uko bitunganijwe. Ctrl/Cmd+N ihindura izina ryavyo; +S ibika kopi; +Enter ibishira mu ngiro; +U ibivugurura; +R ihindura izina; +D ibifuta; +0 ibisubiza ku ntango.
+workspaces.open_documents = Inyandiko zifunguye

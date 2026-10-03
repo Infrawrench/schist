@@ -14,3 +14,4 @@ workspaces.invalid_name = Tsenya leina la ditlhaka tse 1–80 le le se nang ditl
 workspaces.duplicate = Lefelo la tiro le le nang le leina leno le setse le le teng.
 workspaces.limit = O ka boloka mafelo a tiro a a fitlhang go 64.
 workspaces.keyboard = Khiboto: Alt+↑/↓ e tlhopha thulaganyo. Ctrl/Cmd+N e baakanya leina la yone; +S e boloka khopi; +Enter e e dirisa; +U e e ntšhafatsa; +R e e naya leina le lesha; +D e e phimola; +0 e simolola sešwa.
+workspaces.open_documents = Ditokomane tse di butsweng

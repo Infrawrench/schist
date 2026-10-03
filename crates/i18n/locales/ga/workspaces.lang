@@ -14,3 +14,4 @@ workspaces.invalid_name = Cuir isteach ainm 1–80 carachtar gan carachtair rial
 workspaces.duplicate = Tá spás oibre leis an ainm seo ann cheana.
 workspaces.limit = Is féidir leat suas le 64 spás oibre a shábháil.
 workspaces.keyboard = Méarchlár: roghnaíonn Alt+↑/↓ leagan amach. Athraíonn Ctrl/Cmd+N a ainm; sábhálann +S cóip; cuireann +Enter i bhfeidhm é; nuashonraíonn +U é; athainmníonn +R é; scriosann +D é; athshocraíonn +0 é.
+workspaces.open_documents = Doiciméid oscailte

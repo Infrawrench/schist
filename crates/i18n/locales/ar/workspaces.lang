@@ -14,3 +14,4 @@ workspaces.invalid_name = أدخل اسمًا يتكون من 1–80 حرفًا 
 workspaces.duplicate = توجد مساحة عمل بهذا الاسم بالفعل.
 workspaces.limit = يمكنك حفظ ما يصل إلى 64 مساحة عمل.
 workspaces.keyboard = لوحة المفاتيح: Alt+↑/↓ يحدّد تخطيطًا. Ctrl/Cmd+N يحرّر اسمه؛ +S يحفظ نسخة؛ +Enter يطبّق؛ +U يحدّث؛ +R يعيد التسمية؛ +D يحذف؛ +0 يعيد الضبط.
+workspaces.open_documents = المستندات المفتوحة

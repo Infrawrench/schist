@@ -14,3 +14,4 @@ workspaces.invalid_name = Picatz un nom de 1–80 caractèrs sens caractèrs de 
 workspaces.duplicate = Un espaci de trabalh amb aquel nom existís ja.
 workspaces.limit = Podètz enregistrar fins a 64 espacis de trabalh.
 workspaces.keyboard = Clavièr: Alt+↑/↓ selecciona una disposicion. Ctrl/Cmd+N modifica son nom; +S n'enregistra una còpia; +Enter l'aplica; +U l'actualiza; +R la renomena; +D la suprimís; +0 la reïnicializa.
+workspaces.open_documents = Documents dobèrts

@@ -127,7 +127,7 @@ fn rows_thumb(handle: &gpui::ScrollHandle) -> Option<gpui::AnyElement> {
 }
 
 /// The camera, the exposure, when, and — on a map with a blip — where.
-fn info_panel(
+pub(super) fn info_panel(
     ws: &mut Workspace,
     exif: &ExifSummary,
     cx: &mut Context<Workspace>,

@@ -14,3 +14,4 @@ workspaces.invalid_name = Adjon meg egy 1–80 karakter hosszú nevet vezérlők
 workspaces.duplicate = Már létezik ilyen nevű munkaterület.
 workspaces.limit = Legfeljebb 64 munkaterületet menthet.
 workspaces.keyboard = Billentyűzet: Alt+↑/↓ elrendezést választ. Ctrl/Cmd+N szerkeszti a nevét; +S másolatot ment; +Enter alkalmazza; +U frissíti; +R átnevezi; +D törli; +0 visszaállítja.
+workspaces.open_documents = Megnyitott dokumentumok

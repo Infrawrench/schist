@@ -14,3 +14,4 @@ workspaces.invalid_name = Enskriptez nomo di 1–80 karakteri sen kontrol-karakt
 workspaces.duplicate = Labor-spaco kun ca nomo ja existas.
 workspaces.limit = Vu povas konservar til 64 labor-spaci.
 workspaces.keyboard = Klavaro: Alt+↑/↓ selektas aranjo. Ctrl/Cmd+N redaktas lua nomo; +S konservas kopio; +Enter aplikas ol; +U aktualigas ol; +R renomas ol; +D efacas ol; +0 ripozas ol.
+workspaces.open_documents = Aperta dokumenti

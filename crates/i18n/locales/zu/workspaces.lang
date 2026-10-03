@@ -14,3 +14,4 @@ workspaces.invalid_name = Faka igama elinezinhlamvu ezingu-1–80 elingenazo izi
 workspaces.duplicate = Indawo yokusebenza enaleli gama isivele ikhona.
 workspaces.limit = Ungalondoloza izindawo zokusebenza ezingafika ku-64.
 workspaces.keyboard = Ikhibhodi: Alt+↑/↓ ikhetha ukuhlelwa. Ctrl/Cmd+N ihlela igama lalo; +S ilondoloza ikhophi; +Enter iyakusebenzisa; +U iyakubuyekeza; +R ikuqamba kabusha; +D iyakususa; +0 ikubuyisela esimweni sokuqala.
+workspaces.open_documents = Amadokhumenti avuliwe

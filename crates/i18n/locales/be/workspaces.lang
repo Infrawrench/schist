@@ -14,3 +14,4 @@ workspaces.invalid_name = Увядзіце назву даўжынёй 1–80 с
 workspaces.duplicate = Працоўная прастора з такой назвай ужо існуе.
 workspaces.limit = Можна захаваць да 64 працоўных прастор.
 workspaces.keyboard = Клавіятура: Alt+↑/↓ выбірае размяшчэнне. Ctrl/Cmd+N змяняе яго назву; +S захоўвае копію; +Enter прымяняе; +U абнаўляе; +R пераймяноўвае; +D выдаляе; +0 скідае.
+workspaces.open_documents = Адкрытыя дакументы

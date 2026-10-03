@@ -14,3 +14,4 @@ workspaces.invalid_name = 制御文字を含まない1～80文字の名前を入
 workspaces.duplicate = この名前のワークスペースは既に存在します。
 workspaces.limit = ワークスペースは64個まで保存できます。
 workspaces.keyboard = キーボード：Alt+↑/↓でレイアウトを選択。Ctrl/Cmd+Nで名前を編集、+Sでコピーを保存、+Enterで適用、+Uで更新、+Rで名前変更、+Dで削除、+0でリセット。
+workspaces.open_documents = 開いているドキュメント

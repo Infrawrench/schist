@@ -14,3 +14,4 @@ workspaces.invalid_name = Nhập tên dài 1–80 ký tự và không chứa ký
 workspaces.duplicate = Đã có không gian làm việc mang tên này.
 workspaces.limit = Bạn có thể lưu tối đa 64 không gian làm việc.
 workspaces.keyboard = Bàn phím: Alt+↑/↓ chọn bố cục. Ctrl/Cmd+N sửa tên; +S lưu bản sao; +Enter áp dụng; +U cập nhật; +R đổi tên; +D xóa; +0 đặt lại.
+workspaces.open_documents = Tài liệu đang mở

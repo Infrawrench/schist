@@ -14,3 +14,4 @@ workspaces.invalid_name = Tinye aha nwere mkpụrụedemede 1–80 nke na-enwegh
 workspaces.duplicate = Ebe ọrụ nwere aha a adịlarị.
 workspaces.limit = Ị nwere ike ichekwa ebe ọrụ ruru 64.
 workspaces.keyboard = Ahụigodo: Alt+↑/↓ na-ahọrọ nhazi. Ctrl/Cmd+N na-edezi aha ya; +S na-echekwa otu ya; +Enter na-etinye ya n'ọrụ; +U na-emelite ya; +R na-enyegharị ya aha; +D na-ehichapụ ya; +0 na-atọgharị ya.
+workspaces.open_documents = Akwụkwọ ndị mepere emepe

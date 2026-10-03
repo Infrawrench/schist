@@ -14,3 +14,4 @@ workspaces.invalid_name = Ro hanow a 1–80 lytheren heb lytherennow kontrolya.
 workspaces.duplicate = Le gober gans an hanow ma eus seulabrys.
 workspaces.limit = Ty a yll sawya bys dhe 64 leow gober.
 workspaces.keyboard = Bysowbord: Alt+↑/↓ a dhewis towlennans. Ctrl/Cmd+N a janj y hanow; +S a sawya kopia; +Enter a applya; +U a nowedhi; +R a henwel arta; +D a dhilea; +0 a dasgorra.
+workspaces.open_documents = Skrifennow ygor

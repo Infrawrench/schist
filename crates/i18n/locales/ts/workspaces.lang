@@ -14,3 +14,4 @@ workspaces.invalid_name = Nghenisa vito ra swihlawulekisi swa 1–80 leri nga ri
 workspaces.duplicate = Ndhawu ya ntirho leyi nga ni vito leri se yi kona.
 workspaces.limit = U nga hlayisa tindhawu ta ntirho to fika eka 64.
 workspaces.keyboard = Khibodo: Alt+↑/↓ yi hlawula malulamiselo. Ctrl/Cmd+N yi lulamisa vito ra wona; +S yi hlayisa khopi; +Enter yi tirhisa; +U yi pfuxeta; +R yi cinca vito; +D yi susa; +0 yi tlherisela.
+workspaces.open_documents = Matsalwa lama pfulekeke

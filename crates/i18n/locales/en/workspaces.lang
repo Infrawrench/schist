@@ -14,3 +14,4 @@ workspaces.invalid_name = Enter a name of 1–80 characters without control char
 workspaces.duplicate = A workspace with this name already exists.
 workspaces.limit = You can save up to 64 workspaces.
 workspaces.keyboard = Keyboard: Alt+↑/↓ selects a layout. Ctrl/Cmd+N edits its name; +S saves a copy; +Enter applies; +U updates; +R renames; +D deletes; +0 resets.
+workspaces.open_documents = Open Documents

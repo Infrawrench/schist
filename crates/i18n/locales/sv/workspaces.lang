@@ -14,3 +14,4 @@ workspaces.invalid_name = Ange ett namn med 1–80 tecken utan kontrolltecken.
 workspaces.duplicate = Det finns redan en arbetsyta med detta namn.
 workspaces.limit = Du kan spara upp till 64 arbetsytor.
 workspaces.keyboard = Tangentbord: Alt+↑/↓ väljer en layout. Ctrl/Cmd+N redigerar namnet; +S sparar en kopia; +Enter tillämpar; +U uppdaterar; +R byter namn; +D tar bort; +0 återställer.
+workspaces.open_documents = Öppna dokument

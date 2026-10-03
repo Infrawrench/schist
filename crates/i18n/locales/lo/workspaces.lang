@@ -14,3 +14,4 @@ workspaces.invalid_name = ປ້ອນຊື່ຍາວ 1–80 ຕົວອັ�
 workspaces.duplicate = ມີພື້ນທີ່ເຮັດວຽກຊື່ນີ້ແລ້ວ.
 workspaces.limit = ທ່ານສາມາດບັນທຶກພື້ນທີ່ເຮັດວຽກໄດ້ສູງສຸດ 64 ອັນ.
 workspaces.keyboard = ແປ້ນພິມ: Alt+↑/↓ ເລືອກການຈັດວາງ. Ctrl/Cmd+N ແກ້ໄຂຊື່; +S ບັນທຶກສຳເນົາ; +Enter ນຳໃຊ້; +U ອັບເດດ; +R ປ່ຽນຊື່; +D ລຶບ; +0 ຣີເຊັດ.
+workspaces.open_documents = ເອກະສານທີ່ເປີດ

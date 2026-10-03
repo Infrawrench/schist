@@ -14,3 +14,4 @@ workspaces.invalid_name = له کنټرولي تورو پرته د 1–80 نښو
 workspaces.duplicate = په دې نوم کاري ځای له مخکې شته.
 workspaces.limit = تاسو تر 64 پورې کاري ځایونه ساتلی شئ.
 workspaces.keyboard = کیبورډ: Alt+↑/↓ ترتیب ټاکي. Ctrl/Cmd+N یې نوم سموي؛ +S یوه کاپي ساتي؛ +Enter یې پلي کوي؛ +U یې تازه کوي؛ +R یې بیا نوموي؛ +D یې ړنګوي؛ +0 یې بیا ټاکي.
+workspaces.open_documents = پرانیستي لاسوندونه

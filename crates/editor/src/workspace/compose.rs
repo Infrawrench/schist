@@ -79,7 +79,7 @@ impl Workspace {
             size: (width as u32, height as u32),
             color_epoch: self.color_epoch,
             rotation: self.rotation.to_bits(),
-            surround: crate::ui::palette().canvas_bg,
+            surround: self.canvas_surround(),
             seamless: self.editor.seamless_painting,
         })
     }

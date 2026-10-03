@@ -44,6 +44,7 @@ mod navigator;
 mod notes;
 mod object_styles;
 mod pages;
+pub(crate) mod photo;
 mod preflight;
 mod rulers;
 mod sliders;

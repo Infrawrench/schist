@@ -14,3 +14,4 @@ workspaces.invalid_name = Faka libito lelinetinhlavu letingu-1–80 lelingenatin
 workspaces.duplicate = Sekuvele kunendzawo yekusebenta lenalelibito.
 workspaces.limit = Ungagcina tindzawo tekusebenta letifika ku-64.
 workspaces.keyboard = Ikhibhodi: Alt+↑/↓ ikhetsa kuhleleka. Ctrl/Cmd+N ihlela libito lakho; +S igcina ikhophi; +Enter iyakusebentisa; +U iyakubuyeketa; +R ikwetsa libito lelisha; +D iyakususa; +0 ikusethela kabusha.
+workspaces.open_documents = Emadokhumenti lavuliwe

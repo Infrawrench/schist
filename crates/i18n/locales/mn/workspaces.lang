@@ -14,3 +14,4 @@ workspaces.invalid_name = Удирдлагын тэмдэгт агуулаагү
 workspaces.duplicate = Ийм нэртэй ажлын орчин аль хэдийн байна.
 workspaces.limit = Та 64 хүртэл ажлын орчин хадгалж болно.
 workspaces.keyboard = Гар: Alt+↑/↓ байрлалыг сонгоно. Ctrl/Cmd+N нэрийг нь засна; +S хуулбарыг хадгална; +Enter хэрэглэнэ; +U шинэчилнэ; +R нэрийг нь өөрчилнө; +D устгана; +0 дахин тохируулна.
+workspaces.open_documents = Нээлттэй баримтууд

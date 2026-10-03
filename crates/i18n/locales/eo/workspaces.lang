@@ -14,3 +14,4 @@ workspaces.invalid_name = Enigu nomon de 1–80 signoj sen stirsignoj.
 workspaces.duplicate = Laborspaco kun tiu nomo jam ekzistas.
 workspaces.limit = Vi povas konservi ĝis 64 laborspacojn.
 workspaces.keyboard = Klavaro: Alt+↑/↓ elektas aranĝon. Ctrl/Cmd+N redaktas ĝian nomon; +S konservas kopion; +Enter aplikas ĝin; +U ĝisdatigas; +R alinomigas; +D forigas; +0 restarigas.
+workspaces.open_documents = Malfermitaj dokumentoj

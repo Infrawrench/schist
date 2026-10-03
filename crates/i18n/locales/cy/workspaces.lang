@@ -14,3 +14,4 @@ workspaces.invalid_name = Rhowch enw sy’n 1–80 nod o hyd heb nodau rheoli.
 workspaces.duplicate = Mae man gwaith â’r enw hwn eisoes yn bodoli.
 workspaces.limit = Gallwch gadw hyd at 64 man gwaith.
 workspaces.keyboard = Bysellfwrdd: Mae Alt+↑/↓ yn dewis cynllun. Mae Ctrl/Cmd+N yn golygu ei enw; +S yn cadw copi; +Enter yn ei gymhwyso; +U yn ei ddiweddaru; +R yn ei ailenwi; +D yn ei ddileu; +0 yn ailosod.
+workspaces.open_documents = Dogfennau agored

@@ -14,3 +14,4 @@ workspaces.invalid_name = Endatescha in num cun 1–80 caracters senza caracters
 workspaces.duplicate = In spazi da lavur cun quest num exista gia.
 workspaces.limit = Ti pos memorisar fin a 64 spazis da lavur.
 workspaces.keyboard = Tastatura: Alt+↑/↓ tscherna ina disposiziun. Ctrl/Cmd+N modifiescha ses num; +S memorisescha ina copia; +Enter applitgescha; +U actualisescha; +R renumna; +D stizza; +0 redefiniescha.
+workspaces.open_documents = Documents averts

@@ -14,3 +14,4 @@ workspaces.invalid_name = Asupkeun ngaran 1–80 karakter tanpa karakter kontrol
 workspaces.duplicate = Rohangan gawé nu ngaranna kieu geus aya.
 workspaces.limit = Anjeun bisa nyimpen nepi ka 64 rohangan gawé.
 workspaces.keyboard = Kibor: Alt+↑/↓ milih tata perenah. Ctrl/Cmd+N ngédit ngaranna; +S nyimpen salinan; +Enter ngalarapkeun; +U ngapdet; +R ngaganti ngaran; +D mupus; +0 nyetél deui.
+workspaces.open_documents = Dokumén anu kabuka

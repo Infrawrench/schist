@@ -166,7 +166,7 @@ impl Workspace {
             // Zooming out or panning can expose ground the stale image
             // never covered; fill it with the surround so those edges
             // don't flash stale pixels or bare window.
-            let surround = crate::ui::palette().canvas_bg;
+            let surround = self.canvas_surround();
             job.backdrop = Some((bounds, gpui::rgb(surround).into()));
             job.tiles.push(quad);
             // Re-aim the prefetch queue at wherever the view is right
@@ -181,7 +181,7 @@ impl Workspace {
         } else if let Some(quad) = self.assemble_viewport(bounds, scale_factor, cx) {
             // A pending browser frame keeps the old texture at the current
             // transform. Its edges can expose surround after zooming out.
-            job.backdrop = Some((bounds, gpui::rgb(crate::ui::palette().canvas_bg).into()));
+            job.backdrop = Some((bounds, gpui::rgb(self.canvas_surround()).into()));
             job.tiles.push(quad);
         }
 
@@ -417,7 +417,7 @@ impl Workspace {
             .flex_grow()
             .size_full()
             .overflow_hidden()
-            .bg(gpui::rgb(crate::ui::palette().canvas_bg))
+            .bg(gpui::rgb(self.canvas_surround()))
             // The pointer never changed shape anywhere in the app: the
             // canvas showed an arrow whether the active tool was the
             // hand, the zoom, the eyedropper, a brush or the crop.
@@ -749,6 +749,13 @@ impl Render for Workspace {
         // overlay): the gallery when it is open, otherwise the editor.
         let gallery = self.gallery_open();
         let editor_chrome = !gallery && chrome;
+        let photo = self.photo_workspace();
+        // Browser-only mode has no canvas paint job to release retired images.
+        if photo && !gallery {
+            for image in std::mem::take(&mut self.retired_images) {
+                let _ = window.drop_image(image);
+            }
+        }
         let body: gpui::AnyElement = if gallery {
             #[cfg(not(target_arch = "wasm32"))]
             {
@@ -763,6 +770,8 @@ impl Render for Workspace {
                     super::cloud_view::browser_gallery(self, cx)
                 }
             }
+        } else if photo && chrome {
+            panels::photo::workspace(self, window, cx)
         } else {
             // The panel column sits beside the canvas, except on a
             // phone-width touch window, where there is no room for both:
@@ -1040,8 +1049,15 @@ impl Render for Workspace {
             // Other platforms retain their native window decorations.
             .children((chrome && cfg!(target_os = "macos")).then(|| panels::title_bar(self)))
             .children(in_window_menus.then(|| panels::menu_bar(self, window, cx)))
-            .children(editor_chrome.then(|| panels::tool_options_bar(self, window, cx)))
-            .children(editor_chrome.then(|| panels::tab_bar(self, cx)))
+            .children(
+                (editor_chrome
+                    && (!photo
+                        || (self.photo_view.tool_options
+                            && self.view.photo_layout.display
+                                != schist_app_settings::workspaces::PhotoDisplay::Browser)))
+                    .then(|| panels::tool_options_bar(self, window, cx)),
+            )
+            .children((editor_chrome && !photo).then(|| panels::tab_bar(self, cx)))
             .child(body)
             .children(editor_chrome.then(|| panels::status_bar(self, cx)))
             .children(tool_flyout)

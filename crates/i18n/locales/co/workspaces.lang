@@ -14,3 +14,4 @@ workspaces.invalid_name = Inserite un nome di 1–80 caratteri senza caratteri d
 workspaces.duplicate = Un spaziu di travagliu cù stu nome esiste digià.
 workspaces.limit = Pudete arregistrà sin’à 64 spazii di travagliu.
 workspaces.keyboard = Tastiera: Alt+↑/↓ sceglie una dispusizione. Ctrl/Cmd+N ne mudifica u nome; +S ne arregistreghja una copia; +Enter l’applica; +U l’aghjurna; +R a rinumina; +D a sguassa; +0 a rimette.
+workspaces.open_documents = Ducumenti aperti

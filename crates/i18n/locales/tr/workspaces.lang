@@ -14,3 +14,4 @@ workspaces.invalid_name = Kontrol karakterleri içermeyen 1–80 karakterlik bir
 workspaces.duplicate = Bu adda bir çalışma alanı zaten var.
 workspaces.limit = En fazla 64 çalışma alanı kaydedebilirsiniz.
 workspaces.keyboard = Klavye: Alt+↑/↓ bir düzen seçer. Ctrl/Cmd+N adını düzenler; +S bir kopyasını kaydeder; +Enter uygular; +U günceller; +R yeniden adlandırır; +D siler; +0 sıfırlar.
+workspaces.open_documents = Açık belgeler
