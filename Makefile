@@ -639,7 +639,7 @@ library: library-native library-wasm
 library-native:
 	CARGO='$(CARGO)' SCHIST_LIBRARY_TARGET_DIR='$(LIBRARY_TARGET_DIR)' ./tools/library-cargo.sh build $(PROFILE_FLAG) --lib
 	@mkdir -p dist/library
-	cp include/schist.h LICENSE web/fonts/LICENSE-IBMPlexSans.txt dist/library/
+	cp include/schist.h LICENSE THIRD-PARTY-NOTICES.txt web/fonts/LICENSE-IBMPlexSans.txt dist/library/
 ifeq ($(HOST),linux)
 	cp '$(LIBRARY_TARGET_DIR)/$(PROFILE)/libschist.so' dist/library/
 else ifeq ($(HOST),macos)

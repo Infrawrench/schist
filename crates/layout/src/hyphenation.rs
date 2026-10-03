@@ -1,8 +1,11 @@
 //! Native automatic-hyphenation options, independent of the paragraph's enable
 //! switch. Unset values inherit; disabling hyphenation retains the policy.
 //!
-//! These options are retained for interchange. Dictionary break selection and
-//! composition constraints are not implemented by this representation.
+//! These options are retained for interchange. `Dictionary` selects word-level
+//! opportunities; line and column constraints still belong to composition.
+mod dictionary;
+pub use dictionary::{opportunities, Dictionary};
+
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, Default, PartialEq, Serialize, Deserialize)]

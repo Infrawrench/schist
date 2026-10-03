@@ -310,6 +310,41 @@ are marked.
 
 ## Handoff
 
+Dictionary word selection, 2026-10-03:
+Generated hyphen source mapping is pushed as `139e6f03` to draft PR #195, with
+all 16 targets, 1,894 Rust tests and the native rebuild passing. Its Web and
+headless CI pass; desktop CI remains in progress. The previous discretionary
+hyphen checkpoint now has all desktop platforms passing, including Windows.
+
+The next prerequisite selects dictionary opportunities from complete source
+words, preserving source coordinates through NFC and length-changing lowercase.
+Nine properties cover word limits, explicit language namespaces, mixed runs,
+No Break resets, manual hyphens, all source slices, unsupported scripts and long
+words. Hypher 0.1.8 is pinned with only reviewed US-English, French and reformed-
+German patterns. Unknown regions/orthographies do not fall back silently.
+A leading source SHY is also respected: Unicode segmentation drops it from the
+word token, which the new regression reproduced before the selector was fixed.
+Distribution paths now retain the code/pattern notices; see
+[Dictionary hyphenation](hyphenation.md). All 16 targets pass with **1,903 distinct
+Rust tests**, including five shared UI checks (one existing documentation example
+ignored), four browser checks and eight Python audit tests. Workspace clippy,
+native/browser/headless checks, localization, formatting and whitespace pass.
+All 31 PDF proofs remain byte-identical. The native development rebuild passes in
+1m 43s; the isolated Design-enabled bundle is refreshed with the notices and
+hash/signature verified, and remains quit. The macOS app and MCP ZIP paths retain
+exact notice bytes in a temporary packaging check using real `ditto` archives;
+build/DMG/signing were stubbed, so no release-package validation is claimed.
+Shell syntax checks pass. Logs use `/tmp/schist-dictionary-*`; the superseded
+partial sweep is retained under `schist-dictionary-initial-sweep`. The word
+selector is not wired into composition until ladder/zone/weight and column-end
+policies are applied. No new UI or default flag change is claimed.
+
+Disk space fell to about 200 MiB. With no cargo/rustc process running, the unused
+incremental cache and superseded release dependency outputs were removed; builds
+continue with `CARGO_INCREMENTAL=0`. The built release executable is preserved.
+Source files, current binaries, proofs and logs remain.
+
+
 
 Generated hyphen source mapping, 2026-10-03:
 Native policy retention is pushed as `dee3f6f8` to draft PR #195 with all 16

@@ -2173,3 +2173,14 @@ punctuation and explicit No Break protected. It is consistent with the Hebrew
 continuation case in [UAX #14 revision 55](https://www.unicode.org/reports/tr14/tr14-55.html#LB21a),
 not a claim that the entire line-break engine implements Unicode 17. The failed
 first sweep is retained in `/tmp/schist-generated-hyphen-hebrew-before.log`.
+
+
+### Dictionary opportunity selection
+
+The layout kernel now has a source-preserving word selector using three reviewed
+public pattern sets. Dictionary identities are stricter than shaping tags:
+US-English and reformed-German patterns cannot silently replace another region
+or spelling system. Full words, per-run language, No Break, normalization and
+word policies have property coverage. [Dictionary hyphenation](hyphenation.md)
+records sources, licenses, accepted identities and limits. Line/column policy
+integration remains open; ordinary composition is not switched over yet.

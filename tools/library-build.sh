@@ -27,6 +27,6 @@ wasm-bindgen --target nodejs --out-name schist --out-dir dist/library/node \
   "${SCHIST_LIBRARY_TARGET_DIR:-target/library}/$target/$artifact_profile/schist.wasm"
 printf '%s\n' '{"type":"commonjs"}' > dist/library/node/package.json
 cp include/schist.h dist/library/
-cp LICENSE web/fonts/LICENSE-IBMPlexSans.txt "$out/"
-cp LICENSE web/fonts/LICENSE-IBMPlexSans.txt dist/library/node/
+cp LICENSE THIRD-PARTY-NOTICES.txt web/fonts/LICENSE-IBMPlexSans.txt "$out/"
+cp LICENSE THIRD-PARTY-NOTICES.txt web/fonts/LICENSE-IBMPlexSans.txt dist/library/node/
 echo "Built $out/schist.js, schist.d.ts and schist_bg.wasm"
