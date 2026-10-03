@@ -53,6 +53,12 @@ pub enum Step {
     },
     RawDevelopment {
         values: BTreeMap<String, f32>,
+        /// The development's local adjustment masks, replacing the target
+        /// layer's. Detected components carry no raster and are detected
+        /// again on each layer the step replays on. Absent in actions
+        /// recorded before masks existed, which leave a layer's masks be.
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        masks: Option<Vec<schist_core::LocalMask>>,
     },
     Stack {
         change: StackOperation,
@@ -189,7 +195,7 @@ impl Step {
     pub fn filter_parameters(&self) -> Option<(&str, &BTreeMap<String, f32>)> {
         match self {
             Self::Filter { id, values } => Some((id, values)),
-            Self::RawDevelopment { values } => Some(("filter.camera_raw", values)),
+            Self::RawDevelopment { values, .. } => Some(("filter.camera_raw", values)),
             Self::Stack {
                 change: StackOperation::Add { effect } | StackOperation::Set { effect, .. },
             } => Some((&effect.id, &effect.values)),
@@ -198,7 +204,7 @@ impl Step {
     }
     pub fn filter_parameters_mut(&mut self) -> Option<&mut BTreeMap<String, f32>> {
         match self {
-            Self::Filter { values, .. } | Self::RawDevelopment { values } => Some(values),
+            Self::Filter { values, .. } | Self::RawDevelopment { values, .. } => Some(values),
             Self::Stack { change } => change.effect_mut().map(|effect| &mut effect.values),
             _ => None,
         }
@@ -418,7 +424,14 @@ fn validate_shape(action: &SavedAction) -> anyhow::Result<()> {
             Step::Transform { params } => {
                 anyhow::ensure!(params.valid(), "{}", t("actions.invalid_parameters"));
             }
-            Step::RawDevelopment { values } => {
+            Step::RawDevelopment { values, masks } => {
+                anyhow::ensure!(
+                    masks
+                        .as_deref()
+                        .is_none_or(schist_core::raw_masks::masks_valid),
+                    "{}",
+                    t("actions.invalid_parameters")
+                );
                 anyhow::ensure!(
                     values.len() == 15
                         && values.iter().all(|(key, value)| {
@@ -633,7 +646,7 @@ impl Runtime {
         for step in &action.steps {
             let parameters = match step {
                 Step::Filter { id, values } => Some((id.as_str(), values)),
-                Step::RawDevelopment { values } => Some(("filter.camera_raw", values)),
+                Step::RawDevelopment { values, .. } => Some(("filter.camera_raw", values)),
                 Step::Stack {
                     change: StackOperation::Add { effect } | StackOperation::Set { effect, .. },
                 } => Some((effect.id.as_str(), &effect.values)),
@@ -826,7 +839,7 @@ impl Runtime {
                     t("actions.needs_pixels")
                 );
             }
-            Step::RawDevelopment { values } => {
+            Step::RawDevelopment { values, masks } => {
                 let filter = self.filter("filter.camera_raw")?;
                 let values = resolve_values(filter.as_ref(), values)?;
                 let settings = super::filters::settings_from_values(&values);
@@ -846,13 +859,16 @@ impl Runtime {
                     .raw
                     .clone()
                     .ok_or_else(|| anyhow::anyhow!("{}", t("actions.needs_pixels")))?;
-                let developed = super::filters::render_raw_capture(
-                    raw.source.clone(),
-                    settings,
-                    schist_codecs_common::raw::RawQuality::Best,
-                    filter,
-                    values,
-                )?;
+                let masks = masks.clone().unwrap_or_else(|| raw.masks.clone());
+                let super::filters::RenderedRaw { developed, masks } =
+                    super::filters::render_raw_capture(
+                        raw.source.clone(),
+                        settings,
+                        schist_codecs_common::raw::RawQuality::Best,
+                        filter,
+                        values,
+                        masks,
+                    )?;
                 anyhow::ensure!(
                     developed.width == doc.width as usize
                         && developed.height == doc.height as usize,
@@ -871,6 +887,7 @@ impl Runtime {
                     &developed.rgba,
                 );
                 raw.settings = settings;
+                raw.masks = masks;
                 let mut edit = doc.begin_edit(t("workspace.filters.raw_history"));
                 edit.replace_layer_tiles(id, tiles);
                 edit.set_raw_development(id, Some(raw));
@@ -2515,6 +2532,7 @@ mod tests {
             doc,
             Step::RawDevelopment {
                 values: values.0.into_iter().map(|(k, v)| (k.into(), v)).collect(),
+                masks: None,
             },
         )
     }
@@ -2552,17 +2570,91 @@ mod tests {
         assert!(rt
             .replay(&action(vec![step.clone()]), &mut document())
             .is_err());
-        let Step::RawDevelopment { mut values } = step else {
+        let Step::RawDevelopment { mut values, .. } = step else {
             unreachable!()
         };
         for invalid in [f32::NAN, f32::INFINITY, 6.0] {
             values.insert("exposure".into(), invalid);
             assert!(rt
                 .validate(&action(vec![Step::RawDevelopment {
-                    values: values.clone()
+                    values: values.clone(),
+                    masks: None,
                 }]))
                 .is_err());
         }
+    }
+
+    #[test]
+    fn raw_development_replays_masks_and_detects_again() {
+        use schist_core::{DetectedKind, LocalMask, MaskCombine, MaskComponent, MaskShape};
+        let (rt, mut doc, step) = raw_fixture();
+        let id = doc.active_layer.unwrap();
+        let Step::RawDevelopment { values, .. } = step else {
+            unreachable!()
+        };
+        let plain = Step::RawDevelopment {
+            values: values.clone(),
+            masks: Some(Vec::new()),
+        };
+        rt.replay(&action(vec![plain]), &mut doc).unwrap();
+        let unmasked = pixels(&doc);
+
+        let mut mask = LocalMask::new(MaskShape::Linear {
+            start: [0.0, 0.5],
+            end: [0.0, 0.5001],
+        });
+        mask.adjustments.exposure = -2.0;
+        // The sky detector needs no model, so it runs anywhere; the
+        // fixture has no sky and contributes nothing, but must detect.
+        mask.components.push(MaskComponent {
+            shape: MaskShape::Detected {
+                kind: DetectedKind::Sky,
+                raster: None,
+            },
+            combine: MaskCombine::Add,
+            invert: false,
+        });
+        let masked = Step::RawDevelopment {
+            values,
+            masks: Some(vec![mask]),
+        };
+        // Recorded steps are JSON: the detection is not saved, the recipe is.
+        let json = serde_json::to_string(&masked).unwrap();
+        assert!(!json.contains("raster"));
+        let masked: Step = serde_json::from_str(&json).unwrap();
+        rt.replay(&action(vec![masked.clone()]), &mut doc).unwrap();
+        assert_ne!(pixels(&doc), unmasked, "the mask darkened the top half");
+        let raw = doc.tree.find(id).unwrap().raw.clone().unwrap();
+        assert_eq!(raw.masks.len(), 1);
+        assert!(!raw.masks[0].needs_detection(), "detected on replay");
+
+        // Invalid masks are rejected before anything runs.
+        let Step::RawDevelopment { values, masks } = masked else {
+            unreachable!()
+        };
+        let mut masks = masks.unwrap();
+        masks[0].adjustments.exposure = 40.0;
+        assert!(rt
+            .validate(&action(vec![Step::RawDevelopment {
+                values: values.clone(),
+                masks: Some(masks),
+            }]))
+            .is_err());
+
+        // A step from before masks existed leaves the layer's masks alone.
+        let mut old = serde_json::to_value(Step::RawDevelopment {
+            values,
+            masks: None,
+        })
+        .unwrap();
+        assert!(old.get("masks").is_none());
+        old["values"]["exposure"] = serde_json::json!(0.25);
+        let old: Step = serde_json::from_value(old).unwrap();
+        rt.replay(&action(vec![old]), &mut doc).unwrap();
+        assert_eq!(
+            doc.tree.find(id).unwrap().raw.as_ref().unwrap().masks.len(),
+            1
+        );
     }
 
     #[cfg(not(target_arch = "wasm32"))]

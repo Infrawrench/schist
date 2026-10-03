@@ -72,7 +72,7 @@ impl Workspace {
     }
 
     pub(crate) fn has_filter_canvas_controls(&self) -> bool {
-        self.filter_canvas_session().is_some()
+        self.filter_canvas_session().is_some() || self.raw_mask_canvas_active()
     }
 
     pub(super) fn paint_filter_canvas(
@@ -80,6 +80,7 @@ impl Workspace {
         job: &mut PaintJob,
         screen: &impl Fn(f32, f32) -> Point<Pixels>,
     ) {
+        self.paint_raw_masks(job, screen);
         let Some(session) = self.filter_canvas_session() else {
             return;
         };
@@ -125,6 +126,15 @@ impl Workspace {
         }
         self.commit_focused_field();
         self.focused_field = None;
+        if self.raw_mask_canvas_active() {
+            window.focus(&self.focus);
+            window.claim_touch_drag();
+            let p = self.doc_pos(self.to_local(ev.position));
+            self.raw_mask_down(p, cx);
+            cx.stop_propagation();
+            cx.notify();
+            return;
+        }
         let Some(session) = self.filter_canvas_session() else {
             return;
         };
@@ -222,6 +232,16 @@ impl Workspace {
                 return;
             }
             moves.update(cx, |ws, cx| {
+                if ws.raw_mask_dragging() {
+                    let p = ws.doc_pos(ws.to_local(ev.position));
+                    if ev.pressed_button == Some(MouseButton::Left) {
+                        ws.raw_mask_move(p, cx);
+                    } else {
+                        ws.raw_mask_up(p, cx);
+                    }
+                    cx.stop_propagation();
+                    return;
+                }
                 let Some(offset) = ws.filter_canvas.drag else {
                     return;
                 };
@@ -241,6 +261,12 @@ impl Workspace {
                 return;
             }
             ups.update(cx, |ws, cx| {
+                if ws.raw_mask_dragging() {
+                    let p = ws.doc_pos(ws.to_local(ev.position));
+                    ws.raw_mask_up(p, cx);
+                    cx.stop_propagation();
+                    return;
+                }
                 if let Some(offset) = ws.filter_canvas.drag.take() {
                     let p = ws.doc_pos(ws.to_local(ev.position));
                     ws.move_filter_handle((p.0 + offset.0, p.1 + offset.1), cx);

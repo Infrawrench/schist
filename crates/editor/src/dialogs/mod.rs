@@ -37,6 +37,7 @@ mod plugins;
 mod prefs;
 mod printing;
 mod profile;
+mod raw_masks;
 mod recorded_actions;
 #[cfg(not(target_arch = "wasm32"))]
 mod save_image;
@@ -64,6 +65,7 @@ use open::*;
 use plugins::*;
 use prefs::*;
 use profile::*;
+use raw_masks::*;
 #[cfg(not(target_arch = "wasm32"))]
 use save_image::*;
 use size::*;

@@ -98,6 +98,7 @@ mod input;
 mod layers_panel;
 mod lens_profiles;
 pub(crate) mod mask_refine;
+pub(crate) mod raw_masks;
 // The gallery: watched photo folders, thumbnails, camera import and the
 // PSD sidecars behind gallery edits. A browser tab has no folders to
 // watch, so the web build compiles the whole thing out.
@@ -373,6 +374,11 @@ pub struct Workspace {
     /// Generation of the most recently requested sensor-data preview.
     /// Slow results from an older slider position are discarded on arrival.
     raw_preview_seq: u64,
+    /// The Camera Raw dialog's local adjustment masks while it is open.
+    pub(crate) raw_masks: Option<raw_masks::RawMaskEditor>,
+    /// The last globally developed preview, so editing a mask re-runs only
+    /// the masks rather than the sensor decode.
+    raw_preview_base: Option<RawPreviewBase>,
     /// Live bounds of the picker's and the curve editor's drag surfaces,
     /// recorded each frame by their canvases.
     slider_bounds: FxHashMap<&'static str, Bounds<Pixels>>,
@@ -1005,6 +1011,15 @@ pub struct FilterPreview {
     /// RAW development always covers the capture, independent of a pixel
     /// selection. Ordinary filters leave this false.
     pub whole_layer: bool,
+}
+
+/// A Camera Raw preview developed with the global controls only.
+pub(crate) struct RawPreviewBase {
+    pub layer: schist_core::LayerId,
+    pub values: schist_plugin_api::FilterValues,
+    pub width: usize,
+    pub height: usize,
+    pub rgba: Arc<Vec<f32>>,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -1658,6 +1673,8 @@ impl Workspace {
             filter_canvas: Default::default(),
             stack_filter_session: None,
             raw_preview_seq: 0,
+            raw_masks: None,
+            raw_preview_base: None,
             slider_bounds: FxHashMap::default(),
             thumbs: FxHashMap::default(),
             mask_thumbs: FxHashMap::default(),
