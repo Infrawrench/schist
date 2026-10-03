@@ -89,7 +89,7 @@ a session ID. `loadModel(id, Uint8Array)` loads one instance's ONNX model.
 | `sessions` | none | This instance's session IDs |
 | `close` | `session` | `null`; discards that document |
 | `import` | `name`, base64 `data` | `{session}` |
-| `export` | `session`, `extension`, optional `quality`, `bit_depth`, `dither` | Base64 `{data}` |
+| `export` | `session`, `extension`, optional `quality`, `bit_depth`, `dither`; for `exr` also `compression`, `layered`, `alpha` | Base64 `{data}` |
 | `call` | `session`, `name`, optional `args` object | MCP content array |
 | `load_model` | `id`, base64 `data` | `null` |
 | `unload_model` | `id` | `null` |
