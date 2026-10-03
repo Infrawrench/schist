@@ -4,6 +4,7 @@
 //! in plugins (see `schist-plugin-api`). If every plugin were removed the
 //! app would boot to an empty workspace that can do nothing.
 
+pub mod animation;
 pub mod annotate;
 pub mod blend;
 pub mod document;

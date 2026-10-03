@@ -36,6 +36,11 @@ struct Drag {
     start: (f32, f32),
     /// The offset currently applied to the layer.
     offset: (i32, i32),
+    /// The render offset the layer had before the drag: the selected
+    /// animation frame's offset for this layer, zero otherwise. The drag
+    /// previews on top of it and puts it back, so moving pixels in an
+    /// animated document does not lose the frame's offset.
+    base: (i32, i32),
 }
 
 impl MoveTool {
@@ -89,15 +94,15 @@ impl MoveTool {
     /// and the canvas re-composites and colour-manages what it throws away
     /// -- for a click that moved nothing at all, which is what an ordinary
     /// click with the Move tool is.
-    fn undo_preview(ctx: &mut ToolCtx, layer_id: schist_core::LayerId) {
+    fn undo_preview(ctx: &mut ToolCtx, layer_id: schist_core::LayerId, base: (i32, i32)) {
         let Some(layer) = ctx.doc.tree.find_mut(layer_id) else {
             return;
         };
-        if layer.render_offset == (0, 0) {
+        if layer.render_offset == base {
             return;
         }
         let mut damage = layer.content_bounds();
-        layer.render_offset = (0, 0);
+        layer.render_offset = base;
         damage = damage.union(&layer.content_bounds());
         ctx.doc.add_damage(damage.inflated(1));
     }
@@ -169,6 +174,7 @@ impl ToolPlugin for MoveTool {
             layer: id,
             start: (input.x, input.y),
             offset: (0, 0),
+            base: layer.render_offset,
         });
     }
 
@@ -184,11 +190,12 @@ impl ToolPlugin for MoveTool {
         let previous = drag.offset;
         drag.offset = offset;
         let layer_id = drag.layer;
+        let base = drag.base;
         // Redraw where the layer was and where it now is.
         let mut damage = IntRect::EMPTY;
         if let Some(layer) = ctx.doc.tree.find_mut(layer_id) {
             damage = damage.union(&layer.content_bounds());
-            layer.render_offset = offset;
+            layer.render_offset = (base.0 + offset.0, base.1 + offset.1);
             damage = damage.union(&layer.content_bounds());
         }
         let _ = previous;
@@ -205,7 +212,7 @@ impl ToolPlugin for MoveTool {
         );
         // Put the layer back where its pixels actually are, then record the
         // move as one edit so undo restores the original position.
-        Self::undo_preview(ctx, drag.layer);
+        Self::undo_preview(ctx, drag.layer, drag.base);
         if dx == 0 && dy == 0 {
             return;
         }
@@ -216,7 +223,7 @@ impl ToolPlugin for MoveTool {
 
     fn on_cancel(&mut self, ctx: &mut ToolCtx) {
         if let Some(drag) = self.drag.take() {
-            Self::undo_preview(ctx, drag.layer);
+            Self::undo_preview(ctx, drag.layer, drag.base);
         }
     }
 
@@ -728,6 +735,39 @@ mod tests {
         let layer = doc.tree.find(id).unwrap();
         assert_eq!(layer.render_offset, (0, 0));
         assert_eq!(layer.tight_bounds(), IntRect::from_xywh(10, 10, 32, 32));
+    }
+
+    #[test]
+    fn a_drag_keeps_the_animation_frames_offset() {
+        let mut doc = red_square_doc();
+        let id = doc.active_layer.unwrap();
+        schist_core::animation::create(&mut doc, "create").unwrap();
+        schist_core::animation::set_offset(&mut doc, id, (7, 3), "offset").unwrap();
+        let mut state = EditorState::default();
+        let mut tool = MoveTool::new();
+        {
+            let mut ctx = ToolCtx {
+                doc: &mut doc,
+                state: &mut state,
+            };
+            tool.on_pointer_down(&mut ctx, input(20.0, 20.0));
+            tool.on_pointer_move(&mut ctx, input(30.0, 20.0));
+        }
+        assert_eq!(doc.tree.find(id).unwrap().render_offset, (17, 3));
+        {
+            let mut ctx = ToolCtx {
+                doc: &mut doc,
+                state: &mut state,
+            };
+            tool.on_pointer_up(&mut ctx, input(30.0, 20.0));
+        }
+        let layer = doc.tree.find(id).unwrap();
+        assert_eq!(layer.render_offset, (7, 3), "the frame offset stays");
+        assert_eq!(
+            layer.as_raster().unwrap().tiles.pixel(45, 15).to_u8(),
+            [255, 0, 0, 255],
+            "the pixels moved under it"
+        );
     }
 
     #[test]
