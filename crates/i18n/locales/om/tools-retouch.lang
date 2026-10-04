@@ -18,3 +18,11 @@ tool.magic_eraser.name = Haqtuu Sihrii
 tool.magic_eraser.description = Naannoo halluun isaa wal fakkaatu kan agarsiiftuu jala jiru, hanga obsa meeshaa kanaatti, haquuf cuqaasi; naannoon sun tuqaa cuqaafame waliin wal qabatee qofa yookaan laayara guutuu keessa ta'uu danda'a.
 tool.magic_eraser.option.contiguous = Wal Qabataa
 tool.magic_eraser.history.erase = Haqtuu Sihrii
+
+# Remove
+tool.remove.name = Balleessi
+tool.remove.description = Wanta hin barbaachisne irratti tarkaanfii tokkoon dibi; yeroo gadhiifattu naannoo isaa irraa guutama. Yeroo "Tarkaanfii Hundumaa Booda Balleessi" dhaamsame, tarkaanfiiwwan hedduu dibiitii walumaan balleessuuf Enter cuqaasi.
+tool.remove.option.sample_all_layers = Laayaroota Hunda Irraa Fudhadhu
+tool.remove.option.remove_after_each_stroke = Tarkaanfii Hundumaa Booda Balleessi
+tool.remove.history.remove = Balleessi
+tool.remove.layer_name = Balleeffame

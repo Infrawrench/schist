@@ -18,3 +18,11 @@ tool.magic_eraser.name = जादुई इरेजर
 tool.magic_eraser.description = उपकरणको सहनशीलताभित्र सूचकमुनि मिल्दोजुल्दो रङ भएको क्षेत्र मेटाउन क्लिक गर्नुहोस्—क्लिकसँग जोडिएको क्षेत्र वा तहभरिका सबै ठाउँ।
 tool.magic_eraser.option.contiguous = जोडिएको
 tool.magic_eraser.history.erase = जादुई इरेजर
+
+# Remove
+tool.remove.name = हटाउनुहोस्
+tool.remove.description = नचाहिएको वस्तुमाथि एकै स्ट्रोकमा रङ लगाउनुहोस्; छोड्नेबित्तिकै त्यो भाग वरिपरिबाट भरिन्छ। प्रत्येक स्ट्रोकपछि हटाउनुहोस् बन्द हुँदा, धेरै स्ट्रोक लगाएर सबैलाई एकैसाथ हटाउन Enter थिच्नुहोस्।
+tool.remove.option.sample_all_layers = सबै तहहरूबाट नमुना लिनुहोस्
+tool.remove.option.remove_after_each_stroke = प्रत्येक स्ट्रोकपछि हटाउनुहोस्
+tool.remove.history.remove = हटाउनुहोस्
+tool.remove.layer_name = हटाइएको

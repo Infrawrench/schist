@@ -23,3 +23,11 @@ tool.magic_eraser.name = Raba ea Boselamose
 tool.magic_eraser.description = Tobetsa ho hlakola sebaka sa 'mala o tšoanang se tlas'a sesupa, ho latela tekanyo ea mamello ea sesebelisoa—ebang ke sebaka se hokahaneng le moo u tobileng teng kapa libaka tsohle tsa mokhahlelo.
 tool.magic_eraser.option.contiguous = Tse Hokahaneng
 tool.magic_eraser.history.erase = Hlakola ka Raba ea Boselamose
+
+# Remove
+tool.remove.name = Tlosa
+tool.remove.description = Penta holim'a ntho eo u sa e batleng ka mola o le mong; ha u e lokolla, e tlatsoa ka lintho tse e potolohileng. Ha Tlosa ka mor'a Mola o Mong le o Mong e timiloe, penta mela e mengata ebe u tobetsa Enter ho e tlosa hammoho.
+tool.remove.option.sample_all_layers = Sampole ea Mekhahlelo Eohle
+tool.remove.option.remove_after_each_stroke = Tlosa ka mor'a Mola o Mong le o Mong
+tool.remove.history.remove = Tlosa
+tool.remove.layer_name = E Tlositsoeng

@@ -72,6 +72,9 @@ impl Workspace {
             .tool_mut(tool_id)
             .map(|t| t.overlays(doc, &self.editor))
             .unwrap_or_default();
+        // What queued and running removals painted stays up until their
+        // results land, whichever tool is active by then.
+        overlays.splice(0..0, self.tool_jobs.overlays().cloned());
         self.tool_has_overlay = !overlays.is_empty();
         if self.editor.seamless_painting {
             // Mark the actual export area while neighbouring repeats remain paintable.
@@ -341,6 +344,13 @@ impl Workspace {
                         size: size(px(d), px(d)),
                     });
                 }
+                Overlay::Stroke { dabs } => {
+                    job.strokes.push(
+                        dabs.iter()
+                            .map(|&(x, y, r)| (to_screen(x, y), px(r * zoom)))
+                            .collect(),
+                    );
+                }
                 Overlay::NoteMarker {
                     x,
                     y,
@@ -547,6 +557,15 @@ impl Workspace {
                         for bounds in job.highlights {
                             window.paint_quad(gpui::fill(bounds, gpui::rgba(0x3399FF66)));
                         }
+                        // Strokes waiting to be removed, in Photoshop's
+                        // translucent pink. One non-zero path per stroke,
+                        // so where its discs and joins overlap the tint
+                        // does not double up.
+                        for dabs in job.strokes {
+                            if let Ok(path) = stroke_path(&dabs).build() {
+                                window.paint_path(path, gpui::rgba(0xFF3D8A70));
+                            }
+                        }
                         for (bounds, color) in job.outlines {
                             window.paint_quad(gpui::outline(
                                 bounds,
@@ -643,6 +662,67 @@ impl Workspace {
                 .size_full(),
             )
     }
+}
+
+/// A painted stroke as one filled outline: a disc at every sample and a
+/// tapered quad joining each pair. Filled non-zero with every piece
+/// wound the same way, so overlaps add to one coverage instead of
+/// cancelling out as they would even-odd.
+fn stroke_path(dabs: &[(Point<Pixels>, Pixels)]) -> PathBuilder {
+    let mut pb =
+        PathBuilder::fill().with_style(gpui::PathStyle::Fill(gpui::FillOptions::non_zero()));
+    let mut polygon = |mut pts: Vec<(f32, f32)>| {
+        let area: f32 = pts
+            .iter()
+            .zip(pts.iter().cycle().skip(1))
+            .map(|(a, b)| a.0 * b.1 - b.0 * a.1)
+            .sum();
+        if area.abs() < 1e-3 {
+            return;
+        }
+        if area < 0.0 {
+            pts.reverse();
+        }
+        pb.move_to(point(px(pts[0].0), px(pts[0].1)));
+        for &(x, y) in &pts[1..] {
+            pb.line_to(point(px(x), px(y)));
+        }
+        pb.close();
+    };
+    for &(c, r) in dabs {
+        let (cx, cy, r) = (f32::from(c.x), f32::from(c.y), f32::from(r).max(0.5));
+        let n = (r * 0.5).clamp(12.0, 64.0) as usize;
+        polygon(
+            (0..n)
+                .map(|i| {
+                    let a = i as f32 / n as f32 * std::f32::consts::TAU;
+                    (cx + r * a.cos(), cy + r * a.sin())
+                })
+                .collect(),
+        );
+    }
+    for pair in dabs.windows(2) {
+        let ((a, ra), (b, rb)) = (pair[0], pair[1]);
+        let (ax, ay, bx, by) = (
+            f32::from(a.x),
+            f32::from(a.y),
+            f32::from(b.x),
+            f32::from(b.y),
+        );
+        let len = (bx - ax).hypot(by - ay);
+        if len < 1e-3 {
+            continue;
+        }
+        let (nx, ny) = (-(by - ay) / len, (bx - ax) / len);
+        let (ra, rb) = (f32::from(ra), f32::from(rb));
+        polygon(vec![
+            (ax + nx * ra, ay + ny * ra),
+            (bx + nx * rb, by + ny * rb),
+            (bx - nx * rb, by - ny * rb),
+            (ax - nx * ra, ay - ny * ra),
+        ]);
+    }
+    pb
 }
 
 impl Focusable for Workspace {

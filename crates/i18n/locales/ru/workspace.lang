@@ -99,3 +99,8 @@ workspace.recovery.recovered.many = Восстановлено {n} докуме�
 workspace.recovery.recovered.other = Восстановлено {n} документа из предыдущего сеанса
 workspace.colormgmt.vision_on = Имитация: {name}
 workspace.colormgmt.vision_off = Нормальное зрение
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Удалено без модели дорисовки, поэтому заливка может быть грубее
+workspace.tool_jobs.document_changed = {name}: операция завершилась после закрытия или переключения документа, поэтому ничего не изменено

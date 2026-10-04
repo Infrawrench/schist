@@ -18,3 +18,11 @@ tool.magic_eraser.name = Isisuli Somlingo
 tool.magic_eraser.description = Chofoza ukuze usule indawo enombala ofanayo ngaphansi kwesikhombi, ngaphakathi kokubekezelela kwethuluzi — indawo exhunywe lapho kuchofozwe khona, noma yonke indawo engqimbeni.
 tool.magic_eraser.option.contiguous = Okuxhunyiwe
 tool.magic_eraser.history.erase = Isisuli Somlingo
+
+# Remove
+tool.remove.name = Susa
+tool.remove.description = Penda phezu kwento ongayifuni ngomugqa owodwa; uma uyeka, igcwaliswa ngokusuka endaweni eyizungezile. Uma okuthi “Susa Ngemva Komugqa Ngamunye” kuvaliwe, penda imigqa eminingi bese ucindezela u-Enter ukuze uyisuse yonke ndawonye.
+tool.remove.option.sample_all_layers = Thatha Isampula Kuzo Zonke Izendlalelo
+tool.remove.option.remove_after_each_stroke = Susa Ngemva Komugqa Ngamunye
+tool.remove.history.remove = Susa
+tool.remove.layer_name = Kususiwe

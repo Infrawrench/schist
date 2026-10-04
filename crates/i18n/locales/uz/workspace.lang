@@ -94,3 +94,8 @@ workspace.recovery.recovered.one = Oldingi seansdagi saqlanmagan ish tiklandi
 workspace.recovery.recovered.other = Oldingi seansdagi {n} ta hujjat tiklandi
 workspace.colormgmt.vision_on = Simulyatsiya: {name}
 workspace.colormgmt.vision_off = Oddiy ko‘rish
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = To‘ldirish modelisiz olib tashlandi, shuning uchun to‘ldirish qo‘polroq bo‘lishi mumkin
+workspace.tool_jobs.document_changed = {name} hujjat yopilgan yoki almashtirilgandan keyin tugadi, shu sababli hech narsa o‘zgartirilmadi

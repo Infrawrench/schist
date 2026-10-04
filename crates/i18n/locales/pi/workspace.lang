@@ -92,3 +92,8 @@ workspace.recovery.recovered_title = {title} (puna laddhaṃ)
 workspace.recovery.recovered.other = Pubba-session-to arakkhitakammassa puna lābho; potthakagaṇanā: {n}
 workspace.colormgmt.vision_on = Anukaraṇaṃ: {name}
 workspace.colormgmt.vision_off = Sāmaññadassanaṃ
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Pūraṇarūpakaṃ vinā apanītaṃ, tasmā pūraṇaṃ kharataraṃ siyā
+workspace.tool_jobs.document_changed = {name} attano lekhapatte pihite vā parivattite vā niṭṭhitaṃ, tasmā kiñci na parivattitaṃ

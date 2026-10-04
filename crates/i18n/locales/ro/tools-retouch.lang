@@ -18,3 +18,11 @@ tool.magic_eraser.name = Radieră magică
 tool.magic_eraser.description = Faceți clic pentru a șterge zona de culoare asemănătoare de sub indicator, în limita toleranței uneltei — adiacentă punctului selectat sau oriunde în strat.
 tool.magic_eraser.option.contiguous = Adiacent
 tool.magic_eraser.history.erase = Radieră magică
+
+# Remove
+tool.remove.name = Eliminare
+tool.remove.description = Pictați peste un obiect nedorit dintr-o singură tușă; când eliberați, acesta este umplut pe baza zonei înconjurătoare. Cu „Eliminare după fiecare tușă” dezactivat, pictați mai multe tușe și apăsați Enter pentru a le elimina împreună.
+tool.remove.option.sample_all_layers = Eșantionare din toate straturile
+tool.remove.option.remove_after_each_stroke = Eliminare după fiecare tușă
+tool.remove.history.remove = Eliminare
+tool.remove.layer_name = Eliminat

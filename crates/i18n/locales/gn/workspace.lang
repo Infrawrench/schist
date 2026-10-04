@@ -92,3 +92,8 @@ workspace.recovery.recovered_title = {title} (oñeguerujeypyre)
 workspace.recovery.recovered.other = Oñegueru jey {n} kuatia ñeñongatu'ỹva tembiapo ohasava'ekuégui
 workspace.colormgmt.vision_on = Mba'e'oka: {name}
 workspace.colormgmt.vision_off = Jehecha tee
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Oñemboguete ñemyenyhẽ modelo'ỹre, upévare ñemyenyhẽ ikatu ndoikoporãi
+workspace.tool_jobs.document_changed = {name} opa idocumento oñembotypa térã oñemoambue rire, upévare naiñambuéi mba'eve

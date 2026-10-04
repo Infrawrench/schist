@@ -94,3 +94,8 @@ workspace.recovery.recovered.one = Omulimu ogutaterekeddwa okuva mu session eyay
 workspace.recovery.recovered.other = Ebiwandiiko {n} okuva mu session eyayita bizziddwawo
 workspace.colormgmt.vision_on = Okukoppa: {name}
 workspace.colormgmt.vision_off = Okulaba okwa bulijjo
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Kiggyiddwawo awatali model ey'okujjuza, n'olwekyo okujjuza kuyinza obutaba kulungi nnyo
+workspace.tool_jobs.document_changed = {name} kiwedde ng'ekiwandiiko kyakyo kimaze okuggalwa oba okukyusibwa, n'olwekyo tewali kikyusiddwa

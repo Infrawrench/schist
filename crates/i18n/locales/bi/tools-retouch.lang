@@ -21,3 +21,11 @@ tool.magic_eraser.name = Majik Eraser
 tool.magic_eraser.description = Klik blong waepemaot eria we kala blong hem i sem mak long kala aninit long poenta, folem tolerance blong tul—eria i save joen wetem ples we yu klik, o i save stap eniwe long layer.
 tool.magic_eraser.option.contiguous = Ol Eria we Oli Joen
 tool.magic_eraser.history.erase = Waepemaot wetem Majik Eraser
+
+# Remove
+tool.remove.name = Tekemaot
+tool.remove.description = Pentem antap long wan samting we yu no wantem long wan strok nomo; taem yu livim, i fulap long samting raon long hem. Taem Tekemaot Afta Evri Strok i of, pentem plante strok mo presem Enter blong tekemaot olgeta wantaem.
+tool.remove.option.sample_all_layers = Tekem Sampol long Evri Layer
+tool.remove.option.remove_after_each_stroke = Tekemaot Afta Evri Strok
+tool.remove.history.remove = Tekemaot
+tool.remove.layer_name = Tekemaot Finis

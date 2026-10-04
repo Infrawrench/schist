@@ -27,3 +27,11 @@ tool.magic_eraser.name = 자동 지우개
 tool.magic_eraser.description = 클릭하면 도구의 허용치 범위에서 포인터 아래와 비슷한 색상의 영역을 지웁니다. 클릭 지점에 인접한 영역만 지우거나 레이어 전체에서 일치하는 영역을 지울 수 있습니다.
 tool.magic_eraser.option.contiguous = 인접
 tool.magic_eraser.history.erase = 자동 지우개
+
+# Remove
+tool.remove.name = 제거
+tool.remove.description = 원하지 않는 개체 위를 한 번의 획으로 칠하면, 손을 떼는 순간 주변 영역으로 채워집니다. 각 획 이후 제거를 끄면 여러 획을 칠한 뒤 Enter 키를 눌러 한꺼번에 제거할 수 있습니다.
+tool.remove.option.sample_all_layers = 모든 레이어 샘플링
+tool.remove.option.remove_after_each_stroke = 각 획 이후 제거
+tool.remove.history.remove = 제거
+tool.remove.layer_name = 제거됨

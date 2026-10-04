@@ -94,3 +94,8 @@ workspace.recovery.recovered.one = मागील सत्रातील ज�
 workspace.recovery.recovered.other = मागील सत्रातील {n} दस्तऐवज पुनर्प्राप्त केले
 workspace.colormgmt.vision_on = सिम्युलेशन: {name}
 workspace.colormgmt.vision_off = सामान्य दृष्टी
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = भरणी मॉडेलशिवाय काढले, त्यामुळे भरणी अधिक खडबडीत असू शकते
+workspace.tool_jobs.document_changed = {name} त्याचा दस्तऐवज बंद किंवा बदलल्यानंतर पूर्ण झाले, त्यामुळे काहीही बदलले नाही

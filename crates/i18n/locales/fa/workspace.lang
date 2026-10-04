@@ -94,3 +94,8 @@ workspace.recovery.recovered.one = {n} سند ذخیره‌نشده از نشس�
 workspace.recovery.recovered.other = {n} سند از نشست پیشین بازیابی شد
 workspace.colormgmt.vision_on = شبیه‌سازی: {name}
 workspace.colormgmt.vision_off = بینایی عادی
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}٪
+workspace.tool_jobs.missing_model = بدون مدل ترمیم تصویر حذف شد، بنابراین پرشدگی ممکن است ناهموارتر باشد
+workspace.tool_jobs.document_changed = {name} پس از بسته شدن یا تعویض سندش به پایان رسید، بنابراین چیزی تغییر نکرد

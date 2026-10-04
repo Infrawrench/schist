@@ -23,3 +23,11 @@ tool.magic_eraser.name = ମ୍ୟାଜିକ୍ ଇରେଜର୍
 tool.magic_eraser.description = ଉପକରଣର ସହନଶୀଳତା ସୀମା ମଧ୍ୟରେ ପଏଣ୍ଟର୍ ତଳର ସମାନ ରଙ୍ଗର ଅଞ୍ଚଳ ଲିଭାଇବାକୁ କ୍ଲିକ୍ କରନ୍ତୁ — କ୍ଲିକ୍ ସହ ସଂଲଗ୍ନ ଅଞ୍ଚଳ କିମ୍ବା ସ୍ତରର ସବୁ ସ୍ଥାନରୁ।
 tool.magic_eraser.option.contiguous = ସଂଲଗ୍ନ
 tool.magic_eraser.history.erase = ମ୍ୟାଜିକ୍ ଇରେଜର୍
+
+# Remove
+tool.remove.name = ଅପସାରଣ
+tool.remove.description = ଗୋଟିଏ ଷ୍ଟ୍ରୋକରେ ଅବାଞ୍ଛିତ ବସ୍ତୁ ଉପରେ ରଙ୍ଗ କରନ୍ତୁ; ଛାଡ଼ିଦେଲେ ଏହା ଆଖପାଖ ଅଂଶରୁ ଭରିଦିଆଯାଏ। "ପ୍ରତ୍ୟେକ ଷ୍ଟ୍ରୋକ ପରେ ଅପସାରଣ" ବନ୍ଦ ଥିଲେ, ଅନେକ ଷ୍ଟ୍ରୋକ ରଙ୍ଗ କରି ସେଗୁଡ଼ିକୁ ଏକାଠି ଅପସାରଣ କରିବାକୁ Enter ଦବାନ୍ତୁ।
+tool.remove.option.sample_all_layers = ସମସ୍ତ ସ୍ତରରୁ ନମୁନା
+tool.remove.option.remove_after_each_stroke = ପ୍ରତ୍ୟେକ ଷ୍ଟ୍ରୋକ ପରେ ଅପସାରଣ
+tool.remove.history.remove = ଅପସାରଣ
+tool.remove.layer_name = ଅପସାରିତ

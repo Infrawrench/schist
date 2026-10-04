@@ -18,3 +18,11 @@ tool.magic_eraser.name = Sephimodi sa Boselamose
 tool.magic_eraser.description = Tobetsa go phimola karolo ya mmala o o tshwanang ka fa tlase ga sesupi, mo tolerance ya sedirisiwa — e e kopaneng le fa go tobetsweng teng, kgotsa gongwe le gongwe mo llageng.
 tool.magic_eraser.option.contiguous = E e Kopaneng
 tool.magic_eraser.history.erase = Sephimodi sa Boselamose
+
+# Remove
+tool.remove.name = Tlosa
+tool.remove.description = Penta godimo ga selo se se sa batlegeng ka mogwatho o le mongwe; fa o tlogela, se tlatswa go tswa mo tikologong ya sone. Fa Tlosa Morago ga Mogwatho Mongwe le Mongwe e timilwe, penta megwatho e le mmalwa mme o tobetse Enter go e tlosa mmogo.
+tool.remove.option.sample_all_layers = Sampole ya Dillaga Tsotlhe
+tool.remove.option.remove_after_each_stroke = Tlosa Morago ga Mogwatho Mongwe le Mongwe
+tool.remove.history.remove = Tlosa
+tool.remove.layer_name = Tlositswe

@@ -29,3 +29,11 @@ tool.magic_eraser.name = যাদুকৰী ইৰেজাৰ
 tool.magic_eraser.description = সঁজুলিটোৰ সহনসীমাৰ ভিতৰত পইণ্টাৰৰ তলৰ একে ধৰণৰ ৰঙৰ অঞ্চল মচিবলৈ ক্লিক কৰক—ক্লিক কৰা ঠাইৰ সৈতে সংলগ্ন অঞ্চলটো অথবা স্তৰটোৰ সকলো মিলা অঞ্চল।
 tool.magic_eraser.option.contiguous = সংলগ্ন
 tool.magic_eraser.history.erase = যাদুকৰী ইৰেজাৰ
+
+# Remove
+tool.remove.name = আঁতৰোৱা
+tool.remove.description = অবাঞ্ছিত বস্তু এটাৰ ওপৰত এটা টানতে ৰং বোলাওক; এৰি দিলে ই চাৰিওফালৰ অংশৰ পৰা পূৰণ কৰা হয়। প্ৰতিটো টানৰ পিছত আঁতৰাওক বন্ধ থাকিলে, কেইবাটাও টান বোলাই সেইবোৰ একেলগে আঁতৰাবলৈ Enter টিপক।
+tool.remove.option.sample_all_layers = সকলো স্তৰৰ পৰা নমুনা লওক
+tool.remove.option.remove_after_each_stroke = প্ৰতিটো টানৰ পিছত আঁতৰাওক
+tool.remove.history.remove = আঁতৰোৱা
+tool.remove.layer_name = আঁতৰোৱা অংশ

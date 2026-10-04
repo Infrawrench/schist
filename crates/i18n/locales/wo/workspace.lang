@@ -92,3 +92,8 @@ workspace.recovery.recovered_title = {title} (delloosi na)
 workspace.recovery.recovered.other = Delloosi nañu liggéey bu dencuwul ci sesioŋ bu weesu, ci limu {n} jukki
 workspace.colormgmt.vision_on = Wone: {name}
 workspace.colormgmt.vision_off = Gis-gis bu baax
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Dindi nañu ko te amul modeelu feesal, kon feesal bi man na néew tuuti ci rafet
+workspace.tool_jobs.document_changed = {name} jeex na ginnaaw ba ñu tëjee walla soppi kayitam, kon dara soppiku wul

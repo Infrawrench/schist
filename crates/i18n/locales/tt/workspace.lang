@@ -92,3 +92,8 @@ workspace.recovery.recovered_title = {title} (торгызылган)
 workspace.recovery.recovered.other = Алдагы сеанстан {n} сакланмаган документ торгызылды
 workspace.colormgmt.vision_on = Симуляция: {name}
 workspace.colormgmt.vision_off = Гадәти күрү
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Тутыру моделеннән башка бетерелде, шуңа тутыру тупасрак булырга мөмкин
+workspace.tool_jobs.document_changed = {name} аның документы ябылганнан яки алыштырылганнан соң тәмамланды, шуңа бернәрсә дә үзгәртелмәде

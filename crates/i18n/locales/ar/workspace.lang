@@ -102,3 +102,8 @@ workspace.recovery.recovered.many = تم استرداد {n} مستندًا غي�
 workspace.recovery.recovered.other = تم استرداد {n} مستند غير محفوظ من جلسة سابقة
 workspace.colormgmt.vision_on = المحاكاة: {name}
 workspace.colormgmt.vision_off = الرؤية الطبيعية
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = تمت الإزالة دون نموذج الترميم، لذا قد يكون الملء أقل دقة
+workspace.tool_jobs.document_changed = اكتملت عملية {name} بعد إغلاق مستندها أو التبديل إلى غيره، لذا لم يُغيَّر شيء

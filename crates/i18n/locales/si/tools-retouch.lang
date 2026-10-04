@@ -25,3 +25,11 @@ tool.magic_eraser.name = මැජික් මකනය
 tool.magic_eraser.description = මෙවලමේ ඉවසීමේ සීමාව තුළ, දර්ශකයට යටින් සමාන වර්ණ ඇති ප්‍රදේශය මැකීමට ක්ලික් කරන්න — ක්ලික් කළ තැනට සම්බන්ධ ප්‍රදේශය පමණක් හෝ ස්තරය පුරාම.
 tool.magic_eraser.option.contiguous = යාබද
 tool.magic_eraser.history.erase = මැජික් මකනය
+
+# Remove
+tool.remove.name = ඉවත් කිරීම
+tool.remove.description = අනවශ්‍ය වස්තුවක් මත එක් ඉරකින් තීන්ත ගාන්න; ඔබ මුදාහළ විට එය අවට ඇති දෙයින් පුරවනු ලැබේ. සෑම ඉරකටම පසු ඉවත් කරන්න අක්‍රිය විට, ඉරි කිහිපයක් ගා ඒවා එකවර ඉවත් කිරීමට Enter ඔබන්න.
+tool.remove.option.sample_all_layers = සියලු ස්තර සාම්පල කරන්න
+tool.remove.option.remove_after_each_stroke = සෑම ඉරකටම පසු ඉවත් කරන්න
+tool.remove.history.remove = ඉවත් කිරීම
+tool.remove.layer_name = ඉවත් කළ

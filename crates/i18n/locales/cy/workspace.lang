@@ -104,3 +104,8 @@ workspace.recovery.recovered.many = Wedi adfer {n} dogfen o sesiwn flaenorol
 workspace.recovery.recovered.other = Wedi adfer {n} dogfen o sesiwn flaenorol
 workspace.colormgmt.vision_on = Efelychu: {name}
 workspace.colormgmt.vision_off = Golwg normal
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Tynnwyd heb y model mewnbeintio, felly gall y llenwad fod yn fwy garw
+workspace.tool_jobs.document_changed = Gorffennodd {name} ar ôl i'w ddogfen gael ei chau neu ei newid, felly ni newidiwyd dim

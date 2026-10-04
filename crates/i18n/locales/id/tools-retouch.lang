@@ -18,3 +18,11 @@ tool.magic_eraser.name = Penghapus Ajaib
 tool.magic_eraser.description = Klik untuk menghapus area berwarna serupa di bawah penunjuk, sesuai toleransi alat—baik yang bersambung dengan titik klik maupun di seluruh lapisan.
 tool.magic_eraser.option.contiguous = Bersambung
 tool.magic_eraser.history.erase = Penghapus Ajaib
+
+# Remove
+tool.remove.name = Hapus
+tool.remove.description = Lukis di atas objek yang tidak diinginkan dalam satu sapuan; saat dilepas, area itu diisi dari sekitarnya. Dengan Hapus Setelah Setiap Sapuan nonaktif, lukis beberapa sapuan lalu tekan Enter untuk menghapus semuanya sekaligus.
+tool.remove.option.sample_all_layers = Sampel Semua Lapisan
+tool.remove.option.remove_after_each_stroke = Hapus Setelah Setiap Sapuan
+tool.remove.history.remove = Hapus
+tool.remove.layer_name = Dihapus

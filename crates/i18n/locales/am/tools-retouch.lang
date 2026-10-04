@@ -27,3 +27,11 @@ tool.magic_eraser.name = አስማታዊ ማጥፊያ
 tool.magic_eraser.description = በመሣሪያው የልዩነት ገደብ ውስጥ በጠቋሚው ሥር ያለውን ተመሳሳይ ቀለም አካባቢ ለማጥፋት ጠቅ ያድርጉ፤ ከተጫነበት ቦታ ጋር የተያያዘውን ወይም በንብርብሩ ውስጥ ያለውን ሁሉ ማጥፋት ይችላሉ።
 tool.magic_eraser.option.contiguous = ተያያዥ
 tool.magic_eraser.history.erase = አስማታዊ ማጥፊያ
+
+# Remove
+tool.remove.name = ማስወገጃ
+tool.remove.description = ያልተፈለገውን ነገር በአንድ ምት ይቀቡት፤ ሲለቁት ከዙሪያው ይሞላል። «ከእያንዳንዱ ምት በኋላ አስወግድ» ጠፍቶ ከሆነ ብዙ ምቶችን ይቀቡና በአንድ ላይ ለማስወገድ Enter ይጫኑ።
+tool.remove.option.sample_all_layers = ከሁሉም ንብርብሮች ናሙና ውሰድ
+tool.remove.option.remove_after_each_stroke = ከእያንዳንዱ ምት በኋላ አስወግድ
+tool.remove.history.remove = ማስወገድ
+tool.remove.layer_name = የተወገደ

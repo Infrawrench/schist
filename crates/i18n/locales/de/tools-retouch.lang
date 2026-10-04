@@ -28,3 +28,11 @@ tool.magic_eraser.name = Magischer Radiergummi
 tool.magic_eraser.description = Klicken, um die Fläche ähnlicher Farbe unter dem Zeiger innerhalb der Toleranz zu radieren – zusammenhängend mit dem Klick oder überall in der Ebene.
 tool.magic_eraser.option.contiguous = Benachbart
 tool.magic_eraser.history.erase = Magischer Radiergummi
+
+# Remove
+tool.remove.name = Entfernen
+tool.remove.description = Übermalen Sie ein unerwünschtes Objekt in einem Strich; sobald Sie loslassen, wird es aus seiner Umgebung aufgefüllt. Ist „Nach jedem Strich entfernen“ deaktiviert, malen Sie mehrere Striche und drücken Sie die Eingabetaste, um sie gemeinsam zu entfernen.
+tool.remove.option.sample_all_layers = Alle Ebenen aufnehmen
+tool.remove.option.remove_after_each_stroke = Nach jedem Strich entfernen
+tool.remove.history.remove = Entfernen
+tool.remove.layer_name = Entfernt

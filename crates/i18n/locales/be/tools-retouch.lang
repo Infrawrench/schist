@@ -28,3 +28,11 @@ tool.magic_eraser.name = Чароўная гумка
 tool.magic_eraser.description = Пстрыкніце, каб сцерці вобласць пад указальнікам з падобным колерам у межах допуску інструмента — сумежную з месцам націску або ва ўсім пласце.
 tool.magic_eraser.option.contiguous = Сумежныя
 tool.magic_eraser.history.erase = Чароўная гумка
+
+# Remove
+tool.remove.name = Выдаленне
+tool.remove.description = Зафарбуйце непажаданы аб'ект адным мазком; калі адпусціце, ён запоўніцца на аснове наваколля. Калі параметр «Выдаляць пасля кожнага мазка» выключаны, нанясіце некалькі мазкоў і націсніце Enter, каб выдаліць іх разам.
+tool.remove.option.sample_all_layers = Узор з усіх пластоў
+tool.remove.option.remove_after_each_stroke = Выдаляць пасля кожнага мазка
+tool.remove.history.remove = Выдаленне
+tool.remove.layer_name = Выдалена

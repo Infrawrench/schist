@@ -92,3 +92,8 @@ workspace.recovery.recovered_title = {title} (ricuperatu)
 workspace.recovery.recovered.other = Travagliu micca arregistratu ricuperatu da una sessione precedente; ducumenti: {n}
 workspace.colormgmt.vision_on = Simulazione: {name}
 workspace.colormgmt.vision_off = Visione nurmale
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Cacciatu senza u mudellu di riempimentu, dunque u risultatu pò esse più grossu
+workspace.tool_jobs.document_changed = {name} hè finitu dopu chì u so ducumentu sia statu chjosu o cambiatu, dunque nunda hè statu mudificatu

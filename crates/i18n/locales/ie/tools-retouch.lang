@@ -23,3 +23,11 @@ tool.magic_eraser.name = Magic gomme
 tool.magic_eraser.description = Clicca por effaciar li area de simil color sub li apuntator, intra li tolerantie del utensile — contigui al cliccat punctu o partú in li strate.
 tool.magic_eraser.option.contiguous = Contigui
 tool.magic_eraser.history.erase = Magic gomme
+
+# Remove
+tool.remove.name = Remover
+tool.remove.description = Pinge sur un índesirat object in un sol tracte; quande tu relaxa it, it es plenat del circumstantie. Con Remover pos chascun tracte desactivat, pinge plur tractes e presse Enter por remover les simultanmen.
+tool.remove.option.sample_all_layers = Exemplar omni strates
+tool.remove.option.remove_after_each_stroke = Remover pos chascun tracte
+tool.remove.history.remove = Remover
+tool.remove.layer_name = Removet

@@ -218,6 +218,7 @@ impl Workspace {
             };
             tool.on_pointer_up(&mut ctx, input);
         }
+        self.drain_tool_jobs(tool_id, cx);
         self.after_change(cx);
     }
 

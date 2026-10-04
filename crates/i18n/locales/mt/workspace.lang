@@ -101,3 +101,8 @@ workspace.recovery.recovered.many = Ġew irkuprati {n}-il dokument minn sessjoni
 workspace.recovery.recovered.other = Ġie rkuprat {n} dokument minn sessjoni preċedenti
 workspace.colormgmt.vision_on = Simulazzjoni: {name}
 workspace.colormgmt.vision_off = Vista normali
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Tneħħa mingħajr il-mudell tal-mili, għalhekk il-mili jista' jkun aktar oħxon
+workspace.tool_jobs.document_changed = {name} intemm wara li d-dokument tiegħu ingħalaq jew inbidel, għalhekk xejn ma nbidel

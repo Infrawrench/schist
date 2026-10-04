@@ -104,3 +104,8 @@ workspace.recovery.recovered.one = Mosebetsi o sa bolokoang oa lenaneo le fetile
 workspace.recovery.recovered.other = Palo ea litokomane tse hlaphohileng lenaneong le fetileng: {n}
 workspace.colormgmt.vision_on = Ho etsisa: {name}
 workspace.colormgmt.vision_off = Pono e tloaelehileng
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = E tlositsoe ntle le mohlala oa ho tlatsa, kahoo ho tlatsa ho ka 'na ha se be boreleli
+workspace.tool_jobs.document_changed = {name} e phethile ka mor'a hore tokomane ea eona e koaloe kapa e fetoloe, kahoo ha ho letho le fetotsoeng

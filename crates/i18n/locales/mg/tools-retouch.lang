@@ -18,3 +18,11 @@ tool.magic_eraser.name = Fafàna mahagaga
 tool.magic_eraser.description = Tsindrio hamafana ny faritra mitovy loko eo ambanin'ny tondro, araka ny fandeferan'ny fitaovana — na ilay faritra mifampitohy amin'ny toerana notsindriana, na ny toerana rehetra ao amin'ny sosona.
 tool.magic_eraser.option.contiguous = Mifampitohy
 tool.magic_eraser.history.erase = Fafàna mahagaga
+
+# Remove
+tool.remove.name = Fanesorana
+tool.remove.description = Hosory loko indray mandeha ny zavatra tsy tianao; rehefa avelanao dia fenoina avy amin'ny manodidina azy izy. Raha maty ny Esory isaky ny tsipika, hosory tsipika maromaro ary tsindrio Enter mba hanesorana azy ireo miaraka.
+tool.remove.option.sample_all_layers = Santionany avy amin'ny sosona rehetra
+tool.remove.option.remove_after_each_stroke = Esory isaky ny tsipika
+tool.remove.history.remove = Fanesorana
+tool.remove.layer_name = Nesorina

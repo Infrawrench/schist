@@ -101,3 +101,8 @@ workspace.recovery.recovered_title = {title} (herstèld)
 workspace.recovery.recovered.other = Herstèld oet de veurige sessie; aantal documente: {n}
 workspace.colormgmt.vision_on = Simulatie: {name}
 workspace.colormgmt.vision_off = Normaal zeen
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Weggehaold zoonder inpaintingmodel, dus de völling kin roewer zien
+workspace.tool_jobs.document_changed = {name} waor klaor nao-dat zie document gesloete of gewisseld waor, dus d'r is niks verangerd

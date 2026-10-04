@@ -107,3 +107,8 @@ workspace.recovery.recovered.one = Ku vuyiseriwe mintirho leyi nga hlayisiwangik
 workspace.recovery.recovered.other = Ku vuyiseriwe tidokhumente ta {n} eka session leyi hundzeke
 workspace.colormgmt.vision_on = Ku tekelela: {name}
 workspace.colormgmt.vision_off = Ku vona loku tolovelekeke
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Ku susiwile handle ka modele wa ku tatisa, kutani ku tatisa ku nga ha va ku nga olovanga
+workspace.tool_jobs.document_changed = {name} yi herile endzhaku ka loko dokumente ya yona yi pfariwile kumbe yi cinciwile, kutani a ku cinciwanga nchumu

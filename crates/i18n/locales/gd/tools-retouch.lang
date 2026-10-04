@@ -18,3 +18,11 @@ tool.magic_eraser.name = Suathan draoidheach
 tool.magic_eraser.description = Briog gus an raon fon tomhaire aig a bheil dath coltach a shuathadh às, taobh a-staigh fulangas an inneil — an dàrna cuid am pàirt leantainneach timcheall air a’ bhriogadh no gach pàirt dhen bhreath.
 tool.magic_eraser.option.contiguous = Leantainneach
 tool.magic_eraser.history.erase = Suath às leis an t-suathan dhraoidheach
+
+# Remove
+tool.remove.name = Thoir air falbh
+tool.remove.description = Peant thairis air oibseact nach eil thu ag iarraidh ann an aon stràc; nuair a leigeas tu às, thèid a lìonadh on àrainneachd. Le Thoir air falbh às dèidh gach stràc dheth, peant grunn stràcan is brùth Enter gus an toirt air falbh còmhla.
+tool.remove.option.sample_all_layers = Sampall de na breathan uile
+tool.remove.option.remove_after_each_stroke = Thoir air falbh às dèidh gach stràc
+tool.remove.history.remove = Thoir air falbh
+tool.remove.layer_name = Air a thoirt air falbh

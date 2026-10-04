@@ -92,3 +92,8 @@ workspace.recovery.recovered_title = {title} (dipulihkan)
 workspace.recovery.recovered.other = Memulihkan {n} dokumen yang belum disimpan dari sesi sebelumnya
 workspace.colormgmt.vision_on = Simulasi {name}
 workspace.colormgmt.vision_off = Penglihatan normal
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Dihapus tanpa model inpainting, jadi isiannya mungkin lebih kasar
+workspace.tool_jobs.document_changed = {name} selesai setelah dokumennya ditutup atau dialihkan, jadi tidak ada yang diubah

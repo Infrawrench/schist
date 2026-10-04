@@ -92,3 +92,8 @@ workspace.recovery.recovered_title = {title} (recuperatum)
 workspace.recovery.recovered.other = Opera non servata ex sessione priore recuperata; documentorum numerus: {n}
 workspace.colormgmt.vision_on = Simulatio: {name}
 workspace.colormgmt.vision_off = Visio normalis
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Remotum sine exemplari implendi, itaque impletio fortasse asperior erit
+workspace.tool_jobs.document_changed = {name} finitum est postquam documentum eius clausum aut mutatum est, itaque nihil mutatum est

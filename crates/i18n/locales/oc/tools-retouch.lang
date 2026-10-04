@@ -27,3 +27,11 @@ tool.magic_eraser.name = Goma magica
 tool.magic_eraser.description = Clicatz per escafar la zòna de color semblabla jos lo puntador, dins la tolerància de l'aisina : siá la zòna contigua al clic, siá pertot dins lo calc.
 tool.magic_eraser.option.contiguous = Contigú
 tool.magic_eraser.history.erase = Goma magica
+
+# Remove
+tool.remove.name = Suprimir
+tool.remove.description = Pintatz sus un objècte indesirable en un sol traç; quand relargatz, es emplenat a partir de çò que l'enròda. Amb « Suprimir aprèp cada traç » desactivat, pintatz mantun traç e quichatz Entrada per los suprimir ensems.
+tool.remove.option.sample_all_layers = Escandalhar totes los calques
+tool.remove.option.remove_after_each_stroke = Suprimir aprèp cada traç
+tool.remove.history.remove = Supression
+tool.remove.layer_name = Suprimit

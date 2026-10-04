@@ -27,3 +27,11 @@ tool.magic_eraser.name = Isisuli Somlingo
 tool.magic_eraser.description = Qhafaza ukusula indawo yombala ofanako ongaphasi kwenkomba, ngaphakathi komkhawulo wethulusi -- ehlangene nalapho kuqhafazwe khona, namkha kiyo yoke ileya.
 tool.magic_eraser.option.contiguous = Okuhlangeneko
 tool.magic_eraser.history.erase = Isisuli Somlingo
+
+# Remove
+tool.remove.name = Susa
+tool.remove.description = Penda phezu kwento ongayifuniko ngokudweba kanye; nawuyiyekelako, izaliswa ngokusuka kokuyizombelezileko. Nange Susa Ngemva Kokudweba Ngakunye kuvaliwe, penda imidwebo eminengi bese ugandelela u-Enter ukuyisusa yoke ndawonye.
+tool.remove.option.sample_all_layers = Thatha Isampula Kiwo Woke Amaleya
+tool.remove.option.remove_after_each_stroke = Susa Ngemva Kokudweba Ngakunye
+tool.remove.history.remove = Susa
+tool.remove.layer_name = Kususiwe

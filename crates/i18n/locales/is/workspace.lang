@@ -94,3 +94,8 @@ workspace.recovery.recovered.one = Endurheimti {n} óvistað skjal úr fyrri set
 workspace.recovery.recovered.other = Endurheimti {n} skjöl úr fyrri setu
 workspace.colormgmt.vision_on = Hermun: {name}
 workspace.colormgmt.vision_off = Eðlileg litasjón
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Fjarlægt án fyllingarlíkansins, svo fyllingin gæti orðið grófari
+workspace.tool_jobs.document_changed = {name} lauk eftir að skjalinu var lokað eða skipt um það, svo engu var breytt

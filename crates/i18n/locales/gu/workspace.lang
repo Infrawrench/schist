@@ -116,3 +116,8 @@ workspace.recovery.recovered.one = અગાઉના સત્રમાંથ�
 workspace.recovery.recovered.other = અગાઉના સત્રમાંથી {n} દસ્તાવેજો પુનઃપ્રાપ્ત કર્યા
 workspace.colormgmt.vision_on = સિમ્યુલેશન: {name}
 workspace.colormgmt.vision_off = સામાન્ય દ્રષ્ટિ
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = ઇનપેઇન્ટિંગ મૉડલ વિના દૂર કર્યું, તેથી ભરણ થોડું ખરબચડું હોઈ શકે છે
+workspace.tool_jobs.document_changed = {name} તેનો દસ્તાવેજ બંધ કે બદલાઈ ગયા પછી પૂર્ણ થયું, તેથી કંઈ બદલાયું નથી

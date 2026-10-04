@@ -92,3 +92,8 @@ workspace.recovery.recovered_title = {title} (បានស្តារ)
 workspace.recovery.recovered.other = បានស្តារឯកសារចំនួន {n} ពីការងារដែលមិនទាន់រក្សាទុកក្នុងសម័យមុន
 workspace.colormgmt.vision_on = ការក្លែងធ្វើ៖ {name}
 workspace.colormgmt.vision_off = ការមើលឃើញធម្មតា
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}៖ {percent}%
+workspace.tool_jobs.missing_model = បានលុបចេញដោយគ្មានម៉ូដែលបំពេញ ដូច្នេះការបំពេញអាចគ្រើមជាង
+workspace.tool_jobs.document_changed = {name} បានបញ្ចប់បន្ទាប់ពីឯកសាររបស់វាត្រូវបានបិទ ឬប្ដូរ ដូច្នេះគ្មានអ្វីត្រូវបានផ្លាស់ប្ដូរទេ

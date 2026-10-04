@@ -23,3 +23,11 @@ tool.magic_eraser.name = Sehrli o‘chirg‘ich
 tool.magic_eraser.description = Ko‘rsatkich ostidagi o‘xshash rangli sohani vosita joizlik darajasi doirasida o‘chirish uchun bosing; bunda faqat bosilgan joyga tutash soha yoki qatlamdagi barcha mos joylar o‘chiriladi.
 tool.magic_eraser.option.contiguous = Tutash
 tool.magic_eraser.history.erase = Sehrli o‘chirg‘ich
+
+# Remove
+tool.remove.name = Olib tashlash
+tool.remove.description = Keraksiz obyekt ustini bitta chiziq bilan bo‘yang; qo‘yib yuborganingizda u atrofidagi joydan to‘ldiriladi. «Har bir chiziqdan keyin olib tashlash» o‘chiq bo‘lsa, bir nechta chiziq chizing va ularni birga olib tashlash uchun Enter tugmasini bosing.
+tool.remove.option.sample_all_layers = Barcha qatlamlardan namuna
+tool.remove.option.remove_after_each_stroke = Har bir chiziqdan keyin olib tashlash
+tool.remove.history.remove = Olib tashlash
+tool.remove.layer_name = Olib tashlangan

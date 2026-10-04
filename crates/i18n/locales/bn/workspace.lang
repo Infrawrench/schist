@@ -94,3 +94,8 @@ workspace.recovery.recovered.one = আগের সেশন থেকে {n}ট
 workspace.recovery.recovered.other = আগের সেশন থেকে {n}টি নথি পুনরুদ্ধার হয়েছে
 workspace.colormgmt.vision_on = সিমুলেশন: {name}
 workspace.colormgmt.vision_off = স্বাভাবিক দৃষ্টি
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = ইনপেইন্টিং মডেল ছাড়াই অপসারণ করা হয়েছে, তাই পূরণ কিছুটা অমসৃণ হতে পারে
+workspace.tool_jobs.document_changed = {name} শেষ হয়েছে তার নথি বন্ধ বা বদলানোর পরে, তাই কিছুই পরিবর্তন করা হয়নি

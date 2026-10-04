@@ -27,3 +27,11 @@ tool.magic_eraser.name = 魔术橡皮擦
 tool.magic_eraser.description = 点击后，在容差范围内擦除指针下方颜色相近的区域——与点击处连续的部分，或整个图层中的所有部分。
 tool.magic_eraser.option.contiguous = 连续
 tool.magic_eraser.history.erase = 魔术橡皮擦
+
+# Remove
+tool.remove.name = 移除
+tool.remove.description = 用一笔涂抹不需要的对象；松开后，会根据周围内容自动填充。关闭“每次描边后移除”时，可以涂抹多笔，然后按 Enter 一并移除。
+tool.remove.option.sample_all_layers = 对所有图层取样
+tool.remove.option.remove_after_each_stroke = 每次描边后移除
+tool.remove.history.remove = 移除
+tool.remove.layer_name = 已移除

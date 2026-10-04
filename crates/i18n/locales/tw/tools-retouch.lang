@@ -18,3 +18,11 @@ tool.magic_eraser.name = Prae Soronko
 tool.magic_eraser.description = Mia na popa beae a ne kɔla te sɛ nea ɛwɔ pointer no ase, sɛnea adwinnade no tolerance te; ɛfa nea ɛka beae a woamia no ho anaa nea ɛwɔ layer no nyinaa mu.
 tool.magic_eraser.option.contiguous = Nea Ɛkeka Ho
 tool.magic_eraser.history.erase = Prae Soronko
+
+# Remove
+tool.remove.name = Yi Fi Hɔ
+tool.remove.description = Fa twe biako sra adeɛ a wompɛ no so; sɛ wogyae a, wɔde nea atwa ho ahyia no bɛhyɛ no ma. Sɛ Yi Fi Hɔ Twe Biara Akyi adum a, sra twe pii na mia Enter na wɔayi ne nyinaa afi hɔ bere koro mu.
+tool.remove.option.sample_all_layers = Fa Nhwɛsode Fi Layer Nyinaa Mu
+tool.remove.option.remove_after_each_stroke = Yi Fi Hɔ Twe Biara Akyi
+tool.remove.history.remove = Yi Fi Hɔ
+tool.remove.layer_name = Wɔayi

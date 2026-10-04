@@ -23,3 +23,11 @@ tool.magic_eraser.name = Meʻatamate Mana
 tool.magic_eraser.description = Lomi ke tamateʻi ʻa e feituʻu ʻoku tatau hono lanú ʻi lalo ʻi he tuhu, ʻo fakatatau ki he ngofua ʻa e meʻangāué—ʻo hoko pē ki he feituʻu naʻe lomí, pe ʻi he Layer kotoa.
 tool.magic_eraser.option.contiguous = Hoko Fakataha
 tool.magic_eraser.history.erase = Tamateʻi ʻaki ʻa e Meʻatamate Mana
+
+# Remove
+tool.remove.name = Toʻo
+tool.remove.description = Valivali ʻi he meʻa ʻoku ʻikai fiemaʻu ʻaki ha tā ʻe taha; ʻi hoʻo tukuange, ʻe fakafonu ia mei hono ʻātakaí. Kapau ʻoku tāmateʻi ʻa e Toʻo ʻi he Hili ʻa e Tā Kotoa, valivali ha ngaahi tā mo lomiʻi ʻa e Enter ke toʻo fakataha kinautolu.
+tool.remove.option.sample_all_layers = Sīpinga mei he Ngaahi Layer Kotoa
+tool.remove.option.remove_after_each_stroke = Toʻo ʻi he Hili ʻa e Tā Kotoa
+tool.remove.history.remove = Toʻo
+tool.remove.layer_name = Kuo Toʻo

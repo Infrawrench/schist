@@ -18,3 +18,11 @@ tool.magic_eraser.name = Ihicha Anwansi
 tool.magic_eraser.description = Pịa ka ihichapụ mpaghara nwere ụcha yiri nke dị n'okpuru pointer, n'ime oke ngwa—ma nke jikọtara ebe a pịrị, ma ọ bụ ebe niile na leya.
 tool.magic_eraser.option.contiguous = Jikọtara Ọnụ
 tool.magic_eraser.history.erase = Ihicha Anwansi
+
+# Remove
+tool.remove.name = Wepụ
+tool.remove.description = Tee agba n'elu ihe ị na-achọghị n'otu mmegharị; mgbe ị hapụrụ ya, a na-eji ihe gbara ya gburugburu mejupụta ya. Mgbe Wepụ Mgbe Mmegharị Ọ bụla gbanyụrụ, tee ọtụtụ mmegharị ma pịa Enter iji wepụ ha ọnụ.
+tool.remove.option.sample_all_layers = Were Ihe Nlele Site na Leya Niile
+tool.remove.option.remove_after_each_stroke = Wepụ Mgbe Mmegharị Ọ bụla
+tool.remove.history.remove = Wepụ
+tool.remove.layer_name = E wepụrụ

@@ -7560,6 +7560,7 @@ dependencies = [
  "log",
  "rayon",
  "schist-color",
+ "schist-compositor",
  "schist-core",
  "schist-fx",
  "schist-i18n",

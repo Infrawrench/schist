@@ -94,3 +94,8 @@ workspace.recovery.recovered.one = אומגעהיטע אַרבעט פֿון אַ
 workspace.recovery.recovered.other = {n} דאָקומענטן פֿון אַ פֿריִערדיקער סעסיע צוריקגעשטעלט
 workspace.colormgmt.vision_on = סימולאַציע: {name}
 workspace.colormgmt.vision_off = נאָרמאַלע זעונג
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = אַוועקגענומען אָן דעם אויספֿיל־מאָדעל, דערפֿאַר קען די אויספֿילונג זײַן גראָבער
+workspace.tool_jobs.document_changed = {name} האָט געענדיקט נאָך דעם ווי זײַן דאָקומענט איז פֿאַרמאַכט אָדער געביטן געוואָרן, דערפֿאַר איז גאָרנישט געביטן געוואָרן

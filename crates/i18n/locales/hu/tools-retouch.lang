@@ -18,3 +18,11 @@ tool.magic_eraser.name = Varázsradír
 tool.magic_eraser.description = Kattintással törölje a mutató alatti hasonló színű területet az eszköz tűrésén belül — csak a kattintással összefüggő részt vagy a réteg minden ilyen pontját.
 tool.magic_eraser.option.contiguous = Összefüggő
 tool.magic_eraser.history.erase = Varázsradír
+
+# Remove
+tool.remove.name = Eltávolítás
+tool.remove.description = Fesse át egyetlen vonással a nem kívánt objektumot; amikor felengedi, a környezetéből töltődik ki. Ha az Eltávolítás minden vonás után ki van kapcsolva, fessen több vonást, majd nyomja meg az Entert, hogy együtt távolítsa el őket.
+tool.remove.option.sample_all_layers = Minden réteg mintavételezése
+tool.remove.option.remove_after_each_stroke = Eltávolítás minden vonás után
+tool.remove.history.remove = Eltávolítás
+tool.remove.layer_name = Eltávolítva

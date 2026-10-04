@@ -25,3 +25,11 @@ tool.magic_eraser.name = Gome madjike
 tool.magic_eraser.description = Clitchîz po disfacer l' redjon del minme coleur pa dzo l' pwinteu, sorlon l' tolerince di l' usteye: seulmint çou k' est loyî å pont clitchî, oudon-bén tot costé dins l' coûtche.
 tool.magic_eraser.option.contiguous = A costé onk di l' ôte
 tool.magic_eraser.history.erase = Gome madjike
+
+# Remove
+tool.remove.name = Oister
+tool.remove.description = Pondez pa dzeu on cayet nén volou d' on seul côp; cwand vos låtchîz, i serè rimpli avou çou k' est åtoû. Avou «Oister après tchaeke côp» dismetou, pondez sacwants côps eyet tchôkîz so Enter po les oister tos ensonle.
+tool.remove.option.sample_all_layers = Prinde dins totes les coûtches
+tool.remove.option.remove_after_each_stroke = Oister après tchaeke côp
+tool.remove.history.remove = Oister
+tool.remove.layer_name = Oisté

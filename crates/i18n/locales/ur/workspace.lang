@@ -95,3 +95,8 @@ workspace.recovery.recovered.one = گزشتہ نشست کا غیر محفوظ ک
 workspace.recovery.recovered.other = گزشتہ نشست کی {n} دستاویزات بحال کی گئیں
 workspace.colormgmt.vision_on = نقالی: {name}
 workspace.colormgmt.vision_off = عام بصارت
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = ان پینٹنگ ماڈل کے بغیر ہٹایا گیا، اس لیے بھراؤ کچھ کھردرا ہو سکتا ہے
+workspace.tool_jobs.document_changed = {name} اپنی دستاویز بند یا تبدیل ہونے کے بعد مکمل ہوا، اس لیے کچھ بھی تبدیل نہیں کیا گیا

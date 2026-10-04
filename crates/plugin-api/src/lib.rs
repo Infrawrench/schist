@@ -19,6 +19,11 @@ pub use symmetry::{PaintSymmetry, SymmetryMode, SymmetryTransform};
 pub mod brush;
 pub use brush::{BrushBitmap, BrushDynamics, BrushPreset, BrushTip};
 
+pub mod background;
+pub use background::{
+    BackgroundApply, BackgroundEdit, BackgroundPrepare, BackgroundRun, JobControl,
+};
+
 pub mod filter_canvas;
 pub mod filter_stack;
 mod native;
@@ -230,6 +235,10 @@ pub enum Overlay {
     Highlight(IntRect),
     /// Circle outline (brush cursor), document-space center and radius.
     Circle { cx: f32, cy: f32, r: f32 },
+    /// A translucent painted stroke: discs at document-space `(x, y)`
+    /// with radius `r`, joined in order. What the Remove tool shows of
+    /// the area it is about to fill.
+    Stroke { dabs: Vec<(f32, f32, f32)> },
     /// Straight line segment.
     Line { x1: f32, y1: f32, x2: f32, y2: f32 },
     /// A persistent guide with a contrasting outline, visible on light
@@ -270,6 +279,14 @@ pub trait ToolPlugin: Send {
     /// Hosts enabling this must drain `take_gpu_edit` after every event.
     fn set_async_compute(&mut self, _enabled: bool) {}
     fn take_gpu_edit(&mut self) -> Option<GpuEdit> {
+        None
+    }
+
+    /// Hosts that can run work off the UI thread enable this and then
+    /// drain `take_background_edit` after every event. Tools otherwise
+    /// run their [`BackgroundEdit`]s inline.
+    fn set_background_edits(&mut self, _enabled: bool) {}
+    fn take_background_edit(&mut self) -> Option<BackgroundEdit> {
         None
     }
 

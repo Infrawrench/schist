@@ -106,3 +106,8 @@ workspace.recovery.recovered.one = Алдыңғы сеанстағы сақта�
 workspace.recovery.recovered.other = Алдыңғы сеанстағы {n} құжат қалпына келтірілді
 workspace.colormgmt.vision_on = Симуляция: {name}
 workspace.colormgmt.vision_off = Қалыпты көру
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Толтыру моделінсіз жойылды, сондықтан толтыру дөрекілеу болуы мүмкін
+workspace.tool_jobs.document_changed = {name} құжаты жабылғаннан немесе ауыстырылғаннан кейін аяқталды, сондықтан ештеңе өзгертілмеді

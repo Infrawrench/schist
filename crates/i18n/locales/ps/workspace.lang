@@ -94,3 +94,8 @@ workspace.recovery.recovered.one = د تېرې ناستې نه ساتل شوی �
 workspace.recovery.recovered.other = د تېرې ناستې {n} سندونه ورغول شول
 workspace.colormgmt.vision_on = انځورګري: {name}
 workspace.colormgmt.vision_off = عادي لید
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = د ډکولو ماډل پرته لرې شو، نو ډکول ښايي زیږ وي
+workspace.tool_jobs.document_changed = {name} وروسته له هغه پای ته ورسېد چې سند یې وتړل شو یا بدل شو، نو هېڅ بدلون رانغی
