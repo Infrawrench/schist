@@ -1,5 +1,5 @@
-//! Region-based retouching: patch, content-aware move, red eye and the
-//! magic eraser.
+//! Region-based retouching: remove, patch, content-aware move, red eye
+//! and the magic eraser.
 //!
 //! These all work on a whole region at once rather than a brush stroke, so
 //! they live apart from the stroke engine in `tools-paint`. What they share
@@ -7,8 +7,10 @@
 //! does and why it is three things rather than one.
 
 pub mod fill;
+pub mod remove;
 
 pub use fill::inpaint;
+pub use remove::RemoveTool;
 
 use schist_color::Rgba;
 use schist_core::{Document, IntRect, LayerId, Selection, TileCoord, TileMap, TILE_SIZE};
@@ -741,6 +743,7 @@ impl PluginManifest for RetouchToolsPlugin {
     }
 
     fn register(&self, registry: &mut PluginRegistry) {
+        registry.register_tool(Box::new(RemoveTool::new()));
         registry.register_tool(Box::new(PatchTool::new()));
         registry.register_tool(Box::new(ContentAwareMoveTool::new()));
         registry.register_tool(Box::new(RedEyeTool::new()));

@@ -79,6 +79,21 @@ fn relax_gpu(
     schist_fx::try_compute(input, &p)
 }
 
+/// How a caller steers a fill that may take a while: a way to ask it to
+/// stop, and somewhere to report how far it has got (0..=1).
+pub struct FillControl<'a> {
+    pub cancelled: &'a (dyn Fn() -> bool + Sync),
+    pub progress: &'a (dyn Fn(f32) + Sync),
+}
+
+impl FillControl<'_> {
+    /// Never cancelled, reports nowhere.
+    pub const NONE: FillControl<'static> = FillControl {
+        cancelled: &|| false,
+        progress: &|_| {},
+    };
+}
+
 /// Fill the pixels where `hole` is true, over `rect`.
 pub fn inpaint(tiles: &TileMap, rect: IntRect, hole: &[bool]) -> Vec<Rgba> {
     let (w, h) = (rect.width().max(0) as usize, rect.height().max(0) as usize);
@@ -91,8 +106,58 @@ pub fn inpaint(tiles: &TileMap, rect: IntRect, hole: &[bool]) -> Vec<Rgba> {
     if w == 0 || h == 0 || hole.len() != w * h || !hole.iter().any(|&v| v) {
         return buf;
     }
-
     let guide = model_guess(tiles, rect, hole);
+    let filled = complete(buf, hole, guide, w, h, &FillControl::NONE);
+    filled.expect("an uncancellable fill always finishes")
+}
+
+/// Fill the pixels where `hole` is true in a buffer that is already the
+/// whole working window: the network, when there is one, is shown
+/// exactly this window, and the patch search draws from it.
+///
+/// What the Remove tool uses, since it chooses its own context window
+/// (and, sampling all layers, has no single layer's tiles to read).
+/// Returns `None` if `control` asked it to stop.
+pub fn inpaint_window(
+    buf: Vec<Rgba>,
+    w: usize,
+    h: usize,
+    hole: &[bool],
+    model: Option<&schist_neural::Model>,
+    control: &FillControl,
+) -> Option<Vec<Rgba>> {
+    if w == 0 || h == 0 || buf.len() != w * h || hole.len() != w * h || !hole.iter().any(|&v| v) {
+        return Some(buf);
+    }
+    let guide = model.and_then(|model| {
+        let rgb: Vec<f32> = buf.iter().flat_map(|p| [p.r, p.g, p.b]).collect();
+        schist_neural::inpaint(model, &rgb, w, h, hole)
+            .map_err(|e| log::warn!("remove: {e:#}"))
+            .ok()
+    });
+    if (control.cancelled)() {
+        return None;
+    }
+    (control.progress)(NETWORK_SHARE);
+    complete(buf, hole, guide, w, h, control)
+}
+
+/// How much of a fill's progress bar the network's forward pass is
+/// worth. A guess, but a stable one: the pass is one call that cannot
+/// report from inside, and the synthesis after it is the long part on
+/// any hole worth a progress bar.
+const NETWORK_SHARE: f32 = 0.25;
+
+/// Seed the hole (from the network's guess, or by diffusion without
+/// one), rebuild it out of real patches, and settle the seam.
+fn complete(
+    mut buf: Vec<Rgba>,
+    hole: &[bool],
+    guide: Option<Vec<f32>>,
+    w: usize,
+    h: usize,
+    control: &FillControl,
+) -> Option<Vec<Rgba>> {
     match &guide {
         Some(g) => {
             for (i, &gone) in hole.iter().enumerate() {
@@ -111,9 +176,24 @@ pub fn inpaint(tiles: &TileMap, rect: IntRect, hole: &[bool]) -> Vec<Rgba> {
         // out to be nothing to copy from.
         None => diffuse(&mut buf, hole, w, h),
     }
-    synthesise(&mut buf, hole, guide.as_deref(), w, h);
+    let progress = |f: f32| (control.progress)(NETWORK_SHARE + f * (0.95 - NETWORK_SHARE));
+    let finished = synthesise(
+        &mut buf,
+        hole,
+        guide.as_deref(),
+        w,
+        h,
+        &FillControl {
+            cancelled: control.cancelled,
+            progress: &progress,
+        },
+    );
+    if !finished {
+        return None;
+    }
     settle_seam(&mut buf, hole, w, h);
-    buf
+    (control.progress)(1.0);
+    Some(buf)
 }
 
 /// Take the step out of the seam.
@@ -503,10 +583,19 @@ impl PatchScorer {
 /// The network's answer, where there is one, is what the search is
 /// scored against inside the hole -- so it decides *what* gets copied
 /// where, and the photograph decides what that looks like.
-fn synthesise(buf: &mut [Rgba], hole: &[bool], guide: Option<&[f32]>, w: usize, h: usize) {
+///
+/// Returns false if `control` asked it to stop, leaving `buf` part-filled.
+fn synthesise(
+    buf: &mut [Rgba],
+    hole: &[bool],
+    guide: Option<&[f32]>,
+    w: usize,
+    h: usize,
+    control: &FillControl,
+) -> bool {
     let r = RADIUS;
     if w < 2 * r + 3 || h < 2 * r + 3 {
-        return;
+        return true;
     }
     let mut known: Vec<bool> = hole.iter().map(|&g| !g).collect();
     let mut sources = Vec::new();
@@ -520,7 +609,7 @@ fn synthesise(buf: &mut [Rgba], hole: &[bool], guide: Option<&[f32]>, w: usize, 
         }
     }
     if sources.len() < 16 {
-        return;
+        return true;
     }
     // A patch placement settles about r^2 pixels, which is how many
     // searches this fill is going to want.
@@ -535,6 +624,8 @@ fn synthesise(buf: &mut [Rgba], hole: &[bool], guide: Option<&[f32]>, w: usize, 
     let scorer = PatchScorer::new(&original, &sources, w, searches);
     let mut conf: Vec<f32> = known.iter().map(|&k| k as u8 as f32).collect();
     let mut left = hole.iter().filter(|&&g| g).count();
+    let total = left.max(1);
+    let mut placed = 0usize;
 
     // The edge of the hole, kept rather than rediscovered. Rescanning
     // the whole region for it after every patch is what turns a big
@@ -554,6 +645,15 @@ fn synthesise(buf: &mut [Rgba], hole: &[bool], guide: Option<&[f32]>, w: usize, 
     let mut prio = vec![f32::NAN; w * h];
 
     while left > 0 && !boundary.is_empty() {
+        // Often enough that a cancel lands within a frame or two, rarely
+        // enough that the checks cost nothing against the search.
+        placed += 1;
+        if placed.is_multiple_of(32) {
+            if (control.cancelled)() {
+                return false;
+            }
+            (control.progress)(1.0 - left as f32 / total as f32);
+        }
         boundary.retain(|&i| !known[i]);
         let mut at = usize::MAX;
         let mut top = f32::NEG_INFINITY;
@@ -634,6 +734,7 @@ fn synthesise(buf: &mut [Rgba], hole: &[bool], guide: Option<&[f32]>, w: usize, 
             }
         }
     }
+    true
 }
 
 /// Whether a missing pixel has a settled pixel beside it.
