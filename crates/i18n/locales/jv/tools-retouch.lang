@@ -27,3 +27,11 @@ tool.magic_eraser.name = Busakan Ajaib
 tool.magic_eraser.description = Klik kanggo mbusak area kanthi werna sing padha ing sangisoring panunjuk, miturut toleransi piranti — mung sing nyambung karo titik klik, utawa kabèh ing lapisan.
 tool.magic_eraser.option.contiguous = Nyambung
 tool.magic_eraser.history.erase = Busakan Ajaib
+
+# Remove
+tool.remove.name = Busak
+tool.remove.description = Lukis ing sadhuwuring obyèk sing ora dikarepaké sajroning siji sapuan; yèn diculké, bakal diisi saka sakiwa-tengené. Yèn Busak Saben Sapuan dipatèni, lukis sawetara sapuan banjur pencèt Enter kanggo mbusak kabèh bebarengan.
+tool.remove.option.sample_all_layers = Sampel Kabèh Lapisan
+tool.remove.option.remove_after_each_stroke = Busak Saben Sapuan
+tool.remove.history.remove = Busak
+tool.remove.layer_name = Dibusak

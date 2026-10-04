@@ -18,3 +18,11 @@ tool.magic_eraser.name = Tshiphomi tsha manditi
 tool.magic_eraser.description = Puṱedza u phumula fhethu ha muvhala u fanaho hu re fhasi ha tshisumbi, u ya nga tshikalo tsha u konḓelela tsha tshishumiswa — hu songo khethekana na he ha puṱedzwa, kana huṅwe na huṅwe kha ḽeyara.
 tool.magic_eraser.option.contiguous = Zwo ṱumanaho
 tool.magic_eraser.history.erase = Tshiphomi tsha manditi
+
+# Remove
+tool.remove.name = Bvisa
+tool.remove.description = Pennda nṱha ha tshithu tshi sa ṱoḓei nga mutalo muthihi; musi ni tshi tutshela, tshi ḓo ḓadzwa nga zwi re tsini natsho. Arali “Bvisa Nga Murahu ha Mutalo Muṅwe na Muṅwe” yo dzimiwa, penndani mitalo minzhi ni kone u pwashea Enter u i bvisa yoṱhe nga tshifhinga tshithihi.
+tool.remove.option.sample_all_layers = Tsumbo ya Dziḽeyara Dzoṱhe
+tool.remove.option.remove_after_each_stroke = Bvisa Nga Murahu ha Mutalo Muṅwe na Muṅwe
+tool.remove.history.remove = Bvisa
+tool.remove.layer_name = Zwo bviswa

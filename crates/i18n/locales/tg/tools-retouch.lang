@@ -21,3 +21,11 @@ tool.magic_eraser.name = Поккунаки сеҳрнок
 tool.magic_eraser.description = Зер кунед, то минтақаи дорои ранги монанд дар зери нишоннамо мувофиқи таҳаммулпазирии абзор пок шавад — танҳо қисми пайваста ба нуқтаи пахш ё тамоми чунин минтақаҳои қабат.
 tool.magic_eraser.option.contiguous = Пайваста
 tool.magic_eraser.history.erase = Поккунаки сеҳрнок
+
+# Remove
+tool.remove.name = Тозакунӣ
+tool.remove.description = Объекти нолозимро бо як зарба ранг кунед; вақте ки сарро раҳо мекунед, он аз атрофаш пур карда мешавад. Агар Тозакунӣ пас аз ҳар зарба хомӯш бошад, якчанд зарба кашед ва барои якҷоя тоза кардани онҳо Enter-ро пахш кунед.
+tool.remove.option.sample_all_layers = Намунагирӣ аз ҳамаи қабатҳо
+tool.remove.option.remove_after_each_stroke = Тозакунӣ пас аз ҳар зарба
+tool.remove.history.remove = Тозакунӣ
+tool.remove.layer_name = Тозашуда

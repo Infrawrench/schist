@@ -107,3 +107,8 @@ workspace.recovery.recovered.one = Dokima {n} ya mosala oyo ebombamaki te na ses
 workspace.recovery.recovered.other = Badokima {n} uta na session oyo eleki ezongisami
 workspace.colormgmt.vision_on = Simulation: {name}
 workspace.colormgmt.vision_off = Komona malamu
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Elongolami kozanga modèle ya kotondisa, yango wana kotondisa ekoki kozala malamu te mingi
+workspace.tool_jobs.document_changed = {name} esilisi nsima ya kokangama to kobongolama ya mokanda na yango, yango wana eloko moko te ebongwani

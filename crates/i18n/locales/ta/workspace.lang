@@ -94,3 +94,8 @@ workspace.recovery.recovered.one = முந்தைய அமர்வில�
 workspace.recovery.recovered.other = முந்தைய அமர்விலிருந்து {n} ஆவணங்கள் மீட்கப்பட்டன
 workspace.colormgmt.vision_on = உருவகப்படுத்துதல்: {name}
 workspace.colormgmt.vision_off = இயல்பான பார்வை
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = நிரப்புதல் மாதிரி இல்லாமல் அகற்றப்பட்டது; எனவே நிரப்புதல் சற்று கரடுமுரடாக இருக்கலாம்
+workspace.tool_jobs.document_changed = {name} முடிவதற்குள் அதன் ஆவணம் மூடப்பட்டது அல்லது மாற்றப்பட்டது; எனவே எதுவும் மாற்றப்படவில்லை

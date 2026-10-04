@@ -27,3 +27,11 @@ tool.magic_eraser.name = Gogewa ta Sihiri
 tool.magic_eraser.description = Danna don goge yankin mai kama da launin da ke ƙarƙashin manuni, gwargwadon haƙurin kayan aikin—ko yankin da yake haɗe da wurin dannawa, ko duk inda yake a shimfiɗar.
 tool.magic_eraser.option.contiguous = Mai Haɗuwa
 tool.magic_eraser.history.erase = Gogewa ta Sihiri
+
+# Remove
+tool.remove.name = Cire
+tool.remove.description = Yi fenti a kan abin da ba a so a bugu ɗaya; idan ka saki, za a cike shi daga abin da ke kewaye da shi. Idan Cire Bayan Kowane Bugu a kashe yake, yi fenti bugu da yawa sannan ka danna Enter don cire su tare.
+tool.remove.option.sample_all_layers = Ɗauki Samfuri Daga Duk Shimfiɗu
+tool.remove.option.remove_after_each_stroke = Cire Bayan Kowane Bugu
+tool.remove.history.remove = Cire
+tool.remove.layer_name = An Cire

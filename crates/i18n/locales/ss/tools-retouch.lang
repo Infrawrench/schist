@@ -21,3 +21,11 @@ tool.magic_eraser.name = Sisuli Semlingo
 tool.magic_eraser.description = Chafata kuze usule indzawo yembala lofananako longephansi kwesikhombi, ngekhatsi kwemkhawulo welithuluzi — lehambisana nendzawo lechafatiwe, nobe kuyo yonkhe indzawo yeluhlaka.
 tool.magic_eraser.option.contiguous = Lokuhlanganako
 tool.magic_eraser.history.erase = Sisuli Semlingo
+
+# Remove
+tool.remove.name = Susa
+tool.remove.description = Pendela etikwentfo longayifuni ngemugca munye; nawuyiyekela, igcwaliswa ngalokuyitungeletile. Nangabe Susa Ngemuva Kwemugca Ngamunye kuvaliwe, pendela imigca leminyenti bese ucindzetela Enter kuze uyisuse kanyekanye.
+tool.remove.option.sample_all_layers = Isampula Kuto Tonkhe Tinhlaka
+tool.remove.option.remove_after_each_stroke = Susa Ngemuva Kwemugca Ngamunye
+tool.remove.history.remove = Susa
+tool.remove.layer_name = Lokususiwe

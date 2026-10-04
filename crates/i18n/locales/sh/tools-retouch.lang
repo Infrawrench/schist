@@ -21,3 +21,11 @@ tool.magic_eraser.name = Čarobna gumica
 tool.magic_eraser.description = Kliknite kako biste izbrisali područje slične boje ispod pokazivača unutar tolerancije alata — samo područje povezano s mjestom klika ili sva takva područja na sloju.
 tool.magic_eraser.option.contiguous = Susjedno
 tool.magic_eraser.history.erase = Čarobna gumica
+
+# Remove
+tool.remove.name = Uklanjanje
+tool.remove.description = Jednim potezom oslikajte neželjeni objekt; kada otpustite, ispunit će se iz okoline. Kada je Ukloni nakon svakog poteza isključeno, oslikajte nekoliko poteza i pritisnite Enter da biste ih uklonili zajedno.
+tool.remove.option.sample_all_layers = Uzorkuj sve slojeve
+tool.remove.option.remove_after_each_stroke = Ukloni nakon svakog poteza
+tool.remove.history.remove = Uklanjanje
+tool.remove.layer_name = Uklonjeno

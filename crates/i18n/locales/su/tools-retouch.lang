@@ -21,3 +21,11 @@ tool.magic_eraser.name = Panghapus Ajaib
 tool.magic_eraser.description = Klik pikeun mupus wewengkon anu warnana sarupa di handapeun panunjuk, saluyu jeung toléransi alat — ngan anu nyambung jeung titik klik, atawa di sakuliah lapisan.
 tool.magic_eraser.option.contiguous = Nyambung
 tool.magic_eraser.history.erase = Panghapus Ajaib
+
+# Remove
+tool.remove.name = Piceun
+tool.remove.description = Cét objék anu teu dipikahayang ku hiji gurat; mun dileupaskeun, éta bakal dieusian tina wewengkon sabudeureunana. Mun Piceun Sanggeus Unggal Gurat pareum, cét sababaraha gurat tuluy pencét Enter pikeun miceun sakabéhna sakaligus.
+tool.remove.option.sample_all_layers = Sampel Kabéh Lapisan
+tool.remove.option.remove_after_each_stroke = Piceun Sanggeus Unggal Gurat
+tool.remove.history.remove = Piceun
+tool.remove.layer_name = Dipiceun

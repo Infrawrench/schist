@@ -18,3 +18,11 @@ tool.magic_eraser.name = ስሒራዊ መደምሰሲ
 tool.magic_eraser.description = ኣብ ውሽጢ ደረት መሳርሒ ነቲ ኣብ ትሕቲ መመልከቲ ዘሎ ተመሳሳሊ ሕብሪ ደምስሶ፤ ምስቲ ዝተጠውቐ ዝተራኸበ ጥራይ ወይ ኣብ ምሉእ ንጣፍ።
 tool.magic_eraser.option.contiguous = ዝተራኸበ
 tool.magic_eraser.history.erase = ስሒራዊ መደምሰሲ
+
+# Remove
+tool.remove.name = ኣልግስ
+tool.remove.description = ኣብ ልዕሊ ዘይድለ ነገር ብሓደ ምስሓብ ቀብእ፤ ምስ ኣላቐቕካ ካብ ከባቢኡ ይምላእ። ድሕሪ ነፍሲ ወከፍ ምስሓብ ኣልግስ እንተ ተዓጽዩ፡ ብዙሓት ምስሓባት ቀቢእካ ብሓባር ንምእላዮም Enter ጠውቕ።
+tool.remove.option.sample_all_layers = ካብ ኩሎም ንጣፋት ናሙና
+tool.remove.option.remove_after_each_stroke = ድሕሪ ነፍሲ ወከፍ ምስሓብ ኣልግስ
+tool.remove.history.remove = ኣልግስ
+tool.remove.layer_name = ዝተኣልየ

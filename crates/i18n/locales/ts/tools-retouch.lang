@@ -23,3 +23,11 @@ tool.magic_eraser.name = Xisusi xa masalamusi
 tool.magic_eraser.description = Tshikilela ku sula ndhawu ya muhlovo lowu fanaka ehansi ka njoho, hi mpimo wa xitirhisiwa—ku nga ha va leyi hlanganeke ni laha ku tshikileriweke, kumbe hinkwako eka leyara.
 tool.magic_eraser.option.contiguous = Swi hlanganile
 tool.magic_eraser.history.erase = Xisusi xa masalamusi
+
+# Remove
+tool.remove.name = Susa
+tool.remove.description = Penda ehenhla ka nchumu lowu nga laviwiki hi ku koka kan'we; loko u tshika, wu tatisiwa hi leswi wu rhendzeleke. Loko Susa Endzhaku ka Ku Koka Kun'wana na Kun'wana ku timiwile, penda ku koka ko hlayanyana kutani u tshikelela Enter ku swi susa swin'we.
+tool.remove.option.sample_all_layers = Sampula ya Maleyara hinkwawo
+tool.remove.option.remove_after_each_stroke = Susa Endzhaku ka Ku Koka Kun'wana na Kun'wana
+tool.remove.history.remove = Susa
+tool.remove.layer_name = Susiwile

@@ -21,3 +21,11 @@ tool.magic_eraser.name = Magic Eraser
 tool.magic_eraser.description = Mag-click upang burahin ang bahagi sa ilalim ng pointer na may kahawig na kulay at pasok sa tolerance ng tool — maaaring magkadikit sa pinindot na bahagi, o nasa kahit saan sa layer.
 tool.magic_eraser.option.contiguous = Magkadikit
 tool.magic_eraser.history.erase = Magic Eraser
+
+# Remove
+tool.remove.name = Alisin
+tool.remove.description = Pintahan ang hindi gustong bagay sa isang stroke; kapag binitawan mo, pupunuin ito mula sa paligid nito. Kapag naka-off ang Alisin Pagkatapos ng Bawat Stroke, magpinta ng ilang stroke at pindutin ang Enter para sabay-sabay silang alisin.
+tool.remove.option.sample_all_layers = I-sample ang Lahat ng Layer
+tool.remove.option.remove_after_each_stroke = Alisin Pagkatapos ng Bawat Stroke
+tool.remove.history.remove = Alisin
+tool.remove.layer_name = Inalis

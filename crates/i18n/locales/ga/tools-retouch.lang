@@ -18,3 +18,11 @@ tool.magic_eraser.name = Scriosán Draíochta
 tool.magic_eraser.description = Cliceáil chun an limistéar ar dhath comhchosúil faoin bpointeoir a scriosadh, laistigh de lamháltas na huirlise — an chuid atá tadhlach leis an gcliceáil, nó gach cuid den tsraith.
 tool.magic_eraser.option.contiguous = Tadhlach
 tool.magic_eraser.history.erase = Scriosán Draíochta
+
+# Remove
+tool.remove.name = Bain
+tool.remove.description = Péinteáil thar réad nach dteastaíonn uait i mbuille amháin; nuair a scaoileann tú é, líontar é óna thimpeallacht. Nuair atá Bain Tar Éis Gach Buille múchta, péinteáil roinnt buillí agus brúigh Enter chun iad a bhaint le chéile.
+tool.remove.option.sample_all_layers = Samplaigh Gach Sraith
+tool.remove.option.remove_after_each_stroke = Bain Tar Éis Gach Buille
+tool.remove.history.remove = Bain
+tool.remove.layer_name = Bainte

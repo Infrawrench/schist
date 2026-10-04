@@ -94,3 +94,8 @@ workspace.recovery.recovered.one = ކުރީގެ ސެޝަނަކުން ސޭވް ނ
 workspace.recovery.recovered.other = ކުރީގެ ސެޝަނަކުން ޑޮކިއުމަންޓް {n} ރިކަވަރ ކުރެވިއްޖެ
 workspace.colormgmt.vision_on = ސިމިއުލޭޝަން: {name}
 workspace.colormgmt.vision_off = ނޯމަލް ފެނުން
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = ފުރުމުގެ މޮޑެލް ނެތި ނައްތާލެވުނީ، އެހެންކަމުން ފުރުން ދަގަނޑު ވެދާނެއެވެ
+workspace.tool_jobs.document_changed = {name} ނިމުނީ އޭގެ ޑޮކިއުމަންޓް ބަންދުކުރުމަށް ނުވަތަ ބަދަލުކުރުމަށް ފަހުގައި، އެހެންކަމުން އެއްވެސް ބަދަލެއް ނުގެނެވުނެވެ

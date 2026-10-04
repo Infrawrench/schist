@@ -92,3 +92,8 @@ workspace.recovery.recovered_title = {title} (a ti mú padà)
 workspace.recovery.recovered.other = Iṣẹ́ tí a kò fipamọ́ tí a mú padà láti sáà ṣáájú; iye ìwé: {n}
 workspace.colormgmt.vision_on = Ìṣàfarawé: {name}
 workspace.colormgmt.vision_off = Ìríran déédé
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = A yọ ọ́ kúrò láìsí àwòṣe ìkún àwòrán, nítorí náà ìkún náà lè má dán tó
+workspace.tool_jobs.document_changed = {name} parí lẹ́yìn tí a ti pa ìwé rẹ̀ dé tàbí yí i padà, nítorí náà kò sí ohun tí a yípadà

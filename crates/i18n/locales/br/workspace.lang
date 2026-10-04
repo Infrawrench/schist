@@ -113,3 +113,8 @@ workspace.recovery.recovered.many = Assavet eo bet {n} a deulioù eus un estez k
 workspace.recovery.recovered.other = Assavet eo bet {n} teul eus un estez kent
 workspace.colormgmt.vision_on = Simulad: {name}
 workspace.colormgmt.vision_off = Gwelet normal
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Lamet eo bet hep ar patrom adlivañ, neuze e c'hallfe al leuniadur bezañ rustoc'h
+workspace.tool_jobs.document_changed = {name} zo echu goude ma oa bet serret pe cheñchet e deul, neuze n'eus bet cheñchet netra

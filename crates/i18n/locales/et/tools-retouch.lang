@@ -18,3 +18,11 @@ tool.magic_eraser.name = Võlukustutaja
 tool.magic_eraser.description = Klõpsa kursori all oleva sarnase värviga ala kustutamiseks tööriista tolerantsi piires: kas klõpsuga külgnev ala või kõik sellised kohad kihil.
 tool.magic_eraser.option.contiguous = Külgnev
 tool.magic_eraser.history.erase = Võlukustutaja
+
+# Remove
+tool.remove.name = Eemalda
+tool.remove.description = Värvi soovimatu objekt ühe tõmbega üle; kui lahti lased, täidetakse see ümbrusest. Kui Eemalda pärast iga tõmmet on välja lülitatud, värvi mitu tõmmet ja vajuta Enter, et need korraga eemaldada.
+tool.remove.option.sample_all_layers = Proovi kõigilt kihtidelt
+tool.remove.option.remove_after_each_stroke = Eemalda pärast iga tõmmet
+tool.remove.history.remove = Eemaldamine
+tool.remove.layer_name = Eemaldatud

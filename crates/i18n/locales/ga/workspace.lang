@@ -100,3 +100,8 @@ workspace.recovery.recovered.many = Aisghabhadh {n} gcáipéis ó sheisiún roim
 workspace.recovery.recovered.other = Aisghabhadh {n} cáipéis ó sheisiún roimhe seo
 workspace.colormgmt.vision_on = Insamhladh: {name}
 workspace.colormgmt.vision_off = Gnáthradharc
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Baineadh é gan an tsamhail inphéintéála, mar sin d’fhéadfadh an líonadh a bheith níos gairbhe
+workspace.tool_jobs.document_changed = Chríochnaigh {name} tar éis dá dhoiciméad a bheith dúnta nó athraithe, mar sin níor athraíodh aon rud

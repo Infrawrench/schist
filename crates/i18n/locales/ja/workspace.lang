@@ -130,3 +130,8 @@ workspace.recovery.recovered_title = {title}（復元）
 workspace.recovery.recovered.other = 前回のセッションから {n} 個のドキュメントを復元しました
 workspace.colormgmt.vision_on = シミュレーション中：{name}
 workspace.colormgmt.vision_off = 一般色覚
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}：{percent}%
+workspace.tool_jobs.missing_model = インペイントモデルなしで削除したため、塗りつぶしが粗くなる場合があります
+workspace.tool_jobs.document_changed = {name} はドキュメントが閉じられたか切り替えられた後に完了したため、何も変更されませんでした

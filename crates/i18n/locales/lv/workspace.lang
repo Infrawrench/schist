@@ -109,3 +109,8 @@ workspace.recovery.recovered.one = Atkopts {n} nesaglabāts dokuments no iepriek
 workspace.recovery.recovered.other = Atkopti {n} dokumenti no iepriekšējās sesijas
 workspace.colormgmt.vision_on = Simulācija: {name}
 workspace.colormgmt.vision_off = Normāla redze
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Noņemts bez aizpildīšanas modeļa, tāpēc aizpildījums var būt raupjāks
+workspace.tool_jobs.document_changed = {name} pabeidza darbu pēc tam, kad tā dokuments tika aizvērts vai pārslēgts, tāpēc nekas netika mainīts

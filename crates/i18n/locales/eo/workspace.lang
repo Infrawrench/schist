@@ -94,3 +94,8 @@ workspace.recovery.recovered.one = Restarigita nekonservita laboro el antaŭa se
 workspace.recovery.recovered.other = Restarigitaj {n} dokumentoj el antaŭa seanco
 workspace.colormgmt.vision_on = Simulado: {name}
 workspace.colormgmt.vision_off = Normala vidado
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Forigita sen la plenigmodelo, do la plenigo eble estos pli malglata
+workspace.tool_jobs.document_changed = {name} finiĝis post kiam ĝia dokumento estis fermita aŭ ŝanĝita, do nenio estis ŝanĝita

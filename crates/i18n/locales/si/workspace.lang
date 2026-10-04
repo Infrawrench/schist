@@ -94,3 +94,8 @@ workspace.recovery.recovered.one = පෙර සැසියකින් නො�
 workspace.recovery.recovered.other = පෙර සැසියකින් ලේඛන {n}ක් ප්‍රතිසාධනය කරන ලදී
 workspace.colormgmt.vision_on = අනුකරණය: {name}
 workspace.colormgmt.vision_off = සාමාන්‍ය දැක්ම
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = පිරවීමේ ආකෘතිය නොමැතිව ඉවත් කරන ලදී, එබැවින් පිරවුම වඩා රළු විය හැක
+workspace.tool_jobs.document_changed = {name} එහි ලේඛනය වසා දැමීමෙන් හෝ මාරු කිරීමෙන් පසු අවසන් වූ බැවින් කිසිවක් වෙනස් නොකළේය

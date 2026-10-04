@@ -25,3 +25,11 @@ tool.magic_eraser.name = Anwanwa Pɛpaade
 tool.magic_eraser.description = Mia na pepa beae a ne kɔla te sɛ nea ɛwɔ pointer no ase no, sɛnea adwinnade no tolerance te — beae a ɛtoa baabi a woamia no so, anaa layer no baabiara.
 tool.magic_eraser.option.contiguous = Ɛtoa So
 tool.magic_eraser.history.erase = Anwanwa Pɛpaade
+
+# Remove
+tool.remove.name = Yi Fi Mu
+tool.remove.description = Twe wo nsa fa ade a wompɛ no so prɛko pɛ; sɛ wogyae a, wɔde nneɛma a atwa ho ahyia bɛhyɛ hɔ ma. Sɛ Yi Fi Mu Twe Biara Akyi adum a, twe mprɛ pii na mia Enter na yi ne nyinaa fi mu bɔ mu.
+tool.remove.option.sample_all_layers = Fa Fi Layer Nyinaa Mu
+tool.remove.option.remove_after_each_stroke = Yi Fi Mu Twe Biara Akyi
+tool.remove.history.remove = Yi Fi Mu
+tool.remove.layer_name = Wɔayi Afi Mu

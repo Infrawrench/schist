@@ -21,3 +21,11 @@ tool.magic_eraser.name = Isesuli Esilomlingo
 tool.magic_eraser.description = Chofoza ukuze wesule indawo elombala ofananayo ngaphansi kwesikhombi, ngokulingana lokubekezelela kwethuluzi — kungaba indawo exhumene lalapho ochofoze khona, kumbe yonke indawo kusendlalelo.
 tool.magic_eraser.option.contiguous = Okuxhumanayo
 tool.magic_eraser.history.erase = Isesuli Esilomlingo
+
+# Remove
+tool.remove.name = Susa
+tool.remove.description = Pende phezu kwento ongayifuniyo ngokudweba kanye; nxa uyekela, igcwaliswa ngokuthathwe endaweni eyizingelezeleyo. Nxa okuthi Susa Emva Kokudweba Ngakunye kuvaliwe, pende imidwebo eminengi ubusucindezela u-Enter ukuze uyisuse yonke kanyekanye.
+tool.remove.option.sample_all_layers = Thatha Isampuli Kuzo Zonke Izendlalelo
+tool.remove.option.remove_after_each_stroke = Susa Emva Kokudweba Ngakunye
+tool.remove.history.remove = Susa
+tool.remove.layer_name = Kususiwe

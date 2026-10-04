@@ -23,3 +23,11 @@ tool.magic_eraser.name = Kouzelná guma
 tool.magic_eraser.description = Kliknutím vymažete pod ukazatelem oblast podobné barvy v rámci tolerance nástroje, buď souvislou s bodem kliknutí, nebo v celé vrstvě.
 tool.magic_eraser.option.contiguous = Sousedící
 tool.magic_eraser.history.erase = Kouzelná guma
+
+# Remove
+tool.remove.name = Odstranit
+tool.remove.description = Přemalujte nežádoucí objekt jedním tahem; po uvolnění se vyplní podle okolí. Když je volba Odstranit po každém tahu vypnutá, namalujte několik tahů a stisknutím klávesy Enter je odstraňte najednou.
+tool.remove.option.sample_all_layers = Vzorkovat všechny vrstvy
+tool.remove.option.remove_after_each_stroke = Odstranit po každém tahu
+tool.remove.history.remove = Odstranit
+tool.remove.layer_name = Odstraněno

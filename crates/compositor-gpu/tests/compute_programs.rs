@@ -513,6 +513,27 @@ fn programs_match_real_layer_styles_masks_and_affine_callers() {
                 .collect::<Vec<_>>()
         };
         close(&flatten(a), &flatten(b), 0.0002);
+        // The Remove tool's window fill: network, synthesis and seam on
+        // the device must match the CPU.
+        let model = schist_neural::get("inpaint").unwrap();
+        let buf: Vec<Rgba> = (0..39 * 31).map(|i| tiles.pixel(i % 39, i / 39)).collect();
+        let fill = || {
+            schist_tools_retouch::remove::fill_hole(
+                schist_tools_retouch::remove::Method::Fill,
+                buf.clone(),
+                39,
+                31,
+                &hole,
+                Some(&model),
+                &schist_plugin_api::JobControl::new(),
+            )
+            .unwrap()
+        };
+        schist_fx::set_backend(Arc::new(schist_fx::CpuFx));
+        let b = fill();
+        schist_fx::set_backend(gpu.clone());
+        let a = fill();
+        close(&flatten(a), &flatten(b), 0.0003);
     }
     let seen = gpu.seen.lock().unwrap();
     for name in [

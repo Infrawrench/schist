@@ -120,3 +120,8 @@ workspace.recovery.recovered.many = Recuperati {n} documenti da una sessione pre
 workspace.recovery.recovered.other = Recuperati {n} documenti da una sessione precedente
 workspace.colormgmt.vision_on = Simulazione: {name}
 workspace.colormgmt.vision_off = Visione normale
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Rimosso senza il modello di inpainting, quindi il riempimento potrebbe essere più grossolano
+workspace.tool_jobs.document_changed = {name} è terminato dopo che il documento è stato chiuso o cambiato, quindi non è stato modificato nulla

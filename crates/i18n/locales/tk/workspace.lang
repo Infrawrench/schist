@@ -107,3 +107,8 @@ workspace.recovery.recovered.one = Öňki sessiýadan ýazdyrylmadyk iş dikeldi
 workspace.recovery.recovered.other = Öňki sessiýadan {n} resminama dikeldildi
 workspace.colormgmt.vision_on = Simulýasiýa: {name}
 workspace.colormgmt.vision_off = Adaty görüş
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Doldurma modeli bolmazdan aýryldy, şonuň üçin doldurma has gödek bolup biler
+workspace.tool_jobs.document_changed = {name} resminamasy ýapylandan ýa-da çalşylandan soň tamamlandy, şonuň üçin hiç zat üýtgedilmedi

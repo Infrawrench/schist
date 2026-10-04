@@ -18,3 +18,11 @@ tool.magic_eraser.name = Tẩy ma thuật
 tool.magic_eraser.description = Nhấp để xóa vùng có màu tương tự dưới con trỏ trong phạm vi dung sai của công cụ — vùng liền kề với điểm nhấp hoặc ở mọi nơi trong lớp.
 tool.magic_eraser.option.contiguous = Liền kề
 tool.magic_eraser.history.erase = Tẩy ma thuật
+
+# Remove
+tool.remove.name = Xóa
+tool.remove.description = Tô lên đối tượng không mong muốn bằng một nét; khi bạn thả ra, vùng đó sẽ được lấp đầy từ phần xung quanh. Khi tắt “Xóa sau mỗi nét”, hãy tô nhiều nét rồi nhấn Enter để xóa tất cả cùng lúc.
+tool.remove.option.sample_all_layers = Lấy mẫu tất cả lớp
+tool.remove.option.remove_after_each_stroke = Xóa sau mỗi nét
+tool.remove.history.remove = Xóa
+tool.remove.layer_name = Đã xóa

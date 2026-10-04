@@ -94,3 +94,8 @@ workspace.recovery.recovered.one = Възстановена е незапазе�
 workspace.recovery.recovered.other = Възстановени са {n} документа от предишна сесия
 workspace.colormgmt.vision_on = Симулация: {name}
 workspace.colormgmt.vision_off = Нормално зрение
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Премахнато без модела за дорисуване, така че запълването може да е по-грубо
+workspace.tool_jobs.document_changed = {name} завърши, след като документът беше затворен или сменен, така че нищо не е променено

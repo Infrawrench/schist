@@ -27,3 +27,11 @@ tool.magic_eraser.name = Rhwbiwr Hud
 tool.magic_eraser.description = Cliciwch i ddileu'r ardal o liw tebyg o dan y pwyntydd, o fewn goddefiant yr offeryn — naill ai'r ardal sy'n gydgysylltiedig â'r man clicio, neu bob ardal o'r fath yn yr haen.
 tool.magic_eraser.option.contiguous = Cydgysylltiedig
 tool.magic_eraser.history.erase = Rhwbiwr Hud
+
+# Remove
+tool.remove.name = Tynnu
+tool.remove.description = Paentiwch dros wrthrych diangen mewn un strôc; pan fyddwch yn gollwng, caiff ei lenwi o'r hyn sydd o'i amgylch. Gyda Tynnu ar ôl Pob Strôc wedi'i ddiffodd, paentiwch sawl strôc a phwyso Enter i'w tynnu gyda'i gilydd.
+tool.remove.option.sample_all_layers = Samplu Pob Haen
+tool.remove.option.remove_after_each_stroke = Tynnu ar ôl Pob Strôc
+tool.remove.history.remove = Tynnu
+tool.remove.layer_name = Wedi'i dynnu

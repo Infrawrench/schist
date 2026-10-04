@@ -18,3 +18,11 @@ tool.magic_eraser.name = ជ័រលុបវេទមន្ត
 tool.magic_eraser.description = ចុចដើម្បីលុបតំបន់ដែលមានពណ៌ស្រដៀងគ្នាក្រោមទ្រនិច តាមកម្រិតអត់ឱនរបស់ឧបករណ៍ ដោយលុបតែតំបន់ជាប់គ្នានឹងចំណុចចុច ឬគ្រប់កន្លែងក្នុងស្រទាប់។
 tool.magic_eraser.option.contiguous = ជាប់គ្នា
 tool.magic_eraser.history.erase = ជ័រលុបវេទមន្ត
+
+# Remove
+tool.remove.name = លុបចេញ
+tool.remove.description = គូរលើវត្ថុដែលមិនចង់បានក្នុងមួយស្នាមជក់; ពេលអ្នកលែង វានឹងត្រូវបានបំពេញពីបរិវេណជុំវិញ។ ពេលបិទ លុបចេញក្រោយស្នាមជក់នីមួយៗ សូមគូរច្រើនស្នាម រួចចុច Enter ដើម្បីលុបចេញទាំងអស់ព្រមគ្នា។
+tool.remove.option.sample_all_layers = យកគំរូពីស្រទាប់ទាំងអស់
+tool.remove.option.remove_after_each_stroke = លុបចេញក្រោយស្នាមជក់នីមួយៗ
+tool.remove.history.remove = លុបចេញ
+tool.remove.layer_name = បានលុបចេញ

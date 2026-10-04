@@ -99,3 +99,8 @@ workspace.recovery.recovered_title = {title} (ပြန်လည်ရယူထ�
 workspace.recovery.recovered.other = ယခင်အသုံးပြုမှုမှ မသိမ်းရသေးသော စာတမ်း {n} ခုကို ပြန်လည်ရယူပြီးပါပြီ
 workspace.colormgmt.vision_on = ပုံစံတူဖန်တီးခြင်း- {name}
 workspace.colormgmt.vision_off = ပုံမှန်မြင်ကွင်း
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = ဖြည့်စွက်မော်ဒယ်မပါဘဲ ဖယ်ရှားခဲ့သဖြင့် ဖြည့်ထားသည့်နေရာ ပိုကြမ်းနိုင်သည်
+workspace.tool_jobs.document_changed = {name} သည် ၎င်း၏စာတမ်း ပိတ်ပြီး သို့မဟုတ် ပြောင်းပြီးမှ ပြီးဆုံးသဖြင့် မည်သည့်အရာမျှ မပြောင်းလဲခဲ့ပါ

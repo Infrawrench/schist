@@ -18,3 +18,11 @@ tool.magic_eraser.name = Isicimi Somlingo
 tool.magic_eraser.description = Cofa ukuze ucime indawo enombala ofanayo ephantsi kwesalathisi, ngaphakathi kokunyamezela kwesixhobo — indawo eqhagamshelene nalapho ucofe khona, okanye kuzo zonke iindawo zomaleko.
 tool.magic_eraser.option.contiguous = Eqhagamsheleneyo
 tool.magic_eraser.history.erase = Isicimi Somlingo
+
+# Remove
+tool.remove.name = Susa
+tool.remove.description = Peyinta phezu kwento ongayifuniyo ngomgca omnye; xa uyeka, iyazaliswa ngokusuka kwindawo eyingqongileyo. Xa u-“Susa Emva Komgca Ngamnye” ucinyiwe, peyinta imigca emininzi uze ucinezele u-Enter ukuze uyisuse yonke kunye.
+tool.remove.option.sample_all_layers = Thatha Isampulu Kuyo Yonke Imaleko
+tool.remove.option.remove_after_each_stroke = Susa Emva Komgca Ngamnye
+tool.remove.history.remove = Susa
+tool.remove.layer_name = Isusiwe

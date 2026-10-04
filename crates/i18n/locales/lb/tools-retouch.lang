@@ -22,3 +22,11 @@ tool.magic_eraser.name = Magesche Gummi
 tool.magic_eraser.description = Klickt, fir de Beräich mat änlecher Faarf ënner dem Mauszeiger bannent der Toleranz vum Wierkzeug ze läschen – entweder nëmmen de mam Klick zesummenhängende Beräich oder iwwerall op der Eben.
 tool.magic_eraser.option.contiguous = Zesummenhängend
 tool.magic_eraser.history.erase = Magesche Gummi
+
+# Remove
+tool.remove.name = Ewechhuelen
+tool.remove.description = Molt an engem Strich iwwer en onerwënschten Objet; wann Dir lass loosst, gëtt e mat sengem Ëmfeld gefëllt. Wann Ewechhuelen no all Strich aus ass, molt e puer Stricher a dréckt Enter, fir se zesummen ewechzehuelen.
+tool.remove.option.sample_all_layers = All Ebenen opnamen
+tool.remove.option.remove_after_each_stroke = Ewechhuelen no all Strich
+tool.remove.history.remove = Ewechhuelen
+tool.remove.layer_name = Ewechgeholl

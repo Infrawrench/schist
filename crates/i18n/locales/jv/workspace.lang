@@ -93,3 +93,8 @@ workspace.recovery.recovered_title = {title} (dipulihaké)
 workspace.recovery.recovered.other = {n} dokumèn saka sesi sadurungé wis dipulihaké
 workspace.colormgmt.vision_on = Simulasi: {name}
 workspace.colormgmt.vision_off = Pandeleng normal
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Dibusak tanpa model pangisi, dadi isiané bisa luwih kasar
+workspace.tool_jobs.document_changed = {name} rampung sawisé dokumèné ditutup utawa diganti, dadi ora ana sing diowahi

@@ -18,3 +18,11 @@ tool.magic_eraser.name = Mbogueha imágiko
 tool.magic_eraser.description = Epoko embogue hag̃ua sa'y ojoguáva renda techaukaha guýpe, tembiporu toleránsia ryepýpe: ikatu pe kyta ojepokóva ndive ojoaju térã oĩ oimehápe capa-pe.
 tool.magic_eraser.option.contiguous = Ojoajúva
 tool.magic_eraser.history.erase = Mbogueha imágiko
+
+# Remove
+tool.remove.name = Mboguete
+tool.remove.description = Embosa'ipa peteĩ mba'e ndereipotáiva ári peteĩ jehai rupi; reheja jave, henyhẽ ijerére oĩvagui. Mboguete peteĩteĩ jehai rire ojepeve'ỹ jave, embosa'ipa heta jehai ha ejopy Enter emboguete hag̃ua oñondive.
+tool.remove.option.sample_all_layers = Techaukarã opa capa-gui
+tool.remove.option.remove_after_each_stroke = Mboguete peteĩteĩ jehai rire
+tool.remove.history.remove = Mboguete
+tool.remove.layer_name = Ñemboguepyre

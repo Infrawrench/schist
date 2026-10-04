@@ -103,3 +103,8 @@ workspace.recovery.recovered.one = Yabwezeretsa ntchito yosasungidwa ya session 
 workspace.recovery.recovered.other = Yabwezeretsa zikalata {n} za session yapita
 workspace.colormgmt.vision_on = Kuyerekeza: {name}
 workspace.colormgmt.vision_off = Kuona bwino
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Zachotsedwa popanda model yodzaza, choncho kudzaza sikungakhale kosalala
+workspace.tool_jobs.document_changed = {name} yatha chikalata chake chitatsekedwa kapena kusinthidwa, choncho palibe chomwe chasinthidwa

@@ -21,3 +21,11 @@ tool.magic_eraser.name = மாய அழிப்பான்
 tool.magic_eraser.description = கருவியின் சகிப்புத்தன்மை வரம்புக்குள், சுட்டியின் கீழுள்ள ஒத்த வண்ணப் பகுதியை அழிக்கச் சொடுக்கவும்; சொடுக்கிய இடத்துடன் தொடர்ச்சியான பகுதியையோ அடுக்கில் உள்ள அத்தகைய எல்லாப் பகுதிகளையோ அழிக்கலாம்.
 tool.magic_eraser.option.contiguous = தொடர்ச்சியானவை
 tool.magic_eraser.history.erase = மாய அழிப்பான்
+
+# Remove
+tool.remove.name = அகற்று
+tool.remove.description = தேவையற்ற பொருளின் மீது ஒரே தீற்றலில் வரையவும்; விடுவித்ததும் அது சுற்றுப்புறத்திலிருந்து நிரப்பப்படும். ஒவ்வொரு தீற்றலுக்குப் பிறகும் அகற்று முடக்கப்பட்டிருந்தால், பல தீற்றல்களை வரைந்து Enter அழுத்தி அவற்றை ஒன்றாக அகற்றவும்.
+tool.remove.option.sample_all_layers = அனைத்து அடுக்குகளிலிருந்தும் மாதிரி
+tool.remove.option.remove_after_each_stroke = ஒவ்வொரு தீற்றலுக்குப் பிறகும் அகற்று
+tool.remove.history.remove = அகற்று
+tool.remove.layer_name = அகற்றப்பட்டது

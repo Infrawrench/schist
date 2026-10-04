@@ -190,6 +190,7 @@ impl Workspace {
                     self.record_action_step(recorded_actions::Step::Transform { params });
                 }
             }
+            self.drain_tool_jobs(previous, cx);
         }
         if let Some(tool) = self.registry.tool_mut(id) {
             let id = tool.id();
@@ -232,6 +233,7 @@ impl Workspace {
             };
             tool.on_option_changed(&mut ctx, key);
         }
+        self.drain_tool_jobs(tool_id, cx);
         self.after_change(cx);
     }
 }

@@ -95,3 +95,8 @@ workspace.recovery.recovered.one = Lavur betg memorisada recuperada d'ina sessiu
 workspace.recovery.recovered.other = {n} documents recuperads d'ina sessiun precedenta
 workspace.colormgmt.vision_on = Simulaziun: {name}
 workspace.colormgmt.vision_off = Vesida normala
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Allontanà senza il model d'emplenida, perquai po l'emplenida esser pli grossa
+workspace.tool_jobs.document_changed = {name} è terminà suenter che ses document è vegnì serrà u midà, perquai n'è nagut vegnì midà

@@ -21,3 +21,11 @@ tool.magic_eraser.name = Deletrum Magicum
 tool.magic_eraser.description = Preme ut regio coloris similis sub indice intra tolerantiam instrumenti deleatur — sive tantum regio cum loco presso coniuncta, sive ubique in strato.
 tool.magic_eraser.option.contiguous = Contiguum
 tool.magic_eraser.history.erase = Deletrum Magicum
+
+# Remove
+tool.remove.name = Removere
+tool.remove.description = Rem non optatam uno tractu pinge; cum dimiseris, ex circumiacentibus impletur. Si Removere Post Quemque Tractum exstinctum est, plures tractus pinge et Enter preme ut simul removeantur.
+tool.remove.option.sample_all_layers = Specimen ex Omnibus Stratis
+tool.remove.option.remove_after_each_stroke = Removere Post Quemque Tractum
+tool.remove.history.remove = Removere
+tool.remove.layer_name = Remotum

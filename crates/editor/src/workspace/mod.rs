@@ -161,6 +161,7 @@ pub(crate) mod photo_view;
 #[cfg(any(target_os = "ios", target_os = "android"))]
 mod text_input;
 mod tiles;
+mod tool_jobs;
 mod toolbar;
 mod typography;
 mod view_options;
@@ -372,6 +373,8 @@ pub struct Workspace {
     /// Whether the last frame drew any tool overlay, so the ants timer
     /// knows to keep repainting for tools that draw their own.
     pub tool_has_overlay: bool,
+    /// Tool edits running off the UI thread (the Remove tool's fills).
+    pub tool_jobs: tool_jobs::ToolJobs,
     /// Which curve the Curves editor is showing.
     pub curve_channel: schist_adjustments::CurveChannel,
     /// Index of the control point being dragged in the curve editor.
@@ -1695,6 +1698,7 @@ impl Workspace {
             fonts_offered: std::collections::HashSet::new(),
             ant_phase: 0,
             tool_has_overlay: false,
+            tool_jobs: Default::default(),
             curve_channel: Default::default(),
             curve_drag: None,
             picker_drag: None,
@@ -1925,6 +1929,8 @@ pub struct PaintJob {
     /// Marching-ants dashes.
     ants: Ants,
     circles: Vec<Bounds<Pixels>>,
+    /// Translucent painted strokes: screen-space disc centres and radii.
+    strokes: Vec<Vec<(Point<Pixels>, Pixels)>>,
     /// Note pins.
     markers: Vec<Marker>,
     /// Thin filled rectangles: grid lines, guides and ruler ticks.

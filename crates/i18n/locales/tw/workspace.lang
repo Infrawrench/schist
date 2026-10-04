@@ -92,3 +92,8 @@ workspace.recovery.recovered_title = {title} (wɔasan anya)
 workspace.recovery.recovered.other = Wɔasan anya adwuma a wɔankora wɔ session a etwaam no mu; document dodow: {n}
 workspace.colormgmt.vision_on = Nhwɛsoɔ: {name}
 workspace.colormgmt.vision_off = Hwɛ pa
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Wɔyii no a model a ɛhyɛ ma no nni hɔ, enti nea wɔde hyɛɛ ma no betumi ayɛ basaa kakra
+workspace.tool_jobs.document_changed = {name} wiee bere a wɔato ne krataa no mu anaa wɔasesa akɔ foforo so, enti wɔansesa hwee

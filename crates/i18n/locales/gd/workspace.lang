@@ -98,3 +98,8 @@ workspace.recovery.recovered.few = Chaidh {n} sgrìobhainnean o sheisean roimhe 
 workspace.recovery.recovered.other = Chaidh {n} sgrìobhainn o sheisean roimhe aiseag
 workspace.colormgmt.vision_on = Samhlachadh: {name}
 workspace.colormgmt.vision_off = Lèirsinn àbhaisteach
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Chaidh a thoirt air falbh às aonais modail an ath-pheantaidh, mar sin dh’fhaoidte gum bi an lìonadh nas gairbhe
+workspace.tool_jobs.document_changed = Chrìochnaich {name} às dèidh don sgrìobhainn aige a bhith air a dùnadh no air atharrachadh, mar sin cha deach dad atharrachadh

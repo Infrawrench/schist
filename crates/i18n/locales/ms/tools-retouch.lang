@@ -29,3 +29,11 @@ tool.magic_eraser.name = Pemadam Ajaib
 tool.magic_eraser.description = Klik untuk memadam kawasan berwarna serupa di bawah penuding, dalam julat toleransi alat -- sama ada bersambung dengan titik klik atau di seluruh lapisan.
 tool.magic_eraser.option.contiguous = Bersambung
 tool.magic_eraser.history.erase = Pemadam Ajaib
+
+# Remove
+tool.remove.name = Buang
+tool.remove.description = Cat di atas objek yang tidak diingini dalam satu lejang; apabila dilepaskan, kawasan itu diisi daripada persekitarannya. Jika Buang Selepas Setiap Lejang dimatikan, cat beberapa lejang dan tekan Enter untuk membuang semuanya serentak.
+tool.remove.option.sample_all_layers = Sampel Semua Lapisan
+tool.remove.option.remove_after_each_stroke = Buang Selepas Setiap Lejang
+tool.remove.history.remove = Buang
+tool.remove.layer_name = Dibuang

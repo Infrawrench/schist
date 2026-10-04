@@ -25,3 +25,11 @@ tool.magic_eraser.name = മാന്ത്രിക മായ്ക്കൽ
 tool.magic_eraser.description = ഉപകരണത്തിന്റെ സഹിഷ്ണുതാപരിധിക്കുള്ളിൽ, പോയിന്ററിനു കീഴിലുള്ള സമാന വർണ്ണമുള്ള ഭാഗം മായ്ക്കാൻ ക്ലിക്ക് ചെയ്യുക—ക്ലിക്ക് ചെയ്ത ഭാഗത്തോട് ചേർന്നിരിക്കുന്നവ മാത്രം അല്ലെങ്കിൽ ലെയറിലെ എല്ലായിടവും.
 tool.magic_eraser.option.contiguous = ചേർന്നിരിക്കുന്നവ
 tool.magic_eraser.history.erase = മാന്ത്രിക മായ്ക്കൽ
+
+# Remove
+tool.remove.name = നീക്കംചെയ്യൽ
+tool.remove.description = അനാവശ്യ വസ്തുവിനു മുകളിൽ ഒറ്റ സ്ട്രോക്കിൽ പെയിന്റ് ചെയ്യുക; വിട്ടാലുടൻ അത് ചുറ്റുപാടിൽനിന്ന് നിറയ്ക്കപ്പെടും. ഓരോ സ്ട്രോക്കിനു ശേഷവും നീക്കംചെയ്യുക ഓഫാണെങ്കിൽ, പല സ്ട്രോക്കുകൾ വരച്ച് Enter അമർത്തി അവ ഒരുമിച്ച് നീക്കംചെയ്യാം.
+tool.remove.option.sample_all_layers = എല്ലാ ലെയറുകളിൽനിന്നും സാമ്പിൾ ചെയ്യുക
+tool.remove.option.remove_after_each_stroke = ഓരോ സ്ട്രോക്കിനു ശേഷവും നീക്കംചെയ്യുക
+tool.remove.history.remove = നീക്കംചെയ്യൽ
+tool.remove.layer_name = നീക്കംചെയ്തത്

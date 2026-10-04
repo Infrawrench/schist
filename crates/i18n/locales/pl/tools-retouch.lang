@@ -18,3 +18,11 @@ tool.magic_eraser.name = Magiczna gumka
 tool.magic_eraser.description = Kliknij, aby wymazać obszar podobnego koloru pod wskaźnikiem w granicach tolerancji narzędzia — przylegający do kliknięcia lub na całej warstwie.
 tool.magic_eraser.option.contiguous = Ciągłe
 tool.magic_eraser.history.erase = Magiczna gumka
+
+# Remove
+tool.remove.name = Usuwanie
+tool.remove.description = Zamaluj niepożądany obiekt jednym pociągnięciem; po puszczeniu przycisku zostanie wypełniony na podstawie otoczenia. Gdy opcja „Usuń po każdym pociągnięciu” jest wyłączona, wykonaj kilka pociągnięć i naciśnij Enter, aby usunąć je razem.
+tool.remove.option.sample_all_layers = Próbkuj wszystkie warstwy
+tool.remove.option.remove_after_each_stroke = Usuń po każdym pociągnięciu
+tool.remove.history.remove = Usuwanie
+tool.remove.layer_name = Usunięte

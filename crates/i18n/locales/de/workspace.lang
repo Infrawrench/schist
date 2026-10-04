@@ -131,3 +131,8 @@ workspace.recovery.recovered.one = Ungesicherte Arbeit aus einer früheren Sitzu
 workspace.recovery.recovered.other = {n} Dokumente aus einer früheren Sitzung wiederhergestellt
 workspace.colormgmt.vision_on = Simulation: {name}
 workspace.colormgmt.vision_off = Normalsichtigkeit
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent} %
+workspace.tool_jobs.missing_model = Ohne das Inpainting-Modell entfernt, daher kann die Füllung gröber ausfallen
+workspace.tool_jobs.document_changed = {name} wurde erst nach dem Schließen oder Wechseln des Dokuments fertig, daher wurde nichts geändert

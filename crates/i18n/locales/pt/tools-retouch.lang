@@ -21,3 +21,11 @@ tool.magic_eraser.name = Borracha mágica
 tool.magic_eraser.description = Clique para apagar a área de cor semelhante sob o ponteiro, dentro da tolerância da ferramenta — contígua ao ponto clicado ou em toda a camada.
 tool.magic_eraser.option.contiguous = Contíguo
 tool.magic_eraser.history.erase = Borracha mágica
+
+# Remove
+tool.remove.name = Remover
+tool.remove.description = Pinte sobre um objeto indesejado com um único traço; ao soltar, ele é preenchido a partir dos arredores. Com "Remover após cada traço" desativado, pinte vários traços e pressione Enter para removê-los juntos.
+tool.remove.option.sample_all_layers = Amostrar todas as camadas
+tool.remove.option.remove_after_each_stroke = Remover após cada traço
+tool.remove.history.remove = Remover
+tool.remove.layer_name = Removido

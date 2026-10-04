@@ -98,3 +98,8 @@ workspace.recovery.recovered.many = Адноўлена {n} дакументаў 
 workspace.recovery.recovered.other = Адноўлена {n} дакумента з незахаванай працай з папярэдняга сеанса
 workspace.colormgmt.vision_on = Мадэляванне: {name}
 workspace.colormgmt.vision_off = Нармальны зрок
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Выдалена без мадэлі дамалёўвання, таму запаўненне можа быць грубейшым
+workspace.tool_jobs.document_changed = {name}: аперацыя завяршылася пасля таго, як яе дакумент быў закрыты або пераключаны, таму нічога не зменена

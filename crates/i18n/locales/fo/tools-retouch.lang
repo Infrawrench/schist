@@ -27,3 +27,11 @@ tool.magic_eraser.name = Gandaviskileður
 tool.magic_eraser.description = Klikka fyri at strika økið við líknandi liti undir vísaranum, innan vikamarkið hjá amboðnum — samanhangandi við klikkið ella allastaðni í lagnum.
 tool.magic_eraser.option.contiguous = Samanhangandi
 tool.magic_eraser.history.erase = Gandaviskileður
+
+# Remove
+tool.remove.name = Tak burtur
+tool.remove.description = Mála yvir eitt óynskt lut í einum striki; tá ið tú sleppur, verður tað fylt út frá umhvørvinum. Um Tak burtur eftir hvørt strik er sløkt, kanst tú mála fleiri strik og trýsta á Enter fyri at taka tey burtur saman.
+tool.remove.option.sample_all_layers = Tak sýni úr øllum løgum
+tool.remove.option.remove_after_each_stroke = Tak burtur eftir hvørt strik
+tool.remove.history.remove = Tak burtur
+tool.remove.layer_name = Tikið burtur

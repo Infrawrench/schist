@@ -94,3 +94,8 @@ workspace.recovery.recovered.one = Rakitra {n} misy asa tsy voatahiry tamin'ny s
 workspace.recovery.recovered.other = Rakitra {n} tamin'ny session teo aloha no naverina
 workspace.colormgmt.vision_on = Fanahafana: {name}
 workspace.colormgmt.vision_off = Fahitana ara-dalàna
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Nesorina tsy nisy ny modely famenoana, ka mety ho marokoroko kokoa ny famenoana
+workspace.tool_jobs.document_changed = Vita ny {name} rehefa nakatona na nosoloina ny tahirin-keviny, ka tsy nisy niova

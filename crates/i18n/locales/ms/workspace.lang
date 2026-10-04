@@ -133,3 +133,8 @@ workspace.recovery.recovered_title = {title} (dipulihkan)
 workspace.recovery.recovered.other = {n} dokumen daripada sesi sebelumnya dipulihkan
 workspace.colormgmt.vision_on = Simulasi: {name}
 workspace.colormgmt.vision_off = Penglihatan normal
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Dibuang tanpa model pengisian, jadi isiannya mungkin lebih kasar
+workspace.tool_jobs.document_changed = {name} selesai selepas dokumennya ditutup atau ditukar, jadi tiada apa-apa yang diubah

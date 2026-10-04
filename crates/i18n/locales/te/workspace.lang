@@ -94,3 +94,8 @@ workspace.recovery.recovered.one = మునుపటి సెషన్‌ల�
 workspace.recovery.recovered.other = మునుపటి సెషన్ నుండి {n} పత్రాలు పునరుద్ధరించబడ్డాయి
 workspace.colormgmt.vision_on = సిమ్యులేషన్: {name}
 workspace.colormgmt.vision_off = సాధారణ దృష్టి
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = నింపే మోడల్ లేకుండా తొలగించబడింది, కాబట్టి నింపడం కొంత గరుకుగా ఉండవచ్చు
+workspace.tool_jobs.document_changed = {name} పూర్తయ్యేలోపు దాని పత్రం మూసివేయబడింది లేదా మార్చబడింది, కాబట్టి ఏదీ మారలేదు

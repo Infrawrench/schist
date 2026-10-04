@@ -92,3 +92,8 @@ workspace.recovery.recovered_title = {title} (पुनर्प्राप्�
 workspace.recovery.recovered.other = पूर्वसत्रात् पुनर्प्राप्तारक्षितप्रलेखसंख्या: {n}
 workspace.colormgmt.vision_on = अनुकरणम्: {name}
 workspace.colormgmt.vision_off = सामान्यदृष्टिः
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = पूरणप्रतिरूपं विना अपसारितम्, अतः पूरणं स्थूलतरं स्यात्
+workspace.tool_jobs.document_changed = {name} तस्य लेखपत्रे पिहिते परिवर्तिते वा समाप्तम्, अतः किमपि न परिवर्तितम्

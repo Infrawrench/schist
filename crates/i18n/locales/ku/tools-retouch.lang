@@ -27,3 +27,11 @@ tool.magic_eraser.name = Jêbera Sêhrîn
 tool.magic_eraser.description = Bitikîne da ku herêma rengê wê di bin nîşankerê de di nav toleransa amûrê de ye jê bibî — ya bi cihê tikandinê ve girêdayî, an jî li her derê layerê.
 tool.magic_eraser.option.contiguous = Li Pey Hev
 tool.magic_eraser.history.erase = Jêbera Sêhrîn
+
+# Remove
+tool.remove.name = Rakirin
+tool.remove.description = Bi yek lêdanê li ser tiştekî nexwestî boyax bike; dema ku tu berdidî, ew ji derdora xwe tê dagirtin. Dema Piştî Her Lêdanê Rake girtî be, çend lêdanan boyax bike û Enter bitikîne da ku hemûyan bi hev re rakî.
+tool.remove.option.sample_all_layers = Ji Hemû Layeran Nimûne Bigire
+tool.remove.option.remove_after_each_stroke = Piştî Her Lêdanê Rake
+tool.remove.history.remove = Rakirin
+tool.remove.layer_name = Rakirî

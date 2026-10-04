@@ -18,3 +18,11 @@ tool.magic_eraser.name = ম্যাজিক ইরেজার
 tool.magic_eraser.description = টুলের সহনশীলতার মধ্যে পয়েন্টারের নিচে থাকা সদৃশ রঙের অঞ্চল মুছতে ক্লিক করুন—ক্লিকের সঙ্গে সংলগ্ন অঞ্চল, অথবা লেয়ারের সব জায়গা।
 tool.magic_eraser.option.contiguous = সংলগ্ন
 tool.magic_eraser.history.erase = ম্যাজিক ইরেজার
+
+# Remove
+tool.remove.name = অপসারণ
+tool.remove.description = অবাঞ্ছিত বস্তুর ওপর একটি স্ট্রোকে রং করুন; ছেড়ে দিলে আশপাশের অংশ দিয়ে তা পূরণ হবে। প্রতিটি স্ট্রোকের পরে অপসারণ বন্ধ থাকলে, কয়েকটি স্ট্রোক আঁকুন এবং সেগুলি একসঙ্গে অপসারণ করতে Enter চাপুন।
+tool.remove.option.sample_all_layers = সব লেয়ারের নমুনা নিন
+tool.remove.option.remove_after_each_stroke = প্রতিটি স্ট্রোকের পরে অপসারণ
+tool.remove.history.remove = অপসারণ
+tool.remove.layer_name = অপসারিত

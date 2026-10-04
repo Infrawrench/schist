@@ -21,3 +21,11 @@ tool.magic_eraser.name = Сиқырлы өшіргіш
 tool.magic_eraser.description = Құралдың төзімділік шегінде меңзер астындағы ұқсас түсті аймақты өшіру үшін шертіңіз: шертілген жермен тұтасқан аймақты немесе қабаттың барлық жерін.
 tool.magic_eraser.option.contiguous = Тұтасқан
 tool.magic_eraser.history.erase = Сиқырлы өшіргіш
+
+# Remove
+tool.remove.name = Жою
+tool.remove.description = Қажетсіз нысанның үстінен бір штрихпен бояңыз; жібергенде ол айналасынан толтырылады. «Әр штрихтан кейін жою» өшірулі болса, бірнеше штрих салып, оларды бірге жою үшін Enter пернесін басыңыз.
+tool.remove.option.sample_all_layers = Барлық қабаттардан үлгі алу
+tool.remove.option.remove_after_each_stroke = Әр штрихтан кейін жою
+tool.remove.history.remove = Жою
+tool.remove.layer_name = Жойылған

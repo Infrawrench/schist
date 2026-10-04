@@ -119,3 +119,8 @@ workspace.recovery.recovered.one = Recuperadu su traballu non sarvadu dae una se
 workspace.recovery.recovered.other = Recuperados {n} documentos dae una sessione pretzedente
 workspace.colormgmt.vision_on = Simulatzione: {name}
 workspace.colormgmt.vision_off = Visione normale
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Bogadu sena su modellu de reconstrutzione, duncas su prenimentu podet èssere prus grussèri
+workspace.tool_jobs.document_changed = {name} est acabbadu a pustis chi su documentu suo est istadu serradu o cambiadu, duncas no est istadu mudadu nudda

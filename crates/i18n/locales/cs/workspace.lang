@@ -96,3 +96,8 @@ workspace.recovery.recovered.few = Obnoveny {n} dokumenty z předchozího sezen�
 workspace.recovery.recovered.other = Obnoveno {n} dokumentů z předchozího sezení
 workspace.colormgmt.vision_on = Simulace: {name}
 workspace.colormgmt.vision_off = Normální vidění
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent} %
+workspace.tool_jobs.missing_model = Odstraněno bez modelu pro doplňování obrazu, takže výplň může být hrubší
+workspace.tool_jobs.document_changed = {name}: dokončeno až po zavření nebo přepnutí dokumentu, takže nebylo nic změněno

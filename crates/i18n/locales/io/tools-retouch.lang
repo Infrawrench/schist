@@ -19,3 +19,11 @@ tool.magic_eraser.name = Magika efacilo
 tool.magic_eraser.description = Kliktez por efacar la areo de simila koloro sub la indikilo, segun la tolero dil utensilo — kontigua kun la kliko, o omnaloke en la strato.
 tool.magic_eraser.option.contiguous = Kontigua
 tool.magic_eraser.history.erase = Magika efacilo
+
+# Remove
+tool.remove.name = Forigar
+tool.remove.description = Piktez super nedezirata objekto per un singla streko; kande vu liberigas, ol esas plenigata de sua cirkumajo. Kun Forigar pos singla streko desaktivigita, piktez plura streki e presez Enter por forigar li kune.
+tool.remove.option.sample_all_layers = Specimenigar omna strati
+tool.remove.option.remove_after_each_stroke = Forigar pos singla streko
+tool.remove.history.remove = Forigar
+tool.remove.layer_name = Forigita

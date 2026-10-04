@@ -106,3 +106,8 @@ workspace.recovery.recovered_title = {title} (vyagarukanywe)
 workspace.recovery.recovered.other = Inyandiko zagarukanywe zivuye mu kiringo ca mbere: {n}
 workspace.colormgmt.vision_on = Kwigana: {name}
 workspace.colormgmt.vision_off = Kubona bisanzwe
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Vyakuweho hatabaye uburyo bwo kuzuza, rero ukuzuza gushobora kutagenda neza
+workspace.tool_jobs.document_changed = {name} vyarangiye inyuma y'uko inyandiko yavyo yugarwa canke ihindurwa, rero nta na kimwe cahindutse

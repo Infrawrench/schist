@@ -19,3 +19,11 @@ tool.magic_eraser.name = སྒྱུ་མའི་ཀྲེག་ཆས།
 tool.magic_eraser.description = ལག་ཆས་ཀྱི་བཟོད་ཚད་ནང་འཁོད་ མདའ་རྟགས་ཀྱི་འོག་གི་ཚོས་གཞི་འདྲ་བའི་ས་ཁོངས་བསུབ་ནིའི་དོན་ལུ་ཨེབ། ཨེབ་སའི་ས་ཁོངས་དང་འབྲེལ་མཐུད་ཡོད་མི་ ཡང་ན་བང་རིམ་ཧྲིལ་བུ་ནང་གི་ས་ཁོངས་བསུབ་ཚུགས།
 tool.magic_eraser.option.contiguous = འབྲེལ་མཐུད་ཅན།
 tool.magic_eraser.history.erase = སྒྱུ་མའི་ཀྲེག་ཆས།
+
+# Remove
+tool.remove.name = བཏོན་གཏང་།
+tool.remove.description = མ་དགོ་པའི་དངོས་པོ་གུ་ཐིག་གཅིག་གིས་ཚོས་གཏང་། བཏང་བཞག་པ་ཅིན་ མཐའ་འཁོར་ལས་བཀང་འོང་། ཐིག་རེ་རེའི་ཤུལ་ལས་བཏོན་གཏང་། འདི་ཁ་བསྡམས་པ་ཅིན་ ཐིག་ལེ་ཤ་ཚོས་གཏང་སྟེ་ Enter ཨེབ་ཞིནམ་ལས་ཆ་མཉམ་གཅིག་ཁར་བཏོན་གཏང་།
+tool.remove.option.sample_all_layers = བང་རིམ་ཆ་མཉམ་ལས་དཔེ་ཚད་ལེན།
+tool.remove.option.remove_after_each_stroke = ཐིག་རེ་རེའི་ཤུལ་ལས་བཏོན་གཏང་།
+tool.remove.history.remove = བཏོན་གཏང་།
+tool.remove.layer_name = བཏོན་ཡོདཔ།

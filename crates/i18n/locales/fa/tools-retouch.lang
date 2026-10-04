@@ -19,3 +19,11 @@ tool.magic_eraser.name = پاک‌کن جادویی
 tool.magic_eraser.description = کلیک کنید تا ناحیهٔ دارای رنگ مشابه زیر نشانگر، در محدودهٔ تلورانس ابزار، پاک شود؛ چه پیوسته با محل کلیک باشد و چه در سراسر لایه.
 tool.magic_eraser.option.contiguous = پیوسته
 tool.magic_eraser.history.erase = پاک‌کن جادویی
+
+# Remove
+tool.remove.name = حذف
+tool.remove.description = با یک ضربه روی شیء ناخواسته نقاشی کنید؛ وقتی رها کنید، با پیکسل‌های اطرافش پر می‌شود. اگر «حذف پس از هر ضربه» خاموش باشد، چند ضربه بکشید و Enter را بزنید تا همه با هم حذف شوند.
+tool.remove.option.sample_all_layers = نمونه‌برداری از همهٔ لایه‌ها
+tool.remove.option.remove_after_each_stroke = حذف پس از هر ضربه
+tool.remove.history.remove = حذف
+tool.remove.layer_name = حذف‌شده

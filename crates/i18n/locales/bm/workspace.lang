@@ -105,3 +105,8 @@ workspace.recovery.recovered_title = {title} (lasɔrɔlen)
 workspace.recovery.recovered.other = Sɛbɛn hakɛ {n} min ma tun mara session kɔrɔlen na, olu lasɔrɔla
 workspace.colormgmt.vision_on = {name} misɛnni
 workspace.colormgmt.vision_off = Yeli cogo ɲuman
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = A bɔra ni ja dafali modɛli tɛ, o la dafali tɛ se ka ɲɛ kosɛbɛ
+workspace.tool_jobs.document_changed = {name} banna a ka sɛbɛn datugulen kɔ walima a falenen kɔ, o la foyi ma yɛlɛma

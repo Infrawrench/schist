@@ -27,3 +27,11 @@ tool.magic_eraser.name = Gomë magjike
 tool.magic_eraser.description = Klikoni për të fshirë zonën me ngjyrë të ngjashme nën tregues, brenda tolerancës së veglës — zonën e bashkëlidhur me pikën e klikimit ose kudo në shtresë.
 tool.magic_eraser.option.contiguous = E bashkëlidhur
 tool.magic_eraser.history.erase = Gomë magjike
+
+# Remove
+tool.remove.name = Hiq
+tool.remove.description = Lyeni mbi një objekt të padëshiruar me një vijë të vetme; kur e lëshoni, ai mbushet nga rrethina. Kur Hiq pas çdo vije është i çaktivizuar, lyeni disa vija dhe shtypni Enter për t'i hequr së bashku.
+tool.remove.option.sample_all_layers = Merr mostër nga të gjitha shtresat
+tool.remove.option.remove_after_each_stroke = Hiq pas çdo vije
+tool.remove.history.remove = Hiq
+tool.remove.layer_name = E hequr
