@@ -169,7 +169,12 @@ search and People indexing. Rate, flag and label photos, compare them with
 synchronized zoom and pan, and review similar images or capture bursts.
 [Find Duplicates](docs/gallery.md#finding-duplicates) groups byte-identical files
 and near copies across the library, suggests which to keep, and can flag the
-rest or move them to the system trash. Gallery
+rest or move them to the system trash.
+[Smart albums](docs/gallery.md#smart-albums) keep live rule-based collections
+(rating, flag, label, keywords, dates, camera, lens, file type, place, People,
+folder, edits), and a fullscreen [slideshow](docs/gallery.md#slideshow) plays any
+selection, folder, bucket or search with crossfades or a face-aware Ken Burns
+pan, taking ratings and flags from the keyboard as it goes. Gallery
 edits use sidecars and version history so the originals remain available.
 [Metadata editing](docs/photo-metadata.md) supports individual or batch changes
 to keywords, captions, copyright, capture times and GPS through portable XMP
