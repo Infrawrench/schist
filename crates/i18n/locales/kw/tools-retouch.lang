@@ -22,3 +22,11 @@ tool.magic_eraser.name = Diler Hud
 tool.magic_eraser.description = Klyckya rag dilea an ran a liw hevel yn-dann an poyntyer, a-ji dhe odhomyans an tool — keskelmys orth an klyck, po ymhob le y'n gwisk.
 tool.magic_eraser.option.contiguous = Keskelmys
 tool.magic_eraser.history.erase = Diler Hud
+
+# Remove
+tool.remove.name = Dilea
+tool.remove.description = Paynt a-ugh tra na vynnir yn unn strok; pan wrewgh hy gasa, hi a vydh lenwys dhyworth hy kyrghynnow. Mar pydh Dilea wosa Pub Strok dhe-ves, payntyewgh lies strok ha gwaskewgh Enter rag aga dilea warbarth.
+tool.remove.option.sample_all_layers = Skantlyn a Oll an Gwiskow
+tool.remove.option.remove_after_each_stroke = Dilea wosa Pub Strok
+tool.remove.history.remove = Dilea
+tool.remove.layer_name = Dileys

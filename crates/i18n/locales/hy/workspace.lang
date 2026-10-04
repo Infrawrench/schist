@@ -95,3 +95,8 @@ workspace.recovery.recovered.one = Նախորդ աշխատաշրջանից վե�
 workspace.recovery.recovered.other = Նախորդ աշխատաշրջանից վերականգնվել է {n} փաստաթուղթ
 workspace.colormgmt.vision_on = Նմանակում՝ {name}
 workspace.colormgmt.vision_off = Նորմալ տեսողություն
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}՝ {percent}%
+workspace.tool_jobs.missing_model = Հեռացվեց առանց լրացման մոդելի, ուստի լրացումը կարող է ավելի կոպիտ լինել
+workspace.tool_jobs.document_changed = {name}-ն ավարտվեց այն բանից հետո, երբ փաստաթուղթը փակվեց կամ փոխվեց, ուստի ոչինչ չփոխվեց

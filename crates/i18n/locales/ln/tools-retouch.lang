@@ -21,3 +21,11 @@ tool.magic_eraser.name = Gome ya maji
 tool.magic_eraser.description = Finá mpo na kopangusa etando ya langi oyo ekokani na oyo ezali na nse ya elembo, na kati ya toleransi ya esaleli — kaka etando oyo esimbani na esika ofini, to bisika nyonso na kalke.
 tool.magic_eraser.option.contiguous = Oyo esimbani
 tool.magic_eraser.history.erase = Gome ya maji
+
+# Remove
+tool.remove.name = Kolongola
+tool.remove.description = Pakola langi na mbala moko likolo ya eloko oyo olingi te; ntango okotika, ekotondisama na oyo ezali zingazinga na yango. Soki Kolongola nsima ya pakola nyonso ekangami, pakola mbala ebele mpe finá Enter mpo na kolongola yango nyonso elongo.
+tool.remove.option.sample_all_layers = Kozwa ndakisa na ba kalke nyonso
+tool.remove.option.remove_after_each_stroke = Kolongola nsima ya pakola nyonso
+tool.remove.history.remove = Kolongola
+tool.remove.layer_name = Elongolami

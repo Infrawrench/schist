@@ -94,3 +94,8 @@ workspace.recovery.recovered.one = Waxaa la soo celiyey shaqo aan la kaydin oo k
 workspace.recovery.recovered.other = Waxaa la soo celiyey {n} dukumenti oo ka timid fadhi hore
 workspace.colormgmt.vision_on = Jilid: {name}
 workspace.colormgmt.vision_off = Aragga caadiga ah
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Waxaa la saaray iyada oo aan la helin moodalka buuxinta, sidaa darteed buuxintu waxay noqon kartaa mid qallafsan
+workspace.tool_jobs.document_changed = {name} waxay dhammaatay kadib markii dukumentigeedii la xiray ama la beddelay, sidaa darteed waxba lama beddelin

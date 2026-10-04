@@ -103,3 +103,8 @@ workspace.recovery.recovered_title = {title} (kuo toe fakafoki)
 workspace.recovery.recovered.other = Kuo toe fakafoki ʻa e ngāue naʻe teʻeki seivi mei he session kimuʻá; fika ʻo e fakamatala: {n}
 workspace.colormgmt.vision_on = Fakatataaʻi: {name}
 workspace.colormgmt.vision_off = Sio angamaheni
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Naʻe toʻo taʻe kau ai ʻa e mōtolo fakafonu, ko ia ʻe ala fefeka ange ʻa e fakafonú
+workspace.tool_jobs.document_changed = Naʻe ʻosi ʻa e {name} hili hono tāpuni pe fetongi ʻo hono tokoniʻí, ko ia naʻe ʻikai ha meʻa ia naʻe liliu

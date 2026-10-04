@@ -135,3 +135,8 @@ workspace.recovery.recovered.one = Recovered unsaved work from a previous sessio
 workspace.recovery.recovered.other = Recovered {n} documents from a previous session
 workspace.colormgmt.vision_on = Simulating {name}
 workspace.colormgmt.vision_off = Normal vision
+
+# Tool edits running off the UI thread (tool_jobs.rs): the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Removed without the inpainting model, so the fill may be rougher
+workspace.tool_jobs.document_changed = {name} finished after its document was closed or switched, so nothing was changed

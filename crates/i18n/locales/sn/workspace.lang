@@ -94,3 +94,8 @@ workspace.recovery.recovered.one = Basa risina kuchengetwa remusesheni yapfuura 
 workspace.recovery.recovered.other = Magwaro {n} emusesheni yapfuura adzorerwa
 workspace.colormgmt.vision_on = Kuedzesera: {name}
 workspace.colormgmt.vision_off = Kuona kwakajairika
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Zvabviswa pasina modhi yekuzadza, saka kuzadza kunogona kunge kusina kunaka
+workspace.tool_jobs.document_changed = {name} yapera mushure mekunge gwaro rayo ravharwa kana kuchinjwa, saka hapana chakachinjwa

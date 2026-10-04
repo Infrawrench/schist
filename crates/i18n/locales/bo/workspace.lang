@@ -92,3 +92,8 @@ workspace.recovery.recovered_title = {title} (སོར་ཆུད།)
 workspace.recovery.recovered.other = སྔོན་གྱི་ལས་ཡུན་ནས་མ་ཉར་བའི་ཡིག་ཆའི་གྲངས་ {n} སོར་ཆུད།
 workspace.colormgmt.vision_on = དཔེ་ལྟར་བཟོ་བ། {name}
 workspace.colormgmt.vision_off = རྒྱུན་ལྡན་མཐོང་སྣང་།
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = ཁ་སྐོང་དཔེ་དབྱིབས་མེད་པར་བསལ་ཟིན་པས། ཁ་སྐོང་ཅུང་རྩུབ་སྲིད།
+workspace.tool_jobs.document_changed = {name} ཡིག་ཆ་བཀག་པའམ་བརྗེས་རྗེས་མཇུག་རྫོགས་པས། ཅི་ཡང་བསྒྱུར་མེད།

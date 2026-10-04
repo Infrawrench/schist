@@ -130,3 +130,8 @@ workspace.recovery.recovered.one = Återställde osparat arbete från en tidigar
 workspace.recovery.recovered.other = Återställde {n} dokument från en tidigare session
 workspace.colormgmt.vision_on = Simulerar {name}
 workspace.colormgmt.vision_off = Normalt seende
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent} %
+workspace.tool_jobs.missing_model = Borttaget utan inmålningsmodellen, så fyllningen kan bli grövre
+workspace.tool_jobs.document_changed = {name} slutfördes efter att dess dokument stängts eller bytts, så ingenting ändrades

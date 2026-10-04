@@ -94,3 +94,8 @@ workspace.recovery.recovered.one = Imerejesha kazi ambayo haijahifadhiwa kutoka 
 workspace.recovery.recovered.other = Imerejesha nyaraka {n} kutoka kipindi kilichopita
 workspace.colormgmt.vision_on = Uigaji: {name}
 workspace.colormgmt.vision_off = Uoni wa kawaida
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Kimeondolewa bila muundo wa kujaza, kwa hivyo ujazaji unaweza kuwa mbaya zaidi
+workspace.tool_jobs.document_changed = {name} kilimaliza baada ya hati yake kufungwa au kubadilishwa, kwa hivyo hakuna kilichobadilishwa

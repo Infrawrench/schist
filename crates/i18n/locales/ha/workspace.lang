@@ -121,3 +121,8 @@ workspace.recovery.recovered.one = An dawo da aikin da ba a ajiye ba daga zaman 
 workspace.recovery.recovered.other = An dawo da takardu {n} daga zaman baya
 workspace.colormgmt.vision_on = Kwaikwayo: {name}
 workspace.colormgmt.vision_off = Ganin al'ada
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = An cire ba tare da samfurin cike hoto ba, don haka cikewar na iya zama mara santsi
+workspace.tool_jobs.document_changed = {name} ya kammala bayan an rufe ko an sauya takardarsa, don haka ba a canza komai ba

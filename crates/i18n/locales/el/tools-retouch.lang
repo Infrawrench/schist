@@ -18,3 +18,11 @@ tool.magic_eraser.name = Μαγική γόμα
 tool.magic_eraser.description = Κάντε κλικ για να σβήσετε την περιοχή παρόμοιου χρώματος κάτω από τον δείκτη, εντός της ανοχής του εργαλείου — είτε συνεχόμενη με το σημείο του κλικ είτε σε ολόκληρο το επίπεδο.
 tool.magic_eraser.option.contiguous = Συνεχόμενα
 tool.magic_eraser.history.erase = Μαγική γόμα
+
+# Remove
+tool.remove.name = Αφαίρεση
+tool.remove.description = Βάψτε πάνω από ένα ανεπιθύμητο αντικείμενο με μία πινελιά· όταν αφήσετε, συμπληρώνεται από το περιβάλλον του. Με την επιλογή Αφαίρεση μετά από κάθε πινελιά απενεργοποιημένη, βάψτε πολλές πινελιές και πατήστε Enter για να τις αφαιρέσετε μαζί.
+tool.remove.option.sample_all_layers = Δειγματοληψία όλων των επιπέδων
+tool.remove.option.remove_after_each_stroke = Αφαίρεση μετά από κάθε πινελιά
+tool.remove.history.remove = Αφαίρεση
+tool.remove.layer_name = Αφαιρεμένο

@@ -22,3 +22,11 @@ tool.magic_eraser.name = Diverker hud
 tool.magic_eraser.description = Klikit evit diverkañ ar rann o deus ul liv heñvel dindan ar biz, e-barzh gouzañv ar benveg — kenstag ouzh ar c'hlik, pe e pep lec'h er gwiskad.
 tool.magic_eraser.option.contiguous = Kenstag
 tool.magic_eraser.history.erase = Diverkañ hud
+
+# Remove
+tool.remove.name = Lemel
+tool.remove.description = Livit war un dra dic'hoantaet en un taol hepken; pa lezit da vont e vez leuniet diwar e endro. Pa vez lazhet Lemel goude pep taol, livit meur a daol ha pouezit war Enter evit o lemel asambles.
+tool.remove.option.sample_all_layers = Standilhonañ an holl wiskadoù
+tool.remove.option.remove_after_each_stroke = Lemel goude pep taol
+tool.remove.history.remove = Lemel
+tool.remove.layer_name = Lamet

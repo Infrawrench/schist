@@ -92,3 +92,8 @@ workspace.recovery.recovered_title = {title} (kua whakaorangia)
 workspace.recovery.recovered.other = Kua whakaorangia: {n} tuhinga nō tētahi wātū o mua
 workspace.colormgmt.vision_on = Whakatauira: {name}
 workspace.colormgmt.vision_off = Tirohanga whaitikanga
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = I tangohia kāore he tauira whakakī, nō reira tērā pea ka taratara ake te whakakī
+workspace.tool_jobs.document_changed = I mutu a {name} i muri i te katinga, i te whakawhitinga rānei o tōna tuhinga, nō reira kāore he mea i panonitia

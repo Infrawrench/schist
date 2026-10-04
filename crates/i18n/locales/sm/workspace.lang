@@ -92,3 +92,8 @@ workspace.recovery.recovered_title = {title} (toe faafoʻi)
 workspace.recovery.recovered.other = Ua toe faafoʻi galuega e leʻi sefeina mai le sauniga talu ai: {n} le aofaʻi o pepa
 workspace.colormgmt.vision_on = Faataitaiga: {name}
 workspace.colormgmt.vision_off = Vaaiga masani
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Na aveese e aunoa ma le faataʻitaʻiga faatumu, o lea e ono talatala ai le faatumuga
+workspace.tool_jobs.document_changed = Na uma {name} ina ua tapuni pe suia lana pepa, o lea e leai se mea na suia

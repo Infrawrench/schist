@@ -22,3 +22,11 @@ tool.magic_eraser.name = جادوئی مٹانے والا
 tool.magic_eraser.description = پوائنٹر کے نیچے ملتے جلتے رنگ کا حصہ ٹول کی برداشت کے اندر مٹانے کے لیے کلک کریں؛ یہ حصہ کلک سے متصل ہو سکتا ہے یا پوری لیئر میں موجود ہو سکتا ہے۔
 tool.magic_eraser.option.contiguous = متصل
 tool.magic_eraser.history.erase = جادوئی مٹانے والا
+
+# Remove
+tool.remove.name = ہٹائیں
+tool.remove.description = کسی ناپسندیدہ چیز پر ایک ہی اسٹروک میں پینٹ کریں؛ چھوڑتے ہی اسے اردگرد کے حصے سے بھر دیا جائے گا۔ جب “ہر اسٹروک کے بعد ہٹائیں” بند ہو تو کئی اسٹروک پینٹ کریں اور انہیں ایک ساتھ ہٹانے کے لیے Enter دبائیں۔
+tool.remove.option.sample_all_layers = تمام لیئرز سے نمونہ
+tool.remove.option.remove_after_each_stroke = ہر اسٹروک کے بعد ہٹائیں
+tool.remove.history.remove = ہٹائیں
+tool.remove.layer_name = ہٹایا گیا

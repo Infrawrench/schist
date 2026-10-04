@@ -23,3 +23,11 @@ tool.magic_eraser.name = Gumma magic
 tool.magic_eraser.description = Clicca pro deler le area de color similar sub le punctator, intra le tolerantia del instrumento — contigue al puncto cliccate o ubique in le strato.
 tool.magic_eraser.option.contiguous = Contigue
 tool.magic_eraser.history.erase = Gumma magic
+
+# Remove
+tool.remove.name = Remover
+tool.remove.description = Pinge super un objecto indesirate in un sol tracto; quando tu lo relaxa, illo es plenate ab su contorno. Con Remover post cata tracto disactivate, pinge plure tractos e preme Enter pro remover los insimul.
+tool.remove.option.sample_all_layers = Exemplar tote le stratos
+tool.remove.option.remove_after_each_stroke = Remover post cata tracto
+tool.remove.history.remove = Remover
+tool.remove.layer_name = Removite

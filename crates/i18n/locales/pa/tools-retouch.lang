@@ -18,3 +18,11 @@ tool.magic_eraser.name = ਜਾਦੂਈ ਰਬੜ
 tool.magic_eraser.description = ਟੂਲ ਦੀ ਸਹਿਣਸ਼ੀਲਤਾ ਅੰਦਰ ਪੁਆਇੰਟਰ ਹੇਠਲੇ ਮਿਲਦੇ-ਜੁਲਦੇ ਰੰਗ ਦਾ ਖੇਤਰ ਮਿਟਾਉਣ ਲਈ ਕਲਿੱਕ ਕਰੋ—ਕਲਿੱਕ ਨਾਲ ਜੁੜਿਆ ਖੇਤਰ ਜਾਂ ਲੇਅਰ ਵਿੱਚ ਹਰ ਥਾਂ।
 tool.magic_eraser.option.contiguous = ਲਗਾਤਾਰ
 tool.magic_eraser.history.erase = ਜਾਦੂਈ ਰਬੜ
+
+# Remove
+tool.remove.name = ਹਟਾਓ
+tool.remove.description = ਅਣਚਾਹੀ ਵਸਤੂ ਉੱਤੇ ਇੱਕੋ ਸਟ੍ਰੋਕ ਵਿੱਚ ਪੇਂਟ ਕਰੋ; ਛੱਡਣ 'ਤੇ ਇਹ ਆਲੇ-ਦੁਆਲੇ ਤੋਂ ਭਰ ਦਿੱਤੀ ਜਾਂਦੀ ਹੈ। "ਹਰ ਸਟ੍ਰੋਕ ਤੋਂ ਬਾਅਦ ਹਟਾਓ" ਬੰਦ ਹੋਣ 'ਤੇ, ਕਈ ਸਟ੍ਰੋਕ ਪੇਂਟ ਕਰੋ ਅਤੇ ਉਹਨਾਂ ਨੂੰ ਇਕੱਠੇ ਹਟਾਉਣ ਲਈ Enter ਦਬਾਓ।
+tool.remove.option.sample_all_layers = ਸਾਰੀਆਂ ਲੇਅਰਾਂ ਤੋਂ ਨਮੂਨਾ
+tool.remove.option.remove_after_each_stroke = ਹਰ ਸਟ੍ਰੋਕ ਤੋਂ ਬਾਅਦ ਹਟਾਓ
+tool.remove.history.remove = ਹਟਾਓ
+tool.remove.layer_name = ਹਟਾਇਆ ਗਿਆ

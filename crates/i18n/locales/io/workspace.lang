@@ -95,3 +95,8 @@ workspace.recovery.recovered.one = Restaurita nekonservita laboro de antea sesio
 workspace.recovery.recovered.other = Restaurita {n} dokumenti de antea sesiono
 workspace.colormgmt.vision_on = Simulado: {name}
 workspace.colormgmt.vision_off = Normala vidado
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Forigita sen la modelo di plenigo, do la plenigo povas esar plu kruda
+workspace.tool_jobs.document_changed = {name} finis pos ke lua dokumento esis klozita o chanjita, do nulo esis chanjita

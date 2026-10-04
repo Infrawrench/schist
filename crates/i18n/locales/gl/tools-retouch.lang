@@ -23,3 +23,11 @@ tool.magic_eraser.name = Borrador máxico
 tool.magic_eraser.description = Preme para borrar a zona de cor semellante situada baixo o punteiro, dentro da tolerancia da ferramenta: pode ser a zona contigua ao punto premido ou todas as zonas da capa.
 tool.magic_eraser.option.contiguous = Contiguo
 tool.magic_eraser.history.erase = Borrador máxico
+
+# Remove
+tool.remove.name = Eliminar
+tool.remove.description = Pinta sobre un obxecto non desexado nun só trazo; ao soltar, énchese a partir do seu contorno. Con Eliminar despois de cada trazo desactivado, pinta varios trazos e preme Intro para eliminalos xuntos.
+tool.remove.option.sample_all_layers = Tomar mostras de todas as capas
+tool.remove.option.remove_after_each_stroke = Eliminar despois de cada trazo
+tool.remove.history.remove = Eliminar
+tool.remove.layer_name = Eliminado

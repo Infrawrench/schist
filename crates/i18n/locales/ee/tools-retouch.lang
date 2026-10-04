@@ -18,3 +18,11 @@ tool.magic_eraser.name = Nukunu ƒe tutuɖonu
 tool.magic_eraser.description = Ka dzi be nàtu teƒe si ƒe ama sɔ kple esi le nudzesi la te la, le dɔwɔnu la ƒe mɔɖeɖe me; ate ŋu anɔ kpekpeɖeŋu kple teƒe si nèka alo le akpa la katã me.
 tool.magic_eraser.option.contiguous = Kpekpeɖeŋu
 tool.magic_eraser.history.erase = Nukunu ƒe tutuɖonu
+
+# Remove
+tool.remove.name = Ɖee ɖa
+tool.remove.description = Ta nu si mèdi o la dzi kple fli ɖeka; ne èɖe asi le eŋu la, woatsɔ nu siwo ƒo xlãe ayɔ teƒe la. Ne Ɖee ɖa le fli ɖesiaɖe megbe metsi o la, ta fli geɖe eye nàzi Enter dzi be woaɖe wo katã ɖa ɖekae.
+tool.remove.option.sample_all_layers = Tsɔ kpɔɖeŋu tso Layerwo Katã me
+tool.remove.option.remove_after_each_stroke = Ɖee ɖa le fli ɖesiaɖe megbe
+tool.remove.history.remove = Ɖee ɖa
+tool.remove.layer_name = Woɖee ɖa

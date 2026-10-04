@@ -18,3 +18,11 @@ tool.magic_eraser.name = Rọ́bà ìdán
 tool.magic_eraser.description = Tẹ láti pa agbègbè àwọ̀ tó jọra lábẹ́ atọ́ka rẹ́, láàárín àyè ìfaradà irinṣẹ́ náà — yálà èyí tó so mọ́ ibi tí o tẹ̀ nìkan, tàbí ní gbogbo fẹ́lẹ́fẹ́lẹ́ náà.
 tool.magic_eraser.option.contiguous = Tó so pọ̀
 tool.magic_eraser.history.erase = Rọ́bà ìdán
+
+# Remove
+tool.remove.name = Yọkúrò
+tool.remove.description = Kun ohun tí o kò fẹ́ ní ìlà kan ṣoṣo; nígbà tí o bá fi sílẹ̀, a ó fi ohun tó yí i ká kún un. Tí “Yọkúrò lẹ́yìn ìlà kọ̀ọ̀kan” bá wà ní pípa, kun ọ̀pọ̀ ìlà kí o sì tẹ Enter láti yọ gbogbo wọn kúrò papọ̀.
+tool.remove.option.sample_all_layers = Mú àpẹẹrẹ láti gbogbo fẹ́lẹ́fẹ́lẹ́
+tool.remove.option.remove_after_each_stroke = Yọkúrò lẹ́yìn ìlà kọ̀ọ̀kan
+tool.remove.history.remove = Yọkúrò
+tool.remove.layer_name = Ti yọkúrò

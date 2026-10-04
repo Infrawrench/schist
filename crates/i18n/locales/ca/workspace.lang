@@ -96,3 +96,8 @@ workspace.recovery.recovered.many = S'han recuperat {n} documents d'una sessió 
 workspace.recovery.recovered.other = S'han recuperat {n} documents d'una sessió anterior
 workspace.colormgmt.vision_on = Simulació: {name}
 workspace.colormgmt.vision_off = Visió normal
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = S'ha eliminat sense el model d'emplenament, de manera que el resultat pot ser més tosc
+workspace.tool_jobs.document_changed = {name} ha acabat després que el document es tanqués o es canviés, de manera que no s'ha modificat res

@@ -104,3 +104,8 @@ workspace.recovery.recovered.one = წინა სესიიდან შე�
 workspace.recovery.recovered.other = წინა სესიიდან აღდგა {n} დოკუმენტი
 workspace.colormgmt.vision_on = სიმულაცია: {name}
 workspace.colormgmt.vision_off = ნორმალური მხედველობა
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = წაიშალა შევსების მოდელის გარეშე, ამიტომ შევსება შეიძლება უფრო უხეში იყოს
+workspace.tool_jobs.document_changed = {name} დასრულდა მას შემდეგ, რაც მისი დოკუმენტი დაიხურა ან შეიცვალა, ამიტომ არაფერი შეცვლილა

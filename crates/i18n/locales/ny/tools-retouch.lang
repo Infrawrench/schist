@@ -21,3 +21,11 @@ tool.magic_eraser.name = Chofufutira Chamatsenga
 tool.magic_eraser.description = Dinani kuti mufufute dera la mtundu wofanana pansi pa pointer, malinga ndi tolerance ya chidacho—dera lolumikizana ndi pamene mwadina kapena malo onse mu layer.
 tool.magic_eraser.option.contiguous = Zolumikizana
 tool.magic_eraser.history.erase = Chofufutira Chamatsenga
+
+# Remove
+tool.remove.name = Chotsani
+tool.remove.description = Pakani pa chinthu chosafunika ndi kukoka kamodzi; mukasiya, malowo amadzazidwa ndi zozungulira. Ngati Chotsani Mukakoka Kulikonse yazimitsidwa, pakani kangapo kenako dinani Enter kuti muzichotse zonse pamodzi.
+tool.remove.option.sample_all_layers = Tengani Chitsanzo pa Ma Layer Onse
+tool.remove.option.remove_after_each_stroke = Chotsani Mukakoka Kulikonse
+tool.remove.history.remove = Chotsani
+tool.remove.layer_name = Zachotsedwa

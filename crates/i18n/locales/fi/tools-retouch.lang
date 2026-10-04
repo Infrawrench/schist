@@ -19,3 +19,11 @@ tool.magic_eraser.name = Taikakumi
 tool.magic_eraser.description = Poista napsauttamalla työkalun toleranssin mukainen samanvärinen alue osoittimen alta joko vain yhtenäiseltä alueelta tai kaikkialta tasosta.
 tool.magic_eraser.option.contiguous = Vierekkäinen
 tool.magic_eraser.history.erase = Taikakumi
+
+# Remove
+tool.remove.name = Poista
+tool.remove.description = Maalaa ei-toivotun kohteen yli yhdellä vedolla; kun päästät irti, se täytetään ympäristönsä perusteella. Kun Poista jokaisen vedon jälkeen ei ole käytössä, maalaa useita vetoja ja poista ne yhdessä painamalla Enter.
+tool.remove.option.sample_all_layers = Näytteistä kaikki tasot
+tool.remove.option.remove_after_each_stroke = Poista jokaisen vedon jälkeen
+tool.remove.history.remove = Poista
+tool.remove.layer_name = Poistettu

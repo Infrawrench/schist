@@ -94,3 +94,8 @@ workspace.recovery.recovered.one = Əvvəlki sessiyadan saxlanmamış iş bərpa
 workspace.recovery.recovered.other = Əvvəlki sessiyadan {n} sənəd bərpa edildi
 workspace.colormgmt.vision_on = Simulyasiya: {name}
 workspace.colormgmt.vision_off = Normal görmə
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Doldurma modeli olmadan silindi, ona görə də doldurma daha kobud ola bilər
+workspace.tool_jobs.document_changed = {name} sənədi bağlandıqdan və ya dəyişdirildikdən sonra başa çatdı, buna görə heç nə dəyişdirilmədi

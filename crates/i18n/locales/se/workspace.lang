@@ -96,3 +96,8 @@ workspace.recovery.recovered.two = Ovddit bargovuorus máhcahuvvojedje {n} dokum
 workspace.recovery.recovered.other = Ovddit bargovuorus máhcahuvvojedje {n} dokumeantta
 workspace.colormgmt.vision_on = Simuleren: {name}
 workspace.colormgmt.vision_off = Dábálaš oaidnu
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Váldojuvvui eret almmá deavdinmodeallaa, nu ahte deavdin ii várra leat nu čáppat
+workspace.tool_jobs.document_changed = {name} gárvánii maŋŋá go dan dokumeanta giddejuvvui dahje molsojuvvui, nu ahte mihkkege ii rievdaduvvon

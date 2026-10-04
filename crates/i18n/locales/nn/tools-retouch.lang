@@ -21,3 +21,11 @@ tool.magic_eraser.name = Magisk viskelêr
 tool.magic_eraser.description = Klikk for å viska ut området med liknande farge under peikaren, innanfor toleransen til verktøyet. Området kan vera samanhengande med klikkpunktet eller liggja kvar som helst i laget.
 tool.magic_eraser.option.contiguous = Samanhengande
 tool.magic_eraser.history.erase = Magisk viskelêr
+
+# Remove
+tool.remove.name = Fjern
+tool.remove.description = Mål over eit uønskt objekt i eitt strøk. Når du slepper, vert det fylt ut frå omgjevnadene. Med Fjern etter kvart strøk slått av kan du måla fleire strøk og trykkja Enter for å fjerna dei samla.
+tool.remove.option.sample_all_layers = Ta prøve av alle lag
+tool.remove.option.remove_after_each_stroke = Fjern etter kvart strøk
+tool.remove.history.remove = Fjern
+tool.remove.layer_name = Fjerna

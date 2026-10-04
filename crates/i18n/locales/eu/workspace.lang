@@ -119,3 +119,8 @@ workspace.recovery.recovered.one = Aurreko saioko gorde gabeko lana berreskuratu
 workspace.recovery.recovered.other = Aurreko saioko {n} dokumentu berreskuratu dira
 workspace.colormgmt.vision_on = Simulazioa: {name}
 workspace.colormgmt.vision_off = Ikusmen normala
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: %{percent}
+workspace.tool_jobs.missing_model = Inpainting eredurik gabe kendu da; beraz, betegarria zakarragoa izan daiteke
+workspace.tool_jobs.document_changed = {name} bere dokumentua itxi edo aldatu ondoren amaitu da; beraz, ez da ezer aldatu

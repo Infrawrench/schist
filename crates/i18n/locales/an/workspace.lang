@@ -127,3 +127,8 @@ workspace.recovery.recovered.one = S'ha recuperau treballo sin alzar d'una sesi�
 workspace.recovery.recovered.other = S'han recuperau {n} documentos d'una sesión anterior
 workspace.colormgmt.vision_on = Simulación: {name}
 workspace.colormgmt.vision_off = Visión normal
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = S'ha eliminau sin o modelo de reconstrucción, asinas que o replenau puede estar mas basto
+workspace.tool_jobs.document_changed = {name} ha rematau dimpués que o suyo documento s'heba zarrau u cambiau, asinas que no s'ha cambiau cosa

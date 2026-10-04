@@ -94,3 +94,8 @@ workspace.recovery.recovered.one = Önceki oturumdan kaydedilmemiş çalışma k
 workspace.recovery.recovered.other = Önceki oturumdan {n} belge kurtarıldı
 workspace.colormgmt.vision_on = Simülasyon: {name}
 workspace.colormgmt.vision_off = Normal görüş
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: %{percent}
+workspace.tool_jobs.missing_model = Doldurma modeli olmadan kaldırıldı; dolgu daha kaba olabilir
+workspace.tool_jobs.document_changed = {name}, belgesi kapatıldıktan veya değiştirildikten sonra tamamlandı; bu nedenle hiçbir şey değiştirilmedi

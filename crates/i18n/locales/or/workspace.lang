@@ -94,3 +94,8 @@ workspace.recovery.recovered.one = ପୂର୍ବ ସେସନ୍‌ରୁ ସ�
 workspace.recovery.recovered.other = ପୂର୍ବ ସେସନ୍‌ରୁ {n}ଟି ଡକ୍ୟୁମେଣ୍ଟ ପୁନରୁଦ୍ଧାର ହୋଇଛି
 workspace.colormgmt.vision_on = ସିମୁଲେସନ୍: {name}
 workspace.colormgmt.vision_off = ସାଧାରଣ ଦୃଷ୍ଟି
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = ଇନପେଣ୍ଟିଂ ମଡେଲ୍ ବିନା ଅପସାରିତ ହେଲା, ତେଣୁ ଭରଣ କିଛି ଅସମାନ ହୋଇପାରେ
+workspace.tool_jobs.document_changed = {name} ଏହାର ଡକ୍ୟୁମେଣ୍ଟ ବନ୍ଦ କିମ୍ବା ବଦଳିବା ପରେ ସମାପ୍ତ ହେଲା, ତେଣୁ କିଛି ବଦଳାଯାଇନାହିଁ

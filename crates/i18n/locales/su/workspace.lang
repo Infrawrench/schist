@@ -92,3 +92,8 @@ workspace.recovery.recovered_title = {title} (dipulihkeun)
 workspace.recovery.recovered.other = {n} dokumén dipulihkeun tina sési saméméhna
 workspace.colormgmt.vision_on = Simulasi: {name}
 workspace.colormgmt.vision_off = Paningal normal
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Dipiceun tanpa modél pangeusi, jadi eusianana bisa leuwih kasar
+workspace.tool_jobs.document_changed = {name} réngsé sanggeus dokuménna ditutup atawa diganti, jadi euweuh anu dirobah

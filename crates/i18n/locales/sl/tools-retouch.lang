@@ -23,3 +23,11 @@ tool.magic_eraser.name = Čarobna radirka
 tool.magic_eraser.description = Kliknite, da glede na toleranco orodja izbrišete območje podobne barve pod kazalcem: bodisi območje, povezano s kliknjeno točko, bodisi vsa taka območja v plasti.
 tool.magic_eraser.option.contiguous = Stično
 tool.magic_eraser.history.erase = Čarobna radirka
+
+# Remove
+tool.remove.name = Odstrani
+tool.remove.description = Z eno potezo prebarvajte neželeni predmet; ko spustite, se zapolni iz okolice. Ko je možnost Odstrani po vsaki potezi izklopljena, narišite več potez in pritisnite Enter, da jih odstranite skupaj.
+tool.remove.option.sample_all_layers = Vzorči vse plasti
+tool.remove.option.remove_after_each_stroke = Odstrani po vsaki potezi
+tool.remove.history.remove = Odstrani
+tool.remove.layer_name = Odstranjeno

@@ -98,3 +98,8 @@ workspace.recovery.recovered.many = Відновлено {n} незбереже�
 workspace.recovery.recovered.other = Відновлено {n} незбереженого документа з попереднього сеансу
 workspace.colormgmt.vision_on = Симуляція: {name}
 workspace.colormgmt.vision_off = Нормальний зір
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Видалено без моделі домальовування, тому заповнення може бути грубішим
+workspace.tool_jobs.document_changed = {name} завершено після того, як документ було закрито або перемкнено, тому нічого не змінено

@@ -94,3 +94,8 @@ workspace.recovery.recovered.one = Ανακτήθηκε μη αποθηκευμ�
 workspace.recovery.recovered.other = Ανακτήθηκαν {n} έγγραφα από προηγούμενη συνεδρία
 workspace.colormgmt.vision_on = Προσομοίωση: {name}
 workspace.colormgmt.vision_off = Φυσιολογική όραση
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Η αφαίρεση έγινε χωρίς το μοντέλο συμπλήρωσης, οπότε το γέμισμα μπορεί να είναι πιο τραχύ
+workspace.tool_jobs.document_changed = {name}: ολοκληρώθηκε αφού το έγγραφο έκλεισε ή άλλαξε, οπότε δεν τροποποιήθηκε τίποτα

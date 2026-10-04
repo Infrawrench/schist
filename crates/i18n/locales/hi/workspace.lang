@@ -94,3 +94,8 @@ workspace.recovery.recovered.one = पिछले सत्र का {n} ब�
 workspace.recovery.recovered.other = पिछले सत्र के {n} दस्तावेज़ पुनर्प्राप्त किए गए
 workspace.colormgmt.vision_on = अनुकरण: {name}
 workspace.colormgmt.vision_off = सामान्य दृष्टि
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = इनपेंटिंग मॉडल के बिना हटाया गया, इसलिए भराव कुछ खुरदरा हो सकता है
+workspace.tool_jobs.document_changed = {name} उसका दस्तावेज़ बंद या बदल दिए जाने के बाद पूरा हुआ, इसलिए कुछ नहीं बदला गया

@@ -18,3 +18,11 @@ tool.magic_eraser.name = Goma màgica
 tool.magic_eraser.description = Feu clic per esborrar la zona de color semblant sota el punter, dins de la tolerància de l'eina: contigua al punt del clic o arreu de la capa.
 tool.magic_eraser.option.contiguous = Contigu
 tool.magic_eraser.history.erase = Goma màgica
+
+# Remove
+tool.remove.name = Elimina
+tool.remove.description = Pinteu per sobre d'un objecte no desitjat d'un sol traç; quan deixeu anar, s'emplena a partir del seu entorn. Amb Elimina després de cada traç desactivat, pinteu diversos traços i premeu Retorn per eliminar-los alhora.
+tool.remove.option.sample_all_layers = Mostreja totes les capes
+tool.remove.option.remove_after_each_stroke = Elimina després de cada traç
+tool.remove.history.remove = Elimina
+tool.remove.layer_name = Eliminat

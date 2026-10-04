@@ -21,3 +21,11 @@ tool.magic_eraser.name = جادوئي رٻڙ
 tool.magic_eraser.description = اوزار جي برداشت اندر پوائنٽر هيٺان ساڳئي رنگ وارو علائقو ڊاهڻ لاءِ ڪلڪ ڪريو—اهو ڪلڪ سان ڳنڍيل علائقو هجي يا پرت ۾ هر هنڌ.
 tool.magic_eraser.option.contiguous = ڳنڍيل
 tool.magic_eraser.history.erase = جادوئي رٻڙ
+
+# Remove
+tool.remove.name = هٽايو
+tool.remove.description = ناپسنديده شيءِ مٿان هڪ ئي اسٽروڪ ۾ رنگ ڪريو؛ ڇڏڻ تي اها آسپاس جي مواد سان ڀرجي ويندي. جڏهن هر اسٽروڪ کان پوءِ هٽايو بند هجي، ته ڪيترائي اسٽروڪ رنگ ڪريو ۽ انهن کي گڏ هٽائڻ لاءِ Enter دٻايو.
+tool.remove.option.sample_all_layers = سڀني پرتن مان نمونو وٺو
+tool.remove.option.remove_after_each_stroke = هر اسٽروڪ کان پوءِ هٽايو
+tool.remove.history.remove = هٽايو
+tool.remove.layer_name = هٽايل

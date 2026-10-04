@@ -27,3 +27,11 @@ tool.magic_eraser.name = ჯადოსნური საშლელი
 tool.magic_eraser.description = დაწკაპუნებით წაშალეთ მაჩვენებლის ქვეშ მსგავსი ფერის უბანი ხელსაწყოს დაშვების ფარგლებში — დაწკაპუნების წერტილთან მომიჯნავე ან ფენის ყველა შესაბამის ადგილას.
 tool.magic_eraser.option.contiguous = მომიჯნავე
 tool.magic_eraser.history.erase = ჯადოსნური საშლელი
+
+# Remove
+tool.remove.name = წაშლა
+tool.remove.description = ერთი შტრიხით გადაღებეთ არასასურველ ობიექტს; როცა ხელს აუშვებთ, ის შეივსება გარემოცვიდან. როცა „წაშლა ყოველი შტრიხის შემდეგ“ გამორთულია, დახატეთ რამდენიმე შტრიხი და დააჭირეთ Enter-ს, რომ ერთად წაშალოთ.
+tool.remove.option.sample_all_layers = ნიმუშის აღება ყველა ფენიდან
+tool.remove.option.remove_after_each_stroke = წაშლა ყოველი შტრიხის შემდეგ
+tool.remove.history.remove = წაშლა
+tool.remove.layer_name = წაშლილი

@@ -22,3 +22,11 @@ tool.magic_eraser.name = Магическа гума
 tool.magic_eraser.description = Щракнете, за да изтриете областта с подобен цвят под показалеца в рамките на допуска на инструмента — само свързаната с щракнатото място област или всички такива области в слоя.
 tool.magic_eraser.option.contiguous = Съседни
 tool.magic_eraser.history.erase = Магическа гума
+
+# Remove
+tool.remove.name = Премахване
+tool.remove.description = Нарисувайте върху нежелан обект с един щрих; когато отпуснете, той се запълва от околността. Когато „Премахване след всеки щрих“ е изключено, нанесете няколко щриха и натиснете Enter, за да ги премахнете заедно.
+tool.remove.option.sample_all_layers = Проба от всички слоеве
+tool.remove.option.remove_after_each_stroke = Премахване след всеки щрих
+tool.remove.history.remove = Премахване
+tool.remove.layer_name = Премахнато

@@ -94,3 +94,8 @@ workspace.recovery.recovered.one = Өмнөх сешний хадгалаагү�
 workspace.recovery.recovered.other = Өмнөх сешнээс {n} баримтыг сэргээв
 workspace.colormgmt.vision_on = Дуураймал: {name}
 workspace.colormgmt.vision_off = Хэвийн хараа
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Нөхөх загваргүйгээр арилгасан тул нөхөлт бүдүүлэг байж магадгүй
+workspace.tool_jobs.document_changed = {name} баримт нь хаагдсан эсвэл солигдсоны дараа дууссан тул юу ч өөрчлөгдсөнгүй

@@ -94,3 +94,8 @@ workspace.recovery.recovered.one = Edellisen istunnon tallentamaton työ palaute
 workspace.recovery.recovered.other = Edellisestä istunnosta palautettiin {n} dokumenttia
 workspace.colormgmt.vision_on = Simulaatio: {name}
 workspace.colormgmt.vision_off = Normaali näkö
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent} %
+workspace.tool_jobs.missing_model = Poistettu ilman paikkausmallia, joten täyttö voi olla karkeampi
+workspace.tool_jobs.document_changed = {name} valmistui vasta, kun sen asiakirja oli suljettu tai vaihdettu, joten mitään ei muutettu

@@ -23,3 +23,11 @@ tool.magic_eraser.name = Тылсымлы юйғыс
 tool.magic_eraser.description = Күрһәткән урындағы оҡшаш төҫлө өлкәне ҡоралдың рөхсәт ителгән айырмаһы сиктәрендә юйыу өсөн сиртегеҙ: сиртелгән урынға тоташ өлкәне йәки ҡатламдың бөтә урынын.
 tool.magic_eraser.option.contiguous = Тоташ
 tool.magic_eraser.history.erase = Тылсымлы юйғыс
+
+# Remove
+tool.remove.name = Алып ташлау
+tool.remove.description = Кәрәкмәгән объект өҫтөнән бер һыҙым менән буяғыҙ; ебәргәс, ул тирә-яҡтан тултырыла. «Һәр һыҙымдан һуң алып ташлау» һүндерелгән булһа, бер нисә һыҙым буяғыҙ һәм уларҙы бергә алып ташлау өсөн Enter баҫығыҙ.
+tool.remove.option.sample_all_layers = Барлыҡ ҡатламдарҙан үрнәк алыу
+tool.remove.option.remove_after_each_stroke = Һәр һыҙымдан һуң алып ташлау
+tool.remove.history.remove = Алып ташлау
+tool.remove.layer_name = Алып ташланған

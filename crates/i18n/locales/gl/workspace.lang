@@ -94,3 +94,8 @@ workspace.recovery.recovered.one = Recuperouse traballo sen gardar dunha sesión
 workspace.recovery.recovered.other = Recuperáronse {n} documentos dunha sesión anterior
 workspace.colormgmt.vision_on = Simulación: {name}
 workspace.colormgmt.vision_off = Visión normal
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Eliminado sen o modelo de reconstrución, polo que o recheo pode ser máis tosco
+workspace.tool_jobs.document_changed = {name} rematou despois de que se pechase ou cambiase o seu documento, polo que non se modificou nada

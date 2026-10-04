@@ -96,3 +96,8 @@ workspace.recovery.recovered.two = שוחזרו {n} מסמכים מההפעלה 
 workspace.recovery.recovered.other = שוחזרו {n} מסמכים מההפעלה הקודמת
 workspace.colormgmt.vision_on = הדמיה: {name}
 workspace.colormgmt.vision_off = ראייה רגילה
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: ‏{percent}%
+workspace.tool_jobs.missing_model = הוסר ללא מודל ההשלמה, ולכן המילוי עשוי להיות גס יותר
+workspace.tool_jobs.document_changed = {name} הסתיים לאחר שהמסמך שלו נסגר או הוחלף, ולכן לא שונה דבר

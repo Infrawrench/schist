@@ -95,3 +95,8 @@ workspace.recovery.recovered.one = ಹಿಂದಿನ ಸೆಷನ್‌ನ ಉ�
 workspace.recovery.recovered.other = ಹಿಂದಿನ ಸೆಷನ್‌ನ {n} ಡಾಕ್ಯುಮೆಂಟ್‌ಗಳನ್ನು ಮರುಪಡೆಯಲಾಗಿದೆ
 workspace.colormgmt.vision_on = ಸಿಮ್ಯುಲೇಶನ್: {name}
 workspace.colormgmt.vision_off = ಸಾಮಾನ್ಯ ದೃಷ್ಟಿ
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = ಇನ್‌ಪೇಂಟಿಂಗ್ ಮಾದರಿ ಇಲ್ಲದೆ ತೆಗೆದುಹಾಕಲಾಗಿದೆ, ಆದ್ದರಿಂದ ತುಂಬುವಿಕೆ ಒರಟಾಗಿರಬಹುದು
+workspace.tool_jobs.document_changed = {name} ಮುಗಿಯುವ ಮೊದಲೇ ಅದರ ಡಾಕ್ಯುಮೆಂಟ್ ಮುಚ್ಚಲಾಗಿದೆ ಅಥವಾ ಬದಲಾಯಿಸಲಾಗಿದೆ, ಆದ್ದರಿಂದ ಏನನ್ನೂ ಬದಲಾಯಿಸಲಾಗಿಲ್ಲ

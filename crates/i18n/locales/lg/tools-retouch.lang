@@ -25,3 +25,11 @@ tool.magic_eraser.name = Akasangula ak'amagezi
 tool.magic_eraser.description = Nyiga okusangula ekitundu ekirina langi efaanagana eri wansi w'akasonze, okusinziira ku kigero ky'ekikozesebwa eky'okukkiriza enjawulo — ekigatta ku wonyize, oba wonna ku layer.
 tool.magic_eraser.option.contiguous = Ebikwatagana
 tool.magic_eraser.history.erase = Akasangula ak'amagezi
+
+# Remove
+tool.remove.name = Ggyawo
+tool.remove.description = Siiga ku kintu ky'otoyagala mu kusiiga okumu; bw'olekera, kijjuzibwa okuva ku bikyetoolodde. Bwe kiba nti Ggyawo Oluvannyuma lw'Okusiiga Kwonna kiggyiddwako, siiga emirundi egiwerako olyoke onyige Enter okubiggyawo byonna wamu.
+tool.remove.option.sample_all_layers = Kozesa Layers zonna
+tool.remove.option.remove_after_each_stroke = Ggyawo Oluvannyuma lw'Okusiiga Kwonna
+tool.remove.history.remove = Ggyawo
+tool.remove.layer_name = Kiggyiddwawo

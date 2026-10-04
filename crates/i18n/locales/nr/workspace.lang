@@ -104,3 +104,8 @@ workspace.recovery.recovered.one = Kubuyiselwe umsebenzi ongakabulungwa kusuka e
 workspace.recovery.recovered.other = Kubuyiselwe amadokhumenti angu-{n} kusuka eseshini edlulileko
 workspace.colormgmt.vision_on = Ukulinganisa: {name}
 workspace.colormgmt.vision_off = Ukubona okujayelekileko
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Kususwe ngaphandle kwemodeli yokuzalisa, ngalokho ukuzalisa kungaba makhwakhwa
+workspace.tool_jobs.document_changed = I-{name} iqede ngemva kokuvalwa namkha ukutjhentjhwa kwedokhumenti yayo, ngalokho akukho okutjhugulukileko

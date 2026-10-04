@@ -27,3 +27,11 @@ tool.magic_eraser.name = Sehrli pozan
 tool.magic_eraser.description = Alətin dözümlülük həddi daxilində göstəricinin altındakı oxşar rəngli sahəni silmək üçün klikləyin; ya kliklənmiş yerə bitişik sahə, ya da qatdakı bütün uyğun sahələr silinir.
 tool.magic_eraser.option.contiguous = Bitişik
 tool.magic_eraser.history.erase = Sehrli pozan
+
+# Remove
+tool.remove.name = Silmə
+tool.remove.description = Arzuolunmaz obyektin üzərindən bir vuruşla rəngləyin; buraxdığınız zaman o, ətrafdakı məzmunla doldurulur. Hər vuruşdan sonra sil söndürüldükdə bir neçə vuruş çəkin və onları birlikdə silmək üçün Enter düyməsini basın.
+tool.remove.option.sample_all_layers = Bütün qatlardan nümunə götür
+tool.remove.option.remove_after_each_stroke = Hər vuruşdan sonra sil
+tool.remove.history.remove = Silmə
+tool.remove.layer_name = Silinmiş

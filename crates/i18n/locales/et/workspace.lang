@@ -94,3 +94,8 @@ workspace.recovery.recovered.one = Eelmise seansi salvestamata töö taastati
 workspace.recovery.recovered.other = Eelmisest seansist taastati {n} dokumenti
 workspace.colormgmt.vision_on = Simulatsioon: {name}
 workspace.colormgmt.vision_off = Normaalne nägemine
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Eemaldatud ilma täitmismudelita, seega võib täide olla jämedam
+workspace.tool_jobs.document_changed = {name} lõppes pärast dokumendi sulgemist või vahetamist, seega midagi ei muudetud

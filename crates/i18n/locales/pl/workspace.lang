@@ -98,3 +98,8 @@ workspace.recovery.recovered.many = Odzyskano {n} dokumentów z poprzedniej sesj
 workspace.recovery.recovered.other = Odzyskano {n} dokumentu z poprzedniej sesji
 workspace.colormgmt.vision_on = Symulacja: {name}
 workspace.colormgmt.vision_off = Widzenie prawidłowe
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Usunięto bez modelu uzupełniania obrazu, więc wypełnienie może być mniej dokładne
+workspace.tool_jobs.document_changed = {name} zakończono po zamknięciu lub przełączeniu dokumentu, więc nic nie zostało zmienione

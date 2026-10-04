@@ -25,3 +25,11 @@ tool.magic_eraser.name = ยางลบวิเศษ
 tool.magic_eraser.description = คลิกเพื่อลบพื้นที่สีคล้ายกันใต้ตัวชี้ภายในค่าความคลาดเคลื่อนของเครื่องมือ โดยลบเฉพาะส่วนที่ต่อเนื่องกับจุดที่คลิกหรือทุกส่วนในเลเยอร์
 tool.magic_eraser.option.contiguous = ต่อเนื่อง
 tool.magic_eraser.history.erase = ยางลบวิเศษ
+
+# Remove
+tool.remove.name = ลบ
+tool.remove.description = ระบายทับวัตถุที่ไม่ต้องการในครั้งเดียว เมื่อปล่อย บริเวณนั้นจะถูกเติมจากพื้นที่รอบข้าง หากปิด ลบหลังแต่ละสโตรก ไว้ ให้ระบายหลายสโตรกแล้วกด Enter เพื่อลบออกพร้อมกัน
+tool.remove.option.sample_all_layers = สุ่มตัวอย่างทุกเลเยอร์
+tool.remove.option.remove_after_each_stroke = ลบหลังแต่ละสโตรก
+tool.remove.history.remove = ลบ
+tool.remove.layer_name = ลบแล้ว

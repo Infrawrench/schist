@@ -94,3 +94,8 @@ workspace.recovery.recovered.one = اڳئين سيشن مان غير محفوظ 
 workspace.recovery.recovered.other = اڳئين سيشن مان {n} دستاويز بحال ٿيا
 workspace.colormgmt.vision_on = نقل: {name}
 workspace.colormgmt.vision_off = عام نظر
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = انپينٽنگ ماڊل کان سواءِ هٽايو ويو، تنهنڪري ڀرائي وڌيڪ کردري ٿي سگهي ٿي
+workspace.tool_jobs.document_changed = {name} پنهنجي دستاويز بند يا مٽجڻ کان پوءِ مڪمل ٿيو، تنهنڪري ڪجهه به تبديل نه ٿيو
