@@ -110,6 +110,8 @@ recovery keep edits recoverable.
 
 **Painting and retouching.** Brush, pencil, erasers, gradients, clone and healing
 tools, patching, content-aware fill and move, dodge/burn, blur, sharpen and smudge.
+The [Remove tool](docs/remove-tool.md) takes an object out in one stroke, filling
+it in the background with the local inpainting network and patch synthesis.
 [Brush presets](docs/brushes.md) support imported bitmap tips and brush packs,
 spacing, scattering, stroke stabilization, and pressure-controlled size and
 opacity. [Symmetry and seamless painting](docs/symmetry-painting.md) add mirrored
@@ -231,7 +233,7 @@ Photoshop's defaults (⌘ on macOS, Ctrl elsewhere):
 
 | Area | Shortcuts |
 | --- | --- |
-| Tools | `V` move · `M` marquee · `L` lasso · `W` wand · `C` crop · `B` brush · `E` eraser · `S` clone · `J` spot healing · `Y` history brush · `G` gradient · `O` dodge · `P` pen · `A` path selection · `T` type · `U` shapes · `I` eyedropper · `H`/space hand · `Z` zoom |
+| Tools | `V` move · `M` marquee · `L` lasso · `W` wand · `C` crop · `B` brush · `E` eraser · `S` clone · `J` spot healing (Shift+`J` for remove, healing, patch…) · `Y` history brush · `G` gradient · `O` dodge · `P` pen · `A` path selection · `T` type · `U` shapes · `I` eyedropper · `H`/space hand · `Z` zoom |
 | Tool groups | Shift+the tool's key cycles nested tools (Shift+`M` marquee ⇄ ellipse); hold or right-click a toolbar slot for its flyout |
 | Edit | ⌘Z / ⌘⇧Z undo・redo · ⌘X/C/V · ⌘⇧C copy merged · ⌘T free transform |
 | Select | ⌘A all · ⌘D deselect · ⌘⇧D reselect · ⌘⇧I inverse · shift/alt-drag to add/subtract |
