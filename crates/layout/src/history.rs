@@ -259,6 +259,8 @@ pub struct SettingsSnapshot {
     pub default_character_style: String,
     pub grids: serde_json::Value,
     pub ink_manager: serde_json::Value,
+    #[serde(default)]
+    pub text_wrap_preferences: crate::text_wrap::WrapPreferences,
 }
 
 /// How many operations a default history keeps.

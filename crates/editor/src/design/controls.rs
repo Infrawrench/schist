@@ -1507,6 +1507,14 @@ pub fn commit(state: &mut DesignState, id: &str, text: &str) -> bool {
             };
             set_bracket(&mut state.document, &mut state.history, &ids, bracket)
         }
+        Target::Objects(ids) if id == "design-prop-wrap-offset" => value.is_some_and(|value| {
+            schist_layout::text_wrap::edit_wrap(
+                &mut state.document,
+                &mut state.history,
+                &ids,
+                |wrap| wrap.offsets = schist_layout::Insets::uniform(value),
+            )
+        }),
         Target::Objects(ids) => value.is_some_and(|value| {
             object_property(id).is_some_and(|property| {
                 properties::set_object_property(
@@ -2155,6 +2163,57 @@ mod tests {
         let value = list_tab_value(&state.document.styles.paragraph("Body").unwrap().list);
         state.controls.field = Some(target);
         assert!(!commit(&mut state, "design-prop-list-tab", &value));
+        assert_eq!(state.document, before);
+    }
+
+    #[test]
+    fn wrap_offset_field_edits_captured_items_in_one_step() {
+        use schist_layout::text_wrap::WrapMode;
+        let mut state = DesignState::new();
+        let mut ids = Vec::new();
+        for x in [20.0, 120.0] {
+            ids.push(
+                schist_layout::authoring::rectangle(
+                    &mut state.document,
+                    &mut state.history,
+                    0,
+                    schist_layout::Rect::new(x, 20.0, 50.0, 50.0),
+                    schist_layout::authoring::Paint::none(),
+                )
+                .unwrap(),
+            );
+        }
+        state.history = Default::default();
+        assert!(schist_layout::text_wrap::edit_wrap(
+            &mut state.document,
+            &mut state.history,
+            &ids,
+            |w| w.mode = WrapMode::BoundingBox,
+        ));
+        let before = state.document.clone();
+        for input in ["NaN", "inf", "99999", "wide"] {
+            state.controls.field = Some(Target::Objects(ids.clone()));
+            assert!(!commit(&mut state, "design-prop-wrap-offset", input));
+            assert_eq!(state.document, before);
+        }
+        // The field edits the captured items even after the selection changes.
+        state.controls.field = Some(Target::Objects(ids.clone()));
+        state.selection.clear();
+        assert!(commit(&mut state, "design-prop-wrap-offset", "-3.5"));
+        assert_eq!(state.history.undo_depth(), 2);
+        for id in &ids {
+            let wrap = state
+                .document
+                .object(*id)
+                .unwrap()
+                .appearance
+                .text_wrap
+                .clone();
+            assert_eq!(wrap.unwrap().offsets, schist_layout::Insets::uniform(-3.5));
+        }
+        state.controls.field = Some(Target::Objects(ids.clone()));
+        assert!(!commit(&mut state, "design-prop-wrap-offset", "-3.5"));
+        assert!(state.history.undo(&mut state.document));
         assert_eq!(state.document, before);
     }
 

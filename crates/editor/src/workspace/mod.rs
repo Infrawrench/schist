@@ -619,6 +619,7 @@ impl Workspace {
         let mut frame = crate::design::paint::PasteboardFrame::new(plan, bounds);
         frame.graphics = self.design.graphics.clone();
         frame.selected = self.design_selection_rects();
+        frame.wraps = self.design_wrap_rects();
         frame.anchors = self.design_anchor_points();
         frame.pen_preview = crate::design::pen::preview(&self.design);
         frame.typing = self.design.typing;
@@ -711,6 +712,33 @@ impl Workspace {
     /// A selected object whose page is not in the plan is skipped by the
     /// painter, so a stale selection across a page change draws nothing
     /// rather than a box in the wrong place.
+    /// Box-shaped wrap boundaries of the selection. Contours follow the
+    /// item's own outline, which the selection already shows.
+    fn design_wrap_rects(&self) -> Vec<(usize, schist_layout::Rect)> {
+        use schist_layout::text_wrap::WrapMode;
+        let document = &self.design.document;
+        self.design
+            .selection
+            .iter()
+            .filter_map(|id| {
+                let placed = document.object(*id)?;
+                let wrap = placed.appearance.text_wrap.as_ref()?;
+                if matches!(wrap.mode, WrapMode::None | WrapMode::Contour) {
+                    return None;
+                }
+                let rect = document.object_rect(*id)?;
+                let o = wrap.offsets;
+                let rect = schist_layout::Rect::new(
+                    rect.x - o.left,
+                    rect.y - o.top,
+                    rect.width + o.left + o.right,
+                    rect.height + o.top + o.bottom,
+                );
+                Some((placed.page, self.design.view.rect(rect)))
+            })
+            .collect()
+    }
+
     fn design_selection_rects(&self) -> Vec<(usize, schist_layout::Rect)> {
         self.design
             .selection

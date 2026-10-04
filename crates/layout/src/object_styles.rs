@@ -113,6 +113,12 @@ pub struct ObjectAppearance {
     /// Text-frame outline in normalized coordinates, independent of text flow.
     /// Graphic frames use their existing clip_path instead.
     pub outline: Option<ShapePath>,
+    /// Local text wrap: how this item pushes other frames' text aside.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub text_wrap: Option<crate::text_wrap::TextWrap>,
+    /// A text frame whose own text ignores other items' wrap.
+    #[serde(skip_serializing_if = "std::ops::Not::not")]
+    pub ignore_wrap: bool,
 }
 
 impl StyleSet {

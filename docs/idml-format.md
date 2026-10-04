@@ -2792,3 +2792,60 @@ all process/spot plates at three resolutions through both separation paths,
 including horizontal/vertical text, affine placement and generated references
 with whole/split notes. The paired 16-page proof is part of check-design-output.
 Local verification and its limitations are recorded in Roadmap / Handoff.
+
+### Text wrap
+
+Page items keep their own TextWrapPreference: TextWrapMode (`None`,
+`BoundingBoxTextWrap`, `Contour`, `JumpObjectTextWrap`, `NextColumnTextWrap`),
+TextWrapSide (`BothSides`, `LeftSide`, `RightSide`, `SideTowardsSpine`,
+`SideAwayFromSpine`, `LargestArea`), Inverse, ApplyToMasterPageOnly, the four
+TextWrapOffset distances (Top, Left, Bottom, Right) and ContourOption
+(ContourType, IncludeInsideEdges, ContourPathName). Text frames keep
+TextFramePreference.IgnoreWrap, layers keep IgnoreWrap, and TextPreference keeps
+AbutTextToTextWrap, ZOrderTextWrap and JustifyTextWraps. Spellings and meanings
+follow the public IDML specification and Adobe's published text-wrap
+documentation; every public fixture uses TextWrapMode="None", and the pinned
+paged-media `text-wrap` sample's native PDF never reaches its obstacles, so no
+native wrap geometry was available as a reference.
+
+An item's record is written after its own Properties, in source items and in
+parent spreads. A record that wraps nothing survives as written. Invalid
+spellings, booleans and offsets that are not finite or exceed 10,000 points are
+reported and read as the published defaults (no wrap, both sides, false, zero).
+`$ID/` is the empty contour path name. Object-style text-wrap categories remain
+reported as unsupported categories.
+
+Composition works in each text frame's untransformed composition box. Obstacle
+outlines are mapped there through the inverse of the frame's affine, so rotated or
+skewed frames and objects wrap in page space. Bounding-box wrap uses the item's
+page-aligned bounds plus the four offsets. Contour wrap uses a shape's path, a
+graphic frame's clipping path or a text frame's outline (otherwise the frame),
+flattened to 0.25 pt, plus the top offset; Schist pushes text from the outline's
+extent in each line band, so text does not enter concavities or holes. Inverse
+contour and bounding-box wraps keep text within the outline's narrowest interior
+across the band, inset by the offset; text below an inverse outline is overset.
+Jump-object resumes below the item; next-column ends the column at the first band
+reaching it. Sides apply per band, except Largest Area, which is decided once per
+column from the item's position so irregular outlines cannot switch sides.
+Facing-page spine sides follow the page's position in its spread.
+
+Each free interval of a band becomes one measure for the existing per-line
+measure engine, so lines fill both sides of an object in reading order (reversed
+for right-to-left paragraphs). A paragraph's band heights feed back into the plan
+until the heights composed match the heights planned; a line is never placed into
+a band its actual height no longer leaves free. Intervals narrower than the first
+line's height are not offered, and an interval an obstacle narrowed that its line
+cannot fit (a word wider than the room) is skipped and the paragraph re-planned,
+so text never overflows into a wrap. With AbutTextToTextWrap (default true) text
+resumes at the next whole leading increment below an obstacle, otherwise at its
+edge. ZOrderTextWrap restricts wrap to text frames stacked below the item.
+Hidden items and items on hidden layers do not wrap text. Items owned by another
+page of the same spread wrap text on this page, so artwork crossing the gutter
+wraps both pages. ApplyToMasterPageOnly parent items do not wrap document pages.
+JustifyTextWraps is retained; Schist does not justify beside wraps.
+
+Vertical text, enlarged initials, generated list markers and text on a path are
+composed unwrapped where an obstacle reaches them, and Preflight warns. Pixel
+contours (PhotoshopPath, DetectEdges, AlphaChannel) and IncludeInsideEdges use the
+item's outline and Preflight warns that the contour is approximated. Anchored and
+inline objects do not wrap yet.

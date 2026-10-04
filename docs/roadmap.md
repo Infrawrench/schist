@@ -310,6 +310,80 @@ are marked.
 
 ## Handoff
 
+Text wrap, 2026-10-04:
+Page items keep a typed TextWrapPreference: mode (bounding box, contour, jump
+object, next column), side, Inverse, ApplyToMasterPageOnly, four offsets and the
+ContourOption (type, inside edges, path name). Text frames and layers keep
+IgnoreWrap; the document keeps AbutTextToTextWrap, ZOrderTextWrap and
+JustifyTextWraps. All of it saves with native spellings through repeated saves,
+including parent spreads; invalid values are reported and read as the published
+defaults. No public fixture uses wrap, and the pinned paged-media `text-wrap`
+sample's PDF never reaches its obstacles, so geometry follows Adobe's published
+wrap documentation; inferences are listed in [IDML evidence and limits](idml-format.md).
+
+Horizontal text composes around bounding boxes (page-aligned bounds plus four
+offsets) and contours (shape path, clipping path or text-frame outline, plus one
+offset), and honours jump-object, next-column, sides, Largest Area (decided once
+per column), spine sides by page position, inverse outlines (text inside the
+narrowest interior), ignore-wrap frames and layers, master-only parent items,
+stacking order for wrap-beneath-only, and Abut's leading increments. Rotated or
+skewed frames and items wrap in page space, and artwork owned by the facing page
+wraps across the gutter. Each free interval of a line band is one measure for the
+existing per-line engine, so lines fill both sides of an object in reading order;
+band heights feed back until stable, a line never takes a band its real height no
+longer leaves free, and an interval an obstacle narrowed that its line cannot fit
+is skipped rather than overflowed. Vertical text, initials, list markers and path
+text compose unwrapped with a Preflight warning; pixel contours use the item's
+outline with a Preflight warning.
+
+The Control panel adds five mode icons, an ignore-wrap toggle for text frames, a
+uniform offset field, an inside-outline toggle and a side dropdown; Text
+Preferences adds two document toggles. Each gesture is one undo step. The canvas
+draws a dashed boundary for selected box-shaped wraps. 21 short keys are in all
+150 catalogs.
+
+Focused testing found and fixed: a band touching an obstacle's bottom edge counted
+as intersecting it, pushing non-abutting text a full line lower; the layer reader
+lacked its report. Lints asked for `as_chunks` and a test type alias. A first
+source-frozen sweep passed (2,143 tests), but native review then showed that a
+hyphenated paragraph whose first word did not fit a narrowed interval was rejected
+whole (and a plain word would instead have overflowed into the wrap). Narrowed
+intervals a line cannot fit are now skipped and the paragraph re-planned (at most
+64 per paragraph); a regression property covers hyphenated and centered text in an
+inverse ellipse and beside a 20 pt gap. A second sweep passed with it (2,144), and
+all 43 proof PDFs were byte-identical to the first sweep's. Native review also
+showed multi-second pauses in the debug build after a wrap edit: each wrapped
+paragraph was shaped once unwrapped only to estimate line heights. A one-character
+metric sample now seeds the plan and refinement corrects mixed sizes; on the review
+page a debug composition fell from 1.08 s to 0.15 s (contour) with identical line
+counts.
+
+The final source-frozen sweep passes all 16 roadmap targets, headless library
+wasm, shared UI, formatting, the staged whitespace check and the debug app build:
+**2,144 distinct passing Rust tests**. Twenty-two new properties pass (15
+layout, 4 IDML, 2 separation, 1 editor). Its formatting step flagged a throwaway
+debugging test left in the tree; the file was removed (it was never part of the
+batch) and formatting, the whitespace check and `check-idml` passed again.
+
+Native review used the actual debug app with Design enabled and isolated
+HOME/APPDATA/LOCALAPPDATA/XDG directories. On the first build, the Properties panel
+showed the Text wrap row; contour wrap flowed the review story around both sides
+of an ellipse in reading order; an 8 pt offset widened the gap; the six-way side
+dropdown and Right side kept text to one side; and the frame's ignore-wrap toggle
+appeared beside the modes. On the final build, documents carrying each native
+wrap preset (contour, inside-outline, right-side bounding box, jump object, next
+column in two columns, and an ignoring frame) open and render as specified;
+inside-outline text fills the ellipse with hyphenation and the rest is overset.
+The review desktop turned out to be shared with another application being driven
+at the same time, so interactive input on the final build was stopped after a
+guarded check, and those renders were captured from Schist's own window without
+sending input. An opaque item stacked above its frame hides inside-outline text,
+as expected from paint order.
+
+Next is text in shaped frames, which reuses the wrap bands for a frame's own
+outline. Published to draft PR #195.
+
+
 Page numbers, section markers and chapter numbers, 2026-10-04:
 Native `<?ACE 18?>` page numbers (current, next and previous by their range's
 PageNumberType) and `<?ACE 19?>` section markers are now typed zero-width
@@ -2638,6 +2712,8 @@ remaining order is now explicit:
    and structural breaks, UTF-8 offsets, paragraph font/paint defaults and opaque
    style IDs are covered. Blank paragraphs reserve height and balanced paragraphs
    no longer overlap. Browser compilation passes with a reused backer cache.
+   Text wrap (TextWrapPreference, IgnoreWrap and the TextPreference wrap
+   settings) composes for horizontal text and saves natively, with compact controls.
 
 Phase 0 research can proceed independently. Phase 5 only follows an
 explicit evidence-based go/no-go; container recognition is not an INDD

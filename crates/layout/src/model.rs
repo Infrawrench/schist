@@ -382,6 +382,9 @@ pub struct LayoutLayer {
     pub name: String,
     pub visible: bool,
     pub locked: bool,
+    /// Text frames on this layer ignore other items' text wrap.
+    #[serde(default, skip_serializing_if = "std::ops::Not::not")]
+    pub ignore_wrap: bool,
 }
 
 /// A complete page layout document.
@@ -424,6 +427,9 @@ pub struct LayoutDocument {
     /// which the public reference renders as chapter 1.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub chapter_numbering: Option<crate::text_variables::ChapterNumbering>,
+    /// Document text-wrap composition preferences.
+    #[serde(default)]
+    pub text_wrap_preferences: crate::text_wrap::WrapPreferences,
     #[serde(
         default,
         skip_serializing_if = "crate::footnotes::FootnoteOptions::is_empty"
@@ -618,6 +624,7 @@ impl LayoutDocument {
             stories: Vec::new(),
             retained_text_variables: Vec::new(),
             chapter_numbering: None,
+            text_wrap_preferences: Default::default(),
             text_variables: Vec::new(),
             footnotes: Default::default(),
             frame_footnote_defaults: Default::default(),
@@ -1041,6 +1048,12 @@ impl LayoutDocument {
             .find(|(id, _)| *id == object)
             .map(|(_, layer)| *layer)
             .unwrap_or_else(|| self.layers.first().copied().unwrap_or(LayerId(0)))
+    }
+
+    pub fn layer_ignores_wrap(&self, id: LayerId) -> bool {
+        self.layer_properties
+            .iter()
+            .any(|layer| layer.id == id && layer.ignore_wrap)
     }
 
     pub fn layer_visible(&self, id: LayerId) -> bool {

@@ -38,6 +38,8 @@ const FRAME: u32 = 0x4A9FD8;
 /// overriding it and is drawn to say so.
 const INHERITED_FRAME: u32 = 0x8A6FB5;
 const SELECTED: u32 = 0xF0A020;
+/// The boundary a selected item's text wrap pushes text away from.
+const WRAP: u32 = 0x2E9E8F;
 /// Text on the page. Near-black rather than theme-coloured: paper is
 /// white whatever the shell is.
 const TEXT: u32 = 0x1A1A1A;
@@ -59,6 +61,8 @@ pub struct PasteboardFrame {
     /// Selected objects' rectangles, in pasteboard points, paired with
     /// the page they are on.
     pub selected: Vec<(usize, Rect)>,
+    /// Selected items' rectangular text-wrap boundaries, in pasteboard points.
+    pub wraps: Vec<(usize, Rect)>,
     pub show_marks: bool,
     /// The selected shapes whose own anchor points are being shown, as
     /// page numbers paired with their points in pasteboard space.
@@ -81,6 +85,7 @@ impl PasteboardFrame {
             graphics: Default::default(),
             bounds,
             selected: Vec::new(),
+            wraps: Vec::new(),
             show_marks: true,
             anchors: Vec::new(),
             pen_preview: None,
@@ -600,6 +605,11 @@ fn paint_label_at(
 }
 
 fn paint_selection(window: &mut Window, frame: &PasteboardFrame, plan: &PagePlan) {
+    for (page, rect) in &frame.wraps {
+        if *page == plan.page.page {
+            outline(window, frame.bounds, *rect, WRAP, true);
+        }
+    }
     for (page, rect) in &frame.selected {
         if *page != plan.page.page {
             continue;

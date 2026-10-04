@@ -160,6 +160,18 @@ pub struct ComposedFrame {
     /// [`ComposedFrame::passed_on`]: a long article threaded across
     /// three frames overflows twice and loses nothing.
     pub lost: bool,
+    /// Text wrap this frame could not apply exactly.
+    pub wrap: WrapOutcome,
+}
+
+/// Text-wrap diagnostics for Preflight.
+#[derive(Debug, Clone, Copy, Default, PartialEq, Eq)]
+pub struct WrapOutcome {
+    /// Some text composed without the wrap that reaches it (vertical text,
+    /// initials, list markers or path text).
+    pub ignored: bool,
+    /// A pixel-derived contour was approximated by the object's frame path.
+    pub approximated: bool,
 }
 
 impl ComposedFrame {
@@ -670,6 +682,8 @@ struct FlowSource<'a> {
     plan: &'a crate::hyphenation::BreakPlan,
     hyphens: hyphenation_flow::History,
     denied_hyphen_words: &'a [std::ops::Range<usize>],
+    /// Objects wrapping text in the frame being filled.
+    wrap: Option<&'a crate::text_wrap::WrapField>,
 }
 
 impl FlowSource<'_> {
@@ -897,6 +911,7 @@ fn compose_thread_plain(
                 consumed_to: 0,
                 passed_on: false,
                 lost: false,
+                wrap: Default::default(),
             })
             .collect();
         return out;
@@ -931,6 +946,7 @@ fn compose_thread_plain(
         plan,
         hyphens: Default::default(),
         denied_hyphen_words: &[],
+        wrap: None,
     };
     let mut split_notes = source
         .notes
@@ -1001,6 +1017,7 @@ fn compose_thread_plain(
             number: doc.page_number_value(page),
         };
         let grid = BaselineGrid::for_frame(doc, *object, page);
+        let frame_wrap = crate::text_wrap::WrapField::for_frame(doc, *object, page);
         if skip_page == Some(page_key) {
             let pending = has_content && cursor < total
                 || split_notes
@@ -1016,6 +1033,7 @@ fn compose_thread_plain(
                 consumed_to: cursor.min(text_end),
                 passed_on: pending && !is_last && threads,
                 lost: pending && (is_last || !threads),
+                wrap: Default::default(),
             });
             // A destination request cannot bypass a frame that terminates the
             // thread. Its empty tail ports stay addressable below as usual.
@@ -1081,6 +1099,13 @@ fn compose_thread_plain(
                 consumed_to: cursor.min(text_end),
                 passed_on: overflowed && !is_last && threads,
                 lost: overflowed && (is_last || !threads),
+                // Text on a path is not wrapped; say so when an object reaches it.
+                wrap: WrapOutcome {
+                    ignored: frame_wrap
+                        .as_ref()
+                        .is_some_and(|field| field.affects(*bounds)),
+                    approximated: false,
+                },
             });
             if !overflowed || !threads {
                 break;
@@ -1112,6 +1137,7 @@ fn compose_thread_plain(
             let source = FlowSource {
                 denied_hyphen_words: &denied,
                 hyphens,
+                wrap: frame_wrap.as_ref(),
                 ..source
             };
             let mut available = bounds.inset(insets.resolve());
@@ -1344,6 +1370,13 @@ fn compose_thread_plain(
             consumed_to,
             passed_on: overflowed && !is_last && threads,
             lost: overflowed && (is_last || !threads),
+            wrap: frame_wrap
+                .as_ref()
+                .map(|field| WrapOutcome {
+                    ignored: field.ignored(),
+                    approximated: field.approximated(),
+                })
+                .unwrap_or_default(),
         });
         if !overflowed || !threads {
             break;
@@ -1360,6 +1393,7 @@ fn compose_thread_plain(
             consumed_to: cursor.min(text_end),
             passed_on: false,
             lost: false,
+            wrap: Default::default(),
         });
     }
     crate::list_composition::insert_markers(source.markers, &mut out);
@@ -1880,17 +1914,47 @@ fn fill_column(
                 writing: spec.writing_mode,
                 absolute: spec.has_absolute_leading(),
             };
-            let (top, advance) = grid_position(
-                grid,
-                column.y + used,
-                flow,
-                lines.last().map(PreviousLine::from_line),
-            );
+            let previous = lines.last().map(PreviousLine::from_line);
+            let (mut top, mut advance) = grid_position(grid, column.y + used, flow, previous);
+            // A blank line also skips bands an object leaves no room in, and
+            // sits in the first free interval of the band it reaches.
+            let mut interval = None;
+            if let Some(field) = source
+                .wrap
+                .filter(|field| field.affects(column) && !spec.writing_mode.is_vertical())
+            {
+                let mut request = column.y + used;
+                let mut stopped = true;
+                for _ in 0..100_000 {
+                    if top + flow.height > column.bottom() {
+                        break;
+                    }
+                    match field.row(top, flow.height, column.x, column.right(), 0.0) {
+                        crate::text_wrap::Row::Stop => break,
+                        crate::text_wrap::Row::Blocked { resume } => {
+                            request += resume_top(field, top, resume, advance) - top;
+                            (top, advance) = grid_position(grid, request, flow, previous);
+                        }
+                        crate::text_wrap::Row::Segments(segments) => {
+                            interval = segments.first().copied();
+                            stopped = false;
+                            break;
+                        }
+                    }
+                }
+                if stopped {
+                    break;
+                }
+            }
             if top + flow.height > column.bottom() {
                 break;
             }
             flow.advance = advance;
             let mut line = break_line(story, doc, &column, block, top, flow);
+            if let Some((a, b)) = interval {
+                line.bounds.x = a;
+                line.bounds.width = b - a;
+            }
             if paragraph.list.active() && block.paragraph_start == Some(block.start) {
                 if let Some(marker) = source.markers.get(block.start) {
                     let body = marker.body_start(column.x, &paragraph);
@@ -2116,6 +2180,29 @@ fn place_block(
         start: block.start + prefix,
         ..block.clone()
     };
+    if let Some(field) = source.wrap.filter(|field| field.affects(column)) {
+        // Initials and generated markers reserve their own geometry, and
+        // vertical columns use logical axes; neither is wrapped yet.
+        if spec.writing_mode.is_vertical() || opening.is_some() || marker.is_some() {
+            field.note_ignored();
+        } else {
+            return place_wrapped(
+                source,
+                &body,
+                &spec,
+                WrapPlacement {
+                    paragraph: &paragraph,
+                    column,
+                    space,
+                    grid,
+                    field,
+                    first,
+                    reverse,
+                    automatic_word,
+                },
+            );
+        }
+    }
     let mut all = schist_text_engine::line_spans_with_measures(
         &spec,
         &[
@@ -2287,6 +2374,277 @@ fn place_block(
     let consumed_to = all
         .get(count)
         .map_or(block.end, |next| body.start + next.start);
+    Placed { lines, consumed_to }
+}
+
+struct WrapPlacement<'a> {
+    paragraph: &'a ResolvedParagraph,
+    column: Rect,
+    space: PlacementSpace,
+    grid: Option<BaselineGrid>,
+    field: &'a crate::text_wrap::WrapField,
+    first: bool,
+    reverse: bool,
+    automatic_word: bool,
+}
+
+/// One engine line's planned place: a free interval of a line band.
+#[derive(Clone, Copy, PartialEq)]
+struct Slot {
+    top: Pt,
+    advance: Pt,
+    rect: Rect,
+    /// An obstacle narrowed this interval: a line may never overflow it.
+    cut: bool,
+}
+
+/// A band interval a line could not fit, skipped when the plan is redone.
+#[derive(Clone, Copy)]
+struct Skipped {
+    top: Pt,
+    left: Pt,
+    right: Pt,
+}
+
+/// At most this many narrow intervals are skipped per paragraph before the
+/// paragraph is left to the next column instead.
+const MAX_SKIPPED: usize = 64;
+
+/// The next band position after a blocked one: the obstacle's bottom, or with
+/// AbutTextToTextWrap the first whole leading increment reaching it.
+fn resume_top(field: &crate::text_wrap::WrapField, placed: Pt, resume: Pt, advance: Pt) -> Pt {
+    let target = if field.abut() && advance > 0.01 {
+        placed + ((resume - placed) / advance - 0.00001).ceil().max(1.0) * advance
+    } else {
+        resume
+    };
+    target.max(placed + 0.01)
+}
+
+/// Plan every free interval from the paragraph's top to the column bottom.
+/// Intervals sharing a band share its top; each takes one engine line.
+fn plan_slots(
+    placement: &WrapPlacement<'_>,
+    flows: &[LineFlow],
+    first: Rect,
+    normal: Rect,
+    skipped: &[Skipped],
+) -> Vec<Slot> {
+    use crate::text_wrap::Row;
+    let field = placement.field;
+    let bottom = placement.space.top + placement.space.height;
+    let minimum = flows.first().map_or(1.0, |flow| flow.height.max(1.0));
+    let mut out: Vec<Slot> = Vec::new();
+    let mut top = placement.space.top;
+    let mut previous = placement.space.previous;
+    for _ in 0..100_000 {
+        let index = out.len();
+        let Some(&flow) = flows.get(index).or(flows.last()) else {
+            break;
+        };
+        let (placed, advance) = grid_position(placement.grid, top, flow, previous);
+        if placed + flow.height > bottom + 0.001 {
+            break;
+        }
+        let base = if index == 0 { first } else { normal };
+        match field.row(placed, flow.height, base.x, base.right(), minimum) {
+            Row::Stop => break,
+            Row::Blocked { resume } => {
+                top += resume_top(field, placed, resume, advance) - placed;
+            }
+            Row::Segments(mut segments) => {
+                segments.retain(|(a, b)| {
+                    !skipped.iter().any(|skip| {
+                        (skip.top - placed).abs() < 0.5 && *a < skip.right && *b > skip.left
+                    })
+                });
+                if segments.is_empty() {
+                    // Every interval here was too narrow for its line.
+                    top += resume_top(field, placed, placed + 1.0, advance) - placed;
+                    continue;
+                }
+                if placement.reverse {
+                    segments.reverse();
+                }
+                let height = (index..index + segments.len())
+                    .map(|i| {
+                        flows
+                            .get(i)
+                            .or(flows.last())
+                            .map_or(flow.height, |f| f.height)
+                    })
+                    .fold(flow.height, Pt::max);
+                for (a, b) in segments {
+                    out.push(Slot {
+                        top: placed,
+                        advance,
+                        rect: Rect::new(a, normal.y, b - a, normal.height),
+                        cut: a > base.x + 0.01 || b < base.right() - 0.01,
+                    });
+                }
+                previous = Some(PreviousLine {
+                    baseline: placed + flow.ascent,
+                    advance,
+                    height,
+                    bottom: placed + height,
+                });
+                top = placed + height;
+            }
+        }
+    }
+    out
+}
+
+/// Place one paragraph around text-wrap obstacles. Each free interval of a
+/// band becomes one engine measure, so the existing line breaker fills both
+/// sides of an object in reading order. Line heights feed back into the bands;
+/// the plan is refined until the heights it assumed are the heights composed.
+/// An interval narrowed by an obstacle that its line cannot fit (a word wider
+/// than the room beside or inside an outline) is skipped and the plan redone,
+/// so text never overflows into a wrap.
+fn place_wrapped(
+    source: &FlowSource<'_>,
+    body: &Block,
+    spec: &TextSpec,
+    placement: WrapPlacement<'_>,
+) -> Placed {
+    use crate::text_wrap::Row;
+    let paragraph = placement.paragraph;
+    let column = placement.column;
+    let reverse = placement.reverse;
+    let normal = line_measure(paragraph, column, false, None, reverse);
+    let first = line_measure(paragraph, column, placement.first, None, reverse);
+    let empty = Placed {
+        lines: Vec::new(),
+        consumed_to: body.start,
+    };
+    // The first plan assumes every line is as tall as the paragraph's first
+    // character; refinement corrects mixed sizes. Shaping the whole paragraph
+    // unwrapped just to estimate heights would double the cost of wrapping.
+    let sample_end = spec
+        .text
+        .char_indices()
+        .nth(1)
+        .map_or(spec.text.len(), |(at, _)| at);
+    if sample_end == 0 {
+        return empty;
+    }
+    let Some(metrics) = schist_text_engine::measure(&slice_spec(spec, 0, sample_end)) else {
+        return empty;
+    };
+    let mut flows = vec![LineFlow {
+        ascent: metrics.first_baseline,
+        height: metrics.height,
+        advance: metrics.line_advance,
+        writing: spec.writing_mode,
+        absolute: spec.has_absolute_leading(),
+    }];
+    let mut slots = Vec::new();
+    let mut spans = Vec::new();
+    let mut skipped = Vec::new();
+    loop {
+        for _ in 0..8 {
+            slots = plan_slots(&placement, &flows, first, normal, &skipped);
+            let mut measures: Vec<_> = slots
+                .iter()
+                .map(|slot| inline_measure(slot.rect, column, reverse))
+                .collect();
+            // Lines past the plan only measure what is overset.
+            measures.push(inline_measure(normal, column, reverse));
+            spans = schist_text_engine::line_spans_with_measures(spec, &measures);
+            let next: Vec<LineFlow> = spans
+                .iter()
+                .map(|span| LineFlow::from_span(span, spec))
+                .collect();
+            let settled = (0..slots.len().min(next.len())).all(|i| {
+                flows.get(i).or(flows.last()).is_some_and(|a| {
+                    let b = next[i];
+                    (a.height - b.height).abs() < 0.001
+                        && (a.ascent - b.ascent).abs() < 0.001
+                        && (a.advance - b.advance).abs() < 0.001
+                })
+            });
+            flows = next;
+            if settled {
+                break;
+            }
+        }
+        let overflow = spans
+            .iter()
+            .zip(&slots)
+            .find(|(span, slot)| slot.cut && span.width > slot.rect.width + 0.001);
+        match overflow {
+            Some((_, slot)) if skipped.len() < MAX_SKIPPED => skipped.push(Skipped {
+                top: slot.top,
+                left: slot.rect.x,
+                right: slot.rect.right(),
+            }),
+            _ => break,
+        }
+    }
+    let bottom = placement.space.top + placement.space.height;
+    let mut count = 0;
+    for (index, (span, slot)) in spans.iter().zip(&slots).enumerate() {
+        if span.width > slot.rect.width + 0.001
+            && (slot.cut
+                || spec
+                    .inline_objects
+                    .iter()
+                    .any(|object| object.start < span.end && object.end > span.start)
+                || placement.automatic_word
+                || spec.text[span.start..span.end].contains('\t')
+                || spec.text[span.start..span.end]
+                    .char_indices()
+                    .any(|(at, _)| spec.no_break_at(span.start + at)))
+        {
+            break;
+        }
+        if slot.top + span.height > bottom + 0.001 {
+            break;
+        }
+        // Never place a line into a band its actual height no longer leaves
+        // free; an unsettled plan stops here instead of overlapping an object.
+        let base = if index == 0 { first } else { normal };
+        let free = match placement
+            .field
+            .row(slot.top, span.height, base.x, base.right(), 0.0)
+        {
+            Row::Segments(segments) => segments
+                .iter()
+                .any(|(a, b)| *a <= slot.rect.x + 0.01 && *b >= slot.rect.right() - 0.01),
+            _ => false,
+        };
+        if !free {
+            break;
+        }
+        count += 1;
+    }
+    let count = paragraph.keeps.fitting_lines(count, spans.len());
+    if count == 0 {
+        return empty;
+    }
+    let lines = spans[..count]
+        .iter()
+        .zip(&slots)
+        .enumerate()
+        .map(|(i, (span, slot))| {
+            line_at(
+                source,
+                body,
+                span,
+                LinePlacement {
+                    bounds: Rect::new(slot.rect.x, slot.top, slot.rect.width, span.height),
+                    advance: slot.advance,
+                    inline_origin: ruler_origin(column, reverse),
+                    is_paragraph_end: i + 1 == spans.len(),
+                    drop_cap: false,
+                },
+            )
+        })
+        .collect();
+    let consumed_to = spans
+        .get(count)
+        .map_or(body.end, |next| body.start + next.start);
     Placed { lines, consumed_to }
 }
 

@@ -14,6 +14,7 @@ fn flattened_groups_inherit_visibility_and_nearest_layer_through_repeated_saves(
                         name: format!("Layer {id}"),
                         visible: id != 1,
                         locked: false,
+                        ignore_wrap: false,
                     })
                     .collect();
                 doc.stories.push(Story::from_text("Visible text", "Body"));

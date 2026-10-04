@@ -351,6 +351,7 @@ impl NoteFlow {
             plan: &self.plan,
             hyphens: start.hyphens,
             denied_hyphen_words: &[],
+            wrap: None,
         };
         let bounds = Rect::new(0.0, 0.0, area.width, area.height);
         let (mut lines, mut next) =
@@ -446,6 +447,7 @@ impl NoteFlow {
                 consumed_to: consumed,
                 passed_on: false,
                 lost: false,
+                wrap: Default::default(),
             }],
         };
         crate::list_composition::insert_markers(&self.markers, &mut thread);

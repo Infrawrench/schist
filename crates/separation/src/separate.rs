@@ -225,6 +225,18 @@ fn layout_report(
                     ),
                 );
             }
+            if frame.wrap.ignored {
+                report.add(
+                    crate::report::Severity::Warning,
+                    schist_i18n::tf!("design.preflight_wrap_ignored", name = object.name),
+                );
+            }
+            if frame.wrap.approximated {
+                report.add(
+                    crate::report::Severity::Warning,
+                    schist_i18n::tf!("design.preflight_wrap_approximated", name = object.name),
+                );
+            }
             let (counters, paragraphs) = counters.entry(story_id).or_insert_with(|| {
                 (
                     schist_layout::list_counters::StoryCounters::new(doc, story),

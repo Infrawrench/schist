@@ -1,5 +1,13 @@
 # Translation refresh status
 
+## October 4, 2026: text wrap
+
+Text wrap adds 21 short keys as English placeholders in all 150 catalogs: the
+compact wrap controls (five modes, ignore, offset, inside-outline toggle, side and
+its six choices), two text-preference toggles, an IDML import diagnostic and two
+Preflight warnings. Every value stays under the strict audit's seven-word limit,
+so no deferral entry was added. No locale was added.
+
 ## October 4, 2026: chapter-number variables
 
 The Text Variables window adds five short labels as English placeholders in

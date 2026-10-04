@@ -85,6 +85,8 @@ pub fn read(
             document.footnotes = crate::footnote_codec::read(prefs, colors, refs, report);
         }
         if let Some(prefs) = root.find("TextPreference") {
+            document.text_wrap_preferences =
+                crate::text_wrap_codec::read_preferences(prefs, report);
             let text = &mut document.styles.text_preferences;
             for (key, target, range) in [
                 ("SmallCap", &mut text.small_cap_size, 1.0..=200.0),
@@ -336,6 +338,9 @@ pub fn preferences(document: &LayoutDocument, warnings: &mut Vec<String>) -> Str
         };
         out.push_str(&format!(r#" {key}="{}""#, number(value)));
     }
+    out.push_str(&crate::text_wrap_codec::preference_attributes(
+        &document.text_wrap_preferences,
+    ));
     out.push_str(" />");
     if let Some(chapter) = &document.chapter_numbering {
         out.push_str(&chapter_numbering_xml(chapter));

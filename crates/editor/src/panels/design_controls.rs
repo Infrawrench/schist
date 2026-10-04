@@ -440,6 +440,7 @@ pub(super) fn control_panel(
             );
         }
     }
+    rows.extend(super::design_wrap::rows(ws, cx));
     rows.extend(super::object_styles::selection_paint(ws, cx));
     Some(
         div()
@@ -1206,6 +1207,34 @@ pub(super) fn character_panel(
             Target::TextPreferences,
             cx,
         ));
+    }
+    let wrap = ws.design.document.text_wrap_preferences;
+    for (beneath, label, checked) in [
+        (true, "design.wrap_only_beneath", wrap.only_beneath),
+        (false, "design.wrap_abut", wrap.abut),
+    ] {
+        rows.push(
+            ui::checkbox(
+                t(label).to_string(),
+                checked,
+                move |ws, _| {
+                    ws.commit_focused_field();
+                    let mut preferences = ws.design.document.text_wrap_preferences;
+                    if beneath {
+                        preferences.only_beneath = !preferences.only_beneath;
+                    } else {
+                        preferences.abut = !preferences.abut;
+                    }
+                    schist_layout::text_wrap::set_preferences(
+                        &mut ws.design.document,
+                        &mut ws.design.history,
+                        preferences,
+                    );
+                },
+                cx,
+            )
+            .into_any_element(),
+        );
     }
     let resolved = ws.design.document.styles.resolve_character(&name);
     let buttons = [

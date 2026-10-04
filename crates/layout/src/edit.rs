@@ -820,6 +820,7 @@ fn apply_settings(doc: &mut LayoutDocument, snapshot: &SettingsSnapshot) {
     if let Ok(manager) = serde_json::from_value(snapshot.ink_manager.clone()) {
         doc.ink_manager = manager;
     }
+    doc.text_wrap_preferences = snapshot.text_wrap_preferences;
 }
 
 /// Snapshot the document-wide settings.
@@ -834,6 +835,7 @@ pub fn snapshot_settings(doc: &LayoutDocument) -> SettingsSnapshot {
         default_character_style: doc.default_character_style.clone(),
         grids: serde_json::to_value(&doc.grids).unwrap_or(serde_json::Value::Null),
         ink_manager: serde_json::to_value(&doc.ink_manager).unwrap_or(serde_json::Value::Null),
+        text_wrap_preferences: doc.text_wrap_preferences,
     }
 }
 

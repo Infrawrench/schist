@@ -100,7 +100,7 @@ pub fn read_package(opened: &DesignPackage<'_>) -> Result<Imported, Error> {
         crate::text_variable_codec::read(opened, &variables, &mut report)?;
     document.text_variables = variables.definitions;
     document.styles.numbering_lists = crate::list_codec::read_resources(opened, &mut report)?;
-    let layers = read_layers(opened, &mut document)?;
+    let layers = read_layers(opened, &mut document, &mut report)?;
     let mut style_roots = Vec::new();
     for part in opened.listed.iter().filter(|part| part.role == "Styles") {
         let root = xml::parse(opened.text_of(&part.name)?).map_err(|message| Error::Xml {
@@ -630,6 +630,15 @@ fn placed_object(
         colors,
         report,
     );
+    placed.appearance.text_wrap = crate::text_wrap_codec::read(element, &placed.name, report);
+    placed.appearance.ignore_wrap =
+        matches!(
+            placed.object,
+            LayoutObject::TextFrame {
+                text_path: None,
+                ..
+            }
+        ) && crate::text_wrap_codec::ignores(element, &placed.name, report);
     Some(placed)
 }
 
@@ -1151,6 +1160,7 @@ fn on_layer(
 fn read_layers(
     opened: &DesignPackage<'_>,
     document: &mut LayoutDocument,
+    report: &mut Report,
 ) -> Result<Vec<(String, schist_layout::LayerId)>, Error> {
     let root = xml::parse(opened.text_of(&opened.root)?).map_err(|message| Error::Xml {
         part: opened.root.clone(),
@@ -1175,12 +1185,14 @@ fn read_layers(
         let name = element.attr("Name").unwrap_or_default().to_owned();
         let visible = element.boolean("Visible") != Some(false);
         let locked = element.boolean("Locked") == Some(true);
-        if !name.is_empty() || !visible || locked {
+        let ignore_wrap = crate::text_wrap_codec::layer_ignores(element, &name, report);
+        if !name.is_empty() || !visible || locked || ignore_wrap {
             properties.push(schist_layout::LayoutLayer {
                 id,
                 name,
                 visible,
                 locked,
+                ignore_wrap,
             });
         }
     }

@@ -9,11 +9,10 @@ its latest checkpoint for work on another machine.
 Branch: `design-tab-leaders`. Existing draft PR:
 https://github.com/Infrawrench/schist/pull/195
 
-The latest commit adds native page numbers, section markers and chapter-number
-variables, and fixes closing a window with unsaved Design changes. It follows
+The latest commit adds text wrap. It follows `550ba45f` (native page numbers,
+section markers, chapter-number variables and the unsaved-close fix),
 `021e3bbd` (last-page-number variables) and `aaad6dc0` (custom-variable
-authoring), whose interrupted validation was completed on this Windows machine.
-Fetch the branch head.
+authoring). Fetch the branch head.
 
 ## Current work
 
@@ -34,33 +33,43 @@ for last page numbers. Two icons insert a current page number or section marker
 at the captured cursor. Current page numbers and markers use the same page
 context; next/previous page numbers save natively but stay diagnosed.
 
+Text wrap is modeled per page item (`ObjectAppearance.text_wrap`), per text
+frame (`ignore_wrap`), per layer (`LayoutLayer.ignore_wrap`) and per document
+(`text_wrap_preferences`), and interchanges with IDML TextWrapPreference,
+IgnoreWrap and the TextPreference wrap attributes. Horizontal text composes
+around bounding boxes, contours, jump-object and next-column wraps, with sides,
+spine sides, inverse outlines, offsets, rotated/skewed frames and spread
+artwork crossing the gutter. Each free interval of a line band is one measure for
+the per-line measure engine. Vertical text, initials, list markers and path text
+compose unwrapped with a Preflight warning; pixel contours use the item outline
+with a Preflight warning. The Control panel shows five mode icons, an ignore-wrap
+toggle for text frames, a uniform offset, an inside-outline toggle and a side
+dropdown; Text Preferences carries the two document toggles. The canvas draws a
+dashed boundary for selected box-shaped wraps.
+
 Key files:
 
-- `crates/layout/src/text_variables.rs`: model, validation and `last_page_value`.
-- `crates/layout/src/compose.rs`, `footnote_composition.rs`: page context for projection.
-- `crates/codec-idml/src/custom_text_codec.rs`: PageNumberVariablePreference subset.
-- `crates/editor/src/design/text_variables.rs`: compact modeless window.
-- `crates/app/src/lib.rs`: tool windows close with the main window.
-- `crates/layout/tests/last_page_variables.rs`, `crates/codec-idml/tests/last_page_variables.rs`,
-  `crates/separation/examples/support/text_variables.rs`: properties and proof.
+- `crates/layout/src/text_wrap.rs`: model, band geometry and undoable edits.
+- `crates/layout/src/compose.rs`: `place_wrapped`, `plan_slots`, blank lines.
+- `crates/codec-idml/src/text_wrap_codec.rs`: native read/write.
+- `crates/editor/src/panels/design_wrap.rs`: compact controls.
+- `crates/layout/tests/text_wrap.rs`, `crates/codec-idml/tests/text_wrap.rs`,
+  `crates/separation/tests/text_wrap.rs`: geometry, interchange and plate ink.
 
 ## Continue in roadmap order
 
-Next: text wrap. Nothing models TextWrapPreference yet, and every public fixture
-uses TextWrapMode="None". The pinned paged-media `text-wrap` sample's native PDF
-never reaches its obstacles, so it shows no wrap geometry; its anchored sample
-wraps a host story around an anchored frame once anchored objects exist. Follow
-Adobe's published wrap documentation and record inferences. The engine already
-composes paragraphs from per-line inline measures (`line_spans_with_measures`),
-as drop caps do; a row split around an object becomes consecutive measures that
-share a top. The same per-line band machinery serves text in shaped frames.
+Next: text in shaped frames. A text frame's non-rectangular outline
+(`appearance.outline`, currently composed as its rectangle with the
+`design.idml_curved_text_flow` diagnostic) is an inverse wrap of the frame's own
+outline inset by its single inset value, so it can reuse `WrapField` bands.
 
 Also open: Schist writes unstyled runs as `CharacterStyle/$ID/` instead of
-`[No character style]` (pre-existing, affects all text); file-name, date and
-running-header variables; next/previous page numbers; note-body variables;
-active initial/nested-rule combinations; Story Editor cursor integration; tables,
-anchored/inline objects and the other item 9 gaps listed in the roadmap.
-Production INDD remains gated on Phase 0.
+`[No character style]` and does not define the `[No …style]` roots in Styles.xml
+(pre-existing, affects all text); object-style text-wrap categories; wrap for
+anchored/inline objects, vertical text, initials and markers; a layer IgnoreWrap
+control; file-name, date and running-header variables; next/previous page numbers;
+note-body variables; tables, anchored/inline objects and the other item 9 gaps
+listed in the roadmap. Production INDD remains gated on Phase 0.
 
 ## Working constraints
 
@@ -100,22 +109,29 @@ Production INDD remains gated on Phase 0.
   Schist are in `C:\afprobe\schist-qa.ps1`; `target/design-ui/qa-win/launch.ps1`
   starts a binary with Design enabled and HOME, USERPROFILE, APPDATA, LOCALAPPDATA
   and XDG directories isolated under `target/design-ui/qa-win/`.
+- The console desktop can be shared with other applications being driven at the
+  same time, and the app handles a click only when the next input event arrives.
+  `C:\afprobe\wrap-qa.ps1` withholds input unless Schist is the responding
+  foreground window and nudges the pointer after each action;
+  `C:\afprobe\passive-shot.ps1` opens a document and captures Schist's own window
+  with PrintWindow without sending any input. Prefer passive captures of documents
+  carrying the state under review. PowerShell's built-in `Type` alias shadows
+  functions of that name.
 
 ## Verification at this checkpoint
 
-The latest batch passes the source-frozen sweep of all 16 roadmap targets,
-shared UI, formatting and whitespace (2,120 distinct passing Rust tests, four
-browser checks and eight Python audits). Two post-review fixes re-passed the
-affected targets on the final source (2,122 tests). Details and native review
-results are in Roadmap / Handoff. The two macOS-only editor tests were not compiled here; the next macOS
+The text-wrap batch passes the source-frozen sweep of all 16 roadmap targets,
+headless library wasm, shared UI, formatting, whitespace and the debug app build
+(2,144 distinct passing Rust tests). Details, the two corrections found by
+native review and the review results are in Roadmap / Handoff. The two macOS-only editor tests were not compiled here; the next macOS
 run should include them.
 
 ## Temporary files
 
 Task logs and evidence are under the Git Bash `/tmp` (`C:\Users\Administrator\AppData\Local\Temp`):
 `schist-validate/` (`aaad6dc0` logs, proofs, hashes, native screenshots),
-`schist-sweep/` and `schist-sweep2/` (batch sweep logs, proofs, hashes, native
-screenshots), `schist-wrap-research/` (text-wrap/anchored references) and
+`schist-sweep/` to `schist-sweep5/` (batch sweep logs), `schist-proofs-b3/`
+(text-wrap proof PDFs), `schist-b3/` (review-document generators), `schist-wrap-research/` (text-wrap/anchored references) and
 `schist-variable-research/` (reacquired public specification and paged-media
 reference). They are not needed to continue; regenerate proofs with make and
 reacquire references from the pinned URLs in `docs/idml-format.md`.
@@ -126,9 +142,9 @@ reacquire references from the pinned URLs in `docs/idml-format.md`.
 > https://github.com/Infrawrench/schist/pull/195. Fetch the latest branch head.
 > Read `AGENTS.md` first, then `docs/roadmap.md` in full, then
 > `docs/design-handoff.md`. The roadmap is the plan; do not re-plan from scratch.
-> The latest commit adds page numbers, section markers and chapter-number
-> variables; its full sweep and native review passed on Windows. Continue Phase 3
-> item 9 in roadmap order, starting with text wrap. Implement substantial coherent batches
+> The latest commit adds text wrap; its full sweep and native review passed on
+> Windows. Continue Phase 3 item 9 in roadmap order, starting with text in shaped
+> frames. Implement substantial coherent batches
 > before compiling/testing; use make and `CARGO_INCREMENTAL=0`, test locally, and
 > do not query or wait for CI. Keep Design's LayoutDocument and tools separate from
 > raster Document/ToolPlugin; keep the feature flag false by default; preserve

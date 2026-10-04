@@ -333,6 +333,7 @@ pub fn add_layer(doc: &mut LayoutDocument, history: &mut History, name: String) 
             name,
             visible: true,
             locked: false,
+            ignore_wrap: false,
         });
     })
     .then_some(id)
@@ -358,6 +359,7 @@ pub fn change_layer(
                     name: String::new(),
                     visible: true,
                     locked: false,
+                    ignore_wrap: false,
                 });
                 layers.properties.len() - 1
             });

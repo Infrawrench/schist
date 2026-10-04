@@ -221,11 +221,12 @@ fn write_inner(document: &LayoutDocument, check_identities: bool) -> Written {
     for layer in &document.layers {
         let properties = document.layer_properties.iter().find(|p| p.id == *layer);
         root.push_str(&format!(
-            r#"<Layer Self="SchistLayer{}" Name="{}" Visible="{}" Locked="{}" Printable="true" />"#,
+            r#"<Layer Self="SchistLayer{}" Name="{}" Visible="{}" Locked="{}" IgnoreWrap="{}" Printable="true" />"#,
             layer.0,
             escape(properties.map(|p| p.name.as_str()).unwrap_or_default()),
             document.layer_visible(*layer),
-            document.layer_locked(*layer)
+            document.layer_locked(*layer),
+            document.layer_ignores_wrap(*layer)
         ));
     }
     root.push_str(r#"<idPkg:Graphic src="Resources/Graphic.xml" />"#);
@@ -422,6 +423,7 @@ fn spread_xml(
                 stories,
                 warnings,
             );
+            crate::text_wrap_codec::attach(&mut xml, object);
             crate::creation_codec::label(&mut xml, creation.get(&object.id).copied());
             out.push_str(&xml);
         }
@@ -566,9 +568,14 @@ fn object_native_xml(
             );
             out.push_str(&format!("<Properties>{geometry}</Properties>"));
             out.push_str(&format!(
-                r#"<TextFramePreference TextColumnCount="{columns}" TextColumnGutter="{}" TextColumnMaxWidth="0"{}>"#,
+                r#"<TextFramePreference TextColumnCount="{columns}" TextColumnGutter="{}" TextColumnMaxWidth="0"{}{}>"#,
                 number(*gutter),
-                crate::preferences_codec::balance_attribute(*balance_columns)
+                crate::preferences_codec::balance_attribute(*balance_columns),
+                if object.appearance.ignore_wrap {
+                    " IgnoreWrap=\"true\""
+                } else {
+                    ""
+                }
             ));
             out.push_str(&format!(
                 "<Properties><InsetSpacing type=\"list\">{}</InsetSpacing></Properties>",
@@ -793,13 +800,15 @@ fn master_xml(
             .unwrap_or_default();
         object.bounds.x += origin.x;
         object.bounds.y += origin.y;
-        out.push_str(&object_native_xml(
+        let mut xml = object_native_xml(
             &object,
             document,
             document.object_layer(object.id),
             stories,
             warnings,
-        ));
+        );
+        crate::text_wrap_codec::attach(&mut xml, &object);
+        out.push_str(&xml);
     }
     out.push_str("</MasterSpread></idPkg:MasterSpread>");
     out

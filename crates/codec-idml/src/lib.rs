@@ -56,6 +56,7 @@ mod custom_text_codec;
 mod graphic_codec;
 mod text_path_codec;
 mod text_variable_codec;
+mod text_wrap_codec;
 mod thread_codec;
 
 mod color_codec;
