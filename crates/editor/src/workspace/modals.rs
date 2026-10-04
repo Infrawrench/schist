@@ -809,6 +809,10 @@ impl Workspace {
         if id.starts_with("geotag-") {
             self.update_modal(|m| {
                 super::library_geotag::commit_field(m, id, buffer);
+            });
+            return;
+        }
+        #[cfg(not(target_arch = "wasm32"))]
         if id.starts_with("smart-") {
             self.update_modal(|m| {
                 super::library_smart::commit_field(m, id, buffer);
