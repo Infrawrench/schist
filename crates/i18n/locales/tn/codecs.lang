@@ -40,6 +40,7 @@ codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
 codec.ora.name = OpenRaster
 codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = Faele ya setshwantsho se se nang le dillaga e senyegile kgotsa ga e a felela.
 codec.layered.too_large = Setshwantsho se se nang le dillaga se feta bogolo kgotsa palo ya dillaga e e tshegediwang.
 codec.layered.unsupported = Faele eno e dirisa karolo e e sa tshegediwang: {feature}.
@@ -63,3 +64,8 @@ codec.xcf.feature.floating_selection = tlhopho e e kokobalang ya XCF
 codec.xcf.feature.layer_effects = ditlamorago tsa llaga ya XCF
 codec.xcf.feature.precision = nepagalo ya XCF
 codec.xcf.feature.version = mofuta wa XCF
+
+codec.exr.feature.deep = data e e boteng ya EXR
+codec.exr.feature.subsampled = dikanale tsa EXR tse di nang le disampole tse di kgutshwanyane
+codec.exr.msg.no_channels = Faele ya OpenEXR ga e na dikanale tsa setshwantsho.
+codec.exr.msg.write_failed = Go ne go sa kgonege go kwala faele ya OpenEXR: {error}

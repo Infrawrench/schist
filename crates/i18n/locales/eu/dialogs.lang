@@ -13,6 +13,23 @@ dialog.export.dither = Bilbea
 dialog.export.dither_note = Aplikatu bilbea 8 bitera murriztean
 dialog.export.effort = Ahalegina
 dialog.export.export_ellipsis = Esportatu…
+dialog.export.exr_samples = Laginak
+dialog.export.exr_half = Koma higikor erdia (16 biteko)
+dialog.export.exr_float = Koma higikorra (32 biteko)
+dialog.export.exr_compression = Konpresioa
+dialog.export.exr_compression.none = Bat ere ez
+dialog.export.exr_compression.rle = RLE
+dialog.export.exr_compression.zips = ZIP, eskaneatze-lerro bat
+dialog.export.exr_compression.zip = ZIP, 16 eskaneatze-lerro
+dialog.export.exr_compression.piz = PIZ (uhinxka)
+dialog.export.exr_compression.pxr24 = PXR24 (galerarekin, koma higikorrerako)
+dialog.export.exr_compression.b44 = B44 (galerarekin)
+dialog.export.exr_compression.b44a = B44A (galerarekin)
+dialog.export.exr_layers = Geruzak
+dialog.export.exr_layers_note = Idatzi ikusgai dagoen geruza bakoitza EXR geruza gisa ere
+dialog.export.exr_alpha = Alfa
+dialog.export.exr_alpha_note = Idatzi alfa kanal bat
+dialog.export.exr_linear_note = EXRk argi lineala gordetzen du. 8 edo 16 biteko dokumentu hau bere kolore-profilaren bidez koma higikor lineal gisa deskodetzen da esportatzean.
 
 # Argazkiak prozesatu
 dialog.batch.title = Prozesatu argazkiak

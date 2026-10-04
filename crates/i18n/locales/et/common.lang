@@ -234,6 +234,7 @@ common.filetype.jpeg = JPEG-pilt
 common.filetype.webp = WebP-pilt
 common.filetype.tiff = TIFF-pilt
 common.filetype.heic = HEIC-pilt
+common.filetype.exr = OpenEXR-pilt
 common.filetype.raw = Kaamera toorfail
 common.filetype.affinity = Affinity dokument
 common.filetype.image = Pilt

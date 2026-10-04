@@ -40,6 +40,7 @@ codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
 codec.ora.name = OpenRaster
 codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = ස්තර සහිත රූප ගොනුව හානි වී හෝ අසම්පූර්ණ වී ඇත.
 codec.layered.too_large = ස්තර සහිත රූපය සහාය දක්වන ප්‍රමාණය හෝ ස්තර ගණන ඉක්මවයි.
 codec.layered.unsupported = මෙම ගොනුව සහාය නොදක්වන විශේෂාංගයක් භාවිත කරයි: {feature}.
@@ -63,3 +64,8 @@ codec.xcf.feature.floating_selection = XCF පාවෙන තේරීම
 codec.xcf.feature.layer_effects = XCF ස්තර ප්‍රයෝග
 codec.xcf.feature.precision = XCF නිරවද්‍යතාව
 codec.xcf.feature.version = XCF අනුවාදය
+
+codec.exr.feature.deep = EXR ගැඹුරු දත්ත
+codec.exr.feature.subsampled = EXR උප-නියැදි නාලිකා
+codec.exr.msg.no_channels = OpenEXR ගොනුවේ රූප නාලිකා නොමැත.
+codec.exr.msg.write_failed = OpenEXR ගොනුව ලිවීමට නොහැකි විය: {error}

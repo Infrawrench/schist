@@ -234,6 +234,7 @@ common.filetype.jpeg = JPEG irudia
 common.filetype.webp = WebP irudia
 common.filetype.tiff = TIFF irudia
 common.filetype.heic = HEIC irudia
+common.filetype.exr = OpenEXR irudia
 common.filetype.raw = Raw kamera-irudia
 common.filetype.affinity = Affinity dokumentua
 common.filetype.image = Irudia

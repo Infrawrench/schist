@@ -229,6 +229,7 @@ common.filetype.jpeg = Àwòrán JPEG
 common.filetype.webp = Àwòrán WebP
 common.filetype.tiff = Àwòrán TIFF
 common.filetype.heic = Àwòrán HEIC
+common.filetype.exr = Àwòrán OpenEXR
 common.filetype.raw = Àwòrán fáìlì kamẹ́rà raw
 common.filetype.affinity = Ìwé Affinity
 common.filetype.image = Àwòrán

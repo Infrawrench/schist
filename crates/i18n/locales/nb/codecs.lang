@@ -40,6 +40,7 @@ codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
 codec.ora.name = OpenRaster
 codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = Bildefilen med lag er skadet eller ufullstendig.
 codec.layered.too_large = Bildet med lag overskrider den støttede størrelsen eller antallet lag.
 codec.layered.unsupported = Denne filen bruker en funksjon som ikke støttes: {feature}.
@@ -65,3 +66,8 @@ codec.xcf.feature.floating_selection = Flytende XCF-utvalg
 codec.xcf.feature.layer_effects = XCF-lageffekter
 codec.xcf.feature.precision = XCF-presisjon
 codec.xcf.feature.version = XCF-versjon
+
+codec.exr.feature.deep = EXR-dype data
+codec.exr.feature.subsampled = EXR-underprøvde kanaler
+codec.exr.msg.no_channels = OpenEXR-filen inneholder ingen bildekanaler.
+codec.exr.msg.write_failed = Kunne ikke skrive OpenEXR-filen: {error}

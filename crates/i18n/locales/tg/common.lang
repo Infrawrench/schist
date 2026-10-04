@@ -232,6 +232,7 @@ common.filetype.jpeg = Тасвири JPEG
 common.filetype.webp = Тасвири WebP
 common.filetype.tiff = Тасвири TIFF
 common.filetype.heic = Тасвири HEIC
+common.filetype.exr = Тасвири OpenEXR
 common.filetype.raw = Тасвири хоми камера
 common.filetype.affinity = Ҳуҷҷати Affinity
 common.filetype.image = Тасвир

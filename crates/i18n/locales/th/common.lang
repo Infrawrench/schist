@@ -229,6 +229,7 @@ common.filetype.jpeg = ภาพ JPEG
 common.filetype.webp = ภาพ WebP
 common.filetype.tiff = ภาพ TIFF
 common.filetype.heic = ภาพ HEIC
+common.filetype.exr = ภาพ OpenEXR
 common.filetype.raw = ภาพไฟล์ Raw จากกล้อง
 common.filetype.affinity = เอกสาร Affinity
 common.filetype.image = ภาพ

@@ -234,6 +234,7 @@ common.filetype.jpeg = Tshifanyiso tsha JPEG
 common.filetype.webp = Tshifanyiso tsha WebP
 common.filetype.tiff = Tshifanyiso tsha TIFF
 common.filetype.heic = Tshifanyiso tsha HEIC
+common.filetype.exr = Tshifanyiso tsha OpenEXR
 common.filetype.raw = Tshifanyiso tsha faela mbisi ya khamera
 common.filetype.affinity = Ḽiṅwalo ḽa Affinity
 common.filetype.image = Tshifanyiso

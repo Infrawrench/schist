@@ -39,6 +39,7 @@ codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
 codec.ora.name = OpenRaster
 codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = Plik obrazu z warstwami jest uszkodzony lub niekompletny.
 codec.layered.too_large = Obraz z warstwami przekracza obsługiwany rozmiar lub liczbę warstw.
 codec.layered.unsupported = Ten plik używa nieobsługiwanej funkcji: {feature}.
@@ -64,3 +65,8 @@ codec.xcf.feature.floating_selection = Oderwane zaznaczenie XCF
 codec.xcf.feature.layer_effects = Efekty warstw XCF
 codec.xcf.feature.precision = Precyzja XCF
 codec.xcf.feature.version = Wersja XCF
+
+codec.exr.feature.deep = dane głębokie EXR
+codec.exr.feature.subsampled = kanały z podpróbkowaniem EXR
+codec.exr.msg.no_channels = Plik OpenEXR nie zawiera żadnych kanałów obrazu.
+codec.exr.msg.write_failed = Nie udało się zapisać pliku OpenEXR: {error}

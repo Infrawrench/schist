@@ -232,6 +232,7 @@ common.filetype.jpeg = JPEG चित्रम्
 common.filetype.webp = WebP चित्रम्
 common.filetype.tiff = TIFF चित्रम्
 common.filetype.heic = HEIC चित्रम्
+common.filetype.exr = OpenEXR चित्रम्
 common.filetype.raw = Camera Raw चित्रम्
 common.filetype.affinity = Affinity प्रलेखः
 common.filetype.image = चित्रम्

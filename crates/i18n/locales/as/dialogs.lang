@@ -18,6 +18,23 @@ dialog.export.dither = ডিথাৰ
 dialog.export.dither_note = 8-বিটলৈ হ্ৰাস কৰোঁতে ডিথাৰ কৰক
 dialog.export.effort = প্ৰচেষ্টা
 dialog.export.export_ellipsis = ৰপ্তানি কৰক…
+dialog.export.exr_samples = নমুনা
+dialog.export.exr_half = অৰ্ধ ফ্ল’ট (১৬-বিট)
+dialog.export.exr_float = ফ্ল’ট (৩২-বিট)
+dialog.export.exr_compression = সংকোচন
+dialog.export.exr_compression.none = একো নাই
+dialog.export.exr_compression.rle = RLE
+dialog.export.exr_compression.zips = ZIP, এক স্কেনলাইন
+dialog.export.exr_compression.zip = ZIP, ১৬ স্কেনলাইন
+dialog.export.exr_compression.piz = PIZ (ৱেভলেট)
+dialog.export.exr_compression.pxr24 = PXR24 (ফ্ল’টৰ বাবে ক্ষতিকাৰক)
+dialog.export.exr_compression.b44 = B44 (ক্ষতিকাৰক)
+dialog.export.exr_compression.b44a = B44A (ক্ষতিকাৰক)
+dialog.export.exr_layers = স্তৰসমূহ
+dialog.export.exr_layers_note = প্ৰতিটো দৃশ্যমান স্তৰক EXR স্তৰ হিচাপেও লিখক
+dialog.export.exr_alpha = আলফা
+dialog.export.exr_alpha_note = এটা আলফা চেনেল লিখক
+dialog.export.exr_linear_note = EXR-এ ৰৈখিক পোহৰ সংৰক্ষণ কৰে। এই ৮- বা ১৬-বিট নথিপত্ৰখন ৰপ্তানিৰ সময়ত ইয়াৰ ৰঙৰ প্ৰফাইলৰ জৰিয়তে ৰৈখিক ফ্ল’টলৈ ডিক’ড কৰা হয়।
 
 # Process Photos (the gallery's batch dialog)
 dialog.batch.title = ফটো প্ৰক্ৰিয়াকৰণ

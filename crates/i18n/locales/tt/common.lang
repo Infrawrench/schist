@@ -232,6 +232,7 @@ common.filetype.jpeg = JPEG рәсеме
 common.filetype.webp = WebP рәсеме
 common.filetype.tiff = TIFF рәсеме
 common.filetype.heic = HEIC рәсеме
+common.filetype.exr = OpenEXR рәсеме
 common.filetype.raw = Камераның чимал рәсеме
 common.filetype.affinity = Affinity документы
 common.filetype.image = Рәсем

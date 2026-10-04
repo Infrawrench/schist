@@ -234,6 +234,7 @@ common.filetype.jpeg = ስእሊ JPEG
 common.filetype.webp = ስእሊ WebP
 common.filetype.tiff = ስእሊ TIFF
 common.filetype.heic = ስእሊ HEIC
+common.filetype.exr = ስእሊ OpenEXR
 common.filetype.raw = ጥረ ስእሊ ካሜራ
 common.filetype.affinity = ሰነድ Affinity
 common.filetype.image = ስእሊ

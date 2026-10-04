@@ -241,6 +241,7 @@ common.filetype.jpeg = JPEG-ofbylding
 common.filetype.webp = WebP-ofbylding
 common.filetype.tiff = TIFF-ofbylding
 common.filetype.heic = HEIC-ofbylding
+common.filetype.exr = OpenEXR-ofbylding
 common.filetype.raw = Camera Raw-ofbylding
 common.filetype.affinity = Affinity-dokumint
 common.filetype.image = Ofbylding

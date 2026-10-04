@@ -40,6 +40,7 @@ codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
 codec.ora.name = OpenRaster
 codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = ಲೇಯರ್‌ಗಳಿರುವ ಚಿತ್ರದ ಕಡತವು ಹಾನಿಗೊಂಡಿದೆ ಅಥವಾ ಅಪೂರ್ಣವಾಗಿದೆ.
 codec.layered.too_large = ಲೇಯರ್‌ಗಳಿರುವ ಚಿತ್ರದ ಗಾತ್ರ ಅಥವಾ ಲೇಯರ್‌ಗಳ ಸಂಖ್ಯೆ ಬೆಂಬಲಿತ ಮಿತಿಯನ್ನು ಮೀರಿದೆ.
 codec.layered.unsupported = ಈ ಕಡತವು ಬೆಂಬಲಿಸದ ವೈಶಿಷ್ಟ್ಯವನ್ನು ಬಳಸುತ್ತದೆ: {feature}.
@@ -65,3 +66,8 @@ codec.xcf.feature.floating_selection = XCF ತೇಲುವ ಆಯ್ಕೆ
 codec.xcf.feature.layer_effects = XCF ಲೇಯರ್ ಪರಿಣಾಮಗಳು
 codec.xcf.feature.precision = XCF ನಿಖರತೆ
 codec.xcf.feature.version = XCF ಆವೃತ್ತಿ
+
+codec.exr.feature.deep = EXR ಆಳ ಡೇಟಾ
+codec.exr.feature.subsampled = EXR ಉಪಮಾದರಿ ಚಾನೆಲ್‌ಗಳು
+codec.exr.msg.no_channels = OpenEXR ಕಡತದಲ್ಲಿ ಯಾವುದೇ ಚಿತ್ರ ಚಾನೆಲ್‌ಗಳಿಲ್ಲ.
+codec.exr.msg.write_failed = OpenEXR ಕಡತವನ್ನು ಬರೆಯಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ: {error}

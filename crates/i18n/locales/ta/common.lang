@@ -237,6 +237,7 @@ common.filetype.jpeg = JPEG படம்
 common.filetype.webp = WebP படம்
 common.filetype.tiff = TIFF படம்
 common.filetype.heic = HEIC படம்
+common.filetype.exr = OpenEXR படம்
 common.filetype.raw = Camera Raw படம்
 common.filetype.affinity = Affinity ஆவணம்
 common.filetype.image = படம்

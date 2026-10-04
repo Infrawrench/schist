@@ -40,6 +40,7 @@ codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
 codec.ora.name = OpenRaster
 codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = ไฟล์ภาพที่มีเลเยอร์เสียหายหรือไม่สมบูรณ์
 codec.layered.too_large = ภาพที่มีเลเยอร์มีขนาดหรือจำนวนเลเยอร์เกินขีดจำกัดที่รองรับ
 codec.layered.unsupported = ไฟล์นี้ใช้คุณสมบัติที่ไม่รองรับ: {feature}
@@ -65,3 +66,8 @@ codec.xcf.feature.floating_selection = ส่วนที่เลือกล�
 codec.xcf.feature.layer_effects = เอฟเฟ็กต์เลเยอร์ XCF
 codec.xcf.feature.precision = ความละเอียดของค่าพิกเซล XCF
 codec.xcf.feature.version = เวอร์ชัน XCF
+
+codec.exr.feature.deep = ข้อมูลเชิงลึกของ EXR
+codec.exr.feature.subsampled = ช่องสัญญาณที่สุ่มตัวอย่างย่อยของ EXR
+codec.exr.msg.no_channels = ไฟล์ OpenEXR ไม่มีช่องสัญญาณภาพ
+codec.exr.msg.write_failed = ไม่สามารถเขียนไฟล์ OpenEXR ได้: {error}

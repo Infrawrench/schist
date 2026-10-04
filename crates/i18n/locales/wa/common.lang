@@ -241,6 +241,7 @@ common.filetype.jpeg = Imådje JPEG
 common.filetype.webp = Imådje WebP
 common.filetype.tiff = Imådje TIFF
 common.filetype.heic = Imådje HEIC
+common.filetype.exr = Imådje OpenEXR
 common.filetype.raw = Imådje Camera Raw
 common.filetype.affinity = Documint Affinity
 common.filetype.image = Imådje

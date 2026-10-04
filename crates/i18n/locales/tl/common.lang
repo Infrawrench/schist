@@ -237,6 +237,7 @@ common.filetype.jpeg = Larawang JPEG
 common.filetype.webp = Larawang WebP
 common.filetype.tiff = Larawang TIFF
 common.filetype.heic = Larawang HEIC
+common.filetype.exr = Larawang OpenEXR
 common.filetype.raw = Hilaw na Larawan ng Kamera
 common.filetype.affinity = Dokumentong Affinity
 common.filetype.image = Larawan

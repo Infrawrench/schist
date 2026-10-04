@@ -40,6 +40,7 @@ codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
 codec.ora.name = OpenRaster
 codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = Fáìlì àwòrán onífẹ́lẹ́fẹ́lẹ́ náà ti bàjẹ́ tàbí kò pé.
 codec.layered.too_large = Àwòrán onífẹ́lẹ́fẹ́lẹ́ náà kọjá ìwọ̀n tàbí iye àwọn fẹ́lẹ́fẹ́lẹ́ tí a ṣe àtìlẹ́yìn fún.
 codec.layered.unsupported = Fáìlì yìí ń lo ẹ̀yà tí a kò ṣe àtìlẹ́yìn fún: {feature}.
@@ -65,3 +66,8 @@ codec.xcf.feature.floating_selection = Àṣàyàn líléfòó XCF
 codec.xcf.feature.layer_effects = Àwọn ipa fẹ́lẹ́fẹ́lẹ́ XCF
 codec.xcf.feature.precision = Ìpéye XCF
 codec.xcf.feature.version = Ẹ̀dà XCF
+
+codec.exr.feature.deep = Dátà jíjìn ti EXR
+codec.exr.feature.subsampled = Àwọn ikanni EXR tí a mú àyẹ̀wò díẹ̀ nínú wọn
+codec.exr.msg.no_channels = Fáìlì OpenEXR kò ní ikanni àwòrán kankan.
+codec.exr.msg.write_failed = Kò ṣeé kọ fáìlì OpenEXR: {error}

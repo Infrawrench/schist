@@ -246,6 +246,7 @@ common.filetype.jpeg = JPEG ছবি
 common.filetype.webp = WebP ছবি
 common.filetype.tiff = TIFF ছবি
 common.filetype.heic = HEIC ছবি
+common.filetype.exr = OpenEXR ছবি
 common.filetype.raw = কেমেৰা ৰ' ছবি
 common.filetype.affinity = Affinity দস্তাবেজ
 common.filetype.image = ছবি

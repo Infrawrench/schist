@@ -234,6 +234,7 @@ common.filetype.jpeg = Maghjina JPEG
 common.filetype.webp = Maghjina WebP
 common.filetype.tiff = Maghjina TIFF
 common.filetype.heic = Maghjina HEIC
+common.filetype.exr = Maghjina OpenEXR
 common.filetype.raw = Maghjina RAW
 common.filetype.affinity = Ducumentu Affinity
 common.filetype.image = Maghjina

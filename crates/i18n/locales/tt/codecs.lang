@@ -44,6 +44,7 @@ codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
 codec.ora.name = OpenRaster
 codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = Катламлы рәсем файлы бозылган яки тулы түгел.
 codec.layered.too_large = Катламлы рәсемнең үлчәме яки катламнар саны хупланган чиктән артып китә.
 codec.layered.unsupported = Бу файл хупланмаган мөмкинлекне куллана: {feature}.
@@ -67,3 +68,8 @@ codec.xcf.feature.floating_selection = XCF йөзмә бүленеше
 codec.xcf.feature.layer_effects = XCF катлам эффектлары
 codec.xcf.feature.precision = XCF төгәллеге
 codec.xcf.feature.version = XCF версиясе
+
+codec.exr.feature.deep = EXR тирән мәгълүматлары
+codec.exr.feature.subsampled = EXR субдискретлаштырылган каналлары
+codec.exr.msg.no_channels = OpenEXR файлында рәсем каналлары юк.
+codec.exr.msg.write_failed = OpenEXR файлын язып булмады: {error}

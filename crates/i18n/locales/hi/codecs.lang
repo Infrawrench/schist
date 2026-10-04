@@ -39,6 +39,7 @@ codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
 codec.ora.name = OpenRaster
 codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = लेयर वाली छवि की फ़ाइल क्षतिग्रस्त या अधूरी है।
 codec.layered.too_large = लेयर वाली छवि का आकार या लेयर की संख्या समर्थित सीमा से अधिक है।
 codec.layered.unsupported = यह फ़ाइल एक असमर्थित सुविधा का उपयोग करती है: {feature}।
@@ -64,3 +65,8 @@ codec.xcf.feature.floating_selection = XCF फ़्लोटिंग चयन
 codec.xcf.feature.layer_effects = XCF लेयर प्रभाव
 codec.xcf.feature.precision = XCF परिशुद्धता
 codec.xcf.feature.version = XCF संस्करण
+
+codec.exr.feature.deep = EXR डीप डेटा
+codec.exr.feature.subsampled = EXR सबसैंपल्ड चैनल
+codec.exr.msg.no_channels = OpenEXR फ़ाइल में कोई छवि चैनल नहीं है।
+codec.exr.msg.write_failed = OpenEXR फ़ाइल लिखी नहीं जा सकी: {error}

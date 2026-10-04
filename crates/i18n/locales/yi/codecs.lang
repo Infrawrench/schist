@@ -40,6 +40,7 @@ codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
 codec.ora.name = OpenRaster
 codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = די בילדטעקע מיט שיכטן איז געשעדיקט אָדער אומפֿולשטענדיק.
 codec.layered.too_large = דאָס בילד מיט שיכטן גייט איבער דער געשטיצטער גרייס אָדער צאָל שיכטן.
 codec.layered.unsupported = די טעקע ניצט אַ פֿונקציע וואָס ווערט נישט געשטיצט: {feature}.
@@ -65,3 +66,8 @@ codec.xcf.feature.floating_selection = XCF שוועבנדיקע אויסוואַ
 codec.xcf.feature.layer_effects = XCF שיכט־עפֿעקטן
 codec.xcf.feature.precision = XCF פּינקטלעכקייט
 codec.xcf.feature.version = XCF ווערסיע
+
+codec.exr.feature.deep = EXR טיפֿע דאַטן
+codec.exr.feature.subsampled = EXR אונטער־געמוסטערטע קאַנאַלן
+codec.exr.msg.no_channels = די OpenEXR־טעקע האַלט קיין בילד־קאַנאַלן נישט.
+codec.exr.msg.write_failed = מען האָט נישט געקענט שרײַבן די OpenEXR־טעקע: {error}

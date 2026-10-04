@@ -13,6 +13,23 @@ dialog.export.dither = Rasterje
 dialog.export.dither_note = Rasterje by it ferminderjen nei 8 bit
 dialog.export.effort = Ynspanning
 dialog.export.export_ellipsis = Eksportearje…
+dialog.export.exr_samples = Samples
+dialog.export.exr_half = Heal driuwende komma (16-bit)
+dialog.export.exr_float = Driuwende komma (32-bit)
+dialog.export.exr_compression = Kompresje
+dialog.export.exr_compression.none = Gjin
+dialog.export.exr_compression.rle = RLE
+dialog.export.exr_compression.zips = ZIP, ien scanline
+dialog.export.exr_compression.zip = ZIP, 16 scanlines
+dialog.export.exr_compression.piz = PIZ (wavelet)
+dialog.export.exr_compression.pxr24 = PXR24 (mei ferlies foar driuwende komma)
+dialog.export.exr_compression.b44 = B44 (mei ferlies)
+dialog.export.exr_compression.b44a = B44A (mei ferlies)
+dialog.export.exr_layers = Lagen
+dialog.export.exr_layers_note = Skriuw elke sichtbere laach ek as EXR-laach
+dialog.export.exr_alpha = Alfa
+dialog.export.exr_alpha_note = Skriuw in alfakanaal
+dialog.export.exr_linear_note = EXR bewarret lineair ljocht. Dit 8- of 16-bit dokumint wurdt by it eksportearjen fia syn kleurprofyl dekodearre nei lineêre driuwende komma.
 
 # Foto's ferwurkje
 dialog.batch.title = Foto's ferwurkje

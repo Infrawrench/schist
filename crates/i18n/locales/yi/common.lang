@@ -234,6 +234,7 @@ common.filetype.jpeg = JPEG־בילד
 common.filetype.webp = WebP־בילד
 common.filetype.tiff = TIFF־בילד
 common.filetype.heic = HEIC־בילד
+common.filetype.exr = OpenEXR־בילד
 common.filetype.raw = רוי קאַמעראַ־בילד
 common.filetype.affinity = Affinity־דאָקומענט
 common.filetype.image = בילד

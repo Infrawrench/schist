@@ -243,6 +243,7 @@ common.filetype.jpeg = Imachen JPEG
 common.filetype.webp = Imachen WebP
 common.filetype.tiff = Imachen TIFF
 common.filetype.heic = Imachen HEIC
+common.filetype.exr = Imachen OpenEXR
 common.filetype.raw = Imachen RAW de camera
 common.filetype.affinity = Documento d'Affinity
 common.filetype.image = Imachen

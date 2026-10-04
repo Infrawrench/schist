@@ -41,6 +41,7 @@ codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
 codec.ora.name = OpenRaster
 codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = La dosiero di imajo kun strati esas domajita o nekompleta.
 codec.layered.too_large = La imajo kun strati superas la suportata dimensiono o nombro de strati.
 codec.layered.unsupported = Ca dosiero uzas nesuportata funciono: {feature}.
@@ -66,3 +67,8 @@ codec.xcf.feature.floating_selection = Flotanta selekto XCF
 codec.xcf.feature.layer_effects = Efekti di strati XCF
 codec.xcf.feature.precision = Precizeso XCF
 codec.xcf.feature.version = Versiono XCF
+
+codec.exr.feature.deep = profunda datumi di EXR
+codec.exr.feature.subsampled = subtaksita kanali di EXR
+codec.exr.msg.no_channels = La OpenEXR-dosiero ne havas irga imajala kanalo.
+codec.exr.msg.write_failed = Ne povis skribar la OpenEXR-dosiero: {error}

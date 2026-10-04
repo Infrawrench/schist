@@ -40,6 +40,7 @@ codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
 codec.ora.name = OpenRaster
 codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = Fail imej berlapis rosak atau tidak lengkap.
 codec.layered.too_large = Imej berlapis melebihi saiz atau bilangan lapisan yang disokong.
 codec.layered.unsupported = Fail ini menggunakan ciri yang tidak disokong: {feature}.
@@ -65,3 +66,8 @@ codec.xcf.feature.floating_selection = pemilihan terapung XCF
 codec.xcf.feature.layer_effects = kesan lapisan XCF
 codec.xcf.feature.precision = kejituan XCF
 codec.xcf.feature.version = versi XCF
+
+codec.exr.feature.deep = data dalam EXR
+codec.exr.feature.subsampled = saluran tersubsampel EXR
+codec.exr.msg.no_channels = Fail OpenEXR tidak mengandungi sebarang saluran imej.
+codec.exr.msg.write_failed = Tidak dapat menulis fail OpenEXR: {error}

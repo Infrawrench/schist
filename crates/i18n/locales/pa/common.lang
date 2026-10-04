@@ -234,6 +234,7 @@ common.filetype.jpeg = JPEG ਤਸਵੀਰ
 common.filetype.webp = WebP ਤਸਵੀਰ
 common.filetype.tiff = TIFF ਤਸਵੀਰ
 common.filetype.heic = HEIC ਤਸਵੀਰ
+common.filetype.exr = OpenEXR ਤਸਵੀਰ
 common.filetype.raw = Camera Raw ਤਸਵੀਰ
 common.filetype.affinity = Affinity ਦਸਤਾਵੇਜ਼
 common.filetype.image = ਤਸਵੀਰ

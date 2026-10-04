@@ -39,6 +39,7 @@ codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
 codec.ora.name = OpenRaster
 codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = Kihtidega pildifail on kahjustatud või puudulik.
 codec.layered.too_large = Kihtidega pildi suurus või kihtide arv ületab toetatud piiri.
 codec.layered.unsupported = See fail kasutab toetamata võimalust: {feature}.
@@ -62,3 +63,8 @@ codec.xcf.feature.floating_selection = XCF ujuvalik
 codec.xcf.feature.layer_effects = XCF kihiefektid
 codec.xcf.feature.precision = XCF täpsus
 codec.xcf.feature.version = XCF versioon
+
+codec.exr.feature.deep = EXR-i sügavusandmed
+codec.exr.feature.subsampled = EXR-i alamdiskreeditud kanalid
+codec.exr.msg.no_channels = OpenEXR-faili ei sisalda ühtegi pildikanalit.
+codec.exr.msg.write_failed = OpenEXR-faili kirjutamine ebaõnnestus: {error}

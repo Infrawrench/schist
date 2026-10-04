@@ -238,6 +238,7 @@ common.filetype.jpeg = Imaxe JPEG
 common.filetype.webp = Imaxe WebP
 common.filetype.tiff = Imaxe TIFF
 common.filetype.heic = Imaxe HEIC
+common.filetype.exr = Imaxe OpenEXR
 common.filetype.raw = Imaxe RAW de cámara
 common.filetype.affinity = Documento de Affinity
 common.filetype.image = Imaxe

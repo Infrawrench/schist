@@ -501,6 +501,9 @@ pub struct ExportOptions {
     /// 1..=10: how hard the encoder works for a smaller file, for
     /// formats where that is a choice (JPEG XL, AVIF). Higher is slower.
     pub effort: u8,
+    /// OpenEXR settings; other formats ignore them. The sample type comes
+    /// from `bit_depth`: 32 writes float, anything lower half float.
+    pub exr: ExrExportOptions,
 }
 
 impl Default for ExportOptions {
@@ -510,7 +513,111 @@ impl Default for ExportOptions {
             bit_depth: 8,
             dither: true,
             effort: 7,
+            exr: ExrExportOptions::default(),
         }
+    }
+}
+
+/// OpenEXR block compression offered on export.
+///
+/// The lossy B44 methods only compress half-float channels; float
+/// channels are stored losslessly whichever is chosen. DWAA/DWAB are read
+/// but not offered: the pure-Rust encoder has no writer for them.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Default)]
+pub enum ExrCompression {
+    None,
+    Rle,
+    /// ZIP, one scanline per block.
+    Zips,
+    /// ZIP, sixteen scanlines per block (the common default).
+    #[default]
+    Zip,
+    Piz,
+    Pxr24,
+    B44,
+    B44a,
+}
+
+impl ExrCompression {
+    pub const ALL: [ExrCompression; 8] = [
+        ExrCompression::None,
+        ExrCompression::Rle,
+        ExrCompression::Zips,
+        ExrCompression::Zip,
+        ExrCompression::Piz,
+        ExrCompression::Pxr24,
+        ExrCompression::B44,
+        ExrCompression::B44a,
+    ];
+
+    /// The name OpenEXR tools use, which is also the API spelling.
+    pub fn id(self) -> &'static str {
+        match self {
+            ExrCompression::None => "none",
+            ExrCompression::Rle => "rle",
+            ExrCompression::Zips => "zips",
+            ExrCompression::Zip => "zip",
+            ExrCompression::Piz => "piz",
+            ExrCompression::Pxr24 => "pxr24",
+            ExrCompression::B44 => "b44",
+            ExrCompression::B44a => "b44a",
+        }
+    }
+
+    pub fn from_id(id: &str) -> Option<ExrCompression> {
+        Self::ALL
+            .into_iter()
+            .find(|c| c.id().eq_ignore_ascii_case(id))
+    }
+}
+
+/// How an OpenEXR export is laid out.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct ExrExportOptions {
+    pub compression: ExrCompression,
+    /// Also write each visible pixel layer as its own EXR layer
+    /// (`name.R`, `name.G`, …) beside the flattened image.
+    pub layered: bool,
+    /// Write an alpha channel.
+    pub alpha: bool,
+}
+
+impl Default for ExrExportOptions {
+    fn default() -> Self {
+        ExrExportOptions {
+            compression: ExrCompression::default(),
+            layered: false,
+            alpha: true,
+        }
+    }
+}
+
+impl ExrExportOptions {
+    /// Read `compression`, `layered` and `alpha` from a JSON request (the
+    /// MCP and library export calls), defaulting whatever is absent.
+    pub fn from_json(args: &serde_json::Value) -> Result<Self, String> {
+        let default = Self::default();
+        let compression = match args.get("compression").and_then(|v| v.as_str()) {
+            None => default.compression,
+            Some(id) => ExrCompression::from_id(id).ok_or_else(|| {
+                let known: Vec<&str> = ExrCompression::ALL.iter().map(|c| c.id()).collect();
+                format!(
+                    "unknown EXR compression {id:?}; expected one of {}",
+                    known.join(", ")
+                )
+            })?,
+        };
+        Ok(ExrExportOptions {
+            compression,
+            layered: args
+                .get("layered")
+                .and_then(|v| v.as_bool())
+                .unwrap_or(default.layered),
+            alpha: args
+                .get("alpha")
+                .and_then(|v| v.as_bool())
+                .unwrap_or(default.alpha),
+        })
     }
 }
 

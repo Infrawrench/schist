@@ -43,6 +43,7 @@ codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
 codec.ora.name = OpenRaster
 codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = Datoteka slike sa slojevima je oštećena ili nepotpuna.
 codec.layered.too_large = Slika sa slojevima premašuje podržanu veličinu ili broj slojeva.
 codec.layered.unsupported = Ova datoteka koristi nepodržanu funkciju: {feature}.
@@ -68,3 +69,8 @@ codec.xcf.feature.floating_selection = plutajući odabir XCF
 codec.xcf.feature.layer_effects = efekti sloja XCF
 codec.xcf.feature.precision = preciznost XCF
 codec.xcf.feature.version = verzija XCF
+
+codec.exr.feature.deep = EXR duboki podaci
+codec.exr.feature.subsampled = EXR poduzorkovani kanali
+codec.exr.msg.no_channels = OpenEXR datoteka ne sadrži nijedan kanal slike.
+codec.exr.msg.write_failed = Nije moguće zapisati OpenEXR datoteku: {error}

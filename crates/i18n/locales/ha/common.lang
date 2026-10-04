@@ -243,6 +243,7 @@ common.filetype.jpeg = Hoton JPEG
 common.filetype.webp = Hoton WebP
 common.filetype.tiff = Hoton TIFF
 common.filetype.heic = Hoton HEIC
+common.filetype.exr = Hoton OpenEXR
 common.filetype.raw = Hoton Camera Raw
 common.filetype.affinity = Takardar Affinity
 common.filetype.image = Hoto

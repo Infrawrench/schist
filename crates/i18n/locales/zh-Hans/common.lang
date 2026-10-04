@@ -238,6 +238,7 @@ common.filetype.jpeg = JPEG 图像
 common.filetype.webp = WebP 图像
 common.filetype.tiff = TIFF 图像
 common.filetype.heic = HEIC 图像
+common.filetype.exr = OpenEXR 图像
 common.filetype.raw = 相机原始数据图像
 common.filetype.affinity = Affinity 文档
 common.filetype.image = 图像

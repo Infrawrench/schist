@@ -39,6 +39,7 @@ codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
 codec.ora.name = OpenRaster
 codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = Madåñu pat ti kompletu i file nu i imåhen ni gai layer siha.
 codec.layered.too_large = Mas dångkolo i imåhen pat mas meggai i layer siha ki i siña masuporta.
 codec.layered.unsupported = Ha usa este na file un kualidåt ni ti masuporta: {feature}.
@@ -62,3 +63,8 @@ codec.xcf.feature.floating_selection = pinili' ni må'ya gi XCF
 codec.xcf.feature.layer_effects = efekton layer nu i XCF
 codec.xcf.feature.precision = mina'eksaktu nu i XCF
 codec.xcf.feature.version = betsion nu i XCF
+
+codec.exr.feature.deep = EXR deep na data
+codec.exr.feature.subsampled = EXR subsampled na channel siha
+codec.exr.msg.no_channels = I OpenEXR na file taya' channel imåhen.
+codec.exr.msg.write_failed = Ti siña ma isuyi i OpenEXR na file: {error}

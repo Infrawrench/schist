@@ -39,6 +39,7 @@ codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
 codec.ora.name = OpenRaster
 codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = Tá an comhad íomhá le sraitheanna damáistithe nó neamhiomlán.
 codec.layered.too_large = Sáraíonn an íomhá le sraitheanna an méid nó líon na sraitheanna a dtacaítear leis.
 codec.layered.unsupported = Úsáideann an comhad seo gné nach dtacaítear léi: {feature}.
@@ -64,3 +65,8 @@ codec.xcf.feature.floating_selection = roghnú ar snámh XCF
 codec.xcf.feature.layer_effects = éifeachtaí sraithe XCF
 codec.xcf.feature.precision = beachtas XCF
 codec.xcf.feature.version = leagan XCF
+
+codec.exr.feature.deep = sonraí doimhne EXR
+codec.exr.feature.subsampled = cainéil EXR fho-samplaithe
+codec.exr.msg.no_channels = Níl aon chainéal íomhá sa chomhad OpenEXR.
+codec.exr.msg.write_failed = Níorbh fhéidir an comhad OpenEXR a scríobh: {error}

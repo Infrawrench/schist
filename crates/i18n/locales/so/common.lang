@@ -234,6 +234,7 @@ common.filetype.jpeg = Sawir JPEG
 common.filetype.webp = Sawir WebP
 common.filetype.tiff = Sawir TIFF
 common.filetype.heic = Sawir HEIC
+common.filetype.exr = Sawir OpenEXR
 common.filetype.raw = Sawir Kamerad Cayriin
 common.filetype.affinity = Dukumenti Affinity
 common.filetype.image = Sawir

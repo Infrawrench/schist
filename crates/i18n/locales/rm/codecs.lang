@@ -40,6 +40,7 @@ codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
 codec.ora.name = OpenRaster
 codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = La datoteca da maletg cun stresas è donnegiada u incumpletta.
 codec.layered.too_large = Il maletg cun stresas surpassa la grondezza u il dumber da stresas sustegnids.
 codec.layered.unsupported = Questa datoteca utilisescha ina funcziun betg sustegnida: {feature}.
@@ -63,3 +64,8 @@ codec.xcf.feature.floating_selection = selecziun flotanta XCF
 codec.xcf.feature.layer_effects = effects da stresa XCF
 codec.xcf.feature.precision = precisiun XCF
 codec.xcf.feature.version = versiun XCF
+
+codec.exr.feature.deep = datas profundas EXR
+codec.exr.feature.subsampled = chanals EXR sutscannads
+codec.exr.msg.no_channels = La datoteca OpenEXR na cuntegna nagins chanals d'maletg.
+codec.exr.msg.write_failed = Impussibel da scriver la datoteca OpenEXR: {error}

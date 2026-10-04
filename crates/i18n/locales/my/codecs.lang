@@ -44,6 +44,7 @@ codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
 codec.ora.name = OpenRaster
 codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = အလွှာပါ ပုံဖိုင်သည် ပျက်စီးနေသည် သို့မဟုတ် မပြည့်စုံပါ။
 codec.layered.too_large = အလွှာပါပုံ၏ အရွယ်အစား သို့မဟုတ် အလွှာအရေအတွက်သည် ပံ့ပိုးထားသည့် ကန့်သတ်ချက်ကို ကျော်လွန်နေသည်။
 codec.layered.unsupported = ဤဖိုင်သည် မပံ့ပိုးထားသည့် လုပ်ဆောင်ချက်ကို အသုံးပြုထားသည်- {feature}။
@@ -69,3 +70,8 @@ codec.xcf.feature.floating_selection = XCF မျောနေသော ရွေ
 codec.xcf.feature.layer_effects = XCF အလွှာအထူးပြုလုပ်ချက်များ
 codec.xcf.feature.precision = XCF တိကျမှု
 codec.xcf.feature.version = XCF ဗားရှင်း
+
+codec.exr.feature.deep = EXR နက်ရှိုင်းသောဒေတာ
+codec.exr.feature.subsampled = EXR ဆပ်ဆမ်ပလင်းချန်နယ်များ
+codec.exr.msg.no_channels = OpenEXR ဖိုင်တွင် ပုံချန်နယ်မရှိပါ။
+codec.exr.msg.write_failed = OpenEXR ဖိုင်ကို ရေးမရပါ- {error}

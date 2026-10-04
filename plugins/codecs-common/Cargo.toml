@@ -24,6 +24,7 @@ miniz_oxide.workspace = true
 quick-xml = "0.41"
 flate2 = { version = "1", default-features = false, features = ["rust_backend"] }
 half = "2"
+exr.workspace = true
 sha2 = "0.10"
 schist-color.workspace = true
 schist-colormgmt.workspace = true

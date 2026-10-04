@@ -237,6 +237,7 @@ common.filetype.jpeg = JPEG кескіні
 common.filetype.webp = WebP кескіні
 common.filetype.tiff = TIFF кескіні
 common.filetype.heic = HEIC кескіні
+common.filetype.exr = OpenEXR кескіні
 common.filetype.raw = Camera Raw кескіні
 common.filetype.affinity = Affinity құжаты
 common.filetype.image = Кескін

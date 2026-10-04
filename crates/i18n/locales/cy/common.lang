@@ -263,6 +263,7 @@ common.filetype.jpeg = Delwedd JPEG
 common.filetype.webp = Delwedd WebP
 common.filetype.tiff = Delwedd TIFF
 common.filetype.heic = Delwedd HEIC
+common.filetype.exr = Delwedd OpenEXR
 common.filetype.raw = Delwedd Crai Camera
 common.filetype.affinity = Dogfen Affinity
 common.filetype.image = Delwedd

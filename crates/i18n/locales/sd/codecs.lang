@@ -40,6 +40,7 @@ codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
 codec.ora.name = OpenRaster
 codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = پرتن واري تصوير جو فائيل خراب يا اڻپورو آهي.
 codec.layered.too_large = پرتن واري تصوير جي ماپ يا پرتن جو تعداد سهائتا ڪيل حد کان وڌيڪ آهي.
 codec.layered.unsupported = هي فائيل هڪ اهڙي خصوصيت استعمال ڪري ٿو جنهن جي سهائتا ناهي: {feature}.
@@ -65,3 +66,8 @@ codec.xcf.feature.floating_selection = XCF ترندڙ چونڊ
 codec.xcf.feature.layer_effects = XCF پرت جا اثر
 codec.xcf.feature.precision = XCF درستگي
 codec.xcf.feature.version = XCF ورزن
+
+codec.exr.feature.deep = EXR ڊيپ ڊيٽا
+codec.exr.feature.subsampled = EXR سب‑سيمپل ٿيل چينل
+codec.exr.msg.no_channels = OpenEXR فائيل ۾ ڪو به تصويري چينل ناهي.
+codec.exr.msg.write_failed = OpenEXR فائيل لکي نه سگهيو: {error}

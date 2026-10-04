@@ -162,6 +162,7 @@ pub fn export(registry: &PluginRegistry, document: &Document, extension: &str) -
         "codec.tiff" => "image/tiff",
         "codec.jxl" => "image/jxl",
         "codec.avif" => "image/avif",
+        "codec.exr" => "image/x-exr",
         _ => "application/octet-stream",
     };
     Ok(Export {

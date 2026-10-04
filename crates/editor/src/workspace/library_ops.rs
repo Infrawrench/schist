@@ -959,8 +959,14 @@ fn zip_plan(path: &Path) -> ZipPlan {
         // Unedited: a lossy photo (or a PNG, or a raw) is already
         // exactly what the archive wants, so its bytes go in as they
         // are — re-encoding a JPEG would only lose a second generation,
-        // and a raw developed to PNG would lose the raw.
-        None if lossy || ext == "png" || is_raw(&ext) || schist_gallery::is_video(path) => {
+        // a raw developed to PNG would lose the raw, and an OpenEXR as
+        // an 8-bit PNG would lose everything above white.
+        None if lossy
+            || ext == "png"
+            || ext == "exr"
+            || is_raw(&ext)
+            || schist_gallery::is_video(path) =>
+        {
             ZipPlan {
                 source: path.to_path_buf(),
                 verbatim: true,

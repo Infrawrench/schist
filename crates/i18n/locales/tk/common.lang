@@ -237,6 +237,7 @@ common.filetype.jpeg = JPEG suraty
 common.filetype.webp = WebP suraty
 common.filetype.tiff = TIFF suraty
 common.filetype.heic = HEIC suraty
+common.filetype.exr = OpenEXR suraty
 common.filetype.raw = Kameranyň çig suraty
 common.filetype.affinity = Affinity resminamasy
 common.filetype.image = Surat

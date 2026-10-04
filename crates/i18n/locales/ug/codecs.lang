@@ -40,6 +40,7 @@ codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
 codec.ora.name = OpenRaster
 codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = قەۋەتلىك رەسىم ھۆججىتى بۇزۇلغان ياكى تولۇق ئەمەس.
 codec.layered.too_large = قەۋەتلىك رەسىمنىڭ چوڭلۇقى ياكى قەۋەت سانى قوللايدىغان چەكتىن ئېشىپ كەتتى.
 codec.layered.unsupported = بۇ ھۆججەت قوللىمايدىغان ئىقتىدارنى ئىشلىتىدۇ: {feature}.
@@ -65,3 +66,8 @@ codec.xcf.feature.floating_selection = XCF لەيلىمە تاللىشى
 codec.xcf.feature.layer_effects = XCF قەۋەت ئۈنۈملىرى
 codec.xcf.feature.precision = XCF ئېنىقلىقى
 codec.xcf.feature.version = XCF نەشرى
+
+codec.exr.feature.deep = EXR چوڭقۇر سانلىق مەلۇماتى
+codec.exr.feature.subsampled = EXR تارماق ئەۋرىشكىلىك قانال
+codec.exr.msg.no_channels = OpenEXR ھۆججىتىدە سۈرەت قانىلى يوق.
+codec.exr.msg.write_failed = OpenEXR ھۆججىتىنى يازغىلى بولمىدى: {error}

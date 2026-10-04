@@ -232,6 +232,7 @@ common.filetype.jpeg = Imago JPEG
 common.filetype.webp = Imago WebP
 common.filetype.tiff = Imago TIFF
 common.filetype.heic = Imago HEIC
+common.filetype.exr = Imago OpenEXR
 common.filetype.raw = Imago Cruda Camerae
 common.filetype.affinity = Documentum Affinity
 common.filetype.image = Imago

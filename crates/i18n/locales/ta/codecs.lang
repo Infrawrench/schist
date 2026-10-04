@@ -40,6 +40,7 @@ codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
 codec.ora.name = OpenRaster
 codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = அடுக்குகளைக் கொண்ட படக்கோப்பு சேதமடைந்துள்ளது அல்லது முழுமையற்றது.
 codec.layered.too_large = அடுக்குகளைக் கொண்ட படம் ஆதரிக்கப்படும் அளவு அல்லது அடுக்கு எண்ணிக்கையை மீறுகிறது.
 codec.layered.unsupported = இந்தக் கோப்பு ஆதரிக்கப்படாத அம்சத்தைப் பயன்படுத்துகிறது: {feature}.
@@ -63,3 +64,8 @@ codec.xcf.feature.floating_selection = XCF மிதக்கும் தேர
 codec.xcf.feature.layer_effects = XCF அடுக்கு விளைவுகள்
 codec.xcf.feature.precision = XCF துல்லியம்
 codec.xcf.feature.version = XCF பதிப்பு
+
+codec.exr.feature.deep = EXR ஆழ தரவு
+codec.exr.feature.subsampled = EXR துணை மாதிரி சேனல்கள்
+codec.exr.msg.no_channels = OpenEXR கோப்பில் படச் சேனல்கள் எதுவும் இல்லை.
+codec.exr.msg.write_failed = OpenEXR கோப்பை எழுத முடியவில்லை: {error}

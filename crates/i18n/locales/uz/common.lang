@@ -241,6 +241,7 @@ common.filetype.jpeg = JPEG tasviri
 common.filetype.webp = WebP tasviri
 common.filetype.tiff = TIFF tasviri
 common.filetype.heic = HEIC tasviri
+common.filetype.exr = OpenEXR tasviri
 common.filetype.raw = Camera Raw tasviri
 common.filetype.affinity = Affinity hujjati
 common.filetype.image = Tasvir

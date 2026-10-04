@@ -39,6 +39,7 @@ codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
 codec.ora.name = OpenRaster
 codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = तहयुक्त छवि फाइल बिग्रिएको वा अपूर्ण छ।
 codec.layered.too_large = तहयुक्त छविको आकार वा तहको सङ्ख्या समर्थित सीमाभन्दा बढी छ।
 codec.layered.unsupported = यो फाइलले समर्थन नगरिएको सुविधा प्रयोग गर्छ: {feature}।
@@ -64,3 +65,8 @@ codec.xcf.feature.floating_selection = XCF तैरिने चयन
 codec.xcf.feature.layer_effects = XCF तह प्रभावहरू
 codec.xcf.feature.precision = XCF परिशुद्धता
 codec.xcf.feature.version = XCF संस्करण
+
+codec.exr.feature.deep = EXR डीप डेटा
+codec.exr.feature.subsampled = EXR सबस्याम्पल गरिएका च्यानलहरू
+codec.exr.msg.no_channels = OpenEXR फाइलमा कुनै छवि च्यानल छैन।
+codec.exr.msg.write_failed = OpenEXR फाइल लेख्न सकिएन: {error}

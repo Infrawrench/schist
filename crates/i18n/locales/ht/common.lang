@@ -232,6 +232,7 @@ common.filetype.jpeg = Imaj JPEG
 common.filetype.webp = Imaj WebP
 common.filetype.tiff = Imaj TIFF
 common.filetype.heic = Imaj HEIC
+common.filetype.exr = Imaj OpenEXR
 common.filetype.raw = Imaj kamera anvan tretman
 common.filetype.affinity = Dokiman Affinity
 common.filetype.image = Imaj

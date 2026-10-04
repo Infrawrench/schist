@@ -14,6 +14,23 @@ dialog.export.dither = Litflökt
 dialog.export.dither_note = Nota litflökt þegar fækkað er í 8 bita
 dialog.export.effort = Þjöppunarátak
 dialog.export.export_ellipsis = Flytja út…
+dialog.export.exr_samples = Sýni
+dialog.export.exr_half = Hálf fleytitala (16 bita)
+dialog.export.exr_float = Fleytitala (32 bita)
+dialog.export.exr_compression = Þjöppun
+dialog.export.exr_compression.none = Engin
+dialog.export.exr_compression.rle = RLE
+dialog.export.exr_compression.zips = ZIP, ein skannlína
+dialog.export.exr_compression.zip = ZIP, 16 skannlínur
+dialog.export.exr_compression.piz = PIZ (bylgjuhamur)
+dialog.export.exr_compression.pxr24 = PXR24 (með tapi fyrir fleytitölur)
+dialog.export.exr_compression.b44 = B44 (með tapi)
+dialog.export.exr_compression.b44a = B44A (með tapi)
+dialog.export.exr_layers = Lög
+dialog.export.exr_layers_note = Skrifa einnig hvert sýnilegt lag sem EXR-lag
+dialog.export.exr_alpha = Alfa
+dialog.export.exr_alpha_note = Skrifa alfarás
+dialog.export.exr_linear_note = EXR geymir línulegt ljós. Þetta 8 eða 16 bita skjal er afkóðað í gegnum litasnið sitt yfir í línulega fleytitölu við útflutning.
 
 # Vinna myndir
 dialog.batch.title = Vinna myndir

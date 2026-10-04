@@ -40,6 +40,7 @@ codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
 codec.ora.name = OpenRaster
 codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = A réteges képfájl sérült vagy hiányos.
 codec.layered.too_large = A kép mérete vagy a rétegek száma meghaladja a támogatott határértéket.
 codec.layered.unsupported = Ez a fájl nem támogatott funkciót használ: {feature}.
@@ -65,3 +66,8 @@ codec.xcf.feature.floating_selection = XCF lebegő kijelölés
 codec.xcf.feature.layer_effects = XCF-rétegeffektusok
 codec.xcf.feature.precision = XCF-pontosság
 codec.xcf.feature.version = XCF-verzió
+
+codec.exr.feature.deep = EXR mélységi adatok
+codec.exr.feature.subsampled = EXR alulmintavételezett csatornák
+codec.exr.msg.no_channels = Az OpenEXR-fájl nem tartalmaz képcsatornát.
+codec.exr.msg.write_failed = Nem sikerült megírni az OpenEXR-fájlt: {error}

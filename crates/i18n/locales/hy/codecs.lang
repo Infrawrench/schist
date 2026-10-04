@@ -41,6 +41,7 @@ codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
 codec.ora.name = OpenRaster
 codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = Շերտավոր պատկերի ֆայլը վնասված է կամ թերի։
 codec.layered.too_large = Շերտավոր պատկերի չափը կամ շերտերի քանակը գերազանցում է աջակցվող սահմանը։
 codec.layered.unsupported = Այս ֆայլն օգտագործում է չաջակցվող գործառույթ՝ {feature}։
@@ -66,3 +67,8 @@ codec.xcf.feature.floating_selection = XCF լողացող ընտրություն
 codec.xcf.feature.layer_effects = XCF շերտի էֆեկտներ
 codec.xcf.feature.precision = XCF ճշգրտություն
 codec.xcf.feature.version = XCF տարբերակ
+
+codec.exr.feature.deep = EXR խորքային տվյալներ
+codec.exr.feature.subsampled = EXR ենթադիսկրետացված ալիքներ
+codec.exr.msg.no_channels = OpenEXR ֆայլը պատկերի ալիքներ չի պարունակում։
+codec.exr.msg.write_failed = Չհաջողվեց գրել OpenEXR ֆայլը՝ {error}

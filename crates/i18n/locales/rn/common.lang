@@ -235,6 +235,7 @@ common.filetype.jpeg = Ishusho JPEG
 common.filetype.webp = Ishusho WebP
 common.filetype.tiff = Ishusho TIFF
 common.filetype.heic = Ishusho HEIC
+common.filetype.exr = Ishusho OpenEXR
 common.filetype.raw = Ishusho ya dosiye mbisi
 common.filetype.affinity = Inyandiko ya Affinity
 common.filetype.image = Ishusho

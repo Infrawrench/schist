@@ -229,6 +229,7 @@ common.filetype.jpeg = JPEG 이미지
 common.filetype.webp = WebP 이미지
 common.filetype.tiff = TIFF 이미지
 common.filetype.heic = HEIC 이미지
+common.filetype.exr = OpenEXR 이미지
 common.filetype.raw = Camera Raw 이미지
 common.filetype.affinity = Affinity 문서
 common.filetype.image = 이미지

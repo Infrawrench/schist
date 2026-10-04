@@ -40,6 +40,7 @@ codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
 codec.ora.name = OpenRaster
 codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = Ifayile yomfanekiso onemaleko yonakele okanye ayiphelelanga.
 codec.layered.too_large = Umfanekiso onemaleko udlula ubungakanani okanye inani lemaleko elixhaswayo.
 codec.layered.unsupported = Le fayile isebenzisa uphawu olungaxhaswayo: {feature}.
@@ -63,3 +64,8 @@ codec.xcf.feature.floating_selection = ukhetho oludadayo lwe-XCF
 codec.xcf.feature.layer_effects = iziphumo zomaleko we-XCF
 codec.xcf.feature.precision = ukuchaneka kwe-XCF
 codec.xcf.feature.version = uguqulelo lwe-XCF
+
+codec.exr.feature.deep = idatha enzulu ye-EXR
+codec.exr.feature.subsampled = iziteshi ze-EXR ezincitshiswe
+codec.exr.msg.no_channels = Ifayile ye-OpenEXR ayinazitshaneli zemifanekiso.
+codec.exr.msg.write_failed = Ayikwazanga ukubhala ifayile ye-OpenEXR: {error}

@@ -241,6 +241,7 @@ common.filetype.jpeg = Ekifaananyi kya JPEG
 common.filetype.webp = Ekifaananyi kya WebP
 common.filetype.tiff = Ekifaananyi kya TIFF
 common.filetype.heic = Ekifaananyi kya HEIC
+common.filetype.exr = Ekifaananyi kya OpenEXR
 common.filetype.raw = Ekifaananyi kya kamera ekitannakolebwako
 common.filetype.affinity = Ekiwandiiko kya Affinity
 common.filetype.image = Ekifaananyi

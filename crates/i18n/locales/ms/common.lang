@@ -230,6 +230,7 @@ common.filetype.jpeg = Imej JPEG
 common.filetype.webp = Imej WebP
 common.filetype.tiff = Imej TIFF
 common.filetype.heic = Imej HEIC
+common.filetype.exr = Imej OpenEXR
 common.filetype.raw = Imej Camera Raw
 common.filetype.affinity = Dokumen Affinity
 common.filetype.image = Imej

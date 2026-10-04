@@ -233,6 +233,7 @@ common.filetype.jpeg = JPEG པར།
 common.filetype.webp = WebP པར།
 common.filetype.tiff = TIFF པར།
 common.filetype.heic = HEIC པར།
+common.filetype.exr = OpenEXR པར།
 common.filetype.raw = རཱོ་པར།
 common.filetype.affinity = Affinity ཡིག་ཆ།
 common.filetype.image = པར།

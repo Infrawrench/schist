@@ -58,6 +58,7 @@ codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
 codec.ora.name = OpenRaster
 codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = Tasollinen kuvatiedosto on vioittunut tai puutteellinen.
 codec.layered.too_large = Tasollisen kuvan koko tai tasojen määrä ylittää tuetun rajan.
 codec.layered.unsupported = Tämä tiedosto käyttää ominaisuutta, jota ei tueta: {feature}.
@@ -81,3 +82,8 @@ codec.xcf.feature.floating_selection = kelluva XCF-valinta
 codec.xcf.feature.layer_effects = XCF-tasotehosteet
 codec.xcf.feature.precision = XCF-tarkkuus
 codec.xcf.feature.version = XCF-versio
+
+codec.exr.feature.deep = EXR-syvyysdata
+codec.exr.feature.subsampled = EXR-aliotantakanavat
+codec.exr.msg.no_channels = OpenEXR-tiedosto ei sisällä yhtään kuvakanavaa.
+codec.exr.msg.write_failed = OpenEXR-tiedoston kirjoittaminen epäonnistui: {error}
