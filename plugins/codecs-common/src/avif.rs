@@ -789,6 +789,7 @@ mod tests {
             bit_depth,
             dither: false,
             effort: 1,
+            ..Default::default()
         }
     }
 
