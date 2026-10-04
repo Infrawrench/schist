@@ -516,9 +516,7 @@ fn programs_match_real_layer_styles_masks_and_affine_callers() {
         // The Remove tool's window fill: network, synthesis and seam on
         // the device must match the CPU.
         let model = schist_neural::get("inpaint").unwrap();
-        let buf: Vec<Rgba> = (0..39 * 31)
-            .map(|i| tiles.pixel((i % 39) as i32, (i / 39) as i32))
-            .collect();
+        let buf: Vec<Rgba> = (0..39 * 31).map(|i| tiles.pixel(i % 39, i / 39)).collect();
         let fill = || {
             schist_tools_retouch::remove::fill_hole(
                 schist_tools_retouch::remove::Method::Fill,
