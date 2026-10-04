@@ -20,6 +20,23 @@ dialog.export.dither = ディザ
 dialog.export.dither_note = 8 bit に減色するときにディザを使用
 dialog.export.effort = エフォート
 dialog.export.export_ellipsis = 書き出し…
+dialog.export.exr_samples = サンプル
+dialog.export.exr_half = ハーフフロート（16 ビット）
+dialog.export.exr_float = フロート（32 ビット）
+dialog.export.exr_compression = 圧縮
+dialog.export.exr_compression.none = なし
+dialog.export.exr_compression.rle = RLE
+dialog.export.exr_compression.zips = ZIP（1 スキャンライン）
+dialog.export.exr_compression.zip = ZIP（16 スキャンライン）
+dialog.export.exr_compression.piz = PIZ（ウェーブレット）
+dialog.export.exr_compression.pxr24 = PXR24（フロートは非可逆）
+dialog.export.exr_compression.b44 = B44（非可逆）
+dialog.export.exr_compression.b44a = B44A（非可逆）
+dialog.export.exr_layers = レイヤー
+dialog.export.exr_layers_note = 表示中の各レイヤーも EXR レイヤーとして書き出す
+dialog.export.exr_alpha = アルファ
+dialog.export.exr_alpha_note = アルファチャンネルを書き込む
+dialog.export.exr_linear_note = EXR はリニアライトで保存されます。この 8 ビットまたは 16 ビットのドキュメントは、書き出し時にカラープロファイルを介してリニアフロートにデコードされます。
 
 # 写真を処理（ギャラリーのバッチ処理ダイアログ）
 dialog.batch.title = 写真を処理

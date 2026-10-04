@@ -12,6 +12,23 @@ dialog.export.dither = ડિધર
 dialog.export.dither_note = 8-બિટમાં ઘટાડતી વખતે ડિધર કરો
 dialog.export.effort = પ્રયાસ
 dialog.export.export_ellipsis = એક્સપોર્ટ કરો…
+dialog.export.exr_samples = સેમ્પલ
+dialog.export.exr_half = હાફ ફ્લોટ (16-બિટ)
+dialog.export.exr_float = ફ્લોટ (32-બિટ)
+dialog.export.exr_compression = સંકોચન
+dialog.export.exr_compression.none = કંઈ નહીં
+dialog.export.exr_compression.rle = RLE
+dialog.export.exr_compression.zips = ZIP, એક સ્કેનલાઇન
+dialog.export.exr_compression.zip = ZIP, 16 સ્કેનલાઇન
+dialog.export.exr_compression.piz = PIZ (વેવલેટ)
+dialog.export.exr_compression.pxr24 = PXR24 (ફ્લોટ માટે લોસી)
+dialog.export.exr_compression.b44 = B44 (લોસી)
+dialog.export.exr_compression.b44a = B44A (લોસી)
+dialog.export.exr_layers = લેયરો
+dialog.export.exr_layers_note = દરેક દૃશ્યમાન લેયરને EXR લેયર તરીકે પણ લખો
+dialog.export.exr_alpha = આલ્ફા
+dialog.export.exr_alpha_note = આલ્ફા ચેનલ લખો
+dialog.export.exr_linear_note = EXR રેખીય પ્રકાશ સંગ્રહે છે. આ 8- કે 16-બિટ દસ્તાવેજ એક્સપોર્ટ વખતે તેની રંગ પ્રોફાઇલ દ્વારા રેખીય ફ્લોટમાં ડીકોડ થાય છે.
 
 # Process Photos
 dialog.batch.title = ફોટા પર પ્રક્રિયા કરો

@@ -246,6 +246,7 @@ common.filetype.jpeg = JPEG vaizdas
 common.filetype.webp = WebP vaizdas
 common.filetype.tiff = TIFF vaizdas
 common.filetype.heic = HEIC vaizdas
+common.filetype.exr = OpenEXR vaizdas
 common.filetype.raw = Neapdorotas fotoaparato vaizdas
 common.filetype.affinity = Affinity dokumentas
 common.filetype.image = Vaizdas

@@ -59,6 +59,7 @@ codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
 codec.ora.name = OpenRaster
 codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = স্তৰযুক্ত ছবিৰ ফাইলটো ক্ষতিগ্ৰস্ত বা অসম্পূৰ্ণ।
 codec.layered.too_large = স্তৰযুক্ত ছবিখনৰ আকাৰ বা স্তৰৰ সংখ্যা সমৰ্থিত সীমাতকৈ বেছি।
 codec.layered.unsupported = এই ফাইলটোৱে এটা অসমৰ্থিত সুবিধা ব্যৱহাৰ কৰিছে: {feature}।
@@ -84,3 +85,8 @@ codec.xcf.feature.floating_selection = XCF ভাসমান নিৰ্বা
 codec.xcf.feature.layer_effects = XCF স্তৰৰ প্ৰভাৱ
 codec.xcf.feature.precision = XCF সূক্ষ্মতা
 codec.xcf.feature.version = XCF সংস্কৰণ
+
+codec.exr.feature.deep = EXR গভীৰ তথ্য
+codec.exr.feature.subsampled = EXR উপনমুনাকৃত চেনেল
+codec.exr.msg.no_channels = OpenEXR ফাইলটোত কোনো ছবিৰ চেনেল নাই।
+codec.exr.msg.write_failed = OpenEXR ফাইলটো লিখিব নোৱাৰি: {error}

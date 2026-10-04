@@ -234,6 +234,7 @@ common.filetype.jpeg = Sary JPEG
 common.filetype.webp = Sary WebP
 common.filetype.tiff = Sary TIFF
 common.filetype.heic = Sary HEIC
+common.filetype.exr = Sary OpenEXR
 common.filetype.raw = Sary manta avy amin'ny fakantsary
 common.filetype.affinity = Rakitra Affinity
 common.filetype.image = Sary

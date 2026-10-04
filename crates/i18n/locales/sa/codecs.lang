@@ -39,6 +39,7 @@ codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
 codec.ora.name = OpenRaster
 codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = स्तरयुक्तचित्रस्य सञ्चिका दूषिता अपूर्णा वा अस्ति।
 codec.layered.too_large = स्तरयुक्तचित्रस्य आकारः स्तरसङ्ख्या वा समर्थितसीमाम् अतिक्रामति।
 codec.layered.unsupported = इयं सञ्चिका असमर्थितं वैशिष्ट्यम् उपयुङ्क्ते: {feature}।
@@ -62,3 +63,8 @@ codec.xcf.feature.floating_selection = XCF प्लवमानचयनम्
 codec.xcf.feature.layer_effects = XCF स्तरप्रभावाः
 codec.xcf.feature.precision = XCF परिशुद्धता
 codec.xcf.feature.version = XCF संस्करणम्
+
+codec.exr.feature.deep = EXR गभीरदत्तांशः
+codec.exr.feature.subsampled = EXR उपप्रतिचयितानि वाहिन्यः
+codec.exr.msg.no_channels = OpenEXR सञ्चिकायां चित्रवाहिन्यः न सन्ति।
+codec.exr.msg.write_failed = OpenEXR सञ्चिका लेखितुं न शक्यते: {error}

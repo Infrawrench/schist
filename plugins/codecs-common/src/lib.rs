@@ -2,15 +2,19 @@
 //! crate, JPEG XL and AVIF via their own pure-Rust codecs (see `jxl` and
 //! `avif`), HEIC/HEIF via the system's libheif, camera raws via the
 //! pure-Rust `schist-codec-raw` crate, wrapped as `CodecPlugin`s, plus layered
-//! Affinity, Paint.NET PDN, GIMP XCF and OpenRaster import/export, and Krita import. For the simple formats, import produces a single
-//! "Background" layer and export flattens through the compositor.
+//! Affinity, Paint.NET PDN, GIMP XCF and OpenRaster import/export, Krita
+//! import, and OpenEXR via the pure-Rust `exr` crate. For the simple formats,
+//! import produces a single "Background" layer and export flattens through
+//! the compositor.
 
 pub use affinity::AffinityCodec;
 pub use avif::AvifCodec;
 pub use jxl::JxlCodec;
+pub use openexr::ExrCodec;
 mod archive;
 pub mod kra;
 mod layered;
+pub mod openexr;
 pub mod ora;
 mod pdn;
 mod xcf;
@@ -463,6 +467,7 @@ impl PluginManifest for CommonCodecsPlugin {
         registry.register_codec(Box::new(XcfCodec));
         registry.register_codec(Box::new(OraCodec));
         registry.register_codec(Box::new(KraCodec));
+        registry.register_codec(Box::new(ExrCodec));
         // The page layout codecs, which read a `LayoutDocument` rather
         // than a raster one and so are a separate list. Gated on the same
         // feature as Design Mode itself: a build that can open a layout

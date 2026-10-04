@@ -46,6 +46,7 @@ codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
 codec.ora.name = OpenRaster
 codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = Le file de imagine con stratos es damnificate o incomplete.
 codec.layered.too_large = Le imagine con stratos excede le dimension o le numero de stratos supportate.
 codec.layered.unsupported = Iste file usa un functionalitate non supportate: {feature}.
@@ -71,3 +72,8 @@ codec.xcf.feature.floating_selection = Selection flottante XCF
 codec.xcf.feature.layer_effects = Effectos de strato XCF
 codec.xcf.feature.precision = Precision XCF
 codec.xcf.feature.version = Version XCF
+
+codec.exr.feature.deep = datos profunde de EXR
+codec.exr.feature.subsampled = canales subsampleate de EXR
+codec.exr.msg.no_channels = Le file OpenEXR non contine alcun canal de imagine.
+codec.exr.msg.write_failed = Non poteva scriber le file OpenEXR: {error}

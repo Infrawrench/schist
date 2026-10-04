@@ -243,6 +243,7 @@ common.filetype.jpeg = Wêneya JPEG
 common.filetype.webp = Wêneya WebP
 common.filetype.tiff = Wêneya TIFF
 common.filetype.heic = Wêneya HEIC
+common.filetype.exr = Wêneya OpenEXR
 common.filetype.raw = Wêneya Xav a Kamerayê
 common.filetype.affinity = Belgeya Affinity
 common.filetype.image = Wêne

@@ -241,6 +241,7 @@ common.filetype.jpeg = JPEG-bildo
 common.filetype.webp = WebP-bildo
 common.filetype.tiff = TIFF-bildo
 common.filetype.heic = HEIC-bildo
+common.filetype.exr = OpenEXR-bildo
 common.filetype.raw = Kruda fotila bildo
 common.filetype.affinity = Affinity-dokumento
 common.filetype.image = Bildo

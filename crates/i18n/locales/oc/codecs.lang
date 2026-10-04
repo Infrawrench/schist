@@ -48,6 +48,7 @@ codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
 codec.ora.name = OpenRaster
 codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = Lo fichièr d'imatge amb calques es damatjat o incomplet.
 codec.layered.too_large = L'imatge amb calques depassa la talha o lo nombre de calques preses en carga.
 codec.layered.unsupported = Aqueste fichièr utiliza una foncionalitat pas presa en carga : {feature}.
@@ -71,3 +72,8 @@ codec.xcf.feature.floating_selection = seleccion flotanta XCF
 codec.xcf.feature.layer_effects = efièches de calc XCF
 codec.xcf.feature.precision = precision XCF
 codec.xcf.feature.version = version XCF
+
+codec.exr.feature.deep = donadas prigondas EXR
+codec.exr.feature.subsampled = canals sosechantilhonats EXR
+codec.exr.msg.no_channels = Lo fichièr OpenEXR conten pas cap de canal d'imatge.
+codec.exr.msg.write_failed = Impossible d'escriure lo fichièr OpenEXR : {error}

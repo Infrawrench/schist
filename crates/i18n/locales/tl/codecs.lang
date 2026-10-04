@@ -40,6 +40,7 @@ codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
 codec.ora.name = OpenRaster
 codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = Sira o hindi kumpleto ang file ng larawang may mga layer.
 codec.layered.too_large = Lampas sa sinusuportahang limitasyon ang laki ng larawan o dami ng mga layer.
 codec.layered.unsupported = Gumagamit ang file na ito ng feature na hindi sinusuportahan: {feature}.
@@ -65,3 +66,8 @@ codec.xcf.feature.floating_selection = lumulutang na seleksiyon ng XCF
 codec.xcf.feature.layer_effects = mga epekto ng layer ng XCF
 codec.xcf.feature.precision = presisyon ng XCF
 codec.xcf.feature.version = bersiyon ng XCF
+
+codec.exr.feature.deep = deep data ng EXR
+codec.exr.feature.subsampled = mga subsampled na channel ng EXR
+codec.exr.msg.no_channels = Walang image channel ang OpenEXR file.
+codec.exr.msg.write_failed = Hindi naisulat ang OpenEXR file: {error}

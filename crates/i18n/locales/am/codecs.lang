@@ -41,6 +41,7 @@ codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
 codec.ora.name = OpenRaster
 codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = ባለንብርብሩ የምስል ፋይል ተበላሽቷል ወይም ያልተሟላ ነው።
 codec.layered.too_large = ባለንብርብሩ ምስል የሚደገፈውን መጠን ወይም የንብርብር ብዛት አልፏል።
 codec.layered.unsupported = ይህ ፋይል የማይደገፍ ባህሪ ይጠቀማል፦ {feature}።
@@ -66,3 +67,8 @@ codec.xcf.feature.floating_selection = የXCF ተንሳፋፊ ምርጫ
 codec.xcf.feature.layer_effects = የXCF ንብርብር ተፅዕኖዎች
 codec.xcf.feature.precision = የXCF ትክክለኛነት
 codec.xcf.feature.version = የXCF ስሪት
+
+codec.exr.feature.deep = የEXR ጥልቅ ውሂብ
+codec.exr.feature.subsampled = የEXR ንዑስ-ናሙና ቻናሎች
+codec.exr.msg.no_channels = የOpenEXR ፋይል ምንም የምስል ቻናሎች አልያዘም።
+codec.exr.msg.write_failed = የOpenEXR ፋይሉን መጻፍ አልተቻለም፦ {error}

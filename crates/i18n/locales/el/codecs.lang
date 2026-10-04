@@ -39,6 +39,7 @@ codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
 codec.ora.name = OpenRaster
 codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = Το αρχείο εικόνας με επίπεδα είναι κατεστραμμένο ή ελλιπές.
 codec.layered.too_large = Το μέγεθος της εικόνας ή ο αριθμός των επιπέδων υπερβαίνει το υποστηριζόμενο όριο.
 codec.layered.unsupported = Αυτό το αρχείο χρησιμοποιεί μια μη υποστηριζόμενη δυνατότητα: {feature}.
@@ -64,3 +65,8 @@ codec.xcf.feature.floating_selection = αιωρούμενη επιλογή XCF
 codec.xcf.feature.layer_effects = εφέ επιπέδων XCF
 codec.xcf.feature.precision = ακρίβεια XCF
 codec.xcf.feature.version = έκδοση XCF
+
+codec.exr.feature.deep = βαθιά δεδομένα EXR
+codec.exr.feature.subsampled = υποδειγματοληπτημένα κανάλια EXR
+codec.exr.msg.no_channels = Το αρχείο OpenEXR δεν περιέχει κανάλια εικόνας.
+codec.exr.msg.write_failed = Δεν ήταν δυνατή η εγγραφή του αρχείου OpenEXR: {error}

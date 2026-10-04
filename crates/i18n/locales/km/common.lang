@@ -229,6 +229,7 @@ common.filetype.jpeg = រូបភាព JPEG
 common.filetype.webp = រូបភាព WebP
 common.filetype.tiff = រូបភាព TIFF
 common.filetype.heic = រូបភាព HEIC
+common.filetype.exr = រូបភាព OpenEXR
 common.filetype.raw = រូបភាពឆៅពីកាមេរ៉ា
 common.filetype.affinity = ឯកសារ Affinity
 common.filetype.image = រូបភាព

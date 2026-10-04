@@ -39,6 +39,7 @@ codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
 codec.ora.name = OpenRaster
 codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = ସ୍ତରଯୁକ୍ତ ଛବି ଫାଇଲ୍‌ଟି କ୍ଷତିଗ୍ରସ୍ତ କିମ୍ବା ଅସମ୍ପୂର୍ଣ୍ଣ।
 codec.layered.too_large = ସ୍ତରଯୁକ୍ତ ଛବିର ଆକାର କିମ୍ବା ସ୍ତର ସଂଖ୍ୟା ସମର୍ଥିତ ସୀମା ଅତିକ୍ରମ କରିଛି।
 codec.layered.unsupported = ଏହି ଫାଇଲ୍ ଏକ ଅସମର୍ଥିତ ବୈଶିଷ୍ଟ୍ୟ ବ୍ୟବହାର କରୁଛି: {feature}।
@@ -64,3 +65,8 @@ codec.xcf.feature.floating_selection = XCF ଭାସମାନ ଚୟନ
 codec.xcf.feature.layer_effects = XCF ସ୍ତର ପ୍ରଭାବ
 codec.xcf.feature.precision = XCF ସଠିକତା
 codec.xcf.feature.version = XCF ସଂସ୍କରଣ
+
+codec.exr.feature.deep = EXR ଗଭୀର ତଥ୍ୟ
+codec.exr.feature.subsampled = EXR ଉପନମୂନା ଚ୍ୟାନେଲ୍
+codec.exr.msg.no_channels = OpenEXR ଫାଇଲ୍‌ରେ କୌଣସି ଛବି ଚ୍ୟାନେଲ୍ ନାହିଁ।
+codec.exr.msg.write_failed = OpenEXR ଫାଇଲ୍ ଲେଖାଯାଇପାରିଲା ନାହିଁ: {error}

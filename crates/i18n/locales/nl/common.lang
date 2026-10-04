@@ -239,6 +239,7 @@ common.filetype.jpeg = JPEG-afbeelding
 common.filetype.webp = WebP-afbeelding
 common.filetype.tiff = TIFF-afbeelding
 common.filetype.heic = HEIC-afbeelding
+common.filetype.exr = OpenEXR-afbeelding
 common.filetype.raw = Camera Raw-afbeelding
 common.filetype.affinity = Affinity-document
 common.filetype.image = Afbeelding

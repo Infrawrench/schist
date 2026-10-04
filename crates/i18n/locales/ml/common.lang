@@ -241,6 +241,7 @@ common.filetype.jpeg = JPEG ചിത്രം
 common.filetype.webp = WebP ചിത്രം
 common.filetype.tiff = TIFF ചിത്രം
 common.filetype.heic = HEIC ചിത്രം
+common.filetype.exr = OpenEXR ചിത്രം
 common.filetype.raw = ക്യാമറ റോ ചിത്രം
 common.filetype.affinity = Affinity ഡോക്യുമെന്റ്
 common.filetype.image = ചിത്രം

@@ -248,6 +248,7 @@ common.filetype.jpeg = Immagine JPEG
 common.filetype.webp = Immagine WebP
 common.filetype.tiff = Immagine TIFF
 common.filetype.heic = Immagine HEIC
+common.filetype.exr = Immagine OpenEXR
 common.filetype.raw = Immagine Camera Raw
 common.filetype.affinity = Documento Affinity
 common.filetype.image = Immagine

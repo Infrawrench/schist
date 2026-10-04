@@ -246,6 +246,7 @@ common.filetype.jpeg = JPEG-govva
 common.filetype.webp = WebP-govva
 common.filetype.tiff = TIFF-govva
 common.filetype.heic = HEIC-govva
+common.filetype.exr = OpenEXR-govva
 common.filetype.raw = Camera Raw-govva
 common.filetype.affinity = Affinity-dokumeanta
 common.filetype.image = Govva

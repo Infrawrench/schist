@@ -18,6 +18,23 @@ dialog.export.dither = Penditeran
 dialog.export.dither_note = Diter apabila mengurangkan kepada 8 bit
 dialog.export.effort = Usaha
 dialog.export.export_ellipsis = Eksport…
+dialog.export.exr_samples = Sampel
+dialog.export.exr_half = Apungan separuh (16-bit)
+dialog.export.exr_float = Apungan (32-bit)
+dialog.export.exr_compression = Pemampatan
+dialog.export.exr_compression.none = Tiada
+dialog.export.exr_compression.rle = RLE
+dialog.export.exr_compression.zips = ZIP, satu garis imbasan
+dialog.export.exr_compression.zip = ZIP, 16 garis imbasan
+dialog.export.exr_compression.piz = PIZ (wavelet)
+dialog.export.exr_compression.pxr24 = PXR24 (lossy untuk apungan)
+dialog.export.exr_compression.b44 = B44 (lossy)
+dialog.export.exr_compression.b44a = B44A (lossy)
+dialog.export.exr_layers = Lapisan
+dialog.export.exr_layers_note = Tulis juga setiap lapisan yang kelihatan sebagai lapisan EXR
+dialog.export.exr_alpha = Alfa
+dialog.export.exr_alpha_note = Tulis saluran alfa
+dialog.export.exr_linear_note = EXR menyimpan cahaya linear. Dokumen 8-bit atau 16-bit ini dinyahkod melalui profil warnanya kepada apungan linear semasa eksport.
 
 # Proses Foto (dialog kelompok galeri)
 dialog.batch.title = Proses Foto

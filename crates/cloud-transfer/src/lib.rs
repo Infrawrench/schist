@@ -1069,6 +1069,7 @@ pub fn mime(path: &std::path::Path) -> &'static str {
         "tif" | "tiff" => "image/tiff",
         "jxl" => "image/jxl",
         "avif" => "image/avif",
+        "exr" => "image/x-exr",
         "psd" | "psb" => "image/vnd.adobe.photoshop",
         _ => "application/octet-stream",
     }

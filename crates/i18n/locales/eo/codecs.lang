@@ -44,6 +44,7 @@ codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
 codec.ora.name = OpenRaster
 codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = La tavolhava bilddosiero estas difektita aŭ nekompleta.
 codec.layered.too_large = La tavolhava bildo superas la subtenatan grandon aŭ nombron de tavoloj.
 codec.layered.unsupported = Ĉi tiu dosiero uzas nesubtenatan funkcion: {feature}.
@@ -69,3 +70,8 @@ codec.xcf.feature.floating_selection = flosanta elekto de XCF
 codec.xcf.feature.layer_effects = tavolaj efektoj de XCF
 codec.xcf.feature.precision = precizeco de XCF
 codec.xcf.feature.version = versio de XCF
+
+codec.exr.feature.deep = EXR-profundaj datumoj
+codec.exr.feature.subsampled = EXR-subspecimenigitaj kanaloj
+codec.exr.msg.no_channels = La OpenEXR-dosiero enhavas neniujn bildkanalojn.
+codec.exr.msg.write_failed = Ne eblis skribi la OpenEXR-dosieron: {error}

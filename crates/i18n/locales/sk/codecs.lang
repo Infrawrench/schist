@@ -44,6 +44,7 @@ codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
 codec.ora.name = OpenRaster
 codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = Súbor obrázka s vrstvami je poškodený alebo neúplný.
 codec.layered.too_large = Obrázok s vrstvami prekračuje podporovanú veľkosť alebo počet vrstiev.
 codec.layered.unsupported = Tento súbor používa nepodporovanú funkciu: {feature}.
@@ -67,3 +68,8 @@ codec.xcf.feature.floating_selection = plávajúci výber XCF
 codec.xcf.feature.layer_effects = efekty vrstvy XCF
 codec.xcf.feature.precision = presnosť XCF
 codec.xcf.feature.version = verzia XCF
+
+codec.exr.feature.deep = hlboké dáta EXR
+codec.exr.feature.subsampled = podvzorkované kanály EXR
+codec.exr.msg.no_channels = Súbor OpenEXR neobsahuje žiadne obrazové kanály.
+codec.exr.msg.write_failed = Súbor OpenEXR sa nepodarilo zapísať: {error}

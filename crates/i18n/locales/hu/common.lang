@@ -234,6 +234,7 @@ common.filetype.jpeg = JPEG-kép
 common.filetype.webp = WebP-kép
 common.filetype.tiff = TIFF-kép
 common.filetype.heic = HEIC-kép
+common.filetype.exr = OpenEXR-kép
 common.filetype.raw = Nyers kamerakép
 common.filetype.affinity = Affinity-dokumentum
 common.filetype.image = Kép

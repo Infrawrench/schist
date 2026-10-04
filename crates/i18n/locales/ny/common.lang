@@ -237,6 +237,7 @@ common.filetype.jpeg = Chithunzi cha JPEG
 common.filetype.webp = Chithunzi cha WebP
 common.filetype.tiff = Chithunzi cha TIFF
 common.filetype.heic = Chithunzi cha HEIC
+common.filetype.exr = Chithunzi cha OpenEXR
 common.filetype.raw = Chithunzi cha Kamera cha Raw
 common.filetype.affinity = Chikalata cha Affinity
 common.filetype.image = Chithunzi

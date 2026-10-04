@@ -243,6 +243,7 @@ common.filetype.jpeg = JPEG გამოსახულება
 common.filetype.webp = WebP გამოსახულება
 common.filetype.tiff = TIFF გამოსახულება
 common.filetype.heic = HEIC გამოსახულება
+common.filetype.exr = OpenEXR გამოსახულება
 common.filetype.raw = კამერის დაუმუშავებელი გამოსახულება
 common.filetype.affinity = Affinity-ის დოკუმენტი
 common.filetype.image = გამოსახულება

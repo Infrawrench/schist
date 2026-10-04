@@ -234,6 +234,7 @@ common.filetype.jpeg = Mufananidzo weJPEG
 common.filetype.webp = Mufananidzo weWebP
 common.filetype.tiff = Mufananidzo weTIFF
 common.filetype.heic = Mufananidzo weHEIC
+common.filetype.exr = Mufananidzo weOpenEXR
 common.filetype.raw = Mufananidzo wefaira risina kugadziriswa rekamera
 common.filetype.affinity = Gwaro reAffinity
 common.filetype.image = Mufananidzo

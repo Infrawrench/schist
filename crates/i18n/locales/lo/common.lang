@@ -229,6 +229,7 @@ common.filetype.jpeg = ຮູບ JPEG
 common.filetype.webp = ຮູບ WebP
 common.filetype.tiff = ຮູບ TIFF
 common.filetype.heic = ຮູບ HEIC
+common.filetype.exr = ຮູບ OpenEXR
 common.filetype.raw = ຮູບຈາກໄຟລ໌ດິບຂອງກ້ອງ
 common.filetype.affinity = ເອກະສານ Affinity
 common.filetype.image = ຮູບພາບ

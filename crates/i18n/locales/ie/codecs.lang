@@ -41,6 +41,7 @@ codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
 codec.ora.name = OpenRaster
 codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = Li file de image con strates es damageat o íncomplet.
 codec.layered.too_large = Li image con strates excede li supportat dimension o númere de strates.
 codec.layered.unsupported = Ti file usa un ínsupportat function: {feature}.
@@ -66,3 +67,8 @@ codec.xcf.feature.floating_selection = Flottant selection XCF
 codec.xcf.feature.layer_effects = Efectes de strate XCF
 codec.xcf.feature.precision = Precision XCF
 codec.xcf.feature.version = Version XCF
+
+codec.exr.feature.deep = data profund de EXR
+codec.exr.feature.subsampled = canales subsampled de EXR
+codec.exr.msg.no_channels = Li file OpenEXR ne contene null canal de image.
+codec.exr.msg.write_failed = Ne esset possibil scrir li file OpenEXR: {error}

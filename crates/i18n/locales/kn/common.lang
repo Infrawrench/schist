@@ -243,6 +243,7 @@ common.filetype.jpeg = JPEG ಚಿತ್ರ
 common.filetype.webp = WebP ಚಿತ್ರ
 common.filetype.tiff = TIFF ಚಿತ್ರ
 common.filetype.heic = HEIC ಚಿತ್ರ
+common.filetype.exr = OpenEXR ಚಿತ್ರ
 common.filetype.raw = ಕ್ಯಾಮೆರಾ ರಾ ಚಿತ್ರ
 common.filetype.affinity = Affinity ಡಾಕ್ಯುಮೆಂಟ್
 common.filetype.image = ಚಿತ್ರ

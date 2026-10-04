@@ -243,6 +243,7 @@ common.filetype.jpeg = JPEG պատկեր
 common.filetype.webp = WebP պատկեր
 common.filetype.tiff = TIFF պատկեր
 common.filetype.heic = HEIC պատկեր
+common.filetype.exr = OpenEXR պատկեր
 common.filetype.raw = Չմշակված լուսանկարչական պատկեր
 common.filetype.affinity = Affinity փաստաթուղթ
 common.filetype.image = Պատկեր

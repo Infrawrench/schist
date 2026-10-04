@@ -252,6 +252,7 @@ common.filetype.jpeg = Skeudenn JPEG
 common.filetype.webp = Skeudenn WebP
 common.filetype.tiff = Skeudenn TIFF
 common.filetype.heic = Skeudenn HEIC
+common.filetype.exr = Skeudenn OpenEXR
 common.filetype.raw = Skeudenn diaoz kriz
 common.filetype.affinity = Teul Affinity
 common.filetype.image = Skeudenn

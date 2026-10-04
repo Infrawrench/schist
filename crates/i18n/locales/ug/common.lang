@@ -234,6 +234,7 @@ common.filetype.jpeg = JPEG سۈرىتى
 common.filetype.webp = WebP سۈرىتى
 common.filetype.tiff = TIFF سۈرىتى
 common.filetype.heic = HEIC سۈرىتى
+common.filetype.exr = OpenEXR سۈرىتى
 common.filetype.raw = خام كامېرا سۈرىتى
 common.filetype.affinity = Affinity ھۆججىتى
 common.filetype.image = سۈرەت

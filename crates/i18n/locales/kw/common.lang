@@ -257,6 +257,7 @@ common.filetype.jpeg = Delwenn JPEG
 common.filetype.webp = Delwenn WebP
 common.filetype.tiff = Delwenn TIFF
 common.filetype.heic = Delwenn HEIC
+common.filetype.exr = Delwenn OpenEXR
 common.filetype.raw = Delwenn Restren Kamerel Kriv
 common.filetype.affinity = Skrifen Affinity
 common.filetype.image = Delwenn

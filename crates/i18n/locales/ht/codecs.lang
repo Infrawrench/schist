@@ -44,6 +44,7 @@ codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
 codec.ora.name = OpenRaster
 codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = Fichye imaj ki gen kouch la domaje oswa li pa konplè.
 codec.layered.too_large = Imaj ki gen kouch la depase gwosè oswa kantite kouch ki sipòte a.
 codec.layered.unsupported = Fichye sa a sèvi ak yon fonksyon ki pa sipòte: {feature}.
@@ -67,3 +68,8 @@ codec.xcf.feature.floating_selection = seleksyon flotan XCF
 codec.xcf.feature.layer_effects = efè kouch XCF
 codec.xcf.feature.precision = presizyon XCF
 codec.xcf.feature.version = vèsyon XCF
+
+codec.exr.feature.deep = done fon EXR
+codec.exr.feature.subsampled = chanèl EXR ki echantiyone an pati
+codec.exr.msg.no_channels = Fichye OpenEXR la pa gen okenn chanèl imaj.
+codec.exr.msg.write_failed = Pa t kapab ekri fichye OpenEXR la: {error}

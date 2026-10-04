@@ -40,6 +40,7 @@ codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
 codec.ora.name = OpenRaster
 codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = Файл відарыса з пластамі пашкоджаны або няпоўны.
 codec.layered.too_large = Памер відарыса або колькасць пластоў перавышае падтрымліваемую мяжу.
 codec.layered.unsupported = У гэтым файле выкарыстоўваецца функцыя, якая не падтрымліваецца: {feature}.
@@ -65,3 +66,8 @@ codec.xcf.feature.floating_selection = плаваючае вылучэнне XCF
 codec.xcf.feature.layer_effects = эфекты пласта XCF
 codec.xcf.feature.precision = дакладнасць XCF
 codec.xcf.feature.version = версія XCF
+
+codec.exr.feature.deep = глыбокія даныя EXR
+codec.exr.feature.subsampled = субдыскрэтызаваныя каналы EXR
+codec.exr.msg.no_channels = У файле OpenEXR няма каналаў відарыса.
+codec.exr.msg.write_failed = Не ўдалося запісаць файл OpenEXR: {error}

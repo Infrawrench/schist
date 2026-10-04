@@ -247,6 +247,7 @@ common.filetype.jpeg = Slika JPEG
 common.filetype.webp = Slika WebP
 common.filetype.tiff = Slika TIFF
 common.filetype.heic = Slika HEIC
+common.filetype.exr = Slika OpenEXR
 common.filetype.raw = Neobdelana slika fotoaparata
 common.filetype.affinity = Dokument Affinity
 common.filetype.image = Slika

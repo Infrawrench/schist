@@ -241,6 +241,7 @@ common.filetype.jpeg = JPEG-mynd
 common.filetype.webp = WebP-mynd
 common.filetype.tiff = TIFF-mynd
 common.filetype.heic = HEIC-mynd
+common.filetype.exr = OpenEXR-mynd
 common.filetype.raw = Camera Raw-mynd
 common.filetype.affinity = Affinity-skjal
 common.filetype.image = Mynd

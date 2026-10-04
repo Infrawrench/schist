@@ -45,6 +45,7 @@ codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
 codec.ora.name = OpenRaster
 codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = د طبقو لرونکې انځور دوتنه خرابه یا نیمګړې ده.
 codec.layered.too_large = د طبقو لرونکي انځور کچه یا د طبقو شمېر له ملاتړ شوې پولې اوړي.
 codec.layered.unsupported = دا دوتنه داسې ځانګړنه کاروي چې ملاتړ یې نه کېږي: {feature}.
@@ -70,3 +71,8 @@ codec.xcf.feature.floating_selection = د XCF لامبو وهونکې ټاکنه
 codec.xcf.feature.layer_effects = د XCF طبقې اغېزې
 codec.xcf.feature.precision = د XCF کره‌والی
 codec.xcf.feature.version = د XCF نسخه
+
+codec.exr.feature.deep = د EXR ژورې معلومات
+codec.exr.feature.subsampled = د EXR فرعي نمونه شوي کانالونه
+codec.exr.msg.no_channels = د OpenEXR دوتنه هېڅ د انځور کانال نه لري.
+codec.exr.msg.write_failed = د OpenEXR دوتنه ونه لیکل شوه: {error}

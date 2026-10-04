@@ -44,6 +44,7 @@ codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
 codec.ora.name = OpenRaster
 codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = Restr ar skeudenn gant gwiskadoù zo dañvaet pe diglok.
 codec.layered.too_large = Ar skeudenn gant gwiskadoù a ya dreist ar vent pe an niver a wiskadoù skoret.
 codec.layered.unsupported = Ar restr-mañ a implij un arc'hwel ha n'eo ket skoret: {feature}.
@@ -69,3 +70,8 @@ codec.xcf.feature.floating_selection = diuzañ neuñvius XCF
 codec.xcf.feature.layer_effects = efedoù gwiskad XCF
 codec.xcf.feature.precision = pizhder XCF
 codec.xcf.feature.version = handelv XCF
+
+codec.exr.feature.deep = roadennoù don EXR
+codec.exr.feature.subsampled = kanolioù isampladurezh EXR
+codec.exr.msg.no_channels = N'eus kanal skeudenn ebet er restr OpenEXR.
+codec.exr.msg.write_failed = Ne c'haller ket skrivañ ar restr OpenEXR: {error}

@@ -40,6 +40,7 @@ codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
 codec.ora.name = OpenRaster
 codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = Fayiro y'ekifaananyi ekirina layers eyonoonese oba si njjuvu.
 codec.layered.too_large = Obunene bw'ekifaananyi ekirina layers oba omuwendo gwa layers gusinga ekkomo erikkirizibwa.
 codec.layered.unsupported = Fayiro eno ekozesa ekintu ekitawagirwa: {feature}.
@@ -63,3 +64,8 @@ codec.xcf.feature.floating_selection = ekirondeddwa ekitengejja ekya XCF
 codec.xcf.feature.layer_effects = ebikolwa bya layers ebya XCF
 codec.xcf.feature.precision = obutuufu bwa XCF
 codec.xcf.feature.version = ekika kya XCF
+
+codec.exr.feature.deep = data ya EXR ey'omunda
+codec.exr.feature.subsampled = emikutu gya EXR egyakendeezebwa
+codec.exr.msg.no_channels = Fayiro ya OpenEXR terina mikutu gya kifaananyi.
+codec.exr.msg.write_failed = Tekisobose okuwandiika fayiro ya OpenEXR: {error}

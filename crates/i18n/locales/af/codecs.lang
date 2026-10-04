@@ -44,6 +44,7 @@ codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
 codec.ora.name = OpenRaster
 codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = Die gelaagde beeldlêer is beskadig of onvolledig.
 codec.layered.too_large = Die gelaagde beeld oorskry die ondersteunde grootte of aantal lae.
 codec.layered.unsupported = Hierdie lêer gebruik 'n onondersteunde kenmerk: {feature}.
@@ -69,3 +70,8 @@ codec.xcf.feature.floating_selection = XCF-drywende seleksie
 codec.xcf.feature.layer_effects = XCF-laageffekte
 codec.xcf.feature.precision = XCF-presisie
 codec.xcf.feature.version = XCF-weergawe
+
+codec.exr.feature.deep = EXR-diepdata
+codec.exr.feature.subsampled = EXR-subgemonsterde kanale
+codec.exr.msg.no_channels = Die OpenEXR-lêer bevat geen beeldkanale.
+codec.exr.msg.write_failed = Kon nie die OpenEXR-lêer skryf nie: {error}

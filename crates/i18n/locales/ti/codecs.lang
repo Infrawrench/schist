@@ -40,6 +40,7 @@ codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
 codec.ora.name = OpenRaster
 codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = እቲ ንጣፋት ዘለዎ ፋይል ምስሊ ተበላሽዩ ወይ ዘይምሉእ እዩ።
 codec.layered.too_large = ዓቐን እቲ ምስሊ ወይ ብዝሒ ንጣፋቱ ነቲ ዝድገፍ ደረት ሓሊፉ።
 codec.layered.unsupported = እዚ ፋይል ዘይድገፍ ባህሪ ይጥቀም፦ {feature}።
@@ -65,3 +66,8 @@ codec.xcf.feature.floating_selection = ተንሳፋፊ ምርጫ XCF
 codec.xcf.feature.layer_effects = ውጽኢታት ንጣፍ XCF
 codec.xcf.feature.precision = ትኽክለኛነት XCF
 codec.xcf.feature.version = ስሪት XCF
+
+codec.exr.feature.deep = ዓሚቕ ዳታ EXR
+codec.exr.feature.subsampled = ዝተነኽሩ ጥቕሚ ቻነላት EXR
+codec.exr.msg.no_channels = እቲ ፋይል OpenEXR ዝኾነ ቻነል ስእሊ የብሉን።
+codec.exr.msg.write_failed = ፋይል OpenEXR ምጽሓፍ ኣይተኻኣለን፦ {error}

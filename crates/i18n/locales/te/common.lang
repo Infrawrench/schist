@@ -234,6 +234,7 @@ common.filetype.jpeg = JPEG చిత్రం
 common.filetype.webp = WebP చిత్రం
 common.filetype.tiff = TIFF చిత్రం
 common.filetype.heic = HEIC చిత్రం
+common.filetype.exr = OpenEXR చిత్రం
 common.filetype.raw = కెమెరా రా చిత్రం
 common.filetype.affinity = Affinity పత్రం
 common.filetype.image = చిత్రం

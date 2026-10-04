@@ -243,6 +243,7 @@ common.filetype.jpeg = Imazh JPEG
 common.filetype.webp = Imazh WebP
 common.filetype.tiff = Imazh TIFF
 common.filetype.heic = Imazh HEIC
+common.filetype.exr = Imazh OpenEXR
 common.filetype.raw = Imazh i papërpunuar nga kamera
 common.filetype.affinity = Dokument Affinity
 common.filetype.image = Imazh

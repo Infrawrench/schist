@@ -241,6 +241,7 @@ common.filetype.jpeg = Immàgine JPEG
 common.filetype.webp = Immàgine WebP
 common.filetype.tiff = Immàgine TIFF
 common.filetype.heic = Immàgine HEIC
+common.filetype.exr = Immàgine OpenEXR
 common.filetype.raw = Immàgine de càmera in formadu raw
 common.filetype.affinity = Documentu Affinity
 common.filetype.image = Immàgine

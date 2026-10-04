@@ -237,6 +237,7 @@ common.filetype.jpeg = Umfanekiso we-JPEG
 common.filetype.webp = Umfanekiso we-WebP
 common.filetype.tiff = Umfanekiso we-TIFF
 common.filetype.heic = Umfanekiso we-HEIC
+common.filetype.exr = Umfanekiso we-OpenEXR
 common.filetype.raw = Umfanekiso Welifayela Lekhamera Lelingakacutshungulwa
 common.filetype.affinity = Idokhumenti ye-Affinity
 common.filetype.image = Umfanekiso

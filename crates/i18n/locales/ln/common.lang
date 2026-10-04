@@ -237,6 +237,7 @@ common.filetype.jpeg = Elilingi JPEG
 common.filetype.webp = Elilingi WebP
 common.filetype.tiff = Elilingi TIFF
 common.filetype.heic = Elilingi HEIC
+common.filetype.exr = Elilingi OpenEXR
 common.filetype.raw = Elilingi ya fisye raw ya kamera
 common.filetype.affinity = Dokima ya Affinity
 common.filetype.image = Elilingi

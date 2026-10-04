@@ -43,6 +43,7 @@ codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
 codec.ora.name = OpenRaster
 codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = Vaizdo su sluoksniais failas yra sugadintas arba nepilnas.
 codec.layered.too_large = Vaizdo dydis arba sluoksnių skaičius viršija palaikomą ribą.
 codec.layered.unsupported = Šiame faile naudojama nepalaikoma funkcija: {feature}.
@@ -68,3 +69,8 @@ codec.xcf.feature.floating_selection = XCF slankioji atranka
 codec.xcf.feature.layer_effects = XCF sluoksnio efektai
 codec.xcf.feature.precision = XCF tikslumas
 codec.xcf.feature.version = XCF versija
+
+codec.exr.feature.deep = gilieji EXR duomenys
+codec.exr.feature.subsampled = EXR sumažinto mėginių ėmimo kanalai
+codec.exr.msg.no_channels = OpenEXR faile nėra vaizdo kanalų.
+codec.exr.msg.write_failed = Nepavyko įrašyti OpenEXR failo: {error}

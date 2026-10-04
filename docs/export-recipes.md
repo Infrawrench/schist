@@ -42,6 +42,8 @@ quality slider and composites transparency on white; the installed WebP encoder 
 lossless and has no quality setting. JPEG XL and AVIF use the quality slider (100 is
 lossless) at the default effort; JPEG XL is lossless only where no system libjxl is
 available, as in the browser.
+Recipes are for delivery formats: OpenEXR is
+exported from File ▸ Export instead (see [OpenEXR](openexr.md)).
 
 In the browser, presets persist in local storage and outputs become separate downloads
 in the browser's download folder. Browser download permission and duplicate filename

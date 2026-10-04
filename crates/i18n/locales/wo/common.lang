@@ -229,6 +229,7 @@ common.filetype.jpeg = Nataal JPEG
 common.filetype.webp = Nataal WebP
 common.filetype.tiff = Nataal TIFF
 common.filetype.heic = Nataal HEIC
+common.filetype.exr = Nataal OpenEXR
 common.filetype.raw = Nataal raw bu kamera
 common.filetype.affinity = Jukki Affinity
 common.filetype.image = Nataal

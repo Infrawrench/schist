@@ -237,6 +237,7 @@ common.filetype.jpeg = JPEG ଛବି
 common.filetype.webp = WebP ଛବି
 common.filetype.tiff = TIFF ଛବି
 common.filetype.heic = HEIC ଛବି
+common.filetype.exr = OpenEXR ଛବି
 common.filetype.raw = Camera Raw ଛବି
 common.filetype.affinity = Affinity ଡକ୍ୟୁମେଣ୍ଟ
 common.filetype.image = ଛବି

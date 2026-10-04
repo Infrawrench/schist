@@ -39,6 +39,7 @@ codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
 codec.ora.name = OpenRaster
 codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = Simba na tsy feno ny raki-daza misy sary misy sosona.
 codec.layered.too_large = Mihoatra ny habe na ny isan’ny sosona tohanana ny sary misy sosona.
 codec.layered.unsupported = Mampiasa fiasa tsy tohanana ity raki-daza ity: {feature}.
@@ -64,3 +65,8 @@ codec.xcf.feature.floating_selection = Safidy mitsingevana XCF
 codec.xcf.feature.layer_effects = Vokatry ny sosona XCF
 codec.xcf.feature.precision = Fahamarinan’ny sanda XCF
 codec.xcf.feature.version = Kinova XCF
+
+codec.exr.feature.deep = angona lalina EXR
+codec.exr.feature.subsampled = fantsona santionany kely EXR
+codec.exr.msg.no_channels = Tsy misy fantsona sary ao amin'ny rakitra OpenEXR.
+codec.exr.msg.write_failed = Tsy afaka nanoratra ny rakitra OpenEXR: {error}

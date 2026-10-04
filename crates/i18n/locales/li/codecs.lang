@@ -43,6 +43,7 @@ codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
 codec.ora.name = OpenRaster
 codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = 't Aafbiljingsbesjtandj mit laoge is besjaedig of ónvolledig.
 codec.layered.too_large = De aafbiljing mit laoge is te groet of haet mier laoge es óngersteund waere.
 codec.layered.unsupported = Dit besjtandj gebruuk 'n functie die neet óngersteund weurt: {feature}.
@@ -66,3 +67,8 @@ codec.xcf.feature.floating_selection = zjwevende selectie van XCF
 codec.xcf.feature.layer_effects = laogeffecte van XCF
 codec.xcf.feature.precision = precisie van XCF
 codec.xcf.feature.version = vèrsie van XCF
+
+codec.exr.feature.deep = deep-gegaeves van EXR
+codec.exr.feature.subsampled = gesubsamplede EXR-kanale
+codec.exr.msg.no_channels = Dit OpenEXR-besjtandj bevat gein aafbiljingskanale.
+codec.exr.msg.write_failed = Kèn het OpenEXR-besjtandj neet sjrieve: {error}
