@@ -101,3 +101,8 @@ workspace.recovery.recovered_title = {title} (kutichisqa)
 workspace.recovery.recovered.other = Ñawpaq sesiónmanta mana waqaychasqa {n} qillqa khipu kutichisqa
 workspace.colormgmt.vision_on = Rikch'anachiy: {name}
 workspace.colormgmt.vision_off = Kikin rikuy
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Hunt'achiq yachachiy mana kaqtin qichusqa, chayrayku hunt'achisqa ch'aqchu kanman
+workspace.tool_jobs.document_changed = {name} qillqan wisq'asqa utaq tikrasqa kaptin tukurqan, chayrayku mana imapas tikrakurqanchu

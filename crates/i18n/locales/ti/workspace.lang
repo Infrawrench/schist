@@ -107,3 +107,8 @@ workspace.recovery.recovered.one = ካብ ዝሓለፈ ክፍለ ግዜ {n} ዘ�
 workspace.recovery.recovered.other = ካብ ዝሓለፈ ክፍለ ግዜ {n} ሰነዳት ተመሊሶም
 workspace.colormgmt.vision_on = ተመሳሳሊ: {name}
 workspace.colormgmt.vision_off = ንቡር ርእይቶ
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}፦ {percent}%
+workspace.tool_jobs.missing_model = ብዘይ ሞዴል ምምላእ ተኣልዩ፣ ስለዚ ምምላኡ ዝያዳ ሓርፋፍ ክኸውን ይኽእል
+workspace.tool_jobs.document_changed = {name} ሰነዱ ድሕሪ ምዕጻዉ ወይ ምቕያሩ ተዛዚሙ፣ ስለዚ ዋላ ሓንቲ ኣይተቐየረን

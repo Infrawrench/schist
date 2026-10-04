@@ -18,3 +18,11 @@ tool.magic_eraser.name = מחק קסם
 tool.magic_eraser.description = יש ללחוץ כדי למחוק את האזור בעל הצבע הדומה שמתחת למצביע, במסגרת הסבילות של הכלי—רק האזור הרציף ללחיצה או כל האזורים בשכבה.
 tool.magic_eraser.option.contiguous = רציף
 tool.magic_eraser.history.erase = מחק קסם
+
+# Remove
+tool.remove.name = הסרה
+tool.remove.description = יש לצבוע מעל אובייקט לא רצוי במשיכה אחת; בשחרור, הוא ימולא מתוך סביבתו. כאשר הסרה אחרי כל משיכה כבוי, יש לצבוע כמה משיכות וללחוץ Enter כדי להסיר אותן יחד.
+tool.remove.option.sample_all_layers = דגימה מכל השכבות
+tool.remove.option.remove_after_each_stroke = הסרה אחרי כל משיכה
+tool.remove.history.remove = הסרה
+tool.remove.layer_name = הוסר

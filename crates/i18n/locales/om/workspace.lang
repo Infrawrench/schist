@@ -94,3 +94,8 @@ workspace.recovery.recovered.one = Hojii hin olkaa'amne seshinii darbe irraa dee
 workspace.recovery.recovered.other = Galmeewwan {n} seshinii darbe irraa deebiseera
 workspace.colormgmt.vision_on = Fakkeessuu: {name}
 workspace.colormgmt.vision_off = Argiinsa idilee
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Moodela guutuu malee balleeffame, kanaafuu guutuun isaa gaarii ta'uu dhiisuu danda'a
+workspace.tool_jobs.document_changed = {name} erga sanadni isaa cufamee ykn jijjiiramee booda xumurame, kanaafuu wanti jijjiirame hin jiru

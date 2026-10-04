@@ -21,3 +21,11 @@ tool.magic_eraser.name = Jadyly pozguç
 tool.magic_eraser.description = Görkezijiniň aşagyndaky meňzeş reňkli meýdany guralyň ýol berilýän tapawudynyň çäginde pozmak üçin basyň; diňe basylan ýere sepleşikli meýdan ýa-da gatlagyň ähli ýerindäki meňzeş reňk pozulyp biler.
 tool.magic_eraser.option.contiguous = Sepleşikli
 tool.magic_eraser.history.erase = Jadyly pozguç
+
+# Remove
+tool.remove.name = Aýyrmak
+tool.remove.description = Gerek däl obýektiň üstünden bir çyzyk bilen boýaň; goýberenizde ol töweregindäki bilen doldurylýar. Her çyzykdan soň aýyrmak öçürilen bolsa, birnäçe çyzyk çekiň we olary bilelikde aýyrmak üçin Enter basyň.
+tool.remove.option.sample_all_layers = Ähli gatlaklardan nusga
+tool.remove.option.remove_after_each_stroke = Her çyzykdan soň aýyrmak
+tool.remove.history.remove = Aýyrmak
+tool.remove.layer_name = Aýrylan

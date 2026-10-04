@@ -95,3 +95,8 @@ workspace.recovery.recovered.one = U rikuperua puna e paruajtur nga një sesion 
 workspace.recovery.recovered.other = U rikuperuan {n} dokumente nga një sesion i mëparshëm
 workspace.colormgmt.vision_on = Simulim: {name}
 workspace.colormgmt.vision_off = Shikim normal
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = U hoq pa modelin e plotësimit, ndaj mbushja mund të jetë më e ashpër
+workspace.tool_jobs.document_changed = {name} përfundoi pasi dokumenti i tij u mbyll ose u ndërrua, ndaj nuk u ndryshua asgjë

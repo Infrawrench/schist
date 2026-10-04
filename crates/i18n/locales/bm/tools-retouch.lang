@@ -22,3 +22,11 @@ tool.magic_eraser.name = Bɔlan kabakoma
 tool.magic_eraser.description = Digi ka kulɛri ɲɔgɔnna yɔrɔ min bɛ kurukuru jukɔrɔ, o bɔ baarakɛminɛn ka dan kɔnɔ: a bɛ se ka kɛ digi yɔrɔ la yɔrɔ dafalenw dɔrɔn ye, walima kaliki fan bɛɛ.
 tool.magic_eraser.option.contiguous = Da kelen
 tool.magic_eraser.history.erase = Bɔlan kabakoma
+
+# Remove
+tool.remove.name = Bɔli
+tool.remove.description = I ka ja kɛ fɛn min tɛ i fɛ o kan siɲɛ kelen; ni i y'a bila, a laminifɛnw bɛ o yɔrɔ fa. Ni Bɔli ja kɛli kelen kelen bɛɛ kɔ datugulen don, i ka ja kɛ siɲɛ caman ka Enter digi k'u bɛɛ bɔ ɲɔgɔn fɛ.
+tool.remove.option.sample_all_layers = Kaliki bɛɛ lajɛ
+tool.remove.option.remove_after_each_stroke = Bɔli ja kɛli kelen kelen bɛɛ kɔ
+tool.remove.history.remove = Bɔli
+tool.remove.layer_name = Bɔlen

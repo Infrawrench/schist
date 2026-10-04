@@ -96,3 +96,8 @@ workspace.recovery.recovered.few = S-au recuperat {n} documente dintr-o sesiune 
 workspace.recovery.recovered.other = S-au recuperat {n} de documente dintr-o sesiune anterioară
 workspace.colormgmt.vision_on = Simulare: {name}
 workspace.colormgmt.vision_off = Vedere normală
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Eliminat fără modelul de reconstrucție, așa că umplerea poate fi mai grosieră
+workspace.tool_jobs.document_changed = {name} s-a încheiat după ce documentul a fost închis sau schimbat, așa că nu s-a modificat nimic

@@ -95,3 +95,8 @@ workspace.recovery.recovered.one = ካለፈው ክፍለ ጊዜ {n} ያልተ�
 workspace.recovery.recovered.other = ካለፈው ክፍለ ጊዜ {n} ሰነዶች ተመልሰዋል
 workspace.colormgmt.vision_on = ማስመሰል፦ {name}
 workspace.colormgmt.vision_off = መደበኛ እይታ
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}፦ {percent}%
+workspace.tool_jobs.missing_model = ያለ ሥዕል መሙያ ሞዴሉ ተወግዷል፤ ስለዚህ ሙሌቱ ሻካራ ሊሆን ይችላል
+workspace.tool_jobs.document_changed = {name} ሰነዱ ከተዘጋ ወይም ከተቀየረ በኋላ ተጠናቋል፤ ስለዚህ ምንም አልተለወጠም

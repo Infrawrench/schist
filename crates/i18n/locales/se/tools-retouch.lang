@@ -21,3 +21,11 @@ tool.magic_eraser.name = Noaidegumme
 tool.magic_eraser.description = Coahkkal vai sihkkot čujuhanáli vuolde sullasaš ivnni guovllu reaiddu gierdama siskkobealde, juogo oktavuođas coahkkalansajiin dahje miehtá gearddi.
 tool.magic_eraser.option.contiguous = Oktavuođas
 tool.magic_eraser.history.erase = Noaidegumme
+
+# Remove
+tool.remove.name = Eretváldin
+tool.remove.description = Málle dárbbašmeahttun objeavtta badjel ovttain sázuin; go luoittát, de dat deavdojuvvo birrasa sisdoaluin. Go Váldde eret juohke sázu maŋŋá lea jaddaduvvon, málle máŋga sázu ja deaddil Enter vai buot váldojuvvojit eret ovttas.
+tool.remove.option.sample_all_layers = Ovdamearka buot gearddiin
+tool.remove.option.remove_after_each_stroke = Váldde eret juohke sázu maŋŋá
+tool.remove.history.remove = Eretváldin
+tool.remove.layer_name = Eretváldon

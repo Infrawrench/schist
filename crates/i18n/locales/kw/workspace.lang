@@ -102,3 +102,8 @@ workspace.recovery.recovered.many = {n} skrifen daskavys dhyworth esedh kyns
 workspace.recovery.recovered.other = {n} skrifen daskavys dhyworth esedh kyns
 workspace.colormgmt.vision_on = Hevelepheans: {name}
 workspace.colormgmt.vision_off = Gwel kynsa
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Dileys heb an model lenwel, ytho an lenwel a yll bos garowa
+workspace.tool_jobs.document_changed = {name} a worfennas wosa y skrifen dhe vos degeys po chanjys, ytho travydh ny veu chanjys

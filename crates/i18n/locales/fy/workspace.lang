@@ -107,3 +107,8 @@ workspace.recovery.recovered.one = Net bewarre wurk út in eardere sesje weromhe
 workspace.recovery.recovered.other = {n} dokuminten út in eardere sesje weromhelle
 workspace.colormgmt.vision_on = Simulaasje: {name}
 workspace.colormgmt.vision_off = Normale fisy
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Fuortsmiten sûnder it ynfolmodel, dus de folling kin rûger wêze
+workspace.tool_jobs.document_changed = {name} wie klear neidat it dokumint sletten of wiksele wie, dus der is neat feroare

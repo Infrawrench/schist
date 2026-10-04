@@ -18,3 +18,11 @@ tool.magic_eraser.name = Шидэт баллуур
 tool.magic_eraser.description = Хэрэгслийн хүлцлийн хүрээнд заагчийн доорх ижил өнгөтэй хэсгийг арилгана. Товшсон цэгтэй залгаа хэсэг эсвэл давхарга даяарх бүх ижил өнгийг арилгаж болно.
 tool.magic_eraser.option.contiguous = Залгаа
 tool.magic_eraser.history.erase = Шидэт баллуур
+
+# Remove
+tool.remove.name = Арилгах
+tool.remove.description = Хүсээгүй объектыг нэг зураасаар будна; хулганаа тавихад тэр хэсэг орчноосоо нөхөгдөнө. Зураас бүрийн дараа арилгах унтраалттай үед хэд хэдэн зураас зурж, Enter дарж бүгдийг нь хамт арилгана.
+tool.remove.option.sample_all_layers = Бүх давхаргаас дээж авах
+tool.remove.option.remove_after_each_stroke = Зураас бүрийн дараа арилгах
+tool.remove.history.remove = Арилгах
+tool.remove.layer_name = Арилгасан

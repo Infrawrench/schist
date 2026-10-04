@@ -107,3 +107,8 @@ workspace.recovery.recovered.one = Gjenoppretta ulagret arbeid frå ei tidlegare
 workspace.recovery.recovered.other = Gjenoppretta {n} dokument frå ei tidlegare økt
 workspace.colormgmt.vision_on = Simulerer: {name}
 workspace.colormgmt.vision_off = Normalt syn
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Fjerna utan utfyllingsmodellen, så utfyllinga kan bli grovare
+workspace.tool_jobs.document_changed = {name} vart ferdig etter at dokumentet vart lukka eller bytt, så ingenting vart endra

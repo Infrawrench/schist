@@ -18,3 +18,11 @@ tool.magic_eraser.name = سېھىرلىك ئۆچۈرگۈچ
 tool.magic_eraser.description = چېكىپ، قورالنىڭ بەرداشلىق دائىرىسى ئىچىدە كۆرسەتكۈچ ئاستىدىكى ئوخشىشىپ كېتىدىغان رەڭلىك رايوننى ئۆچۈرۈڭ؛ رايون چېكىلگەن نۇقتىغا تۇتاش بولۇشىمۇ ياكى پۈتۈن قەۋەتتە بولۇشىمۇ مۇمكىن.
 tool.magic_eraser.option.contiguous = تۇتاش
 tool.magic_eraser.history.erase = سېھىرلىك ئۆچۈرگۈچ
+
+# Remove
+tool.remove.name = ئۆچۈرۈش
+tool.remove.description = لازىمسىز نەرسىنىڭ ئۈستىگە بىر سىزىقتا بوياڭ؛ قويۇۋەتكىنىڭىزدە ئۇ ئەتراپىدىن تولدۇرۇلىدۇ. ھەر سىزىقتىن كېيىن ئۆچۈرۈش تاقالغان بولسا، بىر قانچە سىزىق سىزىپ، ئۇلارنى بىللە ئۆچۈرۈش ئۈچۈن Enter نى بېسىڭ.
+tool.remove.option.sample_all_layers = بارلىق قەۋەتلەردىن ئەۋرىشكە ئېلىش
+tool.remove.option.remove_after_each_stroke = ھەر سىزىقتىن كېيىن ئۆچۈرۈش
+tool.remove.history.remove = ئۆچۈرۈش
+tool.remove.layer_name = ئۆچۈرۈلگەن

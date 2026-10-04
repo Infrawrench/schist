@@ -92,3 +92,8 @@ workspace.recovery.recovered_title = {title} (karem bakegen)
 workspace.recovery.recovered.other = Karem bakegen wok we i no sev long wan session bifo; namba blong dokumen: {n}
 workspace.colormgmt.vision_on = Simulesen: {name}
 workspace.colormgmt.vision_off = Normal luk
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = I tekemaot be i no gat model blong fulumap, ale ples we i fulap i save no stret gud
+workspace.tool_jobs.document_changed = {name} i finis afta we dokumen blong hem i klos o i jenis, ale i no jenisim wan samting

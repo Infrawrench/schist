@@ -21,3 +21,11 @@ tool.magic_eraser.name = މެޖިކް އިރޭސަރ
 tool.magic_eraser.description = ޕޮއިންޓަރުގެ ދަށުގައި ހުރި އެއްކަހަލަ ކުލައިގެ ދައިރާ، އާލާތުގެ ޓޮލަރެންސްގެ މިންވަރުގައި، ފޮހެލުމަށް ކްލިކް ކުރާށެވެ؛ ކްލިކް ކުރި ތަނާ ގުޅިފައިވާ ބައި ނުވަތަ ލޭޔަރުގެ ހުރިހާ ތަނެއް ފޮހެވޭނެއެވެ.
 tool.magic_eraser.option.contiguous = ގުޅިފައިވާ
 tool.magic_eraser.history.erase = މެޖިކް އިރޭސަރ
+
+# Remove
+tool.remove.name = ނައްތާލުން
+tool.remove.description = ނުބޭނުންވާ އެއްޗެއްގެ މަތީ އެއް ސްޓްރޯކަކުން ކުލަލާށެވެ؛ ދޫކޮށްލުމުން، އޭގެ ވަށައިގެން ހުރި ތަނުން އެ ތަން ފުރިގެންދާނެއެވެ. ކޮންމެ ސްޓްރޯކަކަށްފަހު ނައްތާލާ ނިއްވާލާފައިވާނަމަ، ގިނަ ސްޓްރޯކް ކުލަލާފައި Enter އަށް ފިއްތާ އެ ހުރިހާއެއް އެކުގައި ނައްތާލާށެވެ.
+tool.remove.option.sample_all_layers = ހުރިހާ ލޭޔަރަކުން ސާމްޕަލް ނަގާ
+tool.remove.option.remove_after_each_stroke = ކޮންމެ ސްޓްރޯކަކަށްފަހު ނައްތާލާ
+tool.remove.history.remove = ނައްތާލުން
+tool.remove.layer_name = ނައްތާލެވިފައި

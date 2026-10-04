@@ -96,3 +96,8 @@ workspace.recovery.recovered.few = Atkurti {n} ankstesnio seanso neįrašyti dok
 workspace.recovery.recovered.other = Atkurta {n} ankstesnio seanso neįrašytų dokumentų
 workspace.colormgmt.vision_on = Imitacija: {name}
 workspace.colormgmt.vision_off = Normalus regėjimas
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent} %
+workspace.tool_jobs.missing_model = Pašalinta be užpildymo modelio, todėl užpildas gali būti šiurkštesnis
+workspace.tool_jobs.document_changed = {name} baigėsi, kai dokumentas jau buvo uždarytas arba perjungtas, todėl niekas nepakeista

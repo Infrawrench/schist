@@ -18,3 +18,11 @@ tool.magic_eraser.name = Magic Eraser
 tool.magic_eraser.description = Jipede ñan joļọk jikin eo ejejjet kōļar eo ium̧win kein jitōñ, ilo joñan tolerance eo an kein jerbal — jikin ko rej koba ippān jipede eo, ak jabdewōt jikin ilo layer eo.
 tool.magic_eraser.option.contiguous = Rej koba ippān doon
 tool.magic_eraser.history.erase = Magic Eraser
+
+# Remove
+tool.remove.name = Kōṃakūt
+tool.remove.description = Kōṃṃan kōļar ioon juon men kwōj jab kōņaan ilo juon kōṃṃan; ñe kwōj kōtļọk, enaaj obrak jān men ko ibelakin. Ñe Kōṃakūt Ālikin Kajjojo Kōṃṃan ej kemej, kōṃṃan elōñ kōṃṃan im jiped Enter ñan kōṃakūti otemjej ippān doon.
+tool.remove.option.sample_all_layers = Sample jān Aolep Layer ko
+tool.remove.option.remove_after_each_stroke = Kōṃakūt Ālikin Kajjojo Kōṃṃan
+tool.remove.history.remove = Kōṃakūt
+tool.remove.layer_name = Emōj kōṃakūti

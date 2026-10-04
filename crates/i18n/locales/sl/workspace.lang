@@ -98,3 +98,8 @@ workspace.recovery.recovered.few = Iz prejšnje seje so obnovljeni {n} neshranje
 workspace.recovery.recovered.other = Iz prejšnje seje je obnovljenih {n} neshranjenih dokumentov
 workspace.colormgmt.vision_on = Simulacija: {name}
 workspace.colormgmt.vision_off = Običajen vid
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent} %
+workspace.tool_jobs.missing_model = Odstranjeno brez modela za zapolnjevanje, zato je zapolnitev morda bolj groba
+workspace.tool_jobs.document_changed = Operacija {name} se je končala, potem ko je bil njen dokument zaprt ali zamenjan, zato se ni nič spremenilo

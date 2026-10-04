@@ -103,3 +103,8 @@ workspace.recovery.recovered.one = Net gespäichert Aarbecht aus enger viregter 
 workspace.recovery.recovered.other = {n} Dokumenter aus enger viregter Sessioun erëm hiergestallt
 workspace.colormgmt.vision_on = Simulatioun: {name}
 workspace.colormgmt.vision_off = Normal Siicht
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent} %
+workspace.tool_jobs.missing_model = Ouni Inpainting-Modell ewechgeholl, dofir kann d'Fëllung méi gréif sinn
+workspace.tool_jobs.document_changed = {name} ass fäerdeg ginn, nodeems säin Dokument zougemaach oder gewiesselt gouf, dofir gouf näischt geännert

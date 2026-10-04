@@ -18,3 +18,11 @@ tool.magic_eraser.name = Kōmuru Mākutu
 tool.magic_eraser.description = Pāwhiria hei muku i te rohe tae ōrite i raro i te atatohu, i roto i te aweretanga o te utauta — ko ngā wāhi pātata ki te pāwhiri, ko te apa katoa rānei.
 tool.magic_eraser.option.contiguous = Pātata
 tool.magic_eraser.history.erase = Kōmuru Mākutu
+
+# Remove
+tool.remove.name = Tango
+tool.remove.description = Peitahia tētahi ahanoa kāore e hiahiatia ki te whiu kotahi; ka tukua e koe, ka whakakīia ki ngā mea huri noa. Ki te weto te Tango i Muri i ia Whiu, peitahia ētahi whiu, ka pēhi i te Enter hei tango tahi i a rātou.
+tool.remove.option.sample_all_layers = Tauira Ngā Apa Katoa
+tool.remove.option.remove_after_each_stroke = Tango i Muri i ia Whiu
+tool.remove.history.remove = Tango
+tool.remove.layer_name = Kua Tangohia

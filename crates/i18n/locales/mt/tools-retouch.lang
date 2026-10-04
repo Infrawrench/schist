@@ -29,3 +29,11 @@ tool.magic_eraser.name = Gomma Maġika
 tool.magic_eraser.description = Ikklikkja biex tħassar iż-żona ta' kulur simili taħt il-werrej, skont it-tolleranza tal-għodda — jew iż-żona magħquda mal-punt magħfus, jew kull fejn tidher fis-saff.
 tool.magic_eraser.option.contiguous = Kontigwa
 tool.magic_eraser.history.erase = Gomma Maġika
+
+# Remove
+tool.remove.name = Neħħi
+tool.remove.description = Pinġi fuq oġġett mhux mixtieq f'passata waħda; meta titlaq, jimtela mill-inħawi tiegħu. Meta Neħħi Wara Kull Passata tkun mitfija, pinġi diversi passati u agħfas Enter biex tneħħihom flimkien.
+tool.remove.option.sample_all_layers = Kampjun mis-Saffi Kollha
+tool.remove.option.remove_after_each_stroke = Neħħi Wara Kull Passata
+tool.remove.history.remove = Neħħi
+tool.remove.layer_name = Imneħħi

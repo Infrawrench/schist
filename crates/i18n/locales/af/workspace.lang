@@ -103,3 +103,8 @@ workspace.recovery.recovered.one = Ongestoorde werk uit 'n vorige sessie herstel
 workspace.recovery.recovered.other = {n} dokumente uit 'n vorige sessie herstel
 workspace.colormgmt.vision_on = Simulasie: {name}
 workspace.colormgmt.vision_off = Normale visie
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Verwyder sonder die inverfmodel, dus kan die invulling growwer wees
+workspace.tool_jobs.document_changed = {name} het klaargemaak nadat sy dokument gesluit of gewissel is, dus is niks verander nie

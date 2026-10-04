@@ -23,3 +23,11 @@ tool.magic_eraser.name = Magia skrapgumo
 tool.magic_eraser.description = Alklaku por forviŝi la areon de simila koloro sub la montrilo, ene de la toleremo de la ilo — ĉu nur la areon konektitan al la alklakita punkto, ĉu ĉiujn tiajn areojn en la tavolo.
 tool.magic_eraser.option.contiguous = Apuda
 tool.magic_eraser.history.erase = Magia skrapgumo
+
+# Remove
+tool.remove.name = Forigi
+tool.remove.description = Pentru super nedezirata objekto per unu streko; kiam vi malpremas, ĝi pleniĝas el sia ĉirkaŭaĵo. Kun Forigi post ĉiu streko malŝaltita, pentru plurajn strekojn kaj premu Enigan klavon por forigi ilin kune.
+tool.remove.option.sample_all_layers = Specimeni ĉiujn tavolojn
+tool.remove.option.remove_after_each_stroke = Forigi post ĉiu streko
+tool.remove.history.remove = Forigo
+tool.remove.layer_name = Forigita

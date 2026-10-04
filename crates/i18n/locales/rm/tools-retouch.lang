@@ -23,3 +23,11 @@ tool.magic_eraser.name = Gumma magica
 tool.magic_eraser.description = Clicca per stizzar la regiun da colur sumeglianta sut il punctader entaifer la toleranza da l'utensil, saja mo la regiun colliada cun il punct cliccà u tut las regiuns en la stresa.
 tool.magic_eraser.option.contiguous = Regiun colliada
 tool.magic_eraser.history.erase = Gumma magica
+
+# Remove
+tool.remove.name = Allontanar
+tool.remove.description = Pitturai cun in sulet stritg sur in object nungavischà; cura che Vus laschais liber, vegn el emplenì cun ses conturns. Cun «Allontanar suenter mintga stritg» deactivà, pitturai plirs strichs e smatgai Enter per als allontanar ensemen.
+tool.remove.option.sample_all_layers = Emprova da tut las stresas
+tool.remove.option.remove_after_each_stroke = Allontanar suenter mintga stritg
+tool.remove.history.remove = Allontanar
+tool.remove.layer_name = Allontanà

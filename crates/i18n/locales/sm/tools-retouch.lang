@@ -18,3 +18,11 @@ tool.magic_eraser.name = Solo Faamaneta
 tool.magic_eraser.description = Kiliki e tape ai le vaega e tutusa lona lanu i lalo o le faasino, i totonu o le faapalepale a le meafaigaluega—pe na o le vaega e sosoo ma le mea na kiliki, po o vaega uma o le lanu i le vaega.
 tool.magic_eraser.option.contiguous = Fesootaʻi
 tool.magic_eraser.history.erase = Solo Faamaneta
+
+# Remove
+tool.remove.name = Aveese
+tool.remove.description = Vali i luga o se mea e lē manaʻomia i le laina e tasi; pe a e tuʻuina, e faatumu mai mea o loo siʻomia ai. Pe a tape le Aveese pe a Uma Laina Taʻitasi, vali ni laina se tele ona oomi lea o le Enter e aveese faatasi ai.
+tool.remove.option.sample_all_layers = Faataʻitaʻiga mai Vaega Uma
+tool.remove.option.remove_after_each_stroke = Aveese pe a Uma Laina Taʻitasi
+tool.remove.history.remove = Aveese
+tool.remove.layer_name = Ua Aveesea

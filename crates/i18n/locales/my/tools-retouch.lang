@@ -22,3 +22,11 @@ tool.magic_eraser.name = မှော်ဖျက်ကိရိယာ
 tool.magic_eraser.description = ကိရိယာ၏ သည်းခံအတိုင်းအတာအတွင်း ညွှန်တံအောက်ရှိ အရောင်နှင့် ဆင်တူသော ဧရိယာကို ဖျက်ရန် နှိပ်ပါ။ နှိပ်သည့်နေရာနှင့် ဆက်စပ်နေသော ဧရိယာကိုဖြစ်စေ၊ အလွှာတစ်လျှောက်လုံးရှိ ဆင်တူအရောင်ကိုဖြစ်စေ ဖျက်နိုင်သည်။
 tool.magic_eraser.option.contiguous = ဆက်စပ်ဧရိယာသာ
 tool.magic_eraser.history.erase = မှော်ဖျက်ကိရိယာ
+
+# Remove
+tool.remove.name = ဖယ်ရှားရန်
+tool.remove.description = မလိုလားသောအရာကို တစ်ချက်တည်းဖြင့် ဆေးသုတ်ပါ။ လွှတ်လိုက်သည်နှင့် ထိုနေရာကို ပတ်ဝန်းကျင်မှ ဖြည့်ပေးသည်။ ချက်တိုင်းပြီးနောက် ဖယ်ရှားရန် ပိတ်ထားလျှင် ချက်များစွာ ဆေးသုတ်ပြီး Enter နှိပ်ကာ အားလုံးကို တစ်ပြိုင်နက် ဖယ်ရှားနိုင်သည်။
+tool.remove.option.sample_all_layers = အလွှာအားလုံးမှ နမူနာယူရန်
+tool.remove.option.remove_after_each_stroke = ချက်တိုင်းပြီးနောက် ဖယ်ရှားရန်
+tool.remove.history.remove = ဖယ်ရှားရန်
+tool.remove.layer_name = ဖယ်ရှားပြီး

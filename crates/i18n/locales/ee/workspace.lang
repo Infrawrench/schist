@@ -103,3 +103,8 @@ workspace.recovery.recovered.one = Wogbugbɔ dɔ si womadzra ɖo o tso session s
 workspace.recovery.recovered.other = Wogbugbɔ agbalẽ {n} tso session si va yi me
 workspace.colormgmt.vision_on = Nuɖeɖe: {name}
 workspace.colormgmt.vision_off = Kpɔkpɔ si le eteƒe
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Woɖee ɖa le teƒeyɔyɔ ƒe model manɔmee, eya ta teƒeyɔyɔ la ate ŋu ava gbɔ̃
+workspace.tool_jobs.document_changed = {name} wu enu le esime wotu alo trɔ eƒe agbalẽ la vɔ megbe, eya ta naneke metrɔ o

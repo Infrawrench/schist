@@ -92,3 +92,8 @@ workspace.recovery.recovered_title = {title} (e weghachitere)
 workspace.recovery.recovered.other = E weghachitere ọrụ a na-echekwaghị site na session gara aga: dọkụmentị {n}
 workspace.colormgmt.vision_on = Ịkọ ihe: {name}
 workspace.colormgmt.vision_off = Ọhụhụ nkịtị
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = E wepụrụ ya na-enweghị ụdị mmejupụta, ya mere mmejupụta nwere ike ịka ike
+workspace.tool_jobs.document_changed = {name} gwụchara mgbe e mechiri ma ọ bụ gbanwee akwụkwọ ya, ya mere ọ dịghị ihe gbanwere

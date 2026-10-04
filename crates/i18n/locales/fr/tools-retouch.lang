@@ -18,3 +18,11 @@ tool.magic_eraser.name = Gomme magique
 tool.magic_eraser.description = Cliquez pour effacer, dans la limite de tolérance de l’outil, la zone de couleur similaire sous le pointeur : uniquement les pixels contigus au point cliqué, ou tous ceux du calque.
 tool.magic_eraser.option.contiguous = Pixels contigus
 tool.magic_eraser.history.erase = Gomme magique
+
+# Remove
+tool.remove.name = Supprimer
+tool.remove.description = Peignez sur un objet indésirable en un seul tracé ; lorsque vous relâchez, il est comblé à partir de ce qui l’entoure. Si Supprimer après chaque tracé est désactivé, peignez plusieurs tracés et appuyez sur Entrée pour les supprimer ensemble.
+tool.remove.option.sample_all_layers = Échantillonner tous les calques
+tool.remove.option.remove_after_each_stroke = Supprimer après chaque tracé
+tool.remove.history.remove = Supprimer
+tool.remove.layer_name = Supprimé

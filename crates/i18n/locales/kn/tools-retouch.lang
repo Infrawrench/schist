@@ -27,3 +27,11 @@ tool.magic_eraser.name = ಮಾಯಾ ಅಳಿಸುಗ
 tool.magic_eraser.description = ಪರಿಕರದ ಸಹಿಷ್ಣುತೆ ಮಿತಿಯೊಳಗೆ ಪಾಯಿಂಟರ್‌ನ ಕೆಳಗಿನ ಬಣ್ಣಕ್ಕೆ ಹೋಲುವ ಪ್ರದೇಶವನ್ನು ಅಳಿಸಲು ಕ್ಲಿಕ್ ಮಾಡಿ—ಕ್ಲಿಕ್ ಮಾಡಿದ ಸ್ಥಳಕ್ಕೆ ಹೊಂದಿಕೊಂಡಿರುವ ಭಾಗವನ್ನು ಅಥವಾ ಲೇಯರ್‌ನ ಎಲ್ಲೆಡೆಯ ಭಾಗವನ್ನು ಅಳಿಸಬಹುದು.
 tool.magic_eraser.option.contiguous = ಹೊಂದಿಕೊಂಡಿರುವುದು
 tool.magic_eraser.history.erase = ಮಾಯಾ ಅಳಿಸುಗ
+
+# Remove
+tool.remove.name = ತೆಗೆದುಹಾಕು
+tool.remove.description = ಬೇಡದ ವಸ್ತುವಿನ ಮೇಲೆ ಒಂದೇ ಸ್ಟ್ರೋಕ್‌ನಲ್ಲಿ ಬಣ್ಣ ಹಚ್ಚಿ; ನೀವು ಬಿಟ್ಟಾಗ ಅದನ್ನು ಸುತ್ತಮುತ್ತಲಿನ ಭಾಗದಿಂದ ತುಂಬಲಾಗುತ್ತದೆ. ಪ್ರತಿ ಸ್ಟ್ರೋಕ್ ನಂತರ ತೆಗೆದುಹಾಕು ಆಫ್ ಆಗಿದ್ದರೆ, ಹಲವು ಸ್ಟ್ರೋಕ್‌ಗಳನ್ನು ಬಣ್ಣಿಸಿ ಮತ್ತು ಅವನ್ನು ಒಟ್ಟಿಗೆ ತೆಗೆದುಹಾಕಲು Enter ಒತ್ತಿ.
+tool.remove.option.sample_all_layers = ಎಲ್ಲಾ ಲೇಯರ್‌ಗಳಿಂದ ಮಾದರಿ
+tool.remove.option.remove_after_each_stroke = ಪ್ರತಿ ಸ್ಟ್ರೋಕ್ ನಂತರ ತೆಗೆದುಹಾಕು
+tool.remove.history.remove = ತೆಗೆದುಹಾಕು
+tool.remove.layer_name = ತೆಗೆದುಹಾಕಲಾಗಿದೆ

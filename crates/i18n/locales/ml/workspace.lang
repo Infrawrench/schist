@@ -94,3 +94,8 @@ workspace.recovery.recovered.one = മുൻ സെഷനിൽ സംരക്�
 workspace.recovery.recovered.other = മുൻ സെഷനിൽനിന്ന് {n} ഡോക്യുമെന്റുകൾ വീണ്ടെടുത്തു
 workspace.colormgmt.vision_on = സിമുലേഷൻ: {name}
 workspace.colormgmt.vision_off = സാധാരണ കാഴ്ച
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = ഇൻപെയിന്റിങ് മോഡൽ ഇല്ലാതെ നീക്കംചെയ്തു, അതിനാൽ നിറയ്ക്കൽ കൂടുതൽ പരുക്കനായേക്കാം
+workspace.tool_jobs.document_changed = ഡോക്യുമെന്റ് അടച്ചതിനോ മാറ്റിയതിനോ ശേഷമാണ് {name} പൂർത്തിയായത്, അതിനാൽ ഒന്നും മാറ്റിയിട്ടില്ല

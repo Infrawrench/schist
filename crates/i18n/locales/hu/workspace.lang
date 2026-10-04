@@ -94,3 +94,8 @@ workspace.recovery.recovered.one = Az előző munkamenet nem mentett munkája he
 workspace.recovery.recovered.other = {n} dokumentum helyreállítva az előző munkamenetből
 workspace.colormgmt.vision_on = Szimuláció: {name}
 workspace.colormgmt.vision_off = Normál látás
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Eltávolítva a kitöltőmodell nélkül, így a kitöltés durvább lehet
+workspace.tool_jobs.document_changed = A(z) {name} a dokumentuma bezárása vagy váltása után fejeződött be, ezért semmi sem változott

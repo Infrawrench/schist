@@ -94,3 +94,8 @@ workspace.recovery.recovered.one = Karê netomarkirî ji danişîna berê hat ve
 workspace.recovery.recovered.other = {n} belge ji danişîna berê hatin vegerandin
 workspace.colormgmt.vision_on = Simulasyon: {name}
 workspace.colormgmt.vision_off = Dîtina normal
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: %{percent}
+workspace.tool_jobs.missing_model = Bê modela dagirtina wêneyê hate rakirin, ji ber vê yekê dibe ku dagirtin ziwirtir be
+workspace.tool_jobs.document_changed = {name} piştî ku belgeya wê hate girtin an guhertin qediya, ji ber vê yekê tiştek nehate guhertin

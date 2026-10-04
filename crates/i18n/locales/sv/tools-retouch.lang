@@ -28,3 +28,11 @@ tool.magic_eraser.name = Magiskt suddgummi
 tool.magic_eraser.description = Klicka för att sudda området med liknande färg under pekaren, inom verktygets tolerans – sammanhängande med klicket eller överallt i lagret.
 tool.magic_eraser.option.contiguous = Angränsande
 tool.magic_eraser.history.erase = Magiskt suddgummi
+
+# Remove
+tool.remove.name = Ta bort
+tool.remove.description = Måla över ett oönskat objekt i ett enda drag; när du släpper fylls det i från omgivningen. Med Ta bort efter varje drag avstängt kan du måla flera drag och trycka på Enter för att ta bort dem tillsammans.
+tool.remove.option.sample_all_layers = Sampla alla lager
+tool.remove.option.remove_after_each_stroke = Ta bort efter varje drag
+tool.remove.history.remove = Ta bort
+tool.remove.layer_name = Borttaget

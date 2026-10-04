@@ -92,3 +92,8 @@ workspace.recovery.recovered_title = {title} (барқароршуда)
 workspace.recovery.recovered.other = Кори захиранашуда аз ҷаласаи пешина барқарор шуд: {n} ҳуҷҷат
 workspace.colormgmt.vision_on = Шабеҳсозӣ: {name}
 workspace.colormgmt.vision_off = Биниши муқаррарӣ
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Бе модели пуркунӣ тоза карда шуд, бинобар ин пуркунӣ метавонад ноҳамвортар бошад
+workspace.tool_jobs.document_changed = {name} пас аз пӯшида ё иваз шудани ҳуҷҷаташ анҷом ёфт, бинобар ин ҳеҷ чиз тағйир наёфт

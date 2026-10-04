@@ -92,3 +92,8 @@ workspace.recovery.recovered_title = {title} (retabli)
 workspace.recovery.recovered.other = Travay ki pa t anrejistre nan yon sesyon anvan retabli pou {n} dokiman
 workspace.colormgmt.vision_on = Simulasyon: {name}
 workspace.colormgmt.vision_off = Vizyon nòmal
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Retire san modèl ranpli a, kidonk ranplisaj la ka pi grosye
+workspace.tool_jobs.document_changed = {name} fini apre yo te fèmen oswa chanje dokiman li a, kidonk anyen pa chanje

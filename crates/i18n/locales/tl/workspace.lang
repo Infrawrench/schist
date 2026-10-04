@@ -94,3 +94,8 @@ workspace.recovery.recovered.one = Na-recover ang {n} hindi na-save na gawa mula
 workspace.recovery.recovered.other = Na-recover ang {n} dokumento mula sa nakaraang session
 workspace.colormgmt.vision_on = Simulation: {name}
 workspace.colormgmt.vision_off = Normal na paningin
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Inalis nang walang modelo ng inpainting, kaya maaaring mas magaspang ang pagpuno
+workspace.tool_jobs.document_changed = Natapos ang {name} matapos isara o palitan ang dokumento nito, kaya walang binago

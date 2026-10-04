@@ -95,3 +95,8 @@ workspace.recovery.recovered.one = Recuperat negardat labor ex un anterior sessi
 workspace.recovery.recovered.other = Recuperat {n} documentes ex un anterior session
 workspace.colormgmt.vision_on = Simulation: {name}
 workspace.colormgmt.vision_off = Vision normal
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Removet sin li modelle de plenation, dunc li plenation posse esser plu rud
+workspace.tool_jobs.document_changed = {name} finit pos que su documente esset cludet o cambiat, dunc nequó esset modificat

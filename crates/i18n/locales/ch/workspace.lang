@@ -92,3 +92,8 @@ workspace.recovery.recovered_title = {title} (marikupera)
 workspace.recovery.recovered.other = Marikupera i ti masåtba na cho'cho' ginen un mampos na session; kuantidåt dokumentu: {n}
 workspace.colormgmt.vision_on = Simulasión: {name}
 workspace.colormgmt.vision_off = Normal na bisión
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Ma'na'suha sin i modelon inpainting, pues siña mås ti suåbe i ma'omple
+workspace.tool_jobs.document_changed = Munhåyan i {name} despues di ma'huchom pat matulaika i dokumento, pues tåya' ni håfa matulaika

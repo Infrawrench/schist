@@ -28,3 +28,11 @@ tool.magic_eraser.name = Borrador machico
 tool.magic_eraser.description = Fe clic ta borrar l'aria de color pareixida que ye baixo o puntero, dentro d'a tolerancia d'a ferramienta: contigua a lo punto d'o clic u por toda la capa.
 tool.magic_eraser.option.contiguous = Contiguo
 tool.magic_eraser.history.erase = Borrador machico
+
+# Remove
+tool.remove.name = Eliminar
+tool.remove.description = Pinta sobre un obchecto no deseyau en un solo trazo; quan lo deixes, se replena dende o suyo entorno. Con Eliminar dimpués de cada trazo desactivau, pinta quantos trazos y preta Enter ta eliminar-los toz chuntos.
+tool.remove.option.sample_all_layers = Mostriar todas as capas
+tool.remove.option.remove_after_each_stroke = Eliminar dimpués de cada trazo
+tool.remove.history.remove = Eliminar
+tool.remove.layer_name = Eliminau

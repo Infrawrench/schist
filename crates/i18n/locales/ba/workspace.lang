@@ -102,3 +102,8 @@ workspace.recovery.recovered_title = {title} (тергеҙелгән)
 workspace.recovery.recovered.other = Алдағы сеанстан һаҡланмаған эш тергеҙелде; документтар һаны: {n}
 workspace.colormgmt.vision_on = Оҡшатыу: {name}
 workspace.colormgmt.vision_off = Нормаль күреү
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Тултырыу моделенән башҡа алып ташланды, шуға тултырыу тупаҫыраҡ булыуы ихтимал
+workspace.tool_jobs.document_changed = {name} документы ябылғандан йәки алмаштырылғандан һуң тамамланды, шуға бер нәмә лә үҙгәртелмәне

@@ -105,3 +105,8 @@ workspace.recovery.recovered.one = Labor non salvate recuperate ab un session pr
 workspace.recovery.recovered.other = {n} documentos recuperate ab un session precedente
 workspace.colormgmt.vision_on = Simulation: {name}
 workspace.colormgmt.vision_off = Visione normal
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Removite sin le modello de impletion, dunque le impletion pote esser plus grossier
+workspace.tool_jobs.document_changed = {name} finiva post que su documento esseva claudite o cambiate, dunque nihil esseva modificate

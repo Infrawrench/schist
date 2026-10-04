@@ -92,3 +92,8 @@ workspace.recovery.recovered_title = {title} (recuperat)
 workspace.recovery.recovered.other = Documents recuperats d'una session precedenta : {n}
 workspace.colormgmt.vision_on = Simulacion : {name}
 workspace.colormgmt.vision_off = Vision normala
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name} : {percent} %
+workspace.tool_jobs.missing_model = Suprimit sens lo modèl de reconstruccion, l'emplenatge pòt èsser mai grossièr
+workspace.tool_jobs.document_changed = {name} s'es acabat aprèp que son document es estat tampat o cambiat, doncas res es pas estat modificat

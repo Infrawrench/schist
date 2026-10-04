@@ -18,3 +18,11 @@ tool.magic_eraser.name = Igihanagura c'ubumaji
 tool.magic_eraser.description = Kanda uhanagure akarere k'amabara asa kari munsi y'erekana, mu rugero rw'igikoresho: agafatanye n'aho wakandye canke hose muri ico gice.
 tool.magic_eraser.option.contiguous = Bifatanye
 tool.magic_eraser.history.erase = Igihanagura c'ubumaji
+
+# Remove
+tool.remove.name = Gukura
+tool.remove.description = Siga hejuru y'ikintu udashaka mu gukwega rimwe; uretse, gica kizuzwa hakoreshejwe ibikikije. Igihe "Gukura inyuma ya buri gukwega" kizimye, siga incuro nyinshi hanyuma ukande Enter kugira ubikure hamwe.
+tool.remove.option.sample_all_layers = Akarorero kuva mu nzego zose
+tool.remove.option.remove_after_each_stroke = Gukura inyuma ya buri gukwega
+tool.remove.history.remove = Gukura
+tool.remove.layer_name = Vyakuweho

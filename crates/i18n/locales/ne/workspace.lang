@@ -94,3 +94,8 @@ workspace.recovery.recovered.one = अघिल्लो सत्रबाट �
 workspace.recovery.recovered.other = अघिल्लो सत्रबाट {n} कागजातहरू पुनःप्राप्त गरियो
 workspace.colormgmt.vision_on = सिमुलेशन: {name}
 workspace.colormgmt.vision_off = सामान्य दृष्टि
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = भराइ मोडेलविना हटाइयो, त्यसैले भराइ अलि खस्रो हुन सक्छ
+workspace.tool_jobs.document_changed = {name} यसको कागजात बन्द वा परिवर्तन भएपछि सकियो, त्यसैले केही परिवर्तन गरिएन

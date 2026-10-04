@@ -21,3 +21,11 @@ tool.magic_eraser.name = Тылсымлы бетергеч
 tool.magic_eraser.description = Коралның рөхсәт ителгән аермасы чикләрендә күрсәткеч астындагы охшаш төстәге өлкәне бетерү өчен чиртегез: ул чиртелгән ноктага тоташ өлкә генә дә, катламдагы барлык шундый урыннар да була ала.
 tool.magic_eraser.option.contiguous = Тоташ
 tool.magic_eraser.history.erase = Тылсымлы бетергеч
+
+# Remove
+tool.remove.name = Бетерү
+tool.remove.description = Кирәкмәгән объект өстеннән бер сызык белән буягыз; җибәргәч, ул тирә-юненнән тутырыла. Һәр сызыктан соң бетерү сүндерелгән булса, берничә сызык ясагыз һәм аларны бергә бетерү өчен Enter басыгыз.
+tool.remove.option.sample_all_layers = Барлык катламнардан үрнәк
+tool.remove.option.remove_after_each_stroke = Һәр сызыктан соң бетерү
+tool.remove.history.remove = Бетерү
+tool.remove.layer_name = Бетерелгән

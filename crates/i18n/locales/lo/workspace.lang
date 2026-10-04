@@ -92,3 +92,8 @@ workspace.recovery.recovered_title = {title} (ກູ້ຄືນແລ້ວ)
 workspace.recovery.recovered.other = ກູ້ຄືນວຽກທີ່ຍັງບໍ່ໄດ້ບັນທຶກຈາກເຊສຊັນກ່ອນໄດ້ {n} ເອກະສານ
 workspace.colormgmt.vision_on = ກຳລັງຈຳລອງ: {name}
 workspace.colormgmt.vision_off = ການເບິ່ງເຫັນປົກກະຕິ
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = ເອົາອອກໂດຍບໍ່ມີແບບຈຳລອງເຕີມຮູບ ສະນັ້ນການເຕີມອາດຫຍາບກວ່າ
+workspace.tool_jobs.document_changed = {name} ສຳເລັດຫຼັງຈາກເອກະສານຂອງມັນຖືກປິດ ຫຼື ສະຫຼັບໄປແລ້ວ ສະນັ້ນຈຶ່ງບໍ່ມີຫຍັງປ່ຽນແປງ

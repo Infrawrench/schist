@@ -92,3 +92,8 @@ workspace.recovery.recovered_title = {title} (eṃōj kōjparok)
 workspace.recovery.recovered.other = Eṃōj bar bōktok jerbal ko rejjañin kōjparok jen session eo mokta, document {n}
 workspace.colormgmt.vision_on = Kōmmaanļọk: {name}
 workspace.colormgmt.vision_off = Lale eṃṃan
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Emōj kōṃakūti ilo ejjeļọk model in kobrak, kōn menin kobrak eo emaron̄ jab emṃan
+workspace.tool_jobs.document_changed = {name} ear dedo ālikin an kar kili ak oktak document eo an, kōn menin ejjeļọk men ear oktak

@@ -97,3 +97,8 @@ workspace.recovery.recovered.few = Опорављена су {n} докумен�
 workspace.recovery.recovered.other = Опорављено је {n} докумената са несачуваним радом из претходне сесије
 workspace.colormgmt.vision_on = Симулација: {name}
 workspace.colormgmt.vision_off = Нормалан вид
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Уклоњено без модела за допуњавање, па попуна може бити грубља
+workspace.tool_jobs.document_changed = Операција {name} је завршена након што је њен документ затворен или замењен, па ништа није измењено

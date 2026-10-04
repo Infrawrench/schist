@@ -94,3 +94,8 @@ workspace.recovery.recovered.one = Мурунку сеанстагы сакта�
 workspace.recovery.recovered.other = Мурунку сеанстагы {n} документ калыбына келтирилди
 workspace.colormgmt.vision_on = Симуляция: {name}
 workspace.colormgmt.vision_off = Кадимки көрүү
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Толуктоо модели жок алынып салынды, ошондуктан толтуруу орой болушу мүмкүн
+workspace.tool_jobs.document_changed = {name} аяктаганда анын документи жабылган же алмаштырылган болчу, ошондуктан эч нерсе өзгөргөн жок

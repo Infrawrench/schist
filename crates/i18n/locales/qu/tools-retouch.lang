@@ -25,3 +25,11 @@ tool.magic_eraser.name = Layqa pichana
 tool.magic_eraser.description = Ñit'ispa tupuchiqpa uranpi kaq rikch'akuq llimp'iyuq k'itita, llamk'anap saqisqan tupukama pichay: ñit'isqawan tupasqa k'itillata utaq patapi llapan chay llimp'iyuq k'itita.
 tool.magic_eraser.option.contiguous = Tupanakusqa
 tool.magic_eraser.history.erase = Layqa pichanawan pichay
+
+# Remove
+tool.remove.name = Qichuy
+tool.remove.description = Mana munasqa imatapas huk suyt'ullapi llimp'iy; kacharispaqa muyuriqninmanta hunt'achikun. "Sapa suyt'u qhipa qichuy" wañuchisqa kaqtinqa, achka suyt'ukunata llimp'iy hinaspa Enter ñit'iy kuskalla qichunapaq.
+tool.remove.option.sample_all_layers = Llapan patakunamanta rikuna
+tool.remove.option.remove_after_each_stroke = Sapa suyt'u qhipa qichuy
+tool.remove.history.remove = Qichuy
+tool.remove.layer_name = Qichusqa

@@ -103,3 +103,8 @@ workspace.recovery.recovered.one = ਪਿਛਲੇ ਸੈਸ਼ਨ ਦਾ {n} �
 workspace.recovery.recovered.other = ਪਿਛਲੇ ਸੈਸ਼ਨ ਦੇ {n} ਦਸਤਾਵੇਜ਼ ਬਹਾਲ ਕੀਤੇ
 workspace.colormgmt.vision_on = ਸਿਮੂਲੇਸ਼ਨ: {name}
 workspace.colormgmt.vision_off = ਆਮ ਨਜ਼ਰ
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = ਇਨਪੇਂਟਿੰਗ ਮਾਡਲ ਤੋਂ ਬਿਨਾਂ ਹਟਾਇਆ ਗਿਆ, ਇਸ ਲਈ ਭਰਾਈ ਕੁਝ ਖੁਰਦਰੀ ਹੋ ਸਕਦੀ ਹੈ
+workspace.tool_jobs.document_changed = {name} ਇਸਦੇ ਦਸਤਾਵੇਜ਼ ਦੇ ਬੰਦ ਹੋਣ ਜਾਂ ਬਦਲਣ ਤੋਂ ਬਾਅਦ ਪੂਰਾ ਹੋਇਆ, ਇਸ ਲਈ ਕੁਝ ਨਹੀਂ ਬਦਲਿਆ ਗਿਆ

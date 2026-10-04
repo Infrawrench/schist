@@ -94,3 +94,8 @@ workspace.recovery.recovered.one = ئالدىنقى سېيىستىكى ساقل�
 workspace.recovery.recovered.other = ئالدىنقى سېيىستىن {n} ھۆججەت ئەسلىگە كەلتۈرۈلدى
 workspace.colormgmt.vision_on = تەقلىد: {name}
 workspace.colormgmt.vision_off = نورمال كۆرۈش
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = تولدۇرۇش مودېلىسىز ئۆچۈرۈلدى، شۇڭا تولدۇرۇش سەل قوپال بولۇشى مۇمكىن
+workspace.tool_jobs.document_changed = {name} ھۆججىتى يېپىلغاندىن ياكى ئالماشتۇرۇلغاندىن كېيىن تاماملاندى، شۇڭا ھېچنېمە ئۆزگەرتىلمىدى

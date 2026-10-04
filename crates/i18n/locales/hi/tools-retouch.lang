@@ -18,3 +18,11 @@ tool.magic_eraser.name = मैजिक इरेज़र
 tool.magic_eraser.description = पॉइंटर के नीचे मिलते-जुलते रंग वाले क्षेत्र को टूल की सहनशीलता के भीतर मिटाने के लिए क्लिक करें—क्लिक से जुड़े क्षेत्र में या लेयर में हर जगह।
 tool.magic_eraser.option.contiguous = संलग्न
 tool.magic_eraser.history.erase = मैजिक इरेज़र
+
+# Remove
+tool.remove.name = हटाएँ
+tool.remove.description = किसी अनचाही वस्तु पर एक ही स्ट्रोक में पेंट करें; छोड़ते ही वह आसपास के हिस्से से भर दी जाएगी। हर स्ट्रोक के बाद हटाएँ बंद होने पर, कई स्ट्रोक पेंट करें और उन्हें एक साथ हटाने के लिए Enter दबाएँ।
+tool.remove.option.sample_all_layers = सभी लेयर से नमूना लें
+tool.remove.option.remove_after_each_stroke = हर स्ट्रोक के बाद हटाएँ
+tool.remove.history.remove = हटाएँ
+tool.remove.layer_name = हटाया गया

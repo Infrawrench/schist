@@ -94,3 +94,8 @@ workspace.recovery.recovered.one = Endurstovnaði ógoymt arbeiði úr einari el
 workspace.recovery.recovered.other = Endurstovnaði {n} skjøl úr einari eldri setu
 workspace.colormgmt.vision_on = Eftirlíking: {name}
 workspace.colormgmt.vision_off = Vanlig sjón
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Tikið burtur uttan innmálingarmodellið, so útfyllingin kann vera grovari
+workspace.tool_jobs.document_changed = {name} varð liðugt, eftir at skjalið var latið aftur ella skift, so einki varð broytt

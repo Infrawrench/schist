@@ -25,3 +25,11 @@ tool.magic_eraser.name = Magic Eraser
 tool.magic_eraser.description = Klik para un na'suha i lugåt ni parehu kulot gi papa' i pointer, gi halom i toleransian i tool — solu i chetton na lugåt gi pine'chon, pat todu i parehu na kulot gi layer.
 tool.magic_eraser.option.contiguous = Chetton
 tool.magic_eraser.history.erase = Magic Eraser
+
+# Remove
+tool.remove.name = Na'suha
+tool.remove.description = Pinta gi hilo' i ti malago' na oheto gi un stroke; anggen un na'suha i kalamten, ma'omple ginen i uriyan-ña. Yanggen dimåsa i Na'suha despues di kada stroke, pinta meggai na stroke ya un po'lo Enter para un na'suha todu siha.
+tool.remove.option.sample_all_layers = Sample Todu i Layer siha
+tool.remove.option.remove_after_each_stroke = Na'suha despues di kada stroke
+tool.remove.history.remove = Na'suha
+tool.remove.layer_name = Ma'na'suha

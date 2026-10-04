@@ -94,3 +94,8 @@ workspace.recovery.recovered.one = {n} documint nén schapé rapexhî d' ene ses
 workspace.recovery.recovered.other = {n} documints rapexhîs d' ene session di dvant
 workspace.colormgmt.vision_on = Simulåcion: {name}
 workspace.colormgmt.vision_off = Vuwe normåle
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Oisté sins l' modele di rimplixhaedje, adon l' rimplixhaedje pout esse pus groû
+workspace.tool_jobs.document_changed = {name} a fini après k' si documint a stî sere ou candjî, adon rén n' a stî candjî

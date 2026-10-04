@@ -127,3 +127,8 @@ workspace.recovery.recovered_title = {title}（已恢复）
 workspace.recovery.recovered.other = 已从上次会话恢复 {n} 个文档
 workspace.colormgmt.vision_on = 正在模拟：{name}
 workspace.colormgmt.vision_off = 正常视觉
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}：{percent}%
+workspace.tool_jobs.missing_model = 已在没有修复模型的情况下移除，填充效果可能较粗糙
+workspace.tool_jobs.document_changed = {name} 完成时其文档已关闭或切换，因此未做任何更改

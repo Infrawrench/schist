@@ -21,3 +21,11 @@ tool.magic_eraser.name = Čarovná guma
 tool.magic_eraser.description = Kliknutím vymažete oblasť podobnej farby pod ukazovateľom v rámci tolerancie nástroja — buď súvislú s miestom kliknutia, alebo všade vo vrstve.
 tool.magic_eraser.option.contiguous = Súvislé
 tool.magic_eraser.history.erase = Čarovná guma
+
+# Remove
+tool.remove.name = Odstrániť
+tool.remove.description = Jedným ťahom premaľujte nežiaduci objekt; keď pustíte, vyplní sa podľa okolia. Keď je voľba Odstrániť po každom ťahu vypnutá, namaľujte niekoľko ťahov a stlačením klávesu Enter ich odstránite naraz.
+tool.remove.option.sample_all_layers = Vzorka zo všetkých vrstiev
+tool.remove.option.remove_after_each_stroke = Odstrániť po každom ťahu
+tool.remove.history.remove = Odstrániť
+tool.remove.layer_name = Odstránené
