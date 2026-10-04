@@ -379,6 +379,10 @@ pub(crate) fn run_app_item(
         #[cfg(not(target_arch = "wasm32"))]
         AppItem::GalleryMapFilter => ws.open_map_filter(cx),
         #[cfg(not(target_arch = "wasm32"))]
+        AppItem::GallerySlideshow => ws.gallery_slideshow(cx),
+        #[cfg(not(target_arch = "wasm32"))]
+        AppItem::GalleryNewSmartAlbum => ws.gallery_new_smart_album(cx),
+        #[cfg(not(target_arch = "wasm32"))]
         AppItem::OpenRecent(i) => {
             if let Some(path) = ws.library.recents.get(i).cloned() {
                 ws.load_file(path, cx);
@@ -391,6 +395,8 @@ pub(crate) fn run_app_item(
         | AppItem::GalleryRefresh
         | AppItem::GalleryEditSelected
         | AppItem::GalleryMapFilter
+        | AppItem::GallerySlideshow
+        | AppItem::GalleryNewSmartAlbum
         | AppItem::OpenRecent(_) => {}
         AppItem::PathFill => ws.use_active_path(crate::workspace::PathOp::Fill, cx),
         AppItem::PathStroke => ws.use_active_path(crate::workspace::PathOp::Stroke, cx),

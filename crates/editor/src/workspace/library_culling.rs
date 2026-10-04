@@ -78,6 +78,11 @@ fn decode_comparison(path: &Path) -> anyhow::Result<(u32, u32, Vec<u8>, bool)> {
 
 impl Workspace {
     fn culling_paths(&self) -> Vec<PathBuf> {
+        // The slideshow doubles as a culling pass: the keys decide on
+        // the photo on screen.
+        if let Some(path) = self.slideshow_photo() {
+            return vec![path];
+        }
         if let Some(compare) = &self.library.comparison {
             return vec![compare.paths[compare.active].clone()];
         }
@@ -102,7 +107,10 @@ impl Workspace {
             self.library.culling_changed();
             // Keep decisions on a comparison candidate reachable even when a
             // filter excludes it; in the grid retain only visible selections.
-            if self.library.comparison.is_none() && self.library.viewer.is_none() {
+            if self.library.comparison.is_none()
+                && self.library.viewer.is_none()
+                && self.library.slideshow.is_none()
+            {
                 let visible: FxHashSet<_> = self.gallery_flat_order().into_iter().collect();
                 self.library.selected.retain(|p| visible.contains(p));
             }

@@ -95,6 +95,10 @@ pub struct Bucket {
     /// means both must hold. Persisted.
     pub query: Option<String>,
     pub area: Option<(GeoBounds, String)>,
+    /// A smart album's rules over the indexed metadata — rating, flag,
+    /// keywords, camera, People and the rest. Holds alongside the
+    /// query and area when those are set too. Persisted.
+    pub filter: Option<smart::RuleGroup>,
     /// What the rule currently matches, best first. Derived — rebuilt
     /// whenever the index moves — so never persisted.
     pub matches: Vec<PathBuf>,
@@ -102,7 +106,13 @@ pub struct Bucket {
 
 impl Bucket {
     pub fn is_smart(&self) -> bool {
-        self.query.is_some() || self.area.is_some()
+        self.query.is_some() || self.area.is_some() || self.filter.is_some()
+    }
+
+    /// A smart album: a bucket defined by metadata rules, listed in the
+    /// sidebar's own section.
+    pub fn is_album(&self) -> bool {
+        self.filter.is_some()
     }
 
     /// Everything in the bucket: the hand-picked photos in the order
@@ -129,6 +139,9 @@ impl Bucket {
         }
         if let Some((_, name)) = &self.area {
             parts.push(tf!("library.bucket.rule_taken_in", name = name));
+        }
+        if let Some(filter) = &self.filter {
+            parts.push(super::library_smart::rules_summary(filter));
         }
         parts.join(" · ")
     }
@@ -176,7 +189,7 @@ struct SummaryKey {
     folder_filter: Option<PathBuf>,
     map_filter: Option<GeoBounds>,
     culling_filter: schist_gallery::culling::CullFilter,
-    smart_synced: Option<(u64, u64)>,
+    smart_synced: Option<(u64, u64, u64)>,
 }
 
 /// The sidebar's people numbers, within the scope on show.
@@ -251,6 +264,26 @@ struct CachedQuery {
     place: Option<library_geo::GeoMatch>,
 }
 
+/// What the metadata pass learned about a photo beyond where and when:
+/// the camera, the lens and the XMP keywords, which smart albums ask
+/// about.
+#[derive(Clone, Debug, Default)]
+pub(super) struct PhotoDetails {
+    camera: Option<String>,
+    lens: Option<String>,
+    keywords: Vec<String>,
+}
+
+impl PhotoDetails {
+    fn of(meta: &PhotoMeta) -> PhotoDetails {
+        PhotoDetails {
+            camera: meta.camera.clone(),
+            lens: meta.lens.clone(),
+            keywords: meta.keywords.clone(),
+        }
+    }
+}
+
 /// The ranking task's view of the index, shared rather than copied: a
 /// keystroke used to clone every path and vector in the library.
 #[derive(Clone)]
@@ -270,6 +303,16 @@ pub struct Library {
     pub(super) metadata_edit_generation: u64,
     metadata_text: FxHashMap<PathBuf, String>,
     metadata_ready: FxHashSet<PathBuf>,
+    /// Camera, lens and XMP keywords per photo, from the metadata pass —
+    /// what smart albums ask about beyond the culling decisions.
+    details: FxHashMap<PathBuf, PhotoDetails>,
+    /// The slideshow's options as last used, persisted.
+    pub slideshow_settings: schist_gallery::slideshow::SlideshowSettings,
+    /// The slideshow on show, if any. Session-only.
+    pub(super) slideshow: Option<super::library_slideshow::Slideshow>,
+    /// A slideshow that put the window in fullscreen has ended; the next
+    /// frame takes it back out.
+    pub(super) fullscreen_restore: bool,
     /// Whether the gallery view is showing instead of the editor.
     pub open: bool,
     /// The watched folder roots, persisted.
@@ -305,7 +348,7 @@ pub struct Library {
     /// The `(index_gen, rule_rev)` the smart buckets were last scored
     /// against, and whether a scoring pass is in flight. `None` = never
     /// scored this session.
-    smart_synced: Option<(u64, u64)>,
+    smart_synced: Option<(u64, u64, u64)>,
     smart_running: bool,
     /// Showing one bucket's contents instead of the folders.
     pub bucket_filter: Option<usize>,
@@ -544,12 +587,14 @@ impl Library {
                         query,
                         area,
                         exclude_nsfw,
+                        filter,
                     } => Bucket {
                         name,
                         photos,
                         query,
                         area,
                         exclude_nsfw,
+                        filter,
                         matches: Vec::new(),
                     },
                     BucketFile::Plain(name, photos) => Bucket {
@@ -558,6 +603,7 @@ impl Library {
                         query: None,
                         area: None,
                         exclude_nsfw: false,
+                        filter: None,
                         matches: Vec::new(),
                     },
                 })
@@ -592,6 +638,10 @@ impl Library {
             metadata_edit_generation: 0,
             metadata_text: FxHashMap::default(),
             metadata_ready: FxHashSet::default(),
+            details: FxHashMap::default(),
+            slideshow_settings: file.slideshow.unwrap_or_default().sanitized(),
+            slideshow: None,
+            fullscreen_restore: false,
             taken: FxHashMap::default(),
             places: FxHashMap::default(),
             faces: FxHashMap::default(),
@@ -669,11 +719,13 @@ impl Library {
                     query: b.query.clone(),
                     area: b.area.clone(),
                     exclude_nsfw: b.exclude_nsfw,
+                    filter: b.filter.clone(),
                 })
                 .collect(),
             people: self.people.clone(),
             ignored_faces: self.ignored_faces.clone(),
             denied_faces: self.denied_faces.clone(),
+            slideshow: Some(self.slideshow_settings.clone()),
         };
         if cfg!(test) {
             return Ok(());
@@ -845,6 +897,7 @@ impl Library {
                 "index": i, "name": b.name, "photos": b.contents(|p| self.is_flagged(p)).len(),
                 "exclude_nsfw": b.exclude_nsfw,
                 "rule": b.is_smart().then(|| b.rule_label()),
+                "smart_album_rules": b.filter.as_ref(),
                 "viewing": self.bucket_filter == Some(i),
             })).collect::<Vec<_>>(),
             "search": (!self.search.text.is_empty()).then_some(&self.search.text),
@@ -1172,7 +1225,7 @@ impl Library {
 
     /// A photo's capture time as sortable text: EXIF when probed, the
     /// file's own clock until then.
-    fn taken_of(&self, entry: &Entry) -> String {
+    pub(super) fn taken_of(&self, entry: &Entry) -> String {
         let capture = schist_gallery::variants::capture(&entry.path);
         self.taken
             .get(&capture)
@@ -1186,6 +1239,16 @@ impl Library {
                         .unwrap_or(entry.mtime),
                 )
             })
+    }
+
+    /// The city a photo groups under, when it has a position.
+    pub(super) fn place_of(&self, path: &Path) -> Option<String> {
+        let capture = schist_gallery::variants::capture(path);
+        self.places
+            .get(path)
+            .or_else(|| self.places.get(&capture))
+            .cloned()
+            .flatten()
     }
 
     /// The visible photos grouped the way `group_by` asks:
@@ -1332,10 +1395,25 @@ impl Library {
             query: None,
             area: None,
             exclude_nsfw: false,
+            filter: None,
             matches: Vec::new(),
         });
         self.save();
         self.buckets.len() - 1
+    }
+
+    /// Set (or clear) a bucket's smart-album rules. The matches are
+    /// recomputed on the next pass.
+    pub fn set_bucket_filter(&mut self, index: usize, filter: Option<smart::RuleGroup>) {
+        let Some(bucket) = self.buckets.get_mut(index) else {
+            return;
+        };
+        if bucket.filter != filter {
+            bucket.filter = filter;
+            bucket.matches.clear();
+            self.rule_rev += 1;
+        }
+        self.save();
     }
 
     /// Rename a bucket and set (or clear) its smart rule. An empty
@@ -1468,6 +1546,7 @@ impl Library {
                 continue;
             }
             self.metadata_ready.insert(path.clone());
+            self.details.insert(path.clone(), PhotoDetails::of(&meta));
             self.positions.insert(path.clone(), meta.gps);
             if let Some(taken) = meta.taken {
                 self.taken.insert(path.clone(), taken);
@@ -1488,6 +1567,8 @@ impl Library {
         if self.metadata_ready.contains(path) {
             return;
         }
+        self.details
+            .insert(path.to_path_buf(), PhotoDetails::of(&meta));
         self.positions.insert(path.to_path_buf(), meta.gps);
         if let Some(taken) = meta.taken {
             self.taken.insert(path.to_path_buf(), taken);
@@ -1509,6 +1590,56 @@ impl Library {
                     .all(|w| text.to_lowercase().contains(w.as_str()))
             })
             .map(|(path, _)| path.clone())
+            .collect()
+    }
+
+    /// What the smart-album rules are asked about every scanned photo,
+    /// gathered from the in-memory index in one walk. Called only when a
+    /// rule changed or the library moved, never per frame.
+    pub(super) fn smart_facts(&self) -> Vec<smart::PhotoFacts> {
+        let mut people: FxHashMap<&Path, Vec<String>> = FxHashMap::default();
+        for person in &self.people {
+            for face in &person.faces {
+                let names = people.entry(face.photo.as_path()).or_default();
+                if !names.contains(&person.name) {
+                    names.push(person.name.clone());
+                }
+            }
+        }
+        self.sections
+            .iter()
+            .flat_map(|s| s.entries.iter())
+            .map(|entry| {
+                let capture = schist_gallery::variants::capture(&entry.path);
+                let details = self
+                    .details
+                    .get(&entry.path)
+                    .or_else(|| self.details.get(&capture));
+                let position = self
+                    .positions
+                    .get(&entry.path)
+                    .or_else(|| self.positions.get(&capture));
+                let place = self
+                    .places
+                    .get(&entry.path)
+                    .or_else(|| self.places.get(&capture));
+                smart::PhotoFacts {
+                    path: entry.path.clone(),
+                    culling: self.culling_of(&entry.path),
+                    keywords: details.map(|d| d.keywords.clone()).unwrap_or_default(),
+                    taken: Some(self.taken_of(entry)),
+                    camera: details.and_then(|d| d.camera.clone()),
+                    lens: details.and_then(|d| d.lens.clone()),
+                    has_location: matches!(position, Some(Some(_))),
+                    place: place.cloned().flatten(),
+                    people: people
+                        .get(entry.path.as_path())
+                        .cloned()
+                        .unwrap_or_default(),
+                    edited: entry.edited,
+                    has_versions: false,
+                }
+            })
             .collect()
     }
 
@@ -2825,6 +2956,7 @@ impl Workspace {
             #[cfg(target_os = "macos")]
             super::library_icc::start_browsing();
         } else {
+            self.drop_slideshow();
             self.library.shed_memory();
         }
         cx.notify();
@@ -3131,18 +3263,25 @@ impl Workspace {
         if self.library.smart_running || !self.library.buckets.iter().any(|b| b.is_smart()) {
             return;
         }
-        let target = (self.library.index_gen, self.library.rule_rev);
+        // Smart albums read the culling decisions and the People tags
+        // too, which move without the index moving: every library save
+        // bumps `people_rev`, so it joins the key while an album exists.
+        let albums = self.library.buckets.iter().any(|b| b.filter.is_some());
+        let facts_rev = if albums { self.library.people_rev } else { 0 };
+        let target = (self.library.index_gen, self.library.rule_rev, facts_rev);
         if self.library.smart_synced == Some(target) {
             return;
         }
         self.library.smart_running = true;
         // One job per smart bucket: its slot, the query (with the
-        // engine's cached answer when it has one), and the area.
+        // engine's cached answer when it has one), the area, and the
+        // smart album's rules.
         struct SmartRule {
             index: usize,
             query: Option<String>,
             cached: Option<CachedQuery>,
             area: Option<GeoBounds>,
+            filter: Option<smart::RuleGroup>,
         }
         let rules: Vec<SmartRule> = self
             .library
@@ -3165,21 +3304,37 @@ impl Workspace {
                     query,
                     cached,
                     area: b.area.as_ref().map(|(bounds, _)| *bounds),
+                    filter: b.filter.clone(),
                 }
             })
             .collect();
         let snapshot = self.library.search_snapshot();
+        let facts = albums.then(|| self.library.smart_facts());
+        let wants_versions = rules.iter().any(|r| {
+            r.filter
+                .as_ref()
+                .is_some_and(|f| f.uses(smart::RuleKind::HasVersions))
+        });
         cx.spawn(async move |this, cx| {
             let computed = cx
                 .background_executor()
                 .spawn(async move {
                     let mut fresh: Vec<(String, CachedQuery)> = Vec::new();
                     let mut out: Vec<(usize, Vec<PathBuf>, bool)> = Vec::new();
+                    let facts = facts.map(|mut facts| {
+                        if wants_versions {
+                            super::library_smart::fill_versions(&mut facts);
+                        }
+                        facts
+                    });
+                    let facts_by_path: FxHashMap<&PathBuf, &smart::PhotoFacts> =
+                        facts.iter().flatten().map(|f| (&f.path, f)).collect();
                     for SmartRule {
                         index,
                         query,
                         cached,
                         area,
+                        filter,
                     } in rules
                     {
                         let answer = match (&query, cached) {
@@ -3234,6 +3389,10 @@ impl Workspace {
                             // models aren't installed and it names no
                             // place. Match nothing, not everything.
                             (Vec::new(), false)
+                        } else if filter.is_some() {
+                            // A smart album: every photo is a candidate,
+                            // and its rules are the clip below.
+                            (facts_by_path.keys().map(|p| (*p).clone()).collect(), false)
                         } else {
                             // Area-only: every positioned photo is a
                             // candidate; the clip below is the rule.
@@ -3267,6 +3426,11 @@ impl Workspace {
                             matched.retain(|p| {
                                 at.get(p)
                                     .is_some_and(|(lat, lon)| area.contains(*lat, *lon))
+                            });
+                        }
+                        if let Some(filter) = &filter {
+                            matched.retain(|p| {
+                                facts_by_path.get(p).is_some_and(|f| filter.matches(f))
                             });
                         }
                         out.push((index, matched, by_score));
@@ -4577,6 +4741,143 @@ mod tests {
         assert_eq!(lib.photo_count(), 0);
     }
 
+    /// What a smart album holds right now, worked out the way the
+    /// background pass does it for an album without a query or area.
+    fn album_matches(lib: &Library, rules: &smart::RuleGroup) -> Vec<PathBuf> {
+        let mut out: Vec<PathBuf> = lib
+            .smart_facts()
+            .into_iter()
+            .filter(|f| rules.matches(f))
+            .map(|f| f.path)
+            .collect();
+        out.sort();
+        out
+    }
+
+    #[test]
+    fn smart_albums_read_the_index_and_follow_the_library_as_it_changes() {
+        use schist_gallery::culling::{self, CullEdit};
+        use smart::{Compare, Match, Rule, RuleGroup};
+        let (a, b) = (PathBuf::from("/p/a.jpg"), PathBuf::from("/p/b.cr3"));
+        let mut lib = library_with(&["/p/a.jpg", "/p/b.cr3"]);
+        let best = RuleGroup {
+            matching: Match::All,
+            rules: vec![Rule::Rating {
+                compare: Compare::AtLeast,
+                stars: 4,
+            }],
+        };
+        assert!(album_matches(&lib, &best).is_empty());
+        // A decision is a library change: the key the pass is keyed by
+        // moves, and the album takes the photo in.
+        let rev = lib.people_rev;
+        culling::edit(
+            &mut lib.culling,
+            std::slice::from_ref(&a),
+            CullEdit::Rating(5),
+        );
+        lib.culling_changed();
+        assert_ne!(lib.people_rev, rev);
+        assert_eq!(album_matches(&lib, &best), vec![a.clone()]);
+        // The metadata pass brings the camera, lens and keywords.
+        lib.apply_metadata_rows(vec![
+            (
+                a.clone(),
+                PhotoMeta {
+                    camera: Some("Canon EOS R5".into()),
+                    keywords: vec!["Beach".into()],
+                    ..Default::default()
+                },
+                "beach".into(),
+            ),
+            (
+                b.clone(),
+                PhotoMeta {
+                    gps: Some((51.5, -0.12)),
+                    place: Some("London".into()),
+                    lens: Some("RF 50mm".into()),
+                    ..Default::default()
+                },
+                String::new(),
+            ),
+        ]);
+        let any = |rules: Vec<Rule>| RuleGroup {
+            matching: Match::Any,
+            rules,
+        };
+        assert_eq!(
+            album_matches(
+                &lib,
+                &any(vec![Rule::Camera {
+                    text: "canon".into()
+                }])
+            ),
+            vec![a.clone()]
+        );
+        assert_eq!(
+            album_matches(
+                &lib,
+                &any(vec![Rule::Keyword {
+                    text: "beach".into()
+                }])
+            ),
+            vec![a.clone()]
+        );
+        assert_eq!(
+            album_matches(&lib, &any(vec![Rule::HasLocation { yes: true }])),
+            vec![b.clone()]
+        );
+        assert_eq!(
+            album_matches(
+                &lib,
+                &any(vec![Rule::Place {
+                    text: "lond".into()
+                }])
+            ),
+            vec![b.clone()]
+        );
+        assert_eq!(
+            album_matches(
+                &lib,
+                &any(vec![Rule::FileType {
+                    file: smart::FileKind::Raw
+                }])
+            ),
+            vec![b.clone()]
+        );
+        // People: a name given in the viewer is a rule's answer.
+        lib.faces.insert(b.clone(), vec![found(face_at(0.2), None)]);
+        lib.tag_face(&b, face_at(0.2), "Ann");
+        assert_eq!(
+            album_matches(&lib, &any(vec![Rule::Person { name: "ann".into() }])),
+            vec![b.clone()]
+        );
+        // A rescan that finds a new photo brings it into a matching album.
+        let mut sections = lib.sections.clone();
+        sections[0].entries.push(Entry {
+            path: PathBuf::from("/p/c.jpg"),
+            mtime: 1,
+            edited: true,
+        });
+        lib.set_sections(sections);
+        assert_eq!(
+            album_matches(&lib, &any(vec![Rule::Edited { yes: true }])),
+            vec![PathBuf::from("/p/c.jpg")]
+        );
+        // Rules persist with the bucket, and changing them invalidates
+        // the matches the last pass made.
+        let index = lib.add_bucket("Best".into());
+        lib.buckets[index].matches = vec![a.clone()];
+        let rule_rev = lib.rule_rev;
+        lib.set_bucket_filter(index, Some(best.clone()));
+        assert!(lib.buckets[index].is_album() && lib.buckets[index].is_smart());
+        assert!(lib.buckets[index].matches.is_empty());
+        assert_ne!(lib.rule_rev, rule_rev);
+        let rule_rev = lib.rule_rev;
+        lib.set_bucket_filter(index, Some(best));
+        assert_eq!(lib.rule_rev, rule_rev, "the same rules are no change");
+    }
+
     fn face_at(x: f32) -> FaceRect {
         FaceRect {
             x,
@@ -4795,6 +5096,7 @@ mod tests {
             query: None,
             area: None,
             exclude_nsfw: false,
+            filter: None,
             matches: Vec::new(),
         });
         lib.bucket_filter = Some(0);
@@ -4883,6 +5185,7 @@ mod tests {
             query: Some("beach".into()),
             area: None,
             exclude_nsfw: false,
+            filter: None,
             matches: vec![PathBuf::from("/p/b.jpg"), PathBuf::from("/p/a.jpg")],
         });
         // No bucket on show: the whole index.
@@ -5097,6 +5400,7 @@ mod tests {
             query: Some("dog".into()),
             area: None,
             exclude_nsfw: false,
+            filter: None,
             matches: vec![PathBuf::from("/both.jpg"), PathBuf::from("/matched.jpg")],
         };
         // Drop order first, matches after, nothing twice.
@@ -5372,6 +5676,7 @@ mod tests {
                 gps: Some((50.0, 14.0)),
                 taken: Some("2024-02-29 12:00:00".into()),
                 place: Some("Prague".into()),
+                ..Default::default()
             },
             "family\nprague holiday".into(),
         )]);
@@ -5394,6 +5699,7 @@ mod tests {
                 gps: Some((1.0, 2.0)),
                 taken: Some("old".into()),
                 place: Some("old".into()),
+                ..Default::default()
             },
         );
         assert!(

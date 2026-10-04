@@ -100,6 +100,8 @@ impl Target {
                         | GalleryRefresh
                         | GalleryEditSelected
                         | GalleryMapFilter
+                        | GallerySlideshow
+                        | GalleryNewSmartAlbum
                         | OpenRecent(_)
                 )
             }

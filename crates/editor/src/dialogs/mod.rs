@@ -297,6 +297,20 @@ pub fn render(ws: &mut Workspace, cx: &mut Context<Workspace>) -> Option<gpui::A
         #[cfg(target_arch = "wasm32")]
         Modal::VariantName { .. } => return None,
         #[cfg(not(target_arch = "wasm32"))]
+        Modal::SmartAlbum {
+            editing,
+            name,
+            rules,
+        } => crate::workspace::smart_album_dialog(ws, editing, name, rules, cx).into_any_element(),
+        #[cfg(target_arch = "wasm32")]
+        Modal::SmartAlbum { .. } => return None,
+        #[cfg(not(target_arch = "wasm32"))]
+        Modal::Slideshow {
+            photos, settings, ..
+        } => crate::workspace::slideshow_dialog(ws, photos.len(), settings, cx).into_any_element(),
+        #[cfg(target_arch = "wasm32")]
+        Modal::Slideshow { .. } => return None,
+        #[cfg(not(target_arch = "wasm32"))]
         Modal::PersonName { index, name } => {
             crate::workspace::person_name_dialog(ws, index, name, cx).into_any_element()
         }
