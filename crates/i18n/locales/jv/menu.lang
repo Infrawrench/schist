@@ -133,6 +133,7 @@ menu.gallery = Galèri
 menu.gallery.edit_selected = Sunting sing Dipilih
 menu.gallery.refresh = Segeraké
 menu.gallery.map_filter = Filter Péta…
+menu.gallery.find_duplicates = Golèk Duplikat…
 menu.gallery.back_to_editor = Bali menyang Panyunting
 
 # Submenu Schist Cloud

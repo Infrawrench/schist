@@ -299,3 +299,43 @@ library.similar.keep = Rakkhatu
 library.similar.reject = Paṭikkhipatu
 library.similar.help = Paccavekkhaṇasaññā eva; lekhā na nāsīyanti.
 library.similar.stale = Lekhā parivattitā. Anuvattituṃ navīkarotu.
+
+# Find Duplicates
+library.duplicates.title = Dvikopiyo
+library.duplicates.help = Sabbasu anurakkhitesu kosaesu samānā sañcikā ca samīpā anulipiyo ca. Rakkhanīyaṃ pavesetuṃ dvikkhattuṃ pucchati; rakkhanīyaṃ pavesitā sañcikā tantassa rakkhanīyato puna ānetuṃ sakkā.
+library.duplicates.exact = Samānā sañcikā
+library.duplicates.near = Samīpā dvikopiyo
+library.duplicates.identical = samānā (SHA-256)
+library.duplicates.suggested = Rakkhitum upadiṭṭhaṃ
+library.duplicates.make_keeper = Imaṃ Rakkhatu
+library.duplicates.compare = Upamethu
+library.duplicates.keep_all = Sabbaṃ Rakkhatu
+library.duplicates.reject_others = Aññe Paṭikkhipatu
+library.duplicates.trash_others.other = Aññe {n} Rakkhanīyaṃ Pavesetu
+library.duplicates.confirm_trash.other = Daḷhīkarotu: {n} Rakkhanīyaṃ Pavesetu
+library.duplicates.n_trashed.other = Rakkhanīyaṃ pavesitā sañcikā: {n}
+library.duplicates.n_rejected.other = Paṭikkhittāti lakkhitā chāyācittā: {n}
+library.duplicates.refused_edited = tasmiṃ sampādanāni vā sidecar-sañcikā vā atthi, tasmā taṃ paṭikkhipatu
+library.duplicates.trash_failed = tantassa rakkhanīyaṃ na labbhati
+library.duplicates.near_limit = Samīpadvikopiyānaṃ yojanā paṭhamāni 10,000 chāyācittāni gaṇhāti.
+
+# Geotagging from GPX tracks
+library.geotag.menu = GPX-maggato Ṭhānaṃ Lakkhetu…
+library.geotag.title = GPX-maggato Ṭhānaṃ Lakkhetu
+library.geotag.add_files = GPX-sañcikā Yojetu…
+library.geotag.n_track_points.other = Kālayuttā maggabindū: {n}
+library.geotag.max_gap = Mahantamo antarālo (minitāni)
+library.geotag.clock_offset = Kāmerāghaṭikāya sodhanaṃ
+library.geotag.time_zone = Chāyācittānaṃ kālamaṇḍalaṃ (UTC-antaraṃ)
+library.geotag.zone_help = Kālamaṇḍalaṃ kevalaṃ tena vinā lekhitesu gahaṇakālesu paṭipajjati. Sodhanaṃ, vinādīsu vā ±h:mm:ss vā, sabbesu gahaṇakālesu yojīyati.
+library.geotag.skip_existing = Pubbeva ṭhānayuttāni chāyācittāni atikkamatu
+library.geotag.n_will_tag.other = Ṭhānena lakkhitabbā chāyācittā: {n}
+library.geotag.n_has_gps.other = Pubbeva ṭhānayuttā chāyācittā: {n}
+library.geotag.n_no_time.other = Gahaṇakālarahitā chāyācittā: {n}
+library.geotag.n_gap.other = Maggassa antarāle patitā chāyācittā: {n}
+library.geotag.n_outside.other = Maggassa kālasīmāya bahiddhā chāyācittā: {n}
+library.geotag.apply = Ṭhānāni Likhatu
+library.geotag.invalid = Minitesu antarālaṃ, -1:30 viya sodhanaṃ, +02:00 viya kālamaṇḍalañca ṭhapetu.
+library.geotag.no_points = GPX-sañcikāsu kālayuttā bindū natthi.
+library.geotag.select_photos = Paṭhamaṃ ṭhānalakkhaṇāya chāyācittāni vicinātu.
+library.geotag.read_failed = GPX-sañcikā vācetuṃ na sakkā: {error}

@@ -138,6 +138,7 @@ menu.gallery = Galleria
 menu.gallery.edit_selected = Muokkaa valittua
 menu.gallery.refresh = Päivitä
 menu.gallery.map_filter = Karttasuodin…
+menu.gallery.find_duplicates = Etsi kaksoiskappaleet…
 menu.gallery.back_to_editor = Takaisin editoriin
 
 # Schist Cloud -alivalikko

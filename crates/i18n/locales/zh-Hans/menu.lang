@@ -133,6 +133,7 @@ menu.gallery = 图库
 menu.gallery.edit_selected = 编辑所选
 menu.gallery.refresh = 刷新
 menu.gallery.map_filter = 地图筛选…
+menu.gallery.find_duplicates = 查找重复项…
 menu.gallery.back_to_editor = 返回编辑器
 
 # Schist Cloud

@@ -131,6 +131,7 @@ menu.gallery = Igalari
 menu.gallery.edit_selected = Hlela Okukhethiweko
 menu.gallery.refresh = Vuselela
 menu.gallery.map_filter = Isihlungi Semebhe…
+menu.gallery.find_duplicates = Thola Iinkopi…
 menu.gallery.back_to_editor = Buyela Kumhleli
 
 # Schist Cloud submenu

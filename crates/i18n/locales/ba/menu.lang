@@ -124,6 +124,7 @@ menu.gallery = Галерея
 menu.gallery.edit_selected = Һайланғанды үҙгәртеү
 menu.gallery.refresh = Яңыртыу
 menu.gallery.map_filter = Карта фильтры…
+menu.gallery.find_duplicates = Дубликаттарҙы табыу…
 menu.gallery.back_to_editor = Мөхәрриргә ҡайтыу
 
 menu.cloud.browse = Schist Cloud-ты ҡарау

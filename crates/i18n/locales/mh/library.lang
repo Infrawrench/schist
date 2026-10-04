@@ -299,3 +299,43 @@ library.similar.keep = Dāpij
 library.similar.reject = Jab bōk
 library.similar.help = Kōkkaļļe in etale wōt; ejjab jako peba ko.
 library.similar.stale = Peba ko raar oktak. Kōkāāl bwe kwōn etal wōt.
+
+# Find Duplicates
+library.duplicates.title = Duplicate ko
+library.duplicates.help = File ko rej āinwōt doon im kōpij ko rej kṃwiin āinwōt ilo folder otemjej ko ej lale. Ej kajjitōk ruo alen mokta jen kōmakūt ñan trash; file ko ilo trash remaroñ bar bōk jen trash in kōṃpuutā.
+library.duplicates.exact = File ko rej āinwōt doon
+library.duplicates.near = Duplicate ko rej kṃwiin āinwōt
+library.duplicates.identical = āinwōt doon (SHA-256)
+library.duplicates.suggested = Eo ej kōjerbal bwe en dāpij
+library.duplicates.make_keeper = Dāpij Eo
+library.duplicates.compare = Kōmpeer
+library.duplicates.keep_all = Dāpij Otemjej
+library.duplicates.reject_others = Jab Bōk Ro Jet
+library.duplicates.trash_others.other = Kōṃakūt ro jet ñan trash: {n}
+library.duplicates.confirm_trash.other = Kōjeraṃṃan: kōṃakūt ñan trash: {n}
+library.duplicates.n_trashed.other = File ko raar kōṃakūt ñan trash: {n}
+library.duplicates.n_rejected.other = Pija ko raar kakkije einwōt jab bōk: {n}
+library.duplicates.refused_edited = ewōr ṃōttan ak sidecar file, kwōn jab bōk wōt
+library.duplicates.trash_failed = trash in kōṃpuutā ejjelok
+library.duplicates.near_limit = Kōmpeer in duplicate ko rej kṃwiin āinwōt ej bōk pija ko 10,000 ro jino wōt.
+
+# Geotagging from GPX tracks
+library.geotag.menu = Geotag jen GPX Track…
+library.geotag.title = Geotag jen GPX Track
+library.geotag.add_files = Kobaik GPX File ko…
+library.geotag.n_track_points.other = Track point ko ewōr awa: {n}
+library.geotag.max_gap = Gap eo eṃṃan (minit)
+library.geotag.clock_offset = Kōjeraṃṃan awa in kamera
+library.geotag.time_zone = Time zone in pija ko (UTC offset)
+library.geotag.zone_help = Time zone eo ej jerbal ñan awa ko rar kolaaj ilo ejjelok time zone wōt. Kōjeraṃṃan eo, ilo second ak ±h:mm:ss, ej kobaik ñan awa otemjej.
+library.geotag.skip_existing = Jolok pija ko ewōr jikin aer jen mokta
+library.geotag.n_will_tag.other = Pija ko renaaj tag: {n}
+library.geotag.n_has_gps.other = Pija ko ewōr jikin aer jen mokta: {n}
+library.geotag.n_no_time.other = Pija ko ejjelok awa aer: {n}
+library.geotag.n_gap.other = Pija ko rej bwil ilo gap in track eo: {n}
+library.geotag.n_outside.other = Pija ko rej ilu jen awa in track eo: {n}
+library.geotag.apply = Likūt Jikin ko
+library.geotag.invalid = Likūt gap eo ilo minit, kōjeraṃṃan āinwōt -1:30 im time zone āinwōt +02:00.
+library.geotag.no_points = GPX file ko ejjelok point ko ewōr awa aer.
+library.geotag.select_photos = Kālet pija ko kwōn geotag mokta.
+library.geotag.read_failed = Ejjab maroñ riiti GPX file ko: {error}

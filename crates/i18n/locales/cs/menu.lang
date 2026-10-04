@@ -122,6 +122,7 @@ menu.gallery = Galerie
 menu.gallery.edit_selected = Upravit vybrané
 menu.gallery.refresh = Obnovit
 menu.gallery.map_filter = Filtr mapy…
+menu.gallery.find_duplicates = Najít duplicity…
 menu.gallery.back_to_editor = Zpět do editoru
 
 menu.cloud.browse = Procházet Schist Cloud

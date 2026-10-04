@@ -124,6 +124,7 @@ menu.gallery = Pokello
 menu.gallery.edit_selected = Hlophisa Tse Khethiloeng
 menu.gallery.refresh = Khatholla
 menu.gallery.map_filter = Sefe ea 'Mapa…
+menu.gallery.find_duplicates = Batla Li-duplicate…
 menu.gallery.back_to_editor = Khutlela ho Mohlophisi
 
 menu.cloud.browse = Batla ho Schist Cloud

@@ -133,6 +133,7 @@ menu.gallery = Galleri
 menu.gallery.edit_selected = Rediger markerte
 menu.gallery.refresh = Oppdater
 menu.gallery.map_filter = Kartfilter…
+menu.gallery.find_duplicates = Finn duplikater…
 menu.gallery.back_to_editor = Tilbake til redigering
 
 # Schist Cloud

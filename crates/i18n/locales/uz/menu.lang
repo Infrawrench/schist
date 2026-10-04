@@ -130,6 +130,7 @@ menu.gallery = Galereya
 menu.gallery.edit_selected = Tanlanganini tahrirlash
 menu.gallery.refresh = Qayta yuklash
 menu.gallery.map_filter = Xarita filtri…
+menu.gallery.find_duplicates = Dublikatlarni topish…
 menu.gallery.back_to_editor = Tahrirlagichga qaytish
 
 # Schist Cloud

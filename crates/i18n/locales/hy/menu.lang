@@ -132,6 +132,7 @@ menu.gallery = Պատկերասրահ
 menu.gallery.edit_selected = Խմբագրել ընտրվածը
 menu.gallery.refresh = Թարմացնել
 menu.gallery.map_filter = Քարտեզի զտիչ…
+menu.gallery.find_duplicates = Գտնել կրկնօրինակները…
 menu.gallery.back_to_editor = Վերադառնալ խմբագրիչ
 
 # Schist Cloud

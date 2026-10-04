@@ -299,3 +299,43 @@ library.similar.keep = เก็บไว้
 library.similar.reject = ปฏิเสธ
 library.similar.help = ทำเครื่องหมายตรวจสอบเท่านั้น ไม่ลบไฟล์
 library.similar.stale = ไฟล์มีการเปลี่ยนแปลง รีเฟรชเพื่อดำเนินการต่อ
+
+# Find Duplicates
+library.duplicates.title = รูปซ้ำ
+library.duplicates.help = ไฟล์ที่เหมือนกันและสำเนาที่ใกล้เคียงกันในทุกโฟลเดอร์ที่เฝ้าดู การย้ายไปยังถังขยะจะถามยืนยันสองครั้ง และสามารถกู้คืนไฟล์ที่ทิ้งได้จากถังขยะของระบบ
+library.duplicates.exact = ไฟล์ที่เหมือนกัน
+library.duplicates.near = รูปที่ซ้ำกันใกล้เคียง
+library.duplicates.identical = เหมือนกันทุกประการ (SHA-256)
+library.duplicates.suggested = แนะนำให้เก็บไว้
+library.duplicates.make_keeper = เก็บรูปนี้ไว้
+library.duplicates.compare = เปรียบเทียบ
+library.duplicates.keep_all = เก็บทั้งหมด
+library.duplicates.reject_others = ปฏิเสธรูปอื่น
+library.duplicates.trash_others.other = ย้ายรูปอื่น {n} รูปไปที่ถังขยะ
+library.duplicates.confirm_trash.other = ยืนยัน: ย้าย {n} รายการไปที่ถังขยะ
+library.duplicates.n_trashed.other = ย้าย {n} ไฟล์ไปที่ถังขยะแล้ว
+library.duplicates.n_rejected.other = ทำเครื่องหมายปฏิเสธ {n} รูปแล้ว
+library.duplicates.refused_edited = รูปนี้มีการแก้ไขหรือไฟล์ข้างเคียง จึงให้ปฏิเสธแทน
+library.duplicates.trash_failed = ไม่สามารถใช้ถังขยะของระบบได้
+library.duplicates.near_limit = การจับคู่รูปซ้ำใกล้เคียงครอบคลุม 10,000 รูปแรก
+
+# Geotagging from GPX tracks
+library.geotag.menu = ติดพิกัดตำแหน่งจากแทร็ก GPX…
+library.geotag.title = ติดพิกัดตำแหน่งจากแทร็ก GPX
+library.geotag.add_files = เพิ่มไฟล์ GPX…
+library.geotag.n_track_points.other = จุดแทร็กที่มีเวลา {n} จุด
+library.geotag.max_gap = ช่วงห่างสูงสุด (นาที)
+library.geotag.clock_offset = การแก้เวลานาฬิกากล้อง
+library.geotag.time_zone = เขตเวลาของรูป (ค่าชดเชย UTC)
+library.geotag.zone_help = เขตเวลาใช้กับเวลาถ่ายที่บันทึกไว้โดยไม่มีเขตเวลาเท่านั้น ค่าแก้เวลา ในหน่วยวินาทีหรือ ±h:mm:ss จะถูกบวกเข้ากับเวลาถ่ายทุกรูป
+library.geotag.skip_existing = ข้ามรูปที่มีตำแหน่งอยู่แล้ว
+library.geotag.n_will_tag.other = จะติดพิกัดให้ {n} รูป
+library.geotag.n_has_gps.other = {n} รูปมีตำแหน่งอยู่แล้ว
+library.geotag.n_no_time.other = {n} รูปไม่มีเวลาถ่าย
+library.geotag.n_gap.other = {n} รูปอยู่ในช่วงที่แทร็กขาดหาย
+library.geotag.n_outside.other = {n} รูปอยู่นอกช่วงเวลาของแทร็ก
+library.geotag.apply = เขียนตำแหน่ง
+library.geotag.invalid = ป้อนช่วงห่างเป็นนาที ค่าแก้เวลา เช่น -1:30 และเขตเวลา เช่น +02:00
+library.geotag.no_points = ไฟล์ GPX ไม่มีจุดที่มีเวลา
+library.geotag.select_photos = เลือกรูปที่จะติดพิกัดก่อน
+library.geotag.read_failed = ไม่สามารถอ่านไฟล์ GPX: {error}

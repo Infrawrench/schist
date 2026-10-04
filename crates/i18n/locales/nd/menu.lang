@@ -122,6 +122,7 @@ menu.gallery = Igalari
 menu.gallery.edit_selected = Hlela Okukhethiweyo
 menu.gallery.refresh = Hlaziya
 menu.gallery.map_filter = Isisefo Semephu…
+menu.gallery.find_duplicates = Funa Okuphindiweyo…
 menu.gallery.back_to_editor = Buyela Kumhleli
 
 menu.cloud.browse = Phequlula i-Schist Cloud

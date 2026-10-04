@@ -130,6 +130,7 @@ menu.gallery = Myndasafn
 menu.gallery.edit_selected = Breyta völdu
 menu.gallery.refresh = Endurlesa
 menu.gallery.map_filter = Kortasía…
+menu.gallery.find_duplicates = Finna afrit…
 menu.gallery.back_to_editor = Til baka í ritil
 
 # Schist Cloud

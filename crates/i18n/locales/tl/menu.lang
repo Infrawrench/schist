@@ -122,6 +122,7 @@ menu.gallery = Galeriya
 menu.gallery.edit_selected = I-edit ang Napili
 menu.gallery.refresh = I-refresh
 menu.gallery.map_filter = Filter ng Mapa…
+menu.gallery.find_duplicates = Maghanap ng mga Duplicate…
 menu.gallery.back_to_editor = Bumalik sa Editor
 
 menu.cloud.browse = I-browse ang Schist Cloud

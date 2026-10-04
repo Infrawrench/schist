@@ -122,6 +122,7 @@ menu.gallery = ଗ୍ୟାଲେରୀ
 menu.gallery.edit_selected = ବଛାଯାଇଥିବାଟି ସମ୍ପାଦନ କରନ୍ତୁ
 menu.gallery.refresh = ସତେଜ କରନ୍ତୁ
 menu.gallery.map_filter = ମ୍ୟାପ୍ ଫିଲ୍ଟର୍…
+menu.gallery.find_duplicates = ଡୁପ୍ଲିକେଟ୍ ଖୋଜନ୍ତୁ…
 menu.gallery.back_to_editor = ସମ୍ପାଦକକୁ ଫେରନ୍ତୁ
 
 menu.cloud.browse = Schist Cloud ବ୍ରାଉଜ୍ କରନ୍ତୁ

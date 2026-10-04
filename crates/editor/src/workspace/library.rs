@@ -262,6 +262,11 @@ struct SearchSnapshot {
 
 pub struct Library {
     pub(super) similar: super::library_similar::SimilarReview,
+    /// The GPX geotagging session: loaded tracks, capture times and the map.
+    pub(super) geotag: super::library_geotag::Geotag,
+    /// Content hashes the duplicate finder computed, persisted in the index
+    /// snapshot and trusted only while the file's length and mtime match.
+    pub(super) digests: FxHashMap<PathBuf, schist_gallery::FileDigest>,
 
     pub(super) tethered: super::library_tethered::Tethered,
     /// Owns the most recent asynchronous sidecar refresh.
@@ -515,6 +520,8 @@ impl Library {
         let folders = file.folders;
         Library {
             similar: Default::default(),
+            geotag: Default::default(),
+            digests: FxHashMap::default(),
 
             tethered: Default::default(),
             open: false,
@@ -1011,6 +1018,7 @@ impl Library {
                     place: self.places.get(&e.path).cloned(),
                     flagged: self.flagged.get(&e.path).copied(),
                     faces: self.faces.get(&e.path).cloned(),
+                    digest: self.digests.get(&e.path).copied(),
                 };
                 (!row.is_empty()).then_some(row)
             })
@@ -1051,6 +1059,9 @@ impl Library {
             if let Some(flagged) = row.flagged {
                 self.flagged.entry(row.path.clone()).or_insert(flagged);
             }
+            if let Some(digest) = row.digest {
+                self.digests.entry(row.path.clone()).or_insert(digest);
+            }
             if let Some(faces) = row.faces {
                 self.faces.entry(row.path).or_insert(faces);
             }
@@ -1058,6 +1069,17 @@ impl Library {
         self.index_gen += 1;
         // Restored detections may match people named since.
         self.auto_tag_and_save();
+    }
+
+    /// Keep the duplicate finder's fresh hashes in the index, so the next
+    /// scan only reads files that changed.
+    pub(super) fn record_digests(&mut self, fresh: Vec<(PathBuf, schist_gallery::FileDigest)>) {
+        if fresh.is_empty() {
+            return;
+        }
+        self.digests.extend(fresh);
+        self.index_gen += 1;
+        self.save_index_snapshot();
     }
 
     /// Write the index to its snapshot file (on a plain thread — pure
@@ -4478,6 +4500,7 @@ mod tests {
                 place: Some(Some("New York City".into())),
                 flagged: Some(true),
                 faces: None,
+                digest: None,
             },
             IndexRow {
                 path: PathBuf::from("/p/bare.jpg"),
@@ -4488,6 +4511,7 @@ mod tests {
                 place: Some(None),
                 flagged: Some(false),
                 faces: None,
+                digest: None,
             },
         ];
         let dir = std::env::temp_dir().join(format!("schist-idx-test-{}", std::process::id()));

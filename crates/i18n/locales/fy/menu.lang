@@ -131,6 +131,7 @@ menu.gallery = Galery
 menu.gallery.edit_selected = Selektearre bewurkje
 menu.gallery.refresh = Fernije
 menu.gallery.map_filter = Kaartfilter…
+menu.gallery.find_duplicates = Dûbele bestannen sykje…
 menu.gallery.back_to_editor = Werom nei bewurker
 
 # Schist Cloud

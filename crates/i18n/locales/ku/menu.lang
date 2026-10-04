@@ -133,6 +133,7 @@ menu.gallery = Galerî
 menu.gallery.edit_selected = Yên Hilbijartî Sererast Bike
 menu.gallery.refresh = Nû Bike
 menu.gallery.map_filter = Fîltreya Nexşeyê…
+menu.gallery.find_duplicates = Dubareyan bibîne…
 menu.gallery.back_to_editor = Vegere Edîtorê
 
 # Binmenûya Schist Cloud

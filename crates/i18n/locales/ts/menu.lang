@@ -124,6 +124,7 @@ menu.gallery = Galari
 menu.gallery.edit_selected = Hlela leswi hlawuriweke
 menu.gallery.refresh = Pfuxeta
 menu.gallery.map_filter = Filitara ya mepe…
+menu.gallery.find_duplicates = Lava tikopi…
 menu.gallery.back_to_editor = Tlhela eka muhleri
 
 menu.cloud.browse = Languta Schist Cloud

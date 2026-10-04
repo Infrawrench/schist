@@ -299,3 +299,43 @@ library.similar.keep = Bika
 library.similar.reject = Wange
 library.similar.help = Ibimenyetso byo gusuzuma gusa; amadosiye ntasibwa.
 library.similar.stale = Amadosiye yahindutse. Ongera utangire kugira ngo ukomeze.
+
+# Find Duplicates
+library.duplicates.title = Ibyisubiyemo
+library.duplicates.help = Amadosiye angana n'inyandiko zisa cyane mu bubiko bwose bukurikiranwa. Kohereza mu myanda bibaza kabiri; amadosiye yoherejwe mu myanda ashobora gusubizwa mu myanda ya sisitemu.
+library.duplicates.exact = Amadosiye angana
+library.duplicates.near = Ibisa cyane
+library.duplicates.identical = angana (SHA-256)
+library.duplicates.suggested = Ibyasabwe kubikwa
+library.duplicates.make_keeper = Bika Iri
+library.duplicates.compare = Gereranya
+library.duplicates.keep_all = Bika Byose
+library.duplicates.reject_others = Wanga Ibindi
+library.duplicates.trash_others.other = Ohereza mu myanda ibindi: {n}
+library.duplicates.confirm_trash.other = Emeza: ohereza mu myanda {n}
+library.duplicates.n_trashed.other = Amadosiye yoherejwe mu myanda: {n}
+library.duplicates.n_rejected.other = Amafoto yashyizweho ikimenyetso cyo kwangwa: {n}
+library.duplicates.refused_edited = ifite impinduka cyangwa idosiye ifasha, bityo ryange aho kuyihindura
+library.duplicates.trash_failed = imyanda ya sisitemu ntiboneka
+library.duplicates.near_limit = Guhuza ibisa cyane bikubiyemo amafoto 10,000 ya mbere.
+
+# Geotagging from GPX tracks
+library.geotag.menu = Shyiraho aho yafatiwe uhereye ku nzira ya GPX…
+library.geotag.title = Shyiraho aho yafatiwe uhereye ku nzira ya GPX
+library.geotag.add_files = Ongeraho amadosiye ya GPX…
+library.geotag.n_track_points.other = Ingingo z'inzira zifite igihe: {n}
+library.geotag.max_gap = Icyuho ntarengwa (iminota)
+library.geotag.clock_offset = Gukosora isaha ya kamera
+library.geotag.time_zone = Isaha y'akarere k'amafoto (itandukaniro na UTC)
+library.geotag.zone_help = Akarere k'isaha gakoreshwa gusa ku bihe by'ifatwa byanditswe nta karere. Igikosorwa, mu masegonda cyangwa ±h:mm:ss, cyongerwa kuri buri gihe cy'ifatwa.
+library.geotag.skip_existing = Simbuka amafoto asanzwe afite aho yafatiwe
+library.geotag.n_will_tag.other = Amafoto azashyirwaho aho yafatiwe: {n}
+library.geotag.n_has_gps.other = Amafoto asanzwe afite aho yafatiwe: {n}
+library.geotag.n_no_time.other = Amafoto adafite igihe cyo gufatwa: {n}
+library.geotag.n_gap.other = Amafoto agwa mu cyuho cy'inzira: {n}
+library.geotag.n_outside.other = Amafoto ari hanze y'igihe cy'inzira: {n}
+library.geotag.apply = Andika aho yafatiwe
+library.geotag.invalid = Andika icyuho mu minota, igikosorwa nka -1:30 n'akarere k'isaha nka +02:00.
+library.geotag.no_points = Amadosiye ya GPX nta ngingo zifite igihe arimo.
+library.geotag.select_photos = Banza uhitemo amafoto yo gushyiraho aho yafatiwe.
+library.geotag.read_failed = Ntibishobotse gusoma amadosiye ya GPX: {error}

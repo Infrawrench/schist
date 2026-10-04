@@ -134,6 +134,7 @@ menu.gallery = نندارتون
 menu.gallery.edit_selected = ټاکل شوی سمول
 menu.gallery.refresh = تازه کول
 menu.gallery.map_filter = د نقشې چاڼګر…
+menu.gallery.find_duplicates = دوه ځله انځورونه موندل…
 menu.gallery.back_to_editor = سمونګر ته ستنېدل
 
 # د Schist Cloud فرعي غورنۍ

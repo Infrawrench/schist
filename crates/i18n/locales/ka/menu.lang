@@ -132,6 +132,7 @@ menu.gallery = გალერეა
 menu.gallery.edit_selected = მონიშნულის რედაქტირება
 menu.gallery.refresh = განახლება
 menu.gallery.map_filter = რუკის ფილტრი…
+menu.gallery.find_duplicates = დუბლიკატების პოვნა…
 menu.gallery.back_to_editor = რედაქტორში დაბრუნება
 
 # Schist Cloud

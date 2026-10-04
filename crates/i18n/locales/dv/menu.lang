@@ -122,6 +122,7 @@ menu.gallery = ގެލެރީ
 menu.gallery.edit_selected = ހޮވި ތަކެތި އެޑިޓް ކުރުން
 menu.gallery.refresh = ރިފްރެޝް
 menu.gallery.map_filter = މެޕް ފިލްޓަރ…
+menu.gallery.find_duplicates = ޑުޕްލިކޭޓް ހޯދާ…
 menu.gallery.back_to_editor = އެޑިޓަރަށް އެނބުރުން
 
 menu.cloud.browse = Schist Cloud ބްރައުޒް ކުރުން

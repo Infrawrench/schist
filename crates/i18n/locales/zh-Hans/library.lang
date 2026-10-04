@@ -352,3 +352,43 @@ library.similar.keep = 保留
 library.similar.reject = 拒绝
 library.similar.help = 仅添加审核标记，不会删除文件。
 library.similar.stale = 文件已更改。请刷新后继续。
+
+# Find Duplicates
+library.duplicates.title = 重复项
+library.duplicates.help = 所有受监视文件夹中的相同文件和近似副本。移至回收站前会确认两次；已移入回收站的文件可从系统回收站中恢复。
+library.duplicates.exact = 相同文件
+library.duplicates.near = 近似重复项
+library.duplicates.identical = 完全相同（SHA-256）
+library.duplicates.suggested = 建议保留
+library.duplicates.make_keeper = 保留此项
+library.duplicates.compare = 比较
+library.duplicates.keep_all = 全部保留
+library.duplicates.reject_others = 拒绝其余
+library.duplicates.trash_others.other = 将其余 {n} 张移至回收站
+library.duplicates.confirm_trash.other = 确认：将 {n} 张移至回收站
+library.duplicates.n_trashed.other = 已将 {n} 个文件移至回收站
+library.duplicates.n_rejected.other = 已将 {n} 张照片标记为拒绝
+library.duplicates.refused_edited = 它有编辑或附属文件，请改为拒绝
+library.duplicates.trash_failed = 系统回收站不可用
+library.duplicates.near_limit = 近似重复项匹配仅涵盖前 10,000 张照片。
+
+# Geotagging from GPX tracks
+library.geotag.menu = 根据 GPX 轨迹添加地理标记…
+library.geotag.title = 根据 GPX 轨迹添加地理标记
+library.geotag.add_files = 添加 GPX 文件…
+library.geotag.n_track_points.other = {n} 个带时间的轨迹点
+library.geotag.max_gap = 最大间隔（分钟）
+library.geotag.clock_offset = 相机时钟校正
+library.geotag.time_zone = 照片时区（UTC 偏移）
+library.geotag.zone_help = 时区仅适用于记录时未带时区的拍摄时间。校正值（以秒或 ±h:mm:ss 表示）会加到每个拍摄时间上。
+library.geotag.skip_existing = 跳过已有位置的照片
+library.geotag.n_will_tag.other = 将为 {n} 张照片添加标记
+library.geotag.n_has_gps.other = {n} 张照片已有位置
+library.geotag.n_no_time.other = {n} 张照片没有拍摄时间
+library.geotag.n_gap.other = {n} 张照片落在轨迹的空档中
+library.geotag.n_outside.other = {n} 张照片超出轨迹的时间范围
+library.geotag.apply = 写入位置
+library.geotag.invalid = 请输入以分钟为单位的间隔、类似 -1:30 的校正值，以及类似 +02:00 的时区。
+library.geotag.no_points = GPX 文件中没有带时间的点。
+library.geotag.select_photos = 请先选择要添加地理标记的照片。
+library.geotag.read_failed = 无法读取 GPX 文件：{error}

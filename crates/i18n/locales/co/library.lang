@@ -299,3 +299,43 @@ library.similar.keep = Tene
 library.similar.reject = Rifiutà
 library.similar.help = Solu marche di rivisione; i schedarii ùn sò micca sguassati.
 library.similar.stale = I schedarii sò cambiati. Attualizà per cuntinuà.
+
+# Find Duplicates
+library.duplicates.title = Duppioni
+library.duplicates.help = Schedarii identichi è copie guasi listessi in tutti i cartulari surveglià. U spostamentu in u cestinu dumanda duie volte a cunferma; i schedarii cestinati ponu esse ripristinati da u cestinu di u sistema.
+library.duplicates.exact = Schedarii identichi
+library.duplicates.near = Guasi duppioni
+library.duplicates.identical = identichi (SHA-256)
+library.duplicates.suggested = Cunsigliatu da tene
+library.duplicates.make_keeper = Tene questu
+library.duplicates.compare = Paragunà
+library.duplicates.keep_all = Tene tutti
+library.duplicates.reject_others = Rifiutà l'altri
+library.duplicates.trash_others.other = Sposta l'altri in u cestinu: {n}
+library.duplicates.confirm_trash.other = Cunferma: sposta in u cestinu {n}
+library.duplicates.n_trashed.other = Schedarii spostati in u cestinu: {n}
+library.duplicates.n_rejected.other = Fotò marcate cum'è rifiutate: {n}
+library.duplicates.refused_edited = hà mudifiche o un schedariu sidecar, dunque rifiutela piuttostu
+library.duplicates.trash_failed = u cestinu di u sistema ùn hè micca dispunibule
+library.duplicates.near_limit = A ricerca di i guasi duppioni copre e prime 10,000 fotò.
+
+# Geotagging from GPX tracks
+library.geotag.menu = Geomarcà da una traccia GPX…
+library.geotag.title = Geomarcatura da una traccia GPX
+library.geotag.add_files = Aghjunghje schedarii GPX…
+library.geotag.n_track_points.other = Punti di traccia cù l'ora: {n}
+library.geotag.max_gap = Interruzzione massima (minuti)
+library.geotag.clock_offset = Currezzione di l'orloghju di a fotocamera
+library.geotag.time_zone = Fusu orariu di e fotò (sfasamentu UTC)
+library.geotag.zone_help = U fusu orariu s'applica solu à l'ore di scatta arregistrate senza. A currezzione, in seconde o ±h:mm:ss, hè aghjunta à ogni ora di scatta.
+library.geotag.skip_existing = Saltà e fotò chì anu digià una pusizione
+library.geotag.n_will_tag.other = Fotò chì seranu marcate: {n}
+library.geotag.n_has_gps.other = Fotò chì anu digià una pusizione: {n}
+library.geotag.n_no_time.other = Fotò senza ora di scatta: {n}
+library.geotag.n_gap.other = Fotò in un'interruzzione di a traccia: {n}
+library.geotag.n_outside.other = Fotò fora di l'intervallu di tempu di a traccia: {n}
+library.geotag.apply = Scrive e pusizioni
+library.geotag.invalid = Scrivite l'interruzzione in minuti, una currezzione cum'è -1:30 è un fusu orariu cum'è +02:00.
+library.geotag.no_points = I schedarii GPX ùn cuntenenu punti cù l'ora.
+library.geotag.select_photos = Selezziunate prima e fotò da geomarcà.
+library.geotag.read_failed = Impussibule di leghje i schedarii GPX: {error}

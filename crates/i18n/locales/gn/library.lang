@@ -299,3 +299,43 @@ library.similar.keep = Ñongatu
 library.similar.reject = Mbotove
 library.similar.help = Ñema’ẽjey rechaukaha año; marandurenda noñemboguéi.
 library.similar.stale = Marandurenda iñambue. Embopyahu reho hag̃ua tenonde.
+
+# Find Duplicates
+library.duplicates.title = Mokõiha
+library.duplicates.help = Marandurenda ojojogua hendaitéva ha kópia ojoguaitéva opaite ñongatuha ojehesa'ỹijóvape. Ñemboguejy mba'e mombohápe oporandu mokõi jey; marandurenda oñemboguejýva ikatu ojevy mba'e mombohágui sistema-pegua.
+library.duplicates.exact = Marandurenda ojojogua hendaitéva
+library.duplicates.near = Mokõiha ojoguaitéva
+library.duplicates.identical = ojojogua hendaitéva (SHA-256)
+library.duplicates.suggested = Ñongatu hag̃ua ojepytaso
+library.duplicates.make_keeper = Eñongatu Kóva
+library.duplicates.compare = Moñondive
+library.duplicates.keep_all = Eñongatu Opaite
+library.duplicates.reject_others = Embotove Ambue
+library.duplicates.trash_others.other = Emboguejy {n} ambue mba'e mombohápe
+library.duplicates.confirm_trash.other = Emoneĩ: emboguejy {n} mba'e mombohápe
+library.duplicates.n_trashed.other = {n} marandurenda oñemboguejy mba'e mombohápe
+library.duplicates.n_rejected.other = {n} ta'ãnga ojehaíma mbotovéva ramo
+library.duplicates.refused_edited = oguereko mbohasa'asy térã marandurenda ykepegua, upévare embotove upéva rangue
+library.duplicates.trash_failed = mba'e mombohá sistema-pegua ndaipóri
+library.duplicates.near_limit = Mokõiha ojoguaitéva jeheka ohasa 10,000 ta'ãnga ypykuépe.
+
+# Geotagging from GPX tracks
+library.geotag.menu = Emoĩ tenda GPX rapykuéregui…
+library.geotag.title = Emoĩ tenda GPX rapykuéregui
+library.geotag.add_files = Embojoapy marandurenda GPX…
+library.geotag.n_track_points.other = {n} rapykuere punto oguerekóva aravo
+library.geotag.max_gap = Ñemombyky tuichavéva (minuto)
+library.geotag.clock_offset = Kamera aravo mohenda
+library.geotag.time_zone = Ta'ãnga aravo tendagua (UTC ojojavy)
+library.geotag.zone_help = Aravo tendagua oiko añoite ta'ãnga ojejapo aravo ojehaíva tenda'ỹre. Mohenda, segúndo térã ±h:mm:ss-pe, oñembojoapy opa ta'ãnga jejapo aravoa.
+library.geotag.skip_existing = Emboyke ta'ãnga oguerekopyre tenda
+library.geotag.n_will_tag.other = {n} ta'ãnga oñemoĩta tenda
+library.geotag.n_has_gps.other = {n} ta'ãnga oguerekóma tenda
+library.geotag.n_no_time.other = {n} ta'ãnga ndorekói aravo ojejapohague
+library.geotag.n_gap.other = {n} ta'ãnga oĩ rapykuere rendyvýpe
+library.geotag.n_outside.other = {n} ta'ãnga oĩ rapykuere aravo rembe'ýpe
+library.geotag.apply = Ehai tendakuéra
+library.geotag.invalid = Emoĩ ñemombyky minútope, mohenda -1:30 ha aravo tenda +02:00 ramo.
+library.geotag.no_points = Marandurenda GPX ndorekói punto aravo reheve.
+library.geotag.select_photos = Eiporavo raẽ ta'ãnga emoĩta hag̃ua tenda.
+library.geotag.read_failed = Ndaikatúi ojeheja marandurenda GPX: {error}

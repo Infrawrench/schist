@@ -122,6 +122,7 @@ menu.gallery = Galerie
 menu.gallery.edit_selected = Redacter li selectet
 menu.gallery.refresh = Refriscar
 menu.gallery.map_filter = Filtre de carte…
+menu.gallery.find_duplicates = Trovar duplicatas…
 menu.gallery.back_to_editor = Retro al editor
 
 menu.cloud.browse = Navigar Schist Cloud

@@ -133,6 +133,7 @@ menu.gallery = Galería
 menu.gallery.edit_selected = Editar as fotos trigadas
 menu.gallery.refresh = Actualizar
 menu.gallery.map_filter = Filtro d'o mapa…
+menu.gallery.find_duplicates = Buscar duplicaus…
 menu.gallery.back_to_editor = Tornar a l'editor
 
 # Submenú de Schist Cloud

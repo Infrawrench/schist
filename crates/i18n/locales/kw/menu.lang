@@ -122,6 +122,7 @@ menu.gallery = Galari
 menu.gallery.edit_selected = Golygi an Re Dewisys
 menu.gallery.refresh = Dasnowedhi
 menu.gallery.map_filter = Hidlen Mappa…
+menu.gallery.find_duplicates = Hwilas Dyblans…
 menu.gallery.back_to_editor = Dehweles dhe'n Golygyas
 
 menu.cloud.browse = Peurel Schist Cloud

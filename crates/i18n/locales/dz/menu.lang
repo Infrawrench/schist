@@ -122,6 +122,7 @@ menu.gallery = སྟོན་ཁང་།
 menu.gallery.edit_selected = སེལ་འཐུ་འབད་མི་ཞུན་དག
 menu.gallery.refresh = ཡང་སེལ།
 menu.gallery.map_filter = ས་ཁྲའི་ཚགས་མ་…
+menu.gallery.find_duplicates = འདྲ་བཤུས་ཚུ་འཚོལ།…
 menu.gallery.back_to_editor = ཞུན་དག་པ་ལུ་ལོག
 
 menu.cloud.browse = Schist Cloud བལྟ་བཤལ།

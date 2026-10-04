@@ -299,3 +299,43 @@ library.similar.keep = Fa sie
 library.similar.reject = Pow
 library.similar.help = Nhwehwɛmu agyiraehyɛde nko; wɔmpopa fael ahorow.
 library.similar.stale = Fael ahorow asesa. Yɛ no foforo na toa so.
+
+# Find Duplicates
+library.duplicates.title = Nea Wɔaba Mmienu
+library.duplicates.help = Fael a ɛyɛ pɛ ne nkopi a ɛbɛyɛ pɛ wɔ nkyekyɛmu nyinaa a wɔhwɛ so mu. Sɛ wode nneɛma kɔ nkuntan mu a, ebisa mprɛnsa abien; wobetumi akyi fael a ɛwɔ nkuntan mu no afi nhyehyɛe no nkuntan mu.
+library.duplicates.exact = Fael a ɛyɛ pɛ
+library.duplicates.near = Nea ɛbɛyɛ pɛ
+library.duplicates.identical = ɛyɛ pɛ (SHA-256)
+library.duplicates.suggested = Nea yɛpae mu sɛ wɔnkora so
+library.duplicates.make_keeper = Kora Yi So
+library.duplicates.compare = Fa Toto Ho
+library.duplicates.keep_all = Kora Nyinaa So
+library.duplicates.reject_others = Pow Afoforo
+library.duplicates.trash_others.other = Fa Afoforo no {n} Kɔ Nkuntan Mu
+library.duplicates.confirm_trash.other = Si so dua: Fa {n} Kɔ Nkuntan Mu
+library.duplicates.n_trashed.other = Wɔde fael {n} akɔ nkuntan mu
+library.duplicates.n_rejected.other = Wɔde foto {n} ahyɛ sɛ wɔapow
+library.duplicates.refused_edited = wɔasesa mu anaa ɛwɔ sidecar fael, enti pow no mmom
+library.duplicates.trash_failed = nhyehyɛe no nkuntan nni hɔ
+library.duplicates.near_limit = Nea ɛbɛyɛ pɛ no hwehwɛ no ka foto 10,000 a edi kan no.
+
+# Geotagging from GPX tracks
+library.geotag.menu = Fa Beae Ka Ho firi GPX Kwan Mu…
+library.geotag.title = Fa Beae Ka Ho firi GPX Kwan Mu
+library.geotag.add_files = Fa GPX Fael Ka Ho…
+library.geotag.n_track_points.other = Kwan so mmeae a ɛwɔ bere: {n}
+library.geotag.max_gap = Ntam kɛse sen biara (simma)
+library.geotag.clock_offset = Kamera dɔnhwere nsiesie
+library.geotag.time_zone = Fotohɔ bere mpɔtam (UTC nsonsonoe)
+library.geotag.zone_help = Bere mpɔtam no yɛ adwuma wɔ foto tuo bere a wɔakyerɛw a mpɔtam nni ho nko ara. Wɔde nsiesie no, wɔ sekɛnd mu anaa ±h:mm:ss, ka foto tuo bere biara ho.
+library.geotag.skip_existing = Twam foto a wɔwɔ beae dedaw no so
+library.geotag.n_will_tag.other = Wɔbɛfa beae ahyɛ foto {n} ho
+library.geotag.n_has_gps.other = Foto {n} wɔ beae dedaw
+library.geotag.n_no_time.other = Foto {n} nni foto tuo bere
+library.geotag.n_gap.other = Foto {n} bata kwan no mu ntam
+library.geotag.n_outside.other = Foto {n} wɔ kwan no bere mu akyi
+library.geotag.apply = Kyerɛw Mmeae
+library.geotag.invalid = Hyɛ ntam no wɔ simma mu, nsiesie te sɛ -1:30 ne bere mpɔtam te sɛ +02:00.
+library.geotag.no_points = GPX fael no mu nni mmeae a ɛwɔ bere.
+library.geotag.select_photos = Fa foto a wobɛyɛ ho beae no di kan paw.
+library.geotag.read_failed = Antumi annkenkan GPX fael no: {error}

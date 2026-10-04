@@ -207,6 +207,8 @@ pub struct MapState {
     pub draw_mode: bool,
     /// Points marked on the map: the blip where a photo was taken.
     pub markers: Vec<(f64, f64)>,
+    /// Polylines drawn under the markers: a GPS track's segments.
+    pub tracks: Vec<Vec<(f64, f64)>>,
     /// The window's device scale at the last paint, so tile edges can
     /// be snapped to whole device pixels (0 until first paint = 1).
     pub scale: f32,
@@ -236,6 +238,7 @@ impl Default for MapState {
             selection_name: None,
             draw_mode: false,
             markers: Vec::new(),
+            tracks: Vec::new(),
             scale: 1.0,
             drag: None,
             scroll_debt: 0.0,
@@ -471,6 +474,14 @@ impl MapState {
         self.selection_name = Some(name.to_string());
     }
 
+    /// Frame a box without making it the boundary: a track preview.
+    pub fn frame(&mut self, bounds: GeoBounds) {
+        self.fill_viewport = false;
+        self.center = bounds.center();
+        self.zoom = zoom_for(&bounds);
+        self.scroll_debt = 0.0;
+    }
+
     pub fn clear_selection(&mut self) {
         self.selection = None;
         self.selection_name = None;
@@ -478,6 +489,25 @@ impl MapState {
 }
 
 pub use schist_gallery::valid_gps_position as valid_position;
+
+/// Drop window-space points closer than a pixel to the last one kept, so a
+/// day of 1 Hz logging paints as a few thousand segments, not 86,400.
+pub fn thin_polyline(points: impl Iterator<Item = (f32, f32)>) -> Vec<(f32, f32)> {
+    let mut kept: Vec<(f32, f32)> = Vec::new();
+    let mut pending = None;
+    for p in points {
+        match kept.last() {
+            Some(&(x, y)) if (p.0 - x).abs() < 1.0 && (p.1 - y).abs() < 1.0 => pending = Some(p),
+            _ => {
+                kept.push(p);
+                pending = None;
+            }
+        }
+    }
+    // Always end where the track ends.
+    kept.extend(pending);
+    kept
+}
 
 /// Nearby thumbnails share a pin. A spatial grid keeps dense libraries
 /// linear in their photo count; cluster members retain their input order.
@@ -521,6 +551,8 @@ pub struct MapPaint {
     pub selection: Option<Bounds<Pixels>>,
     /// The markers in window space.
     pub markers: Vec<Point<Pixels>>,
+    /// Track polylines in window space, thinned to about a pixel apart.
+    pub tracks: Vec<Vec<Point<Pixels>>>,
 }
 
 /// Independent cameras for import/filter, the world photo view, and
@@ -530,6 +562,8 @@ pub enum MapSlot {
     Gallery,
     World,
     Info,
+    /// The GPX geotagging preview: the track and where each photo lands.
+    Geotag,
 }
 
 impl MapState {
@@ -549,6 +583,7 @@ impl MapState {
             missing: Vec::new(),
             selection: None,
             markers: Vec::new(),
+            tracks: Vec::new(),
         };
         let zoom = map.zoom;
         let (ox, oy) = map.view_offset();
@@ -593,6 +628,14 @@ impl MapState {
         for &(lat, lon) in &map.markers {
             let (x, y) = map.window_at(lat, lon);
             paint.markers.push(point(px(x), px(y)));
+        }
+        for track in &map.tracks {
+            let line = thin_polyline(track.iter().map(|&(lat, lon)| map.window_at(lat, lon)));
+            if line.len() > 1 {
+                paint
+                    .tracks
+                    .push(line.into_iter().map(|(x, y)| point(px(x), px(y))).collect());
+            }
         }
         paint
     }
@@ -746,6 +789,16 @@ mod tests {
         assert!((anchor.0 - after.0).abs() < 1e-6);
         assert!((anchor.1 - after.1).abs() < 1e-6);
         assert!(!map.fill_viewport);
+    }
+
+    #[test]
+    fn thinning_keeps_the_ends_and_drops_subpixel_steps() {
+        let line: Vec<(f32, f32)> = (0..=100).map(|i| (i as f32 * 0.1, 0.0)).collect();
+        let thin = thin_polyline(line.iter().copied());
+        assert_eq!(thin.first(), Some(&(0.0, 0.0)));
+        assert_eq!(thin.last(), Some(&(10.0, 0.0)));
+        assert!(thin.len() <= 12, "{}", thin.len());
+        assert_eq!(thin_polyline(std::iter::empty()).len(), 0);
     }
 
     #[test]

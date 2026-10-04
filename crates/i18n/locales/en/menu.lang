@@ -138,6 +138,7 @@ menu.gallery = Gallery
 menu.gallery.edit_selected = Edit Selected
 menu.gallery.refresh = Refresh
 menu.gallery.map_filter = Map Filter…
+menu.gallery.find_duplicates = Find Duplicates…
 menu.gallery.back_to_editor = Back to Editor
 
 # Schist Cloud submenu

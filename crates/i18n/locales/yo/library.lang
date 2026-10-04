@@ -299,3 +299,43 @@ library.similar.keep = Pamọ́
 library.similar.reject = Kọ̀
 library.similar.help = Àmì àyẹ̀wò nìkan; a kò pa àwọn fáìlì rẹ́.
 library.similar.stale = Àwọn fáìlì ti yí padà. Sọ di tuntun láti tẹ̀síwájú.
+
+# Find Duplicates
+library.duplicates.title = Àwọn àdàkọ
+library.duplicates.help = Àwọn fáìlì tó jọra pátápátá àti àwọn àdàkọ tó fẹ́rẹ̀ jọra ní gbogbo fóòlù tí à ń ṣọ́. Gbígbé sínú àpótí ìdọ̀tí máa ń béèrè ìmúdájú lẹ́ẹ̀mejì; a lè dá àwọn fáìlì tí a gbé sínú àpótí ìdọ̀tí padà láti àpótí ìdọ̀tí ẹ̀rọ.
+library.duplicates.exact = Àwọn fáìlì tó jọra pátápátá
+library.duplicates.near = Àwọn àdàkọ tó fẹ́rẹ̀ jọra
+library.duplicates.identical = jọra pátápátá (SHA-256)
+library.duplicates.suggested = Èyí tí a dámọ̀ràn láti pamọ́
+library.duplicates.make_keeper = Pamọ́ Èyí
+library.duplicates.compare = Fi wé ara
+library.duplicates.keep_all = Pamọ́ Gbogbo Rẹ̀
+library.duplicates.reject_others = Kọ àwọn yòókù
+library.duplicates.trash_others.other = Gbé {n} yòókù sínú àpótí ìdọ̀tí
+library.duplicates.confirm_trash.other = Jẹ́rìí: gbé {n} sínú àpótí ìdọ̀tí
+library.duplicates.n_trashed.other = Fáìlì {n} ni a gbé sínú àpótí ìdọ̀tí
+library.duplicates.n_rejected.other = Fọ́tò {n} ni a fi àmì sí gẹ́gẹ́ bí èyí tí a kọ̀
+library.duplicates.refused_edited = ó ní àtúnṣe tàbí fáìlì sidecar, nítorí náà kọ̀ ọ́ dípò
+library.duplicates.trash_failed = àpótí ìdọ̀tí ẹ̀rọ kò sí
+library.duplicates.near_limit = Ìwádìí àwọn àdàkọ tó fẹ́rẹ̀ jọra bo fọ́tò 10,000 àkọ́kọ́ nìkan.
+
+# Geotagging from GPX tracks
+library.geotag.menu = Fi ibi sí fọ́tò láti ọ̀nà GPX…
+library.geotag.title = Fi ibi sí fọ́tò láti ọ̀nà GPX
+library.geotag.add_files = Fi àwọn fáìlì GPX kún…
+library.geotag.n_track_points.other = Àwọn ojú-ọ̀nà tó ní àkókò: {n}
+library.geotag.max_gap = Àlàfo tó pọ̀ jù (ìṣẹ́jú)
+library.geotag.clock_offset = Àtúnṣe aago kámẹ́rà
+library.geotag.time_zone = Agbègbè àkókò fọ́tò (ìyàtọ̀ UTC)
+library.geotag.zone_help = Agbègbè àkókò kàn wúlò fún àwọn àkókò yíyà tí a gbà sílẹ̀ láìsí rẹ̀. A máa fi àtúnṣe náà, ní ìṣẹ́jú-àáyá tàbí ±h:mm:ss, kún gbogbo àkókò yíyà.
+library.geotag.skip_existing = Fò àwọn fọ́tò tó ti ní ibi
+library.geotag.n_will_tag.other = A máa fi ibi sí fọ́tò {n}
+library.geotag.n_has_gps.other = Fọ́tò {n} ti ní ibi
+library.geotag.n_no_time.other = Fọ́tò {n} kò ní àkókò yíyà
+library.geotag.n_gap.other = Fọ́tò {n} bọ́ sí àlàfo inú ọ̀nà náà
+library.geotag.n_outside.other = Fọ́tò {n} wà ní òde àkókò ọ̀nà náà
+library.geotag.apply = Kọ àwọn ibi sílẹ̀
+library.geotag.invalid = Tẹ àlàfo ní ìṣẹ́jú, àtúnṣe bíi -1:30 àti agbègbè àkókò bíi +02:00.
+library.geotag.no_points = Àwọn fáìlì GPX kò ní ojú-ọ̀nà tó ní àkókò.
+library.geotag.select_photos = Kọ́kọ́ yan àwọn fọ́tò tí a fẹ́ fi ibi sí.
+library.geotag.read_failed = Kò ṣeé ka àwọn fáìlì GPX: {error}

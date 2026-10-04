@@ -2222,6 +2222,7 @@ pub(crate) fn map_element(
             super::library_geo::MapSlot::Gallery => "gallery-map",
             super::library_geo::MapSlot::World => "world-map",
             super::library_geo::MapSlot::Info => "info-map",
+            super::library_geo::MapSlot::Geotag => "geotag-map",
         })
         .relative()
         .w_full()
@@ -2244,8 +2245,11 @@ pub(crate) fn map_element(
             cx.listener(move |ws, ev: &MouseDownEvent, _w, cx| {
                 let pos = (f32::from(ev.position.x), f32::from(ev.position.y));
                 let map = ws.map_mut(slot);
-                let drawing = slot != super::library_geo::MapSlot::World
-                    && (ev.modifiers.shift || map.draw_mode);
+                // The world view and the geotag preview have no boundary.
+                let drawing = !matches!(
+                    slot,
+                    super::library_geo::MapSlot::World | super::library_geo::MapSlot::Geotag
+                ) && (ev.modifiers.shift || map.draw_mode);
                 map.begin_drag(pos, drawing);
                 cx.notify();
             }),
@@ -2358,8 +2362,26 @@ pub(crate) fn map_element(
                             gpui::BorderStyle::Solid,
                         ));
                     }
+                    // A GPS track: a white casing under a blue line, so it
+                    // reads over both streets and parks.
+                    for (width, color) in
+                        [(5.0, gpui::rgba(0xFFFFFFD0)), (2.5, gpui::rgba(0x1D63D8FF))]
+                    {
+                        for line in &paint.tracks {
+                            let mut builder = gpui::PathBuilder::stroke(px(width));
+                            builder.move_to(line[0]);
+                            for at in &line[1..] {
+                                builder.line_to(*at);
+                            }
+                            if let Ok(path) = builder.build() {
+                                window.paint_path(path, color);
+                            }
+                        }
+                    }
                     // The blip: a white-ringed red dot, the way every
-                    // map marks "you are here".
+                    // map marks "you are here". Many photos (a geotag
+                    // preview) get smaller dots.
+                    let many = paint.markers.len() > 1;
                     for at in paint.markers {
                         let dot = |r: f32, color: gpui::Rgba| {
                             let mut quad = gpui::fill(
@@ -2372,8 +2394,9 @@ pub(crate) fn map_element(
                             quad.corner_radii = gpui::Corners::all(px(r));
                             quad
                         };
-                        window.paint_quad(dot(9.0, gpui::rgba(0xFFFFFFE0)));
-                        window.paint_quad(dot(6.5, gpui::rgb(0xE0362B)));
+                        let scale = if many { 0.6 } else { 1.0 };
+                        window.paint_quad(dot(9.0 * scale, gpui::rgba(0xFFFFFFE0)));
+                        window.paint_quad(dot(6.5 * scale, gpui::rgb(0xE0362B)));
                     }
                     for marker in &mut markers {
                         marker.paint(window, cx);
@@ -2932,6 +2955,13 @@ fn gallery_context_menu(
                     &mut rows,
                     cx,
                     std::rc::Rc::new(move |ws, _w, cx| ws.open_metadata_editor(photos.clone(), cx)),
+                );
+                let photos = acting.clone();
+                row(
+                    t("library.geotag.menu").into(),
+                    &mut rows,
+                    cx,
+                    std::rc::Rc::new(move |ws, _w, cx| ws.open_geotag(photos.clone(), cx)),
                 );
             }
 

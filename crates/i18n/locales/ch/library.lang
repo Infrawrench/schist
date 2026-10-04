@@ -299,3 +299,43 @@ library.similar.keep = Na’såonao
 library.similar.reject = Rechåsa
 library.similar.help = Måtkan inatan ha’; ti mafunas i arkibu siha.
 library.similar.stale = Manmaåtulaika i arkibu siha. Na’fresku para un kontinua.
+
+# Find Duplicates
+library.duplicates.title = Kopia siha
+library.duplicates.help = Arkibu siha ni parehu yan kopia siha ni mampos parehu gi todu i folder siha ni mamantieni. Mamaisen dos biåhe antes di ma'na'kalamten guatu gi trash; i arkibu siha gi trash siña ma'na'fåna' gi trash i sistema.
+library.duplicates.exact = Arkibu siha ni parehu
+library.duplicates.near = Kopia siha ni mampos parehu
+library.duplicates.identical = parehu (SHA-256)
+library.duplicates.suggested = Mañugon ni para un na'såonao
+library.duplicates.make_keeper = Na'såonao Este
+library.duplicates.compare = Kompara
+library.duplicates.keep_all = Na'såonao Todu
+library.duplicates.reject_others = Rechåsa i Otro siha
+library.duplicates.trash_others.other = Na'kalamten i otro siha guatu gi trash: {n}
+library.duplicates.confirm_trash.other = Konfotma: na'kalamten guatu gi trash: {n}
+library.duplicates.n_trashed.other = Arkibu siha ni ma'na'kalamten guatu gi trash: {n}
+library.duplicates.n_rejected.other = Litråtu siha ni mamarka komo rinechåsa: {n}
+library.duplicates.refused_edited = guaha tinilaika pat sidecar file, ya rechåsa ha' ennao
+library.duplicates.trash_failed = ti guaha trash i sistema
+library.duplicates.near_limit = I kinompara kopia siha ni mampos parehu ha tåtkuentos i fine'nina 10,000 na litråtu.
+
+# Geotagging from GPX tracks
+library.geotag.menu = Geotag ginen GPX Track…
+library.geotag.title = Geotag ginen GPX Track
+library.geotag.add_files = Na'hålom GPX Arkibu siha…
+library.geotag.n_track_points.other = Track point siha ni guaha ora: {n}
+library.geotag.max_gap = Mås chågo' na ayu (minutu siha)
+library.geotag.clock_offset = Ginifi' i klåken kamera
+library.geotag.time_zone = Time zone i litråtu siha (UTC offset)
+library.geotag.zone_help = I time zone ha aplika ha' gi ora siha ni marikot sin time zone. I ginifi', gi sekundo pat ±h:mm:ss, mana'hålom gi kada ora ni marikot.
+library.geotag.skip_existing = Skip i litråtu siha ni guaha lugåt ya
+library.geotag.n_will_tag.other = Litråtu siha ni para ma'tag: {n}
+library.geotag.n_has_gps.other = Litråtu siha ni guaha lugåt ya: {n}
+library.geotag.n_no_time.other = Litråtu siha ni tåya' ora: {n}
+library.geotag.n_gap.other = Litråtu siha ni makåtga gi ayu gi track: {n}
+library.geotag.n_outside.other = Litråtu siha ni gaige gi sanhiyong i ora i track: {n}
+library.geotag.apply = Tuge' Lugåt siha
+library.geotag.invalid = Na'hålom i ayu gi minutu, ginifi' parehu yan -1:30 yan time zone parehu yan +02:00.
+library.geotag.no_points = I GPX arkibu siha ti guaha point siha ni guaha ora.
+library.geotag.select_photos = Pili i litråtu siha para un geotag fine'nina.
+library.geotag.read_failed = Ti siña ma'lei i GPX arkibu siha: {error}

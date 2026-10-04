@@ -1,43 +1,66 @@
 //! Similar originals and capture bursts, with reversible review decisions.
 use super::*;
-use gpui::{img, StatefulInteractiveElement as _, StyledImage as _};
+use gpui::{img, prelude::FluentBuilder as _, StatefulInteractiveElement as _, StyledImage as _};
 use schist_gallery::similar::{self, Cache, Choice, Decisions, Group, Mode, Photo};
 use schist_i18n::{t, tf};
 use schist_ui::Button;
+use std::path::Path;
 use std::sync::atomic::{AtomicBool, AtomicUsize};
+
+/// What the review panel is showing: the current view's similar photos and
+/// bursts, or Find Duplicates over the whole library.
+#[derive(Clone, Copy, PartialEq, Eq, Debug)]
+pub(super) enum ReviewKind {
+    Similar,
+    Duplicates,
+}
 
 pub(super) struct SimilarReview {
     pub open: bool,
+    pub(super) kind: ReviewKind,
     mode: Mode,
-    threshold: u32,
-    cancel: Arc<AtomicBool>,
-    progress: Arc<AtomicUsize>,
-    running: bool,
-    total: usize,
-    failed: usize,
-    cancelled: bool,
-    photos: Vec<Photo>,
-    groups: Vec<Group>,
-    group: usize,
-    candidate: usize,
+    pub(super) threshold: u32,
+    pub(super) cancel: Arc<AtomicBool>,
+    pub(super) progress: Arc<AtomicUsize>,
+    pub(super) running: bool,
+    /// Sources the scan will inspect; a duplicate scan learns it after
+    /// listing the files, so it is shared with the worker.
+    pub(super) total: Arc<AtomicUsize>,
+    pub(super) failed: usize,
+    pub(super) cancelled: bool,
+    pub(super) photos: Vec<Photo>,
+    pub(super) groups: Vec<Group>,
+    pub(super) group: usize,
+    pub(super) candidate: usize,
     images: [Option<Arc<RenderImage>>; 2],
     loading: bool,
     preview_cancel: Arc<AtomicBool>,
     revision: u64,
-    decisions: Decisions,
-    decisions_loaded: bool,
-    error: Option<String>,
+    pub(super) decisions: Decisions,
+    pub(super) decisions_loaded: bool,
+    pub(super) error: Option<String>,
+    /// Duplicates: whether each group is byte-identical, and the SHA-256 of
+    /// exact members (by photo index) for re-verification before trashing.
+    pub(super) exact: Vec<bool>,
+    pub(super) sha: std::collections::HashMap<usize, schist_gallery::duplicates::Sha256Digest>,
+    /// More stills than near-duplicate matching covers.
+    pub(super) near_limited: bool,
+    /// The group whose "move to trash" was clicked once and awaits a second.
+    pub(super) trash_armed: Option<usize>,
+    /// A comparison opened from the review returns to it on close.
+    pub(super) resume: bool,
 }
 impl Default for SimilarReview {
     fn default() -> Self {
         Self {
             open: false,
+            kind: ReviewKind::Similar,
             mode: Mode::Visual,
             threshold: 6,
             cancel: Arc::default(),
             progress: Arc::default(),
             running: false,
-            total: 0,
+            total: Arc::default(),
             failed: 0,
             cancelled: false,
             photos: vec![],
@@ -51,10 +74,67 @@ impl Default for SimilarReview {
             decisions: Decisions::default(),
             decisions_loaded: false,
             error: None,
+            exact: vec![],
+            sha: Default::default(),
+            near_limited: false,
+            trash_armed: None,
+            resume: false,
         }
     }
 }
-fn review_io_error(error: std::io::Error) -> String {
+impl SimilarReview {
+    /// Reset for a fresh scan of `total` sources.
+    pub(super) fn begin_scan(&mut self, total: usize) {
+        self.preview_cancel.store(true, Ordering::Relaxed);
+        self.total = Arc::new(AtomicUsize::new(total));
+        self.cancel = Arc::default();
+        self.progress = Arc::default();
+        self.running = true;
+        self.cancelled = false;
+        self.error = None;
+        self.groups.clear();
+        self.photos.clear();
+        self.exact.clear();
+        self.sha.clear();
+        self.near_limited = false;
+        self.trash_armed = None;
+        self.images = [None, None];
+        self.revision += 1;
+    }
+    pub(super) fn finish_decisions(&mut self, decisions: std::io::Result<Decisions>) {
+        match decisions {
+            Ok(decisions) => {
+                self.decisions = decisions;
+                self.decisions_loaded = true;
+            }
+            Err(error) => {
+                self.decisions_loaded = false;
+                self.error = Some(review_io_error(error));
+            }
+        }
+    }
+}
+/// The small, flattened decode similar-photo signatures are computed from.
+pub(super) fn signature_image(path: &Path) -> Option<image::RgbImage> {
+    let preview = schist_preview::render_file(path, 256).ok()?;
+    image::RgbaImage::from_raw(preview.width, preview.height, preview.rgba).map(|rgba| {
+        image::RgbImage::from_fn(rgba.width(), rgba.height(), |x, y| {
+            let p = rgba.get_pixel(x, y);
+            let a = p[3] as u32;
+            image::Rgb([0, 1, 2].map(|c| ((p[c] as u32 * a + 255 * (255 - a)) / 255) as u8))
+        })
+    })
+}
+/// Capture seconds from the cached EXIF/XMP metadata, never the file clock.
+pub(super) fn capture_seconds(path: &Path, stamp: &similar::Stamp) -> Option<i64> {
+    let cache = schist_gallery::thumb_cache_path(path, stamp.seconds)
+        .map(|p| p.with_extension(format!("{}-{}.png", stamp.nanos, stamp.bytes)));
+    schist_gallery::photo_meta(&cache, path)
+        .taken
+        .as_deref()
+        .and_then(similar::capture_seconds)
+}
+pub(super) fn review_io_error(error: std::io::Error) -> String {
     log::warn!("similar review persistence failed: {error}");
     let detail = match error.kind() {
         std::io::ErrorKind::PermissionDenied => t("common.permission_denied"),
@@ -64,19 +144,28 @@ fn review_io_error(error: std::io::Error) -> String {
     };
     tf!("library.ops.save_failed", error = detail)
 }
-fn decision_path() -> Option<PathBuf> {
+pub(super) fn decision_path() -> Option<PathBuf> {
     Some(schist_gallery::library_path()?.with_file_name("similar-review.json"))
 }
 
 impl Workspace {
+    /// The sidebar's Similar photos: the current view, not the library.
     pub(super) fn open_similar_review(&mut self, cx: &mut Context<Self>) {
+        if self.library.similar.kind != ReviewKind::Similar && !self.library.similar.running {
+            self.library.similar.kind = ReviewKind::Similar;
+            self.library.similar.photos.clear();
+            self.library.similar.groups.clear();
+        }
+        self.show_review(cx);
+    }
+    pub(super) fn show_review(&mut self, cx: &mut Context<Self>) {
         self.library.comparison = None;
         self.library.map_view = false;
         self.library.viewer = None;
         self.library.similar.open = true;
         self.library.selected.clear();
         if self.library.similar.photos.is_empty() && !self.library.similar.running {
-            self.scan_similar(cx);
+            self.rescan_review(cx);
         } else if !self.library.similar.running {
             self.load_similar_pair(cx);
         }
@@ -123,35 +212,18 @@ impl Workspace {
         }
         true
     }
-    fn scan_similar(&mut self, cx: &mut Context<Self>) {
-        if self.library.similar.running {
-            return;
+    /// Repeat whichever scan the panel is showing.
+    pub(super) fn rescan_review(&mut self, cx: &mut Context<Self>) {
+        match self.library.similar.kind {
+            ReviewKind::Similar => self.scan_similar(cx),
+            ReviewKind::Duplicates => self.scan_duplicates(cx),
         }
-        let mut paths = self.gallery_flat_order();
-        paths.retain(|p| !schist_gallery::is_video(p));
-        paths.sort();
-        paths.dedup();
-        let state = &mut self.library.similar;
-        state.preview_cancel.store(true, Ordering::Relaxed);
-        state.total = paths.len();
-        state.cancel = Arc::default();
-        state.progress = Arc::default();
-        state.running = true;
-        state.cancelled = false;
-        state.error = None;
-        state.groups.clear();
-        state.photos.clear();
-        state.images = [None, None];
-        state.revision += 1;
-        let (cancel, progress, mode, threshold) = (
-            state.cancel.clone(),
-            state.progress.clone(),
-            state.mode,
-            state.threshold,
-        );
-        let ticker_cancel = cancel.clone();
-        // Progress is actual completed source inspections, including cache hits
-        // and failures. The timer only repaints; it does not invent progress.
+    }
+    /// Repaint while a scan runs. Progress is actual completed source
+    /// inspections, including cache hits and failures; the timer only
+    /// repaints, it does not invent progress.
+    pub(super) fn similar_progress_ticker(&mut self, cx: &mut Context<Self>) {
+        let ticker_cancel = self.library.similar.cancel.clone();
         cx.spawn(async move |this, cx| loop {
             cx.background_executor()
                 .timer(std::time::Duration::from_millis(150))
@@ -168,6 +240,24 @@ impl Workspace {
             }
         })
         .detach();
+    }
+    fn scan_similar(&mut self, cx: &mut Context<Self>) {
+        if self.library.similar.running {
+            return;
+        }
+        let mut paths = self.gallery_flat_order();
+        paths.retain(|p| !schist_gallery::is_video(p));
+        paths.sort();
+        paths.dedup();
+        let state = &mut self.library.similar;
+        state.begin_scan(paths.len());
+        let (cancel, progress, mode, threshold) = (
+            state.cancel.clone(),
+            state.progress.clone(),
+            state.mode,
+            state.threshold,
+        );
+        self.similar_progress_ticker(cx);
         cx.spawn(async move |this, cx| {
             let outcome = cx
                 .background_executor()
@@ -175,34 +265,8 @@ impl Workspace {
                     let cache_path =
                         schist_gallery::state_dir().map(|p| p.join("schist/similar-v1.json"));
                     let mut cache = cache_path.as_deref().map(Cache::load).unwrap_or_default();
-                    let photos = cache.scan(
-                        &paths,
-                        &cancel,
-                        &progress,
-                        |path| {
-                            let preview = schist_preview::render_file(path, 256).ok()?;
-                            image::RgbaImage::from_raw(preview.width, preview.height, preview.rgba)
-                                .map(|rgba| {
-                                    image::RgbImage::from_fn(rgba.width(), rgba.height(), |x, y| {
-                                        let p = rgba.get_pixel(x, y);
-                                        let a = p[3] as u32;
-                                        image::Rgb([0, 1, 2].map(|c| {
-                                            ((p[c] as u32 * a + 255 * (255 - a)) / 255) as u8
-                                        }))
-                                    })
-                                })
-                        },
-                        |path, stamp| {
-                            let cache =
-                                schist_gallery::thumb_cache_path(path, stamp.seconds).map(|p| {
-                                    p.with_extension(format!("{}-{}.png", stamp.nanos, stamp.bytes))
-                                });
-                            schist_gallery::photo_meta(&cache, path)
-                                .taken
-                                .as_deref()
-                                .and_then(similar::capture_seconds)
-                        },
-                    );
+                    let photos =
+                        cache.scan(&paths, &cancel, &progress, signature_image, capture_seconds);
                     if let Some(path) = cache_path {
                         if let Err(error) = cache.save(&path) {
                             log::warn!("similar cache write failed: {error}");
@@ -229,16 +293,7 @@ impl Workspace {
                 }
                 state.group = 0;
                 state.candidate = 1;
-                match outcome.3 {
-                    Ok(decisions) => {
-                        state.decisions = decisions;
-                        state.decisions_loaded = true;
-                    }
-                    Err(error) => {
-                        state.decisions_loaded = false;
-                        state.error = Some(review_io_error(error));
-                    }
-                }
+                state.finish_decisions(outcome.3);
                 ws.load_similar_pair(cx);
                 cx.notify();
             })
@@ -247,7 +302,7 @@ impl Workspace {
         .detach();
         cx.notify();
     }
-    fn load_similar_pair(&mut self, cx: &mut Context<Self>) {
+    pub(super) fn load_similar_pair(&mut self, cx: &mut Context<Self>) {
         let state = &mut self.library.similar;
         state.revision += 1;
         state.preview_cancel.store(true, Ordering::Relaxed);
@@ -350,6 +405,7 @@ pub(super) fn render(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::A
     });
     let state = &ws.library.similar;
     let running = state.running;
+    let dupes = state.kind == ReviewKind::Duplicates;
     let mut modes = control_group();
     for (mode, key) in [
         (Mode::Visual, "library.similar.visual"),
@@ -383,10 +439,14 @@ pub(super) fn render(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::A
             div()
                 .font_weight(gpui::FontWeight::SEMIBOLD)
                 .mr_2()
-                .child(t("library.similar.title")),
+                .child(t(if dupes {
+                    "library.duplicates.title"
+                } else {
+                    "library.similar.title"
+                })),
         )
-        .child(modes);
-    if state.mode == Mode::Visual {
+        .when(!dupes, |el| el.child(modes));
+    if dupes || state.mode == Mode::Visual {
         let mut thresholds = control_group().child(
             div()
                 .px_2()
@@ -406,7 +466,7 @@ pub(super) fn render(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::A
                 .on_click(cx.listener(move |ws, _, _, cx| {
                     if ws.library.similar.threshold != threshold {
                         ws.library.similar.threshold = threshold;
-                        ws.scan_similar(cx);
+                        ws.rescan_review(cx);
                     }
                 })),
             );
@@ -418,7 +478,7 @@ pub(super) fn render(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::A
             .ghost()
             .px_2()
             .disabled(running)
-            .on_click(cx.listener(|ws, _, _, cx| ws.scan_similar(cx))),
+            .on_click(cx.listener(|ws, _, _, cx| ws.rescan_review(cx))),
     );
     let mut status = div()
         .flex()
@@ -427,7 +487,11 @@ pub(super) fn render(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::A
         .gap_2()
         .text_size(px(11.0))
         .text_color(gpui::rgb(p.text_dim))
-        .child(t("library.similar.help"))
+        .child(t(if dupes {
+            "library.duplicates.help"
+        } else {
+            "library.similar.help"
+        }))
         .child(div().flex_grow());
     if running || state.cancelled {
         status = status
@@ -439,7 +503,7 @@ pub(super) fn render(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::A
             .child(format!(
                 "{}/{}",
                 state.progress.load(Ordering::Relaxed),
-                state.total
+                state.total.load(Ordering::Relaxed)
             ));
     }
     if running {
@@ -457,7 +521,10 @@ pub(super) fn render(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::A
         if state.failed > 0 {
             status = status.child(format!("{} {}", t("common.failed"), state.failed));
         }
-        if state.mode == Mode::Burst {
+        if dupes && state.near_limited {
+            status = status.child(t("library.duplicates.near_limit"));
+        }
+        if !dupes && state.mode == Mode::Burst {
             let undated = state.photos.iter().filter(|p| p.captured.is_none()).count();
             if undated > 0 {
                 status = status.child(format!("{} {undated}", t("library.month.undated")));
@@ -508,7 +575,17 @@ pub(super) fn render(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::A
     let candidate = state.candidate;
     let left = &state.photos[group.photos[0]];
     let right = &state.photos[group.photos[candidate]];
+    let exact = dupes && state.exact.get(state.group).copied().unwrap_or(false);
     let evidence = match state.mode {
+        _ if exact => t("library.duplicates.identical").to_string(),
+        _ if dupes => format!(
+            "{}/64",
+            left.signature
+                .as_ref()
+                .zip(right.signature.as_ref())
+                .map(|(a, b)| a.distance(b))
+                .unwrap_or(64)
+        ),
         Mode::Visual => format!(
             "{}/64",
             left.signature
@@ -608,6 +685,9 @@ pub(super) fn render(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::A
                     .child(format!("{} {evidence}", t("common.distance"))),
             ),
     );
+    if dupes {
+        body = body.child(super::library_duplicates::group_actions(state, cx));
+    }
     let revision = state.revision;
     let mut pair = div().flex().flex_row().flex_wrap().gap_2();
     for (pane, index) in [group.photos[0], group.photos[candidate]]
@@ -653,16 +733,23 @@ pub(super) fn render(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::A
                             .tooltip(crate::ui::tip(photo.path.display().to_string(), None))
                             .child(filename),
                     )
-                    .children(choice.map(|choice| {
-                        div()
-                            .flex_none()
-                            .text_size(px(11.0))
-                            .text_color(gpui::rgb(p.text_dim))
-                            .child(t(match choice {
+                    .children(
+                        if dupes {
+                            (pane == 0).then_some("library.duplicates.suggested")
+                        } else {
+                            choice.map(|choice| match choice {
                                 Choice::Keep => "library.similar.keep",
                                 Choice::Reject => "library.similar.reject",
-                            }))
-                    })),
+                            })
+                        }
+                        .map(|key| {
+                            div()
+                                .flex_none()
+                                .text_size(px(11.0))
+                                .text_color(gpui::rgb(p.text_dim))
+                                .child(t(key))
+                        }),
+                    ),
             );
         let mut preview = div()
             .flex()
@@ -699,13 +786,23 @@ pub(super) fn render(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::A
             )));
         }
         let path = photo.path.clone();
-        card = card.child(preview).child(
-            div()
-                .flex()
-                .flex_wrap()
-                .items_center()
-                .gap_1()
-                .p_1()
+        let mut buttons = div().flex().flex_wrap().items_center().gap_1().p_1();
+        if dupes {
+            // The duplicate finder decides per group; a pane only picks
+            // which member is kept.
+            buttons = buttons.when(pane == 1, |el| {
+                el.child(
+                    Button::new("dupes-keeper", t("library.duplicates.make_keeper"))
+                        .ghost()
+                        .px_2()
+                        .disabled(state.running)
+                        .on_click(
+                            cx.listener(move |ws, _, _, cx| ws.duplicates_set_keeper(index, cx)),
+                        ),
+                )
+            });
+        } else {
+            buttons = buttons
                 .child(
                     Button::new(("similar-keep", pane), t("library.similar.keep"))
                         .ghost()
@@ -738,16 +835,17 @@ pub(super) fn render(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpui::A
                         .on_click(cx.listener(move |ws, _, _, cx| {
                             ws.similar_choice(index, revision, None, cx)
                         })),
-                )
-                .child(div().flex_grow())
-                .child(
-                    Button::new(("similar-open", pane), t("common.edit"))
-                        .ghost()
-                        .px_2()
-                        .on_click(
-                            cx.listener(move |ws, _, _, cx| ws.open_from_gallery(path.clone(), cx)),
-                        ),
-                ),
+                );
+        }
+        card = card.child(preview).child(
+            buttons.child(div().flex_grow()).child(
+                Button::new(("similar-open", pane), t("common.edit"))
+                    .ghost()
+                    .px_2()
+                    .on_click(
+                        cx.listener(move |ws, _, _, cx| ws.open_from_gallery(path.clone(), cx)),
+                    ),
+            ),
         );
         pair = pair.child(card);
     }

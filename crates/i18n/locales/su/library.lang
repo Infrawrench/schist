@@ -299,3 +299,43 @@ library.similar.keep = Simpen
 library.similar.reject = Tolak
 library.similar.help = Ngan tanda pamariksaan; berkas henteu dihapus.
 library.similar.stale = Berkas parantos robih. Segerkeun pikeun neraskeun.
+
+# Find Duplicates
+library.duplicates.title = Duplikat
+library.duplicates.help = Berkas anu sarua sareng salinan anu meh sarua di unggal map anu diawaskeun. Mindahkeun ka tempat sampah nanya dua kali; berkas anu dibuang tiasa dipulihkeun tina tempat sampah sistem.
+library.duplicates.exact = Berkas anu sarua
+library.duplicates.near = Duplikat anu meh sarua
+library.duplicates.identical = sarua (SHA-256)
+library.duplicates.suggested = Disarankeun pikeun disimpen
+library.duplicates.make_keeper = Simpen Ieu
+library.duplicates.compare = Bandingkeun
+library.duplicates.keep_all = Simpen Kabéh
+library.duplicates.reject_others = Tolak Anu Séjén
+library.duplicates.trash_others.other = Pindahkeun {n} Anu Séjén ka Tempat Sampah
+library.duplicates.confirm_trash.other = Konfirmasi: Pindahkeun {n} ka Tempat Sampah
+library.duplicates.n_trashed.other = {n} berkas dipindahkeun ka tempat sampah
+library.duplicates.n_rejected.other = {n} poto ditandaan ditolak
+library.duplicates.refused_edited = aya éditan atawa berkas sidecar, janten tolak waé
+library.duplicates.trash_failed = tempat sampah sistem teu sayogi
+library.duplicates.near_limit = Pamadanan duplikat anu meh sarua nyakup 10,000 poto kahiji.
+
+# Geotagging from GPX tracks
+library.geotag.menu = Geotag tina Jalur GPX…
+library.geotag.title = Geotag tina Jalur GPX
+library.geotag.add_files = Tambahkeun Berkas GPX…
+library.geotag.n_track_points.other = {n} titik jalur anu aya waktuna
+library.geotag.max_gap = Jarak maksimum (menit)
+library.geotag.clock_offset = Koréksi jam kaméra
+library.geotag.time_zone = Zona waktu poto (offset UTC)
+library.geotag.zone_help = Zona waktu ngan dipaké pikeun waktu pamotrétan anu dirékam tanpa zona. Koréksi, dina detik atawa ±h:mm:ss, ditambahkeun kana unggal waktu pamotrétan.
+library.geotag.skip_existing = Lewatan poto anu geus boga lokasi
+library.geotag.n_will_tag.other = {n} poto bakal di-tag
+library.geotag.n_has_gps.other = {n} poto geus boga lokasi
+library.geotag.n_no_time.other = {n} poto teu boga waktu pamotrétan
+library.geotag.n_gap.other = {n} poto murag dina jarak kosong dina jalur
+library.geotag.n_outside.other = {n} poto aya di luar rentang waktu jalur
+library.geotag.apply = Tulis Lokasi
+library.geotag.invalid = Asupkeun jarak dina menit, koréksi saperti -1:30 jeung zona waktu saperti +02:00.
+library.geotag.no_points = Berkas GPX teu ngandung titik anu aya waktuna.
+library.geotag.select_photos = Pilih heula poto anu rék di-geotag.
+library.geotag.read_failed = Teu bisa maca berkas GPX: {error}

@@ -130,6 +130,7 @@ menu.gallery = Galreye
 menu.gallery.edit_selected = Candjî les cayets tchoezis
 menu.gallery.refresh = Rafristî
 menu.gallery.map_filter = Passete sol mape…
+menu.gallery.find_duplicates = Trover les dobes…
 menu.gallery.back_to_editor = Rivni å candjeu
 
 # Schist Cloud

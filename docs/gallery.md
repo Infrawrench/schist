@@ -690,10 +690,102 @@ comparing every image pair. No model download or network service is required.
 Unreadable images count as failures; capture bursts may still include their
 metadata, in which case the review displays “no preview”.
 
-Validation: `make test-similar-photos`, `make check-similar-photos`, and
+Validation: `make test-gpx-duplicates` covers the duplicate finder and GPX
+geotagging below. `make test-similar-photos`, `make check-similar-photos`, and
 `make check-i18n` cover image similarity, anchored groups, burst boundaries,
 cache invalidation, cancellation, decision safety, editor compilation and all
 shipped translations/font coverage.
+
+## Finding duplicates
+
+**Gallery ▸ Find Duplicates…** opens the same review panel over every watched
+folder, ignoring the current folder, bucket, search, map and culling filters.
+Virtual copies are not scanned (they are not files of their own). The scan runs
+in the background with progress and **Cancel**, like Similar photos.
+
+**Identical files** are found by size first; only files that share a size with
+another are read, through a streamed SHA-256 (1 MiB reads, so file size does
+not decide memory use). A file rewritten while it is being read is skipped.
+Each hash is stored in the gallery's index snapshot (`index.v1`) with the file's
+length and nanosecond modification time, so a rescan only reads new or changed
+files. Videos take part in this pass; empty files do not.
+
+**Near duplicates** reuse the Similar photos signatures and cache (difference
+hash plus an 8×8 colour check): resized, re-encoded and very slightly cropped
+copies of one picture. The threshold buttons apply. Identical copies take part
+through one representative, so a pair of identical files is not also listed as
+a visual match. Near-duplicate matching covers the first 10,000 stills of a
+scan (the signature cache's limit) and says so when a library is larger;
+identical-file detection has no such limit. Crops beyond a few percent, rotations
+and different exposures are not matched.
+
+Each group starts with a **Suggested keep**, chosen in this order: a camera raw
+over any rendered copy; then the most pixels; then the format most likely to be
+the capture (JPEG/HEIC before TIFF/PNG before WebP/GIF/BMP); then the member
+with a Schist edit or an XMP sidecar; then the earliest capture (or file) time;
+then the larger file. **Keep This One** on the right-hand photo overrides it.
+Raw dimensions are not read, which is why raws are ranked first rather than by
+size.
+
+Group actions:
+
+- **Compare** opens the synchronized two-photo comparison of the keeper and the
+  candidate; closing it returns to the review.
+- **Keep All** records every member as kept (in `similar-review.json`, bound
+  to each file's size and modification time) and removes the group; it stays
+  hidden on later scans until one of its files changes.
+- **Reject Others** sets the culling Reject flag on every member but the
+  keeper, as the X key does. Nothing moves.
+- **Move N Others to Trash** asks for a second click, then moves every member
+  but the keeper to the platform trash (the freedesktop trash on Linux, the
+  Trash via NSFileManager on macOS, the Recycle Bin on Windows). Schist never
+  deletes outright: where there is no trash, nothing happens and the failure is
+  reported. Immediately before each move it checks that the keeper and the
+  duplicate are different files and both unchanged since the scan, and for
+  identical groups re-hashes both. A duplicate with a Schist edit, virtual
+  copies or an XMP sidecar is refused (flag it instead), so no edit or metadata
+  is orphaned. Restoring from the trash brings a file back unchanged.
+
+## Geotagging from GPX tracks
+
+Select photos and choose **Geotag from GPX Track…** (right-click, or the
+Gallery menu), then pick one or more GPX files. GPX 1.0 and 1.1 are read; timed
+track points (`trk/trkseg/trkpt`) are used, with timed route points and then
+timed waypoints as fallbacks for files without them. Elevation (`ele`) is kept.
+Points with invalid coordinates or unreadable times are skipped; a file that is
+not well-formed GPX fails the whole load rather than giving a silently partial
+preview. **Add GPX Files…** merges more tracks, such as one per day.
+
+Each photo's capture time is matched in UTC:
+
+- An XMP capture time wins (including an explicitly cleared one, which means
+  "no time"); otherwise EXIF DateTimeOriginal (or DateTime) with
+  SubSecTimeOriginal. When the camera recorded OffsetTimeOriginal (or an XMP
+  time carries an offset), the time is absolute.
+- Times without an offset are camera-local. **Photo time zone** says which UTC
+  offset they were in; it defaults to this computer's offset on the photos'
+  date, summer time included. It never changes times that carry an offset.
+- **Camera clock correction**, in seconds or `±h:mm:ss`, is added to every
+  capture time — for a camera clock that ran slow or fast.
+
+A position is linearly interpolated between the two logged points around the
+capture time, the short way across the antimeridian, along with elevation when
+both points have one. Segments are never joined: across a `trkseg` boundary, or
+between two points further apart than **Maximum gap**, a photo is not tagged. A
+photo up to the maximum gap before or after a segment takes that segment's end
+point. Photos that already have a location are skipped unless **Skip photos
+that already have a location** is cleared. Photos without a capture time are
+never guessed from the file clock.
+
+The dialog's map draws the tracks and a dot where each photo would land, with
+counts of photos that will be tagged and of each reason for skipping; changing
+a field updates them. **Write Locations** writes `exif:GPSLatitude`,
+`exif:GPSLongitude` and, when the track has elevation, `exif:GPSAltitude` /
+`GPSAltitudeRef` through the same XMP sidecar path as [Photo
+metadata](photo-metadata.md): originals are untouched, each previous packet is
+kept under `.schist/metadata/`, and a partial failure lists the failed photos.
+Undo is the same as for any metadata edit: restore the kept packet, or clear
+GPS in Photo metadata.
 
 ## Photo culling and comparison
 

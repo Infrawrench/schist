@@ -164,11 +164,15 @@ because it cannot yet author a document — there is no text tool. See
 **Photo library.** The [gallery](docs/gallery.md) watches local folders, imports
 from cameras, organizes photos by folder/date/place, and provides buckets, maps,
 search and People indexing. Rate, flag and label photos, compare them with
-synchronized zoom and pan, and review similar images or capture bursts. Gallery
+synchronized zoom and pan, and review similar images or capture bursts.
+[Find Duplicates](docs/gallery.md#finding-duplicates) groups byte-identical files
+and near copies across the library, suggests which to keep, and can flag the
+rest or move them to the system trash. Gallery
 edits use sidecars and version history so the originals remain available.
 [Metadata editing](docs/photo-metadata.md) supports individual or batch changes
 to keywords, captions, copyright, capture times and GPS through portable XMP
-sidecars.
+sidecars, and [GPX geotagging](docs/gallery.md#geotagging-from-gpx-tracks)
+places photos along a recorded track after a map preview.
 
 **Photo workflows.** [Merge photos](docs/photo-merging.md) into aligned layers,
 focus stacks, bracketed HDR images or translation-based panoramas on native

@@ -138,6 +138,7 @@ menu.gallery = Ububiko bw'amashusho
 menu.gallery.edit_selected = Guhindura ivyatoranijwe
 menu.gallery.refresh = Gusubiramwo
 menu.gallery.map_filter = Akayunguruzo k'ikarata…
+menu.gallery.find_duplicates = Shakisha Ibisa…
 menu.gallery.back_to_editor = Gusubira mu gihindura
 
 # Schist Cloud submenu

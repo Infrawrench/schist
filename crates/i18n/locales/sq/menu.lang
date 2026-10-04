@@ -133,6 +133,7 @@ menu.gallery = Galeria
 menu.gallery.edit_selected = Redakto të përzgjedhurat
 menu.gallery.refresh = Rifresko
 menu.gallery.map_filter = Filtri i hartës…
+menu.gallery.find_duplicates = Gjej dublikatat…
 menu.gallery.back_to_editor = Kthehu te redaktuesi
 
 # Nënmenyja Schist Cloud
