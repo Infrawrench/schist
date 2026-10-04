@@ -432,8 +432,12 @@ fn validate_shape(action: &SavedAction) -> anyhow::Result<()> {
                     "{}",
                     t("actions.invalid_parameters")
                 );
+                // The fifteen global controls are always recorded. The
+                // colour grading values are too since grading existed, but
+                // steps recorded before then lack them, and that is valid.
+                let core = values.keys().filter(|k| !is_grading_key(k)).count();
                 anyhow::ensure!(
-                    values.len() == 15
+                    core == 15
                         && values.iter().all(|(key, value)| {
                             let range = match key.as_str() {
                                 "exposure" => -5.0..=5.0,
@@ -442,7 +446,10 @@ fn validate_shape(action: &SavedAction) -> anyhow::Result<()> {
                                 "temperature" | "tint" | "contrast" | "highlights" | "shadows"
                                 | "whites" | "blacks" | "clarity" | "dehaze" | "vibrance"
                                 | "saturation" | "vignette" => -100.0..=100.0,
-                                _ => return false,
+                                k => match grading_range(k) {
+                                    Some(range) => range,
+                                    None => return false,
+                                },
                             };
                             value.is_finite() && range.contains(value)
                         }),
@@ -593,6 +600,26 @@ fn validate_adjustment(params: &schist_adjustments::Params) -> anyhow::Result<()
     Ok(())
 }
 
+use schist_filters_core::color_grading::is_grading_key;
+
+/// The range of a Camera Raw colour grading value, or `None` for a key
+/// that is not one.
+fn grading_range(key: &str) -> Option<std::ops::RangeInclusive<f32>> {
+    use schist_filters_core::color_grading::{BALANCE_KEY, BLENDING_KEY, WHEEL_KEYS};
+    if key == BLENDING_KEY {
+        return Some(0.0..=100.0);
+    }
+    if key == BALANCE_KEY {
+        return Some(-100.0..=100.0);
+    }
+    WHEEL_KEYS.iter().find_map(|[hue, sat, lum]| match key {
+        k if k == *hue => Some(0.0..=360.0),
+        k if k == *sat => Some(0.0..=100.0),
+        k if k == *lum => Some(-100.0..=100.0),
+        _ => None,
+    })
+}
+
 fn resolve_values(
     filter: &dyn FilterPlugin,
     values: &BTreeMap<String, f32>,
@@ -609,8 +636,7 @@ fn resolve_values(
     // Camera Raw's colour grading arrived after actions could record it;
     // older steps simply lack those values and mean the neutral wheels.
     let optional = |p: &schist_plugin_api::FilterParam| {
-        filter.id() == "filter.camera_raw"
-            && schist_filters_core::color_grading::is_grading_key(p.key)
+        filter.id() == "filter.camera_raw" && is_grading_key(p.key)
     };
     anyhow::ensure!(
         values.keys().all(|k| specs.iter().any(|p| p.key == k))
@@ -2568,9 +2594,30 @@ mod tests {
         let mut missing = values.clone();
         missing.remove("contrast");
         assert!(resolve_values(&filter, &missing).is_err());
-        let mut unknown = values;
+        let mut unknown = values.clone();
         unknown.insert("grade_bogus".into(), 1.0);
         assert!(resolve_values(&filter, &unknown).is_err());
+
+        // The saved-action shape check agrees: steps with and without the
+        // grading values are both well formed, bad grading values are not.
+        let step = |values: BTreeMap<String, f32>| {
+            validate_shape(&action(vec![Step::RawDevelopment {
+                values,
+                masks: None,
+            }]))
+        };
+        assert!(step(values.clone()).is_ok(), "pre-grading step");
+        let mut graded = values.clone();
+        for p in filter.params() {
+            graded.entry(p.key.to_string()).or_insert(p.default);
+        }
+        graded.insert("grade_shadows_hue".into(), 210.0);
+        assert!(step(graded.clone()).is_ok(), "step with grading");
+        let mut out_of_range = graded.clone();
+        out_of_range.insert("grade_shadows_sat".into(), 150.0);
+        assert!(step(out_of_range).is_err());
+        assert!(step(unknown).is_err());
+        assert!(step(missing).is_err());
     }
 
     #[test]

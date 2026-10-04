@@ -55,7 +55,9 @@ impl LutInput {
 
 struct TableInner {
     format: LutFormat,
-    source: Vec<u8>,
+    /// Shared rather than owned: the browser keeps picked files in an
+    /// `Arc` of its own, and a large table should not be copied twice.
+    source: Arc<Vec<u8>>,
     /// `source`, zlib-compressed and base64-encoded: what the JSON holds.
     packed: String,
     lut: Lut,
@@ -67,7 +69,8 @@ pub struct LutTable(Arc<TableInner>);
 
 impl LutTable {
     /// Parse a LUT file's bytes.
-    pub fn load(format: LutFormat, source: Vec<u8>) -> Result<LutTable, LutError> {
+    pub fn load(format: LutFormat, source: impl Into<Arc<Vec<u8>>>) -> Result<LutTable, LutError> {
+        let source = source.into();
         let lut = match format {
             LutFormat::Cube => parse_cube(&source)?,
             LutFormat::ThreeDl => parse_3dl(&source)?,
@@ -105,7 +108,7 @@ impl LutTable {
 impl PartialEq for LutTable {
     fn eq(&self, other: &Self) -> bool {
         Arc::ptr_eq(&self.0, &other.0)
-            || (self.0.format == other.0.format && self.0.source == other.0.source)
+            || (self.0.format == other.0.format && *self.0.source == *other.0.source)
     }
 }
 

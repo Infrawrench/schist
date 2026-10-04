@@ -2,7 +2,6 @@
 //! File ▸ Export ▸ Color Lookup Table.
 
 use super::*;
-use schist_adjustments::lut::MAX_FILE_BYTES;
 use schist_adjustments::{ColorLookup, LutFormat, LutInput, LutTable, Params};
 use schist_i18n::{t, tf};
 
@@ -33,7 +32,7 @@ fn read_lut(path: &std::path::Path) -> anyhow::Result<LutTable> {
         use std::io::Read;
         let mut bytes = Vec::new();
         std::fs::File::open(path)?
-            .take(MAX_FILE_BYTES as u64 + 1)
+            .take(schist_adjustments::lut::MAX_FILE_BYTES as u64 + 1)
             .read_to_end(&mut bytes)?;
         bytes
     };
