@@ -21,6 +21,10 @@ pub enum BucketFile {
         query: Option<String>,
         #[serde(default)]
         area: Option<(GeoBounds, String)>,
+        /// A smart album's rules over the indexed metadata. Libraries
+        /// written before smart albums have none.
+        #[serde(default, skip_serializing_if = "Option::is_none")]
+        filter: Option<crate::smart::RuleGroup>,
     },
     Plain(String, Vec<PathBuf>),
 }
@@ -57,6 +61,12 @@ impl BucketFile {
             BucketFile::Plain(..) => None,
         }
     }
+    pub fn filter(&self) -> Option<&crate::smart::RuleGroup> {
+        match self {
+            BucketFile::Rich { filter, .. } => filter.as_ref(),
+            BucketFile::Plain(..) => None,
+        }
+    }
 }
 
 /// What `library.json` persists: the watched folders, the recents, the
@@ -85,6 +95,9 @@ pub struct LibraryFile {
     pub ignored_faces: Vec<TaggedFace>,
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
     pub denied_faces: Vec<DeniedFace>,
+    /// The slideshow's options as last used.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub slideshow: Option<crate::slideshow::SlideshowSettings>,
 }
 
 /// Stands in for the app container's path in the saved file on iOS,
@@ -239,6 +252,51 @@ mod tests {
         assert!(restored.exclude_nsfw());
         assert_eq!(restored.photos(), &[PathBuf::from("/a.jpg")]);
         assert!(restored.query().is_none());
+    }
+
+    #[test]
+    fn smart_album_rules_and_slideshow_options_persist_and_old_files_still_read() {
+        use crate::smart::{Match, Rule, RuleGroup};
+        let old: LibraryFile = serde_json::from_str(
+            r#"{"folders":["/p"],"buckets":[["Trip",["/a.jpg"]],{"name":"Dogs","query":"dog"}]}"#,
+        )
+        .unwrap();
+        assert!(old.buckets.iter().all(|b| b.filter().is_none()));
+        assert!(old.slideshow.is_none());
+        let rules = RuleGroup {
+            matching: Match::Any,
+            rules: vec![Rule::Edited { yes: true }],
+        };
+        let file = LibraryFile {
+            buckets: vec![BucketFile::Rich {
+                name: "Edited".into(),
+                exclude_nsfw: false,
+                photos: Vec::new(),
+                query: None,
+                area: None,
+                filter: Some(rules.clone()),
+            }],
+            slideshow: Some(crate::slideshow::SlideshowSettings {
+                shuffle: true,
+                ..Default::default()
+            }),
+            ..Default::default()
+        };
+        let text = serde_json::to_string(&file).unwrap();
+        let back: LibraryFile = serde_json::from_str(&text).unwrap();
+        assert_eq!(back.buckets[0].filter(), Some(&rules));
+        assert!(back.slideshow.is_some_and(|s| s.shuffle));
+        // A bucket without rules writes no `filter` key at all, so a file
+        // read by an older build looks exactly as it did.
+        let plain = BucketFile::Rich {
+            name: "Plain".into(),
+            exclude_nsfw: false,
+            photos: Vec::new(),
+            query: None,
+            area: None,
+            filter: None,
+        };
+        assert!(!serde_json::to_string(&plain).unwrap().contains("filter"));
     }
 
     #[test]

@@ -627,7 +627,8 @@ person's photos by name.
 ## What is persisted
 
 `~/.config/schist/library.json`: the watched folders, the recent-files
-list the start screen shows, the thumbnail size, the buckets, and the
+list the start screen shows, the thumbnail size, the buckets (smart
+albums' rules included), the slideshow's options, and the
 people — every named face (hand-made or automatic), every detected
 face waved away, and every "not them". Thumbnail caches
 live under the state directory (`~/.local/state/schist/thumbs`) and can
@@ -747,6 +748,115 @@ the photo in the viewer, both comparison panes and the Similar photos review,
 as they do on the editor canvas. Each overlay is computed from the decoded
 preview at about the displayed size and cached per image. See
 [viewer overlays](viewer-overlays.md).
+
+## Smart albums
+
+A smart album is a saved search that stays live: a bucket whose contents
+come from rules over metadata the gallery has already indexed. They have
+their own **SMART ALBUMS** section in the sidebar, above the buckets, and
+**+ New smart album…** (or Gallery ▸ New Smart Album…) opens the editor:
+a name, whether to match **all**, **any** or **none** of the rules, and the
+rules themselves —
+
+| Rule | Reads |
+| --- | --- |
+| Rating | the culling stars: at least, at most or exactly 0–5 |
+| Flag, Colour label | Pick / Reject / none, and the five colours or none |
+| Keyword | the XMP sidecar's keywords (part of a keyword matches) |
+| Date taken | `YYYY-MM-DD` from/to, either end open; `2024` or `2024-07` work as whole years or months |
+| Camera, Lens | make and model, and lens model, from the EXIF |
+| File type | JPEG, PNG, HEIF, AVIF, JPEG XL, WebP, TIFF, camera raw, layered documents, video, other |
+| Has location, Place | an EXIF/XMP position, and the gazetteer city the photo groups under |
+| Person | a name from People |
+| Folder | a watched folder or any folder inside one |
+| Edited, Has earlier versions | a `.schist` edit sidecar, and kept saves under `versions/` |
+
+**Add group** nests one more level, with its own all/any/none, so "five
+stars and (picked or raw)" is two rows and a group. Text matches ignore
+case and match part of a value; a rule left blank (no text, no folder
+chosen) is ignored rather than emptying the album, and an album with no
+usable rule holds nothing. An album holds at most 16 rules.
+
+Albums are evaluated by the same background pass that keeps the query and
+area buckets current, so they follow the library: a rescan, an import, an
+XMP edit, a rating, flag or label (from the grid, the viewer or a slideshow),
+a People name — each re-runs the pass, and the album gains or loses photos
+without being opened. It never decodes a photo: every rule reads facts
+already in memory, and only an album that asks about earlier versions lists
+each folder's `.schist/versions` once per pass. Albums are buckets
+underneath, so everything a bucket offers works — clicking one shows it,
+right-click has **Edit smart album…** (name and rules), Select all, ZIP,
+Process all, Move, **Play slideshow** and Delete, photos dragged onto one are
+kept as hand-added extras, and a search made while one is on show stays
+inside it.
+
+Camera and lens come from the EXIF pass the gallery already makes, cached
+beside the thumbnail as a two-line `.cam` file. A library indexed before
+smart albums existed reads each photo's EXIF once more on the next
+metadata refresh to fill that cache; until then, camera and lens rules
+match nothing for those photos. Canon CR3 files carry no camera here, as
+they have no capture time (see Cameras). Album rules persist in
+`library.json` under the bucket's `filter` key; files written before smart
+albums simply have none, and older builds ignore the key.
+
+Smart albums are local only. Schist Cloud syncs brushes, actions and export
+recipes through account libraries, but those are portable while an album's
+rules name local folders and local People, and the provider has no album
+kind; cloud buckets keep their own query rule. The AI panel's `gallery_state` lists each album's rules; the headless
+`schist-mcp` server reports which buckets are albums but, as with smart
+buckets, lists only their hand-added photos.
+
+## Slideshow
+
+**Slideshow** in the tray (or Gallery ▸ Slideshow…) plays what the grid is
+showing — a folder, the date or place groups, a bucket or smart album, a
+person, a search result, with the culling and map filters applied — from the
+selected photo onwards; with several photos selected it plays just those.
+A photo's right-click menu offers **Slideshow from here**, a bucket's
+**Play slideshow**. A dialog asks first, and remembers the answers in
+`library.json`:
+
+* **Each photo** stays up 2–60 seconds.
+* **Transition**: **Cut**, **Crossfade** (0.8 s, never more than a third of
+  the slide), or **Ken Burns pan and zoom** — each photo starts fitted and
+  glides 20% closer (or back out, alternating) towards the faces People
+  found in it, weighted by size, or towards its centre when there are none.
+  The camera never pulls a band of background into view along an axis the
+  photo fills, and a portrait on a landscape screen pans only vertically.
+* **Shuffle** (the chosen photo still opens the show) and **Loop** (a
+  shuffled loop reshuffles each round, never opening on the photo it just
+  ended with).
+* **Videos**: skipped, or played silently through as their own slide.
+* **Captions**: the photo's name, XMP caption, capture date, place and its
+  stars, flag and colour.
+
+The window goes fullscreen while the show runs (and comes back out at the
+end if it was not fullscreen before), and the menu bar, sidebar and tray
+step aside. Space pauses and resumes, ←/→ step, I toggles the caption, Esc
+ends — leaving the grid selected on the last photo shown. The culling keys
+work on the photo on screen and save exactly as they do in the grid (0–5
+rate, P/X/U flag, 6–9/M/L label), so a show doubles as a culling pass; with
+the caption off, a short note says what was set. Moving the pointer brings
+up the controls (position, Previous, Pause/Play, Next, Info, End slideshow),
+which fade after a few seconds; on touch screens they stay up. A show that
+does not loop stops on its last photo, and Play starts it again.
+
+Only the current slide, the next two and the previous one are decoded, at
+the screen's own size in device pixels (640–4096 px on the long edge), never
+at the original's resolution; slides leaving that window are released. A
+slide's time starts when it is on screen, so a slow decode never shortens
+it, and an unreadable photo says so for its time and the show moves on.
+Edited photos show their edit, as the grid does.
+
+The slideshow is part of the local gallery, so it runs wherever that does:
+macOS, Windows and Linux, and in the same view on iOS and Android (where
+fullscreen is the app's own and the touch controls stay visible; there is
+no swipe gesture yet — use the buttons). The browser build has no local
+gallery and the Schist Cloud gallery does not offer a slideshow: its photos
+would have to be downloaded at full size to decode, which the cloud
+viewers do not do today. Video slides use the same decoders as the video
+viewer, so they need the same platform support (GStreamer on Linux); a clip
+that cannot be decoded is skipped.
 
 ## Tethered capture
 

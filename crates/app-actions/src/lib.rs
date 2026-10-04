@@ -258,6 +258,12 @@ pub enum AppItem {
     GalleryEditSelected,
     #[cfg_attr(target_arch = "wasm32", allow(dead_code))]
     GalleryMapFilter,
+    /// Play the gallery's selection or view as a slideshow.
+    #[cfg_attr(target_arch = "wasm32", allow(dead_code))]
+    GallerySlideshow,
+    /// Start a new smart album.
+    #[cfg_attr(target_arch = "wasm32", allow(dead_code))]
+    GalleryNewSmartAlbum,
     /// Open the n-th recently opened file. Desktop only — browser paths
     /// are invented per session, so there is nothing to come back to.
     #[cfg_attr(target_arch = "wasm32", allow(dead_code))]
