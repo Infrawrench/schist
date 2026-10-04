@@ -797,10 +797,22 @@ fn compose_thread_on_page(
     parent_page: Option<usize>,
 ) -> ComposedThread {
     {
+        // A parent instance is evaluated for its one destination page; an
+        // ordinary thread may place a variable on any page holding a frame.
+        let pages: Vec<usize> = match parent_page {
+            Some(page) => vec![page],
+            // Direct objects only: a parent object's "first applied page"
+            // would be exactly the guess section scope must not make.
+            None => frames
+                .iter()
+                .filter_map(|frame| doc.object(frame.0).map(|o| o.page))
+                .collect(),
+        };
         if let Some(prepared) = crate::footnote_composition::prepare_for_flow(
             doc,
             story_id,
             footnote_flow::supported(doc, story_id, frames),
+            &pages,
         ) {
             // Assets are Arc-backed. The temporary model is scoped to this one
             // thread pass; no projected bytes or generated styles enter history.

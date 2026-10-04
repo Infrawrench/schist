@@ -76,9 +76,10 @@ pub(crate) fn prepare_for_flow(
     doc: &LayoutDocument,
     id: StoryId,
     notes_supported: bool,
+    pages: &[usize],
 ) -> Option<PreparedStory> {
     let source = doc.story(id)?;
-    let variables = crate::text_variables::instances(doc, source);
+    let variables = crate::text_variables::instances(doc, source, pages);
     let notes = notes_supported.then(|| prepare(doc, id)).flatten();
     if variables.is_empty() {
         return notes;

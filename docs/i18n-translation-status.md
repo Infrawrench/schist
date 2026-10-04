@@ -1,5 +1,15 @@
 # Translation refresh status
 
+## October 3, 2026: last-page text variables
+
+The Text Variables window adds seven short labels for the variable kind, the
+text before/after a page number, the Current numbering choice and the two
+scopes. Number formats reuse the existing list-format labels. The
+`design.variable_new` tooltip now reads "New text variable" because New creates
+either kind; every catalog still carried the English placeholder. All 150
+catalogs carry the new keys as English placeholders under the existing
+`# UNTRANSLATED PLACEHOLDER` block. No locale was added.
+
 ## October 1, 2026: explicit Design Mode translation deferrals
 
 Automatic lists add 13 keys, number-format controls add ten, and level/restart

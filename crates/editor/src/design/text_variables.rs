@@ -7,36 +7,131 @@ use super::{
 use crate::workspace::Workspace;
 use gpui::{prelude::*, *};
 use schist_i18n::t;
-use schist_layout::text_variables::{self as variables, Cursor, TextVariable};
+use schist_layout::text_variables::{
+    self as variables, Cursor, LastPageNumber, PageNumberFormat, TextVariable, VariableScope,
+};
 use schist_ui as ui;
 use std::{ops::Range, sync::Arc};
 
+/// Name, custom value, then the text before and after a page number. Each kind
+/// keeps its own fields, so switching kinds never reinterprets typed text.
+const NAME: usize = 0;
+const VALUE: usize = 1;
+const BEFORE: usize = 2;
+const AFTER: usize = 3;
+
 struct Draft {
     expected: Option<TextVariable>,
-    fields: [ui::LineEdit; 2],
+    fields: [ui::LineEdit; 4],
     active: usize,
+    /// Some for a last-page-number definition; its text comes from the fields.
+    last_page: Option<LastPageNumber>,
 }
 
 impl Draft {
     fn new(expected: Option<TextVariable>) -> Self {
-        let (name, contents) = expected
-            .as_ref()
-            .map(|v| (v.name.clone(), v.contents.clone()))
-            .unwrap_or_default();
-        let mut fields = [ui::LineEdit::focused(name), ui::LineEdit::focused(contents)];
-        fields[0].select_all();
-        fields[1].active = false;
+        let value = expected
+            .clone()
+            .unwrap_or_else(|| TextVariable::custom("", "", ""));
+        let page = value.last_page.clone().unwrap_or_default();
+        let mut fields = [
+            ui::LineEdit::focused(value.name),
+            ui::LineEdit::focused(value.contents),
+            ui::LineEdit::focused(page.before),
+            ui::LineEdit::focused(page.after),
+        ];
+        fields[NAME].select_all();
+        for field in &mut fields[VALUE..] {
+            field.active = false;
+        }
         Self {
             expected,
             fields,
-            active: 0,
+            active: NAME,
+            last_page: value.last_page,
+        }
+    }
+
+    fn visible(&self) -> &'static [usize] {
+        if self.last_page.is_some() {
+            &[NAME, BEFORE, AFTER]
+        } else {
+            &[NAME, VALUE]
+        }
+    }
+
+    fn definition(&self) -> (String, Option<LastPageNumber>) {
+        match &self.last_page {
+            Some(page) => (
+                String::new(),
+                Some(LastPageNumber {
+                    before: self.fields[BEFORE].text.clone(),
+                    after: self.fields[AFTER].text.clone(),
+                    ..page.clone()
+                }),
+            ),
+            None => (self.fields[VALUE].text.clone(), None),
         }
     }
 
     fn valid(&self) -> bool {
-        !self.fields[0].text.trim().is_empty()
-            && !self.fields[0].text.chars().any(char::is_control)
-            && variables::valid_contents(&self.fields[1].text)
+        let (contents, last_page) = self.definition();
+        !self.fields[NAME].text.trim().is_empty()
+            && !self.fields[NAME].text.chars().any(char::is_control)
+            && TextVariable {
+                id: String::new(),
+                name: String::new(),
+                contents,
+                last_page,
+            }
+            .valid()
+    }
+
+    fn focus(&mut self, index: usize) {
+        self.fields[self.active].active = false;
+        self.active = index;
+        self.fields[index].focus();
+        self.fields[index].select_all();
+    }
+}
+
+const SCOPES: [VariableScope; 2] = [VariableScope::Document, VariableScope::Section];
+
+#[derive(Clone, Copy, PartialEq)]
+enum Choice {
+    Format,
+    Scope,
+}
+
+fn format_label(format: PageNumberFormat) -> String {
+    t(match format {
+        PageNumberFormat::Current => "design.variable_format_current",
+        PageNumberFormat::Arabic => "design.list_decimal",
+        PageNumberFormat::UpperRoman => "design.list_roman_upper",
+        PageNumberFormat::LowerRoman => "design.list_roman_lower",
+        PageNumberFormat::UpperLetters => "design.list_letters_upper",
+        PageNumberFormat::LowerLetters => "design.list_letters_lower",
+    })
+    .into()
+}
+
+fn scope_label(scope: VariableScope) -> String {
+    t(match scope {
+        VariableScope::Document => "design.variable_scope_document",
+        VariableScope::Section => "design.variable_scope_section",
+    })
+    .into()
+}
+
+/// A short list-row description: the literal value, or the kind and scope.
+fn summary(definition: &TextVariable) -> String {
+    match &definition.last_page {
+        Some(page) => format!(
+            "{} · {}",
+            t("design.variable_kind_last_page"),
+            scope_label(page.scope)
+        ),
+        None => definition.contents.clone(),
     }
 }
 
@@ -46,6 +141,7 @@ pub struct TextVariables {
     selected: Option<String>,
     cursor: Option<Cursor>,
     draft: Option<Draft>,
+    choice: Option<Choice>,
     focus: FocusHandle,
     marked: Option<Range<usize>>,
     notice: String,
@@ -75,6 +171,7 @@ impl TextVariables {
             cursor,
             selected,
             draft: None,
+            choice: None,
             focus: cx.focus_handle(),
             marked: None,
             notice: String::new(),
@@ -147,14 +244,18 @@ impl TextVariables {
             return;
         }
         let expected = draft.expected.clone();
-        let name = draft.fields[0].text.clone();
-        let contents = draft.fields[1].text.clone();
+        let name = draft.fields[NAME].text.clone();
+        let (contents, last_page) = draft.definition();
         if self.valid(cx)
             && expected.as_ref().is_some_and(|e| {
-                self.selected(cx).as_ref() == Some(e) && e.name == name && e.contents == contents
+                self.selected(cx).as_ref() == Some(e)
+                    && e.name == name
+                    && e.contents == contents
+                    && e.last_page == last_page
             })
         {
             self.draft = None;
+            self.choice = None;
             self.notice.clear();
             cx.notify();
             return;
@@ -163,21 +264,28 @@ impl TextVariables {
         if self.apply(cx, |state| {
             if let Some(expected) = &expected {
                 selected = Some(expected.id.clone());
-                variables::update(
+                variables::update_definition(
                     &mut state.document,
                     &mut state.history,
                     expected,
                     &name,
                     &contents,
+                    last_page,
                 )
             } else {
-                selected =
-                    variables::create(&mut state.document, &mut state.history, &name, &contents);
+                selected = variables::create_definition(
+                    &mut state.document,
+                    &mut state.history,
+                    &name,
+                    &contents,
+                    last_page,
+                );
                 selected.is_some()
             }
         }) {
             self.selected = selected;
             self.draft = None;
+            self.choice = None;
             self.marked = None;
         }
     }
@@ -192,10 +300,119 @@ impl TextVariables {
             return;
         }
         self.draft = Some(Draft::new(expected));
+        self.choice = None;
         self.marked = None;
         self.notice.clear();
         window.focus(&self.focus);
         cx.notify();
+    }
+
+    /// Switch kinds without reinterpreting either kind's typed text.
+    fn set_kind(&mut self, last_page: bool, cx: &mut Context<Self>) {
+        if let Some(draft) = &mut self.draft {
+            if draft.last_page.is_some() != last_page {
+                draft.last_page = last_page.then(|| {
+                    draft
+                        .expected
+                        .as_ref()
+                        .and_then(|e| e.last_page.clone())
+                        .unwrap_or_default()
+                });
+                if !draft.visible().contains(&draft.active) {
+                    draft.focus(NAME);
+                }
+            }
+        }
+        self.choice = None;
+        cx.notify();
+    }
+
+    fn choose(&mut self, choice: Choice, index: usize) {
+        if let Some(page) = self.draft.as_mut().and_then(|d| d.last_page.as_mut()) {
+            match choice {
+                Choice::Format => {
+                    if let Some(format) = PageNumberFormat::ALL.get(index) {
+                        page.format = *format;
+                    }
+                }
+                Choice::Scope => {
+                    if let Some(scope) = SCOPES.get(index) {
+                        page.scope = *scope;
+                    }
+                }
+            }
+        }
+        self.choice = None;
+    }
+
+    /// A compact dropdown kept inside this window, like the editor's own.
+    fn choice_button(
+        &self,
+        choice: Choice,
+        page: &LastPageNumber,
+        cx: &mut Context<Self>,
+    ) -> AnyElement {
+        let (id, menu, labels, current) = match choice {
+            Choice::Format => (
+                "variable-format",
+                "variable-format-menu",
+                PageNumberFormat::ALL.map(format_label).to_vec(),
+                PageNumberFormat::ALL.iter().position(|f| *f == page.format),
+            ),
+            Choice::Scope => (
+                "variable-scope",
+                "variable-scope-menu",
+                SCOPES.map(scope_label).to_vec(),
+                SCOPES.iter().position(|s| *s == page.scope),
+            ),
+        };
+        let label = current
+            .and_then(|i| labels.get(i).cloned())
+            .unwrap_or_default();
+        let mut root = div().relative().flex().flex_1().min_w_0().child(
+            ui::DropdownButton::new(id, label)
+                .w_full()
+                .on_press(cx.listener(move |this, _, _, cx| {
+                    this.choice = (this.choice != Some(choice)).then_some(choice);
+                    cx.notify();
+                })),
+        );
+        if self.choice == Some(choice) {
+            let rows: Vec<AnyElement> = labels
+                .into_iter()
+                .enumerate()
+                .map(|(index, label)| {
+                    ui::ListItem::new((menu, index))
+                        .h(px(20.0))
+                        .text_size(px(11.0))
+                        .selected(current == Some(index))
+                        .on_click(cx.listener(move |this, _, _, cx| {
+                            this.choose(choice, index);
+                            cx.notify();
+                        }))
+                        .child(label)
+                        .into_any_element()
+                })
+                .collect();
+            root = root.child(deferred(
+                div().absolute().left_0().top(px(22.0)).size_0().child(
+                    anchored()
+                        .anchor(Corner::TopLeft)
+                        .snap_to_window_with_margin(px(8.0))
+                        .child(
+                            ui::Popover::new(menu)
+                                .in_flow()
+                                .w(px(200.0))
+                                .on_dismiss(cx.listener(|this, _, _, cx| {
+                                    this.choice = None;
+                                    cx.notify();
+                                }))
+                                .children(rows),
+                        ),
+                ),
+            ));
+        }
+        root.into_any_element()
     }
 
     fn edit(&mut self) -> Option<&mut ui::LineEdit> {
@@ -212,6 +429,11 @@ impl TextVariables {
             return;
         }
         if key == "escape" {
+            if self.choice.take().is_some() {
+                cx.notify();
+                cx.stop_propagation();
+                return;
+            }
             if self.draft.take().is_none() {
                 window.remove_window();
             }
@@ -237,10 +459,14 @@ impl TextVariables {
         }
         if key == "tab" && !modified && self.marked.is_none() {
             if let Some(draft) = &mut self.draft {
-                draft.fields[draft.active].active = false;
-                draft.active = 1 - draft.active;
-                draft.fields[draft.active].focus();
-                draft.fields[draft.active].select_all();
+                let visible = draft.visible();
+                let at = visible.iter().position(|i| *i == draft.active).unwrap_or(0);
+                let step = if event.keystroke.modifiers.shift {
+                    visible.len() - 1
+                } else {
+                    1
+                };
+                draft.focus(visible[(at + step) % visible.len()]);
                 cx.notify();
                 cx.stop_propagation();
             }
@@ -309,7 +535,7 @@ impl Render for TextVariables {
                                 .min_w_0()
                                 .truncate()
                                 .text_color(rgb(ui::palette().text_dim))
-                                .child(definition.contents.clone()),
+                                .child(summary(definition)),
                         )
                         .on_click(cx.listener(move |this, _, _, cx| {
                             if this.draft.is_none() {
@@ -470,16 +696,45 @@ impl Render for TextVariables {
                 .p_3()
                 .border_t_1()
                 .border_color(rgb(ui::palette().panel_edge));
-            for index in 0..2 {
+            let last_page = draft.last_page.clone();
+            fields = fields.child(
+                div()
+                    .flex()
+                    .items_center()
+                    .gap_1()
+                    .child(
+                        ui::IconButton::new("variable-kind-custom", "type")
+                            .tooltip(t("design.variable_kind_custom"), None)
+                            .active(last_page.is_none())
+                            .on_click(cx.listener(|this, _, _, cx| this.set_kind(false, cx))),
+                    )
+                    .child(
+                        ui::IconButton::new("variable-kind-last-page", "count")
+                            .tooltip(t("design.variable_kind_last_page"), None)
+                            .active(last_page.is_some())
+                            .on_click(cx.listener(|this, _, _, cx| this.set_kind(true, cx))),
+                    )
+                    .children(last_page.map(|page| {
+                        div()
+                            .flex()
+                            .flex_1()
+                            .min_w_0()
+                            .gap_1()
+                            .child(self.choice_button(Choice::Format, &page, cx))
+                            .child(self.choice_button(Choice::Scope, &page, cx))
+                    })),
+            );
+            for &index in draft.visible() {
                 fields = fields.child(
                     div()
                         .flex()
                         .items_center()
                         .gap_2()
-                        .child(div().w(px(60.0)).child(t(if index == 0 {
-                            "common.name"
-                        } else {
-                            "common.text"
+                        .child(div().w(px(72.0)).min_w_0().truncate().child(t(match index {
+                            NAME => "common.name",
+                            VALUE => "common.text",
+                            BEFORE => "design.variable_before",
+                            _ => "design.variable_after",
                         })))
                         .child(
                             ui::TextInput::edit(("variable-field", index), &draft.fields[index])
@@ -522,6 +777,7 @@ impl Render for TextVariables {
                             ui::Button::new("cancel-variable", t("common.cancel")).on_click(
                                 cx.listener(|this, _, _, cx| {
                                     this.draft = None;
+                                    this.choice = None;
                                     this.marked = None;
                                     this.notice.clear();
                                     cx.notify();
@@ -578,9 +834,7 @@ impl Render for TextVariables {
                                 ui::Button::new("insert-variable", t("design.variable_insert"))
                                     .disabled(
                                         !cursor_valid
-                                            || selected.as_ref().is_none_or(|v| {
-                                                !variables::valid_contents(&v.contents)
-                                            }),
+                                            || selected.as_ref().is_none_or(|v| !v.valid()),
                                     )
                                     .on_click(cx.listener(|this, _, _, cx| {
                                         if let (Some(cursor), Some(value)) =

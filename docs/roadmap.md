@@ -310,6 +310,85 @@ are marked.
 
 ## Handoff
 
+Last page number variables and resumed validation, 2026-10-04:
+Work moved to a Windows Server machine. The interrupted `aaad6dc0` validation was
+rerun from an isolated LF worktree before any new code compiled:
+`check-design-output`, `check-editable-interchange`, `lint-editable-interchange`,
+headless `check-library-wasm`, shared UI, formatting and the commit's whitespace
+check all pass, and the debug app builds in 35m 48s. With the twelve targets
+completed before the handoff, that checkpoint has **2,095 distinct passing Rust
+tests**. All 43 proof PDFs are byte-identical to a `b0cdef3c` baseline regenerated
+in a separate worktree on the same machine. An earlier attempt that overlapped new
+source edits was discarded rather than counted.
+
+Native review of the committed window used the actual debug app with Design enabled
+and isolated HOME/APPDATA/LOCALAPPDATA/XDG directories. Type → Text Variables and
+the Stories toolbar open it; New/Edit/Save, insertion, shared edits, one-step
+undo/redo, recapture, stale-cursor and closed-document refusal, coincident instance
+removal, used-definition delete refusal and IDML save/reopen pass. A 380 px window
+keeps every control reachable. Review found that closing the main window left an
+open variable window as an inert orphan that kept the Windows process alive.
+
+LastPageNumberType definitions are now typed. Explicit Format and Scope values from
+the published PageNumberVariablePreference subset lower and save with their native
+spellings; Current, Arabic, Roman and letter formats render. Kanji, full-width,
+leading-zero, absent or unknown values remain exact recovery data. A parent
+instance is evaluated for its destination page, so one footer shows each section's
+own value; an ordinary thread renders a section value only when all of its frames
+share one section. Otherwise the existing retained-structure Preflight error
+applies; visible section prefixes are not guessed. The pinned public InDesign 20
+reference's labels (3; 2 then 3; III) are reproduced.
+
+The compact window adds custom/last-page icon toggles. Last-page drafts show only
+Text before/after plus Format and Scope dropdowns; each kind keeps its own fields.
+Seven short keys and a corrected New tooltip are in all 150 catalogs; number
+formats reuse list labels. Closing the main window now also closes the Story Editor
+and Text Variables windows, so the session ends as it does without them.
+
+Twelve new properties pass (seven layout, four IDML, one separation). An
+exhaustive layout property compares 7,704 scope/format/page combinations with an
+independent page walk; others cover parent destination pages, threads crossing
+sections, kind and section edits with one-step undo, older snapshots, native
+spellings through three saves, 17 recovery-only preference variants, guarded
+identities after external edits and Preflight errors in both separation paths.
+The first test run exposed only test mistakes: an iteration threshold, a page
+label expectation, a fixture assigning a parent without its page's `master`, and
+two archive expectations that contradicted existing exact-recovery behavior
+(native typed definitions are also archived verbatim). Production code did not
+change for them.
+
+The source-frozen Windows sweep passes all 16 roadmap targets, shared UI,
+formatting and whitespace: **2,105 distinct passing Rust tests** (layout 519,
+IDML 364, separation 219, editor 434), four browser checks and eight Python audit
+tests; one existing shared UI documentation example remains ignored. Two
+macOS-only editor tests are not compiled on Windows, which is why the editor count
+is 434 rather than 436. `lint-idml` caught one test-only redundant clone during
+the sweep; the corrected file passes `check-idml` and `lint-idml` again, and that
+was the only source change. Three files this machine's autocrlf checkout had
+written with CRLF were normalized to LF. The variable proof now has 24 pages: its
+first 12 are pixel-identical to the previous proof, the 12 parent-page cases match
+their literal controls in Poppler and pass visual review, and all 42 other proof
+PDFs are byte-identical to `aaad6dc0`. The debug app builds in 12m 20s.
+
+Native review of this build, with Design enabled and isolated configuration,
+shows the fixture's native Last Page Number as a typed definition, creates a
+document-scope definition rendering "of IV" for labels 1, 2, III, IV, switches it
+to section scope ("of 2") and Upper Roman ("of II") through the dropdowns, and
+undoes/redoes each edit once. Closing the main window with the variable window
+open now ends the process. IDML save/reopen keeps the pages, Roman section and
+values; the saved XML uses the published attribute spellings.
+
+Windows notes for the next session: `make`, `zip` and Poppler live in
+`C:\Users\Administrator\.schist-tools` (`env.sh` adds them to PATH and sets
+`PYTHONUTF8=1`, which the i18n audit needs on Windows). Create validation
+worktrees with `git -c core.autocrlf=false` and never share one target directory
+between checkouts: Cargo then reuses artifacts built from the other checkout.
+Native review runs through the `C:\afprobe` session worker at 800×600.
+Next item 9 work: chapter-number variables (document chapter numbering), then
+file name, dates and running headers; other recorded item 9 gaps and the INDD
+research gate remain. Published to draft PR #195.
+
+
 Custom-variable authoring, 2026-10-03 (validation stopped for machine handoff):
 The Type menu and Stories toolbar open a compact variable manager. New/Edit reveal
 two draft fields; Save updates a shared definition once. Insertion and explicit

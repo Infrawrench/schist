@@ -12,8 +12,8 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     for case in 0..proof::CASES {
         for reference in [false, true] {
             let doc = proof::document(reference, case);
-            let separated =
-                separate_page_without_graphics(&doc, 0, settings).ok_or("separation failed")?;
+            let separated = separate_page_without_graphics(&doc, proof::page(case), settings)
+                .ok_or("separation failed")?;
             pages.push(write_sheet(
                 &mut pdf,
                 &[PageOutput {

@@ -2636,8 +2636,9 @@ Active initial/nested-style combinations still need logical-object rule counting
 They remain unrendered, as do note-body variables, missing/ambiguous definitions,
 invalid anchors and values containing tabs, forced breaks or directional controls.
 Empty literal values resolve normally. Existing retained-structure diagnostics
-cover unsupported instances. Non-custom variable evaluation remains integration
-work. The Type menu and Stories toolbar open a compact custom-variable manager.
+cover unsupported instances. Last page numbers are described below; other
+non-custom types remain integration work. The Type menu and Stories toolbar open
+a compact variable manager; it also authors last-page-number definitions.
 New/Edit expose a name and literal value only while authoring; Save updates the
 shared definition in one undo step. Insert and explicit per-instance removal use
 a captured, grapheme-bounded canvas source cursor and reject stale stories.
@@ -2648,8 +2649,8 @@ a deleted live custom definition on a later import. Pending drafts are tied to
 the document session and original definition, not a display name or list index.
 The new plate/PDF comparisons use independently authored
 ordinary text through Schist's shared renderer; native application placement
-agreement is not claimed. Completed and pending validation is recorded in Handoff;
-the authoring window still needs native application review.
+agreement is not claimed. Validation, including native review of the authoring
+window in Schist's own development app, is recorded in Handoff.
 
 Further public evidence is available in paged-media/core commit
 `ffb7c8713125dc77403ec0983099f74ac2558517`: its
@@ -2664,6 +2665,47 @@ wrapping or interactions with initials/nested styles. Inputs, provenance and the
 reference PDF were inspected under `/tmp/schist-variable-native-reference/`,
 then removed during the requested machine-handoff cleanup. Reacquire them from
 the pinned links above; no third-party implementation was copied into Schist.
+
+#### Last page number
+
+The public specification's Schema Example 20 and Table 28 (printed page 62)
+define PageNumberVariablePreference with optional TextBefore, Format, TextAfter
+and Scope attributes. Format is one of Current, Arabic, UpperRoman, LowerRoman,
+UpperLetters, LowerLetters, Kanji, FullWidthArabic, SingleLeadingZeros or
+DoubleLeadingZeros; Scope is DocumentScope or SectionScope (VariableNumberingStyles
+and VariableScopes in the enumeration appendix). The specification PDF pinned
+above (SHA-256 `c45a0d21…70bc`) was reacquired on 2026-10-03 and read with
+`pdftotext`. Every checked-in public IDML package, including the proof fixture,
+carries the same native default: `Format="Current"`, `Scope="SectionScope"`,
+empty TextBefore/TextAfter.
+
+The reacquired paged-media reference (`variables.rs` SHA-256 `5d1ab018…f22f1a`,
+`variables.pdf` `185e3340…818e`, InDesign 20.0) has five pages labelled 1 2 1 2 3
+on one parent page. Its footer renders the document-scope Current value as 3 on
+every page, the section-scope Current value as 2 on pages 1–2 and 3 on pages 3–5,
+and a document-scope UpperRoman value as III. The document value is therefore the
+final page's label, not a page count, and a section value belongs to the instance's
+own destination page.
+
+LastPageNumberType definitions with explicit Format and Scope, one empty-bodied
+preference and only the four published attributes now lower to a typed definition;
+absent TextBefore/TextAfter are empty strings. Current, Arabic, Roman and letter
+formats render through the existing page-numbering styles. Kanji, full-width,
+leading-zero, unknown or absent formats and scopes, extra attributes/children and
+literal text with controls stay exact recovery data and unresolved instances.
+The writer emits all four attributes with their published spellings and uses the
+existing guarded identity Label; external preference edits supersede it.
+
+Composition evaluates a value for the pages a thread pass can occupy. A parent
+instance uses its destination page, so footers on one parent show each section's
+value. An ordinary thread uses its frames' pages: a section value is rendered only
+when every frame lies in one section, and otherwise stays unrendered with the
+existing retained-structure Preflight error. A visible section prefix on the
+supplying page is not guessed into or out of the value; such values also stay
+unrendered. Hidden pages count, as they already do in Schist page numbering.
+Chapter numbers, dates, file names, running headers and cross-reference variables
+remain recovery data. Native placement agreement beyond the reference labels is
+not claimed.
 
 
 ### End Nested Style controls

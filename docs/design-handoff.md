@@ -1,4 +1,4 @@
-# Design Mode handoff — 2026-10-03
+# Design Mode handoff — 2026-10-04
 
 Read `AGENTS.md`, then `docs/roadmap.md` in full. The roadmap is authoritative;
 do not recreate the plan from the original conversation. This handoff supplements
@@ -9,10 +9,10 @@ its latest checkpoint for work on another machine.
 Branch: `design-tab-leaders`. Existing draft PR:
 https://github.com/Infrawrench/schist/pull/195
 
-The previous published checkpoint is `b0cdef3c` (custom-variable display).
-This handoff accompanies the custom-variable authoring commit. The user explicitly
-stopped validation on this machine to continue elsewhere; this is a partial
-checkpoint. Fetch the branch head rather than checking out the older display commit.
+The latest commit adds last-page-number text variables and closes Design tool
+windows with the main window. It follows `aaad6dc0` (custom-variable authoring),
+whose interrupted validation and native review were completed first on this
+Windows machine. Fetch the branch head.
 
 ## Current work
 
@@ -20,49 +20,40 @@ Phase 3 items 1–8 are implemented. Item 9, output and interchange integration,
 remains open. Design Mode is a separate `LayoutDocument` editor; it stays disabled
 by default behind the `design-mode` feature flag.
 
-The current batch adds a compact Text Variables window under Type and the Stories
-toolbar. Draft name/value fields appear only for New/Edit. Save changes the shared
-resource once; insertion and explicit instance removal target a captured Unicode
-cursor. Unused definitions can be deleted. Stale definitions, stories and sessions
-are rejected. IDs reserve unresolved typed references, including note bodies;
-opaque XML remains the codec's responsibility. Eleven keys were added to all 150
-existing locale catalogs. No locale was added. Canvas cursors still denote source
-byte boundaries; coincident zero-width instances are distinguished by the manager
-rows, not separate byte positions inside the displayed values. Insertion captures
-the canvas cursor; Story Editor and footnote-body cursor integration remain open.
-The new window has not yet been reviewed in the running native app.
+Text variables now have two typed kinds: literal custom text and the native
+LastPageNumberType. A last-page value is evaluated for the pages a composition pass
+can occupy: a parent instance uses its destination page; an ordinary thread renders
+a section value only when every frame shares one section. Ambiguous scope, visible
+section prefixes and unrendered formats (Kanji, full-width, leading zeros) stay
+unrendered and diagnosed. The compact Text Variables window switches kinds with two
+icons; last-page drafts show Text before/after with Format and Scope dropdowns.
 
 Key files:
 
-- `crates/layout/src/text_variables.rs`: model operations and source cursor guards.
-- `crates/layout/src/history.rs`, `edit.rs`: reversible definition edits.
-- `crates/editor/src/design/text_variables.rs`: compact modeless authoring window.
-- `crates/codec-idml/src/custom_text_codec.rs`, `text_variable_codec.rs`: native
-  definitions, guarded identities and inert recovery data.
-- `crates/layout/tests/text_variable_authoring.rs` and
-  `crates/codec-idml/tests/text_variables.rs`: undo, source, identity and save properties.
+- `crates/layout/src/text_variables.rs`: model, validation and `last_page_value`.
+- `crates/layout/src/compose.rs`, `footnote_composition.rs`: page context for projection.
+- `crates/codec-idml/src/custom_text_codec.rs`: PageNumberVariablePreference subset.
+- `crates/editor/src/design/text_variables.rs`: compact modeless window.
+- `crates/app/src/lib.rs`: tool windows close with the main window.
+- `crates/layout/tests/last_page_variables.rs`, `crates/codec-idml/tests/last_page_variables.rs`,
+  `crates/separation/examples/support/text_variables.rs`: properties and proof.
 
 ## Continue in roadmap order
 
-Non-custom variable evaluation/output is still missing. The current literal
-projection resolves a story before frame selection; page/section-dependent values
-must not be guessed from the first frame. Typed definitions and guarded native
-interchange precede their composition and UI. The public IDML specification names
-`PageNumberVariablePreference` with `TextBefore`, `Format`, `TextAfter` and `Scope`.
-The public native variable reference described in `docs/idml-format.md` uses five
-pages with restarted numbering; the document's final label is 3, not a count of 5.
-
-Other explicit gaps include variables with active initial/nested rules, note-body
-variables, page/section/indent markers, further structured-story composition,
-advanced object behavior and independent native application agreement. The roadmap
-and `docs/idml-format.md` distinguish implemented subsets from retained/diagnosed
-settings. Production INDD remains gated on the Phase 0 research decision.
+Next: chapter-number variables. The public specification's
+ChapterNumberVariablePreference has TextBefore, Format and TextAfter; the value
+comes from document chapter numbering, which is not yet modeled. Then file name
+(needs the document path at output time), dates (output date is time-dependent;
+format strings need a documented subset) and running headers (page-dependent
+matching, like section scope). Active initial/nested-rule combinations, note-body
+variables and Story Editor cursor integration remain open, as do the other item 9
+gaps listed in the roadmap. Production INDD remains gated on Phase 0.
 
 ## Working constraints
 
-- Use `make` for builds and `CARGO_INCREMENTAL=0` for the editor. Implement a
-  substantial coherent batch before compiling/testing it; do not build after
-  every small change. Keep source/tests fixed during validation.
+- Use `make` for builds and `CARGO_INCREMENTAL=0`. Implement a substantial
+  coherent batch before compiling/testing it. Keep source/tests fixed during the
+  final sweep and record any correction made during it.
 - Test locally; do not query or wait for CI. Preserve real failures until resolved.
 - One gesture is one undo step. Read existing documented exceptions before editing.
 - Keep raster documents and `ToolPlugin` separate from Design Mode.
@@ -71,90 +62,51 @@ settings. Production INDD remains gated on the Phase 0 research decision.
 - Never read Adobe headers or decompile binaries. Follow the roadmap's INDD spike
   gate and documented public-source permissions; IDML work uses public XML.
 - Keep UI compact: icon toolbars, concise rows and fields exposed on demand.
-- Review the actual development app with the feature enabled, using an isolated
-  configuration (`SCHIST_FEATURE_FLAGS={"design-mode":true}`); do not operate on the user's installed non-development copy.
+- Review the actual development app with the feature enabled, using isolated
+  configuration (`SCHIST_FEATURE_FLAGS={"design-mode":true}`); never use the
+  user's installed non-development copy.
 - Existing authorization covers committing, pushing and updating draft PR #195.
   Inspect `git status --short` and use `git add -A`, including new files.
 
-## Validation stopped by user — resume here first
+## This Windows machine
 
-No more validation was run after the user's stop. The active output sweep and its
-children were terminated; no task compiler/test process remained. Existing logs
-were read to record this summary before cleanup.
+- `make`, `zip` and Poppler are installed privately under
+  `C:\Users\Administrator\.schist-tools`. Source `env.sh` there in Git Bash: it
+  prepends them to PATH, sets `CARGO_INCREMENTAL=0`, and sets `PYTHONUTF8=1`,
+  without which `tools/check-i18n.py` fails decoding `locales.tsv` as cp1252.
+  `python3` is a shim to the installed Python, which has Pillow.
+- Git's system config sets `core.autocrlf=true`. The repository is LF; create any
+  worktree with `git -c core.autocrlf=false worktree add …` and check staged files
+  with `git -c core.autocrlf=false diff --cached --check`. Git Bash `grep` hides
+  CR bytes; detect CRLF with Python.
+- Never point two checkouts at one `CARGO_TARGET_DIR`. Cargo hashes path crates
+  relative to the workspace root, so one checkout reuses the other's artifacts.
+- Native review: the shell runs as SYSTEM in session 0. Attach the Administrator
+  session (`tscon 2 /dest:console`), start the `afworker` scheduled task, and send
+  PowerShell to it with `C:\afprobe\af.sh`. The console is 800×600. Helpers for
+  Schist are in `C:\afprobe\schist-qa.ps1`; `target/design-ui/qa-win/launch.ps1`
+  starts a binary with Design enabled and HOME, USERPROFILE, APPDATA, LOCALAPPDATA
+  and XDG directories isolated under `target/design-ui/qa-win/`.
 
-| Status | Targets / work |
-| --- | --- |
-| Passed | `check-layout`, `check-idml`, `check-design`, `check-i18n` |
-| Passed | `lint-layout`, `lint-text-directions`, `lint-idml`, `lint-design`, `lint-all` |
-| Passed | `check-layered-codecs-app`, `check-app-web`, `check-separation` |
-| Interrupted | `check-design-output` — terminated at user request, not a pass |
-| Not run for this batch | `check-editable-interchange`, `lint-editable-interchange`, `check-library-wasm`, separate shared UI tests |
-| Pending final checks | Formatting/whitespace, full distinct test count, aggregate proof comparison |
-| Pending native review | `make app PROFILE=debug`, then run the actual development app with Design enabled and review the new window |
+## Verification at this checkpoint
 
-The completed package logs contain **1,863 distinct passing Rust tests**: layout
-512, text engine 151, editor 436, app actions 12, app settings 26, i18n 28, IDML
-360, core 120 and separation 218. Four browser i18n checks and eight Python audits
-also passed. Nine new properties (six layout, three IDML) are included. These
-counts exclude unfinished targets; do not report the expected full total as a pass.
-
-The first editor compile failed on a missing closing delimiter in the new window.
-The delimiter was fixed; `cargo fmt --all` and `git diff --check` passed, then the
-complete Design rerun passed. No tests were weakened or ignored. The final
-format/whitespace recheck was deferred with the remaining validation. Existing
-future-compatibility warnings for `block 0.1.6` and `proc-macro-error2 2.0.1` remain.
-
-The previous full checkpoint at `b0cdef3c` passed 2,086 distinct Rust tests, four
-browser checks and eight Python audits, with one existing shared UI doc example
-ignored. Its native build/review and proof comparisons do not validate this new
-window. The local development binary was not refreshed for this batch.
-
-Resume only the pending work unless source changes or platform differences justify
-repeating passed targets. Use the repository Makefile; for the separate shared UI
-tests, add a temporary make fragment as previous checkpoints did:
-
-```sh
-export CARGO_INCREMENTAL=0 CARGO_BUILD_JOBS=4
-make check-design-output check-editable-interchange lint-editable-interchange
-CARGO_PROFILE_DEV_DEBUG=0 make check-library-wasm
-qa_makefile=$(mktemp)
-printf 'check-handoff-shared-ui:\n\t$(CARGO) test -p schist-ui\n' > "$qa_makefile"
-make -f Makefile -f "$qa_makefile" check-handoff-shared-ui
-rm -f "$qa_makefile"
-cargo fmt --all -- --check
-git diff --check
-make app PROFILE=debug
-```
-
-Record each command's exit status and stop to investigate real failures. Count
-unique package tests rather than summing overlapping make targets. Output proofs
-can be regenerated by `check-design-output`; the old local hash baseline was
-removed during requested cleanup, so do not claim an unchanged-proof comparison
-without reconstructing a baseline from the previous commit in an isolated checkout.
-`lint-all` already passed workspace clippy with all targets, and
-`check-layered-codecs-app` already passed the `schist-app` compile check.
-
-In the actual development app, use isolated configuration and
-`SCHIST_FEATURE_FLAGS='{"design-mode":true}'`. Review Type → Text Variables and the
-Stories toolbar; New/Edit/Cancel/Save; shared-instance updates and undo/redo;
-Unicode cursor capture/recapture; coincident instance removal; used-definition
-delete refusal; stale-story/session refusal; and IDML save/reopen. Check the compact
-layout at normal scale. Do not use the user's installed non-development app.
+The pending `aaad6dc0` checks were completed from an isolated worktree before new
+code compiled; that checkpoint has 2,095 distinct passing Rust tests and its 43
+proof PDFs are byte-identical to `b0cdef3c`. The new batch passes the source-frozen
+sweep of all 16 roadmap targets, shared UI, formatting and whitespace with 2,105
+distinct passing Rust tests, four browser checks and eight Python audits. Details,
+the one in-sweep test correction and native review results are in Roadmap /
+Handoff. The two macOS-only editor tests were not compiled here; the next macOS
+run should include them.
 
 ## Temporary files
 
-Removed 3,236 task-created entries under `/tmp/schist*`: logs, scripts, proof
-PDFs/renders, temporary PR drafts
-and research downloads, at the user's request. The isolated
-`target/design-ui/Schist Roadmap QA.app`, its configuration/state and task QA
-fixtures were also removed. Earlier cleanup reclaimed about 2.1 GB of inactive
-incremental caches. Tracked fixtures, normal build outputs and the user's
-`Schist Dev.app`, configuration/state and existing `review.idml` were preserved.
-
-Historical `/tmp/schist-*` references in the roadmap and format notes describe
-previous evidence. Regenerate proofs with make and reacquire public references
-from the pinned URLs in those documents. No evidence depends on transferring a
-local temporary file to the next machine.
+Task logs and evidence are under the Git Bash `/tmp` (`C:\Users\Administrator\AppData\Local\Temp`):
+`schist-validate/` (`aaad6dc0` logs, proofs, hashes, native screenshots),
+`schist-sweep/` (batch sweep logs, proofs, hashes, native screenshots) and
+`schist-variable-research/` (reacquired public specification and paged-media
+reference). They are not needed to continue; regenerate proofs with make and
+reacquire references from the pinned URLs in `docs/idml-format.md`.
 
 ## Prompt for the next agent
 
@@ -162,19 +114,16 @@ local temporary file to the next machine.
 > https://github.com/Infrawrench/schist/pull/195. Fetch the latest branch head.
 > Read `AGENTS.md` first, then `docs/roadmap.md` in full, then
 > `docs/design-handoff.md`. The roadmap is the plan; do not re-plan from scratch.
-> The latest commit adds compact custom text-variable authoring. I explicitly
-> stopped validation to move machines: 12 make targets passed, output validation
-> was interrupted, and the remaining checks plus native build/UI review are
-> listed in the handoff. Resume those first; do not claim a full sweep or native
-> UI review already passed. Then continue Phase 3 item 9 in roadmap order.
-> Implement substantial coherent batches before compiling/testing; use make and
-> `CARGO_INCREMENTAL=0`, test locally, and do not query or wait for CI. Keep
-> Design's LayoutDocument and tools separate from raster Document/ToolPlugin;
-> keep the feature flag false by default; preserve one-gesture undo and all-locale
-> i18n coverage. Keep the UI compact with icons and controls shown when needed.
-> Use the actual development app with `SCHIST_FEATURE_FLAGS='{"design-mode":true}'`
-> and isolated configuration, not my installed non-development copy. Never read
-> Adobe headers or decompile binaries; follow the roadmap's public-source rules
-> and Phase 0 gate before any production INDD work. Use git add -A for commits,
-> push the branch and update the existing draft PR. Task temporary files were
-> cleaned up; regenerate them from tracked sources and pinned public references.
+> The latest commit adds last-page-number text variables; its full sweep and
+> native review passed on Windows. Continue Phase 3 item 9 in roadmap order,
+> starting with chapter-number variables. Implement substantial coherent batches
+> before compiling/testing; use make and `CARGO_INCREMENTAL=0`, test locally, and
+> do not query or wait for CI. Keep Design's LayoutDocument and tools separate from
+> raster Document/ToolPlugin; keep the feature flag false by default; preserve
+> one-gesture undo and all-locale i18n coverage. Keep the UI compact with icons
+> and controls shown when needed. Use the actual development app with
+> `SCHIST_FEATURE_FLAGS='{"design-mode":true}'` and isolated configuration, not my
+> installed non-development copy. Never read Adobe headers or decompile binaries;
+> follow the roadmap's public-source rules and Phase 0 gate before any production
+> INDD work. Use git add -A for commits, push the branch and update the existing
+> draft PR.

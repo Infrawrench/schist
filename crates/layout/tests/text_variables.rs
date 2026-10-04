@@ -37,11 +37,8 @@ fn document(text: &str, at: usize, value: &str) -> LayoutDocument {
         }),
     });
     doc.stories[frame.story.0 as usize] = story;
-    doc.text_variables.push(TextVariable {
-        id: "edition".into(),
-        name: "Definition".into(),
-        contents: value.into(),
-    });
+    doc.text_variables
+        .push(TextVariable::custom("edition", "Definition", value));
     doc
 }
 

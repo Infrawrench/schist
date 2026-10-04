@@ -1,8 +1,13 @@
-//! Native custom-text definitions and guarded model identities. Native XML is
-//! authoritative; document Labels preserve only identities whose definition
-//! still agrees. Variable resources have no per-resource Label in the schema.
+//! Native custom-text and last-page-number definitions and guarded model
+//! identities. Native XML is authoritative; document Labels preserve only
+//! identities whose definition still agrees. Variable resources have no
+//! per-resource Label in the schema.
 use crate::{export::escape, xml::Element};
-use schist_layout::{story::InlineControl, text_variables::TextVariable, Story, StoryStructure};
+use schist_layout::{
+    story::InlineControl,
+    text_variables::{LastPageNumber, PageNumberFormat, TextVariable, VariableScope},
+    Story, StoryStructure,
+};
 use serde::{Deserialize, Serialize};
 use std::collections::{BTreeMap, BTreeSet};
 
@@ -14,14 +19,20 @@ struct Saved {
     definition: TextVariable,
 }
 
-/// Only the published literal-string subset is lowered. Unknown preference
-/// properties and non-string Contents stay in the existing recovery archive.
+/// Only the published literal-string and last-page-number subsets are lowered.
+/// Unknown preference properties, non-string Contents and unrendered numbering
+/// formats stay in the existing recovery archive.
 pub(crate) fn definition(element: &Element) -> Option<TextVariable> {
     if element.name != "TextVariable"
-        || element.attr("VariableType") != Some("CustomTextType")
         || !plain(element, &["Self", "Name", "VariableType"])
         || element.children.len() != 1
     {
+        return None;
+    }
+    if element.attr("VariableType") == Some("LastPageNumberType") {
+        return last_page(element);
+    }
+    if element.attr("VariableType") != Some("CustomTextType") {
         return None;
     }
     let preference = &element.children[0];
@@ -48,11 +59,65 @@ pub(crate) fn definition(element: &Element) -> Option<TextVariable> {
     if id.is_empty() {
         return None;
     }
-    Some(TextVariable {
+    Some(TextVariable::custom(
         id,
+        element.attr("Name")?,
+        &contents.text,
+    ))
+}
+
+const FORMATS: [(&str, PageNumberFormat); 6] = [
+    ("Current", PageNumberFormat::Current),
+    ("Arabic", PageNumberFormat::Arabic),
+    ("UpperRoman", PageNumberFormat::UpperRoman),
+    ("LowerRoman", PageNumberFormat::LowerRoman),
+    ("UpperLetters", PageNumberFormat::UpperLetters),
+    ("LowerLetters", PageNumberFormat::LowerLetters),
+];
+const SCOPES: [(&str, VariableScope); 2] = [
+    ("DocumentScope", VariableScope::Document),
+    ("SectionScope", VariableScope::Section),
+];
+
+/// PageNumberVariablePreference with an explicit Format and Scope. Their
+/// omitted defaults are not published, so absent values remain recovery data.
+/// Absent literal text is empty; the schema types it as an optional string.
+fn last_page(element: &Element) -> Option<TextVariable> {
+    let preference = &element.children[0];
+    if preference.name != "PageNumberVariablePreference"
+        || !plain(preference, &["TextBefore", "Format", "TextAfter", "Scope"])
+        || !preference.children.is_empty()
+    {
+        return None;
+    }
+    let id = element.attr("Self").filter(|id| !id.is_empty())?;
+    let definition = TextVariable {
+        id: id.into(),
         name: element.attr("Name")?.into(),
-        contents: contents.text.clone(),
-    })
+        contents: String::new(),
+        last_page: Some(LastPageNumber {
+            before: preference.attr("TextBefore").unwrap_or_default().into(),
+            format: lookup(preference.attr("Format"), &FORMATS)?,
+            after: preference.attr("TextAfter").unwrap_or_default().into(),
+            scope: lookup(preference.attr("Scope"), &SCOPES)?,
+        }),
+    };
+    definition.valid().then_some(definition)
+}
+
+fn lookup<T: Copy>(value: Option<&str>, table: &[(&str, T)]) -> Option<T> {
+    table
+        .iter()
+        .find(|(native, _)| Some(*native) == value)
+        .map(|(_, typed)| *typed)
+}
+
+fn native<T: PartialEq + Copy>(table: &[(&'static str, T)], value: T) -> &'static str {
+    table
+        .iter()
+        .find(|(_, typed)| *typed == value)
+        .map(|(native, _)| *native)
+        .expect("every typed value has a native spelling")
 }
 
 fn plain(element: &Element, attributes: &[&str]) -> bool {
@@ -267,10 +332,20 @@ impl Exported {
     }
 
     pub fn resources(&self) -> String {
-        self.definitions.iter().map(|definition| format!(
-            r#"<TextVariable Self="{}" Name="{}" VariableType="CustomTextType"><CustomTextVariablePreference><Properties><Contents type="string">{}</Contents></Properties></CustomTextVariablePreference></TextVariable>"#,
-            escape(&self.bindings[&definition.id]), escape(&definition.name), escape(&definition.contents)
-        )).collect()
+        self.definitions.iter().map(|definition| {
+            let id = escape(&self.bindings[&definition.id]);
+            let name = escape(&definition.name);
+            match &definition.last_page {
+                Some(page) => format!(
+                    r#"<TextVariable Self="{id}" Name="{name}" VariableType="LastPageNumberType"><PageNumberVariablePreference TextBefore="{}" Format="{}" TextAfter="{}" Scope="{}"/></TextVariable>"#,
+                    escape(&page.before), native(&FORMATS, page.format), escape(&page.after), native(&SCOPES, page.scope)
+                ),
+                None => format!(
+                    r#"<TextVariable Self="{id}" Name="{name}" VariableType="CustomTextType"><CustomTextVariablePreference><Properties><Contents type="string">{}</Contents></Properties></CustomTextVariablePreference></TextVariable>"#,
+                    escape(&definition.contents)
+                ),
+            }
+        }).collect()
     }
 }
 

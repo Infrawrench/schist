@@ -563,7 +563,7 @@ design.initial_style_missing = Missing: {name}
 
 # UNTRANSLATED PLACEHOLDER
 design.text_variables = Text Variables
-design.variable_new = New custom variable
+design.variable_new = New text variable
 design.variable_insert = Insert at cursor
 design.variable_remove_instance = Remove this instance
 design.variable_in_use = Remove instances before deleting
@@ -573,3 +573,10 @@ design.variable_capture_cursor = Use current text cursor
 design.variable_edit_refused = Changed elsewhere; reopen and try again.
 design.variable_invalid = Name required; remove breaks and controls.
 design.variable_window_failed = Cannot open Text Variables: {error}
+design.variable_kind_custom = Custom text
+design.variable_kind_last_page = Last page number
+design.variable_before = Text before
+design.variable_after = Text after
+design.variable_format_current = Current numbering
+design.variable_scope_document = Last page of document
+design.variable_scope_section = Last page of section
