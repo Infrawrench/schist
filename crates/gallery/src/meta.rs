@@ -10,6 +10,14 @@ pub struct PhotoMeta {
     /// "YYYY-MM-DD HH:MM:SS": sortable as text, no calendar needed.
     pub taken: Option<String>,
     pub place: Option<String>,
+    /// "Canon EOS R5" — make and model as [`ExifSummary::camera`] puts
+    /// them — and the lens, for smart albums. Cached beside the
+    /// thumbnail in their own `.cam` file, so the `.meta` format (and
+    /// every cache already written in it) stays as it was.
+    pub camera: Option<String>,
+    pub lens: Option<String>,
+    /// The XMP sidecar's keywords, when it has any.
+    pub keywords: Vec<String>,
 }
 
 /// A usable GPS fix. Cameras commonly write exactly (0, 0) when no fix
@@ -37,10 +45,45 @@ pub fn photo_meta(cache: &Option<PathBuf>, original: &Path) -> PhotoMeta {
 
 fn original_photo_meta(cache: &Option<PathBuf>, original: &Path) -> PhotoMeta {
     let meta_cache = cache.as_ref().map(|p| p.with_extension("meta"));
+    let cam_cache = cache.as_ref().map(|p| p.with_extension("cam"));
+    // The camera and lens: from their cache, or from this EXIF pass —
+    // read here once when the `.meta` cache is warm but predates them.
+    let cached_camera = cam_cache
+        .as_ref()
+        .and_then(|p| std::fs::read_to_string(p).ok())
+        .map(|text| {
+            let mut lines = text.lines();
+            let field = |l: Option<&str>| {
+                l.filter(|l| *l != "none" && !l.is_empty())
+                    .map(str::to_string)
+            };
+            (field(lines.next()), field(lines.next()))
+        });
+    let write_camera = |camera: &Option<String>, lens: &Option<String>| {
+        if let Some(path) = &cam_cache {
+            let text = format!(
+                "{}\n{}",
+                camera.as_deref().unwrap_or("none"),
+                lens.as_deref().unwrap_or("none")
+            );
+            let _ = std::fs::write(path, text);
+        }
+    };
     if let Some(text) = meta_cache
         .as_ref()
         .and_then(|p| std::fs::read_to_string(p).ok())
     {
+        let (camera, lens) = match cached_camera {
+            Some(known) => known,
+            None => {
+                let (camera, lens) = exif_of(original)
+                    .as_ref()
+                    .map(camera_lens)
+                    .unwrap_or_default();
+                write_camera(&camera, &lens);
+                (camera, lens)
+            }
+        };
         let mut lines = text.lines();
         let gps = lines.next().and_then(|l| {
             let mut parts = l.split_whitespace().filter_map(|v| v.parse::<f64>().ok());
@@ -57,12 +100,17 @@ fn original_photo_meta(cache: &Option<PathBuf>, original: &Path) -> PhotoMeta {
             gps,
             taken: field(lines.next()),
             place: field(lines.next()),
+            camera,
+            lens,
+            keywords: Vec::new(),
         };
     }
     let data = exif_of(original);
     let gps = data.as_ref().and_then(gps_from);
     let taken = data.as_ref().and_then(datetime_from);
     let place = gps.and_then(|(lat, lon)| nearest_city(lat, lon));
+    let (camera, lens) = data.as_ref().map(camera_lens).unwrap_or_default();
+    write_camera(&camera, &lens);
     if let Some(path) = meta_cache {
         let line1 = match gps {
             Some((lat, lon)) => format!("{lat} {lon}"),
@@ -75,7 +123,30 @@ fn original_photo_meta(cache: &Option<PathBuf>, original: &Path) -> PhotoMeta {
         );
         let _ = std::fs::write(path, text);
     }
-    PhotoMeta { gps, taken, place }
+    PhotoMeta {
+        gps,
+        taken,
+        place,
+        camera,
+        lens,
+        keywords: Vec::new(),
+    }
+}
+
+/// The camera (make and model, as the Info tab shows them) and the lens.
+fn camera_lens(data: &exif::Exif) -> (Option<String>, Option<String>) {
+    let text = |tag: exif::Tag| -> Option<String> {
+        let field = data.get_field(tag, exif::In::PRIMARY)?;
+        let s = field.display_value().to_string();
+        let s = s.trim().trim_matches('"').trim().to_string();
+        (!s.is_empty()).then_some(s)
+    };
+    let summary = ExifSummary {
+        make: text(exif::Tag::Make),
+        model: text(exif::Tag::Model),
+        ..Default::default()
+    };
+    (summary.camera(), text(exif::Tag::LensModel))
 }
 
 pub fn exif_of(path: &Path) -> Option<exif::Exif> {

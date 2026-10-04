@@ -26,7 +26,7 @@ pub fn shortcut(key: &str) -> Option<CullEdit> {
     })
 }
 
-fn flag_name(flag: CullFlag) -> &'static str {
+pub fn flag_name(flag: CullFlag) -> &'static str {
     match flag {
         CullFlag::None => t("common.none"),
         CullFlag::Pick => t("culling.pick"),
@@ -51,7 +51,7 @@ fn colour(label: ColourLabel) -> u32 {
         ColourLabel::Magenta => 0xCB50BD,
     }
 }
-fn colour_name(label: ColourLabel) -> &'static str {
+pub fn colour_name(label: ColourLabel) -> &'static str {
     match label {
         ColourLabel::None => t("common.none"),
         ColourLabel::Red => t("common.red"),

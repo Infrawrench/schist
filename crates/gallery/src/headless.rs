@@ -137,6 +137,7 @@ impl Gallery {
                 "index": i, "name": b.name(), "photos": b.photos().iter().filter(|p| !b.exclude_nsfw() || self.verdict(p) != "flagged").count(),
                 "exclude_nsfw": b.exclude_nsfw(),
                 "query": b.query(), "area": b.area().map(|(_, name)| name.clone()),
+                "smart_album": b.filter().is_some(),
             })).collect::<Vec<_>>(),
             "index": {
                 "embedded": embedded, "total": all.len(),
@@ -306,6 +307,7 @@ impl Gallery {
             query: query.map(str::to_string),
             area: None,
             exclude_nsfw: false,
+            filter: None,
         });
         self.file.save()?;
         Ok(self.file.buckets.len() - 1)
@@ -326,6 +328,7 @@ impl Gallery {
                 query: None,
                 area: None,
                 exclude_nsfw: false,
+                filter: None,
             };
         }
         if let BucketFile::Rich { photos, .. } = bucket {

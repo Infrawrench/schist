@@ -689,6 +689,7 @@ pub fn write_batch(photos: &[PathBuf], patch: &Patch) -> Vec<(PathBuf, Result<Pa
 /// Integrate overrides without poisoning the original-EXIF cache. Empty values
 /// explicitly suppress EXIF; removing a sidecar restores the camera values.
 pub fn overlay(meta: &mut crate::PhotoMeta, xmp: &Metadata) {
+    meta.keywords = xmp.keywords.clone();
     if let Some(taken) = &xmp.taken {
         meta.taken = taken.as_ref().map(|t| t.replace('T', " "));
     }
@@ -884,6 +885,7 @@ mod tests {
             gps: Some((1.0, 2.0)),
             taken: Some("old".into()),
             place: Some("old".into()),
+            ..Default::default()
         };
         overlay(&mut meta, &parse(&result).unwrap());
         assert!(meta.gps.is_none() && meta.taken.is_none() && meta.place.is_none());
