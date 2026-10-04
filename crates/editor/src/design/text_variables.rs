@@ -8,24 +8,34 @@ use crate::workspace::Workspace;
 use gpui::{prelude::*, *};
 use schist_i18n::t;
 use schist_layout::text_variables::{
-    self as variables, Cursor, LastPageNumber, PageNumberFormat, TextVariable, VariableScope,
+    self as variables, ChapterNumber, Cursor, LastPageNumber, PageNumberFormat, TextVariable,
+    VariableKind, VariableScope,
 };
 use schist_ui as ui;
 use std::{ops::Range, sync::Arc};
 
-/// Name, custom value, then the text before and after a page number. Each kind
-/// keeps its own fields, so switching kinds never reinterprets typed text.
+/// Name, custom value, then the text before and after a computed number. Each
+/// kind keeps its own fields, so switching kinds never reinterprets typed text.
 const NAME: usize = 0;
 const VALUE: usize = 1;
 const BEFORE: usize = 2;
 const AFTER: usize = 3;
 
+#[derive(Clone, Copy, PartialEq)]
+enum Kind {
+    Custom,
+    LastPage,
+    Chapter,
+}
+
 struct Draft {
     expected: Option<TextVariable>,
     fields: [ui::LineEdit; 4],
     active: usize,
-    /// Some for a last-page-number definition; its text comes from the fields.
-    last_page: Option<LastPageNumber>,
+    kind: Kind,
+    /// Shared by both computed kinds; scope applies to last page numbers only.
+    format: PageNumberFormat,
+    scope: VariableScope,
 }
 
 impl Draft {
@@ -33,12 +43,37 @@ impl Draft {
         let value = expected
             .clone()
             .unwrap_or_else(|| TextVariable::custom("", "", ""));
-        let page = value.last_page.clone().unwrap_or_default();
+        let (kind, contents, before, after, format, scope) = match value.kind() {
+            Some(VariableKind::LastPage(page)) => (
+                Kind::LastPage,
+                String::new(),
+                page.before,
+                page.after,
+                page.format,
+                page.scope,
+            ),
+            Some(VariableKind::Chapter(chapter)) => (
+                Kind::Chapter,
+                String::new(),
+                chapter.before,
+                chapter.after,
+                chapter.format,
+                VariableScope::default(),
+            ),
+            _ => (
+                Kind::Custom,
+                value.contents.clone(),
+                String::new(),
+                String::new(),
+                PageNumberFormat::default(),
+                VariableScope::default(),
+            ),
+        };
         let mut fields = [
             ui::LineEdit::focused(value.name),
-            ui::LineEdit::focused(value.contents),
-            ui::LineEdit::focused(page.before),
-            ui::LineEdit::focused(page.after),
+            ui::LineEdit::focused(contents),
+            ui::LineEdit::focused(before),
+            ui::LineEdit::focused(after),
         ];
         fields[NAME].select_all();
         for field in &mut fields[VALUE..] {
@@ -48,43 +83,42 @@ impl Draft {
             expected,
             fields,
             active: NAME,
-            last_page: value.last_page,
+            kind,
+            format,
+            scope,
         }
     }
 
     fn visible(&self) -> &'static [usize] {
-        if self.last_page.is_some() {
-            &[NAME, BEFORE, AFTER]
-        } else {
-            &[NAME, VALUE]
+        match self.kind {
+            Kind::Custom => &[NAME, VALUE],
+            Kind::LastPage | Kind::Chapter => &[NAME, BEFORE, AFTER],
         }
     }
 
-    fn definition(&self) -> (String, Option<LastPageNumber>) {
-        match &self.last_page {
-            Some(page) => (
-                String::new(),
-                Some(LastPageNumber {
-                    before: self.fields[BEFORE].text.clone(),
-                    after: self.fields[AFTER].text.clone(),
-                    ..page.clone()
-                }),
-            ),
-            None => (self.fields[VALUE].text.clone(), None),
+    fn definition(&self) -> VariableKind {
+        let before = self.fields[BEFORE].text.clone();
+        let after = self.fields[AFTER].text.clone();
+        match self.kind {
+            Kind::Custom => VariableKind::Custom(self.fields[VALUE].text.clone()),
+            Kind::LastPage => VariableKind::LastPage(LastPageNumber {
+                before,
+                format: self.format,
+                after,
+                scope: self.scope,
+            }),
+            Kind::Chapter => VariableKind::Chapter(ChapterNumber {
+                before,
+                format: self.format,
+                after,
+            }),
         }
     }
 
     fn valid(&self) -> bool {
-        let (contents, last_page) = self.definition();
         !self.fields[NAME].text.trim().is_empty()
             && !self.fields[NAME].text.chars().any(char::is_control)
-            && TextVariable {
-                id: String::new(),
-                name: String::new(),
-                contents,
-                last_page,
-            }
-            .valid()
+            && TextVariable::new("", "", self.definition()).valid()
     }
 
     fn focus(&mut self, index: usize) {
@@ -123,15 +157,16 @@ fn scope_label(scope: VariableScope) -> String {
     .into()
 }
 
-/// A short list-row description: the literal value, or the kind and scope.
+/// A short list-row description: the literal value, or the computed kind.
 fn summary(definition: &TextVariable) -> String {
-    match &definition.last_page {
-        Some(page) => format!(
+    match definition.kind() {
+        Some(VariableKind::LastPage(page)) => format!(
             "{} · {}",
             t("design.variable_kind_last_page"),
             scope_label(page.scope)
         ),
-        None => definition.contents.clone(),
+        Some(VariableKind::Chapter(_)) => t("design.variable_kind_chapter").into(),
+        _ => definition.contents.clone(),
     }
 }
 
@@ -245,13 +280,12 @@ impl TextVariables {
         }
         let expected = draft.expected.clone();
         let name = draft.fields[NAME].text.clone();
-        let (contents, last_page) = draft.definition();
+        let kind = draft.definition();
         if self.valid(cx)
             && expected.as_ref().is_some_and(|e| {
                 self.selected(cx).as_ref() == Some(e)
                     && e.name == name
-                    && e.contents == contents
-                    && e.last_page == last_page
+                    && e.kind().as_ref() == Some(&kind)
             })
         {
             self.draft = None;
@@ -269,16 +303,14 @@ impl TextVariables {
                     &mut state.history,
                     expected,
                     &name,
-                    &contents,
-                    last_page,
+                    kind,
                 )
             } else {
                 selected = variables::create_definition(
                     &mut state.document,
                     &mut state.history,
                     &name,
-                    &contents,
-                    last_page,
+                    kind,
                 );
                 selected.is_some()
             }
@@ -308,19 +340,11 @@ impl TextVariables {
     }
 
     /// Switch kinds without reinterpreting either kind's typed text.
-    fn set_kind(&mut self, last_page: bool, cx: &mut Context<Self>) {
+    fn set_kind(&mut self, kind: Kind, cx: &mut Context<Self>) {
         if let Some(draft) = &mut self.draft {
-            if draft.last_page.is_some() != last_page {
-                draft.last_page = last_page.then(|| {
-                    draft
-                        .expected
-                        .as_ref()
-                        .and_then(|e| e.last_page.clone())
-                        .unwrap_or_default()
-                });
-                if !draft.visible().contains(&draft.active) {
-                    draft.focus(NAME);
-                }
+            draft.kind = kind;
+            if !draft.visible().contains(&draft.active) {
+                draft.focus(NAME);
             }
         }
         self.choice = None;
@@ -328,16 +352,16 @@ impl TextVariables {
     }
 
     fn choose(&mut self, choice: Choice, index: usize) {
-        if let Some(page) = self.draft.as_mut().and_then(|d| d.last_page.as_mut()) {
+        if let Some(draft) = self.draft.as_mut() {
             match choice {
                 Choice::Format => {
                     if let Some(format) = PageNumberFormat::ALL.get(index) {
-                        page.format = *format;
+                        draft.format = *format;
                     }
                 }
                 Choice::Scope => {
                     if let Some(scope) = SCOPES.get(index) {
-                        page.scope = *scope;
+                        draft.scope = *scope;
                     }
                 }
             }
@@ -349,7 +373,8 @@ impl TextVariables {
     fn choice_button(
         &self,
         choice: Choice,
-        page: &LastPageNumber,
+        format: PageNumberFormat,
+        scope: VariableScope,
         cx: &mut Context<Self>,
     ) -> AnyElement {
         let (id, menu, labels, current) = match choice {
@@ -357,13 +382,13 @@ impl TextVariables {
                 "variable-format",
                 "variable-format-menu",
                 PageNumberFormat::ALL.map(format_label).to_vec(),
-                PageNumberFormat::ALL.iter().position(|f| *f == page.format),
+                PageNumberFormat::ALL.iter().position(|f| *f == format),
             ),
             Choice::Scope => (
                 "variable-scope",
                 "variable-scope-menu",
                 SCOPES.map(scope_label).to_vec(),
-                SCOPES.iter().position(|s| *s == page.scope),
+                SCOPES.iter().position(|s| *s == scope),
             ),
         };
         let label = current
@@ -549,38 +574,38 @@ impl Render for TextVariables {
             }
             if let Some(cursor) = self.cursor.as_ref().filter(|_| cursor_valid) {
                 let target = Arc::new(cursor.clone());
-                for (index, structure) in
-                    cursor
-                        .expected
-                        .structures
-                        .iter()
-                        .enumerate()
-                        .filter(|(_, s)| {
-                            s.at == Some(cursor.at)
-                                && s.kind == "TextVariableInstance"
-                                && s.footnote.is_none()
-                        })
+                for (index, structure) in cursor
+                    .expected
+                    .structures
+                    .iter()
+                    .enumerate()
+                    .filter(|(_, s)| s.at == Some(cursor.at) && variables::removable(s))
                 {
-                    let Some(schist_layout::story::InlineControl::TextVariable {
-                        variable,
-                        name,
-                        ..
-                    }) = &structure.control
-                    else {
-                        continue;
+                    use schist_layout::story::{InlineControl, PageNumberKind};
+                    let label = match &structure.control {
+                        Some(InlineControl::TextVariable { variable, name, .. }) => doc
+                            .text_variables
+                            .iter()
+                            .find(|d| d.id == *variable)
+                            .map(|d| d.name.clone())
+                            .unwrap_or_else(|| {
+                                if name.is_empty() {
+                                    t("common.unknown").into()
+                                } else {
+                                    name.clone()
+                                }
+                            }),
+                        Some(InlineControl::PageNumber { kind, .. }) => t(match kind {
+                            PageNumberKind::Current => "design.marker_page_number",
+                            PageNumberKind::Next => "design.marker_next_page",
+                            PageNumberKind::Previous => "design.marker_previous_page",
+                        })
+                        .into(),
+                        Some(InlineControl::SectionMarker { .. }) => {
+                            t("design.marker_section").into()
+                        }
+                        _ => continue,
                     };
-                    let label = doc
-                        .text_variables
-                        .iter()
-                        .find(|d| d.id == *variable)
-                        .map(|d| d.name.clone())
-                        .unwrap_or_else(|| {
-                            if name.is_empty() {
-                                t("common.unknown").into()
-                            } else {
-                                name.clone()
-                            }
-                        });
                     let target = target.clone();
                     occurrences.push(
                         div()
@@ -696,33 +721,55 @@ impl Render for TextVariables {
                 .p_3()
                 .border_t_1()
                 .border_color(rgb(ui::palette().panel_edge));
-            let last_page = draft.last_page.clone();
+            let (kind, format, scope) = (draft.kind, draft.format, draft.scope);
             fields = fields.child(
                 div()
                     .flex()
                     .items_center()
                     .gap_1()
-                    .child(
-                        ui::IconButton::new("variable-kind-custom", "type")
-                            .tooltip(t("design.variable_kind_custom"), None)
-                            .active(last_page.is_none())
-                            .on_click(cx.listener(|this, _, _, cx| this.set_kind(false, cx))),
+                    .children(
+                        [
+                            (
+                                Kind::Custom,
+                                "variable-kind-custom",
+                                "type",
+                                "design.variable_kind_custom",
+                            ),
+                            (
+                                Kind::LastPage,
+                                "variable-kind-last-page",
+                                "count",
+                                "design.variable_kind_last_page",
+                            ),
+                            (
+                                Kind::Chapter,
+                                "variable-kind-chapter",
+                                "chapter",
+                                "design.variable_kind_chapter",
+                            ),
+                        ]
+                        .map(|(value, id, icon, label)| {
+                            ui::IconButton::new(id, icon)
+                                .tooltip(t(label), None)
+                                .active(kind == value)
+                                .on_click(
+                                    cx.listener(move |this, _, _, cx| this.set_kind(value, cx)),
+                                )
+                        }),
                     )
-                    .child(
-                        ui::IconButton::new("variable-kind-last-page", "count")
-                            .tooltip(t("design.variable_kind_last_page"), None)
-                            .active(last_page.is_some())
-                            .on_click(cx.listener(|this, _, _, cx| this.set_kind(true, cx))),
-                    )
-                    .children(last_page.map(|page| {
-                        div()
-                            .flex()
-                            .flex_1()
-                            .min_w_0()
-                            .gap_1()
-                            .child(self.choice_button(Choice::Format, &page, cx))
-                            .child(self.choice_button(Choice::Scope, &page, cx))
-                    })),
+                    .when(kind != Kind::Custom, |row| {
+                        row.child(
+                            div()
+                                .flex()
+                                .flex_1()
+                                .min_w_0()
+                                .gap_1()
+                                .child(self.choice_button(Choice::Format, format, scope, cx))
+                                .when(kind == Kind::LastPage, |row| {
+                                    row.child(self.choice_button(Choice::Scope, format, scope, cx))
+                                }),
+                        )
+                    }),
             );
             for &index in draft.visible() {
                 fields = fields.child(
@@ -815,6 +862,40 @@ impl Render for TextVariables {
                                     } else {
                                         "design.variable_cursor_required"
                                     })),
+                            )
+                            .children(
+                                [
+                                    (
+                                        false,
+                                        "insert-page-number",
+                                        "page-number",
+                                        "design.marker_page_number",
+                                    ),
+                                    (
+                                        true,
+                                        "insert-section-marker",
+                                        "section-marker",
+                                        "design.marker_section",
+                                    ),
+                                ]
+                                .map(
+                                    |(section, id, icon, label)| {
+                                        ui::IconButton::new(id, icon)
+                                            .tooltip(t(label), None)
+                                            .disabled(!cursor_valid)
+                                            .on_click(cx.listener(move |this, _, _, cx| {
+                                                if let Some(cursor) = this.cursor.clone() {
+                                                    this.apply(cx, |state| {
+                                                        cursor.insert_marker(
+                                                            &mut state.document,
+                                                            &mut state.history,
+                                                            section,
+                                                        )
+                                                    });
+                                                }
+                                            }))
+                                    },
+                                ),
                             )
                             .child(
                                 ui::IconButton::new("capture-variable-cursor", "type")

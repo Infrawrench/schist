@@ -5,7 +5,9 @@
 use crate::{export::escape, xml::Element};
 use schist_layout::{
     story::InlineControl,
-    text_variables::{LastPageNumber, PageNumberFormat, TextVariable, VariableScope},
+    text_variables::{
+        ChapterNumber, LastPageNumber, PageNumberFormat, TextVariable, VariableKind, VariableScope,
+    },
     Story, StoryStructure,
 };
 use serde::{Deserialize, Serialize};
@@ -19,9 +21,9 @@ struct Saved {
     definition: TextVariable,
 }
 
-/// Only the published literal-string and last-page-number subsets are lowered.
-/// Unknown preference properties, non-string Contents and unrendered numbering
-/// formats stay in the existing recovery archive.
+/// Only the published literal-string, last-page-number and chapter-number
+/// subsets are lowered. Unknown preference properties, non-string Contents and
+/// unrendered numbering formats stay in the existing recovery archive.
 pub(crate) fn definition(element: &Element) -> Option<TextVariable> {
     if element.name != "TextVariable"
         || !plain(element, &["Self", "Name", "VariableType"])
@@ -29,8 +31,10 @@ pub(crate) fn definition(element: &Element) -> Option<TextVariable> {
     {
         return None;
     }
-    if element.attr("VariableType") == Some("LastPageNumberType") {
-        return last_page(element);
+    match element.attr("VariableType") {
+        Some("LastPageNumberType") => return last_page(element),
+        Some("ChapterNumberType") => return chapter(element),
+        _ => {}
     }
     if element.attr("VariableType") != Some("CustomTextType") {
         return None;
@@ -91,17 +95,38 @@ fn last_page(element: &Element) -> Option<TextVariable> {
         return None;
     }
     let id = element.attr("Self").filter(|id| !id.is_empty())?;
-    let definition = TextVariable {
-        id: id.into(),
-        name: element.attr("Name")?.into(),
-        contents: String::new(),
-        last_page: Some(LastPageNumber {
+    let definition = TextVariable::new(
+        id,
+        element.attr("Name")?,
+        VariableKind::LastPage(LastPageNumber {
             before: preference.attr("TextBefore").unwrap_or_default().into(),
             format: lookup(preference.attr("Format"), &FORMATS)?,
             after: preference.attr("TextAfter").unwrap_or_default().into(),
             scope: lookup(preference.attr("Scope"), &SCOPES)?,
         }),
-    };
+    );
+    definition.valid().then_some(definition)
+}
+
+/// ChapterNumberVariablePreference with an explicit Format, as for page numbers.
+fn chapter(element: &Element) -> Option<TextVariable> {
+    let preference = &element.children[0];
+    if preference.name != "ChapterNumberVariablePreference"
+        || !plain(preference, &["TextBefore", "Format", "TextAfter"])
+        || !preference.children.is_empty()
+    {
+        return None;
+    }
+    let id = element.attr("Self").filter(|id| !id.is_empty())?;
+    let definition = TextVariable::new(
+        id,
+        element.attr("Name")?,
+        VariableKind::Chapter(ChapterNumber {
+            before: preference.attr("TextBefore").unwrap_or_default().into(),
+            format: lookup(preference.attr("Format"), &FORMATS)?,
+            after: preference.attr("TextAfter").unwrap_or_default().into(),
+        }),
+    );
     definition.valid().then_some(definition)
 }
 
@@ -302,7 +327,11 @@ impl Exported {
             *counts.entry(&definition.id).or_insert(0usize) += 1;
         }
         for definition in definitions {
-            if definition.id.is_empty() || counts[&definition.id] != 1 {
+            // An inconsistent kind is never written as some other native kind.
+            if definition.id.is_empty()
+                || counts[&definition.id] != 1
+                || definition.kind().is_none()
+            {
                 super::text_variable_codec::notice(warnings);
                 continue;
             }
@@ -335,12 +364,16 @@ impl Exported {
         self.definitions.iter().map(|definition| {
             let id = escape(&self.bindings[&definition.id]);
             let name = escape(&definition.name);
-            match &definition.last_page {
-                Some(page) => format!(
+            match definition.kind() {
+                Some(VariableKind::LastPage(page)) => format!(
                     r#"<TextVariable Self="{id}" Name="{name}" VariableType="LastPageNumberType"><PageNumberVariablePreference TextBefore="{}" Format="{}" TextAfter="{}" Scope="{}"/></TextVariable>"#,
                     escape(&page.before), native(&FORMATS, page.format), escape(&page.after), native(&SCOPES, page.scope)
                 ),
-                None => format!(
+                Some(VariableKind::Chapter(chapter)) => format!(
+                    r#"<TextVariable Self="{id}" Name="{name}" VariableType="ChapterNumberType"><ChapterNumberVariablePreference TextBefore="{}" Format="{}" TextAfter="{}"/></TextVariable>"#,
+                    escape(&chapter.before), native(&FORMATS, chapter.format), escape(&chapter.after)
+                ),
+                _ => format!(
                     r#"<TextVariable Self="{id}" Name="{name}" VariableType="CustomTextType"><CustomTextVariablePreference><Properties><Contents type="string">{}</Contents></Properties></CustomTextVariablePreference></TextVariable>"#,
                     escape(&definition.contents)
                 ),

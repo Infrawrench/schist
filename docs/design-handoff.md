@@ -9,10 +9,11 @@ its latest checkpoint for work on another machine.
 Branch: `design-tab-leaders`. Existing draft PR:
 https://github.com/Infrawrench/schist/pull/195
 
-The latest commit adds last-page-number text variables and closes Design tool
-windows with the main window. It follows `aaad6dc0` (custom-variable authoring),
-whose interrupted validation and native review were completed first on this
-Windows machine. Fetch the branch head.
+The latest commit adds native page numbers, section markers and chapter-number
+variables, and fixes closing a window with unsaved Design changes. It follows
+`021e3bbd` (last-page-number variables) and `aaad6dc0` (custom-variable
+authoring), whose interrupted validation was completed on this Windows machine.
+Fetch the branch head.
 
 ## Current work
 
@@ -20,13 +21,18 @@ Phase 3 items 1–8 are implemented. Item 9, output and interchange integration,
 remains open. Design Mode is a separate `LayoutDocument` editor; it stays disabled
 by default behind the `design-mode` feature flag.
 
-Text variables now have two typed kinds: literal custom text and the native
-LastPageNumberType. A last-page value is evaluated for the pages a composition pass
+Text variables have three typed kinds: literal custom text and the native
+LastPageNumberType and ChapterNumberType. Native `<?ACE 18?>` page numbers and
+`<?ACE 19?>` section markers are typed controls with native output, and the
+document ChapterNumberPreference is retained. A last-page value is evaluated for the pages a composition pass
 can occupy: a parent instance uses its destination page; an ordinary thread renders
 a section value only when every frame shares one section. Ambiguous scope, visible
 section prefixes and unrendered formats (Kanji, full-width, leading zeros) stay
 unrendered and diagnosed. The compact Text Variables window switches kinds with two
-icons; last-page drafts show Text before/after with Format and Scope dropdowns.
+icons; computed drafts show Text before/after with a Format dropdown, plus Scope
+for last page numbers. Two icons insert a current page number or section marker
+at the captured cursor. Current page numbers and markers use the same page
+context; next/previous page numbers save natively but stay diagnosed.
 
 Key files:
 
@@ -40,14 +46,21 @@ Key files:
 
 ## Continue in roadmap order
 
-Next: chapter-number variables. The public specification's
-ChapterNumberVariablePreference has TextBefore, Format and TextAfter; the value
-comes from document chapter numbering, which is not yet modeled. Then file name
-(needs the document path at output time), dates (output date is time-dependent;
-format strings need a documented subset) and running headers (page-dependent
-matching, like section scope). Active initial/nested-rule combinations, note-body
-variables and Story Editor cursor integration remain open, as do the other item 9
-gaps listed in the roadmap. Production INDD remains gated on Phase 0.
+Next: text wrap. Nothing models TextWrapPreference yet, and every public fixture
+uses TextWrapMode="None". The pinned paged-media `text-wrap` sample's native PDF
+never reaches its obstacles, so it shows no wrap geometry; its anchored sample
+wraps a host story around an anchored frame once anchored objects exist. Follow
+Adobe's published wrap documentation and record inferences. The engine already
+composes paragraphs from per-line inline measures (`line_spans_with_measures`),
+as drop caps do; a row split around an object becomes consecutive measures that
+share a top. The same per-line band machinery serves text in shaped frames.
+
+Also open: Schist writes unstyled runs as `CharacterStyle/$ID/` instead of
+`[No character style]` (pre-existing, affects all text); file-name, date and
+running-header variables; next/previous page numbers; note-body variables;
+active initial/nested-rule combinations; Story Editor cursor integration; tables,
+anchored/inline objects and the other item 9 gaps listed in the roadmap.
+Production INDD remains gated on Phase 0.
 
 ## Working constraints
 
@@ -90,20 +103,19 @@ gaps listed in the roadmap. Production INDD remains gated on Phase 0.
 
 ## Verification at this checkpoint
 
-The pending `aaad6dc0` checks were completed from an isolated worktree before new
-code compiled; that checkpoint has 2,095 distinct passing Rust tests and its 43
-proof PDFs are byte-identical to `b0cdef3c`. The new batch passes the source-frozen
-sweep of all 16 roadmap targets, shared UI, formatting and whitespace with 2,105
-distinct passing Rust tests, four browser checks and eight Python audits. Details,
-the one in-sweep test correction and native review results are in Roadmap /
-Handoff. The two macOS-only editor tests were not compiled here; the next macOS
+The latest batch passes the source-frozen sweep of all 16 roadmap targets,
+shared UI, formatting and whitespace (2,120 distinct passing Rust tests, four
+browser checks and eight Python audits). Two post-review fixes re-passed the
+affected targets on the final source (2,122 tests). Details and native review
+results are in Roadmap / Handoff. The two macOS-only editor tests were not compiled here; the next macOS
 run should include them.
 
 ## Temporary files
 
 Task logs and evidence are under the Git Bash `/tmp` (`C:\Users\Administrator\AppData\Local\Temp`):
 `schist-validate/` (`aaad6dc0` logs, proofs, hashes, native screenshots),
-`schist-sweep/` (batch sweep logs, proofs, hashes, native screenshots) and
+`schist-sweep/` and `schist-sweep2/` (batch sweep logs, proofs, hashes, native
+screenshots), `schist-wrap-research/` (text-wrap/anchored references) and
 `schist-variable-research/` (reacquired public specification and paged-media
 reference). They are not needed to continue; regenerate proofs with make and
 reacquire references from the pinned URLs in `docs/idml-format.md`.
@@ -114,9 +126,9 @@ reacquire references from the pinned URLs in `docs/idml-format.md`.
 > https://github.com/Infrawrench/schist/pull/195. Fetch the latest branch head.
 > Read `AGENTS.md` first, then `docs/roadmap.md` in full, then
 > `docs/design-handoff.md`. The roadmap is the plan; do not re-plan from scratch.
-> The latest commit adds last-page-number text variables; its full sweep and
-> native review passed on Windows. Continue Phase 3 item 9 in roadmap order,
-> starting with chapter-number variables. Implement substantial coherent batches
+> The latest commit adds page numbers, section markers and chapter-number
+> variables; its full sweep and native review passed on Windows. Continue Phase 3
+> item 9 in roadmap order, starting with text wrap. Implement substantial coherent batches
 > before compiling/testing; use make and `CARGO_INCREMENTAL=0`, test locally, and
 > do not query or wait for CI. Keep Design's LayoutDocument and tools separate from
 > raster Document/ToolPlugin; keep the feature flag false by default; preserve

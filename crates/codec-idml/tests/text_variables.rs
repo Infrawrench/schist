@@ -194,17 +194,23 @@ fn public_output_date_variables_are_retained_instead_of_disappearing() {
     assert_eq!(expected.len(), 3);
     let definitions = doc.retained_text_variables.clone();
     // All eleven native definitions remain exact recovery data; the native
-    // default Last Page Number is also a typed, rendered definition.
+    // default Chapter Number and Last Page Number are also typed definitions.
     assert_eq!(definitions.len(), 11);
     let typed = doc.text_variables.clone();
     assert_eq!(
         typed,
-        [schist_layout::text_variables::TextVariable {
-            id: "dTextVariablenLast Page Number".into(),
-            name: "Last Page Number".into(),
-            contents: String::new(),
-            last_page: Some(Default::default()),
-        }]
+        [
+            schist_layout::text_variables::TextVariable::new(
+                "dTextVariablenChapter Number",
+                "Chapter Number",
+                schist_layout::text_variables::VariableKind::Chapter(Default::default()),
+            ),
+            schist_layout::text_variables::TextVariable::new(
+                "dTextVariablenLast Page Number",
+                "Last Page Number",
+                schist_layout::text_variables::VariableKind::LastPage(Default::default()),
+            ),
+        ]
     );
     let package = container::read(bytes).unwrap();
     for definition in &definitions {

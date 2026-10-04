@@ -1,4 +1,5 @@
-//! DocumentPreference, TextPreference and Section follow the public IDML specification
+//! DocumentPreference, TextPreference, ChapterNumberPreference and Section follow
+//! the public IDML specification
 //! (sections 6.3.21 and the designmap Section schema). Bleed/slug are
 //! document-wide in IDML; layout pages store physical four-sided offsets.
 use crate::{
@@ -7,7 +8,10 @@ use crate::{
     import::Report,
     xml::{self, Element},
 };
-use schist_layout::{Insets, LayoutDocument, NumberStyle, Section};
+use schist_layout::{
+    text_variables::{ChapterNumbering, ChapterSource},
+    Insets, LayoutDocument, NumberStyle, Section,
+};
 
 /// Read only this supported general-frame property; other category properties
 /// retain their existing unsupported-feature diagnostics.
@@ -108,6 +112,9 @@ pub fn read(
                     }
                 }
             }
+        }
+        if let Some(prefs) = root.find("ChapterNumberPreference") {
+            document.chapter_numbering = chapter_numbering(prefs, report);
         }
         if let Some(prefs) = root.find("DocumentPreference") {
             document.facing_pages = prefs.boolean("FacingPages") == Some(true);
@@ -330,7 +337,77 @@ pub fn preferences(document: &LayoutDocument, warnings: &mut Vec<String>) -> Str
         out.push_str(&format!(r#" {key}="{}""#, number(value)));
     }
     out.push_str(" />");
+    if let Some(chapter) = &document.chapter_numbering {
+        out.push_str(&chapter_numbering_xml(chapter));
+    }
     out
+}
+
+const CHAPTER_SOURCES: [(&str, ChapterSource); 3] = [
+    ("UserDefined", ChapterSource::UserDefined),
+    (
+        "ContinueFromPreviousDocument",
+        ChapterSource::ContinueFromPreviousDocument,
+    ),
+    (
+        "SameAsPreviousDocument",
+        ChapterSource::SameAsPreviousDocument,
+    ),
+];
+
+/// ChapterNumberPreference: a positive number, a published source and the
+/// native ChapterNumberFormat string. Invalid records are reported and omitted.
+fn chapter_numbering(element: &Element, report: &mut Report) -> Option<ChapterNumbering> {
+    let invalid = |report: &mut Report, property: &str, value: &str| {
+        report.skip(schist_i18n::tf!(
+            "design.idml_text_preference_invalid",
+            property = property,
+            value = value
+        ));
+    };
+    let raw = element.attr("ChapterNumber").unwrap_or_default();
+    let Some(number) = raw.trim().parse::<u32>().ok().filter(|n| *n >= 1) else {
+        invalid(report, "ChapterNumber", raw);
+        return None;
+    };
+    let raw = element.attr("ChapterNumberSource").unwrap_or_default();
+    let Some(source) = CHAPTER_SOURCES
+        .iter()
+        .find(|(native, _)| *native == raw)
+        .map(|(_, source)| *source)
+    else {
+        invalid(report, "ChapterNumberSource", raw);
+        return None;
+    };
+    let format = element
+        .find("ChapterNumberFormat")
+        .map(|format| format.text.clone())
+        .unwrap_or_default();
+    Some(ChapterNumbering {
+        number,
+        source,
+        format,
+    })
+}
+
+fn chapter_numbering_xml(chapter: &ChapterNumbering) -> String {
+    let source = CHAPTER_SOURCES
+        .iter()
+        .find(|(_, source)| *source == chapter.source)
+        .map(|(native, _)| *native)
+        .expect("every source has a native spelling");
+    let format = if chapter.format.is_empty() {
+        String::new()
+    } else {
+        format!(
+            r#"<Properties><ChapterNumberFormat type="string">{}</ChapterNumberFormat></Properties>"#,
+            crate::export::escape(&chapter.format)
+        )
+    };
+    format!(
+        r#"<ChapterNumberPreference ChapterNumber="{}" ChapterNumberSource="{source}">{format}</ChapterNumberPreference>"#,
+        chapter.number
+    )
 }
 
 pub fn section(document: &LayoutDocument, warnings: &mut Vec<String>) -> String {

@@ -310,6 +310,73 @@ are marked.
 
 ## Handoff
 
+Page numbers, section markers and chapter numbers, 2026-10-04:
+Native `<?ACE 18?>` page numbers (current, next and previous by their range's
+PageNumberType) and `<?ACE 19?>` section markers are now typed zero-width
+controls. They save back as native instructions, upgrade from older
+recovery-only records after the story guard agrees, follow style renames in one
+undo step, and yield to external native edits. Current page numbers show the
+page's Pages-panel label and section markers their marker text, using the same
+page context as last page numbers: a parent instance's destination page, or an
+ordinary thread only when all its frames share the page (or section). Next and
+previous page numbers need the adjacent frames of the marker's own frame, which
+composition does not yet supply, so they save natively but stay diagnosed.
+
+ChapterNumberPreference, previously dropped on every save, is retained; invalid
+numbers or sources are reported. ChapterNumberType definitions lower like last
+page numbers. With no preference Schist uses chapter 1, as InDesign's application
+default renders in the public reference; UserDefined uses its number; the
+book-relative sources render only chapter 1, where a standalone document's
+possible readings agree. All public fixtures' native Chapter Number definitions
+are now typed. Variable authoring now goes through a single `VariableKind`.
+
+The compact Text Variables window gains a chapter kind (Format only) and two
+icons that insert a current page number or section marker at the captured cursor,
+each one undo step; markers appear beside variable instances there for exact
+removal. Insertions at the end of a run take the preceding character's style, as
+typed text would; native review exposed the previous paragraph-default fallback.
+Five short keys are in all 150 catalogs; three new icons are registered.
+
+Native review also found that closing the main window with unsaved Design
+changes quit without a prompt on Windows; the `aaad6dc0` build behaves the same.
+GPUI runs the close hook with the window already leased, so the hook's nested
+window update failed and its fallback allowed the close. The hook now reaches the
+workspace through the leased window. Natively, Alt+F4 on a dirty layout shows
+Unsaved changes; Cancel keeps it (and an open variable window) open, Don't Save
+quits, and Save writes the edit before quitting.
+
+Eighteen new properties pass (nine layout, nine IDML). One earlier IDML test was
+superseded and several expectations changed deliberately: recovery-only page
+instructions are now typed and native, and fixture Chapter Number definitions are
+typed. The source-frozen sweep passes all 16 roadmap targets, shared UI,
+formatting and whitespace: **2,120 distinct passing Rust tests**, four browser
+checks and eight Python audit tests (one existing shared UI documentation example
+ignored). A clippy `matches!` finding stopped the first sweep attempt before
+anything was counted; the fixed tree was linted workspace-wide before restarting.
+The insertion-style fix and the close-hook fix followed native review: layout,
+IDML and Design tests and lints, workspace clippy, the app and web checks,
+formatting, whitespace and the app build pass again on the final source, with two
+new properties (**2,122 tests**). The variable proof now has 36 pages: its first
+24 are pixel-identical to the previous proof, the 12 page-number/section-marker
+pages match their literal controls in Poppler and pass visual review, and the
+other 42 proofs are byte-identical. The debug app builds in 9m 21s.
+
+Native review with Design enabled and isolated configuration shows the fixture's
+native Chapter and Last Page definitions typed; the window's chapter kind with only
+a Format dropdown; page-number and section-marker icons inserting at the captured
+cursor with removable rows; page numbers following section edits (I → 5 → 1)
+through one-step undos; native `<?ACE 18?>`/AutoPageNumber output and a preserved
+ChapterNumberPreference after save; and the process ending when the main window
+closes with the variable window open.
+
+Follow-ups found: Schist writes unstyled runs (and unstyled inserted objects) as
+`CharacterStyle/$ID/` rather than `[No character style]`; this pre-existing
+exporter behavior affects all text and needs its own verified change. Next is
+text wrap: public paged-media `text-wrap` output does not reach its obstacles,
+so wrap geometry follows Adobe's published wrap documentation and the engine's
+existing per-line measures. Published to draft PR #195.
+
+
 Last page number variables and resumed validation, 2026-10-04:
 Work moved to a Windows Server machine. The interrupted `aaad6dc0` validation was
 rerun from an isolated LF worktree before any new code compiled:

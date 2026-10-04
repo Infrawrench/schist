@@ -108,10 +108,16 @@ fn content_instructions_keep_order_context_and_every_utf8_anchor_without_source_
                 );
                 assert_eq!(instruction(saved), (pi.into(), kind.map(str::to_owned)));
             }
+            // ACE 3 ends nested styles; current page numbers (two spellings)
+            // and the section marker render; other modes stay diagnosed.
+            let rendered = match kind {
+                None | Some("AutoPageNumber") => 3,
+                _ => 0,
+            };
             assert_eq!(
                 compose::compose_story(&imported.document, StoryId(0)).frames[0]
                     .unrendered_structures,
-                instructions.len() - 1
+                instructions.len() - 1 - rendered
             );
         }
     }
@@ -140,40 +146,10 @@ fn instruction_only_and_split_content_paragraphs_keep_global_anchors_through_sav
             let package=container::read(&saved.bytes).unwrap();
             for name in package.names().into_iter().filter(|n|n.starts_with("Stories/")) {
                 let root=xml::parse(package.text(name).unwrap()).unwrap();
-                assert!(root.find_all("Content").iter().all(|e|e.instructions.iter().all(|(_, pi)| pi.split_whitespace().eq(["ACE", "3"]))),"Only the supported end-nested-style control has native output");
+                assert!(root.find_all("Content").iter().all(|e|e.instructions.iter().all(|(_, pi)| pi.split_whitespace().eq(["ACE", "3"]) || pi.split_whitespace().eq(["ACE", "18"]))),"Only supported controls have native output; ACE 19 in a NextPageNumber range does not");
             }
             doc=import::read(&saved.bytes).unwrap().document;
             assert_eq!(doc.stories[0],edited.stories[0]);
-        }
-    }
-}
-
-#[test]
-fn native_page_number_instructions_in_public_templates_survive_as_diagnosed_data() {
-    for bytes in [
-        include_bytes!("../../../fixtures/indd/psu-academic-2/psu-academic-2.idml").as_slice(),
-        include_bytes!("../../../fixtures/indd/psu-literary/psu-literary.idml").as_slice(),
-    ] {
-        let imported = import::read(bytes).unwrap();
-        assert!(imported
-            .report
-            .skipped
-            .contains(&schist_i18n::t("design.idml_story_structure").to_string()));
-        let mut doc = imported.document;
-        let retained = |doc: &schist_layout::LayoutDocument| {
-            doc.stories
-                .iter()
-                .flat_map(|s| s.structures.iter())
-                .filter(|s| s.kind == "ProcessingInstruction")
-                .cloned()
-                .collect::<Vec<_>>()
-        };
-        let expected = retained(&doc);
-        assert_eq!(expected.len(), 2);
-        assert!(expected.iter().all(|s| instruction(s).0 == "ACE 18"));
-        for _ in 0..3 {
-            doc = import::read(&export::write(&doc).bytes).unwrap().document;
-            assert_eq!(retained(&doc), expected);
         }
     }
 }
@@ -205,7 +181,9 @@ fn footnote_markers_are_typed_only_inside_supported_notes() {
 
 #[test]
 fn a_native_instruction_edit_invalidates_stale_recovery_coordinates_without_losing_either_marker() {
-    let doc = import::read(&native("<Content>Aé<?ACE 18?>B</Content>", None))
+    // Unsupported instructions stay recovery-only, so an external tool sees
+    // only the source text and inserts its own instruction there.
+    let doc = import::read(&native("<Content>Aé<?ACE 7?>B</Content>", None))
         .unwrap()
         .document;
     let saved = export::write(&doc);
@@ -219,7 +197,7 @@ fn a_native_instruction_edit_invalidates_stale_recovery_coordinates_without_losi
             let bytes = if name.starts_with("Stories/") {
                 let xml = std::str::from_utf8(bytes).unwrap();
                 let edited =
-                    xml.replace("<Content>AéB</Content>", "<Content>Aé<?ACE 19?>B</Content>");
+                    xml.replace("<Content>AéB</Content>", "<Content>Aé<?ACE 8?>B</Content>");
                 changed |= edited != xml;
                 edited.into_bytes()
             } else {
@@ -239,9 +217,9 @@ fn a_native_instruction_edit_invalidates_stale_recovery_coordinates_without_losi
     assert_eq!(expected.text(), "AéB");
     assert_eq!(expected.structures.len(), 2);
     assert_eq!(expected.structures[0].at, Some(3));
-    assert_eq!(instruction(&expected.structures[0]).0, "ACE 19");
+    assert_eq!(instruction(&expected.structures[0]).0, "ACE 8");
     assert_eq!(expected.structures[1].at, None);
-    assert_eq!(instruction(&expected.structures[1]).0, "ACE 18");
+    assert_eq!(instruction(&expected.structures[1]).0, "ACE 7");
     for _ in 0..3 {
         doc = import::read(&export::write(&doc).bytes).unwrap().document;
         assert_eq!(doc.stories[0], expected);

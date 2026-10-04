@@ -2703,9 +2703,52 @@ when every frame lies in one section, and otherwise stays unrendered with the
 existing retained-structure Preflight error. A visible section prefix on the
 supplying page is not guessed into or out of the value; such values also stay
 unrendered. Hidden pages count, as they already do in Schist page numbering.
-Chapter numbers, dates, file names, running headers and cross-reference variables
-remain recovery data. Native placement agreement beyond the reference labels is
-not claimed.
+Dates, file names, running headers and cross-reference variables remain recovery
+data. Native placement agreement beyond the reference labels is not claimed.
+
+#### Page numbers, section markers and chapter numbers
+
+The public specification enumerates PageNumberType as AutoPageNumber,
+NextPageNumber, PreviousPageNumber and TextVariable but does not list the Content
+instruction codes. The pinned paged-media fixture inputs above write the page
+number as `<?ACE 18?>` in a range carrying that PageNumberType (absent for the
+current page) and the section marker as `<?ACE 19?>`; the public PSU templates
+contain current page numbers in the same form. Its native PDF labels the five
+pages 1 2 1 2 3 and shows the matching section markers on each parent footer.
+
+Main-story ACE 18 with no, AutoPageNumber, NextPageNumber or PreviousPageNumber
+type, and ACE 19 with no or AutoPageNumber type, are now typed zero-width controls.
+Other modes and instructions remain recovery data. Native saves write them back
+as instructions in their own formatted range; current page numbers carry
+`PageNumberType="AutoPageNumber"`. Older recovery-only records upgrade after the
+story guard agrees, and external native edits supersede saved story data as for
+other controls. Style renames include their formatting in one undo step. The
+Text Variables window inserts current page numbers and section markers at its
+captured cursor with two icons, each one undo step, and lists them beside
+variable instances there for exact removal.
+
+A current page number shows its page's Pages-panel label, including a section
+prefix only when the section includes it; a section marker shows the marker text,
+which may be empty. Both use the same page context as last page numbers: a parent
+instance uses its destination page; an ordinary thread renders only when all of
+its frames share one page (or, for a marker, one section). Next and previous page
+numbers name the pages of adjacent frames of the marker's own frame, which the
+composition pass does not yet know, so they save natively but stay unrendered and
+diagnosed.
+
+Every checked-in public IDML package has `ChapterNumberPreference
+ChapterNumber="1" ChapterNumberSource="ContinueFromPreviousDocument"` with a
+`ChapterNumberFormat` string `1, 2, 3, 4...`. These were previously dropped on
+save. The preference is now retained; invalid numbers or sources are reported and
+omitted. ChapterNumberType definitions with an explicit published Format lower
+like last page numbers. The reference document has no chapter preference, and
+InDesign fills application defaults, rendering chapter 1. Schist therefore uses
+chapter 1 when the preference is absent, the stored number for UserDefined, and
+chapter 1 for the book-relative sources only when the stored number is 1, where a
+standalone document's possible readings agree. Other book-relative numbers are
+not guessed. Current format needs the observed Arabic format string; explicit
+formats do not. Next/previous page numbers, books and other format spellings
+remain open.
 
 
 ### End Nested Style controls

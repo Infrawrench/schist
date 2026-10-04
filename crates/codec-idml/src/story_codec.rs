@@ -92,8 +92,9 @@ pub(crate) fn decode(story: &Element) -> Story {
     decode_with_markers(story, false).0
 }
 
-/// Older guarded records retained ACE 3 only as contextual recovery XML.
-/// Upgrade after native agreement, never by parsing XML in the layout kernel.
+/// Older guarded records retained supported instructions only as contextual
+/// recovery XML. Upgrade after native agreement, never by parsing XML in the
+/// layout kernel.
 pub(crate) fn upgrade_controls(story: &mut Story, refs: &style_codec::References) {
     for structure in &mut story.structures {
         if structure.kind != "ProcessingInstruction"
@@ -118,17 +119,48 @@ pub(crate) fn upgrade_controls(story: &mut Story, refs: &style_codec::References
             || !content.children.is_empty()
             || content.instructions.len() != 1
             || content.instructions[0].0 != 0
-            || !content.instructions[0]
-                .1
-                .split_whitespace()
-                .eq(["ACE", "3"])
         {
             continue;
         }
         let name = refs.character(character.attr("AppliedCharacterStyle").unwrap_or_default());
-        structure.control = Some(schist_layout::story::InlineControl::EndNestedStyle {
-            character_style: name,
-        });
+        structure.control = control(
+            &content.instructions[0].1,
+            &name,
+            character.attr("PageNumberType"),
+        );
+    }
+}
+
+/// Supported zero-width Content instructions. ACE 3 ends a nested style;
+/// ACE 18 is a page number whose range PageNumberType names current, next or
+/// previous; ACE 19 is a section marker. Other instructions and page-number
+/// modes remain recovery data.
+pub(crate) fn control(
+    instruction: &str,
+    character_style: &str,
+    page_number_type: Option<&str>,
+) -> Option<schist_layout::story::InlineControl> {
+    use schist_layout::story::{InlineControl, PageNumberKind};
+    let words: Vec<_> = instruction.split_whitespace().collect();
+    let character_style = character_style.to_owned();
+    match (words.as_slice(), page_number_type) {
+        (["ACE", "3"], _) => Some(InlineControl::EndNestedStyle { character_style }),
+        (["ACE", "18"], None | Some("AutoPageNumber")) => Some(InlineControl::PageNumber {
+            kind: PageNumberKind::Current,
+            character_style,
+        }),
+        (["ACE", "18"], Some("NextPageNumber")) => Some(InlineControl::PageNumber {
+            kind: PageNumberKind::Next,
+            character_style,
+        }),
+        (["ACE", "18"], Some("PreviousPageNumber")) => Some(InlineControl::PageNumber {
+            kind: PageNumberKind::Previous,
+            character_style,
+        }),
+        (["ACE", "19"], None | Some("AutoPageNumber")) => {
+            Some(InlineControl::SectionMarker { character_style })
+        }
+        _ => None,
     }
 }
 
@@ -332,11 +364,7 @@ impl StoryBuilder {
                         self.structures.push((
                             self.out.points.len(),
                             schist_layout::StoryStructure {
-                                control: instruction.split_whitespace().eq(["ACE", "3"]).then(
-                                    || schist_layout::story::InlineControl::EndNestedStyle {
-                                        character_style: character.into(),
-                                    },
-                                ),
+                                control: control(instruction, character, page_number_type),
                                 at: Some(self.text.len() + at),
                                 kind: "ProcessingInstruction".into(),
                                 payload: inline_payload(

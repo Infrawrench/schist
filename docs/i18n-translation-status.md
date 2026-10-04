@@ -1,5 +1,12 @@
 # Translation refresh status
 
+## October 4, 2026: chapter-number variables
+
+The Text Variables window adds five short labels as English placeholders in
+all 150 catalogs: `design.variable_kind_chapter` and four marker names used for
+the insertion icons and instance rows (current, next and previous page number,
+section marker). No locale was added.
+
 ## October 3, 2026: last-page text variables
 
 The Text Variables window adds seven short labels for the variable kind, the

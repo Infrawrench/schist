@@ -17,28 +17,131 @@ pub struct TextVariable {
     /// snapshots have no field and remain literal custom text.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub last_page: Option<LastPageNumber>,
+    /// A chapter-number definition, evaluated from document chapter numbering.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub chapter: Option<ChapterNumber>,
+}
+
+/// What a definition displays. The stored fields keep older snapshots readable;
+/// authoring goes through this single choice so kinds cannot be combined.
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub enum VariableKind {
+    Custom(String),
+    LastPage(LastPageNumber),
+    Chapter(ChapterNumber),
 }
 
 impl TextVariable {
     pub fn custom(id: impl Into<String>, name: impl Into<String>, contents: &str) -> Self {
-        Self {
+        Self::new(id, name, VariableKind::Custom(contents.into()))
+    }
+
+    pub fn new(id: impl Into<String>, name: impl Into<String>, kind: VariableKind) -> Self {
+        let mut out = Self {
             id: id.into(),
             name: name.into(),
-            contents: contents.into(),
+            contents: String::new(),
             last_page: None,
+            chapter: None,
+        };
+        match kind {
+            VariableKind::Custom(contents) => out.contents = contents,
+            VariableKind::LastPage(spec) => out.last_page = Some(spec),
+            VariableKind::Chapter(spec) => out.chapter = Some(spec),
+        }
+        out
+    }
+
+    /// The single kind this definition stores, or None for an inconsistent
+    /// record combining computed kinds or literal contents with one.
+    pub fn kind(&self) -> Option<VariableKind> {
+        match (&self.last_page, &self.chapter) {
+            (None, None) => Some(VariableKind::Custom(self.contents.clone())),
+            (Some(page), None) if self.contents.is_empty() => {
+                Some(VariableKind::LastPage(page.clone()))
+            }
+            (None, Some(chapter)) if self.contents.is_empty() => {
+                Some(VariableKind::Chapter(chapter.clone()))
+            }
+            _ => None,
         }
     }
 
     /// Literal parts must be displayable on one line. A computed definition
     /// has no literal contents of its own.
     pub fn valid(&self) -> bool {
-        valid_contents(&self.contents)
-            && self.last_page.as_ref().is_none_or(|page| {
-                self.contents.is_empty()
-                    && valid_contents(&page.before)
-                    && valid_contents(&page.after)
-            })
+        match self.kind() {
+            Some(VariableKind::Custom(contents)) => valid_contents(&contents),
+            Some(VariableKind::LastPage(page)) => {
+                valid_contents(&page.before) && valid_contents(&page.after)
+            }
+            Some(VariableKind::Chapter(chapter)) => {
+                valid_contents(&chapter.before) && valid_contents(&chapter.after)
+            }
+            None => false,
+        }
     }
+}
+
+/// ChapterNumberVariablePreference: literal text around a formatted number.
+#[derive(Debug, Clone, PartialEq, Eq, Default, Serialize, Deserialize)]
+pub struct ChapterNumber {
+    pub before: String,
+    pub format: PageNumberFormat,
+    pub after: String,
+}
+
+/// Where a document's chapter number comes from. Book-relative sources are
+/// resolved by a book, which a standalone document does not have.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
+pub enum ChapterSource {
+    UserDefined,
+    ContinueFromPreviousDocument,
+    SameAsPreviousDocument,
+}
+
+/// The native ChapterNumberPreference, retained exactly for interchange.
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+pub struct ChapterNumbering {
+    pub number: u32,
+    pub source: ChapterSource,
+    /// The native ChapterNumberFormat display string, such as "1, 2, 3, 4...".
+    pub format: String,
+}
+
+/// The only ChapterNumberFormat spelling established by public files.
+pub const ARABIC_CHAPTER_FORMAT: &str = "1, 2, 3, 4...";
+
+/// A standalone document's chapter value. An absent preference is the
+/// application default, chapter 1 in Arabic. A user-defined number is used as
+/// is; book-relative sources agree on chapter 1 whether a standalone document
+/// uses the stored number or restarts, and are not guessed for other numbers.
+/// Current format needs a recognized document format spelling.
+pub fn chapter_value(doc: &LayoutDocument, spec: &ChapterNumber) -> Option<String> {
+    let (number, current) = match &doc.chapter_numbering {
+        None => (1, Some(crate::NumberStyle::Arabic)),
+        Some(numbering) => {
+            let number = match numbering.source {
+                ChapterSource::UserDefined => numbering.number,
+                _ if numbering.number == 1 => 1,
+                _ => return None,
+            };
+            (
+                number,
+                (numbering.format == ARABIC_CHAPTER_FORMAT).then_some(crate::NumberStyle::Arabic),
+            )
+        }
+    };
+    let style = match spec.format {
+        PageNumberFormat::Current => current?,
+        format => format.style(crate::NumberStyle::Arabic),
+    };
+    Some(format!(
+        "{}{}{}",
+        spec.before,
+        style.format(number),
+        spec.after
+    ))
 }
 
 /// The rendered subset of the public VariableNumberingStyles enumeration.
@@ -110,13 +213,7 @@ pub fn last_page_value(
     let last = match spec.scope {
         VariableScope::Document => count.checked_sub(1)?,
         VariableScope::Section => {
-            let mut sections = pages
-                .iter()
-                .map(|&page| (page < count).then(|| doc.section_at(page).0));
-            let first = sections.next()??;
-            if !sections.all(|section| section == Some(first)) {
-                return None;
-            }
+            let first = single_section(doc, pages)?;
             (first + 1..count)
                 .find(|&page| doc.pages[page].section.is_some())
                 .map_or(count - 1, |next| next - 1)
@@ -188,27 +285,21 @@ pub fn create(
     name: &str,
     contents: &str,
 ) -> Option<String> {
-    create_definition(doc, history, name, contents, None)
+    create_definition(doc, history, name, VariableKind::Custom(contents.into()))
 }
 
 fn valid_name(name: &str) -> bool {
     !name.trim().is_empty() && !name.chars().any(char::is_control)
 }
 
-/// Create a custom or last-page-number definition in one undo step.
+/// Create a definition of any kind in one undo step.
 pub fn create_definition(
     doc: &mut LayoutDocument,
     history: &mut History,
     name: &str,
-    contents: &str,
-    last_page: Option<LastPageNumber>,
+    kind: VariableKind,
 ) -> Option<String> {
-    let mut definition = TextVariable {
-        id: String::new(),
-        name: name.to_owned(),
-        contents: contents.to_owned(),
-        last_page,
-    };
+    let mut definition = TextVariable::new(String::new(), name, kind);
     if !valid_name(name) || !definition.valid() {
         return None;
     }
@@ -228,8 +319,9 @@ pub fn create_definition(
     change(doc, history, after).then_some(id)
 }
 
-/// Commit both fields once against the captured definition. Editing one shared
-/// resource changes every instance without copying or rewriting its stories.
+/// Commit a custom name and literal value once against the captured
+/// definition. Editing one shared resource changes every instance without
+/// copying or rewriting its stories.
 pub fn update(
     doc: &mut LayoutDocument,
     history: &mut History,
@@ -242,8 +334,7 @@ pub fn update(
         history,
         expected,
         name,
-        contents,
-        expected.last_page.clone(),
+        VariableKind::Custom(contents.into()),
     )
 }
 
@@ -254,15 +345,9 @@ pub fn update_definition(
     history: &mut History,
     expected: &TextVariable,
     name: &str,
-    contents: &str,
-    last_page: Option<LastPageNumber>,
+    kind: VariableKind,
 ) -> bool {
-    let replacement = TextVariable {
-        id: expected.id.clone(),
-        name: name.to_owned(),
-        contents: contents.to_owned(),
-        last_page,
-    };
+    let replacement = TextVariable::new(expected.id.clone(), name, kind);
     if unique(doc, &expected.id) != Some(expected) || !valid_name(name) || !replacement.valid() {
         return false;
     }
@@ -326,26 +411,41 @@ impl Cursor {
         )
     }
 
-    /// Insert after existing coincident structures, preserving their relative
-    /// order. The surrounding character range supplies instance formatting;
-    /// paragraph defaults remain inherited when no named range covers the caret.
-    pub fn insert(
+    /// The surrounding character range supplies inserted formatting, as typed
+    /// text would take it: the following character's range, or at the end of
+    /// a run inside a paragraph the preceding character's. Paragraph defaults
+    /// remain inherited when no named range applies.
+    fn character_style(&self) -> String {
+        let ranges = &self.expected.ranges;
+        let following = ranges
+            .iter()
+            .rev()
+            .find(|r| r.start <= self.at && self.at < r.end);
+        let inside =
+            paragraph(&self.expected, self.at).is_some_and(|(_, start, _)| self.at > start);
+        following
+            .or_else(|| {
+                inside
+                    .then(|| {
+                        ranges
+                            .iter()
+                            .rev()
+                            .find(|r| r.start < self.at && r.end == self.at)
+                    })
+                    .flatten()
+            })
+            .map(|r| r.style.clone())
+            .unwrap_or_default()
+    }
+
+    /// Insert after existing coincident structures, preserving their order.
+    fn insert_structure(
         &self,
         doc: &mut LayoutDocument,
         history: &mut History,
-        expected: &TextVariable,
+        kind: &str,
+        control: InlineControl,
     ) -> bool {
-        if !self.valid(doc) || unique(doc, &expected.id) != Some(expected) || !expected.valid() {
-            return false;
-        }
-        let character_style = self
-            .expected
-            .ranges
-            .iter()
-            .rev()
-            .find(|r| r.start <= self.at && self.at < r.end)
-            .map(|r| r.style.clone())
-            .unwrap_or_default();
         let mut after = self.expected.clone();
         let index = after
             .structures
@@ -356,39 +456,92 @@ impl Cursor {
             index,
             StoryStructure {
                 at: Some(self.at),
-                kind: "TextVariableInstance".into(),
+                kind: kind.into(),
                 payload: String::new(),
                 footnote: None,
-                control: Some(InlineControl::TextVariable {
-                    variable: expected.id.clone(),
-                    character_style,
-                    name: expected.name.clone(),
-                }),
+                control: Some(control),
             },
         );
         self.commit(doc, history, after)
     }
 
-    /// Remove exactly the chosen main-story instance at this cursor, including
-    /// unresolved references. Never guess between coincident zero-width objects.
+    /// Insert one instance of a shared definition.
+    pub fn insert(
+        &self,
+        doc: &mut LayoutDocument,
+        history: &mut History,
+        expected: &TextVariable,
+    ) -> bool {
+        if !self.valid(doc) || unique(doc, &expected.id) != Some(expected) || !expected.valid() {
+            return false;
+        }
+        let control = InlineControl::TextVariable {
+            variable: expected.id.clone(),
+            character_style: self.character_style(),
+            name: expected.name.clone(),
+        };
+        self.insert_structure(doc, history, "TextVariableInstance", control)
+    }
+
+    /// Insert a current page number or a section marker. These are native
+    /// zero-width instructions, not shared definitions.
+    pub fn insert_marker(
+        &self,
+        doc: &mut LayoutDocument,
+        history: &mut History,
+        section: bool,
+    ) -> bool {
+        if !self.valid(doc) {
+            return false;
+        }
+        let character_style = self.character_style();
+        let control = if section {
+            InlineControl::SectionMarker { character_style }
+        } else {
+            InlineControl::PageNumber {
+                kind: crate::story::PageNumberKind::Current,
+                character_style,
+            }
+        };
+        self.insert_structure(doc, history, "ProcessingInstruction", control)
+    }
+
+    /// Remove exactly the chosen main-story instance or marker at this cursor,
+    /// including unresolved references. Never guess between coincident
+    /// zero-width objects.
     pub fn remove_instance(
         &self,
         doc: &mut LayoutDocument,
         history: &mut History,
         index: usize,
     ) -> bool {
-        if !self.expected.structures.get(index).is_some_and(|s| {
-            s.at == Some(self.at)
-                && s.kind == "TextVariableInstance"
-                && s.footnote.is_none()
-                && matches!(s.control, Some(InlineControl::TextVariable { .. }))
-        }) {
+        if !self
+            .expected
+            .structures
+            .get(index)
+            .is_some_and(|s| s.at == Some(self.at) && removable(s))
+        {
             return false;
         }
         let mut after = self.expected.clone();
         after.structures.remove(index);
         self.commit(doc, history, after)
     }
+}
+
+/// Main-story variables and page/section markers the authoring window lists.
+pub fn removable(structure: &StoryStructure) -> bool {
+    structure.footnote.is_none()
+        && matches!(
+            (&structure.kind[..], &structure.control),
+            (
+                "TextVariableInstance",
+                Some(InlineControl::TextVariable { .. })
+            ) | (
+                "ProcessingInstruction",
+                Some(InlineControl::PageNumber { .. } | InlineControl::SectionMarker { .. })
+            )
+        )
 }
 
 fn valid_anchor(story: &Story, at: usize) -> bool {
@@ -439,6 +592,37 @@ pub(crate) struct Instance {
     pub character: crate::ResolvedCharacter,
 }
 
+/// The one page every candidate shares. Several pages are never narrowed to a
+/// guess such as the first frame's page.
+fn single_page(doc: &LayoutDocument, pages: &[usize]) -> Option<usize> {
+    let (&first, rest) = pages.split_first()?;
+    (first < doc.pages.len() && rest.iter().all(|&page| page == first)).then_some(first)
+}
+
+/// The boundary page of the one section every candidate shares.
+fn single_section(doc: &LayoutDocument, pages: &[usize]) -> Option<usize> {
+    let mut sections = pages
+        .iter()
+        .map(|&page| (page < doc.pages.len()).then(|| doc.section_at(page).0));
+    let first = sections.next()??;
+    sections
+        .all(|section| section == Some(first))
+        .then_some(first)
+}
+
+/// A current page-number marker shows its page's label, including a section
+/// prefix only when the section asks for it, as the Pages panel does.
+pub fn current_page_value(doc: &LayoutDocument, pages: &[usize]) -> Option<String> {
+    let label = doc.page_number(single_page(doc, pages)?);
+    valid_contents(&label).then_some(label)
+}
+
+/// A section marker shows its section's marker text, which may be empty.
+pub fn section_marker_value(doc: &LayoutDocument, pages: &[usize]) -> Option<String> {
+    let marker = doc.section_at(single_section(doc, pages)?).1.marker;
+    valid_contents(&marker).then_some(marker)
+}
+
 /// Only supported, unambiguous references become display objects. Others stay
 /// on the existing unrendered-structure diagnostic path, with their XML intact.
 /// `pages` are every page this composition pass can place the story on.
@@ -447,21 +631,51 @@ pub(crate) fn instances(
     story: &crate::Story,
     pages: &[usize],
 ) -> Vec<Instance> {
+    use crate::story::{InlineControl, PageNumberKind};
     story
         .structures
         .iter()
         .enumerate()
         .filter_map(|(index, structure)| {
-            if structure.kind != "TextVariableInstance" || structure.footnote.is_some() {
+            if structure.footnote.is_some() {
                 return None;
             }
-            let Some(crate::story::InlineControl::TextVariable {
-                variable,
-                character_style,
-                ..
-            }) = &structure.control
-            else {
-                return None;
+            let (value, character_style) = match (structure.kind.as_str(), &structure.control) {
+                (
+                    "TextVariableInstance",
+                    Some(InlineControl::TextVariable {
+                        variable,
+                        character_style,
+                        ..
+                    }),
+                ) => {
+                    let mut definitions = doc
+                        .text_variables
+                        .iter()
+                        .filter(|d| !d.id.is_empty() && d.id == *variable);
+                    let definition = definitions.next()?;
+                    if definitions.next().is_some() || !definition.valid() {
+                        return None;
+                    }
+                    let value = match definition.kind()? {
+                        VariableKind::Custom(contents) => contents,
+                        VariableKind::LastPage(spec) => last_page_value(doc, &spec, pages)?,
+                        VariableKind::Chapter(spec) => chapter_value(doc, &spec)?,
+                    };
+                    (value, character_style)
+                }
+                (
+                    "ProcessingInstruction",
+                    Some(InlineControl::PageNumber {
+                        kind: PageNumberKind::Current,
+                        character_style,
+                    }),
+                ) => (current_page_value(doc, pages)?, character_style),
+                (
+                    "ProcessingInstruction",
+                    Some(InlineControl::SectionMarker { character_style }),
+                ) => (section_marker_value(doc, pages)?, character_style),
+                _ => return None,
             };
             let at = structure.at?;
             let (text, start, style) = paragraph(story, at)?;
@@ -473,8 +687,8 @@ pub(crate) fn instances(
             } else {
                 style
             });
-            // Initial and nested rules count a variable as one logical object.
-            // Their source-only rule projection does not implement that yet.
+            // Initial and nested rules count an inline object as one logical
+            // object. Their source-only rule projection does not implement that.
             if (paragraph.drop_caps_lines.unwrap_or(0) > 0
                 && paragraph.drop_caps_characters.unwrap_or(1) > 0)
                 || paragraph
@@ -484,18 +698,6 @@ pub(crate) fn instances(
             {
                 return None;
             }
-            let mut definitions = doc
-                .text_variables
-                .iter()
-                .filter(|d| !d.id.is_empty() && d.id == *variable);
-            let definition = definitions.next()?;
-            if definitions.next().is_some() || !definition.valid() {
-                return None;
-            }
-            let value = match &definition.last_page {
-                Some(spec) => last_page_value(doc, spec, pages)?,
-                None => definition.contents.clone(),
-            };
             Some(Instance {
                 structure: index,
                 at,

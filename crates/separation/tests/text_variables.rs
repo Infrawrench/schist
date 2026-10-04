@@ -113,12 +113,11 @@ fn section_values_without_one_section_are_preflight_errors_not_guesses() {
             }),
         });
         doc.stories[story.0 as usize] = text;
-        doc.text_variables.push(TextVariable {
-            id: "last".into(),
-            name: "Last".into(),
-            contents: String::new(),
-            last_page: Some(LastPageNumber::default()),
-        });
+        doc.text_variables.push(TextVariable::new(
+            "last",
+            "Last",
+            VariableKind::LastPage(LastPageNumber::default()),
+        ));
         for page in [
             separate_page(&doc, 0, OutputSettings::at(72.0), &NoGraphics),
             separate_page_built(&doc, 0, OutputSettings::at(72.0), &NoGraphics, &NaiveBuild),

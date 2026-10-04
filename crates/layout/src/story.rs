@@ -112,6 +112,51 @@ pub enum InlineControl {
         character_style: String,
         name: String,
     },
+    /// A native page-number marker. Its label is computed from page placement.
+    PageNumber {
+        kind: PageNumberKind,
+        character_style: String,
+    },
+    /// A native section marker, showing its section's marker text.
+    SectionMarker { character_style: String },
+}
+
+/// Which page a page-number marker names. Next and previous name the pages
+/// of adjacent frames in the marker's thread.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
+pub enum PageNumberKind {
+    Current,
+    Next,
+    Previous,
+}
+
+impl InlineControl {
+    /// The named character style formatting this control, for renames.
+    pub fn character_style_mut(&mut self) -> &mut String {
+        match self {
+            Self::EndNestedStyle { character_style }
+            | Self::TextVariable {
+                character_style, ..
+            }
+            | Self::PageNumber {
+                character_style, ..
+            }
+            | Self::SectionMarker { character_style } => character_style,
+        }
+    }
+
+    pub fn character_style(&self) -> &str {
+        match self {
+            Self::EndNestedStyle { character_style }
+            | Self::TextVariable {
+                character_style, ..
+            }
+            | Self::PageNumber {
+                character_style, ..
+            }
+            | Self::SectionMarker { character_style } => character_style,
+        }
+    }
 }
 
 /// An anchored native structure, with optional typed composition data.

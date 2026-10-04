@@ -1,7 +1,9 @@
 use schist_codec_idml::{container, export, import, xml};
 use schist_layout::{
     authoring, blank_a4, compose,
-    text_variables::{self as variables, Cursor, LastPageNumber, PageNumberFormat, VariableScope},
+    text_variables::{
+        self as variables, Cursor, LastPageNumber, PageNumberFormat, VariableKind, VariableScope,
+    },
     History, LayoutDocument, NumberStyle, ParentObject, ParentPage, Rect, Section, Story, StoryId,
 };
 
@@ -106,17 +108,16 @@ fn native_last_page_preferences_lower_render_and_save_with_their_published_spell
                     &last_page("last", &text),
                 );
                 let mut doc = import::read(&bytes).unwrap().document;
-                let expected = schist_layout::text_variables::TextVariable {
-                    id: "last".into(),
-                    name: "Last Page".into(),
-                    contents: String::new(),
-                    last_page: Some(LastPageNumber {
+                let expected = schist_layout::text_variables::TextVariable::new(
+                    "last",
+                    "Last Page",
+                    VariableKind::LastPage(LastPageNumber {
                         before: before.into(),
                         format,
                         after: after.into(),
                         scope,
                     }),
-                };
+                );
                 assert_eq!(doc.text_variables, std::slice::from_ref(&expected));
                 // Exact native XML is archived too, as for custom text.
                 let archive = doc.retained_text_variables.clone();
@@ -254,8 +255,7 @@ fn authored_parent_footers_keep_section_values_through_native_saves() {
             &mut doc,
             &mut history,
             name,
-            "",
-            Some(LastPageNumber {
+            VariableKind::LastPage(LastPageNumber {
                 before: "#".into(),
                 format,
                 after: String::new(),
@@ -342,8 +342,7 @@ fn external_preference_edits_supersede_saved_identity_data() {
         &mut doc,
         &mut history,
         "Last",
-        "",
-        Some(LastPageNumber::default()),
+        VariableKind::LastPage(LastPageNumber::default()),
     )
     .unwrap();
     let definition = doc.text_variables[0].clone();

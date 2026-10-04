@@ -2,8 +2,8 @@ use schist_layout::{
     authoring, blank_a4, compose, numbering,
     story::InlineControl,
     text_variables::{
-        self as variables, last_page_value, Cursor, LastPageNumber, PageNumberFormat, TextVariable,
-        VariableScope,
+        self as variables, last_page_value, ChapterNumber, Cursor, LastPageNumber,
+        PageNumberFormat, TextVariable, VariableKind, VariableScope,
     },
     threading, History, LayoutDocument, NumberStyle, ObjectId, ParentObject, ParentPage, Rect,
     Section, Story, StoryId, StoryStructure,
@@ -241,17 +241,16 @@ fn reference(at: usize, variable: &str) -> StoryStructure {
 }
 
 fn definition(id: &str, format: PageNumberFormat, scope: VariableScope) -> TextVariable {
-    TextVariable {
-        id: id.into(),
-        name: id.into(),
-        contents: String::new(),
-        last_page: Some(LastPageNumber {
+    TextVariable::new(
+        id,
+        id,
+        VariableKind::LastPage(LastPageNumber {
             before: String::new(),
             format,
             after: String::new(),
             scope,
         }),
-    }
+    )
 }
 
 fn rendered(frame: &compose::ComposedFrame) -> String {
@@ -438,22 +437,33 @@ fn definition_kinds_and_section_changes_each_undo_once_and_refresh_instances() {
         before: "of ".into(),
         ..Default::default()
     };
-    // Literal contents and a computed kind are mutually exclusive.
-    assert!(
-        variables::create_definition(&mut doc, &mut history, "Bad", "x", Some(spec.clone()))
-            .is_none()
-    );
+    // Literal contents and computed kinds cannot be combined in one record.
+    let mut combined = TextVariable::new("x", "x", VariableKind::LastPage(spec.clone()));
+    combined.contents = "x".into();
+    assert!(combined.kind().is_none() && !combined.valid());
+    combined.contents.clear();
+    combined.chapter = Some(ChapterNumber::default());
+    assert!(combined.kind().is_none() && !combined.valid());
     let invalid = LastPageNumber {
         after: "\t".into(),
         ..spec.clone()
     };
-    assert!(
-        variables::create_definition(&mut doc, &mut history, "Bad", "", Some(invalid.clone()))
-            .is_none()
-    );
     let depth = history.undo_depth();
-    let id = variables::create_definition(&mut doc, &mut history, "Last", "", Some(spec.clone()))
-        .unwrap();
+    assert!(variables::create_definition(
+        &mut doc,
+        &mut history,
+        "Bad",
+        VariableKind::LastPage(invalid.clone())
+    )
+    .is_none());
+    assert_eq!(history.undo_depth(), depth);
+    let id = variables::create_definition(
+        &mut doc,
+        &mut history,
+        "Last",
+        VariableKind::LastPage(spec.clone()),
+    )
+    .unwrap();
     assert_eq!(history.undo_depth(), depth + 1);
     let defined = doc.text_variables[0].clone();
     assert!(Cursor::capture(&doc, story, 5)
@@ -481,16 +491,23 @@ fn definition_kinds_and_section_changes_each_undo_once_and_refresh_instances() {
     assert_eq!(text(&doc), ["of 1"]);
 
     let stories = doc.stories.clone();
-    for (contents, last_page, expected) in [
-        ("literal", None, "literal"),
+    for (kind, expected) in [
+        (VariableKind::Custom("literal".into()), "literal"),
         (
-            "",
-            Some(LastPageNumber {
+            VariableKind::LastPage(LastPageNumber {
                 format: PageNumberFormat::LowerLetters,
                 after: " ✓".into(),
                 ..spec.clone()
             }),
             "of a ✓",
+        ),
+        (
+            VariableKind::Chapter(ChapterNumber {
+                before: "ch ".into(),
+                format: PageNumberFormat::UpperRoman,
+                after: String::new(),
+            }),
+            "ch I",
         ),
     ] {
         let captured = doc.text_variables[0].clone();
@@ -501,16 +518,14 @@ fn definition_kinds_and_section_changes_each_undo_once_and_refresh_instances() {
             &mut history,
             &captured,
             "Last",
-            "",
-            Some(invalid.clone())
+            VariableKind::LastPage(invalid.clone())
         ));
         assert!(variables::update_definition(
             &mut doc,
             &mut history,
             &captured,
             "Renamed",
-            contents,
-            last_page.clone()
+            kind.clone()
         ));
         assert_eq!(history.undo_depth(), depth + 1);
         assert_eq!(doc.text_variables[0].id, id);
@@ -522,8 +537,7 @@ fn definition_kinds_and_section_changes_each_undo_once_and_refresh_instances() {
             &mut history,
             &captured,
             "Again",
-            contents,
-            last_page.clone()
+            kind.clone()
         ));
         let after = doc.clone();
         assert!(history.undo(&mut doc));

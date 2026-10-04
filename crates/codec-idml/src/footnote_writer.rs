@@ -9,7 +9,8 @@ pub(crate) struct InlineEvent {
     style: String,
     xml: String,
     emitted: bool,
-    variable: bool,
+    /// The PageNumberType its CharacterStyleRange carries, if any.
+    page_number_type: Option<&'static str>,
 }
 
 pub(crate) fn events(
@@ -29,7 +30,7 @@ pub(crate) fn events(
             style: marker.character_style.clone(),
             xml: "<Content><?ACE 4?></Content>".into(),
             emitted: false,
-            variable: false,
+            page_number_type: None,
         })
         .collect();
     for (index, structure) in story.structures.iter().enumerate() {
@@ -52,29 +53,43 @@ pub(crate) fn events(
                         style: character_style.clone(),
                         xml: format!(r#"<TextVariableInstance Self="SchistVariableInstance{}_{}" Name="{}" AssociatedTextVariable="{}" ResultText=""/>"#, export::escape(owner), index, export::escape(name), export::escape(id)),
                         emitted: false,
-                        variable: true,
+                        page_number_type: Some("TextVariable"),
                     });
                 }
             }
             continue;
         }
 
-        if let Some((at, schist_layout::story::InlineControl::EndNestedStyle { character_style })) =
-            structure.at.zip(structure.control.as_ref())
-        {
-            if structure.kind == "ProcessingInstruction"
-                && structure.footnote.is_none()
-                && text.is_char_boundary(at)
-            {
-                out.push(InlineEvent {
-                    at,
-                    style: character_style.clone(),
-                    xml: "<Content><?ACE 3?></Content>".into(),
-                    emitted: false,
-                    variable: false,
-                });
+        if let Some((at, control)) = structure.at.zip(structure.control.as_ref()) {
+            use schist_layout::story::{InlineControl, PageNumberKind};
+            let native = match control {
+                InlineControl::EndNestedStyle { .. } => Some(("ACE 3", None)),
+                InlineControl::PageNumber { kind, .. } => Some((
+                    "ACE 18",
+                    Some(match kind {
+                        PageNumberKind::Current => "AutoPageNumber",
+                        PageNumberKind::Next => "NextPageNumber",
+                        PageNumberKind::Previous => "PreviousPageNumber",
+                    }),
+                )),
+                InlineControl::SectionMarker { .. } => Some(("ACE 19", None)),
+                InlineControl::TextVariable { .. } => None,
+            };
+            if let Some((instruction, page_number_type)) = native {
+                if structure.kind == "ProcessingInstruction"
+                    && structure.footnote.is_none()
+                    && text.is_char_boundary(at)
+                {
+                    out.push(InlineEvent {
+                        at,
+                        style: control.character_style().to_owned(),
+                        xml: format!("<Content><?{instruction}?></Content>"),
+                        emitted: false,
+                        page_number_type,
+                    });
+                }
+                continue;
             }
-            continue;
         }
         let Some((at, note)) = structure.at.zip(structure.footnote.as_ref()) else {
             continue;
@@ -104,7 +119,7 @@ pub(crate) fn events(
             style: note.reference_character_style.clone(),
             xml,
             emitted: false,
-            variable: false,
+            page_number_type: None,
         });
     }
     // Stable order matters when several notes or markers share one byte anchor.
@@ -137,11 +152,10 @@ pub(crate) fn paragraph_runs(
             out.push_str(&format!(
                 r#"<CharacterStyleRange AppliedCharacterStyle="{}"{}>{}</CharacterStyleRange>"#,
                 character_reference(&event.style),
-                if event.variable {
-                    r#" PageNumberType="TextVariable""#
-                } else {
-                    ""
-                },
+                event
+                    .page_number_type
+                    .map(|value| format!(r#" PageNumberType="{value}""#))
+                    .unwrap_or_default(),
                 event.xml
             ));
             event.emitted = true;

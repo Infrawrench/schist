@@ -1121,10 +1121,14 @@ pub(crate) fn font_inventory(
     }
     for story in &document.stories {
         for structure in &story.structures {
-            if let Some(schist_layout::story::InlineControl::TextVariable {
-                character_style, ..
-            }) = &structure.control
+            // Every displayed inline value: variables, page numbers and markers.
+            if let Some(
+                control @ (schist_layout::story::InlineControl::TextVariable { .. }
+                | schist_layout::story::InlineControl::PageNumber { .. }
+                | schist_layout::story::InlineControl::SectionMarker { .. }),
+            ) = &structure.control
             {
+                let character_style = control.character_style();
                 if let Some(r) = structure.at.and_then(|at| {
                     schist_layout::text_variables::instance_character(
                         document,

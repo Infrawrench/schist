@@ -1,15 +1,16 @@
 //! Whole-variable display compared with independently authored ordinary text.
-//! Cases 6–11 print a parent-page last-page-number variable from each of its
-//! three destination pages; their literal controls are written out by hand.
+//! Cases 6–11 print a parent-page last-page-number variable, and cases 12–17
+//! current page numbers and section markers, from each of three destination
+//! pages; their literal controls are written out by hand.
 use schist_layout::{
     affine::Affine,
     authoring,
-    story::InlineControl,
-    text_variables::{LastPageNumber, PageNumberFormat, TextVariable, VariableScope},
+    story::{InlineControl, PageNumberKind},
+    text_variables::{LastPageNumber, PageNumberFormat, TextVariable, VariableKind, VariableScope},
     CharacterStyle, History, Ink, LayoutDocument, NumberStyle, Page, ParagraphStyle, ParentObject,
     ParentPage, Rect, Section, Story, StoryStructure, StyleRange, WritingMode,
 };
-pub const CASES: usize = 12;
+pub const CASES: usize = 18;
 pub fn register_font() {
     schist_text_engine::add_font_data(
         include_bytes!("../../../../web/fonts/IBMPlexSans-Regular.ttf").to_vec(),
@@ -25,46 +26,68 @@ pub fn page(case: usize) -> usize {
     }
 }
 
-/// Labels are 1, 2, then a restart at IV on the third page. The first section
+enum Display {
+    Custom,
+    LastPage(LastPageNumber),
+    Marker(InlineControl),
+}
+
+/// Labels are 1, 2, then a restart at IV on the third page, whose section
+/// marker is "Back"; the first section's marker is "Front". The first section
 /// therefore ends at 2, and both the second section and the document at IV.
-fn last_page(case: usize) -> Option<(LastPageNumber, &'static str)> {
-    let (format, scope, value) = match case {
-        6 | 7 => (
+fn display(case: usize) -> (Display, &'static str) {
+    let last_page = |format, scope, value| {
+        (
+            Display::LastPage(LastPageNumber {
+                before: "of ".into(),
+                format,
+                after: " pp.".into(),
+                scope,
+            }),
+            value,
+        )
+    };
+    let marker = |control, value| (Display::Marker(control), value);
+    let page_number = InlineControl::PageNumber {
+        kind: PageNumberKind::Current,
+        character_style: "Instance".into(),
+    };
+    let section = InlineControl::SectionMarker {
+        character_style: "Instance".into(),
+    };
+    match case {
+        6 | 7 => last_page(
             PageNumberFormat::Current,
             VariableScope::Section,
             "of 2 pp.",
         ),
-        8 => (
+        8 => last_page(
             PageNumberFormat::Current,
             VariableScope::Section,
             "of IV pp.",
         ),
-        9 => (
+        9 => last_page(
             PageNumberFormat::Current,
             VariableScope::Document,
             "of IV pp.",
         ),
-        10 => (
+        10 => last_page(
             PageNumberFormat::Arabic,
             VariableScope::Document,
             "of 4 pp.",
         ),
-        11 => (
+        11 => last_page(
             PageNumberFormat::LowerLetters,
             VariableScope::Document,
             "of d pp.",
         ),
-        _ => return None,
-    };
-    Some((
-        LastPageNumber {
-            before: "of ".into(),
-            format,
-            after: " pp.".into(),
-            scope,
-        },
-        value,
-    ))
+        12 => marker(page_number, "1"),
+        13 => marker(page_number, "2"),
+        14 => marker(page_number, "IV"),
+        15 | 16 => marker(section, "Front"),
+        17 => marker(section, "Back"),
+        _ => (Display::Custom, "Edition 7 / café"),
+    }
 }
 
 pub fn document(reference: bool, case: usize) -> LayoutDocument {
@@ -98,34 +121,42 @@ pub fn document(reference: bool, case: usize) -> LayoutDocument {
         Rect::new(60.0, 50.0, 250.0, 220.0),
     )
     .unwrap();
-    let computed = last_page(case);
-    let value = computed.as_ref().map_or("Edition 7 / café", |(_, v)| *v);
+    let (display, value) = display(case);
     let mut story = Story::from_text(if reference { value } else { "" }, "Source");
     if reference {
         story
             .ranges
             .push(StyleRange::new(0, value.len(), "Instance"));
     } else {
+        let (kind, control) = match &display {
+            Display::Marker(control) => ("ProcessingInstruction", control.clone()),
+            _ => (
+                "TextVariableInstance",
+                InlineControl::TextVariable {
+                    variable: "edition".into(),
+                    character_style: "Instance".into(),
+                    name: String::new(),
+                },
+            ),
+        };
         story.structures.push(StoryStructure {
             at: Some(0),
-            kind: "TextVariableInstance".into(),
+            kind: kind.into(),
             payload: "original instance".into(),
             footnote: None,
-            control: Some(InlineControl::TextVariable {
-                variable: "edition".into(),
-                character_style: "Instance".into(),
-                name: String::new(),
-            }),
+            control: Some(control),
         });
-        doc.text_variables.push(match &computed {
-            Some((spec, _)) => TextVariable {
-                id: "edition".into(),
-                name: "Last page".into(),
-                contents: String::new(),
-                last_page: Some(spec.clone()),
-            },
-            None => TextVariable::custom("edition", "Edition", value),
-        });
+        match &display {
+            Display::LastPage(spec) => doc.text_variables.push(TextVariable::new(
+                "edition",
+                "Last page",
+                VariableKind::LastPage(spec.clone()),
+            )),
+            Display::Custom => doc
+                .text_variables
+                .push(TextVariable::custom("edition", "Edition", value)),
+            Display::Marker(_) => {}
+        }
     }
     doc.stories[frame.story.0 as usize] = story;
     if case % 6 >= 3 {
@@ -138,14 +169,19 @@ pub fn document(reference: bool, case: usize) -> LayoutDocument {
             ty: 0.0,
         };
     }
-    if computed.is_some() {
+    if !matches!(display, Display::Custom) {
         for _ in 0..2 {
             doc.add_page(doc.pages[0].clone());
         }
+        doc.pages[0].section = Some(Section {
+            marker: "Front".into(),
+            ..Default::default()
+        });
         doc.pages[2].section = Some(Section {
             start: 4,
             continue_numbering: false,
             style: NumberStyle::RomanUpper,
+            marker: "Back".into(),
             ..Default::default()
         });
         let object = doc.objects.remove(0);
