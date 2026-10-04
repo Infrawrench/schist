@@ -71,8 +71,51 @@ pub fn status_bar(ws: &Workspace, cx: &mut Context<Workspace>) -> impl IntoEleme
             ""
         })
         .child(div().flex_grow())
+        .children(tool_job_progress(ws, cx))
         .child(div().min_w(px(0.0)).truncate().child(ws.status.clone()))
+        .when(
+            ws.tool_jobs.missing_model && ws.tool_jobs.progress().is_none(),
+            |d| {
+                d.child(
+                    Link::new("tool-job-models", t("menu.filter.manage_models"))
+                        .flex_none()
+                        .on_click(cx.listener(|ws, _, _, cx| {
+                            ws.tool_jobs.missing_model = false;
+                            ws.open_modal(Modal::ModelManager, cx);
+                        })),
+                )
+            },
+        )
         .child(support_link(cx))
+}
+
+/// A running tool edit (a removal): what it is, how far along, and a way
+/// to stop it. Painting carries on while it runs, so this is the only
+/// place it shows.
+fn tool_job_progress(ws: &Workspace, cx: &mut Context<Workspace>) -> Option<impl IntoElement> {
+    let (name, fraction) = ws.tool_jobs.progress()?;
+    Some(
+        div()
+            .flex()
+            .flex_row()
+            .items_center()
+            .gap_2()
+            .flex_none()
+            .child(schist_ui::Spinner::new("tool-job-spinner").size(12.0))
+            .child(tf!(
+                "workspace.tool_jobs.progress",
+                name = name,
+                percent = (fraction * 100.0).round() as u32
+            ))
+            .child(schist_ui::ProgressBar::new(fraction).w(px(80.0)).h(px(4.0)))
+            .child(
+                Link::new("tool-job-cancel", t("common.cancel")).on_click(cx.listener(
+                    |ws, _, _, cx| {
+                        ws.cancel_tool_jobs(cx);
+                    },
+                )),
+            ),
+    )
 }
 
 // ===== context menus =====

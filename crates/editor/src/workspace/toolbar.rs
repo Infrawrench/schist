@@ -46,6 +46,14 @@ impl Workspace {
             self.group_active.entry(group).or_insert(tools[0]);
         }
         self.tool_groups = groups;
+        // Natively a slow tool edit (a removal) runs on a worker, with a
+        // progress bar; see `tool_jobs`. The browser has no worker thread
+        // to give it, so there the tool runs it inline.
+        for id in self.registry.tool_ids() {
+            if let Some(tool) = self.registry.tool_mut(id) {
+                tool.set_background_edits(cfg!(not(target_arch = "wasm32")));
+            }
+        }
     }
 
     /// The tool a group's toolbar slot currently represents.

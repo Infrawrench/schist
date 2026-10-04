@@ -1063,6 +1063,7 @@ impl Workspace {
                 self.record_action_step(recorded_actions::Step::Transform { params });
             }
         }
+        self.drain_tool_jobs(tool_id, cx);
         self.after_change(cx);
     }
 
@@ -1143,6 +1144,11 @@ impl Workspace {
             self.design.controls.field = None;
             self.design.cancel_gesture();
             cx.notify();
+            return;
+        }
+        // A running removal is the most recent thing the user started:
+        // the first Escape stops it, the next clears unapplied strokes.
+        if self.cancel_tool_jobs(cx) {
             return;
         }
         let tool_id = self.editor.active_tool;
