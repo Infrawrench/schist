@@ -369,6 +369,7 @@ pub fn tray(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElement
                 gallery_button(label, false, move |ws, w, cx| act(ws, w, cx), cx)
             }),
         )
+        .children(slideshow_button(ws, cx))
         .children(info.name.map(|name| {
             div()
                 .text_size(px(12.0))
@@ -447,7 +448,42 @@ pub fn tray(ws: &mut Workspace, cx: &mut Context<Workspace>) -> impl IntoElement
         .child(crate::panels::support_link(cx))
 }
 
+/// The tray's Slideshow button: plays what the grid shows (or the
+/// selection). The local gallery's only — cloud photos are not
+/// decoded locally.
+fn slideshow_button(ws: &Workspace, cx: &mut Context<Workspace>) -> Option<impl IntoElement> {
+    #[cfg(not(target_arch = "wasm32"))]
+    {
+        (!ws.cloud.show && !ws.library.folders.is_empty()).then(|| {
+            gallery_button(
+                t("slideshow.play"),
+                false,
+                |ws: &mut Workspace, _w, cx| ws.gallery_slideshow(cx),
+                cx,
+            )
+        })
+    }
+    #[cfg(target_arch = "wasm32")]
+    {
+        let _ = (ws, cx);
+        None::<gpui::Div>
+    }
+}
+
 impl Workspace {
+    /// Whether a slideshow has the window, so the shell leaves out its
+    /// menu bar.
+    pub(crate) fn slideshow_on_screen(&self) -> bool {
+        #[cfg(not(target_arch = "wasm32"))]
+        {
+            self.gallery_open() && !self.cloud.show && self.slideshow_active()
+        }
+        #[cfg(target_arch = "wasm32")]
+        {
+            false
+        }
+    }
+
     /// Thumbnail cell edge in pixels, the tray slider's value. One
     /// setting for both rooms on desktop; the browser has only the
     /// cloud's.
@@ -517,6 +553,10 @@ impl Workspace {
                 || self.cloud_nav_key(ev, cx);
         }
 
+        #[cfg(not(target_arch = "wasm32"))]
+        if self.slideshow_key(ev, cx) {
+            return true;
+        }
         #[cfg(not(target_arch = "wasm32"))]
         if self.video_key(ev, cx) {
             return true;

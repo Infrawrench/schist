@@ -102,6 +102,8 @@ impl Target {
                         | GalleryMapFilter
                         | GalleryFindDuplicates
                         | GalleryGeotag
+                        | GallerySlideshow
+                        | GalleryNewSmartAlbum
                         | OpenRecent(_)
                 )
             }

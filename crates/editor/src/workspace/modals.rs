@@ -465,6 +465,7 @@ impl Workspace {
             || id == palettes::SEARCH_FIELD
             || id.starts_with("metadata-")
             || id.starts_with("geotag-")
+            || id.starts_with("smart-")
             || id.starts_with("recipe-")
             || id.starts_with("cloud-");
         let hex = id == "cp-hex";
@@ -808,6 +809,9 @@ impl Workspace {
         if id.starts_with("geotag-") {
             self.update_modal(|m| {
                 super::library_geotag::commit_field(m, id, buffer);
+        if id.starts_with("smart-") {
+            self.update_modal(|m| {
+                super::library_smart::commit_field(m, id, buffer);
             });
             return;
         }
@@ -944,6 +948,8 @@ impl Workspace {
             | Modal::FilePicker
             | Modal::MapFilter
             | Modal::SearchModels
+            | Modal::SmartAlbum { .. }
+            | Modal::Slideshow { .. }
             | Modal::VariantName { .. }
             | Modal::PersonName { .. }
             | Modal::SaveImageAs { .. }

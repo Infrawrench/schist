@@ -134,6 +134,10 @@ mod library_photos;
 #[cfg(not(target_arch = "wasm32"))]
 mod library_similar;
 #[cfg(not(target_arch = "wasm32"))]
+mod library_slideshow;
+#[cfg(not(target_arch = "wasm32"))]
+mod library_smart;
+#[cfg(not(target_arch = "wasm32"))]
 mod library_tethered;
 #[cfg(target_arch = "wasm32")]
 #[path = "library_tethered_web.rs"]
@@ -177,6 +181,10 @@ pub use workspace_presets::WorkspaceEdit;
 pub(crate) use library_geo::MapSlot;
 #[cfg(not(target_arch = "wasm32"))]
 pub(crate) use library_people_view::person_name_dialog;
+#[cfg(not(target_arch = "wasm32"))]
+pub(crate) use library_slideshow::slideshow_dialog;
+#[cfg(not(target_arch = "wasm32"))]
+pub(crate) use library_smart::smart_album_dialog;
 #[cfg(not(target_arch = "wasm32"))]
 pub(crate) use library_view::map_element;
 #[cfg(not(target_arch = "wasm32"))]
@@ -1415,6 +1423,20 @@ pub enum Modal {
     /// The gallery's offer to install the two Search models, with the
     /// licences to agree to first. Desktop-only, like the gallery.
     SearchModels,
+    /// A smart album's editor: its name and its rules over the indexed
+    /// metadata. `editing` is the bucket being changed; `None` creates one.
+    SmartAlbum {
+        editing: Option<usize>,
+        name: String,
+        rules: schist_gallery::smart::RuleGroup,
+    },
+    /// The slideshow's options before it starts: `photos` are the slides
+    /// in the grid's order, `start` the one to open on.
+    Slideshow {
+        photos: Vec<PathBuf>,
+        start: usize,
+        settings: schist_gallery::slideshow::SlideshowSettings,
+    },
     /// Rename one of the gallery's people (`index` into the people
     /// list); a name somebody else has merges the two.
     VariantName {
