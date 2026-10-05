@@ -192,6 +192,21 @@ fn layout_report(
     let mut nested_issues = std::collections::BTreeSet::new();
     let mut initial_issues = std::collections::BTreeSet::new();
     let mut counters = std::collections::BTreeMap::new();
+    // Anchored items wrap only their own story's lines; other stories' frames
+    // their wrap reaches are told so.
+    let mut anchored_wraps = Vec::new();
+    for object in doc.page_artwork(page, settings.output_box(&doc.pages[page])) {
+        let LayoutObject::TextFrame { story, .. } = &object.object else {
+            continue;
+        };
+        if let (Some(definition), Some(frame)) = (doc.story(*story), compose_object(doc, &object)) {
+            anchored_wraps.extend(
+                schist_layout::anchored::wrapping(doc, definition, &object, frame.all_lines())
+                    .into_iter()
+                    .map(|item| (*story, item.visual_bounds())),
+            );
+        }
+    }
     for object in doc.page_artwork(page, settings.output_box(&doc.pages[page])) {
         if !schist_layout::affine::finite(object.content_transform())
             || object.content_transform().invert().is_none()
@@ -225,7 +240,10 @@ fn layout_report(
                     ),
                 );
             }
-            if frame.wrap.ignored {
+            let reached = anchored_wraps
+                .iter()
+                .any(|(other, area)| *other != story_id && area.intersects(object.visual_bounds()));
+            if frame.wrap.ignored || reached {
                 report.add(
                     crate::report::Severity::Warning,
                     schist_i18n::tf!("design.preflight_wrap_ignored", name = object.name),

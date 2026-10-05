@@ -2923,10 +2923,9 @@ offsets change nothing. It wraps whole, like a word. Output and the canvas draw 
 item with its frame, after the frame's text, through the frame's affine; a click on
 it selects the frame; an anchored frame's text draws as generated text of the
 holding frame, so clicking it never edits that frame's story. Composed items no
-longer count as unrendered story structures. Items in vertical text are not composed and stay reported by
-Preflight; so is text wrap an item asks for beyond an inline item's bounding-box
-sides (any wrap of an item at a custom position, and contour, jump or column
-wraps of inline items), as "wrap not applied to some text".
+longer count as unrendered story structures. Items in vertical text are not
+composed and stay reported by Preflight; so are contour, jump and column wraps of
+inline items, as "wrap not applied to some text".
 
 Native evidence: the public paged-media `anchored` sample
 ([inputs](https://github.com/paged-media/core/blob/ffb7c8713125dc77403ec0983099f74ac2558517/crates/paged-gen/src/samples/anchored.rs),
@@ -2971,6 +2970,21 @@ left-hand pages. With PinPosition, an item relative to its line is kept between
 the frame's top and bottom. Positions are computed in the frame's own space and
 drawn through its affine; page rectangles enter that space through the frame's
 inverse affine, which is exact for upright frames.
+
+An item at a custom position with a TextWrapPreference wraps the lines of its own
+story after its anchor's line: from that line's bottom in the anchor's frame, and
+wholly in later frames of the thread on the same page; never the anchor's line or
+the lines before it. Each item enters the frame's wrap field like a page item
+(its mode, side, offsets and inverse; a group's container carries its wrap), and
+composition runs again with the items where the previous pass put them until
+they stop moving (at most four further passes), since a wrap can move a later
+anchor. Frames of other stories that an item's wrap reaches are not wrapped and
+get "wrap not applied to some text"; parent-page instances do not apply anchored
+wrap. The rule follows Adobe's public help and tutorials
+([CreativePro](https://creativepro.com/wrapping-text-around-an-anchored-object/),
+[Adobe community](https://community.adobe.com/t5/indesign-discussions/text-wrapping-stops-when-anchoring-image/m-p/13480287)):
+an anchored object's wrap affects the lines after the anchor marker's line, not
+that line or those before it. No public native PDF covers it.
 
 Native evidence, from the same sample's PDF content stream (12 pt Open Sans, Auto
 leading 14.4 pt, frame at x 67.638–527.638 from y 80, item 60.5 × 36.5 pt

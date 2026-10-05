@@ -825,83 +825,92 @@ fn compose_thread_on_page(
                 .filter_map(|frame| doc.object(frame.0).map(|o| o.page))
                 .collect(),
         };
-        if let Some(prepared) = crate::footnote_composition::prepare_for_flow(
+        if let Some(mut prepared) = crate::footnote_composition::prepare_for_flow(
             doc,
             story_id,
             footnote_flow::supported(doc, story_id, frames),
             &pages,
         ) {
-            // Assets are Arc-backed. The temporary model is scoped to this one
-            // thread pass; no projected bytes or generated styles enter history.
-            let mut projected = doc.clone();
-            projected.styles = prepared.styles.clone();
-            projected.stories[story_id.0 as usize] = prepared.main.story.clone();
-            let mut out = compose_thread_plain(
-                &projected,
-                story_id,
-                frames,
-                parent_page,
-                Some(&prepared),
-                Some(&prepared.hyphenation),
-                Some(&prepared.markers),
-            );
-            let text = prepared.main.story.text();
-            let projected_story = &projected.stories[story_id.0 as usize];
-            let context = footnote_flow::ProjectionContext::new(
-                &projected,
-                projected_story,
-                &prepared.nested_issues,
-            );
-            for frame in &mut out.frames {
-                frame.unrendered_structures = crate::inline_controls::unrendered(
-                    &doc.stories[story_id.0 as usize],
-                    &doc.styles,
-                )
-                .saturating_sub(prepared.notes.len() + prepared.variables + prepared.anchored);
-                frame.consumed_to = prepared.main.positions.source(frame.consumed_to);
-                for line in &mut frame.lines {
-                    let positions = prepared.main.positions.line(&text, line.start, line.end);
-                    if line.generated.is_none() {
-                        footnote_flow::capture(
-                            line,
-                            projected_story,
-                            &projected,
-                            positions,
-                            &context,
-                        );
-                        if let Some(projected) = &mut line.projected {
-                            projected.spec.inline_objects = crate::text_variables::slice_objects(
-                                &prepared.main.objects,
-                                line.start..line.end,
-                            );
-                            projected.spec.inline_boxes = crate::inline_text::ProjectedBox::slice(
-                                &prepared.main.boxes,
-                                line.start..line.end,
-                            );
-                            projected.anchored = prepared
-                                .main
-                                .boxes
-                                .iter()
-                                .filter(|b| b.at >= line.start && b.at < line.end)
-                                .map(|b| (b.at - line.start, b.structure))
-                                .collect();
-                        }
-                    }
-                    line.start = prepared.main.positions.source(line.start);
-                    line.end = prepared.main.positions.source(line.end);
+            // An item's wrap moves the lines after its anchor, which can move
+            // later anchors: compose again until the items settle.
+            let mut out = compose_prepared(doc, story_id, frames, parent_page, &prepared);
+            for _ in 0..4 {
+                let wraps = crate::anchored::wraps(doc, story_id, &out);
+                if crate::anchored::settled(&wraps, &prepared.anchored_wraps) {
+                    break;
                 }
-                // Text does not yet wrap around anchored items that ask for it.
-                if crate::anchored::wrap_unapplied(
-                    &doc.stories[story_id.0 as usize],
-                    frame.all_lines(),
-                ) {
-                    frame.wrap.ignored = true;
-                }
+                prepared.anchored_wraps = wraps;
+                out = compose_prepared(doc, story_id, frames, parent_page, &prepared);
             }
             return out;
         }
     }
     compose_thread_plain(doc, story_id, frames, parent_page, None, None, None)
+}
+
+/// One composition pass over a prepared projection, mapped back to source
+/// positions.
+fn compose_prepared(
+    doc: &LayoutDocument,
+    story_id: crate::model::StoryId,
+    frames: &[(ObjectId, Rect, FrameOverflow, u16, Pt, InsetsLike)],
+    parent_page: Option<usize>,
+    prepared: &crate::footnote_composition::PreparedStory,
+) -> ComposedThread {
+    // Assets are Arc-backed. The temporary model is scoped to this one
+    // thread pass; no projected bytes or generated styles enter history.
+    let mut projected = doc.clone();
+    projected.styles = prepared.styles.clone();
+    projected.stories[story_id.0 as usize] = prepared.main.story.clone();
+    let mut out = compose_thread_plain(
+        &projected,
+        story_id,
+        frames,
+        parent_page,
+        Some(prepared),
+        Some(&prepared.hyphenation),
+        Some(&prepared.markers),
+    );
+    let text = prepared.main.story.text();
+    let projected_story = &projected.stories[story_id.0 as usize];
+    let context =
+        footnote_flow::ProjectionContext::new(&projected, projected_story, &prepared.nested_issues);
+    for frame in &mut out.frames {
+        frame.unrendered_structures =
+            crate::inline_controls::unrendered(&doc.stories[story_id.0 as usize], &doc.styles)
+                .saturating_sub(prepared.notes.len() + prepared.variables + prepared.anchored);
+        frame.consumed_to = prepared.main.positions.source(frame.consumed_to);
+        for line in &mut frame.lines {
+            let positions = prepared.main.positions.line(&text, line.start, line.end);
+            if line.generated.is_none() {
+                footnote_flow::capture(line, projected_story, &projected, positions, &context);
+                if let Some(projected) = &mut line.projected {
+                    projected.spec.inline_objects = crate::text_variables::slice_objects(
+                        &prepared.main.objects,
+                        line.start..line.end,
+                    );
+                    projected.spec.inline_boxes = crate::inline_text::ProjectedBox::slice(
+                        &prepared.main.boxes,
+                        line.start..line.end,
+                    );
+                    projected.anchored = prepared
+                        .main
+                        .boxes
+                        .iter()
+                        .filter(|b| b.at >= line.start && b.at < line.end)
+                        .map(|b| (b.at - line.start, b.structure))
+                        .collect();
+                }
+            }
+            line.start = prepared.main.positions.source(line.start);
+            line.end = prepared.main.positions.source(line.end);
+        }
+        // Text does not yet wrap around anchored items that ask for it.
+        if crate::anchored::wrap_unapplied(&doc.stories[story_id.0 as usize], frame.all_lines()) {
+            frame.wrap.ignored = true;
+        }
+    }
+    out
 }
 
 fn compose_thread_plain(
@@ -1039,7 +1048,26 @@ fn compose_thread_plain(
             number: doc.page_number_value(page),
         };
         let grid = BaselineGrid::for_frame(doc, *object, page);
-        let frame_wrap = crate::text_wrap::WrapField::for_frame(doc, *object, page);
+        // Anchored items of this story wrap the lines after their anchor's:
+        // from that line in its own frame, wholly in the frames after it.
+        let anchored: Vec<_> = notes
+            .map(|prepared| {
+                prepared
+                    .anchored_wraps
+                    .iter()
+                    .filter(|w| w.page == page && w.frame <= index)
+                    .map(|w| {
+                        let from = if w.frame == index {
+                            w.from
+                        } else {
+                            Pt::NEG_INFINITY
+                        };
+                        (&w.object, from)
+                    })
+                    .collect()
+            })
+            .unwrap_or_default();
+        let frame_wrap = crate::text_wrap::WrapField::for_frame_with(doc, *object, page, &anchored);
         if skip_page == Some(page_key) {
             let pending = has_content && cursor < total
                 || split_notes

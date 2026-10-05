@@ -233,3 +233,79 @@ fn an_anchored_text_frame_paints_its_story_and_reports_overset() {
         );
     }
 }
+
+/// A custom item's wrap moves only its own story's later lines; a frame of
+/// another story it reaches is told its text does not wrap.
+#[test]
+fn custom_wrap_reaching_another_story_is_reported_there() {
+    use schist_layout::anchored::{
+        AnchorPoint, HorizontalAlignment, HorizontalReference, Placement, VerticalReference,
+    };
+    let mut doc = blank_a4();
+    doc.inks.push(Ink::cmyk("Cyan", [1.0, 0.0, 0.0, 0.0]));
+    let mut scratch = doc.clone();
+    let shape = authoring::shape(
+        &mut scratch,
+        &mut History::default(),
+        0,
+        Rect::new(0.0, 0.0, 60.0, 60.0),
+        ShapeKind::Rectangle,
+        authoring::Paint::filled("Cyan"),
+    )
+    .unwrap();
+    let mut object = scratch.objects.into_iter().find(|o| o.id == shape).unwrap();
+    object.appearance.text_wrap = Some(schist_layout::text_wrap::TextWrap {
+        mode: schist_layout::text_wrap::WrapMode::BoundingBox,
+        ..Default::default()
+    });
+    let host = authoring::text_frame(
+        &mut doc,
+        &mut History::default(),
+        0,
+        Rect::new(40.0, 80.0, 200.0, 300.0),
+    )
+    .unwrap();
+    let other = authoring::text_frame(
+        &mut doc,
+        &mut History::default(),
+        0,
+        Rect::new(260.0, 80.0, 200.0, 300.0),
+    )
+    .unwrap();
+    for (id, name) in [(host.object, "Host"), (other.object, "Neighbour")] {
+        doc.objects.iter_mut().find(|o| o.id == id).unwrap().name = name.into();
+    }
+    let words = "Words to fill the frame so that its lines run past the item. ".repeat(6);
+    let mut story = Story::from_text(words.clone(), "Body");
+    story.structures.push(StoryStructure {
+        at: Some(10),
+        kind: "Rectangle".into(),
+        payload: "<Rectangle />".into(),
+        control: None,
+        footnote: None,
+        anchored: Some(Box::new(AnchoredItem {
+            position: AnchoredPosition::Anchored,
+            y_offset: 0.0,
+            // Its top left 30 pt right of the host frame, over the neighbour.
+            placement: Placement {
+                anchor_point: AnchorPoint::TopLeft,
+                horizontal_reference: HorizontalReference::TextFrame,
+                horizontal_alignment: HorizontalAlignment::Right,
+                vertical_reference: VerticalReference::LineBaseline,
+                x_offset: 30.0,
+                ..Default::default()
+            },
+            object,
+            members: Vec::new(),
+        })),
+    });
+    doc.stories[host.story.0 as usize] = story;
+    doc.stories[other.story.0 as usize] = Story::from_text(words, "Body");
+    let result = separate_page(&doc, 0, OutputSettings::at(72.0), &NoGraphics).unwrap();
+    let warned = |name: &str| {
+        let message = schist_i18n::tf!("design.preflight_wrap_ignored", name = name);
+        result.report.findings.iter().any(|f| f.message == message)
+    };
+    assert!(warned("Neighbour"), "{:?}", result.report.findings);
+    assert!(!warned("Host"));
+}

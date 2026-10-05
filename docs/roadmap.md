@@ -310,6 +310,39 @@ are marked.
 
 ## Handoff
 
+Text wrap around custom-positioned anchored items, 2026-10-05:
+An item at a custom position with a TextWrapPreference now wraps the lines of its
+own story after its anchor's line, as Adobe's public help and tutorials describe
+(sources in `docs/idml-format.md`): from that line's bottom in the anchor's frame
+and wholly in later frames of the thread on the same page, never the anchor's
+line or earlier lines. Wrap obstacles gained a first band (`Obstacle::from`), and
+obstacle construction is shared by page items and anchored items
+(`WrapField::for_frame_with`). A projected story's composition runs again with
+its items where the previous pass put them until they settle, at most four more
+passes; stories without such items compose once as before. Preflight now warns
+"wrap not applied to some text" on another story's frame that an item's wrap
+reaches, rather than on the item's own frame; inline items' contour, jump and
+column wraps keep that warning. Parent-page instances do not apply anchored wrap.
+No new keys.
+
+The source-frozen sweep passed every roadmap target, headless library wasm, shared
+UI, formatting, whitespace and the debug app build with no corrections; all 43
+proofs are byte-identical to the previous checkpoint: **2,198 distinct passing
+Rust tests**, 3 new (2 layout, 1 separation; one layout test now covers applied
+and unapplied wraps).
+
+Native review used a passive capture of the actual debug app with Design enabled
+and isolated configuration: a 120 × 110 pt box anchored at a sentence's end, at
+the frame's left edge with its top on the anchor line's baseline and 10 pt right
+and 8 pt bottom wrap offsets. The anchor's line keeps the full measure, the six
+lines beside the box start right of it and its offset, and the lines below
+return to the full width.
+
+Next: the remaining item 9 gaps (object-style wrap categories, next/previous page
+numbers, file-name/date/running-header variables, tables). Published to draft
+PR #195.
+
+
 Anchored text frames and groups, 2026-10-05:
 A TextFrame inside a story is now typed with the package story its ParentStory
 names. That story composes in the item's own box as a one-frame thread (the

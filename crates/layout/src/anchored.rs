@@ -317,10 +317,15 @@ impl AnchoredItem {
     /// offset) and its bottom on the baseline, raised by the Y offset.
     /// Coordinates are those of the line.
     pub fn placed(&self, left: Pt, baseline: Pt) -> Vec<PlacedObject> {
-        let e = self.extent();
-        self.moved(
+        let at = self.inline_target(left, baseline);
+        self.moved(at.x, at.y)
+    }
+
+    /// Where an inline item's extent's top left goes.
+    fn inline_target(&self, left: Pt, baseline: Pt) -> crate::Point {
+        crate::Point::new(
             left + self.wrap_sides().0,
-            baseline - self.y_offset - e.height,
+            baseline - self.y_offset - self.extent().height,
         )
     }
 
@@ -337,19 +342,38 @@ impl AnchoredItem {
         }
     }
 
-    /// Text wrap the item asks for that composition does not apply: any wrap
-    /// of an item at a custom position, and an inline item's wrap other than
-    /// a bounding box's side offsets.
+    /// Text wrap the item asks for that composition does not apply in its
+    /// own story: an inline item's wrap other than a bounding box's side
+    /// offsets. Items at custom positions wrap the lines after their anchor's.
     pub fn wrap_unapplied(&self) -> bool {
-        let Some(wrap) = &self.object.appearance.text_wrap else {
-            return false;
-        };
-        match self.position {
-            _ if wrap.mode == crate::text_wrap::WrapMode::None => false,
-            AnchoredPosition::Inline => wrap.mode != crate::text_wrap::WrapMode::BoundingBox,
-            AnchoredPosition::AboveLine => false,
-            AnchoredPosition::Anchored => true,
-        }
+        self.position == AnchoredPosition::Inline
+            && self.object.appearance.text_wrap.as_ref().is_some_and(|w| {
+                !matches!(
+                    w.mode,
+                    crate::text_wrap::WrapMode::None | crate::text_wrap::WrapMode::BoundingBox
+                )
+            })
+    }
+
+    /// Whether the item sits at a custom position and wraps text.
+    pub fn wraps_text(&self) -> bool {
+        self.position == AnchoredPosition::Anchored
+            && self
+                .object
+                .appearance
+                .text_wrap
+                .as_ref()
+                .is_some_and(|w| w.mode != crate::text_wrap::WrapMode::None)
+    }
+
+    /// The item itself (a group's container) with its extent's top left at
+    /// (`left`, `top`).
+    fn moved_object(&self, left: Pt, top: Pt) -> PlacedObject {
+        let e = self.extent();
+        let mut object = self.object.clone();
+        object.bounds.x += left - e.x;
+        object.bounds.y += top - e.y;
+        object
     }
 }
 
@@ -619,90 +643,181 @@ fn aligned_x(rect: Rect, alignment: HorizontalAlignment, align: schist_text_engi
 }
 
 /// The items set in `lines`, placed in page space through `frame`, with
-/// their object styles resolved. Items of one line come in anchor order.
+/// their object styles resolved. Items of one line come in anchor order; a
+/// group gives its visible members.
 pub fn placements<'a>(
     doc: &LayoutDocument,
     story: &Story,
     frame: &PlacedObject,
     lines: impl IntoIterator<Item = &'a ComposedLine>,
 ) -> Vec<PlacedObject> {
+    lines
+        .into_iter()
+        .flat_map(|line| targets(doc, story, frame, line))
+        .flat_map(|(item, at)| item.moved(at.x, at.y))
+        .map(|p| through_frame(&p, frame).resolved_appearance(&doc.styles))
+        .collect()
+}
+
+/// Items at custom positions set in `lines` that wrap text, each (a group's
+/// container) in page space with its wrap and resolved object style.
+pub fn wrapping<'a>(
+    doc: &LayoutDocument,
+    story: &Story,
+    frame: &PlacedObject,
+    lines: impl IntoIterator<Item = &'a ComposedLine>,
+) -> Vec<PlacedObject> {
+    lines
+        .into_iter()
+        .flat_map(|line| targets(doc, story, frame, line))
+        .filter(|(item, _)| item.wraps_text())
+        .map(|(item, at)| {
+            through_frame(&item.moved_object(at.x, at.y), frame).resolved_appearance(&doc.styles)
+        })
+        .collect()
+}
+
+/// An item at a custom position that wraps the lines after its anchor's.
+#[derive(Debug, Clone, PartialEq)]
+pub(crate) struct AnchoredWrap {
+    /// The item (a group's container) in page space, with its wrap.
+    pub object: PlacedObject,
+    pub page: usize,
+    /// Index of the anchor's frame in its thread.
+    pub frame: usize,
+    /// The anchor line's bottom in that frame's space.
+    pub from: Pt,
+}
+
+/// The wrapping items set in `thread`, composed from `story_id`. Frames that
+/// are not document objects (parent instances) are skipped.
+pub(crate) fn wraps(
+    doc: &LayoutDocument,
+    story_id: crate::StoryId,
+    thread: &crate::compose::ComposedThread,
+) -> Vec<AnchoredWrap> {
+    let Some(story) = doc.story(story_id) else {
+        return Vec::new();
+    };
+    if !story
+        .structures
+        .iter()
+        .filter_map(|s| s.anchored.as_deref())
+        .any(AnchoredItem::wraps_text)
+    {
+        return Vec::new();
+    }
     let mut out = Vec::new();
-    for line in lines {
-        let Some(projected) = &line.projected else {
+    for (index, composed) in thread.frames.iter().enumerate() {
+        let Some(frame) = doc.object(composed.object) else {
             continue;
         };
-        if projected.anchored.is_empty() {
-            continue;
-        }
-        let (origin, spec) = line_origin(line);
-        let positions = schist_text_engine::inline_box_positions(spec);
-        let references = References::new(doc, frame, line);
-        let items: Vec<_> = projected
-            .anchored
-            .iter()
-            .filter_map(|(at, structure)| {
-                let position = positions.iter().find(|p| p.at == *at)?;
-                let item = story.structures.get(*structure)?.anchored.as_deref()?;
-                Some((position, item))
-            })
-            .collect();
-        // Items above the line stack down from where the line's text began,
-        // in anchor order.
-        let above: Pt = items
-            .iter()
-            .filter(|(_, item)| item.position == AnchoredPosition::AboveLine)
-            .filter_map(|(_, item)| item.line_box())
-            .map(|b| b.above)
-            .sum();
-        let mut stack = None;
-        for (position, item) in items {
-            let baseline = origin.y + position.baseline;
-            let placed = match item.position {
-                AnchoredPosition::Inline => item.placed(origin.x + position.x, baseline),
-                AnchoredPosition::AboveLine => {
-                    // InDesign's export of a public sample puts a Space After
-                    // of 0 at half the em plus half the cap height above the
-                    // baseline (10.2832 pt for 12 pt Open Sans), and lowers the
-                    // line by the item's height.
-                    let y = stack.get_or_insert(
-                        baseline - above - (position.size + position.cap_height) / 2.0,
-                    );
-                    let e = item.extent();
-                    *y += item.placement.space_above;
-                    let top = *y;
-                    *y += e.height + item.y_offset;
-                    let mut alignment = item.placement.horizontal_alignment;
-                    if item.placement.spine_relative && references.left_page {
-                        alignment = alignment.mirrored();
-                    }
-                    let x = aligned_x(references.column, alignment, spec.align);
-                    let left = match alignment {
-                        HorizontalAlignment::Left => x,
-                        HorizontalAlignment::Right => x - e.width,
-                        HorizontalAlignment::Center => x - e.width / 2.0,
-                        HorizontalAlignment::Text => match spec.align {
-                            schist_text_engine::Align::Center => x - e.width / 2.0,
-                            schist_text_engine::Align::Right => x - e.width,
-                            _ => x,
-                        },
-                    };
-                    item.moved(left, top)
-                }
-                AnchoredPosition::Anchored => {
-                    let Some(placed) =
-                        custom(item, &references, line, origin, position, spec.align)
-                    else {
-                        continue;
-                    };
-                    placed
-                }
-            };
+        for line in composed.all_lines() {
             out.extend(
-                placed
-                    .iter()
-                    .map(|p| through_frame(p, frame).resolved_appearance(&doc.styles)),
+                wrapping(doc, story, frame, [line])
+                    .into_iter()
+                    .map(|object| AnchoredWrap {
+                        object,
+                        page: frame.page,
+                        frame: index,
+                        from: line.bounds.bottom(),
+                    }),
             );
         }
+    }
+    out
+}
+
+/// Whether two passes placed the same wrapping items in the same places.
+pub(crate) fn settled(a: &[AnchoredWrap], b: &[AnchoredWrap]) -> bool {
+    a.len() == b.len()
+        && a.iter().zip(b).all(|(a, b)| {
+            let (p, q) = (a.object.bounds, b.object.bounds);
+            a.page == b.page
+                && a.frame == b.frame
+                && (a.from - b.from).abs() < 0.01
+                && [p.x - q.x, p.y - q.y, p.width - q.width, p.height - q.height]
+                    .iter()
+                    .all(|d| d.abs() < 0.01)
+        })
+}
+
+/// Where each item set in `line` goes: its extent's top left in the frame's
+/// space, in anchor order.
+fn targets<'a>(
+    doc: &LayoutDocument,
+    story: &'a Story,
+    frame: &PlacedObject,
+    line: &ComposedLine,
+) -> Vec<(&'a AnchoredItem, crate::Point)> {
+    let mut out = Vec::new();
+    let Some(projected) = &line.projected else {
+        return out;
+    };
+    if projected.anchored.is_empty() {
+        return out;
+    }
+    let (origin, spec) = line_origin(line);
+    let positions = schist_text_engine::inline_box_positions(spec);
+    let references = References::new(doc, frame, line);
+    let items: Vec<_> = projected
+        .anchored
+        .iter()
+        .filter_map(|(at, structure)| {
+            let position = positions.iter().find(|p| p.at == *at)?;
+            let item = story.structures.get(*structure)?.anchored.as_deref()?;
+            Some((position, item))
+        })
+        .collect();
+    // Items above the line stack down from where the line's text began, in
+    // anchor order.
+    let above: Pt = items
+        .iter()
+        .filter(|(_, item)| item.position == AnchoredPosition::AboveLine)
+        .filter_map(|(_, item)| item.line_box())
+        .map(|b| b.above)
+        .sum();
+    let mut stack = None;
+    for (position, item) in items {
+        let baseline = origin.y + position.baseline;
+        let at = match item.position {
+            AnchoredPosition::Inline => item.inline_target(origin.x + position.x, baseline),
+            AnchoredPosition::AboveLine => {
+                // InDesign's export of a public sample puts a Space After of 0
+                // at half the em plus half the cap height above the baseline
+                // (10.2832 pt for 12 pt Open Sans), and lowers the line by the
+                // item's height.
+                let y = stack
+                    .get_or_insert(baseline - above - (position.size + position.cap_height) / 2.0);
+                let e = item.extent();
+                *y += item.placement.space_above;
+                let top = *y;
+                *y += e.height + item.y_offset;
+                let mut alignment = item.placement.horizontal_alignment;
+                if item.placement.spine_relative && references.left_page {
+                    alignment = alignment.mirrored();
+                }
+                let x = aligned_x(references.column, alignment, spec.align);
+                let left = match alignment {
+                    HorizontalAlignment::Left => x,
+                    HorizontalAlignment::Right => x - e.width,
+                    HorizontalAlignment::Center => x - e.width / 2.0,
+                    HorizontalAlignment::Text => match spec.align {
+                        schist_text_engine::Align::Center => x - e.width / 2.0,
+                        schist_text_engine::Align::Right => x - e.width,
+                        _ => x,
+                    },
+                };
+                crate::Point::new(left, top)
+            }
+            AnchoredPosition::Anchored => {
+                let Some(at) = custom(item, &references, line, origin, position, spec.align) else {
+                    continue;
+                };
+                at
+            }
+        };
+        out.push((item, at));
     }
     out
 }
@@ -715,7 +830,7 @@ fn custom(
     origin: crate::Point,
     position: &schist_text_engine::InlineBoxPosition,
     align: schist_text_engine::Align,
-) -> Option<Vec<PlacedObject>> {
+) -> Option<crate::Point> {
     let p = item.placement;
     let mirror = p.spine_relative && references.left_page;
     let (alignment, point) = if mirror {
@@ -768,5 +883,5 @@ fn custom(
         }
         top = top.max(frame.y);
     }
-    Some(item.moved(left, top))
+    Some(crate::Point::new(left, top))
 }

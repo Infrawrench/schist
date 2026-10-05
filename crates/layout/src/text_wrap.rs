@@ -166,6 +166,9 @@ struct Obstacle {
     shape: Rect,
     /// The extent text is pushed from: `shape` grown by the offset.
     bounds: Rect,
+    /// Bands starting above this do not meet the obstacle: an anchored item
+    /// wraps only the lines after its anchor's line.
+    from: Pt,
 }
 
 /// What a line band may use.
@@ -383,6 +386,7 @@ fn own_shape(frame: &PlacedObject) -> Option<Obstacle> {
         grow: insets.top.max(0.0),
         shape,
         bounds: shape,
+        from: Pt::NEG_INFINITY,
     })
 }
 
@@ -392,6 +396,17 @@ impl WrapField {
     /// the frame or its layer ignores wrap; hidden items, items on hidden
     /// layers and master-only parent items never wrap a document page.
     pub fn for_frame(doc: &LayoutDocument, frame: ObjectId, page: usize) -> Option<Self> {
+        Self::for_frame_with(doc, frame, page, &[])
+    }
+
+    /// As [`Self::for_frame`], with anchored items of the frame's own story
+    /// that wrap text from a band onward: (item in page space, first band).
+    pub(crate) fn for_frame_with(
+        doc: &LayoutDocument,
+        frame: ObjectId,
+        page: usize,
+        anchored: &[(&PlacedObject, Pt)],
+    ) -> Option<Self> {
         let own = stored_frame(doc, frame).and_then(own_shape);
         let any = doc
             .objects
@@ -411,6 +426,15 @@ impl WrapField {
         let mut approximated = false;
         if any {
             obstacles.extend(Self::others(doc, frame, page, &mut approximated));
+        }
+        if !anchored.is_empty() {
+            obstacles.extend(Self::anchored(
+                doc,
+                frame,
+                page,
+                anchored,
+                &mut approximated,
+            ));
         }
         (!obstacles.is_empty()).then(|| Self {
             obstacles,
@@ -461,71 +485,130 @@ impl WrapField {
             {
                 continue;
             }
-            let side = match wrap.side {
-                WrapSide::BothSides => Side::Both,
-                WrapSide::LeftSide => Side::Left,
-                WrapSide::RightSide => Side::Right,
-                WrapSide::LargestArea => Side::Largest,
-                WrapSide::SideTowardsSpine if spine_right => Side::Right,
-                WrapSide::SideTowardsSpine => Side::Left,
-                WrapSide::SideAwayFromSpine if spine_right => Side::Left,
-                WrapSide::SideAwayFromSpine => Side::Right,
-            };
-            let (outline, even_odd, grow) = if wrap.mode == WrapMode::Contour
-                && wrap.contour != Some(ContourType::BoundingBox)
-            {
-                *approximated |= wrap.approximated();
-                let (rings, even_odd) = outline(object);
-                (rings, even_odd, wrap.offsets.top)
-            } else {
-                let b = object.visual_bounds();
-                let o = wrap.offsets;
-                let r = Rect::new(
-                    b.x - o.left,
-                    b.y - o.top,
-                    b.width + o.left + o.right,
-                    b.height + o.top + o.bottom,
-                );
-                if r.width <= 0.0 || r.height <= 0.0 {
-                    continue;
-                }
-                (vec![crate::affine::corners(r).to_vec()], false, 0.0)
-            };
-            let rings: Vec<Vec<Point>> = outline
-                .into_iter()
-                .map(|ring| {
-                    ring.into_iter()
-                        .map(|p| crate::affine::point(inverse, p))
-                        .collect()
-                })
-                .collect();
-            let Some(shape) = rings_bounds(&rings) else {
-                continue;
-            };
-            let bounds = Rect::new(
-                shape.x - grow,
-                shape.y - grow,
-                shape.width + 2.0 * grow,
-                shape.height + 2.0 * grow,
-            );
-            if !bounds.intersects(host.bounds) {
-                continue;
-            }
-            obstacles.push(Obstacle {
-                mode: wrap.mode,
-                side,
-                inverse: wrap.inverse
-                    && matches!(wrap.mode, WrapMode::BoundingBox | WrapMode::Contour),
-                rings,
-                even_odd,
-                grow,
-                shape,
-                bounds,
-            });
+            obstacles.extend(obstacle(
+                object,
+                wrap,
+                inverse,
+                host.bounds,
+                spine_right,
+                approximated,
+            ));
         }
         obstacles
     }
 
+    /// Anchored items of the host frame's own story, each from its band on.
+    fn anchored(
+        doc: &LayoutDocument,
+        frame: ObjectId,
+        page: usize,
+        items: &[(&PlacedObject, Pt)],
+        approximated: &mut bool,
+    ) -> Vec<Obstacle> {
+        let objects = spread_objects(doc, page);
+        let Some(host) = objects.iter().find(|o| o.id == frame) else {
+            return Vec::new();
+        };
+        if host.appearance.ignore_wrap || doc.layer_ignores_wrap(doc.object_layer(host.id)) {
+            return Vec::new();
+        }
+        let Some(inverse) = crate::affine::inverse(host.content_transform()) else {
+            return Vec::new();
+        };
+        let spine_right = doc.facing_pages && doc.page_is_left(page);
+        items
+            .iter()
+            .filter_map(|(object, from)| {
+                let wrap = object.appearance.text_wrap.as_ref()?;
+                if wrap.mode == WrapMode::None {
+                    return None;
+                }
+                let mut obstacle = obstacle(
+                    object,
+                    wrap,
+                    inverse,
+                    host.bounds,
+                    spine_right,
+                    approximated,
+                )?;
+                obstacle.from = *from;
+                Some(obstacle)
+            })
+            .collect()
+    }
+}
+
+/// `object`'s wrap in the host frame's untransformed box, or None when it
+/// does not reach `host`.
+fn obstacle(
+    object: &PlacedObject,
+    wrap: &TextWrap,
+    inverse: crate::affine::Affine,
+    host: Rect,
+    spine_right: bool,
+    approximated: &mut bool,
+) -> Option<Obstacle> {
+    let side = match wrap.side {
+        WrapSide::BothSides => Side::Both,
+        WrapSide::LeftSide => Side::Left,
+        WrapSide::RightSide => Side::Right,
+        WrapSide::LargestArea => Side::Largest,
+        WrapSide::SideTowardsSpine if spine_right => Side::Right,
+        WrapSide::SideTowardsSpine => Side::Left,
+        WrapSide::SideAwayFromSpine if spine_right => Side::Left,
+        WrapSide::SideAwayFromSpine => Side::Right,
+    };
+    let (outline, even_odd, grow) =
+        if wrap.mode == WrapMode::Contour && wrap.contour != Some(ContourType::BoundingBox) {
+            *approximated |= wrap.approximated();
+            let (rings, even_odd) = outline(object);
+            (rings, even_odd, wrap.offsets.top)
+        } else {
+            let b = object.visual_bounds();
+            let o = wrap.offsets;
+            let r = Rect::new(
+                b.x - o.left,
+                b.y - o.top,
+                b.width + o.left + o.right,
+                b.height + o.top + o.bottom,
+            );
+            if r.width <= 0.0 || r.height <= 0.0 {
+                return None;
+            }
+            (vec![crate::affine::corners(r).to_vec()], false, 0.0)
+        };
+    let rings: Vec<Vec<Point>> = outline
+        .into_iter()
+        .map(|ring| {
+            ring.into_iter()
+                .map(|p| crate::affine::point(inverse, p))
+                .collect()
+        })
+        .collect();
+    let shape = rings_bounds(&rings)?;
+    let bounds = Rect::new(
+        shape.x - grow,
+        shape.y - grow,
+        shape.width + 2.0 * grow,
+        shape.height + 2.0 * grow,
+    );
+    if !bounds.intersects(host) {
+        return None;
+    }
+    Some(Obstacle {
+        mode: wrap.mode,
+        side,
+        inverse: wrap.inverse && matches!(wrap.mode, WrapMode::BoundingBox | WrapMode::Contour),
+        rings,
+        even_odd,
+        grow,
+        shape,
+        bounds,
+        from: Pt::NEG_INFINITY,
+    })
+}
+
+impl WrapField {
     /// Whether any obstacle reaches `area` at all. An inverse wrap reaches
     /// every column of a frame it overlaps: outside its outline is wrap area.
     pub fn affects(&self, area: Rect) -> bool {
@@ -557,6 +640,9 @@ impl WrapField {
         let mut free = vec![(left, right)];
         let mut resume = f32::INFINITY;
         for obstacle in &self.obstacles {
+            if top + 0.01 < obstacle.from {
+                continue;
+            }
             let g = obstacle.grow;
             if obstacle.inverse {
                 // Text stays inside the outline, shrunk by the offset.

@@ -69,6 +69,9 @@ pub struct PreparedStory {
     pub variables: usize,
     /// Anchored items set in the projection.
     pub anchored: usize,
+    /// Items at custom positions that wrap the lines after their anchor's,
+    /// from the previous composition pass.
+    pub(crate) anchored_wraps: Vec<crate::anchored::AnchoredWrap>,
 }
 
 /// Display text standing for an anchored item: one isolated object
@@ -111,6 +114,7 @@ pub(crate) fn prepare_for_flow(
             notes: Vec::new(),
             variables: 0,
             anchored: 0,
+            anchored_wraps: Vec::new(),
         }
     };
     let mut insertions = Vec::new();
@@ -397,6 +401,7 @@ pub fn prepare(doc: &LayoutDocument, id: StoryId) -> Option<PreparedStory> {
         notes,
         variables: 0,
         anchored: 0,
+        anchored_wraps: Vec::new(),
     })
 }
 

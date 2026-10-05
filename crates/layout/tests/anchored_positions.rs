@@ -32,7 +32,7 @@ struct Setup {
     /// single page.
     facing: Option<usize>,
     margins: Insets,
-    wrap: bool,
+    wrap: Option<schist_layout::text_wrap::WrapMode>,
 }
 
 impl Default for Setup {
@@ -45,7 +45,7 @@ impl Default for Setup {
             align: None,
             facing: None,
             margins: Insets::ZERO,
-            wrap: false,
+            wrap: None,
         }
     }
 }
@@ -112,9 +112,9 @@ fn compose(setup: Setup) -> Composed {
     )
     .unwrap();
     let mut object = scratch.objects.into_iter().find(|o| o.id == shape).unwrap();
-    if setup.wrap {
+    if let Some(mode) = setup.wrap {
         object.appearance.text_wrap = Some(schist_layout::text_wrap::TextWrap {
-            mode: schist_layout::text_wrap::WrapMode::BoundingBox,
+            mode,
             offsets: Insets::uniform(3.0),
             ..Default::default()
         });
@@ -408,11 +408,12 @@ fn pinned_items_stay_within_their_frame() {
 }
 
 #[test]
-fn unapplied_wrap_is_reported_and_inline_side_offsets_are_not() {
-    let wrapped = |position| {
+fn unapplied_wrap_is_reported_and_applied_wrap_is_not() {
+    use schist_layout::text_wrap::WrapMode;
+    let wrapped = |position, mode| {
         let c = compose(Setup {
             position,
-            wrap: true,
+            wrap: Some(mode),
             ..Default::default()
         });
         let flow = compose_story(&c.doc, StoryId(0));
@@ -420,7 +421,12 @@ fn unapplied_wrap_is_reported_and_inline_side_offsets_are_not() {
         assert_eq!(frame.unrendered_structures, 0);
         frame.wrap.ignored
     };
-    assert!(!wrapped(AnchoredPosition::Inline));
-    assert!(!wrapped(AnchoredPosition::AboveLine));
-    assert!(wrapped(AnchoredPosition::Anchored));
+    // Inline side offsets and custom items' wrap of later lines apply.
+    assert!(!wrapped(AnchoredPosition::Inline, WrapMode::BoundingBox));
+    assert!(!wrapped(AnchoredPosition::AboveLine, WrapMode::BoundingBox));
+    assert!(!wrapped(AnchoredPosition::Anchored, WrapMode::BoundingBox));
+    assert!(!wrapped(AnchoredPosition::Anchored, WrapMode::Contour));
+    // An inline item's contour or jump wrap does not.
+    assert!(wrapped(AnchoredPosition::Inline, WrapMode::Contour));
+    assert!(wrapped(AnchoredPosition::Inline, WrapMode::JumpObject));
 }
