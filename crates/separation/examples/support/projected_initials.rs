@@ -130,6 +130,7 @@ pub fn document(reference: bool, spot: bool, middle: bool) -> LayoutDocument {
                 reference_paragraph_style: "Main".into(),
                 reference_character_style: "Reference".into(),
             }),
+            anchored: None,
         });
         frame(&mut doc, bounds, main);
     }

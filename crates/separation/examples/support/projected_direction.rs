@@ -92,6 +92,7 @@ pub fn document(reference: bool, rtl: bool, initial: bool) -> LayoutDocument {
             reference_paragraph_style: "Source".into(),
             reference_character_style: "Reference".into(),
         }),
+        anchored: None,
     });
     let made = authoring::text_frame(
         &mut doc,

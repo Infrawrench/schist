@@ -244,6 +244,31 @@ fn shape_item(
         };
         let visible_count = char_bytes.iter().filter(|byte| visible(**byte)).count();
         let x = out.precise_width;
+        // A box replaces its character's glyphs with empty advance.
+        if let Some(b) = char_bytes
+            .iter()
+            .find_map(|byte| spec.inline_box_at(*byte))
+            .copied()
+        {
+            out.precise_width += f64::from(b.width);
+            let after = out.precise_width;
+            for byte in &char_bytes {
+                // Other characters merged into the box's cluster take no room.
+                let (from, to) = if *byte == b.at {
+                    (x, after)
+                } else {
+                    (after, after)
+                };
+                let (from, to) = if rtl && !ttb { (to, from) } else { (from, to) };
+                out.chars.push(CharPos {
+                    byte: *byte,
+                    x: from as f32,
+                    end_x: to as f32,
+                });
+            }
+            i = next;
+            continue;
+        }
         for j in i..next {
             if visible_count == 0 {
                 continue;

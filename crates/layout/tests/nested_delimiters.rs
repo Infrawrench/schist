@@ -283,6 +283,7 @@ fn empty_source_nested_spans_stay_empty_after_reference_and_note_marker_insertio
                         reference_paragraph_style: "Source".into(),
                         reference_character_style: "Reference".into(),
                     }),
+                    anchored: None,
                 });
                 if direct && !text.is_empty() {
                     doc.styles.add_character(CharacterStyle {

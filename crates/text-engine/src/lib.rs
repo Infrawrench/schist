@@ -173,6 +173,12 @@ pub struct TextSpec {
     /// be ordered, disjoint and grapheme-bounded; invalid ranges reject layout.
     #[serde(skip)]
     pub inline_objects: Vec<std::ops::Range<usize>>,
+    /// Transient boxes set in place of single U+FFFC characters inside inline
+    /// objects, such as an anchored graphic. Each box advances by its width and
+    /// raises its line to its ascent and descent; nothing is drawn for it.
+    /// Ordered by position; invalid boxes reject layout.
+    #[serde(skip)]
+    pub inline_boxes: Vec<InlineBox>,
     /// Optional aligned tab stops and leaders. None retains legacy behavior.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub tabs: Option<TabStops>,
@@ -214,12 +220,36 @@ impl Default for TextSpec {
             show_final_generated_hyphen: false,
             atomic_spans: Vec::new(),
             inline_objects: Vec::new(),
+            inline_boxes: Vec::new(),
             tabs: None,
             runs: Vec::new(),
             features: Vec::new(),
             path: None,
         }
     }
+}
+
+/// An empty box of text, set in place of the U+FFFC at `at`.
+#[derive(Debug, Clone, Copy, PartialEq)]
+pub struct InlineBox {
+    /// Byte offset of the U+FFFC it replaces.
+    pub at: usize,
+    /// Inline advance.
+    pub width: f32,
+    /// Extent above the baseline.
+    pub ascent: f32,
+    /// Extent below the baseline.
+    pub descent: f32,
+}
+
+/// Where a laid-out inline box sits, in caret coordinates: relative to the
+/// text raster's origin, with `baseline` on the box's line.
+#[derive(Debug, Clone, Copy, PartialEq)]
+pub struct InlineBoxPosition {
+    pub at: usize,
+    /// Left edge of the box.
+    pub x: f32,
+    pub baseline: f32,
 }
 
 /// Corner geometry for an outlined glyph; independent of font shaping.
@@ -605,6 +635,47 @@ impl TextSpec {
                 || !self.no_break_at(at))
     }
 
+    /// Scale inline boxes with the rest of the spec, as for display or output
+    /// resolution; boxes are absolute lengths like font size.
+    pub fn scale_inline_boxes(&mut self, scale: f32) {
+        for b in &mut self.inline_boxes {
+            b.width *= scale;
+            b.ascent *= scale;
+            b.descent *= scale;
+        }
+    }
+
+    /// The box set in place of the character at `byte`, if any.
+    pub(crate) fn inline_box_at(&self, byte: usize) -> Option<&InlineBox> {
+        if self.inline_boxes.is_empty() {
+            return None;
+        }
+        self.inline_boxes
+            .binary_search_by_key(&byte, |b| b.at)
+            .ok()
+            .map(|index| &self.inline_boxes[index])
+    }
+
+    fn valid_inline_boxes(&self) -> bool {
+        let mut previous = None;
+        self.inline_boxes.iter().all(|b| {
+            let valid = previous.is_none_or(|p| p < b.at)
+                && self
+                    .text
+                    .get(b.at..)
+                    .is_some_and(|t| t.starts_with('\u{fffc}'))
+                && self
+                    .inline_objects
+                    .iter()
+                    .any(|span| span.start < b.at && b.at + '\u{fffc}'.len_utf8() < span.end)
+                && [b.width, b.ascent, b.descent]
+                    .iter()
+                    .all(|v| v.is_finite() && *v >= 0.0);
+            previous = Some(b.at);
+            valid
+        })
+    }
+
     fn valid_atomic_spans(&self) -> bool {
         if self.atomic_spans.is_empty() {
             return true;
@@ -886,6 +957,7 @@ impl TextSpec {
         // These describe disposable generated content, not editable formatting.
         self.atomic_spans.clear();
         self.inline_objects.clear();
+        self.inline_boxes.clear();
         let removed = range.end.saturating_sub(range.start);
         let map = |at: usize| -> usize {
             if at < range.start {
@@ -1801,6 +1873,9 @@ impl Faces {
     }
 
     fn line_metrics_at(&self, spec: &TextSpec, byte: usize) -> (f32, f32) {
+        if let Some(b) = spec.inline_box_at(byte) {
+            return (b.ascent, b.ascent + b.descent);
+        }
         let ix = self.at(byte);
         let style = spec.style_at(byte);
         let Some(size) = style.metric_size.or_else(|| {
@@ -2005,6 +2080,7 @@ fn layout_with_measures(spec: &TextSpec, base: &LoadedFace, measures: &[InlineMe
     if spec.tabs.as_ref().is_some_and(|tabs| !tabs.valid())
         || !spec.valid_atomic_spans()
         || !spec.valid_inline_objects()
+        || !spec.valid_inline_boxes()
     {
         return Layout::default();
     }
@@ -2364,6 +2440,38 @@ pub fn caret_at_position(spec: &TextSpec, position: CaretPosition) -> Option<Car
         Some(guide) => guide.caret(caret, laid.first_baseline),
         None => caret,
     })
+}
+
+/// Where each inline box landed, in caret coordinates. Horizontal text only;
+/// boxes on a path or in vertical text are not positioned.
+pub fn inline_box_positions(spec: &TextSpec) -> Vec<InlineBoxPosition> {
+    if spec.inline_boxes.is_empty() || spec.writing_mode.is_vertical() || spec.path.is_some() {
+        return Vec::new();
+    }
+    let Some(face) = load_font(
+        &spec.family,
+        spec.font_style.as_deref(),
+        spec.bold,
+        spec.italic,
+    ) else {
+        return Vec::new();
+    };
+    let laid = layout(spec, &face);
+    spec.inline_boxes
+        .iter()
+        .filter_map(|b| {
+            let char = laid.chars.iter().find(|c| c.byte == b.at)?;
+            let line = laid
+                .lines
+                .iter()
+                .find(|l| l.start <= b.at && b.at < l.end)?;
+            Some(InlineBoxPosition {
+                at: b.at,
+                x: char.x.min(char.end_x),
+                baseline: line.baseline,
+            })
+        })
+        .collect()
 }
 
 fn path_guide(spec: &TextSpec, laid: &Layout) -> Option<text_path::Guide> {

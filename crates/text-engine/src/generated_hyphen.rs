@@ -104,6 +104,9 @@ impl Projection {
             span.start = after(span.start);
             span.end += points.partition_point(|at| *at < span.end) * '\u{ad}'.len_utf8();
         }
+        for b in &mut projected.inline_boxes {
+            b.at = after(b.at);
+        }
         Some(Self {
             spec: projected,
             insertions,

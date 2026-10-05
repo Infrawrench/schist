@@ -172,6 +172,7 @@ pub(crate) fn restore(
                         kind,
                         payload,
                         footnote: None,
+                        anchored: None,
                     })
                 } else {
                     None
@@ -188,6 +189,7 @@ pub(crate) fn restore(
                 kind: LABEL.into(),
                 payload: entry.attr("Value").unwrap_or_default().into(),
                 footnote: None,
+                anchored: None,
             }));
     }
     notice(&mut report.skipped, "design.idml_structure_location");

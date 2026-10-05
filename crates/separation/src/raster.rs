@@ -667,6 +667,7 @@ pub fn scale_spec(spec: schist_text_engine::TextSpec, scale: f32) -> schist_text
     spec.leading = spec.leading.map(|v| v * scale);
     spec.tracking *= scale;
     spec.word_spacing *= scale;
+    spec.scale_inline_boxes(scale);
     if let Some(tabs) = &mut spec.tabs {
         tabs.scaled(scale);
     }

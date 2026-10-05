@@ -182,6 +182,7 @@ pub fn read_package(opened: &DesignPackage<'_>) -> Result<Imported, Error> {
         &mut report,
     );
     crate::object_style_codec::resolve_references(&mut document, &style_refs, &mut report);
+    crate::anchored_codec::read(&mut document, &colors, &mut report);
     crate::preferences_codec::read(opened, &mut document, &mut report, &colors, &style_refs)?;
     // Parsing XML visits items in paint order. Only guarded chronology labels
     // can establish their creation order; never certify the incidental walk.
@@ -493,7 +494,7 @@ pub(crate) fn page_of(element: &Element) -> Option<Page> {
 // -- objects ----------------------------------------------------------
 
 /// A frame as a [`PlacedObject`], if this element is one.
-fn placed_object(
+pub(crate) fn placed_object(
     element: &Element,
     stories: &[(String, Story)],
     page_transform: Transform,
@@ -1215,7 +1216,7 @@ fn story_index(reference: &str, stories: &[(String, Story)]) -> Option<usize> {
 
 /// The public IDML affine order is a b c d tx ty.
 #[derive(Debug, Clone, Copy, PartialEq)]
-struct Transform {
+pub(crate) struct Transform {
     a: f32,
     b: f32,
     c: f32,

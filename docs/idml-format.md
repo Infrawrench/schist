@@ -2878,3 +2878,45 @@ named the undefined `CharacterStyle/$ID/`. On reading, the root character style
 and a bare root paragraph style are not document styles; references to the root
 character style, including BasedOn, mean no style. InDesign's root paragraph
 style carries real defaults and stays a document style, as before.
+
+### Inline anchored items
+
+A Rectangle, Oval, Polygon or GraphicLine inside a story keeps its exact XML as
+a retained story structure at its character position, as before, and is now also
+typed from that XML: its AnchoredObjectSetting AnchoredPosition
+(`InlinePosition` when absent, `AboveLine` or `Anchored`), its AnchorYoffset and
+the page item itself, read by the same reader as spread items (paint, path or
+clipped image). Invalid positions or offsets are reported and the item stays
+untyped. Saving still writes the retained XML, so editing the item is not offered.
+Anchored text frames and groups stay retained and untyped.
+
+An inline item in horizontal text is composed as an isolated object replacement
+character set as an empty box the width of the item's visual extent: its frame
+grown by half its stroke, through its own affine. The extent's bottom sits on the
+baseline, raised by the Y offset. Under font-metric leading a tall item raises its
+line through the same metrics as a large glyph; under Auto leading the item's line
+steps by the item's height above the baseline plus the text's own extra leading
+(Auto leading less the point size), never less than the text's Auto leading; fixed
+leading keeps its step and a tall item overlaps the line above. A bounding-box
+wrap on the item adds its left and right offsets beside it; its top and bottom
+offsets change nothing. It wraps whole, like a word. Output and the canvas draw the
+item with its frame, after the frame's text, through the frame's affine; a click on
+it selects the frame. Composed inline items no longer count as unrendered story
+structures. Items above the line or at custom anchored positions, items in
+vertical text, and wrap of other text around anchored items are not composed yet
+and stay reported by Preflight.
+
+Native evidence: the public paged-media `anchored` sample
+([inputs](https://github.com/paged-media/core/blob/ffb7c8713125dc77403ec0983099f74ac2558517/crates/paged-gen/src/samples/anchored.rs),
+SHA-256 `6f8d6915…d0d05266`, and its
+[InDesign 20.0.1 PDF](https://github.com/paged-media/core/blob/ffb7c8713125dc77403ec0983099f74ac2558517/corpus/generated/anchored.pdf),
+SHA-256 `38c57c7a…a1e574de`) sets a 60 × 36 pt text frame stroked 0.5 pt inline
+in 12 pt Open Sans under Auto leading with AnchorYoffset 0. The PDF's content
+stream shows the anchor line 38.9 pt below the previous baseline (36.5 + 14.4 −
+12) and the next line 14.4 pt further, the stroke's outer edge on the baseline and
+at the pen position, and the following text starting at the stroke's right edge.
+On the page whose frame has a 3 pt bounding-box wrap, the frame moves 3 pt right,
+the following text 6 pt, and no baseline moves. A nonzero inline Y offset is not
+covered and remains a Schist reading. The sample's anchored item is a text frame,
+which Schist does not type yet, so the composition tests reproduce its geometry
+with a stroked rectangle.

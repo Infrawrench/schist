@@ -67,6 +67,20 @@ pub struct PreparedStory {
     pub styles: StyleSet,
     pub notes: Vec<PreparedNote>,
     pub variables: usize,
+    /// Inline anchored items set in the projection.
+    pub anchored: usize,
+}
+
+/// Display text standing for an inline anchored item: one isolated object
+/// replacement character, set as the item's box.
+const ANCHORED_TEXT: &str = "\u{2068}\u{fffc}\u{2069}";
+
+/// What a projected insertion stands for.
+#[derive(Clone, Copy, PartialEq)]
+enum Generated {
+    Note,
+    Variable,
+    Anchored(crate::anchored::LineBox),
 }
 
 /// Prepare main-story variables independently of note-area eligibility, then
@@ -80,8 +94,9 @@ pub(crate) fn prepare_for_flow(
 ) -> Option<PreparedStory> {
     let source = doc.story(id)?;
     let variables = crate::text_variables::instances(doc, source, pages);
+    let anchored = crate::anchored::instances(doc, source);
     let notes = notes_supported.then(|| prepare(doc, id)).flatten();
-    if variables.is_empty() {
+    if variables.is_empty() && anchored.is_empty() {
         return notes;
     }
     let mut prepared = if let Some(notes) = notes {
@@ -95,6 +110,7 @@ pub(crate) fn prepare_for_flow(
             styles: doc.styles.clone(),
             notes: Vec::new(),
             variables: 0,
+            anchored: 0,
         }
     };
     let mut insertions = Vec::new();
@@ -108,7 +124,7 @@ pub(crate) fn prepare_for_flow(
         insertions.push((
             note.anchor,
             note.structure,
-            false,
+            Generated::Note,
             Insertion {
                 at: note.anchor,
                 text: prepared
@@ -132,10 +148,31 @@ pub(crate) fn prepare_for_flow(
         insertions.push((
             variable.at,
             variable.structure,
-            true,
+            Generated::Variable,
             Insertion {
                 at: variable.at,
                 text: variable.text,
+                style: name,
+            },
+        ));
+    }
+    prepared.anchored = anchored.len();
+    for item in anchored {
+        let mut name = format!("Schist anchored item {}", item.structure);
+        while prepared.styles.characters.iter().any(|s| s.name == name) {
+            name.push('_');
+        }
+        prepared
+            .styles
+            .characters
+            .push(item.character.into_style(&name));
+        insertions.push((
+            item.at,
+            item.structure,
+            Generated::Anchored(item.line_box),
+            Insertion {
+                at: item.at,
+                text: ANCHORED_TEXT.into(),
                 style: name,
             },
         ));
@@ -147,8 +184,17 @@ pub(crate) fn prepare_for_flow(
         insertions.iter().map(|(_, _, _, i)| i.clone()).collect(),
     )?;
     project_paragraphs(&main_source, &mut main, &mut prepared.styles);
-    for ((_, structure, variable, _), span) in insertions.iter().zip(&main.positions.generated) {
-        if *variable {
+    for ((_, structure, kind, _), span) in insertions.iter().zip(&main.positions.generated) {
+        if let Generated::Anchored(line_box) = kind {
+            main.objects.push(span.start..span.end);
+            main.boxes.push(crate::inline_text::ProjectedBox {
+                at: span.start + '\u{2068}'.len_utf8(),
+                width: line_box.width,
+                ascent: line_box.ascent,
+                descent: line_box.descent,
+                structure: *structure,
+            });
+        } else if *kind == Generated::Variable {
             main.objects.push(span.start..span.end);
         } else {
             prepared
@@ -349,6 +395,7 @@ pub fn prepare(doc: &LayoutDocument, id: StoryId) -> Option<PreparedStory> {
         styles,
         notes,
         variables: 0,
+        anchored: 0,
     })
 }
 

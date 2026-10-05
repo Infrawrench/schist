@@ -52,6 +52,7 @@ pub mod xml;
 pub use error::Error;
 pub use plugin::IdmlCodec;
 
+mod anchored_codec;
 mod custom_text_codec;
 mod graphic_codec;
 mod text_path_codec;

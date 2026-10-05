@@ -565,6 +565,7 @@ fn main_paragraph_starts_preserve_whole_and_split_notes_in_independent_or_spanni
                         reference_paragraph_style: "Starts".into(),
                         reference_character_style: "Default".into(),
                     }),
+                    anchored: None,
                 });
                 doc.stories[0] = story;
                 if splitting {

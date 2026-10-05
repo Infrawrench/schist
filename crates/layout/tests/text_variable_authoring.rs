@@ -103,6 +103,7 @@ fn identity_allocation_reserves_missing_references_in_main_stories_and_nested_no
             name: String::new(),
             character_style: String::new(),
         }),
+        anchored: None,
     };
     doc.stories[0].structures.push(instance("SchistCustom0"));
     let mut note = schist_layout::footnotes::FootnoteBody {
@@ -118,6 +119,7 @@ fn identity_allocation_reserves_missing_references_in_main_stories_and_nested_no
         payload: "opaque".into(),
         control: None,
         footnote: Some(note),
+        anchored: None,
     });
     let original = doc.stories.clone();
     let mut history = History::default();

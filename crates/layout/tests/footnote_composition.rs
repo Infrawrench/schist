@@ -40,6 +40,7 @@ fn document(text: &str, anchors: &[usize]) -> LayoutDocument {
                 reference_paragraph_style: "Body".into(),
                 reference_character_style: "Reference".into(),
             }),
+            anchored: None,
         });
     }
     doc.stories.push(story);

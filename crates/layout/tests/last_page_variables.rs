@@ -237,6 +237,7 @@ fn reference(at: usize, variable: &str) -> StoryStructure {
             character_style: String::new(),
             name: String::new(),
         }),
+        anchored: None,
     }
 }
 

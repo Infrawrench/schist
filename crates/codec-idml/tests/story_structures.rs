@@ -27,6 +27,7 @@ fn document(legacy: bool) -> LayoutDocument {
             kind: "Footnote".into(),
             payload: payload.into(),
             footnote: None,
+            anchored: None,
         });
     }
     doc.stories[frame.story.0 as usize] = story;
@@ -234,6 +235,7 @@ fn native_edits_win_while_stale_opaque_payloads_keep_unknown_locations() {
                     kind: "Footnote".into(),
                     payload: original,
                     footnote: None,
+                    anchored: None,
                 }]
             );
             if change == "text" {

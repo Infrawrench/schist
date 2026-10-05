@@ -56,6 +56,7 @@ fn generated_references_never_replace_source_graphemes_in_an_opening_initial() {
                                 reference_paragraph_style: "Initial".into(),
                                 reference_character_style: "Default".into(),
                             }),
+                            anchored: None,
                         });
                         let id = doc.add_story(story);
                         let before = doc.clone();

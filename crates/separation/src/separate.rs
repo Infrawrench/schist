@@ -492,14 +492,22 @@ fn missing_link(placed: &PlacedObject) -> Option<String> {
 }
 
 enum PaintFailure<'a> {
-    Graphic(&'a str),
+    Graphic(std::borrow::Cow<'a, str>),
     Text,
 }
 
 impl PaintFailure<'_> {
+    /// A failure that no longer borrows the object it came from.
+    fn owned(self) -> PaintFailure<'static> {
+        match self {
+            Self::Graphic(path) => PaintFailure::Graphic(path.into_owned().into()),
+            Self::Text => PaintFailure::Text,
+        }
+    }
+
     fn report(self, report: &mut PreflightReport) {
         match self {
-            Self::Graphic(path) => report.unavailable_graphic(path),
+            Self::Graphic(path) => report.unavailable_graphic(&path),
             Self::Text => report.add(
                 crate::report::Severity::Error,
                 schist_i18n::t("design.preflight_unavailable_text").to_string(),
@@ -627,6 +635,20 @@ fn paint_object_content<'a>(
                     separation.paint_composite(&coverage, &coats, &build, mode, opacity * alpha);
                 }
             }
+            // Inline anchored items draw with their frame, after its text.
+            let mut failed = None;
+            for item in
+                schist_layout::anchored::placements(doc, story_def, placed, composed.all_lines())
+            {
+                if let Some(failure) =
+                    paint_object(separation, plan, doc, &item, settings, page, source)
+                {
+                    failed.get_or_insert(failure.owned());
+                }
+            }
+            if failed.is_some() {
+                return failed;
+            }
         }
 
         LayoutObject::GraphicFrame { link, .. } => {
@@ -636,7 +658,7 @@ fn paint_object_content<'a>(
                 return None;
             }
             let Some(placed_graphic) = graphic_coverage(placed, settings, page, source) else {
-                return Some(PaintFailure::Graphic(&link.path));
+                return Some(PaintFailure::Graphic(link.path.as_str().into()));
             };
             let rect = placed_graphic.rect;
             if !separation.paint_process(
@@ -647,7 +669,7 @@ fn paint_object_content<'a>(
                 mode,
                 opacity,
             ) {
-                return Some(PaintFailure::Graphic(&link.path));
+                return Some(PaintFailure::Graphic(link.path.as_str().into()));
             }
         }
 

@@ -348,6 +348,7 @@ impl NoteFlow {
             markers: &self.markers,
             notes: None,
             objects: &[],
+            boxes: &[],
             plan: &self.plan,
             hyphens: start.hyphens,
             denied_hyphen_words: &[],

@@ -1,5 +1,11 @@
 # Translation refresh status
 
+## October 5, 2026: inline anchored items
+
+`design.idml_anchored_invalid` is added as an English placeholder in all 150
+catalogs for invalid anchored-object settings in imported stories. No locale was
+added.
+
 ## October 5, 2026: text in shaped frames
 
 `design.text_in_shape` ("Text in shape") is added as an English placeholder in all

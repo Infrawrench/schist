@@ -145,6 +145,7 @@ pub fn document(reference: bool, case: usize) -> LayoutDocument {
             payload: "original instance".into(),
             footnote: None,
             control: Some(control),
+            anchored: None,
         });
         match &display {
             Display::LastPage(spec) => doc.text_variables.push(TextVariable::new(

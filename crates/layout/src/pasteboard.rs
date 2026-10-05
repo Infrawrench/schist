@@ -641,6 +641,7 @@ fn objects_for(
                     let text = spec.text.clone();
                     has_text |= !text.is_empty();
                     spec.size *= view.scale;
+                    spec.scale_inline_boxes(view.scale);
                     if let Some(tabs) = &mut spec.tabs {
                         tabs.scaled(view.scale);
                     }
@@ -689,6 +690,24 @@ fn objects_for(
                         style: line.paragraph_style.clone(),
                         spec: Box::new(spec),
                     });
+                }
+                // Inline anchored items draw with their frame; a click on one
+                // selects the frame, as a click on its text does.
+                for item in crate::anchored::placements(
+                    doc,
+                    definition,
+                    &object,
+                    composed.iter().flat_map(|frame| frame.all_lines()),
+                ) {
+                    out.extend(anchored_displays(
+                        doc,
+                        &item,
+                        object.id,
+                        view,
+                        offset,
+                        inherited,
+                        object.locked || doc.layer_locked(doc.object_layer(object.id)),
+                    ));
                 }
                 if !drew {
                     let at = composed.as_ref().map_or(0, |frame| frame.consumed_to);
@@ -878,6 +897,66 @@ fn path_text_bounds(spec: &schist_text_engine::TextSpec) -> Rect {
         (Some(a), None) | (None, Some(a)) => a,
         _ => Rect::ZERO,
     }
+}
+
+/// Displays for an anchored item, attributed to the frame that holds it.
+fn anchored_displays(
+    doc: &LayoutDocument,
+    item: &crate::PlacedObject,
+    frame: crate::ObjectId,
+    view: &PasteboardView,
+    offset: Point,
+    inherited: bool,
+    locked: bool,
+) -> Vec<Display> {
+    let mut out = Vec::new();
+    if let Some(fill) = item.frame_paint(false) {
+        out.extend(shape_display(doc, &fill, view, offset, inherited, false));
+    }
+    match &item.object {
+        LayoutObject::Shape { .. } => {
+            out.extend(shape_display(doc, item, view, offset, inherited, false));
+        }
+        LayoutObject::GraphicFrame {
+            link,
+            fit,
+            crop,
+            scale,
+            image_transform,
+            clip_path,
+            ..
+        } => out.push(Display::Graphic {
+            object: frame,
+            transform: crate::affine::in_view(
+                item.content_transform(),
+                view.scale,
+                view.to_pasteboard(offset),
+            ),
+            rect: move_to(item.bounds, view, offset),
+            label: link_name(link),
+            missing: !link.present,
+            inherited,
+            locked,
+            fit: *fit,
+            source: link.path.clone(),
+            crop: *crop,
+            scale: *scale,
+            image_transform: *image_transform,
+            clip_path: clip_path.clone(),
+            zoom: view.scale,
+            opacity: item.transparency,
+        }),
+        _ => {}
+    }
+    if let Some(stroke) = item.frame_paint(true) {
+        out.extend(shape_display(doc, &stroke, view, offset, inherited, false));
+    }
+    for display in &mut out {
+        if let Display::Shape { object, .. } | Display::Graphic { object, .. } = display {
+            *object = frame;
+        }
+    }
+    out
 }
 
 fn shape_display(

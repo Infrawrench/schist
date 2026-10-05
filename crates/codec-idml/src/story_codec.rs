@@ -375,6 +375,7 @@ impl StoryBuilder {
                                     page_number_type,
                                 ),
                                 footnote: None,
+                                anchored: None,
                             },
                         ));
                     }
@@ -424,6 +425,7 @@ impl StoryBuilder {
                                 raw.to_string()
                             },
                             footnote: footnote(element, paragraph, character),
+                            anchored: None,
                         },
                     ));
                 }

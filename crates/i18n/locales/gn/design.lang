@@ -613,3 +613,6 @@ design.wrap_abut = Resume wrapped text on leading
 
 # UNTRANSLATED PLACEHOLDER
 design.text_in_shape = Text in shape
+
+# UNTRANSLATED PLACEHOLDER
+design.idml_anchored_invalid = Anchored item {name}: invalid {property}: {value}

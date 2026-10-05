@@ -19,6 +19,9 @@ pub struct RenderedLine {
     pub nested_issue: Option<&'static str>,
     /// None identifies generated content outside the editable main story.
     pub positions: Option<LinePositions>,
+    /// Inline anchored items set in this line: each box's position in `spec`
+    /// and the story structure it draws.
+    pub anchored: Vec<(usize, usize)>,
 }
 
 #[derive(Debug, Clone, PartialEq, Eq)]
@@ -41,6 +44,38 @@ pub struct Projection {
     pub positions: SourceMap,
     /// Projected inline objects, distinct from ordinary generated note markers.
     pub objects: Vec<std::ops::Range<usize>>,
+    /// Projected boxes of inline anchored items, inside their objects.
+    pub boxes: Vec<ProjectedBox>,
+}
+
+/// An inline anchored item's box in projected display text.
+#[derive(Debug, Clone, Copy, PartialEq)]
+pub struct ProjectedBox {
+    /// Byte offset of the U+FFFC set as the box.
+    pub at: usize,
+    pub width: crate::Pt,
+    pub ascent: crate::Pt,
+    pub descent: crate::Pt,
+    pub structure: usize,
+}
+
+impl ProjectedBox {
+    /// Boxes within `range`, relative to its start, as engine boxes.
+    pub(crate) fn slice(
+        boxes: &[ProjectedBox],
+        range: std::ops::Range<usize>,
+    ) -> Vec<schist_text_engine::InlineBox> {
+        boxes
+            .iter()
+            .filter(|b| b.at >= range.start && b.at < range.end)
+            .map(|b| schist_text_engine::InlineBox {
+                at: b.at - range.start,
+                width: b.width,
+                ascent: b.ascent,
+                descent: b.descent,
+            })
+            .collect()
+    }
 }
 
 #[derive(Debug, Clone, PartialEq, Eq)]
@@ -222,6 +257,7 @@ impl Projection {
             story,
             positions,
             objects: Vec::new(),
+            boxes: Vec::new(),
         })
     }
 }

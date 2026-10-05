@@ -113,6 +113,7 @@ pub fn document(reference: bool, case: usize) -> LayoutDocument {
                             character_style: String::new(),
                         }),
                         footnote: None,
+                        anchored: None,
                     }));
             }
         } else if story.text().starts_with("Nested delimiters / case") {

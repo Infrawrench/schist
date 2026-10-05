@@ -333,6 +333,7 @@ pub(crate) fn spec_with_character(
         hyphenation_breaks: Vec::new(),
         atomic_spans: Vec::new(),
         inline_objects: Vec::new(),
+        inline_boxes: Vec::new(),
         hyphenation_policy: schist_text_engine::HyphenationPolicy {
             consecutive_limit: usize::from(paragraph.hyphenation.ladder_limit.unwrap_or(3)),
             preceding_hyphens: 0,
@@ -679,6 +680,8 @@ struct FlowSource<'a> {
     markers: &'a crate::list_composition::MarkerPlans,
     notes: Option<&'a crate::footnote_composition::PreparedStory>,
     objects: &'a [std::ops::Range<usize>],
+    /// Inline anchored items' boxes, in the same display coordinates.
+    boxes: &'a [crate::inline_text::ProjectedBox],
     plan: &'a crate::hyphenation::BreakPlan,
     hyphens: hyphenation_flow::History,
     denied_hyphen_words: &'a [std::ops::Range<usize>],
@@ -854,7 +857,7 @@ fn compose_thread_on_page(
                     &doc.stories[story_id.0 as usize],
                     &doc.styles,
                 )
-                .saturating_sub(prepared.notes.len() + prepared.variables);
+                .saturating_sub(prepared.notes.len() + prepared.variables + prepared.anchored);
                 frame.consumed_to = prepared.main.positions.source(frame.consumed_to);
                 for line in &mut frame.lines {
                     let positions = prepared.main.positions.line(&text, line.start, line.end);
@@ -871,6 +874,17 @@ fn compose_thread_on_page(
                                 &prepared.main.objects,
                                 line.start..line.end,
                             );
+                            projected.spec.inline_boxes = crate::inline_text::ProjectedBox::slice(
+                                &prepared.main.boxes,
+                                line.start..line.end,
+                            );
+                            projected.anchored = prepared
+                                .main
+                                .boxes
+                                .iter()
+                                .filter(|b| b.at >= line.start && b.at < line.end)
+                                .map(|b| (b.at - line.start, b.structure))
+                                .collect();
                         }
                     }
                     line.start = prepared.main.positions.source(line.start);
@@ -942,6 +956,7 @@ fn compose_thread_plain(
         story,
         markers,
         objects: notes.map_or(&[], |prepared| prepared.main.objects.as_slice()),
+        boxes: notes.map_or(&[], |prepared| prepared.main.boxes.as_slice()),
         notes: notes.filter(|prepared| !prepared.notes.is_empty()),
         plan,
         hyphens: Default::default(),
@@ -1442,6 +1457,8 @@ fn compose_path(
     }
     spec.inline_objects =
         crate::text_variables::slice_objects(source.objects, block.start..block.end);
+    spec.inline_boxes =
+        crate::inline_text::ProjectedBox::slice(source.boxes, block.start..block.end);
     spec.hyphenation_breaks = source.plan.slice(block.start..block.end);
     spec.hyphenation_policy.preceding_hyphens =
         if block.paragraph_start != Some(block.start) && hyphens.at == block.start {
@@ -2138,6 +2155,8 @@ fn place_block(
     );
     full_spec.inline_objects =
         crate::text_variables::slice_objects(source.objects, block.start..block.end);
+    full_spec.inline_boxes =
+        crate::inline_text::ProjectedBox::slice(source.boxes, block.start..block.end);
     full_spec.hyphenation_breaks = source.plan.slice(block.start..block.end);
     let automatic_word = source.plan.overlaps_word(block.start..block.end);
     full_spec.hyphenation_policy.preceding_hyphens = if !first && source.hyphens.at == block.start {
@@ -2686,6 +2705,15 @@ fn slice_spec(spec: &TextSpec, start: usize, end: usize) -> TextSpec {
         .collect();
     out.atomic_spans = crate::text_variables::slice_objects(&spec.atomic_spans, start..end);
     out.inline_objects = crate::text_variables::slice_objects(&spec.inline_objects, start..end);
+    out.inline_boxes = spec
+        .inline_boxes
+        .iter()
+        .filter(|b| b.at >= start && b.at < end)
+        .map(|b| schist_text_engine::InlineBox {
+            at: b.at - start,
+            ..*b
+        })
+        .collect();
     out.runs = spec
         .runs
         .iter()
@@ -3233,6 +3261,7 @@ fn scale_initial_spec(mut spec: TextSpec, scale: Pt) -> TextSpec {
     spec.size *= scale;
     spec.leading = spec.leading.map(|v| v * scale);
     spec.tracking *= scale;
+    spec.scale_inline_boxes(scale);
     spec.align = schist_text_engine::Align::Left;
     for run in &mut spec.runs {
         run.size = run.size.map(|v| v * scale);

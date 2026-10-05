@@ -172,6 +172,10 @@ pub struct StoryStructure {
     /// Their original XML is still retained alongside supported note composition.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub footnote: Option<crate::footnotes::FootnoteBody>,
+    /// A page item anchored in the text, typed from its retained XML. The
+    /// payload stays authoritative for saving; this is composition data.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub anchored: Option<Box<crate::anchored::AnchoredItem>>,
 }
 
 /// A linear flow of text, shared by one or more frames.

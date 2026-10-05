@@ -17,6 +17,7 @@
 //! Points, 1/72 inch, everywhere. See [`geometry`].
 
 pub mod affine;
+pub mod anchored;
 pub mod authoring;
 pub mod compose;
 mod curves;

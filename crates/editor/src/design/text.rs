@@ -264,6 +264,7 @@ mod tests {
                             reference_paragraph_style: "Body".into(),
                             reference_character_style: String::new(),
                         }),
+                        anchored: None,
                     });
                     state.document.stories[frame.story.0 as usize] = story;
                     state.document.objects[0].transform = affine;

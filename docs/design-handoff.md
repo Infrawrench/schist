@@ -1,4 +1,4 @@
-# Design Mode handoff — 2026-10-04
+# Design Mode handoff — 2026-10-05
 
 Read `AGENTS.md`, then `docs/roadmap.md` in full. The roadmap is authoritative;
 do not recreate the plan from the original conversation. This handoff supplements
@@ -9,10 +9,10 @@ its latest checkpoint for work on another machine.
 Branch: `design-tab-leaders`. Existing draft PR:
 https://github.com/Infrawrench/schist/pull/195
 
-The latest commit composes text in shaped frames and saves unstyled text with
-IDML's root styles. It follows `7dc6b99c` (text wrap), `550ba45f` (native page
-numbers, section markers, chapter-number variables and the unsaved-close fix),
-`021e3bbd` (last-page-number variables) and `aaad6dc0` (custom-variable
+The latest commit composes inline anchored items. It follows `9c516fb9` (text in
+shaped frames and IDML root styles), `7dc6b99c` (text wrap), `550ba45f` (native
+page numbers, section markers, chapter-number variables and the unsaved-close
+fix), `021e3bbd` (last-page-number variables) and `aaad6dc0` (custom-variable
 authoring). Fetch the branch head.
 
 ## Current work
@@ -57,6 +57,22 @@ step. Unstyled runs, controls and list markers save as
 styles, and on reading the root character style (and a bare root paragraph style)
 is not a document style.
 
+Page items inside stories (Rectangle, Oval, Polygon, GraphicLine) keep their
+retained XML and are also typed as `StoryStructure.anchored`: AnchoredObjectSetting
+position, Y offset and the item read by the spread-item reader. The text engine has
+inline boxes (`TextSpec.inline_boxes`): a U+FFFC inside an inline object with its
+own width, ascent and descent that draws nothing, wraps whole and reports its
+position. Composition projects each inline item in horizontal text as such a box
+the size of its visual extent (stroke included), places it on the baseline raised
+by its Y offset, and draws it through the frame's affine after the frame's text in
+output and on the canvas. Auto leading steps the item's line by its height plus
+the text's extra leading; fixed leading keeps its step. These follow InDesign's
+PDF of the public paged-media `anchored` sample (see `docs/idml-format.md`),
+whose other pages also measure above-line and custom positions.
+Boxes must be scaled with their specs (`TextSpec::scale_inline_boxes`) wherever a
+spec is scaled. Above-line and custom positions, anchored text frames and groups,
+vertical text and wrap around anchored items stay reported as unrendered.
+
 Key files:
 
 - `crates/layout/src/text_wrap.rs`: model, band geometry and undoable edits.
@@ -66,20 +82,25 @@ Key files:
 - `crates/editor/src/panels/design_wrap.rs`: compact controls.
 - `crates/layout/tests/text_wrap.rs`, `crates/codec-idml/tests/text_wrap.rs`,
   `crates/separation/tests/text_wrap.rs`: geometry, interchange and plate ink.
+- `crates/text-engine/src/lib.rs` (`InlineBox`, `inline_box_positions`) and
+  `shaping.rs`: engine inline boxes.
+- `crates/layout/src/anchored.rs`: typed items, line boxes, placement through the
+  frame; `footnote_composition.rs` projects them, `pasteboard.rs` and
+  `crates/separation/src/separate.rs` draw them.
+- `crates/codec-idml/src/anchored_codec.rs`: typing items from retained XML.
+- `*/tests/anchored_items.rs` and `crates/text-engine/tests/inline_boxes.rs`.
 
 ## Continue in roadmap order
 
-Next: anchored and inline objects. Native stories retain them as guarded
-recovery structures with a Preflight error; composing inline graphics/frames as
-inline objects of the line (the custom-variable inline-object path already
-reserves width) and anchored objects with their AnchoredObjectSetting position
-would remove the largest remaining class of unrendered story structures, and
-anchored objects then take part in text wrap.
+Next: the rest of anchored objects. Above-line items (their own line before the
+anchor's, aligned with space before and after) and custom anchored positions
+(AnchoredObjectSetting reference points and offsets, which then take part in text
+wrap), then anchored text frames and groups (`TextFrame` and `Group` inside a
+story need a nested story/frame reader).
 
-Also open: object-style text-wrap categories; wrap for
-anchored/inline objects, vertical text, initials and markers; a layer IgnoreWrap
-control; file-name, date and running-header variables; next/previous page numbers;
-note-body variables; tables, anchored/inline objects and the other item 9 gaps
+Also open: object-style text-wrap categories; wrap for vertical text, initials and
+markers; a layer IgnoreWrap control; file-name, date and running-header variables;
+next/previous page numbers; note-body variables; tables and the other item 9 gaps
 listed in the roadmap. Production INDD remains gated on Phase 0.
 
 ## Working constraints
@@ -132,20 +153,23 @@ listed in the roadmap. Production INDD remains gated on Phase 0.
 
 ## Verification at this checkpoint
 
-The shaped-frame and root-style batch passes all 16 roadmap targets, headless
-library wasm, shared UI, formatting, whitespace and the debug app build (2,157
-distinct passing Rust tests); two test-side corrections made during its sweep
-re-passed the affected targets on the final source. Details, the typing fixes found
-by native review and the review results are in Roadmap / Handoff. The two macOS-only editor tests were not compiled here; the next macOS
+The inline anchored-item batch passes all 16 roadmap targets, headless library
+wasm, shared UI, whitespace and the debug app build (2,176 distinct passing Rust
+tests); a rustfmt-only correction to a new test file during its sweep re-passed
+the format check, the layout target and its lint on the final source. All 43
+proofs are byte-identical to the previous checkpoint. Details, the scaling and
+leading fixes found by native review and the native PDF evidence are in Roadmap /
+Handoff. The two macOS-only editor tests were not compiled here; the next macOS
 run should include them.
 
 ## Temporary files
 
 Task logs and evidence are under the Git Bash `/tmp` (`C:\Users\Administrator\AppData\Local\Temp`):
 `schist-validate/` (`aaad6dc0` logs, proofs, hashes, native screenshots),
-`schist-sweep/` to `schist-sweep6/` (batch sweep logs), `schist-proofs-b3/` and
-`schist-proofs-b4/` (proof PDFs per batch), `schist-b3/` and `schist-b4/`
-(review-document generators and logs), `schist-wrap-research/` (text-wrap/anchored references) and
+`schist-sweep/` to `schist-sweep8/` (batch sweep logs), `schist-proofs-b3/`,
+`schist-proofs-b4/` and `schist-proofs-b5/` (proof PDFs per batch), `schist-b3/`
+to `schist-b5/` (review-document generators and logs), `schist-wrap-research/` (text-wrap references), `schist-anchored-research/` (the
+anchored sample's PDF, inputs and measuring scripts `pdfops.py`/`measure.py`) and
 `schist-variable-research/` (reacquired public specification and paged-media
 reference). They are not needed to continue; regenerate proofs with make and
 reacquire references from the pinned URLs in `docs/idml-format.md`.
@@ -156,9 +180,9 @@ reacquire references from the pinned URLs in `docs/idml-format.md`.
 > https://github.com/Infrawrench/schist/pull/195. Fetch the latest branch head.
 > Read `AGENTS.md` first, then `docs/roadmap.md` in full, then
 > `docs/design-handoff.md`. The roadmap is the plan; do not re-plan from scratch.
-> The latest commit composes text in shaped frames and saves IDML root styles; its
-> full sweep and native review passed on Windows. Continue Phase 3 item 9 in
-> roadmap order, starting with anchored and inline objects. Implement substantial coherent batches
+> The latest commit composes inline anchored items; its full sweep and native
+> review passed on Windows. Continue Phase 3 item 9 in roadmap order, starting with
+> above-line and custom anchored positions. Implement substantial coherent batches
 > before compiling/testing; use make and `CARGO_INCREMENTAL=0`, test locally, and
 > do not query or wait for CI. Keep Design's LayoutDocument and tools separate from
 > raster Document/ToolPlugin; keep the feature flag false by default; preserve

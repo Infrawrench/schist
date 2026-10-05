@@ -314,6 +314,7 @@ control: None,
                             markers: vec![FootnoteMarker { at: 0, character_style: String::new() }],
                             reference_paragraph_style: "P".into(), reference_character_style: String::new(),
                         }),
+                        anchored: None,
                     });
                 }
                 let saved = doc.clone();
@@ -388,6 +389,7 @@ fn an_inline_reference_does_not_disable_its_original_words_dictionary_breaks() {
                 reference_paragraph_style: "P".into(),
                 reference_character_style: String::new(),
             }),
+            anchored: None,
         });
         let flow = compose::compose_thread(&doc, StoryId(0), &[input(40.0, 300.0, 1)]);
         let first = &flow.frames[0].lines[0];

@@ -310,6 +310,80 @@ are marked.
 
 ## Handoff
 
+Inline anchored items, 2026-10-05:
+A Rectangle, Oval, Polygon or GraphicLine inside a story is still retained as its
+exact XML, which saving writes unchanged, and is now also typed from it: the
+AnchoredObjectSetting position (InlinePosition when absent, AboveLine, Anchored),
+AnchorYoffset and the page item itself, read by the spread-item reader. Invalid
+settings are reported and leave the item untyped (one key, all 150 catalogs).
+
+The text engine gained inline boxes: a U+FFFC inside an isolated inline object may
+carry a width, ascent and descent. Shaping advances by the width and draws
+nothing, line metrics treat it as a glyph of that height, it wraps whole, and
+`inline_box_positions` reports where it was set, in either direction.
+Composition projects each inline item in horizontal text as such a box with a
+generated character style, so source text and anchors are untouched. The box is
+the item's visual extent (its frame grown by half its stroke), whose bottom sits
+on the baseline raised by its Y offset; a bounding-box wrap adds its left and right
+offsets beside it. The item is drawn through the frame's affine after the frame's
+text, in output and on the canvas, where a click on it selects the frame. Under
+font-metric leading a tall item raises its line like a large glyph. Schist
+resolves Auto leading to points before the engine, so the item's run carries the
+item's height above the baseline plus the text's extra leading; fixed leading
+keeps its step and the item overlaps the line above. Composed inline items no
+longer count as unrendered structures.
+
+These rules follow InDesign's own output: the pinned public paged-media
+`anchored` sample and its InDesign 20 PDF (hashes in `docs/idml-format.md`) put
+a 60 × 36 pt frame stroked 0.5 pt inline in 12 pt Auto-leaded text. Its content
+stream steps the anchor line 38.9 pt (36.5 + 14.4 − 12), puts the stroke's outer
+edge on the baseline and at the pen position, and on the wrapped page moves the
+frame 3 pt and the following text 6 pt with no baseline moving. A layout test
+reproduces those numbers. Its other pages (above-line, custom offsets and text
+frame, line, top-of-leading and page-margin references) measure exactly against
+the visual bounds too and are the evidence for the next batch; its cap-height and
+x-height pages use enumeration spellings InDesign evidently ignored, since they
+match the baseline page. A nonzero inline Y offset remains a Schist reading.
+
+Not composed yet, and still reported by Preflight: above-line items, custom
+anchored positions, items in vertical text, anchored text frames and groups (still
+retained and untyped), and text wrap around anchored items beyond an inline
+item's own side offsets. Inline items are not editable; they save as their
+retained XML.
+
+Focused testing found that every story-structure literal needed the new field
+(41 across the repository, two helper bodies fixed by hand) and that two TextSpec
+literals needed the box list. Native review then found two composition bugs, both
+fixed with tests. Line specs were scaled to the preview zoom and to output
+resolution without their boxes, so a line raised by a tall item set its text at
+the wrong height except at 100% and 72 dpi; boxes now scale with their specs at
+all three sites, and tests check the preview at 0.48 and 2.0 and plate ink at 72
+and 144 dpi. And Auto leading never reached the box: IDML's root paragraph style is
+Auto, so every imported review story showed a tall item overlapping the lines
+above instead of making room for it. A first fix used 120% of the item's height;
+the native sample then showed InDesign's rule and that its extent includes the
+stroke, so a sweep already under way was stopped and both were corrected before
+the final sweep. On the frozen final source every roadmap target, headless
+library wasm, shared UI, whitespace and the debug app build passed; the format
+check failed on rustfmt layout in the new layout test file only, which was
+formatted, after which the format check, the layout target and its lint passed
+again. All 43 proofs are byte-identical to the shaped-frame checkpoint:
+**2,176 distinct passing Rust tests**, 19 new (5 text engine, 8 layout, 3 IDML,
+3 separation).
+
+Native review used the actual debug app with Design enabled and isolated
+configuration, through passive captures only. A centered 18 pt story with a filled
+36 × 14 pt rectangle and a 30 × 44 pt oval raised 6 pt shows the rectangle on its
+baseline between words and, under the root Auto leading, the oval's line dropped
+to make room for it, the oval 6 pt above the baseline; with a fixed 22 pt
+leading the step is unchanged and the oval overlaps the two lines above. On the
+final build the oval's line steps 53.6 pt (its 50 pt above the baseline plus the
+18 pt text's 3.6 pt extra leading), so the oval sits just under the line before.
+
+Next: above-line and custom anchored positions, then anchored text frames and
+groups. Published to draft PR #195.
+
+
 Text in shaped frames and IDML root styles, 2026-10-05:
 A text frame with a non-rectangular outline now composes inside it instead of in
 its rectangle with a "rectangular text composition" notice (the notice and its key
@@ -2778,7 +2852,7 @@ remaining order is now explicit:
    Text wrap (TextWrapPreference, IgnoreWrap and the TextPreference wrap
    settings) composes for horizontal text and saves natively, with compact controls.
    Shaped text frames compose inside their outline, and unstyled text saves with
-   the IDML root styles.
+   the IDML root styles. Inline anchored page items compose in horizontal text.
 
 Phase 0 research can proceed independently. Phase 5 only follows an
 explicit evidence-based go/no-go; container recognition is not an INDD

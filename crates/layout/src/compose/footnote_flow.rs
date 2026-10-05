@@ -137,6 +137,7 @@ pub(super) fn capture(
             .range(..=line.start)
             .next_back()
             .and_then(|(_, issue)| *issue),
+        anchored: Vec::new(),
     });
 }
 
