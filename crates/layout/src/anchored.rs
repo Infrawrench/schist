@@ -355,14 +355,12 @@ impl AnchoredItem {
             })
     }
 
-    /// Whether the item sits at a custom position and wraps text.
-    pub fn wraps_text(&self) -> bool {
+    /// Whether the item sits at a custom position and wraps text, by its
+    /// own wrap or its object style's.
+    pub fn wraps_text(&self, styles: &crate::StyleSet) -> bool {
         self.position == AnchoredPosition::Anchored
-            && self
-                .object
-                .appearance
-                .text_wrap
-                .as_ref()
+            && styles
+                .object_wrap(&self.object)
                 .is_some_and(|w| w.mode != crate::text_wrap::WrapMode::None)
     }
 
@@ -670,7 +668,7 @@ pub fn wrapping<'a>(
     lines
         .into_iter()
         .flat_map(|line| targets(doc, story, frame, line))
-        .filter(|(item, _)| item.wraps_text())
+        .filter(|(item, _)| item.wraps_text(&doc.styles))
         .map(|(item, at)| {
             through_frame(&item.moved_object(at.x, at.y), frame).resolved_appearance(&doc.styles)
         })
@@ -703,7 +701,7 @@ pub(crate) fn wraps(
         .structures
         .iter()
         .filter_map(|s| s.anchored.as_deref())
-        .any(AnchoredItem::wraps_text)
+        .any(|item| item.wraps_text(&doc.styles))
     {
         return Vec::new();
     }

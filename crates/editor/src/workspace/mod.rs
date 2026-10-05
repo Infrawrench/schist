@@ -722,7 +722,7 @@ impl Workspace {
             .iter()
             .filter_map(|id| {
                 let placed = document.object(*id)?;
-                let wrap = placed.appearance.text_wrap.as_ref()?;
+                let wrap = document.styles.object_wrap(placed)?;
                 if matches!(wrap.mode, WrapMode::None | WrapMode::Contour) {
                     return None;
                 }

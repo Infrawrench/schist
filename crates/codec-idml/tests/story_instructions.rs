@@ -109,9 +109,12 @@ fn content_instructions_keep_order_context_and_every_utf8_anchor_without_source_
                 assert_eq!(instruction(saved), (pi.into(), kind.map(str::to_owned)));
             }
             // ACE 3 ends nested styles; current page numbers (two spellings)
-            // and the section marker render; other modes stay diagnosed.
+            // and the section marker render. A standalone frame's next and
+            // previous page numbers show its own page; other modes stay
+            // diagnosed.
             let rendered = match kind {
                 None | Some("AutoPageNumber") => 3,
+                Some("NextPageNumber" | "PreviousPageNumber") => 2,
                 _ => 0,
             };
             assert_eq!(

@@ -417,9 +417,8 @@ impl WrapField {
                     .flat_map(|p| p.objects.iter().map(|o| &o.object)),
             )
             .any(|o| {
-                o.appearance
-                    .text_wrap
-                    .as_ref()
+                doc.styles
+                    .object_wrap(o)
                     .is_some_and(|w| w.mode != WrapMode::None)
             });
         let mut obstacles: Vec<Obstacle> = own.into_iter().collect();
@@ -803,13 +802,16 @@ pub fn edit_wrap(
         if matches!(object.object, LayoutObject::Note { .. }) {
             return false;
         }
-        let mut wrap = object.appearance.text_wrap.clone().unwrap_or_default();
+        let mut wrap = doc.styles.object_wrap(object).unwrap_or_default();
         edit(&mut wrap);
         if !wrap.valid() {
             return false;
         }
         let mut after = object.clone();
-        after.appearance.text_wrap = (wrap != TextWrap::default()).then_some(wrap);
+        // An item keeps its own wrap only where it differs from its style's,
+        // so "no wrap" on an item whose style wraps is kept as its choice.
+        let inherited = doc.styles.style_wrap(object).unwrap_or_default();
+        after.appearance.text_wrap = (wrap != inherited).then_some(wrap);
         if after != *object {
             edits.push(LayoutEdit::ObjectChanged {
                 id: id.0,

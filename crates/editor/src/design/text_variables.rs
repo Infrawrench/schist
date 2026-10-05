@@ -7,6 +7,7 @@ use super::{
 use crate::workspace::Workspace;
 use gpui::{prelude::*, *};
 use schist_i18n::t;
+use schist_layout::story::PageNumberKind;
 use schist_layout::text_variables::{
     self as variables, ChapterNumber, Cursor, LastPageNumber, PageNumberFormat, TextVariable,
     VariableKind, VariableScope,
@@ -581,7 +582,7 @@ impl Render for TextVariables {
                     .enumerate()
                     .filter(|(_, s)| s.at == Some(cursor.at) && variables::removable(s))
                 {
-                    use schist_layout::story::{InlineControl, PageNumberKind};
+                    use schist_layout::story::InlineControl;
                     let label = match &structure.control {
                         Some(InlineControl::TextVariable { variable, name, .. }) => doc
                             .text_variables
@@ -866,36 +867,51 @@ impl Render for TextVariables {
                             .children(
                                 [
                                     (
-                                        false,
+                                        Some(PageNumberKind::Current),
                                         "insert-page-number",
                                         "page-number",
                                         "design.marker_page_number",
                                     ),
                                     (
-                                        true,
+                                        Some(PageNumberKind::Next),
+                                        "insert-next-page-number",
+                                        "page-next",
+                                        "design.marker_next_page",
+                                    ),
+                                    (
+                                        Some(PageNumberKind::Previous),
+                                        "insert-previous-page-number",
+                                        "page-previous",
+                                        "design.marker_previous_page",
+                                    ),
+                                    (
+                                        None,
                                         "insert-section-marker",
                                         "section-marker",
                                         "design.marker_section",
                                     ),
                                 ]
-                                .map(
-                                    |(section, id, icon, label)| {
-                                        ui::IconButton::new(id, icon)
-                                            .tooltip(t(label), None)
-                                            .disabled(!cursor_valid)
-                                            .on_click(cx.listener(move |this, _, _, cx| {
-                                                if let Some(cursor) = this.cursor.clone() {
-                                                    this.apply(cx, |state| {
-                                                        cursor.insert_marker(
-                                                            &mut state.document,
-                                                            &mut state.history,
-                                                            section,
-                                                        )
-                                                    });
-                                                }
-                                            }))
-                                    },
-                                ),
+                                .map(|(kind, id, icon, label)| {
+                                    ui::IconButton::new(id, icon)
+                                        .tooltip(t(label), None)
+                                        .disabled(!cursor_valid)
+                                        .on_click(cx.listener(move |this, _, _, cx| {
+                                            if let Some(cursor) = this.cursor.clone() {
+                                                this.apply(cx, |state| match kind {
+                                                    Some(kind) => cursor.insert_page_number(
+                                                        &mut state.document,
+                                                        &mut state.history,
+                                                        kind,
+                                                    ),
+                                                    None => cursor.insert_marker(
+                                                        &mut state.document,
+                                                        &mut state.history,
+                                                        true,
+                                                    ),
+                                                });
+                                            }
+                                        }))
+                                }),
                             )
                             .child(
                                 ui::IconButton::new("capture-variable-cursor", "type")

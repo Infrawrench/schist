@@ -844,3 +844,65 @@ fn narrow_intervals_a_word_cannot_fit_are_skipped_not_overflowed() {
         }
     }
 }
+
+/// An object style's Text Wrap & Other category gives its items its wrap
+/// unless they have their own; based-on styles inherit it, a disabled
+/// category gives none, and editing a styled item to no wrap keeps that as
+/// its own choice.
+#[test]
+fn object_styles_give_their_wrap_to_items_without_their_own() {
+    let rect = Rect::new(190.0, 150.0, 100.0, 100.0);
+    let styled = |enable: Option<bool>, local: Option<TextWrap>| {
+        let (mut doc, _) = document(4);
+        doc.styles.objects.extend([
+            schist_layout::ObjectStyle {
+                name: "Wraps".into(),
+                enable_text_wrap: enable,
+                text_wrap: Some(wrap(WrapMode::BoundingBox, 6.0)),
+                ..Default::default()
+            },
+            schist_layout::ObjectStyle {
+                name: "Child".into(),
+                based_on: Some("Wraps".into()),
+                ..Default::default()
+            },
+        ]);
+        let id = obstacle(
+            &mut doc,
+            ShapeKind::Rectangle,
+            rect,
+            wrap(WrapMode::None, 0.0),
+        );
+        let object = object_mut(&mut doc, id);
+        object.appearance.text_wrap = local;
+        object.appearance.style = Some("Child".into());
+        (doc, id)
+    };
+    let (doc, _) = styled(Some(true), None);
+    assert_clear(&lines(&doc), zone(rect, 6.0));
+    assert_complete(&doc);
+    let (plain, _) = document(4);
+    for (enable, local) in [
+        (Some(false), None),
+        (None, None),
+        (Some(true), Some(wrap(WrapMode::None, 0.0))),
+    ] {
+        let (doc, _) = styled(enable, local);
+        assert_eq!(lines(&doc), lines(&plain), "{enable:?}");
+    }
+    // Editing a styled item to no wrap stores it; back to the style's wrap
+    // returns it to inheriting.
+    let (mut doc, id) = styled(Some(true), None);
+    let mut history = History::default();
+    assert!(text_wrap::edit_wrap(&mut doc, &mut history, &[id], |w| {
+        w.mode = WrapMode::None
+    }));
+    let own = doc.object(id).unwrap().appearance.text_wrap.clone();
+    assert_eq!(own.map(|w| w.mode), Some(WrapMode::None));
+    assert_eq!(lines(&doc), lines(&plain));
+    assert!(text_wrap::edit_wrap(&mut doc, &mut history, &[id], |w| {
+        *w = wrap(WrapMode::BoundingBox, 6.0)
+    }));
+    assert!(doc.object(id).unwrap().appearance.text_wrap.is_none());
+    assert_clear(&lines(&doc), zone(rect, 6.0));
+}

@@ -100,6 +100,12 @@ pub struct ObjectStyle {
     pub balance_columns: Option<bool>,
     pub footnotes: crate::footnotes::FrameFootnotes,
     pub paint: ObjectPaint,
+    /// EnableTextWrapAndOthers: the style's wrap applies to items without a
+    /// local one.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub enable_text_wrap: Option<bool>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub text_wrap: Option<crate::text_wrap::TextWrap>,
 }
 
 #[derive(Debug, Clone, Default, PartialEq, Serialize, Deserialize)]
@@ -113,7 +119,8 @@ pub struct ObjectAppearance {
     /// Text-frame outline in normalized coordinates, independent of text flow.
     /// Graphic frames use their existing clip_path instead.
     pub outline: Option<ShapePath>,
-    /// Local text wrap: how this item pushes other frames' text aside.
+    /// Local text wrap: how this item pushes other frames' text aside. None
+    /// takes its object style's wrap when that category is enabled.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub text_wrap: Option<crate::text_wrap::TextWrap>,
     /// A text frame whose own text ignores other items' wrap.
@@ -153,8 +160,27 @@ impl StyleSet {
             resolved.balance_columns = style.balance_columns.or(resolved.balance_columns);
             resolved.enable_footnotes = style.enable_footnotes.or(resolved.enable_footnotes);
             resolved.footnotes = style.footnotes.over(&resolved.footnotes);
+            resolved.enable_text_wrap = style.enable_text_wrap.or(resolved.enable_text_wrap);
+            resolved.text_wrap = style.text_wrap.clone().or(resolved.text_wrap);
         }
         resolved
+    }
+
+    /// The wrap `object` pushes text aside with: its own, or its object
+    /// style's when that category is enabled.
+    pub fn object_wrap(&self, object: &PlacedObject) -> Option<crate::text_wrap::TextWrap> {
+        if let Some(wrap) = &object.appearance.text_wrap {
+            return Some(wrap.clone());
+        }
+        self.style_wrap(object)
+    }
+
+    /// The wrap `object`'s enabled object-style category gives it, if any.
+    pub fn style_wrap(&self, object: &PlacedObject) -> Option<crate::text_wrap::TextWrap> {
+        let style = self.resolve_object(object.appearance.style.as_deref()?);
+        (style.enable_text_wrap == Some(true))
+            .then_some(style.text_wrap)
+            .flatten()
     }
 
     pub fn frame_balance(&self, object: &PlacedObject) -> bool {
@@ -277,6 +303,7 @@ impl PlacedObject {
             out.object = paint.shape(path.clone());
         }
         out.appearance.paint = paint;
+        out.appearance.text_wrap = styles.object_wrap(self);
         out.appearance.style = None;
         out
     }

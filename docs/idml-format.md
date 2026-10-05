@@ -2731,10 +2731,19 @@ A current page number shows its page's Pages-panel label, including a section
 prefix only when the section includes it; a section marker shows the marker text,
 which may be empty. Both use the same page context as last page numbers: a parent
 instance uses its destination page; an ordinary thread renders only when all of
-its frames share one page (or, for a marker, one section). Next and previous page
-numbers name the pages of adjacent frames of the marker's own frame, which the
-composition pass does not yet know, so they save natively but stay unrendered and
-diagnosed.
+its frames share one page (or, for a marker, one section).
+
+Next and previous page numbers follow public jump-line guidance
+([CreativePro](https://creativepro.com/previousnext-page-number-on-same-page)):
+they report the page of the next or previous frame in the thread of the story
+whose frame the marker's frame touches or overlaps, and the marker's own page in
+a standalone frame or at the end of that thread. Schist evaluates them only where
+the marker's frame is known, a composition pass with one document frame, and
+only when every touched story gives the same page; the label is the Pages-panel
+label, as for current page numbers. A marker inside a multi-frame thread (whose
+frame depends on composition), on a parent page, or touching stories that
+disagree stays unrendered and diagnosed. The Text Variables window inserts both
+kinds at the captured cursor.
 
 Every checked-in public IDML package has `ChapterNumberPreference
 ChapterNumber="1" ChapterNumberSource="ContinueFromPreviousDocument"` with a
@@ -2747,8 +2756,7 @@ chapter 1 when the preference is absent, the stored number for UserDefined, and
 chapter 1 for the book-relative sources only when the stored number is 1, where a
 standalone document's possible readings agree. Other book-relative numbers are
 not guessed. Current format needs the observed Arabic format string; explicit
-formats do not. Next/previous page numbers, books and other format spellings
-remain open.
+formats do not. Books and other format spellings remain open.
 
 
 ### End Nested Style controls
@@ -2812,8 +2820,18 @@ An item's record is written after its own Properties, in source items and in
 parent spreads. A record that wraps nothing survives as written. Invalid
 spellings, booleans and offsets that are not finite or exceed 10,000 points are
 reported and read as the published defaults (no wrap, both sides, false, zero).
-`$ID/` is the empty contour path name. Object-style text-wrap categories remain
-reported as unsupported categories.
+`$ID/` is the empty contour path name.
+
+An ObjectStyle's Text Wrap & Other category is now read and written:
+EnableTextWrapAndOthers and the style's own TextWrapPreference, inherited through
+BasedOn like the other categories. An item without its own TextWrapPreference
+takes its style's wrap when the category is enabled; an item's own record,
+including one that wraps nothing, wins. Editing a styled item's wrap stores it
+only where it differs from the style's, so "no wrap" on an item whose style wraps
+is kept as the item's choice and returning to the style's wrap inherits again.
+The category's other member, Nonprinting, is not modeled, so a style enabling
+the category with Nonprinting true is still reported as having unsupported
+categories. Layers' IgnoreWrap now has a toggle on each Layers panel row.
 
 Composition works in each text frame's untransformed composition box. Obstacle
 outlines are mapped there through the inverse of the frame's affine, so rotated or

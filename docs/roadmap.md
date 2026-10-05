@@ -310,6 +310,48 @@ are marked.
 
 ## Handoff
 
+Jump-line page numbers, object-style wrap and layer IgnoreWrap, 2026-10-05:
+Next and previous page numbers now render where public jump-line guidance makes
+them unambiguous (CreativePro, linked in `docs/idml-format.md`): in a composition
+pass with one document frame, the marker shows the page of the next or previous
+frame in the thread of the story whose frame its own frame touches or overlaps,
+and its own page when standalone or at that thread's end. Markers inside a
+multi-frame thread, on parent pages, or touching stories that disagree stay
+diagnosed. The Text Variables window gains next and previous icons beside the
+current page number (two new icons; the existing marker labels serve as
+tooltips).
+
+An ObjectStyle's Text Wrap & Other category is now read, written and applied:
+EnableTextWrapAndOthers and the style's TextWrapPreference, inherited through
+BasedOn. Items without their own wrap take the style's (`StyleSet::object_wrap`,
+used by composition, the wrap controls and the canvas boundary); editing a styled
+item's wrap stores it only where it differs from the style's. Nonprinting, the
+category's other member, keeps the unsupported-category report. Each Layers panel
+row gains a compact toggle for the layer's IgnoreWrap. No new keys.
+
+The source-frozen sweep passed every target except the IDML tests, where two
+older tests still expected next and previous page numbers in a standalone frame to
+stay unrendered; under the new rule they show the frame's own page. Both
+expectations were corrected (test files only), after which the IDML target and its
+lint passed again on the final source. Every other roadmap target, headless
+library wasm, shared UI, formatting, whitespace and the debug app build passed,
+and all 43 proofs are byte-identical to the previous checkpoint: **2,201 distinct
+passing Rust tests**, 3 new (2 layout, 1 IDML).
+
+Native review used the actual debug app with Design enabled and isolated
+configuration. Passive captures show a jump line touching the first frame of a
+three-page thread reading "Next page 2 previous page 1", and text flowing on both
+sides of a box whose wrap comes only from its object style. With guarded input
+(sent only when a Schist window is under the pointer or in front): the Layers row
+shows eye, lock and the new wrap toggle; turning it on made the frame's text run
+over the box and marked the document modified. The Text Variables window shows
+the four marker icons compactly, and after capturing a text cursor the next-page
+icon inserted a marker listed as "Next page number".
+
+Next: file-name, date and running-header variables, then tables and the
+remaining item 9 gaps. Published to draft PR #195.
+
+
 Text wrap around custom-positioned anchored items, 2026-10-05:
 An item at a custom position with a TextWrapPreference now wraps the lines of its
 own story after its anchor's line, as Adobe's public help and tutorials describe
@@ -2987,7 +3029,9 @@ remaining order is now explicit:
    settings) composes for horizontal text and saves natively, with compact controls.
    Shaped text frames compose inside their outline, and unstyled text saves with
    the IDML root styles. Anchored page items, text frames and groups compose
-   inline, above the line and at custom positions in horizontal text.
+   inline, above the line and at custom positions in horizontal text, and wrap
+   later lines of their story. Object styles carry text wrap, and jump-line page
+   numbers render.
 
 Phase 0 research can proceed independently. Phase 5 only follows an
 explicit evidence-based go/no-go; container recognition is not an INDD

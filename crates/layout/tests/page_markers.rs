@@ -636,3 +636,102 @@ fn a_soft_line_break_does_not_end_the_run_that_insertions_inherit() {
         "Bold"
     );
 }
+
+/// Jump lines, as public jump-line guidance describes (see
+/// docs/idml-format.md): a next or previous page number in a frame touching a
+/// threaded story's frame shows the page of that frame's next or previous
+/// frame. Standalone, or at the thread's end, it shows its own page. Contact
+/// with stories that disagree, and markers inside a multi-frame thread, stay
+/// diagnosed.
+#[test]
+fn jump_lines_follow_the_thread_of_the_frame_they_touch() {
+    let mut doc = pages(4);
+    fonts(&mut doc);
+    let mut history = History::default();
+    // An article threaded over pages 1, 2 and 4.
+    let article: Vec<_> = [0, 1, 3]
+        .into_iter()
+        .map(|page| {
+            authoring::text_frame(
+                &mut doc,
+                &mut history,
+                page,
+                Rect::new(30.0, 30.0, 300.0, 400.0),
+            )
+            .unwrap()
+        })
+        .collect();
+    for pair in article.windows(2) {
+        assert!(threading::link(
+            &mut doc,
+            &mut history,
+            pair[0].object,
+            pair[1].object
+        ));
+    }
+    let story = threading::story_of(&doc, article[0].object).unwrap();
+    doc.stories[story.0 as usize] = Story::from_text("Article text.", "Body");
+    let text = "Continued on , from ";
+    let jump_story = |doc: &mut LayoutDocument, page: usize, rect: Rect| {
+        let frame = authoring::text_frame(doc, &mut History::default(), page, rect).unwrap();
+        let mut jump = Story::from_text(text, "Body");
+        jump.structures = vec![
+            page_number("Continued on ".len(), PageNumberKind::Next),
+            page_number(text.len(), PageNumberKind::Previous),
+        ];
+        doc.stories[frame.story.0 as usize] = jump;
+        frame
+    };
+    let composed = |doc: &LayoutDocument, story: StoryId| {
+        let thread = compose::compose_story(doc, story);
+        (
+            values(&thread.frames[0]),
+            thread.frames[0].unrendered_structures,
+        )
+    };
+    // Touching the middle frame's bottom edge.
+    let touching = jump_story(&mut doc, 1, Rect::new(30.0, 430.0, 200.0, 30.0));
+    assert_eq!(
+        composed(&doc, touching.story),
+        (vec!["4".into(), "1".into()], 0)
+    );
+    // Clear of every frame: its own page, both ways.
+    let alone = jump_story(&mut doc, 1, Rect::new(30.0, 600.0, 200.0, 30.0));
+    assert_eq!(
+        composed(&doc, alone.story),
+        (vec!["2".into(), "2".into()], 0)
+    );
+    // On the last frame there is no next frame.
+    let last = jump_story(&mut doc, 3, Rect::new(100.0, 400.0, 200.0, 40.0));
+    assert_eq!(
+        composed(&doc, last.story),
+        (vec!["4".into(), "2".into()], 0)
+    );
+    // Another story's frame, whose next frame is elsewhere, touches it too.
+    let other = authoring::text_frame(
+        &mut doc,
+        &mut history,
+        1,
+        Rect::new(220.0, 440.0, 200.0, 100.0),
+    )
+    .unwrap();
+    let after = authoring::text_frame(
+        &mut doc,
+        &mut history,
+        2,
+        Rect::new(30.0, 30.0, 300.0, 100.0),
+    )
+    .unwrap();
+    assert!(threading::link(
+        &mut doc,
+        &mut history,
+        other.object,
+        after.object
+    ));
+    assert_eq!(composed(&doc, touching.story), (Vec::new(), 2));
+    // Inside the article itself, its frame depends on composition.
+    let mut inside = Story::from_text(text, "Body");
+    inside.structures = vec![page_number("Continued on ".len(), PageNumberKind::Next)];
+    doc.stories[story.0 as usize] = inside;
+    assert_eq!(composed(&doc, story), (Vec::new(), 1));
+}

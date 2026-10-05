@@ -60,6 +60,8 @@ icons!(
     "tab-character",
     "chapter",
     "page-number",
+    "page-next",
+    "page-previous",
     "section-marker",
     "move",
     "swap",

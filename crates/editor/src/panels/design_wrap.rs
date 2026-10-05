@@ -38,7 +38,10 @@ fn shared<T: PartialEq>(ws: &Workspace, value: impl Fn(&TextWrap) -> T) -> Optio
         .selection
         .iter()
         .filter_map(|id| ws.design.document.object(*id))
-        .map(|o| value(o.appearance.text_wrap.as_ref().unwrap_or(&default)));
+        .map(|o| {
+            let wrap = ws.design.document.styles.object_wrap(o);
+            value(wrap.as_ref().unwrap_or(&default))
+        });
     let first = values.next()?;
     values.all(|v| v == first).then_some(first)
 }

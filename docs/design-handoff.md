@@ -9,8 +9,9 @@ its latest checkpoint for work on another machine.
 Branch: `design-tab-leaders`. Existing draft PR:
 https://github.com/Infrawrench/schist/pull/195
 
-The latest commit wraps text around custom-positioned anchored items. It follows
-`29e24efa` (anchored text frames and groups), `9c757f22` (above-line and custom
+The latest commit renders jump-line page numbers and applies object-style wrap.
+It follows `dff813d6` (wrap around anchored items), `29e24efa` (anchored text
+frames and groups), `9c757f22` (above-line and custom
 anchored positions), `1a8853b3` (inline anchored
 items), `9c516fb9` (text in shaped frames
 and IDML root styles), `7dc6b99c` (text wrap), `550ba45f` (native
@@ -35,7 +36,8 @@ unrendered and diagnosed. The compact Text Variables window switches kinds with 
 icons; computed drafts show Text before/after with a Format dropdown, plus Scope
 for last page numbers. Two icons insert a current page number or section marker
 at the captured cursor. Current page numbers and markers use the same page
-context; next/previous page numbers save natively but stay diagnosed.
+context. Next/previous page numbers in a one-frame pass follow the thread of the
+story frame their frame touches (`text_variables::jump_page_value`).
 
 Text wrap is modeled per page item (`ObjectAppearance.text_wrap`), per text
 frame (`ignore_wrap`), per layer (`LayoutLayer.ignore_wrap`) and per document
@@ -110,14 +112,13 @@ Key files:
 
 ## Continue in roadmap order
 
-Next: the remaining item 9 gaps: object-style wrap categories, next/previous page
-numbers, file-name/date/running-header variables, tables and other stories' wrap
-around anchored items.
+Next: file-name, date and running-header variables (TextVariable types
+FileNameType, CreationDate/ModificationDate/OutputDateType, MatchParagraphStyle/
+MatchCharacterStyleType), then tables and the remaining item 9 gaps.
 
-Also open: object-style text-wrap categories; wrap for vertical text, initials and
-markers; a layer IgnoreWrap control; file-name, date and running-header variables;
-next/previous page numbers; note-body variables; tables and the other item 9 gaps
-listed in the roadmap. Production INDD remains gated on Phase 0.
+Also open: wrap for vertical text, initials and markers; other stories' wrap around
+anchored items; note-body variables; tables and the other item 9 gaps listed in
+the roadmap. Production INDD remains gated on Phase 0.
 
 ## Working constraints
 
@@ -169,18 +170,20 @@ listed in the roadmap. Production INDD remains gated on Phase 0.
 
 ## Verification at this checkpoint
 
-The anchored-wrap batch passes all 16 roadmap targets, headless library wasm,
-shared UI, formatting, whitespace and the debug app build (2,198 distinct passing
-Rust tests) with no corrections during its sweep; all 43 proofs are byte-identical
-to the previous checkpoint. Details are in Roadmap / Handoff. The two macOS-only editor tests were not compiled here; the next macOS
+The jump-line, object-style wrap and layer IgnoreWrap batch passes all 16
+roadmap targets, headless library wasm, shared UI, formatting, whitespace and the
+debug app build (2,201 distinct passing Rust tests); two outdated IDML test
+expectations found by its sweep were corrected and that target re-passed on the
+final source. All 43 proofs are byte-identical to the previous checkpoint. Details
+are in Roadmap / Handoff. The two macOS-only editor tests were not compiled here; the next macOS
 run should include them.
 
 ## Temporary files
 
 Task logs and evidence are under the Git Bash `/tmp` (`C:\Users\Administrator\AppData\Local\Temp`):
 `schist-validate/` (`aaad6dc0` logs, proofs, hashes, native screenshots),
-`schist-sweep/` to `schist-sweep12/` (batch sweep logs), `schist-proofs-b3/` to
-`schist-proofs-b8/` (proof PDFs per batch), `schist-b3/` to `schist-b6/`
+`schist-sweep/` to `schist-sweep13/` (batch sweep logs), `schist-proofs-b3/` to
+`schist-proofs-b9/` (proof PDFs per batch), `schist-b3/` to `schist-b6/`
 (review-document generators and logs), `schist-wrap-research/` (text-wrap references), `schist-anchored-research/` (the
 anchored sample's PDF, inputs and measuring scripts `pdfops.py`/`measure.py`) and
 `schist-variable-research/` (reacquired public specification and paged-media
@@ -193,8 +196,8 @@ reacquire references from the pinned URLs in `docs/idml-format.md`.
 > https://github.com/Infrawrench/schist/pull/195. Fetch the latest branch head.
 > Read `AGENTS.md` first, then `docs/roadmap.md` in full, then
 > `docs/design-handoff.md`. The roadmap is the plan; do not re-plan from scratch.
-> The latest commit wraps text around custom-positioned anchored items; its full
-> sweep and native review passed on Windows. Continue Phase 3 item 9 in roadmap
+> The latest commit renders jump-line page numbers and applies object-style wrap;
+> its full sweep and native review passed on Windows. Continue Phase 3 item 9 in roadmap
 > order with the remaining gaps listed in the handoff. Implement substantial coherent batches
 > before compiling/testing; use make and `CARGO_INCREMENTAL=0`, test locally, and
 > do not query or wait for CI. Keep Design's LayoutDocument and tools separate from

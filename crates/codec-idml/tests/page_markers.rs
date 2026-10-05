@@ -142,13 +142,15 @@ fn page_number_and_section_markers_type_render_and_save_natively_at_every_bounda
                 Some("NextPageNumber"),
                 "ACE 18",
                 Some(PageNumberKind::Next),
-                None,
+                // A standalone frame is its own next and previous frame.
+                Some("1"),
             ),
             (
                 Some("PreviousPageNumber"),
                 "ACE 18",
                 Some(PageNumberKind::Previous),
-                None,
+                // A standalone frame is its own next and previous frame.
+                Some("1"),
             ),
             (None, "ACE 19", None, Some("")),
             (Some("AutoPageNumber"), "ACE 19", None, Some("")),

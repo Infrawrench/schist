@@ -830,6 +830,7 @@ fn compose_thread_on_page(
             story_id,
             footnote_flow::supported(doc, story_id, frames),
             &pages,
+            &frames.iter().map(|frame| frame.0).collect::<Vec<_>>(),
         ) {
             // An item's wrap moves the lines after its anchor, which can move
             // later anchors: compose again until the items settle.

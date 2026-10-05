@@ -492,17 +492,32 @@ impl Cursor {
         history: &mut History,
         section: bool,
     ) -> bool {
+        if section {
+            if !self.valid(doc) {
+                return false;
+            }
+            let character_style = self.character_style();
+            let control = InlineControl::SectionMarker { character_style };
+            self.insert_structure(doc, history, "ProcessingInstruction", control)
+        } else {
+            self.insert_page_number(doc, history, crate::story::PageNumberKind::Current)
+        }
+    }
+
+    /// Insert a current, next or previous page number: a native zero-width
+    /// instruction.
+    pub fn insert_page_number(
+        &self,
+        doc: &mut LayoutDocument,
+        history: &mut History,
+        kind: crate::story::PageNumberKind,
+    ) -> bool {
         if !self.valid(doc) {
             return false;
         }
-        let character_style = self.character_style();
-        let control = if section {
-            InlineControl::SectionMarker { character_style }
-        } else {
-            InlineControl::PageNumber {
-                kind: crate::story::PageNumberKind::Current,
-                character_style,
-            }
+        let control = InlineControl::PageNumber {
+            kind,
+            character_style: self.character_style(),
         };
         self.insert_structure(doc, history, "ProcessingInstruction", control)
     }
@@ -618,6 +633,59 @@ pub fn current_page_value(doc: &LayoutDocument, pages: &[usize]) -> Option<Strin
     valid_contents(&label).then_some(label)
 }
 
+/// A next or previous page-number marker shows the page of the next or
+/// previous frame in the thread of the story whose frame its own frame
+/// touches or overlaps, and its own page when there is none, as public
+/// jump-line guidance describes. It is evaluated only in a one-frame pass on
+/// a document page, where its frame is known, and only when every touched
+/// story gives the same page.
+pub fn jump_page_value(
+    doc: &LayoutDocument,
+    frames: &[crate::ObjectId],
+    next: bool,
+) -> Option<String> {
+    let [frame] = frames else {
+        return None;
+    };
+    let frame = doc.object(*frame)?;
+    let crate::LayoutObject::TextFrame { story, .. } = frame.object else {
+        return None;
+    };
+    let area = frame.visual_bounds();
+    let touch = crate::Rect::new(
+        area.x - 0.01,
+        area.y - 0.01,
+        area.width + 0.02,
+        area.height + 0.02,
+    );
+    let mut answers = std::collections::BTreeSet::new();
+    for other in &doc.objects {
+        let crate::LayoutObject::TextFrame { story: tracked, .. } = other.object else {
+            continue;
+        };
+        if other.page != frame.page || tracked == story || !other.visual_bounds().intersects(touch)
+        {
+            continue;
+        }
+        let thread = doc.story_frames(tracked);
+        let Some(at) = thread.iter().position(|f| f.id == other.id) else {
+            continue;
+        };
+        let neighbour = if next {
+            thread.get(at + 1)
+        } else {
+            at.checked_sub(1).and_then(|i| thread.get(i))
+        };
+        answers.insert(neighbour.map_or(frame.page, |f| f.page));
+    }
+    let page = match answers.len() {
+        0 => frame.page,
+        1 => *answers.first()?,
+        _ => return None,
+    };
+    current_page_value(doc, &[page])
+}
+
 /// A section marker shows its section's marker text, which may be empty.
 pub fn section_marker_value(doc: &LayoutDocument, pages: &[usize]) -> Option<String> {
     let marker = doc.section_at(single_section(doc, pages)?).1.marker;
@@ -626,11 +694,13 @@ pub fn section_marker_value(doc: &LayoutDocument, pages: &[usize]) -> Option<Str
 
 /// Only supported, unambiguous references become display objects. Others stay
 /// on the existing unrendered-structure diagnostic path, with their XML intact.
-/// `pages` are every page this composition pass can place the story on.
+/// `pages` are every page this composition pass can place the story on, and
+/// `frames` the pass's frames.
 pub(crate) fn instances(
     doc: &crate::LayoutDocument,
     story: &crate::Story,
     pages: &[usize],
+    frames: &[crate::ObjectId],
 ) -> Vec<Instance> {
     use crate::story::{InlineControl, PageNumberKind};
     story
@@ -672,6 +742,16 @@ pub(crate) fn instances(
                         character_style,
                     }),
                 ) => (current_page_value(doc, pages)?, character_style),
+                (
+                    "ProcessingInstruction",
+                    Some(InlineControl::PageNumber {
+                        kind: kind @ (PageNumberKind::Next | PageNumberKind::Previous),
+                        character_style,
+                    }),
+                ) => (
+                    jump_page_value(doc, frames, *kind == PageNumberKind::Next)?,
+                    character_style,
+                ),
                 (
                     "ProcessingInstruction",
                     Some(InlineControl::SectionMarker { character_style }),

@@ -114,6 +114,7 @@ pub(super) fn design_layers_panel(
             .unwrap_or_else(|| schist_i18n::tf!("design.layer_number", number = index + 1));
         let visible = document.layer_visible(id);
         let locked = document.layer_locked(id);
+        let ignores_wrap = document.layer_ignores_wrap(id);
         let collapsed = ws.design.controls.collapsed_layers.contains(&id);
         let selected = ws
             .design
@@ -193,6 +194,31 @@ pub(super) fn design_layers_panel(
                     );
                     cx.notify();
                 })),
+            )
+            .child(
+                // Text frames on this layer ignore other items' wrap.
+                IconButton::new(("layout-layer-ignore-wrap", id.0), "wrap-ignore")
+                    .size(22.0)
+                    .icon_size(12.0)
+                    .consume_press()
+                    .active(ignores_wrap)
+                    .color(if ignores_wrap {
+                        palette().text
+                    } else {
+                        palette().text_faint
+                    })
+                    .tooltip(t("design.wrap_ignore"), None)
+                    .on_click(cx.listener(move |ws, _, _, cx| {
+                        cx.stop_propagation();
+                        prepare(ws);
+                        structure::change_layer(
+                            &mut ws.design.document,
+                            &mut ws.design.history,
+                            id,
+                            |layer| layer.ignore_wrap = !layer.ignore_wrap,
+                        );
+                        cx.notify();
+                    })),
             )
             .child(
                 IconButton::new(

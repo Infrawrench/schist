@@ -69,6 +69,8 @@ pub(crate) fn read_styles(
             balance_columns: crate::preferences_codec::frame_balance(element, report),
             footnotes: crate::footnote_codec::read_frame(element, report),
             paint: read_paint(element, colors, report),
+            enable_text_wrap: element.boolean("EnableTextWrapAndOthers"),
+            text_wrap: crate::text_wrap_codec::read(element, &refs.object(id), report),
         };
         if element.attributes.iter().any(|(key, value)| {
             key.starts_with("Enable")
@@ -78,6 +80,7 @@ pub(crate) fn read_styles(
                         | "EnableStroke"
                         | "EnableStrokeAndCornerOptions"
                         | "EnableTextFrameFootnoteOptions"
+                        | "EnableTextWrapAndOthers"
                 )
                 && xml::parse_boolean(value) == Some(true)
         }) || [
@@ -93,6 +96,8 @@ pub(crate) fn read_styles(
                 .iter()
                 .any(|(k, v)| k.starts_with("Enable") && xml::parse_boolean(v) == Some(true))
         }) || (style.enable_stroke_options != Some(false) && unsupported_outline(element))
+            // The category's other member is Nonprinting, which Schist ignores.
+            || (style.enable_text_wrap == Some(true) && element.boolean("Nonprinting") == Some(true))
         {
             report.skip(schist_i18n::tf!(
                 "design.idml_object_style_limits",
@@ -233,6 +238,7 @@ pub(crate) fn styles_xml(doc: &LayoutDocument, warnings: &mut Vec<String>) -> St
                 "EnableTextFrameGeneralOptions",
                 style.enable_text_frame_general,
             ),
+            ("EnableTextWrapAndOthers", style.enable_text_wrap),
         ] {
             if let Some(value) = value {
                 attr(&mut out, key, value);
@@ -256,6 +262,9 @@ pub(crate) fn styles_xml(doc: &LayoutDocument, warnings: &mut Vec<String>) -> St
                 "<TextFramePreference{} />",
                 crate::preferences_codec::balance_attribute(style.balance_columns)
             ));
+        }
+        if let Some(wrap) = &style.text_wrap {
+            out.push_str(&crate::text_wrap_codec::write(wrap));
         }
         out.push_str("</ObjectStyle>");
     }
