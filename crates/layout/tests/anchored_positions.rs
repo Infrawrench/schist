@@ -142,6 +142,7 @@ fn compose(setup: Setup) -> Composed {
             y_offset: setup.y_offset,
             placement: setup.placement,
             object,
+            members: Vec::new(),
         })),
     });
     story.push_paragraph(

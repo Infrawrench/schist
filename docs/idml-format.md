@@ -2881,9 +2881,9 @@ style carries real defaults and stays a document style, as before.
 
 ### Inline anchored items
 
-A Rectangle, Oval, Polygon or GraphicLine inside a story keeps its exact XML as
-a retained story structure at its character position, as before, and is now also
-typed from that XML: every AnchoredObjectSetting attribute the specification
+A Rectangle, Oval, Polygon, GraphicLine, TextFrame or Group inside a story keeps
+its exact XML as a retained story structure at its character position, as before,
+and is now also typed from that XML: every AnchoredObjectSetting attribute the specification
 defines (AnchoredPosition, AnchorPoint, Horizontal/VerticalAlignment,
 Horizontal/VerticalReferencePoint, AnchorXoffset, AnchorYoffset,
 AnchorSpaceAbove, SpineRelative, PinPosition, LockPosition) with its Appendix C
@@ -2892,8 +2892,23 @@ default when absent (`InlinePosition`, `BottomRightAnchor`, `LeftAlign`,
 itself, read by the same reader as spread items (paint, path or clipped image).
 An invalid position or offset is reported and the item stays untyped; an invalid
 reference, alignment, anchor point or flag is reported and read as its default.
-Saving still writes the retained XML, so editing the item is not offered. Anchored
-text frames and groups stay retained and untyped.
+Items are saved in Schist's structured-story retention record (typed, with the
+retained XML), not as native story content, so editing them is not offered and
+other applications do not see them; reopening restores them typed. Placed items
+take a reserved object id no document object has, so an id saved in another
+session never makes an anchored frame compose as a document frame.
+
+An anchored TextFrame is typed with the package story its ParentStory names, by
+document position, so it survives saves although story ids are renumbered. Its
+story composes in the item's own box as a one-frame thread (threading
+attributes are not followed), its own anchored items included, and text it cannot
+hold is reported as overset under the item's name. An anchored frame whose story
+leads back to the story holding it, directly or through other anchored frames,
+is reported as an invalid ParentStory and left untyped, and composition never
+sets such a frame. An anchored Group is flattened like spread groups: nested
+groups compose their ItemTransforms, opacity multiplies and hidden groups hide
+their items. Its members move together, its extent spans theirs, and the
+container keeps the group's name and TextWrapPreference.
 
 An inline item in horizontal text is composed as an isolated object replacement
 character set as an empty box the width of the item's visual extent: its frame
@@ -2906,8 +2921,9 @@ leading keeps its step and a tall item overlaps the line above. A bounding-box
 wrap on the item adds its left and right offsets beside it; its top and bottom
 offsets change nothing. It wraps whole, like a word. Output and the canvas draw the
 item with its frame, after the frame's text, through the frame's affine; a click on
-it selects the frame. Composed items no longer count as unrendered story
-structures. Items in vertical text are not composed and stay reported by
+it selects the frame; an anchored frame's text draws as generated text of the
+holding frame, so clicking it never edits that frame's story. Composed items no
+longer count as unrendered story structures. Items in vertical text are not composed and stay reported by
 Preflight; so is text wrap an item asks for beyond an inline item's bounding-box
 sides (any wrap of an item at a custom position, and contour, jump or column
 wraps of inline items), as "wrap not applied to some text".

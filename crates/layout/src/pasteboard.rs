@@ -637,40 +637,9 @@ fn objects_for(
                 for line in composed.iter().flat_map(|frame| frame.all_lines()) {
                     drew = true;
                     let bounds = move_to(line.bounds, view, offset);
-                    let mut spec = crate::compose::line_spec(line, definition, doc);
+                    let spec = view_spec(line, definition, doc, view, object.transparency);
                     let text = spec.text.clone();
                     has_text |= !text.is_empty();
-                    spec.size *= view.scale;
-                    spec.scale_inline_boxes(view.scale);
-                    if let Some(tabs) = &mut spec.tabs {
-                        tabs.scaled(view.scale);
-                    }
-                    if let Some(path) = &mut spec.path {
-                        path.scaled(view.scale);
-                    }
-                    spec.leading = spec.leading.map(|v| v * view.scale);
-                    spec.tracking *= view.scale;
-                    spec.word_spacing = line.word_space.unwrap_or(0.0) * view.scale;
-                    for run in &mut spec.runs {
-                        if let Some(color) = &mut run.color {
-                            color[3] = (f32::from(color[3]) * object.transparency.clamp(0.0, 1.0))
-                                .round() as u8;
-                        }
-                        run.size = run.size.map(|size| size * view.scale);
-                        run.metric_size = run.metric_size.map(|v| v * view.scale);
-                        run.baseline_shift = run.baseline_shift.map(|v| v * view.scale);
-                        for d in [&mut run.underline_style, &mut run.strike_style]
-                            .into_iter()
-                            .flatten()
-                        {
-                            d.scaled(view.scale);
-                        }
-                        if let Some(stroke) = &mut run.stroke {
-                            stroke.width *= view.scale;
-                        }
-                        run.tracking = run.tracking.map(|v| v * view.scale);
-                        run.leading = run.leading.map(|v| v * view.scale);
-                    }
                     if spec.path.is_some() || line.is_generated() {
                         interaction =
                             interaction.union(path_text_bounds(&spec).translated(bounds.origin()));
@@ -899,6 +868,49 @@ fn path_text_bounds(spec: &schist_text_engine::TextSpec) -> Rect {
     }
 }
 
+/// A composed line's text specification, scaled to the view, with run colors
+/// faded by the frame's opacity.
+fn view_spec(
+    line: &crate::ComposedLine,
+    definition: &crate::Story,
+    doc: &LayoutDocument,
+    view: &PasteboardView,
+    transparency: f32,
+) -> schist_text_engine::TextSpec {
+    let mut spec = crate::compose::line_spec(line, definition, doc);
+    spec.size *= view.scale;
+    spec.scale_inline_boxes(view.scale);
+    if let Some(tabs) = &mut spec.tabs {
+        tabs.scaled(view.scale);
+    }
+    if let Some(path) = &mut spec.path {
+        path.scaled(view.scale);
+    }
+    spec.leading = spec.leading.map(|v| v * view.scale);
+    spec.tracking *= view.scale;
+    spec.word_spacing = line.word_space.unwrap_or(0.0) * view.scale;
+    for run in &mut spec.runs {
+        if let Some(color) = &mut run.color {
+            color[3] = (f32::from(color[3]) * transparency.clamp(0.0, 1.0)).round() as u8;
+        }
+        run.size = run.size.map(|size| size * view.scale);
+        run.metric_size = run.metric_size.map(|v| v * view.scale);
+        run.baseline_shift = run.baseline_shift.map(|v| v * view.scale);
+        for d in [&mut run.underline_style, &mut run.strike_style]
+            .into_iter()
+            .flatten()
+        {
+            d.scaled(view.scale);
+        }
+        if let Some(stroke) = &mut run.stroke {
+            stroke.width *= view.scale;
+        }
+        run.tracking = run.tracking.map(|v| v * view.scale);
+        run.leading = run.leading.map(|v| v * view.scale);
+    }
+    spec
+}
+
 /// Displays for an anchored item, attributed to the frame that holds it.
 fn anchored_displays(
     doc: &LayoutDocument,
@@ -946,6 +958,45 @@ fn anchored_displays(
             zoom: view.scale,
             opacity: item.transparency,
         }),
+        LayoutObject::TextFrame { story, .. } => {
+            // An anchored frame's story composes in the item's own box. Its
+            // lines are drawn as generated text of the holding frame, so a
+            // click never edits them as that frame's story.
+            if let (Some(definition), Some(composed)) =
+                (doc.story(*story), crate::compose::compose_object(doc, item))
+            {
+                let transform = crate::affine::in_view(
+                    item.content_transform(),
+                    view.scale,
+                    view.to_pasteboard(offset),
+                );
+                for line in composed.all_lines() {
+                    let spec = view_spec(line, definition, doc, view, item.transparency);
+                    out.push(Display::Text {
+                        generated: true,
+                        positions: line.projected.as_ref().and_then(|p| p.positions.clone()),
+                        object: frame,
+                        transform,
+                        story: *story,
+                        start: line.start,
+                        end: line.end,
+                        rect: move_to(line.bounds, view, offset),
+                        text: spec.text.clone(),
+                        size: spec.size,
+                        word_space: line.word_space.map(|w| w * view.scale),
+                        style: line.paragraph_style.clone(),
+                        spec: Box::new(spec),
+                    });
+                }
+                for nested in
+                    crate::anchored::placements(doc, definition, item, composed.all_lines())
+                {
+                    out.extend(anchored_displays(
+                        doc, &nested, frame, view, offset, inherited, locked,
+                    ));
+                }
+            }
+        }
         _ => {}
     }
     if let Some(stroke) = item.frame_paint(true) {

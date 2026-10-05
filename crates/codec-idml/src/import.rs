@@ -182,7 +182,7 @@ pub fn read_package(opened: &DesignPackage<'_>) -> Result<Imported, Error> {
         &mut report,
     );
     crate::object_style_codec::resolve_references(&mut document, &style_refs, &mut report);
-    crate::anchored_codec::read(&mut document, &colors, &mut report);
+    crate::anchored_codec::read(&mut document, &stories, &colors, &mut report);
     crate::preferences_codec::read(opened, &mut document, &mut report, &colors, &style_refs)?;
     // Parsing XML visits items in paint order. Only guarded chronology labels
     // can establish their creation order; never certify the incidental walk.
@@ -1243,7 +1243,7 @@ impl Transform {
             self.b * p.x + self.d * p.y + self.ty,
         )
     }
-    fn then(self, p: Transform) -> Transform {
+    pub(crate) fn then(self, p: Transform) -> Transform {
         let origin = p.apply(Coordinate::new(self.tx, self.ty));
         Transform {
             a: p.a * self.a + p.c * self.b,
@@ -1255,7 +1255,7 @@ impl Transform {
         }
     }
 }
-fn transform(value: Option<&str>) -> Transform {
+pub(crate) fn transform(value: Option<&str>) -> Transform {
     let values = value.map(xml::numbers).unwrap_or_default();
     match values.as_slice() {
         [a, b, c, d, tx, ty] if values.iter().all(|v| v.is_finite()) => Transform {

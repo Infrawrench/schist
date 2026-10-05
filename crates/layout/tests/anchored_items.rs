@@ -26,6 +26,7 @@ fn item(width: f32, height: f32, y_offset: f32, position: AnchoredPosition) -> A
         position,
         y_offset,
         object,
+        members: Vec::new(),
         placement: Default::default(),
     }
 }
@@ -446,4 +447,41 @@ fn the_preview_draws_items_as_part_of_their_frame() {
         assert!((boxed[0].ascent - 12.0 * scale).abs() < 0.01, "{scale}");
     }
     let _ = Point::ZERO;
+}
+
+#[test]
+fn a_groups_members_move_together_and_its_extent_spans_them() {
+    let a = item(20.0, 10.0, 0.0, AnchoredPosition::Inline).object;
+    let mut b = item(20.0, 30.0, 0.0, AnchoredPosition::Inline).object;
+    b.bounds.x += 30.0;
+    b.bounds.y += 5.0;
+    let mut container = a.clone();
+    container.object = schist_layout::LayoutObject::Group {
+        children: Vec::new(),
+    };
+    container.bounds = a.bounds.union(b.bounds);
+    let group = AnchoredItem {
+        members: vec![a, b],
+        ..AnchoredItem::inline(container)
+    };
+    let extent = group.extent();
+    assert!((extent.width - 50.0).abs() < 0.01 && (extent.height - 35.0).abs() < 0.01);
+    let (doc, frame) = document(vec![group], FRAME, None);
+    let composed = lines(&doc);
+    let line = composed
+        .iter()
+        .find(|l| l.projected.as_ref().is_some_and(|p| !p.anchored.is_empty()))
+        .unwrap();
+    let [first, second] = &placements(&doc, frame)[..] else {
+        panic!()
+    };
+    let (p, q) = (first.visual_bounds(), second.visual_bounds());
+    assert!((q.x - p.x - 30.0).abs() < 0.01 && (q.y - p.y - 5.0).abs() < 0.01);
+    // The group's lowest edge sits on the baseline.
+    assert!((p.bottom().max(q.bottom()) - line.baseline).abs() < 0.05);
+    // A hidden member is not drawn but still counts in the extent.
+    let mut hidden = doc.clone();
+    let item = hidden.stories[0].structures[0].anchored.as_mut().unwrap();
+    item.members[1].hidden = true;
+    assert_eq!(placements(&hidden, frame).len(), 1);
 }

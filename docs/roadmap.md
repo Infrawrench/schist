@@ -310,6 +310,45 @@ are marked.
 
 ## Handoff
 
+Anchored text frames and groups, 2026-10-05:
+A TextFrame inside a story is now typed with the package story its ParentStory
+names. That story composes in the item's own box as a one-frame thread (the
+existing standalone path for frames outside `doc.objects`), its own anchored
+items included; output paints it, Preflight reports its overset text under the
+item's name, and the canvas draws its lines as generated text of the holding
+frame, so a click never edits them as that frame's story. An anchored frame whose
+story leads back to the story holding it, directly or through other anchored
+frames, is reported as an invalid ParentStory and left untyped, and composition
+never sets one. A Group inside a story is flattened like spread groups (nested
+ItemTransforms compose, opacity multiplies, hidden groups hide their items) into
+`AnchoredItem::members`; members move together and the extent spans them, while
+the container keeps the group's name and text wrap. No new keys.
+
+Placed items take a reserved object id that no document object has, so a typed
+item restored from Schist's structured-story retention record with an id saved
+in another session never composes as a document frame. Correction to the two previous entries: anchored items are saved in that
+record with their retained XML, not written back as native story content, so
+other applications do not see them.
+
+The first source-frozen sweep passed everything except one IDML test: refreshing
+anchored item ids on every import made a public fixture's stories differ after a
+save. The ids are no longer touched; placed copies take the reserved id instead,
+and a test now checks stories are unchanged by saves. The full sweep then passed
+again on the corrected, frozen source: every roadmap target, headless library
+wasm, shared UI, formatting, whitespace and the debug app build, with all 43
+proofs byte-identical to the previous checkpoint: **2,195 distinct passing Rust
+tests**, 9 new (5 layout, 3 IDML, 1 separation).
+
+Native review used passive captures of the actual debug app with Design enabled
+and isolated configuration: a 130 × 48 pt anchored text frame set inline shows
+its own 9 pt story wrapped inside it with its line raised to make room, and a
+group of a box and a circle anchored at a custom position stands 10 pt right of
+the frame beside its anchor line with the circle 26 pt below the box.
+
+Next: text wrap around custom-positioned anchored items, then the other item 9
+gaps. Published to draft PR #195.
+
+
 Above-line and custom anchored positions, 2026-10-05:
 Every AnchoredObjectSetting attribute in the public specification is now typed
 with its Appendix C default (`anchored::Placement`): anchor point, horizontal and
@@ -2914,8 +2953,8 @@ remaining order is now explicit:
    Text wrap (TextWrapPreference, IgnoreWrap and the TextPreference wrap
    settings) composes for horizontal text and saves natively, with compact controls.
    Shaped text frames compose inside their outline, and unstyled text saves with
-   the IDML root styles. Anchored page items compose inline, above the line and
-   at custom positions in horizontal text.
+   the IDML root styles. Anchored page items, text frames and groups compose
+   inline, above the line and at custom positions in horizontal text.
 
 Phase 0 research can proceed independently. Phase 5 only follows an
 explicit evidence-based go/no-go; container recognition is not an INDD

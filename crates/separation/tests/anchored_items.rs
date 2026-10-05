@@ -47,6 +47,7 @@ fn styled(position: AnchoredPosition, rotation: f32, style: &str) -> LayoutDocum
             position,
             y_offset: 1.0,
             object,
+            members: Vec::new(),
             placement: Default::default(),
         })),
     });
@@ -169,4 +170,66 @@ fn a_raised_lines_text_sits_on_its_baseline_at_every_resolution() {
         bottoms.push(bottom);
     }
     assert!((bottoms[0] - bottoms[1]).abs() < 1.5, "{bottoms:?}");
+}
+
+/// An anchored text frame's story paints inside the item, and text it cannot
+/// hold is reported as overset under the item's name.
+#[test]
+fn an_anchored_text_frame_paints_its_story_and_reports_overset() {
+    for (inner, lost) in [("Inner".to_owned(), false), ("words ".repeat(80), true)] {
+        let mut doc = blank_a4();
+        let host = authoring::text_frame(
+            &mut doc,
+            &mut History::default(),
+            0,
+            Rect::new(60.0, 80.0, 380.0, 300.0),
+        )
+        .unwrap();
+        let boxed = authoring::text_frame(
+            &mut doc,
+            &mut History::default(),
+            0,
+            Rect::new(0.0, 0.0, 70.0, 30.0),
+        )
+        .unwrap();
+        let mut object = doc.object(boxed.object).unwrap().clone();
+        object.name = "Boxed note".into();
+        doc.objects.retain(|o| o.id != boxed.object);
+        doc.stories[boxed.story.0 as usize] = Story::from_text(inner, "Body");
+        let before = "Text ";
+        let mut story = Story::from_text(format!("{before} and more."), "Body");
+        story.structures.push(StoryStructure {
+            at: Some(before.len()),
+            kind: "TextFrame".into(),
+            payload: "<TextFrame />".into(),
+            control: None,
+            footnote: None,
+            anchored: Some(Box::new(AnchoredItem::inline(object))),
+        });
+        doc.stories[host.story.0 as usize] = story;
+        let lines: Vec<_> = compose_story(&doc, StoryId(0)).lines().cloned().collect();
+        let [placed] = &anchored::placements(&doc, &doc.stories[0], &doc.objects[0], &lines)[..]
+        else {
+            panic!()
+        };
+        let area = placed.visual_bounds();
+        let result = separate_page(&doc, 0, OutputSettings::at(144.0), &NoGraphics).unwrap();
+        let black = result.separation.plate(result.plan.process[3]).unwrap();
+        let mut inside = 0;
+        for y in (area.y * 2.0) as i32..(area.bottom() * 2.0) as i32 {
+            for x in (area.x * 2.0) as i32..(area.right() * 2.0) as i32 {
+                if black.at(x, y) > 0.3 {
+                    inside += 1;
+                }
+            }
+        }
+        assert!(inside > 20, "{lost}: {inside}");
+        let overset = schist_i18n::tf!("design.preflight_overset", name = "Boxed note");
+        assert_eq!(
+            result.report.findings.iter().any(|f| f.message == overset),
+            lost,
+            "{:?}",
+            result.report.findings
+        );
+    }
 }

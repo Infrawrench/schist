@@ -189,8 +189,12 @@ pub struct AnchoredItem {
     pub y_offset: Pt,
     #[serde(default)]
     pub placement: Placement,
-    /// The item as drawn, with its bounds at the origin and its own affine.
+    /// The item as drawn, with its own affine. For a group, its container:
+    /// the members' bounds and the group's text wrap.
     pub object: PlacedObject,
+    /// A group's page items, flattened, in the container's space.
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub members: Vec<PlacedObject>,
 }
 
 /// The room an item takes in its line, for the projection.
@@ -204,6 +208,31 @@ pub struct LineBox {
 }
 
 impl AnchoredItem {
+    /// Whether the item is or holds a text frame, whose story composes in
+    /// its box.
+    pub fn is_text_frame(&self) -> bool {
+        self.frame_stories().next().is_some()
+    }
+
+    /// The stories of the text frames the item is or holds.
+    fn frame_stories(&self) -> impl Iterator<Item = crate::StoryId> + '_ {
+        std::iter::once(&self.object)
+            .chain(&self.members)
+            .filter_map(|o| match o.object {
+                crate::LayoutObject::TextFrame { story, .. } => Some(story),
+                _ => None,
+            })
+    }
+
+    /// What the item draws: the object, or a group's visible members.
+    fn drawn(&self) -> Vec<&PlacedObject> {
+        if self.members.is_empty() {
+            vec![&self.object]
+        } else {
+            self.members.iter().filter(|m| !m.hidden).collect()
+        }
+    }
+
     /// An inline item with IDML's default settings.
     pub fn inline(object: PlacedObject) -> Self {
         Self {
@@ -211,47 +240,24 @@ impl AnchoredItem {
             y_offset: 0.0,
             placement: Placement::default(),
             object,
+            members: Vec::new(),
         }
     }
 
     /// The item's extent as InDesign's visual bounds: its frame grown by half
     /// its stroke, through its own affine. A public native sample sets a
     /// 60 × 36 pt frame stroked 0.5 pt as 60.5 × 36.5 pt.
+    /// A group's extent spans its members'.
     pub fn extent(&self) -> Rect {
-        let half = self.stroke_weight() * 0.5;
-        let b = self.object.bounds;
-        let grown = Rect::new(
-            b.x - half,
-            b.y - half,
-            b.width + 2.0 * half,
-            b.height + 2.0 * half,
-        );
-        crate::affine::bounds(self.object.content_transform(), grown)
-    }
-
-    /// The item's own stroke weight, or zero when it has no stroke.
-    fn stroke_weight(&self) -> Pt {
-        let weight = match &self.object.object {
-            crate::LayoutObject::Shape {
-                stroke: Some(_),
-                stroke_width,
-                ..
-            } => *stroke_width,
-            crate::LayoutObject::Shape { .. } => 0.0,
-            _ => {
-                let paint = &self.object.appearance.paint;
-                paint
-                    .stroke_ink()
-                    .map_or(0.0, |_| paint.stroke_width.unwrap_or(0.0))
-            }
-        };
-        if weight.is_finite() {
-            weight.max(0.0)
-        } else {
-            0.0
+        if self.members.is_empty() {
+            return stroked_extent(&self.object);
         }
+        self.members
+            .iter()
+            .map(stroked_extent)
+            .reduce(|a, b| a.union(b))
+            .unwrap_or(self.object.bounds)
     }
-
     /// The room the item takes in its line, or None when it cannot be set.
     pub fn line_box(&self) -> Option<LineBox> {
         let e = self.extent();
@@ -293,19 +299,24 @@ impl AnchoredItem {
         })
     }
 
-    /// The item with its extent's top left at (`left`, `top`).
-    fn moved(&self, left: Pt, top: Pt) -> PlacedObject {
+    /// What the item draws, with its extent's top left at (`left`, `top`).
+    fn moved(&self, left: Pt, top: Pt) -> Vec<PlacedObject> {
         let e = self.extent();
-        let mut object = self.object.clone();
-        object.bounds.x += left - e.x;
-        object.bounds.y += top - e.y;
-        object
+        self.drawn()
+            .into_iter()
+            .map(|object| {
+                let mut object = object.clone();
+                object.bounds.x += left - e.x;
+                object.bounds.y += top - e.y;
+                object
+            })
+            .collect()
     }
 
     /// An inline item with its extent's left edge at `left` (after any wrap
     /// offset) and its bottom on the baseline, raised by the Y offset.
     /// Coordinates are those of the line.
-    pub fn placed(&self, left: Pt, baseline: Pt) -> PlacedObject {
+    pub fn placed(&self, left: Pt, baseline: Pt) -> Vec<PlacedObject> {
         let e = self.extent();
         self.moved(
             left + self.wrap_sides().0,
@@ -342,6 +353,75 @@ impl AnchoredItem {
     }
 }
 
+/// An object's extent as InDesign's visual bounds: its frame grown by half
+/// its stroke, through its own affine.
+fn stroked_extent(object: &PlacedObject) -> Rect {
+    let half = stroke_weight(object) * 0.5;
+    let b = object.bounds;
+    let grown = Rect::new(
+        b.x - half,
+        b.y - half,
+        b.width + 2.0 * half,
+        b.height + 2.0 * half,
+    );
+    crate::affine::bounds(object.content_transform(), grown)
+}
+
+/// An object's own stroke weight, or zero when it has no stroke.
+fn stroke_weight(object: &PlacedObject) -> Pt {
+    let weight = match &object.object {
+        crate::LayoutObject::Shape {
+            stroke: Some(_),
+            stroke_width,
+            ..
+        } => *stroke_width,
+        crate::LayoutObject::Shape { .. } | crate::LayoutObject::Group { .. } => 0.0,
+        _ => {
+            let paint = &object.appearance.paint;
+            paint
+                .stroke_ink()
+                .map_or(0.0, |_| paint.stroke_width.unwrap_or(0.0))
+        }
+    };
+    if weight.is_finite() {
+        weight.max(0.0)
+    } else {
+        0.0
+    }
+}
+
+/// Whether composing `item` would compose story `host` again: `item` is a
+/// text frame whose story is `host` or anchors, at any depth, a text frame
+/// that leads there.
+pub fn reaches(doc: &LayoutDocument, item: &AnchoredItem, host: crate::StoryId) -> bool {
+    let mut seen = std::collections::BTreeSet::new();
+    let mut pending: Vec<_> = item.frame_stories().collect();
+    while let Some(id) = pending.pop() {
+        if id == host {
+            return true;
+        }
+        if !seen.insert(id) {
+            continue;
+        }
+        let Some(story) = doc.story(id) else {
+            continue;
+        };
+        pending.extend(
+            story
+                .structures
+                .iter()
+                .filter_map(|s| s.anchored.as_deref())
+                .flat_map(|item| item.frame_stories()),
+        );
+    }
+    false
+}
+
+/// The id of every placed anchored item. No document object has it (ids
+/// count up from 1), so composing a placed text frame never finds a document
+/// frame, even when an id saved in another session matches one.
+pub const PLACED: crate::ObjectId = crate::ObjectId(u32::MAX);
+
 /// `object`, drawn through `frame`'s affine: frame space becomes page space.
 /// The result keeps the item's geometry; its affine is the linear part of
 /// frame∘item and its origin is where that map sends the item's origin.
@@ -363,6 +443,7 @@ pub fn through_frame(object: &PlacedObject, frame: &PlacedObject) -> PlacedObjec
     out.bounds.x = x;
     out.bounds.y = y;
     out.page = frame.page;
+    out.id = PLACED;
     out
 }
 
@@ -378,6 +459,11 @@ pub(crate) struct Instance {
 /// position in horizontal text.
 pub(crate) fn instances(doc: &LayoutDocument, story: &Story) -> Vec<Instance> {
     let offsets = story.point_offsets();
+    let host = doc
+        .stories
+        .iter()
+        .position(|s| std::ptr::eq(s, story))
+        .map(|index| crate::StoryId(index as u32));
     story
         .structures
         .iter()
@@ -386,6 +472,10 @@ pub(crate) fn instances(doc: &LayoutDocument, story: &Story) -> Vec<Instance> {
             let item = structure.anchored.as_ref()?;
             let at = structure.at?;
             let line_box = item.line_box()?;
+            // A text frame leading back to this story would compose forever.
+            if host.is_none_or(|host| reaches(doc, item, host)) && item.is_text_frame() {
+                return None;
+            }
             let (point, _) = story.points.iter().zip(&offsets).find(|(point, start)| {
                 matches!(point, crate::StoryPoint::Paragraph { .. })
                     && **start <= at
@@ -607,7 +697,11 @@ pub fn placements<'a>(
                     placed
                 }
             };
-            out.push(through_frame(&placed, frame).resolved_appearance(&doc.styles));
+            out.extend(
+                placed
+                    .iter()
+                    .map(|p| through_frame(p, frame).resolved_appearance(&doc.styles)),
+            );
         }
     }
     out
@@ -621,7 +715,7 @@ fn custom(
     origin: crate::Point,
     position: &schist_text_engine::InlineBoxPosition,
     align: schist_text_engine::Align,
-) -> Option<PlacedObject> {
+) -> Option<Vec<PlacedObject>> {
     let p = item.placement;
     let mirror = p.spine_relative && references.left_page;
     let (alignment, point) = if mirror {

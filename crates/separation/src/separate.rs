@@ -237,6 +237,18 @@ fn layout_report(
                     schist_i18n::tf!("design.preflight_wrap_approximated", name = object.name),
                 );
             }
+            // Anchored text frames compose in their own boxes.
+            for item in schist_layout::anchored::placements(doc, story, &object, frame.all_lines())
+            {
+                if matches!(item.object, LayoutObject::TextFrame { .. })
+                    && compose_object(doc, &item).is_some_and(|f| f.lost)
+                {
+                    report.add(
+                        crate::report::Severity::Error,
+                        schist_i18n::tf!("design.preflight_overset", name = item.name),
+                    );
+                }
+            }
             let (counters, paragraphs) = counters.entry(story_id).or_insert_with(|| {
                 (
                     schist_layout::list_counters::StoryCounters::new(doc, story),

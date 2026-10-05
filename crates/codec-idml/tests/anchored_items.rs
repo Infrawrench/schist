@@ -224,3 +224,170 @@ fn unknown_references_fall_back_to_their_defaults() {
         assert!(item(&imported.document).is_none());
     }
 }
+
+/// A native package whose host story anchors a text frame between "Before "
+/// and "after": an exported frame moved off the spread into the story. With
+/// `own_story`, the moved frame shows the host story itself.
+fn anchored_frame(setting: &str, own_story: bool) -> Vec<u8> {
+    let mut doc = blank_a4();
+    let host = authoring::text_frame(
+        &mut doc,
+        &mut History::default(),
+        0,
+        Rect::new(40.0, 40.0, 400.0, 300.0),
+    )
+    .unwrap();
+    doc.stories[host.story.0 as usize] = Story::from_text("Before after", "Body");
+    let inner = authoring::text_frame(
+        &mut doc,
+        &mut History::default(),
+        0,
+        Rect::new(0.0, 0.0, 90.0, 40.0),
+    )
+    .unwrap();
+    doc.stories[inner.story.0 as usize] = Story::from_text("Inner words", "Body");
+    let mut package = container::read(&export::write(&doc).bytes).unwrap();
+    let names: Vec<String> = package.names().into_iter().map(str::to_owned).collect();
+    let host_part = names
+        .iter()
+        .find(|n| {
+            n.starts_with("Stories/")
+                && package
+                    .text(n)
+                    .unwrap()
+                    .contains("<Content>Before after</Content>")
+        })
+        .unwrap()
+        .clone();
+    let host_id = host_part
+        .trim_start_matches("Stories/Story_")
+        .trim_end_matches(".xml")
+        .to_owned();
+    let spread_part = names
+        .iter()
+        .find(|n| n.starts_with("Spreads/"))
+        .unwrap()
+        .clone();
+    let spread = package.text(&spread_part).unwrap().to_owned();
+    // The frame that does not show the host story.
+    let (start, end) = spread
+        .match_indices("<TextFrame ")
+        .map(|(at, _)| (at, at + spread[at..].find("</TextFrame>").unwrap() + 12))
+        .find(|(start, end)| !spread[*start..*end].contains(&format!("ParentStory=\"{host_id}\"")))
+        .unwrap();
+    let mut frame = spread[start..end].to_owned();
+    if own_story {
+        let from = frame.find("ParentStory=\"").unwrap() + 13;
+        let to = from + frame[from..].find('"').unwrap();
+        frame.replace_range(from..to, &host_id);
+    }
+    frame.insert_str(frame.len() - 12, setting);
+    let mut spread_out = spread.clone();
+    spread_out.replace_range(start..end, "");
+    package.insert(&spread_part, spread_out.into_bytes());
+    let story = package.text(&host_part).unwrap().replace(
+        "<Content>Before after</Content>",
+        &format!("<Content>Before </Content>{frame}<Content>after</Content>"),
+    );
+    package.insert(&host_part, story.into_bytes());
+    container::write(&package.into_parts())
+}
+
+fn inner_text(doc: &LayoutDocument) -> Option<String> {
+    let item = doc
+        .stories
+        .iter()
+        .flat_map(|s| &s.structures)
+        .find_map(|s| s.anchored.as_deref())?;
+    let LayoutObject::TextFrame { story, .. } = item.object.object else {
+        return None;
+    };
+    Some(doc.stories[story.0 as usize].text())
+}
+
+#[test]
+fn anchored_text_frames_are_typed_with_their_story_and_survive_saves() {
+    let setting = r#"<AnchoredObjectSetting AnchoredPosition="InlinePosition"/>"#;
+    let imported = import::read(&anchored_frame(setting, false)).unwrap();
+    let mut doc = imported.document;
+    assert_eq!(inner_text(&doc).as_deref(), Some("Inner words"));
+    let host = doc
+        .stories
+        .iter()
+        .position(|s| s.text() == "Before after")
+        .unwrap();
+    assert!(doc.objects.iter().all(|o| !matches!(
+        o.object,
+        LayoutObject::TextFrame { story, .. } if doc.stories[story.0 as usize].text() == "Inner words"
+    )));
+    for _ in 0..3 {
+        let flow = schist_layout::compose::compose_story(&doc, schist_layout::StoryId(host as u32));
+        assert_eq!(flow.frames[0].unrendered_structures, 0);
+        let frame = doc.object(flow.frames[0].object).unwrap();
+        let lines: Vec<_> = flow.lines().cloned().collect();
+        let [item] =
+            &schist_layout::anchored::placements(&doc, &doc.stories[host], frame, &lines)[..]
+        else {
+            panic!()
+        };
+        let composed = schist_layout::compose::compose_object(&doc, item).unwrap();
+        assert!(composed.all_lines().count() > 0);
+        // A placed item's id is never a document object's, whatever was saved.
+        assert_eq!(item.id, schist_layout::anchored::PLACED);
+        assert!(doc.object(item.id).is_none());
+        let before = doc.stories.clone();
+        doc = import::read(&export::write(&doc).bytes).unwrap().document;
+        assert_eq!(doc.stories, before);
+        assert_eq!(inner_text(&doc).as_deref(), Some("Inner words"));
+    }
+}
+
+#[test]
+fn an_anchored_frame_showing_its_own_story_is_reported_and_left_untyped() {
+    let imported = import::read(&anchored_frame("", true)).unwrap();
+    assert!(
+        imported
+            .report
+            .skipped
+            .iter()
+            .any(|s| s.contains("ParentStory")),
+        "{:?}",
+        imported.report
+    );
+    assert!(inner_text(&imported.document).is_none());
+    assert!(imported
+        .document
+        .stories
+        .iter()
+        .flat_map(|s| &s.structures)
+        .any(|s| s.kind == "TextFrame"));
+}
+
+#[test]
+fn anchored_groups_flatten_their_members_and_survive_saves() {
+    let oval = rectangle("")
+        .replace("<Rectangle Self=\"art1\"", "<Oval Self=\"art2\"")
+        .replace("</Rectangle>", "</Oval>");
+    let group = format!(
+        r#"<Group Self="g1" Name="Pair" ItemTransform="1 0 0 1 0 0">{}<Group Self="g2" ItemTransform="1 0 0 1 40 0">{oval}</Group><AnchoredObjectSetting AnchoredPosition="InlinePosition" AnchorYoffset="2"/></Group>"#,
+        rectangle("")
+    );
+    let mut doc = import::read(&native(&group)).unwrap().document;
+    for _ in 0..2 {
+        let typed = item(&doc).expect("typed group");
+        assert_eq!(typed.object.name, "Pair");
+        assert!(matches!(typed.object.object, LayoutObject::Group { .. }));
+        assert_eq!(typed.members.len(), 2);
+        assert!(matches!(
+            typed.members[1].object,
+            LayoutObject::Shape { .. }
+        ));
+        assert_eq!(typed.y_offset, 2.0);
+        let extent = typed.extent();
+        assert!((extent.width - 70.0).abs() < 0.01, "{extent:?}");
+        assert!((extent.height - 20.0).abs() < 0.01, "{extent:?}");
+        let flow = schist_layout::compose::compose_story(&doc, schist_layout::StoryId(0));
+        assert_eq!(flow.frames[0].unrendered_structures, 0);
+        doc = import::read(&export::write(&doc).bytes).unwrap().document;
+    }
+}
