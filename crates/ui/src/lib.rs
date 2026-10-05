@@ -82,7 +82,7 @@ pub use checkbox::Checkbox;
 pub use chip::{Badge, Chip, ChipColors};
 pub use icon::icon;
 pub use layout::{Divider, FieldRow, Heading, Modal};
-pub use line_edit::{caret_left, caret_right, word_at, LineEdit, LineEditKey};
+pub use line_edit::{caret_left, caret_right, typed_text, word_at, LineEdit, LineEditKey};
 pub use link::Link;
 pub use list_item::ListItem;
 pub use number_field::NumberField;

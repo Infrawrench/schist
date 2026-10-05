@@ -933,8 +933,8 @@ stored black fills with EnableFill=false, which must not turn text frames black.
 BasedOn can be a native string or object reference. Tint -1 inherits.
 
 TextFrame and image-frame inline fill/stroke now reach both preview and output.
-Text frame paths are normalized independently of rectangular composition; cubic
-outlines survive save/load, with an explicit rectangular-flow notice. Image frame
+Text frame paths are normalized to the frame; cubic outlines survive save/load and
+shape the frame's text (see Text in shaped frames). Image frame
 paint follows its existing clip_path. Unsupported enabled style categories and
 nondefault stroke/corner effects are diagnosed; retaining the category switch
 alone does not implement those effects. No native application visual comparison
@@ -2849,3 +2849,32 @@ composed unwrapped where an obstacle reaches them, and Preflight warns. Pixel
 contours (PhotoshopPath, DetectEdges, AlphaChannel) and IncludeInsideEdges use the
 item's outline and Preflight warns that the contour is approximated. Anchored and
 inline objects do not wrap yet.
+
+### Text in shaped frames
+
+A TextFrame whose PathGeometry is not its rectangle keeps that path, normalized to
+the frame, as its outline, and composes its text inside it. The outline is an
+inverse wrap of the frame's own shape in its untransformed box, inset by the
+frame's top inset (InDesign offers a single inset for non-rectangular frames), so
+it shares the text-wrap bands: each line takes the intervals the outline leaves
+across its whole height, holes follow the path's fill rule, and other items' wrap
+still applies unless the frame ignores wrap, which never removes its own shape.
+Text the shape cannot hold is overset and threads on. Vertical text, initials and
+list markers in a shaped frame compose in its rectangle with the Preflight wrap
+warning. IDML frame geometry carries no fill rule, so saving an even-odd outline
+warns and its holes read back under the nonzero rule. "Text in shape" turns a
+selected closed shape into such a frame in one undo step, keeping its paint; a
+rectangle becomes an ordinary frame.
+
+### Root styles
+
+Every IDML document defines `ParagraphStyle/$ID/[No paragraph style]` and
+`CharacterStyle/$ID/[No character style]`, and unstyled text names them. Schist's
+empty character style is the root no-style: unstyled runs, controls and list
+markers save with the root reference, Styles.xml always defines both roots (as
+bare definitions when the document has no style of that name), and every style a
+saved story or style names resolves inside the package. Previously unstyled runs
+named the undefined `CharacterStyle/$ID/`. On reading, the root character style
+and a bare root paragraph style are not document styles; references to the root
+character style, including BasedOn, mean no style. InDesign's root paragraph
+style carries real defaults and stays a document style, as before.

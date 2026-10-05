@@ -258,7 +258,7 @@ impl Workspace {
             // Alt is a modifier a user holds to reach a character, so it
             // is not a reason to refuse the keystroke.
             _ if keystroke.modifiers.control => false,
-            _ => match keystroke.key_char.as_deref() {
+            _ => match schist_ui::typed_text(keystroke) {
                 Some(text) if !text.is_empty() => tools::type_text(&mut self.design, text),
                 _ => false,
             },

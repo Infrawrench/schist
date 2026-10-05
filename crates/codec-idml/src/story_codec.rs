@@ -341,8 +341,9 @@ impl StoryBuilder {
                 }
             }
             "CharacterStyleRange" => {
-                character_name =
-                    style_codec::name(element.attr("AppliedCharacterStyle").unwrap_or_default());
+                character_name = style_codec::character_name(
+                    element.attr("AppliedCharacterStyle").unwrap_or_default(),
+                );
                 character = &character_name;
                 page_number_type = element.attr("PageNumberType").or(page_number_type);
                 next = element

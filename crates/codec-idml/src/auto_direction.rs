@@ -72,7 +72,12 @@ pub(crate) fn lower(story: &Story, styles: &StyleSet) -> Vec<AutomaticParagraph>
             };
             automatic(styles, style).then(|| AutomaticParagraph {
                 index,
-                style: format!("ParagraphStyle/$ID/{style}"),
+                // The same reference the native range carries.
+                style: if style.is_empty() {
+                    crate::style_codec::NO_PARAGRAPH_STYLE.into()
+                } else {
+                    format!("ParagraphStyle/$ID/{style}")
+                },
                 text: text.clone(),
                 direction: match schist_text_engine::base_direction(text) {
                     schist_text_engine::ParagraphDirection::RightToLeft => "RightToLeftDirection",

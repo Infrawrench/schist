@@ -159,12 +159,13 @@ fn page_number_and_section_markers_type_render_and_save_natively_at_every_bounda
             let mut doc = import::read(&native(&ranges, "")).unwrap().document;
             fonts(&mut doc);
             let control = match expected {
+                // The root no-style is Schist's empty character style.
                 Some(kind) => InlineControl::PageNumber {
                     kind,
-                    character_style: "[No character style]".into(),
+                    character_style: String::new(),
                 },
                 None => InlineControl::SectionMarker {
-                    character_style: "[No character style]".into(),
+                    character_style: String::new(),
                 },
             };
             assert_eq!(doc.stories[0].text(), text);

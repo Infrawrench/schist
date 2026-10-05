@@ -405,37 +405,74 @@ pub(super) fn control_panel(
     }
     if let [id] = ws.design.selection.as_slice() {
         let id = *id;
-        if ws
+        let (on_path, in_shape) = ws
             .design
             .document
             .object(id)
-            .is_some_and(|o| match &o.object {
-                schist_layout::LayoutObject::Shape { path, .. } => {
+            .filter(|_| !ws.design.document.object_locked(id))
+            .map_or((false, false), |o| match &o.object {
+                schist_layout::LayoutObject::Shape { path, .. } => (
                     schist_layout::text_path::PathText {
                         path: path.clone(),
                         start: 0.0,
                         end: None,
                     }
                     .engine_path()
-                    .is_some()
-                }
-                _ => false,
-            })
-            && !ws.design.document.object_locked(id)
-        {
+                    .is_some(),
+                    schist_layout::authoring::path_can_be_filled(path)
+                        && o.bounds.width > 0.0
+                        && o.bounds.height > 0.0,
+                ),
+                _ => (false, false),
+            });
+        if on_path || in_shape {
             rows.push(
-                Button::new("design-attach-path-text", t("design.text_on_path"))
-                    .on_click(cx.listener(move |ws, _, _, cx| {
-                        ws.commit_focused_field();
-                        if let Some(frame) = schist_layout::text_path::attach(
-                            &mut ws.design.document,
-                            &mut ws.design.history,
-                            id,
-                        ) {
-                            crate::design::tools::begin_typing(&mut ws.design, frame.object, 0);
-                        }
-                        cx.notify();
-                    }))
+                div()
+                    .flex()
+                    .flex_wrap()
+                    .gap_1()
+                    .when(on_path, |row| {
+                        row.child(
+                            Button::new("design-attach-path-text", t("design.text_on_path"))
+                                .on_click(cx.listener(move |ws, _, window, cx| {
+                                    ws.commit_focused_field();
+                                    if let Some(frame) = schist_layout::text_path::attach(
+                                        &mut ws.design.document,
+                                        &mut ws.design.history,
+                                        id,
+                                    ) {
+                                        crate::design::tools::begin_typing(
+                                            &mut ws.design,
+                                            frame.object,
+                                            0,
+                                        );
+                                        ws.focus_canvas(window);
+                                    }
+                                    cx.notify();
+                                })),
+                        )
+                    })
+                    .when(in_shape, |row| {
+                        row.child(
+                            Button::new("design-attach-shape-text", t("design.text_in_shape"))
+                                .on_click(cx.listener(move |ws, _, window, cx| {
+                                    ws.commit_focused_field();
+                                    if let Some(frame) = schist_layout::text_shape::attach(
+                                        &mut ws.design.document,
+                                        &mut ws.design.history,
+                                        id,
+                                    ) {
+                                        crate::design::tools::begin_typing(
+                                            &mut ws.design,
+                                            frame.object,
+                                            0,
+                                        );
+                                        ws.focus_canvas(window);
+                                    }
+                                    cx.notify();
+                                })),
+                        )
+                    })
                     .into_any_element(),
             );
         }

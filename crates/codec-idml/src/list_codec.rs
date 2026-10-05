@@ -215,16 +215,14 @@ pub(crate) fn properties(out: &mut String, list: &ListStyle) {
         (
             "BulletsCharacterStyle",
             "object",
-            list.bullet_character_style
-                .as_ref()
-                .map(|v| format!("CharacterStyle/$ID/{v}")),
+            list.bullet_character_style.as_ref().map(|v| reference(v)),
         ),
         (
             "NumberingCharacterStyle",
             "object",
             list.numbering_character_style
                 .as_ref()
-                .map(|v| format!("CharacterStyle/$ID/{v}")),
+                .map(|v| reference(v)),
         ),
     ] {
         if let Some(value) = value {
@@ -488,5 +486,14 @@ pub(crate) fn label(out: &mut String, style: &schist_layout::ParagraphStyle) {
         out.insert_str(at, &pair);
     } else if let Some(at) = out.find("</Properties>") {
         out.insert_str(at, &format!("<Label>{pair}</Label>"));
+    }
+}
+
+/// A list's character style reference; the empty name is the root no-style.
+fn reference(name: &str) -> String {
+    if name.is_empty() {
+        crate::style_codec::NO_CHARACTER_STYLE.into()
+    } else {
+        format!("CharacterStyle/$ID/{name}")
     }
 }

@@ -768,6 +768,12 @@ impl Workspace {
         }
     }
 
+    /// Give the canvas keyboard focus, so typing reaches a text cursor that a
+    /// panel control just placed.
+    pub(crate) fn focus_canvas(&self, window: &mut Window) {
+        window.focus(&self.focus);
+    }
+
     /// Whether the pasteboard is showing.
     pub fn design_mode(&self) -> bool {
         self.mode == crate::design::WorkspaceMode::Design

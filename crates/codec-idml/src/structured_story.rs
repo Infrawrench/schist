@@ -272,7 +272,7 @@ fn agrees(native: &Element, record: &Record, styles: &StyleSet, refs: &Reference
     }
     for character in expected.find_all("CharacterStyleRange") {
         let name = character.attr("AppliedCharacterStyle").unwrap_or_default();
-        if refs.character(name) != crate::style_codec::name(name) {
+        if refs.character(name) != crate::style_codec::character_name(name) {
             return false;
         }
     }

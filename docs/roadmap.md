@@ -310,6 +310,69 @@ are marked.
 
 ## Handoff
 
+Text in shaped frames and IDML root styles, 2026-10-05:
+A text frame with a non-rectangular outline now composes inside it instead of in
+its rectangle with a "rectangular text composition" notice (the notice and its key
+are gone). The outline is an inverse wrap of the frame's own shape in its
+untransformed box, inset by its top inset (InDesign offers one inset for such
+frames), so it shares the text-wrap bands: lines take the intervals the outline
+leaves across their whole height, holes follow the path's fill rule, other items'
+wrap still applies, and ignoring wrap never removes a frame's own shape. Text the
+shape cannot hold is overset and threads on; vertical text, initials and list
+markers keep the rectangle with the Preflight wrap warning. IDML frame geometry
+has no fill rule, so saving an even-odd outline warns. "Text in shape" beside
+"Text on path" turns a selected closed shape into such a frame in one undo step,
+keeping its paint; a rectangle becomes an ordinary frame. One key is added to all
+150 catalogs.
+
+Unstyled runs, controls and list markers now save as
+`CharacterStyle/$ID/[No character style]` instead of the undefined
+`CharacterStyle/$ID/`, and Styles.xml always defines both root styles (bare when the
+document has no style of that name), so every style a saved story or style names
+resolves inside the package. On reading, the root character style and a bare root
+paragraph style are not document styles, and any spelling of the root character
+style (including a BasedOn of `$ID/[No character style]`) means no style. This
+deliberately changes two things: InDesign fixtures no longer list
+`[No character style]` as a document style, and controls in unstyled native text
+import with the empty style rather than that name (one expectation updated).
+Structured-story and automatic-direction guards compare with the same spellings.
+
+Focused testing found: normalized outlines were flattened before scaling, so a
+0.25 pt tolerance on a 1 pt circle produced a diamond (this also affected contour
+wraps around shaped text frames); the bare root paragraph style needed detection
+from its XML rather than its parsed properties; the structured-story rename check,
+a fixture's `$ID/[No character style]` BasedOn and the automatic-direction label
+needed the root spelling. The source-frozen sweep then failed four steps on two
+test-side mistakes, which were corrected and those targets re-run on the final
+source: the new shared UI test lacked an import (shared UI, Design and workspace
+lints), and the object-style proof built its independent reference with a
+rectangular text frame (check-design-output). That proof's two curved-text pages
+now match the reference with the text inside the ellipse; the other 42 proofs are
+byte-identical to the text-wrap checkpoint. Every other roadmap target, headless
+library wasm, formatting, whitespace and the debug app build pass:
+**2,157 distinct passing Rust tests**, 13 new (8 layout, 3 IDML, 1 separation, 1
+shared UI).
+
+Native review used the actual debug app with Design enabled and isolated
+configuration. Passive captures of documents with an elliptical frame and one with
+an elliptical hole show text following the outline and flowing around the hole
+in reading order. Selecting a filled ellipse shows "Text on path" and "Text in
+shape" on one compact row. Review then found two problems in typing, both fixed:
+after either attach button, keyboard focus stayed on the button, so typed keys
+acted as tool shortcuts; both buttons now give the canvas focus. And on Windows,
+spaces typed into Design text frames were dropped (also in `550ba45f`): GPUI's
+Windows backend reports Space by name without its character, so the typing branch
+ignored it. Design typing and the shared line editor (Story Editor and other
+`LineEdit` users) now treat it as a space; panel fields already did. On the final
+build, "Text in shape" followed by typing produced spaced text inside the ellipse,
+narrow at its top, and the saved IDML holds it. Composing the long hyphenated
+wrap-review story takes about 3 s in the debug build with or without wrap, so
+typing there lags in debug; this is not specific to wrap.
+
+Next: anchored and inline objects, which need an engine inline box (a replacement
+character with its own advance and line metrics). Published to draft PR #195.
+
+
 Text wrap, 2026-10-04:
 Page items keep a typed TextWrapPreference: mode (bounding box, contour, jump
 object, next column), side, Inverse, ApplyToMasterPageOnly, four offsets and the
@@ -2714,6 +2777,8 @@ remaining order is now explicit:
    no longer overlap. Browser compilation passes with a reused backer cache.
    Text wrap (TextWrapPreference, IgnoreWrap and the TextPreference wrap
    settings) composes for horizontal text and saves natively, with compact controls.
+   Shaped text frames compose inside their outline, and unstyled text saves with
+   the IDML root styles.
 
 Phase 0 research can proceed independently. Phase 5 only follows an
 explicit evidence-based go/no-go; container recognition is not an INDD

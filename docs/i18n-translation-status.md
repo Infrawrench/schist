@@ -1,5 +1,12 @@
 # Translation refresh status
 
+## October 5, 2026: text in shaped frames
+
+`design.text_in_shape` ("Text in shape") is added as an English placeholder in all
+150 catalogs. `design.idml_curved_text_flow` is removed from all 150 catalogs:
+shaped text frames now compose inside their outline, so the "rectangular text
+composition" diagnostic no longer exists. No locale was added.
+
 ## October 4, 2026: text wrap
 
 Text wrap adds 21 short keys as English placeholders in all 150 catalogs: the

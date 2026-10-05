@@ -4,6 +4,22 @@ use crate::xml::{self, Element};
 use schist_layout::styles::Align;
 use schist_layout::{CharacterStyle, ParagraphStyle, StyleSet};
 
+/// The implicit root styles every IDML document defines. Schist's empty style
+/// name means the same thing; bare root definitions are not document styles.
+pub(crate) const NO_CHARACTER_STYLE: &str = "CharacterStyle/$ID/[No character style]";
+pub(crate) const NO_PARAGRAPH_STYLE: &str = "ParagraphStyle/$ID/[No paragraph style]";
+
+/// A character style reference's model name: the root no-style is empty.
+/// Any spelling (`CharacterStyle/$ID/…`, `$ID/…` or bare) of the root counts.
+pub(crate) fn character_name(reference: &str) -> String {
+    let name = name(reference);
+    if name == "[No character style]" {
+        String::new()
+    } else {
+        name
+    }
+}
+
 pub(crate) fn name(value: &str) -> String {
     value
         .strip_prefix("ParagraphStyle/")
@@ -85,7 +101,11 @@ impl References {
             .cloned()
             .unwrap_or_else(|| name(reference))
     }
+    /// A character style's document name; the root no-style is the empty name.
     pub(crate) fn character(&self, reference: &str) -> String {
+        if character_name(reference).is_empty() {
+            return String::new();
+        }
         self.characters
             .get(reference)
             .cloned()
@@ -402,6 +422,17 @@ pub fn read(
         let Some(raw) = element.attr("Self").or_else(|| element.attr("Name")) else {
             continue;
         };
+        // A bare root definition carries nothing; InDesign's root holds real
+        // defaults and stays a document style.
+        if raw == NO_PARAGRAPH_STYLE
+            && element.children.is_empty()
+            && element
+                .attributes
+                .iter()
+                .all(|(key, _)| key == "Self" || key == "Name")
+        {
+            continue;
+        }
         let mut style = paragraph_properties(element, colors, refs, report);
         style.name = refs.paragraph(raw);
         style.based_on =
@@ -413,10 +444,15 @@ pub fn read(
         let Some(raw) = element.attr("Self").or_else(|| element.attr("Name")) else {
             continue;
         };
+        // The root character style is the absence of one.
+        if character_name(raw).is_empty() {
+            continue;
+        }
         let mut style = character_properties(element, colors, refs, report);
         style.name = refs.character(raw);
-        style.based_on =
-            base(element).map(|base| refs.character(property(element, "BasedOn").unwrap_or(&base)));
+        style.based_on = base(element)
+            .map(|base| refs.character(property(element, "BasedOn").unwrap_or(&base)))
+            .filter(|base| !base.is_empty());
         styles.add_character(style);
     }
 }

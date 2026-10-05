@@ -522,11 +522,15 @@ fn object_native_xml(
             insets,
             overflow,
         } => {
-            if text_path.is_none() && object.appearance.outline.is_some() {
-                warnings.push(schist_i18n::tf!(
-                    "design.idml_curved_text_flow",
-                    name = object.name
-                ));
+            // IDML frame geometry has no fill rule; a shaped frame's holes then
+            // follow the nonzero rule.
+            if object
+                .appearance
+                .outline
+                .as_ref()
+                .is_some_and(|path| path.even_odd)
+            {
+                warnings.push(schist_i18n::tf!("design.idml_even_odd", name = object.name));
             }
             // The story is named by the id its part's file name carries.
             let story_id = stories
@@ -1021,6 +1025,18 @@ fn styles_xml(
         r#"<idPkg:Styles xmlns:idPkg="{NS_PACKAGING}" DOMVersion="{DOM_VERSION}">"#
     ));
     out.push_str(r#"<RootParagraphStyleGroup Self="SchistParagraphStyles">"#);
+    // Every reference to a root style resolves inside the package.
+    if !document
+        .styles
+        .paragraphs
+        .iter()
+        .any(|s| s.name == "[No paragraph style]")
+    {
+        out.push_str(&format!(
+            r#"<ParagraphStyle Self="{}" Name="$ID/[No paragraph style]" />"#,
+            crate::style_codec::NO_PARAGRAPH_STYLE
+        ));
+    }
     for style in &document.styles.paragraphs {
         if style.writing_mode.is_some() {
             let message = schist_i18n::t("design.idml_paragraph_orientation").to_string();
@@ -1057,6 +1073,17 @@ fn styles_xml(
     out.push_str(
         r#"</RootParagraphStyleGroup><RootCharacterStyleGroup Self="SchistCharacterStyles">"#,
     );
+    if !document
+        .styles
+        .characters
+        .iter()
+        .any(|s| s.name == "[No character style]")
+    {
+        out.push_str(&format!(
+            r#"<CharacterStyle Self="{}" Name="$ID/[No character style]" />"#,
+            crate::style_codec::NO_CHARACTER_STYLE
+        ));
+    }
     for style in &document.styles.characters {
         crate::capitalization_codec::warn(style.all_caps, style.small_caps, warnings);
         crate::opentype_codec::warn(&style.features, warnings);
@@ -1286,10 +1313,17 @@ fn part_id(path: &str) -> String {
 }
 
 fn paragraph_reference(name: &str) -> String {
+    if name.is_empty() {
+        return crate::style_codec::NO_PARAGRAPH_STYLE.into();
+    }
     format!("ParagraphStyle/$ID/{}", escape(name))
 }
 
+/// Unstyled text names the root no-style, which Styles.xml always defines.
 pub(crate) fn character_reference(name: &str) -> String {
+    if name.is_empty() {
+        return crate::style_codec::NO_CHARACTER_STYLE.into();
+    }
     format!("CharacterStyle/$ID/{}", escape(name))
 }
 

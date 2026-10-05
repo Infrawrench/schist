@@ -311,7 +311,7 @@ impl LineEdit {
                 if primary {
                     return LineEditKey::Ignored;
                 }
-                let Some(text) = ev.keystroke.key_char.as_deref() else {
+                let Some(text) = typed_text(&ev.keystroke) else {
                     return LineEditKey::Ignored;
                 };
                 if text.chars().any(char::is_control) {
@@ -322,6 +322,17 @@ impl LineEdit {
                 LineEditKey::Changed
             }
         }
+    }
+}
+
+/// The text a keystroke types. Windows reports Space by name without its
+/// character, unlike letters, and no character message follows a claimed
+/// key; it is still a space.
+pub fn typed_text(keystroke: &gpui::Keystroke) -> Option<&str> {
+    match keystroke.key_char.as_deref() {
+        Some(text) => Some(text),
+        None if keystroke.key == "space" => Some(" "),
+        None => None,
     }
 }
 
@@ -451,7 +462,7 @@ impl Class {
 
 #[cfg(test)]
 mod tests {
-    use super::{caret_down, caret_left, caret_right, caret_up, word_at, LineEdit};
+    use super::{caret_down, caret_left, caret_right, caret_up, typed_text, word_at, LineEdit};
     use crate::TextPress;
 
     #[test]
@@ -485,6 +496,19 @@ mod tests {
         // Punctuation goes one mark at a time.
         assert_eq!(word_at("a, b", 1), 1..2);
         assert_eq!(word_at("", 0), 0..0);
+    }
+
+    #[test]
+    fn space_types_a_space_with_or_without_its_reported_character() {
+        let stroke = |key: &str, key_char: Option<&str>| gpui::Keystroke {
+            modifiers: Default::default(),
+            key: key.into(),
+            key_char: key_char.map(Into::into),
+        };
+        assert_eq!(typed_text(&stroke("space", None)), Some(" "));
+        assert_eq!(typed_text(&stroke("space", Some(" "))), Some(" "));
+        assert_eq!(typed_text(&stroke("a", Some("a"))), Some("a"));
+        assert_eq!(typed_text(&stroke("left", None)), None);
     }
 
     #[test]

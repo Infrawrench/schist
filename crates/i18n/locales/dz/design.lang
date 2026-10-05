@@ -363,7 +363,6 @@ design.overprint = Overprint
 design.apply_clear_style = Apply style; clear enabled overrides
 design.detach_object_style = Detach style; keep paint
 design.idml_object_paint_invalid = Invalid frame paint: {property}
-design.idml_curved_text_flow = {name}: rectangular text composition
 
 design.text_fill = Text fill
 design.text_stroke = Text stroke
@@ -603,3 +602,6 @@ design.wrap_side_away_spine = Away from spine
 design.wrap_side_largest = Largest area
 design.wrap_only_beneath = Wrap affects only text beneath
 design.wrap_abut = Resume wrapped text on leading
+
+# UNTRANSLATED PLACEHOLDER
+design.text_in_shape = Text in shape

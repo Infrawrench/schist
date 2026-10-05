@@ -54,6 +54,7 @@ pub mod styles;
 pub mod swatches;
 pub mod tabs;
 pub mod text_path;
+pub mod text_shape;
 pub mod text_variables;
 pub mod text_wrap;
 pub mod threading;

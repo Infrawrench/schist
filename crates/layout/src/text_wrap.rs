@@ -158,6 +158,8 @@ struct Obstacle {
     inverse: bool,
     /// Outline rings in the frame's untransformed box.
     rings: Vec<Vec<Point>>,
+    /// Which overlapping rings are inside an inverse outline.
+    even_odd: bool,
     /// Contour distance applied around the outline in each band.
     grow: Pt,
     /// The rings' extent.
@@ -229,25 +231,42 @@ fn band_extent(rings: &[Vec<Point>], top: Pt, bottom: Pt) -> Option<(Pt, Pt)> {
     (low <= high).then_some((low, high))
 }
 
-/// The even-odd inside intervals of the rings along the horizontal line `y`.
-fn inside_at(rings: &[Vec<Point>], y: Pt) -> Vec<(Pt, Pt)> {
+/// The inside intervals of the rings along the horizontal line `y`, under the
+/// even-odd or nonzero fill rule.
+fn inside_at(rings: &[Vec<Point>], y: Pt, even_odd: bool) -> Vec<(Pt, Pt)> {
     let mut crossings = Vec::new();
     for ring in rings {
         for (index, a) in ring.iter().enumerate() {
             let b = ring[(index + 1) % ring.len()];
             if (a.y <= y && y < b.y) || (b.y <= y && y < a.y) {
-                crossings.push(a.x + (b.x - a.x) * (y - a.y) / (b.y - a.y));
+                let x = a.x + (b.x - a.x) * (y - a.y) / (b.y - a.y);
+                crossings.push((x, if a.y < b.y { 1 } else { -1 }));
             }
         }
     }
-    crossings.sort_by(f32::total_cmp);
-    crossings
-        .as_chunks::<2>()
-        .0
-        .iter()
-        .map(|&[a, b]| (a, b))
-        .filter(|(a, b)| b > a)
-        .collect()
+    crossings.sort_by(|a, b| a.0.total_cmp(&b.0));
+    let mut out = Vec::new();
+    let mut winding = 0;
+    let mut start = 0.0;
+    for (x, direction) in crossings {
+        let was = if even_odd {
+            winding % 2 != 0
+        } else {
+            winding != 0
+        };
+        winding += direction;
+        let is = if even_odd {
+            winding % 2 != 0
+        } else {
+            winding != 0
+        };
+        if !was && is {
+            start = x;
+        } else if was && !is && x > start {
+            out.push((start, x));
+        }
+    }
+    out
 }
 
 fn intersect(a: &[(Pt, Pt)], b: &[(Pt, Pt)]) -> Vec<(Pt, Pt)> {
@@ -267,7 +286,7 @@ fn intersect(a: &[(Pt, Pt)], b: &[(Pt, Pt)]) -> Vec<(Pt, Pt)> {
 /// The intervals inside the rings along the whole band `top..bottom`. Edges are
 /// straight between vertices, so sampling just inside every vertex height and
 /// both band edges finds the narrowest interior exactly.
-fn band_inside(rings: &[Vec<Point>], top: Pt, bottom: Pt) -> Vec<(Pt, Pt)> {
+fn band_inside(rings: &[Vec<Point>], top: Pt, bottom: Pt, even_odd: bool) -> Vec<(Pt, Pt)> {
     const EPSILON: Pt = 0.001;
     let mut heights = vec![top + EPSILON, bottom - EPSILON];
     for p in rings.iter().flatten() {
@@ -278,12 +297,12 @@ fn band_inside(rings: &[Vec<Point>], top: Pt, bottom: Pt) -> Vec<(Pt, Pt)> {
     if top + EPSILON >= bottom - EPSILON {
         heights = vec![(top + bottom) * 0.5];
     }
-    let mut out = inside_at(rings, heights[0]);
+    let mut out = inside_at(rings, heights[0], even_odd);
     for y in &heights[1..] {
         if out.is_empty() {
             break;
         }
-        out = intersect(&out, &inside_at(rings, *y));
+        out = intersect(&out, &inside_at(rings, *y, even_odd));
     }
     out
 }
@@ -328,11 +347,52 @@ fn spread_objects(doc: &LayoutDocument, page: usize) -> Vec<Cow<'_, PlacedObject
     objects
 }
 
+/// The ordinary or parent-page frame `id`, as stored.
+fn stored_frame(doc: &LayoutDocument, id: ObjectId) -> Option<&PlacedObject> {
+    doc.object(id).or_else(|| {
+        doc.parents
+            .iter()
+            .flat_map(|p| &p.objects)
+            .find(|o| o.object.id == id)
+            .map(|o| &o.object)
+    })
+}
+
+/// A shaped text frame's own outline as an inverse obstacle: text stays inside
+/// it, inset by the frame's single inset (its top inset). The outline is stored
+/// in the frame's own box, so no affine applies.
+fn own_shape(frame: &PlacedObject) -> Option<Obstacle> {
+    let LayoutObject::TextFrame {
+        text_path: None,
+        insets,
+        ..
+    } = &frame.object
+    else {
+        return None;
+    };
+    let path = frame.appearance.outline.as_ref()?;
+    let b = frame.bounds;
+    let rings = flatten(path, b.origin(), (b.width, b.height));
+    let shape = rings_bounds(&rings)?;
+    Some(Obstacle {
+        mode: WrapMode::Contour,
+        side: Side::Both,
+        inverse: true,
+        rings,
+        even_odd: path.even_odd,
+        grow: insets.top.max(0.0),
+        shape,
+        bounds: shape,
+    })
+}
+
 impl WrapField {
-    /// The wrap affecting `frame` on `page`, or None when nothing intersects it.
-    /// Frames ignoring wrap, objects on hidden layers or hidden objects, the
-    /// frame itself and master-only parent items do not take part.
+    /// The wrap affecting `frame` on `page`, or None when nothing shapes it.
+    /// A shaped frame's own outline always applies. Other items do not when
+    /// the frame or its layer ignores wrap; hidden items, items on hidden
+    /// layers and master-only parent items never wrap a document page.
     pub fn for_frame(doc: &LayoutDocument, frame: ObjectId, page: usize) -> Option<Self> {
+        let own = stored_frame(doc, frame).and_then(own_shape);
         let any = doc
             .objects
             .iter()
@@ -347,22 +407,42 @@ impl WrapField {
                     .as_ref()
                     .is_some_and(|w| w.mode != WrapMode::None)
             });
-        if !any {
-            return None;
+        let mut obstacles: Vec<Obstacle> = own.into_iter().collect();
+        let mut approximated = false;
+        if any {
+            obstacles.extend(Self::others(doc, frame, page, &mut approximated));
         }
+        (!obstacles.is_empty()).then(|| Self {
+            obstacles,
+            abut: doc.text_wrap_preferences.abut,
+            ignored: Cell::new(false),
+            approximated: Cell::new(approximated),
+        })
+    }
+
+    /// Other items' wrap reaching `frame` on `page`.
+    fn others(
+        doc: &LayoutDocument,
+        frame: ObjectId,
+        page: usize,
+        approximated: &mut bool,
+    ) -> Vec<Obstacle> {
         let objects = spread_objects(doc, page);
-        let host = objects.iter().find(|o| o.id == frame)?;
+        let Some(host) = objects.iter().find(|o| o.id == frame) else {
+            return Vec::new();
+        };
         if host.appearance.ignore_wrap || doc.layer_ignores_wrap(doc.object_layer(host.id)) {
-            return None;
+            return Vec::new();
         }
-        let inverse = crate::affine::inverse(host.content_transform())?;
+        let Some(inverse) = crate::affine::inverse(host.content_transform()) else {
+            return Vec::new();
+        };
         let order = doc
             .text_wrap_preferences
             .only_beneath
             .then(|| doc.paint_order());
         let spine_right = doc.facing_pages && doc.page_is_left(page);
         let mut obstacles = Vec::new();
-        let mut approximated = false;
         for object in &objects {
             let Some(wrap) = object.appearance.text_wrap.as_ref() else {
                 continue;
@@ -391,11 +471,12 @@ impl WrapField {
                 WrapSide::SideAwayFromSpine if spine_right => Side::Left,
                 WrapSide::SideAwayFromSpine => Side::Right,
             };
-            let (outline, grow) = if wrap.mode == WrapMode::Contour
+            let (outline, even_odd, grow) = if wrap.mode == WrapMode::Contour
                 && wrap.contour != Some(ContourType::BoundingBox)
             {
-                approximated |= wrap.approximated();
-                (outline(object), wrap.offsets.top)
+                *approximated |= wrap.approximated();
+                let (rings, even_odd) = outline(object);
+                (rings, even_odd, wrap.offsets.top)
             } else {
                 let b = object.visual_bounds();
                 let o = wrap.offsets;
@@ -408,7 +489,7 @@ impl WrapField {
                 if r.width <= 0.0 || r.height <= 0.0 {
                     continue;
                 }
-                (vec![crate::affine::corners(r).to_vec()], 0.0)
+                (vec![crate::affine::corners(r).to_vec()], false, 0.0)
             };
             let rings: Vec<Vec<Point>> = outline
                 .into_iter()
@@ -436,17 +517,13 @@ impl WrapField {
                 inverse: wrap.inverse
                     && matches!(wrap.mode, WrapMode::BoundingBox | WrapMode::Contour),
                 rings,
+                even_odd,
                 grow,
                 shape,
                 bounds,
             });
         }
-        (!obstacles.is_empty()).then(|| Self {
-            obstacles,
-            abut: doc.text_wrap_preferences.abut,
-            ignored: Cell::new(false),
-            approximated: Cell::new(approximated),
-        })
+        obstacles
     }
 
     /// Whether any obstacle reaches `area` at all. An inverse wrap reaches
@@ -483,11 +560,12 @@ impl WrapField {
             let g = obstacle.grow;
             if obstacle.inverse {
                 // Text stays inside the outline, shrunk by the offset.
-                let inside: Vec<_> = band_inside(&obstacle.rings, top - g, bottom + g)
-                    .into_iter()
-                    .map(|(a, b)| (a + g, b - g))
-                    .filter(|(a, b)| b > a)
-                    .collect();
+                let inside: Vec<_> =
+                    band_inside(&obstacle.rings, top - g, bottom + g, obstacle.even_odd)
+                        .into_iter()
+                        .map(|(a, b)| (a + g, b - g))
+                        .filter(|(a, b)| b > a)
+                        .collect();
                 if inside.is_empty() {
                     if top >= obstacle.shape.bottom() - g {
                         return Row::Stop;
@@ -559,29 +637,36 @@ impl WrapField {
     }
 }
 
-/// An object's outline rings in page space: its shape, clipping path or
-/// text-frame outline, otherwise its frame.
-fn outline(object: &PlacedObject) -> Vec<Vec<Point>> {
+/// A path's closed rings, flattened to 0.25pt, scaled and then offset by
+/// `origin`.
+fn flatten(path: &crate::ShapePath, origin: Point, scale: (Pt, Pt)) -> Vec<Vec<Point>> {
+    // Scale first: the tolerance is in points, and normalized outlines are 1pt.
+    let mut scaled = path.clone();
+    scaled.map_points(|p| Point::new(p.x * scale.0, p.y * scale.1));
+    scaled
+        .flatten(0.25)
+        .subpaths
+        .into_iter()
+        .filter(|ring| ring.len() >= 3)
+        .map(|ring| {
+            ring.into_iter()
+                .map(|(x, y)| Point::new(origin.x + x, origin.y + y))
+                .collect()
+        })
+        .collect()
+}
+
+/// An object's outline rings in page space and their fill rule: its shape,
+/// clipping path or text-frame outline, otherwise its frame.
+fn outline(object: &PlacedObject) -> (Vec<Vec<Point>>, bool) {
     let transform = object.content_transform();
     let size = object.bounds;
-    let flattened = |path: &crate::ShapePath, scale: (Pt, Pt)| -> Vec<Vec<Point>> {
-        path.flatten(0.25)
-            .subpaths
-            .into_iter()
-            .filter(|ring| ring.len() >= 3)
-            .map(|ring| {
-                ring.into_iter()
-                    .map(|(x, y)| Point::new(size.x + x * scale.0, size.y + y * scale.1))
-                    .collect()
-            })
-            .collect()
-    };
-    let rings = match &object.object {
-        LayoutObject::Shape { path, .. } => flattened(path, (1.0, 1.0)),
+    let path = match &object.object {
+        LayoutObject::Shape { path, .. } => Some((path, (1.0, 1.0))),
         LayoutObject::GraphicFrame {
             clip_path: Some(path),
             ..
-        } => flattened(path, (1.0, 1.0)),
+        } => Some((path, (1.0, 1.0))),
         // Text-frame outlines are stored normalized to the frame.
         LayoutObject::TextFrame {
             text_path: None, ..
@@ -589,23 +674,27 @@ fn outline(object: &PlacedObject) -> Vec<Vec<Point>> {
             .appearance
             .outline
             .as_ref()
-            .map(|path| flattened(path, (size.width, size.height)))
-            .unwrap_or_default(),
-        _ => Vec::new(),
+            .map(|path| (path, (size.width, size.height))),
+        _ => None,
     };
+    let even_odd = path.is_some_and(|(path, _)| path.even_odd);
+    let rings = path
+        .map(|(path, scale)| flatten(path, size.origin(), scale))
+        .unwrap_or_default();
     let rings = if rings.is_empty() {
         vec![crate::affine::corners(object.bounds).to_vec()]
     } else {
         rings
     };
-    rings
+    let rings = rings
         .into_iter()
         .map(|ring| {
             ring.into_iter()
                 .map(|p| crate::affine::point(transform, p))
                 .collect()
         })
-        .collect()
+        .collect();
+    (rings, even_odd)
 }
 
 /// Edit every listed item's local wrap as one undo step. Locked items, notes

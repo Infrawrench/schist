@@ -307,12 +307,6 @@ pub(crate) fn read_appearance(
             });
             (!crate::graphic_codec::is_rectangle(&path)).then_some(path)
         });
-        if object.appearance.outline.is_some() {
-            report.skip(schist_i18n::tf!(
-                "design.idml_curved_text_flow",
-                name = object.name
-            ));
-        }
     }
 }
 
