@@ -31,11 +31,10 @@ impl OutputWindow {
             ws.commit_focused_field();
             ws.design.cancel_gesture();
             cx.notify();
-            Some((
-                ws.design.document.clone(),
-                ws.design.graphics.clone(),
-                ws.design_path.clone(),
-            ))
+            // Output date variables show when this output began.
+            let mut document = ws.design.document.clone();
+            document.dates.output = Some(crate::design::now());
+            Some((document, ws.design.graphics.clone(), ws.design_path.clone()))
         });
         let Some((document, graphics, source_path)) = snapshot else {
             self.notice = t("design.story_session_closed").into();

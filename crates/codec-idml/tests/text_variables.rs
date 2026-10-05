@@ -193,13 +193,54 @@ fn public_output_date_variables_are_retained_instead_of_disappearing() {
     let expected = retained(&doc);
     assert_eq!(expected.len(), 3);
     let definitions = doc.retained_text_variables.clone();
-    // All eleven native definitions remain exact recovery data; the native
-    // default Chapter Number, Last Page Number and Running Header are also
-    // typed definitions.
+    // All eleven native definitions remain exact recovery data; InDesign's
+    // default definitions are also typed.
     assert_eq!(definitions.len(), 11);
     let typed = doc.text_variables.clone();
+    let names: Vec<_> = typed.iter().map(|d| d.name.as_str()).collect();
     assert_eq!(
-        typed,
+        names,
+        [
+            "Chapter Number",
+            "Creation Date",
+            "File Name",
+            "Last Page Number",
+            "Modification Date",
+            "Output Date",
+            "Output Date and Time",
+            "Running Header"
+        ]
+    );
+    let date = |name: &str| match typed.iter().find(|d| d.name == name).unwrap().kind() {
+        Some(schist_layout::text_variables::VariableKind::Date(date)) => (date.kind, date.format),
+        other => panic!("{other:?}"),
+    };
+    use schist_layout::text_variables::DateKind;
+    assert_eq!(
+        date("Creation Date"),
+        (DateKind::Created, "MM/dd/yy".into())
+    );
+    assert_eq!(
+        date("Modification Date"),
+        (DateKind::Modified, "MMMM d, yyyy h:mm aa".into())
+    );
+    assert_eq!(
+        date("Output Date and Time"),
+        (DateKind::Output, "YYYY-MM-dd @ hh:mma".into())
+    );
+    let others: Vec<_> = typed
+        .iter()
+        .filter(|d| {
+            !matches!(
+                d.kind(),
+                Some(schist_layout::text_variables::VariableKind::Date(_))
+                    | Some(schist_layout::text_variables::VariableKind::FileName(_))
+            )
+        })
+        .cloned()
+        .collect();
+    assert_eq!(
+        others,
         [
             schist_layout::text_variables::TextVariable::new(
                 "dTextVariablenChapter Number",

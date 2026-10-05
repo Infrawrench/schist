@@ -387,6 +387,26 @@ pub struct LayoutLayer {
     pub ignore_wrap: bool,
 }
 
+/// A document's dates. Creation and modification come from its metadata or
+/// its saves; output is when the current output began, or, outside output,
+/// when the document was opened, so an output date never guesses.
+#[derive(Debug, Clone, Default, PartialEq, Serialize, Deserialize)]
+#[serde(default)]
+pub struct DocumentDates {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub created: Option<crate::dates::DateTime>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub modified: Option<crate::dates::DateTime>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub output: Option<crate::dates::DateTime>,
+}
+
+impl DocumentDates {
+    pub fn is_empty(&self) -> bool {
+        self == &Self::default()
+    }
+}
+
 /// A complete page layout document.
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct LayoutDocument {
@@ -427,6 +447,13 @@ pub struct LayoutDocument {
     /// which the public reference renders as chapter 1.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub chapter_numbering: Option<crate::text_variables::ChapterNumbering>,
+    /// Creation, modification and output dates, for date text variables.
+    #[serde(default, skip_serializing_if = "DocumentDates::is_empty")]
+    pub dates: DocumentDates,
+    /// Where the document was opened from or last saved, for file-name text
+    /// variables; None before the first save.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub file_path: Option<String>,
     /// Document text-wrap composition preferences.
     #[serde(default)]
     pub text_wrap_preferences: crate::text_wrap::WrapPreferences,
@@ -624,6 +651,8 @@ impl LayoutDocument {
             stories: Vec::new(),
             retained_text_variables: Vec::new(),
             chapter_numbering: None,
+            dates: DocumentDates::default(),
+            file_path: None,
             text_wrap_preferences: Default::default(),
             text_variables: Vec::new(),
             footnotes: Default::default(),

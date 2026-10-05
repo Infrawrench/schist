@@ -614,3 +614,9 @@ design.idml_anchored_invalid = Anchored item {name}: invalid {property}: {value}
 
 # UNTRANSLATED PLACEHOLDER
 design.variable_kind_running_header = Running header
+
+# UNTRANSLATED PLACEHOLDER
+design.variable_kind_created = Creation date
+design.variable_kind_modified = Modification date
+design.variable_kind_output = Output date
+design.variable_kind_file_name = File name

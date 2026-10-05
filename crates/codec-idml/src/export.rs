@@ -132,7 +132,10 @@ fn write_inner(document: &LayoutDocument, check_identities: bool) -> Written {
         "META-INF/container.xml".into(),
         container_xml().into_bytes(),
     ));
-    parts.push(("META-INF/metadata.xml".into(), metadata_xml().into_bytes()));
+    parts.push((
+        "META-INF/metadata.xml".into(),
+        metadata_xml(&document.dates).into_bytes(),
+    ));
 
     for (path, element) in spread_parts.iter().zip(document.spreads.iter()) {
         parts.push((
@@ -286,16 +289,28 @@ fn container_xml() -> String {
     )
 }
 
-fn metadata_xml() -> String {
-    r#"<?xml version="1.0" encoding="UTF-8"?>
+/// XMP with the document's creation and modification dates when known; date
+/// text variables read them back.
+fn metadata_xml(dates: &schist_layout::DocumentDates) -> String {
+    let mut known = String::new();
+    for (name, date) in [
+        ("CreateDate", dates.created),
+        ("ModifyDate", dates.modified),
+    ] {
+        if let Some(date) = date {
+            known.push_str(&format!("\n      <xmp:{name}>{}</xmp:{name}>", date.iso()));
+        }
+    }
+    format!(
+        r#"<?xml version="1.0" encoding="UTF-8"?>
 <xmpMetadata xmlns:xmp="http://ns.adobe.com/xap/1.0/">
   <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
     <rdf:Description rdf:about="" xmlns:xmpMM="http://ns.adobe.com/xap/1.0/mm/">
-      <xmpMM:DocumentID>schist</xmpMM:DocumentID>
+      <xmpMM:DocumentID>schist</xmpMM:DocumentID>{known}
     </rdf:Description>
   </rdf:RDF>
 </xmpMetadata>"#
-        .to_owned()
+    )
 }
 
 fn tags_xml() -> String {

@@ -96,6 +96,7 @@ pub fn read_package(opened: &DesignPackage<'_>) -> Result<Imported, Error> {
     document.inks = colors.values().cloned().collect();
     document.styles.languages = crate::language_codec::read(opened, &mut report)?;
     let variables = crate::custom_text_codec::read_package(opened)?;
+    document.dates = metadata_dates(opened);
     document.retained_text_variables =
         crate::text_variable_codec::read(opened, &variables, &mut report)?;
     document.text_variables = variables.definitions;
@@ -493,6 +494,46 @@ pub(crate) fn page_of(element: &Element) -> Option<Page> {
 }
 
 // -- objects ----------------------------------------------------------
+
+/// XMP CreateDate and ModifyDate from `META-INF/metadata.xml`, as elements or
+/// as rdf:Description attributes. Unreadable metadata gives no dates.
+fn metadata_dates(opened: &DesignPackage<'_>) -> schist_layout::DocumentDates {
+    let mut dates = schist_layout::DocumentDates::default();
+    let Some(root) = opened
+        .text_of("META-INF/metadata.xml")
+        .ok()
+        .and_then(|text| xml::parse(text).ok())
+    else {
+        return dates;
+    };
+    let named = |element: &Element, name: &str| {
+        element.name == name || element.name.rsplit(':').next() == Some(name)
+    };
+    let mut pending = vec![&root];
+    while let Some(element) = pending.pop() {
+        for (key, value) in &element.attributes {
+            let key = key.rsplit(':').next().unwrap_or(key);
+            let date = schist_layout::dates::DateTime::parse(value);
+            match key {
+                "CreateDate" => dates.created = dates.created.or(date),
+                "ModifyDate" => dates.modified = dates.modified.or(date),
+                _ => {}
+            }
+        }
+        if named(element, "CreateDate") {
+            dates.created = dates
+                .created
+                .or_else(|| schist_layout::dates::DateTime::parse(element.trimmed()));
+        }
+        if named(element, "ModifyDate") {
+            dates.modified = dates
+                .modified
+                .or_else(|| schist_layout::dates::DateTime::parse(element.trimmed()));
+        }
+        pending.extend(element.children.iter());
+    }
+    dates
+}
 
 /// A frame as a [`PlacedObject`], if this element is one.
 pub(crate) fn placed_object(

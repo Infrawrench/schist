@@ -158,9 +158,13 @@ fn scope_label(scope: VariableScope) -> String {
     .into()
 }
 
-/// Whether this window offers to edit the definition.
+/// Whether this window offers to edit the definition: custom text and page
+/// and chapter numbers. Other kinds are kept and saved but not edited here.
 fn editable(definition: &TextVariable) -> bool {
-    !matches!(definition.kind(), Some(VariableKind::RunningHeader(_)))
+    matches!(
+        definition.kind(),
+        Some(VariableKind::Custom(_) | VariableKind::LastPage(_) | VariableKind::Chapter(_))
+    )
 }
 
 /// A short list-row description: the literal value, or the computed kind.
@@ -176,6 +180,16 @@ fn summary(definition: &TextVariable) -> String {
             let (MatchStyle::Paragraph(style) | MatchStyle::Character(style)) = &header.style;
             format!("{} · {style}", t("design.variable_kind_running_header"))
         }
+        Some(VariableKind::Date(date)) => format!(
+            "{} · {}",
+            t(match date.kind {
+                variables::DateKind::Created => "design.variable_kind_created",
+                variables::DateKind::Modified => "design.variable_kind_modified",
+                variables::DateKind::Output => "design.variable_kind_output",
+            }),
+            date.format
+        ),
+        Some(VariableKind::FileName(_)) => t("design.variable_kind_file_name").into(),
         _ => definition.contents.clone(),
     }
 }

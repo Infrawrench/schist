@@ -310,6 +310,35 @@ are marked.
 
 ## Handoff
 
+File-name and date variables, 2026-10-05:
+CreationDateType, ModificationDateType, OutputDateType and FileNameType
+definitions are now typed when their preferences state their settings, and save
+with InDesign's spellings; every public template's default definitions now type.
+Documents carry creation, modification and output dates (`DocumentDates`) and
+their file path. Creation and modification dates are read from and written to
+the package's XMP; the editor stamps a missing creation date and the session's
+output date when a document opens, the modification date and file path on save,
+and the output date on the copy each PDF or package output renders. A new
+`dates` module parses ISO 8601/XMP dates and formats InDesign's date codes,
+including the uppercase year its own default "Output Date and Time" writes. The
+public `variables` sample's three formats print exactly as in InDesign's PDF.
+The Text Variables window lists date and file-name definitions by kind without
+editing them; four keys are added to all 150 catalogs.
+
+The source-frozen sweep passed every roadmap target, headless library wasm, shared
+UI, formatting, whitespace and the debug app build with no corrections (two
+fixture expectations had been updated before it for the newly typed default
+definitions); all 43 proofs are byte-identical to the previous checkpoint:
+**2,214 distinct passing Rust tests**, 9 new (6 layout, 3 IDML).
+
+Native review used a passive capture of the actual debug app with Design enabled
+and isolated configuration: a document carrying XMP dates shows "Created
+2026-10-01", "Modified October 2, 2026", "Output Monday 05.10.26" (the day it was
+opened) and "File dates.idml".
+
+Next: tables, then the remaining item 9 gaps. Published to draft PR #195.
+
+
 Running headers and jump numbers inside threads, 2026-10-05:
 MatchParagraphStyleType and MatchCharacterStyleType definitions are now typed
 (`text_variables::RunningHeader`) when their preference states the style,
@@ -3076,7 +3105,7 @@ remaining order is now explicit:
    the IDML root styles. Anchored page items, text frames and groups compose
    inline, above the line and at custom positions in horizontal text, and wrap
    later lines of their story. Object styles carry text wrap; jump-line page
-   numbers and running headers render.
+   numbers, running headers, file names and dates render.
 
 Phase 0 research can proceed independently. Phase 5 only follows an
 explicit evidence-based go/no-go; container recognition is not an INDD

@@ -20,6 +20,30 @@
 //! document. Neither of them computes layout, which is why a layout bug
 //! can be reproduced in a unit test and a paint bug cannot hide one.
 
+/// The local date and time, for document dates: creation, saves and output.
+/// Where the platform gives no time zone, UTC.
+pub fn now() -> schist_layout::dates::DateTime {
+    #[cfg(not(target_arch = "wasm32"))]
+    {
+        use chrono::{Datelike, Timelike};
+        let local = chrono::Local::now();
+        if let Some(date) = schist_layout::dates::DateTime::new(
+            local.year(),
+            local.month() as u8,
+            local.day() as u8,
+            local.hour() as u8,
+            local.minute() as u8,
+            local.second().min(59) as u8,
+        ) {
+            return date;
+        }
+    }
+    let seconds = web_time::SystemTime::now()
+        .duration_since(web_time::UNIX_EPOCH)
+        .map_or(0, |d| d.as_secs() as i64);
+    schist_layout::dates::DateTime::from_unix(seconds)
+}
+
 pub mod composition;
 pub mod controls;
 pub mod dragging;

@@ -6,8 +6,8 @@ use crate::{export::escape, xml::Element};
 use schist_layout::{
     story::InlineControl,
     text_variables::{
-        ChangeCase, ChapterNumber, LastPageNumber, MatchStyle, PageNumberFormat, RunningHeader,
-        TextVariable, VariableKind, VariableScope,
+        ChangeCase, ChapterNumber, DateKind, DateVariable, FileName, LastPageNumber, MatchStyle,
+        PageNumberFormat, RunningHeader, TextVariable, VariableKind, VariableScope,
     },
     Story, StoryStructure,
 };
@@ -37,6 +37,10 @@ pub(crate) fn definition(element: &Element) -> Option<TextVariable> {
         Some("ChapterNumberType") => return chapter(element),
         Some("MatchParagraphStyleType") => return running_header(element, false),
         Some("MatchCharacterStyleType") => return running_header(element, true),
+        Some("CreationDateType") => return date(element, DateKind::Created),
+        Some("ModificationDateType") => return date(element, DateKind::Modified),
+        Some("OutputDateType") => return date(element, DateKind::Output),
+        Some("FileNameType") => return file_name(element),
         _ => {}
     }
     if element.attr("VariableType") != Some("CustomTextType") {
@@ -190,6 +194,62 @@ fn running_header(element: &Element, character: bool) -> Option<TextVariable> {
             delete_end_punctuation: crate::xml::parse_boolean(
                 preference.attr("DeleteEndPunctuation")?,
             )?,
+        }),
+    );
+    definition.valid().then_some(definition)
+}
+
+const DATES: [(&str, DateKind); 3] = [
+    ("CreationDateType", DateKind::Created),
+    ("ModificationDateType", DateKind::Modified),
+    ("OutputDateType", DateKind::Output),
+];
+
+/// DateVariablePreference with an explicit Format; its default is not
+/// published.
+fn date(element: &Element, kind: DateKind) -> Option<TextVariable> {
+    let preference = &element.children[0];
+    if preference.name != "DateVariablePreference"
+        || !plain(preference, &["TextBefore", "Format", "TextAfter"])
+        || !preference.children.is_empty()
+    {
+        return None;
+    }
+    let id = element.attr("Self").filter(|id| !id.is_empty())?;
+    let definition = TextVariable::new(
+        id,
+        element.attr("Name")?,
+        VariableKind::Date(DateVariable {
+            kind,
+            before: preference.attr("TextBefore").unwrap_or_default().into(),
+            format: preference.attr("Format").filter(|f| !f.is_empty())?.into(),
+            after: preference.attr("TextAfter").unwrap_or_default().into(),
+        }),
+    );
+    definition.valid().then_some(definition)
+}
+
+/// FileNameVariablePreference with explicit IncludePath and IncludeExtension.
+fn file_name(element: &Element) -> Option<TextVariable> {
+    let preference = &element.children[0];
+    if preference.name != "FileNameVariablePreference"
+        || !plain(
+            preference,
+            &["TextBefore", "IncludePath", "IncludeExtension", "TextAfter"],
+        )
+        || !preference.children.is_empty()
+    {
+        return None;
+    }
+    let id = element.attr("Self").filter(|id| !id.is_empty())?;
+    let definition = TextVariable::new(
+        id,
+        element.attr("Name")?,
+        VariableKind::FileName(FileName {
+            before: preference.attr("TextBefore").unwrap_or_default().into(),
+            path: crate::xml::parse_boolean(preference.attr("IncludePath")?)?,
+            extension: crate::xml::parse_boolean(preference.attr("IncludeExtension")?)?,
+            after: preference.attr("TextAfter").unwrap_or_default().into(),
         }),
     );
     definition.valid().then_some(definition)
@@ -466,6 +526,14 @@ impl Exported {
                 Some(VariableKind::Chapter(chapter)) => format!(
                     r#"<TextVariable Self="{id}" Name="{name}" VariableType="ChapterNumberType"><ChapterNumberVariablePreference TextBefore="{}" Format="{}" TextAfter="{}"/></TextVariable>"#,
                     escape(&chapter.before), native(&FORMATS, chapter.format), escape(&chapter.after)
+                ),
+                Some(VariableKind::Date(date)) => format!(
+                    r#"<TextVariable Self="{id}" Name="{name}" VariableType="{}"><DateVariablePreference TextBefore="{}" Format="{}" TextAfter="{}"/></TextVariable>"#,
+                    native(&DATES, date.kind), escape(&date.before), escape(&date.format), escape(&date.after)
+                ),
+                Some(VariableKind::FileName(file)) => format!(
+                    r#"<TextVariable Self="{id}" Name="{name}" VariableType="FileNameType"><FileNameVariablePreference TextBefore="{}" IncludePath="{}" IncludeExtension="{}" TextAfter="{}"/></TextVariable>"#,
+                    escape(&file.before), file.path, file.extension, escape(&file.after)
                 ),
                 Some(VariableKind::RunningHeader(header)) => {
                     let (kind, preference, attribute, style) = match &header.style {

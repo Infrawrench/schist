@@ -23,6 +23,12 @@ pub struct TextVariable {
     /// A running header, evaluated from the text on its page.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub running_header: Option<RunningHeader>,
+    /// A creation, modification or output date.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub date: Option<DateVariable>,
+    /// The document's file name.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub file_name: Option<FileName>,
 }
 
 /// What a definition displays. The stored fields keep older snapshots readable;
@@ -33,6 +39,36 @@ pub enum VariableKind {
     LastPage(LastPageNumber),
     Chapter(ChapterNumber),
     RunningHeader(RunningHeader),
+    Date(DateVariable),
+    FileName(FileName),
+}
+
+/// CreationDateType, ModificationDateType and OutputDateType.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
+pub enum DateKind {
+    Created,
+    Modified,
+    Output,
+}
+
+/// DateVariablePreference: literal text around a formatted date.
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+pub struct DateVariable {
+    pub kind: DateKind,
+    pub before: String,
+    /// A date pattern such as `MMMM d, yyyy` ([`crate::dates::DateTime::format`]).
+    pub format: String,
+    pub after: String,
+}
+
+/// FileNameVariablePreference: the document's file name, optionally with its
+/// folder path and extension.
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+pub struct FileName {
+    pub before: String,
+    pub path: bool,
+    pub extension: bool,
+    pub after: String,
 }
 
 /// MatchParagraphStyleType and MatchCharacterStyleType: the text of the first
@@ -80,12 +116,16 @@ impl TextVariable {
             last_page: None,
             chapter: None,
             running_header: None,
+            date: None,
+            file_name: None,
         };
         match kind {
             VariableKind::Custom(contents) => out.contents = contents,
             VariableKind::LastPage(spec) => out.last_page = Some(spec),
             VariableKind::Chapter(spec) => out.chapter = Some(spec),
             VariableKind::RunningHeader(spec) => out.running_header = Some(spec),
+            VariableKind::Date(spec) => out.date = Some(spec),
+            VariableKind::FileName(spec) => out.file_name = Some(spec),
         }
         out
     }
@@ -93,17 +133,17 @@ impl TextVariable {
     /// The single kind this definition stores, or None for an inconsistent
     /// record combining computed kinds or literal contents with one.
     pub fn kind(&self) -> Option<VariableKind> {
-        match (&self.last_page, &self.chapter, &self.running_header) {
-            (None, None, None) => Some(VariableKind::Custom(self.contents.clone())),
-            (Some(page), None, None) if self.contents.is_empty() => {
-                Some(VariableKind::LastPage(page.clone()))
-            }
-            (None, Some(chapter), None) if self.contents.is_empty() => {
-                Some(VariableKind::Chapter(chapter.clone()))
-            }
-            (None, None, Some(header)) if self.contents.is_empty() => {
-                Some(VariableKind::RunningHeader(header.clone()))
-            }
+        let computed = [
+            self.last_page.clone().map(VariableKind::LastPage),
+            self.chapter.clone().map(VariableKind::Chapter),
+            self.running_header.clone().map(VariableKind::RunningHeader),
+            self.date.clone().map(VariableKind::Date),
+            self.file_name.clone().map(VariableKind::FileName),
+        ];
+        let mut computed = computed.into_iter().flatten();
+        match (computed.next(), computed.next()) {
+            (None, _) => Some(VariableKind::Custom(self.contents.clone())),
+            (Some(kind), None) if self.contents.is_empty() => Some(kind),
             _ => None,
         }
     }
@@ -118,6 +158,14 @@ impl TextVariable {
             }
             Some(VariableKind::Chapter(chapter)) => {
                 valid_contents(&chapter.before) && valid_contents(&chapter.after)
+            }
+            Some(VariableKind::Date(date)) => {
+                valid_contents(&date.before)
+                    && valid_contents(&date.after)
+                    && valid_contents(&date.format)
+            }
+            Some(VariableKind::FileName(name)) => {
+                valid_contents(&name.before) && valid_contents(&name.after)
             }
             Some(VariableKind::RunningHeader(header)) => {
                 valid_contents(&header.before)
@@ -739,6 +787,45 @@ pub fn jump_page_value(doc: &LayoutDocument, frame: crate::ObjectId, next: bool)
     current_page_value(doc, &[page])
 }
 
+/// A date variable shows its document date in its format, between its literal
+/// text; an unknown date stays diagnosed.
+pub fn date_value(doc: &LayoutDocument, date: &DateVariable) -> Option<String> {
+    let when = match date.kind {
+        DateKind::Created => doc.dates.created,
+        DateKind::Modified => doc.dates.modified,
+        DateKind::Output => doc.dates.output,
+    }?;
+    let value = format!("{}{}{}", date.before, when.format(&date.format), date.after);
+    valid_contents(&value).then_some(value)
+}
+
+/// A file-name variable shows the document's file name, with its folder path
+/// and extension when asked. Before a first save the name has no path; one
+/// that asks for the path stays diagnosed.
+pub fn file_name_value(doc: &LayoutDocument, name: &FileName) -> Option<String> {
+    let full = match &doc.file_path {
+        Some(path) => path.clone(),
+        None if name.path || doc.name.is_empty() => return None,
+        None => doc.name.clone(),
+    };
+    let split = full.rfind(['/', '\\']).map_or(0, |at| at + 1);
+    let (folder, file) = full.split_at(split);
+    let file = if name.extension {
+        file
+    } else {
+        file.rfind('.')
+            .filter(|&at| at > 0)
+            .map_or(file, |at| &file[..at])
+    };
+    let shown = if name.path {
+        format!("{folder}{file}")
+    } else {
+        file.to_owned()
+    };
+    let value = format!("{}{}{}", name.before, shown, name.after);
+    valid_contents(&value).then_some(value)
+}
+
 /// A running header shows the matching text for the one page it is set on,
 /// between its literal text. Text that cannot show on one line stays
 /// diagnosed.
@@ -841,6 +928,8 @@ pub(crate) fn instances(
                         VariableKind::RunningHeader(spec) => {
                             running_header_value(doc, &spec, pages)?
                         }
+                        VariableKind::Date(spec) => date_value(doc, &spec)?,
+                        VariableKind::FileName(spec) => file_name_value(doc, &spec)?,
                     };
                     (value, character_style)
                 }

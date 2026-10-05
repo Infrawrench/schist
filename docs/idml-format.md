@@ -2771,6 +2771,29 @@ full-width forms) but keeps a closing parenthesis. All eight of the sample's
 headers on all five pages match InDesign's text. The Text Variables window lists
 running headers by kind and style but does not edit them.
 
+Date variables (CreationDateType, ModificationDateType, OutputDateType) are
+typed when their DateVariablePreference states a Format, and file-name
+variables (FileNameType) when their FileNameVariablePreference states
+IncludePath and IncludeExtension; other forms stay retained recovery data.
+Every public template's default definitions now type: Creation Date
+`MM/dd/yy`, Modification Date `MMMM d, yyyy h:mm aa`, Output Date `MM/dd/yy`,
+Output Date and Time `YYYY-MM-dd @ hh:mma` and File Name. Formats use these
+codes: y or Y (two give two digits, otherwise the full year), M (one or two
+digits; MMM and MMMM English month names), d, E (EEE and EEEE English weekday
+names), h and H (12- and 24-hour), m, s, a (AM or PM, however many), G (AD);
+quoted text is literal and '' is a quote. The public `variables` sample's PDF
+prints its formats `yyyy-MM-dd`, `MMMM d, yyyy` and `EEEE dd.MM.yy` as
+"2026-10-01", "October 1, 2026" and "Thursday 01.10.26", as Schist does for that
+date; the dates themselves came from InDesign's session, so only the formats are
+evidence. Creation and modification dates are read from the package's XMP
+(xmp:CreateDate and xmp:ModifyDate, as elements or Description attributes, time
+zone ignored) and written back there; a document opened without a creation date
+is created when opened, and a save sets the modification date. The output date
+is when the current output began (PDF or package); outside output it is when the
+document was opened, and it is never saved. A file name is the document's file
+name, with its folder and extension when asked; before a first save only the
+name is known, so a path stays diagnosed. An unknown date stays diagnosed.
+
 Every checked-in public IDML package has `ChapterNumberPreference
 ChapterNumber="1" ChapterNumberSource="ContinueFromPreviousDocument"` with a
 `ChapterNumberFormat` string `1, 2, 3, 4...`. These were previously dropped on

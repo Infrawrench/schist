@@ -21,6 +21,7 @@ pub mod anchored;
 pub mod authoring;
 pub mod compose;
 mod curves;
+pub mod dates;
 pub mod decorations;
 pub mod directional_features;
 pub mod drop_caps;
@@ -78,8 +79,8 @@ pub use history::{
 };
 pub use ink::{Ink, InkAlias, InkManager, PaintTints, PlatedInk};
 pub use model::{
-    blank_a4, FrameOverflow, GraphicFit, GraphicInfo, LayerId, LayoutDocument, LayoutLayer,
-    LayoutObject, Link, ObjectId, ParentObject, ParentPage, PlacedObject, StoryId,
+    blank_a4, DocumentDates, FrameOverflow, GraphicFit, GraphicInfo, LayerId, LayoutDocument,
+    LayoutLayer, LayoutObject, Link, ObjectId, ParentObject, ParentPage, PlacedObject, StoryId,
 };
 pub use numbering::Section;
 pub use object_styles::{ObjectAppearance, ObjectPaint, ObjectStyle, Paint};
