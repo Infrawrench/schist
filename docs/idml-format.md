@@ -2883,12 +2883,17 @@ style carries real defaults and stays a document style, as before.
 
 A Rectangle, Oval, Polygon or GraphicLine inside a story keeps its exact XML as
 a retained story structure at its character position, as before, and is now also
-typed from that XML: its AnchoredObjectSetting AnchoredPosition
-(`InlinePosition` when absent, `AboveLine` or `Anchored`), its AnchorYoffset and
-the page item itself, read by the same reader as spread items (paint, path or
-clipped image). Invalid positions or offsets are reported and the item stays
-untyped. Saving still writes the retained XML, so editing the item is not offered.
-Anchored text frames and groups stay retained and untyped.
+typed from that XML: every AnchoredObjectSetting attribute the specification
+defines (AnchoredPosition, AnchorPoint, Horizontal/VerticalAlignment,
+Horizontal/VerticalReferencePoint, AnchorXoffset, AnchorYoffset,
+AnchorSpaceAbove, SpineRelative, PinPosition, LockPosition) with its Appendix C
+default when absent (`InlinePosition`, `BottomRightAnchor`, `LeftAlign`,
+`TextFrame`, `TopAlign`, `LineBaseline`, zero offsets, pinned), and the page item
+itself, read by the same reader as spread items (paint, path or clipped image).
+An invalid position or offset is reported and the item stays untyped; an invalid
+reference, alignment, anchor point or flag is reported and read as its default.
+Saving still writes the retained XML, so editing the item is not offered. Anchored
+text frames and groups stay retained and untyped.
 
 An inline item in horizontal text is composed as an isolated object replacement
 character set as an empty box the width of the item's visual extent: its frame
@@ -2901,10 +2906,11 @@ leading keeps its step and a tall item overlaps the line above. A bounding-box
 wrap on the item adds its left and right offsets beside it; its top and bottom
 offsets change nothing. It wraps whole, like a word. Output and the canvas draw the
 item with its frame, after the frame's text, through the frame's affine; a click on
-it selects the frame. Composed inline items no longer count as unrendered story
-structures. Items above the line or at custom anchored positions, items in
-vertical text, and wrap of other text around anchored items are not composed yet
-and stay reported by Preflight.
+it selects the frame. Composed items no longer count as unrendered story
+structures. Items in vertical text are not composed and stay reported by
+Preflight; so is text wrap an item asks for beyond an inline item's bounding-box
+sides (any wrap of an item at a custom position, and contour, jump or column
+wraps of inline items), as "wrap not applied to some text".
 
 Native evidence: the public paged-media `anchored` sample
 ([inputs](https://github.com/paged-media/core/blob/ffb7c8713125dc77403ec0983099f74ac2558517/crates/paged-gen/src/samples/anchored.rs),
@@ -2920,3 +2926,60 @@ the following text 6 pt, and no baseline moves. A nonzero inline Y offset is not
 covered and remains a Schist reading. The sample's anchored item is a text frame,
 which Schist does not type yet, so the composition tests reproduce its geometry
 with a stroked rectangle.
+
+### Above-line and custom anchored positions
+
+An item above the line sets its anchor as an empty, zero-width box that keeps room
+above its line: its AnchorSpaceAbove, its visual height and its AnchorYoffset
+(the space after it) are added to the line's step, so the line and everything
+after it move down; the line's own leading is unchanged. The item's stroked
+bottom sits its Y offset plus half the em plus half the cap height (of the anchor
+character's font) above the lowered baseline. Several items above one line stack
+in anchor order. HorizontalAlignment
+places it at the left, center or right of the line's column, ignoring paragraph
+indents (the specification's "text area"); TextAlign follows the paragraph's
+alignment, and SpineRelative swaps left and right on left-hand pages.
+
+An item at a custom position sets its anchor as an empty, zero-width box and
+takes no room. Its AnchorPoint (one of nine points of its stroked extent) is put at
+a reference point: horizontally the anchor's pen position (AnchorLocation) or the
+left, center or right (HorizontalAlignment) of the line's column (ColumnEdge),
+the frame (TextFrame), the page margins or the page; vertically the anchor line's
+baseline, cap height, x-height or ascent (the anchor character's font: OS/2
+sCapHeight and sxHeight, 0.7 and 0.5 em when undeclared), its top of leading (the
+baseline less the line's step), or the top, center or bottom (VerticalAlignment)
+of the column, frame, margins or page. AnchorYoffset moves it down;
+AnchorXoffset moves it away from the side it is aligned to (left for LeftAlign,
+right otherwise). SpineRelative mirrors the alignment and anchor point on
+left-hand pages. With PinPosition, an item relative to its line is kept between
+the frame's top and bottom. Positions are computed in the frame's own space and
+drawn through its affine; page rectangles enter that space through the frame's
+inverse affine, which is exact for upright frames.
+
+Native evidence, from the same sample's PDF content stream (12 pt Open Sans, Auto
+leading 14.4 pt, frame at x 67.638–527.638 from y 80, item 60.5 × 36.5 pt
+stroked):
+
+- Above line, CenterAlign: the anchor line is 50.9 pt (14.4 + 36.5) below the
+  previous baseline, the item is centered on the frame, and its stroked bottom is
+  10.2832 pt above the baseline, which is (12 + 8.5664) / 2 for Open Sans's cap
+  height of 1462/2048 em. That split is the one sample of it; the space before and
+  after, other fonts and the stacking of several items are Schist readings.
+- Custom, AnchorLocation, LeftAlign, TopLeftAnchor, AnchorXoffset 24,
+  AnchorYoffset 12: the stroked top left is 24 pt left of the anchor's pen
+  position (281.611 → 257.611) and 12 pt below its baseline, and the anchor takes
+  no width. Only LeftAlign is covered, so the direction of X offsets for other
+  alignments is a Schist reading.
+- Custom, TextFrame, RightAlign/TopAlign, TopRightAnchor: the stroked top right
+  is at the frame's top right. With VerticalReferencePoint LineBaseline the top is
+  at the anchor line's baseline; with TopOfLeading it is at the previous baseline
+  (14.4 pt above).
+- Custom, PageMargins, RightAlign/BottomAlign, BottomRightAnchor, margins 36, 60,
+  48, 54: the stroked bottom right is at the margin box's bottom right.
+- The sample's VerticalReferencePoint values `AnchorLocation`, `LineCapHeight` and
+  `LineXHeight` are not in the specification (which spells `Capheight` and
+  `LineXheight`), and their pages match the LineBaseline page exactly, so InDesign
+  read them as the default. Cap-height, x-height and ascent references are
+  therefore not covered natively.
+- Pinning, spine mirroring, column references and the page edge are not covered
+  natively; they follow the specification's descriptions.

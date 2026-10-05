@@ -67,11 +67,11 @@ pub struct PreparedStory {
     pub styles: StyleSet,
     pub notes: Vec<PreparedNote>,
     pub variables: usize,
-    /// Inline anchored items set in the projection.
+    /// Anchored items set in the projection.
     pub anchored: usize,
 }
 
-/// Display text standing for an inline anchored item: one isolated object
+/// Display text standing for an anchored item: one isolated object
 /// replacement character, set as the item's box.
 const ANCHORED_TEXT: &str = "\u{2068}\u{fffc}\u{2069}";
 
@@ -192,6 +192,7 @@ pub(crate) fn prepare_for_flow(
                 width: line_box.width,
                 ascent: line_box.ascent,
                 descent: line_box.descent,
+                above: line_box.above,
                 structure: *structure,
             });
         } else if *kind == Generated::Variable {

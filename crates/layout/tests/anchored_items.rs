@@ -26,6 +26,7 @@ fn item(width: f32, height: f32, y_offset: f32, position: AnchoredPosition) -> A
         position,
         y_offset,
         object,
+        placement: Default::default(),
     }
 }
 
@@ -249,14 +250,9 @@ fn inline_items_match_the_public_native_sample() {
             "Lead",
         );
         let (start, _) = story.push_paragraph(format!("{BEFORE}{AFTER}"), "Lead");
-        story.structures.push(anchored(
-            start + BEFORE.len(),
-            AnchoredItem {
-                position: AnchoredPosition::Inline,
-                y_offset: 0.0,
-                object,
-            },
-        ));
+        story
+            .structures
+            .push(anchored(start + BEFORE.len(), AnchoredItem::inline(object)));
         story.push_paragraph("Excepteur sint occaecat cupidatat non proident.", "Lead");
         doc.stories[id.story.0 as usize] = story;
         let composed = lines(&doc);
@@ -365,12 +361,12 @@ fn items_follow_their_frames_affine() {
 }
 
 #[test]
-fn other_positions_and_vertical_text_stay_unrendered() {
+fn every_position_renders_and_vertical_text_stays_unrendered() {
     for position in [AnchoredPosition::AboveLine, AnchoredPosition::Anchored] {
         let (doc, frame) = document(vec![item(30.0, 12.0, 0.0, position)], FRAME, None);
         let flow = compose_story(&doc, StoryId(0));
-        assert_eq!(flow.frames[0].unrendered_structures, 1, "{position:?}");
-        assert!(placements(&doc, frame).is_empty());
+        assert_eq!(flow.frames[0].unrendered_structures, 0, "{position:?}");
+        assert_eq!(placements(&doc, frame).len(), 1);
     }
     let vertical = ParagraphStyle {
         name: "Vertical".into(),

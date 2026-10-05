@@ -56,6 +56,8 @@ pub struct ProjectedBox {
     pub width: crate::Pt,
     pub ascent: crate::Pt,
     pub descent: crate::Pt,
+    /// Room kept above the box's line for an item above it.
+    pub above: crate::Pt,
     pub structure: usize,
 }
 
@@ -73,6 +75,7 @@ impl ProjectedBox {
                 width: b.width,
                 ascent: b.ascent,
                 descent: b.descent,
+                above: b.above,
             })
             .collect()
     }

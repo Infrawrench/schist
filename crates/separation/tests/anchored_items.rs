@@ -1,12 +1,21 @@
 use schist_layout::anchored::{self, AnchoredItem, AnchoredPosition};
 use schist_layout::{
     authoring, authoring::ShapeKind, blank_a4, compose::compose_story, History, Ink,
-    LayoutDocument, Rect, Story, StoryId, StoryStructure,
+    LayoutDocument, ParagraphStyle, Rect, Story, StoryId, StoryStructure, WritingMode,
 };
 use schist_separation::{separate_page, NoGraphics, OutputSettings, Severity};
 
 fn document(position: AnchoredPosition, rotation: f32) -> LayoutDocument {
+    styled(position, rotation, "Body")
+}
+
+fn styled(position: AnchoredPosition, rotation: f32, style: &str) -> LayoutDocument {
     let mut doc = blank_a4();
+    doc.styles.add_paragraph(ParagraphStyle {
+        name: "Vertical".into(),
+        writing_mode: Some(WritingMode::VerticalRightToLeft),
+        ..Default::default()
+    });
     doc.inks.push(Ink::cmyk("Cyan", [1.0, 0.0, 0.0, 0.0]));
     let mut scratch = doc.clone();
     let shape = authoring::shape(
@@ -27,7 +36,7 @@ fn document(position: AnchoredPosition, rotation: f32) -> LayoutDocument {
     )
     .unwrap();
     let before = "Black text with art ";
-    let mut story = Story::from_text(format!("{before} inline, then more black text."), "Body");
+    let mut story = Story::from_text(format!("{before} inline, then more black text."), style);
     story.structures.push(StoryStructure {
         at: Some(before.len()),
         kind: "Oval".into(),
@@ -38,6 +47,7 @@ fn document(position: AnchoredPosition, rotation: f32) -> LayoutDocument {
             position,
             y_offset: 1.0,
             object,
+            placement: Default::default(),
         })),
     });
     doc.stories[frame.story.0 as usize] = story;
@@ -50,9 +60,16 @@ fn document(position: AnchoredPosition, rotation: f32) -> LayoutDocument {
 }
 
 #[test]
-fn inline_item_ink_lands_where_it_is_placed() {
-    for rotation in [0.0, 12.0] {
-        let doc = document(AnchoredPosition::Inline, rotation);
+fn item_ink_lands_where_it_is_placed_in_every_position() {
+    for (position, rotation) in [
+        (AnchoredPosition::Inline, 0.0),
+        (AnchoredPosition::Inline, 12.0),
+        (AnchoredPosition::AboveLine, 0.0),
+        (AnchoredPosition::AboveLine, 12.0),
+        (AnchoredPosition::Anchored, 0.0),
+        (AnchoredPosition::Anchored, 12.0),
+    ] {
+        let doc = document(position, rotation);
         let lines: Vec<_> = compose_story(&doc, StoryId(0)).lines().cloned().collect();
         let [placed] = &anchored::placements(&doc, &doc.stories[0], &doc.objects[0], &lines)[..]
         else {
@@ -82,8 +99,8 @@ fn inline_item_ink_lands_where_it_is_placed() {
                     }
                 }
             }
-            assert!(inside > 100, "rotation {rotation} dpi {dpi}: {inside}");
-            assert_eq!(outside, 0, "rotation {rotation} dpi {dpi}");
+            assert!(inside > 100, "{position:?} {rotation} {dpi}: {inside}");
+            assert_eq!(outside, 0, "{position:?} {rotation} {dpi}");
             assert!(!result
                 .report
                 .findings
@@ -94,8 +111,8 @@ fn inline_item_ink_lands_where_it_is_placed() {
 }
 
 #[test]
-fn items_not_yet_composed_stay_reported_and_unpainted() {
-    let doc = document(AnchoredPosition::AboveLine, 0.0);
+fn items_in_vertical_text_stay_reported_and_unpainted() {
+    let doc = styled(AnchoredPosition::Inline, 0.0, "Vertical");
     let result = separate_page(&doc, 0, OutputSettings::at(72.0), &NoGraphics).unwrap();
     let plate = result.separation.plate(result.plan.process[0]).unwrap();
     assert!(plate.data.iter().all(|v| *v <= 0.02));

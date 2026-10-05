@@ -1,5 +1,8 @@
 use schist_codec_idml::{container, export, import};
-use schist_layout::anchored::AnchoredPosition;
+use schist_layout::anchored::{
+    AnchorPoint, AnchoredPosition, HorizontalAlignment, HorizontalReference, Placement,
+    VerticalAlignment, VerticalReference,
+};
 use schist_layout::{authoring, blank_a4, History, LayoutDocument, LayoutObject, Rect, Story};
 
 fn rectangle(setting: &str) -> String {
@@ -122,5 +125,102 @@ fn typed_items_survive_repeated_saves_and_compose_in_their_line() {
         assert_eq!(again.object.object, expected.object.object);
         assert_eq!(again.extent(), expected.extent());
         assert_eq!(doc.stories[0].text(), "Before after");
+    }
+}
+
+/// The public paged-media `anchored` sample's settings, as its generator
+/// writes them (see docs/idml-format.md).
+#[test]
+fn custom_and_above_line_settings_are_typed_with_native_spellings() {
+    let setting = r#"<AnchoredObjectSetting AnchoredPosition="Anchored" SpineRelative="true" LockPosition="true" PinPosition="false" AnchorPoint="TopRightAnchor" HorizontalReferencePoint="PageMargins" VerticalReferencePoint="Capheight" HorizontalAlignment="RightAlign" VerticalAlignment="BottomAlign" AnchorXoffset="24" AnchorYoffset="12" AnchorSpaceAbove="3"/>"#;
+    let imported = import::read(&native(&rectangle(setting))).unwrap();
+    assert!(
+        !imported
+            .report
+            .skipped
+            .iter()
+            .any(|s| s.contains("Anchored item")),
+        "{:?}",
+        imported.report
+    );
+    let typed = item(&imported.document).unwrap();
+    assert_eq!(typed.position, AnchoredPosition::Anchored);
+    assert_eq!(typed.y_offset, 12.0);
+    assert_eq!(
+        typed.placement,
+        Placement {
+            anchor_point: AnchorPoint::TopRight,
+            horizontal_alignment: HorizontalAlignment::Right,
+            horizontal_reference: HorizontalReference::PageMargins,
+            vertical_alignment: VerticalAlignment::Bottom,
+            vertical_reference: VerticalReference::CapHeight,
+            x_offset: 24.0,
+            space_above: 3.0,
+            spine_relative: true,
+            pin_position: false,
+            lock_position: true,
+        }
+    );
+    // Absent attributes take IDML's defaults.
+    let imported = import::read(&native(&rectangle(
+        r#"<AnchoredObjectSetting AnchoredPosition="AboveLine"/>"#,
+    )))
+    .unwrap();
+    assert_eq!(
+        item(&imported.document).unwrap().placement,
+        Placement::default()
+    );
+    assert!(Placement::default().pin_position);
+}
+
+/// The sample writes VerticalReferencePoint values the specification does
+/// not define (AnchorLocation, LineCapHeight, LineXHeight); InDesign's PDF
+/// places those pages exactly as LineBaseline. Schist reports them and reads
+/// the default; an invalid offset still leaves the item untyped.
+#[test]
+fn unknown_references_fall_back_to_their_defaults() {
+    for value in ["AnchorLocation", "LineCapHeight", "LineXHeight"] {
+        let setting = format!(
+            r#"<AnchoredObjectSetting AnchoredPosition="Anchored" AnchorPoint="TopLeftAnchor" HorizontalReferencePoint="AnchorLocation" VerticalReferencePoint="{value}" AnchorXoffset="24" AnchorYoffset="12"/>"#
+        );
+        let imported = import::read(&native(&rectangle(&setting))).unwrap();
+        assert!(
+            imported.report.skipped.iter().any(|s| s.contains(value)),
+            "{:?}",
+            imported.report
+        );
+        let typed = item(&imported.document).expect("typed");
+        assert_eq!(
+            typed.placement.vertical_reference,
+            VerticalReference::LineBaseline
+        );
+        assert_eq!(
+            typed.placement.horizontal_reference,
+            HorizontalReference::AnchorLocation
+        );
+        assert_eq!(typed.placement.x_offset, 24.0);
+    }
+    for (setting, value) in [
+        (
+            r#"<AnchoredObjectSetting HorizontalAlignment="Inward"/>"#,
+            "Inward",
+        ),
+        (r#"<AnchoredObjectSetting PinPosition="yes"/>"#, "yes"),
+        (r#"<AnchoredObjectSetting AnchorPoint="Middle"/>"#, "Middle"),
+    ] {
+        let imported = import::read(&native(&rectangle(setting))).unwrap();
+        assert!(imported.report.skipped.iter().any(|s| s.contains(value)));
+        assert_eq!(
+            item(&imported.document).unwrap().placement,
+            Placement::default()
+        );
+    }
+    for (setting, value) in [
+        (r#"<AnchoredObjectSetting AnchorXoffset="NaN"/>"#, "NaN"),
+        (r#"<AnchoredObjectSetting AnchorSpaceAbove="1e9"/>"#, "1e9"),
+    ] {
+        let imported = import::read(&native(&rectangle(setting))).unwrap();
+        assert!(imported.report.skipped.iter().any(|s| s.contains(value)));
+        assert!(item(&imported.document).is_none());
     }
 }

@@ -19,6 +19,7 @@ fn spec(before: &str, after: &str, width: f32, ascent: f32, descent: f32) -> Tex
             width,
             ascent,
             descent,
+            above: 0.0,
         }],
         text,
         family: "IBM Plex Sans".into(),
@@ -123,4 +124,44 @@ fn invalid_boxes_reject_layout() {
     for case in cases {
         assert!(line_spans(&case).is_empty(), "{:?}", case.inline_boxes);
     }
+}
+
+#[test]
+fn room_above_a_box_lowers_its_line_and_every_line_after() {
+    let flat = spec("one two three ", " four five six seven", 0.0, 0.0, 0.0);
+    let mut roomy = flat.clone();
+    roomy.inline_boxes[0].above = 25.0;
+    let width = [70.0];
+    let before = line_spans_with_widths(&flat, &width);
+    let after = line_spans_with_widths(&roomy, &width);
+    assert_eq!(before.len(), after.len());
+    assert!(before.len() > 2);
+    let at = roomy.inline_boxes[0].at;
+    let owner = after
+        .iter()
+        .position(|l| l.start <= at && at < l.end)
+        .unwrap();
+    for (i, (a, b)) in after.iter().zip(&before).enumerate() {
+        let shift = if i < owner { 0.0 } else { 25.0 };
+        assert!((a.baseline - b.baseline - shift).abs() < 0.01, "{i}");
+    }
+    // A box with no height takes its character's metrics.
+    let first = measure(&plain("one two")).unwrap().first_baseline;
+    assert!((measure(&flat).unwrap().first_baseline - first).abs() < 0.01);
+    let roomy = measure(&roomy).unwrap();
+    let flat = measure(&flat).unwrap();
+    assert!((roomy.height - flat.height - 25.0).abs() < 0.01);
+}
+
+#[test]
+fn box_positions_report_their_characters_font_metrics() {
+    let s = spec("ab ", " cd", 10.0, 0.0, 0.0);
+    let [p] = inline_box_positions(&s)[..] else {
+        panic!()
+    };
+    // IBM Plex Sans: 1000 units, ascender 1025, cap height 698, x-height 516.
+    assert_eq!(p.size, 14.0);
+    assert!((p.ascent - 14.35).abs() < 0.01, "{}", p.ascent);
+    assert!((p.cap_height - 9.772).abs() < 0.01, "{}", p.cap_height);
+    assert!((p.x_height - 7.224).abs() < 0.01, "{}", p.x_height);
 }

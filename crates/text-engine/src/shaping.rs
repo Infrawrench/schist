@@ -744,7 +744,10 @@ pub(super) fn layout(
             .map(|(k, _)| faces.line_metrics_at(spec, *start + k))
             .reduce(|(a, h), (b, j)| (a.max(b), h.max(j)))
             .unwrap_or_else(|| faces.line_metrics(0));
-        let advance = run_line_advance(spec, &faces, *start, *end, step);
+        // Room kept for objects above the line lowers its baseline.
+        let above = spec.line_above(*start, *end);
+        let advance = run_line_advance(spec, &faces, *start, *end, step) + above;
+        let (ascent, step) = (ascent + above, step + above);
         let height = if absolute { step } else { advance };
         let top = next_line_top(
             geometry.last(),

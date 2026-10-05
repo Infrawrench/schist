@@ -890,6 +890,13 @@ fn compose_thread_on_page(
                     line.start = prepared.main.positions.source(line.start);
                     line.end = prepared.main.positions.source(line.end);
                 }
+                // Text does not yet wrap around anchored items that ask for it.
+                if crate::anchored::wrap_unapplied(
+                    &doc.stories[story_id.0 as usize],
+                    frame.all_lines(),
+                ) {
+                    frame.wrap.ignored = true;
+                }
             }
             return out;
         }

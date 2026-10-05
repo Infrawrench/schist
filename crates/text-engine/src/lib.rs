@@ -238,8 +238,13 @@ pub struct InlineBox {
     pub width: f32,
     /// Extent above the baseline.
     pub ascent: f32,
-    /// Extent below the baseline.
+    /// Extent below the baseline. A box with no height (zero ascent and
+    /// descent) takes its character's font metrics instead.
     pub descent: f32,
+    /// Room kept above the box's line, between it and the line before, for
+    /// an object set there. The line's baseline moves down by the sum of its
+    /// boxes' rooms.
+    pub above: f32,
 }
 
 /// Where a laid-out inline box sits, in caret coordinates: relative to the
@@ -250,6 +255,12 @@ pub struct InlineBoxPosition {
     /// Left edge of the box.
     pub x: f32,
     pub baseline: f32,
+    /// The box character's font size and its face's metrics at that size:
+    /// ascent, OS/2 cap height and x-height (0.7 and 0.5 em when undeclared).
+    pub size: f32,
+    pub ascent: f32,
+    pub cap_height: f32,
+    pub x_height: f32,
 }
 
 /// Corner geometry for an outlined glyph; independent of font shaping.
@@ -642,7 +653,17 @@ impl TextSpec {
             b.width *= scale;
             b.ascent *= scale;
             b.descent *= scale;
+            b.above *= scale;
         }
+    }
+
+    /// Room the boxes in `start..end` keep above their line.
+    pub(crate) fn line_above(&self, start: usize, end: usize) -> f32 {
+        self.inline_boxes
+            .iter()
+            .filter(|b| b.at >= start && b.at < end)
+            .map(|b| b.above)
+            .sum()
     }
 
     /// The box set in place of the character at `byte`, if any.
@@ -668,7 +689,7 @@ impl TextSpec {
                     .inline_objects
                     .iter()
                     .any(|span| span.start < b.at && b.at + '\u{fffc}'.len_utf8() < span.end)
-                && [b.width, b.ascent, b.descent]
+                && [b.width, b.ascent, b.descent, b.above]
                     .iter()
                     .all(|v| v.is_finite() && *v >= 0.0);
             previous = Some(b.at);
@@ -1873,7 +1894,10 @@ impl Faces {
     }
 
     fn line_metrics_at(&self, spec: &TextSpec, byte: usize) -> (f32, f32) {
-        if let Some(b) = spec.inline_box_at(byte) {
+        if let Some(b) = spec
+            .inline_box_at(byte)
+            .filter(|b| b.ascent + b.descent > 0.0)
+        {
             return (b.ascent, b.ascent + b.descent);
         }
         let ix = self.at(byte);
@@ -2290,7 +2314,10 @@ fn layout_with_hyphenation(
             .map(|(byte, _)| faces.line_metrics_at(spec, line.start + byte))
             .reduce(|(a, g), (fa, fg)| (a.max(fa), g.max(fg)))
             .unwrap_or_else(|| faces.line_metrics(0));
-        let line_advance = run_line_advance(spec, &faces, line.start, line.end, line_gap);
+        // Room kept for objects above the line lowers its baseline.
+        let above = spec.line_above(line.start, line.end);
+        let line_advance = run_line_advance(spec, &faces, line.start, line.end, line_gap) + above;
+        let (ascent, line_gap) = (ascent + above, line_gap + above);
         let height = if absolute { line_gap } else { line_advance };
         let top = next_line_top(
             spans.last(),
@@ -2457,6 +2484,7 @@ pub fn inline_box_positions(spec: &TextSpec) -> Vec<InlineBoxPosition> {
         return Vec::new();
     };
     let laid = layout(spec, &face);
+    let faces = Faces::resolve(spec, &face);
     spec.inline_boxes
         .iter()
         .filter_map(|b| {
@@ -2465,10 +2493,24 @@ pub fn inline_box_positions(spec: &TextSpec) -> Vec<InlineBoxPosition> {
                 .lines
                 .iter()
                 .find(|l| l.start <= b.at && b.at < l.end)?;
+            let (loaded, size) = &faces.faces[faces.at(b.at)];
+            let x_ratio = ttf_parser::Face::parse(&loaded.data, loaded.index)
+                .ok()
+                .and_then(|f| {
+                    let x = f.x_height().filter(|&x| x > 0)? as f32;
+                    Some(x / f.units_per_em() as f32)
+                });
             Some(InlineBoxPosition {
                 at: b.at,
                 x: char.x.min(char.end_x),
                 baseline: line.baseline,
+                size: *size,
+                ascent: loaded
+                    .font
+                    .horizontal_line_metrics(*size)
+                    .map_or(size * 0.8, |m| m.ascent),
+                cap_height: loaded.cap_ratio.unwrap_or(0.7) * size,
+                x_height: x_ratio.unwrap_or(0.5) * size,
             })
         })
         .collect()

@@ -310,6 +310,68 @@ are marked.
 
 ## Handoff
 
+Above-line and custom anchored positions, 2026-10-05:
+Every AnchoredObjectSetting attribute in the public specification is now typed
+with its Appendix C default (`anchored::Placement`): anchor point, horizontal and
+vertical alignment and reference point, X offset, space above, spine-relative,
+pinned and locked. An invalid reference, alignment, anchor point or flag is
+reported and read as its default; an invalid position or offset still leaves the
+item untyped. No new keys.
+
+Engine inline boxes gained room above their line (`InlineBox::above`): the line's
+ascent and step grow by its boxes' rooms, so the line and every line after it move
+down, the first baseline included. A box with no height takes its character's
+font metrics. `inline_box_positions` also reports the box character's size,
+ascent, OS/2 cap height and x-height.
+
+An item above the line is a zero-width box whose room is its space above, its
+visual height and its Y offset (the space after it). The item's stroked bottom
+sits its Y offset plus half the em plus half the cap height above the lowered
+baseline; several items stack in anchor order. It is aligned left, center or right
+in the line's column, by the paragraph's alignment for TextAlign, mirrored on
+left-hand pages when spine-relative. A custom item is a zero-width box that takes
+no room: one of its nine stroked-extent points is put at the anchor's pen
+position or the left, center or right of the column, frame, page margins or page,
+and at the anchor line's baseline, cap height, x-height, ascent or top of leading
+or the top, center or bottom of the column, frame, margins or page. The Y offset
+moves it down; the X offset moves it away from its aligned side. Pinned
+line-relative items stay between the frame's top and bottom. Positions are
+computed in the frame's own space and drawn through its affine. A composed item
+whose wrap is not applied (any wrap of a custom item; contour, jump or column
+wrap of an inline item) raises "wrap not applied to some text"; only items in
+vertical text and anchored text frames and groups remain unrendered.
+
+Evidence is the same pinned paged-media sample's InDesign 20 PDF: above-line
+step 50.9 pt (14.4 + 36.5) with the stroked bottom 10.2832 pt above the baseline,
+exactly (12 + 8.5664) / 2 for Open Sans's cap height; AnchorLocation with LeftAlign
+and offsets 24/12 putting the top left 24 pt left of the pen and 12 pt below the
+baseline with the anchor taking no width; frame top right, line baseline, top of
+leading (the previous baseline) and page-margin bottom right exact to the stroked
+extents. The sample's `AnchorLocation`, `LineCapHeight` and `LineXHeight`
+vertical references are not specification values and their pages equal the
+baseline page, so InDesign read them as the default; Schist does the same. Not
+covered natively, and so Schist readings: the above-line split for other fonts and
+its spaces, X offset direction for other alignments, cap-height, x-height and
+ascent references, pinning, spine mirroring, column and page-edge references, and
+page references for rotated frames. A new layout test file reproduces the native
+pages with IBM Plex Sans metrics.
+
+The source-frozen sweep passed every roadmap target, headless library wasm, shared
+UI, formatting, whitespace and the debug app build with no corrections; all 43
+proofs are byte-identical to the inline-item checkpoint: **2,186 distinct passing
+Rust tests**, 10 new (2 text engine, 6 layout, 2 IDML; the separation item test
+now covers all three positions).
+
+Native review used passive captures of the actual debug app with Design enabled
+and isolated configuration. A document with a banner above the second paragraph's
+first line (centered, 4 pt above, 2 pt below), an oval 8 pt right of the frame at
+its anchor line and a box 24 pt left of its anchor and 12 pt below the baseline
+shows each where specified, with the banner's line moved down to make room.
+
+Next: anchored text frames and groups, then text wrap around custom-positioned
+items. Published to draft PR #195.
+
+
 Inline anchored items, 2026-10-05:
 A Rectangle, Oval, Polygon or GraphicLine inside a story is still retained as its
 exact XML, which saving writes unchanged, and is now also typed from it: the
@@ -2852,7 +2914,8 @@ remaining order is now explicit:
    Text wrap (TextWrapPreference, IgnoreWrap and the TextPreference wrap
    settings) composes for horizontal text and saves natively, with compact controls.
    Shaped text frames compose inside their outline, and unstyled text saves with
-   the IDML root styles. Inline anchored page items compose in horizontal text.
+   the IDML root styles. Anchored page items compose inline, above the line and
+   at custom positions in horizontal text.
 
 Phase 0 research can proceed independently. Phase 5 only follows an
 explicit evidence-based go/no-go; container recognition is not an INDD

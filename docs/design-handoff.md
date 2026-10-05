@@ -9,8 +9,9 @@ its latest checkpoint for work on another machine.
 Branch: `design-tab-leaders`. Existing draft PR:
 https://github.com/Infrawrench/schist/pull/195
 
-The latest commit composes inline anchored items. It follows `9c516fb9` (text in
-shaped frames and IDML root styles), `7dc6b99c` (text wrap), `550ba45f` (native
+The latest commit composes anchored items above the line and at custom positions.
+It follows `1a8853b3` (inline anchored items), `9c516fb9` (text in shaped frames
+and IDML root styles), `7dc6b99c` (text wrap), `550ba45f` (native
 page numbers, section markers, chapter-number variables and the unsaved-close
 fix), `021e3bbd` (last-page-number variables) and `aaad6dc0` (custom-variable
 authoring). Fetch the branch head.
@@ -70,8 +71,13 @@ the text's extra leading; fixed leading keeps its step. These follow InDesign's
 PDF of the public paged-media `anchored` sample (see `docs/idml-format.md`),
 whose other pages also measure above-line and custom positions.
 Boxes must be scaled with their specs (`TextSpec::scale_inline_boxes`) wherever a
-spec is scaled. Above-line and custom positions, anchored text frames and groups,
-vertical text and wrap around anchored items stay reported as unrendered.
+spec is scaled. Every AnchoredObjectSetting attribute is typed
+(`anchored::Placement`). Items above the line are zero-width boxes whose `above`
+room lowers their line; custom items are zero-width boxes placed against the
+anchor, line metrics (`InlineBoxPosition` reports the anchor font's size, ascent,
+cap height and x-height), column, frame, margins or page. Anchored text frames
+and groups and items in vertical text stay reported as unrendered; wrap an item
+asks for beyond inline side offsets raises "wrap not applied to some text".
 
 Key files:
 
@@ -88,15 +94,15 @@ Key files:
   frame; `footnote_composition.rs` projects them, `pasteboard.rs` and
   `crates/separation/src/separate.rs` draw them.
 - `crates/codec-idml/src/anchored_codec.rs`: typing items from retained XML.
-- `*/tests/anchored_items.rs` and `crates/text-engine/tests/inline_boxes.rs`.
+- `*/tests/anchored_items.rs`, `crates/layout/tests/anchored_positions.rs` (the
+  native sample's pages) and `crates/text-engine/tests/inline_boxes.rs`.
 
 ## Continue in roadmap order
 
-Next: the rest of anchored objects. Above-line items (their own line before the
-anchor's, aligned with space before and after) and custom anchored positions
-(AnchoredObjectSetting reference points and offsets, which then take part in text
-wrap), then anchored text frames and groups (`TextFrame` and `Group` inside a
-story need a nested story/frame reader).
+Next: anchored text frames and groups (`TextFrame` and `Group` inside a story
+need a nested frame reader; an anchored text frame's ParentStory must compose in
+the item's own box), then text wrap around custom-positioned items (their place
+depends on composition, so wrap needs a settle loop like the shaped-frame plan).
 
 Also open: object-style text-wrap categories; wrap for vertical text, initials and
 markers; a layer IgnoreWrap control; file-name, date and running-header variables;
@@ -153,22 +159,20 @@ listed in the roadmap. Production INDD remains gated on Phase 0.
 
 ## Verification at this checkpoint
 
-The inline anchored-item batch passes all 16 roadmap targets, headless library
-wasm, shared UI, whitespace and the debug app build (2,176 distinct passing Rust
-tests); a rustfmt-only correction to a new test file during its sweep re-passed
-the format check, the layout target and its lint on the final source. All 43
-proofs are byte-identical to the previous checkpoint. Details, the scaling and
-leading fixes found by native review and the native PDF evidence are in Roadmap /
-Handoff. The two macOS-only editor tests were not compiled here; the next macOS
+The above-line and custom anchored-position batch passes all 16 roadmap targets,
+headless library wasm, shared UI, formatting, whitespace and the debug app build
+(2,186 distinct passing Rust tests) with no corrections during its sweep; all 43
+proofs are byte-identical to the previous checkpoint. Details, the native PDF
+evidence and the review results are in Roadmap / Handoff. The two macOS-only editor tests were not compiled here; the next macOS
 run should include them.
 
 ## Temporary files
 
 Task logs and evidence are under the Git Bash `/tmp` (`C:\Users\Administrator\AppData\Local\Temp`):
 `schist-validate/` (`aaad6dc0` logs, proofs, hashes, native screenshots),
-`schist-sweep/` to `schist-sweep8/` (batch sweep logs), `schist-proofs-b3/`,
-`schist-proofs-b4/` and `schist-proofs-b5/` (proof PDFs per batch), `schist-b3/`
-to `schist-b5/` (review-document generators and logs), `schist-wrap-research/` (text-wrap references), `schist-anchored-research/` (the
+`schist-sweep/` to `schist-sweep9/` (batch sweep logs), `schist-proofs-b3/` to
+`schist-proofs-b6/` (proof PDFs per batch), `schist-b3/` to `schist-b6/`
+(review-document generators and logs), `schist-wrap-research/` (text-wrap references), `schist-anchored-research/` (the
 anchored sample's PDF, inputs and measuring scripts `pdfops.py`/`measure.py`) and
 `schist-variable-research/` (reacquired public specification and paged-media
 reference). They are not needed to continue; regenerate proofs with make and
@@ -180,9 +184,9 @@ reacquire references from the pinned URLs in `docs/idml-format.md`.
 > https://github.com/Infrawrench/schist/pull/195. Fetch the latest branch head.
 > Read `AGENTS.md` first, then `docs/roadmap.md` in full, then
 > `docs/design-handoff.md`. The roadmap is the plan; do not re-plan from scratch.
-> The latest commit composes inline anchored items; its full sweep and native
-> review passed on Windows. Continue Phase 3 item 9 in roadmap order, starting with
-> above-line and custom anchored positions. Implement substantial coherent batches
+> The latest commit composes anchored items above the line and at custom
+> positions; its full sweep and native review passed on Windows. Continue Phase 3
+> item 9 in roadmap order, starting with anchored text frames and groups. Implement substantial coherent batches
 > before compiling/testing; use make and `CARGO_INCREMENTAL=0`, test locally, and
 > do not query or wait for CI. Keep Design's LayoutDocument and tools separate from
 > raster Document/ToolPlugin; keep the feature flag false by default; preserve
