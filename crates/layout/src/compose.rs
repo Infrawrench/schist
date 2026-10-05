@@ -825,13 +825,21 @@ fn compose_thread_on_page(
                 .filter_map(|frame| doc.object(frame.0).map(|o| o.page))
                 .collect(),
         };
-        if let Some(mut prepared) = crate::footnote_composition::prepare_for_flow(
-            doc,
-            story_id,
-            footnote_flow::supported(doc, story_id, frames),
-            &pages,
-            &frames.iter().map(|frame| frame.0).collect::<Vec<_>>(),
-        ) {
+        let ids: Vec<_> = frames.iter().map(|frame| frame.0).collect();
+        // Next and previous page numbers depend on the frame they land in:
+        // compose again with each marker's frame until none moves.
+        let mut markers = std::collections::BTreeMap::new();
+        for round in 0..3 {
+            let Some(mut prepared) = crate::footnote_composition::prepare_for_flow(
+                doc,
+                story_id,
+                footnote_flow::supported(doc, story_id, frames),
+                &pages,
+                &ids,
+                &markers,
+            ) else {
+                break;
+            };
             // An item's wrap moves the lines after its anchor, which can move
             // later anchors: compose again until the items settle.
             let mut out = compose_prepared(doc, story_id, frames, parent_page, &prepared);
@@ -843,7 +851,11 @@ fn compose_thread_on_page(
                 prepared.anchored_wraps = wraps;
                 out = compose_prepared(doc, story_id, frames, parent_page, &prepared);
             }
-            return out;
+            let landed = crate::text_variables::marker_frames(doc, story_id, &out);
+            if landed == markers || round == 2 {
+                return out;
+            }
+            markers = landed;
         }
     }
     compose_thread_plain(doc, story_id, frames, parent_page, None, None, None)

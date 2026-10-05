@@ -524,7 +524,11 @@ fn every_public_fixture_keeps_its_chapter_definition_typed_through_saves() {
     ] {
         let mut doc = import::read(bytes).unwrap().document;
         let typed: Vec<_> = doc.text_variables.iter().map(|d| d.name.clone()).collect();
-        assert_eq!(typed, ["Chapter Number", "Last Page Number"]);
+        // InDesign's default document variables, its running header included.
+        assert_eq!(
+            typed,
+            ["Chapter Number", "Last Page Number", "Running Header"]
+        );
         let expected = (
             doc.text_variables.clone(),
             doc.retained_text_variables.clone(),

@@ -49,6 +49,7 @@ pub mod paragraph_keeps;
 pub mod parents;
 pub mod pasteboard;
 pub mod properties;
+pub(crate) mod running_headers;
 pub mod story;
 pub mod structure;
 pub mod styles;

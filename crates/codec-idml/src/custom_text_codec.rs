@@ -6,7 +6,8 @@ use crate::{export::escape, xml::Element};
 use schist_layout::{
     story::InlineControl,
     text_variables::{
-        ChapterNumber, LastPageNumber, PageNumberFormat, TextVariable, VariableKind, VariableScope,
+        ChangeCase, ChapterNumber, LastPageNumber, MatchStyle, PageNumberFormat, RunningHeader,
+        TextVariable, VariableKind, VariableScope,
     },
     Story, StoryStructure,
 };
@@ -34,6 +35,8 @@ pub(crate) fn definition(element: &Element) -> Option<TextVariable> {
     match element.attr("VariableType") {
         Some("LastPageNumberType") => return last_page(element),
         Some("ChapterNumberType") => return chapter(element),
+        Some("MatchParagraphStyleType") => return running_header(element, false),
+        Some("MatchCharacterStyleType") => return running_header(element, true),
         _ => {}
     }
     if element.attr("VariableType") != Some("CustomTextType") {
@@ -128,6 +131,96 @@ fn chapter(element: &Element) -> Option<TextVariable> {
         }),
     );
     definition.valid().then_some(definition)
+}
+
+const CASES: [(&str, ChangeCase); 5] = [
+    ("None", ChangeCase::None),
+    ("Uppercase", ChangeCase::Upper),
+    ("Lowercase", ChangeCase::Lower),
+    ("Titlecase", ChangeCase::Title),
+    ("Sentencecase", ChangeCase::Sentence),
+];
+const STRATEGIES: [(&str, bool); 2] = [("FirstOnPage", false), ("LastOnPage", true)];
+
+/// Match…StylePreference with an explicit style, SearchStrategy, ChangeCase
+/// and DeleteEndPunctuation, as InDesign writes them; their defaults are not
+/// published. The style stays a native reference here and is named once the
+/// package's styles are read ([`name_styles`]).
+fn running_header(element: &Element, character: bool) -> Option<TextVariable> {
+    let preference = &element.children[0];
+    let (kind, attribute) = if character {
+        ("MatchCharacterStylePreference", "AppliedCharacterStyle")
+    } else {
+        ("MatchParagraphStylePreference", "AppliedParagraphStyle")
+    };
+    if preference.name != kind
+        || !plain(
+            preference,
+            &[
+                "TextBefore",
+                "TextAfter",
+                attribute,
+                "SearchStrategy",
+                "ChangeCase",
+                "DeleteEndPunctuation",
+            ],
+        )
+        || !preference.children.is_empty()
+    {
+        return None;
+    }
+    let style = preference
+        .attr(attribute)
+        .filter(|s| !s.is_empty())?
+        .to_owned();
+    let id = element.attr("Self").filter(|id| !id.is_empty())?;
+    let definition = TextVariable::new(
+        id,
+        element.attr("Name")?,
+        VariableKind::RunningHeader(RunningHeader {
+            before: preference.attr("TextBefore").unwrap_or_default().into(),
+            after: preference.attr("TextAfter").unwrap_or_default().into(),
+            style: if character {
+                MatchStyle::Character(style)
+            } else {
+                MatchStyle::Paragraph(style)
+            },
+            last: lookup(preference.attr("SearchStrategy"), &STRATEGIES)?,
+            case: lookup(preference.attr("ChangeCase"), &CASES)?,
+            delete_end_punctuation: crate::xml::parse_boolean(
+                preference.attr("DeleteEndPunctuation")?,
+            )?,
+        }),
+    );
+    definition.valid().then_some(definition)
+}
+
+/// Running headers name their style by native reference until the package's
+/// styles are read; then by document name.
+pub(crate) fn name_styles(definitions: &mut [TextVariable], refs: &crate::style_codec::References) {
+    for header in definitions
+        .iter_mut()
+        .filter_map(|d| d.running_header.as_mut())
+    {
+        match &mut header.style {
+            MatchStyle::Paragraph(style) => *style = refs.paragraph(style),
+            MatchStyle::Character(style) => *style = refs.character(style),
+        }
+    }
+}
+
+/// The native references a saved definition's style names are written as.
+fn style_references(definition: &mut TextVariable) {
+    if let Some(header) = definition.running_header.as_mut() {
+        match &mut header.style {
+            MatchStyle::Paragraph(style) => {
+                *style = crate::export::paragraph_reference_raw(style);
+            }
+            MatchStyle::Character(style) => {
+                *style = crate::export::character_reference_raw(style);
+            }
+        }
+    }
 }
 
 fn lookup<T: Copy>(value: Option<&str>, table: &[(&str, T)]) -> Option<T> {
@@ -277,6 +370,7 @@ fn read(
         if let [record] = matching.as_slice() {
             let mut expected = record.definition.clone();
             expected.id.clone_from(&native_id);
+            style_references(&mut expected);
             let original = &record.definition.id;
             if expected == definition
                 && !original.is_empty()
@@ -373,6 +467,31 @@ impl Exported {
                     r#"<TextVariable Self="{id}" Name="{name}" VariableType="ChapterNumberType"><ChapterNumberVariablePreference TextBefore="{}" Format="{}" TextAfter="{}"/></TextVariable>"#,
                     escape(&chapter.before), native(&FORMATS, chapter.format), escape(&chapter.after)
                 ),
+                Some(VariableKind::RunningHeader(header)) => {
+                    let (kind, preference, attribute, style) = match &header.style {
+                        MatchStyle::Paragraph(style) => (
+                            "MatchParagraphStyleType",
+                            "MatchParagraphStylePreference",
+                            "AppliedParagraphStyle",
+                            crate::export::paragraph_reference_raw(style),
+                        ),
+                        MatchStyle::Character(style) => (
+                            "MatchCharacterStyleType",
+                            "MatchCharacterStylePreference",
+                            "AppliedCharacterStyle",
+                            crate::export::character_reference_raw(style),
+                        ),
+                    };
+                    format!(
+                        r#"<TextVariable Self="{id}" Name="{name}" VariableType="{kind}"><{preference} TextBefore="{}" TextAfter="{}" {attribute}="{}" SearchStrategy="{}" ChangeCase="{}" DeleteEndPunctuation="{}"/></TextVariable>"#,
+                        escape(&header.before),
+                        escape(&header.after),
+                        escape(&style),
+                        native(&STRATEGIES, header.last),
+                        native(&CASES, header.case),
+                        header.delete_end_punctuation
+                    )
+                }
                 _ => format!(
                     r#"<TextVariable Self="{id}" Name="{name}" VariableType="CustomTextType"><CustomTextVariablePreference><Properties><Contents type="string">{}</Contents></Properties></CustomTextVariablePreference></TextVariable>"#,
                     escape(&definition.contents)

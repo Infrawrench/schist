@@ -2734,16 +2734,42 @@ instance uses its destination page; an ordinary thread renders only when all of
 its frames share one page (or, for a marker, one section).
 
 Next and previous page numbers follow public jump-line guidance
-([CreativePro](https://creativepro.com/previousnext-page-number-on-same-page)):
-they report the page of the next or previous frame in the thread of the story
-whose frame the marker's frame touches or overlaps, and the marker's own page in
-a standalone frame or at the end of that thread. Schist evaluates them only where
-the marker's frame is known, a composition pass with one document frame, and
-only when every touched story gives the same page; the label is the Pages-panel
-label, as for current page numbers. A marker inside a multi-frame thread (whose
-frame depends on composition), on a parent page, or touching stories that
-disagree stays unrendered and diagnosed. The Text Variables window inserts both
-kinds at the captured cursor.
+([CreativePro](https://creativepro.com/previousnext-page-number-on-same-page))
+and InDesign's PDF of the public `variables` sample. A marker in a frame of a
+multi-frame story reports the page of the next or previous frame of its own
+thread; in a one-frame story, the page of the next or previous frame in the
+thread of the story whose frame its frame touches or overlaps; and its own page
+when there is no such frame. The label is the Pages-panel label, as for current
+page numbers. The frame a marker lands in depends on composition, so composition
+runs again with each marker's frame until none moves (at most two more passes).
+The sample's story threaded from page 3 to page 5 (labels 1 and 3) prints
+"continued on page 3, previous 1" in its first frame and "continued from page 1,
+next 3" in its second, as Schist does. Markers on parent pages or touching
+stories that disagree stay unrendered and diagnosed. The Text Variables window
+inserts both kinds at the captured cursor.
+
+Running headers (MatchParagraphStyleType and MatchCharacterStyleType) are typed
+when their preference states the style, SearchStrategy, ChangeCase and
+DeleteEndPunctuation, as InDesign writes them (their defaults are not
+published); other forms stay retained recovery data. The style reference is
+named after the package's styles are read and written back as a
+`ParagraphStyle/$ID/` or `CharacterStyle/$ID/` reference. An instance shows, for
+the one page it is set on (a parent instance's destination page or a one-page
+thread), the first or last paragraph in the style whose first line is on that
+page, or the first or last run in the character style that starts there,
+between the literal text before and after. Text is ordered on the page by frame
+(top to bottom, then left to right) and line; this ordering is a Schist reading.
+A page without a match carries the previous page's value of the same variable,
+so on the sample's page 2 the first-on-page header still shows page 1's first
+heading, not its last. Stories that themselves show a running header are not
+searched. ChangeCase follows the sample's PDF: title case capitalizes the first
+character of each space-separated word when it is a letter and lowers the rest
+("PART TWO begins (a third heading)" becomes "Part Two Begins (a Third
+Heading)"); sentence case capitalizes the first character and lowers the rest;
+DeleteEndPunctuation drops final sentence punctuation (. , ; : ! ? and their
+full-width forms) but keeps a closing parenthesis. All eight of the sample's
+headers on all five pages match InDesign's text. The Text Variables window lists
+running headers by kind and style but does not edit them.
 
 Every checked-in public IDML package has `ChapterNumberPreference
 ChapterNumber="1" ChapterNumberSource="ContinueFromPreviousDocument"` with a

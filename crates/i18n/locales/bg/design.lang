@@ -614,3 +614,6 @@ design.text_in_shape = Text in shape
 
 # UNTRANSLATED PLACEHOLDER
 design.idml_anchored_invalid = Anchored item {name}: invalid {property}: {value}
+
+# UNTRANSLATED PLACEHOLDER
+design.variable_kind_running_header = Running header

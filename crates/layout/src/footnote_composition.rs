@@ -95,9 +95,10 @@ pub(crate) fn prepare_for_flow(
     notes_supported: bool,
     pages: &[usize],
     frames: &[crate::ObjectId],
+    markers: &std::collections::BTreeMap<usize, crate::ObjectId>,
 ) -> Option<PreparedStory> {
     let source = doc.story(id)?;
-    let variables = crate::text_variables::instances(doc, source, pages, frames);
+    let variables = crate::text_variables::instances(doc, source, pages, frames, markers);
     let anchored = crate::anchored::instances(doc, source);
     let notes = notes_supported.then(|| prepare(doc, id)).flatten();
     if variables.is_empty() && anchored.is_empty() {

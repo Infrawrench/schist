@@ -609,3 +609,4 @@ design.wrap_abut = Resume wrapped text on leading
 design.text_in_shape = Text in shape
 
 design.idml_anchored_invalid = Anchored item {name}: invalid {property}: {value}
+design.variable_kind_running_header = Running header

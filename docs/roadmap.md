@@ -310,6 +310,51 @@ are marked.
 
 ## Handoff
 
+Running headers and jump numbers inside threads, 2026-10-05:
+MatchParagraphStyleType and MatchCharacterStyleType definitions are now typed
+(`text_variables::RunningHeader`) when their preference states the style,
+SearchStrategy, ChangeCase and DeleteEndPunctuation as InDesign writes them,
+and save with those spellings; style references are named after styles are read.
+An instance shows, for the one page it is set on, the first or last paragraph in
+the style starting there or run in the character style starting there, ordered
+by frame and line, and carries the previous page's value forward when its page
+has none. Change case and end punctuation follow InDesign's PDF of the public
+paged-media `variables` sample, and a layout test reproduces that sample: all
+eight headers on all five pages (labels 1 2 1 2 3) match InDesign's text,
+including page 2's first-on-page header carrying page 1's first heading and the
+title case "Part Two Begins (a Third Heading)". Stories that show headers are not
+searched, so evaluation never recurses. The Text Variables window lists running
+headers by kind and style without editing them; one key is added to all 150
+catalogs.
+
+Next and previous page numbers inside a multi-frame thread now render from the
+frame they land in: composition runs again with each marker's frame until none
+moves. They follow their own thread, so the sample's story threaded from page 3
+to page 5 prints "continued on page 3, previous 1" and "continued from page 1,
+next 3" exactly as InDesign does; one-frame stories keep the touched-story rule.
+
+The source-frozen sweep found three things, all corrected and re-passed on the
+final source: two clippy findings in the new code (a complex tuple type, now an
+alias, and `last` on a double-ended iterator, now `rfind`), which failed every
+lint target, and two IDML tests that listed the public fixtures' typed variables:
+every public fixture carries InDesign's default "Running Header"
+(MatchParagraphStyleType on NormalParagraphStyle), which is now typed, so both
+expectations gained it. The layout and IDML targets and all lints then passed
+again; every other roadmap target, headless library wasm, shared UI, formatting,
+whitespace and the debug app build passed in the sweep, and all 43 proofs are
+byte-identical to the previous checkpoint: **2,205 distinct passing Rust tests**,
+4 new (2 layout, 2 IDML).
+
+Native review used a passive capture of the actual debug app with Design enabled
+and isolated configuration: three pages with header frames showing a
+first-on-page heading as is and in upper case with end punctuation removed. Page
+1 shows "first page heading" and "FIRST PAGE HEADING", page 2 (no heading) carries
+them forward, and page 3 shows "Third page heading" and "THIRD PAGE HEADING".
+
+Next: file-name and date variables (document dates, output time and the file
+path), then tables and the remaining item 9 gaps. Published to draft PR #195.
+
+
 Jump-line page numbers, object-style wrap and layer IgnoreWrap, 2026-10-05:
 Next and previous page numbers now render where public jump-line guidance makes
 them unambiguous (CreativePro, linked in `docs/idml-format.md`): in a composition
@@ -3030,8 +3075,8 @@ remaining order is now explicit:
    Shaped text frames compose inside their outline, and unstyled text saves with
    the IDML root styles. Anchored page items, text frames and groups compose
    inline, above the line and at custom positions in horizontal text, and wrap
-   later lines of their story. Object styles carry text wrap, and jump-line page
-   numbers render.
+   later lines of their story. Object styles carry text wrap; jump-line page
+   numbers and running headers render.
 
 Phase 0 research can proceed independently. Phase 5 only follows an
 explicit evidence-based go/no-go; container recognition is not an INDD

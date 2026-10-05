@@ -9,8 +9,8 @@ use gpui::{prelude::*, *};
 use schist_i18n::t;
 use schist_layout::story::PageNumberKind;
 use schist_layout::text_variables::{
-    self as variables, ChapterNumber, Cursor, LastPageNumber, PageNumberFormat, TextVariable,
-    VariableKind, VariableScope,
+    self as variables, ChapterNumber, Cursor, LastPageNumber, MatchStyle, PageNumberFormat,
+    TextVariable, VariableKind, VariableScope,
 };
 use schist_ui as ui;
 use std::{ops::Range, sync::Arc};
@@ -158,6 +158,11 @@ fn scope_label(scope: VariableScope) -> String {
     .into()
 }
 
+/// Whether this window offers to edit the definition.
+fn editable(definition: &TextVariable) -> bool {
+    !matches!(definition.kind(), Some(VariableKind::RunningHeader(_)))
+}
+
 /// A short list-row description: the literal value, or the computed kind.
 fn summary(definition: &TextVariable) -> String {
     match definition.kind() {
@@ -167,6 +172,10 @@ fn summary(definition: &TextVariable) -> String {
             scope_label(page.scope)
         ),
         Some(VariableKind::Chapter(_)) => t("design.variable_kind_chapter").into(),
+        Some(VariableKind::RunningHeader(header)) => {
+            let (MatchStyle::Paragraph(style) | MatchStyle::Character(style)) = &header.style;
+            format!("{} · {style}", t("design.variable_kind_running_header"))
+        }
         _ => definition.contents.clone(),
     }
 }
@@ -329,6 +338,10 @@ impl TextVariables {
         window: &mut Window,
         cx: &mut Context<Self>,
     ) {
+        // Running headers are kept and saved, but this window cannot edit them.
+        if expected.as_ref().is_some_and(|v| !editable(v)) {
+            return;
+        }
         if !self.valid(cx) {
             return;
         }
@@ -674,7 +687,7 @@ impl Render for TextVariables {
                     .child(
                         ui::IconButton::new("edit-variable", "pencil")
                             .tooltip(t("common.edit"), None)
-                            .disabled(selected.is_none() || editing)
+                            .disabled(!selected.as_ref().is_some_and(editable) || editing)
                             .on_click(cx.listener(|this, _, window, cx| {
                                 if let Some(value) = this.selected(cx) {
                                     this.start(Some(value), window, cx);

@@ -110,6 +110,7 @@ pub fn read_package(opened: &DesignPackage<'_>) -> Result<Imported, Error> {
         style_roots.push(root);
     }
     let mut style_refs = crate::style_codec::References::new(&style_roots);
+    crate::custom_text_codec::name_styles(&mut document.text_variables, &style_refs);
     style_refs.text_variables = variables.references;
     style_refs.languages = document.styles.languages.clone();
     style_refs.strokes = crate::stroke_style_codec::read(opened, &mut report);

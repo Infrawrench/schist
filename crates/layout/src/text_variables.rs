@@ -20,6 +20,9 @@ pub struct TextVariable {
     /// A chapter-number definition, evaluated from document chapter numbering.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub chapter: Option<ChapterNumber>,
+    /// A running header, evaluated from the text on its page.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub running_header: Option<RunningHeader>,
 }
 
 /// What a definition displays. The stored fields keep older snapshots readable;
@@ -29,6 +32,39 @@ pub enum VariableKind {
     Custom(String),
     LastPage(LastPageNumber),
     Chapter(ChapterNumber),
+    RunningHeader(RunningHeader),
+}
+
+/// MatchParagraphStyleType and MatchCharacterStyleType: the text of the first
+/// or last paragraph or run in a style on the instance's page.
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+pub struct RunningHeader {
+    pub before: String,
+    pub after: String,
+    pub style: MatchStyle,
+    /// SearchStrategy LastOnPage; otherwise FirstOnPage.
+    pub last: bool,
+    pub case: ChangeCase,
+    /// DeleteEndPunctuation: drop sentence punctuation at the end.
+    pub delete_end_punctuation: bool,
+}
+
+/// The style a running header shows text in, by document style name.
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+pub enum MatchStyle {
+    Paragraph(String),
+    Character(String),
+}
+
+/// ChangeCaseOptions.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Default, Serialize, Deserialize)]
+pub enum ChangeCase {
+    #[default]
+    None,
+    Upper,
+    Lower,
+    Title,
+    Sentence,
 }
 
 impl TextVariable {
@@ -43,11 +79,13 @@ impl TextVariable {
             contents: String::new(),
             last_page: None,
             chapter: None,
+            running_header: None,
         };
         match kind {
             VariableKind::Custom(contents) => out.contents = contents,
             VariableKind::LastPage(spec) => out.last_page = Some(spec),
             VariableKind::Chapter(spec) => out.chapter = Some(spec),
+            VariableKind::RunningHeader(spec) => out.running_header = Some(spec),
         }
         out
     }
@@ -55,13 +93,16 @@ impl TextVariable {
     /// The single kind this definition stores, or None for an inconsistent
     /// record combining computed kinds or literal contents with one.
     pub fn kind(&self) -> Option<VariableKind> {
-        match (&self.last_page, &self.chapter) {
-            (None, None) => Some(VariableKind::Custom(self.contents.clone())),
-            (Some(page), None) if self.contents.is_empty() => {
+        match (&self.last_page, &self.chapter, &self.running_header) {
+            (None, None, None) => Some(VariableKind::Custom(self.contents.clone())),
+            (Some(page), None, None) if self.contents.is_empty() => {
                 Some(VariableKind::LastPage(page.clone()))
             }
-            (None, Some(chapter)) if self.contents.is_empty() => {
+            (None, Some(chapter), None) if self.contents.is_empty() => {
                 Some(VariableKind::Chapter(chapter.clone()))
+            }
+            (None, None, Some(header)) if self.contents.is_empty() => {
+                Some(VariableKind::RunningHeader(header.clone()))
             }
             _ => None,
         }
@@ -77,6 +118,15 @@ impl TextVariable {
             }
             Some(VariableKind::Chapter(chapter)) => {
                 valid_contents(&chapter.before) && valid_contents(&chapter.after)
+            }
+            Some(VariableKind::RunningHeader(header)) => {
+                valid_contents(&header.before)
+                    && valid_contents(&header.after)
+                    && match &header.style {
+                        MatchStyle::Paragraph(name) | MatchStyle::Character(name) => {
+                            !name.is_empty()
+                        }
+                    }
             }
             None => false,
         }
@@ -633,24 +683,27 @@ pub fn current_page_value(doc: &LayoutDocument, pages: &[usize]) -> Option<Strin
     valid_contents(&label).then_some(label)
 }
 
-/// A next or previous page-number marker shows the page of the next or
-/// previous frame in the thread of the story whose frame its own frame
-/// touches or overlaps, and its own page when there is none, as public
-/// jump-line guidance describes. It is evaluated only in a one-frame pass on
-/// a document page, where its frame is known, and only when every touched
-/// story gives the same page.
-pub fn jump_page_value(
-    doc: &LayoutDocument,
-    frames: &[crate::ObjectId],
-    next: bool,
-) -> Option<String> {
-    let [frame] = frames else {
-        return None;
-    };
-    let frame = doc.object(*frame)?;
+/// A next or previous page-number marker in document frame `frame` shows the
+/// page of the next or previous frame of its own thread, or, in a one-frame
+/// story, of the thread of the story whose frame its frame touches or
+/// overlaps; its own page when there is none. These follow public jump-line
+/// guidance and InDesign's PDF of the public paged-media `variables` sample.
+/// Touched stories that disagree leave it diagnosed.
+pub fn jump_page_value(doc: &LayoutDocument, frame: crate::ObjectId, next: bool) -> Option<String> {
+    let frame = doc.object(frame)?;
     let crate::LayoutObject::TextFrame { story, .. } = frame.object else {
         return None;
     };
+    let own = doc.story_frames(story);
+    if own.len() > 1 {
+        let at = own.iter().position(|f| f.id == frame.id)?;
+        let neighbour = if next {
+            own.get(at + 1)
+        } else {
+            at.checked_sub(1).and_then(|i| own.get(i))
+        };
+        return current_page_value(doc, &[neighbour.map_or(frame.page, |f| f.page)]);
+    }
     let area = frame.visual_bounds();
     let touch = crate::Rect::new(
         area.x - 0.01,
@@ -686,6 +739,57 @@ pub fn jump_page_value(
     current_page_value(doc, &[page])
 }
 
+/// A running header shows the matching text for the one page it is set on,
+/// between its literal text. Text that cannot show on one line stays
+/// diagnosed.
+pub fn running_header_value(
+    doc: &LayoutDocument,
+    header: &RunningHeader,
+    pages: &[usize],
+) -> Option<String> {
+    let page = single_page(doc, pages)?;
+    let text = crate::running_headers::value(doc, header, page);
+    let value = format!("{}{}{}", header.before, text, header.after);
+    valid_contents(&value).then_some(value)
+}
+
+/// The frame each next or previous page number of story `id` was set in.
+pub(crate) fn marker_frames(
+    doc: &LayoutDocument,
+    id: crate::StoryId,
+    thread: &crate::compose::ComposedThread,
+) -> std::collections::BTreeMap<usize, crate::ObjectId> {
+    use crate::story::{InlineControl, PageNumberKind};
+    let Some(story) = doc.story(id) else {
+        return Default::default();
+    };
+    story
+        .structures
+        .iter()
+        .enumerate()
+        .filter(|(_, s)| {
+            matches!(
+                s.control,
+                Some(InlineControl::PageNumber {
+                    kind: PageNumberKind::Next | PageNumberKind::Previous,
+                    ..
+                })
+            )
+        })
+        .filter_map(|(index, structure)| {
+            let at = structure.at?;
+            let frames = || thread.frames.iter();
+            let inside = frames().find(|f| {
+                f.all_lines()
+                    .any(|l| !l.is_generated() && l.start <= at && at < l.end)
+            });
+            let at_end =
+                || frames().rfind(|f| f.all_lines().any(|l| !l.is_generated() && l.end == at));
+            Some((index, inside.or_else(at_end)?.object))
+        })
+        .collect()
+}
+
 /// A section marker shows its section's marker text, which may be empty.
 pub fn section_marker_value(doc: &LayoutDocument, pages: &[usize]) -> Option<String> {
     let marker = doc.section_at(single_section(doc, pages)?).1.marker;
@@ -694,13 +798,15 @@ pub fn section_marker_value(doc: &LayoutDocument, pages: &[usize]) -> Option<Str
 
 /// Only supported, unambiguous references become display objects. Others stay
 /// on the existing unrendered-structure diagnostic path, with their XML intact.
-/// `pages` are every page this composition pass can place the story on, and
-/// `frames` the pass's frames.
+/// `pages` are every page this composition pass can place the story on,
+/// `frames` the pass's frames, and `markers` the frame each next or previous
+/// page number (by structure index) landed in on the previous pass.
 pub(crate) fn instances(
     doc: &crate::LayoutDocument,
     story: &crate::Story,
     pages: &[usize],
     frames: &[crate::ObjectId],
+    markers: &std::collections::BTreeMap<usize, crate::ObjectId>,
 ) -> Vec<Instance> {
     use crate::story::{InlineControl, PageNumberKind};
     story
@@ -732,6 +838,9 @@ pub(crate) fn instances(
                         VariableKind::Custom(contents) => contents,
                         VariableKind::LastPage(spec) => last_page_value(doc, &spec, pages)?,
                         VariableKind::Chapter(spec) => chapter_value(doc, &spec)?,
+                        VariableKind::RunningHeader(spec) => {
+                            running_header_value(doc, &spec, pages)?
+                        }
                     };
                     (value, character_style)
                 }
@@ -748,10 +857,14 @@ pub(crate) fn instances(
                         kind: kind @ (PageNumberKind::Next | PageNumberKind::Previous),
                         character_style,
                     }),
-                ) => (
-                    jump_page_value(doc, frames, *kind == PageNumberKind::Next)?,
-                    character_style,
-                ),
+                ) => {
+                    // The frame it landed in last pass; first, the first frame.
+                    let frame = markers.get(&index).or(frames.first())?;
+                    (
+                        jump_page_value(doc, *frame, *kind == PageNumberKind::Next)?,
+                        character_style,
+                    )
+                }
                 (
                     "ProcessingInstruction",
                     Some(InlineControl::SectionMarker { character_style }),

@@ -1313,10 +1313,23 @@ fn part_id(path: &str) -> String {
 }
 
 fn paragraph_reference(name: &str) -> String {
+    escape(&paragraph_reference_raw(name))
+}
+
+/// A paragraph style's native reference, unescaped.
+pub(crate) fn paragraph_reference_raw(name: &str) -> String {
     if name.is_empty() {
         return crate::style_codec::NO_PARAGRAPH_STYLE.into();
     }
-    format!("ParagraphStyle/$ID/{}", escape(name))
+    format!("ParagraphStyle/$ID/{name}")
+}
+
+/// A character style's native reference, unescaped.
+pub(crate) fn character_reference_raw(name: &str) -> String {
+    if name.is_empty() {
+        return crate::style_codec::NO_CHARACTER_STYLE.into();
+    }
+    format!("CharacterStyle/$ID/{name}")
 }
 
 /// Unstyled text names the root no-style, which Styles.xml always defines.

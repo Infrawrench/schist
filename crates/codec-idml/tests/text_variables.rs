@@ -194,7 +194,8 @@ fn public_output_date_variables_are_retained_instead_of_disappearing() {
     assert_eq!(expected.len(), 3);
     let definitions = doc.retained_text_variables.clone();
     // All eleven native definitions remain exact recovery data; the native
-    // default Chapter Number and Last Page Number are also typed definitions.
+    // default Chapter Number, Last Page Number and Running Header are also
+    // typed definitions.
     assert_eq!(definitions.len(), 11);
     let typed = doc.text_variables.clone();
     assert_eq!(
@@ -209,6 +210,22 @@ fn public_output_date_variables_are_retained_instead_of_disappearing() {
                 "dTextVariablenLast Page Number",
                 "Last Page Number",
                 schist_layout::text_variables::VariableKind::LastPage(Default::default()),
+            ),
+            schist_layout::text_variables::TextVariable::new(
+                "dTextVariablenRunning Header",
+                "Running Header",
+                schist_layout::text_variables::VariableKind::RunningHeader(
+                    schist_layout::text_variables::RunningHeader {
+                        before: String::new(),
+                        after: String::new(),
+                        style: schist_layout::text_variables::MatchStyle::Paragraph(
+                            "NormalParagraphStyle".into()
+                        ),
+                        last: false,
+                        case: Default::default(),
+                        delete_end_punctuation: false,
+                    }
+                ),
             ),
         ]
     );

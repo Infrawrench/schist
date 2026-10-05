@@ -641,8 +641,8 @@ fn a_soft_line_break_does_not_end_the_run_that_insertions_inherit() {
 /// docs/idml-format.md): a next or previous page number in a frame touching a
 /// threaded story's frame shows the page of that frame's next or previous
 /// frame. Standalone, or at the thread's end, it shows its own page. Contact
-/// with stories that disagree, and markers inside a multi-frame thread, stay
-/// diagnosed.
+/// with stories that disagree stays diagnosed; inside a multi-frame thread a
+/// marker follows its own thread.
 #[test]
 fn jump_lines_follow_the_thread_of_the_frame_they_touch() {
     let mut doc = pages(4);
@@ -729,9 +729,10 @@ fn jump_lines_follow_the_thread_of_the_frame_they_touch() {
         after.object
     ));
     assert_eq!(composed(&doc, touching.story), (Vec::new(), 2));
-    // Inside the article itself, its frame depends on composition.
+    // Inside the article itself it follows its own thread from the frame it
+    // lands in: the first, whose next frame is on page 2.
     let mut inside = Story::from_text(text, "Body");
     inside.structures = vec![page_number("Continued on ".len(), PageNumberKind::Next)];
     doc.stories[story.0 as usize] = inside;
-    assert_eq!(composed(&doc, story), (Vec::new(), 1));
+    assert_eq!(composed(&doc, story), (vec!["2".into()], 0));
 }
