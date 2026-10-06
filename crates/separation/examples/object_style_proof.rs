@@ -82,6 +82,11 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                 outline: content.appearance.outline.clone(),
                 ..Default::default()
             };
+            // The frame's centred stroke moves its text in by half its 10 pt
+            // weight.
+            if let LayoutObject::TextFrame { insets, .. } = &mut content.object {
+                *insets = Insets::uniform(5.0);
+            }
             let path = if curved {
                 {
                     // Use the same authored normalized contour. Building a new

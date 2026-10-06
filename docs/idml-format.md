@@ -440,8 +440,54 @@ and joins. So an inside or outside stroke moves the path half its weight for the
 fill and the stroke alike: inside, the fill loses the inner half of a centred
 stroke's band and the stroke is the inner side of a band twice as wide; outside,
 the fill gains the outer half and the stroke is the outer side. Open paths stay
-centred. Non-solid stroke types, arrowheads and corner effects are still
-reported.
+centred. Non-solid stroke types and arrowheads are still reported.
+
+### A frame's stroke and corner options
+
+A text frame's stroke moves its text: the text area shrinks on every side by
+half a centred stroke's weight, an inside stroke's whole weight, and nothing for
+an outside stroke or a stroke with no colour, on top of InsetSpacing; the first
+baseline moves down as much. The public
+[`stroke-inset` PDF](https://github.com/paged-media/core/blob/ffb7c8713125dc77403ec0983099f74ac2558517/corpus/generated/stroke-inset.pdf) (SHA-256
+`76b72a7b…b242`) and its
+[generator](https://github.com/paged-media/core/blob/ffb7c8713125dc77403ec0983099f74ac2558517/crates/paged-gen/src/samples/stroke_inset.rs) measure this on
+200 × 66 pt frames of 10/12 text: 0.25, 1, 6 and 12 pt strokes centred, inside and
+outside, strokes with no colour, 4 pt insets, and 2/8/6/10 pt insets under a 1 pt
+centred stroke (text 8.5 pt from the left, 10.5 pt from the right, 2.5 pt down).
+Its 60.3 pt frames hold a fifth line unstroked and under a 0.25 pt centred stroke
+but not under a 1 pt centred or a 0.25 pt inside one. InDesign fits that line by
+its baseline, its descent hanging below the frame; Schist still needs room for
+the descent, so a frame InDesign fills exactly can overset its last line in
+Schist.
+
+A shaped frame's outline is now offset inward exactly by its inset and stroke:
+every line keeps that distance from the outline in every direction. The sample's
+frame with a 30 pt chamfer at its top-left sets its first and third lines 30 and
+6 pt in unstroked and 32 and 8 pt in with a 4 pt inset and a 6 pt centred stroke:
+the offset edge √2 times the distance further in, rounded down to a whole point.
+Schist sets 32.9 and 8.9 pt. The outline used to be narrowed by the full distance
+across a band that much taller, which set those lines 37 and 13 pt in.
+
+Rectangles, text frames and image frames take corner options, locally or from an
+object style's Stroke and Corner Options category: TopLeftCornerOption,
+TopRightCornerOption, BottomRightCornerOption and BottomLeftCornerOption
+(rounded, inverse rounded, bevel or inset) with each corner's radius, no more than
+half the shorter side. The item keeps its rectangle and draws, clips and sets its
+text in the cornered outline, so saving writes the plain rectangle and the corner
+attributes and nothing is rounded twice. A rounded corner is the quarter-circle
+cubic InDesign's PDF draws for the sample's 12 pt rounded frames, its handles
+5.373 pt from the corner; there, as in Schist, the first line starts 12 pt in and
+the middle lines reach the edge. Inverse rounded, bevel and inset corners follow
+the specification's names; no native sample draws them. A corner without a
+radius takes InDesign's 12 pt default, and a value the specification does not
+name is reported and read square. The older uniform CornerOption and
+CornerRadius alone are read square, as the generator notes InDesign leaves them.
+FancyCorner is kept and saved but drawn square and reported, as are corners on a
+polygon or other outline with corner points that is not an upright rectangle.
+Ovals have no corner points, so their corner settings change nothing and are not
+reported. Text wrapping around an image frame's clipping path also read that
+normalized path as points, shrinking a contour wrap to a point at the frame's
+corner; it now covers the frame.
 
 ### Readings from the public corpus samples
 
@@ -1023,9 +1069,9 @@ BasedOn can be a native string or object reference. Tint -1 inherits.
 TextFrame and image-frame inline fill/stroke now reach both preview and output.
 Text frame paths are normalized to the frame; cubic outlines survive save/load and
 shape the frame's text (see Text in shaped frames). Image frame
-paint follows its existing clip_path. Unsupported enabled style categories and
-nondefault stroke/corner effects are diagnosed; retaining the category switch
-alone does not implement those effects. No native application visual comparison
+paint follows its existing clip_path. Unsupported enabled style categories,
+non-solid strokes, arrowheads and decorative corners are diagnosed; stroke and
+corner options are drawn (see A frame's stroke and corner options). No native application visual comparison
 has been performed for this addition.
 
 Unstyled legacy shapes retain their original paint fields. Styled shapes use
@@ -3009,9 +3055,9 @@ inline objects do not wrap yet.
 
 A TextFrame whose PathGeometry is not its rectangle keeps that path, normalized to
 the frame, as its outline, and composes its text inside it. The outline is an
-inverse wrap of the frame's own shape in its untransformed box, inset by the
-frame's top inset (InDesign offers a single inset for non-rectangular frames), so
-it shares the text-wrap bands: each line takes the intervals the outline leaves
+inverse wrap of the frame's own shape in its untransformed box, offset inward by
+the frame's top inset (InDesign offers a single inset for non-rectangular frames)
+and its stroke's reach, so it shares the text-wrap bands: each line takes the intervals the outline leaves
 across its whole height, holes follow the path's fill rule, and other items' wrap
 still applies unless the frame ignores wrap, which never removes its own shape.
 Text the shape cannot hold is overset and threads on. Vertical text, initials and

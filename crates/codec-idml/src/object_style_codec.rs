@@ -5,7 +5,13 @@ use crate::{
     style_codec::References,
     xml::{self, Element},
 };
-use schist_layout::{LayoutDocument, LayoutObject, ObjectPaint, ObjectStyle, Paint, PlacedObject};
+use schist_layout::{
+    CornerShape, Corners, LayoutDocument, LayoutObject, ObjectPaint, ObjectStyle, Paint,
+    PlacedObject, ShapePath,
+};
+
+/// The corners in the order Schist keeps them, as InDesign names them.
+const CORNERS: [&str; 4] = ["TopLeft", "TopRight", "BottomRight", "BottomLeft"];
 
 pub(crate) fn read_paint(
     element: &Element,
@@ -67,6 +73,7 @@ pub(crate) fn read_paint(
         }
         value
     });
+    let corners = read_corners(element, report);
     // A gradient fill's offset highlight is not drawn.
     if element
         .attr("FillColor")
@@ -132,7 +139,109 @@ pub(crate) fn read_paint(
         stroke_tint: color_codec::tint(element, "StrokeTint", report),
         overprint_fill: element.boolean("OverprintFill"),
         overprint_stroke: element.boolean("OverprintStroke"),
+        corners,
     }
+}
+
+/// Corner options as InDesign reads them, corner by corner. The older
+/// uniform CornerOption and CornerRadius alone leave InDesign's corners
+/// square, as the public paged-media generator notes for its `stroke-inset`
+/// sample, so Schist reads them square too. A corner without a radius takes
+/// InDesign's default of 12 pt.
+fn read_corners(element: &Element, report: &mut Report) -> Option<Corners> {
+    if !CORNERS
+        .iter()
+        .any(|corner| element.attr(&format!("{corner}CornerOption")).is_some())
+    {
+        return None;
+    }
+    let mut corners = Corners {
+        radii: [12.0; 4],
+        ..Default::default()
+    };
+    for (index, corner) in CORNERS.iter().enumerate() {
+        let key = format!("{corner}CornerOption");
+        corners.shapes[index] = match element.attr(&key) {
+            None | Some("None") => CornerShape::None,
+            Some("RoundedCorner") => CornerShape::Rounded,
+            Some("InverseRoundedCorner") => CornerShape::InverseRounded,
+            Some("BevelCorner") => CornerShape::Bevel,
+            Some("InsetCorner") => CornerShape::Inset,
+            Some("FancyCorner") => CornerShape::Fancy,
+            Some(_) => {
+                report.skip(schist_i18n::tf!(
+                    "design.idml_object_paint_invalid",
+                    property = key
+                ));
+                CornerShape::None
+            }
+        };
+        let key = format!("{corner}CornerRadius");
+        if let Some(raw) = element.attr(&key) {
+            match xml::parse_number(raw).filter(|v| v.is_finite() && *v >= 0.0) {
+                Some(radius) => corners.radii[index] = radius,
+                None => report.skip(schist_i18n::tf!(
+                    "design.idml_object_paint_invalid",
+                    property = key
+                )),
+            }
+        }
+    }
+    Some(corners)
+}
+
+/// Report items whose corner options Schist leaves square: a decorative
+/// corner, or corners on an outline other than an upright rectangle that has
+/// corner points to shape. Ovals have none, so InDesign leaves them as they are.
+pub(crate) fn report_corners(doc: &LayoutDocument, report: &mut Report) {
+    for object in doc.objects.iter().chain(
+        doc.parents
+            .iter()
+            .flat_map(|p| p.objects.iter().map(|o| &o.object)),
+    ) {
+        let Some(corners) = doc.styles.object_paint(object).corners else {
+            continue;
+        };
+        let unshaped = !corners.square()
+            && object.cornered(&corners).is_none()
+            && match &object.object {
+                LayoutObject::Shape { path, .. } => has_corner_points(path),
+                LayoutObject::TextFrame { text_path, .. } => {
+                    text_path.is_some()
+                        || object
+                            .appearance
+                            .outline
+                            .as_ref()
+                            .is_some_and(has_corner_points)
+                }
+                LayoutObject::GraphicFrame { clip_path, .. } => {
+                    clip_path.as_ref().is_some_and(has_corner_points)
+                }
+                _ => false,
+            };
+        if corners.fancy() || unshaped {
+            report.skip(schist_i18n::tf!(
+                "design.idml_object_style_limits",
+                name = object.name
+            ));
+        }
+    }
+}
+
+/// Whether a path has a point where it turns sharply rather than smoothly:
+/// one missing a handle, away from an open path's ends.
+fn has_corner_points(path: &ShapePath) -> bool {
+    path.subpaths.iter().any(|sub| {
+        let count = sub.points.len();
+        (0..count)
+            .filter(|index| sub.closed || (*index > 0 && index + 1 < count))
+            .any(|index| {
+                let point = sub.points[index];
+                let handles = sub.handles_at(index);
+                handles.incoming.is_none_or(|h| h == point)
+                    || handles.outgoing.is_none_or(|h| h == point)
+            })
+    })
 }
 
 pub(crate) fn read_styles(
@@ -192,7 +301,9 @@ pub(crate) fn read_styles(
                 .iter()
                 .any(|(k, v)| k.starts_with("Enable") && xml::parse_boolean(v) == Some(true))
         }) && !effects_at_defaults(element))
-            || (style.enable_stroke_options != Some(false) && unsupported_outline(element))
+            || (style.enable_stroke_options != Some(false)
+                && (unsupported_outline(element)
+                    || style.paint.corners.is_some_and(|c| c.fancy())))
             // The category's other member is Nonprinting, which Schist ignores.
             || (style.enable_text_wrap == Some(true) && element.boolean("Nonprinting") == Some(true))
         {
@@ -303,6 +414,24 @@ pub(crate) fn paint_attributes(paint: &ObjectPaint) -> String {
     }
     if let Some(limit) = paint.miter_limit {
         attr(&mut out, "MiterLimit", limit);
+    }
+    if let Some(corners) = &paint.corners {
+        for (index, corner) in CORNERS.iter().enumerate() {
+            let shape = match corners.shapes[index] {
+                CornerShape::None => "None",
+                CornerShape::Rounded => "RoundedCorner",
+                CornerShape::InverseRounded => "InverseRoundedCorner",
+                CornerShape::Bevel => "BevelCorner",
+                CornerShape::Inset => "InsetCorner",
+                CornerShape::Fancy => "FancyCorner",
+            };
+            attr(&mut out, &format!("{corner}CornerOption"), shape);
+            attr(
+                &mut out,
+                &format!("{corner}CornerRadius"),
+                corners.radii[index],
+            );
+        }
     }
     if let Some(fill) = paint.fill_gradient() {
         if let Some(start) = fill.start {
@@ -563,13 +692,4 @@ fn unsupported_outline(element: &Element) -> bool {
         || element
             .attr("StrokeType")
             .is_some_and(|v| !matches!(v, "Solid" | "$ID/Solid" | "StrokeStyle/$ID/Solid"))
-        || [
-            "TopLeftCornerOption",
-            "TopRightCornerOption",
-            "BottomLeftCornerOption",
-            "BottomRightCornerOption",
-            "CornerOption",
-        ]
-        .iter()
-        .any(|key| element.attr(key).is_some_and(|v| v != "None"))
 }

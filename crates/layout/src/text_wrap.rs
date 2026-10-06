@@ -310,6 +310,49 @@ fn band_inside(rings: &[Vec<Point>], top: Pt, bottom: Pt, even_odd: bool) -> Vec
     out
 }
 
+/// The intervals of the band `top..bottom` at least `g` inside the rings in
+/// every direction, the outline offset inward: the band's own interior
+/// narrowed by `g`, and the interior `dy` above or below it narrowed by
+/// √(g² − dy²). InDesign's PDF of the public paged-media `stroke-inset`
+/// sample offsets a 45° chamfer so, its text √2 times the inset further in.
+fn eroded(rings: &[Vec<Point>], top: Pt, bottom: Pt, g: Pt, even_odd: bool) -> Vec<(Pt, Pt)> {
+    const EPSILON: Pt = 0.001;
+    const STEPS: usize = 16;
+    let shrink = |intervals: Vec<(Pt, Pt)>, by: Pt| -> Vec<(Pt, Pt)> {
+        intervals
+            .into_iter()
+            .map(|(a, b)| (a + by, b - by))
+            .filter(|(a, b)| b > a)
+            .collect()
+    };
+    let mut out = shrink(band_inside(rings, top, bottom, even_odd), g);
+    if g <= 0.0 {
+        return out;
+    }
+    let mut heights = Vec::new();
+    for step in 1..=STEPS {
+        let dy = g * step as Pt / STEPS as Pt - if step == STEPS { EPSILON } else { 0.0 };
+        heights.extend([(top - dy, dy), (bottom + dy, dy)]);
+    }
+    for p in rings.iter().flatten() {
+        for y in [p.y - EPSILON, p.y + EPSILON] {
+            if y > top - g && y < top {
+                heights.push((y, top - y));
+            } else if y > bottom && y < bottom + g {
+                heights.push((y, y - bottom));
+            }
+        }
+    }
+    for (y, dy) in heights {
+        if out.is_empty() {
+            break;
+        }
+        let by = (g * g - dy * dy).max(0.0).sqrt();
+        out = intersect(&out, &shrink(inside_at(rings, y, even_odd), by));
+    }
+    out
+}
+
 /// Subtract `cut` from every interval.
 fn subtract(intervals: Vec<(Pt, Pt)>, cut: (Pt, Pt)) -> Vec<(Pt, Pt)> {
     let mut out = Vec::new();
@@ -361,10 +404,11 @@ fn stored_frame(doc: &LayoutDocument, id: ObjectId) -> Option<&PlacedObject> {
     })
 }
 
-/// A shaped text frame's own outline as an inverse obstacle: text stays inside
-/// it, inset by the frame's single inset (its top inset). The outline is stored
-/// in the frame's own box, so no affine applies.
-fn own_shape(frame: &PlacedObject) -> Option<Obstacle> {
+/// A shaped text frame's own outline, or the one its corner options give it,
+/// as an inverse obstacle: text stays inside it, inset by the frame's single
+/// inset (its top inset) and its stroke's reach into it. The outline is in
+/// the frame's own box, so no affine applies.
+fn own_shape(doc: &LayoutDocument, frame: &PlacedObject) -> Option<Obstacle> {
     let LayoutObject::TextFrame {
         text_path: None,
         insets,
@@ -373,17 +417,28 @@ fn own_shape(frame: &PlacedObject) -> Option<Obstacle> {
     else {
         return None;
     };
-    let path = frame.appearance.outline.as_ref()?;
     let b = frame.bounds;
-    let rings = flatten(path, b.origin(), (b.width, b.height));
+    let cornered = doc
+        .styles
+        .object_paint(frame)
+        .corners
+        .and_then(|corners| frame.cornered(&corners));
+    let (rings, even_odd) = match (&frame.appearance.outline, cornered) {
+        (Some(path), _) => (
+            flatten(path, b.origin(), (b.width, b.height)),
+            path.even_odd,
+        ),
+        (None, Some(path)) => (flatten(&path, b.origin(), (1.0, 1.0)), false),
+        (None, None) => return None,
+    };
     let shape = rings_bounds(&rings)?;
     Some(Obstacle {
         mode: WrapMode::Contour,
         side: Side::Both,
         inverse: true,
         rings,
-        even_odd: path.even_odd,
-        grow: insets.top.max(0.0),
+        even_odd,
+        grow: insets.top.max(0.0) + doc.styles.stroke_inset(frame),
         shape,
         bounds: shape,
         from: Pt::NEG_INFINITY,
@@ -407,7 +462,7 @@ impl WrapField {
         page: usize,
         anchored: &[(&PlacedObject, Pt)],
     ) -> Option<Self> {
-        let own = stored_frame(doc, frame).and_then(own_shape);
+        let own = stored_frame(doc, frame).and_then(|frame| own_shape(doc, frame));
         let any = doc
             .objects
             .iter()
@@ -645,12 +700,7 @@ impl WrapField {
             let g = obstacle.grow;
             if obstacle.inverse {
                 // Text stays inside the outline, shrunk by the offset.
-                let inside: Vec<_> =
-                    band_inside(&obstacle.rings, top - g, bottom + g, obstacle.even_odd)
-                        .into_iter()
-                        .map(|(a, b)| (a + g, b - g))
-                        .filter(|(a, b)| b > a)
-                        .collect();
+                let inside = eroded(&obstacle.rings, top, bottom, g, obstacle.even_odd);
                 if inside.is_empty() {
                     if top >= obstacle.shape.bottom() - g {
                         return Row::Stop;
@@ -748,10 +798,11 @@ fn outline(object: &PlacedObject) -> (Vec<Vec<Point>>, bool) {
     let size = object.bounds;
     let path = match &object.object {
         LayoutObject::Shape { path, .. } => Some((path, (1.0, 1.0))),
+        // Clipping paths are stored normalized to the frame too.
         LayoutObject::GraphicFrame {
             clip_path: Some(path),
             ..
-        } => Some((path, (1.0, 1.0))),
+        } => Some((path, (size.width, size.height))),
         // Text-frame outlines are stored normalized to the frame.
         LayoutObject::TextFrame {
             text_path: None, ..

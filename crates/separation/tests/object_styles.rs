@@ -81,6 +81,11 @@ fn frame_fill_content_and_stroke_match_separately_placed_artwork_under_every_tra
                         outline: content.appearance.outline.clone(),
                         ..Default::default()
                     };
+                    // The frame's centred stroke moves its text in by half
+                    // its 8 pt weight.
+                    if let LayoutObject::TextFrame { insets, .. } = &mut content.object {
+                        *insets = Insets::uniform(4.0);
+                    }
                     let path = if curved {
                         {
                             // Use the same authored normalized contour. Building a new

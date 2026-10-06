@@ -20,6 +20,7 @@ pub mod affine;
 pub mod anchored;
 pub mod authoring;
 pub mod compose;
+pub mod corners;
 mod curves;
 pub mod dates;
 pub mod decorations;
@@ -66,6 +67,7 @@ pub mod text_wrap;
 pub mod threading;
 
 pub use compose::{compose_object, compose_thread, ComposedFrame, ComposedLine, ComposedThread};
+pub use corners::{CornerShape, Corners};
 pub use edit::{
     snapshot_character_style, snapshot_ink, snapshot_object, snapshot_page, snapshot_settings,
     snapshot_spread, snapshot_story,

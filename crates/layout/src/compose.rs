@@ -3264,12 +3264,15 @@ pub fn compose_story(doc: &LayoutDocument, story: crate::StoryId) -> ComposedThr
     let frames: Vec<_> = doc
         .story_frames(story)
         .into_iter()
-        .filter_map(frame_input)
+        .filter_map(|placed| frame_input(doc, placed))
         .collect();
     compose_thread(doc, story, &frames)
 }
 
+/// A frame's composition box: its insets, and its stroke's reach into it
+/// on every side.
 fn frame_input(
+    doc: &LayoutDocument,
     placed: &PlacedObject,
 ) -> Option<(ObjectId, Rect, FrameOverflow, u16, Pt, InsetsLike)> {
     let crate::LayoutObject::TextFrame {
@@ -3282,13 +3285,23 @@ fn frame_input(
     else {
         return None;
     };
+    let stroke = doc.styles.stroke_inset(placed);
+    let mut insets: InsetsLike = (*insets).into();
+    for side in [
+        &mut insets.top,
+        &mut insets.right,
+        &mut insets.bottom,
+        &mut insets.left,
+    ] {
+        *side += stroke;
+    }
     Some((
         placed.id,
         placed.bounds,
         *overflow,
         *columns,
         *gutter,
-        (*insets).into(),
+        insets,
     ))
 }
 
@@ -3311,10 +3324,10 @@ fn object_thread(doc: &LayoutDocument, placed: &PlacedObject) -> Option<Composed
         let mut frames: Vec<_> = doc
             .frame_thread(placed)
             .into_iter()
-            .filter_map(frame_input)
+            .filter_map(|frame| frame_input(doc, frame))
             .collect();
         if frames.is_empty() {
-            frames.push(frame_input(placed)?);
+            frames.push(frame_input(doc, placed)?);
         }
         compose_thread_on_page(doc, story, &frames, Some(placed.page))
     };

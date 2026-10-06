@@ -310,6 +310,44 @@ are marked.
 
 ## Handoff
 
+Frame strokes and corner options, 2026-10-06:
+A text frame's stroke now moves its text in by its reach into the frame, half a
+centred weight, an inside weight, nothing outside or uncoloured, as InDesign's PDF
+of the public paged-media `stroke-inset` sample measures on every case it sets.
+Shaped frames offset their outline exactly, matching that sample's chamfered
+frames to within its whole-point rounding where they had been about 4 pt further
+in. Rectangles, text frames and image frames take rounded, inverse rounded, bevel
+and inset corners per corner, locally or from an object style; the item keeps its
+rectangle and draws, clips and sets its text in the cornered outline, and saving
+writes the rectangle and its corner attributes. Decorative corners and corners on
+other outlines are kept, drawn square and reported. Contour wrap around a shaped
+image frame no longer shrinks to its corner.
+
+The sample also shows InDesign fitting a frame's last line by its baseline, where
+Schist needs room for its descent.
+
+The source-frozen sweep of all 16 roadmap targets, headless library wasm, shared
+UI, formatting, whitespace and the debug app build passes on Windows with **2,278
+distinct passing Rust tests**, 16 new (11 layout, 2 separation, 3 IDML), and no
+corrections. Before it, the frame-paint separation test's independent reference
+gained the text inset its stroke now implies.
+
+Native review used a passive capture of the actual debug app with Design enabled
+and isolated configuration, on a package with a 470 × 170 pt text frame rounded
+30 pt under a 6 pt centred stroke and six 120 × 80 pt rectangles: 20 pt rounded,
+inverse rounded, bevel and inset corners, one with a corner of each kind and one
+with a decorative corner. The canvas draws each outline with its stroke following
+the corners and the decorative corner square, with one item reported unread. The
+frame's first line starts 30 pt in under its corners and the others inside the
+stroke, as composing the imported package directly measures (30.07, 4.54, then
+3 pt). The object-style proof's four text-frame pages move their text 5 pt in for
+the 10 pt stroke, matching their references, which now inset their text as much;
+its image-frame pages and the other 42 proofs are byte-identical.
+
+Next: fitting a frame's last line by its baseline, then non-solid stroke types on
+items and the remaining item 9 gaps. Published to draft PR #195.
+
+
 Stroke options and corpus readings, 2026-10-06:
 Items now stroke with their EndCap, EndJoin, MiterLimit and StrokeAlignment,
 locally or from an object style's Stroke and Corner Options category, in output

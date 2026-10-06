@@ -77,6 +77,9 @@ pub struct ObjectPaint {
     pub miter_limit: Option<f32>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub stroke_alignment: Option<StrokeAlignment>,
+    /// A rectangle's corner shapes and radii.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub corners: Option<crate::corners::Corners>,
 }
 
 impl ObjectPaint {
@@ -102,6 +105,7 @@ impl ObjectPaint {
             stroke_join: self.stroke_join,
             miter_limit: self.miter_limit,
             stroke_alignment: self.stroke_alignment,
+            corners: self.corners,
             ..Default::default()
         }
     }
@@ -135,6 +139,7 @@ impl ObjectPaint {
             stroke_join: self.stroke_join.or(base.stroke_join),
             miter_limit: self.miter_limit.or(base.miter_limit),
             stroke_alignment: self.stroke_alignment.or(base.stroke_alignment),
+            corners: self.corners.or(base.corners),
         }
     }
 
@@ -295,6 +300,20 @@ impl StyleSet {
         footnotes.over(&inherited)
     }
 
+    /// How far a frame's stroke reaches into it, moving its text: half the
+    /// weight centred, all of it inside, none outside, and none when the
+    /// stroke has no colour, as InDesign's PDF of the public paged-media
+    /// `stroke-inset` sample measures on every case it sets.
+    pub fn stroke_inset(&self, object: &PlacedObject) -> f32 {
+        self.object_paint(object)
+            .drawn_stroke()
+            .map_or(0.0, |(width, alignment)| match alignment {
+                StrokeAlignment::Center => width / 2.0,
+                StrokeAlignment::Inside => width,
+                StrokeAlignment::Outside => 0.0,
+            })
+    }
+
     pub fn object_paint(&self, object: &PlacedObject) -> ObjectPaint {
         let mut inherited = object
             .appearance
@@ -320,6 +339,7 @@ impl StyleSet {
             inherited.paint.stroke_join = None;
             inherited.paint.miter_limit = None;
             inherited.paint.stroke_alignment = None;
+            inherited.paint.corners = None;
         }
         let fallback = if object.appearance.style.is_some() {
             ObjectPaint::default()
@@ -381,12 +401,49 @@ impl PlacedObject {
         }
     }
 
+    /// The outline its corner options give the item, in its own coordinates
+    /// like a shape's path: None when every corner is square, or when the
+    /// item is not an upright rectangle and corner options do not apply.
+    pub fn cornered(&self, corners: &crate::corners::Corners) -> Option<ShapePath> {
+        if corners.square() {
+            return None;
+        }
+        let size = self.bounds;
+        let rectangle = match &self.object {
+            LayoutObject::Shape { path, .. } => crate::corners::rectangle(path)?,
+            LayoutObject::TextFrame {
+                text_path: None, ..
+            } if self.appearance.outline.is_none() => {
+                crate::Rect::new(0.0, 0.0, size.width, size.height)
+            }
+            LayoutObject::GraphicFrame {
+                clip_path: None, ..
+            } => crate::Rect::new(0.0, 0.0, size.width, size.height),
+            _ => return None,
+        };
+        (rectangle.width > 0.0 && rectangle.height > 0.0)
+            .then(|| corners.path(rectangle.origin(), rectangle.width, rectangle.height))
+    }
+
     /// Paint-ready copy; the document retains inheritance and local overrides.
     pub fn resolved_appearance(&self, styles: &StyleSet) -> Self {
         let mut out = self.clone();
         let paint = styles.object_paint(self);
         if let LayoutObject::Shape { path, .. } = &self.object {
             out.object = paint.shape(path.clone());
+        }
+        // Corner options draw from the rectangle: a shape's own path, a
+        // frame's outline normalized to it.
+        if let Some(path) = paint.corners.and_then(|c| self.cornered(&c)) {
+            let (width, height) = (self.bounds.width, self.bounds.height);
+            let mut normalized = path.clone();
+            normalized.map_points(|p| crate::Point::new(p.x / width, p.y / height));
+            match &mut out.object {
+                LayoutObject::Shape { path: shape, .. } => *shape = path,
+                LayoutObject::TextFrame { .. } => out.appearance.outline = Some(normalized),
+                LayoutObject::GraphicFrame { clip_path, .. } => *clip_path = Some(normalized),
+                _ => {}
+            }
         }
         out.appearance.paint = paint;
         out.appearance.text_wrap = styles.object_wrap(self);

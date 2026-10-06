@@ -188,6 +188,7 @@ pub fn read_package(opened: &DesignPackage<'_>) -> Result<Imported, Error> {
         &mut report,
     );
     crate::object_style_codec::resolve_references(&mut document, &style_refs, &mut report);
+    crate::object_style_codec::report_corners(&document, &mut report);
     crate::anchored_codec::read(&mut document, &stories, &colors, &mut report);
     crate::table_codec::read(&mut document, &colors, &style_refs, &mut report);
     report_untyped(&document, &mut report);
