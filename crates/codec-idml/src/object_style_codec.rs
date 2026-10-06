@@ -74,6 +74,44 @@ pub(crate) fn read_paint(
         value
     });
     let corners = read_corners(element, report);
+    // The stroke's type. A reference the package does not declare is left
+    // unset: InDesign strokes it solid (see stroke_style_codec::item_types).
+    let stroke_type = element
+        .attr("StrokeType")
+        .and_then(|reference| colors.stroke_type(reference))
+        .cloned();
+    let dash_and_gap = element.attr("StrokeDashAndGap").and_then(|raw| {
+        let lengths = raw
+            .split_whitespace()
+            .map(str::parse)
+            .collect::<Result<Vec<f32>, _>>()
+            .ok()
+            .filter(|lengths| {
+                schist_text_engine::TextDecorationPattern::Dashes(lengths.clone().into()).valid()
+            });
+        if lengths.is_none() {
+            report.skip(schist_i18n::tf!(
+                "design.idml_object_paint_invalid",
+                property = "StrokeDashAndGap"
+            ));
+        }
+        lengths
+    });
+    let corner_adjustment = element
+        .attr("StrokeCornerAdjustment")
+        .and_then(|value| match value {
+            "None" => Some(schist_text_engine::DecorationFit::None),
+            "Dashes" => Some(schist_text_engine::DecorationFit::Dashes),
+            "Gaps" => Some(schist_text_engine::DecorationFit::Gaps),
+            "DashesAndGaps" => Some(schist_text_engine::DecorationFit::DashesAndGaps),
+            _ => {
+                report.skip(schist_i18n::tf!(
+                    "design.idml_object_paint_invalid",
+                    property = "StrokeCornerAdjustment"
+                ));
+                None
+            }
+        });
     // A gradient fill's or stroke's offset highlight is not drawn.
     for part in ["Fill", "Stroke"] {
         if element
@@ -106,13 +144,21 @@ pub(crate) fn read_paint(
             None => None,
         }
     };
+    let fill = paint("Fill");
+    let stroke = paint("Stroke");
+    // A gap takes an ink, never a gradient.
+    let gap = match element.attr("GapColor") {
+        Some("Swatch/None" | "n") => Some(Paint::None),
+        Some(_) => color_codec::resolve(element, "GapColor", colors, report).map(Paint::Ink),
+        None => None,
+    };
     ObjectPaint {
         stroke_cap,
         stroke_join,
         miter_limit,
         stroke_alignment,
-        fill: paint("Fill"),
-        stroke: paint("Stroke"),
+        fill,
+        stroke,
         stroke_width: element
             .number("StrokeWeight")
             .filter(|v| v.is_finite() && *v >= 0.0),
@@ -121,6 +167,12 @@ pub(crate) fn read_paint(
         overprint_fill: element.boolean("OverprintFill"),
         overprint_stroke: element.boolean("OverprintStroke"),
         corners,
+        stroke_type,
+        dash_and_gap,
+        corner_adjustment,
+        gap,
+        gap_tint: color_codec::tint(element, "GapTint", report),
+        overprint_gap: element.boolean("OverprintGap"),
     }
 }
 
@@ -283,7 +335,7 @@ pub(crate) fn read_styles(
                 .any(|(k, v)| k.starts_with("Enable") && xml::parse_boolean(v) == Some(true))
         }) && !effects_at_defaults(element))
             || (style.enable_stroke_options != Some(false)
-                && (unsupported_outline(element)
+                && (unsupported_outline(element, colors)
                     || style.paint.corners.is_some_and(|c| c.fancy())))
             // The category's other member is Nonprinting, which Schist ignores.
             || (style.enable_text_wrap == Some(true) && element.boolean("Nonprinting") == Some(true))
@@ -353,7 +405,11 @@ fn attr(out: &mut String, key: &str, value: impl ToString) {
 
 pub(crate) fn paint_attributes(paint: &ObjectPaint) -> String {
     let mut out = String::new();
-    for (key, value) in [("FillColor", &paint.fill), ("StrokeColor", &paint.stroke)] {
+    for (key, value) in [
+        ("FillColor", &paint.fill),
+        ("StrokeColor", &paint.stroke),
+        ("GapColor", &paint.gap),
+    ] {
         if let Some(value) = value {
             let reference = match value {
                 Paint::Ink(ink) => color_codec::reference(ink),
@@ -396,6 +452,36 @@ pub(crate) fn paint_attributes(paint: &ObjectPaint) -> String {
     if let Some(limit) = paint.miter_limit {
         attr(&mut out, "MiterLimit", limit);
     }
+    if let Some(stroke) = &paint.stroke_type {
+        attr(
+            &mut out,
+            "StrokeType",
+            crate::stroke_style_codec::type_reference(stroke),
+        );
+    }
+    if let Some(lengths) = &paint.dash_and_gap {
+        attr(
+            &mut out,
+            "StrokeDashAndGap",
+            lengths
+                .iter()
+                .map(ToString::to_string)
+                .collect::<Vec<_>>()
+                .join(" "),
+        );
+    }
+    if let Some(fitting) = paint.corner_adjustment {
+        attr(
+            &mut out,
+            "StrokeCornerAdjustment",
+            match fitting {
+                schist_text_engine::DecorationFit::None => "None",
+                schist_text_engine::DecorationFit::Dashes => "Dashes",
+                schist_text_engine::DecorationFit::Gaps => "Gaps",
+                schist_text_engine::DecorationFit::DashesAndGaps => "DashesAndGaps",
+            },
+        );
+    }
     if let Some(corners) = &paint.corners {
         for (index, corner) in CORNERS.iter().enumerate() {
             let shape = match corners.shapes[index] {
@@ -435,6 +521,10 @@ pub(crate) fn paint_attributes(paint: &ObjectPaint) -> String {
             "StrokeTint",
             color_codec::paint_tint(paint.stroke_ink(), paint.stroke_tint),
         ),
+        (
+            "GapTint",
+            color_codec::paint_tint(paint.gap_ink(), paint.gap_tint),
+        ),
     ] {
         if let Some(value) = value {
             attr(&mut out, key, value);
@@ -443,6 +533,7 @@ pub(crate) fn paint_attributes(paint: &ObjectPaint) -> String {
     for (key, value) in [
         ("OverprintFill", paint.overprint_fill),
         ("OverprintStroke", paint.overprint_stroke),
+        ("OverprintGap", paint.overprint_gap),
     ] {
         if let Some(value) = value {
             attr(&mut out, key, value);
@@ -528,7 +619,7 @@ pub(crate) fn read_appearance(
     colors: &color_codec::Colors,
     report: &mut Report,
 ) {
-    if unsupported_outline(element) {
+    if unsupported_outline(element, colors) {
         report.skip(schist_i18n::tf!(
             "design.idml_object_style_limits",
             name = object.name
@@ -664,13 +755,16 @@ fn effects_at_defaults(element: &Element) -> bool {
     })
 }
 
-/// Stroke and corner options not drawn: arrowheads, non-solid stroke types,
-/// and corner effects. Caps, joins, mitre limits and alignment are.
-fn unsupported_outline(element: &Element) -> bool {
+/// Stroke and corner options not drawn: arrowheads, and built-in stroke
+/// styles other than Solid and Dashed, whose look the specification does
+/// not give. Caps, joins, mitre limits, alignment, and dashed, dotted and
+/// striped stroke styles are.
+fn unsupported_outline(element: &Element, colors: &color_codec::Colors) -> bool {
     [("LeftLineEnd", "None"), ("RightLineEnd", "None")]
         .iter()
         .any(|(key, default)| element.attr(key).is_some_and(|v| v != *default))
         || element
             .attr("StrokeType")
-            .is_some_and(|v| !matches!(v, "Solid" | "$ID/Solid" | "StrokeStyle/$ID/Solid"))
+            .and_then(|reference| colors.stroke_type(reference))
+            .is_some_and(|stroke| matches!(stroke, schist_layout::StrokeType::Builtin(_)))
 }

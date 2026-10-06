@@ -176,29 +176,36 @@ impl Guide {
     }
 }
 
-/// How a shape's stroke ends, joins and sits on its path, for a painter.
-#[derive(Debug, Clone, Copy, PartialEq)]
+/// How a shape's stroke ends, joins and sits on its path, for a painter,
+/// and what it draws along it.
+#[derive(Debug, Clone, PartialEq)]
 pub struct StrokeOptions {
     pub cap: crate::StrokeCap,
     pub join: crate::StrokeJoin,
     pub miter_limit: f32,
     pub alignment: crate::StrokeAlignment,
+    /// Dashes, dots or stripes, their lengths in the painter's units; None
+    /// strokes solid. See [`crate::stroke_patterns`].
+    pub pattern: Option<crate::decorations::DecorationStroke>,
 }
 
 impl Default for StrokeOptions {
-    /// InDesign's: butt caps, mitre joins at a limit of 4, centred.
+    /// InDesign's: butt caps, mitre joins at a limit of 4, centred, solid.
     fn default() -> Self {
         Self {
             cap: Default::default(),
             join: Default::default(),
             miter_limit: 4.0,
             alignment: Default::default(),
+            pattern: None,
         }
     }
 }
 
 impl StrokeOptions {
-    fn of(paint: &crate::ObjectPaint) -> Self {
+    /// An item's stroke options, its pattern's point lengths scaled by
+    /// `scale` into the painter's units.
+    pub fn of(paint: &crate::ObjectPaint, scale: f32) -> Self {
         Self {
             cap: paint.stroke_cap.unwrap_or_default(),
             join: paint.stroke_join.unwrap_or_default(),
@@ -207,6 +214,10 @@ impl StrokeOptions {
                 .filter(|v| v.is_finite() && *v >= 1.0)
                 .unwrap_or(4.0),
             alignment: paint.stroke_alignment.unwrap_or_default(),
+            pattern: paint.stroke_pattern().map(|mut stroke| {
+                stroke.pattern.scaled(scale);
+                stroke
+            }),
         }
     }
 
@@ -374,6 +385,8 @@ pub enum Display {
         stroke_gradient: Option<Box<ShapeGradient>>,
         /// How the stroke ends, joins and sits on the path.
         stroke_options: StrokeOptions,
+        /// What fills the gaps of a dashed, dotted or striped stroke.
+        gap: Option<[f32; 4]>,
         overprint: bool,
     },
     /// A placed graphic; pixel resolution belongs to the editor.
@@ -769,6 +782,7 @@ fn objects_for(
                             stroke: None,
                             stroke_gradient: None,
                             stroke_options: StrokeOptions::default(),
+                            gap: None,
                             overprint: rule.overprint,
                         });
                     }
@@ -1317,7 +1331,21 @@ fn shape_display(
             )
         }),
         stroke_gradient,
-        stroke_options: StrokeOptions::of(&object.appearance.paint),
+        stroke_options: StrokeOptions::of(&object.appearance.paint, view.scale),
+        // Gaps show between the marks of a patterned stroke that is drawn.
+        gap: object
+            .appearance
+            .paint
+            .gap_ink()
+            .filter(|_| {
+                stroke.is_some()
+                    && *stroke_width > 0.0
+                    && object.appearance.paint.stroke_pattern().is_some()
+            })
+            .map(|ink| {
+                let rgb = ink.preview_at_tint(object.appearance.paint.gap_tint.unwrap_or(1.0));
+                [rgb[0], rgb[1], rgb[2], object.transparency]
+            }),
         overprint: object.overprint,
     })
 }

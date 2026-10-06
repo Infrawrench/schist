@@ -54,6 +54,7 @@ pub mod pasteboard;
 pub mod properties;
 pub(crate) mod running_headers;
 pub mod story;
+pub mod stroke_patterns;
 pub mod structure;
 pub mod styles;
 pub mod swatches;
@@ -90,6 +91,7 @@ pub use model::{
 pub use numbering::Section;
 pub use object_styles::{
     ObjectAppearance, ObjectPaint, ObjectStyle, Paint, StrokeAlignment, StrokeCap, StrokeJoin,
+    StrokeType,
 };
 pub use pasteboard::{pasteboard, Display, Guide, PageBox, PagePlan, Pasteboard, PasteboardView};
 pub use story::{

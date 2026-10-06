@@ -294,6 +294,7 @@ fn paint_object(window: &mut Window, frame: &PasteboardFrame, object: &Display) 
             stroke,
             stroke_gradient,
             stroke_options,
+            gap,
             transform,
             ..
         } => {
@@ -315,31 +316,74 @@ fn paint_object(window: &mut Window, frame: &PasteboardFrame, object: &Display) 
                 };
                 // The stroke outlined in the shape's own space, so a skewed
                 // or unevenly scaled shape strokes as it prints.
+                let mut local = path.clone();
+                local.map_points(|p| affine::point(inverse, p));
+                let tolerance = 0.25 / affine::stretch(*transform).max(1.0);
+                let back = |outline: schist_vector::Path| schist_layout::ShapePath {
+                    subpaths: outline
+                        .subpaths
+                        .iter()
+                        .enumerate()
+                        .map(|(i, points)| schist_layout::SubPath {
+                            points: points
+                                .iter()
+                                .map(|(x, y)| affine::point(*transform, Point::new(*x, *y)))
+                                .collect(),
+                            handles: Vec::new(),
+                            closed: outline.is_closed(i),
+                        })
+                        .collect(),
+                    even_odd: false,
+                };
                 let outline = |width: f32| {
-                    let mut local = path.clone();
-                    local.map_points(|p| affine::point(inverse, p));
-                    let outline = schist_vector::stroke_path(
-                        &local.flatten(0.25 / affine::stretch(*transform).max(1.0)),
+                    back(schist_vector::stroke_path(
+                        &local.flatten(tolerance),
                         stroke_options.style(width),
-                    );
-                    schist_layout::ShapePath {
-                        subpaths: outline
-                            .subpaths
-                            .iter()
-                            .enumerate()
-                            .map(|(i, points)| schist_layout::SubPath {
-                                points: points
-                                    .iter()
-                                    .map(|(x, y)| affine::point(*transform, Point::new(*x, *y)))
-                                    .collect(),
-                                handles: Vec::new(),
-                                closed: outline.is_closed(i),
-                            })
-                            .collect(),
-                        even_odd: false,
-                    }
+                    ))
                 };
                 let closed = path.subpaths.iter().any(|s| s.closed);
+                let aligned = matches!(
+                    stroke_options.alignment,
+                    StrokeAlignment::Inside | StrokeAlignment::Outside
+                ) && closed;
+                // Dashes, dots or stripes: the fill sits as under a solid
+                // stroke, the gap colour fills the band, the ink goes over it.
+                if let Some(pattern) = schist_layout::stroke_patterns::outlines(
+                    &local,
+                    *width,
+                    stroke_options,
+                    tolerance,
+                ) {
+                    if aligned {
+                        paint_aligned(
+                            window,
+                            frame.bounds,
+                            path,
+                            fill,
+                            ([0.0; 4], &outline(*width), &outline(*width * 2.0)),
+                            stroke_options.alignment == StrokeAlignment::Inside,
+                        );
+                    } else {
+                        paint_shape(window, frame.bounds, path, fill, None);
+                    }
+                    if let Some(gap) = gap {
+                        paint_shape(
+                            window,
+                            frame.bounds,
+                            &back(pattern.band),
+                            Fill::solid(*gap),
+                            None,
+                        );
+                    }
+                    paint_shape(
+                        window,
+                        frame.bounds,
+                        &back(pattern.ink),
+                        Fill::solid(*color),
+                        None,
+                    );
+                    return;
+                }
                 match stroke_options.alignment {
                     StrokeAlignment::Inside | StrokeAlignment::Outside if closed => {
                         paint_aligned(

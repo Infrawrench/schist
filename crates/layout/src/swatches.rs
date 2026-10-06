@@ -64,7 +64,7 @@ pub fn replace(doc: &mut LayoutDocument, history: &mut History, before: &Ink, af
         }
     };
     let object_paint = |p: &mut crate::ObjectPaint| {
-        for paint in [&mut p.fill, &mut p.stroke] {
+        for paint in [&mut p.fill, &mut p.stroke, &mut p.gap] {
             if let Some(crate::Paint::Ink(ink)) = paint {
                 update(ink);
             }

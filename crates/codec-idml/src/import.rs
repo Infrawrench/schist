@@ -83,7 +83,7 @@ pub fn read_package(opened: &DesignPackage<'_>) -> Result<Imported, Error> {
 
     // Inks first: a colour reference elsewhere is a name, and the names
     // only mean something once the inks they point at exist.
-    let colors = crate::color_codec::read(opened, &mut report);
+    let mut colors = crate::color_codec::read(opened, &mut report);
 
     let mut document = LayoutDocument::new(Vec::new());
     // Native IDML's implicit paragraph direction is LTR. Schist-created root
@@ -119,6 +119,10 @@ pub fn read_package(opened: &DesignPackage<'_>) -> Result<Imported, Error> {
     style_refs.text_variables = variables.references;
     style_refs.languages = document.styles.languages.clone();
     style_refs.strokes = crate::stroke_style_codec::read(opened, &mut report);
+    colors.set_stroke_types(crate::stroke_style_codec::item_types(
+        opened,
+        &style_refs.strokes,
+    ));
     document.styles.strokes = style_refs
         .strokes
         .values()

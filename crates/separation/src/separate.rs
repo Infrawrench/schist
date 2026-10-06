@@ -634,6 +634,24 @@ fn paint_object_content<'a>(
             }
             let stroke_gradient = placed.appearance.paint.stroke_gradient();
             if stroke.is_some() || stroke_gradient.is_some() {
+                // A dashed, dotted or striped stroke's gap colour fills the
+                // band its ink leaves, with its own tint and overprint.
+                let paint = &placed.appearance.paint;
+                if let Some(gap) = paint.gap_ink() {
+                    if let Some(gap_mask) =
+                        crate::raster::placed_gap_coverage(placed, settings, page)
+                    {
+                        let (coats, build) =
+                            tinted_coats_for(plan, gap, paint.gap_tint.unwrap_or(1.0));
+                        let mode = if paint.overprint_gap == Some(true) {
+                            InkMode::Overprint
+                        } else {
+                            mode
+                        };
+                        separation.paint(&gap_mask, &coats, mode, opacity);
+                        separation.paint_composite(&gap_mask, &coats, &build, mode, opacity);
+                    }
+                }
                 // The stroke is a separate ink on a separate rule: a
                 // shape whose fill knocks out and whose stroke
                 // overprints is an ordinary way to draw a keyline.

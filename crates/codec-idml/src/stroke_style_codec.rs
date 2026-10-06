@@ -1,6 +1,6 @@
 //! Public Graphics.xml stripe/dash/dot resources; references are opaque IDs.
 use crate::{designmap::DesignPackage, import::Report, xml};
-use schist_layout::decorations::DecorationStroke;
+use schist_layout::{decorations::DecorationStroke, StrokeType};
 use schist_text_engine::{DecorationCap, DecorationDashes, DecorationFit, TextDecorationPattern};
 use std::collections::BTreeMap;
 
@@ -106,6 +106,73 @@ pub(crate) fn read(
         }
     }
     result
+}
+
+/// The stroke types an item's StrokeType can name, by Self: every
+/// resource the package declares. The built-in StrokeStyle elements name
+/// themselves (`$ID/Dashed`); Solid and Dashed are drawn, the others kept by
+/// name. A reference the package does not declare is not here: InDesign
+/// strokes it solid, as its PDF of the public paged-media `strokes-fills`
+/// sample draws `StrokeStyle/$ID/Dashed`, `$ID/Dotted`, `$ID/Canned Dotted`
+/// and `$ID/Japanese Dots` exactly as `$ID/Solid` when that package's
+/// Graphic.xml declares no stroke style: a 6 pt `re` stroked with no dash
+/// array.
+pub(crate) fn item_types(
+    opened: &DesignPackage<'_>,
+    strokes: &BTreeMap<String, DecorationStroke>,
+) -> Vec<(String, StrokeType)> {
+    let mut out: Vec<(String, StrokeType)> = strokes
+        .iter()
+        .map(|(id, stroke)| (id.clone(), StrokeType::Style(stroke.clone())))
+        .collect();
+    for part in opened.listed.iter().filter(|p| p.role == "Graphic") {
+        let Ok(text) = opened.text_of(&part.name) else {
+            continue;
+        };
+        let Ok(root) = xml::parse(text) else {
+            continue;
+        };
+        for element in root.find_all("StrokeStyle") {
+            let (Some(id), Some(name)) = (element.attr("Self"), element.attr("Name")) else {
+                continue;
+            };
+            let stroke = match name {
+                "$ID/Solid" => StrokeType::Style(DecorationStroke::solid()),
+                "$ID/Dashed" => StrokeType::Dashed,
+                _ => StrokeType::Builtin(name.into()),
+            };
+            if !out.iter().any(|(known, _)| known == id) {
+                out.push((id.into(), stroke));
+            }
+        }
+    }
+    out
+}
+
+/// What an item's StrokeType names: a resource's reference, or a built-in
+/// style's, which saving declares in Graphic.xml (see [`builtin_resource`]).
+pub(crate) fn type_reference(stroke: &StrokeType) -> String {
+    match stroke {
+        StrokeType::Style(stroke) => reference(stroke),
+        StrokeType::Dashed => "StrokeStyle/$ID/Dashed".into(),
+        StrokeType::Builtin(name) => format!("StrokeStyle/{name}"),
+    }
+}
+
+/// The StrokeStyle element declaring a built-in style an item names. An
+/// undeclared reference strokes solid in InDesign.
+pub(crate) fn builtin_resource(stroke: &StrokeType) -> Option<String> {
+    let name = match stroke {
+        StrokeType::Dashed => "$ID/Dashed",
+        StrokeType::Builtin(name) => name,
+        StrokeType::Style(_) => return None,
+    };
+    let escape = crate::export::escape;
+    Some(format!(
+        r#"<StrokeStyle Self="{}" Name="{}"/>"#,
+        escape(&type_reference(stroke)),
+        escape(name)
+    ))
 }
 
 pub(crate) fn array_name(pattern: &TextDecorationPattern) -> &'static str {

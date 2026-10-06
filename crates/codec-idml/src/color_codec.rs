@@ -8,9 +8,24 @@ use crate::{
 use schist_layout::gradients::{Gradient, GradientFill, GradientStop};
 use schist_layout::Ink;
 
+/// Graphic.xml's swatches by Self: colours and tints, gradients, and the
+/// stroke styles items name in StrokeType.
 #[derive(Default)]
-pub struct Colors(Vec<(String, Ink)>, Vec<(String, Gradient)>);
+pub struct Colors(
+    Vec<(String, Ink)>,
+    Vec<(String, Gradient)>,
+    Vec<(String, schist_layout::StrokeType)>,
+);
 impl Colors {
+    pub(crate) fn stroke_type(&self, reference: &str) -> Option<&schist_layout::StrokeType> {
+        self.2
+            .iter()
+            .find(|(id, _)| id == reference)
+            .map(|(_, stroke)| stroke)
+    }
+    pub(crate) fn set_stroke_types(&mut self, types: Vec<(String, schist_layout::StrokeType)>) {
+        self.2 = types;
+    }
     pub fn values(&self) -> impl Iterator<Item = &Ink> {
         self.0.iter().map(|(_, ink)| ink)
     }

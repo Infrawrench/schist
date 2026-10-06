@@ -57,6 +57,21 @@ pub enum StrokeAlignment {
     Outside,
 }
 
+/// What a stroke draws along the path: StrokeType, a stroke style.
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+pub enum StrokeType {
+    /// A stroke style resource: solid, or a dashed, dotted or striped
+    /// style with its own pattern, caps and fitting.
+    Style(crate::decorations::DecorationStroke),
+    /// The built-in Dashed style: the item's own dashes and gaps
+    /// (StrokeDashAndGap), ended with its cap and fitted to its corners as
+    /// its StrokeCornerAdjustment says.
+    Dashed,
+    /// Another built-in style, kept by name (`$ID/Japanese Dots`) and drawn
+    /// solid: the specification names these and gives no geometry.
+    Builtin(String),
+}
+
 /// Local values or style properties. Tint is a fraction; absent means inherit.
 #[derive(Debug, Clone, Default, PartialEq, Serialize, Deserialize)]
 #[serde(default)]
@@ -80,6 +95,23 @@ pub struct ObjectPaint {
     /// A rectangle's corner shapes and radii.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub corners: Option<crate::corners::Corners>,
+    /// Solid, dashed, dotted or striped.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub stroke_type: Option<StrokeType>,
+    /// The built-in Dashed style's dash and gap lengths in points.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub dash_and_gap: Option<Vec<f32>>,
+    /// How the built-in Dashed style fits its dashes to corners and ends.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub corner_adjustment: Option<schist_text_engine::DecorationFit>,
+    /// What fills the gaps of a dashed, dotted or striped stroke; none
+    /// leaves them clear.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub gap: Option<Paint>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub gap_tint: Option<f32>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub overprint_gap: Option<bool>,
 }
 
 impl ObjectPaint {
@@ -106,8 +138,46 @@ impl ObjectPaint {
             miter_limit: self.miter_limit,
             stroke_alignment: self.stroke_alignment,
             corners: self.corners,
+            stroke_type: self.stroke_type.clone(),
+            dash_and_gap: self.dash_and_gap.clone(),
+            corner_adjustment: self.corner_adjustment,
+            gap: self.gap.clone(),
+            gap_tint: self.gap_tint,
+            overprint_gap: self.overprint_gap,
             ..Default::default()
         }
+    }
+
+    /// The dashes, dots or stripes the stroke draws along its path: None
+    /// when it is solid, or a built-in style Schist draws solid. The
+    /// built-in Dashed style dashes with the item's StrokeDashAndGap, ended
+    /// with its EndCap and fitted as its StrokeCornerAdjustment says, as the
+    /// specification's page item table describes those attributes; without
+    /// dashes it is solid.
+    pub fn stroke_pattern(&self) -> Option<crate::decorations::DecorationStroke> {
+        use schist_text_engine::{DecorationCap, DecorationDashes, TextDecorationPattern};
+        let stroke = match self.stroke_type.as_ref()? {
+            StrokeType::Style(stroke) => stroke.clone(),
+            StrokeType::Dashed => crate::decorations::DecorationStroke {
+                name: "Dashed".into(),
+                fitting: self.corner_adjustment.unwrap_or_default(),
+                pattern: TextDecorationPattern::Dashes(DecorationDashes {
+                    lengths: self.dash_and_gap.clone()?,
+                    cap: match self.stroke_cap.unwrap_or_default() {
+                        StrokeCap::Butt => DecorationCap::Butt,
+                        StrokeCap::Round => DecorationCap::Round,
+                        StrokeCap::Projecting => DecorationCap::Projecting,
+                    },
+                }),
+            },
+            StrokeType::Builtin(_) => return None,
+        };
+        (!matches!(stroke.pattern, TextDecorationPattern::Solid) && stroke.valid())
+            .then_some(stroke)
+    }
+
+    pub fn gap_ink(&self) -> Option<&Ink> {
+        self.gap.as_ref().and_then(Paint::ink)
     }
 
     /// The stroke actually drawn: an ink or a gradient, a positive weight,
@@ -142,6 +212,18 @@ impl ObjectPaint {
             miter_limit: self.miter_limit.or(base.miter_limit),
             stroke_alignment: self.stroke_alignment.or(base.stroke_alignment),
             corners: self.corners.or(base.corners),
+            stroke_type: self
+                .stroke_type
+                .clone()
+                .or_else(|| base.stroke_type.clone()),
+            dash_and_gap: self
+                .dash_and_gap
+                .clone()
+                .or_else(|| base.dash_and_gap.clone()),
+            corner_adjustment: self.corner_adjustment.or(base.corner_adjustment),
+            gap: paint(&self.gap, self.gap_tint, &base.gap),
+            gap_tint: self.gap_tint.or(base.gap_tint),
+            overprint_gap: self.overprint_gap.or(base.overprint_gap),
         }
     }
 
@@ -351,6 +433,15 @@ impl StyleSet {
             inherited.paint.miter_limit = None;
             inherited.paint.stroke_alignment = None;
             inherited.paint.corners = None;
+            // The stroke's type, dashes and gap colour go with its caps and
+            // joins. The specification assigns attributes to no category, so
+            // this is Schist's reading.
+            inherited.paint.stroke_type = None;
+            inherited.paint.dash_and_gap = None;
+            inherited.paint.corner_adjustment = None;
+            inherited.paint.gap = None;
+            inherited.paint.gap_tint = None;
+            inherited.paint.overprint_gap = None;
         }
         let fallback = if object.appearance.style.is_some() {
             ObjectPaint::default()

@@ -1027,6 +1027,12 @@ fn graphic_xml(document: &LayoutDocument) -> String {
     {
         out.push_str(&crate::stroke_style_codec::resource(&stroke));
     }
+    // Built-in styles items name: InDesign strokes an undeclared one solid.
+    for stroke in document.all_item_stroke_types() {
+        if let Some(resource) = crate::stroke_style_codec::builtin_resource(&stroke) {
+            out.push_str(&resource);
+        }
+    }
     out.push_str("</idPkg:Graphic>");
     out
 }

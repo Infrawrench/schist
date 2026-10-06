@@ -549,7 +549,37 @@ impl LayoutDocument {
                 }
             }
         }
+        for stroke_type in self.all_item_stroke_types() {
+            if let crate::StrokeType::Style(stroke) = stroke_type {
+                if !strokes.contains(&stroke) {
+                    strokes.push(stroke);
+                }
+            }
+        }
         strokes
+    }
+
+    /// The stroke types items and object styles name, each once.
+    pub fn all_item_stroke_types(&self) -> Vec<crate::StrokeType> {
+        let mut out: Vec<crate::StrokeType> = Vec::new();
+        let paints = self.styles.objects.iter().map(|style| &style.paint).chain(
+            self.objects
+                .iter()
+                .chain(
+                    self.parents
+                        .iter()
+                        .flat_map(|p| p.objects.iter().map(|o| &o.object)),
+                )
+                .map(|object| &object.appearance.paint),
+        );
+        for paint in paints {
+            if let Some(stroke_type) = &paint.stroke_type {
+                if !out.contains(stroke_type) {
+                    out.push(stroke_type.clone());
+                }
+            }
+        }
+        out
     }
 
     /// Resource and inline ink definitions needed by interchange and output.
@@ -635,6 +665,7 @@ impl LayoutDocument {
         for style in &self.styles.objects {
             add(&style.paint.fill_ink().cloned());
             add(&style.paint.stroke_ink().cloned());
+            add(&style.paint.gap_ink().cloned());
             for stop in style.paint.gradients().flat_map(|g| &g.gradient.stops) {
                 add(&Some(stop.ink.clone()));
             }
@@ -646,6 +677,7 @@ impl LayoutDocument {
         ) {
             add(&object.appearance.paint.fill_ink().cloned());
             add(&object.appearance.paint.stroke_ink().cloned());
+            add(&object.appearance.paint.gap_ink().cloned());
             for stop in object
                 .appearance
                 .paint

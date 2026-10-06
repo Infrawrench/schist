@@ -262,6 +262,11 @@ pub fn placed_shape_coverage(
         )
     };
     let width = *stroke_width;
+    // Dashes, dots and stripes lay their ink along the path; the fill is
+    // the same as under a solid stroke.
+    if let Some((dashes, _)) = stroke.then(|| patterned(placed, settings, page)).flatten() {
+        return dashes;
+    }
     let stroked = ink.is_some() || paint.stroke_gradient().is_some();
     let alignment = if stroked && width > 0.0 && path.subpaths.iter().any(|s| s.closed) {
         paint.stroke_alignment.unwrap_or_default()
@@ -284,6 +289,71 @@ pub fn placed_shape_coverage(
             })
         }
     }
+}
+
+/// The gaps of a dashed, dotted or striped stroke: the band a solid stroke
+/// of its weight covers, less its ink, so the two inks partition the band
+/// as decoration gaps do. None for a solid stroke.
+pub fn placed_gap_coverage(
+    placed: &PlacedObject,
+    settings: OutputSettings,
+    page: &schist_layout::Page,
+) -> Option<Coverage> {
+    let (ink, band) = patterned(placed, settings, page)?;
+    Some(mix(&band, &ink, |b, i| (b - i).max(0.0)))
+}
+
+/// A patterned stroke's ink and band coverage, laid along the path in its
+/// own frame scaled to pixels and then transformed, as solid strokes are.
+fn patterned(
+    placed: &PlacedObject,
+    settings: OutputSettings,
+    page: &schist_layout::Page,
+) -> Option<(Coverage, Coverage)> {
+    let LayoutObject::Shape {
+        path,
+        stroke_width,
+        stroke: Some(_),
+        ..
+    } = &placed.object
+    else {
+        return None;
+    };
+    let scale = settings.scale();
+    let options = schist_layout::pasteboard::StrokeOptions::of(&placed.appearance.paint, scale);
+    options.pattern.as_ref()?;
+    let origin = PagePixel::of(settings, page, placed.bounds.origin());
+    let mut local = path.clone();
+    local.map_points(|p| {
+        schist_layout::Point::new(origin.x as f32 + p.x * scale, origin.y as f32 + p.y * scale)
+    });
+    let transform = placed.content_transform();
+    let outlines = schist_layout::stroke_patterns::outlines(
+        &local,
+        stroke_width * scale,
+        &options,
+        0.25 / schist_layout::affine::stretch(transform).max(1.0),
+    )?;
+    let matrix = schist_layout::affine::in_view(transform, scale, schist_layout::Point::ZERO);
+    let page_box = settings.to_pixels_rect(settings.output_box(page));
+    let mask = |mut outline: schist_vector::Path| {
+        for sub in &mut outline.subpaths {
+            for point in sub {
+                *point = matrix.apply(point.0, point.1);
+            }
+        }
+        let rect = outline.bounds().intersect(&page_box);
+        if rect.is_empty() {
+            return Coverage::new(IntRect::EMPTY);
+        }
+        Coverage {
+            rect,
+            data: schist_vector::rasterize(&outline, rect, schist_vector::FillRule::NonZero),
+        }
+    };
+    let band = mask(outlines.band);
+    let ink = mask(outlines.ink);
+    Some((ink, band))
 }
 
 /// `a` combined pixel by pixel with `b` over `a`'s area.

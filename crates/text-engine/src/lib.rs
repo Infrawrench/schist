@@ -18,7 +18,7 @@ mod language;
 pub use language::normalize_language;
 mod decoration_dashes;
 mod decoration_fitting;
-pub use decoration_fitting::DecorationFit;
+pub use decoration_fitting::{resolve as fit_dashes, DecorationFit};
 mod decoration_pattern;
 mod path_decoration;
 pub use decoration_pattern::{DecorationCap, DecorationDashes, TextDecorationPattern};
