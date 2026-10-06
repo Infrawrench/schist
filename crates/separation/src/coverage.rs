@@ -336,6 +336,84 @@ impl Separation {
         }
     }
 
+    /// Lay a gradient through `mask`: `stops` gives each stop's coats and
+    /// composite build, and `at(x, y)` the two stops a pixel mixes and how
+    /// far toward the second. Plates and the composite follow `paint` and
+    /// `paint_composite`, a pixel's coats being its stops' mixed.
+    pub fn paint_gradient(
+        &mut self,
+        mask: &Coverage,
+        stops: &[(Vec<Coat>, Vec<[f32; 4]>)],
+        at: impl Fn(i32, i32) -> (usize, usize, f32),
+        mode: InkMode,
+        opacity: Pt,
+    ) {
+        if mask.is_empty() || stops.is_empty() {
+            return;
+        }
+        let opacity = opacity.clamp(0.0, 1.0);
+        if opacity == 0.0 {
+            return;
+        }
+        let reach: Vec<usize> = match mode {
+            InkMode::Knockout => (0..self.plates.len()).collect(),
+            InkMode::Overprint => stops
+                .iter()
+                .flat_map(|(coats, _)| coats.iter().map(|c| c.plate))
+                .collect::<std::collections::BTreeSet<_>>()
+                .into_iter()
+                .collect(),
+        };
+        let weight = |stop: usize, plate: usize| {
+            stops[stop]
+                .0
+                .iter()
+                .find(|c| c.plate == plate)
+                .map_or(0.0, |c| c.weight)
+                .clamp(0.0, 1.0)
+        };
+        for y in mask.rect.top..mask.rect.bottom {
+            for x in mask.rect.left..mask.rect.right {
+                let coverage = mask.at(x, y) * opacity;
+                if coverage <= 0.0 {
+                    continue;
+                }
+                let (a, b, f) = at(x, y);
+                for index in &reach {
+                    let laid = (weight(a, *index) * (1.0 - f) + weight(b, *index) * f) * coverage;
+                    let Some(plate) = self.plates.get_mut(*index) else {
+                        continue;
+                    };
+                    let existing = plate.at(x, y);
+                    let next = match mode {
+                        InkMode::Knockout => existing * (1.0 - coverage) + laid,
+                        InkMode::Overprint => (existing + laid).min(1.0),
+                    };
+                    plate.set(x, y, next.clamp(0.0, 1.0));
+                }
+                let mut ink = [0.0f32; 4];
+                for (stop, share) in [(a, 1.0 - f), (b, f)] {
+                    let (coats, build) = &stops[stop];
+                    for (coat, build) in coats.iter().zip(build) {
+                        let amount = coverage * coat.weight.clamp(0.0, 1.0) * share;
+                        for c in 0..4 {
+                            ink[c] += build[c] * amount;
+                        }
+                    }
+                }
+                let existing = self.composite.at(x, y);
+                let out = std::array::from_fn(|c| {
+                    match mode {
+                        InkMode::Knockout => existing[c] * (1.0 - coverage) + ink[c],
+                        InkMode::Overprint => existing[c] + ink[c],
+                    }
+                    .clamp(0.0, 1.0)
+                });
+                self.composite.set(x, y, out);
+            }
+        }
+    }
+
     /// Record a flat appearance for the composite preview.
     ///
     /// `build` gives each coat's CMYK contribution, which is what a spot

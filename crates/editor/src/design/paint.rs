@@ -129,7 +129,7 @@ pub fn paint_pasteboard(frame: &PasteboardFrame, window: &mut Window) {
             window,
             frame.bounds,
             path,
-            None,
+            Fill::default(),
             Some(([0.1, 0.1, 0.1, 1.0], HAIRLINE)),
         );
     }
@@ -141,7 +141,7 @@ pub fn paint_pasteboard(frame: &PasteboardFrame, window: &mut Window) {
             window,
             frame.bounds,
             path,
-            None,
+            Fill::default(),
             Some(([0.1, 0.1, 0.1, 1.0], HAIRLINE)),
         );
         paint_handles(window, frame.bounds, path);
@@ -288,14 +288,19 @@ fn paint_object(window: &mut Window, frame: &PasteboardFrame, object: &Display) 
         Display::Shape {
             path,
             fill,
+            gradient,
             stroke,
             transform,
             ..
         } => {
+            let fill = Fill {
+                color: *fill,
+                gradient: gradient.as_deref(),
+            };
             if *transform == Affine::IDENTITY {
-                paint_shape(window, frame.bounds, path, *fill, *stroke);
+                paint_shape(window, frame.bounds, path, fill, *stroke);
             } else {
-                paint_shape(window, frame.bounds, path, *fill, None);
+                paint_shape(window, frame.bounds, path, fill, None);
                 if let (Some((color, width)), Some(inverse)) = (stroke, transform.invert()) {
                     let mut local = path.clone();
                     local.map_points(|p| affine::point(inverse, p));
@@ -322,7 +327,7 @@ fn paint_object(window: &mut Window, frame: &PasteboardFrame, object: &Display) 
                             .collect(),
                         even_odd: false,
                     };
-                    paint_shape(window, frame.bounds, &shape, Some(*color), None);
+                    paint_shape(window, frame.bounds, &shape, Fill::solid(*color), None);
                 }
             }
         }
@@ -467,14 +472,41 @@ fn paint_text(
 ///
 /// Filled contours share the output rasterizer and its winding rule.
 /// Unfilled outlines use native cubic paths.
+/// What fills a shape on the canvas: a flat colour or a gradient.
+#[derive(Clone, Copy, Default)]
+struct Fill<'a> {
+    color: Option<[f32; 4]>,
+    gradient: Option<&'a schist_layout::pasteboard::ShapeGradient>,
+}
+
+impl Fill<'_> {
+    fn solid(color: [f32; 4]) -> Self {
+        Self {
+            color: Some(color),
+            gradient: None,
+        }
+    }
+
+    /// The colour at canvas point (x, y).
+    fn at(&self, x: f32, y: f32) -> Option<[f32; 4]> {
+        match (self.gradient, self.color) {
+            (Some(gradient), _) => {
+                let [r, g, b] = gradient.preview(x, y);
+                Some([r, g, b, gradient.opacity])
+            }
+            (None, color) => color,
+        }
+    }
+}
+
 fn paint_shape(
     window: &mut Window,
     bounds: Bounds<Pixels>,
     shape: &schist_layout::ShapePath,
-    fill: Option<[f32; 4]>,
+    fill: Fill<'_>,
     stroke: Option<([f32; 4], f32)>,
 ) {
-    if let Some(color) = fill {
+    if fill.color.is_some() || fill.gradient.is_some() {
         let path = shape.flatten(0.25);
         let clip = schist_core::IntRect::new(
             0,
@@ -493,10 +525,21 @@ fn paint_shape(
                 schist_vector::FillRule::NonZero
             };
             let coverage = schist_vector::rasterize(&path, rect, rule);
-            let [r, g, b, a] = color.map(|v| (v.clamp(0.0, 1.0) * 255.0).round() as u8);
+            let width = rect.width() as usize;
             let pixels = coverage
                 .into_iter()
-                .flat_map(|alpha| [r, g, b, ((alpha as u16 * a as u16 + 127) / 255) as u8])
+                .enumerate()
+                .flat_map(|(index, alpha)| {
+                    let (x, y) = (
+                        rect.left as f32 + (index % width) as f32 + 0.5,
+                        rect.top as f32 + (index / width) as f32 + 0.5,
+                    );
+                    let [r, g, b, a] = fill
+                        .at(x, y)
+                        .unwrap_or_default()
+                        .map(|v| (v.clamp(0.0, 1.0) * 255.0).round() as u8);
+                    [r, g, b, ((alpha as u16 * a as u16 + 127) / 255) as u8]
+                })
                 .collect();
             if let Some(image) =
                 image::RgbaImage::from_raw(rect.width() as u32, rect.height() as u32, pixels)

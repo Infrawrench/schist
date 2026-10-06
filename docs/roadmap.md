@@ -310,6 +310,39 @@ are marked.
 
 ## Handoff
 
+Gradient fills, 2026-10-06:
+Gradient swatches are typed from Graphic.xml (linear or radial, colour or tint
+stops with locations and midpoints) and fill items whose FillColor names them,
+running where the item's GradientFillStart, Length and Angle say; saving writes
+them back. With no start stated a gradient begins at the path's left and bottom
+edges and runs its width, which is what InDesign's own exports write (the
+`multipage` fixture) and what its PDF of the public paged-media `gradients`
+sample draws for items stating none. Plates, the composite and the canvas mix
+each pixel's two stops; separation tests reproduce the sample's linear,
+three-stop and radial pages. The `multipage` fixture's gradient no longer reports
+as an unsupported colour. One key is added to all 150 catalogs, for a radial
+highlight, which is not drawn.
+
+Not composed yet: gradient strokes and text fills (still reported), radial
+highlights, gradient feathers and editing gradient swatches.
+
+The source-frozen sweep of all 16 roadmap targets, headless library wasm, shared
+UI, formatting, whitespace and the debug app build passes on Windows with **2,253
+distinct passing Rust tests**, 10 new (4 layout, 3 separation, 3 IDML), and no
+corrections; all 43 proofs are byte-identical to the previous checkpoint.
+
+Native review used a passive capture of the actual debug app with Design enabled
+and isolated configuration, on a package laid out as the public sample: three
+300 × 150 pt rectangles stating no start (linear black to paper, linear cyan to
+magenta to yellow, radial paper to black) and a label frame filled at 90°. The
+canvas shows the first ramp dark to light along the width, the three inks in
+order with magenta at the middle, the radial gradient lightest at the bottom-left
+corner, and the frame dark at its foot rising to paper; nothing is reported
+unread.
+
+Next: the remaining item 9 gaps. Published to draft PR #195.
+
+
 Accurate import reports, 2026-10-06:
 Importing every real template listed defaults as unread: each section's layout
 name as an alternate layout, the default object styles' text-frame and effects

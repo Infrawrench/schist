@@ -22,13 +22,59 @@ pub(crate) fn read_paint(
             property = "StrokeWeight"
         ));
     }
+    // A gradient fill's offset highlight is not drawn.
+    if element
+        .attr("FillColor")
+        .is_some_and(|r| colors.gradient(r).is_some())
+        && element
+            .number("GradientFillHiliteLength")
+            .is_some_and(|v| v.is_finite() && v != 0.0)
+    {
+        report.skip(schist_i18n::tf!(
+            "design.idml_gradient_highlight",
+            name = element
+                .attr("Name")
+                .filter(|n| !n.is_empty() && *n != "$ID/")
+                .or_else(|| element.attr("Self"))
+                .unwrap_or_default()
+        ));
+    }
     let mut paint = |key| match element.attr(key) {
         Some("Swatch/None" | "n") => Some(Paint::None),
         Some(_) => color_codec::resolve(element, key, colors, report).map(Paint::Ink),
         None => None,
     };
+    // A gradient fill runs where the item says, in its own coordinates.
+    let fill = match element.attr("FillColor") {
+        Some(reference) if colors.gradient(reference).is_some() => {
+            let gradient = colors.gradient(reference).cloned().unwrap();
+            let start = element
+                .attr("GradientFillStart")
+                .map(xml::numbers)
+                .and_then(|v| match v.as_slice() {
+                    [x, y] if x.is_finite() && y.is_finite() => {
+                        Some(schist_layout::Point::new(*x, *y))
+                    }
+                    _ => None,
+                });
+            Some(Paint::Gradient(Box::new(
+                schist_layout::gradients::GradientFill {
+                    gradient,
+                    start,
+                    length: element
+                        .number("GradientFillLength")
+                        .filter(|v| v.is_finite() && *v > 0.0),
+                    angle: element
+                        .number("GradientFillAngle")
+                        .filter(|v| v.is_finite())
+                        .unwrap_or(0.0),
+                },
+            )))
+        }
+        _ => paint("FillColor"),
+    };
     ObjectPaint {
-        fill: paint("FillColor"),
+        fill,
         stroke: paint("StrokeColor"),
         stroke_width: element
             .number("StrokeWeight")
@@ -168,15 +214,26 @@ pub(crate) fn paint_attributes(paint: &ObjectPaint) -> String {
     let mut out = String::new();
     for (key, value) in [("FillColor", &paint.fill), ("StrokeColor", &paint.stroke)] {
         if let Some(value) = value {
+            let reference = match value {
+                Paint::Ink(ink) => color_codec::reference(ink),
+                Paint::Gradient(fill) => color_codec::gradient_reference(&fill.gradient),
+                Paint::None => "Swatch/None".into(),
+            };
+            attr(&mut out, key, reference);
+        }
+    }
+    if let Some(fill) = paint.fill_gradient() {
+        if let Some(start) = fill.start {
             attr(
                 &mut out,
-                key,
-                value
-                    .ink()
-                    .map(color_codec::reference)
-                    .unwrap_or_else(|| "Swatch/None".into()),
+                "GradientFillStart",
+                format!("{} {}", start.x, start.y),
             );
         }
+        if let Some(length) = fill.length {
+            attr(&mut out, "GradientFillLength", length);
+        }
+        attr(&mut out, "GradientFillAngle", fill.angle);
     }
     for (key, value) in [
         ("StrokeWeight", paint.stroke_width),
@@ -291,8 +348,19 @@ pub(crate) fn read_appearance(
         .attr("AppliedObjectStyle")
         .filter(|s| !s.is_empty() && *s != "n")
         .map(str::to_owned);
-    let paint = read_paint(element, colors, report);
-    if object.appearance.style.is_some() || !matches!(object.object, LayoutObject::Shape { .. }) {
+    let mut paint = read_paint(element, colors, report);
+    // A gradient's start is in the item's own coordinates; paths here are
+    // relative to their bounds' corner.
+    if let Some(Paint::Gradient(fill)) = &mut paint.fill {
+        if let Some(start) = &mut fill.start {
+            start.x -= local.x;
+            start.y -= local.y;
+        }
+    }
+    if object.appearance.style.is_some()
+        || !matches!(object.object, LayoutObject::Shape { .. })
+        || paint.fill_gradient().is_some()
+    {
         object.appearance.paint = paint;
         if let LayoutObject::Shape { path, .. } = &object.object {
             object.object = ObjectPaint::default().shape(path.clone());

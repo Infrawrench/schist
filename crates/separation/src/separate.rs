@@ -602,7 +602,32 @@ fn paint_object_content<'a>(
             ..
         } => {
             let coverage = crate::raster::placed_shape_coverage(placed, settings, page, false);
-            if let Some(ink) = fill {
+            let gradient = placed.appearance.paint.fill_gradient();
+            if let (Some(gradient), LayoutObject::Shape { path, .. }) = (gradient, &placed.object) {
+                let stops: Vec<_> = gradient
+                    .gradient
+                    .stops
+                    .iter()
+                    .map(|stop| tinted_coats_for(plan, &stop.ink, 1.0))
+                    .collect();
+                let to_path = crate::raster::to_path(placed, settings, page);
+                let vector = gradient.vector(path.bounds());
+                let mode = if *fill_overprint {
+                    InkMode::Overprint
+                } else {
+                    mode
+                };
+                separation.paint_gradient(
+                    &coverage,
+                    &stops,
+                    |x, y| {
+                        let p = to_path(x as f32 + 0.5, y as f32 + 0.5);
+                        gradient.gradient.mix(gradient.position(p, vector))
+                    },
+                    mode,
+                    opacity,
+                );
+            } else if let Some(ink) = fill {
                 let (coats, build) = tinted_coats_for(plan, ink, tints.fill);
                 let mode = if *fill_overprint {
                     InkMode::Overprint

@@ -230,6 +230,27 @@ pub fn placed_shape_coverage(
     )
 }
 
+/// Maps a page pixel back to `placed`'s path coordinates, the inverse of
+/// how `placed_shape_coverage` lays its path on the page.
+pub(crate) fn to_path(
+    placed: &PlacedObject,
+    settings: OutputSettings,
+    page: &schist_layout::Page,
+) -> impl Fn(f32, f32) -> schist_layout::Point {
+    let origin = PagePixel::of(settings, page, placed.bounds.origin());
+    let scale = settings.scale();
+    let inverse = schist_layout::affine::in_view(
+        placed.content_transform(),
+        scale,
+        schist_layout::Point::ZERO,
+    )
+    .invert();
+    move |x, y| {
+        let (u, v) = inverse.map_or((x, y), |m| m.apply(x, y));
+        schist_layout::Point::new((u - origin.x as f32) / scale, (v - origin.y as f32) / scale)
+    }
+}
+
 /// Separator rules use the frame affine on their vector geometry before
 /// rasterization, like ordinary shapes. Warping a rasterized rule blurs edges.
 pub(crate) fn footnote_rule_coverage(

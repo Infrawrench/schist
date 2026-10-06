@@ -176,6 +176,27 @@ impl Guide {
     }
 }
 
+/// A gradient a shape is filled with, for a painter: the fill, the bounds
+/// of the path it runs over, and the map from pasteboard space back to the
+/// path's own coordinates.
+#[derive(Debug, Clone, PartialEq)]
+pub struct ShapeGradient {
+    pub fill: crate::gradients::GradientFill,
+    pub bounds: Rect,
+    pub to_path: schist_core::Affine,
+    pub opacity: f32,
+}
+
+impl ShapeGradient {
+    /// The screen colour at a pasteboard point.
+    pub fn preview(&self, x: f32, y: f32) -> [f32; 3] {
+        let (px, py) = self.to_path.apply(x, y);
+        let vector = self.fill.vector(self.bounds);
+        let t = self.fill.position(Point::new(px, py), vector);
+        self.fill.gradient.preview(t)
+    }
+}
+
 /// Something to draw on a page.
 #[derive(Debug, Clone, PartialEq)]
 pub enum Display {
@@ -237,6 +258,8 @@ pub enum Display {
         inherited: bool,
         locked: bool,
         fill: Option<[f32; 4]>,
+        /// A gradient fill, which `fill` then leaves out.
+        gradient: Option<Box<ShapeGradient>>,
         stroke: Option<([f32; 4], Pt)>,
         overprint: bool,
     },
@@ -629,6 +652,7 @@ fn objects_for(
                             inherited,
                             locked: object.locked || doc.layer_locked(doc.object_layer(object.id)),
                             fill: Some([rgb[0], rgb[1], rgb[2], object.transparency]),
+                            gradient: None,
                             stroke: None,
                             overprint: rule.overprint,
                         });
@@ -1039,14 +1063,38 @@ fn shape_display(
     // have to be offset by the frame's origin before they
     // reach the pasteboard. Left unshifted, every shape on a
     // page would be drawn in the corner.
-    let mut path = path.clone();
-    path.map_points(|p| {
+    let to_pasteboard = |p: Point| {
         let p = crate::affine::point(
             object.content_transform(),
             Point::new(object.bounds.x + p.x, object.bounds.y + p.y),
         );
         move_to(Rect::new(p.x, p.y, 0.0, 0.0), view, offset).origin()
+    };
+    // The path's own coordinates back from the pasteboard, for a gradient:
+    // the same map read off three points, inverted.
+    let gradient = object.appearance.paint.fill_gradient().and_then(|fill| {
+        let (o, x, y) = (
+            to_pasteboard(Point::ZERO),
+            to_pasteboard(Point::new(1.0, 0.0)),
+            to_pasteboard(Point::new(0.0, 1.0)),
+        );
+        let forward = schist_core::Affine {
+            a: x.x - o.x,
+            b: x.y - o.y,
+            c: y.x - o.x,
+            d: y.y - o.y,
+            tx: o.x,
+            ty: o.y,
+        };
+        Some(Box::new(ShapeGradient {
+            fill: fill.clone(),
+            bounds: path.bounds(),
+            to_path: forward.invert()?,
+            opacity: object.transparency,
+        }))
     });
+    let mut path = path.clone();
+    path.map_points(to_pasteboard);
     Some(Display::Shape {
         path_editable,
         object: object.id,
@@ -1055,10 +1103,11 @@ fn shape_display(
         path,
         inherited,
         locked: object.locked || doc.layer_locked(doc.object_layer(object.id)),
-        fill: fill.as_ref().map(|ink| {
+        fill: fill.as_ref().filter(|_| gradient.is_none()).map(|ink| {
             let rgb = ink.preview_at_tint(tints.fill);
             [rgb[0], rgb[1], rgb[2], object.transparency]
         }),
+        gradient,
         stroke: stroke.as_ref().map(|ink| {
             let rgb = ink.preview_at_tint(tints.stroke);
             (

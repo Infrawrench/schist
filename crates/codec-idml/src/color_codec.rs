@@ -5,10 +5,11 @@ use crate::{
     import::Report,
     xml::{self, Element},
 };
+use schist_layout::gradients::{Gradient, GradientStop};
 use schist_layout::Ink;
 
 #[derive(Default)]
-pub struct Colors(Vec<(String, Ink)>);
+pub struct Colors(Vec<(String, Ink)>, Vec<(String, Gradient)>);
 impl Colors {
     pub fn values(&self) -> impl Iterator<Item = &Ink> {
         self.0.iter().map(|(_, ink)| ink)
@@ -18,6 +19,12 @@ impl Colors {
             .iter()
             .find(|(id, _)| id == reference)
             .map(|(_, ink)| ink)
+    }
+    pub(crate) fn gradient(&self, reference: &str) -> Option<&Gradient> {
+        self.1
+            .iter()
+            .find(|(id, _)| id == reference)
+            .map(|(_, gradient)| gradient)
     }
 }
 
@@ -97,7 +104,123 @@ pub fn read(opened: &DesignPackage<'_>, report: &mut Report) -> Colors {
             .expect("validated tint");
         colors.0.push((id.to_owned(), ink));
     }
+    // Gradients after every colour and tint their stops name.
+    for part in opened.listed.iter().filter(|p| p.role == "Graphic") {
+        let Ok(text) = opened.text_of(&part.name) else {
+            continue;
+        };
+        let Ok(root) = xml::parse(text) else {
+            continue;
+        };
+        for el in root.find_all("Gradient") {
+            let Some(id) = el.attr("Self") else { continue };
+            if let Some(gradient) = gradient(el, &colors, report) {
+                colors.1.push((id.to_owned(), gradient));
+            }
+        }
+    }
     colors
+}
+
+/// A Gradient swatch: its type and stops, each stop's colour resolved and
+/// its location and midpoint as fractions. One that cannot be read is
+/// reported and left out, so items filled with it are unfilled.
+fn gradient(el: &Element, colors: &Colors, report: &mut Report) -> Option<Gradient> {
+    let id = el.attr("Self").unwrap_or_default();
+    let name = el
+        .attr("Name")
+        .filter(|s| !s.is_empty() && *s != "$ID/")
+        .unwrap_or(id)
+        .trim_start_matches("$ID/")
+        .to_owned();
+    let mut stops = Vec::new();
+    for stop in el.children_named("GradientStop") {
+        let Some(ink) = stop.attr("StopColor").and_then(|c| colors.get(c)) else {
+            report.skip(schist_i18n::tf!(
+                "design.idml_color_unread",
+                name = stop.attr("StopColor").unwrap_or(id)
+            ));
+            return None;
+        };
+        let percent = |key: &str, default: f32| {
+            stop.attr(key)
+                .map_or(Some(default), xml::parse_number)
+                .filter(|v| v.is_finite() && (0.0..=100.0).contains(v))
+                .map(|v| v / 100.0)
+        };
+        let (Some(location), Some(midpoint)) =
+            (percent("Location", 0.0), percent("Midpoint", 50.0))
+        else {
+            report.skip(schist_i18n::tf!("design.idml_color_unread", name = name));
+            return None;
+        };
+        stops.push(GradientStop {
+            ink: ink.clone(),
+            location,
+            midpoint,
+        });
+    }
+    let gradient = Gradient {
+        name,
+        radial: match el.attr("Type") {
+            None | Some("Linear") => false,
+            Some("Radial") => true,
+            Some(_) => {
+                report.skip(schist_i18n::tf!("design.idml_color_unread", name = id));
+                return None;
+            }
+        },
+        stops,
+    };
+    if gradient.valid() {
+        Some(gradient)
+    } else {
+        report.skip(schist_i18n::tf!("design.idml_color_unread", name = id));
+        None
+    }
+}
+
+/// A gradient swatch's reference, unique to its definition.
+pub fn gradient_reference(gradient: &Gradient) -> String {
+    let bits: String = gradient
+        .stops
+        .iter()
+        .flat_map(|s| [s.location, s.midpoint])
+        .map(|v| format!("{:08x}", v.to_bits()))
+        .chain(gradient.stops.iter().map(|s| reference(&s.ink)))
+        .collect();
+    let mut hash = 0xcbf2_9ce4_8422_2325u64;
+    for byte in bits.bytes() {
+        hash = (hash ^ u64::from(byte)).wrapping_mul(0x100_0000_01b3);
+    }
+    format!(
+        "Gradient/Schist-{}-{}-{hash:016x}",
+        gradient.name,
+        u8::from(gradient.radial)
+    )
+}
+
+/// The Gradient swatch resource; its stops name the colours written
+/// alongside it.
+pub fn gradient_resource(gradient: &Gradient) -> String {
+    let id = gradient_reference(gradient);
+    let mut out = format!(
+        r#"<Gradient Self="{}" Type="{}" Name="{}">"#,
+        crate::export::escape(&id),
+        if gradient.radial { "Radial" } else { "Linear" },
+        crate::export::escape(&gradient.name)
+    );
+    for (index, stop) in gradient.stops.iter().enumerate() {
+        out.push_str(&format!(
+            r#"<GradientStop Self="{}Stop{index}" StopColor="{}" Location="{}" Midpoint="{}"/>"#,
+            crate::export::escape(&id),
+            crate::export::escape(&reference(&stop.ink)),
+            stop.location * 100.0,
+            stop.midpoint * 100.0
+        ));
+    }
+    out.push_str("</Gradient>");
+    out
 }
 
 pub fn resolve(el: &Element, key: &str, colors: &Colors, report: &mut Report) -> Option<Ink> {

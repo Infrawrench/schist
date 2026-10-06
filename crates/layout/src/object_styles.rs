@@ -8,13 +8,22 @@ use crate::{Ink, LayoutObject, PaintTints, PlacedObject, ShapePath, StyleSet};
 pub enum Paint {
     None,
     Ink(Ink),
+    /// A gradient swatch and where it runs on the item.
+    Gradient(Box<crate::gradients::GradientFill>),
 }
 
 impl Paint {
     pub fn ink(&self) -> Option<&Ink> {
         match self {
-            Self::None => None,
             Self::Ink(ink) => Some(ink),
+            _ => None,
+        }
+    }
+
+    pub fn gradient(&self) -> Option<&crate::gradients::GradientFill> {
+        match self {
+            Self::Gradient(gradient) => Some(gradient),
+            _ => None,
         }
     }
 }
@@ -69,6 +78,9 @@ impl ObjectPaint {
     }
     pub fn stroke_ink(&self) -> Option<&Ink> {
         self.stroke.as_ref().and_then(Paint::ink)
+    }
+    pub fn fill_gradient(&self) -> Option<&crate::gradients::GradientFill> {
+        self.fill.as_ref().and_then(Paint::gradient)
     }
 
     pub fn shape(&self, path: ShapePath) -> LayoutObject {
@@ -324,7 +336,9 @@ impl PlacedObject {
             }
             paint.fill = None;
         } else {
-            paint.fill_ink()?;
+            if paint.fill_ink().is_none() && paint.fill_gradient().is_none() {
+                return None;
+            }
             paint.stroke = None;
         }
         let baseline = match &self.object {
@@ -345,6 +359,10 @@ impl PlacedObject {
         let mut out = self.clone();
         out.object = paint.shape(path);
         out.appearance = ObjectAppearance::default();
+        // A gradient is read from the paint-ready appearance.
+        if paint.fill_gradient().is_some() {
+            out.appearance.paint = paint;
+        }
         Some(out)
     }
 }

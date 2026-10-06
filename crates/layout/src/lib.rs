@@ -30,6 +30,7 @@ pub mod footnote_composition;
 pub mod footnotes;
 pub mod frame_text;
 pub mod geometry;
+pub mod gradients;
 pub mod graphics;
 pub mod grid;
 pub mod history;

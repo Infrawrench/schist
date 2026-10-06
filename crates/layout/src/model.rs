@@ -620,6 +620,14 @@ impl LayoutDocument {
         for style in &self.styles.objects {
             add(&style.paint.fill_ink().cloned());
             add(&style.paint.stroke_ink().cloned());
+            for stop in style
+                .paint
+                .fill_gradient()
+                .iter()
+                .flat_map(|g| &g.gradient.stops)
+            {
+                add(&Some(stop.ink.clone()));
+            }
         }
         for object in self.objects.iter().chain(
             self.parents
@@ -628,12 +636,45 @@ impl LayoutDocument {
         ) {
             add(&object.appearance.paint.fill_ink().cloned());
             add(&object.appearance.paint.stroke_ink().cloned());
+            for stop in object
+                .appearance
+                .paint
+                .fill_gradient()
+                .iter()
+                .flat_map(|g| &g.gradient.stops)
+            {
+                add(&Some(stop.ink.clone()));
+            }
             if let LayoutObject::Shape { fill, stroke, .. } = &object.object {
                 add(fill);
                 add(stroke);
             }
         }
         inks
+    }
+
+    /// Every gradient swatch the document's items and object styles fill
+    /// with, each once.
+    pub fn all_gradients(&self) -> Vec<crate::gradients::Gradient> {
+        let mut out: Vec<crate::gradients::Gradient> = Vec::new();
+        let paints = self.styles.objects.iter().map(|style| &style.paint).chain(
+            self.objects
+                .iter()
+                .chain(
+                    self.parents
+                        .iter()
+                        .flat_map(|p| p.objects.iter().map(|o| &o.object)),
+                )
+                .map(|object| &object.appearance.paint),
+        );
+        for paint in paints {
+            if let Some(fill) = paint.fill_gradient() {
+                if !out.contains(&fill.gradient) {
+                    out.push(fill.gradient.clone());
+                }
+            }
+        }
+        out
     }
 
     /// A document with the given pages and everything a blank document

@@ -1017,6 +1017,9 @@ fn graphic_xml(document: &LayoutDocument) -> String {
     for ink in inks {
         out.push_str(&crate::color_codec::resource(&ink));
     }
+    for gradient in document.all_gradients() {
+        out.push_str(&crate::color_codec::gradient_resource(&gradient));
+    }
     let mut strokes = document.all_decoration_strokes();
     strokes.retain(|s| !matches!(s.pattern, schist_text_engine::TextDecorationPattern::Solid));
     for stroke in

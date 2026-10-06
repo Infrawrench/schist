@@ -390,6 +390,39 @@ Styles.xml and object mapping were unimplemented were stale.
 INDD has eleven acquired public pairs, with three redistributable pairs in the repository, recorded separately in
 [indd-format.md](indd-format.md). It does not validate INDD object semantics.
 
+### Gradient swatches and fills
+
+Gradient swatches in Graphic.xml are typed: Linear or Radial, and stops in
+order, each a colour or tint swatch with its Location and Midpoint as fractions.
+A swatch whose stops name an unknown colour, or whose type, locations or
+midpoints are out of range, is reported and left out. An item's FillColor naming
+one fills it with the gradient, run where its GradientFillStart (in the item's
+own path coordinates), GradientFillLength (the line's length or the radius) and
+GradientFillAngle (degrees counter-clockwise) say; saving writes the swatch,
+its stop colours and the item's settings back.
+
+An item stating no start begins at its path's left and bottom edges, as long as
+its path is wide. InDesign's own exports write exactly that when a gradient is
+applied in its user interface: the `multipage` fixture's rectangle, from
+(198.763, -48.701) to (444.569, 197.105), has GradientFillStart
+"198.763 197.105" and GradientFillLength 245.806. The public
+[`gradients` PDF](https://github.com/paged-media/core/blob/ffb7c8713125dc77403ec0983099f74ac2558517/corpus/generated/gradients.pdf) (SHA-256
+`7966be59…f4e9`) and its
+[generator](https://github.com/paged-media/core/blob/ffb7c8713125dc77403ec0983099f74ac2558517/crates/paged-gen/src/samples/gradients.rs) state none on five
+360 × 200 pt rectangles. InDesign shades each in unit space mapped by
+`360 0 0 -360` onto the rectangle's bottom-left corner: page 1's black-to-paper
+axis runs along the width, page 2's cyan, magenta and yellow stops sit at 0, 50
+and 100 % of it, page 3's radial gradient is centred on that corner with the
+width as radius, and page 5's four stops at 0, 33, 66 and 100 %. Every stop mixes
+linearly (exponent 1) at the even midpoint the sample gives; an uneven midpoint
+is applied as the exponent that mixes evenly there, a Schist reading.
+
+Plates and the composite take each pixel's mix of its two stops' inks, knocked
+out or overprinted as the item's fill is; the canvas draws the same mix. A
+radial gradient's offset highlight (GradientFillHiliteLength) is reported and not
+drawn. Gradient strokes and gradient text fills are reported as unsupported
+colours, as before.
+
 ### What the import report names
 
 The report lists what Schist reads but does not set, once per kind. Settings
