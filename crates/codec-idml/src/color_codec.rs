@@ -57,7 +57,9 @@ pub fn read(opened: &DesignPackage<'_>, report: &mut Report) -> Colors {
                 (Some("RGB"), [r, g, b], true) => {
                     Ink::process(name, [r / 255.0, g / 255.0, b / 255.0])
                 }
-                (Some("Lab"), [l, a, b], true) => Ink::spot(name, [*l, *a, *b]),
+                // The specification's ColorSpace is LAB; Schist's earlier
+                // saves wrote Lab.
+                (Some("LAB" | "Lab"), [l, a, b], true) => Ink::spot(name, [*l, *a, *b]),
                 _ => {
                     report.skip(schist_i18n::tf!("design.idml_color_unread", name = name));
                     continue;
@@ -304,7 +306,7 @@ pub fn resource(ink: &Ink) -> String {
                 .collect::<Vec<_>>(),
         )
     } else if ink.spot {
-        ("Lab", ink.lab.iter().map(ToString::to_string).collect())
+        ("LAB", ink.lab.iter().map(ToString::to_string).collect())
     } else {
         (
             "RGB",

@@ -14,7 +14,8 @@ use std::sync::Arc;
 
 use gpui::{rgb, Background, Bounds, Corners, PathBuilder, Pixels, Point as GpuiPoint, Window};
 use schist_layout::affine::{self, Affine};
-use schist_layout::pasteboard::{Display, Guide, GuideKind, PagePlan, Pasteboard};
+use schist_layout::pasteboard::{Display, Guide, GuideKind, PagePlan, Pasteboard, StrokeOptions};
+use schist_layout::StrokeAlignment;
 use schist_layout::{Point, Pt, Rect};
 use schist_text_engine::{rasterize, TextRaster, TextSpec};
 
@@ -290,6 +291,7 @@ fn paint_object(window: &mut Window, frame: &PasteboardFrame, object: &Display) 
             fill,
             gradient,
             stroke,
+            stroke_options,
             transform,
             ..
         } => {
@@ -297,21 +299,20 @@ fn paint_object(window: &mut Window, frame: &PasteboardFrame, object: &Display) 
                 color: *fill,
                 gradient: gradient.as_deref(),
             };
-            if *transform == Affine::IDENTITY {
+            if *transform == Affine::IDENTITY && *stroke_options == StrokeOptions::default() {
+                // GPUI strokes with InDesign's defaults: butt, mitre, 4.
                 paint_shape(window, frame.bounds, path, fill, *stroke);
-            } else {
-                paint_shape(window, frame.bounds, path, fill, None);
-                if let (Some((color, width)), Some(inverse)) = (stroke, transform.invert()) {
+            } else if let (Some((color, width)), Some(inverse)) = (stroke, transform.invert()) {
+                // The stroke outlined in the shape's own space, so a skewed
+                // or unevenly scaled shape strokes as it prints.
+                let outline = |width: f32| {
                     let mut local = path.clone();
                     local.map_points(|p| affine::point(inverse, p));
                     let outline = schist_vector::stroke_path(
                         &local.flatten(0.25 / affine::stretch(*transform).max(1.0)),
-                        schist_vector::StrokeStyle {
-                            width: *width,
-                            ..Default::default()
-                        },
+                        stroke_options.style(width),
                     );
-                    let shape = schist_layout::ShapePath {
+                    schist_layout::ShapePath {
                         subpaths: outline
                             .subpaths
                             .iter()
@@ -326,9 +327,33 @@ fn paint_object(window: &mut Window, frame: &PasteboardFrame, object: &Display) 
                             })
                             .collect(),
                         even_odd: false,
-                    };
-                    paint_shape(window, frame.bounds, &shape, Fill::solid(*color), None);
+                    }
+                };
+                let closed = path.subpaths.iter().any(|s| s.closed);
+                match stroke_options.alignment {
+                    StrokeAlignment::Inside | StrokeAlignment::Outside if closed => {
+                        paint_aligned(
+                            window,
+                            frame.bounds,
+                            path,
+                            fill,
+                            (*color, &outline(*width), &outline(*width * 2.0)),
+                            stroke_options.alignment == StrokeAlignment::Inside,
+                        );
+                    }
+                    _ => {
+                        paint_shape(window, frame.bounds, path, fill, None);
+                        paint_shape(
+                            window,
+                            frame.bounds,
+                            &outline(*width),
+                            Fill::solid(*color),
+                            None,
+                        );
+                    }
                 }
+            } else {
+                paint_shape(window, frame.bounds, path, fill, None);
             }
         }
         Display::Graphic {
@@ -472,6 +497,92 @@ fn paint_text(
 ///
 /// Filled contours share the output rasterizer and its winding rule.
 /// Unfilled outlines use native cubic paths.
+/// A shape whose stroke sits inside or outside its path: InDesign moves the
+/// path half the stroke's weight that way for the fill and the stroke alike.
+/// `stroke` is the stroke's colour and its outlines at the weight and at
+/// twice it. Inside, the fill loses the inner half of the first band and the
+/// stroke is the inner side of the second; outside, the fill gains the outer
+/// half and the stroke is the outer side. The stroke is laid over the fill.
+fn paint_aligned(
+    window: &mut Window,
+    bounds: Bounds<Pixels>,
+    shape: &schist_layout::ShapePath,
+    fill: Fill<'_>,
+    (color, narrow, wide): (
+        [f32; 4],
+        &schist_layout::ShapePath,
+        &schist_layout::ShapePath,
+    ),
+    inside: bool,
+) {
+    let path = shape.flatten(0.25);
+    let narrow = narrow.flatten(0.25);
+    let wide = wide.flatten(0.25);
+    let clip = schist_core::IntRect::new(
+        0,
+        0,
+        f32::from(bounds.size.width).ceil() as i32,
+        f32::from(bounds.size.height).ceil() as i32,
+    );
+    let rect = path.bounds().union(&wide.bounds()).intersect(&clip);
+    if rect.width() <= 0
+        || rect.height() <= 0
+        || i64::from(rect.width()) * i64::from(rect.height()) > 16_000_000
+    {
+        return;
+    }
+    let rule = if shape.even_odd {
+        schist_vector::FillRule::EvenOdd
+    } else {
+        schist_vector::FillRule::NonZero
+    };
+    let filled = schist_vector::rasterize(&path, rect, rule);
+    let band = schist_vector::rasterize(&narrow, rect, schist_vector::FillRule::NonZero);
+    let double = schist_vector::rasterize(&wide, rect, schist_vector::FillRule::NonZero);
+    let width = rect.width() as usize;
+    let mut pixels = Vec::with_capacity(filled.len() * 4);
+    for index in 0..filled.len() {
+        let (f, n, w) = (
+            f32::from(filled[index]) / 255.0,
+            f32::from(band[index]) / 255.0,
+            f32::from(double[index]) / 255.0,
+        );
+        let (fill_cover, stroke_cover) = if inside {
+            (f * (1.0 - n), w * f)
+        } else {
+            (f.max(n), w * (1.0 - f))
+        };
+        let (x, y) = (
+            rect.left as f32 + (index % width) as f32 + 0.5,
+            rect.top as f32 + (index / width) as f32 + 0.5,
+        );
+        let under = fill.at(x, y).unwrap_or_default();
+        let fa = fill_cover * under[3];
+        let sa = stroke_cover * color[3];
+        let alpha = sa + fa * (1.0 - sa);
+        let rgb: [f32; 3] = std::array::from_fn(|c| {
+            if alpha > 0.0 {
+                (color[c] * sa + under[c] * fa * (1.0 - sa)) / alpha
+            } else {
+                0.0
+            }
+        });
+        pixels.extend(
+            [rgb[0], rgb[1], rgb[2], alpha].map(|v| (v.clamp(0.0, 1.0) * 255.0).round() as u8),
+        );
+    }
+    if let Some(image) =
+        image::RgbaImage::from_raw(rect.width() as u32, rect.height() as u32, pixels)
+    {
+        let image = super::graphics::render_image(image);
+        let target = Bounds::new(
+            gpoint(&bounds, Point::new(rect.left as f32, rect.top as f32)),
+            gpui::size(px(rect.width() as f32), px(rect.height() as f32)),
+        );
+        let _ = window.paint_image(target, Corners::default(), image, 0, false);
+    }
+}
+
 /// What fills a shape on the canvas: a flat colour or a gradient.
 #[derive(Clone, Copy, Default)]
 struct Fill<'a> {

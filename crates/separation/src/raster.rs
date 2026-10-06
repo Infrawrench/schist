@@ -182,7 +182,7 @@ pub fn shape_coverage(
         (bounds, schist_core::Affine::IDENTITY),
         settings,
         page,
-        stroke_width,
+        (stroke_width, schist_vector::StrokeStyle::default()),
         true,
     )
 }
@@ -201,33 +201,102 @@ pub fn stroke_coverage(
         (bounds, schist_core::Affine::IDENTITY),
         settings,
         page,
-        width,
+        (width, schist_vector::StrokeStyle::default()),
         false,
     )
 }
 
 /// Stroke in the original frame, then transform its outline, so nonuniform
 /// scale and shear affect both the path and the physical stroke consistently.
+///
+/// The stroke ends, joins and mitres as the item's stroke options say, with
+/// InDesign's defaults (butt caps, mitre joins, a limit of 4). A stroke
+/// aligned inside or outside a closed path moves the path half its weight
+/// that way for the fill and the stroke alike, as InDesign's PDF of the
+/// public `strokes-fills` sample draws it: inside, the fill loses the inner
+/// half of a centred stroke's band and the stroke is the inner side of one
+/// twice as wide; outside, the fill gains the outer half and the stroke is
+/// the outer side.
 pub fn placed_shape_coverage(
     placed: &PlacedObject,
     settings: OutputSettings,
     page: &schist_layout::Page,
     stroke: bool,
 ) -> Coverage {
+    use schist_layout::{StrokeAlignment, StrokeCap, StrokeJoin};
     let LayoutObject::Shape {
-        path, stroke_width, ..
+        path,
+        stroke_width,
+        stroke: ink,
+        ..
     } = &placed.object
     else {
         return Coverage::new(IntRect::EMPTY);
     };
-    shape_mask(
-        path,
-        (placed.bounds, placed.content_transform()),
-        settings,
-        page,
-        if stroke { *stroke_width } else { 0.0 },
-        !stroke,
-    )
+    let paint = &placed.appearance.paint;
+    let style = schist_vector::StrokeStyle {
+        width: 0.0,
+        cap: match paint.stroke_cap.unwrap_or_default() {
+            StrokeCap::Butt => schist_vector::LineCap::Butt,
+            StrokeCap::Round => schist_vector::LineCap::Round,
+            StrokeCap::Projecting => schist_vector::LineCap::Square,
+        },
+        join: match paint.stroke_join.unwrap_or_default() {
+            StrokeJoin::Miter => schist_vector::LineJoin::Miter,
+            StrokeJoin::Round => schist_vector::LineJoin::Round,
+            StrokeJoin::Bevel => schist_vector::LineJoin::Bevel,
+        },
+        miter_limit: paint
+            .miter_limit
+            .filter(|v| v.is_finite() && *v >= 1.0)
+            .unwrap_or(4.0),
+    };
+    let mask = |width: f32, fill: bool| {
+        shape_mask(
+            path,
+            (placed.bounds, placed.content_transform()),
+            settings,
+            page,
+            (width, style),
+            fill,
+        )
+    };
+    let width = *stroke_width;
+    let alignment = if ink.is_some() && width > 0.0 && path.subpaths.iter().any(|s| s.closed) {
+        paint.stroke_alignment.unwrap_or_default()
+    } else {
+        StrokeAlignment::Center
+    };
+    match (stroke, alignment) {
+        (false, StrokeAlignment::Center) => mask(0.0, true),
+        (true, StrokeAlignment::Center) => mask(width, false),
+        (false, StrokeAlignment::Inside) => {
+            mix(&mask(0.0, true), &mask(width, false), |f, s| f * (1.0 - s))
+        }
+        (true, StrokeAlignment::Inside) => {
+            mix(&mask(width * 2.0, false), &mask(0.0, true), |s, f| s * f)
+        }
+        (false, StrokeAlignment::Outside) => mask(width, true),
+        (true, StrokeAlignment::Outside) => {
+            mix(&mask(width * 2.0, false), &mask(0.0, true), |s, f| {
+                s * (1.0 - f)
+            })
+        }
+    }
+}
+
+/// `a` combined pixel by pixel with `b` over `a`'s area.
+fn mix(a: &Coverage, b: &Coverage, combine: impl Fn(f32, f32) -> f32) -> Coverage {
+    let mut out = Coverage::new(a.rect);
+    let width = a.rect.width();
+    for y in a.rect.top..a.rect.bottom {
+        for x in a.rect.left..a.rect.right {
+            let value = combine(a.at(x, y), b.at(x, y)).clamp(0.0, 1.0);
+            out.data[((y - a.rect.top) * width + (x - a.rect.left)) as usize] =
+                (value * 255.0).round() as u8;
+        }
+    }
+    out
 }
 
 /// Maps a page pixel back to `placed`'s path coordinates, the inverse of
@@ -264,7 +333,7 @@ pub(crate) fn footnote_rule_coverage(
         (rule.bounds, placed.content_transform()),
         settings,
         page,
-        0.0,
+        (0.0, schist_vector::StrokeStyle::default()),
         true,
     )
 }
@@ -274,7 +343,7 @@ fn shape_mask(
     placement: (Rect, schist_core::Affine),
     settings: OutputSettings,
     page: &schist_layout::Page,
-    width: f32,
+    (width, style): (f32, schist_vector::StrokeStyle),
     fill: bool,
 ) -> Coverage {
     let (bounds, transform) = placement;
@@ -292,7 +361,7 @@ fn shape_mask(
             &path,
             schist_vector::StrokeStyle {
                 width: width * settings.scale(),
-                ..Default::default()
+                ..style
             },
         )
     });

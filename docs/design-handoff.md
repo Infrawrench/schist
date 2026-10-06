@@ -180,10 +180,11 @@ the roadmap. Production INDD remains gated on Phase 0.
 
 ## Verification at this checkpoint
 
-The gradient batch passes all 16 roadmap targets, headless library wasm, shared
-UI, formatting, whitespace and the debug app build (2,253 distinct passing Rust
-tests), and all 43 proofs are byte-identical to the previous checkpoint. Details
-are in Roadmap / Handoff.
+The stroke options batch passes all 16 roadmap targets, headless library wasm,
+shared UI, formatting, whitespace and the debug app build (2,262 distinct passing
+Rust tests). The object-style proof's rectangular frames now mitre their stroke
+corners; the other 42 proofs are byte-identical to the previous checkpoint.
+Details are in Roadmap / Handoff.
 
 The two macOS-only editor tests were not compiled here; the next macOS
 run should include them.
@@ -192,8 +193,8 @@ run should include them.
 
 Task logs and evidence are under the Git Bash `/tmp` (`C:\Users\Administrator\AppData\Local\Temp`):
 `schist-validate/` (`aaad6dc0` logs, proofs, hashes, native screenshots),
-`schist-sweep/` to `schist-sweep16/` (batch sweep logs), `schist-proofs-b3/` to
-`schist-proofs-b12/` (proof PDFs per batch), `schist-tables-research/` (table
+`schist-sweep/` to `schist-sweep21/` (batch sweep logs), `schist-proofs-b3/` to
+`schist-proofs-b17/` (proof PDFs per batch), `schist-tables-research/` (table
 sample PDFs, generators and `pdfops2.py`), `schist-b3/` to `schist-b6/`
 (review-document generators and logs), `schist-wrap-research/` (text-wrap references), `schist-anchored-research/` (the
 anchored sample's PDF, inputs and measuring scripts `pdfops.py`/`measure.py`) and

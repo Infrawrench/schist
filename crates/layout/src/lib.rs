@@ -86,7 +86,9 @@ pub use model::{
     LayoutLayer, LayoutObject, Link, ObjectId, ParentObject, ParentPage, PlacedObject, StoryId,
 };
 pub use numbering::Section;
-pub use object_styles::{ObjectAppearance, ObjectPaint, ObjectStyle, Paint};
+pub use object_styles::{
+    ObjectAppearance, ObjectPaint, ObjectStyle, Paint, StrokeAlignment, StrokeCap, StrokeJoin,
+};
 pub use pasteboard::{pasteboard, Display, Guide, PageBox, PagePlan, Pasteboard, PasteboardView};
 pub use story::{
     Point as StoryPoint, Story, StoryDirection, StoryOrientation, StoryPreferences, StoryStructure,

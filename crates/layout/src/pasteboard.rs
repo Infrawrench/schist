@@ -176,6 +176,59 @@ impl Guide {
     }
 }
 
+/// How a shape's stroke ends, joins and sits on its path, for a painter.
+#[derive(Debug, Clone, Copy, PartialEq)]
+pub struct StrokeOptions {
+    pub cap: crate::StrokeCap,
+    pub join: crate::StrokeJoin,
+    pub miter_limit: f32,
+    pub alignment: crate::StrokeAlignment,
+}
+
+impl Default for StrokeOptions {
+    /// InDesign's: butt caps, mitre joins at a limit of 4, centred.
+    fn default() -> Self {
+        Self {
+            cap: Default::default(),
+            join: Default::default(),
+            miter_limit: 4.0,
+            alignment: Default::default(),
+        }
+    }
+}
+
+impl StrokeOptions {
+    fn of(paint: &crate::ObjectPaint) -> Self {
+        Self {
+            cap: paint.stroke_cap.unwrap_or_default(),
+            join: paint.stroke_join.unwrap_or_default(),
+            miter_limit: paint
+                .miter_limit
+                .filter(|v| v.is_finite() && *v >= 1.0)
+                .unwrap_or(4.0),
+            alignment: paint.stroke_alignment.unwrap_or_default(),
+        }
+    }
+
+    /// The same options for schist_vector's stroker.
+    pub fn style(&self, width: Pt) -> schist_vector::StrokeStyle {
+        schist_vector::StrokeStyle {
+            width,
+            cap: match self.cap {
+                crate::StrokeCap::Butt => schist_vector::LineCap::Butt,
+                crate::StrokeCap::Round => schist_vector::LineCap::Round,
+                crate::StrokeCap::Projecting => schist_vector::LineCap::Square,
+            },
+            join: match self.join {
+                crate::StrokeJoin::Miter => schist_vector::LineJoin::Miter,
+                crate::StrokeJoin::Round => schist_vector::LineJoin::Round,
+                crate::StrokeJoin::Bevel => schist_vector::LineJoin::Bevel,
+            },
+            miter_limit: self.miter_limit,
+        }
+    }
+}
+
 /// A gradient a shape is filled with, for a painter: the fill, the bounds
 /// of the path it runs over, and the map from pasteboard space back to the
 /// path's own coordinates.
@@ -261,6 +314,8 @@ pub enum Display {
         /// A gradient fill, which `fill` then leaves out.
         gradient: Option<Box<ShapeGradient>>,
         stroke: Option<([f32; 4], Pt)>,
+        /// How the stroke ends, joins and sits on the path.
+        stroke_options: StrokeOptions,
         overprint: bool,
     },
     /// A placed graphic; pixel resolution belongs to the editor.
@@ -654,6 +709,7 @@ fn objects_for(
                             fill: Some([rgb[0], rgb[1], rgb[2], object.transparency]),
                             gradient: None,
                             stroke: None,
+                            stroke_options: StrokeOptions::default(),
                             overprint: rule.overprint,
                         });
                     }
@@ -1115,6 +1171,7 @@ fn shape_display(
                 stroke_width * view.scale,
             )
         }),
+        stroke_options: StrokeOptions::of(&object.appearance.paint),
         overprint: object.overprint,
     })
 }

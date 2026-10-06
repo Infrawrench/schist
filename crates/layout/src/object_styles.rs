@@ -28,6 +28,35 @@ impl Paint {
     }
 }
 
+/// How a stroke's open ends finish.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Default, Serialize, Deserialize)]
+pub enum StrokeCap {
+    #[default]
+    Butt,
+    Round,
+    Projecting,
+}
+
+/// How a stroke turns a corner.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Default, Serialize, Deserialize)]
+pub enum StrokeJoin {
+    #[default]
+    Miter,
+    Round,
+    Bevel,
+}
+
+/// Where a stroke sits on its path. Inside or outside, the path the item
+/// fills and strokes moves half the stroke's weight that way, as InDesign's
+/// PDF of the public paged-media `strokes-fills` sample draws it.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Default, Serialize, Deserialize)]
+pub enum StrokeAlignment {
+    #[default]
+    Center,
+    Inside,
+    Outside,
+}
+
 /// Local values or style properties. Tint is a fraction; absent means inherit.
 #[derive(Debug, Clone, Default, PartialEq, Serialize, Deserialize)]
 #[serde(default)]
@@ -39,6 +68,15 @@ pub struct ObjectPaint {
     pub stroke_tint: Option<f32>,
     pub overprint_fill: Option<bool>,
     pub overprint_stroke: Option<bool>,
+    /// Stroke and corner options.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub stroke_cap: Option<StrokeCap>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub stroke_join: Option<StrokeJoin>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub miter_limit: Option<f32>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub stroke_alignment: Option<StrokeAlignment>,
 }
 
 impl ObjectPaint {
@@ -50,7 +88,30 @@ impl ObjectPaint {
         self.stroke_tint.get_or_insert(1.0);
         self.overprint_fill.get_or_insert(false);
         self.overprint_stroke.get_or_insert(false);
+        self.stroke_cap.get_or_insert_default();
+        self.stroke_join.get_or_insert_default();
+        self.miter_limit.get_or_insert(4.0);
+        self.stroke_alignment.get_or_insert_default();
         self
+    }
+
+    /// The stroke and corner options alone.
+    pub fn stroke_options(&self) -> Self {
+        Self {
+            stroke_cap: self.stroke_cap,
+            stroke_join: self.stroke_join,
+            miter_limit: self.miter_limit,
+            stroke_alignment: self.stroke_alignment,
+            ..Default::default()
+        }
+    }
+
+    /// The stroke actually drawn: an ink, a positive weight, and where it
+    /// sits; None when there is none to draw.
+    pub fn drawn_stroke(&self) -> Option<(f32, StrokeAlignment)> {
+        self.stroke_ink()?;
+        let width = self.stroke_width.unwrap_or(0.0);
+        (width > 0.0).then(|| (width, self.stroke_alignment.unwrap_or_default()))
     }
     /// Overlay one level, retaining named-tint versus direct-tint semantics.
     pub fn over(&self, base: &Self) -> Self {
@@ -70,6 +131,10 @@ impl ObjectPaint {
             stroke_tint: self.stroke_tint.or(base.stroke_tint),
             overprint_fill: self.overprint_fill.or(base.overprint_fill),
             overprint_stroke: self.overprint_stroke.or(base.overprint_stroke),
+            stroke_cap: self.stroke_cap.or(base.stroke_cap),
+            stroke_join: self.stroke_join.or(base.stroke_join),
+            miter_limit: self.miter_limit.or(base.miter_limit),
+            stroke_alignment: self.stroke_alignment.or(base.stroke_alignment),
         }
     }
 
@@ -247,8 +312,14 @@ impl StyleSet {
             inherited.paint.stroke_tint = None;
             inherited.paint.overprint_stroke = None;
             // Weight belongs to the stroke category; stroke/corner options
-            // govern joins, caps and corner effects (not yet represented).
+            // govern joins, caps, alignment and corner effects.
             inherited.paint.stroke_width = None;
+        }
+        if inherited.enable_stroke_options != Some(true) {
+            inherited.paint.stroke_cap = None;
+            inherited.paint.stroke_join = None;
+            inherited.paint.miter_limit = None;
+            inherited.paint.stroke_alignment = None;
         }
         let fallback = if object.appearance.style.is_some() {
             ObjectPaint::default()
@@ -278,6 +349,8 @@ impl PlacedObject {
         if self.appearance.style.is_none() && self.appearance.paint == ObjectPaint::default() {
             if let LayoutObject::Shape { path, .. } = &self.object {
                 self.object = paint.over(&self.legacy_paint()).shape(path.clone());
+                // Stroke options have no place on the shape itself.
+                self.appearance.paint = paint.stroke_options();
                 return;
             }
         }
@@ -302,6 +375,7 @@ impl PlacedObject {
                 stroke_tint: Some(tints.stroke),
                 overprint_fill: Some(*fill_overprint),
                 overprint_stroke: Some(*stroke_overprint),
+                ..Default::default()
             },
             _ => ObjectPaint::default(),
         }
@@ -359,10 +433,13 @@ impl PlacedObject {
         let mut out = self.clone();
         out.object = paint.shape(path);
         out.appearance = ObjectAppearance::default();
-        // A gradient is read from the paint-ready appearance.
-        if paint.fill_gradient().is_some() {
-            out.appearance.paint = paint;
-        }
+        // A gradient and the stroke options are read from the paint-ready
+        // appearance.
+        out.appearance.paint = if paint.fill_gradient().is_some() {
+            paint
+        } else {
+            paint.stroke_options()
+        };
         Some(out)
     }
 }

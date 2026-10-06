@@ -352,6 +352,16 @@ fn read_spread(
     if pages.is_empty() {
         return references;
     }
+    // Guides may also hang off the spread, naming their page by PageIndex.
+    for guide in spread.children_named("Guide") {
+        let index = guide
+            .attr("PageIndex")
+            .and_then(|v| v.parse::<usize>().ok())
+            .unwrap_or(0);
+        if let (Some(page), Some(ruler)) = (pages.get(index), ruler_guide(guide)) {
+            document.pages[*page].guides.push(ruler);
+        }
+    }
 
     // Items hang off the spread, after the pages.
     for (child, context) in page_items(spread, ItemContext::default(), report) {
@@ -479,23 +489,26 @@ pub(crate) fn page_of(element: &Element) -> Option<Page> {
         master: None,
         guides: element
             .children_named("Guide")
-            .filter_map(|guide| {
-                let position = guide.number("Location")?;
-                if !position.is_finite() {
-                    return None;
-                }
-                let horizontal = match guide.attr("Orientation")? {
-                    "Horizontal" => true,
-                    "Vertical" => false,
-                    _ => return None,
-                };
-                Some(schist_layout::geometry::RulerGuide {
-                    horizontal,
-                    position,
-                    locked: guide.boolean("Locked") == Some(true),
-                })
-            })
+            .filter_map(ruler_guide)
             .collect(),
+    })
+}
+
+/// A ruler guide: its orientation, location and lock.
+fn ruler_guide(guide: &Element) -> Option<schist_layout::geometry::RulerGuide> {
+    let position = guide.number("Location")?;
+    if !position.is_finite() {
+        return None;
+    }
+    let horizontal = match guide.attr("Orientation")? {
+        "Horizontal" => true,
+        "Vertical" => false,
+        _ => return None,
+    };
+    Some(schist_layout::geometry::RulerGuide {
+        horizontal,
+        position,
+        locked: guide.boolean("Locked") == Some(true),
     })
 }
 
@@ -917,6 +930,7 @@ fn page_items<'a>(
                 | "ObjectExportOption"
                 | "AnchoredObjectSetting"
                 | "InCopyExportOption"
+                | "Guide"
         ) {
             out.push((child, context));
         }

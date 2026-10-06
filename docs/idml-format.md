@@ -423,6 +423,42 @@ radial gradient's offset highlight (GradientFillHiliteLength) is reported and no
 drawn. Gradient strokes and gradient text fills are reported as unsupported
 colours, as before.
 
+### Stroke caps, joins and alignment
+
+An item's EndCap (butt, round, projecting), EndJoin (mitre, round, bevel),
+MiterLimit and StrokeAlignment (centre, inside, outside) are read, saved and
+drawn in output and on the canvas, locally or from an object style's Stroke and
+Corner Options category; a value the specification does not name is reported.
+Corners mitre by default at a limit of 4, InDesign's defaults: until now shape
+strokes joined round. The public [`strokes-fills` PDF](https://github.com/paged-media/core/blob/ffb7c8713125dc77403ec0983099f74ac2558517/corpus/generated/strokes-fills.pdf)
+(SHA-256 `6930e9d6…d036`) and its
+[generator](https://github.com/paged-media/core/blob/ffb7c8713125dc77403ec0983099f74ac2558517/crates/paged-gen/src/samples/strokes_fills.rs) show a 6 pt
+stroke on a 200 × 100 pt rectangle: centred, it straddles the path; inside, the
+PDF fills and strokes a 194 × 94 pt rectangle 3 pt in; outside, a 206 × 106 pt
+outline with square corners 3 pt out; the cap and join pages set PDF line caps
+and joins. So an inside or outside stroke moves the path half its weight for the
+fill and the stroke alike: inside, the fill loses the inner half of a centred
+stroke's band and the stroke is the inner side of a band twice as wide; outside,
+the fill gains the outer half and the stroke is the outer side. Open paths stay
+centred. Non-solid stroke types, arrowheads and corner effects are still
+reported.
+
+### Readings from the public corpus samples
+
+Importing every sample of the public paged-media corpus at that revision (59
+packages built by its generator) found three things Schist read differently from
+the specification: Color resources in the specification's `LAB` colour space
+(Schist accepted only `Lab`, its own spelling, so Lab spot colours such as
+the `swatches` sample's "Brand Ink" were reported unsupported and dropped),
+Guides hanging off a Spread and naming their page by PageIndex (read as an
+unsupported frame), and bullets of BulletCharacterType UnicodeWithFont (a
+character remembered with its font, which is still that character; Schist now
+sets it in the paragraph's font). Saving writes `LAB`. The other report entries
+the corpus raises are values the specification does not define
+(`ContourTextWrap`, `ProportionalOldStyle`, anchored `LineCapHeight` and
+`AnchorLocation`), images without GraphicBounds, and text variables of types
+InDesign itself leaves blank in the samples' PDFs.
+
 ### What the import report names
 
 The report lists what Schist reads but does not set, once per kind. Settings

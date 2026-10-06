@@ -310,6 +310,38 @@ are marked.
 
 ## Handoff
 
+Stroke options and corpus readings, 2026-10-06:
+Items now stroke with their EndCap, EndJoin, MiterLimit and StrokeAlignment,
+locally or from an object style's Stroke and Corner Options category, in output
+and on the canvas, and save them. Strokes mitre by default as InDesign's do;
+shape strokes had joined round. Inside and outside alignment move the path half
+the weight for fill and stroke alike, as InDesign's PDF of the public
+paged-media `strokes-fills` sample draws a 6 pt stroke: 194 × 94 pt inside,
+206 × 106 pt with square corners outside. Importing every sample of the public
+corpus (59 packages built by its generator) found three misreadings, now fixed:
+Lab colours in the specification's `LAB` spelling were dropped, guides on a
+spread were reported as unsupported frames, and bullets remembered with their
+font fell back.
+
+The source-frozen sweep of all 16 roadmap targets, headless library wasm, shared
+UI, formatting, whitespace and the debug app build passes on Windows with **2,262
+distinct passing Rust tests**, 9 new (5 separation, 4 IDML), and no corrections.
+
+Native review used a passive capture of the actual debug app with Design enabled
+and isolated configuration, on a package with 12 pt strokes centred, inside and
+outside three rectangles, a round-joined and a bevel-joined rectangle (the latter
+filled with a spot colour defined in `LAB`), a projecting-capped line and a guide
+on the spread. The canvas shows the inside-stroked rectangle smaller and the
+outside one larger than the centred one, rounded corners on the round join, the
+spot colour's violet, the line and the guide, with nothing reported unread. The
+object-style proof's four rectangular frame pages now mitre their stroke corners
+(17 pixels at 60 dpi differ, all at corners); its elliptical pages and the other
+42 proofs are byte-identical.
+
+Next: a frame's stroke moving its text, and corner options; then non-solid
+stroke types on items and the remaining item 9 gaps. Published to draft PR #195.
+
+
 Gradient fills, 2026-10-06:
 Gradient swatches are typed from Graphic.xml (linear or radial, colour or tint
 stops with locations and midpoints) and fill items whose FillColor names them,

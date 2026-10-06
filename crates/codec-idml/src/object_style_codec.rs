@@ -22,6 +22,51 @@ pub(crate) fn read_paint(
             property = "StrokeWeight"
         ));
     }
+    // Stroke and corner options; a value the specification does not name is
+    // reported and read as InDesign's default.
+    let mut option = |key: &str| {
+        let value = element.attr(key)?;
+        let known = match key {
+            "EndCap" => matches!(value, "ButtEndCap" | "RoundEndCap" | "ProjectingEndCap"),
+            "EndJoin" => matches!(value, "MiterEndJoin" | "RoundEndJoin" | "BevelEndJoin"),
+            _ => matches!(
+                value,
+                "CenterAlignment" | "InsideAlignment" | "OutsideAlignment"
+            ),
+        };
+        if !known {
+            report.skip(schist_i18n::tf!(
+                "design.idml_object_paint_invalid",
+                property = key
+            ));
+        }
+        known.then_some(value)
+    };
+    let stroke_cap = option("EndCap").map(|v| match v {
+        "RoundEndCap" => schist_layout::StrokeCap::Round,
+        "ProjectingEndCap" => schist_layout::StrokeCap::Projecting,
+        _ => schist_layout::StrokeCap::Butt,
+    });
+    let stroke_join = option("EndJoin").map(|v| match v {
+        "RoundEndJoin" => schist_layout::StrokeJoin::Round,
+        "BevelEndJoin" => schist_layout::StrokeJoin::Bevel,
+        _ => schist_layout::StrokeJoin::Miter,
+    });
+    let stroke_alignment = option("StrokeAlignment").map(|v| match v {
+        "InsideAlignment" => schist_layout::StrokeAlignment::Inside,
+        "OutsideAlignment" => schist_layout::StrokeAlignment::Outside,
+        _ => schist_layout::StrokeAlignment::Center,
+    });
+    let miter_limit = element.attr("MiterLimit").and_then(|raw| {
+        let value = xml::parse_number(raw).filter(|v| v.is_finite() && (1.0..=500.0).contains(v));
+        if value.is_none() {
+            report.skip(schist_i18n::tf!(
+                "design.idml_object_paint_invalid",
+                property = "MiterLimit"
+            ));
+        }
+        value
+    });
     // A gradient fill's offset highlight is not drawn.
     if element
         .attr("FillColor")
@@ -74,6 +119,10 @@ pub(crate) fn read_paint(
         _ => paint("FillColor"),
     };
     ObjectPaint {
+        stroke_cap,
+        stroke_join,
+        miter_limit,
+        stroke_alignment,
         fill,
         stroke: paint("StrokeColor"),
         stroke_width: element
@@ -222,6 +271,39 @@ pub(crate) fn paint_attributes(paint: &ObjectPaint) -> String {
             attr(&mut out, key, reference);
         }
     }
+    for (key, value) in [
+        (
+            "EndCap",
+            paint.stroke_cap.map(|v| match v {
+                schist_layout::StrokeCap::Butt => "ButtEndCap",
+                schist_layout::StrokeCap::Round => "RoundEndCap",
+                schist_layout::StrokeCap::Projecting => "ProjectingEndCap",
+            }),
+        ),
+        (
+            "EndJoin",
+            paint.stroke_join.map(|v| match v {
+                schist_layout::StrokeJoin::Miter => "MiterEndJoin",
+                schist_layout::StrokeJoin::Round => "RoundEndJoin",
+                schist_layout::StrokeJoin::Bevel => "BevelEndJoin",
+            }),
+        ),
+        (
+            "StrokeAlignment",
+            paint.stroke_alignment.map(|v| match v {
+                schist_layout::StrokeAlignment::Center => "CenterAlignment",
+                schist_layout::StrokeAlignment::Inside => "InsideAlignment",
+                schist_layout::StrokeAlignment::Outside => "OutsideAlignment",
+            }),
+        ),
+    ] {
+        if let Some(value) = value {
+            attr(&mut out, key, value);
+        }
+    }
+    if let Some(limit) = paint.miter_limit {
+        attr(&mut out, "MiterLimit", limit);
+    }
     if let Some(fill) = paint.fill_gradient() {
         if let Some(start) = fill.start {
             attr(
@@ -367,6 +449,8 @@ pub(crate) fn read_appearance(
         }
     } else if let LayoutObject::Shape { path, .. } = &object.object {
         object.object = paint.shape(path.clone());
+        // Stroke options have no place on the shape itself.
+        object.appearance.paint = paint.stroke_options();
     }
     if matches!(
         object.object,
@@ -470,16 +554,12 @@ fn effects_at_defaults(element: &Element) -> bool {
     })
 }
 
+/// Stroke and corner options not drawn: arrowheads, non-solid stroke types,
+/// and corner effects. Caps, joins, mitre limits and alignment are.
 fn unsupported_outline(element: &Element) -> bool {
-    [
-        ("EndCap", "ButtEndCap"),
-        ("EndJoin", "MiterEndJoin"),
-        ("StrokeAlignment", "CenterAlignment"),
-        ("LeftLineEnd", "None"),
-        ("RightLineEnd", "None"),
-    ]
-    .iter()
-    .any(|(key, default)| element.attr(key).is_some_and(|v| v != *default))
+    [("LeftLineEnd", "None"), ("RightLineEnd", "None")]
+        .iter()
+        .any(|(key, default)| element.attr(key).is_some_and(|v| v != *default))
         || element
             .attr("StrokeType")
             .is_some_and(|v| !matches!(v, "Solid" | "$ID/Solid" | "StrokeStyle/$ID/Solid"))
@@ -492,5 +572,4 @@ fn unsupported_outline(element: &Element) -> bool {
         ]
         .iter()
         .any(|key| element.attr(key).is_some_and(|v| v != "None"))
-        || element.number("MiterLimit").is_some_and(|v| v != 4.0)
 }
