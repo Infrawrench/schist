@@ -201,7 +201,7 @@ impl<'a> Flow<'a> {
                 .find(|note| note.reference.end > body.next.offset)
             {
                 if let Some(line) = footnote_flow::reference_line(&body.lines, note) {
-                    ceiling = ceiling.min(line.bounds.bottom() - area.y - 0.001).max(0.0);
+                    ceiling = ceiling.min(line.baseline - area.y - 0.001).max(0.0);
                     continue;
                 }
                 return fill_body(0.0);
@@ -268,7 +268,7 @@ impl<'a> Flow<'a> {
                     if let Some(line) =
                         footnote_flow::reference_line(&minimum.lines, &self.prepared.notes[*last])
                     {
-                        ceiling = ceiling.min(line.bounds.bottom() - area.y - 0.001).max(0.0);
+                        ceiling = ceiling.min(line.baseline - area.y - 0.001).max(0.0);
                         continue;
                     }
                 }
@@ -353,6 +353,7 @@ impl NoteFlow {
             hyphens: start.hyphens,
             denied_hyphen_words: &[],
             wrap: None,
+            baseline_fit: false,
         };
         let bounds = Rect::new(0.0, 0.0, area.width, area.height);
         let (mut lines, mut next) =

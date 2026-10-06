@@ -153,23 +153,19 @@ fn insets_add_to_the_strokes_reach() {
 
 #[test]
 fn the_stroke_decides_whether_the_last_line_fits() {
-    // InDesign's "fit 60.3" frames hold five 12 pt lines with 0.3 pt to
-    // spare unstroked and under a 0.25 pt centred stroke, which takes 0.25 pt
-    // of the frame's height, but four under a 1 pt centred or a 0.25 pt
-    // inside stroke. InDesign fits a line by its baseline and Schist by its
-    // descent, so the frames here leave the same 0.3 pt past Schist's fit.
+    // InDesign's "fit 60.3" frames hold a fifth 12 pt line whose baseline
+    // falls 0.3 pt above their foot, its descent hanging below, unstroked
+    // and under a 0.25 pt centred stroke, which takes 0.25 pt of the height,
+    // but not under a 1 pt centred or a 0.25 pt inside stroke.
     let (tall, story) = document(None, Insets::ZERO, 120.0, 5);
-    let fit = compose_story(&tall, story).frames[0].lines[4]
-        .bounds
-        .bottom()
-        - AT.y;
+    let fifth = compose_story(&tall, story).frames[0].lines[4].baseline - AT.y;
     for (stroke, count) in [
         (None, 5),
         (Some((0.25, StrokeAlignment::Center, true)), 5),
         (Some((1.0, StrokeAlignment::Center, true)), 4),
         (Some((0.25, StrokeAlignment::Inside, true)), 4),
     ] {
-        let (doc, story) = document(stroke, Insets::ZERO, fit + 0.3, 6);
+        let (doc, story) = document(stroke, Insets::ZERO, fifth + 0.3, 6);
         assert_eq!(lines(&doc, story).len(), count, "{stroke:?}");
     }
 }

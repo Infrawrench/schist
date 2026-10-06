@@ -456,9 +456,13 @@ outside, strokes with no colour, 4 pt insets, and 2/8/6/10 pt insets under a 1 p
 centred stroke (text 8.5 pt from the left, 10.5 pt from the right, 2.5 pt down).
 Its 60.3 pt frames hold a fifth line unstroked and under a 0.25 pt centred stroke
 but not under a 1 pt centred or a 0.25 pt inside one. InDesign fits that line by
-its baseline, its descent hanging below the frame; Schist still needs room for
-the descent, so a frame InDesign fills exactly can overset its last line in
-Schist.
+its baseline, its descent hanging below the frame, and so does Schist's body text
+in horizontal frames, columns and wrapped bands; it used to need room for the
+descent, so a frame InDesign filled exactly overset its last line. A footnote
+whose reference line no longer fits above the notes moves on by that line's
+baseline in the same way. Footnote bodies and vertical text still fit whole line
+cells: no native sample shows how InDesign fits a note's last line or a vertical
+frame's last column.
 
 A shaped frame's outline is now offset inward exactly by its inset and stroke:
 every line keeps that distance from the outline in every direction. The sample's

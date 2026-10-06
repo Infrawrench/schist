@@ -687,6 +687,9 @@ struct FlowSource<'a> {
     denied_hyphen_words: &'a [std::ops::Range<usize>],
     /// Objects wrapping text in the frame being filled.
     wrap: Option<&'a crate::text_wrap::WrapField>,
+    /// Whether a line fits by its baseline, as body text does; note bodies
+    /// still fit whole line cells.
+    baseline_fit: bool,
 }
 
 impl FlowSource<'_> {
@@ -885,7 +888,7 @@ fn compose_thread_on_page(
             markers = landed;
         }
     }
-    compose_thread_plain(doc, story_id, frames, parent_page, None, None, None)
+    compose_thread_plain(doc, story_id, frames, parent_page, None, None, true)
 }
 
 /// One composition pass over a prepared projection, mapped back to source
@@ -908,8 +911,8 @@ fn compose_prepared(
         frames,
         parent_page,
         Some(prepared),
-        Some(&prepared.hyphenation),
-        Some(&prepared.markers),
+        Some((&prepared.hyphenation, &prepared.markers)),
+        true,
     );
     let text = prepared.main.story.text();
     let projected_story = &projected.stories[story_id.0 as usize];
@@ -974,8 +977,11 @@ fn compose_thread_plain(
     frames: &[(ObjectId, Rect, FrameOverflow, u16, Pt, InsetsLike)],
     parent_page: Option<usize>,
     notes: Option<&crate::footnote_composition::PreparedStory>,
-    plan: Option<&crate::hyphenation::BreakPlan>,
-    markers: Option<&crate::list_composition::MarkerPlans>,
+    plans: Option<(
+        &crate::hyphenation::BreakPlan,
+        &crate::list_composition::MarkerPlans,
+    )>,
+    baseline_fit: bool,
 ) -> ComposedThread {
     let mut out = ComposedThread {
         story: story_id,
@@ -1001,6 +1007,7 @@ fn compose_thread_plain(
             .collect();
         return out;
     };
+    let (plan, markers) = plans.unzip();
     let owned_plan;
     let plan = match plan {
         Some(plan) => plan,
@@ -1033,6 +1040,7 @@ fn compose_thread_plain(
         hyphens: Default::default(),
         denied_hyphen_words: &[],
         wrap: None,
+        baseline_fit,
     };
     let mut split_notes = source
         .notes
@@ -1994,6 +2002,7 @@ fn fill_column(
                     top: column.y + used,
                     height: column.height - used,
                     previous: lines.last().map(PreviousLine::from_line),
+                    baseline_fit: source.baseline_fit,
                 },
                 grid,
             )
@@ -2033,7 +2042,7 @@ fn fill_column(
                 let mut request = column.y + used;
                 let mut stopped = true;
                 for _ in 0..100_000 {
-                    if top + flow.height > column.bottom() {
+                    if top + flow.fitting(source.baseline_fit) > column.bottom() {
                         break;
                     }
                     match field.row(top, flow.height, column.x, column.right(), 0.0) {
@@ -2053,7 +2062,7 @@ fn fill_column(
                     break;
                 }
             }
-            if top + flow.height > column.bottom() {
+            if top + flow.fitting(source.baseline_fit) > column.bottom() {
                 break;
             }
             flow.advance = advance;
@@ -2158,6 +2167,18 @@ struct LineFlow {
     absolute: bool,
 }
 impl LineFlow {
+    /// How far below its top a line must reach to fit: in horizontal body
+    /// text its baseline, its descent hanging below the frame, as InDesign's
+    /// PDF of the public paged-media `stroke-inset` sample sets a fifth line
+    /// in a frame 0.3 pt deeper than its baseline; otherwise its whole cell.
+    fn fitting(&self, baseline_fit: bool) -> Pt {
+        if baseline_fit && !self.writing.is_vertical() {
+            self.ascent
+        } else {
+            self.height
+        }
+    }
+
     fn from_span(span: &schist_text_engine::LineSpan, spec: &TextSpec) -> Self {
         Self {
             ascent: span.baseline - span.top,
@@ -2231,6 +2252,7 @@ struct PlacementSpace {
     top: Pt,
     height: Pt,
     previous: Option<PreviousLine>,
+    baseline_fit: bool,
 }
 
 /// Shape with the actual per-line measures, then select complete lines.
@@ -2422,7 +2444,7 @@ fn place_block(
         }
         let flow = LineFlow::from_span(span, &spec);
         let (placed_top, advance) = grid_position(grid, top, flow, previous);
-        if placed_top + span.height > space.top + space.height {
+        if placed_top + flow.fitting(space.baseline_fit) > space.top + space.height {
             break;
         }
         positions.push((placed_top, advance));
@@ -2573,7 +2595,7 @@ fn plan_slots(
             break;
         };
         let (placed, advance) = grid_position(placement.grid, top, flow, previous);
-        if placed + flow.height > bottom + 0.001 {
+        if placed + flow.fitting(placement.space.baseline_fit) > bottom + 0.001 {
             break;
         }
         let base = if index == 0 { first } else { normal };
@@ -2729,7 +2751,8 @@ fn place_wrapped(
         {
             break;
         }
-        if slot.top + span.height > bottom + 0.001 {
+        let fitting = LineFlow::from_span(span, spec).fitting(placement.space.baseline_fit);
+        if slot.top + fitting > bottom + 0.001 {
             break;
         }
         // Never place a line into a band its actual height no longer leaves

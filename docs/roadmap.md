@@ -310,6 +310,32 @@ are marked.
 
 ## Handoff
 
+Baseline fitting, 2026-10-06:
+Body text now fits a frame's last line by its baseline, its descent hanging
+below the frame, as InDesign's PDF of the public paged-media `stroke-inset`
+sample sets a fifth line in frames 0.3 pt deeper than its baseline. Schist used
+to need room for the descent, so frames InDesign filled exactly overset their
+last line. Columns, wrapped bands and blank lines follow the same rule, and a
+footnote that cannot fit moves its reference line on by that line's baseline.
+Footnote bodies and vertical text still fit whole line cells, for want of native
+evidence.
+
+SWEEP_RESULT
+
+Native review compared passive captures of the previous and the new debug app,
+with Design enabled and isolated configuration, on a package whose 470 × 70 pt
+frame of 16 pt text, lines 18.4 pt apart, is 0.3 pt deeper than its fourth
+baseline: the previous build sets three lines and the overset marker, the new
+one four, the last line's descenders at the frame's foot, with the marker for
+the text still to come. The named-initial proof's footnoted horizontal case now
+sets its last row beneath the initial, where it had taken a second interval on
+the first row's band, out of reading order; its reference page matches, and the
+other 42 proofs are byte-identical.
+
+Next: non-solid stroke types on items, then the remaining item 9 gaps. Published
+to draft PR #195.
+
+
 Frame strokes and corner options, 2026-10-06:
 A text frame's stroke now moves its text in by its reach into the frame, half a
 centred weight, an inside weight, nothing outside or uncoloured, as InDesign's PDF

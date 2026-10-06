@@ -171,8 +171,8 @@ fn measure_note(
         &frames,
         None,
         None,
-        Some(&note.hyphenation),
-        Some(&note.markers),
+        Some((&note.hyphenation, &note.markers)),
+        false,
     );
     let frame = composed.frames.first_mut()?;
     if frame.lost {
@@ -299,7 +299,8 @@ pub(super) fn fill(
             let Some(line) = reference_line(&lines, note) else {
                 break;
             };
-            ceiling = ceiling.min(line.bounds.bottom() - column.y - 0.001);
+            // Body lines fit by their baseline, so the ceiling passes above it.
+            ceiling = ceiling.min(line.baseline - column.y - 0.001);
             continue;
         }
         let between = options.space_between.unwrap_or(0.0);
@@ -326,7 +327,8 @@ pub(super) fn fill(
             let Some(line) = reference_line(&lines, evicted) else {
                 break;
             };
-            ceiling = ceiling.min(line.bounds.bottom() - column.y - 0.001);
+            // Body lines fit by their baseline, so the ceiling passes above it.
+            ceiling = ceiling.min(line.baseline - column.y - 0.001);
             continue;
         }
         place_areas(source, &body, consumed, column, options, &mut areas);
