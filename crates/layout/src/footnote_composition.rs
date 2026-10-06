@@ -78,12 +78,21 @@ pub struct PreparedStory {
 /// replacement character, set as the item's box.
 const ANCHORED_TEXT: &str = "\u{2068}\u{fffc}\u{2069}";
 
+/// A forced line break: each part of a table sits on a line of its own.
+const LINE_BREAK: &str = "\u{2028}";
+
 /// What a projected insertion stands for.
 #[derive(Clone, Copy, PartialEq)]
 enum Generated {
     Note,
     Variable,
-    Anchored(crate::anchored::LineBox),
+    /// An item's box, and for a table which of its parts it is.
+    Anchored(
+        crate::anchored::LineBox,
+        Option<(usize, crate::tables::Part)>,
+    ),
+    /// The line break before a table, styled as the text it ends.
+    Break,
 }
 
 /// Prepare main-story variables independently of note-area eligibility, then
@@ -96,10 +105,11 @@ pub(crate) fn prepare_for_flow(
     pages: &[usize],
     frames: &[crate::ObjectId],
     markers: &std::collections::BTreeMap<usize, crate::ObjectId>,
+    parts: &crate::tables::Parts,
 ) -> Option<PreparedStory> {
     let source = doc.story(id)?;
     let variables = crate::text_variables::instances(doc, source, pages, frames, markers);
-    let anchored = crate::anchored::instances(doc, source);
+    let anchored = crate::anchored::instances(doc, source, parts);
     let notes = notes_supported.then(|| prepare(doc, id)).flatten();
     if variables.is_empty() && anchored.is_empty() {
         return notes;
@@ -162,7 +172,11 @@ pub(crate) fn prepare_for_flow(
             },
         ));
     }
-    prepared.anchored = anchored.len();
+    prepared.anchored = anchored
+        .iter()
+        .map(|item| item.structure)
+        .collect::<std::collections::BTreeSet<_>>()
+        .len();
     for item in anchored {
         let mut name = format!("Schist anchored item {}", item.structure);
         while prepared.styles.characters.iter().any(|s| s.name == name) {
@@ -172,43 +186,57 @@ pub(crate) fn prepare_for_flow(
             .styles
             .characters
             .push(item.character.into_style(&name));
+        // A table's later parts each start a line.
+        let text = match item.part {
+            Some((number, _)) if number > 0 => format!("{LINE_BREAK}{ANCHORED_TEXT}"),
+            _ => ANCHORED_TEXT.into(),
+        };
         insertions.push((
             item.at,
             item.structure,
-            Generated::Anchored(item.line_box),
+            Generated::Anchored(item.line_box, item.part),
             Insertion {
                 at: item.at,
-                text: ANCHORED_TEXT.into(),
+                text,
                 style: name,
             },
         ));
     }
     insertions.sort_by_key(|(at, structure, _, _)| (*at, *structure));
+    table_lines(source, &mut insertions);
     let main_source = crate::nested_styles::materialize(source, &mut prepared.styles);
     let mut main = Projection::new(
         &main_source,
         insertions.iter().map(|(_, _, _, i)| i.clone()).collect(),
     )?;
     project_paragraphs(&main_source, &mut main, &mut prepared.styles);
-    for ((_, structure, kind, _), span) in insertions.iter().zip(&main.positions.generated) {
-        if let Generated::Anchored(line_box) = kind {
-            main.objects.push(span.start..span.end);
-            main.boxes.push(crate::inline_text::ProjectedBox {
-                at: span.start + '\u{2068}'.len_utf8(),
-                width: line_box.width,
-                ascent: line_box.ascent,
-                descent: line_box.descent,
-                above: line_box.above,
-                structure: *structure,
-            });
-        } else if *kind == Generated::Variable {
-            main.objects.push(span.start..span.end);
-        } else {
-            prepared
-                .notes
-                .iter_mut()
-                .find(|n| n.structure == *structure)?
-                .reference = span.start..span.end;
+    for ((_, structure, kind, insertion), span) in insertions.iter().zip(&main.positions.generated)
+    {
+        match kind {
+            Generated::Anchored(line_box, part) => {
+                // The item alone is atomic, never the line breaks around a
+                // table's part.
+                let lead = span.start + insertion.text.find('\u{2068}').unwrap_or(0);
+                main.objects.push(lead..lead + ANCHORED_TEXT.len());
+                main.boxes.push(crate::inline_text::ProjectedBox {
+                    at: lead + '\u{2068}'.len_utf8(),
+                    width: line_box.width,
+                    ascent: line_box.ascent,
+                    descent: line_box.descent,
+                    above: line_box.above,
+                    structure: *structure,
+                    part: *part,
+                });
+            }
+            Generated::Variable => main.objects.push(span.start..span.end),
+            Generated::Break => {}
+            Generated::Note => {
+                prepared
+                    .notes
+                    .iter_mut()
+                    .find(|n| n.structure == *structure)?
+                    .reference = span.start..span.end;
+            }
         }
     }
     prepared.nested_issues = nested_issues(doc, source, &main.positions);
@@ -223,6 +251,65 @@ pub(crate) fn prepare_for_flow(
     )?;
     prepared.main = main;
     Some(prepared)
+}
+
+/// A table sits on lines of its own: break the line before its first part
+/// unless that starts a line, and after its last part when more follows on
+/// its line.
+fn table_lines(source: &crate::Story, insertions: &mut Vec<(usize, usize, Generated, Insertion)>) {
+    let text = source.text();
+    let ends_line = |s: &str| s.ends_with(['\n', '\r', '\u{2028}', '\u{2029}']);
+    let mut index = 0;
+    while index < insertions.len() {
+        let (at, structure, kind, _) = &insertions[index];
+        let (at, structure) = (*at, *structure);
+        let Generated::Anchored(_, Some((number, _))) = *kind else {
+            index += 1;
+            continue;
+        };
+        let line_start = match index.checked_sub(1).map(|i| &insertions[i]) {
+            Some((before, _, _, inserted)) if *before == at => ends_line(&inserted.text),
+            _ => at == 0 || ends_line(&text[..at]),
+        };
+        if number == 0 && !line_start {
+            // The text before keeps its own style, so its line keeps its
+            // leading.
+            let style = source
+                .ranges
+                .iter()
+                .rev()
+                .find(|r| r.start < at && at <= r.end)
+                .map_or_else(String::new, |r| r.style.clone());
+            insertions.insert(
+                index,
+                (
+                    at,
+                    structure,
+                    Generated::Break,
+                    Insertion {
+                        at,
+                        text: LINE_BREAK.into(),
+                        style,
+                    },
+                ),
+            );
+            index += 1;
+        }
+        let last = insertions.get(index + 1).is_none_or(|(_, next, kind, _)| {
+            *next != structure || !matches!(kind, Generated::Anchored(_, Some(_)))
+        });
+        let more = insertions
+            .get(index + 1)
+            .is_some_and(|(next, ..)| *next == at)
+            || text[at..]
+                .chars()
+                .next()
+                .is_some_and(|c| !matches!(c, '\n' | '\r' | '\u{2028}' | '\u{2029}'));
+        if last && more {
+            insertions[index].3.text.push_str(LINE_BREAK);
+        }
+        index += 1;
+    }
 }
 
 fn nested_issues(

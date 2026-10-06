@@ -1,5 +1,5 @@
 use schist_codec_idml::{container, export, import};
-use schist_layout::tables::CellJustification;
+use schist_layout::tables::{CellJustification, RepeatRows};
 use schist_layout::{authoring, blank_a4, History, LayoutDocument, Rect, Story};
 
 /// A 2 × 2 table as the public paged-media generator writes it, with
@@ -126,4 +126,49 @@ fn tables_whose_counts_disagree_are_reported_and_left_untyped() {
     );
     let flow = schist_layout::compose::compose_story(&imported.document, schist_layout::StoryId(0));
     assert_eq!(flow.frames[0].unrendered_structures, 1);
+}
+
+#[test]
+fn how_a_table_breaks_is_typed_and_unapplied_settings_reported() {
+    let xml = table("2")
+        .replace(
+            r#"<Table Self="t1" "#,
+            r#"<Table Self="t1" BreakHeaders="OncePerTextFrame" BreakFooters="OncePerPage" SkipFirstHeader="true" SkipLastFooter="true" "#,
+        )
+        .replace(
+            r#"<Row Self="t1R0" "#,
+            r#"<Row Self="t1R0" KeepWithNextRow="true" StartRow="NextFrame" "#,
+        );
+    let imported = import::read(&native(&xml)).unwrap();
+    let mut doc = imported.document;
+    for _ in 0..2 {
+        let table = typed(&doc).expect("typed table");
+        assert_eq!(table.header_repeat, RepeatRows::OncePerFrame);
+        assert_eq!(table.footer_repeat, RepeatRows::OncePerPage);
+        assert!(table.skip_first_header && table.skip_last_footer);
+        assert!(table.rows[0].keep_with_next && !table.rows[1].keep_with_next);
+        let stories = doc.stories.clone();
+        doc = import::read(&export::write(&doc).bytes).unwrap().document;
+        assert_eq!(doc.stories, stories);
+    }
+    let skipped = &imported.report.skipped;
+    assert!(
+        skipped.iter().any(|s| s.contains("StartRow=NextFrame")),
+        "{skipped:?}"
+    );
+    // A value the specification does not define reads as the default.
+    let odd = table("2").replace(
+        r#"<Table Self="t1" "#,
+        r#"<Table Self="t1" BreakHeaders="Sometimes" "#,
+    );
+    let imported = import::read(&native(&odd)).unwrap();
+    assert_eq!(
+        typed(&imported.document).unwrap().header_repeat,
+        RepeatRows::EveryColumn
+    );
+    assert!(imported
+        .report
+        .skipped
+        .iter()
+        .any(|s| s.contains("BreakHeaders=Sometimes")));
 }

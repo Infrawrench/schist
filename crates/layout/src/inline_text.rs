@@ -22,6 +22,8 @@ pub struct RenderedLine {
     /// Inline anchored items set in this line: each box's position in `spec`
     /// and the story structure it draws.
     pub anchored: Vec<(usize, usize)>,
+    /// The table parts among them.
+    pub tables: Vec<crate::tables::SetPart>,
 }
 
 #[derive(Debug, Clone, PartialEq, Eq)]
@@ -59,6 +61,8 @@ pub struct ProjectedBox {
     /// Room kept above the box's line for an item above it.
     pub above: crate::Pt,
     pub structure: usize,
+    /// For a table, which of its parts the box is.
+    pub part: Option<(usize, crate::tables::Part)>,
 }
 
 impl ProjectedBox {

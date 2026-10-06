@@ -3096,27 +3096,76 @@ table whose counts, sizes or cells disagree is reported and left untyped. Absent
 cell insets are 4 pt and absent edges 1 pt black, as InDesign's PDF of the public
 paged-media `tables` sample draws its default cells.
 
-A table is set in its line as one block the size of its grid, its outer stroke
-edge at the line's top left, so a table at a frame's top starts at the frame's
-top left as in that PDF. Grid lines sit half the outer stroke weight inside the
-table's edge. A row that grows is as tall as its top inset, plus its tallest
-cell's last baseline below the cell's content top, plus its bottom inset, never
-less than MinimumHeight nor more than MaximumHeight; a fixed row keeps
-SingleRowHeight and its cells' extra text is overset. InDesign's PDF of the
-public `tables-rows` sample (12 pt Open Sans, auto leading, 4 pt insets) has rows
-of 20.826 pt for one line and 49.626 pt for three: 4 + 12.826 + 2 × 14.4 + 4, so
-descenders below the last baseline are not counted. A cell spanning rows adds
-what it still needs to the last of them that grows. Cell text sits below the top
-inset, moved down by the spare height for center or bottom justification. Fills
-cover the cell's grid area; horizontal edges run the whole cell and reach the
-outer stroke edge at the table's sides, and vertical edges stop at the horizontal
-strokes, as the `tables` PDF draws them. Output and the canvas draw the table
-with its frame; its cell text is generated text of the holding frame on the
-canvas. Line leading around a table follows inline items, a Schist reading: the
-samples set each table alone in its paragraph.
+A table is set on lines of its own, as blocks the size of its rows, its outer
+stroke edge at the line's top left, so a table at a frame's top starts at the
+frame's top left as in that PDF. Text before the table in its paragraph ends the
+line above it and text after it starts the line below, so a table never shares
+a line. Grid lines sit half the outer stroke weight inside the table's edge. A
+row that grows is as tall as its top inset, plus its tallest cell's last
+baseline below the cell's content top, plus its bottom inset, never less than
+MinimumHeight nor more than MaximumHeight; a fixed row keeps SingleRowHeight and
+its cells' extra text is overset. InDesign's PDF of the public `tables-rows`
+sample (12 pt Open Sans, auto leading, 4 pt insets) has rows of 20.826 pt for
+one line and 49.626 pt for three: 4 + 12.826 + 2 × 14.4 + 4, so descenders below
+the last baseline are not counted. A cell spanning rows adds what it still needs
+to the last of them that grows. Cell text sits below the top inset, moved down
+by the spare height for center or bottom justification. Fills cover the cell's
+grid area; horizontal edges run the whole cell and reach the outer stroke edge
+at the table's sides, and vertical edges stop at the horizontal strokes, as the
+`tables` PDF draws them. Output and the canvas draw the table with its frame;
+its cell text is generated text of the holding frame on the canvas. A table's
+lines step from the line above by the table's height plus the text's extra
+leading (its leading less its point size), under fixed leading too, so a table
+never overlaps the text above it: a Schist reading, as the samples set each
+table alone in its paragraph.
 
-Not composed yet: tables breaking across frames and repeated header and footer
-rows (a table taller than the room left moves on whole, and one taller than its
-frame is overset), table and cell styles and their alternating fills and strokes
-(including the `[Basic Table]` style real templates apply), diagonal lines, cell
-rotation, stroke styles other than solid, and editing table structure.
+#### Breaking tables
+
+A table that does not fit the room left breaks between whole rows into parts,
+each on a line of its own, the next starting at the top of the next column of
+the thread. The public [`tables-rows` PDF](https://github.com/paged-media/core/blob/ffb7c8713125dc77403ec0983099f74ac2558517/corpus/generated/tables-rows.pdf)
+(SHA-256 `6cd62fdc…bf194`) and its
+[generator](https://github.com/paged-media/core/blob/ffb7c8713125dc77403ec0983099f74ac2558517/crates/paged-gen/src/samples/tables_rows.rs) show the rules on
+the frame-break pages, each with two threaded 250 pt frames side by side:
+
+- A header row and ten body rows of two or three lines: the first frame holds
+  the header and rows 1 to 5 (row 6 would end 11.48 pt below the frame), the
+  second repeats the header and holds rows 6 to 10.
+- KeepWithNextRow on rows 3 to 6: no break may fall after them, so the first
+  frame stops after row 2 and the second holds the header and rows 3 to 7;
+  rows 8 to 10 are overset.
+- Two 150 pt frames and a 179 pt row: the row before it fills the first frame,
+  and the tall row and the row after it are overset, leaving the second frame
+  empty.
+
+The public [`tables-overset` PDF](https://github.com/paged-media/core/blob/ffb7c8713125dc77403ec0983099f74ac2558517/corpus/generated/tables-overset.pdf)
+(SHA-256 `6d311480…c1959`) and its
+[generator](https://github.com/paged-media/core/blob/ffb7c8713125dc77403ec0983099f74ac2558517/crates/paged-gen/src/samples/tables_overset.rs) set four 28 pt
+rows of three 120 pt columns in a 360 pt frame of varying height: a 62 pt frame
+shows two rows, a 20 pt frame none, and with a header row a 30 pt frame shows
+nothing although the header alone would fit, so a part never stands without a
+body row. Its 361 pt table overhangs the frame by its right stroke, so a table
+wider than its column is still set, overhanging it.
+
+Each part shows the header rows unless it is the first and SkipFirstHeader is
+set, and otherwise as BreakHeaders says: in every column (InAllTextColumns,
+the default), or only in the first part of each frame (OncePerTextFrame) or page
+(OncePerPage). Footer rows close each part the same way by BreakFooters, and the
+last part unless SkipLastFooter is set; a table that fits shows both unless
+skipped. A break never falls inside a cell spanning rows. Kept rows give way only
+in a column nothing else would fill: there the table breaks after the last row
+that fits. A row no column holds leaves it and every row after it overset in one
+last part, which the frame reports as overset text. Where the parts fall depends
+on where composition sets them, so a story holding tables is composed again
+until its parts settle. The first part fills the room below the line before the
+table, measured where it was set; when a part moves on past the column planned
+for it, that column is taken as too short for it and the parts are planned
+again.
+
+A row's StartRow other than Anywhere is reported and not applied, and so are
+BreakHeaders and BreakFooters values the specification does not define.
+
+Not composed yet: StartRow, table and cell styles and their alternating fills
+and strokes (including the `[Basic Table]` style real templates apply), table
+SpaceBefore and SpaceAfter, diagonal lines, cell rotation, stroke styles other
+than solid, and editing table structure.

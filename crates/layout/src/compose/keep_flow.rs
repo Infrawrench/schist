@@ -69,7 +69,11 @@ pub(super) fn enforce(
         if body.is_empty() {
             continue;
         }
-        let retain = previous.fitting_lines(body.len() - 1, body.len());
+        let retain = previous.fitting_lines(
+            body.len() - 1,
+            body.len(),
+            super::holds_table(source, before),
+        );
         let mut cut = if retain == 0 { first } else { body[retain] };
         // An opening initial reserves its complete inset body area. Moving
         // any of those lines moves the opening too, never a partial drop cap.

@@ -46,6 +46,7 @@ fn grows(minimum: f32) -> TableRow {
         minimum,
         maximum: None,
         auto_grow: true,
+        keep_with_next: false,
     }
 }
 
@@ -86,6 +87,10 @@ fn document(
         rows,
         columns,
         cells: table_cells,
+        header_repeat: Default::default(),
+        footer_repeat: Default::default(),
+        skip_first_header: false,
+        skip_last_footer: false,
     };
     let mut host = Story::from_text("", "Body");
     host.structures.push(StoryStructure {
@@ -139,6 +144,7 @@ fn fixed_rows_floors_and_caps() {
         minimum: 3.0,
         maximum: None,
         auto_grow: false,
+        keep_with_next: false,
     };
     let floored = grows(40.0);
     let capped = TableRow {
@@ -301,13 +307,14 @@ fn fills_and_justification_place_paint_and_text() {
 }
 
 #[test]
-fn a_table_moves_on_whole_and_one_taller_than_its_frame_is_overset() {
+fn a_table_breaks_between_rows_and_what_no_frame_holds_is_overset() {
     let one: &[&str] = &["one"];
     let fixed = |height| TableRow {
         height,
         minimum: 3.0,
         maximum: None,
         auto_grow: false,
+        keep_with_next: false,
     };
     // Three 40 pt rows: 121 pt with the outer strokes.
     let (mut doc, frame, _) = document(
@@ -326,6 +333,8 @@ fn a_table_moves_on_whole_and_one_taller_than_its_frame_is_overset() {
     short(&mut doc, 100.0);
     let flow = compose_story(&doc, StoryId(0));
     assert!(flow.frames[0].lost, "taller than its frame");
+    // Two rows fit: two cell texts, three horizontal edges, four vertical.
+    assert_eq!(placed(&doc, frame).len(), 2 + 3 + 4);
     short(&mut doc, 130.0);
     let flow = compose_story(&doc, StoryId(0));
     assert!(!flow.frames[0].lost);

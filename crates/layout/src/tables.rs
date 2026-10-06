@@ -2,12 +2,13 @@
 //! position; its XML is retained for saving, and it is typed here for
 //! composition and drawing. Each cell's text is a story of its own.
 //!
-//! A table is set in its line as one block the size of its grid: its outer
+//! A table is set on lines of its own, one [`Part`] per line: its outer
 //! stroke edge at the line's top left. Rows that grow take the height their
 //! cells' text needs: the top inset, the last line's baseline below the cell's
-//! content top, and the bottom inset. Row splitting across frames, repeated
-//! header and footer rows, and table and cell styles are not composed yet.
-//! The rules and their evidence are in `docs/idml-format.md`.
+//! content top, and the bottom inset. A table that does not fit breaks
+//! between whole rows into parts, each repeating the header and footer rows
+//! as the table asks (see `table_flow`). Table and cell styles are not
+//! composed yet. The rules and their evidence are in `docs/idml-format.md`.
 use crate::{Ink, LayoutDocument, ObjectId, PlacedObject, Pt, Rect, StoryId};
 use serde::{Deserialize, Serialize};
 
@@ -20,6 +21,58 @@ pub struct Table {
     /// Column widths in points.
     pub columns: Vec<Pt>,
     pub cells: Vec<TableCell>,
+    /// Where header rows repeat when the table breaks (BreakHeaders).
+    #[serde(default)]
+    pub header_repeat: RepeatRows,
+    /// Where footer rows repeat (BreakFooters).
+    #[serde(default)]
+    pub footer_repeat: RepeatRows,
+    /// The first part shows no header rows (SkipFirstHeader).
+    #[serde(default)]
+    pub skip_first_header: bool,
+    /// The last part shows no footer rows (SkipLastFooter).
+    #[serde(default)]
+    pub skip_last_footer: bool,
+}
+
+/// Where repeated header or footer rows appear: IDML's
+/// HeaderFooterBreakTypes.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Default, Serialize, Deserialize)]
+pub enum RepeatRows {
+    /// In every text column the table reaches (InAllTextColumns).
+    #[default]
+    EveryColumn,
+    /// Once in each text frame (OncePerTextFrame).
+    OncePerFrame,
+    /// Once on each page (OncePerPage).
+    OncePerPage,
+}
+
+/// The rows one part of a broken table shows: its header rows or not, a run
+/// of body rows, and its footer rows or not.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
+pub struct Part {
+    pub header: bool,
+    /// Body rows, as table row indices.
+    pub start: usize,
+    pub end: usize,
+    pub footer: bool,
+}
+
+/// The parts each table of a story is broken into, by structure index. A
+/// table not listed is set whole.
+pub type Parts = std::collections::BTreeMap<usize, Vec<Part>>;
+
+/// A table part set in a line.
+#[derive(Debug, Clone, Copy, PartialEq)]
+pub struct SetPart {
+    /// The box's position in the line's spec.
+    pub at: usize,
+    /// The story structure holding the table.
+    pub structure: usize,
+    /// Which of the table's parts this is, and its rows.
+    pub index: usize,
+    pub part: Part,
 }
 
 /// A row's sizing.
@@ -33,6 +86,9 @@ pub struct TableRow {
     pub maximum: Option<Pt>,
     /// AutoGrow: the row takes the height its cells' text needs.
     pub auto_grow: bool,
+    /// KeepWithNextRow: the table does not break after this row.
+    #[serde(default)]
+    pub keep_with_next: bool,
 }
 
 /// Paint on a cell or one of its edges.
@@ -80,6 +136,46 @@ const BOTTOM: usize = 2;
 const RIGHT: usize = 3;
 
 impl Table {
+    /// The body rows: those between the header and footer rows.
+    pub fn body(&self) -> std::ops::Range<usize> {
+        self.header_rows
+            ..self
+                .rows
+                .len()
+                .saturating_sub(self.footer_rows)
+                .max(self.header_rows)
+    }
+
+    /// The table unbroken: every row, less a header or footer its first or
+    /// last occurrence skips.
+    pub fn whole(&self) -> Part {
+        let body = self.body();
+        Part {
+            header: self.header_rows > 0 && !self.skip_first_header,
+            start: body.start,
+            end: body.end,
+            footer: self.footer_rows > 0 && !self.skip_last_footer,
+        }
+    }
+
+    /// The rows `part` shows, in order.
+    pub fn shown(&self, part: &Part) -> Vec<usize> {
+        let footer = self.body().end..self.rows.len();
+        (0..self.header_rows)
+            .filter(|_| part.header)
+            .chain(part.start..part.end)
+            .chain(footer.filter(|_| part.footer))
+            .collect()
+    }
+
+    /// Whether a cell spans the grid line above `row`, so the table cannot
+    /// break there.
+    pub fn joined(&self, row: usize) -> bool {
+        self.cells
+            .iter()
+            .any(|c| c.row < row && row < c.row + c.rows)
+    }
+
     /// Finite, positive sizes and cells that tile part of the grid without
     /// overlapping or leaving it.
     pub fn valid(&self) -> bool {
@@ -143,6 +239,75 @@ pub struct TableLayout {
     /// How far each cell's last line reaches below its baseline: the row
     /// does not count it, so the cell's text frame is given that room.
     overhang: Vec<Pt>,
+    /// By row: the heaviest top edge of the cells starting there, and the
+    /// heaviest bottom edge of the cells ending there.
+    top_weight: Vec<Pt>,
+    bottom_weight: Vec<Pt>,
+}
+
+/// The grid of one part, relative to its outer top left.
+#[derive(Debug, Clone, PartialEq)]
+pub struct PartGrid {
+    /// The table rows shown, in order.
+    pub rows: Vec<usize>,
+    /// Grid line positions: rows + 1 of them.
+    pub y: Vec<Pt>,
+    /// Outer height, strokes included.
+    pub height: Pt,
+}
+
+impl TableLayout {
+    /// Row `row`'s height.
+    pub fn row_height(&self, row: usize) -> Pt {
+        self.y[row + 1] - self.y[row]
+    }
+
+    /// The outer height of the rows `part` shows, half its outer strokes
+    /// included.
+    pub fn part_height(&self, table: &Table, part: &Part) -> Pt {
+        let body = table.body();
+        let last = table.rows.len();
+        let runs = [
+            (0, table.header_rows, part.header),
+            (part.start, part.end, true),
+            (body.end, last, part.footer),
+        ];
+        let mut height = 0.0;
+        let mut ends = None;
+        for (start, end, shown) in runs {
+            if !shown || start >= end {
+                continue;
+            }
+            height += self.y[end] - self.y[start];
+            let first = ends.map_or(start, |(first, _)| first);
+            ends = Some((first, end - 1));
+        }
+        ends.map_or(0.0, |(first, last)| {
+            self.top_weight[first] / 2.0 + height + self.bottom_weight[last] / 2.0
+        })
+    }
+
+    /// The grid `part` draws: its rows one after another, its grid lines
+    /// half their outer strokes inside its edges, as the whole table's are.
+    pub fn part(&self, table: &Table, part: &Part) -> PartGrid {
+        let rows = table.shown(part);
+        let Some(first) = rows.first() else {
+            return PartGrid {
+                rows,
+                y: vec![0.0],
+                height: 0.0,
+            };
+        };
+        let mut y = vec![self.top_weight[*first] / 2.0];
+        for row in &rows {
+            y.push(y.last().unwrap() + self.row_height(*row));
+        }
+        PartGrid {
+            rows,
+            y,
+            height: self.part_height(table, part),
+        }
+    }
 }
 
 /// The id of a cell's text frame while it is measured or drawn; no document
@@ -271,6 +436,13 @@ pub fn layout(doc: &LayoutDocument, table: &Table, page: usize) -> Option<TableL
     for height in &heights {
         y.push(y.last().unwrap() + height);
     }
+    let mut top_weight = vec![0.0; last_row];
+    let mut bottom_weight = vec![0.0; last_row];
+    for cell in &table.cells {
+        let end = cell.row + cell.rows - 1;
+        top_weight[cell.row] = Pt::max(top_weight[cell.row], cell.edges[TOP].weight);
+        bottom_weight[end] = Pt::max(bottom_weight[end], cell.edges[BOTTOM].weight);
+    }
     Some(TableLayout {
         width: x.last().unwrap() + right / 2.0,
         height: y.last().unwrap() + bottom / 2.0,
@@ -278,6 +450,8 @@ pub fn layout(doc: &LayoutDocument, table: &Table, page: usize) -> Option<TableL
         y,
         content,
         overhang,
+        top_weight,
+        bottom_weight,
     })
 }
 
@@ -346,21 +520,37 @@ fn shape(
     }
 }
 
-/// What the table draws with its outer top left at `origin`, in the frame's
-/// space: cell fills, then cell edges, then cell text. Horizontal edges run
-/// the whole cell and reach the outer stroke edge at the table's sides;
-/// vertical edges stop at the horizontal strokes, as InDesign's PDF of the
-/// public paged-media `tables` sample draws them.
+/// What the rows of `grid` draw with its outer top left at `origin`, in the
+/// frame's space: cell fills, then cell edges, then cell text. Horizontal
+/// edges run the whole cell and reach the outer stroke edge at the table's
+/// sides; vertical edges stop at the horizontal strokes, as InDesign's PDF of
+/// the public paged-media `tables` sample draws them. A part's last row
+/// draws its bottom edges as the table's last row does.
 pub fn objects(
     table: &Table,
     layout: &TableLayout,
+    grid: &PartGrid,
     origin: crate::Point,
     page: usize,
 ) -> Vec<PlacedObject> {
     let (ox, oy) = (origin.x, origin.y);
-    let grid = |cell: &TableCell| {
+    // Each shown cell's first and past-last grid line in the part.
+    let mut line_of = vec![None; table.rows.len()];
+    for (index, row) in grid.rows.iter().enumerate() {
+        line_of[*row] = Some(index);
+    }
+    let spans: Vec<Option<(usize, usize)>> = table
+        .cells
+        .iter()
+        .map(|cell| {
+            let first = line_of[cell.row]?;
+            let last = line_of[cell.row + cell.rows - 1]?;
+            (last + 1 == first + cell.rows).then_some((first, last + 1))
+        })
+        .collect();
+    let rect_of = |cell: &TableCell, (first, end): (usize, usize)| {
         let (x0, x1) = (layout.x[cell.column], layout.x[cell.column + cell.columns]);
-        let (y0, y1) = (layout.y[cell.row], layout.y[cell.row + cell.rows]);
+        let (y0, y1) = (grid.y[first], grid.y[end]);
         Rect::new(ox + x0, oy + y0, x1 - x0, y1 - y0)
     };
     let drawn = |edge: &CellEdge| edge.weight > 0.0 && edge.paint.is_some();
@@ -368,18 +558,20 @@ pub fn objects(
     let mut verticals = Vec::new();
     let mut horizontals = Vec::new();
     let mut texts = Vec::new();
-    let last_row = table.rows.len();
+    let last_row = grid.rows.len();
     let last_column = table.columns.len();
     // The horizontal stroke weight along a grid line at a column.
-    let horizontal_at = |row: usize, column: usize| -> Pt {
+    let horizontal_at = |line: usize, column: usize| -> Pt {
         table
             .cells
             .iter()
-            .filter(|c| column >= c.column && column < c.column + c.columns)
-            .filter_map(|c| {
-                if c.row == row {
+            .zip(&spans)
+            .filter(|(c, _)| column >= c.column && column < c.column + c.columns)
+            .filter_map(|(c, span)| {
+                let (first, end) = (*span)?;
+                if first == line {
                     Some(c.edges[TOP].weight)
-                } else if c.row + c.rows == row {
+                } else if end == line {
                     Some(c.edges[BOTTOM].weight)
                 } else {
                     None
@@ -388,7 +580,10 @@ pub fn objects(
             .fold(0.0, Pt::max)
     };
     for (index, cell) in table.cells.iter().enumerate() {
-        let rect = grid(cell);
+        let Some((first, end)) = spans[index] else {
+            continue;
+        };
+        let rect = rect_of(cell, (first, end));
         if let Some(fill) = &cell.fill {
             fills.push(shape(
                 crate::authoring::path_for(
@@ -425,7 +620,7 @@ pub fn objects(
             ));
         };
         horizontal(rect.y, &cell.edges[TOP]);
-        if cell.row + cell.rows == last_row {
+        if end == last_row {
             horizontal(rect.bottom(), &cell.edges[BOTTOM]);
         }
         let mut vertical = |x: Pt, edge: &CellEdge| {
@@ -433,8 +628,8 @@ pub fn objects(
                 return;
             }
             let column = cell.column;
-            let top = rect.y + horizontal_at(cell.row, column) / 2.0;
-            let bottom = rect.bottom() - horizontal_at(cell.row + cell.rows, column) / 2.0;
+            let top = rect.y + horizontal_at(first, column) / 2.0;
+            let bottom = rect.bottom() - horizontal_at(end, column) / 2.0;
             if bottom > top {
                 verticals.push(shape(
                     crate::authoring::path_for(

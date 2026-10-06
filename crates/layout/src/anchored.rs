@@ -475,11 +475,18 @@ pub(crate) struct Instance {
     pub at: usize,
     pub character: crate::ResolvedCharacter,
     pub line_box: LineBox,
+    /// For a table, which of its parts this is.
+    pub part: Option<(usize, crate::tables::Part)>,
 }
 
 /// Items of `story` that composition sets: typed, anchored at a known
-/// position in horizontal text.
-pub(crate) fn instances(doc: &LayoutDocument, story: &Story) -> Vec<Instance> {
+/// position in horizontal text. A table gives one instance for each of its
+/// `parts` (the whole table when it has none there).
+pub(crate) fn instances(
+    doc: &LayoutDocument,
+    story: &Story,
+    parts: &crate::tables::Parts,
+) -> Vec<Instance> {
     let offsets = story.point_offsets();
     let host = doc
         .stories
@@ -490,77 +497,118 @@ pub(crate) fn instances(doc: &LayoutDocument, story: &Story) -> Vec<Instance> {
         .structures
         .iter()
         .enumerate()
-        .filter_map(|(index, structure)| {
-            let at = structure.at?;
-            // A table is set as one inline block the size of its grid.
-            let (line_box, inline) = if let Some(table) = &structure.table {
-                if host.is_none_or(|host| crate::tables::reaches(doc, table, host)) {
-                    return None;
-                }
-                let layout = crate::tables::layout(doc, table, 0)?;
+        .flat_map(|(index, structure)| {
+            instance(doc, story, &offsets, host, parts, index, structure).unwrap_or_default()
+        })
+        .collect()
+}
+
+fn instance(
+    doc: &LayoutDocument,
+    story: &Story,
+    offsets: &[usize],
+    host: Option<crate::StoryId>,
+    parts: &crate::tables::Parts,
+    index: usize,
+    structure: &crate::StoryStructure,
+) -> Option<Vec<Instance>> {
+    let at = structure.at?;
+    // Each part of a table is set as an inline block the size of its rows.
+    let (boxes, inline) = if let Some(table) = &structure.table {
+        if host.is_none_or(|host| crate::tables::reaches(doc, table, host)) {
+            return None;
+        }
+        let layout = crate::tables::layout(doc, table, 0)?;
+        let parts = parts
+            .get(&index)
+            .cloned()
+            .unwrap_or_else(|| vec![table.whole()]);
+        let boxes = parts
+            .into_iter()
+            .enumerate()
+            .map(|(number, part)| {
                 let line_box = LineBox {
                     width: layout.width,
-                    ascent: layout.height,
+                    ascent: layout.part_height(table, &part),
                     descent: 0.0,
                     above: 0.0,
                 };
-                (line_box, true)
-            } else {
-                let item = structure.anchored.as_ref()?;
-                // A text frame leading back to this story would compose
-                // forever.
-                if host.is_none_or(|host| reaches(doc, item, host)) && item.is_text_frame() {
-                    return None;
-                }
-                (item.line_box()?, item.position == AnchoredPosition::Inline)
-            };
-            let (point, _) = story.points.iter().zip(&offsets).find(|(point, start)| {
-                matches!(point, crate::StoryPoint::Paragraph { .. })
-                    && **start <= at
-                    && at <= **start + point.text().len()
-            })?;
-            let crate::StoryPoint::Paragraph { style, .. } = point else {
-                return None;
-            };
-            let paragraph = doc.styles.resolve_paragraph(if style.is_empty() {
-                &doc.default_paragraph_style
-            } else {
-                style
-            });
-            if paragraph
-                .writing_mode
-                .is_some_and(|mode| mode != crate::WritingMode::Horizontal)
-            {
-                return None;
-            }
-            let run = story
-                .ranges
-                .iter()
-                .rev()
-                .find(|r| r.start < at && at <= r.end)
-                .map_or("", |r| r.style.as_str());
-            let mut character = crate::text_variables::instance_character(doc, story, at, run)?;
-            // Auto leading resolves to points before the engine sees the
-            // line, so it never meets the box. InDesign's export of a public
-            // sample steps the line by the item's height above the baseline
-            // plus the text's own extra leading (36.5 + 14.4 − 12 pt), never
-            // less than the text's Auto leading.
-            if inline && character.leading == Some(crate::styles::Leading::Auto) {
-                let size = character.point_size.unwrap_or(11.0);
-                character.leading = crate::styles::Leading::Auto
-                    .points(size, paragraph.auto_leading)
-                    .map(|text| {
+                (line_box, Some((number, part)))
+            })
+            .collect::<Vec<_>>();
+        (boxes, true)
+    } else {
+        let item = structure.anchored.as_ref()?;
+        // A text frame leading back to this story would compose forever.
+        if host.is_none_or(|host| reaches(doc, item, host)) && item.is_text_frame() {
+            return None;
+        }
+        (
+            vec![(item.line_box()?, None)],
+            item.position == AnchoredPosition::Inline,
+        )
+    };
+    let (point, _) = story.points.iter().zip(offsets).find(|(point, start)| {
+        matches!(point, crate::StoryPoint::Paragraph { .. })
+            && **start <= at
+            && at <= **start + point.text().len()
+    })?;
+    let crate::StoryPoint::Paragraph { style, .. } = point else {
+        return None;
+    };
+    let paragraph = doc.styles.resolve_paragraph(if style.is_empty() {
+        &doc.default_paragraph_style
+    } else {
+        style
+    });
+    if paragraph
+        .writing_mode
+        .is_some_and(|mode| mode != crate::WritingMode::Horizontal)
+    {
+        return None;
+    }
+    let run = story
+        .ranges
+        .iter()
+        .rev()
+        .find(|r| r.start < at && at <= r.end)
+        .map_or("", |r| r.style.as_str());
+    let character = crate::text_variables::instance_character(doc, story, at, run)?;
+    let table = structure.table.is_some();
+    Some(
+        boxes
+            .into_iter()
+            .map(|(line_box, part)| {
+                let mut character = character.clone();
+                // Auto leading resolves to points before the engine sees
+                // the line, so it never meets the box. InDesign's export of a
+                // public sample steps the line by the item's height above the
+                // baseline plus the text's own extra leading (36.5 + 14.4 −
+                // 12 pt), never less than the text's Auto leading. A table's
+                // lines do so under fixed leading too, so a table never
+                // overlaps the text above it (a Schist reading).
+                let auto = crate::styles::Leading::Auto;
+                let leading = if table {
+                    Some(character.leading.unwrap_or(auto))
+                } else {
+                    (inline && character.leading == Some(auto)).then_some(auto)
+                };
+                if let Some(leading) = leading {
+                    let size = character.point_size.unwrap_or(11.0);
+                    character.leading = leading.points(size, paragraph.auto_leading).map(|text| {
                         crate::styles::Leading::Points(text.max(line_box.ascent + text - size))
                     });
-            }
-            Some(Instance {
-                structure: index,
-                at,
-                character,
-                line_box,
+                }
+                Instance {
+                    structure: index,
+                    at,
+                    character,
+                    line_box,
+                    part,
+                }
             })
-        })
-        .collect()
+            .collect(),
+    )
 }
 
 /// Whether any item set in `lines` asks for text wrap composition does not
@@ -691,7 +739,13 @@ fn tables(
         .anchored
         .iter()
         .filter_map(|(at, structure)| {
-            Some((*at, story.structures.get(*structure)?.table.as_deref()?))
+            let table = story.structures.get(*structure)?.table.as_deref()?;
+            let part = projected
+                .tables
+                .iter()
+                .find(|set| set.at == *at)
+                .map_or_else(|| table.whole(), |set| set.part);
+            Some((*at, table, part))
         })
         .collect();
     if tables.is_empty() {
@@ -700,18 +754,21 @@ fn tables(
     let (origin, spec) = line_origin(line);
     let positions = schist_text_engine::inline_box_positions(spec);
     let mut out = Vec::new();
-    for (at, table) in tables {
+    for (at, table, part) in tables {
         let Some(position) = positions.iter().find(|p| p.at == at) else {
             continue;
         };
         let Some(layout) = crate::tables::layout(doc, table, frame.page) else {
             continue;
         };
+        let grid = layout.part(table, &part);
         let top_left = crate::Point::new(
             origin.x + position.x,
-            origin.y + position.baseline - layout.height,
+            origin.y + position.baseline - grid.height,
         );
-        out.extend(crate::tables::objects(table, &layout, top_left, frame.page));
+        out.extend(crate::tables::objects(
+            table, &layout, &grid, top_left, frame.page,
+        ));
     }
     out
 }

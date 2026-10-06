@@ -42,8 +42,8 @@ impl ParagraphKeeps {
 
     /// Choose a complete prefix of already-shaped lines, retaining the
     /// minimum fragments on both sides of a paragraph split.
-    pub fn fitting_lines(&self, available: usize, total: usize) -> usize {
-        if available >= total || self.enabled != Some(true) {
+    pub fn fitting_lines(&self, available: usize, total: usize, table: bool) -> usize {
+        if available >= total || self.enabled != Some(true) || table {
             return available;
         }
         if self.all == Some(true) {

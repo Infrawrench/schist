@@ -362,9 +362,14 @@ fn a_tables_fill_edges_and_cell_text_paint_inside_its_grid() {
             minimum: 40.0,
             maximum: None,
             auto_grow: true,
+            keep_with_next: false,
         }],
         columns: vec![100.0, 100.0],
         cells,
+        header_repeat: Default::default(),
+        footer_repeat: Default::default(),
+        skip_first_header: false,
+        skip_last_footer: false,
     };
     let mut host = Story::from_text("", "Body");
     host.structures.push(StoryStructure {
@@ -407,4 +412,109 @@ fn a_tables_fill_edges_and_cell_text_paint_inside_its_grid() {
         .findings
         .iter()
         .any(|f| f.message.contains("structure")));
+}
+
+/// A table broken across frames on two pages paints each part on its own
+/// page, the tinted header repeated at the top of the second.
+#[test]
+fn a_broken_tables_parts_paint_on_their_own_pages() {
+    use schist_layout::tables::{
+        CellEdge, CellJustification, CellPaint, Table, TableCell, TableRow,
+    };
+    let mut doc = blank_a4();
+    doc.add_page(doc.pages[0].clone());
+    let cyan = Ink::cmyk("Cyan", [1.0, 0.0, 0.0, 0.0]);
+    doc.inks.push(cyan.clone());
+    let mut history = History::default();
+    let bounds = Rect::new(60.0, 80.0, 300.0, 200.0);
+    let first = authoring::text_frame(&mut doc, &mut history, 0, bounds).unwrap();
+    let second = authoring::text_frame(&mut doc, &mut history, 1, bounds).unwrap();
+    assert!(schist_layout::threading::link(
+        &mut doc,
+        &mut history,
+        first.object,
+        second.object
+    ));
+    let edge = CellEdge {
+        weight: 1.0,
+        paint: Some(CellPaint {
+            ink: Ink::black(),
+            tint: 1.0,
+        }),
+    };
+    // A header and six 40 pt rows: 281 pt, more than one frame holds.
+    let mut cells = Vec::new();
+    for row in 0..7 {
+        doc.stories
+            .push(Story::from_text(format!("Row {row}"), "Body"));
+        cells.push(TableCell {
+            column: 0,
+            row,
+            columns: 1,
+            rows: 1,
+            story: StoryId((doc.stories.len() - 1) as u32),
+            fill: (row == 0).then(|| CellPaint {
+                ink: cyan.clone(),
+                tint: 1.0,
+            }),
+            insets: schist_layout::Insets::uniform(4.0),
+            justification: CellJustification::Top,
+            edges: [edge.clone(), edge.clone(), edge.clone(), edge.clone()],
+        });
+    }
+    let row = TableRow {
+        height: 40.0,
+        minimum: 40.0,
+        maximum: None,
+        auto_grow: true,
+        keep_with_next: false,
+    };
+    let table = Table {
+        header_rows: 1,
+        footer_rows: 0,
+        rows: vec![row; 7],
+        columns: vec![200.0],
+        cells,
+        header_repeat: Default::default(),
+        footer_repeat: Default::default(),
+        skip_first_header: false,
+        skip_last_footer: false,
+    };
+    let mut host = Story::from_text("", "Body");
+    host.structures.push(StoryStructure {
+        at: Some(0),
+        kind: "Table".into(),
+        payload: "<Table />".into(),
+        control: None,
+        footnote: None,
+        table: Some(Box::new(table)),
+        anchored: None,
+    });
+    doc.stories[first.story.0 as usize] = host;
+    for page in 0..2 {
+        let result = separate_page(&doc, page, OutputSettings::at(72.0), &NoGraphics).unwrap();
+        let ink = |plate: usize, x: f32, y: f32| {
+            result
+                .separation
+                .plate(plate)
+                .unwrap()
+                .at(x as i32, y as i32)
+        };
+        let (cyan, black) = (result.plan.process[0], result.plan.process[3]);
+        // The header's cyan fill at the frame's top, on both pages.
+        assert!(ink(cyan, 160.0, 100.0) > 0.9, "page {page}");
+        // Three body rows fit each frame: the last grid line at 240.5 pt,
+        // the header's 40 and three rows' 120 below the 80.5 pt top line.
+        assert!(ink(black, 160.0, 240.0) > 0.4, "page {page}");
+        assert!(ink(black, 160.0, 270.0) < 0.05, "page {page}");
+        assert!(
+            !result
+                .report
+                .findings
+                .iter()
+                .any(|f| f.severity == Severity::Error),
+            "{:?}",
+            result.report.findings
+        );
+    }
 }

@@ -3,9 +3,15 @@
 //! document. Attribute names follow the public specification and the cell
 //! inset spelling InDesign writes (`TextTopInset` …); absent cell insets are
 //! the 4 pt InDesign's PDF of the public paged-media `tables` sample shows,
-//! absent edges InDesign's default 1 pt black.
+//! absent edges InDesign's default 1 pt black. How the table breaks follows
+//! the specification's BreakHeaders, BreakFooters, SkipFirstHeader,
+//! SkipLastFooter and each row's KeepWithNextRow; a row StartRow other than
+//! Anywhere, and values the specification does not define, are reported and
+//! read as their defaults.
 use crate::{import::Report, xml};
-use schist_layout::tables::{CellEdge, CellJustification, CellPaint, Table, TableCell, TableRow};
+use schist_layout::tables::{
+    CellEdge, CellJustification, CellPaint, RepeatRows, Table, TableCell, TableRow,
+};
 use schist_layout::{Insets, LayoutDocument, StoryId};
 
 pub(crate) fn read(
@@ -66,21 +72,51 @@ fn table(
         count("BodyRowCount")?,
         count("FooterRowCount")?,
     );
-    let rows: Vec<TableRow> = element
-        .children_named("Row")
-        .map(|row| {
-            let height = number(row, &["SingleRowHeight"]).unwrap_or(20.0);
-            Some(TableRow {
-                height,
-                minimum: number(row, &["MinimumHeight"]).unwrap_or(3.0),
-                maximum: number(row, &["MaximumHeight"]),
-                auto_grow: match row.attr("AutoGrow") {
-                    None => true,
-                    Some(value) => xml::parse_boolean(value)?,
-                },
+    let name = element.attr("Self").unwrap_or_default();
+    // A setting composition does not apply, reported once by attribute.
+    let mut unapplied = std::collections::BTreeSet::new();
+    let flag = |owner: &xml::Element,
+                attribute: &str,
+                unapplied: &mut std::collections::BTreeSet<String>| {
+        owner.attr(attribute).is_some_and(|value| {
+            xml::parse_boolean(value).unwrap_or_else(|| {
+                unapplied.insert(format!("{attribute}={value}"));
+                false
             })
         })
-        .collect::<Option<_>>()?;
+    };
+    let mut rows: Vec<TableRow> = Vec::new();
+    for row in element.children_named("Row") {
+        let height = number(row, &["SingleRowHeight"]).unwrap_or(20.0);
+        if let Some(start) = row.attr("StartRow").filter(|s| *s != "Anywhere") {
+            unapplied.insert(format!("StartRow={start}"));
+        }
+        rows.push(TableRow {
+            height,
+            minimum: number(row, &["MinimumHeight"]).unwrap_or(3.0),
+            maximum: number(row, &["MaximumHeight"]),
+            auto_grow: match row.attr("AutoGrow") {
+                None => true,
+                Some(value) => xml::parse_boolean(value)?,
+            },
+            keep_with_next: flag(row, "KeepWithNextRow", &mut unapplied),
+        });
+    }
+    let repeat = |attribute: &str, unapplied: &mut std::collections::BTreeSet<String>| match element
+        .attr(attribute)
+    {
+        None | Some("InAllTextColumns") => RepeatRows::EveryColumn,
+        Some("OncePerTextFrame") => RepeatRows::OncePerFrame,
+        Some("OncePerPage") => RepeatRows::OncePerPage,
+        Some(other) => {
+            unapplied.insert(format!("{attribute}={other}"));
+            RepeatRows::EveryColumn
+        }
+    };
+    let header_repeat = repeat("BreakHeaders", &mut unapplied);
+    let footer_repeat = repeat("BreakFooters", &mut unapplied);
+    let skip_first_header = flag(element, "SkipFirstHeader", &mut unapplied);
+    let skip_last_footer = flag(element, "SkipLastFooter", &mut unapplied);
     let columns: Vec<f32> = element
         .children_named("Column")
         .map(|column| number(column, &["SingleColumnWidth"]))
@@ -173,6 +209,20 @@ fn table(
         rows,
         columns,
         cells,
+        header_repeat,
+        footer_repeat,
+        skip_first_header,
+        skip_last_footer,
     };
-    table.valid().then_some((table, stories))
+    if !table.valid() {
+        return None;
+    }
+    for setting in unapplied {
+        report.skip(schist_i18n::tf!(
+            "design.idml_table_setting",
+            name = name,
+            setting = setting
+        ));
+    }
+    Some((table, stories))
 }

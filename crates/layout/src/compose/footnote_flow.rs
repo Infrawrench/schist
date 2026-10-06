@@ -138,6 +138,7 @@ pub(super) fn capture(
             .next_back()
             .and_then(|(_, issue)| *issue),
         anchored: Vec::new(),
+        tables: Vec::new(),
     });
 }
 

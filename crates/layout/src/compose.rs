@@ -829,27 +829,54 @@ fn compose_thread_on_page(
         // Next and previous page numbers depend on the frame they land in:
         // compose again with each marker's frame until none moves.
         let mut markers = std::collections::BTreeMap::new();
+        let mut parts = crate::tables::Parts::new();
+        let mut tables = crate::table_flow::Flow::default();
+        let rooms = crate::table_flow::rooms(doc, story_id, frames);
         for round in 0..3 {
-            let Some(mut prepared) = crate::footnote_composition::prepare_for_flow(
-                doc,
-                story_id,
-                footnote_flow::supported(doc, story_id, frames),
-                &pages,
-                &ids,
-                &markers,
-            ) else {
-                break;
+            let prepare = |parts: &crate::tables::Parts| {
+                crate::footnote_composition::prepare_for_flow(
+                    doc,
+                    story_id,
+                    footnote_flow::supported(doc, story_id, frames),
+                    &pages,
+                    &ids,
+                    &markers,
+                    parts,
+                )
             };
             // An item's wrap moves the lines after its anchor, which can move
             // later anchors: compose again until the items settle.
-            let mut out = compose_prepared(doc, story_id, frames, parent_page, &prepared);
-            for _ in 0..4 {
-                let wraps = crate::anchored::wraps(doc, story_id, &out);
-                if crate::anchored::settled(&wraps, &prepared.anchored_wraps) {
-                    break;
+            let settle = |mut prepared: crate::footnote_composition::PreparedStory| {
+                let mut out = compose_prepared(doc, story_id, frames, parent_page, &prepared);
+                for _ in 0..4 {
+                    let wraps = crate::anchored::wraps(doc, story_id, &out);
+                    if crate::anchored::settled(&wraps, &prepared.anchored_wraps) {
+                        break;
+                    }
+                    prepared.anchored_wraps = wraps;
+                    out = compose_prepared(doc, story_id, frames, parent_page, &prepared);
                 }
-                prepared.anchored_wraps = wraps;
-                out = compose_prepared(doc, story_id, frames, parent_page, &prepared);
+                out
+            };
+            let Some(prepared) = prepare(&parts) else {
+                break;
+            };
+            let mut out = settle(prepared);
+            // Tables break where their rows fit, which depends on where
+            // their parts land: compose again until the parts settle.
+            if let Some(rooms) = &rooms {
+                for _ in 0..8 {
+                    let planned =
+                        crate::table_flow::plan(doc, story_id, rooms, &out, &parts, &mut tables);
+                    if planned == parts {
+                        break;
+                    }
+                    parts = planned;
+                    let Some(prepared) = prepare(&parts) else {
+                        break;
+                    };
+                    out = settle(prepared);
+                }
             }
             let landed = crate::text_variables::marker_frames(doc, story_id, &out);
             if landed == markers || round == 2 {
@@ -912,6 +939,21 @@ fn compose_prepared(
                         .iter()
                         .filter(|b| b.at >= line.start && b.at < line.end)
                         .map(|b| (b.at - line.start, b.structure))
+                        .collect();
+                    projected.tables = prepared
+                        .main
+                        .boxes
+                        .iter()
+                        .filter(|b| b.at >= line.start && b.at < line.end)
+                        .filter_map(|b| {
+                            let (index, part) = b.part?;
+                            Some(crate::tables::SetPart {
+                                at: b.at - line.start,
+                                structure: b.structure,
+                                index,
+                                part,
+                            })
+                        })
                         .collect();
                 }
             }
@@ -2058,6 +2100,20 @@ fn fill_column(
     (lines, cursor.max(start))
 }
 
+/// Whether `block` sets part of a table, whose lines are not lines of text:
+/// keep options never hold them.
+fn holds_table(source: &FlowSource<'_>, block: &Block) -> bool {
+    sets_table(source, block.start..block.end)
+}
+
+/// Whether `range` of the projected text sets part of a table.
+fn sets_table(source: &FlowSource<'_>, range: std::ops::Range<usize>) -> bool {
+    source
+        .boxes
+        .iter()
+        .any(|b| b.part.is_some() && range.contains(&b.at))
+}
+
 /// The outcome of trying to place one paragraph into the room left.
 struct Placed {
     lines: Vec<ComposedLine>,
@@ -2347,7 +2403,11 @@ fn place_block(
     let mut previous = space.previous;
     let mut positions = Vec::new();
     for (index, span) in all.iter().enumerate() {
+        // A table wider than its column overhangs it, as InDesign's PDF of
+        // the public `tables-overset` sample sets a 361 pt table in a 360 pt
+        // frame.
         if span.width > measure_at(index).width + 0.001
+            && !sets_table(source, body.start + span.start..body.start + span.end)
             && (spec
                 .inline_objects
                 .iter()
@@ -2374,7 +2434,10 @@ fn place_block(
         });
         top = placed_top + span.height;
     }
-    let mut count = paragraph.keeps.fitting_lines(positions.len(), all.len());
+    let mut count =
+        paragraph
+            .keeps
+            .fitting_lines(positions.len(), all.len(), holds_table(source, block));
     if cap.as_ref().is_some_and(|cap| {
         count < cap.lines.min(all.len()) || cap.bounds.bottom() > space.top + space.height
     }) {
@@ -2686,7 +2749,9 @@ fn place_wrapped(
         }
         count += 1;
     }
-    let count = paragraph.keeps.fitting_lines(count, spans.len());
+    let count = paragraph
+        .keeps
+        .fitting_lines(count, spans.len(), holds_table(source, body));
     if count == 0 {
         return empty;
     }

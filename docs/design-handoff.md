@@ -180,11 +180,12 @@ the roadmap. Production INDD remains gated on Phase 0.
 
 ## Verification at this checkpoint
 
-The first table batch passes all 16 roadmap targets, headless library wasm,
-shared UI, formatting, whitespace and the debug app build (2,225 distinct passing
-Rust tests); the i18n audit's finding on a long new message was fixed by
-shortening it, and that check re-passed. All 43 proofs are byte-identical to the
-previous checkpoint. Details are in Roadmap / Handoff. The two macOS-only editor tests were not compiled here; the next macOS
+The table-breaking batch passes all 16 roadmap targets, headless library wasm,
+shared UI, formatting, whitespace and the debug app build (2,236 distinct passing
+Rust tests), and all 43 proofs are byte-identical to the previous checkpoint.
+Details are in Roadmap / Handoff.
+
+The two macOS-only editor tests were not compiled here; the next macOS
 run should include them.
 
 ## Temporary files

@@ -310,6 +310,61 @@ are marked.
 
 ## Handoff
 
+Tables breaking across frames, 2026-10-06:
+A table that does not fit the room left now breaks between whole rows into
+parts, each set on a line of its own, the next starting at the top of the next
+column of the thread. Header rows repeat in every column, once per frame or once
+per page (BreakHeaders), footer rows likewise (BreakFooters), and the first
+header and last footer can be skipped; rows kept with the next (KeepWithNextRow)
+never end a part unless nothing else would fill a whole column, a break never
+falls inside a cell spanning rows, and a row no column holds leaves the rest of
+the table overset. The rules reproduce InDesign's PDF of the public paged-media
+`tables-rows` sample row for row on its three frame-break pages (header + rows
+1-5 then header + rows 6-10; keeps moving rows 3-7 on together; a 179 pt row
+left overset with an empty second frame), and the `tables-overset` sample's five
+frame heights (two of four rows in 62 pt, none in 20 pt, nothing when only the
+header would fit). That sample's 361 pt table overhangs its 360 pt frame, which
+Schist had refused to set at all: a table wider than its column now overhangs
+it. Because where the parts fall depends
+on where composition sets them, a story holding tables composes again until its
+parts settle (`table_flow`): the first part fills the room measured below the
+line before it, and a part that moves past its planned column caps that column
+for the next plan. A table never shares a line with text (text before ends the
+line above, text after starts the line below), and its lines step down from the
+text above by the text's extra leading under fixed leading too, so a table never
+overlaps it. Row StartRow other than Anywhere and undefined repeat values are
+reported and not applied: one key is added to all 150 catalogs.
+
+Not composed yet: StartRow, table and cell styles (including `[Basic Table]`),
+table space before and after, alternating fills and strokes, diagonals, rotated
+cells, non-solid strokes and editing table structure.
+
+The source-frozen sweep of all 16 roadmap targets, headless library wasm, shared
+UI, formatting, whitespace and the debug app build passes on Windows with **2,236
+distinct passing Rust tests**, 11 new (9 layout, 1 IDML, 1 separation), and no
+corrections; all 43 proofs are byte-identical to the previous checkpoint. A first
+sweep was stopped early to add the `tables-overset` cases and the overhang fix
+they exposed, and the whole sweep ran again on the final source.
+
+Native review used passive captures of the actual debug app with Design enabled
+and isolated configuration, on a package holding two threaded 340 pt frames: an
+intro line, then a table of a tinted header row, 24 body rows of one to three
+lines (rows 9 to 11 kept with the next) and a tinted footer row, then a line
+after the table. The first frame shows the header, rows 1 to 7 and the footer;
+the second repeats the header and shows rows 8 to 14, the kept rows moved on
+with row 12, and the footer, with the frame's overset marker for the rows and
+text that do not fit. The first build placed no part at all: the default body
+style keeps a paragraph's first and last two lines together, and a table's
+parts counted as lines of its paragraph. Keep options no longer hold table
+parts (`fitting_lines` takes whether the paragraph sets a table), and the new
+layout tests cover it. A forced line break inside an inline item's atomic span
+had also made the engine refuse the line; only the item itself is atomic now. A
+final passive capture with the swept build shows the same two frames.
+
+Next: table and cell styles with alternating fills and strokes, then the
+remaining item 9 gaps. Published to draft PR #195.
+
+
 Tables, first phase, 2026-10-05:
 A Table inside a story is now typed from its retained XML (`tables::Table`, the
 new `StoryStructure::table`): header, body and footer counts, row sizing, column
