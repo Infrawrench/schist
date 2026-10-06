@@ -10,8 +10,83 @@
 //! read as their defaults.
 use crate::{import::Report, xml};
 use schist_layout::tables::{
-    CellEdge, CellJustification, CellPaint, RepeatRows, Table, TableCell, TableRow,
+    Alternation, CellEdge, CellJustification, CellPaint, RepeatRows, Table, TableCell, TableRow,
 };
+
+/// The root styles every table and cell style is ultimately based on.
+const NO_TABLE_STYLE: &str = "TableStyle/$ID/[No table style]";
+const NO_CELL_STYLE: &str = "CellStyle/$ID/[None]";
+
+/// Style `start` and those it is based on, nearest first, ending with the
+/// root style `root` when the package defines it. Only the specification's
+/// Properties/BasedOn element links styles: InDesign's PDF of the public
+/// paged-media `styles-cascade` sample leaves a table plain whose cell and
+/// table styles name their bases in a BasedOn attribute instead.
+fn chain<'a>(
+    styles: &'a std::collections::BTreeMap<String, xml::Element>,
+    start: Option<&str>,
+    root: &str,
+) -> Vec<&'a xml::Element> {
+    let mut out: Vec<&xml::Element> = Vec::new();
+    let mut next = start.filter(|s| !s.is_empty() && *s != "n");
+    while let Some(id) = next {
+        let Some(style) = styles.get(id) else {
+            break;
+        };
+        if out.iter().any(|seen| std::ptr::eq(*seen, style)) {
+            break;
+        }
+        out.push(style);
+        next = style
+            .child("Properties")
+            .and_then(|p| p.child("BasedOn"))
+            .map(xml::Element::trimmed)
+            .filter(|v| !v.is_empty() && *v != "n");
+    }
+    if let Some(root) = styles.get(root) {
+        if !out.iter().any(|seen| std::ptr::eq(*seen, root)) {
+            out.push(root);
+        }
+    }
+    out
+}
+
+/// The table and cell style groups of a Styles part, as written.
+pub(crate) fn style_groups(text: &str) -> Vec<String> {
+    let mut out = Vec::new();
+    for group in ["RootCellStyleGroup", "RootTableStyleGroup"] {
+        let open = format!("<{group}");
+        let mut from = 0;
+        while let Some(at) = text[from..].find(&open).map(|i| from + i) {
+            let after = at + open.len();
+            // Only the element itself, not a longer name sharing the prefix.
+            if !text[after..].starts_with([' ', '>', '/', '\t', '\r', '\n']) {
+                from = after;
+                continue;
+            }
+            let Some(tag_end) = text[after..].find('>').map(|i| after + i) else {
+                break;
+            };
+            let end = if text[..tag_end].ends_with('/') {
+                tag_end + 1
+            } else {
+                let close = format!("</{group}>");
+                match text[tag_end..].find(&close) {
+                    Some(i) => tag_end + i + close.len(),
+                    None => break,
+                }
+            };
+            out.push(text[at..end].to_owned());
+            from = end;
+        }
+    }
+    out
+}
+
+/// The first of `owners` that states `name`.
+fn owner<'a>(owners: &[&'a xml::Element], name: &str) -> Option<&'a xml::Element> {
+    owners.iter().copied().find(|e| e.attr(name).is_some())
+}
 use schist_layout::{Insets, LayoutDocument, StoryId};
 
 pub(crate) fn read(
@@ -132,43 +207,160 @@ fn table(
         .get("Color/Black")
         .cloned()
         .unwrap_or_else(schist_layout::Ink::black);
+    // The table's own settings, then its style's and those it is based on.
+    let mut table_owners = vec![element];
+    table_owners.extend(chain(
+        &refs.table_styles,
+        element.attr("AppliedTableStyle"),
+        NO_TABLE_STYLE,
+    ));
+    let table_attr = |name: &str| owner(&table_owners, name).and_then(|e| e.attr(name));
+    // Alternating fills, with the defaults InDesign's own exports write for
+    // [No table style]: no pattern, a first fill of black at 20 %, a next
+    // fill of none. InDesign's PDF of the public `tables` sample tints its
+    // style's 20 % cyan first fill to 4 %.
+    let alternation = |axis: &str, report: &mut Report| -> Option<Alternation> {
+        let count = |name: String| {
+            table_attr(&name)
+                .and_then(|v| v.parse::<usize>().ok())
+                .unwrap_or(0)
+        };
+        let (first, next) = (
+            count(format!("Start{axis}FillCount")),
+            count(format!("End{axis}FillCount")),
+        );
+        if first + next == 0 {
+            return None;
+        }
+        let paint = |which: &str, tint: f32, report: &mut Report| {
+            let color = format!("{which}{axis}FillColor");
+            let ink = match owner(&table_owners, &color) {
+                Some(e) => crate::color_codec::resolve(e, &color, colors, report)?,
+                None if which == "Start" => black.clone(),
+                None => return None,
+            };
+            let key = format!("{which}{axis}FillTint");
+            let tint = owner(&table_owners, &key)
+                .and_then(|e| crate::color_codec::tint(e, &key, report))
+                .unwrap_or(tint);
+            Some(CellPaint { ink, tint })
+        };
+        Some(Alternation {
+            first,
+            first_paint: paint("Start", 0.2, report),
+            next,
+            next_paint: paint("End", 1.0, report),
+            skip_first: count(format!("SkipFirstAlternatingFill{axis}s")),
+            skip_last: count(format!("SkipLastAlternatingFill{axis}s")),
+        })
+    };
+    // ColumnFillsPriority false hides column fills, true row fills, as the
+    // specification says: the public `tables` PDF draws none for a style
+    // that gives only column fills.
+    let columns_first = table_attr("ColumnFillsPriority")
+        .and_then(xml::parse_boolean)
+        .unwrap_or(false);
+    let row_fills = if columns_first {
+        None
+    } else {
+        alternation("Row", report)
+    };
+    let column_fills = if columns_first {
+        alternation("Column", report)
+    } else {
+        None
+    };
+    // The cell style a table region gives a cell: the header's or footer's
+    // when not the body's, then the left or right column's, then the body's.
+    let column_count = columns.len();
+    let region = |row: usize, column: usize, span: usize| {
+        let own = |region: &str| {
+            let same = table_attr(&format!("{region}RegionSameAsBodyRegion"))
+                .and_then(xml::parse_boolean)
+                .unwrap_or(true);
+            (!same)
+                .then(|| table_attr(&format!("{region}RegionCellStyle")))
+                .flatten()
+        };
+        (if row < header {
+            own("Header")
+        } else if row >= header + body {
+            own("Footer")
+        } else {
+            None
+        })
+        .or_else(|| (column == 0).then(|| own("LeftColumn")).flatten())
+        .or_else(|| {
+            (column + span == column_count)
+                .then(|| own("RightColumn"))
+                .flatten()
+        })
+        .or_else(|| table_attr("BodyRegionCellStyle"))
+    };
     let mut stories = Vec::new();
     let mut cells = Vec::new();
     for cell in element.children_named("Cell") {
         let (column, row) = cell.attr("Name")?.split_once(':')?;
         let span = |name| cell.attr(name).map_or(Some(1), |v| v.parse::<usize>().ok());
+        let (column, row): (usize, usize) = (column.parse().ok()?, row.parse().ok()?);
+        let (columns_spanned, rows_spanned) = (span("ColumnSpan")?, span("RowSpan")?);
+        // The cell's own settings, then its cell style's, then the cell style
+        // its table region gives it; the table's own cell settings last, for
+        // insets and justification only.
+        let mut owners = vec![cell];
+        owners.extend(chain(
+            &refs.cell_styles,
+            cell.attr("AppliedCellStyle")
+                .filter(|s| *s != NO_CELL_STYLE),
+            NO_CELL_STYLE,
+        ));
+        owners.extend(chain(
+            &refs.cell_styles,
+            region(row, column, columns_spanned).filter(|s| *s != NO_CELL_STYLE),
+            NO_CELL_STYLE,
+        ));
+        let styled = owners.len();
+        owners.push(element);
+        let styled = &owners[..styled];
         let paint = |color: &str, tint: &str, report: &mut Report| {
-            let ink = crate::color_codec::resolve(cell, color, colors, report)?;
+            let ink = crate::color_codec::resolve(owner(styled, color)?, color, colors, report)?;
             Some(CellPaint {
                 ink,
-                tint: crate::color_codec::tint(cell, tint, report).unwrap_or(1.0),
+                tint: owner(styled, tint)
+                    .and_then(|e| crate::color_codec::tint(e, tint, report))
+                    .unwrap_or(1.0),
             })
         };
         let edge = |side: &str, report: &mut Report| {
             let color = format!("{side}EdgeStrokeColor");
-            let paint = if cell.attr(&color).is_some() {
-                paint(&color, &format!("{side}EdgeStrokeTint"), report)
+            let tint = format!("{side}EdgeStrokeTint");
+            let paint = if owner(styled, &color).is_some() {
+                paint(&color, &tint, report)
             } else {
                 Some(CellPaint {
                     ink: black.clone(),
-                    tint: crate::color_codec::tint(cell, &format!("{side}EdgeStrokeTint"), report)
+                    tint: owner(styled, &tint)
+                        .and_then(|e| crate::color_codec::tint(e, &tint, report))
                         .unwrap_or(1.0),
                 })
             };
+            let weight = format!("{side}EdgeStrokeWeight");
             CellEdge {
-                weight: number(cell, &[&format!("{side}EdgeStrokeWeight")])
+                weight: styled
+                    .iter()
+                    .find_map(|e| number(e, &[&weight]))
                     .unwrap_or(1.0)
                     .max(0.0),
                 paint,
             }
         };
         let inset = |name: &str| {
-            number(
-                cell,
-                &[&format!("Text{name}Inset"), &format!("{name}Inset")],
-            )
-            .unwrap_or(4.0)
+            owners
+                .iter()
+                .find_map(|e| number(e, &[&format!("Text{name}Inset"), &format!("{name}Inset")]))
+                .unwrap_or(4.0)
         };
+        let justification = owners.iter().find_map(|e| e.attr("VerticalJustification"));
         // The cell's paragraphs, with local formatting lowered to styles as a
         // story's are.
         let mut body = cell.clone();
@@ -176,19 +368,20 @@ fn table(
         let body = crate::story_codec::normalize(&body, &mut document.styles, colors, refs, report);
         let story = crate::story_codec::decode(&body);
         cells.push(TableCell {
-            column: column.parse().ok()?,
-            row: row.parse().ok()?,
-            columns: span("ColumnSpan")?,
-            rows: span("RowSpan")?,
+            column,
+            row,
+            columns: columns_spanned,
+            rows: rows_spanned,
             story: StoryId((first + stories.len()) as u32),
             fill: paint("FillColor", "FillTint", report),
+            own_fill: owner(styled, "FillColor").is_some(),
             insets: Insets {
                 top: inset("Top"),
                 left: inset("Left"),
                 bottom: inset("Bottom"),
                 right: inset("Right"),
             },
-            justification: match cell.attr("VerticalJustification") {
+            justification: match justification {
                 None | Some("TopAlign") | Some("JustifyAlign") => CellJustification::Top,
                 Some("CenterAlign") => CellJustification::Center,
                 Some("BottomAlign") => CellJustification::Bottom,
@@ -213,6 +406,8 @@ fn table(
         footer_repeat,
         skip_first_header,
         skip_last_footer,
+        row_fills,
+        column_fills,
     };
     if !table.valid() {
         return None;

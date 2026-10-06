@@ -3165,7 +3165,38 @@ again.
 A row's StartRow other than Anywhere is reported and not applied, and so are
 BreakHeaders and BreakFooters values the specification does not define.
 
-Not composed yet: StartRow, table and cell styles and their alternating fills
-and strokes (including the `[Basic Table]` style real templates apply), table
-SpaceBefore and SpaceAfter, diagonal lines, cell rotation, stroke styles other
-than solid, and editing table structure.
+#### Table and cell styles
+
+A table's settings resolve through its AppliedTableStyle, the styles that one is
+based on, and `[No table style]`; a cell's through its own attributes, its
+AppliedCellStyle, the cell style its table region gives it, their bases and
+`[None]`, with the table's own inset and justification settings last. Regions
+follow the table style: the header or footer region's cell style when it is not
+the same as the body's, then the left or right column's, then the body's. Styles
+link only through the specification's `Properties/BasedOn` element. The public
+[`styles-cascade` PDF](https://github.com/paged-media/core/blob/ffb7c8713125dc77403ec0983099f74ac2558517/corpus/generated/styles-cascade.pdf) (SHA-256
+`3d95ee32…5b576`, page 3) and its
+[generator](https://github.com/paged-media/core/blob/ffb7c8713125dc77403ec0983099f74ac2558517/crates/paged-gen/src/samples/styles_cascade.rs) name the bases of
+a table style and of the cell style supplying a fill and centring in a
+`BasedOn` attribute instead, and InDesign draws that table with no fill and its
+text at the top. The styles are typed when the table is read; the
+RootTableStyleGroup and RootCellStyleGroup XML is retained and saved unchanged,
+so a reopened table resolves the same.
+
+Fills alternate as the table or its style says: StartRowFillCount rows take the
+first fill and EndRowFillCount rows the next, over and over, after
+SkipFirstAlternatingFillRows and before SkipLastAlternatingFillRows, and the
+same by column. Defaults are those InDesign's own exports write for
+`[No table style]`: no pattern, a first fill of black at 20 %, a next fill of
+none. Page 10 of the public [`tables` PDF](https://github.com/paged-media/core/blob/ffb7c8713125dc77403ec0983099f74ac2558517/corpus/generated/tables.pdf)
+(SHA-256 `3bd73efe…3f72`) fills rows 1 and 3 of three with its style's 20 %
+cyan swatch at that default 20 % tint (4 % cyan). Row patterns skip header and
+footer rows and column patterns do not, as Adobe's public table help says.
+ColumnFillsPriority false hides column fills and true row fills, as the
+specification says; page 11, a style giving only column fills, draws none. A
+fill the cell or its cell style gives, none included, wins over the pattern.
+
+Not composed yet: StartRow, alternating strokes, table borders, table
+SpaceBefore and SpaceAfter, cell styles' paragraph styles, diagonal lines, cell
+rotation, stroke styles other than solid, and editing tables and their
+styles.

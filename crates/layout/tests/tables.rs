@@ -4,7 +4,7 @@
 //! (one 12 pt Open Sans line with 4 pt insets: 20.826 pt; three: 49.626 pt).
 //! These tests set IBM Plex Sans, whose ascent at 12 pt is 12.3 pt.
 use schist_layout::tables::{
-    self, CellEdge, CellJustification, CellPaint, Table, TableCell, TableRow,
+    self, Alternation, CellEdge, CellJustification, CellPaint, Table, TableCell, TableRow,
 };
 use schist_layout::{
     anchored, authoring, blank_a4, compose::compose_story, History, Ink, Insets, LayoutDocument,
@@ -77,6 +77,7 @@ fn document(
                 fill: None,
                 insets: Insets::uniform(4.0),
                 justification: CellJustification::Top,
+                own_fill: false,
                 edges: [black(), black(), black(), black()],
             });
         }
@@ -91,6 +92,8 @@ fn document(
         footer_repeat: Default::default(),
         skip_first_header: false,
         skip_last_footer: false,
+        row_fills: None,
+        column_fills: None,
     };
     let mut host = Story::from_text("", "Body");
     host.structures.push(StoryStructure {
@@ -371,4 +374,112 @@ fn every_line_of_a_growing_row_is_drawn() {
             text.len()
         );
     }
+}
+
+/// The fill rectangles a table draws, top to bottom then left to right,
+/// with their tints.
+fn fills(doc: &LayoutDocument, frame: ObjectId) -> Vec<(Rect, f32)> {
+    let mut out: Vec<(Rect, f32)> = placed(doc, frame)
+        .into_iter()
+        .filter_map(|o| match o.object {
+            LayoutObject::Shape {
+                fill: Some(_),
+                tints,
+                ..
+            } => Some((o.bounds, tints.fill)),
+            _ => None,
+        })
+        .collect();
+    out.sort_by(|a, b| a.0.y.total_cmp(&b.0.y).then(a.0.x.total_cmp(&b.0.x)));
+    out
+}
+
+/// InDesign's PDF of the public `tables` sample, page 10: a table style
+/// alternating one filled row (its 20 % cyan swatch at the default 20 %
+/// tint) with one plain row fills rows 1 and 3 of three 28 pt rows, each
+/// fill 120 × 28 pt over the cell's grid area.
+#[test]
+fn alternating_row_fills_paint_every_other_body_row() {
+    let one: &[&str] = &["R"];
+    let (mut doc, frame, _) = document(
+        vec![grows(28.0), grows(28.0), grows(28.0)],
+        vec![120.0; 3],
+        vec![
+            vec![one, one, one],
+            vec![one, one, one],
+            vec![one, one, one],
+        ],
+    );
+    let cyan = CellPaint {
+        ink: Ink::cmyk("Cyan", [0.2, 0.0, 0.0, 0.0]),
+        tint: 0.2,
+    };
+    let host = doc.stories[0].structures[0].table.as_mut().unwrap();
+    host.row_fills = Some(Alternation {
+        first: 1,
+        first_paint: Some(cyan.clone()),
+        next: 1,
+        next_paint: None,
+        skip_first: 0,
+        skip_last: 0,
+    });
+    let painted = fills(&doc, frame);
+    assert_eq!(painted.len(), 6, "{painted:?}");
+    for (index, (rect, tint)) in painted.iter().enumerate() {
+        let row = if index < 3 { 0.0 } else { 2.0 };
+        near(rect.y, FRAME.y + 0.5 + row * 28.0, "fill top");
+        near(rect.height, 28.0, "fill height");
+        near(rect.width, 120.0, "fill width");
+        near(*tint, 0.2, "tint");
+    }
+    // Header rows take no row fill: the first body row is the first filled.
+    let host = doc.stories[0].structures[0].table.as_mut().unwrap();
+    host.header_rows = 1;
+    let painted = fills(&doc, frame);
+    assert_eq!(painted.len(), 3);
+    near(painted[0].0.y, FRAME.y + 0.5 + 28.0, "first body row");
+    // A cell deciding its own fill, none included, keeps it.
+    let host = doc.stories[0].structures[0].table.as_mut().unwrap();
+    host.cells[3].own_fill = true;
+    assert_eq!(fills(&doc, frame).len(), 2);
+    // Skipping the first body row moves the pattern on.
+    let host = doc.stories[0].structures[0].table.as_mut().unwrap();
+    host.cells[3].own_fill = false;
+    host.row_fills.as_mut().unwrap().skip_first = 1;
+    let painted = fills(&doc, frame);
+    assert_eq!(painted.len(), 3);
+    near(
+        painted[0].0.y,
+        FRAME.y + 0.5 + 56.0,
+        "after the skipped row",
+    );
+}
+
+#[test]
+fn alternating_column_fills_paint_header_rows_too() {
+    let one: &[&str] = &["C"];
+    let (mut doc, frame, _) = document(
+        vec![grows(28.0), grows(28.0)],
+        vec![100.0; 3],
+        vec![vec![one, one, one], vec![one, one, one]],
+    );
+    let host = doc.stories[0].structures[0].table.as_mut().unwrap();
+    host.header_rows = 1;
+    host.column_fills = Some(Alternation {
+        first: 1,
+        first_paint: Some(CellPaint {
+            ink: Ink::black(),
+            tint: 0.2,
+        }),
+        next: 1,
+        next_paint: None,
+        skip_first: 0,
+        skip_last: 0,
+    });
+    let painted = fills(&doc, frame);
+    // Columns 1 and 3 of both rows, the header row's included.
+    assert_eq!(painted.len(), 4, "{painted:?}");
+    near(painted[0].0.x, FRAME.x + 0.5, "first column");
+    near(painted[1].0.x, FRAME.x + 0.5 + 200.0, "third column");
+    near(painted[0].0.y, FRAME.y + 0.5, "header row");
 }

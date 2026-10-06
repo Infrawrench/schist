@@ -310,6 +310,43 @@ are marked.
 
 ## Handoff
 
+Table and cell styles, 2026-10-06:
+Tables now resolve their settings through their table style and cell styles,
+with BasedOn chains, as the IDML specification lays them out: a cell's own
+attributes, then its applied cell style, then the cell style its table region
+(header, footer, left or right column, body) gives it, their bases and `[None]`.
+Insets, vertical justification, fills and edge strokes come through that
+cascade. Fills alternate by row or column as the table or its style asks, row
+patterns skipping header and footer rows, and ColumnFillsPriority picks which
+axis shows; a fill a cell or cell style gives, none included, wins. InDesign's
+PDF of the public paged-media `tables` sample fills rows 1 and 3 of three at its
+default 20 % tint and draws no fills for a style giving only column fills; its
+`styles-cascade` PDF leaves plain a table whose styles link their bases in a
+BasedOn attribute, which Schist now ignores as InDesign does. The table and
+cell style groups are retained and saved unchanged, so a reopened table resolves
+the same; until now saving dropped them.
+
+Not composed yet: StartRow, alternating strokes, table borders, table space
+before and after, cell styles' paragraph styles, diagonals, rotated cells,
+non-solid strokes and editing tables and their styles.
+
+The source-frozen sweep of all 16 roadmap targets, headless library wasm, shared
+UI, formatting, whitespace and the debug app build passes on Windows with **2,239
+distinct passing Rust tests**, 3 new (2 layout, 1 IDML), and no corrections; all
+43 proofs are byte-identical to the previous checkpoint. The full IDML suite,
+real templates' round trips included, passes with their style groups retained.
+
+Native review used a passive capture of the actual debug app with Design enabled
+and isolated configuration, on a package whose table style alternates a 25 %
+black row with a plain one, defines column fills that ColumnFillsPriority hides,
+and gives the header region a 60 % cell style centred in a 34 pt row; one body
+cell sets its own fill to none. The capture shows the dark header with centred
+text, rows 1, 3, 5 and 7 striped and the others plain, the opted-out cell white
+in its striped row, and no column fills.
+
+Next: the remaining item 9 gaps. Published to draft PR #195.
+
+
 Tables breaking across frames, 2026-10-06:
 A table that does not fit the room left now breaks between whole rows into
 parts, each set on a line of its own, the next starting at the top of the next

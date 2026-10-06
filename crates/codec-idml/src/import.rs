@@ -104,11 +104,15 @@ pub fn read_package(opened: &DesignPackage<'_>) -> Result<Imported, Error> {
     let layers = read_layers(opened, &mut document, &mut report)?;
     let mut style_roots = Vec::new();
     for part in opened.listed.iter().filter(|part| part.role == "Styles") {
-        let root = xml::parse(opened.text_of(&part.name)?).map_err(|message| Error::Xml {
+        let text = opened.text_of(&part.name)?;
+        let root = xml::parse(text).map_err(|message| Error::Xml {
             part: part.name.clone(),
             message,
         })?;
         style_roots.push(root);
+        document
+            .retained_table_styles
+            .extend(crate::table_codec::style_groups(text));
     }
     let mut style_refs = crate::style_codec::References::new(&style_roots);
     crate::custom_text_codec::name_styles(&mut document.text_variables, &style_refs);

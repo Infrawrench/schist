@@ -443,6 +443,11 @@ pub struct LayoutDocument {
     /// variable metadata as inert XML wrappers rather than silently dropping it.
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
     pub retained_text_variables: Vec<String>,
+    /// Native table and cell style groups (RootTableStyleGroup and
+    /// RootCellStyleGroup), kept as XML: tables are typed through them when
+    /// read, and saving writes them back unchanged.
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub retained_table_styles: Vec<String>,
     /// Native ChapterNumberPreference. Absent means the application default,
     /// which the public reference renders as chapter 1.
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -650,6 +655,7 @@ impl LayoutDocument {
             creation_order: Vec::new(),
             stories: Vec::new(),
             retained_text_variables: Vec::new(),
+            retained_table_styles: Vec::new(),
             chapter_numbering: None,
             dates: DocumentDates::default(),
             file_path: None,

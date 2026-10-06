@@ -1122,6 +1122,10 @@ fn styles_xml(
         warnings.push(schist_i18n::t("design.idml_style_limits").to_string());
     }
     out.push_str("</RootCharacterStyleGroup>");
+    // Table and cell styles return exactly as they were read.
+    for group in &document.retained_table_styles {
+        out.push_str(group);
+    }
     out.push_str(&crate::object_style_codec::styles_xml(document, warnings));
     out.push_str("</idPkg:Styles>");
     out

@@ -116,6 +116,7 @@ fn document(
                 fill: None,
                 insets: Insets::uniform(4.0),
                 justification: CellJustification::Top,
+                own_fill: false,
                 edges: [black(), black(), black(), black()],
             });
         }
@@ -130,6 +131,8 @@ fn document(
         footer_repeat: RepeatRows::EveryColumn,
         skip_first_header: false,
         skip_last_footer: false,
+        row_fills: None,
+        column_fills: None,
     };
     let mut host = Story::new();
     for paragraph in before {

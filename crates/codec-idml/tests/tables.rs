@@ -172,3 +172,85 @@ fn how_a_table_breaks_is_typed_and_unapplied_settings_reported() {
         .iter()
         .any(|s| s.contains("BreakHeaders=Sometimes")));
 }
+
+/// `native(item)` with `groups` added to its Styles part.
+fn styled(item: &str, groups: &str) -> Vec<u8> {
+    let mut package = container::read(&native(item)).unwrap();
+    let styles = package
+        .text("Resources/Styles.xml")
+        .unwrap()
+        .replace("</idPkg:Styles>", &format!("{groups}</idPkg:Styles>"));
+    package.insert("Resources/Styles.xml", styles.into_bytes());
+    container::write(&package.into_parts())
+}
+
+/// A table style alternating one black row at 30 % with one plain row, and
+/// a body region cell style based on another through Properties/BasedOn;
+/// a third cell style names its base in an attribute, which InDesign's PDF
+/// of the public `styles-cascade` sample ignores.
+const STYLES: &str = concat!(
+    r#"<RootCellStyleGroup Self="cells">"#,
+    r#"<CellStyle Self="CellStyle/$ID/[None]" Name="$ID/[None]"/>"#,
+    r#"<CellStyle Self="CellStyle/Base" Name="Base" TextTopInset="9" VerticalJustification="CenterAlign" TopEdgeStrokeWeight="3"/>"#,
+    r#"<CellStyle Self="CellStyle/Body" Name="Body"><Properties><BasedOn type="object">CellStyle/Base</BasedOn></Properties></CellStyle>"#,
+    r#"<CellStyle Self="CellStyle/Other" Name="Other" TextBottomInset="11"/>"#,
+    r#"<CellStyle Self="CellStyle/Loose" Name="Loose" BasedOn="CellStyle/Other"/>"#,
+    r#"</RootCellStyleGroup>"#,
+    r#"<RootTableStyleGroup Self="tables">"#,
+    r#"<TableStyle Self="TableStyle/$ID/[No table style]" Name="$ID/[No table style]"/>"#,
+    r#"<TableStyle Self="TableStyle/Stripes" Name="Stripes" StartRowFillCount="1" StartRowFillTint="30" EndRowFillCount="1" BodyRegionCellStyle="CellStyle/Body"/>"#,
+    r#"</RootTableStyleGroup>"#,
+);
+
+#[test]
+fn table_and_cell_styles_type_fills_insets_and_survive_saves() {
+    let xml = table("2").replace(
+        r#"AppliedTableStyle="TableStyle/$ID/[No table style]""#,
+        r#"AppliedTableStyle="TableStyle/Stripes""#,
+    );
+    // The last cell takes the attribute-linked style directly.
+    let xml = xml.replace(
+        r#"Name="1:1" RowSpan="1" ColumnSpan="1""#,
+        r#"Name="1:1" RowSpan="1" ColumnSpan="1" AppliedCellStyle="CellStyle/Loose""#,
+    );
+    let mut doc = import::read(&styled(&xml, STYLES)).unwrap().document;
+    assert_eq!(doc.retained_table_styles.len(), 2);
+    for _ in 0..2 {
+        let table = typed(&doc).expect("typed table");
+        let stripes = table.row_fills.as_ref().expect("row fills");
+        assert_eq!((stripes.first, stripes.next), (1, 1));
+        let first = stripes.first_paint.as_ref().unwrap();
+        assert_eq!(first.tint, 0.3);
+        assert!(stripes.next_paint.is_none());
+        assert!(table.column_fills.is_none());
+        let cell = |name: (usize, usize)| {
+            table
+                .cells
+                .iter()
+                .find(|c| (c.column, c.row) == name)
+                .unwrap()
+        };
+        // The body region's style, through its base, under the cell's own
+        // fill.
+        let a1 = cell((0, 0));
+        assert_eq!(a1.insets.top, 9.0);
+        assert_eq!(a1.justification, CellJustification::Center);
+        assert_eq!(a1.edges[0].weight, 3.0);
+        assert!(a1.own_fill);
+        // The cell's own settings win over the styles'.
+        let b1 = cell((1, 0));
+        assert_eq!(b1.edges[0].weight, 2.0);
+        assert!(!b1.own_fill);
+        let a2 = cell((0, 1));
+        assert_eq!(a2.insets.top, 6.0);
+        assert_eq!(a2.justification, CellJustification::Bottom);
+        // A style applied to the cell comes before its region's, and one
+        // naming its base in an attribute inherits nothing from it.
+        let b2 = cell((1, 1));
+        assert_eq!(b2.insets.top, 9.0);
+        assert_eq!(b2.insets.bottom, 4.0);
+        let stories = doc.stories.clone();
+        doc = import::read(&export::write(&doc).bytes).unwrap().document;
+        assert_eq!(doc.stories, stories);
+    }
+}

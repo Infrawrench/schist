@@ -351,6 +351,7 @@ fn a_tables_fill_edges_and_cell_text_paint_inside_its_grid() {
             }),
             insets: schist_layout::Insets::uniform(4.0),
             justification: CellJustification::Top,
+            own_fill: false,
             edges: [edge.clone(), edge.clone(), edge.clone(), edge.clone()],
         });
     }
@@ -370,6 +371,8 @@ fn a_tables_fill_edges_and_cell_text_paint_inside_its_grid() {
         footer_repeat: Default::default(),
         skip_first_header: false,
         skip_last_footer: false,
+        row_fills: None,
+        column_fills: None,
     };
     let mut host = Story::from_text("", "Body");
     host.structures.push(StoryStructure {
@@ -459,6 +462,7 @@ fn a_broken_tables_parts_paint_on_their_own_pages() {
             }),
             insets: schist_layout::Insets::uniform(4.0),
             justification: CellJustification::Top,
+            own_fill: false,
             edges: [edge.clone(), edge.clone(), edge.clone(), edge.clone()],
         });
     }
@@ -479,6 +483,8 @@ fn a_broken_tables_parts_paint_on_their_own_pages() {
         footer_repeat: Default::default(),
         skip_first_header: false,
         skip_last_footer: false,
+        row_fills: None,
+        column_fills: None,
     };
     let mut host = Story::from_text("", "Body");
     host.structures.push(StoryStructure {

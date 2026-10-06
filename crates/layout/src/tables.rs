@@ -7,8 +7,9 @@
 //! cells' text needs: the top inset, the last line's baseline below the cell's
 //! content top, and the bottom inset. A table that does not fit breaks
 //! between whole rows into parts, each repeating the header and footer rows
-//! as the table asks (see `table_flow`). Table and cell styles are not
-//! composed yet. The rules and their evidence are in `docs/idml-format.md`.
+//! as the table asks (see `table_flow`). Fills alternate by row or column as
+//! the table or its style asks; cell styles are resolved when a table is
+//! read. The rules and their evidence are in `docs/idml-format.md`.
 use crate::{Ink, LayoutDocument, ObjectId, PlacedObject, Pt, Rect, StoryId};
 use serde::{Deserialize, Serialize};
 
@@ -33,6 +34,40 @@ pub struct Table {
     /// The last part shows no footer rows (SkipLastFooter).
     #[serde(default)]
     pub skip_last_footer: bool,
+    /// Alternating fills of the body rows, from the table or its style.
+    #[serde(default)]
+    pub row_fills: Option<Alternation>,
+    /// Alternating fills of the columns, header and footer rows included.
+    #[serde(default)]
+    pub column_fills: Option<Alternation>,
+}
+
+/// An alternating pattern of fills: the first `first` rows or columns take
+/// `first_paint`, the next `next` take `next_paint`, over and over, after
+/// the first `skip_first` and before the last `skip_last`.
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+pub struct Alternation {
+    pub first: usize,
+    pub first_paint: Option<CellPaint>,
+    pub next: usize,
+    pub next_paint: Option<CellPaint>,
+    pub skip_first: usize,
+    pub skip_last: usize,
+}
+
+impl Alternation {
+    /// The paint of the row or column at `index` of `count`.
+    pub fn paint(&self, index: usize, count: usize) -> Option<&CellPaint> {
+        let cycle = self.first + self.next;
+        if cycle == 0 || index < self.skip_first || index + self.skip_last >= count {
+            return None;
+        }
+        if (index - self.skip_first) % cycle < self.first {
+            self.first_paint.as_ref()
+        } else {
+            self.next_paint.as_ref()
+        }
+    }
 }
 
 /// Where repeated header or footer rows appear: IDML's
@@ -124,6 +159,10 @@ pub struct TableCell {
     pub rows: usize,
     pub story: StoryId,
     pub fill: Option<CellPaint>,
+    /// The cell or its cell style decides its fill, none included, so the
+    /// table's alternating fills leave it.
+    #[serde(default)]
+    pub own_fill: bool,
     pub insets: crate::Insets,
     pub justification: CellJustification,
     /// Top, left, bottom and right.
@@ -136,6 +175,26 @@ const BOTTOM: usize = 2;
 const RIGHT: usize = 3;
 
 impl Table {
+    /// What fills `cell`: its own fill, or else the table's alternating
+    /// fill for its first row among the body rows (header and footer rows
+    /// have none) or for its first column.
+    pub fn fill<'a>(&'a self, cell: &'a TableCell) -> Option<&'a CellPaint> {
+        if cell.own_fill || cell.fill.is_some() {
+            return cell.fill.as_ref();
+        }
+        let body = self.body();
+        let rows = self
+            .row_fills
+            .as_ref()
+            .filter(|_| body.contains(&cell.row))
+            .and_then(|fills| fills.paint(cell.row - body.start, body.len()));
+        rows.or_else(|| {
+            self.column_fills
+                .as_ref()
+                .and_then(|fills| fills.paint(cell.column, self.columns.len()))
+        })
+    }
+
     /// The body rows: those between the header and footer rows.
     pub fn body(&self) -> std::ops::Range<usize> {
         self.header_rows
@@ -188,6 +247,12 @@ impl Table {
                 .rows
                 .iter()
                 .all(|r| finite(r.height) && finite(r.minimum) && r.maximum.is_none_or(finite))
+            || !self
+                .row_fills
+                .iter()
+                .chain(&self.column_fills)
+                .flat_map(|a| a.first_paint.iter().chain(&a.next_paint))
+                .all(|p| (0.0..=1.0).contains(&p.tint))
         {
             return false;
         }
@@ -584,7 +649,7 @@ pub fn objects(
             continue;
         };
         let rect = rect_of(cell, (first, end));
-        if let Some(fill) = &cell.fill {
+        if let Some(fill) = table.fill(cell) {
             fills.push(shape(
                 crate::authoring::path_for(
                     crate::authoring::ShapeKind::Rectangle,

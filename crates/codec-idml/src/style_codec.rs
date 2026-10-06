@@ -62,6 +62,9 @@ pub(crate) struct References {
     paragraphs: std::collections::BTreeMap<String, String>,
     characters: std::collections::BTreeMap<String, String>,
     objects: std::collections::BTreeMap<String, String>,
+    /// Table and cell styles by Self, which tables resolve through.
+    pub(crate) table_styles: std::collections::BTreeMap<String, Element>,
+    pub(crate) cell_styles: std::collections::BTreeMap<String, Element>,
 }
 impl References {
     pub(crate) fn known_paragraph(&self, reference: &str) -> Option<&str> {
@@ -90,6 +93,18 @@ impl References {
                         label = format!("{label} [{id}]");
                     }
                     names.insert(id.to_owned(), label);
+                }
+            }
+        }
+        for root in roots {
+            for (kind, styles) in [
+                ("TableStyle", &mut out.table_styles),
+                ("CellStyle", &mut out.cell_styles),
+            ] {
+                for element in root.find_all(kind) {
+                    if let Some(id) = element.attr("Self") {
+                        styles.insert(id.to_owned(), element.clone());
+                    }
                 }
             }
         }
