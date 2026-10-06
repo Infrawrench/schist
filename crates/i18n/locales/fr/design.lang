@@ -628,3 +628,4 @@ design.variable_kind_file_name = File name
 # UNTRANSLATED PLACEHOLDER
 design.idml_table_invalid = Table {name} unread: inconsistent grid
 design.idml_table_setting = Table {name}: {setting} not applied
+design.idml_group_wrap = Group {name}: text wrap not applied

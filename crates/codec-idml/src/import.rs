@@ -190,6 +190,7 @@ pub fn read_package(opened: &DesignPackage<'_>) -> Result<Imported, Error> {
     crate::object_style_codec::resolve_references(&mut document, &style_refs, &mut report);
     crate::anchored_codec::read(&mut document, &stories, &colors, &mut report);
     crate::table_codec::read(&mut document, &colors, &style_refs, &mut report);
+    report_untyped(&document, &mut report);
     crate::preferences_codec::read(opened, &mut document, &mut report, &colors, &style_refs)?;
     // Parsing XML visits items in paint order. Only guarded chronology labels
     // can establish their creation order; never certify the incidental walk.
@@ -822,9 +823,53 @@ impl Default for ItemContext<'_> {
     }
 }
 
+/// Reports story content that is retained but not set: a structure no
+/// typed model covers, which composition counts as unrendered. Tables,
+/// anchored items, text-only footnotes and variables with one valid
+/// definition are set and not reported.
+fn report_untyped(document: &LayoutDocument, report: &mut Report) {
+    let untyped = document
+        .stories
+        .iter()
+        .flat_map(|story| &story.structures)
+        .any(|structure| {
+            if structure.footnote.is_some()
+                || structure.table.is_some()
+                || structure.anchored.is_some()
+            {
+                return false;
+            }
+            match (&structure.control, structure.kind.as_str()) {
+                (
+                    Some(schist_layout::story::InlineControl::TextVariable { variable, .. }),
+                    "TextVariableInstance",
+                ) => {
+                    let mut definitions = document
+                        .text_variables
+                        .iter()
+                        .filter(|d| !d.id.is_empty() && d.id == *variable);
+                    !matches!(
+                        (definitions.next(), definitions.next()),
+                        (Some(d), None) if d.valid() && d.kind().is_some()
+                    )
+                }
+                (Some(_), _) => false,
+                (None, _) => true,
+            }
+        });
+    if untyped {
+        let message = schist_i18n::t("design.idml_story_structure").to_string();
+        if !report.skipped.contains(&message) {
+            report.skip(message);
+        }
+    }
+}
+
 /// Groups are flattened explicitly. Children retain the nearest explicit
 /// layer and the cumulative geometry, visibility, locking and opacity.
-/// Group editing semantics are still reported as unsupported.
+/// Group editing semantics are still reported as unsupported; a group's
+/// own settings (wrap, export options, transparency) are not page items,
+/// and its text wrap, when it has one, is reported as not applied.
 fn page_items<'a>(
     root: &'a Element,
     context: ItemContext<'a>,
@@ -834,6 +879,20 @@ fn page_items<'a>(
     for child in &root.children {
         if child.name == "Group" {
             report.skip(schist_i18n::t("design.idml_group_flattened"));
+            if child
+                .child("TextWrapPreference")
+                .and_then(|w| w.attr("TextWrapMode"))
+                .is_some_and(|mode| mode != "None")
+            {
+                report.skip(schist_i18n::tf!(
+                    "design.idml_group_wrap",
+                    name = child
+                        .attr("Name")
+                        .filter(|n| !n.is_empty() && *n != "$ID/")
+                        .or_else(|| child.attr("Self"))
+                        .unwrap_or_default()
+                ));
+            }
             out.extend(page_items(
                 child,
                 ItemContext {
@@ -847,7 +906,17 @@ fn page_items<'a>(
             ));
         } else if !matches!(
             child.name.as_str(),
-            "Page" | "Properties" | "TransparencySetting" | "FlattenerPreference"
+            "Page"
+                | "Properties"
+                | "TransparencySetting"
+                | "StrokeTransparencySetting"
+                | "FillTransparencySetting"
+                | "ContentTransparencySetting"
+                | "FlattenerPreference"
+                | "TextWrapPreference"
+                | "ObjectExportOption"
+                | "AnchoredObjectSetting"
+                | "InCopyExportOption"
         ) {
             out.push((child, context));
         }

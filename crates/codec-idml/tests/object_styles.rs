@@ -192,7 +192,7 @@ fn missing_cyclic_and_unsupported_object_styles_are_reported_without_hanging() {
         .unwrap()
         .replace(
             "StrokeWeight=\"3\"",
-            "StrokeWeight=\"NaN\" EnableStoryOptions=\"true\"",
+            "StrokeWeight=\"NaN\" EnableFrameFittingOptions=\"true\"",
         )
         .replace(
             "<ObjectStyle Self=\"ObjectStyle/$ID/Base &amp; 青\"",

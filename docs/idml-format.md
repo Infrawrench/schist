@@ -184,7 +184,10 @@ Text, graphic and shape frames retain the complete item and enclosing-group
 affine. Bounds describe the local composition box; the matrix places it on
 the page. Text wraps before transformation. Shape strokes are outlined before
 transformation, retaining nonuniform widths under scale and shear. Groups are
-flattened with an explicit report entry; clipped frame groups still warn.
+flattened with an explicit report entry; clipped frame groups still warn. A
+group's own settings (its text wrap, export options and transparency elements)
+are not page items: a group wrap that is on is reported as not applied, and the
+rest is not reported.
 Synthetic native XML tests cover reflection, quarter turns, nonuniform scale,
 shear and nested group matrices over repeated saves. Preview hit tests and
 print sampling use the same coordinate conventions.
@@ -386,6 +389,22 @@ Styles.xml and object mapping were unimplemented were stale.
 
 INDD has eleven acquired public pairs, with three redistributable pairs in the repository, recorded separately in
 [indd-format.md](indd-format.md). It does not validate INDD object semantics.
+
+### What the import report names
+
+The report lists what Schist reads but does not set, once per kind. Settings
+InDesign's exports carry at their defaults on every document change nothing and
+are not listed: the layout name every section carries (only a second layout
+name, or a section paginated from another layout's master, is an alternate
+layout); default object styles' text-frame categories (one top-justified column
+without insets, first baseline at the ascent, no auto-sizing, no column rules,
+horizontal stories without optical margins) and effects categories whose
+effects are all off; text-variable definitions no instance uses, kept as written
+for an exact save. Retained story content is listed only when a structure stays
+unset after reading: a table, anchored item, text-only footnote, known control
+or variable instance with one valid definition is set. The PSU academic
+template now reports only its Registration swatch, its lowered local formatting
+and its flattened groups.
 
 ## Writing
 

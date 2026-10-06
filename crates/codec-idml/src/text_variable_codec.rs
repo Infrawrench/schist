@@ -68,10 +68,13 @@ pub(crate) fn read(
                 && element.attr("Self").is_some_and(|id| replaced.contains(id))
         })
     }));
-    retained.extend(custom.recovery.iter().cloned());
-    if !retained.is_empty() {
+    // Definitions are kept as written for an exact save. An instance of one
+    // no typed definition covers is reported where it is read
+    // (`import::report_untyped`); unreadable metadata is reported here.
+    if !custom.recovery.is_empty() {
         notice(&mut report.skipped);
     }
+    retained.extend(custom.recovery.iter().cloned());
     Ok(retained)
 }
 

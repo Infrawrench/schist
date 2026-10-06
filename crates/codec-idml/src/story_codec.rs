@@ -25,21 +25,13 @@ fn visit(
     refs: &style_codec::References,
     report: &mut Report,
 ) {
-    // Content PIs may carry document characters; do not ignore them as metadata.
-    // Typed note/end-style controls also keep their original recovery data;
-    // unknown instructions remain inert and are reported as unrendered.
-    if element.name == "Content" && !element.instructions.is_empty() {
-        let message = schist_i18n::t("design.idml_story_structure").to_string();
-        if !report.skipped.contains(&message) {
-            report.skip(message);
-        }
-    }
+    // Content PIs may carry document characters; do not ignore them as
+    // metadata. Each becomes a structure, typed when it is a known control;
+    // `import::report_untyped` reports the unknown ones once read.
     match element.name.as_str() {
+        // Reported after reading, and only when composition cannot set it:
+        // see `import::report_untyped`.
         name if crate::xml::story_structure(name) => {
-            let message = schist_i18n::t("design.idml_story_structure").to_string();
-            if !report.skipped.contains(&message) {
-                report.skip(message);
-            }
             if name != "Footnote" || !text_only_footnote(element) {
                 return;
             }

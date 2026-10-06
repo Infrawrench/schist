@@ -310,6 +310,33 @@ are marked.
 
 ## Handoff
 
+Accurate import reports, 2026-10-06:
+Importing every real template listed defaults as unread: each section's layout
+name as an alternate layout, the default object styles' text-frame and effects
+categories (enabled at their default values), retained text-variable
+definitions and typed story structures as retained content, and a group's own
+wrap and export settings as unsupported frames (they were read as page items).
+The report now names only what Schist does not set: a second layout name or a
+pagination master, a category whose settings differ from InDesign's defaults,
+story structures still unset after reading, and a group wrap that is on (one key
+added to all 150 catalogs). The PSU academic template's report falls from 22
+entries to its Registration swatch, lowered local formatting and flattened
+groups.
+
+The source-frozen sweep of all 16 roadmap targets, headless library wasm, shared
+UI, formatting, whitespace and the debug app build passes on Windows with **2,243
+distinct passing Rust tests**, 4 new (IDML), and no corrections; one existing
+object-style test now injects a category that has no default exemption. All 43
+proofs are byte-identical to the previous checkpoint. Opening the PSU academic
+template in the actual debug app (Design enabled, isolated configuration) now
+shows "7 unread" in the status bar, down from 22: its Registration swatch,
+lowered local formatting, four flattened groups and the implicit tab note.
+
+Next: gradient swatches (linear and radial fills, as the public paged-media
+`gradients` sample shows), then the remaining item 9 gaps. Published to draft
+PR #195.
+
+
 Table and cell styles, 2026-10-06:
 Tables now resolve their settings through their table style and cell styles,
 with BasedOn chains, as the IDML specification lays them out: a cell's own

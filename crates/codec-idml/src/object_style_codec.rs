@@ -83,7 +83,8 @@ pub(crate) fn read_styles(
                         | "EnableTextWrapAndOthers"
                 )
                 && xml::parse_boolean(value) == Some(true)
-        }) || [
+                && !at_defaults(element, key)
+        }) || ([
             "ObjectStyleObjectEffectsCategorySettings",
             "ObjectStyleFillEffectsCategorySettings",
             "ObjectStyleStrokeEffectsCategorySettings",
@@ -95,7 +96,8 @@ pub(crate) fn read_styles(
             e.attributes
                 .iter()
                 .any(|(k, v)| k.starts_with("Enable") && xml::parse_boolean(v) == Some(true))
-        }) || (style.enable_stroke_options != Some(false) && unsupported_outline(element))
+        }) && !effects_at_defaults(element))
+            || (style.enable_stroke_options != Some(false) && unsupported_outline(element))
             // The category's other member is Nonprinting, which Schist ignores.
             || (style.enable_text_wrap == Some(true) && element.boolean("Nonprinting") == Some(true))
         {
@@ -317,6 +319,87 @@ pub(crate) fn read_appearance(
             (!crate::graphic_codec::is_rectangle(&path)).then_some(path)
         });
     }
+}
+
+/// Whether an enabled category's settings are InDesign's defaults, as its
+/// own exports write them for the default object styles: one top-justified
+/// column without insets, the first baseline at the ascent, no auto-sizing,
+/// no column rules, horizontal stories without optical margins. Frames
+/// already have those, so the category changes nothing.
+fn at_defaults(element: &Element, category: &str) -> bool {
+    let preference = element.child("TextFramePreference");
+    let is = |name: &str, defaults: &[&str]| {
+        preference
+            .and_then(|p| p.attr(name))
+            .is_none_or(|v| defaults.contains(&v))
+    };
+    match category {
+        "EnableTextFrameGeneralOptions" => {
+            is("TextColumnCount", &["1"])
+                && is("UseFixedColumnWidth", &["false"])
+                && is("UseFlexibleColumnWidth", &["false"])
+                && is("VerticalJustification", &["TopAlign"])
+                && is("IgnoreWrap", &["false"])
+                && is("VerticalBalanceColumns", &["false"])
+                && preference
+                    .and_then(|p| p.child("Properties"))
+                    .and_then(|p| p.child("InsetSpacing"))
+                    .is_none_or(|insets| {
+                        insets
+                            .children
+                            .iter()
+                            .all(|item| xml::parse_number(item.trimmed()) == Some(0.0))
+                    })
+        }
+        "EnableTextFrameBaselineOptions" => {
+            is("FirstBaselineOffset", &["AscentOffset"])
+                && is("MinimumFirstBaselineOffset", &["0"])
+                && element
+                    .child("BaselineFrameGridOption")
+                    .and_then(|g| g.attr("UseCustomBaselineFrameGrid"))
+                    .is_none_or(|v| v == "false")
+        }
+        "EnableTextFrameAutoSizingOptions" => is("AutoSizingType", &["Off"]),
+        "EnableTextFrameColumnRuleOptions" => is("ColumnRuleOverride", &["false"]),
+        "EnableStoryOptions" => element.child("StoryPreference").is_none_or(|story| {
+            story
+                .attr("OpticalMarginAlignment")
+                .is_none_or(|v| v == "false")
+                && story
+                    .attr("StoryOrientation")
+                    .is_none_or(|v| matches!(v, "Horizontal" | "Unknown"))
+                && story
+                    .attr("StoryDirection")
+                    .is_none_or(|v| matches!(v, "LeftToRightDirection" | "UnknownDirection"))
+        }),
+        _ => false,
+    }
+}
+
+/// Whether every effect an object style's transparency settings give is
+/// off: normal blending at full opacity, no shadows, feathers, glows,
+/// bevels or satin. InDesign's default object styles enable the effects
+/// categories with these settings, which change nothing.
+fn effects_at_defaults(element: &Element) -> bool {
+    [
+        "TransparencySetting",
+        "StrokeTransparencySetting",
+        "FillTransparencySetting",
+        "ContentTransparencySetting",
+    ]
+    .iter()
+    .filter_map(|name| element.child(name))
+    .flat_map(|setting| &setting.children)
+    .all(|effect| match effect.name.as_str() {
+        "BlendingSetting" => {
+            effect.attr("BlendMode").is_none_or(|v| v == "Normal")
+                && effect.number("Opacity").is_none_or(|v| v == 100.0)
+                && effect.boolean("KnockoutGroup") != Some(true)
+                && effect.boolean("IsolateBlending") != Some(true)
+        }
+        "DropShadowSetting" | "FeatherSetting" => effect.attr("Mode").is_none_or(|v| v == "None"),
+        _ => effect.boolean("Applied") != Some(true),
+    })
 }
 
 fn unsupported_outline(element: &Element) -> bool {

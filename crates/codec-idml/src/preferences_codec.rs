@@ -152,6 +152,22 @@ pub fn read(
             }
         }
     }
+    // Every section names the layout it belongs to; InDesign's exports name
+    // one on all of them. Only a second layout, or a section paginated from
+    // another layout's master, is an alternate layout.
+    let layouts: std::collections::BTreeSet<&str> = root
+        .children_named("Section")
+        .filter_map(|s| s.attr("AlternateLayout"))
+        .filter(|v| !v.is_empty() && *v != "$ID/")
+        .collect();
+    if layouts.len() > 1
+        || root.children_named("Section").any(|s| {
+            s.attr("PaginationMaster")
+                .is_some_and(|v| !v.is_empty() && v != "n")
+        })
+    {
+        report.skip(schist_i18n::t("design.idml_alternate_sections"));
+    }
     let mut sections = std::collections::BTreeMap::new();
     for element in root.children_named("Section") {
         let page = element
@@ -178,15 +194,6 @@ pub fn read(
             .and_then(|p| p.child("PageNumberStyle"))
             .map(Element::trimmed)
             .or_else(|| element.attr("PageNumberStyle"));
-        if element
-            .attr("AlternateLayout")
-            .is_some_and(|v| !v.is_empty())
-            || element
-                .attr("PaginationMaster")
-                .is_some_and(|v| !v.is_empty() && v != "n")
-        {
-            report.skip(schist_i18n::t("design.idml_alternate_sections"));
-        }
         let section = Section {
             start: start.filter(|v| (1..=999999).contains(v)).unwrap_or(1),
             continue_numbering: element.boolean("ContinueNumbering") != Some(false),
