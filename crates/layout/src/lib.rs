@@ -55,6 +55,7 @@ pub mod story;
 pub mod structure;
 pub mod styles;
 pub mod swatches;
+pub mod tables;
 pub mod tabs;
 pub mod text_path;
 pub mod text_shape;

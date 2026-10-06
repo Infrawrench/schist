@@ -394,6 +394,7 @@ fn unrendered_structures_fail_both_preflight_paths_even_when_the_body_fits() {
                             kind: "Footnote".into(),
                             payload: "raw".into(),
                             footnote: None,
+                            table: None,
                             anchored: None,
                         },
                     );

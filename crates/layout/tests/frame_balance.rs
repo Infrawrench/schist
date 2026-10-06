@@ -343,6 +343,7 @@ fn balance_with_notes(spanning: bool) {
                         reference_paragraph_style: "Body".into(),
                         reference_character_style: String::new(),
                     }),
+                    table: None,
                     anchored: None,
                 });
             }

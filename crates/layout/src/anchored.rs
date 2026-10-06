@@ -491,13 +491,29 @@ pub(crate) fn instances(doc: &LayoutDocument, story: &Story) -> Vec<Instance> {
         .iter()
         .enumerate()
         .filter_map(|(index, structure)| {
-            let item = structure.anchored.as_ref()?;
             let at = structure.at?;
-            let line_box = item.line_box()?;
-            // A text frame leading back to this story would compose forever.
-            if host.is_none_or(|host| reaches(doc, item, host)) && item.is_text_frame() {
-                return None;
-            }
+            // A table is set as one inline block the size of its grid.
+            let (line_box, inline) = if let Some(table) = &structure.table {
+                if host.is_none_or(|host| crate::tables::reaches(doc, table, host)) {
+                    return None;
+                }
+                let layout = crate::tables::layout(doc, table, 0)?;
+                let line_box = LineBox {
+                    width: layout.width,
+                    ascent: layout.height,
+                    descent: 0.0,
+                    above: 0.0,
+                };
+                (line_box, true)
+            } else {
+                let item = structure.anchored.as_ref()?;
+                // A text frame leading back to this story would compose
+                // forever.
+                if host.is_none_or(|host| reaches(doc, item, host)) && item.is_text_frame() {
+                    return None;
+                }
+                (item.line_box()?, item.position == AnchoredPosition::Inline)
+            };
             let (point, _) = story.points.iter().zip(&offsets).find(|(point, start)| {
                 matches!(point, crate::StoryPoint::Paragraph { .. })
                     && **start <= at
@@ -529,9 +545,7 @@ pub(crate) fn instances(doc: &LayoutDocument, story: &Story) -> Vec<Instance> {
             // sample steps the line by the item's height above the baseline
             // plus the text's own extra leading (36.5 + 14.4 − 12 pt), never
             // less than the text's Auto leading.
-            if item.position == AnchoredPosition::Inline
-                && character.leading == Some(crate::styles::Leading::Auto)
-            {
+            if inline && character.leading == Some(crate::styles::Leading::Auto) {
                 let size = character.point_size.unwrap_or(11.0);
                 character.leading = crate::styles::Leading::Auto
                     .points(size, paragraph.auto_leading)
@@ -649,12 +663,57 @@ pub fn placements<'a>(
     frame: &PlacedObject,
     lines: impl IntoIterator<Item = &'a ComposedLine>,
 ) -> Vec<PlacedObject> {
-    lines
-        .into_iter()
-        .flat_map(|line| targets(doc, story, frame, line))
-        .flat_map(|(item, at)| item.moved(at.x, at.y))
-        .map(|p| through_frame(&p, frame).resolved_appearance(&doc.styles))
-        .collect()
+    let mut out = Vec::new();
+    for line in lines {
+        out.extend(
+            targets(doc, story, frame, line)
+                .into_iter()
+                .flat_map(|(item, at)| item.moved(at.x, at.y))
+                .chain(tables(doc, story, frame, line))
+                .map(|p| through_frame(&p, frame).resolved_appearance(&doc.styles)),
+        );
+    }
+    out
+}
+
+/// What the tables set in `line` draw, in the frame's space: each table's
+/// outer top left at the top left of its box.
+fn tables(
+    doc: &LayoutDocument,
+    story: &Story,
+    frame: &PlacedObject,
+    line: &ComposedLine,
+) -> Vec<PlacedObject> {
+    let Some(projected) = &line.projected else {
+        return Vec::new();
+    };
+    let tables: Vec<_> = projected
+        .anchored
+        .iter()
+        .filter_map(|(at, structure)| {
+            Some((*at, story.structures.get(*structure)?.table.as_deref()?))
+        })
+        .collect();
+    if tables.is_empty() {
+        return Vec::new();
+    }
+    let (origin, spec) = line_origin(line);
+    let positions = schist_text_engine::inline_box_positions(spec);
+    let mut out = Vec::new();
+    for (at, table) in tables {
+        let Some(position) = positions.iter().find(|p| p.at == at) else {
+            continue;
+        };
+        let Some(layout) = crate::tables::layout(doc, table, frame.page) else {
+            continue;
+        };
+        let top_left = crate::Point::new(
+            origin.x + position.x,
+            origin.y + position.baseline - layout.height,
+        );
+        out.extend(crate::tables::objects(table, &layout, top_left, frame.page));
+    }
+    out
 }
 
 /// Items at custom positions set in `lines` that wrap text, each (a group's

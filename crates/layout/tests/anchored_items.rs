@@ -38,6 +38,7 @@ fn anchored(at: usize, item: AnchoredItem) -> StoryStructure {
         payload: "<Rectangle />".into(),
         control: None,
         footnote: None,
+        table: None,
         anchored: Some(Box::new(item)),
     }
 }

@@ -43,6 +43,7 @@ fn styled(position: AnchoredPosition, rotation: f32, style: &str) -> LayoutDocum
         payload: "<Oval />".into(),
         control: None,
         footnote: None,
+        table: None,
         anchored: Some(Box::new(AnchoredItem {
             position,
             y_offset: 1.0,
@@ -204,6 +205,7 @@ fn an_anchored_text_frame_paints_its_story_and_reports_overset() {
             payload: "<TextFrame />".into(),
             control: None,
             footnote: None,
+            table: None,
             anchored: Some(Box::new(AnchoredItem::inline(object))),
         });
         doc.stories[host.story.0 as usize] = story;
@@ -283,6 +285,7 @@ fn custom_wrap_reaching_another_story_is_reported_there() {
         payload: "<Rectangle />".into(),
         control: None,
         footnote: None,
+        table: None,
         anchored: Some(Box::new(AnchoredItem {
             position: AnchoredPosition::Anchored,
             y_offset: 0.0,
@@ -308,4 +311,100 @@ fn custom_wrap_reaching_another_story_is_reported_there() {
     };
     assert!(warned("Neighbour"), "{:?}", result.report.findings);
     assert!(!warned("Host"));
+}
+
+/// A table's fills, edges and cell text all reach the plates, inside its grid.
+#[test]
+fn a_tables_fill_edges_and_cell_text_paint_inside_its_grid() {
+    use schist_layout::tables::{
+        CellEdge, CellJustification, CellPaint, Table, TableCell, TableRow,
+    };
+    let mut doc = blank_a4();
+    let cyan = Ink::cmyk("Cyan", [1.0, 0.0, 0.0, 0.0]);
+    doc.inks.push(cyan.clone());
+    let frame = authoring::text_frame(
+        &mut doc,
+        &mut History::default(),
+        0,
+        Rect::new(60.0, 80.0, 380.0, 300.0),
+    )
+    .unwrap();
+    let edge = CellEdge {
+        weight: 1.0,
+        paint: Some(CellPaint {
+            ink: schist_layout::Ink::black(),
+            tint: 1.0,
+        }),
+    };
+    let mut cells = Vec::new();
+    for column in 0..2 {
+        doc.stories.push(Story::from_text("Cell text", "Body"));
+        cells.push(TableCell {
+            column,
+            row: 0,
+            columns: 1,
+            rows: 1,
+            story: StoryId((doc.stories.len() - 1) as u32),
+            fill: (column == 0).then(|| CellPaint {
+                ink: cyan.clone(),
+                tint: 1.0,
+            }),
+            insets: schist_layout::Insets::uniform(4.0),
+            justification: CellJustification::Top,
+            edges: [edge.clone(), edge.clone(), edge.clone(), edge.clone()],
+        });
+    }
+    let table = Table {
+        header_rows: 0,
+        footer_rows: 0,
+        rows: vec![TableRow {
+            height: 40.0,
+            minimum: 40.0,
+            maximum: None,
+            auto_grow: true,
+        }],
+        columns: vec![100.0, 100.0],
+        cells,
+    };
+    let mut host = Story::from_text("", "Body");
+    host.structures.push(StoryStructure {
+        at: Some(0),
+        kind: "Table".into(),
+        payload: "<Table />".into(),
+        control: None,
+        footnote: None,
+        table: Some(Box::new(table)),
+        anchored: None,
+    });
+    doc.stories[frame.story.0 as usize] = host;
+    let result = separate_page(&doc, 0, OutputSettings::at(72.0), &NoGraphics).unwrap();
+    let ink = |plate: usize, x: f32, y: f32| {
+        result
+            .separation
+            .plate(plate)
+            .unwrap()
+            .at(x as i32, y as i32)
+    };
+    let (cyan, black) = (result.plan.process[0], result.plan.process[3]);
+    // The first cell is filled cyan; the second is not.
+    assert!(ink(cyan, 110.0, 115.0) > 0.9);
+    assert!(ink(cyan, 210.0, 115.0) < 0.02);
+    // Edges: the outer left stroke and the shared vertical edge.
+    assert!(ink(black, 60.0, 110.0) > 0.4);
+    assert!(ink(black, 160.0, 110.0) > 0.4);
+    // Cell text inside the second cell.
+    let mut text = 0;
+    for y in 80..121 {
+        for x in 165..260 {
+            if ink(black, x as f32, y as f32) > 0.3 {
+                text += 1;
+            }
+        }
+    }
+    assert!(text > 20, "{text}");
+    assert!(!result
+        .report
+        .findings
+        .iter()
+        .any(|f| f.message.contains("structure")));
 }

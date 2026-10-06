@@ -54,6 +54,7 @@ fn document(mode: Option<WrapMode>) -> LayoutDocument {
         payload: "<Rectangle />".into(),
         control: None,
         footnote: None,
+        table: None,
         anchored: Some(Box::new(AnchoredItem {
             position: AnchoredPosition::Anchored,
             y_offset: 0.0,

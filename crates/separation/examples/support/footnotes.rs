@@ -154,6 +154,7 @@ fn document_with_note(reference: bool, note_text: &str) -> LayoutDocument {
                     reference_paragraph_style: "Main".into(),
                     reference_character_style: String::new(),
                 }),
+                table: None,
                 anchored: None,
             });
             doc.stories[frame.story.0 as usize] = main;

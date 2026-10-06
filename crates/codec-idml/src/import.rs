@@ -185,6 +185,7 @@ pub fn read_package(opened: &DesignPackage<'_>) -> Result<Imported, Error> {
     );
     crate::object_style_codec::resolve_references(&mut document, &style_refs, &mut report);
     crate::anchored_codec::read(&mut document, &stories, &colors, &mut report);
+    crate::table_codec::read(&mut document, &colors, &style_refs, &mut report);
     crate::preferences_codec::read(opened, &mut document, &mut report, &colors, &style_refs)?;
     // Parsing XML visits items in paint order. Only guarded chronology labels
     // can establish their creation order; never certify the incidental walk.

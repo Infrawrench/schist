@@ -63,6 +63,7 @@ fn instance(at: usize, variable: &str) -> StoryStructure {
             character_style: String::new(),
             name: variable.into(),
         }),
+        table: None,
         anchored: None,
     }
 }
@@ -77,6 +78,7 @@ fn marker(at: usize, kind: PageNumberKind) -> StoryStructure {
             kind,
             character_style: String::new(),
         }),
+        table: None,
         anchored: None,
     }
 }

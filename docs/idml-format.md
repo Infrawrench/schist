@@ -3080,3 +3080,43 @@ stroked):
   therefore not covered natively.
 - Pinning, spine mirroring, column references and the page edge are not covered
   natively; they follow the specification's descriptions.
+
+### Tables
+
+A Table inside a story keeps its exact XML as a retained story structure, saved
+in Schist's retention record as before, and is now also typed from it: header,
+body and footer row counts, rows (SingleRowHeight, MinimumHeight, MaximumHeight,
+AutoGrow), column widths, and cells (`column:row` name, RowSpan, ColumnSpan,
+FillColor and FillTint, each edge's StrokeWeight, StrokeColor and StrokeTint,
+insets in InDesign's `TextTopInset` spelling or the specification's `TopInset`,
+and VerticalJustification; JustifyAlign is read as top). Each cell's paragraphs
+become a story of the document, with local formatting lowered to styles as any
+story's is, so the Stories panel lists them and the Story Editor edits them. A
+table whose counts, sizes or cells disagree is reported and left untyped. Absent
+cell insets are 4 pt and absent edges 1 pt black, as InDesign's PDF of the public
+paged-media `tables` sample draws its default cells.
+
+A table is set in its line as one block the size of its grid, its outer stroke
+edge at the line's top left, so a table at a frame's top starts at the frame's
+top left as in that PDF. Grid lines sit half the outer stroke weight inside the
+table's edge. A row that grows is as tall as its top inset, plus its tallest
+cell's last baseline below the cell's content top, plus its bottom inset, never
+less than MinimumHeight nor more than MaximumHeight; a fixed row keeps
+SingleRowHeight and its cells' extra text is overset. InDesign's PDF of the
+public `tables-rows` sample (12 pt Open Sans, auto leading, 4 pt insets) has rows
+of 20.826 pt for one line and 49.626 pt for three: 4 + 12.826 + 2 × 14.4 + 4, so
+descenders below the last baseline are not counted. A cell spanning rows adds
+what it still needs to the last of them that grows. Cell text sits below the top
+inset, moved down by the spare height for center or bottom justification. Fills
+cover the cell's grid area; horizontal edges run the whole cell and reach the
+outer stroke edge at the table's sides, and vertical edges stop at the horizontal
+strokes, as the `tables` PDF draws them. Output and the canvas draw the table
+with its frame; its cell text is generated text of the holding frame on the
+canvas. Line leading around a table follows inline items, a Schist reading: the
+samples set each table alone in its paragraph.
+
+Not composed yet: tables breaking across frames and repeated header and footer
+rows (a table taller than the room left moves on whole, and one taller than its
+frame is overset), table and cell styles and their alternating fills and strokes
+(including the `[Basic Table]` style real templates apply), diagonal lines, cell
+rotation, stroke styles other than solid, and editing table structure.

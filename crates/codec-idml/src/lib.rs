@@ -55,6 +55,7 @@ pub use plugin::IdmlCodec;
 mod anchored_codec;
 mod custom_text_codec;
 mod graphic_codec;
+mod table_codec;
 mod text_path_codec;
 mod text_variable_codec;
 mod text_wrap_codec;

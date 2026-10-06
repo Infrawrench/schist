@@ -24,6 +24,7 @@ fn generated_inline_text_preserves_every_source_boundary_and_style() {
                 kind: "Footnote".into(),
                 payload: "raw".into(),
                 footnote: None,
+                table: None,
                 anchored: None,
             });
             let before = story.clone();

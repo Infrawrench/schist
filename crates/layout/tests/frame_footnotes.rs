@@ -34,6 +34,7 @@ fn document(count: usize) -> LayoutDocument {
                     reference_paragraph_style: "Body".into(),
                     reference_character_style: String::new(),
                 }),
+                table: None,
                 anchored: None,
             });
         }
@@ -258,6 +259,7 @@ fn column_flow(spanning: bool) {
                                         reference_paragraph_style: "Body".into(),
                                         reference_character_style: String::new(),
                                     }),
+                                    table: None,
                                     anchored: None,
                                 });
                             }
@@ -418,6 +420,7 @@ fn shared_footer_trials_preserve_frame_and_page_breaks_insets_and_page_grids() {
                                 reference_paragraph_style: "Body".into(),
                                 reference_character_style: String::new(),
                             }),
+                            table: None,
                             anchored: None,
                         });
                     }

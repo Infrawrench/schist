@@ -176,6 +176,10 @@ pub struct StoryStructure {
     /// payload stays authoritative for saving; this is composition data.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub anchored: Option<Box<crate::anchored::AnchoredItem>>,
+    /// A table set in the text, typed from its retained XML. The payload
+    /// stays authoritative for saving; this is composition data.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub table: Option<Box<crate::tables::Table>>,
 }
 
 /// A linear flow of text, shared by one or more frames.

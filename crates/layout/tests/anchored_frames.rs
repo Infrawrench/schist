@@ -46,6 +46,7 @@ fn document(
         payload: "<TextFrame />".into(),
         control: None,
         footnote: None,
+        table: None,
         anchored: Some(Box::new(AnchoredItem {
             position,
             y_offset: 0.0,

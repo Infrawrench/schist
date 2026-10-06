@@ -113,6 +113,7 @@ pub fn document(reference: bool, case: usize) -> LayoutDocument {
                             character_style: String::new(),
                         }),
                         footnote: None,
+                        table: None,
                         anchored: None,
                     }));
             }

@@ -9,7 +9,8 @@ its latest checkpoint for work on another machine.
 Branch: `design-tab-leaders`. Existing draft PR:
 https://github.com/Infrawrench/schist/pull/195
 
-The latest commit renders file-name and date variables. It follows `c29ff40b`
+The latest commit composes tables (first phase). It follows `90f6ce88`
+(file-name and date variables), `c29ff40b`
 (running headers and jump numbers inside threads), `b5615e0c` (jump-line page numbers, object-style wrap, layer IgnoreWrap),
 `dff813d6` (wrap around anchored items), `29e24efa` (anchored text
 frames and groups), `9c757f22` (above-line and custom
@@ -44,6 +45,9 @@ story the thread of the story frame their frame touches
 `running_headers.rs`) search other stories' composed lines for the page. Date and
 file-name variables read `LayoutDocument::dates` and `file_path`, which the
 editor stamps at open, save and output (`design::now`); `dates.rs` formats.
+Tables (`tables.rs`, `table_codec.rs`) are typed with cell stories appended to
+`doc.stories`; `tables::layout` sizes rows by composing cells as detached frames
+and `tables::objects` gives fills, edges and cell frames for the anchored path.
 
 Text wrap is modeled per page item (`ObjectAppearance.text_wrap`), per text
 frame (`ignore_wrap`), per layer (`LayoutLayer.ignore_wrap`) and per document
@@ -118,8 +122,9 @@ Key files:
 
 ## Continue in roadmap order
 
-Next: tables (Table, Row, Column, Cell inside stories are retained structures
-today), then the remaining item 9 gaps.
+Next: tables breaking across frames with repeated header/footer rows and
+KeepWithNextRow (`tables-rows` PDF pages 8–10), then table and cell styles and
+alternating fills (`tables` PDF pages 3–6), then the remaining item 9 gaps.
 
 Also open: wrap for vertical text, initials and markers; other stories' wrap around
 anchored items; note-body variables; tables and the other item 9 gaps listed in
@@ -175,18 +180,20 @@ the roadmap. Production INDD remains gated on Phase 0.
 
 ## Verification at this checkpoint
 
-The file-name and date batch passes all 16 roadmap targets, headless library
-wasm, shared UI, formatting, whitespace and the debug app build (2,214 distinct
-passing Rust tests) with no corrections during its sweep; all 43 proofs are
-byte-identical to the previous checkpoint. Details are in Roadmap / Handoff. The two macOS-only editor tests were not compiled here; the next macOS
+The first table batch passes all 16 roadmap targets, headless library wasm,
+shared UI, formatting, whitespace and the debug app build (2,225 distinct passing
+Rust tests); the i18n audit's finding on a long new message was fixed by
+shortening it, and that check re-passed. All 43 proofs are byte-identical to the
+previous checkpoint. Details are in Roadmap / Handoff. The two macOS-only editor tests were not compiled here; the next macOS
 run should include them.
 
 ## Temporary files
 
 Task logs and evidence are under the Git Bash `/tmp` (`C:\Users\Administrator\AppData\Local\Temp`):
 `schist-validate/` (`aaad6dc0` logs, proofs, hashes, native screenshots),
-`schist-sweep/` to `schist-sweep15/` (batch sweep logs), `schist-proofs-b3/` to
-`schist-proofs-b11/` (proof PDFs per batch), `schist-b3/` to `schist-b6/`
+`schist-sweep/` to `schist-sweep16/` (batch sweep logs), `schist-proofs-b3/` to
+`schist-proofs-b12/` (proof PDFs per batch), `schist-tables-research/` (table
+sample PDFs, generators and `pdfops2.py`), `schist-b3/` to `schist-b6/`
 (review-document generators and logs), `schist-wrap-research/` (text-wrap references), `schist-anchored-research/` (the
 anchored sample's PDF, inputs and measuring scripts `pdfops.py`/`measure.py`) and
 `schist-variable-research/` (reacquired public specification and paged-media
@@ -199,8 +206,8 @@ reacquire references from the pinned URLs in `docs/idml-format.md`.
 > https://github.com/Infrawrench/schist/pull/195. Fetch the latest branch head.
 > Read `AGENTS.md` first, then `docs/roadmap.md` in full, then
 > `docs/design-handoff.md`. The roadmap is the plan; do not re-plan from scratch.
-> The latest commit renders file-name and date variables; its full sweep and
-> native review passed on Windows. Continue Phase 3 item 9 in roadmap
+> The latest commit composes tables (first phase); its full sweep and native
+> review passed on Windows. Continue Phase 3 item 9 in roadmap
 > order with the remaining gaps listed in the handoff. Implement substantial coherent batches
 > before compiling/testing; use make and `CARGO_INCREMENTAL=0`, test locally, and
 > do not query or wait for CI. Keep Design's LayoutDocument and tools separate from

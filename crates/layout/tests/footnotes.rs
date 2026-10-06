@@ -34,6 +34,7 @@ fn typed_note_bodies_survive_parent_edits_style_renames_and_one_step_undo() {
                         reference_paragraph_style: "Notes".into(),
                         reference_character_style: "Notes".into(),
                     }),
+                    table: None,
                     anchored: None,
                 })
                 .collect();

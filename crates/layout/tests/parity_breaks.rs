@@ -345,6 +345,7 @@ fn numbered_break_trials_preserve_balanced_main_text_and_whole_or_continued_note
                             reference_paragraph_style: "Body".into(),
                             reference_character_style: "Default".into(),
                         }),
+                        table: None,
                         anchored: None,
                     });
                     doc.stories[0] = story;

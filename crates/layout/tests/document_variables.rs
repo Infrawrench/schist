@@ -93,6 +93,7 @@ fn document(definitions: Vec<TextVariable>) -> LayoutDocument {
                 character_style: String::new(),
                 name: definition.name.clone(),
             }),
+            table: None,
             anchored: None,
         })
         .collect();

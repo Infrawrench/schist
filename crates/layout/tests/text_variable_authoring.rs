@@ -103,6 +103,7 @@ fn identity_allocation_reserves_missing_references_in_main_stories_and_nested_no
             name: String::new(),
             character_style: String::new(),
         }),
+        table: None,
         anchored: None,
     };
     doc.stories[0].structures.push(instance("SchistCustom0"));
@@ -119,6 +120,7 @@ fn identity_allocation_reserves_missing_references_in_main_stories_and_nested_no
         payload: "opaque".into(),
         control: None,
         footnote: Some(note),
+        table: None,
         anchored: None,
     });
     let original = doc.stories.clone();

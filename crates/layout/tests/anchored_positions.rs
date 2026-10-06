@@ -137,6 +137,7 @@ fn compose(setup: Setup) -> Composed {
         payload: "<Rectangle />".into(),
         control: None,
         footnote: None,
+        table: None,
         anchored: Some(Box::new(AnchoredItem {
             position: setup.position,
             y_offset: setup.y_offset,

@@ -111,6 +111,7 @@ fn section_values_without_one_section_are_preflight_errors_not_guesses() {
                 character_style: String::new(),
                 name: String::new(),
             }),
+            table: None,
             anchored: None,
         });
         doc.stories[story.0 as usize] = text;

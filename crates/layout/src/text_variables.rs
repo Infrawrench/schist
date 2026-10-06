@@ -558,6 +558,7 @@ impl Cursor {
                 payload: String::new(),
                 footnote: None,
                 control: Some(control),
+                table: None,
                 anchored: None,
             },
         );

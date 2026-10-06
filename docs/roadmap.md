@@ -310,6 +310,55 @@ are marked.
 
 ## Handoff
 
+Tables, first phase, 2026-10-05:
+A Table inside a story is now typed from its retained XML (`tables::Table`, the
+new `StoryStructure::table`): header, body and footer counts, row sizing, column
+widths, and cells with spans, fills, edge strokes, insets and vertical
+justification. Each cell's paragraphs become a document story, lowered to styles
+like any story, so cell text composes with the ordinary machinery and can be
+edited in the Story Editor. A table is set in its line as one block the size of
+its grid; its outer stroke edge sits at the line's top left, rows grow to their
+cells' text, and output and the canvas draw fills, edges and cell text with the
+holding frame (cell text as generated text of that frame on the canvas). The
+row-height rule, default insets and edge drawing follow InDesign's PDFs of the
+public paged-media `tables` and `tables-rows` samples: a growing row is its top
+inset, its tallest cell's last baseline below the content top, and its bottom
+inset (20.826 and 49.626 pt for one and three 12 pt Open Sans lines), and
+horizontal edges reach the table's outer edge while vertical edges stop at the
+horizontal strokes. One key (an unreadable table) is added to all 150 catalogs;
+the PSU academic template's 7-column table is now typed.
+
+Not composed yet: tables breaking across frames with repeated header and footer
+rows, table and cell styles (including `[Basic Table]`), alternating fills and
+strokes, diagonals, rotated cells, non-solid strokes and editing table structure.
+These are the next phases; the `tables-rows` and `tables` PDFs cover them.
+
+The source-frozen sweep passed every target but the i18n audit, which flagged the
+new message as seven or more untranslated English words in the major locales. It
+was shortened to "Table {name} unread: inconsistent grid" in all 150 catalogs
+rather than deferred, and the i18n check then passed. Every other roadmap target,
+headless library wasm, shared UI, formatting, whitespace and the debug app build
+passed, and all 43 proofs are byte-identical to the previous checkpoint: **2,225
+distinct passing Rust tests**, 11 new (8 layout, 2 IDML, 1 separation). The PSU
+academic template's table imports typed: 7 columns, 12 rows, a header row and 84
+cells.
+
+Native review used passive captures of the actual debug app with Design enabled
+and isolated configuration, on a package holding a native-style 3 × 3 table with
+a tinted header row, cells of one to three paragraphs and a bottom-justified cell
+in a 70 pt row. The first capture showed header text and a cell's third line
+missing: a row as tall as its last baseline left no room for that line's
+descent, so the cell frame dropped the line. Cell text frames now extend below
+the row by their last line's descent, and a layout test checks every line of
+every cell is drawn; the same review also caught measurement subtracting the side
+insets twice. The final capture shows the header text on its tint, all three
+lines, and "bottom 2" at its row's foot. At 43% the canvas draws 1 pt grid lines
+faintly; a 144 dpi plate render shows every edge and all cell text.
+
+Next: tables breaking across frames with repeated headers, then table and cell
+styles. Published to draft PR #195.
+
+
 File-name and date variables, 2026-10-05:
 CreationDateType, ModificationDateType, OutputDateType and FileNameType
 definitions are now typed when their preferences state their settings, and save
@@ -3105,7 +3154,8 @@ remaining order is now explicit:
    the IDML root styles. Anchored page items, text frames and groups compose
    inline, above the line and at custom positions in horizontal text, and wrap
    later lines of their story. Object styles carry text wrap; jump-line page
-   numbers, running headers, file names and dates render.
+   numbers, running headers, file names and dates render. Tables compose in
+   their lines with growing rows, fills, edges and cell text.
 
 Phase 0 research can proceed independently. Phase 5 only follows an
 explicit evidence-based go/no-go; container recognition is not an INDD

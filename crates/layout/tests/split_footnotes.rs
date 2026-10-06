@@ -46,6 +46,7 @@ fn document(whole: bool) -> LayoutDocument {
             reference_paragraph_style: "Body".into(),
             reference_character_style: "Default".into(),
         }),
+        table: None,
         anchored: None,
     });
     doc.add_story(story);

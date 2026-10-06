@@ -45,6 +45,7 @@ fn generated_reference_text_cannot_choose_the_base_direction_of_an_authored_para
                             reference_paragraph_style: "Source".into(),
                             reference_character_style: "Default".into(),
                         }),
+                        table: None,
                         anchored: None,
                     });
                     let id = doc.add_story(story);

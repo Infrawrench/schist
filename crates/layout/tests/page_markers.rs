@@ -38,6 +38,7 @@ fn marker(at: usize, control: InlineControl) -> StoryStructure {
         payload: "original instruction".into(),
         footnote: None,
         control: Some(control),
+        table: None,
         anchored: None,
     }
 }
@@ -286,6 +287,7 @@ fn footer() -> (LayoutDocument, ObjectId) {
                 character_style: String::new(),
                 name: String::new(),
             }),
+            table: None,
             anchored: None,
         },
         // Adjacent-frame page numbers need frame placement and stay diagnosed.

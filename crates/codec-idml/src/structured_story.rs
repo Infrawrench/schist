@@ -172,6 +172,7 @@ pub(crate) fn restore(
                         kind,
                         payload,
                         footnote: None,
+                        table: None,
                         anchored: None,
                     })
                 } else {
@@ -189,6 +190,7 @@ pub(crate) fn restore(
                 kind: LABEL.into(),
                 payload: entry.attr("Value").unwrap_or_default().into(),
                 footnote: None,
+                table: None,
                 anchored: None,
             }));
     }

@@ -137,6 +137,7 @@ pub fn document(reference: bool, case: usize) -> LayoutDocument {
                 reference_paragraph_style: "Source".into(),
                 reference_character_style: "Reference".into(),
             }),
+            table: None,
             anchored: None,
         });
     }

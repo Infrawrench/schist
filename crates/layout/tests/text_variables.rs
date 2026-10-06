@@ -35,6 +35,7 @@ fn document(text: &str, at: usize, value: &str) -> LayoutDocument {
             character_style: String::new(),
             name: "Instance".into(),
         }),
+        table: None,
         anchored: None,
     });
     doc.stories[frame.story.0 as usize] = story;
@@ -166,6 +167,7 @@ fn coincident_notes_and_variables_keep_structure_order_and_their_own_styles() {
                 reference_paragraph_style: "Body".into(),
                 reference_character_style: String::new(),
             }),
+            table: None,
             anchored: None,
         };
         doc.stories[0].structures.push(note);

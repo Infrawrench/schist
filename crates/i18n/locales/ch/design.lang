@@ -623,3 +623,6 @@ design.variable_kind_created = Creation date
 design.variable_kind_modified = Modification date
 design.variable_kind_output = Output date
 design.variable_kind_file_name = File name
+
+# UNTRANSLATED PLACEHOLDER
+design.idml_table_invalid = Table {name} unread: inconsistent grid
