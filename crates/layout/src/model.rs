@@ -617,15 +617,25 @@ impl LayoutDocument {
                     .cloned());
             }
         }
+        for stop in self
+            .styles
+            .paragraphs
+            .iter()
+            .flat_map(|s| s.fill_gradient.iter().chain(&s.stroke_gradient))
+            .chain(
+                self.styles
+                    .characters
+                    .iter()
+                    .flat_map(|s| s.fill_gradient.iter().chain(&s.stroke_gradient)),
+            )
+            .flat_map(|g| &g.gradient.stops)
+        {
+            add(&Some(stop.ink.clone()));
+        }
         for style in &self.styles.objects {
             add(&style.paint.fill_ink().cloned());
             add(&style.paint.stroke_ink().cloned());
-            for stop in style
-                .paint
-                .fill_gradient()
-                .iter()
-                .flat_map(|g| &g.gradient.stops)
-            {
+            for stop in style.paint.gradients().flat_map(|g| &g.gradient.stops) {
                 add(&Some(stop.ink.clone()));
             }
         }
@@ -639,8 +649,7 @@ impl LayoutDocument {
             for stop in object
                 .appearance
                 .paint
-                .fill_gradient()
-                .iter()
+                .gradients()
                 .flat_map(|g| &g.gradient.stops)
             {
                 add(&Some(stop.ink.clone()));
@@ -653,8 +662,8 @@ impl LayoutDocument {
         inks
     }
 
-    /// Every gradient swatch the document's items and object styles fill
-    /// with, each once.
+    /// Every gradient swatch the document's items, object styles and text
+    /// styles fill or stroke with, each once.
     pub fn all_gradients(&self) -> Vec<crate::gradients::Gradient> {
         let mut out: Vec<crate::gradients::Gradient> = Vec::new();
         let paints = self.styles.objects.iter().map(|style| &style.paint).chain(
@@ -667,11 +676,21 @@ impl LayoutDocument {
                 )
                 .map(|object| &object.appearance.paint),
         );
-        for paint in paints {
-            if let Some(fill) = paint.fill_gradient() {
-                if !out.contains(&fill.gradient) {
-                    out.push(fill.gradient.clone());
-                }
+        let text = self
+            .styles
+            .paragraphs
+            .iter()
+            .flat_map(|s| s.fill_gradient.iter().chain(&s.stroke_gradient))
+            .chain(
+                self.styles
+                    .characters
+                    .iter()
+                    .flat_map(|s| s.fill_gradient.iter().chain(&s.stroke_gradient)),
+            )
+            .map(|g| &**g);
+        for applied in paints.flat_map(|paint| paint.gradients()).chain(text) {
+            if !out.contains(&applied.gradient) {
+                out.push(applied.gradient.clone());
             }
         }
         out

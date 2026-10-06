@@ -110,10 +110,12 @@ impl ObjectPaint {
         }
     }
 
-    /// The stroke actually drawn: an ink, a positive weight, and where it
-    /// sits; None when there is none to draw.
+    /// The stroke actually drawn: an ink or a gradient, a positive weight,
+    /// and where it sits; None when there is none to draw.
     pub fn drawn_stroke(&self) -> Option<(f32, StrokeAlignment)> {
-        self.stroke_ink()?;
+        if self.stroke_ink().is_none() && self.stroke_gradient().is_none() {
+            return None;
+        }
         let width = self.stroke_width.unwrap_or(0.0);
         (width > 0.0).then(|| (width, self.stroke_alignment.unwrap_or_default()))
     }
@@ -151,6 +153,15 @@ impl ObjectPaint {
     }
     pub fn fill_gradient(&self) -> Option<&crate::gradients::GradientFill> {
         self.fill.as_ref().and_then(Paint::gradient)
+    }
+    pub fn stroke_gradient(&self) -> Option<&crate::gradients::GradientFill> {
+        self.stroke.as_ref().and_then(Paint::gradient)
+    }
+    /// The fill's gradient and the stroke's, those there are.
+    pub fn gradients(&self) -> impl Iterator<Item = &crate::gradients::GradientFill> {
+        self.fill_gradient()
+            .into_iter()
+            .chain(self.stroke_gradient())
     }
 
     pub fn shape(&self, path: ShapePath) -> LayoutObject {
@@ -366,7 +377,11 @@ impl PlacedObject {
 
     /// Set local properties without flattening any other inherited property.
     pub fn set_local_paint(&mut self, paint: &ObjectPaint) {
-        if self.appearance.style.is_none() && self.appearance.paint == ObjectPaint::default() {
+        // A shape itself keeps only inks: a gradient stays in the appearance.
+        if self.appearance.style.is_none()
+            && self.appearance.paint == ObjectPaint::default()
+            && paint.gradients().next().is_none()
+        {
             if let LayoutObject::Shape { path, .. } = &self.object {
                 self.object = paint.over(&self.legacy_paint()).shape(path.clone());
                 // Stroke options have no place on the shape itself.
@@ -461,7 +476,9 @@ impl PlacedObject {
         };
         let mut paint = self.appearance.paint.clone();
         if stroke {
-            paint.stroke_ink()?;
+            if paint.stroke_ink().is_none() && paint.stroke_gradient().is_none() {
+                return None;
+            }
             if paint.stroke_width.unwrap_or(0.0) <= 0.0 {
                 return None;
             }
@@ -492,7 +509,7 @@ impl PlacedObject {
         out.appearance = ObjectAppearance::default();
         // A gradient and the stroke options are read from the paint-ready
         // appearance.
-        out.appearance.paint = if paint.fill_gradient().is_some() {
+        out.appearance.paint = if paint.gradients().next().is_some() {
             paint
         } else {
             paint.stroke_options()
@@ -566,7 +583,12 @@ pub fn apply_style(
         if let LayoutObject::Shape { path, .. } = &object.object {
             if name.is_none() {
                 after.object = paint.shape(path.clone());
-                after.appearance.paint = ObjectPaint::default();
+                // A gradient stays with the item's paint; the shape keeps inks.
+                after.appearance.paint = if paint.gradients().next().is_some() {
+                    paint.clone()
+                } else {
+                    ObjectPaint::default()
+                };
             } else {
                 after.object = ObjectPaint::default().shape(path.clone());
             }

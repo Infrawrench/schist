@@ -314,6 +314,25 @@ pub fn inherited_text_paint(
     }
 }
 
+/// A text gradient across a style boundary. It travels with its paint: a
+/// nearer style stating any paint (an ink, a gradient or none) keeps its
+/// own, and only one stating none takes the farther style's. Call before
+/// [`inherited_text_paint`] overwrites the nearer paint. A gradient is
+/// drawn in place of the ink beside it, which names its first stop for
+/// readers that draw solid colour.
+pub fn inherited_text_gradient(
+    gradient: &Option<Box<crate::gradients::GradientFill>>,
+    paint: &Option<Ink>,
+    disabled: bool,
+    fallback: &Option<Box<crate::gradients::GradientFill>>,
+) -> Option<Box<crate::gradients::GradientFill>> {
+    if gradient.is_some() || paint.is_some() || disabled {
+        gradient.clone()
+    } else {
+        fallback.clone()
+    }
+}
+
 /// A named set of paragraph properties.
 ///
 /// Every field is optional and means "inherit". That makes a style cheap
@@ -353,6 +372,12 @@ pub struct ParagraphStyle {
     /// The fill ink; unset inherits the paragraph or document text colour.
     pub fill: Option<Ink>,
     pub stroke: Option<Ink>,
+    /// A gradient drawn in place of the fill or stroke ink, which then names
+    /// its first stop; it inherits with that paint.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub fill_gradient: Option<Box<crate::gradients::GradientFill>>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub stroke_gradient: Option<Box<crate::gradients::GradientFill>>,
     pub stroke_weight: Option<f32>,
     /// True paints wholly outside the outline; false centers the stroke.
     pub stroke_outside: Option<bool>,
@@ -476,6 +501,12 @@ pub struct CharacterStyle {
     /// The fill ink; unset inherits the paragraph or document text colour.
     pub fill: Option<Ink>,
     pub stroke: Option<Ink>,
+    /// A gradient drawn in place of the fill or stroke ink, which then names
+    /// its first stop; it inherits with that paint.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub fill_gradient: Option<Box<crate::gradients::GradientFill>>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub stroke_gradient: Option<Box<crate::gradients::GradientFill>>,
     /// Explicit native no-ink values. False with no ink means inherit; true
     /// suppresses even an ancestor's ink. A disabled paint takes precedence.
     #[serde(default)]
@@ -692,6 +723,9 @@ pub struct ResolvedParagraph {
     /// The fill ink; unset inherits the paragraph or document text colour.
     pub fill: Option<Ink>,
     pub stroke: Option<Ink>,
+    /// A gradient drawn in place of the fill or stroke ink.
+    pub fill_gradient: Option<Box<crate::gradients::GradientFill>>,
+    pub stroke_gradient: Option<Box<crate::gradients::GradientFill>>,
     pub stroke_weight: Option<f32>,
     /// True paints wholly outside the outline; false centers the stroke.
     pub stroke_outside: Option<bool>,
@@ -762,6 +796,18 @@ impl ResolvedParagraph {
         fallback.all_caps = self.all_caps.or(fallback.all_caps);
         fallback.small_caps = self.small_caps.or(fallback.small_caps);
         fallback.baseline_shift = self.baseline_shift.or(fallback.baseline_shift);
+        fallback.fill_gradient = inherited_text_gradient(
+            &self.fill_gradient,
+            &self.fill,
+            self.fill_disabled,
+            &fallback.fill_gradient,
+        );
+        fallback.stroke_gradient = inherited_text_gradient(
+            &self.stroke_gradient,
+            &self.stroke,
+            self.stroke_disabled,
+            &fallback.stroke_gradient,
+        );
         (fallback.fill, fallback.fill_disabled) = inherited_text_paint(
             &self.fill,
             self.fill_disabled,
@@ -819,6 +865,18 @@ impl ResolvedParagraph {
             out.all_caps = out.all_caps.or(style.all_caps);
             out.small_caps = out.small_caps.or(style.small_caps);
             out.baseline_shift = out.baseline_shift.or(style.baseline_shift);
+            out.fill_gradient = inherited_text_gradient(
+                &out.fill_gradient,
+                &out.fill,
+                out.fill_disabled,
+                &style.fill_gradient,
+            );
+            out.stroke_gradient = inherited_text_gradient(
+                &out.stroke_gradient,
+                &out.stroke,
+                out.stroke_disabled,
+                &style.stroke_gradient,
+            );
             (out.fill, out.fill_disabled) = inherited_text_paint(
                 &out.fill,
                 out.fill_disabled,
@@ -911,6 +969,9 @@ pub struct ResolvedCharacter {
     /// The fill ink; unset inherits the paragraph or document text colour.
     pub fill: Option<Ink>,
     pub stroke: Option<Ink>,
+    /// A gradient drawn in place of the fill or stroke ink.
+    pub fill_gradient: Option<Box<crate::gradients::GradientFill>>,
+    pub stroke_gradient: Option<Box<crate::gradients::GradientFill>>,
     /// Explicit native no-ink values. False with no ink means inherit; true
     /// suppresses even an ancestor's ink. A disabled paint takes precedence.
     pub fill_disabled: bool,
@@ -959,6 +1020,8 @@ impl ResolvedCharacter {
             stroke_tint: self.stroke_tint,
             fill: self.fill,
             stroke: self.stroke,
+            fill_gradient: self.fill_gradient,
+            stroke_gradient: self.stroke_gradient,
             fill_disabled: self.fill_disabled,
             stroke_disabled: self.stroke_disabled,
             stroke_weight: self.stroke_weight,
@@ -1023,6 +1086,18 @@ impl ResolvedCharacter {
     pub fn with_paint_defaults(mut self, base: &Self) -> Self {
         self.underline_style = self.underline_style.over(&base.underline_style);
         self.strike_style = self.strike_style.over(&base.strike_style);
+        self.fill_gradient = inherited_text_gradient(
+            &self.fill_gradient,
+            &self.fill,
+            self.fill_disabled,
+            &base.fill_gradient,
+        );
+        self.stroke_gradient = inherited_text_gradient(
+            &self.stroke_gradient,
+            &self.stroke,
+            self.stroke_disabled,
+            &base.stroke_gradient,
+        );
         (self.fill, self.fill_disabled) = inherited_text_paint(
             &self.fill,
             self.fill_disabled,
@@ -1104,6 +1179,18 @@ impl ResolvedCharacter {
             out.baseline_shift = out.baseline_shift.or(style.baseline_shift);
             out.all_caps = out.all_caps.or(style.all_caps);
             out.small_caps = out.small_caps.or(style.small_caps);
+            out.fill_gradient = inherited_text_gradient(
+                &out.fill_gradient,
+                &out.fill,
+                out.fill_disabled,
+                &style.fill_gradient,
+            );
+            out.stroke_gradient = inherited_text_gradient(
+                &out.stroke_gradient,
+                &out.stroke,
+                out.stroke_disabled,
+                &style.stroke_gradient,
+            );
             (out.fill, out.fill_disabled) = inherited_text_paint(
                 &out.fill,
                 out.fill_disabled,

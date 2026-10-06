@@ -5,7 +5,7 @@ use crate::{
     import::Report,
     xml::{self, Element},
 };
-use schist_layout::gradients::{Gradient, GradientStop};
+use schist_layout::gradients::{Gradient, GradientFill, GradientStop};
 use schist_layout::Ink;
 
 #[derive(Default)]
@@ -180,6 +180,56 @@ fn gradient(el: &Element, colors: &Colors, report: &mut Report) -> Option<Gradie
         report.skip(schist_i18n::tf!("design.idml_color_unread", name = id));
         None
     }
+}
+
+/// The gradient swatch `{part}Color` names on `element`, `part` being Fill
+/// or Stroke, run where its Gradient{part}Start (two finite numbers),
+/// Gradient{part}Length (positive) and Gradient{part}Angle (degrees, zero
+/// by default) say; the specification gives the stroke's the same meanings
+/// as the fill's. None when the colour is not a gradient.
+pub(crate) fn applied_gradient(
+    element: &Element,
+    part: &str,
+    colors: &Colors,
+) -> Option<GradientFill> {
+    let gradient = colors
+        .gradient(element.attr(&format!("{part}Color"))?)?
+        .clone();
+    let start = element
+        .attr(&format!("Gradient{part}Start"))
+        .map(xml::numbers)
+        .and_then(|v| match v.as_slice() {
+            [x, y] if x.is_finite() && y.is_finite() => Some(schist_layout::Point::new(*x, *y)),
+            _ => None,
+        });
+    Some(GradientFill {
+        gradient,
+        start,
+        length: element
+            .number(&format!("Gradient{part}Length"))
+            .filter(|v| v.is_finite() && *v > 0.0),
+        angle: element
+            .number(&format!("Gradient{part}Angle"))
+            .filter(|v| v.is_finite())
+            .unwrap_or(0.0),
+    })
+}
+
+/// The Gradient{part}Start, Length and Angle attributes that read back as
+/// `applied`.
+pub(crate) fn gradient_attributes(part: &str, applied: &GradientFill) -> Vec<(String, String)> {
+    let mut out = Vec::new();
+    if let Some(start) = applied.start {
+        out.push((
+            format!("Gradient{part}Start"),
+            format!("{} {}", start.x, start.y),
+        ));
+    }
+    if let Some(length) = applied.length {
+        out.push((format!("Gradient{part}Length"), length.to_string()));
+    }
+    out.push((format!("Gradient{part}Angle"), applied.angle.to_string()));
+    out
 }
 
 /// A gradient swatch's reference, unique to its definition.

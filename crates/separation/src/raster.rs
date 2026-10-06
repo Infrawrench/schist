@@ -262,7 +262,8 @@ pub fn placed_shape_coverage(
         )
     };
     let width = *stroke_width;
-    let alignment = if ink.is_some() && width > 0.0 && path.subpaths.iter().any(|s| s.closed) {
+    let stroked = ink.is_some() || paint.stroke_gradient().is_some();
+    let alignment = if stroked && width > 0.0 && path.subpaths.iter().any(|s| s.closed) {
         paint.stroke_alignment.unwrap_or_default()
     } else {
         StrokeAlignment::Center
@@ -476,6 +477,8 @@ pub struct TextPaint {
     pub opacity: f32,
     pub overprint: bool,
     pub tint: f32,
+    /// A gradient laid in place of `ink`, over the frame the text is set in.
+    pub gradient: Option<Box<schist_layout::gradients::GradientFill>>,
 }
 
 /// A composed line split into its actual ink paints without reshaping each
@@ -495,13 +498,21 @@ pub fn line_paints(
     {
         return Some(Vec::new());
     }
+    type Gradient = Box<schist_layout::gradients::GradientFill>;
     let mut inks = Vec::new();
     let mut spec = line_spec(line, story, doc);
     let paints = schist_layout::compose::line_paint_styles(line, story, doc);
     for (index, run) in spec.runs.iter_mut().enumerate() {
         let style = &paints[index];
-        let mut paint_id = |ink: Ink, overprint: bool, tint: f32| {
-            let paint = (ink, style.opacity.unwrap_or(1.0), overprint, tint);
+        // A gradient is a paint of its own, whatever ink stands in for it.
+        let mut paint_id = |ink: Ink, overprint: bool, tint: f32, gradient: Option<&Gradient>| {
+            let paint = (
+                ink,
+                style.opacity.unwrap_or(1.0),
+                overprint,
+                tint,
+                gradient.cloned(),
+            );
             let index = inks
                 .iter()
                 .position(|existing| existing == &paint)
@@ -515,12 +526,14 @@ pub fn line_paints(
             style.fill.clone().unwrap_or_else(Ink::black),
             style.overprint_fill.unwrap_or(false),
             style.fill_tint.unwrap_or(1.0),
+            style.fill_gradient.as_ref(),
         );
         if let Some(stroke) = &mut run.stroke {
             stroke.color = paint_id(
                 style.stroke.clone().unwrap_or_else(Ink::black),
                 style.overprint_stroke.unwrap_or(false),
                 style.stroke_tint.unwrap_or(1.0),
+                style.stroke_gradient.as_ref(),
             );
         }
         for (rendered, definition) in [
@@ -528,11 +541,16 @@ pub fn line_paints(
             (&mut run.strike_style, &style.strike_style),
         ] {
             if let Some(rendered) = rendered {
+                // A line in the text's own colour takes its gradient too.
+                let gradient = style
+                    .fill_gradient
+                    .as_ref()
+                    .filter(|_| definition.follows_text());
                 if let Some((ink, tint, overprint)) = definition.paint(style) {
-                    rendered.color = paint_id(ink, overprint, tint);
+                    rendered.color = paint_id(ink, overprint, tint, gradient);
                 }
                 if let Some((ink, tint, overprint)) = definition.gap_paint(style) {
-                    rendered.gap_color = paint_id(ink, overprint, tint);
+                    rendered.gap_color = paint_id(ink, overprint, tint, None);
                 }
             }
         }
@@ -568,7 +586,7 @@ pub fn line_paints(
             .into_iter()
             .map(|paint| {
                 let index = paint.color.map(u32::from_le_bytes).unwrap_or(0) as usize;
-                let (ink, opacity, overprint, tint) = &inks[index];
+                let (ink, opacity, overprint, tint, gradient) = &inks[index];
                 TextPaint {
                     coverage: Coverage {
                         rect,
@@ -578,6 +596,7 @@ pub fn line_paints(
                     opacity: *opacity,
                     overprint: *overprint,
                     tint: *tint,
+                    gradient: gradient.clone(),
                 }
             })
             .collect(),

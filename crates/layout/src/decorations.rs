@@ -113,6 +113,12 @@ impl DecorationStyle {
         }
     }
 
+    /// Whether the line is drawn in the text's own fill, and so in its
+    /// gradient when the text has one.
+    pub fn follows_text(&self) -> bool {
+        matches!(self.paint, None | Some(DecorationPaint::Text))
+    }
+
     /// Effective ink/tint/overprint without converting through preview RGB.
     pub fn paint(&self, text: &ResolvedCharacter) -> Option<(Ink, f32, bool)> {
         let (ink, tint) = match &self.paint {

@@ -1,13 +1,22 @@
-//! Gradient swatches and the gradients items are filled with. A gradient
-//! runs its stops along a line (linear) or out from a centre (radial), in the
-//! item's own path coordinates: from `start`, `length` points long, at
-//! `angle` degrees counter-clockwise from the x axis.
+//! Gradient swatches and the gradients items and text are filled and
+//! stroked with. A gradient runs its stops along a line (linear) or out from
+//! a centre (radial), in the item's own path coordinates: from `start`,
+//! `length` points long, at `angle` degrees counter-clockwise from the x axis.
 //!
 //! An item that states no start begins at its path's left and bottom edges,
 //! `length` its width: InDesign's own exports write exactly that for a
 //! gradient applied in its user interface, and its PDF of the public
 //! paged-media `gradients` sample, whose items state none, draws it so. The
-//! evidence is in `docs/idml-format.md`.
+//! evidence is in `docs/idml-format.md`. A stroke runs the same way over the
+//! same path: no public sample strokes with a gradient, so this is the
+//! specification's GradientStrokeStart, Length and Angle read as their fill
+//! counterparts are.
+//!
+//! Text has no path of its own: a gradient on text runs over the frame it is
+//! set in, as an item's runs over its path, so each glyph shows the part of
+//! the gradient it sits on. No public sample sets text in a gradient either;
+//! this is a Schist reading, consistent with fills. InDesign's defaults for
+//! text, GradientFillStart "0 0" with GradientFillLength -1, state no vector.
 use crate::{Ink, Point, Pt, Rect};
 use serde::{Deserialize, Serialize};
 
@@ -32,12 +41,14 @@ pub struct GradientStop {
     pub midpoint: f32,
 }
 
-/// A gradient applied to an item, and where it runs.
+/// A gradient applied to an item's fill or stroke, or to text, and where it
+/// runs.
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct GradientFill {
     pub gradient: Gradient,
     /// In the item's path coordinates; None begins at the path's left and
-    /// bottom edges.
+    /// bottom edges. Text keeps the start it states for saving and does not
+    /// draw it: see [`GradientFill::text_vector`].
     pub start: Option<Point>,
     /// The line's length or the radius; None is the path's width.
     pub length: Option<Pt>,
@@ -112,6 +123,23 @@ impl GradientFill {
         let radians = self.angle.to_radians();
         // Path coordinates run down the page.
         (start, Point::new(radians.cos(), -radians.sin()), length)
+    }
+
+    /// The vector over text set in a frame `size` wide and high, in the
+    /// frame's own coordinates from its top-left corner: from its left and
+    /// bottom edges, as for an item stating no start, `length` (or the
+    /// frame's width) long at `angle`. A start the text states is not drawn:
+    /// it is in the coordinates of an InDesign frame Schist does not keep,
+    /// and import reports it.
+    pub fn text_vector(&self, size: (Pt, Pt)) -> (Point, Point, Pt) {
+        let (width, height) = size;
+        let length = self.length.unwrap_or(width).max(1e-3);
+        let radians = self.angle.to_radians();
+        (
+            Point::new(0.0, height),
+            Point::new(radians.cos(), -radians.sin()),
+            length,
+        )
     }
 
     /// Where `p`, in path coordinates, falls along the gradient, 0 to 1;

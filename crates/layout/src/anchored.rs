@@ -391,18 +391,21 @@ fn stroked_extent(object: &PlacedObject) -> Rect {
 
 /// An object's own stroke weight, or zero when it has no stroke.
 fn stroke_weight(object: &PlacedObject) -> Pt {
+    let gradient = object.appearance.paint.stroke_gradient().is_some();
     let weight = match &object.object {
         crate::LayoutObject::Shape {
-            stroke: Some(_),
+            stroke,
             stroke_width,
             ..
-        } => *stroke_width,
+        } if stroke.is_some() || gradient => *stroke_width,
         crate::LayoutObject::Shape { .. } | crate::LayoutObject::Group { .. } => 0.0,
         _ => {
             let paint = &object.appearance.paint;
-            paint
-                .stroke_ink()
-                .map_or(0.0, |_| paint.stroke_width.unwrap_or(0.0))
+            if paint.stroke_ink().is_some() || gradient {
+                paint.stroke_width.unwrap_or(0.0)
+            } else {
+                0.0
+            }
         }
     };
     if weight.is_finite() {

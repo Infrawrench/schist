@@ -594,6 +594,7 @@ fn paint_object_content<'a>(
 
     match &placed.object {
         LayoutObject::Shape {
+            path,
             fill,
             stroke,
             fill_overprint,
@@ -602,28 +603,22 @@ fn paint_object_content<'a>(
             ..
         } => {
             let coverage = crate::raster::placed_shape_coverage(placed, settings, page, false);
-            let gradient = placed.appearance.paint.fill_gradient();
-            if let (Some(gradient), LayoutObject::Shape { path, .. }) = (gradient, &placed.object) {
-                let stops: Vec<_> = gradient
-                    .gradient
-                    .stops
-                    .iter()
-                    .map(|stop| tinted_coats_for(plan, &stop.ink, 1.0))
-                    .collect();
-                let to_path = crate::raster::to_path(placed, settings, page);
-                let vector = gradient.vector(path.bounds());
+            // A gradient fill or stroke runs over the path's own coordinates.
+            let to_path = crate::raster::to_path(placed, settings, page);
+            let bounds = path.bounds();
+            if let Some(gradient) = placed.appearance.paint.fill_gradient() {
                 let mode = if *fill_overprint {
                     InkMode::Overprint
                 } else {
                     mode
                 };
-                separation.paint_gradient(
+                let vector = gradient.vector(bounds);
+                paint_gradient(
+                    separation,
+                    plan,
                     &coverage,
-                    &stops,
-                    |x, y| {
-                        let p = to_path(x as f32 + 0.5, y as f32 + 0.5);
-                        gradient.gradient.mix(gradient.position(p, vector))
-                    },
+                    gradient,
+                    |x, y| gradient.position(to_path(x, y), vector),
                     mode,
                     opacity,
                 );
@@ -637,20 +632,34 @@ fn paint_object_content<'a>(
                 separation.paint(&coverage, &coats, mode, opacity);
                 separation.paint_composite(&coverage, &coats, &build, mode, opacity);
             }
-            if let Some(ink) = stroke {
+            let stroke_gradient = placed.appearance.paint.stroke_gradient();
+            if stroke.is_some() || stroke_gradient.is_some() {
                 // The stroke is a separate ink on a separate rule: a
                 // shape whose fill knocks out and whose stroke
                 // overprints is an ordinary way to draw a keyline.
                 let stroke_mask =
                     crate::raster::placed_shape_coverage(placed, settings, page, true);
-                let (coats, build) = tinted_coats_for(plan, ink, tints.stroke);
                 let mode = if *stroke_overprint {
                     InkMode::Overprint
                 } else {
                     mode
                 };
-                separation.paint(&stroke_mask, &coats, mode, opacity);
-                separation.paint_composite(&stroke_mask, &coats, &build, mode, opacity);
+                if let Some(gradient) = stroke_gradient {
+                    let vector = gradient.vector(bounds);
+                    paint_gradient(
+                        separation,
+                        plan,
+                        &stroke_mask,
+                        gradient,
+                        |x, y| gradient.position(to_path(x, y), vector),
+                        mode,
+                        opacity,
+                    );
+                } else if let Some(ink) = stroke {
+                    let (coats, build) = tinted_coats_for(plan, ink, tints.stroke);
+                    separation.paint(&stroke_mask, &coats, mode, opacity);
+                    separation.paint_composite(&stroke_mask, &coats, &build, mode, opacity);
+                }
             }
         }
 
@@ -671,6 +680,9 @@ fn paint_object_content<'a>(
                     separation.paint_composite(&coverage, &coats, &build, mode, opacity);
                 }
             }
+            // A text gradient runs over the frame the text is set in.
+            let to_frame = crate::raster::to_path(placed, settings, page);
+            let size = (placed.bounds.width, placed.bounds.height);
             for line in composed.all_lines() {
                 let Some(paints) = crate::raster::line_paints(line, story_def, doc, settings, page)
                 else {
@@ -685,6 +697,19 @@ fn paint_object_content<'a>(
                         mode
                     };
                     let alpha = paint.opacity;
+                    if let Some(gradient) = &paint.gradient {
+                        let vector = gradient.text_vector(size);
+                        paint_gradient(
+                            separation,
+                            plan,
+                            &coverage,
+                            gradient,
+                            |x, y| gradient.position(to_frame(x, y), vector),
+                            mode,
+                            opacity * alpha,
+                        );
+                        continue;
+                    }
                     let (coats, build) = tinted_coats_for(plan, &paint.ink, paint.tint);
                     separation.paint(&coverage, &coats, mode, opacity * alpha);
                     separation.paint_composite(&coverage, &coats, &build, mode, opacity * alpha);
@@ -733,6 +758,33 @@ fn paint_object_content<'a>(
         LayoutObject::Group { .. } | LayoutObject::Note { .. } => {}
     }
     None
+}
+
+/// Lay `gradient` through `mask`. `place(x, y)` is how far along the
+/// gradient a page pixel's centre falls; each stop's ink lays as a solid of
+/// it would, untinted, and a pixel mixes its two stops.
+fn paint_gradient(
+    separation: &mut Separation,
+    plan: &mut PlatePlan,
+    mask: &crate::coverage::Coverage,
+    gradient: &schist_layout::gradients::GradientFill,
+    place: impl Fn(f32, f32) -> f32,
+    mode: InkMode,
+    opacity: f32,
+) {
+    let stops: Vec<_> = gradient
+        .gradient
+        .stops
+        .iter()
+        .map(|stop| tinted_coats_for(plan, &stop.ink, 1.0))
+        .collect();
+    separation.paint_gradient(
+        mask,
+        &stops,
+        |x, y| gradient.gradient.mix(place(x as f32 + 0.5, y as f32 + 0.5)),
+        mode,
+        opacity,
+    );
 }
 
 /// Apply the ink manager's output-time decisions to the process plates.

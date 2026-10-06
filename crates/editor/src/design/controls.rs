@@ -117,7 +117,8 @@ pub fn set_no_break(state: &mut DesignState, target: &Target, value: Option<bool
 }
 
 /// Paint selection is one style edit. None inherits; Paint::None explicitly
-/// suppresses inherited ink, and choosing a color re-enables that paint.
+/// suppresses inherited ink, and choosing a color re-enables that paint. A
+/// gradient's first stop stands in as the ink, as import gives it.
 pub fn set_text_paint(
     state: &mut DesignState,
     target: &Target,
@@ -133,9 +134,13 @@ pub fn set_text_paint(
                     .find(|s| s.name == *name)
                     .map(|s| {
                         if fill {
-                            (&mut s.fill, &mut s.fill_disabled)
+                            (&mut s.fill, &mut s.fill_gradient, &mut s.fill_disabled)
                         } else {
-                            (&mut s.stroke, &mut s.stroke_disabled)
+                            (
+                                &mut s.stroke,
+                                &mut s.stroke_gradient,
+                                &mut s.stroke_disabled,
+                            )
                         }
                     }),
                 Target::Character(name) => styles
@@ -144,16 +149,27 @@ pub fn set_text_paint(
                     .find(|s| s.name == *name)
                     .map(|s| {
                         if fill {
-                            (&mut s.fill, &mut s.fill_disabled)
+                            (&mut s.fill, &mut s.fill_gradient, &mut s.fill_disabled)
                         } else {
-                            (&mut s.stroke, &mut s.stroke_disabled)
+                            (
+                                &mut s.stroke,
+                                &mut s.stroke_gradient,
+                                &mut s.stroke_disabled,
+                            )
                         }
                     }),
                 _ => None,
             };
-        if let Some((ink, disabled)) = fields {
+        if let Some((ink, gradient, disabled)) = fields {
             *disabled = paint == Some(schist_layout::Paint::None);
-            *ink = paint.as_ref().and_then(schist_layout::Paint::ink).cloned();
+            *gradient = paint
+                .as_ref()
+                .and_then(schist_layout::Paint::gradient)
+                .map(|g| Box::new(g.clone()));
+            *ink = match paint.as_ref() {
+                Some(schist_layout::Paint::Gradient(g)) => Some(g.gradient.stops[0].ink.clone()),
+                paint => paint.and_then(schist_layout::Paint::ink).cloned(),
+            };
         }
     })
 }

@@ -192,6 +192,7 @@ fn paint_object(window: &mut Window, frame: &PasteboardFrame, object: &Display) 
             rect,
             spec,
             transform,
+            gradients,
             ..
         } => {
             let typing = frame.typing.filter(|t| !*generated && t.story == *story);
@@ -222,7 +223,7 @@ fn paint_object(window: &mut Window, frame: &PasteboardFrame, object: &Display) 
                     }
                 }
             }
-            paint_text(window, frame.bounds, *rect, spec, *transform);
+            paint_text(window, frame.bounds, *rect, spec, *transform, gradients);
             if let Some(typing) = typing.filter(|t| {
                 !*generated && super::text::caret_line(&frame.plan, *t) == Some((*object, *start))
             }) {
@@ -291,6 +292,7 @@ fn paint_object(window: &mut Window, frame: &PasteboardFrame, object: &Display) 
             fill,
             gradient,
             stroke,
+            stroke_gradient,
             stroke_options,
             transform,
             ..
@@ -299,10 +301,18 @@ fn paint_object(window: &mut Window, frame: &PasteboardFrame, object: &Display) 
                 color: *fill,
                 gradient: gradient.as_deref(),
             };
-            if *transform == Affine::IDENTITY && *stroke_options == StrokeOptions::default() {
+            if *transform == Affine::IDENTITY
+                && *stroke_options == StrokeOptions::default()
+                && stroke_gradient.is_none()
+            {
                 // GPUI strokes with InDesign's defaults: butt, mitre, 4.
                 paint_shape(window, frame.bounds, path, fill, *stroke);
             } else if let (Some((color, width)), Some(inverse)) = (stroke, transform.invert()) {
+                // A gradient stroke is laid pixel by pixel over its outline.
+                let stroke_fill = Fill {
+                    color: Some(*color),
+                    gradient: stroke_gradient.as_deref(),
+                };
                 // The stroke outlined in the shape's own space, so a skewed
                 // or unevenly scaled shape strokes as it prints.
                 let outline = |width: f32| {
@@ -337,19 +347,13 @@ fn paint_object(window: &mut Window, frame: &PasteboardFrame, object: &Display) 
                             frame.bounds,
                             path,
                             fill,
-                            (*color, &outline(*width), &outline(*width * 2.0)),
+                            (stroke_fill, &outline(*width), &outline(*width * 2.0)),
                             stroke_options.alignment == StrokeAlignment::Inside,
                         );
                     }
                     _ => {
                         paint_shape(window, frame.bounds, path, fill, None);
-                        paint_shape(
-                            window,
-                            frame.bounds,
-                            &outline(*width),
-                            Fill::solid(*color),
-                            None,
-                        );
+                        paint_shape(window, frame.bounds, &outline(*width), stroke_fill, None);
                     }
                 }
             } else {
@@ -469,8 +473,13 @@ fn paint_text(
     rect: Rect,
     spec: &TextSpec,
     transform: Affine,
+    gradients: &[schist_layout::pasteboard::TextGradient],
 ) {
     if spec.text.is_empty() {
+        return;
+    }
+    if !gradients.is_empty() {
+        paint_gradient_text(window, bounds, rect, spec, transform, gradients);
         return;
     }
     let Some(raster) = rasterize(spec) else {
@@ -493,23 +502,137 @@ fn paint_text(
     );
 }
 
+/// A line some of whose runs are painted with gradients. Each such paint is
+/// given a colour no other paint in the line has, so the engine keeps its
+/// coverage apart, and is then coloured pixel by pixel from its gradient at
+/// the opacity its own colour carried. Paints composite in draw order, as
+/// `TextRaster::rgba` composites them.
+fn paint_gradient_text(
+    window: &mut Window,
+    bounds: Bounds<Pixels>,
+    rect: Rect,
+    spec: &TextSpec,
+    transform: Affine,
+    gradients: &[schist_layout::pasteboard::TextGradient],
+) {
+    use schist_layout::pasteboard::TextPart;
+    let mut used = std::collections::HashSet::new();
+    for run in &spec.runs {
+        used.extend(run.color);
+        used.extend(run.stroke.and_then(|s| s.color));
+        for decoration in [&run.underline_style, &run.strike_style]
+            .into_iter()
+            .flatten()
+        {
+            used.extend(decoration.color);
+            used.extend(decoration.gap_color);
+        }
+    }
+    let mut next = 0u32;
+    let mut keyed = spec.clone();
+    let mut keys = Vec::new();
+    for gradient in gradients {
+        let Some(run) = keyed.runs.get_mut(gradient.run) else {
+            continue;
+        };
+        let key = loop {
+            let [_, r, g, b] = next.to_be_bytes();
+            next += 1;
+            if !used.contains(&[r, g, b, 255]) {
+                break [r, g, b, 255];
+            }
+        };
+        let slot = match gradient.part {
+            TextPart::Fill => Some(&mut run.color),
+            TextPart::Stroke => run.stroke.as_mut().map(|s| &mut s.color),
+            TextPart::Underline => run.underline_style.as_mut().map(|d| &mut d.color),
+            TextPart::Strike => run.strike_style.as_mut().map(|d| &mut d.color),
+        };
+        let Some(slot) = slot else { continue };
+        let alpha = slot.map_or(255, |c| c[3]);
+        *slot = Some(key);
+        keys.push((key, &gradient.gradient, alpha));
+    }
+    let Some(raster) = schist_text_engine::rasterize_with_paints(&keyed) else {
+        return;
+    };
+    let (width, height) = (raster.bounds.width(), raster.bounds.height());
+    if width <= 0 || height <= 0 {
+        return;
+    }
+    let origin = super::text::line_origin(spec, rect);
+    let at = Point::new(
+        origin.x + raster.bounds.left as Pt,
+        origin.y + raster.bounds.top as Pt,
+    );
+    let [r, g, b] = channels(TEXT);
+    let mut out = vec![[0.0f32; 4]; raster.coverage.len()];
+    for paint in &raster.paints {
+        let gradient = keys.iter().find(|(key, ..)| Some(*key) == paint.color);
+        for (index, (pixel, &coverage)) in out.iter_mut().zip(&paint.coverage).enumerate() {
+            if coverage == 0 {
+                continue;
+            }
+            let color = match gradient {
+                Some((_, gradient, alpha)) => {
+                    let rgb = gradient.preview(
+                        at.x + (index % width as usize) as f32 + 0.5,
+                        at.y + (index / width as usize) as f32 + 0.5,
+                    );
+                    [
+                        rgb[0].clamp(0.0, 1.0) * 255.0,
+                        rgb[1].clamp(0.0, 1.0) * 255.0,
+                        rgb[2].clamp(0.0, 1.0) * 255.0,
+                        f32::from(*alpha),
+                    ]
+                }
+                None => paint.color.unwrap_or([r, g, b, 255]).map(f32::from),
+            };
+            let alpha = f32::from(coverage) * color[3] / (255.0 * 255.0);
+            for channel in 0..3 {
+                pixel[channel] = color[channel] * alpha + pixel[channel] * (1.0 - alpha);
+            }
+            pixel[3] = alpha + pixel[3] * (1.0 - alpha);
+        }
+    }
+    let buffer = out
+        .into_iter()
+        .flat_map(|p| {
+            if p[3] <= 0.0 {
+                [0; 4]
+            } else {
+                [
+                    (p[0] / p[3]).round() as u8,
+                    (p[1] / p[3]).round() as u8,
+                    (p[2] / p[3]).round() as u8,
+                    (p[3] * 255.0).round() as u8,
+                ]
+            }
+        })
+        .collect();
+    if let Some(image) = image::RgbaImage::from_raw(width as u32, height as u32, buffer) {
+        paint_rgba(window, bounds, image, at, transform);
+    }
+}
+
 /// A shape's outline, or its fill.
 ///
 /// Filled contours share the output rasterizer and its winding rule.
 /// Unfilled outlines use native cubic paths.
 /// A shape whose stroke sits inside or outside its path: InDesign moves the
 /// path half the stroke's weight that way for the fill and the stroke alike.
-/// `stroke` is the stroke's colour and its outlines at the weight and at
-/// twice it. Inside, the fill loses the inner half of the first band and the
-/// stroke is the inner side of the second; outside, the fill gains the outer
-/// half and the stroke is the outer side. The stroke is laid over the fill.
+/// `stroke` is the stroke's colour or gradient and its outlines at the
+/// weight and at twice it. Inside, the fill loses the inner half of the first
+/// band and the stroke is the inner side of the second; outside, the fill
+/// gains the outer half and the stroke is the outer side. The stroke is laid
+/// over the fill.
 fn paint_aligned(
     window: &mut Window,
     bounds: Bounds<Pixels>,
     shape: &schist_layout::ShapePath,
     fill: Fill<'_>,
-    (color, narrow, wide): (
-        [f32; 4],
+    (stroke, narrow, wide): (
+        Fill<'_>,
         &schist_layout::ShapePath,
         &schist_layout::ShapePath,
     ),
@@ -557,6 +680,7 @@ fn paint_aligned(
             rect.top as f32 + (index / width) as f32 + 0.5,
         );
         let under = fill.at(x, y).unwrap_or_default();
+        let color = stroke.at(x, y).unwrap_or_default();
         let fa = fill_cover * under[3];
         let sa = stroke_cover * color[3];
         let alpha = sa + fa * (1.0 - sa);
@@ -583,7 +707,8 @@ fn paint_aligned(
     }
 }
 
-/// What fills a shape on the canvas: a flat colour or a gradient.
+/// What fills or strokes a shape on the canvas: a flat colour or a
+/// gradient.
 #[derive(Clone, Copy, Default)]
 struct Fill<'a> {
     color: Option<[f32; 4]>,
@@ -591,13 +716,6 @@ struct Fill<'a> {
 }
 
 impl Fill<'_> {
-    fn solid(color: [f32; 4]) -> Self {
-        Self {
-            color: Some(color),
-            gradient: None,
-        }
-    }
-
     /// The colour at canvas point (x, y).
     fn at(&self, x: f32, y: f32) -> Option<[f32; 4]> {
         match (self.gradient, self.color) {
@@ -1024,6 +1142,19 @@ fn blit_transformed(
     let Some(image) = image::RgbaImage::from_raw(width as u32, height as u32, buffer) else {
         return;
     };
+    paint_rgba(window, bounds, image, at, transform);
+}
+
+/// Composed straight-alpha pixels with their top-left at `at`, then mapped
+/// by `transform`.
+fn paint_rgba(
+    window: &mut Window,
+    bounds: Bounds<Pixels>,
+    image: image::RgbaImage,
+    at: Point,
+    transform: Affine,
+) {
+    let (width, height) = image.dimensions();
     if transform != Affine::IDENTITY {
         let rect = Rect::new(at.x, at.y, width as f32, height as f32);
         if let Some(mapping) =

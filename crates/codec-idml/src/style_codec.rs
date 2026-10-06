@@ -162,6 +162,8 @@ pub(crate) fn paragraph_properties(
         stroke_tint: character.stroke_tint,
         fill: character.fill,
         stroke: character.stroke,
+        fill_gradient: character.fill_gradient,
+        stroke_gradient: character.stroke_gradient,
         fill_disabled: character.fill_disabled,
         stroke_disabled: character.stroke_disabled,
         stroke_weight: character.stroke_weight,
@@ -217,12 +219,64 @@ pub(crate) fn paragraph_properties(
     }
 }
 
+/// The gradient a text range or style fills or strokes with (`part` Fill or
+/// Stroke). InDesign's text defaults, GradientFillStart "0 0" beside a
+/// GradientFillLength of -1, state no vector, so a start counts only beside
+/// a positive length; it is kept for saving but not drawn, and reported.
+fn text_gradient(
+    element: &Element,
+    part: &str,
+    colors: &crate::color_codec::Colors,
+    report: &mut crate::import::Report,
+) -> Option<Box<schist_layout::gradients::GradientFill>> {
+    let mut gradient = crate::color_codec::applied_gradient(element, part, colors)?;
+    if gradient.length.is_none() {
+        gradient.start = None;
+    } else if gradient.start.is_some() {
+        report.skip(schist_i18n::tf!(
+            "design.idml_text_gradient_start",
+            name = gradient.gradient.name
+        ));
+    }
+    Some(Box::new(gradient))
+}
+
+/// A text paint: a gradient's first stop stands in for it as the ink.
+fn text_paint(
+    element: &Element,
+    key: &str,
+    gradient: Option<&schist_layout::gradients::GradientFill>,
+    colors: &crate::color_codec::Colors,
+    report: &mut crate::import::Report,
+) -> Option<schist_layout::Ink> {
+    match gradient {
+        Some(gradient) => Some(gradient.gradient.stops[0].ink.clone()),
+        None => crate::color_codec::resolve(element, key, colors, report),
+    }
+}
+
 pub(crate) fn character_properties(
     element: &Element,
     colors: &crate::color_codec::Colors,
     refs: &References,
     report: &mut crate::import::Report,
 ) -> CharacterStyle {
+    let fill_gradient = text_gradient(element, "Fill", colors, report);
+    let stroke_gradient = text_gradient(element, "Stroke", colors, report);
+    let fill = text_paint(
+        element,
+        "FillColor",
+        fill_gradient.as_deref(),
+        colors,
+        report,
+    );
+    let stroke = text_paint(
+        element,
+        "StrokeColor",
+        stroke_gradient.as_deref(),
+        colors,
+        report,
+    );
     let (font_style, bold, italic) = read_font_choice(element);
     let (all_caps, small_caps) = crate::capitalization_codec::read(element, report);
     let stroke_weight = element
@@ -295,8 +349,10 @@ pub(crate) fn character_properties(
         family: property(element, "AppliedFont").map(str::to_owned),
         fill_tint: crate::color_codec::tint(element, "FillTint", report),
         stroke_tint: crate::color_codec::tint(element, "StrokeTint", report),
-        fill: crate::color_codec::resolve(element, "FillColor", colors, report),
-        stroke: crate::color_codec::resolve(element, "StrokeColor", colors, report),
+        fill,
+        stroke,
+        fill_gradient,
+        stroke_gradient,
         fill_disabled: matches!(element.attr("FillColor"), Some("Swatch/None" | "n")),
         stroke_disabled: matches!(element.attr("StrokeColor"), Some("Swatch/None" | "n")),
         stroke_weight,
@@ -485,6 +541,31 @@ fn attr(out: &mut String, key: &str, value: impl ToString) {
 fn optional(out: &mut String, key: &str, value: Option<impl ToString>) {
     if let Some(value) = value {
         attr(out, key, value);
+    }
+}
+/// A text style's FillColor or StrokeColor (`part` Fill or Stroke): none,
+/// its gradient with where that runs, or its ink.
+fn text_paint_attributes(
+    out: &mut String,
+    part: &str,
+    ink: Option<&schist_layout::Ink>,
+    gradient: Option<&schist_layout::gradients::GradientFill>,
+    disabled: bool,
+) {
+    let key = format!("{part}Color");
+    if disabled {
+        attr(out, &key, "Swatch/None");
+    } else if let Some(gradient) = gradient {
+        attr(
+            out,
+            &key,
+            crate::color_codec::gradient_reference(&gradient.gradient),
+        );
+        for (key, value) in crate::color_codec::gradient_attributes(part, gradient) {
+            attr(out, &key, value);
+        }
+    } else {
+        optional(out, &key, ink.map(crate::color_codec::reference));
     }
 }
 fn props(
@@ -730,23 +811,19 @@ pub fn paragraph_resolved(style: &ParagraphStyle, resolved: (bool, bool)) -> Str
             .baseline_shift
             .and_then(schist_layout::styles::BaselineShift::explicit_offset),
     );
-    optional(
+    text_paint_attributes(
         &mut out,
-        "FillColor",
-        if style.fill_disabled {
-            Some("Swatch/None".into())
-        } else {
-            style.fill.as_ref().map(crate::color_codec::reference)
-        },
+        "Fill",
+        style.fill.as_ref(),
+        style.fill_gradient.as_deref(),
+        style.fill_disabled,
     );
-    optional(
+    text_paint_attributes(
         &mut out,
-        "StrokeColor",
-        if style.stroke_disabled {
-            Some("Swatch/None".into())
-        } else {
-            style.stroke.as_ref().map(crate::color_codec::reference)
-        },
+        "Stroke",
+        style.stroke.as_ref(),
+        style.stroke_gradient.as_deref(),
+        style.stroke_disabled,
     );
     optional(
         &mut out,
@@ -891,23 +968,19 @@ pub fn character_resolved(style: &CharacterStyle, resolved: (bool, bool)) -> Str
         format!("CharacterStyle/$ID/{}", style.name),
     );
     attr(&mut out, "Name", &style.name);
-    optional(
+    text_paint_attributes(
         &mut out,
-        "FillColor",
-        if style.fill_disabled {
-            Some("Swatch/None".into())
-        } else {
-            style.fill.as_ref().map(crate::color_codec::reference)
-        },
+        "Fill",
+        style.fill.as_ref(),
+        style.fill_gradient.as_deref(),
+        style.fill_disabled,
     );
-    optional(
+    text_paint_attributes(
         &mut out,
-        "StrokeColor",
-        if style.stroke_disabled {
-            Some("Swatch/None".into())
-        } else {
-            style.stroke.as_ref().map(crate::color_codec::reference)
-        },
+        "Stroke",
+        style.stroke.as_ref(),
+        style.stroke_gradient.as_deref(),
+        style.stroke_disabled,
     );
     optional(
         &mut out,

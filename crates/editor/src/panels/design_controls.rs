@@ -789,12 +789,19 @@ pub(super) fn paragraph_panel(
             .into_any_element(),
     );
     rows.group(InspectorSection::Appearance);
-    for (fill, ink, disabled) in [
-        (true, &style.fill, style.fill_disabled),
-        (false, &style.stroke, style.stroke_disabled),
+    for (fill, ink, gradient, disabled) in [
+        (true, &style.fill, &style.fill_gradient, style.fill_disabled),
+        (
+            false,
+            &style.stroke,
+            &style.stroke_gradient,
+            style.stroke_disabled,
+        ),
     ] {
         let paint = if disabled {
             Some(schist_layout::Paint::None)
+        } else if let Some(gradient) = gradient {
+            Some(schist_layout::Paint::Gradient(gradient.clone()))
         } else {
             ink.clone().map(schist_layout::Paint::Ink)
         };
@@ -1067,12 +1074,19 @@ pub(super) fn character_panel(
             .into_any_element(),
     );
     rows.group(InspectorSection::Appearance);
-    for (fill, ink, disabled) in [
-        (true, &style.fill, style.fill_disabled),
-        (false, &style.stroke, style.stroke_disabled),
+    for (fill, ink, gradient, disabled) in [
+        (true, &style.fill, &style.fill_gradient, style.fill_disabled),
+        (
+            false,
+            &style.stroke,
+            &style.stroke_gradient,
+            style.stroke_disabled,
+        ),
     ] {
         let paint = if disabled {
             Some(schist_layout::Paint::None)
+        } else if let Some(gradient) = gradient {
+            Some(schist_layout::Paint::Gradient(gradient.clone()))
         } else {
             ink.clone().map(schist_layout::Paint::Ink)
         };

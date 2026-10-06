@@ -229,9 +229,9 @@ impl StrokeOptions {
     }
 }
 
-/// A gradient a shape is filled with, for a painter: the fill, the bounds
-/// of the path it runs over, and the map from pasteboard space back to the
-/// path's own coordinates.
+/// A gradient a shape is filled or stroked with, for a painter: the fill,
+/// the bounds of the path it runs over, and the map from pasteboard space
+/// back to the path's own coordinates.
 #[derive(Debug, Clone, PartialEq)]
 pub struct ShapeGradient {
     pub fill: crate::gradients::GradientFill,
@@ -248,6 +248,58 @@ impl ShapeGradient {
         let t = self.fill.position(Point::new(px, py), vector);
         self.fill.gradient.preview(t)
     }
+
+    /// `fill` over `bounds`, given the map from the path's own coordinates
+    /// onto the pasteboard: the same map read off three points, inverted.
+    fn mapped(
+        fill: crate::gradients::GradientFill,
+        bounds: Rect,
+        to_pasteboard: impl Fn(Point) -> Point,
+        opacity: f32,
+    ) -> Option<Box<Self>> {
+        let (o, x, y) = (
+            to_pasteboard(Point::ZERO),
+            to_pasteboard(Point::new(1.0, 0.0)),
+            to_pasteboard(Point::new(0.0, 1.0)),
+        );
+        let forward = schist_core::Affine {
+            a: x.x - o.x,
+            b: x.y - o.y,
+            c: y.x - o.x,
+            d: y.y - o.y,
+            tx: o.x,
+            ty: o.y,
+        };
+        Some(Box::new(Self {
+            fill,
+            bounds,
+            to_path: forward.invert()?,
+            opacity,
+        }))
+    }
+}
+
+/// What of a run of text a gradient paints.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum TextPart {
+    Fill,
+    Stroke,
+    /// An underline or strikethrough in the text's own colour, which
+    /// follows its fill.
+    Underline,
+    Strike,
+}
+
+/// A gradient a run of a line of text is painted with, for a painter. It
+/// runs over the frame the text is set in: `gradient.to_path` maps the
+/// line's pasteboard space, before the line's `transform`, into the frame's
+/// own coordinates, and its bounds are the frame's.
+#[derive(Debug, Clone, PartialEq)]
+pub struct TextGradient {
+    /// The engine run it paints.
+    pub run: usize,
+    pub part: TextPart,
+    pub gradient: ShapeGradient,
 }
 
 /// Something to draw on a page.
@@ -286,6 +338,9 @@ pub enum Display {
         style: String,
         /// The same resolved font and runs used during composition.
         spec: Box<schist_text_engine::TextSpec>,
+        /// Runs painted with a gradient, which their colours in `spec`
+        /// stand in for with its first stop.
+        gradients: Vec<TextGradient>,
     },
     /// Text-flow ports are separate from the frame's selectable outline.
     Ports {
@@ -314,6 +369,9 @@ pub enum Display {
         /// A gradient fill, which `fill` then leaves out.
         gradient: Option<Box<ShapeGradient>>,
         stroke: Option<([f32; 4], Pt)>,
+        /// A gradient stroke, which `stroke`'s colour stands in for with
+        /// its first stop.
+        stroke_gradient: Option<Box<ShapeGradient>>,
         /// How the stroke ends, joins and sits on the path.
         stroke_options: StrokeOptions,
         overprint: bool,
@@ -709,11 +767,13 @@ fn objects_for(
                             fill: Some([rgb[0], rgb[1], rgb[2], object.transparency]),
                             gradient: None,
                             stroke: None,
+                            stroke_gradient: None,
                             stroke_options: StrokeOptions::default(),
                             overprint: rule.overprint,
                         });
                     }
                 }
+                let gradients = text_gradients_used(doc);
                 for line in composed.iter().flat_map(|frame| frame.all_lines()) {
                     drew = true;
                     let bounds = move_to(line.bounds, view, offset);
@@ -738,6 +798,11 @@ fn objects_for(
                         word_space: line.word_space.map(|w| w * view.scale),
                         style: line.paragraph_style.clone(),
                         spec: Box::new(spec),
+                        gradients: if gradients {
+                            text_gradients(line, definition, doc, &object, view, offset)
+                        } else {
+                            Vec::new()
+                        },
                     });
                 }
                 // Inline anchored items draw with their frame; a click on one
@@ -809,6 +874,7 @@ fn objects_for(
                         word_space: None,
                         style: doc.default_paragraph_style.clone(),
                         spec: Box::new(spec),
+                        gradients: Vec::new(),
                     });
                 }
                 if !has_text {
@@ -991,6 +1057,85 @@ fn view_spec(
     spec
 }
 
+/// Whether any text style paints with a gradient, so lines need not be
+/// searched for one when none does.
+fn text_gradients_used(doc: &LayoutDocument) -> bool {
+    doc.styles
+        .paragraphs
+        .iter()
+        .any(|s| s.fill_gradient.is_some() || s.stroke_gradient.is_some())
+        || doc
+            .styles
+            .characters
+            .iter()
+            .any(|s| s.fill_gradient.is_some() || s.stroke_gradient.is_some())
+}
+
+/// The gradients a line's runs are painted with, each over `frame`, the
+/// frame the text is set in, from its left and bottom edges.
+fn text_gradients(
+    line: &crate::ComposedLine,
+    definition: &crate::Story,
+    doc: &LayoutDocument,
+    frame: &crate::PlacedObject,
+    view: &PasteboardView,
+    offset: Point,
+) -> Vec<TextGradient> {
+    let to_pasteboard = |p: Point| {
+        move_to(
+            Rect::new(frame.bounds.x + p.x, frame.bounds.y + p.y, 0.0, 0.0),
+            view,
+            offset,
+        )
+        .origin()
+    };
+    let size = Rect::new(0.0, 0.0, frame.bounds.width, frame.bounds.height);
+    let mut out = Vec::new();
+    for (run, style) in crate::compose::line_paint_styles(line, definition, doc)
+        .iter()
+        .enumerate()
+    {
+        let opacity = style.opacity.unwrap_or(1.0).clamp(0.0, 1.0) * frame.transparency;
+        let mut add = |gradient: &crate::gradients::GradientFill, part| {
+            // A start the text states is not drawn; see `text_vector`.
+            let gradient = crate::gradients::GradientFill {
+                start: None,
+                ..gradient.clone()
+            };
+            if let Some(gradient) = ShapeGradient::mapped(gradient, size, to_pasteboard, opacity) {
+                out.push(TextGradient {
+                    run,
+                    part,
+                    gradient: *gradient,
+                });
+            }
+        };
+        if let Some(gradient) = style
+            .fill_gradient
+            .as_deref()
+            .filter(|_| !style.fill_disabled)
+        {
+            add(gradient, TextPart::Fill);
+            for (part, decoration) in [
+                (TextPart::Underline, &style.underline_style),
+                (TextPart::Strike, &style.strike_style),
+            ] {
+                if decoration.follows_text() {
+                    add(gradient, part);
+                }
+            }
+        }
+        if let Some(gradient) = style
+            .stroke_gradient
+            .as_deref()
+            .filter(|_| !style.stroke_disabled)
+        {
+            add(gradient, TextPart::Stroke);
+        }
+    }
+    out
+}
+
 /// Displays for an anchored item, attributed to the frame that holds it.
 fn anchored_displays(
     doc: &LayoutDocument,
@@ -1050,6 +1195,7 @@ fn anchored_displays(
                     view.scale,
                     view.to_pasteboard(offset),
                 );
+                let gradients = text_gradients_used(doc);
                 for line in composed.all_lines() {
                     let spec = view_spec(line, definition, doc, view, item.transparency);
                     out.push(Display::Text {
@@ -1066,6 +1212,11 @@ fn anchored_displays(
                         word_space: line.word_space.map(|w| w * view.scale),
                         style: line.paragraph_style.clone(),
                         spec: Box::new(spec),
+                        gradients: if gradients {
+                            text_gradients(line, definition, doc, item, view, offset)
+                        } else {
+                            Vec::new()
+                        },
                     });
                 }
                 for nested in
@@ -1126,29 +1277,24 @@ fn shape_display(
         );
         move_to(Rect::new(p.x, p.y, 0.0, 0.0), view, offset).origin()
     };
-    // The path's own coordinates back from the pasteboard, for a gradient:
-    // the same map read off three points, inverted.
-    let gradient = object.appearance.paint.fill_gradient().and_then(|fill| {
-        let (o, x, y) = (
-            to_pasteboard(Point::ZERO),
-            to_pasteboard(Point::new(1.0, 0.0)),
-            to_pasteboard(Point::new(0.0, 1.0)),
-        );
-        let forward = schist_core::Affine {
-            a: x.x - o.x,
-            b: x.y - o.y,
-            c: y.x - o.x,
-            d: y.y - o.y,
-            tx: o.x,
-            ty: o.y,
-        };
-        Some(Box::new(ShapeGradient {
-            fill: fill.clone(),
-            bounds: path.bounds(),
-            to_path: forward.invert()?,
-            opacity: object.transparency,
-        }))
-    });
+    // A gradient fill or stroke runs over the path's own coordinates.
+    let mapped = |gradient: &crate::gradients::GradientFill| {
+        ShapeGradient::mapped(
+            gradient.clone(),
+            path.bounds(),
+            to_pasteboard,
+            object.transparency,
+        )
+    };
+    let gradient = object.appearance.paint.fill_gradient().and_then(mapped);
+    let stroke_gradient = object.appearance.paint.stroke_gradient().and_then(mapped);
+    // The gradient's first stop stands in for a painter drawing solid colour.
+    let stroke = stroke
+        .as_ref()
+        .map(|ink| ink.preview_at_tint(tints.stroke))
+        .or(stroke_gradient
+            .as_ref()
+            .map(|g| g.fill.gradient.stops[0].ink.preview_at_tint(1.0)));
     let mut path = path.clone();
     path.map_points(to_pasteboard);
     Some(Display::Shape {
@@ -1164,13 +1310,13 @@ fn shape_display(
             [rgb[0], rgb[1], rgb[2], object.transparency]
         }),
         gradient,
-        stroke: stroke.as_ref().map(|ink| {
-            let rgb = ink.preview_at_tint(tints.stroke);
+        stroke: stroke.map(|rgb| {
             (
                 [rgb[0], rgb[1], rgb[2], object.transparency],
                 stroke_width * view.scale,
             )
         }),
+        stroke_gradient,
         stroke_options: StrokeOptions::of(&object.appearance.paint),
         overprint: object.overprint,
     })
