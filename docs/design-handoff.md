@@ -180,10 +180,10 @@ the roadmap. Production INDD remains gated on Phase 0.
 
 ## Verification at this checkpoint
 
-The blend mode and drop shadow batch passes all 16 roadmap targets, headless
-library wasm, shared UI, formatting, whitespace and the debug app build (2,341
-distinct passing Rust tests), and all 43 proofs are byte-identical to the previous
-checkpoint. Details are in Roadmap / Handoff.
+The auto-size batch from the `layout` sample passes all 16 roadmap targets,
+headless library wasm, shared UI, formatting, whitespace and the debug app build
+(2,343 distinct passing Rust tests), and all 43 proofs are byte-identical to the
+previous checkpoint. Details are in Roadmap / Handoff.
 
 The two macOS-only editor tests were not compiled here; the next macOS
 run should include them.
@@ -192,7 +192,7 @@ run should include them.
 
 Task logs and evidence are under the Git Bash `/tmp` (`C:\Users\Administrator\AppData\Local\Temp`):
 `schist-validate/` (`aaad6dc0` logs, proofs, hashes, native screenshots),
-`schist-sweep/` to `schist-sweep25/` (batch sweep logs), `schist-proofs-b3/` to
+`schist-sweep/` to `schist-sweep26/` (batch sweep logs), `schist-proofs-b3/` to
 `schist-proofs-b20/` (proof PDFs per batch), `schist-tables-research/` (table
 sample PDFs, generators and `pdfops2.py`), `schist-b3/` to `schist-b6/`
 (review-document generators and logs), `schist-wrap-research/` (text-wrap references), `schist-anchored-research/` (the

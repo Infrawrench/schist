@@ -310,6 +310,38 @@ are marked.
 
 ## Handoff
 
+Auto-size from the layout sample, 2026-10-07:
+InDesign's PDF of the public paged-media `layout` sample shows how it fits the
+auto-size cases the `text-autosize` sample left open. Height-and-width frames
+now take the narrowest width their widest unbreakable fragment allows and then
+the height of their lines, as InDesign narrows two 200 pt frames of short
+paragraphs to 30 pt about their reference points; Schist had taken their longest
+unbroken line. Multi-column frames, reported until now, take the shortest height
+that leaves no text over, holding ten of twenty lines in each of two columns as
+InDesign's does, to within the point InDesign leaves below them. A corpus
+re-read found the sample's other reports are values the specification does not
+define or effects InDesign's own PDF of the sample does not draw.
+
+The source-frozen sweep of all 16 roadmap targets, headless library wasm, shared
+UI, formatting, whitespace and the debug app build passes on Windows with **2,343
+distinct passing Rust tests**, 2 new (layout), and no corrections; all 43 proofs
+are byte-identical.
+
+Native review compared passive captures of the previous and the new debug app,
+with Design enabled and isolated configuration, on a package setting the
+sample's two cases: a filled 200 × 36 pt HeightAndWidth frame of eight "Centre
+grow N" paragraphs at its centre, and a 460 × 40 pt two-column HeightOnly frame
+of twenty one-line paragraphs. The previous build widens the first to its longest
+line and leaves the second overset at three lines a column; the new one narrows
+the first about its centre to its widest word, two lines a paragraph (InDesign
+also hyphenates "Cen-tre"), and grows the second to ten lines a column, overset
+gone. All 43 proofs are byte-identical.
+
+Next: the remaining item 9 gaps without public evidence stay reported (arrowheads,
+glows and other effects, vertical-text anchors and wrap); output validation
+against InDesign. Published to draft PR #195.
+
+
 Blend modes and drop shadows, 2026-10-07:
 Items blend with what lies beneath them as their BlendMode says, plate by plate
 on each ink's complement as PDF blends subtractive colour, and cast drop
@@ -335,8 +367,8 @@ draws both shadows soft, offset down and right, and the magenta rectangles
 Normal, as documented; nothing is reported unread. The plates' blends are
 checked by the separation tests. All 43 proofs are byte-identical.
 
-Next: the remaining item 9 gaps (other effects, arrowheads, vertical-text
-anchors and wrap), then output validation. Published to draft PR #195.
+Next: the auto-size cases the `layout` sample shows, the batch above. Published
+to draft PR #195.
 
 
 Text frame auto-size, 2026-10-07:

@@ -571,16 +571,31 @@ its last baseline, the stroke's reach, its text 0.5 pt in, and a neighbouring
 frame's text wrapping around the grown box. So a height fit is the frame's last
 baseline and what lies below it, its InsetSpacing and its stroke's reach, at
 least its minimum height, about its reference point (the top, centre or bottom
-of the frame stays). Width-only frames take their longest line's width, their
-text broken only where it breaks itself, and height-and-width frames that width
-and the height of their lines: the specification's reading, as no sample sets
+of the frame stays).
+
+The public [`layout` PDF](https://github.com/paged-media/core/blob/ffb7c8713125dc77403ec0983099f74ac2558517/corpus/generated/layout.pdf) (SHA-256
+`8a5a09de…7f402`) and its
+[generator](https://github.com/paged-media/core/blob/ffb7c8713125dc77403ec0983099f74ac2558517/crates/paged-gen/src/samples/layout.rs) fit the other cases it
+sets. On page 4 two 200 × 36 pt HeightAndWidth frames of eight short 12 pt
+paragraphs ("Centre grow N") narrow to 29.93 and 30.05 pt and grow to 459 pt,
+hyphenating "Cen-tre", the CenterPoint one about its centre and the TopLeftPoint
+one about its top left: so a height-and-width frame takes the narrowest width its
+widest unbreakable fragment allows, then the height of its lines. On page 11 a
+460 × 40 pt two-column HeightOnly frame of twenty one-line 9 pt paragraphs grows
+to hold ten in each column; Schist takes the shortest height that leaves no text
+over, which ends the frame at the last baselines and the stroke's reach, where
+InDesign's ends 1 pt lower (1.25 pt below them under a 0.25 pt reach). Page 3's
+single column ends exactly at its stroke's reach, as the `text-autosize` sample
+does. Width-only frames, and height-and-width frames stating
+UseNoLineBreaksForAutoSizing, take their longest line's width, their text broken
+only where it breaks itself: the specification's reading, as no sample sets
 them. A frame stating no reference point keeps its centre, as every frame
 InDesign's own exports in the repository's fixtures states. Threaded frames keep
 their size: the public PSU literary template's InDesign export threads
 HeightAndWidth frames 319.44 and 317.28 pt wide, which no fit explains.
-Proportional fits, and auto-size on a multi-column, shaped or text-on-path frame,
-are kept, saved and reported; one key is added to all 150 catalogs. An empty
-frame keeps its size. Object styles' auto-size category is still reported.
+Proportional fits, and auto-size on a shaped or text-on-path frame, are kept,
+saved and reported; one key is added to all 150 catalogs. An empty frame keeps
+its size. Object styles' auto-size category is still reported.
 
 ### A frame's stroke and corner options
 

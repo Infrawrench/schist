@@ -6,12 +6,19 @@
 //! baseline, the reach of its centred 1 pt stroke, and its text starts the
 //! same 0.5 pt in.
 //!
-//! The specification only names the other kinds. Width-only frames take the
-//! width of their longest line, their text broken only where it breaks
-//! itself, and height-and-width frames take that width and the height of
-//! their lines. A threaded frame keeps its size: the public PSU template's
-//! own InDesign export threads height-and-width frames whose widths no fit
-//! explains (319.44 and 317.28 pt beside each other).
+//! The same PDF of the public `layout` sample fits the other cases it sets.
+//! Two 200 × 36 pt HeightAndWidth frames of eight short 12 pt paragraphs
+//! narrow to 29.93 and 30.05 pt, hyphenating "Cen-tre": the narrowest width
+//! their widest unbreakable fragment allows, then the height of their lines,
+//! the centred one about its centre. A two-column HeightOnly frame grows to
+//! hold ten of its twenty lines in each column, to within a point: InDesign's
+//! frame ends 1.25 pt below the last baselines where a single column's ends
+//! its stroke's reach below. Width-only frames, and height-and-width frames
+//! stating UseNoLineBreaksForAutoSizing, which no sample sets, take the width
+//! of their longest line, their text broken only where it breaks itself. A
+//! threaded frame keeps its size: the public PSU template's own InDesign
+//! export threads height-and-width frames whose widths no fit explains
+//! (319.44 and 317.28 pt beside each other).
 use crate::{LayoutDocument, LayoutObject, ObjectId, PlacedObject, Pt, Rect};
 use serde::{Deserialize, Serialize};
 
@@ -85,9 +92,45 @@ impl AutoSize {
 /// Far enough for any page's text not to need more.
 const ROOM: Pt = 100_000.0;
 
+/// The frame's lines composed at `width` × `height`, the top left kept, and
+/// whether text was left over.
+fn trial(
+    roomy: &mut LayoutDocument,
+    frame: &PlacedObject,
+    story: crate::StoryId,
+    width: Pt,
+    height: Pt,
+) -> Option<(Vec<crate::ComposedLine>, bool)> {
+    let object = roomy.objects.iter_mut().find(|o| o.id == frame.id)?;
+    object.bounds.width = width;
+    object.bounds.height = height;
+    let composed = crate::compose::compose_story(roomy, story);
+    let lines = composed
+        .frames
+        .iter()
+        .find(|composed| composed.object == frame.id)?
+        .lines
+        .clone();
+    Some((lines, composed.has_overflow()))
+}
+
+/// The smallest value in `low..=high` for which `fits` holds, to 0.01 pt,
+/// `fits(high)` taken to hold.
+fn least(mut low: Pt, mut high: Pt, mut fits: impl FnMut(Pt) -> bool) -> Pt {
+    while high - low > 0.01 {
+        let middle = (low + high) / 2.0;
+        if fits(middle) {
+            high = middle;
+        } else {
+            low = middle;
+        }
+    }
+    high
+}
+
 /// The bounds `frame`'s auto-size settings give it, or None when it has
 /// none Schist applies: no settings, a proportional fit, a threaded or
-/// multi-column frame, or no lines to fit.
+/// shaped frame, or no lines to fit.
 pub fn fitted(doc: &LayoutDocument, frame: &PlacedObject) -> Option<Rect> {
     let auto = frame.appearance.auto_size.filter(AutoSize::fitted)?;
     let LayoutObject::TextFrame {
@@ -100,43 +143,20 @@ pub fn fitted(doc: &LayoutDocument, frame: &PlacedObject) -> Option<Rect> {
     else {
         return None;
     };
-    if *columns > 1 || frame.appearance.outline.is_some() || doc.story_frames(*story).len() != 1 {
+    if frame.appearance.outline.is_some() || doc.story_frames(*story).len() != 1 {
         return None;
     }
-    let height = matches!(
-        auto.sizing,
-        AutoSizing::HeightOnly | AutoSizing::HeightAndWidth
-    );
-    let width = matches!(
-        auto.sizing,
-        AutoSizing::WidthOnly | AutoSizing::HeightAndWidth
-    );
-    // Compose with the room the fit may take, the top left kept.
-    let mut roomy = doc.clone();
-    let object = roomy.objects.iter_mut().find(|o| o.id == frame.id)?;
-    if height {
-        object.bounds.height = ROOM;
-    }
-    if width {
-        object.bounds.width = ROOM;
-    }
-    let composed = crate::compose::compose_story(&roomy, *story);
-    let lines = &composed
-        .frames
-        .iter()
-        .find(|composed| composed.object == frame.id)?
-        .lines;
-    let (first, last) = (lines.first()?, lines.last()?);
+    let story = *story;
+    let fit_height = auto.sizing != AutoSizing::WidthOnly;
     let stroke = doc.styles.stroke_inset(frame);
+    let across = insets.left + insets.right + 2.0 * stroke;
+    let down = insets.top + insets.bottom + 2.0 * stroke;
+    let mut roomy = doc.clone();
     let mut bounds = frame.bounds;
-    if height {
-        // Its last baseline and what lies below it, measured from the first
-        // line so vertical justification cannot move it.
-        let content = last.baseline - first.bounds.y;
-        let fit = insets.top + stroke + content + insets.bottom + stroke;
-        bounds.height = fit.max(auto.minimum_height.unwrap_or(0.0)).max(1.0);
-    }
-    if width {
+    // The width first: the longest line, unbroken, or the narrowest the
+    // widest unbreakable fragment allows.
+    if auto.sizing != AutoSizing::HeightOnly {
+        let (lines, _) = trial(&mut roomy, frame, story, ROOM, ROOM)?;
         let longest = lines
             .iter()
             .map(|line| {
@@ -145,8 +165,36 @@ pub fn fitted(doc: &LayoutDocument, frame: &PlacedObject) -> Option<Rect> {
                     + line.paragraph.right_indent.unwrap_or(0.0).max(0.0)
             })
             .fold(0.0, Pt::max);
-        let fit = insets.left + stroke + longest + insets.right + stroke;
-        bounds.width = fit.max(auto.minimum_width.unwrap_or(0.0)).max(1.0);
+        let unbroken = (across + longest).max(1.0);
+        bounds.width = if auto.sizing == AutoSizing::WidthOnly || auto.no_line_breaks {
+            unbroken
+        } else {
+            least(across.max(1.0), unbroken, |width| {
+                trial(&mut roomy, frame, story, width, ROOM).is_some_and(|(lines, _)| {
+                    lines
+                        .iter()
+                        .all(|line| line.natural_width <= line.bounds.width + 0.01)
+                })
+            })
+        };
+        bounds.width = bounds.width.max(auto.minimum_width.unwrap_or(0.0));
+    }
+    if fit_height {
+        let (lines, _) = trial(&mut roomy, frame, story, bounds.width, ROOM)?;
+        let (first, last) = (lines.first()?, lines.last()?);
+        // Its last baseline and what lies below it, measured from the first
+        // line so vertical justification cannot move it.
+        let single = down + last.baseline - first.bounds.y;
+        let fit = if *columns > 1 {
+            // Columns share the lines: the shortest height that leaves no
+            // text over.
+            least(down.max(1.0), single, |height| {
+                trial(&mut roomy, frame, story, bounds.width, height).is_some_and(|(_, over)| !over)
+            })
+        } else {
+            single
+        };
+        bounds.height = fit.max(auto.minimum_height.unwrap_or(0.0)).max(1.0);
     }
     // The reference point stays put.
     let (across, down) = auto.reference.anchor();

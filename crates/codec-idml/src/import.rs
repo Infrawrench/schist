@@ -716,18 +716,12 @@ pub(crate) fn placed_object(
                 ..
             }
         ) && crate::text_wrap_codec::ignores(element, &placed.name, report);
-    if let LayoutObject::TextFrame {
-        columns, text_path, ..
-    } = &placed.object
-    {
+    if let LayoutObject::TextFrame { text_path, .. } = &placed.object {
         placed.appearance.auto_size = crate::preferences_codec::auto_size(element, report);
-        // Kept and saved; fitted only as a single-column rectangle, and never
+        // Kept and saved; fitted only as a rectangle, and never
         // proportionally.
         if placed.appearance.auto_size.is_some_and(|auto| {
-            !auto.fitted()
-                || *columns > 1
-                || text_path.is_some()
-                || placed.appearance.outline.is_some()
+            !auto.fitted() || text_path.is_some() || placed.appearance.outline.is_some()
         }) {
             report.skip(schist_i18n::tf!(
                 "design.idml_auto_size",

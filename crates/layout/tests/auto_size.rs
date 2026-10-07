@@ -208,3 +208,122 @@ fn a_fit_undoes_with_the_edit_that_caused_it() {
     assert_eq!(doc.object(id).unwrap().bounds, small);
     assert!(!compose_story(&doc, story).has_overflow());
 }
+
+/// A frame of `paragraphs` at `size` pt, set at `area` with a centred 1 pt
+/// stroke and `auto`, its `columns` 18 pt apart.
+fn set(
+    paragraphs: &[String],
+    size: f32,
+    area: Rect,
+    columns: u16,
+    auto: AutoSize,
+) -> (LayoutDocument, ObjectId, StoryId) {
+    let (mut doc, id, story) = document(0, area, Some(auto));
+    let body = doc
+        .styles
+        .paragraphs
+        .iter_mut()
+        .find(|p| p.name == "Body")
+        .unwrap();
+    body.point_size = Some(size);
+    body.leading = Some(schist_layout::styles::Leading::Points(size * 1.2));
+    let mut text = Story::new();
+    for paragraph in paragraphs {
+        text.push_paragraph(paragraph.clone(), "Body");
+    }
+    doc.stories[story.0 as usize] = text;
+    let object = doc.objects.iter_mut().find(|o| o.id == id).unwrap();
+    if let schist_layout::LayoutObject::TextFrame {
+        columns: count,
+        gutter,
+        ..
+    } = &mut object.object
+    {
+        *count = columns;
+        *gutter = 18.0;
+    }
+    (doc, id, story)
+}
+
+#[test]
+fn a_height_and_width_frame_narrows_to_its_widest_fragment() {
+    // The public `layout` sample's centred frame: 200 × 36 pt at (80, 200),
+    // eight paragraphs "Centre grow N" at 12 pt. InDesign narrows it to
+    // 29.93 pt about its centre, hyphenating "Cen-tre"; unhyphenated here,
+    // it narrows to its widest word.
+    let paragraphs: Vec<String> = (0..8).map(|n| format!("Centre grow {n}")).collect();
+    let area = Rect::new(80.0, 200.0, 200.0, 36.0);
+    let (mut doc, id, story) = set(
+        &paragraphs,
+        12.0,
+        area,
+        1,
+        AutoSize {
+            sizing: AutoSizing::HeightAndWidth,
+            ..height_only(ReferencePoint::Center).unwrap()
+        },
+    );
+    auto_size::refit(&mut doc);
+    let bounds = doc.object(id).unwrap().bounds;
+    assert!(bounds.width < 60.0, "narrowed: {bounds:?}");
+    assert!(bounds.height > 100.0, "grown: {bounds:?}");
+    near(bounds.x + bounds.width / 2.0, 180.0, "centre across");
+    near(bounds.y + bounds.height / 2.0, 218.0, "centre down");
+    let composed = compose_story(&doc, story);
+    assert!(!composed.has_overflow());
+    // Every line fits, the widest only just: any narrower and it would not.
+    let lines = &composed.frames[0].lines;
+    let widest = lines.iter().map(|l| l.natural_width).fold(0.0, f32::max);
+    assert!(lines
+        .iter()
+        .all(|l| l.natural_width <= l.bounds.width + 0.01));
+    assert!(
+        (bounds.width - 1.0 - widest).abs() < 0.05,
+        "{} vs {widest}",
+        bounds.width
+    );
+    // With no line breaks it takes its longest line instead.
+    let (mut doc, id, _) = set(
+        &paragraphs,
+        12.0,
+        area,
+        1,
+        AutoSize {
+            sizing: AutoSizing::HeightAndWidth,
+            no_line_breaks: true,
+            ..height_only(ReferencePoint::Center).unwrap()
+        },
+    );
+    auto_size::refit(&mut doc);
+    assert!(doc.object(id).unwrap().bounds.width > 60.0);
+}
+
+#[test]
+fn two_columns_grow_to_hold_their_lines_side_by_side() {
+    // The sample's two-column frame: 460 × 40 pt, twenty one-line 9 pt
+    // paragraphs, grown by InDesign to hold ten in each column.
+    let paragraphs: Vec<String> = (0..20)
+        .map(|n| format!("Paragraph {n} of the growing column copy."))
+        .collect();
+    let (mut doc, id, story) = set(
+        &paragraphs,
+        9.0,
+        Rect::new(67.0, 80.0, 460.0, 40.0),
+        2,
+        height_only(ReferencePoint::TopLeft).unwrap(),
+    );
+    auto_size::refit(&mut doc);
+    let bounds = doc.object(id).unwrap().bounds;
+    let composed = compose_story(&doc, story);
+    assert!(!composed.has_overflow());
+    let lines = &composed.frames[0].lines;
+    assert_eq!(lines.len(), 20);
+    let left = lines.iter().filter(|l| l.bounds.x < 67.0 + 230.0).count();
+    assert_eq!((left, lines.len() - left), (10, 10), "{bounds:?}");
+    // The shortest such height: its last baseline and the stroke's reach.
+    let last = lines.iter().map(|l| l.baseline).fold(0.0, f32::max);
+    assert!(
+        (bounds.bottom() - last - 0.5).abs() < 0.05,
+        "{bounds:?} {last}"
+    );
+}
