@@ -520,6 +520,34 @@ Triple, the hashes, Wavy, White Diamond), whose look the specification only
 names, are kept, saved with their declaration, drawn solid and reported, as are
 arrowheads.
 
+### Text frame auto-size
+
+A text frame's AutoSizingType, AutoSizingReferencePoint, minimum height and
+width (UseMinimumHeightForAutoSizing with MinimumHeightForAutoSizing, and the
+width's) and UseNoLineBreaksForAutoSizing are read and saved, and the frame is
+fitted to its text when it is opened and whenever an edit changes it, the fit
+undoing with the edit that caused it. Its geometry is its own: what is drawn,
+wrapped around and saved is the fitted frame. The public
+[`text-autosize` PDF](https://github.com/paged-media/core/blob/ffb7c8713125dc77403ec0983099f74ac2558517/corpus/generated/text-autosize.pdf) (SHA-256
+`89becd60…46f97`) and its
+[generator](https://github.com/paged-media/core/blob/ffb7c8713125dc77403ec0983099f74ac2558517/crates/paged-gen/src/samples/text_autosize.rs) grow a 240 × 40
+pt HeightOnly frame anchored at its TopLeftPoint, holding twelve one-line 11 pt
+paragraphs under a centred 1 pt stroke, to 156.856 pt: its bottom 0.5 pt below
+its last baseline, the stroke's reach, its text 0.5 pt in, and a neighbouring
+frame's text wrapping around the grown box. So a height fit is the frame's last
+baseline and what lies below it, its InsetSpacing and its stroke's reach, at
+least its minimum height, about its reference point (the top, centre or bottom
+of the frame stays). Width-only frames take their longest line's width, their
+text broken only where it breaks itself, and height-and-width frames that width
+and the height of their lines: the specification's reading, as no sample sets
+them. A frame stating no reference point keeps its centre, as every frame
+InDesign's own exports in the repository's fixtures states. Threaded frames keep
+their size: the public PSU literary template's InDesign export threads
+HeightAndWidth frames 319.44 and 317.28 pt wide, which no fit explains.
+Proportional fits, and auto-size on a multi-column, shaped or text-on-path frame,
+are kept, saved and reported; one key is added to all 150 catalogs. An empty
+frame keeps its size. Object styles' auto-size category is still reported.
+
 ### A frame's stroke and corner options
 
 A text frame's stroke moves its text: the text area shrinks on every side by

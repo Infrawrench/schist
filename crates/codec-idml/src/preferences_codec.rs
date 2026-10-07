@@ -9,6 +9,7 @@ use crate::{
     xml::{self, Element},
 };
 use schist_layout::{
+    auto_size::{AutoSize, AutoSizing, ReferencePoint},
     text_variables::{ChapterNumbering, ChapterSource},
     Insets, LayoutDocument, NumberStyle, Section,
 };
@@ -30,6 +31,120 @@ pub(crate) fn frame_balance(parent: &Element, report: &mut Report) -> Option<boo
             None
         }
     }
+}
+
+const REFERENCE_POINTS: [(&str, ReferencePoint); 9] = [
+    ("TopLeftPoint", ReferencePoint::TopLeft),
+    ("TopCenterPoint", ReferencePoint::Top),
+    ("TopRightPoint", ReferencePoint::TopRight),
+    ("LeftCenterPoint", ReferencePoint::Left),
+    ("CenterPoint", ReferencePoint::Center),
+    ("RightCenterPoint", ReferencePoint::Right),
+    ("BottomLeftPoint", ReferencePoint::BottomLeft),
+    ("BottomCenterPoint", ReferencePoint::Bottom),
+    ("BottomRightPoint", ReferencePoint::BottomRight),
+];
+
+const SIZINGS: [(&str, AutoSizing); 4] = [
+    ("HeightOnly", AutoSizing::HeightOnly),
+    ("WidthOnly", AutoSizing::WidthOnly),
+    ("HeightAndWidth", AutoSizing::HeightAndWidth),
+    (
+        "HeightAndWidthProportionally",
+        AutoSizing::HeightAndWidthProportionally,
+    ),
+];
+
+/// A text frame's auto-size settings: none when its AutoSizingType is Off or
+/// absent. A value the specification does not name is reported and read as
+/// its default.
+pub(crate) fn auto_size(parent: &Element, report: &mut Report) -> Option<AutoSize> {
+    let preference = parent.child("TextFramePreference")?;
+    let mut invalid = |property: &str, value: &str| {
+        report.skip(schist_i18n::tf!(
+            "design.idml_text_preference_invalid",
+            property = property,
+            value = value
+        ));
+    };
+    let raw = preference.attr("AutoSizingType")?;
+    let sizing = match SIZINGS.iter().find(|(name, _)| *name == raw) {
+        Some((_, sizing)) => *sizing,
+        None => {
+            if raw != "Off" {
+                invalid("AutoSizingType", raw);
+            }
+            return None;
+        }
+    };
+    let reference = match preference.attr("AutoSizingReferencePoint") {
+        None => ReferencePoint::default(),
+        Some(raw) => match REFERENCE_POINTS.iter().find(|(name, _)| *name == raw) {
+            Some((_, point)) => *point,
+            None => {
+                invalid("AutoSizingReferencePoint", raw);
+                ReferencePoint::default()
+            }
+        },
+    };
+    let mut minimum = |used: &str, size: &str| {
+        let raw = preference.attr(size)?;
+        if preference.boolean(used) != Some(true) {
+            return None;
+        }
+        let value = xml::parse_number(raw).filter(|v| v.is_finite() && *v >= 0.0);
+        if value.is_none() {
+            invalid(size, raw);
+        }
+        value
+    };
+    let minimum_height = minimum(
+        "UseMinimumHeightForAutoSizing",
+        "MinimumHeightForAutoSizing",
+    );
+    let minimum_width = minimum("UseMinimumWidthForAutoSizing", "MinimumWidthForAutoSizing");
+    Some(AutoSize {
+        sizing,
+        reference,
+        minimum_height,
+        minimum_width,
+        no_line_breaks: preference.boolean("UseNoLineBreaksForAutoSizing") == Some(true),
+    })
+}
+
+/// The TextFramePreference attributes that save `auto`.
+pub(crate) fn auto_size_attributes(auto: Option<&AutoSize>) -> String {
+    let Some(auto) = auto else {
+        return String::new();
+    };
+    let name = |sizing| {
+        SIZINGS
+            .iter()
+            .find(|(_, s)| *s == sizing)
+            .map_or("Off", |(name, _)| name)
+    };
+    let point = REFERENCE_POINTS
+        .iter()
+        .find(|(_, p)| *p == auto.reference)
+        .map_or("CenterPoint", |(name, _)| name);
+    let mut out = format!(
+        " AutoSizingType=\"{}\" AutoSizingReferencePoint=\"{point}\"",
+        name(auto.sizing)
+    );
+    if let Some(height) = auto.minimum_height {
+        out.push_str(&format!(
+            " UseMinimumHeightForAutoSizing=\"true\" MinimumHeightForAutoSizing=\"{height}\""
+        ));
+    }
+    if let Some(width) = auto.minimum_width {
+        out.push_str(&format!(
+            " UseMinimumWidthForAutoSizing=\"true\" MinimumWidthForAutoSizing=\"{width}\""
+        ));
+    }
+    if auto.no_line_breaks {
+        out.push_str(" UseNoLineBreaksForAutoSizing=\"true\"");
+    }
+    out
 }
 
 pub(crate) fn balance_attribute(value: Option<bool>) -> String {

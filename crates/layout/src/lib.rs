@@ -19,6 +19,7 @@
 pub mod affine;
 pub mod anchored;
 pub mod authoring;
+pub mod auto_size;
 pub mod compose;
 pub mod corners;
 mod curves;

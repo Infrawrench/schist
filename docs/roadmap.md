@@ -310,6 +310,38 @@ are marked.
 
 ## Handoff
 
+Text frame auto-size, 2026-10-07:
+Text frames read and save their auto-size settings and fit their text when they
+are opened and after every edit, the fit folding into the edit's undo step: a
+height fit ends the frame at its last baseline plus its bottom inset and stroke
+reach, as InDesign's PDF of the public paged-media `text-autosize` sample grows a
+40 pt frame to 156.856 pt, about the frame's reference point and never below its
+minimum. Width-only and height-and-width frames take their longest line's width,
+the specification's reading. Threaded frames keep their size, as the public PSU
+template's own export shows; proportional fits and multi-column or shaped
+auto-size frames are kept and reported. The editor settles fits before each
+render, at no cost to documents without auto-sized frames.
+
+The source-frozen sweep of all 16 roadmap targets, headless library wasm, shared
+UI, formatting and the debug app build passes on Windows with **2,331 distinct
+passing Rust tests**, 10 new (6 layout, 3 IDML, 1 editor), and all 43 proofs are
+byte-identical. Its whitespace check failed on line endings alone: files edited
+after a checkout that wrote them with CRLF kept it. They were converted back to
+LF, changing nothing else, and the check re-passed.
+
+Native review compared passive captures of the previous and the new debug app,
+with Design enabled and isolated configuration, on the public `text-autosize`
+sample's own package built by its generator. The previous build leaves the
+filled 40 pt frame overset and the neighbouring frame's text running across it;
+the new one grows the frame to fit, overset gone, and the neighbour's text wraps
+beside the grown box and returns below it, as InDesign's PDF draws them, line
+breaks aside (the sample's Inter is not installed here). All 43 proofs are
+byte-identical.
+
+Next: arrowheads on item strokes, effects such as drop shadows (still reported),
+then the remaining item 9 gaps. Published to draft PR #195.
+
+
 Item stroke types, gradient strokes and text, table borders, 2026-10-07:
 Three gaps were worked in parallel by subagents in separate worktrees and merged
 here, each with its evidence and tests. Items stroke with dashed, dotted and
@@ -344,9 +376,7 @@ caps close the 3 pt gaps at a 6 pt weight, as they should), a custom dotted styl
 a thick-thin striped style and the gradient. The canvas draws each as specified;
 the one report is the package's local point size becoming a named style.
 
-Next: text frame auto-size (the public `text-autosize` sample grows a frame to its
-last baseline plus its stroke's reach), then the remaining item 9 gaps. Published
-to draft PR #195.
+Next: text frame auto-size, the batch above. Published to draft PR #195.
 
 
 Baseline fitting, 2026-10-06:

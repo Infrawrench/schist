@@ -313,6 +313,29 @@ impl History {
         self.cursor = self.undo.len();
     }
 
+    /// Fold `edit` into the operation just recorded, so a consequence such
+    /// as a frame fitting its new text undoes with the edit that caused it.
+    /// With nothing just recorded, after an undo or redo or on a fresh
+    /// history, it is not recorded: those states were fitted when they were
+    /// recorded.
+    pub fn amend(&mut self, edit: LayoutEdit) {
+        if !self.redo.is_empty() || self.cursor != self.undo.len() {
+            return;
+        }
+        let Some(last) = self.undo.last_mut() else {
+            return;
+        };
+        match last {
+            LayoutEdit::Batch { edits } => edits.push(edit),
+            _ => {
+                let previous = std::mem::replace(last, LayoutEdit::Batch { edits: Vec::new() });
+                *last = LayoutEdit::Batch {
+                    edits: vec![previous, edit],
+                };
+            }
+        }
+    }
+
     /// The operation to undo, if there is one.
     pub fn pop_undo(&mut self) -> Option<LayoutEdit> {
         if self.cursor == 0 {

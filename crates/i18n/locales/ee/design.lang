@@ -633,3 +633,4 @@ design.idml_table_setting = Table {name}: {setting} not applied
 design.idml_group_wrap = Group {name}: text wrap not applied
 design.idml_gradient_highlight = Gradient highlight not applied: {name}
 design.idml_text_gradient_start = Text gradient start not applied: {name}
+design.idml_auto_size = Auto-size not applied: {name}

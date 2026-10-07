@@ -301,6 +301,9 @@ pub struct ObjectAppearance {
     /// A text frame whose own text ignores other items' wrap.
     #[serde(skip_serializing_if = "std::ops::Not::not")]
     pub ignore_wrap: bool,
+    /// A text frame resized to fit its text.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub auto_size: Option<crate::auto_size::AutoSize>,
 }
 
 impl StyleSet {

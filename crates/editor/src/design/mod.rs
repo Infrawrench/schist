@@ -338,6 +338,8 @@ pub struct DesignState {
     /// mode change: the two modes need different zooms.
     pub needs_refit: bool,
     plan_cache: std::cell::RefCell<plan_cache::PlanCache>,
+    /// The document as auto-sized frames were last fitted to it.
+    fitted: Option<LayoutDocument>,
 }
 
 /// An in-progress drag on the pasteboard.
@@ -393,6 +395,7 @@ impl Default for DesignState {
             session: std::sync::Arc::new(()),
             graphics: Default::default(),
             graphics_busy: false,
+            fitted: None,
         }
     }
 }
@@ -400,6 +403,28 @@ impl Default for DesignState {
 impl DesignState {
     pub fn new() -> DesignState {
         DesignState::default()
+    }
+
+    /// Fit auto-sized frames to the text the last change gave them, folding
+    /// the fit into that change's undo step. Free for documents without
+    /// auto-sized frames, and cheap when nothing changed.
+    pub fn settle(&mut self) {
+        if !self.ready()
+            || !self
+                .document
+                .objects
+                .iter()
+                .any(|o| o.appearance.auto_size.is_some())
+            || self.fitted.as_ref() == Some(&self.document)
+        {
+            return;
+        }
+        let edits = schist_layout::auto_size::refit(&mut self.document);
+        if !edits.is_empty() {
+            self.history
+                .amend(schist_layout::LayoutEdit::Batch { edits });
+        }
+        self.fitted = Some(self.document.clone());
     }
 
     /// Whether Design Mode has anything to show.
@@ -572,6 +597,56 @@ impl DesignState {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn an_auto_sized_frame_settles_into_the_edit_that_grew_it() {
+        use schist_layout::auto_size::{AutoSize, AutoSizing, ReferencePoint};
+        let mut state = DesignState::new();
+        let made = schist_layout::authoring::text_frame(
+            &mut state.document,
+            &mut state.history,
+            0,
+            schist_layout::Rect::new(36.0, 60.0, 240.0, 40.0),
+        )
+        .unwrap();
+        state
+            .document
+            .objects
+            .iter_mut()
+            .find(|o| o.id == made.object)
+            .unwrap()
+            .appearance
+            .auto_size = Some(AutoSize {
+            sizing: AutoSizing::HeightOnly,
+            reference: ReferencePoint::TopLeft,
+            minimum_height: None,
+            minimum_width: None,
+            no_line_breaks: false,
+        });
+        let bounds = |state: &DesignState| state.document.object(made.object).unwrap().bounds;
+        // An empty frame has nothing to fit.
+        state.settle();
+        let small = bounds(&state);
+        let depth = state.history.undo_depth();
+        let text: Vec<String> = (0..12).map(|n| format!("Line {n}")).collect();
+        assert!(schist_layout::authoring::set_text(
+            &mut state.document,
+            &mut state.history,
+            made.story,
+            text.join(
+                "
+"
+            ),
+        ));
+        state.settle();
+        assert!(bounds(&state).height > small.height);
+        assert_eq!(state.history.undo_depth(), depth + 1, "one undo step");
+        // Undo takes the text and the fit back together; nothing refits.
+        assert!(state.undo_or_redo(false));
+        state.settle();
+        assert_eq!(bounds(&state), small);
+        assert!(state.history.can_redo());
+    }
 
     #[test]
     fn the_mode_toggles_between_photo_and_design() {

@@ -587,14 +587,15 @@ fn object_native_xml(
             );
             out.push_str(&format!("<Properties>{geometry}</Properties>"));
             out.push_str(&format!(
-                r#"<TextFramePreference TextColumnCount="{columns}" TextColumnGutter="{}" TextColumnMaxWidth="0"{}{}>"#,
+                r#"<TextFramePreference TextColumnCount="{columns}" TextColumnGutter="{}" TextColumnMaxWidth="0"{}{}{}>"#,
                 number(*gutter),
                 crate::preferences_codec::balance_attribute(*balance_columns),
                 if object.appearance.ignore_wrap {
                     " IgnoreWrap=\"true\""
                 } else {
                     ""
-                }
+                },
+                crate::preferences_codec::auto_size_attributes(object.appearance.auto_size.as_ref())
             ));
             out.push_str(&format!(
                 "<Properties><InsetSpacing type=\"list\">{}</InsetSpacing></Properties>",

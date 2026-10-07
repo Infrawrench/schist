@@ -689,6 +689,11 @@ impl Render for Workspace {
         if self.modal.is_some() {
             self.dismiss_spotlight(window, cx);
         }
+        // Auto-sized frames follow whatever the last action did to their
+        // text before anything is drawn or hit.
+        if self.design_mode() {
+            self.design.settle();
+        }
         // Three mutually exclusive input states. A single "is something
         // capturing keys" flag was not enough: the document commands were
         // bound against plain "Workspace", which matches in every state, so

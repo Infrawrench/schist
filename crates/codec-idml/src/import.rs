@@ -197,6 +197,9 @@ pub fn read_package(opened: &DesignPackage<'_>) -> Result<Imported, Error> {
     crate::table_codec::read(&mut document, &colors, &style_refs, &mut report);
     report_untyped(&document, &mut report);
     crate::preferences_codec::read(opened, &mut document, &mut report, &colors, &style_refs)?;
+    // Auto-sized frames fit their text when they are opened, as InDesign's
+    // PDF of the public paged-media `text-autosize` sample shows.
+    schist_layout::auto_size::refit(&mut document);
     // Parsing XML visits items in paint order. Only guarded chronology labels
     // can establish their creation order; never certify the incidental walk.
     document.creation_order = spread_state.creation.finish(&mut report);
@@ -706,6 +709,29 @@ pub(crate) fn placed_object(
                 ..
             }
         ) && crate::text_wrap_codec::ignores(element, &placed.name, report);
+    if let LayoutObject::TextFrame {
+        columns, text_path, ..
+    } = &placed.object
+    {
+        placed.appearance.auto_size = crate::preferences_codec::auto_size(element, report);
+        // Kept and saved; fitted only as a single-column rectangle, and never
+        // proportionally.
+        if placed.appearance.auto_size.is_some_and(|auto| {
+            !auto.fitted()
+                || *columns > 1
+                || text_path.is_some()
+                || placed.appearance.outline.is_some()
+        }) {
+            report.skip(schist_i18n::tf!(
+                "design.idml_auto_size",
+                name = element
+                    .attr("Name")
+                    .filter(|n| !n.is_empty() && *n != "$ID/")
+                    .or_else(|| element.attr("Self"))
+                    .unwrap_or_default()
+            ));
+        }
+    }
     Some(placed)
 }
 
