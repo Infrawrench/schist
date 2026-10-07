@@ -530,11 +530,17 @@ fn instance(
             .into_iter()
             .enumerate()
             .map(|(number, part)| {
+                // The first part keeps the table's space before it above its
+                // line; the first line of a column drops it.
                 let line_box = LineBox {
                     width: layout.width,
                     ascent: layout.part_height(table, &part),
                     descent: 0.0,
-                    above: 0.0,
+                    above: if number == 0 {
+                        table.space_before.max(0.0)
+                    } else {
+                        0.0
+                    },
                 };
                 (line_box, Some((number, part)))
             })
@@ -578,6 +584,12 @@ fn instance(
         .map_or("", |r| r.style.as_str());
     let character = crate::text_variables::instance_character(doc, story, at, run)?;
     let table = structure.table.is_some();
+    // Space before a table less than none draws its first part up towards
+    // the line above, by its leading; space before it is room above its box.
+    let closer = structure
+        .table
+        .as_ref()
+        .map_or(0.0, |table| table.space_before.min(0.0));
     Some(
         boxes
             .into_iter()
@@ -596,10 +608,17 @@ fn instance(
                 } else {
                     (inline && character.leading == Some(auto)).then_some(auto)
                 };
+                let closer = if part.is_some_and(|(number, _)| number == 0) {
+                    closer
+                } else {
+                    0.0
+                };
                 if let Some(leading) = leading {
                     let size = character.point_size.unwrap_or(11.0);
                     character.leading = leading.points(size, paragraph.auto_leading).map(|text| {
-                        crate::styles::Leading::Points(text.max(line_box.ascent + text - size))
+                        crate::styles::Leading::Points(
+                            text.max(line_box.ascent + text - size + closer),
+                        )
                     });
                 }
                 Instance {

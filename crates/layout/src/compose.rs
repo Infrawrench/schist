@@ -717,6 +717,25 @@ struct ColumnFlow {
     stop_page: bool,
 }
 
+/// Where composition resumes once a table part's row event at `offset` is
+/// met: past the line break before the part, so its line starts the column
+/// with no empty line above it, and past any events left behind.
+fn passed(
+    story: &Story,
+    breaks: &[(break_flow::Event, usize)],
+    offset: usize,
+    index: &mut usize,
+) -> usize {
+    let end = offset + break_flow::LINE_BREAK.len();
+    if story.slice(offset, end) != break_flow::LINE_BREAK {
+        return offset;
+    }
+    while breaks.get(*index).is_some_and(|(_, at)| *at < end) {
+        *index += 1;
+    }
+    end
+}
+
 /// Trial layouts own their break cursor. Reserving a shared note area must not
 /// consume a forced break before the final body layout has been chosen.
 fn fill_columns(
@@ -771,6 +790,10 @@ fn fill_columns(
                 if event.unconditional() || advance.is_none() {
                     out.next.break_index += 1;
                     out.next.break_origin = None;
+                    if advance.is_none() && event.passes_break() {
+                        out.next.offset =
+                            passed(story, breaks, out.next.offset, &mut out.next.break_index);
+                    }
                 }
                 if let Some(boundary) = advance {
                     out.stop_page = boundary == break_flow::Boundary::Page;
@@ -1079,7 +1102,13 @@ fn compose_thread_plain(
     let mut cursor = 0usize;
     // Breaks have zero width in Story's text coordinate system. Track the
     // event index separately so a break never consumes the next character.
-    let breaks = break_flow::events(doc, story);
+    // Table parts whose first row asks to start later follow the story's own
+    // events at the same position.
+    let mut breaks = break_flow::events(doc, story);
+    if let Some(prepared) = notes {
+        breaks.extend(break_flow::rows(story, &prepared.main.boxes));
+        breaks.sort_by_key(|(_, at)| *at);
+    }
     let mut break_index = 0;
     let mut break_origin = None;
     let mut last_location = None;
@@ -1317,6 +1346,9 @@ fn compose_thread_plain(
                     }
                     break_index += 1;
                     break_origin = None;
+                    if event.passes_break() {
+                        cursor = passed(story, &breaks, cursor, &mut break_index);
+                    }
                 }
                 let spanning = source.notes.is_some()
                     && columns.len() > 1
@@ -2001,7 +2033,9 @@ fn fill_column(
                 PlacementSpace {
                     top: column.y + used,
                     height: column.height - used,
-                    previous: lines.last().map(PreviousLine::from_line),
+                    previous: lines
+                        .last()
+                        .map(|line| PreviousLine::from_line(source, line)),
                     baseline_fit: source.baseline_fit,
                 },
                 grid,
@@ -2029,8 +2063,12 @@ fn fill_column(
                 advance: metrics.line_advance,
                 writing: spec.writing_mode,
                 absolute: spec.has_absolute_leading(),
+                above: 0.0,
+                after: 0.0,
             };
-            let previous = lines.last().map(PreviousLine::from_line);
+            let previous = lines
+                .last()
+                .map(|line| PreviousLine::from_line(source, line));
             let (mut top, mut advance) = grid_position(grid, column.y + used, flow, previous);
             // A blank line also skips bands an object leaves no room in, and
             // sits in the first free interval of the band it reaches.
@@ -2123,6 +2161,37 @@ fn sets_table(source: &FlowSource<'_>, range: std::ops::Range<usize>) -> bool {
         .any(|b| b.part.is_some() && range.contains(&b.at))
 }
 
+/// The space the tables set in `range` keep about their lines: above a
+/// table's first part (its box's room above, SpaceBefore), which the first
+/// line of a column drops, and below its last part (SpaceAfter), before the
+/// next line of the column.
+fn table_space(source: &FlowSource<'_>, range: std::ops::Range<usize>) -> (Pt, Pt) {
+    let mut out = (0.0, 0.0);
+    for set in source.boxes.iter().filter(|b| range.contains(&b.at)) {
+        let Some((number, _)) = set.part else {
+            continue;
+        };
+        let Some(table) = source
+            .story
+            .structures
+            .get(set.structure)
+            .and_then(|s| s.table.as_deref())
+        else {
+            continue;
+        };
+        if number == 0 {
+            out.0 += set.above;
+        }
+        let last = !source.boxes.iter().any(|other| {
+            other.structure == set.structure && other.part.is_some_and(|(n, _)| n > number)
+        });
+        if last {
+            out.1 += table.space_after;
+        }
+    }
+    out
+}
+
 /// The outcome of trying to place one paragraph into the room left.
 struct Placed {
     lines: Vec<ComposedLine>,
@@ -2165,6 +2234,11 @@ struct LineFlow {
     advance: Pt,
     writing: schist_text_engine::WritingMode,
     absolute: bool,
+    /// Room above the line for a table's space before it, inside `ascent`
+    /// and `height`: the first line of a column drops it.
+    above: Pt,
+    /// Space a table keeps below the line, before the next line.
+    after: Pt,
 }
 impl LineFlow {
     /// How far below its top a line must reach to fit: in horizontal body
@@ -2186,6 +2260,19 @@ impl LineFlow {
             advance: span.advance,
             writing: spec.writing_mode,
             absolute: spec.has_absolute_leading(),
+            above: 0.0,
+            after: 0.0,
+        }
+    }
+
+    /// The flow of a line setting projected text `range`, with the space
+    /// the tables it sets keep about it.
+    fn with_tables(self, source: &FlowSource<'_>, range: std::ops::Range<usize>) -> Self {
+        let (above, after) = table_space(source, range);
+        Self {
+            above,
+            after,
+            ..self
         }
     }
 }
@@ -2201,16 +2288,29 @@ fn grid_position(
         advance,
         writing,
         absolute,
+        above,
+        ..
     } = flow;
     let advance = advance.max(0.0);
-    let top = previous.filter(|_| absolute).map_or(top, |previous| {
-        let gap = (top - previous.bottom).max(0.0);
-        if writing.is_vertical() {
-            previous.bottom - previous.height / 2.0 + advance - height / 2.0 + gap
-        } else {
-            previous.baseline + advance - ascent + gap
+    let top = match previous {
+        // A column's first line drops a table's space above it: the table
+        // starts at the column's top, as InDesign's PDFs of the public
+        // paged-media `tables` and `tables-rows` samples set tables at the
+        // top of a frame, a cell and a continuing frame although their
+        // [No table style] keeps 4 pt before them.
+        None => top - above,
+        Some(previous) if absolute => {
+            let gap = (top - previous.bottom).max(0.0);
+            if writing.is_vertical() {
+                previous.bottom - previous.height / 2.0 + advance - height / 2.0
+                    + gap
+                    + previous.after
+            } else {
+                previous.baseline + advance - ascent + gap + previous.after
+            }
         }
-    });
+        Some(previous) => top + previous.after,
+    };
     let Some(grid) = grid.filter(|_| writing == schist_text_engine::WritingMode::Horizontal) else {
         return (top, advance);
     };
@@ -2236,14 +2336,17 @@ struct PreviousLine {
     advance: Pt,
     height: Pt,
     bottom: Pt,
+    /// Space a table set in the line keeps below it.
+    after: Pt,
 }
 impl PreviousLine {
-    fn from_line(line: &ComposedLine) -> Self {
+    fn from_line(source: &FlowSource<'_>, line: &ComposedLine) -> Self {
         Self {
             baseline: line.baseline,
             advance: line.advance,
             height: line.bounds.height,
             bottom: line.bounds.bottom(),
+            after: table_space(source, line.start..line.end).1,
         }
     }
 }
@@ -2442,7 +2545,8 @@ fn place_block(
         {
             break;
         }
-        let flow = LineFlow::from_span(span, &spec);
+        let flow = LineFlow::from_span(span, &spec)
+            .with_tables(source, body.start + span.start..body.start + span.end);
         let (placed_top, advance) = grid_position(grid, top, flow, previous);
         if placed_top + flow.fitting(space.baseline_fit) > space.top + space.height {
             break;
@@ -2453,6 +2557,7 @@ fn place_block(
             advance,
             height: span.height,
             bottom: placed_top + span.height,
+            after: flow.after,
         });
         top = placed_top + span.height;
     }
@@ -2639,6 +2744,7 @@ fn plan_slots(
                     advance,
                     height,
                     bottom: placed + height,
+                    after: flow.after,
                 });
                 top = placed + height;
             }
@@ -2690,6 +2796,8 @@ fn place_wrapped(
         advance: metrics.line_advance,
         writing: spec.writing_mode,
         absolute: spec.has_absolute_leading(),
+        above: 0.0,
+        after: 0.0,
     }];
     let mut slots = Vec::new();
     let mut spans = Vec::new();
@@ -2706,7 +2814,10 @@ fn place_wrapped(
             spans = schist_text_engine::line_spans_with_measures(spec, &measures);
             let next: Vec<LineFlow> = spans
                 .iter()
-                .map(|span| LineFlow::from_span(span, spec))
+                .map(|span| {
+                    LineFlow::from_span(span, spec)
+                        .with_tables(source, body.start + span.start..body.start + span.end)
+                })
                 .collect();
             let settled = (0..slots.len().min(next.len())).all(|i| {
                 flows.get(i).or(flows.last()).is_some_and(|a| {
@@ -2975,6 +3086,8 @@ fn plan_initial(
             advance,
             writing: body.writing_mode,
             absolute: body.has_absolute_leading(),
+            above: 0.0,
+            after: 0.0,
         };
         let (placed_top, advance) = grid_position(grid, top, flow, previous);
         baseline = placed_top + ascent;
@@ -2986,6 +3099,7 @@ fn plan_initial(
             advance,
             height,
             bottom: placed_top + height,
+            after: 0.0,
         });
         top = placed_top + height;
     }

@@ -335,6 +335,7 @@ fn a_tables_fill_edges_and_cell_text_paint_inside_its_grid() {
             ink: schist_layout::Ink::black(),
             tint: 1.0,
         }),
+        source: Default::default(),
     };
     let mut cells = Vec::new();
     for column in 0..2 {
@@ -364,6 +365,7 @@ fn a_tables_fill_edges_and_cell_text_paint_inside_its_grid() {
             maximum: None,
             auto_grow: true,
             keep_with_next: false,
+            start: None,
         }],
         columns: vec![100.0, 100.0],
         cells,
@@ -373,6 +375,9 @@ fn a_tables_fill_edges_and_cell_text_paint_inside_its_grid() {
         skip_last_footer: false,
         row_fills: None,
         column_fills: None,
+        space_before: 0.0,
+        space_after: 0.0,
+        stroke_order: Default::default(),
     };
     let mut host = Story::from_text("", "Body");
     host.structures.push(StoryStructure {
@@ -417,6 +422,118 @@ fn a_tables_fill_edges_and_cell_text_paint_inside_its_grid() {
         .any(|f| f.message.contains("structure")));
 }
 
+/// A cell's stated edges reach the plates on every grid line it shares, over
+/// its neighbours' unstated black, as InDesign's PDF of the public
+/// paged-media `tables` sample draws a 3 pt magenta middle cell (page 5).
+#[test]
+fn a_cells_stated_edges_paint_over_its_neighbours() {
+    use schist_layout::tables::{
+        CellEdge, CellJustification, CellPaint, EdgeSource, Table, TableCell, TableRow,
+    };
+    let mut doc = blank_a4();
+    let magenta = Ink::cmyk("Magenta", [0.0, 1.0, 0.0, 0.0]);
+    doc.inks.push(magenta.clone());
+    let frame = authoring::text_frame(
+        &mut doc,
+        &mut History::default(),
+        0,
+        Rect::new(60.0, 80.0, 380.0, 300.0),
+    )
+    .unwrap();
+    let edge = |weight: f32, ink: &Ink, source| CellEdge {
+        weight,
+        paint: Some(CellPaint {
+            ink: ink.clone(),
+            tint: 1.0,
+        }),
+        source,
+    };
+    let mut cells = Vec::new();
+    for row in 0..3 {
+        for column in 0..3 {
+            doc.stories.push(Story::from_text("x", "Body"));
+            let edges = if (row, column) == (1, 1) {
+                [(); 4].map(|_| edge(3.0, &magenta, EdgeSource::Cell))
+            } else {
+                [(); 4].map(|_| edge(1.0, &Ink::black(), EdgeSource::Default))
+            };
+            cells.push(TableCell {
+                column,
+                row,
+                columns: 1,
+                rows: 1,
+                story: StoryId((doc.stories.len() - 1) as u32),
+                fill: None,
+                insets: schist_layout::Insets::uniform(4.0),
+                justification: CellJustification::Top,
+                own_fill: false,
+                edges,
+            });
+        }
+    }
+    let row = TableRow {
+        height: 40.0,
+        minimum: 40.0,
+        maximum: None,
+        auto_grow: true,
+        keep_with_next: false,
+        start: None,
+    };
+    let table = Table {
+        header_rows: 0,
+        footer_rows: 0,
+        rows: vec![row; 3],
+        columns: vec![100.0; 3],
+        cells,
+        header_repeat: Default::default(),
+        footer_repeat: Default::default(),
+        skip_first_header: false,
+        skip_last_footer: false,
+        row_fills: None,
+        column_fills: None,
+        space_before: 4.0,
+        space_after: -4.0,
+        stroke_order: Default::default(),
+    };
+    let mut host = Story::from_text("", "Body");
+    host.structures.push(StoryStructure {
+        at: Some(0),
+        kind: "Table".into(),
+        payload: "<Table />".into(),
+        control: None,
+        footnote: None,
+        table: Some(Box::new(table)),
+        anchored: None,
+    });
+    doc.stories[frame.story.0 as usize] = host;
+    let result = separate_page(&doc, 0, OutputSettings::at(72.0), &NoGraphics).unwrap();
+    let ink = |plate: usize, x: f32, y: f32| {
+        result
+            .separation
+            .plate(plate)
+            .unwrap()
+            .at(x as i32, y as i32)
+    };
+    let (magenta, black) = (result.plan.process[1], result.plan.process[3]);
+    // The table at the frame's top despite its space before: the top grid
+    // line at 80.5 pt, the middle cell's lines at 120.5 and 160.5 pt down
+    // and 160.5 and 260.5 pt across.
+    assert!(ink(black, 110.0, 80.0) > 0.4);
+    for (x, y) in [
+        (210.0, 120.0),
+        (210.0, 160.0),
+        (160.0, 140.0),
+        (260.0, 140.0),
+    ] {
+        assert!(ink(magenta, x, y) > 0.9, "magenta at {x}, {y}");
+        assert!(ink(black, x, y) < 0.05, "no black at {x}, {y}");
+    }
+    // The magenta corner covers the black row beside it.
+    assert!(ink(magenta, 160.0, 160.0) > 0.9);
+    assert!(ink(black, 160.0, 160.0) < 0.05);
+    assert!(ink(black, 110.0, 160.0) > 0.4);
+}
+
 /// A table broken across frames on two pages paints each part on its own
 /// page, the tinted header repeated at the top of the second.
 #[test]
@@ -444,6 +561,7 @@ fn a_broken_tables_parts_paint_on_their_own_pages() {
             ink: Ink::black(),
             tint: 1.0,
         }),
+        source: Default::default(),
     };
     // A header and six 40 pt rows: 281 pt, more than one frame holds.
     let mut cells = Vec::new();
@@ -472,6 +590,7 @@ fn a_broken_tables_parts_paint_on_their_own_pages() {
         maximum: None,
         auto_grow: true,
         keep_with_next: false,
+        start: None,
     };
     let table = Table {
         header_rows: 1,
@@ -485,6 +604,9 @@ fn a_broken_tables_parts_paint_on_their_own_pages() {
         skip_last_footer: false,
         row_fills: None,
         column_fills: None,
+        space_before: 0.0,
+        space_after: 0.0,
+        stroke_order: Default::default(),
     };
     let mut host = Story::from_text("", "Body");
     host.structures.push(StoryStructure {

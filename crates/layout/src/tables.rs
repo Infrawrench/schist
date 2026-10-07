@@ -3,13 +3,17 @@
 //! composition and drawing. Each cell's text is a story of its own.
 //!
 //! A table is set on lines of its own, one [`Part`] per line: its outer
-//! stroke edge at the line's top left. Rows that grow take the height their
-//! cells' text needs: the top inset, the last line's baseline below the cell's
-//! content top, and the bottom inset. A table that does not fit breaks
-//! between whole rows into parts, each repeating the header and footer rows
-//! as the table asks (see `table_flow`). Fills alternate by row or column as
-//! the table or its style asks; cell styles are resolved when a table is
-//! read. The rules and their evidence are in `docs/idml-format.md`.
+//! stroke edge at the line's top left, its space before above that line
+//! unless the line starts a column, its space after below it. Rows that grow
+//! take the height their cells' text needs: the top inset, the last line's
+//! baseline below the cell's content top, and the bottom inset. A table that
+//! does not fit breaks between whole rows into parts, each repeating the
+//! header and footer rows as the table asks (see `table_flow`). Fills
+//! alternate by row or column as the table or its style asks; cell styles,
+//! the table's border and its alternating strokes are resolved into the
+//! cells' edges when a table is read, and a grid line two cells share draws
+//! one of their edges (see [`objects`]). The rules and their evidence are in
+//! `docs/idml-format.md`.
 use crate::{Ink, LayoutDocument, ObjectId, PlacedObject, Pt, Rect, StoryId};
 use serde::{Deserialize, Serialize};
 
@@ -40,6 +44,42 @@ pub struct Table {
     /// Alternating fills of the columns, header and footer rows included.
     #[serde(default)]
     pub column_fills: Option<Alternation>,
+    /// Space above the table (SpaceBefore), kept only below a line of its
+    /// column: a table starting a column, a frame or a cell starts at its top.
+    #[serde(default)]
+    pub space_before: Pt,
+    /// Space below the table (SpaceAfter), between it and the line after it
+    /// in its column.
+    #[serde(default)]
+    pub space_after: Pt,
+    /// Which strokes are in front where row and column strokes cross.
+    #[serde(default)]
+    pub stroke_order: StrokeOrder,
+}
+
+/// IDML's StrokeOrderTypes: which strokes are in front where row and column
+/// strokes cross.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Default, Serialize, Deserialize)]
+pub enum StrokeOrder {
+    /// Row strokes in front where the colours differ (BestJoins).
+    #[default]
+    BestJoins,
+    /// Row strokes in front (RowOnTop).
+    RowOnTop,
+    /// Column strokes in front (ColumnOnTop).
+    ColumnOnTop,
+    /// Row strokes in front where the colours differ
+    /// (Indesign2Compatibility).
+    InDesign2Compatibility,
+}
+
+impl StrokeOrder {
+    /// Whether column strokes run through the crossings, row strokes
+    /// stopping at them. Solid strokes of one colour look the same either
+    /// way, so only ColumnOnTop puts columns in front.
+    pub fn columns_in_front(self) -> bool {
+        self == Self::ColumnOnTop
+    }
 }
 
 /// An alternating pattern of fills: the first `first` rows or columns take
@@ -124,6 +164,10 @@ pub struct TableRow {
     /// KeepWithNextRow: the table does not break after this row.
     #[serde(default)]
     pub keep_with_next: bool,
+    /// StartRow, when not Anywhere: the row starts at the top of the next
+    /// column, frame or page (see [`Table::start`]).
+    #[serde(default)]
+    pub start: Option<crate::styles::ParagraphStart>,
 }
 
 /// Paint on a cell or one of its edges.
@@ -139,6 +183,25 @@ pub struct CellPaint {
 pub struct CellEdge {
     pub weight: Pt,
     pub paint: Option<CellPaint>,
+    /// What states the edge, which decides the stroke of a grid line two
+    /// cells share.
+    #[serde(default)]
+    pub source: EdgeSource,
+}
+
+/// What states a cell's edge, weakest first: where two cells share a grid
+/// line, the edge from the stronger source is drawn, the lower or right
+/// cell's when they tie.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Default, Serialize, Deserialize)]
+pub enum EdgeSource {
+    /// Nothing: InDesign's 1 pt black.
+    #[default]
+    Default,
+    /// The table or its style: its border on the table's outside, else its
+    /// alternating row or column strokes.
+    Table,
+    /// The cell or one of its cell styles.
+    Cell,
 }
 
 /// Where a cell's text sits when the cell is taller than it.
@@ -235,12 +298,33 @@ impl Table {
             .any(|c| c.row < row && row < c.row + c.rows)
     }
 
+    /// Where a part whose first body row is `row` must begin, by the row's
+    /// StartRow, as the specification describes it: at the top of the next
+    /// column, frame, page, odd or even page. The table's first part begins
+    /// as its first row asks, or its first body row under header rows; a
+    /// later body row a cell spans into begins anywhere, as the table cannot
+    /// break above it. Header and footer rows below the first row have no
+    /// place to begin.
+    pub fn start(&self, row: usize) -> Option<crate::styles::ParagraphStart> {
+        let body = self.body();
+        let policy = if row == body.start {
+            self.rows.first()?.start.or(self.rows.get(row)?.start)
+        } else if body.contains(&row) && !self.joined(row) {
+            self.rows[row].start
+        } else {
+            None
+        };
+        policy.filter(|p| *p != crate::styles::ParagraphStart::Anywhere)
+    }
+
     /// Finite, positive sizes and cells that tile part of the grid without
     /// overlapping or leaving it.
     pub fn valid(&self) -> bool {
         let finite = |v: Pt| v.is_finite() && v >= 0.0;
         if self.rows.is_empty()
             || self.columns.is_empty()
+            || !self.space_before.is_finite()
+            || !self.space_after.is_finite()
             || self.header_rows + self.footer_rows > self.rows.len()
             || !self.columns.iter().all(|w| finite(*w) && *w > 0.0)
             || !self
@@ -585,12 +669,123 @@ fn shape(
     }
 }
 
+/// A stroke along a grid line between two crossings: where the line lies
+/// across, and where the stroke starts and ends along it.
+struct Segment<'a> {
+    edge: &'a CellEdge,
+    across: Pt,
+    from: Pt,
+    to: Pt,
+}
+
+/// Whether two strokes look the same.
+fn same(a: &CellEdge, b: &CellEdge) -> bool {
+    a.weight == b.weight && a.paint == b.paint
+}
+
+/// The strokes in front, which run through the crossings. `lines[line][k]`
+/// is what the grid line at `at[line]` draws over the `k`th cell along it,
+/// between the crossings at `span[k]` and `span[k + 1]`. A stroke reaches
+/// the table's outer edge (0 and `outer`) at the table's sides; at a crossing
+/// it meets the same stroke flush, and runs on by half its weight where
+/// another stroke or none continues the line.
+fn in_front<'a>(
+    lines: &[Vec<Option<&'a CellEdge>>],
+    at: &[Pt],
+    span: &[Pt],
+    outer: Pt,
+) -> Vec<Segment<'a>> {
+    let mut out = Vec::new();
+    for (line, strokes) in lines.iter().enumerate() {
+        for (k, edge) in strokes.iter().enumerate() {
+            let Some(edge) = *edge else {
+                continue;
+            };
+            let past = |next: Option<&Option<&CellEdge>>| match next.copied().flatten() {
+                Some(next) if same(next, edge) => 0.0,
+                _ => edge.weight / 2.0,
+            };
+            let from = if k == 0 {
+                0.0
+            } else {
+                span[k] - past(strokes.get(k - 1))
+            };
+            let to = if k + 1 == strokes.len() {
+                outer
+            } else {
+                span[k + 1] + past(strokes.get(k + 1))
+            };
+            out.push(Segment {
+                edge,
+                across: at[line],
+                from,
+                to,
+            });
+        }
+    }
+    out
+}
+
+/// The strokes behind, which stop at the strokes in front crossing them:
+/// half the weight short of the crossing of the same stroke there, else of
+/// the heaviest, and at the crossing when none crosses. `front[k]` is the
+/// front line at `span[k]`, by the cells along it.
+fn behind<'a>(
+    lines: &[Vec<Option<&'a CellEdge>>],
+    at: &[Pt],
+    span: &[Pt],
+    front: &[Vec<Option<&CellEdge>>],
+) -> Vec<Segment<'a>> {
+    let mut out = Vec::new();
+    for (line, strokes) in lines.iter().enumerate() {
+        // The front strokes either side of this line where front line `k`
+        // crosses it.
+        let cut = |k: usize, edge: &CellEdge| {
+            let crossing: Vec<&CellEdge> = [line.checked_sub(1), Some(line)]
+                .into_iter()
+                .flatten()
+                .filter_map(|cell| front[k].get(cell).copied().flatten())
+                .collect();
+            crossing
+                .iter()
+                .find(|c| same(c, edge))
+                .or_else(|| crossing.iter().max_by(|a, b| a.weight.total_cmp(&b.weight)))
+                .map_or(0.0, |c| c.weight / 2.0)
+        };
+        for (k, edge) in strokes.iter().enumerate() {
+            let Some(edge) = *edge else {
+                continue;
+            };
+            let from = span[k] + cut(k, edge);
+            let to = span[k + 1] - cut(k + 1, edge);
+            if to > from {
+                out.push(Segment {
+                    edge,
+                    across: at[line],
+                    from,
+                    to,
+                });
+            }
+        }
+    }
+    out
+}
+
 /// What the rows of `grid` draw with its outer top left at `origin`, in the
-/// frame's space: cell fills, then cell edges, then cell text. Horizontal
-/// edges run the whole cell and reach the outer stroke edge at the table's
-/// sides; vertical edges stop at the horizontal strokes, as InDesign's PDF of
-/// the public paged-media `tables` sample draws them. A part's last row
-/// draws its bottom edges as the table's last row does.
+/// frame's space: cell fills, then strokes, then cell text. Strokes are drawn
+/// by grid line and column or row, as InDesign's PDF of the public
+/// paged-media `tables` sample draws them, a cell spanning columns included.
+/// A grid line two cells share draws the edge of the stronger source (see
+/// [`EdgeSource`]), the lower or right cell's when they tie, except that a
+/// header row's bottom edge is drawn above the body and a footer row's top
+/// edge below it. Page 5 of that PDF draws a 3 pt magenta cell's edges over
+/// its neighbours' unstated 1 pt black ones on all four sides, and page 12
+/// the header's black bottom edge, not the 2 pt magenta top edge the body
+/// cell below it states; the footer follows the header (a Schist reading).
+/// Row strokes are in front unless the table's StrokeOrder is ColumnOnTop:
+/// they reach the table's outer stroke edge at its sides, and vertical
+/// strokes stop at them. A part's last row draws its bottom edges as the
+/// table's last row does.
 pub fn objects(
     table: &Table,
     layout: &TableLayout,
@@ -618,32 +813,119 @@ pub fn objects(
         let (y0, y1) = (grid.y[first], grid.y[end]);
         Rect::new(ox + x0, oy + y0, x1 - x0, y1 - y0)
     };
-    let drawn = |edge: &CellEdge| edge.weight > 0.0 && edge.paint.is_some();
-    let mut fills = Vec::new();
-    let mut verticals = Vec::new();
-    let mut horizontals = Vec::new();
-    let mut texts = Vec::new();
-    let last_row = grid.rows.len();
-    let last_column = table.columns.len();
-    // The horizontal stroke weight along a grid line at a column.
-    let horizontal_at = |line: usize, column: usize| -> Pt {
-        table
-            .cells
-            .iter()
-            .zip(&spans)
-            .filter(|(c, _)| column >= c.column && column < c.column + c.columns)
-            .filter_map(|(c, span)| {
-                let (first, end) = (*span)?;
-                if first == line {
-                    Some(c.edges[TOP].weight)
-                } else if end == line {
-                    Some(c.edges[BOTTOM].weight)
-                } else {
-                    None
-                }
-            })
-            .fold(0.0, Pt::max)
+    // The cell covering each shown row and column.
+    let (rows, columns) = (grid.rows.len(), table.columns.len());
+    let mut covers = vec![None; rows * columns];
+    for (index, span) in spans.iter().enumerate() {
+        let Some((first, end)) = *span else {
+            continue;
+        };
+        let cell = &table.cells[index];
+        for row in first..end {
+            for column in cell.column..cell.column + cell.columns {
+                covers[row * columns + column] = Some(index);
+            }
+        }
+    }
+    let cell_at = |row: usize, column: usize| -> Option<usize> {
+        (row < rows && column < columns)
+            .then(|| covers[row * columns + column])
+            .flatten()
     };
+    let body = table.body();
+    let drawn = |edge: &CellEdge| edge.weight > 0.0 && edge.paint.is_some();
+    // The stroke of a grid line between cells `before` and `after` (above
+    // and below, or left and right), from their `sides` facing it.
+    let shared = |before: Option<usize>, after: Option<usize>, sides: (usize, usize)| {
+        let edge = match (before, after) {
+            (Some(a), Some(b)) if a == b => return None,
+            (Some(a), Some(b)) => {
+                let (first, second) = (&table.cells[a], &table.cells[b]);
+                let (ending, starting) = (&first.edges[sides.0], &second.edges[sides.1]);
+                let between_rows = sides.0 == BOTTOM;
+                if between_rows && first.row < table.header_rows && second.row >= table.header_rows
+                {
+                    ending
+                } else if between_rows && second.row >= body.end && first.row < body.end {
+                    starting
+                } else if ending.source > starting.source {
+                    ending
+                } else {
+                    starting
+                }
+            }
+            (Some(a), None) => &table.cells[a].edges[sides.0],
+            (None, Some(b)) => &table.cells[b].edges[sides.1],
+            (None, None) => return None,
+        };
+        drawn(edge).then_some(edge)
+    };
+    let horizontal: Vec<Vec<Option<&CellEdge>>> = (0..=rows)
+        .map(|line| {
+            (0..columns)
+                .map(|column| {
+                    let above = line.checked_sub(1).and_then(|row| cell_at(row, column));
+                    shared(above, cell_at(line, column), (BOTTOM, TOP))
+                })
+                .collect()
+        })
+        .collect();
+    let vertical: Vec<Vec<Option<&CellEdge>>> = (0..=columns)
+        .map(|line| {
+            (0..rows)
+                .map(|row| {
+                    let left = line.checked_sub(1).and_then(|column| cell_at(row, column));
+                    shared(left, cell_at(row, line), (RIGHT, LEFT))
+                })
+                .collect()
+        })
+        .collect();
+    let columns_in_front = table.stroke_order.columns_in_front();
+    let (mut front, back) = if columns_in_front {
+        (
+            in_front(&vertical, &layout.x, &grid.y, grid.height),
+            behind(&horizontal, &grid.y, &layout.x, &vertical),
+        )
+    } else {
+        (
+            in_front(&horizontal, &grid.y, &layout.x, layout.width),
+            behind(&vertical, &layout.x, &grid.y, &horizontal),
+        )
+    };
+    // Where strokes in front overlap past a crossing, the heavier is drawn
+    // over the lighter, as page 5 draws its 3 pt magenta edges last.
+    front.sort_by(|a, b| a.edge.weight.total_cmp(&b.edge.weight));
+    let stroke = |segment: &Segment, along_row: bool| {
+        let length = segment.to - segment.from;
+        let (bounds, path) = if along_row {
+            (
+                Rect::new(ox + segment.from, oy + segment.across, length, 0.0),
+                crate::authoring::path_for(crate::authoring::ShapeKind::Line, length, 0.0),
+            )
+        } else {
+            (
+                Rect::new(ox + segment.across, oy + segment.from, 0.0, length),
+                crate::authoring::path_for(crate::authoring::ShapeKind::Line, 0.0, length),
+            )
+        };
+        let paint = segment
+            .edge
+            .paint
+            .as_ref()
+            .expect("drawn edges are painted");
+        shape(path, bounds, None, Some((paint, segment.edge.weight)), page)
+    };
+    let strokes: Vec<PlacedObject> = back
+        .iter()
+        .map(|segment| stroke(segment, columns_in_front))
+        .chain(
+            front
+                .iter()
+                .map(|segment| stroke(segment, !columns_in_front)),
+        )
+        .collect();
+    let mut fills = Vec::new();
+    let mut texts = Vec::new();
     for (index, cell) in table.cells.iter().enumerate() {
         let Some((first, end)) = spans[index] else {
             continue;
@@ -662,57 +944,6 @@ pub fn objects(
                 page,
             ));
         }
-        let mut horizontal = |y: Pt, edge: &CellEdge| {
-            if !drawn(edge) {
-                return;
-            }
-            let left = if cell.column == 0 {
-                rect.x - layout.x[0]
-            } else {
-                rect.x
-            };
-            let right = if cell.column + cell.columns == last_column {
-                rect.right() + (layout.width - layout.x[last_column])
-            } else {
-                rect.right()
-            };
-            horizontals.push(shape(
-                crate::authoring::path_for(crate::authoring::ShapeKind::Line, right - left, 0.0),
-                Rect::new(left, y, right - left, 0.0),
-                None,
-                Some((edge.paint.as_ref().unwrap(), edge.weight)),
-                page,
-            ));
-        };
-        horizontal(rect.y, &cell.edges[TOP]);
-        if end == last_row {
-            horizontal(rect.bottom(), &cell.edges[BOTTOM]);
-        }
-        let mut vertical = |x: Pt, edge: &CellEdge| {
-            if !drawn(edge) {
-                return;
-            }
-            let column = cell.column;
-            let top = rect.y + horizontal_at(first, column) / 2.0;
-            let bottom = rect.bottom() - horizontal_at(end, column) / 2.0;
-            if bottom > top {
-                verticals.push(shape(
-                    crate::authoring::path_for(
-                        crate::authoring::ShapeKind::Line,
-                        0.0,
-                        bottom - top,
-                    ),
-                    Rect::new(x, top, 0.0, bottom - top),
-                    None,
-                    Some((edge.paint.as_ref().unwrap(), edge.weight)),
-                    page,
-                ));
-            }
-        };
-        vertical(rect.x, &cell.edges[LEFT]);
-        if cell.column + cell.columns == last_column {
-            vertical(rect.right(), &cell.edges[RIGHT]);
-        }
         // Text below its top inset, moved down for center or bottom.
         let needed = cell.insets.top + layout.content[index] + cell.insets.bottom;
         let spare = (rect.height - needed).max(0.0);
@@ -728,10 +959,5 @@ pub fn objects(
         bounds.height += layout.overhang[index] + 0.01 - shift;
         texts.push(cell_frame(cell, bounds, page));
     }
-    fills
-        .into_iter()
-        .chain(verticals)
-        .chain(horizontals)
-        .chain(texts)
-        .collect()
+    fills.into_iter().chain(strokes).chain(texts).collect()
 }

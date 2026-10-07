@@ -7,6 +7,7 @@
 //! after it overset. These tests set IBM Plex Sans (ascent 12.3 pt at 12 pt),
 //! so rows are 20.3, 34.7 and 49.1 pt rather than the sample's Open Sans
 //! 20.826, 35.226 and 49.626 pt, and the breaks fall at the same rows.
+use schist_layout::styles::ParagraphStart;
 use schist_layout::tables::{
     self, CellEdge, CellJustification, CellPaint, RepeatRows, Table, TableCell, TableRow,
 };
@@ -40,6 +41,7 @@ fn black() -> CellEdge {
             ink: Ink::black(),
             tint: 1.0,
         }),
+        source: Default::default(),
     }
 }
 
@@ -50,6 +52,7 @@ fn grows() -> TableRow {
         maximum: None,
         auto_grow: true,
         keep_with_next: false,
+        start: None,
     }
 }
 
@@ -133,6 +136,9 @@ fn document(
         skip_last_footer: false,
         row_fills: None,
         column_fills: None,
+        space_before: 0.0,
+        space_after: 0.0,
+        stroke_order: Default::default(),
     };
     let mut host = Story::new();
     for paragraph in before {
@@ -439,4 +445,49 @@ fn rows_fit_whole_or_are_overset_as_in_the_overset_sample() {
             near(right, 478.638, "the table overhangs its frame");
         }
     }
+}
+
+/// A body row whose StartRow asks for the next column, frame or page ends
+/// the part before it, and its part starts there with the header repeated,
+/// as the public specification describes; nothing in the samples sets one.
+#[test]
+fn a_row_starting_later_breaks_the_table_before_it() {
+    let lines = vec![vec![1, 1]; 6];
+    let (mut doc, _, story) = document(&[FIRST, SECOND], 1, &[], 1, 0, &lines);
+    assert_eq!(rows(&doc, story), [vec![0, 1, 2, 3, 4, 5], vec![]]);
+    table_mut(&mut doc, story).rows[3].start = Some(ParagraphStart::NextFrame);
+    assert_eq!(rows(&doc, story), [vec![0, 1, 2], vec![0, 3, 4, 5]]);
+    // The part starts at its frame's top, no empty line above it.
+    let drawn = drawn(&doc, story);
+    near(
+        horizontals(&drawn[1])[0],
+        120.5,
+        "second part's top grid line",
+    );
+    assert!(!compose_story(&doc, story).frames.iter().any(|f| f.lost));
+    // In two columns of one frame, the next column.
+    let (mut doc, _, story) = document(&[FIRST], 2, &[], 1, 0, &lines);
+    table_mut(&mut doc, story).rows[2].start = Some(ParagraphStart::NextColumn);
+    assert_eq!(rows(&doc, story), [vec![0, 1, 0, 2, 3, 4, 5]]);
+    let parts = parts(&doc, story);
+    assert_eq!(parts.len(), 2);
+    assert_eq!((parts[1].part.start, parts[1].part.end), (2, 6));
+}
+
+/// A table whose first row asks to start in the next frame moves on from
+/// the text before it, and stays put with nothing before it.
+#[test]
+fn a_table_whose_first_row_starts_later_moves_on() {
+    let lines = vec![vec![1, 1]; 3];
+    let (mut doc, _, story) = document(&[FIRST, SECOND], 1, &["Opening"], 0, 0, &lines);
+    table_mut(&mut doc, story).rows[0].start = Some(ParagraphStart::NextFrame);
+    assert_eq!(rows(&doc, story), [vec![], vec![0, 1, 2]]);
+    near(
+        horizontals(&drawn(&doc, story)[1])[0],
+        120.5,
+        "table at the second frame's top",
+    );
+    let (mut doc, _, story) = document(&[FIRST, SECOND], 1, &[], 0, 0, &lines);
+    table_mut(&mut doc, story).rows[0].start = Some(ParagraphStart::NextFrame);
+    assert_eq!(rows(&doc, story), [vec![0, 1, 2], vec![]]);
 }

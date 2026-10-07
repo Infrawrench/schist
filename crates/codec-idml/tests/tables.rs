@@ -1,5 +1,6 @@
 use schist_codec_idml::{container, export, import};
-use schist_layout::tables::{CellJustification, RepeatRows};
+use schist_layout::styles::ParagraphStart;
+use schist_layout::tables::{CellJustification, EdgeSource, RepeatRows, StrokeOrder};
 use schist_layout::{authoring, blank_a4, History, LayoutDocument, Rect, Story};
 
 /// A 2 × 2 table as the public paged-media generator writes it, with
@@ -147,13 +148,16 @@ fn how_a_table_breaks_is_typed_and_unapplied_settings_reported() {
         assert_eq!(table.footer_repeat, RepeatRows::OncePerPage);
         assert!(table.skip_first_header && table.skip_last_footer);
         assert!(table.rows[0].keep_with_next && !table.rows[1].keep_with_next);
+        assert_eq!(table.rows[0].start, Some(ParagraphStart::NextFrame));
+        assert_eq!(table.rows[1].start, None);
         let stories = doc.stories.clone();
         doc = import::read(&export::write(&doc).bytes).unwrap().document;
         assert_eq!(doc.stories, stories);
     }
+    // The table's first row starts it in the next frame.
     let skipped = &imported.report.skipped;
     assert!(
-        skipped.iter().any(|s| s.contains("StartRow=NextFrame")),
+        !skipped.iter().any(|s| s.contains("StartRow")),
         "{skipped:?}"
     );
     // A value the specification does not define reads as the default.
@@ -252,5 +256,197 @@ fn table_and_cell_styles_type_fills_insets_and_survive_saves() {
         let stories = doc.stories.clone();
         doc = import::read(&export::write(&doc).bytes).unwrap().document;
         assert_eq!(doc.stories, stories);
+    }
+}
+
+/// A `columns` × `rows` table of one-word cells with `header` header rows
+/// and `attributes` on its Table element.
+fn grid(columns: usize, rows: usize, header: usize, attributes: &str) -> String {
+    let mut cells = String::new();
+    for column in 0..columns {
+        for row in 0..rows {
+            cells.push_str(&format!(
+                r#"<Cell Self="g{column}_{row}" Name="{column}:{row}" RowSpan="1" ColumnSpan="1"><ParagraphStyleRange AppliedParagraphStyle="ParagraphStyle/$ID/[No paragraph style]"><CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]"><Content>c</Content></CharacterStyleRange></ParagraphStyleRange></Cell>"#
+            ));
+        }
+    }
+    let row_elements: String = (0..rows)
+        .map(|r| {
+            format!(
+                r#"<Row Self="gR{r}" Name="{r}" SingleRowHeight="20" MinimumHeight="20" AutoGrow="true"/>"#
+            )
+        })
+        .collect();
+    let column_elements: String = (0..columns)
+        .map(|c| format!(r#"<Column Self="gC{c}" Name="{c}" SingleColumnWidth="100"/>"#))
+        .collect();
+    format!(
+        r#"<Table Self="t1" HeaderRowCount="{header}" FooterRowCount="0" BodyRowCount="{}" ColumnCount="{columns}" {attributes}>{row_elements}{column_elements}{cells}</Table>"#,
+        rows - header
+    )
+}
+
+fn cell(
+    table: &schist_layout::tables::Table,
+    column: usize,
+    row: usize,
+) -> &schist_layout::tables::TableCell {
+    table
+        .cells
+        .iter()
+        .find(|c| (c.column, c.row) == (column, row))
+        .unwrap()
+}
+
+/// The weight and source of each edge of a cell: top, left, bottom, right.
+fn edges(
+    table: &schist_layout::tables::Table,
+    column: usize,
+    row: usize,
+) -> [(f32, EdgeSource); 4] {
+    cell(table, column, row)
+        .edges
+        .clone()
+        .map(|e| (e.weight, e.source))
+}
+
+/// With no table style stating them, a table keeps InDesign's defaults its
+/// own exports write for [No table style] and the specification's
+/// Appendix C gives: 4 pt before, -4 pt after, 1 pt black borders.
+#[test]
+fn table_spacing_and_borders_default_as_no_table_style() {
+    let imported = import::read(&native(&grid(1, 1, 0, ""))).unwrap();
+    let table = typed(&imported.document).expect("typed table");
+    assert_eq!((table.space_before, table.space_after), (4.0, -4.0));
+    assert_eq!(table.stroke_order, StrokeOrder::BestJoins);
+    assert_eq!(edges(table, 0, 0), [(1.0, EdgeSource::Table); 4]);
+    assert!(cell(table, 0, 0).edges[0].paint.is_some());
+}
+
+/// A table's border falls back from the table to its style and to
+/// [No table style]; a cell's own edge wins over it, inner edges nothing
+/// states stay InDesign's 1 pt, and a dashed border is reported.
+#[test]
+fn table_borders_and_spacing_come_from_the_table_and_its_style() {
+    let styles = concat!(
+        r#"<RootTableStyleGroup Self="tables">"#,
+        r#"<TableStyle Self="TableStyle/$ID/[No table style]" Name="$ID/[No table style]" RightBorderStrokeWeight="1.5" SpaceBefore="4" SpaceAfter="-4"/>"#,
+        r#"<TableStyle Self="TableStyle/Boxed" Name="Boxed" BottomBorderStrokeWeight="2" LeftBorderStrokeWeight="0.5" SpaceAfter="6" StrokeOrder="ColumnOnTop"/>"#,
+        r#"</RootTableStyleGroup>"#,
+    );
+    let xml = grid(
+        2,
+        3,
+        0,
+        r#"AppliedTableStyle="TableStyle/Boxed" TopBorderStrokeWeight="3" TopBorderStrokeColor="Color/Black" RightBorderStrokeType="StrokeStyle/$ID/Dashed" SpaceBefore="9""#,
+    )
+    .replace(
+        r#"Name="1:0" RowSpan="1" ColumnSpan="1""#,
+        r#"Name="1:0" RowSpan="1" ColumnSpan="1" TopEdgeStrokeWeight="0.25""#,
+    );
+    let imported = import::read(&styled(&xml, styles)).unwrap();
+    let mut doc = imported.document;
+    for _ in 0..2 {
+        let table = typed(&doc).expect("typed table");
+        let table_edge = |weight| (weight, EdgeSource::Table);
+        assert_eq!(
+            edges(table, 0, 0),
+            [
+                table_edge(3.0),
+                table_edge(0.5),
+                (1.0, EdgeSource::Default),
+                (1.0, EdgeSource::Default)
+            ]
+        );
+        assert_eq!(edges(table, 1, 0)[0], (0.25, EdgeSource::Cell));
+        assert_eq!(edges(table, 1, 1)[3], table_edge(1.5));
+        assert_eq!(edges(table, 0, 2)[2], table_edge(2.0));
+        assert_eq!((table.space_before, table.space_after), (9.0, 6.0));
+        assert_eq!(table.stroke_order, StrokeOrder::ColumnOnTop);
+        let stories = doc.stories.clone();
+        doc = import::read(&export::write(&doc).bytes).unwrap().document;
+        assert_eq!(doc.stories, stories);
+    }
+    let skipped = &imported.report.skipped;
+    assert!(
+        skipped
+            .iter()
+            .any(|s| s.contains("RightBorderStrokeType=StrokeStyle/$ID/Dashed")),
+        "{skipped:?}"
+    );
+}
+
+/// Alternating row strokes stroke both edges of each body row in their
+/// pattern, header rows aside, after the skipped rows; column strokes
+/// stroke both edges of each column, header rows included; the table's
+/// border keeps its outside. The next column group's stroke type, which the
+/// specification names EndColumnLineStyle, is reported when not solid.
+#[test]
+fn alternating_strokes_resolve_into_the_cells_edges() {
+    let xml = grid(
+        2,
+        5,
+        1,
+        r#"StartRowStrokeCount="1" StartRowStrokeWeight="2" EndRowStrokeCount="1" SkipFirstAlternatingStrokeRows="1" StartColumnStrokeCount="1" StartColumnStrokeWeight="3" EndColumnStrokeCount="1" EndColumnStrokeWeight="0.5" EndColumnLineStyle="StrokeStyle/$ID/Dashed""#,
+    );
+    let imported = import::read(&native(&xml)).unwrap();
+    let table = typed(&imported.document).expect("typed table");
+    let rows: Vec<(f32, f32)> = (0..5)
+        .map(|row| {
+            let e = edges(table, 0, row);
+            (e[0].0, e[2].0)
+        })
+        .collect();
+    // The header row and the skipped first body row keep 1 pt; then 2 pt
+    // and the next group's default 0.25 pt; the last row's foot is the
+    // border.
+    assert_eq!(
+        rows,
+        [(1.0, 1.0), (1.0, 1.0), (2.0, 2.0), (0.25, 0.25), (2.0, 1.0)]
+    );
+    assert_eq!(edges(table, 0, 0)[0].1, EdgeSource::Table);
+    assert_eq!(edges(table, 0, 1)[0].1, EdgeSource::Default);
+    assert_eq!(edges(table, 0, 2)[0].1, EdgeSource::Table);
+    // Columns: the border outside, each group's stroke inside, the header
+    // row's included.
+    for row in [0, 3] {
+        assert_eq!(edges(table, 0, row)[1].0, 1.0);
+        assert_eq!(edges(table, 0, row)[3].0, 3.0);
+        assert_eq!(edges(table, 1, row)[1].0, 0.5);
+        assert_eq!(edges(table, 1, row)[3].0, 1.0);
+    }
+    let skipped = &imported.report.skipped;
+    assert!(
+        skipped
+            .iter()
+            .any(|s| s.contains("EndColumnLineStyle=StrokeStyle/$ID/Dashed")),
+        "{skipped:?}"
+    );
+}
+
+/// A footer row has no place of its own to start, and a value the
+/// specification does not define is no start: both are reported.
+#[test]
+fn start_rows_with_no_place_to_start_are_reported() {
+    let xml = grid(1, 3, 0, "")
+        .replace(
+            r#"FooterRowCount="0" BodyRowCount="3""#,
+            r#"FooterRowCount="1" BodyRowCount="2""#,
+        )
+        .replace(
+            r#"<Row Self="gR2" "#,
+            r#"<Row Self="gR2" StartRow="NextPage" "#,
+        )
+        .replace(
+            r#"<Row Self="gR1" "#,
+            r#"<Row Self="gR1" StartRow="Sometimes" "#,
+        );
+    let imported = import::read(&native(&xml)).unwrap();
+    let table = typed(&imported.document).expect("typed table");
+    assert_eq!(table.rows[2].start, Some(ParagraphStart::NextPage));
+    assert_eq!(table.rows[1].start, None);
+    let skipped = &imported.report.skipped;
+    for setting in ["StartRow=NextPage", "StartRow=Sometimes"] {
+        assert!(skipped.iter().any(|s| s.contains(setting)), "{skipped:?}");
     }
 }

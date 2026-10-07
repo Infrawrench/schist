@@ -4,7 +4,8 @@
 //! (one 12 pt Open Sans line with 4 pt insets: 20.826 pt; three: 49.626 pt).
 //! These tests set IBM Plex Sans, whose ascent at 12 pt is 12.3 pt.
 use schist_layout::tables::{
-    self, Alternation, CellEdge, CellJustification, CellPaint, Table, TableCell, TableRow,
+    self, Alternation, CellEdge, CellJustification, CellPaint, EdgeSource, StrokeOrder, Table,
+    TableCell, TableRow,
 };
 use schist_layout::{
     anchored, authoring, blank_a4, compose::compose_story, History, Ink, Insets, LayoutDocument,
@@ -37,6 +38,7 @@ fn black() -> CellEdge {
             ink: Ink::black(),
             tint: 1.0,
         }),
+        source: EdgeSource::Default,
     }
 }
 
@@ -47,6 +49,7 @@ fn grows(minimum: f32) -> TableRow {
         maximum: None,
         auto_grow: true,
         keep_with_next: false,
+        start: None,
     }
 }
 
@@ -94,6 +97,9 @@ fn document(
         skip_last_footer: false,
         row_fills: None,
         column_fills: None,
+        space_before: 0.0,
+        space_after: 0.0,
+        stroke_order: Default::default(),
     };
     let mut host = Story::from_text("", "Body");
     host.structures.push(StoryStructure {
@@ -148,6 +154,7 @@ fn fixed_rows_floors_and_caps() {
         maximum: None,
         auto_grow: false,
         keep_with_next: false,
+        start: None,
     };
     let floored = grows(40.0);
     let capped = TableRow {
@@ -318,6 +325,7 @@ fn a_table_breaks_between_rows_and_what_no_frame_holds_is_overset() {
         maximum: None,
         auto_grow: false,
         keep_with_next: false,
+        start: None,
     };
     // Three 40 pt rows: 121 pt with the outer strokes.
     let (mut doc, frame, _) = document(
@@ -482,4 +490,203 @@ fn alternating_column_fills_paint_header_rows_too() {
     near(painted[0].0.x, FRAME.x + 0.5, "first column");
     near(painted[1].0.x, FRAME.x + 0.5 + 200.0, "third column");
     near(painted[0].0.y, FRAME.y + 0.5, "header row");
+}
+
+/// The strokes a table draws, in drawing order, relative to the frame's top
+/// left: x, y, width, height and weight.
+fn strokes(doc: &LayoutDocument, frame: ObjectId) -> Vec<[f32; 5]> {
+    placed(doc, frame)
+        .into_iter()
+        .filter_map(|o| match o.object {
+            LayoutObject::Shape {
+                stroke: Some(_),
+                stroke_width,
+                ..
+            } => Some([
+                o.bounds.x - FRAME.x,
+                o.bounds.y - FRAME.y,
+                o.bounds.width,
+                o.bounds.height,
+                stroke_width,
+            ]),
+            _ => None,
+        })
+        .collect()
+}
+
+fn drawn(strokes: &[[f32; 5]], stroke: [f32; 5]) -> bool {
+    strokes
+        .iter()
+        .any(|s| s.iter().zip(&stroke).all(|(a, b)| (a - b).abs() < 0.01))
+}
+
+fn edge(weight: f32, ink: Ink, source: EdgeSource) -> CellEdge {
+    CellEdge {
+        weight,
+        paint: Some(CellPaint { ink, tint: 1.0 }),
+        source,
+    }
+}
+
+/// InDesign's PDF of the public `tables` sample, page 5: the middle cell of
+/// a 3 × 3 table of 120 pt columns and 28 pt rows states 3 pt magenta edges,
+/// its neighbours none. Every grid line it shares draws the magenta: its
+/// rows run 1.5 pt past the crossings (176.638 to 299.638 for grid lines at
+/// 178.138 and 298.138), its columns stop 1.5 pt short of them (627.8663 to
+/// 652.8663 between rows at 626.3663 and 654.3663). The black rows beside
+/// them run 0.5 pt past the crossing (57.638 to 178.638), the black columns
+/// above and below stop 0.5 pt short (654.8663), and the magenta is drawn
+/// last. Page 12: below a header row its bottom edge is drawn, not the
+/// 2 pt magenta top edge the body cell under it states.
+#[test]
+fn shared_grid_lines_draw_the_stated_edge() {
+    let one: &[&str] = &["R"];
+    let (mut doc, frame, _) = document(
+        vec![grows(28.0); 3],
+        vec![120.0; 3],
+        vec![vec![one, one, one]; 3],
+    );
+    let magenta = edge(
+        3.0,
+        Ink::cmyk("Magenta", [0.0, 1.0, 0.0, 0.0]),
+        EdgeSource::Cell,
+    );
+    let host = doc.stories[0].structures[0].table.as_mut().unwrap();
+    host.cells[4].edges = [
+        magenta.clone(),
+        magenta.clone(),
+        magenta.clone(),
+        magenta.clone(),
+    ];
+    let all = strokes(&doc, frame);
+    for heavy in [
+        [119.0, 28.5, 123.0, 0.0, 3.0],
+        [119.0, 56.5, 123.0, 0.0, 3.0],
+        [120.5, 30.0, 0.0, 25.0, 3.0],
+        [240.5, 30.0, 0.0, 25.0, 3.0],
+    ] {
+        assert!(drawn(&all, heavy), "{heavy:?} in {all:?}");
+    }
+    for light in [
+        [0.0, 28.5, 121.0, 0.0, 1.0],
+        [240.0, 28.5, 121.0, 0.0, 1.0],
+        [0.0, 56.5, 121.0, 0.0, 1.0],
+        [120.5, 1.0, 0.0, 27.0, 1.0],
+        [120.5, 57.0, 0.0, 27.0, 1.0],
+        [240.5, 1.0, 0.0, 27.0, 1.0],
+    ] {
+        assert!(drawn(&all, light), "{light:?} in {all:?}");
+    }
+    // Twelve row and twelve column strokes, the magenta rows last.
+    assert_eq!(all.len(), 24);
+    assert!(all[22..].iter().all(|s| s[4] == 3.0 && s[3] == 0.0));
+    // Under a header row the header's bottom edge is drawn.
+    let host = doc.stories[0].structures[0].table.as_mut().unwrap();
+    host.header_rows = 1;
+    let all = strokes(&doc, frame);
+    assert!(drawn(&all, [120.5, 28.5, 120.0, 0.0, 1.0]), "{all:?}");
+    assert!(!all
+        .iter()
+        .any(|s| s[4] == 3.0 && (s[1] - 28.5).abs() < 0.01));
+    // The magenta columns now stop at the black row above them.
+    assert!(drawn(&all, [120.5, 29.0, 0.0, 26.0, 3.0]), "{all:?}");
+}
+
+/// A table's border and alternating strokes win over an edge nothing
+/// states, and where two of them meet the lower row's is drawn.
+#[test]
+fn a_tables_strokes_win_over_unstated_edges() {
+    let one: &[&str] = &["R"];
+    let (mut doc, frame, _) = document(vec![grows(28.0); 3], vec![120.0], vec![vec![one]; 3]);
+    let host = doc.stories[0].structures[0].table.as_mut().unwrap();
+    // Row 1's group strokes both its edges; row 0's edges are unstated.
+    host.cells[1].edges[0] = edge(2.0, Ink::black(), EdgeSource::Table);
+    host.cells[1].edges[2] = edge(2.0, Ink::black(), EdgeSource::Table);
+    host.cells[2].edges[0] = edge(0.5, Ink::black(), EdgeSource::Table);
+    let all = strokes(&doc, frame);
+    let row = |y: f32| {
+        all.iter()
+            .find(|s| s[3] == 0.0 && (s[1] - y).abs() < 0.01)
+            .map(|s| s[4])
+    };
+    assert_eq!(row(28.5), Some(2.0), "{all:?}");
+    assert_eq!(row(56.5), Some(0.5), "{all:?}");
+}
+
+/// ColumnOnTop puts the column strokes in front: they reach the table's
+/// outer edge at its top and bottom, and the row strokes stop at them.
+#[test]
+fn column_strokes_in_front_run_through_the_crossings() {
+    let one: &[&str] = &["R"];
+    let (mut doc, frame, _) = document(
+        vec![grows(28.0); 2],
+        vec![120.0; 2],
+        vec![vec![one, one]; 2],
+    );
+    let host = doc.stories[0].structures[0].table.as_mut().unwrap();
+    host.stroke_order = StrokeOrder::ColumnOnTop;
+    let all = strokes(&doc, frame);
+    assert_eq!(all.len(), 12);
+    for stroke in [
+        [0.5, 0.0, 0.0, 28.5, 1.0],
+        [0.5, 28.5, 0.0, 28.5, 1.0],
+        [1.0, 0.5, 119.0, 0.0, 1.0],
+        [121.0, 56.5, 119.0, 0.0, 1.0],
+    ] {
+        assert!(drawn(&all, stroke), "{stroke:?} in {all:?}");
+    }
+    // The row strokes behind are drawn first.
+    assert!(all[..6].iter().all(|s| s[3] == 0.0));
+}
+
+/// A table after text keeps its space before above it, and the text after
+/// it its space after; at the top of a frame the space before is dropped,
+/// as InDesign's PDF of the public `tables` sample sets its tables, whose
+/// [No table style] keeps 4 pt before them, at their frame's top (the top
+/// stroke's center at 682.3663 under a frame top of 682.8663).
+#[test]
+fn space_before_and_after_a_table() {
+    let one: &[&str] = &["A1"];
+    let (mut doc, frame, _) = document(vec![grows(28.0)], vec![120.0], vec![vec![one]]);
+    let top = |doc: &LayoutDocument| {
+        strokes(doc, frame)
+            .iter()
+            .filter(|s| s[3] == 0.0)
+            .map(|s| s[1])
+            .fold(f32::MAX, f32::min)
+    };
+    let table = doc.stories[0].structures[0].table.as_mut().unwrap();
+    table.space_before = 4.0;
+    table.space_after = -4.0;
+    near(top(&doc), 0.5, "table at the frame's top");
+    let mut structure = doc.stories[0].structures[0].clone();
+    structure.table.as_mut().unwrap().space_before = 10.0;
+    let mut host = Story::new();
+    host.push_paragraph("Before", "Body");
+    let (at, _) = host.push_paragraph("", "Body");
+    host.push_paragraph("After", "Body");
+    structure.at = Some(at);
+    host.structures.push(structure);
+    doc.stories[0] = host;
+    let lines: Vec<_> = compose_story(&doc, StoryId(0)).lines().cloned().collect();
+    assert_eq!(lines.len(), 3);
+    let (before, table, after) = (&lines[0], &lines[1], &lines[2]);
+    assert!(table
+        .projected
+        .as_ref()
+        .is_some_and(|p| !p.tables.is_empty()));
+    // The table's top: the text's extra leading and the space before below
+    // the baseline above, over its 28 pt row and outer strokes.
+    let height = 29.0;
+    near(
+        table.baseline - height,
+        before.baseline + LEADING - 12.0 + 10.0,
+        "table top",
+    );
+    near(
+        top(&doc) + FRAME.y,
+        before.baseline + LEADING - 12.0 + 10.0 + 0.5,
+        "drawn top",
+    );
+    near(after.baseline, table.baseline + LEADING - 4.0, "text after");
 }

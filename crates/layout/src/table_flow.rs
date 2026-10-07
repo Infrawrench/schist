@@ -10,8 +10,12 @@
 //! column; and a row no column can hold leaves it and the rows after it
 //! overset. Where header and footer rows repeat and the first and last
 //! skips follow the public IDML specification. A break never falls inside a
-//! cell spanning rows.
+//! cell spanning rows. A body row whose StartRow asks for the next column,
+//! frame or page ends the part before it, and its part starts there, as the
+//! specification describes and as a paragraph's start does; composition
+//! moves the part on with a row event at its line (see `break_flow`).
 use crate::compose::{ComposedLine, ComposedThread, InsetsLike};
+use crate::styles::ParagraphStart;
 use crate::tables::{Part, Parts, RepeatRows, Table, TableLayout};
 use crate::{FrameOverflow, LayoutDocument, ObjectId, Pt, Rect, StoryId};
 use std::collections::BTreeMap;
@@ -21,9 +25,27 @@ use std::collections::BTreeMap;
 pub(crate) struct Room {
     frame: usize,
     page: (usize, usize),
+    /// The page's number, for odd and even page starts.
+    number: u32,
     rect: Rect,
     last_in_frame: bool,
     last_on_page: bool,
+}
+
+/// Whether room `here` meets a part's StartRow after content in room
+/// `previous`, as a paragraph's start does: a later column, another frame,
+/// another page, another page with an odd or even number.
+fn begins(policy: ParagraphStart, rooms: &[Room], previous: usize, here: usize) -> bool {
+    let (before, room) = (&rooms[previous], &rooms[here]);
+    let page = room.page != before.page;
+    match policy {
+        ParagraphStart::Anywhere => true,
+        ParagraphStart::NextColumn => here > previous,
+        ParagraphStart::NextFrame => room.frame != before.frame,
+        ParagraphStart::NextPage => page,
+        ParagraphStart::NextOddPage => page && room.number % 2 == 1,
+        ParagraphStart::NextEvenPage => page && room.number % 2 == 0,
+    }
 }
 
 /// What earlier passes learned: the room each part was planned for, and the
@@ -62,6 +84,7 @@ pub(crate) fn rooms(
             out.push(Room {
                 frame: index,
                 page,
+                number: doc.page_number_value(page.1),
                 rect,
                 last_in_frame: column == last,
                 last_on_page: false,
@@ -186,11 +209,12 @@ pub(crate) fn plan(
                 let top = lines[at].1.baseline - layout.part_height(table, &parts[0]);
                 (room, rect.bottom() - top, (top - rect.y).abs() < 0.01)
             }
-            // Moved on, or overset: the room below the line before it.
+            // Moved on, or overset: the room below the line before it and
+            // the table's space before it.
             _ => match before {
                 Some((room, line)) => {
                     let rect = rooms[*room].rect;
-                    let mut top = line.bounds.bottom();
+                    let mut top = line.bounds.bottom() + table.space_before.max(0.0);
                     if line.is_paragraph_end {
                         top += line.paragraph.space_after.unwrap_or(0.0).max(0.0);
                     }
@@ -198,6 +222,18 @@ pub(crate) fn plan(
                 }
                 None => (0, rooms[0].rect.height, true),
             },
+        };
+        // A table whose first row asks to start later moves on from the
+        // line before it, as a paragraph's start does; with nothing before
+        // it, it starts where it is.
+        let start = match (table.start(table.body().start), before) {
+            (Some(policy), Some((room, _))) => {
+                match (*room..rooms.len()).find(|&k| begins(policy, rooms, *room, k)) {
+                    Some(k) => (k, rooms[k].rect.height, true),
+                    None => (rooms.len(), 0.0, true),
+                }
+            }
+            _ => start,
         };
         let caps = &flow.caps;
         let cap = |room: usize| caps.get(&(index, room)).map_or(Pt::INFINITY, |c| c.0);
@@ -308,12 +344,16 @@ fn split(
         };
         let room_height = height.min(cap(room)) - extra;
         let fits = |end: usize| layout.part_height(table, &part(end)) <= room_height + 0.001;
+        // A row asking to start later ends the part before it, kept rows
+        // above it included.
+        let limit = (next + 1..body.end)
+            .find(|&row| table.start(row).is_some())
+            .unwrap_or(body.end);
         let breaks = |end: usize, keeps: bool| {
-            end == body.end
-                || (!table.joined(end) && !(keeps && table.rows[end - 1].keep_with_next))
+            end == limit || (!table.joined(end) && !(keeps && table.rows[end - 1].keep_with_next))
         };
         let best = |keeps: bool| {
-            (next + 1..=body.end)
+            (next + 1..=limit)
                 .rev()
                 .find(|&end| breaks(end, keeps) && fits(end))
         };
@@ -324,6 +364,14 @@ fn split(
             previous = Some(room);
         }
         room += 1;
+        // The next part starts as its first row asks, after the last part.
+        if let (Some(policy), Some(last)) =
+            (table.start(next).filter(|_| next < body.end), previous)
+        {
+            while room < rooms.len() && !begins(policy, rooms, last, room) {
+                room += 1;
+            }
+        }
         height = rooms.get(room).map_or(0.0, |r| r.rect.height);
         fresh = true;
     }

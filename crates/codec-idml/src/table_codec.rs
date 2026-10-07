@@ -3,15 +3,60 @@
 //! document. Attribute names follow the public specification and the cell
 //! inset spelling InDesign writes (`TextTopInset` …); absent cell insets are
 //! the 4 pt InDesign's PDF of the public paged-media `tables` sample shows,
-//! absent edges InDesign's default 1 pt black. How the table breaks follows
-//! the specification's BreakHeaders, BreakFooters, SkipFirstHeader,
-//! SkipLastFooter and each row's KeepWithNextRow; a row StartRow other than
-//! Anywhere, and values the specification does not define, are reported and
-//! read as their defaults.
+//! absent edges InDesign's default 1 pt black. A cell's edge on the table's
+//! outside falls back to the table's border, and one inside to its
+//! alternating row or column strokes, as the specification names them. How
+//! the table breaks follows the specification's BreakHeaders, BreakFooters,
+//! SkipFirstHeader, SkipLastFooter and each row's KeepWithNextRow and
+//! StartRow; a StartRow on a row with no place of its own to start, stroke
+//! types other than solid, overprinted strokes and values the specification
+//! does not define are reported and read as their defaults.
 use crate::{import::Report, xml};
+use schist_layout::styles::ParagraphStart;
 use schist_layout::tables::{
-    Alternation, CellEdge, CellJustification, CellPaint, RepeatRows, Table, TableCell, TableRow,
+    Alternation, CellEdge, CellJustification, CellPaint, EdgeSource, RepeatRows, StrokeOrder,
+    Table, TableCell, TableRow,
 };
+
+/// A cell's sides in the order of its edges, as attribute name prefixes.
+const SIDES: [&str; 4] = ["Top", "Left", "Bottom", "Right"];
+
+/// The stroke type composition draws; others are reported.
+const SOLID: &str = "StrokeStyle/$ID/Solid";
+
+/// The attribute naming `kind` (Weight, Color, Tint, Type, Overprint) of the
+/// stroke whose attributes start `prefix` (`TopEdge`, `TopBorder`,
+/// `StartRow` …). The specification names the next column group's stroke
+/// type EndColumnLineStyle.
+fn stroke_attribute(prefix: &str, kind: &str) -> String {
+    if prefix == "EndColumn" && kind == "Type" {
+        "EndColumnLineStyle".into()
+    } else {
+        format!("{prefix}Stroke{kind}")
+    }
+}
+
+/// An alternating stroke pattern: the first `first` rows or columns take the
+/// first group's stroke, the next `next` the next group's, over and over,
+/// after the first `skip_first` and before the last `skip_last`.
+struct Strokes {
+    first: usize,
+    next: usize,
+    skip_first: usize,
+    skip_last: usize,
+}
+
+impl Strokes {
+    /// The group the row or column at `index` of `count` falls in: true for
+    /// the first, false for the next, None outside the pattern.
+    fn group(&self, index: usize, count: usize) -> Option<bool> {
+        let cycle = self.first + self.next;
+        if cycle == 0 || index < self.skip_first || index + self.skip_last >= count {
+            return None;
+        }
+        Some((index - self.skip_first) % cycle < self.first)
+    }
+}
 
 /// The root styles every table and cell style is ultimately based on.
 const NO_TABLE_STYLE: &str = "TableStyle/$ID/[No table style]";
@@ -163,9 +208,13 @@ fn table(
     let mut rows: Vec<TableRow> = Vec::new();
     for row in element.children_named("Row") {
         let height = number(row, &["SingleRowHeight"]).unwrap_or(20.0);
-        if let Some(start) = row.attr("StartRow").filter(|s| *s != "Anywhere") {
-            unapplied.insert(format!("StartRow={start}"));
-        }
+        let start = row.attr("StartRow").and_then(|value| {
+            let policy = ParagraphStart::from_native(value);
+            if policy.is_none() {
+                unapplied.insert(format!("StartRow={value}"));
+            }
+            policy.filter(|p| *p != ParagraphStart::Anywhere)
+        });
         rows.push(TableRow {
             height,
             minimum: number(row, &["MinimumHeight"]).unwrap_or(3.0),
@@ -175,6 +224,7 @@ fn table(
                 Some(value) => xml::parse_boolean(value)?,
             },
             keep_with_next: flag(row, "KeepWithNextRow", &mut unapplied),
+            start,
         });
     }
     let repeat = |attribute: &str, unapplied: &mut std::collections::BTreeSet<String>| match element
@@ -270,6 +320,43 @@ fn table(
     } else {
         None
     };
+    // Alternating strokes, as the table or its style counts them: row
+    // patterns over the body rows, column patterns over every column, as
+    // the specification's skip counts say and as fills alternate.
+    let strokes = |axis: &str| {
+        let count = |name: String| {
+            table_attr(&name)
+                .and_then(|v| v.parse::<usize>().ok())
+                .unwrap_or(0)
+        };
+        Strokes {
+            first: count(format!("Start{axis}StrokeCount")),
+            next: count(format!("End{axis}StrokeCount")),
+            skip_first: count(format!("SkipFirstAlternatingStroke{axis}s")),
+            skip_last: count(format!("SkipLastAlternatingStroke{axis}s")),
+        }
+    };
+    let (row_strokes, column_strokes) = (strokes("Row"), strokes("Column"));
+    // Space before and after the table, with the defaults InDesign's own
+    // exports write for [No table style] and the specification's Appendix C
+    // gives: 4 pt before and -4 pt after.
+    let space = |name: &str, default: f32| {
+        table_owners
+            .iter()
+            .find_map(|e| number(e, &[name]))
+            .unwrap_or(default)
+    };
+    let (space_before, space_after) = (space("SpaceBefore", 4.0), space("SpaceAfter", -4.0));
+    let stroke_order = match table_attr("StrokeOrder") {
+        None | Some("BestJoins") => StrokeOrder::BestJoins,
+        Some("RowOnTop") => StrokeOrder::RowOnTop,
+        Some("ColumnOnTop") => StrokeOrder::ColumnOnTop,
+        Some("Indesign2Compatibility") => StrokeOrder::InDesign2Compatibility,
+        Some(other) => {
+            unapplied.insert(format!("StrokeOrder={other}"));
+            StrokeOrder::BestJoins
+        }
+    };
     // The cell style a table region gives a cell: the header's or footer's
     // when not the body's, then the left or right column's, then the body's.
     let column_count = columns.len();
@@ -331,27 +418,90 @@ fn table(
                     .unwrap_or(1.0),
             })
         };
-        let edge = |side: &str, report: &mut Report| {
-            let color = format!("{side}EdgeStrokeColor");
-            let tint = format!("{side}EdgeStrokeTint");
-            let paint = if owner(styled, &color).is_some() {
-                paint(&color, &tint, report)
-            } else {
-                Some(CellPaint {
-                    ink: black.clone(),
-                    tint: owner(styled, &tint)
-                        .and_then(|e| crate::color_codec::tint(e, &tint, report))
-                        .unwrap_or(1.0),
-                })
+        let (last_row, last_column) = (row + rows_spanned - 1, column + columns_spanned - 1);
+        // Each attribute of an edge from the cell or its cell styles, else
+        // from the table or its style: its border on the table's outside,
+        // else the group of alternating strokes the edge's row or column
+        // falls in, whose defaults are those of [No table style] (1 pt
+        // first, 0.25 pt next, black); else InDesign's 1 pt black.
+        let edge = |side: usize,
+                    report: &mut Report,
+                    unapplied: &mut std::collections::BTreeSet<String>| {
+            let name = SIDES[side];
+            let table: Option<(String, f32)> = match side {
+                0 if row == 0 => Some((format!("{name}Border"), 1.0)),
+                2 if last_row + 1 == rows.len() => Some((format!("{name}Border"), 1.0)),
+                1 if column == 0 => Some((format!("{name}Border"), 1.0)),
+                3 if last_column + 1 == column_count => Some((format!("{name}Border"), 1.0)),
+                0 | 2 => {
+                    let at = if side == 0 { row } else { last_row };
+                    (header..header + body)
+                        .contains(&at)
+                        .then(|| row_strokes.group(at - header, body))
+                        .flatten()
+                        .map(|first| {
+                            if first {
+                                ("StartRow".into(), 1.0)
+                            } else {
+                                ("EndRow".into(), 0.25)
+                            }
+                        })
+                }
+                _ => {
+                    let at = if side == 1 { column } else { last_column };
+                    column_strokes.group(at, column_count).map(|first| {
+                        if first {
+                            ("StartColumn".into(), 1.0)
+                        } else {
+                            ("EndColumn".into(), 0.25)
+                        }
+                    })
+                }
             };
-            let weight = format!("{side}EdgeStrokeWeight");
+            let own = format!("{name}Edge");
+            let mut source = if table.is_some() {
+                EdgeSource::Table
+            } else {
+                EdgeSource::Default
+            };
+            // The element stating `kind` and the attribute it states it in.
+            let mut find = |kind: &str, stated: bool| {
+                let attribute = stroke_attribute(&own, kind);
+                if let Some(e) = owner(styled, &attribute) {
+                    if stated {
+                        source = EdgeSource::Cell;
+                    }
+                    return Some((e, attribute));
+                }
+                let attribute = stroke_attribute(&table.as_ref()?.0, kind);
+                owner(&table_owners, &attribute).map(|e| (e, attribute))
+            };
+            let weight = find("Weight", true)
+                .and_then(|(e, attribute)| number(e, &[&attribute]))
+                .unwrap_or(table.as_ref().map_or(1.0, |t| t.1))
+                .max(0.0);
+            let ink = match find("Color", true) {
+                Some((e, attribute)) => crate::color_codec::resolve(e, &attribute, colors, report),
+                None => Some(black.clone()),
+            };
+            let tint = find("Tint", true)
+                .and_then(|(e, attribute)| crate::color_codec::tint(e, &attribute, report))
+                .unwrap_or(1.0);
+            if let Some((e, attribute)) = find("Type", true) {
+                let value = e.attr(&attribute).unwrap_or_default();
+                if value != SOLID {
+                    unapplied.insert(format!("{attribute}={value}"));
+                }
+            }
+            if let Some((e, attribute)) = find("Overprint", false) {
+                if e.attr(&attribute).and_then(xml::parse_boolean) == Some(true) {
+                    unapplied.insert(format!("{attribute}=true"));
+                }
+            }
             CellEdge {
-                weight: styled
-                    .iter()
-                    .find_map(|e| number(e, &[&weight]))
-                    .unwrap_or(1.0)
-                    .max(0.0),
-                paint,
+                weight,
+                paint: ink.map(|ink| CellPaint { ink, tint }),
+                source,
             }
         };
         let inset = |name: &str| {
@@ -388,10 +538,10 @@ fn table(
                 Some(_) => return None,
             },
             edges: [
-                edge("Top", report),
-                edge("Left", report),
-                edge("Bottom", report),
-                edge("Right", report),
+                edge(0, report, &mut unapplied),
+                edge(1, report, &mut unapplied),
+                edge(2, report, &mut unapplied),
+                edge(3, report, &mut unapplied),
             ],
         });
         stories.push(story);
@@ -408,9 +558,21 @@ fn table(
         skip_last_footer,
         row_fills,
         column_fills,
+        space_before,
+        space_after,
+        stroke_order,
     };
     if !table.valid() {
         return None;
+    }
+    // A header or footer row below the first, or a body row a cell spans
+    // into, has no place of its own to start.
+    let first_body = table.body().start;
+    for (index, row) in table.rows.iter().enumerate() {
+        let applies = index == 0 || index == first_body || table.start(index).is_some();
+        if let Some(policy) = row.start.filter(|_| !applies) {
+            unapplied.insert(format!("StartRow={}", policy.native_name()));
+        }
     }
     for setting in unapplied {
         report.skip(schist_i18n::tf!(
