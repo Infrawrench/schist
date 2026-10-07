@@ -678,6 +678,11 @@ impl LayoutDocument {
             add(&object.appearance.paint.fill_ink().cloned());
             add(&object.appearance.paint.stroke_ink().cloned());
             add(&object.appearance.paint.gap_ink().cloned());
+            add(&object
+                .appearance
+                .drop_shadow
+                .as_ref()
+                .and_then(|shadow| shadow.color.clone()));
             for stop in object
                 .appearance
                 .paint

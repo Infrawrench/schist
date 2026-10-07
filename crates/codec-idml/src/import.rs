@@ -701,6 +701,13 @@ pub(crate) fn placed_object(
         report,
     );
     placed.appearance.text_wrap = crate::text_wrap_codec::read(element, &placed.name, report);
+    let label = element
+        .attr("Name")
+        .filter(|n| !n.is_empty() && *n != "$ID/")
+        .or_else(|| element.attr("Self"))
+        .unwrap_or_default();
+    (placed.appearance.blend_mode, placed.appearance.drop_shadow) =
+        crate::effects_codec::read(element, colors, label, report);
     placed.appearance.ignore_wrap =
         matches!(
             placed.object,
@@ -923,6 +930,15 @@ fn page_items<'a>(
     for child in &root.children {
         if child.name == "Group" {
             report.skip(schist_i18n::t("design.idml_group_flattened"));
+            crate::effects_codec::report_group(
+                child,
+                child
+                    .attr("Name")
+                    .filter(|n| !n.is_empty() && *n != "$ID/")
+                    .or_else(|| child.attr("Self"))
+                    .unwrap_or_default(),
+                report,
+            );
             if child
                 .child("TextWrapPreference")
                 .and_then(|w| w.attr("TextWrapMode"))

@@ -304,6 +304,12 @@ pub struct ObjectAppearance {
     /// A text frame resized to fit its text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub auto_size: Option<crate::auto_size::AutoSize>,
+    /// How the item blends with what lies beneath it; None is Normal.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub blend_mode: Option<crate::effects::BlendMode>,
+    /// The drop shadow the item casts.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub drop_shadow: Option<crate::effects::DropShadow>,
 }
 
 impl StyleSet {
@@ -600,7 +606,12 @@ impl PlacedObject {
         }
         let mut out = self.clone();
         out.object = paint.shape(path);
-        out.appearance = ObjectAppearance::default();
+        // The frame's fill and stroke blend as the frame does; its shadow is
+        // cast by the whole frame, not by each.
+        out.appearance = ObjectAppearance {
+            blend_mode: self.appearance.blend_mode,
+            ..Default::default()
+        };
         // A gradient and the stroke options are read from the paint-ready
         // appearance.
         out.appearance.paint = if paint.gradients().next().is_some() {

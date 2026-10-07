@@ -31,6 +31,7 @@ pub mod container;
 mod creation_codec;
 pub mod designmap;
 mod drop_cap_codec;
+mod effects_codec;
 pub mod error;
 pub mod export;
 mod footnote_codec;

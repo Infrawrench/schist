@@ -295,9 +295,20 @@ fn paint_object(window: &mut Window, frame: &PasteboardFrame, object: &Display) 
             stroke_gradient,
             stroke_options,
             gap,
+            shadow,
             transform,
             ..
         } => {
+            if let Some(shadow) = shadow {
+                paint_shadow(
+                    window,
+                    frame.bounds,
+                    path,
+                    fill.is_some() || gradient.is_some(),
+                    stroke.map(|(_, width)| width),
+                    shadow,
+                );
+            }
             let fill = Fill {
                 color: *fill,
                 gradient: gradient.as_deref(),
@@ -733,6 +744,90 @@ fn paint_aligned(
             [rgb[0], rgb[1], rgb[2], alpha].map(|v| (v.clamp(0.0, 1.0) * 255.0).round() as u8),
         );
     }
+    if let Some(image) =
+        image::RgbaImage::from_raw(rect.width() as u32, rect.height() as u32, pixels)
+    {
+        let image = super::graphics::render_image(image);
+        let target = Bounds::new(
+            gpoint(&bounds, Point::new(rect.left as f32, rect.top as f32)),
+            gpui::size(px(rect.width() as f32), px(rect.height() as f32)),
+        );
+        let _ = window.paint_image(target, Corners::default(), image, 0, false);
+    }
+}
+
+/// Paint a drop shadow: the shape's fill and stroke moved by its offset,
+/// blurred and laid in its colour, as output casts it.
+fn paint_shadow(
+    window: &mut Window,
+    bounds: Bounds<Pixels>,
+    shape: &schist_layout::ShapePath,
+    filled: bool,
+    stroke: Option<f32>,
+    shadow: &schist_layout::pasteboard::ShapeShadow,
+) {
+    let mut moved = shape.clone();
+    moved.map_points(|p| Point::new(p.x + shadow.offset.x, p.y + shadow.offset.y));
+    let path = moved.flatten(0.25);
+    let outline = stroke
+        .filter(|width| *width > 0.0)
+        .map(|width| schist_vector::stroke_path(&path, StrokeOptions::default().style(width)));
+    let reach = (3.0 * shadow.sigma).ceil() as i32 + 1;
+    let area = outline.as_ref().map_or(path.bounds(), |o| o.bounds());
+    let clip = schist_core::IntRect::new(
+        0,
+        0,
+        f32::from(bounds.size.width).ceil() as i32,
+        f32::from(bounds.size.height).ceil() as i32,
+    );
+    let rect = schist_core::IntRect::new(
+        area.left - reach,
+        area.top - reach,
+        area.right + reach,
+        area.bottom + reach,
+    )
+    .intersect(&clip);
+    if rect.width() <= 0
+        || rect.height() <= 0
+        || i64::from(rect.width()) * i64::from(rect.height()) > 16_000_000
+    {
+        return;
+    }
+    let rule = if shape.even_odd {
+        schist_vector::FillRule::EvenOdd
+    } else {
+        schist_vector::FillRule::NonZero
+    };
+    let (width, height) = (rect.width() as usize, rect.height() as usize);
+    let mut alpha = vec![0.0f32; width * height];
+    if filled {
+        for (a, c) in alpha
+            .iter_mut()
+            .zip(schist_vector::rasterize(&path, rect, rule))
+        {
+            *a = f32::from(c) / 255.0;
+        }
+    }
+    if let Some(outline) = &outline {
+        let coverage = schist_vector::rasterize(outline, rect, schist_vector::FillRule::NonZero);
+        for (a, c) in alpha.iter_mut().zip(coverage) {
+            let c = f32::from(c) / 255.0;
+            *a += c * (1.0 - *a);
+        }
+    }
+    schist_layout::effects::blur(&mut alpha, width, height, shadow.sigma);
+    let [r, g, b, a] = shadow.color.map(|v| v.clamp(0.0, 1.0));
+    let pixels = alpha
+        .into_iter()
+        .flat_map(|value| {
+            [
+                (r * 255.0).round() as u8,
+                (g * 255.0).round() as u8,
+                (b * 255.0).round() as u8,
+                (value * a * 255.0).round().clamp(0.0, 255.0) as u8,
+            ]
+        })
+        .collect();
     if let Some(image) =
         image::RgbaImage::from_raw(rect.width() as u32, rect.height() as u32, pixels)
     {

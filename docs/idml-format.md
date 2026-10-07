@@ -520,6 +520,40 @@ Triple, the hashes, Wavy, White Diamond), whose look the specification only
 names, are kept, saved with their declaration, drawn solid and reported, as are
 arrowheads.
 
+### Blend modes and drop shadows
+
+An item's TransparencySetting BlendingSetting BlendMode and its
+DropShadowSetting are read, drawn and saved with its opacity. The public
+[`effects` PDF](https://github.com/paged-media/core/blob/ffb7c8713125dc77403ec0983099f74ac2558517/corpus/generated/effects.pdf) (SHA-256 `ac21a8ce…c0260`)
+and its [generator](https://github.com/paged-media/core/blob/ffb7c8713125dc77403ec0983099f74ac2558517/crates/paged-gen/src/samples/effects.rs) write each
+item's blend mode as PDF's own, so Schist blends as PDF does: plate by plate,
+on each ink's complement, so Multiply keeps the inks beneath and adds its own,
+Screen and Lighten clear toward paper, and Darken keeps the darker of each; the
+composite blends the same way. Hue, Saturation, Color and Luminosity mix across
+channels; they are drawn Normal and reported.
+
+The same PDF draws a drop shadow as the effect colour, at the shadow's opacity
+and blend mode, through a soft mask: the item's shape moved right and down by
+XOffset and YOffset and blurred. Page 10's paper rectangle, 240 × 140 pt with a
+6 pt offset and size, masks its shadow with a 200 ppi image whose edge passes
+half-strength within 0.2 pt of the moved rectangle; across sizes of 6 and 24 pt
+that edge is one curve scaled by the size, a Gaussian of deviation half the size
+to within 1.2 %, its tails cut about 1.2 sizes out. Schist casts the shadow from
+everything the item paints, paper included, blurs it with three box blurs of
+that deviation (within 0.03 of the measured curve) and lays it beneath the item
+in the effect colour (black for `n`), at the shadow's opacity and the item's.
+KnockedOut, the default, hides the shadow wherever the item's shape covers,
+which shows when the item is transparent. The specification's defaults apply to
+attributes not stated: Multiply, 75 %, 7 pt right and down, 5 pt soft. On the
+canvas a shape casts its shadow from its fill and stroke and a frame from its
+fill, or its stroke without one; text and images alone cast none there, and
+blend modes draw Normal. Spread and Noise are kept and reported. Other effects
+(inner shadow, outer and inner glow, bevel and emboss, satin, feather,
+directional and gradient feather), knockout and isolation groups, fill, stroke
+and content transparency, and a group's own effects are reported when applied;
+at InDesign's defaults, as its exports write them on every item, they say
+nothing. One key is added to all 150 catalogs.
+
 ### Text frame auto-size
 
 A text frame's AutoSizingType, AutoSizingReferencePoint, minimum height and

@@ -10,13 +10,13 @@
 //! [`schist_core::InkChannel`] plates for delivery as PSD/PSB or a
 //! prepress file.
 
-use schist_core::InkChannel;
+use schist_core::{InkChannel, IntRect};
 use schist_layout::compose::compose_object;
 use schist_layout::ink::InkManager;
 use schist_layout::model::{LayoutDocument, LayoutObject, PlacedObject};
 
 use crate::build::{CmykSource, NaiveBuild};
-use crate::coverage::{InkMode, PlateCoverage, Separation};
+use crate::coverage::{Coverage, InkMode, PlateCoverage, Separation};
 use crate::geometry::{OutputSettings, PagePixel};
 use crate::plan::PlatePlan;
 use crate::raster::{graphic_coverage, tinted_coats_for, GraphicSource, NoGraphics};
@@ -557,6 +557,126 @@ fn paint_object<'a>(
     page: &schist_layout::Page,
     source: &dyn GraphicSource,
 ) -> Option<PaintFailure<'a>> {
+    if let Some(shadow) = &placed.appearance.drop_shadow {
+        paint_shadow(
+            separation, plan, doc, placed, shadow, settings, page, source,
+        );
+    }
+    paint_body(separation, plan, doc, placed, settings, page, source)
+}
+
+/// The ink rule an item's blend mode gives it. Blends that mix hue,
+/// saturation or luminosity across channels are drawn Normal.
+fn blended(mode: Option<schist_layout::effects::BlendMode>) -> InkMode {
+    match mode {
+        Some(mode) if mode != schist_layout::effects::BlendMode::Normal && mode.separable() => {
+            InkMode::Blend(mode)
+        }
+        _ => InkMode::Knockout,
+    }
+}
+
+/// Cast `placed`'s drop shadow beneath it: what its paint covers, inks and
+/// paper alike, moved by the shadow's offsets, blurred to its size and laid
+/// in its colour at its opacity and blend. Knocked out, the item hides the
+/// shadow wherever it covers, which shows when the item is transparent.
+#[allow(clippy::too_many_arguments)]
+fn paint_shadow(
+    separation: &mut Separation,
+    plan: &mut PlatePlan,
+    doc: &LayoutDocument,
+    placed: &PlacedObject,
+    shadow: &schist_layout::effects::DropShadow,
+    settings: OutputSettings,
+    page: &schist_layout::Page,
+    source: &dyn GraphicSource,
+) {
+    let rect = separation.rect();
+    // The shape is the item's, opaque: its opacity fades the shadow once,
+    // as it is laid.
+    let mut opaque = placed.clone();
+    opaque.transparency = 1.0;
+    let mut capture = Separation::alpha_capture(rect);
+    let _ = paint_body(
+        &mut capture,
+        &mut plan.clone(),
+        doc,
+        &opaque,
+        settings,
+        page,
+        source,
+    );
+    let Some(alpha) = capture.alpha() else {
+        return;
+    };
+    // Only the part of the page the item covers casts anything.
+    let width = rect.width().max(0) as usize;
+    let (mut left, mut top, mut right, mut bottom) = (i32::MAX, i32::MAX, i32::MIN, i32::MIN);
+    for (index, value) in alpha.data.iter().enumerate() {
+        if *value > 0.0 {
+            let x = rect.left + (index % width) as i32;
+            let y = rect.top + (index / width) as i32;
+            left = left.min(x);
+            top = top.min(y);
+            right = right.max(x + 1);
+            bottom = bottom.max(y + 1);
+        }
+    }
+    if left >= right {
+        return;
+    }
+    let scale = settings.scale();
+    let dx = (shadow.x_offset * scale).round() as i32;
+    let dy = (shadow.y_offset * scale).round() as i32;
+    let sigma = (shadow.size / 2.0 * scale).max(0.0);
+    let margin = (3.0 * sigma).ceil() as i32 + 1;
+    let area = IntRect::new(
+        left + dx - margin,
+        top + dy - margin,
+        right + dx + margin,
+        bottom + dy + margin,
+    )
+    .intersect(&rect);
+    if area.is_empty() {
+        return;
+    }
+    let (w, h) = (area.width() as usize, area.height() as usize);
+    let mut data = vec![0.0f32; w * h];
+    for y in 0..h {
+        for x in 0..w {
+            let (px, py) = (area.left + x as i32, area.top + y as i32);
+            data[y * w + x] = alpha.at(px - dx, py - dy);
+        }
+    }
+    schist_layout::effects::blur(&mut data, w, h, sigma);
+    let mut mask = Coverage::new(area);
+    for y in 0..h {
+        for x in 0..w {
+            let (px, py) = (area.left + x as i32, area.top + y as i32);
+            let mut value = data[y * w + x] * shadow.opacity.clamp(0.0, 1.0);
+            if shadow.knocked_out {
+                value *= 1.0 - alpha.at(px, py);
+            }
+            mask.data[y * w + x] = (value.clamp(0.0, 1.0) * 255.0).round() as u8;
+        }
+    }
+    let (coats, build) = tinted_coats_for(plan, &shadow.ink(), 1.0);
+    let mode = blended(Some(shadow.blend));
+    let opacity = placed.transparency.clamp(0.0, 1.0);
+    separation.paint(&mask, &coats, mode, opacity);
+    separation.paint_composite(&mask, &coats, &build, mode, opacity);
+}
+
+/// Paint an object's frame fill, content and frame stroke.
+fn paint_body<'a>(
+    separation: &mut Separation,
+    plan: &mut PlatePlan,
+    doc: &LayoutDocument,
+    placed: &'a PlacedObject,
+    settings: OutputSettings,
+    page: &schist_layout::Page,
+    source: &dyn GraphicSource,
+) -> Option<PaintFailure<'a>> {
     if let Some(fill) = placed.frame_paint(false) {
         paint_object_content(separation, plan, doc, &fill, settings, page, source);
     }
@@ -588,7 +708,7 @@ fn paint_object_content<'a>(
     let mode = if placed.overprint {
         InkMode::Overprint
     } else {
-        InkMode::Knockout
+        blended(placed.appearance.blend_mode)
     };
     let opacity = placed.transparency.clamp(0.0, 1.0);
 

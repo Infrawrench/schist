@@ -398,9 +398,3 @@ pub fn opacity(el: &Element) -> f32 {
         .map(|v| (v / 100.0).clamp(0.0, 1.0))
         .unwrap_or(1.0)
 }
-pub fn transparency(opacity: f32) -> String {
-    format!(
-        r#"<TransparencySetting><BlendingSetting Opacity="{}"/></TransparencySetting>"#,
-        opacity.clamp(0.0, 1.0) * 100.0
-    )
-}

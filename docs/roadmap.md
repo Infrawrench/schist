@@ -310,6 +310,35 @@ are marked.
 
 ## Handoff
 
+Blend modes and drop shadows, 2026-10-07:
+Items blend with what lies beneath them as their BlendMode says, plate by plate
+on each ink's complement as PDF blends subtractive colour, and cast drop
+shadows: everything the item paints, paper included, moved by the shadow's
+offsets, blurred to its size and laid beneath in its colour at its opacity and
+blend. InDesign's PDF of the public paged-media `effects` sample masks its
+shadows with one edge curve scaled by the size, a Gaussian of deviation half the
+size, which three box blurs follow to within 0.03. The canvas casts shadows from
+shapes and frame fills and strokes; blend modes draw Normal there. Effects
+Schist does not draw, which imports used to drop silently, are now reported.
+
+The source-frozen sweep of all 16 roadmap targets, headless library wasm, shared
+UI, formatting, whitespace and the debug app build passes on Windows with **2,341
+distinct passing Rust tests**, 10 new (4 layout, 3 separation, 3 IDML), and no
+corrections; all 43 proofs are byte-identical.
+
+Native review used a passive capture of the actual debug app with Design enabled
+and isolated configuration, on a package with a cyan band under five 50 %
+magenta rectangles in Normal, Multiply, Screen, Darken and Lighten, a paper
+rectangle casting the sample's shadow (6 pt right and down, 6 pt soft, 75 %
+black) and the label frame filled pale under an 18 pt magenta shadow. The canvas
+draws both shadows soft, offset down and right, and the magenta rectangles
+Normal, as documented; nothing is reported unread. The plates' blends are
+checked by the separation tests. All 43 proofs are byte-identical.
+
+Next: the remaining item 9 gaps (other effects, arrowheads, vertical-text
+anchors and wrap), then output validation. Published to draft PR #195.
+
+
 Text frame auto-size, 2026-10-07:
 Text frames read and save their auto-size settings and fit their text when they
 are opened and after every edit, the fit folding into the edit's undo step: a
@@ -338,8 +367,7 @@ beside the grown box and returns below it, as InDesign's PDF draws them, line
 breaks aside (the sample's Inter is not installed here). All 43 proofs are
 byte-identical.
 
-Next: arrowheads on item strokes, effects such as drop shadows (still reported),
-then the remaining item 9 gaps. Published to draft PR #195.
+Next: effects, the batch above. Published to draft PR #195.
 
 
 Item stroke types, gradient strokes and text, table borders, 2026-10-07:

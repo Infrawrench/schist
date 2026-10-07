@@ -577,7 +577,7 @@ fn object_native_xml(
                 let bounds_label = crate::text_path_codec::bounds_label(path, rect);
                 let child =
                     crate::text_path_codec::write(path, &id, &story_id, &previous, &next, warnings);
-                let opacity = crate::color_codec::transparency(object.transparency);
+                let opacity = crate::effects_codec::write(object);
                 return format!(
                     r#"<Polygon Self="{id}" Name="{name}" {transform} Locked="{locked}"{paint} ContentType="Unassigned"><Properties>{geometry}{bounds_label}</Properties>{child}{opacity}</Polygon>"#
                 );
@@ -603,7 +603,7 @@ fn object_native_xml(
             ));
             out.push_str("</TextFramePreference>");
             out.push_str(&crate::footnote_codec::write_frame(footnotes, warnings));
-            out.push_str(&crate::color_codec::transparency(object.transparency));
+            out.push_str(&crate::effects_codec::write(object));
             out.push_str("</TextFrame>");
             out
         }
@@ -612,7 +612,7 @@ fn object_native_xml(
             if path.even_odd {
                 warnings.push(schist_i18n::tf!("design.idml_even_odd", name = object.name));
             }
-            let opacity = crate::color_codec::transparency(object.transparency);
+            let opacity = crate::effects_codec::write(object);
             format!(
                 r#"<Polygon Self="{id}" Name="{name}" {transform} Locked="{locked}"{paint} ContentType="Unassigned"><Properties>{geometry}</Properties>{opacity}</Polygon>"#
             )

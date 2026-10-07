@@ -240,6 +240,43 @@ impl StrokeOptions {
     }
 }
 
+/// A drop shadow on the canvas: the paint's shape moved by `offset` and
+/// blurred by a Gaussian of deviation `sigma`, both in pasteboard pixels,
+/// in `color` at its opacity.
+#[derive(Debug, Clone, PartialEq)]
+pub struct ShapeShadow {
+    pub offset: Point,
+    pub sigma: Pt,
+    pub color: [f32; 4],
+}
+
+impl ShapeShadow {
+    fn of(object: &crate::PlacedObject, view: &PasteboardView) -> Option<Box<Self>> {
+        let shadow = object.appearance.drop_shadow.as_ref()?;
+        let rgb = shadow.ink().preview_at_tint(1.0);
+        Some(Box::new(Self {
+            offset: Point::new(shadow.x_offset * view.scale, shadow.y_offset * view.scale),
+            sigma: shadow.size / 2.0 * view.scale,
+            color: [
+                rgb[0],
+                rgb[1],
+                rgb[2],
+                shadow.opacity.clamp(0.0, 1.0) * object.transparency,
+            ],
+        }))
+    }
+}
+
+impl Display {
+    /// This shape display, casting `shadow` when it is given one.
+    fn casting(mut self, shadow: Option<Box<ShapeShadow>>) -> Self {
+        if let (Display::Shape { shadow: own, .. }, Some(shadow)) = (&mut self, shadow) {
+            *own = Some(shadow);
+        }
+        self
+    }
+}
+
 /// A gradient a shape is filled or stroked with, for a painter: the fill,
 /// the bounds of the path it runs over, and the map from pasteboard space
 /// back to the path's own coordinates.
@@ -387,6 +424,8 @@ pub enum Display {
         stroke_options: StrokeOptions,
         /// What fills the gaps of a dashed, dotted or striped stroke.
         gap: Option<[f32; 4]>,
+        /// The drop shadow this paint casts beneath it.
+        shadow: Option<Box<ShapeShadow>>,
         overprint: bool,
     },
     /// A placed graphic; pixel resolution belongs to the editor.
@@ -737,8 +776,15 @@ fn objects_for(
             view.scale,
             view.to_pasteboard(offset),
         );
+        // A frame's shadow is cast from its fill, or its stroke without one;
+        // text and images alone cast none on the canvas.
+        let mut shadow = ShapeShadow::of(&object, view)
+            .filter(|_| !matches!(object.object, LayoutObject::Shape { .. }));
         if let Some(fill) = object.frame_paint(false) {
-            out.extend(shape_display(doc, &fill, view, offset, inherited, false));
+            out.extend(
+                shape_display(doc, &fill, view, offset, inherited, false)
+                    .map(|display| display.casting(shadow.take())),
+            );
         }
         match &object.object {
             LayoutObject::TextFrame {
@@ -783,6 +829,7 @@ fn objects_for(
                             stroke_gradient: None,
                             stroke_options: StrokeOptions::default(),
                             gap: None,
+                            shadow: None,
                             overprint: rule.overprint,
                         });
                     }
@@ -985,7 +1032,10 @@ fn objects_for(
             }
         }
         if let Some(stroke) = object.frame_paint(true) {
-            out.extend(shape_display(doc, &stroke, view, offset, inherited, false));
+            out.extend(
+                shape_display(doc, &stroke, view, offset, inherited, false)
+                    .map(|display| display.casting(shadow.take())),
+            );
         }
         if !matches!(
             object.object,
@@ -1323,6 +1373,7 @@ fn shape_display(
             let rgb = ink.preview_at_tint(tints.fill);
             [rgb[0], rgb[1], rgb[2], object.transparency]
         }),
+        shadow: ShapeShadow::of(object, view),
         gradient,
         stroke: stroke.map(|rgb| {
             (

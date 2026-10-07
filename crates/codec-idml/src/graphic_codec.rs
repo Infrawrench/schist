@@ -374,7 +374,7 @@ pub(crate) fn write(
         rect_geometry(&frame)
     };
     let uri = file_uri(&link.path);
-    let opacity = crate::color_codec::transparency(object.transparency);
+    let opacity = crate::effects_codec::write(object);
     let paint = crate::object_style_codec::object_attributes(object);
     let state = if *embedded { "Embedded" } else { "Normal" };
     Some(format!(

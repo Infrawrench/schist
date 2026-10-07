@@ -28,6 +28,7 @@ pub mod decorations;
 pub mod directional_features;
 pub mod drop_caps;
 pub mod edit;
+pub mod effects;
 pub mod footnote_composition;
 pub mod footnotes;
 pub mod frame_text;
