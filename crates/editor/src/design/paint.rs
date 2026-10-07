@@ -360,7 +360,7 @@ fn paint_object(window: &mut Window, frame: &PasteboardFrame, object: &Display) 
                             frame.bounds,
                             path,
                             fill,
-                            ([0.0; 4], &outline(*width), &outline(*width * 2.0)),
+                            (Fill::default(), &outline(*width), &outline(*width * 2.0)),
                             stroke_options.alignment == StrokeAlignment::Inside,
                         );
                     } else {
@@ -375,13 +375,7 @@ fn paint_object(window: &mut Window, frame: &PasteboardFrame, object: &Display) 
                             None,
                         );
                     }
-                    paint_shape(
-                        window,
-                        frame.bounds,
-                        &back(pattern.ink),
-                        Fill::solid(*color),
-                        None,
-                    );
+                    paint_shape(window, frame.bounds, &back(pattern.ink), stroke_fill, None);
                     return;
                 }
                 match stroke_options.alignment {
@@ -760,6 +754,14 @@ struct Fill<'a> {
 }
 
 impl Fill<'_> {
+    /// A flat colour.
+    fn solid(color: [f32; 4]) -> Self {
+        Self {
+            color: Some(color),
+            gradient: None,
+        }
+    }
+
     /// The colour at canvas point (x, y).
     fn at(&self, x: f32, y: f32) -> Option<[f32; 4]> {
         match (self.gradient, self.color) {
