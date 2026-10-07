@@ -420,8 +420,43 @@ is applied as the exponent that mixes evenly there, a Schist reading.
 Plates and the composite take each pixel's mix of its two stops' inks, knocked
 out or overprinted as the item's fill is; the canvas draws the same mix. A
 radial gradient's offset highlight (GradientFillHiliteLength) is reported and not
-drawn. Gradient strokes and gradient text fills are reported as unsupported
-colours, as before.
+drawn.
+
+### Gradient strokes and gradient text
+
+An item's StrokeColor naming a gradient swatch strokes it with the gradient, run
+where its GradientStrokeStart, GradientStrokeLength and GradientStrokeAngle say,
+in the item's own path coordinates as a fill's are; stating no start it begins
+at the path's left and bottom edges and runs its width. The stroke keeps a solid
+stroke's band, centred, inside or outside, and each pixel takes the mix where it
+falls, so a centred stroke continues its end stops beyond the path. A stroke's
+offset highlight (GradientStrokeHiliteLength) is reported as a fill's is, and
+saving writes the stroke back. No public sample strokes with a gradient: of the
+58 InDesign-exported PDFs of the public paged-media corpus at
+[ffb7c871](https://github.com/paged-media/core/tree/ffb7c8713125dc77403ec0983099f74ac2558517/corpus/generated),
+only the [`gradients`
+PDF](https://github.com/paged-media/core/blob/ffb7c8713125dc77403ec0983099f74ac2558517/corpus/generated/gradients.pdf)
+(SHA-256 `7966be59…f4e9`) holds shadings, five, each filling one rectangle, and
+its
+[generator](https://github.com/paged-media/core/blob/ffb7c8713125dc77403ec0983099f74ac2558517/crates/paged-gen/src/samples/gradients.rs)
+applies gradients only to those fills. Strokes therefore follow the
+specification's Table 68, which describes the stroke's start, length and angle
+in the words it uses for the fill's, read as the fill evidence reads them.
+
+Text whose FillColor or StrokeColor names a gradient (in a character or
+paragraph style or a local range) is filled or stroked with it in output and on
+the canvas, and saved; an underline or strikethrough in the text's own colour
+takes the gradient too. Text has no path of its own, so the gradient runs over
+the frame the text is set in, from its left and bottom edges over its width,
+each glyph showing the part it sits on; no public sample sets text in a
+gradient, so this is a Schist reading consistent with fills. The specification's
+Table 104 gives text a GradientFillStart, Length and Angle, and its Appendix C
+defaults are a start of "0 0" with a length of -1, as every TextDefault and
+default paragraph style in the repository's seven fixtures writes; Schist reads
+that length as stating no vector. A stated length and angle are drawn; a stated
+start is kept and saved but reported and not drawn, being in an InDesign frame's
+coordinates Schist does not keep. The gradient's first stop stands in as the
+text's ink for anything drawing solid colour.
 
 ### Stroke caps, joins and alignment
 
@@ -440,7 +475,50 @@ and joins. So an inside or outside stroke moves the path half its weight for the
 fill and the stroke alike: inside, the fill loses the inner half of a centred
 stroke's band and the stroke is the inner side of a band twice as wide; outside,
 the fill gains the outer half and the stroke is the outer side. Open paths stay
-centred. Non-solid stroke types and arrowheads are still reported.
+centred. Arrowheads are still reported.
+
+### Item stroke types
+
+An item's StrokeType names a stroke style its package declares in Graphic.xml,
+locally or from an object style's Stroke and Corner Options category, and is
+drawn in output and on the canvas and saved: custom DashedStrokeStyle,
+DottedStrokeStyle and StripedStrokeStyle resources, the ones text decorations
+use (dash and gap lengths in points with their EndCap and
+StrokeCornerAdjustment, dot spacing centre to centre with dots as wide as the
+stroke, stripes as start and end percentages of the weight), and the built-in
+`$ID/Dashed`, which dashes with the item's own StrokeDashAndGap, EndCap and
+StrokeCornerAdjustment as the specification's page item table describes them,
+and is solid without dashes. GapColor, GapTint and OverprintGap fill the rest of
+the band a solid stroke covers with their own ink, as decoration gaps do;
+without a gap colour the gaps are clear. The path is unchanged: dashes start at
+each contour's first point and run on round it, joining round corners with the
+item's join, and an inside or outside stroke is laid along the path moved half
+its weight. Fitted, each stretch between corners and ends has a dash at both
+ends, as straight decorations are fitted, so two dashes meet and join at every
+corner; a closed contour without corners fits whole cycles. Stripes run across
+the stroke from the edge on its left as the path runs, the outside of a
+clockwise frame, and mitre at corners. Saving writes the reference, the dash
+attributes and the gap paint, and declares in Graphic.xml any built-in style an
+item names.
+
+A reference the package does not declare strokes solid. The public
+[`strokes-fills`
+PDF](https://github.com/paged-media/core/blob/ffb7c8713125dc77403ec0983099f74ac2558517/corpus/generated/strokes-fills.pdf)
+(SHA-256 `6930e9d6…d036`) and its
+[generator](https://github.com/paged-media/core/blob/ffb7c8713125dc77403ec0983099f74ac2558517/crates/paged-gen/src/samples/strokes_fills.rs)
+show it: pages 11 to 14 give 200 × 100 pt rectangles 6 pt black strokes of type
+`StrokeStyle/$ID/Dashed`, `$ID/Dotted`, `$ID/Canned Dotted` and `$ID/Japanese
+Dots`, none declared in that package's Graphic.xml, and InDesign strokes each
+exactly as page 10's `$ID/Solid`: `re 197.638 370.945 200 100`, `6 w`, `4 M`,
+`S`, with no dash array. The sample's striped, wavy and gap-coloured dashed
+styles are declared in Styles.xml with attributes the specification does not
+define and have no reference pages, and no corpus PDF draws a dash array, so
+dash phase, fitting, stripe sides, the gap band and patterned alignment are
+readings of the specification, not measurements. Other built-in styles (Japanese
+Dots, Canned Dotted, Canned Dashed 3x2 and 4x4, the Thick and Thin family,
+Triple, the hashes, Wavy, White Diamond), whose look the specification only
+names, are kept, saved with their declaration, drawn solid and reported, as are
+arrowheads.
 
 ### A frame's stroke and corner options
 
@@ -1074,8 +1152,9 @@ TextFrame and image-frame inline fill/stroke now reach both preview and output.
 Text frame paths are normalized to the frame; cubic outlines survive save/load and
 shape the frame's text (see Text in shaped frames). Image frame
 paint follows its existing clip_path. Unsupported enabled style categories,
-non-solid strokes, arrowheads and decorative corners are diagnosed; stroke and
-corner options are drawn (see A frame's stroke and corner options). No native application visual comparison
+arrowheads, built-in stroke styles Schist draws solid and decorative corners are
+diagnosed; stroke options, stroke types and corner options are drawn (see Item
+stroke types and A frame's stroke and corner options). No native application visual comparison
 has been performed for this addition.
 
 Unstyled legacy shapes retain their original paint fields. Styled shapes use
@@ -3300,8 +3379,16 @@ table, measured where it was set; when a part moves on past the column planned
 for it, that column is taken as too short for it and the parts are planned
 again.
 
-A row's StartRow other than Anywhere is reported and not applied, and so are
-BreakHeaders and BreakFooters values the specification does not define.
+A body row's StartRow other than Anywhere ends the part before it, kept rows
+above it included, and starts its part at the top of the next column, the next
+frame, the next page or the next odd- or even-numbered page, as the
+specification describes and as a paragraph's StartParagraph is composed. The
+table's first row, or its first body row under header rows, moves the whole
+table on from the text before it; a table with nothing before it stays where it
+is. No public sample sets one. A StartRow on a header or footer row below the
+first, or on a body row a cell spans into, is reported and not applied, and so
+are StartRow, BreakHeaders and BreakFooters values the specification does not
+define.
 
 #### Table and cell styles
 
@@ -3327,14 +3414,75 @@ SkipFirstAlternatingFillRows and before SkipLastAlternatingFillRows, and the
 same by column. Defaults are those InDesign's own exports write for
 `[No table style]`: no pattern, a first fill of black at 20 %, a next fill of
 none. Page 10 of the public [`tables` PDF](https://github.com/paged-media/core/blob/ffb7c8713125dc77403ec0983099f74ac2558517/corpus/generated/tables.pdf)
-(SHA-256 `3bd73efe…3f72`) fills rows 1 and 3 of three with its style's 20 %
+(SHA-256 `3bd73efe…f3a72`) fills rows 1 and 3 of three with its style's 20 %
 cyan swatch at that default 20 % tint (4 % cyan). Row patterns skip header and
 footer rows and column patterns do not, as Adobe's public table help says.
 ColumnFillsPriority false hides column fills and true row fills, as the
 specification says; page 11, a style giving only column fills, draws none. A
 fill the cell or its cell style gives, none included, wins over the pattern.
 
-Not composed yet: StartRow, alternating strokes, table borders, table
-SpaceBefore and SpaceAfter, cell styles' paragraph styles, diagonal lines, cell
-rotation, stroke styles other than solid, and editing tables and their
+#### Borders, strokes and spacing
+
+A table's border, alternating strokes, space before and after and StrokeOrder
+resolve through the table, its AppliedTableStyle, that style's bases and `[No
+table style]`, with the defaults InDesign's own exports write for `[No table
+style]` and the specification's Appendix C gives: 1 pt black borders, 4 pt
+before, −4 pt after, no stroke pattern (a first group of 1 pt black and a next
+group of 0.25 pt black) and BestJoins. They are resolved into the cells' edges
+when the table is read. Each attribute of an edge (weight, colour, tint, type)
+comes from the cell or its cell styles; else, on the table's outside, from the
+table's border (TopBorderStrokeWeight …); else from the alternating strokes
+group its row or column falls in (StartRowStrokeCount, StartRowStroke…,
+EndRowStroke…, the skip counts; the specification names the next column group's
+type EndColumnLineStyle); else InDesign's 1 pt black. Row strokes count the body
+rows and column strokes every column, header and footer rows included, as fills
+alternate. Each row or column in a group strokes both its edges, and where two
+groups meet the lower row's or right column's is drawn: a Schist reading of the
+specification's "row borders", as no sample sets a pattern.
+
+The public [`tables`
+PDF](https://github.com/paged-media/core/blob/ffb7c8713125dc77403ec0983099f74ac2558517/corpus/generated/tables.pdf)
+(SHA-256 `3bd73efe…f3a72`) and its
+[generator](https://github.com/paged-media/core/blob/ffb7c8713125dc77403ec0983099f74ac2558517/crates/paged-gen/src/samples/tables.rs)
+show which edge a grid line two cells share draws, and how strokes meet. On page
+5 a 3 × 3 table's middle cell states 3 pt magenta edges and its neighbours state
+none: all four of its grid lines draw magenta, after the black. The magenta row
+strokes run 1.5 pt past the crossings (176.638 to 299.638 for column lines at
+178.138 and 298.138) and the black row strokes beside them 0.5 pt (57.638 to
+178.638), while row strokes meeting the same stroke end flush at the crossing
+(page 1). Column strokes stop half the crossing row stroke's weight short (the
+magenta from 627.8663 to 652.8663 between row lines at 626.3663 and 654.3663,
+the black at 654.8663), and run to the crossing where no row stroke crosses
+(page 6: 418.138 down to 654.3663 beside a cell spanning rows). Strokes are
+drawn per grid line and column, a cell spanning columns included (page 6 strokes
+its spanned top row three times). On page 12 the line below the header row draws
+the header's 1 pt black bottom edge, not the 2 pt magenta top edge at 50 % that
+the body cell below it states. So an edge the cell or its styles state wins over
+one from the table's border or strokes, which wins over an unstated edge, the
+lower or right cell's winning a tie; above the body a header row's bottom edge
+is drawn, and below it a footer row's top edge (by symmetry, a Schist reading).
+Row strokes are in front, as BestJoins, RowOnTop and Indesign2Compatibility put
+solid strokes; ColumnOnTop puts column strokes in front, running through the
+crossings while row strokes stop at them (the specification's reading). Output
+and the canvas draw the same strokes.
+
+SpaceBefore keeps room above a table's first part, and SpaceAfter keeps room
+between its last part and the next line of its column; a negative space before
+draws the table up by its leading, never past the text's own leading. A table
+starting a column, frame or cell drops its space before. The `tables` PDF sets
+its tables' outer edge at their frame's top (the top stroke centred at 682.3663
+under a frame top of 682.8663 on page 1) and page 2's nested table at its cell's
+4 pt inset (677.8663 under the row line at 682.3663). The public [`tables-rows`
+PDF](https://github.com/paged-media/core/blob/ffb7c8713125dc77403ec0983099f74ac2558517/corpus/generated/tables-rows.pdf)
+(SHA-256 `6cd62fdc…bf194`) and its
+[generator](https://github.com/paged-media/core/blob/ffb7c8713125dc77403ec0983099f74ac2558517/crates/paged-gen/src/samples/tables_rows.rs)
+start both parts on page 8 at their frames' tops (721.39 under 721.89), although
+`[No table style]` keeps 4 pt before tables. No sample sets text before or after
+a table, so the space there follows the specification ("the space above the
+table", "the space below the table") on Schist's leading step. Stroke types
+other than solid and overprinted strokes, on cell edges, borders and alternating
+strokes, and StrokeOrder values the specification does not define, are reported.
+
+Not composed yet: cell styles' paragraph styles, diagonal lines, cell rotation,
+stroke styles other than solid, overprinted strokes, and editing tables and their
 styles.

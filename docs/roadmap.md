@@ -310,6 +310,45 @@ are marked.
 
 ## Handoff
 
+Item stroke types, gradient strokes and text, table borders, 2026-10-07:
+Three gaps were worked in parallel by subagents in separate worktrees and merged
+here, each with its evidence and tests. Items stroke with dashed, dotted and
+striped stroke styles, the resources text decorations use, and the built-in
+Dashed style with the item's own StrokeDashAndGap, with gap colours; a style the
+package does not declare strokes solid, as InDesign's PDF of the public
+paged-media `strokes-fills` sample draws four such types, and no public PDF draws
+a dash, so the dash geometry is the specification's reading. Items stroke, and
+text fills and strokes, with gradient swatches, read as fills are, though no
+public sample shows either. Tables draw their borders and alternating strokes
+resolved into their cells' edges, with the stated edge winning a shared grid
+line and row strokes in front, as InDesign's PDF of the public `tables` sample
+draws them; they keep their space before and after, and rows start in the next
+column, frame or page as StartRow says.
+
+The source-frozen sweep of all 16 roadmap targets, headless library wasm, shared
+UI, formatting, whitespace and the debug app build passes on Windows with **2,321
+distinct passing Rust tests**, 43 new (20 layout, 8 separation, 15 IDML), and no
+corrections, covering this batch and baseline fitting below. Merging the three
+branches resolved seven conflicting hunks and one canvas call the merge left
+uncompiled: a patterned stroke's marks now paint with the stroke's own fill, so a
+gradient stroke dashes with its gradient. The named-initial proof's two pages
+change as baseline fitting's review describes; the other 42 proofs are
+byte-identical.
+
+Native review used a passive capture of the debug app the sweep built, with
+Design enabled and isolated configuration, on one package: the table fixture's
+table with 3 pt magenta borders and alternating row strokes, a line of text
+filled with a cyan-to-magenta gradient, and rectangles stroked with the built-in
+Dashed style over a magenta gap colour, a custom long-dash style (its projecting
+caps close the 3 pt gaps at a 6 pt weight, as they should), a custom dotted style,
+a thick-thin striped style and the gradient. The canvas draws each as specified;
+the one report is the package's local point size becoming a named style.
+
+Next: text frame auto-size (the public `text-autosize` sample grows a frame to its
+last baseline plus its stroke's reach), then the remaining item 9 gaps. Published
+to draft PR #195.
+
+
 Baseline fitting, 2026-10-06:
 Body text now fits a frame's last line by its baseline, its descent hanging
 below the frame, as InDesign's PDF of the public paged-media `stroke-inset`
@@ -320,7 +359,7 @@ footnote that cannot fit moves its reference line on by that line's baseline.
 Footnote bodies and vertical text still fit whole line cells, for want of native
 evidence.
 
-SWEEP_RESULT
+Its source-frozen sweep is shared with the batch above, run once on both.
 
 Native review compared passive captures of the previous and the new debug app,
 with Design enabled and isolated configuration, on a package whose 470 × 70 pt
@@ -332,8 +371,7 @@ sets its last row beneath the initial, where it had taken a second interval on
 the first row's band, out of reading order; its reference page matches, and the
 other 42 proofs are byte-identical.
 
-Next: non-solid stroke types on items, then the remaining item 9 gaps. Published
-to draft PR #195.
+Next: the batch above. Published to draft PR #195.
 
 
 Frame strokes and corner options, 2026-10-06:
