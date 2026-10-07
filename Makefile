@@ -397,6 +397,15 @@ check-idml:
 lint-idml:
 	$(CARGO) clippy -p schist-codec-idml --all-targets -- -D warnings
 
+# INDD: the native document's database and the recovered subset, read
+# through the IDML importer. The specimen tests compare every recovered
+# object with the IDML InDesign exported beside the same document.
+.PHONY: check-indd lint-indd
+check-indd:
+	$(CARGO) test -p schist-codec-indd
+lint-indd:
+	$(CARGO) clippy -p schist-codec-indd --all-targets -- -D warnings
+
 # Print separation: inks, plates, knockout and overprint. Layout's
 # composition and separation's plates must agree, so both run together.
 .PHONY: check-separation lint-separation check-separation-wasm

@@ -6671,6 +6671,18 @@ dependencies = [
 ]
 
 [[package]]
+name = "schist-codec-indd"
+version = "0.15.0"
+dependencies = [
+ "anyhow",
+ "log",
+ "schist-codec-idml",
+ "schist-i18n",
+ "schist-layout",
+ "schist-plugin-api",
+]
+
+[[package]]
 name = "schist-codec-psd"
 version = "0.15.0"
 dependencies = [
@@ -6722,6 +6734,7 @@ dependencies = [
  "schist-app-settings",
  "schist-codec-affinity",
  "schist-codec-idml",
+ "schist-codec-indd",
  "schist-codec-psd",
  "schist-codec-raw",
  "schist-color",

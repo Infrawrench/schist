@@ -12,6 +12,9 @@ schist-core.workspace = true
 # Mode. It is a dependency rather than a plugin like the others because it
 # reads a different document type and so cannot share `CodecPlugin`.
 schist-codec-idml.workspace = true
+# Native InDesign documents, read through the IDML importer. Registered
+# behind the same feature flag.
+schist-codec-indd.workspace = true
 schist-app-settings.workspace = true
 schist-codec-psd.workspace = true
 schist-plugin-api.workspace = true

@@ -9,7 +9,9 @@ its latest checkpoint for work on another machine.
 Branch: `design-tab-leaders`. Existing draft PR:
 https://github.com/Infrawrench/schist/pull/195
 
-The latest commit composes tables (first phase). It follows `90f6ce88`
+The latest commit adds the INDD reader (Phase 0 decided, Phase 5 reader). It
+follows the output preview (`05289f5b`), item 9's tables, strokes, gradients,
+auto-size and effects commits (see Roadmap / Handoff), then `90f6ce88`
 (file-name and date variables), `c29ff40b`
 (running headers and jump numbers inside threads), `b5615e0c` (jump-line page numbers, object-style wrap, layer IgnoreWrap),
 `dff813d6` (wrap around anchored items), `29e24efa` (anchored text
@@ -57,6 +59,18 @@ with what lies beneath it, so blend modes, shadows cast by text and images and
 overprinting show only there. Previews are cached until the document, zoom or
 fonts change; frame edges, ports, notes and the story being typed are still
 drawn over them.
+
+The INDD reader (`crates/codec-indd`) opens native InDesign documents for the
+subset Phase 0 recovered. `database.rs` reads the A/B page map, the class and
+location trees and the slotted records. `model.rs` decodes the documented
+chunks of spreads, pages, sections, document setup, layers, swatches, items
+and stories. `synthesis.rs`
+writes them as IDML parts for `schist_codec_idml::import::read_package`.
+`tests/specimens.rs` holds every recovered object to the IDML importer's
+reading of the paired export. Everything else is reported, and an INDD
+document saves as IDML. `docs/indd-format.md` documents each field and its
+evidence. Extend it only against paired IDML, and never from Adobe headers or
+binaries.
 
 Text wrap is modeled per page item (`ObjectAppearance.text_wrap`), per text
 frame (`ignore_wrap`), per layer (`LayoutLayer.ignore_wrap`) and per document
@@ -137,7 +151,7 @@ alternating fills (`tables` PDF pages 3–6), then the remaining item 9 gaps.
 
 Also open: wrap for vertical text, initials and markers; other stories' wrap around
 anchored items; note-body variables; tables and the other item 9 gaps listed in
-the roadmap. Production INDD remains gated on Phase 0.
+the roadmap. INDD is read for the recovered subset; widen it against paired IDML.
 
 ## Working constraints
 
@@ -189,10 +203,10 @@ the roadmap. Production INDD remains gated on Phase 0.
 
 ## Verification at this checkpoint
 
-The output preview batch passes all 16 roadmap targets, headless library wasm,
-shared UI, formatting, whitespace and the debug app build (2,344 distinct passing
-Rust tests), and all 43 proofs are byte-identical to the previous checkpoint.
-Details are in Roadmap / Handoff.
+The INDD reader batch passes all 18 roadmap targets (with `check-indd` and
+`lint-indd`), headless library wasm, shared UI, formatting, whitespace and the
+debug app build (2,362 distinct passing Rust tests), and all 43 proofs are
+byte-identical to the previous checkpoint. Details are in Roadmap / Handoff.
 
 The two macOS-only editor tests were not compiled here; the next macOS
 run should include them.
@@ -201,7 +215,8 @@ run should include them.
 
 Task logs and evidence are under the Git Bash `/tmp` (`C:\Users\Administrator\AppData\Local\Temp`):
 `schist-validate/` (`aaad6dc0` logs, proofs, hashes, native screenshots),
-`schist-sweep/` to `schist-sweep27/` (batch sweep logs), `schist-proofs-b3/` to
+`schist-sweep/` to `schist-sweep28/` (batch sweep logs), `schist-indd/` (the
+INDD research scripts, superseded by `crates/codec-indd`), `schist-proofs-b3/` to
 `schist-proofs-b20/` (proof PDFs per batch), `schist-tables-research/` (table
 sample PDFs, generators and `pdfops2.py`), `schist-b3/` to `schist-b6/`
 (review-document generators and logs), `schist-wrap-research/` (text-wrap references), `schist-anchored-research/` (the
@@ -216,9 +231,10 @@ reacquire references from the pinned URLs in `docs/idml-format.md`.
 > https://github.com/Infrawrench/schist/pull/195. Fetch the latest branch head.
 > Read `AGENTS.md` first, then `docs/roadmap.md` in full, then
 > `docs/design-handoff.md`. The roadmap is the plan; do not re-plan from scratch.
-> The latest commit composes tables (first phase); its full sweep and native
-> review passed on Windows. Continue Phase 3 item 9 in roadmap
-> order with the remaining gaps listed in the handoff. Implement substantial coherent batches
+> The latest commit adds the INDD reader; its full sweep and native
+> review passed on Windows. Continue in roadmap order: widen the INDD reader
+> against paired IDML, and the remaining Phase 3 item 9 gaps listed in the
+> handoff. Implement substantial coherent batches
 > before compiling/testing; use make and `CARGO_INCREMENTAL=0`, test locally, and
 > do not query or wait for CI. Keep Design's LayoutDocument and tools separate from
 > raster Document/ToolPlugin; keep the feature flag false by default; preserve

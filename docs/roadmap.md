@@ -15,12 +15,12 @@ dark behind `design-mode` while Phase 3 integration and output fidelity are comp
 
 | Phase | Scope | State |
 | --- | --- | --- |
-| 0 | INDD spike: fixtures, container map, go/no-go, `docs/indd-format.md` | **Started — eleven public pairs acquired; database semantics unresolved** |
+| 0 | INDD spike: fixtures, container map, go/no-go, `docs/indd-format.md` | **Decided 2026-10-07 — database mapped; go for a reader, no-go for a writer** |
 | 1 | `schist-layout` kernel: model, geometry, styles, stories, composition, threading, grids, undo | **Implemented — composition integration fixes ongoing** |
 | 2 | `schist-codec-idml`: reader, then writer, lossless round-trip | **Done** — both directions verified, and wired to open and save |
 | 3 | Design UI: pasteboard, panels, tools, story editor, rulers | **In progress — items 1–8 implemented; item 9 output integration in progress** |
 | 4 | Output: prepress PDF, preflight, IDML/INDD export, CCF package | **PDF export, profile choice, n-up and package UI implemented; fidelity/validation ongoing** |
-| 5 | `schist-codec-indd`: reader, then writer if the spike justifies it | **Not started, spike-gated** |
+| 5 | `schist-codec-indd`: reader, then writer if the spike justifies it | **Reader of the recovered subset implemented behind `design-mode`; no writer** |
 
 ## Done
 
@@ -85,11 +85,11 @@ Phase 0 (INDD spike, eleven paired samples) ──go/no-go──► Phase 5 (IND
 
 - **Phase 2 is complete for the supported IDML subset.** Layout documents
   open and save. Remaining integration and fidelity work keeps the feature dark.
-- **Phase 0 gates Phase 5 only.** IDML does not depend on the INDD spike,
-  and no INDD work should start before the spike's go/no-go. If the spike
-  fails, INDD stays a reader-only link-extraction feature and IDML remains
-  the write target, which is why both codecs target the same
-  `LayoutDocument`.
+- **Phase 0 gates Phase 5 only.** IDML does not depend on the INDD spike.
+  The spike's go/no-go on 2026-10-07 allowed a reader and ruled out a
+  writer, so IDML remains the write target. Both codecs target the same
+  `LayoutDocument`, and the INDD reader reaches it through the IDML
+  importer.
 - **Phase 4 splits.** PDF kernel code exists, but output validation found
   invalid PDF colour-space declarations and plate images that erased prior
   inks. The corrected writer now renders all four proof patches in Poppler.
@@ -115,8 +115,18 @@ observable behaviour of our own fixtures only, exactly as
 Publicly distributed INDD/IDML pairs may be acquired under the user’s
 2026-09-29 authorization. Eleven acquired pairs now cover an older version,
 v19.5 and v20.2, with three redistributable pairs recorded in
-`fixtures/indd/README.md`. Version 18/21, controlled changes and database
-semantics are still required before a format go/no-go.
+`fixtures/indd/README.md`.
+
+**Decided 2026-10-07.** The three local specimens (InDesign CC 2014 on
+Macintosh, 20.2 on Windows) answer each question. The master pages select an
+A/B page map. Objects are indexed by UID in two B+trees, one for class and
+one for location. Their bytes are data pages or slotted records with
+continuations, and none is compressed. Every IDML `Self` id is the UID of the
+same object. That is a go for a reader. Half of each page checksum is still
+unidentified, and the corpus has no controlled one-property edits, so a
+writer is a no-go. `docs/indd-format.md` has the layout, the evidence and the
+session log. Version 18/21 specimens are still wanted to widen the reader's
+evidence.
 
 ### Phase 2 — IDML (2–3 weeks)
 
@@ -270,8 +280,16 @@ gated by Phase 0/5. See [IDML evidence and limits](idml-format.md).
 
 ### Phase 5 — INDD
 
-Open-ended, spike-gated. Reader for the recovered subset, then a writer if
-Phase 0 justifies it.
+The reader is implemented (`crates/codec-indd`, `make check-indd
+lint-indd`). It covers pages, margins, sections, bleed, spreads, parent
+pages, layers, swatches, rectangles, polygons, lines, groups, text frames,
+their threads and their stories' text. It writes them as IDML parts and reads those with the IDML
+importer. Its specimen tests require agreement with the IDML importer's
+reading of each twin. Styles, strokes, text formatting, frame options,
+tables, footnotes, guides, placed images and curves are reported as not
+read. Each can be added a field at a time against paired
+IDML. A writer stays out of scope while half the checksum and the
+allocation state are unknown.
 
 ## Known gap in the localisation
 
@@ -296,6 +314,8 @@ make check-design      # the editor's Design Mode code
 make lint-design
 make check-idml        # the IDML package, cross-checked against zip/unzip
 make lint-idml
+make check-indd        # the INDD reader against its specimens' IDML twins
+make lint-indd
 make check-separation  # inks, plates, PDF
 make check-i18n        # catalog checks and explicit translation-debt audit
 ```
@@ -309,6 +329,49 @@ key means adding it to all 150 catalogs. See
 are marked.
 
 ## Handoff
+
+INDD reader, 2026-10-07:
+Phase 0 is decided and Phase 5's reader exists. Every page of the three local
+specimens was classified by its trailer. The A/B page map, the UID-keyed class
+and location trees and the slotted records with their continuations were then
+followed until all 2,423 objects reassembled to their indexed lengths. The
+low half of the checksum is a byte sum modulo 65521; the high half is unknown.
+Every IDML `Self` id is the UID of the same object, so each field was
+identified against its IDML twin: page bounds, transforms and margins, sections,
+bleed and facing pages, layers, spreads, parent pages, paths, fills,
+visibility, swatches, story text with its table and footnote ranges, and frame
+threads. `schist-codec-indd` writes the
+recovered objects as IDML parts and reads them with the IDML importer, behind
+`design-mode`. An INDD document saves as IDML. Twenty-two keys are added to all
+150 catalogs. The decision, the layout and the session log are in
+`docs/indd-format.md`.
+
+The source-frozen sweep passes on Windows with **2,362 distinct passing Rust
+tests**, 18 new, and no corrections. It covers all 18 roadmap targets, now
+including `check-indd` and `lint-indd`, plus headless library wasm, shared UI,
+formatting, whitespace and the debug app build. All 43 proofs are
+byte-identical. Before the sweep, the specimen tests caught four
+disagreements with the IDML reading, each fixed against the specimens:
+
+- a hidden rectangle, read from the item's visible flag;
+- pages without margins of their own, which take their parent page's;
+- section page names;
+- a bleed the setup had left unread.
+
+Native review used the actual debug app with Design enabled and an isolated
+configuration. Each of the three INDD specimens opened in Design Mode beside its
+IDML twin with the same pages, frames, parent items and layers, including
+the two hidden layers, and with the twin's red bleed line. The story text is
+unstyled, as reported. A guarded click on the Pages tab showed the academic
+template's seven pages named 1, 1, 2, 3 … with their B- and D-Parent pages, as
+InDesign numbers them. The first attempt ran a stale binary, which reported
+`.indd` as unopenable; the freshly built one opened them.
+
+Next: widen the INDD reader a field at a time against paired IDML (strokes and
+object styles, text frame options, then paragraph and character attributes),
+and acquire v18/v21 specimens. Item 9's remaining gaps stay reported. Published
+to draft PR #195.
+
 
 Output preview, 2026-10-07:
 A toolbar toggle beside guides and snapping draws each page on the canvas as it
@@ -337,9 +400,7 @@ Normal; on, Multiply and Darken read blue over the band and magenta beyond it,
 Screen and Lighten clear to paper, Normal stays pale magenta, and both shadows
 and the label render as they separate. All 43 proofs are byte-identical.
 
-Next: item 9's remaining gaps have no public evidence and stay reported; output
-validation against InDesign and the Phase 0/5 INDD decision rest with the project.
-Published to draft PR #195.
+Next: the INDD reader, the batch above. Published to draft PR #195.
 
 
 Auto-size from the layout sample, 2026-10-07:
