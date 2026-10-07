@@ -635,3 +635,4 @@ design.idml_gradient_highlight = Gradient highlight not applied: {name}
 design.idml_text_gradient_start = Text gradient start not applied: {name}
 design.idml_auto_size = Auto-size not applied: {name}
 design.idml_effect = Effect not applied: {effect} on {name}
+design.canvas_output_preview = Output preview

@@ -50,6 +50,7 @@ pub mod dragging;
 pub mod graphics;
 pub mod guides;
 pub mod lifecycle;
+mod output_preview;
 pub mod paint;
 pub mod pen;
 mod plan_cache;
@@ -340,6 +341,9 @@ pub struct DesignState {
     plan_cache: std::cell::RefCell<plan_cache::PlanCache>,
     /// The document as auto-sized frames were last fitted to it.
     fitted: Option<LayoutDocument>,
+    /// Draw each page as it separates instead of item by item.
+    pub output_preview: bool,
+    preview_cache: std::cell::RefCell<output_preview::PreviewCache>,
 }
 
 /// An in-progress drag on the pasteboard.
@@ -396,6 +400,8 @@ impl Default for DesignState {
             graphics: Default::default(),
             graphics_busy: false,
             fitted: None,
+            output_preview: false,
+            preview_cache: Default::default(),
         }
     }
 }

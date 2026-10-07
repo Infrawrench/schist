@@ -623,6 +623,9 @@ impl Workspace {
         frame.anchors = self.design_anchor_points();
         frame.pen_preview = crate::design::pen::preview(&self.design);
         frame.typing = self.design.typing;
+        if self.design.output_preview {
+            frame.previews = self.design.output_previews(&frame.plan);
+        }
         frame.drawing = self.design.drawing.map(|d| {
             let bounds = d.bounds();
             let mut path = if self.design.tool == crate::design::DesignTool::Line {

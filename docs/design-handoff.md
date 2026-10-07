@@ -49,6 +49,15 @@ Tables (`tables.rs`, `table_codec.rs`) are typed with cell stories appended to
 `doc.stories`; `tables::layout` sizes rows by composing cells as detached frames
 and `tables::objects` gives fills, edges and cell frames for the anchored path.
 
+Output preview (`design/output_preview.rs`, a toolbar toggle beside guides and
+snapping) draws each page as it separates, bleed included, a pixel to the canvas
+unit, instead of item by item: the composite of `separate_page` through the
+separations preview's CMYK-to-RGB conversion. The canvas cannot blend an item
+with what lies beneath it, so blend modes, shadows cast by text and images and
+overprinting show only there. Previews are cached until the document, zoom or
+fonts change; frame edges, ports, notes and the story being typed are still
+drawn over them.
+
 Text wrap is modeled per page item (`ObjectAppearance.text_wrap`), per text
 frame (`ignore_wrap`), per layer (`LayoutLayer.ignore_wrap`) and per document
 (`text_wrap_preferences`), and interchanges with IDML TextWrapPreference,
@@ -180,10 +189,10 @@ the roadmap. Production INDD remains gated on Phase 0.
 
 ## Verification at this checkpoint
 
-The auto-size batch from the `layout` sample passes all 16 roadmap targets,
-headless library wasm, shared UI, formatting, whitespace and the debug app build
-(2,343 distinct passing Rust tests), and all 43 proofs are byte-identical to the
-previous checkpoint. Details are in Roadmap / Handoff.
+The output preview batch passes all 16 roadmap targets, headless library wasm,
+shared UI, formatting, whitespace and the debug app build (2,344 distinct passing
+Rust tests), and all 43 proofs are byte-identical to the previous checkpoint.
+Details are in Roadmap / Handoff.
 
 The two macOS-only editor tests were not compiled here; the next macOS
 run should include them.
@@ -192,7 +201,7 @@ run should include them.
 
 Task logs and evidence are under the Git Bash `/tmp` (`C:\Users\Administrator\AppData\Local\Temp`):
 `schist-validate/` (`aaad6dc0` logs, proofs, hashes, native screenshots),
-`schist-sweep/` to `schist-sweep26/` (batch sweep logs), `schist-proofs-b3/` to
+`schist-sweep/` to `schist-sweep27/` (batch sweep logs), `schist-proofs-b3/` to
 `schist-proofs-b20/` (proof PDFs per batch), `schist-tables-research/` (table
 sample PDFs, generators and `pdfops2.py`), `schist-b3/` to `schist-b6/`
 (review-document generators and logs), `schist-wrap-research/` (text-wrap references), `schist-anchored-research/` (the

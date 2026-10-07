@@ -137,6 +137,7 @@ icons!(
     "puppet",
     "vanishing-point",
     "artboard",
+    "output-preview",
     "save-photos",
     "count",
     "frame",

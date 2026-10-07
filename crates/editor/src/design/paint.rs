@@ -74,6 +74,9 @@ pub struct PasteboardFrame {
     pub anchors: Vec<(usize, schist_layout::ShapePath)>,
     pub pen_preview: Option<schist_layout::ShapePath>,
     pub typing: Option<super::Typing>,
+    /// Pages as they separate, with the bleed rectangles they cover, drawn
+    /// in place of the items when previewing output.
+    pub previews: Vec<(Rect, Arc<gpui::RenderImage>)>,
     pub band: Option<Rect>,
     pub drawing: Option<schist_layout::ShapePath>,
 }
@@ -91,6 +94,7 @@ impl PasteboardFrame {
             anchors: Vec::new(),
             pen_preview: None,
             typing: None,
+            previews: Vec::new(),
             band: None,
             drawing: None,
         }
@@ -112,8 +116,28 @@ pub fn paint_pasteboard(frame: &PasteboardFrame, window: &mut Window) {
         // objects extending across its gutter.
         fill_rect(window, &plan.page.media, frame.bounds, PAPER);
     }
+    for (rect, image) in &frame.previews {
+        let target = Bounds::new(
+            gpoint(&frame.bounds, rect.origin()),
+            gpui::size(px(rect.width), px(rect.height)),
+        );
+        let _ = window.paint_image(target, Corners::default(), image.clone(), 0, false);
+    }
     for object in frame.plan.objects() {
-        paint_object(window, frame, object);
+        // Previewing output, the pages already show the items: only frame
+        // edges, ports, notes and the story being typed are drawn over them.
+        let typed = |story: &schist_layout::StoryId| {
+            frame.typing.is_some_and(|typing| typing.story == *story)
+        };
+        let drawn = frame.previews.is_empty()
+            || match object {
+                Display::Text { story, .. } => typed(story),
+                Display::Shape { .. } | Display::Graphic { .. } => false,
+                _ => true,
+            };
+        if drawn {
+            paint_object(window, frame, object);
+        }
     }
     for plan in &frame.plan.pages {
         if plan.page.hidden {

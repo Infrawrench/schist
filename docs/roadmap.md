@@ -310,6 +310,38 @@ are marked.
 
 ## Handoff
 
+Output preview, 2026-10-07:
+A toolbar toggle beside guides and snapping draws each page on the canvas as it
+separates, bleed included, a pixel to the canvas unit, instead of item by item.
+Blend modes, shadows cast by text and images and overprinting, which the canvas
+cannot draw because it paints items one by one, show there as they print: a
+Multiply rectangle over cyan reads blue, where the canvas shows it Normal. The
+preview is the separation's composite through the separations preview's CMYK to
+RGB conversion, cached until the document, zoom or fonts change; frame edges,
+ports, notes and the story being typed are drawn over it. One key is added to all
+150 catalogs.
+
+The source-frozen sweep of all 16 roadmap targets, headless library wasm, shared
+UI, formatting, whitespace and the debug app build passes on Windows with **2,344
+distinct passing Rust tests**, 1 new (editor), and no corrections; all 43 proofs
+are byte-identical. Before it, the strict i18n audit found the toggle's first key
+duplicating `design.output_preview`, the output window's label for something
+else, and the toggle took `design.canvas_output_preview`.
+
+Native review used the actual debug app with Design enabled and isolated
+configuration, on the effects review package (a cyan band under five 50 % magenta
+rectangles in Normal, Multiply, Screen, Darken and Lighten, a paper rectangle and
+a pale frame casting shadows), with one guarded click on the new toggle while
+Schist was the window under the pointer. Off, the canvas draws the rectangles
+Normal; on, Multiply and Darken read blue over the band and magenta beyond it,
+Screen and Lighten clear to paper, Normal stays pale magenta, and both shadows
+and the label render as they separate. All 43 proofs are byte-identical.
+
+Next: item 9's remaining gaps have no public evidence and stay reported; output
+validation against InDesign and the Phase 0/5 INDD decision rest with the project.
+Published to draft PR #195.
+
+
 Auto-size from the layout sample, 2026-10-07:
 InDesign's PDF of the public paged-media `layout` sample shows how it fits the
 auto-size cases the `text-autosize` sample left open. Height-and-width frames
@@ -337,9 +369,7 @@ the first about its centre to its widest word, two lines a paragraph (InDesign
 also hyphenates "Cen-tre"), and grows the second to ten lines a column, overset
 gone. All 43 proofs are byte-identical.
 
-Next: the remaining item 9 gaps without public evidence stay reported (arrowheads,
-glows and other effects, vertical-text anchors and wrap); output validation
-against InDesign. Published to draft PR #195.
+Next: the output preview, the batch above. Published to draft PR #195.
 
 
 Blend modes and drop shadows, 2026-10-07:
