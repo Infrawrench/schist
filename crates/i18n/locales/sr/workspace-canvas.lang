@@ -37,3 +37,7 @@ workspace.history.move_layers = Померање слојева
 workspace.history.layer_opacity = Непрозирност слоја
 workspace.history.delete_note = Брисање белешке
 workspace.history.edit_note = Уређивање белешке
+workspace.canvas.clipping_on = Упозорења о одсецању су укључена
+workspace.canvas.clipping_off = Упозорења о одсецању су искључена
+workspace.canvas.peaking_on = Истицање фокуса је укључено
+workspace.canvas.peaking_off = Истицање фокуса је искључено

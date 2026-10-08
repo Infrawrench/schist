@@ -243,6 +243,7 @@ common.filetype.jpeg = Maletg JPEG
 common.filetype.webp = Maletg WebP
 common.filetype.tiff = Maletg TIFF
 common.filetype.heic = Maletg HEIC
+common.filetype.exr = Maletg OpenEXR
 common.filetype.raw = Maletg raw da camera
 common.filetype.affinity = Document Affinity
 common.filetype.image = Maletg

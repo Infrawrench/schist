@@ -239,6 +239,9 @@ impl App {
                         .try_into()
                         .context("Invalid bit depth")?,
                     dither: request["dither"].as_bool().unwrap_or(true),
+                    effort: request["effort"].as_u64().unwrap_or(7).clamp(1, 10) as u8,
+                    exr: schist_plugin_api::ExrExportOptions::from_json(request)
+                        .map_err(|e| anyhow::anyhow!(e))?,
                 };
                 let bytes = self.export(
                     id,

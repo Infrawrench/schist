@@ -66,6 +66,9 @@ workspace.filters.raw_too_tall = RAW apdorojimo rezultatas per aukštas
 workspace.filters.raw_size_changed = RAW apdorojimo dydis pasikeitė į {w} × {h}; paliekamas dabartinis sluoksnis
 workspace.filters.raw_history = Camera Raw apdorojimas
 workspace.filters.raw_applied = Camera Raw apdorojimas pritaikytas (geriausias demozaikinimas)
+workspace.raw_masks.no_model = {model} neįdiegtas, todėl šios kaukės aptikti negalima.
+workspace.raw_masks.no_sky = Šiame vaizde dangus nerastas.
+workspace.raw_masks.detect_failed = Kaukės aptikti nepavyko: {error}
 workspace.image_size.done = Vaizdo dydis: {w} × {h}
 workspace.image_size.bicubic_fallback = Vaizdo dydis: {w} × {h} – modelio {name} įkelti nepavyko, todėl naudotas dvikubinis metodas
 workspace.image_size.upscaling = Didinama naudojant {name}
@@ -91,3 +94,10 @@ workspace.recovery.recovered_title = {title} (atkurta)
 workspace.recovery.recovered.one = Atkurtas {n} ankstesnio seanso neįrašytas dokumentas
 workspace.recovery.recovered.few = Atkurti {n} ankstesnio seanso neįrašyti dokumentai
 workspace.recovery.recovered.other = Atkurta {n} ankstesnio seanso neįrašytų dokumentų
+workspace.colormgmt.vision_on = Imitacija: {name}
+workspace.colormgmt.vision_off = Normalus regėjimas
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent} %
+workspace.tool_jobs.missing_model = Pašalinta be užpildymo modelio, todėl užpildas gali būti šiurkštesnis
+workspace.tool_jobs.document_changed = {name} baigėsi, kai dokumentas jau buvo uždarytas arba perjungtas, todėl niekas nepakeista

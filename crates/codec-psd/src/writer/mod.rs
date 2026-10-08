@@ -563,6 +563,11 @@ fn build_extras(layer: &Layer, doc: &Document) -> Vec<([u8; 4], Vec<u8>)> {
         if block.key == crate::raw::RAW_BLOCK_KEY {
             continue;
         }
+        // Likewise its masks, when the layer still has a development to
+        // regenerate them from. Without one they are kept verbatim.
+        if block.key == crate::raw::MASKS_BLOCK_KEY && layer.raw.is_some() {
+            continue;
+        }
         // Fill opacity is regenerated from the layer below, so a
         // preserved copy is stale: echoing it back wrote the file's
         // original value over whatever the user set in Schist.
@@ -609,6 +614,9 @@ fn build_extras(layer: &Layer, doc: &Document) -> Vec<([u8; 4], Vec<u8>)> {
     // Other PSD readers ignore this private block and use the raster pixels.
     if let Some(payload) = crate::raw::write_raw(layer) {
         out.push((crate::raw::RAW_BLOCK_KEY, payload));
+        if let Some(masks) = crate::raw::write_masks(layer) {
+            out.push((crate::raw::MASKS_BLOCK_KEY, masks));
+        }
     }
     // 'iOpa' is one byte of fill opacity plus three of padding. Photoshop
     // omits the block at 100%, which is what a reader assumes when it is

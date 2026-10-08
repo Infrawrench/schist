@@ -243,6 +243,7 @@ common.filetype.jpeg = JPEG انځور
 common.filetype.webp = WebP انځور
 common.filetype.tiff = TIFF انځور
 common.filetype.heic = HEIC انځور
+common.filetype.exr = OpenEXR انځور
 common.filetype.raw = Camera Raw انځور
 common.filetype.affinity = د Affinity سند
 common.filetype.image = انځور

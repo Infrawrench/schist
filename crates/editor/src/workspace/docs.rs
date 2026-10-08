@@ -313,6 +313,10 @@ impl Workspace {
         let tab = self.background_tabs.remove(index);
         self.active_tab = index;
         self.wake_tab(tab);
+        if self.photo_workspace() {
+            self.pending_fit = true;
+            self.photo_view.reveal_selection = true;
+        }
         cx.notify();
     }
 
@@ -428,6 +432,10 @@ impl Workspace {
             }
         } else {
             return;
+        }
+        if self.photo_workspace() {
+            self.pending_fit = true;
+            self.photo_view.reveal_selection = true;
         }
         // The last tab closing empties the editor; the gallery is home,
         // and it comes back exactly as it was left — search, selection,

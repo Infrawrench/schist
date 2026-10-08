@@ -83,6 +83,9 @@ workspace.filters.raw_too_tall = RAW garapena altuegia da
 workspace.filters.raw_size_changed = RAW garapenaren tamaina {w} × {h} bihurtu da; uneko geruza mantenduko da
 workspace.filters.raw_history = Camera Raw garapena
 workspace.filters.raw_applied = Camera Raw garapena aplikatuta (demosaikorik onena)
+workspace.raw_masks.no_model = {model} ez dago instalatuta; beraz, ezin da maskara hau hauteman.
+workspace.raw_masks.no_sky = Ez da zerurik aurkitu irudi honetan.
+workspace.raw_masks.detect_failed = Maskara hautemateak huts egin du: {error}
 
 # Irudiaren tamaina eskalatzaile neuronal batekin
 workspace.image_size.done = Irudiaren tamaina: {w} × {h}
@@ -114,3 +117,10 @@ workspace.file_picker.permission_denied = Schistek ez du karpeta hau irakurtzeko
 workspace.recovery.recovered_title = {title} (berreskuratua)
 workspace.recovery.recovered.one = Aurreko saioko gorde gabeko lana berreskuratu da
 workspace.recovery.recovered.other = Aurreko saioko {n} dokumentu berreskuratu dira
+workspace.colormgmt.vision_on = Simulazioa: {name}
+workspace.colormgmt.vision_off = Ikusmen normala
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: %{percent}
+workspace.tool_jobs.missing_model = Inpainting eredurik gabe kendu da; beraz, betegarria zakarragoa izan daiteke
+workspace.tool_jobs.document_changed = {name} bere dokumentua itxi edo aldatu ondoren amaitu da; beraz, ez da ezer aldatu

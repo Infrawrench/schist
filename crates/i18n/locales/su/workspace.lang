@@ -66,6 +66,9 @@ workspace.filters.raw_too_tall = Hasil pangolahan RAW jangkung teuing
 workspace.filters.raw_size_changed = Ukuran hasil pangolahan RAW robah jadi {w} × {h}; lapisan ayeuna dipertahankeun
 workspace.filters.raw_history = Pangembangan Camera Raw
 workspace.filters.raw_applied = Pangembangan Camera Raw diterapkeun (demosaik panghadéna)
+workspace.raw_masks.no_model = {model} teu acan dipasang, jadi masker ieu teu bisa didéteksi.
+workspace.raw_masks.no_sky = Teu aya langit anu kapanggih dina gambar ieu.
+workspace.raw_masks.detect_failed = Déteksi masker gagal: {error}
 workspace.image_size.done = Ukuran gambar: {w} × {h}
 workspace.image_size.bicubic_fallback = Ukuran gambar: {w} × {h} — modél {name} teu bisa dimuat, jadi bikubik dipaké gagantina
 workspace.image_size.upscaling = Ngagedéan maké {name}
@@ -87,3 +90,10 @@ workspace.file_picker.downloads = Unduhan
 workspace.file_picker.permission_denied = Schist teu boga idin pikeun maca folder ieu
 workspace.recovery.recovered_title = {title} (dipulihkeun)
 workspace.recovery.recovered.other = {n} dokumén dipulihkeun tina sési saméméhna
+workspace.colormgmt.vision_on = Simulasi: {name}
+workspace.colormgmt.vision_off = Paningal normal
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Dipiceun tanpa modél pangeusi, jadi eusianana bisa leuwih kasar
+workspace.tool_jobs.document_changed = {name} réngsé sanggeus dokuménna ditutup atawa diganti, jadi euweuh anu dirobah

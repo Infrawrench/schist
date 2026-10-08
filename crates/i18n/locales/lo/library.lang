@@ -299,3 +299,43 @@ library.similar.keep = ເກັບໄວ້
 library.similar.reject = ປະຕິເສດ
 library.similar.help = ເຄື່ອງໝາຍກວດສອບເທົ່ານັ້ນ; ໄຟລ໌ບໍ່ຖືກລຶບ.
 library.similar.stale = ໄຟລ໌ປ່ຽນແປງແລ້ວ. ໂຫຼດໃໝ່ເພື່ອສືບຕໍ່.
+
+# Find Duplicates
+library.duplicates.title = ລາຍການຊ້ຳ
+library.duplicates.help = ໄຟລ໌ທີ່ຄືກັນທຸກຢ່າງ ແລະ ສຳເນົາທີ່ຄ້າຍກັນຫຼາຍໃນທຸກໂຟນເດີທີ່ຕິດຕາມ. ການຍ້າຍໄປຖັງຂີ້ເຫຍື້ອຈະຖາມຢືນຢັນສອງຄັ້ງ; ໄຟລ໌ທີ່ຍ້າຍສາມາດກູ້ຄືນຈາກຖັງຂີ້ເຫຍື້ອຂອງລະບົບໄດ້.
+library.duplicates.exact = ໄຟລ໌ທີ່ຄືກັນທຸກຢ່າງ
+library.duplicates.near = ລາຍການທີ່ເກືອບຊ້ຳ
+library.duplicates.identical = ຄືກັນທຸກຢ່າງ (SHA-256)
+library.duplicates.suggested = ແນະນຳໃຫ້ເກັບໄວ້
+library.duplicates.make_keeper = ເກັບອັນນີ້ໄວ້
+library.duplicates.compare = ປຽບທຽບ
+library.duplicates.keep_all = ເກັບທັງໝົດໄວ້
+library.duplicates.reject_others = ປະຕິເສດອັນອື່ນ
+library.duplicates.trash_others.other = ຍ້າຍອັນອື່ນ {n} ອັນໄປຖັງຂີ້ເຫຍື້ອ
+library.duplicates.confirm_trash.other = ຢືນຢັນ: ຍ້າຍ {n} ອັນໄປຖັງຂີ້ເຫຍື້ອ
+library.duplicates.n_trashed.other = ຍ້າຍ {n} ໄຟລ໌ໄປຖັງຂີ້ເຫຍື້ອແລ້ວ
+library.duplicates.n_rejected.other = ໝາຍ {n} ຮູບວ່າຖືກປະຕິເສດແລ້ວ
+library.duplicates.refused_edited = ມີການແກ້ໄຂ ຫຼື ໄຟລ໌ຄູ່, ດັ່ງນັ້ນໃຫ້ປະຕິເສດແທນ
+library.duplicates.trash_failed = ຖັງຂີ້ເຫຍື້ອຂອງລະບົບບໍ່ພ້ອມໃຊ້ງານ
+library.duplicates.near_limit = ການຈັບຄູ່ລາຍການເກືອບຊ້ຳຄອບຄຸມ 10,000 ຮູບທຳອິດ.
+
+# Geotagging from GPX tracks
+library.geotag.menu = ໝາຍສະຖານທີ່ຈາກເສັ້ນທາງ GPX…
+library.geotag.title = ໝາຍສະຖານທີ່ຈາກເສັ້ນທາງ GPX
+library.geotag.add_files = ເພີ່ມໄຟລ໌ GPX…
+library.geotag.n_track_points.other = ຈຸດເສັ້ນທາງທີ່ມີເວລາ {n} ຈຸດ
+library.geotag.max_gap = ໄລຍະຫ່າງສູງສຸດ (ນາທີ)
+library.geotag.clock_offset = ການແກ້ເວລາຂອງກ້ອງ
+library.geotag.time_zone = ເຂດເວລາຂອງຮູບ (ຄ່າຊົດເຊີຍ UTC)
+library.geotag.zone_help = ເຂດເວລານຳໃຊ້ກັບເວລາຖ່າຍທີ່ບັນທຶກໄວ້ໂດຍບໍ່ມີເຂດເວລາເທົ່ານັ້ນ. ຄ່າແກ້ໄຂ, ເປັນວິນາທີ ຫຼື ±h:mm:ss, ຈະຖືກບວກໃສ່ທຸກເວລາຖ່າຍ.
+library.geotag.skip_existing = ຂ້າມຮູບທີ່ມີສະຖານທີ່ແລ້ວ
+library.geotag.n_will_tag.other = ຈະໝາຍສະຖານທີ່ໃຫ້ {n} ຮູບ
+library.geotag.n_has_gps.other = ມີ {n} ຮູບທີ່ມີສະຖານທີ່ແລ້ວ
+library.geotag.n_no_time.other = ມີ {n} ຮູບທີ່ບໍ່ມີເວລາຖ່າຍ
+library.geotag.n_gap.other = ມີ {n} ຮູບຕົກຢູ່ໃນຊ່ອງວ່າງຂອງເສັ້ນທາງ
+library.geotag.n_outside.other = ມີ {n} ຮູບຢູ່ນອກຊ່ວງເວລາຂອງເສັ້ນທາງ
+library.geotag.apply = ຂຽນສະຖານທີ່
+library.geotag.invalid = ປ້ອນໄລຍະຫ່າງເປັນນາທີ, ຄ່າແກ້ໄຂເຊັ່ນ -1:30 ແລະ ເຂດເວລາເຊັ່ນ +02:00.
+library.geotag.no_points = ໄຟລ໌ GPX ບໍ່ມີຈຸດທີ່ມີເວລາ.
+library.geotag.select_photos = ເລືອກຮູບທີ່ຈະໝາຍສະຖານທີ່ກ່ອນ.
+library.geotag.read_failed = ບໍ່ສາມາດອ່ານໄຟລ໌ GPX ໄດ້: {error}

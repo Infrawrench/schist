@@ -3,6 +3,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -30,15 +32,23 @@ codec.heif.msg.imageio_cannot_read = Ua lē mafai e ImageIO ona faitau le contai
 codec.heif.msg.container_empty = e leai se ata i le container HEIF
 codec.heif.msg.imageio_cannot_decode = Ua lē mafai e ImageIO ona tatala le faailoga o le ata autū
 
+# AVIF in the browser build, which has no AV1 decoder (it still exports AVIF).
+codec.avif.msg.no_decoder = E lē mafai e le lomiga palausa o Schist ona tatala ata AVIF. Tatala le faila i le polokalame komepiuta, pe liliu muamua i le PNG.
+
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = Ua leaga pe lē atoa le faila o le ata e iai vaega.
 codec.layered.too_large = Ua sili atu le telē o le ata po o le aofaʻi o ona vaega i le tapulaʻa e lagolagoina.
 codec.layered.unsupported = E faaaogā e lenei faila se vaega e lē lagolagoina: {feature}.
 codec.layered.export_layer = O le vaega “{name}” e iai mea e lē mafai ona faasaoina e lenei faatulagaga. Liua le vaega i pika pe sefe o se PSD.
 codec.layered.export_depth = E manaʻomia se pepa RGB 8-bit e auina ese ai i Paint.NET. Muamua, liua le pepa i le RGB 8-bit.
 codec.layered.export_mode = E manaʻomia se pepa RGB e auina ese ai. Muamua, liua le pepa i le RGB.
+codec.layered.merged_layer = Ata tuʻufaʻatasi (e leʻi mafai ona aumai nisi o vaega {format})
+codec.kra.merged_color_space = Ata tuʻufaʻatasi (o le pepa Krita {color_space} ua faaalia o le RGB)
 codec.pdn.feature.blend_mode = faiga palu a PDN
 codec.pdn.feature.compression = faaitiitiga o faamaumauga a PDN
 codec.pdn.feature.container_version = lomiga o le container a PDN
@@ -54,3 +64,8 @@ codec.xcf.feature.floating_selection = filifiliga opeopea a XCF
 codec.xcf.feature.layer_effects = aafiaga o vaega a XCF
 codec.xcf.feature.precision = saʻo atoatoa a XCF
 codec.xcf.feature.version = lomiga a XCF
+
+codec.exr.feature.deep = fa'amatalaga loloto a le EXR
+codec.exr.feature.subsampled = alalaupapa a le EXR na faataitaia fa'aitiiti
+codec.exr.msg.no_channels = E leai ni alalaupapa o ata i le faila OpenEXR.
+codec.exr.msg.write_failed = Na le mafai ona tusia le faila OpenEXR: {error}

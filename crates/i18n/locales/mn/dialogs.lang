@@ -12,7 +12,25 @@ dialog.layer_props.title = Давхаргын шинж чанар
 dialog.export.format = Формат
 dialog.export.dither = Дитер
 dialog.export.dither_note = 8 бит болгон бууруулахдаа дитер хэрэглэх
+dialog.export.effort = Хүчин чармайлт
 dialog.export.export_ellipsis = Экспортлох…
+dialog.export.exr_samples = Дээж
+dialog.export.exr_half = Хагас хөвөгч таслалт (16 бит)
+dialog.export.exr_float = Хөвөгч таслалт (32 бит)
+dialog.export.exr_compression = Шахалт
+dialog.export.exr_compression.none = Байхгүй
+dialog.export.exr_compression.rle = RLE
+dialog.export.exr_compression.zips = ZIP, нэг скан мөр
+dialog.export.exr_compression.zip = ZIP, 16 скан мөр
+dialog.export.exr_compression.piz = PIZ (вэйвлет)
+dialog.export.exr_compression.pxr24 = PXR24 (float-д алдагдалтай)
+dialog.export.exr_compression.b44 = B44 (алдагдалтай)
+dialog.export.exr_compression.b44a = B44A (алдагдалтай)
+dialog.export.exr_layers = Давхаргууд
+dialog.export.exr_layers_note = Харагдаж буй давхарга бүрийг EXR давхарга болгон бичих
+dialog.export.exr_alpha = Альфа
+dialog.export.exr_alpha_note = Альфа суваг бичих
+dialog.export.exr_linear_note = EXR шугаман гэрлийг хадгалдаг. Энэ 8 эсвэл 16 битийн баримтыг экспортлохдоо өнгөний профайлаар нь шугаман float болгон тайлна.
 
 # Фото зураг боловсруулах
 dialog.batch.title = Фото зургууд боловсруулах
@@ -66,6 +84,25 @@ dialog.filter.camera_raw_development = Camera Raw боловсруулалт
 dialog.filter.reset_as_shot = Зураг авсан төлөвт нь буцаах
 dialog.filter.raw_note = Идэвхтэй давхаргыг мэдрэгчийн эх өгөгдлөөс нь дахин боловсруулна.
 dialog.filter.note = Сонголтын доторх идэвхтэй давхаргад хэрэглэнэ.
+
+# Camera Raw: хэсэгчилсэн тохируулга
+dialog.raw_masks.title = Маскууд
+dialog.raw_masks.new_mask = Шинэ маск:
+dialog.raw_masks.add_to_mask = Маскад нэмэх:
+dialog.raw_masks.linear = Шугаман градиент
+dialog.raw_masks.subject = Гол объект сонгох
+dialog.raw_masks.sky = Тэнгэр сонгох
+dialog.raw_masks.background = Арын дэвсгэр сонгох
+dialog.raw_masks.mask_n = Маск {n}
+dialog.raw_masks.invert_mask = Маскыг урвуулах
+dialog.raw_masks.overlay = Маскын бүрхүүлийг харуулах
+dialog.raw_masks.erase = Арилгах
+dialog.raw_masks.local = Энэ маск дахь тохируулгууд
+dialog.raw_masks.delete_mask = Маск устгах
+dialog.raw_masks.detecting = Илрүүлж байна…
+dialog.raw_masks.hint_empty = Зургийн тодорхой хэсгийг тохируулахын тулд маск нэмнэ үү. Маск бүр өөрийн гулсуургатай.
+dialog.raw_masks.hint_brush = Багсны хэсэгт нэмэхийн тулд канвас дээр будна уу; хасахын тулд «Арилгах»-ыг асаана уу.
+dialog.raw_masks.hint_gradient = Градиентыг зөөхийн тулд бариулуудыг чирнэ үү, эсвэл шинээр зурахын тулд канвас дээр чирнэ үү.
 
 # Дутуу фонтууд
 dialog.fonts.title = Дутуу фонтууд

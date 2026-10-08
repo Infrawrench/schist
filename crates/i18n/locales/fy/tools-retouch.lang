@@ -25,3 +25,11 @@ tool.magic_eraser.name = Magyske gum
 tool.magic_eraser.description = Klik om binnen de tolerânsje fan it ark it gebiet mei in ferlykbere kleur ûnder de oanwizer te wiskjen — allinnich it oanslutende gebiet om de klik hinne, of oeral yn de laach.
 tool.magic_eraser.option.contiguous = Oanslutend
 tool.magic_eraser.history.erase = Magyske gum
+
+# Remove
+tool.remove.name = Fuortsmite
+tool.remove.description = Ferve yn ien streek oer in net winske objekt; as jo loslitte, wurdt it oanfolle út de omjouwing. Mei Fuortsmite nei elke streek út ferve jo ferskate streken en drukke jo op Enter om se tegearre fuort te smiten.
+tool.remove.option.sample_all_layers = Alle lagen bemonsterje
+tool.remove.option.remove_after_each_stroke = Fuortsmite nei elke streek
+tool.remove.history.remove = Fuortsmite
+tool.remove.layer_name = Fuortsmiten

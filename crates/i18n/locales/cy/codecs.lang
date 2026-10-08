@@ -6,6 +6,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Delwedd Grai
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -41,15 +43,22 @@ codec.heif.msg.imageio_cannot_read = Nid oedd ImageIO yn gallu darllen y cynhwys
 codec.heif.msg.container_empty = nid oes delwedd yn y cynhwysydd HEIF
 codec.heif.msg.imageio_cannot_decode = Nid oedd ImageIO yn gallu dadgodio'r brif ddelwedd
 
+codec.avif.msg.no_decoder = Ni all fersiwn porwr Schist agor delweddau AVIF. Agorwch y ffeil yn yr ap bwrdd gwaith, neu ei throsi i PNG yn gyntaf.
+
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = Mae'r ffeil delwedd â haenau wedi'i difrodi neu'n anghyflawn.
 codec.layered.too_large = Mae'r ddelwedd â haenau yn fwy na'r maint neu nifer yr haenau a gefnogir.
 codec.layered.unsupported = Mae'r ffeil hon yn defnyddio nodwedd na chefnogir: {feature}.
 codec.layered.export_layer = Mae haen “{name}” yn cynnwys nodweddion na all y fformat hwn eu cadw. Rasteiriwch yr haen neu gadwch fel PSD.
 codec.layered.export_depth = Mae allforio i Paint.NET yn gofyn am ddogfen RGB 8-did. Troswch y ddogfen i RGB 8-did yn gyntaf.
 codec.layered.export_mode = Mae allforio yn gofyn am ddogfen RGB. Troswch y ddogfen i RGB yn gyntaf.
+codec.layered.merged_layer = Delwedd gyfunol (nid oedd modd mewnforio rhai haenau {format})
+codec.kra.merged_color_space = Delwedd gyfunol (dogfen Krita {color_space} wedi'i dangos fel RGB)
 
 # Unsupported layered format features
 codec.pdn.feature.blend_mode = Modd cyfuno PDN
@@ -67,3 +76,8 @@ codec.xcf.feature.floating_selection = Detholiad arnofiol XCF
 codec.xcf.feature.layer_effects = Effeithiau haen XCF
 codec.xcf.feature.precision = Manylder XCF
 codec.xcf.feature.version = Fersiwn XCF
+
+codec.exr.feature.deep = data dwfn EXR
+codec.exr.feature.subsampled = sianeli is-samplu EXR
+codec.exr.msg.no_channels = Nid oes unrhyw sianeli delwedd yn y ffeil OpenEXR.
+codec.exr.msg.write_failed = Methwyd ysgrifennu'r ffeil OpenEXR: {error}

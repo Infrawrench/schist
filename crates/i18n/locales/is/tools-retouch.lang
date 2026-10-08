@@ -25,3 +25,11 @@ tool.magic_eraser.name = Töfrastrokleður
 tool.magic_eraser.description = Smelltu til að eyða svæðinu með svipuðum lit undir bendlinum, innan vikmarka verkfærisins — annaðhvort samliggjandi smellinum eða alls staðar í laginu.
 tool.magic_eraser.option.contiguous = Samliggjandi
 tool.magic_eraser.history.erase = Töfrastrokleður
+
+# Remove
+tool.remove.name = Fjarlægja
+tool.remove.description = Málaðu yfir óæskilegan hlut í einni stroku; þegar þú sleppir er fyllt í hann út frá umhverfinu. Þegar Fjarlægja eftir hverja stroku er óvirkt skaltu mála nokkrar strokur og ýta á Enter til að fjarlægja þær saman.
+tool.remove.option.sample_all_layers = Taka sýni úr öllum lögum
+tool.remove.option.remove_after_each_stroke = Fjarlægja eftir hverja stroku
+tool.remove.history.remove = Fjarlægja
+tool.remove.layer_name = Fjarlægt

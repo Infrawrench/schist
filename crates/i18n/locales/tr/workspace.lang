@@ -66,6 +66,9 @@ workspace.filters.raw_too_tall = RAW geliştirme sonucu çok yüksek
 workspace.filters.raw_size_changed = RAW geliştirme boyutu {w} × {h} olarak değişti; geçerli katman korunuyor
 workspace.filters.raw_history = Camera Raw Geliştirme
 workspace.filters.raw_applied = Camera Raw geliştirme uygulandı (en iyi renk ayrıştırma)
+workspace.raw_masks.no_model = {model} yüklü olmadığı için bu maske algılanamıyor.
+workspace.raw_masks.no_sky = Bu resimde gökyüzü bulunamadı.
+workspace.raw_masks.detect_failed = Maske algılama başarısız oldu: {error}
 workspace.image_size.done = Görüntü boyutu: {w} × {h}
 workspace.image_size.bicubic_fallback = Görüntü boyutu: {w} × {h} — {name} modeli yüklenemediğinden çift kübik yöntem kullanıldı
 workspace.image_size.upscaling = {name} ile büyütülüyor
@@ -89,3 +92,10 @@ workspace.file_picker.permission_denied = Schist'in bu klasörü okuma izni yok
 workspace.recovery.recovered_title = {title} (kurtarıldı)
 workspace.recovery.recovered.one = Önceki oturumdan kaydedilmemiş çalışma kurtarıldı
 workspace.recovery.recovered.other = Önceki oturumdan {n} belge kurtarıldı
+workspace.colormgmt.vision_on = Simülasyon: {name}
+workspace.colormgmt.vision_off = Normal görüş
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: %{percent}
+workspace.tool_jobs.missing_model = Doldurma modeli olmadan kaldırıldı; dolgu daha kaba olabilir
+workspace.tool_jobs.document_changed = {name}, belgesi kapatıldıktan veya değiştirildikten sonra tamamlandı; bu nedenle hiçbir şey değiştirilmedi

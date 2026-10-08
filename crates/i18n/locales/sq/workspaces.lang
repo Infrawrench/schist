@@ -14,3 +14,4 @@ workspaces.invalid_name = Jepni një emër me 1–80 karaktere, pa karaktere kon
 workspaces.duplicate = Ekziston tashmë një hapësirë pune me këtë emër.
 workspaces.limit = Mund të ruani deri në 64 hapësira pune.
 workspaces.keyboard = Tastiera: Alt+↑/↓ përzgjedh një paraqitje. Ctrl/Cmd+N ndryshon emrin e saj; +S ruan një kopje; +Enter e zbaton; +U e përditëson; +R e riemërton; +D e fshin; +0 e rivendos.
+workspaces.open_documents = Dokumente të hapura

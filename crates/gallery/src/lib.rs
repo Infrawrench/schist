@@ -12,7 +12,11 @@
 //! one owner.
 
 pub mod culling;
+#[cfg(not(target_arch = "wasm32"))]
+pub mod duplicates;
 pub mod geo;
+#[cfg(not(target_arch = "wasm32"))]
+pub mod gpx;
 // The headless gallery searches with the text tower, which the neural
 // crate does not build for the web — and no web build serves the
 // gallery anyway.

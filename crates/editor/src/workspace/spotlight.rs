@@ -104,6 +104,12 @@ impl Target {
                         | ToggleExtras
                         | ToggleSnap
                         | ToggleAi
+                        | ToggleClipping
+                        | ToggleFocusPeaking
+                        | PeakingColor(_)
+                        | PeakingSensitivity(_)
+                        | VisionSimulation(_)
+                        | VisionSeverity(_)
                         | ScreenModeItem
                         | OpenGallery
                         | GalleryAddFolder
@@ -111,6 +117,8 @@ impl Target {
                         | GalleryRefresh
                         | GalleryEditSelected
                         | GalleryMapFilter
+                        | GalleryFindDuplicates
+                        | GalleryGeotag
                         | OpenRecent(_)
                 )
             }

@@ -3,6 +3,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -30,15 +32,22 @@ codec.heif.msg.imageio_cannot_read = ImageIO continens HEIF legere non potuit
 codec.heif.msg.container_empty = continens HEIF nullam imaginem habet
 codec.heif.msg.imageio_cannot_decode = ImageIO imaginem primariam decodificare non potuit
 
+codec.avif.msg.no_decoder = Versio Schist in navigatro imagines AVIF aperire non potest. Fasciculum in applicatione mensae aperi, aut prius in PNG converte.
+
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = Fasciculus imaginis stratificatae corruptus vel incompletus est.
 codec.layered.too_large = Imago stratificata magnitudinem vel numerum stratorum admissum excedit.
 codec.layered.unsupported = Hic fasciculus proprietate non admissa utitur: {feature}.
 codec.layered.export_layer = Stratum «{name}» proprietates continet quas haec forma servare non potest. Illud rasteriza vel documentum ut PSD serva.
 codec.layered.export_depth = Exportatio in Paint.NET documentum RGB octo bitorum requirit. Primum documentum in RGB octo bitorum converte.
 codec.layered.export_mode = Exportatio documentum RGB requirit. Primum documentum in RGB converte.
+codec.layered.merged_layer = Imago composita (quaedam strata {format} importari non potuerunt)
+codec.kra.merged_color_space = Imago composita (documentum Krita {color_space} ut RGB ostenditur)
 
 # Unsupported layered-format features.
 codec.pdn.feature.blend_mode = modus mixturae PDN
@@ -56,3 +65,7 @@ codec.xcf.feature.floating_selection = selectio fluitans XCF
 codec.xcf.feature.layer_effects = effectus stratorum XCF
 codec.xcf.feature.precision = praecisio XCF
 codec.xcf.feature.version = versio XCF
+codec.exr.feature.deep = data profunda EXR
+codec.exr.feature.subsampled = canales subsampled EXR
+codec.exr.msg.no_channels = Fasciculus OpenEXR nullos canales imaginis continet.
+codec.exr.msg.write_failed = Fasciculus OpenEXR scribi non potuit: {error}

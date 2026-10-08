@@ -14,3 +14,4 @@ workspaces.invalid_name = Fakahū ha hingoa ʻoku 1–80 hono mataʻitohi pea ʻ
 workspaces.duplicate = ʻOku ʻosi ʻi ai ha feituʻu ngāue ʻoku hingoa pehē.
 workspaces.limit = Te ke lava ʻo seivi ʻo aʻu ki he feituʻu ngāue ʻe 64.
 workspaces.keyboard = Papapātuʻi: Alt+↑/↓ ʻoku fili ha fokotuʻutuʻu. Ctrl/Cmd+N ʻoku fakatonutonu hono hingoa; +S ʻoku seivi ha tatau; +Enter ʻoku fakaʻaongaʻi; +U ʻoku fakafoʻou; +R ʻoku liliu hono hingoa; +D ʻoku tamateʻi; +0 ʻoku toe fokotuʻu.
+workspaces.open_documents = Ngaahi tohi kuo fakaava

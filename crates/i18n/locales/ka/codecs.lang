@@ -4,6 +4,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -35,15 +37,23 @@ codec.heif.msg.imageio_cannot_read = ImageIO-მ HEIF კონტეინე�
 codec.heif.msg.container_empty = HEIF კონტეინერი გამოსახულებას არ შეიცავს
 codec.heif.msg.imageio_cannot_decode = ImageIO-მ ძირითადი გამოსახულება ვერ დეკოდირა
 
+# AVIF
+codec.avif.msg.no_decoder = Schist-ის ბრაუზერის ვერსია ვერ ხსნის AVIF გამოსახულებებს. გახსენით ფაილი დესკტოპის აპში ან ჯერ გადაიყვანეთ PNG-ში.
+
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = ფენებიანი გამოსახულების ფაილი დაზიანებულია ან არასრულია.
 codec.layered.too_large = ფენებიანი გამოსახულება აღემატება მხარდაჭერილ ზომას ან ფენების რაოდენობას.
 codec.layered.unsupported = ეს ფაილი იყენებს მხარდაუჭერელ ფუნქციას: {feature}.
 codec.layered.export_layer = ფენა „{name}“ შეიცავს ფუნქციებს, რომელთა შენარჩუნებაც ამ ფორმატს არ შეუძლია. მოახდინეთ მისი რასტერიზაცია ან შეინახეთ PSD ფორმატში.
 codec.layered.export_depth = Paint.NET ფორმატში ექსპორტისთვის საჭიროა 8-ბიტიანი RGB დოკუმენტი. ჯერ გადაიყვანეთ დოკუმენტი 8-ბიტიან RGB-ში.
 codec.layered.export_mode = ექსპორტისთვის საჭიროა RGB დოკუმენტი. ჯერ გადაიყვანეთ დოკუმენტი RGB-ში.
+codec.layered.merged_layer = გაერთიანებული გამოსახულება ({format}-ის ზოგიერთი ფენის იმპორტი ვერ მოხერხდა)
+codec.kra.merged_color_space = გაერთიანებული გამოსახულება (Krita-ის {color_space} დოკუმენტი ნაჩვენებია RGB-ის სახით)
 codec.pdn.feature.blend_mode = PDN შერევის რეჟიმი
 codec.pdn.feature.compression = PDN შეკუმშვა
 codec.pdn.feature.container_version = PDN კონტეინერის ვერსია
@@ -59,3 +69,8 @@ codec.xcf.feature.floating_selection = XCF მცურავი მონიშ
 codec.xcf.feature.layer_effects = XCF ფენის ეფექტები
 codec.xcf.feature.precision = XCF სიზუსტე
 codec.xcf.feature.version = XCF ვერსია
+
+codec.exr.feature.deep = EXR ღრმა მონაცემები
+codec.exr.feature.subsampled = EXR ქვენიმუშებული არხები
+codec.exr.msg.no_channels = OpenEXR ფაილი არ შეიცავს გამოსახულების არხებს.
+codec.exr.msg.write_failed = OpenEXR ფაილის ჩაწერა ვერ მოხერხდა: {error}

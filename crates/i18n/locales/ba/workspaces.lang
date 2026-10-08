@@ -14,3 +14,4 @@ workspaces.invalid_name = Идара итеү символдары булмағ�
 workspaces.duplicate = Был исемдәге эш урыны бар инде.
 workspaces.limit = 64-кә тиклем эш урынын һаҡлай алаһығыҙ.
 workspaces.keyboard = Клавиатура: Alt+↑/↓ урынлашыуҙы һайлай. Ctrl/Cmd+N исемен үҙгәртә; +S күсермәһен һаҡлай; +Enter ҡуллана; +U яңырта; +R исемен үҙгәртә; +D юя; +0 башланғыс хәлгә ҡайтара.
+workspaces.open_documents = Асыҡ документтар

@@ -20,5 +20,11 @@ kamadak-exif = "0.6"
 # Namespace-aware, lossless XMP patches and calendar-safe capture-time offsets.
 [target.'cfg(not(target_arch = "wasm32"))'.dependencies]
 roxmltree = "0.20"
-chrono = { version = "0.4", default-features = false, features = ["std"] }
+chrono = { version = "0.4", default-features = false, features = ["std", "clock"] }
 tempfile = "3"
+# Streamed content hashes for the duplicate finder.
+sha2 = "0.10"
+
+# Duplicates go to the platform trash, never a hard delete.
+[target.'cfg(all(not(target_arch = "wasm32"), not(target_os = "android"), not(target_os = "ios")))'.dependencies]
+trash = "5"

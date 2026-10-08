@@ -71,6 +71,9 @@ workspace.filters.raw_too_tall = RAW nsiesiei no ware dodo
 workspace.filters.raw_size_changed = RAW nsiesiei kɛse asesa ayɛ {w} × {h}; wɔrekora layer a ɛwɔ hɔ no
 workspace.filters.raw_history = Camera Raw Development
 workspace.filters.raw_applied = Wɔde Camera Raw nsiesiei adi dwuma (demosaic a eye sen biara)
+workspace.raw_masks.no_model = Wɔnhyɛɛ {model} ase, enti wɔntumi nhu kataanim yi.
+workspace.raw_masks.no_sky = Wɔanhu wim biara wɔ mfonini yi mu.
+workspace.raw_masks.detect_failed = Kataanim no hwehwɛ anyɛ yie: {error}
 
 workspace.image_size.done = Mfonini kɛse: {w} × {h}
 workspace.image_size.bicubic_fallback = Mfonini kɛse: {w} × {h} — {name} model no antumi anboaboa ano, enti bicubic sii ananmu
@@ -98,3 +101,10 @@ workspace.file_picker.permission_denied = Schist nni kwan sɛ ɛkenkan folda yi
 workspace.recovery.recovered_title = {title} (wɔasan anya)
 workspace.recovery.recovered.one = Wɔasan anya adwuma a wɔankora so fi session a etwaam no mu, document dodow {n}
 workspace.recovery.recovered.other = Wɔasan anya documents {n} fi session a etwaam no mu
+workspace.colormgmt.vision_on = Nhwɛsoɔ: {name}
+workspace.colormgmt.vision_off = Hwɛ pa
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Wɔayi afi mu a inpainting model no nni hɔ, enti ebia nea wɔde ahyɛ mu no renyɛ fɛ pii
+workspace.tool_jobs.document_changed = {name} wiee bere a wɔato ne document no mu anaa wɔasesa akɔ foforo so akyi, enti biribiara nsesae

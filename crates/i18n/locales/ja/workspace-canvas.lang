@@ -43,3 +43,7 @@ workspace.history.move_layers = 複数レイヤーの移動
 workspace.history.layer_opacity = レイヤーの不透明度
 workspace.history.delete_note = ノートを削除
 workspace.history.edit_note = ノートを編集
+workspace.canvas.clipping_on = クリッピング警告を表示
+workspace.canvas.clipping_off = クリッピング警告を非表示
+workspace.canvas.peaking_on = ピーキングを表示
+workspace.canvas.peaking_off = ピーキングを非表示

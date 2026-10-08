@@ -3,6 +3,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -30,15 +32,23 @@ codec.heif.msg.imageio_cannot_read = ImageIO i no save ridim HEIF container
 codec.heif.msg.container_empty = HEIF container i no gat image
 codec.heif.msg.imageio_cannot_decode = ImageIO i no save dikodem mein image
 
+# AVIF in the browser build, which has no AV1 decoder (it still exports AVIF).
+codec.avif.msg.no_decoder = Browser vesen blong Schist i no save openem ol AVIF image. Openem fael long desktop app, o jenisim i go long PNG fastaem.
+
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = Fael blong pija we i gat ol layer i brok o i no fulwan.
 codec.layered.too_large = Pija we i gat ol layer i bitim saes o namba blong layer we program i save sapotem.
 codec.layered.unsupported = Fael ya i yusum wan fisa we program i no sapotem: {feature}.
 codec.layered.export_layer = Layer “{name}” i gat ol fisa we format ya i no save kipim. Jenisim layer ya i kam ol pixel o sevem olsem PSD.
 codec.layered.export_depth = Blong eksportem long Paint.NET, yu nidim wan RGB dokumen blong 8-bit. Jenisim dokumen i kam RGB blong 8-bit fastaem.
 codec.layered.export_mode = Blong eksportem, yu nidim wan RGB dokumen. Jenisim dokumen i kam RGB fastaem.
+codec.layered.merged_layer = Wan image we i joinim olgeta (sam {format} layer i no save kam insaed)
+codec.kra.merged_color_space = Wan image we i joinim olgeta (Krita {color_space} dokumen i soem olsem RGB)
 
 # Unsupported layered format features
 codec.pdn.feature.blend_mode = Mod blong miksim PDN
@@ -56,3 +66,7 @@ codec.xcf.feature.floating_selection = Seleksen we i flot blong XCF
 codec.xcf.feature.layer_effects = Ol efek blong layer blong XCF
 codec.xcf.feature.precision = Presisen blong XCF
 codec.xcf.feature.version = Vesen blong XCF
+codec.exr.feature.deep = deep data blong EXR
+codec.exr.feature.subsampled = ol sabsample jenel blong EXR
+codec.exr.msg.no_channels = OpenEXR fael ya i no gat eni jenel blong pija.
+codec.exr.msg.write_failed = I no inap raetem OpenEXR fael: {error}

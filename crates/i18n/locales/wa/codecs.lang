@@ -3,6 +3,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -30,15 +32,23 @@ codec.heif.msg.imageio_cannot_read = ImageIO n' a nén savou lére li contneu HE
 codec.heif.msg.container_empty = li contneu HEIF ni contént nole imådje
 codec.heif.msg.imageio_cannot_decode = ImageIO n' a nén savou discoder l' imådje mwaisse
 
+# AVIF in the browser build, which has no AV1 decoder (it still exports AVIF).
+codec.avif.msg.no_decoder = Li modêye betchteu di Schist ni pout nén drovi des imådjes AVIF. Drovoz l' fitchî dins l' programe di scribanne, oudonbén coviersez-l' e PNG d' avance.
+
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = Li fitchî d' imådje a coûtches est abîmé ou nén complet.
 codec.layered.too_large = L' imådje a coûtches passe li grandeu ou l' nombe di coûtches sopoirtés.
 codec.layered.unsupported = Ci fitchî-ci eploye ene fonccion nén sopoirtêye: {feature}.
 codec.layered.export_layer = Li coûtche «{name}» a des fonccions ki ci cogne-ci n' sait nén wårder. Rasterizez-l' ou schapez e PSD.
 codec.layered.export_depth = L' ebagaedje viè Paint.NET a mezåjhe d' on documint RGB di 8 bits. Candjîz d' avance li documint e RGB di 8 bits.
 codec.layered.export_mode = L' ebagaedje a mezåjhe d' on documint RGB. Candjîz d' avance li documint e RGB.
+codec.layered.merged_layer = Imådje windowe (ine pea di coûtches {format} n' ont nén polou esse importêyes)
+codec.kra.merged_color_space = Imådje windowe (document Krita {color_space} håyné come RGB)
 
 # Unsupported layered-format features.
 codec.pdn.feature.blend_mode = môde di maxhaedje PDN
@@ -56,3 +66,7 @@ codec.xcf.feature.floating_selection = tchuze flotante XCF
 codec.xcf.feature.layer_effects = efets di coûtche XCF
 codec.xcf.feature.precision = precizion XCF
 codec.xcf.feature.version = modêye XCF
+codec.exr.feature.deep = dnêyes profondes EXR
+codec.exr.feature.subsampled = tchenåls EXR sourmostrés
+codec.exr.msg.no_channels = Li fitchî OpenEXR n' a nou tchenå d' imådje.
+codec.exr.msg.write_failed = Dji n' a savou scrire li fitchî OpenEXR: {error}

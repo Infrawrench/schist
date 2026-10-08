@@ -35,3 +35,7 @@ workspace.history.move_layers = स्तरचालनम्
 workspace.history.layer_opacity = स्तरापारदर्शिता
 workspace.history.delete_note = टिप्पणीविलोपनम्
 workspace.history.edit_note = टिप्पणीसम्पादनम्
+workspace.canvas.clipping_on = छेदनचेतावन्यः सक्रियाः
+workspace.canvas.clipping_off = छेदनचेतावन्यः निष्क्रियाः
+workspace.canvas.peaking_on = केन्द्रबिन्दुशिखरीकरणं सक्रियम्
+workspace.canvas.peaking_off = केन्द्रबिन्दुशिखरीकरणं निष्क्रियम्

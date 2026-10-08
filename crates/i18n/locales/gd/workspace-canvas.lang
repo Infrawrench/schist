@@ -35,3 +35,7 @@ workspace.history.move_layers = Gluais na breathan
 workspace.history.layer_opacity = Trìd-dhoilleireachd a’ bhreatha
 workspace.history.delete_note = Sguab às an nòta
 workspace.history.edit_note = Deasaich an nòta
+workspace.canvas.clipping_on = Tha na rabhaidhean gearraidh air
+workspace.canvas.clipping_off = Tha na rabhaidhean gearraidh dheth
+workspace.canvas.peaking_on = Tha comharrachadh fòcais air
+workspace.canvas.peaking_off = Tha comharrachadh fòcais dheth

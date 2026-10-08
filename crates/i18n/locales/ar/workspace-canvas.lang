@@ -38,3 +38,7 @@ workspace.history.move_layers = نقل الطبقات
 workspace.history.layer_opacity = عتامة الطبقة
 workspace.history.delete_note = حذف الملاحظة
 workspace.history.edit_note = تحرير الملاحظة
+workspace.canvas.clipping_on = تحذيرات القص مفعّلة
+workspace.canvas.clipping_off = تحذيرات القص معطّلة
+workspace.canvas.peaking_on = إبراز التركيز مفعّل
+workspace.canvas.peaking_off = إبراز التركيز معطّل

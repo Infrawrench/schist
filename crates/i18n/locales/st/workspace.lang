@@ -72,6 +72,9 @@ workspace.filters.raw_too_tall = Setšoantšo se lokisoang sa RAW se phahame hah
 workspace.filters.raw_size_changed = Boholo ba setšoantšo se lokisoang sa RAW bo fetohile ho {w} × {h}; mokhahlelo oa hona joale oa bolokoa
 workspace.filters.raw_history = Ntlafatso ea Camera Raw
 workspace.filters.raw_applied = Ntlafatso ea Camera Raw e sebelisitsoe (demosaic e ntle ka ho fetisisa)
+workspace.raw_masks.no_model = {model} ha e so kenngoe, kahoo maske ena e ke ke ea fumanoa.
+workspace.raw_masks.no_sky = Ha ho leholimo le fumanoeng setšoantšong sena.
+workspace.raw_masks.detect_failed = Ho fumana maske ho hlolehile: {error}
 
 workspace.image_size.done = Boholo ba setšoantšo: {w} × {h}
 workspace.image_size.bicubic_fallback = Boholo ba setšoantšo: {w} × {h} — motlolo oa {name} ha oa ka oa laela, kahoo ha sebelisoa bicubic
@@ -99,3 +102,10 @@ workspace.file_picker.permission_denied = Schist ha e na tumello ea ho bala fold
 workspace.recovery.recovered_title = {title} (e hlaphohetsoe)
 workspace.recovery.recovered.one = Mosebetsi o sa bolokoang oa lenaneo le fetileng o hlaphohetsoe
 workspace.recovery.recovered.other = Palo ea litokomane tse hlaphohileng lenaneong le fetileng: {n}
+workspace.colormgmt.vision_on = Ho etsisa: {name}
+workspace.colormgmt.vision_off = Pono e tloaelehileng
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = E tlositsoe ntle le mohlala oa ho tlatsa, kahoo ho tlatsa ho ka 'na ha se be boreleli
+workspace.tool_jobs.document_changed = {name} e phethile ka mor'a hore tokomane ea eona e koaloe kapa e fetoloe, kahoo ha ho letho le fetotsoeng

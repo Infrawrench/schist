@@ -67,6 +67,9 @@ workspace.filters.raw_too_tall = Результат обработки RAW сл�
 workspace.filters.raw_size_changed = Размер результата RAW изменён на {w} × {h}; текущий слой сохранён
 workspace.filters.raw_history = Обработка Camera Raw
 workspace.filters.raw_applied = Обработка Camera Raw применена (лучшая демозаика)
+workspace.raw_masks.no_model = Модель {model} не установлена, поэтому эту маску невозможно определить.
+workspace.raw_masks.no_sky = На этом изображении не найдено небо.
+workspace.raw_masks.detect_failed = Не удалось определить маску: {error}
 workspace.image_size.done = Размер изображения: {w} × {h}
 workspace.image_size.bicubic_fallback = Размер изображения: {w} × {h} — модель {name} не загрузилась, поэтому использована бикубическая интерполяция
 workspace.image_size.upscaling = Увеличение с помощью {name}
@@ -94,3 +97,10 @@ workspace.recovery.recovered.one = Восстановлен {n} документ
 workspace.recovery.recovered.few = Восстановлено {n} документа из предыдущего сеанса
 workspace.recovery.recovered.many = Восстановлено {n} документов из предыдущего сеанса
 workspace.recovery.recovered.other = Восстановлено {n} документа из предыдущего сеанса
+workspace.colormgmt.vision_on = Имитация: {name}
+workspace.colormgmt.vision_off = Нормальное зрение
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Удалено без модели дорисовки, поэтому заливка может быть грубее
+workspace.tool_jobs.document_changed = {name}: операция завершилась после закрытия или переключения документа, поэтому ничего не изменено

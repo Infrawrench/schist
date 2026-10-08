@@ -241,6 +241,7 @@ common.filetype.jpeg = JPEG تصویر
 common.filetype.webp = WebP تصویر
 common.filetype.tiff = TIFF تصویر
 common.filetype.heic = HEIC تصویر
+common.filetype.exr = OpenEXR تصویر
 common.filetype.raw = Camera Raw تصویر
 common.filetype.affinity = Affinity دستاویز
 common.filetype.image = تصویر

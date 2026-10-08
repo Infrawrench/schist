@@ -15,7 +15,25 @@ dialog.layer_props.title = 图层属性
 dialog.export.format = 格式
 dialog.export.dither = 仿色
 dialog.export.dither_note = 降为 8 位时使用仿色
+dialog.export.effort = 压缩力度
 dialog.export.export_ellipsis = 导出…
+dialog.export.exr_samples = 采样
+dialog.export.exr_half = 半精度浮点（16 位）
+dialog.export.exr_float = 单精度浮点（32 位）
+dialog.export.exr_compression = 压缩
+dialog.export.exr_compression.none = 无
+dialog.export.exr_compression.rle = RLE
+dialog.export.exr_compression.zips = ZIP，单条扫描线
+dialog.export.exr_compression.zip = ZIP，16 条扫描线
+dialog.export.exr_compression.piz = PIZ（小波）
+dialog.export.exr_compression.pxr24 = PXR24（对浮点有损）
+dialog.export.exr_compression.b44 = B44（有损）
+dialog.export.exr_compression.b44a = B44A（有损）
+dialog.export.exr_layers = 图层
+dialog.export.exr_layers_note = 同时将每个可见图层写为 EXR 图层
+dialog.export.exr_alpha = Alpha
+dialog.export.exr_alpha_note = 写入 Alpha 通道
+dialog.export.exr_linear_note = EXR 存储线性光。导出时，这份 8 位或 16 位文档会通过其色彩配置文件解码为线性浮点。
 
 # 处理照片（图库的批处理对话框）
 dialog.batch.title = 处理照片
@@ -65,6 +83,25 @@ dialog.filter.camera_raw_development = Camera Raw 显影
 dialog.filter.reset_as_shot = 重置为拍摄设置
 dialog.filter.raw_note = 从原始传感器数据重新显影当前图层。
 dialog.filter.note = 应用于当前图层的选区内。
+
+# Camera Raw 局部调整
+dialog.raw_masks.title = 蒙版
+dialog.raw_masks.new_mask = 新建蒙版：
+dialog.raw_masks.add_to_mask = 添加到蒙版：
+dialog.raw_masks.linear = 线性渐变
+dialog.raw_masks.subject = 选择主体
+dialog.raw_masks.sky = 选择天空
+dialog.raw_masks.background = 选择背景
+dialog.raw_masks.mask_n = 蒙版 {n}
+dialog.raw_masks.invert_mask = 反相蒙版
+dialog.raw_masks.overlay = 显示蒙版叠加
+dialog.raw_masks.erase = 擦除
+dialog.raw_masks.local = 此蒙版中的调整
+dialog.raw_masks.delete_mask = 删除蒙版
+dialog.raw_masks.detecting = 正在检测…
+dialog.raw_masks.hint_empty = 添加蒙版以调整图片的局部。每个蒙版都有自己的滑块。
+dialog.raw_masks.hint_brush = 在画布上绘画以添加到画笔区域；打开“擦除”可将其移除。
+dialog.raw_masks.hint_gradient = 拖动控制柄以移动渐变，或在画布上拖动以绘制新的渐变。
 
 # 缺失字体
 dialog.fonts.title = 缺失字体

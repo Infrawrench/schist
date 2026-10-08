@@ -23,7 +23,8 @@ impl Workspace {
             self.apply_filter(id, &values, cx);
             return;
         }
-        let begun = if self.is_raw_redevelopment(id) {
+        let raw = self.is_raw_redevelopment(id);
+        let begun = if raw {
             self.begin_raw_filter_preview()
         } else {
             self.begin_filter_preview()
@@ -31,6 +32,11 @@ impl Workspace {
         if !begun {
             cx.notify();
             return;
+        }
+        if raw {
+            self.begin_raw_mask_editing();
+        } else {
+            self.end_raw_mask_editing();
         }
         self.preview_filter(id, Some(&values), cx);
         self.open_modal(

@@ -14,3 +14,4 @@ workspaces.invalid_name = Putum wan nem we i gat 1–80 leta mo i no gat ol kont
 workspaces.duplicate = I gat wan ples blong wok finis wetem nem ya.
 workspaces.limit = Yu save sevem kasem 64 ples blong wok.
 workspaces.keyboard = Kibod: Alt+↑/↓ i jusum wan lukluk. Ctrl/Cmd+N i jenisim nem blong hem; +S i sevem wan kopi; +Enter i yusum; +U i apdetem; +R i jenisim nem; +D i deletem; +0 i setem bakegen.
+workspaces.open_documents = Ol dokumen we oli open

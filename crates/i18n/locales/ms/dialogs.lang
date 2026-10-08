@@ -16,7 +16,25 @@ dialog.layer_props.title = Sifat Lapisan
 dialog.export.format = Format
 dialog.export.dither = Penditeran
 dialog.export.dither_note = Diter apabila mengurangkan kepada 8 bit
+dialog.export.effort = Usaha
 dialog.export.export_ellipsis = Eksport…
+dialog.export.exr_samples = Sampel
+dialog.export.exr_half = Apungan separuh (16-bit)
+dialog.export.exr_float = Apungan (32-bit)
+dialog.export.exr_compression = Pemampatan
+dialog.export.exr_compression.none = Tiada
+dialog.export.exr_compression.rle = RLE
+dialog.export.exr_compression.zips = ZIP, satu garis imbasan
+dialog.export.exr_compression.zip = ZIP, 16 garis imbasan
+dialog.export.exr_compression.piz = PIZ (wavelet)
+dialog.export.exr_compression.pxr24 = PXR24 (lossy untuk apungan)
+dialog.export.exr_compression.b44 = B44 (lossy)
+dialog.export.exr_compression.b44a = B44A (lossy)
+dialog.export.exr_layers = Lapisan
+dialog.export.exr_layers_note = Tulis juga setiap lapisan yang kelihatan sebagai lapisan EXR
+dialog.export.exr_alpha = Alfa
+dialog.export.exr_alpha_note = Tulis saluran alfa
+dialog.export.exr_linear_note = EXR menyimpan cahaya linear. Dokumen 8-bit atau 16-bit ini dinyahkod melalui profil warnanya kepada apungan linear semasa eksport.
 
 # Proses Foto (dialog kelompok galeri)
 dialog.batch.title = Proses Foto
@@ -66,6 +84,25 @@ dialog.filter.camera_raw_development = Pembangunan Camera Raw
 dialog.filter.reset_as_shot = Tetapkan Semula kepada Seperti Dirakam
 dialog.filter.raw_note = Membangunkan semula lapisan aktif daripada data penderia asalnya.
 dialog.filter.note = Digunakan pada lapisan aktif, di dalam pilihan.
+
+# Pelarasan setempat Camera Raw
+dialog.raw_masks.title = Topeng
+dialog.raw_masks.new_mask = Topeng baharu:
+dialog.raw_masks.add_to_mask = Tambah pada topeng:
+dialog.raw_masks.linear = Kecerunan Linear
+dialog.raw_masks.subject = Pilih Subjek
+dialog.raw_masks.sky = Pilih Langit
+dialog.raw_masks.background = Pilih Latar Belakang
+dialog.raw_masks.mask_n = Topeng {n}
+dialog.raw_masks.invert_mask = Songsangkan topeng
+dialog.raw_masks.overlay = Tunjukkan tindanan topeng
+dialog.raw_masks.erase = Padam
+dialog.raw_masks.local = Pelarasan dalam topeng ini
+dialog.raw_masks.delete_mask = Hapus Topeng
+dialog.raw_masks.detecting = Mengesan…
+dialog.raw_masks.hint_empty = Tambah topeng untuk melaraskan sebahagian gambar. Setiap topeng mempunyai peluncurnya sendiri.
+dialog.raw_masks.hint_brush = Cat pada kanvas untuk menambah pada berus; hidupkan Padam untuk membuangnya.
+dialog.raw_masks.hint_gradient = Seret pemegang untuk mengalihkan kecerunan, atau seret pada kanvas untuk melukis yang baharu.
 
 # Fon Hilang
 dialog.fonts.title = Fon Hilang

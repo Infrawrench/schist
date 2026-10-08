@@ -93,6 +93,9 @@ workspace.filters.raw_too_tall = RAW 显影结果过高
 workspace.filters.raw_size_changed = RAW 显影尺寸已更改为 {w} × {h}；保留当前图层
 workspace.filters.raw_history = Camera Raw 显影
 workspace.filters.raw_applied = 已应用 Camera Raw 显影（最佳去马赛克）
+workspace.raw_masks.no_model = 未安装 {model}，因此无法检测此蒙版。
+workspace.raw_masks.no_sky = 此图片中未找到天空。
+workspace.raw_masks.detect_failed = 蒙版检测失败：{error}
 
 # 通过神经网络模型放大的图像大小（filters.rs）；{name} 是模型
 workspace.image_size.done = 图像大小：{w} × {h}
@@ -122,3 +125,10 @@ workspace.file_picker.permission_denied = Schist 没有读取此文件夹的权�
 # 崩溃恢复（recovery.rs）
 workspace.recovery.recovered_title = {title}（已恢复）
 workspace.recovery.recovered.other = 已从上次会话恢复 {n} 个文档
+workspace.colormgmt.vision_on = 正在模拟：{name}
+workspace.colormgmt.vision_off = 正常视觉
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}：{percent}%
+workspace.tool_jobs.missing_model = 已在没有修复模型的情况下移除，填充效果可能较粗糙
+workspace.tool_jobs.document_changed = {name} 完成时其文档已关闭或切换，因此未做任何更改

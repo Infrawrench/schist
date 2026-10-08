@@ -4,6 +4,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -35,15 +37,23 @@ codec.heif.msg.imageio_cannot_read = ImageIO، HEIF کنٹینر نہیں پڑھ
 codec.heif.msg.container_empty = HEIF کنٹینر میں کوئی تصویر نہیں
 codec.heif.msg.imageio_cannot_decode = ImageIO بنیادی تصویر ڈی کوڈ نہیں کر سکا
 
+# AVIF in the browser build, which has no AV1 decoder (it still exports AVIF).
+codec.avif.msg.no_decoder = Schist کا براؤزر ورژن AVIF تصاویر نہیں کھول سکتا۔ فائل کو ڈیسک ٹاپ ایپ میں کھولیں، یا پہلے اسے PNG میں تبدیل کریں۔
+
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = لیئرز والی تصویر کی فائل خراب یا نامکمل ہے۔
 codec.layered.too_large = لیئرز والی تصویر کا سائز یا لیئرز کی تعداد معاون حد سے زیادہ ہے۔
 codec.layered.unsupported = اس فائل میں ایک غیر معاون خصوصیت استعمال ہوئی ہے: {feature}۔
 codec.layered.export_layer = لیئر ”{name}“ میں ایسی خصوصیات ہیں جنہیں یہ فارمیٹ محفوظ نہیں رکھ سکتا۔ اسے راسٹر کریں یا PSD کے طور پر محفوظ کریں۔
 codec.layered.export_depth = Paint.NET میں برآمد کرنے کے لیے 8 بٹ RGB دستاویز درکار ہے۔ پہلے دستاویز کو 8 بٹ RGB میں تبدیل کریں۔
 codec.layered.export_mode = برآمد کرنے کے لیے RGB دستاویز درکار ہے۔ پہلے دستاویز کو RGB میں تبدیل کریں۔
+codec.layered.merged_layer = ضم شدہ تصویر (کچھ {format} لیئرز درآمد نہیں ہو سکیں)
+codec.kra.merged_color_space = ضم شدہ تصویر (Krita {color_space} دستاویز RGB کے طور پر دکھائی گئی)
 codec.pdn.feature.blend_mode = PDN بلینڈ موڈ
 codec.pdn.feature.compression = PDN کمپریشن
 codec.pdn.feature.container_version = PDN کنٹینر کا ورژن
@@ -59,3 +69,8 @@ codec.xcf.feature.floating_selection = XCF تیرتا ہوا انتخاب
 codec.xcf.feature.layer_effects = XCF لیئر کے اثرات
 codec.xcf.feature.precision = XCF درستگی
 codec.xcf.feature.version = XCF ورژن
+
+codec.exr.feature.deep = EXR ڈیپ ڈیٹا
+codec.exr.feature.subsampled = EXR سب سیمپلڈ چینلز
+codec.exr.msg.no_channels = OpenEXR فائل میں تصویری چینل موجود نہیں ہیں۔
+codec.exr.msg.write_failed = OpenEXR فائل لکھی نہیں جا سکی: {error}

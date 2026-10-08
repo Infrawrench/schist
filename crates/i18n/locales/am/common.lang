@@ -243,6 +243,7 @@ common.filetype.jpeg = JPEG ምስል
 common.filetype.webp = WebP ምስል
 common.filetype.tiff = TIFF ምስል
 common.filetype.heic = HEIC ምስል
+common.filetype.exr = የOpenEXR ምስል
 common.filetype.raw = የCamera Raw ምስል
 common.filetype.affinity = Affinity ሰነድ
 common.filetype.image = ምስል

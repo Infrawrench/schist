@@ -25,3 +25,11 @@ tool.magic_eraser.name = Магична гума
 tool.magic_eraser.description = Кликнете за да ја избришете областа со слична боја под покажувачот, во рамките на толеранцијата на алатката — само поврзаната област околу кликнатото место или насекаде во слојот.
 tool.magic_eraser.option.contiguous = Поврзано
 tool.magic_eraser.history.erase = Магична гума
+
+# Remove
+tool.remove.name = Отстранување
+tool.remove.description = Пребојте го несаканиот објект со еден потег; кога ќе го пуштите, тој се пополнува според околината. Кога „Отстрани по секој потег“ е исклучено, нацртајте неколку потези и притиснете Enter за да ги отстраните заедно.
+tool.remove.option.sample_all_layers = Примерок од сите слоеви
+tool.remove.option.remove_after_each_stroke = Отстрани по секој потег
+tool.remove.history.remove = Отстранување
+tool.remove.layer_name = Отстрането

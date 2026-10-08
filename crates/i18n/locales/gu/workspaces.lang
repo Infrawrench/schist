@@ -14,3 +14,4 @@ workspaces.invalid_name = નિયંત્રણ અક્ષરો વગર�
 workspaces.duplicate = આ નામનું કાર્યસ્થાન પહેલેથી અસ્તિત્વમાં છે.
 workspaces.limit = તમે વધુમાં વધુ 64 કાર્યસ્થાનો સાચવી શકો છો.
 workspaces.keyboard = કીબોર્ડ: Alt+↑/↓ ગોઠવણી પસંદ કરે છે. Ctrl/Cmd+N તેનું નામ સંપાદિત કરે છે; +S નકલ સાચવે છે; +Enter લાગુ કરે છે; +U અપડેટ કરે છે; +R નામ બદલે છે; +D કાઢી નાખે છે; +0 રીસેટ કરે છે.
+workspaces.open_documents = ખુલ્લા દસ્તાવેજો

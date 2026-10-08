@@ -232,6 +232,7 @@ common.filetype.jpeg = Gambar JPEG
 common.filetype.webp = Gambar WebP
 common.filetype.tiff = Gambar TIFF
 common.filetype.heic = Gambar HEIC
+common.filetype.exr = Gambar OpenEXR
 common.filetype.raw = Gambar Camera Raw
 common.filetype.affinity = Dokumén Affinity
 common.filetype.image = Gambar

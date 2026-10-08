@@ -299,3 +299,43 @@ library.similar.keep = Simpan
 library.similar.reject = Tolak
 library.similar.help = Tanda semakan sahaja; fail tidak dipadamkan.
 library.similar.stale = Fail telah berubah. Muat semula untuk meneruskan.
+
+# Find Duplicates
+library.duplicates.title = Pendua
+library.duplicates.help = Fail yang serupa dan salinan hampir sama merentas setiap folder yang dipantau. Memindahkan ke tong sampah meminta pengesahan dua kali; fail yang dibuang boleh dipulihkan daripada tong sampah sistem.
+library.duplicates.exact = Fail serupa
+library.duplicates.near = Pendua hampir
+library.duplicates.identical = serupa (SHA-256)
+library.duplicates.suggested = Cadangan simpan
+library.duplicates.make_keeper = Simpan Yang Ini
+library.duplicates.compare = Bandingkan
+library.duplicates.keep_all = Simpan Semua
+library.duplicates.reject_others = Tolak Yang Lain
+library.duplicates.trash_others.other = Pindahkan {n} Yang Lain ke Tong Sampah
+library.duplicates.confirm_trash.other = Sahkan: Pindahkan {n} ke Tong Sampah
+library.duplicates.n_trashed.other = {n} fail dipindahkan ke tong sampah
+library.duplicates.n_rejected.other = {n} foto ditandakan sebagai ditolak
+library.duplicates.refused_edited = ia mempunyai suntingan atau fail sidecar, jadi tolak sahaja
+library.duplicates.trash_failed = tong sampah sistem tidak tersedia
+library.duplicates.near_limit = Pemadanan pendua hampir meliputi 10,000 foto pertama.
+
+# Geotagging from GPX tracks
+library.geotag.menu = Geotag daripada Trek GPX…
+library.geotag.title = Geotag daripada Trek GPX
+library.geotag.add_files = Tambah Fail GPX…
+library.geotag.n_track_points.other = {n} titik trek bermasa
+library.geotag.max_gap = Jurang maksimum (minit)
+library.geotag.clock_offset = Pembetulan jam kamera
+library.geotag.time_zone = Zon waktu foto (ofset UTC)
+library.geotag.zone_help = Zon waktu hanya digunakan pada masa tangkapan yang dirakam tanpa zon waktu. Pembetulan, dalam saat atau ±h:mm:ss, ditambah pada setiap masa tangkapan.
+library.geotag.skip_existing = Langkau foto yang sudah mempunyai lokasi
+library.geotag.n_will_tag.other = {n} foto akan ditag
+library.geotag.n_has_gps.other = {n} foto sudah mempunyai lokasi
+library.geotag.n_no_time.other = {n} foto tiada masa tangkapan
+library.geotag.n_gap.other = {n} foto jatuh dalam jurang pada trek
+library.geotag.n_outside.other = {n} foto berada di luar julat masa trek
+library.geotag.apply = Tulis Lokasi
+library.geotag.invalid = Masukkan jurang dalam minit, pembetulan seperti -1:30 dan zon waktu seperti +02:00.
+library.geotag.no_points = Fail GPX tidak mengandungi titik bermasa.
+library.geotag.select_photos = Pilih foto untuk digeotag dahulu.
+library.geotag.read_failed = Tidak dapat membaca fail GPX: {error}

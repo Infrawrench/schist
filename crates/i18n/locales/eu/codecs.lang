@@ -3,6 +3,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -30,15 +32,22 @@ codec.heif.msg.imageio_cannot_read = ImageIOk ezin izan du HEIF edukiontzia irak
 codec.heif.msg.container_empty = HEIF edukiontziak ez du irudirik
 codec.heif.msg.imageio_cannot_decode = ImageIOk ezin izan du irudi nagusia deskodetu
 
+codec.avif.msg.no_decoder = Schist-en arakatzaile-bertsioak ezin ditu AVIF irudiak ireki. Ireki fitxategia mahaigaineko aplikazioan, edo bihurtu lehenik PNG formatura.
+
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = Geruzadun irudiaren fitxategia hondatuta edo osatu gabe dago.
 codec.layered.too_large = Geruzadun irudiak onartutako tamaina edo geruza kopurua gainditzen du.
 codec.layered.unsupported = Fitxategi honek onartzen ez den eginbide bat erabiltzen du: {feature}.
 codec.layered.export_layer = “{name}” geruzak formatu honek gorde ezin dituen eginbideak ditu. Rasterizatu geruza edo gorde PSD gisa.
 codec.layered.export_depth = Paint.NET formatura esportatzeko, 8 biteko RGB dokumentua behar da. Bihurtu dokumentua 8 biteko RGBra lehenik.
 codec.layered.export_mode = Esportatzeko, RGB dokumentua behar da. Bihurtu dokumentua RGBra lehenik.
+codec.layered.merged_layer = Bateratutako irudia ({format} formatuko geruza batzuk ezin izan dira inportatu)
+codec.kra.merged_color_space = Bateratutako irudia (Krita {color_space} dokumentua RGB gisa erakusten da)
 
 # Unsupported layered format features
 codec.pdn.feature.blend_mode = PDN nahaste-modua
@@ -56,3 +65,8 @@ codec.xcf.feature.floating_selection = XCF hautapen mugikorra
 codec.xcf.feature.layer_effects = XCF geruza-efektuak
 codec.xcf.feature.precision = XCF doitasuna
 codec.xcf.feature.version = XCF bertsioa
+
+codec.exr.feature.deep = EXR datu sakonak
+codec.exr.feature.subsampled = EXR azpilagindutako kanalak
+codec.exr.msg.no_channels = OpenEXR fitxategiak ez du irudi-kanalik.
+codec.exr.msg.write_failed = Ezin izan da OpenEXR fitxategia idatzi: {error}

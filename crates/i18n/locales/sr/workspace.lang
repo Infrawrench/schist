@@ -67,6 +67,9 @@ workspace.filters.raw_too_tall = Резултат развијања RAW дат�
 workspace.filters.raw_size_changed = Величина развијене RAW датотеке промењена је на {w} × {h}; задржава се тренутни слој
 workspace.filters.raw_history = Развијање Camera Raw датотеке
 workspace.filters.raw_applied = Примењено је развијање Camera Raw датотеке (најбоље демозаиковање)
+workspace.raw_masks.no_model = {model} није инсталиран, па ова маска не може да се открије.
+workspace.raw_masks.no_sky = На овој слици није пронађено небо.
+workspace.raw_masks.detect_failed = Откривање маске није успело: {error}
 workspace.image_size.done = Величина слике: {w} × {h}
 workspace.image_size.bicubic_fallback = Величина слике: {w} × {h} — модел {name} није могао да се учита, па је употребљено бикубно узорковање
 workspace.image_size.upscaling = Повећавање помоћу модела {name}
@@ -92,3 +95,10 @@ workspace.recovery.recovered_title = {title} (опорављено)
 workspace.recovery.recovered.one = Опорављен је {n} документ са несачуваним радом из претходне сесије
 workspace.recovery.recovered.few = Опорављена су {n} документа са несачуваним радом из претходне сесије
 workspace.recovery.recovered.other = Опорављено је {n} докумената са несачуваним радом из претходне сесије
+workspace.colormgmt.vision_on = Симулација: {name}
+workspace.colormgmt.vision_off = Нормалан вид
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Уклоњено без модела за допуњавање, па попуна може бити грубља
+workspace.tool_jobs.document_changed = Операција {name} је завршена након што је њен документ затворен или замењен, па ништа није измењено

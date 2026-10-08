@@ -14,3 +14,4 @@ workspaces.invalid_name = 请输入包含 1–80 个字符且不含控制字符�
 workspaces.duplicate = 已存在同名工作区。
 workspaces.limit = 最多可存储 64 个工作区。
 workspaces.keyboard = 键盘：Alt+↑/↓ 选择布局。Ctrl/Cmd+N 编辑名称；+S 存储副本；+Enter 应用；+U 更新；+R 重命名；+D 删除；+0 复位。
+workspaces.open_documents = 已打开的文档

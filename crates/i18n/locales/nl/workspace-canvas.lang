@@ -37,3 +37,7 @@ workspace.history.move_layers = Lagen verplaatsen
 workspace.history.layer_opacity = Laagdekking
 workspace.history.delete_note = Notitie verwijderen
 workspace.history.edit_note = Notitie bewerken
+workspace.canvas.clipping_on = Clippingwaarschuwingen aan
+workspace.canvas.clipping_off = Clippingwaarschuwingen uit
+workspace.canvas.peaking_on = Focus peaking aan
+workspace.canvas.peaking_off = Focus peaking uit

@@ -234,6 +234,7 @@ common.filetype.jpeg = Picha ya JPEG
 common.filetype.webp = Picha ya WebP
 common.filetype.tiff = Picha ya TIFF
 common.filetype.heic = Picha ya HEIC
+common.filetype.exr = Picha ya OpenEXR
 common.filetype.raw = Picha Ghafi ya Kamera
 common.filetype.affinity = Waraka wa Affinity
 common.filetype.image = Picha

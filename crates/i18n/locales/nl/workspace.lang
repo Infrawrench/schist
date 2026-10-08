@@ -75,6 +75,9 @@ workspace.filters.raw_too_tall = RAW-ontwikkeling is te hoog
 workspace.filters.raw_size_changed = Grootte van RAW-ontwikkeling gewijzigd in {w} × {h}; huidige laag behouden
 workspace.filters.raw_history = Camera Raw-ontwikkeling
 workspace.filters.raw_applied = Camera Raw-ontwikkeling toegepast (beste demosaicing)
+workspace.raw_masks.no_model = {model} is niet geïnstalleerd, dus dit masker kan niet worden gedetecteerd.
+workspace.raw_masks.no_sky = Er is geen lucht gevonden in deze afbeelding.
+workspace.raw_masks.detect_failed = Maskerdetectie mislukt: {error}
 
 workspace.image_size.done = Afbeeldingsgrootte: {w} × {h}
 workspace.image_size.bicubic_fallback = Afbeeldingsgrootte: {w} × {h} — het model {name} kon niet worden geladen, dus bicubisch is als vervanging gebruikt
@@ -102,3 +105,10 @@ workspace.file_picker.permission_denied = Schist heeft geen toestemming om deze 
 workspace.recovery.recovered_title = {title} (hersteld)
 workspace.recovery.recovered.one = Niet-opgeslagen werk uit een vorige sessie hersteld
 workspace.recovery.recovered.other = {n} documenten uit een vorige sessie hersteld
+workspace.colormgmt.vision_on = Simulatie: {name}
+workspace.colormgmt.vision_off = Normaal zien
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Verwijderd zonder het inpaintingmodel, dus de opvulling kan grover zijn
+workspace.tool_jobs.document_changed = {name} is voltooid nadat het document was gesloten of gewisseld, dus er is niets gewijzigd

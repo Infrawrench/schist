@@ -66,6 +66,9 @@ workspace.filters.raw_too_tall = RAW-framkallingin er ov høg
 workspace.filters.raw_size_changed = Støddin á RAW-framkallingini broyttist til {w} × {h}; varðveitir núverandi lag
 workspace.filters.raw_history = Camera Raw-framkalling
 workspace.filters.raw_applied = Camera Raw-framkalling nýtt (besta demosaikking)
+workspace.raw_masks.no_model = {model} er ikki innlagt, so henda maskan kann ikki kennast aftur.
+workspace.raw_masks.no_sky = Eingin himmal varð funnin á hesi myndini.
+workspace.raw_masks.detect_failed = Maskukenning miseydnaðist: {error}
 workspace.image_size.done = Myndastødd: {w} × {h}
 workspace.image_size.bicubic_fallback = Myndastødd: {w} × {h} — {name}-myndilin fekst ikki inn, so bikubisk interpolatión varð nýtt í staðin
 workspace.image_size.upscaling = Størkar við {name}
@@ -89,3 +92,10 @@ workspace.file_picker.permission_denied = Schist hevur ikki loyvi at lesa hesa m
 workspace.recovery.recovered_title = {title} (endurstovnað)
 workspace.recovery.recovered.one = Endurstovnaði ógoymt arbeiði úr einari eldri setu
 workspace.recovery.recovered.other = Endurstovnaði {n} skjøl úr einari eldri setu
+workspace.colormgmt.vision_on = Eftirlíking: {name}
+workspace.colormgmt.vision_off = Vanlig sjón
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Tikið burtur uttan innmálingarmodellið, so útfyllingin kann vera grovari
+workspace.tool_jobs.document_changed = {name} varð liðugt, eftir at skjalið var latið aftur ella skift, so einki varð broytt

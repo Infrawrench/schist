@@ -19,3 +19,11 @@ tool.magic_eraser.name = Чарівна гумка
 tool.magic_eraser.description = Клацніть, щоб стерти ділянку подібного кольору під вказівником у межах допуску інструмента — суміжну з місцем клацання або всюди в шарі.
 tool.magic_eraser.option.contiguous = Суміжні
 tool.magic_eraser.history.erase = Чарівна гумка
+
+# Remove
+tool.remove.name = Видалення
+tool.remove.description = Замалюйте небажаний об’єкт одним штрихом; коли ви відпустите кнопку, його буде заповнено з навколишньої області. Якщо параметр «Видаляти після кожного штриха» вимкнено, намалюйте кілька штрихів і натисніть Enter, щоб видалити їх разом.
+tool.remove.option.sample_all_layers = Зразок з усіх шарів
+tool.remove.option.remove_after_each_stroke = Видаляти після кожного штриха
+tool.remove.history.remove = Видалення
+tool.remove.layer_name = Видалено

@@ -66,6 +66,9 @@ workspace.filters.raw_too_tall = Tá forbairt RAW ró-ard
 workspace.filters.raw_size_changed = Athraíodh méid fhorbairt RAW go {w} × {h}; coinneofar an tsraith reatha
 workspace.filters.raw_history = Forbairt Camera Raw
 workspace.filters.raw_applied = Cuireadh forbairt Camera Raw i bhfeidhm (an dímósáiciú is fearr)
+workspace.raw_masks.no_model = Níl {model} suiteáilte, mar sin ní féidir an masc seo a bhrath.
+workspace.raw_masks.no_sky = Níor aimsíodh aon spéir sa phictiúr seo.
+workspace.raw_masks.detect_failed = Theip ar bhrath an mhaisc: {error}
 workspace.image_size.done = Méid íomhá: {w} × {h}
 workspace.image_size.bicubic_fallback = Méid íomhá: {w} × {h} — ní lódálfaí samhail {name}, mar sin úsáideadh déchiúbach ina háit
 workspace.image_size.upscaling = Á uas-scálú le {name}
@@ -95,3 +98,10 @@ workspace.recovery.recovered.two = Aisghabhadh {n} cháipéis ó sheisiún roimh
 workspace.recovery.recovered.few = Aisghabhadh {n} cháipéis ó sheisiún roimhe seo
 workspace.recovery.recovered.many = Aisghabhadh {n} gcáipéis ó sheisiún roimhe seo
 workspace.recovery.recovered.other = Aisghabhadh {n} cáipéis ó sheisiún roimhe seo
+workspace.colormgmt.vision_on = Insamhladh: {name}
+workspace.colormgmt.vision_off = Gnáthradharc
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Baineadh é gan an tsamhail inphéintéála, mar sin d’fhéadfadh an líonadh a bheith níos gairbhe
+workspace.tool_jobs.document_changed = Chríochnaigh {name} tar éis dá dhoiciméad a bheith dúnta nó athraithe, mar sin níor athraíodh aon rud

@@ -35,3 +35,7 @@ workspace.history.move_layers = Gbé àwọn fẹ́lẹ́fẹ́lẹ́
 workspace.history.layer_opacity = Ìwọ̀n àìríran-kọjá fẹ́lẹ́fẹ́lẹ́
 workspace.history.delete_note = Pa àkọsílẹ̀ rẹ́
 workspace.history.edit_note = Ṣàtúnṣe àkọsílẹ̀
+workspace.canvas.clipping_on = Àwọn ìkìlọ̀ gígé wà ní ṣíṣí
+workspace.canvas.clipping_off = Àwọn ìkìlọ̀ gígé wà ní pípà
+workspace.canvas.peaking_on = Ìfihàn ìdojúkọ wà ní ṣíṣí
+workspace.canvas.peaking_off = Ìfihàn ìdojúkọ wà ní pípà

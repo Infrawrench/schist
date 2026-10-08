@@ -14,3 +14,4 @@ workspaces.invalid_name = Cuir a-steach ainm le 1–80 caractar gun charactaran-
 workspaces.duplicate = Tha àite-obrach leis an ainm seo ann mu thràth.
 workspaces.limit = Faodaidh tu suas ri 64 àiteachan-obrach a shàbhaladh.
 workspaces.keyboard = Meur-chlàr: taghaidh Alt+↑/↓ co-dhealbhachd. Deasaichidh Ctrl/Cmd+N a h-ainm; sàbhalaidh +S lethbhreac; cuiridh +Enter an sàs i; ùraichidh +U i; bheir +R ainm ùr oirre; sguabaidh +D às i; ath-shuidhichidh +0 i.
+workspaces.open_documents = Sgrìobhainnean fosgailte

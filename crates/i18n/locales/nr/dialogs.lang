@@ -10,7 +10,25 @@ dialog.layer_props.title = Izakhiwo Zeleya
 dialog.export.format = Ifomethi
 dialog.export.dither = Hlanganisa Amachaphaza
 dialog.export.dither_note = Hlanganisa amachaphaza nakuncitjhiselwa kumabhithi abu-8
+dialog.export.effort = Umzamo
 dialog.export.export_ellipsis = Thumela ngaphandle…
+dialog.export.exr_samples = Iisampula
+dialog.export.exr_half = Half float (16-bit)
+dialog.export.exr_float = Float (32-bit)
+dialog.export.exr_compression = Ukugandelela
+dialog.export.exr_compression.none = Akukho
+dialog.export.exr_compression.rle = RLE
+dialog.export.exr_compression.zips = ZIP, umgqa owodwa we-scan
+dialog.export.exr_compression.zip = ZIP, imigqa eli-16 ye-scan
+dialog.export.exr_compression.piz = PIZ (wavelet)
+dialog.export.exr_compression.pxr24 = PXR24 (iyalahlekelwa ngokuthileko ku-float)
+dialog.export.exr_compression.b44 = B44 (iyalahlekelwa ngokuthileko)
+dialog.export.exr_compression.b44a = B44A (iyalahlekelwa ngokuthileko)
+dialog.export.exr_layers = Amaleya
+dialog.export.exr_layers_note = Bhala nalo ileya elibonakalako ngokuthi yileya le-EXR
+dialog.export.exr_alpha = I-alfa
+dialog.export.exr_alpha_note = Bhala isiteshi se-alfa
+dialog.export.exr_linear_note = I-EXR igcina ukukhanya okulayini. Ibhaliso le-8- namkha le-16-bit lihlathululwa ngephrofayili yalo yemibala liye ku-float elayini lapho lithunyelwa ngaphandle.
 
 # Batch
 dialog.batch.title = Sebenza Ngeenthombe
@@ -62,6 +80,25 @@ dialog.filter.camera_raw_development = Ukulungiswa kwe-Camera Raw
 dialog.filter.reset_as_shot = Buyisela Kwendlela Esathathwa Ngayo
 dialog.filter.raw_note = Kulungiswa godu ileya esebenzako ngedatha yesensa yokuthoma.
 dialog.filter.note = Kusetjenziswa eleyeni esebenzako, ngaphakathi kokukhethiweko.
+
+# Ukulungiswa kwendawo kwe-Camera Raw
+dialog.raw_masks.title = Iimfihli
+dialog.raw_masks.new_mask = Isifihli esitjha:
+dialog.raw_masks.add_to_mask = Engeza esifihlini:
+dialog.raw_masks.linear = Ukutjhuguluka Kombala Okuqondileko
+dialog.raw_masks.subject = Khetha Isihloko
+dialog.raw_masks.sky = Khetha Isibhakabhaka
+dialog.raw_masks.background = Khetha Ingemuva
+dialog.raw_masks.mask_n = Isifihli {n}
+dialog.raw_masks.invert_mask = Phendula isifihli
+dialog.raw_masks.overlay = Tjengisa isifihli ngaphezulu
+dialog.raw_masks.erase = Sula
+dialog.raw_masks.local = Ukulungiswa kwesifihli lesi
+dialog.raw_masks.delete_mask = Susa Isifihli
+dialog.raw_masks.detecting = Kuyatholwa…
+dialog.raw_masks.hint_empty = Engeza isifihli ukulungisa ingcenye yesithombe. Isifihli ngasinye sinamaslayida waso.
+dialog.raw_masks.hint_brush = Pende ekhanvasini ukwengeza ebhratjhini; vula u-Sula ukukususa.
+dialog.raw_masks.hint_gradient = Donsa iimbambo ukususa ukutjhuguluka kombala, namkha udonse ekhanvasini ukudweba okutjha.
 
 # Missing fonts
 dialog.fonts.title = Amafonti Angekhoyo

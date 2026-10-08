@@ -66,6 +66,9 @@ workspace.filters.raw_too_tall = RAW ഡെവലപ്മെന്റിന്�
 workspace.filters.raw_size_changed = RAW ഡെവലപ്മെന്റ് വലുപ്പം {w} × {h} ആയി മാറി; നിലവിലെ ലെയർ നിലനിർത്തുന്നു
 workspace.filters.raw_history = Camera Raw ഡെവലപ്മെന്റ്
 workspace.filters.raw_applied = Camera Raw ഡെവലപ്മെന്റ് പ്രയോഗിച്ചു (മികച്ച ഡീമൊസെയ്ക്ക്)
+workspace.raw_masks.no_model = {model} ഇൻസ്റ്റാൾ ചെയ്തിട്ടില്ല, അതിനാൽ ഈ മാസ്ക് കണ്ടെത്താൻ കഴിയില്ല.
+workspace.raw_masks.no_sky = ഈ ചിത്രത്തിൽ ആകാശം കണ്ടെത്തിയില്ല.
+workspace.raw_masks.detect_failed = മാസ്ക് കണ്ടെത്തൽ പരാജയപ്പെട്ടു: {error}
 workspace.image_size.done = ചിത്ര വലുപ്പം: {w} × {h}
 workspace.image_size.bicubic_fallback = ചിത്ര വലുപ്പം: {w} × {h} — {name} മോഡൽ ലോഡ് ചെയ്യാനാകാത്തതിനാൽ പകരം ബൈക്യൂബിക് ഉപയോഗിച്ചു
 workspace.image_size.upscaling = {name} ഉപയോഗിച്ച് വലുതാക്കുന്നു
@@ -89,3 +92,10 @@ workspace.file_picker.permission_denied = ഈ ഫോൾഡർ വായിക്
 workspace.recovery.recovered_title = {title} (വീണ്ടെടുത്തത്)
 workspace.recovery.recovered.one = മുൻ സെഷനിൽ സംരക്ഷിക്കാത്ത പ്രവർത്തനം വീണ്ടെടുത്തു
 workspace.recovery.recovered.other = മുൻ സെഷനിൽനിന്ന് {n} ഡോക്യുമെന്റുകൾ വീണ്ടെടുത്തു
+workspace.colormgmt.vision_on = സിമുലേഷൻ: {name}
+workspace.colormgmt.vision_off = സാധാരണ കാഴ്ച
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = ഇൻപെയിന്റിങ് മോഡൽ ഇല്ലാതെ നീക്കംചെയ്തു, അതിനാൽ നിറയ്ക്കൽ കൂടുതൽ പരുക്കനായേക്കാം
+workspace.tool_jobs.document_changed = ഡോക്യുമെന്റ് അടച്ചതിനോ മാറ്റിയതിനോ ശേഷമാണ് {name} പൂർത്തിയായത്, അതിനാൽ ഒന്നും മാറ്റിയിട്ടില്ല

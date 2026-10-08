@@ -110,6 +110,8 @@ recovery keep edits recoverable.
 
 **Painting and retouching.** Brush, pencil, erasers, gradients, clone and healing
 tools, patching, content-aware fill and move, dodge/burn, blur, sharpen and smudge.
+The [Remove tool](docs/remove-tool.md) takes an object out in one stroke, filling
+it in the background with the local inpainting network and patch synthesis.
 [Brush presets](docs/brushes.md) support imported bitmap tips and brush packs,
 spacing, scattering, stroke stabilization, and pressure-controlled size and
 opacity. [Symmetry and seamless painting](docs/symmetry-painting.md) add mirrored
@@ -130,7 +132,10 @@ on the destination format; see [file formats](#file-formats).
 filters, Camera Raw, [Lens Correction](docs/lens-profiles.md) and Filter Gallery.
 Lens Correction can match EXIF camera/lens metadata to installed or imported
 Lensfun calibration, with profile overrides and portable saved coefficients.
-Filters preview on the
+Camera Raw development has [local adjustments](docs/camera-raw-masks.md):
+brush, linear and radial gradient masks and Select Subject/Sky/Background,
+combined and inverted, each with its own exposure, tone, colour and detail
+sliders. Filters preview on the
 canvas, with [draggable controls](docs/filter-canvas.md) for supported blur and
 lighting effects. Free Transform, Liquify, Puppet Warp, Content-Aware Scale and
 Vanishing Point cover geometric edits.
@@ -141,7 +146,11 @@ process channels through supported edits and saves. Import `.aco`, `.ase` and
 `.acb` palettes in the Color panel, including user-supplied colour books; no
 Pantone libraries are bundled. [Spot ink channels](docs/spot-ink.md) provide
 editable separations and an overprint display simulation, with PSD/PSB
-interchange and documented proofing limits.
+interchange and documented proofing limits. **View ▸ Color Vision** simulates
+protanopia, deuteranopia, tritanopia, their anomalous forms at three severities,
+and achromatopsia on screen only; **Clipping Warnings** and **Focus Peaking**
+overlay the canvas and the gallery's viewers (see
+[viewer overlays](docs/viewer-overlays.md)).
 
 **Design Mode.** A page layout editor alongside the photo editor, sharing
 the window and the panels: pages and spreads, a fitted pasteboard with
@@ -157,11 +166,15 @@ because it cannot yet author a document — there is no text tool. See
 **Photo library.** The [gallery](docs/gallery.md) watches local folders, imports
 from cameras, organizes photos by folder/date/place, and provides buckets, maps,
 search and People indexing. Rate, flag and label photos, compare them with
-synchronized zoom and pan, and review similar images or capture bursts. Gallery
+synchronized zoom and pan, and review similar images or capture bursts.
+[Find Duplicates](docs/gallery.md#finding-duplicates) groups byte-identical files
+and near copies across the library, suggests which to keep, and can flag the
+rest or move them to the system trash. Gallery
 edits use sidecars and version history so the originals remain available.
 [Metadata editing](docs/photo-metadata.md) supports individual or batch changes
 to keywords, captions, copyright, capture times and GPS through portable XMP
-sidecars.
+sidecars, and [GPX geotagging](docs/gallery.md#geotagging-from-gpx-tracks)
+places photos along a recorded track after a map preview.
 
 **Photo workflows.** [Merge photos](docs/photo-merging.md) into aligned layers,
 focus stacks, bracketed HDR images or translation-based panoramas on native
@@ -201,10 +214,14 @@ boundaries.
 | --- | --- |
 | PSD / PSB | Layered 8/16/32-bit read/write with groups, masks, blend modes, adjustments, effects, native colour channels and spot separations. Supported text and smart filters remain editable in other readers; see [PSD interchange](docs/psd-interchange.md) and [native smart filters](docs/native-smart-filters.md). |
 | Affinity `.af`, `.afphoto`, `.afdesign`, `.afpub` | Import layered documents; export layered `.af` files, including supported native text and curves. Unsupported content may use preserved native data or raster previews. See [Affinity support and limits](docs/affinity-format.md). |
-| Paint.NET `.pdn` / GIMP `.xcf` | Read/write supported layered content; see [format limits](docs/layered-formats.md). |
+| Paint.NET `.pdn` / GIMP `.xcf` / OpenRaster `.ora` | Read/write supported layered content; see [format limits](docs/layered-formats.md). |
+| Krita `.kra` / `.krz` | Import paint and group layers at 8/16-bit integer or 16/32-bit float RGBA; other layer types and colour models fall back to Krita's merged image. See [format limits](docs/layered-formats.md#krita). |
 | PNG, JPEG, WebP, TIFF | Import and export raster images. |
+| JPEG XL `.jxl` | Import lossy and lossless files (8/16-bit and float, alpha, ICC, HDR baked to sRGB) in pure Rust. Export is lossless everywhere; lossy export, effort and float samples need a system libjxl (0.7 or later), which desktop builds load when present. Also decodes DNG 1.7 JPEG XL tiles. See [JPEG XL and AVIF](docs/jxl-avif.md). |
+| AVIF `.avif` | Import 8/10/12-bit files with alpha, grids, transforms, ICC and nclx colour (HDR baked to sRGB); export 8/10/12-bit with quality, effort, alpha and ICC. Pure Rust; the browser build can export but not open AVIF. See [JPEG XL and AVIF](docs/jxl-avif.md). |
+| OpenEXR `.exr` | Import scanline, tiled and multi-part files (half/float/uint; every compression including DWAA/DWAB) as 32-bit linear documents, render passes as layers; export flat or layered, half or float. See [OpenEXR](docs/openexr.md). |
 | HEIC / HEIF | Native import through a supported runtime libheif decoder; Schist can offer a download when needed. |
-| Camera RAW | Import through Schist's pure-Rust decoder and develop in Camera Raw. The original capture and development settings can survive PSD/PSB save and reopen. See [camera and codec coverage](crates/codec-raw/README.md). |
+| Camera RAW | Import through Schist's pure-Rust decoder and develop in Camera Raw, with [local adjustment masks](docs/camera-raw-masks.md). The original capture, development settings and masks can survive PSD/PSB save and reopen. See [camera and codec coverage](crates/codec-raw/README.md). |
 
 Format support is not a guarantee of identical rendering or complete feature
 interchange. Schist preserves unrecognized PSD data where supported, and uses
@@ -221,14 +238,14 @@ Photoshop's defaults (⌘ on macOS, Ctrl elsewhere):
 
 | Area | Shortcuts |
 | --- | --- |
-| Tools | `V` move · `M` marquee · `L` lasso · `W` wand · `C` crop · `B` brush · `E` eraser · `S` clone · `J` spot healing · `Y` history brush · `G` gradient · `O` dodge · `P` pen · `A` path selection · `T` type · `U` shapes · `I` eyedropper · `H`/space hand · `Z` zoom |
+| Tools | `V` move · `M` marquee · `L` lasso · `W` wand · `C` crop · `B` brush · `E` eraser · `S` clone · `J` spot healing (Shift+`J` for remove, healing, patch…) · `Y` history brush · `G` gradient · `O` dodge · `P` pen · `A` path selection · `T` type · `U` shapes · `I` eyedropper · `H`/space hand · `Z` zoom |
 | Tool groups | Shift+the tool's key cycles nested tools (Shift+`M` marquee ⇄ ellipse); hold or right-click a toolbar slot for its flyout |
 | Edit | ⌘Z / ⌘⇧Z undo・redo · ⌘X/C/V · ⌘⇧C copy merged · ⌘T free transform |
 | Select | ⌘A all · ⌘D deselect · ⌘⇧D reselect · ⌘⇧I inverse · shift/alt-drag to add/subtract |
 | Layers | ⌘⇧N new · ⌘J duplicate · ⌘⇧J via cut · ⌘G group · ⌘E/⌘⇧E merge · ⌘[ ⌘] reorder · ⌘⌥G clipping mask |
 | Adjust | ⌘L levels · ⌘M curves · ⌘U hue/sat · ⌘I invert |
 | Fill | ⇧F5 Fill… · ⌥⌫ / ⌃⌫ fill with fore/background |
-| View | ⌘0 fit · ⌘1 100% · ⌘R rulers · ⌘' grid · ⌘; guides · ⌘H extras · Tab/F screen modes · ⌘K preferences |
+| View | ⌘0 fit · ⌘1 100% · ⌘R rulers · ⌘' grid · ⌘; guides · ⌘H extras · Tab/F screen modes · ⌘K preferences · ⌥J clipping warnings · ⌥⇧J focus peaking |
 | Painting | `[`/`]` brush size · digits set opacity · `D`/`X` default・swap colours |
 
 ## Mouse and touchpad
@@ -242,8 +259,13 @@ Remap shortcuts in `~/.config/schist/keymap.json` (or under
 `$XDG_CONFIG_HOME/schist/`):
 
 ```json
-{ "ctrl-shift-x": "command:edit.fill_foreground", "f1": "tool:brush" }
+{ "ctrl-shift-x": "command:edit.fill_foreground", "f1": "tool:brush", "q": "view:clipping" }
 ```
+
+`view:` targets are the viewer overlays and colour-vision proofs: `clipping`,
+`focus_peaking`, `vision.normal`, and `vision.protanopia` (likewise
+`deuteranopia`, `tritanopia`, `protanomaly`, `deuteranomaly`, `tritanomaly`,
+`achromatopsia`). They work in the gallery as well as the editor.
 
 ## Plugins and automation
 

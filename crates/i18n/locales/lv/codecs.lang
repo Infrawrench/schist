@@ -4,6 +4,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -39,15 +41,22 @@ codec.heif.msg.imageio_cannot_read = ImageIO nevarēja nolasīt HEIF konteineru
 codec.heif.msg.container_empty = HEIF konteinerā nav attēla
 codec.heif.msg.imageio_cannot_decode = ImageIO nevarēja dekodēt primāro attēlu
 
+codec.avif.msg.no_decoder = Schist pārlūka versija nevar atvērt AVIF attēlus. Atveriet failu darbvirsmas lietotnē vai vispirms pārveidojiet to par PNG.
+
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = Attēla fails ar slāņiem ir bojāts vai nepilnīgs.
 codec.layered.too_large = Attēls ar slāņiem pārsniedz atbalstīto izmēru vai slāņu skaitu.
 codec.layered.unsupported = Šajā failā tiek izmantota neatbalstīta iespēja: {feature}.
 codec.layered.export_layer = Slānis “{name}” satur iespējas, ko šis formāts nevar saglabāt. Rastrējiet to vai saglabājiet kā PSD.
 codec.layered.export_depth = Eksportēšanai uz Paint.NET nepieciešams 8 bitu RGB dokuments. Vispirms pārveidojiet dokumentu par 8 bitu RGB.
 codec.layered.export_mode = Eksportēšanai nepieciešams RGB dokuments. Vispirms pārveidojiet dokumentu par RGB.
+codec.layered.merged_layer = Apvienotais attēls (dažus {format} slāņus nevarēja importēt)
+codec.kra.merged_color_space = Apvienotais attēls (Krita {color_space} dokuments parādīts kā RGB)
 codec.pdn.feature.blend_mode = PDN sajaukšanas režīms
 codec.pdn.feature.compression = PDN saspiešana
 codec.pdn.feature.container_version = PDN konteinera versija
@@ -63,3 +72,8 @@ codec.xcf.feature.floating_selection = XCF peldošā atlase
 codec.xcf.feature.layer_effects = XCF slāņa efekti
 codec.xcf.feature.precision = XCF precizitāte
 codec.xcf.feature.version = XCF versija
+
+codec.exr.feature.deep = EXR dziļie dati
+codec.exr.feature.subsampled = EXR apakšparaugotie kanāli
+codec.exr.msg.no_channels = OpenEXR failā nav neviena attēla kanāla.
+codec.exr.msg.write_failed = Neizdevās ierakstīt OpenEXR failu: {error}

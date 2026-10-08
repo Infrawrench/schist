@@ -14,3 +14,4 @@ workspaces.invalid_name = Dolandyryş nyşanlary bolmadyk 1–80 nyşanly at gir
 workspaces.duplicate = Şeýle atly iş giňişligi eýýäm bar.
 workspaces.limit = 64-e çenli iş giňişligini saklap bilersiňiz.
 workspaces.keyboard = Klawiatura: Alt+↑/↓ ýerleşişi saýlaýar. Ctrl/Cmd+N onuň adyny redaktirleýär; +S nusgasyny saklaýar; +Enter ulanýar; +U täzeleýär; +R adyny üýtgedýär; +D pozýar; +0 täzeden düzýär.
+workspaces.open_documents = Açyk resminamalar

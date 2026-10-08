@@ -27,3 +27,11 @@ tool.magic_eraser.name = الممحاة السحرية
 tool.magic_eraser.description = انقر لمسح منطقة اللون المشابه تحت المؤشر ضمن تفاوت الأداة، سواء كانت متصلة بنقطة النقر أو موجودة في أي مكان من الطبقة.
 tool.magic_eraser.option.contiguous = متجاور
 tool.magic_eraser.history.erase = المسح بالممحاة السحرية
+
+# Remove
+tool.remove.name = إزالة
+tool.remove.description = ارسم فوق كائن غير مرغوب فيه بضربة واحدة؛ وعند الإفلات يُملأ من محيطه. عند إيقاف «الإزالة بعد كل ضربة»، ارسم عدة ضربات ثم اضغط Enter لإزالتها معًا.
+tool.remove.option.sample_all_layers = أخذ عينات من كل الطبقات
+tool.remove.option.remove_after_each_stroke = الإزالة بعد كل ضربة
+tool.remove.history.remove = إزالة
+tool.remove.layer_name = مُزال

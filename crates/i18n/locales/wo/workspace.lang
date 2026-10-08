@@ -66,6 +66,9 @@ workspace.filters.raw_too_tall = Defar RAW bi dafa kawe lool
 workspace.filters.raw_size_changed = Dayob defar RAW soppi na nekk {w} × {h}; denc couche biy dox
 workspace.filters.raw_history = Camera Raw Development
 workspace.filters.raw_applied = Jëfe nañu defar Camera Raw (demosaic bi gën a baax)
+workspace.raw_masks.no_model = {model} sampuwul, kon maske bii mënuñu koo gis.
+workspace.raw_masks.no_sky = Gisuñu benn asamaan ci nataal bii.
+workspace.raw_masks.detect_failed = Gisub maske bi antuwul: {error}
 workspace.image_size.done = Dayob nataal: {w} × {h}
 workspace.image_size.bicubic_fallback = Dayob nataal: {w} × {h} — model {name} yebuwul, kon bicubic wuutu ko
 workspace.image_size.upscaling = Mi ngi rëyal ak {name}
@@ -87,3 +90,10 @@ workspace.file_picker.downloads = Yeb yi
 workspace.file_picker.permission_denied = Schist amul sañ-sañu jàng wayndare bii
 workspace.recovery.recovered_title = {title} (delloosi na)
 workspace.recovery.recovered.other = Delloosi nañu liggéey bu dencuwul ci sesioŋ bu weesu, ci limu {n} jukki
+workspace.colormgmt.vision_on = Wone: {name}
+workspace.colormgmt.vision_off = Gis-gis bu baax
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Dindi nañu ko te amul modeelu feesal, kon feesal bi man na néew tuuti ci rafet
+workspace.tool_jobs.document_changed = {name} jeex na ginnaaw ba ñu tëjee walla soppi kayitam, kon dara soppiku wul

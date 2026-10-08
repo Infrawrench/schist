@@ -4,6 +4,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Cámara RAW
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -39,15 +41,22 @@ codec.heif.msg.imageio_cannot_read = ImageIOqa HEIF contenedorta mana ñawinchay
 codec.heif.msg.container_empty = HEIF contenedorqa mana rikch'ayniyuqchu
 codec.heif.msg.imageio_cannot_decode = ImageIOqa hatun rikch'ayta mana decodificayta atirqanchu
 
+codec.avif.msg.no_decoder = Schistpa maskaqpaq versionnin AVIF rikch'aykunata mana kichayta atinchu. Khiputa hawa mesa apupi kichay, utaq ñawpaqta PNGman tikray.
+
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = Patayuq rikch'aypa archivonqa waqllisqam utaq mana hunt'asqachu.
 codec.layered.too_large = Patayuq rikch'ayqa saqisqa sayayninta utaq patakuna yupayninta yallin.
 codec.layered.unsupported = Kay archivoqa mana yanapasqa ruwayta llamk'achin: {feature}.
 codec.layered.export_layer = “{name}” pataqa kay formato waqaychayta mana atinchu chay ruwaykunayuqmi. Patata rasterizay utaq PSD hina waqaychay.
 codec.layered.export_depth = Paint.NETman lluqsichinapaq 8-bit RGB qillqa khipum kanan. Ñawpaqta qillqa khiputa 8-bit RGBman tikray.
 codec.layered.export_mode = Lluqsichinapaq RGB qillqa khipum kanan. Ñawpaqta qillqa khiputa RGBman tikray.
+codec.layered.merged_layer = Huñusqa rikch'ay (wakin {format} patakunaqa mana haykuchiy atisqachu)
+codec.kra.merged_color_space = Huñusqa rikch'ay (Krita {color_space} qillqa khipu RGB hina qhawachisqa)
 
 # Unsupported layered format features
 codec.pdn.feature.blend_mode = PDN chaqruna imayna kasqan
@@ -65,3 +74,8 @@ codec.xcf.feature.floating_selection = XCF unaykachaq akllasqa
 codec.xcf.feature.layer_effects = XCF pata ruruykuna
 codec.xcf.feature.precision = XCF chiqan kay
 codec.xcf.feature.version = XCFpa versiónnin
+
+codec.exr.feature.deep = EXR sinchi yaykuq willakuykuna
+codec.exr.feature.subsampled = EXR pisi qhawasqa ñankuna
+codec.exr.msg.no_channels = OpenEXR archivopiqa mana ima rikch'ay ñanpas kanchu.
+codec.exr.msg.write_failed = Mana OpenEXR archivota qillqayta atirqanchu: {error}

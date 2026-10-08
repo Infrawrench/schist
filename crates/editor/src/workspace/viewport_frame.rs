@@ -41,6 +41,9 @@ pub(super) struct ViewportKey {
     /// theme change must invalidate it.
     pub surround: u32,
     pub seamless: bool,
+    /// Clipping and focus-peaking overlays are painted into the frame;
+    /// `schist_compositor::overlay::Overlays::key`, zero when off.
+    pub overlays: u64,
 }
 
 /// Position a cached viewport texture in the requested view's device pixels.
@@ -146,6 +149,7 @@ mod tests {
             rotation: 0.0f32.to_bits(),
             surround: 0x343434,
             seamless: false,
+            overlays: 0,
         }
     }
 

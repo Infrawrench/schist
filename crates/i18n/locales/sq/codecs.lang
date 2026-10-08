@@ -4,6 +4,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -31,15 +33,23 @@ codec.heif.msg.imageio_cannot_read = ImageIO nuk mund ta lexonte kontejnerin HEI
 codec.heif.msg.container_empty = kontejneri HEIF nuk përmban imazh
 codec.heif.msg.imageio_cannot_decode = ImageIO nuk mund ta dekodonte imazhin kryesor
 
+# AVIF in the browser build, which has no AV1 decoder (it still exports AVIF).
+codec.avif.msg.no_decoder = Versioni i Schist për shfletues nuk mund të hapë imazhe AVIF. Hape skedarin në aplikacionin për desktop ose shndërroje fillimisht në PNG.
+
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = Skedari i figurës me shtresa është i dëmtuar ose i paplotë.
 codec.layered.too_large = Figura me shtresa tejkalon madhësinë ose numrin e shtresave që mbështetet.
 codec.layered.unsupported = Ky skedar përdor një veçori që nuk mbështetet: {feature}.
 codec.layered.export_layer = Shtresa “{name}” përmban veçori që ky format nuk mund t’i ruajë. Rasterizojeni ose ruajeni si PSD.
 codec.layered.export_depth = Eksportimi në Paint.NET kërkon një dokument RGB 8-bitësh. Fillimisht kthejeni dokumentin në RGB 8-bitësh.
 codec.layered.export_mode = Eksportimi kërkon një dokument RGB. Fillimisht kthejeni dokumentin në RGB.
+codec.layered.merged_layer = Imazh i bashkuar (disa shtresa {format} nuk u importuan dot)
+codec.kra.merged_color_space = Imazh i bashkuar (dokumenti Krita {color_space} shfaqet si RGB)
 
 # Unsupported layered format features
 codec.pdn.feature.blend_mode = Modaliteti i përzierjes PDN
@@ -57,3 +67,8 @@ codec.xcf.feature.floating_selection = Përzgjedhja lundruese XCF
 codec.xcf.feature.layer_effects = Efektet e shtresës XCF
 codec.xcf.feature.precision = Saktësia XCF
 codec.xcf.feature.version = Versioni XCF
+
+codec.exr.feature.deep = të dhëna të thella EXR
+codec.exr.feature.subsampled = kanale EXR me nënmostrim
+codec.exr.msg.no_channels = Skedari OpenEXR nuk përmban kanale imazhi.
+codec.exr.msg.write_failed = Skedari OpenEXR nuk u shkrua dot: {error}

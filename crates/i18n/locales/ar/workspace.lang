@@ -66,6 +66,9 @@ workspace.filters.raw_too_tall = ارتفاع نتيجة معالجة RAW كبي
 workspace.filters.raw_size_changed = تغير حجم معالجة RAW إلى {w} × {h}؛ ستُحفظ الطبقة الحالية
 workspace.filters.raw_history = معالجة Camera Raw
 workspace.filters.raw_applied = تم تطبيق معالجة Camera Raw (أفضل إزالة للفسيفساء)
+workspace.raw_masks.no_model = {model} غير مثبت، لذا لا يمكن اكتشاف هذا القناع.
+workspace.raw_masks.no_sky = لم يتم العثور على سماء في هذه الصورة.
+workspace.raw_masks.detect_failed = فشل اكتشاف القناع: {error}
 workspace.image_size.done = حجم الصورة: {w} × {h}
 workspace.image_size.bicubic_fallback = حجم الصورة: {w} × {h} — تعذر تحميل النموذج {name}، فاستُخدم الاستيفاء ثنائي التكعيب بدلًا منه
 workspace.image_size.upscaling = جارٍ التكبير باستخدام {name}
@@ -97,3 +100,10 @@ workspace.recovery.recovered.two = تم استرداد مستندين غير م�
 workspace.recovery.recovered.few = تم استرداد {n} مستندات غير محفوظة من جلسة سابقة
 workspace.recovery.recovered.many = تم استرداد {n} مستندًا غير محفوظ من جلسة سابقة
 workspace.recovery.recovered.other = تم استرداد {n} مستند غير محفوظ من جلسة سابقة
+workspace.colormgmt.vision_on = المحاكاة: {name}
+workspace.colormgmt.vision_off = الرؤية الطبيعية
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = تمت الإزالة دون نموذج الترميم، لذا قد يكون الملء أقل دقة
+workspace.tool_jobs.document_changed = اكتملت عملية {name} بعد إغلاق مستندها أو التبديل إلى غيره، لذا لم يُغيَّر شيء

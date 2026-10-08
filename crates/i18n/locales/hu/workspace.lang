@@ -66,6 +66,9 @@ workspace.filters.raw_too_tall = A RAW-kidolgozás túl magas
 workspace.filters.raw_size_changed = A RAW-kidolgozás mérete {w} × {h} értékre változott; a jelenlegi réteg megmarad
 workspace.filters.raw_history = Camera Raw-kidolgozás
 workspace.filters.raw_applied = Camera Raw-kidolgozás alkalmazva (legjobb mozaikbontás)
+workspace.raw_masks.no_model = {model} nincs telepítve, ezért ez a maszk nem észlelhető.
+workspace.raw_masks.no_sky = Ezen a képen nem található égbolt.
+workspace.raw_masks.detect_failed = A maszkfelismerés sikertelen: {error}
 workspace.image_size.done = Képméret: {w} × {h}
 workspace.image_size.bicubic_fallback = Képméret: {w} × {h} — a(z) {name} modell nem töltődött be, ezért bikubikus interpoláció helyettesítette
 workspace.image_size.upscaling = Felnagyítás ezzel: {name}
@@ -89,3 +92,10 @@ workspace.file_picker.permission_denied = A Schistnek nincs engedélye a mappa o
 workspace.recovery.recovered_title = {title} (helyreállítva)
 workspace.recovery.recovered.one = Az előző munkamenet nem mentett munkája helyreállítva
 workspace.recovery.recovered.other = {n} dokumentum helyreállítva az előző munkamenetből
+workspace.colormgmt.vision_on = Szimuláció: {name}
+workspace.colormgmt.vision_off = Normál látás
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Eltávolítva a kitöltőmodell nélkül, így a kitöltés durvább lehet
+workspace.tool_jobs.document_changed = A(z) {name} a dokumentuma bezárása vagy váltása után fejeződött be, ezért semmi sem változott

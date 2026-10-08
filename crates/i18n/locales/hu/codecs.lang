@@ -3,6 +3,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -30,15 +32,23 @@ codec.heif.msg.imageio_cannot_read = Az ImageIO nem tudta olvasni a HEIF-kontén
 codec.heif.msg.container_empty = a HEIF-konténer nem tartalmaz képet
 codec.heif.msg.imageio_cannot_decode = Az ImageIO nem tudta dekódolni az elsődleges képet
 
+# AVIF
+codec.avif.msg.no_decoder = A Schist böngészős változata nem tudja megnyitni az AVIF-képeket. Nyissa meg a fájlt az asztali alkalmazásban, vagy előbb konvertálja PNG formátumba.
+
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = A réteges képfájl sérült vagy hiányos.
 codec.layered.too_large = A kép mérete vagy a rétegek száma meghaladja a támogatott határértéket.
 codec.layered.unsupported = Ez a fájl nem támogatott funkciót használ: {feature}.
 codec.layered.export_layer = A(z) „{name}” réteg olyan funkciókat tartalmaz, amelyeket ez a formátum nem tud megőrizni. Raszterizálja a réteget, vagy mentse PSD-ként.
 codec.layered.export_depth = A Paint.NET-exportáláshoz 8 bites RGB-dokumentum szükséges. Először alakítsa át a dokumentumot 8 bites RGB-re.
 codec.layered.export_mode = Az exportáláshoz RGB-dokumentum szükséges. Először alakítsa át a dokumentumot RGB-re.
+codec.layered.merged_layer = Egyesített kép (néhány {format} réteg nem importálható)
+codec.kra.merged_color_space = Egyesített kép (a Krita {color_space} dokumentum RGB-ként látható)
 
 # Unsupported layered-format features.
 codec.pdn.feature.blend_mode = PDN keverési mód
@@ -56,3 +66,8 @@ codec.xcf.feature.floating_selection = XCF lebegő kijelölés
 codec.xcf.feature.layer_effects = XCF-rétegeffektusok
 codec.xcf.feature.precision = XCF-pontosság
 codec.xcf.feature.version = XCF-verzió
+
+codec.exr.feature.deep = EXR mélységi adatok
+codec.exr.feature.subsampled = EXR alulmintavételezett csatornák
+codec.exr.msg.no_channels = Az OpenEXR-fájl nem tartalmaz képcsatornát.
+codec.exr.msg.write_failed = Nem sikerült megírni az OpenEXR-fájlt: {error}

@@ -243,6 +243,7 @@ common.filetype.jpeg = JPEG-bilde
 common.filetype.webp = WebP-bilde
 common.filetype.tiff = TIFF-bilde
 common.filetype.heic = HEIC-bilde
+common.filetype.exr = OpenEXR-bilde
 common.filetype.raw = Kamera-rawbilde
 common.filetype.affinity = Affinity-dokument
 common.filetype.image = Bilde

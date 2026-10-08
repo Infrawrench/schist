@@ -4,6 +4,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -39,15 +41,23 @@ codec.heif.msg.imageio_cannot_read = ImageIO no at pòdidu lèghere su cuntènni
 codec.heif.msg.container_empty = su cuntènnidore HEIF no tenet peruna immàgine
 codec.heif.msg.imageio_cannot_decode = ImageIO no at pòdidu decodificare s'immàgine printzipale
 
+# AVIF in the browser build, which has no AV1 decoder (it still exports AVIF).
+codec.avif.msg.no_decoder = Sa versione de Schist pro su navigadore no podet abèrrere immàgines AVIF. Aberi s'archìviu in s'aplicatzione de iscrivania, o cunverti·lu in PNG in antis.
+
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = S'archìviu de s'immàgine a istratos est dannigiadu o incompletu.
 codec.layered.too_large = S'immàgine a istratos superat sa mannària o su nùmeru de istratos suportados.
 codec.layered.unsupported = Custu archìviu impreat una funtzionalidade non suportada: {feature}.
 codec.layered.export_layer = S'istratu «{name}» cuntenet funtzionalidades chi custu formadu non podet cunservare. Rasteriza·ddu o sarva comente PSD.
 codec.layered.export_depth = S'esportatzione in Paint.NET rechedet unu documentu RGB a 8 bit. Cunverti prima su documentu in RGB a 8 bit.
 codec.layered.export_mode = S'esportatzione rechedet unu documentu RGB. Cunverti prima su documentu in RGB.
+codec.layered.merged_layer = Immàgine unida (carchi istratu {format} no sunt istados importados)
+codec.kra.merged_color_space = Immàgine unida (documentu Krita {color_space} ammustradu comente RGB)
 codec.pdn.feature.blend_mode = modalidade de mistura PDN
 codec.pdn.feature.compression = cumpressione PDN
 codec.pdn.feature.container_version = versione de su cuntènnidore PDN
@@ -63,3 +73,7 @@ codec.xcf.feature.floating_selection = seletzione flutuante XCF
 codec.xcf.feature.layer_effects = efetos de istratu XCF
 codec.xcf.feature.precision = pretzisione XCF
 codec.xcf.feature.version = versione XCF
+codec.exr.feature.deep = datos profundos EXR
+codec.exr.feature.subsampled = canales suttacampionados EXR
+codec.exr.msg.no_channels = Su archìviu OpenEXR no cuntenet canales de immàgine.
+codec.exr.msg.write_failed = Impossìbile iscrìere s'archìviu OpenEXR: {error}

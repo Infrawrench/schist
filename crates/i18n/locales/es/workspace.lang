@@ -67,6 +67,9 @@ workspace.filters.raw_too_tall = El revelado RAW es demasiado alto
 workspace.filters.raw_size_changed = El tamaño del revelado RAW ha cambiado a {w} × {h}; se conserva la capa actual
 workspace.filters.raw_history = Revelado de Camera Raw
 workspace.filters.raw_applied = Revelado de Camera Raw aplicado (mejor desmatrizado)
+workspace.raw_masks.no_model = {model} no está instalado, por lo que no se puede detectar esta máscara.
+workspace.raw_masks.no_sky = No se ha encontrado cielo en esta imagen.
+workspace.raw_masks.detect_failed = Error al detectar la máscara: {error}
 workspace.image_size.done = Tamaño de imagen: {w} × {h}
 workspace.image_size.bicubic_fallback = Tamaño de imagen: {w} × {h} — el modelo {name} no se pudo cargar, por lo que se usó el método bicúbico
 workspace.image_size.upscaling = Ampliando con {name}
@@ -92,3 +95,10 @@ workspace.recovery.recovered_title = {title} (recuperado)
 workspace.recovery.recovered.one = Se ha recuperado trabajo no guardado de una sesión anterior
 workspace.recovery.recovered.many = Se han recuperado {n} documentos de una sesión anterior
 workspace.recovery.recovered.other = Se han recuperado {n} documentos de una sesión anterior
+workspace.colormgmt.vision_on = Simulación: {name}
+workspace.colormgmt.vision_off = Visión normal
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent} %
+workspace.tool_jobs.missing_model = Se ha quitado sin el modelo de relleno, por lo que el resultado puede ser más tosco
+workspace.tool_jobs.document_changed = {name} terminó después de que su documento se cerrara o cambiara, por lo que no se ha modificado nada

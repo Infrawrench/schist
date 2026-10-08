@@ -245,6 +245,7 @@ common.filetype.jpeg = Изображение JPEG
 common.filetype.webp = Изображение WebP
 common.filetype.tiff = Изображение TIFF
 common.filetype.heic = Изображение HEIC
+common.filetype.exr = Изображение OpenEXR
 common.filetype.raw = Изображение Camera Raw
 common.filetype.affinity = Документ Affinity
 common.filetype.image = Изображение

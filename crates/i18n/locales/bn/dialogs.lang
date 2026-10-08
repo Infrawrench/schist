@@ -12,7 +12,25 @@ dialog.layer_props.title = লেয়ারের বৈশিষ্ট্য
 dialog.export.format = ফরম্যাট
 dialog.export.dither = ডিথার
 dialog.export.dither_note = ৮-বিটে নামানোর সময় ডিথার করুন
+dialog.export.effort = প্রচেষ্টা
 dialog.export.export_ellipsis = রপ্তানি করুন…
+dialog.export.exr_samples = স্যাম্পল
+dialog.export.exr_half = হাফ ফ্লোট (১৬-বিট)
+dialog.export.exr_float = ফ্লোট (৩২-বিট)
+dialog.export.exr_compression = সংকোচন
+dialog.export.exr_compression.none = কোনোটি নয়
+dialog.export.exr_compression.rle = RLE
+dialog.export.exr_compression.zips = ZIP, একটি স্ক্যানলাইন
+dialog.export.exr_compression.zip = ZIP, ১৬টি স্ক্যানলাইন
+dialog.export.exr_compression.piz = PIZ (ওয়েভলেট)
+dialog.export.exr_compression.pxr24 = PXR24 (ফ্লোটের জন্য লসি)
+dialog.export.exr_compression.b44 = B44 (লসি)
+dialog.export.exr_compression.b44a = B44A (লসি)
+dialog.export.exr_layers = লেয়ারসমূহ
+dialog.export.exr_layers_note = প্রতিটি দৃশ্যমান লেয়ারকেও EXR লেয়ার হিসেবে লিখুন
+dialog.export.exr_alpha = আলফা
+dialog.export.exr_alpha_note = আলফা চ্যানেল লিখুন
+dialog.export.exr_linear_note = EXR রৈখিক আলো সংরক্ষণ করে। এই ৮- বা ১৬-বিট নথিটি এক্সপোর্টের সময় তার রঙ প্রোফাইলের মাধ্যমে রৈখিক ফ্লোটে ডিকোড করা হয়।
 
 # ছবি প্রক্রিয়াকরণ
 dialog.batch.title = ছবি প্রক্রিয়া করুন
@@ -66,6 +84,25 @@ dialog.filter.camera_raw_development = Camera Raw ডেভেলপমেন্
 dialog.filter.reset_as_shot = তোলার সময়কার অবস্থায় ফেরান
 dialog.filter.raw_note = মূল সেন্সর ডেটা থেকে সক্রিয় লেয়ারটি আবার ডেভেলপ করে।
 dialog.filter.note = নির্বাচিত অংশের ভিতরে সক্রিয় লেয়ারে প্রয়োগ করে।
+
+# Camera Raw স্থানীয় সমন্বয়
+dialog.raw_masks.title = মাস্ক
+dialog.raw_masks.new_mask = নতুন মাস্ক:
+dialog.raw_masks.add_to_mask = মাস্কে যোগ করুন:
+dialog.raw_masks.linear = লিনিয়ার গ্রেডিয়েন্ট
+dialog.raw_masks.subject = বিষয় নির্বাচন করুন
+dialog.raw_masks.sky = আকাশ নির্বাচন করুন
+dialog.raw_masks.background = পটভূমি নির্বাচন করুন
+dialog.raw_masks.mask_n = মাস্ক {n}
+dialog.raw_masks.invert_mask = মাস্ক উল্টান
+dialog.raw_masks.overlay = মাস্ক ওভারলে দেখান
+dialog.raw_masks.erase = মুছুন
+dialog.raw_masks.local = এই মাস্কের সমন্বয়
+dialog.raw_masks.delete_mask = মাস্ক মুছে ফেলুন
+dialog.raw_masks.detecting = শনাক্ত করা হচ্ছে…
+dialog.raw_masks.hint_empty = ছবির একটি অংশ সমন্বয় করতে একটি মাস্ক যোগ করুন। প্রতিটি মাস্কের নিজস্ব স্লাইডার আছে।
+dialog.raw_masks.hint_brush = ব্রাশে যোগ করতে ক্যানভাসে আঁকুন; সরিয়ে ফেলতে ‘মুছুন’ চালু করুন।
+dialog.raw_masks.hint_gradient = গ্রেডিয়েন্ট সরাতে হ্যান্ডেলগুলো টানুন, অথবা নতুন একটি আঁকতে ক্যানভাসে টানুন।
 
 # অনুপস্থিত ফন্ট
 dialog.fonts.title = অনুপস্থিত ফন্ট

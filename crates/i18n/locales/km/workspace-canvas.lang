@@ -35,3 +35,7 @@ workspace.history.move_layers = ផ្លាស់ទីស្រទាប់
 workspace.history.layer_opacity = ភាពស្រអាប់នៃស្រទាប់
 workspace.history.delete_note = លុបកំណត់សម្គាល់
 workspace.history.edit_note = កែកំណត់សម្គាល់
+workspace.canvas.clipping_on = បានបើកការព្រមានអំពីការកាត់ផ្តាច់
+workspace.canvas.clipping_off = បានបិទការព្រមានអំពីការកាត់ផ្តាច់
+workspace.canvas.peaking_on = បានបើកការបន្លិចគែមផ្តោត
+workspace.canvas.peaking_off = បានបិទការបន្លិចគែមផ្តោត

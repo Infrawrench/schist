@@ -71,6 +71,9 @@ workspace.filters.raw_too_tall = RAW ਤਿਆਰੀ ਬਹੁਤ ਉੱਚੀ �
 workspace.filters.raw_size_changed = RAW ਤਿਆਰੀ ਦਾ ਆਕਾਰ {w} × {h} ਹੋ ਗਿਆ; ਮੌਜੂਦਾ ਪਰਤ ਰੱਖੀ ਜਾ ਰਹੀ ਹੈ
 workspace.filters.raw_history = Camera Raw ਤਿਆਰੀ
 workspace.filters.raw_applied = Camera Raw ਤਿਆਰੀ ਲਾਗੂ ਕੀਤੀ (ਸਭ ਤੋਂ ਵਧੀਆ ਡੀਮੋਜ਼ੇਕ)
+workspace.raw_masks.no_model = {model} ਸਥਾਪਤ ਨਹੀਂ ਹੈ, ਇਸ ਲਈ ਇਹ ਮਾਸਕ ਪਛਾਣਿਆ ਨਹੀਂ ਜਾ ਸਕਦਾ।
+workspace.raw_masks.no_sky = ਇਸ ਤਸਵੀਰ ਵਿੱਚ ਕੋਈ ਅਸਮਾਨ ਨਹੀਂ ਮਿਲਿਆ।
+workspace.raw_masks.detect_failed = ਮਾਸਕ ਪਛਾਣ ਅਸਫਲ: {error}
 
 workspace.image_size.done = ਚਿੱਤਰ ਆਕਾਰ: {w} × {h}
 workspace.image_size.bicubic_fallback = ਚਿੱਤਰ ਆਕਾਰ: {w} × {h} — {name} ਮਾਡਲ ਲੋਡ ਨਾ ਹੋ ਸਕਿਆ, ਇਸ ਲਈ ਬਾਈਕਿਊਬਿਕ ਵਰਤਿਆ ਗਿਆ
@@ -98,3 +101,10 @@ workspace.file_picker.permission_denied = Schist ਕੋਲ ਇਹ ਫੋਲਡ�
 workspace.recovery.recovered_title = {title} (ਬਹਾਲ ਕੀਤਾ)
 workspace.recovery.recovered.one = ਪਿਛਲੇ ਸੈਸ਼ਨ ਦਾ {n} ਨਾ ਸੰਭਾਲਿਆ ਦਸਤਾਵੇਜ਼ ਬਹਾਲ ਕੀਤਾ
 workspace.recovery.recovered.other = ਪਿਛਲੇ ਸੈਸ਼ਨ ਦੇ {n} ਦਸਤਾਵੇਜ਼ ਬਹਾਲ ਕੀਤੇ
+workspace.colormgmt.vision_on = ਸਿਮੂਲੇਸ਼ਨ: {name}
+workspace.colormgmt.vision_off = ਆਮ ਨਜ਼ਰ
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = ਇਨਪੇਂਟਿੰਗ ਮਾਡਲ ਤੋਂ ਬਿਨਾਂ ਹਟਾਇਆ ਗਿਆ, ਇਸ ਲਈ ਭਰਾਈ ਕੁਝ ਖੁਰਦਰੀ ਹੋ ਸਕਦੀ ਹੈ
+workspace.tool_jobs.document_changed = {name} ਇਸਦੇ ਦਸਤਾਵੇਜ਼ ਦੇ ਬੰਦ ਹੋਣ ਜਾਂ ਬਦਲਣ ਤੋਂ ਬਾਅਦ ਪੂਰਾ ਹੋਇਆ, ਇਸ ਲਈ ਕੁਝ ਨਹੀਂ ਬਦਲਿਆ ਗਿਆ

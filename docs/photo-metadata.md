@@ -53,6 +53,10 @@ and [EXIF XMP schema](https://developer.adobe.com/xmp/docs/xmp-namespaces/exif/)
 | Copyright | `dc:rights`, RDF Alt with `xml:lang="x-default"` |
 | Capture time | `exif:DateTimeOriginal`, ISO 8601 |
 | GPS | `exif:GPSLatitude` / `exif:GPSLongitude`, degrees and fractional minutes followed by hemisphere |
+| Altitude (GPX geotagging only) | `exif:GPSAltitude` as a rational in metres, `exif:GPSAltitudeRef` `0` above / `1` below sea level |
+
+[Geotagging from GPX tracks](gallery.md#geotagging-from-gpx-tracks) writes
+positions through this same path, one photo at a time.
 
 An existing `photo.jpg.xmp` takes precedence. Otherwise Schist uses `photo.xmp`
 when the filename stem is unique, matching common RAW workflows. If two originals

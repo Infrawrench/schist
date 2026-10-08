@@ -66,6 +66,9 @@ workspace.filters.raw_too_tall = Rezultat razvijanja RAW datoteke je previsok
 workspace.filters.raw_size_changed = Veličina razvijene RAW datoteke promijenjena je na {w} × {h}; zadržava se trenutni sloj
 workspace.filters.raw_history = Obrada pomoću Camera Raw
 workspace.filters.raw_applied = Primijenjena je obrada pomoću Camera Raw (najbolja demosaikizacija)
+workspace.raw_masks.no_model = {model} nije instaliran, pa se ova maska ne može otkriti.
+workspace.raw_masks.no_sky = Na ovoj slici nije pronađeno nebo.
+workspace.raw_masks.detect_failed = Otkrivanje maske nije uspjelo: {error}
 workspace.image_size.done = Veličina slike: {w} × {h}
 workspace.image_size.bicubic_fallback = Veličina slike: {w} × {h} — model {name} nije se mogao učitati, pa je korištena bikubna interpolacija
 workspace.image_size.upscaling = Povećavanje pomoću modela {name}
@@ -91,3 +94,10 @@ workspace.recovery.recovered_title = {title} (oporavljeno)
 workspace.recovery.recovered.one = Oporavljen je {n} nesačuvani dokument iz prethodne sesije
 workspace.recovery.recovered.few = Oporavljena su {n} nesačuvana dokumenta iz prethodne sesije
 workspace.recovery.recovered.other = Oporavljeno je {n} nesačuvanih dokumenata iz prethodne sesije
+workspace.colormgmt.vision_on = Simulacija: {name}
+workspace.colormgmt.vision_off = Normalan vid
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Uklonjeno bez modela za popunjavanje, pa ispuna može biti grublja
+workspace.tool_jobs.document_changed = {name} je završeno nakon što je dokument zatvoren ili promijenjen, pa ništa nije izmijenjeno

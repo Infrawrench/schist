@@ -66,6 +66,9 @@ workspace.filters.raw_too_tall = Pêşxistina RAW pir bilind e
 workspace.filters.raw_size_changed = Mezinahiya pêşxistina RAW bû {w} × {h}; layera niha tê parastin
 workspace.filters.raw_history = Pêşxistina Camera Raw
 workspace.filters.raw_applied = Pêşxistina Camera Raw hat sepandin (demosaîka herî baş)
+workspace.raw_masks.no_model = {model} ne sazkirî ye, ji ber vê yekê ev mask nayê dîtin.
+workspace.raw_masks.no_sky = Di vî wêneyî de ti ezman nehat dîtin.
+workspace.raw_masks.detect_failed = Dîtina maskê bi ser neket: {error}
 workspace.image_size.done = Mezinahiya wêneyê: {w} × {h}
 workspace.image_size.bicubic_fallback = Mezinahiya wêneyê: {w} × {h} — modela {name} bar nebû, ji ber vê yekê Bikubîk cihê wê girt
 workspace.image_size.upscaling = Mezinahiya wêneyê bi {name} tê zêdekirin
@@ -89,3 +92,10 @@ workspace.file_picker.permission_denied = Schist destûra xwendina vê peldankê
 workspace.recovery.recovered_title = {title} (hat vegerandin)
 workspace.recovery.recovered.one = Karê netomarkirî ji danişîna berê hat vegerandin
 workspace.recovery.recovered.other = {n} belge ji danişîna berê hatin vegerandin
+workspace.colormgmt.vision_on = Simulasyon: {name}
+workspace.colormgmt.vision_off = Dîtina normal
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: %{percent}
+workspace.tool_jobs.missing_model = Bê modela dagirtina wêneyê hate rakirin, ji ber vê yekê dibe ku dagirtin ziwirtir be
+workspace.tool_jobs.document_changed = {name} piştî ku belgeya wê hate girtin an guhertin qediya, ji ber vê yekê tiştek nehate guhertin

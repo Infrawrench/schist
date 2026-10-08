@@ -239,6 +239,7 @@ common.filetype.jpeg = Xifaniso xa JPEG
 common.filetype.webp = Xifaniso xa WebP
 common.filetype.tiff = Xifaniso xa TIFF
 common.filetype.heic = Xifaniso xa HEIC
+common.filetype.exr = Xifaniso xa OpenEXR
 common.filetype.raw = Xifaniso xa fayili ya raw ya khamera
 common.filetype.affinity = Dokhumente ya Affinity
 common.filetype.image = Xifaniso

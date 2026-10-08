@@ -7,6 +7,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -43,15 +45,23 @@ codec.heif.msg.imageio_cannot_read = ImageIO kunde inte läsa HEIF-behållaren
 codec.heif.msg.container_empty = HEIF-behållaren innehåller ingen bild
 codec.heif.msg.imageio_cannot_decode = ImageIO kunde inte avkoda huvudbilden
 
+# AVIF in the browser build, which has no AV1 decoder (it still exports AVIF).
+codec.avif.msg.no_decoder = Webbläsarversionen av Schist kan inte öppna AVIF-bilder. Öppna filen i skrivbordsappen eller konvertera den till PNG först.
+
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = Den lagerindelade bildfilen är skadad eller ofullständig.
 codec.layered.too_large = Bilden överskrider den storlek eller det antal lager som stöds.
 codec.layered.unsupported = Den här filen använder en funktion som inte stöds: {feature}.
 codec.layered.export_layer = Lagret ”{name}” innehåller funktioner som det här formatet inte kan bevara. Rastrera det eller spara som PSD.
 codec.layered.export_depth = Export till Paint.NET kräver ett RGB-dokument med 8 bitar. Konvertera först dokumentet till RGB med 8 bitar.
 codec.layered.export_mode = Export kräver ett RGB-dokument. Konvertera först dokumentet till RGB.
+codec.layered.merged_layer = Sammanslagen bild (vissa {format}-lager kunde inte importeras)
+codec.kra.merged_color_space = Sammanslagen bild (Krita-dokument i {color_space} visas som RGB)
 
 # Unsupported layered-format features.
 codec.pdn.feature.blend_mode = PDN-blandningsläge
@@ -69,3 +79,8 @@ codec.xcf.feature.floating_selection = XCF-flytande markering
 codec.xcf.feature.layer_effects = XCF-lagereffekter
 codec.xcf.feature.precision = XCF-precision
 codec.xcf.feature.version = XCF-version
+
+codec.exr.feature.deep = EXR-djupdata
+codec.exr.feature.subsampled = EXR-kanaler med underupplockning
+codec.exr.msg.no_channels = OpenEXR-filen innehåller inga bildkanaler.
+codec.exr.msg.write_failed = Det gick inte att skriva OpenEXR-filen: {error}

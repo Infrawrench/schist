@@ -14,3 +14,4 @@ workspaces.invalid_name = Skriv inn eit namn på 1–80 teikn utan kontrollteikn
 workspaces.duplicate = Eit arbeidsområde med dette namnet finst alt.
 workspaces.limit = Du kan lagre opptil 64 arbeidsområde.
 workspaces.keyboard = Tastatur: Alt+↑/↓ vel eit oppsett. Ctrl/Cmd+N redigerer namnet; +S lagrar ein kopi; +Enter tek det i bruk; +U oppdaterer; +R gjev nytt namn; +D slettar; +0 tilbakestiller.
+workspaces.open_documents = Opne dokument

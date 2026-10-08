@@ -72,6 +72,9 @@ workspace.filters.raw_too_tall = RAW-ის დამუშავების �
 workspace.filters.raw_size_changed = RAW-ის დამუშავების ზომა შეიცვალა: {w} × {h}; მიმდინარე ფენა შენარჩუნდება
 workspace.filters.raw_history = Camera Raw-ის დამუშავება
 workspace.filters.raw_applied = Camera Raw-ის დამუშავება გამოყენებულია (საუკეთესო დემოზაიკაცია)
+workspace.raw_masks.no_model = {model} დაინსტალირებული არ არის, ამიტომ ამ ნიღბის ამოცნობა შეუძლებელია.
+workspace.raw_masks.no_sky = ამ სურათზე ცა ვერ მოიძებნა.
+workspace.raw_masks.detect_failed = ნიღბის ამოცნობა ვერ მოხერხდა: {error}
 
 workspace.image_size.done = გამოსახულების ზომა: {w} × {h}
 workspace.image_size.bicubic_fallback = გამოსახულების ზომა: {w} × {h} — {name} მოდელი ვერ ჩაიტვირთა, ამიტომ ბიკუბური მეთოდი გამოიყენება
@@ -99,3 +102,10 @@ workspace.file_picker.permission_denied = Schist-ს ამ საქაღა�
 workspace.recovery.recovered_title = {title} (აღდგენილი)
 workspace.recovery.recovered.one = წინა სესიიდან შეუნახავი სამუშაო აღდგა
 workspace.recovery.recovered.other = წინა სესიიდან აღდგა {n} დოკუმენტი
+workspace.colormgmt.vision_on = სიმულაცია: {name}
+workspace.colormgmt.vision_off = ნორმალური მხედველობა
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = წაიშალა შევსების მოდელის გარეშე, ამიტომ შევსება შეიძლება უფრო უხეში იყოს
+workspace.tool_jobs.document_changed = {name} დასრულდა მას შემდეგ, რაც მისი დოკუმენტი დაიხურა ან შეიცვალა, ამიტომ არაფერი შეცვლილა

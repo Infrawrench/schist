@@ -18,3 +18,11 @@ tool.magic_eraser.name = जादुई खोडरबर
 tool.magic_eraser.description = साधनाच्या सहनशीलतेच्या मर्यादेत सूचकाखालील समान रंगाचा भाग पुसण्यासाठी क्लिक करा — क्लिकशी सलग असलेला भाग किंवा स्तरातील सर्वत्र असलेला रंग.
 tool.magic_eraser.option.contiguous = सलग
 tool.magic_eraser.history.erase = जादुई खोडरबर
+
+# Remove
+tool.remove.name = काढा
+tool.remove.description = नको असलेल्या वस्तूवर एकाच फटकाऱ्यात रंगवा; सोडताच तो भाग आजूबाजूच्या भागातून भरला जातो. प्रत्येक फटकाऱ्यानंतर काढा बंद असल्यास, अनेक फटकारे रंगवा आणि ते एकत्र काढण्यासाठी Enter दाबा.
+tool.remove.option.sample_all_layers = सर्व स्तरांचा नमुना घ्या
+tool.remove.option.remove_after_each_stroke = प्रत्येक फटकाऱ्यानंतर काढा
+tool.remove.history.remove = काढा
+tool.remove.layer_name = काढलेले

@@ -14,3 +14,4 @@ workspaces.invalid_name = Isa zita rine mavara 1–80 risina mavara ekudzora.
 workspaces.duplicate = Nzvimbo yekushandira ine zita iri yatovepo.
 workspaces.limit = Unogona kuchengetedza nzvimbo dzekushandira dzinosvika 64.
 workspaces.keyboard = Kiyibhodhi: Alt+↑/↓ inosarudza marongerwo. Ctrl/Cmd+N inogadzirisa zita rawo; +S inochengeta kopi; +Enter inoashandisa; +U inoavandudza; +R inoatumidza patsva; +D inoadzima; +0 inoadzorera pakutanga.
+workspaces.open_documents = Magwaro akavhurwa

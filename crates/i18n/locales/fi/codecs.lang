@@ -10,6 +10,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -49,15 +51,22 @@ codec.heif.msg.imageio_cannot_read = ImageIO ei voinut lukea HEIF-säilöä
 codec.heif.msg.container_empty = HEIF-säilössä ei ole kuvaa
 codec.heif.msg.imageio_cannot_decode = ImageIO ei voinut dekoodata ensisijaista kuvaa
 
+codec.avif.msg.no_decoder = Schistin selainversio ei voi avata AVIF-kuvia. Avaa tiedosto työpöytäsovelluksessa tai muunna se ensin PNG-muotoon.
+
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = Tasollinen kuvatiedosto on vioittunut tai puutteellinen.
 codec.layered.too_large = Tasollisen kuvan koko tai tasojen määrä ylittää tuetun rajan.
 codec.layered.unsupported = Tämä tiedosto käyttää ominaisuutta, jota ei tueta: {feature}.
 codec.layered.export_layer = Taso ”{name}” sisältää ominaisuuksia, joita tämä muoto ei voi säilyttää. Rasteroi taso tai tallenna PSD-muodossa.
 codec.layered.export_depth = Vienti Paint.NET-muotoon vaatii 8-bittisen RGB-dokumentin. Muunna dokumentti ensin 8-bittiseen RGB-muotoon.
 codec.layered.export_mode = Vienti vaatii RGB-dokumentin. Muunna dokumentti ensin RGB-muotoon.
+codec.layered.merged_layer = Yhdistetty kuva (joitakin {format}-tasoja ei voitu tuoda)
+codec.kra.merged_color_space = Yhdistetty kuva (Krita-dokumentti {color_space} näytetään RGB-muodossa)
 codec.pdn.feature.blend_mode = PDN-sekoitustila
 codec.pdn.feature.compression = PDN-pakkaus
 codec.pdn.feature.container_version = PDN-säiliöversio
@@ -73,3 +82,8 @@ codec.xcf.feature.floating_selection = kelluva XCF-valinta
 codec.xcf.feature.layer_effects = XCF-tasotehosteet
 codec.xcf.feature.precision = XCF-tarkkuus
 codec.xcf.feature.version = XCF-versio
+
+codec.exr.feature.deep = EXR-syvyysdata
+codec.exr.feature.subsampled = EXR-aliotantakanavat
+codec.exr.msg.no_channels = OpenEXR-tiedosto ei sisällä yhtään kuvakanavaa.
+codec.exr.msg.write_failed = OpenEXR-tiedoston kirjoittaminen epäonnistui: {error}

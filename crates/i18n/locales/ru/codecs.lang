@@ -4,6 +4,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -31,15 +33,22 @@ codec.heif.msg.imageio_cannot_read = ImageIO не удалось прочита�
 codec.heif.msg.container_empty = контейнер HEIF не содержит изображения
 codec.heif.msg.imageio_cannot_decode = ImageIO не удалось декодировать основное изображение
 
+codec.avif.msg.no_decoder = Браузерная версия Schist не может открывать изображения AVIF. Откройте файл в настольном приложении или сначала преобразуйте его в PNG.
+
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = Файл изображения со слоями повреждён или неполон.
 codec.layered.too_large = Размер изображения или число слоёв превышает поддерживаемый предел.
 codec.layered.unsupported = В этом файле используется неподдерживаемая возможность: {feature}.
 codec.layered.export_layer = Слой «{name}» содержит возможности, которые этот формат не может сохранить. Растрируйте его или сохраните документ в формате PSD.
 codec.layered.export_depth = Для экспорта в Paint.NET требуется 8-битный документ RGB. Сначала преобразуйте документ в 8-битный RGB.
 codec.layered.export_mode = Для экспорта требуется документ RGB. Сначала преобразуйте документ в RGB.
+codec.layered.merged_layer = Объединённое изображение (некоторые слои {format} не удалось импортировать)
+codec.kra.merged_color_space = Объединённое изображение (документ Krita {color_space} показан как RGB)
 
 # Unsupported layered-format features.
 codec.pdn.feature.blend_mode = режим наложения PDN
@@ -57,3 +66,8 @@ codec.xcf.feature.floating_selection = плавающее выделение XCF
 codec.xcf.feature.layer_effects = эффекты слоя XCF
 codec.xcf.feature.precision = точность XCF
 codec.xcf.feature.version = версия XCF
+
+codec.exr.feature.deep = глубинные данные EXR
+codec.exr.feature.subsampled = каналы EXR с субдискретизацией
+codec.exr.msg.no_channels = В файле OpenEXR нет каналов изображения.
+codec.exr.msg.write_failed = Не удалось записать файл OpenEXR: {error}

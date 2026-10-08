@@ -4,6 +4,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -31,15 +33,23 @@ codec.heif.msg.imageio_cannot_read = ImageIO-ն չկարողացավ կարդա�
 codec.heif.msg.container_empty = HEIF բեռնարկղը պատկեր չի պարունակում
 codec.heif.msg.imageio_cannot_decode = ImageIO-ն չկարողացավ ապակոդավորել հիմնական պատկերը
 
+# AVIF
+codec.avif.msg.no_decoder = Schist-ի դիտարկիչային տարբերակը չի կարող բացել AVIF պատկերներ։ Բացեք ֆայլը աշխատասեղանի հավելվածում կամ նախ փոխարկեք այն PNG-ի։
+
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = Շերտավոր պատկերի ֆայլը վնասված է կամ թերի։
 codec.layered.too_large = Շերտավոր պատկերի չափը կամ շերտերի քանակը գերազանցում է աջակցվող սահմանը։
 codec.layered.unsupported = Այս ֆայլն օգտագործում է չաջակցվող գործառույթ՝ {feature}։
 codec.layered.export_layer = «{name}» շերտը պարունակում է գործառույթներ, որոնք այս ձևաչափը չի կարող պահպանել։ Ռաստերացրեք շերտը կամ պահեք PSD ձևաչափով։
 codec.layered.export_depth = Paint.NET ձևաչափով արտահանելու համար անհրաժեշտ է 8-բիթանոց RGB փաստաթուղթ։ Նախ փաստաթուղթը փոխարկեք 8-բիթանոց RGB-ի։
 codec.layered.export_mode = Արտահանելու համար անհրաժեշտ է RGB փաստաթուղթ։ Նախ փաստաթուղթը փոխարկեք RGB-ի։
+codec.layered.merged_layer = Միաձուլված պատկեր (որոշ {format} շերտեր չհաջողվեց ներմուծել)
+codec.kra.merged_color_space = Միաձուլված պատկեր (Krita {color_space} փաստաթուղթը ցուցադրվում է որպես RGB)
 
 # Unsupported layered format features
 codec.pdn.feature.blend_mode = PDN խառնման ռեժիմ
@@ -57,3 +67,8 @@ codec.xcf.feature.floating_selection = XCF լողացող ընտրություն
 codec.xcf.feature.layer_effects = XCF շերտի էֆեկտներ
 codec.xcf.feature.precision = XCF ճշգրտություն
 codec.xcf.feature.version = XCF տարբերակ
+
+codec.exr.feature.deep = EXR խորքային տվյալներ
+codec.exr.feature.subsampled = EXR ենթադիսկրետացված ալիքներ
+codec.exr.msg.no_channels = OpenEXR ֆայլը պատկերի ալիքներ չի պարունակում։
+codec.exr.msg.write_failed = Չհաջողվեց գրել OpenEXR ֆայլը՝ {error}

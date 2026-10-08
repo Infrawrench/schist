@@ -130,6 +130,7 @@ icons!(
     "pen-freeform",
     "quick-select",
     "red-eye",
+    "remove",
     "shape-custom",
     "sharpen",
     "smudge",

@@ -35,3 +35,7 @@ workspace.history.move_layers = ຍ້າຍຫຼາຍເລເຢີ
 workspace.history.layer_opacity = ຄວາມທຶບແສງຂອງເລເຢີ
 workspace.history.delete_note = ລຶບບັນທຶກ
 workspace.history.edit_note = ແກ້ໄຂບັນທຶກ
+workspace.canvas.clipping_on = ເປີດຄຳເຕືອນສ່ວນທີ່ຖືກຕັດ
+workspace.canvas.clipping_off = ປິດຄຳເຕືອນສ່ວນທີ່ຖືກຕັດ
+workspace.canvas.peaking_on = ເປີດການເນັ້ນຂອບໂຟກັສ
+workspace.canvas.peaking_off = ປິດການເນັ້ນຂອບໂຟກັສ

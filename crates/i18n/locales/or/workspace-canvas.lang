@@ -35,3 +35,7 @@ workspace.history.move_layers = ସ୍ତରଗୁଡ଼ିକ ଘୁଞ୍ଚ�
 workspace.history.layer_opacity = ସ୍ତରର ଅପାରଦର୍ଶିତା
 workspace.history.delete_note = ଟିପ୍ପଣୀ ବିଲୋପ କରନ୍ତୁ
 workspace.history.edit_note = ଟିପ୍ପଣୀ ସମ୍ପାଦନ କରନ୍ତୁ
+workspace.canvas.clipping_on = କ୍ଲିପିଂ ଚେତାବନୀ ଚାଲୁ
+workspace.canvas.clipping_off = କ୍ଲିପିଂ ଚେତାବନୀ ବନ୍ଦ
+workspace.canvas.peaking_on = ଫୋକସ୍ ପିକିଂ ଚାଲୁ
+workspace.canvas.peaking_off = ଫୋକସ୍ ପିକିଂ ବନ୍ଦ

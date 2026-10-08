@@ -18,3 +18,11 @@ tool.magic_eraser.name = Farukaayu kéemaan
 tool.magic_eraser.description = Bës ngir far gox bi mel ni melow li nekk ci suufu muus bi, ci kemu muñam: mu yam ci barab yi jokkoo ak tomb bi ñu bës, walla mu nekk fu nekk ci couche bi.
 tool.magic_eraser.option.contiguous = Jokkoo
 tool.magic_eraser.history.erase = Farukaayu kéemaan
+
+# Remove
+tool.remove.name = Dindi
+tool.remove.description = Pentar ci kaw lu ngay bëgg a dindi ci benn rëdd rekk; bu nga ko bayyee, dinañu ko fees ak li ko wër. Bu “Dindi ginnaaw rëdd wu nekk” fayu, pentar ay rëdd yu bare te bësal Enter ngir dindi leen ñoom ñépp benn yoon.
+tool.remove.option.sample_all_layers = Jël misaal ci couche yépp
+tool.remove.option.remove_after_each_stroke = Dindi ginnaaw rëdd wu nekk
+tool.remove.history.remove = Dindi
+tool.remove.layer_name = Lu ñu dindi

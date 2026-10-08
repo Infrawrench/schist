@@ -75,6 +75,9 @@ workspace.filters.raw_too_tall = Zwo bveledzwaho zwa RAW zwo lapfesa
 workspace.filters.raw_size_changed = Saizi ya zwo bveledzwaho zwa RAW yo shanduka ya vha {w} × {h}; hu khou vhulungwa ḽeyara ya zwino
 workspace.filters.raw_history = U Bveledza Camera Raw
 workspace.filters.raw_applied = U bveledza Camera Raw ho shumiswa (demosaic ya khwine)
+workspace.raw_masks.no_model = {model} a yo ngo dzheniswa, ngauralo masiki iyi a i koni u wanuluswa.
+workspace.raw_masks.no_sky = A hu na ḽiṱaḓulu ḽe ḽa wanala kha tshifanyiso itshi.
+workspace.raw_masks.detect_failed = U wanulusa masiki zwo kundelwa: {error}
 
 workspace.image_size.done = Saizi ya tshifanyiso: {w} × {h}
 workspace.image_size.bicubic_fallback = Saizi ya tshifanyiso: {w} × {h} — modele wa {name} a wo ngo kona u longela, ngauralo ho shumiswa bicubic
@@ -102,3 +105,10 @@ workspace.file_picker.permission_denied = Schist a i na thendelo ya u vhala fo�
 workspace.recovery.recovered_title = {title} (ḽo vhuedzedzwa)
 workspace.recovery.recovered.one = Ho vhuedzedzwa mushumo u songo vhulungwaho wa sesheni yo fhiraho
 workspace.recovery.recovered.other = Ho vhuedzedzwa maṅwalo {n} a sesheni yo fhiraho
+workspace.colormgmt.vision_on = U fanyisa: {name}
+workspace.colormgmt.vision_off = Kuvhona hu elanaho
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Zwo bviswa hu si na modele wa u ḓadza, ngauralo u ḓadza hu nga vha ho khakhathea
+workspace.tool_jobs.document_changed = {name} yo fhela nga murahu ha musi ḽiṅwalwa ḽayo ḽo valwa kana ḽo shandukiswa, ngauralo a hu na zwe zwa shandukiswa

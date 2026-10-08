@@ -39,19 +39,30 @@ pub fn sync(ws: &mut Workspace, cx: &mut Context<Workspace>) {
 fn signature(ws: &Workspace) -> String {
     let v = &ws.view;
     let mut out = format!(
-        "{}{}{}{}{}{}{}{}",
+        "{}{}{}{}{}{}{}{}{}{}",
         v.rulers as u8,
         v.grid as u8,
         v.guides as u8,
         v.extras as u8,
         v.snap as u8,
         ws.color.proof.is_some() as u8,
+        ws.overlays.clipping as u8,
+        ws.overlays.focus_peaking as u8,
         // The gallery swaps the whole menu set out.
         ws.gallery_open() as u8,
         // Camera Raw changes its label when the active layer carries an
         // original capture, so switching documents/layers must rebuild it.
         ws.is_raw_redevelopment("filter.camera_raw") as u8,
     );
+    // The chosen colour vision and overlay options are marked in their
+    // labels.
+    out.push_str(&format!(
+        "{}{}{}{}",
+        ws.vision_index(),
+        v.vision_severity,
+        v.peaking_color,
+        v.peaking_sensitivity
+    ));
     // Design replaces the menu set even when no raster tab or gallery state changes.
     out.push_str(ws.mode.as_str());
     if let Some(doc) = ws.doc.as_ref() {
@@ -270,6 +281,25 @@ fn label_for(ws: &Workspace, label: &'static str, item: AppItem) -> String {
                 "menu.view.disable_proof_colors",
             ),
         ),
+        AppItem::ToggleClipping => toggled(
+            ws.overlays.clipping,
+            ("menu.view.show_clipping", "menu.view.hide_clipping"),
+        ),
+        AppItem::ToggleFocusPeaking => toggled(
+            ws.overlays.focus_peaking,
+            (
+                "menu.view.show_focus_peaking",
+                "menu.view.hide_focus_peaking",
+            ),
+        ),
+        // The choices in a set have no check mark to show which is in
+        // effect, so the current one is marked in its label.
+        AppItem::VisionSimulation(i) if ws.vision_index() == i => return format!("• {label}"),
+        AppItem::VisionSeverity(i) if ws.view.vision_severity == i => return format!("• {label}"),
+        AppItem::PeakingColor(i) if ws.view.peaking_color == i => return format!("• {label}"),
+        AppItem::PeakingSensitivity(i) if ws.view.peaking_sensitivity == i => {
+            return format!("• {label}")
+        }
         _ => return label.to_string(),
     }
     .to_string()

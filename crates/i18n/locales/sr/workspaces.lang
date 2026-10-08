@@ -14,3 +14,4 @@ workspaces.invalid_name = Унесите назив од 1–80 знакова �
 workspaces.duplicate = Радни простор са овим називом већ постоји.
 workspaces.limit = Можете сачувати највише 64 радна простора.
 workspaces.keyboard = Тастатура: Alt+↑/↓ бира распоред. Ctrl/Cmd+N мења његов назив; +S чува копију; +Enter га примењује; +U га ажурира; +R га преименује; +D га брише; +0 га ресетује.
+workspaces.open_documents = Отворени документи

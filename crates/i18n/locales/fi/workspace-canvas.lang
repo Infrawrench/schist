@@ -43,3 +43,7 @@ workspace.history.move_layers = Siirrä tasoja
 workspace.history.layer_opacity = Tason peittävyys
 workspace.history.delete_note = Poista huomautus
 workspace.history.edit_note = Muokkaa huomautusta
+workspace.canvas.clipping_on = Leikkautumisvaroitukset käytössä
+workspace.canvas.clipping_off = Leikkautumisvaroitukset poissa käytöstä
+workspace.canvas.peaking_on = Tarkennuskorostus käytössä
+workspace.canvas.peaking_off = Tarkennuskorostus poissa käytöstä

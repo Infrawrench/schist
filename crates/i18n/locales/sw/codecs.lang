@@ -3,6 +3,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -30,15 +32,23 @@ codec.heif.msg.imageio_cannot_read = ImageIO imeshindwa kusoma kontena la HEIF
 codec.heif.msg.container_empty = kontena la HEIF halina picha
 codec.heif.msg.imageio_cannot_decode = ImageIO imeshindwa kusimbua picha kuu
 
+# AVIF in the browser build, which has no AV1 decoder (it still exports AVIF).
+codec.avif.msg.no_decoder = Toleo la kivinjari la Schist haliwezi kufungua picha za AVIF. Fungua faili katika programu ya kompyuta ya mezani, au igeuze kuwa PNG kwanza.
+
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = Faili ya picha yenye safu imeharibika au haijakamilika.
 codec.layered.too_large = Picha yenye safu inazidi ukubwa au idadi ya safu inayokubaliwa.
 codec.layered.unsupported = Faili hii inatumia kipengele kisichokubaliwa: {feature}.
 codec.layered.export_layer = Safu “{name}” ina vipengele ambavyo umbizo hili haliwezi kuhifadhi. Igeuze kuwa raster au uhifadhi kama PSD.
 codec.layered.export_depth = Kuhamisha kwenda Paint.NET kunahitaji waraka wa RGB wa biti 8. Kwanza geuza waraka kuwa RGB ya biti 8.
 codec.layered.export_mode = Kuhamisha kunahitaji waraka wa RGB. Kwanza geuza waraka kuwa RGB.
+codec.layered.merged_layer = Picha iliyounganishwa (baadhi ya safu za {format} hazikuweza kuingizwa)
+codec.kra.merged_color_space = Picha iliyounganishwa (waraka wa Krita {color_space} umeonyeshwa kama RGB)
 codec.pdn.feature.blend_mode = hali ya mchanganyiko ya PDN
 codec.pdn.feature.compression = ufinyazaji wa PDN
 codec.pdn.feature.container_version = toleo la kontena la PDN
@@ -54,3 +64,8 @@ codec.xcf.feature.floating_selection = uteuzi unaoelea wa XCF
 codec.xcf.feature.layer_effects = athari za safu za XCF
 codec.xcf.feature.precision = usahihi wa XCF
 codec.xcf.feature.version = toleo la XCF
+
+codec.exr.feature.deep = data ya kina ya EXR
+codec.exr.feature.subsampled = chaneli za EXR zenye sampuli ndogo
+codec.exr.msg.no_channels = Faili ya OpenEXR haina chaneli yoyote ya picha.
+codec.exr.msg.write_failed = Imeshindikana kuandika faili ya OpenEXR: {error}

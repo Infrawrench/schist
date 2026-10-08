@@ -4,6 +4,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -35,15 +37,22 @@ codec.heif.msg.imageio_cannot_read = ImageIO koe de HEIF-container net lêze
 codec.heif.msg.container_empty = de HEIF-container befettet gjin ôfbylding
 codec.heif.msg.imageio_cannot_decode = ImageIO koe de primêre ôfbylding net dekodearje
 
+codec.avif.msg.no_decoder = De browserferzje fan Schist kin gjin AVIF-ôfbyldingen iepenje. Iepenje it bestân yn de buroblêdapp, of set it earst om nei PNG.
+
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = It ôfbyldingsbestân mei lagen is skansearre of ûnfolslein.
 codec.layered.too_large = De ôfbylding mei lagen giet oer de stipe grutte of it stipe tal lagen hinne.
 codec.layered.unsupported = Dit bestân brûkt in funksje dy't net stipe wurdt: {feature}.
 codec.layered.export_layer = Laach “{name}” befettet funksjes dy't dit formaat net bewarje kin. Rasterje de laach of bewarje as PSD.
 codec.layered.export_depth = Eksport nei Paint.NET fereasket in 8-bit RGB-dokumint. Set it dokumint earst om nei 8-bit RGB.
 codec.layered.export_mode = Eksport fereasket in RGB-dokumint. Set it dokumint earst om nei RGB.
+codec.layered.merged_layer = Gearfoege ôfbylding (guon {format}-lagen koene net ymportearre wurde)
+codec.kra.merged_color_space = Gearfoege ôfbylding (Krita {color_space}-dokumint toand as RGB)
 
 # Unsupported layered format features
 codec.pdn.feature.blend_mode = PDN-mingmodus
@@ -61,3 +70,8 @@ codec.xcf.feature.floating_selection = Driuwende XCF-seleksje
 codec.xcf.feature.layer_effects = XCF-laacheffekten
 codec.xcf.feature.precision = XCF-presyzje
 codec.xcf.feature.version = XCF-ferzje
+
+codec.exr.feature.deep = EXR-djipteguodden
+codec.exr.feature.subsampled = EXR-subsamplede kanalen
+codec.exr.msg.no_channels = It OpenEXR-bestân befettet gjin ôfbyldingskanalen.
+codec.exr.msg.write_failed = Koe it OpenEXR-bestân net skriuwe: {error}

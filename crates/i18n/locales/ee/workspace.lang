@@ -71,6 +71,9 @@ workspace.filters.raw_too_tall = RAW wɔwɔ ƒe kɔkɔme de ŋgɔ akpa
 workspace.filters.raw_size_changed = RAW wɔwɔ ƒe lolome trɔ zu {w} × {h}; ele layer si li fifia la dzraɖoɖom
 workspace.filters.raw_history = Camera Raw Wɔwɔ
 workspace.filters.raw_applied = Wozã Camera Raw wɔwɔ (demosaic nyuitɔ)
+workspace.raw_masks.no_model = Womede {model} o, eya ta womate ŋu akpɔ ŋkugbã sia o.
+workspace.raw_masks.no_sky = Womekpɔ dziŋgɔli aɖeke le nɔnɔmetata sia me o.
+workspace.raw_masks.detect_failed = Ŋkugbã didi do kpo nu: {error}
 
 workspace.image_size.done = Nɔnɔme ƒe lolome: {w} × {h}
 workspace.image_size.bicubic_fallback = Nɔnɔme ƒe lolome: {w} × {h} — {name} model la meʋu o, eyata wozã bicubic ɖe eteƒe
@@ -98,3 +101,10 @@ workspace.file_picker.permission_denied = Schist mexɔ mɔ be wòaxlẽ agbalẽ
 workspace.recovery.recovered_title = {title} (wogbugbɔe)
 workspace.recovery.recovered.one = Wogbugbɔ dɔ si womadzra ɖo o tso session si va yi me
 workspace.recovery.recovered.other = Wogbugbɔ agbalẽ {n} tso session si va yi me
+workspace.colormgmt.vision_on = Nuɖeɖe: {name}
+workspace.colormgmt.vision_off = Kpɔkpɔ si le eteƒe
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Woɖee ɖa le teƒeyɔyɔ ƒe model manɔmee, eya ta teƒeyɔyɔ la ate ŋu ava gbɔ̃
+workspace.tool_jobs.document_changed = {name} wu enu le esime wotu alo trɔ eƒe agbalẽ la vɔ megbe, eya ta naneke metrɔ o

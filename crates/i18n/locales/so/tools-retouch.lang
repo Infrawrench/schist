@@ -18,3 +18,11 @@ tool.magic_eraser.name = Tirtire Sixir ah
 tool.magic_eraser.description = Guji si aad u tirtirto aagga midabkiisu la mid yahay ee tilmaamaha hoostiisa, inta uu ku jiro dulqaadka qalabka — ha ahaado mid ku xiran meesha la gujiyey ama meel kasta oo lakabka ah.
 tool.magic_eraser.option.contiguous = Isku xiran
 tool.magic_eraser.history.erase = Tirtire Sixir ah
+
+# Remove
+tool.remove.name = Ka saar
+tool.remove.description = Ku rinji shayga aanad rabin hal xariiq; markaad sii deyso, waxaa laga buuxinayaa hareerihiisa. Marka Ka saar Xariiq Kasta Kadib uu dansan yahay, rinji dhowr xariiq kadibna riix Enter si aad dhammaantood mar wada uga saarto.
+tool.remove.option.sample_all_layers = Muunad Dhammaan Lakabyada
+tool.remove.option.remove_after_each_stroke = Ka saar Xariiq Kasta Kadib
+tool.remove.history.remove = Ka saar
+tool.remove.layer_name = La saaray

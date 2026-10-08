@@ -3,6 +3,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -34,15 +36,23 @@ codec.heif.msg.imageio_cannot_read = N'hall ket ImageIO lenn ar c'hronnad HEIF
 codec.heif.msg.container_empty = n'eus skeudenn ebet er c'hronnad HEIF
 codec.heif.msg.imageio_cannot_decode = N'hall ket ImageIO digodiñ ar skeudenn bennañ
 
+# AVIF in the browser build, which has no AV1 decoder (it still exports AVIF).
+codec.avif.msg.no_decoder = N'hall ket stumm merdeer Schist digeriñ skeudennoù AVIF. Digorit ar restr en arload burev, pe amdroit anezhañ da PNG da gentañ.
+
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = Restr ar skeudenn gant gwiskadoù zo dañvaet pe diglok.
 codec.layered.too_large = Ar skeudenn gant gwiskadoù a ya dreist ar vent pe an niver a wiskadoù skoret.
 codec.layered.unsupported = Ar restr-mañ a implij un arc'hwel ha n'eo ket skoret: {feature}.
 codec.layered.export_layer = Ar gwiskad «{name}» a zo ennañ arc'hwelioù na c'hall ket ar mentrezh-mañ mirout. Rasterelait anezhañ pe enrollit e PSD.
 codec.layered.export_depth = Evit ezporzhiañ da Paint.NET ez eus ezhomm eus un teul RGB 8 bit. Troit an teul da RGB 8 bit da gentañ.
 codec.layered.export_mode = Evit ezporzhiañ ez eus ezhomm eus un teul RGB. Troit an teul da RGB da gentañ.
+codec.layered.merged_layer = Skeudenn unanet (n'eus ket bet gallet enporzhiañ lod eus ar gwiskadoù {format})
+codec.kra.merged_color_space = Skeudenn unanet (an teul Krita {color_space} zo diskouezet evel RGB)
 
 # Unsupported layered-format features.
 codec.pdn.feature.blend_mode = mod meskañ PDN
@@ -60,3 +70,8 @@ codec.xcf.feature.floating_selection = diuzañ neuñvius XCF
 codec.xcf.feature.layer_effects = efedoù gwiskad XCF
 codec.xcf.feature.precision = pizhder XCF
 codec.xcf.feature.version = handelv XCF
+
+codec.exr.feature.deep = roadennoù don EXR
+codec.exr.feature.subsampled = kanolioù isampladurezh EXR
+codec.exr.msg.no_channels = N'eus kanal skeudenn ebet er restr OpenEXR.
+codec.exr.msg.write_failed = Ne c'haller ket skrivañ ar restr OpenEXR: {error}

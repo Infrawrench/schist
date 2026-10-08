@@ -75,6 +75,9 @@ workspace.filters.raw_too_tall = RAW-framkallinga er for høg
 workspace.filters.raw_size_changed = RAW-framkallinga endra storleiken til {w} × {h}; held på det gjeldande laget
 workspace.filters.raw_history = Camera Raw-framkalling
 workspace.filters.raw_applied = Camera Raw-framkalling er brukt (beste demosaikkering)
+workspace.raw_masks.no_model = {model} er ikkje installert, så denne maska kan ikkje finnast.
+workspace.raw_masks.no_sky = Fann ingen himmel i dette biletet.
+workspace.raw_masks.detect_failed = Maskeoppdaginga mislukkast: {error}
 
 workspace.image_size.done = Biletstorleik: {w} × {h}
 workspace.image_size.bicubic_fallback = Biletstorleik: {w} × {h} – modellen {name} kunne ikkje lastast, så bikubisk skalering vart brukt i staden
@@ -102,3 +105,10 @@ workspace.file_picker.permission_denied = Schist har ikkje løyve til å lesa de
 workspace.recovery.recovered_title = {title} (gjenoppretta)
 workspace.recovery.recovered.one = Gjenoppretta ulagret arbeid frå ei tidlegare økt
 workspace.recovery.recovered.other = Gjenoppretta {n} dokument frå ei tidlegare økt
+workspace.colormgmt.vision_on = Simulerer: {name}
+workspace.colormgmt.vision_off = Normalt syn
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Fjerna utan utfyllingsmodellen, så utfyllinga kan bli grovare
+workspace.tool_jobs.document_changed = {name} vart ferdig etter at dokumentet vart lukka eller bytt, så ingenting vart endra

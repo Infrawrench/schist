@@ -66,6 +66,9 @@ workspace.filters.raw_too_tall = Натиҷаи коркарди RAW аз ҳад
 workspace.filters.raw_size_changed = Андозаи натиҷаи коркарди RAW ба {w} × {h} тағйир ёфт; қабати ҷорӣ нигоҳ дошта мешавад
 workspace.filters.raw_history = Коркарди Camera Raw
 workspace.filters.raw_applied = Коркарди Camera Raw татбиқ шуд (беҳтарин демозаика)
+workspace.raw_masks.no_model = {model} насб нашудааст, бинобар ин ин ниқобро муайян кардан ғайриимкон аст.
+workspace.raw_masks.no_sky = Дар ин тасвир осмон ёфт нашуд.
+workspace.raw_masks.detect_failed = Муайян кардани ниқоб ноком шуд: {error}
 workspace.image_size.done = Андозаи тасвир: {w} × {h}
 workspace.image_size.bicubic_fallback = Андозаи тасвир: {w} × {h} — модели {name} бор нашуд, бинобар ин интерполятсияи бикубӣ истифода шуд
 workspace.image_size.upscaling = Калонкунӣ бо {name}
@@ -87,3 +90,10 @@ workspace.file_picker.downloads = Боргириҳо
 workspace.file_picker.permission_denied = Schist иҷозаи хондани ин ҷузвдонро надорад
 workspace.recovery.recovered_title = {title} (барқароршуда)
 workspace.recovery.recovered.other = Кори захиранашуда аз ҷаласаи пешина барқарор шуд: {n} ҳуҷҷат
+workspace.colormgmt.vision_on = Шабеҳсозӣ: {name}
+workspace.colormgmt.vision_off = Биниши муқаррарӣ
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Бе модели пуркунӣ тоза карда шуд, бинобар ин пуркунӣ метавонад ноҳамвортар бошад
+workspace.tool_jobs.document_changed = {name} пас аз пӯшида ё иваз шудани ҳуҷҷаташ анҷом ёфт, бинобар ин ҳеҷ чиз тағйир наёфт

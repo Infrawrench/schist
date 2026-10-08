@@ -3,6 +3,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -34,15 +36,23 @@ codec.heif.msg.imageio_cannot_read = ImageIO ni mogel prebrati vsebnika HEIF
 codec.heif.msg.container_empty = vsebnik HEIF ne vsebuje slike
 codec.heif.msg.imageio_cannot_decode = ImageIO ni mogel dekodirati glavne slike
 
+# AVIF in the browser build, which has no AV1 decoder (it still exports AVIF).
+codec.avif.msg.no_decoder = Brskalniška različica programa Schist ne more odpreti slik AVIF. Datoteko odprite v namizni aplikaciji ali jo najprej pretvorite v PNG.
+
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = Datoteka slike s plastmi je poškodovana ali nepopolna.
 codec.layered.too_large = Slika s plastmi presega podprto velikost ali število plasti.
 codec.layered.unsupported = Ta datoteka uporablja nepodprto funkcijo: {feature}.
 codec.layered.export_layer = Plast »{name}« vsebuje funkcije, ki jih ta oblika zapisa ne more ohraniti. Rastrirajte jo ali shranite kot PSD.
 codec.layered.export_depth = Izvoz v Paint.NET zahteva 8-bitni dokument RGB. Najprej pretvorite dokument v 8-bitni RGB.
 codec.layered.export_mode = Izvoz zahteva dokument RGB. Najprej pretvorite dokument v RGB.
+codec.layered.merged_layer = Združena slika (nekaterih plasti {format} ni bilo mogoče uvoziti)
+codec.kra.merged_color_space = Združena slika (dokument Krita {color_space} je prikazan kot RGB)
 codec.pdn.feature.blend_mode = način mešanja PDN
 codec.pdn.feature.compression = stiskanje PDN
 codec.pdn.feature.container_version = različica vsebnika PDN
@@ -58,3 +68,8 @@ codec.xcf.feature.floating_selection = plavajoči izbor XCF
 codec.xcf.feature.layer_effects = učinki plasti XCF
 codec.xcf.feature.precision = natančnost XCF
 codec.xcf.feature.version = različica XCF
+
+codec.exr.feature.deep = globoki podatki EXR
+codec.exr.feature.subsampled = podvzorčeni kanali EXR
+codec.exr.msg.no_channels = Datoteka OpenEXR ne vsebuje nobenih slikovnih kanalov.
+codec.exr.msg.write_failed = Datoteke OpenEXR ni bilo mogoče zapisati: {error}

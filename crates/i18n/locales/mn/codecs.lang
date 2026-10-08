@@ -3,6 +3,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -30,15 +32,22 @@ codec.heif.msg.imageio_cannot_read = ImageIO HEIF савыг уншиж чадс
 codec.heif.msg.container_empty = HEIF сав зураггүй байна
 codec.heif.msg.imageio_cannot_decode = ImageIO үндсэн зургийг тайлж чадсангүй
 
+codec.avif.msg.no_decoder = Schist-ийн хөтчийн хувилбар AVIF зургийг нээх боломжгүй. Файлыг десктоп аппад нээх, эсвэл эхлээд PNG болгон хөрвүүлнэ үү.
+
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = Давхаргат зургийн файл гэмтсэн эсвэл дутуу байна.
 codec.layered.too_large = Давхаргат зургийн хэмжээ эсвэл давхаргын тоо дэмжигдэх хязгаараас хэтэрсэн байна.
 codec.layered.unsupported = Энэ файл дэмжигдэхгүй боломж ашиглаж байна: {feature}.
 codec.layered.export_layer = “{name}” давхаргад энэ форматаар хадгалах боломжгүй шинжүүд байна. Давхаргыг растер болгох эсвэл PSD хэлбэрээр хадгална уу.
 codec.layered.export_depth = Paint.NET хэлбэрээр экспортлоход 8 битийн RGB баримт шаардлагатай. Эхлээд баримтыг 8 битийн RGB болгон хөрвүүлнэ үү.
 codec.layered.export_mode = Экспортлоход RGB баримт шаардлагатай. Эхлээд баримтыг RGB болгон хөрвүүлнэ үү.
+codec.layered.merged_layer = Нэгтгэсэн зураг ({format} форматын зарим давхаргыг импортлож чадсангүй)
+codec.kra.merged_color_space = Нэгтгэсэн зураг ({color_space} өнгөний орон зайтай Krita баримтыг RGB хэлбэрээр харуулж байна)
 
 # Unsupported layered format features
 codec.pdn.feature.blend_mode = PDN холих горим
@@ -56,3 +65,8 @@ codec.xcf.feature.floating_selection = XCF хөвөгч сонголт
 codec.xcf.feature.layer_effects = XCF давхаргын эффектүүд
 codec.xcf.feature.precision = XCF нарийвчлал
 codec.xcf.feature.version = XCF хувилбар
+
+codec.exr.feature.deep = EXR гүн өгөгдөл
+codec.exr.feature.subsampled = EXR сэлгэн түүвэрлэсэн сувгууд
+codec.exr.msg.no_channels = OpenEXR файл зургийн суваг агуулаагүй байна.
+codec.exr.msg.write_failed = OpenEXR файлыг бичиж чадсангүй: {error}

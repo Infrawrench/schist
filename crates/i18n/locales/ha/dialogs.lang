@@ -8,7 +8,25 @@ dialog.layer_props.title = Halayen Shimfiɗa
 dialog.export.format = Tsari
 dialog.export.dither = Warwatsa Launi
 dialog.export.dither_note = Warwatsa launi lokacin ragewa zuwa bit 8
+dialog.export.effort = Ƙoƙari
 dialog.export.export_ellipsis = Fitar da…
+dialog.export.exr_samples = Samfura
+dialog.export.exr_half = Rabin float (16-bit)
+dialog.export.exr_float = Float (32-bit)
+dialog.export.exr_compression = Matsewa
+dialog.export.exr_compression.none = Babu
+dialog.export.exr_compression.rle = RLE
+dialog.export.exr_compression.zips = ZIP, layin bincike ɗaya
+dialog.export.exr_compression.zip = ZIP, layukan bincike 16
+dialog.export.exr_compression.piz = PIZ (wavelet)
+dialog.export.exr_compression.pxr24 = PXR24 (da asara ga float)
+dialog.export.exr_compression.b44 = B44 (da asara)
+dialog.export.exr_compression.b44a = B44A (da asara)
+dialog.export.exr_layers = Shimfiɗu
+dialog.export.exr_layers_note = Rubuta kowace shimfiɗa mai ganuwa a matsayin shimfiɗar EXR kuma
+dialog.export.exr_alpha = Alfa
+dialog.export.exr_alpha_note = Rubuta tashar alfa
+dialog.export.exr_linear_note = EXR yana adana haske madaidaici. Ana fassara wannan takarda ta 8- ko 16-bit ta cikin bayanin launinta zuwa float madaidaici lokacin fitarwa.
 
 # Sarrafa Hotuna
 dialog.batch.title = Sarrafa Hotuna
@@ -52,6 +70,25 @@ dialog.filter.camera_raw_development = Sarrafa Camera Raw
 dialog.filter.reset_as_shot = Sake Saita Kamar Yadda Aka Ɗauka
 dialog.filter.raw_note = Yana sake sarrafa shimfiɗa mai aiki daga bayanan asalin firikwensarta.
 dialog.filter.note = Yana aiki a kan shimfiɗa mai aiki, cikin zaɓin.
+
+# Gyare-gyaren wuri na Camera Raw
+dialog.raw_masks.title = Abubuwan Rufe
+dialog.raw_masks.new_mask = Sabon abin rufe:
+dialog.raw_masks.add_to_mask = Ƙara zuwa abin rufe:
+dialog.raw_masks.linear = Sauyin Launi na Layi
+dialog.raw_masks.subject = Zaɓi Babban Abu
+dialog.raw_masks.sky = Zaɓi Sama
+dialog.raw_masks.background = Zaɓi Baya
+dialog.raw_masks.mask_n = Abin Rufe {n}
+dialog.raw_masks.invert_mask = Juya abin rufe
+dialog.raw_masks.overlay = Nuna lulluɓin abin rufe
+dialog.raw_masks.erase = Goge
+dialog.raw_masks.local = Gyare-gyare a cikin wannan abin rufe
+dialog.raw_masks.delete_mask = Share Abin Rufe
+dialog.raw_masks.detecting = Ana ganowa…
+dialog.raw_masks.hint_empty = Ƙara abin rufe don gyara wani ɓangare na hoton. Kowane abin rufe yana da nasa masu zamiya.
+dialog.raw_masks.hint_brush = Yi fenti a wurin zane don ƙara wa buroshi; kunna Goge don cire shi.
+dialog.raw_masks.hint_gradient = Ja maƙallan don motsa sauyin launi, ko ja a wurin zane don zana sabo.
 
 # Nau'ikan rubutu da suka ɓace
 dialog.fonts.title = Nau'ikan Rubutu da Suka Ɓace

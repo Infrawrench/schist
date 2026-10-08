@@ -23,3 +23,11 @@ tool.magic_eraser.name = Կախարդական ռետին
 tool.magic_eraser.description = Սեղմեք՝ գործիքի թույլատրելի շեղման սահմաններում ցուցիչի տակ գտնվող նման գույնի տարածքը ջնջելու համար՝ միայն սեղմման կետին հարակից տարածքում կամ ամբողջ շերտում։
 tool.magic_eraser.option.contiguous = Հարակից
 tool.magic_eraser.history.erase = Կախարդական ռետին
+
+# Remove
+tool.remove.name = Հեռացում
+tool.remove.description = Մեկ վրձնահարվածով ներկեք անցանկալի օբյեկտի վրա. երբ բաց թողնեք, այն կլրացվի շրջապատից։ Երբ «Հեռացնել յուրաքանչյուր վրձնահարվածից հետո» անջատված է, ներկեք մի քանի վրձնահարված և սեղմեք Enter՝ դրանք միասին հեռացնելու համար։
+tool.remove.option.sample_all_layers = Նմուշառել բոլոր շերտերը
+tool.remove.option.remove_after_each_stroke = Հեռացնել յուրաքանչյուր վրձնահարվածից հետո
+tool.remove.history.remove = Հեռացում
+tool.remove.layer_name = Հեռացված

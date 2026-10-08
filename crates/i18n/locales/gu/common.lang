@@ -241,6 +241,7 @@ common.filetype.jpeg = JPEG છબી
 common.filetype.webp = WebP છબી
 common.filetype.tiff = TIFF છબી
 common.filetype.heic = HEIC છબી
+common.filetype.exr = OpenEXR છબી
 common.filetype.raw = Camera Raw છબી
 common.filetype.affinity = Affinity દસ્તાવેજ
 common.filetype.image = છબી

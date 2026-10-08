@@ -21,3 +21,11 @@ tool.magic_eraser.name = Toweruitveër
 tool.magic_eraser.description = Klik om die gebied met 'n soortgelyke kleur onder die wyser binne die gereedskap se toleransie uit te vee — óf aaneenlopend vanaf die klikpunt óf oral in die laag.
 tool.magic_eraser.option.contiguous = Aaneenlopend
 tool.magic_eraser.history.erase = Toweruitveër
+
+# Remove
+tool.remove.name = Verwyder
+tool.remove.description = Verf in een haal oor 'n ongewenste voorwerp; wanneer jy los, word dit uit die omgewing ingevul. Met Verwyder ná elke haal af, verf verskeie hale en druk Enter om hulle saam te verwyder.
+tool.remove.option.sample_all_layers = Monster alle lae
+tool.remove.option.remove_after_each_stroke = Verwyder ná elke haal
+tool.remove.history.remove = Verwyder
+tool.remove.layer_name = Verwyderd

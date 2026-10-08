@@ -4,6 +4,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -39,15 +41,22 @@ codec.heif.msg.imageio_cannot_read = ImageIO HEIF કન્ટેનર વા�
 codec.heif.msg.container_empty = HEIF કન્ટેનરમાં કોઈ છબી નથી
 codec.heif.msg.imageio_cannot_decode = ImageIO મુખ્ય છબી ડિકોડ કરી શક્યું નહીં
 
+codec.avif.msg.no_decoder = Schist નું બ્રાઉઝર સંસ્કરણ AVIF છબીઓ ખોલી શકતું નથી. ફાઇલને ડેસ્કટૉપ ઍપમાં ખોલો, અથવા પહેલાં તેને PNG માં રૂપાંતરિત કરો.
+
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = લેયરવાળી ઇમેજની ફાઇલ નુકસાનગ્રસ્ત અથવા અધૂરી છે.
 codec.layered.too_large = લેયરવાળી ઇમેજનું કદ અથવા લેયરની સંખ્યા સમર્થિત મર્યાદાથી વધુ છે.
 codec.layered.unsupported = આ ફાઇલ અસમર્થિત સુવિધાનો ઉપયોગ કરે છે: {feature}.
 codec.layered.export_layer = “{name}” લેયરમાં એવી સુવિધાઓ છે જે આ ફોર્મેટ જાળવી શકતું નથી. તેને રાસ્ટરાઇઝ કરો અથવા PSD તરીકે સાચવો.
 codec.layered.export_depth = Paint.NET એક્સપોર્ટ માટે 8-બિટ RGB દસ્તાવેજ જરૂરી છે. પહેલાં દસ્તાવેજને 8-બિટ RGBમાં રૂપાંતરિત કરો.
 codec.layered.export_mode = એક્સપોર્ટ માટે RGB દસ્તાવેજ જરૂરી છે. પહેલાં દસ્તાવેજને RGBમાં રૂપાંતરિત કરો.
+codec.layered.merged_layer = મર્જ કરેલી ઇમેજ (કેટલાક {format} લેયર ઇમ્પોર્ટ થઈ શક્યા નહીં)
+codec.kra.merged_color_space = મર્જ કરેલી ઇમેજ (Krita {color_space} દસ્તાવેજ RGB તરીકે બતાવ્યો છે)
 
 # Unsupported layered-format features.
 codec.pdn.feature.blend_mode = PDN બ્લેન્ડ મોડ
@@ -65,3 +74,8 @@ codec.xcf.feature.floating_selection = XCF તરતી પસંદગી
 codec.xcf.feature.layer_effects = XCF લેયરની અસરો
 codec.xcf.feature.precision = XCF ચોકસાઈ
 codec.xcf.feature.version = XCF આવૃત્તિ
+
+codec.exr.feature.deep = EXR ડીપ ડેટા
+codec.exr.feature.subsampled = EXR સબસેમ્પલ્ડ ચેનલો
+codec.exr.msg.no_channels = OpenEXR ફાઇલમાં કોઈ ઇમેજ ચેનલ નથી.
+codec.exr.msg.write_failed = OpenEXR ફાઇલ લખી શકાઈ નહીં: {error}

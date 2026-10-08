@@ -85,6 +85,9 @@ workspace.filters.raw_too_tall = Sakamakon sarrafa RAW ya yi tsawo sosai
 workspace.filters.raw_size_changed = Girman RAW ya canza zuwa {w} × {h}; ana riƙe shimfiɗar yanzu
 workspace.filters.raw_history = Sarrafa Camera Raw
 workspace.filters.raw_applied = An aiwatar da sarrafa Camera Raw (mafi kyawun demosaic)
+workspace.raw_masks.no_model = Ba a shigar da {model} ba, don haka ba za a iya gano wannan abin rufe ba.
+workspace.raw_masks.no_sky = Ba a sami sama a cikin wannan hoton ba.
+workspace.raw_masks.detect_failed = Gano abin rufe ya gaza: {error}
 
 # Girman hoto da na'urar ƙara girma
 workspace.image_size.done = Girman hoto: {w} × {h}
@@ -116,3 +119,10 @@ workspace.file_picker.permission_denied = Schist ba shi da izinin karanta wannan
 workspace.recovery.recovered_title = {title} (an dawo da shi)
 workspace.recovery.recovered.one = An dawo da aikin da ba a ajiye ba daga zaman baya
 workspace.recovery.recovered.other = An dawo da takardu {n} daga zaman baya
+workspace.colormgmt.vision_on = Kwaikwayo: {name}
+workspace.colormgmt.vision_off = Ganin al'ada
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = An cire ba tare da samfurin cike hoto ba, don haka cikewar na iya zama mara santsi
+workspace.tool_jobs.document_changed = {name} ya kammala bayan an rufe ko an sauya takardarsa, don haka ba a canza komai ba

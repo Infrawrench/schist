@@ -249,6 +249,7 @@ common.filetype.jpeg = Íomhá JPEG
 common.filetype.webp = Íomhá WebP
 common.filetype.tiff = Íomhá TIFF
 common.filetype.heic = Íomhá HEIC
+common.filetype.exr = Íomhá OpenEXR
 common.filetype.raw = Íomhá Amh Ceamara
 common.filetype.affinity = Cáipéis Affinity
 common.filetype.image = Íomhá

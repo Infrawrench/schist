@@ -239,6 +239,7 @@ common.filetype.jpeg = תמונת JPEG
 common.filetype.webp = תמונת WebP
 common.filetype.tiff = תמונת TIFF
 common.filetype.heic = תמונת HEIC
+common.filetype.exr = תמונת OpenEXR
 common.filetype.raw = תמונת Camera Raw
 common.filetype.affinity = מסמך Affinity
 common.filetype.image = תמונה

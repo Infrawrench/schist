@@ -21,3 +21,11 @@ tool.magic_eraser.name = Gòm majik
 tool.magic_eraser.description = Klike pou efase zòn ki gen koulè sanblab anba pwentè a, selon tolerans zouti a — swa zòn ki kole ak kote ou klike a, swa tout kote nan kouch la.
 tool.magic_eraser.option.contiguous = Kole youn ak lòt
 tool.magic_eraser.history.erase = Gòm majik
+
+# Remove
+tool.remove.name = Retire
+tool.remove.description = Pentire sou yon objè ou pa vle an yon sèl kou; lè ou lage, li ranpli ak sa ki antoure li. Lè Retire apre chak kou dezaktive, pentire plizyè kou epi peze Enter pou retire yo ansanm.
+tool.remove.option.sample_all_layers = Echantiyone tout kouch yo
+tool.remove.option.remove_after_each_stroke = Retire apre chak kou
+tool.remove.history.remove = Retire
+tool.remove.layer_name = Retire

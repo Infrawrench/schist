@@ -15,6 +15,12 @@ pub(super) fn app_item_checked(ws: &Workspace, item: AppItem) -> Option<bool> {
         AppItem::ToggleExtras => ws.view.extras,
         AppItem::ToggleSnap => ws.view.snap,
         AppItem::ProofColors => ws.color.proof.is_some(),
+        AppItem::VisionSimulation(i) => ws.vision_index() == i,
+        AppItem::VisionSeverity(i) => ws.view.vision_severity == i,
+        AppItem::ToggleClipping => ws.overlays.clipping,
+        AppItem::ToggleFocusPeaking => ws.overlays.focus_peaking,
+        AppItem::PeakingColor(i) => ws.view.peaking_color == i,
+        AppItem::PeakingSensitivity(i) => ws.view.peaking_sensitivity == i,
         AppItem::PasteboardSpread => {
             ws.design_mode() && ws.design.mode == crate::design::PasteboardMode::Spread
         }
@@ -202,6 +208,12 @@ pub(crate) fn run_app_item(
             let profile = schist_colormgmt::Profile::srgb();
             ws.toggle_proof(profile, cx);
         }
+        AppItem::VisionSimulation(i) => ws.set_vision(i, cx),
+        AppItem::VisionSeverity(i) => ws.set_vision_severity(i, cx),
+        AppItem::ToggleClipping => ws.toggle_clipping(cx),
+        AppItem::ToggleFocusPeaking => ws.toggle_focus_peaking(cx),
+        AppItem::PeakingColor(i) => ws.set_peaking(Some(i), None, cx),
+        AppItem::PeakingSensitivity(i) => ws.set_peaking(None, Some(i), cx),
         AppItem::ToggleRulers => ws.toggle_rulers(cx),
         AppItem::ToggleGrid => ws.toggle_grid(cx),
         AppItem::ToggleGuides => ws.toggle_guides(cx),
@@ -372,6 +384,13 @@ pub(crate) fn run_app_item(
         #[cfg(not(target_arch = "wasm32"))]
         AppItem::GalleryMapFilter => ws.open_map_filter(cx),
         #[cfg(not(target_arch = "wasm32"))]
+        AppItem::GalleryFindDuplicates => ws.open_duplicate_finder(cx),
+        #[cfg(not(target_arch = "wasm32"))]
+        AppItem::GalleryGeotag => {
+            let photos = ws.library.selected.clone();
+            ws.open_geotag(photos, cx);
+        }
+        #[cfg(not(target_arch = "wasm32"))]
         AppItem::OpenRecent(i) => {
             if let Some(path) = ws.library.recents.get(i).cloned() {
                 ws.load_file(path, cx);
@@ -384,6 +403,8 @@ pub(crate) fn run_app_item(
         | AppItem::GalleryRefresh
         | AppItem::GalleryEditSelected
         | AppItem::GalleryMapFilter
+        | AppItem::GalleryFindDuplicates
+        | AppItem::GalleryGeotag
         | AppItem::OpenRecent(_) => {}
         AppItem::PathFill => ws.use_active_path(crate::workspace::PathOp::Fill, cx),
         AppItem::PathStroke => ws.use_active_path(crate::workspace::PathOp::Stroke, cx),

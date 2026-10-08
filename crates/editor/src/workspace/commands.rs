@@ -190,6 +190,7 @@ impl Workspace {
                     self.record_action_step(recorded_actions::Step::Transform { params });
                 }
             }
+            self.drain_tool_jobs(previous, cx);
         }
         if let Some(tool) = self.registry.tool_mut(id) {
             let id = tool.id();
@@ -197,6 +198,9 @@ impl Workspace {
             let group = tool.group();
             self.group_active.insert(group, id);
             self.editor.active_tool = id;
+            if self.photo_workspace() {
+                self.photo_view.tool_options = !matches!(id, "hand" | "zoom");
+            }
             self.status = tf!("workspace.commands.tool", name = name).into();
             if let (Some(doc), Some(tool)) = (self.doc.as_mut(), self.registry.tool_mut(id)) {
                 let mut ctx = ToolCtx {
@@ -229,6 +233,7 @@ impl Workspace {
             };
             tool.on_option_changed(&mut ctx, key);
         }
+        self.drain_tool_jobs(tool_id, cx);
         self.after_change(cx);
     }
 }

@@ -14,3 +14,4 @@ workspaces.invalid_name = Introdu un nume de 1–80 de caractere, fără caracte
 workspaces.duplicate = Există deja un spațiu de lucru cu acest nume.
 workspaces.limit = Poți salva până la 64 de spații de lucru.
 workspaces.keyboard = Tastatură: Alt+↑/↓ selectează un aspect. Ctrl/Cmd+N îi editează numele; +S salvează o copie; +Enter îl aplică; +U îl actualizează; +R îl redenumește; +D îl șterge; +0 îl resetează.
+workspaces.open_documents = Documente deschise

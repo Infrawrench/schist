@@ -6,6 +6,7 @@ use schist_i18n::{t, tf};
 
 const CAMERA_RAW_FILTER: &str = "filter.camera_raw";
 const RAW_PREVIEW_DEBOUNCE_MS: u64 = 120;
+const RAW_MASK_DEBOUNCE_MS: u64 = 40;
 
 pub(super) fn settings_from_values(
     values: &schist_plugin_api::FilterValues,
@@ -56,10 +57,37 @@ fn values_from_settings(
     }
 }
 
+/// A finished development: its pixels, and its masks with any detection
+/// the render had to run filled in, which is what gets stored.
+pub(super) struct RenderedRaw {
+    pub developed: schist_codecs_common::raw::DevelopedRaw,
+    pub masks: Vec<schist_core::LocalMask>,
+}
+
+/// Develop the capture and apply its local adjustment masks.
+pub(super) fn render_raw_capture(
+    source: Arc<[u8]>,
+    settings: schist_core::RawSettings,
+    quality: schist_codecs_common::raw::RawQuality,
+    filter: Arc<dyn schist_plugin_api::FilterPlugin>,
+    values: schist_plugin_api::FilterValues,
+    mut masks: Vec<schist_core::LocalMask>,
+) -> anyhow::Result<RenderedRaw> {
+    let mut developed = develop_raw_base(source, settings, quality, filter, values)?;
+    raw_masks::finish_raw(
+        &mut developed.rgba,
+        developed.width,
+        developed.height,
+        &mut masks,
+        true,
+    )?;
+    Ok(RenderedRaw { developed, masks })
+}
+
 /// Develop the sensor-domain controls and then run the remaining Camera Raw
 /// controls over that fresh render. The three controls already consumed by
 /// the RAW pipeline are zeroed so they are not applied twice.
-pub(super) fn render_raw_capture(
+pub(super) fn develop_raw_base(
     source: Arc<[u8]>,
     settings: schist_core::RawSettings,
     quality: schist_codecs_common::raw::RawQuality,
@@ -88,11 +116,60 @@ async fn render_raw_capture_browser(
     settings: schist_core::RawSettings,
     quality: schist_codecs_common::raw::RawQuality,
     filter: Arc<dyn schist_plugin_api::FilterPlugin>,
+    values: schist_plugin_api::FilterValues,
+    mut masks: Vec<schist_core::LocalMask>,
+    context: Option<std::rc::Rc<schist_compositor_gpu::GpuContext>>,
+) -> anyhow::Result<RenderedRaw> {
+    let mut developed =
+        develop_raw_base_browser(source, settings, quality, filter, values, context.clone())
+            .await?;
+    let (w, h) = (developed.width, developed.height);
+    raw_masks::detect_missing(&mut masks, &developed.rgba, w, h)?;
+    apply_masks_browser(&mut developed.rgba, w, h, &masks, context).await;
+    Ok(RenderedRaw { developed, masks })
+}
+
+/// Masks over a developed picture on the browser's GPU, one operation a
+/// mask, falling back to the CPU for any the GPU declines.
+#[cfg(target_arch = "wasm32")]
+async fn apply_masks_browser(
+    rgba: &mut Vec<f32>,
+    w: usize,
+    h: usize,
+    masks: &[schist_core::LocalMask],
+    context: Option<std::rc::Rc<schist_compositor_gpu::GpuContext>>,
+) {
+    for mask in masks.iter().filter(|m| m.is_active()) {
+        let values = raw_masks::local_values(&mask.adjustments);
+        let coverage = mask.coverage(w, h);
+        let output = match &context {
+            Some(context) => {
+                let operation = schist_filters_core::camera_raw::local_operation(
+                    &values,
+                    Arc::from(coverage.as_slice()),
+                );
+                context.filter_async(&operation, rgba, w, h).await
+            }
+            None => None,
+        };
+        match output {
+            Some(output) => *rgba = output,
+            None => schist_filters_core::camera_raw::apply_local(rgba, w, h, &values, &coverage),
+        }
+    }
+}
+
+#[cfg(target_arch = "wasm32")]
+async fn develop_raw_base_browser(
+    source: Arc<[u8]>,
+    settings: schist_core::RawSettings,
+    quality: schist_codecs_common::raw::RawQuality,
+    filter: Arc<dyn schist_plugin_api::FilterPlugin>,
     mut values: schist_plugin_api::FilterValues,
     context: Option<std::rc::Rc<schist_compositor_gpu::GpuContext>>,
 ) -> anyhow::Result<schist_codecs_common::raw::DevelopedRaw> {
     let Some(context) = context else {
-        return render_raw_capture(source, settings, quality, filter, values);
+        return develop_raw_base(source, settings, quality, filter, values);
     };
     let mut developed =
         schist_codecs_common::raw::develop_rgba_async(&source, settings, quality, context.as_ref())
@@ -564,10 +641,27 @@ impl Workspace {
         };
         let stamp = self.doc.as_ref().map(|doc| (doc.id, doc.revision));
         let settings = settings_from_values(values);
+        // Outside a mask session (an API caller) the stored masks render.
+        #[cfg_attr(target_arch = "wasm32", allow(unused_mut))]
+        let (mut masks, overlay) = if self.raw_masks.is_some() {
+            self.raw_mask_preview_inputs()
+        } else {
+            (raw.masks.clone(), None)
+        };
+        // When only the masks changed, the globally developed picture from
+        // the last preview is still right and the sensor decode is skipped.
+        let base = self
+            .raw_preview_base
+            .as_ref()
+            .filter(|base| base.layer == preview.layer && base.values == *values)
+            .map(|base| (base.width, base.height, base.rgba.clone()));
         let values = values.clone();
+        let base_values = values.clone();
         self.raw_preview_seq = self.raw_preview_seq.wrapping_add(1);
         let sequence = self.raw_preview_seq;
-        self.status = t("workspace.filters.raw_preview_developing").into();
+        if base.is_none() {
+            self.status = t("workspace.filters.raw_preview_developing").into();
+        }
         cx.notify();
 
         #[cfg(target_arch = "wasm32")]
@@ -577,9 +671,15 @@ impl Workspace {
         };
         cx.spawn(async move |this, cx| {
             // Slider drags emit many positions. Only start the expensive
-            // sensor decode once a position has remained current briefly.
+            // sensor decode once a position has remained current briefly;
+            // a mask edit over a kept development waits less.
+            let debounce = if base.is_some() {
+                RAW_MASK_DEBOUNCE_MS
+            } else {
+                RAW_PREVIEW_DEBOUNCE_MS
+            };
             cx.background_executor()
-                .timer(std::time::Duration::from_millis(RAW_PREVIEW_DEBOUNCE_MS))
+                .timer(std::time::Duration::from_millis(debounce))
                 .await;
             let current = this
                 .update(cx, |ws, _cx| {
@@ -596,26 +696,55 @@ impl Workspace {
             }
 
             #[cfg(target_arch = "wasm32")]
-            let rendered = render_raw_capture_browser(
-                raw.source,
-                settings,
-                schist_codecs_common::raw::RawQuality::Fast,
-                filter,
-                values,
-                gpu_context,
-            )
+            let rendered = async {
+                let (w, h, rgba) = match base {
+                    Some(base) => base,
+                    None => {
+                        let developed = develop_raw_base_browser(
+                            raw.source,
+                            settings,
+                            schist_codecs_common::raw::RawQuality::Fast,
+                            filter,
+                            values,
+                            gpu_context.clone(),
+                        )
+                        .await?;
+                        (developed.width, developed.height, Arc::new(developed.rgba))
+                    }
+                };
+                let mut out = rgba.to_vec();
+                apply_masks_browser(&mut out, w, h, &masks, gpu_context).await;
+                if let Some(mask) = overlay.and_then(|i| masks.get(i)) {
+                    raw_masks::tint(&mut out, &mask.coverage(w, h));
+                }
+                anyhow::Ok((w, h, rgba, out))
+            }
             .await;
             #[cfg(not(target_arch = "wasm32"))]
             let rendered = cx
                 .background_executor()
                 .spawn(async move {
-                    render_raw_capture(
-                        raw.source,
-                        settings,
-                        schist_codecs_common::raw::RawQuality::Fast,
-                        filter,
-                        values,
-                    )
+                    let (w, h, rgba) = match base {
+                        Some(base) => base,
+                        None => {
+                            let developed = develop_raw_base(
+                                raw.source,
+                                settings,
+                                schist_codecs_common::raw::RawQuality::Fast,
+                                filter,
+                                values,
+                            )?;
+                            (developed.width, developed.height, Arc::new(developed.rgba))
+                        }
+                    };
+                    let mut out = rgba.to_vec();
+                    // Detections run when a mask is added, not here: a
+                    // component still waiting for one covers nothing yet.
+                    raw_masks::finish_raw(&mut out, w, h, &mut masks, false)?;
+                    if let Some(mask) = overlay.and_then(|i| masks.get(i)) {
+                        raw_masks::tint(&mut out, &mask.coverage(w, h));
+                    }
+                    anyhow::Ok((w, h, rgba, out))
                 })
                 .await;
             this.update(cx, |ws, cx| {
@@ -631,15 +760,22 @@ impl Workspace {
                     return;
                 }
                 match rendered {
-                    Ok(developed)
-                        if developed.width == current.region.width() as usize
-                            && developed.height == current.region.height() as usize =>
+                    Ok((w, h, rgba, out))
+                        if w == current.region.width() as usize
+                            && h == current.region.height() as usize =>
                     {
+                        ws.raw_preview_base = Some(RawPreviewBase {
+                            layer: current.layer,
+                            values: base_values,
+                            width: w,
+                            height: h,
+                            rgba,
+                        });
                         ws.write_region_inner(
                             current.layer,
                             current.region,
                             &current.original,
-                            &developed.rgba,
+                            &out,
                             "",
                             false,
                             false,
@@ -647,13 +783,9 @@ impl Workspace {
                         ws.status = t("workspace.filters.raw_preview_done").into();
                         ws.after_change(cx);
                     }
-                    Ok(developed) => {
-                        ws.status = tf!(
-                            "workspace.filters.raw_preview_size_changed",
-                            w = developed.width,
-                            h = developed.height
-                        )
-                        .into();
+                    Ok((w, h, ..)) => {
+                        ws.status =
+                            tf!("workspace.filters.raw_preview_size_changed", w = w, h = h).into();
                         cx.notify();
                     }
                     Err(err) => {
@@ -850,11 +982,8 @@ impl Workspace {
         #[cfg(target_arch = "wasm32")]
         self.cancel_browser_filter();
         if self.is_raw_redevelopment(id) {
-            // Calls outside the dialog may still have a live preview. Put
-            // its pixels back and invalidate every in-flight preview before
-            // the Best-quality render starts.
-            self.cancel_filter_preview(cx);
-            self.apply_raw_development(values, cx);
+            let masks = self.take_raw_mask_edits();
+            self.apply_raw_filter(values, masks, cx);
             return;
         }
         // A live preview has already changed these pixels; put them back so
@@ -994,9 +1123,25 @@ impl Workspace {
         self.after_change(cx);
     }
 
+    /// Re-develop the active RAW layer with `values` and `masks`, or with
+    /// the masks it already has when there was no mask session.
+    pub(crate) fn apply_raw_filter(
+        &mut self,
+        values: &schist_plugin_api::FilterValues,
+        masks: Option<Vec<schist_core::LocalMask>>,
+        cx: &mut Context<Self>,
+    ) {
+        // Calls outside the dialog may still have a live preview. Put
+        // its pixels back and invalidate every in-flight preview before
+        // the Best-quality render starts.
+        self.cancel_filter_preview(cx);
+        self.apply_raw_development(values, masks, cx);
+    }
+
     fn apply_raw_development(
         &mut self,
         values: &schist_plugin_api::FilterValues,
+        masks: Option<Vec<schist_core::LocalMask>>,
         cx: &mut Context<Self>,
     ) {
         let Some(doc) = self.doc.as_ref() else { return };
@@ -1020,6 +1165,7 @@ impl Workspace {
         let action_values = values.0.iter().map(|(k, v)| ((*k).into(), *v)).collect();
         let values = values.clone();
         let source = raw.source.clone();
+        let masks = masks.unwrap_or_else(|| raw.masks.clone());
         self.raw_preview_seq = self.raw_preview_seq.wrapping_add(1);
         let sequence = self.raw_preview_seq;
         self.open_modal(
@@ -1045,6 +1191,7 @@ impl Workspace {
                 schist_codecs_common::raw::RawQuality::Best,
                 filter,
                 values,
+                masks,
                 gpu_context,
             )
             .await;
@@ -1058,6 +1205,7 @@ impl Workspace {
                         schist_codecs_common::raw::RawQuality::Best,
                         filter,
                         values,
+                        masks,
                     )
                 })
                 .await;
@@ -1077,8 +1225,8 @@ impl Workspace {
                     cx.notify();
                     return;
                 }
-                let developed = match rendered {
-                    Ok(developed) => developed,
+                let RenderedRaw { developed, masks } = match rendered {
+                    Ok(rendered) => rendered,
                     Err(err) => {
                         ws.status = tf!("workspace.filters.raw_failed", error = err).into();
                         cx.notify();
@@ -1111,12 +1259,14 @@ impl Workspace {
                 );
                 let mut after = raw;
                 after.settings = settings;
+                after.masks = masks.clone();
                 let mut edit = doc.begin_edit(t("workspace.filters.raw_history"));
                 edit.replace_layer_tiles(layer_id, tiles);
                 edit.set_raw_development(layer_id, Some(Box::new(after)));
                 edit.commit();
                 ws.record_action_step(recorded_actions::Step::RawDevelopment {
                     values: action_values,
+                    masks: Some(masks),
                 });
                 ws.status = t("workspace.filters.raw_applied").into();
                 ws.after_change(cx);

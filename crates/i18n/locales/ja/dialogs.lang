@@ -18,7 +18,25 @@ dialog.layer_props.title = レイヤープロパティ
 dialog.export.format = 形式
 dialog.export.dither = ディザ
 dialog.export.dither_note = 8 bit に減色するときにディザを使用
+dialog.export.effort = エフォート
 dialog.export.export_ellipsis = 書き出し…
+dialog.export.exr_samples = サンプル
+dialog.export.exr_half = ハーフフロート（16 ビット）
+dialog.export.exr_float = フロート（32 ビット）
+dialog.export.exr_compression = 圧縮
+dialog.export.exr_compression.none = なし
+dialog.export.exr_compression.rle = RLE
+dialog.export.exr_compression.zips = ZIP（1 スキャンライン）
+dialog.export.exr_compression.zip = ZIP（16 スキャンライン）
+dialog.export.exr_compression.piz = PIZ（ウェーブレット）
+dialog.export.exr_compression.pxr24 = PXR24（フロートは非可逆）
+dialog.export.exr_compression.b44 = B44（非可逆）
+dialog.export.exr_compression.b44a = B44A（非可逆）
+dialog.export.exr_layers = レイヤー
+dialog.export.exr_layers_note = 表示中の各レイヤーも EXR レイヤーとして書き出す
+dialog.export.exr_alpha = アルファ
+dialog.export.exr_alpha_note = アルファチャンネルを書き込む
+dialog.export.exr_linear_note = EXR はリニアライトで保存されます。この 8 ビットまたは 16 ビットのドキュメントは、書き出し時にカラープロファイルを介してリニアフロートにデコードされます。
 
 # 写真を処理（ギャラリーのバッチ処理ダイアログ）
 dialog.batch.title = 写真を処理
@@ -68,6 +86,25 @@ dialog.filter.camera_raw_development = Camera Raw 現像
 dialog.filter.reset_as_shot = 撮影時の設定に戻す
 dialog.filter.raw_note = 作業レイヤーを元のセンサーデータから現像し直します。
 dialog.filter.note = 作業レイヤーの選択範囲内に適用されます。
+
+# Camera Raw のローカル補正
+dialog.raw_masks.title = マスク
+dialog.raw_masks.new_mask = 新規マスク:
+dialog.raw_masks.add_to_mask = マスクに追加:
+dialog.raw_masks.linear = 線形グラデーション
+dialog.raw_masks.subject = 被写体を選択
+dialog.raw_masks.sky = 空を選択
+dialog.raw_masks.background = 背景を選択
+dialog.raw_masks.mask_n = マスク {n}
+dialog.raw_masks.invert_mask = マスクを反転
+dialog.raw_masks.overlay = マスクオーバーレイを表示
+dialog.raw_masks.erase = 消去
+dialog.raw_masks.local = このマスクの補正
+dialog.raw_masks.delete_mask = マスクを削除
+dialog.raw_masks.detecting = 検出中…
+dialog.raw_masks.hint_empty = マスクを追加すると画像の一部だけを補正できます。マスクごとに専用のスライダーがあります。
+dialog.raw_masks.hint_brush = カンバス上をペイントしてブラシ範囲を追加します。消去をオンにすると範囲を削除できます。
+dialog.raw_masks.hint_gradient = ハンドルをドラッグしてグラデーションを移動するか、カンバス上をドラッグして新しいグラデーションを描きます。
 
 # 見つからないフォント
 dialog.fonts.title = 見つからないフォント

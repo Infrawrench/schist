@@ -22,3 +22,11 @@ tool.magic_eraser.name = Tovergummetje
 tool.magic_eraser.description = Klik om binnen de tolerantie van het hulpmiddel het gebied met een vergelijkbare kleur onder de aanwijzer te wissen: alleen het aaneengesloten gebied rond de klik, of overal in de laag.
 tool.magic_eraser.option.contiguous = Aangrenzend
 tool.magic_eraser.history.erase = Tovergummetje
+
+# Remove
+tool.remove.name = Verwijderen
+tool.remove.description = Schilder in één streek over een ongewenst object; zodra je loslaat, wordt het opgevuld vanuit de omgeving. Met Verwijderen na elke streek uitgeschakeld schilder je meerdere streken en druk je op Enter om ze samen te verwijderen.
+tool.remove.option.sample_all_layers = Alle lagen samplen
+tool.remove.option.remove_after_each_stroke = Verwijderen na elke streek
+tool.remove.history.remove = Verwijderen
+tool.remove.layer_name = Verwijderd

@@ -14,3 +14,4 @@ workspaces.invalid_name = පාලන අක්ෂර රහිත අක්ෂ
 workspaces.duplicate = මෙම නම ඇති වැඩබිමක් දැනටමත් පවතී.
 workspaces.limit = ඔබට වැඩබිම් 64ක් දක්වා සුරැකිය හැක.
 workspaces.keyboard = යතුරුපුවරුව: Alt+↑/↓ සැකැස්මක් තෝරයි. Ctrl/Cmd+N එහි නම සංස්කරණය කරයි; +S පිටපතක් සුරකියි; +Enter යොදයි; +U යාවත්කාලීන කරයි; +R නැවත නම් කරයි; +D මකයි; +0 යළි සකසයි.
+workspaces.open_documents = විවෘත ලේඛන

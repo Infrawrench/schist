@@ -66,6 +66,9 @@ workspace.filters.raw_too_tall = RAW विकास खूप उंच आह�
 workspace.filters.raw_size_changed = RAW विकासाचा आकार {w} × {h} झाला; सध्याचा स्तर ठेवत आहे
 workspace.filters.raw_history = Camera Raw डेव्हलपमेंट
 workspace.filters.raw_applied = Camera Raw डेव्हलपमेंट लागू केले (सर्वोत्तम डीमोजेक)
+workspace.raw_masks.no_model = {model} स्थापित केलेले नाही, त्यामुळे हा मुखवटा शोधता येत नाही.
+workspace.raw_masks.no_sky = या चित्रात आकाश आढळले नाही.
+workspace.raw_masks.detect_failed = मुखवटा शोध अयशस्वी: {error}
 workspace.image_size.done = प्रतिमा आकार: {w} × {h}
 workspace.image_size.bicubic_fallback = प्रतिमा आकार: {w} × {h} — {name} मॉडेल लोड झाले नाही, म्हणून द्विघनीय वापरले
 workspace.image_size.upscaling = {name} वापरून आकार वाढवत आहे
@@ -89,3 +92,10 @@ workspace.file_picker.permission_denied = Schist ला हा फोल्ड�
 workspace.recovery.recovered_title = {title} (पुनर्प्राप्त)
 workspace.recovery.recovered.one = मागील सत्रातील जतन न केलेले काम पुनर्प्राप्त केले
 workspace.recovery.recovered.other = मागील सत्रातील {n} दस्तऐवज पुनर्प्राप्त केले
+workspace.colormgmt.vision_on = सिम्युलेशन: {name}
+workspace.colormgmt.vision_off = सामान्य दृष्टी
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = भरणी मॉडेलशिवाय काढले, त्यामुळे भरणी अधिक खडबडीत असू शकते
+workspace.tool_jobs.document_changed = {name} त्याचा दस्तऐवज बंद किंवा बदलल्यानंतर पूर्ण झाले, त्यामुळे काहीही बदलले नाही

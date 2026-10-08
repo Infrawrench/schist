@@ -3,6 +3,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -30,15 +32,23 @@ codec.heif.msg.imageio_cannot_read = ImageIO ไม่สามารถอ่�
 codec.heif.msg.container_empty = คอนเทนเนอร์ HEIF ไม่มีภาพ
 codec.heif.msg.imageio_cannot_decode = ImageIO ไม่สามารถถอดรหัสภาพหลัก
 
+# AVIF in the browser build, which has no AV1 decoder (it still exports AVIF).
+codec.avif.msg.no_decoder = Schist เวอร์ชันเบราว์เซอร์เปิดภาพ AVIF ไม่ได้ โปรดเปิดไฟล์ในแอปเดสก์ท็อป หรือแปลงเป็น PNG ก่อน
+
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = ไฟล์ภาพที่มีเลเยอร์เสียหายหรือไม่สมบูรณ์
 codec.layered.too_large = ภาพที่มีเลเยอร์มีขนาดหรือจำนวนเลเยอร์เกินขีดจำกัดที่รองรับ
 codec.layered.unsupported = ไฟล์นี้ใช้คุณสมบัติที่ไม่รองรับ: {feature}
 codec.layered.export_layer = เลเยอร์ “{name}” มีคุณสมบัติที่รูปแบบนี้ไม่สามารถเก็บรักษาไว้ได้ โปรดแรสเตอร์ไรซ์เลเยอร์หรือบันทึกเป็น PSD
 codec.layered.export_depth = การส่งออกเป็น Paint.NET ต้องใช้เอกสาร RGB 8 บิต โปรดแปลงเอกสารเป็น RGB 8 บิตก่อน
 codec.layered.export_mode = การส่งออกต้องใช้เอกสาร RGB โปรดแปลงเอกสารเป็น RGB ก่อน
+codec.layered.merged_layer = ภาพที่รวมเลเยอร์ (นำเข้าเลเยอร์ {format} บางเลเยอร์ไม่ได้)
+codec.kra.merged_color_space = ภาพที่รวมเลเยอร์ (แสดงเอกสาร Krita {color_space} เป็น RGB)
 
 # Unsupported layered format features
 codec.pdn.feature.blend_mode = โหมดผสม PDN
@@ -56,3 +66,8 @@ codec.xcf.feature.floating_selection = ส่วนที่เลือกล�
 codec.xcf.feature.layer_effects = เอฟเฟ็กต์เลเยอร์ XCF
 codec.xcf.feature.precision = ความละเอียดของค่าพิกเซล XCF
 codec.xcf.feature.version = เวอร์ชัน XCF
+
+codec.exr.feature.deep = ข้อมูลเชิงลึกของ EXR
+codec.exr.feature.subsampled = ช่องสัญญาณที่สุ่มตัวอย่างย่อยของ EXR
+codec.exr.msg.no_channels = ไฟล์ OpenEXR ไม่มีช่องสัญญาณภาพ
+codec.exr.msg.write_failed = ไม่สามารถเขียนไฟล์ OpenEXR ได้: {error}

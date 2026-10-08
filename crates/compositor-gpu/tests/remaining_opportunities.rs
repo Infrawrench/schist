@@ -529,6 +529,70 @@ fn gallery_families_and_complete_blurs_match_cpu() {
 }
 
 #[test]
+fn camera_raw_local_adjustments_match_cpu() {
+    let Some(gpu) = gpu() else {
+        return;
+    };
+    for (w, h) in [(37usize, 29usize), (130, 70)] {
+        let input: Vec<f32> = (0..w * h)
+            .flat_map(|i| {
+                let v = ((i * 3571 + 17) % 10007) as f32 / 10007.0;
+                [v, 1.0 - v * 0.7, (v * 3.1).fract(), 1.0]
+            })
+            .collect();
+        // Never zero, so the CPU's bounding box is the whole frame.
+        let coverage: Vec<f32> = (0..w * h)
+            .map(|i| 0.05 + 0.95 * (i % w) as f32 / w as f32)
+            .collect();
+        for variant in 0..3 {
+            let mut values = schist_plugin_api::FilterValues::default();
+            for (key, value) in [
+                ("temperature", 21.0),
+                ("tint", -14.0),
+                ("exposure", 0.6),
+                ("contrast", -18.0),
+                ("highlights", -40.0),
+                ("shadows", 35.0),
+                ("clarity", if variant == 1 { 0.0 } else { 30.0 }),
+                ("dehaze", if variant == 2 { -20.0 } else { 0.0 }),
+                ("saturation", 25.0),
+                ("sharpness", [40.0, -60.0, 0.0][variant]),
+            ] {
+                values.set(key, value);
+            }
+            let operation = schist_filters_core::camera_raw::local_operation(
+                &values,
+                std::sync::Arc::from(coverage.as_slice()),
+            );
+            let program = operation.program(w, h).unwrap();
+            validate(&program);
+            let mut expected = input.clone();
+            schist_filters_core::camera_raw::apply_local_cpu(
+                &mut expected,
+                w,
+                h,
+                &values,
+                &coverage,
+            );
+            let out = gpu
+                .run_compute(&ComputeJob {
+                    input: &input,
+                    program: &program,
+                })
+                .expect("GPU local adjustment declined");
+            if let Some((i, (a, b))) = out
+                .iter()
+                .zip(&expected)
+                .enumerate()
+                .find(|(_, (a, b))| (*a - *b).abs() >= 5e-4)
+            {
+                panic!("{w}x{h} variant {variant} at {i}: GPU {a}, CPU {b}");
+            }
+        }
+    }
+}
+
+#[test]
 fn connected_selections_match_flood_fill_through_long_paths() {
     use schist_core::selection_gpu::{self, ColorMatch};
     let Some(gpu) = gpu() else {

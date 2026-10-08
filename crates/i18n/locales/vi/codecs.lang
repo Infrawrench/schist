@@ -3,6 +3,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -30,15 +32,23 @@ codec.heif.msg.imageio_cannot_read = ImageIO không thể đọc vùng chứa HE
 codec.heif.msg.container_empty = vùng chứa HEIF không có ảnh
 codec.heif.msg.imageio_cannot_decode = ImageIO không thể giải mã ảnh chính
 
+# AVIF in the browser build, which has no AV1 decoder (it still exports AVIF).
+codec.avif.msg.no_decoder = Phiên bản trình duyệt của Schist không thể mở ảnh AVIF. Hãy mở tệp trong ứng dụng máy tính hoặc chuyển đổi tệp sang PNG trước.
+
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = Tệp ảnh có lớp bị hỏng hoặc không đầy đủ.
 codec.layered.too_large = Ảnh có lớp vượt quá kích thước hoặc số lớp được hỗ trợ.
 codec.layered.unsupported = Tệp này sử dụng một tính năng không được hỗ trợ: {feature}.
 codec.layered.export_layer = Lớp “{name}” chứa những tính năng mà định dạng này không thể giữ lại. Hãy raster hóa lớp hoặc lưu dưới dạng PSD.
 codec.layered.export_depth = Xuất sang Paint.NET cần tài liệu RGB 8 bit. Trước tiên, hãy chuyển tài liệu sang RGB 8 bit.
 codec.layered.export_mode = Xuất cần tài liệu RGB. Trước tiên, hãy chuyển tài liệu sang RGB.
+codec.layered.merged_layer = Ảnh đã gộp (không thể nhập một số lớp {format})
+codec.kra.merged_color_space = Ảnh đã gộp (tài liệu Krita {color_space} được hiển thị ở dạng RGB)
 
 # Unsupported layered format features
 codec.pdn.feature.blend_mode = Chế độ hòa trộn PDN
@@ -56,3 +66,8 @@ codec.xcf.feature.floating_selection = Vùng chọn nổi XCF
 codec.xcf.feature.layer_effects = Hiệu ứng lớp XCF
 codec.xcf.feature.precision = Độ chính xác XCF
 codec.xcf.feature.version = Phiên bản XCF
+
+codec.exr.feature.deep = dữ liệu sâu của EXR
+codec.exr.feature.subsampled = kênh lấy mẫu con của EXR
+codec.exr.msg.no_channels = Tệp OpenEXR không chứa kênh ảnh nào.
+codec.exr.msg.write_failed = Không thể ghi tệp OpenEXR: {error}

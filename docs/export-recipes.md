@@ -36,9 +36,14 @@ atomically without replacing an existing filename. A numeric suffix resolves col
 
 RGB profiles remain embedded. CMYK/Lab composites become sRGB and do not carry the original
 native-color profile. PNG and TIFF retain up to 16 bits per channel; 32-bit source samples
-are reduced to that supported encoding depth. JPEG and WebP use 8 bits. JPEG uses its
+are reduced to that supported encoding depth. JPEG XL also keeps 16 bits and AVIF 12.
+JPEG and WebP use 8 bits. JPEG uses its
 quality slider and composites transparency on white; the installed WebP encoder is
-lossless and has no quality setting.
+lossless and has no quality setting. JPEG XL and AVIF use the quality slider (100 is
+lossless) at the default effort; JPEG XL is lossless only where no system libjxl is
+available, as in the browser.
+Recipes are for delivery formats: OpenEXR is
+exported from File ▸ Export instead (see [OpenEXR](openexr.md)).
 
 In the browser, presets persist in local storage and outputs become separate downloads
 in the browser's download folder. Browser download permission and duplicate filename
@@ -91,8 +96,9 @@ metadata or supply their own copyright can still succeed. Browser documents and 
 untitled documents need an explicit copyright value because they have no readable
 original path. Full EXIF/XMP preservation is intentionally unavailable.
 
-Copyright is embedded as UTF-8 XMP `dc:rights` into the actual PNG, JPEG, WebP, or TIFF
-file, without copying an opaque source packet. TIFF RGB source reads explicitly preserve
+Copyright is embedded as UTF-8 XMP `dc:rights` into the actual PNG, JPEG, WebP, TIFF,
+JPEG XL (an `xml ` box, wrapping a bare codestream in the container) or AVIF (an
+`application/rdf+xml` item describing the primary image) file, without copying an opaque source packet. TIFF RGB source reads explicitly preserve
 embedded ICC profiles so subsequent target-profile conversion uses the correct source color space. XML escaping preserves Unicode names and
 prevents text from injecting extra properties. The encoder container adjustments follow the
 [PNG iTXt specification](https://www.w3.org/TR/png-3/#11iTXt) and

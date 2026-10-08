@@ -14,3 +14,4 @@ workspaces.invalid_name = Sláðu inn nafn með 1–80 stöfum án stýritákna.
 workspaces.duplicate = Vinnusvæði með þessu nafni er þegar til.
 workspaces.limit = Þú getur vistað allt að 64 vinnusvæði.
 workspaces.keyboard = Lyklaborð: Alt+↑/↓ velur uppröðun. Ctrl/Cmd+N breytir nafni hennar; +S vistar afrit; +Enter notar hana; +U uppfærir hana; +R endurnefnir hana; +D eyðir henni; +0 endurstillir hana.
+workspaces.open_documents = Opin skjöl

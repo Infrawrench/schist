@@ -3,6 +3,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -30,15 +32,22 @@ codec.heif.msg.imageio_cannot_read = L'ImageIO no ha pogut llegir el contenidor 
 codec.heif.msg.container_empty = el contenidor HEIF no té cap imatge
 codec.heif.msg.imageio_cannot_decode = L'ImageIO no ha pogut descodificar la imatge principal
 
+codec.avif.msg.no_decoder = La versió de navegador de Schist no pot obrir imatges AVIF. Obriu el fitxer a l'aplicació d'escriptori o convertiu-lo primer a PNG.
+
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = El fitxer d'imatge amb capes està malmès o és incomplet.
 codec.layered.too_large = La imatge amb capes supera la mida o el nombre de capes admesos.
 codec.layered.unsupported = Aquest fitxer utilitza una funció no admesa: {feature}.
 codec.layered.export_layer = La capa «{name}» conté funcions que aquest format no pot conservar. Rasteritzeu-la o deseu el document com a PSD.
 codec.layered.export_depth = L'exportació a Paint.NET requereix un document RGB de 8 bits. Primer convertiu el document a RGB de 8 bits.
 codec.layered.export_mode = L'exportació requereix un document RGB. Primer convertiu el document a RGB.
+codec.layered.merged_layer = Imatge combinada (algunes capes {format} no s'han pogut importar)
+codec.kra.merged_color_space = Imatge combinada (document de Krita en {color_space} mostrat com a RGB)
 
 # Unsupported layered-format features.
 codec.pdn.feature.blend_mode = mode de fusió PDN
@@ -56,3 +65,8 @@ codec.xcf.feature.floating_selection = selecció flotant XCF
 codec.xcf.feature.layer_effects = efectes de capa XCF
 codec.xcf.feature.precision = precisió XCF
 codec.xcf.feature.version = versió XCF
+
+codec.exr.feature.deep = dades profundes d'EXR
+codec.exr.feature.subsampled = canals submostrejats d'EXR
+codec.exr.msg.no_channels = El fitxer OpenEXR no conté cap canal d'imatge.
+codec.exr.msg.write_failed = No s'ha pogut escriure el fitxer OpenEXR: {error}

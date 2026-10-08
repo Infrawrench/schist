@@ -75,6 +75,9 @@ workspace.filters.raw_too_tall = RAW labɛnni janya ka bon kojugu
 workspace.filters.raw_size_changed = RAW labɛnni bonya yɛlɛmara ka kɛ {w} × {h} ye; sisan kaliki bɛ mara
 workspace.filters.raw_history = Camera Raw labɛnni
 workspace.filters.raw_applied = Camera Raw labɛnni kɛra (demosaic ɲuman)
+workspace.raw_masks.no_model = {model} ma sigi, o la nin masiki in tɛ se ka sɔrɔ.
+workspace.raw_masks.no_sky = Sankolo ma sɔrɔ nin ja in na.
+workspace.raw_masks.detect_failed = Masiki ɲinini ma se: {error}
 
 workspace.image_size.done = Ja bonya: {w} × {h}
 workspace.image_size.bicubic_fallback = Ja bonya: {w} × {h} — {name} misali ma se ka don, o la bicubic kɛra a nɔ na
@@ -100,3 +103,10 @@ workspace.file_picker.permission_denied = Yamaruya tɛ Schist bolo ka nin fɔld�
 
 workspace.recovery.recovered_title = {title} (lasɔrɔlen)
 workspace.recovery.recovered.other = Sɛbɛn hakɛ {n} min ma tun mara session kɔrɔlen na, olu lasɔrɔla
+workspace.colormgmt.vision_on = {name} misɛnni
+workspace.colormgmt.vision_off = Yeli cogo ɲuman
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = A bɔra ni ja dafali modɛli tɛ, o la dafali tɛ se ka ɲɛ kosɛbɛ
+workspace.tool_jobs.document_changed = {name} banna a ka sɛbɛn datugulen kɔ walima a falenen kɔ, o la foyi ma yɛlɛma

@@ -35,3 +35,7 @@ workspace.history.move_layers = Sutisa Dillaga
 workspace.history.layer_opacity = Selekanyo sa Llaga sa go Thibela go Bonala ka Teng
 workspace.history.delete_note = Phimola Ntlha
 workspace.history.edit_note = Fetola Ntlha
+workspace.canvas.clipping_on = Ditlhagiso tsa go kgaola di tshubilwe
+workspace.canvas.clipping_off = Ditlhagiso tsa go kgaola di timilwe
+workspace.canvas.peaking_on = Go bontsha tebo go tshubilwe
+workspace.canvas.peaking_off = Go bontsha tebo go timilwe

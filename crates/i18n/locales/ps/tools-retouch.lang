@@ -27,3 +27,11 @@ tool.magic_eraser.name = جادويي پاکوونکی
 tool.magic_eraser.description = کېکاږئ چې د وسیلې د زغم په کچه، د نښې لاندې د ورته رنګ سیمه پاکه شي؛ یا له کېکاږل شوي ځای سره نښتې سیمه، یا په ټوله طبقه کې ټول ورته رنګ.
 tool.magic_eraser.option.contiguous = سره نښتی
 tool.magic_eraser.history.erase = جادويي پاکوونکی
+
+# Remove
+tool.remove.name = لرې کول
+tool.remove.description = په یوه کرښه کې پر ناغوښتي شي رنګ وکړئ؛ کله چې یې پرېږدئ، د شاوخوا څخه ډکېږي. کله چې «د هرې کرښې وروسته لرې کول» بند وي، څو کرښې رنګ کړئ او د ټولو د یوځای لرې کولو لپاره Enter کېکاږئ.
+tool.remove.option.sample_all_layers = له ټولو طبقو بېلګه
+tool.remove.option.remove_after_each_stroke = د هرې کرښې وروسته لرې کول
+tool.remove.history.remove = لرې کول
+tool.remove.layer_name = لرې شوی

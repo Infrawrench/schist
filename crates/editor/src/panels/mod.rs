@@ -48,6 +48,7 @@ mod notes;
 mod object_styles;
 mod pages;
 mod paragraph_keeps;
+pub(crate) mod photo;
 mod preflight;
 mod rulers;
 mod sliders;

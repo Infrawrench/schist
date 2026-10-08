@@ -66,6 +66,9 @@ workspace.filters.raw_too_tall = RAW සංවර්ධනය උස වැඩ�
 workspace.filters.raw_size_changed = RAW සංවර්ධන ප්‍රමාණය {w} × {h} වෙත වෙනස් විය; වත්මන් ස්තරය තබාගනී
 workspace.filters.raw_history = Camera Raw සංවර්ධනය
 workspace.filters.raw_applied = Camera Raw සංවර්ධනය යොදන ලදී (හොඳම ඩිමොසෙයික්)
+workspace.raw_masks.no_model = {model} ස්ථාපනය කර නැත, එබැවින් මෙම ආවරණය හඳුනාගත නොහැක.
+workspace.raw_masks.no_sky = මෙම පින්තූරයේ අහසක් හමු නොවීය.
+workspace.raw_masks.detect_failed = ආවරණ හඳුනාගැනීම අසාර්ථක විය: {error}
 workspace.image_size.done = රූපයේ ප්‍රමාණය: {w} × {h}
 workspace.image_size.bicubic_fallback = රූපයේ ප්‍රමාණය: {w} × {h} — {name} මාදිලිය පූරණය නොවූ බැවින් ඒ වෙනුවට ද්විඝනාකාර ක්‍රමය භාවිත විය
 workspace.image_size.upscaling = {name} සමඟ විශාල කරමින්
@@ -89,3 +92,10 @@ workspace.file_picker.permission_denied = මෙම ෆෝල්ඩරය කි
 workspace.recovery.recovered_title = {title} (ප්‍රතිසාධිත)
 workspace.recovery.recovered.one = පෙර සැසියකින් නොසුරැකි ලේඛන {n}ක් ප්‍රතිසාධනය කරන ලදී
 workspace.recovery.recovered.other = පෙර සැසියකින් ලේඛන {n}ක් ප්‍රතිසාධනය කරන ලදී
+workspace.colormgmt.vision_on = අනුකරණය: {name}
+workspace.colormgmt.vision_off = සාමාන්‍ය දැක්ම
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = පිරවීමේ ආකෘතිය නොමැතිව ඉවත් කරන ලදී, එබැවින් පිරවුම වඩා රළු විය හැක
+workspace.tool_jobs.document_changed = {name} එහි ලේඛනය වසා දැමීමෙන් හෝ මාරු කිරීමෙන් පසු අවසන් වූ බැවින් කිසිවක් වෙනස් නොකළේය

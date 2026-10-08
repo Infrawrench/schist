@@ -71,6 +71,9 @@ workspace.filters.raw_too_tall = RAW-óntwikkeling is te hoeg
 workspace.filters.raw_size_changed = Groeëtte van RAW-óntwikkeling verangerd nao {w} × {h}; de hujige laog blief behawwe
 workspace.filters.raw_history = Camera Raw-óntwikkeling
 workspace.filters.raw_applied = Camera Raw-óntwikkeling toegepas (bèste demosaicing)
+workspace.raw_masks.no_model = {model} is neet geïnstalleerd, dus dit masker kan neet gedetecteerd weure.
+workspace.raw_masks.no_sky = D'r is gein lóch gevonje in dees foto.
+workspace.raw_masks.detect_failed = Maskerdetectie mislök: {error}
 
 workspace.image_size.done = Aafbiljingsgroeëtte: {w} × {h}
 workspace.image_size.bicubic_fallback = Aafbiljingsgroeëtte: {w} × {h} — 't model {name} wouw neet laje, dus is bicubische interpolatie gebroek
@@ -96,3 +99,10 @@ workspace.file_picker.permission_denied = Schist haet gein toesjtemming om deze 
 
 workspace.recovery.recovered_title = {title} (herstèld)
 workspace.recovery.recovered.other = Herstèld oet de veurige sessie; aantal documente: {n}
+workspace.colormgmt.vision_on = Simulatie: {name}
+workspace.colormgmt.vision_off = Normaal zeen
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Weggehaold zoonder inpaintingmodel, dus de völling kin roewer zien
+workspace.tool_jobs.document_changed = {name} waor klaor nao-dat zie document gesloete of gewisseld waor, dus d'r is niks verangerd

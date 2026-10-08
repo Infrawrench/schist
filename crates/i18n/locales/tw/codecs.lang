@@ -3,6 +3,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -30,15 +32,23 @@ codec.heif.msg.imageio_cannot_read = ImageIO antumi ankenkan HEIF container no
 codec.heif.msg.container_empty = mfonini biara nni HEIF container no mu
 codec.heif.msg.imageio_cannot_decode = ImageIO antumi ankyerɛkyerɛ mfonini titiriw no mu
 
+# AVIF in the browser build, which has no AV1 decoder (it still exports AVIF).
+codec.avif.msg.no_decoder = Schist a ɛwɔ browser mu ntumi mmue AVIF mfonini. Bue file no wɔ desktop app no mu, anaa di kan dane no kɔ PNG mu.
+
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = Mfonini file a ɛwɔ layer ahorow no asɛe anaa enwie pɛyɛ.
 codec.layered.too_large = Mfonini a ɛwɔ layer ahorow no kɛse anaa layer dodow no tra nea wɔboa no.
 codec.layered.unsupported = File yi de dwumadi bi a wɔmmoa no di dwuma: {feature}.
 codec.layered.export_layer = Layer “{name}” no wɔ dwumadi ahorow a format yi ntumi nkora so. Dane layer no raster anaa kora no sɛ PSD.
 codec.layered.export_depth = Sɛ wobɛyi kɔ Paint.NET format mu a, ehia RGB document a ɛyɛ 8-bit. Di kan dane document no kɔ RGB 8-bit mu.
 codec.layered.export_mode = Sɛ wobɛyi akɔ abɔnten a, ehia RGB document. Di kan dane document no kɔ RGB mu.
+codec.layered.merged_layer = Mfonini a wɔafra (layer bi a ɛwɔ {format} mu no wɔantumi anto mu)
+codec.kra.merged_color_space = Mfonini a wɔafra (Krita {color_space} document no da adi sɛ RGB)
 
 # Unsupported layered format features
 codec.pdn.feature.blend_mode = PDN afrafra ɔkwan
@@ -56,3 +66,8 @@ codec.xcf.feature.floating_selection = XCF nea woapaw a ɛsensɛn hɔ
 codec.xcf.feature.layer_effects = XCF layer nsunsuanso
 codec.xcf.feature.precision = XCF pɛpɛɛpɛyɛ
 codec.xcf.feature.version = XCF no version
+
+codec.exr.feature.deep = EXR data a emu dɔ
+codec.exr.feature.subsampled = EXR channel nketewa
+codec.exr.msg.no_channels = OpenEXR file no mu nni mfonini channel biara.
+codec.exr.msg.write_failed = Entumi ankyerɛw OpenEXR file no: {error}

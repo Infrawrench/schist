@@ -66,6 +66,9 @@ workspace.filters.raw_too_tall = RAW-vaḍḍhanaṃ atiuccaṃ
 workspace.filters.raw_size_changed = RAW-vaḍḍhanappamāṇaṃ {w} × {h} jātaṃ; vattamānasantharo rakkhīyati
 workspace.filters.raw_history = Camera Raw-vaḍḍhanaṃ
 workspace.filters.raw_applied = Camera Raw-vaḍḍhanaṃ payojitaṃ (seṭṭha-demosaic)
+workspace.raw_masks.no_model = {model} na patiṭṭhāpitaṃ, tasmā idaṃ paṭicchādakaṃ gavesituṃ na sakkā.
+workspace.raw_masks.no_sky = Imasmiṃ chāyārūpe ākāso na laddho.
+workspace.raw_masks.detect_failed = Paṭicchādaka-gavesanā viphalā: {error}
 workspace.image_size.done = Chāyārūpappamāṇaṃ: {w} × {h}
 workspace.image_size.bicubic_fallback = Chāyārūpappamāṇaṃ: {w} × {h} — {name}-namūnaṃ āharituṃ nāsakkā, tasmā bicubic-antaramānaṃ tassa ṭhāne ahosi
 workspace.image_size.upscaling = {name} payojetvā mahantīkarīyati
@@ -87,3 +90,10 @@ workspace.file_picker.downloads = Āharaṇāni
 workspace.file_picker.permission_denied = Imaṃ sañcikādhārakaṃ paṭhituṃ Schist anuññaṃ na labhati
 workspace.recovery.recovered_title = {title} (puna laddhaṃ)
 workspace.recovery.recovered.other = Pubba-session-to arakkhitakammassa puna lābho; potthakagaṇanā: {n}
+workspace.colormgmt.vision_on = Anukaraṇaṃ: {name}
+workspace.colormgmt.vision_off = Sāmaññadassanaṃ
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Pūraṇarūpakaṃ vinā apanītaṃ, tasmā pūraṇaṃ kharataraṃ siyā
+workspace.tool_jobs.document_changed = {name} attano lekhapatte pihite vā parivattite vā niṭṭhitaṃ, tasmā kiñci na parivattitaṃ

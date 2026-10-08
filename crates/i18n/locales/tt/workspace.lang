@@ -66,6 +66,9 @@ workspace.filters.raw_too_tall = RAW эшкәртү нәтиҗәсе артык 
 workspace.filters.raw_size_changed = RAW эшкәртү зурлыгы {w} × {h} итеп үзгәрде; хәзерге катлам саклана
 workspace.filters.raw_history = Camera Raw эшкәртүе
 workspace.filters.raw_applied = Camera Raw эшкәртүе кулланылды (иң яхшы демозаикалау)
+workspace.raw_masks.no_model = {model} урнаштырылмаган, шуңа күрә бу битлекне табып булмый.
+workspace.raw_masks.no_sky = Бу рәсемдә күк табылмады.
+workspace.raw_masks.detect_failed = Битлекне табу уңышсыз булды: {error}
 workspace.image_size.done = Рәсем зурлыгы: {w} × {h}
 workspace.image_size.bicubic_fallback = Рәсем зурлыгы: {w} × {h} — {name} моделе йөкләнмәде, шуңа бикубик ысул кулланылды
 workspace.image_size.upscaling = {name} белән зурайтыла
@@ -87,3 +90,10 @@ workspace.file_picker.downloads = Йөкләмәләр
 workspace.file_picker.permission_denied = Schist-ның бу папканы укырга рөхсәте юк
 workspace.recovery.recovered_title = {title} (торгызылган)
 workspace.recovery.recovered.other = Алдагы сеанстан {n} сакланмаган документ торгызылды
+workspace.colormgmt.vision_on = Симуляция: {name}
+workspace.colormgmt.vision_off = Гадәти күрү
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Тутыру моделеннән башка бетерелде, шуңа тутыру тупасрак булырга мөмкин
+workspace.tool_jobs.document_changed = {name} аның документы ябылганнан яки алыштырылганнан соң тәмамланды, шуңа бернәрсә дә үзгәртелмәде

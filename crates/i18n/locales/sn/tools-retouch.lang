@@ -18,3 +18,11 @@ tool.magic_eraser.name = Chidzimiso cheMashiripiti
 tool.magic_eraser.description = Dzvanya kuti udzime nzvimbo ine ruvara rwakafanana iri pasi pechinongedzo, mukati memwero wechishandiso wekubvumira musiyano -- ingava yakabatana nepawadzvanya, kana kwese muchikamu.
 tool.magic_eraser.option.contiguous = Zvakabatana
 tool.magic_eraser.history.erase = Chidzimiso cheMashiripiti
+
+# Remove
+tool.remove.name = Bvisa
+tool.remove.description = Pendera pamusoro pechinhu chausingade nemutsetse mumwe chete; kana wasunungura, chinozadzwa nezvakachikomberedza. Kana Bvisa Mushure meMutsetse Wega Wega yadzimwa, penda mitsetse yakawanda wobva wadzvanya Enter kuti uibvise pamwe chete.
+tool.remove.option.sample_all_layers = Tora Ruvara paZvikamu Zvese
+tool.remove.option.remove_after_each_stroke = Bvisa Mushure meMutsetse Wega Wega
+tool.remove.history.remove = Bvisa
+tool.remove.layer_name = Zvabviswa

@@ -3,6 +3,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -30,15 +32,22 @@ codec.heif.msg.imageio_cannot_read = Το ImageIO δεν μπόρεσε να δ�
 codec.heif.msg.container_empty = ο περιέκτης HEIF δεν περιέχει εικόνα
 codec.heif.msg.imageio_cannot_decode = Το ImageIO δεν μπόρεσε να αποκωδικοποιήσει την κύρια εικόνα
 
+codec.avif.msg.no_decoder = Η έκδοση του Schist για πρόγραμμα περιήγησης δεν μπορεί να ανοίξει εικόνες AVIF. Ανοίξτε το αρχείο στην εφαρμογή υπολογιστή ή μετατρέψτε το πρώτα σε PNG.
+
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = Το αρχείο εικόνας με επίπεδα είναι κατεστραμμένο ή ελλιπές.
 codec.layered.too_large = Το μέγεθος της εικόνας ή ο αριθμός των επιπέδων υπερβαίνει το υποστηριζόμενο όριο.
 codec.layered.unsupported = Αυτό το αρχείο χρησιμοποιεί μια μη υποστηριζόμενη δυνατότητα: {feature}.
 codec.layered.export_layer = Το επίπεδο «{name}» περιέχει δυνατότητες που αυτή η μορφή δεν μπορεί να διατηρήσει. Ραστεροποιήστε το ή αποθηκεύστε ως PSD.
 codec.layered.export_depth = Η εξαγωγή σε Paint.NET απαιτεί έγγραφο RGB 8 bit. Μετατρέψτε πρώτα το έγγραφο σε RGB 8 bit.
 codec.layered.export_mode = Η εξαγωγή απαιτεί έγγραφο RGB. Μετατρέψτε πρώτα το έγγραφο σε RGB.
+codec.layered.merged_layer = Συγχωνευμένη εικόνα (ορισμένα επίπεδα {format} δεν ήταν δυνατό να εισαχθούν)
+codec.kra.merged_color_space = Συγχωνευμένη εικόνα (έγγραφο Krita {color_space} εμφανίζεται ως RGB)
 
 # Unsupported layered-format features.
 codec.pdn.feature.blend_mode = λειτουργία ανάμειξης PDN
@@ -56,3 +65,8 @@ codec.xcf.feature.floating_selection = αιωρούμενη επιλογή XCF
 codec.xcf.feature.layer_effects = εφέ επιπέδων XCF
 codec.xcf.feature.precision = ακρίβεια XCF
 codec.xcf.feature.version = έκδοση XCF
+
+codec.exr.feature.deep = βαθιά δεδομένα EXR
+codec.exr.feature.subsampled = υποδειγματοληπτημένα κανάλια EXR
+codec.exr.msg.no_channels = Το αρχείο OpenEXR δεν περιέχει κανάλια εικόνας.
+codec.exr.msg.write_failed = Δεν ήταν δυνατή η εγγραφή του αρχείου OpenEXR: {error}

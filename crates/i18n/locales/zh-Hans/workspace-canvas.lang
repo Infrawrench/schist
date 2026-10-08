@@ -41,3 +41,7 @@ workspace.history.move_layers = 移动图层
 workspace.history.layer_opacity = 图层不透明度
 workspace.history.delete_note = 删除注释
 workspace.history.edit_note = 编辑注释
+workspace.canvas.clipping_on = 溢出警告已开启
+workspace.canvas.clipping_off = 溢出警告已关闭
+workspace.canvas.peaking_on = 峰值对焦已开启
+workspace.canvas.peaking_off = 峰值对焦已关闭

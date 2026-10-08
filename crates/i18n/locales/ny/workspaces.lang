@@ -14,3 +14,4 @@ workspaces.invalid_name = Lowetsani dzina la zilembo 1–80 lopanda zilembo zowo
 workspaces.duplicate = Malo ogwirira ntchito okhala ndi dzinali alipo kale.
 workspaces.limit = Mungasunge malo ogwirira ntchito mpaka 64.
 workspaces.keyboard = Kiyibodi: Alt+↑/↓ imasankha kapangidwe. Ctrl/Cmd+N imasintha dzina lake; +S imasunga kopi; +Enter imagwiritsa ntchito; +U imasintha; +R imasintha dzina; +D imachotsa; +0 imabwezeretsa.
+workspaces.open_documents = Zikalata zotseguka

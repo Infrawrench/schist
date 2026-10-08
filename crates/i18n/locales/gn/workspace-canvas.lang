@@ -35,3 +35,7 @@ workspace.history.move_layers = Mongu'e capakuéra
 workspace.history.layer_opacity = Capa hesakã'ỹngue
 workspace.history.delete_note = Mbogue ñe'ẽmondo
 workspace.history.edit_note = Myatyrõ ñe'ẽmondo
+workspace.canvas.clipping_on = Ñemomarandu kora hendýva
+workspace.canvas.clipping_off = Ñemomarandu kora ogue
+workspace.canvas.peaking_on = Ñemomba'e ñemoĩ hendýva
+workspace.canvas.peaking_off = Ñemomba'e ñemoĩ ogue

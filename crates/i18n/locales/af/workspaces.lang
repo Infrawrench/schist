@@ -14,3 +14,4 @@ workspaces.invalid_name = Voer 'n naam van 1–80 karakters sonder beheerkarakte
 workspaces.duplicate = 'n Werkruimte met hierdie naam bestaan reeds.
 workspaces.limit = Jy kan tot 64 werkruimtes stoor.
 workspaces.keyboard = Sleutelbord: Alt+↑/↓ kies 'n uitleg. Ctrl/Cmd+N wysig die naam; +S stoor 'n kopie; +Enter pas toe; +U werk by; +R hernoem; +D skrap; +0 stel terug.
+workspaces.open_documents = Oop dokumente

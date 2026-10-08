@@ -4,6 +4,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -35,15 +37,22 @@ codec.heif.msg.imageio_cannot_read = ImageIO သည် HEIF container ကို 
 codec.heif.msg.container_empty = HEIF container တွင် ပုံမပါပါ
 codec.heif.msg.imageio_cannot_decode = ImageIO သည် အဓိကပုံကို ဖော်ထုတ်၍မရပါ
 
+codec.avif.msg.no_decoder = Schist ၏ ဘရောက်ဇာဗားရှင်းသည် AVIF ပုံများကို ဖွင့်၍မရပါ။ ဖိုင်ကို ဒက်စ်တော့အက်ပ်တွင် ဖွင့်ပါ၊ သို့မဟုတ် ၎င်းကို PNG သို့ ဦးစွာ ပြောင်းပါ။
+
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = အလွှာပါ ပုံဖိုင်သည် ပျက်စီးနေသည် သို့မဟုတ် မပြည့်စုံပါ။
 codec.layered.too_large = အလွှာပါပုံ၏ အရွယ်အစား သို့မဟုတ် အလွှာအရေအတွက်သည် ပံ့ပိုးထားသည့် ကန့်သတ်ချက်ကို ကျော်လွန်နေသည်။
 codec.layered.unsupported = ဤဖိုင်သည် မပံ့ပိုးထားသည့် လုပ်ဆောင်ချက်ကို အသုံးပြုထားသည်- {feature}။
 codec.layered.export_layer = “{name}” အလွှာတွင် ဤဖော်မတ်က မထိန်းသိမ်းနိုင်သည့် လုပ်ဆောင်ချက်များ ပါဝင်သည်။ ၎င်းကို ပစ်ဇယ်ပုံသို့ ပြောင်းပါ သို့မဟုတ် PSD အဖြစ် သိမ်းပါ။
 codec.layered.export_depth = Paint.NET သို့ တင်ပို့ရန် 8-bit RGB စာတမ်း လိုအပ်သည်။ စာတမ်းကို 8-bit RGB သို့ ဦးစွာ ပြောင်းပါ။
 codec.layered.export_mode = တင်ပို့ရန် RGB စာတမ်း လိုအပ်သည်။ စာတမ်းကို RGB သို့ ဦးစွာ ပြောင်းပါ။
+codec.layered.merged_layer = ပေါင်းစည်းထားသော ပုံ ({format} အလွှာအချို့ကို တင်သွင်း၍ မရခဲ့ပါ)
+codec.kra.merged_color_space = ပေါင်းစည်းထားသော ပုံ (Krita {color_space} စာတမ်းကို RGB အဖြစ် ပြထားသည်)
 
 # Unsupported layered-format features.
 codec.pdn.feature.blend_mode = PDN ရောစပ်စနစ်
@@ -61,3 +70,8 @@ codec.xcf.feature.floating_selection = XCF မျောနေသော ရွေ
 codec.xcf.feature.layer_effects = XCF အလွှာအထူးပြုလုပ်ချက်များ
 codec.xcf.feature.precision = XCF တိကျမှု
 codec.xcf.feature.version = XCF ဗားရှင်း
+
+codec.exr.feature.deep = EXR နက်ရှိုင်းသောဒေတာ
+codec.exr.feature.subsampled = EXR ဆပ်ဆမ်ပလင်းချန်နယ်များ
+codec.exr.msg.no_channels = OpenEXR ဖိုင်တွင် ပုံချန်နယ်မရှိပါ။
+codec.exr.msg.write_failed = OpenEXR ဖိုင်ကို ရေးမရပါ- {error}

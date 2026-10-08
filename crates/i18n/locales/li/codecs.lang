@@ -3,6 +3,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -34,15 +36,22 @@ codec.heif.msg.imageio_cannot_read = ImageIO kós de HEIF-container neet laeze
 codec.heif.msg.container_empty = de HEIF-container bevat gein aafbiljing
 codec.heif.msg.imageio_cannot_decode = ImageIO kós de primaire aafbiljing neet decodere
 
+codec.avif.msg.no_decoder = De browserversie van Schist kan gein AVIF-aafbiljinge äöpene. Äöpen 't bestand in de desktop-app, of zèt 't ierst om nao PNG.
+
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = 't Aafbiljingsbesjtandj mit laoge is besjaedig of ónvolledig.
 codec.layered.too_large = De aafbiljing mit laoge is te groet of haet mier laoge es óngersteund waere.
 codec.layered.unsupported = Dit besjtandj gebruuk 'n functie die neet óngersteund weurt: {feature}.
 codec.layered.export_layer = Laog “{name}” haet functies die dit formaat neet kin bewaere. Rasteriseer de laog of slaon op es PSD.
 codec.layered.export_depth = Export nao Paint.NET vereis 'n 8-bits RGB-document. Zèt 't document eers óm nao 8-bits RGB.
 codec.layered.export_mode = Export vereis 'n RGB-document. Zèt 't document eers óm nao RGB.
+codec.layered.merged_layer = Samegevoogd aafbiljing (sommige {format}-laoge koste neet geïmporteerd waere)
+codec.kra.merged_color_space = Samegevoogd aafbiljing (Krita-document {color_space} weurt es RGB getoend)
 codec.pdn.feature.blend_mode = mengmodus van PDN
 codec.pdn.feature.compression = compressie van PDN
 codec.pdn.feature.container_version = containervèrsie van PDN
@@ -58,3 +67,8 @@ codec.xcf.feature.floating_selection = zjwevende selectie van XCF
 codec.xcf.feature.layer_effects = laogeffecte van XCF
 codec.xcf.feature.precision = precisie van XCF
 codec.xcf.feature.version = vèrsie van XCF
+
+codec.exr.feature.deep = deep-gegaeves van EXR
+codec.exr.feature.subsampled = gesubsamplede EXR-kanale
+codec.exr.msg.no_channels = Dit OpenEXR-besjtandj bevat gein aafbiljingskanale.
+codec.exr.msg.write_failed = Kèn het OpenEXR-besjtandj neet sjrieve: {error}

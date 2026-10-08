@@ -3,6 +3,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -30,15 +32,22 @@ codec.heif.msg.imageio_cannot_read = ImageIO nemůže přečíst kontejner HEIF
 codec.heif.msg.container_empty = kontejner HEIF neobsahuje žádný obrázek
 codec.heif.msg.imageio_cannot_decode = ImageIO nemůže dekódovat primární obrázek
 
+codec.avif.msg.no_decoder = Verze Schistu pro prohlížeč nedokáže otevřít obrázky AVIF. Otevřete soubor v desktopové aplikaci, nebo jej nejprve převeďte do PNG.
+
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = Soubor obrázku s vrstvami je poškozený nebo neúplný.
 codec.layered.too_large = Obrázek s vrstvami překračuje podporovanou velikost nebo počet vrstev.
 codec.layered.unsupported = Tento soubor používá nepodporovanou funkci: {feature}.
 codec.layered.export_layer = Vrstva „{name}“ obsahuje funkce, které tento formát nedokáže zachovat. Rasterizujte ji nebo uložte jako PSD.
 codec.layered.export_depth = Export do formátu Paint.NET vyžaduje 8bitový dokument RGB. Nejprve dokument převeďte na 8bitový RGB.
 codec.layered.export_mode = Export vyžaduje dokument RGB. Nejprve dokument převeďte na RGB.
+codec.layered.merged_layer = Sloučený obrázek (některé vrstvy {format} se nepodařilo importovat)
+codec.kra.merged_color_space = Sloučený obrázek (dokument Krita {color_space} je zobrazen jako RGB)
 
 # Unsupported layered format features
 codec.pdn.feature.blend_mode = Režim prolnutí PDN
@@ -56,3 +65,8 @@ codec.xcf.feature.floating_selection = Plovoucí výběr XCF
 codec.xcf.feature.layer_effects = Efekty vrstev XCF
 codec.xcf.feature.precision = Přesnost XCF
 codec.xcf.feature.version = Verze XCF
+
+codec.exr.feature.deep = Hluboká data EXR
+codec.exr.feature.subsampled = Podvzorkované kanály EXR
+codec.exr.msg.no_channels = Soubor OpenEXR neobsahuje žádné obrazové kanály.
+codec.exr.msg.write_failed = Soubor OpenEXR se nepodařilo zapsat: {error}

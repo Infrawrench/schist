@@ -25,3 +25,11 @@ tool.magic_eraser.name = Goma màgica
 tool.magic_eraser.description = Incarca pro cantzellare s'àrea de colore sìmile suta de su puntadore, intro de sa toleràntzia de s'aina: sighida a su puntu incarcadu o in cada logu de s'istratu.
 tool.magic_eraser.option.contiguous = Sighidu
 tool.magic_eraser.history.erase = Goma màgica
+
+# Remove
+tool.remove.name = Boga
+tool.remove.description = Pinta subra de un'ogetu chi non bòles cun unu tratu ebbia; cando lassas, est prenu dae su chi b'at in giru. Cun Boga a pustis de cada tratu disativadu, pinta prus tratos e incarca Enter pro los bogare totus impare.
+tool.remove.option.sample_all_layers = Campiona totu is istratos
+tool.remove.option.remove_after_each_stroke = Boga a pustis de cada tratu
+tool.remove.history.remove = Boga
+tool.remove.layer_name = Bogadu

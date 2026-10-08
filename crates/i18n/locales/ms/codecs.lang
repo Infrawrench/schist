@@ -4,6 +4,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -31,15 +33,22 @@ codec.heif.msg.imageio_cannot_read = ImageIO tidak dapat membaca bekas HEIF
 codec.heif.msg.container_empty = bekas HEIF tidak mengandungi imej
 codec.heif.msg.imageio_cannot_decode = ImageIO tidak dapat menyahkod imej utama
 
+codec.avif.msg.no_decoder = Versi pelayar Schist tidak dapat membuka imej AVIF. Buka fail dalam aplikasi desktop, atau tukarkannya kepada PNG terlebih dahulu.
+
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = Fail imej berlapis rosak atau tidak lengkap.
 codec.layered.too_large = Imej berlapis melebihi saiz atau bilangan lapisan yang disokong.
 codec.layered.unsupported = Fail ini menggunakan ciri yang tidak disokong: {feature}.
 codec.layered.export_layer = Lapisan “{name}” mengandungi ciri yang tidak dapat dikekalkan oleh format ini. Rasterkan lapisan itu atau simpan sebagai PSD.
 codec.layered.export_depth = Eksport Paint.NET memerlukan dokumen RGB 8-bit. Tukarkan dokumen kepada RGB 8-bit terlebih dahulu.
 codec.layered.export_mode = Eksport memerlukan dokumen RGB. Tukarkan dokumen kepada RGB terlebih dahulu.
+codec.layered.merged_layer = Imej gabungan (sesetengah lapisan {format} tidak dapat diimport)
+codec.kra.merged_color_space = Imej gabungan (dokumen Krita {color_space} dipaparkan sebagai RGB)
 
 # Unsupported layered-format features.
 codec.pdn.feature.blend_mode = mod adunan PDN
@@ -57,3 +66,8 @@ codec.xcf.feature.floating_selection = pemilihan terapung XCF
 codec.xcf.feature.layer_effects = kesan lapisan XCF
 codec.xcf.feature.precision = kejituan XCF
 codec.xcf.feature.version = versi XCF
+
+codec.exr.feature.deep = data dalam EXR
+codec.exr.feature.subsampled = saluran tersubsampel EXR
+codec.exr.msg.no_channels = Fail OpenEXR tidak mengandungi sebarang saluran imej.
+codec.exr.msg.write_failed = Tidak dapat menulis fail OpenEXR: {error}

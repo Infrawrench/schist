@@ -4,6 +4,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -31,15 +33,23 @@ codec.heif.msg.imageio_cannot_read = ImageIO HEIF konteynerini oxuya bilmədi
 codec.heif.msg.container_empty = HEIF konteynerində şəkil yoxdur
 codec.heif.msg.imageio_cannot_decode = ImageIO əsas şəkli dekodlaya bilmədi
 
+# AVIF in the browser build, which has no AV1 decoder (it still exports AVIF).
+codec.avif.msg.no_decoder = Schist-in brauzer versiyası AVIF şəkillərini aça bilmir. Faylı masaüstü tətbiqində açın və ya əvvəlcə PNG-yə çevirin.
+
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = Qatlı şəkil faylı zədələnib və ya natamamdır.
 codec.layered.too_large = Qatlı şəklin ölçüsü və ya qatlarının sayı dəstəklənən həddi aşır.
 codec.layered.unsupported = Bu fayl dəstəklənməyən funksiyadan istifadə edir: {feature}.
 codec.layered.export_layer = “{name}” qatında bu formatın qoruya bilmədiyi funksiyalar var. Qatı rasterləşdirin və ya PSD kimi saxlayın.
 codec.layered.export_depth = Paint.NET formatına ixrac üçün 8 bitlik RGB sənədi tələb olunur. Əvvəlcə sənədi 8 bitlik RGB formatına çevirin.
 codec.layered.export_mode = İxrac üçün RGB sənədi tələb olunur. Əvvəlcə sənədi RGB formatına çevirin.
+codec.layered.merged_layer = Birləşdirilmiş şəkil (bəzi {format} qatları idxal edilə bilmədi)
+codec.kra.merged_color_space = Birləşdirilmiş şəkil (Krita {color_space} sənədi RGB kimi göstərilir)
 
 # Unsupported layered-format features.
 codec.pdn.feature.blend_mode = PDN qarışdırma rejimi
@@ -57,3 +67,8 @@ codec.xcf.feature.floating_selection = XCF üzən seçimi
 codec.xcf.feature.layer_effects = XCF qat effektləri
 codec.xcf.feature.precision = XCF dəqiqliyi
 codec.xcf.feature.version = XCF versiyası
+
+codec.exr.feature.deep = EXR dərin məlumatları
+codec.exr.feature.subsampled = EXR alt nümunəli kanalları
+codec.exr.msg.no_channels = OpenEXR faylında heç bir şəkil kanalı yoxdur.
+codec.exr.msg.write_failed = OpenEXR faylı yazıla bilmədi: {error}

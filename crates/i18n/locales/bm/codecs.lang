@@ -4,6 +4,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Kamera ka raw dosiyɛ
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -35,15 +37,23 @@ codec.heif.msg.imageio_cannot_read = ImageIO ma se ka HEIF container kalan
 codec.heif.msg.container_empty = Ja si tɛ HEIF container kɔnɔ
 codec.heif.msg.imageio_cannot_decode = ImageIO ma se ka ja fɔlɔ kɔdi yɔrɔ bɔ
 
+# AVIF in the browser build, which has no AV1 decoder (it still exports AVIF).
+codec.avif.msg.no_decoder = Schist min bɛ navigatɛri kɔnɔ, o tɛ se ka AVIF jaw da wuli. Dosiye da wuli tabali porogaramu kɔnɔ, walima a yɛlɛma ka kɛ PNG ye fɔlɔ.
+
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = Ja kalikima dosiyɛ tiɲɛnen don walima a dafalen tɛ.
 codec.layered.too_large = Ja kalikima bonya walima a ka kaliki hakɛ ka bon ni dan sɔnnen ye.
 codec.layered.unsupported = Nin dosiyɛ bɛ baara kɛminɛ sɔnnbali dɔ kɛ: {feature}.
 codec.layered.export_layer = Kaliki “{name}” kɔnɔ, baara kɛminɛw bɛ yen minnu tɛ se ka mara nin cogoya la. A yɛlɛma raster ye walima a mara PSD na.
 codec.layered.export_depth = Bɔli Paint.NET na bɛ RGB sɛbɛn ɲini min ye bit 8 ta ye. Sɛbɛn yɛlɛma RGB bit 8 ta ye fɔlɔ.
 codec.layered.export_mode = Bɔli bɛ RGB sɛbɛn ɲini. Sɛbɛn yɛlɛma RGB ye fɔlɔ.
+codec.layered.merged_layer = Ja kafolen (kaliki {format} dɔw ma se ka don a kɔnɔ)
+codec.kra.merged_color_space = Ja kafolen (Krita {color_space} sɛbɛn jira akɛ RGB)
 
 # Unsupported layered-format features.
 codec.pdn.feature.blend_mode = PDN ɲagamincogo
@@ -61,3 +71,8 @@ codec.xcf.feature.floating_selection = XCF sugandili min bɛ fun
 codec.xcf.feature.layer_effects = XCF kaliki nɔw
 codec.xcf.feature.precision = XCF tilennenya
 codec.xcf.feature.version = XCF vɛrisiyɔn
+
+codec.exr.feature.deep = EXR kunnafoni dugu
+codec.exr.feature.subsampled = EXR kanali sampulidɔgɔlenw
+codec.exr.msg.no_channels = OpenEXR dosiyɛ kɔnɔ ja kanali si t'a la.
+codec.exr.msg.write_failed = OpenEXR dosiyɛ ma se ka sɛbɛn: {error}

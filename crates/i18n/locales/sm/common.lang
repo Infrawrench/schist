@@ -229,6 +229,7 @@ common.filetype.jpeg = Ata JPEG
 common.filetype.webp = Ata WebP
 common.filetype.tiff = Ata TIFF
 common.filetype.heic = Ata HEIC
+common.filetype.exr = Ata OpenEXR
 common.filetype.raw = Ata o le Faila Mata Meapueata
 common.filetype.affinity = Pepa Affinity
 common.filetype.image = Ata

@@ -320,3 +320,43 @@ library.similar.keep = သိမ်းထားရန်
 library.similar.reject = ပယ်ချရန်
 library.similar.help = စစ်ဆေးမှု အမှတ်အသားများသာဖြစ်ပြီး ဖိုင်များကို မဖျက်ပါ။
 library.similar.stale = ဖိုင်များ ပြောင်းလဲသွားသည်။ ဆက်လုပ်ရန် ပြန်လည်စတင်ပါ။
+
+# Find Duplicates
+library.duplicates.title = ထပ်နေသောဖိုင်များ
+library.duplicates.help = စောင့်ကြည့်နေသော ဖိုလ်ဒါအားလုံးရှိ တူညီသောဖိုင်များနှင့် ဆင်တူသော မိတ္တူများ။ အမှိုက်ပုံးသို့ ရွှေ့ရန် နှစ်ကြိမ်မေးမြန်းပြီး၊ အမှိုက်ပုံးထဲရောက်သွားသောဖိုင်များကို စနစ်၏ အမှိုက်ပုံးမှ ပြန်ယူနိုင်သည်။
+library.duplicates.exact = တူညီသောဖိုင်များ
+library.duplicates.near = ဆင်တူသော မိတ္တူများ
+library.duplicates.identical = တူညီသည် (SHA-256)
+library.duplicates.suggested = သိမ်းရန် အကြံပြုချက်
+library.duplicates.make_keeper = ဤပုံကို သိမ်းထားရန်
+library.duplicates.compare = နှိုင်းယှဉ်ရန်
+library.duplicates.keep_all = အားလုံး သိမ်းထားရန်
+library.duplicates.reject_others = ကျန်သည်များကို ပယ်ချရန်
+library.duplicates.trash_others.other = အခြား {n} ခုကို အမှိုက်ပုံးသို့ ရွှေ့ရန်
+library.duplicates.confirm_trash.other = အတည်ပြုရန်- {n} ခုကို အမှိုက်ပုံးသို့ ရွှေ့ရန်
+library.duplicates.n_trashed.other = ဖိုင် {n} ဖိုင်ကို အမှိုက်ပုံးသို့ ရွှေ့ပြီးပါပြီ
+library.duplicates.n_rejected.other = ဓာတ်ပုံ {n} ပုံကို ပယ်ချထားသည်ဟု အမှတ်အသားပြုပြီးပါပြီ
+library.duplicates.refused_edited = တည်းဖြတ်ထားမှု သို့မဟုတ် ဆိုက်ကာဖိုင် ပါရှိသောကြောင့် ၎င်းကို ပယ်ချရန်သာ ရွေးပါ
+library.duplicates.trash_failed = စနစ်၏ အမှိုက်ပုံးကို မသုံးနိုင်ပါ
+library.duplicates.near_limit = ဆင်တူမိတ္တူ ကိုက်ညီမှုစစ်ဆေးခြင်းသည် ပထမဆုံး ဓာတ်ပုံ 10,000 ကို ဖုံးအုပ်သည်။
+
+# Geotagging from GPX tracks
+library.geotag.menu = GPX လမ်းကြောင်းမှ ဂျီယိုတက်ဂ်ထည့်ရန်…
+library.geotag.title = GPX လမ်းကြောင်းမှ ဂျီယိုတက်ဂ်ထည့်ရန်
+library.geotag.add_files = GPX ဖိုင်များ ထည့်ရန်…
+library.geotag.n_track_points.other = အချိန်ပါသော လမ်းကြောင်းအမှတ် {n} ခု
+library.geotag.max_gap = အများဆုံး ကွာဟချက် (မိနစ်)
+library.geotag.clock_offset = ကင်မရာနာရီ ပြင်ဆင်ချက်
+library.geotag.time_zone = ဓာတ်ပုံ အချိန်ဇုန် (UTC offset)
+library.geotag.zone_help = အချိန်ဇုန်ကို အချိန်ဇုန်မပါဘဲ မှတ်သားထားသော ရိုက်ကူးချိန်များတွင်သာ သက်ရောက်သည်။ စက္ကန့် သို့မဟုတ် ±h:mm:ss ဖြင့် ပြင်ဆင်ချက်ကို ရိုက်ကူးချိန်တိုင်းတွင် ပေါင်းထည့်သည်။
+library.geotag.skip_existing = တည်နေရာ ရှိပြီးသား ဓာတ်ပုံများကို ကျော်ရန်
+library.geotag.n_will_tag.other = ဓာတ်ပုံ {n} ပုံကို တက်ဂ်ထည့်မည်
+library.geotag.n_has_gps.other = ဓာတ်ပုံ {n} ပုံတွင် တည်နေရာ ရှိပြီးဖြစ်သည်
+library.geotag.n_no_time.other = ဓာတ်ပုံ {n} ပုံတွင် ရိုက်ကူးချိန် မရှိပါ
+library.geotag.n_gap.other = ဓာတ်ပုံ {n} ပုံသည် လမ်းကြောင်း၏ ကွာဟချက်တွင် ကျသည်
+library.geotag.n_outside.other = ဓာတ်ပုံ {n} ပုံသည် လမ်းကြောင်း၏ အချိန်ကာလပြင်ပတွင် ရှိသည်
+library.geotag.apply = တည်နေရာများ ရေးရန်
+library.geotag.invalid = ကွာဟချက်ကို မိနစ်ဖြင့်၊ -1:30 ကဲ့သို့ ပြင်ဆင်ချက်နှင့် +02:00 ကဲ့သို့ အချိန်ဇုန်ကို ထည့်ပါ။
+library.geotag.no_points = GPX ဖိုင်များတွင် အချိန်ပါသော အမှတ်များ မပါရှိပါ။
+library.geotag.select_photos = ဂျီယိုတက်ဂ်ထည့်ရန် ဓာတ်ပုံများကို အရင်ရွေးပါ။
+library.geotag.read_failed = GPX ဖိုင်များကို ဖတ်၍မရပါ- {error}

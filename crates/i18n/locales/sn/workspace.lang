@@ -66,6 +66,9 @@ workspace.filters.raw_too_tall = Zviri kugadzirwa zveRAW zvakareba zvakanyanya
 workspace.filters.raw_size_changed = Saizi yezviri kugadzirwa zveRAW yachinja kuva {w} × {h}; chikamu chazvino chiri kuchengetwa
 workspace.filters.raw_history = Kugadzira neCamera Raw
 workspace.filters.raw_applied = Kugadzira neCamera Raw kwaiswa (demosaic yakanakisisa)
+workspace.raw_masks.no_model = {model} haina kuiswa, saka chifukidziro ichi hachigoni kuonekwa.
+workspace.raw_masks.no_sky = Hapana denga rawanikwa mumufananidzo uyu.
+workspace.raw_masks.detect_failed = Kuona chifukidziro kwakundikana: {error}
 workspace.image_size.done = Saizi yemufananidzo: {w} × {h}
 workspace.image_size.bicubic_fallback = Saizi yemufananidzo: {w} × {h} — modheru ye{name} yaramba kurodha, saka bicubic ndiyo yashandiswa
 workspace.image_size.upscaling = Kuri kukudza ne{name}
@@ -89,3 +92,10 @@ workspace.file_picker.permission_denied = Schist haina mvumo yekuverenga forodha
 workspace.recovery.recovered_title = {title} (radzorerwa)
 workspace.recovery.recovered.one = Basa risina kuchengetwa remusesheni yapfuura radzorerwa
 workspace.recovery.recovered.other = Magwaro {n} emusesheni yapfuura adzorerwa
+workspace.colormgmt.vision_on = Kuedzesera: {name}
+workspace.colormgmt.vision_off = Kuona kwakajairika
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Zvabviswa pasina modhi yekuzadza, saka kuzadza kunogona kunge kusina kunaka
+workspace.tool_jobs.document_changed = {name} yapera mushure mekunge gwaro rayo ravharwa kana kuchinjwa, saka hapana chakachinjwa

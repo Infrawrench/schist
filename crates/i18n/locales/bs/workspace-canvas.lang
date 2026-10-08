@@ -36,3 +36,7 @@ workspace.history.move_layers = Premještanje slojeva
 workspace.history.layer_opacity = Neprozirnost sloja
 workspace.history.delete_note = Brisanje bilješke
 workspace.history.edit_note = Uređivanje bilješke
+workspace.canvas.clipping_on = Upozorenja o odsijecanju su uključena
+workspace.canvas.clipping_off = Upozorenja o odsijecanju su isključena
+workspace.canvas.peaking_on = Isticanje fokusa je uključeno
+workspace.canvas.peaking_off = Isticanje fokusa je isključeno

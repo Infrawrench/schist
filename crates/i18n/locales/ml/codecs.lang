@@ -4,6 +4,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = ക്യാമറ റോ
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -39,15 +41,22 @@ codec.heif.msg.imageio_cannot_read = ImageIO-യ്ക്ക് HEIF കണ്�
 codec.heif.msg.container_empty = HEIF കണ്ടെയ്നറിൽ ചിത്രമില്ല
 codec.heif.msg.imageio_cannot_decode = ImageIO-യ്ക്ക് പ്രധാന ചിത്രം ഡീകോഡ് ചെയ്യാനായില്ല
 
+codec.avif.msg.no_decoder = Schist-ന്റെ ബ്രൗസർ പതിപ്പിന് AVIF ചിത്രങ്ങൾ തുറക്കാനാകില്ല. ഫയൽ ഡെസ്ക്ടോപ്പ് ആപ്പിൽ തുറക്കുക, അല്ലെങ്കിൽ ആദ്യം അത് PNG-യിലേക്ക് പരിവർത്തനം ചെയ്യുക.
+
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = ലെയറുകളുള്ള ചിത്രഫയൽ കേടായതോ അപൂർണ്ണമോ ആണ്.
 codec.layered.too_large = ചിത്രത്തിന്റെ വലുപ്പമോ ലെയറുകളുടെ എണ്ണമോ പിന്തുണയ്ക്കുന്ന പരിധി കവിയുന്നു.
 codec.layered.unsupported = ഈ ഫയൽ പിന്തുണയ്ക്കാത്ത ഒരു സവിശേഷത ഉപയോഗിക്കുന്നു: {feature}.
 codec.layered.export_layer = “{name}” ലെയറിൽ ഈ ഫോർമാറ്റിന് നിലനിർത്താൻ കഴിയാത്ത സവിശേഷതകളുണ്ട്. അത് റാസ്റ്ററൈസ് ചെയ്യുക അല്ലെങ്കിൽ PSD ആയി സംരക്ഷിക്കുക.
 codec.layered.export_depth = Paint.NET-ലേക്ക് കയറ്റുമതി ചെയ്യാൻ 8-ബിറ്റ് RGB ഡോക്യുമെന്റ് ആവശ്യമാണ്. ആദ്യം ഡോക്യുമെന്റ് 8-ബിറ്റ് RGB-യിലേക്ക് പരിവർത്തനം ചെയ്യുക.
 codec.layered.export_mode = കയറ്റുമതി ചെയ്യാൻ RGB ഡോക്യുമെന്റ് ആവശ്യമാണ്. ആദ്യം ഡോക്യുമെന്റ് RGB-യിലേക്ക് പരിവർത്തനം ചെയ്യുക.
+codec.layered.merged_layer = ലയിപ്പിച്ച ചിത്രം (ചില {format} ലെയറുകൾ ഇറക്കുമതി ചെയ്യാനായില്ല)
+codec.kra.merged_color_space = ലയിപ്പിച്ച ചിത്രം (Krita {color_space} ഡോക്യുമെന്റ് RGB ആയി കാണിക്കുന്നു)
 
 # Unsupported layered-format features.
 codec.pdn.feature.blend_mode = PDN ബ്ലെൻഡ് മോഡ്
@@ -65,3 +74,8 @@ codec.xcf.feature.floating_selection = XCF ഫ്ലോട്ടിങ് തി
 codec.xcf.feature.layer_effects = XCF ലെയർ ഇഫക്റ്റുകൾ
 codec.xcf.feature.precision = XCF കൃത്യത
 codec.xcf.feature.version = XCF പതിപ്പ്
+
+codec.exr.feature.deep = EXR ഡീപ് ഡാറ്റ
+codec.exr.feature.subsampled = EXR സബ്‌സാമ്പിൾ ചെയ്ത ചാനലുകൾ
+codec.exr.msg.no_channels = OpenEXR ഫയലിൽ ഇമേജ് ചാനലുകളൊന്നുമില്ല.
+codec.exr.msg.write_failed = OpenEXR ഫയൽ എഴുതാൻ കഴിഞ്ഞില്ല: {error}

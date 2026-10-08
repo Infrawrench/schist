@@ -98,6 +98,7 @@ mod input;
 mod layers_panel;
 mod lens_profiles;
 pub(crate) mod mask_refine;
+pub(crate) mod raw_masks;
 // The gallery: watched photo folders, thumbnails, camera import and the
 // PSD sidecars behind gallery edits. A browser tab has no folders to
 // watch, so the web build compiles the whole thing out.
@@ -106,7 +107,11 @@ mod library;
 #[cfg(not(target_arch = "wasm32"))]
 mod library_culling;
 #[cfg(not(target_arch = "wasm32"))]
+mod library_duplicates;
+#[cfg(not(target_arch = "wasm32"))]
 mod library_geo;
+#[cfg(not(target_arch = "wasm32"))]
+pub(crate) mod library_geotag;
 // iPhones and PTP cameras never mount as filesystems on macOS;
 // ImageCaptureCore is the door Image Capture and Photos use, and this
 // module knocks on it the same way.
@@ -152,14 +157,20 @@ mod tethered_cloud;
 #[cfg(not(target_arch = "wasm32"))]
 pub(crate) mod versions;
 // The software keyboard's way in, on the platforms that have one.
+pub(crate) mod photo_view;
 #[cfg(any(target_os = "ios", target_os = "android"))]
 mod text_input;
 mod tiles;
+mod tool_jobs;
 mod toolbar;
 mod typography;
 mod view_options;
+mod view_overlays;
 mod viewport;
 mod workspace_presets;
+pub(crate) use view_overlays::{
+    vision_label, PEAKING_COLORS, PEAKING_SENSITIVITY, VISION_SEVERITY,
+};
 pub use workspace_presets::WorkspaceEdit;
 
 #[cfg(not(target_arch = "wasm32"))]
@@ -273,6 +284,7 @@ pub struct Workspace {
     smart_edit_sessions: FxHashMap<schist_core::DocumentId, smart_objects::SourceEdit>,
     /// Position of the active document in the tab strip.
     active_tab: usize,
+    pub(crate) photo_view: photo_view::PhotoView,
     cache: TileCache,
     /// Composited tiles after colour management, ready to sample.
     display_tiles: FxHashMap<TileCoord, Arc<Vec<u8>>>,
@@ -361,6 +373,8 @@ pub struct Workspace {
     /// Whether the last frame drew any tool overlay, so the ants timer
     /// knows to keep repainting for tools that draw their own.
     pub tool_has_overlay: bool,
+    /// Tool edits running off the UI thread (the Remove tool's fills).
+    pub tool_jobs: tool_jobs::ToolJobs,
     /// Which curve the Curves editor is showing.
     pub curve_channel: schist_adjustments::CurveChannel,
     /// Index of the control point being dragged in the curve editor.
@@ -373,6 +387,11 @@ pub struct Workspace {
     /// Generation of the most recently requested sensor-data preview.
     /// Slow results from an older slider position are discarded on arrival.
     raw_preview_seq: u64,
+    /// The Camera Raw dialog's local adjustment masks while it is open.
+    pub(crate) raw_masks: Option<raw_masks::RawMaskEditor>,
+    /// The last globally developed preview, so editing a mask re-runs only
+    /// the masks rather than the sensor decode.
+    raw_preview_base: Option<RawPreviewBase>,
     /// Live bounds of the picker's and the curve editor's drag surfaces,
     /// recorded each frame by their canvases.
     slider_bounds: FxHashMap<&'static str, Bounds<Pixels>>,
@@ -523,6 +542,12 @@ pub struct Workspace {
     pub palette_search: String,
     display_transform: Option<Arc<schist_colormgmt::ColorTransform>>,
     proof_transform: Option<Arc<schist_colormgmt::ColorTransform>>,
+    /// Clipping warnings and focus peaking: session-only switches, with
+    /// their colour and sensitivity kept in `view`.
+    pub(crate) overlays: view_overlays::OverlaySwitches,
+    /// Overlay layers drawn over the gallery's photos, by source image.
+    #[cfg(not(target_arch = "wasm32"))]
+    gallery_overlays: view_overlays::GalleryOverlays,
     /// The AI sidebar: transcript, conversation worker, MCP queues.
     pub ai: crate::ai::AiState,
     /// The photo gallery: watched folders, thumbnails, edit sidecars.
@@ -1046,6 +1071,15 @@ pub struct FilterPreview {
     pub whole_layer: bool,
 }
 
+/// A Camera Raw preview developed with the global controls only.
+pub(crate) struct RawPreviewBase {
+    pub layer: schist_core::LayerId,
+    pub values: schist_plugin_api::FilterValues,
+    pub width: usize,
+    pub height: usize,
+    pub rgba: Arc<Vec<f32>>,
+}
+
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum Popup {
     Menu(usize),
@@ -1451,6 +1485,18 @@ pub enum Modal {
         codec: &'static str,
         options: schist_plugin_api::ExportOptions,
     },
+    /// Geotag the session's photos from GPX tracks (`library.geotag`): the
+    /// match settings as typed, and whether a load or write is running.
+    Geotag {
+        id: u64,
+        gap: String,
+        offset: String,
+        zone: String,
+        skip_existing: bool,
+        loading: bool,
+        error: String,
+        busy: bool,
+    },
     /// Checked fields replace portable metadata for the captured selection.
     MetadataEdit {
         id: u64,
@@ -1649,6 +1695,7 @@ impl Workspace {
             background_tabs: Vec::new(),
             smart_edit_sessions: FxHashMap::default(),
             active_tab: 0,
+            photo_view: Default::default(),
             cache: TileCache::new(),
             display_tiles: FxHashMap::default(),
             viewport_image: None,
@@ -1690,6 +1737,7 @@ impl Workspace {
             fonts_offered: std::collections::HashSet::new(),
             ant_phase: 0,
             tool_has_overlay: false,
+            tool_jobs: Default::default(),
             curve_channel: Default::default(),
             curve_drag: None,
             picker_drag: None,
@@ -1697,6 +1745,8 @@ impl Workspace {
             filter_canvas: Default::default(),
             stack_filter_session: None,
             raw_preview_seq: 0,
+            raw_masks: None,
+            raw_preview_base: None,
             slider_bounds: FxHashMap::default(),
             thumbs: FxHashMap::default(),
             mask_thumbs: FxHashMap::default(),
@@ -1754,6 +1804,9 @@ impl Workspace {
             palette_search: String::new(),
             display_transform: None,
             proof_transform: None,
+            overlays: Default::default(),
+            #[cfg(not(target_arch = "wasm32"))]
+            gallery_overlays: Default::default(),
             #[cfg(not(sandboxed))]
             ai: crate::ai::AiState::new(crate::ai::Backend::Claude),
             #[cfg(sandboxed)]
@@ -1915,6 +1968,8 @@ pub struct PaintJob {
     /// Marching-ants dashes.
     ants: Ants,
     circles: Vec<Bounds<Pixels>>,
+    /// Translucent painted strokes: screen-space disc centres and radii.
+    strokes: Vec<Vec<(Point<Pixels>, Pixels)>>,
     /// Note pins.
     markers: Vec<Marker>,
     /// Thin filled rectangles: grid lines, guides and ruler ticks.

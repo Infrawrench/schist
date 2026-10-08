@@ -18,3 +18,11 @@ tool.magic_eraser.name = Kifutio cha Kichawi
 tool.magic_eraser.description = Bofya kufuta eneo la rangi inayofanana chini ya kielekezi ndani ya uvumilivu wa zana, liwe eneo linaloungana na bofyo au kila sehemu kwenye safu.
 tool.magic_eraser.option.contiguous = Zinazoungana
 tool.magic_eraser.history.erase = Kifutio cha Kichawi
+
+# Remove
+tool.remove.name = Ondoa
+tool.remove.description = Paka juu ya kitu kisichotakiwa kwa mpigo mmoja; ukiachilia, kinajazwa kutoka mazingira yake. Ukizima Ondoa Baada ya Kila Mpigo, paka mipigo kadhaa kisha ubonyeze Enter ili kuiondoa yote pamoja.
+tool.remove.option.sample_all_layers = Sampuli ya Safu Zote
+tool.remove.option.remove_after_each_stroke = Ondoa Baada ya Kila Mpigo
+tool.remove.history.remove = Ondoa
+tool.remove.layer_name = Kilichoondolewa

@@ -3,6 +3,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -30,15 +32,22 @@ codec.heif.msg.imageio_cannot_read = ImageIO HEIF-bhājanaṃ paṭhituṃ nāsa
 codec.heif.msg.container_empty = HEIF-bhājane chāyārūpaṃ natthi
 codec.heif.msg.imageio_cannot_decode = ImageIO mukhya-chāyārūpassa viggahaṃ kātuṃ nāsakkhi
 
+codec.avif.msg.no_decoder = Schist-assa jāladassaka-saṃskaraṇaṃ AVIF-chāyārūpāni vivarituṃ na sakkoti. Sañcikaṃ pīṭhānuyoge vivaratha, atha vā paṭhamaṃ PNG-rūpaṃ parivattetha.
+
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = Santharayuttachāyārūpassa sañcikā duṭṭhā vā aparipuṇṇā vā hoti.
 codec.layered.too_large = Santharayuttachāyārūpassa pamāṇaṃ vā santharasaṅkhyā vā upatthambhitaṃ sīmaṃ atikkamati.
 codec.layered.unsupported = Ayaṃ sañcikā anupatthambhitaṃ visesaṃ upayuñjati: {feature}.
 codec.layered.export_layer = “{name}” santhare imasmiṃ saṇṭhāne rakkhituṃ asakkuṇeyyā visesā santi. Taṃ pikselīkarotha atha vā PSD-rūpena rakkhatha.
 codec.layered.export_depth = Paint.NET-nīharaṇatthāya 8-bit RGB-potthako āvassako. Paṭhamaṃ potthakaṃ 8-bit RGB-rūpena pariṇāmetha.
 codec.layered.export_mode = Nīharaṇatthāya RGB-potthako āvassako. Paṭhamaṃ potthakaṃ RGB-rūpena pariṇāmetha.
+codec.layered.merged_layer = Missitaṃ chāyārūpaṃ (ekacce {format}-santharā āharituṃ na sakkhiṃsu)
+codec.kra.merged_color_space = Missitaṃ chāyārūpaṃ (Krita {color_space}-potthako RGB-rūpena dassito)
 codec.pdn.feature.blend_mode = PDN-missanavidhi
 codec.pdn.feature.compression = PDN-saṅkocanaṃ
 codec.pdn.feature.container_version = PDN-bhājanasaṃskaraṇaṃ
@@ -54,3 +63,8 @@ codec.xcf.feature.floating_selection = XCF-plavamānacayanaṃ
 codec.xcf.feature.layer_effects = XCF-santharappabhāvā
 codec.xcf.feature.precision = XCF-parisuddhatā
 codec.xcf.feature.version = XCF-saṃskaraṇaṃ
+
+codec.exr.feature.deep = EXR gambhīraṃ dattaṃ
+codec.exr.feature.subsampled = EXR upanidassana-maggā
+codec.exr.msg.no_channels = OpenEXR-sañcikāyaṃ chāyāmaggā natthi.
+codec.exr.msg.write_failed = OpenEXR-sañcikaṃ likhituṃ na sakkā: {error}

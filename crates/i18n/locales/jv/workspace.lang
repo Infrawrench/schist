@@ -67,6 +67,9 @@ workspace.filters.raw_too_tall = Asil pangembangan RAW dhuwur banget
 workspace.filters.raw_size_changed = Ukuran pangembangan RAW malih dadi {w} × {h}; lapisan saiki tetep dienggo
 workspace.filters.raw_history = Pangembangan Camera Raw
 workspace.filters.raw_applied = Pangembangan Camera Raw wis ditrapaké (demosaik paling apik)
+workspace.raw_masks.no_model = {model} durung dipasang, mula topèng iki ora bisa dideteksi.
+workspace.raw_masks.no_sky = Ora ana langit sing ditemokaké ing gambar iki.
+workspace.raw_masks.detect_failed = Deteksi topèng gagal: {error}
 workspace.image_size.done = Ukuran gambar: {w} × {h}
 workspace.image_size.bicubic_fallback = Ukuran gambar: {w} × {h} — modèl {name} ora bisa dimuat, mula bikubik dienggo minangka sulih
 workspace.image_size.upscaling = Nggedhèkaké nganggo {name}
@@ -88,3 +91,10 @@ workspace.file_picker.downloads = Undhuhan
 workspace.file_picker.permission_denied = Schist ora nduwèni idin kanggo maca folder iki
 workspace.recovery.recovered_title = {title} (dipulihaké)
 workspace.recovery.recovered.other = {n} dokumèn saka sesi sadurungé wis dipulihaké
+workspace.colormgmt.vision_on = Simulasi: {name}
+workspace.colormgmt.vision_off = Pandeleng normal
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Dibusak tanpa model pangisi, dadi isiané bisa luwih kasar
+workspace.tool_jobs.document_changed = {name} rampung sawisé dokumèné ditutup utawa diganti, dadi ora ana sing diowahi

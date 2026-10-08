@@ -4,6 +4,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -31,15 +33,22 @@ codec.heif.msg.imageio_cannot_read = ImageIO kunne ikke lese HEIF-beholderen
 codec.heif.msg.container_empty = HEIF-beholderen inneholder ikke noe bilde
 codec.heif.msg.imageio_cannot_decode = ImageIO kunne ikke dekode hovedbildet
 
+codec.avif.msg.no_decoder = Nettleserversjonen av Schist kan ikke åpne AVIF-bilder. Åpne filen i skrivebordsappen, eller konverter den til PNG først.
+
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = Bildefilen med lag er skadet eller ufullstendig.
 codec.layered.too_large = Bildet med lag overskrider den støttede størrelsen eller antallet lag.
 codec.layered.unsupported = Denne filen bruker en funksjon som ikke støttes: {feature}.
 codec.layered.export_layer = Laget «{name}» inneholder funksjoner som dette formatet ikke kan bevare. Rasteriser laget eller lagre som PSD.
 codec.layered.export_depth = Eksport til Paint.NET krever et 8-biters RGB-dokument. Konverter først dokumentet til 8-biters RGB.
 codec.layered.export_mode = Eksport krever et RGB-dokument. Konverter først dokumentet til RGB.
+codec.layered.merged_layer = Sammenslått bilde (noen {format}-lag kunne ikke importeres)
+codec.kra.merged_color_space = Sammenslått bilde (Krita-dokument i {color_space} vist som RGB)
 
 # Unsupported layered format features
 codec.pdn.feature.blend_mode = PDN-blandingsmodus
@@ -57,3 +66,8 @@ codec.xcf.feature.floating_selection = Flytende XCF-utvalg
 codec.xcf.feature.layer_effects = XCF-lageffekter
 codec.xcf.feature.precision = XCF-presisjon
 codec.xcf.feature.version = XCF-versjon
+
+codec.exr.feature.deep = EXR-dype data
+codec.exr.feature.subsampled = EXR-underprøvde kanaler
+codec.exr.msg.no_channels = OpenEXR-filen inneholder ingen bildekanaler.
+codec.exr.msg.write_failed = Kunne ikke skrive OpenEXR-filen: {error}

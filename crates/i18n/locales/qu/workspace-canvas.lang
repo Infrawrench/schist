@@ -38,3 +38,7 @@ workspace.history.move_layers = Patakunata kuyuchiy
 workspace.history.layer_opacity = Patap mana rikukuq kaynin
 workspace.history.delete_note = Willakuyta qulluy
 workspace.history.edit_note = Willakuyta allichay
+workspace.canvas.clipping_on = Quchuy willaykuna hap'ichisqa
+workspace.canvas.clipping_off = Quchuy willaykuna wañuchisqa
+workspace.canvas.peaking_on = Qhawariy sut'ichay hap'ichisqa
+workspace.canvas.peaking_off = Qhawariy sut'ichay wañuchisqa

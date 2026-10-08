@@ -71,6 +71,9 @@ workspace.filters.raw_too_tall = D'RAW-Entwécklung ass ze héich
 workspace.filters.raw_size_changed = D'Gréisst vun der RAW-Entwécklung gouf op {w} × {h} geännert; déi aktuell Eben gëtt bäibehalen
 workspace.filters.raw_history = Camera Raw entwéckelen
 workspace.filters.raw_applied = Camera Raw-Entwécklung ugewannt (bescht Demosaicing)
+workspace.raw_masks.no_model = {model} ass net installéiert, dofir kann dës Mask net erkannt ginn.
+workspace.raw_masks.no_sky = An dësem Bild gouf keen Himmel fonnt.
+workspace.raw_masks.detect_failed = Maskenerkennung ass feelgeschloen: {error}
 
 workspace.image_size.done = Bildgréisst: {w} × {h}
 workspace.image_size.bicubic_fallback = Bildgréisst: {w} × {h} — de Modell {name} konnt net geluede ginn, dofir gouf bikubesch interpoléiert
@@ -98,3 +101,10 @@ workspace.file_picker.permission_denied = Schist huet keng Berechtegung, dësen 
 workspace.recovery.recovered_title = {title} (erëm hiergestallt)
 workspace.recovery.recovered.one = Net gespäichert Aarbecht aus enger viregter Sessioun erëm hiergestallt
 workspace.recovery.recovered.other = {n} Dokumenter aus enger viregter Sessioun erëm hiergestallt
+workspace.colormgmt.vision_on = Simulatioun: {name}
+workspace.colormgmt.vision_off = Normal Siicht
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent} %
+workspace.tool_jobs.missing_model = Ouni Inpainting-Modell ewechgeholl, dofir kann d'Fëllung méi gréif sinn
+workspace.tool_jobs.document_changed = {name} ass fäerdeg ginn, nodeems säin Dokument zougemaach oder gewiesselt gouf, dofir gouf näischt geännert

@@ -14,3 +14,4 @@ workspaces.invalid_name = Idatzi 1–80 karaktereko izena, kontrol-karaktererik 
 workspaces.duplicate = Izen horretako laneko eremu bat badago lehendik.
 workspaces.limit = Gehienez 64 laneko eremu gorde ditzakezu.
 workspaces.keyboard = Teklatua: Alt+↑/↓ teklak antolamendu bat hautatzen du. Ctrl/Cmd+N teklak izena editatzen du; +S teklak kopia gordetzen du; +Enter teklak aplikatzen du; +U teklak eguneratzen du; +R teklak izena aldatzen du; +D teklak ezabatzen du; +0 teklak berrezartzen du.
+workspaces.open_documents = Irekitako dokumentuak

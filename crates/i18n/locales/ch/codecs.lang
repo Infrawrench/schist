@@ -3,6 +3,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -30,15 +32,22 @@ codec.heif.msg.imageio_cannot_read = Ti siña ha basa i ImageIO i HEIF container
 codec.heif.msg.container_empty = Tåya' imåhen gi HEIF container
 codec.heif.msg.imageio_cannot_decode = Ti siña ha decode i ImageIO i primet na imåhen
 
+codec.avif.msg.no_decoder = I browser version Schist ti siña ha baba AVIF na imåhen. Baba i file gi desktop app, pat convert para PNG fine'nana.
+
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = Madåñu pat ti kompletu i file nu i imåhen ni gai layer siha.
 codec.layered.too_large = Mas dångkolo i imåhen pat mas meggai i layer siha ki i siña masuporta.
 codec.layered.unsupported = Ha usa este na file un kualidåt ni ti masuporta: {feature}.
 codec.layered.export_layer = Guaha gi layer “{name}” kualidåt siha ni ti siña ha såtba este na format. Konbiette i layer para pixel siha pat såtba komu PSD.
 codec.layered.export_depth = Nisisåriu un dokumentu RGB 8-bit para un eksporta para Paint.NET. Konbiette i dokumentu para RGB 8-bit fine'na.
 codec.layered.export_mode = Nisisåriu un dokumentu RGB para un eksporta. Konbiette i dokumentu para RGB fine'na.
+codec.layered.merged_layer = Imagen ni mapegga (guaha {format} layer siha ni ti siña ma impotta)
+codec.kra.merged_color_space = Imagen ni mapegga (dokumentu Krita {color_space} ma na'ayek komu RGB)
 codec.pdn.feature.blend_mode = modon meskla nu i PDN
 codec.pdn.feature.compression = mapi'ot na data nu i PDN
 codec.pdn.feature.container_version = betsion nu i kahan PDN
@@ -54,3 +63,8 @@ codec.xcf.feature.floating_selection = pinili' ni må'ya gi XCF
 codec.xcf.feature.layer_effects = efekton layer nu i XCF
 codec.xcf.feature.precision = mina'eksaktu nu i XCF
 codec.xcf.feature.version = betsion nu i XCF
+
+codec.exr.feature.deep = EXR deep na data
+codec.exr.feature.subsampled = EXR subsampled na channel siha
+codec.exr.msg.no_channels = I OpenEXR na file taya' channel imåhen.
+codec.exr.msg.write_failed = Ti siña ma isuyi i OpenEXR na file: {error}

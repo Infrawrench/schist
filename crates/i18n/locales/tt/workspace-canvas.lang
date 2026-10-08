@@ -35,3 +35,7 @@ workspace.history.move_layers = Катламнарны күчерү
 workspace.history.layer_opacity = Катлам үтәкүренмәлелеге
 workspace.history.delete_note = Искәрмәне бетерү
 workspace.history.edit_note = Искәрмәне үзгәртү
+workspace.canvas.clipping_on = Киселү кисәтүләре кабызылды
+workspace.canvas.clipping_off = Киселү кисәтүләре сүндерелде
+workspace.canvas.peaking_on = Фокусны аеру кабызылды
+workspace.canvas.peaking_off = Фокусны аеру сүндерелде

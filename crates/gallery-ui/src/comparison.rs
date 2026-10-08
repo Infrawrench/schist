@@ -118,6 +118,9 @@ pub struct ComparisonPane {
     pub message: Option<String>,
     pub culling: Option<PhotoCulling>,
     pub overlay: Option<gpui::AnyElement>,
+    /// A layer drawn over the photo at the same rect: the viewer's
+    /// clipping and focus-peaking marks.
+    pub image_overlay: Option<Arc<RenderImage>>,
 }
 
 pub struct ComparisonActions<T: 'static> {
@@ -194,6 +197,16 @@ pub fn pane<T: 'static>(
                 .w(px(w))
                 .h(px(h)),
         );
+        if let Some(layer) = &state.image_overlay {
+            picture = picture.child(
+                img(layer.clone())
+                    .absolute()
+                    .left(px(x))
+                    .top(px(y))
+                    .w(px(w))
+                    .h(px(h)),
+            );
+        }
         if state.preview {
             picture = picture.child(
                 div()

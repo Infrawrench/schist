@@ -14,3 +14,4 @@ workspaces.invalid_name = Whakaurua he ingoa 1–80 pūāhua te roa, kāore he p
 workspaces.duplicate = Kei te tīariari kē tētahi mokowāhi ko tēnei te ingoa.
 workspaces.limit = Ka taea te tiaki kia 64 ngā mokowāhi.
 workspaces.keyboard = Papapātuhi: Mā Alt+↑/↓ e tīpako he tahora. Mā Ctrl/Cmd+N e whakatika tōna ingoa; mā +S e tiaki he tārua; mā +Enter e whakamahi; mā +U e whakahou; mā +R e whakaingoa anō; mā +D e muku; mā +0 e tautuhi anō.
+workspaces.open_documents = Ngā tuhinga tuwhera

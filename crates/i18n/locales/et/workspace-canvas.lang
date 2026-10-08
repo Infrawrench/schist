@@ -35,3 +35,7 @@ workspace.history.move_layers = Kihtide teisaldamine
 workspace.history.layer_opacity = Kihi läbipaistmatus
 workspace.history.delete_note = Märkuse kustutamine
 workspace.history.edit_note = Märkuse muutmine
+workspace.canvas.clipping_on = Kärpimishoiatused sees
+workspace.canvas.clipping_off = Kärpimishoiatused väljas
+workspace.canvas.peaking_on = Fookuse esiletõstmine sees
+workspace.canvas.peaking_off = Fookuse esiletõstmine väljas

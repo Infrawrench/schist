@@ -35,3 +35,7 @@ workspace.history.move_layers = רירן שיכטן
 workspace.history.layer_opacity = שיכט־אומדורכזעיקייט
 workspace.history.delete_note = אויסמעקן באַמערקונג
 workspace.history.edit_note = רעדאַקטירן באַמערקונג
+workspace.canvas.clipping_on = אָפּשנייד־ווארענונגען אָנגעצונדן
+workspace.canvas.clipping_off = אָפּשנייד־ווארענונגען אויסגעלאָשן
+workspace.canvas.peaking_on = פֿאָקוס־אונטערשטרײַכונג אָנגעצונדן
+workspace.canvas.peaking_off = פֿאָקוס־אונטערשטרײַכונג אויסגעלאָשן

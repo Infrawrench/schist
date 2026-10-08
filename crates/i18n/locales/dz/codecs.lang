@@ -3,6 +3,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -30,15 +32,22 @@ codec.heif.msg.imageio_cannot_read = ImageIO གིས་ HEIF སྣོད་�
 codec.heif.msg.container_empty = HEIF སྣོད་ཆས་ནང་པར་མེད།
 codec.heif.msg.imageio_cannot_decode = ImageIO གིས་པར་ངོ་མ་ཨང་བཤོལ་འབད་མ་ཚུགས།
 
+codec.avif.msg.no_decoder = Schist གི་བརའུ་ཟར་ཐོན་རིམ་གྱིས་ AVIF པར་ཚུ་ཁ་ཕྱེ་མི་ཚུགས། ཡིག་སྣོད་འདི་ཌེསིཀ་ཊོཔ་གློག་རིམ་ནང་ཁ་ཕྱེ་ ཡང་ན་ ཧེ་མ་ PNG ལུ་གཞི་བསྒྱུར་འབད།
+
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = བང་རིམ་ཡོད་པའི་པར་གྱི་ཡིག་སྣོད་དེ་མེདཔ་ཐལ་ནུག་ ཡང་ན་ཆ་ཚང་མིན་འདུག།
 codec.layered.too_large = བང་རིམ་ཡོད་པའི་པར་དེ་གི་ཚད་ ཡང་ན་བང་རིམ་གྱི་གྱངས་ཁ་དེ་རྒྱབ་སྐྱོར་ཡོད་པའི་ཚད་ལས་བརྒལ་ནུག།
 codec.layered.unsupported = ཡིག་སྣོད་འདི་གིས་རྒྱབ་སྐྱོར་མེད་པའི་ཁྱད་རྣམ་ཅིག་ལག་ལེན་འཐབ་ཨིན་: {feature}།
 codec.layered.export_layer = བང་རིམ་ “{name}” ནང་རྣམ་བཞག་འདི་གིས་ཉམས་སྲུང་འབད་མ་ཚུགས་པའི་ཁྱད་རྣམ་ཚུ་ཡོད། བང་རིམ་དེ་པིག་སེལ་ལུ་སྒྱུར་ ཡང་ན་ PSD སྦེ་སྲུང་།
 codec.layered.export_depth = Paint.NET སྦེ་ཕྱིར་འདྲེན་འབད་ནི་ལུ་ 8-བིཊ་ RGB ཡིག་ཆ་དགོ། ཧེ་མ་ཡིག་ཆ་དེ་ 8-བིཊ་ RGB ལུ་སྒྱུར།
 codec.layered.export_mode = ཕྱིར་འདྲེན་འབད་ནི་ལུ་ RGB ཡིག་ཆ་དགོ། ཧེ་མ་ཡིག་ཆ་དེ་ RGB ལུ་སྒྱུར།
+codec.layered.merged_layer = མཉམ་བསྡོམས་ཡིག་ཆ་ (བང་རིམ་ {format} ལ་ལུ་ནང་འདྲེན་འབད་མ་ཚུགས།)
+codec.kra.merged_color_space = མཉམ་བསྡོམས་པར་ (Krita {color_space} ཡིག་ཆ་འདི་ RGB སྦེ་སྟོན་ཡོད།)
 
 # Unsupported layered format features
 codec.pdn.feature.blend_mode = PDN སྲེ་སྦྱོར་ཐབས་ལམ།
@@ -56,3 +65,8 @@ codec.xcf.feature.floating_selection = XCF ལྡིང་བའི་སེལ�
 codec.xcf.feature.layer_effects = XCF བང་རིམ་གྱི་ནུས་པ།
 codec.xcf.feature.precision = XCF པིག་སེལ་གྱི་ཀྲིག་ཀྲི།
 codec.xcf.feature.version = XCF ཐོན་རིམ།
+
+codec.exr.feature.deep = EXR གནད་སྡུད་ཟབ་མོ
+codec.exr.feature.subsampled = EXR གི་དཔེ་ཚད་ཆུང་སྒྲིག་ཐབས་ལམ་ཚུ
+codec.exr.msg.no_channels = OpenEXR ཡིག་སྣོད་ནང་པར་གྱི་ཐབས་ལམ་ག་ནི་ཡང་མིན་འདུག།
+codec.exr.msg.write_failed = OpenEXR ཡིག་སྣོད་འདི་འབྲི་མ་ཚུགས་: {error}

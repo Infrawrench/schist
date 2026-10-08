@@ -3,6 +3,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -30,15 +32,23 @@ codec.heif.msg.imageio_cannot_read = ImageIO kò lè ka àpò HEIF
 codec.heif.msg.container_empty = àpò HEIF kò ní àwòrán
 codec.heif.msg.imageio_cannot_decode = ImageIO kò lè ṣe ìtumọ̀ àwòrán àkọ́kọ́
 
+# AVIF in the browser build, which has no AV1 decoder (it still exports AVIF).
+codec.avif.msg.no_decoder = Ẹ̀yà aṣàwákiri Schist kò lè ṣí àwọn àwòrán AVIF. Ṣí fáìlì náà nínú ìṣàfilọ́lẹ̀ kọ̀ǹpútà, tàbí kọ́kọ́ yí i padà sí PNG.
+
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = Fáìlì àwòrán onífẹ́lẹ́fẹ́lẹ́ náà ti bàjẹ́ tàbí kò pé.
 codec.layered.too_large = Àwòrán onífẹ́lẹ́fẹ́lẹ́ náà kọjá ìwọ̀n tàbí iye àwọn fẹ́lẹ́fẹ́lẹ́ tí a ṣe àtìlẹ́yìn fún.
 codec.layered.unsupported = Fáìlì yìí ń lo ẹ̀yà tí a kò ṣe àtìlẹ́yìn fún: {feature}.
 codec.layered.export_layer = Fẹ́lẹ́fẹ́lẹ́ “{name}” ní àwọn ẹ̀yà tí ọ̀nà ìpamọ́ yìí kò lè pa mọ́. Sọ ọ́ di raster tàbí fipamọ́ gẹ́gẹ́ bí PSD.
 codec.layered.export_depth = Gbígbé jáde sí Paint.NET nílò ìwé RGB 8-bit. Kọ́kọ́ yí ìwé náà padà sí RGB 8-bit.
 codec.layered.export_mode = Gbígbé jáde nílò ìwé RGB. Kọ́kọ́ yí ìwé náà padà sí RGB.
+codec.layered.merged_layer = Àwòrán tí a parapọ̀ (a kò lè gbé àwọn fẹ́lẹ́fẹ́lẹ́ {format} kan wọlé)
+codec.kra.merged_color_space = Àwòrán tí a parapọ̀ (a fi ìwé Krita {color_space} hàn bí RGB)
 
 # Unsupported layered format features
 codec.pdn.feature.blend_mode = Ipo àdàpọ̀ PDN
@@ -56,3 +66,8 @@ codec.xcf.feature.floating_selection = Àṣàyàn líléfòó XCF
 codec.xcf.feature.layer_effects = Àwọn ipa fẹ́lẹ́fẹ́lẹ́ XCF
 codec.xcf.feature.precision = Ìpéye XCF
 codec.xcf.feature.version = Ẹ̀dà XCF
+
+codec.exr.feature.deep = Dátà jíjìn ti EXR
+codec.exr.feature.subsampled = Àwọn ikanni EXR tí a mú àyẹ̀wò díẹ̀ nínú wọn
+codec.exr.msg.no_channels = Fáìlì OpenEXR kò ní ikanni àwòrán kankan.
+codec.exr.msg.write_failed = Kò ṣeé kọ fáìlì OpenEXR: {error}

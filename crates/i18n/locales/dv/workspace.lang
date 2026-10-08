@@ -66,6 +66,9 @@ workspace.filters.raw_too_tall = RAW ޑިވެލޮޕްމަންޓް ވަރަށް �
 workspace.filters.raw_size_changed = RAW ޑިވެލޮޕްމަންޓުގެ ސައިޒު {w} × {h} އަށް ބަދަލުވި؛ މިހާރުގެ ލޭޔަރ ބަހައްޓަނީ
 workspace.filters.raw_history = Camera Raw ޑިވެލޮޕްމަންޓް
 workspace.filters.raw_applied = Camera Raw ޑިވެލޮޕްމަންޓް ތަތުބީޤުވެއްޖެ (އެންމެ ރަނގަޅު ޑީމޮޒެއިކް)
+workspace.raw_masks.no_model = {model} އިންސްޓޯލް ކޮށްފައި ނުވާތީ، މި މާސްކް ނުހޯދޭނެ.
+workspace.raw_masks.no_sky = މި ތަސްވީރުގައި އެއްވެސް އުޑެއް ނުފެނުނު.
+workspace.raw_masks.detect_failed = މާސްކް ހޯދުން ނާކާމިޔާބުވި: {error}
 workspace.image_size.done = ތަސްވީރުގެ ސައިޒު: {w} × {h}
 workspace.image_size.bicubic_fallback = ތަސްވީރުގެ ސައިޒު: {w} × {h} — {name} މޮޑެލް ލޯޑް ނުވީތީ ބައިކިއުބިކް ބަދަލަށް ބޭނުންކުރި
 workspace.image_size.upscaling = {name} އިން އަޕްސްކޭލް ކުރަނީ
@@ -89,3 +92,10 @@ workspace.file_picker.permission_denied = Schist އަށް މި ފޯލްޑަރ ކ
 workspace.recovery.recovered_title = {title} (ރިކަވަރ ކުރި)
 workspace.recovery.recovered.one = ކުރީގެ ސެޝަނަކުން ސޭވް ނުކުރި މަސައްކަތް ރިކަވަރ ކުރެވިއްޖެ
 workspace.recovery.recovered.other = ކުރީގެ ސެޝަނަކުން ޑޮކިއުމަންޓް {n} ރިކަވަރ ކުރެވިއްޖެ
+workspace.colormgmt.vision_on = ސިމިއުލޭޝަން: {name}
+workspace.colormgmt.vision_off = ނޯމަލް ފެނުން
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = ފުރުމުގެ މޮޑެލް ނެތި ނައްތާލެވުނީ، އެހެންކަމުން ފުރުން ދަގަނޑު ވެދާނެއެވެ
+workspace.tool_jobs.document_changed = {name} ނިމުނީ އޭގެ ޑޮކިއުމަންޓް ބަންދުކުރުމަށް ނުވަތަ ބަދަލުކުރުމަށް ފަހުގައި، އެހެންކަމުން އެއްވެސް ބަދަލެއް ނުގެނެވުނެވެ

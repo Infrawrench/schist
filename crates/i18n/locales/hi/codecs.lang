@@ -3,6 +3,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -30,15 +32,22 @@ codec.heif.msg.imageio_cannot_read = ImageIO HEIF कंटेनर नही�
 codec.heif.msg.container_empty = HEIF कंटेनर में कोई छवि नहीं है
 codec.heif.msg.imageio_cannot_decode = ImageIO मुख्य छवि डीकोड नहीं कर सका
 
+codec.avif.msg.no_decoder = Schist का ब्राउज़र संस्करण AVIF छवियाँ नहीं खोल सकता। फ़ाइल को डेस्कटॉप ऐप में खोलें, या पहले उसे PNG में बदलें।
+
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = लेयर वाली छवि की फ़ाइल क्षतिग्रस्त या अधूरी है।
 codec.layered.too_large = लेयर वाली छवि का आकार या लेयर की संख्या समर्थित सीमा से अधिक है।
 codec.layered.unsupported = यह फ़ाइल एक असमर्थित सुविधा का उपयोग करती है: {feature}।
 codec.layered.export_layer = “{name}” लेयर में ऐसी सुविधाएँ हैं जिन्हें यह प्रारूप सुरक्षित नहीं रख सकता। इसे रास्टराइज़ करें या PSD के रूप में सहेजें।
 codec.layered.export_depth = Paint.NET में निर्यात के लिए 8-बिट RGB दस्तावेज़ आवश्यक है। पहले दस्तावेज़ को 8-बिट RGB में बदलें।
 codec.layered.export_mode = निर्यात के लिए RGB दस्तावेज़ आवश्यक है। पहले दस्तावेज़ को RGB में बदलें।
+codec.layered.merged_layer = मर्ज की गई छवि (कुछ {format} लेयर आयात नहीं की जा सकीं)
+codec.kra.merged_color_space = मर्ज की गई छवि (Krita {color_space} दस्तावेज़ RGB के रूप में दिखाया गया है)
 
 # Unsupported layered format features
 codec.pdn.feature.blend_mode = PDN ब्लेंड मोड
@@ -56,3 +65,8 @@ codec.xcf.feature.floating_selection = XCF फ़्लोटिंग चयन
 codec.xcf.feature.layer_effects = XCF लेयर प्रभाव
 codec.xcf.feature.precision = XCF परिशुद्धता
 codec.xcf.feature.version = XCF संस्करण
+
+codec.exr.feature.deep = EXR डीप डेटा
+codec.exr.feature.subsampled = EXR सबसैंपल्ड चैनल
+codec.exr.msg.no_channels = OpenEXR फ़ाइल में कोई छवि चैनल नहीं है।
+codec.exr.msg.write_failed = OpenEXR फ़ाइल लिखी नहीं जा सकी: {error}

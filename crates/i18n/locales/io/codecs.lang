@@ -4,6 +4,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -31,15 +33,23 @@ codec.heif.msg.imageio_cannot_read = ImageIO ne povis lektar la kontenilo HEIF
 codec.heif.msg.container_empty = la kontenilo HEIF inkluzas nula imajo
 codec.heif.msg.imageio_cannot_decode = ImageIO ne povis dekodifikar la primara imajo
 
+# AVIF
+codec.avif.msg.no_decoder = La navigila versiono di Schist ne povas apertar AVIF-imaji. Apertez la dosiero en la komputila apliko, o unesme konvertez ol a PNG.
+
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = La dosiero di imajo kun strati esas domajita o nekompleta.
 codec.layered.too_large = La imajo kun strati superas la suportata dimensiono o nombro de strati.
 codec.layered.unsupported = Ca dosiero uzas nesuportata funciono: {feature}.
 codec.layered.export_layer = La strato «{name}» kontenas funcioni quin ca formato ne povas konservar. Rasterigez ol o konservez kom PSD.
 codec.layered.export_depth = Exporto a Paint.NET bezonas 8-bita RGB-dokumento. Unesme konvertez la dokumento a 8-bita RGB.
 codec.layered.export_mode = Exporto bezonas RGB-dokumento. Unesme konvertez la dokumento a RGB.
+codec.layered.merged_layer = Fuzita imajo (kelka strati {format} ne povis importesar)
+codec.kra.merged_color_space = Fuzita imajo (Krita-dokumento {color_space} montresas kom RGB)
 
 # Unsupported layered format features
 codec.pdn.feature.blend_mode = Mixomodo PDN
@@ -57,3 +67,8 @@ codec.xcf.feature.floating_selection = Flotanta selekto XCF
 codec.xcf.feature.layer_effects = Efekti di strati XCF
 codec.xcf.feature.precision = Precizeso XCF
 codec.xcf.feature.version = Versiono XCF
+
+codec.exr.feature.deep = profunda datumi di EXR
+codec.exr.feature.subsampled = subtaksita kanali di EXR
+codec.exr.msg.no_channels = La OpenEXR-dosiero ne havas irga imajala kanalo.
+codec.exr.msg.write_failed = Ne povis skribar la OpenEXR-dosiero: {error}

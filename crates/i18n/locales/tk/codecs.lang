@@ -3,6 +3,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Kameranyň çig suraty
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -30,15 +32,23 @@ codec.heif.msg.imageio_cannot_read = ImageIO HEIF konteýnerini okap bilmedi
 codec.heif.msg.container_empty = HEIF konteýnerinde surat ýok
 codec.heif.msg.imageio_cannot_decode = ImageIO esasy suraty dekodlap bilmedi
 
+# AVIF in the browser build, which has no AV1 decoder (it still exports AVIF).
+codec.avif.msg.no_decoder = Schist-iň brauzer wersiýasy AVIF suratlaryny açyp bilmeýär. Faýly desktop programmasynda açyň ýa-da ilki ony PNG görnüşine öwüriň.
+
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = Gatlakly surat faýly zaýalanan ýa-da doly däl.
 codec.layered.too_large = Gatlakly suratyň ölçegi ýa-da gatlaklarynyň sany goldanylýan çäkden geçýär.
 codec.layered.unsupported = Bu faýl goldanylmaýan aýratynlygy ulanýar: {feature}.
 codec.layered.export_layer = “{name}” gatlagynda bu formatyň saklap bilmeýän aýratynlyklary bar. Gatlagy rasterleşdiriň ýa-da PSD görnüşinde saklaň.
 codec.layered.export_depth = Paint.NET görnüşine eksport etmek üçin 8 bitli RGB resminama gerek. Ilki resminamany 8 bitli RGB görnüşine öwüriň.
 codec.layered.export_mode = Eksport etmek üçin RGB resminama gerek. Ilki resminamany RGB görnüşine öwüriň.
+codec.layered.merged_layer = Birleşdirilen surat ({format} gatlaklarynyň käbirini import etmek mümkin bolmady)
+codec.kra.merged_color_space = Birleşdirilen surat (Krita {color_space} resminama RGB görnüşinde görkezildi)
 
 # Unsupported layered format features
 codec.pdn.feature.blend_mode = PDN garyşdyrma režimi
@@ -56,3 +66,8 @@ codec.xcf.feature.floating_selection = XCF ýüzýän saýlawy
 codec.xcf.feature.layer_effects = XCF gatlak effektleri
 codec.xcf.feature.precision = XCF takyklygy
 codec.xcf.feature.version = XCF wersiýasy
+
+codec.exr.feature.deep = EXR çuň maglumatlary
+codec.exr.feature.subsampled = EXR pes nusga alnan kanallar
+codec.exr.msg.no_channels = OpenEXR faýlynda hiç hili surat kanaly ýok.
+codec.exr.msg.write_failed = OpenEXR faýlyny ýazyp bolmady: {error}

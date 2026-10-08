@@ -4,6 +4,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Dosiye mbisi ya kamera
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -35,15 +37,22 @@ codec.heif.msg.imageio_cannot_read = ImageIO ntiyashoboye gusoma igikoresho HEIF
 codec.heif.msg.container_empty = igikoresho HEIF nta shusho kirimwo
 codec.heif.msg.imageio_cannot_decode = ImageIO ntiyashoboye gusoma ishusho nyamukuru
 
+codec.avif.msg.no_decoder = Verisiyo ya Schist yo muri mushakisha ntishobora kwugurura amashusho ya AVIF. Ugurura idosiye muri porogarama ya mudasobwa, canke ubanze uyihindure PNG.
+
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = Idosiye y’ishusho ifise inzego yononekaye canke ntiyuzuye.
 codec.layered.too_large = Ishusho ifise inzego irenza ubunini canke igitigiri c’inzego vyemewe.
 codec.layered.unsupported = Iyi dosiye ikoresha ikintu kidashigikiwe: {feature}.
 codec.layered.export_layer = Urwego “{name}” rurimwo ibintu ubu bwoko bwa dosiye budashobora kubika. Hindura urwo rwego rube amapikisele canke ubike nka PSD.
 codec.layered.export_depth = Gusohora muri Paint.NET bisaba inyandiko ya RGB ya 8-bit. Banza uhindure inyandiko ibe RGB ya 8-bit.
 codec.layered.export_mode = Gusohora bisaba inyandiko ya RGB. Banza uhindure inyandiko ibe RGB.
+codec.layered.merged_layer = Ishusho yahujwe (inzego zimwezimwe za {format} ntizishoboye gutumizwa)
+codec.kra.merged_color_space = Ishusho yahujwe (inyandiko ya Krita {color_space} yerekanwe nka RGB)
 
 # Unsupported layered format features
 codec.pdn.feature.blend_mode = Uburyo bwo kuvanga bwa PDN
@@ -61,3 +70,8 @@ codec.xcf.feature.floating_selection = Ivyatoranijwe bireremba vya XCF
 codec.xcf.feature.layer_effects = Ingaruka z’inzego za XCF
 codec.xcf.feature.precision = Ubunonosere bw’ibipimo vya XCF
 codec.xcf.feature.version = Verisiyo ya XCF
+
+codec.exr.feature.deep = amakuru y'ubujyakuzimu ya EXR
+codec.exr.feature.subsampled = imiyoboro ya EXR yagabanyijwe
+codec.exr.msg.no_channels = Ifayilo ya OpenEXR nta miyoboro y'ishusho irimo.
+codec.exr.msg.write_failed = Ntibishobotse kwandika ifayilo ya OpenEXR: {error}

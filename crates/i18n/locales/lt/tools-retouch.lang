@@ -22,3 +22,11 @@ tool.magic_eraser.name = Magiškasis trintukas
 tool.magic_eraser.description = Spustelėkite, kad pagal įrankio nuokrypį ištrintumėte po žymikliu esančią panašios spalvos sritį – besiribojančią su spustelėta vieta arba visame sluoksnyje.
 tool.magic_eraser.option.contiguous = Gretima sritis
 tool.magic_eraser.history.erase = Magiškasis trintukas
+
+# Remove
+tool.remove.name = Pašalinimas
+tool.remove.description = Vienu potėpiu nudažykite nepageidaujamą objektą; atleidus jis užpildomas pagal aplinką. Kai Šalinti po kiekvieno potėpio išjungta, nupieškite kelis potėpius ir paspauskite Enter, kad pašalintumėte juos kartu.
+tool.remove.option.sample_all_layers = Imti iš visų sluoksnių
+tool.remove.option.remove_after_each_stroke = Šalinti po kiekvieno potėpio
+tool.remove.history.remove = Pašalinimas
+tool.remove.layer_name = Pašalinta

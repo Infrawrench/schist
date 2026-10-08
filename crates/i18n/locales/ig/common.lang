@@ -229,6 +229,7 @@ common.filetype.jpeg = Onyonyo JPEG
 common.filetype.webp = Onyonyo WebP
 common.filetype.tiff = Onyonyo TIFF
 common.filetype.heic = Onyonyo HEIC
+common.filetype.exr = Onyonyo OpenEXR
 common.filetype.raw = Onyonyo raw igwefoto
 common.filetype.affinity = Dọkụmentị Affinity
 common.filetype.image = Onyonyo

@@ -14,3 +14,4 @@ workspaces.invalid_name = შეიყვანეთ 1–80 სიმბოლ�
 workspaces.duplicate = ამ სახელის სამუშაო სივრცე უკვე არსებობს.
 workspaces.limit = შეგიძლიათ შეინახოთ მაქსიმუმ 64 სამუშაო სივრცე.
 workspaces.keyboard = კლავიატურა: Alt+↑/↓ ირჩევს განლაგებას. Ctrl/Cmd+N ცვლის მის სახელს; +S ინახავს ასლს; +Enter იყენებს; +U ანახლებს; +R სახელს უცვლის; +D შლის; +0 საწყისზე აბრუნებს.
+workspaces.open_documents = გახსნილი დოკუმენტები

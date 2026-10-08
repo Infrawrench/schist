@@ -3,6 +3,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -30,15 +32,22 @@ codec.heif.msg.imageio_cannot_read = ImageIO ejjab maroñ riit container in HEIF
 codec.heif.msg.container_empty = ejelọk pija ilo container in HEIF
 codec.heif.msg.imageio_cannot_decode = ImageIO ejjab maroñ decode pija eo eļaptata
 
+codec.avif.msg.no_decoder = Version eo an Schist ilo browser ejjab maroñ kōpellọk pija ko an AVIF. Kōpellọk file eo ilo desktop app, ak kōmmeja ñan PNG mokta.
+
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = File in pija eo ewōr layer ie ejorrāān ak ejjab dedelọk.
 codec.layered.too_large = Pija eo ewōr layer ie elap jān joñan ak oran layer ko program eo emaroñ jerbal kōn.
 codec.layered.unsupported = File in ej kōjerbal men eo program eo ejjab maroñ jerbal kōn: {feature}.
 codec.layered.export_layer = Layer “{name}” ewōr men ko format in ejjab maroñ kōjparoki. Ukot layer eo ñan pixel ko wōt ak kōjparoke āinwōt PSD.
 codec.layered.export_depth = Ñan jilkinļọk ñan Paint.NET, kwōj aikuj document in RGB 8-bit. Jinoin ukot document eo ñan RGB 8-bit.
 codec.layered.export_mode = Ñan jilkinļọk, kwōj aikuj document in RGB. Jinoin ukot document eo ñan RGB.
+codec.layered.merged_layer = Pija eo ekoba (jet layer ko an {format} rejjab maroñ in kōmmaanjuonļọk)
+codec.kra.merged_color_space = Pija eo ekoba (document Krita {color_space} ekwalok āinwōt RGB)
 
 # Unsupported layered format features
 codec.pdn.feature.blend_mode = Mode in koba an PDN
@@ -56,3 +65,8 @@ codec.xcf.feature.floating_selection = Selection eo ej eļļā ilo XCF
 codec.xcf.feature.layer_effects = Jerbal ko an layer in XCF
 codec.xcf.feature.precision = Joñan jejjet in pixel an XCF
 codec.xcf.feature.version = Version in XCF
+
+codec.exr.feature.deep = data in deep ilo EXR
+codec.exr.feature.subsampled = channel ko ie subsampled ilo EXR
+codec.exr.msg.no_channels = File in OpenEXR ejjelok channel ko an pija.
+codec.exr.msg.write_failed = Ejjab maroñ ekkatak file in OpenEXR: {error}

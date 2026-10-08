@@ -4,6 +4,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -35,15 +37,23 @@ codec.heif.msg.imageio_cannot_read = ImageIO не можа да прочете �
 codec.heif.msg.container_empty = контейнерът HEIF не съдържа изображение
 codec.heif.msg.imageio_cannot_decode = ImageIO не можа да декодира основното изображение
 
+# AVIF in the browser build, which has no AV1 decoder (it still exports AVIF).
+codec.avif.msg.no_decoder = Версията на Schist за браузър не може да отваря изображения AVIF. Отворете файла в настолното приложение или първо го конвертирайте в PNG.
+
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = Файлът на изображението със слоеве е повреден или непълен.
 codec.layered.too_large = Изображението със слоеве надвишава поддържания размер или брой слоеве.
 codec.layered.unsupported = Този файл използва неподдържана функция: {feature}.
 codec.layered.export_layer = Слоят „{name}“ съдържа функции, които този формат не може да запази. Растеризирайте го или запазете като PSD.
 codec.layered.export_depth = Експортирането в Paint.NET изисква 8-битов RGB документ. Първо преобразувайте документа в 8-битов RGB.
 codec.layered.export_mode = Експортирането изисква RGB документ. Първо преобразувайте документа в RGB.
+codec.layered.merged_layer = Обединено изображение (някои слоеве от {format} не можаха да бъдат импортирани)
+codec.kra.merged_color_space = Обединено изображение (документ на Krita в {color_space}, показан като RGB)
 
 # Unsupported layered format features
 codec.pdn.feature.blend_mode = Режим на смесване в PDN
@@ -61,3 +71,7 @@ codec.xcf.feature.floating_selection = Плаваща селекция в XCF
 codec.xcf.feature.layer_effects = Ефекти на слоевете в XCF
 codec.xcf.feature.precision = Точност в XCF
 codec.xcf.feature.version = Версия на XCF
+codec.exr.feature.deep = дълбоки данни в EXR
+codec.exr.feature.subsampled = подсемплирани канали в EXR
+codec.exr.msg.no_channels = Файлът OpenEXR не съдържа канали на изображението.
+codec.exr.msg.write_failed = Файлът OpenEXR не можа да бъде записан: {error}

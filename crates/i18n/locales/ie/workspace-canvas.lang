@@ -36,3 +36,7 @@ workspace.history.move_layers = Mover strates
 workspace.history.layer_opacity = Opacitá del strate
 workspace.history.delete_note = Deleter nota
 workspace.history.edit_note = Redacter nota
+workspace.canvas.clipping_on = Avisos de tonde activ
+workspace.canvas.clipping_off = Avisos de tonde desactiv
+workspace.canvas.peaking_on = Accentuation de focus activ
+workspace.canvas.peaking_off = Accentuation de focus desactiv

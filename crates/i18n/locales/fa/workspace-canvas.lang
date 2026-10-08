@@ -35,3 +35,7 @@ workspace.history.move_layers = جابه‌جایی لایه‌ها
 workspace.history.layer_opacity = کدری لایه
 workspace.history.delete_note = حذف یادداشت
 workspace.history.edit_note = ویرایش یادداشت
+workspace.canvas.clipping_on = هشدارهای برش روشن شد
+workspace.canvas.clipping_off = هشدارهای برش خاموش شد
+workspace.canvas.peaking_on = فوکوس پیکینگ روشن شد
+workspace.canvas.peaking_off = فوکوس پیکینگ خاموش شد

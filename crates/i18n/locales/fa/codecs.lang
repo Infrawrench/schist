@@ -3,6 +3,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -30,15 +32,22 @@ codec.heif.msg.imageio_cannot_read = ImageIO نتوانست محفظهٔ HEIF ر
 codec.heif.msg.container_empty = محفظهٔ HEIF تصویری ندارد
 codec.heif.msg.imageio_cannot_decode = ImageIO نتوانست تصویر اصلی را رمزگشایی کند
 
+codec.avif.msg.no_decoder = نسخهٔ مرورگر Schist نمی‌تواند تصاویر AVIF را باز کند. فایل را در برنامهٔ دسکتاپ باز کنید یا ابتدا آن را به PNG تبدیل کنید.
+
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = فایل تصویر لایه‌دار آسیب دیده یا ناقص است.
 codec.layered.too_large = اندازهٔ تصویر لایه‌دار یا تعداد لایه‌های آن از محدودهٔ پشتیبانی‌شده فراتر است.
 codec.layered.unsupported = این فایل از قابلیتی پشتیبانی‌نشده استفاده می‌کند: {feature}.
 codec.layered.export_layer = لایهٔ «{name}» دارای قابلیت‌هایی است که این قالب نمی‌تواند حفظ کند. آن را رستری کنید یا با قالب PSD ذخیره کنید.
 codec.layered.export_depth = برون‌بری به Paint.NET به سند RGB هشت‌بیتی نیاز دارد. ابتدا سند را به RGB هشت‌بیتی تبدیل کنید.
 codec.layered.export_mode = برون‌بری به سند RGB نیاز دارد. ابتدا سند را به RGB تبدیل کنید.
+codec.layered.merged_layer = تصویر ادغام‌شده (برخی از لایه‌های {format} را نتوان درون‌ریزی کرد)
+codec.kra.merged_color_space = تصویر ادغام‌شده (سند Krita با {color_space} به‌صورت RGB نمایش داده شده است)
 codec.pdn.feature.blend_mode = حالت آمیختگی PDN
 codec.pdn.feature.compression = فشرده‌سازی PDN
 codec.pdn.feature.container_version = نسخهٔ محفظهٔ PDN
@@ -54,3 +63,8 @@ codec.xcf.feature.floating_selection = گزینش شناور XCF
 codec.xcf.feature.layer_effects = جلوه‌های لایهٔ XCF
 codec.xcf.feature.precision = دقت XCF
 codec.xcf.feature.version = نسخهٔ XCF
+
+codec.exr.feature.deep = داده‌های عمیق EXR
+codec.exr.feature.subsampled = کانال‌های زیرنمونه‌برداری‌شده EXR
+codec.exr.msg.no_channels = فایل OpenEXR هیچ کانال تصویری ندارد.
+codec.exr.msg.write_failed = نوشتن فایل OpenEXR ممکن نشد: {error}

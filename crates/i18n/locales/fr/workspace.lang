@@ -66,6 +66,9 @@ workspace.filters.raw_too_tall = Le résultat du développement RAW est trop hau
 workspace.filters.raw_size_changed = La taille du développement RAW est passée à {w} × {h} ; conservation du calque actif
 workspace.filters.raw_history = Développement Camera Raw
 workspace.filters.raw_applied = Développement Camera Raw appliqué (meilleur dématriçage)
+workspace.raw_masks.no_model = {model} n’est pas installé, ce masque ne peut donc pas être détecté.
+workspace.raw_masks.no_sky = Aucun ciel n’a été trouvé dans cette image.
+workspace.raw_masks.detect_failed = Échec de la détection du masque : {error}
 workspace.image_size.done = Taille de l’image : {w} × {h}
 workspace.image_size.bicubic_fallback = Taille de l’image : {w} × {h} — le modèle {name} n’a pas pu être chargé ; le mode bicubique l’a remplacé
 workspace.image_size.upscaling = Agrandissement avec {name}
@@ -91,3 +94,10 @@ workspace.recovery.recovered_title = {title} (récupéré)
 workspace.recovery.recovered.one = {n} document non enregistré d’une session précédente récupéré
 workspace.recovery.recovered.many = {n} documents d’une session précédente récupérés
 workspace.recovery.recovered.other = {n} documents d’une session précédente récupérés
+workspace.colormgmt.vision_on = Simulation : {name}
+workspace.colormgmt.vision_off = Vision normale
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name} : {percent} %
+workspace.tool_jobs.missing_model = Supprimé sans le modèle de reconstruction, le remplissage peut donc être plus grossier
+workspace.tool_jobs.document_changed = {name} s’est terminé après la fermeture ou le changement de son document ; rien n’a donc été modifié

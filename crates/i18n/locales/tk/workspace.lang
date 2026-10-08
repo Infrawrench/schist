@@ -75,6 +75,9 @@ workspace.filters.raw_too_tall = RAW işlenişi juda beýik
 workspace.filters.raw_size_changed = RAW işlenişiniň ölçegi {w} × {h} boldy; häzirki gatlak saklanýar
 workspace.filters.raw_history = Camera Raw işlenişi
 workspace.filters.raw_applied = Camera Raw işlenişi ulanyldy (iň gowy demosaika)
+workspace.raw_masks.no_model = {model} gurnalmadyk, şonuň üçin bu maskany kesgitläp bolmaýar.
+workspace.raw_masks.no_sky = Bu suratda asman tapylmady.
+workspace.raw_masks.detect_failed = Maskany kesgitlemek başa barmady: {error}
 
 workspace.image_size.done = Şekiliň ölçegi: {w} × {h}
 workspace.image_size.bicubic_fallback = Şekiliň ölçegi: {w} × {h} — {name} modeli ýüklenmedi, şonuň üçin bikubik usul ulanyldy
@@ -102,3 +105,10 @@ workspace.file_picker.permission_denied = Schist bu bukjany okamaga rugsatly dä
 workspace.recovery.recovered_title = {title} (dikeldildi)
 workspace.recovery.recovered.one = Öňki sessiýadan ýazdyrylmadyk iş dikeldildi
 workspace.recovery.recovered.other = Öňki sessiýadan {n} resminama dikeldildi
+workspace.colormgmt.vision_on = Simulýasiýa: {name}
+workspace.colormgmt.vision_off = Adaty görüş
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Doldurma modeli bolmazdan aýryldy, şonuň üçin doldurma has gödek bolup biler
+workspace.tool_jobs.document_changed = {name} resminamasy ýapylandan ýa-da çalşylandan soň tamamlandy, şonuň üçin hiç zat üýtgedilmedi

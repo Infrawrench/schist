@@ -67,6 +67,9 @@ workspace.filters.raw_too_tall = Il svilup RAW è memia aut
 workspace.filters.raw_size_changed = La grondezza dal svilup RAW è sa midada sin {w} × {h}; mantegnair la stresa actuala
 workspace.filters.raw_history = Svilup Camera Raw
 workspace.filters.raw_applied = Svilup Camera Raw applitgà (meglier demosaic)
+workspace.raw_masks.no_model = {model} n'è betg installà, perquai na po questa mascra betg vegnir identifitgada.
+workspace.raw_masks.no_sky = En quest maletg n'è vegnì chattà nagin tschiel.
+workspace.raw_masks.detect_failed = L'identificaziun da la mascra n'è betg reussida: {error}
 workspace.image_size.done = Grondezza dal maletg: {w} × {h}
 workspace.image_size.bicubic_fallback = Grondezza dal maletg: {w} × {h} — il model {name} na sa lascha betg chargiar; interpolaziun bicubica vegn duvrada
 workspace.image_size.upscaling = Engrondir cun {name}
@@ -90,3 +93,10 @@ workspace.file_picker.permission_denied = Schist n'ha betg la permissiun da lege
 workspace.recovery.recovered_title = {title} (recuperà)
 workspace.recovery.recovered.one = Lavur betg memorisada recuperada d'ina sessiun precedenta
 workspace.recovery.recovered.other = {n} documents recuperads d'ina sessiun precedenta
+workspace.colormgmt.vision_on = Simulaziun: {name}
+workspace.colormgmt.vision_off = Vesida normala
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Allontanà senza il model d'emplenida, perquai po l'emplenida esser pli grossa
+workspace.tool_jobs.document_changed = {name} è terminà suenter che ses document è vegnì serrà u midà, perquai n'è nagut vegnì midà

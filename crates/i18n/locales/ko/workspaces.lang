@@ -14,3 +14,4 @@ workspaces.invalid_name = 제어 문자를 제외하고 1–80자로 된 이름�
 workspaces.duplicate = 같은 이름의 작업 영역이 이미 있습니다.
 workspaces.limit = 작업 영역은 최대 64개까지 저장할 수 있습니다.
 workspaces.keyboard = 키보드: Alt+↑/↓로 레이아웃을 선택합니다. Ctrl/Cmd+N은 이름 편집, +S는 사본 저장, +Enter는 적용, +U는 업데이트, +R은 이름 변경, +D는 삭제, +0은 재설정입니다.
+workspaces.open_documents = 열린 문서

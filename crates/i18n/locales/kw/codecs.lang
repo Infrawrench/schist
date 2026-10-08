@@ -3,6 +3,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -30,15 +32,22 @@ codec.heif.msg.imageio_cannot_read = ImageIO ny allas redya an lestryn HEIF
 codec.heif.msg.container_empty = nyns eus delwenn y'n lestryn HEIF
 codec.heif.msg.imageio_cannot_decode = ImageIO ny allas kodhalla an delwenn gynsa
 
+codec.avif.msg.no_decoder = Ny yll versyon peureller Schist ygeri delwennow AVIF. Ygor an restren y'n app desktop, po treylyewgh hi dhe PNG kyns.
+
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = Legrys po anleunn yw restren an delwenn gans gwiskow.
 codec.layered.too_large = Bras yw an delwenn gans gwiskow dres an vent po niver a wiskow skoodhys.
 codec.layered.unsupported = An restren ma a dhevnydh nas na veu skoodhys: {feature}.
 codec.layered.export_layer = Yma yn gwisk “{name}” nasow na yll an furvas ma aga gwitha. Rasterhewgh an gwisk po sawyewgh avel PSD.
 codec.layered.export_depth = Res yw skrifen RGB 8-bit rag esperthi dhe Paint.NET. Treuswrewgh an skrifen dhe RGB 8-bit yn kynsa.
 codec.layered.export_mode = Res yw skrifen RGB rag esperthi. Treuswrewgh an skrifen dhe RGB yn kynsa.
+codec.layered.merged_layer = Delwenn junyes (ny yllir kemmeres nebes gwiskow {format})
+codec.kra.merged_color_space = Delwenn junyes (skrifen Krita yn {color_space} diskwedhys avel RGB)
 codec.pdn.feature.blend_mode = fordh kemyska PDN
 codec.pdn.feature.compression = gwaskans PDN
 codec.pdn.feature.container_version = versyon lestryn PDN
@@ -54,3 +63,8 @@ codec.xcf.feature.floating_selection = dewis ow neuvella XCF
 codec.xcf.feature.layer_effects = effeythyow gwisk XCF
 codec.xcf.feature.precision = kewerdedh XCF
 codec.xcf.feature.version = versyon XCF
+
+codec.exr.feature.deep = data down EXR
+codec.exr.feature.subsampled = kanalow isdisplegys EXR
+codec.exr.msg.no_channels = Nyns eus kanalow skeusenn y'n restren OpenEXR.
+codec.exr.msg.write_failed = Ny ylly skrifa an restren OpenEXR: {error}

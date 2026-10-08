@@ -3,6 +3,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -30,15 +32,22 @@ codec.heif.msg.imageio_cannot_read = ImageIO އަށް HEIF ކޮންޓޭނަރ ކ
 codec.heif.msg.container_empty = HEIF ކޮންޓޭނަރުގައި ތަސްވީރެއް ނެތް
 codec.heif.msg.imageio_cannot_decode = ImageIO އަށް މައި ތަސްވީރު ޑީކޯޑް ކުރެވެން ނުކެރުނު
 
+codec.avif.msg.no_decoder = Schist ގެ ބްރައުޒަރު ވާޝަނުން AVIF ތަސްވީރުތައް ހުޅުވޭކަށް ނެތެވެ. ފައިލް ޑެސްކްޓޮޕް އެޕްގައި ހުޅުވާށެވެ، ނުވަތަ ފުރަތަމަ PNG އަށް ބަދަލު ކުރާށެވެ.
+
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = ލޭޔަރުތައް ހުންނަ ތަސްވީރު ފައިލު ހަލާކުވެފައި ނުވަތަ ފުރިހަމަ ނުވެފައި ވެއެވެ.
 codec.layered.too_large = ލޭޔަރުތައް ހުންނަ ތަސްވީރުގެ ސައިޒު ނުވަތަ ލޭޔަރުތަކުގެ އަދަދު ސަޕޯޓް ކުރާ ހައްދުފަހަނަށް ގޮސްފައި ވެއެވެ.
 codec.layered.unsupported = މި ފައިލުގައި ސަޕޯޓް ނުކުރާ ސިފައެއް ބޭނުން ކުރެއެވެ: {feature}.
 codec.layered.export_layer = “{name}” ލޭޔަރުގައި މި ފޯމެޓުން ރައްކާ ކުރެވޭނެ ނޫން ސިފަތައް ހިމެނެއެވެ. ލޭޔަރ ރާސްޓަރައިޒް ކުރާށެވެ، ނުވަތަ PSD ގެ ގޮތުގައި ސޭވް ކުރާށެވެ.
 codec.layered.export_depth = Paint.NET އަށް އެކްސްޕޯޓް ކުރުމަށް 8-ބިޓް RGB ޑޮކިއުމަންޓެއް ބޭނުންވެއެވެ. ފުރަތަމަ ޑޮކިއުމަންޓް 8-ބިޓް RGB އަށް ބަދަލު ކުރާށެވެ.
 codec.layered.export_mode = އެކްސްޕޯޓް ކުރުމަށް RGB ޑޮކިއުމަންޓެއް ބޭނުންވެއެވެ. ފުރަތަމަ ޑޮކިއުމަންޓް RGB އަށް ބަދަލު ކުރާށެވެ.
+codec.layered.merged_layer = އެއްކޮށްފައިވާ ތަސްވީރު ({format} ގެ ބައެއް ލޭޔަރުތައް އިމްޕޯޓް ނުކުރެވުނު)
+codec.kra.merged_color_space = އެއްކޮށްފައިވާ ތަސްވީރު (Krita {color_space} ޑޮކިއުމަންޓް RGB ގެ ގޮތުގައި ދައްކާފައި)
 
 # Unsupported layered format features
 codec.pdn.feature.blend_mode = PDN ބްލެންޑް މޯޑް
@@ -56,3 +65,7 @@ codec.xcf.feature.floating_selection = XCF ފްލޯޓިންގ ހޮވުން
 codec.xcf.feature.layer_effects = XCF ލޭޔަރުގެ އެފެކްޓްތައް
 codec.xcf.feature.precision = XCF ދަގީގުކަން
 codec.xcf.feature.version = XCF ވާޝަން
+codec.exr.feature.deep = EXR ޑީޕް ޑޭޓާ
+codec.exr.feature.subsampled = EXR ސަބްސޭމްޕަލް ޗެނަލްތައް
+codec.exr.msg.no_channels = OpenEXR ފައިލުގައި ތަސްވީރުގެ ޗެނަލެއް ނެތް.
+codec.exr.msg.write_failed = OpenEXR ފައިލް ލިޔެވިފައެއް ނުވޭ: {error}

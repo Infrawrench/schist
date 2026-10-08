@@ -66,6 +66,9 @@ workspace.filters.raw_too_tall = RAW боловсруулалт хэт өндө�
 workspace.filters.raw_size_changed = RAW боловсруулалтын хэмжээ {w} × {h} боллоо; одоогийн давхаргыг хадгална
 workspace.filters.raw_history = Camera Raw боловсруулалт
 workspace.filters.raw_applied = Camera Raw боловсруулалтыг хэрэглэв (шилдэг демозайк)
+workspace.raw_masks.no_model = {model} суулгаагүй тул энэ маскийг илрүүлэх боломжгүй.
+workspace.raw_masks.no_sky = Энэ зурагт тэнгэр олдсонгүй.
+workspace.raw_masks.detect_failed = Маск илрүүлэлт амжилтгүй боллоо: {error}
 workspace.image_size.done = Зургийн хэмжээ: {w} × {h}
 workspace.image_size.bicubic_fallback = Зургийн хэмжээ: {w} × {h} — {name} загвар ачаалагдаагүй тул хоёр куб аргыг орлуулан хэрэглэв
 workspace.image_size.upscaling = {name}-аар томруулж байна
@@ -89,3 +92,10 @@ workspace.file_picker.permission_denied = Schist энэ хавтсыг унши�
 workspace.recovery.recovered_title = {title} (сэргээсэн)
 workspace.recovery.recovered.one = Өмнөх сешний хадгалаагүй ажлыг сэргээв
 workspace.recovery.recovered.other = Өмнөх сешнээс {n} баримтыг сэргээв
+workspace.colormgmt.vision_on = Дуураймал: {name}
+workspace.colormgmt.vision_off = Хэвийн хараа
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Нөхөх загваргүйгээр арилгасан тул нөхөлт бүдүүлэг байж магадгүй
+workspace.tool_jobs.document_changed = {name} баримт нь хаагдсан эсвэл солигдсоны дараа дууссан тул юу ч өөрчлөгдсөнгүй

@@ -52,6 +52,16 @@ pub struct RunAppItem {
     pub item: AppItem,
 }
 
+/// Toggle a viewer overlay or a colour-vision proof by id: "clipping",
+/// "focus_peaking", or "vision.<kind>" ("vision.normal",
+/// "vision.deuteranopia", …). One data-carrying action, rather than one
+/// per overlay, so a user keymap can rebind each as "view:<id>".
+#[derive(Clone, PartialEq, Debug, serde::Deserialize, gpui::Action)]
+#[action(namespace = schist, no_json)]
+pub struct ViewOverlay {
+    pub id: String,
+}
+
 /// Step to the next tool in a toolbar group (Shift + the group's key).
 #[derive(Clone, PartialEq, Debug, serde::Deserialize, gpui::Action)]
 #[action(namespace = schist, no_json)]
@@ -154,6 +164,18 @@ pub enum AppItem {
     AssignProfile,
     ConvertProfile,
     ProofColors,
+    /// View ▸ Color Vision: 0 is normal vision, then each
+    /// `schist_colormgmt::VisionDeficiency::ALL` in order.
+    VisionSimulation(u8),
+    /// The anomalous kinds' severity: 0 mild, 1 moderate, 2 strong.
+    VisionSeverity(u8),
+    /// Highlight and shadow clipping warnings, editor and gallery.
+    ToggleClipping,
+    ToggleFocusPeaking,
+    /// Index into the focus-peaking colour choices.
+    PeakingColor(u8),
+    /// Focus-peaking sensitivity: 0 low, 1 medium, 2 high.
+    PeakingSensitivity(u8),
     ToggleRulers,
     ToggleGrid,
     ToggleGuides,
@@ -246,6 +268,10 @@ pub enum AppItem {
     GalleryEditSelected,
     #[cfg_attr(target_arch = "wasm32", allow(dead_code))]
     GalleryMapFilter,
+    #[cfg_attr(target_arch = "wasm32", allow(dead_code))]
+    GalleryFindDuplicates,
+    #[cfg_attr(target_arch = "wasm32", allow(dead_code))]
+    GalleryGeotag,
     /// Open the n-th recently opened file. Desktop only — browser paths
     /// are invented per session, so there is nothing to come back to.
     #[cfg_attr(target_arch = "wasm32", allow(dead_code))]

@@ -66,6 +66,9 @@ workspace.filters.raw_too_tall = Резултатът от проявяване�
 workspace.filters.raw_size_changed = Размерът при проявяването на RAW се промени на {w} × {h}; текущият слой се запазва
 workspace.filters.raw_history = Обработка с Camera Raw
 workspace.filters.raw_applied = Обработката с Camera Raw е приложена (най-добро демозаикиране)
+workspace.raw_masks.no_model = {model} не е инсталиран, затова тази маска не може да бъде открита.
+workspace.raw_masks.no_sky = В това изображение не е открито небе.
+workspace.raw_masks.detect_failed = Неуспешно откриване на маската: {error}
 workspace.image_size.done = Размер на изображението: {w} × {h}
 workspace.image_size.bicubic_fallback = Размер на изображението: {w} × {h} — моделът {name} не можа да се зареди, затова бе използвана бикубична интерполация
 workspace.image_size.upscaling = Увеличаване чрез {name}
@@ -89,3 +92,10 @@ workspace.file_picker.permission_denied = Schist няма разрешение �
 workspace.recovery.recovered_title = {title} (възстановен)
 workspace.recovery.recovered.one = Възстановена е незапазена работа от предишна сесия
 workspace.recovery.recovered.other = Възстановени са {n} документа от предишна сесия
+workspace.colormgmt.vision_on = Симулация: {name}
+workspace.colormgmt.vision_off = Нормално зрение
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Премахнато без модела за дорисуване, така че запълването може да е по-грубо
+workspace.tool_jobs.document_changed = {name} завърши, след като документът беше затворен или сменен, така че нищо не е променено

@@ -104,6 +104,13 @@ fn call_builtin(
                     .get("dither")
                     .and_then(|v| v.as_bool())
                     .unwrap_or(ExportOptions::default().dither),
+                effort: args
+                    .get("effort")
+                    .and_then(|v| v.as_u64())
+                    .map(|e| e.clamp(1, 10) as u8)
+                    .unwrap_or(ExportOptions::default().effort),
+                exr: schist_plugin_api::ExrExportOptions::from_json(args)
+                    .map_err(|e| anyhow!(e))?,
             };
             sess.export(&path, &options)?;
             text(format!("exported {}", path.display()))

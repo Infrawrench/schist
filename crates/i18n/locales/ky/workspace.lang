@@ -66,6 +66,9 @@ workspace.filters.raw_too_tall = RAW иштетүүнүн натыйжасы ө�
 workspace.filters.raw_size_changed = RAW иштетүүнүн өлчөмү {w} × {h} болуп өзгөрдү; учурдагы катмар сакталат
 workspace.filters.raw_history = Camera Raw менен иштетүү
 workspace.filters.raw_applied = Camera Raw иштетүүсү колдонулду (эң мыкты демозаика)
+workspace.raw_masks.no_model = {model} орнотулган эмес, ошондуктан бул масканы аныктоо мүмкүн эмес.
+workspace.raw_masks.no_sky = Бул сүрөттөн асман табылган жок.
+workspace.raw_masks.detect_failed = Масканы аныктоо ишке ашкан жок: {error}
 workspace.image_size.done = Сүрөттүн өлчөмү: {w} × {h}
 workspace.image_size.bicubic_fallback = Сүрөттүн өлчөмү: {w} × {h} — {name} модели жүктөлбөгөндүктөн, ордуна бикубдук ыкма колдонулду
 workspace.image_size.upscaling = {name} менен чоңойтулууда
@@ -89,3 +92,10 @@ workspace.file_picker.permission_denied = Schist'тин бул папканы о
 workspace.recovery.recovered_title = {title} (калыбына келтирилди)
 workspace.recovery.recovered.one = Мурунку сеанстагы сакталбаган иш калыбына келтирилди
 workspace.recovery.recovered.other = Мурунку сеанстагы {n} документ калыбына келтирилди
+workspace.colormgmt.vision_on = Симуляция: {name}
+workspace.colormgmt.vision_off = Кадимки көрүү
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Толуктоо модели жок алынып салынды, ошондуктан толтуруу орой болушу мүмкүн
+workspace.tool_jobs.document_changed = {name} аяктаганда анын документи жабылган же алмаштырылган болчу, ошондуктан эч нерсе өзгөргөн жок

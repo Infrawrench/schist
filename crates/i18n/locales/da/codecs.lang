@@ -4,6 +4,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -31,15 +33,22 @@ codec.heif.msg.imageio_cannot_read = ImageIO kunne ikke læse HEIF-objektbeholde
 codec.heif.msg.container_empty = HEIF-objektbeholderen indeholder intet billede
 codec.heif.msg.imageio_cannot_decode = ImageIO kunne ikke afkode det primære billede
 
+codec.avif.msg.no_decoder = Browserversionen af Schist kan ikke åbne AVIF-billeder. Åbn filen i skrivebordsappen, eller konverter den til PNG først.
+
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = Billedfilen med lag er beskadiget eller ufuldstændig.
 codec.layered.too_large = Billedet med lag overskrider den understøttede størrelse eller det understøttede antal lag.
 codec.layered.unsupported = Denne fil bruger en funktion, der ikke understøttes: {feature}.
 codec.layered.export_layer = Laget »{name}« indeholder funktioner, som dette format ikke kan bevare. Rasteriser det, eller gem som PSD.
 codec.layered.export_depth = Eksport til Paint.NET kræver et 8-bit RGB-dokument. Konverter først dokumentet til 8-bit RGB.
 codec.layered.export_mode = Eksport kræver et RGB-dokument. Konverter først dokumentet til RGB.
+codec.layered.merged_layer = Sammenlagt billede (nogle {format}-lag kunne ikke importeres)
+codec.kra.merged_color_space = Sammenlagt billede (Krita-dokument i {color_space} vist som RGB)
 codec.pdn.feature.blend_mode = PDN-blandingstilstand
 codec.pdn.feature.compression = PDN-komprimering
 codec.pdn.feature.container_version = PDN-containerversion
@@ -55,3 +64,8 @@ codec.xcf.feature.floating_selection = flydende XCF-markering
 codec.xcf.feature.layer_effects = XCF-lageffekter
 codec.xcf.feature.precision = XCF-præcision
 codec.xcf.feature.version = XCF-version
+
+codec.exr.feature.deep = EXR-dybdedata
+codec.exr.feature.subsampled = EXR-undersamplede kanaler
+codec.exr.msg.no_channels = OpenEXR-filen indeholder ingen billedkanaler.
+codec.exr.msg.write_failed = Kunne ikke skrive OpenEXR-filen: {error}

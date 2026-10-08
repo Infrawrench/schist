@@ -236,6 +236,7 @@ common.filetype.jpeg = JPEG rikch'ay
 common.filetype.webp = WebP rikch'ay
 common.filetype.tiff = TIFF rikch'ay
 common.filetype.heic = HEIC rikch'ay
+common.filetype.exr = OpenEXR rikch'ay
 common.filetype.raw = Cámarap RAW rikch'aynin
 common.filetype.affinity = Affinity qillqa khipu
 common.filetype.image = Rikch'ay

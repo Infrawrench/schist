@@ -35,3 +35,7 @@ workspace.history.move_layers = Hamisha Safu
 workspace.history.layer_opacity = Uwazi wa Safu
 workspace.history.delete_note = Futa Dokezo
 workspace.history.edit_note = Hariri Dokezo
+workspace.canvas.clipping_on = Maonyo ya kukatwa kwa mwanga yamewashwa
+workspace.canvas.clipping_off = Maonyo ya kukatwa kwa mwanga yamezimwa
+workspace.canvas.peaking_on = Focus peaking imewashwa
+workspace.canvas.peaking_off = Focus peaking imezimwa

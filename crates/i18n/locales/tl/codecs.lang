@@ -3,6 +3,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Hilaw na Larawan ng Kamera
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -30,15 +32,23 @@ codec.heif.msg.imageio_cannot_read = Hindi mabasa ng ImageIO ang HEIF container
 codec.heif.msg.container_empty = walang larawan ang HEIF container
 codec.heif.msg.imageio_cannot_decode = Hindi ma-decode ng ImageIO ang pangunahing larawan
 
+# AVIF in the browser build, which has no AV1 decoder (it still exports AVIF).
+codec.avif.msg.no_decoder = Hindi kayang buksan ng browser version ng Schist ang mga AVIF na larawan. Buksan ang file sa desktop app, o i-convert muna ito sa PNG.
+
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = Sira o hindi kumpleto ang file ng larawang may mga layer.
 codec.layered.too_large = Lampas sa sinusuportahang limitasyon ang laki ng larawan o dami ng mga layer.
 codec.layered.unsupported = Gumagamit ang file na ito ng feature na hindi sinusuportahan: {feature}.
 codec.layered.export_layer = May mga feature ang layer na “{name}” na hindi mapapanatili ng format na ito. I-rasterize ito o i-save bilang PSD.
 codec.layered.export_depth = Kailangan ng 8-bit RGB na dokumento para mag-export sa Paint.NET. I-convert muna ang dokumento sa 8-bit RGB.
 codec.layered.export_mode = Kailangan ng RGB na dokumento para mag-export. I-convert muna ang dokumento sa RGB.
+codec.layered.merged_layer = Pinagsamang larawan (hindi na-import ang ilang layer ng {format})
+codec.kra.merged_color_space = Pinagsamang larawan (ipinapakita bilang RGB ang dokumentong Krita na {color_space})
 
 # Unsupported layered-format features.
 codec.pdn.feature.blend_mode = mode ng paghahalo ng PDN
@@ -56,3 +66,8 @@ codec.xcf.feature.floating_selection = lumulutang na seleksiyon ng XCF
 codec.xcf.feature.layer_effects = mga epekto ng layer ng XCF
 codec.xcf.feature.precision = presisyon ng XCF
 codec.xcf.feature.version = bersiyon ng XCF
+
+codec.exr.feature.deep = deep data ng EXR
+codec.exr.feature.subsampled = mga subsampled na channel ng EXR
+codec.exr.msg.no_channels = Walang image channel ang OpenEXR file.
+codec.exr.msg.write_failed = Hindi naisulat ang OpenEXR file: {error}

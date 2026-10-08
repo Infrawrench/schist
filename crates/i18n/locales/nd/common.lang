@@ -237,6 +237,7 @@ common.filetype.jpeg = Isithombe se-JPEG
 common.filetype.webp = Isithombe se-WebP
 common.filetype.tiff = Isithombe se-TIFF
 common.filetype.heic = Isithombe se-HEIC
+common.filetype.exr = Isithombe se-OpenEXR
 common.filetype.raw = Isithombe Sefayela Lekhamera Esingakalungiswa
 common.filetype.affinity = Idokhumenti ye-Affinity
 common.filetype.image = Isithombe

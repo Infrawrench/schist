@@ -83,6 +83,9 @@ workspace.filters.raw_too_tall = S'isvilupu RAW est tropu artu
 workspace.filters.raw_size_changed = Sa mannària de s'isvilupu RAW est mudada a {w} × {h}; est mantènnidu s'istratu atuale
 workspace.filters.raw_history = Isvilupu Camera Raw
 workspace.filters.raw_applied = Isvilupu Camera Raw aplicadu (demosaicizatzione mègius)
+workspace.raw_masks.no_model = {model} no est installadu, duncas custa màschera non podet èssere rilevada.
+workspace.raw_masks.no_sky = Non s'est agatadu perunu chelu in custa immàgine.
+workspace.raw_masks.detect_failed = Rilevamentu de sa màschera faddidu: {error}
 
 # Mannària de s'immàgine cun ampliadore neurale
 workspace.image_size.done = Mannària de s'immàgine: {w} × {h}
@@ -114,3 +117,10 @@ workspace.file_picker.permission_denied = Schist no tenet su permissu de lègher
 workspace.recovery.recovered_title = {title} (recuperadu)
 workspace.recovery.recovered.one = Recuperadu su traballu non sarvadu dae una sessione pretzedente
 workspace.recovery.recovered.other = Recuperados {n} documentos dae una sessione pretzedente
+workspace.colormgmt.vision_on = Simulatzione: {name}
+workspace.colormgmt.vision_off = Visione normale
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Bogadu sena su modellu de reconstrutzione, duncas su prenimentu podet èssere prus grussèri
+workspace.tool_jobs.document_changed = {name} est acabbadu a pustis chi su documentu suo est istadu serradu o cambiadu, duncas no est istadu mudadu nudda

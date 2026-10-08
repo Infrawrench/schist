@@ -74,6 +74,9 @@ workspace.filters.raw_too_tall = RAW өңдеуінің биіктігі тым 
 workspace.filters.raw_size_changed = RAW өңдеуінің өлшемі {w} × {h} болып өзгерді; ағымдағы қабат сақталады
 workspace.filters.raw_history = Camera Raw өңдеуі
 workspace.filters.raw_applied = Camera Raw өңдеуі қолданылды (ең сапалы демозаика)
+workspace.raw_masks.no_model = {model} орнатылмаған, сондықтан бұл масканы анықтау мүмкін емес.
+workspace.raw_masks.no_sky = Бұл суреттен аспан табылмады.
+workspace.raw_masks.detect_failed = Масканы анықтау сәтсіз аяқталды: {error}
 
 workspace.image_size.done = Кескін өлшемі: {w} × {h}
 workspace.image_size.bicubic_fallback = Кескін өлшемі: {w} × {h} — {name} моделі жүктелмегендіктен, бикубтық әдіс қолданылды
@@ -101,3 +104,10 @@ workspace.file_picker.permission_denied = Schist қолданбасында бұ
 workspace.recovery.recovered_title = {title} (қалпына келтірілген)
 workspace.recovery.recovered.one = Алдыңғы сеанстағы сақталмаған жұмыс қалпына келтірілді
 workspace.recovery.recovered.other = Алдыңғы сеанстағы {n} құжат қалпына келтірілді
+workspace.colormgmt.vision_on = Симуляция: {name}
+workspace.colormgmt.vision_off = Қалыпты көру
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Толтыру моделінсіз жойылды, сондықтан толтыру дөрекілеу болуы мүмкін
+workspace.tool_jobs.document_changed = {name} құжаты жабылғаннан немесе ауыстырылғаннан кейін аяқталды, сондықтан ештеңе өзгертілмеді

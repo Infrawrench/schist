@@ -66,6 +66,9 @@ workspace.filters.raw_too_tall = ผลการพัฒนา RAW สูงเ
 workspace.filters.raw_size_changed = ขนาดผลการพัฒนา RAW เปลี่ยนเป็น {w} × {h} จึงคงเลเยอร์ปัจจุบันไว้
 workspace.filters.raw_history = การพัฒนา Camera Raw
 workspace.filters.raw_applied = ใช้การพัฒนา Camera Raw แล้ว (ดีโมเสกที่ดีที่สุด)
+workspace.raw_masks.no_model = ไม่ได้ติดตั้ง {model} จึงไม่สามารถตรวจหามาสก์นี้ได้
+workspace.raw_masks.no_sky = ไม่พบท้องฟ้าในภาพนี้
+workspace.raw_masks.detect_failed = การตรวจหามาสก์ล้มเหลว: {error}
 workspace.image_size.done = ขนาดภาพ: {w} × {h}
 workspace.image_size.bicubic_fallback = ขนาดภาพ: {w} × {h} — โหลดโมเดล {name} ไม่ได้ จึงใช้ไบคิวบิกแทน
 workspace.image_size.upscaling = กำลังเพิ่มความละเอียดด้วย {name}
@@ -87,3 +90,10 @@ workspace.file_picker.downloads = ดาวน์โหลด
 workspace.file_picker.permission_denied = Schist ไม่มีสิทธิ์อ่านโฟลเดอร์นี้
 workspace.recovery.recovered_title = {title} (กู้คืนแล้ว)
 workspace.recovery.recovered.other = กู้คืนงานที่ยังไม่ได้บันทึก {n} เอกสารจากเซสชันก่อนหน้าแล้ว
+workspace.colormgmt.vision_on = จำลอง: {name}
+workspace.colormgmt.vision_off = การมองเห็นปกติ
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = ลบโดยไม่มีโมเดลเติมภาพ ผลการเติมจึงอาจหยาบกว่าปกติ
+workspace.tool_jobs.document_changed = {name} ทำงานเสร็จหลังจากเอกสารถูกปิดหรือสลับไปแล้ว จึงไม่มีการเปลี่ยนแปลงใด ๆ

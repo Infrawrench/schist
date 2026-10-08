@@ -4,6 +4,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Crud de cámera
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -31,15 +33,23 @@ codec.heif.msg.imageio_cannot_read = ImageIO ne posset leer li contenitor HEIF
 codec.heif.msg.container_empty = li contenitor HEIF ne have images
 codec.heif.msg.imageio_cannot_decode = ImageIO ne posset decodificar li primari image
 
+# AVIF
+codec.avif.msg.no_decoder = Li version de navigator de Schist ne posse aperter images AVIF. Aperte li file in li desktop-aplication, o converte it a PNG in prim.
+
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = Li file de image con strates es damageat o íncomplet.
 codec.layered.too_large = Li image con strates excede li supportat dimension o númere de strates.
 codec.layered.unsupported = Ti file usa un ínsupportat function: {feature}.
 codec.layered.export_layer = Li strate «{name}» contene functiones queles ti formate ne posse preservar. Rasterisa it o garda quam PSD.
 codec.layered.export_depth = Export a Paint.NET besona un document RGB de 8 bits. In prim converte li document a RGB de 8 bits.
 codec.layered.export_mode = Export besona un document RGB. In prim converte li document a RGB.
+codec.layered.merged_layer = Image fusionat (alcun strates de {format} ne posset esser importat)
+codec.kra.merged_color_space = Image fusionat (document de Krita in {color_space} monstrat quam RGB)
 
 # Unsupported layered format features
 codec.pdn.feature.blend_mode = Mode de mixtion PDN
@@ -57,3 +67,8 @@ codec.xcf.feature.floating_selection = Flottant selection XCF
 codec.xcf.feature.layer_effects = Efectes de strate XCF
 codec.xcf.feature.precision = Precision XCF
 codec.xcf.feature.version = Version XCF
+
+codec.exr.feature.deep = data profund de EXR
+codec.exr.feature.subsampled = canales subsampled de EXR
+codec.exr.msg.no_channels = Li file OpenEXR ne contene null canal de image.
+codec.exr.msg.write_failed = Ne esset possibil scrir li file OpenEXR: {error}

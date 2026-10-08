@@ -66,6 +66,9 @@ workspace.filters.raw_too_tall = RAW བཟོ་སྦྱོར་མཐོ་�
 workspace.filters.raw_size_changed = RAW བཟོ་སྦྱོར་ཚད་ {w} × {h} ལུ་སྒྱུར་ཡོད། ད་ལྟོའི་བང་རིམ་བཞག་དོ།
 workspace.filters.raw_history = Camera Raw བཟོ་སྦྱོར།
 workspace.filters.raw_applied = Camera Raw བཟོ་སྦྱོར་འཇུག་ཡོད། (ཌི་མོ་སེག་ལེགས་ཤོས།)
+workspace.raw_masks.no_model = {model} གཞི་བཙུགས་མ་འབད་བས་ གདོང་ཁེབས་འདི་ཤེས་རྟོགས་འབད་མི་ཚུགས།
+workspace.raw_masks.no_sky = པར་འདི་ནང་ནམ་མཁའ་མ་ཐོབ།
+workspace.raw_masks.detect_failed = གདོང་ཁེབས་ཤེས་རྟོགས་འཐུས་ཤོར་བྱུང་ཡོད: {error}
 workspace.image_size.done = པར་གྱི་ཚད།: {w} × {h}
 workspace.image_size.bicubic_fallback = པར་གྱི་ཚད།: {w} × {h} — {name} དཔེ་གཟུགས་མངོན་གསལ་མ་བཏུབ་ལས་ bicubic གིས་ཚབ་བཙུགས་ཅི།
 workspace.image_size.upscaling = {name} གིས་ཚད་ཡར་སེང་འབད་དོ།
@@ -87,3 +90,10 @@ workspace.file_picker.downloads = ཕབ་ལེན་ཚུ།
 workspace.file_picker.permission_denied = Schist ལུ་སྣོད་འཛིན་འདི་ལྷག་ནིའི་གནང་བ་མེད།
 workspace.recovery.recovered_title = {title} (སླར་གསོ་འབད་ཡོད།)
 workspace.recovery.recovered.other = ཧེ་མའི་ལཱ་ཐུན་ལས་མ་སྲུངས་པའི་ཡིག་ཆ་གྱངས་ཁ་ {n} སླར་གསོ་འབད་ཡི།
+workspace.colormgmt.vision_on = དཔེ་ལྟ: {name}
+workspace.colormgmt.vision_off = སྤྱིར་བཏང་མཐོང་སྣང་།
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = བཀང་ནིའི་དཔེ་གཞི་མེད་པར་བཏོན་ཡོདཔ་ལས་ བཀང་ནི་འདི་རྩུབ་པོ་འོང་ནི་མས།
+workspace.tool_jobs.document_changed = ཡིག་ཆ་ཁ་བསྡམས་ཡང་ན་སོར་བའི་ཤུལ་ལས་ {name} མཇུག་བསྡུ་ཡོདཔ་ལས་ ག་ནི་ཡང་མ་སོར།

@@ -66,6 +66,9 @@ workspace.filters.raw_too_tall = RAW راۋاجلاندۇرۇش نەتىجىسى
 workspace.filters.raw_size_changed = RAW راۋاجلاندۇرۇش چوڭلۇقى {w} × {h} غا ئۆزگەردى؛ نۆۋەتتىكى قەۋەت ساقلىنىدۇ
 workspace.filters.raw_history = Camera Raw نى راۋاجلاندۇرۇش
 workspace.filters.raw_applied = Camera Raw راۋاجلاندۇرۇش قوللىنىلدى (ئەڭ ياخشى demosaic)
+workspace.raw_masks.no_model = {model} ئورنىتىلمىغان، شۇڭا بۇ ماسكىنى بايقىغىلى بولمايدۇ.
+workspace.raw_masks.no_sky = بۇ رەسىمدە ئاسمان تېپىلمىدى.
+workspace.raw_masks.detect_failed = ماسكا بايقاش مەغلۇپ بولدى: {error}
 workspace.image_size.done = سۈرەت چوڭلۇقى: {w} × {h}
 workspace.image_size.bicubic_fallback = سۈرەت چوڭلۇقى: {w} × {h} — {name} مودېلى يۈكلەنمىدى، شۇڭا قوش كۇبلىق ئۇسۇل ئۇنىڭ ئورنىنى باستى
 workspace.image_size.upscaling = {name} بىلەن چوڭايتىلىۋاتىدۇ
@@ -89,3 +92,10 @@ workspace.file_picker.permission_denied = Schist نىڭ بۇ قىسقۇچنى ئ
 workspace.recovery.recovered_title = {title} (ئەسلىگە كەلتۈرۈلگەن)
 workspace.recovery.recovered.one = ئالدىنقى سېيىستىكى ساقلانمىغان خىزمەت ئەسلىگە كەلتۈرۈلدى
 workspace.recovery.recovered.other = ئالدىنقى سېيىستىن {n} ھۆججەت ئەسلىگە كەلتۈرۈلدى
+workspace.colormgmt.vision_on = تەقلىد: {name}
+workspace.colormgmt.vision_off = نورمال كۆرۈش
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = تولدۇرۇش مودېلىسىز ئۆچۈرۈلدى، شۇڭا تولدۇرۇش سەل قوپال بولۇشى مۇمكىن
+workspace.tool_jobs.document_changed = {name} ھۆججىتى يېپىلغاندىن ياكى ئالماشتۇرۇلغاندىن كېيىن تاماملاندى، شۇڭا ھېچنېمە ئۆزگەرتىلمىدى

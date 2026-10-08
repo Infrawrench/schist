@@ -3,6 +3,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -30,15 +32,22 @@ codec.heif.msg.imageio_cannot_read = ImageIO HEIF କଣ୍ଟେନର୍ ପ�
 codec.heif.msg.container_empty = HEIF କଣ୍ଟେନର୍‌ରେ କୌଣସି ଛବି ନାହିଁ
 codec.heif.msg.imageio_cannot_decode = ImageIO ମୁଖ୍ୟ ଛବିକୁ ଡିକୋଡ୍ କରିପାରିଲା ନାହିଁ
 
+codec.avif.msg.no_decoder = Schist ର ବ୍ରାଉଜର୍ ସଂସ୍କରଣ AVIF ଛବି ଖୋଲିପାରିବ ନାହିଁ। ଫାଇଲ୍‌ଟିକୁ ଡେସ୍କଟପ୍ ଆପ୍‌ରେ ଖୋଲନ୍ତୁ, କିମ୍ବା ପ୍ରଥମେ ଏହାକୁ PNG ରେ ରୂପାନ୍ତର କରନ୍ତୁ।
+
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = ସ୍ତରଯୁକ୍ତ ଛବି ଫାଇଲ୍‌ଟି କ୍ଷତିଗ୍ରସ୍ତ କିମ୍ବା ଅସମ୍ପୂର୍ଣ୍ଣ।
 codec.layered.too_large = ସ୍ତରଯୁକ୍ତ ଛବିର ଆକାର କିମ୍ବା ସ୍ତର ସଂଖ୍ୟା ସମର୍ଥିତ ସୀମା ଅତିକ୍ରମ କରିଛି।
 codec.layered.unsupported = ଏହି ଫାଇଲ୍ ଏକ ଅସମର୍ଥିତ ବୈଶିଷ୍ଟ୍ୟ ବ୍ୟବହାର କରୁଛି: {feature}।
 codec.layered.export_layer = “{name}” ସ୍ତରରେ ଏପରି ବୈଶିଷ୍ଟ୍ୟ ଅଛି ଯାହା ଏହି ଫର୍ମାଟ୍ ସଂରକ୍ଷଣ କରିପାରିବ ନାହିଁ। ଏହାକୁ ରାଷ୍ଟରାଇଜ୍ କରନ୍ତୁ କିମ୍ବା PSD ଭାବେ ସଞ୍ଚୟ କରନ୍ତୁ।
 codec.layered.export_depth = Paint.NET ରପ୍ତାନି ପାଇଁ 8-ବିଟ୍ RGB ଡକ୍ୟୁମେଣ୍ଟ ଆବଶ୍ୟକ। ପ୍ରଥମେ ଡକ୍ୟୁମେଣ୍ଟକୁ 8-ବିଟ୍ RGBରେ ରୂପାନ୍ତର କରନ୍ତୁ।
 codec.layered.export_mode = ରପ୍ତାନି ପାଇଁ RGB ଡକ୍ୟୁମେଣ୍ଟ ଆବଶ୍ୟକ। ପ୍ରଥମେ ଡକ୍ୟୁମେଣ୍ଟକୁ RGBରେ ରୂପାନ୍ତର କରନ୍ତୁ।
+codec.layered.merged_layer = ମିଶ୍ରିତ ଛବି (କିଛି {format} ସ୍ତର ଆମଦାନି କରାଯାଇପାରିଲା ନାହିଁ)
+codec.kra.merged_color_space = ମିଶ୍ରିତ ଛବି (Krita {color_space} ଡକ୍ୟୁମେଣ୍ଟ RGB ଭାବରେ ଦେଖାଯାଇଛି)
 
 # Unsupported layered-format features.
 codec.pdn.feature.blend_mode = PDN ବ୍ଲେଣ୍ଡ ମୋଡ୍
@@ -56,3 +65,8 @@ codec.xcf.feature.floating_selection = XCF ଭାସମାନ ଚୟନ
 codec.xcf.feature.layer_effects = XCF ସ୍ତର ପ୍ରଭାବ
 codec.xcf.feature.precision = XCF ସଠିକତା
 codec.xcf.feature.version = XCF ସଂସ୍କରଣ
+
+codec.exr.feature.deep = EXR ଗଭୀର ତଥ୍ୟ
+codec.exr.feature.subsampled = EXR ଉପନମୂନା ଚ୍ୟାନେଲ୍
+codec.exr.msg.no_channels = OpenEXR ଫାଇଲ୍‌ରେ କୌଣସି ଛବି ଚ୍ୟାନେଲ୍ ନାହିଁ।
+codec.exr.msg.write_failed = OpenEXR ଫାଇଲ୍ ଲେଖାଯାଇପାରିଲା ନାହିଁ: {error}

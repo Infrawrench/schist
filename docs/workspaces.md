@@ -6,11 +6,34 @@ Retouching, to Design, or to a layout you saved. These entries also appear in Sp
 The submenu also offers Save As, Update, Rename, Delete and Reset commands;
 each opens the manager with that operation as its Enter action, so its target
 and effect can be reviewed first.
-The starter layouts emphasize color, navigator/history, and layers/history.
+Painting emphasizes color, and Retouching emphasizes layers and history.
+Photo Development uses an Aperture-inspired layout: a left inspector with
+Photos, Info and Adjustments tabs, a charcoal viewer, and a bottom filmstrip
+of open documents. Grid, Photos + Preview and Preview buttons switch between
+the browser, split view and viewer layouts.
+Click a thumbnail to edit that document; double-click a browser thumbnail to
+return to the split view. Middle-click closes it through the normal save prompt.
+The inspector provides an RGB thumbnail histogram, adjustment-layer commands,
+the existing layers/history controls, and photo metadata. Adjustments open
+the existing parameter dialogs. The tool-options bar starts hidden in Photo
+Development. Choosing an editing tool reveals its controls; Hand and Zoom
+hide them again, and Grid keeps them hidden.
+
+In Photos, **Buckets** lists the gallery's existing local and Schist Cloud
+buckets. Smart buckets keep their rules and star marker. Clicking a bucket
+opens that bucket in the gallery, where its membership and rules are managed;
+opening a photo for editing returns to the photo workspace.
+**Open Documents** lists the same open editor tabs as the filmstrip, in the
+same order. Each entry is one editable document with its own layers, history
+and unsaved state. Opening a bucket does not open all its photos as documents.
+Closing a document does not remove its photo from a bucket. Gallery photos
+retain their original-file association and save edits to their existing
+sidecar; ordinary opened files retain the normal save behavior.
+
 The Design starter is listed only when the `design-mode` feature is on, and
 choosing it switches the mode as well as the dock, because a layout with a
 Pages panel in a photo editor is a blank dock section.
-respectively; they do not select tools or modify image processing settings.
+The starters do not select tools or modify image processing settings.
 
 Open **Manage Workspaces…** to edit the current dock and save it:
 
@@ -27,8 +50,10 @@ Open **Manage Workspaces…** to edit the current dock and save it:
   Reapply a saved preset to discard unsaved changes to that layout.
 
 The manager also controls dock visibility, individual panels and dock width.
-Reorder panels using their headers and resize them using their lower edges in
-the editor, then save or update a preset. The color panel can show Info or
+Photo Development keeps its inspector tabs fixed; its Layers and History
+sections can be hidden in the manager. In Painting and Retouching, reorder
+panels using their headers and resize them using their lower edges, then save
+or update a preset. The color panel can show Info or
 Character depending on the document/tool; that contextual tab choice is not
 part of a preset. The Notes panel still needs notes in the current document.
 
@@ -39,7 +64,8 @@ Keyboard controls in the manager: **Alt+Up/Down** selects a saved layout;
 Layout changes are immediate, including when the dialog is closed with Escape.
 
 A preset contains panel order, individual visibility, saved heights, optional
-width, dock visibility and editor AI sidebar visibility. It does not capture
+width, dock visibility, editor AI sidebar visibility, and the photo workspace's
+inspector tab and browser/split/viewer choice. It does not capture
 theme, telemetry, update preferences, author information, AI credentials or
 models, gallery settings, canvas overlays, documents, or undo history.
 On compact windows the existing panel/canvas page toggle remains in charge;
@@ -64,3 +90,21 @@ Workspace strings are available in all 150 supported locales, with English
 source and AI translations for the other 149 locales; human review is pending.
 Norwegian and Serbo-Croatian follow the shared Bokmål and Croatian catalogs.
 Existing common button/panel labels stay localized.
+
+## Photo Development screenshots
+
+The Photos inspector separates Buckets from Open Documents. The tool-options bar starts hidden:
+
+![Photo Development showing Buckets and Open Documents](https://agent-assets.infrawrench.com/schist/photo-workspace/buckets-20261003-ee3fa102/photos.png)
+
+The light theme with the Adjustments inspector, charcoal viewer and document filmstrip:
+
+![Photo Development with the Adjustments inspector and filmstrip](https://agent-assets.infrawrench.com/schist/photo-workspace/albums-20261003-b62fe5e3/split-view.png)
+
+The Info inspector shows the document preview, zoom and image dimensions:
+
+![Photo Development with the Info inspector](https://agent-assets.infrawrench.com/schist/photo-workspace/albums-20261003-b62fe5e3/info-inspector.png)
+
+Choosing Exposure opens the existing adjustment controls:
+
+![Exposure adjustment controls in Photo Development](https://agent-assets.infrawrench.com/schist/photo-workspace/albums-20261003-b62fe5e3/exposure-controls.png)

@@ -10,6 +10,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -49,15 +51,23 @@ codec.heif.msg.imageio_cannot_read = ImageIO-এ HEIF কণ্টেইনা�
 codec.heif.msg.container_empty = HEIF কণ্টেইনাৰত কোনো ছবি নাই
 codec.heif.msg.imageio_cannot_decode = ImageIO-এ মূল ছবি ডিক'ড কৰিব নোৱাৰিলে
 
+# AVIF in the browser build, which has no AV1 decoder (it still exports AVIF).
+codec.avif.msg.no_decoder = Schist-ৰ ব্ৰাউজাৰ সংস্কৰণে AVIF ছবি খুলিব নোৱাৰে। ফাইলটো ডেস্কটপ এপত খোলক, বা প্ৰথমে PNG-লৈ ৰূপান্তৰ কৰক।
+
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = স্তৰযুক্ত ছবিৰ ফাইলটো ক্ষতিগ্ৰস্ত বা অসম্পূৰ্ণ।
 codec.layered.too_large = স্তৰযুক্ত ছবিখনৰ আকাৰ বা স্তৰৰ সংখ্যা সমৰ্থিত সীমাতকৈ বেছি।
 codec.layered.unsupported = এই ফাইলটোৱে এটা অসমৰ্থিত সুবিধা ব্যৱহাৰ কৰিছে: {feature}।
 codec.layered.export_layer = “{name}” স্তৰত এনে সুবিধা আছে যিবোৰ এই বিন্যাসে সংৰক্ষণ কৰিব নোৱাৰে। স্তৰটো ৰেষ্টাৰাইজ কৰক বা PSD হিচাপে সংৰক্ষণ কৰক।
 codec.layered.export_depth = Paint.NET হিচাপে ৰপ্তানি কৰিবলৈ 8-বিট RGB দস্তাবেজৰ প্ৰয়োজন। প্ৰথমে দস্তাবেজটো 8-বিট RGB লৈ ৰূপান্তৰ কৰক।
 codec.layered.export_mode = ৰপ্তানি কৰিবলৈ RGB দস্তাবেজৰ প্ৰয়োজন। প্ৰথমে দস্তাবেজটো RGB লৈ ৰূপান্তৰ কৰক।
+codec.layered.merged_layer = একত্ৰিত ছবি ({format}ৰ কিছুমান স্তৰ আমদানি কৰিব নোৱাৰি)
+codec.kra.merged_color_space = একত্ৰিত ছবি (Krita {color_space} দস্তাবেজ RGB হিচাপে দেখুওৱা হৈছে)
 
 # Unsupported layered format features
 codec.pdn.feature.blend_mode = PDN মিশ্ৰণ মোড
@@ -75,3 +85,8 @@ codec.xcf.feature.floating_selection = XCF ভাসমান নিৰ্বা
 codec.xcf.feature.layer_effects = XCF স্তৰৰ প্ৰভাৱ
 codec.xcf.feature.precision = XCF সূক্ষ্মতা
 codec.xcf.feature.version = XCF সংস্কৰণ
+
+codec.exr.feature.deep = EXR গভীৰ তথ্য
+codec.exr.feature.subsampled = EXR উপনমুনাকৃত চেনেল
+codec.exr.msg.no_channels = OpenEXR ফাইলটোত কোনো ছবিৰ চেনেল নাই।
+codec.exr.msg.write_failed = OpenEXR ফাইলটো লিখিব নোৱাৰি: {error}

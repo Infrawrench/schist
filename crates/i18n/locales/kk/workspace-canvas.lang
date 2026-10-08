@@ -36,3 +36,7 @@ workspace.history.move_layers = Қабаттарды жылжыту
 workspace.history.layer_opacity = Қабат мөлдірсіздігі
 workspace.history.delete_note = Ескертпені жою
 workspace.history.edit_note = Ескертпені өңдеу
+workspace.canvas.clipping_on = Кесу ескертулері қосулы
+workspace.canvas.clipping_off = Кесу ескертулері өшірулі
+workspace.canvas.peaking_on = Фокус пикингі қосулы
+workspace.canvas.peaking_off = Фокус пикингі өшірулі

@@ -4,6 +4,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Rámynd
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -31,15 +33,22 @@ codec.heif.msg.imageio_cannot_read = ImageIO fekk ikki lisið HEIF-ílatið
 codec.heif.msg.container_empty = HEIF-ílatið hevur onga mynd
 codec.heif.msg.imageio_cannot_decode = ImageIO fekk ikki avkodað høvuðsmyndina
 
+codec.avif.msg.no_decoder = Kagaútgávan av Schist kann ikki lata AVIF-myndir upp. Lat fíluna upp í telduforritinum, ella umskapa hana til PNG fyrst.
+
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = Myndafílan við løgum er skadd ella ófullfíggjað.
 codec.layered.too_large = Myndin við løgum fer upp um stuðlaða stødd ella tal av løgum.
 codec.layered.unsupported = Henda fílan brúkar ein eginleika, sum ikki er stuðlaður: {feature}.
 codec.layered.export_layer = Lagið „{name}“ inniheldur eginleikar, sum hetta sniðið ikki kann varðveita. Rastera tað ella goym sum PSD.
 codec.layered.export_depth = Útflutningur til Paint.NET krevur eitt 8-bita RGB-skjal. Ger fyrst skjalið um til 8-bita RGB.
 codec.layered.export_mode = Útflutningur krevur eitt RGB-skjal. Ger fyrst skjalið um til RGB.
+codec.layered.merged_layer = Samanløgd mynd (summi {format}-løg kundu ikki innflytast)
+codec.kra.merged_color_space = Samanløgd mynd (Krita {color_space}-skjal víst sum RGB)
 codec.pdn.feature.blend_mode = PDN-blandingarháttur
 codec.pdn.feature.compression = PDN-samanpressing
 codec.pdn.feature.container_version = PDN-ílatútgáva
@@ -55,3 +64,8 @@ codec.xcf.feature.floating_selection = flótandi XCF-úrval
 codec.xcf.feature.layer_effects = XCF-lagávirkanir
 codec.xcf.feature.precision = XCF-neyvleiki
 codec.xcf.feature.version = XCF-útgáva
+
+codec.exr.feature.deep = EXR djúpar dátur
+codec.exr.feature.subsampled = EXR undirsamplaðar rásir
+codec.exr.msg.no_channels = OpenEXR-fílan inniheldur ongar myndarásir.
+codec.exr.msg.write_failed = Ikki bar til at skriva OpenEXR-fílu: {error}

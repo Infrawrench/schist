@@ -14,3 +14,4 @@ workspaces.invalid_name = नियन्त्रणवर्णैः रह�
 workspaces.duplicate = अनेन नाम्ना कार्यस्थानं पूर्वमेव अस्ति।
 workspaces.limit = अधिकतमं 64 कार्यस्थानानि रक्षितुं शक्नुवन्ति।
 workspaces.keyboard = कुञ्जीपटलम्: Alt+↑/↓ विन्यासं चिनोति। Ctrl/Cmd+N तस्य नाम सम्पादयति; +S प्रतिलिपिं रक्षति; +Enter प्रयोजयति; +U अद्यतनीकरोति; +R पुनर्नामयति; +D विलोपयति; +0 पुनः स्थापयति।
+workspaces.open_documents = उद्घाटितप्रलेखाः

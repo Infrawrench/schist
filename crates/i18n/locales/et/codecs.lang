@@ -3,6 +3,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -30,15 +32,22 @@ codec.heif.msg.imageio_cannot_read = ImageIO ei suutnud HEIF-konteinerit lugeda
 codec.heif.msg.container_empty = HEIF-konteineris pole pilti
 codec.heif.msg.imageio_cannot_decode = ImageIO ei suutnud põhipilti dekodeerida
 
+codec.avif.msg.no_decoder = Schisti brauseriversioon ei saa AVIF-pilte avada. Avage fail töölauarakenduses või teisendage see esmalt PNG-vormingusse.
+
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = Kihtidega pildifail on kahjustatud või puudulik.
 codec.layered.too_large = Kihtidega pildi suurus või kihtide arv ületab toetatud piiri.
 codec.layered.unsupported = See fail kasutab toetamata võimalust: {feature}.
 codec.layered.export_layer = Kiht „{name}“ sisaldab omadusi, mida see vorming ei saa säilitada. Rasterda see või salvesta PSD-vormingus.
 codec.layered.export_depth = Paint.NET-vormingusse eksportimiseks on vaja 8-bitist RGB-dokumenti. Teisenda dokument esmalt 8-bitiseks RGB-ks.
 codec.layered.export_mode = Eksportimiseks on vaja RGB-dokumenti. Teisenda dokument esmalt RGB-ks.
+codec.layered.merged_layer = Ühendatud pilt (mõnda {format} kihti ei saanud importida)
+codec.kra.merged_color_space = Ühendatud pilt (Krita {color_space} dokument kuvatakse RGB-na)
 codec.pdn.feature.blend_mode = PDN segamisrežiim
 codec.pdn.feature.compression = PDN tihendus
 codec.pdn.feature.container_version = PDN konteineri versioon
@@ -54,3 +63,8 @@ codec.xcf.feature.floating_selection = XCF ujuvalik
 codec.xcf.feature.layer_effects = XCF kihiefektid
 codec.xcf.feature.precision = XCF täpsus
 codec.xcf.feature.version = XCF versioon
+
+codec.exr.feature.deep = EXR-i sügavusandmed
+codec.exr.feature.subsampled = EXR-i alamdiskreeditud kanalid
+codec.exr.msg.no_channels = OpenEXR-faili ei sisalda ühtegi pildikanalit.
+codec.exr.msg.write_failed = OpenEXR-faili kirjutamine ebaõnnestus: {error}

@@ -14,3 +14,4 @@ workspaces.invalid_name = Geben Sie einen Namen mit 1–80 Zeichen ohne Steuerze
 workspaces.duplicate = Ein Arbeitsbereich mit diesem Namen existiert bereits.
 workspaces.limit = Sie können bis zu 64 Arbeitsbereiche speichern.
 workspaces.keyboard = Tastatur: Alt+↑/↓ wählt ein Layout. Ctrl/Cmd+N bearbeitet den Namen; +S speichert eine Kopie; +Enter wendet es an; +U aktualisiert; +R benennt um; +D löscht; +0 setzt zurück.
+workspaces.open_documents = Geöffnete Dokumente

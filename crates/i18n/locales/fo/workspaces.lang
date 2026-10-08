@@ -14,3 +14,4 @@ workspaces.invalid_name = Skriva eitt navn við 1–80 teknum uttan stýritekn.
 workspaces.duplicate = Eitt arbeiðsøki við hesum navni er longu til.
 workspaces.limit = Tú kanst goyma í mesta lagi 64 arbeiðsøki.
 workspaces.keyboard = Knappaborð: Alt+↑/↓ velur eina uppseting. Ctrl/Cmd+N broytir navnið; +S goymir eitt avrit; +Enter nýtir; +U dagførir; +R gevur nýtt navn; +D strikar; +0 setur aftur.
+workspaces.open_documents = Opin skjøl

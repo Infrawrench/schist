@@ -35,3 +35,7 @@ workspace.history.move_layers = རིམ་པ་རྣམས་སྤོས།
 workspace.history.layer_opacity = རིམ་པའི་མི་དྭངས་པའི་ཁེབས་ཚད།
 workspace.history.delete_note = ཟིན་བྲིས་སུབ།
 workspace.history.edit_note = ཟིན་བྲིས་རྩོམ་སྒྲིག
+workspace.canvas.clipping_on = བཅད་པའི་ཉེན་བརྡ་སྤར།
+workspace.canvas.clipping_off = བཅད་པའི་ཉེན་བརྡ་བསད།
+workspace.canvas.peaking_on = ཐད་སྣང་གསལ་འདེབས་སྤར།
+workspace.canvas.peaking_off = ཐད་སྣང་གསལ་འདེབས་བསད།

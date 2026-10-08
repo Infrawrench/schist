@@ -19,8 +19,9 @@
 //!    requested size rather than the document's.
 //!
 //! A camera raw is the same shape: the JPEG the camera embedded, else
-//! the developed sensor data. Everything else (PNG, JPEG, WebP, TIFF)
-//! decodes and scales directly.
+//! the developed sensor data. OpenEXR composites like the layered
+//! formats, then tone-maps its scene-linear light to sRGB. Everything
+//! else (PNG, JPEG, WebP, TIFF) decodes and scales directly.
 
 use anyhow::{bail, Context as _, Result};
 use image::RgbaImage;
@@ -107,6 +108,20 @@ pub fn render(bytes: &[u8], max_edge: u32) -> Result<Preview> {
         composite_preview(schist_codecs_common::PdnCodec.import(bytes)?, max_edge)
     } else if schist_codecs_common::XcfCodec.probe(bytes) {
         composite_preview(schist_codecs_common::XcfCodec.import(bytes)?, max_edge)
+    } else if schist_codecs_common::OraCodec.probe(bytes) {
+        package_preview(
+            schist_codecs_common::ora::merged_png(bytes),
+            || schist_codecs_common::OraCodec.import(bytes),
+            max_edge,
+        )
+    } else if schist_codecs_common::KraCodec.probe(bytes) {
+        package_preview(
+            schist_codecs_common::kra::merged_png(bytes),
+            || schist_codecs_common::KraCodec.import(bytes),
+            max_edge,
+        )
+    } else if schist_codecs_common::ExrCodec.probe(bytes) {
+        exr_preview(bytes, max_edge)
     } else {
         // HEIC before the generic decoder: the `image` crate does not
         // read it, and an iPhone's camera roll is mostly HEIC — a
@@ -118,6 +133,17 @@ pub fn render(bytes: &[u8], max_edge: u32) -> Result<Preview> {
             use schist_plugin_api::CodecPlugin as _;
             let doc = schist_codecs_common::HeifCodec.import(bytes)?;
             return composite_preview(doc, max_edge);
+        }
+        // Nor does it read JPEG XL, or AVIF without a C decoder; both
+        // have pure-Rust codecs of their own. (The browser build has no
+        // AV1 decoder, and its error says so.)
+        if schist_codecs_common::JxlCodec.probe(bytes) {
+            use schist_plugin_api::CodecPlugin as _;
+            return composite_preview(schist_codecs_common::JxlCodec.import(bytes)?, max_edge);
+        }
+        if schist_codecs_common::AvifCodec.probe(bytes) {
+            use schist_plugin_api::CodecPlugin as _;
+            return composite_preview(schist_codecs_common::AvifCodec.import(bytes)?, max_edge);
         }
         // Camera raws likewise, and before the generic decoder for a
         // second reason: most of them are TIFF containers, which it
@@ -172,6 +198,22 @@ fn decode_psd_thumbnail(thumb: schist_codec_psd::Thumbnail<'_>) -> Option<RgbaIm
         }
     }
     Some(img)
+}
+
+/// OpenRaster and Krita: the package's flattened render, which both
+/// formats carry beside the layers, else the imported document.
+fn package_preview(
+    merged: Option<Vec<u8>>,
+    import: impl FnOnce() -> Result<Document>,
+    max_edge: u32,
+) -> Result<Preview> {
+    if let Some(img) = merged.and_then(|png| image::load_from_memory(&png).ok()) {
+        return Ok(Preview::from_image(
+            fit(img.into_rgba8(), max_edge),
+            Source::Embedded,
+        ));
+    }
+    composite_preview(import()?, max_edge)
 }
 
 /// Affinity: the container's own PNG preview, else the imported document.
@@ -241,8 +283,35 @@ fn raw_preview(bytes: &[u8], max_edge: u32) -> Result<Preview> {
     }
 }
 
+/// OpenEXR: scene-linear light, often far brighter than 1.0, so each band
+/// is tone-mapped to sRGB rather than clipped (or shown as if it were
+/// already display-encoded, which looks dark and flat).
+fn exr_preview(bytes: &[u8], max_edge: u32) -> Result<Preview> {
+    let doc = schist_codecs_common::ExrCodec.import(bytes)?;
+    let icc = doc.icc_profile.clone();
+    composite_preview_with(doc, max_edge, move |doc, band| {
+        let mut pixels = schist_compositor::composite_region_f32(doc, band);
+        schist_colormgmt::tone_map_linear_to_srgb(&mut pixels, icc.as_deref())?;
+        Ok(pixels
+            .iter()
+            .map(|v| (v.clamp(0.0, 1.0) * 255.0 + 0.5) as u8)
+            .collect())
+    })
+}
+
 /// Composite a document to at most `max_edge` on its longest side.
-fn composite_preview(mut doc: Document, max_edge: u32) -> Result<Preview> {
+fn composite_preview(doc: Document, max_edge: u32) -> Result<Preview> {
+    composite_preview_with(doc, max_edge, |doc, band| {
+        Ok(schist_compositor::composite_region_rgba8(doc, band))
+    })
+}
+
+/// `composite_preview`, with each band rendered to RGBA8 by `render_band`.
+fn composite_preview_with(
+    mut doc: Document,
+    max_edge: u32,
+    mut render_band: impl FnMut(&Document, IntRect) -> Result<Vec<u8>>,
+) -> Result<Preview> {
     // Layer effects live in a cache the compositor blends and does not
     // build; a freshly imported document has none yet.
     let mut damage = Vec::new();
@@ -266,7 +335,7 @@ fn composite_preview(mut doc: Document, max_edge: u32) -> Result<Preview> {
             right: canvas.right,
             bottom,
         };
-        let pixels = schist_compositor::composite_region_rgba8(&doc, band);
+        let pixels = render_band(&doc, band)?;
         acc.add_band(&pixels, (top - canvas.top) as u32, (bottom - top) as u32);
         top = bottom;
     }
@@ -428,6 +497,25 @@ mod tests {
         let out = acc.finish();
         assert_eq!(&out[0..8], &[255, 255, 255, 255, 255, 255, 255, 255]);
         assert_eq!(&out[8..16], &[0, 0, 0, 255, 0, 0, 0, 255]);
+    }
+
+    /// An HDR EXR must neither clip its highlights to flat white nor be
+    /// shown as if its linear numbers were sRGB-encoded.
+    #[test]
+    fn exr_previews_are_tone_mapped() {
+        let path = std::path::Path::new(env!("CARGO_MANIFEST_DIR"))
+            .join("../../fixtures/exr/float-tiled.exr");
+        let preview = render_file(&path, 64).unwrap();
+        assert_eq!((preview.width, preview.height), (40, 24));
+        assert_eq!(preview.source, Source::Composited);
+        let at = |x: usize, y: usize| &preview.rgba[(y * 40 + x) * 4..][..4];
+        // Linear green 0.5 encodes to about 188 in sRGB, not 128.
+        let mid = at(0, 12)[1];
+        assert!((175..200).contains(&mid), "green {mid}");
+        // Red runs 0..4 along the row: it keeps rising past 1.0 rather
+        // than clipping, and stays below full white until the end.
+        let (one, two, four) = (at(10, 0)[0], at(19, 0)[0], at(39, 0)[0]);
+        assert!(one > 230 && one < two && two <= four, "{one} {two} {four}");
     }
 
     #[test]

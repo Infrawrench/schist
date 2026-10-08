@@ -14,3 +14,4 @@ workspaces.invalid_name = Weka jina lenye herufi 1–80 bila vibambo vya udhibit
 workspaces.duplicate = Nafasi ya kazi yenye jina hili tayari ipo.
 workspaces.limit = Unaweza kuhifadhi hadi nafasi 64 za kazi.
 workspaces.keyboard = Kibodi: Alt+↑/↓ huchagua mpangilio. Ctrl/Cmd+N huhariri jina lake; +S huhifadhi nakala; +Enter hutumia; +U husasisha; +R hubadilisha jina; +D hufuta; +0 huweka upya.
+workspaces.open_documents = Nyaraka zilizo wazi

@@ -14,3 +14,4 @@ workspaces.invalid_name = Ievadiet nosaukumu, kurā ir 1–80 rakstzīmes un nav
 workspaces.duplicate = Darbvieta ar šādu nosaukumu jau pastāv.
 workspaces.limit = Varat saglabāt līdz 64 darbvietām.
 workspaces.keyboard = Tastatūra: Alt+↑/↓ atlasa izkārtojumu. Ctrl/Cmd+N rediģē tā nosaukumu; +S saglabā kopiju; +Enter lieto; +U atjaunina; +R pārdēvē; +D dzēš; +0 atiestata.
+workspaces.open_documents = Atvērtie dokumenti

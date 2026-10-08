@@ -75,6 +75,9 @@ workspace.filters.raw_too_tall = RAW leyi antswisiwaka yi lehile ngopfu
 workspace.filters.raw_size_changed = Sayizi ya RAW leyi antswisiwaka yi cince yi va {w} × {h}; ku hlayisiwa leyara ya sweswi
 workspace.filters.raw_history = Ku antswisa Camera Raw
 workspace.filters.raw_applied = Ku antswisa Camera Raw ku tirhisiwile (demosaic leyinene ngopfu)
+workspace.raw_masks.no_model = {model} a yi nghenisiwangi, hikwalaho maski leyi a yi koti ku kumisisiwa.
+workspace.raw_masks.no_sky = Ku hava tilo leri kumekeke eka xifaniso lexi.
+workspace.raw_masks.detect_failed = Ku kumisisa maski ku tsandzekile: {error}
 
 workspace.image_size.done = Sayizi ya xifaniso: {w} × {h}
 workspace.image_size.bicubic_fallback = Sayizi ya xifaniso: {w} × {h} — modele wa {name} a wu layichanga, kutani ku tirhisiwe bicubic
@@ -102,3 +105,10 @@ workspace.file_picker.permission_denied = Schist a yi na mpfumelelo wo hlaya fol
 workspace.recovery.recovered_title = {title} (yi vuyiseriwile)
 workspace.recovery.recovered.one = Ku vuyiseriwe mintirho leyi nga hlayisiwangiki eka session leyi hundzeke ({n})
 workspace.recovery.recovered.other = Ku vuyiseriwe tidokhumente ta {n} eka session leyi hundzeke
+workspace.colormgmt.vision_on = Ku tekelela: {name}
+workspace.colormgmt.vision_off = Ku vona loku tolovelekeke
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Ku susiwile handle ka modele wa ku tatisa, kutani ku tatisa ku nga ha va ku nga olovanga
+workspace.tool_jobs.document_changed = {name} yi herile endzhaku ka loko dokumente ya yona yi pfariwile kumbe yi cinciwile, kutani a ku cinciwanga nchumu

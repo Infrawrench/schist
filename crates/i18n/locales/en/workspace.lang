@@ -98,6 +98,9 @@ workspace.filters.raw_too_tall = RAW development is too tall
 workspace.filters.raw_size_changed = RAW development size changed to {w} × {h}; keeping the current layer
 workspace.filters.raw_history = Camera Raw Development
 workspace.filters.raw_applied = Camera Raw development applied (best demosaic)
+workspace.raw_masks.no_model = {model} is not installed, so this mask cannot be detected.
+workspace.raw_masks.no_sky = No sky was found in this picture.
+workspace.raw_masks.detect_failed = Mask detection failed: {error}
 
 # Image Size through a neural upscaler (filters.rs); {name} is the model
 workspace.image_size.done = Image size: {w} × {h}
@@ -130,3 +133,10 @@ workspace.file_picker.permission_denied = Schist does not have permission to rea
 workspace.recovery.recovered_title = {title} (recovered)
 workspace.recovery.recovered.one = Recovered unsaved work from a previous session
 workspace.recovery.recovered.other = Recovered {n} documents from a previous session
+workspace.colormgmt.vision_on = Simulating {name}
+workspace.colormgmt.vision_off = Normal vision
+
+# Tool edits running off the UI thread (tool_jobs.rs): the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Removed without the inpainting model, so the fill may be rougher
+workspace.tool_jobs.document_changed = {name} finished after its document was closed or switched, so nothing was changed

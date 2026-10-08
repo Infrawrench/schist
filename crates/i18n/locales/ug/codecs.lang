@@ -3,6 +3,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -30,15 +32,23 @@ codec.heif.msg.imageio_cannot_read = ImageIO ‏HEIF قاچىسىنى ئوقۇي
 codec.heif.msg.container_empty = HEIF قاچىسىدا سۈرەت يوق
 codec.heif.msg.imageio_cannot_decode = ImageIO ئاساسلىق سۈرەتنى يېشەلمىدى
 
+# AVIF in the browser build, which has no AV1 decoder (it still exports AVIF).
+codec.avif.msg.no_decoder = Schist نىڭ توركۆرگۈ نەشرى AVIF سۈرەتلىرىنى ئاچالمايدۇ. ھۆججەتنى ئۈستەل يۈزى ئەپىدە ئېچىڭ ياكى ئاۋۋال PNG غا ئايلاندۇرۇڭ.
+
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = قەۋەتلىك رەسىم ھۆججىتى بۇزۇلغان ياكى تولۇق ئەمەس.
 codec.layered.too_large = قەۋەتلىك رەسىمنىڭ چوڭلۇقى ياكى قەۋەت سانى قوللايدىغان چەكتىن ئېشىپ كەتتى.
 codec.layered.unsupported = بۇ ھۆججەت قوللىمايدىغان ئىقتىدارنى ئىشلىتىدۇ: {feature}.
 codec.layered.export_layer = «{name}» قەۋىتىدە بۇ فورمات ساقلاپ قالالمايدىغان ئىقتىدارلار بار. ئۇنى raster قىلىڭ ياكى PSD قىلىپ ساقلاڭ.
 codec.layered.export_depth = Paint.NET قا ئېكسپورت قىلىش ئۈچۈن 8 بىتلىق RGB ھۆججىتى كېرەك. ئاۋۋال ھۆججەتنى 8 بىتلىق RGB غا ئايلاندۇرۇڭ.
 codec.layered.export_mode = ئېكسپورت قىلىش ئۈچۈن RGB ھۆججىتى كېرەك. ئاۋۋال ھۆججەتنى RGB غا ئايلاندۇرۇڭ.
+codec.layered.merged_layer = بىرلەشتۈرۈلگەن رەسىم (بەزى {format} قەۋەتلىرىنى ئىمپورت قىلغىلى بولمىدى)
+codec.kra.merged_color_space = بىرلەشتۈرۈلگەن رەسىم (Krita {color_space} ھۆججىتى RGB سۈپىتىدە كۆرسىتىلدى)
 
 # Unsupported layered-format features.
 codec.pdn.feature.blend_mode = PDN ئارىلاشتۇرۇش ھالىتى
@@ -56,3 +66,8 @@ codec.xcf.feature.floating_selection = XCF لەيلىمە تاللىشى
 codec.xcf.feature.layer_effects = XCF قەۋەت ئۈنۈملىرى
 codec.xcf.feature.precision = XCF ئېنىقلىقى
 codec.xcf.feature.version = XCF نەشرى
+
+codec.exr.feature.deep = EXR چوڭقۇر سانلىق مەلۇماتى
+codec.exr.feature.subsampled = EXR تارماق ئەۋرىشكىلىك قانال
+codec.exr.msg.no_channels = OpenEXR ھۆججىتىدە سۈرەت قانىلى يوق.
+codec.exr.msg.write_failed = OpenEXR ھۆججىتىنى يازغىلى بولمىدى: {error}

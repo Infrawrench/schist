@@ -71,6 +71,9 @@ workspace.filters.raw_too_tall = RAW wiñachiyqa ancha sayayniyuq
 workspace.filters.raw_size_changed = RAW wiñachiypa sayaynin {w} × {h} nisqaman tikrakurqa; kunan patata waqaychachkan
 workspace.filters.raw_history = Camera Raw wiñachiy
 workspace.filters.raw_applied = Camera Raw wiñachiy churasqa (aswan allin demosaico)
+workspace.raw_masks.no_model = {model} mana churasqachu, chayrayku kay maskarata mana tariyta atikunchu.
+workspace.raw_masks.no_sky = Kay rikch'aypi mana hanaq pacha tarikunchu.
+workspace.raw_masks.detect_failed = Maskara tariy mana atikurqanchu: {error}
 
 workspace.image_size.done = Rikch'aypa sayaynin: {w} × {h}
 workspace.image_size.bicubic_fallback = Rikch'aypa sayaynin: {w} × {h} — {name} modelo mana apamuy atikurqachu, chayrayku bicúbica rantinman churakurqa
@@ -96,3 +99,10 @@ workspace.file_picker.permission_denied = Schistqa kay karpetata ñawinchanapaq 
 
 workspace.recovery.recovered_title = {title} (kutichisqa)
 workspace.recovery.recovered.other = Ñawpaq sesiónmanta mana waqaychasqa {n} qillqa khipu kutichisqa
+workspace.colormgmt.vision_on = Rikch'anachiy: {name}
+workspace.colormgmt.vision_off = Kikin rikuy
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Hunt'achiq yachachiy mana kaqtin qichusqa, chayrayku hunt'achisqa ch'aqchu kanman
+workspace.tool_jobs.document_changed = {name} qillqan wisq'asqa utaq tikrasqa kaptin tukurqan, chayrayku mana imapas tikrakurqanchu

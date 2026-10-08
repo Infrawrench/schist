@@ -229,6 +229,7 @@ common.filetype.jpeg = Ảnh JPEG
 common.filetype.webp = Ảnh WebP
 common.filetype.tiff = Ảnh TIFF
 common.filetype.heic = Ảnh HEIC
+common.filetype.exr = Ảnh OpenEXR
 common.filetype.raw = Ảnh Camera Raw
 common.filetype.affinity = Tài liệu Affinity
 common.filetype.image = Hình ảnh

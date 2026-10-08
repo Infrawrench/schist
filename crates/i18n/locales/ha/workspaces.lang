@@ -14,3 +14,4 @@ workspaces.invalid_name = Shigar da suna mai haruffa 1–80 ba tare da haruffan 
 workspaces.duplicate = An riga an sami wurin aiki mai wannan suna.
 workspaces.limit = Za ka iya ajiye wuraren aiki har 64.
 workspaces.keyboard = Allon rubutu: Alt+↑/↓ yana zaɓar tsari. Ctrl/Cmd+N yana gyara sunansa; +S yana ajiye kwafi; +Enter yana aiwatarwa; +U yana sabuntawa; +R yana sake suna; +D yana sharewa; +0 yana sake saitawa.
+workspaces.open_documents = Takardun da aka buɗe

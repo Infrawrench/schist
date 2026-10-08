@@ -66,6 +66,9 @@ workspace.filters.raw_too_tall = Avo loatra ny vokatry ny fikarakarana RAW
 workspace.filters.raw_size_changed = Niova ho {w} × {h} ny haben'ny RAW voakarakara; tazonina ny sosona ankehitriny
 workspace.filters.raw_history = Fikarakarana Camera Raw
 workspace.filters.raw_applied = Nampiharina ny fikarakarana Camera Raw (demosaic tsara indrindra)
+workspace.raw_masks.no_model = Tsy voapetraka ny {model}, ka tsy hita ity sarontava ity.
+workspace.raw_masks.no_sky = Tsy nahitana lanitra tamin'ity sary ity.
+workspace.raw_masks.detect_failed = Tsy nahomby ny fitadiavana sarontava: {error}
 workspace.image_size.done = Haben'ny sary: {w} × {h}
 workspace.image_size.bicubic_fallback = Haben'ny sary: {w} × {h} — tsy nety nipetraka ny maodely {name}, ka bicubic no nisolo azy
 workspace.image_size.upscaling = Eo am-pampitomboana hamafin-tsary amin'ny {name}
@@ -89,3 +92,10 @@ workspace.file_picker.permission_denied = Tsy mahazo mamaky ity lahatahiry ity i
 workspace.recovery.recovered_title = {title} (naverina)
 workspace.recovery.recovered.one = Rakitra {n} misy asa tsy voatahiry tamin'ny session teo aloha no naverina
 workspace.recovery.recovered.other = Rakitra {n} tamin'ny session teo aloha no naverina
+workspace.colormgmt.vision_on = Fanahafana: {name}
+workspace.colormgmt.vision_off = Fahitana ara-dalàna
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Nesorina tsy nisy ny modely famenoana, ka mety ho marokoroko kokoa ny famenoana
+workspace.tool_jobs.document_changed = Vita ny {name} rehefa nakatona na nosoloina ny tahirin-keviny, ka tsy nisy niova

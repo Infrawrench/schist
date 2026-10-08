@@ -75,6 +75,9 @@ workspace.filters.raw_too_tall = Re uhel eo diorren ar RAW
 workspace.filters.raw_size_changed = Kemmet eo ment diorren ar RAW da {w} × {h}; miret e vo ar gwiskad vremanel
 workspace.filters.raw_history = Diorren Camera Raw
 workspace.filters.raw_applied = Diorren Camera Raw arloet (dizmozaikaat gwellañ)
+workspace.raw_masks.no_model = N'eo ket staliet {model}, setu ne c'haller ket dinoiñ ar maskl-mañ.
+workspace.raw_masks.no_sky = N'eus bet kavet oabl ebet er skeudenn-mañ.
+workspace.raw_masks.detect_failed = C'hwitet eo dinoadur ar maskl: {error}
 
 workspace.image_size.done = Ment ar skeudenn: {w} × {h}
 workspace.image_size.bicubic_fallback = Ment ar skeudenn: {w} × {h} — n'eo ket bet karget ar patrom {name}, neuze ez eo bet arveret an etrelotadur daouc'harrdi en e lec'h
@@ -108,3 +111,10 @@ workspace.recovery.recovered.two = Assavet eo bet {n} deul eus un estez kent
 workspace.recovery.recovered.few = Assavet eo bet {n} zeul eus un estez kent
 workspace.recovery.recovered.many = Assavet eo bet {n} a deulioù eus un estez kent
 workspace.recovery.recovered.other = Assavet eo bet {n} teul eus un estez kent
+workspace.colormgmt.vision_on = Simulad: {name}
+workspace.colormgmt.vision_off = Gwelet normal
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Lamet eo bet hep ar patrom adlivañ, neuze e c'hallfe al leuniadur bezañ rustoc'h
+workspace.tool_jobs.document_changed = {name} zo echu goude ma oa bet serret pe cheñchet e deul, neuze n'eus bet cheñchet netra

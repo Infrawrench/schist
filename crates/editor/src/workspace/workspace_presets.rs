@@ -111,7 +111,15 @@ impl Workspace {
     ) -> bool {
         match schist_app_settings::try_save_view_options(&next) {
             Ok(()) => {
+                if !self.view.photo_layout.enabled && next.photo_layout.enabled {
+                    self.photo_view.tool_options = false;
+                }
+                let photo_changed = self.view.photo_layout.enabled != next.photo_layout.enabled
+                    || self.view.photo_layout.display != next.photo_layout.display;
                 self.view = next;
+                if photo_changed {
+                    self.pending_fit = true;
+                }
                 self.side_panel_resize = None;
                 self.update_modal(|modal| {
                     if let Modal::Workspaces { error, .. } = modal {
@@ -134,9 +142,16 @@ impl Workspace {
         }
     }
     pub fn apply_workspace(&mut self, layout: Layout, cx: &mut Context<Self>) {
+        let photo = layout.photo.enabled;
         let mut next = self.view.clone();
         layout.apply(&mut next);
-        self.commit_workspace_view(next, cx);
+        if self.commit_workspace_view(next, cx) && photo {
+            self.photo_view.tool_options = false;
+            self.set_mode(crate::design::WorkspaceMode::Photo, cx);
+            if self.gallery_open() {
+                self.gallery_back_to_editor(cx);
+            }
+        }
     }
     pub fn workspace_edit(&mut self, action: WorkspaceEdit, cx: &mut Context<Self>) {
         self.commit_focused_field();

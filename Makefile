@@ -776,6 +776,14 @@ test-similar-photos:
 fmt-similar-photos:
 	$(CARGO) fmt -p schist-gallery -p schist-editor
 
+.PHONY: test-gpx-duplicates
+# GPX parsing/matching, duplicate hashing/grouping/keep ranking/trash guards,
+# the index digest column, XMP altitude, map track thinning and dialog parsing.
+test-gpx-duplicates:
+	$(CARGO) test -p schist-gallery -- gpx duplicates index xmp
+	$(CARGO) test -p schist-map-view thinning
+	$(CARGO) test -p schist-editor --lib library_geotag
+
 .PHONY: check-similar-locales
 check-similar-locales:
 	python3 tools/check-i18n.py --files library.lang

@@ -67,6 +67,9 @@ workspace.filters.raw_too_tall = የRAW ማበልጸጊያው በጣም ረጅ�
 workspace.filters.raw_size_changed = የRAW ማበልጸጊያ መጠን ወደ {w} × {h} ተቀይሯል፤ የአሁኑን ንብርብር በማቆየት ላይ
 workspace.filters.raw_history = የCamera Raw ማበልጸጊያ
 workspace.filters.raw_applied = የCamera Raw ማበልጸጊያ ተተግብሯል (ምርጥ ዲሞዛይክ)
+workspace.raw_masks.no_model = {model} አልተጫነም፣ ስለዚህ ይህ ጭንብል ሊገኝ አይችልም።
+workspace.raw_masks.no_sky = በዚህ ምስል ውስጥ ሰማይ አልተገኘም።
+workspace.raw_masks.detect_failed = ጭንብል ማግኘት አልተሳካም፦ {error}
 workspace.image_size.done = የምስል መጠን፦ {w} × {h}
 workspace.image_size.bicubic_fallback = የምስል መጠን፦ {w} × {h} — የ{name} ሞዴል መጫን አልቻለም፣ ስለዚህ ባለሁለት ኩብ ተተክቷል
 workspace.image_size.upscaling = በ{name} መጠንን በማሳደግ ላይ
@@ -90,3 +93,10 @@ workspace.file_picker.permission_denied = Schist ይህን አቃፊ ለማን�
 workspace.recovery.recovered_title = {title} (የተመለሰ)
 workspace.recovery.recovered.one = ካለፈው ክፍለ ጊዜ {n} ያልተቀመጠ ሰነድ ተመልሷል
 workspace.recovery.recovered.other = ካለፈው ክፍለ ጊዜ {n} ሰነዶች ተመልሰዋል
+workspace.colormgmt.vision_on = ማስመሰል፦ {name}
+workspace.colormgmt.vision_off = መደበኛ እይታ
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}፦ {percent}%
+workspace.tool_jobs.missing_model = ያለ ሥዕል መሙያ ሞዴሉ ተወግዷል፤ ስለዚህ ሙሌቱ ሻካራ ሊሆን ይችላል
+workspace.tool_jobs.document_changed = {name} ሰነዱ ከተዘጋ ወይም ከተቀየረ በኋላ ተጠናቋል፤ ስለዚህ ምንም አልተለወጠም

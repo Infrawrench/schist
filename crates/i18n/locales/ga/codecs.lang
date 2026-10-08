@@ -3,6 +3,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Comhad amh ceamara
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -30,15 +32,22 @@ codec.heif.msg.imageio_cannot_read = Níorbh fhéidir le ImageIO an coimeádán 
 codec.heif.msg.container_empty = níl aon íomhá sa choimeádán HEIF
 codec.heif.msg.imageio_cannot_decode = Níorbh fhéidir le ImageIO an phríomhíomhá a dhíchódú
 
+codec.avif.msg.no_decoder = Ní féidir le leagan brabhsálaí Schist íomhánna AVIF a oscailt. Oscail an comhad san aip deisce, nó tiontaigh go PNG é ar dtús.
+
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = Tá an comhad íomhá le sraitheanna damáistithe nó neamhiomlán.
 codec.layered.too_large = Sáraíonn an íomhá le sraitheanna an méid nó líon na sraitheanna a dtacaítear leis.
 codec.layered.unsupported = Úsáideann an comhad seo gné nach dtacaítear léi: {feature}.
 codec.layered.export_layer = Tá gnéithe sa tsraith “{name}” nach féidir leis an bhformáid seo a chaomhnú. Rastaraigh í nó sábháil mar PSD.
 codec.layered.export_depth = Teastaíonn cáipéis RGB 8 ngiotán le heaspórtáil go Paint.NET. Tiontaigh an cháipéis go RGB 8 ngiotán ar dtús.
 codec.layered.export_mode = Teastaíonn cáipéis RGB le heaspórtáil. Tiontaigh an cháipéis go RGB ar dtús.
+codec.layered.merged_layer = Íomhá chumasctha (níorbh fhéidir roinnt sraitheanna {format} a iompórtáil)
+codec.kra.merged_color_space = Íomhá chumasctha (cáipéis Krita {color_space} léirithe mar RGB)
 
 # Unsupported layered-format features.
 codec.pdn.feature.blend_mode = mód cumaisc PDN
@@ -56,3 +65,8 @@ codec.xcf.feature.floating_selection = roghnú ar snámh XCF
 codec.xcf.feature.layer_effects = éifeachtaí sraithe XCF
 codec.xcf.feature.precision = beachtas XCF
 codec.xcf.feature.version = leagan XCF
+
+codec.exr.feature.deep = sonraí doimhne EXR
+codec.exr.feature.subsampled = cainéil EXR fho-samplaithe
+codec.exr.msg.no_channels = Níl aon chainéal íomhá sa chomhad OpenEXR.
+codec.exr.msg.write_failed = Níorbh fhéidir an comhad OpenEXR a scríobh: {error}

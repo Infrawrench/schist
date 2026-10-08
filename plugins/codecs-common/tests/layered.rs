@@ -1,4 +1,4 @@
-use schist_codecs_common::{CommonCodecsPlugin, PdnCodec, XcfCodec};
+use schist_codecs_common::{CommonCodecsPlugin, KraCodec, OraCodec, PdnCodec, XcfCodec};
 use schist_color::Depth;
 use schist_core::{blit_rgba8, blit_rgba_f32, BlendMode, Document, IntRect, Layer, LayerKind};
 use schist_plugin_api::{CodecPlugin, PluginManifest, PluginRegistry};
@@ -74,6 +74,23 @@ fn native_codecs_register_for_content_and_case_insensitive_extensions() {
         assert_eq!(codec.id(), id);
         assert!(codec.can_export());
     }
+    let ora = OraCodec.export(&sample_doc()).unwrap();
+    assert_eq!(registry.codec_for(&ora, None).unwrap().id(), "codec.ora");
+    assert_eq!(
+        registry.codec_for(&[], Some("ORA")).unwrap().id(),
+        "codec.ora"
+    );
+    for ext in ["kra", "KRZ"] {
+        let codec = registry.codec_for(&[], Some(ext)).unwrap();
+        assert_eq!(codec.id(), "codec.kra");
+        assert!(!codec.can_export());
+    }
+    // A Krita package is recognised by its stored mimetype, not its name.
+    let kra = schist_codec_idml::container::write(&[(
+        "mimetype".into(),
+        b"application/x-krita".to_vec(),
+    )]);
+    assert_eq!(registry.codec_for(&kra, None).unwrap().id(), "codec.kra");
 }
 
 #[test]
@@ -146,7 +163,7 @@ fn gimp_high_precision_group_and_disabled_mask() {
 
 #[test]
 fn native_exports_preserve_layer_order_names_alpha_and_opacity() {
-    for codec in [&PdnCodec as &dyn CodecPlugin, &XcfCodec] {
+    for codec in [&PdnCodec as &dyn CodecPlugin, &XcfCodec, &OraCodec] {
         let doc = sample_doc();
         let bytes = codec.export(&doc).unwrap();
         assert!(codec.probe(&bytes));
@@ -154,6 +171,121 @@ fn native_exports_preserve_layer_order_names_alpha_and_opacity() {
         assert_eq!((again.width, again.height), (doc.width, doc.height));
         assert_layers(&doc.tree.layers, &again.tree.layers, 0.0001);
     }
+}
+
+#[test]
+fn openraster_round_trips_groups_depth_profile_and_selection() {
+    let mut doc = XcfCodec.import(XCF16).unwrap();
+    if let LayerKind::Group(g) = &mut doc.tree.layers[1].kind {
+        g.children[0].mask = None;
+    }
+    doc.tree.layers[1].blend = BlendMode::Screen;
+    doc.tree.layers[1].locked = true;
+    doc.icc_profile = None;
+    doc.active_layer = Some(doc.tree.layers[0].id);
+    let bytes = OraCodec.export(&doc).unwrap();
+    let again = OraCodec.import(&bytes).unwrap();
+    assert_eq!(again.depth, Depth::Sixteen);
+    assert_eq!(again.tree.layers[1].blend, BlendMode::Screen);
+    assert!(again.tree.layers[1].locked);
+    assert_eq!(again.active_layer, Some(again.tree.layers[0].id));
+    assert_layers(&doc.tree.layers, &again.tree.layers, 1.0 / 65535.0);
+
+    // Pass-through groups survive as non-isolated stacks.
+    doc.tree.layers[1].blend = BlendMode::PassThrough;
+    let again = OraCodec.import(&OraCodec.export(&doc).unwrap()).unwrap();
+    assert_eq!(again.tree.layers[1].blend, BlendMode::PassThrough);
+
+    let mut doc = sample_doc();
+    doc.resolution_dpi = 300.0;
+    doc.icc_profile = Some(sample_profile());
+    let again = OraCodec.import(&OraCodec.export(&doc).unwrap()).unwrap();
+    assert_eq!(again.resolution_dpi, 300.0);
+    assert_eq!(again.icc_profile, doc.icc_profile);
+}
+
+/// A small but structurally valid ICC profile, since PNG encoders check.
+fn sample_profile() -> Vec<u8> {
+    let mut icc = vec![0u8; 132];
+    icc[..4].copy_from_slice(&132u32.to_be_bytes());
+    icc[36..40].copy_from_slice(b"acsp");
+    icc
+}
+
+#[test]
+fn openraster_keeps_unknown_attributes_and_operators() {
+    let png = {
+        let mut doc = Document::new("1px", 1, 1, Depth::Eight);
+        let mut l = Layer::new_raster("p");
+        blit_rgba8(
+            &mut l.as_raster_mut().unwrap().tiles,
+            Depth::Eight,
+            doc.canvas_rect(),
+            &[1, 2, 3, 255],
+        );
+        doc.tree.layers.push(l);
+        let ora = OraCodec.export(&doc).unwrap();
+        schist_codec_idml::container::read(&ora)
+            .unwrap()
+            .get("data/layer1.png")
+            .unwrap()
+            .to_vec()
+    };
+    let stack = r#"<?xml version="1.0"?>
+<image version="0.0.5" w="4" h="4" xmlns:mypaint="http://mypaint.org/ns/openraster">
+ <stack>
+  <layer src="data/a.png" name="kept" composite-op="svg:dst-out" mypaint:locked="true" krita:unknown="x &amp; y" edit-locked="true"/>
+ </stack>
+</image>"#;
+    let bytes = schist_codec_idml::container::write(&[
+        ("mimetype".into(), b"image/openraster".to_vec()),
+        ("stack.xml".into(), stack.as_bytes().to_vec()),
+        ("data/a.png".into(), png),
+    ]);
+    let doc = OraCodec.import(&bytes).unwrap();
+    let layer = &doc.tree.layers[0];
+    assert_eq!(layer.blend, BlendMode::Normal);
+    assert!(layer.locked);
+    // The preserved attributes do not block saving to other formats.
+    XcfCodec.export(&doc).unwrap();
+    let out = OraCodec.export(&doc).unwrap();
+    let package = schist_codec_idml::container::read(&out).unwrap();
+    let xml = package.text("stack.xml").unwrap();
+    for needle in [
+        r#"composite-op="svg:dst-out""#,
+        r#"mypaint:locked="true""#,
+        r#"krita:unknown="x &amp; y""#,
+        r#"xmlns:mypaint="http://mypaint.org/ns/openraster""#,
+    ] {
+        assert!(xml.contains(needle), "{needle} missing from {xml}");
+    }
+    assert!(package.get("mergedimage.png").is_some());
+    let thumb = image::load_from_memory(package.get("Thumbnails/thumbnail.png").unwrap()).unwrap();
+    assert_eq!((thumb.width(), thumb.height()), (4, 4));
+    // Changing the mode drops the stale operator.
+    let mut doc = OraCodec.import(&out).unwrap();
+    doc.tree.layers[0].blend = BlendMode::Multiply;
+    let xml = String::from_utf8(
+        schist_codec_idml::container::read(&OraCodec.export(&doc).unwrap())
+            .unwrap()
+            .get("stack.xml")
+            .unwrap()
+            .to_vec(),
+    )
+    .unwrap();
+    assert!(xml.contains(r#"composite-op="svg:multiply""#), "{xml}");
+}
+
+#[test]
+fn openraster_rejects_masks_and_non_rgb_documents() {
+    let doc = XcfCodec.import(XCF16).unwrap();
+    assert!(
+        OraCodec.export(&doc).is_err(),
+        "masks must be applied first"
+    );
+    let mut doc = sample_doc();
+    doc.tree.layers[0].clipping = true;
+    assert!(OraCodec.export(&doc).is_err());
 }
 
 #[test]
@@ -229,6 +361,16 @@ fn damaged_files_return_errors() {
         let exported = codec.export(&sample_doc()).unwrap();
         assert!(codec.import(&exported[..exported.len() - 1]).is_err());
     }
+    let ora = OraCodec.export(&sample_doc()).unwrap();
+    for n in (0..ora.len()).step_by(37) {
+        assert!(OraCodec.import(&ora[..n]).is_err(), "truncated ORA at {n}");
+    }
+    let mut flipped = ora.clone();
+    for i in (0..flipped.len()).step_by(13) {
+        flipped[i] ^= 0xa5;
+        let _ = OraCodec.import(&flipped);
+        let _ = KraCodec.import(&flipped);
+    }
     let mut huge = XCF.to_vec();
     huge[14..18].copy_from_slice(&u32::MAX.to_be_bytes());
     assert!(XcfCodec.import(&huge).is_err());
@@ -249,6 +391,7 @@ fn interoperability_exports() {
     let doc = sample_doc();
     std::fs::write(dir.join("schist.pdn"), PdnCodec.export(&doc).unwrap()).unwrap();
     std::fs::write(dir.join("schist.xcf"), XcfCodec.export(&doc).unwrap()).unwrap();
+    std::fs::write(dir.join("schist.ora"), OraCodec.export(&doc).unwrap()).unwrap();
     let doc = XcfCodec.import(XCF16).unwrap();
     std::fs::write(dir.join("schist-16.xcf"), XcfCodec.export(&doc).unwrap()).unwrap();
     if let LayerKind::Group(_) = doc.tree.layers[1].kind {

@@ -95,15 +95,29 @@ pub fn tool_options_bar(
     if tool_id == "note" {
         bar = bar.child(note_options(ws, cx));
     }
-    bar = bar.child(option_slider(
-        &mut bar_sliders,
-        "opt-opacity",
-        t("common.opacity"),
-        format!("{:.0}%", ws.editor.tool_opacity * 100.0),
-        SliderTarget::ToolOpacity,
-        ws,
-        cx,
-    ));
+    // The Remove tool paints with the shared brush size (so `[` and `]`
+    // work as they do for the brush), but a removal has no opacity.
+    if tool_id == "remove" {
+        bar = bar.child(option_slider(
+            &mut bar_sliders,
+            "opt-size",
+            t("common.size"),
+            format!("{:.0}px", ws.editor.brush_size),
+            SliderTarget::BrushSize,
+            ws,
+            cx,
+        ));
+    } else {
+        bar = bar.child(option_slider(
+            &mut bar_sliders,
+            "opt-opacity",
+            t("common.opacity"),
+            format!("{:.0}%", ws.editor.tool_opacity * 100.0),
+            SliderTarget::ToolOpacity,
+            ws,
+            cx,
+        ));
+    }
     // Whatever else the active tool asked for.
     for opt in ws
         .registry
@@ -120,6 +134,25 @@ pub fn tool_options_bar(
             opt,
             cx,
         )));
+    }
+    // Accumulating strokes for one removal: Enter applies them, and so
+    // does this, for a pen with no keyboard to hand.
+    let accumulating = tool_id == "remove"
+        && ws
+            .registry
+            .tools()
+            .find(|t| t.id() == tool_id)
+            .is_some_and(|t| {
+                t.options()
+                    .iter()
+                    .any(|o| o.key == "remove-each-stroke" && !o.value.bool())
+            });
+    if accumulating {
+        bar = bar.child(
+            schist_ui::Button::new("remove-apply", t("common.apply"))
+                .primary()
+                .on_click(cx.listener(|ws, _, _, cx| ws.commit_gesture(cx))),
+        );
     }
     if ui::touch() {
         bar = bar

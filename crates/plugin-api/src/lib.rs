@@ -19,6 +19,11 @@ pub use symmetry::{PaintSymmetry, SymmetryMode, SymmetryTransform};
 pub mod brush;
 pub use brush::{BrushBitmap, BrushDynamics, BrushPreset, BrushTip};
 
+pub mod background;
+pub use background::{
+    BackgroundApply, BackgroundEdit, BackgroundPrepare, BackgroundRun, JobControl,
+};
+
 pub mod filter_canvas;
 pub mod filter_stack;
 mod native;
@@ -230,6 +235,10 @@ pub enum Overlay {
     Highlight(IntRect),
     /// Circle outline (brush cursor), document-space center and radius.
     Circle { cx: f32, cy: f32, r: f32 },
+    /// A translucent painted stroke: discs at document-space `(x, y)`
+    /// with radius `r`, joined in order. What the Remove tool shows of
+    /// the area it is about to fill.
+    Stroke { dabs: Vec<(f32, f32, f32)> },
     /// Straight line segment.
     Line { x1: f32, y1: f32, x2: f32, y2: f32 },
     /// A persistent guide with a contrasting outline, visible on light
@@ -270,6 +279,14 @@ pub trait ToolPlugin: Send {
     /// Hosts enabling this must drain `take_gpu_edit` after every event.
     fn set_async_compute(&mut self, _enabled: bool) {}
     fn take_gpu_edit(&mut self) -> Option<GpuEdit> {
+        None
+    }
+
+    /// Hosts that can run work off the UI thread enable this and then
+    /// drain `take_background_edit` after every event. Tools otherwise
+    /// run their [`BackgroundEdit`]s inline.
+    fn set_background_edits(&mut self, _enabled: bool) {}
+    fn take_background_edit(&mut self) -> Option<BackgroundEdit> {
         None
     }
 
@@ -498,6 +515,12 @@ pub struct ExportOptions {
     pub bit_depth: u8,
     /// Dither when reducing depth, to avoid banding.
     pub dither: bool,
+    /// 1..=10: how hard the encoder works for a smaller file, for
+    /// formats where that is a choice (JPEG XL, AVIF). Higher is slower.
+    pub effort: u8,
+    /// OpenEXR settings; other formats ignore them. The sample type comes
+    /// from `bit_depth`: 32 writes float, anything lower half float.
+    pub exr: ExrExportOptions,
 }
 
 impl Default for ExportOptions {
@@ -506,7 +529,112 @@ impl Default for ExportOptions {
             quality: 90,
             bit_depth: 8,
             dither: true,
+            effort: 7,
+            exr: ExrExportOptions::default(),
         }
+    }
+}
+
+/// OpenEXR block compression offered on export.
+///
+/// The lossy B44 methods only compress half-float channels; float
+/// channels are stored losslessly whichever is chosen. DWAA/DWAB are read
+/// but not offered: the pure-Rust encoder has no writer for them.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Default)]
+pub enum ExrCompression {
+    None,
+    Rle,
+    /// ZIP, one scanline per block.
+    Zips,
+    /// ZIP, sixteen scanlines per block (the common default).
+    #[default]
+    Zip,
+    Piz,
+    Pxr24,
+    B44,
+    B44a,
+}
+
+impl ExrCompression {
+    pub const ALL: [ExrCompression; 8] = [
+        ExrCompression::None,
+        ExrCompression::Rle,
+        ExrCompression::Zips,
+        ExrCompression::Zip,
+        ExrCompression::Piz,
+        ExrCompression::Pxr24,
+        ExrCompression::B44,
+        ExrCompression::B44a,
+    ];
+
+    /// The name OpenEXR tools use, which is also the API spelling.
+    pub fn id(self) -> &'static str {
+        match self {
+            ExrCompression::None => "none",
+            ExrCompression::Rle => "rle",
+            ExrCompression::Zips => "zips",
+            ExrCompression::Zip => "zip",
+            ExrCompression::Piz => "piz",
+            ExrCompression::Pxr24 => "pxr24",
+            ExrCompression::B44 => "b44",
+            ExrCompression::B44a => "b44a",
+        }
+    }
+
+    pub fn from_id(id: &str) -> Option<ExrCompression> {
+        Self::ALL
+            .into_iter()
+            .find(|c| c.id().eq_ignore_ascii_case(id))
+    }
+}
+
+/// How an OpenEXR export is laid out.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct ExrExportOptions {
+    pub compression: ExrCompression,
+    /// Also write each visible pixel layer as its own EXR layer
+    /// (`name.R`, `name.G`, …) beside the flattened image.
+    pub layered: bool,
+    /// Write an alpha channel.
+    pub alpha: bool,
+}
+
+impl Default for ExrExportOptions {
+    fn default() -> Self {
+        ExrExportOptions {
+            compression: ExrCompression::default(),
+            layered: false,
+            alpha: true,
+        }
+    }
+}
+
+impl ExrExportOptions {
+    /// Read `compression`, `layered` and `alpha` from a JSON request (the
+    /// MCP and library export calls), defaulting whatever is absent.
+    pub fn from_json(args: &serde_json::Value) -> Result<Self, String> {
+        let default = Self::default();
+        let compression = match args.get("compression").and_then(|v| v.as_str()) {
+            None => default.compression,
+            Some(id) => ExrCompression::from_id(id).ok_or_else(|| {
+                let known: Vec<&str> = ExrCompression::ALL.iter().map(|c| c.id()).collect();
+                format!(
+                    "unknown EXR compression {id:?}; expected one of {}",
+                    known.join(", ")
+                )
+            })?,
+        };
+        Ok(ExrExportOptions {
+            compression,
+            layered: args
+                .get("layered")
+                .and_then(|v| v.as_bool())
+                .unwrap_or(default.layered),
+            alpha: args
+                .get("alpha")
+                .and_then(|v| v.as_bool())
+                .unwrap_or(default.alpha),
+        })
     }
 }
 
@@ -533,6 +661,15 @@ pub trait CodecPlugin: Send + Sync {
     /// Whether the export dialog should offer a quality slider.
     fn supports_quality(&self) -> bool {
         false
+    }
+    /// Whether the export dialog should offer an effort slider.
+    fn supports_effort(&self) -> bool {
+        false
+    }
+    /// The bits per channel `export_with` can write, ascending. The
+    /// export dialog offers a choice when there is more than one.
+    fn bit_depths(&self) -> &'static [u8] {
+        &[8]
     }
 }
 

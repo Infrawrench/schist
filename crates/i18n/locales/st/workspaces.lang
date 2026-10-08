@@ -14,3 +14,4 @@ workspaces.invalid_name = Kenya lebitso la litlhaku tse 1–80 le se nang litlha
 workspaces.duplicate = Sebaka sa mosebetsi se nang le lebitso lena se se se le teng.
 workspaces.limit = U ka boloka libaka tsa mosebetsi tse fihlang ho 64.
 workspaces.keyboard = Khiboto: Alt+↑/↓ e khetha tlhophiso. Ctrl/Cmd+N e hlophisa lebitso la eona; +S e boloka kopi; +Enter e e sebelisa; +U e e ntlafatsa; +R e e reha lebitso le lecha; +D e e hlakola; +0 e khutlisetsa boemong ba pele.
+workspaces.open_documents = Ditokomane tse butsweng

@@ -14,3 +14,4 @@ workspaces.invalid_name = Maglagay ng pangalang may 1–80 character na walang m
 workspaces.duplicate = May workspace na sa pangalang ito.
 workspaces.limit = Maaari kang mag-save ng hanggang 64 na workspace.
 workspaces.keyboard = Keyboard: Alt+↑/↓ pumipili ng ayos. Ctrl/Cmd+N nag-e-edit ng pangalan nito; +S nagse-save ng kopya; +Enter naglalapat; +U nag-a-update; +R nagpapalit ng pangalan; +D nagtatanggal; +0 nagre-reset.
+workspaces.open_documents = Mga bukas na dokumento

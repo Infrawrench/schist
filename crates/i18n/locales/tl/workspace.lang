@@ -66,6 +66,9 @@ workspace.filters.raw_too_tall = Masyadong mataas ang RAW development
 workspace.filters.raw_size_changed = Nagbago ang laki ng RAW development sa {w} × {h}; pinananatili ang kasalukuyang layer
 workspace.filters.raw_history = Pagbuo ng Camera Raw
 workspace.filters.raw_applied = Nailapat ang Camera Raw development (pinakamahusay na demosaic)
+workspace.raw_masks.no_model = Hindi naka-install ang {model}, kaya hindi matutukoy ang maskarang ito.
+workspace.raw_masks.no_sky = Walang nakitang langit sa larawang ito.
+workspace.raw_masks.detect_failed = Nabigo ang pagtukoy ng maskara: {error}
 workspace.image_size.done = Laki ng larawan: {w} × {h}
 workspace.image_size.bicubic_fallback = Laki ng larawan: {w} × {h} — hindi nag-load ang modelong {name}, kaya bicubic ang ginamit
 workspace.image_size.upscaling = Ina-upscale gamit ang {name}
@@ -89,3 +92,10 @@ workspace.file_picker.permission_denied = Walang pahintulot ang Schist na basahi
 workspace.recovery.recovered_title = {title} (na-recover)
 workspace.recovery.recovered.one = Na-recover ang {n} hindi na-save na gawa mula sa nakaraang session
 workspace.recovery.recovered.other = Na-recover ang {n} dokumento mula sa nakaraang session
+workspace.colormgmt.vision_on = Simulation: {name}
+workspace.colormgmt.vision_off = Normal na paningin
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Inalis nang walang modelo ng inpainting, kaya maaaring mas magaspang ang pagpuno
+workspace.tool_jobs.document_changed = Natapos ang {name} matapos isara o palitan ang dokumento nito, kaya walang binago

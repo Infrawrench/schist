@@ -3,6 +3,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -30,15 +32,22 @@ codec.heif.msg.imageio_cannot_read = ImageIO не можеше да го про�
 codec.heif.msg.container_empty = контејнерот HEIF не содржи слика
 codec.heif.msg.imageio_cannot_decode = ImageIO не можеше да ја декодира главната слика
 
+codec.avif.msg.no_decoder = Верзијата на Schist за прелистувач не може да отвора AVIF-слики. Отворете ја датотеката во десктоп-апликацијата или прво претворете ја во PNG.
+
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = Датотеката со слоевита слика е оштетена или нецелосна.
 codec.layered.too_large = Слоевитата слика ја надминува поддржаната големина или бројот на слоеви.
 codec.layered.unsupported = Оваа датотека користи неподдржана можност: {feature}.
 codec.layered.export_layer = Слојот „{name}“ содржи можности што овој формат не може да ги зачува. Растеризирајте го или зачувајте како PSD.
 codec.layered.export_depth = Извозот во Paint.NET бара 8-битен RGB документ. Прво претворете го документот во 8-битен RGB.
 codec.layered.export_mode = Извозот бара RGB документ. Прво претворете го документот во RGB.
+codec.layered.merged_layer = Спојена слика (некои слоеви од {format} не можеа да се увезат)
+codec.kra.merged_color_space = Спојена слика (документот на Krita {color_space} е прикажан како RGB)
 
 # Unsupported layered format features
 codec.pdn.feature.blend_mode = Режим на мешање во PDN
@@ -56,3 +65,7 @@ codec.xcf.feature.floating_selection = Лебдечки избор во XCF
 codec.xcf.feature.layer_effects = Ефекти на слоеви во XCF
 codec.xcf.feature.precision = Прецизност во XCF
 codec.xcf.feature.version = Верзија на XCF
+codec.exr.feature.deep = длабоки податоци во EXR
+codec.exr.feature.subsampled = подсемплирани канали во EXR
+codec.exr.msg.no_channels = Датотеката OpenEXR не содржи канали на сликата.
+codec.exr.msg.write_failed = Не можеше да се запише датотеката OpenEXR: {error}

@@ -67,6 +67,9 @@ workspace.filters.raw_too_tall = RAW تیاری بہت اونچی ہے
 workspace.filters.raw_size_changed = RAW تیاری کا سائز {w} × {h} ہو گیا؛ موجودہ لیئر برقرار رکھی جا رہی ہے
 workspace.filters.raw_history = Camera Raw ڈیولپمنٹ
 workspace.filters.raw_applied = Camera Raw ڈیولپمنٹ لاگو ہوا (بہترین demosaic)
+workspace.raw_masks.no_model = {model} انسٹال نہیں ہے، اس لیے یہ ماسک شناخت نہیں کیا جا سکتا۔
+workspace.raw_masks.no_sky = اس تصویر میں کوئی آسمان نہیں ملا۔
+workspace.raw_masks.detect_failed = ماسک کی شناخت ناکام ہو گئی: {error}
 workspace.image_size.done = تصویر کا سائز: {w} × {h}
 workspace.image_size.bicubic_fallback = تصویر کا سائز: {w} × {h} — {name} ماڈل لوڈ نہ ہو سکا، اس لیے بائی کیوبک طریقہ استعمال ہوا
 workspace.image_size.upscaling = {name} سے بڑا کیا جا رہا ہے
@@ -90,3 +93,10 @@ workspace.file_picker.permission_denied = Schist کو یہ فولڈر پڑھنے
 workspace.recovery.recovered_title = {title} (بحال شدہ)
 workspace.recovery.recovered.one = گزشتہ نشست کا غیر محفوظ کام بحال کیا گیا
 workspace.recovery.recovered.other = گزشتہ نشست کی {n} دستاویزات بحال کی گئیں
+workspace.colormgmt.vision_on = نقالی: {name}
+workspace.colormgmt.vision_off = عام بصارت
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = ان پینٹنگ ماڈل کے بغیر ہٹایا گیا، اس لیے بھراؤ کچھ کھردرا ہو سکتا ہے
+workspace.tool_jobs.document_changed = {name} اپنی دستاویز بند یا تبدیل ہونے کے بعد مکمل ہوا، اس لیے کچھ بھی تبدیل نہیں کیا گیا

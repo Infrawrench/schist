@@ -244,6 +244,7 @@ common.filetype.jpeg = Dealbh JPEG
 common.filetype.webp = Dealbh WebP
 common.filetype.tiff = Dealbh TIFF
 common.filetype.heic = Dealbh HEIC
+common.filetype.exr = Dealbh OpenEXR
 common.filetype.raw = Dealbh amh camara
 common.filetype.affinity = Sgrìobhainn Affinity
 common.filetype.image = Dealbh

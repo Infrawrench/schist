@@ -36,3 +36,7 @@ workspace.history.move_layers = Dilec'hiañ ar gwiskadoù
 workspace.history.layer_opacity = Disterded ar gwiskad
 workspace.history.delete_note = Dilemel an notenn
 workspace.history.edit_note = Kemmañ an notenn
+workspace.canvas.clipping_on = Kemennoù troc'hañ gweredekaet
+workspace.canvas.clipping_off = Kemennoù troc'hañ diweredekaet
+workspace.canvas.peaking_on = Pik fokus gweredekaet
+workspace.canvas.peaking_off = Pik fokus diweredekaet

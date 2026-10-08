@@ -3,6 +3,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = RAW
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -30,15 +32,23 @@ codec.heif.msg.imageio_cannot_read = ImageIO ga e a kgona go bala container ya H
 codec.heif.msg.container_empty = container ya HEIF ga e na setshwantsho
 codec.heif.msg.imageio_cannot_decode = ImageIO ga e a kgona go decode setshwantsho se segolo
 
+# AVIF in the browser build, which has no AV1 decoder (it still exports AVIF).
+codec.avif.msg.no_decoder = Mofuta wa browser wa Schist ga o kgone go bula ditshwantsho tsa AVIF. Bula faele mo app ya desktop, kgotsa o e fetolele go PNG pele.
+
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = Faele ya setshwantsho se se nang le dillaga e senyegile kgotsa ga e a felela.
 codec.layered.too_large = Setshwantsho se se nang le dillaga se feta bogolo kgotsa palo ya dillaga e e tshegediwang.
 codec.layered.unsupported = Faele eno e dirisa karolo e e sa tshegediwang: {feature}.
 codec.layered.export_layer = Llaga “{name}” e na le dikarolo tse popego eno e sa kgoneng go di boloka. E fetolele go dipiksele kgotsa o boloke jaaka PSD.
 codec.layered.export_depth = Go romela kwa Paint.NET go tlhoka tokomane ya RGB ya 8-bit. Fetolela tokomane go RGB ya 8-bit pele.
 codec.layered.export_mode = Go romela go tlhoka tokomane ya RGB. Fetolela tokomane go RGB pele.
+codec.layered.merged_layer = Setshwantsho se se kopantsweng (dillaga dingwe tsa {format} ga di a kgona go tsenngwa)
+codec.kra.merged_color_space = Setshwantsho se se kopantsweng (tokomane ya Krita {color_space} e bontshiwa jaaka RGB)
 codec.pdn.feature.blend_mode = mokgwa wa go kopanya wa PDN
 codec.pdn.feature.compression = go pitlaganya data ga PDN
 codec.pdn.feature.container_version = mofuta wa setshelo sa PDN
@@ -54,3 +64,8 @@ codec.xcf.feature.floating_selection = tlhopho e e kokobalang ya XCF
 codec.xcf.feature.layer_effects = ditlamorago tsa llaga ya XCF
 codec.xcf.feature.precision = nepagalo ya XCF
 codec.xcf.feature.version = mofuta wa XCF
+
+codec.exr.feature.deep = data e e boteng ya EXR
+codec.exr.feature.subsampled = dikanale tsa EXR tse di nang le disampole tse di kgutshwanyane
+codec.exr.msg.no_channels = Faele ya OpenEXR ga e na dikanale tsa setshwantsho.
+codec.exr.msg.write_failed = Go ne go sa kgonege go kwala faele ya OpenEXR: {error}

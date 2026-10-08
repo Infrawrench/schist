@@ -67,6 +67,9 @@ workspace.filters.raw_too_tall = L-iżvilupp RAW huwa għoli wisq
 workspace.filters.raw_size_changed = Id-daqs tal-iżvilupp RAW inbidel għal {w} × {h}; se jinżamm is-saff attwali
 workspace.filters.raw_history = Żvilupp ta' Camera Raw
 workspace.filters.raw_applied = Ġie applikat l-iżvilupp ta' Camera Raw (l-aħjar demosaic)
+workspace.raw_masks.no_model = {model} mhuwiex installat, għalhekk din il-maskra ma tistax tinstab.
+workspace.raw_masks.no_sky = Ma nstabx sema f'din l-istampa.
+workspace.raw_masks.detect_failed = Is-sejbien tal-maskra falla: {error}
 workspace.image_size.done = Daqs tal-immaġni: {w} × {h}
 workspace.image_size.bicubic_fallback = Daqs tal-immaġni: {w} × {h} — il-mudell {name} ma setax jitgħabba, għalhekk intuża l-bikubiku
 workspace.image_size.upscaling = Qed jitkabbar b'{name}
@@ -96,3 +99,10 @@ workspace.recovery.recovered.two = Ġew irkuprati {n} dokumenti minn sessjoni pr
 workspace.recovery.recovered.few = Ġew irkuprati {n} dokumenti minn sessjoni preċedenti
 workspace.recovery.recovered.many = Ġew irkuprati {n}-il dokument minn sessjoni preċedenti
 workspace.recovery.recovered.other = Ġie rkuprat {n} dokument minn sessjoni preċedenti
+workspace.colormgmt.vision_on = Simulazzjoni: {name}
+workspace.colormgmt.vision_off = Vista normali
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Tneħħa mingħajr il-mudell tal-mili, għalhekk il-mili jista' jkun aktar oħxon
+workspace.tool_jobs.document_changed = {name} intemm wara li d-dokument tiegħu ingħalaq jew inbidel, għalhekk xejn ma nbidel

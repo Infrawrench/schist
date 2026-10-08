@@ -66,6 +66,9 @@ workspace.filters.raw_too_tall = Misoomni RAW baay'ee dheeraa dha
 workspace.filters.raw_size_changed = Hammi misooma RAW gara {w} × {h}tti jijjiirameera; laayara ammaa hambisaa jira
 workspace.filters.raw_history = Misooma Camera Raw
 workspace.filters.raw_applied = Misoomni Camera Raw hojii irra ooleera (dimozaayikii gaarii)
+workspace.raw_masks.no_model = {model} hin fe'amne, kanaaf maaskiin kun argamuu hin danda'u.
+workspace.raw_masks.no_sky = Fakkii kana keessatti samiin hin argamne.
+workspace.raw_masks.detect_failed = Argannoon maaskii hin milkoofne: {error}
 workspace.image_size.done = Hamma suuraa: {w} × {h}
 workspace.image_size.bicubic_fallback = Hamma suuraa: {w} × {h} — moodeelli {name} fe'amuu didnaan baayikuubikiin bakka bu'e
 workspace.image_size.upscaling = {name} fayyadamuun guddisaa jira
@@ -89,3 +92,10 @@ workspace.file_picker.permission_denied = Schist ukaankaa kana dubbisuuf hayyama
 workspace.recovery.recovered_title = {title} (deebifame)
 workspace.recovery.recovered.one = Hojii hin olkaa'amne seshinii darbe irraa deebiseera
 workspace.recovery.recovered.other = Galmeewwan {n} seshinii darbe irraa deebiseera
+workspace.colormgmt.vision_on = Fakkeessuu: {name}
+workspace.colormgmt.vision_off = Argiinsa idilee
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Moodela guutuu malee balleeffame, kanaafuu guutuun isaa gaarii ta'uu dhiisuu danda'a
+workspace.tool_jobs.document_changed = {name} erga sanadni isaa cufamee ykn jijjiiramee booda xumurame, kanaafuu wanti jijjiirame hin jiru

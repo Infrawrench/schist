@@ -14,3 +14,4 @@ workspaces.invalid_name = បញ្ចូលឈ្មោះប្រវែង 1�
 workspaces.duplicate = មានកន្លែងធ្វើការដែលមានឈ្មោះនេះរួចហើយ។
 workspaces.limit = អ្នកអាចរក្សាទុកកន្លែងធ្វើការបានរហូតដល់ 64។
 workspaces.keyboard = ក្តារចុច៖ Alt+↑/↓ ជ្រើសរើសប្លង់។ Ctrl/Cmd+N កែឈ្មោះវា; +S រក្សាទុកច្បាប់ចម្លង; +Enter អនុវត្ត; +U ធ្វើបច្ចុប្បន្នភាព; +R ប្តូរឈ្មោះ; +D លុប; +0 កំណត់ឡើងវិញ។
+workspaces.open_documents = ឯកសារដែលបានបើក

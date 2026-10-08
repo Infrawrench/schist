@@ -18,3 +18,11 @@ tool.magic_eraser.name = ຢາງລຶບວິເສດ
 tool.magic_eraser.description = ຄລິກເພື່ອລຶບບໍລິເວນທີ່ມີສີຄ້າຍກັນກ້ອງຕົວຊີ້ ຕາມຂອບເຂດຄວາມຄາດເຄື່ອນຂອງເຄື່ອງມື; ຈະລຶບສະເພາະພື້ນທີ່ຕິດກັບຈຸດທີ່ຄລິກ ຫຼື ລຶບທຸກບ່ອນໃນເລເຢີ.
 tool.magic_eraser.option.contiguous = ຕິດກັນ
 tool.magic_eraser.history.erase = ລຶບດ້ວຍຢາງລຶບວິເສດ
+
+# Remove
+tool.remove.name = ເອົາອອກ
+tool.remove.description = ທາສີທັບວັດຖຸທີ່ບໍ່ຕ້ອງການດ້ວຍການລາກເທື່ອດຽວ; ເມື່ອປ່ອຍ ມັນຈະຖືກເຕີມດ້ວຍສິ່ງທີ່ຢູ່ອ້ອມຮອບ. ເມື່ອປິດ ເອົາອອກຫຼັງແຕ່ລະເສັ້ນ ໃຫ້ທາຫຼາຍເສັ້ນແລ້ວກົດ Enter ເພື່ອເອົາອອກພ້ອມກັນ.
+tool.remove.option.sample_all_layers = ເກັບຕົວຢ່າງຈາກທຸກເລເຢີ
+tool.remove.option.remove_after_each_stroke = ເອົາອອກຫຼັງແຕ່ລະເສັ້ນ
+tool.remove.history.remove = ເອົາອອກ
+tool.remove.layer_name = ເອົາອອກແລ້ວ

@@ -5,6 +5,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = RAW di camera
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -36,15 +38,22 @@ codec.heif.msg.imageio_cannot_read = ImageIO ùn hà pussutu leghje u cuntainer 
 codec.heif.msg.container_empty = u cuntainer HEIF ùn cuntene nisuna maghjina
 codec.heif.msg.imageio_cannot_decode = ImageIO ùn hà pussutu decudificà a maghjina principale
 
+codec.avif.msg.no_decoder = A versione di navigatore di Schist ùn pò micca apre e maghjine AVIF. Aprite u schedariu in l'applicazione di scrivania, o cunvertitelu prima in PNG.
+
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = U schedariu di maghjina à strati hè dannighjatu o incompletu.
 codec.layered.too_large = A maghjina à strati supera a dimensione o u numeru di strati suppurtatu.
 codec.layered.unsupported = Stu schedariu adopra una funziunalità micca suppurtata: {feature}.
 codec.layered.export_layer = U stratu «{name}» cuntene funziunalità chì stu furmatu ùn pò micca priservà. Rasterizatelu o arregistrate cum'è PSD.
 codec.layered.export_depth = A spurtazione in Paint.NET richiede un ducumentu RGB à 8 bit. Cunvertite prima u ducumentu in RGB à 8 bit.
 codec.layered.export_mode = A spurtazione richiede un ducumentu RGB. Cunvertite prima u ducumentu in RGB.
+codec.layered.merged_layer = Maghjina unita (alcuni strati {format} ùn anu pussutu esse impurtati)
+codec.kra.merged_color_space = Maghjina unita (ducumentu Krita {color_space} mostru cum'è RGB)
 
 # Unsupported layered format features
 codec.pdn.feature.blend_mode = Modu di mischju PDN
@@ -62,3 +71,8 @@ codec.xcf.feature.floating_selection = Selezzione flottante XCF
 codec.xcf.feature.layer_effects = Effetti di stratu XCF
 codec.xcf.feature.precision = Precisione XCF
 codec.xcf.feature.version = Versione XCF
+
+codec.exr.feature.deep = dati prufondi EXR
+codec.exr.feature.subsampled = canali EXR sottocampiunati
+codec.exr.msg.no_channels = U schedariu OpenEXR ùn cuntene nisunu canale d'imagine.
+codec.exr.msg.write_failed = Impussibule scrive u schedariu OpenEXR: {error}

@@ -322,3 +322,43 @@ library.similar.keep = Tauhi
 library.similar.reject = ʻIkai tali
 library.similar.help = Ngaahi fakaʻilonga vakai pē; ʻoku ʻikai tamateʻi ʻa e ngaahi faile.
 library.similar.stale = Kuo liliu ʻa e ngaahi faile. Fakafoʻou ke hoko atu.
+
+# Find Duplicates
+library.duplicates.title = Ngaahi tatau
+library.duplicates.help = Ngaahi faile tatau pē mo e ngaahi tatau ofi ʻi he ngaahi fōlia kotoa pē ʻoku mataʻi. ʻOku ui tuʻo ua ʻa e fakahū ki he puha veve; ʻe lava ke toe ʻomi mei he puha veve ʻa e ngaahi faile ʻoku ʻi ai.
+library.duplicates.exact = Ngaahi faile tatau pē
+library.duplicates.near = Ngaahi tatau ofi
+library.duplicates.identical = tatau pē (SHA-256)
+library.duplicates.suggested = Fokotuʻu ke tauhi
+library.duplicates.make_keeper = Tauhi ʻEni
+library.duplicates.compare = Fakahoa
+library.duplicates.keep_all = Tauhi Kotoa
+library.duplicates.reject_others = ʻIkai Tali ʻa e Ngaahi Toe
+library.duplicates.trash_others.other = Hiki ʻa e Toe ʻe {n} ki he Puha Veve
+library.duplicates.confirm_trash.other = Fakapapau: Hiki ʻe {n} ki he Puha Veve
+library.duplicates.n_trashed.other = Naʻe hiki ʻa e faile ʻe {n} ki he puha veve
+library.duplicates.n_rejected.other = Naʻe fakamaʻu ʻa e tā ʻe {n} ʻo hangē ko e ʻikai tali
+library.duplicates.refused_edited = ʻoku ʻi ai ha ngaahi liliu pe faile sidecar, ko ia ʻikai tali ia
+library.duplicates.trash_failed = ʻoku ʻikai maʻu ʻa e puha veve ʻo e founga
+library.duplicates.near_limit = ʻOku kau he fakahoa tatau ofi ʻa e tā ʻe 10,000 ʻuluaki.
+
+# Geotagging from GPX tracks
+library.geotag.menu = Tānaki Feituʻu mei he Hala GPX…
+library.geotag.title = Tānaki Feituʻu mei he Hala GPX
+library.geotag.add_files = Tānaki Ngaahi Faile GPX…
+library.geotag.n_track_points.other = Ngaahi tuʻunga hala ʻoku ʻi ai ʻa e taimi: {n}
+library.geotag.max_gap = Vaeua lahi taha (miniti)
+library.geotag.clock_offset = Fakatonutonu ʻo e uati ʻo e kamera
+library.geotag.time_zone = Feituʻu taimi ʻo e ngaahi tā (kehekehe mei he UTC)
+library.geotag.zone_help = ʻOku ngāue pē ʻa e feituʻu taimi ki he ngaahi taimi tā naʻe lekooti taʻe ʻi ai ha feituʻu taimi. ʻOku tānaki ʻa e fakatonutonu, ʻi he sekoni pe ±h:mm:ss, ki he taimi tā kotoa pē.
+library.geotag.skip_existing = Lākaki ʻa e ngaahi tā ʻoku ʻi ai ʻa e feituʻu
+library.geotag.n_will_tag.other = Ngaahi tā ʻe tānaki ʻenau feituʻu: {n}
+library.geotag.n_has_gps.other = Ngaahi tā ʻoku ʻi ai ʻenau feituʻu: {n}
+library.geotag.n_no_time.other = Ngaahi tā ʻoku ʻikai ʻi ai ha taimi tā: {n}
+library.geotag.n_gap.other = Ngaahi tā ʻoku tō ki he vaeua ʻo e hala: {n}
+library.geotag.n_outside.other = Ngaahi tā ʻoku ʻi tuʻa ʻi he taimi ʻo e hala: {n}
+library.geotag.apply = Tohi ʻa e Ngaahi Feituʻu
+library.geotag.invalid = Hū ʻa e vaeua ʻi he miniti, ha fakatonutonu hangē ko e -1:30 mo ha feituʻu taimi hangē ko e +02:00.
+library.geotag.no_points = ʻOku ʻikai ʻi ai ha ngaahi tuʻunga ʻoku ʻi ai ʻa e taimi ʻi he ngaahi faile GPX.
+library.geotag.select_photos = Fili ʻuluaki ʻa e ngaahi tā ke tānaki ʻenau feituʻu.
+library.geotag.read_failed = Naʻe ʻikai lava ʻo lau ʻa e ngaahi faile GPX: {error}

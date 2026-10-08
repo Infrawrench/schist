@@ -66,6 +66,9 @@ workspace.filters.raw_too_tall = La rezulto de RAW-disvolvado estas tro alta
 workspace.filters.raw_size_changed = La grando de RAW-disvolvado ŝanĝiĝis al {w} × {h}; konservante la aktualan tavolon
 workspace.filters.raw_history = Disvolvado per Camera Raw
 workspace.filters.raw_applied = Disvolvado per Camera Raw aplikita (plej bona senmozaikigo)
+workspace.raw_masks.no_model = {model} ne estas instalita, do ĉi tiu masko ne povas esti detektita.
+workspace.raw_masks.no_sky = Neniu ĉielo troviĝis en ĉi tiu bildo.
+workspace.raw_masks.detect_failed = Detekto de masko malsukcesis: {error}
 workspace.image_size.done = Bilda grando: {w} × {h}
 workspace.image_size.bicubic_fallback = Bilda grando: {w} × {h} — la modelo {name} ne ŝargiĝis, do anstataŭis ĝin bikuba interpolado
 workspace.image_size.upscaling = Pligrandigante per {name}
@@ -89,3 +92,10 @@ workspace.file_picker.permission_denied = Schist ne havas permeson legi ĉi tiun
 workspace.recovery.recovered_title = {title} (restarigita)
 workspace.recovery.recovered.one = Restarigita nekonservita laboro el antaŭa seanco
 workspace.recovery.recovered.other = Restarigitaj {n} dokumentoj el antaŭa seanco
+workspace.colormgmt.vision_on = Simulado: {name}
+workspace.colormgmt.vision_off = Normala vidado
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Forigita sen la plenigmodelo, do la plenigo eble estos pli malglata
+workspace.tool_jobs.document_changed = {name} finiĝis post kiam ĝia dokumento estis fermita aŭ ŝanĝita, do nenio estis ŝanĝita

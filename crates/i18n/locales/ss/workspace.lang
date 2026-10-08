@@ -66,6 +66,9 @@ workspace.filters.raw_too_tall = Kucutshungulwa kwe-RAW kudze kakhulu
 workspace.filters.raw_size_changed = Bukhulu bekucutshungulwa kwe-RAW bushintjile baba ngu-{w} × {h}; kugcinwa luhlaka lwamanje
 workspace.filters.raw_history = Kucubungula Nge-Camera Raw
 workspace.filters.raw_applied = Kucutshungulwa nge-Camera Raw kusetjentisiwe (kucatulula iphethini yembala lokuhle kakhulu)
+workspace.raw_masks.no_model = {model} akufakiwe, ngako-ke lesifihlo angeke sitfolakale.
+workspace.raw_masks.no_sky = Akukho sibhakabhaka lesitfolakele kulesitfombe.
+workspace.raw_masks.detect_failed = Kutfola sifihlo kuhlulekile: {error}
 workspace.image_size.done = Bukhulu bemfanekiso: {w} × {h}
 workspace.image_size.bicubic_fallback = Bukhulu bemfanekiso: {w} × {h} — imodeli ye-{name} ayilayishanga, ngako kwasetjentiswa Bicubic
 workspace.image_size.upscaling = Kukhuliswa nge-{name}
@@ -89,3 +92,10 @@ workspace.file_picker.permission_denied = Schist ayinayo imvume yekufundza lefol
 workspace.recovery.recovered_title = {title} (kubuyiselwe)
 workspace.recovery.recovered.one = Kubuyiselwe umsebenti longakagcinwa kuseshini leyendlulile
 workspace.recovery.recovered.other = Kubuyiselwe emadokhumenti langu-{n} kuseshini leyendlulile
+workspace.colormgmt.vision_on = Kulinganisa: {name}
+workspace.colormgmt.vision_off = Kubona kwekujwayelekile
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Kususwe ngaphandle kwemodeli yekugcwalisa, ngako kugcwalisa kungaba lokumahhadlahhadla
+workspace.tool_jobs.document_changed = {name} kuphetfwe ngemuva kwekutsi idokhumenti yako ivalwe nobe yashintjwa, ngako kute lokushintjiwe

@@ -4,6 +4,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -31,15 +33,22 @@ codec.heif.msg.imageio_cannot_read = ImageIO no pudo leer el contenedor HEIF
 codec.heif.msg.container_empty = el contenedor HEIF no contiene ninguna imagen
 codec.heif.msg.imageio_cannot_decode = ImageIO no pudo decodificar la imagen principal
 
+codec.avif.msg.no_decoder = La versión de Schist para navegador no puede abrir imágenes AVIF. Abre el archivo en la aplicación de escritorio o conviértelo primero a PNG.
+
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = El archivo de imagen con capas está dañado o incompleto.
 codec.layered.too_large = La imagen con capas supera el tamaño o el número de capas admitidos.
 codec.layered.unsupported = Este archivo utiliza una función no compatible: {feature}.
 codec.layered.export_layer = La capa «{name}» contiene características que este formato no puede conservar. Rasterícela o guarde como PSD.
 codec.layered.export_depth = La exportación a Paint.NET requiere un documento RGB de 8 bits. Convierta primero el documento a RGB de 8 bits.
 codec.layered.export_mode = La exportación requiere un documento RGB. Convierta primero el documento a RGB.
+codec.layered.merged_layer = Imagen combinada (no se pudieron importar algunas capas de {format})
+codec.kra.merged_color_space = Imagen combinada (documento de Krita {color_space} mostrado como RGB)
 codec.pdn.feature.blend_mode = modo de fusión PDN
 codec.pdn.feature.compression = compresión PDN
 codec.pdn.feature.container_version = versión del contenedor PDN
@@ -55,3 +64,8 @@ codec.xcf.feature.floating_selection = selección flotante XCF
 codec.xcf.feature.layer_effects = efectos de capa XCF
 codec.xcf.feature.precision = precisión XCF
 codec.xcf.feature.version = versión XCF
+
+codec.exr.feature.deep = datos profundos de EXR
+codec.exr.feature.subsampled = canales submuestreados de EXR
+codec.exr.msg.no_channels = El archivo OpenEXR no contiene ningún canal de imagen.
+codec.exr.msg.write_failed = No se pudo escribir el archivo OpenEXR: {error}

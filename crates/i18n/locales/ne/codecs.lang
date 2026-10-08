@@ -3,6 +3,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -30,15 +32,22 @@ codec.heif.msg.imageio_cannot_read = ImageIO ले HEIF कन्टेनर �
 codec.heif.msg.container_empty = HEIF कन्टेनरमा कुनै छवि छैन
 codec.heif.msg.imageio_cannot_decode = ImageIO ले मुख्य छवि डिकोड गर्न सकेन
 
+codec.avif.msg.no_decoder = Schist को ब्राउजर संस्करणले AVIF छविहरू खोल्न सक्दैन। फाइललाई डेस्कटप एपमा खोल्नुहोस्, वा पहिले PNG मा रूपान्तरण गर्नुहोस्।
+
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = तहयुक्त छवि फाइल बिग्रिएको वा अपूर्ण छ।
 codec.layered.too_large = तहयुक्त छविको आकार वा तहको सङ्ख्या समर्थित सीमाभन्दा बढी छ।
 codec.layered.unsupported = यो फाइलले समर्थन नगरिएको सुविधा प्रयोग गर्छ: {feature}।
 codec.layered.export_layer = “{name}” तहमा यस ढाँचाले जोगाउन नसक्ने सुविधाहरू छन्। यसलाई रास्टराइज गर्नुहोस् वा PSD का रूपमा बचत गर्नुहोस्।
 codec.layered.export_depth = Paint.NET मा निर्यात गर्न 8-बिट RGB कागजात चाहिन्छ। पहिले कागजातलाई 8-बिट RGB मा बदल्नुहोस्।
 codec.layered.export_mode = निर्यात गर्न RGB कागजात चाहिन्छ। पहिले कागजातलाई RGB मा बदल्नुहोस्।
+codec.layered.merged_layer = मिलाइएको छवि ({format} का केही तह आयात गर्न सकिएन)
+codec.kra.merged_color_space = मिलाइएको छवि (Krita {color_space} कागजात RGB का रूपमा देखाइएको)
 
 # Unsupported layered format features
 codec.pdn.feature.blend_mode = PDN मिश्रण मोड
@@ -56,3 +65,8 @@ codec.xcf.feature.floating_selection = XCF तैरिने चयन
 codec.xcf.feature.layer_effects = XCF तह प्रभावहरू
 codec.xcf.feature.precision = XCF परिशुद्धता
 codec.xcf.feature.version = XCF संस्करण
+
+codec.exr.feature.deep = EXR डीप डेटा
+codec.exr.feature.subsampled = EXR सबस्याम्पल गरिएका च्यानलहरू
+codec.exr.msg.no_channels = OpenEXR फाइलमा कुनै छवि च्यानल छैन।
+codec.exr.msg.write_failed = OpenEXR फाइल लेख्न सकिएन: {error}

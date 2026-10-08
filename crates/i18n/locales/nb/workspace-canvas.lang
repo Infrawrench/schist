@@ -36,3 +36,7 @@ workspace.history.move_layers = Flytt lag
 workspace.history.layer_opacity = Lagtetthet
 workspace.history.delete_note = Slett merknad
 workspace.history.edit_note = Rediger merknad
+workspace.canvas.clipping_on = Klippeadvarsler på
+workspace.canvas.clipping_off = Klippeadvarsler av
+workspace.canvas.peaking_on = Fokusutheving på
+workspace.canvas.peaking_off = Fokusutheving av

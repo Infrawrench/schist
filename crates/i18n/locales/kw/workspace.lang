@@ -66,6 +66,9 @@ workspace.filters.raw_too_tall = Displegyans RAW yw re ughel
 workspace.filters.raw_size_changed = Braster displegyans RAW chanjys dhe {w} × {h}; ow witha an gwisk a-lemmyn
 workspace.filters.raw_history = Displegyans Camera Raw
 workspace.filters.raw_applied = Displegyans Camera Raw gorres (demosaik gwella)
+workspace.raw_masks.no_model = Nyns yw {model} ynstallys, ytho ny yll an mask ma bos diskudhys.
+workspace.raw_masks.no_sky = Ny veu kevys ebron vyth y'n imaj ma.
+workspace.raw_masks.detect_failed = Fyllis diskudha an mask: {error}
 workspace.image_size.done = Braster delwenn: {w} × {h}
 workspace.image_size.bicubic_fallback = Braster delwenn: {w} × {h} — model {name} ny dhallas karga, ytho interpolasyon dewgubek a gemeras y le
 workspace.image_size.upscaling = Owth ughel-skeulya gans {name}
@@ -97,3 +100,10 @@ workspace.recovery.recovered.two = {n} skrifen daskavys dhyworth esedh kyns
 workspace.recovery.recovered.few = {n} skrifen daskavys dhyworth esedh kyns
 workspace.recovery.recovered.many = {n} skrifen daskavys dhyworth esedh kyns
 workspace.recovery.recovered.other = {n} skrifen daskavys dhyworth esedh kyns
+workspace.colormgmt.vision_on = Hevelepheans: {name}
+workspace.colormgmt.vision_off = Gwel kynsa
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Dileys heb an model lenwel, ytho an lenwel a yll bos garowa
+workspace.tool_jobs.document_changed = {name} a worfennas wosa y skrifen dhe vos degeys po chanjys, ytho travydh ny veu chanjys

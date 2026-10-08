@@ -25,3 +25,11 @@ tool.magic_eraser.name = મેજિક ઇરેઝર
 tool.magic_eraser.description = પોઇન્ટરની નીચે સમાન રંગ ધરાવતો વિસ્તાર ટૂલની સહનશીલતાની મર્યાદામાં ભૂંસવા ક્લિક કરો — ફક્ત ક્લિક સાથે જોડાયેલો વિસ્તાર, અથવા લેયરમાં આવો દરેક વિસ્તાર.
 tool.magic_eraser.option.contiguous = સળંગ
 tool.magic_eraser.history.erase = મેજિક ઇરેઝર
+
+# Remove
+tool.remove.name = દૂર કરો
+tool.remove.description = અનિચ્છનીય ઑબ્જેક્ટ પર એક જ સ્ટ્રોકમાં પેઇન્ટ કરો; છોડતાં જ તે તેની આસપાસના ભાગમાંથી ભરાઈ જશે. દરેક સ્ટ્રોક પછી દૂર કરો બંધ હોય ત્યારે, ઘણા સ્ટ્રોક પેઇન્ટ કરો અને તેમને એકસાથે દૂર કરવા માટે Enter દબાવો.
+tool.remove.option.sample_all_layers = બધા લેયરનો નમૂનો લો
+tool.remove.option.remove_after_each_stroke = દરેક સ્ટ્રોક પછી દૂર કરો
+tool.remove.history.remove = દૂર કરો
+tool.remove.layer_name = દૂર કરેલું

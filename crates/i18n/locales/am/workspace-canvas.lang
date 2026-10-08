@@ -36,3 +36,7 @@ workspace.history.move_layers = ንብርብሮችን አንቀሳቅስ
 workspace.history.layer_opacity = የንብርብር መሸፈን መጠን
 workspace.history.delete_note = ማስታወሻ ሰርዝ
 workspace.history.edit_note = ማስታወሻ አርትዕ
+workspace.canvas.clipping_on = የመቆረጥ ማስጠንቀቂያዎች በርተዋል
+workspace.canvas.clipping_off = የመቆረጥ ማስጠንቀቂያዎች ጠፍተዋል
+workspace.canvas.peaking_on = የትኩረት ጫፍ ማሳያ በርቷል
+workspace.canvas.peaking_off = የትኩረት ጫፍ ማሳያ ጠፍቷል

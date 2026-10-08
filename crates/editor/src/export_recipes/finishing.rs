@@ -458,6 +458,8 @@ fn embed_copyright(codec: &str, mut bytes: Vec<u8>, text: &str) -> Result<Vec<u8
             bytes.extend_from_slice(&next);
             bytes[4..8].copy_from_slice(&put32(ifd_offset));
         }
+        "codec.jxl" => bytes = schist_codecs_common::jxl::with_xmp(&bytes, &xmp)?,
+        "codec.avif" => bytes = schist_codecs_common::avif::with_xmp(&bytes, &xmp)?,
         _ => anyhow::bail!("{}", t("metadata.invalid")),
     }
     Ok(bytes)

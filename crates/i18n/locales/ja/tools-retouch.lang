@@ -28,3 +28,11 @@ tool.magic_eraser.name = マジック消しゴムツール
 tool.magic_eraser.description = クリックすると、ポインターの下にある似た色の範囲を許容値の範囲内で消去します。クリック位置につながった部分だけ、またはレイヤー全体が対象になります。
 tool.magic_eraser.option.contiguous = 隣接
 tool.magic_eraser.history.erase = マジック消しゴム
+
+# Remove
+tool.remove.name = 削除ツール
+tool.remove.description = 不要なオブジェクトを 1 回のストロークでペイントすると、指を離したときに周囲の内容で塗りつぶされます。「各ストローク後に削除」をオフにすると、複数のストロークをペイントしてから Enter キーを押してまとめて削除できます。
+tool.remove.option.sample_all_layers = 全レイヤーを対象
+tool.remove.option.remove_after_each_stroke = 各ストローク後に削除
+tool.remove.history.remove = 削除
+tool.remove.layer_name = 削除済み

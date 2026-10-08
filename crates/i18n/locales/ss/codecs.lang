@@ -3,6 +3,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Lifayela Lekhamera Lelingakacutshungulwa
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -34,15 +36,23 @@ codec.heif.msg.imageio_cannot_read = ImageIO ayikwatanga kufundza sitja se-HEIF
 codec.heif.msg.container_empty = sitja se-HEIF site umfanekiso
 codec.heif.msg.imageio_cannot_decode = ImageIO ayikwatanga kucatulula umfanekiso loyinhloko
 
+# AVIF in the browser build, which has no AV1 decoder (it still exports AVIF).
+codec.avif.msg.no_decoder = Luhlobo lwe-Schist lwesiphequluli alukhoni kuvula imifanekiso ye-AVIF. Vula lifayela ku-app yedeskithophu, nome uqale uliguculele ku-PNG.
+
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = Lifayela lemfanekiso lonetinhlaka lonakele nobe aliphelele.
 codec.layered.too_large = Umfanekiso lonetinhlaka wengca bukhulu nobe linani letinhlaka lelisekelwako.
 codec.layered.unsupported = Lelifayela lisebentisa sici lesingasekelwa: {feature}.
 codec.layered.export_layer = Luhlaka “{name}” lunetici lelifomethi lengeke itigcine. Lwente lube ngemaphikseli nobe ugcine njenge-PSD.
 codec.layered.export_depth = Kutfumela ku-Paint.NET kudzinga idokhumenti ye-RGB yema-bit langu-8. Cala ugucule idokhumenti ibe yi-RGB yema-bit langu-8.
 codec.layered.export_mode = Kutfumela kudzinga idokhumenti ye-RGB. Cala ugucule idokhumenti ibe yi-RGB.
+codec.layered.merged_layer = Umfanekiso lohlanganisiwe (letinye tinhlaka te-{format} atikhonanga kungeniswa)
+codec.kra.merged_color_space = Umfanekiso lohlanganisiwe (idokhumenti ye-Krita {color_space} ibukiswa njenge-RGB)
 codec.pdn.feature.blend_mode = imodi yekuhlanganisa ye-PDN
 codec.pdn.feature.compression = kucindzetelwa kwedatha ye-PDN
 codec.pdn.feature.container_version = inguqulo yesitfutsi se-PDN
@@ -58,3 +68,7 @@ codec.xcf.feature.floating_selection = kukhetfwa lokuntantako kwe-XCF
 codec.xcf.feature.layer_effects = imitselela yeluhlaka lwe-XCF
 codec.xcf.feature.precision = kunemba kwe-XCF
 codec.xcf.feature.version = inguqulo ye-XCF
+codec.exr.feature.deep = idatha lejulile ye-EXR
+codec.exr.feature.subsampled = titeshi leticoshiwe ngekusampula te-EXR
+codec.exr.msg.no_channels = Lefayela le-OpenEXR alinato titeshi tesithombe.
+codec.exr.msg.write_failed = Ayikhonanga kubhala lefayela le-OpenEXR: {error}

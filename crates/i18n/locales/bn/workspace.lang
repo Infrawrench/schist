@@ -66,6 +66,9 @@ workspace.filters.raw_too_tall = RAW ডেভেলপমেন্ট অতি
 workspace.filters.raw_size_changed = RAW ডেভেলপমেন্টের আকার {w} × {h} হয়েছে; বর্তমান লেয়ার রাখা হচ্ছে
 workspace.filters.raw_history = Camera Raw ডেভেলপমেন্ট
 workspace.filters.raw_applied = Camera Raw ডেভেলপমেন্ট প্রয়োগ হয়েছে (সেরা ডিমোজাইক)
+workspace.raw_masks.no_model = {model} ইনস্টল করা নেই, তাই এই মাস্কটি শনাক্ত করা যাচ্ছে না।
+workspace.raw_masks.no_sky = এই ছবিতে কোনো আকাশ পাওয়া যায়নি।
+workspace.raw_masks.detect_failed = মাস্ক শনাক্তকরণ ব্যর্থ হয়েছে: {error}
 workspace.image_size.done = ছবির আকার: {w} × {h}
 workspace.image_size.bicubic_fallback = ছবির আকার: {w} × {h} — {name} মডেল লোড হয়নি, তাই বিকল্প হিসেবে দ্বিঘন ব্যবহৃত হয়েছে
 workspace.image_size.upscaling = {name} দিয়ে আকার বাড়ানো হচ্ছে
@@ -89,3 +92,10 @@ workspace.file_picker.permission_denied = এই ফোল্ডার পড়
 workspace.recovery.recovered_title = {title} (পুনরুদ্ধার করা)
 workspace.recovery.recovered.one = আগের সেশন থেকে {n}টি অসংরক্ষিত নথি পুনরুদ্ধার হয়েছে
 workspace.recovery.recovered.other = আগের সেশন থেকে {n}টি নথি পুনরুদ্ধার হয়েছে
+workspace.colormgmt.vision_on = সিমুলেশন: {name}
+workspace.colormgmt.vision_off = স্বাভাবিক দৃষ্টি
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = ইনপেইন্টিং মডেল ছাড়াই অপসারণ করা হয়েছে, তাই পূরণ কিছুটা অমসৃণ হতে পারে
+workspace.tool_jobs.document_changed = {name} শেষ হয়েছে তার নথি বন্ধ বা বদলানোর পরে, তাই কিছুই পরিবর্তন করা হয়নি

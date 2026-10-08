@@ -169,6 +169,9 @@ impl Workspace {
         #[cfg(not(target_arch = "wasm32"))]
         {
             self.photo_merge_job = None;
+            if matches!(self.modal, Some(Modal::Geotag { .. })) {
+                self.library.geotag.cancel.store(true, Ordering::Relaxed);
+            }
         }
         if matches!(
             self.modal,
@@ -195,6 +198,7 @@ impl Workspace {
         // filter clears the preview first, so this only fires on cancel.
         self.filter_canvas = Default::default();
         self.cancel_filter_preview(cx);
+        self.end_raw_mask_editing();
         // Same for a cancelled Layer Style session: OK clears the modal
         // itself before it gets here, so reaching this means Cancel.
         self.revert_layer_style();
@@ -460,6 +464,7 @@ impl Workspace {
             || id == file_picker::NAME_FIELD
             || id == palettes::SEARCH_FIELD
             || id.starts_with("metadata-")
+            || id.starts_with("geotag-")
             || id.starts_with("recipe-")
             || id.starts_with("cloud-");
         let hex = id == "cp-hex";
@@ -800,6 +805,13 @@ impl Workspace {
             return;
         }
         #[cfg(not(target_arch = "wasm32"))]
+        if id.starts_with("geotag-") {
+            self.update_modal(|m| {
+                super::library_geotag::commit_field(m, id, buffer);
+            });
+            return;
+        }
+        #[cfg(not(target_arch = "wasm32"))]
         if id.starts_with("metadata-") {
             self.update_modal(|m| {
                 super::library_metadata::commit_field(m, id, buffer);
@@ -940,6 +952,7 @@ impl Workspace {
             // text fields.
             | Modal::BucketName { .. }
             | Modal::MetadataEdit { .. }
+            | Modal::Geotag { .. }
             | Modal::SpotInk
             | Modal::ModelManager
             | Modal::FilterGallery { .. }
@@ -1062,6 +1075,7 @@ impl Workspace {
                 self.record_action_step(recorded_actions::Step::Transform { params });
             }
         }
+        self.drain_tool_jobs(tool_id, cx);
         self.after_change(cx);
     }
 
@@ -1142,6 +1156,11 @@ impl Workspace {
             self.design.controls.field = None;
             self.design.cancel_gesture();
             cx.notify();
+            return;
+        }
+        // A running removal is the most recent thing the user started:
+        // the first Escape stops it, the next clears unapplied strokes.
+        if self.cancel_tool_jobs(cx) {
             return;
         }
         let tool_id = self.editor.active_tool;

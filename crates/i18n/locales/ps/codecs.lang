@@ -5,6 +5,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -36,15 +38,22 @@ codec.heif.msg.imageio_cannot_read = ImageIO د HEIF لوښی نشي لوستل�
 codec.heif.msg.container_empty = د HEIF لوښی هېڅ انځور نه لري
 codec.heif.msg.imageio_cannot_decode = ImageIO اصلي انځور نشي کوډسپړلی
 
+codec.avif.msg.no_decoder = د Schist لټونګر نسخه AVIF انځورونه نشي پرانیستلی. دوتنه په ډېسکټاپ کاریال کې پرانیزئ، یا یې لومړی PNG ته واړوئ.
+
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = د طبقو لرونکې انځور دوتنه خرابه یا نیمګړې ده.
 codec.layered.too_large = د طبقو لرونکي انځور کچه یا د طبقو شمېر له ملاتړ شوې پولې اوړي.
 codec.layered.unsupported = دا دوتنه داسې ځانګړنه کاروي چې ملاتړ یې نه کېږي: {feature}.
 codec.layered.export_layer = د “{name}” طبقه داسې ځانګړنې لري چې دا بڼه یې نه شي ساتلی. طبقه پېکسلي کړئ یا یې د PSD په بڼه وساتئ.
 codec.layered.export_depth = د Paint.NET په بڼه صادرول د 8-بېټه RGB سند ته اړتیا لري. لومړی سند 8-بېټه RGB ته بدل کړئ.
 codec.layered.export_mode = صادرول د RGB سند ته اړتیا لري. لومړی سند RGB ته بدل کړئ.
+codec.layered.merged_layer = یو شوی انځور (د {format} ځينې طبقې نه شوې واردېدلی)
+codec.kra.merged_color_space = یو شوی انځور (د Krita {color_space} سند د RGB په توګه ښودل شوی)
 
 # Unsupported layered format features
 codec.pdn.feature.blend_mode = د PDN د ګډولو حالت
@@ -62,3 +71,8 @@ codec.xcf.feature.floating_selection = د XCF لامبو وهونکې ټاکنه
 codec.xcf.feature.layer_effects = د XCF طبقې اغېزې
 codec.xcf.feature.precision = د XCF کره‌والی
 codec.xcf.feature.version = د XCF نسخه
+
+codec.exr.feature.deep = د EXR ژورې معلومات
+codec.exr.feature.subsampled = د EXR فرعي نمونه شوي کانالونه
+codec.exr.msg.no_channels = د OpenEXR دوتنه هېڅ د انځور کانال نه لري.
+codec.exr.msg.write_failed = د OpenEXR دوتنه ونه لیکل شوه: {error}

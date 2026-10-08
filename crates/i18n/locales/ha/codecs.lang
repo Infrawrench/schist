@@ -6,6 +6,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -41,15 +43,22 @@ codec.heif.msg.imageio_cannot_read = ImageIO ya kasa karanta kwandon HEIF
 codec.heif.msg.container_empty = kwandon HEIF ba shi da hoto
 codec.heif.msg.imageio_cannot_decode = ImageIO ya kasa sauya lambar babban hoto
 
+codec.avif.msg.no_decoder = Sigar burauza ta Schist ba za ta iya buɗe hotunan AVIF ba. Buɗe fayil ɗin a manhajar kwamfuta, ko mayar da shi zuwa PNG tukuna.
+
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = Fayil ɗin hoton mai shimfiɗu ya lalace ko bai cika ba.
 codec.layered.too_large = Girman hoton mai shimfiɗu ko yawan shimfiɗunsa ya wuce iyakar da ake tallafawa.
 codec.layered.unsupported = Wannan fayil yana amfani da fasalin da ba a tallafawa: {feature}.
 codec.layered.export_layer = Shimfiɗar “{name}” tana ɗauke da fasalolin da wannan tsarin ba zai iya adanawa ba. Mayar da ita pixels ko ajiye a matsayin PSD.
 codec.layered.export_depth = Fitarwa zuwa Paint.NET yana buƙatar takardar RGB mai bit 8. Da farko, mayar da takardar zuwa RGB mai bit 8.
 codec.layered.export_mode = Fitarwa yana buƙatar takardar RGB. Da farko, mayar da takardar zuwa RGB.
+codec.layered.merged_layer = Hoton da aka haɗa (wasu shimfiɗun {format} ba a iya shigo da su ba)
+codec.kra.merged_color_space = Hoton da aka haɗa (an nuna takardar Krita {color_space} a matsayin RGB)
 codec.pdn.feature.blend_mode = yanayin haɗawa na PDN
 codec.pdn.feature.compression = matse bayanai na PDN
 codec.pdn.feature.container_version = sigar kwandon PDN
@@ -65,3 +74,8 @@ codec.xcf.feature.floating_selection = zaɓi mai iyo na XCF
 codec.xcf.feature.layer_effects = tasirin shimfiɗar XCF
 codec.xcf.feature.precision = daidaiton XCF
 codec.xcf.feature.version = sigar XCF
+
+codec.exr.feature.deep = bayanan zurfi na EXR
+codec.exr.feature.subsampled = tashoshin EXR da aka rage samfurinsu
+codec.exr.msg.no_channels = Fayil ɗin OpenEXR ba shi da tashoshin hoto.
+codec.exr.msg.write_failed = Ba a iya rubuta fayil ɗin OpenEXR ba: {error}

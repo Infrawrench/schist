@@ -3,6 +3,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -30,15 +32,22 @@ codec.heif.msg.imageio_cannot_read = ImageIO nie może odczytać kontenera HEIF
 codec.heif.msg.container_empty = kontener HEIF nie zawiera obrazu
 codec.heif.msg.imageio_cannot_decode = ImageIO nie może zdekodować obrazu głównego
 
+codec.avif.msg.no_decoder = Wersja przeglądarkowa Schist nie może otwierać obrazów AVIF. Otwórz plik w aplikacji komputerowej lub najpierw przekonwertuj go do PNG.
+
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = Plik obrazu z warstwami jest uszkodzony lub niekompletny.
 codec.layered.too_large = Obraz z warstwami przekracza obsługiwany rozmiar lub liczbę warstw.
 codec.layered.unsupported = Ten plik używa nieobsługiwanej funkcji: {feature}.
 codec.layered.export_layer = Warstwa „{name}” zawiera funkcje, których ten format nie może zachować. Zrasteryzuj ją lub zapisz jako PSD.
 codec.layered.export_depth = Eksport do formatu Paint.NET wymaga 8-bitowego dokumentu RGB. Najpierw przekonwertuj dokument na 8-bitowy RGB.
 codec.layered.export_mode = Eksport wymaga dokumentu RGB. Najpierw przekonwertuj dokument na RGB.
+codec.layered.merged_layer = Obraz scalony (nie udało się zaimportować niektórych warstw {format})
+codec.kra.merged_color_space = Obraz scalony (dokument Krita {color_space} wyświetlony jako RGB)
 
 # Unsupported layered format features
 codec.pdn.feature.blend_mode = Tryb mieszania PDN
@@ -56,3 +65,8 @@ codec.xcf.feature.floating_selection = Oderwane zaznaczenie XCF
 codec.xcf.feature.layer_effects = Efekty warstw XCF
 codec.xcf.feature.precision = Precyzja XCF
 codec.xcf.feature.version = Wersja XCF
+
+codec.exr.feature.deep = dane głębokie EXR
+codec.exr.feature.subsampled = kanały z podpróbkowaniem EXR
+codec.exr.msg.no_channels = Plik OpenEXR nie zawiera żadnych kanałów obrazu.
+codec.exr.msg.write_failed = Nie udało się zapisać pliku OpenEXR: {error}

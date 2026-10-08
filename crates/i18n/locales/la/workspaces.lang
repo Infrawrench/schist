@@ -14,3 +14,4 @@ workspaces.invalid_name = Nomen 1–80 characterum sine characteribus moderantib
 workspaces.duplicate = Spatium laboris hoc nomine iam exstat.
 workspaces.limit = Usque ad 64 spatia laboris servare potes.
 workspaces.keyboard = Claviatura: Alt+↑/↓ dispositionem eligit. Ctrl/Cmd+N nomen eius emendat; +S exemplar servat; +Enter adhibet; +U renovat; +R alio nomine appellat; +D delet; +0 restituit.
+workspaces.open_documents = Documenta aperta

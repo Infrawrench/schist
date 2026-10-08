@@ -14,3 +14,4 @@ workspaces.invalid_name = Gitt en Numm mat 1–80 Zeechen ouni Steierzeechen an.
 workspaces.duplicate = En Aarbechtsberäich mat dësem Numm gëtt et schonn.
 workspaces.limit = Dir kënnt bis zu 64 Aarbechtsberäicher späicheren.
 workspaces.keyboard = Tastatur: Alt+↑/↓ wielt e Layout. Ctrl/Cmd+N ännert säin Numm; +S späichert eng Kopie; +Enter applizéiert et; +U aktualiséiert et; +R benennt et ëm; +D läscht et; +0 setzt et zeréck.
+workspaces.open_documents = Oppen Dokumenter

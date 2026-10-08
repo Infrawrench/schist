@@ -3,6 +3,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -30,15 +32,22 @@ codec.heif.msg.imageio_cannot_read = ImageIO HEIF ਕੰਟੇਨਰ ਨਹੀ�
 codec.heif.msg.container_empty = HEIF ਕੰਟੇਨਰ ਵਿੱਚ ਕੋਈ ਤਸਵੀਰ ਨਹੀਂ ਹੈ
 codec.heif.msg.imageio_cannot_decode = ImageIO ਮੁੱਖ ਤਸਵੀਰ ਡੀਕੋਡ ਨਹੀਂ ਕਰ ਸਕਿਆ
 
+codec.avif.msg.no_decoder = Schist ਦਾ ਬ੍ਰਾਊਜ਼ਰ ਵਰਜਨ AVIF ਤਸਵੀਰਾਂ ਨਹੀਂ ਖੋਲ੍ਹ ਸਕਦਾ। ਫਾਇਲ ਨੂੰ ਡੈਸਕਟਾਪ ਐਪ ਵਿੱਚ ਖੋਲ੍ਹੋ, ਜਾਂ ਪਹਿਲਾਂ ਇਸਨੂੰ PNG ਵਿੱਚ ਬਦਲੋ।
+
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = ਲੇਅਰਾਂ ਵਾਲੀ ਚਿੱਤਰ ਫ਼ਾਈਲ ਖ਼ਰਾਬ ਜਾਂ ਅਧੂਰੀ ਹੈ।
 codec.layered.too_large = ਲੇਅਰਾਂ ਵਾਲੇ ਚਿੱਤਰ ਦਾ ਆਕਾਰ ਜਾਂ ਲੇਅਰਾਂ ਦੀ ਗਿਣਤੀ ਸਮਰਥਿਤ ਹੱਦ ਤੋਂ ਵੱਧ ਹੈ।
 codec.layered.unsupported = ਇਹ ਫ਼ਾਈਲ ਇੱਕ ਅਸਮਰਥਿਤ ਵਿਸ਼ੇਸ਼ਤਾ ਵਰਤਦੀ ਹੈ: {feature}।
 codec.layered.export_layer = “{name}” ਲੇਅਰ ਵਿੱਚ ਅਜਿਹੀਆਂ ਵਿਸ਼ੇਸ਼ਤਾਵਾਂ ਹਨ ਜਿਨ੍ਹਾਂ ਨੂੰ ਇਹ ਫ਼ਾਰਮੈਟ ਸੁਰੱਖਿਅਤ ਨਹੀਂ ਰੱਖ ਸਕਦਾ। ਇਸਨੂੰ ਰਾਸਟਰਾਈਜ਼ ਕਰੋ ਜਾਂ PSD ਵਜੋਂ ਸੰਭਾਲੋ।
 codec.layered.export_depth = Paint.NET ਵਜੋਂ ਨਿਰਯਾਤ ਕਰਨ ਲਈ 8-ਬਿੱਟ RGB ਦਸਤਾਵੇਜ਼ ਲੋੜੀਂਦਾ ਹੈ। ਪਹਿਲਾਂ ਦਸਤਾਵੇਜ਼ ਨੂੰ 8-ਬਿੱਟ RGB ਵਿੱਚ ਬਦਲੋ।
 codec.layered.export_mode = ਨਿਰਯਾਤ ਕਰਨ ਲਈ RGB ਦਸਤਾਵੇਜ਼ ਲੋੜੀਂਦਾ ਹੈ। ਪਹਿਲਾਂ ਦਸਤਾਵੇਜ਼ ਨੂੰ RGB ਵਿੱਚ ਬਦਲੋ।
+codec.layered.merged_layer = ਮਿਲਾਇਆ ਗਿਆ ਚਿੱਤਰ (ਕੁਝ {format} ਲੇਅਰਾਂ ਨੂੰ ਇੰਪੋਰਟ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਿਆ)
+codec.kra.merged_color_space = ਮਿਲਾਇਆ ਗਿਆ ਚਿੱਤਰ (Krita {color_space} ਦਸਤਾਵੇਜ਼ RGB ਵਜੋਂ ਦਿਖਾਇਆ ਗਿਆ)
 
 # Unsupported layered format features
 codec.pdn.feature.blend_mode = PDN ਮਿਸ਼ਰਣ ਮੋਡ
@@ -56,3 +65,8 @@ codec.xcf.feature.floating_selection = XCF ਤੈਰਦੀ ਚੋਣ
 codec.xcf.feature.layer_effects = XCF ਲੇਅਰ ਪ੍ਰਭਾਵ
 codec.xcf.feature.precision = XCF ਸ਼ੁੱਧਤਾ
 codec.xcf.feature.version = XCF ਵਰਜਨ
+
+codec.exr.feature.deep = EXR ਡੀਪ ਡੇਟਾ
+codec.exr.feature.subsampled = EXR ਸਬਸੈਂਪਲ ਕੀਤੇ ਚੈਨਲ
+codec.exr.msg.no_channels = OpenEXR ਫ਼ਾਈਲ ਵਿੱਚ ਕੋਈ ਚਿੱਤਰ ਚੈਨਲ ਨਹੀਂ ਹੈ।
+codec.exr.msg.write_failed = OpenEXR ਫ਼ਾਈਲ ਲਿਖੀ ਨਹੀਂ ਜਾ ਸਕੀ: {error}

@@ -66,6 +66,9 @@ workspace.filters.raw_too_tall = RAW ଡେଭଲପ୍‌ମେଣ୍ଟ ଅତ
 workspace.filters.raw_size_changed = RAW ଡେଭଲପ୍‌ମେଣ୍ଟ ଆକାର {w} × {h}କୁ ବଦଳିଛି; ବର୍ତ୍ତମାନର ସ୍ତର ରଖାଯାଉଛି
 workspace.filters.raw_history = Camera Raw ଡେଭଲପ୍‌ମେଣ୍ଟ
 workspace.filters.raw_applied = Camera Raw ଡେଭଲପ୍‌ମେଣ୍ଟ ପ୍ରୟୋଗ ହୋଇଛି (ସର୍ବୋତ୍ତମ ଡିମୋଜାଇକ୍)
+workspace.raw_masks.no_model = {model} ସଂସ୍ଥାପିତ ହୋଇନାହିଁ, ତେଣୁ ଏହି ମାସ୍କ ଚିହ୍ନଟ କରାଯାଇପାରିବ ନାହିଁ।
+workspace.raw_masks.no_sky = ଏହି ଛବିରେ କୌଣସି ଆକାଶ ମିଳିଲା ନାହିଁ।
+workspace.raw_masks.detect_failed = ମାସ୍କ ଚିହ୍ନଟ ବିଫଳ ହେଲା: {error}
 workspace.image_size.done = ଛବି ଆକାର: {w} × {h}
 workspace.image_size.bicubic_fallback = ଛବି ଆକାର: {w} × {h} — {name} ମଡେଲ୍ ଲୋଡ୍ ହେଲା ନାହିଁ, ତେଣୁ ବାଇକ୍ୟୁବିକ୍ ବ୍ୟବହାର ହେଲା
 workspace.image_size.upscaling = {name} ସହିତ ଆକାର ବଢ଼ାଯାଉଛି
@@ -89,3 +92,10 @@ workspace.file_picker.permission_denied = ଏହି ଫୋଲ୍ଡର୍ ପଢ
 workspace.recovery.recovered_title = {title} (ପୁନରୁଦ୍ଧାର ହୋଇଛି)
 workspace.recovery.recovered.one = ପୂର୍ବ ସେସନ୍‌ରୁ ସଞ୍ଚୟ ହୋଇନଥିବା କାମ ପୁନରୁଦ୍ଧାର ହୋଇଛି
 workspace.recovery.recovered.other = ପୂର୍ବ ସେସନ୍‌ରୁ {n}ଟି ଡକ୍ୟୁମେଣ୍ଟ ପୁନରୁଦ୍ଧାର ହୋଇଛି
+workspace.colormgmt.vision_on = ସିମୁଲେସନ୍: {name}
+workspace.colormgmt.vision_off = ସାଧାରଣ ଦୃଷ୍ଟି
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = ଇନପେଣ୍ଟିଂ ମଡେଲ୍ ବିନା ଅପସାରିତ ହେଲା, ତେଣୁ ଭରଣ କିଛି ଅସମାନ ହୋଇପାରେ
+workspace.tool_jobs.document_changed = {name} ଏହାର ଡକ୍ୟୁମେଣ୍ଟ ବନ୍ଦ କିମ୍ବା ବଦଳିବା ପରେ ସମାପ୍ତ ହେଲା, ତେଣୁ କିଛି ବଦଳାଯାଇନାହିଁ

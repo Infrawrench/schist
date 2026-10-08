@@ -66,6 +66,9 @@ workspace.filters.raw_too_tall = د RAW پراختیا ډېره لوړه ده
 workspace.filters.raw_size_changed = د RAW پراختیا کچه {w} × {h} ته بدله شوه؛ اوسنۍ طبقه ساتل کېږي
 workspace.filters.raw_history = د Camera Raw پراختیا
 workspace.filters.raw_applied = د Camera Raw پراختیا پلي شوه (غوره رنګ‌سپړنه)
+workspace.raw_masks.no_model = {model} نه دی نصب شوی، نو دا ماسک نشي موندل کېدای.
+workspace.raw_masks.no_sky = په دې انځور کې هېڅ اسمان ونه موندل شو.
+workspace.raw_masks.detect_failed = د ماسک موندنه ناکامه شوه: {error}
 workspace.image_size.done = د انځور کچه: {w} × {h}
 workspace.image_size.bicubic_fallback = د انځور کچه: {w} × {h} — د {name} موډل بار نشو، نو درېیمه‌درجه دوه‌لوري یې ځای ونیو
 workspace.image_size.upscaling = په {name} لوړې کچې ته وړل کېږي
@@ -89,3 +92,10 @@ workspace.file_picker.permission_denied = Schist د دې پوښۍ د لوستل�
 workspace.recovery.recovered_title = {title} (رغول شوی)
 workspace.recovery.recovered.one = د تېرې ناستې نه ساتل شوی کار ورغول شو
 workspace.recovery.recovered.other = د تېرې ناستې {n} سندونه ورغول شول
+workspace.colormgmt.vision_on = انځورګري: {name}
+workspace.colormgmt.vision_off = عادي لید
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = د ډکولو ماډل پرته لرې شو، نو ډکول ښايي زیږ وي
+workspace.tool_jobs.document_changed = {name} وروسته له هغه پای ته ورسېد چې سند یې وتړل شو یا بدل شو، نو هېڅ بدلون رانغی

@@ -231,7 +231,12 @@ impl Workspace {
             // Capture both before yielding so later edits cannot change the file.
             if matches!(
                 codec_id,
-                "codec.png" | "codec.jpeg" | "codec.webp" | "codec.tiff"
+                "codec.png"
+                    | "codec.jpeg"
+                    | "codec.webp"
+                    | "codec.tiff"
+                    | "codec.jxl"
+                    | "codec.avif"
             ) {
                 let Some(mut snapshot) = self.doc.as_ref().map(export_snapshot) else {
                     return;

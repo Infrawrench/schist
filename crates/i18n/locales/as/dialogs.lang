@@ -16,7 +16,25 @@ dialog.layer_props.title = স্তৰৰ বৈশিষ্ট্যসমূ�
 dialog.export.format = ফৰ্মেট
 dialog.export.dither = ডিথাৰ
 dialog.export.dither_note = 8-বিটলৈ হ্ৰাস কৰোঁতে ডিথাৰ কৰক
+dialog.export.effort = প্ৰচেষ্টা
 dialog.export.export_ellipsis = ৰপ্তানি কৰক…
+dialog.export.exr_samples = নমুনা
+dialog.export.exr_half = অৰ্ধ ফ্ল’ট (১৬-বিট)
+dialog.export.exr_float = ফ্ল’ট (৩২-বিট)
+dialog.export.exr_compression = সংকোচন
+dialog.export.exr_compression.none = একো নাই
+dialog.export.exr_compression.rle = RLE
+dialog.export.exr_compression.zips = ZIP, এক স্কেনলাইন
+dialog.export.exr_compression.zip = ZIP, ১৬ স্কেনলাইন
+dialog.export.exr_compression.piz = PIZ (ৱেভলেট)
+dialog.export.exr_compression.pxr24 = PXR24 (ফ্ল’টৰ বাবে ক্ষতিকাৰক)
+dialog.export.exr_compression.b44 = B44 (ক্ষতিকাৰক)
+dialog.export.exr_compression.b44a = B44A (ক্ষতিকাৰক)
+dialog.export.exr_layers = স্তৰসমূহ
+dialog.export.exr_layers_note = প্ৰতিটো দৃশ্যমান স্তৰক EXR স্তৰ হিচাপেও লিখক
+dialog.export.exr_alpha = আলফা
+dialog.export.exr_alpha_note = এটা আলফা চেনেল লিখক
+dialog.export.exr_linear_note = EXR-এ ৰৈখিক পোহৰ সংৰক্ষণ কৰে। এই ৮- বা ১৬-বিট নথিপত্ৰখন ৰপ্তানিৰ সময়ত ইয়াৰ ৰঙৰ প্ৰফাইলৰ জৰিয়তে ৰৈখিক ফ্ল’টলৈ ডিক’ড কৰা হয়।
 
 # Process Photos (the gallery's batch dialog)
 dialog.batch.title = ফটো প্ৰক্ৰিয়াকৰণ
@@ -70,6 +88,25 @@ dialog.filter.camera_raw_development = Camera Raw বিকাশ
 dialog.filter.reset_as_shot = তোলাৰ সময়ৰ অৱস্থালৈ পুনঃস্থাপন কৰক
 dialog.filter.raw_note = সক্ৰিয় স্তৰটো তাৰ মূল ছেন্সৰ ডেটাৰ পৰা পুনৰ বিকশিত কৰে।
 dialog.filter.note = নিৰ্বাচনৰ ভিতৰত সক্ৰিয় স্তৰত প্ৰয়োগ হয়।
+
+# Camera Raw স্থানীয় সমন্বয়
+dialog.raw_masks.title = মাস্কসমূহ
+dialog.raw_masks.new_mask = নতুন মাস্ক:
+dialog.raw_masks.add_to_mask = মাস্কত যোগ কৰক:
+dialog.raw_masks.linear = ৰৈখিক গ্ৰেডিয়েণ্ট
+dialog.raw_masks.subject = বিষয় বাছক
+dialog.raw_masks.sky = আকাশ বাছক
+dialog.raw_masks.background = পটভূমি বাছক
+dialog.raw_masks.mask_n = মাস্ক {n}
+dialog.raw_masks.invert_mask = মাস্ক ওলোটা কৰক
+dialog.raw_masks.overlay = মাস্ক অভাৰলে দেখুৱাওক
+dialog.raw_masks.erase = মচা
+dialog.raw_masks.local = এই মাস্কৰ সমন্বয়সমূহ
+dialog.raw_masks.delete_mask = মাস্ক মচক
+dialog.raw_masks.detecting = চিনাক্ত কৰি আছে…
+dialog.raw_masks.hint_empty = ছবিৰ এটা অংশ সমন্বয় কৰিবলৈ এটা মাস্ক যোগ কৰক। প্ৰতিটো মাস্কৰ নিজা স্লাইডাৰ আছে।
+dialog.raw_masks.hint_brush = ব্ৰাছত যোগ কৰিবলৈ কেনভাছত আঁকক; আঁতৰাবলৈ "মচা" অন কৰক।
+dialog.raw_masks.hint_gradient = গ্ৰেডিয়েণ্টটো লৰাবলৈ হেণ্ডেলবোৰ টানক, বা নতুন এটা আঁকিবলৈ কেনভাছত টানক।
 
 # Missing Fonts
 dialog.fonts.title = অনুপস্থিত ফণ্টসমূহ

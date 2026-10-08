@@ -18,3 +18,11 @@ tool.magic_eraser.name = Sihirli Silgi
 tool.magic_eraser.description = Aracın toleransı içinde, işaretçinin altındaki benzer renkli alanı silmek için tıklayın; yalnızca tıklanan yere bitişik alanı veya katmanın her yerini silebilirsiniz.
 tool.magic_eraser.option.contiguous = Bitişik
 tool.magic_eraser.history.erase = Sihirli Silgi
+
+# Remove
+tool.remove.name = Kaldır
+tool.remove.description = İstenmeyen bir nesnenin üzerini tek bir darbede boyayın; bıraktığınızda çevresinden doldurulur. Her Darbeden Sonra Kaldır kapalıyken birkaç darbe boyayın ve hepsini birlikte kaldırmak için Enter tuşuna basın.
+tool.remove.option.sample_all_layers = Tüm Katmanları Örnekle
+tool.remove.option.remove_after_each_stroke = Her Darbeden Sonra Kaldır
+tool.remove.history.remove = Kaldır
+tool.remove.layer_name = Kaldırıldı

@@ -35,3 +35,7 @@ workspace.history.move_layers = Toxal couche yi
 workspace.history.layer_opacity = Matu nëbbu couche
 workspace.history.delete_note = Far karmat
 workspace.history.edit_note = Soppi karmat
+workspace.canvas.clipping_on = Artu yi ci dogal dox nañu
+workspace.canvas.clipping_off = Artu yi ci dogal taxaw nañu
+workspace.canvas.peaking_on = Fokus bu leer dox na
+workspace.canvas.peaking_off = Fokus bu leer taxaw na

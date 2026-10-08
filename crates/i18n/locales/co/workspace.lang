@@ -66,6 +66,9 @@ workspace.filters.raw_too_tall = U sviluppu RAW hè troppu altu
 workspace.filters.raw_size_changed = A dimensione di u sviluppu RAW hè diventata {w} × {h}; u stratu attuale hè cunservatu
 workspace.filters.raw_history = Sviluppu Camera Raw
 workspace.filters.raw_applied = Sviluppu Camera Raw appiicatu (megliu demosaicizazione)
+workspace.raw_masks.no_model = {model} ùn hè micca installatu, dunque sta maschera ùn pò esse rilevata.
+workspace.raw_masks.no_sky = Ùn hè statu trovu nisun celu in sta fiura.
+workspace.raw_masks.detect_failed = A rilevazione di a maschera hà fiascatu: {error}
 workspace.image_size.done = Dimensione di a maghjina: {w} × {h}
 workspace.image_size.bicubic_fallback = Dimensione di a maghjina: {w} × {h} — u mudellu {name} ùn s'hè caricatu, dunque hè stata aduprata a bicubica
 workspace.image_size.upscaling = Ingrandimentu cù {name}
@@ -87,3 +90,10 @@ workspace.file_picker.downloads = Scaricamenti
 workspace.file_picker.permission_denied = Schist ùn hà micca u permessu di leghje stu cartulare
 workspace.recovery.recovered_title = {title} (ricuperatu)
 workspace.recovery.recovered.other = Travagliu micca arregistratu ricuperatu da una sessione precedente; ducumenti: {n}
+workspace.colormgmt.vision_on = Simulazione: {name}
+workspace.colormgmt.vision_off = Visione nurmale
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Cacciatu senza u mudellu di riempimentu, dunque u risultatu pò esse più grossu
+workspace.tool_jobs.document_changed = {name} hè finitu dopu chì u so ducumentu sia statu chjosu o cambiatu, dunque nunda hè statu mudificatu

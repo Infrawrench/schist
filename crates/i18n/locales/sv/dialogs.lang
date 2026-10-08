@@ -16,7 +16,25 @@ dialog.layer_props.title = Lageregenskaper
 dialog.export.format = Format
 dialog.export.dither = Gitter
 dialog.export.dither_note = Använd gitter vid reducering till 8 bitar
+dialog.export.effort = Ansträngning
 dialog.export.export_ellipsis = Exportera…
+dialog.export.exr_samples = Samplingar
+dialog.export.exr_half = Halv flyttal (16 bitar)
+dialog.export.exr_float = Flyttal (32 bitar)
+dialog.export.exr_compression = Komprimering
+dialog.export.exr_compression.none = Ingen
+dialog.export.exr_compression.rle = RLE
+dialog.export.exr_compression.zips = ZIP, en skanlinje
+dialog.export.exr_compression.zip = ZIP, 16 skanlinjer
+dialog.export.exr_compression.piz = PIZ (wavelet)
+dialog.export.exr_compression.pxr24 = PXR24 (förlustbringande för flyttal)
+dialog.export.exr_compression.b44 = B44 (förlustbringande)
+dialog.export.exr_compression.b44a = B44A (förlustbringande)
+dialog.export.exr_layers = Lager
+dialog.export.exr_layers_note = Skriv även varje synligt lager som ett EXR-lager
+dialog.export.exr_alpha = Alfa
+dialog.export.exr_alpha_note = Skriv en alfakanal
+dialog.export.exr_linear_note = EXR lagrar linjärt ljus. Det här 8- eller 16-bitarsdokumentet avkodas via sin färgprofil till linjärt flyttal vid export.
 
 # Bearbeta foton (galleriets batchdialog)
 dialog.batch.title = Bearbeta foton
@@ -70,6 +88,25 @@ dialog.filter.camera_raw_development = Camera Raw-framkallning
 dialog.filter.reset_as_shot = Återställ till Som fotograferat
 dialog.filter.raw_note = Framkallar det aktiva lagret på nytt från dess ursprungliga sensordata.
 dialog.filter.note = Tillämpas på det aktiva lagret, inom markeringen.
+
+# Camera Raw: lokala justeringar
+dialog.raw_masks.title = Masker
+dialog.raw_masks.new_mask = Ny mask:
+dialog.raw_masks.add_to_mask = Lägg till i mask:
+dialog.raw_masks.linear = Linjär övertoning
+dialog.raw_masks.subject = Markera motiv
+dialog.raw_masks.sky = Markera himmel
+dialog.raw_masks.background = Markera bakgrund
+dialog.raw_masks.mask_n = Mask {n}
+dialog.raw_masks.invert_mask = Invertera mask
+dialog.raw_masks.overlay = Visa maskövertäckning
+dialog.raw_masks.erase = Radera
+dialog.raw_masks.local = Justeringar i den här masken
+dialog.raw_masks.delete_mask = Ta bort mask
+dialog.raw_masks.detecting = Identifierar…
+dialog.raw_masks.hint_empty = Lägg till en mask för att justera en del av bilden. Varje mask har sina egna reglage.
+dialog.raw_masks.hint_brush = Måla på arbetsytan för att lägga till i penseln; aktivera Radera för att ta bort.
+dialog.raw_masks.hint_gradient = Dra i handtagen för att flytta övertoningen, eller dra på arbetsytan för att rita en ny.
 
 # Saknade teckensnitt
 dialog.fonts.title = Saknade teckensnitt

@@ -66,6 +66,9 @@ workspace.filters.raw_too_tall = Develop in RAW eļapļọk an tōrerein
 workspace.filters.raw_size_changed = Joñan develop in RAW ear oktak ñan {w} × {h}; ej kōjparok layer eo kio
 workspace.filters.raw_history = Camera Raw Development
 workspace.filters.raw_applied = Eṃōj kōjerbal Camera Raw development (demosaic eo eṃṃan tata)
+workspace.raw_masks.no_model = Ejjañin install {model}, innem ejjab maroñ loe mask in.
+workspace.raw_masks.no_sky = Ejjeļọk lañ eo ear loe ilo pija in.
+workspace.raw_masks.detect_failed = Ear jab maroñ loe mask eo: {error}
 workspace.image_size.done = Joñan pija: {w} × {h}
 workspace.image_size.bicubic_fallback = Joñan pija: {w} × {h} — model in {name} ear jab load, kōn menin bicubic ear bōk jikin
 workspace.image_size.upscaling = Ej kaļapļọk kōn {name}
@@ -87,3 +90,10 @@ workspace.file_picker.downloads = Download ko
 workspace.file_picker.permission_denied = Schist ejjab melim ñan riit folder in
 workspace.recovery.recovered_title = {title} (eṃōj kōjparok)
 workspace.recovery.recovered.other = Eṃōj bar bōktok jerbal ko rejjañin kōjparok jen session eo mokta, document {n}
+workspace.colormgmt.vision_on = Kōmmaanļọk: {name}
+workspace.colormgmt.vision_off = Lale eṃṃan
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Emōj kōṃakūti ilo ejjeļọk model in kobrak, kōn menin kobrak eo emaron̄ jab emṃan
+workspace.tool_jobs.document_changed = {name} ear dedo ālikin an kar kili ak oktak document eo an, kōn menin ejjeļọk men ear oktak

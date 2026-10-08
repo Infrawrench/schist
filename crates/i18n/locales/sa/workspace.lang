@@ -66,6 +66,9 @@ workspace.filters.raw_too_tall = RAW विकासः अत्युच्च
 workspace.filters.raw_size_changed = RAW विकासपरिमाणं {w} × {h} अभवत्; वर्तमानस्तरः रक्ष्यते
 workspace.filters.raw_history = Camera Raw विकासः
 workspace.filters.raw_applied = Camera Raw विकासः प्रयुक्तः (सर्वोत्तमं वर्णजालविसर्जनम्)
+workspace.raw_masks.no_model = {model} न संस्थापितम्, अतः इदं मुखावरणम् अभिज्ञातुं न शक्यते।
+workspace.raw_masks.no_sky = अस्मिन् चित्रे आकाशः न लब्धः।
+workspace.raw_masks.detect_failed = मुखावरणाभिज्ञानं विफलम्: {error}
 workspace.image_size.done = चित्रपरिमाणम्: {w} × {h}
 workspace.image_size.bicubic_fallback = चित्रपरिमाणम्: {w} × {h}—{name} प्रतिमानं भारितुं न शक्तम्, अतः द्विघनपद्धतिः प्रयुक्ता
 workspace.image_size.upscaling = {name} द्वारा आवर्ध्यते
@@ -87,3 +90,10 @@ workspace.file_picker.downloads = अवतारणानि
 workspace.file_picker.permission_denied = अस्य सञ्चयस्य पठनाय Schist इत्यस्य अनुमतिः नास्ति
 workspace.recovery.recovered_title = {title} (पुनर्प्राप्तम्)
 workspace.recovery.recovered.other = पूर्वसत्रात् पुनर्प्राप्तारक्षितप्रलेखसंख्या: {n}
+workspace.colormgmt.vision_on = अनुकरणम्: {name}
+workspace.colormgmt.vision_off = सामान्यदृष्टिः
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = पूरणप्रतिरूपं विना अपसारितम्, अतः पूरणं स्थूलतरं स्यात्
+workspace.tool_jobs.document_changed = {name} तस्य लेखपत्रे पिहिते परिवर्तिते वा समाप्तम्, अतः किमपि न परिवर्तितम्

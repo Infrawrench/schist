@@ -234,6 +234,7 @@ common.filetype.jpeg = JPEG-aafbiljing
 common.filetype.webp = WebP-aafbiljing
 common.filetype.tiff = TIFF-aafbiljing
 common.filetype.heic = HEIC-aafbiljing
+common.filetype.exr = OpenEXR-aafbiljing
 common.filetype.raw = Camera Raw-aafbiljing
 common.filetype.affinity = Affinity-document
 common.filetype.image = Aafbiljing

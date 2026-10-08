@@ -3,6 +3,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -30,15 +32,22 @@ codec.heif.msg.imageio_cannot_read = Kāore i taea e ImageIO te pānui i te ipu 
 codec.heif.msg.container_empty = kāore he atahanga i te ipu HEIF
 codec.heif.msg.imageio_cannot_decode = Kāore i taea e ImageIO te wetewaehere i te atahanga matua
 
+codec.avif.msg.no_decoder = Kāore e taea e te putanga pūtirotiro o Schist te huaki i ngā atahanga AVIF. Huakina te kōnae ki te taupānga papamahi, me tahuri rānei ki PNG i te tuatahi.
+
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = Kua kino, kāore rānei i oti te kōnae atahanga whai apa.
 codec.layered.too_large = Kua hipa te rahi o te atahanga whai apa, te maha rānei o ngā apa, i te tepe e tautokona ana.
 codec.layered.unsupported = Ka whakamahia e tēnei kōnae tētahi āhuatanga kāore e tautokona ana: {feature}.
 codec.layered.export_layer = Kei te apa “{name}” ētahi āhuatanga kāore e taea e tēnei hōputu te pupuri. Whakapikatia, tiakina rānei hei PSD.
 codec.layered.export_depth = Me whai tuhinga RGB 8-bit hei kaweake ki Paint.NET. Hurihia te tuhinga hei RGB 8-bit i te tuatahi.
 codec.layered.export_mode = Me whai tuhinga RGB hei kaweake. Hurihia te tuhinga hei RGB i te tuatahi.
+codec.layered.merged_layer = Atahanga whakakotahi (kāore i taea te kawe mai ētahi apa {format})
+codec.kra.merged_color_space = Atahanga whakakotahi (kua whakaatuhia te tuhinga Krita {color_space} hei RGB)
 codec.pdn.feature.blend_mode = aratau whakaranu PDN
 codec.pdn.feature.compression = kōpeketanga PDN
 codec.pdn.feature.container_version = putanga ipu PDN
@@ -54,3 +63,8 @@ codec.xcf.feature.floating_selection = tīpakonga mānu XCF
 codec.xcf.feature.layer_effects = pānga apa XCF
 codec.xcf.feature.precision = tika o XCF
 codec.xcf.feature.version = putanga XCF
+
+codec.exr.feature.deep = raraunga hōhonu EXR
+codec.exr.feature.subsampled = hongere iti-iti EXR
+codec.exr.msg.no_channels = Karekau he hongere whakaahua i roto i te kōnae OpenEXR.
+codec.exr.msg.write_failed = Kāore i taea te tuhi i te kōnae OpenEXR: {error}

@@ -66,6 +66,9 @@ workspace.filters.raw_too_tall = ຮູບຈາກການລ້າງ RAW ສ
 workspace.filters.raw_size_changed = ຂະໜາດຮູບຈາກການລ້າງ RAW ປ່ຽນເປັນ {w} × {h}; ຈະເກັບເລເຢີປັດຈຸບັນໄວ້
 workspace.filters.raw_history = ການລ້າງພາບ Camera Raw
 workspace.filters.raw_applied = ນຳໃຊ້ການລ້າງພາບ Camera Raw ແລ້ວ (ແຍກສີເຊັນເຊີຄຸນນະພາບດີທີ່ສຸດ)
+workspace.raw_masks.no_model = ບໍ່ໄດ້ຕິດຕັ້ງ {model} ໄວ້, ຈຶ່ງບໍ່ສາມາດກວດຫາມາສກ໌ນີ້ໄດ້.
+workspace.raw_masks.no_sky = ບໍ່ພົບທ້ອງຟ້າໃນຮູບນີ້.
+workspace.raw_masks.detect_failed = ການກວດຫາມາສກ໌ລົ້ມເຫຼວ: {error}
 workspace.image_size.done = ຂະໜາດຮູບ: {w} × {h}
 workspace.image_size.bicubic_fallback = ຂະໜາດຮູບ: {w} × {h} — ໂຫຼດໂມເດວ {name} ບໍ່ໄດ້ ຈຶ່ງໃຊ້ການຄຳນວນຄ່າແຊກແບບບິຄິວບິກແທນ
 workspace.image_size.upscaling = ກຳລັງເພີ່ມຄວາມລະອຽດດ້ວຍ {name}
@@ -87,3 +90,10 @@ workspace.file_picker.downloads = ດາວໂຫຼດ
 workspace.file_picker.permission_denied = Schist ບໍ່ມີສິດອ່ານໂຟນເດີນີ້
 workspace.recovery.recovered_title = {title} (ກູ້ຄືນແລ້ວ)
 workspace.recovery.recovered.other = ກູ້ຄືນວຽກທີ່ຍັງບໍ່ໄດ້ບັນທຶກຈາກເຊສຊັນກ່ອນໄດ້ {n} ເອກະສານ
+workspace.colormgmt.vision_on = ກຳລັງຈຳລອງ: {name}
+workspace.colormgmt.vision_off = ການເບິ່ງເຫັນປົກກະຕິ
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = ເອົາອອກໂດຍບໍ່ມີແບບຈຳລອງເຕີມຮູບ ສະນັ້ນການເຕີມອາດຫຍາບກວ່າ
+workspace.tool_jobs.document_changed = {name} ສຳເລັດຫຼັງຈາກເອກະສານຂອງມັນຖືກປິດ ຫຼື ສະຫຼັບໄປແລ້ວ ສະນັ້ນຈຶ່ງບໍ່ມີຫຍັງປ່ຽນແປງ

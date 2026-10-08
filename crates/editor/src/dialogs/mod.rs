@@ -21,6 +21,7 @@ mod batch;
 mod close;
 mod edit;
 mod export;
+mod export_exr;
 mod export_recipes;
 mod file_picker;
 mod filters;
@@ -37,6 +38,7 @@ mod plugins;
 mod prefs;
 mod printing;
 mod profile;
+mod raw_masks;
 mod recorded_actions;
 #[cfg(not(target_arch = "wasm32"))]
 mod save_image;
@@ -52,6 +54,7 @@ use batch::*;
 use close::*;
 use edit::*;
 use export::*;
+use export_exr::*;
 use export_recipes::*;
 use file_picker::*;
 use filters::*;
@@ -64,6 +67,7 @@ use open::*;
 use plugins::*;
 use prefs::*;
 use profile::*;
+use raw_masks::*;
 #[cfg(not(target_arch = "wasm32"))]
 use save_image::*;
 use size::*;
@@ -340,6 +344,30 @@ pub fn render(ws: &mut Workspace, cx: &mut Context<Workspace>) -> Option<gpui::A
         }
         #[cfg(target_arch = "wasm32")]
         Modal::MetadataEdit { .. } => return None,
+        #[cfg(not(target_arch = "wasm32"))]
+        Modal::Geotag {
+            gap,
+            offset,
+            zone,
+            skip_existing,
+            loading,
+            error,
+            busy,
+            ..
+        } => crate::workspace::library_geotag::dialog(
+            ws,
+            gap,
+            offset,
+            zone,
+            skip_existing,
+            loading,
+            error,
+            busy,
+            cx,
+        )
+        .into_any_element(),
+        #[cfg(target_arch = "wasm32")]
+        Modal::Geotag { .. } => return None,
         #[cfg(not(target_arch = "wasm32"))]
         Modal::BucketName {
             name,

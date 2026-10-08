@@ -35,3 +35,7 @@ workspace.history.move_layers = Sudzulusa Dziḽeyara
 workspace.history.layer_opacity = Tshikalo tsha u sa Vhonadza tsha Ḽeyara
 workspace.history.delete_note = Thutha Notsi
 workspace.history.edit_note = Dzudzanya Notsi
+workspace.canvas.clipping_on = Tsivhudzo dza clipping dzo fungwa
+workspace.canvas.clipping_off = Tsivhudzo dza clipping dzo tsimiwa
+workspace.canvas.peaking_on = Focus peaking yo fungwa
+workspace.canvas.peaking_off = Focus peaking yo tsimiwa

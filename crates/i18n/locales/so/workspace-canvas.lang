@@ -35,3 +35,7 @@ workspace.history.move_layers = Dhaqaaji Lakabyada
 workspace.history.layer_opacity = Heerka Daboolnaanta Lakabka
 workspace.history.delete_note = Tirtir Qoraalka
 workspace.history.edit_note = Tafatir Qoraalka
+workspace.canvas.clipping_on = Digniinaha goynta waa shidan yihiin
+workspace.canvas.clipping_off = Digniinaha goynta waa dansan yihiin
+workspace.canvas.peaking_on = Muujinta diiradda waa shidan tahay
+workspace.canvas.peaking_off = Muujinta diiradda waa dansan tahay

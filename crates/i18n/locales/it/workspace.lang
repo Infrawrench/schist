@@ -82,6 +82,9 @@ workspace.filters.raw_too_tall = Lo sviluppo RAW è troppo alto
 workspace.filters.raw_size_changed = La dimensione dello sviluppo RAW è cambiata in {w} × {h}; il livello corrente viene mantenuto
 workspace.filters.raw_history = Sviluppo Camera Raw
 workspace.filters.raw_applied = Sviluppo Camera Raw applicato (migliore demosaicizzazione)
+workspace.raw_masks.no_model = {model} non è installato, quindi questa maschera non può essere rilevata.
+workspace.raw_masks.no_sky = Nessun cielo trovato in questa immagine.
+workspace.raw_masks.detect_failed = Rilevamento della maschera non riuscito: {error}
 
 # Dimensione immagine con upscaler neurale
 workspace.image_size.done = Dimensione immagine: {w} × {h}
@@ -115,3 +118,10 @@ workspace.recovery.recovered_title = {title} (recuperato)
 workspace.recovery.recovered.one = Recuperato il lavoro non salvato da una sessione precedente
 workspace.recovery.recovered.many = Recuperati {n} documenti da una sessione precedente
 workspace.recovery.recovered.other = Recuperati {n} documenti da una sessione precedente
+workspace.colormgmt.vision_on = Simulazione: {name}
+workspace.colormgmt.vision_off = Visione normale
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Rimosso senza il modello di inpainting, quindi il riempimento potrebbe essere più grossolano
+workspace.tool_jobs.document_changed = {name} è terminato dopo che il documento è stato chiuso o cambiato, quindi non è stato modificato nulla

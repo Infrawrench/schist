@@ -14,3 +14,4 @@ workspaces.invalid_name = Lebokna jeneng 1–80 karakter tanpa karakter kontrol.
 workspaces.duplicate = Ruang kerja kanthi jeneng iki wis ana.
 workspaces.limit = Sampeyan bisa nyimpen nganti 64 ruang kerja.
 workspaces.keyboard = Papan ketik: Alt+↑/↓ milih tata letak. Ctrl/Cmd+N ngowahi jenenge; +S nyimpen salinan; +Enter ngetrapake; +U nganyari; +R ngganti jeneng; +D mbusak; +0 mbalèkake.
+workspaces.open_documents = Dokumen sing dibukak

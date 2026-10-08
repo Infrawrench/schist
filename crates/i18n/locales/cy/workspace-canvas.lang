@@ -40,3 +40,7 @@ workspace.history.move_layers = Symud Haenau
 workspace.history.layer_opacity = Didreiddedd Haen
 workspace.history.delete_note = Dileu Nodyn
 workspace.history.edit_note = Golygu Nodyn
+workspace.canvas.clipping_on = Rhybuddion clipio ymlaen
+workspace.canvas.clipping_off = Rhybuddion clipio i ffwrdd
+workspace.canvas.peaking_on = Uchafbwyntio ffocws ymlaen
+workspace.canvas.peaking_off = Uchafbwyntio ffocws i ffwrdd

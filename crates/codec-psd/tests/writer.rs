@@ -1016,6 +1016,7 @@ fn round_trips_original_raw_and_development_settings() {
     layer.raw = Some(Box::new(schist_core::RawDevelopment {
         source: std::sync::Arc::from(&b"complete original camera capture"[..]),
         settings,
+        masks: Vec::new(),
     }));
     doc.push_layer(layer);
 
@@ -1035,6 +1036,51 @@ fn round_trips_original_raw_and_development_settings() {
             .all(|block| &block.key != b"ScRw"),
         "the decoded source should not also remain duplicated in extras"
     );
+}
+
+#[test]
+fn raw_local_masks_survive_save_and_reopen() {
+    use schist_core::{DetectedKind, LocalMask, MaskCombine, MaskComponent, MaskRaster, MaskShape};
+    let mut doc = base_doc();
+    let mut layer = solid_layer(
+        "masked capture",
+        IntRect::from_xywh(0, 0, 64, 48),
+        [30, 40, 50, 255],
+        Depth::Eight,
+    );
+    let mut sky = LocalMask::new(MaskShape::Detected {
+        kind: DetectedKind::Sky,
+        raster: Some(std::sync::Arc::new(
+            MaskRaster::from_coverage(4, 1, &[1.0, 0.75, 0.25, 0.0]).unwrap(),
+        )),
+    });
+    sky.adjustments.exposure = -0.5;
+    sky.components.push(MaskComponent {
+        shape: MaskShape::default_radial(),
+        combine: MaskCombine::Subtract,
+        invert: true,
+    });
+    layer.raw = Some(Box::new(schist_core::RawDevelopment {
+        source: std::sync::Arc::from(&b"capture with masks"[..]),
+        settings: schist_core::RawSettings::default(),
+        masks: vec![sky],
+    }));
+    doc.push_layer(layer);
+
+    let bytes = write_psd(&doc).unwrap();
+    let back = read_psd(&bytes).unwrap();
+    let raw = back.tree.layers[0].raw.as_deref().unwrap();
+    assert_eq!(raw.masks, doc.tree.layers[0].raw.as_ref().unwrap().masks);
+    assert!(
+        back.tree.layers[0]
+            .extras
+            .iter()
+            .all(|block| &block.key != b"ScRm"),
+        "the decoded masks should not also remain in extras"
+    );
+    // Saving again regenerates the block rather than writing it twice.
+    let again = write_psd(&back).unwrap();
+    assert_eq!(again.windows(4).filter(|w| *w == b"ScRm").count(), 1);
 }
 
 #[test]
@@ -1063,6 +1109,7 @@ fn an_invalid_raw_source_is_not_silently_dropped() {
     layer.raw = Some(Box::new(schist_core::RawDevelopment {
         source: std::sync::Arc::from(&b""[..]),
         settings: schist_core::RawSettings::default(),
+        masks: Vec::new(),
     }));
     doc.push_layer(layer);
     assert!(

@@ -5,6 +5,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Raw de camera
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -36,15 +38,23 @@ codec.heif.msg.imageio_cannot_read = ImageIO non poteva leger le contentor HEIF
 codec.heif.msg.container_empty = le contentor HEIF non contine imagines
 codec.heif.msg.imageio_cannot_decode = ImageIO non poteva decodificar le imagine primari
 
+# AVIF
+codec.avif.msg.no_decoder = Le version pro navigator de Schist non pote aperir imagines AVIF. Aperi le file in le application de scriptorio, o converte lo a PNG primo.
+
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = Le file de imagine con stratos es damnificate o incomplete.
 codec.layered.too_large = Le imagine con stratos excede le dimension o le numero de stratos supportate.
 codec.layered.unsupported = Iste file usa un functionalitate non supportate: {feature}.
 codec.layered.export_layer = Le strato «{name}» contine functionalitates que iste formato non pote preservar. Rasterisa lo o salva como PSD.
 codec.layered.export_depth = Le exportation a Paint.NET require un documento RGB de 8 bits. Primo converte le documento a RGB de 8 bits.
 codec.layered.export_mode = Le exportation require un documento RGB. Primo converte le documento a RGB.
+codec.layered.merged_layer = Imagine fusionate (alcun stratos de {format} non poteva esser importate)
+codec.kra.merged_color_space = Imagine fusionate (documento Krita {color_space} monstrate como RGB)
 
 # Unsupported layered format features
 codec.pdn.feature.blend_mode = Modo de fusion PDN
@@ -62,3 +72,8 @@ codec.xcf.feature.floating_selection = Selection flottante XCF
 codec.xcf.feature.layer_effects = Effectos de strato XCF
 codec.xcf.feature.precision = Precision XCF
 codec.xcf.feature.version = Version XCF
+
+codec.exr.feature.deep = datos profunde de EXR
+codec.exr.feature.subsampled = canales subsampleate de EXR
+codec.exr.msg.no_channels = Le file OpenEXR non contine alcun canal de imagine.
+codec.exr.msg.write_failed = Non poteva scriber le file OpenEXR: {error}

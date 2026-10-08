@@ -3,6 +3,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -30,15 +32,22 @@ codec.heif.msg.imageio_cannot_read = ImageIO HEIF पात्रं पठि�
 codec.heif.msg.container_empty = HEIF पात्रे चित्रं नास्ति
 codec.heif.msg.imageio_cannot_decode = ImageIO प्रधानचित्रं विसङ्केतयितुं न शक्तम्
 
+codec.avif.msg.no_decoder = Schist-इत्यस्य जालदर्शकसंस्करणं AVIF-चित्राणि उद्घाटयितुं न शक्नोति। सञ्चिकां पटलसङ्गणकानुप्रयोगे उद्घाटयतु, अथवा प्रथमं PNG-रूपेण परिवर्तयतु।
+
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = स्तरयुक्तचित्रस्य सञ्चिका दूषिता अपूर्णा वा अस्ति।
 codec.layered.too_large = स्तरयुक्तचित्रस्य आकारः स्तरसङ्ख्या वा समर्थितसीमाम् अतिक्रामति।
 codec.layered.unsupported = इयं सञ्चिका असमर्थितं वैशिष्ट्यम् उपयुङ्क्ते: {feature}।
 codec.layered.export_layer = “{name}” स्तरे एतादृशानि वैशिष्ट्यानि सन्ति यानि अस्मिन् प्रारूपे रक्षितुं न शक्यन्ते। तं पिक्सेलीकरोतु अथवा PSD रूपेण रक्षतु।
 codec.layered.export_depth = Paint.NET निर्याताय 8-बिट् RGB प्रलेखः आवश्यकः। प्रथमं प्रलेखं 8-बिट् RGB रूपेण परिवर्तयतु।
 codec.layered.export_mode = निर्याताय RGB प्रलेखः आवश्यकः। प्रथमं प्रलेखं RGB रूपेण परिवर्तयतु।
+codec.layered.merged_layer = संयोजितं चित्रम् (केचन {format} स्तराः आयातुं न शक्ताः)
+codec.kra.merged_color_space = संयोजितं चित्रम् (Krita {color_space} प्रलेखः RGB रूपेण प्रदर्श्यते)
 codec.pdn.feature.blend_mode = PDN मिश्रणविधिः
 codec.pdn.feature.compression = PDN सङ्कोचनम्
 codec.pdn.feature.container_version = PDN पात्रसंस्करणम्
@@ -54,3 +63,8 @@ codec.xcf.feature.floating_selection = XCF प्लवमानचयनम्
 codec.xcf.feature.layer_effects = XCF स्तरप्रभावाः
 codec.xcf.feature.precision = XCF परिशुद्धता
 codec.xcf.feature.version = XCF संस्करणम्
+
+codec.exr.feature.deep = EXR गभीरदत्तांशः
+codec.exr.feature.subsampled = EXR उपप्रतिचयितानि वाहिन्यः
+codec.exr.msg.no_channels = OpenEXR सञ्चिकायां चित्रवाहिन्यः न सन्ति।
+codec.exr.msg.write_failed = OpenEXR सञ्चिका लेखितुं न शक्यते: {error}

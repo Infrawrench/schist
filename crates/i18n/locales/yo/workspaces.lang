@@ -14,3 +14,4 @@ workspaces.invalid_name = Tẹ orúkọ tí ó ní àmì 1–80 sílẹ̀ láìs
 workspaces.duplicate = Àyè iṣẹ́ kan ti wà pẹ̀lú orúkọ yìí.
 workspaces.limit = O lè fipamọ́ tó àyè iṣẹ́ 64.
 workspaces.keyboard = Àtẹ bọ́tìnì: Alt+↑/↓ yan ètò ìṣètò. Ctrl/Cmd+N ṣàtúnṣe orúkọ rẹ̀; +S fipamọ́ ẹ̀dà; +Enter lò ó; +U ṣe àfikún tuntun; +R ṣe àtúnlórúkọ; +D parẹ́; +0 tún padà.
+workspaces.open_documents = Àwọn ìwé tí ó ṣí sílẹ̀

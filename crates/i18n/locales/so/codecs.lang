@@ -3,6 +3,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -30,15 +32,23 @@ codec.heif.msg.imageio_cannot_read = ImageIO ma akhriyi karin weelka HEIF
 codec.heif.msg.container_empty = weelka HEIF sawir kuma jiro
 codec.heif.msg.imageio_cannot_decode = ImageIO ma furfuri karin sawirka koowaad
 
+# AVIF in the browser build, which has no AV1 decoder (it still exports AVIF).
+codec.avif.msg.no_decoder = Nooca browser-ka ee Schist ma furi karo sawirada AVIF. Ku fur faylka abka desktop-ka, ama marka hore u beddel PNG.
+
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = Faylka sawirka lakabyada leh wuu dhaawacmay ama ma dhammaystirna.
 codec.layered.too_large = Sawirka lakabyada leh wuxuu dhaafayaa cabbirka ama tirada lakabyada la taageero.
 codec.layered.unsupported = Faylkani wuxuu adeegsadaa sifo aan la taageerin: {feature}.
 codec.layered.export_layer = Lakabka “{name}” wuxuu leeyahay sifooyin aanu qaabkani ilaalin karin. Raster ka dhig ama u kaydi sida PSD.
 codec.layered.export_depth = U dhoofinta Paint.NET waxay u baahan tahay dukumenti RGB oo 8-bit ah. Marka hore dukumentiga u beddel RGB 8-bit ah.
 codec.layered.export_mode = Dhoofintu waxay u baahan tahay dukumenti RGB ah. Marka hore dukumentiga u beddel RGB.
+codec.layered.merged_layer = Sawir isku daray (qaar ka mid ah lakabyada {format} lama soo dejin karin)
+codec.kra.merged_color_space = Sawir isku daray (dukumentiga Krita {color_space} waxaa loo muujiyay sidii RGB)
 codec.pdn.feature.blend_mode = habka isku-darka PDN
 codec.pdn.feature.compression = isku-ururinta PDN
 codec.pdn.feature.container_version = nooca weelka PDN
@@ -54,3 +64,8 @@ codec.xcf.feature.floating_selection = xulashada sabbaysa ee XCF
 codec.xcf.feature.layer_effects = saamaynta lakabka XCF
 codec.xcf.feature.precision = saxnaanta XCF
 codec.xcf.feature.version = nooca XCF
+
+codec.exr.feature.deep = xogta qoto dheer ee EXR
+codec.exr.feature.subsampled = kanaalada EXR ee hoos-u-qaadashada
+codec.exr.msg.no_channels = Faylka OpenEXR kuma jiraan kanaalo sawir.
+codec.exr.msg.write_failed = Lama qori karo faylka OpenEXR: {error}

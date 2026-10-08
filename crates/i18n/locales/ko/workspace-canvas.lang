@@ -40,3 +40,7 @@ workspace.history.move_layers = 레이어 이동
 workspace.history.layer_opacity = 레이어 불투명도
 workspace.history.delete_note = 노트 삭제
 workspace.history.edit_note = 노트 편집
+workspace.canvas.clipping_on = 클리핑 경고 켜짐
+workspace.canvas.clipping_off = 클리핑 경고 꺼짐
+workspace.canvas.peaking_on = 포커스 피킹 켜짐
+workspace.canvas.peaking_off = 포커스 피킹 꺼짐

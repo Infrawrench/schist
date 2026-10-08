@@ -67,6 +67,9 @@ workspace.filters.raw_too_tall = Përpunimi RAW është tepër i lartë
 workspace.filters.raw_size_changed = Madhësia e përpunimit RAW ndryshoi në {w} × {h}; po mbahet shtresa aktuale
 workspace.filters.raw_history = Përpunimi Camera Raw
 workspace.filters.raw_applied = Përpunimi Camera Raw u zbatua (demozaikimi më i mirë)
+workspace.raw_masks.no_model = {model} nuk është instaluar, prandaj kjo maskë nuk mund të zbulohet.
+workspace.raw_masks.no_sky = Në këtë figurë nuk u gjet qiell.
+workspace.raw_masks.detect_failed = Zbulimi i maskës dështoi: {error}
 workspace.image_size.done = Madhësia e imazhit: {w} × {h}
 workspace.image_size.bicubic_fallback = Madhësia e imazhit: {w} × {h} — modeli {name} nuk u ngarkua, ndaj u përdor rimostrimi bikubik
 workspace.image_size.upscaling = Po zmadhohet me {name}
@@ -90,3 +93,10 @@ workspace.file_picker.permission_denied = Schist nuk ka leje ta lexojë këtë d
 workspace.recovery.recovered_title = {title} (i rikuperuar)
 workspace.recovery.recovered.one = U rikuperua puna e paruajtur nga një sesion i mëparshëm
 workspace.recovery.recovered.other = U rikuperuan {n} dokumente nga një sesion i mëparshëm
+workspace.colormgmt.vision_on = Simulim: {name}
+workspace.colormgmt.vision_off = Shikim normal
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = U hoq pa modelin e plotësimit, ndaj mbushja mund të jetë më e ashpër
+workspace.tool_jobs.document_changed = {name} përfundoi pasi dokumenti i tij u mbyll ose u ndërrua, ndaj nuk u ndryshua asgjë

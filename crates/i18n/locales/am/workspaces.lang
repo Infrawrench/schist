@@ -14,3 +14,4 @@ workspaces.invalid_name = የቁጥጥር ቁምፊዎች የሌሉበት ከ1�
 workspaces.duplicate = በዚህ ስም የስራ ቦታ አስቀድሞ አለ።
 workspaces.limit = እስከ 64 የስራ ቦታዎችን ማስቀመጥ ይችላሉ።
 workspaces.keyboard = የቁልፍ ሰሌዳ፦ Alt+↑/↓ አቀማመጥ ይመርጣል። Ctrl/Cmd+N ስሙን ያርታል፤ +S ቅጂ ያስቀምጣል፤ +Enter ይተገብራል፤ +U ያዘምናል፤ +R እንደገና ይሰይማል፤ +D ይሰርዛል፤ +0 ዳግም ያስጀምራል።
+workspaces.open_documents = የተከፈቱ ሰነዶች

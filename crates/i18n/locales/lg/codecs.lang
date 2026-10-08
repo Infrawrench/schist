@@ -4,6 +4,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -31,15 +33,22 @@ codec.heif.msg.imageio_cannot_read = ImageIO tesobodde kusoma kitundu kya HEIF
 codec.heif.msg.container_empty = ekitundu kya HEIF tekirina kifaananyi
 codec.heif.msg.imageio_cannot_decode = ImageIO tesobodde kusumulula kifaananyi ekikulu
 
+codec.avif.msg.no_decoder = Schist ey'omu browser tesobola kuggulawo bifaananyi bya AVIF. Ggulawo fayiro mu pulogulaamu ya desktop, oba sooka ogikyuse okudda mu PNG.
+
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = Fayiro y'ekifaananyi ekirina layers eyonoonese oba si njjuvu.
 codec.layered.too_large = Obunene bw'ekifaananyi ekirina layers oba omuwendo gwa layers gusinga ekkomo erikkirizibwa.
 codec.layered.unsupported = Fayiro eno ekozesa ekintu ekitawagirwa: {feature}.
 codec.layered.export_layer = Layer “{name}” erimu ebintu enkola eno by'etasobola kukuuma. Gifuule pixels eza bulijjo oba otereke nga PSD.
 codec.layered.export_depth = Okufulumya mu Paint.NET kyetaaga ekiwandiiko kya RGB ekya bit 8. Sooka ofuule ekiwandiiko RGB eya bit 8.
 codec.layered.export_mode = Okufulumya kyetaaga ekiwandiiko kya RGB. Sooka ofuule ekiwandiiko RGB.
+codec.layered.merged_layer = Ekifaananyi ekigatiddwa (layers ezimu eza {format} tezisobodde kuyingizibwa)
+codec.kra.merged_color_space = Ekifaananyi ekigatiddwa (ekiwandiiko kya Krita {color_space} kiragiddwa nga RGB)
 codec.pdn.feature.blend_mode = engeri y'okutabula ya PDN
 codec.pdn.feature.compression = okunyiga data kwa PDN
 codec.pdn.feature.container_version = ekika ky'ekibya kya PDN
@@ -55,3 +64,8 @@ codec.xcf.feature.floating_selection = ekirondeddwa ekitengejja ekya XCF
 codec.xcf.feature.layer_effects = ebikolwa bya layers ebya XCF
 codec.xcf.feature.precision = obutuufu bwa XCF
 codec.xcf.feature.version = ekika kya XCF
+
+codec.exr.feature.deep = data ya EXR ey'omunda
+codec.exr.feature.subsampled = emikutu gya EXR egyakendeezebwa
+codec.exr.msg.no_channels = Fayiro ya OpenEXR terina mikutu gya kifaananyi.
+codec.exr.msg.write_failed = Tekisobose okuwandiika fayiro ya OpenEXR: {error}

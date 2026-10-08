@@ -4,6 +4,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -31,15 +33,23 @@ codec.heif.msg.imageio_cannot_read = ImageIO не вдалося прочита�
 codec.heif.msg.container_empty = контейнер HEIF не містить зображення
 codec.heif.msg.imageio_cannot_decode = ImageIO не вдалося декодувати основне зображення
 
+# AVIF in the browser build, which has no AV1 decoder (it still exports AVIF).
+codec.avif.msg.no_decoder = Браузерна версія Schist не може відкривати зображення AVIF. Відкрийте файл у настільній програмі або спершу перетворіть його на PNG.
+
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = Файл зображення з шарами пошкоджений або неповний.
 codec.layered.too_large = Розмір зображення з шарами або кількість шарів перевищує підтримуване обмеження.
 codec.layered.unsupported = Цей файл використовує непідтримувану можливість: {feature}.
 codec.layered.export_layer = Шар «{name}» містить можливості, які цей формат не може зберегти. Растеризуйте його або збережіть як PSD.
 codec.layered.export_depth = Для експорту в Paint.NET потрібен 8-бітний документ RGB. Спочатку перетворіть документ на 8-бітний RGB.
 codec.layered.export_mode = Для експорту потрібен документ RGB. Спочатку перетворіть документ на RGB.
+codec.layered.merged_layer = Зведене зображення (деякі шари {format} не вдалося імпортувати)
+codec.kra.merged_color_space = Зведене зображення (документ Krita {color_space} показано як RGB)
 codec.pdn.feature.blend_mode = режим накладання PDN
 codec.pdn.feature.compression = стиснення PDN
 codec.pdn.feature.container_version = версія контейнера PDN
@@ -55,3 +65,8 @@ codec.xcf.feature.floating_selection = рухоме виділення XCF
 codec.xcf.feature.layer_effects = ефекти шару XCF
 codec.xcf.feature.precision = точність XCF
 codec.xcf.feature.version = версія XCF
+
+codec.exr.feature.deep = глибокі дані EXR
+codec.exr.feature.subsampled = субдискретизовані канали EXR
+codec.exr.msg.no_channels = Файл OpenEXR не містить жодного каналу зображення.
+codec.exr.msg.write_failed = Не вдалося записати файл OpenEXR: {error}

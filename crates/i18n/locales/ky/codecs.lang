@@ -3,6 +3,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -34,15 +36,22 @@ codec.heif.msg.imageio_cannot_read = ImageIO HEIF контейнерин оку�
 codec.heif.msg.container_empty = HEIF контейнеринде сүрөт жок
 codec.heif.msg.imageio_cannot_decode = ImageIO негизги сүрөттү чечмелей алган жок
 
+codec.avif.msg.no_decoder = Schistтин браузер версиясы AVIF сүрөттөрүн ача албайт. Файлды иш такта колдонмосунда ачыңыз же адегенде аны PNGге айландырыңыз.
+
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = Катмарлуу сүрөт файлы бузулган же толук эмес.
 codec.layered.too_large = Катмарлуу сүрөттүн өлчөмү же катмарларынын саны колдоого алынган чектен ашат.
 codec.layered.unsupported = Бул файл колдоого алынбаган функцияны колдонот: {feature}.
 codec.layered.export_layer = “{name}” катмарында бул формат сактай албаган мүмкүнчүлүктөр бар. Катмарды растрлаңыз же PSD катары сактаңыз.
 codec.layered.export_depth = Paint.NET форматына экспорттоо үчүн 8 биттик RGB документ керек. Адегенде документти 8 биттик RGB форматына айландырыңыз.
 codec.layered.export_mode = Экспорттоо үчүн RGB документ керек. Адегенде документти RGB форматына айландырыңыз.
+codec.layered.merged_layer = Бириктирилген сүрөт (кээ бир {format} катмарларын импорттоо мүмкүн болгон жок)
+codec.kra.merged_color_space = Бириктирилген сүрөт (Krita {color_space} документи RGB катары көрсөтүлдү)
 
 # Unsupported layered format features
 codec.pdn.feature.blend_mode = PDN аралаштыруу режими
@@ -60,3 +69,8 @@ codec.xcf.feature.floating_selection = XCF калкыма тандоосу
 codec.xcf.feature.layer_effects = XCF катмар эффекттери
 codec.xcf.feature.precision = XCF тактыгы
 codec.xcf.feature.version = XCF версиясы
+
+codec.exr.feature.deep = EXR терең маалыматтары
+codec.exr.feature.subsampled = EXR субдискреттелген каналдары
+codec.exr.msg.no_channels = OpenEXR файлында сүрөт каналдары жок.
+codec.exr.msg.write_failed = OpenEXR файлын жазуу мүмкүн болгон жок: {error}

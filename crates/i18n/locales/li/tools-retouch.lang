@@ -23,3 +23,11 @@ tool.magic_eraser.name = Toevergum
 tool.magic_eraser.description = Klik om 't gebied mit 'n vergeliekbare kleur oonder de wiezer, binne de tolerantie van 't hulpmiddel, oet te gumme: allein 't aaneingeslote gebied roondj de klik of euveral in de laog.
 tool.magic_eraser.option.contiguous = Aaneingeslote
 tool.magic_eraser.history.erase = Toevergum
+
+# Remove
+tool.remove.name = Weghale
+tool.remove.description = Sjilder in éin haol euver e óngewins objek; wen se lósliets, weurt 't opgevöld oet zien umgeving. Wen Weghale nao edere haol oet steit, sjilder se e paar haole en drök op Enter om ze same weg te hale.
+tool.remove.option.sample_all_layers = Alle laoge gebroeke
+tool.remove.option.remove_after_each_stroke = Weghale nao edere haol
+tool.remove.history.remove = Weghale
+tool.remove.layer_name = Weggehaold

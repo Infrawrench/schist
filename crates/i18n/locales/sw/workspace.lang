@@ -66,6 +66,9 @@ workspace.filters.raw_too_tall = Uendelezaji wa RAW ni mrefu sana
 workspace.filters.raw_size_changed = Ukubwa wa uendelezaji wa RAW umebadilika kuwa {w} × {h}; safu ya sasa itaachwa
 workspace.filters.raw_history = Uendelezaji wa Camera Raw
 workspace.filters.raw_applied = Uendelezaji wa Camera Raw umetumika (demosaic bora)
+workspace.raw_masks.no_model = {model} haijasakinishwa, kwa hivyo barakoa hii haiwezi kutambuliwa.
+workspace.raw_masks.no_sky = Hakuna anga lililopatikana katika picha hii.
+workspace.raw_masks.detect_failed = Utambuzi wa barakoa umeshindwa: {error}
 workspace.image_size.done = Ukubwa wa picha: {w} × {h}
 workspace.image_size.bicubic_fallback = Ukubwa wa picha: {w} × {h} — muundo wa {name} haukupakia, kwa hivyo Bicubic imetumika
 workspace.image_size.upscaling = Inaongeza ukubwa kwa {name}
@@ -89,3 +92,10 @@ workspace.file_picker.permission_denied = Schist haina ruhusa ya kusoma folda hi
 workspace.recovery.recovered_title = {title} (imerejeshwa)
 workspace.recovery.recovered.one = Imerejesha kazi ambayo haijahifadhiwa kutoka kipindi kilichopita
 workspace.recovery.recovered.other = Imerejesha nyaraka {n} kutoka kipindi kilichopita
+workspace.colormgmt.vision_on = Uigaji: {name}
+workspace.colormgmt.vision_off = Uoni wa kawaida
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Kimeondolewa bila muundo wa kujaza, kwa hivyo ujazaji unaweza kuwa mbaya zaidi
+workspace.tool_jobs.document_changed = {name} kilimaliza baada ya hati yake kufungwa au kubadilishwa, kwa hivyo hakuna kilichobadilishwa

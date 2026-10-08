@@ -28,3 +28,11 @@ tool.magic_eraser.name = Gomma magica
 tool.magic_eraser.description = Fai clic per cancellare l'area di colore simile sotto il puntatore, entro la tolleranza dello strumento: solo l'area contigua al punto selezionato oppure tutte le aree del livello.
 tool.magic_eraser.option.contiguous = Contiguo
 tool.magic_eraser.history.erase = Gomma magica
+
+# Remove
+tool.remove.name = Rimuovi
+tool.remove.description = Dipingi sopra un oggetto indesiderato con un'unica pennellata; quando rilasci, viene riempito con ciò che lo circonda. Con Rimuovi dopo ogni pennellata disattivato, dipingi più pennellate e premi Invio per rimuoverle insieme.
+tool.remove.option.sample_all_layers = Campiona tutti i livelli
+tool.remove.option.remove_after_each_stroke = Rimuovi dopo ogni pennellata
+tool.remove.history.remove = Rimuovi
+tool.remove.layer_name = Rimosso

@@ -66,6 +66,9 @@ workspace.filters.raw_too_tall = Horumarinta RAW aad bay u dheer tahay
 workspace.filters.raw_size_changed = Cabbirka horumarinta RAW wuxuu isu beddelay {w} × {h}; lakabka hadda jira waa la haynayaa
 workspace.filters.raw_history = Horumarinta Camera Raw
 workspace.filters.raw_applied = Horumarinta Camera Raw waa la dabaqay (demosaic-ka ugu fiican)
+workspace.raw_masks.no_model = {model} lama rakibin, sidaas darteed maaskaradan lama ogaan karo.
+workspace.raw_masks.no_sky = Cir lagama helin sawirkan.
+workspace.raw_masks.detect_failed = Ogaanshaha maaskarada wuu fashilmay: {error}
 workspace.image_size.done = Cabbirka sawirka: {w} × {h}
 workspace.image_size.bicubic_fallback = Cabbirka sawirka: {w} × {h} — moodalka {name} ma soo rarmi karin, sidaas darteed laba-kuyuubik ayaa lagu beddelay
 workspace.image_size.upscaling = Waxaa lagu weynaynayaa {name}
@@ -89,3 +92,10 @@ workspace.file_picker.permission_denied = Schist oggolaansho uma haysto inuu akh
 workspace.recovery.recovered_title = {title} (la soo celiyey)
 workspace.recovery.recovered.one = Waxaa la soo celiyey shaqo aan la kaydin oo ka timid fadhi hore
 workspace.recovery.recovered.other = Waxaa la soo celiyey {n} dukumenti oo ka timid fadhi hore
+workspace.colormgmt.vision_on = Jilid: {name}
+workspace.colormgmt.vision_off = Aragga caadiga ah
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Waxaa la saaray iyada oo aan la helin moodalka buuxinta, sidaa darteed buuxintu waxay noqon kartaa mid qallafsan
+workspace.tool_jobs.document_changed = {name} waxay dhammaatay kadib markii dukumentigeedii la xiray ama la beddelay, sidaa darteed waxba lama beddelin

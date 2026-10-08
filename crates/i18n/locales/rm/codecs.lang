@@ -4,6 +4,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -31,15 +33,22 @@ codec.heif.msg.imageio_cannot_read = ImageIO n'ha betg pudì leger il container 
 codec.heif.msg.container_empty = il container HEIF na cuntegna nagin maletg
 codec.heif.msg.imageio_cannot_decode = ImageIO n'ha betg pudì decodar il maletg principal
 
+codec.avif.msg.no_decoder = La versiun da navigatur da Schist na po betg avrir maletgs AVIF. Avra la datoteca en l'applicaziun da desktop u la converta l'emprim en PNG.
+
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = La datoteca da maletg cun stresas è donnegiada u incumpletta.
 codec.layered.too_large = Il maletg cun stresas surpassa la grondezza u il dumber da stresas sustegnids.
 codec.layered.unsupported = Questa datoteca utilisescha ina funcziun betg sustegnida: {feature}.
 codec.layered.export_layer = La stresa «{name}» cuntegna funcziuns che quest format na po betg mantegnair. Rasterisai ella u memorisai sco PSD.
 codec.layered.export_depth = L'export en Paint.NET pretenda in document RGB dad 8 bits. Converti l'emprim il document en RGB dad 8 bits.
 codec.layered.export_mode = L'export pretenda in document RGB. Converti l'emprim il document en RGB.
+codec.layered.merged_layer = Maletg unì (intgins fugliaders {format} n'han betg pudì vegnir importads)
+codec.kra.merged_color_space = Maletg unì (document Krita {color_space} mussà sco RGB)
 codec.pdn.feature.blend_mode = modus da maschadaziun PDN
 codec.pdn.feature.compression = cumpressiun PDN
 codec.pdn.feature.container_version = versiun dal cuntegnider PDN
@@ -55,3 +64,8 @@ codec.xcf.feature.floating_selection = selecziun flotanta XCF
 codec.xcf.feature.layer_effects = effects da stresa XCF
 codec.xcf.feature.precision = precisiun XCF
 codec.xcf.feature.version = versiun XCF
+
+codec.exr.feature.deep = datas profundas EXR
+codec.exr.feature.subsampled = chanals EXR sutscannads
+codec.exr.msg.no_channels = La datoteca OpenEXR na cuntegna nagins chanals d'maletg.
+codec.exr.msg.write_failed = Impussibel da scriver la datoteca OpenEXR: {error}

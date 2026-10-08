@@ -38,3 +38,7 @@ workspace.history.move_layers = Khambisa Amaleya
 workspace.history.layer_opacity = Ukusitheka Kweleya
 workspace.history.delete_note = Sula Iphuzu
 workspace.history.edit_note = Hlela Iphuzu
+workspace.canvas.clipping_on = Izecwayiso zokunqunywa zivuliwe
+workspace.canvas.clipping_off = Izecwayiso zokunqunywa zivaliwe
+workspace.canvas.peaking_on = Ukugcizelela ifokhasi kuvuliwe
+workspace.canvas.peaking_off = Ukugcizelela ifokhasi kuvaliwe

@@ -11,7 +11,25 @@ dialog.layer_props.title = Proprietà livello
 dialog.export.format = Formato
 dialog.export.dither = Dithering
 dialog.export.dither_note = Applica il dithering durante la riduzione a 8 bit
+dialog.export.effort = Sforzo
 dialog.export.export_ellipsis = Esporta…
+dialog.export.exr_samples = Campioni
+dialog.export.exr_half = Half float (16 bit)
+dialog.export.exr_float = Float (32 bit)
+dialog.export.exr_compression = Compressione
+dialog.export.exr_compression.none = Nessuna
+dialog.export.exr_compression.rle = RLE
+dialog.export.exr_compression.zips = ZIP, una scanline
+dialog.export.exr_compression.zip = ZIP, 16 scanline
+dialog.export.exr_compression.piz = PIZ (wavelet)
+dialog.export.exr_compression.pxr24 = PXR24 (con perdita per float)
+dialog.export.exr_compression.b44 = B44 (con perdita)
+dialog.export.exr_compression.b44a = B44A (con perdita)
+dialog.export.exr_layers = Livelli
+dialog.export.exr_layers_note = Scrivi ogni livello visibile anche come livello EXR
+dialog.export.exr_alpha = Alfa
+dialog.export.exr_alpha_note = Scrivi un canale alfa
+dialog.export.exr_linear_note = EXR memorizza luce lineare. Questo documento a 8 o 16 bit viene decodificato tramite il suo profilo colore in float lineare durante l'esportazione.
 
 # Elaborazione foto
 dialog.batch.title = Elabora foto
@@ -67,6 +85,25 @@ dialog.filter.camera_raw_development = Sviluppo Camera Raw
 dialog.filter.reset_as_shot = Ripristina come scattato
 dialog.filter.raw_note = Sviluppa nuovamente il livello attivo dai dati originali del sensore.
 dialog.filter.note = Applica al livello attivo, all'interno della selezione.
+
+# Regolazioni locali di Camera Raw
+dialog.raw_masks.title = Maschere
+dialog.raw_masks.new_mask = Nuova maschera:
+dialog.raw_masks.add_to_mask = Aggiungi alla maschera:
+dialog.raw_masks.linear = Sfumatura lineare
+dialog.raw_masks.subject = Seleziona soggetto
+dialog.raw_masks.sky = Seleziona cielo
+dialog.raw_masks.background = Seleziona sfondo
+dialog.raw_masks.mask_n = Maschera {n}
+dialog.raw_masks.invert_mask = Inverti maschera
+dialog.raw_masks.overlay = Mostra sovrapposizione maschera
+dialog.raw_masks.erase = Cancella
+dialog.raw_masks.local = Regolazioni in questa maschera
+dialog.raw_masks.delete_mask = Elimina maschera
+dialog.raw_masks.detecting = Rilevamento…
+dialog.raw_masks.hint_empty = Aggiungi una maschera per regolare una parte dell'immagine. Ogni maschera ha i propri cursori.
+dialog.raw_masks.hint_brush = Dipingi sulla tela per aggiungere al pennello; attiva Cancella per rimuovere.
+dialog.raw_masks.hint_gradient = Trascina le maniglie per spostare la sfumatura oppure trascina sulla tela per disegnarne una nuova.
 
 # Font mancanti
 dialog.fonts.title = Font mancanti

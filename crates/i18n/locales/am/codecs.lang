@@ -4,6 +4,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -31,15 +33,23 @@ codec.heif.msg.imageio_cannot_read = ImageIO የHEIF መያዣውን ማንበ�
 codec.heif.msg.container_empty = የHEIF መያዣው ምንም ምስል የለውም
 codec.heif.msg.imageio_cannot_decode = ImageIO ዋናውን ምስል መፍታት አልቻለም
 
+# AVIF in the browser build, which has no AV1 decoder (it still exports AVIF).
+codec.avif.msg.no_decoder = የSchist የአሳሽ ስሪት AVIF ምስሎችን መክፈት አይችልም። ፋይሉን በዴስክቶፕ መተግበሪያው ውስጥ ይክፈቱ፣ ወይም መጀመሪያ ወደ PNG ይቀይሩት።
+
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = ባለንብርብሩ የምስል ፋይል ተበላሽቷል ወይም ያልተሟላ ነው።
 codec.layered.too_large = ባለንብርብሩ ምስል የሚደገፈውን መጠን ወይም የንብርብር ብዛት አልፏል።
 codec.layered.unsupported = ይህ ፋይል የማይደገፍ ባህሪ ይጠቀማል፦ {feature}።
 codec.layered.export_layer = “{name}” ንብርብር ይህ ቅርጸት ሊጠብቃቸው የማይችላቸው ባህሪያት አሉት። ወደ ራስተር ይቀይሩት ወይም በPSD ቅርጸት ያስቀምጡ።
 codec.layered.export_depth = ወደ Paint.NET ለመላክ 8-ቢት RGB ሰነድ ያስፈልጋል። መጀመሪያ ሰነዱን ወደ 8-ቢት RGB ይቀይሩ።
 codec.layered.export_mode = ለመላክ RGB ሰነድ ያስፈልጋል። መጀመሪያ ሰነዱን ወደ RGB ይቀይሩ።
+codec.layered.merged_layer = የተዋሃደ ምስል (አንዳንድ የ{format} ንብርብሮች ማስመጣት አልተቻለም)
+codec.kra.merged_color_space = የተዋሃደ ምስል (በ{color_space} የሆነ የKrita ሰነድ እንደ RGB ታይቷል)
 
 # Unsupported layered format features
 codec.pdn.feature.blend_mode = የPDN ማዋሃድ ሁነታ
@@ -57,3 +67,8 @@ codec.xcf.feature.floating_selection = የXCF ተንሳፋፊ ምርጫ
 codec.xcf.feature.layer_effects = የXCF ንብርብር ተፅዕኖዎች
 codec.xcf.feature.precision = የXCF ትክክለኛነት
 codec.xcf.feature.version = የXCF ስሪት
+
+codec.exr.feature.deep = የEXR ጥልቅ ውሂብ
+codec.exr.feature.subsampled = የEXR ንዑስ-ናሙና ቻናሎች
+codec.exr.msg.no_channels = የOpenEXR ፋይል ምንም የምስል ቻናሎች አልያዘም።
+codec.exr.msg.write_failed = የOpenEXR ፋይሉን መጻፍ አልተቻለም፦ {error}

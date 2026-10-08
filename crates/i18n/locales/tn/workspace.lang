@@ -66,6 +66,9 @@ workspace.filters.raw_too_tall = RAW development e bogodimo thata
 workspace.filters.raw_size_changed = Bogolo jwa RAW development bo fetogile go {w} × {h}; go bolokwa llaga ya jaanong
 workspace.filters.raw_history = Camera Raw Development
 workspace.filters.raw_applied = Camera Raw development e dirisitswe (demosaic e e siameng thata)
+workspace.raw_masks.no_model = {model} ga e a tsenngwa, ka jalo sekhurumelo se ga se kgone go bonwa.
+workspace.raw_masks.no_sky = Ga go a bonwa legodimo mo setshwantshong se.
+workspace.raw_masks.detect_failed = Go bona sekhurumelo go paletswe: {error}
 workspace.image_size.done = Bogolo jwa setshwantsho: {w} × {h}
 workspace.image_size.bicubic_fallback = Bogolo jwa setshwantsho: {w} × {h} — model ya {name} e ganne go laisa, ka jalo gwa dirisiwa bicubic
 workspace.image_size.upscaling = E godisa ka {name}
@@ -89,3 +92,10 @@ workspace.file_picker.permission_denied = Schist ga e na tetlelelo ya go bala se
 workspace.recovery.recovered_title = {title} (e buseditswe)
 workspace.recovery.recovered.one = E buseditse tiro e e sa bolokwang go tswa mo session e e fetileng
 workspace.recovery.recovered.other = E buseditse ditokomane di le {n} go tswa mo session e e fetileng
+workspace.colormgmt.vision_on = Go etsisa: {name}
+workspace.colormgmt.vision_off = Pono e e tlwaelegileng
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Go tlositswe kwa ntle ga model ya go tlatsa, ka jalo go tlatsa go ka nna makgwakgwa
+workspace.tool_jobs.document_changed = {name} e feditse morago ga gore tokomane ya yone e tswalwe kgotsa e fetolwe, ka jalo ga go sepe se se fetotsweng

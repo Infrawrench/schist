@@ -66,6 +66,9 @@ workspace.filters.raw_too_tall = Lo desvolopament RAW es tròp naut
 workspace.filters.raw_size_changed = La talha del desvolopament RAW es passada a {w} × {h} ; lo calc actual es conservat
 workspace.filters.raw_history = Desvolopament Camera Raw
 workspace.filters.raw_applied = Desvolopament Camera Raw aplicat (melhor demosaïcage)
+workspace.raw_masks.no_model = {model} es pas installat, doncas aquesta masqueta pòt pas èsser detectada.
+workspace.raw_masks.no_sky = Cap de cèl es pas estat trobat dins aqueste imatge.
+workspace.raw_masks.detect_failed = La deteccion de la masqueta a fracassat: {error}
 workspace.image_size.done = Talha de l'imatge : {w} × {h}
 workspace.image_size.bicubic_fallback = Talha de l'imatge : {w} × {h} — lo modèl {name} s'es pas pogut cargar, doncas l'interpolacion bicubica l'a remplaçat
 workspace.image_size.upscaling = Aumentacion de resolucion amb {name}
@@ -87,3 +90,10 @@ workspace.file_picker.downloads = Telecargaments
 workspace.file_picker.permission_denied = Schist a pas la permission de legir aqueste dorsièr
 workspace.recovery.recovered_title = {title} (recuperat)
 workspace.recovery.recovered.other = Documents recuperats d'una session precedenta : {n}
+workspace.colormgmt.vision_on = Simulacion : {name}
+workspace.colormgmt.vision_off = Vision normala
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name} : {percent} %
+workspace.tool_jobs.missing_model = Suprimit sens lo modèl de reconstruccion, l'emplenatge pòt èsser mai grossièr
+workspace.tool_jobs.document_changed = {name} s'es acabat aprèp que son document es estat tampat o cambiat, doncas res es pas estat modificat

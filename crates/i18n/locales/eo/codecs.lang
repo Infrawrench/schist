@@ -4,6 +4,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -35,15 +37,22 @@ codec.heif.msg.imageio_cannot_read = ImageIO ne povis legi la HEIF-ujon
 codec.heif.msg.container_empty = la HEIF-ujo enhavas neniun bildon
 codec.heif.msg.imageio_cannot_decode = ImageIO ne povis malkodi la ĉefan bildon
 
+codec.avif.msg.no_decoder = La retumila versio de Schist ne povas malfermi AVIF-bildojn. Malfermu la dosieron en la labortabla aplikaĵo, aŭ unue konvertu ĝin al PNG.
+
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = La tavolhava bilddosiero estas difektita aŭ nekompleta.
 codec.layered.too_large = La tavolhava bildo superas la subtenatan grandon aŭ nombron de tavoloj.
 codec.layered.unsupported = Ĉi tiu dosiero uzas nesubtenatan funkcion: {feature}.
 codec.layered.export_layer = La tavolo «{name}» enhavas funkciojn, kiujn ĉi tiu dosierformo ne povas konservi. Rastrumu ĝin aŭ konservu kiel PSD.
 codec.layered.export_depth = Eksporto al Paint.NET postulas 8-bitan RGB-dokumenton. Unue konvertu la dokumenton al 8-bita RGB.
 codec.layered.export_mode = Eksporto postulas RGB-dokumenton. Unue konvertu la dokumenton al RGB.
+codec.layered.merged_layer = Kunfandita bildo (iuj tavoloj de {format} ne povis esti importitaj)
+codec.kra.merged_color_space = Kunfandita bildo (Krita dokumento {color_space} montrata kiel RGB)
 
 # Unsupported layered-format features.
 codec.pdn.feature.blend_mode = kunfanda reĝimo de PDN
@@ -61,3 +70,8 @@ codec.xcf.feature.floating_selection = flosanta elekto de XCF
 codec.xcf.feature.layer_effects = tavolaj efektoj de XCF
 codec.xcf.feature.precision = precizeco de XCF
 codec.xcf.feature.version = versio de XCF
+
+codec.exr.feature.deep = EXR-profundaj datumoj
+codec.exr.feature.subsampled = EXR-subspecimenigitaj kanaloj
+codec.exr.msg.no_channels = La OpenEXR-dosiero enhavas neniujn bildkanalojn.
+codec.exr.msg.write_failed = Ne eblis skribi la OpenEXR-dosieron: {error}

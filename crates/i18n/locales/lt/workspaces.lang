@@ -14,3 +14,4 @@ workspaces.invalid_name = Įveskite 1–80 ženklų pavadinimą be valdymo ženk
 workspaces.duplicate = Darbo sritis tokiu pavadinimu jau yra.
 workspaces.limit = Galite įrašyti iki 64 darbo sričių.
 workspaces.keyboard = Klaviatūra: Alt+↑/↓ pasirenka išdėstymą. Ctrl/Cmd+N taiso jo pavadinimą; +S įrašo kopiją; +Enter pritaiko; +U atnaujina; +R pervadina; +D pašalina; +0 atkuria.
+workspaces.open_documents = Atverti dokumentai

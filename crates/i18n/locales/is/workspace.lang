@@ -66,6 +66,9 @@ workspace.filters.raw_too_tall = RAW-framköllunin er of há
 workspace.filters.raw_size_changed = Stærð RAW-framköllunar breyttist í {w} × {h}; núverandi lagi haldið
 workspace.filters.raw_history = Camera Raw-framköllun
 workspace.filters.raw_applied = Camera Raw-framköllun beitt (besta litfléttuafkóðun)
+workspace.raw_masks.no_model = {model} er ekki uppsett, svo ekki er hægt að greina þessa grímu.
+workspace.raw_masks.no_sky = Enginn himinn fannst á þessari mynd.
+workspace.raw_masks.detect_failed = Grímugreining mistókst: {error}
 workspace.image_size.done = Stærð myndar: {w} × {h}
 workspace.image_size.bicubic_fallback = Stærð myndar: {w} × {h} — ekki tókst að hlaða {name}-líkaninu og því var tvíteningsbrúun notuð
 workspace.image_size.upscaling = Stækka með {name}
@@ -89,3 +92,10 @@ workspace.file_picker.permission_denied = Schist hefur ekki heimild til að lesa
 workspace.recovery.recovered_title = {title} (endurheimt)
 workspace.recovery.recovered.one = Endurheimti {n} óvistað skjal úr fyrri setu
 workspace.recovery.recovered.other = Endurheimti {n} skjöl úr fyrri setu
+workspace.colormgmt.vision_on = Hermun: {name}
+workspace.colormgmt.vision_off = Eðlileg litasjón
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Fjarlægt án fyllingarlíkansins, svo fyllingin gæti orðið grófari
+workspace.tool_jobs.document_changed = {name} lauk eftir að skjalinu var lokað eða skipt um það, svo engu var breytt

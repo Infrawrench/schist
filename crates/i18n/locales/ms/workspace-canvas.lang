@@ -43,3 +43,7 @@ workspace.history.move_layers = Alih Lapisan
 workspace.history.layer_opacity = Kelegapan Lapisan
 workspace.history.delete_note = Padam Nota
 workspace.history.edit_note = Sunting Nota
+workspace.canvas.clipping_on = Amaran keratan dihidupkan
+workspace.canvas.clipping_off = Amaran keratan dimatikan
+workspace.canvas.peaking_on = Puncak fokus dihidupkan
+workspace.canvas.peaking_off = Puncak fokus dimatikan

@@ -3,6 +3,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -30,15 +32,23 @@ codec.heif.msg.imageio_cannot_read = ImageIO enweghị ike ịgụ HEIF containe
 codec.heif.msg.container_empty = HEIF container enweghị onyonyo
 codec.heif.msg.imageio_cannot_decode = ImageIO enweghị ike idekọ onyonyo bụ isi
 
+# AVIF
+codec.avif.msg.no_decoder = Ụdị ihe nchọgharị nke Schist enweghị ike imepe onyonyo AVIF. Mepee faịlụ ahụ na ngwa desktọpụ, ma ọ bụ buru ụzọ gbanwee ya ka ọ bụrụ PNG.
+
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = Faịlụ onyonyo nwere leya emebiela ma ọ bụ ezughị ezu.
 codec.layered.too_large = Nha onyonyo nwere leya ma ọ bụ ọnụọgụ leya karịrị oke a na-akwado.
 codec.layered.unsupported = Faịlụ a na-eji njirimara a na-akwadoghị: {feature}.
 codec.layered.export_layer = Leya “{name}” nwere njirimara usoro a na-enweghị ike ichekwa. Mee leya ahụ ka ọ bụrụ raster ma ọ bụ chekwaa dịka PSD.
 codec.layered.export_depth = Mbupụ Paint.NET chọrọ dọkụmentị RGB bit 8. Buru ụzọ gbanwee dọkụmentị ahụ ka ọ bụrụ RGB bit 8.
 codec.layered.export_mode = Mbupụ chọrọ dọkụmentị RGB. Buru ụzọ gbanwee dọkụmentị ahụ ka ọ bụrụ RGB.
+codec.layered.merged_layer = Onyonyo jikọtara ọnụ (enweghị ike ibubata ụfọdụ leya {format})
+codec.kra.merged_color_space = Onyonyo jikọtara ọnụ (e gosiri dọkụmentị Krita {color_space} dị ka RGB)
 
 # Unsupported layered-format features.
 codec.pdn.feature.blend_mode = ọnọdụ ngwakọta PDN
@@ -56,3 +66,8 @@ codec.xcf.feature.floating_selection = nhọrọ na-ese n'elu XCF
 codec.xcf.feature.layer_effects = mmetụta leya XCF
 codec.xcf.feature.precision = izi ezi XCF
 codec.xcf.feature.version = ụdị XCF
+
+codec.exr.feature.deep = data EXR miri emi
+codec.exr.feature.subsampled = ọwa EXR a gbadoro obere
+codec.exr.msg.no_channels = Faịlụ OpenEXR enweghị ọwa onyonyo ọbụla.
+codec.exr.msg.write_failed = Enweghị ike ide faịlụ OpenEXR: {error}

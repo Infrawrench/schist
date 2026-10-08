@@ -66,6 +66,9 @@ workspace.filters.raw_too_tall = RAW-ovdánahttin lea menddo allat
 workspace.filters.raw_size_changed = RAW-ovdánahttima sturrodat rievddai {w} × {h}:n; dálá geardi seailluhuvvo
 workspace.filters.raw_history = Camera Raw-ovdánahttin
 workspace.filters.raw_applied = Camera Raw-ovdánahttin heivehuvvui (buoremus demosaiseren)
+workspace.raw_masks.no_model = {model} ii leat sajáiduhttojuvvon, nu ahte dán máskka ii sáhte dovddastit.
+workspace.raw_masks.no_sky = Dán govas ii gávdnon albmi.
+workspace.raw_masks.detect_failed = Máskka dovddasteapmi ii lihkostuvvan: {error}
 workspace.image_size.done = Govva sturrodat: {w} × {h}
 workspace.image_size.bicubic_fallback = Govva sturrodat: {w} × {h} — {name}-modealla ii rahpan, nu ahte bikubalaš vuohki buhtii dan
 workspace.image_size.upscaling = Stuorideamen modeallain {name}
@@ -91,3 +94,10 @@ workspace.recovery.recovered_title = {title} (máhcahuvvon)
 workspace.recovery.recovered.one = Ovddit bargovuoru vurkeahttes bargu máhcahuvvui
 workspace.recovery.recovered.two = Ovddit bargovuorus máhcahuvvojedje {n} dokumeantta
 workspace.recovery.recovered.other = Ovddit bargovuorus máhcahuvvojedje {n} dokumeantta
+workspace.colormgmt.vision_on = Simuleren: {name}
+workspace.colormgmt.vision_off = Dábálaš oaidnu
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Váldojuvvui eret almmá deavdinmodeallaa, nu ahte deavdin ii várra leat nu čáppat
+workspace.tool_jobs.document_changed = {name} gárvánii maŋŋá go dan dokumeanta giddejuvvui dahje molsojuvvui, nu ahte mihkkege ii rievdaduvvon

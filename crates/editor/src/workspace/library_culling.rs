@@ -121,6 +121,7 @@ impl Workspace {
             schist_gallery::thumb_source(path, edited)
         });
         self.close_similar_review();
+        self.library.similar.resume = false;
         self.library.viewer = None;
         self.library.map_view = false;
         self.library.search.active = false;
@@ -197,6 +198,12 @@ impl Workspace {
 
     pub(super) fn close_culling_compare(&mut self, cx: &mut Context<Self>) {
         self.library.comparison = None;
+        // A comparison opened from the duplicate review returns to it.
+        if std::mem::take(&mut self.library.similar.resume) {
+            self.library.selected.clear();
+            self.show_review(cx);
+            return;
+        }
         self.culling_filter_changed(cx);
     }
 
@@ -377,7 +384,19 @@ pub(super) fn comparison(ws: &mut Workspace, cx: &mut Context<Workspace>) -> gpu
         .into_any_element()
 }
 
-fn compare_pane(ws: &Workspace, index: usize, cx: &mut Context<Workspace>) -> gpui::AnyElement {
+fn compare_pane(ws: &mut Workspace, index: usize, cx: &mut Context<Workspace>) -> gpui::AnyElement {
+    // The overlay layer is sized to the photo as the camera shows it.
+    let image_overlay = {
+        let c = ws.library.comparison.as_ref().unwrap();
+        c.images[index].as_ref().map(|image| {
+            let area = c.areas[index].size;
+            let [_, _, w, h] = c
+                .camera
+                .image_rect(image.dimensions, [area.width.into(), area.height.into()]);
+            (image.render.clone(), w.max(h))
+        })
+    }
+    .and_then(|(render, shown)| ws.gallery_overlay(&render, shown));
     let c = ws.library.comparison.as_ref().unwrap();
     let path = &c.paths[index];
     compare_ui::pane(
@@ -399,6 +418,7 @@ fn compare_pane(ws: &Workspace, index: usize, cx: &mut Context<Workspace>) -> gp
             message: c.errors[index].clone(),
             culling: Some(ws.library.culling_of(path)),
             overlay: None,
+            image_overlay,
         },
         ComparisonActions::<Workspace> {
             select: |ws, index, position, cx| {

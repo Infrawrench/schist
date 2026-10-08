@@ -353,3 +353,43 @@ library.similar.keep = 残す
 library.similar.reject = 除外
 library.similar.help = 確認用の印のみ付けます。ファイルは削除されません。
 library.similar.stale = ファイルが変更されました。更新して続行してください。
+
+# Find Duplicates
+library.duplicates.title = 重複
+library.duplicates.help = 監視中のすべてのフォルダにある同一ファイルと類似コピーです。ゴミ箱への移動は2回確認します。ゴミ箱に移したファイルはシステムのゴミ箱から復元できます。
+library.duplicates.exact = 同一ファイル
+library.duplicates.near = 類似の重複
+library.duplicates.identical = 同一 (SHA-256)
+library.duplicates.suggested = おすすめの残す写真
+library.duplicates.make_keeper = これを残す
+library.duplicates.compare = 比較
+library.duplicates.keep_all = すべて残す
+library.duplicates.reject_others = 他を除外
+library.duplicates.trash_others.other = 他の{n}件をゴミ箱に移動
+library.duplicates.confirm_trash.other = 確認: {n}件をゴミ箱に移動
+library.duplicates.n_trashed.other = {n}件のファイルをゴミ箱に移動しました
+library.duplicates.n_rejected.other = {n}枚の写真を除外としてフラグ付けしました
+library.duplicates.refused_edited = 編集内容またはサイドカーがあるため、代わりに除外してください
+library.duplicates.trash_failed = システムのゴミ箱を利用できません
+library.duplicates.near_limit = 類似の重複の照合は最初の10,000枚が対象です。
+
+# Geotagging from GPX tracks
+library.geotag.menu = GPXトラックからジオタグ付け…
+library.geotag.title = GPXトラックからジオタグ付け
+library.geotag.add_files = GPXファイルを追加…
+library.geotag.n_track_points.other = 時刻付きトラックポイント{n}個
+library.geotag.max_gap = 最大間隔 (分)
+library.geotag.clock_offset = カメラの時計の補正
+library.geotag.time_zone = 写真のタイムゾーン (UTCオフセット)
+library.geotag.zone_help = タイムゾーンは、タイムゾーンなしで記録された撮影時刻にのみ適用されます。補正値 (秒または±h:mm:ss) はすべての撮影時刻に加算されます。
+library.geotag.skip_existing = すでに位置情報がある写真をスキップ
+library.geotag.n_will_tag.other = {n}枚の写真にタグを付けます
+library.geotag.n_has_gps.other = {n}枚の写真にはすでに位置情報があります
+library.geotag.n_no_time.other = {n}枚の写真には撮影時刻がありません
+library.geotag.n_gap.other = {n}枚の写真がトラックの途切れた区間にあります
+library.geotag.n_outside.other = {n}枚の写真がトラックの時間範囲外です
+library.geotag.apply = 位置情報を書き込む
+library.geotag.invalid = 間隔を分で、補正を-1:30のような形式で、タイムゾーンを+02:00のような形式で入力してください。
+library.geotag.no_points = GPXファイルに時刻付きのポイントがありません。
+library.geotag.select_photos = 先にジオタグ付けする写真を選択してください。
+library.geotag.read_failed = GPXファイルを読み込めませんでした: {error}

@@ -27,3 +27,11 @@ tool.magic_eraser.name = Волшебный ластик
 tool.magic_eraser.description = Щёлкните, чтобы стереть область похожего цвета под указателем в пределах допуска инструмента: смежную с точкой щелчка или по всему слою.
 tool.magic_eraser.option.contiguous = Смежные пиксели
 tool.magic_eraser.history.erase = Волшебный ластик
+
+# Remove
+tool.remove.name = Удаление
+tool.remove.description = Закрасьте ненужный объект одним мазком; когда вы отпустите кнопку, он будет заполнен по окружающему фону. Если параметр «Удалять после каждого мазка» выключен, нанесите несколько мазков и нажмите Enter, чтобы удалить их вместе.
+tool.remove.option.sample_all_layers = Образец со всех слоёв
+tool.remove.option.remove_after_each_stroke = Удалять после каждого мазка
+tool.remove.history.remove = Удаление
+tool.remove.layer_name = Удалено

@@ -67,6 +67,9 @@ workspace.filters.raw_too_tall = Developament RAW es tro alt
 workspace.filters.raw_size_changed = Grandore del developament RAW changeat a {w} × {h}; gardante li actual strate
 workspace.filters.raw_history = Developament Camera Raw
 workspace.filters.raw_applied = Developament Camera Raw aplicat (maxim bon demosaicage)
+workspace.raw_masks.no_model = {model} ne es installat, dunc ti-ci masca ne posse esser detectet.
+workspace.raw_masks.no_sky = Null cele esset trovat in ti-ci image.
+workspace.raw_masks.detect_failed = Detection del masca ha fallit: {error}
 workspace.image_size.done = Grandore del image: {w} × {h}
 workspace.image_size.bicubic_fallback = Grandore del image: {w} × {h} — li modelle {name} ne posset cargar, do bicubic interpolation substituet it
 workspace.image_size.upscaling = Auctente li scale per {name}
@@ -90,3 +93,10 @@ workspace.file_picker.permission_denied = Schist ne have permission por leer ti 
 workspace.recovery.recovered_title = {title} (recuperat)
 workspace.recovery.recovered.one = Recuperat negardat labor ex un anterior session
 workspace.recovery.recovered.other = Recuperat {n} documentes ex un anterior session
+workspace.colormgmt.vision_on = Simulation: {name}
+workspace.colormgmt.vision_off = Vision normal
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Removet sin li modelle de plenation, dunc li plenation posse esser plu rud
+workspace.tool_jobs.document_changed = {name} finit pos que su documente esset cludet o cambiat, dunc nequó esset modificat

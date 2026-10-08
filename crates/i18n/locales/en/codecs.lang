@@ -10,11 +10,16 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
+codec.exr.name = OpenEXR
 
 # Native layered raster files
 codec.layered.invalid = The layered image file is damaged or incomplete.
@@ -23,6 +28,8 @@ codec.layered.unsupported = This file uses an unsupported feature: {feature}.
 codec.layered.export_layer = Layer “{name}” contains features this format cannot preserve. Rasterize it or save as PSD.
 codec.layered.export_depth = Paint.NET export requires an 8-bit RGB document. Convert the document to 8-bit RGB first.
 codec.layered.export_mode = Export requires an RGB document. Convert the document to RGB first.
+codec.layered.merged_layer = Merged image (some {format} layers could not be imported)
+codec.kra.merged_color_space = Merged image (Krita {color_space} document shown as RGB)
 
 # Feature labels inserted into codec.layered.unsupported.
 codec.pdn.feature.blend_mode = PDN blend mode
@@ -75,3 +82,12 @@ codec.heif.msg.checksum_mismatch = Checksum mismatch for {name}: expected {expec
 codec.heif.msg.imageio_cannot_read = ImageIO could not read the HEIF container
 codec.heif.msg.container_empty = the HEIF container holds no image
 codec.heif.msg.imageio_cannot_decode = ImageIO could not decode the primary image
+
+# AVIF in the browser build, which has no AV1 decoder (it still exports AVIF).
+codec.avif.msg.no_decoder = The browser version of Schist cannot open AVIF images. Open the file in the desktop app, or convert it to PNG first.
+# OpenEXR. Feature labels go into codec.layered.unsupported; {error} is
+# the encoder's own (English) message.
+codec.exr.feature.deep = EXR deep data
+codec.exr.feature.subsampled = EXR subsampled channels
+codec.exr.msg.no_channels = The OpenEXR file contains no image channels.
+codec.exr.msg.write_failed = Could not write the OpenEXR file: {error}

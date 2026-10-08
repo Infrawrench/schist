@@ -66,6 +66,9 @@ workspace.filters.raw_too_tall = حاصل پردازش RAW بیش از حد بل
 workspace.filters.raw_size_changed = اندازهٔ پردازش RAW به {w} × {h} تغییر کرد؛ لایهٔ کنونی حفظ می‌شود
 workspace.filters.raw_history = پردازش Camera Raw
 workspace.filters.raw_applied = پردازش Camera Raw اعمال شد (بهترین دموزاییک)
+workspace.raw_masks.no_model = {model} نصب نشده است، بنابراین این ماسک قابل تشخیص نیست.
+workspace.raw_masks.no_sky = هیچ آسمانی در این تصویر پیدا نشد.
+workspace.raw_masks.detect_failed = تشخیص ماسک ناموفق بود: {error}
 workspace.image_size.done = اندازهٔ تصویر: {w} × {h}
 workspace.image_size.bicubic_fallback = اندازهٔ تصویر: {w} × {h} — مدل {name} بارگیری نشد، بنابراین دومکعبی جایگزین آن شد
 workspace.image_size.upscaling = افزایش مقیاس با {name}
@@ -89,3 +92,10 @@ workspace.file_picker.permission_denied = Schist اجازهٔ خواندن ای�
 workspace.recovery.recovered_title = {title} (بازیابی‌شده)
 workspace.recovery.recovered.one = {n} سند ذخیره‌نشده از نشست پیشین بازیابی شد
 workspace.recovery.recovered.other = {n} سند از نشست پیشین بازیابی شد
+workspace.colormgmt.vision_on = شبیه‌سازی: {name}
+workspace.colormgmt.vision_off = بینایی عادی
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}٪
+workspace.tool_jobs.missing_model = بدون مدل ترمیم تصویر حذف شد، بنابراین پرشدگی ممکن است ناهموارتر باشد
+workspace.tool_jobs.document_changed = {name} پس از بسته شدن یا تعویض سندش به پایان رسید، بنابراین چیزی تغییر نکرد

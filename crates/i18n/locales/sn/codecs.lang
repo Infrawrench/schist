@@ -3,6 +3,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -30,15 +32,23 @@ codec.heif.msg.imageio_cannot_read = ImageIO yatadza kuverenga container yeHEIF
 codec.heif.msg.container_empty = container yeHEIF haina mufananidzo
 codec.heif.msg.imageio_cannot_decode = ImageIO yatadza kudhikhodha mufananidzo mukuru
 
+# AVIF in the browser build, which has no AV1 decoder (it still exports AVIF).
+codec.avif.msg.no_decoder = Shanduro yebhurawuza yeSchist haikwanise kuvhura mifananidzo yeAVIF. Vhura faira muapp yepadesktop, kana kuti utange waishandura kuva PNG.
+
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = Faira remufananidzo une zvikamu rakanganisika kana kuti harina kukwana.
 codec.layered.too_large = Saizi yemufananidzo une zvikamu kana huwandu hwezvikamu zvawo hunodarika muganhu unotsigirwa.
 codec.layered.unsupported = Faira iri rinoshandisa chinhu chisingatsigirwi: {feature}.
 codec.layered.export_layer = Chikamu “{name}” chine zvinhu zvisingagoni kuchengetwa nefomati iyi. Chishandure kuva mapikiseri kana kuchengetedza sePSD.
 codec.layered.export_depth = Kutumira kuPaint.NET kunoda gwaro reRGB re8-bit. Tanga washandura gwaro kuva RGB ye8-bit.
 codec.layered.export_mode = Kutumira kunoda gwaro reRGB. Tanga washandura gwaro kuva RGB.
+codec.layered.merged_layer = Mufananidzo wakabatanidzwa (zvimwe zvikamu zve-{format} hazvina kukwanisa kuiswa)
+codec.kra.merged_color_space = Mufananidzo wakabatanidzwa (gwaro reKrita {color_space} rinoratidzwa seRGB)
 codec.pdn.feature.blend_mode = maitiro ekusanganisa ePDN
 codec.pdn.feature.compression = kudzvanywa kwedata rePDN
 codec.pdn.feature.container_version = vhezheni yechigadziko chePDN
@@ -54,3 +64,8 @@ codec.xcf.feature.floating_selection = sarudzo inoyangarara yeXCF
 codec.xcf.feature.layer_effects = mhedzisiro yechikamu cheXCF
 codec.xcf.feature.precision = kururama kweXCF
 codec.xcf.feature.version = vhezheni yeXCF
+
+codec.exr.feature.deep = data yakadzika yeEXR
+codec.exr.feature.subsampled = machanera eEXR akadzikiswa
+codec.exr.msg.no_channels = Faira reOpenEXR harina machanera emufananidzo.
+codec.exr.msg.write_failed = Hazvina kunyoreka faira reOpenEXR: {error}

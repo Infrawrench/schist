@@ -36,3 +36,7 @@ workspace.history.move_layers = ಲೇಯರ್‌ಗಳನ್ನು ಸರಿ�
 workspace.history.layer_opacity = ಲೇಯರ್ ಅಪಾರದರ್ಶಕತೆ
 workspace.history.delete_note = ಟಿಪ್ಪಣಿ ಅಳಿಸಿ
 workspace.history.edit_note = ಟಿಪ್ಪಣಿ ಸಂಪಾದಿಸಿ
+workspace.canvas.clipping_on = ಕ್ಲಿಪಿಂಗ್ ಎಚ್ಚರಿಕೆಗಳು ಆನ್
+workspace.canvas.clipping_off = ಕ್ಲಿಪಿಂಗ್ ಎಚ್ಚರಿಕೆಗಳು ಆಫ್
+workspace.canvas.peaking_on = ಫೋಕಸ್ ಪೀಕಿಂಗ್ ಆನ್
+workspace.canvas.peaking_off = ಫೋಕಸ್ ಪೀಕಿಂಗ್ ಆಫ್

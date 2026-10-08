@@ -3,6 +3,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -30,15 +32,22 @@ codec.heif.msg.imageio_cannot_read = ImageIO nu a putut citi containerul HEIF
 codec.heif.msg.container_empty = containerul HEIF nu conține nicio imagine
 codec.heif.msg.imageio_cannot_decode = ImageIO nu a putut decoda imaginea principală
 
+codec.avif.msg.no_decoder = Versiunea pentru browser a Schist nu poate deschide imagini AVIF. Deschideți fișierul în aplicația desktop sau convertiți-l mai întâi în PNG.
+
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = Fișierul imaginii cu straturi este deteriorat sau incomplet.
 codec.layered.too_large = Imaginea cu straturi depășește dimensiunea sau numărul de straturi acceptat.
 codec.layered.unsupported = Acest fișier folosește o funcționalitate neacceptată: {feature}.
 codec.layered.export_layer = Stratul „{name}” conține funcționalități pe care acest format nu le poate păstra. Rasterizați-l sau salvați documentul ca PSD.
 codec.layered.export_depth = Exportul în Paint.NET necesită un document RGB pe 8 biți. Convertiți mai întâi documentul în RGB pe 8 biți.
 codec.layered.export_mode = Exportul necesită un document RGB. Convertiți mai întâi documentul în RGB.
+codec.layered.merged_layer = Imagine îmbinată (unele straturi {format} nu au putut fi importate)
+codec.kra.merged_color_space = Imagine îmbinată (documentul Krita {color_space} este afișat ca RGB)
 
 # Unsupported layered-format features.
 codec.pdn.feature.blend_mode = mod de amestec PDN
@@ -56,3 +65,8 @@ codec.xcf.feature.floating_selection = selecție flotantă XCF
 codec.xcf.feature.layer_effects = efecte de strat XCF
 codec.xcf.feature.precision = precizie XCF
 codec.xcf.feature.version = versiune XCF
+
+codec.exr.feature.deep = date profunde EXR
+codec.exr.feature.subsampled = canale subeșantionate EXR
+codec.exr.msg.no_channels = Fișierul OpenEXR nu conține canale de imagine.
+codec.exr.msg.write_failed = Fișierul OpenEXR nu a putut fi scris: {error}

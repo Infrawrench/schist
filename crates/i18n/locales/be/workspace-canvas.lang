@@ -35,3 +35,7 @@ workspace.history.move_layers = Перамяшчэнне пластоў
 workspace.history.layer_opacity = Непразрыстасць пласта
 workspace.history.delete_note = Выдаленне нататкі
 workspace.history.edit_note = Рэдагаванне нататкі
+workspace.canvas.clipping_on = Папярэджанні аб абрэзцы ўключаны
+workspace.canvas.clipping_off = Папярэджанні аб абрэзцы выключаны
+workspace.canvas.peaking_on = Падсветка факусу ўключана
+workspace.canvas.peaking_off = Падсветка факусу выключана

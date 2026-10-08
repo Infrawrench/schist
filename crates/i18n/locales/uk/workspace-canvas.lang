@@ -36,3 +36,7 @@ workspace.history.move_layers = Переміщення шарів
 workspace.history.layer_opacity = Непрозорість шару
 workspace.history.delete_note = Видалення нотатки
 workspace.history.edit_note = Редагування нотатки
+workspace.canvas.clipping_on = Попередження про кліпінг ввімкнено
+workspace.canvas.clipping_off = Попередження про кліпінг вимкнено
+workspace.canvas.peaking_on = Пікінг фокуса ввімкнено
+workspace.canvas.peaking_off = Пікінг фокуса вимкнено

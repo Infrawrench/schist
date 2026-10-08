@@ -3,6 +3,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -34,15 +36,22 @@ codec.heif.msg.imageio_cannot_read = ImageIO nije mogao pročitati HEIF spremnik
 codec.heif.msg.container_empty = HEIF spremnik ne sadrži sliku
 codec.heif.msg.imageio_cannot_decode = ImageIO nije mogao dekodirati primarnu sliku
 
+codec.avif.msg.no_decoder = Preglednička inačica Schista ne može otvoriti AVIF slike. Otvorite datoteku u desktop aplikaciji ili je najprije pretvorite u PNG.
+
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = Datoteka slike sa slojevima oštećena je ili nepotpuna.
 codec.layered.too_large = Slika sa slojevima premašuje podržanu veličinu ili broj slojeva.
 codec.layered.unsupported = Ova datoteka upotrebljava nepodržanu značajku: {feature}.
 codec.layered.export_layer = Sloj „{name}” sadrži značajke koje ovaj format ne može sačuvati. Rasterizirajte ga ili spremite kao PSD.
 codec.layered.export_depth = Izvoz u Paint.NET zahtijeva 8-bitni RGB dokument. Najprije pretvorite dokument u 8-bitni RGB.
 codec.layered.export_mode = Izvoz zahtijeva RGB dokument. Najprije pretvorite dokument u RGB.
+codec.layered.merged_layer = Spojena slika (neki {format} slojevi nisu se mogli uvesti)
+codec.kra.merged_color_space = Spojena slika (Krita {color_space} dokument prikazan je kao RGB)
 
 # Unsupported layered-format features.
 codec.pdn.feature.blend_mode = način stapanja PDN
@@ -60,3 +69,8 @@ codec.xcf.feature.floating_selection = plutajući odabir XCF
 codec.xcf.feature.layer_effects = efekti sloja XCF
 codec.xcf.feature.precision = preciznost XCF
 codec.xcf.feature.version = verzija XCF
+
+codec.exr.feature.deep = duboki podaci EXR
+codec.exr.feature.subsampled = poduzorkovani kanali EXR
+codec.exr.msg.no_channels = Datoteka OpenEXR ne sadrži nijedan kanal slike.
+codec.exr.msg.write_failed = Nije moguće zapisati datoteku OpenEXR: {error}

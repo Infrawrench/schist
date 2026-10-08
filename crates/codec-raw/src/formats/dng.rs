@@ -68,7 +68,7 @@ mod compression {
     /// Baseline JPEG. The number collides with the *photometric*
     /// code for linear raw; they are unrelated.
     pub const LOSSY_JPEG: u32 = 34892;
-    /// DNG 1.7's JPEG XL, which this crate has no decoder for.
+    /// DNG 1.7's JPEG XL: every tile a codestream of its own.
     pub const JPEG_XL: u32 = 52546;
     /// GoPro's GPR files are DNGs whose raw IFD is a VC-5 wavelet
     /// stream. Not part of the DNG specification.
@@ -429,12 +429,13 @@ fn decode_samples(
     let bytes = tiff.bytes();
     let little_endian = tiff.little_endian();
 
-    // Floating-point samples are only handled through the deflate
-    // path; read as integers they would come out as bit patterns.
+    // Floating-point samples are only handled through the deflate and
+    // JPEG XL paths; read as integers they would come out as bit
+    // patterns.
     if float_samples(ifd, spp)?
         && !matches!(
             layout.compression,
-            compression::DEFLATE | compression::DEFLATE_OLD
+            compression::DEFLATE | compression::DEFLATE_OLD | compression::JPEG_XL
         )
     {
         return Err(Error::Unsupported(format!(
@@ -469,7 +470,19 @@ fn decode_samples(
             })?
         }
         compression::JPEG_XL => {
-            return Err(Error::Unsupported("DNG 1.7 JPEG XL compression".into()))
+            // The codestream records its own sample format, which for
+            // a float DNG is float and is kept as such, as on the
+            // deflate path.
+            if float_samples(ifd, spp)? {
+                let frame = assemble(bytes, layout, &grid, spp, |chunk, cols, rows| {
+                    let (data, decoded, _) = jpeg_xl_samples(chunk, cols, rows, spp)?;
+                    Tile::new(data, cols * spp, decoded)
+                })?;
+                return Ok(RawData::F32(frame));
+            }
+            assemble(bytes, layout, &grid, spp, |chunk, cols, rows| {
+                jpeg_xl_tile(chunk, cols, rows, spp)
+            })?
         }
         compression::VC5 => {
             // A GoPro GPR: the tile is a VC-5 wavelet stream rather
@@ -656,6 +669,75 @@ fn lossy_jpeg_tile(chunk: &[u8], cols: usize, rows: usize, spp: usize) -> Result
     }
     let data: Vec<u16> = buffer.into_iter().map(u16::from).collect();
     Tile::new(data, width * channels, height)
+}
+
+/// One JPEG XL chunk of a DNG 1.7 file, decoded to samples a row at a
+/// time: (samples, rows decoded, integer bits a sample or `None` for
+/// float).
+///
+/// Each tile is a complete codestream, lossless or lossy. Its own
+/// header gives the sample depth, so integer samples come back on their
+/// own scale (0..2^bits-1) for the LinearizationTable and black and
+/// white levels to take from there, just as an uncompressed tile's
+/// would.
+fn jpeg_xl_samples(
+    chunk: &[u8],
+    cols: usize,
+    rows: usize,
+    spp: usize,
+) -> Result<(Vec<f32>, usize, Option<u32>)> {
+    use jxl_oxide::image::BitDepth;
+    let image = jxl_oxide::JxlImage::builder()
+        .read(chunk)
+        .map_err(|e| Error::Corrupt(format!("JPEG XL DNG tile: {e}")))?;
+    // The header first, so a tile claiming a frame far larger than its
+    // slot is refused before anything is decoded.
+    let (width, height) = (image.width() as usize, image.height() as usize);
+    if width != cols || height == 0 || height > rows {
+        return Err(Error::Corrupt(format!(
+            "JPEG XL DNG tile decodes {width}x{height} for a {cols}x{rows} tile"
+        )));
+    }
+    let bits = match image.image_header().metadata.bit_depth {
+        BitDepth::IntegerSample { bits_per_sample } if bits_per_sample <= 16 => {
+            Some(bits_per_sample)
+        }
+        BitDepth::IntegerSample { bits_per_sample } => {
+            return Err(Error::Unsupported(format!(
+                "JPEG XL DNG tile with {bits_per_sample}-bit samples"
+            )))
+        }
+        BitDepth::FloatSample { .. } => None,
+    };
+    let render = image
+        .render_frame(0)
+        .map_err(|e| Error::Corrupt(format!("JPEG XL DNG tile: {e}")))?;
+    let mut stream = render.stream_no_alpha();
+    let channels = stream.channels() as usize;
+    if channels != spp {
+        return Err(Error::Corrupt(format!(
+            "JPEG XL DNG tile has {channels} channels, the IFD says {spp}"
+        )));
+    }
+    let mut data = vec![0f32; width * height * channels];
+    stream.write_to_buffer(&mut data);
+    Ok((data, height, bits))
+}
+
+/// An integer JPEG XL tile, back on the sensor's integer scale.
+fn jpeg_xl_tile(chunk: &[u8], cols: usize, rows: usize, spp: usize) -> Result<Tile<u16>> {
+    let (data, decoded, bits) = jpeg_xl_samples(chunk, cols, rows, spp)?;
+    let Some(bits) = bits else {
+        return Err(Error::Corrupt(
+            "JPEG XL DNG tile holds float samples in an integer DNG".into(),
+        ));
+    };
+    let top = ((1u32 << bits) - 1) as f32;
+    let data = data
+        .into_iter()
+        .map(|v| (v * top).round().clamp(0.0, 65535.0) as u16)
+        .collect();
+    Tile::new(data, cols * spp, decoded)
 }
 
 /// The horizontal predictor a deflated chunk was written with (tag
@@ -2329,6 +2411,84 @@ mod tests {
         assert!(close(at(12, 12), [0, 0, 0]), "{:?}", at(12, 12));
     }
 
+    /// A losslessly coded JPEG XL tile, `width` x `height`, of
+    /// `channels` 16-bit samples a pixel.
+    fn jxl_tile(samples: &[u16], width: usize, height: usize, channels: usize) -> Vec<u8> {
+        use zune_core::{bit_depth::BitDepth, colorspace::ColorSpace, options::EncoderOptions};
+        let colorspace = if channels == 1 {
+            ColorSpace::Luma
+        } else {
+            ColorSpace::RGB
+        };
+        let raw: Vec<u8> = samples.iter().flat_map(|v| v.to_ne_bytes()).collect();
+        let mut out = Vec::new();
+        zune_jpegxl::JxlSimpleEncoder::new(
+            &raw,
+            EncoderOptions::new(width, height, colorspace, BitDepth::Sixteen),
+        )
+        .encode(&mut out)
+        .expect("encode a tile");
+        out
+    }
+
+    #[test]
+    fn jpeg_xl_tiles_decode_exactly() {
+        // DNG 1.7: a CFA frame in two 8x4 tiles, each its own lossless
+        // JPEG XL codestream, the second only partly inside the frame.
+        let tile = |base: u16| -> Vec<u16> { (0..32).map(|i| base + i * 97).collect() };
+        let (left, right) = (tile(100), tile(3000));
+        let build = Build::new(12, 4)
+            .root(tags::DNG_VERSION, V::Byte(vec![1, 7, 0, 0]))
+            .root(tag::DNG_BACKWARD_VERSION, V::Byte(vec![1, 7, 0, 0]))
+            .raw(tags::BITS_PER_SAMPLE, V::Short(vec![16]))
+            .raw(
+                tags::COMPRESSION,
+                V::Short(vec![compression::JPEG_XL as u16]),
+            )
+            .raw(tag::WHITE_LEVEL, V::Long(vec![65535]))
+            .tiles(
+                8,
+                4,
+                vec![jxl_tile(&left, 8, 4, 1), jxl_tile(&right, 8, 4, 1)],
+            );
+        let raw = decode(&build.bytes()).expect("decode");
+        let got = samples(&raw);
+        for y in 0..4 {
+            assert_eq!(&got[y * 12..y * 12 + 8], &left[y * 8..y * 8 + 8], "row {y}");
+            assert_eq!(&got[y * 12 + 8..y * 12 + 12], &right[y * 8..y * 8 + 4]);
+        }
+
+        // Linear raw: three samples a pixel.
+        let rgb: Vec<u16> = (0..8 * 4 * 3).map(|i| i as u16 * 600).collect();
+        let build = Build::new(8, 4)
+            .raw(tags::PHOTOMETRIC, V::Short(vec![34892]))
+            .raw(tags::SAMPLES_PER_PIXEL, V::Short(vec![3]))
+            .raw(tags::BITS_PER_SAMPLE, V::Short(vec![16, 16, 16]))
+            .raw(
+                tags::COMPRESSION,
+                V::Short(vec![compression::JPEG_XL as u16]),
+            )
+            .raw(tag::WHITE_LEVEL, V::Long(vec![65535]))
+            .without(tags::CFA_REPEAT_PATTERN_DIM)
+            .without(tags::CFA_PATTERN)
+            .tiles(8, 4, vec![jxl_tile(&rgb, 8, 4, 3)]);
+        let raw = decode(&build.bytes()).expect("decode");
+        assert_eq!(raw.cpp, 3);
+        assert_eq!(samples(&raw), rgb.as_slice());
+    }
+
+    #[test]
+    fn a_jpeg_xl_tile_of_the_wrong_size_is_refused() {
+        let build = Build::new(8, 4)
+            .raw(tags::BITS_PER_SAMPLE, V::Short(vec![16]))
+            .raw(
+                tags::COMPRESSION,
+                V::Short(vec![compression::JPEG_XL as u16]),
+            )
+            .tiles(8, 4, vec![jxl_tile(&[0; 16 * 4], 16, 4, 1)]);
+        assert!(matches!(decode(&build.bytes()), Err(Error::Corrupt(_))));
+    }
+
     #[test]
     fn the_preview_is_the_largest_embedded_jpeg() {
         let mut jpeg = Vec::new();
@@ -2347,13 +2507,21 @@ mod tests {
     #[test]
     fn compressions_this_module_has_no_decoder_for_are_unsupported() {
         let pixels = pack_msb(&vec![vec![0u16; 4]; 2], 12);
-        for (code, what) in [(52546u16, "JPEG XL"), (5, "LZW")] {
-            let build = Build::new(4, 2)
-                .raw(tags::COMPRESSION, V::Short(vec![code]))
-                .strip(pixels.clone());
-            let error = decode(&build.bytes()).expect_err(what);
-            assert!(matches!(error, Error::Unsupported(_)), "{what}: {error}");
-        }
+        let build = Build::new(4, 2)
+            .raw(tags::COMPRESSION, V::Short(vec![5]))
+            .strip(pixels.clone());
+        let error = decode(&build.bytes()).expect_err("LZW");
+        assert!(matches!(error, Error::Unsupported(_)), "LZW: {error}");
+        // JPEG XL now has a decoder, so a tile that is not a codestream
+        // is corrupt rather than unsupported.
+        let build = Build::new(4, 2)
+            .raw(
+                tags::COMPRESSION,
+                V::Short(vec![compression::JPEG_XL as u16]),
+            )
+            .strip(pixels);
+        let error = decode(&build.bytes()).expect_err("JPEG XL");
+        assert!(matches!(error, Error::Corrupt(_)), "JPEG XL: {error}");
     }
 
     /// Compression 9 now reaches the VC-5 decoder, so a tile that is

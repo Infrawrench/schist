@@ -67,6 +67,9 @@ workspace.filters.raw_too_tall = RAW մշակման արդյունքը չափա�
 workspace.filters.raw_size_changed = RAW մշակման չափը փոխվել է՝ {w} × {h}, պահպանվում է ընթացիկ շերտը
 workspace.filters.raw_history = Camera Raw մշակում
 workspace.filters.raw_applied = Camera Raw մշակումը կիրառված է (լավագույն դեմոզաիկավորում)
+workspace.raw_masks.no_model = {model}-ը տեղադրված չէ, ուստի այս դիմակը հնարավոր չէ հայտնաբերել։
+workspace.raw_masks.no_sky = Այս պատկերում երկինք չի գտնվել։
+workspace.raw_masks.detect_failed = Դիմակի հայտնաբերումը ձախողվեց՝ {error}
 workspace.image_size.done = Պատկերի չափ՝ {w} × {h}
 workspace.image_size.bicubic_fallback = Պատկերի չափ՝ {w} × {h} — {name} մոդելը չբեռնվեց, ուստի օգտագործվեց երկխորանարդային եղանակը
 workspace.image_size.upscaling = Մեծացում {name}-ով
@@ -90,3 +93,10 @@ workspace.file_picker.permission_denied = Schist-ը չունի այս պանակ
 workspace.recovery.recovered_title = {title} (վերականգնված)
 workspace.recovery.recovered.one = Նախորդ աշխատաշրջանից վերականգնվել է {n} չպահված փաստաթուղթ
 workspace.recovery.recovered.other = Նախորդ աշխատաշրջանից վերականգնվել է {n} փաստաթուղթ
+workspace.colormgmt.vision_on = Նմանակում՝ {name}
+workspace.colormgmt.vision_off = Նորմալ տեսողություն
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}՝ {percent}%
+workspace.tool_jobs.missing_model = Հեռացվեց առանց լրացման մոդելի, ուստի լրացումը կարող է ավելի կոպիտ լինել
+workspace.tool_jobs.document_changed = {name}-ն ավարտվեց այն բանից հետո, երբ փաստաթուղթը փակվեց կամ փոխվեց, ուստի ոչինչ չփոխվեց

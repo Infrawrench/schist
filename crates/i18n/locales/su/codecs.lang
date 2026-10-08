@@ -3,6 +3,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -30,15 +32,23 @@ codec.heif.msg.imageio_cannot_read = ImageIO teu bisa maca konténer HEIF
 codec.heif.msg.container_empty = konténer HEIF teu ngandung gambar
 codec.heif.msg.imageio_cannot_decode = ImageIO teu bisa ngadékode gambar utama
 
+# AVIF in the browser build, which has no AV1 decoder (it still exports AVIF).
+codec.avif.msg.no_decoder = Vérsi panyungsi Schist teu bisa muka gambar AVIF. Buka berkas dina aplikasi desktop, atawa robah heula jadi PNG.
+
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = Berkas gambar anu boga lapisan ruksak atawa teu lengkep.
 codec.layered.too_large = Gambar anu boga lapisan ngaleuwihan ukuran atawa jumlah lapisan anu dirojong.
 codec.layered.unsupported = Berkas ieu maké fitur anu teu dirojong: {feature}.
 codec.layered.export_layer = Lapisan “{name}” ngandung fitur anu teu bisa dijaga ku format ieu. Rasterkeun lapisan éta atawa simpen salaku PSD.
 codec.layered.export_depth = Ékspor ka Paint.NET merlukeun dokumén RGB 8-bit. Robah heula dokumén jadi RGB 8-bit.
 codec.layered.export_mode = Ékspor merlukeun dokumén RGB. Robah heula dokumén jadi RGB.
+codec.layered.merged_layer = Gambar gabungan (sababaraha lapisan {format} teu bisa diimpor)
+codec.kra.merged_color_space = Gambar gabungan (dokumén Krita {color_space} dipintonkeun salaku RGB)
 
 # Unsupported layered format features
 codec.pdn.feature.blend_mode = Mode campuran PDN
@@ -56,3 +66,8 @@ codec.xcf.feature.floating_selection = Pilihan ngambang XCF
 codec.xcf.feature.layer_effects = Éfék lapisan XCF
 codec.xcf.feature.precision = Katepatan XCF
 codec.xcf.feature.version = Vérsi XCF
+
+codec.exr.feature.deep = data jero EXR
+codec.exr.feature.subsampled = saluran subsampel EXR
+codec.exr.msg.no_channels = Berkas OpenEXR teu ngandung saluran gambar.
+codec.exr.msg.write_failed = Teu bisa nulis berkas OpenEXR: {error}

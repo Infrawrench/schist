@@ -66,6 +66,9 @@ workspace.filters.raw_too_tall = Вынік апрацоўкі RAW занадт�
 workspace.filters.raw_size_changed = Памер выніку апрацоўкі RAW змяніўся на {w} × {h}; бягучы пласт будзе захаваны
 workspace.filters.raw_history = Апрацоўка Camera Raw
 workspace.filters.raw_applied = Апрацоўка Camera Raw ужыта (найлепшая дэмаізаіка)
+workspace.raw_masks.no_model = {model} не ўсталявана, таму гэту маску немагчыма выявіць.
+workspace.raw_masks.no_sky = На гэтай выяве неба не знойдзена.
+workspace.raw_masks.detect_failed = Не ўдалося выявіць маску: {error}
 workspace.image_size.done = Памер відарыса: {w} × {h}
 workspace.image_size.bicubic_fallback = Памер відарыса: {w} × {h} — мадэль {name} не загрузілася, таму выкарыстана бікубічнае маштабаванне
 workspace.image_size.upscaling = Павелічэнне з дапамогай {name}
@@ -93,3 +96,10 @@ workspace.recovery.recovered.one = Адноўлены {n} дакумент з н
 workspace.recovery.recovered.few = Адноўлены {n} дакументы з незахаванай працай з папярэдняга сеанса
 workspace.recovery.recovered.many = Адноўлена {n} дакументаў з незахаванай працай з папярэдняга сеанса
 workspace.recovery.recovered.other = Адноўлена {n} дакумента з незахаванай працай з папярэдняга сеанса
+workspace.colormgmt.vision_on = Мадэляванне: {name}
+workspace.colormgmt.vision_off = Нармальны зрок
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Выдалена без мадэлі дамалёўвання, таму запаўненне можа быць грубейшым
+workspace.tool_jobs.document_changed = {name}: аперацыя завяршылася пасля таго, як яе дакумент быў закрыты або пераключаны, таму нічога не зменена

@@ -75,6 +75,9 @@ workspace.filters.raw_too_tall = Elilingi ya RAW ezali molai koleka
 workspace.filters.raw_size_changed = Bonene ya RAW ebongwani na {w} × {h}; kalke ya sikoyo ekotikala
 workspace.filters.raw_history = Kobongisa Camera Raw
 workspace.filters.raw_applied = Mbongwana ya Camera Raw esalelami (demosaic oyo eleki malamu)
+workspace.raw_masks.no_model = {model} etyami te, yango wana maske oyo ekoki komonana te.
+workspace.raw_masks.no_sky = Likoló ezwami te na elilingi oyo.
+workspace.raw_masks.detect_failed = Koluka maske ekweyi: {error}
 
 workspace.image_size.done = Bonene ya elilingi: {w} × {h}
 workspace.image_size.bicubic_fallback = Bonene ya elilingi: {w} × {h} — modɛlɛ {name} ekokaki kokɔta te, yango wana bicubique ezwi esika na yango
@@ -102,3 +105,10 @@ workspace.file_picker.permission_denied = Schist ezali na ndingisa ya kotánga d
 workspace.recovery.recovered_title = {title} (ezongisami)
 workspace.recovery.recovered.one = Dokima {n} ya mosala oyo ebombamaki te na session oyo eleki ezongisami
 workspace.recovery.recovered.other = Badokima {n} uta na session oyo eleki ezongisami
+workspace.colormgmt.vision_on = Simulation: {name}
+workspace.colormgmt.vision_off = Komona malamu
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Elongolami kozanga modèle ya kotondisa, yango wana kotondisa ekoki kozala malamu te mingi
+workspace.tool_jobs.document_changed = {name} esilisi nsima ya kokangama to kobongolama ya mokanda na yango, yango wana eloko moko te ebongwani

@@ -66,6 +66,9 @@ workspace.filters.raw_too_tall = RAW ekolebwa mpanvu nnyo
 workspace.filters.raw_size_changed = Obunene bwa RAW bukyuse ne buba {w} × {h}; layer eriwo esigaziddwa
 workspace.filters.raw_history = Okukola ku Camera Raw
 workspace.filters.raw_applied = Okukola ku Camera Raw kuteekeddwawo (demosaic esinga obulungi)
+workspace.raw_masks.no_model = {model} tegiteekeddwamu, n'olwekyo mask eno tesobola kuzuulibwa.
+workspace.raw_masks.no_sky = Tewali ggulu lizuuliddwa mu kifaananyi kino.
+workspace.raw_masks.detect_failed = Okuzuula mask kulemye: {error}
 workspace.image_size.done = Obunene bw'ekifaananyi: {w} × {h}
 workspace.image_size.bicubic_fallback = Obunene bw'ekifaananyi: {w} × {h} — model ya {name} tegye kutikka, kale bicubic egidde mu kifo kyayo
 workspace.image_size.upscaling = Eyongera obunene ne {name}
@@ -89,3 +92,10 @@ workspace.file_picker.permission_denied = Schist terina lukusa kusoma folda eno
 workspace.recovery.recovered_title = {title} (eziddwawo)
 workspace.recovery.recovered.one = Omulimu ogutaterekeddwa okuva mu session eyayita guzziddwawo
 workspace.recovery.recovered.other = Ebiwandiiko {n} okuva mu session eyayita bizziddwawo
+workspace.colormgmt.vision_on = Okukoppa: {name}
+workspace.colormgmt.vision_off = Okulaba okwa bulijjo
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Kiggyiddwawo awatali model ey'okujjuza, n'olwekyo okujjuza kuyinza obutaba kulungi nnyo
+workspace.tool_jobs.document_changed = {name} kiwedde ng'ekiwandiiko kyakyo kimaze okuggalwa oba okukyusibwa, n'olwekyo tewali kikyusiddwa

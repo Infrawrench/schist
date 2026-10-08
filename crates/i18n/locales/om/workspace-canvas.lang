@@ -35,3 +35,7 @@ workspace.history.move_layers = Laayaroota Sochoosi
 workspace.history.layer_opacity = Hamma Haguuggii Laayaraa
 workspace.history.delete_note = Yaadannoo Haqi
 workspace.history.edit_note = Yaadannoo Gulaali
+workspace.canvas.clipping_on = Akeekkachiisni muraa banamaniiru
+workspace.canvas.clipping_off = Akeekkachiisni muraa dhaamaniiru
+workspace.canvas.peaking_on = Fookasiin calaqqisiisuu banamaniiru
+workspace.canvas.peaking_off = Fookasiin calaqqisiisuu dhaamaniiru

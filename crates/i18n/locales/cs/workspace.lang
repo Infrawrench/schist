@@ -66,6 +66,9 @@ workspace.filters.raw_too_tall = Výsledek vyvolání RAW je příliš vysoký
 workspace.filters.raw_size_changed = Velikost výsledku RAW se změnila na {w} × {h}; aktuální vrstva bude zachována
 workspace.filters.raw_history = Vyvolání Camera Raw
 workspace.filters.raw_applied = Vyvolání Camera Raw použito (nejlepší demosaicing)
+workspace.raw_masks.no_model = {model} není nainstalován, takže tuto masku nelze rozpoznat.
+workspace.raw_masks.no_sky = Na tomto obrázku nebyla nalezena žádná obloha.
+workspace.raw_masks.detect_failed = Rozpoznání masky selhalo: {error}
 workspace.image_size.done = Velikost obrazu: {w} × {h}
 workspace.image_size.bicubic_fallback = Velikost obrazu: {w} × {h} — model {name} se nepodařilo načíst, proto jej nahradila bikubická interpolace
 workspace.image_size.upscaling = Zvětšování pomocí {name}
@@ -91,3 +94,10 @@ workspace.recovery.recovered_title = {title} (obnoveno)
 workspace.recovery.recovered.one = Obnovena neuložená práce z předchozího sezení
 workspace.recovery.recovered.few = Obnoveny {n} dokumenty z předchozího sezení
 workspace.recovery.recovered.other = Obnoveno {n} dokumentů z předchozího sezení
+workspace.colormgmt.vision_on = Simulace: {name}
+workspace.colormgmt.vision_off = Normální vidění
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent} %
+workspace.tool_jobs.missing_model = Odstraněno bez modelu pro doplňování obrazu, takže výplň může být hrubší
+workspace.tool_jobs.document_changed = {name}: dokončeno až po zavření nebo přepnutí dokumentu, takže nebylo nic změněno

@@ -18,3 +18,11 @@ tool.magic_eraser.name = מאַגישער מעקער
 tool.magic_eraser.description = דריק כּדי אויסצומעקן דעם שטח מיט ענלעכער קאָליר אונטערן ווײַזער, אינעם טאָלעראַנץ פֿונעם געצײַג — נאָר דעם צוזאַמענהענגיקן שטח בײַם דריק, אָדער איבער דער גאַנצער שיכט.
 tool.magic_eraser.option.contiguous = צוזאַמענהענגיק
 tool.magic_eraser.history.erase = מאַגישער מעקער
+
+# Remove
+tool.remove.name = אַוועקנעמען
+tool.remove.description = מאָלט איבער אַן אומגעוואונטשן אָביעקט מיט איין שטריך; ווען איר לאָזט אָפּ, ווערט ער אָנגעפֿילט פֿון זײַן אַרומיקייט. ווען „אַוועקנעמען נאָך יעדן שטריך“ איז אויסגעשאַלטן, מאָלט עטלעכע שטריכן און דריקט Enter כּדי זיי צוזאַמען אַוועקצונעמען.
+tool.remove.option.sample_all_layers = מוסטער פֿון אַלע שיכטן
+tool.remove.option.remove_after_each_stroke = אַוועקנעמען נאָך יעדן שטריך
+tool.remove.history.remove = אַוועקנעמען
+tool.remove.layer_name = אַוועקגענומען

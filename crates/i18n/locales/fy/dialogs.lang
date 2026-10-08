@@ -11,7 +11,25 @@ dialog.layer_props.title = Laacheigenskippen
 dialog.export.format = Formaat
 dialog.export.dither = Rasterje
 dialog.export.dither_note = Rasterje by it ferminderjen nei 8 bit
+dialog.export.effort = Ynspanning
 dialog.export.export_ellipsis = Eksportearje…
+dialog.export.exr_samples = Samples
+dialog.export.exr_half = Heal driuwende komma (16-bit)
+dialog.export.exr_float = Driuwende komma (32-bit)
+dialog.export.exr_compression = Kompresje
+dialog.export.exr_compression.none = Gjin
+dialog.export.exr_compression.rle = RLE
+dialog.export.exr_compression.zips = ZIP, ien scanline
+dialog.export.exr_compression.zip = ZIP, 16 scanlines
+dialog.export.exr_compression.piz = PIZ (wavelet)
+dialog.export.exr_compression.pxr24 = PXR24 (mei ferlies foar driuwende komma)
+dialog.export.exr_compression.b44 = B44 (mei ferlies)
+dialog.export.exr_compression.b44a = B44A (mei ferlies)
+dialog.export.exr_layers = Lagen
+dialog.export.exr_layers_note = Skriuw elke sichtbere laach ek as EXR-laach
+dialog.export.exr_alpha = Alfa
+dialog.export.exr_alpha_note = Skriuw in alfakanaal
+dialog.export.exr_linear_note = EXR bewarret lineair ljocht. Dit 8- of 16-bit dokumint wurdt by it eksportearjen fia syn kleurprofyl dekodearre nei lineêre driuwende komma.
 
 # Foto's ferwurkje
 dialog.batch.title = Foto's ferwurkje
@@ -59,6 +77,25 @@ dialog.filter.camera_raw_development = Camera Raw-ûntwikkeling
 dialog.filter.reset_as_shot = Weromsette nei As makke
 dialog.filter.raw_note = Untwikkelet de aktive laach opnij út de orizjinele sensorgegevens.
 dialog.filter.note = Wurdt binnen de seleksje op de aktive laach tapast.
+
+# Camera Raw lokale oanpassingen
+dialog.raw_masks.title = Maskers
+dialog.raw_masks.new_mask = Nij masker:
+dialog.raw_masks.add_to_mask = Oan masker tafoegje:
+dialog.raw_masks.linear = Lineêr ferrin
+dialog.raw_masks.subject = Underwerp selektearje
+dialog.raw_masks.sky = Loft selektearje
+dialog.raw_masks.background = Eftergrûn selektearje
+dialog.raw_masks.mask_n = Masker {n}
+dialog.raw_masks.invert_mask = Masker omkeare
+dialog.raw_masks.overlay = Maskeroverlay sjen litte
+dialog.raw_masks.erase = Wiskje
+dialog.raw_masks.local = Oanpassingen yn dit masker
+dialog.raw_masks.delete_mask = Masker wiskje
+dialog.raw_masks.detecting = Wurdt detektearre…
+dialog.raw_masks.hint_empty = Foegje in masker ta om in diel fan de ôfbylding oan te passen. Elk masker hat syn eigen skuifbalken.
+dialog.raw_masks.hint_brush = Ferve op it doek om oan de kwast ta te foegjen; set Wiskje oan om it wer fuort te heljen.
+dialog.raw_masks.hint_gradient = Sleep de grepen om it ferrin te ferpleatsen, of sleep op it doek om in nij ferrin te tekenjen.
 
 # Untbrekkende lettertypen
 dialog.fonts.title = Untbrekkende lettertypen

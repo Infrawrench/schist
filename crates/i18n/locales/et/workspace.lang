@@ -66,6 +66,9 @@ workspace.filters.raw_too_tall = RAW-ilmutuse kõrgus on liiga suur
 workspace.filters.raw_size_changed = RAW-ilmutuse suurus muutus väärtusele {w} × {h}; praegune kiht säilitatakse
 workspace.filters.raw_history = Camera Raw ilmutamine
 workspace.filters.raw_applied = Camera Raw ilmutamine rakendatud (parim demosaiikimine)
+workspace.raw_masks.no_model = {model} pole installitud, seega seda maski ei saa tuvastada.
+workspace.raw_masks.no_sky = Sellelt pildilt ei leitud taevast.
+workspace.raw_masks.detect_failed = Maski tuvastamine ebaõnnestus: {error}
 workspace.image_size.done = Pildi suurus: {w} × {h}
 workspace.image_size.bicubic_fallback = Pildi suurus: {w} × {h} — mudelit {name} ei õnnestunud laadida, seega kasutati bikubilist interpolatsiooni
 workspace.image_size.upscaling = Suurendamine mudeliga {name}
@@ -89,3 +92,10 @@ workspace.file_picker.permission_denied = Schistil pole õigust seda kausta luge
 workspace.recovery.recovered_title = {title} (taastatud)
 workspace.recovery.recovered.one = Eelmise seansi salvestamata töö taastati
 workspace.recovery.recovered.other = Eelmisest seansist taastati {n} dokumenti
+workspace.colormgmt.vision_on = Simulatsioon: {name}
+workspace.colormgmt.vision_off = Normaalne nägemine
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Eemaldatud ilma täitmismudelita, seega võib täide olla jämedam
+workspace.tool_jobs.document_changed = {name} lõppes pärast dokumendi sulgemist või vahetamist, seega midagi ei muudetud

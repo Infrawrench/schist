@@ -38,3 +38,7 @@ workspace.history.move_layers = ʻUnuʻi ʻa e Ngaahi Layer
 workspace.history.layer_opacity = Lahi ʻo e ʻUfiʻufi ʻo e Layer
 workspace.history.delete_note = Tamateʻi ʻa e Fakamatala Nounou
 workspace.history.edit_note = Fakatonutonu ʻa e Fakamatala Nounou
+workspace.canvas.clipping_on = Kuo fakamoʻui ʻa e ngaahi fakatokanga tuʻusi
+workspace.canvas.clipping_off = Kuo tamateʻi ʻa e ngaahi fakatokanga tuʻusi
+workspace.canvas.peaking_on = Kuo fakamoʻui ʻa e fakamamafa fokas
+workspace.canvas.peaking_off = Kuo tamateʻi ʻa e fakamamafa fokas

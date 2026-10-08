@@ -66,6 +66,9 @@ workspace.filters.raw_too_tall = RAW डेवलपमेंट बहुत �
 workspace.filters.raw_size_changed = RAW डेवलपमेंट का आकार {w} × {h} हो गया; वर्तमान लेयर रखी जा रही है
 workspace.filters.raw_history = Camera Raw डेवलपमेंट
 workspace.filters.raw_applied = Camera Raw डेवलपमेंट लागू किया गया (सर्वोत्तम डीमोज़ेक)
+workspace.raw_masks.no_model = {model} इंस्टॉल नहीं है, इसलिए यह मास्क पहचाना नहीं जा सकता।
+workspace.raw_masks.no_sky = इस चित्र में कोई आकाश नहीं मिला।
+workspace.raw_masks.detect_failed = मास्क की पहचान विफल रही: {error}
 workspace.image_size.done = छवि का आकार: {w} × {h}
 workspace.image_size.bicubic_fallback = छवि का आकार: {w} × {h}—{name} मॉडल लोड नहीं हुआ, इसलिए बाइक्यूबिक इस्तेमाल किया गया
 workspace.image_size.upscaling = {name} से अपस्केल किया जा रहा है
@@ -89,3 +92,10 @@ workspace.file_picker.permission_denied = Schist को यह फ़ोल्�
 workspace.recovery.recovered_title = {title} (पुनर्प्राप्त)
 workspace.recovery.recovered.one = पिछले सत्र का {n} बिना सहेजा हुआ दस्तावेज़ पुनर्प्राप्त किया गया
 workspace.recovery.recovered.other = पिछले सत्र के {n} दस्तावेज़ पुनर्प्राप्त किए गए
+workspace.colormgmt.vision_on = अनुकरण: {name}
+workspace.colormgmt.vision_off = सामान्य दृष्टि
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = इनपेंटिंग मॉडल के बिना हटाया गया, इसलिए भराव कुछ खुरदरा हो सकता है
+workspace.tool_jobs.document_changed = {name} उसका दस्तावेज़ बंद या बदल दिए जाने के बाद पूरा हुआ, इसलिए कुछ नहीं बदला गया

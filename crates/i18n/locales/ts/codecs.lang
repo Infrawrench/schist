@@ -3,6 +3,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -34,15 +36,23 @@ codec.heif.msg.imageio_cannot_read = ImageIO a yi kotanga ku hlaya container ya 
 codec.heif.msg.container_empty = container ya HEIF a yi na xifaniso
 codec.heif.msg.imageio_cannot_decode = ImageIO a yi kotanga ku dekoda xifaniso lexikulu
 
+# AVIF in the browser build, which has no AV1 decoder (it still exports AVIF).
+codec.avif.msg.no_decoder = Vhexini ya browser ya Schist a yi koti ku pfula swifaniso swa AVIF. Pfula fayili eka app ya desktop, kumbe u yi hundzuluxa yi va PNG ku sungula.
+
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = Fayili ya xifaniso lexi nga ni maleyara yi onhakile kumbe a yi helelanga.
 codec.layered.too_large = Xifaniso lexi nga ni maleyara xi hundza sayizi kumbe nhlayo ya maleyara leyi seketeriwaka.
 codec.layered.unsupported = Fayili leyi yi tirhisa xivumbeko lexi nga seketeriwiki: {feature}.
 codec.layered.export_layer = Leyara ya “{name}” yi ni swivumbeko leswi fomati leyi yi nga kotiki ku swi hlayisa. Endla leyara yi va raster kumbe u hlayisa yi ri PSD.
 codec.layered.export_depth = Ku rhumela hi fomati ya Paint.NET swi lava dokhumente ya RGB ya 8-bit. Sungula hi ku hundzuluxa dokhumente yi va RGB ya 8-bit.
 codec.layered.export_mode = Ku rhumela swi lava dokhumente ya RGB. Sungula hi ku hundzuluxa dokhumente yi va RGB.
+codec.layered.merged_layer = Xifaniso lexi hlanganisiweke (maleyara van'wana ya {format} a ma nga nghenisiwanga)
+codec.kra.merged_color_space = Xifaniso lexi hlanganisiweke (dokhumente ya Krita {color_space} yi kombisiwa tanihi RGB)
 
 # Unsupported layered format features
 codec.pdn.feature.blend_mode = Mode yo hlanganisa ya PDN
@@ -60,3 +70,8 @@ codec.xcf.feature.floating_selection = Nhlawulo lowu papamalaka wa XCF
 codec.xcf.feature.layer_effects = Mivuyelo ya maleyara ya XCF
 codec.xcf.feature.precision = Ku pakanisa ka XCF
 codec.xcf.feature.version = Vhexini ya XCF
+
+codec.exr.feature.deep = vuxokoxoko lebyi enteke bya EXR
+codec.exr.feature.subsampled = tichanele ta EXR leti tekiweke hi xiphemu
+codec.exr.msg.no_channels = Fayili ya OpenEXR a yi na tichanele ta xifaniso.
+codec.exr.msg.write_failed = A swi kotekanga ku tsala fayili ya OpenEXR: {error}

@@ -73,6 +73,9 @@ workspace.filters.raw_too_tall = Le developpamento RAW es troppo alte
 workspace.filters.raw_size_changed = Le dimension del developpamento RAW cambiava a {w} × {h}; le strato actual es conservate
 workspace.filters.raw_history = Developpamento Camera Raw
 workspace.filters.raw_applied = Developpamento Camera Raw applicate (melior demosaicage)
+workspace.raw_masks.no_model = {model} non es installate, dunque iste masca non pote esser detegite.
+workspace.raw_masks.no_sky = Nulle celo esseva trovate in iste imagine.
+workspace.raw_masks.detect_failed = Le detection del masca falleva: {error}
 
 workspace.image_size.done = Dimension del imagine: {w} × {h}
 workspace.image_size.bicubic_fallback = Dimension del imagine: {w} × {h} — le modello {name} non poteva esser cargate, dunque le interpolation bicubic lo substitueva
@@ -100,3 +103,10 @@ workspace.file_picker.permission_denied = Schist non ha permission de leger iste
 workspace.recovery.recovered_title = {title} (recuperate)
 workspace.recovery.recovered.one = Labor non salvate recuperate ab un session precedente
 workspace.recovery.recovered.other = {n} documentos recuperate ab un session precedente
+workspace.colormgmt.vision_on = Simulation: {name}
+workspace.colormgmt.vision_off = Visione normal
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Removite sin le modello de impletion, dunque le impletion pote esser plus grossier
+workspace.tool_jobs.document_changed = {name} finiva post que su documento esseva claudite o cambiate, dunque nihil esseva modificate

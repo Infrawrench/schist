@@ -68,6 +68,9 @@ workspace.filters.raw_too_tall = Mae datblygiad RAW yn rhy dal
 workspace.filters.raw_size_changed = Newidiodd maint datblygiad RAW i {w} × {h}; cedwir yr haen bresennol
 workspace.filters.raw_history = Datblygu Camera Raw
 workspace.filters.raw_applied = Datblygiad Camera Raw wedi'i roi ar waith (dadfosaig gorau)
+workspace.raw_masks.no_model = Nid yw {model} wedi'i osod, felly does dim modd canfod y masg hwn.
+workspace.raw_masks.no_sky = Ni chafwyd hyd i awyr yn y llun hwn.
+workspace.raw_masks.detect_failed = Methodd canfod y masg: {error}
 workspace.image_size.done = Maint delwedd: {w} × {h}
 workspace.image_size.bicubic_fallback = Maint delwedd: {w} × {h} — ni lwythodd y model {name}, felly defnyddiwyd ailhap-samplu deugiwbig yn ei le
 workspace.image_size.upscaling = Wrthi'n uwchraddio â {name}
@@ -99,3 +102,10 @@ workspace.recovery.recovered.two = Wedi adfer {n} ddogfen o sesiwn flaenorol
 workspace.recovery.recovered.few = Wedi adfer {n} dogfen o sesiwn flaenorol
 workspace.recovery.recovered.many = Wedi adfer {n} dogfen o sesiwn flaenorol
 workspace.recovery.recovered.other = Wedi adfer {n} dogfen o sesiwn flaenorol
+workspace.colormgmt.vision_on = Efelychu: {name}
+workspace.colormgmt.vision_off = Golwg normal
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Tynnwyd heb y model mewnbeintio, felly gall y llenwad fod yn fwy garw
+workspace.tool_jobs.document_changed = Gorffennodd {name} ar ôl i'w ddogfen gael ei chau neu ei newid, felly ni newidiwyd dim

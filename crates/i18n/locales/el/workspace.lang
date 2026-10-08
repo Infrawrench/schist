@@ -66,6 +66,9 @@ workspace.filters.raw_too_tall = Η εμφάνιση RAW είναι υπερβο
 workspace.filters.raw_size_changed = Το μέγεθος εμφάνισης RAW άλλαξε σε {w} × {h}· διατηρείται το τρέχον επίπεδο
 workspace.filters.raw_history = Εμφάνιση Camera Raw
 workspace.filters.raw_applied = Εφαρμόστηκε εμφάνιση Camera Raw (βέλτιστη αποψηφίδωση)
+workspace.raw_masks.no_model = Το {model} δεν είναι εγκατεστημένο, επομένως αυτή η μάσκα δεν μπορεί να ανιχνευθεί.
+workspace.raw_masks.no_sky = Δεν βρέθηκε ουρανός σε αυτή την εικόνα.
+workspace.raw_masks.detect_failed = Η ανίχνευση μάσκας απέτυχε: {error}
 workspace.image_size.done = Μέγεθος εικόνας: {w} × {h}
 workspace.image_size.bicubic_fallback = Μέγεθος εικόνας: {w} × {h} — το μοντέλο {name} δεν φορτώθηκε, οπότε χρησιμοποιήθηκε δικυβική παρεμβολή
 workspace.image_size.upscaling = Μεγέθυνση με {name}
@@ -89,3 +92,10 @@ workspace.file_picker.permission_denied = Το Schist δεν έχει άδεια
 workspace.recovery.recovered_title = {title} (ανακτήθηκε)
 workspace.recovery.recovered.one = Ανακτήθηκε μη αποθηκευμένη εργασία από προηγούμενη συνεδρία
 workspace.recovery.recovered.other = Ανακτήθηκαν {n} έγγραφα από προηγούμενη συνεδρία
+workspace.colormgmt.vision_on = Προσομοίωση: {name}
+workspace.colormgmt.vision_off = Φυσιολογική όραση
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Η αφαίρεση έγινε χωρίς το μοντέλο συμπλήρωσης, οπότε το γέμισμα μπορεί να είναι πιο τραχύ
+workspace.tool_jobs.document_changed = {name}: ολοκληρώθηκε αφού το έγγραφο έκλεισε ή άλλαξε, οπότε δεν τροποποιήθηκε τίποτα

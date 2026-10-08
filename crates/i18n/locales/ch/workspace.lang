@@ -66,6 +66,9 @@ workspace.filters.raw_too_tall = Demasiåo takhilo' i RAW development
 workspace.filters.raw_size_changed = Matulaika i mineddong RAW development para {w} × {h}; mapupulan i på'go na layer
 workspace.filters.raw_history = Camera Raw Development
 workspace.filters.raw_applied = Ma'aplika i Camera Raw development (mås måolik na demosaic)
+workspace.raw_masks.no_model = Ti ma-install i {model}, pues ti siña ma sodda' este na mask.
+workspace.raw_masks.no_sky = Tåya' langet ma sodda' gi este na retratu.
+workspace.raw_masks.detect_failed = Ti siña ma sodda' i mask: {error}
 workspace.image_size.done = Mineddong imåhen: {w} × {h}
 workspace.image_size.bicubic_fallback = Mineddong imåhen: {w} × {h} — ti makåkarga i {name} model, pues ma'usa bicubic
 workspace.image_size.upscaling = Mana'dådångkolo ni {name}
@@ -87,3 +90,10 @@ workspace.file_picker.downloads = Download siha
 workspace.file_picker.permission_denied = Tåya' petmisun i Schist para u basa este na folder
 workspace.recovery.recovered_title = {title} (marikupera)
 workspace.recovery.recovered.other = Marikupera i ti masåtba na cho'cho' ginen un mampos na session; kuantidåt dokumentu: {n}
+workspace.colormgmt.vision_on = Simulasión: {name}
+workspace.colormgmt.vision_off = Normal na bisión
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Ma'na'suha sin i modelon inpainting, pues siña mås ti suåbe i ma'omple
+workspace.tool_jobs.document_changed = Munhåyan i {name} despues di ma'huchom pat matulaika i dokumento, pues tåya' ni håfa matulaika

@@ -26,7 +26,7 @@ frame on the files listed, drawn from the raw.pixls.us sample set.
 
 | container | status |
 | --- | --- |
-| DNG (incl. ProRAW, Pixel, Leica, Pentax, Ricoh, Sigma, DJI, Hasselblad, GoPro GPR) | exact on 30; uncompressed, lossless JPEG, deflate, lossy JPEG, float, VC-5; JPEG XL unsupported |
+| DNG (incl. ProRAW, Pixel, Leica, Pentax, Ricoh, Sigma, DJI, Hasselblad, GoPro GPR) | exact on 30; uncompressed, lossless JPEG, deflate, lossy JPEG, float, VC-5, JPEG XL (DNG 1.7; tested on synthetic tiles only) |
 | Sony ARW / SR2 / SRF | exact on 24, every generation incl. ARW 1.0 and ARW 4 lossless |
 | Nikon NEF / NRW | exact on 36 (20 bodies); Z 8/9 High Efficiency unsupported |
 | Canon CR2 | exact on 45, sRAW and mRAW on all 16 subsampled bodies included |

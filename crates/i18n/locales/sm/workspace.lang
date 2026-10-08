@@ -66,6 +66,9 @@ workspace.filters.raw_too_tall = Ua maualuga tele le atiaʻe RAW
 workspace.filters.raw_size_changed = Ua suia le telē o le atiaʻe RAW i le {w} × {h}; o loo taofi le vaega o iai nei
 workspace.filters.raw_history = Atiaʻe Camera Raw
 workspace.filters.raw_applied = Ua faaaogā le atiaʻe Camera Raw (demosaic sili)
+workspace.raw_masks.no_model = E leʻi faapipiʻiina {model}, o lea e lē mafai ai ona iloa lenei ufimata.
+workspace.raw_masks.no_sky = E leai se lagi na maua i lenei ata.
+workspace.raw_masks.detect_failed = Na lē manuia le sailiga o le ufimata: {error}
 workspace.image_size.done = Telē o le ata: {w} × {h}
 workspace.image_size.bicubic_fallback = Telē o le ata: {w} × {h} — na lē mafai ona uta le faataʻitaʻiga {name}, o lea na sui ai le bicubic
 workspace.image_size.upscaling = O loo faatele le fua i le {name}
@@ -87,3 +90,10 @@ workspace.file_picker.downloads = Faila ua Laʻu Mai
 workspace.file_picker.permission_denied = E leai se faatagaga a Schist e faitau ai lenei faila teu
 workspace.recovery.recovered_title = {title} (toe faafoʻi)
 workspace.recovery.recovered.other = Ua toe faafoʻi galuega e leʻi sefeina mai le sauniga talu ai: {n} le aofaʻi o pepa
+workspace.colormgmt.vision_on = Faataitaiga: {name}
+workspace.colormgmt.vision_off = Vaaiga masani
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Na aveese e aunoa ma le faataʻitaʻiga faatumu, o lea e ono talatala ai le faatumuga
+workspace.tool_jobs.document_changed = Na uma {name} ina ua tapuni pe suia lana pepa, o lea e leai se mea na suia

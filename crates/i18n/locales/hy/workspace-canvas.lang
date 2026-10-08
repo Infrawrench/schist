@@ -36,3 +36,7 @@ workspace.history.move_layers = Շերտերի տեղափոխում
 workspace.history.layer_opacity = Շերտի անթափանցություն
 workspace.history.delete_note = Նշման ջնջում
 workspace.history.edit_note = Նշման խմբագրում
+workspace.canvas.clipping_on = Կտրման նախազգուշացումները միացված են
+workspace.canvas.clipping_off = Կտրման նախազգուշացումներն անջատված են
+workspace.canvas.peaking_on = Ֆոկուսի ընդգծումը միացված է
+workspace.canvas.peaking_off = Ֆոկուսի ընդգծումն անջատված է

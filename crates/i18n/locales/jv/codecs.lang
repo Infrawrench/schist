@@ -4,6 +4,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = Camera Raw
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -31,15 +33,23 @@ codec.heif.msg.imageio_cannot_read = ImageIO ora bisa maca wadhah HEIF
 codec.heif.msg.container_empty = wadhah HEIF ora ngemot gambar
 codec.heif.msg.imageio_cannot_decode = ImageIO ora bisa ndhékodhe gambar utama
 
+# AVIF
+codec.avif.msg.no_decoder = Versi browser Schist ora bisa mbukak gambar AVIF. Bukak berkas ing aplikasi desktop, utawa owahi dadi PNG dhisik.
+
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = Berkas gambar mawa lapisan rusak utawa durung pepak.
 codec.layered.too_large = Ukuran utawa cacah lapisan gambar iki ngluwihi wates sing didhukung.
 codec.layered.unsupported = Berkas iki nganggo fitur sing ora didhukung: {feature}.
 codec.layered.export_layer = Lapisan “{name}” ngemot fitur sing ora bisa disimpen ing format iki. Rasteraké lapisan kasebut utawa simpen minangka PSD.
 codec.layered.export_depth = Ekspor menyang Paint.NET mbutuhaké dokumèn RGB 8-bit. Owahi dhisik dokumèn dadi RGB 8-bit.
 codec.layered.export_mode = Ekspor mbutuhaké dokumèn RGB. Owahi dhisik dokumèn dadi RGB.
+codec.layered.merged_layer = Gambar gabungan (sawetara lapisan {format} ora bisa diimpor)
+codec.kra.merged_color_space = Gambar gabungan (dokumèn Krita {color_space} dituduhaké minangka RGB)
 codec.pdn.feature.blend_mode = modus campuran PDN
 codec.pdn.feature.compression = komprèsi PDN
 codec.pdn.feature.container_version = vèrsi wadhah PDN
@@ -55,3 +65,8 @@ codec.xcf.feature.floating_selection = pilihan ngambang XCF
 codec.xcf.feature.layer_effects = èfèk lapisan XCF
 codec.xcf.feature.precision = presisi XCF
 codec.xcf.feature.version = vèrsi XCF
+
+codec.exr.feature.deep = data jero EXR
+codec.exr.feature.subsampled = saluran subsampled EXR
+codec.exr.msg.no_channels = Berkas OpenEXR ora ngemot saluran gambar.
+codec.exr.msg.write_failed = Berkas OpenEXR ora bisa ditulis: {error}

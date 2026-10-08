@@ -14,3 +14,4 @@ workspaces.invalid_name = Zadejte název o délce 1–80 znaků bez řídicích 
 workspaces.duplicate = Pracovní prostor s tímto názvem již existuje.
 workspaces.limit = Můžete uložit až 64 pracovních prostorů.
 workspaces.keyboard = Klávesnice: Alt+↑/↓ vybere rozložení. Ctrl/Cmd+N upraví jeho název; +S uloží kopii; +Enter ho použije; +U aktualizuje; +R přejmenuje; +D odstraní; +0 obnoví.
+workspaces.open_documents = Otevřené dokumenty

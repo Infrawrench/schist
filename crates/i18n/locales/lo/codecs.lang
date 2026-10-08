@@ -3,6 +3,8 @@ codec.jpeg.name = JPEG
 codec.webp.name = WebP
 codec.tiff.name = TIFF
 codec.heif.name = HEIF
+codec.jxl.name = JPEG XL
+codec.avif.name = AVIF
 codec.raw.name = ໄຟລ໌ດິບຈາກກ້ອງ
 codec.affinity.name = Affinity
 codec.psd.name = Photoshop PSD
@@ -30,15 +32,22 @@ codec.heif.msg.imageio_cannot_read = ImageIO ບໍ່ສາມາດອ່າ�
 codec.heif.msg.container_empty = ຄອນເທນເນີ HEIF ບໍ່ມີຮູບ
 codec.heif.msg.imageio_cannot_decode = ImageIO ບໍ່ສາມາດຖອດລະຫັດຮູບຫຼັກ
 
+codec.avif.msg.no_decoder = Schist ລຸ້ນບຣາວເຊີບໍ່ສາມາດເປີດຮູບ AVIF ໄດ້. ໃຫ້ເປີດໄຟລ໌ໃນແອັບເດສທັອບ, ຫຼື ແປງເປັນ PNG ກ່ອນ.
+
 # Native layered formats.
 codec.pdn.name = Paint.NET
 codec.xcf.name = GIMP XCF
+codec.ora.name = OpenRaster
+codec.kra.name = Krita
+codec.exr.name = OpenEXR
 codec.layered.invalid = ໄຟລ໌ຮູບພາບທີ່ມີເລເຢີເສຍຫາຍ ຫຼື ບໍ່ຄົບຖ້ວນ.
 codec.layered.too_large = ຂະໜາດຮູບພາບ ຫຼື ຈຳນວນເລເຢີເກີນຂີດຈຳກັດທີ່ຮອງຮັບ.
 codec.layered.unsupported = ໄຟລ໌ນີ້ໃຊ້ຄຸນສົມບັດທີ່ບໍ່ຮອງຮັບ: {feature}.
 codec.layered.export_layer = ເລເຢີ “{name}” ມີຄຸນສົມບັດທີ່ຮູບແບບນີ້ບໍ່ສາມາດຮັກສາໄວ້ໄດ້. ໃຫ້ແປງເລເຢີເປັນຣາສເຕີ ຫຼື ບັນທຶກເປັນ PSD.
 codec.layered.export_depth = ການສົ່ງອອກໄປ Paint.NET ຕ້ອງການເອກະສານ RGB 8 ບິດ. ໃຫ້ແປງເອກະສານເປັນ RGB 8 ບິດກ່ອນ.
 codec.layered.export_mode = ການສົ່ງອອກຕ້ອງການເອກະສານ RGB. ໃຫ້ແປງເອກະສານເປັນ RGB ກ່ອນ.
+codec.layered.merged_layer = ຮູບພາບທີ່ລວມແລ້ວ (ບາງເລເຢີ {format} ນຳເຂົ້າບໍ່ໄດ້)
+codec.kra.merged_color_space = ຮູບພາບທີ່ລວມແລ້ວ (ເອກະສານ Krita ໃນ {color_space} ສະແດງເປັນ RGB)
 
 # Unsupported layered-format features.
 codec.pdn.feature.blend_mode = ໂໝດປະສົມ PDN
@@ -56,3 +65,8 @@ codec.xcf.feature.floating_selection = ການເລືອກແບບລອ�
 codec.xcf.feature.layer_effects = ເອັບເຟັກເລເຢີ XCF
 codec.xcf.feature.precision = ຄວາມແມ່ນຍຳ XCF
 codec.xcf.feature.version = ລຸ້ນ XCF
+
+codec.exr.feature.deep = ຂໍ້ມູນເລິກຂອງ EXR
+codec.exr.feature.subsampled = ຊ່ອງຕົວຢ່າງຍ່ອຍຂອງ EXR
+codec.exr.msg.no_channels = ໄຟລ໌ OpenEXR ບໍ່ມີຊ່ອງຮູບພາບ.
+codec.exr.msg.write_failed = ບໍ່ສາມາດຂຽນໄຟລ໌ OpenEXR ໄດ້: {error}

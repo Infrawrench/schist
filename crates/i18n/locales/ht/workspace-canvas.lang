@@ -36,3 +36,7 @@ workspace.history.move_layers = Deplase kouch yo
 workspace.history.layer_opacity = Opasite kouch
 workspace.history.delete_note = Efase nòt
 workspace.history.edit_note = Modifye nòt
+workspace.canvas.clipping_on = Avètisman koupe limen
+workspace.canvas.clipping_off = Avètisman koupe etenn
+workspace.canvas.peaking_on = Detèk nètete limen
+workspace.canvas.peaking_off = Detèk nètete etenn

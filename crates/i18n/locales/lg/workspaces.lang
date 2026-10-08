@@ -14,3 +14,4 @@ workspaces.invalid_name = Yingiza erinnya eririmu ennukuta 1–80 nga teririmu b
 workspaces.duplicate = Ekifo eky'okukoleramu ekirina erinnya lino kiriyo dda.
 workspaces.limit = Osobola okutereka ebifo eby'okukoleramu ebitasukka 64.
 workspaces.keyboard = Kiboodi: Alt+↑/↓ eronda enteekateeka. Ctrl/Cmd+N ekyusa erinnya lyayo; +S etereka kopi; +Enter egikozesa; +U egizza obuggya; +R egikyusa erinnya; +D egiggyawo; +0 eddamu okugiteekawo.
+workspaces.open_documents = Ebiwandiiko ebiggule

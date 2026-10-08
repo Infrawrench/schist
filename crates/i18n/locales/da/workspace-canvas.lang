@@ -36,3 +36,7 @@ workspace.history.move_layers = Flyt lag
 workspace.history.layer_opacity = Lagopacitet
 workspace.history.delete_note = Slet note
 workspace.history.edit_note = Rediger note
+workspace.canvas.clipping_on = Advarsler om clipping til
+workspace.canvas.clipping_off = Advarsler om clipping fra
+workspace.canvas.peaking_on = Focus peaking til
+workspace.canvas.peaking_off = Focus peaking fra

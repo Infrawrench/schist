@@ -66,6 +66,9 @@ workspace.filters.raw_too_tall = תוצאת פיתוח RAW גבוהה מדי
 workspace.filters.raw_size_changed = גודל פיתוח RAW השתנה ל־{w} × {h}; השכבה הנוכחית נשמרת
 workspace.filters.raw_history = פיתוח Camera Raw
 workspace.filters.raw_applied = פיתוח Camera Raw הוחל (דה־מוזאיקה מיטבית)
+workspace.raw_masks.no_model = {model} אינו מותקן, ולכן לא ניתן לזהות מסכה זו.
+workspace.raw_masks.no_sky = לא נמצאו שמיים בתמונה זו.
+workspace.raw_masks.detect_failed = זיהוי המסכה נכשל: {error}
 workspace.image_size.done = גודל תמונה: {w} × {h}
 workspace.image_size.bicubic_fallback = גודל תמונה: {w} × {h} — המודל {name} לא נטען, ולכן נעשה שימוש בדו־קובי
 workspace.image_size.upscaling = הגדלה באמצעות {name}
@@ -91,3 +94,10 @@ workspace.recovery.recovered_title = {title} (שוחזר)
 workspace.recovery.recovered.one = שוחזר מסמך אחד ({n}) שלא נשמר מההפעלה הקודמת
 workspace.recovery.recovered.two = שוחזרו {n} מסמכים מההפעלה הקודמת
 workspace.recovery.recovered.other = שוחזרו {n} מסמכים מההפעלה הקודמת
+workspace.colormgmt.vision_on = הדמיה: {name}
+workspace.colormgmt.vision_off = ראייה רגילה
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: ‏{percent}%
+workspace.tool_jobs.missing_model = הוסר ללא מודל ההשלמה, ולכן המילוי עשוי להיות גס יותר
+workspace.tool_jobs.document_changed = {name} הסתיים לאחר שהמסמך שלו נסגר או הוחלף, ולכן לא שונה דבר

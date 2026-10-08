@@ -25,3 +25,11 @@ tool.magic_eraser.name = Iddhimaya-apamajjakaṃ
 tool.magic_eraser.description = Phusitvā niddesakassa heṭṭhā samānavaṇṇaṃ padesaṃ, karaṇassa sahanasīmāya anto, apamajjatha; phusitaṭṭhānena sambaddhaṃ vā santharamhi sabbattha vā.
 tool.magic_eraser.option.contiguous = Sambaddhaṃ
 tool.magic_eraser.history.erase = Iddhimaya-apamajjanaṃ
+
+# Remove
+tool.remove.name = Apanayanaṃ
+tool.remove.description = Anicchitaṃ vatthuṃ ekena lekhāya ālimpatha; vissajjite taṃ samantato pūrīyati. "Ekekalekhāya pacchā apanayanaṃ" nivattite, bahū lekhā ālimpitvā tā ekato apanetuṃ Enter nippīḷetha.
+tool.remove.option.sample_all_layers = Sabbehi santharehi nidassanaṃ
+tool.remove.option.remove_after_each_stroke = Ekekalekhāya pacchā apanayanaṃ
+tool.remove.history.remove = Apanayanaṃ
+tool.remove.layer_name = Apanītaṃ

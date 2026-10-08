@@ -14,3 +14,4 @@ workspaces.invalid_name = ନିୟନ୍ତ୍ରଣ ଅକ୍ଷର ବିନ�
 workspaces.duplicate = ଏହି ନାମରେ ଏକ କାର୍ଯ୍ୟକ୍ଷେତ୍ର ପୂର୍ବରୁ ଅଛି।
 workspaces.limit = ଆପଣ ସର୍ବାଧିକ 64ଟି କାର୍ଯ୍ୟକ୍ଷେତ୍ର ସଞ୍ଚୟ କରିପାରିବେ।
 workspaces.keyboard = କୀବୋର୍ଡ୍: Alt+↑/↓ ଏକ ବିନ୍ୟାସ ବାଛେ। Ctrl/Cmd+N ଏହାର ନାମ ସମ୍ପାଦନ କରେ; +S ନକଲ ସଞ୍ଚୟ କରେ; +Enter ପ୍ରୟୋଗ କରେ; +U ଅପଡେଟ୍ କରେ; +R ନାମ ପରିବର୍ତ୍ତନ କରେ; +D ବିଲୋପ କରେ; +0 ପୁନଃସେଟ୍ କରେ।
+workspaces.open_documents = ଖୋଲା ଦଲିଲଗୁଡ଼ିକ

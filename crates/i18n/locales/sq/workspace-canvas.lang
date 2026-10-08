@@ -36,3 +36,7 @@ workspace.history.move_layers = Zhvendos shtresat
 workspace.history.layer_opacity = Opaciteti i shtresës
 workspace.history.delete_note = Fshi shënimin
 workspace.history.edit_note = Redakto shënimin
+workspace.canvas.clipping_on = Paralajmërimet e prerjes aktive
+workspace.canvas.clipping_off = Paralajmërimet e prerjes joaktive
+workspace.canvas.peaking_on = Theksimi i fokusit aktiv
+workspace.canvas.peaking_off = Theksimi i fokusit joaktiv

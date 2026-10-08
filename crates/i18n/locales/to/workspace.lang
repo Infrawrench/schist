@@ -73,6 +73,9 @@ workspace.filters.raw_too_tall = ʻOku fuʻu māʻolunga ʻa e fakatupulekina RA
 workspace.filters.raw_size_changed = Kuo liliu ʻa e lahi ʻo e fakatupulekina RAW ki he {w} × {h}; ʻoku tauhi ʻa e Layer lolotongá
 workspace.filters.raw_history = Fakatupulekina ʻo e Camera Raw
 workspace.filters.raw_applied = Kuo ngāueʻaki ʻa e fakatupulekina Camera Raw (demosaic lelei taha)
+workspace.raw_masks.no_model = ʻOku ʻikai fokotuʻu ʻa e {model}, ko ia ʻe ʻikai lava ke ʻiloʻi ʻa e ʻufiʻufi ko ʻeni.
+workspace.raw_masks.no_sky = Naʻe ʻikai maʻu ha langi ʻi he ʻīmisi ko ʻeni.
+workspace.raw_masks.detect_failed = Naʻe ʻikai lava ke ʻiloʻi ʻa e ʻufiʻufi: {error}
 
 workspace.image_size.done = Lahi ʻo e ʻīmisi: {w} × {h}
 workspace.image_size.bicubic_fallback = Lahi ʻo e ʻīmisi: {w} × {h} — naʻe ʻikai load ʻa e mōtolo {name}, ko ia naʻe fetongi ia ʻe he bicubic
@@ -98,3 +101,10 @@ workspace.file_picker.permission_denied = ʻOku ʻikai maʻu ʻe Schist ha ngofu
 
 workspace.recovery.recovered_title = {title} (kuo toe fakafoki)
 workspace.recovery.recovered.other = Kuo toe fakafoki ʻa e ngāue naʻe teʻeki seivi mei he session kimuʻá; fika ʻo e fakamatala: {n}
+workspace.colormgmt.vision_on = Fakatataaʻi: {name}
+workspace.colormgmt.vision_off = Sio angamaheni
+
+# Tool edits running off the UI thread: the Remove tool
+workspace.tool_jobs.progress = {name}: {percent}%
+workspace.tool_jobs.missing_model = Naʻe toʻo taʻe kau ai ʻa e mōtolo fakafonu, ko ia ʻe ala fefeka ange ʻa e fakafonú
+workspace.tool_jobs.document_changed = Naʻe ʻosi ʻa e {name} hili hono tāpuni pe fetongi ʻo hono tokoniʻí, ko ia naʻe ʻikai ha meʻa ia naʻe liliu

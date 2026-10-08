@@ -244,6 +244,7 @@ common.filetype.jpeg = Obraz JPEG
 common.filetype.webp = Obraz WebP
 common.filetype.tiff = Obraz TIFF
 common.filetype.heic = Obraz HEIC
+common.filetype.exr = Obraz OpenEXR
 common.filetype.raw = Obraz RAW z aparatu
 common.filetype.affinity = Dokument Affinity
 common.filetype.image = Obraz

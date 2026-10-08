@@ -36,3 +36,7 @@ workspace.history.move_layers = Tambuza Layers
 workspace.history.layer_opacity = Obutalabikaamu bwa Layer
 workspace.history.delete_note = Sangula Ekiwandiiko
 workspace.history.edit_note = Kyusa Ekiwandiiko
+workspace.canvas.clipping_on = Okulabula ku kusalako kukoleezeddwa
+workspace.canvas.clipping_off = Okulabula ku kusalako kuzikiziddwa
+workspace.canvas.peaking_on = Okulaga focus kukoleezeddwa
+workspace.canvas.peaking_off = Okulaga focus kuzikiziddwa

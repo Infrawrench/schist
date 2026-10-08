@@ -351,7 +351,6 @@ impl Workspace {
     /// A small thumbnail of the whole document for the navigator, cached
     /// against the document revision.
     pub fn document_thumbnail(&mut self) -> Option<Arc<RenderImage>> {
-        const MAX: u32 = 220;
         let doc = self.doc.as_ref()?;
         // Sampling this tiny image can composite tiles across the entire
         // document. During a drag that includes off-screen damage on every
@@ -365,70 +364,7 @@ impl Workspace {
                 return Some(img.clone());
             }
         }
-        let scale = (doc.width as f32 / MAX as f32).max(doc.height as f32 / 84.0);
-        let (w, h) = (
-            ((doc.width as f32 / scale) as u32).clamp(1, MAX),
-            ((doc.height as f32 / scale) as u32).clamp(1, 84),
-        );
-        // Point-sample through the shared tile cache rather than
-        // compositing the whole canvas at full resolution: tiles the
-        // viewport has already composited are reused, an edit
-        // recomposites only the tiles it damaged, and no canvas-sized
-        // full-resolution buffer ever exists.
-        let sxs: Vec<u32> = (0..w)
-            .map(|tx| (((tx as f32 + 0.5) * scale) as u32).min(doc.width - 1))
-            .collect();
-        let sys: Vec<u32> = (0..h)
-            .map(|ty| (((ty as f32 + 0.5) * scale) as u32).min(doc.height - 1))
-            .collect();
-        let dedup = |v: &[u32]| {
-            let mut t: Vec<i32> = v
-                .iter()
-                .map(|&s| (s as i32).div_euclid(TILE_SIZE))
-                .collect();
-            t.dedup();
-            t
-        };
-        let (tcols, trows) = (dedup(&sxs), dedup(&sys));
-        let coords: Vec<TileCoord> = trows
-            .iter()
-            .flat_map(|&ty| tcols.iter().map(move |&tx| TileCoord { tx, ty }))
-            .collect();
-        self.cache.prewarm(doc, &coords);
-        let mut bgra = vec![0u8; (w * h * 4) as usize];
-        for ty in 0..h {
-            for tx in 0..w {
-                let (sx, sy) = (sxs[tx as usize] as i32, sys[ty as usize] as i32);
-                let tile = self.cache.get(
-                    doc,
-                    TileCoord {
-                        tx: sx.div_euclid(TILE_SIZE),
-                        ty: sy.div_euclid(TILE_SIZE),
-                    },
-                );
-                let s = ((sy.rem_euclid(TILE_SIZE) * TILE_SIZE + sx.rem_euclid(TILE_SIZE)) * 4)
-                    as usize;
-                let (r, g, b, a) = (
-                    tile[s] as u32,
-                    tile[s + 1] as u32,
-                    tile[s + 2] as u32,
-                    tile[s + 3] as u32,
-                );
-                let bg = if ((tx >> 2) + (ty >> 2)) & 1 == 0 {
-                    0xE0
-                } else {
-                    0xB0
-                };
-                let inv = 255 - a;
-                let d = ((ty * w + tx) * 4) as usize;
-                bgra[d] = ((b * a + bg * inv) / 255) as u8;
-                bgra[d + 1] = ((g * a + bg * inv) / 255) as u8;
-                bgra[d + 2] = ((r * a + bg * inv) / 255) as u8;
-                bgra[d + 3] = 255;
-            }
-        }
-        let buffer = image::RgbaImage::from_raw(w, h, bgra)?;
-        let img = Arc::new(RenderImage::new(smallvec![image::Frame::new(buffer)]));
+        let img = make_thumbnail(doc, &mut self.cache)?;
         if let Some((_, old)) = self.nav_thumb.replace((revision, img.clone())) {
             self.retire_image(old);
         }
@@ -446,4 +382,78 @@ impl Workspace {
         }
         cx.notify();
     }
+}
+
+/// Shared by the navigator and cached thumbnails of parked photo documents.
+pub(super) fn make_thumbnail(doc: &Document, cache: &mut TileCache) -> Option<Arc<RenderImage>> {
+    const MAX: u32 = 220;
+    if doc.width == 0 || doc.height == 0 {
+        return None;
+    }
+    let scale = (doc.width as f32 / MAX as f32).max(doc.height as f32 / 84.0);
+    let (w, h) = (
+        ((doc.width as f32 / scale) as u32).clamp(1, MAX),
+        ((doc.height as f32 / scale) as u32).clamp(1, 84),
+    );
+    // Point-sample through the shared tile cache rather than
+    // compositing the whole canvas at full resolution: tiles the
+    // viewport has already composited are reused, an edit
+    // recomposites only the tiles it damaged, and no canvas-sized
+    // full-resolution buffer ever exists.
+    let sxs: Vec<u32> = (0..w)
+        .map(|tx| (((tx as f32 + 0.5) * scale) as u32).min(doc.width - 1))
+        .collect();
+    let sys: Vec<u32> = (0..h)
+        .map(|ty| (((ty as f32 + 0.5) * scale) as u32).min(doc.height - 1))
+        .collect();
+    let dedup = |v: &[u32]| {
+        let mut t: Vec<i32> = v
+            .iter()
+            .map(|&s| (s as i32).div_euclid(TILE_SIZE))
+            .collect();
+        t.dedup();
+        t
+    };
+    let (tcols, trows) = (dedup(&sxs), dedup(&sys));
+    let coords: Vec<TileCoord> = trows
+        .iter()
+        .flat_map(|&ty| tcols.iter().map(move |&tx| TileCoord { tx, ty }))
+        .collect();
+    cache.prewarm(doc, &coords);
+    let mut bgra = vec![0u8; (w * h * 4) as usize];
+    for ty in 0..h {
+        for tx in 0..w {
+            let (sx, sy) = (sxs[tx as usize] as i32, sys[ty as usize] as i32);
+            let tile = cache.get(
+                doc,
+                TileCoord {
+                    tx: sx.div_euclid(TILE_SIZE),
+                    ty: sy.div_euclid(TILE_SIZE),
+                },
+            );
+            let s =
+                ((sy.rem_euclid(TILE_SIZE) * TILE_SIZE + sx.rem_euclid(TILE_SIZE)) * 4) as usize;
+            let (r, g, b, a) = (
+                tile[s] as u32,
+                tile[s + 1] as u32,
+                tile[s + 2] as u32,
+                tile[s + 3] as u32,
+            );
+            let bg = if ((tx >> 2) + (ty >> 2)) & 1 == 0 {
+                0xE0
+            } else {
+                0xB0
+            };
+            let inv = 255 - a;
+            let d = ((ty * w + tx) * 4) as usize;
+            bgra[d] = ((b * a + bg * inv) / 255) as u8;
+            bgra[d + 1] = ((g * a + bg * inv) / 255) as u8;
+            bgra[d + 2] = ((r * a + bg * inv) / 255) as u8;
+            bgra[d + 3] = 255;
+        }
+    }
+    let buffer = image::RgbaImage::from_raw(w, h, bgra)?;
+    Some(Arc::new(RenderImage::new(smallvec![image::Frame::new(
+        buffer
+    )])))
 }

@@ -22,3 +22,11 @@ tool.magic_eraser.name = Чаробна гумица
 tool.magic_eraser.description = Кликните да обришете област сличне боје испод показивача, унутар толеранције алатке — повезану с местом клика или свуда у слоју.
 tool.magic_eraser.option.contiguous = Суседно
 tool.magic_eraser.history.erase = Чаробна гумица
+
+# Remove
+tool.remove.name = Уклањање
+tool.remove.description = Једним потезом пребојте нежељени објекат; кад отпустите, попуњава се на основу околине. Кад је Уклони после сваког потеза искључено, нацртајте више потеза и притисните Enter да их уклоните заједно.
+tool.remove.option.sample_all_layers = Узоркуј све слојеве
+tool.remove.option.remove_after_each_stroke = Уклони после сваког потеза
+tool.remove.history.remove = Уклањање
+tool.remove.layer_name = Уклоњено

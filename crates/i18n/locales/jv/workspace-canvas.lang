@@ -36,3 +36,7 @@ workspace.history.move_layers = Pindhah Lapisan
 workspace.history.layer_opacity = Opasitas Lapisan
 workspace.history.delete_note = Busak Cathetan
 workspace.history.edit_note = Sunting Cathetan
+workspace.canvas.clipping_on = Pènget clipping urip
+workspace.canvas.clipping_off = Pènget clipping mati
+workspace.canvas.peaking_on = Penyorotan fokus urip
+workspace.canvas.peaking_off = Penyorotan fokus mati

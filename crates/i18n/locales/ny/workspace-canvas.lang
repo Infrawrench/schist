@@ -36,3 +36,7 @@ workspace.history.move_layers = Sunthani Ma Layer
 workspace.history.layer_opacity = Kusawonekera Kupyolera kwa Layer
 workspace.history.delete_note = Chotsani Cholemba
 workspace.history.edit_note = Sinthani Cholemba
+workspace.canvas.clipping_on = Machenjezo a kudulidwa ayatsidwa
+workspace.canvas.clipping_off = Machenjezo a kudulidwa azimitsidwa
+workspace.canvas.peaking_on = Kuonetsa kuthwa kwayatsidwa
+workspace.canvas.peaking_off = Kuonetsa kuthwa kwazimitsidwa
